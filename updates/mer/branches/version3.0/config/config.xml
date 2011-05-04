@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf8"?>
+<config>
+	<mluse>
+		<language>esC</language>
+	</mluse>
+	<mer>
+		<graphs>
+			<borders>
+				<width>40</width>
+			</borders>
+			<font>
+				<size>10</size>
+			</font>
+			<baloon>
+				<label>
+					<font>
+						<font>11</font>
+						<style>9002</style>
+						<size>10</size>
+					</font>
+				</label>
+			</baloon>
+		</graphs>
+		<profiles>
+			<max_actors_compare>3</max_actors_compare>
+		</profiles>
+	</mer>
+	<users>
+		<licenses>5</licenses>
+	</users>
+	<otra>
+		<otro>12</otro>
+	</otra>
+</config>

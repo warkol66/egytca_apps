@@ -1,0 +1,1150 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?php
+/**
+* Define Actions del phpMVC
+*
+* $author Modulos Empresarios / Egytca
+* @package phpMVCconfig
+*/
+?>
+
+<!DOCTYPE phpmvc-config PUBLIC "-//PHPMVC//DTD PHPMVC Configuration 1.0//EN"
+					"./phpmvc-config_1_1.dtd">
+
+<phpmvc-config>
+
+<!-- ========== Form Bean Definitions =================================== -->
+
+	<form-beans>
+<!-- Smarty type form handling bean -->
+		<form-bean name="demoPage" 
+							 type="DemoPageForm"/>
+	</form-beans>
+
+<!-- ========== Action Mapping Definitions ============================== -->
+
+  <action-mappings>
+    <action    path = "index"
+               type = "IndexAction"
+               name = "index"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="mer_index.tpl" />
+    </action>
+    <action    path = "welcome"
+               type = "WelcomeAction"
+               name = "welcome"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="mer_welcome.tpl" />
+    </action>
+    
+	</action-mappings>
+
+<!-- ========== Action Mapping Module Users  ============================== -->
+
+<!-- Module Users - Section Users -->
+	<action-mappings module="Users" section="Users">
+		<action    path = "usersLogin"
+					     type = "UsersLoginAction"
+					     name = "usersLogin"
+					    scope = "request"
+					 validate = "true">
+			<description value="Modulo de ingreso"/>
+			<forward name="success" template='template_login.tpl' path="users_login.tpl"/>
+			<forward name="loginok" template='template_login.tpl' path="welcome.tpl"/>
+			<forward name="maintenance" template='template_login.tpl' path="mer_maintenance.tpl"/>
+		</action>
+		
+		<action    path = "usersDoLogin"
+					     type = "UsersDoLoginAction"
+					     name = "usersDoLogin"
+					    scope = "request"
+					 validate = "true">
+			<description value="Modulo de ingreso"/>
+			<forward name="success" path="mer_welcome.tpl"/>
+			<forward name="failure" path="users_login.tpl"/>
+		</action>
+
+		<action    path = "loginAdmin"
+					     type = "LoginAdminAction"
+					     name = "loginAdmin"
+					    scope = "request"
+					 validate = "true">
+			<description value="Modulo de ingreso con el sistema en Mantenimiento"/>
+			<forward name="success" path="login.tpl"/>
+			<forward name="loginok" path="welcome.tpl"/>
+		</action>
+		<action    path = "usersDoLogout"
+					     type = "UsersDoLogoutAction"
+					     name = "usersDoLogout"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="Main.php?do=usersLogin" redirect="true"/>
+		</action>
+		
+		<action    path = "usersList"
+					     type = "UsersListAction"
+					     name = "usersList"
+					    scope = "request"
+					 validate = "true" modulo="kuiki">
+			<forward name="success" path="users_list.tpl"/>
+		</action>
+		
+		<action    path = "usersDoEdit"
+					     type = "UsersDoEditAction"
+					     name = "usersDoEdit"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="Main.php?do=usersList&amp;message=saved" redirect="true"/>
+		</action>
+		
+    <action    path = "usersDoDelete"
+               type = "UsersDoDeleteAction"
+               name = "usersDoDelete"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=usersList&amp;message=deleted" redirect="true" />
+    <forward name="failure" path="Main.php?do=usersList&amp;message=notdeleted" redirect="true" />
+    </action>
+    
+    <action    path = "usersDoAddToGroup"
+               type = "UsersDoAddToGroupAction"
+               name = "usersDoAddToGroup"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=usersList" redirect="true" />
+    </action>
+    
+    <action    path = "usersDoRemoveFromGroup"
+               type = "UsersDoRemoveFromGroupAction"
+               name = "usersDoRemoveFromGroup"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=usersList" redirect="true" />
+    </action>
+    
+    <action    path = "usersDoActivate"
+               type = "UsersDoActivateAction"
+               name = "usersDoActivate"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=usersList&amp;message=activated" redirect="true" />
+    <forward name="failure" path="Main.php?do=usersList&amp;message=notactivated" redirect="true" />
+    </action>
+	</action-mappings>
+<!-- End Section Users -->
+
+<!-- Module Users - Section Groups -->
+	<action-mappings module="Users" section="Groups">
+		<action    path = "groupsList"
+					     type = "GroupsListAction"
+					     name = "groupsList"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="groups_list.tpl"/>
+		</action>
+
+		<action    path = "groupsDoEdit"
+					     type = "GroupsDoEditAction"
+					     name = "groupsDoEdit"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="Main.php?do=groupsList&amp;message=saved" redirect="true"/>
+			<forward name="blankName" path="Main.php?do=groupsList&amp;message=blankName" redirect="true"/>
+		</action>
+		
+    <action    path = "groupsDoAddCategoryToGroup"
+               type = "GroupsDoAddCategoryToGroupAction"
+               name = "groupsDoAddCategoryToGroup"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=groupsList" redirect="true" />
+    </action>
+    
+    <action    path = "groupsDoRemoveCategoryFromGroup"
+               type = "GroupsDoRemoveCategoryFromGroupAction"
+               name = "groupsDoRemoveCategoryFromGroup"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=groupsList" redirect="true" />
+    </action>
+
+    <action    path = "groupsDoDelete"
+               type = "GroupsDoDeleteAction"
+               name = "groupsDoDelete"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=groupsList&amp;message=deleted" redirect="true" />
+    <forward name="failure" path="Main.php?do=groupsList&amp;message=notdeleted" redirect="true" />
+    </action>
+	</action-mappings>
+<!-- End Section - Groups -->
+
+<!-- Module Users - Section Levels -->
+	<action-mappings module="Users" section="Levels">
+		<action    path = "levelsList"
+					     type = "LevelsListAction"
+					     name = "levelsList"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="users_levels_list.tpl"/>
+		</action>
+
+		<action    path = "levelsDoEdit"
+					     type = "LevelsDoEditAction"
+					     name = "levelsDoEdit"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="Main.php?do=levelsList&amp;message=saved" redirect="true"/>
+			<forward name="blankName" path="Main.php?do=levelsList&amp;message=blankName" redirect="true"/>
+		</action>
+		
+    <action    path = "levelsDoDelete"
+               type = "LevelsDoDeleteAction"
+               name = "levelsDoDelete"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=levelsList&amp;message=deleted" redirect="true" />
+    <forward name="failure" path="Main.php?do=levelsList&amp;message=notdeleted" redirect="true" />
+    </action>
+	</action-mappings>
+<!-- End Section - Levels -->
+
+<!-- ========== Action Mapping MER ============================== -->
+
+  <action-mappings module="Mer">
+    <action    path = "merConfigure"
+               type = "MerConfigureAction"
+               name = "merConfigure"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="mer_configure.tpl" />
+    </action>
+	</action-mappings>
+
+<!-- Module Mer - Section Categories -->
+  <action-mappings module="Mer" section="Categories">
+    <action    path = "categoriesEdit"
+               type = "CategoriesEditAction"
+               name = "categoriesEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="categories_edit.tpl" />
+    </action>
+
+    <action    path = "categoriesDoEdit"
+               type = "CategoriesDoEditAction"
+               name = "categoriesDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=categoriesList" redirect="true" />
+    <forward name="failure" path="categories_edit.tpl" />
+    </action>
+
+    <action    path = "categoriesList"
+               type = "CategoriesListAction"
+               name = "categoriesList"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="categories_list.tpl" />
+    </action>
+
+    <action    path = "categoriesDoDelete"
+               type = "CategoriesDoDeleteAction"
+               name = "categoriesDoDelete"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=categoriesList" redirect="true" />
+    <forward name="failure" path="Main.php?do=categoriesList&amp;message=notdeleted" redirect="true" />
+    </action>
+  </action-mappings>
+<!-- End Section Categories -->
+
+<!-- Module Mer - Section Actors -->
+  <action-mappings module="Mer" section="Actors">
+    <action    path = "actorsEditActorCategory"
+               type = "ActorsEditActorCategoryAction"
+               name = "actorsEditActorCategory"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="actors_edit_category.tpl" />
+    <forward name="edit" path="actors_edit.tpl" />
+    </action>
+
+    <action    path = "actorsDoEditActorCategory"
+               type = "ActorsDoEditActorCategoryAction"
+               name = "actorsDoEditActorCategory"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=actorsAssignCategoryToActors" redirect="true" />
+    <forward name="edit" path="Main.php?do=actorsList" redirect="true" />
+    </action>
+    
+    <action    path = "actorsList"
+               type = "ActorsListAction"
+               name = "actorsList"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="actors_list.tpl" />
+    </action>
+
+    <action    path = "actorsAddActors"
+               type = "ActorsAddActorsAction"
+               name = "actorsAddActors"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="actors_add.tpl" />
+    </action>
+
+    <action    path = "actorsDoAddActors"
+               type = "ActorsDoAddActorsAction"
+               name = "actorsDoAddActors"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="actors_addeds.tpl" />
+    </action>
+
+    <action    path = "actorsDoAddActorsWithCategory"
+               type = "ActorsDoAddActorsWithCategoryAction"
+               name = "actorsDoAddActorsWithCategory"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="actors_addeds.tpl" />
+    </action>
+
+    <action    path = "actorsAddActorInCategory"
+               type = "ActorsAddActorInCategoryAction"
+               name = "actorsAddActorInCategory"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="actors_add_in_category.tpl" />
+    </action>
+
+    <action    path = "actorsDoAddActorInCategory"
+               type = "ActorsDoAddActorInCategoryAction"
+               name = "actorsDoAddActorInCategory"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="actors_add_in_category.tpl" />
+    </action>
+
+    <action    path = "actorsAssignCategoryToActors"
+               type = "ActorsAssignCategoryToActorsAction"
+               name = "actorsAssignCategoryToActors"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="actors_assign_category.tpl" />
+    </action>
+
+    <action    path = "actorsDoAssignCategoryToActors"
+               type = "ActorsDoAssignCategoryToActorsAction"
+               name = "actorsDoAssignCategoryToActors"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=actorsAssignCategoryToActors" redirect="true" />
+    </action>
+
+    <action    path = "actorsDoDeleteActor"
+               type = "ActorsDoDeleteActorAction"
+               name = "actorsDoDeleteActor"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=actorsAssignCategoryToActors" redirect="true" />
+    <forward name="edit" path="Main.php?do=actorsList" redirect="true" />
+    </action>
+
+    <action    path = "actorsSetActorsHierarchy"
+               type = "ActorsSetActorsHierarchyAction"
+               name = "actorsSetActorsHierarchy"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="actors_set_hierarchy.tpl" />
+    </action>
+
+    <action    path = "actorsDoSetActorsHierarchy"
+               type = "ActorsDoSetActorsHierarchyAction"
+               name = "actorsDoSetActorsHierarchy"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="actors_set_hierarchy.tpl" />
+    </action>
+
+    <action    path = "actorsDoSetManualActorsHierarchy"
+               type = "ActorsDoSetManualActorsHierarchyAction"
+               name = "actorsDoSetManualActorsHierarchy"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="actors_set_hierarchy.tpl" />
+    </action>    
+    <action    path = "profilesFormView"
+               type = "ProfilesFormViewAction"
+               name = "ProfilesFormView"
+              scope = "request"
+           validate = "true">
+        <forward name="success" path="profiles_form_view.tpl" />
+        <forward name="report" path="profiles_form_view_report.tpl" />
+    	<forward name="select_form" path="profiles_select_form.tpl" />
+    </action>
+    <action    path = "profilesFormViewSelectCategory"
+               type = "ProfilesFormViewSelectCategoryAction"
+               name = "ProfilesFormViewSelectCategory"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="category_select_view.tpl" />           
+    </action>
+            
+    <action    path = "profilesFormEdit"
+               type = "ProfilesFormEditAction"
+               name = "ProfilesFormEdit"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="profiles_edit_form.tpl" />
+    	<forward name="select_form" path="profiles_select_form.tpl" />
+    </action>
+    <action    path = "doProfilesFormEdit"
+               type = "DoProfilesFormEditAction"
+               name = "doProfilesFormEdit"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="Main.php?do=profilesFormEdit&amp;status=ok" redirect="true" />
+	    <forward name="failure" path="Main.php?do=profiles_edit_form.tpl&amp;status=error" redirect="true" />
+    </action>
+    <action    path = "profilesFormRelEdit"
+               type = "ProfilesFormRelEditAction"
+               name = "ProfilesFormRelEdit"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="profiles_edit_form_relationship.tpl" />
+    	<forward name="select_form" path="profiles_select_form.tpl" />
+    </action>
+    <action    path = "doProfilesFormRelEdit"
+               type = "DoProfilesFormRelEditAction"
+               name = "doProfilesFormRelEdit"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="Main.php?do=profilesFormRelEdit&amp;status=ok" redirect="true" />
+	    <forward name="failure" path="Main.php?do=profiles_edit_form_relationship.tpl&amp;status=error" redirect="true" />
+    </action>        
+    <action    path = "profilesFormFillSelectCategory"
+               type = "ProfilesFormFillSelectCategoryAction"
+               name = "ProfilesFormFillSelectCategory"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="category_select_fill.tpl" />           
+    </action>
+    <action    path = "profilesFormFill"
+               type = "ProfilesFormFillAction"
+               name = "ProfilesFormFill"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="profiles_fill_form.tpl" />
+    	<forward name="select_form" path="profiles_select_form.tpl" />    	
+    </action>    
+    <action    path = "doProfilesFormFill"
+               type = "DoProfilesFormFillAction"
+               name = "doProfilesFormFill"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="Main.php?do=profilesFormFill&amp;status=ok" redirect="true" />
+	    <forward name="failure" path="Main.php?do=profiles_fill_form.tpl&amp;status=error" redirect="true" />
+    </action>
+        <action    path = "profilesFormRelFill"
+               type = "ProfilesFormRelFillAction"
+               name = "ProfilesFormRelFill"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="profiles_fill_form_relationship.tpl" />
+    	<forward name="select_form" path="profiles_select_form.tpl" />
+    </action>    
+    <action    path = "doProfilesFormRelFill"
+               type = "DoProfilesFormRelFillAction"
+               name = "doProfilesFormRelFill"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="Main.php?do=profilesFormRelFill&amp;status=ok" redirect="true" />
+	    <forward name="failure" path="Main.php?do=profiles_fill_form_relationship.tpl&amp;status=error" redirect="true" />
+	</action>
+    <action    path = "profilesFormRelSelectCategory"
+               type = "ProfilesFormRelSelectCategoryAction"
+               name = "profilesFormRelSelectCategory"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="category_select.tpl" />
+    </action>
+    <action    path = "profilesFormRelView"
+               type = "ProfilesFormRelFillAction"
+               name = "ProfilesFormRelFill"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="profiles_view_form_relationship.tpl" />
+    	<forward name="select_form" path="profiles_select_form.tpl" />
+    	<forward name="report" path="profiles_view_form_relation_report.tpl" />
+    </action>
+    <action    path = "profilesFormRelViewSelectCategory"
+               type = "ProfilesFormRelViewSelectCategoryAction"
+               name = "ProfilesFormRelViewSelectCategory"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="category_select.tpl" />           
+    </action>    
+
+    <action    path = "profilesSelectCategory"
+               type = "ProfilesSelectCategoryAction"
+               name = "ProfilesSelectCategory"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="category_select.tpl" />
+    </action> 
+		
+    <action    path = "profilesFormViewMultiple"
+               type = "ProfilesFormViewMultipleAction"
+               name = "ProfilesFormViewMultiple"
+              scope = "request"
+           validate = "true">
+        <forward name="success" path="profiles_form_view_multiple.tpl" />
+    </action>
+    <action    path = "profilesFormViewMultipleSelect"
+               type = "ProfilesFormViewMultipleSelectAction"
+               name = "ProfilesFormViewMultipleSelect"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="profiles_form_view_multiple_select.tpl" />
+    </action>
+
+    <action    path = "analysisActor"
+               type = "AnalysisActorAction"
+               name = "analysisActor"
+              scope = "request"
+           validate = "true">
+	    <forward name="success" path="analysis_actor.tpl" />
+	    <forward name="report" path="analysis_actor_report.tpl" />
+    </action>
+    
+    <action    path = "analysisActorJudgementDoEdit"
+               type = "AnalysisActorJudgementDoEditAction"
+               name = "analysisActorJudgementDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=analysisActor" redirect="true" />
+    </action>
+    
+    <action    path = "analysisSelectCategory"
+               type = "AnalysisSelectCategoryAction"
+               name = "analysisSelectCategory"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_select_category.tpl" />
+    </action>
+    
+    <action    path = "analysisCategory"
+               type = "AnalysisCategoryAction"
+               name = "analysisCategory"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_category.tpl" />
+    </action>
+
+    <action    path = "analysisGraphShow"
+               type = "AnalysisGraphShowAction"
+               name = "analysisGraphShow"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_show.tpl" />
+    </action>
+    
+    <action    path = "analysisGraphNetworkShow"
+               type = "AnalysisGraphNetworkShowAction"
+               name = "analysisGraphNetworkShow"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_network_show.tpl" />
+    </action>
+    
+    <action    path = "analysisGraphNetwork"
+               type = "AnalysisGraphNetworkAction"
+               name = "analysisGraphNetwork"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_network.tpl" />
+    </action>
+    
+    <action    path = "analysisGraphNetworkSelectActors"
+               type = "AnalysisGraphNetworkSelectActorsAction"
+               name = "analysisGraphNetworkSelectActors"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="analysis_graph_network_select_actors.tpl" />
+    </action>
+    
+    <action    path = "analysisGraphCompareShow"
+               type = "AnalysisGraphCompareShowAction"
+               name = "analysisGraphCompareShow"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_show.tpl" />
+    </action>
+    
+    <action    path = "analysisGraphRelationShow"
+               type = "AnalysisGraphRelationShowAction"
+               name = "analysisGraphRelationShow"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_show.tpl" />
+    </action>
+    
+    <action    path = "analysisGraphRelationDoSave"
+               type = "AnalysisGraphRelationDoSaveAction"
+               name = "analysisGraphRelationDoSave"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_show.tpl" />
+    </action>
+    
+    <action    path = "analysisCompareRelSelectCategory"
+               type = "AnalysisCompareRelSelectCategoryAction"
+               name = "analysisCompareRelSelectCategory"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="category_select.tpl" />
+    </action>
+
+    <action    path = "analysisRelationSelectCategory"
+               type = "AnalysisRelationSelectCategoryAction"
+               name = "analysisRelationSelectCategory"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="category_select.tpl" />
+    </action>
+    
+        <action    path = "analysisCompareRel"
+               type = "AnalysisCompareRelAction"
+               name = "analysisCompareRel"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="analysis_compare_relationship.tpl" />
+    </action>
+    
+        <action    path = "analysisRelation"
+               type = "AnalysisRelationAction"
+               name = "analysisRelation"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="analysis_relation.tpl" />
+    	<forward name="list" path="analysis_relation_list.tpl" />
+    </action>
+    
+        <action    path = "analysisGraphRelationDoDelete"
+               type = "AnalysisGraphRelationDoDeleteAction"
+               name = "analysisGraphRelationDoDelete"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="analysis_relation.tpl" />
+    </action>
+    
+        <action    path = "analysisGraphRelationDoEdit"
+               type = "AnalysisGraphRelationDoEditAction"
+               name = "analysisGraphRelationDoEdit"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="analysis_relation.tpl" />
+    </action>
+    
+        <action    path = "analysisRelationJudgementDoEdit"
+               type = "AnalysisRelationJudgementDoEditAction"
+               name = "analysisRelationJudgementDoEdit"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="analysis_relation.tpl" />
+    </action>
+
+    <action    path = "analysisGraphList"
+               type = "AnalysisGraphListAction"
+               name = "analysisGraphList"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_list.tpl" />
+    </action>
+
+    <action    path = "analysisGraphEdit"
+               type = "AnalysisGraphEditAction"
+               name = "analysisGraphEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_edit.tpl" />
+    </action>
+    
+    <action    path = "analysisGraphDoEdit"
+               type = "AnalysisGraphDoEditAction"
+               name = "analysisGraphDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=analysisGraphList" redirect="true" />
+    </action>
+    
+    <action    path = "analysisGraphDoDelete"
+               type = "AnalysisGraphDoDeleteAction"
+               name = "analysisGraphDoDelete"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=analysisGraphList" redirect="true" />
+    </action>
+
+    <action    path = "analysisGraphJudgementAssistant"
+               type = "AnalysisGraphJudgementAssistantAction"
+               name = "analysisGraphJudgementAssistant"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_judgement_assistant.tpl" />
+    </action>
+
+    <action    path = "analysisGraphJudgementEdit"
+               type = "AnalysisGraphJudgementEditAction"
+               name = "analysisGraphJudgementEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_judgement_edit.tpl" />
+    </action>
+
+    <action    path = "analysisGraphJudgementDoEdit"
+               type = "AnalysisGraphJudgementDoEditAction"
+               name = "analysisGraphJudgementDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=analysisGraphList" redirect="true" />
+    </action>
+    
+    <action    path = "analysisGraphJudgementShow"
+               type = "AnalysisGraphJudgementShowAction"
+               name = "analysisGraphJudgementShow"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_judgement_show.tpl" />
+    </action>
+    
+    <action    path = "analysisQuestionList"
+               type = "AnalysisQuestionListAction"
+               name = "analysisQuestionList"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_question_list.tpl" />
+    </action>
+
+    <action    path = "analysisQuestionDoEdit"
+               type = "AnalysisQuestionDoEditAction"
+               name = "analysisQuestionDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=analysisQuestionList" redirect="true" />
+    </action>
+    
+    <action    path = "analysisQuestionDoDelete"
+               type = "AnalysisQuestionDoDeleteAction"
+               name = "analysisQuestionDoDelete"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=analysisQuestionList" redirect="true" />
+    </action>
+
+    <action    path = "analysisGetQuestionByLabel"
+               type = "AnalysisGetQuestionByLabelAction"
+               name = "analysisGetQuestionByLabel"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_get_question_by_label.tpl" />
+    <forward name="failure" path="analysis_question_not_found.tpl" />
+    </action>
+    
+    <action    path = "analysisQuestionLabelList"
+               type = "AnalysisQuestionLabelListAction"
+               name = "analysisQuestionLabelList"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_question_label_list.tpl" />
+    </action>
+
+    <action    path = "analysisQuestionLabelDoEdit"
+               type = "AnalysisQuestionLabelDoEditAction"
+               name = "analysisQuestionLabelDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=analysisQuestionLabelList" redirect="true" />
+    <forward name="failure" path="Main.php?do=analysisQuestionLabelList&amp;message=error" redirect="true" />
+    </action>
+
+    <action    path = "analysisQuestionLabelDoDelete"
+               type = "AnalysisQuestionLabelDoDeleteAction"
+               name = "analysisQuestionLabelDoDelete"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=analysisQuestionLabelList" redirect="true" />
+    </action>
+  </action-mappings>
+
+<!-- Module Mer - Section Strategies -->
+  <action-mappings>
+      <action    path = "strategiesSelectCategory"
+               type = "StrategiesSelectCategoryAction"
+               name = "strategiesSelectCategory"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="strategies_select_category.tpl" />
+    </action>
+
+    <action    path = "strategiesCategory"
+               type = "StrategiesCategoryAction"
+               name = "strategiesCategory"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="strategies_category.tpl" />
+    </action>
+    
+    <action    path = "strategiesActor"
+               type = "StrategiesActorAction"
+               name = "strategiesActor"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="strategies_actor.tpl" />
+    </action>
+    
+    <action    path = "strategiesActorDoEdit"
+               type = "StrategiesActorDoEditAction"
+               name = "strategiesActorDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="strategies_actor.tpl" />
+    </action>
+  </action-mappings>
+<!-- Fin Section Strategies -->
+
+<!-- Module Mer - Section Forms -->
+  <action-mappings>
+    <action    path = "formsEdit"
+               type = "FormsEditAction"
+               name = "formsEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="forms_edit.tpl" />
+    </action>
+
+    <action    path = "formsDoEdit"
+               type = "FormsDoEditAction"
+               name = "formsDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=formsList&amp;message=ok" redirect="true" />
+    <forward name="failure" path="forms_edit.tpl" />
+    </action>
+
+    <action    path = "formsList"
+               type = "FormsListAction"
+               name = "formsList"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="forms_list.tpl" />
+    </action>
+
+    <action    path = "formsDoDelete"
+               type = "FormsDoDeleteAction"
+               name = "formsDoDelete"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=formsList&amp;message=deleted_ok" redirect="true" />
+    </action>
+  </action-mappings>
+<!-- Fin Section Forms -->
+    
+  <action-mappings>    
+    <!-- Reusable action to select an actorfrom a category-->
+    <action    path = "actorSelect"
+               type = "ActorSelectAction"
+               name = "ActorSelect"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="actor_select.tpl" />
+    </action>    
+
+  </action-mappings>
+<!-- End Section - Actors -->
+
+<!-- Module Htmls -->
+  <action-mappings>
+    <action    path = "htmlsUpdate"
+               type = "HtmlsUpdateAction"
+               name = "htmlsUpdate"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="htmls_update.tpl"/>
+    </action>
+
+    <action    path = "htmlsDoUpdate"
+               type = "HtmlsDoUpdateAction"
+               name = "htmlsDoUpdate"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="htmls_update.tpl"/>
+    </action>
+
+    <action    path = "htmlsShow"
+               type = "HtmlsShowAction"
+               name = "htmlsShow"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="htmls_show.tpl"/>
+    </action>
+    
+    <action    path = "htmlsShowPrivate"
+               type = "HtmlsShowPrivateAction"
+               name = "htmlsShowPrivate"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="htmls_show.tpl"/>
+    </action>
+  </action-mappings>
+<!-- End Module Htmls -->
+
+<!-- Module Languages -->
+  <action-mappings>
+    <action    path = "languagesEdit"
+               type = "LanguagesEditAction"
+               name = "languagesEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="languages_edit.tpl" />
+    </action>
+
+    <action    path = "languagesDoEdit"
+               type = "LanguagesDoEditAction"
+               name = "languagesDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=languagesList&amp;message=ok" redirect="true" />
+    <forward name="failure" path="languages_edit.tpl" />
+    </action>
+
+    <action    path = "languagesList"
+               type = "LanguagesListAction"
+               name = "languagesList"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="languages_list.tpl" />
+    </action>
+
+    <action    path = "languagesDoDelete"
+               type = "LanguagesDoDeleteAction"
+               name = "languagesDoDelete"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=languagesList&amp;message=deleted_ok" redirect="true" />
+    </action>
+  </action-mappings>
+<!-- End Module Languages -->
+
+<!-- Module Texts -->
+  <action-mappings>
+    <action    path = "textsEdit"
+               type = "TextsEditAction"
+               name = "textsEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="texts_edit.tpl" />
+    </action>
+
+    <action    path = "textsDoEdit"
+               type = "TextsDoEditAction"
+               name = "textsDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=textsList&amp;message=ok" redirect="true" />
+    <forward name="failure" path="texts_edit.tpl" />
+    </action>
+
+    <action    path = "textsList"
+               type = "TextsListAction"
+               name = "textsList"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="texts_list.tpl" />
+    </action>
+    
+    <action    path = "textsDump"
+               type = "TextsDumpAction"
+               name = "textsDump"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="texts_dump.tpl" />
+    </action>
+
+    <action    path = "textsDoDelete"
+               type = "TextsDoDeleteAction"
+               name = "textsDoDelete"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=textsList&amp;message=deleted_ok" redirect="true" />
+    </action>
+  </action-mappings>
+<!-- End Module Texts -->
+
+<!-- Module Security -->
+	<action-mappings module="Security">
+
+    <action    path = "noPermission"
+               type = "NoPermissionAction"
+               name = "noPermission"
+              scope = "request"
+           validate = "true">
+		<forward name="success"  path="no_permission.tpl" />
+    </action>
+
+    <action    path = "securityActionList"
+               type = "SecurityActionListAction"
+               name = "securityActionList"
+              scope = "request"
+           validate = "true">
+		<forward name="success"  path="security_action_list.tpl" />
+    </action>
+
+    <action    path = "securityActionLoad"
+               type = "SecurityActionLoadAction"
+               name = "securityActionLoad"
+              scope = "request"
+           validate = "true">
+		<forward name="success"  path="security_action_load.tpl" />
+    </action>
+	
+    <action    path = "securityActionDoLoad"
+               type = "SecurityActionDoLoadAction"
+               name = "securityActionDoLoad"
+              scope = "request"
+           validate = "true">
+		<forward name="success" path="Main.php?do=securityActionLoad" redirect='true'/>
+    </action>
+    <action    path = "securityActionDoSave"
+               type = "SecurityActionDoSaveAction"
+               name = "securityActionDoSave"
+              scope = "request"
+           validate = "true">
+		<forward name="success" path="Main.php?do=securityActionList" redirect='true'/>
+    </action>
+	</action-mappings>
+<!-- End Module Security -->
+
+<!-- Module Config -->
+  <action-mappings>
+    <action    path = "configView"
+               type = "ConfigViewAction"
+               name = "configView"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="config_view.tpl"/>
+    </action>
+
+    <action    path = "configEdit"
+               type = "ConfigEditAction"
+               name = "configEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="config_edit.tpl"/>
+    </action>
+
+    <action    path = "configDoEdit"
+               type = "ConfigDoEditAction"
+               name = "configDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Main.php?do=configView&amp;message=ok" redirect="true" />
+    </action>
+  </action-mappings>
+<!-- End Module Config -->
+
+  
+	<action-mappings          module = "documents">
+
+		<action    path = "documentsList"
+					     type = "DocumentsListAction"
+					     name = "documentsList"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="documents_list.tpl"/>
+		</action>
+
+				<action    path = "documentsSelectCategory"
+					     type = "DocumentsSelectCategoryAction"
+					     name = "documentsSelectCategory"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="documents_select_category.tpl"/>
+		</action>
+		
+		<action    path = "documentsEdit"
+					     type = "DocumentsEditAction"
+					     name = "documentsEdit"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="documents_edit.tpl"/>
+		</action>
+
+		<action    path = "documentsUpload"
+					     type = "DocumentsUploadAction"
+					     name = "documentsUpload"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="documents_upload.tpl"/>
+		</action>
+
+		<action    path = "documentsDoUpload"
+					     type = "DocumentsDoUploadAction"
+					     name = "documentsDoUpload"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="Main.php?do=documentsSelectCategory" redirect="true"/>
+		</action>
+		
+		<action    path = "documentsDoDownload"
+					     type = "DocumentsDoDownloadAction"
+					     name = "documentsDoDownload"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="Main.php?do=documentsSelectCategory" redirect="true"/>
+		</action>
+
+		<action    path = "documentsDoEdit"
+					     type = "DocumentsDoEditAction"
+					     name = "documentsDoEdit"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="Main.php?do=documentsSelectCategory" redirect="true"/>
+			<forward name="failure" path="documents_edit.tpl"/>
+
+		</action>
+			<action    path = "documentsDoDelete"
+					     type = "DocumentsDoDeleteAction"
+					     name = "documentsDoDeleteAction"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="Main.php?do=documentsList" redirect="true"/>
+		</action>
+	</action-mappings>
+
+
+
+<!-- ========== PlugIns ================================================= -->
+
+	<!-- Load our PlugIn class here (case sensetive class name)					     -->
+	<!-- Note: The attribute names must match the class methods					     -->
+	<!-- Eg: 'key' maps to 'setKey(..)'															         -->
+	<plug-in className="SmartyMLPlugInDriver"
+								 key="SMARTY_PLUGIN">
+		<!-- And set some custom propertied on the PlugIn class					       -->
+		<!-- Note: The property name must match the class variable name exactly -->
+		<set-property property="caching"       value="0"/>
+		<set-property property="force_compile" value="true"/>
+		<set-property property="template_dir"  value="WEB-INF/tpl/"/>
+		<set-property property="compile_dir"   value="WEB-INF/smarty_tpl/templates_c/"/>
+		<set-property property="config_dir"    value="WEB-INF/smarty_tpl/configs/"/>
+		<set-property property="cache_dir"     value="WEB-INF/smarty_tpl/cache/"/>
+		<set-property property="left_delimiter"    value="|-"/>
+		<set-property property="right_delimiter"     value="-|"/>
+	</plug-in>
+
+</phpmvc-config>

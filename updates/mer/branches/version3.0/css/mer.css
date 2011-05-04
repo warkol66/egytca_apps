@@ -1,0 +1,966 @@
+/*--------------------------------------*/
+/* Manejo estratgico de las relaciones */
+/*--------------------------------------*/
+@media print {
+	.noPrint {
+		display: none !important;
+	}
+}
+body {
+	background-color: #ffffff;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 12pt;
+}
+a {
+	text-decoration: none;
+	color: #00008B;
+}
+a:link {
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	background-color: #CCCCCC;
+}
+table {
+	empty-cells: show;
+}
+th {
+	background-color: #cccccc;
+	color: #000066;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+	border: 3px solid White;
+/*	padding: 4px; */
+}
+td {
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 10pt;
+}
+h2{
+	font-family: Arial, Verdana, sans-serif;
+	color: #000066;
+	font-size: 14px;
+	font-weight: bold;
+}
+li {
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 9pt;
+	font-weight: bold;
+	list-style-position: outside;
+	margin: 7 5 5 -10;
+}
+select {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+.titulo {
+	font-family: Arial, Verdana, sans-serif;
+	color: #000099;
+	font-size: 14px;
+	font-weight: bold;
+}
+.texto {
+	font-family: Arial, Verdana, sans-serif;
+	color: #000000;
+	font-size: 11pt;
+}
+.bordebajo {
+	background: url(mer/bordebajo.gif);
+	background-repeat: repeat-x;
+}
+.bordebajo_izq {
+	background: url(mer/bordebajo_izq.gif);
+	background-repeat: no-repeat;
+}
+.bordederecho {
+	background-color: #ffffff;
+	border-right: 1px solid #000099;
+}
+.filled0 {
+	font-family: Arial, Verdana, sans-serif;
+	background-color: #787f84; /* Gris */
+	color: #ffffff;
+	font-size: 9pt;
+	text-decoration: none;
+}
+.filled1 {
+	background-color: #000099;
+}
+.titulo1 {
+	font-family: Arial, Verdana, sans-serif;
+	color: #336666;
+	font-size: 18px;
+	font-weight: bold;
+}
+.divfilled {
+	font-family: Arial, Verdana, sans-serif;
+	background-color: #D1D1D1;
+	color: #00008B;
+	font-size: 9pt;
+	text-decoration: none;
+	padding: 3px;
+	width: 100%;
+	vertical-align: top;
+}
+.divfilledb {
+	font-family: Arial, Verdana, sans-serif;
+	background-color: #D1D1D1;
+	color: #00008B;
+	font-size: 9pt;
+	text-decoration: none;
+	padding: 3px;
+	width: 100%;
+	font-weight: bold;
+	vertical-align: top;
+}
+.divfilledbrgt {
+	font-family: Arial, Verdana, sans-serif;
+	background-color: #D1D1D1;
+	color: #00008B;
+	font-size: 9pt;
+	text-decoration: none;
+	padding: 3px 6px 3px 3px;
+	width: 100%;
+	font-weight: bold;
+	text-align: right;
+	vertical-align: top;
+}
+.divfilledbcen {
+	font-family: Arial, Verdana, sans-serif;
+	background-color: #D1D1D1;
+	color: #00008B;
+	font-size: 9pt;
+	text-decoration: none;
+	padding: 3px;
+	width: 100%;
+	font-weight: bold;
+	text-align: center;
+	vertical-align: top;
+}
+.divfilledth {
+	font-family: Arial, Verdana, sans-serif;
+	color: #000066;
+	font-size: 14px;
+	font-weight: bold;
+	background-color: #D1D1D1;
+	text-decoration: none;
+	padding: 3px;
+	width: 100%;
+	vertical-align: middle;
+}
+.tablebottom {
+	background-color: #5C7D98;
+	height: 1px;
+}
+.cellfilled1 {
+	font-family: Arial, Verdana, sans-serif;
+	background-color: #336666;
+	color: #ffffff;
+	font-size: 9pt;
+	text-decoration: none;
+}
+.menu {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	text-decoration: none;
+	color: #000066;
+}
+.direccion {
+	font-family: Arial, Verdana, sans-serif;
+	color: #000000;
+	font-size: 9px;
+}
+.bordeazul {
+	border: none;
+}
+.textodato {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+.granfondo {
+	background-image: url(mer/back_gris.gif);
+}
+.fondoblanco {
+	background-color: #ffffff;
+}
+.fondoffffff {
+	background-color: #ffffff;
+}
+.fondomenu {
+	background-image: url(mer/menu_azul.gif);
+	border-left: 1px solid #000099;
+	border-right: 1px solid #000099;
+}
+.fondoselected {
+	background-image: url(mer/solapa_azul.gif);
+	background-repeat: no-repeat;
+	font-size: 12px;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	color: #000089;
+	font-weight: bold;
+	width: 120px;
+	padding-top: 2px;
+}
+.fondoselected1 {
+	background-image: url(mer/solapa_blanca.gif);
+	background-repeat: no-repeat;
+	font-size: 12px;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	color: #000089;
+	font-weight: bold;
+	width: 120px;
+	padding-top: 2px;
+}
+.fondomenu1 {
+	background-color: #ffffff;
+	border-left: 1px solid #000099;
+}
+.fondomenu2 {
+	background-image: url(mer/menu_azul.gif);
+}
+.boton {
+	background-image: url(mer/menu1_on.gif);
+	color: #000066;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: bold;
+	padding: 2px 20px 2px 20px;
+}
+.boton1 {
+	background-image: url(mer/menu1_on.gif);
+	color: #000066;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: bold;
+	padding: 0px;
+}
+.textoerror {
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 12px;
+	color: red;
+}
+.tablaborde {
+	background-color: #000099;
+}
+.fondotitulo {
+	background: url(mer/tablafondo1.gif);
+	border: 1px solid #999999;
+	padding: 3px 3px 3px 7px;
+	font-family: Arial, Verdana, sans-serif;
+	color: #000099;
+	font-size: 14px;
+	font-weight: bold;
+}
+.titulo2 {
+	color: #000066;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+}
+.titulodato {
+	background-color: #d6d6d6;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+}
+.titulodato1 {
+	background-color: #d9d9d9;
+	color: #000066;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	vertical-align: top;
+	padding: 5pt 3pt 3pt;
+	border: 3px solid #ffffff;
+}
+.celldato {
+	background-color: #ffffff;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	padding: 4px;
+	vertical-align: top;
+}
+.cellboton {
+	background-color: #ffffff;
+	height: 40px;
+	text-align: center;
+	padding: 5px;
+}
+.cellopciones {
+	background-color: #ffffff;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	padding: 4px;
+	vertical-align: middle;
+}
+.cellopcionescen {
+	background-color: #ffffff;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	padding: 4px;
+	text-align: center;
+	vertical-align: middle;
+}
+.cellbotontop {
+	background-color: #ffffff;
+	height: 40px;
+	text-align: center;
+	vertical-align: top;
+	padding: 5px 3px 3px 3px;
+}
+.cellbotonbtm {
+	background-color: #ffffff;
+	height: 40px;
+	text-align: center;
+	vertical-align: bottom;
+	padding: 3px 3px 5px 3px;
+}
+.cellasistjuicio {
+	background-color: #c2c2c2;
+	text-align: center;
+	padding: 5px;
+	border: 3px outset #ffffff;
+	background-image: url(mer/menu1_on.gif);
+}
+.cellasistvirt {
+	background-color: #c2c2c2;
+	text-align: center;
+	padding: 2px;
+	border: 3px outset #ffffff;
+	background-image: url(mer/menu1_on.gif);
+}
+.celltitulo {
+	background-color: #d6d6d6;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	padding: 4px;
+	vertical-align: top;
+	border: 3px solid White;
+}
+.celltitulo1 {
+	background-color: #d9d9d9;
+	color: #000066;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	vertical-align: top;
+	padding: 3px 3px 3px 5px;
+}
+.celltitulo2 {
+	background-color: #d9d9d9;
+	color: #000066;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	vertical-align: top;
+	padding: 3px 3px 3px 5px;
+	border: 3px solid #ffffff;
+}
+.texto {
+	font-size: 11px;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+}
+.fondo1 {
+	background-color: #000099;
+}
+.fondo2 {
+	background-image: url(mer/menu_azul_50.gif);
+}
+/* Links de Color --------------------- */
+.edit {
+	font-size: 11px;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	color: #007D62;
+	text-decoration: underline;
+}
+a.edit:link{
+	color: #007D62;
+	text-decoration: underline;
+}
+a.edit:hover{
+	color: #FFFFFF;
+	background-color: #44A08C;
+	text-decoration: underline;
+}
+a.edit:visited{
+	text-decoration: underline;
+}
+.elim {
+	font-size: 11px;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	color: #CF2600;
+	text-decoration: underline;
+}
+a.elim:link{
+	color: #CF2600;
+	text-decoration: underline;
+}
+a.elim:hover{
+	color: #FFFFFF;
+	background-color: #D54322;
+	text-decoration: underline;
+}
+a.elim:visited{
+	text-decoration: underline;
+}
+.deta {
+	font-size: 11px;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	color: #0000CD;
+	text-decoration: underline;
+}
+a.deta:link{
+	color: #0000CD;
+	text-decoration: underline;
+}
+a.deta:hover{
+	color: #FFFFFF;
+	background-color: #0000CD;
+	text-decoration: underline;
+}
+a.deta:visited{
+	text-decoration: underline;
+}
+.blues {
+	font-size: 10px;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	color: #000090;
+	text-decoration: underline;
+}
+a.blues:link{
+	color: #000090;
+	text-decoration: underline;
+}
+a.blues:hover{
+	color: #FFFFFF;
+	background-color: #5355AA;
+	text-decoration: underline;
+}
+a.blues:visited{
+	text-decoration: underline;
+}
+/* Fin Links de Color ----------------- */
+.menu2back1 {
+	background-image: url(mer/menu_titulo1.gif);
+	font-size: 11px;
+	color: #000090;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 3px 2px 3px 3px;
+}
+.menu2back_on {
+	background-image: url(mer/menu_azul.gif);
+	font-size: 11px;
+	color: #000090;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 3px 2px 3px 3px;
+	border-bottom: 1px solid #000099;
+	border-top: 1px solid #000099;
+}
+.menu2back_off {
+	background-image: url(mer/back_gris_tit.gif);
+	color: #004A90;
+	font-size: 11px;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+	border-bottom: 1px solid #000099;
+	border-top: 1px solid #000099;
+	padding: 3px 2px 3px 3px;
+}
+a.linkmenu2backoff {
+	font-size: 11px;
+	color: #004A90;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+}
+a.linkmenu2backoff:hover {
+	color: #004A90;
+	text-decoration: none;
+	background: none;
+}
+.menu2back_salir {
+	background-image: url(mer/back_gris_tit.gif);
+	font-size: 11px;
+	color: #000090;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	font-weight: bold;
+	padding-left: 4px;
+	text-decoration: none;
+	border-bottom: 1px solid #000099;
+	border-top: 1px solid #000099;
+	padding: 3px 2px 3px 3px;
+}
+.menu2back2 {
+	background-image: url(mer/menu_opciones.gif);
+}
+.menu2 {
+	font-size: 11px;
+	color: #000090;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 3px 2px 3px 3px;
+	display: block;
+}
+a.menu2:link{
+	color: #000090;
+	text-decoration: none;
+}
+a.menu2:hover{
+	color: #000090;
+	text-decoration: underline;
+}
+a.menu2:visited{
+	color: #000090;
+}
+.menu2sec {
+	font-size: 11px;
+	color: #000090;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	text-decoration: none;
+}
+a.menu2sec:link{
+	color: #000090;
+	text-decoration: none;
+}
+a.menu2sec:hover{
+	color: #000090;
+	text-decoration: underline;
+}
+a.menu2sec:visited{
+}
+.menu2secon {
+	font-size: 11px;
+	color: #000090;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+	background-image: url(mer/back_MER_menu_opciones.gif);
+}
+.tcol1 {
+	font-size: 11px;
+	color: #000090;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	background-color: #DEDEEB;
+	text-align: right;
+	font-weight: bold;
+	padding-right: 10px;
+}
+.tcol1b {
+	font-size: 11px;
+	color: #000000;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	background-color: #FFFFFF;
+	padding-left: 10px;
+}
+.tcol1cen {
+	font-size: 11px;
+	color: #000090;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	background-color: #DEDEEB;
+	text-align: center;
+	font-weight: bold;
+	padding-right: 10px;
+}
+.tcol1iz {
+	font-size: 11px;
+	color: #000090;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	background-color: #DEDEEB;
+	font-weight: bold;
+	padding-left: 10px;
+	text-align: left;
+}
+.tcol2 {
+	background-color: #000090;
+}
+.tcol2b {
+	font-size: 11px;
+	color: #000000;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	background-color: #FFFFFF;
+	padding-left: 10px;
+}
+.tcol3 {
+	font-size: 11px;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	background-color: #FFFFFF;
+	padding-left: 10px;
+}
+.tit1 {
+	font-size: 18px;
+	color: #000090;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	font-weight: bold;
+}
+.tit3s {
+	font-size: 14px;
+	color: #000090;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	font-weight: bold;
+}
+.titcol12 {
+	background-image: url(mer/back_MER_menu_opciones.gif);
+	font-size: 12px;
+	color: #000090;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	font-weight: bold;
+	padding-left: 5px;
+}
+.seccion {
+	font-size: 12px;
+	color: #000090;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	font-weight: bold;
+}
+.mail {
+	font-size: 10px;
+	font-family: Verdana,  Arial, Geneva,Helvetica, sans-serif;
+	color: #009CE8;
+	text-decoration: underline;
+}
+a.mail:link {
+	color: #009CE8;
+	text-decoration: underline;
+}
+a.mail:hover {
+	color: #006699;
+	text-decoration: underline;
+}
+a.mail:visited {
+	font-size: 10px;
+	font-family: Verdana,  Arial, Geneva,Helvetica, sans-serif;
+	color: #009CE8;
+	text-decoration: underline;
+}
+.texto12bblanco {
+	font-size: 12px;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+a.texto12bblanco:link {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+a.texto12bblanco:hover {
+	color: #000099;
+	background-color: #FFFFFF;
+	text-decoration: none;
+}
+a.texto12bblanco:active {
+	color: #B22222;
+	text-decoration: none;
+}
+a.texto12bblanco:visited {
+	text-decoration: none;
+}
+.copyright {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	text-align: right;
+}
+.version {
+	font-family: Arial, Verdana, sans-serif;
+	color: #000066;
+	font-size: 12px;
+	font-weight: bold;
+	font-style: oblique;
+}
+.subrayatitulo {
+	background: url(mer/back_gris_tit.gif);
+	border: #999999 1px solid;
+}
+.divmenu2sec {
+	color: #7f0000;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	font-size: 11px;
+	text-decoration: none;
+	background: #ffffff;
+	padding: 5px 2px 5px 5px;
+}
+.bordesup {
+	border-top: 1px solid #000099;
+}
+.tablaborde0 {
+	background-color: #899BAD;
+}
+.mensajetabla {
+	font-family: Arial, Verdana, Helvetica, Sans-serif;
+	font-size: 12px;
+	color: #31506E;
+	background-color: #EDF2F6;
+	padding: 6px;
+	text-align: center;
+	height: 40px;
+	font-weight: bold;
+}
+.tituloseccionvacio {
+	background-image: url(mer/back_rayas05.gif);
+	background-color: #2F6090;
+	height: 2px;
+}
+.mda_celdabajainicio {
+	background-image: url(mer/back_rayas05.gif);
+	background-color: #2F6090;
+	height: 2px;
+}
+.opciomenusup {
+	background-image: url(mer/mer_422.gif);
+	background-position: right;
+	background-repeat: no-repeat;
+	text-align: center;
+	padding: 0px 10px 4px 8px;
+	display: inline;
+	height: 20px;
+	vertical-align: text-top;
+}
+.opciomenusup1 {
+	text-align: center;
+	padding: 0px 10px 4px 8px;
+	display: inline;
+	height: 20px;
+	vertical-align: text-top;
+}
+.cubo {
+	background-image: url(../images/cubo_tit.gif); 
+ 	background-repeat: no-repeat;  
+}
+.cubo_ov {
+	background-image: url(../images/cubo_tit_ov.gif); 
+	background-repeat: no-repeat;  
+}
+.seccion1 {
+	font-size: 12px;
+	color: #000090;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	font-weight: bold;
+}
+a.seccion1:link {
+	font-size: 12px;
+	color: #000090;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	font-weight: bold;
+}
+a.seccion1:hover {
+	font-size: 12px;
+	color: #000090;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	font-weight: bold;
+	background-color: #FFFFFF;
+	border-bottom: 1.5px solid #000090;
+}
+a.seccion1:visited {
+	font-size: 12px;
+	color: #000090;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	font-weight: bold;
+}
+.FormButton, .FormButtonInv,  .FormButton125, .FormButtonShort, .FormButtonCancel, .FormButtonOk{
+  height: 21px;
+  border: 0 solid white;
+  background-repeat: no-repeat;  
+  font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  color: #000000;
+  background-color: transparent;  
+}
+.FormButton, .FormButtonInv {
+  width: 91px;
+  background-image: url(../images/btn_bg.gif);  
+}
+.FormButtonOk {
+  width: 91px;
+  background-image: url(../images/btn_ok_bg.gif);
+}
+.reportlinkdiv {
+	text-align:right;
+  display: none; /* use block for normal operation */
+}
+
+.a_image img {
+	border-width:0;
+}
+ul {
+	padding-left: 8px;
+	margin-left: 8px;
+}
+li {
+	padding-left: 5px;
+	margin-left: 5px;
+	font-weight: normal;
+}
+.cellwhite {
+	border: hidden ;
+	background-color: #FFFFFF;
+	padding: 2px;
+}
+.hidebutton {
+	background-image: url(mer/button_bkground.png);
+	color: #000066;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: xx-small;
+	font-weight: bold;
+	padding: 0px 8px 0px 8px;
+	margin: 3px 0px 3px 0px;
+	height: 18px;
+}
+.menulevel2 {
+	background-image: url(mer/button_bkground.png);
+	font-size: 11px;
+	color: #000090;
+	font-family: Arial, Verdana, Geneva, Helvetica, sans-serif;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 3px 2px 3px 3px;
+	display: block;
+	border-top: 1px solid #000099;
+	border-bottom: 1px solid #000099;
+}
+a.menulevel2:link{
+	color: #000090;
+	text-decoration: none;
+}
+a.menulevel2:hover{
+	color: #000090;
+	text-decoration: underline;
+}
+a.menulevel2:visited{
+	color: #000090;
+}
+.questionActions {
+	font-weight: normal;
+	font-size: 12px;
+}
+
+/* -----------------
+ *    newStyles
+ * -----------------
+ */
+
+.borderTable {
+	border: 1px solid #000099;
+	border-collapse: collapse;
+}
+.borderCell {
+	border: 1px solid #000099;
+	padding: 3px;
+}
+.borderCellOptions {
+	border: 1px solid #000099;
+	padding: 3px;
+}
+.borderCellButton {
+	height: 40px;
+	text-align: center;
+	padding: 6px;
+}
+.borderCellTh {
+	background-color: #FFFFFF;
+	border: 1px solid #000099;
+	padding: 3px;
+}
+.bubbleTitle {
+	font-size: 10px;
+	line-height:12px;
+	vertical-align: text-top;
+}
+.brBubbleBefore {
+	line-height:10px;
+}
+.brBubbleAfter {
+	line-height:12px;
+}
+#span_loading {
+	color: red;
+	float: right;
+	font-size: 1.2em;
+}
+.divColorLabel {
+	display: inline;
+	width: 12px;
+	line-height: 12px;
+	border: 1px solid #000000;
+	margin-right: 6px;
+}
+.tableTdBorders {
+	border-collapse: collapse;
+}
+table.tableTdBorders td {
+	border: 1px solid #000090;
+	padding: 4px;
+}
+table.tableTdBorders th {
+	border: 1px solid #000090;
+	background-color: #FFFFFF;
+}
+.tdButton {
+	height: 40px;
+	text-align: center;
+	padding: 6px;
+}
+.textTitleTh {
+	background-color: #CCCCCC;
+	padding: 6px;
+	color: #000066;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+	margin: 3px;
+}
+.textTitle2 {
+	background-color: #DFDFDF;
+	color: #000066;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	vertical-align: top;
+	padding: 6px;
+	height: 100% !important;
+}
+.tdTitle2 {
+	background-color: #FFFFFF;
+	padding: 3px !important;
+}
+.tdTextTitle {
+	color: #000066;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	vertical-align: top;
+	padding: 6px;
+}
+.underlineTitle {
+	background: url(mer/back_gris_tit.gif);
+	border: #999999 1px solid;
+	height: 3px !important;
+	margin-bottom: 18px;
+}
+.titleBackground {
+	background: url(mer/tablafondo1.gif);
+	border: 1px solid #999999;
+	padding: 3px 3px 3px 7px;
+	font-family: Arial, Verdana, sans-serif;
+	color: #000099;
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 18px;
+}
+.title {
+	font-family: Arial, Verdana, sans-serif;
+	color: #000099;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+

@@ -1,0 +1,228 @@
+<database defaultIdMethod="native" package="mer.classes" name="application" >
+  <table phpName="Category" name="MER_category" description="Categorias" >
+    <column autoIncrement="true" type="INTEGER" name="id" required="true" description="" primaryKey='true' />
+    <column size="255" type="VARCHAR" name="name" required="true" description="Category name" />
+    <column type="BOOLEAN" name="active" required="true" description="Is category active?" />
+    <column type="INTEGER" name="hierarchyActors" required="true" description="How many hierarchy actors can have the category" />
+  </table>
+  <table phpName="Hierarchy" name="MER_hierarchy" description="" >
+    <column type="INTEGER" name="actorId" required="true" description="Actor" primaryKey='true' />
+    <column type="INTEGER" name="categoryId" required="true" description="Category" primaryKey='true' />
+    <column type="INTEGER" name="position" required="true" description="Position" />
+    <foreign-key foreignTable="MER_actor" >
+      <reference local="actorId" foreign="id" />
+    </foreign-key>
+    <foreign-key foreignTable="MER_category" >
+      <reference local="categoryId" foreign="id" />
+    </foreign-key>
+  </table>
+
+  <table phpName="Form" name="MER_form" description="" >
+    <column autoIncrement="true" type="INTEGER" name="id" required="true" description="" primaryKey='true' />
+    <column type="VARCHAR" size='255' name="name" required="true" description="" />
+	<column type='BOOLEAN' name="relationship" required="true" default="0" description="Is this form a relationship form (between cities)?" />
+    <column type="INTEGER" name="rootSectionId" description="" />
+	<foreign-key foreignTable="MER_formSection"  >
+      <reference local="rootSectionId" foreign="id" />
+    </foreign-key>    
+  </table>
+  <table phpName="FormSection" name="MER_formSection" description="" >
+    <column autoIncrement="true" type="INTEGER" name="id" required="true" description="" primaryKey='true' />
+    <column type="INTEGER" name="parentSectionId" description="Nested sections" />
+    <column type="INTEGER" name="position" required="true" description="Section order" />
+    <column type="VARCHAR" size='255' name="title" required="true" description="Section title" />    
+		<foreign-key foreignTable="MER_formSection"  onDelete="cascade" >
+      <reference local="parentSectionId" foreign="id" />
+    </foreign-key>
+	<index><index-column name='parentSectionId' /></index>
+  </table>
+  <table phpName="Question" name="MER_formSectionQuestion" description="" >
+    <column autoIncrement="true" type="INTEGER" name="id" required="true" description="" primaryKey='true' />
+    <column type="INTEGER" name="sectionId" required="true" description="" />
+    <column type="SMALLINT" name="type" required="true" description="" />
+    <column type="VARCHAR" size='255' name="question" required="true" description="" />
+    <column type="INTEGER" name="position" required="true" description="" />
+    <column type="VARCHAR" size='20' name="unit" description="" />
+    <column name="analysis" default="false" type="BOOLEAN"  description="Aparece la pregunta en analysis?"/>
+    <column type="VARCHAR" size='50' name="label" description="Label de la pregunta" />
+    <unique>
+			<unique-column name="label" />
+		</unique>
+		<foreign-key foreignTable="MER_formSection"  onDelete="cascade" >
+      <reference local="sectionId" foreign="id" />
+    </foreign-key>
+  </table>
+  <table phpName="QuestionOption" name="MER_formSectionQuestionOption" description="Options for type-select questions" >
+    <column type="INTEGER" name="questionId" required="true" description="" primaryKey='true' />
+    <column type="INTEGER" name="position" required="true" description="" primaryKey='true' />
+    <column type="VARCHAR" size="255" name="value" required="true" description="" />
+    <column type="VARCHAR" size="255" name="text" required="true" description="" />
+    <column type="BOOLEAN" name="defaultOpc" description="" />
+	<foreign-key foreignTable="MER_formSectionQuestion" onDelete="cascade" >
+      <reference local="questionId" foreign="id" />
+    </foreign-key>
+
+  </table>
+  <table phpName="Relationship" name="MER_relationship" description="" >
+    <column type="INTEGER" name="actor1Id" required="true" description="" primaryKey='true'/>
+    <column type="INTEGER" name="actor2Id" required="true" description="" primaryKey='true'/>
+    <column type="INTEGER" name="questionId" required="true" description="" primaryKey='true'/>
+    <column type="BOOLEAN" name="direction" required="true" description="" primaryKey='true'/>
+    <column type="VARCHAR" size='255' name="current" required="true" description="Current relationship" />
+    <column type="VARCHAR" size='255' name="potential" required="true" description="Potential relationship" />
+	<foreign-key foreignTable="MER_actor" >
+      <reference local="actor1Id" foreign="id" />
+    </foreign-key>
+	<foreign-key foreignTable="MER_actor" >
+      <reference local="actor2Id" foreign="id" />
+    </foreign-key>    
+	<foreign-key foreignTable="MER_formSectionQuestion" >
+      <reference local="questionId" foreign="id" />
+    </foreign-key>
+  </table>
+  <table phpName="ActorActiveQuestion" name="MER_actorActiveQuestion">
+    <column type="INTEGER" name="actorId" required="true" description="" primaryKey='true' />
+    <column type="INTEGER" name="questionId" required="true" description="" primaryKey='true' />
+	<foreign-key foreignTable="MER_actor" >
+      <reference local="actorId" foreign="id" />
+    </foreign-key>
+	<foreign-key foreignTable="MER_formSectionQuestion" >
+      <reference local="questionId" foreign="id" />
+    </foreign-key>
+  </table>
+
+  <table phpName="RelationshipActiveQuestion" name="MER_relationshipActiveQuestion">
+    <column type="INTEGER" name="actor1Id" required="true" description="" primaryKey='true' />
+    <column type="INTEGER" name="actor2Id" required="true" description="" primaryKey='true' />
+    <column type="INTEGER" name="questionId" required="true" description="" primaryKey='true' />
+	<foreign-key foreignTable="MER_actor" >
+      <reference local="actor1Id" foreign="id" />
+    </foreign-key>    
+	<foreign-key foreignTable="MER_actor" >
+      <reference local="actor2Id" foreign="id" />
+    </foreign-key>
+	<foreign-key foreignTable="MER_formSectionQuestion" >
+      <reference local="questionId" foreign="id" />
+    </foreign-key>    
+  </table>
+
+  <table phpName="Answer" name="MER_formAnswer" description="" >
+    <column autoIncrement="true" type="INTEGER" name="id" required="true" description="" primaryKey='true' />
+    <column type="INTEGER" name="actorId" required="true" description="" />
+    <column type="INTEGER" name="questionId" required="true" description="" />
+    <column type="VARCHAR" size='255' name="answer" required="true" description="" />
+    <column name="judgement" type="VARCHAR" size="255" description="Juicio"/>
+    <column name="old" type="INTEGER" description="Indica si el juicio esta vigente o no" />
+	<foreign-key foreignTable="MER_actor" onDelete="cascade" >
+      <reference local="actorId" foreign="id" />
+    </foreign-key>
+	<foreign-key foreignTable="MER_formSectionQuestion" onDelete="cascade" >
+      <reference local="questionId" foreign="id" />
+    </foreign-key>
+  </table>
+
+
+  <table phpName="GraphModel" name="MER_graphModel" description="Graficos modelos">
+  	<column autoIncrement="true" type="INTEGER" name="id" required="true" description="Id" primaryKey='true' />
+    <column name="name" type="VARCHAR" size="255" description="Nombre"/>
+    <column name="type" type="VARCHAR" size="30" description="Tipo de Grafico"/>
+    <column name="actors" type="INTEGER"  required="true" description="Cantidad de actores" />
+    <column name="labelX" type="VARCHAR" size="100" description="Label X"/>
+    <column name="labelY" type="VARCHAR" size="100" description="Label Y"/>
+    <column name="labelZ" type="VARCHAR" size="100" description="Label Z"/>
+    <column name="typeX" type="INTEGER" description="Type X"/>
+    <column name="typeY" type="INTEGER" description="Type Y"/>
+    <column name="typeZ" type="INTEGER" description="Type Z"/>
+  </table>
+  
+  <table phpName="GraphModelAxis" name="MER_graphModelAxis" description="Preguntas de los ejes de los graficos modelos">
+  	<column autoIncrement="true" type="INTEGER" name="id" required="true" description="Id" primaryKey='true' />
+    <column name="graphId" type="INTEGER"  required="true" description="Id del grafico modelo" />
+    <column name="axis" type="CHAR"  size="1" required="true" description="Eje" />
+    <column name="type" type="INTEGER"  required="true" description="Function de la pregunta sobre el valor del eje" />
+    <column name="questionId" type="INTEGER"  required="true" description="Id de la pregunta" />
+		<foreign-key foreignTable="MER_graphModel"  onDelete="cascade" >
+			<reference local="graphId" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="MER_formSectionQuestion"  onDelete="cascade" >
+			<reference local="questionId" foreign="id" />
+		</foreign-key>
+	</table>
+	
+  <table phpName="GraphModelJudgement" name="MER_graphModelJudgement" description="Juicios de graficos modelos">
+  	<column name="graphId" type="INTEGER" required="true" description="Id del grafico modelo" primaryKey='true' />
+  	<column name="quadrant" type="INTEGER" required="true" description="Numero de cuadrante" primaryKey='true' />
+    <column name="judgement" type="VARCHAR" size="255" description="Juicio"/>
+		<foreign-key foreignTable="MER_graphModel"  onDelete="cascade" >
+			<reference local="graphId" foreign="id" />
+		</foreign-key>
+  </table>
+  
+  <table phpName="GraphActor" name="MER_graphActor" description="Graficos">
+    <column name="graphId" type="INTEGER" required="true" description="Id del grafico modelo" primaryKey='true' />
+    <column name="actorId" type="INTEGER" description="Actor" primaryKey='true' />
+    <column name="categoryId" type="INTEGER" description="Categoria" />
+    <column name="judgement" type="VARCHAR" size="255" description="Juicio"/>
+    <column name="old" type="INTEGER" description="Indica si el juicio esta vigente o no" />
+		<foreign-key foreignTable="MER_graphModel"  onDelete="cascade" >
+			<reference local="graphId" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="MER_actor"  onDelete="cascade" >
+			<reference local="actorId" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="MER_category"  onDelete="cascade" >
+			<reference local="categoryId" foreign="id" />
+		</foreign-key>
+  </table>
+  
+  <table phpName="GraphRelation" name="MER_graphRelation" description="Graficos de Relacion">
+    <column name="id" type="INTEGER" required="true" description="Id del grafico" primaryKey='true' autoIncrement="true" />
+    <column name="name" type="VARCHAR" size="255" description="Nombre"/>
+    <column name="actor1Id" type="INTEGER" description="Actor1" />
+    <column name="actor2Id" type="INTEGER" description="Actor2" />
+    <column name="judgement" type="VARCHAR" size="255" description="Juicio"/>
+    <column name="old" type="INTEGER" description="Indica si el juicio esta vigente o no" />
+		<foreign-key foreignTable="MER_actor"  onDelete="cascade" >
+			<reference local="actor1Id" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="MER_actor"  onDelete="cascade" >
+			<reference local="actor2Id" foreign="id" />
+		</foreign-key>
+  </table>
+  
+  <table phpName="GraphRelationQuestion" name="MER_graphRelationQuestion" description="Preguntas de los graficos de relation">
+    <column name="graphRelationId" type="INTEGER"  required="true" description="Id del grafico de relacion" primaryKey='true' />
+    <column name="questionId" type="INTEGER"  required="true" description="Id de la pregunta" primaryKey='true' />
+		<foreign-key foreignTable="MER_graphRelation"  onDelete="cascade" >
+			<reference local="graphRelationId" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="MER_formSectionQuestion"  onDelete="cascade" >
+			<reference local="questionId" foreign="id" />
+		</foreign-key>
+	</table>
+
+  <table phpName="GraphCategory" name="MER_graphCategory" description="Graficos">
+    <column name="graphId" type="INTEGER" required="true" description="Id del grafico modelo" primaryKey='true' />
+    <column name="categoryId" type="INTEGER" description="Categoria" primaryKey='true'/>    
+    <column name="judgement" type="VARCHAR" size="255" description="Juicio"/>
+    <column name="old" type="INTEGER" description="Indica si el juicio esta vigente o no" />
+		<foreign-key foreignTable="MER_graphModel"  onDelete="cascade" >
+			<reference local="graphId" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="MER_category"  onDelete="cascade" >
+			<reference local="categoryId" foreign="id" />
+		</foreign-key>
+  </table>
+  
+  <table phpName="JudgementActor" name="MER_judgementActor" description="Juicio general del actor">
+    <column name="actorId" type="INTEGER" description="Actor" primaryKey='true' />
+    <column name="mark" type="INTEGER" description="Calificacion" />
+    <column name="judgement" type="VARCHAR" size="255" description="Juicio"/>
+    <column name="old" type="INTEGER" description="Indica si el juicio esta vigente o no" />
+		<foreign-key foreignTable="MER_actor"  onDelete="cascade" >
+			<reference local="actorId" foreign="id" />
+		</foreign-key>
+  </table>
+ 
+
+</database>

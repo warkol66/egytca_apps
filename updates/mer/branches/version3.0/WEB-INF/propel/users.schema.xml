@@ -1,0 +1,64 @@
+<database defaultIdMethod="native" package="users.classes" name="application" >
+ <table name="users_user" phpName='User' description="Users">
+  <column name="id" required="true" primaryKey="true" type="INTEGER" description="User Id" autoIncrement="true"/>
+  <column name="username" required="true"  type="VARCHAR" size="255" description="username"/>
+  <column name="password" required="true"  type="VARCHAR" size="255" description="password"/>
+  <column name="active" required="true"  type="BOOLEAN"  description="Is user active?"/>
+  <column name="created" required="true"  type="TIMESTAMP"  description="Creation date for"/>
+  <column name="updated" required="true"  type="TIMESTAMP"  description="Last update date"/>
+  <column name="levelId" type="INTEGER" description="User Level" />
+	<unique>
+		<unique-column name="username" />
+	</unique>
+  <foreign-key foreignTable="users_level" >
+    <reference local="levelId" foreign="id" />
+  </foreign-key>
+ </table>
+
+ <table name="users_userInfo" phpName='UserInfo' description="Information about users">
+  <column name="userId" required="true" primaryKey="true" type="INTEGER" description="User Id" />
+  <column name="name" type="VARCHAR" size="255" description="name"/>
+  <column name="surname" type="VARCHAR" size="255" description="surname"/>
+	<foreign-key foreignTable="users_user" >
+      <reference local="userId" foreign="id" />
+    </foreign-key>
+ </table>
+ <table name="users_group" phpName='Group' description="Groups">
+  <column name="id" required="true"  primaryKey='true' type="INTEGER"  description="Group ID" autoIncrement="true"/>
+  <column name="name" required="true"  type="VARCHAR" size="255"  description="Group Name"/>
+  <column name="created" required="true"  type="TIMESTAMP"  description="Creation date for"/>
+  <column name="updated" required="true"  type="TIMESTAMP"  description="Last update date"/>
+	<unique>
+		<unique-column name="name" />
+	</unique>
+ </table>
+ <table name="users_level" phpName='Level' description="Levels">
+  <column name="id" required="true"  primaryKey='true' type="INTEGER"  description="Level ID" autoIncrement="true"/>
+  <column name="name" required="true"  type="VARCHAR" size="255"  description="Level Name"/>
+  <column name="bitLevel" type="INTEGER"  description="Bit del nivel"/>
+	<unique>
+		<unique-column name="name" />
+	</unique>
+ </table>
+ <table name="users_userGroup" phpName='UserGroup' description="Users / Groups">
+  <column name="userId" required="true" primaryKey='true' type="INTEGER"  description="Group ID"/>
+  <column name="groupId" required="true" primaryKey='true' type="INTEGER"  description="Group ID"/>
+  <foreign-key foreignTable="users_user">
+     <reference local="userId" foreign="id"/>
+  </foreign-key>
+  <foreign-key foreignTable="users_group" onDelete="cascade">
+     <reference local="groupId" foreign="id"/>
+  </foreign-key>
+ </table>
+ <table name="users_groupCategory" phpName='GroupCategory' description="Groups / Categories">
+  <column name="groupId" required="true" primaryKey='true' type="INTEGER"  description="Group ID"/>
+  <column name="categoryId" required="true" primaryKey='true' type="INTEGER"  description="Category ID"/>
+  <foreign-key foreignTable="users_group" onDelete="cascade">
+     <reference local="groupId" foreign="id"/>
+  </foreign-key>
+  <foreign-key foreignTable="MER_category">
+     <reference local="categoryId" foreign="id"/>
+  </foreign-key>
+ </table>
+ 
+</database>

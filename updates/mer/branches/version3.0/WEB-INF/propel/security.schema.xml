@@ -1,0 +1,10 @@
+<database defaultIdMethod="native" package="security.classes" name="application" >
+  <table phpName="SecurityAction" name="SecurityAction" description="Actions del sistema">
+    <column name="action" type="VARCHAR" size="100" description="Action pagina" primaryKey='true' />
+		<column name="module" type="VARCHAR" size="100" description="Modulo" />
+		<column name="section" type="VARCHAR" size="100" description="Seccion"/>
+    <column name="access" type="INTEGER" description="El acceso a ese action" />
+		<column name="active" type="INTEGER" description="Si el action esta activo o no" />
+  </table>
+
+</database>

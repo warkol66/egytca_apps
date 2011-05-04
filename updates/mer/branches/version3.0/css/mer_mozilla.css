@@ -1,0 +1,16 @@
+/*--------------------------------------*/
+/* Manejo estratgico de las relaciones */
+/*--------------------------------------*/
+
+.hidebutton {
+	font-size: 7pt;
+	padding: 0px 18px 0px 18px;
+	margin: 3px 0px 3px 0px;
+	height: 16px;
+}
+.brBubbleBefore {
+	line-height:2px;
+}
+.brBubbleAfter {
+	line-height:2px;
+}
