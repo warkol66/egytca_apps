@@ -26,19 +26,25 @@ abstract class BaseActorPeer {
 	const TM_CLASS = 'ActorTableMap';
 	
 	/** The total number of columns. */
-	const NUM_COLUMNS = 7;
+	const NUM_COLUMNS = 13;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-	const NUM_HYDRATE_COLUMNS = 7;
+	const NUM_HYDRATE_COLUMNS = 13;
 
 	/** the column name for the ID field */
 	const ID = 'MER_actor.ID';
 
+	/** the column name for the TITLE field */
+	const TITLE = 'MER_actor.TITLE';
+
 	/** the column name for the NAME field */
 	const NAME = 'MER_actor.NAME';
+
+	/** the column name for the SURNAME field */
+	const SURNAME = 'MER_actor.SURNAME';
 
 	/** the column name for the CATEGORYID field */
 	const CATEGORYID = 'MER_actor.CATEGORYID';
@@ -52,8 +58,20 @@ abstract class BaseActorPeer {
 	/** the column name for the TACTIC field */
 	const TACTIC = 'MER_actor.TACTIC';
 
+	/** the column name for the COMMENTS field */
+	const COMMENTS = 'MER_actor.COMMENTS';
+
 	/** the column name for the OBSERVATIONS field */
 	const OBSERVATIONS = 'MER_actor.OBSERVATIONS';
+
+	/** the column name for the DELETED_AT field */
+	const DELETED_AT = 'MER_actor.DELETED_AT';
+
+	/** the column name for the CREATED_AT field */
+	const CREATED_AT = 'MER_actor.CREATED_AT';
+
+	/** the column name for the UPDATED_AT field */
+	const UPDATED_AT = 'MER_actor.UPDATED_AT';
 
 	/** The default string format for model objects of the related table **/
 	const DEFAULT_STRING_FORMAT = 'YAML';
@@ -74,12 +92,12 @@ abstract class BaseActorPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	protected static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Name', 'Categoryid', 'Active', 'Strategy', 'Tactic', 'Observations', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'name', 'categoryid', 'active', 'strategy', 'tactic', 'observations', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::NAME, self::CATEGORYID, self::ACTIVE, self::STRATEGY, self::TACTIC, self::OBSERVATIONS, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'NAME', 'CATEGORYID', 'ACTIVE', 'STRATEGY', 'TACTIC', 'OBSERVATIONS', ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'name', 'categoryId', 'active', 'strategy', 'tactic', 'observations', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Title', 'Name', 'Surname', 'Categoryid', 'Active', 'Strategy', 'Tactic', 'Comments', 'Observations', 'DeletedAt', 'CreatedAt', 'UpdatedAt', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'title', 'name', 'surname', 'categoryid', 'active', 'strategy', 'tactic', 'comments', 'observations', 'deletedAt', 'createdAt', 'updatedAt', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::TITLE, self::NAME, self::SURNAME, self::CATEGORYID, self::ACTIVE, self::STRATEGY, self::TACTIC, self::COMMENTS, self::OBSERVATIONS, self::DELETED_AT, self::CREATED_AT, self::UPDATED_AT, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'TITLE', 'NAME', 'SURNAME', 'CATEGORYID', 'ACTIVE', 'STRATEGY', 'TACTIC', 'COMMENTS', 'OBSERVATIONS', 'DELETED_AT', 'CREATED_AT', 'UPDATED_AT', ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'title', 'name', 'surname', 'categoryId', 'active', 'strategy', 'tactic', 'comments', 'observations', 'deleted_at', 'created_at', 'updated_at', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, )
 	);
 
 	/**
@@ -89,12 +107,12 @@ abstract class BaseActorPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	protected static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Name' => 1, 'Categoryid' => 2, 'Active' => 3, 'Strategy' => 4, 'Tactic' => 5, 'Observations' => 6, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'name' => 1, 'categoryid' => 2, 'active' => 3, 'strategy' => 4, 'tactic' => 5, 'observations' => 6, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::NAME => 1, self::CATEGORYID => 2, self::ACTIVE => 3, self::STRATEGY => 4, self::TACTIC => 5, self::OBSERVATIONS => 6, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'NAME' => 1, 'CATEGORYID' => 2, 'ACTIVE' => 3, 'STRATEGY' => 4, 'TACTIC' => 5, 'OBSERVATIONS' => 6, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'name' => 1, 'categoryId' => 2, 'active' => 3, 'strategy' => 4, 'tactic' => 5, 'observations' => 6, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Title' => 1, 'Name' => 2, 'Surname' => 3, 'Categoryid' => 4, 'Active' => 5, 'Strategy' => 6, 'Tactic' => 7, 'Comments' => 8, 'Observations' => 9, 'DeletedAt' => 10, 'CreatedAt' => 11, 'UpdatedAt' => 12, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'title' => 1, 'name' => 2, 'surname' => 3, 'categoryid' => 4, 'active' => 5, 'strategy' => 6, 'tactic' => 7, 'comments' => 8, 'observations' => 9, 'deletedAt' => 10, 'createdAt' => 11, 'updatedAt' => 12, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::TITLE => 1, self::NAME => 2, self::SURNAME => 3, self::CATEGORYID => 4, self::ACTIVE => 5, self::STRATEGY => 6, self::TACTIC => 7, self::COMMENTS => 8, self::OBSERVATIONS => 9, self::DELETED_AT => 10, self::CREATED_AT => 11, self::UPDATED_AT => 12, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'TITLE' => 1, 'NAME' => 2, 'SURNAME' => 3, 'CATEGORYID' => 4, 'ACTIVE' => 5, 'STRATEGY' => 6, 'TACTIC' => 7, 'COMMENTS' => 8, 'OBSERVATIONS' => 9, 'DELETED_AT' => 10, 'CREATED_AT' => 11, 'UPDATED_AT' => 12, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'title' => 1, 'name' => 2, 'surname' => 3, 'categoryId' => 4, 'active' => 5, 'strategy' => 6, 'tactic' => 7, 'comments' => 8, 'observations' => 9, 'deleted_at' => 10, 'created_at' => 11, 'updated_at' => 12, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, )
 	);
 
 	/**
@@ -167,20 +185,32 @@ abstract class BaseActorPeer {
 	{
 		if (null === $alias) {
 			$criteria->addSelectColumn(ActorPeer::ID);
+			$criteria->addSelectColumn(ActorPeer::TITLE);
 			$criteria->addSelectColumn(ActorPeer::NAME);
+			$criteria->addSelectColumn(ActorPeer::SURNAME);
 			$criteria->addSelectColumn(ActorPeer::CATEGORYID);
 			$criteria->addSelectColumn(ActorPeer::ACTIVE);
 			$criteria->addSelectColumn(ActorPeer::STRATEGY);
 			$criteria->addSelectColumn(ActorPeer::TACTIC);
+			$criteria->addSelectColumn(ActorPeer::COMMENTS);
 			$criteria->addSelectColumn(ActorPeer::OBSERVATIONS);
+			$criteria->addSelectColumn(ActorPeer::DELETED_AT);
+			$criteria->addSelectColumn(ActorPeer::CREATED_AT);
+			$criteria->addSelectColumn(ActorPeer::UPDATED_AT);
 		} else {
 			$criteria->addSelectColumn($alias . '.ID');
+			$criteria->addSelectColumn($alias . '.TITLE');
 			$criteria->addSelectColumn($alias . '.NAME');
+			$criteria->addSelectColumn($alias . '.SURNAME');
 			$criteria->addSelectColumn($alias . '.CATEGORYID');
 			$criteria->addSelectColumn($alias . '.ACTIVE');
 			$criteria->addSelectColumn($alias . '.STRATEGY');
 			$criteria->addSelectColumn($alias . '.TACTIC');
+			$criteria->addSelectColumn($alias . '.COMMENTS');
 			$criteria->addSelectColumn($alias . '.OBSERVATIONS');
+			$criteria->addSelectColumn($alias . '.DELETED_AT');
+			$criteria->addSelectColumn($alias . '.CREATED_AT');
+			$criteria->addSelectColumn($alias . '.UPDATED_AT');
 		}
 	}
 
@@ -215,6 +245,12 @@ abstract class BaseActorPeer {
 
 		if ($con === null) {
 			$con = Propel::getConnection(ActorPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+		}
+		// soft_delete behavior
+		if (ActorQuery::isSoftDeleteEnabled()) {
+			$criteria->add(ActorPeer::DELETED_AT, null, Criteria::ISNULL);
+		} else {
+			ActorPeer::enableSoftDelete();
 		}
 		// BasePeer returns a PDOStatement
 		$stmt = BasePeer::doCount($criteria, $con);
@@ -285,6 +321,12 @@ abstract class BaseActorPeer {
 
 		// Set the correct dbName
 		$criteria->setDbName(self::DATABASE_NAME);
+		// soft_delete behavior
+		if (ActorQuery::isSoftDeleteEnabled()) {
+			$criteria->add(ActorPeer::DELETED_AT, null, Criteria::ISNULL);
+		} else {
+			ActorPeer::enableSoftDelete();
+		}
 
 		// BasePeer returns a PDOStatement
 		return BasePeer::doSelect($criteria, $con);
@@ -519,6 +561,12 @@ abstract class BaseActorPeer {
 
 		$criteria->addJoin(ActorPeer::CATEGORYID, CategoryPeer::ID, $join_behavior);
 
+		// soft_delete behavior
+		if (ActorQuery::isSoftDeleteEnabled()) {
+			$criteria->add(ActorPeer::DELETED_AT, null, Criteria::ISNULL);
+		} else {
+			ActorPeer::enableSoftDelete();
+		}
 		$stmt = BasePeer::doCount($criteria, $con);
 
 		if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
@@ -555,6 +603,12 @@ abstract class BaseActorPeer {
 
 		$criteria->addJoin(ActorPeer::CATEGORYID, CategoryPeer::ID, $join_behavior);
 
+		// soft_delete behavior
+		if (ActorQuery::isSoftDeleteEnabled()) {
+			$criteria->add(ActorPeer::DELETED_AT, null, Criteria::ISNULL);
+		} else {
+			ActorPeer::enableSoftDelete();
+		}
 		$stmt = BasePeer::doSelect($criteria, $con);
 		$results = array();
 
@@ -635,6 +689,12 @@ abstract class BaseActorPeer {
 
 		$criteria->addJoin(ActorPeer::CATEGORYID, CategoryPeer::ID, $join_behavior);
 
+		// soft_delete behavior
+		if (ActorQuery::isSoftDeleteEnabled()) {
+			$criteria->add(ActorPeer::DELETED_AT, null, Criteria::ISNULL);
+		} else {
+			ActorPeer::enableSoftDelete();
+		}
 		$stmt = BasePeer::doCount($criteria, $con);
 
 		if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
@@ -673,6 +733,12 @@ abstract class BaseActorPeer {
 
 		$criteria->addJoin(ActorPeer::CATEGORYID, CategoryPeer::ID, $join_behavior);
 
+		// soft_delete behavior
+		if (ActorQuery::isSoftDeleteEnabled()) {
+			$criteria->add(ActorPeer::DELETED_AT, null, Criteria::ISNULL);
+		} else {
+			ActorPeer::enableSoftDelete();
+		}
 		$stmt = BasePeer::doSelect($criteria, $con);
 		$results = array();
 
@@ -841,7 +907,7 @@ abstract class BaseActorPeer {
 	 *
 	 * @return     int The number of affected rows (if supported by underlying database driver).
 	 */
-	public static function doDeleteAll($con = null)
+	public static function doForceDeleteAll($con = null)
 	{
 		if ($con === null) {
 			$con = Propel::getConnection(ActorPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
@@ -877,7 +943,7 @@ abstract class BaseActorPeer {
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
-	 public static function doDelete($values, PropelPDO $con = null)
+	 public static function doForceDelete($values, PropelPDO $con = null)
 	 {
 		if ($con === null) {
 			$con = Propel::getConnection(ActorPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
@@ -1073,6 +1139,118 @@ abstract class BaseActorPeer {
 			$objs = ActorPeer::doSelect($criteria, $con);
 		}
 		return $objs;
+	}
+
+	// soft_delete behavior
+	
+	/**
+	 * Enable the soft_delete behavior for this model
+	 */
+	public static function enableSoftDelete()
+	{
+		ActorQuery::enableSoftDelete();
+		// some soft_deleted objects may be in the instance pool
+		ActorPeer::clearInstancePool();
+	}
+	
+	/**
+	 * Disable the soft_delete behavior for this model
+	 */
+	public static function disableSoftDelete()
+	{
+		ActorQuery::disableSoftDelete();
+	}
+	
+	/**
+	 * Check the soft_delete behavior for this model
+	 * @return boolean true if the soft_delete behavior is enabled
+	 */
+	public static function isSoftDeleteEnabled()
+	{
+		return ActorQuery::isSoftDeleteEnabled();
+	}
+	
+	/**
+	 * Soft delete records, given a Actor or Criteria object OR a primary key value.
+	 *
+	 * @param			 mixed $values Criteria or Actor object or primary key or array of primary keys
+	 *							which is used to create the DELETE statement
+	 * @param			 PropelPDO $con the connection to use
+	 * @return		 int	The number of affected rows (if supported by underlying database driver).
+	 * @throws		 PropelException Any exceptions caught during processing will be
+	 *							rethrown wrapped into a PropelException.
+	 */
+	public static function doSoftDelete($values, PropelPDO $con = null)
+	{
+		if ($values instanceof Criteria) {
+			// rename for clarity
+			$criteria = clone $values;
+		} elseif ($values instanceof Actor) {
+			// create criteria based on pk values
+			$criteria = $values->buildPkeyCriteria();
+		} else {
+			// it must be the primary key
+			$criteria = new Criteria(self::DATABASE_NAME);
+			$criteria->add(ActorPeer::ID, (array) $values, Criteria::IN);
+		}
+		$criteria->add(ActorPeer::DELETED_AT, time());
+		return ActorPeer::doUpdate($criteria, $con);
+	}
+	
+	/**
+	 * Delete or soft delete records, depending on ActorPeer::$softDelete
+	 *
+	 * @param			 mixed $values Criteria or Actor object or primary key or array of primary keys
+	 *							which is used to create the DELETE statement
+	 * @param			 PropelPDO $con the connection to use
+	 * @return		 int	The number of affected rows (if supported by underlying database driver).
+	 * @throws		 PropelException Any exceptions caught during processing will be
+	 *							rethrown wrapped into a PropelException.
+	 */
+	public static function doDelete($values, PropelPDO $con = null)
+	{
+		if (ActorPeer::isSoftDeleteEnabled()) {
+			return ActorPeer::doSoftDelete($values, $con);
+		} else {
+			return ActorPeer::doForceDelete($values, $con);
+		} 
+	}
+	/**
+	 * Method to soft delete all rows from the MER_actor table.
+	 *
+	 * @param			 PropelPDO $con the connection to use
+	 * @return		 int The number of affected rows (if supported by underlying database driver).
+	 * @throws		 PropelException Any exceptions caught during processing will be
+	 *							rethrown wrapped into a PropelException.
+	 */
+	public static function doSoftDeleteAll(PropelPDO $con = null)
+	{
+		if ($con === null) {
+			$con = Propel::getConnection(ActorPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+		}
+		$selectCriteria = new Criteria();
+		$selectCriteria->add(ActorPeer::DELETED_AT, null, Criteria::ISNULL);
+		$selectCriteria->setDbName(ActorPeer::DATABASE_NAME);
+		$modifyCriteria = new Criteria();
+		$modifyCriteria->add(ActorPeer::DELETED_AT, time());
+		return BasePeer::doUpdate($selectCriteria, $modifyCriteria, $con);
+	}
+	
+	/**
+	 * Delete or soft delete all records, depending on ActorPeer::$softDelete
+	 *
+	 * @param			 PropelPDO $con the connection to use
+	 * @return		 int	The number of affected rows (if supported by underlying database driver).
+	 * @throws		 PropelException Any exceptions caught during processing will be
+	 *							rethrown wrapped into a PropelException.
+	 */
+	public static function doDeleteAll(PropelPDO $con = null)
+	{
+		if (ActorPeer::isSoftDeleteEnabled()) {
+			return ActorPeer::doSoftDeleteAll($con);
+		} else {
+			return ActorPeer::doForceDeleteAll($con);
+		} 
 	}
 
 } // BaseActorPeer

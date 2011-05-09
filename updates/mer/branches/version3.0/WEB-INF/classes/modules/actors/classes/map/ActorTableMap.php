@@ -38,12 +38,18 @@ class ActorTableMap extends TableMap {
 		$this->setUseIdGenerator(true);
 		// columns
 		$this->addPrimaryKey('ID', 'Id', 'INTEGER', true, null, null);
-		$this->addColumn('NAME', 'Name', 'VARCHAR', true, 255, null);
+		$this->addColumn('TITLE', 'Title', 'VARCHAR', true, 30, null);
+		$this->addColumn('NAME', 'Name', 'VARCHAR', true, 100, null);
+		$this->addColumn('SURNAME', 'Surname', 'VARCHAR', true, 100, null);
 		$this->addForeignKey('CATEGORYID', 'Categoryid', 'INTEGER', 'MER_category', 'ID', false, null, null);
-		$this->addColumn('ACTIVE', 'Active', 'BOOLEAN', true, null, null);
-		$this->addColumn('STRATEGY', 'Strategy', 'VARCHAR', false, 255, null);
-		$this->addColumn('TACTIC', 'Tactic', 'VARCHAR', false, 255, null);
-		$this->addColumn('OBSERVATIONS', 'Observations', 'VARCHAR', false, 255, null);
+		$this->addColumn('ACTIVE', 'Active', 'BOOLEAN', true, null, true);
+		$this->addColumn('STRATEGY', 'Strategy', 'LONGVARCHAR', false, null, null);
+		$this->addColumn('TACTIC', 'Tactic', 'LONGVARCHAR', false, null, null);
+		$this->addColumn('COMMENTS', 'Comments', 'LONGVARCHAR', false, null, null);
+		$this->addColumn('OBSERVATIONS', 'Observations', 'LONGVARCHAR', false, null, null);
+		$this->addColumn('DELETED_AT', 'DeletedAt', 'TIMESTAMP', false, null, null);
+		$this->addColumn('CREATED_AT', 'CreatedAt', 'TIMESTAMP', false, null, null);
+		$this->addColumn('UPDATED_AT', 'UpdatedAt', 'TIMESTAMP', false, null, null);
 		// validators
 	} // initialize()
 
@@ -65,5 +71,19 @@ class ActorTableMap extends TableMap {
     $this->addRelation('GraphRelationRelatedByActor2id', 'GraphRelation', RelationMap::ONE_TO_MANY, array('id' => 'actor2Id', ), 'CASCADE', null);
     $this->addRelation('JudgementActor', 'JudgementActor', RelationMap::ONE_TO_ONE, array('id' => 'actorId', ), 'CASCADE', null);
 	} // buildRelations()
+
+	/**
+	 * 
+	 * Gets the list of behaviors registered for this table
+	 * 
+	 * @return array Associative array (name => parameters) of behaviors
+	 */
+	public function getBehaviors()
+	{
+		return array(
+			'soft_delete' => array('deleted_column' => 'deleted_at', ),
+			'timestampable' => array('create_column' => 'created_at', 'update_column' => 'updated_at', ),
+		);
+	} // getBehaviors()
 
 } // ActorTableMap

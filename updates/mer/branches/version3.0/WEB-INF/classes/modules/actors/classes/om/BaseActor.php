@@ -31,10 +31,22 @@ abstract class BaseActor extends BaseObject  implements Persistent
 	protected $id;
 
 	/**
+	 * The value for the title field.
+	 * @var        string
+	 */
+	protected $title;
+
+	/**
 	 * The value for the name field.
 	 * @var        string
 	 */
 	protected $name;
+
+	/**
+	 * The value for the surname field.
+	 * @var        string
+	 */
+	protected $surname;
 
 	/**
 	 * The value for the categoryid field.
@@ -44,6 +56,7 @@ abstract class BaseActor extends BaseObject  implements Persistent
 
 	/**
 	 * The value for the active field.
+	 * Note: this column has a database default value of: true
 	 * @var        boolean
 	 */
 	protected $active;
@@ -61,10 +74,34 @@ abstract class BaseActor extends BaseObject  implements Persistent
 	protected $tactic;
 
 	/**
+	 * The value for the comments field.
+	 * @var        string
+	 */
+	protected $comments;
+
+	/**
 	 * The value for the observations field.
 	 * @var        string
 	 */
 	protected $observations;
+
+	/**
+	 * The value for the deleted_at field.
+	 * @var        string
+	 */
+	protected $deleted_at;
+
+	/**
+	 * The value for the created_at field.
+	 * @var        string
+	 */
+	protected $created_at;
+
+	/**
+	 * The value for the updated_at field.
+	 * @var        string
+	 */
+	protected $updated_at;
 
 	/**
 	 * @var        Category
@@ -141,13 +178,44 @@ abstract class BaseActor extends BaseObject  implements Persistent
 	protected $alreadyInValidation = false;
 
 	/**
+	 * Applies default values to this object.
+	 * This method should be called from the object's constructor (or
+	 * equivalent initialization method).
+	 * @see        __construct()
+	 */
+	public function applyDefaultValues()
+	{
+		$this->active = true;
+	}
+
+	/**
+	 * Initializes internal state of BaseActor object.
+	 * @see        applyDefaults()
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->applyDefaultValues();
+	}
+
+	/**
 	 * Get the [id] column value.
-	 * 
+	 * actor's Id
 	 * @return     int
 	 */
 	public function getId()
 	{
 		return $this->id;
+	}
+
+	/**
+	 * Get the [title] column value.
+	 * actor's title
+	 * @return     string
+	 */
+	public function getTitle()
+	{
+		return $this->title;
 	}
 
 	/**
@@ -158,6 +226,16 @@ abstract class BaseActor extends BaseObject  implements Persistent
 	public function getName()
 	{
 		return $this->name;
+	}
+
+	/**
+	 * Get the [surname] column value.
+	 * actor's surname
+	 * @return     string
+	 */
+	public function getSurname()
+	{
+		return $this->surname;
 	}
 
 	/**
@@ -172,7 +250,7 @@ abstract class BaseActor extends BaseObject  implements Persistent
 
 	/**
 	 * Get the [active] column value.
-	 * 
+	 * to be deleted!!!
 	 * @return     boolean
 	 */
 	public function getActive()
@@ -201,8 +279,18 @@ abstract class BaseActor extends BaseObject  implements Persistent
 	}
 
 	/**
+	 * Get the [comments] column value.
+	 * Comentarios
+	 * @return     string
+	 */
+	public function getComments()
+	{
+		return $this->comments;
+	}
+
+	/**
 	 * Get the [observations] column value.
-	 * Observaciones
+	 * Observaciones to be deleted
 	 * @return     string
 	 */
 	public function getObservations()
@@ -211,8 +299,122 @@ abstract class BaseActor extends BaseObject  implements Persistent
 	}
 
 	/**
-	 * Set the value of [id] column.
+	 * Get the [optionally formatted] temporal [deleted_at] column value.
 	 * 
+	 *
+	 * @param      string $format The date/time format string (either date()-style or strftime()-style).
+	 *							If format is NULL, then the raw DateTime object will be returned.
+	 * @return     mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00 00:00:00
+	 * @throws     PropelException - if unable to parse/validate the date/time value.
+	 */
+	public function getDeletedAt($format = 'Y-m-d H:i:s')
+	{
+		if ($this->deleted_at === null) {
+			return null;
+		}
+
+
+		if ($this->deleted_at === '0000-00-00 00:00:00') {
+			// while technically this is not a default value of NULL,
+			// this seems to be closest in meaning.
+			return null;
+		} else {
+			try {
+				$dt = new DateTime($this->deleted_at);
+			} catch (Exception $x) {
+				throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->deleted_at, true), $x);
+			}
+		}
+
+		if ($format === null) {
+			// Because propel.useDateTimeClass is TRUE, we return a DateTime object.
+			return $dt;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $dt->format('U'));
+		} else {
+			return $dt->format($format);
+		}
+	}
+
+	/**
+	 * Get the [optionally formatted] temporal [created_at] column value.
+	 * 
+	 *
+	 * @param      string $format The date/time format string (either date()-style or strftime()-style).
+	 *							If format is NULL, then the raw DateTime object will be returned.
+	 * @return     mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00 00:00:00
+	 * @throws     PropelException - if unable to parse/validate the date/time value.
+	 */
+	public function getCreatedAt($format = 'Y-m-d H:i:s')
+	{
+		if ($this->created_at === null) {
+			return null;
+		}
+
+
+		if ($this->created_at === '0000-00-00 00:00:00') {
+			// while technically this is not a default value of NULL,
+			// this seems to be closest in meaning.
+			return null;
+		} else {
+			try {
+				$dt = new DateTime($this->created_at);
+			} catch (Exception $x) {
+				throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->created_at, true), $x);
+			}
+		}
+
+		if ($format === null) {
+			// Because propel.useDateTimeClass is TRUE, we return a DateTime object.
+			return $dt;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $dt->format('U'));
+		} else {
+			return $dt->format($format);
+		}
+	}
+
+	/**
+	 * Get the [optionally formatted] temporal [updated_at] column value.
+	 * 
+	 *
+	 * @param      string $format The date/time format string (either date()-style or strftime()-style).
+	 *							If format is NULL, then the raw DateTime object will be returned.
+	 * @return     mixed Formatted date/time value as string or DateTime object (if format is NULL), NULL if column is NULL, and 0 if column value is 0000-00-00 00:00:00
+	 * @throws     PropelException - if unable to parse/validate the date/time value.
+	 */
+	public function getUpdatedAt($format = 'Y-m-d H:i:s')
+	{
+		if ($this->updated_at === null) {
+			return null;
+		}
+
+
+		if ($this->updated_at === '0000-00-00 00:00:00') {
+			// while technically this is not a default value of NULL,
+			// this seems to be closest in meaning.
+			return null;
+		} else {
+			try {
+				$dt = new DateTime($this->updated_at);
+			} catch (Exception $x) {
+				throw new PropelException("Internally stored date/time/timestamp value could not be converted to DateTime: " . var_export($this->updated_at, true), $x);
+			}
+		}
+
+		if ($format === null) {
+			// Because propel.useDateTimeClass is TRUE, we return a DateTime object.
+			return $dt;
+		} elseif (strpos($format, '%') !== false) {
+			return strftime($format, $dt->format('U'));
+		} else {
+			return $dt->format($format);
+		}
+	}
+
+	/**
+	 * Set the value of [id] column.
+	 * actor's Id
 	 * @param      int $v new value
 	 * @return     Actor The current object (for fluent API support)
 	 */
@@ -229,6 +431,26 @@ abstract class BaseActor extends BaseObject  implements Persistent
 
 		return $this;
 	} // setId()
+
+	/**
+	 * Set the value of [title] column.
+	 * actor's title
+	 * @param      string $v new value
+	 * @return     Actor The current object (for fluent API support)
+	 */
+	public function setTitle($v)
+	{
+		if ($v !== null) {
+			$v = (string) $v;
+		}
+
+		if ($this->title !== $v) {
+			$this->title = $v;
+			$this->modifiedColumns[] = ActorPeer::TITLE;
+		}
+
+		return $this;
+	} // setTitle()
 
 	/**
 	 * Set the value of [name] column.
@@ -249,6 +471,26 @@ abstract class BaseActor extends BaseObject  implements Persistent
 
 		return $this;
 	} // setName()
+
+	/**
+	 * Set the value of [surname] column.
+	 * actor's surname
+	 * @param      string $v new value
+	 * @return     Actor The current object (for fluent API support)
+	 */
+	public function setSurname($v)
+	{
+		if ($v !== null) {
+			$v = (string) $v;
+		}
+
+		if ($this->surname !== $v) {
+			$this->surname = $v;
+			$this->modifiedColumns[] = ActorPeer::SURNAME;
+		}
+
+		return $this;
+	} // setSurname()
 
 	/**
 	 * Set the value of [categoryid] column.
@@ -280,7 +522,7 @@ abstract class BaseActor extends BaseObject  implements Persistent
 	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
 	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
 	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
-	 * 
+	 * to be deleted!!!
 	 * @param      boolean|integer|string $v The new value
 	 * @return     Actor The current object (for fluent API support)
 	 */
@@ -294,7 +536,7 @@ abstract class BaseActor extends BaseObject  implements Persistent
 			}
 		}
 
-		if ($this->active !== $v) {
+		if ($this->active !== $v || $this->isNew()) {
 			$this->active = $v;
 			$this->modifiedColumns[] = ActorPeer::ACTIVE;
 		}
@@ -343,8 +585,28 @@ abstract class BaseActor extends BaseObject  implements Persistent
 	} // setTactic()
 
 	/**
+	 * Set the value of [comments] column.
+	 * Comentarios
+	 * @param      string $v new value
+	 * @return     Actor The current object (for fluent API support)
+	 */
+	public function setComments($v)
+	{
+		if ($v !== null) {
+			$v = (string) $v;
+		}
+
+		if ($this->comments !== $v) {
+			$this->comments = $v;
+			$this->modifiedColumns[] = ActorPeer::COMMENTS;
+		}
+
+		return $this;
+	} // setComments()
+
+	/**
 	 * Set the value of [observations] column.
-	 * Observaciones
+	 * Observaciones to be deleted
 	 * @param      string $v new value
 	 * @return     Actor The current object (for fluent API support)
 	 */
@@ -363,6 +625,72 @@ abstract class BaseActor extends BaseObject  implements Persistent
 	} // setObservations()
 
 	/**
+	 * Sets the value of [deleted_at] column to a normalized version of the date/time value specified.
+	 * 
+	 * @param      mixed $v string, integer (timestamp), or DateTime value.
+	 *               Empty strings are treated as NULL.
+	 * @return     Actor The current object (for fluent API support)
+	 */
+	public function setDeletedAt($v)
+	{
+		$dt = PropelDateTime::newInstance($v, null, 'DateTime');
+		if ($this->deleted_at !== null || $dt !== null) {
+			$currentDateAsString = ($this->deleted_at !== null && $tmpDt = new DateTime($this->deleted_at)) ? $tmpDt->format('Y-m-d H:i:s') : null;
+			$newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
+			if ($currentDateAsString !== $newDateAsString) {
+				$this->deleted_at = $newDateAsString;
+				$this->modifiedColumns[] = ActorPeer::DELETED_AT;
+			}
+		} // if either are not null
+
+		return $this;
+	} // setDeletedAt()
+
+	/**
+	 * Sets the value of [created_at] column to a normalized version of the date/time value specified.
+	 * 
+	 * @param      mixed $v string, integer (timestamp), or DateTime value.
+	 *               Empty strings are treated as NULL.
+	 * @return     Actor The current object (for fluent API support)
+	 */
+	public function setCreatedAt($v)
+	{
+		$dt = PropelDateTime::newInstance($v, null, 'DateTime');
+		if ($this->created_at !== null || $dt !== null) {
+			$currentDateAsString = ($this->created_at !== null && $tmpDt = new DateTime($this->created_at)) ? $tmpDt->format('Y-m-d H:i:s') : null;
+			$newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
+			if ($currentDateAsString !== $newDateAsString) {
+				$this->created_at = $newDateAsString;
+				$this->modifiedColumns[] = ActorPeer::CREATED_AT;
+			}
+		} // if either are not null
+
+		return $this;
+	} // setCreatedAt()
+
+	/**
+	 * Sets the value of [updated_at] column to a normalized version of the date/time value specified.
+	 * 
+	 * @param      mixed $v string, integer (timestamp), or DateTime value.
+	 *               Empty strings are treated as NULL.
+	 * @return     Actor The current object (for fluent API support)
+	 */
+	public function setUpdatedAt($v)
+	{
+		$dt = PropelDateTime::newInstance($v, null, 'DateTime');
+		if ($this->updated_at !== null || $dt !== null) {
+			$currentDateAsString = ($this->updated_at !== null && $tmpDt = new DateTime($this->updated_at)) ? $tmpDt->format('Y-m-d H:i:s') : null;
+			$newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
+			if ($currentDateAsString !== $newDateAsString) {
+				$this->updated_at = $newDateAsString;
+				$this->modifiedColumns[] = ActorPeer::UPDATED_AT;
+			}
+		} // if either are not null
+
+		return $this;
+	} // setUpdatedAt()
+
+	/**
 	 * Indicates whether the columns in this object are only set to default values.
 	 *
 	 * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -372,6 +700,10 @@ abstract class BaseActor extends BaseObject  implements Persistent
 	 */
 	public function hasOnlyDefaultValues()
 	{
+			if ($this->active !== true) {
+				return false;
+			}
+
 		// otherwise, everything was equal, so return TRUE
 		return true;
 	} // hasOnlyDefaultValues()
@@ -395,12 +727,18 @@ abstract class BaseActor extends BaseObject  implements Persistent
 		try {
 
 			$this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-			$this->name = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
-			$this->categoryid = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
-			$this->active = ($row[$startcol + 3] !== null) ? (boolean) $row[$startcol + 3] : null;
-			$this->strategy = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
-			$this->tactic = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
-			$this->observations = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
+			$this->title = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
+			$this->name = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
+			$this->surname = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+			$this->categoryid = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
+			$this->active = ($row[$startcol + 5] !== null) ? (boolean) $row[$startcol + 5] : null;
+			$this->strategy = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
+			$this->tactic = ($row[$startcol + 7] !== null) ? (string) $row[$startcol + 7] : null;
+			$this->comments = ($row[$startcol + 8] !== null) ? (string) $row[$startcol + 8] : null;
+			$this->observations = ($row[$startcol + 9] !== null) ? (string) $row[$startcol + 9] : null;
+			$this->deleted_at = ($row[$startcol + 10] !== null) ? (string) $row[$startcol + 10] : null;
+			$this->created_at = ($row[$startcol + 11] !== null) ? (string) $row[$startcol + 11] : null;
+			$this->updated_at = ($row[$startcol + 12] !== null) ? (string) $row[$startcol + 12] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -409,7 +747,7 @@ abstract class BaseActor extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 7; // 7 = ActorPeer::NUM_HYDRATE_COLUMNS.
+			return $startcol + 13; // 13 = ActorPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Actor object", $e);
@@ -522,6 +860,16 @@ abstract class BaseActor extends BaseObject  implements Persistent
 		$con->beginTransaction();
 		try {
 			$ret = $this->preDelete($con);
+			// soft_delete behavior
+			if (!empty($ret) && ActorQuery::isSoftDeleteEnabled()) {
+				$this->keepUpdateDateUnchanged();
+				$this->setDeletedAt(time());
+				$this->save($con);
+				$con->commit();
+				ActorPeer::removeInstanceFromPool($this);
+				return;
+			}
+
 			if ($ret) {
 				ActorQuery::create()
 					->filterByPrimaryKey($this->getPrimaryKey())
@@ -567,8 +915,19 @@ abstract class BaseActor extends BaseObject  implements Persistent
 			$ret = $this->preSave($con);
 			if ($isInsert) {
 				$ret = $ret && $this->preInsert($con);
+				// timestampable behavior
+				if (!$this->isColumnModified(ActorPeer::CREATED_AT)) {
+					$this->setCreatedAt(time());
+				}
+				if (!$this->isColumnModified(ActorPeer::UPDATED_AT)) {
+					$this->setUpdatedAt(time());
+				}
 			} else {
 				$ret = $ret && $this->preUpdate($con);
+				// timestampable behavior
+				if ($this->isModified() && !$this->isColumnModified(ActorPeer::UPDATED_AT)) {
+					$this->setUpdatedAt(time());
+				}
 			}
 			if ($ret) {
 				$affectedRows = $this->doSave($con);
@@ -934,22 +1293,40 @@ abstract class BaseActor extends BaseObject  implements Persistent
 				return $this->getId();
 				break;
 			case 1:
-				return $this->getName();
+				return $this->getTitle();
 				break;
 			case 2:
-				return $this->getCategoryid();
+				return $this->getName();
 				break;
 			case 3:
-				return $this->getActive();
+				return $this->getSurname();
 				break;
 			case 4:
-				return $this->getStrategy();
+				return $this->getCategoryid();
 				break;
 			case 5:
-				return $this->getTactic();
+				return $this->getActive();
 				break;
 			case 6:
+				return $this->getStrategy();
+				break;
+			case 7:
+				return $this->getTactic();
+				break;
+			case 8:
+				return $this->getComments();
+				break;
+			case 9:
 				return $this->getObservations();
+				break;
+			case 10:
+				return $this->getDeletedAt();
+				break;
+			case 11:
+				return $this->getCreatedAt();
+				break;
+			case 12:
+				return $this->getUpdatedAt();
 				break;
 			default:
 				return null;
@@ -981,12 +1358,18 @@ abstract class BaseActor extends BaseObject  implements Persistent
 		$keys = ActorPeer::getFieldNames($keyType);
 		$result = array(
 			$keys[0] => $this->getId(),
-			$keys[1] => $this->getName(),
-			$keys[2] => $this->getCategoryid(),
-			$keys[3] => $this->getActive(),
-			$keys[4] => $this->getStrategy(),
-			$keys[5] => $this->getTactic(),
-			$keys[6] => $this->getObservations(),
+			$keys[1] => $this->getTitle(),
+			$keys[2] => $this->getName(),
+			$keys[3] => $this->getSurname(),
+			$keys[4] => $this->getCategoryid(),
+			$keys[5] => $this->getActive(),
+			$keys[6] => $this->getStrategy(),
+			$keys[7] => $this->getTactic(),
+			$keys[8] => $this->getComments(),
+			$keys[9] => $this->getObservations(),
+			$keys[10] => $this->getDeletedAt(),
+			$keys[11] => $this->getCreatedAt(),
+			$keys[12] => $this->getUpdatedAt(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->aCategory) {
@@ -1060,22 +1443,40 @@ abstract class BaseActor extends BaseObject  implements Persistent
 				$this->setId($value);
 				break;
 			case 1:
-				$this->setName($value);
+				$this->setTitle($value);
 				break;
 			case 2:
-				$this->setCategoryid($value);
+				$this->setName($value);
 				break;
 			case 3:
-				$this->setActive($value);
+				$this->setSurname($value);
 				break;
 			case 4:
-				$this->setStrategy($value);
+				$this->setCategoryid($value);
 				break;
 			case 5:
-				$this->setTactic($value);
+				$this->setActive($value);
 				break;
 			case 6:
+				$this->setStrategy($value);
+				break;
+			case 7:
+				$this->setTactic($value);
+				break;
+			case 8:
+				$this->setComments($value);
+				break;
+			case 9:
 				$this->setObservations($value);
+				break;
+			case 10:
+				$this->setDeletedAt($value);
+				break;
+			case 11:
+				$this->setCreatedAt($value);
+				break;
+			case 12:
+				$this->setUpdatedAt($value);
 				break;
 		} // switch()
 	}
@@ -1102,12 +1503,18 @@ abstract class BaseActor extends BaseObject  implements Persistent
 		$keys = ActorPeer::getFieldNames($keyType);
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setName($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setCategoryid($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setActive($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setStrategy($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setTactic($arr[$keys[5]]);
-		if (array_key_exists($keys[6], $arr)) $this->setObservations($arr[$keys[6]]);
+		if (array_key_exists($keys[1], $arr)) $this->setTitle($arr[$keys[1]]);
+		if (array_key_exists($keys[2], $arr)) $this->setName($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setSurname($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setCategoryid($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setActive($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setStrategy($arr[$keys[6]]);
+		if (array_key_exists($keys[7], $arr)) $this->setTactic($arr[$keys[7]]);
+		if (array_key_exists($keys[8], $arr)) $this->setComments($arr[$keys[8]]);
+		if (array_key_exists($keys[9], $arr)) $this->setObservations($arr[$keys[9]]);
+		if (array_key_exists($keys[10], $arr)) $this->setDeletedAt($arr[$keys[10]]);
+		if (array_key_exists($keys[11], $arr)) $this->setCreatedAt($arr[$keys[11]]);
+		if (array_key_exists($keys[12], $arr)) $this->setUpdatedAt($arr[$keys[12]]);
 	}
 
 	/**
@@ -1120,12 +1527,18 @@ abstract class BaseActor extends BaseObject  implements Persistent
 		$criteria = new Criteria(ActorPeer::DATABASE_NAME);
 
 		if ($this->isColumnModified(ActorPeer::ID)) $criteria->add(ActorPeer::ID, $this->id);
+		if ($this->isColumnModified(ActorPeer::TITLE)) $criteria->add(ActorPeer::TITLE, $this->title);
 		if ($this->isColumnModified(ActorPeer::NAME)) $criteria->add(ActorPeer::NAME, $this->name);
+		if ($this->isColumnModified(ActorPeer::SURNAME)) $criteria->add(ActorPeer::SURNAME, $this->surname);
 		if ($this->isColumnModified(ActorPeer::CATEGORYID)) $criteria->add(ActorPeer::CATEGORYID, $this->categoryid);
 		if ($this->isColumnModified(ActorPeer::ACTIVE)) $criteria->add(ActorPeer::ACTIVE, $this->active);
 		if ($this->isColumnModified(ActorPeer::STRATEGY)) $criteria->add(ActorPeer::STRATEGY, $this->strategy);
 		if ($this->isColumnModified(ActorPeer::TACTIC)) $criteria->add(ActorPeer::TACTIC, $this->tactic);
+		if ($this->isColumnModified(ActorPeer::COMMENTS)) $criteria->add(ActorPeer::COMMENTS, $this->comments);
 		if ($this->isColumnModified(ActorPeer::OBSERVATIONS)) $criteria->add(ActorPeer::OBSERVATIONS, $this->observations);
+		if ($this->isColumnModified(ActorPeer::DELETED_AT)) $criteria->add(ActorPeer::DELETED_AT, $this->deleted_at);
+		if ($this->isColumnModified(ActorPeer::CREATED_AT)) $criteria->add(ActorPeer::CREATED_AT, $this->created_at);
+		if ($this->isColumnModified(ActorPeer::UPDATED_AT)) $criteria->add(ActorPeer::UPDATED_AT, $this->updated_at);
 
 		return $criteria;
 	}
@@ -1188,12 +1601,18 @@ abstract class BaseActor extends BaseObject  implements Persistent
 	 */
 	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
+		$copyObj->setTitle($this->getTitle());
 		$copyObj->setName($this->getName());
+		$copyObj->setSurname($this->getSurname());
 		$copyObj->setCategoryid($this->getCategoryid());
 		$copyObj->setActive($this->getActive());
 		$copyObj->setStrategy($this->getStrategy());
 		$copyObj->setTactic($this->getTactic());
+		$copyObj->setComments($this->getComments());
 		$copyObj->setObservations($this->getObservations());
+		$copyObj->setDeletedAt($this->getDeletedAt());
+		$copyObj->setCreatedAt($this->getCreatedAt());
+		$copyObj->setUpdatedAt($this->getUpdatedAt());
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of
@@ -2777,15 +3196,22 @@ abstract class BaseActor extends BaseObject  implements Persistent
 	public function clear()
 	{
 		$this->id = null;
+		$this->title = null;
 		$this->name = null;
+		$this->surname = null;
 		$this->categoryid = null;
 		$this->active = null;
 		$this->strategy = null;
 		$this->tactic = null;
+		$this->comments = null;
 		$this->observations = null;
+		$this->deleted_at = null;
+		$this->created_at = null;
+		$this->updated_at = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;
 		$this->clearAllReferences();
+		$this->applyDefaultValues();
 		$this->resetModified();
 		$this->setNew(true);
 		$this->setDeleted(false);
@@ -2913,6 +3339,41 @@ abstract class BaseActor extends BaseObject  implements Persistent
 	public function __toString()
 	{
 		return (string) $this->exportTo(ActorPeer::DEFAULT_STRING_FORMAT);
+	}
+
+	// soft_delete behavior
+	
+	/**
+	 * Bypass the soft_delete behavior and force a hard delete of the current object
+	 */
+	public function forceDelete(PropelPDO $con = null)
+	{
+		ActorPeer::disableSoftDelete();
+		$this->delete($con);
+	}
+	
+	/**
+	 * Undelete a row that was soft_deleted
+	 *
+	 * @return		 int The number of rows affected by this update and any referring fk objects' save() operations.
+	 */
+	public function unDelete(PropelPDO $con = null)
+	{
+		$this->setDeletedAt(null);
+		return $this->save($con);
+	}
+
+	// timestampable behavior
+	
+	/**
+	 * Mark the current object so that the update date doesn't get updated during next save
+	 *
+	 * @return     Actor The current object (for fluent API support)
+	 */
+	public function keepUpdateDateUnchanged()
+	{
+		$this->modifiedColumns[] = ActorPeer::UPDATED_AT;
+		return $this;
 	}
 
 	/**

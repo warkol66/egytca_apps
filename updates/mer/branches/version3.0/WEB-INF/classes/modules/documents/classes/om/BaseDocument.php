@@ -73,6 +73,12 @@ abstract class BaseDocument extends BaseObject  implements Persistent
 	protected $password;
 
 	/**
+	 * The value for the fulltextcontent field.
+	 * @var        string
+	 */
+	protected $fulltextcontent;
+
+	/**
 	 * @var        Category
 	 */
 	protected $aCategory;
@@ -225,6 +231,16 @@ abstract class BaseDocument extends BaseObject  implements Persistent
 	public function getPassword()
 	{
 		return $this->password;
+	}
+
+	/**
+	 * Get the [fulltextcontent] column value.
+	 * Contenido del archivo
+	 * @return     string
+	 */
+	public function getFulltextcontent()
+	{
+		return $this->fulltextcontent;
 	}
 
 	/**
@@ -396,6 +412,26 @@ abstract class BaseDocument extends BaseObject  implements Persistent
 	} // setPassword()
 
 	/**
+	 * Set the value of [fulltextcontent] column.
+	 * Contenido del archivo
+	 * @param      string $v new value
+	 * @return     Document The current object (for fluent API support)
+	 */
+	public function setFulltextcontent($v)
+	{
+		if ($v !== null) {
+			$v = (string) $v;
+		}
+
+		if ($this->fulltextcontent !== $v) {
+			$this->fulltextcontent = $v;
+			$this->modifiedColumns[] = DocumentPeer::FULLTEXTCONTENT;
+		}
+
+		return $this;
+	} // setFulltextcontent()
+
+	/**
 	 * Indicates whether the columns in this object are only set to default values.
 	 *
 	 * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -435,6 +471,7 @@ abstract class BaseDocument extends BaseObject  implements Persistent
 			$this->description = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
 			$this->document_date = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
 			$this->password = ($row[$startcol + 7] !== null) ? (string) $row[$startcol + 7] : null;
+			$this->fulltextcontent = ($row[$startcol + 8] !== null) ? (string) $row[$startcol + 8] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -443,7 +480,7 @@ abstract class BaseDocument extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 8; // 8 = DocumentPeer::NUM_HYDRATE_COLUMNS.
+			return $startcol + 9; // 9 = DocumentPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Document object", $e);
@@ -794,6 +831,9 @@ abstract class BaseDocument extends BaseObject  implements Persistent
 			case 7:
 				return $this->getPassword();
 				break;
+			case 8:
+				return $this->getFulltextcontent();
+				break;
 			default:
 				return null;
 				break;
@@ -831,6 +871,7 @@ abstract class BaseDocument extends BaseObject  implements Persistent
 			$keys[5] => $this->getDescription(),
 			$keys[6] => $this->getDocumentDate(),
 			$keys[7] => $this->getPassword(),
+			$keys[8] => $this->getFulltextcontent(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->aCategory) {
@@ -891,6 +932,9 @@ abstract class BaseDocument extends BaseObject  implements Persistent
 			case 7:
 				$this->setPassword($value);
 				break;
+			case 8:
+				$this->setFulltextcontent($value);
+				break;
 		} // switch()
 	}
 
@@ -923,6 +967,7 @@ abstract class BaseDocument extends BaseObject  implements Persistent
 		if (array_key_exists($keys[5], $arr)) $this->setDescription($arr[$keys[5]]);
 		if (array_key_exists($keys[6], $arr)) $this->setDocumentDate($arr[$keys[6]]);
 		if (array_key_exists($keys[7], $arr)) $this->setPassword($arr[$keys[7]]);
+		if (array_key_exists($keys[8], $arr)) $this->setFulltextcontent($arr[$keys[8]]);
 	}
 
 	/**
@@ -942,6 +987,7 @@ abstract class BaseDocument extends BaseObject  implements Persistent
 		if ($this->isColumnModified(DocumentPeer::DESCRIPTION)) $criteria->add(DocumentPeer::DESCRIPTION, $this->description);
 		if ($this->isColumnModified(DocumentPeer::DOCUMENT_DATE)) $criteria->add(DocumentPeer::DOCUMENT_DATE, $this->document_date);
 		if ($this->isColumnModified(DocumentPeer::PASSWORD)) $criteria->add(DocumentPeer::PASSWORD, $this->password);
+		if ($this->isColumnModified(DocumentPeer::FULLTEXTCONTENT)) $criteria->add(DocumentPeer::FULLTEXTCONTENT, $this->fulltextcontent);
 
 		return $criteria;
 	}
@@ -1011,6 +1057,7 @@ abstract class BaseDocument extends BaseObject  implements Persistent
 		$copyObj->setDescription($this->getDescription());
 		$copyObj->setDocumentDate($this->getDocumentDate());
 		$copyObj->setPassword($this->getPassword());
+		$copyObj->setFulltextcontent($this->getFulltextcontent());
 		if ($makeNew) {
 			$copyObj->setNew(true);
 			$copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -1117,6 +1164,7 @@ abstract class BaseDocument extends BaseObject  implements Persistent
 		$this->description = null;
 		$this->document_date = null;
 		$this->password = null;
+		$this->fulltextcontent = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;
 		$this->clearAllReferences();

@@ -14,6 +14,7 @@
  * @method     DocumentQuery orderByDescription($order = Criteria::ASC) Order by the description column
  * @method     DocumentQuery orderByDocumentDate($order = Criteria::ASC) Order by the document_date column
  * @method     DocumentQuery orderByPassword($order = Criteria::ASC) Order by the password column
+ * @method     DocumentQuery orderByFulltextcontent($order = Criteria::ASC) Order by the fullTextContent column
  *
  * @method     DocumentQuery groupById() Group by the id column
  * @method     DocumentQuery groupByFilename() Group by the filename column
@@ -23,6 +24,7 @@
  * @method     DocumentQuery groupByDescription() Group by the description column
  * @method     DocumentQuery groupByDocumentDate() Group by the document_date column
  * @method     DocumentQuery groupByPassword() Group by the password column
+ * @method     DocumentQuery groupByFulltextcontent() Group by the fullTextContent column
  *
  * @method     DocumentQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     DocumentQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -43,6 +45,7 @@
  * @method     Document findOneByDescription(string $description) Return the first Document filtered by the description column
  * @method     Document findOneByDocumentDate(string $document_date) Return the first Document filtered by the document_date column
  * @method     Document findOneByPassword(string $password) Return the first Document filtered by the password column
+ * @method     Document findOneByFulltextcontent(string $fullTextContent) Return the first Document filtered by the fullTextContent column
  *
  * @method     array findById(int $id) Return Document objects filtered by the id column
  * @method     array findByFilename(string $filename) Return Document objects filtered by the filename column
@@ -52,6 +55,7 @@
  * @method     array findByDescription(string $description) Return Document objects filtered by the description column
  * @method     array findByDocumentDate(string $document_date) Return Document objects filtered by the document_date column
  * @method     array findByPassword(string $password) Return Document objects filtered by the password column
+ * @method     array findByFulltextcontent(string $fullTextContent) Return Document objects filtered by the fullTextContent column
  *
  * @package    propel.generator.documents.classes.om
  */
@@ -423,6 +427,34 @@ abstract class BaseDocumentQuery extends ModelCriteria
 			}
 		}
 		return $this->addUsingAlias(DocumentPeer::PASSWORD, $password, $comparison);
+	}
+
+	/**
+	 * Filter the query on the fullTextContent column
+	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByFulltextcontent('fooValue');   // WHERE fullTextContent = 'fooValue'
+	 * $query->filterByFulltextcontent('%fooValue%'); // WHERE fullTextContent LIKE '%fooValue%'
+	 * </code>
+	 *
+	 * @param     string $fulltextcontent The value to use as filter.
+	 *              Accepts wildcards (* and % trigger a LIKE)
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    DocumentQuery The current query, for fluid interface
+	 */
+	public function filterByFulltextcontent($fulltextcontent = null, $comparison = null)
+	{
+		if (null === $comparison) {
+			if (is_array($fulltextcontent)) {
+				$comparison = Criteria::IN;
+			} elseif (preg_match('/[\%\*]/', $fulltextcontent)) {
+				$fulltextcontent = str_replace('*', '%', $fulltextcontent);
+				$comparison = Criteria::LIKE;
+			}
+		}
+		return $this->addUsingAlias(DocumentPeer::FULLTEXTCONTENT, $fulltextcontent, $comparison);
 	}
 
 	/**

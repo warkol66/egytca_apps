@@ -26,13 +26,13 @@ abstract class BaseDocumentPeer {
 	const TM_CLASS = 'DocumentTableMap';
 	
 	/** The total number of columns. */
-	const NUM_COLUMNS = 8;
+	const NUM_COLUMNS = 9;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-	const NUM_HYDRATE_COLUMNS = 8;
+	const NUM_HYDRATE_COLUMNS = 9;
 
 	/** the column name for the ID field */
 	const ID = 'MER_document.ID';
@@ -58,6 +58,9 @@ abstract class BaseDocumentPeer {
 	/** the column name for the PASSWORD field */
 	const PASSWORD = 'MER_document.PASSWORD';
 
+	/** the column name for the FULLTEXTCONTENT field */
+	const FULLTEXTCONTENT = 'MER_document.FULLTEXTCONTENT';
+
 	/** The default string format for model objects of the related table **/
 	const DEFAULT_STRING_FORMAT = 'YAML';
 	
@@ -77,12 +80,12 @@ abstract class BaseDocumentPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	protected static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Filename', 'Realfilename', 'Date', 'Categoryid', 'Description', 'DocumentDate', 'Password', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'filename', 'realfilename', 'date', 'categoryid', 'description', 'documentDate', 'password', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::FILENAME, self::REALFILENAME, self::DATE, self::CATEGORYID, self::DESCRIPTION, self::DOCUMENT_DATE, self::PASSWORD, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'FILENAME', 'REALFILENAME', 'DATE', 'CATEGORYID', 'DESCRIPTION', 'DOCUMENT_DATE', 'PASSWORD', ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'filename', 'realFilename', 'date', 'categoryId', 'description', 'document_date', 'password', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Filename', 'Realfilename', 'Date', 'Categoryid', 'Description', 'DocumentDate', 'Password', 'Fulltextcontent', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'filename', 'realfilename', 'date', 'categoryid', 'description', 'documentDate', 'password', 'fulltextcontent', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::FILENAME, self::REALFILENAME, self::DATE, self::CATEGORYID, self::DESCRIPTION, self::DOCUMENT_DATE, self::PASSWORD, self::FULLTEXTCONTENT, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'FILENAME', 'REALFILENAME', 'DATE', 'CATEGORYID', 'DESCRIPTION', 'DOCUMENT_DATE', 'PASSWORD', 'FULLTEXTCONTENT', ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'filename', 'realFilename', 'date', 'categoryId', 'description', 'document_date', 'password', 'fullTextContent', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
 	);
 
 	/**
@@ -92,12 +95,12 @@ abstract class BaseDocumentPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	protected static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Filename' => 1, 'Realfilename' => 2, 'Date' => 3, 'Categoryid' => 4, 'Description' => 5, 'DocumentDate' => 6, 'Password' => 7, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'filename' => 1, 'realfilename' => 2, 'date' => 3, 'categoryid' => 4, 'description' => 5, 'documentDate' => 6, 'password' => 7, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::FILENAME => 1, self::REALFILENAME => 2, self::DATE => 3, self::CATEGORYID => 4, self::DESCRIPTION => 5, self::DOCUMENT_DATE => 6, self::PASSWORD => 7, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'FILENAME' => 1, 'REALFILENAME' => 2, 'DATE' => 3, 'CATEGORYID' => 4, 'DESCRIPTION' => 5, 'DOCUMENT_DATE' => 6, 'PASSWORD' => 7, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'filename' => 1, 'realFilename' => 2, 'date' => 3, 'categoryId' => 4, 'description' => 5, 'document_date' => 6, 'password' => 7, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Filename' => 1, 'Realfilename' => 2, 'Date' => 3, 'Categoryid' => 4, 'Description' => 5, 'DocumentDate' => 6, 'Password' => 7, 'Fulltextcontent' => 8, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'filename' => 1, 'realfilename' => 2, 'date' => 3, 'categoryid' => 4, 'description' => 5, 'documentDate' => 6, 'password' => 7, 'fulltextcontent' => 8, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::FILENAME => 1, self::REALFILENAME => 2, self::DATE => 3, self::CATEGORYID => 4, self::DESCRIPTION => 5, self::DOCUMENT_DATE => 6, self::PASSWORD => 7, self::FULLTEXTCONTENT => 8, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'FILENAME' => 1, 'REALFILENAME' => 2, 'DATE' => 3, 'CATEGORYID' => 4, 'DESCRIPTION' => 5, 'DOCUMENT_DATE' => 6, 'PASSWORD' => 7, 'FULLTEXTCONTENT' => 8, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'filename' => 1, 'realFilename' => 2, 'date' => 3, 'categoryId' => 4, 'description' => 5, 'document_date' => 6, 'password' => 7, 'fullTextContent' => 8, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, )
 	);
 
 	/**
@@ -177,6 +180,7 @@ abstract class BaseDocumentPeer {
 			$criteria->addSelectColumn(DocumentPeer::DESCRIPTION);
 			$criteria->addSelectColumn(DocumentPeer::DOCUMENT_DATE);
 			$criteria->addSelectColumn(DocumentPeer::PASSWORD);
+			$criteria->addSelectColumn(DocumentPeer::FULLTEXTCONTENT);
 		} else {
 			$criteria->addSelectColumn($alias . '.ID');
 			$criteria->addSelectColumn($alias . '.FILENAME');
@@ -186,6 +190,7 @@ abstract class BaseDocumentPeer {
 			$criteria->addSelectColumn($alias . '.DESCRIPTION');
 			$criteria->addSelectColumn($alias . '.DOCUMENT_DATE');
 			$criteria->addSelectColumn($alias . '.PASSWORD');
+			$criteria->addSelectColumn($alias . '.FULLTEXTCONTENT');
 		}
 	}
 

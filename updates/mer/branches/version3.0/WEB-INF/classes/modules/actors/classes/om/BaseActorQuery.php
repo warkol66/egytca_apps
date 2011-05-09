@@ -7,20 +7,32 @@
  * Actors
  *
  * @method     ActorQuery orderById($order = Criteria::ASC) Order by the id column
+ * @method     ActorQuery orderByTitle($order = Criteria::ASC) Order by the title column
  * @method     ActorQuery orderByName($order = Criteria::ASC) Order by the name column
+ * @method     ActorQuery orderBySurname($order = Criteria::ASC) Order by the surname column
  * @method     ActorQuery orderByCategoryid($order = Criteria::ASC) Order by the categoryId column
  * @method     ActorQuery orderByActive($order = Criteria::ASC) Order by the active column
  * @method     ActorQuery orderByStrategy($order = Criteria::ASC) Order by the strategy column
  * @method     ActorQuery orderByTactic($order = Criteria::ASC) Order by the tactic column
+ * @method     ActorQuery orderByComments($order = Criteria::ASC) Order by the comments column
  * @method     ActorQuery orderByObservations($order = Criteria::ASC) Order by the observations column
+ * @method     ActorQuery orderByDeletedAt($order = Criteria::ASC) Order by the deleted_at column
+ * @method     ActorQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
+ * @method     ActorQuery orderByUpdatedAt($order = Criteria::ASC) Order by the updated_at column
  *
  * @method     ActorQuery groupById() Group by the id column
+ * @method     ActorQuery groupByTitle() Group by the title column
  * @method     ActorQuery groupByName() Group by the name column
+ * @method     ActorQuery groupBySurname() Group by the surname column
  * @method     ActorQuery groupByCategoryid() Group by the categoryId column
  * @method     ActorQuery groupByActive() Group by the active column
  * @method     ActorQuery groupByStrategy() Group by the strategy column
  * @method     ActorQuery groupByTactic() Group by the tactic column
+ * @method     ActorQuery groupByComments() Group by the comments column
  * @method     ActorQuery groupByObservations() Group by the observations column
+ * @method     ActorQuery groupByDeletedAt() Group by the deleted_at column
+ * @method     ActorQuery groupByCreatedAt() Group by the created_at column
+ * @method     ActorQuery groupByUpdatedAt() Group by the updated_at column
  *
  * @method     ActorQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ActorQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -78,25 +90,41 @@
  * @method     Actor findOneOrCreate(PropelPDO $con = null) Return the first Actor matching the query, or a new Actor object populated from the query conditions when no match is found
  *
  * @method     Actor findOneById(int $id) Return the first Actor filtered by the id column
+ * @method     Actor findOneByTitle(string $title) Return the first Actor filtered by the title column
  * @method     Actor findOneByName(string $name) Return the first Actor filtered by the name column
+ * @method     Actor findOneBySurname(string $surname) Return the first Actor filtered by the surname column
  * @method     Actor findOneByCategoryid(int $categoryId) Return the first Actor filtered by the categoryId column
  * @method     Actor findOneByActive(boolean $active) Return the first Actor filtered by the active column
  * @method     Actor findOneByStrategy(string $strategy) Return the first Actor filtered by the strategy column
  * @method     Actor findOneByTactic(string $tactic) Return the first Actor filtered by the tactic column
+ * @method     Actor findOneByComments(string $comments) Return the first Actor filtered by the comments column
  * @method     Actor findOneByObservations(string $observations) Return the first Actor filtered by the observations column
+ * @method     Actor findOneByDeletedAt(string $deleted_at) Return the first Actor filtered by the deleted_at column
+ * @method     Actor findOneByCreatedAt(string $created_at) Return the first Actor filtered by the created_at column
+ * @method     Actor findOneByUpdatedAt(string $updated_at) Return the first Actor filtered by the updated_at column
  *
  * @method     array findById(int $id) Return Actor objects filtered by the id column
+ * @method     array findByTitle(string $title) Return Actor objects filtered by the title column
  * @method     array findByName(string $name) Return Actor objects filtered by the name column
+ * @method     array findBySurname(string $surname) Return Actor objects filtered by the surname column
  * @method     array findByCategoryid(int $categoryId) Return Actor objects filtered by the categoryId column
  * @method     array findByActive(boolean $active) Return Actor objects filtered by the active column
  * @method     array findByStrategy(string $strategy) Return Actor objects filtered by the strategy column
  * @method     array findByTactic(string $tactic) Return Actor objects filtered by the tactic column
+ * @method     array findByComments(string $comments) Return Actor objects filtered by the comments column
  * @method     array findByObservations(string $observations) Return Actor objects filtered by the observations column
+ * @method     array findByDeletedAt(string $deleted_at) Return Actor objects filtered by the deleted_at column
+ * @method     array findByCreatedAt(string $created_at) Return Actor objects filtered by the created_at column
+ * @method     array findByUpdatedAt(string $updated_at) Return Actor objects filtered by the updated_at column
  *
  * @package    propel.generator.actors.classes.om
  */
 abstract class BaseActorQuery extends ModelCriteria
 {
+
+	// soft_delete behavior
+	protected static $softDelete = true;
+	protected $localSoftDelete = true;
 
 	/**
 	 * Initializes internal state of BaseActorQuery object.
@@ -228,6 +256,34 @@ abstract class BaseActorQuery extends ModelCriteria
 	}
 
 	/**
+	 * Filter the query on the title column
+	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByTitle('fooValue');   // WHERE title = 'fooValue'
+	 * $query->filterByTitle('%fooValue%'); // WHERE title LIKE '%fooValue%'
+	 * </code>
+	 *
+	 * @param     string $title The value to use as filter.
+	 *              Accepts wildcards (* and % trigger a LIKE)
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    ActorQuery The current query, for fluid interface
+	 */
+	public function filterByTitle($title = null, $comparison = null)
+	{
+		if (null === $comparison) {
+			if (is_array($title)) {
+				$comparison = Criteria::IN;
+			} elseif (preg_match('/[\%\*]/', $title)) {
+				$title = str_replace('*', '%', $title);
+				$comparison = Criteria::LIKE;
+			}
+		}
+		return $this->addUsingAlias(ActorPeer::TITLE, $title, $comparison);
+	}
+
+	/**
 	 * Filter the query on the name column
 	 * 
 	 * Example usage:
@@ -253,6 +309,34 @@ abstract class BaseActorQuery extends ModelCriteria
 			}
 		}
 		return $this->addUsingAlias(ActorPeer::NAME, $name, $comparison);
+	}
+
+	/**
+	 * Filter the query on the surname column
+	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterBySurname('fooValue');   // WHERE surname = 'fooValue'
+	 * $query->filterBySurname('%fooValue%'); // WHERE surname LIKE '%fooValue%'
+	 * </code>
+	 *
+	 * @param     string $surname The value to use as filter.
+	 *              Accepts wildcards (* and % trigger a LIKE)
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    ActorQuery The current query, for fluid interface
+	 */
+	public function filterBySurname($surname = null, $comparison = null)
+	{
+		if (null === $comparison) {
+			if (is_array($surname)) {
+				$comparison = Criteria::IN;
+			} elseif (preg_match('/[\%\*]/', $surname)) {
+				$surname = str_replace('*', '%', $surname);
+				$comparison = Criteria::LIKE;
+			}
+		}
+		return $this->addUsingAlias(ActorPeer::SURNAME, $surname, $comparison);
 	}
 
 	/**
@@ -380,6 +464,34 @@ abstract class BaseActorQuery extends ModelCriteria
 	}
 
 	/**
+	 * Filter the query on the comments column
+	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByComments('fooValue');   // WHERE comments = 'fooValue'
+	 * $query->filterByComments('%fooValue%'); // WHERE comments LIKE '%fooValue%'
+	 * </code>
+	 *
+	 * @param     string $comments The value to use as filter.
+	 *              Accepts wildcards (* and % trigger a LIKE)
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    ActorQuery The current query, for fluid interface
+	 */
+	public function filterByComments($comments = null, $comparison = null)
+	{
+		if (null === $comparison) {
+			if (is_array($comments)) {
+				$comparison = Criteria::IN;
+			} elseif (preg_match('/[\%\*]/', $comments)) {
+				$comments = str_replace('*', '%', $comments);
+				$comparison = Criteria::LIKE;
+			}
+		}
+		return $this->addUsingAlias(ActorPeer::COMMENTS, $comments, $comparison);
+	}
+
+	/**
 	 * Filter the query on the observations column
 	 * 
 	 * Example usage:
@@ -405,6 +517,132 @@ abstract class BaseActorQuery extends ModelCriteria
 			}
 		}
 		return $this->addUsingAlias(ActorPeer::OBSERVATIONS, $observations, $comparison);
+	}
+
+	/**
+	 * Filter the query on the deleted_at column
+	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByDeletedAt('2011-03-14'); // WHERE deleted_at = '2011-03-14'
+	 * $query->filterByDeletedAt('now'); // WHERE deleted_at = '2011-03-14'
+	 * $query->filterByDeletedAt(array('max' => 'yesterday')); // WHERE deleted_at > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $deletedAt The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    ActorQuery The current query, for fluid interface
+	 */
+	public function filterByDeletedAt($deletedAt = null, $comparison = null)
+	{
+		if (is_array($deletedAt)) {
+			$useMinMax = false;
+			if (isset($deletedAt['min'])) {
+				$this->addUsingAlias(ActorPeer::DELETED_AT, $deletedAt['min'], Criteria::GREATER_EQUAL);
+				$useMinMax = true;
+			}
+			if (isset($deletedAt['max'])) {
+				$this->addUsingAlias(ActorPeer::DELETED_AT, $deletedAt['max'], Criteria::LESS_EQUAL);
+				$useMinMax = true;
+			}
+			if ($useMinMax) {
+				return $this;
+			}
+			if (null === $comparison) {
+				$comparison = Criteria::IN;
+			}
+		}
+		return $this->addUsingAlias(ActorPeer::DELETED_AT, $deletedAt, $comparison);
+	}
+
+	/**
+	 * Filter the query on the created_at column
+	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByCreatedAt('2011-03-14'); // WHERE created_at = '2011-03-14'
+	 * $query->filterByCreatedAt('now'); // WHERE created_at = '2011-03-14'
+	 * $query->filterByCreatedAt(array('max' => 'yesterday')); // WHERE created_at > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $createdAt The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    ActorQuery The current query, for fluid interface
+	 */
+	public function filterByCreatedAt($createdAt = null, $comparison = null)
+	{
+		if (is_array($createdAt)) {
+			$useMinMax = false;
+			if (isset($createdAt['min'])) {
+				$this->addUsingAlias(ActorPeer::CREATED_AT, $createdAt['min'], Criteria::GREATER_EQUAL);
+				$useMinMax = true;
+			}
+			if (isset($createdAt['max'])) {
+				$this->addUsingAlias(ActorPeer::CREATED_AT, $createdAt['max'], Criteria::LESS_EQUAL);
+				$useMinMax = true;
+			}
+			if ($useMinMax) {
+				return $this;
+			}
+			if (null === $comparison) {
+				$comparison = Criteria::IN;
+			}
+		}
+		return $this->addUsingAlias(ActorPeer::CREATED_AT, $createdAt, $comparison);
+	}
+
+	/**
+	 * Filter the query on the updated_at column
+	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByUpdatedAt('2011-03-14'); // WHERE updated_at = '2011-03-14'
+	 * $query->filterByUpdatedAt('now'); // WHERE updated_at = '2011-03-14'
+	 * $query->filterByUpdatedAt(array('max' => 'yesterday')); // WHERE updated_at > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $updatedAt The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    ActorQuery The current query, for fluid interface
+	 */
+	public function filterByUpdatedAt($updatedAt = null, $comparison = null)
+	{
+		if (is_array($updatedAt)) {
+			$useMinMax = false;
+			if (isset($updatedAt['min'])) {
+				$this->addUsingAlias(ActorPeer::UPDATED_AT, $updatedAt['min'], Criteria::GREATER_EQUAL);
+				$useMinMax = true;
+			}
+			if (isset($updatedAt['max'])) {
+				$this->addUsingAlias(ActorPeer::UPDATED_AT, $updatedAt['max'], Criteria::LESS_EQUAL);
+				$useMinMax = true;
+			}
+			if ($useMinMax) {
+				return $this;
+			}
+			if (null === $comparison) {
+				$comparison = Criteria::IN;
+			}
+		}
+		return $this->addUsingAlias(ActorPeer::UPDATED_AT, $updatedAt, $comparison);
 	}
 
 	/**
@@ -1298,6 +1536,195 @@ abstract class BaseActorQuery extends ModelCriteria
 	  }
 	  
 		return $this;
+	}
+
+	/**
+	 * Code to execute before every SELECT statement
+	 * 
+	 * @param     PropelPDO $con The connection object used by the query
+	 */
+	protected function basePreSelect(PropelPDO $con)
+	{
+		// soft_delete behavior
+		if (ActorQuery::isSoftDeleteEnabled() && $this->localSoftDelete) {
+			$this->addUsingAlias(ActorPeer::DELETED_AT, null, Criteria::ISNULL);
+		} else {
+			ActorPeer::enableSoftDelete();
+		}
+		
+		return $this->preSelect($con);
+	}
+
+	/**
+	 * Code to execute before every DELETE statement
+	 * 
+	 * @param     PropelPDO $con The connection object used by the query
+	 */
+	protected function basePreDelete(PropelPDO $con)
+	{
+		// soft_delete behavior
+		if (ActorQuery::isSoftDeleteEnabled() && $this->localSoftDelete) {
+			return $this->softDelete($con);
+		} else {
+			return $this->hasWhereClause() ? $this->forceDelete($con) : $this->forceDeleteAll($con);
+		}
+		
+		return $this->preDelete($con);
+	}
+
+	// soft_delete behavior
+	
+	/**
+	 * Temporarily disable the filter on deleted rows
+	 * Valid only for the current query
+	 * 
+	 * @see ActorQuery::disableSoftDelete() to disable the filter for more than one query
+	 *
+	 * @return ActorQuery The current query, for fluid interface
+	 */
+	public function includeDeleted()
+	{
+		$this->localSoftDelete = false;
+		return $this;
+	}
+	
+	/**
+	 * Soft delete the selected rows
+	 *
+	 * @param			PropelPDO $con an optional connection object
+	 *
+	 * @return		int Number of updated rows
+	 */
+	public function softDelete(PropelPDO $con = null)
+	{
+		return $this->update(array('DeletedAt' => time()), $con);
+	}
+	
+	/**
+	 * Bypass the soft_delete behavior and force a hard delete of the selected rows
+	 *
+	 * @param			PropelPDO $con an optional connection object
+	 *
+	 * @return		int Number of deleted rows
+	 */
+	public function forceDelete(PropelPDO $con = null)
+	{
+		return ActorPeer::doForceDelete($this, $con);
+	}
+	
+	/**
+	 * Bypass the soft_delete behavior and force a hard delete of all the rows
+	 *
+	 * @param			PropelPDO $con an optional connection object
+	 *
+	 * @return		int Number of deleted rows
+	 */
+	public function forceDeleteAll(PropelPDO $con = null)
+	{
+		return ActorPeer::doForceDeleteAll($con);}
+	
+	/**
+	 * Undelete selected rows
+	 *
+	 * @param			PropelPDO $con an optional connection object
+	 *
+	 * @return		int The number of rows affected by this update and any referring fk objects' save() operations.
+	 */
+	public function unDelete(PropelPDO $con = null)
+	{
+		return $this->update(array('DeletedAt' => null), $con);
+	}
+		
+	/**
+	 * Enable the soft_delete behavior for this model
+	 */
+	public static function enableSoftDelete()
+	{
+		self::$softDelete = true;
+	}
+	
+	/**
+	 * Disable the soft_delete behavior for this model
+	 */
+	public static function disableSoftDelete()
+	{
+		self::$softDelete = false;
+	}
+	
+	/**
+	 * Check the soft_delete behavior for this model
+	 *
+	 * @return boolean true if the soft_delete behavior is enabled
+	 */
+	public static function isSoftDeleteEnabled()
+	{
+		return self::$softDelete;
+	}
+
+	// timestampable behavior
+	
+	/**
+	 * Filter by the latest updated
+	 *
+	 * @param      int $nbDays Maximum age of the latest update in days
+	 *
+	 * @return     ActorQuery The current query, for fluid interface
+	 */
+	public function recentlyUpdated($nbDays = 7)
+	{
+		return $this->addUsingAlias(ActorPeer::UPDATED_AT, time() - $nbDays * 24 * 60 * 60, Criteria::GREATER_EQUAL);
+	}
+	
+	/**
+	 * Filter by the latest created
+	 *
+	 * @param      int $nbDays Maximum age of in days
+	 *
+	 * @return     ActorQuery The current query, for fluid interface
+	 */
+	public function recentlyCreated($nbDays = 7)
+	{
+		return $this->addUsingAlias(ActorPeer::CREATED_AT, time() - $nbDays * 24 * 60 * 60, Criteria::GREATER_EQUAL);
+	}
+	
+	/**
+	 * Order by update date desc
+	 *
+	 * @return     ActorQuery The current query, for fluid interface
+	 */
+	public function lastUpdatedFirst()
+	{
+		return $this->addDescendingOrderByColumn(ActorPeer::UPDATED_AT);
+	}
+	
+	/**
+	 * Order by update date asc
+	 *
+	 * @return     ActorQuery The current query, for fluid interface
+	 */
+	public function firstUpdatedFirst()
+	{
+		return $this->addAscendingOrderByColumn(ActorPeer::UPDATED_AT);
+	}
+	
+	/**
+	 * Order by create date desc
+	 *
+	 * @return     ActorQuery The current query, for fluid interface
+	 */
+	public function lastCreatedFirst()
+	{
+		return $this->addDescendingOrderByColumn(ActorPeer::CREATED_AT);
+	}
+	
+	/**
+	 * Order by create date asc
+	 *
+	 * @return     ActorQuery The current query, for fluid interface
+	 */
+	public function firstCreatedFirst()
+	{
+		return $this->addAscendingOrderByColumn(ActorPeer::CREATED_AT);
 	}
 
 } // BaseActorQuery

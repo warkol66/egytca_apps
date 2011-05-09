@@ -19,13 +19,8 @@ else {
 }
 
 if (!empty($propelVersion)) {
-
-	ini_set("include_path",ini_get("include_path").PATH_SEPARATOR.dirname(__FILE__)."/lib-phpmvc/Propel_1.6.0/runtime/");
 	require_once 'lib/Propel.php';
-//	ini_set("include_path",ini_get("include_path").PATH_SEPARATOR.dirname(__FILE__)."/classes/propel/build/classes/");
-//	ini_set("include_path",ini_get("include_path").PATH_SEPARATOR.dirname(__FILE__)."/classes/ml/build/classes/");
 	Propel::init("$moduleRootDir/config/application-conf.php");
-
 }
 
 //ponemos el server en UTC

@@ -45,6 +45,7 @@ class DocumentTableMap extends TableMap {
 		$this->addColumn('DESCRIPTION', 'Description', 'VARCHAR', false, 255, null);
 		$this->addColumn('DOCUMENT_DATE', 'DocumentDate', 'DATE', false, null, null);
 		$this->addColumn('PASSWORD', 'Password', 'VARCHAR', false, 32, null);
+		$this->addColumn('FULLTEXTCONTENT', 'Fulltextcontent', 'LONGVARCHAR', false, null, null);
 		// validators
 	} // initialize()
 

@@ -1,16 +1,30 @@
 <database defaultIdMethod="native" package="actors.classes" name="application" >
-  <table phpName="Actor" name="MER_actor" description="Actors" >
 
-    <column autoIncrement="true" type="INTEGER" name="id" required="true" description="" primaryKey='true' />
-    <column size="255" type="VARCHAR" name="name" required="true" description="actor's name" />
-    <column type="INTEGER" name="categoryId" description="" />
-    <column type="BOOLEAN" name="active" required="true" description="" />
-    <column name="strategy" type="VARCHAR" size="255" description="Estrategia"/>
-    <column name="tactic" type="VARCHAR" size="255" description="Tactica"/>
-    <column name="observations" type="VARCHAR" size="255" description="Observaciones"/>
-    <foreign-key foreignTable="MER_category" >
-      <reference local="categoryId" foreign="id" />
-    </foreign-key>
-  </table>
+	<table phpName="Actor" name="MER_actor" description="Actors" >
+
+		<column name="id"           type="INTEGER" autoIncrement="true" required="true" description="actor's Id" primaryKey='true' />
+		<column name="title"        type="VARCHAR" size="30" required="true" description="actor's title" />
+		<column name="name"         type="VARCHAR" size="100" required="true" description="actor's name" />
+		<column name="surname"      type="VARCHAR" size="100" required="true" description="actor's surname" />
+		<column name="categoryId"   type="INTEGER" description="" />
+		<column name="active"       type="BOOLEAN" sqlType="BOOL" default="1" required="true" description="to be deleted!!!" />
+		<column name="strategy"     type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Estrategia" />
+		<column name="tactic"       type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Tactica" />
+		<column name="comments"     type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Comentarios" />
+		<column name="observations" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Observaciones to be deleted" />
+
+		<behavior name="soft_delete" />
+		<behavior name="timestampable" />
+
+		<foreign-key foreignTable="MER_category" >
+			<reference local="categoryId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
 
 </database>

@@ -19,13 +19,14 @@ CREATE TABLE `MER_document`
 	`description` VARCHAR(255) COMMENT 'Descripcion del archivo',
 	`document_date` DATE COMMENT 'Fecha del documento',
 	`password` VARCHAR(32) COMMENT 'Clave del archivo',
+	`fullTextContent` MEDIUMTEXT COMMENT 'Contenido del archivo',
 	PRIMARY KEY (`id`),
 	INDEX `MER_document_FI_1` (`categoryId`),
 	CONSTRAINT `MER_document_FK_1`
 		FOREIGN KEY (`categoryId`)
 		REFERENCES `MER_category` (`id`)
 		ON DELETE CASCADE
-) ENGINE=MyISAM COMMENT='Documentos del sistema';
+) ENGINE=MyISAM CHARACTER SET='utf8' COLLATE='utf8_general_ci' COMMENT='Documentos del sistema';
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;
