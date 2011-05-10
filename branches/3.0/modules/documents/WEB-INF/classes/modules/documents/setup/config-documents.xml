@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<documents>
+		<rowsPerPage>10</rowsPerPage>
+		<documentsPath>WEB-INF/documents</documentsPath>
+		<useGlobalCategories>
+			<value>NO</value>
+			<element_type>YES/NO</element_type>
+		</useGlobalCategories>
+		<usesCategoriesGroupPermission>
+			<value>NO</value>
+			<element_type>YES/NO</element_type>
+		</usesCategoriesGroupPermission>
+		<usePasswords>
+			<value>NO</value>
+			<element_type>YES/NO</element_type>
+		</usePasswords>
+		<newestLimit>6</newestLimit>
+	</documents>
+</config>

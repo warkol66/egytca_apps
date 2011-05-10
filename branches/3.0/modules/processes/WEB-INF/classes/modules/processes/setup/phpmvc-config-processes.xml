@@ -1,0 +1,93 @@
+<!-- Module Processes -->
+	<action-mappings>
+
+		<action    path = "processesEdit"
+							 type = "ProcessesEditAction"
+							 name = "processesEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProcessesEdit.tpl" />
+		</action>
+
+		<action    path = "processesDoEdit"
+							 type = "ProcessesDoEditAction"
+							 name = "processesDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=processesList&amp;message=ok" redirect="true" />
+			<forward name="success-show" path="/Main.php?do=processesShow&amp;message=ok" redirect="true" />
+			<forward name="failure" path="ProcessesEdit.tpl" />
+		</action>
+
+		<action    path = "processesList"
+							 type = "ProcessesListAction"
+							 name = "processesList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProcessesList.tpl" />
+		</action>
+
+		<action    path = "processesShow"
+							 type = "ProcessesShowAction"
+							 name = "processesShow"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProcessesShow.tpl" />
+		</action>
+
+		<action    path = "processesDetailsShow"
+							 type = "ProcessesDetailsShowAction"
+							 name = "processesDetailsShow"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProcessesDetailsShow.tpl" />
+		</action>
+
+		<action    path = "processesDoDelete"
+							 type = "ProcessesDoDeleteAction"
+							 name = "processesDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=processesList&amp;message=deleted_ok" redirect="true" />
+			<forward name="success-show" path="/Main.php?do=processesShow&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "processesDoAddCommuneX"
+							 type = "ProcessesDoAddCommuneToProcessXAction"
+							 name = "processesDoAddCommuneX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProcessesDoAddCommuneToProcessX.tpl" />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "processesDoDeleteCommuneX"
+							 type = "ProcessesDoDeleteCommuneFromProcessXAction"
+							 name = "processesDoDeleteCommuneX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProcessesDoDeleteCommuneFromProcessX.tpl"  />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "processesDoAddRegionX"
+							 type = "ProcessesDoAddRegionToProcessXAction"
+							 name = "processesDoAddRegionX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProcessesDoAddRegionToProcessX.tpl" />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "processesDoDelRegionX"
+							 type = "ProcessesDoDeleteRegionFromProcessXAction"
+							 name = "processesDoDelRegionX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProcessesDoDeleteRegionFromProcessX.tpl"  />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+	</action-mappings>
+
+<!-- Fin Module Processes -->

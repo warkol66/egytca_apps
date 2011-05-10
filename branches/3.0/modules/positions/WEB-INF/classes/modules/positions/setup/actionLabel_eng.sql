@@ -1,0 +1,10 @@
+DELETE FROM `security_actionLabel` WHERE `action` LIKE 'Positions%' AND `language` = 'eng';
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsEdit', 'Edit position', 'eng');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsList', 'List positions', 'eng');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsTenuresDoDelete', 'Delete tenure from a position', 'eng');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsDoDelete', 'Delete a position', 'eng');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsUsersListX', '', 'eng');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsGetAllParentsByPositionX', '', 'eng');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsShow', 'Shows positions objectives', 'eng');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsChartView', 'Organizational chart view', 'eng');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsTenuresDoEdit', 'Edit a position tenure', 'eng');

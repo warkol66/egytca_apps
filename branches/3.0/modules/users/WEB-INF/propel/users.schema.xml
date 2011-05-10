@@ -1,0 +1,96 @@
+<database defaultIdMethod="native" package="users.classes" name="application" >
+
+	<table name="users_user" phpName='User' description="Users">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="User Id" autoIncrement="true"/>
+		<column name="username" required="true"  type="VARCHAR" size="255" description="username"/>
+		<column name="password" required="true"  type="VARCHAR" size="255" description="password"/>
+		<column name="passwordUpdated" type="DATE" description="Fecha de actualizacion de la clave" />
+		<column name="active" required="true"  type="BOOLEAN"  description="Is user active?"/>
+		<column name="levelId" type="INTEGER" description="User Level" />
+		<column name="lastLogin" type="TIMESTAMP" description="Fecha del ultimo login del usuario" />
+		<column name="timezone" type="VARCHAR" size="25" description="Timezone GMT del usuario" />
+		<column name="recoveryHash" type="VARCHAR" size="255" description="Hash enviado para la recuperacion de clave" />
+		<column name="recoveryHashCreatedOn" type="TIMESTAMP" description="Momento de la solicitud para la recuperacion de clave" />
+		<column name="name" type="VARCHAR" size="90" description="Nombre"/>
+		<column name="surname" type="VARCHAR" size="90" description="Apellido"/>
+		<column name="mailAddress" type="VARCHAR" size="90" description="Direccion electronica"/>
+		<column name="mailAddressAlt" type="VARCHAR" size="90" description="Direccion electronica alternativa"/>
+
+		<behavior name="soft_delete" />
+		<behavior name="timestampable" />
+
+		<unique>
+			<unique-column name="username" />
+		</unique>
+
+		<foreign-key foreignTable="users_level" >
+			<reference local="levelId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name='users_userGroup' phpName='UserGroup' isCrossRef='true' description='Users / Groups'>
+
+		<column name="userId" required="true" primaryKey='true' type="INTEGER"  description="Group ID"/>
+		<column name="groupId" required="true" primaryKey='true' type="INTEGER"  description="Group ID"/>
+
+		<foreign-key foreignTable="users_user">
+			<reference local="userId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="users_group" onDelete="cascade">
+			<reference local="groupId" foreign="id"/>
+		</foreign-key>
+
+	</table>
+
+	<table name="users_group" phpName='Group' description="Groups">
+		<column name="id" required="true"  primaryKey='true' type="INTEGER"  description="Group ID" autoIncrement="true"/>
+		<column name="name" required="true"  type="VARCHAR" size="255"  description="Group Name"/>
+		<column name="created" required="true"  type="TIMESTAMP"  description="Creation date for"/>
+		<column name="updated" required="true"  type="TIMESTAMP"  description="Last update date"/>
+		<column name="bitLevel"   type="INTEGER"  description="Nivel"/>
+		<unique>
+			<unique-column name="name" />
+		</unique>
+	 </table>
+
+	 <table name="users_level" phpName='Level' description="Levels">
+
+		<column name="id" required="true"  primaryKey='true' type="INTEGER"  description="Level ID" autoIncrement="true"/>
+		<column name="name" required="true"  type="VARCHAR" size="255"  description="Level Name"/>
+		<column name="bitLevel" type="INTEGER"  description="Bit del nivel"/>
+
+		<unique>
+			<unique-column name="name" />
+		</unique>
+
+	</table>
+
+	<table name="users_groupCategory" phpName="GroupCategory" description="Groups_Categories" isCrossRef="true">
+	
+		<column name="groupId" required="true" primaryKey="true" type="INTEGER" description="Group ID"/>
+		<column name="categoryId" required="true" primaryKey="true" type="INTEGER" description="Category ID"/>
+	
+		<foreign-key foreignTable="users_group" onDelete="CASCADE" >
+			<reference local="groupId" foreign="id" />
+		</foreign-key>
+	
+		<foreign-key foreignTable="categories_category" onDelete="CASCADE" >
+			<reference local="categoryId" foreign="id" />
+		</foreign-key>
+	
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+	
+	</table>
+
+</database>
