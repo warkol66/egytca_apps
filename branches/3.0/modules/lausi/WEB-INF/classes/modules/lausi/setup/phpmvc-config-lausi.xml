@@ -1,0 +1,706 @@
+<!-- Module Lausi -->
+
+<!-- Section Motives Distribution -->
+<action-mappings>
+		<action    path = "lausiDistributeByRegion"
+							 type = "LausiDistributeByRegionAction"
+							 name = "lausiDistributeByRegion"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiDistributeByRegion.tpl" />
+		</action>
+
+		<action    path = "lausiDistributeByCircuit"
+							 type = "LausiDistributeByCircuitAction"
+							 name = "lausiDistributeByCircuit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiDistributeByCircuit.tpl" />
+		</action>
+
+		<action    path = "lausiDistributeByRating"
+							 type = "LausiDistributeByRatingAction"
+							 name = "lausiDistributeByRating"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiDistributeByRating.tpl" />
+		</action>
+
+		<action    path = "lausiDistributeByLocation"
+							 type = "LausiDistributeByLocationAction"
+							 name = "lausiDistributeByLocation"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiDistributeByLocation.tpl" />
+		</action>
+
+		<action    path = "lausiDistributeByCircuitPercentage"
+							 type = "LausiDistributeByCircuitPercentageAction"
+							 name = "lausiDistributeByCircuitPercentage"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiDistributeByCircuitPercentage.tpl" />
+		</action>
+
+		<action    path = "lausiDistributeProposeX"
+							 type = "LausiDistributeProposeXAction"
+							 name = "lausiDistributeProposeX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success-by-region" path="LausiDistributeProposeByRegion.tpl" />
+			<forward name="success-by-circuit" path="LausiDistributeProposeByCircuit.tpl" />
+			<forward name="success-by-rating" path="LausiDistributeProposeByRating.tpl" />
+			<forward name="success-by-location" path="LausiDistributeProposeByLocation.tpl" />
+			<forward name="failure" path="LausiDistributeProposeFailure.tpl" />
+		</action>
+
+		<action    path = "lausiDoDistributeX"
+							 type = "LausiDoDistributeXAction"
+							 name = "lausiDoDistributeX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiDoDistributeX.tpl" />
+			<forward name="failure" path="LausiDoDistributeXFailure.tpl" />
+		</action>
+
+</action-mappings>
+<!-- End Motives Distribution -->
+
+<!-- Section Campaigns -->
+<action-mappings>
+		<action    path = "lausiCampaignsShow"
+							 type = "LausiCampaignsShowAction"
+							 name = "lausiCampaignsShow"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiCampaignsShow.tpl" />
+		</action>
+
+		<action    path = "lausiCampaignsSearchX"
+							 type = "LausiCampaignsSearchXAction"
+							 name = "lausiCampaignsSearchX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiCampaignsSearchX.tpl" />
+		</action>
+
+		<action    path = "lausiCampaignsDoExtensionX"
+							 type = "LausiCampaignsDoExtensionXAction"
+							 name = "lausiCampaignsDoExtensionX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiCampaignsDoExtensionX.tpl" />
+		</action>
+
+		<action    path = "lausiCampaignsDoReductionX"
+							 type = "LausiCampaignsDoReductionXAction"
+							 name = "lausiCampaignsDoReductionX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiCampaignsDoReductionX.tpl" />
+		</action>
+
+		<action    path = "lausiCampaignsDoDeleteX"
+							 type = "LausiCampaignsDoDeleteXAction"
+							 name = "lausiCampaignsDoDeleteX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiCampaignsDoDeleteX.tpl" />
+		</action>
+
+</action-mappings>
+<!-- End Section Campaigns -->
+
+<!-- Section Workforces -->
+<action-mappings>
+		<action    path = "lausiWorkforcesEdit"
+							 type = "LausiWorkforcesEditAction"
+							 name = "lausiWorkforcesEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiWorkforcesEdit.tpl" />
+		</action>
+
+		<action    path = "lausiWorkforcesDoAddCircuitX"
+							 type = "LausiWorkforcesDoAddCircuitXAction"
+							 name = "lausiWorkforcesDoAddCircuitX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiWorkforcesDoAddCircuitX.tpl" />
+			<forward name="failure" path="LausiFailure.tpl" />
+		</action>
+
+		<action    path = "lausiWorkforcesDoDeleteCircuitX"
+							 type = "LausiWorkforcesDoDeleteCircuitXAction"
+							 name = "lausiWorkforcesDoDeleteCircuitX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiWorkforcesDoDeleteCircuitX.tpl" />
+			<forward name="failure" path="LausiFailure.tpl" />
+		</action>
+
+		<action    path = "lausiWorkforcesDoEdit"
+							 type = "LausiWorkforcesDoEditAction"
+							 name = "lausiWorkforcesDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiWorkforcesList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="LausiWorkforcesEdit.tpl" />
+		</action>
+
+		<action    path = "lausiWorkforcesList"
+							 type = "LausiWorkforcesListAction"
+							 name = "lausiWorkforcesList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiWorkforcesList.tpl" />
+		</action>
+
+		<action    path = "lausiWorkforcesAssignAdmin"
+							 type = "LausiWorkforcesAssignAdminAction"
+							 name = "lausiWorkforcesAssignAdmin"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiWorkforcesAssignAdmin.tpl" />
+		</action>
+
+		<action    path = "lausiWorkforcesAssign"
+							 type = "LausiWorkforcesAssignAction"
+							 name = "lausiWorkforcesAssign"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiWorkforcesAssign.tpl" />
+		</action>
+
+		<action    path = "lausiWorkforcesDoAssign"
+							 type = "LausiWorkforcesDoAssignAction"
+							 name = "lausiWorkforcesDoAssign"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiWorkforcesAssignAdmin&amp;message=ok" redirect="true" />
+			<forward name="success-ajax" path="LausiWorkforcesDoAssignX.tpl" />
+		</action>
+
+		<action    path = "lausiWorkforcesAssignDelete"
+							 type = "LausiWorkforcesAssignDeleteAction"
+							 name = "lausiWorkforcesAssignDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiWorkforcesAssignAdmin&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "lausiWorkforcesDoDelete"
+							 type = "LausiWorkforcesDoDeleteAction"
+							 name = "lausiWorkforcesDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiWorkforcesList&amp;message=deleted_ok" redirect="true" />
+		</action>
+	</action-mappings>
+<!-- End Section Workforces -->
+
+<!-- Section Circuits -->
+	<action-mappings>
+		<action    path = "lausiCircuitsEdit"
+							 type = "LausiCircuitsEditAction"
+							 name = "lausiCircuitsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiCircuitsEdit.tpl" />
+		</action>
+
+		<action    path = "lausiCircuitsDoEdit"
+							 type = "LausiCircuitsDoEditAction"
+							 name = "lausiCircuitsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiCircuitsList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="LausiCircuitsEdit.tpl" />
+		</action>
+
+		<action    path = "lausiCircuitsList"
+							 type = "LausiCircuitsListAction"
+							 name = "lausiCircuitsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiCircuitsList.tpl" />
+		</action>
+
+		<action    path = "lausiCircuitsDoAddWorkforceX"
+							 type = "LausiCircuitsDoAddWorkforceXAction"
+							 name = "lausiCircuitsDoAddWorkforceX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiCircuitsDoAddWorkforceX.tpl" />
+			<forward name="failure" path="LausiFailure.tpl" />
+		</action>
+
+		<action    path = "lausiCircuitsDoDeleteWorkforceX"
+							 type = "LausiCircuitsDoDeleteWorkforceXAction"
+							 name = "lausiCircuitsDoDeleteWorkforceX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiCircuitsDoDeleteWorkforceX.tpl" />
+			<forward name="failure" path="LausiFailure.tpl" />
+		</action>
+
+		<action    path = "lausiCircuitsDoDelete"
+							 type = "LausiCircuitsDoDeleteAction"
+							 name = "lausiCircuitsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiCircuitsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+	</action-mappings>
+<!-- End Section Circuits -->
+
+<!-- Section Addresses -->
+	<action-mappings>
+		<action    path = "lausiAddressesEdit"
+							 type = "LausiAddressesEditAction"
+							 name = "lausiAddressesEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiAddressesEdit.tpl" />
+		</action>
+
+		<action    path = "lausiAddressesDoEdit"
+							 type = "LausiAddressesDoEditAction"
+							 name = "lausiAddressesDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiAddressesList&amp;message=ok" redirect="true" />
+			<forward name="success-creation" path="/Main.php?do=lausiAddressesEdit&amp;message=created" redirect="true" />
+			<forward name="failure" path="LausiAddressesEdit.tpl" />
+		</action>
+
+		<action    path = "lausiAddressesList"
+							 type = "LausiAddressesListAction"
+							 name = "lausiAddressesList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiAddressesList.tpl" />
+		</action>
+
+		<action    path = "lausiAddressesOrder"
+							 type = "LausiAddressesOrderAction"
+							 name = "lausiAddressesOrder"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiAddressesOrder.tpl" />
+		</action>
+
+		<action    path = "lausiAddressesOrderX"
+							 type = "LausiAddressesOrderXAction"
+							 name = "lausiAddressesOrderX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiAddressesOrderX.tpl" />
+		</action>
+
+		<action    path = "lausiAddressesDoDelete"
+							 type = "LausiAddressesDoDeleteAction"
+							 name = "lausiAddressesDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiAddressesList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "lausiAddressesImport"
+							 type = "LausiAddressesImportAction"
+							 name = "lausiAddressesImport"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiAddressesImport.tpl" />
+		</action>
+
+		<action    path = "lausiAddressesImportConfirm"
+							 type = "LausiAddressesImportConfirmAction"
+							 name = "lausiAddressesImportConfirm"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiAddressesImportConfirm.tpl" />
+		</action>
+
+		<action    path = "lausiAddressesDoImport"
+							 type = "LausiAddressesDoImportAction"
+							 name = "lausiAddressesDoImport"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiAddressesImport&amp;message=ok" redirect="true" />
+		</action>
+	</action-mappings>
+<!-- End Section Addresses -->
+
+<!-- Section Regions -->
+	<action-mappings>
+		<action    path = "lausiRegionsEdit"
+							 type = "LausiRegionsEditAction"
+							 name = "lausiRegionsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiRegionsEdit.tpl" />
+		</action>
+
+		<action    path = "lausiRegionsDoEdit"
+							 type = "LausiRegionsDoEditAction"
+							 name = "lausiRegionsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiRegionsList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="LausiRegionsEdit.tpl" />
+		</action>
+
+		<action    path = "lausiRegionsList"
+							 type = "LausiRegionsListAction"
+							 name = "lausiRegionsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiRegionsList.tpl" />
+		</action>
+
+		<action    path = "lausiRegionsDoDelete"
+							 type = "LausiRegionsDoDeleteAction"
+							 name = "lausiRegionsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiRegionsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+	</action-mappings>
+<!-- End Section Regions -->
+
+<!-- Section Clients -->
+	<action-mappings>
+		<action    path = "lausiClientsEdit"
+							 type = "LausiClientsEditAction"
+							 name = "lausiClientsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiClientsEdit.tpl" />
+		</action>
+
+		<action    path = "lausiClientsDoEdit"
+							 type = "LausiClientsDoEditAction"
+							 name = "lausiClientsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiClientsList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="LausiClientsEdit.tpl" />
+		</action>
+
+		<action    path = "lausiClientsList"
+							 type = "LausiClientsListAction"
+							 name = "lausiClientsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiClientsList.tpl" />
+		</action>
+
+		<action    path = "lausiClientsDoDelete"
+							 type = "LausiClientsDoDeleteAction"
+							 name = "lausiClientsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiClientsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+	</action-mappings>
+<!-- End Section Clients -->
+
+<!-- Section ClientAddresses -->
+	<action-mappings>
+		<action    path = "lausiClientAddressesEdit"
+							 type = "LausiClientAddressesEditAction"
+							 name = "lausiClientAddressesEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiClientAddressesEdit.tpl" />
+		</action>
+
+		<action    path = "lausiClientAddressesDoEdit"
+							 type = "LausiClientAddressesDoEditAction"
+							 name = "lausiClientAddressesDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiClientAddressesList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="LausiClientAddressesEdit.tpl" />
+		</action>
+
+		<action    path = "lausiClientAddressesList"
+							 type = "LausiClientAddressesListAction"
+							 name = "lausiClientAddressesList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiClientAddressesList.tpl" />
+		</action>
+
+		<action    path = "lausiClientAddressesDoDelete"
+							 type = "LausiClientAddressesDoDeleteAction"
+							 name = "lausiClientAddressesDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiClientAddressesList&amp;message=deleted_ok" redirect="true" />
+		</action>
+	</action-mappings>
+<!-- End Section ClientAddresses -->
+
+<!-- Section Billboards -->
+	<action-mappings>
+		<action    path = "lausiBillboardsEdit"
+							 type = "LausiBillboardsEditAction"
+							 name = "lausiBillboardsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiBillboardsEdit.tpl" />
+		</action>
+
+		<action    path = "lausiBillboardsDoEdit"
+							 type = "LausiBillboardsDoEditAction"
+							 name = "lausiBillboardsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiBillboardsList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="LausiBillboardsEdit.tpl" />
+			<forward name="success-ajax" path="LausiBillboardsEditAjaxSuccess.tpl" />
+			<forward name="failure-ajax" path="LausiBillboardsEditAjaxFailure.tpl" />
+
+		</action>
+
+		<action    path = "lausiBillboardsDoCreateX"
+							 type = "LausiBillboardsDoCreateXAction"
+							 name = "lausiBillboardsDoCreateX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiBillboardsCreateXSuccess.tpl" />
+		</action>
+
+		<action    path = "lausiBillboardsList"
+							 type = "LausiBillboardsListAction"
+							 name = "lausiBillboardsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiBillboardsList.tpl" />
+			<forward name="xml" path="LausiBillboardsListXml.tpl" />
+		</action>
+
+		<action    path = "lausiBillboardsDoDelete"
+							 type = "LausiBillboardsDoDeleteAction"
+							 name = "lausiBillboardsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiBillboardsList&amp;message=deleted_ok" redirect="true" />
+			<forward name="success-ajax" path="LausiBillboardsDoDeleteAjaxSuccess.tpl" />
+		</action>
+	</action-mappings>
+<!-- End Section Billboards -->
+
+<!-- Section Themes -->
+	<action-mappings>
+		<action    path = "lausiThemesEdit"
+							 type = "LausiThemesEditAction"
+							 name = "lausiThemesEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiThemesEdit.tpl" />
+		</action>
+
+		<action    path = "lausiThemesRotate"
+							 type = "LausiThemesRotateAction"
+							 name = "lausiThemesRotate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiThemesRotate.tpl" />
+		</action>
+
+		<action    path = "lausiThemesProposeRotationX"
+							 type = "LausiThemesProposeRotationXAction"
+							 name = "lausiThemesProposeRotationX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiThemesProposeRotation.tpl" />
+		</action>
+
+		<action    path = "lausiThemesRotateX"
+							 type = "LausiThemesRotateXAction"
+							 name = "lausiThemesRotateX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiThemesRotateXSuccess.tpl" />
+			<forward name="failure" path="LausiThemesRotateXFailure.tpl" />
+		</action>
+
+
+		<action    path = "lausiThemesDoEdit"
+							 type = "LausiThemesDoEditAction"
+							 name = "lausiThemesDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiThemesList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="LausiThemesEdit.tpl" />
+			<forward name="success-ajax" path="LausiThemesEditXSuccess.tpl" />
+			<forward name="failure-ajax" path="LausiThemesEditXFailure.tpl"/>
+		</action>
+
+		<action    path = "lausiThemesList"
+							 type = "LausiThemesListAction"
+							 name = "lausiThemesList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiThemesList.tpl" />
+		</action>
+
+		<action    path = "lausiThemesDoDelete"
+							 type = "LausiThemesDoDeleteAction"
+							 name = "lausiThemesDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiThemesList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "lausiThemesGetCountX"
+							 type = "LausiThemesGetCountXAction"
+							 name = "lausiThemesGetCountX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiThemesGetCountX.tpl" />
+		</action>
+
+		<action    path = "lausiThemesActiveToggleX"
+							 type = "LausiThemesActiveToggleXAction"
+							 name = "lausiThemesActiveToggleX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiThemesActiveToggleX.tpl" />
+		</action>
+
+		<action    path = "lausiThemesDeactivateEndedX"
+							 type = "LausiThemesDeactivateEndedXAction"
+							 name = "lausiThemesDeactivateEndedX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiThemesDeactivateEndedX.tpl" />
+		</action>
+	</action-mappings>
+<!-- End Section Themes -->
+
+<!-- Section Reports -->
+<action-mappings>
+	<action    path = "lausiReportsRouteSheet"
+						 type = "LausiReportsRouteSheetAction"
+						 name = "lausiReportsRouteSheet"
+						scope = "request"
+				 validate = "true">
+	<forward name="success" path="LausiReportsRouteSheet.tpl" />
+	</action>
+</action-mappings>
+
+<action-mappings>
+	<action    path = "lausiReportsSheetsLocation"
+						 type = "LausiReportsSheetsLocationAction"
+						 name = "lausiReportsSheetsLocation"
+						scope = "request"
+				 validate = "true">
+	<forward name="success" path="LausiReportsSheetsLocation.tpl" />
+	<forward name="xml" path="LausiReportsSheetsLocationXml.tpl" />
+	</action>
+</action-mappings>
+
+<action-mappings>
+	<action    path = "lausiReportsAvailableBillboards"
+						 type = "LausiReportsAvailableBillboardsAction"
+						 name = "lausiReportsAvailableBillboards"
+						scope = "request"
+				 validate = "true">
+	<forward name="success" path="LausiReportsAvailableBillboards.tpl" />
+	<forward name="include" path="LausiReportsAvailableBillboardsInclude.tpl" />
+	</action>
+</action-mappings>
+
+<action-mappings>
+	<action    path = "lausiReportsBillboardsOwned"
+						 type = "LausiReportsBillboardsOwnedAction"
+						 name = "lausiReportsBillboardsOwned"
+						scope = "request"
+				 validate = "true">
+	<forward name="success" path="LausiReportsBillboardsOwned.tpl" />
+	</action>
+</action-mappings>
+
+<action-mappings>
+	<action    path = "lausiReportsThemes"
+						type = "LausiReportsThemesAction"
+						name = "lausiReportsThemes"
+					 scope = "request"
+				validate = "true">
+	<forward name="success" path="LausiReportsThemes.tpl" />
+	<forward name="xml" path="LausiReportsThemesXml.tpl" />
+	</action>
+
+	<action    path = "lausiReportsThemesCircuit"
+						type = "LausiReportsThemesCircuitAction"
+						name = "lausiReportsThemesCircuit"
+					 scope = "request"
+				validate = "true">
+	<forward name="success" path="LausiReportsThemesCircuit.tpl" />
+	</action>
+
+	<action    path = "lausiReportsAddresses"
+						 type = "LausiReportsAddressesAction"
+						 name = "lausiReportsAddresses"
+						scope = "request"
+				 validate = "true">
+	<forward name="success" path="LausiReportsAddresses.tpl" />
+	<forward name="xml" path="LausiReportsAddressesXml.tpl" />
+	</action>
+
+</action-mappings>
+<!-- End Section Reports -->
+
+<!-- Section Advertisements -->
+	<action-mappings>
+		<action    path = "lausiAdvertisementsEdit"
+							 type = "LausiAdvertisementsEditAction"
+							 name = "lausiAdvertisementsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiAdvertisementsEdit.tpl" />
+		</action>
+
+		<action    path = "lausiAdvertisementsDoEdit"
+							 type = "LausiAdvertisementsDoEditAction"
+							 name = "lausiAdvertisementsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiAdvertisementsList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="LausiAdvertisementsEdit.tpl" />
+			<forward name="failure-overlapping" path="/Main.php?do=lausiAdvertisementsList&amp;message=failure_overlapping" redirect="true" />
+		</action>
+
+		<action    path = "lausiAdvertisementsList"
+							 type = "LausiAdvertisementsListAction"
+							 name = "lausiAdvertisementsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="LausiAdvertisementsList.tpl" />
+			<forward name="xml" path="LausiAdvertisementsListXml.tpl" />
+		</action>
+
+		<action    path = "lausiAdvertisementsDoDelete"
+							 type = "LausiAdvertisementsDoDeleteAction"
+							 name = "lausiAdvertisementsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=lausiAdvertisementsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "lausiAddAdvertOnAddressX"
+							 type = "lausiAddAdvertOnAddressXAction"
+							 name = "lausiAddAdvertOnAddressX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="lausiAddAdvertOnAddressXSuccess.tpl" />
+			<forward name="failure" path="lausiAddAdvertOnAddressXFailure.tpl" />
+		</action>
+	</action-mappings>
+<!-- End Section Advertisements -->
+
+<!-- End Module Lausi -->

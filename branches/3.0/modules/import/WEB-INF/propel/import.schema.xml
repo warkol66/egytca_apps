@@ -1,0 +1,461 @@
+<database defaultIdMethod="native" package="import.classes" name="application" >
+
+	<table name="import_product" phpName='Product' description="Productos">
+	 <column name="id" required="true" primaryKey="true" type="INTEGER" description="Product Id" autoIncrement="true"/>
+	 <column name="code" size="255" type="VARCHAR" description="Codigo del producto" />
+	 <column name="name" size="255" type="VARCHAR" description="Nombre del producto en ingles" />
+	 <column name="nameSpanish" size="255" type="VARCHAR" description="Nombre del producto en espaniol" />
+	 <column name="description" type="LONGVARCHAR" description="Descripcion del producto en ingles" />
+	 <column name="descriptionSpanish" type="LONGVARCHAR" description="Descripcion del producto en espaniol" />
+	 <column name="nameChinese" size="255" type="VARCHAR" description="Nombre del producto en chino" />
+	 <column name="descriptionChinese" type="LONGVARCHAR" description="Descripcion del producto en chino" />
+	 <column type="INTEGER" name="status" required="true" description="product status" />
+	
+	</table>
+	
+	<table name="import_productSupplier" phpName='ProductSupplier' description="Relacion Productos Proveedores">
+	 <column name="productId" required="true" primaryKey="true" type="INTEGER" description="Product Id" />
+	 <column name="supplierId" size="255" type="VARCHAR" description="Nombre del producto" />
+	 <column name="code" size="255" type="VARCHAR" description="Codigo del producto" />
+	
+	 <foreign-key foreignTable="import_product" >
+	   <reference local="productId" foreign="id" />
+	 </foreign-key>
+	
+	 <foreign-key foreignTable="import_supplier" >
+	   <reference local="supplierId" foreign="id" />
+	 </foreign-key>
+	
+	</table>
+	
+	<table name="import_supplier" phpName="Supplier" description="Proveedores" >
+	  <column autoIncrement="true" type="INTEGER" name="id" required="true" description="" primaryKey='true' />
+	  <column size="255" type="VARCHAR" name="name" required="true" description="Nombre" />
+	  <column size="255" type="VARCHAR" name="address" description="direccion" />
+	  <column size="25" type="VARCHAR" name="phoneNumber" description="telefono" />
+	  <column size="255" type="VARCHAR" name="email" description="email" />
+	  <column size="255" type="VARCHAR" name="contactName" description="Persona de contacto" />
+	  <column type="BOOLEAN" name="active" required="true" description="Is supplier active?" />
+	  <column name="defaultIncotermId" type="INTEGER" description="id de incoterm por default del proveedor"/>
+	  <column name="defaultPortId" type="INTEGER" description="id de puerto por default del proveedor"/>
+
+	  <foreign-key foreignTable="import_incoterm" >
+	  	<reference local="defaultIncotermId" foreign="id" />
+	  </foreign-key>
+
+	  <foreign-key foreignTable="import_port" >
+	    <reference local="defaultPortId" foreign="id" />
+	  </foreign-key>
+	
+	</table>
+	
+	 <table name="import_clientQuote" phpName='ClientQuote' description="Cotizacion a Cliente">
+	  <column name="id" required="true" primaryKey="true" type="INTEGER" description="Id de cotizacion de cliente" autoIncrement="true"/>
+	  <column name="createdAt" required="true"  type="TIMESTAMP"  description="Creation date for"/>
+	  <column name="affiliateId" type="INTEGER" description="Afiliado" required="true" />
+	  <column name="affiliateUserId" type="INTEGER" description="usuario del afiliado si creo la cotizacion" />
+	
+	  <column name="userId" type="INTEGER" description="Usuario de anmaga si creo la cotizacion" />
+	  <column name="status" type="INTEGER" description="Status de Cotizacion" required="true" />
+	  <column name="timestampStatus" type="TIMESTAMP" description="Fecha del ultimo cambio de status" />
+	
+	  <foreign-key foreignTable="users_user" >
+	    <reference local="userId" foreign="id" />
+	  </foreign-key>
+	
+	  <foreign-key foreignTable="affiliates_affiliate" >
+	    <reference local="affiliateId" foreign="id" />
+	  </foreign-key>	
+
+	  <foreign-key foreignTable="affiliates_user" >
+	    <reference local="affiliateUserId" foreign="id" />
+	  </foreign-key>	
+	
+	
+	 </table>
+
+	 <table name="import_clientQuoteHistory" phpName='ClientQuoteHistory' description="Historial de Cotizacion a Cliente">
+	  <column name="id" required="true" primaryKey="true" type="INTEGER" description="Id" autoIncrement="true"/>
+	  <column name="clientQuoteId" required="true"  type="INTEGER"  description="Id de la cotizacion de cliente"/>
+	  <column name="status" type="INTEGER" description="Status de Cotizacion" required="true" />
+	  <column name="createdAt" type="TIMESTAMP" description="Fecha del cambio de status" />
+	
+      <foreign-key foreignTable="import_clientQuote" >
+	    <reference local="clientQuoteId" foreign="id" />
+	  </foreign-key>
+	
+	 </table>
+
+	 <table name="import_clientQuoteItem" phpName='ClientQuoteItem' description="Elemento de Cotizacion Cliente">
+	
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id elemento de cotizacion de Cliente" autoIncrement="true"/>
+		<column name="clientQuoteId" required="true" type="INTEGER" description="Id de cotizacion de cliente"/>
+		<column name="productId" required="true" type="INTEGER" description="Id producto"/>
+		<column name="price" type="FLOAT" description="precio de producto" />
+		<column name="quantity" required="true" type="INTEGER" description="cantidad de producto" />
+		
+		<foreign-key foreignTable="import_clientQuote" >
+		  <reference local="clientQuoteId" foreign="id" />
+		</foreign-key>
+	
+		<foreign-key foreignTable="import_product" >
+		  <reference local="productId" foreign="id" />
+		</foreign-key>
+	
+	 </table>
+	
+	 <table name="import_supplierQuote" phpName='SupplierQuote' description="Cotizacion de Proveedor">
+	  <column name="id" required="true" primaryKey="true" type="INTEGER" description="Id de cotizacion de proveedor" autoIncrement="true"/>
+	  <column name="createdAt" required="true"  type="TIMESTAMP"  description="Creation date for"/>
+	  <column name="supplierId" type="INTEGER" description="Supplier" required="true" />
+	  <column name="status" type="INTEGER" description="Status de Cotizacion" required="true" />
+	  <column name="timestampStatus" type="TIMESTAMP" description="Fecha del ultimo cambio de status" />
+	  <column name="clientQuoteId" type="INTEGER" description="id de cotizacion relacionada" />
+	  <column name="supplierAccessToken" required="true" type="VARCHAR" size="255" description="token de validacion del acceso al proveedor a la orden"/>
+ 	
+	
+		<foreign-key foreignTable="import_clientQuote" >
+		  <reference local="clientQuoteId" foreign="id" />
+		</foreign-key>
+	
+		<foreign-key foreignTable="import_supplier" >
+		  <reference local="supplierId" foreign="id" />
+		</foreign-key>
+	 </table>
+
+	 <table name="import_supplierQuoteHistory" phpName='SupplierQuoteHistory' description="Historial de Cotizacion a Proveedor">
+	  <column name="id" required="true" primaryKey="true" type="INTEGER" description="Id" autoIncrement="true"/>
+	  <column name="supplierQuoteId" required="true"  type="INTEGER"  description="Id de la cotizacion de proveedor"/>
+	  <column name="status" type="INTEGER" description="Status de Cotizacion" required="true" />
+	  <column name="createdAt" type="TIMESTAMP" description="Fecha del cambio de status" />
+	
+      <foreign-key foreignTable="import_supplierQuote" >
+	    <reference local="supplierQuoteId" foreign="id" />
+	  </foreign-key>
+
+	 </table>
+	
+	
+	 <table name="import_supplierQuoteItem" phpName='SupplierQuoteItem' description="Elemento de Cotizacion de Proveedor">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id elemento de cotizacion de proveedor" autoIncrement="true"/>
+		<column name="supplierQuoteId" required="true" type="INTEGER" description="Id de cotizacion de proveedor"/>
+		<column name="productId" required="true" type="INTEGER" description="Id producto"/>
+		<column name="replacedProductId" type="INTEGER" description="Id producto que fue reemplazado por el actual"/>
+		<column name="clientQuoteItemId" required="true" type="INTEGER" description="Id de cotizacion de proveedor"/>	
+		<column name="status" type="INTEGER" description="Status de Item de Cotizacion" required="true" />
+		<column name="quantity" type="INTEGER" description="cantidad producto" required='true'/>
+		<column name="portId" type="INTEGER" description="id de puerto" required="true"/>
+		<column name="incotermId" type="INTEGER" description="id de incoterm" required="true"/>	
+
+		<!-- campos a ser llenados por el proveedor al cotizar -->
+		<column name="price" type="FLOAT" description="precio de producto"/>
+		<column name="supplierComments" type="VARCHAR" size='255' description="Comentarios del proveedor "/>	
+		<column name="delivery" type="INTEGER" description="Tiempo en dias para la entrega del producto."/>
+		<column name="package" type="INTEGER" description="A seleccionar entre Unidades o Bultos"/>
+		<column name="unitLength" type="FLOAT" description="Largo del empaque de la unidad "/>
+		<column name="unitWidth" type="FLOAT" description="Ancho del empaque de la unidad "/>
+		<column name="unitHeight" type="FLOAT" description="Alto del empaque de la unidad "/>
+		<column name="unitGrossWeigth" type="FLOAT" description="Peso del empaque de la unidad "/>
+		<column name="unitsPerCarton" type="INTEGER" description="Unidades por bulto"/>
+		<column name="cartons" type="INTEGER" description="Cantidad de bultos"/>
+		<column name="cartonLength" type="FLOAT" description="Largo del bulto"/>
+		<column name="cartonWidth" type="FLOAT" description="Ancho del bulto"/>
+		<column name="cartonHeight" type="FLOAT" description="Alto del bulto"/>
+		<column name="cartonGrossWeigth" type="FLOAT" description="Peso del bulto"/>
+				
+		<foreign-key foreignTable="import_supplierQuote" >
+		  <reference local="supplierQuoteId" foreign="id" />
+		</foreign-key>
+		
+		<foreign-key foreignTable="import_clientQuoteItem" >
+		  <reference local="clientQuoteItemId" foreign="id" />
+		</foreign-key>	
+		
+		<foreign-key foreignTable="import_product" >
+		  <reference local="productId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="import_product" >
+		  <reference local="replacedProductId" foreign="id" />
+		</foreign-key>	
+	
+		<foreign-key foreignTable="import_incoterm" >
+		  <reference local="incotermId" foreign="id" />
+		</foreign-key>
+	
+		<foreign-key foreignTable="import_port" >
+		  <reference local="portId" foreign="id" />
+		</foreign-key>
+		
+	 </table>
+	
+	 <table name="import_supplierQuoteItemComment" phpName='SupplierQuoteItemComment' description="Feedback entre supplier y usuario admin de anmaga sobre un Item">
+	  <column name="id" required="true" primaryKey="true" type="INTEGER" description="Id" autoIncrement="true"/>
+	  <column name="supplierQuoteItemId" required="true"  type="INTEGER"  description="Id del item de la cotizacion de proveedor"/>
+      <column name="supplierId" type="INTEGER" description="Supplier que comento" required="true" />
+      <column name="userId" type="INTEGER" description="Usuario de anmaga que comento" />  
+	
+	  <column name="price" type="FLOAT" description="precio de producto"/>
+	  <column name="comments" type="VARCHAR" size='255' description="Comentarios"/>	
+	  <column name="delivery" type="INTEGER" description="Tiempo en dias para la entrega del producto."/>
+	  <column name="createdAt" type="TIMESTAMP" description="Fecha del cambio de status" />
+      
+      <foreign-key foreignTable="users_user" >
+	  	<reference local="userId" foreign="id" />
+	  </foreign-key>
+
+	  <foreign-key foreignTable="import_supplier" >
+	    <reference local="supplierId" foreign="id" />
+	  </foreign-key>	
+	
+      <foreign-key foreignTable="import_supplierQuoteItem" >
+	    <reference local="supplierQuoteItemId" foreign="id" />
+	  </foreign-key>
+
+	 </table>	
+	
+	<table name="import_port" phpName='Port' description="Puerto">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Port Id" autoIncrement="true"/>
+		<column name="code" size="255" type="VARCHAR" description="Codigo del puerto" />
+		<column name="name" size="255" type="VARCHAR" description="Nombre del puerto" />
+		<column type="BOOLEAN" name="active" required="true" description="Is port active?" />
+	</table>
+	
+	<table name="import_incoterm" phpName='Incoterm' description="Incoterm">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Incoterm Id" autoIncrement="true"/>
+		<column name="name" size="255" type="VARCHAR" description="Nombre del Incoterm" />
+		<column name="description" size="255" type="VARCHAR" description="Descripcion del Incoterm" />  
+		<column type="BOOLEAN" name="active" required="true" description="Is incoterm active?" />
+	</table>
+
+	<table name="import_clientPurchaseOrder" phpName='ClientPurchaseOrder' description="Orden de Pedido a Cliente">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id de Orden de Pedido de Cliente" autoIncrement="true"/>
+		<column name="createdAt" required="true"  type="TIMESTAMP"  description="Creation date for"/>
+		<column name="status" type="INTEGER" description="Status de Cotizacion" required="true" />
+		<column name="timestampStatus" type="TIMESTAMP" description="Fecha del ultimo cambio de status" />
+	  	<column name="clientQuoteId" required="true" type="INTEGER" description="id de cotizacion de proveedor relacionada" />
+		<column name="affiliateId" type="INTEGER" description="Afiliado" required="true" />
+		<column name="affiliateUserId" type="INTEGER" description="usuario del afiliado si creo la cotizacion" />
+		<column name="userId" type="INTEGER" description="Usuario de anmaga si creo la cotizacion" />
+
+		<foreign-key foreignTable="import_clientQuote" >
+		  <reference local="clientQuoteId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="users_user" >
+		  <reference local="userId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="affiliates_affiliate" >
+		  <reference local="affiliateId" foreign="id" />
+		</foreign-key>	
+
+		<foreign-key foreignTable="affiliates_user" >
+		  <reference local="affiliateUserId" foreign="id" />
+		</foreign-key>	
+
+	</table>
+
+	<table name="import_clientPurchaseOrderItem" phpName='ClientPurchaseOrderItem' description="Elemento de Orden de Pedido a Cliente">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id elemento de Orden de Pedido a Cliente" autoIncrement="true"/>
+		<column name="productId" required="true" type="INTEGER" description="Id producto"/>
+		<column name="clientPurchaseOrderId" required="true" type="INTEGER" description="Id producto"/>
+		<column name="quantity" type="INTEGER" required='true' description="Id producto" />
+
+		<column name="price" type="FLOAT" required="true" description="precio de producto"/>
+
+		<foreign-key foreignTable="import_product" >
+		  <reference local="productId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="import_clientPurchaseOrder" >
+		  <reference local="clientPurchaseOrderId" foreign="id" />
+		</foreign-key>
+
+	</table>
+
+	<table name="import_clientPurchaseOrderHistory" phpName='ClientPurchaseOrderHistory' description="Historial de Estados por los que fue pasando la Orden de Pedido a Cliente">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id" autoIncrement="true"/>
+		<column name="clientPurchaseOrderId" required="true" type="INTEGER" description="Id de orden de pedido a proveedor"/>
+	  	<column name="status" type="INTEGER" required="true" description="Codigo del estado guardado." />
+		<column name="createdAt" required="true"  type="TIMESTAMP"  description="Creation date for"/>
+
+		<foreign-key foreignTable="import_clientPurchaseOrder" >
+		  <reference local="clientPurchaseOrderId" foreign="id" />
+		</foreign-key>
+
+	</table>
+
+	<table name="import_supplierPurchaseOrder" phpName='SupplierPurchaseOrder' description="Orden de Pedido a Proveedor">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id de Orden de Pedido de Cliente" autoIncrement="true"/>
+		<column name="createdAt" required="true"  type="TIMESTAMP"  description="Creation date for"/>
+		<column name="supplierId" type="INTEGER" description="Supplier" required="true" />
+		<column name="status" type="INTEGER" description="Status de Cotizacion" required="true" />
+		<column name="timestampStatus" type="TIMESTAMP" description="Fecha del ultimo cambio de status" />
+  	<column name="supplierQuoteId" required="true" type="INTEGER" description="id de cotizacion de proveedor relacionada" />
+		<column name="estimatedDeliveryDate" type="DATE" description="Fecha estimada de entrega" />
+		<column name="clientQuoteId" type="INTEGER" required="true" description="id de cotizacion a cliente relacionada" />
+		<column name="affiliateId" type="INTEGER" description="Afiliado" required="true" />
+		<column name="affiliateUserId" type="INTEGER" description="usuario del afiliado si creo la cotizacion" />
+		<column name="userId" type="INTEGER" description="Usuario de anmaga si creo la cotizacion" />
+
+		<foreign-key foreignTable="import_supplierQuote" >
+		  <reference local="supplierQuoteId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="import_clientQuote" >
+		  <reference local="clientQuoteId" foreign="id" />
+		</foreign-key>	
+
+		<foreign-key foreignTable="import_supplier" >
+		  <reference local="supplierId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="users_user" >
+		  <reference local="userId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="affiliates_affiliate" >
+		  <reference local="affiliateId" foreign="id" />
+		</foreign-key>	
+
+		<foreign-key foreignTable="affiliates_user" >
+		  <reference local="affiliateUserId" foreign="id" />
+		</foreign-key>
+
+	</table>
+
+	<table name="import_supplierPurchaseOrderItem" phpName='SupplierPurchaseOrderItem' description="Elemento de Orden de Pedido a Proveedor">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id elemento de Orden de Pedido a Cliente" autoIncrement="true"/>
+		<column name="productId" required="true" type="INTEGER" description="Id producto"/>
+		<column name="supplierPurchaseOrderId" required="true" type="INTEGER" description="Id producto"/>
+		<column name="quantity" type="INTEGER" required='true' description="Id producto" />
+
+		<column name="portId" type="INTEGER" description="id de puerto" required="true"/>
+		<column name="incotermId" type="INTEGER" description="id de incoterm" required="true"/>
+
+		<column name="price" type="FLOAT" required="true" description="precio de producto"/>
+		<column name="delivery" type="INTEGER" required="true" description="Tiempo en dias para la entrega del producto."/>
+		<column name="package" type="INTEGER" required="true" description="A seleccionar entre Unidades o Bultos"/>
+		<column name="unitLength" type="FLOAT" description="Largo del empaque de la unidad "/>
+		<column name="unitWidth" type="FLOAT" description="Ancho del empaque de la unidad "/>
+		<column name="unitHeight" type="FLOAT" description="Alto del empaque de la unidad "/>
+		<column name="unitGrossWeigth" type="FLOAT" description="Peso del empaque de la unidad "/>
+		<column name="unitsPerCarton" type="INTEGER" description="Unidades por bulto"/>
+		<column name="cartons" type="INTEGER" description="Cantidad de bultos"/>
+		<column name="cartonLength" type="FLOAT" description="Largo del bulto"/>
+		<column name="cartonWidth" type="FLOAT" description="Ancho del bulto"/>
+		<column name="cartonHeight" type="FLOAT" description="Alto del bulto"/>
+		<column name="cartonGrossWeigth" type="FLOAT" description="Peso del bulto"/>
+
+		<foreign-key foreignTable="import_product" >
+		  <reference local="productId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="import_supplierPurchaseOrder" >
+		  <reference local="supplierPurchaseOrderId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="import_incoterm" >
+		  <reference local="incotermId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="import_port" >
+		  <reference local="portId" foreign="id" />
+		</foreign-key>
+
+	</table>
+
+	<table name="import_supplierPurchaseOrderHistory" phpName='SupplierPurchaseOrderHistory' description="Historial de Estados por los que fue pasando la Orden de Pedido a Proveedor">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id" autoIncrement="true"/>
+		<column name="supplierPurchaseOrderId" required="true" type="INTEGER" description="Id de orden de pedido a proveedor"/>
+	  	<column name="status" type="INTEGER" required="true" description="Codigo del estado guardado." />
+		<column name="comments" type="VARCHAR" size="255" description="Comentarios." />
+		<column name="createdAt" required="true"  type="TIMESTAMP"  description="Creation date for"/>
+
+		<foreign-key foreignTable="import_supplierPurchaseOrder" >
+		  <reference local="supplierPurchaseOrderId" foreign="id" />
+		</foreign-key>
+
+	</table>
+
+	<table name="import_supplierPurchaseOrderBankTransfer" phpName='SupplierPurchaseOrderBankTransfer' description="Transferencias bancarias realizadas a esa orden de pedido a proveedor">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id" autoIncrement="true"/>
+		<column name="supplierPurchaseOrderId" required="true" type="INTEGER" description="Id de orden de pedido a proveedor"/>
+		<column name="bankTransferNumber" required="true" type="VARCHAR" size="255" description="numero de transferencia bancaria." />
+		<column name="amount" type="FLOAT" required="true" description="monto de la transferencia bancaria." />
+		<column name="accountNumber" required="true" type="VARCHAR" size="255" description="Numero de cuenta bancaria destino" />
+		<column name="bankAccountId" required="true" type="INTEGER" description="Cuenta bancaria origen"/>
+		<column name="createdAt" required="true"  type="TIMESTAMP"  description="Creation date for"/>
+
+		<foreign-key foreignTable="import_supplierPurchaseOrder" >
+		  <reference local="supplierPurchaseOrderId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="import_bankAccount" >
+		  <reference local="bankAccountId" foreign="id" />
+		</foreign-key>
+
+	</table>
+
+	<table name="import_bankAccount" phpName='BankAccount' description="Cuentas bancarias">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id" autoIncrement="true"/>
+		<column name="accountNumber" required="true" type="VARCHAR" size="255" description="Numero de cuenta bancaria" />
+		<column name="bank" required="true" type="VARCHAR" size="255" description="Banco" />
+		 <column type="BOOLEAN" name="active" required="true" description="Is product active?" />
+	</table>
+	
+	<table name="import_shipment" phpName="Shipment" description="Datos de envio">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id del envio" autoIncrement="true"/>
+		<column name="createdAt" required="true"  type="TIMESTAMP"  description="Creation date for"/>
+		<column name="supplierPurchaseOrderId" type="INTEGER" description="Supplier Purchase Order" required="true" />
+		<column name="status" type="INTEGER" description="Status de Embarque" required="true" />
+		<column name="containersRealCount20" type="INTEGER" description="Cantidad real de containers de 20'" />
+		<column name="containersRealCount40" type="INTEGER" description="Cantidad real de containers de 40'" />
+		<column name="containersNumbers" type="LONGVARCHAR" description="Numeros de los contenedores" />
+		<column name="pickupDate" type="DATE" description="Fecha de retiro de la mercancia" />
+		<column name="shipmentDate" type="DATE" description="Fecha de embarque" />
+		<column name="blNumber" type="INTEGER" description="BL Hawb" />
+		<column name="vesselName" type="VARCHAR" size="255" description="Nombre del buque" />
+		<column name="estimatedDepartureDate" type="DATE" description="Fecha estimada de partida del buque" />
+		<column name="departureDate" type="DATE" description="Fecha de partida del buque" />
+		<column name="arrivalPortId" type="INTEGER" description="Puerto de llegada" />
+		<column name="arrivalToPanamaDate" type="DATE" description="Fecha de llegada a Panama" />
+		<column name="transshipmentDate" type="DATE" description="Fecha de transbordo" />
+		<column name="telexRelease" type="TINYINT" description="Telex release" />
+		<column name="estimatedArrivalDate" type="DATE" description="Fecha estimada de llegada del buque a puerto" />
+		<column name="arrivalDate" type="DATE" description="Fecha de llegada a puerto" />
+	
+		<foreign-key foreignTable="import_supplierPurchaseOrder" >
+		  <reference local="supplierPurchaseOrderId" foreign="id" />
+		</foreign-key>
+		
+		<foreign-key foreignTable="import_port" >
+		  <reference local="arrivalPortId" foreign="id" />
+		</foreign-key>
+	
+	</table>
+	
+	<table name="import_shipmentRelease" phpName="ShipmentRelease" description="Datos de nacionalizacion">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id del envio" autoIncrement="true"/>
+		<column name="createdAt" required="true"  type="TIMESTAMP"  description="Creation date for"/>
+		<column name="shipmentId" type="INTEGER" description="Transport Info" required="true" />
+		<column name="status" type="INTEGER" description="Status de Nacionalizacion" required="true" />
+		<column name="documentsPresentationDate" type="DATE" description="Presentacion de documentos aduanales" />
+		<column name="bankTariffsPaymentDate" type="DATE" description="Pago al banco de aranceles" />
+		<column name="physicalRecognitionDate" type="DATE" description="Reconocimiento fisico de la mercancia" />
+		<column name="documentsValidationDate" type="DATE" description="Validacion de los documentos" />
+		<column name="expensesPaymentDate" type="DATE" description="Pago de gastos (almacenes, manejo, etc)" />
+		<column name="loadingOrderDate" type="DATE" description="Orden de carga (El agente aduanal elabora)" />
+		<column name="containersLoadingDate" type="TINYINT" description="Carga de los containers" />
+		<column name="estimatedMovementToStorehouseDate" type="DATE" description="Fecha estimada de Transporte desde la aduana al almacen" />
+		<column name="arrivalToStorehouseTimestamp" type="TIMESTAMP" description="Fecha y hora de llegada del container al almacen" />
+		<column name="containterReceiptOnStorehouseDate" type="DATE" description="Recepcion del container en almacen" />
+
+		<foreign-key foreignTable="import_shipment" onDelete="CASCADE">
+		  <reference local="shipmentId" foreign="id" />
+		</foreign-key>
+
+	</table>
+
+</database>
