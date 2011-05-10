@@ -1,0 +1,1 @@
+Se ha producido un error al eliminar la opcion de respuesta.

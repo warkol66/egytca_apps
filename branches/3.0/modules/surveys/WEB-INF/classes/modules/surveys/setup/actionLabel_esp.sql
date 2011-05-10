@@ -1,0 +1,13 @@
+DELETE FROM `security_actionLabel` WHERE `action` LIKE 'Surveys%' AND `language` = 'esp';
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('SurveysEdit', 'Editar encuesta', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('SurveysDisplayBar', 'Mostrar gráfico de encuesta', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('SurveysAnswerOptionsDeleteX', 'Eliminar opción de respuesta', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('SurveysRespondX', 'Responder encuesta', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('SurveysShow', 'Mostrar encuesta', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('SurveysAnswerOptionsAddX', 'Agregar opción a encuesta', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('SurveysList', 'Muestra listado de encuestas', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('SurveysAnswersList', 'Muestra listado de respuestas', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('SurveysAnswersExport', 'Exporta resultados de encuestas', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('SurveysDoDelete', 'Elimina encuesta', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('SurveysAnswersDoDelete', 'Eliminar respuesta de encuesta', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('SurveysResults', 'Muestra resultados de encuesta', 'esp');
