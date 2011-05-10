@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf8"?>
+<config>
+	<system>
+		<parameters>
+			<debugMode>
+				<value>YES</value>
+				<element_type>YES/NO</element_type>
+			</debugMode>
+			<developmentMode>
+				<value>YES</value>
+				<element_type>YES/NO</element_type>
+			</developmentMode>
+			<mailCapture>
+				<value>YES</value>
+				<element_type>YES/NO</element_type>
+			</mailCapture>
+			<underMaintenance>
+				<value>NO</value>
+				<element_type>YES/NO</element_type>
+			</underMaintenance>
+			<maintenanceMessage>El sistema permanecerá en mantenimiento por 2 horas, por favor regrese mas tarde.</maintenanceMessage>
+			<affiliateUserLoginUnified>
+				<value>NO</value>
+				<element_type>YES/NO</element_type>
+			</affiliateUserLoginUnified>
+			<applicationTimeZoneGMT>
+				<value>-3</value>
+				<element_type>TIMEZONE</element_type>
+			</applicationTimeZoneGMT>
+			<dateFormat>
+				<value>d-m-Y</value>
+				<element_type>Options</element_type>
+				<element_options>
+					<option_1>d-m-Y</option_1>
+					<option_2>m-d-Y</option_2>
+					<option_3>d-m-y</option_3>
+					<option_4>m-d-y</option_4>
+				</element_options>
+			</dateFormat>
+			<thousandsSeparator>.</thousandsSeparator>
+			<decimalSeparator>,</decimalSeparator>
+			<numberOfDecimals>2</numberOfDecimals>
+			<siteName>LAUSI - Vía Pública</siteName>
+			<siteDescription>Sistema de Gestión de Activos de Vía Pública</siteDescription>
+			<siteShortName>lausi</siteShortName>
+			<webmasterMail>moddebugger@gmail.com</webmasterMail>
+			<debugMail>moddebugger@gmail.com</debugMail>
+			<fromEmail>moddebugger@gmail.com</fromEmail>
+			<tablePrefix></tablePrefix>
+			<news>Novedades: Bienvenido al Sistema de Gestión de Activos de vía Pública. En este momento este sistema se encuentra en período de prueba</news>
+			<affiliateNews>Novedades: Bienvenido al Sistema de Gestión de Activos de vía Pública. En este momento este sistema se encuentra en período de prueba</affiliateNews>
+		</parameters>
+		<errorReporting>
+			<value>E_ALL ^ E_NOTICE ^ E_WARNINGS</value>
+			<element_type>Options</element_type>
+			<element_options>
+				<option_1></option_1>
+				<option_2>E_ALL ^ E_NOTICE</option_2>
+				<option_3>E_ALL</option_3>
+				<option_4>E_STRICT</option_4>
+			</element_options>
+		</errorReporting>
+		<rowsPerPage>50</rowsPerPage>
+	</system>
+</config>
