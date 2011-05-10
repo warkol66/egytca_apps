@@ -1,0 +1,45 @@
+<!-- Module Segmentation -->
+	<action-mappings>
+		<action    path = "segmentationClustersEdit"
+							 type = "SegmentationClustersEditAction"
+							 name = "segmentationClustersEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="SegmentationClustersEdit.tpl" />
+		</action>
+
+		<action    path = "segmentationClustersDoEdit"
+							 type = "SegmentationClustersDoEditAction"
+							 name = "segmentationClustersDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=segmentationClustersList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="SegmentationClustersEdit.tpl" />
+		</action>
+
+		<action    path = "segmentationClustersList"
+							 type = "SegmentationClustersListAction"
+							 name = "segmentationClustersList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="SegmentationClustersList.tpl" />
+		</action>
+
+		<action    path = "segmentationClustersDoDelete"
+							 type = "SegmentationClustersDoDeleteAction"
+							 name = "segmentationClustersDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=segmentationClustersList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "segmentationClustersPreview"
+							 type = "SegmentationClustersPreviewAction"
+							 name = "segmentationClustersPreview"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="SegmentationClustersPreview.tpl" />
+		</action>
+
+	</action-mappings>
+<!-- End Module Segmentation -->

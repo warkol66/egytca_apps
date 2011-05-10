@@ -1,0 +1,204 @@
+<!-- Module Banners-->
+	<action-mappings module="Banners">
+
+		<action  path = "bannersList"
+						 type = "BannersListAction"
+						 name = "bannersList"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BannersList.tpl"/>
+		</action>
+
+		<action  path = "bannersEdit"
+						 type = "BannersEditAction"
+						 name = "bannersEdit"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BannersEdit.tpl" />
+			<forward  name="failure" path="/Main.php?do=bannersList&amp;message=notget" redirect="true"/>
+		</action>
+
+		<action  path = "bannersDoEdit"
+						 type = "BannersDoEditAction"
+						 name = "bannersDoEdit"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=bannersList&amp;message=saved" redirect="true"/>
+			<forward  name="failure" path="/Main.php?do=bannersList&amp;message=notsaved" redirect="true"/>
+		</action>
+
+		<action  path = "bannersDoDelete"
+						 type = "BannersDoDeleteAction"
+						 name = "bannersDoDelete"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=bannersList&amp;message=deleted" redirect="true" />
+			<forward  name="failure" path="/Main.php?do=bannersList&amp;message=notdeleted" redirect="true" />
+		</action>
+
+		<action  path = "bannersContentStream"
+						 type = "BannersContentStreamAction"
+						 name = "bannersContentStream"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BannersContentStream.tpl" />
+		</action>
+
+		<action  path = "bannersPreview"
+						 type = "BannersPreviewAction"
+						 name = "bannersPreview"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BannersDisplay.tpl" />
+		</action>
+
+		<action  path = "bannersZonesDisplay"
+						 type = "BannersZonesDisplayAction"
+						 name = "bannersZonesDisplay"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BannersZonesDisplay.tpl" />
+			<forward  name="include" path="BannersZonesDisplayInclude.tpl" />
+		</action>
+
+		<action  path = "bannersDoClickThru"
+						 type = "BannersDoClickThruAction"
+						 name = "bannersDoClickThru"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BannersDoClickThru.tpl" />
+		</action>
+
+		<action  path = "bannersStatsShow"
+						 type = "BannersStatsShowAction"
+						 name = "bannersStatsShow"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BannersStatsShow.tpl" />
+		</action>
+
+<!-- Section Zones -->
+
+		<action  path = "bannersZonesList"
+						 type = "BannersZonesListAction"
+						 name = "bannersZonesList"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BannersZonesList.tpl"/>
+		</action>
+
+		<action  path = "bannersZonesEdit"
+						 type = "BannersZonesEditAction"
+						 name = "bannersZonesEdit"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BannersZonesEdit.tpl" />
+			<forward  name="failure" path="/Main.php?do=bannersZonesList&amp;message=notget" redirect="true"/>
+		</action>
+
+		<action  path = "bannersZonesDoEdit"
+						 type = "BannersZonesDoEditAction"
+						 name = "bannersZonesDoEdit"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=bannersZonesList&amp;message=saved" redirect="true"/>
+			<forward  name="failure" path="/Main.php?do=bannersZonesList&amp;message=notsaved" redirect="true"/>
+		</action>
+
+		<action  path = "bannersZonesDoDelete"
+						 type = "BannersZonesDoDeleteAction"
+						 name = "bannersZonesDoDelete"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=bannersZonesList&amp;message=deleted" redirect="true" />
+			<forward  name="failure" path="/Main.php?do=bannersZonesList&amp;message=notdeleted" redirect="true" />
+		</action>
+
+		<action  path = "bannersWeightByZone"
+						 type = "BannersWeightByZoneAction"
+						 name = "bannersWeightByZone"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BannersWeightByZone.tpl" />
+			<forward  name="failure" path="/Main.php?do=bannersZonesList&amp;message=notget" redirect="true"/>
+		</action>
+
+		<action  path = "bannersDoWeightByZone"
+						 type = "BannersDoWeightByZoneAction"
+						 name = "bannersDoWeightByZone"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=bannersZonesList&amp;message=saved" redirect="true"/>
+			<forward  name="failure" path="/Main.php?do=bannersZonesList&amp;message=notsaved" redirect="true"/>
+		</action>
+
+		<action  path = "bannersOrderByZone"
+						 type = "BannersOrderByZoneAction"
+						 name = "bannersOrderByZone"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BannersOrderByZone.tpl" />
+			<forward  name="failure" path="/Main.php?do=bannersZonesList&amp;message=notget" redirect="true"/>
+		</action>
+
+		<action  path = "bannersDoOrderByZone"
+						 type = "BannersDoOrderByZoneAction"
+						 name = "bannersDoOrderByZone"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=bannersZonesList&amp;message=saved" redirect="true"/>
+			<forward  name="failure" path="/Main.php?do=bannersZonesList&amp;message=notsaved" redirect="true"/>
+		</action>
+
+		<action    path = "bannersDoOrderByZoneX"
+							 type = "BannersDoOrderByZoneXAction"
+							 name = "bannersDoOrderByZoneX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="BannersDoOrderByZoneX.tpl" />
+		</action>
+
+<!-- End Section Zones -->
+
+<!-- Section Clients -->
+
+		<action  path = "bannersClientsList"
+						 type = "BannersClientsListAction"
+						 name = "bannersClientsList"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BannersClientsList.tpl"/>
+		</action>
+
+		<action  path = "bannersClientsEdit"
+						 type = "BannersClientsEditAction"
+						 name = "bannersClientsEdit"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BannersClientsEdit.tpl" />
+			<forward  name="failure" path="/Main.php?do=bannersClientsList&amp;message=notget" redirect="true"/>
+		</action>
+
+		<action  path = "bannersClientsDoEdit"
+						 type = "BannersClientsDoEditAction"
+						 name = "bannersClientsDoEdit"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=bannersClientsList&amp;message=saved" redirect="true"/>
+			<forward  name="failure" path="/Main.php?do=bannersClientsList&amp;message=notsaved" redirect="true"/>
+		</action>
+
+		<action  path = "bannersClientsDoDelete"
+						 type = "BannersClientsDoDeleteAction"
+						 name = "bannersClientsDoDelete"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=bannersClientsList&amp;message=deleted" redirect="true" />
+			<forward  name="failure" path="/Main.php?do=bannersClientsList&amp;message=notdeleted" redirect="true" />
+		</action>
+
+	</action-mappings>
+
+<!-- End Section Clients -->
+
+<!-- End Module Banners -->

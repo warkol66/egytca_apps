@@ -1,0 +1,10 @@
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'segmentationClustersEdit', '','esp','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'segmentationClustersEdit', '','eng','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'segmentationClustersDoEdit', '','esp','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'segmentationClustersDoEdit', '','eng','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'segmentationClustersDoEdit', '','esp','failure');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'segmentationClustersDoEdit', '','eng','failure');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'segmentationClustersList', '','esp','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'segmentationClustersList', '','eng','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'segmentationClustersDoDelete', '','esp','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'segmentationClustersDoDelete', '','eng','success');

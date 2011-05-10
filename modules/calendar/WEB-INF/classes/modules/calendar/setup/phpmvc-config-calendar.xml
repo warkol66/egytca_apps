@@ -1,0 +1,189 @@
+<!-- Module Calendar -->
+	<action-mappings>
+
+		<action  path = "calendarEventsEdit"
+						 type = "CalendarEventsEditAction"
+						 name = "calendarEventsEdit"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="CalendarEventsEdit.tpl" />
+		</action>
+
+		<action  path = "calendarEventsDoEdit"
+						 type = "CalendarEventsDoEditAction"
+						 name = "calendarEventsDoEdit"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=calendarEventsList&amp;message=ok" redirect="true" />
+			<forward  name="failure" path="CalendarEventsEdit.tpl" />
+		</action>
+
+		<action  path = "calendarEventsList"
+						 type = "CalendarEventsListAction"
+						 name = "calendarEventsList"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="CalendarEventsList.tpl" />
+		</action>
+
+		<action  path = "calendarEventsSearch"
+						 type = "CalendarEventsSearchAction"
+						 name = "calendarEventsSearch"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="CalendarEventsSearch.tpl" />
+			<forward  name="rss" path="CalendarEventsShowRss.tpl" />
+		</action>
+
+		<action  path = "calendarEventsDoDelete"
+						 type = "CalendarEventsDoDeleteAction"
+						 name = "calendarEventsDoDelete"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=calendarEventsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action  path = "calendarEventsShow"
+						 type = "CalendarEventsShowAction"
+						 name = "calendarEventsShow"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="CalendarEventsShow.tpl" />
+			<forward  name="include" path="CalendarEventsShowInclude.tpl"/>
+			<forward  name="rss" path="CalendarEventsShowRss.tpl" />
+		</action>
+
+		<action  path = "calendarEventsChangeStatusX"
+						 type = "CalendarEventsChangeStatusXAction"
+						 name = "calendarEventsChangeStatusX"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="CalendarEventsChangeStatusX.tpl" />
+		</action>
+
+		<action  path = "calendarMediasSortX"
+						 type = "CalendarMediasSortXAction"
+						 name = "calendarMediasSortX"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="CalendarMediasSortX.tpl" />
+		</action>
+
+		<action  path = "calendarEventsView"
+						 type = "CalendarEventsViewAction"
+						 name = "calendarEventsView"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="CalendarEventsView.tpl" />
+		</action>
+
+		<action  path = "calendarEventsPreview"
+						 type = "CalendarEventsPreviewAction"
+						 name = "calendarEventsPreview"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success-home" path="CalendarEventsShow.tpl" />
+			<forward  name="success-detailed" path="CalendarEventsView.tpl" />
+		</action>
+
+		<action  path = "calendarEventsGetThumbnail"
+						 type = "CalendarEventsGetThumbnailAction"
+						 name = "calendarEventsGetThumbnail"
+						scope = "request"
+				 validate = "true">
+		</action>
+
+		<action  path = "calendarEventsChangeStatuses"
+						 type = "CalendarEventsChangeStatusesAction"
+						 name = "calendarEventsChangeStatuses"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=calendarEventsList&amp;message=changed" redirect="true" />
+		</action>
+
+		<action  path = "calendarEventsWeek"
+						 type = "CalendarEventsWeekAction"
+						 name = "calendarEventsWeek"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="CalendarEventsWeek.tpl" />
+		</action>
+
+		<action  path = "calendarEventsMonth"
+						 type = "CalendarEventsMonthAction"
+						 name = "calendarEventsMonth"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="CalendarEventsMonth.tpl" />
+		</action>
+
+<!-- Section CalendarMedias -->
+		<action  path = "calendarMediasEdit"
+						 type = "CalendarMediasEditAction"
+						 name = "calendarMediasEdit"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="CalendarMediasEdit.tpl" />
+		</action>
+
+		<action  path = "calendarMediasDoEdit"
+						 type = "CalendarMediasDoEditAction"
+						 name = "calendarMediasDoEdit"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=calendarMediasList&amp;message=ok" redirect="true" />
+			<forward  name="failure" path="CalendarMediasEdit.tpl" />
+		</action>
+
+		<action  path = "calendarMediasList"
+						 type = "CalendarMediasListAction"
+						 name = "calendarMediasList"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="CalendarMediasList.tpl" />
+		</action>
+
+		<action  path = "calendarMediasGetImage"
+						 type = "CalendarMediasGetImageAction"
+						 name = "calendarMediasGetImage"
+						scope = "request"
+				 validate = "true">
+		</action>
+
+		<action  path = "calendarMediasEventList"
+						 type = "CalendarMediasEventListAction"
+						 name = "calendarMediasEventList"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="CalendarMediasListInclude.tpl" />
+		</action>
+
+		<action  path = "calendarMediasUpload"
+						 type = "CalendarMediasUploadAction"
+						 name = "calendarMediasUpload"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=calendarEventsEdit&amp;message=upload_ok" redirect="true" />
+		</action>
+
+		<action  path = "calendarMediasDoDelete"
+						 type = "CalendarMediasDoDeleteAction"
+						 name = "calendarMediasDoDelete"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=calendarMediasList&amp;message=deleted_ok" redirect="true" />
+			<forward  name="success-from-event" path="CalendarMediasDeleteFromEvent.tpl" />
+		</action>
+
+		<action  path = "calendarMediasDoEditX"
+						 type = "CalendarMediasDoEditXAction"
+						 name = "calendarMediasDoEditX"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="CalendarMediasDoEditX.tpl" />
+		</action>
+<!-- End Section CalendarMedias -->
+
+	</action-mappings>
+
+<!-- End Module Calendar-->

@@ -1,0 +1,18 @@
+DELETE FROM `security_actionLabel` WHERE `action` LIKE 'Banners%' and `language` = '';
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('BannersOrderByZone', 'Ordenar aparición de banners por zona', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('BannersZonesEdit', 'Editar zonas de banners', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('BannersWeightByZone', 'Ponderar aparición de banners por zona', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('BannersEdit', 'Editar banner', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('BannersClientsEdit', 'Editar cliente', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('BannersClientsDoDelete', 'Eliminar cliente', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('BannersDoOrderByZoneX', 'Editar orden de banners', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('BannersStatsShow', 'Mostrar estadísticas de banner', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('BannersList', 'Listado de banners', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('BannersDoClickThru', 'Click en banner', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('BannersZonesDoDelete', 'Eliminar zona', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('BannersDoDelete', 'Eliminar banner', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('BannersContentStream', 'Entregar contenido de banner', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('BannersPreview', 'Vista previa de banner', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('BannersZonesDisplay', 'Mostrar zona', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('BannersZonesList', 'Listado de zonas', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('BannersClientsList', 'Listado de clientes', 'esp');
