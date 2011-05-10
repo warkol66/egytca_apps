@@ -1,0 +1,683 @@
+<!-- Module Import-->
+
+<!-- Section Products -->
+	<action-mappings>
+		<action    path = "importProductsEdit"
+							 type = "ImportProductsEditAction"
+							 name = "importProductsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportProductsEdit.tpl" />
+		</action>
+
+		<action    path = "importProductsDoEdit"
+							 type = "ImportProductsDoEditAction"
+							 name = "importProductsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importProductsList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="ImportProductsEdit.tpl" />
+		</action>
+
+		<action    path = "importProductsList"
+							 type = "ImportProductsListAction"
+							 name = "importProductsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportProductsList.tpl" />
+		</action>
+
+		<action    path = "importProductsDoDelete"
+							 type = "ImportProductsDoDeleteAction"
+							 name = "importProductsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importProductsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		 <action    path = "importProductsDoActivate"
+							 type = "ImportProductsDoActivateAction"
+							 name = "importProductsDoActivate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importProductsList&amp;message=activated_ok" redirect="true" />
+		</action>
+
+		<action    path = "importProductsReassign"
+							 type = "ImportProductsReassignAction"
+							 name = "importProductsReassign"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportProductsReassign.tpl" />
+		</action>
+
+		<action    path = "importProductsDoReassign"
+							 type = "ImportProductsDoReassignAction"
+							 name = "importProductsDoReassign"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importProductsList&amp;message=reassigned_ok" redirect="true" />
+		</action>
+
+		<action    path = "importProductsDoAssignCode"
+							 type = "ImportProductsDoAssignCodeAction"
+							 name = "importProductsDoAssignCode"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportProductsDoAssignCode.tpl" />
+		</action>
+
+	</action-mappings>
+<!-- End Section Products -->
+
+<!-- Section Suppliers -->
+	<action-mappings>
+
+		<action    path = "importSuppliersEdit"
+							 type = "ImportSuppliersEditAction"
+							 name = "importSuppliersEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportSuppliersEdit.tpl" />
+		</action>
+
+		<action    path = "importSuppliersDoEdit"
+							 type = "ImportSuppliersDoEditAction"
+							 name = "importSuppliersDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importSuppliersList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="ImportSuppliersEdit.tpl" />
+		</action>
+
+		<action    path = "importSuppliersList"
+							 type = "ImportSuppliersListAction"
+							 name = "importSuppliersList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportSuppliersList.tpl" />
+		</action>
+
+		<action    path = "importSuppliersDoDelete"
+							 type = "ImportSuppliersDoDeleteAction"
+							 name = "importSuppliersDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importSuppliersList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "importSuppliersDoActivate"
+							 type = "ImportSuppliersDoActivateAction"
+							 name = "importSuppliersDoActivate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importSuppliersList&amp;message=activated_ok" redirect="true" />
+		</action>
+
+	</action-mappings>
+<!-- End Section Suppliers -->
+
+<!-- Section Ports -->
+	<action-mappings>
+
+		<action    path = "importPortsEdit"
+							 type = "ImportPortsEditAction"
+							 name = "importPortsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportPortsEdit.tpl" />
+		</action>
+
+		<action    path = "importPortsDoEdit"
+							 type = "ImportPortsDoEditAction"
+							 name = "importPortsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importPortsList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="ImportPortsEdit.tpl" />
+		</action>
+
+		<action    path = "importPortsList"
+							 type = "ImportPortsListAction"
+							 name = "importPortsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportPortsList.tpl" />
+		</action>
+
+		<action    path = "importPortsDoDelete"
+							 type = "ImportPortsDoDeleteAction"
+							 name = "importPortsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importPortsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "importPortsDoActivate"
+							 type = "ImportPortsDoActivateAction"
+							 name = "importPortsDoActivate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importPortsList&amp;message=activated_ok" redirect="true" />
+		</action>
+
+	</action-mappings>
+<!-- End Secton Ports -->
+
+<!-- Section Incoterms -->
+	<action-mappings>
+
+		<action    path = "importIncotermsEdit"
+							 type = "ImportIncotermsEditAction"
+							 name = "importIncotermsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportIncotermsEdit.tpl" />
+		</action>
+
+		<action    path = "importIncotermsDoEdit"
+							 type = "ImportIncotermsDoEditAction"
+							 name = "importIncotermsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importIncotermsList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="ImportIncotermsEdit.tpl" />
+		</action>
+
+		<action    path = "importIncotermsList"
+							 type = "ImportIncotermsListAction"
+							 name = "importIncotermsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportIncotermsList.tpl" />
+		</action>
+
+		<action    path = "importIncotermsDoDelete"
+							 type = "ImportIncotermsDoDeleteAction"
+							 name = "importIncotermsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importIncotermsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "importIncotermsDoActivate"
+							 type = "ImportIncotermsDoActivateAction"
+							 name = "importIncotermsDoActivate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importIncotermsList&amp;message=activate_ok" redirect="true" />
+		</action>
+
+	</action-mappings>
+<!-- End Secton Ports -->
+
+<!-- Section ClientQuote -->
+	<action-mappings>
+
+		<action    path = "importClientQuoteList"
+							 type = "ImportClientQuoteListAction"
+							 name = "importClientQuoteList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success-admin" path="ImportClientQuoteAdminList.tpl" />
+			<forward name="success-affiliate" path="ImportClientQuoteAffiliateList.tpl" />
+			<forward name="include" path="ImportClientQuoteAdminList.tpl" />
+		</action>
+
+		<action    path = "importClientQuoteCreate"
+							 type = "ImportClientQuoteCreateAction"
+							 name = "importClientQuoteCreate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importClientQuoteEdit&amp;message=created" redirect="true" />
+			<forward name="failure" path="/Main.php?do=importClientQuoteList&amp;message=create-failed" redirect="true" />
+		</action>
+
+		<action    path = "importClientQuoteEdit"
+							 type = "ImportClientQuoteEditAction"
+							 name = "importClientQuoteEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success-admin" path="ImportClientQuoteAdminEdit.tpl" />
+			<forward name="success-affiliate" path="ImportClientQuoteAffiliateEdit.tpl" />
+		</action>
+
+		<action    path = "importClientQuoteAddItemX"
+							 type = "ImportClientQuoteAddItemXAction"
+							 name = "importClientQuoteAddItemX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportClientQuoteAddItemX.tpl" />
+		</action>
+
+		<action    path = "importClientQuoteDeleteItemX"
+							 type = "ImportClientQuoteDeleteItemXAction"
+							 name = "importClientQuoteDeleteItemX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportClientQuoteDeleteItemX.tpl" />
+		</action>
+
+		<action    path = "importClientQuoteConfirm"
+							 type = "ImportClientQuoteConfirmAction"
+							 name = "importClientQuoteConfirm"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importClientQuoteList&amp;message=confirmed" redirect="true"/>
+		</action>
+
+		<action    path = "importClientQuoteAdminConfirm"
+							 type = "ImportClientQuoteAdminConfirmAction"
+							 name = "importClientQuoteAdminConfirm"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importClientQuoteList&amp;message=quoted" redirect="true"/>
+		</action>
+
+		<action    path = "importClientQuoteHistory"
+							 type = "ImportClientQuoteHistoryAction"
+							 name = "importClientQuoteHistory"
+							scope = "request"
+					 validate = "true">
+			<forward name="success-admin" path="ImportClientQuoteAdminHistory.tpl" />
+			<forward name="success-affiliate" path="ImportClientQuoteAffiliateHistory.tpl" />
+		</action>
+
+		<action    path = "importSupplierQuoteCreate"
+							 type = "ImportSupplierQuoteCreateAction"
+							 name = "importSupplierQuoteCreate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importClientQuoteEdit&amp;message=supplier-quote-created" redirect="true"/>
+		</action>
+
+		<action    path = "importProductSearchX"
+							 type = "ImportProductSearchXAction"
+							 name = "importProductSearchX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportProductSearchX.tpl" />
+		</action>
+
+		<action    path = "importClientQuoteItemSetPrice"
+							 type = "ImportClientQuoteItemSetPriceAction"
+							 name = "importClientQuoteItemSetPrice"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportClientQuoteItemSetPrice.tpl" />
+		</action>
+
+		<action    path = "importClientQuoteItemsSupplierX"
+							 type = "ImportClientQuoteItemsSupplierXAction"
+							 name = "importClientQuoteItemsSupplierX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportClientQuoteItemsSupplierX.tpl" />
+		</action>
+
+		<action    path = "importClientQuoteItemDoSetPrice"
+							 type = "ImportClientQuoteItemDoSetPriceAction"
+							 name = "importClientQuoteItemDoSetPrice"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importClientQuoteEdit&amp;message=price-set" redirect="true"/>
+		</action>
+
+		<action    path = "importClientQuoteAccept"
+							 type = "ImportClientQuoteAcceptAction"
+							 name = "importClientQuoteAccept"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importClientQuoteEdit&amp;message=accepted" redirect="true"/>
+		</action>
+
+		<action    path = "importClientQuoteReject"
+							 type = "ImportClientQuoteRejectAction"
+							 name = "importClientQuoteReject"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importClientQuoteEdit&amp;message=rejected" redirect="true"/>
+		</action>
+
+	</action-mappings>
+<!-- End Section ClientQuote -->
+
+<!-- Section SupplierQuote -->
+	<action-mappings>
+
+		<action    path = "importSupplierQuoteList"
+							 type = "ImportSupplierQuoteListAction"
+							 name = "importSupplierQuoteList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportSupplierQuoteList.tpl" />
+		</action>
+
+		<action    path = "importSupplierQuoteEdit"
+							 type = "ImportSupplierQuoteEditAction"
+							 name = "importSupplierQuoteEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportSupplierQuoteEdit.tpl" />
+		</action>
+
+		<action    path = "importSupplierQuoteAccess"
+							 type = "ImportSupplierQuoteAccessAction"
+							 name = "importSupplierQuoteAccess"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportSupplierQuoteAccess.tpl" />
+			<forward name="failure" path="ImportSupplierQuoteAccessFailure.tpl" />
+		</action>
+
+		<action    path = "importSupplierQuoteItemAccess"
+							 type = "ImportSupplierQuoteItemAccessAction"
+							 name = "importSupplierQuoteItemAccess"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportSupplierQuoteItemAccess.tpl" />
+			<forward name="failure" path="ImportSupplierQuoteAccessFailure.tpl" />
+		</action>
+
+		<action    path = "importSupplierQuoteItemReplace"
+							 type = "ImportSupplierQuoteItemReplaceAction"
+							 name = "importSupplierQuoteItemReplace"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportSupplierQuoteItemReplace.tpl" />
+			<forward name="failure" path="ImportSupplierQuoteAccessFailure.tpl" />
+		</action>
+
+		<action    path = "importSupplierQuoteHistory"
+							 type = "ImportSupplierQuoteHistoryAction"
+							 name = "importSupplierQuoteHistoryConfirm"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportSupplierQuoteHistory.tpl" />
+		</action>
+
+		<action    path = "importSupplierQuoteConfirm"
+							 type = "ImportSupplierQuoteConfirmAction"
+							 name = "importSupplierQuoteConfirm"
+							scope = "request"
+					 validate = "true">
+					<forward name="success" path="/Main.php?do=importSupplierQuoteAccess&amp;message=confirmed" redirect='true'/>
+		</action>
+
+		<action    path = "importSupplierQuoteDoEditItem"
+							 type = "ImportSupplierQuoteDoEditItemAction"
+							 name = "importSupplierQuoteDoEditItem"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importSupplierQuoteAccess&amp;message=quoted" redirect='true'/>
+			<forward name="failure" path="ImportSupplierQuoteAccessFailure.tpl" />
+		</action>
+
+		<action    path = "importSupplierQuoteDoReplaceItem"
+							 type = "ImportSupplierQuoteDoReplaceItemAction"
+							 name = "importSupplierQuoteDoReplaceItem"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importSupplierQuoteAccess&amp;message=replaced" redirect='true'/>
+			<forward name="failure" path="ImportSupplierQuoteAccessFailure.tpl" />
+		</action>
+
+	<action    path = "importSupplierQuoteResend"
+						 type = "ImportSupplierQuoteResendAction"
+						 name = "importSupplierQuoteResend"
+						scope = "request"
+				 validate = "true">
+		<forward name="success" path="/Main.php?do=importSupplierQuoteList&amp;message=resent" />
+		<forward name="success-multiple" path="/Main.php?do=importSupplierQuoteList&amp;message=resent-multiple" />
+		<forward name="failure" path="/Main.php?do=importSupplierQuoteList&amp;message=resent-failure" />
+	</action>
+
+		<action    path = "importSupplierQuoteItemsNegociate"
+							 type = "ImportSupplierQuoteItemsNegociateAction"
+							 name = "importSupplierQuoteItemsNegociate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportSupplierQuoteItemsNegociate.tpl" />
+		</action>
+
+		<action    path = "importSupplierQuoteItemsDoNegociate"
+							 type = "ImportSupplierQuoteItemsDoNegociateAction"
+							 name = "importSupplierQuoteItemsDoNegociate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importSupplierQuoteEdit&amp;message=negociate" redirect="true" />
+		</action>
+
+		<action    path = "importSupplierQuoteEdit"
+							 type = "ImportSupplierQuoteEditAction"
+							 name = "importSupplierQuoteEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportSupplierQuoteEdit.tpl" />
+		</action>
+
+		<action    path = "importSupplierQuoteResend"
+							 type = "ImportSupplierQuoteResendAction"
+							 name = "importSupplierQuoteResend"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importSupplierQuoteList&amp;message=resent" />
+			<forward name="success-multiple" path="/Main.php?do=importSupplierQuoteList&amp;message=resent-multiple" />
+			<forward name="failure" path="/Main.php?do=importSupplierQuoteList&amp;message=resent-failure" />
+		</action>
+
+	</action-mappings>
+<!-- End Section SupplierQuote -->
+
+<!-- Section ClientOrder -->
+	<action-mappings>
+
+		<action    path = "importClientOrderList"
+							 type = "ImportClientOrderListAction"
+							 name = "importClientOrderList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success-admin" path="ImportClientOrderAdminList.tpl" />
+			<forward name="success-affiliate" path="ImportClientOrderAffiliateList.tpl" />
+		</action>
+
+		<action    path = "importClientOrderEdit"
+							 type = "ImportClientOrderEditAction"
+							 name = "importClientOrderEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success-admin" path="ImportClientOrderAdminEdit.tpl" />
+			<forward name="success-affiliate" path="ImportClientOrderAffiliateEdit.tpl" />
+		</action>
+
+			<action    path = "importClientOrderHistory"
+								 type = "ImportClientOrderHistoryAction"
+								 name = "importClientOrderHistory"
+								scope = "request"
+						 validate = "true">
+				<forward name="success-admin" path="ImportClientOrderAdminHistory.tpl" />
+				<forward name="success-affiliate" path="ImportClientOrderAffiliateHistory.tpl" />
+			</action>
+
+		</action-mappings>
+	<!-- End Section ClientOrder -->
+
+	<!-- Section SupplierOrder -->
+		<action-mappings>
+
+		<action    path = "importSupplierOrderList"
+							 type = "ImportSupplierOrderListAction"
+							 name = "importSupplierOrderList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportSupplierOrderList.tpl" />
+		</action>
+
+		<action    path = "importSupplierOrderEdit"
+							 type = "ImportSupplierOrderEditAction"
+							 name = "importSupplierOrderEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportSupplierOrderEdit.tpl" />
+		</action>
+
+		<action    path = "importSupplierOrderHistory"
+							 type = "ImportSupplierOrderHistoryAction"
+							 name = "importSupplierOrderHistory"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportSupplierOrderHistory.tpl" />
+		</action>
+
+		<action    path = "importSupplierOrderGetX"
+							 type = "ImportSupplierOrderGetXAction"
+							 name = "importSupplierOrderGetX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportSupplierOrderGetX.tpl" />
+		</action>
+
+		<action    path = "importSupplierOrderTracking"
+							 type = "ImportSupplierOrderTrackingAction"
+							 name = "importSupplierOrderTracking"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportSupplierOrderTracking.tpl" />
+		</action>
+
+		<action    path = "importSupplierOrderDoTracking"
+							 type = "ImportSupplierOrderDoTrackingAction"
+							 name = "importSupplierOrderDoTracking"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importSupplierOrderList&amp;message=tracked" redirect="true" />
+		</action>
+
+	</action-mappings>
+<!-- End Section SupplierOrder -->
+
+<!-- Section BankTransfer -->
+	<action-mappings>
+
+		<action    path = "importBankTransferList"
+							 type = "ImportBankTransferListAction"
+							 name = "importBankTransferList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportBankTransferList.tpl" />
+		</action>
+
+		<action    path = "importBankTransferEdit"
+							 type = "ImportBankTransferEditAction"
+							 name = "importBankTransferEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportBankTransferEdit.tpl" />
+		</action>
+
+			<action    path = "importBankTransferDoEdit"
+								 type = "ImportBankTransferDoEditAction"
+								 name = "importBankTransferDoEdit"
+								scope = "request"
+						 validate = "true">
+				<forward name="success" path="/Main.php?do=importBankTransferList&amp;message=ok" redirect="true" />
+				<forward name="failure" path="ImportBankTransferEdit.tpl" />
+		</action>
+
+	</action-mappings>
+<!-- End Section BankTransfer -->
+
+<!-- Section BankAccounts -->
+	<action-mappings>
+
+		<action    path = "importBankAccountsEdit"
+							 type = "ImportBankAccountsEditAction"
+							 name = "importBankAccountsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportBankAccountsEdit.tpl" />
+		</action>
+
+		<action    path = "importBankAccountsDoEdit"
+							 type = "ImportBankAccountsDoEditAction"
+							 name = "importBankAccountsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importBankAccountsList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="ImportBankAccountsEdit.tpl" />
+		</action>
+
+		<action    path = "importBankAccountsList"
+							 type = "ImportBankAccountsListAction"
+							 name = "importBankAccountsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ImportBankAccountsList.tpl" />
+		</action>
+
+		<action    path = "importBankAccountsDoDelete"
+							 type = "ImportBankAccountsDoDeleteAction"
+							 name = "importBankAccountsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importBankAccountsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+	</action-mappings>
+
+<!-- End Section BankAccounts -->
+
+<!-- Section Shipments -->
+
+	<action-mappings>
+
+		<action    path = "importShipmentsDoEdit"
+							 type = "ImportShipmentsDoEditAction"
+							 name = "importShipmentsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importShipmentsList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="/Main.php?do=importShipmentsList&amp;message=error" redirect="true" />
+			<forward name="createShipmentRelease" path="/Main.php?do=importShipmentReleasesEdit&amp;message=shipment_created_ok" redirect="true" />
+		</action>
+		
+		<action    path = "importShipmentsDoDelete"
+							 type = "ImportShipmentsDoDeleteAction"
+							 name = "importShipmentsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importShipmentsList&amp;message=deleted_ok" redirect="true" />
+			<forward name="failure" path="/Main.php?do=importShipmentsList&amp;message=deleted_error" redirect="true" />
+		</action>
+		
+	</action-mappings>
+
+<!-- End Section Shipments -->
+
+<!-- Section ShipmentReleases -->
+
+	<action-mappings>
+
+		<action    path = "importShipmentReleasesDoEdit"
+							 type = "ImportShipmentReleasesDoEditAction"
+							 name = "importShipmentReleasesDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importShipmentReleasesList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="/Main.php?do=importShipmentReleasesList&amp;message=error" redirect="true" />
+		</action>
+		
+		<action    path = "importShipmentReleasesDoDelete"
+							 type = "ImportShipmentReleasesDoDeleteAction"
+							 name = "importShipmentReleasesDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=importShipmentReleasesList&amp;message=deleted_ok" redirect="true" />
+			<forward name="failure" path="/Main.php?do=importShipmentReleasesList&amp;message=deleted_error" redirect="true" />
+		</action>
+		
+	</action-mappings>
+
+<!-- End Section ShipmentReleases -->
+
+<!-- End Module Import -->

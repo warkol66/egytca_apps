@@ -1,0 +1,1 @@
+Se han creado |-$count-| afiches, de |-$total-| pedidos.

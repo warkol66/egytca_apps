@@ -1,0 +1,1 @@
+Se ha modificado la fecha estimada de Transporte desde la aduana al almacén para la orden cuyo id es |-$shipmentRelease->getId()-|.

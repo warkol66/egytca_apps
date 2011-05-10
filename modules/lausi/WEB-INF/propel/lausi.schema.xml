@@ -1,0 +1,281 @@
+<database defaultIdMethod="native" package="lausi.classes" name="application" >
+
+<!-- Tablas especificas de Lausi -->
+
+<!-- Fuerza de Trabajo -->
+	<table phpName="Workforce" name="lausi_workforce" description="Base de Fuerza de Trabajo">
+	
+		<column name="id" type="INTEGER"  required="true" description="Id de fuerza de trabajo" primaryKey="true" autoIncrement="true"  />
+		<column name="name" type="VARCHAR" size="100"  required="true" description="Nombre de fuerza de trabajo" />
+		<column name="telephone" type="VARCHAR" size="100" description="telefono de contacto" />
+		<column name="workInHeight" type="BOOLEAN" description="Trabaja en altura" />
+	
+			<behavior name="soft_delete" />
+	
+			<vendor type="mysql">
+				<parameter name="Charset" value="utf8"/>
+				<parameter name="Collate" value="utf8_general_ci"/>
+			</vendor>
+	
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+<!-- Circuito -->
+
+	<table phpName="Circuit" name="lausi_circuit" description="Base de Circuitos">
+	
+		<column name="id" type="INTEGER"  required="true" description="Id de Circuito" primaryKey="true" autoIncrement="true"  />
+		<column name="name" type="VARCHAR" size="100"  required="true" description="Nombre del circuito" />
+		<column name="description" type="LONGVARCHAR" description="descripcion del circuito" />
+		<column name="limitsDescription" type="LONGVARCHAR" description="descripcion de los limites del circuito" />
+		<column name="orderBy" type="INTEGER" description="Orden del Circuito" />
+		<column name="color" type="VARCHAR" size="7" description="Color del Circuito para mostrar en mapa" />
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+	
+	<table phpName="CircuitPoint" name="lausi_circuitPoint" description="Puntos que conforman el perimetro de los circuitos">
+	
+		<column name="id" type="INTEGER"  required="true" description="Id de Circuito" primaryKey="true" autoIncrement="true"  />
+		<column name="circuitId" type="INTEGER" required="true"/>
+		<column name="latitude" type="NUMERIC" size="12" scale="9" description="latitud" />
+		<column name="longitude" type="NUMERIC" size="12" scale="9" description="longitud" />
+		
+		<foreign-key foreignTable="lausi_circuit">
+			<reference local="circuitId" foreign="id"/>
+		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+<!-- Una misma fuerza de Trabajo de relaciona con varios circuitos -->
+	<table phpName="WorkforceCircuit" name="lausi_workforceCircuit" isCrossRef="true">
+		<column name="workforceId" type="INTEGER" required="true" primaryKey="true"/>
+		<column name="circuitId" type="INTEGER" required="true" primaryKey="true"/>
+	
+		<foreign-key foreignTable="lausi_workforce">
+			<reference local="workforceId" foreign="id"/>
+		</foreign-key>
+	
+		<foreign-key foreignTable="lausi_circuit">
+			<reference local="circuitId" foreign="id"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+<!-- Barrios -->
+	<table name="lausi_region" phpName='Region' description="Barrios">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
+		<column name="name" required="true" type="VARCHAR" size="100" description="Name"/>
+
+		<unique>
+			<unique-column name="name" />
+		</unique>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+
+<!-- Base de Direcciones -->
+	<table phpName="Address" name="lausi_address" description="Base de Direcciones">
+	
+		<column name="id" type="INTEGER"  required="true" description="Id de la calle" primaryKey="true" autoIncrement="true" />
+		<column name="street" type="VARCHAR" size="100"  required="true" description="Nombre de la calle" />
+		<column name="number" type="INTEGER" description="numero de la calle" />	
+		<column name="rating" type="INTEGER" description="Valoracion de la calle" />
+		<column name="intersection" type="VARCHAR" size="100" description="cruce con otra calle de la direccion" />
+		<column name="owner" type="VARCHAR" size="100" description="duenio de la direccion" />
+		<column name="latitude" type="NUMERIC" size="12" scale="9" description="latitud de la direccion" />
+		<column name="longitude" type="NUMERIC" size="12" scale="9" description="longitud de la direccion" />
+		<column name="regionId" type="INTEGER" description="barrio de la direccion" />
+		<column name="ownerPhone" type="VARCHAR" size="100" description="telefono de contacto" />
+		<column name="orderCircuit" type="INTEGER" default="0" description="ordenamiento por proximidad en el circuito entre direcciones" />
+		<column name="nickname" type="VARCHAR" size="100" default="" description="Nombre de Fantasia de la direccion" />
+	
+		<column name="circuitId" type="INTEGER" description="circuito al que pertenece la calle" />
+	
+		<foreign-key foreignTable="lausi_circuit">
+			<reference local="circuitId" foreign="id"/>
+		</foreign-key>
+		<foreign-key foreignTable="lausi_region">
+			<reference local="regionId" foreign="id"/>
+		</foreign-key>
+	
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+<!-- Clientes -->
+	<table phpName="Client" name="lausi_client" description="Base de Clientes">
+	
+		<column name="id" type="INTEGER"  required="true" description="Id del cliente" primaryKey="true" autoIncrement="true"  />
+		<column name="name" type="VARCHAR" size="100"  required="true" description="Nombre del cliente" />
+		<column name="contact" type="VARCHAR" size="100" description="contacto del cliente" />
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+<!-- Base de Direcciones de cliente -->
+	<table phpName="ClientAddress" name="lausi_clientAddress" description="Base de Direcciones de Clientes">
+	
+		<column name="id" type="INTEGER"  required="true" description="Id de la direccion del cliente" primaryKey="true" autoIncrement="true" />
+		<column name="street" type="VARCHAR" size="100"  required="true" description="Nombre de la direccion del cliente" />
+		<column name="number" type="INTEGER" description="numero de la direccion del cliente" />	
+		<column name="intersection" type="VARCHAR" size="100" description="cruce con otra calle de la direccion del cliente" />
+		<column name="latitude" type="NUMERIC" size="12" scale="9" description="latitud de la direccion del cliente" />
+		<column name="longitude" type="NUMERIC" size="12" scale="9" description="longitud de la direccion del cliente" />
+		<column name="type" type="VARCHAR" size="100" description="tipo de la direccion del cliente" />
+		<column name="circuitId" type="INTEGER" description="circuito al que pertenece la direccion del cliente" />
+		<column name="clientId" type="INTEGER"  required="true" description="Id del cliente de esa direccion" />
+		<column name="regionId" type="INTEGER" description="barrio de la direccion" />
+	
+		<foreign-key foreignTable="lausi_circuit">
+			<reference local="circuitId" foreign="id"/>
+		</foreign-key>
+	
+		<foreign-key foreignTable="lausi_client">
+			<reference local="clientId" foreign="id"/>
+		</foreign-key>
+		
+		<foreign-key foreignTable="lausi_region">
+			<reference local="regionId" foreign="id"/>
+		</foreign-key>	
+	
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+<!-- Base de Activos (Carteleras) -->
+	<table phpName="Billboard" name="lausi_billboard" description="Base de Activos (Carteleras)">
+	
+		<column name="id" type="INTEGER"  required="true" description="Id del activo" primaryKey="true" autoIncrement="true"  />
+		<column name="number" type="INTEGER" required="true" description="numero del activo" />	
+		<column name="type" type="INTEGER" description="tipo del activo" />
+		<column name="height" type="BOOLEAN" description="si esta en altura" />
+		<column name="row" type="INTEGER" description="fila del activo" />
+		<column name="billboardColumn" type="INTEGER" description="columna del activo" />
+		<column name="addressId" type="INTEGER" required="true" description="altura del activo" />
+	
+		<foreign-key foreignTable="lausi_address" onDelete="cascade">
+			<reference local="addressId" foreign="id"/>
+		</foreign-key>
+		
+		<validator column="addressId">
+  			<rule name="required" message="Es necesario especificar una direccion." />
+		</validator>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+<!-- Base de Motivos -->
+	<table phpName="Theme" name="lausi_theme" description="Base de Motivos">
+	
+		<column name="id" type="INTEGER"  required="true" description="Id del motivo" primaryKey="true" autoIncrement="true"  />
+		<column name="name" type="VARCHAR" size="100"  required="true" description="nombre del motivo" />
+		<column name="shortName" type="VARCHAR" size="100"  description="nombre abreviado del motivo" />
+		<column name="startDate" type="DATE" required="true" description="fecha de inicio del motivo" />
+		<column name="duration" type="INTEGER" required="true" description="duracion del motivo" />
+		<column name="sheetsTotal" type="INTEGER" description="cantidad total de afiches que deberan distribuirse del motivo" />
+		<column name="type" type="INTEGER" description="tipo del motivo" />
+		<column name="active" type="BOOLEAN" description="indica si el motivo esta activo o no" default="1"/>
+		
+		<column name="clientId" type="INTEGER"  required="true" description="Id del cliente del motivo" />
+	
+		<foreign-key foreignTable="lausi_client">
+			<reference local="clientId" foreign="id"/>
+		</foreign-key>
+	
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+
+<!-- Base de Avisos -->
+	<table phpName="Advertisement" name="lausi_advertisement" description="Base de Avisos">
+	
+		<column name="id" type="INTEGER"  required="true" description="Id del motivo" primaryKey="true" autoIncrement="true"  />
+		<column name="date" type="DATE" required="true" description="fecha de actualizacion del aviso" />
+		<column name="publishDate" type="DATE" required="true" description="fecha de publicacion del aviso" />
+		<column name="duration" type="INTEGER" required="true" description="duracion del motivo" />	
+	
+		<column name="billboardId" type="INTEGER" required="true" description="activo del aviso" />
+		<column name="themeId" type="INTEGER" required="true" description="motivo del aviso" />
+		<column name="workforceId" type="INTEGER" default="0" description="contratista asignado a ese workforce (solo sextuples)" />
+	
+		<foreign-key foreignTable="lausi_billboard" onDelete="cascade">
+			<reference local="billboardId" foreign="id"/>
+		</foreign-key>
+	
+		<foreign-key foreignTable="lausi_theme" onDelete="cascade">
+			<reference local="themeId" foreign="id"/>
+		</foreign-key>
+		
+		<foreign-key foreignTable="lausi_workforce" onDelete="setnull">
+			<reference local="workforceId" foreign="id"/>
+		</foreign-key>
+		
+		<validator column="publishDate">
+  			<rule name="required" message="Es necesario especificar la fecha de publicación." />
+		</validator>	
+			
+		<validator column="duration">
+  			<rule name="required" message="Es necesario especificar la duración de la publicación." />
+		</validator>
+		
+		<validator column="billboardId">
+  			<rule name="required" message="Es necesario especificar una cartelera." />
+		</validator>
+
+		<validator column="themeId">
+  			<rule name="required" message="Es necesario especificar un motivo." />
+		</validator>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+
+<!-- fin Tablas especificas de Lausi -->
+
+</database>
