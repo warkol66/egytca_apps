@@ -1,0 +1,40 @@
+@page { 
+	margin: .4in;
+}
+body {
+    font-size: 77%;
+}
+#wrapper { 
+	width: 7.5in !Important;
+	margin: 0;
+}
+#rightColumn { 
+	float: none;
+	width: 7.5in !Important;
+	margin: 0;
+}
+#rightColumn h1{
+	margin-bottom: 5px;
+}
+#rightColumn h2{
+	margin-bottom: 5px;
+}
+#rightColumn h3 {
+	padding-top: 5px;
+}
+#rightColumn h4 {
+	padding-top: 5px;
+}
+h1, h2, h3, h4 {	
+	page-break-after: avoid;
+}
+thead {
+	display: table-header-group;
+}
+tfoot {
+	display: table-footer-group;
+}
+tr {
+	page-break-inside: avoid;
+	page-break-after: auto;
+}

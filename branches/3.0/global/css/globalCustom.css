@@ -1,0 +1,325 @@
+/*
+NEW GLOBAL CUSTOM
+*/
+
+* {
+	font-family: Arial, Helvetica, sans-serif, Geneva;
+}
+
+/* INPUTS, ICONS & LINKS ------------------------------*/
+input[type="submit"], input[type="button"], input[type="reset"] {
+	background-color: #e0e0e0;
+	border: 1px outset #a0a0a0;/*#F0F0F0;*/
+	outline: 0 none;
+	cursor: pointer;
+	-khtml-border-radius: 2px;
+	-opera-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	margin: 0 5px 0 5px;
+	padding: 2px 12px 2px 12px;
+}
+input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
+	background-color: #a0a0a0;/*#d0d0d0; */
+	border: outset 1px  #808080;
+}
+
+/* Image Buttons and Links */
+.iconActivate, .iconAdd, .iconBack, .iconBudget, .iconDelete, .iconDetail, .iconDownload,
+.iconEdit, .iconEmail, .iconFollow, .iconGoTo, .iconGraph, .iconHelp, .iconHistory, .iconIndicator,
+.iconInfo, .iconManufacture, .iconOrder, .iconPassword, .iconPlus, .iconRestore, .iconRestoreFromServer,
+.iconSendMultiple, .iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload,
+.iconView, .iconViewGantt, .iconWeight, .iconAddToCart, .iconRemoveFromCart, .iconUpdateCart, .iconSetPrivileges, .iconOwner,
+.iconRead, .iconUnread {
+	background: url(../images/icons_all.png) no-repeat #f0f0f0;
+	border: solid 1px #ababab !Important;;
+	line-height: 999px;
+	vertical-align: top;
+	overflow: hidden;
+	width: 20px;
+	height: 20px;
+	color: transparent !Important;
+	outline: 0 none;
+	cursor: pointer;
+	vertical-align:top;
+	-khtml-border-radius: .2em;
+	-opera-border-radius: .2em;
+	-moz-border-radius: .2em;
+	-webkit-border-radius: .2em;
+	border-radius: .2em;
+}
+input.iconActivate, input.iconAdd, input.iconBack, input.iconBudget, input.iconDelete, input.iconDetail, input.iconDownload,
+input.iconEdit, input.iconEmail, input.iconFollow, input.iconGoTo, input.iconGraph, input.iconHelp, input.iconHistory, input.iconIndicator,
+input.iconInfo, input.iconManufacture, input.iconOrder, input.iconPassword, input.iconPlus, input.iconRestore, input.iconRestoreFromServer,
+input.iconSendMultiple, input.iconStoreInServer, input.iconStoreLocal, input.iconThumbnail, input.iconUpload,
+input.iconView, input.iconViewGantt, input.iconWeight, input.iconAddToCart, input.iconRemoveFromCart, input.iconUpdateCart,
+input.iconSetPrivileges, input.iconOwner, input.iconRead, input.iconUnread {
+	font-size: 100%;
+	width: 22px;
+	height: 22px;
+	margin: 0;
+	padding: 0;
+
+}
+.disabled {
+	background: url(../images/icons_all_dis.png) no-repeat #f0f0f0;
+	border: solid 1px #ababab !Important;;
+	-khtml-border-radius: .2em;
+	-opera-border-radius: .2em;
+	-moz-border-radius: .2em;
+	-webkit-border-radius: .2em;
+	border-radius: .2em;
+}
+.iconEdit {
+	background-position: 0px 0px;
+}
+.iconDelete {
+	background-position: -20px 0px;
+}
+.iconView {
+	background-position: -40px 0px;
+}
+.iconUpload {
+	background-position: -60px 0px;
+}
+.iconDownload {
+	background-position: -80px 0px;
+}
+.iconAdd {
+	background-position: -100px 0px;
+}
+.iconInfo {
+	background-position: -120px 0px;
+}
+.iconHelp {
+	background-position: -140px 0px;
+}
+.iconBack {
+	background-position: -160px 0px;
+}
+.iconGoTo {
+	background-position: -180px 0px;
+}
+.iconStoreInServer {
+	background-position: 0px -20px;
+}
+.iconStoreLocal {
+	background-position: -20px -20px;
+}
+.iconRestoreFromServer {
+	background-position: -40px -20px;
+}
+.iconRestore {
+	background-position: -80px -20px;
+}
+.iconEmail {
+	background-position: -100px -20px;
+}
+.iconSendMultiple {
+	background-position: -120px -80px;
+}
+.iconOrder {
+	background-position: -120px -20px;
+}
+.iconWeight {
+	background-position: -140px -20px;
+}
+.iconActivate {
+	background-position: -160px -20px;
+}
+.iconHistory {
+	background-position: -180px -20px;
+}
+.iconThumbnail {
+	background-position: -20px -40px;
+}
+.iconViewGantt {
+	background-position: -60px -40px;
+}
+.iconManufacture {
+	background-position: -80px -40px;
+}
+.iconIndicator {
+	background-position: -100px -40px;
+}
+.iconTableh3 {
+	background-position: -120px -40px;
+}
+.iconNote {
+	background-position: -140px -40px;
+}
+.iconDocument {
+	background-position: -160px -40px;
+}
+.iconAttach {
+	background-position: -180px -40px;
+}
+.iconGraph {
+	background-position: -0px -60px;
+}
+.iconFollow {
+	background-position: -20px -60px;
+}
+.iconPlus {
+	background-position: -40px -60px;
+}
+.iconDetail {
+	background-position: -60px -60px;
+}
+.iconBudget {
+	background-position: -100px -60px;
+}
+.iconPassword {
+	background-position: -80px -60px;
+}
+.iconAddToCart {
+	background-position: -140px -60px;
+}
+.iconRemoveFromCart {
+	background-position: -160px -60px;
+}
+.iconUpdateCart{
+	background-position: -180px -60px;
+}
+.iconSetPrivileges{
+	background-position: -20px -80px;
+}
+.iconOwner{
+	background-position: -0px -80px;
+}
+.iconRead{
+	background-position: -40px -100px;
+}
+.iconUnread{
+	background-position: -60px -100px;
+}
+.iconActivate:hover, .iconAdd:hover, .iconBack:hover, .iconBudget:hover, .iconDelete:hover, .iconDetail:hover, .iconDownload:hover,
+.iconEdit:hover, .iconEmail:hover, .iconFollow:hover, .iconGoTo:hover, .iconGraph:hover, .iconHelp:hover, .iconHistory:hover, .iconIndicator:hover,
+.iconInfo:hover, .iconManufacture:hover, .iconOrder:hover, .iconPassword:hover, .iconPlus:hover, .iconRestore:hover, .iconRestoreFromServer:hover,
+.iconSendMultiple:hover, .iconStoreInServer:hover, .iconStoreLocal:hover, .iconThumbnail:hover, .iconUpload:hover,
+.iconView:hover, .iconViewGantt:hover, .iconWeight:hover, .iconAddToCart:hover, .iconRemoveFromCart:hover, .iconSetPrivileges:hover,
+.iconOwner:hover, .iconRead:hover, .iconUnread:hover{
+	background-color: #c0c0c0;
+	border: solid 1px #909090 !Important;;
+}
+.disabled, .disabled:hover{
+	background-color: #f0f0f0 !Important;
+}
+/* INPUTS, ICONS & LINKS ------------------------------*/
+
+/* ADD   ----------------------------------------------*/
+a.addLink:link, a.addLink:visited {
+	color:#0054A4;
+	background-image:url(../images/icon_add.png);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+
+a.addLink:hover, a.addLink:active {
+	color:#009900;
+}
+/* ADD   ----------------------------------------------*/
+
+/* SEARCH   -------------------------------------------*/
+a.tdTitSearch{
+	background-color: #f4f6f3;
+	background-image:url(../images/icon_search.gif);
+	background-position:11px 7px;
+	background-repeat:no-repeat;
+	text-decoration: none;
+	color:#0054A4;
+}
+a.tdTitSearch:hover, a.tdTitSearch:active {
+	color:#009900;
+}
+a.tdTitSearch:visited {
+	color:#0054A4;
+}
+.tdSearch{
+	background-color: #f4f6f3;
+	color: #000000;
+}
+.tdSearch input, .tdSearch textarea, .tdSearch input select{
+	color: #333;
+	border: solid 1px #a7a6aa;
+	outline: 0 none;
+}
+a.tdSearchButton:link, 
+a.tdSearchButton:visited  {
+	border: solid 1px #a7a6aa;
+	color: #333;
+	background-position:left top;
+	background-repeat: repeat-x;	
+	background-color:#d2d0c3;
+}
+a.tdSearchButton:hover, 
+a.tdSearchButton:active  {
+	color: #FFFFFF;
+	background-color:#999999;
+	background-image: none;
+}
+a.searchLink:link, a.searchLink:visited {
+	color:#0054A4;
+	background-image: url(../images/icon_search.png);
+	background-position:left top;
+	background-repeat: no-repeat;
+}
+a.searchLink:hover, a.searchLink:active {
+	color:#009900;
+}
+/* SEARCH   -------------------------------------------*/
+
+/* MAILS   --------------------------------------------*/
+a.linkMailNew:link, a.linkMailNew:visited,
+a.linkMailMarkRead:link, a.linkMailMarkRead:visited,
+a.linkMailMarkUnread:link, a.linkMailMarkUnread:visited,
+a.linkMailReply:link, a.linkMailReply:visited,
+a.linkMailForward:link, a.linkMailForward:visited,
+a.linkMailDelete:link, a.linkMailDelete:visited {
+	color:#0054A4;
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+
+a.linkMailNew:hover, a.linkMailNew:active,
+a.linkMailMarkRead:hover, a.linkMailMarkRead:active,
+a.linkMailMarkUnread:hover, a.linkMailMarkUnread:active,
+a.linkMailReply:hover, a.linkMailReply:active,
+a.linkMailForward:hover, a.linkMailForward:active,
+a.linkMailDelete:hover, a.linkMailDelete:active {
+	color:#009900;
+}
+a.linkMailNew {
+	background-image:url(../images/icon_mailNew.png);
+}
+a.linkMailMarkRead {
+	background-image:url(../images/icon_mailMarkRead.png);
+}
+a.linkMailMarkUnread {
+	background-image:url(../images/icon_mailMarkUnread.png);
+}
+a.linkMailReply {
+	background-image:url(../images/icon_mailReply.png);
+}
+a.linkMailForward {
+	background-image:url(../images/icon_mailForward.png);
+}
+a.linkMailDelete {
+	background-image:url(../images/icon_mailDelete.png);
+}
+
+/* PAGINADO    ----------------------------*/
+.pages{	
+	background-color: #FFF;
+	color:#0066CC;
+}
+a.pageLink:link, a.pageLink:visited {
+	color:#666;
+}
+a.pageLink:hover, a.pageLink:active {
+	color:#0066CC;
+}
+.tdFooter{
+	background-color:#eaeee8;
+}
+/* /PAGINADO    ----------------------------*/
