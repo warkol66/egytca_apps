@@ -1,0 +1,35 @@
+<database defaultIdMethod="native" package="processes.classes" name="application" >
+ 	<!--Tablas de modulo objetivos-->
+
+	<table name="processes_process" phpName='Process' description="Process">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Process Id" autoIncrement="true"/>
+		<column name="objectiveId" required="true" type="INTEGER" description="Objective Id"/>
+		<column name="name" required="true" type="VARCHAR" size="255" description="Process Name"/>
+		<column name="description" type="LONGVARCHAR" description="Process Description"/>
+		<column name="impact"  type="LONGVARCHAR" description="Process Impact"/>
+		<column name="uniqueGoal"  type="LONGVARCHAR" description="Process Unique Goal"/>
+		<column name="goalExpirationDate" type="DATE"  description="Process Goal Expiration Date"/>
+		<column name="date" type="DATE"  description="Process Creation Date"/>
+		<column name="budget" type="FLOAT" description="Process Budget (Presupuesto)" />
+		<column name="coordinateNeed"  type="LONGVARCHAR" description="Process Coordinate Need"/>
+		<column name="frequency"  type="LONGVARCHAR" description="Process Frequency"/>
+		<column name="finished" type="BOOLEAN"  description="is Process Finished?"/>
+		<column name="notes" type="LONGVARCHAR"  description="Process Notes"/>
+		<column name="postalCode" type="VARCHAR" size="8"  description="Process Postal Code"/>
+		<column name="uniqueGoalNumeric" type="INTEGER" description="Process Unique Goal Numeric"/>
+		<column name="goalProgress" type="INTEGER" description="Process Goal Progress"/>
+		<column name="latitude" type="FLOAT" description="latitud del proyecto" />
+		<column name="longitude" type="FLOAT" description="longitud del proyecto" />
+
+		 <unique>
+			<unique-column name="name" />
+		</unique>
+
+		<foreign-key foreignTable="objectives_objective" >
+			<reference local="objectiveId" foreign="id" />
+		</foreign-key>
+
+	</table>
+
+
+</database>

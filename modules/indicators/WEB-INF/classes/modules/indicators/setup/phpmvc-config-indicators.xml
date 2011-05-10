@@ -1,0 +1,189 @@
+<!-- Module Indicators -->
+	<action-mappings>
+
+		<action    path = "indicatorsEdit"
+							 type = "IndicatorsEditAction"
+							 name = "indicatorsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="IndicatorsEdit.tpl" />
+		</action>
+
+		<action    path = "indicatorsDoEdit"
+							 type = "IndicatorsDoEditAction"
+							 name = "indicatorsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=indicatorsList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="IndicatorsEdit.tpl" />
+		</action>
+
+		<action    path = "indicatorsList"
+							 type = "IndicatorsListAction"
+							 name = "indicatorsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="IndicatorsList.tpl" />
+		</action>
+
+		<action    path = "indicatorsDoDelete"
+							 type = "IndicatorsDoDeleteAction"
+							 name = "indicatorsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=indicatorsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "indicatorsView"
+							 type = "IndicatorsViewAction"
+							 name = "indicatorsView"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="IndicatorsView.tpl" />
+		</action>
+
+		<action    path = "indicatorsViewXml"
+							 type = "IndicatorsViewXmlAction"
+							 name = "indicatorsViewXml"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="IndicatorsViewXml.tpl" />
+		</action>
+
+		<action    path = "indicatorsSeriesEdit"
+							 type = "IndicatorsSeriesEditAction"
+							 name = "indicatorsSeriesEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="IndicatorsSeriesEdit.tpl" />
+		</action>
+
+		<action    path = "indicatorsSeriesDoEdit"
+							 type = "IndicatorsSeriesDoEditAction"
+							 name = "indicatorsSeriesDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward  name="success" path="/Main.php?do=indicatorsSeriesEdit" redirect="true" />
+			<forward  name="failure" path="/Main.php?do=indicatorsList&amp;message=notget" redirect="true"/>
+		</action>
+
+		<action    path = "indicatorsSeriesDoDeleteX"
+							 type = "IndicatorsSeriesDoDeleteXAction"
+							 name = "indicatorsSeriesDoDeleteX"
+							scope = "request"
+					 validate = "true">
+			<forward  name="success" path="IndicatorsSeriesDoDeleteXSuccess.tpl" />
+			<forward  name="failure" path="IndicatorsSeriesDoDeleteXFailure.tpl" />
+		</action>
+
+		<action    path = "indicatorsSeriesDoOrderByIndicatorX"
+							 type = "IndicatorsSeriesDoOrderByIndicatorXAction"
+							 name = "IndicatorsSeriesDoOrderByIndicatorX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="IndicatorsSeriesDoOrderByIndicatorX.tpl" />
+		</action>
+
+		<action    path = "indicatorsYsEdit"
+							 type = "IndicatorsYsEditAction"
+							 name = "indicatorsYsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="IndicatorsYsEdit.tpl" />
+		</action>
+
+		<action    path = "indicatorsYsDoEdit"
+							 type = "IndicatorsYsDoEditAction"
+							 name = "indicatorsYsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward  name="success" path="/Main.php?do=indicatorsYsEdit" redirect="true" />
+			<forward  name="failure" path="/Main.php?do=indicatorsList&amp;message=notget" redirect="true"/>
+		</action>
+
+		<action    path = "indicatorsXsEdit"
+							 type = "IndicatorsXsEditAction"
+							 name = "indicatorsXsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="IndicatorsXsEdit.tpl" />
+		</action>
+		<action    path = "indicatorsXsDoOrderByIndicatorX"
+							 type = "IndicatorsXsDoOrderByIndicatorXAction"
+							 name = "IndicatorsXsDoOrderByIndicatorX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="IndicatorsXsDoOrderByIndicatorX.tpl" />
+		</action>
+
+		<action    path = "indicatorsXsDoEdit"
+							 type = "IndicatorsXsDoEditAction"
+							 name = "indicatorsXsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward  name="success" path="/Main.php?do=indicatorsXsEdit" redirect="true" />
+			<forward  name="failure" path="/Main.php?do=indicatorsList&amp;message=notget" redirect="true"/>
+		</action>
+
+		<action    path = "indicatorsXsDoDeleteX"
+							 type = "IndicatorsXsDoDeleteXAction"
+							 name = "indicatorsXsDoDeleteX"
+							scope = "request"
+					 validate = "true">
+			<forward  name="success" path="IndicatorsXsDoDeleteXSuccess.tpl" />
+			<forward  name="failure" path="IndicatorsXsDoDeleteXFailure.tpl" />
+		</action>
+
+		<action    path = "indicatorsCategoryEdit"
+							 type = "IndicatorsCategoryEditAction"
+							 name = "indicatorsCategoryEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="IndicatorsCategoryEdit.tpl" />
+		</action>
+
+		<action    path = "indicatorsCategoryDoEdit"
+							 type = "IndicatorsCategoryDoEditAction"
+							 name = "indicatorsCategoryDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=indicatorsCategoryList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="IndicatorsCategoryEdit.tpl" />
+		</action>
+
+		<action    path = "indicatorsCategoryList"
+							 type = "IndicatorsCategoryListAction"
+							 name = "indicatorsCategoryList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="IndicatorsCategoryList.tpl" />
+		</action>
+
+		<action    path = "indicatorsCategoryDoDelete"
+							 type = "IndicatorsCategoryDoDeleteAction"
+							 name = "indicatorsCategoryDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=indicatorsCategoryList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "indicatorsDoAddCategoryToIndicatorX"
+							 type = "IndicatorsDoAddCategoryToIndicatorXAction"
+							 name = "indicatorsDoAddCategoryToIndicatorX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="IndicatorsDoAddCategoryToIndicatorX.tpl" />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "indicatorsDoDeleteCategoryFromIndicatorX"
+							 type = "IndicatorsDoDeleteCategoryFromIndicatorXAction"
+							 name = "indicatorsDoDeleteCategoryFromIndicatorX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="IndicatorsDoDeleteCategoryFromIndicatorX.tpl"  />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+	</action-mappings>
+<!-- Fin Module Indicators -->

@@ -1,0 +1,330 @@
+<!-- Seccion Policy Guidelines -->
+	<action-mappings>
+
+		<action    path = "objectivesPolicyGuidelinesEdit"
+							 type = "ObjectivesPolicyGuidelinesEditAction"
+							 name = "objectivesPolicyGuidelinesEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesPolicyGuidelinesEdit.tpl" />
+		</action>
+
+		<action    path = "objectivesPolicyGuidelinesDoEdit"
+							 type = "ObjectivesPolicyGuidelinesDoEditAction"
+							 name = "objectivesPolicyGuidelinesDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=objectivesPolicyGuidelinesList&amp;message=ok" redirect="true" />
+			<forward name="success-show" path="/Main.php?do=objectivesPolicyGuidelinesShow&amp;message=ok" redirect="true" />
+			<forward name="failure" path="ObjectivesPolicyGuidelinesEdit.tpl" />
+		</action>
+
+		<action    path = "objectivesPolicyGuidelinesList"
+							 type = "ObjectivesPolicyGuidelinesListAction"
+							 name = "objectivesPolicyGuidelinesList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesPolicyGuidelinesList.tpl" />
+		</action>
+
+		<action    path = "objectivesPolicyGuidelinesShow"
+							 type = "ObjectivesPolicyGuidelinesShowAction"
+							 name = "objectivesPolicyGuidelinesShow"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesPolicyGuidelinesShow.tpl" />
+		</action>
+
+		<action    path = "objectivesPolicyGuidelinesDoDelete"
+							 type = "ObjectivesPolicyGuidelinesDoDeleteAction"
+							 name = "objectivesPolicyGuidelinesDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=objectivesPolicyGuidelinesList&amp;message=deleted_ok" redirect="true" />
+			<forward name="success-show" path="/Main.php?do=objectivesPolicyGuidelinesShow&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "objectivesPolicyGuidelinesDoAddCommuneX"
+							 type = "ObjectivesPolicyGuidelinesDoAddCommuneToObjectiveXAction"
+							 name = "objectivesPolicyGuidelinesDoAddCommuneX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesPolicyGuidelinesDoAddCommuneToObjectiveX.tpl" />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "objectivesPolicyGuidelinesDoDeleteCommuneX"
+							 type = "ObjectivesPolicyGuidelinesDoDeleteCommuneFromObjectiveXAction"
+							 name = "objectivesPolicyGuidelinesDoDeleteCommuneX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesPolicyGuidelinesDoDeleteCommuneFromObjectiveX.tpl"  />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "objectivesPolicyGuidelinesDoAddRegionX"
+							 type = "ObjectivesPolicyGuidelinesDoAddRegionToObjectiveXAction"
+							 name = "objectivesPolicyGuidelinesDoAddRegionX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesPolicyGuidelinesDoAddRegionToObjectiveX.tpl" />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "objectivesPolicyGuidelinesDoDelRegionX"
+							 type = "ObjectivesPolicyGuidelinesDoDeleteRegionFromObjectiveXAction"
+							 name = "objectivesPolicyGuidelinesDoDelRegionX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesPolicyGuidelinesDoDeleteRegionFromObjectiveX.tpl"  />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "objectivesHome"
+							 type = "ObjectivesHomeAction"
+							 name = "objectivesHome"
+							scope = "request"
+					 validate = "true">
+			<forward name="include" path="ObjectivesHomeInclude.tpl" />
+		</action>
+
+<!-- Fin Seccion Policy Guidelines -->
+
+<!-- Seccion Strategic Objectives -->
+
+		<action    path = "objectivesStrategicObjectivesEdit"
+							 type = "ObjectivesStrategicObjectivesEditAction"
+							 name = "objectivesStrategicObjectivesEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesStrategicObjectivesEdit.tpl" />
+		</action>
+
+		<action    path = "objectivesStrategicObjectivesDoEdit"
+							 type = "ObjectivesStrategicObjectivesDoEditAction"
+							 name = "objectivesStrategicObjectivesDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=objectivesStrategicObjectivesList&amp;message=ok" redirect="true" />
+			<forward name="success-show" path="/Main.php?do=objectivesStrategicObjectivesShow&amp;message=ok" redirect="true" />
+			<forward name="failure" path="ObjectivesStrategicObjectivesEdit.tpl" />
+		</action>
+
+		<action    path = "objectivesStrategicObjectivesList"
+							 type = "ObjectivesStrategicObjectivesListAction"
+							 name = "objectivesStrategicObjectivesList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesStrategicObjectivesList.tpl" />
+		</action>
+
+		<action    path = "objectivesStrategicObjectivesShow"
+							 type = "ObjectivesStrategicObjectivesShowAction"
+							 name = "objectivesStrategicObjectivesShow"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesStrategicObjectivesShow.tpl" />
+		</action>
+		
+		<action    path = "objectivesStrategicObjectivesShowHistory"
+							 type = "ObjectivesStrategicObjectivesShowHistoryAction"
+							 name = "objectivesStrategicObjectivesShowHistory"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesStrategicObjectivesEdit.tpl" />
+		</action>
+		
+		<action    path = "objectivesStrategicObjectivesUpdateTabsX"
+							 type = "ObjectivesStrategicObjectivesUpdateTabsXAction"
+							 name = "objectivesStrategicObjectivesUpdateTabsX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesStrategicObjectivesLogTabs.tpl" />
+		</action>
+		
+		<action    path = "objectivesStrategicObjectivesShowHistoryX"
+							 type = "ObjectivesStrategicObjectivesShowHistoryXAction"
+							 name = "objectivesStrategicObjectivesShowHistoryX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesStrategicObjectivesForm.tpl" />
+		</action>
+
+		<action    path = "objectivesStrategicObjectivesDoDelete"
+							 type = "ObjectivesStrategicObjectivesDoDeleteAction"
+							 name = "objectivesStrategicObjectivesDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=objectivesStrategicObjectivesList&amp;message=deleted_ok" redirect="true" />
+			<forward name="success-show" path="/Main.php?do=objectivesStrategicObjectivesShow&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "objectivesStrategicObjectivesDoAddCommuneX"
+							 type = "ObjectivesStrategicObjectivesDoAddCommuneToObjectiveXAction"
+							 name = "objectivesStrategicObjectivesDoAddCommuneX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesStrategicObjectivesDoAddCommuneToObjectiveX.tpl" />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "objectivesStrategicObjectivesDoDeleteCommuneX"
+							 type = "ObjectivesStrategicObjectivesDoDeleteCommuneFromObjectiveXAction"
+							 name = "objectivesStrategicObjectivesDoDeleteCommuneX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesStrategicObjectivesDoDeleteCommuneFromObjectiveX.tpl"  />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "objectivesStrategicObjectivesDoAddRegionX"
+							 type = "ObjectivesStrategicObjectivesDoAddRegionToObjectiveXAction"
+							 name = "objectivesStrategicObjectivesDoAddRegionX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesStrategicObjectivesDoAddRegionToObjectiveX.tpl" />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "objectivesStrategicObjectivesDoDelRegionX"
+							 type = "ObjectivesStrategicObjectivesDoDeleteRegionFromObjectiveXAction"
+							 name = "objectivesStrategicObjectivesDoDelRegionX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesStrategicObjectivesDoDeleteRegionFromObjectiveX.tpl"  />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+<!-- Fin Seccion Strategic Objectives -->
+
+<!-- Seccion Objectives -->
+
+		<action    path = "objectivesEdit"
+							 type = "ObjectivesEditAction"
+							 name = "ObjectivesEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesEdit.tpl" />
+		</action>
+
+		<action    path = "objectivesDoEdit"
+							 type = "ObjectivesDoEditAction"
+							 name = "objectivesDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=objectivesList&amp;message=ok" redirect="true" />
+			<forward name="success-show" path="/Main.php?do=objectivesShow&amp;message=ok" redirect="true" />
+			<forward name="failure" path="ObjectivesEdit.tpl" />
+		</action>
+
+		<action    path = "objectivesList"
+							 type = "ObjectivesListAction"
+							 name = "objectivesList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesList.tpl" />
+		</action>
+
+		<action    path = "objectivesShow"
+							 type = "ObjectivesShowAction"
+							 name = "objectivesShow"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesShow.tpl" />
+		</action>
+		
+		<action    path = "objectivesShowHistory"
+							 type = "ObjectivesShowHistoryAction"
+							 name = "objectivesShowHistory"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesEdit.tpl" />
+		</action>
+		
+		<action    path = "objectivesUpdateTabsX"
+							 type = "ObjectivesUpdateTabsXAction"
+							 name = "objectivesUpdateTabsX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesLogTabs.tpl" />
+		</action>
+		
+		<action    path = "objectivesShowHistoryX"
+							 type = "ObjectivesShowHistoryXAction"
+							 name = "objectivesShowHistoryX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesForm.tpl" />
+		</action>
+		
+		<action    path = "objectivesPurgeLogs"
+							 type = "ObjectivesPurgeLogsAction"
+							 name = "objectivesPurgeLogs"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesPurgeLogs.tpl" />
+		</action>
+		
+		<action    path = "objectivesDoPurgeLogs"
+							 type = "ObjectivesDoPurgeLogsAction"
+							 name = "objectivesDoPurgeLogs"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesPurgeLogs.tpl" />
+		</action>
+
+		<action    path = "objectivesDoDelete"
+							 type = "ObjectivesDoDeleteAction"
+							 name = "objectivesDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=objectivesList&amp;message=deleted_ok" redirect="true" />
+			<forward name="success-show" path="/Main.php?do=objectivesShow&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "objectivesDoAddCommuneX"
+							 type = "ObjectivesDoAddCommuneToObjectiveXAction"
+							 name = "objectivesDoAddCommuneX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesDoAddCommuneToObjectiveX.tpl" />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "objectivesDoDeleteCommuneX"
+							 type = "ObjectivesDoDeleteCommuneFromObjectiveXAction"
+							 name = "objectivesDoDeleteCommuneX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesDoDeleteCommuneFromObjectiveX.tpl"  />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "objectivesDoAddRegionX"
+							 type = "ObjectivesDoAddRegionToObjectiveXAction"
+							 name = "objectivesDoAddRegionX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesDoAddRegionToObjectiveX.tpl" />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "objectivesDoDelRegionX"
+							 type = "ObjectivesDoDeleteRegionFromObjectiveXAction"
+							 name = "objectivesDoDelRegionX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesDoDeleteRegionFromObjectiveX.tpl"  />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "objectivesReport"
+							 type = "ObjectivesReportAction"
+							 name = "ObjectivesReport"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ObjectivesReport.tpl" />
+		</action>
+
+	</action-mappings>
+<!-- Fin Seccion Objectives -->

@@ -1,0 +1,187 @@
+<!-- Seccion Projects -->
+	<action-mappings>
+
+		<action    path = "projectsDoEdit"
+							 type = "ProjectsDoEditAction"
+							 name = "projectsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=projectsList&amp;message=ok" redirect="true" />
+			<forward name="success-show" path="/Main.php?do=projectsShow&amp;message=ok" redirect="true" />
+			<forward name="success-more" path="/Main.php?do=projectsEdit" />
+			<forward name="failure" path="ProjectsEdit.tpl" />
+		</action>
+
+		<action    path = "projectsCreateGraph"
+							 type = "ProjectsCreateGraphAction"
+							 name = "projectsCreateGraph"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProjectsCreateGraph.tpl" />
+		</action>
+
+		<action    path = "projectsDoCreateGraph"
+							 type = "ProjectsDoCreateGraphAction"
+							 name = "projectsDoCreateGraph"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=indicatorsView&amp;message=graph_ok" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=projectsList&amp;message=graphCreationError" redirect="true"/>
+		</action>
+
+		<action    path = "projectsShowHistory"
+							 type = "ProjectsShowHistoryAction"
+							 name = "projectsShowHistory"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProjectsEdit.tpl" />
+		</action>
+
+		<action    path = "projectsUpdateTabsX"
+							 type = "ProjectsUpdateTabsXAction"
+							 name = "projectsUpdateTabsX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProjectsLogTabs.tpl" />
+		</action>
+
+		<action    path = "projectsShowHistoryX"
+							 type = "ProjectsShowHistoryXAction"
+							 name = "projectsShowHistoryX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProjectsForm.tpl" />
+		</action>
+
+		<action    path = "projectsDoDelete"
+							 type = "ProjectsDoDeleteAction"
+							 name = "projectsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=projectsList&amp;message=deleted_ok" redirect="true" />
+			<forward name="success-show" path="/Main.php?do=projectsShow&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "projectsDoAddCommuneX"
+							 type = "ProjectsDoAddCommuneToProjectXAction"
+							 name = "projectsDoAddCommuneX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProjectsDoAddCommuneToProjectX.tpl" />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "projectsDoDeleteCommuneX"
+							 type = "ProjectsDoDeleteCommuneFromProjectXAction"
+							 name = "projectsDoDeleteCommuneX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProjectsDoDeleteCommuneFromProjectX.tpl"  />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "projectsDoAddRegionX"
+							 type = "ProjectsDoAddRegionToProjectXAction"
+							 name = "projectsDoAddRegionX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProjectsDoAddRegionToProjectX.tpl" />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "projectsDoDelRegionX"
+							 type = "ProjectsDoDeleteRegionFromProjectXAction"
+							 name = "projectsDoDelRegionX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProjectsDoDeleteRegionFromProjectX.tpl"  />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action  path = "projectsWeightByObjective"
+						 type = "ProjectsWeightByObjectiveAction"
+						 name = "projectsWeightByObjective"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="ProjectsWeightByObjective.tpl" />
+			<forward  name="failure" path="/Main.php?do=objectivesList&amp;message=notget" redirect="true"/>
+		</action>
+
+		<action  path = "projectsDoWeightByObjective"
+						 type = "ProjectsDoWeightByObjectiveAction"
+						 name = "projectsDoWeightByObjective"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=objectivesList&amp;message=saved" redirect="true"/>
+			<forward  name="failure" path="/Main.php?do=objectivesList&amp;message=notsaved" redirect="true"/>
+		</action>
+
+		<action  path = "projectsOrderByObjective"
+						 type = "ProjectsOrderByObjectiveAction"
+						 name = "projectsOrderByObjective"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="ProjectsOrderByObjective.tpl" />
+			<forward  name="failure" path="/Main.php?do=objectivesList&amp;message=notget" redirect="true"/>
+		</action>
+
+		<action    path = "projectsDoOrderByObjectiveX"
+							 type = "ProjectsDoOrderByObjectiveXAction"
+							 name = "projectsDoOrderByObjectiveX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProjectsDoOrderByObjectiveX.tpl" />
+		</action>
+
+<!-- Fin Seccion Projects -->
+
+<!-- Seccion Activities -->
+
+		<action    path = "projectsActivitiesDoEdit"
+							 type = "ProjectsActivitiesDoEditAction"
+							 name = "projectsActivitiesDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=projectsActivitiesList&amp;message=ok" redirect="true" />
+			<forward name="success-show" path="/Main.php?do=projectsProjectsDetailsShow&amp;message=ok" redirect="true" />
+			<forward name="success-more" path="/Main.php?do=projectsActivitiesEdit" />
+			<forward name="success-show-process" path="/Main.php?do=projectsProcessesDetailsShow&amp;message=ok" redirect="true" />
+			<forward name="failure" path="ProjectsActivitiesEdit.tpl" />
+		</action>
+
+		<action    path = "projectsActivitiesShowHistory"
+							 type = "ProjectsActivitiesShowHistoryAction"
+							 name = "projectsActivitiesShowHistory"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProjectsActivitiesEdit.tpl" />
+		</action>
+
+		<action    path = "projectsActivitiesUpdateTabsX"
+							 type = "ProjectsActivitiesUpdateTabsXAction"
+							 name = "projectsActivitiesUpdateTabsX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProjectsActivitiesLogTabs.tpl" />
+		</action>
+
+		<action    path = "projectsActivitiesShowHistoryX"
+							 type = "ProjectsActivitiesShowHistoryXAction"
+							 name = "projectsActivitiesShowHistoryX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProjectsActivitiesForm.tpl" />
+		</action>
+
+		<action    path = "projectsActivitiesDoDelete"
+							 type = "ProjectsActivitiesDoDeleteAction"
+							 name = "projectsActivitiesDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=projectsActivitiesList&amp;message=deleted_ok" redirect="true" />
+			<forward name="success-show" path="/Main.php?do=projectsProjectsDetailsShow&amp;message=deleted_ok" redirect="true" />
+			<forward name="success-show-process" path="/Main.php?do=projectsProcessesDetailsShow&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+	</action-mappings>
+<!-- Fin Seccion Activities -->

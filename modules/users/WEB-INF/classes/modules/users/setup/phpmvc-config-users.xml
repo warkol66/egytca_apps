@@ -1,0 +1,215 @@
+<!-- Module Users-->
+	<action-mappings module="Users">
+
+		<action    path = "usersLogin"
+							 type = "UsersLoginAction"
+							 name = "usersLogin"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="UsersLogin.tpl"/>
+			<forward name="maintenance" path="Maintenance.tpl"/>
+			<forward name="welcome" path="/Main.php?do=usersWelcome" redirect="true" />
+		</action>
+
+		<action    path = "usersDoLogin"
+							 type = "UsersDoLoginAction"
+							 name = "usersDoLogin"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="UsersWelcome.tpl"/>
+			<forward name="failure" path="UsersLogin.tpl"/>
+			<forward name="successFirstLogin" path="/Main.php?do=usersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
+		</action>
+
+		<action    path = "usersAutocompleteListX"
+							 type = "UsersAutocompleteListXAction"
+							 name = "usersAutocompleteListX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="UsersAutocompleteListXSuccess.tpl" />
+		</action>
+		
+		<action    path = "usersPasswordRecoverySendConfirmationRequest"
+							 type = "UsersPasswordRecoverySendConfirmationRequestAction"
+							 name = "usersPasswordRecoverySendConfirmationRequest"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersLogin&amp;message=confirmationMailSent" redirect="true" />
+			<forward name="failure" path="UsersPasswordRecovery.tpl"/>
+		</action>
+		
+		<action    path = "usersPasswordRecoveryConfirmation"
+							 type = "UsersPasswordRecoveryConfirmationAction"
+							 name = "usersPasswordRecoveryConfirmation"
+							scope = "request"
+					 validate = "true">
+			<forward name="askNewPass" path="UsersNewPasswordForRecovery.tpl"/>
+			<forward name="sendNewPass" path="/Main.php?do=usersPasswordDoRecovery" redirect="true"/>
+		</action>
+		
+		<action    path = "usersPasswordDoChangeForRecovery"
+							 type = "UsersPasswordDoChangeForRecoveryAction"
+							 name = "usersPasswordDoChangeForRecovery"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersLogin&amp;message=passwordChanged" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=usersLogin" redirect="true"/>
+		</action>
+
+		<action    path = "usersPasswordDoRecovery"
+							 type = "UsersPasswordDoRecoveryAction"
+							 name = "usersPasswordDoRecovery"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersLogin&amp;message=passwordSent" redirect="true" />
+			<forward name="failure" path="UsersLogin.tpl"/>
+		</action>
+
+		<action    path = "usersWelcome"
+							 type = "UsersWelcomeAction"
+							 name = "usersWelcome"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="UsersWelcome.tpl"/>
+		</action>
+
+		<action    path = "usersLoginMaintenance"
+							 type = "UsersLoginMaintenanceAction"
+							 name = "usersLoginMaintenance"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="UsersLogin.tpl"/>
+		</action>
+
+		<action    path = "usersDoLogout"
+							 type = "UsersDoLogoutAction"
+							 name = "usersDoLogout"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersLogin" redirect="true"/>
+		</action>
+<!--
+		<action    path = "usersDoEdit"
+							 type = "UsersDoEditAction"
+							 name = "usersDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersList&amp;message=saved" redirect="true"/>
+			<forward name="successAdd" path="/Main.php?do=usersList&amp;message=added" redirect="true"/>
+			<forward name="successCreated" path="/Main.php?do=usersEdit&amp;message=saved" redirect="true"/>
+		</action>
+-->
+		<action    path = "usersDoEditInfoX"
+							 type = "UsersDoEditInfoXAction"
+							 name = "usersDoEditInfoX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="UsersDoEditInfoX.tpl" />
+		</action>
+
+		<action    path = "usersDoEditInfo"
+							 type = "UsersDoEditInfoAction"
+							 name = "usersDoEditInfo"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersList&amp;message=saved" redirect="true"/>
+		</action>
+
+		<action    path = "usersPasswordDoChange"
+							 type = "UsersPasswordDoChangeAction"
+							 name = "usersPasswordDoChange"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersPasswordChange&amp;message=changed" redirect="true"/>
+			<forward name="changePassword" path="/Main.php?do=usersPasswordChange" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=usersPasswordChange&amp;message=message" redirect="true"/>
+		</action>
+
+		<action    path = "usersDoDelete"
+							 type = "UsersDoDeleteAction"
+							 name = "usersDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersList&amp;message=deleted" redirect="true" />
+			<forward name="failure" path="/Main.php?do=usersList&amp;message=notdeleted" redirect="true" />
+		</action>
+
+		<action    path = "usersDoLinkToSupplier"
+							 type = "UsersDoLinkToSupplierAction"
+							 name = "usersDoLinkToSupplier"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersList" redirect="true" />
+		</action>
+
+		<action    path = "usersDoActivate"
+							 type = "UsersDoActivateAction"
+							 name = "usersDoActivate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersList&amp;message=activated" redirect="true" />
+			<forward name="failure" path="/Main.php?do=usersList&amp;message=notactivated" redirect="true" />
+		</action>
+
+<!-- Section Groups -->
+
+		<action    path = "usersGroupsDoEdit"
+							 type = "UsersGroupsDoEditAction"
+							 name = "usersGroupsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersGroupsList&amp;message=saved" redirect="true"/>
+			<forward name="blankName" path="/Main.php?do=usersGroupsList&amp;message=blankName" redirect="true"/>
+		</action>
+
+		<action    path = "usersGroupsDoAddCategoryToGroup"
+							 type = "UsersGroupsDoAddCategoryToGroupAction"
+							 name = "usersGroupsDoAddCategoryToGroup"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersGroupsList" redirect="true" />
+		</action>
+
+		<action    path = "usersGroupsDoRemoveCatFromGroup"
+							 type = "UsersGroupsDoRemoveCatFromGroupAction"
+							 name = "usersGroupsDoRemoveCatFromGroup"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersGroupsList" redirect="true" />
+		</action>
+
+		<action    path = "usersGroupsDoDelete"
+							 type = "UsersGroupsDoDeleteAction"
+							 name = "usersGroupsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersGroupsList&amp;message=deleted" redirect="true" />
+			<forward name="failure" path="/Main.php?do=usersGroupsList&amp;message=notdeleted" redirect="true" />
+		</action>
+
+<!-- End Section Groups -->
+
+<!-- Section Levels -->
+
+		<action    path = "usersLevelsDoEdit"
+							 type = "UsersLevelsDoEditAction"
+							 name = "usersLevelsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersLevelsList&amp;message=saved" redirect="true"/>
+			<forward name="blankName" path="/Main.php?do=usersLevelsList&amp;message=blankName" redirect="true"/>
+		</action>
+
+		<action    path = "usersLevelsDoDelete"
+							 type = "UsersLevelsDoDeleteAction"
+							 name = "usersLevelsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersLevelsList&amp;message=deleted" redirect="true" />
+			<forward name="failure" path="/Main.php?do=usersLevelsList&amp;message=notdeleted" redirect="true" />
+		</action>
+
+	</action-mappings>
+<!-- End Section Levels -->
+
+<!-- End Module Users -->
