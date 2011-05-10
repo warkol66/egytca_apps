@@ -1,0 +1,140 @@
+<!-- Module Orders -->
+	<action-mappings module="Orders">
+		<action    path = "ordersView"
+							 type = "OrdersViewAction"
+							 name = "ordersView"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="OrdersView.tpl" />
+			<forward name="notExists" path="NoPermission.tpl" />
+			<forward name="noPermission" path="NoPermission.tpl" />
+		</action>
+
+		<action    path = "ordersEdit"
+							 type = "OrdersEditAction"
+							 name = "ordersEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="OrdersEdit.tpl" />
+			<forward name="notExists" path="NoPermission.tpl" />
+			<forward name="noPermission" path="NoPermission.tpl" />
+		</action>
+
+		<action    path = "ordersDoEdit"
+							 type = "OrdersDoEditAction"
+							 name = "ordersDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=ordersList&amp;message=saved" redirect="true"/>
+			<forward name="error" path="OrdersEdit.tpl" />
+			<forward name="notExists" path="NoPermission.tpl" />
+			<forward name="noPermission" path="NoPermission.tpl" />
+		</action>
+
+		<action    path = "ordersItemsDoAddX"
+							 type = "OrdersItemsDoAddXAction"
+							 name = "ordersItemsDoAddX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="OrdersItemsDoAddX.tpl" />
+			<forward name="failure" path="OrdersItemsDoAddXFailure.tpl" />
+			<forward name="notExists" path="NoPermission.tpl" />
+			<forward name="noPermission" path="NoPermission.tpl" />	
+		</action>
+		
+		<action    path = "ordersItemsDoDeleteX"
+							 type = "OrdersItemsDoDeleteXAction"
+							 name = "ordersItemsDoDeleteX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="OrdersItemsDoDeleteX.tpl" />
+			<forward name="failure" path="OrdersItemsDoDeleteXFailure.tpl" />
+		</action>
+
+		<action    path = "ordersItemsDoEditX"
+							 type = "OrdersItemsDoEditXAction"
+							 name = "ordersItemsDoEditX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="OrdersItemsDoEditX.tpl" />
+			<forward name="failure" path="OrdersItemsDoEditX.tpl" />
+		</action>
+
+		<action    path = "ordersCartDoDelete"
+							 type = "OrdersCartDoDeleteAction"
+							 name = "ordersCartDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="Main.php?do=ordersViewCart&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "ordersStateDoChangeX"
+							 type = "OrdersStateDoChangeXAction"
+							 name = "ordersStateDoChangeX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="OrdersStateDoChangeX.tpl" />
+			<forward name="failure" path="OrdersStateDoChangeXFailure.tpl" />
+			<forward name="notExists" path="NoPermission.tpl" />
+			<forward name="noPermission" path="NoPermission.tpl" />	
+		</action>
+
+		<action    path = "ordersConfirm"
+							 type = "OrdersConfirmAction"
+							 name = "ordersConfirm"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="OrdersConfirm.tpl" />  
+			<forward name="failure" path="Main.php?do=ordersViewCart&amp;message=error" redirect="true" />
+		</action>
+		
+		<action    path = "ordersDoGenerate"
+							 type = "OrdersDoGenerateAction"
+							 name = "ordersDoGenerate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="Main.php?do=ordersList&amp;message=ok" redirect="true" />
+			<forward name="email" path="OrdersEmailView.tpl" />
+		</action>
+
+		<action    path = "ordersDoAddToCart"
+							 type = "OrdersDoAddToCartAction"
+							 name = "ordersDoAddToCart"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="Main.php?do=ordersViewCart" redirect="true" />
+		</action>
+
+		<action    path = "ordersDoSave"
+							 type = "OrdersDoSaveAction"
+							 name = "ordersDoSave"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="Main.php?do=ordersTemplatesList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="Main.php?do=ordersViewCart&amp;message=error" redirect="true" />
+		</action>
+
+		<action    path = "ordersDoImport"
+							 type = "OrdersDoImportAction"
+							 name = "ordersDoImport"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="OrdersImport.tpl" />
+		</action>	
+	</action-mappings>
+
+<!-- Section OrderTemplates -->
+	<action-mappings>
+
+		<action    path = "ordersTemplatesDoAddToCart"
+							 type = "OrdersTemplatesDoAddToCartAction"
+							 name = "ordersTemplatesDoAddToCart"
+							scope = "request"
+					 validate = "true">
+		<forward name="success" path="Main.php?do=ordersViewCart" redirect="true" />
+		</action>
+
+	</action-mappings>
+<!-- End Section OrderTemplates -->
+
+<!-- End Module Orders -->

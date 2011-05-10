@@ -1,0 +1,1 @@
+Se ha producido un error al guardar la encuesta. |-if captcha neq '' and captcha-|Verifique el capcha ingresado|-/if-|
