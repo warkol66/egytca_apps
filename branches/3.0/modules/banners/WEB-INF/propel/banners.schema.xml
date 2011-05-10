@@ -1,0 +1,126 @@
+<database defaultIdMethod="native" package="banners.classes" name="application" >
+
+  <table name="banners_banner" phpName="Banner" description="Tabla de banners" >
+
+    <column name="id" type="INTEGER" required="true" autoIncrement="true" primaryKey="true" />
+    <column name="clientId" type="INTEGER" required="true" description="Id del cliente al que pertenece el banner" />
+    <column name="name" type="VARCHAR" size="255" required="true" description="Nombre del banner" />
+    <column name="targetUrl" type="VARCHAR" size="255" required="true" description="URL del redirect al onClick" />
+    <column name="altText" type="VARCHAR" size="255" description="texto alternativo en caso de que el banner sea una imagen" />
+    <column name="description" type="VARCHAR" size="255" description="datos adicionales" />
+    <column name="printsTotal" type="INTEGER" required="true" description="Cantidad total de impresiones para la frecuencia dada" />
+    <column name="printsLeft" type="INTEGER" required="true" description="Impresiones restantes" />
+    <column name="frequency" type="SMALLINT" required="true" description="Frecuencia en la que se cuentan las impresiones" />
+    <column name="campaignStartDate" type="DATE" required="true" description="fecha de inicio de la campaign" />
+    <column name="campaignFinalDate" type="DATE" required="true" description="fecha de fin de la campaign" />
+    <column name="linkTarget" type="CHAR" size="1" description="indica si se abre en la misma ventana o en ventana nueva" />
+    <column name="active" type="BOOLEAN" required="true" default="1" description="condicion del banner: activo o inactivo" />
+    <column name="extension" type="VARCHAR" size="10" description="Extension del archivo" />
+    <column name="width" type="INTEGER" required="true" description="Ancho en pixeles del banner" />
+    <column name="height" type="INTEGER" required="true" description="Alto en pixeles" />
+
+		<behavior name="soft_delete" />
+
+    <unique>
+      <unique-column name="name" />
+    </unique>
+
+    <foreign-key foreignTable="banners_client" >
+      <reference local="clientId" foreign="id" />
+    </foreign-key>
+
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+  </table>
+
+  <table name="banners_bannerZone" phpName="BannerZoneRelation" description="Tabla de cross reference que indica los banners por zona">
+
+    <column name="bannerId" type="INTEGER" required="true" primaryKey="true" />
+    <column name="zoneId" type="INTEGER" required="true" primaryKey="true" />
+    <column name="weight" type="SMALLINT" required="true" default="1" description="peso del banner de la zona"  />
+    <column name="order" type="SMALLINT" required="true" default="1" description="el orden del banner en la zona"  />
+
+    <foreign-key foreignTable="banners_zone" >
+      <reference local="zoneId" foreign="id" />
+    </foreign-key>
+
+    <foreign-key foreignTable="banners_banner" >
+      <reference local="bannerId" foreign="id" />
+    </foreign-key>
+
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+  </table>
+
+  <table name="banners_click"  phpName="BannerClick" description="Donde se registran los clic a los banners">
+
+    <column name="bannerId" type="INTEGER" required="true" primaryKey="true" description="banner clicado"  />
+    <column name="time" type="TIMESTAMP" required="true" primaryKey="true" description="Fecha  hora de la ocurrencia"  />
+    <column name="zoneId" type="INTEGER" required="true" primaryKey="true" description="zona en la que se mostro el banner clicado"  />
+    <column name="url" type="VARCHAR" size="255" description="url"  />
+
+    <foreign-key foreignTable="banners_banner" >
+      <reference local="bannerId" foreign="id" />
+    </foreign-key>
+
+    <foreign-key foreignTable="banners_zone" >
+      <reference local="zoneId" foreign="id" />
+    </foreign-key>
+
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+  </table>
+
+  <table name="banners_client" phpName="BannerClient" description="Clientes de los banners">
+
+    <column name="id" type="INTEGER" required="true" autoIncrement="true" primaryKey="true" />
+    <column name="name" type="VARCHAR" size="80" required="true" description=""  />
+    <column name="contactName" type="VARCHAR" size="80" description=""  />
+    <column name="phone" type="VARCHAR" size="60" description=""  />
+    <column name="eMail" type="VARCHAR" size="60" description=""  />
+    <column name="webSiteUrl" type="VARCHAR" size="255" description=""  />
+    <column name="comments" type="VARCHAR" size="255" description=""  />
+
+		<behavior name="soft_delete" />
+
+    <unique>
+      <unique-column name="name" />
+    </unique>
+
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+  </table>
+
+  <table name="banners_zone" phpName="BannerZone" description="Zonas donde se muestran los banners">
+
+    <column name="id" type="INTEGER" required="true" autoIncrement="true" primaryKey="true" />
+    <column name="name" type="VARCHAR" size="255" required="true" description="Nombre de la zona"  />
+    <column name="description" type="VARCHAR" size="255" description="datos adicionales" />
+    <column name="rotationType" type="SMALLINT" required="true" default="1" description="Tipo de rotacion"  />
+    <column name="rows" type="SMALLINT" required="true" default="1" description="Cantidad de filas de la zona, para mostrar varios banners por zona"  />
+    <column name="columns" type="SMALLINT" required="true" default="1" description="Cantidad de columnas de la zona, para mostrar varios banners por zona"  />
+
+    <unique>
+      <unique-column name="name" />
+    </unique>
+
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+  </table>
+
+</database>

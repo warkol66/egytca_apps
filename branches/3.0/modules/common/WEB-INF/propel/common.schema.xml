@@ -1,0 +1,206 @@
+<database defaultIdMethod="native" package="common.classes" name="application" >
+
+	<table name="actionLogs_log" phpName="ActionLog" description="logs de acciones del sistema">
+
+	  <column name="id" type="INTEGER" required="true" description="Id log" primaryKey="true" autoIncrement="true" />
+		<column name="userObjectType" type="VARCHAR" size="50" required="true" description="Tipo de usuario" />
+		<column name="userObjectId" type="INTEGER" required="true" description="Id del usuario" />
+	  <column name="userId" type="INTEGER" required="true" description="Id del usuario" />
+	  <column name="affiliateId" type="INTEGER" required="true" description="Id del afiliado" />
+	  <column name="datetime" type="TIMESTAMP" required="true" description="Fecha en que se logueo el dato" />
+	  <column name="action" type="VARCHAR" size="100" required="true" description="action en que se logueo el dato" />
+	  <column name="object" type="VARCHAR" size="100" required="true" description="objeto sobre el cual se realizo la accion"/>
+	  <column name="forward" type="VARCHAR" size="100" description="tipo de accion de la etiqueta"/>
+
+	  <foreign-key foreignTable="users_user" >
+	   <reference local="userId" foreign="id" />
+	  </foreign-key>
+
+	  <foreign-key foreignTable="security_action" >
+	   <reference local="action" foreign="action" />
+	  </foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="ActionLogLabel" name="actionLogs_label" description="Etiquetas de los logs">
+
+	  <column name="id" type="INTEGER" required="true" description="Id Label" primaryKey="true" autoIncrement="true" />
+	  <column name="action" primaryKey="true" type="VARCHAR" size="100" required="true" description="action en que se loguea el dato" />
+	  <column name="label" type="VARCHAR" size="100" required="true" description="mensaje del log"/>
+	  <column name="language" type="VARCHAR" size="100" description="idioma de la etiqueta"/>
+	  <column name="forward" type="VARCHAR" size="100" description="tipo de accion de la etiqueta"/>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="common_menuItem" phpName='MenuItem' description="Items de los menues dinamicos">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
+		<column name="action" type="VARCHAR" size="100" description="Nombre de la accion a ejecutar"/>
+		<column name="url" type="VARCHAR" size="255" description="Direccion del enlace"/>
+		<column name="order" type="INTEGER" description="Indice de ordenamiento"/>
+		<column name="parentId" type="INTEGER" description="Id item padre"/>
+		<column name="newWindow" required="true" default="0" type="BOOLEAN" sqlType="BOOL" description="Abrir el enlace en nueva ventana" />
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+	
+	<table name="common_menuItemInfo" phpName='MenuItemInfo' description="Items de los menues dinamicos">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
+		<column name="menuItemId" required="true" type="INTEGER" />
+		<column name="name" required="true" type="VARCHAR" size="100" description="Nombre a mostrar en el item"/>
+		<column name="title" type="VARCHAR" size="255" description="Titulo a mostrar en el item"/>
+		<column name="description" type="LONGVARCHAR" description="Descripcion del item"/>
+		<column name="language" required="true" type="VARCHAR" size="100" description="Idioma"/>
+		
+		<foreign-key foreignTable="common_menuItem" onDelete="cascade">
+     		<reference local="menuItemId" foreign="id"/>
+  		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+	
+	<table name="common_alertSubscription" phpName='AlertSubscription' description="Suscripciones de alerta">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
+		<column name="name" type="VARCHAR" size="100" description="Nombre de la suscripcion"/>
+		<column name="entityName" type="VARCHAR" size="50" description="Nombre unico de la entidad asociada."/>
+		<column name="entityDateFieldUniqueName" type="VARCHAR" size="100" description="Nombre unico del campo fecha"/>
+		<column name="entityBooleanFieldUniqueName" type="VARCHAR" size="100" description="Nombre unico del campo a evaluar por verdadero o falso."/>
+		<column name="anticipationDays" type="INTEGER" description="Cantidad de dias de anticipacion. Se usa para evaluar campos tipo fecha." />
+		<column name="entityNameFieldUniqueName" type="VARCHAR" size="100" description="Campo a imprimir en representacion del nombre de cada instancia de la entidad" />
+		<column name="extraRecipients" type="LONGVARCHAR" description="Destinatarios extra"/>
+		
+		<foreign-key foreignTable="modules_entity" onDelete="CASCADE">
+     		<reference local="entityName" foreign="name"/>
+  		</foreign-key>
+		
+		<foreign-key foreignTable="modules_entityField" onDelete="CASCADE" >
+	    	<reference local="entityNameFieldUniqueName" foreign="uniqueName"/>
+	 	</foreign-key>
+		
+		<foreign-key foreignTable="modules_entityField" onDelete="CASCADE" >
+	    	<reference local="entityDateFieldUniqueName" foreign="uniqueName"/>
+	 	</foreign-key>
+		
+		<foreign-key foreignTable="modules_entityField" onDelete="CASCADE" >
+	    	<reference local="entityBooleanFieldUniqueName" foreign="uniqueName"/>
+	 	</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+	</table>
+
+	<table name="common_alertSubscriptionUser" phpName='AlertSubscriptionUser' isCrossRef="true" description="Relacion AlertSubscription - User">
+		<column name="alertSubscriptionId" required="true" type="INTEGER" primaryKey="true" />
+		<column name="userId" required="true" type="INTEGER" primaryKey="true" />
+
+		<foreign-key foreignTable="common_alertSubscription" onDelete="CASCADE" >
+	    	<reference local="alertSubscriptionId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="users_user" onDelete="CASCADE" >
+	    	<reference local="userId" foreign="id"/>
+	 	</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+	</table>
+	
+	<table name="common_scheduleSubscription" phpName='ScheduleSubscription' description="Suscripciones de schedulea">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
+		<column name="name" type="VARCHAR" size="100" description="Nombre de la suscripcion"/>
+		<column name="entityName" type="VARCHAR" size="50" description="Nombre unico de la entidad asociada."/>
+		<column name="entityDateFieldUniqueName" type="VARCHAR" size="100" description="Nombre unico del campo fecha"/>
+		<column name="entityBooleanFieldUniqueName" type="VARCHAR" size="100" description="Nombre unico del campo a evaluar por verdadero o falso."/>
+		<column name="anticipationDays" type="INTEGER" description="Cantidad de dias de anticipacion. Se usa para evaluar campos tipo fecha." />
+		<column name="entityNameFieldUniqueName" type="VARCHAR" size="100" description="Campo a imprimir en representacion del nombre de cada instancia de la entidad" />
+		<column name="extraRecipients" type="LONGVARCHAR" description="Destinatarios extra"/>
+		
+		<foreign-key foreignTable="modules_entity" onDelete="CASCADE">
+     		<reference local="entityName" foreign="name"/>
+  		</foreign-key>
+		
+		<foreign-key foreignTable="modules_entityField" onDelete="CASCADE" >
+	    	<reference local="entityNameFieldUniqueName" foreign="uniqueName"/>
+	 	</foreign-key>
+		
+		<foreign-key foreignTable="modules_entityField" onDelete="CASCADE" >
+	    	<reference local="entityDateFieldUniqueName" foreign="uniqueName"/>
+	 	</foreign-key>
+		
+		<foreign-key foreignTable="modules_entityField" onDelete="CASCADE" >
+	    	<reference local="entityBooleanFieldUniqueName" foreign="uniqueName"/>
+	 	</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+	</table>
+
+	<table name="common_scheduleSubscriptionUser" phpName='ScheduleSubscriptionUser' isCrossRef="true" description="Relacion ScheduleSubscription - User">
+		<column name="scheduleSubscriptionId" required="true" type="INTEGER" primaryKey="true" />
+		<column name="userId" required="true" type="INTEGER" primaryKey="true" />
+
+		<foreign-key foreignTable="common_scheduleSubscription" onDelete="CASCADE" >
+	    	<reference local="scheduleSubscriptionId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="users_user" onDelete="CASCADE" >
+	    	<reference local="userId" foreign="id"/>
+	 	</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+	</table>
+	
+	<table name="common_internalMail" phpName='InternalMail' description="Mensajes internos">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true" />
+		<column name="subject" type="VARCHAR" size="255" description="Asunto" />
+		<column name="body" type="LONGVARCHAR" description="Cuerpo del mensaje" />
+		<column name="recipientId" type="INTEGER" description="Receptor del mensaje" />
+		<column name="recipientType" type="VARCHAR" size="50" description="Tipo de receptor del mensaje" />
+		<column name="readOn" type="TIMESTAMP" description="Momento en que el mensaje fue leido" />
+		<column name="fromId" type="INTEGER" description="Remitente" />
+		<column name="fromType" type="VARCHAR" size="50" description="Tipo de remitente" />
+		<column name="to" type="BLOB" description="Destinatarios" />
+		<column name="replyId" type="INTEGER" description="Id del mensaje al que responde" />
+		
+  		<behavior name="timestampable" />
+  		<behavior name="soft_delete" />
+  		
+  		<foreign-key foreignTable="common_internalMail">
+	    	<reference local="replyId" foreign="id" />
+	 	</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8" />
+			<parameter name="Collate" value="utf8_general_ci" />
+		</vendor>
+	</table>
+
+  </database>

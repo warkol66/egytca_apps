@@ -1,0 +1,1 @@
+<span class="resultFailure">Se ha producido un error al subir el archivo</span>

@@ -1,0 +1,69 @@
+<database defaultIdMethod="native" package="calendar.classes" name="application" >
+
+	<table phpName="CalendarEvent" name="calendar_event" description="Eventos del Calendario">
+
+    <column name="id" type="INTEGER"  required="true" description="Id evento" primaryKey="true" autoIncrement="true"  />
+    <column name="title" type="VARCHAR" size="255" description="Titulo" />
+    <column name="summary" type="LONGVARCHAR" description="Resumen" />
+    <column name="body" type="LONGVARCHAR" description="Texto"/>
+    <column name="creationDate" type="TIMESTAMP" description="Fecha creacion Actividad" />
+    <column name="startDate" type="TIMESTAMP" description="Fecha inicio Actividad" />
+    <column name="endDate" type="TIMESTAMP" description="Fecha fin Actividad" />
+    <column name="sourceContact" type="VARCHAR" size="150" description="Mas informacion" />
+    <column name="status" type="INTEGER" description="Estado del evento" />
+    <column name="regionId" type="INTEGER" description="Id de la provincia" />
+    <column name="categoryId" type="INTEGER" description="Id de la categoria" />
+    <column name="userId" type="INTEGER"  required="true" description="Id del usuario" />
+
+		<behavior name="soft_delete" />
+
+    <foreign-key foreignTable="users_user" >
+        <reference local="userId" foreign="id" />
+    </foreign-key>
+
+    <foreign-key foreignTable="categories_category" >
+        <reference local="categoryId" foreign="id" />
+    </foreign-key>
+
+    <foreign-key foreignTable="regions_region" >
+        <reference local="regionId" foreign="id" />
+    </foreign-key>
+
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+	</table>
+
+	<table phpName="CalendarMedia" name="calendar_media" description="Media del calendario">
+
+    <column name="id" type="INTEGER"  required="true" description="Id media" primaryKey="true" autoIncrement="true"  />
+    <column name="calendarEventId" type="INTEGER"  required="true" description="Id del evento" />
+    <column name="name" type="VARCHAR" size="255" description="Nombre" />
+    <column name="title" type="VARCHAR" size="255" description="Titulo" />
+    <column name="description" type="LONGVARCHAR" description="Description" />
+    <column name="mediaType" type="INTEGER" description="Tipo de media" />
+    <column name="width" type="INTEGER" description="Ancho" />
+    <column name="height" type="INTEGER" description="Alto" />	
+    <column name="order" type="INTEGER" description="Orden" />
+    <column name="creationDate" type="TIMESTAMP" description="Fecha de creacion" />
+    <column name="status" type="INTEGER" description="Estado de la media" />
+    <column name="userId" type="INTEGER"  required="true" description="Id del usuario" />
+
+    <foreign-key foreignTable="users_user" >
+        <reference local="userId" foreign="id" />
+    </foreign-key>
+
+    <foreign-key foreignTable="calendar_event" >
+        <reference local="calendarEventId" foreign="id" />
+    </foreign-key>
+
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+	</table>
+
+</database>

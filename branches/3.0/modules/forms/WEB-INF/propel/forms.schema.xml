@@ -1,0 +1,46 @@
+<database defaultIdMethod="native" package="forms.classes" name="application">
+
+	<table name="forms_form" phpName='Form' description="Formularios">
+
+		<column name="id" type="INTEGER"  required="true" description="Id Formulario" primaryKey="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="255" description='nombre del formulario' required='true' />
+		<column name="description" type="VARCHAR" size="255" description="Descripcion" />
+		<column name="mailsTo" size="255" type="VARCHAR" description="Direcciones de email destino (separadas por coma)"/>
+		<column name="content" type="LONGVARCHAR" description="definicion del formulario en HTML"/>
+		<column name="redirectUrl" type="VARCHAR" size="255" description='url de redireccionamiento' />
+		<column name="redirectMessage" type="VARCHAR" size="255" description="mensaje de redireccionamiento" />
+		<column name="hasCaptcha" type="BOOLEAN" default="false" description="Indica si el formulario tiene captcha" />
+		<column name="captchaMessage" type="VARCHAR" size="255" description="mensaje del captcha" />
+		<column name="submitValue" type="VARCHAR" size="255" description='texto del boton' />
+		<column name="senderEmailField" type="VARCHAR" size="255" description='nombre del campo del mail del que completa el form' />
+
+		<behavior name="soft_delete" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="forms_processedForms" phpName="ProcessedForm" description="Formulario Procesados">
+
+		<column name="id" type="INTEGER" required="true" description="Id de Formulario Procesado" primaryKey="true" autoIncrement="true" />
+		<column name="formId" type="INTEGER" required="true" description="Id del formulario original" />
+		<column name="destinationEmail" type='VARCHAR' description='Email del destinatario del formulario si existe' />
+		<column name="formFillingDate" type="TIMESTAMP" required="true" description="Fecha y hora de llenado del formulario" />
+		<column name="ip" type='VARCHAR' required="true" description="IP desde donde se lleno el formulario" />
+		<column name="processedContent" type="LONGVARCHAR" description="contenido del formulario procesado"/>
+
+		<foreign-key foreignTable="forms_form" >
+			<reference local="formId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>

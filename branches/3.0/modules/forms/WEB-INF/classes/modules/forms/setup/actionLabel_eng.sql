@@ -1,0 +1,10 @@
+DELETE FROM `security_actionLabel` WHERE `action` LIKE 'Forms%' AND `language` = 'eng';
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('FormsProcessedFormsEdit', 'Edit forms answers', 'eng');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('FormsFormsEdit', 'Edit form', 'eng');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('FormsProcessedFormView', 'View form answer', 'eng');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('FormsFormsDoDelete', 'Delete Form', 'eng');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('FormsProcessedFormsDoDelete', 'Delete form answer', 'eng');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('FormsDoProcess', 'Process form answer', 'eng');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('FormsCaptchaGeneration', 'Generate forms captcha', 'eng');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('FormsFormsList', 'List forms', 'eng');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('FormsProcessedFormsList', 'List forms answers', 'eng');

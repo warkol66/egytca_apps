@@ -1,0 +1,99 @@
+<!-- Module Forms -->
+
+	<action-mappings>
+		<action    path = "formsFormsEdit"
+							 type = "FormsFormsEditAction"
+							 name = "formsFormsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="FormsFormsEdit.tpl" />
+		</action>
+
+		<action    path = "formsFormsDoEdit"
+							 type = "FormsFormsDoEditAction"
+							 name = "formsFormsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=formsFormsList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="FormsFormsEdit.tpl" />
+		</action>
+
+		<action    path = "formsFormsList"
+							 type = "FormsFormsListAction"
+							 name = "formsFormsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="FormsFormsList.tpl" />
+		</action>
+
+		<action    path = "formsFormsDoDelete"
+							 type = "FormsFormsDoDeleteAction"
+							 name = "formsFormsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=formsFormsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "formsCaptchaGeneration"
+							 type = "formsCaptchaGenerationAction"
+							 name = "formsCaptchaGeneration"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="TemplateAjax.tpl"/>
+		</action>
+
+		<action    path = "formsDoProcess"
+							 type = "FormsDoProcessAction"
+							 name = "formsDoProcess"
+							scope = "request"
+					 validate = "true">
+		</action>
+
+	<!-- Section ProcessedForms -->
+
+		<action    path = "formsProcessedFormsEdit"
+							 type = "FormsProcessedFormsEditAction"
+							 name = "formsProcessedFormsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="FormsProcessedFormsEdit.tpl" />
+		</action>
+
+		<action    path = "formsProcessedFormView"
+							 type = "FormsProcessedFormViewAction"
+							 name = "formsProcessedFormView"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="FormsProcessedFormView.tpl" />
+		</action>
+
+		<action    path = "formsProcessedFormsDoEdit"
+							 type = "FormsProcessedFormsDoEditAction"
+							 name = "formsProcessedFormsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=formsProcessedFormsList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="FormsProcessedFormsEdit.tpl" />
+		</action>
+
+		<action    path = "formsProcessedFormsList"
+							 type = "FormsProcessedFormsListAction"
+							 name = "formsProcessedFormsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="FormsProcessedFormsList.tpl" />
+		</action>
+
+		<action    path = "formsProcessedFormsDoDelete"
+							 type = "FormsProcessedFormsDoDeleteAction"
+							 name = "formsProcessedFormsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=formsProcessedFormsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+	</action-mappings>
+
+<!-- End Section ProcessedForms -->
+
+<!-- End Module Forms -->

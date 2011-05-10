@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<banners>
+		<saveClicks>
+			<value>NO</value>
+			<element_type>YES/NO</element_type>
+		</saveClicks>
+	</banners>
+</config>
