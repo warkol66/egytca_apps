@@ -1,0 +1,20 @@
+﻿<database defaultIdMethod="native" package="studycases.classes" name="application" >
+
+	<table name="studycases_cases" phpName='StudyCase' description="Study Cases">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true" description="Case Id" />
+		<column name="title"  type="VARCHAR" size="255" description="Case Title" />
+		<column name="reference"  type="VARCHAR" size="255" description="Case Reference" />
+		<column name="summary"  type="LONGVARCHAR" description="Summary" />
+		<column name="description"  type="LONGVARCHAR" description="Case" />
+		<column name="caseDate" type="DATE" description="Fecha del case" />
+		<column name="published" description="Publicada" type="BOOLEAN" sqlType="BOOL" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>

@@ -1,0 +1,236 @@
+<!-- Module Blog -->
+	<action-mappings>
+
+		<action  path = "blogEdit"
+						 type = "BlogEditAction"
+						 name = "blogEdit"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BlogEdit.tpl" />
+		</action>
+
+		<action  path = "blogDoEdit"
+						 type = "BlogDoEditAction"
+						 name = "blogDoEdit"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=blogList&amp;message=ok" redirect="true" />
+			<forward  name="failure" path="BlogEdit.tpl" />
+		</action>
+
+		<action  path = "blogList"
+						 type = "BlogListAction"
+						 name = "blogList"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BlogList.tpl" />
+			<forward  name="xml" path="BlogListXml.tpl" />
+		</action>
+
+		<action  path = "blogSendToEmailX"
+						 type = "BlogSendToEmailXAction"
+						 name = "blogSendToEmailX"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BlogSendToEmailX.tpl" />
+			<forward  name="failure" path="BlogSendToEmailXFailure.tpl" />
+		</action>
+
+		<action  path = "blogSearch"
+						 type = "BlogSearchAction"
+						 name = "blogSearch"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BlogSearch.tpl" />
+			<forward  name="rss" path="BlogShowRss.tpl" />
+		</action>
+
+		<action  path = "blogDoDelete"
+						 type = "BlogDoDeleteAction"
+						 name = "blogDoDelete"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=blogList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action  path = "blogShow"
+						 type = "BlogShowAction"
+						 name = "blogShow"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BlogShow.tpl" />
+			<forward  name="rss" path="BlogShowRss.tpl" />
+		</action>
+
+		<action  path = "blogMostViewed"
+						 type = "BlogMostViewedAction"
+						 name = "blogMostViewed"
+						scope = "request"
+				 validate = "true">
+			<forward  name="include" path="BlogMostViewedInclude.tpl" />
+		</action>
+
+		<action  path = "blogArticle"
+						 type = "BlogArticleAction"
+						 name = "blogArticle"
+						scope = "request"
+				 validate = "true">
+			<forward  name="include" path="BlogView.tpl" />
+		</action>
+
+		<action  path = "blogChangeStatusX"
+						 type = "BlogChangeStatusXAction"
+						 name = "blogChangeStatusX"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BlogChangeStatusX.tpl" />
+		</action>
+
+		<action  path = "blogView"
+						 type = "BlogViewAction"
+						 name = "blogView"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BlogView.tpl" />
+		</action>
+
+		<action  path = "blogViewX"
+						 type = "BlogViewXAction"
+						 name = "blogViewX"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BlogViewXInclude.tpl" />
+		</action>
+
+		<action  path = "blogPreview"
+						 type = "BlogPreviewAction"
+						 name = "blogPreview"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success-home" path="BlogShow.tpl" />
+			<forward  name="success-detailed" path="BlogView.tpl" />
+		</action>
+
+		<action  path = "blogSendForm"
+						 type = "BlogSendFormAction"
+						 name = "blogSendForm"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BlogSendToEmailInclude.tpl" />
+		</action>
+
+		<action    path = "blogDoAddTagToEntryX"
+							 type = "BlogDoAddTagToEntryXAction"
+							 name = "blogDoAddTagToEntryX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="BlogDoAddTagToEntryX.tpl" />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "blogDoDeleteTagFromEntryX"
+							 type = "BlogDoDeleteTagFromEntryXAction"
+							 name = "blogDoDeleteTagFromEntryX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="BlogDoDeleteTagFromEntryX.tpl"  />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+<!-- Section BlogComments -->
+		<action  path = "blogCommentsShow"
+						 type = "BlogCommentsShowAction"
+						 name = "blogCommentsShow"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BlogCommentsShow.tpl" />
+		</action>
+
+		<action  path = "blogCommentsDoAddX"
+						 type = "BlogCommentsDoAddXAction"
+						 name = "blogCommentsDoAdd"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BlogCommentsDoAddX.tpl" />
+			<forward  name="failure" path="BlogCommentsDoAddXFailure.tpl" />
+		</action>
+
+		<action  path = "blogCommentsEdit"
+						 type = "BlogCommentsEditAction"
+						 name = "blogCommentsEdit"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BlogCommentsEdit.tpl" />
+		</action>
+
+		<action  path = "blogCommentsDoEdit"
+						 type = "BlogCommentsDoEditAction"
+						 name = "blogCommentsDoEdit"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=blogCommentsList&amp;message=ok" redirect="true" />
+			<forward  name="failure" path="BlogCommentsEdit.tpl" />
+		</action>
+
+		<action  path = "blogCommentsList"
+						 type = "BlogCommentsListAction"
+						 name = "blogCommentsList"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BlogCommentsList.tpl" />
+		</action>
+
+		<action  path = "blogCommentsDoDelete"
+						 type = "BlogCommentsDoDeleteAction"
+						 name = "blogCommentsDoDelete"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=blogCommentsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action  path = "blogCommentsChangeStatusX"
+						 type = "BlogCommentsChangeStatusXAction"
+						 name = "blogCommentsChangeStatusX"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BlogCommentsChangeStatusX.tpl" />
+		</action>
+
+		<action  path = "blogCommentsChangeStatuses"
+						 type = "BlogCommentsChangeStatusesAction"
+						 name = "blogCommentsChangeStatuses"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=blogCommentsList&amp;message=changed" redirect="true" />
+		</action>
+
+		<action  path = "blogChangeStatuses"
+						 type = "BlogChangeStatusesAction"
+						 name = "blogChangeStatuses"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=blogList&amp;message=changed" redirect="true" />
+		</action>
+
+<!-- End Section BlogComments -->
+
+		<action  path = "blogTagsDoEdit"
+						 type = "BlogTagsDoEditAction"
+						 name = "blogTagsDoEdit"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=blogTagsList&amp;message=ok" redirect="true" />
+			<forward  name="failure" path="BlogTagsEdit.tpl" />
+		</action>
+		<action  path = "blogCategoriesDoEdit"
+						 type = "BlogCategoriesDoEditAction"
+						 name = "blogCategoriesDoEdit"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=blogCategoriesList&amp;message=ok" redirect="true" />
+			<forward  name="failure" path="BlogEdit.tpl" />
+		</action>
+
+	</action-mappings>
+
+<!-- End Module Blog-->
