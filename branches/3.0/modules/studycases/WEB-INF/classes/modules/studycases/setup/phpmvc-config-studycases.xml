@@ -1,0 +1,53 @@
+<!-- Module Studycase -->
+	<action-mappings module = "Studycase">
+
+		<action    path = "studycasesList"
+					     type = "StudycasesListAction"
+					     name = "studycasesList"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="StudycasesList.tpl"/>
+		</action>
+
+		<action    path = "studycasesEdit"
+					     type = "StudycasesEditAction"
+					     name = "studycasesEdit"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="StudycasesEdit.tpl"/>
+		</action>
+
+		<action    path = "studycasesShow"
+					     type = "StudycasesShowAction"
+					     name = "studycasesShow"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="StudycasesShow.tpl"/>
+		</action>
+
+		<action    path = "studycasesView"
+					     type = "StudycasesViewAction"
+					     name = "studycasesView"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="StudycasesView.tpl"/>
+		</action>
+
+		<action    path = "studycasesEdit"
+					     type = "StudycasesEditAction"
+					     name = "studycasesEdit"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="StudycasesEdit.tpl"/>
+		</action>
+
+		<action    path = "studycasesDoEdit"
+					     type = "StudycasesDoEditAction"
+					     name = "studycasesDoEdit"
+					    scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=studycasesList&amp;message=ok" redirect="true" />
+		</action>
+
+	</action-mappings>
+<!-- End Module Studycase -->

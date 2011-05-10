@@ -1,0 +1,1 @@
+<span class="resultFailure">Se ha producido un error al enviar la noticia. |-if $captcha neq '' and $captcha-|Verifique el código de validación ingresado.|-/if-| |-if $invalidEmail neq '' and $invalidEmail-|El email de destino ingresado es invalido.|-/if-|</span>
