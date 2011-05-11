@@ -1,13 +1,13 @@
 <?php
 /** 
- * ConfigEditAction
+ * CommonConfigEditAction
  *
  * @package config 
  */
 
-class ConfigEditAction extends BaseAction {
+class CommonConfigEditAction extends BaseAction {
 
-	function ConfigEditAction() {
+	function CommonConfigEditAction() {
 		;
 	}
 
