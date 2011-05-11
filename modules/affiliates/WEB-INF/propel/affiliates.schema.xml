@@ -1,4 +1,4 @@
-<database defaultIdMethod="native" package="affiliates.classes" name="anmaga" >
+<database defaultIdMethod="native" package="affiliates.classes" name="application" >
 
 	<table name="affiliates_affiliate" phpName="Affiliate" description="Afiliados">
 		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id afiliado" autoIncrement="true"/>

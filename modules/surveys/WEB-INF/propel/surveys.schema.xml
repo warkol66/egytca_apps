@@ -1,4 +1,4 @@
-<database defaultIdMethod="native" package="surveys.classes" name="anmaga" >
+<database defaultIdMethod="native" package="surveys.classes" name="application" >
 
 	<table phpName="Survey" name="surveys_survey" description="Encuestas">
 

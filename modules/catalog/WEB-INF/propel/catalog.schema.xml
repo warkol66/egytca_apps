@@ -1,4 +1,4 @@
-<database defaultIdMethod="native" package="catalog.classes" name="anmaga" >
+<database defaultIdMethod="native" package="catalog.classes" name="application" >
 
 	<table phpName="AffiliateProduct" name="catalog_affiliateProduct" isCrossRef="true" description="Precios de Productos por Afiliado">
 

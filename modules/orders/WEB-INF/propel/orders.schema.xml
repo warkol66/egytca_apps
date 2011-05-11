@@ -1,4 +1,4 @@
-<database defaultIdMethod="native" package="orders.classes" name="anmaga" >
+<database defaultIdMethod="native" package="orders.classes" name="application" >
 
 	<table phpName="Order" name="orders_order" description="Pedido de Productos">
 
