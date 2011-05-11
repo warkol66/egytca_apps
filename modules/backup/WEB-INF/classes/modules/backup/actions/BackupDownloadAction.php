@@ -5,6 +5,8 @@
  * @package backup
  */
 
+require_once("BackupPeer.php");
+
 class BackupDownloadAction extends BaseAction {
 
 	function BackupDownloadAction() {
