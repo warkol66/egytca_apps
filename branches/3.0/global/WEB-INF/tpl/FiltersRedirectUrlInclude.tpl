@@ -1,0 +1,1 @@
+|-if $filters neq ''-||-foreach from=$filters key=key item=value-|&filters[|-$key-|]=|-$value-||-/foreach-||-/if-|

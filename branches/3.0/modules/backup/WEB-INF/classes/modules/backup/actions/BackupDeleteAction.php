@@ -5,7 +5,6 @@
  * @package backup 
  */
 
-require_once("BaseAction.php");
 require_once("BackupPeer.php");
 
 class BackupDeleteAction extends BaseAction {
