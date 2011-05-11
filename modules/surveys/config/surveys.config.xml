@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf8"?>
+<config>
+	<surveys>
+		<useCaptcha>
+			<value>NO</value>
+			<element_type>YES/NO</element_type>
+		</useCaptcha>
+		<showInclude>
+			<value>YES</value>
+			<element_type>YES/NO</element_type>
+		</showInclude>
+		<graphics>
+			<showTotals>
+				<value>NO</value>
+				<element_type>YES/NO</element_type>
+			</showTotals>
+			<colors>
+				<legend>black</legend>
+				<labels>blue</labels>
+				<totals>darkred</totals>
+				<barColor>#013e99</barColor>
+				<background>#fbe5a8</background>
+			</colors>
+		</graphics>
+	</surveys>
+</config>

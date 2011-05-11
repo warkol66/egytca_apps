@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf8"?>
+<config>
+	<registration>
+		<mode>
+			<value>Email Verification</value>
+			<element_type>Options</element_type>
+			<element_options>
+				<option_1>Email Verification</option_1>
+				<option_2>Moderated</option_2>
+				<option_3>Moderated with Email Verification</option_3>
+				<option_4>Open</option_4>
+			</element_options>
+		</mode>
+		<useCaptcha>
+			<value>NO</value>
+			<element_type>YES/NO</element_type>
+		</useCaptcha>
+		<newsletterSubscription>
+			<value>YES</value>
+			<element_type>YES/NO</element_type>
+		</newsletterSubscription>
+	</registration>
+</config>

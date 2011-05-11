@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf8"?>
+<config>
+	<catalog>
+		<image>
+			<maxSize>100000</maxSize>
+			<formats>
+				<jpeg>
+					<value>YES</value>
+					<element_type>YES/NO</element_type>
+				</jpeg>
+				<png>
+					<value>YES</value>
+					<element_type>YES/NO</element_type>
+				</png>
+			</formats>
+			<thumbnail>
+				<resizeFormat>3</resizeFormat>
+				<width>50</width>
+				<height>70</height>
+			</thumbnail>
+		</image>
+		<pricesAutoUpdate>
+			<updatesDir>updates</updatesDir>
+			<processedDir>updates/processed</processedDir>
+		</pricesAutoUpdate>
+	</catalog>
+</config>

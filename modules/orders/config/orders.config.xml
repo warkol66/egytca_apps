@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf8"?>
+<config>
+	<orders>
+		<articlesPerOrder>11</articlesPerOrder>
+		<sendMailOnCreation>
+			<value>YES</value>
+			<element_type>YES/NO</element_type>
+		</sendMailOnCreation>
+		<recipients>gflamerich@empresarios.org,gflamerich@gmail.com,gflamerich@modulosempresarios.net</recipients>
+		<exportComment>Exportado a xml</exportComment>
+		<ordersPerPage>25</ordersPerPage>
+		<daysByDefault>15</daysByDefault>
+		<profitRoot>anmaga-server</profitRoot>
+	</orders>
+</config>

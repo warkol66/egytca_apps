@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf8"?>
+<config>
+	<forms>
+		<answerOnDOMForm>
+			<value>YES</value>
+			<element_type>YES/NO</element_type>
+		</answerOnDOMForm>
+	</forms>
+</config>
