@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf8"?>
+<config>
+	<panel>
+		<schedule>
+			<timePeriod>
+				<type>
+					<value>MONTHS_COUNT</value>
+					<element_options>
+						<option_1>DAYS_COUNT</option_1>
+						<option_2>MONTHS_COUNT</option_2>
+					</element_options>
+				</type>
+				<count>1</count>
+			</timePeriod>
+		</schedule>
+		<alert>
+			<timePeriod>
+				<type>
+					<value>DAYS_COUNT</value>
+					<element_options>
+						<option_1>DAYS_COUNT</option_1>
+					</element_options>
+				</type>
+				<count>10</count>
+			</timePeriod>
+		</alert>
+	</panel>
+</config>
