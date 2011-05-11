@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf8"?>
+<config>
+	<blog>
+		<entriesInHome>25</entriesInHome>
+		<entriesPerPage>25</entriesPerPage>
+		<charsInList>700</charsInList>
+		<blogEntries>
+			<useCategories>
+				<value>YES</value>
+				<element_type>YES/NO</element_type>
+			</useCategories>
+			<useSendEntries>
+				<value>YES</value>
+				<element_type>YES/NO</element_type>
+			</useSendEntries>
+		</blogEntries>
+		<comments>
+			<useComments>
+				<value>YES</value>
+				<element_type>YES/NO</element_type>
+			</useComments>
+			<displayComments>
+				<value>YES</value>
+				<element_type>YES/NO</element_type>
+			</displayComments>
+			<moderated>
+				<value>NO</value>
+				<element_type>YES/NO</element_type>
+			</moderated>
+		</comments>
+	</blog>
+</config>
