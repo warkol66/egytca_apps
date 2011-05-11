@@ -4,6 +4,7 @@ class ConfigModule {
 
 	private static $configModule = array(
 		"users" => array(
+			"licences" => 10,
 			"useTimezones" => false,
 			"forceFirstPasswordChange" => true,
 			"askForNewPasswordOnRecovery" => false,

@@ -40,26 +40,46 @@
 			<thousandsSeparator>.</thousandsSeparator>
 			<decimalSeparator>,</decimalSeparator>
 			<numberOfDecimals>2</numberOfDecimals>
-			<siteName>LAUSI - Vía Pública</siteName>
-			<siteDescription>Sistema de Gestión de Activos de Vía Pública</siteDescription>
-			<siteShortName>lausi</siteShortName>
+			<siteName>Sistema</siteName>
+			<siteDescription>Sistema de Gestión</siteDescription>
+			<siteShortName>sistema</siteShortName>
 			<webmasterMail>moddebugger@gmail.com</webmasterMail>
 			<debugMail>moddebugger@gmail.com</debugMail>
 			<fromEmail>moddebugger@gmail.com</fromEmail>
 			<tablePrefix></tablePrefix>
-			<news>Novedades: Bienvenido al Sistema de Gestión de Activos de vía Pública. En este momento este sistema se encuentra en período de prueba</news>
-			<affiliateNews>Novedades: Bienvenido al Sistema de Gestión de Activos de vía Pública. En este momento este sistema se encuentra en período de prueba</affiliateNews>
+			<news>Novedades: Bienvenido al Sistema</news>
+			<affiliateNews>Novedades: Bienvenido al Sistema</affiliateNews>
 		</parameters>
 		<errorReporting>
 			<value>E_ALL ^ E_NOTICE ^ E_WARNINGS</value>
 			<element_type>Options</element_type>
 			<element_options>
 				<option_1></option_1>
-				<option_2>E_ALL ^ E_NOTICE</option_2>
+				<option_2>E_ALL ^ E_NOTICE ^ E_WARNINGS</option_2>
 				<option_3>E_ALL</option_3>
 				<option_4>E_STRICT</option_4>
 			</element_options>
 		</errorReporting>
-		<rowsPerPage>50</rowsPerPage>
+		<rowsPerPage>25</rowsPerPage>
 	</system>
+	<email>
+		<mode>
+			<value>SMTP</value>
+			<element_type>Options</element_type>
+			<element_options>
+				<option_1>PHP</option_1>
+				<option_2>SMTP</option_2>
+			</element_options>
+		</mode>
+		<smtpOptions>
+			<smtpHost></smtpHost>
+			<smtpPort></smtpPort>
+			<smtpUsername></smtpUsername>
+			<smtpPassword></smtpPassword>
+			<smtpSsl>
+				<value>NO</value>
+				<element_type>YES/NO</element_type>
+			</smtpSsl>
+		</smtpOptions>
+	</email>
 </config>
