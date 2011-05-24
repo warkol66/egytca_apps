@@ -46,7 +46,7 @@
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$alertSubscription->getid()-|" /> 
-					<input type="submit" name="submit_go_edit_alertSubscription" value="Editar" class="iconEdit" /> 
+					<input type="submit" name="submit_go_edit_alertSubscription" value="Editar" class="icon iconEdit" /> 
 				</form>
 				|-if $loginUser ne '' && ($loginUser->isAdmin() || $loginUser->isSupervisor())-|
 				<form action="Main.php" method="post" style="display:inline;"> 
@@ -54,7 +54,7 @@
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$alertSubscription->getid()-|" /> 
-					<input type="submit" name="submit_go_delete_alertSubscription" value="Borrar" onclick="return confirm('Seguro que desea eliminar este acto?')" class="iconDelete" /> 
+					<input type="submit" name="submit_go_delete_alertSubscription" value="Borrar" onclick="return confirm('Seguro que desea eliminar este acto?')" class="icon iconDelete" /> 
 				</form>
 				|-/if-|
 			</td> 

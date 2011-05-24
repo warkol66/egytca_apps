@@ -99,17 +99,17 @@
 					<form action="Main.php" method="get">						
 						<input type="hidden" name="do" value="importClientQuoteEdit" />
 						<input type="hidden" name="id" value="|-$quote->getid()-|" />
-						<input type="submit" name="submit_go_edit_quote" value="Editar" class="iconEdit" title="Editar" alt="Editar" />
+						<input type="submit" name="submit_go_edit_quote" value="Editar" class="icon iconEdit" title="Editar" alt="Editar" />
 					</form>
 					<form action="Main.php" method="get">						
 						<input type="hidden" name="do" value="importClientQuoteHistory" />
 						<input type="hidden" name="id" value="|-$quote->getid()-|" />
-						<input type="submit" name="submit_go_edit_quote" value="Ver Historial" class="iconHistory" title="Ver Historial" alt="Ver Historial" onClick="window.open('Main.php?do=importClientQuoteHistory&id=|-$quote->getid()-|','History','width=670,height=500,menubar=no,status=no,location=no,toolbar=no,scrollbars=yes');" />
+						<input type="submit" name="submit_go_edit_quote" value="Ver Historial" class="icon iconHistory" title="Ver Historial" alt="Ver Historial" onClick="window.open('Main.php?do=importClientQuoteHistory&id=|-$quote->getid()-|','History','width=670,height=500,menubar=no,status=no,location=no,toolbar=no,scrollbars=yes');" />
 					</form>
 <!--					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="importClientQuoteDelete" />
 						<input type="hidden" name="id" value="|-$quote->getid()-|" />
-						<input type="submit" name="submit_go_delete_quote" value="Borrar" onclick="return confirm('Seguro que desea eliminar la cotizacion?')" class="iconDelete" />
+						<input type="submit" name="submit_go_delete_quote" value="Borrar" onclick="return confirm('Seguro que desea eliminar la cotizacion?')" class="icon iconDelete" />
 					</form>
 -->
 				</td>

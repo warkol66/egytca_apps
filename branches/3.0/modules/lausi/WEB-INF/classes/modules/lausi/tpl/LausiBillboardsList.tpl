@@ -168,13 +168,13 @@
 						|-include file="FiltersRedirectInclude.tpl"-|
 						<input type="hidden" name="do" value="lausiBillboardsEdit" />
 						<input type="hidden" name="id" value="|-$billboard->getid()-|" />
-						<input type="submit" name="submit_go_edit_billboard" value="Editar" class="iconEdit" />
+						<input type="submit" name="submit_go_edit_billboard" value="Editar" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						|-include file="FiltersRedirectInclude.tpl"-|
 						<input type="hidden" name="do" value="lausiBillboardsDoDelete" />
 						<input type="hidden" name="id" value="|-$billboard->getid()-|" />
-						<input type="submit" name="submit_go_delete_billboard" value="Borrar" onclick="return confirm('Seguro que desea eliminar el billboard?')" class="iconDelete" />
+						<input type="submit" name="submit_go_delete_billboard" value="Borrar" onclick="return confirm('Seguro que desea eliminar el billboard?')" class="icon iconDelete" />
 					</form>								
 				</td>
 			|-/if-|

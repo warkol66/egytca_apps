@@ -5,7 +5,7 @@
 function recipientsUsersAfterUpdateElement(text, li) {
 	$('autocomplete_users').value = '';
 	var idx = $$('#recipientsSelected > li').size();
-	$('recipientsSelected').insert('<li><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+li.id+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="user" />'+li.innerHTML.stripTags()+'<input type="button" class="iconDelete" onClick="this.parentNode.remove()" /></li>')
+	$('recipientsSelected').insert('<li><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+li.id+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="user" />'+li.innerHTML.stripTags()+'<input type="button" class="icon iconDelete" onClick="this.parentNode.remove()" /></li>')
     if (!li.hasClassName('informative_only')) {
         var submit = $('button_edit_internalMail');
         if (Object.isElement(submit))
@@ -16,7 +16,7 @@ function recipientsUsersAfterUpdateElement(text, li) {
 function recipientsAffiliatesAfterUpdateElement(text, li) {
 	$('autocomplete_affiliates').value = '';
 	var idx = $$('#recipientsSelected > li').size();
-	$('recipientsSelected').insert('<li><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+li.id+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+li.innerHTML.stripTags()+'<input type="button" class="iconDelete" onClick="this.parentNode.remove()" /></li>')
+	$('recipientsSelected').insert('<li><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+li.id+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+li.innerHTML.stripTags()+'<input type="button" class="icon iconDelete" onClick="this.parentNode.remove()" /></li>')
     if (!li.hasClassName('informative_only')) {
         var submit = $('button_edit_internalMail');
         if (Object.isElement(submit))
@@ -77,7 +77,7 @@ function changeRecipientType(entityName) {
 							<input type="hidden" name="internalMail[to][|-$idx-|][id]" value="|-$user->getId()-|" />
 							<input type="hidden" name="internalMail[to][|-$idx-|][type]" value="|-$recipients[$idx].type-|" />
 							|-if ($user->getName() ne '') or ($user->getSurname() ne '')-||-$user->getSurname()-|, |-$user->getName()-| - |-/if-|(|-$user->getUserName()-|)
-							<input type="button" class="iconDelete" onClick="this.parentNode.remove()" />
+							<input type="button" class="icon iconDelete" onClick="this.parentNode.remove()" />
 						</li>
 					|-/foreach-|
 				</ul>

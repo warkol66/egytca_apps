@@ -77,7 +77,7 @@
 							<input type="hidden" name="from" value="panelResultFramesView" />
 							<input type="hidden" name="policyGuidelineId" value="|-$selectedPolicyGuideline->getId()-|" />
 							<input type="hidden" name="id" value="|-$resultFrameIndicator->getid()-|" />
-							<input type="submit" name="submit_go_edit_indicator" value="Editar" class="iconEdit" />
+							<input type="submit" name="submit_go_edit_indicator" value="Editar" class="icon iconEdit" />
 						</form>
 						<form action="Main.php" method="get" style="display:inline;">
 							|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
@@ -85,21 +85,21 @@
 							<input type="hidden" name="do" value="panelResultFramesIndicatorsEdit" />
 							<input type="hidden" name="from" value="panelResultFramesView" />
 							<input type="hidden" name="policyGuidelineId" value="|-$selectedPolicyGuideline->getId()-|" />
-							<input type="submit" name="submit_go_edit_indicator" value="Editar" class="iconAdd" />
+							<input type="submit" name="submit_go_edit_indicator" value="Editar" class="icon iconAdd" />
 						</form>
 						<form action="Main.php" method="post" style="display:inline;">
 							|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 							|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 							<input type="hidden" name="do" value="panelResultFramesIndicatorsDoDelete" />
 							<input type="hidden" name="id" value="|-$resultFrameIndicator->getid()-|" />
-							<input type="submit" name="submit_go_delete_indicator" value="Borrar" onclick="return confirm('Seguro que desea eliminar la indicador?')" class="iconDelete" />
+							<input type="submit" name="submit_go_delete_indicator" value="Borrar" onclick="return confirm('Seguro que desea eliminar la indicador?')" class="icon iconDelete" />
 						</form>
 						|-if $resultFrameIndicator->countChildren() > 1 -|
 						<form action="Main.php" method="post" style="display:inline;">
 							<input type="hidden" name="do" value="commonNestedSetOrderByParent" />
 							<input type="hidden" name="entity" value="ResultFrameIndicator" />
 							<input type="hidden" name="nodeId" value="|-$resultFrameIndicator->getid()-|" />
-							<input type="submit" name="submit_go_order_sibblings" value="Ordenar Hijos" class="iconOrder" />
+							<input type="submit" name="submit_go_order_sibblings" value="Ordenar Hijos" class="icon iconOrder" />
 						</form>
 						|-/if-|				|-/if-|	</td>				</tr>
 				<tr>
@@ -124,7 +124,7 @@
 							<input type="hidden" name="from" value="panelResultFramesView" />
 							<input type="hidden" name="policyGuidelineId" value="|-$selectedPolicyGuideline->getId()-|" />
 							<input type="hidden" name="id" value="|-$resultFrameIndicator->getid()-|" />
-							<input type="submit" name="submit_go_edit_indicator" value="Editar" class="iconEdit" />
+							<input type="submit" name="submit_go_edit_indicator" value="Editar" class="icon iconEdit" />
 						</form>
 						<form action="Main.php" method="get" style="display:inline;">
 							|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
@@ -132,21 +132,21 @@
 							<input type="hidden" name="do" value="panelResultFramesIndicatorsEdit" />
 							<input type="hidden" name="from" value="panelResultFramesView" />
 							<input type="hidden" name="policyGuidelineId" value="|-$selectedPolicyGuideline->getId()-|" />
-							<input type="submit" name="submit_go_edit_indicator" value="Editar" class="iconAdd" />
+							<input type="submit" name="submit_go_edit_indicator" value="Editar" class="icon iconAdd" />
 						</form>
 						<form action="Main.php" method="post" style="display:inline;">
 							|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 							|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 							<input type="hidden" name="do" value="panelResultFramesIndicatorsDoDelete" />
 							<input type="hidden" name="id" value="|-$resultFrameIndicator->getid()-|" />
-							<input type="submit" name="submit_go_delete_indicator" value="Borrar" onclick="return confirm('Seguro que desea eliminar la indicador?')" class="iconDelete" />
+							<input type="submit" name="submit_go_delete_indicator" value="Borrar" onclick="return confirm('Seguro que desea eliminar la indicador?')" class="icon iconDelete" />
 						</form>
 						|-if $resultFrameIndicator->countChildren() > 1 -|
 						<form action="Main.php" method="post" style="display:inline;">
 							<input type="hidden" name="do" value="commonNestedSetOrderByParent" />
 							<input type="hidden" name="entity" value="ResultFrameIndicator" />
 							<input type="hidden" name="nodeId" value="|-$resultFrameIndicator->getid()-|" />
-							<input type="submit" name="submit_go_order_sibblings" value="Ordenar Hijos" class="iconOrder" />
+							<input type="submit" name="submit_go_order_sibblings" value="Ordenar Hijos" class="icon iconOrder" />
 						</form>
 						|-/if-|
 						|-/if-|

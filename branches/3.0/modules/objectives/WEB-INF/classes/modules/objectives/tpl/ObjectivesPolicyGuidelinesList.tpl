@@ -55,21 +55,21 @@
 						<input type="hidden" name="do" value="indicatorsView" />
 						<input type="hidden" name="id" value="|-$guideline->getid()-|" />
 						<input type="hidden" name="entity" value="PolicyGuideline" />
-						<input type="submit" name="submit_go_view_project_graph" value="Ver Curva de Desembolsos" class="iconGraph" title="Ver Curva de Desembolsos" />
+						<input type="submit" name="submit_go_view_project_graph" value="Ver Curva de Desembolsos" class="icon iconGraph" title="Ver Curva de Desembolsos" />
 					</form>
 					|-/if-|
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="objectivesPolicyGuidelinesEdit" />
 						<input type="hidden" name="id" value="|-$guideline->getid()-|" />
 						|-if $pager->getPage() gt 1-|<input type="hidden" name="filters[currentPage]" value="|-$pager->getPage()-|" />|-/if-|
-						<input type="submit" name="submit_go_edit_guideline" value="Editar" title="Editar ##objectives,1,Eje de Gestión##" class="iconEdit" />
+						<input type="submit" name="submit_go_edit_guideline" value="Editar" title="Editar ##objectives,1,Eje de Gestión##" class="icon iconEdit" />
 					</form>
 					|-if $loginUser->isAdmin() || $loginUser->isSupervisor()-|
 					<form action="Main.php" method="post" style="display:inline;">
 						<input type="hidden" name="do" value="objectivesPolicyGuidelinesDoDelete" />
 						<input type="hidden" name="id" value="|-$guideline->getid()-|" />
 						<input type="hidden" name="filters[currentPage]" value="|-$pager->getPage()-|" />
-						<input type="submit" name="submit_go_delete_guideline" value="Borrar" title="Eliminar ##objectives,1,Eje de Gestión##" onclick="return confirm('Seguro que desea eliminar el ##objectives,1,Eje de Gestión##?')" class="iconDelete" />
+						<input type="submit" name="submit_go_delete_guideline" value="Borrar" title="Eliminar ##objectives,1,Eje de Gestión##" onclick="return confirm('Seguro que desea eliminar el ##objectives,1,Eje de Gestión##?')" class="icon iconDelete" />
 					</form>
 					|-/if-|
 				</td>

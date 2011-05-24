@@ -86,14 +86,14 @@
 						<input type="hidden" name="id" value="|-$address->getid()-|" />
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-						<input type="submit" name="submit_go_edit_address" value="Editar" class="iconEdit" />
+						<input type="submit" name="submit_go_edit_address" value="Editar" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="lausiAddressesDoDelete" />
 						<input type="hidden" name="id" value="|-$address->getid()-|" />
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-            			<input type="submit" name="submit_go_delete_address" value="Borrar" onClick="return confirm('Seguro que desea eliminar el address?')" class="iconDelete" />
+            			<input type="submit" name="submit_go_delete_address" value="Borrar" onClick="return confirm('Seguro que desea eliminar el address?')" class="icon iconDelete" />
           			</form>          		</td>
 			</tr>
 		|-/foreach-|						

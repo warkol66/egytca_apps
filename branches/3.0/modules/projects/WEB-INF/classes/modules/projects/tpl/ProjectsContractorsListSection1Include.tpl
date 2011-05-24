@@ -7,8 +7,8 @@
   	</select>
 </div>
 <div id="div_buttons" class="multiple_list_buttons" style="float: left;">
-  	<input type="button" value=">" class="iconFollow" id="addPreClasifiedContractor" value="Agregar contratista a lista de pre-clasificados" title="Agregar contratista a lista de pre-clasificados" onClick="javascript:addContractorToProject(this.form)"/> 
-	<input type="button" value="X" class="iconDelete" id="deleteContractors" value="Eliminar contratistas seleccionados" title="Eliminar contratistas seleccionados" onClick="javascript: if (confirm('¿Está seguro que desea eliminar los contratistas seleccionados?')) deleteContractorFromProject(this.form)"/> 
+  	<input type="button" value=">" class="icon iconFollow" id="addPreClasifiedContractor" value="Agregar contratista a lista de pre-clasificados" title="Agregar contratista a lista de pre-clasificados" onClick="javascript:addContractorToProject(this.form)"/> 
+	<input type="button" value="X" class="icon iconDelete" id="deleteContractors" value="Eliminar contratistas seleccionados" title="Eliminar contratistas seleccionados" onClick="javascript: if (confirm('¿Está seguro que desea eliminar los contratistas seleccionados?')) deleteContractorFromProject(this.form)"/> 
 </div>
 <div id="div_small_contractors_list" class="multiple_list" style="float: left;">
   	<h3>Pre-Clasificados </h3>

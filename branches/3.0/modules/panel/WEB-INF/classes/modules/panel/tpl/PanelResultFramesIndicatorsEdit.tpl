@@ -85,7 +85,7 @@ function changeValidationType(type) {
 <script type="text/javascript" src="scripts/lightbox.js"></script> 			
 <div id="lightbox1" class="leightbox"> 
 	<p align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar<input type="button" class="iconDelete" /></a> 
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar<input type="button" class="icon iconDelete" /></a> 
 	</p>
 	<div id="embeddedForm">
 		|-include file=$formTemplateName action="showLog"-|

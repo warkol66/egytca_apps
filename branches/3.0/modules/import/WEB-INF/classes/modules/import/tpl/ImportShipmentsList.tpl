@@ -88,18 +88,18 @@
 					<form action="Main.php" method="get">						
 						<input type="hidden" name="do" value="importShipmentsEdit" />
 						<input type="hidden" name="id" value="|-$shipment->getid()-|" />
-						<input type="submit" name="submit_go_edit_shipment" value="Editar" class="iconEdit" title="Editar" alt="Editar" />
+						<input type="submit" name="submit_go_edit_shipment" value="Editar" class="icon iconEdit" title="Editar" alt="Editar" />
 					</form>
 					<form action="Main.php" method="post">						
 						<input type="hidden" name="do" value="importShipmentsDoDelete" />
 						<input type="hidden" name="id" value="|-$shipment->getid()-|" />
-						<input type="submit" name="submit_go_delete_shipment" value="Eliminar" class="iconDelete" title="Eliminar" alt="Eliminar" onClick="return confirm('¿Está seguro que desea eliminar la información de embarque?');" />
+						<input type="submit" name="submit_go_delete_shipment" value="Eliminar" class="icon iconDelete" title="Eliminar" alt="Eliminar" onClick="return confirm('¿Está seguro que desea eliminar la información de embarque?');" />
 					</form>
 					|-if !$shipment->hasShipmentRelease()-|
 					<form action="Main.php" method="get">						
 						<input type="hidden" name="do" value="importShipmentReleasesEdit" />
 						<input type="hidden" name="shipmentId" value="|-$shipment->getid()-|" />
-						<input type="submit" name="submit_go_edit_shipment_release" value="Crear información de nacionalización" class="iconCustoms" title="Crear información de nacionalización" alt="Crear información de nacionalización" />
+						<input type="submit" name="submit_go_edit_shipment_release" value="Crear información de nacionalización" class="icon iconCustoms" title="Crear información de nacionalización" alt="Crear información de nacionalización" />
 					</form>
 					|-/if-|
 				</td>

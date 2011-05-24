@@ -57,7 +57,7 @@
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$activity->getid()-|" /> 
-					<input type="submit" name="submit_go_edit_activity" value="Editar" class="iconEdit" /> 
+					<input type="submit" name="submit_go_edit_activity" value="Editar" class="icon iconEdit" /> 
 				</form>
 
 				<form action="Main.php" method="post" style="display:inline;"> 
@@ -65,7 +65,7 @@
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$activity->getid()-|" /> 
-					<input type="submit" name="submit_go_delete_activity" value="Borrar" onclick="return confirm('Seguro que desea eliminar la actividad?')" class="iconDelete" /> 
+					<input type="submit" name="submit_go_delete_activity" value="Borrar" onclick="return confirm('Seguro que desea eliminar la actividad?')" class="icon iconDelete" /> 
 				</form>
 				|-/if-|
 			
@@ -73,7 +73,7 @@
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="projectsActivitiesShowHistory" />
 						<input type="hidden" name="id" value="|-$activity->getid()-|" />
-						<input type="submit" name="submit_go_show_project_activity_history" value="Mostrar Historico de cambios" class="iconHistory"  title="Mostrar Historico de cambios" />
+						<input type="submit" name="submit_go_show_project_activity_history" value="Mostrar Historico de cambios" class="icon iconHistory"  title="Mostrar Historico de cambios" />
 					</form>
 				|-/if-|
 			</td> 

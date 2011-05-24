@@ -41,12 +41,12 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="importProductsEdit" />
 						<input type="hidden" name="id" value="|-$product->getid()-|" />
-						<input type="submit" name="submit_go_edit_product" value="Editar" class="iconEdit" />
+						<input type="submit" name="submit_go_edit_product" value="Editar" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="importProductsDoDelete" />
 						<input type="hidden" name="id" value="|-$product->getid()-|" />
-						<input type="submit" name="submit_go_delete_product" value="Borrar" onclick="return confirm('Seguro que desea eliminar el product?')" class="iconDelete" />
+						<input type="submit" name="submit_go_delete_product" value="Borrar" onclick="return confirm('Seguro que desea eliminar el product?')" class="icon iconDelete" />
 					</form>
 				</td>
 			</tr>
@@ -145,7 +145,7 @@
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="importProductsDoActivate" />
 						<input type="hidden" name="id" value="|-$product->getid()-|" />
-						<input type="submit" name="submit_go_delete_product" value="Activar" class="iconActivate" />
+						<input type="submit" name="submit_go_delete_product" value="Activar" class="icon iconActivate" />
 					</form>
 				</td>
 			</tr>

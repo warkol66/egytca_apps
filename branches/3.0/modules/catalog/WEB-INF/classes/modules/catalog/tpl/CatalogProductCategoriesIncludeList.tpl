@@ -15,17 +15,17 @@
 				<form action="Main.php" method="get">
 					<input type="hidden" name="do" value="catalogProductCategoriesEdit" />
 					<input type="hidden" name="id" value="|-$productCategory->getid()-|" />
-					<input type="submit" name="submit_go_edit_productcategory" value="Editar" class="iconEdit" />
+					<input type="submit" name="submit_go_edit_productcategory" value="Editar" class="icon iconEdit" />
 				</form>
 				<form action="Main.php" method="post">
 					<input type="hidden" name="do" value="catalogProductCategoriesDoDelete" />
 					<input type="hidden" name="id" value="|-$productCategory->getid()-|" />
-					<input type="submit" name="submit_go_delete_productcategory" value="Borrar" onclick="return confirm('Seguro que desea eliminar el productcategory?')" class="iconDelete" />
+					<input type="submit" name="submit_go_delete_productcategory" value="Borrar" onclick="return confirm('Seguro que desea eliminar el productcategory?')" class="icon iconDelete" />
 				</form>
 				<form action="Main.php" method="get">
 					<input type="hidden" name="do" value="catalogProductCategoriesEdit" />
 					<input type="hidden" name="parentCategoryId" value="|-$productCategory->getid()-|" />
-					<input type="submit" name="submit_go_add_productcategory" value="Agregar Subcategoria" class="iconAdd" />
+					<input type="submit" name="submit_go_add_productcategory" value="Agregar Subcategoria" class="icon iconAdd" />
 				</form>								</td>
 		</tr>
 		|-if $productCategory->hasChildren()-|

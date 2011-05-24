@@ -24,12 +24,12 @@
 			<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="affiliatesUsersLevelsEdit" /> 
 			  <input type="hidden" name="id" value="|-$level->getId()-|" /> 
-			  <input type="submit" name="submit_go_edit_affiliate" title="Editar" value="Editar" class="iconEdit" /> 
+			  <input type="submit" name="submit_go_edit_affiliate" title="Editar" value="Editar" class="icon iconEdit" /> 
 			</form>
 			<form action="Main.php" method="post" style="display:inline;"> 
 			  <input type="hidden" name="do" value="affiliatesUsersLevelsDoDelete" /> 
 			  <input type="hidden" name="id" value="|-$level->getId()-|" /> 
-			  <input type="submit" name="submit_go_delete_affiliate" value="Borrar" title="Eliminar" class="iconDelete" onclick="return confirm('Seguro que desea eliminar el nivel de usuario?')"  /> 
+			  <input type="submit" name="submit_go_delete_affiliate" value="Borrar" title="Eliminar" class="icon iconDelete" onclick="return confirm('Seguro que desea eliminar el nivel de usuario?')"  /> 
 			</form>
 		</td>
 	</tr>

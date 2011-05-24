@@ -44,12 +44,12 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="lausiClientAddressesEdit" />
 						<input type="hidden" name="id" value="|-$clientaddress->getid()-|" />
-						<input type="submit" name="submit_go_edit_clientaddress" value="Editar" class="iconEdit" />
+						<input type="submit" name="submit_go_edit_clientaddress" value="Editar" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="lausiClientAddressesDoDelete" />
 						<input type="hidden" name="id" value="|-$clientaddress->getid()-|" />
-						<input type="submit" name="submit_go_delete_clientaddress" value="Borrar" onclick="return confirm('Seguro que desea eliminar el clientaddress?')" class="iconDelete" />
+						<input type="submit" name="submit_go_delete_clientaddress" value="Borrar" onclick="return confirm('Seguro que desea eliminar el clientaddress?')" class="icon iconDelete" />
 					</form>
 				</td>
 			</tr>

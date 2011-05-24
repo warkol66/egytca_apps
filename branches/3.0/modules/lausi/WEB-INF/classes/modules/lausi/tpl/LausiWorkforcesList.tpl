@@ -29,12 +29,12 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="lausiWorkforcesEdit" />
 						<input type="hidden" name="id" value="|-$workforce->getid()-|" />
-						<input type="submit" name="submit_go_edit_workforce" value="Editar" class="iconEdit" />
+						<input type="submit" name="submit_go_edit_workforce" value="Editar" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="lausiWorkforcesDoDelete" />
 						<input type="hidden" name="id" value="|-$workforce->getid()-|" />
-						<input type="submit" name="submit_go_delete_workforce" value="Borrar" onclick="return confirm('Seguro que desea eliminar el workforce?')" class="iconDelete" />
+						<input type="submit" name="submit_go_delete_workforce" value="Borrar" onclick="return confirm('Seguro que desea eliminar el workforce?')" class="icon iconDelete" />
 					</form>				</td>
 			</tr>
 		|-/foreach-|						

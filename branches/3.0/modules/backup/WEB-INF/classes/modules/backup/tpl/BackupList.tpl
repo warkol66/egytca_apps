@@ -86,7 +86,7 @@
 				<td align="right" nowrap="nowrap">|-$filename.time|date_format:"%Y-%m-%d %H:%M:%S"|change_timezone|date_format:"%d-%m-%Y %H:%M:%S"-|</td>
 				<td align="right">|-$filename.size|number_format:3:",":"."-| kb</td>
 				<td nowrap="nowrap">
-					<input type="button" value="Enviar por mail" title="Enviar por mail" class="iconEmail" onClick='$("emailSend|-$counter-|").show(); $("backupAdmin|-$counter-|").hide(); $("backupDelete|-$counter-|").hide(); $("mail|-$counter-|").hide();' id="mail|-$counter-|" />
+					<input type="button" value="Enviar por mail" title="Enviar por mail" class="icon iconEmail" onClick='$("emailSend|-$counter-|").show(); $("backupAdmin|-$counter-|").hide(); $("backupDelete|-$counter-|").hide(); $("mail|-$counter-|").hide();' id="mail|-$counter-|" />
 					<form action="Main.php" style='display: none;' method="post" id='emailSend|-$counter-|'>
 						<input type="hidden" name="filename" value="|-$filename.name-|"  />
 						<input type="hidden" name="do" value="backupSendByEmail" />
@@ -97,12 +97,12 @@
 					<form action="Main.php" method="post" id="backupAdmin|-$counter-|">
 						<input type="hidden" name="filename" value="|-$filename.name-|"  />
 						<input type="hidden" name="do" value="backupRestore" />
-						<input type="submit" value="Restaurar Backup" class="iconRestoreFromServer" title='Restaurar este respaldo' onclick="return confirm('Esta opción reemplazará la información en el sistema por la información en este respaldo. ¿Está seguro que desea continuar?');" />
+						<input type="submit" value="Restaurar Backup" class="icon iconRestoreFromServer" title='Restaurar este respaldo' onclick="return confirm('Esta opción reemplazará la información en el sistema por la información en este respaldo. ¿Está seguro que desea continuar?');" />
 					</form>
 					<form action="Main.php" method="post" id="backupDelete|-$counter-|">
 						<input type="hidden" name="filename" value="|-$filename.name-|"  />
 						<input type="hidden" name="do" value="backupDoDelete" />
-						<input type="submit" value="Eliminar Backup" class="iconDelete" title='Eliminar este respaldo' onclick="return confirm('Esta opción elimina permanentemente este respaldo. ¿Está seguro que desea eliminarlo?');" />
+						<input type="submit" value="Eliminar Backup" class="icon iconDelete" title='Eliminar este respaldo' onclick="return confirm('Esta opción elimina permanentemente este respaldo. ¿Está seguro que desea eliminarlo?');" />
 					</form>				
 				</td>
 			</tr>

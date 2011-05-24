@@ -87,24 +87,24 @@
 					<form action="Main.php" method="get">						
 						<input type="hidden" name="do" value="importSupplierOrderTracking" />
 						<input type="hidden" name="id" value="|-$order->getid()-|" />
-						<input type="submit" name="submit_go_edit_order" value="Seguimiento de Fabricación" title="Seguimiento de Fabricación" alt="Seguimiento de Fabricación" class="iconManufacture" />
+						<input type="submit" name="submit_go_edit_order" value="Seguimiento de Fabricación" title="Seguimiento de Fabricación" alt="Seguimiento de Fabricación" class="icon iconManufacture" />
 					</form>
 					|-/if-|
 					<form action="Main.php" method="get">						
 						<input type="hidden" name="do" value="importSupplierOrderEdit" />
 						<input type="hidden" name="id" value="|-$order->getid()-|" />
-						<input type="submit" name="submit_go_edit_order" value="Editar" class="iconEdit" title="Editar" alt="Editar" />
+						<input type="submit" name="submit_go_edit_order" value="Editar" class="icon iconEdit" title="Editar" alt="Editar" />
 					</form>
 					<form action="Main.php" method="get">						
 						<input type="hidden" name="do" value="importSupplierOrderHistory" />
 						<input type="hidden" name="id" value="|-$order->getid()-|" />
-						<input type="button" name="submit_go_edit_order" value="Ver Historial" class="iconHistory" title="Ver Historial" alt="Ver Historial" onClick="window.open('Main.php?do=importSupplierOrderHistory&id=|-$order->getid()-|','History','width=670,height=500,menubar=no,status=no,location=no,toolbar=no,scrollbars=yes');" />
+						<input type="button" name="submit_go_edit_order" value="Ver Historial" class="icon iconHistory" title="Ver Historial" alt="Ver Historial" onClick="window.open('Main.php?do=importSupplierOrderHistory&id=|-$order->getid()-|','History','width=670,height=500,menubar=no,status=no,location=no,toolbar=no,scrollbars=yes');" />
 					</form>
 					|-if !$order->hasShipment()-|
 					<form action="Main.php" method="get">						
 						<input type="hidden" name="do" value="importShipmentsEdit" />
 						<input type="hidden" name="supplierPurchaseOrderId" value="|-$order->getid()-|" />
-						<input type="submit" name="submit_go_edit_shipment" value="Crear información de embarque" class="iconShipment" title="Crear información de embarque" alt="Crear información de embarque" />
+						<input type="submit" name="submit_go_edit_shipment" value="Crear información de embarque" class="icon iconShipment" title="Crear información de embarque" alt="Crear información de embarque" />
 					</form>
 					|-/if-|
 				</td>

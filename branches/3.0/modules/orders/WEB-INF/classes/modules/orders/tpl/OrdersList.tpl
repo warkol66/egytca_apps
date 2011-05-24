@@ -75,10 +75,10 @@ Para eliminar pedidos, seleccione los pedidos a eliminar y haga click en "Elimin
 				<td align="right">|-$order->gettotal()|system_numeric_format-|</td>
 				<td nowrap>|-$order->getStateName()-|</td>
 				<td nowrap>
-					<input type="button" onclick="javascript:window.location.href='Main.php?do=ordersView&id=|-$order->getid()-|&page=|-$page-|'" value="Ver" class="iconView" />
-					<input type="button" onclick="javascript:window.location.href='Main.php?do=ordersEdit&id=|-$order->getid()-|&page=|-$page-|'" value="Editar" class="iconEdit" />
+					<input type="button" onclick="javascript:window.location.href='Main.php?do=ordersView&id=|-$order->getid()-|&page=|-$page-|'" value="Ver" class="icon iconView" />
+					<input type="button" onclick="javascript:window.location.href='Main.php?do=ordersEdit&id=|-$order->getid()-|&page=|-$page-|'" value="Editar" class="icon iconEdit" />
 					|-if $all eq "0"-|
-					<input type="button" onclick="javascript:window.location.href='Main.php?do=ordersDoAddToCart&id=|-$order->getid()-|'" value="Add To Cart" class="iconAddToCart" />
+					<input type="button" onclick="javascript:window.location.href='Main.php?do=ordersDoAddToCart&id=|-$order->getid()-|'" value="Add To Cart" class="icon iconAddToCart" />
 					|-/if-|
 				<input type="checkbox" name="orders[]" value="|-$order->getid()-|" />									</td>
 			</tr>

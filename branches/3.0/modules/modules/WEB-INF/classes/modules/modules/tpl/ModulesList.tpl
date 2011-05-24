@@ -31,7 +31,7 @@ function checkscript() {
 		  <form action="Main.php" method="post" style="display:inline;">
         <input type="hidden" name="do" value="modulesEntitiesSchemaExport" />
         <input type="hidden" name="moduleName" value="|-$eachModule->getName()-|" />
-        <input type="submit" name="submit_go_export_schema" value="Exportar schema" class="iconDownload"  title="Exportar schema" />
+        <input type="submit" name="submit_go_export_schema" value="Exportar schema" class="icon iconDownload"  title="Exportar schema" />
       </form>
 		</td> 
 	</tr> 

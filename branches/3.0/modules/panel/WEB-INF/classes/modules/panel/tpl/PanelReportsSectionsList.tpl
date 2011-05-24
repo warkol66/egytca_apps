@@ -81,7 +81,7 @@
 							<input type="hidden" name="do" value="commonNestedSetOrderByParent" />
 							<input type="hidden" name="entity" value="ReportSection" />
 							<input type="hidden" name="nodeId" value="|-$reportSection->getid()-|" />
-							<input type="submit" name="submit_go_order_sibblings" value="Ordenar Hijos" class="iconOrder" />
+							<input type="submit" name="submit_go_order_sibblings" value="Ordenar Hijos" class="icon iconOrder" />
 						</form>
 						|-/if-|
 					</td>

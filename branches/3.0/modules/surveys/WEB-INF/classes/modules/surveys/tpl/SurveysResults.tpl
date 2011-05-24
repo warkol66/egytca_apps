@@ -9,7 +9,7 @@ Descargar Resultados como csv
 <form action="Main.php" method="post">
 	<input type="hidden" name="do" value="surveysAnswersExport" />
 	<input type="hidden" name="id" value="|-$survey->getid()-|" />
-	<input type="submit" name="submit_go_view_survey" value="Exportar Resultados" title="Exportar Resultados" class="iconDownload" />
+	<input type="submit" name="submit_go_view_survey" value="Exportar Resultados" title="Exportar Resultados" class="icon iconDownload" />
 </form>				
 |-/if-|
 <div id="surveyResults|-$survey->getId()-|">

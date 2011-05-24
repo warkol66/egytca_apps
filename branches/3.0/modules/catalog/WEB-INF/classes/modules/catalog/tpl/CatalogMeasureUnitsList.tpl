@@ -23,12 +23,12 @@
 			<td nowrap> <form action="Main.php" method="get"> 
 					<input type="hidden" name="do" value="catalogMeasureUnitsEdit" /> 
 					<input type="hidden" name="id" value="|-$measureunit->getid()-|" /> 
-					<input type="submit" name="submit_go_edit_measureunit" value="Editar" class="iconEdit" /> 
+					<input type="submit" name="submit_go_edit_measureunit" value="Editar" class="icon iconEdit" /> 
 				</form> 
 				<form action="Main.php" method="post"> 
 					<input type="hidden" name="do" value="catalogMeasureUnitsDoDelete" /> 
 					<input type="hidden" name="id" value="|-$measureunit->getid()-|" /> 
-					<input type="submit" name="submit_go_delete_measureunit" value="Borrar" onclick="return confirm('Seguro que desea eliminar la unidad de medida?')" class="iconDelete" /> 
+					<input type="submit" name="submit_go_delete_measureunit" value="Borrar" onclick="return confirm('Seguro que desea eliminar la unidad de medida?')" class="icon iconDelete" /> 
 			</form></td> 
 		</tr> 
 		|-/foreach-|

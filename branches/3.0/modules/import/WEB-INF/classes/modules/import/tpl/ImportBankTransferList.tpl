@@ -37,7 +37,7 @@
 					<form action="Main.php" method="get">						
 						<input type="hidden" name="do" value="importBankTransferEdit" />
 						<input type="hidden" name="id" value="|-$transfer->getid()-|" />
-						<input type="submit" name="submit_go_edit_transfer" value="Editar" class="iconEdit" title="Editar" alt="Editar" />
+						<input type="submit" name="submit_go_edit_transfer" value="Editar" class="icon iconEdit" title="Editar" alt="Editar" />
 					</form>
 				</td>
 			</tr>

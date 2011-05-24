@@ -25,7 +25,7 @@
 	
 	function addParamToAction() {
 		paramCount++;
-		var htmlContent = '<li>Nombre del argumento: <input type="text" name="param[name][%count%]" value=""> Valor: <input type="text" name="param[value][%count%]" value=""><a href"#" onClick="deleteParamFromAction(this); return false;" alt="Eliminar" title="Eliminar" ><img src="images/clear.png" class="iconDelete"></a></li>';
+		var htmlContent = '<li>Nombre del argumento: <input type="text" name="param[name][%count%]" value=""> Valor: <input type="text" name="param[value][%count%]" value=""><a href"#" onClick="deleteParamFromAction(this); return false;" alt="Eliminar" title="Eliminar" ><img src="images/clear.png" class="icon iconDelete"></a></li>';
 		htmlContent = htmlContent.gsub("%count%", paramCount);
 		$("params_list").insert(htmlContent);	
 	}
@@ -62,8 +62,8 @@
 					|-include file="CommonAutocompleterInstanceInclude.tpl" label="Acción: " id="autocompleter_actions" url="Main.php?do=commonMenuItemsActionsAutocompleteListX" afterUpdateElement="getSelectionActionInfo"-|
 					<input type="hidden" id="menuItem_action" name="menuItem[action]" value="|-$menuItem->getAction()-|"/>
 					</div>
-					<a href="#" onclick="addParamToAction(); return false;" alt="Agregar argumento" title="Agregar argumento"><img src="images/clear.png" class="iconAdd" /></a>
-					<a href="#" onclick="getDefaultInfo(); return false;" alt="Obtener valores por defecto" title="Obtener valores por defecto"><img src="images/clear.png" class="iconEmail" /></a>
+					<a href="#" onclick="addParamToAction(); return false;" alt="Agregar argumento" title="Agregar argumento"><img src="images/clear.png" class="icon iconAdd" /></a>
+					<a href="#" onclick="getDefaultInfo(); return false;" alt="Obtener valores por defecto" title="Obtener valores por defecto"><img src="images/clear.png" class="icon iconEmail" /></a>
 					<!-- por algun extraño motivo usar el indicator1 para indicar la demora en obtener la informacion de idioma no funciona -->
 					<span id="indicator2" style="display: none">
 	  					<img src="images/spinner.gif" alt="Procesando..." />
@@ -71,7 +71,7 @@
 					<div style="clear: both;"></div>
 					<ul id="params_list">
 					|-foreach from=$params key=key item=value name=it_params-|
-						<li>Nombre del argumento: <input type="text" name="param[name][]" value="|-$key-|"> Valor: <input type="text" name="param[value][]" value="|-$value-|"><a href"#" onClick="deleteParamFromAction(this); return false;" alt="Eliminar" title="Eliminar" ><img src="images/clear.png" class="iconDelete"></a></li>
+						<li>Nombre del argumento: <input type="text" name="param[name][]" value="|-$key-|"> Valor: <input type="text" name="param[value][]" value="|-$value-|"><a href"#" onClick="deleteParamFromAction(this); return false;" alt="Eliminar" title="Eliminar" ><img src="images/clear.png" class="icon iconDelete"></a></li>
 					|-/foreach-|
 					</ul>
 				</div>

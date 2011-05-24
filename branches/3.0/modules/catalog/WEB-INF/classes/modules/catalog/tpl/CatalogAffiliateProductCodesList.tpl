@@ -42,12 +42,12 @@
 						<input type="hidden" name="do" value="catalogAffiliateProductCodesEdit" />
 						<input type="hidden" name="id" value="|-$affiliateproductcode->getid()-|" />
 						<input type="hidden" name="page" value="|-$page-|" />
-						<input type="submit" name="submit_go_edit_affiliateproductcode" value="Editar"  class="iconEdit" />
+						<input type="submit" name="submit_go_edit_affiliateproductcode" value="Editar"  class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="post" style="display:inline;">
 						<input type="hidden" name="do" value="catalogAffiliateProductCodesDoDel" />
 						<input type="hidden" name="id" value="|-$affiliateproductcode->getid()-|" />
-						<input type="submit" name="submit_go_delete_affiliateproductcode" value="Borrar" onclick="return confirm('Seguro que desea eliminar el código equivalente de afiliado?')" class="iconDelete" />
+						<input type="submit" name="submit_go_delete_affiliateproductcode" value="Borrar" onclick="return confirm('Seguro que desea eliminar el código equivalente de afiliado?')" class="icon iconDelete" />
 					</form>								</td>
 			</tr>
 		|-/foreach-|

@@ -34,12 +34,12 @@
 	cell6.innerHTML = '<form action="Main.php" method="get" style="display:inline;">';
 	cell6.innerHTML += '<input type="hidden" name="do" value="panelMissionCommitmentEditX" />';
 	cell6.innerHTML += '<input type="hidden" name="id" value="|-$commitment->getid()-|" />';
-	cell6.innerHTML += '<input type="submit" name="submit_go_edit_mission" value="Editar" class="iconEdit" /></form>';
+	cell6.innerHTML += '<input type="submit" name="submit_go_edit_mission" value="Editar" class="icon iconEdit" /></form>';
 |-if $loginUser->isAdmin() || $loginUser->isSupervisor()-|	
-	cell6.innerHTML += '<form action="Main.php" method="post" style="display:inline;"><input type="hidden" name="do" value="panelMissionCommitmentDoDeleteX" /><input type="hidden" name="id" value="|-$commitment->getid()-|" /><input type="button" name="submit_go_delete_mission" value="Borrar" onclick="javascript: if (confirm(\'Seguro que desea eliminar este compromiso?\')) deleteCommitment(this.form);" class="iconDelete" /></form>';
+	cell6.innerHTML += '<form action="Main.php" method="post" style="display:inline;"><input type="hidden" name="do" value="panelMissionCommitmentDoDeleteX" /><input type="hidden" name="id" value="|-$commitment->getid()-|" /><input type="button" name="submit_go_delete_mission" value="Borrar" onclick="javascript: if (confirm(\'Seguro que desea eliminar este compromiso?\')) deleteCommitment(this.form);" class="icon iconDelete" /></form>';
 	|-/if-|
 	|-if $loginUser->isSupervisor()-|
-	cell6.innerHTML += '<form action="Main.php" method="post" style="display:inline;"><input type="hidden" name="do" value="panelMissionCommitmentDoDeleteX" /><input type="hidden" name="id" value="|-$commitment->getid()-|" /> <input type="hidden" name="doHardDelete" value="true" /><input type="button" name="submit_go_delete_mission" value="Borrar" onclick="javascript: if (confirm(\'Seguro que desea eliminar este compromiso definitivamente?\')) deleteCommitment(this.form);" class="iconDelete" /></form>';
+	cell6.innerHTML += '<form action="Main.php" method="post" style="display:inline;"><input type="hidden" name="do" value="panelMissionCommitmentDoDeleteX" /><input type="hidden" name="id" value="|-$commitment->getid()-|" /> <input type="hidden" name="doHardDelete" value="true" /><input type="button" name="submit_go_delete_mission" value="Borrar" onclick="javascript: if (confirm(\'Seguro que desea eliminar este compromiso definitivamente?\')) deleteCommitment(this.form);" class="icon iconDelete" /></form>';
 	|-/if-|
 |-/if-|
 

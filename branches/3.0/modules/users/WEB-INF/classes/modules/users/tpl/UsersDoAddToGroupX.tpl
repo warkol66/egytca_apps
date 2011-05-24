@@ -13,6 +13,6 @@
 		<input type="hidden" name="do" id="do" value="usersDoDeleteFromGroupX" />
 		<input type="hidden" name="userId"  value="|-$currentUser->getId()-|" />
 		<input type="hidden" name="groupId"  value="|-$group->getId()-|" />			
-		<input type="button" value="Eliminar" onClick="javascript:usersDoDeleteFromGroup(this.form)" class="iconDelete" />
+		<input type="button" value="Eliminar" onClick="javascript:usersDoDeleteFromGroup(this.form)" class="icon iconDelete" />
 	</form>
 </li>

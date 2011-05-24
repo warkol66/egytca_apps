@@ -58,12 +58,12 @@
 			<td nowrap> <form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="catalogProductsEdit" /> 
 					<input type="hidden" name="id" value="|-$product->getid()-|" /> 
-					<input type="submit" name="submit_go_edit_product" value="Editar" class="iconEdit" /> 
+					<input type="submit" name="submit_go_edit_product" value="Editar" class="icon iconEdit" /> 
 				</form> 
 				<form action="Main.php" method="post" style="display:inline;"> 
 					<input type="hidden" name="do" value="catalogProductsDoDelete" /> 
 					<input type="hidden" name="id" value="|-$product->getid()-|" /> 
-					<input type="submit" name="submit_go_delete_product" value="Borrar" onclick="return confirm('Seguro que desea eliminar el producto?')" class="iconDelete" /> 
+					<input type="submit" name="submit_go_delete_product" value="Borrar" onclick="return confirm('Seguro que desea eliminar el producto?')" class="icon iconDelete" /> 
 				</form></td> 
 		</tr> 
 		|-/foreach-|

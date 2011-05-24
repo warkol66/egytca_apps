@@ -35,17 +35,17 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="ordersTemplatesView" />
 						<input type="hidden" name="id" value="|-$orderTemplate->getid()-|" />
-						<input type="submit" name="submit_go_view_orderTemplate" value="Ver" class="iconView" />
+						<input type="submit" name="submit_go_view_orderTemplate" value="Ver" class="icon iconView" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="ordersTemplatesDoDelete" />
 						<input type="hidden" name="id" value="|-$orderTemplate->getid()-|" />
-						<input type="submit" name="submit_go_delete_orderTemplate" value="Borrar" onclick="return confirm('Seguro que desea eliminar la orden?')" class="iconDelete" />
+						<input type="submit" name="submit_go_delete_orderTemplate" value="Borrar" onclick="return confirm('Seguro que desea eliminar la orden?')" class="icon iconDelete" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="ordersTemplatesDoAddToCart" />
 						<input type="hidden" name="id" value="|-$orderTemplate->getid()-|" />
-						<input type="submit" name="submit_go_add_orderTemplate" value="Add To Cart" class="iconAddToCart" />
+						<input type="submit" name="submit_go_add_orderTemplate" value="Add To Cart" class="icon iconAddToCart" />
 					</form>
 				</td>
 			</tr>
