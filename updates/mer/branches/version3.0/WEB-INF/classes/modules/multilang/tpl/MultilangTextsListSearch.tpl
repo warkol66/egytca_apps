@@ -35,7 +35,7 @@
 			<a href="#" |-popup sticky=true caption="Text Code" trigger="onClick" text="##multilang,43,Código de inserción##: #&#0035;$moduleName,$textId,$textContent#&#0035;" snapx=10 snapy=10-| class="detail"><img src="images/copycode14.png" border="0" /></a></div>
       |-/if-|</td>
       <td align="center" nowrap="nowrap">
-				<a href="Main.php?do=multilangTextsEdit&id=|-$textId-|&moduleName=|-$moduleName-|&currentPage=|-$pager->getPage()-|" title="##common,1,Editar##"><img src="images/clear.png" class="iconEdit" /></a>
+				<a href="Main.php?do=multilangTextsEdit&id=|-$textId-|&moduleName=|-$moduleName-|&currentPage=|-$pager->getPage()-|" title="##common,1,Editar##"><img src="images/clear.png" class="icon iconEdit" /></a>
         <form action="Main.php" method="post" name='formTextsDoDelete|-$textId-|' style="display:inline">
           <input type="hidden" name="do" value="multilangTextsDoDelete" />
           <input type="hidden" name="id" value="|-$textId-|" />

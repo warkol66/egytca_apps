@@ -58,13 +58,13 @@
       |-/if-|</td>
       |-/foreach-|
       <td align="center" nowrap="nowrap">
-					<a href="Main.php?do=multilangTextsEdit&id=|-$textId-|&moduleName=|-$moduleName-|&currentPage=|-$pager->getPage()-|" title="##common,1,Editar##"><img src="images/clear.png" class="iconEdit" /></a>
+					<a href="Main.php?do=multilangTextsEdit&id=|-$textId-|&moduleName=|-$moduleName-|&currentPage=|-$pager->getPage()-|" title="##common,1,Editar##"><img src="images/clear.png" class="icon iconEdit" /></a>
 					<form action="Main.php" method="post" name='formTextsDoDelete|-$textId-|' style="display:inline">
           <input type="hidden" name="do" value="multilangTextsDoDelete" />
           <input type="hidden" name="id" value="|-$textId-|" />
           <input type="hidden" name="moduleName" value="|-$moduleName-|" />
           <input type="hidden" name="currentPage" value="|-$pager->getPage()-|" />
-					<a href="javascript:document.formTextsDoDelete|-$textId-|.submit();" onclick="return confirm('##multilang,31,¿Está seguro que desea eliminar estas traducciones?##')" title="##common,2,Eliminar##"><img src="images/clear.png" class="iconDelete" /></a>
+					<a href="javascript:document.formTextsDoDelete|-$textId-|.submit();" onclick="return confirm('##multilang,31,¿Está seguro que desea eliminar estas traducciones?##')" title="##common,2,Eliminar##"><img src="images/clear.png" class="icon iconDelete" /></a>
 				</form>
 			</td>
     </tr>

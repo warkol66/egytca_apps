@@ -30,12 +30,12 @@
       <td nowrap="nowrap"><form action="Main.php" method="get">
           <input type="hidden" name="do" value="multilangLanguagesEdit" />
           <input type="hidden" name="id" value="|-$language->getid()-|" />
-          <input type="submit" name="submit_go_edit_language" value="##common,1,Editar##" title="##common,1,Editar##" class="iconEdit" />
+          <input type="submit" name="submit_go_edit_language" value="##common,1,Editar##" title="##common,1,Editar##" class="icon iconEdit" />
         </form>
         <form action="Main.php" method="post">
           <input type="hidden" name="do" value="multilangLanguagesDoDelete" />
           <input type="hidden" name="id" value="|-$language->getid()-|" />
-          <input type="submit" name="submit_go_delete_language" value="##common,2,Eliminar##" title="##common,2,Eliminar##" onclick="return confirm('##multilang,10,¿Está seguro que desea eliminar el idioma?##')" class="iconDelete" />
+          <input type="submit" name="submit_go_delete_language" value="##common,2,Eliminar##" title="##common,2,Eliminar##" onclick="return confirm('##multilang,10,¿Está seguro que desea eliminar el idioma?##')" class="icon iconDelete" />
       </form></td>
     </tr>
     |-/foreach-|
