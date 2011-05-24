@@ -54,12 +54,12 @@
 			<td class="tdSize1 center" nowrap="nowrap"> <form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="affiliatesBranchsEdit" /> 
 					<input type="hidden" name="id" value="|-$branch->getid()-|" /> 
-					<input type="submit" name="submit_go_edit_branch" value="Editar" class="iconEdit" /> 
+					<input type="submit" name="submit_go_edit_branch" value="Editar" class="icon iconEdit" /> 
 				</form> 
 				<form action="Main.php" method="post" style="display:inline;"> 
 					<input type="hidden" name="do" value="affiliatesBranchsDoDelete" /> 
 					<input type="hidden" name="id" value="|-$branch->getid()-|" /> 
-					<input type="submit" name="submit_go_delete_branch" value="Borrar" onclick="return confirm('¿Seguro que desea eliminar este registro?')" class="iconDelete" /> 
+					<input type="submit" name="submit_go_delete_branch" value="Borrar" onclick="return confirm('¿Seguro que desea eliminar este registro?')" class="icon iconDelete" /> 
 			</form></td> 
 		</tr> 
 		|-/foreach-|

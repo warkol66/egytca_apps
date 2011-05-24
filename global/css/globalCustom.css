@@ -1,5 +1,4 @@
-/*
-NEW GLOBAL CUSTOM
+/* NEW GLOBAL CUSTOM
 */
 
 * {
@@ -23,16 +22,8 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
 	background-color: #a0a0a0;/*#d0d0d0; */
 	border: outset 1px  #808080;
 }
-
-/* Image Buttons and Links */
-.iconActivate, .iconAdd, .iconBack, .iconBudget, .iconDelete, .iconDetail, .iconDownload,
-.iconEdit, .iconEmail, .iconFollow, .iconGoTo, .iconGraph, .iconHelp, .iconHistory, .iconIndicator,
-.iconInfo, .iconManufacture, .iconOrder, .iconPassword, .iconPlus, .iconRestore, .iconRestoreFromServer,
-.iconSendMultiple, .iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload,
-.iconView, .iconViewGantt, .iconWeight, .iconAddToCart, .iconRemoveFromCart, .iconUpdateCart, .iconSetPrivileges, .iconOwner,
-.iconRead, .iconUnread {
-	background: url(../images/icons_all.png) no-repeat #f0f0f0;
-	border: solid 1px #ababab !Important;;
+.icon {
+	border: solid 1px #ababab !Important;
 	line-height: 999px;
 	vertical-align: top;
 	overflow: hidden;
@@ -48,18 +39,21 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
 	-webkit-border-radius: .2em;
 	border-radius: .2em;
 }
-input.iconActivate, input.iconAdd, input.iconBack, input.iconBudget, input.iconDelete, input.iconDetail, input.iconDownload,
-input.iconEdit, input.iconEmail, input.iconFollow, input.iconGoTo, input.iconGraph, input.iconHelp, input.iconHistory, input.iconIndicator,
-input.iconInfo, input.iconManufacture, input.iconOrder, input.iconPassword, input.iconPlus, input.iconRestore, input.iconRestoreFromServer,
-input.iconSendMultiple, input.iconStoreInServer, input.iconStoreLocal, input.iconThumbnail, input.iconUpload,
-input.iconView, input.iconViewGantt, input.iconWeight, input.iconAddToCart, input.iconRemoveFromCart, input.iconUpdateCart,
-input.iconSetPrivileges, input.iconOwner, input.iconRead, input.iconUnread {
+input.icon {
 	font-size: 100%;
 	width: 22px;
 	height: 22px;
 	margin: 0;
 	padding: 0;
-
+}
+/* Image Buttons and Links */
+.iconActivate, .iconAdd, .iconBack, .iconBudget, .iconDelete, .iconDetail, .iconDownload,
+.iconEdit, .iconEmail, .iconFollow, .iconGoTo, .iconGraph, .iconHelp, .iconHistory, .iconIndicator,
+.iconInfo, .iconManufacture, .iconOrder, .iconPassword, .iconPlus, .iconRestore, .iconRestoreFromServer,
+.iconSendMultiple, .iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload,
+.iconView, .iconViewGantt, .iconWeight, .iconAddToCart, .iconRemoveFromCart, .iconUpdateCart, .iconSetPrivileges, .iconOwner,
+.iconRead, .iconUnread, .iconEditUser, .iconAddUser {
+	background: url(../images/icons_all.png) no-repeat #f0f0f0;
 }
 .disabled {
 	background: url(../images/icons_all_dis.png) no-repeat #f0f0f0;
@@ -193,12 +187,13 @@ input.iconSetPrivileges, input.iconOwner, input.iconRead, input.iconUnread {
 .iconUnread{
 	background-position: -60px -100px;
 }
-.iconActivate:hover, .iconAdd:hover, .iconBack:hover, .iconBudget:hover, .iconDelete:hover, .iconDetail:hover, .iconDownload:hover,
-.iconEdit:hover, .iconEmail:hover, .iconFollow:hover, .iconGoTo:hover, .iconGraph:hover, .iconHelp:hover, .iconHistory:hover, .iconIndicator:hover,
-.iconInfo:hover, .iconManufacture:hover, .iconOrder:hover, .iconPassword:hover, .iconPlus:hover, .iconRestore:hover, .iconRestoreFromServer:hover,
-.iconSendMultiple:hover, .iconStoreInServer:hover, .iconStoreLocal:hover, .iconThumbnail:hover, .iconUpload:hover,
-.iconView:hover, .iconViewGantt:hover, .iconWeight:hover, .iconAddToCart:hover, .iconRemoveFromCart:hover, .iconSetPrivileges:hover,
-.iconOwner:hover, .iconRead:hover, .iconUnread:hover{
+.iconEditUser {
+	background-position: -120px -60px;
+}
+.iconAddUser {
+	background-position: -120px -100px;
+}
+.icon:hover{
 	background-color: #c0c0c0;
 	border: solid 1px #909090 !Important;;
 }

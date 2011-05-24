@@ -47,7 +47,7 @@ function productsAfterUpdateElement(text, li) {
 	$('autocomplete_products').value = '';
 	var idx = $$('#productsSelected > li').size();
 	if (idx < 10) {
-		$('productsSelected').insert('<li><input type="hidden" name="survey[productsIds]['+idx+']" value="'+li.id+'" />'+li.innerHTML.stripTags()+'<input type="button" class="iconDelete" onClick="removeProduct(this.parentNode, '+li.id+')" /></li>')
+		$('productsSelected').insert('<li><input type="hidden" name="survey[productsIds]['+idx+']" value="'+li.id+'" />'+li.innerHTML.stripTags()+'<input type="button" class="icon iconDelete" onClick="removeProduct(this.parentNode, '+li.id+')" /></li>')
     	alredySelected.get('alredySelectedIds[]').push(li.id);
 		autocomplete_products_instance.url = 'Main.php?do=catalogProductsAutocompleteListX&' + Object.toQueryString(alredySelected);    
     }

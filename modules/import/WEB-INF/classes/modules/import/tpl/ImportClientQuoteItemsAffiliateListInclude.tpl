@@ -48,7 +48,7 @@
 				<form action="Main.php" method="post">
 					<input type="hidden" name="do" value="importClientQuoteDeleteItemX" />
 					<input type="hidden" name="productId" value="|-$item->getProductId()-|" />
-					<input type="button" name="submit_go_delete_quote" value="Borrar" onClick="javascript:importDeleteItemFromClientQuoteX(this.form)" class="iconDelete" />
+					<input type="button" name="submit_go_delete_quote" value="Borrar" onClick="javascript:importDeleteItemFromClientQuoteX(this.form)" class="icon iconDelete" />
 				</form>
 			</td>
 				|-/if-|

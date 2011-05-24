@@ -43,22 +43,22 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="surveysEdit" />
 						<input type="hidden" name="id" value="|-$survey->getid()-|" />
-						<input type="submit" name="submit_go_edit_survey" value="Editar" title="Editar" class="iconEdit" />
+						<input type="submit" name="submit_go_edit_survey" value="Editar" title="Editar" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="surveysResults" />
 						<input type="hidden" name="id" value="|-$survey->getid()-|" />
-						<input type="submit" name="submit_go_view_survey" value="Ver Gráfico" title="Ver Gráfico" class="iconViewGantt" />
+						<input type="submit" name="submit_go_view_survey" value="Ver Gráfico" title="Ver Gráfico" class="icon iconViewGantt" />
 					</form>	
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="surveysAnswersExport" />
 						<input type="hidden" name="id" value="|-$survey->getid()-|" />
-						<input type="submit" name="submit_go_view_survey" value="Exportar Resultados" title="Exportar Resultados" class="iconDownload" />
+						<input type="submit" name="submit_go_view_survey" value="Exportar Resultados" title="Exportar Resultados" class="icon iconDownload" />
 					</form>																	
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="surveysDoDelete" />
 						<input type="hidden" name="id" value="|-$survey->getid()-|" />
-						<input type="submit" name="submit_go_delete_survey" value="Eliminar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar la encuesta?')" class="iconDelete" />
+						<input type="submit" name="submit_go_delete_survey" value="Eliminar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar la encuesta?')" class="icon iconDelete" />
 					</form>
 				</td>
 			</tr>

@@ -64,7 +64,7 @@
 			<form action="Main.php" method="post">
 				<input type="hidden" name="do" value="surveysAnswerOptionsDeleteX" />
 				<input type="hidden" name="answerOptionId" value="|-$option->getId()-|"/>
-				<input type="button" name="eliminar" value="eliminar" id="eliminar" onClick="javascript:deleteAnswerOptionX(this.form)" class="iconDelete"/>
+				<input type="button" name="eliminar" value="eliminar" id="eliminar" onClick="javascript:deleteAnswerOptionX(this.form)" class="icon iconDelete"/>
 			</form>
 		</li> 
 		|-/foreach-|

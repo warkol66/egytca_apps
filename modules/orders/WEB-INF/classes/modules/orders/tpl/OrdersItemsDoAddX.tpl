@@ -8,12 +8,12 @@
 	</script>
 	<td class="tdSize1 bottom right">|-math equation="x * y" x=$item->getPrice() y=$item->getQuantity() assign=totalItem-|<span id="totalItem|-$item->getId()-|">|-$totalItem|system_numeric_format-|</span></td> 
 	<td class="tdSize1 bottom right">
-		<input id="editButton|-$item->getCode()-|" type="button" onclick="editor|-$item->getCode()-|.enterEditMode();" value="Editar" class="iconEdit" />
+		<input id="editButton|-$item->getCode()-|" type="button" onclick="editor|-$item->getCode()-|.enterEditMode();" value="Editar" class="icon iconEdit" />
 		<form method="post" action="Main.php" id="formRemove|-$item->getCode()-|">
 			<input type="hidden" name="itemId" value="|-$item->geCode()-|" />
 			<input type="hidden" name="orderId" value="|-$order->getId()-|" />
 			<input type="hidden" name="do" value="ordersItemsDoDeleteX" />
-			<input type="button" value="Remove" onclick="ordersItemsDoDeleteX('|-$item->getCode()-|')"  class="iconDelete"/>
+			<input type="button" value="Remove" onclick="ordersItemsDoDeleteX('|-$item->getCode()-|')"  class="icon iconDelete"/>
 		</form>
 		<span  id="messageRemove|-$item->getId()-|"></span>
 	</td>

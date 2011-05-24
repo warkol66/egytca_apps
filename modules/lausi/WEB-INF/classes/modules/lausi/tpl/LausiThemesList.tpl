@@ -50,12 +50,12 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="lausiThemesEdit" />
 						<input type="hidden" name="id" value="|-$theme->getid()-|" />
-						<input type="submit" name="submit_go_edit_theme" value="Editar" class="iconEdit" />
+						<input type="submit" name="submit_go_edit_theme" value="Editar" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="lausiThemesDoDelete" />
 						<input type="hidden" name="id" value="|-$theme->getid()-|" />
-						<input type="submit" name="submit_go_delete_theme" value="Borrar" onclick="return confirm('Seguro que desea eliminar el motivo?')" class="iconDelete" />
+						<input type="submit" name="submit_go_delete_theme" value="Borrar" onclick="return confirm('Seguro que desea eliminar el motivo?')" class="icon iconDelete" />
 					</form>				
 				</td>
 				<td>

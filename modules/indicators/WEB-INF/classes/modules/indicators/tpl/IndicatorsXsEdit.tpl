@@ -21,7 +21,7 @@ Para cambiar el orden en que aparecen los meses, arrastre el nombre del mismo a 
 			<label for="xLabel[name][]">|-if !$disbursement-|Nueva Variable|-else-|Nuevo Período|-/if-|</label>
 			<input name="xLabel[name][]" type="text" id="xLabel[name][]" value="" size="45" title="Nombre de la Serie" /> 
 			<input name="xLabel[id][]" type="hidden" id="xLabel[id][]" value="0" />
-			<a href="#" onclick="if (confirm('¿Seguro que desea eliminar |-if !$disbursement-|la variable|-else-|el período|-/if-|?')){this.parentNode.remove()}; return false;"><img src="images/clear.png" class="iconDelete"></a>
+			<a href="#" onclick="if (confirm('¿Seguro que desea eliminar |-if !$disbursement-|la variable|-else-|el período|-/if-|?')){this.parentNode.remove()}; return false;"><img src="images/clear.png" class="icon iconDelete"></a>
 		</li>
 		|-assign value=$indicator->getXs() var=xValues-|
 		|-foreach from=$xValues item=xValue name=for_xValue-|
@@ -29,7 +29,7 @@ Para cambiar el orden en que aparecen los meses, arrastre el nombre del mismo a 
 				<label for="xLabel[name][]">|-$xValue->getName()|escape-|</label>
 				<input name="xLabel[name][]" type="text" id="xLabel[name][]" value="|-$xValue->getName()|escape-|" size="45" title="Nombre de la Variable" />
 				<input name="xLabel[id][]" type="hidden" id="xLabel[id][]" value="|-$xValue->getId()-|" />
-				<a href="#" onclick='if (confirm("¿Seguro que desea eliminar la variable?")){new Ajax.Updater("operationInfo", "Main.php?do=indicatorsXsDoDeleteX", { method: "post", parameters: { id: "|-$xValue->getId()-|"}, evalScripts: true})};return false;'><img src="images/clear.png" class="iconDelete"></a>
+				<a href="#" onclick='if (confirm("¿Seguro que desea eliminar la variable?")){new Ajax.Updater("operationInfo", "Main.php?do=indicatorsXsDoDeleteX", { method: "post", parameters: { id: "|-$xValue->getId()-|"}, evalScripts: true})};return false;'><img src="images/clear.png" class="icon iconDelete"></a>
 			</li>
 		|-/foreach-|
 	</ul>

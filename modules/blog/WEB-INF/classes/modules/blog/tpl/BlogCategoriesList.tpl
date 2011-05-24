@@ -48,12 +48,12 @@
 			<td nowrap><form action="Main.php" method="get" style="display:inline;">
 					<input type="hidden" name="do" value="blogCategoriesEdit" />
 					<input type="hidden" name="id" value="|-$category->getid()-|" />
-					<input type="submit" name="submit_go_edit_category" value="Editar" class="iconEdit" title="Editar" />
+					<input type="submit" name="submit_go_edit_category" value="Editar" class="icon iconEdit" title="Editar" />
 				</form>
 				<form action="Main.php" method="post" style="display:inline;">
 					<input type="hidden" name="do" value="blogCategoriesDoDelete" />
 					<input type="hidden" name="id" value="|-$category->getid()-|" />
-					<input type="submit" name="submit_go_delete_category" value="Borrar" title="Borrar" onclick="return confirm('|-if $category->hasChildren() ne 0-|Atención: Al eliminar una categoría que contiene otras categorías asociadas, se eliminarán las mismas, al igual que la categoría seleccionada. |-/if-|Confirme que desea eliminar la categoría?')" class="iconDelete" />
+					<input type="submit" name="submit_go_delete_category" value="Borrar" title="Borrar" onclick="return confirm('|-if $category->hasChildren() ne 0-|Atención: Al eliminar una categoría que contiene otras categorías asociadas, se eliminarán las mismas, al igual que la categoría seleccionada. |-/if-|Confirme que desea eliminar la categoría?')" class="icon iconDelete" />
 				</form>
 			</td>
 		</tr>

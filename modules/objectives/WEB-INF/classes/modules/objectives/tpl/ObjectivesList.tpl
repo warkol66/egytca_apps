@@ -1,7 +1,7 @@
 <script type="text/javascript" src="scripts/lightbox.js"></script> 			
 <div id="lightbox1" class="leightbox">
 	<p align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="iconDelete" /></a> 
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconDelete" /></a> 
 	</p> 
 	<div id="objectivesShowWorking"></div>
 	<div class="innerLighbox">
@@ -80,57 +80,57 @@
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="objectivesViewX" />
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
-						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="iconView" onClick='{new Ajax.Updater("objectivesShowDiv", "Main.php?do=objectivesViewX&id=|-$objective->getid()-|", { method: "post", parameters: { id: "|-$objective->getId()-|"}, evalScripts: true})};$("objectivesShowWorking").innerHTML = "<span class=\"inProgress\">buscando ##objectives,3,Objetivo##...</span>";' value="Ver detalle" name="submit_go_show_objective" title="Ver detalle" /></a>
+						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("objectivesShowDiv", "Main.php?do=objectivesViewX&id=|-$objective->getid()-|", { method: "post", parameters: { id: "|-$objective->getId()-|"}, evalScripts: true})};$("objectivesShowWorking").innerHTML = "<span class=\"inProgress\">buscando ##objectives,3,Objetivo##...</span>";' value="Ver detalle" name="submit_go_show_objective" title="Ver detalle" /></a>
 					</form>
 					|-if $configModule->get("global","applicationName") eq "wb"-|			
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="indicatorsView" />
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
 						<input type="hidden" name="entity" value="Objective" />
-						<input type="submit" name="submit_go_view_project_graph" value="Ver Curva de Desembolsos" class="iconGraph" title="Ver Curva de Desembolsos" />
+						<input type="submit" name="submit_go_view_project_graph" value="Ver Curva de Desembolsos" class="icon iconGraph" title="Ver Curva de Desembolsos" />
 					</form>
 					|-/if-|
 					|-if $objective->hasWriteAccess($loginUser) -|
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="objectivesEdit" />
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
-						<input type="submit" name="submit_go_edit_objective" value="Editar" class="iconEdit" title="Editar ##objectives,3,Objetivo##"/>
+						<input type="submit" name="submit_go_edit_objective" value="Editar" class="icon iconEdit" title="Editar ##objectives,3,Objetivo##"/>
 					</form>
 					
 					<form action="Main.php" method="post" style="display:inline;">
 						<input type="hidden" name="do" value="objectivesDoDelete" />
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
-						<input type="submit" name="submit_go_delete_objective" value="Borrar" onclick="return confirm('Seguro que desea eliminar el objetivo?')" class="iconDelete" title="Eliminar ##objectives,3,Objetivo##" />
+						<input type="submit" name="submit_go_delete_objective" value="Borrar" onclick="return confirm('Seguro que desea eliminar el objetivo?')" class="icon iconDelete" title="Eliminar ##objectives,3,Objetivo##" />
 					</form>
 					|-/if-|
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="projectsEdit" />
 						<input type="hidden" name="fromObjectiveId" value="|-$objective->getid()-|" />
-						<input type="submit" name="submit_go_edit_project" value="Agregar Proyectos" class="iconAdd" title="Agregar proyectos al ##objectives,3,Objetivo##" />
+						<input type="submit" name="submit_go_edit_project" value="Agregar Proyectos" class="icon iconAdd" title="Agregar proyectos al ##objectives,3,Objetivo##" />
 					</form>			
 					
 				|-if $objective->getProjectsCount() gt 1 && ($loginUser->isAdmin() || $loginUser->isSupervisor())-|
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="projectsOrderByObjective" />
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
-						<input type="submit" name="submit_go_order_projects" value="Ordenar proyectos" class="iconOrder" title="Ordenar proyectos relacionados"/>
+						<input type="submit" name="submit_go_order_projects" value="Ordenar proyectos" class="icon iconOrder" title="Ordenar proyectos relacionados"/>
 					</form>
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="projectsWeightByObjective" />
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
-						<input type="submit" name="submit_go_change_weights_projects" value="Cambiar pesos de proyectos" class="iconWeight" title="Cambiar pesos de proyectos relacionados"/>
+						<input type="submit" name="submit_go_change_weights_projects" value="Cambiar pesos de proyectos" class="icon iconWeight" title="Cambiar pesos de proyectos relacionados"/>
 					</form>
 					|-else-|
 						<!--				<form action="Main.php" method="get" style="display:inline;">
-											<input type="button" value="Ordenar proyectos" class="iconOrder disabled" title="El objetivo no tiene proyectos relacionados"/>
-											<input type="button" value="Cambiar pesos de proyectos" class="iconWeight disabled" title="El objetivo no tiene proyectos relacionados"/>
+											<input type="button" value="Ordenar proyectos" class="icon iconOrder disabled" title="El objetivo no tiene proyectos relacionados"/>
+											<input type="button" value="Cambiar pesos de proyectos" class="icon iconWeight disabled" title="El objetivo no tiene proyectos relacionados"/>
 										</form>-->
 					|-/if-|
 					|-if $objective->getLogCount() gt 0 && ($loginUser->isAdmin() || $loginUser->isSupervisor())-|
 						<form action="Main.php" method="get" style="display:inline;">
 							<input type="hidden" name="do" value="objectivesShowHistory" />
 							<input type="hidden" name="id" value="|-$objective->getid()-|" />
-							<input type="submit" name="submit_go_show_objective_history" value="Mostrar Historico de cambios" class="iconHistory"  title="Mostrar Historico de cambios" />
+							<input type="submit" name="submit_go_show_objective_history" value="Mostrar Historico de cambios" class="icon iconHistory"  title="Mostrar Historico de cambios" />
 						</form>
 					|-/if-|
 				</td>

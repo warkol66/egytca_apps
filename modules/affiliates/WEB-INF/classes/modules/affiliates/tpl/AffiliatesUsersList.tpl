@@ -49,22 +49,22 @@
 			<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="affiliatesUsersEdit" /> 
 			  <input type="hidden" name="id" value="|-$user->getId()-|" /> 
-			  <input type="submit" name="submit_go_edit_affiliate" title="Editar" value="Editar" class="iconEdit" /> 
+			  <input type="submit" name="submit_go_edit_affiliate" title="Editar" value="Editar" class="icon iconEdit" /> 
 			</form>
 			<form action="Main.php" method="post" style="display:inline;"> 
 			  <input type="hidden" name="do" value="affiliatesUsersDoDelete" /> 
 			  <input type="hidden" name="id" value="|-$user->getId()-|" /> 
-			  <input type="submit" name="submit_go_delete_affiliate" value="Borrar" |-if $user->isAffiliateOwner()-|title="Para eliminar este usuario debe asignar la administración del afiliado a otro usuario" class="iconDelete disabled" onclick="return false;"|-else-|title="Eliminar" class="iconDelete" onclick="return confirm('Seguro que desea eliminar el usuario?')"|-/if-|  /> 
+			  <input type="submit" name="submit_go_delete_affiliate" value="Borrar" |-if $user->isAffiliateOwner()-|title="Para eliminar este usuario debe asignar la administración del afiliado a otro usuario" class="icon iconDelete disabled" onclick="return false;"|-else-|title="Eliminar" class="icon iconDelete" onclick="return confirm('Seguro que desea eliminar el usuario?')"|-/if-|  /> 
 			</form>
 		    |-if $loginUser ne ''-|
 				|-if $user->isAffiliateOwner()-|
-					<img src="images/clear.png" class="iconOwner" title="Este es el usuario dueño del afiliado" />
+					<img src="images/clear.png" class="icon iconOwner" title="Este es el usuario dueño del afiliado" />
 				|-else-|
 					<form method="post">
 						<input type="hidden" name="userId" value="|-$user->getId()-|" />
 						<input type="hidden" name="affiliateId" value="|-$user->getAffiliateId()-|" />
 						<input type="hidden" name="do" value="affiliatesSetOwner" />
-						<input type="submit" title="Fijar como dueño" value="Fijar como dueño" class="iconSetPrivileges" />
+						<input type="submit" title="Fijar como dueño" value="Fijar como dueño" class="icon iconSetPrivileges" />
 					</form>
 				|-/if-| 
 			|-/if-|

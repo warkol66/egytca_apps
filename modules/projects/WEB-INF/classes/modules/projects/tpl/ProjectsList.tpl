@@ -1,7 +1,7 @@
 <script type="text/javascript" src="scripts/lightbox.js"></script> 			
 <div id="lightbox1" class="leightbox">
 	<p align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="iconDelete" /></a> 
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconDelete" /></a> 
 	</p> 
 	<div id="projectsShowWorking"></div>
 	<div class="innerLighbox">
@@ -111,7 +111,7 @@
 						<form action="Main.php" method="get" style="display:inline;">
 							<input type="hidden" name="do" value="indicatorsView" />
 							<input type="hidden" name="id" value="|-$project->getIndicatorId()-|" />
-							<input type="submit" name="submit_go_view_project_graph" value="Ver Curva de Desembolsos" class="iconGraph" title="Ver Curva de Desembolsos" />
+							<input type="submit" name="submit_go_view_project_graph" value="Ver Curva de Desembolsos" class="icon iconGraph" title="Ver Curva de Desembolsos" />
 						</form>
 					|-else-|
 						<form action="Main.php" method="get" style="display:inline;">
@@ -119,14 +119,14 @@
 							<input type="hidden" name="id" value="|-$project->getid()-|" />
 							|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 							|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-							<input type="submit" name="submit_go_create_project_graph" value="Ver Curva de Desembolsos" class="iconGraph" title="Ver Curva de Desembolsos" />
+							<input type="submit" name="submit_go_create_project_graph" value="Ver Curva de Desembolsos" class="icon iconGraph" title="Ver Curva de Desembolsos" />
 						</form>
 					|-/if-||-/if-|
 					<form action="Main.php" method="get" style="display:inline;">
 						
 						<input type="hidden" name="do" value="projectsViewX" />
 						<input type="hidden" name="id" value="|-$project->getid()-|" />
-						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="iconView" onClick='{new Ajax.Updater("projectsShowDiv", "Main.php?do=projectsViewX&id=|-$project->getid()-|", { method: "post", parameters: { id: "|-$project->getId()-|"}, evalScripts: true})};$("projectsShowWorking").innerHTML = "<span class=\"inProgress\">buscando ##projects,4,proyecto##...</span>";' value="Ver detalle" name="submit_go_show_project" /></a>
+						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("projectsShowDiv", "Main.php?do=projectsViewX&id=|-$project->getid()-|", { method: "post", parameters: { id: "|-$project->getId()-|"}, evalScripts: true})};$("projectsShowWorking").innerHTML = "<span class=\"inProgress\">buscando ##projects,4,proyecto##...</span>";' value="Ver detalle" name="submit_go_show_project" /></a>
 					</form>
 					|-if $project->hasWriteAccess($loginUser) -|
 					<form action="Main.php" method="get" style="display:inline;">
@@ -134,21 +134,21 @@
 						<input type="hidden" name="id" value="|-$project->getid()-|" />
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-						<input type="submit" name="submit_go_edit_project" value="Editar" class="iconEdit" />
+						<input type="submit" name="submit_go_edit_project" value="Editar" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="post" style="display:inline;">
 						<input type="hidden" name="do" value="projectsDoDelete" />
 						<input type="hidden" name="id" value="|-$project->getid()-|" />
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-						<input type="submit" name="submit_go_delete_project" value="Borrar" onclick="return confirm('Seguro que desea eliminar el proyecto?')" class="iconDelete" />
+						<input type="submit" name="submit_go_delete_project" value="Borrar" onclick="return confirm('Seguro que desea eliminar el proyecto?')" class="icon iconDelete" />
 					</form>
 					|-/if-|
 					|-if $project->getLogCount() gt 0-|
 						<form action="Main.php" method="get" style="display:inline;">
 							<input type="hidden" name="do" value="projectsShowHistory" />
 							<input type="hidden" name="id" value="|-$project->getid()-|" />
-							<input type="submit" name="submit_go_show_project_history" value="Mostrar Historico de cambios" class="iconHistory"  title="Mostrar Historico de cambios" />
+							<input type="submit" name="submit_go_show_project_history" value="Mostrar Historico de cambios" class="icon iconHistory"  title="Mostrar Historico de cambios" />
 						</form>
 					|-/if-|
 				<form action="Main.php" method="get" style="display:inline;">
@@ -156,7 +156,7 @@
 	<input type="hidden" name="fromProjectsList" value="|-$project->getid()-|" />
 	|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 	|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-	<input type="submit" name="submit_go_edit_project" value="Agregar Actividades" class="iconAdd" title="Agregar actividades al proyecto" />
+	<input type="submit" name="submit_go_edit_project" value="Agregar Actividades" class="icon iconAdd" title="Agregar actividades al proyecto" />
 </form></td>
 			</tr>
 		|-/foreach-|						

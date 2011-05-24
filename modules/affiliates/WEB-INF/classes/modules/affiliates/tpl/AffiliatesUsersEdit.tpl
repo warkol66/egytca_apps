@@ -110,7 +110,7 @@
 						<input type="hidden" name="do" value="affiliatesUsersDoRemoveFromGroup" /> 
 						<input type="hidden" name="group" value="|-$group->getId()-|" /> 
 						<input type="hidden" name="user" value="|-$currentAffiliateUser->getId()-|" /> 
-						<input type="submit" name="submit_go_delete_affiliate_group" value="##192,Eliminar acceso##" title="Eliminar" class="iconDelete" onclick="return confirm('##257,Esta opción remueve el acceso del grupo a la categoría. ¿Está seguro que desea eliminarlo?##');"  /> 
+						<input type="submit" name="submit_go_delete_affiliate_group" value="##192,Eliminar acceso##" title="Eliminar" class="icon iconDelete" onclick="return confirm('##257,Esta opción remueve el acceso del grupo a la categoría. ¿Está seguro que desea eliminarlo?##');"  /> 
 					</form>
 				</td>
 			</tr>

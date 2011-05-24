@@ -89,12 +89,12 @@ Para guardar los cambios haga click en "Aceptar". Luego de guardar la encuesta s
 					<input type="hidden" name="do" value="surveysQuestionsEdit" />
 					<input type="hidden" name="surveyId" value="|-$survey->getId()-|"></input>
 					<input type="hidden" name="id" value="|-$surveyQuestion->getId()-|"/>
-					<a href="#" rel="lightbox1" class="lbOn"><input type="button" id="editar" onClick="javascript:editQuestionX(this.form)" class="iconEdit"/></a>
+					<a href="#" rel="lightbox1" class="lbOn"><input type="button" id="editar" onClick="javascript:editQuestionX(this.form)" class="icon iconEdit"/></a>
 				</form>
 				<form action="Main.php" method="post" style="display:inline;">
 					<input type="hidden" name="do" value="surveysQuestionsDoDelete" />
 					<input type="hidden" name="id" value="|-$surveyQuestion->getId()-|"/>
-					<input type="button" name="eliminar" value="eliminar" id="eliminar" onClick="javascript:deleteQuestionX(this.form)" class="iconDelete"/>
+					<input type="button" name="eliminar" value="eliminar" id="eliminar" onClick="javascript:deleteQuestionX(this.form)" class="icon iconDelete"/>
 				</form>
 			</li> 
 			|-/foreach-|
@@ -105,7 +105,7 @@ Para guardar los cambios haga click en "Aceptar". Luego de guardar la encuesta s
 
 <div id="lightbox1" class="leightbox"> 
 	<div align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar&nbsp;&nbsp;<input type="button" class="iconDelete" /></a> 
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar&nbsp;&nbsp;<input type="button" class="icon iconDelete" /></a> 
 	</div> 
 	<div id="lightboxContent">
 	</div>

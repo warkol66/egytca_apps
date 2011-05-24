@@ -68,14 +68,14 @@
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="positionsEdit" />
 						<input type="hidden" name="id" value="|-$position->getid()-|" />
-						<input type="submit" name="submit_go_edit_position" value="Editar" class="iconEdit" />
+						<input type="submit" name="submit_go_edit_position" value="Editar" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="post" style="display:inline;">
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="positionsDoDelete" />
 						<input type="hidden" name="id" value="|-$position->getid()-|" />
-						<input type="submit" name="submit_go_delete_position" value="Borrar" onclick="return confirm('Seguro que desea eliminar la posición?')" class="iconDelete" />
+						<input type="submit" name="submit_go_delete_position" value="Borrar" onclick="return confirm('Seguro que desea eliminar la posición?')" class="icon iconDelete" />
 					</form>
 				</td>
 			</tr>

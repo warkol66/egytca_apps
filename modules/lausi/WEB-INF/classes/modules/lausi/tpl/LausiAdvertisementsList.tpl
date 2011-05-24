@@ -199,7 +199,7 @@
 						<form action="Main.php" method="get">
 							<input type="hidden" name="do" value="lausiAdvertisementsEdit" />
 							<input type="hidden" name="id" value="|-$advertisement->getId()-|" />
-							<input type="submit" name="submit_go_edit_advertisement" value="Editar" class="iconEdit" />
+							<input type="submit" name="submit_go_edit_advertisement" value="Editar" class="icon iconEdit" />
 							|-if $clientReport eq 1-|
 								<input type="hidden" name="clientReport" value="1"/>
 							|-/if-|
@@ -207,7 +207,7 @@
 						<form action="Main.php" method="post">
 							<input type="hidden" name="do" value="lausiAdvertisementsDoDelete" />
 							<input type="hidden" name="id" value="|-$advertisement->getId()-|" />
-							<input type="submit" name="submit_go_delete_advertisement" value="Borrar" onclick="return confirm('Seguro que desea eliminar el aviso?')" class="iconDelete" />
+							<input type="submit" name="submit_go_delete_advertisement" value="Borrar" onclick="return confirm('Seguro que desea eliminar el aviso?')" class="icon iconDelete" />
 							|-if $clientReport eq 1-|
 								<input type="hidden" name="clientReport" value="1"/>
 							|-/if-|

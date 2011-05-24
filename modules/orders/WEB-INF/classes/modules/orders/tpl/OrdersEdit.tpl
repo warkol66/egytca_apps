@@ -115,12 +115,12 @@
 			</script>
 			<td class="bottom right">|-math equation="x * y" x=$item->getPrice() y=$item->getQuantity() assign=totalItem-|<span id="totalItem|-$item->getId()-|">|-$totalItem|system_numeric_format-|</span></td> 
 			<td class="bottom center" nowrap>
-			    <input id="editButton|-$item->getId()-|"type="button" onclick="editor|-$item->getId()-|.enterEditMode();" value="Editar" class="iconEdit" />
+			    <input id="editButton|-$item->getId()-|"type="button" onclick="editor|-$item->getId()-|.enterEditMode();" value="Editar" class="icon iconEdit" />
 				<form method="post" action="Main.php" id="formRemove|-$item->getId()-|" style="display:inline;">
 					<input type="hidden" name="itemId" value="|-$item->getId()-|" />
 					<input type="hidden" name="orderId" value="|-$order->getId()-|" />
 					<input type="hidden" name="do" value="ordersItemsDoDeleteX" />
-					<input type="button" value="Remover" onclick="ordersItemsDoDeleteX('|-$item->getId()-|')" class="iconDelete" />
+					<input type="button" value="Remover" onclick="ordersItemsDoDeleteX('|-$item->getId()-|')" class="icon iconDelete" />
 				</form>
 				<span  id="messageRemove|-$item->getId()-|"></span>
 

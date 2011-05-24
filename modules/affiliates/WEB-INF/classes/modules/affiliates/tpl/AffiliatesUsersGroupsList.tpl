@@ -23,12 +23,12 @@
 			<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="affiliatesUsersGroupsEdit" /> 
 			  <input type="hidden" name="id" value="|-$group->getId()-|" /> 
-			  <input type="submit" name="submit_go_edit_affiliate_group" title="Editar" value="Editar" class="iconEdit" /> 
+			  <input type="submit" name="submit_go_edit_affiliate_group" title="Editar" value="Editar" class="icon iconEdit" /> 
 			</form>
 			<form action="Main.php" method="post" style="display:inline;"> 
 			  <input type="hidden" name="do" value="affiliatesUsersGroupsDoDelete" /> 
 			  <input type="hidden" name="id" value="|-$group->getId()-|" /> 
-			  <input type="submit" name="submit_go_delete_affiliate_group" value="Borrar" title="Eliminar" class="iconDelete" onclick="return confirm('Seguro que desea eliminar el grupo de usuario?')"  /> 
+			  <input type="submit" name="submit_go_delete_affiliate_group" value="Borrar" title="Eliminar" class="icon iconDelete" onclick="return confirm('Seguro que desea eliminar el grupo de usuario?')"  /> 
 			</form>
 		</td>
 	</tr>

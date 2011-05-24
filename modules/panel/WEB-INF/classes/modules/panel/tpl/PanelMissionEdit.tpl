@@ -49,7 +49,7 @@ function clearElement(element) {
 <script type="text/javascript" src="scripts/lightbox.js"></script> 			
 <div id="lightbox2" class="leightbox"> 
 	<p align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="iconDelete" /></a> 
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconDelete" /></a> 
 	</p> 
 	|-include file="ActorsEditInclude.tpl"-|
 </div> 
@@ -144,7 +144,7 @@ function clearElement(element) {
 <script type="text/javascript" src="scripts/lightbox.js"></script>
 <div id="lightbox1" class="leightbox"> 
 	<p align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="iconDelete" /></a> 
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconDelete" /></a> 
 	</p> 
 	|-include file="PanelMissionCommitmentForm.tpl"-|
 </div> 
@@ -175,20 +175,20 @@ function clearElement(element) {
 			 <form action="Main.php" method="post" style="display:inline;"> 
 					<input type="hidden" name="do" value="panelMissionCommitmentEditX" /> 
 					<input type="hidden" name="id" value="|-$commitment->getid()-|" />
-					<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" name="submit_go_delete_mission" value="Borrar" onclick="editCommitment(this.form);" class="iconEdit" /></a>
+					<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" name="submit_go_delete_mission" value="Borrar" onclick="editCommitment(this.form);" class="icon iconEdit" /></a>
 				</form>
 				|-if $loginUser->isAdmin() || $loginUser->isSupervisor()-|
 				<form action="Main.php" method="post" style="display:inline;"> 
 					<input type="hidden" name="do" value="panelMissionCommitmentDoDeleteX" /> 
 					<input type="hidden" name="id" value="|-$commitment->getid()-|" /> 
-					<input type="button" name="submit_go_delete_mission" value="Borrar" onclick="javascript: if (confirm('Seguro que desea eliminar este compromiso?')){deleteCommitment(this.form)}; return false" class="iconDelete" /> 
+					<input type="button" name="submit_go_delete_mission" value="Borrar" onclick="javascript: if (confirm('Seguro que desea eliminar este compromiso?')){deleteCommitment(this.form)}; return false" class="icon iconDelete" /> 
 			</form>
 			|-/if-|
 			|-if $loginUser->isSupervisor()-|				<form action="Main.php" method="post" style="display:inline;"> 
 					<input type="hidden" name="do" value="panelMissionCommitmentDoDeleteX" /> 
 					<input type="hidden" name="id" value="|-$commitment->getid()-|" /> 
 					<input type="hidden" name="doHardDelete" value="true" /> 
-					<input type="button" name="submit_go_delete_mission" value="Borrar" onclick="javascript: if (confirm('Seguro que desea eliminar este compromiso definitivamente?')){deleteCommitment(this.form)}; return false" class="iconDelete" /> 
+					<input type="button" name="submit_go_delete_mission" value="Borrar" onclick="javascript: if (confirm('Seguro que desea eliminar este compromiso definitivamente?')){deleteCommitment(this.form)}; return false" class="icon iconDelete" /> 
 			</form>|-/if-|</td>
 			 </tr>
     |-/foreach-|

@@ -1,7 +1,7 @@
 <script type="text/javascript" src="scripts/lightbox.js"></script> 			
 <div id="lightbox1" class="leightbox">
 	<p align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="iconDelete" /></a> 
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconDelete" /></a> 
 	</p> 
 	<div id="objectivesShowWorking"></div>
 	<div class="innerLighbox">
@@ -70,28 +70,28 @@
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="objectivesStrategicObjectivesViewX" />
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
-						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="iconView" onClick='{new Ajax.Updater("objectivesShowDiv", "Main.php?do=objectivesStrategicObjectivesViewX&id=|-$objective->getid()-|", { method: "post", parameters: { id: "|-$objective->getId()-|"}, evalScripts: true})};$("objectivesShowWorking").innerHTML = "<span class=\"inProgress\">buscando ##objectives,3,Objetivo##...</span>";' value="Ver detalle" name="submit_go_show_objective" title="Ver detalle" /></a>
+						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("objectivesShowDiv", "Main.php?do=objectivesStrategicObjectivesViewX&id=|-$objective->getid()-|", { method: "post", parameters: { id: "|-$objective->getId()-|"}, evalScripts: true})};$("objectivesShowWorking").innerHTML = "<span class=\"inProgress\">buscando ##objectives,3,Objetivo##...</span>";' value="Ver detalle" name="submit_go_show_objective" title="Ver detalle" /></a>
 					</form>
 					|-if $objective->hasAnyDisbursementIndicator()-|
 				<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="indicatorsView" />
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
 						<input type="hidden" name="entity" value="StrategicObjective" />
-						<input type="submit" name="submit_go_view_project_graph" value="Ver Curva de Desembolsos" class="iconGraph" title="Ver Curva de Desembolsos" />
+						<input type="submit" name="submit_go_view_project_graph" value="Ver Curva de Desembolsos" class="icon iconGraph" title="Ver Curva de Desembolsos" />
 					</form>
 					|-/if-|
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="objectivesStrategicObjectivesEdit" />
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
 						|-if $pager->getPage() gt 1-|<input type="hidden" name="filters[currentPage]" value="|-$pager->getPage()-|" />|-/if-|
-						<input type="submit" name="submit_go_edit_objective" value="Editar" class="iconEdit" title="Editar" />
+						<input type="submit" name="submit_go_edit_objective" value="Editar" class="icon iconEdit" title="Editar" />
 					</form>
 					
 					|-if $objective->getLogCount() gt 0 && ($loginUser->isAdmin() || $loginUser->isSupervisor())-|
 						<form action="Main.php" method="get" style="display:inline;">
 							<input type="hidden" name="do" value="objectivesStrategicObjectivesShowHistory" />
 							<input type="hidden" name="id" value="|-$objective->getid()-|" />
-							<input type="submit" name="submit_go_show_objective_history" value="Mostrar Historico de cambios" title="Mostrar Historico de cambios" class="iconHistory"  title="Mostrar Historico de cambios" />
+							<input type="submit" name="submit_go_show_objective_history" value="Mostrar Historico de cambios" title="Mostrar Historico de cambios" class="icon iconHistory"  title="Mostrar Historico de cambios" />
 						</form>
 					|-/if-|
 					
@@ -100,7 +100,7 @@
 						<input type="hidden" name="do" value="objectivesStrategicObjectivesDoDelete" />
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
 						<input type="hidden" name="filters[currentPage]" value="|-$pager->getPage()-|" />
-						<input type="submit" name="submit_go_delete_objective" value="Borrar" title="Borrar" onclick="return confirm('Seguro que desea eliminar el ##objectives,2,Objetivo Etratégico##?')" class="iconDelete" />
+						<input type="submit" name="submit_go_delete_objective" value="Borrar" title="Borrar" onclick="return confirm('Seguro que desea eliminar el ##objectives,2,Objetivo Etratégico##?')" class="icon iconDelete" />
 					</form>
 					|-/if-|
 				</td>

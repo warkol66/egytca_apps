@@ -90,7 +90,7 @@
 			<input type="hidden" name="do" id="do" value="lausiWorkforcesDoDeleteCircuitX" /> 
 			<input type="hidden" name="circuitId"  value="|-$circuit->getId()-|" /> 
 			<input type="hidden" name="workforceId"  value="|-$workforce->getId()-|" /> 
-			<input type="button" value="Eliminar" onClick="javascript:lausiDeleteWorkforceFromCircuit(this.form)" class="iconDelete" /> 
+			<input type="button" value="Eliminar" onClick="javascript:lausiDeleteWorkforceFromCircuit(this.form)" class="icon iconDelete" /> 
 			</form> 
 		</li> 
 		|-/foreach-|

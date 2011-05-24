@@ -29,12 +29,12 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="importBankAccountsEdit" />
 						<input type="hidden" name="id" value="|-$bankaccount->getid()-|" />
-						<input type="submit" name="submit_go_edit_bankaccount" value="Editar" class="iconEdit" title="Editar"/>
+						<input type="submit" name="submit_go_edit_bankaccount" value="Editar" class="icon iconEdit" title="Editar"/>
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="importBankAccountsDoDelete" />
 						<input type="hidden" name="id" value="|-$bankaccount->getid()-|" />
-						<input type="submit" name="submit_go_delete_bankaccount" value="Borrar" onclick="return confirm('¿Seguro que desea eliminar la cuenta?')" class="iconDelete" title="Eliminar" />
+						<input type="submit" name="submit_go_delete_bankaccount" value="Borrar" onclick="return confirm('¿Seguro que desea eliminar la cuenta?')" class="icon iconDelete" title="Eliminar" />
 					</form>
 				</td>
 			</tr>

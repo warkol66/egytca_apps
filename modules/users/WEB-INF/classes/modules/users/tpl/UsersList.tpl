@@ -73,20 +73,20 @@ function resetPassword(form){
 		<td>|-$user->getName()-|</td>
 		<td>|-$user->getSurname()-|</td>
 		<td>|-$user->getMailAddress()-|</td>
-		<td nowrap><a href='Main.php?do=usersEdit&id=|-$user->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|' title="##114,Editar##"><img src="images/clear.png" class="iconEdit"></a>
+		<td nowrap><a href='Main.php?do=usersEdit&id=|-$user->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|' title="##114,Editar##"><img src="images/clear.png" class="icon iconEdit"></a>
 |-if $loginUser->getUsername() eq $user->getUsername()-|
-			<img src="images/clear.png" class="iconDelete disabled" title="No puede eliminar su propio usuario" alt="No puede eliminar su propio usuario">
+			<img src="images/clear.png" class="icon iconDelete disabled" title="No puede eliminar su propio usuario" alt="No puede eliminar su propio usuario">
 |-elseif $user->getLevelId() lt 3-|
-			<img src="images/clear.png" class="iconDelete disabled" title="No se puede eliminar. Para eliminar este usuario, debe tener nivel inferior a administrador" alt="No se puede eliminar. Para eliminar este usuario, debe tener nivel inferior a administrador">
+			<img src="images/clear.png" class="icon iconDelete disabled" title="No se puede eliminar. Para eliminar este usuario, debe tener nivel inferior a administrador" alt="No se puede eliminar. Para eliminar este usuario, debe tener nivel inferior a administrador">
 |-else-|
-			<a href='Main.php?do=usersDoDelete&user=|-$user->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|' title="##115,Eliminar##" onClick='return window.confirm("¿Esta seguro que quiere eliminar este usuario?")'><img src="images/clear.png" class="iconDelete"></a>
+			<a href='Main.php?do=usersDoDelete&user=|-$user->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|' title="##115,Eliminar##" onClick='return window.confirm("¿Esta seguro que quiere eliminar este usuario?")'><img src="images/clear.png" class="icon iconDelete"></a>
 |-/if-||-if ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() ne '')-|<form method="post">
 			<input type="hidden" name="do" value="usersPasswordResetX" />
 			<input type="hidden" name="id" value="|-$user->getId()-|" />
-			<input type="button" value="Resetear contraseña" onClick="if (confirm('¿Seguro que desea resetear esta contraseña?')){resetPassword(this.form)}; return false" title="Resetear contraseña" class="iconPassword">
+			<input type="button" value="Resetear contraseña" onClick="if (confirm('¿Seguro que desea resetear esta contraseña?')){resetPassword(this.form)}; return false" title="Resetear contraseña" class="icon iconPassword">
 			</form>
 			|-elseif ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() eq '') -|
-						<input type="button" title="El usuario no podee dirección de correo electrónico, no se puede resetear la contraseña" class="iconPassword disabled">
+						<input type="button" title="El usuario no podee dirección de correo electrónico, no se puede resetear la contraseña" class="icon iconPassword disabled">
 |-/if-|
 		</td>
 	</tr>|-/if-|
@@ -112,7 +112,7 @@ function resetPassword(form){
 <legend>##175,Usuarios Eliminados##</legend>
 <table class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 	<tr>
-		<th colspan='4'>Los siguientes usuarios fueron eliminados <a href="javascript:void(null)" onClick="alert('##174,Si quiere dar de alta a un usuario que estuvo registrado alguna vez, debe reactivarlo desde esta opción. Si lo intenta desde un usuario nuevo el sistema le informará que ese usuario ya está en uso.##')"><img src="images/clear.png" class="iconInfo"></a> </th>
+		<th colspan='4'>Los siguientes usuarios fueron eliminados <a href="javascript:void(null)" onClick="alert('##174,Si quiere dar de alta a un usuario que estuvo registrado alguna vez, debe reactivarlo desde esta opción. Si lo intenta desde un usuario nuevo el sistema le informará que ese usuario ya está en uso.##')"><img src="images/clear.png" class="icon iconInfo"></a> </th>
 	</tr>
 	<tr>
 		<th width="35%">##162,Identificación de Usuario##</th>
@@ -128,9 +128,9 @@ function resetPassword(form){
 		<td nowrap="nowrap"><a href='Main.php?do=usersDoActivate&user=|-$user->getId()-|'
 |-if $licensesLeft lt 1-|
 onClick="alert('##177,Todas las licencias se encuentran en uso. Si desea dar de alta un nuevo usuario debe eliminar alguno de los existentes.##');return false;"
-alt='##176,Reactivar##' title='##176,Reactivar##'><img src="images/clear.png" class="iconActivate disabled">
+alt='##176,Reactivar##' title='##176,Reactivar##'><img src="images/clear.png" class="icon iconActivate disabled">
 |-else-|
-alt='##176,Reactivar##' title='##176,Reactivar##'><img src="images/clear.png" class="iconActivate">
+alt='##176,Reactivar##' title='##176,Reactivar##'><img src="images/clear.png" class="icon iconActivate">
 |-/if-|
 </a>
 		</td>

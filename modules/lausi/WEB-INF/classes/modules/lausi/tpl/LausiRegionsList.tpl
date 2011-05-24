@@ -21,12 +21,12 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="lausiRegionsEdit" />
 						<input type="hidden" name="id" value="|-$region->getid()-|" />
-						<input type="submit" name="submit_go_edit_region" value="Editar" class="iconEdit" />
+						<input type="submit" name="submit_go_edit_region" value="Editar" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="lausiRegionsDoDelete" />
 						<input type="hidden" name="id" value="|-$region->getid()-|" />
-						<input type="submit" name="submit_go_delete_region" value="Borrar" onclick="return confirm('Seguro que desea eliminar el region?')" class="iconDelete" />
+						<input type="submit" name="submit_go_delete_region" value="Borrar" onclick="return confirm('Seguro que desea eliminar el region?')" class="icon iconDelete" />
 				</form></td>
 			</tr>
 		|-/foreach-|						

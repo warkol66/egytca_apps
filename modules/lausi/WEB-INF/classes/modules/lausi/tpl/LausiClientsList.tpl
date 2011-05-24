@@ -27,12 +27,12 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="lausiClientsEdit" />
 						<input type="hidden" name="id" value="|-$client->getid()-|" />
-						<input type="submit" name="submit_go_edit_client" value="Editar" class="iconEdit" />
+						<input type="submit" name="submit_go_edit_client" value="Editar" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="lausiClientsDoDelete" />
 						<input type="hidden" name="id" value="|-$client->getid()-|" />
-						<input type="submit" name="submit_go_delete_client" value="Borrar" onclick="return confirm('Seguro que desea eliminar el client?')" class="iconDelete" />
+						<input type="submit" name="submit_go_delete_client" value="Borrar" onclick="return confirm('Seguro que desea eliminar el client?')" class="icon iconDelete" />
 					</form>
 				</td>
 			</tr>

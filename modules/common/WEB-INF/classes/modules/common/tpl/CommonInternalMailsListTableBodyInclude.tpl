@@ -9,7 +9,7 @@
 		<td nowrap>
 			<a rel="lightbox1" class="lbOn">
 				<div class="cellContent">
-					<img src="images/clear.png" |-if $internalMail->hasBeenRead()-|class="iconRead"|-else-|class="iconUnread"|-/if-| onClick="view(|-$internalMail->getId()-|);return false;">
+					<img src="images/clear.png" |-if $internalMail->hasBeenRead()-|class="icon iconRead"|-else-|class="icon iconUnread"|-/if-| onClick="view(|-$internalMail->getId()-|);return false;">
 				</div>
 			</a>
 		</td>
