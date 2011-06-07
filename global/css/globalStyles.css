@@ -128,3 +128,24 @@ a.pageLink:hover, a.pageLink:active {
 	text-align:left;
 }
 /* /PAGINADO    ----------------------------*/
+
+.textLinkButton {
+	outline: 0 none;
+	cursor: pointer;
+	clear: right;
+	-khtml-border-radius: .2em;
+	-opera-border-radius: .2em;
+	-moz-border-radius: .2em;
+	-webkit-border-radius: .2em;
+	border-radius: .2em;
+	text-decoration: none;
+	display: inline;
+	line-height: 1.85em;
+	padding: .25em .4em .3em .4em;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+.textLinkButton:hover {
+}
+.textLinkButton:visited, a.textLink:active{
+}
