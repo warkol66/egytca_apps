@@ -318,3 +318,16 @@ a.pageLink:hover, a.pageLink:active {
 	background-color:#eaeee8;
 }
 /* /PAGINADO    ----------------------------*/
+
+.textLinkButton {
+	color:#000000;
+	background-color: #e0e0e0;
+	border: 1px outset #a0a0a0;/*#F0F0F0;*/
+}
+.textLinkButton:hover {
+	background-color: #a0a0a0;/*#d0d0d0; */
+	border: outset 1px  #808080;
+}
+.textLinkButton:visited, a.textLink:active{
+	color:#000000;
+}
