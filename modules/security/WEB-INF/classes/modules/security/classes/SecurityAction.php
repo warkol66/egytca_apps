@@ -1,8 +1,5 @@
 <?php
 
-  // include base peer class
-  require_once 'security/classes/om/BaseSecurityAction.php';
-
 /**
  * Skeleton subclass for representing a row from the 'SecurityAction' table.
  *
@@ -11,17 +8,6 @@
  * @package security
  */	
 class SecurityAction extends BaseSecurityAction {
-
-	/**
-	 * Initializes internal state of Content object.
-	 * @see        parent::__construct()
-	 */
-	public function __construct()
-	{
-		// Make sure that parent constructor is always invoked, since that
-		// is where any default values for this object are set.
-		parent::__construct();
-	}
 
 	/**
 	*

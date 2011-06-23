@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<moduleInstalation>
+	<moduleInstalation:config>
+		<language>
+			<esp>
+				<label>Security</label>
+				<description>Seguridad del sistema</description>
+			</esp>
+			<eng>
+				<label>Security</label>
+				<description>System security</description>
+			</eng>
+		</language>
+		<alwaysActive>1</alwaysActive>
+		<moduleDependencies>
+			<module1>Users</module1>
+			<module2>Modules</module2>
+		</moduleDependencies>
+	</moduleInstalation:config>
+	<moduleInstalation:actions>
+		<securityActionList>
+			<actionLogs>
+				<success>
+					<esp>Mostrar seguridad de actions </esp>
+					<eng>Show the security of the Actions</eng>
+				</success>
+			</actionLogs>
+			<securityAction>
+				<usersBitLevel>1</usersBitLevel>
+				<usersByaffiliateBitLevel>1</usersByaffiliateBitLevel>
+				<actionPair></actionPair>
+				<label>
+					<esp>Seguridad de Actions</esp>
+					<eng>Actions Security</eng>
+				</label>
+			</securityAction>
+			<menu>
+				<esp>Seguridad</esp>
+				<eng>Security</eng>
+			</menu>
+		</securityActionList>
+		<securityModuleList>
+			<actionLogs>
+				<success>
+					<esp>Mostrar seguridad de Modulos </esp>
+					<eng>Show the security of the module</eng>
+				</success>
+			</actionLogs>
+			<securityAction>
+				<usersBitLevel>1</usersBitLevel>
+				<usersByaffiliateBitLevel>1</usersByaffiliateBitLevel>
+				<actionPair></actionPair>
+				<label>
+					<esp>Seguridad de modulos</esp>
+					<eng>Modules security</eng>
+				</label>
+			</securityAction>
+			<menu>
+				<esp>Seguridad</esp>
+				<eng>Security</eng>
+			</menu>
+		</securityModuleList>
+		<noPermission>
+			<actionLogs>
+				<success>
+					<esp>Ingreso a action prohibido</esp>
+					<eng>Entering to a prohibited action</eng>
+				</success>
+			</actionLogs>
+			<securityAction>
+				<usersBitLevel>1</usersBitLevel>
+				<usersByaffiliateBitLevel>1</usersByaffiliateBitLevel>
+				<actionPair></actionPair>
+				<label>
+					<esp>Action sin permiso</esp>
+					<eng>Action without permission</eng>
+				</label>
+			</securityAction>
+			<menu>
+				<esp></esp>
+				<eng></eng>
+			</menu>
+		</noPermission>
+		<securityActionListUsersByAffiliate>
+			<actionLogs>
+				<success>
+					<esp>Mostrar actions users By Affiliate </esp>
+					<eng>Show Actions Users By Affiliate</eng>
+				</success>
+			</actionLogs>
+			<securityAction>
+				<usersBitLevel>1</usersBitLevel>
+				<usersByaffiliateBitLevel>1</usersByaffiliateBitLevel>
+				<actionPair></actionPair>
+				<label>
+					<esp>Seguridad de Actions de Users By Affiliate</esp>
+					<eng>Actions Security of Users By Affiliate</eng>
+				</label>
+			</securityAction>
+			<menu>
+				<esp></esp>
+				<eng></eng>
+			</menu>
+		</securityActionListUsersByAffiliate>
+		<securityActionDoSaveByAffiliate>
+			<actionLogs>
+				<success>
+					<esp>Cambio seguridad del action por afiliado</esp>
+					<eng>Change the security of the action by affiliate</eng>
+				</success>
+			</actionLogs>
+			<securityAction>
+				<usersBitLevel>1</usersBitLevel>
+				<usersByaffiliateBitLevel>1</usersByaffiliateBitLevel>
+				<actionPair></actionPair>
+				<label>
+					<esp>Cambio de seguridad del action por afiliado</esp>
+					<eng>Change the security of the action by affiliate</eng>
+				</label>
+			</securityAction>
+			<menu>
+				<esp></esp>
+				<eng></eng>
+			</menu>
+		</securityActionDoSaveByAffiliate>		
+		<securityActionDoSave>
+			<actionLogs>
+				<success>
+					<esp>Cambio seguridad del action</esp>
+					<eng>Change the security of the action</eng>
+				</success>
+			</actionLogs>
+			<securityAction>
+				<usersBitLevel>1</usersBitLevel>
+				<usersByaffiliateBitLevel>1</usersByaffiliateBitLevel>
+				<actionPair></actionPair>
+				<label>
+					<esp>Cambio de seguridad del action</esp>
+					<eng>Change the security of the action</eng>
+				</label>
+			</securityAction>
+			<menu>
+				<esp></esp>
+				<eng></eng>
+			</menu>
+		</securityActionDoSave>
+		<securityModuleDoSave>
+			<actionLogs>
+				<success>
+					<esp>Cambio seguridad del modulo</esp>
+					<eng>Change the security of the module</eng>
+				</success>
+			</actionLogs>
+			<securityAction>
+				<usersBitLevel>1</usersBitLevel>
+				<usersByaffiliateBitLevel>1</usersByaffiliateBitLevel>
+				<actionPair></actionPair>
+				<label>
+					<esp>Cambio de seguridad del modulo</esp>
+					<eng>Change the security of the module</eng>
+				</label>
+			</securityAction>
+			<menu>
+				<esp></esp>
+				<eng></eng>
+			</menu>
+		</securityModuleDoSave>
+	</moduleInstalation:actions>
+	<moduleInstalation:securityModule>3</moduleInstalation:securityModule>
+	<moduleInstalation:sql>
+		<create_security_action>CREATE TABLE IF NOT EXISTS `security_action`
+(
+	`action` VARCHAR(100)  NOT NULL COMMENT 'Action pagina',
+	`module` VARCHAR(100) COMMENT 'Modulo',
+	`section` VARCHAR(100) COMMENT 'Seccion',
+	`access` INTEGER COMMENT 'El acceso a ese action',
+	`accessUsersByAffiliate` INTEGER COMMENT 'El acceso a ese action para los usuarios por afiliados',
+	`active` INTEGER COMMENT 'Si el action esta activo o no',
+	`pair` VARCHAR(100) COMMENT 'Par del Action',
+	PRIMARY KEY (`action`),
+	CONSTRAINT `security_action_FK_1`
+		FOREIGN KEY (`action`)
+		REFERENCES `security_actionLabel` (`action`)
+)Type=MyISAM COMMENT='Actions del sistema';
+		</create_security_action>
+		<create_security_module>
+		CREATE TABLE IF NOT EXISTS `security_module`
+(
+	`module` VARCHAR(100)  NOT NULL COMMENT 'Modulo',
+	`access` INTEGER COMMENT 'El acceso a ese action',
+	`accessUsersByAffiliate` INTEGER COMMENT 'El acceso a ese action para los usuarios por afiliados',
+	PRIMARY KEY (`module`)
+)Type=MyISAM COMMENT='Modulos del sistema';
+		</create_security_module>	
+		<create_security_ActionLabel>
+		CREATE TABLE IF NOT EXISTS `security_actionLabel`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT COMMENT 'Id label security',
+	`action` VARCHAR(100)  NOT NULL COMMENT 'Action pagina',
+	`language` VARCHAR(100) COMMENT 'Idioma de la etiqueta',
+	`label` VARCHAR(100) COMMENT 'Etiqueta',
+	PRIMARY KEY (`id`,`action`),
+	INDEX `I_referenced_security_action_FK_1_1` (`action`)
+)Type=MyISAM COMMENT='etiquetas de actions de seguridad';
+		</create_security_ActionLabel>
+	</moduleInstalation:sql>
+</moduleInstalation>

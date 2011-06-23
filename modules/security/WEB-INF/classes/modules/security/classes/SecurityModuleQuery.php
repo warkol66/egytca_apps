@@ -14,24 +14,4 @@
  */
 class SecurityModuleQuery extends BaseSecurityModuleQuery {
 
-	/**
-	 * Returns a new SecurityModuleQuery object.
-	 *
-	 * @param     string $modelAlias The alias of a model in the query
-	 * @param     Criteria $criteria Optional Criteria to build the query from
-	 *
-	 * @return    SecurityModuleQuery
-	 */
-	public static function create($modelAlias = null, $criteria = null)
-	{
-		if ($criteria instanceof SecurityModuleQuery) {
-			return $criteria;
-		}
-		$query = new self('application', 'SecurityModule', $modelAlias);
-		if ($criteria instanceof Criteria) {
-			$query->mergeWith($criteria);
-		}
-		return $query;
-	}
-
 } // SecurityModuleQuery

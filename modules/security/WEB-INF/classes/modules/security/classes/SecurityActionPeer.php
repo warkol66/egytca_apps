@@ -1,14 +1,5 @@
 <?php
 
-  // include base peer class
-  require_once 'security/classes/om/BaseSecurityActionPeer.php';
-  
-  // include object class
-  include_once 'SecurityAction.php';
-
-	include_once 'SecurityActionLabelPeer.php';
-
-
 /**
  * Skeleton subclass for performing query and update operations on the 'SecurityAction' table.
  *

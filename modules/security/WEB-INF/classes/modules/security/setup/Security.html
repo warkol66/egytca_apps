@@ -1,0 +1,82 @@
+
+<HTML>
+<HEAD>
+<TITLE>Módulo Security </TITLE>
+</HEAD>
+
+<BODY>
+
+<p><strong>Generalidades:</strong></p>
+<p> El sistema MER, Manejo Estratégico de las Relaciones, es un sistema que actualmente permite tener acceso a cualquier página por cualquier usuario, ya que no existen permisos, restricciones, que hagan que determinado usuario no acceda a determinada página. El módulo Security solucionará dicho problema</p>
+<p><strong> Propósito:</strong></p>
+<p> El módulo de security será una extensión al sistema de MER en donde se podrán asignar diversas variedades de accesos a cada categoría de usuario creada en la base de datos. Dichos accesos se asignarán mediante un nuevo menú que controlará la cantidad total de páginas existentes y quienes tendrán acceso a dichas páginas.</p>
+<p><strong> Objetivo general del proyecto:</strong></p>
+<p> Permisos generará una aplicación que permita manejar mediante un menú los accesos o las restricciones de diversos usuarios a determinadas páginas o actions.</p>
+<p><strong> Objetivos específicos:</strong></p>
+<p> La modificación Permisos tiene los siguientes objetivos específicos:</p>
+<ul>
+<p> - Generar una lista con los actions disponibles en el sistema.</p>
+<p> - Generar una lista de los actions que ya poseen permisos.</p>
+<p> - Ver qué permisos posee cada action (quienes pueden acceder a cada action).</p>
+<p> - Cambiar los accesos de cada action.</p>
+<p> - Cambiar los actions que poseen permisos.</p>
+</ul>
+<p>&nbsp;</p>
+<p> A su vez, posee las siguientes restricciones:</p>
+<ul>
+<p> -Sólo el administrador podrá controlar este módulo</p>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Acciones del módulo Security</strong></p>
+<p> Consultas:</p>
+<ul>
+<p> - Listar los actions existentes en el sistema</p>
+<p> - Ver los permisos de los actions</p>
+</ul>
+<p> Cambios de estado:</p>
+<ul>
+<p> - Agregar o quitar los actions existentes en la base de datos.</p>
+<p> - Cambiar los permisos de los actions existentes.</p>
+<p>&nbsp;</p>
+</ul>
+<h3> Definiciones preliminares para el diseño del sistema:</h3>
+<p><strong> 1- Tablas relacionadas con la modificación Permiso:</strong></p>
+<p> 1-1. Tabla users_group:
+A la tabla ya creada se le agrega el campo bitlevel quedando:</p>
+<ul>
+<p> -id		Id del grupo</p>
+<p> -name		Nombre del grupo</p>
+<p> -created		Fecha de creación del grupo</p>
+<p> -updated		Fecha de actualización del grupo</p>
+<p> -bitlevel		bit de nivel del grupo.</p>
+</ul>
+<p> 1-2.	Tabla securityaction</p>
+<p> Nueva tabla con los campos:</p>
+<ul>
+<p> -action		Nombre del Action o página</p>
+<p> -access		Número de acceso del action.</p>
+<p> -module		Nombre del módulo que posee dicho action.</p>
+<p> -section		Nombre de la sección de dicho action.</p>
+<p>&nbsp;</p>
+</ul>
+<p><strong> 2- Acciones a realizar:</strong></p>
+<p> Consultas:
+- Generar una lista con todos los actions disponibles en la base de datos.</p>
+<p> - Generar una lista con los actions existentes y con permisos</p>
+<p> Cambios de estado:
+- Modificar los actions existentes en la base de datos.</p>
+<p> - Modificar los permisos de los actions.</p>
+<p>&nbsp;</p>
+<p><strong> 3-Interrelaciones, archivos a crear y relacionar:</strong></p>
+<p> a- Template -  Se debe cambiar para agregar la opción al link SecurityListAction.php</p>
+<p> b- Archivo XML - phpmvc-config.xml Se modifica todo lo necesario para que funcionen los Actions.</p>
+<p> c- Action -Vista - SecurityListAction - Utilizado para hacer una consulta de todos los actions existentes en la base de datos. – Utiliza el template security_list  para ver la totalidad de actions existentes en la DB con sus permisos y se incluye como adicional al template security_list_group.</p>
+<p> d- Action -Vista - ActionListAction - Utilizado para hacer una consulta de todos los actions existentes en los directorios – Utiliza el template action_list  para crear un aspecto visual al momento de ver la lista de actions.</p>
+<p> e- Action -Cambio de estado- SecurityDoSaveAction - Utilizado para modificar en la base de datos los permisos de algún action. – No utiliza template.</p>
+<p> f- Action -Cambio de estado -ActionDoListAction  - Utilizado para modificar los actions que estarán en la DB y poseerán permisos – No utiliza template. </p>
+<p>&nbsp;</p>
+<p><strong>Modificaciones pendientes:</strong></p>
+<p>- Crear un bot&oacute;n de selecci&oacute;n el cual seleccione todos los actions existentes en ActionList</p>
+<p>- Corregir el bot&oacute;n de selecci&oacute;n el cual debe tildar todas las categorias existentes de un action en SecurityList </p>
+</BODY>
+</HTML>
