@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<moduleInstalation>
+	<moduleInstalation:config>
+		<language>
+			<esp>
+				<label>Módulos</label>
+				<description>Administrador de Módulos del Sistema</description>
+			</esp>
+			<eng>
+				<label>Modules</label>
+				<description>Modules manager</description>
+			</eng>
+		</language>
+		<alwaysActive>1</alwaysActive>
+		<moduleDependencies>
+			<module1>Users</module1>
+			<module2>SecurityAction</module2>
+		</moduleDependencies>
+	</moduleInstalation:config>
+	<moduleInstalation:actions>
+		<modulesList>
+			<actionLogs>
+				<success>
+					<esp>Mostrar lista de módulos del sistema</esp>
+					<eng>List system modules</eng>
+				</success>
+				<failure>
+					<esp>No se pudo mostrar lista de módulos del sistema</esp>
+					<eng>Unable to list system modules</eng>
+				</failure>
+			</actionLogs>
+			<securityAction>
+				<usersBitLevel>3</usersBitLevel>
+				<usersByaffiliateBitLevel>3</usersByaffiliateBitLevel>
+				<actionPair>ModulesDoList</actionPair>
+				<label>
+					<esp>Listado de módulos</esp>
+					<eng>Modules list</eng>
+				</label>
+			</securityAction>
+			<menu>
+				<esp>Modulo</esp>
+				<eng>Module</eng>
+			</menu>
+		</modulesList>
+		<modulesEdit>
+			<actionLogs>
+				<success>
+					<esp>Ingresar a editar modulo</esp>
+					<eng>Enter to edit module </eng>
+				</success>
+				<failure>
+					<esp>No pudo ingresar a editar modulo</esp>
+					<eng>He cannot enter to edit module</eng>
+				</failure>
+			</actionLogs>
+			<securityAction>
+				<usersBitLevel>3</usersBitLevel>
+				<usersByaffiliateBitLevel>3</usersByaffiliateBitLevel>
+				<actionPair>ModulesDoEdit</actionPair>
+				<label>
+					<esp>Edición de módulos</esp>
+					<eng>Modules edit</eng>
+				</label>
+			</securityAction>
+			<menu>
+				<esp></esp>
+				<eng></eng>
+			</menu>
+		</modulesEdit>
+		<modulesDoActivateX>
+			<actionLogs>
+				<success>
+					<esp>Activar un módulo</esp>
+					<eng>Active module </eng>
+				</success>
+				<errorDependencyOff>
+					<esp>No pudo activar un módulo</esp>
+					<eng>He cannot enable a module</eng>
+				</errorDependencyOff>
+				<errorDependencyOn>
+					<esp>No pudo desactivar un módulo</esp>
+					<eng>He cannot disable a module</eng>
+				</errorDependencyOn>
+			</actionLogs>
+			<securityAction>
+				<usersBitLevel>1</usersBitLevel>
+				<usersByaffiliateBitLevel>1</usersByaffiliateBitLevel>
+				<actionPair></actionPair>
+				<label>
+					<esp>Activación de módulos</esp>
+					<eng>Modules activation</eng>
+				</label>
+			</securityAction>
+			<menu>
+				<esp></esp>
+				<eng></eng>
+			</menu>
+		</modulesDoActivateX>
+	</moduleInstalation:actions>
+	<moduleInstalation:securityModule>3</moduleInstalation:securityModule>
+	<moduleInstalation:sql>
+		<sql1>CREATE TABLE IF NOT EXISTS `modules_module` (
+	`name` VARCHAR( 255 ) NOT NULL COMMENT 'nombre del modulo',
+	`label` VARCHAR( 255 ) COMMENT 'Etiqueta',
+	`description` VARCHAR( 255 ) COMMENT 'Descripcion del modulo',
+	`active` INTEGER default 0 NOT NULL COMMENT 'Estado del modulo',
+	`alwaysActive` INTEGER default 0 NOT NULL COMMENT 'Modulo siempre activo',
+	PRIMARY KEY ( `name` ) ,
+	CONSTRAINT `modules_module_FK_1` FOREIGN KEY ( `name` ) REFERENCES `modules_dependency` ( `module` ) ON DELETE CASCADE
+	) TYPE = MYISAM COMMENT = ' Registro de modulos';
+		</sql1>
+		<sql2>
+	CREATE  TABLE IF NOT EXISTS `modules_dependency`	(		`module` VARCHAR(255)  NOT NULL COMMENT 'Modulo',		`dependence` VARCHAR(255)  NOT NULL COMMENT 'Dependiente',		PRIMARY KEY (`module`,`dependence`)	)Type=MyISAM COMMENT='Dependencia de modulos ';
+		</sql2>
+	</moduleInstalation:sql>
+</moduleInstalation>

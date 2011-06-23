@@ -1,0 +1,24 @@
+<database defaultIdMethod="native" package="documents.classes" name="application" >
+	<table phpName="Document" name="documents_document" description="Documentos del sistema">
+		<column name="id" type="INTEGER" description="Id documento" primaryKey="true" autoIncrement="true"  />
+		<column name="title" type="VARCHAR" size="255" description="El titulo del archivo"/>
+		<column name="realFilename" type="VARCHAR" size="255" description="El nombre real del archivo"/>
+		<column name="date" type="DATE" description="Fecha" />
+		<column name="categoryId" type="INTEGER" description="Numero de tipo de archivo" />
+		<column name="description" type="VARCHAR" size="255" description="Descripcion del archivo" />
+		<column name="document_date" type="DATE" description="Fecha del documento" />
+		<column name="password" type="VARCHAR" size="32" description="Clave del archivo" />
+		<column name="author" type="VARCHAR" size="255" description="Autor(es)" />
+		<column name="keyWords" type="VARCHAR" size="255" description="Palabras clave" />
+		<column name="number" type="VARCHAR" size="10" description="Numero de Publicacion" />		
+		<column name="size" type="INTEGER" description="Tamano de archivo" />
+		<column name="fullTextContent" type="LONGVARCHAR" description="Contenido del archivo" />
+		<foreign-key foreignTable="categories_category"  onDelete="cascade" >
+			<reference local="categoryId" foreign="id" />
+		</foreign-key>
+	</table>
+	<table phpName="DocumentKeyWord" name="documents_keyWord" description="Palabras clave de documentos">
+		<column name="id" type="INTEGER" description="Id palabra clave" primaryKey="true" autoIncrement="true"  />
+		<column name="keyWord" type="VARCHAR" size="255" description="Palabra clave"/>
+	</table>
+</database>
