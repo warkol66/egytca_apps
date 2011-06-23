@@ -17,8 +17,7 @@
 							<p>
 								<label for="filters[searchSentOnly]" >Enviados</label>
 								<input class="filter" type="checkbox" name="filters[searchSentOnly]" value="true" |-if isset($filters.searchSentOnly)-|checked |-/if-|/>
-							</p>
-							<p>
+							&nbsp;&nbsp;&nbsp;
 								<label for="filters[searchUnreadOnly]" >No leidos</label>
 								<input class="filter" type="checkbox" name="filters[searchUnreadOnly]" value="true" |-if isset($filters.searchUnreadOnly)-|checked |-/if-|/>
 							</p>
@@ -155,7 +154,7 @@
 		if (selected != id) { 
 		
 			//Cargamos los datos en el lightbox.
-			document.getElementById('lightboxContent').innerHTML = "<p>Cargando mensaje&nbsp;&nbsp;&nbsp;<img src='images/spinner.gif' /></p>";
+			document.getElementById('lightboxContent').innerHTML = "<p class='inProgress'>Cargando mensaje</p>";
 			var myAjax = new Ajax.Updater(
 				{success: 'lightboxContent'},
 				'Main.php?do=commonInternalMailsViewX&id='+id,
@@ -196,5 +195,6 @@ table#tabla-internalMails td {
 
 div.cellContent {
 	padding: 4px;
+	cursor: pointer;
 }
 </style>

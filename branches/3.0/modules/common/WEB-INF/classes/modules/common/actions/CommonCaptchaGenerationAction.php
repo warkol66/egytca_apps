@@ -1,6 +1,7 @@
 <?php
 require_once('BaseAction.php');
-require_once("includes/captcha/CaptchaSecurityImages.php");
+global $appServerRootDir;
+require_once($appServerRootDir . "/WEB-INF/lib/captcha/CaptchaSecurityImages.php");
 
 class CommonCaptchaGenerationAction extends BaseAction {
 
@@ -30,7 +31,7 @@ class CommonCaptchaGenerationAction extends BaseAction {
 	*/
 	function execute($mapping, $form, &$request, &$response) {
 
-    	BaseAction::execute($mapping, $form, $request, $response);
+			BaseAction::execute($mapping, $form, $request, $response);
 
 		//////////
 		// Access the Smarty PlugIn instance
@@ -43,15 +44,13 @@ class CommonCaptchaGenerationAction extends BaseAction {
 
 		$module = "Common";
 		$smarty->assign("module",$module);
-				
-		//$this->template->template = "TemplateAjax.tpl";
-		
+
 		$width = isset($_GET['width']) ? $_GET['width'] : '120';
 		$height = isset($_GET['height']) ? $_GET['height'] : '40';
 		$characters = isset($_GET['characters']) && $_GET['characters'] > 1 ? $_GET['characters'] : '6';
 
 		$captcha = new CaptchaSecurityImages($width,$height);
-		
+
 		$image = $captcha->getImage();
 
 		header('Content-Type: image/jpeg');

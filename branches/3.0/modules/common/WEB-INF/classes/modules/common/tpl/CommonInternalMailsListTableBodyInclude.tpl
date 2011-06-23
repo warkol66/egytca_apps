@@ -6,14 +6,14 @@
 	|-foreach from=$internalMails item=internalMail name=for_internalMails-|
 	<tr |-if $internalMail->hasBeenRead()-|class="read"|-else-|class="unread"|-/if-| > 
 		|-assign var=fromObj value=$internalMail->getFrom()-|
-		<td nowrap>
+		<td nowrap align="center">
 			<a rel="lightbox1" class="lbOn">
 				<div class="cellContent">
 					<img src="images/clear.png" |-if $internalMail->hasBeenRead()-|class="icon iconRead"|-else-|class="icon iconUnread"|-/if-| onClick="view(|-$internalMail->getId()-|);return false;">
 				</div>
 			</a>
 		</td>
-		<td nowrap>
+		<td nowrap align="center">
 			<div class="cellContent">
 				<input class="selector" type="checkbox" name="selectedIds[]" value="|-$internalMail->getId()-|" />
 			</div>

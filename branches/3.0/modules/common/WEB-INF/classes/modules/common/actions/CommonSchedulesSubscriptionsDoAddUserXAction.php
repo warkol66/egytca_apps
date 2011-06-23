@@ -10,9 +10,6 @@ class CommonSchedulesSubscriptionsDoAddUserXAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//por ser una action ajax.
-		$this->template->template = "TemplateAjax.tpl";
-
 		//////////
 		// Access the Smarty PlugIn instance
 		// Note the reference "=&"
@@ -31,9 +28,10 @@ class CommonSchedulesSubscriptionsDoAddUserXAction extends BaseAction {
 				$smarty->assign('error', 'duplicated');
 			else 
 				$scheduleSubscription->save();
-		} else {
-			$smarty->assign('error', 'no_such_user');
 		}
+		else
+			$smarty->assign('error', 'no_such_user');
+
 		$smarty->assign('scheduleSubscription', $scheduleSubscription);
 		return $mapping->findForwardConfig('success');
 

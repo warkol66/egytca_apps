@@ -10,9 +10,6 @@ class CommonSchedulesSubscriptionsGetEntityFieldsAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//por ser una action ajax.
-		$this->template->template = "TemplateAjax.tpl";
-
 		//////////
 		// Access the Smarty PlugIn instance
 		// Note the reference "=&"
@@ -21,7 +18,7 @@ class CommonSchedulesSubscriptionsGetEntityFieldsAction extends BaseAction {
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
-		
+
 		$scheduleSubscription = ScheduleSubscriptionPeer::get($_GET['scheduleSubscriptionId']);
 		if (empty($scheduleSubscription))
 			$scheduleSubscription = new ScheduleSubscription;
@@ -30,7 +27,7 @@ class CommonSchedulesSubscriptionsGetEntityFieldsAction extends BaseAction {
 		$moduleEntityDateFields = ScheduleSubscriptionPeer::getPosibleTemporalFieldsByEntityName($entityName);
 		$moduleEntityBooleanFields = ScheduleSubscriptionPeer::getPosibleBooleanFieldsByEntityName($entityName);
 		$moduleEntityPosibleNameFields = ScheduleSubscriptionPeer::getPosibleNameFieldsByEntityName($entityName);
-		
+
 		$smarty->assign('entityDateFields', $moduleEntityDateFields);
 		$smarty->assign('entityNameFields', $moduleEntityPosibleNameFields);
 		$smarty->assign('entityBooleanFields', $moduleEntityBooleanFields);

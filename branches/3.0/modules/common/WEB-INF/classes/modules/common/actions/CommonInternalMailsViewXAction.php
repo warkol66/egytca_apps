@@ -18,20 +18,18 @@ class CommonInternalMailsViewXAction extends BaseAction {
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
-		
-		$this->template->template = "TemplateAjax.tpl";
-		
+
 		$smarty->assign("filters", $_GET["filters"]);
 		$smarty->assign("page", $_GET["page"]);
 		$smarty->assign("message", $_GET["message"]);
-		
+
 		$internalMail = InternalMailPeer::get($_GET['id']);
 		if (empty($internalMail))
 			return $mapping->findForwardConfig('failure');
-			
+
 		$internalMail->markAsRead();
 		$internalMail->save();
-			
+
 		$smarty->assign("internalMail", $internalMail);
 
 		return $mapping->findForwardConfig('success');

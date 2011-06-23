@@ -6,5 +6,7 @@ INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES
 INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'CommonDoLogin', 'Failure, missing data','eng','failureMissingData');
 INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'CommonDoLogin', 'Users logged in sucessfully','eng','successAffiliateUsers');
 INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'CommonDoLogin', 'User redirected','eng','failureRedirectUserLogin');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'CommonPasswordRecoverySendConfirmationRequest', 'Password recovery confirmation sent','eng','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'CommonPasswordRecoverySendConfirmationRequest', 'Password recovery confirmation not sent','eng','failure');
 INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'CommonDoLogout', 'User logout','eng','success');
 INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'CommonActionLogsDoPurge', 'Action logs purged sucessfully','eng','success');

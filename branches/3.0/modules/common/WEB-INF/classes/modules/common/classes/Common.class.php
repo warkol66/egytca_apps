@@ -934,7 +934,7 @@ class Common {
 			}
 		}
 
-		if (is_null($parentNode)){
+		if (is_null($parentNode) && $object->isNew()){
 			$queryClass = get_class($object) . 'Query';
 			$queryInstance = new $queryClass;
 			$lastScope = $queryInstance->orderByScope(Criteria::DESC)->findOne();
@@ -945,7 +945,7 @@ class Common {
 			$object->setScope($scope);
 			$object->makeRoot();
 		}
-		else
+		else if ($object->isNew())
 			$object->insertAsLastChildOf($parentNode);
 
 		if (method_exists($object, 'setObjectId')) {
@@ -1178,22 +1178,22 @@ class Common {
 	}
 
 	/**
-	 * Obtiene todos los elementos de un Peer dada su criterio de búsqueda
-	 * paginados según los parámetros de página y elementos por página
+	 * Obtiene todos los elementos de un Peer dada su criterio de bÃºsqueda
+	 * paginados segÃºn los parÃ¡metros de pÃ¡gina y elementos por pÃ¡gina
 	 * @param $peer instancia del Peer de elementos a buscar
-	 * @param $page int número de página
-	 * @param $perPage int cantidad de elementos por página
+	 * @param $page int nÃºmero de pÃ¡gina
+	 * @param $perPage int cantidad de elementos por pÃ¡gina
 	 * @return pager 
 	 */
 	public static function getAllPaginatedFiltered($peer, $page=1, $perPage=-1) {  
 		if ($perPage == -1)
-				$perPage = 	Common::getRowsPerPage();
-			if (empty($page))
-				$page = 1;
-
-			$cond = $peer->getSearchCriteria();	    
-			$pager = $cond->paginate($page,$perPage);
-			return $pager;
+	      $perPage = 	Common::getRowsPerPage();
+	    if (empty($page))
+	      $page = 1;
+	
+	    $cond = $peer->getSearchCriteria();	    
+	    $pager = $cond->paginate($page,$perPage);
+	    return $pager;
 	}
 
 } // end of class

@@ -10,8 +10,6 @@ class CommonAlertsSubscriptionsGetEntityFieldsAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//por ser una action ajax.
-		$this->template->template = "TemplateAjax.tpl";
 
 		//////////
 		// Access the Smarty PlugIn instance

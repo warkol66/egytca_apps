@@ -5,8 +5,6 @@
  * @package Common
  */
 
-require_once("BaseAction.php");
-
 class CommonLoginAction extends BaseAction {
 
 	function CommonLoginAction() {
@@ -17,20 +15,15 @@ class CommonLoginAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Use a different template
-		$this->template->template = "TemplateLogin.tpl";
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$module = "Common";
+		$this->template->template = "TemplateLogin.tpl";
 
+		$module = "Common";
 		$smarty->assign("message",$_GET["message"]);
 
 		if (!empty($_SESSION["loginUser"]))
@@ -39,9 +32,8 @@ class CommonLoginAction extends BaseAction {
 		if (!empty($_SESSION["loginAffiliateUser"]))
 			return $mapping->findForwardConfig('affiliateUsersWelcome');
 
-		if (!Common::hasUnifiedUsernames())
+		if (!ConfigModule::get("global","unifiedUsernames"))
 			return $mapping->findForwardConfig('failureRedirect');
-
 
 		return $mapping->findForwardConfig('success');
 	}

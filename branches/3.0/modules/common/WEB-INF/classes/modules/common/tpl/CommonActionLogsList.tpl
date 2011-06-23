@@ -49,9 +49,8 @@
 				|-/if-|
 			 </div>
 				<p>
-					<input name="listLogs" type="hidden" id="listLogs" value="listLogs">
 					<input name="listButton" type="submit" id="listButton" value="Listar">
-					<input type="reset" value="Quitar filtros" onclick="window.location='Main.php?do=commonActionLogsList'">
+					<input name="listLogs" type="hidden" id="listLogs" value="listLogs">
 			 </p>
 			</form>
 			 </fieldset>
@@ -77,10 +76,7 @@
 			 |-foreach from=$logs item=log name=eachlog-|
 			<tr> 
 			  <td nowrap scope="col">|-$log->getDatetime()|change_timezone-|</td>
-			  <td nowrap scope="col">|-assign var="userObject" value=$log->getUserObject()-|
-				|-if $log->getUserObjectType() eq 'user' && $log->getUserObjectId() lt 3-||-$userObject->getName()-||-else-||-$userObject->getName()-| |-$userObject->getSurname()-||-/if-|
-				|-if $log->getUserObjectType() eq 'affiliate'-|(|-$userObject->getAffiliate()-|)|-/if-|
-			</td>
+			  <td nowrap scope="col">|-assign var="user" value=$log->getUser()-||-if $user ne ''-||-if $user->getId() lt 3-||-$user->getUsername()-||-else-||-$user->getSurname()-|, |-$user->getName()-| (|-$user->getUsername()-|)|-/if-||-/if-||-assign var="affiliate" value=$log->getAffiliateUser()-||-if $affiliate ne ''-||-$affiliate->getUsername()-| (affiliate)|-/if-|</td>
 			  <td scope="col" >|-assign var="actionLabel" value=$log->getActionLabel()-||-if $actionLabel ne ''-||-$actionLabel->getLabel()-||-else-||-$log->getAction()-||-/if-|</td>
 			  <td scope="col" >|-assign var="label" value=$log->getLabel()-||-if $label ne ''-||-$label->getLabel()-||-/if-||-if $log->getObject() ne ''-|: |-$log->getObject()-||-/if-|</td>
 			</tr>
@@ -90,7 +86,7 @@
 			</tr>
 			|-/if-| 
   <tr>
-		<td colspan="4"><input name="btnRegresar" type="button" class="button" id="regresar" value="Regresar" onClick="location.href='Main.php?do=commonActionLogsList'" />
+		<td colspan="4"><input name="btnRegresar" type="button" id="regresar" value="Regresar" onClick="location.href='Main.php?do=commonActionLogsList'" />
 	</td>
   </tr>
 </table>
