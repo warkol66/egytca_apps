@@ -1,0 +1,17 @@
+<database defaultIdMethod="native" package="medias.classes" name="application" >
+
+	<table name="medias_media" phpName="Media" description="Archivo de medios">
+
+		<column name="id" type="INTEGER" required="true" description="Id log" primaryKey="true" autoIncrement="true" />
+		<column name="media" type="VARCHAR" size="100" required="true" description="Nombre del medio" />
+
+		<behavior name="timestampable" />
+		<behavior name="soft_delete" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+</database>
