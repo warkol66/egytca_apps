@@ -1,5 +1,4 @@
-/* NEW GLOBAL CUSTOM
-*/
+/* GLOBAL Custom */
 
 * {
 	font-family: Arial, Helvetica, sans-serif, Geneva;
@@ -40,7 +39,6 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
 	border-radius: .2em;
 }
 input.icon {
-	font-size: 100%;
 	width: 22px;
 	height: 22px;
 	margin: 0;
@@ -52,7 +50,7 @@ input.icon {
 .iconInfo, .iconManufacture, .iconOrder, .iconPassword, .iconPlus, .iconRestore, .iconRestoreFromServer,
 .iconSendMultiple, .iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload,
 .iconView, .iconViewGantt, .iconWeight, .iconAddToCart, .iconRemoveFromCart, .iconUpdateCart, .iconSetPrivileges, .iconOwner,
-.iconRead, .iconUnread, .iconEditUser, .iconAddUser {
+.iconRead, .iconUnread, .iconEditUser, .iconAddUser, .iconPhoto {
 	background: url(../images/icons_all.png) no-repeat #f0f0f0;
 }
 .disabled {
@@ -193,6 +191,9 @@ input.icon {
 .iconAddUser {
 	background-position: -120px -100px;
 }
+.iconPhoto {
+	background-position: -140px -100px;
+}
 .icon:hover{
 	background-color: #c0c0c0;
 	border: solid 1px #909090 !Important;;
@@ -234,11 +235,6 @@ a.tdTitSearch:visited {
 	background-color: #f4f6f3;
 	color: #000000;
 }
-.tdSearch input, .tdSearch textarea, .tdSearch input select{
-	color: #333;
-	border: solid 1px #a7a6aa;
-	outline: 0 none;
-}
 a.tdSearchButton:link, 
 a.tdSearchButton:visited  {
 	border: solid 1px #a7a6aa;
@@ -275,7 +271,6 @@ a.linkMailDelete:link, a.linkMailDelete:visited {
 	background-position:left top;
 	background-repeat:no-repeat;
 }
-
 a.linkMailNew:hover, a.linkMailNew:active,
 a.linkMailMarkRead:hover, a.linkMailMarkRead:active,
 a.linkMailMarkUnread:hover, a.linkMailMarkUnread:active,
@@ -331,3 +326,61 @@ a.pageLink:hover, a.pageLink:active {
 .textLinkButton:visited, a.textLink:active{
 	color:#000000;
 }
+
+/* Leightbox    ----------------------------*/
+.overlayFade{
+}
+.overlayForm {
+}
+.leightbox {
+	border: 1px solid orange;
+}
+.innerLighbox {
+}
+.close {
+}
+#overlay{
+	background-color:#cdcdcd;
+}
+a.lbOn {
+}
+.lightbox[id]{
+}
+#overlay[id]{ 
+}
+/* /Leightbox    ----------------------------*/
+
+/* Autocomplete    ----------------------------*/
+div.autocomplete {
+	position:absolute !important;
+  background-color:white;
+  border:1px outset #888;
+  margin:0;
+  padding:0;
+  z-index: 9999;
+}
+div.autocomplete ul {
+  list-style-type:none;
+  margin:0;
+  padding:0;
+  width: auto;
+}
+div.autocomplete ul li.selected {
+	background-color: #b6e8ff;
+}
+div.autocomplete ul li,  div.autocomplete ul b{
+  list-style-type:none;
+  display: block;
+  margin:4px;
+  padding:1px;
+  padding-left:4px;
+  padding-right:20px;
+  white-space: nowrap;
+  cursor:pointer;
+}
+div.autocomplete ul b {
+  font-style: italic;
+  font-size: 1em;
+  background-color: white;
+}
+/* /Autocomplete    ----------------------------*/

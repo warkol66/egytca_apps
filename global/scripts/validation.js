@@ -328,7 +328,11 @@ function validationPasswordMatchValidator(element) {
 function validationValidateFieldThruAjax(element,doAction) {
 
 	var url = 'Main.php?do=' + doAction;
-	var fields = element.name + '=' + element.value;
+
+	var actualValueName = 'actual' + element.name;
+	var actualValue = document.getElementById(actualValueName).value;
+
+	var fields = element.name + '=' + element.value + '&actual' + element.name + '=' + actualValue;
 	var myAjax = new Ajax.Request(
 	url,
 	{
@@ -337,16 +341,13 @@ function validationValidateFieldThruAjax(element,doAction) {
 		onSuccess: function(transport) {
 			var response = transport.responseText.evalJSON();
 
-		//	$(response.name).style.border = '';
 			$(response.name).style.background = '#C5F1C7 url(images/valid.png) no-repeat right';
+			$(response.disableElement).disabled = false;
 
 			if (response.value == 1) {
-				//es invalido
-		//		$(response.name).style.border = '1px solid red';
 				$(response.name).style.background = '#F4D3D3 url(images/invalid.png) no-repeat right';
-
+				$(response.disableElement).disabled = response.disabled;
 			}
-
 			var elementName = response.name + '_box';
 			var element = $(response.name + '_box');
 			if (element != null)
