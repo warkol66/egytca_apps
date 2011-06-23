@@ -1,9 +1,5 @@
 <?php
 
-  // include base peer class
-  require_once 'security/classes/om/BaseSecurityActionLabel.php';
-
-
 /**
  * Skeleton subclass for representing a row from the 'security_actionLabel' table.
  *

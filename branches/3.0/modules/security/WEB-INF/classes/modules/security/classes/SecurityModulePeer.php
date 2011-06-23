@@ -9,6 +9,7 @@
  */	
 class SecurityModulePeer extends BaseSecurityModulePeer {
 
+	const LEVEL_ALL = 1073741823;
 	
 	/**
 	*
@@ -70,11 +71,8 @@ class SecurityModulePeer extends BaseSecurityModulePeer {
 	*	@return object $module nombre del modulo seleccionado
 	*/
 	function get($moduleName) {
-		$criteria = new Criteria();
-		$criteria->setIgnoreCase(true);
-		$criteria->add(SecurityModulePeer::MODULE, $moduleName);
-		$obj = SecurityModulePeer::doSelectOne($criteria);
-		return $obj;
+		$securityModule = SecurityModuleQuery::create()->setIgnoreCase('true')->findOneByModule($moduleName);
+		return $securityModule;
 	}
 
 	/**
@@ -83,10 +81,8 @@ class SecurityModulePeer extends BaseSecurityModulePeer {
 	*	@return string $obj el acceso del modulo
 	*/
 	function getAccessByModule($moduleName) {
-		$cond = new Criteria();
-		$cond->add(SecurityModulePeer::MODULE, $moduleName);
-		$obj = SecurityModulePeer::doSelectOne($cond);
-		return $obj->getAccess();
+		$securityModule = SecurityModuleQuery::create()->setIgnoreCase('true')->findOneByModule($moduleName);
+		return $securityModule;
 	}
 
 } // SecurityModulePeer

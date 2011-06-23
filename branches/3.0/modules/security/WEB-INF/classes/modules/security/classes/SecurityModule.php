@@ -1,8 +1,5 @@
 <?php
 
-  // include base peer class
-  require_once 'security/classes/om/BaseSecurityModule.php';
-
 /**
  * Skeleton subclass for representing a row from the 'security_module' table.
  *
