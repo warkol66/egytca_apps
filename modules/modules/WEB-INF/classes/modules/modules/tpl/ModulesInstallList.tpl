@@ -12,6 +12,7 @@
 |-elseif $message eq "phpmvc-xml-error"-|
 	<div class='failureMessage'>El XML de phpmvc no es un xml válido.</div>
 |-/if-|
+|-if $modulesToInstall|@count gt 0-|
 	<h4>Módulos disponibles para instalar</h4>
 	<p>
 <table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders"> 
@@ -57,6 +58,8 @@
 	</tr> 
 	|-/foreach-|
 </table>
+|-/if-|
+|-if $modulesInstalled|@count gt 0-|
 <h4>Módulos Instalados</h4> 
 <table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders"> 
 	<tr> 
@@ -106,3 +109,4 @@
 	</tr> 
 	|-/foreach-|
 </table>
+|-/if-|

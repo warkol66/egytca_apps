@@ -57,6 +57,6 @@
 			</ul>
 	<input type="hidden" name="do" value="configDoCreateXmlForAction" />
 	<input type="hidden" name="module" value="|-$selectedModule-|" />
-	<input type="submit" value="Guardar" class="button" />
+	<input type="submit" value="Guardar" />
 </form>
 |-/if-|
