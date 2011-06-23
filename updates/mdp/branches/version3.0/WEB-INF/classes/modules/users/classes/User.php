@@ -439,4 +439,12 @@ class User extends BaseUser {
 
 	}
 
+ /**
+	 * Especifica la fecha de actualizacion de la clave
+	 * @param passwordUpdatedTime string con fecha de actualizacion de clave.
+	 */
+	function setActiveUser(){
+		$this->setActive('1');
+	}
+
 } // User
