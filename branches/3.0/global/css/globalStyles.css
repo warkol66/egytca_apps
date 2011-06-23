@@ -1,6 +1,5 @@
-/*
-NEW GLOBAL CUSTOM
-*/
+/* GLOBAL Styles */
+
 * {
 	padding: 0; 
 	margin: 0; 
@@ -41,14 +40,12 @@ a.addLink:hover, a.addLink:active {
 /* SEARCH   -------------------------------------------*/
 a.tdTitSearch{
 	display: block;
-	width: 22%;	
 	clear:right;
 	font-weight:bold;
 	text-align:left;
-	padding: 8px 5px 8px 30px;
+	padding: 8px 20px 8px 30px;
 }
 .tdSearch{
-	width: 95%;
 	height: 40px;	
 	text-align:left;
 	padding: 4px;
@@ -149,3 +146,88 @@ a.pageLink:hover, a.pageLink:active {
 }
 .textLinkButton:visited, a.textLink:active{
 }
+
+/* Leightbox    ----------------------------*/
+.overlayFade{
+	display: none;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	z-index:11001;
+	overflow: hidden;
+}
+.overlayForm {
+	display: none;
+	position: absolute;
+	top: 25%;
+	left: 25%;
+	width: 50%;
+	height: 50%;
+	padding: 20px;
+	z-index:11002;
+	overflow: auto;
+}
+.leightbox {
+	display: none;
+	position: fixed;
+	margin: auto;
+	width: auto;
+	height: auto;
+	padding: 2em;
+	background-color: white;
+	text-align: left;
+	top: 10%;
+	z-index:11001;
+	max-height: 80%;
+	-khtml-border-radius: 10px;
+	-opera-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+.innerLighbox {
+	overflow: auto;
+	max-height: 500px;
+}
+.close {
+	clear: both;
+	display: block;
+}
+#overlay{
+	display:none;
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	z-index:11000;
+	-moz-opacity: 0.5;
+	opacity:.50;
+	filter: alpha(opacity=50);
+}
+a.lbOn {
+	text-decoration: none !Important;
+}
+.lightbox[id]{
+ /* IE6 and below Can't See This */
+	position:fixed;
+}
+#overlay[id]{ 
+/* IE6 and below Can't See This */
+	position:fixed;    
+}
+/* /Leightbox    ----------------------------*/
+
+/* Autocomplete    ----------------------------*/
+div.autocomplete {
+}
+div.autocomplete ul {
+}
+div.autocomplete ul li.selected {
+}
+div.autocomplete ul li,  div.autocomplete ul b{
+}
+div.autocomplete ul b {
+}
+/* /Autocomplete    ----------------------------*/
