@@ -73,24 +73,4 @@
 
 	</table>
 
-	<table name="users_groupCategory" phpName="GroupCategory" description="Groups_Categories" isCrossRef="true">
-	
-		<column name="groupId" required="true" primaryKey="true" type="INTEGER" description="Group ID"/>
-		<column name="categoryId" required="true" primaryKey="true" type="INTEGER" description="Category ID"/>
-	
-		<foreign-key foreignTable="users_group" onDelete="CASCADE" >
-			<reference local="groupId" foreign="id" />
-		</foreign-key>
-	
-		<foreign-key foreignTable="categories_category" onDelete="CASCADE" >
-			<reference local="categoryId" foreign="id" />
-		</foreign-key>
-	
-		<vendor type="mysql">
-			<parameter name="Charset" value="utf8"/>
-			<parameter name="Collate" value="utf8_general_ci"/>
-		</vendor>
-	
-	</table>
-
 </database>
