@@ -6,12 +6,7 @@ class CommonNestedSetDoOrderByParentXAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    	BaseAction::execute($mapping, $form, $request, $response);
-
-	    /**
-	    * Use a different template
-	    */
-		$this->template->template = "TemplateAjax.tpl";
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		//////////
 		// Access the Smarty PlugIn instance
@@ -23,21 +18,21 @@ class CommonNestedSetDoOrderByParentXAction extends BaseAction {
 		}
 
 		parse_str($_POST['data']);
-		
+
 		$parentId = $_POST['parentId'];
 		$entityClassName = $_POST['entity'];
 		$entityPeerName = $entityClassName . 'Peer';
-		
+
 		if (class_exists($entityPeerName) && method_exists($entityPeerName, 'get')) {
 			$parent = call_user_func(array($entityPeerName, 'get'), $parentId);
 			$child1 = call_user_func(array($entityPeerName, 'get'), $childrenList[0]);
 			if (method_exists($child1, 'moveToFirstChildOf'))
 				$child1->moveToFirstChildOf($parent);
 			for ($index = 1; $index < count($childrenList); $index++) {
-				$child2 = call_user_func(array($entityPeerName, 'get'), $childrenList[$index]); 
-	   			$child2->moveToNextSiblingOf($child1);   			
+				$child2 = call_user_func(array($entityPeerName, 'get'), $childrenList[$index]);
+	   			$child2->moveToNextSiblingOf($child1);
 				$child1 = $child2;
-	   		}
+	   	}
 		}
 		return $mapping->findForwardConfig('success');
 	}

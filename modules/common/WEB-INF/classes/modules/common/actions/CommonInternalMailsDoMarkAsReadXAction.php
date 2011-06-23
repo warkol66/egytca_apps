@@ -18,28 +18,26 @@ class CommonInternalMailsDoMarkAsReadXAction extends BaseAction {
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
-		
-		$this->template->template = "TemplateAjax.tpl";
-		
+
 		$selectedIds = $_POST['selectedIds'];
-		
+
 		if ($_POST['reverse'])
 			InternalMailPeer::markAsUnread($selectedIds);
 		else
 			InternalMailPeer::markAsRead($selectedIds);
-		
+
 		$internalMailPeer = new InternalMailPeer();
-		
+
 		if (!empty($_POST["page"])){
 			$page = $_POST["page"];
 			$smarty->assign("page", $page);
 		}
-		
+
 		if (!empty($_POST['filters'])){
 			$filters = $_POST['filters'];
 			$this->applyFilters($internalMailPeer, $filters, $smarty);
 		}
-		
+
 		$pager = $internalMailPeer->getAllPaginatedFiltered($page);
 
 		$smarty->assign("internalMails", $pager->getResult());

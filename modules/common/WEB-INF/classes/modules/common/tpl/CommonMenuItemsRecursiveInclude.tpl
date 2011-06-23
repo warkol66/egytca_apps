@@ -64,12 +64,12 @@
 			</span>
 			<span style="float:right;text-align:right; padding: 3px 0 3px 0">
 				|-if !$childs->isEmpty()-|
-					<a href="Main.php?do=commonMenuItemsShow&id=|-$menuItem->getId()-|" alt="Ver" title="Ver" target="_blank"><img src="images/clear.png" class="icon iconView"></a>
-					<a href="Main.php?do=commonMenuItemsList&parentId=|-$menuItem->getId()-|" alt="Ver submenú" title="ver submenú"><img src="images/clear.png" class="icon iconGoTo"></a>
+					<a href="Main.php?do=commonMenuItemsShow&id=|-$menuItem->getId()-|" alt="Ver" title="Ver" target="_blank"><img src="images/clear.png" class="linkImageView"></a>
+					<a href="Main.php?do=commonMenuItemsList&parentId=|-$menuItem->getId()-|" alt="Ver submenú" title="ver submenú"><img src="images/clear.png" class="linkImageGoTo"></a>
 				|-/if-|
-				<a href="Main.php?do=commonMenuItemsEdit&parentId=|-$menuItem->getId()-|" alt="Agregar SubMenú" title="Agregar SubMenú" ><img src="images/clear.png" class="icon iconAdd" ></a>
-				<a href="Main.php?do=commonMenuItemsEdit&id=|-$menuItem->getId()-|" alt="Editar" title="Editar"><img src="images/clear.png" class="icon iconEdit"></a>
-				<a href="#" onclick='if (confirm("¿Seguro que desea eliminar el menú y todos sus submenús?")){new Ajax.Updater("operationInfo", "Main.php?do=commonMenuItemsDoDeleteX", { method: "post", parameters: { id: "|-$menuItem->getId()-|"}, evalScripts: true})};return false;' alt="Eliminar" title="Eliminar"><img src="images/clear.png" class="icon iconDelete"></a>
+				<a href="Main.php?do=commonMenuItemsEdit&parentId=|-$menuItem->getId()-|" alt="Agregar SubMenú" title="Agregar SubMenú" ><img src="images/clear.png" class="linkImageAdd" ></a>
+				<a href="Main.php?do=commonMenuItemsEdit&id=|-$menuItem->getId()-|" alt="Editar" title="Editar"><img src="images/clear.png" class="linkImageEdit"></a>
+				<a href="#" onclick='if (confirm("¿Seguro que desea eliminar el menú y todos sus submenús?")){new Ajax.Updater("operationInfo", "Main.php?do=commonMenuItemsDoDeleteX", { method: "post", parameters: { id: "|-$menuItem->getId()-|"}, evalScripts: true})};return false;' alt="Eliminar" title="Eliminar"><img src="images/clear.png" class="linkImageDelete"></a>
 			</span>
 			<br style="clear: all" />
 			<div id="menu_|-$menuItem->getId()-|" class="subMenus" style="display:none;">

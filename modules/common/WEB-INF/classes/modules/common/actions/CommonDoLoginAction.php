@@ -31,7 +31,7 @@ class CommonDoLoginAction extends BaseAction {
 		$module = "Users";
 		$smarty->assign("module",$module);
 
-		if ((Common::hasUnifiedUsernames())) {
+		if (ConfigModule::get("global","unifiedUsernames")) {
 			if (!empty($_POST["loginUsername"]) && !empty($_POST["loginPassword"])) {
 
 				$usernameExists = UserPeer::getByUsername($_POST['loginUsername']);
@@ -40,22 +40,22 @@ class CommonDoLoginAction extends BaseAction {
 					if (class_exists(AffiliateUserPeer)){
 						$AffiliateUsernameExists = AffiliateUserPeer::getByUsername($_POST['loginUsername']);
 						if (!empty($AffiliateUsernameExists)) { //Si exite el affiliateUser
-							if ( !empty($_POST["loginUsername"]) && !empty($_POST["loginPassword"]) ) {
+							if (!empty($_POST["loginUsername"]) && !empty($_POST["loginPassword"])) {
 								$user = AffiliateUserPeer::auth($_POST["loginUsername"],$_POST["loginPassword"]);
-								if ( !empty($user) ) {
+								if (!empty($user)) {
 									$_SESSION["loginAffiliateUser"] = $user;
 									$smarty->assign("loginAffiliateUser",$user);
-	
-									Common::doLog('successAffiliateUser','username: ' . $_POST["loginUsername"]);
+
+									Common::doLog('success','affiliateUsername: ' . $_POST["loginUsername"]);
 									return $mapping->findForwardConfig('successAffiliateUsers');
 								}
-	
+
 							}
-	
+
 						}
 					}
 					else //No consigo usuario valido
-						return $mapping->findForwardConfig('failureNoUserame');
+						return $mapping->findForwardConfig('failureNoUsername');
 					}
 					else { //Si encontre user
 						$user = UserPeer::auth($_POST["loginUsername"],$_POST["loginPassword"]);
@@ -63,7 +63,7 @@ class CommonDoLoginAction extends BaseAction {
 							$_SESSION["loginUser"] = $user;
 							$smarty->assign("loginUser",$user);
 
-							Common::doLog('successUser','username: ' . $_POST["loginUsername"]);
+							Common::doLog('success','username: ' . $_POST["loginUsername"]);
 							$smarty->assign("SESSION",$_SESSION);
 
 						if (is_null($user->getPasswordUpdated()))
@@ -78,7 +78,6 @@ class CommonDoLoginAction extends BaseAction {
 			}
 			else
 				return $mapping->findForwardConfig('failureRedirectUserLogin');
-
 
 		$this->template->template = "TemplateLogin.tpl";
 		$smarty->assign("message","wrongUser");

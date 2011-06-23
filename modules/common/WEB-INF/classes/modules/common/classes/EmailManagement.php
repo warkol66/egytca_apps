@@ -8,8 +8,8 @@ require_once 'swift/lib/swift_required.php';
 * Encapsulamiento de los aspectos basicos de envio de email de Swift para
 * liberar al usuario de sus opciones de configuracion.
 */
-class EmailManagement
-{
+class EmailManagement {
+
 	private $testMode;
 
 	public function __construct() {
@@ -27,8 +27,8 @@ class EmailManagement
 		global $system;
 		$mailMode = $system["config"]["email"]["mode"]["value"];
 
-		if ( ($mailMode != 'SMTP') || ($mailMode == 'PHP'))
-			$transport = Swift_SendmailTransport::newInstance('/usr/sbin/exim -bs');
+		if (($mailMode != 'SMTP') || ($mailMode == 'PHP'))
+			$transport = Swift_MailTransport::newInstance();
 
 		else if ($mailMode == 'SMTP') {
 
@@ -40,19 +40,19 @@ class EmailManagement
 
 			if ($smtpSsl == YES)
 				$transport = Swift_SmtpTransport::newInstance($smtpHost, $smtpPort, 'ssl')
-				  ->setUsername($smtpUser)
-				  ->setPassword($smtpPassword)
-				  ;
+					->setUsername($smtpUser)
+					->setPassword($smtpPassword)
+					;
 			else
 				$transport = Swift_SmtpTransport::newInstance($smtpHost, $smtpPort)
-				  ->setUsername($smtpUser)
-				  ->setPassword($smtpPassword)
-				  ;
+					->setUsername($smtpUser)
+					->setPassword($smtpPassword)
+					;
 
-			//Create the Mailer using your created Transport
-			$mailer = Swift_Mailer::newInstance($transport);
 		}
 
+		//Create the Mailer using your created Transport
+		$mailer = Swift_Mailer::newInstance($transport);
 		return $mailer;
 
 	}
@@ -135,17 +135,20 @@ class EmailManagement
 			$mailer = $this->createMailer();
 
 			$message->setFrom($mailFrom);
-			
+
 			if ($this->testMode) {
 				$system = Common::getModuleConfiguration("system");
 				$mailTo = $system['parameters']['debugMail'];
 				$message->setTo($mailTo);
-			} else {
-				$message->setTo($recipients);
 			}
+			else
+				$message->setTo($recipients);
+
 			$result = $mailer->send($message);
-		} catch (Exception $e) {
-	//		print_r($e);
+		}
+		catch (Exception $e) {
+			if (ConfigModule::get("global","showSwiftExceptions"))
+				print_r($e);
 			return false;
 		}
 
@@ -180,8 +183,14 @@ class EmailManagement
 		return $message;
 
 	}
-	
+
+	/**
+	 * Configura el mailer en modo de prueba y se capturan los mails generados
+	 *
+	 * @param boolean testMode si esta o no en modo de prueba
+	 */
 	public function setTestMode($testMode = true) {
 		$this->testMode = $testMode;
 	}
+
 }
