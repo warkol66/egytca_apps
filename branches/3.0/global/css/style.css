@@ -1,0 +1,495 @@
+/*  LOGIN  -----------------------------------------------*/
+#login { 
+	float:left;
+	display:block;
+	margin:30px auto 0 auto;
+	width:100%;
+	padding:0;
+	text-align:center;
+}
+#loginTop { 
+	width: 360px;
+	height: 104px;
+	padding: 0;
+	margin: 0 auto;
+}
+#loginContent, #passRecovery { 
+	width: 360px;
+	height: auto;	
+	margin: auto;
+	text-align:left;
+}
+#loginContent h1, #passRecovery h1, #passRecovery h2 { 
+	font-weight: bold;
+	font-size: 138.5%;
+	padding-left: 25px;
+}
+#loginContent p, #passRecovery p { 
+	font-weight: bold;
+	padding-left: 25px;
+	padding-right: 25px;
+	padding-bottom: 15px;
+}
+#loginContent input, #passRecovery input { 
+	width: 300px;
+	height: 20px;
+	margin-bottom: 10px;
+}
+#security_code { 
+	width: 100px !Important;
+}
+#loginButton { 
+	width: 100px !Important;
+	height: 55px !Important;
+	margin: 0 auto 0 auto !Important;
+	background-color: transparent !Important;
+	border: none !Important;
+	font-size: 0px !Important;
+	cursor: pointer !Important;
+	text-align:center !Important;
+}
+#loginButtonDiv { 
+	width:360px;
+	margin: 0 auto 0 auto !Important;
+	text-align:center !Important;
+}
+#lostPassword {
+	width:360px;
+	text-align:right;
+}
+#lostPassword a { 
+	padding-right:30px;
+	text-decoration: none;
+}
+#lostPassword a:hover { 
+	padding-right:30px;
+	text-decoration: underline;
+}
+#loginBottom { 
+	width: 360px;
+	height: 175px;	
+	margin: auto;
+	padding: 0;
+}
+/*  /LOGIN  -----------------------------------------------*/
+
+/* wrapper -----------------------------------------------------------*/ 
+#wrapper { 
+	margin: 0 auto;
+	width: 955px;
+	padding: 0 0 0 0; /*  1px necesary to show margin-bottom of footer n FF*/
+}
+#header {
+	width: 955px;
+	height: 98px;
+	margin: 0;
+	padding: 0;
+	display: block;
+}
+#header a{
+	width:115px;
+	height: 63px;
+	 float: left;
+	 display: block;
+	 margin: 38px 0 0 8px;
+}
+#header a strong{
+	 display:none;
+}
+#contentWrapper { 
+	width: 955px;
+	margin: auto;
+	padding: 0px 0px 0px 0px; /*  1px necesary to show margin-bottom of footer n FF*/
+}
+#contentCloser { 
+	width: 955px;
+	margin: auto;
+	clear: both;
+	display: block;
+}
+#leftColumn { 
+	clear: both;
+	width: 150px;
+	float: left;
+	border: none;
+	margin: 0px 5px 5px 5px;
+	padding: 0px;
+}
+
+#rightColumn { 
+	float: right;
+	width: 760px;   /* ie6*/ /*ie7*/ 
+	display: inline;
+	border: none;
+	margin: 0 5px 5px 0;
+	padding: 15px;
+}
+#footer { 
+	width: 945px; /* 955px - 5leftBorder - 5px rightBorder*/
+	height: 20px;
+	clear: both;
+	border: none;
+}
+#footer p{
+	text-align:right;
+	padding: 3px 5px 0 0 ;
+}
+/* /wrapper -----------------------------------------------------------*/ 
+
+/* content -----------------------------------------------------------*/ 
+#rightColumn h1{
+	font-size: 153.9%;
+	font-weight:bold;
+	padding-bottom: 5px;
+	margin-bottom:15px;
+}
+#rightColumn h2{
+	font-size:108%;
+	font-weight:normal;
+	margin-bottom: 5px;
+}
+#rightColumn h3 {
+	font-size: 123.1%;
+	font-weight:bold;
+	padding-top: 20px;
+	padding-bottom: 5px;
+	margin-bottom:15px;
+}
+#rightColumn h4 {
+	font-size: 138.5%;
+	font-weight:bold;
+	padding-top: 15px;
+	padding-bottom: 5px;
+	margin-bottom:15px;
+}
+#rightColumn h2 a:link, #rightColumn h2 a:visited{
+	font-size: inherit;
+	font-weight:normal;
+	text-decoration:none;
+}
+#rightColumn h2 a:hover, #rightColumn h2 a:active{
+	font-size: inherit;
+	font-weight:normal;
+	text-decoration:underline;	
+}
+#rightColumn p{
+	width: 570px;
+	margin-bottom: 10px;
+	padding-right: 10px;
+}
+.paragraphEdit {
+	padding-left: 25px;
+}
+/* /content -----------------------------------------------------------*/ 
+
+.tableTdBorders {
+	border-collapse: collapse;
+}
+.noPaddingCell {
+	padding: 0px;
+}
+
+
+
+
+.errorMessage {
+	color: #B22222;
+	font-weight: bold;
+	padding: 8px;
+	margin: 9px;
+	border: 1px solid #B22222;
+	text-align: center;
+
+}
+.successMessage {
+	color: #007D62;
+	font-weight: bold;
+	padding: 8px;
+	margin: 9px;
+	border: 1px solid #007D62;
+	text-align: center;
+}
+
+.tdTitle {
+	font-size: 93%;
+	font-weight: bold;
+	vertical-align: middle;
+	margin: 7px 3px 5px 3px;
+}
+
+
+.deactivated {
+	text-decoration: none;
+}
+.paginateText {
+	display: inline;
+	padding: 3px;
+}
+
+
+
+
+
+
+.edit {
+
+	text-decoration: underline;
+}
+a.edit:link{
+	text-decoration: underline;
+}
+a.edit:visited{
+	text-decoration: underline;
+}
+a.edit:hover{
+	text-decoration: underline;
+}
+.delete {
+	text-decoration: underline;
+}
+a.delete:link{
+	text-decoration: underline;
+}
+a.delete:visited{
+	text-decoration: underline;
+}
+a.delete:hover{
+	text-decoration: underline;
+}
+.data {
+}
+a.data:link{
+	text-decoration: underline;
+}
+a.data:visited{	
+	text-decoration: underline;
+}
+a.data:hover{
+	text-decoration: underline;
+}
+.detail {
+	text-decoration: underline;
+}
+a.detail:link{
+	text-decoration: underline;
+}
+a.detail:visited{
+	text-decoration: underline;
+}
+a.detail:hover{
+	text-decoration: underline;
+}
+.cellTextOptions {
+	text-align: center;
+}
+.tdTextOptions {
+	text-align: center;
+}
+.center {
+	text-align: center;
+}
+.left {
+	text-align: left;
+}
+.right {
+	text-align: right;
+}
+.top {
+	vertical-align: top; 
+}
+.middle {
+	vertical-align: middle; 
+}
+.bottom {
+	vertical-align: bottom; 
+}
+.buttonSmall {
+	font-size: 77%;
+}
+fieldset {
+	padding: 8px;
+	margin-bottom: 2em; /* IE 3.5em */
+	position: relative;
+}
+fieldset legend {
+	font-weight: bold;
+	font-size: 123.1%;
+	margin-bottom: 0.5em;
+	position: relative;  
+	margin-left: -.3em;
+	padding: .2em;
+}
+fieldset label {
+	font-size: 93%;
+	line-height: 153.9%;
+	width: 140px;
+	float: left;
+	font-weight: bold;
+	vertical-align: text-top;
+	text-align: right;
+	height: auto;
+	padding-top: 0;
+	margin-bottom: 0;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	display: block;
+}
+fieldset p {
+	display: block;
+	height: auto;
+	clear: both;
+}
+fieldset fieldset legend {  
+	background-color: transparent;
+}
+fieldset fieldset label {
+	width: 90px;
+	font-weight: bold;
+	display: inline;
+}
+fieldset fieldset {
+	padding: 5px;
+	margin-left: 120px;
+}
+fieldset fieldset label {
+	font-weight: bold;
+	display: inline;
+}
+fieldset li {
+	margin-left: 35px;
+}
+fieldset {  
+	position: relative;
+}
+/*
+legend {  
+	margin-bottom: 0.5em;
+	position: relative;  
+	top: -1.5em;
+	margin-left: -.5em;
+	padding: .2em;
+}*/
+fieldset fieldset legend {  
+	background-color: transparent;
+}
+
+.inProgress {
+	font-weight: bold;
+	color: #D2691E !Important;
+	text-decoration: blink;
+	padding-left: 30px;
+	padding-right: 30px;
+	margin-left: 30px;
+	background: url(../images/spinner.gif) no-repeat;
+}
+.resultSuccess {
+	font-weight: bold;
+	color: #00008B;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+.resultFailure {
+	font-weight: bold;
+	color: #B22222;	
+	padding-left: 30px;
+	padding-right: 30px;
+}
+option{
+	padding-right: 5px;
+	background: #FCFCFC;
+}
+
+
+#addressesList li:hover {
+	cursor: move;
+}
+
+
+
+/* -------------------------------------------------------------------*/ 
+/* MENU NAVEGACION   */
+/* -------------------------------------------------------------------*/ 
+#leftColumn ul { 
+	margin:0;   /*   styles-ie*/
+	width: 150px;
+}
+#leftColumn li { 
+	margin:0;
+	list-style: none;
+}
+#leftColumn li a { 
+	width:135px; /* 150px styles-ie6.css*/
+	height:auto;
+	display:block;
+	padding: 4px 0px 4px 0px;
+	padding: 4px 3px 4px 10px;
+	text-align:left;
+	text-decoration:none;
+	list-style-position:outside;
+	vertical-align:top;
+}
+#leftColumn li a:hover { 
+	width:135px;  /* 150px stylres-ie6.css*/
+	height:auto;
+}
+#leftColumn li a.titleLink, #leftColumn li a.titleLink:hover{ 
+	padding:0;
+	margin:0;
+	list-style: none;
+}
+.titleMenu { 
+	margin:0;
+	padding: 5px;
+	text-transform:uppercase;
+	font-weight:bold;	
+}
+#logout{
+	width: 147px;
+	height: 31px;
+	display:block;
+	margin: 15px 0 0 2px;
+}
+
+.linksEdicion{
+	clear:left;
+	display:inline;
+}
+/*  AGREGADOS -----------------------------------------------*/
+#projectFilter label{	
+	color:#0066CC;
+	font-weight:bold;
+}
+/*  BOTON DE FIELDSET  */
+#fieldsetButton{
+	float:left;
+	display:block;
+	margin: 0 0 0 125px;
+	text-align:left;
+}
+
+fieldset li {
+	margin-left: 35px;
+}
+
+#help {
+	display:block;
+	height:20px;
+	width:100%;
+	padding-right:50px;
+}
+#helpMap {
+	padding:10px;
+	float:left;
+	margin-bottom:10px;
+	position:absolute;
+	z-index:12000;
+}
+
+a.textLink {
+	text-decoration: none;
+}
+a.textLink:hover {
+	text-decoration: underline;
+}
+a.textLink:visited, a.textLink:active{
+}
