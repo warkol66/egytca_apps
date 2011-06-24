@@ -40,7 +40,7 @@ class assoc_array2xml {
 		$deph++;
 		foreach($array as $key => $value){
 			if(!is_array($value)){
-				$this->text .= "$tab<$key>$value</$key>\n";
+				$this->text .= "$tab<$key>".htmlspecialchars($value)."</$key>\n";
 			} else {
 				$this->text.="$tab<$key>\n";
 				$this->array_transform($value,$deph);
