@@ -1,0 +1,466 @@
+body {
+	background-color: #e7ecf2;
+	background-image: url(../images/bkg_panel.png);
+	background-position:top left;
+	background-repeat:repeat-x;
+	background-attachment: fixed;
+	font-size:77%; /* this makes the text sized at 10px */
+}
+/*  LOGIN  -----------------------------------------------*/
+#login { 
+}
+#loginTop { 
+	background-image:url(../images/loginTop.png);
+	background-position: top center;
+	background-repeat:no-repeat;
+}
+#loginContent, #passRecovery { 
+	background-image:url(../images/loginContent.png);
+	background-position: top center;
+	background-repeat:repeat-y;
+}
+#loginContent h1, #passRecovery h1, #passRecovery h2 { 
+	color: #000066;
+}
+#loginContent p, #passRecovery p{ 
+	color: #000000;
+}
+#loginContent input, #passRecovery input { 
+	border: solid 1px #000066;
+}
+#loginButton { 
+	background-image:url(../images/buttonImageLogin.png);
+	background-position: top center;
+	background-repeat:no-repeat;
+	color: Navy;
+	border: none !Important;
+}
+#lostPassword a, #lostPassword a:visited { 
+	color: #003399;
+}
+#loginBottom { 
+	background-image:url(../images/loginBottom.png);
+	background-position: bottom center;
+	background-repeat: no-repeat;
+}
+/*  /LOGIN  -----------------------------------------------*/
+
+/* wrapper -----------------------------------------------------------*/ 
+#wrapper { 
+}
+#header {
+	background-image: url(../images/topImage.png);
+	background-position: left 20px;
+	background-repeat: no-repeat;
+}
+#contentWrapper { 
+	background-image: url(../images/bkg-2columns.gif);
+	background-repeat: repeat-y;
+}
+#contentCloser { 
+	background-image: url(../images/bkg-2columns.gif);
+	background-repeat: repeat-y;
+}
+#leftColumn{
+	color: #333;
+	background-image:url(../images/leftcolumn_bottom.jpg);
+	background-position: left bottom;
+	background-repeat:no-repeat;
+	padding-bottom: 150px;
+	vertical-align:top;
+}
+#rightColumn { 
+	background-color: #FFFFFF;
+	color: #333;
+}
+#footer { 
+	background-color: #9ccc66;
+	border-bottom: solid 5px #0066cc;
+	border-left: solid 5px #0066cc;
+	border-right: solid 5px #0066cc;
+}
+#footer p{
+	color: #ffffff;
+}
+/* /wrapper -----------------------------------------------------------*/ 
+
+/* content -----------------------------------------------------------*/ 
+#rightColumn h1{
+	color:#0066CC;
+	padding-bottom: 0px !Important;
+	border-bottom: solid 1px #0066cc;
+}
+#rightColumn h2{
+	color:#999;
+}
+#rightColumn h3, h4 {
+	color:#0066CC;
+	margin-bottom: 5px !Important;
+}
+#rightColumn h2 a:link, #rightColumn h2 a:visited{
+	color: #003399;
+}
+#rightColumn h2 a:hover, #rightColumn h2 a:active{
+	color: #0000FF;
+}
+#rightColumn p{
+	color:#000;
+}
+.paragraphEdit{
+	background-image:url(../images/icon_write.gif);
+	background-repeat:no-repeat;
+	background-position:left top;
+}
+/* /content -----------------------------------------------------------*/ 
+
+/*   OTROS LINKS   ------------------------*/
+
+/* posiciona el link de "AGREGAR NUEVA ..." y VOLVER */
+.rightLink{
+}
+/* BOTON AGREGAR NUEVA ...  */
+a.agregarNueva:link, a.agregarNueva:visited {
+	background-image:url(../images/icon_more.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+
+a.agregarNueva:hover, a.agregarNueva:active {
+	color:#009900;}
+/* /BOTON AGREGAR NUEVA ...  */
+
+
+/* BOTON VOLVER  */
+a.volver:link, a.volver:visited {
+}
+
+a.volver:hover, a.volver:active {
+	color:#009900;
+}
+/* /BOTON VOLVER  */
+
+/* BOTON EDITAR ...  */
+a.editarRight:link, a.editarRight:visited {
+	background-image: url(../images/icon_editar_small.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+
+a.editarRight:hover, a.editarRight:active {
+	color:#009900;}
+/* /BOTON AGREGAR NUEVA ...  */
+
+
+/* -------------------------------------------------------------------*/ 
+
+/* MENU NAVEGACION   */
+
+/* -------------------------------------------------------------------*/ 
+#leftColumn ul { 
+	background-color: #e7ebf0;
+}
+
+#leftColumn li { 
+	border-bottom: solid 1px #FFF;
+/*	border-top: solid 1px #FFF;	*/
+}
+#leftColumn li a { 
+	color: #000;
+}
+#leftColumn li a:hover { 
+	background-color:#d3dbe4;
+	background-image:url(../images/list-image_arrow1.gif);
+	background-position:3px 6px;
+	background-repeat:no-repeat;
+}
+#leftColumn li a.titleLink, #leftColumn li a.titleLink:hover{ 
+	color: #003399;
+	background-color: #bdcad7;
+	background-image: none;
+}
+.titleMenu { 
+	color: #003399;
+	background-color: #bdcad7;
+	background-image:url(../images/tit1_bkg.gif);
+	background-repeat:repeat-X;
+	background-position: left top;
+	border-top: solid 1px #DBFFFF;
+	border-bottom: solid 1px #4d667f;
+	border-left: none;
+	border-right: none;
+}
+#logout{
+	background-image:url(../images/bot_salir.gif);
+	background-position: top left;
+	background-repeat:no-repeat;
+}
+
+
+/*  AGREGADOS -----------------------------------------------*/
+
+.linksEdicion{
+}
+
+.flagGreen {
+	background: Green;
+	color: White;
+	font-weight: bold;
+	width: 40px;
+	min-width: 40px;
+	text-decoration: none;
+}
+.flagYellow {
+	background: Yellow;
+	color: White;
+	font-weight: bold;
+	width: 40px;
+	min-width: 40px;
+	text-decoration: none;
+}
+.flagRed {
+	background: Red;
+	color: White;
+	font-weight: bold;
+	width: 40px;
+	min-width: 40px;
+	text-decoration: none;
+}
+.whiteNoDecoration {
+	color: White ;
+	text-decoration: none;
+}
+a.whiteNoDecoration {
+	color: White ;
+	text-decoration: none;
+}
+a.whiteNoDecoration:link {
+	color: White ;
+	text-decoration: none;
+}
+a.whiteNoDecoration:hover {
+	color: White;
+	text-decoration: none;
+}
+a.whiteNoDecoration:hover {
+	color: White;
+	text-decoration: none;
+}
+a.blackNoDecoration:link {
+	color: Black;
+	text-decoration: none;
+}
+a.blackNoDecoration:hover {
+	color: Black;
+	text-decoration: none;
+}
+a.blackNoDecoration:visited {
+	color: Black;
+	text-decoration: none;
+}
+
+
+
+
+
+
+
+
+/* TABLES   -------------------------------------------*/
+table{
+}
+.row_odd {
+	background: #BFD3FF; /* #BFD3FF o #AFC3FE  #FFCBCB*/
+}
+.row_even {
+	background: #D6DBE9; /* #D6DBE9 o #C6CBD9*/
+}
+table.tableTdBorders th {
+	color:#0066CC;
+	border: 1px solid #A9A9A9;
+	padding: 5px;
+}
+table.tableTdBorders td {
+	border: 1px solid #A9A9A9;
+	padding: 4px;
+}
+.tdBorders {
+	border: 1px solid #112139;
+}
+.thFillTitle {
+	background-color: #f4f6f3;
+	color: #0066CC;
+}
+/* /TABLES   -------------------------------------------*/
+
+.mandatory {
+	display: inline;
+	vertical-align: top;
+	color: #FF0000;
+}
+.deactivated {
+	color: #999999;
+}
+.edit {
+	color: #007D62;
+}
+a.edit:link{
+	color: #007D62;
+}
+a.edit:visited{
+	color: #007D62;
+}
+a.edit:hover{
+	color: #FFFFFF;
+	background-color: #44A08C;
+}
+.delete {
+	color: #CF2600;
+}
+a.delete:link{
+	color: #CF2600;
+}
+a.delete:visited{
+	color: #CF2600;
+}
+a.delete:hover{
+	color: #FFFFFF;
+	background-color: #D54322;
+}
+.data {
+	color: #000000;
+}
+a.data:link{
+	color: #505050;
+}
+a.data:visited{	
+	color: #505050;
+}
+a.data:hover{
+	color: #FFFFFF;
+	background-color: #505050;
+}
+.detail {
+	color: #000066;
+}
+a.detail:link{
+	color: #000066;
+}
+a.detail:visited{
+	color: #000066;
+}
+a.detail:hover{
+	color: #FFFFFF;
+	background-color: #000066;
+}
+.buttonImageLogin {
+	font-size: 0px !Important;
+	width: 100px;
+	height: 55px;
+	color: #ffffff !Important;
+	background-color: transparent;
+	border: none;
+	background: url(../images/buttonImageLogin.png) no-repeat center;
+	cursor: pointer;	
+}
+.errorMessage {
+	color: #B22222;
+	font-weight: bold;
+	padding: 8px;
+	margin: 9px;
+	border: 1px solid #B22222;
+	text-align: center;
+}
+.successMessage {
+	color: #007D62;
+	font-weight: bold;
+	padding: 8px;
+	margin: 9px;
+	border: 1px solid #007D62;
+	text-align: center;
+}
+fieldset {  
+	background-color: #f7f7f8;
+}
+legend, fieldset legend, fieldset fieldset legend {  
+	color:#0066CC !Important;
+}
+.read {
+	color: Blue;
+}
+.unread{
+	color: Green;
+	font-weight: bold;
+}
+
+/* mapa google */
+#map_canvas {
+	height: 560px !Important;
+}
+
+#addresses_list li:hover {
+	cursor: move;
+}
+
+
+#helpMap {
+	background-color:#FFFFFF;
+	border:#0066cc 1px solid;
+	-khtml-border-radius: 10px;
+	-opera-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+a.textLink {
+	color:#0054A4;
+}
+a.textLink:hover {
+	color: #00005B;
+}
+a.textLink:visited, a.textLink:active{
+	color:#0054A4;
+}
+.textLinkButton {
+	color:#0054A4;
+	background-color: #e0e0e0;
+	border: 1px outset #a0a0a0;/*#F0F0F0;*/
+	outline: 0 none;
+	cursor: pointer;
+	clear: right;
+	-khtml-border-radius: .2em;
+	-opera-border-radius: .2em;
+	-moz-border-radius: .2em;
+	-webkit-border-radius: .2em;
+	border-radius: .2em;
+	text-decoration: none;
+	display: inline;
+	line-height: 1.85em;
+	padding: .25em .4em .3em .4em;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+.textLinkButton:hover {
+	background-color: #a0a0a0;/*#d0d0d0; */
+	border: outset 1px  #808080;
+}
+.textLinkButton:visited, a.textLink:active{
+	color:#0054A4;
+}
+
+ul#directions_results {
+	border: 1px solid #0054A4;/*#F0F0F0;*/
+	-khtml-border-radius: .2em;
+	-opera-border-radius: .2em;
+	-moz-border-radius: .2em;
+	-webkit-border-radius: .2em;
+	border-radius: .2em;
+	padding: 1em;
+	margin: 1em;
+}
+#directions_results li {
+	line-height: 1.8em;
+}
+#directions_results li:hover {
+	color: #0054A4;
+	cursor: pointer;
+}

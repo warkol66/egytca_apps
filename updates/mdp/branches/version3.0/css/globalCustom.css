@@ -219,7 +219,7 @@ a.addLink:hover, a.addLink:active {
 /* SEARCH   -------------------------------------------*/
 a.tdTitSearch{
 	background-color: #f4f6f3;
-	background-image:url(../images/icon_search.gif);
+	background-image:url(../images/icon_search.png);
 	background-position:11px 7px;
 	background-repeat:no-repeat;
 	text-decoration: none;
@@ -384,3 +384,84 @@ div.autocomplete ul b {
   background-color: white;
 }
 /* /Autocomplete    ----------------------------*/
+
+/*  BOX VARIABLES   ----------------------------------- */
+#boxVariables{
+	background-color: #f4f6f3;
+	color:#000;		
+	border: solid 1px #999;
+}
+#boxVariables ul{
+}
+/*  INITIAL UL*/
+#boxVariables ul li{
+	color:#000;
+	background-image:url(../images/bullet-0.gif);
+	background-position:0 4px;
+	background-repeat:no-repeat;
+}
+/*FIRST UL, THIRD UL, FIFTH UL  */
+#boxVariables ul li ul li,
+#boxVariables ul li ul li ul li ul li,
+#boxVariables ul li ul li ul li ul li ul li ul li {
+	color:#0066CC;
+	background-image:url(../images/bullet-1.gif);
+	background-position:0 4px;
+	background-repeat:no-repeat;
+}
+/* SECOND UL, FOURTH UL */
+#boxVariables ul li ul li ul li,
+#boxVariables ul li ul li ul li ul li ul li{
+	color:#000;
+	background-image:url(../images/bullet-2.gif);
+	background-position:0 4px;
+	background-repeat:no-repeat;
+}
+/* Boton Atributo ------------------*/
+#boxVariables a{
+}
+#boxVariables a.atributo:link,
+#boxVariables a.atributo:visited {
+	background-image:url(../images/add-comment-blue.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+#boxVariables a.atributo:hover,
+#boxVariables a.atributo:active {
+}
+/* Boton Seccion ------------------*/
+#boxVariables a.seccion:link,
+#boxVariables a.seccion:visited {
+	background-image:url(../images/add-folder-green.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+#boxVariables a.seccion:hover,
+#boxVariables a.seccion:active {
+}
+/* Boton ELIMNINAR SECCION ------------------*/
+#boxVariables a.eliminar1:link,
+#boxVariables a.eliminar1:visited {
+	color: #FF0000;
+	background-image:url(../images/delete-folder-green.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+#boxVariables a.eliminar1:hover,
+#boxVariables a.eliminar1:active {
+}
+/* Boton ELIMNINAR ATRIBUTO ------------------*/
+#boxVariables a.eliminar2:link,
+#boxVariables a.eliminar2:visited {
+	color: #FF0000;
+	background-image:url(../images/delete-comment-blue.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+#boxVariables a.eliminar2:hover,
+#boxVariables a.eliminar2:active {
+}
+.textboxVariables{
+	border: solid 1px #999;
+}
+/*  /BOX VARIABLES   ----------------------------------- */

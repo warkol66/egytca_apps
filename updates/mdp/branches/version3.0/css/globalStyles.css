@@ -231,3 +231,88 @@ div.autocomplete ul li,  div.autocomplete ul b{
 div.autocomplete ul b {
 }
 /* /Autocomplete    ----------------------------*/
+
+/*  BOX VARIABLES   ----------------------------------- */
+#boxVariables{
+	width: 97%;
+	height: auto;
+	margin: 1em 0 2em 0;
+	padding: 1em;
+}
+#boxVariables ul{
+	padding-left: 10px;
+}
+#boxVariables * label {
+	vertical-align: top;
+}
+/*  INITIAL UL*/
+#boxVariables ul li{
+	font-weight: bold;
+	list-style: none;
+	padding-left: 1em;	
+	margin-bottom: 1em;
+	margin-top: 0.5em;
+}
+/*FIRST UL */
+#boxVariables ul li ul li{
+	font-weight:bold;
+	list-style: none;
+	padding-left: 1em;	
+	margin-bottom: 1em;
+}
+/* SECOND UL, THIRD UL, FOURTH UL, FIFTH UL */
+#boxVariables ul li ul li ul li,
+#boxVariables ul li ul li ul li ul li,
+#boxVariables ul li ul li ul li ul li ul li {
+	font-weight:normal;
+	text-transform: none;	
+	list-style: none;
+	padding-left: 1em;		
+	margin-bottom: 0;	
+}
+/* Boton Atributo ------------------*/
+#boxVariables a{
+	font-weight:normal;
+	text-transform:none;
+	width: 14px;
+	height: 14px;
+	margin: 0 3px 3px 3px;
+	display: inline;
+	clear: left;	
+}
+#boxVariables a.atributo:link,
+#boxVariables a.atributo:visited {
+	text-decoration: none;
+}
+#boxVariables a.atributo:hover,
+#boxVariables a.atributo:active {
+	text-decoration: none;
+}
+/* Boton Seccion ------------------*/
+#boxVariables a.seccion:link,
+#boxVariables a.seccion:visited {
+	text-decoration:none;
+}
+#boxVariables a.seccion:hover,
+#boxVariables a.seccion:active {
+	text-decoration:underline;
+}
+/* Boton ELIMNINAR SECCION ------------------*/
+#boxVariables a.eliminar1:link,
+#boxVariables a.eliminar1:visited {
+	text-decoration:none;
+}
+#boxVariables a.eliminar1:hover,
+#boxVariables a.eliminar1:active {
+	text-decoration:underline;
+}
+/* Boton ELIMNINAR ATRIBUTO ------------------*/
+#boxVariables a.eliminar2:link,
+#boxVariables a.eliminar2:visited {
+	text-decoration:none;
+}
+#boxVariables a.eliminar2:hover,
+#boxVariables a.eliminar2:active {
+	text-decoration:underline;
+}
+/*  /BOX VARIABLES   ----------------------------------- */
