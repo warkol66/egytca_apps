@@ -51,7 +51,7 @@
 			<affiliateNews>Novedades: Bienvenido al Sistema</affiliateNews>
 		</parameters>
 		<errorReporting>
-			<value>E_ALL ^ E_NOTICE ^ E_WARNINGS</value>
+			<value>E_STRICT</value>
 			<element_type>Options</element_type>
 			<element_options>
 				<option_1></option_1>
@@ -64,7 +64,7 @@
 	</system>
 	<email>
 		<mode>
-			<value>SMTP</value>
+			<value>PHP</value>
 			<element_type>Options</element_type>
 			<element_options>
 				<option_1>PHP</option_1>
@@ -82,4 +82,21 @@
 			</smtpSsl>
 		</smtpOptions>
 	</email>
+	<documents>
+		<rowsPerPage>10</rowsPerPage>
+		<documentsPath>WEB-INF/documents</documentsPath>
+		<useGlobalCategories>
+			<value>NO</value>
+			<element_type>YES/NO</element_type>
+		</useGlobalCategories>
+		<usesCategoriesGroupPermission>
+			<value>NO</value>
+			<element_type>YES/NO</element_type>
+		</usesCategoriesGroupPermission>
+		<usePasswords>
+			<value>NO</value>
+			<element_type>YES/NO</element_type>
+		</usePasswords>
+		<newestLimit>6</newestLimit>
+	</documents>
 </config>

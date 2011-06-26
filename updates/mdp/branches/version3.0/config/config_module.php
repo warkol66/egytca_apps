@@ -13,6 +13,37 @@ class ConfigModule {
 			"doLog" => true,
 			"unifiedUsernames" => true,
 			"backupTimeLimit" => 720
+		),
+		"users" => array(
+			"licences" => 10,
+			"useTimezones" => false,
+			"forceFirstPasswordChange" => true,
+			"askForNewPasswordOnRecovery" => false,
+			"useFilterByUserGroup" => true,
+			"passwordRecoveryExpirationTimeInHours" => 24
+		),
+		"affiliates" => array(
+			"useTimezones" => false,
+			"forceFirstPasswordChange" => true,
+			"askForNewPasswordOnRecovery" => false,
+			"useFilterByUserGroup" => true,
+			"passwordRecoveryExpirationTimeInHours" => 24
+		),
+		"documents" => array(
+			"useKeywords" => false,
+			"useAuthors" => false,
+			"useFullTextSearch" => true,
+			"catdocPath" => "/usr/local/bin/",
+			"pdftotextPath" => "/usr/local/bin/",
+			"maxUploadSize" => '15M',
+			"useSWFUploader" => false,
+			"documentTypes" => array(
+				"Word" => "doc,docx",
+				"Excel" => "xls,xlsx",
+				"Powerpoint" => "ppt,pptx",
+				"Pdf" => "pdf",
+				"Images" => "jpeg,jpg,png,gif"
+				)
 		)
 	);
 
