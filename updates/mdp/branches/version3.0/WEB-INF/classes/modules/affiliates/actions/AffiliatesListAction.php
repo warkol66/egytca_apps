@@ -20,12 +20,11 @@ class AffiliatesListAction extends BaseAction {
 		}
 
 		$module = "Affiliates";
-    	$smarty->assign("module",$module);
+  	$smarty->assign("module",$module);
 
-    	$smarty->assign("message",$_GET["message"]);
+  	$smarty->assign("message",$_GET["message"]);
 		
 		$affiliatePeer = new AffiliatePeer;
-
 		$filters = $_GET["filters"];
 		
 		$this->applyFilters($affiliatePeer, $filters, $smarty);

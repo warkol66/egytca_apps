@@ -41,7 +41,9 @@ class AffiliatesBranchsEditAction extends BaseAction {
 			$smarty->assign("action","create");
 		}
 
-		$smarty->assign("message",$_GET["message"]);
+		$smarty->assign("filters",$_REQUEST["filters"]);
+		$smarty->assign("page",$_REQUEST["page"]);
+		$smarty->assign("message",$_REQUEST["message"]);
 		return $mapping->findForwardConfig('success');
 	}
 

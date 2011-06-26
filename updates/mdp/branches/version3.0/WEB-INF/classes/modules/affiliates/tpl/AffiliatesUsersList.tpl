@@ -1,6 +1,6 @@
 <h2>##affiliates,1,Afiliados##</h2>
-<h1>Administración de Usuarios por Afiliados</h1>
-<p>A continuación podrá editar la lista de Usuarios por Afiliados del sistema.</p>
+<h1>Administración de Usuarios de ##affiliates,1,Afiliados##</h1>
+<p>A continuación podrá editar la lista de Usuarios de ##affiliates,1,Afiliados## del sistema.</p>
 |-if $message eq "deleted"-|
 <div class='successMessage'>Usuario eliminado</div>
 |-elseif $message eq "activated"-|
@@ -13,17 +13,17 @@
 <table cellpadding='5' cellspacing='0' width='100%' class='tableTdBorders'>
 |-if $loginUser ne ''-|
 <tr>
-<td colspan="5">
+<td colspan="5" class="tdSearch">
 			<form action="Main.php" method="get">
-			<p>Filtrar por Afiliado
+			<p>Filtrar por ##affiliates,3,Afiliado##
 			<select name="filters[searchAffiliateId]" onchange="this.form.submit();">
-					<option value="0">Seleccione un Afiliado</option>
+					<option value="0">Seleccione un ##affiliates,3,Afiliado##</option>
 					<option value="-1">Todos</option>
 				|-foreach from=$affiliates item=affiliate name=for_affiliate-|
 					<option value="|-$affiliate->getId()-|"|-if $affiliate->getId() eq $filters.searchAffiliateId-| selected="selected"|-/if-|>|-$affiliate->getName()-|</option>
 				|-/foreach-|
 			</select> 
-				|-if $filters.searchAffiliateId gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=affiliatesUsersList'" class='boton' />|-/if-|</p>
+				|-if $filters.searchAffiliateId gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=affiliatesUsersList'" />|-/if-|</p>
 			<input type="hidden" name="do" value="affiliatesUsersList" />
 		</form>
 </td>
@@ -33,18 +33,18 @@
 			<th colspan="5"><div class="rightLink"><a href="Main.php?do=affiliatesUsersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar usuario</a></div></th>
 	</tr>
 	<tr>
+		<th>##affiliates,3,Afiliado##</th>
 		<th>Identificación</th>
 		<th>Apellido, Nombre</th>
 		<th>E-mail</th>
-		<th>Afiliado</th>
 		<th>&nbsp;</th>
 	</tr>
 	|-foreach from=$users item=user name=for_users-|
 	<tr>
+		<td width="15%">|-$user->getAffiliate()-|</td>
 		<td width="25%">|-$user->getUsername()-|</td>
 		<td width="25%">|-$user->getSurname()-|, |-$user->getName()-|</td>
 		<td width="25%">|-$user->getMailAddress()-|</td>
-		<td width="15%">|-$user->getAffiliate()-|</td>
 		<td width="10%" nowrap>
 			<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="affiliatesUsersEdit" /> 
@@ -58,7 +58,7 @@
 			</form>
 		    |-if $loginUser ne ''-|
 				|-if $user->isAffiliateOwner()-|
-					<img src="images/clear.png" class="icon iconOwner" title="Este es el usuario dueño del afiliado" />
+					<img src="images/clear.png" class="icon iconOwner" title="Este es el usuario dueño del ##affiliates,3,Afiliado##" />
 				|-else-|
 					<form method="post">
 						<input type="hidden" name="userId" value="|-$user->getId()-|" />
@@ -94,7 +94,7 @@
 	|-foreach from=$deletedUsers item=user name=for_deleted_users-|
 	<tr>
 		<td width="90%">|-$user->getUsername()-|</td>
-		<td width="10%" nowrap><a href='Main.php?do=affiliatesUsersDoActivate&user=|-$user->getId()-|'><img src="images/clear.png"  class='iconActivate' /></a></td>
+		<td width="10%" nowrap><a href='Main.php?do=affiliatesUsersDoActivate&user=|-$user->getId()-|'><img src="images/clear.png"  class="icon iconActivate" /></a></td>
 	</tr>
 	|-/foreach-|
 </table>

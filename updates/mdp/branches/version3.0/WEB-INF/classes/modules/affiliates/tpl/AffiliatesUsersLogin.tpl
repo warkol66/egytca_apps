@@ -1,4 +1,3 @@
-<script type="text/javascript" language="javascript" src="scripts/login.js"></script>
 <form method='post' action="Main.php"> 
 	<div id="loginWrapper"> 
 	<!-- Begin Login --> 
@@ -24,25 +23,35 @@
 			|-elseif $message eq "confirmationMailSent"-|
 				<div align='center' class='successMessage'>Se envió un mail de verificación a su casilla de correo.</div> 
 			|-/if-|
-
-			<input type="hidden" name="do" value="affiliatesUsersDoLogin" id="loginFormDo" />
-			<p></p> 
+			|-if isset($unifiedLogin)-|
+				|-if !$onlyAdmin-|
+				<p>Tipo de Usuario
+					 <select name="selectLoginMode" id="selectLoginMode" onChange="javascript:selectLoginAction(this.form)"> 
+						<option value="user" |-if $cookieSelection eq 'user'-|selected="selected"|-/if-|>Administrador</option> 
+						<option value="affiliateUser" |-if $cookieSelection eq 'affiliateUser'-|selected="selected"|-/if-|>Cliente</option> 
+					</select> 
+				 </p> 
+				|-/if-|
+				<input type="hidden" name="do" value="|-if $cookieSelection eq 'affiliateUser'-|affiliatesUsersDoLogin|-else-|usersDoLogin|-/if-|" id="loginFormDo" />
+			|-else-|
+				<input type="hidden" name="do" value="usersDoLogin" id="loginFormDo" />
+			|-/if-| 
 			<h1>Usuario</h1> 
-			<p><input type='text' name='loginUsername' size='35' class="inputLogin" /> 
+			<p><input type='text' name='loginUsername' size='35' /> 
 			 </p> 
 			<h1>Contraseña</h1> 
-			<p><input type='password' name='loginPassword' size='20' class="inputLogin" /> 
+			<p><input type='password' name='loginPassword' size='20' /> 
 			 </p> 
 		<!--[if lte IE 6]><p>Su versión actual de navegador es IExplorer 6.<br />Este sistema requiere que utilice una versión mas nueva de Interntet Explorer.<br />
 Debe actualizarla para el correcto funcionamiento del sistema.</p><![endif]-->
-		 <!-- Begin LoginBottom --> 
-		 <div id="loginBottom">
-			<p><input type='submit' value='Ingresar' id="loginButton" /> </p>
-			<p><a href="Main.php?do=affiliatesUsersPasswordRecovery">¿Olvidó su contraseña?</a></p>
-		</div> 
-		 <!-- End LoginBottom --> 
 		</div>
 		 <!-- End LoginContent --> 
+		 <!-- Begin LoginBottom --> 
+		 <div id="loginBottom">
+			<div id="loginButtonDiv"><input type='submit' value='Ingresar' id="loginButton" /> </div>
+			<div id="lostPassword"><a href="Main.php?do=usersPasswordRecovery">¿Olvidó su contraseña?</a></div>
+		</div> 
+		 <!-- End LoginBottom --> 
 	 </div> 
 	<!-- End Login --> 
 	</div>

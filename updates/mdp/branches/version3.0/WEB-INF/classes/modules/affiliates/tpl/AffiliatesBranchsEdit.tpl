@@ -1,10 +1,11 @@
 <h2>##affiliates,5,Sucursales##</h2> 
 	<h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| ##affiliates,4,Sucursal##|-if $action eq "edit"-| - |-$branch->getname()-||-/if-|</h1> 
-	<p>A continuación podrá editar la ficha ##affiliates,4,Sucursal## del sistema. Para guardar los cambios, haga click en "Aceptar"; para regresar al listado sin guardar cambios, haga click en "Cancelar". </p> 
+	<p>A continuación se muestra la ficha de ##affiliates,4,Sucursal## del sistema. Para guardar los cambios, haga click en "Aceptar";<br> 
+  para regresar al listado sin guardar cambios, haga click en "Cancelar". </p> 
  <div id="div_branch"> 
 	<form name="form_edit_branch" id="form_edit_branch" action="Main.php" method="post">
  		|-if $message eq "error"-|
-			<div class="failureMessage">Ha ocurrido un error al intentar guardar el registro</div>
+			<div class="resultFailure">Ha ocurrido un error al intentar guardar el registro</div>
 		|-/if-|
 		<fieldset title="Formulario de edición de ##affiliates,4,Sucursal## de ##affiliates,3,Afiliado##">
      <legend>##affiliates,4,Sucursal##</legend>
@@ -50,9 +51,11 @@
 	<p>
 		<input type="hidden" name="id" id="id" value="|-$branch->getid()-|" />
 		<input type="hidden" name="action" id="action" value="|-$action-|" /> 
+			|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+			|-if isset($page)-| <input type="hidden" name="page" id="page" value="|-$page-|" />|-/if-|
 		<input type="hidden" name="do" id="do" value="affiliatesBranchsDoEdit" /> 
 		<input type="submit" id="button_edit_branch" name="button_edit_branch" title="Aceptar" value="Aceptar" />
-		<input name="rmoveFilters" type="button" value="Cancelar" onclick="location.href='Main?do=affiliatesBranchsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"  />	</p>
+		<input name="rmoveFilters" type="button" value="Cancelar" onclick="location.href='Main.php?do=affiliatesBranchsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"  />	</p>
 	</fieldset>
 	</form> 
 </div>

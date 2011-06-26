@@ -15,9 +15,6 @@ class AffiliatesUsersDoLogoutAction extends BaseAction {
 
     BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -26,10 +23,8 @@ class AffiliatesUsersDoLogoutAction extends BaseAction {
 
 		$module = "Affiliates";
 
-		if (isset($_SESSION["loginAffiliateUser"])) {
-			$user = $_SESSION["loginAffiliateUser"];	
-			$username = $user->getUsername();
-		}		
+		if (isset($_SESSION["loginAffiliateUser"]) && is_object($_SESSION["loginAffiliateUser"]) && get_class($_SESSION["loginAffiliateUser"]) == "AffiliateUser")
+			$username = $_SESSION["loginAffiliateUser"]->getUsername();	
 
 		if($_SESSION["lastLogin"])
 		unset($_SESSION["lastLogin"]);
@@ -37,6 +32,9 @@ class AffiliatesUsersDoLogoutAction extends BaseAction {
 		Common::doLog('success','username: ' . $username);
 		if($_SESSION["loginAffiliateUser"])
 			unset($_SESSION["loginAffiliateUser"]);
+
+		if (ConfigModule::get("global","unifiedUsernames"))
+			header("Location:Main.php?do=commonLogin");
 
 		return $mapping->findForwardConfig('success');
 

@@ -87,7 +87,7 @@ class AffiliatesUsersDoEditAction extends BaseAction {
 		
 		$filters = array('searchAffiliateId' => $affiliateId);
 		
-		if ( ( empty($_POST["id"]) && empty($affiliateUserParams["password"]) ) || ($affiliateUserParams["password"] != $affiliateUserParams["password2"]) ) {
+		if ( ( empty($_POST["id"]) && empty($_POST["pass"]) ) || ($_POST["pass"] != $_POST["pass2"]) ) {
 			$this->assignObjects($smarty);
 			$smarty->assign("message","wrongPassword");
 			return $mapping->findForwardConfig('failure');
@@ -99,6 +99,8 @@ class AffiliatesUsersDoEditAction extends BaseAction {
 			$affiliateUser = AffiliateUserPeer::get($_POST["id"]);
 		
 		Common::setObjectFromParams($affiliateUser, $affiliateUserParams);
+		$affiliateUser->setPasswordString($_POST["pass"]);
+		$affiliateUser->setPasswordUpdatedTime();
 		
 		$affiliate = $_SESSION['newAffiliate'];
 		if (!empty($affiliate) && !empty($_POST["ownerCreation"])) {

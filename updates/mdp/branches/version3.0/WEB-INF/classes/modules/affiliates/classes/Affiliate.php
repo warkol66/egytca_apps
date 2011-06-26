@@ -17,10 +17,44 @@ class Affiliate extends BaseAffiliate {
 
 	private $hasPriceList;
 
+	/**
+	 * Validaciones para el guardado de un afiliado
+	 * @return bool affiliate creado o no
+	 */
+	public function save(PropelPDO $con = null) {
+		try {
+			if ($this->validate()) {
+				parent::save($con);
+				return true;
+			} else {
+				return false;
+			}
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
+	}
+
+	/**
+	 * Obtengo el usuario Owner con permisos de administracion sobre el afiliado
+	 * @return object usuario owner
+	 */
 	function getOwner() {
 		return AffiliateUserPeer::get($this->getOwnerId());
 	}
 
+	/**
+	* Métodos para uso con Catalog y Orders
+	*/
+
+
+	/**
+	 * Actualiza lista de precios del afiliado
+	 * @param file archivo con csv con lista de precios
+	 * @return array resultado de la importacion
+	 */
 	function doImportPrices($filename) {
 
 		$archive = array();
@@ -75,42 +109,42 @@ class Affiliate extends BaseAffiliate {
 		//envio email solo si estoy en modo debug
 		if ($debugMode == "YES") {
 
-			require_once("libmail.inc.php");
-			$m = new Mail();
+			require_once("EmailManagement.php");
+			$manager = new EmailManagement();
 
-			$from = $system["config"]["system"]["parameters"]["fromEmail"];
-			$m->From($from);
-
-			$to = $system["config"]["system"]["parameters"]["debugMail"];
-			$m->To($to);
+			$mailFrom = $system["config"]["system"]["parameters"]["fromEmail"];
+			$mailTo = $system["config"]["system"]["parameters"]["debugMail"];
 
 			$loginUser = $_SESSION["loginUser"];
 
 			$subject = "SITIO: ".$system["config"]["system"]["parameters"]["siteName"];
-			$subject .= " / Importacion de lista de precios de productos por afiliado";
+			$subject .= " / Importación de lista de precios de productos por afiliado";
 			if ($loginUser)
-							$subject .= " - Usuario: ".$loginUser->getUsername();
-			$m->Subject($subject);
+				$subject .= " - Usuario: ".$loginUser->getUsername();
 
-			$m->Body("Resultado de la importacion:\n
-								Total leidos: ".count($archive)."\n
-								Total agregados: $rowsCreated\n
-								Detalle de codigos con error:\n".implode("\n",$errorCodes)."\n\n");
-			$m->Priority(1);
-			$m->Attach($filename);
-			$m->Send();
+			$body = "Resultado de la importacion:\nTotal leidos: ".count($archive)."\nTotal agregados: $rowsCreated\nDetalle de codigos con error:\n".implode("\n",$errorCodes)."\n\n";
+
+			$message = $manager->createMultipartMessage($subject,$body);
+			$attachment = Swift_Attachment::newInstance($filename, "Archivo precios.csv", 'text/csv'); 
+			$message->attach($attachment);
+			$manager->sendMessage($mailTo,$mailFrom,$message);
 		}
 
 		$result = array("rowsReaded" => $rowsReaded, "rowsCreated" => $rowsCreated, "errorCodes" => $errorCodes);
-
 		return $result;
 	}
 
+
+	/**
+	 * Obtengo precio de producto del afiliado si tiene lista de precios si no, toma la general
+	 * @param object producto del catalogo
+	 * @return real precio del producto
+	 */
 	function getProductPrice($product) {
 		//seteo el atributo que me indica si el afiliado posee lista diferenciada
-		if (!isset($this->hasPriceList)) {
-						$this->hasPriceList = AffiliateProductPeer::affiliateHasPriceList($this->getId());
-		}
+		if (!isset($this->hasPriceList))
+			$this->hasPriceList = AffiliateProductPeer::affiliateHasPriceList($this->getId());
+
 		if ($this->hasPriceList) {
 			$affiliateProduct = AffiliateProductPeer::get($this->getId(),$product->getId());
 			if (!empty($affiliateProduct))
@@ -122,22 +156,6 @@ class Affiliate extends BaseAffiliate {
 			$price = $product->getPrice();
 
 		return $price;
-	}
-
-	public function save(PropelPDO $con = null) {
-		try {
-			if ($this->validate()) {
-				parent::save($con);
-				return true;
-			} else {
-				return false;
-			}
-		}
-		catch (PropelException $exp) {
-			if (ConfigModule::get("global","showPropelExceptions"))
-				print_r($exp->getMessage());
-			return false;
-		}
 	}
 
 } // Affiliate

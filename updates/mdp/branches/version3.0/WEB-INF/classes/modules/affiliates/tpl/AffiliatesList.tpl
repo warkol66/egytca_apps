@@ -1,7 +1,7 @@
 <script type="text/javascript" src="scripts/lightbox.js"></script> 			
 <div id="lightbox1" class="leightbox">
 	<p align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar<input type="button" class="icon iconDelete" /></a> 
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar &nbsp;<input type="button" class="icon iconDelete" /></a> 
 	</p> 
 	<div id="affiliatesViewWorking"></div>
 	<div class="innerLighbox">
@@ -28,15 +28,12 @@
 |-/if-|
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 	<tr>
-		<td colspan='3'><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="searchLink">Busqueda por nombre</a><div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get'>
+		<td colspan='3' class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda por nombre</a><div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get'>
 				<input type="hidden" name="do" value="affiliatesList" />
 				Nombre: <input name="filters[searchName]" type="text" value="|-$filters.searchName-|" size="30" />
-				&nbsp;&nbsp;<input type='submit' value='Buscar' class='boton' />
-				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=affiliatesList'" class='boton' />|-/if-|
+				&nbsp;&nbsp;<input type='submit' value='Buscar' />
+				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=affiliatesList'" />|-/if-|
 			</form></div></td>
-	</tr>
-	<tr>
-		<th colspan='3'>##affiliates,1,Afiliados##</th>
 	</tr>
 	<tr>
 		<th colspan="3"><div class="rightLink"><a href="Main.php?do=affiliatesEdit" class="addLink">Agregar ##affiliates,3,Afiliado##</a></div></th>
@@ -55,11 +52,15 @@
 			<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="affiliatesEdit" /> 
 			  <input type="hidden" name="id" value="|-$affiliate->getId()-|" /> 
+					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+					|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 			  <input type="submit" name="submit_go_edit_affiliate" value="Editar" class="icon iconEdit" /> 
 			</form>
 			<form action="Main.php" method="post" style="display:inline;"> 
 			  <input type="hidden" name="do" value="affiliatesDoDelete" /> 
 			  <input type="hidden" name="id" value="|-$affiliate->getId()-|" /> 
+					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+					|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 			  <input type="submit" name="submit_go_delete_affiliate" value="Borrar" onclick="return confirm('Seguro que desea eliminar el ##affiliates,3,Afiliado##?')" class="icon iconDelete" /> 
 			</form>
     </td>

@@ -1,6 +1,6 @@
 <h2>##affiliates,5,Sucursales##</h2> 
 <h1>Administración de ##affiliates,5,Sucursales##</h1> 
-<p>A continuación podrá editar la información de las sucursales.</p> 
+<p>A continuación podrá editar la información de ##affiliates,5,Sucursales##.</p> 
 <div id="div_branchs">
 |-if $message eq "ok"-|
 	<div class="successMessage">Cambios guardados correcamente</div>
@@ -11,8 +11,7 @@
 	<table width="100%" border="0" cellpadding="5" cellspacing="0" id="tabla-branchs" class="tableTdBorders"> 
 		<thead> 
 |-if $affiliates|@count gt 0-|			<tr>
-				<th colspan="8">
-	<div id="divSearch">
+				<th colspan="8" class="tdSearch">
 		<form action="Main.php" method="get"> 
 				<label for="filters[searchAffiliateId]">##affiliates,3,Afiliado##:</label> 
 				<select name="filters[searchAffiliateId]"  onchange="this.form.submit();" title="Filtrar ##affiliates,5,Sucursales## por ##affiliates,3,Afiliado##"> 
@@ -22,10 +21,9 @@
 					|-/foreach-|
 				</select>
 				<input type="hidden" name="do" value="affiliatesBranchsList" /> 
-				<input type="submit" value="Buscar" class="button" /> 
-				|-if $filters.searchAffiliateId gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=affiliatesBranchsList';" class='boton' />|-/if-|</p>
+				<input type="submit" value="Buscar" /> 
+				|-if $filters.searchAffiliateId gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=affiliatesBranchsList';" />|-/if-|</p>
 		</form> 
-	</div>
 </th>
 			</tr>|-/if-|
 			<tr>
@@ -54,11 +52,15 @@
 			<td class="tdSize1 center" nowrap="nowrap"> <form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="affiliatesBranchsEdit" /> 
 					<input type="hidden" name="id" value="|-$branch->getid()-|" /> 
+					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+					|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="submit" name="submit_go_edit_branch" value="Editar" class="icon iconEdit" /> 
 				</form> 
 				<form action="Main.php" method="post" style="display:inline;"> 
 					<input type="hidden" name="do" value="affiliatesBranchsDoDelete" /> 
 					<input type="hidden" name="id" value="|-$branch->getid()-|" /> 
+					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+					|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="submit" name="submit_go_delete_branch" value="Borrar" onclick="return confirm('¿Seguro que desea eliminar este registro?')" class="icon iconDelete" /> 
 			</form></td> 
 		</tr> 

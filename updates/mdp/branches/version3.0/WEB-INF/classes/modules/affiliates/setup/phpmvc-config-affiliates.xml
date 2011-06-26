@@ -161,14 +161,6 @@
 
 <!-- Module AffiliatesUsers - Section Levels -->
 
-		<action    path = "affiliatesUsersLevelsList"
-							 type = "AffiliatesUsersLevelsListAction"
-							 name = "affiliatesUsersLevelsList"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="AffiliatesUsersLevelsList.tpl"/>
-		</action>
-		
 		<action    path = "affiliatesUsersLevelsDoEdit"
 							 type = "AffiliatesUsersLevelsDoEditAction"
 							 name = "affiliatesUsersLevelsDoEdit"
@@ -190,14 +182,6 @@
 <!-- End Section - Levels -->
 
 <!-- Module AffiliatesUsers - Section Groups -->
-
-		<action    path = "affiliatesUsersGroupsList"
-							 type = "AffiliatesUsersGroupsListAction"
-							 name = "affiliatesUsersGroupsList"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="AffiliatesUsersGroupsList.tpl"/>
-		</action>
 
 		<action    path = "affiliatesUsersGroupsDoEdit"
 							 type = "AffiliatesUsersGroupsDoEditAction"

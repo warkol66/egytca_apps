@@ -120,15 +120,15 @@ class AffiliateUser extends BaseAffiliateUser {
 		parent::setUserName($usernameLowercase);
 		return $this;
 	}
-
+/*
 	public function setPassword($password) {
 		if(!empty($password)){
-			parent::setPassword(md5($password."ASD"));
+			parent::setPassword(Common::md5($passwordString));
 			$this->setPasswordUpdatedTime(time());
 		}
 		return $this;
 	}
-
+*/
 	/**
 	 * Especifica la fecha de actualizacion de la clave
 	 * @param passwordUpdatedTime string con fecha de actualizacion de clave.
@@ -222,7 +222,7 @@ class AffiliateUser extends BaseAffiliateUser {
 		*/
 	function resetPassword($length = 8){
 		$password = Common::generateRandomPassword();
-		$this->setPassword($password);
+		$this->setPasswordString($password);
 		$this->setPasswordUpdatedTime(time());
 		try {
 			$this->save();
@@ -233,6 +233,14 @@ class AffiliateUser extends BaseAffiliateUser {
 				print_r($exp->getMessage());
 			return false;
 		}
+	}
+
+ /**
+	 * Genera la clave encriptada a guardar
+	 * @param passwordString string clave ingresada pro usuario.
+	 */
+	function setPasswordString($passwordString){
+		$this->setPassword(Common::md5($passwordString));
 	}
 
 } // AffiliateUser

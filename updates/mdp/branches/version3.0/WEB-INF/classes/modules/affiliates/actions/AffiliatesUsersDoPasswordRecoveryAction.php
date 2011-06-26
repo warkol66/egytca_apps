@@ -15,11 +15,6 @@ class AffiliatesUsersDoPasswordRecoveryAction extends BaseAction {
 
     BaseAction::execute($mapping, $form, $request, $response);
     
-		$this->template->template = "TemplateMail.tpl";
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -27,33 +22,38 @@ class AffiliatesUsersDoPasswordRecoveryAction extends BaseAction {
 		}
 
 		$module = "Affiliates";
+		$section = "Users";
 
-		if ( !empty($_POST["username"]) && !empty($_POST["mailAddress"]) ) {
+		if (!empty($_POST["username"]) && !empty($_POST["mailAddress"])) {
 			$userAndPassword = AffiliateUserPeer::generatePassword($_POST["username"],$_POST["mailAddress"]);
-			if ( !empty($userAndPassword) ) {
-        $smarty->assign("user",$userAndPassword[0]);
-        $smarty->assign("password",$userAndPassword[1]);
-        $body = $smarty->fetch("AffiliatePasswordRecoveryMail.tpl");
+			if (!empty($userAndPassword)) {
 
-				require_once("libmail.inc.php");
+				$this->template->template = "TemplateMail.tpl";
+
+				$smarty->assign("user",$userAndPassword[0]);
+				$smarty->assign("password",$userAndPassword[1]);
+				$subject = Common::getTranslation('New password','users');
+				$body = $smarty->fetch("UsersPasswordRecoveryMail.tpl");
+
+				$mailTo = $_POST["mailAddress"]);
 
 				global $system;
+				$mailFrom = $system["config"]["system"]["parameters"]["fromEmail"];
 
-				$m = new Mail();
-				$m->From($system["config"]["system"]["parameters"]["fromEmail"]);
-				$m->To($user->getMailAddress());
-				$m->Subject("Nueva Contrase�a");
-				$m->Body($body);
-				$m->Send();
-				
+				require_once("EmailManagement.php");
+				$manager = new EmailManagement();
+
+				$message = $manager->createHTMLMessage($subject,$body);
+				$result = $manager->sendMessage($mailTo,$mailFrom,$message);
+
 				Common::doLog('success','username: ' . $_POST["username"] . ' Mail Address: ' . $_POST["mailAddress"]);
 				return $mapping->findForwardConfig('success');
 			}
 		}
 		
 		$this->template->template = "TemplateLogin.tpl";		
+    $smarty->assign("message","wrongUser");
 
-    	$smarty->assign("message","wrongUser");
 		Common::doLog('failure','username: ' . $_POST["username"] . ' Mail Address: ' . $_POST["mailAddress"]);
 		return $mapping->findForwardConfig('failure');
 	}

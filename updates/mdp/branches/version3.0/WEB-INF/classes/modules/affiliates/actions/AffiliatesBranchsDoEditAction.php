@@ -6,6 +6,20 @@ class AffiliatesBranchsDoEditAction extends BaseAction {
 		;
 	}
 
+	function returnFailure($mapping,$smarty,$branch) {
+		$smarty->assign("branch",$branch);
+
+		$id = $branch->getId();
+		if (empty($id))
+			$smarty->assign("action","create");
+		else
+			$smarty->assign("action","edit");
+
+		$smarty->assign("message","error");
+		return $mapping->findForwardConfig('failure');
+	}
+
+
 	function execute($mapping, $form, &$request, &$response) {
 
 		BaseAction::execute($mapping, $form, $request, $response);
@@ -21,30 +35,38 @@ class AffiliatesBranchsDoEditAction extends BaseAction {
 
 		$module = "Affiliates";
 		$section = "Branchs";
-		
-		$params = $_POST["params"];
+
+		if ($_POST["page"] > 0)
+			$params["page"] = $_POST["page"];
+
+		if (!empty($_POST["filters"]))
+			$filters = $_POST["filters"];
+
+		$branchParams = $_POST["params"];
 
 		if (!empty($_SESSION["loginUser"])) {
 			$affiliates = AffiliatePeer::getAll();
 			$smarty->assign("affiliates",$affiliates);
 			$smarty->assign("all",1);
-			$affiliateId = $params["affiliateId"];
+			$affiliateId = $branchParams["affiliateId"];
 		}
 		else {
 			$affiliateId = $_SESSION["loginAffiliateUser"]->getAffiliateId();
 			$smarty->assign("all",0);
 		}
 
-		if ( !empty($_POST["id"]) ) {
+		if (!empty($_POST["id"]))
 			$branch = AffiliateBranchPeer::get($_POST["id"]);
-		} else {
+		else
 			$branch = new AffiliateBranch;
-		}
-		Common::setObjectFromParams($branch, $params);
-		if (!$branch->save()) {
+
+		Common::setObjectFromParams($branch, $branchParams);
+
+		if ($branch->isModified() && !$branch->save()) {
 			$smarty->assign("branch", $branch);
-			return $mapping->findForwardConfig('failure');
+			return $this->returnFailure($mapping,$smarty,$branch);
 		}
-		return $mapping->findForwardConfig('success');
+
+		return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
 	}
 }
