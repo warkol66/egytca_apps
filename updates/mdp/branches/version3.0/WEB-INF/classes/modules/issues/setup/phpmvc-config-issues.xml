@@ -1,0 +1,48 @@
+<!-- Module Issues -->
+	<action-mappings module="Issues">
+
+		<action    path = "issuesAutocompleteListX"
+							 type = "IssuesAutocompleteListXAction"
+							 name = "issuesAutocompleteListX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="IssuesAutocompleteListXSuccess.tpl" />
+		</action>
+
+		<action    path = "issuesEditX"
+							 type = "IssuesEditXAction"
+							 name = "issuesEditX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="IssuesEditX.tpl" />
+		</action>
+
+		<action    path = "issuesDoEditX"
+							 type = "IssuesDoEditXAction"
+							 name = "issuesDoEditX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="IssuesDoEditX.tpl" />
+		</action>
+
+		<action    path = "issuesDoAddCategoryX"
+							 type = "IssuesDoAddCategoryXAction"
+							 name = "issuesDoAddCategoryX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="IssuesDoAddCategoryX.tpl" />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "issuesDoRemoveCategoryX"
+							 type = "IssuesDoRemoveCategoryXAction"
+							 name = "issuesDoRemoveCategoryX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="IssuesDoRemoveCategoryX.tpl"  />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+	</action-mappings>
+
+<!-- Fin Module Issues -->
