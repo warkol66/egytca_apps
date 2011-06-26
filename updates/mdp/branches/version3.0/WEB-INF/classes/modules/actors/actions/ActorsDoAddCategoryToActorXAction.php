@@ -10,12 +10,6 @@ class ActorsDoAddCategoryToActorXAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//por ser una action ajax.
-		$this->template->template = "TemplateAjax.tpl";
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -37,7 +31,7 @@ class ActorsDoAddCategoryToActorXAction extends BaseAction {
 
 			if (!empty($actor) && !empty($category)) {
 
-				$relation = setObjectFromParams(new ActorCategoryRelation(),$relationParams);
+				$relation = Common::setObjectFromParams(new ActorCategoryRelation(),$relationParams);
 
 				if ($relation->save())
 					return $mapping->findForwardConfig('success');

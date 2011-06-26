@@ -22,7 +22,7 @@
 		</form>|-/if-|</div></td>
 		</tr>
 			<tr>
-				 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=actorsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addNew">Agregar ##actors,2,Actor##</a></div></th>
+				 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=actorsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##actors,2,Actor##</a></div></th>
 			</tr>
 			<tr class="thFillTitle"> 
 	<!--			<th width="5%">Id</th> -->
@@ -46,14 +46,14 @@
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$actor->getid()-|" /> 
-					<input type="submit" name="submit_go_edit_actor" value="Editar" class="buttonImageEdit" /> 
+					<input type="submit" name="submit_go_edit_actor" value="Editar" title="Editar" class="icon iconEdit" /> 
 				</form> 
 				<form action="Main.php" method="post" style="display:inline;"> 
 					<input type="hidden" name="do" value="actorsDoDelete" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$actor->getid()-|" /> 
-					<input type="submit" name="submit_go_delete_actor" value="Borrar" onclick="return confirm('Seguro que desea eliminar el ##actors,2,Actor##?')" class="buttonImageDelete" /> 
+					<input type="submit" name="submit_go_delete_actor" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar el ##actors,2,Actor##?')" class="icon iconDelete" /> 
 			</form>
 			|-if $loginUser->isSupervisor()-|				<form action="Main.php" method="post" style="display:inline;"> 
 					<input type="hidden" name="do" value="actorsDoDelete" /> 
@@ -61,7 +61,7 @@
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$actor->getid()-|" /> 
 					<input type="hidden" name="doHardDelete" value="true" /> 
-					<input type="submit" name="submit_go_delete_actor" value="Borrar" onclick="return confirm('Seguro que desea eliminar el ##actors,2,Actor## definitivamente?')" class="buttonImageDelete" /> 
+					<input type="submit" name="submit_go_delete_actor" value="Borrar" title="Eliminar completamente" onclick="return confirm('Seguro que desea eliminar el ##actors,2,Actor## definitivamente?')" class="icon iconHardDelete" /> 
 			</form>|-/if-|</td> 
 		</tr> 
 		|-/foreach-|
@@ -71,7 +71,7 @@
 		</tr>
 		|-/if-|
 			<tr>
-				 <th colspan="3" class="thFillTitle">|-if $actors|@count gt 5-|<div class="rightLink"><a href="Main.php?do=actorsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addNew">Agregar ##actors,2,Actor##</a></div>|-/if-|</th>
+				 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=actorsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##actors,2,Actor##</a></div></th>
 			</tr>
 		|-/if-|
 		</tbody> 

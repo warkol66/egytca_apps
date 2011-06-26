@@ -21,12 +21,18 @@ class ActorPeer extends BaseActorPeer {
 	private $searchString;
 	private $limit;
 	private $adminActId;
+	private $issueId;
+	private $headlineId;
+	private $candidates;
 
 	//mapea las condiciones del filtro
 	var $filterConditions = array(
 					"searchString"=>"setSearchString",
 					"limit" => "setLimit",
-					'adminActId' => 'setAdminActId'
+					'adminActId' => 'setAdminActId',
+					'issueId' => 'setIssueId',
+					'headlineId' => 'setHeadlineId',
+					'getCandidates' => 'setCandidates'
 				);
 
  /**
@@ -54,14 +60,37 @@ class ActorPeer extends BaseActorPeer {
 	}
 
 	/**
+	 * Especifica un asunto cuyos actores no deben aparecer en la busqueda.
+	 * @param int issueId, id del issue.
+	 */
+	function setIssueId($issueId){
+		$this->issueId = $issueId;
+	}
+
+	/**
+	 * Especifica un headline cuyos actores no deben aparecer en la busqueda.
+	 * @param int headlineId, id del headline.
+	 */
+	function setHeadlineId($headlineId){
+		$this->headlineId = $headlineId;
+	}
+
+	/**
+	 * Especifica un headline cuyos actores no deben aparecer en la busqueda.
+	 * @param int headlineId, id del headline.
+	 */
+	function setCandidates($candidates){
+		$this->candidates = $candidates;
+	}
+
+	/**
 	* Obtiene un actor.
 	*
 	* @param int $id id del actor
 	* @return boolean true si se actualizo la informacion correctamente, false sino
 	*/
 	function get($id){
-		$actor = ActorQuery::create()->findPk($id);
-		return $actor;
+		return ActorQuery::create()->findPk($id);
 	}
 
  /**
@@ -182,7 +211,7 @@ class ActorPeer extends BaseActorPeer {
 	 *
 	 * @return criteria $criteria Criteria con par�metros de b�squeda
 	 */
-	private function getSearchCriteria(){
+	private function getSearchCriteria() {
 		$criteria = new Criteria();
 		$criteria->setIgnoreCase(true);
 		$criteria->setLimit($this->limit);
@@ -197,7 +226,25 @@ class ActorPeer extends BaseActorPeer {
 			$criteria->add(ActorPeer::ID, $actorsParticipatingIds,Criteria::NOT_IN);
 		}
 
-		if ($this->searchString){
+		if (!empty($this->issueId)) {
+			$issue = IssueQuery::create()->findPk($this->issueId);
+			$issueActorsIds = $issue->getAssignedActorsArray();
+			if (!empty($this->candidates))
+				$criteria->add(ActorPeer::ID, $issueActorsIds,Criteria::NOT_IN);
+			else
+				$criteria->filterByIssueId($this->issueId);
+		}
+
+		if (!empty($this->headlineId)) {
+			$headline = HeadlineQuery::create()->findPk($this->headlineId);
+			$headlineActorsIds = $headline->getAssignedActorsArray();
+			if (!empty($this->candidates))
+				$criteria->add(ActorPeer::ID, $headlineActorsIds,Criteria::NOT_IN);
+			else
+				$criteria->filterByHeadlineId($this->headlineId);
+		}
+
+		if ($this->searchString) {
 			$criteria->add(ActorPeer::NAME,"%" . $this->searchString . "%",Criteria::LIKE);
 			$criterionSurname = $criteria->getNewCriterion(ActorPeer::SURNAME,"%" . $this->searchString . "%",Criteria::LIKE);
 			$criteria->addOr($criterionSurname);

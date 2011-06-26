@@ -30,6 +30,22 @@ class ActorsEditAction extends BaseAction {
 
 			$actor = ActorPeer::get($_GET["id"]);
 
+			if (!is_null($actor)) {
+				$actualCategories = $actor->getActorCategorys();
+				$smarty->assign("actualCategories",$actualCategories);
+
+				if (!$actualCategories->isEmpty())
+					$excludeCategoriesIds = $actor->getAssignedCategoriesArray($_GET["id"]);
+
+				$criteria = new Criteria();
+				$criteria->add(ActorCategoryPeer::ID, $excludeCategoriesIds, Criteria::NOT_IN);
+				$categoryCandidates = ActorCategoryPeer::doSelect($criteria);
+				$smarty->assign("categoryCandidates",$categoryCandidates);
+
+			}
+			else
+				$actor = new Actor();
+
 			$smarty->assign("actor",$actor);
 			$smarty->assign("action","edit");
 

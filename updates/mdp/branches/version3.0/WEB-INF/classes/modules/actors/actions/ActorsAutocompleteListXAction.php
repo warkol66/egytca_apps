@@ -19,18 +19,25 @@ class ActorsAutocompleteListXAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$module = "Actors";
-		
+		$module = "Actors";		
 		$smarty->assign("module",$module);
 		
-		$this->template->template = "TemplateAjax.tpl";
-
 		$searchString = $_REQUEST['value'];
 		$smarty->assign("searchString",$searchString);
 
-		$actorPeer = new ActorPeer();
 
-		$filters = array ("searchString" => $searchString, "limit" => $_REQUEST['limit'], "adminActId" => $_REQUEST['adminActId']);
+		$filters = array("searchString" => $searchString, "limit" => $_REQUEST['limit']);
+
+		if ($_REQUEST['adminActId'])
+			$filters = array_merge_recursive($filters, array("adminActId" => $_REQUEST['adminActId']));
+		elseif ($_REQUEST['issueId'])
+			$filters = array_merge_recursive($filters, array("issueId" => $_REQUEST['issueId']));
+		elseif ($_REQUEST['headlineId'])
+			$filters = array_merge_recursive($filters, array("headlineId" => $_REQUEST['headlineId']));
+		if ($_REQUEST['getCandidates'])
+			$filters = array_merge_recursive($filters, array("getCandidates" => true));
+
+		$actorPeer = new ActorPeer();
 		$this->applyFilters($actorPeer,$filters);
 		$actors = $actorPeer->getAll();
 		

@@ -18,4 +18,13 @@ class Actor extends BaseActor {
 	/** the default item name for this class */
 	const ITEM_NAME = 'Actor';
 
+	/**
+	* Obtiene el id de todas las categorías asignadas.
+	*
+	*	@return array Id de todos los actor category asignados
+	*/
+	function getAssignedCategoriesArray(){
+		return ActorCategoryRelationQuery::create()->filterByActor($this)->select('Categoryid')->find()->toArray();
+	}
+
 } // Actor
