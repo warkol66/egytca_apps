@@ -15,4 +15,40 @@
  */
 class Headline extends BaseHeadline {
 
+	/** the default item name for this class */
+	const ITEM_NAME = 'Headline';
+
+	/**
+	* Obtiene el id de todas las categorías asignadas.
+	*
+	*	@return array Id de todos los actor category asignados
+	*/
+	function getAssignedCategoriesArray(){
+		return HeadlineCategoryRelationQuery::create()->filterByHeadline($this)->select('Categoryid')->find()->toArray();
+	}
+
+	/**
+	 * Determina la existencia de una relacion con un determindo actor.
+	 * @param $actor Object
+	 * @param $type Object[optional]
+	 */
+	public function hasActor($actor, $type = null) {
+		$headlineActorQuery = HeadlineActorQuery::create()->filterByHeadline($this)
+															 ->filterByActor($actor);
+		if ($type !== null)
+			$headlineActorQuery->filterByType($type);
+		
+		return ($headlineActorQuery->count() > 0);															 		
+	}
+
+	/**
+	* Obtiene el id de todas las categorías asignadas.
+	*
+	*	@return array Id de todos los actor category asignados
+	*/
+	function getAssignedActorsArray(){
+		return HeadlineActorQuery::create()->filterByHeadline($this)->select('Actorid')->find()->toArray();
+	}
+
+
 } // Headline
