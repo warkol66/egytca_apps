@@ -50,7 +50,7 @@ input.icon {
 .iconInfo, .iconManufacture, .iconOrder, .iconPassword, .iconPlus, .iconRestore, .iconRestoreFromServer,
 .iconSendMultiple, .iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload,
 .iconView, .iconViewGantt, .iconWeight, .iconAddToCart, .iconRemoveFromCart, .iconUpdateCart, .iconSetPrivileges, .iconOwner,
-.iconRead, .iconUnread, .iconEditUser, .iconAddUser, .iconPhoto {
+.iconRead, .iconUnread, .iconEditUser, .iconAddUser, .iconPhoto, .iconHardDelete {
 	background: url(../images/icons_all.png) no-repeat #f0f0f0;
 }
 .disabled {
@@ -193,6 +193,9 @@ input.icon {
 }
 .iconPhoto {
 	background-position: -140px -100px;
+}
+.iconHardDelete {
+	background-position: -0px -120px;
 }
 .icon:hover{
 	background-color: #c0c0c0;
@@ -465,3 +468,30 @@ div.autocomplete ul b {
 	border: solid 1px #999;
 }
 /*  /BOX VARIABLES   ----------------------------------- */
+
+
+.inProgress {
+	font-weight: bold;
+	color: #D2691E !Important;
+	text-decoration: blink;
+	padding-left: 30px;
+	padding-right: 30px;
+	margin-left: 30px;
+	background: url(../images/spinner.gif) no-repeat;
+}
+.resultSuccess {
+	font-weight: bold;
+	color: #00008B;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+.resultFailure {
+	font-weight: bold;
+	color: #B22222;	
+	padding-left: 30px;
+	padding-right: 30px;
+}
+option{
+	padding-right: 5px;
+	background: #FCFCFC;
+}
