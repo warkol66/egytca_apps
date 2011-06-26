@@ -14,4 +14,65 @@
 		</vendor>
 
 	</table>
+
+	<!-- Categorias de issuees -->
+	<table name="issues_category" phpName="IssueCategory" description="Categorias de Issues">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true" description="Category Id" />
+		<column name="name" required="true" type="VARCHAR" size="100" description="Category Name" />
+
+		<behavior name="nested_set">
+			<parameter name="use_scope" value="true" />
+			<parameter name="scope_column" value="scope" />
+		</behavior>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<!-- Relacion many-to-many de Issuees y Categorias de issuees -->
+	<table name="issues_issuesCategory" phpName="IssueCategoryRelation" isCrossRef="true" description="Relacion Issuees y Categorias">
+
+		<column name="issueId" required="true" primaryKey="true" type="INTEGER" size="5" description="Issue Id"/>
+		<column name="categoryId" required="true" primaryKey="true" type="INTEGER" size="5" description="Category Id"/>
+
+		<foreign-key foreignTable="issues_issue" onDelete="CASCADE">
+			<reference local="issueId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="issues_category" onDelete="CASCADE">
+			<reference local="categoryId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<!-- Relacion many-to-many de Issuees y Categorias de issuees -->
+	<table name="issues_actors" phpName="IssueActor" isCrossRef="true" description="Relacion Issuees y Actores">
+
+		<column name="issueId" required="true" primaryKey="true" type="INTEGER" size="5" description="Issue Id"/>
+		<column name="actorId" required="true" primaryKey="true" type="INTEGER" size="5" description="Category Id"/>
+
+		<foreign-key foreignTable="issues_issue" onDelete="CASCADE">
+			<reference local="issueId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="actors_actor" onDelete="CASCADE">
+			<reference local="actorId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
 </database>
