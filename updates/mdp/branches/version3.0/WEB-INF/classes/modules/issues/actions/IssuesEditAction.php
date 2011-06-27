@@ -25,6 +25,10 @@ class IssuesEditAction extends BaseAction {
 		$moduleConfig = Common::getModuleConfiguration($module);
 		$smarty->assign("moduleConfig",$moduleConfig);
 
+		$smarty->assign("filters",$_GET["filters"]);
+		$smarty->assign("page",$_GET["page"]);
+		$smarty->assign("message",$_GET["message"]);
+
 		if (!empty($_GET["id"])) {
 			//voy a editar un objeto
 
@@ -43,8 +47,11 @@ class IssuesEditAction extends BaseAction {
 				$smarty->assign("categoryCandidates",$categoryCandidates);
 
 			}
-			else
-				$issue = new Issue();
+			else {
+				$smarty->assign("message","Not valid issue Id");
+				$smarty->assign("url","Main.php?do=issuesList");
+				return $mapping->findForwardConfig('failure');
+			}
 
 			$smarty->assign("issue",$issue);
 			$smarty->assign("action","edit");
@@ -57,9 +64,12 @@ class IssuesEditAction extends BaseAction {
 			$smarty->assign("action","create");
 		}
 
-		$smarty->assign("filters",$_GET["filters"]);
-		$smarty->assign("page",$_GET["page"]);
-		$smarty->assign("message",$_GET["message"]);
+		$issueImpactTypes = Common::getTranslatedArray(IssuePeer::getIssueImpactTypes(),'issues');
+		$smarty->assign("issueImpactTypes",$issueImpactTypes);
+		$issueEvolutionStages = Common::getTranslatedArray(IssuePeer::getIssueEvolutionStages(),'issues');
+		$smarty->assign("issueEvolutionStages",$issueEvolutionStages);
+		$issueValorationTypes = Common::getTranslatedArray(IssuePeer::getIssueValorationTypes(),'issues');
+		$smarty->assign("issueValorationTypes",$issueValorationTypes);
 
 		return $mapping->findForwardConfig('success');
 	}

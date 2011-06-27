@@ -50,5 +50,52 @@ class Issue extends BaseIssue {
 		return IssueActorQuery::create()->filterByIssue($this)->select('Actorid')->find()->toArray();
 	}
 
+	/**
+	* Obtiene el nombre del objeto que modifico el issue
+	*
+	*	@return string con nombre de quien modifico el issue
+	*/
+	function changedBy(){
+		if ($this->getObjectType() != "") {
+			$objectQueryName = ucfirst($this->getObjectType() . 'Query');
+			if (class_exists($objectQueryName)) {
+				$query = call_user_func(array($objectQueryName, 'create'));
+				return $query->findPK($this->getObjectid());
+			}
+		}
+	}
+
+	/**
+	* Obtiene el nombre traducido del tipo de impacto.
+	*
+	* @return array tipos de region
+	*/
+	function getImpactTypeTranslated() {
+		$type = $this->getImpact();
+		$issueImpactTypes = Common::getTranslatedArray(IssuePeer::getIssueImpactTypes(),'issues');
+		return $issueImpactTypes[$type];
+	}
+
+	/**
+	* Obtiene el nombre traducido del tipo de impacto.
+	*
+	* @return array tipos de region
+	*/
+	function getValorationTypeTranslated() {
+		$type = $this->getValoration();
+		$issueValorationTypes = Common::getTranslatedArray(IssuePeer::getIssueValorationTypes(),'issues');
+		return $issueValorationTypes[$type];
+	}
+
+	/**
+	* Obtiene el nombre traducido del tipo de impacto.
+	*
+	* @return array tipos de region
+	*/
+	function getEvolutionStageTranslated() {
+		$type = $this->getEvolution();
+		$issueEvolutionStages = Common::getTranslatedArray(IssuePeer::getIssueEvolutionStages(),'issues');
+		return $issueEvolutionStages[$type];
+	}
 
 } // Issue

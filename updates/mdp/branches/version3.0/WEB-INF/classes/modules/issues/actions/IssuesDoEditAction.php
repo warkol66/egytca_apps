@@ -25,10 +25,13 @@ class IssuesDoEditAction extends BaseAction {
 		if (!empty($_POST["filters"]))
 			$filters = $_POST["filters"];
 
+		$userParams = Common::userInfoToDoLog();
+		$params = array_merge_recursive($_POST["params"],$userParams);
+
 		if ($_POST["action"] == "edit") { // Existing actor
 
 			$issue = IssuePeer::get($_POST["id"]);
-			$issue = Common::setObjectFromParams($issue,$_POST["params"]);
+			$issue = Common::setObjectFromParams($issue,$params);
 			
 			if (!$issue->save()) 
 				return $this->returnFailure($mapping,$smarty,$issue);
@@ -39,7 +42,7 @@ class IssuesDoEditAction extends BaseAction {
 		else { // New actor
 
 			$issue = new Issue();
-			$issue = Common::setObjectFromParams($issue,$_POST["params"]);
+			$issue = Common::setObjectFromParams($issue,$params);
 			if (!$issue->save())
 				return $this->returnFailure($mapping,$smarty,$issue);
 

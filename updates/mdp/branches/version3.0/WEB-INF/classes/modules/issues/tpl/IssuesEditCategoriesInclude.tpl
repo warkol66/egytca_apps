@@ -1,3 +1,36 @@
+<script language="JavaScript" type="text/javascript">
+function issuesAddCategory(form) {
+
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'categoryList'},
+				url,
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true,
+					insertion: Insertion.Bottom
+				});
+				
+	$('categoryMsgField').innerHTML = '<span class="inProgress">agregando ##issues,2,Asunto## a la categoría...</span>';
+	return true;
+}
+
+function issuesRemoveCategory(form){
+
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'categoryMsgField'},
+				url,
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true,
+				});
+	$('categoryMsgField').innerHTML = '<span class="inProgress">eliminando ##issues,2,Asunto## de la categoría...</span>';
+	return true;
+}
+</script>
 <script type="text/javascript" language="JavaScript" >
   function issuesDoAddCategories(form) {
     var fields = form.serialize();
@@ -37,7 +70,7 @@
         <select name="categoryId" id="categoryId"> 
           <option value="">Seleccione Categoría</option> 
     	|-foreach from=$categoryCandidates item=category name=for_categories-|
-        <option id="categoryOption|-$category->getId()-|" value="|-$category->getId()-|">|-$category->getName()-|</option> 
+        <option id="categoryOption|-$category->getId()-|" value="|-$category->getId()-|">|-section name=space loop=$category->getLevel()-| &nbsp; &nbsp;|-/section-||-$category->getName()-|</option> 
     	|-/foreach-|
         </select>
         <input type="button" id="button_edit_issue_add_category" name="button_edit_issue_add_category" title="Agregar" value="Agregar" onClick="javascript: issuesDoAddCategories(this.form)" /> 

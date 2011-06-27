@@ -18,7 +18,7 @@
 				<option value="0">Ninguna</option>
 			|-foreach from=$categories item=categoryForEach name=for_categories-|
 				|-if $category->getId() neq $categoryForEach->getId()-|
-        <option value="|-$categoryForEach->getId()-|" |-$category->getParentId()|selected:$categoryForEach->getId()-|>|-section name=space loop=$categoryForEach->getLevel()-|&nbsp;|-/section-||-$categoryForEach->getName()-|</option>
+        <option value="|-$categoryForEach->getId()-|" |-$category->getParentId()|selected:$categoryForEach->getId()-|>|-section name=space loop=$categoryForEach->getLevel()-| &nbsp; &nbsp;|-/section-||-$categoryForEach->getName()-|</option>
 				|-/if-|
 			|-/foreach-|
       </select>
