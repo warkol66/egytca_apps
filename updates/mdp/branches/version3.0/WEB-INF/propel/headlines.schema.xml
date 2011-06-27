@@ -3,8 +3,8 @@
 	<table name="headlines_headline" phpName="Headline" description="Headline">
 
 		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Headline Id" autoIncrement="true"/>
-		<column name="headline" required="true"  type="VARCHAR" size="255" description="Headline"/>
-		<column name="content" required="true"  type="LONGVARCHAR" description="Headline content"/>
+		<column name="name" required="true"  type="VARCHAR" size="255" description="Headline"/>
+		<column name="content" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Headline content"/>
 		<column name="datePublished" type="TIMESTAMP" description="Fecha de publicacion" />
 		<column name="headlineDate" type="TIMESTAMP" description="Fecha del titular" />
 

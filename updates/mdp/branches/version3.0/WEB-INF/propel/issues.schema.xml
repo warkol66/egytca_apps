@@ -3,8 +3,18 @@
 	<table name="issues_issue" phpName="Issue" description="Asuntos">
 
 		<column name="id" type="INTEGER" required="true" description="Id log" primaryKey="true" autoIncrement="true" />
-		<column name="issue" type="VARCHAR" size="100" required="true" description="Nombre del issue" />
+		<column name="name" type="VARCHAR" size="100" required="true" description="Nombre del issue" />
+		<column name="description" type="LONGVARCHAR" sqlType="MEDIUMTEXT"  description="Descripcion del issue" />
+		<column name="impact" type="INTEGER" size="5" description="Impacto del issue" />
+		<column name="valoration" type="INTEGER" size="5" description="Valoracion del issue" />
+		<column name="evolution" type="INTEGER" size="5" description="Evolucion del issue" />
+		<column name="objectType" type="VARCHAR" size="20" description="Tipo de objeto de usuario" />
+		<column name="objectId" type="INTEGER" size="5" description="Id de objeto de usuario" />
 
+		<behavior name="versionable" >
+    	<parameter name="version_table" value="issues_issueLog" />
+			<parameter name="log_created_by" value="true" />
+		</behavior>
 		<behavior name="timestampable" />
 		<behavior name="soft_delete" />
 
