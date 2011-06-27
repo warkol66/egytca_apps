@@ -243,4 +243,21 @@ class AffiliateUser extends BaseAffiliateUser {
 		$this->setPassword(Common::md5($passwordString));
 	}
 
+	/*
+	 * Se agrega al AffiliateUser por compatibilidad con el User
+	 * @returns false siempre.
+	 */
+	function isSupervisor() {
+		return false;
+	}
+
+	/*
+	 * Se agrega al AffiliateUser por compatibilidad con el User
+	 * @returns false siempre.
+	 */
+	function isAdmin() {
+		return false;
+	}
+
+
 } // AffiliateUser
