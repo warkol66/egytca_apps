@@ -228,7 +228,7 @@ class MultilangTextPeer extends BaseMultilangTextPeer {
 	function getByTextAndModuleNameAndCode($text,$moduleName,$languageCode) {
 		$cond = new Criteria();
 		$cond->add(MultilangTextPeer::TEXT,$text);
-		$cond->add(MultilangTextPeer::MODULENAME,$moduleName);
+		$cond->add(MultilangTextPeer::MODULENAME,lcfirst($moduleName));
 		$text = MultilangTextPeer::doSelectOne($cond);
 		if (!empty($text)) {
 			$traduction = MultilangTextPeer::getByIdAndModuleNameAndCode($text->getId(),$moduleName,$languageCode);	
