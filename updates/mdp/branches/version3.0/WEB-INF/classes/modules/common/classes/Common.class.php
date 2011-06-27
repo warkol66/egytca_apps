@@ -593,6 +593,18 @@ class Common {
 	}
 
 	/**
+	 * Entrega la traduccion de un array con texto a partir del modulo y el idioma que use el sistema
+	 * @param string $array				El array con texto a traducir
+	 * @param string $moduleName  Nombre del modulo al que pertenece el texto
+	 * @return translation
+	 */
+	function getTranslatedArray($inputArray,$moduleName) {
+		foreach(array_keys($inputArray) as $key)
+			$translated[$key] = Common::getTranslation($inputArray[$key],$moduleName);
+		return $translated;
+	}
+
+	/**
 	 * Entrega el codigo de idioma a utilizar por el sistema
 	 * @return languageCode
 	 */
