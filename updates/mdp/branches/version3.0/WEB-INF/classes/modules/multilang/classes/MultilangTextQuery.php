@@ -14,24 +14,4 @@
  */
 class MultilangTextQuery extends BaseMultilangTextQuery {
 
-	/**
-	 * Returns a new MultilangTextQuery object.
-	 *
-	 * @param     string $modelAlias The alias of a model in the query
-	 * @param     Criteria $criteria Optional Criteria to build the query from
-	 *
-	 * @return    MultilangTextQuery
-	 */
-	public static function create($modelAlias = null, $criteria = null)
-	{
-		if ($criteria instanceof MultilangTextQuery) {
-			return $criteria;
-		}
-		$query = new self('application', 'MultilangText', $modelAlias);
-		if ($criteria instanceof Criteria) {
-			$query->mergeWith($criteria);
-		}
-		return $query;
-	}
-
 } // MultilangTextQuery

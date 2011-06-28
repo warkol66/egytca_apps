@@ -3,14 +3,6 @@
 <!-- Section Languages -->
 	<action-mappings>
 
-		<action    path = "multilangLanguagesEdit"
-							 type = "MultilangLanguagesEditAction"
-							 name = "multilangLanguagesEdit"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="MultilangLanguagesEdit.tpl" />
-		</action>
-
 		<action    path = "multilangLanguagesDoEdit"
 							 type = "MultilangLanguagesDoEditAction"
 							 name = "multilangLanguagesDoEdit"
@@ -18,14 +10,6 @@
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=multilangLanguagesList&amp;message=ok" redirect="true" />
 			<forward name="failure" path="MultilangLanguagesEdit.tpl" />
-		</action>
-
-		<action    path = "multilangLanguagesList"
-							 type = "MultilangLanguagesListAction"
-							 name = "multilangLanguagesList"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="MultilangLanguagesList.tpl" />
 		</action>
 
 		<action    path = "multilangLanguagesDoDelete"
@@ -40,14 +24,6 @@
 
 <!-- Seccion Texts -->
 
-		<action    path = "multilangTextsEdit"
-							 type = "MultilangTextsEditAction"
-							 name = "multilangTextsEdit"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="MultilangTextsEdit.tpl" />
-		</action>
-
 		<action    path = "multilangTextsDoEdit"
 							 type = "MultilangTextsDoEditAction"
 							 name = "multilangTextsDoEdit"
@@ -55,14 +31,6 @@
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=multilangTextsList&amp;message=ok" redirect="true" />
 			<forward name="failure" path="MultilangTextsEdit.tpl" />
-		</action>
-
-		<action    path = "multilangTextsEditBulk"
-							 type = "MultilangTextsEditBulkAction"
-							 name = "multilangTextsEditBulk"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="MultilangTextsEditBulk.tpl" />
 		</action>
 
 		<action    path = "multilangTextsDoEditBulk"
@@ -98,6 +66,7 @@
 							scope = "request"
 					 validate = "true">
 				<forward name="success" path="MultilangTextsDoDump.tpl" />
+				<forward name="failure" path="Error.tpl" />
 		</action>
 
 		<action    path = "multilangTextsDoDelete"

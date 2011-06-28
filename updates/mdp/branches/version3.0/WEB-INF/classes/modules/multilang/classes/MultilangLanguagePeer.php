@@ -1,14 +1,10 @@
 <?php
-// The parent class
-require_once 'multilang/classes/om/BaseMultilangLanguagePeer.php';
-require_once 'multilang/classes/MultilangLanguage.php';
-require_once 'multilang/classes/MultilangTextPeer.php';
 
 
 /**
  * Skeleton subclass for performing query and update operations on the 'multilang_language' table.
  *
- * 
+ *
  *
  * You should add additional methods to this class to meet the
  * application requirements.  This class will only be generated as
@@ -28,8 +24,8 @@ class MultilangLanguagePeer extends BaseMultilangLanguagePeer {
 	function create($name,$code,$locale) {
 		$languageObj = new MultilangLanguage();
 		$languageObj->setName($name);
-		$languageObj->setCode($code);    
-		$languageObj->setLocale($locale);    
+		$languageObj->setCode($code);
+		$languageObj->setLocale($locale);
 		$languageObj->save();
 		return true;
 	}
@@ -45,8 +41,8 @@ class MultilangLanguagePeer extends BaseMultilangLanguagePeer {
 	function update($id,$name,$code,$locale) {
 		$languageObj = MultilangLanguagePeer::retrieveByPK($id);
 		$languageObj->setName($name);
-		$languageObj->setCode($code);    
-		$languageObj->setLocale($locale);    
+		$languageObj->setCode($code);
+		$languageObj->setLocale($locale);
 		$languageObj->save();
 		return true;
 	}
@@ -71,7 +67,7 @@ class MultilangLanguagePeer extends BaseMultilangLanguagePeer {
 	*/
 	function get($id) {
 		$languageObj = MultilangLanguagePeer::retrieveByPK($id);
-    	return $languageObj;
+			return $languageObj;
 	}
 
 	/**
@@ -88,7 +84,7 @@ class MultilangLanguagePeer extends BaseMultilangLanguagePeer {
 		if ( !empty($language) )
 			$languageCode = $language->getCode();
 
-    return $languageCode;
+		return $languageCode;
 	}
 
 	/**
@@ -102,7 +98,7 @@ class MultilangLanguagePeer extends BaseMultilangLanguagePeer {
 		$cond->add(MultilangLanguagePeer::CODE, $code, Criteria::EQUAL);
 		$languageObj = MultilangLanguagePeer::doSelectOne($cond);
 
-    return $languageObj;
+		return $languageObj;
 	}
 
 	/**
@@ -119,7 +115,7 @@ class MultilangLanguagePeer extends BaseMultilangLanguagePeer {
 		if ( !empty($language) )
 			$languageId = $language->getId();
 
-    return $languageId;
+		return $languageId;
 	}
 
 	/**

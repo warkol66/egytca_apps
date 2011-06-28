@@ -1,13 +1,10 @@
 <?php
-// The parent class
-require_once 'multilang/classes/om/BaseMultilangTextPeer.php';
-require_once 'multilang/classes/MultilangText.php';
 
 
 /**
  * Skeleton subclass for performing query and update operations on the 'multilang_text' table.
  *
- * 
+ *
  *
  * You should add additional methods to this class to meet the
  * application requirements.  This class will only be generated as
@@ -43,22 +40,22 @@ class MultilangTextPeer extends BaseMultilangTextPeer {
 		$textObj->save();
 		return $textObj->getId();
 	}
-	
+
 	/**
 	 * Obtiene el proximo id para un modulo dado.
-	 * 
-	 * @param string $moduleName Nombre del modulo 
+	 *
+	 * @param string $moduleName Nombre del modulo
 	 * @return integer Id proximo libre
 	 */
 	function getNextIdByModuleName($moduleName) {
 		$cond = new Criteria();
 		$cond->add(MultilangTextPeer::MODULENAME,$moduleName);
 		$cond->addDescendingOrderByColumn(MultilangTextPeer::ID);
-		$last = MultilangTextPeer::doSelectOne($cond);	
+		$last = MultilangTextPeer::doSelectOne($cond);
 		$lastId = 0;
 		if (!empty($last)) {
 			$lastId = $last->getId();
-		}	
+		}
 		return $lastId+1;
 	}
 
@@ -199,7 +196,7 @@ class MultilangTextPeer extends BaseMultilangTextPeer {
 		}
 		return $allsOrdered;
 	}
-	
+
 	/**
 	* Obtiene la informacion de un text con un id, modulo e idioma especifico.
 	*
@@ -215,8 +212,8 @@ class MultilangTextPeer extends BaseMultilangTextPeer {
 		$cond->add(MultilangTextPeer::LANGUAGECODE,$languageCode);
 		$text = MultilangTextPeer::doSelectOne($cond);
 		return $text;
-	}	
-	
+	}
+
 	/**
 	* Obtiene la informacion de un text con un texto, modulo e idioma especifico.
 	*
@@ -231,10 +228,10 @@ class MultilangTextPeer extends BaseMultilangTextPeer {
 		$cond->add(MultilangTextPeer::MODULENAME,lcfirst($moduleName));
 		$text = MultilangTextPeer::doSelectOne($cond);
 		if (!empty($text)) {
-			$traduction = MultilangTextPeer::getByIdAndModuleNameAndCode($text->getId(),$moduleName,$languageCode);	
+			$traduction = MultilangTextPeer::getByIdAndModuleNameAndCode($text->getId(),$moduleName,$languageCode);
 		}
 		return $traduction;
-	}		
+	}
 
 
 	/**
@@ -286,10 +283,10 @@ class MultilangTextPeer extends BaseMultilangTextPeer {
 		$cond->addAscendingOrderByColumn(MultilangTextPeer::LANGUAGECODE);
 		$cond->addJoin(MultilangTextPeer::LANGUAGECODE,MultilangLanguagePeer::CODE,Criteria::INNER_JOIN);
 
-  	$pager = new PropelPager($cond,"MultilangTextPeer", "doSelect",$page,$perPage);
+		$pager = new PropelPager($cond,"MultilangTextPeer", "doSelect",$page,$perPage);
 		return $pager;
 	}
-  
+
 	/**
 	* Busca en los texts, paginados.
 	*
@@ -312,9 +309,9 @@ class MultilangTextPeer extends BaseMultilangTextPeer {
 		$cond->setIgnoreCase(true);
 
 		$pager = new PropelPager($cond,"MultilangTextPeer", "doSelect",$page,$perPage);
-    	return $pager;
+			return $pager;
 	}
-  
+
 	/**
 	* Busca en los texts.
 	*
@@ -349,7 +346,6 @@ class MultilangTextPeer extends BaseMultilangTextPeer {
 		return $texts;
 	}
 
-
 	/**
 	* Obtiene todos los texts de un modulo y un idioma.
 	*
@@ -371,7 +367,7 @@ class MultilangTextPeer extends BaseMultilangTextPeer {
 	 * @return string SQL
 	 */
 	public static function getSQLCleanup($moduleName,$languageCode) {
-		
+
 		$sql = "DELETE FROM `multilang_text` WHERE `moduleName` = '" . $moduleName . "' AND `languageCode` = '"  . $languageCode . "';\n";
 		$sql .= "OPTIMIZE TABLE `multilang_text`;";
 		return  $sql;

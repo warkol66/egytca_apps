@@ -1,7 +1,5 @@
 <?php
 
-require 'multilang/classes/om/BaseMultilangLanguage.php';
-
 
 /**
  * Skeleton subclass for representing a row from the 'multilang_language' table.
@@ -15,16 +13,5 @@ require 'multilang/classes/om/BaseMultilangLanguage.php';
  * @package    multilang.classes
  */
 class MultilangLanguage extends BaseMultilangLanguage {
-
-	/**
-	 * Initializes internal state of MultilangLanguage object.
-	 * @see        parent::__construct()
-	 */
-	public function __construct()
-	{
-		// Make sure that parent constructor is always invoked, since that
-		// is where any default values for this object are set.
-		parent::__construct();
-	}
 
 } // MultilangLanguage

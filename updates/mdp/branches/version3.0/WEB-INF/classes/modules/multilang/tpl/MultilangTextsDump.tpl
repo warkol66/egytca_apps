@@ -1,17 +1,17 @@
 <h2>##multilang,1,Multi-idioma##</h2>
 <h1>##multilang,20,Administrar Traducciones##</h1>
-<fieldset title="##multilang,22,Formulario para selecci髇 de m骴ulo##">
-<legend>##multilang,23,Selecci髇 de M骴ulo##</legend>
+<fieldset title="##multilang,22,Formulario para selecci贸n de m贸dulo##">
+<legend>##multilang,23,Selecci贸n de M贸dulo##</legend>
 <form method="get" action="Main.php"> 
 	<input type="hidden" name="do" value="multilangTextsDoDump" /> 
-			<p><label for="moduleName">##multilang,24,M骴ulos disponibles##</label> 
+			<p><label for="moduleName">##multilang,24,M贸dulos disponibles##</label> 
 				
 					<!--<select name="moduleName" onchange="if (this.options[this.selectedIndex].value) this.form.submit()" > -->
 					<select name="moduleName"> 
-						<option value="">##multilang,25,Seleccione un m骴ulo##</option>
+						<option value="">##multilang,25,Seleccione un m贸dulo##</option>
 						 
-		    		|-foreach from=$modules item=moduleObj name=for_module-|
-						<option value="|-$moduleObj->getName()-|" |-if $moduleName eq $moduleObj->getName()-|selected="selected"|-/if-|>|-$moduleObj->getName()|multilang_get_translation:"common"-| (|-$moduleObj->getName()-|)</option>
+		    		|-foreach from=$modules item=each_module name=for_module-|
+						<option value="|-$each_module-|" |-$each_module|selected:$moduleName-|>|-$each_module|multilang_get_translation:"common"-| (|-$each_module-|)</option>
     				|-/foreach-|					
 						<option value="system">System</option>
 					</select>

@@ -14,24 +14,4 @@
  */
 class MultilangLanguageQuery extends BaseMultilangLanguageQuery {
 
-	/**
-	 * Returns a new MultilangLanguageQuery object.
-	 *
-	 * @param     string $modelAlias The alias of a model in the query
-	 * @param     Criteria $criteria Optional Criteria to build the query from
-	 *
-	 * @return    MultilangLanguageQuery
-	 */
-	public static function create($modelAlias = null, $criteria = null)
-	{
-		if ($criteria instanceof MultilangLanguageQuery) {
-			return $criteria;
-		}
-		$query = new self('application', 'MultilangLanguage', $modelAlias);
-		if ($criteria instanceof Criteria) {
-			$query->mergeWith($criteria);
-		}
-		return $query;
-	}
-
 } // MultilangLanguageQuery
