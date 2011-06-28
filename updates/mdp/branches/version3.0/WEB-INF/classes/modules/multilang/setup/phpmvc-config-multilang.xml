@@ -1,47 +1,7 @@
 <!-- Modulo Multilang -->
-
-<!-- Section Languages -->
 	<action-mappings>
 
-		<action    path = "multilangLanguagesDoEdit"
-							 type = "MultilangLanguagesDoEditAction"
-							 name = "multilangLanguagesDoEdit"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="/Main.php?do=multilangLanguagesList&amp;message=ok" redirect="true" />
-			<forward name="failure" path="MultilangLanguagesEdit.tpl" />
-		</action>
-
-		<action    path = "multilangLanguagesDoDelete"
-							 type = "MultilangLanguagesDoDeleteAction"
-							 name = "multilangLanguagesDoDelete"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="/Main.php?do=multilangLanguagesList&amp;message=deleted_ok" redirect="true" />
-		</action>
-
-<!-- End Section Languages -->
-
 <!-- Seccion Texts -->
-
-		<action    path = "multilangTextsDoEdit"
-							 type = "MultilangTextsDoEditAction"
-							 name = "multilangTextsDoEdit"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="/Main.php?do=multilangTextsList&amp;message=ok" redirect="true" />
-			<forward name="failure" path="MultilangTextsEdit.tpl" />
-		</action>
-
-		<action    path = "multilangTextsDoEditBulk"
-							 type = "MultilangTextsDoEditBulkAction"
-							 name = "multilangTextsDoEditBulk"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="/Main.php?do=multilangTextsList&amp;message=ok" redirect="true" />
-			<forward name="failure" path="MultilangTextsEditBulk.tpl" />
-		</action>
-
 		<action    path = "multilangTextsList"
 							 type = "MultilangTextsListAction"
 							 name = "multilangTextsList"
@@ -50,34 +10,7 @@
 			<forward name="success" path="MultilangTextsList.tpl" />
 			<forward name="search" path="MultilangTextsListSearch.tpl" />
 		</action>
-
-		<action    path = "multilangTextsDump"
-							 type = "MultilangTextsDumpAction"
-							 name = "multilangTextsDump"
-							scope = "request"
-					 validate = "true">
-				<forward name="success" path="MultilangTextsDump.tpl" />
-				<forward name="successDump" path="MultilangTextsDoDump.tpl" />
-		</action>
-
-		<action    path = "multilangTextsDoDump"
-							 type = "MultilangTextsDoDumpAction"
-							 name = "multilangTextsDoDump"
-							scope = "request"
-					 validate = "true">
-				<forward name="success" path="MultilangTextsDoDump.tpl" />
-				<forward name="failure" path="Error.tpl" />
-		</action>
-
-		<action    path = "multilangTextsDoDelete"
-							 type = "MultilangTextsDoDeleteAction"
-							 name = "multilangTextsDoDelete"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="/Main.php?do=multilangTextsList&amp;message=deleted_ok" redirect="true" />
-		</action>
-
-	</action-mappings>
 <!-- End Section Texts -->
 
+	</action-mappings>
 <!-- End Module Multilang -->

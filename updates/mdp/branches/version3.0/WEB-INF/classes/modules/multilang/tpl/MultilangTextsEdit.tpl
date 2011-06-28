@@ -42,7 +42,8 @@
       <input type="hidden" name="do" id="do" value="multilangTextsDoEdit" />
       <input type="hidden" name="moduleName" value="|-$moduleName-|" />
       <input type="hidden" name="currentPage" value="|-$currentPage-|" />
-      <input type="submit" id="button_edit_text" name="button_edit_text" title="##common,3,Aceptar##" value="##common,3,Aceptar##" class="button" />
+      <input type="submit" id="button_edit_text" name="button_edit_text" title="##common,3,Aceptar##" value="##common,3,Aceptar##" />
+      <input type="button" id="return" name="return" title="Regresar" value="Regresar" onclick="location.href='Main.php?do=multilangTextsList&moduleName=|-$moduleName-|&currentPage=|-$currentPage-|'"/>
     </p>
     </fieldset>
   </form>
