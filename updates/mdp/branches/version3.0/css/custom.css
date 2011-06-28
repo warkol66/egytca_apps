@@ -52,13 +52,20 @@ body {
 	background-image: url(../images/topImage.png);
 	background-position: left 20px;
 	background-repeat: no-repeat;
+	background-color: #FFFFFF;
+	border-bottom: 5px solid #0066cc;
+	border-left: solid 5px #0066cc;
+	border-right: solid 5px #0066cc;
 }
 #contentWrapper { 
-	background-image: url(../images/bkg-2columns.gif);
+	background-image: url(../images/bkg-2columns.png);
 	background-repeat: repeat-y;
+	border-left: solid 5px #0066cc;
+	border-right: solid 5px #0066cc;
+	background-color: #FFFFFF;
 }
 #contentCloser { 
-	background-image: url(../images/bkg-2columns.gif);
+	background-image: url(../images/bkg-2columns.png);
 	background-repeat: repeat-y;
 }
 #leftColumn{
@@ -81,6 +88,14 @@ body {
 }
 #footer p{
 	color: #ffffff;
+}
+.rounded .r1, .rounded .r2, .rounded .r3, .rounded .r4, .rounded .r5, .rounded .r6, .rounded .r7 {
+	border-color: #0066cc;}
+.rounded .r3, .rounded .r4, .rounded .r5, .rounded .r6, .rounded .r7 {
+	background-color: #0066cc;
+}
+.rounded .r1, .rounded .r2 {
+	background-color: #FFFFFF;  /* Mismo color de fondo del header*/
 }
 /* /wrapper -----------------------------------------------------------*/ 
 

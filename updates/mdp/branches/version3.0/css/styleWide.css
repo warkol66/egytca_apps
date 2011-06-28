@@ -1,8 +1,11 @@
 #rightColumn { 
-	width: 1048px;
+	width: 1075px;
 }
-#wrapper,#contentWrapper { 
+#wrapper { 
 	width: 1280px;
+}
+#contentWrapper { 
+	width: 1270px;
 }
 #header { 
 	width: 1270px;

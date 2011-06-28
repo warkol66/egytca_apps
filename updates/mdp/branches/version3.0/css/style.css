@@ -81,20 +81,20 @@
 }
 #header {
 	width: 955px;
-	height: 98px;
+	height: 45px;
 	margin: 0;
 	padding: 0;
 	display: block;
 }
 #header a{
 	width:115px;
-	height: 63px;
-	 float: left;
-	 display: block;
-	 margin: 38px 0 0 8px;
+	height: 35px;
+	float: left;
+	display: block;
+	margin: 8px 0 0 8px;
 }
 #header a strong{
-	 display:none;
+	display:none;
 }
 #contentWrapper { 
 	width: 955px;
@@ -112,7 +112,7 @@
 	width: 150px;
 	float: left;
 	border: none;
-	margin: 0px 5px 5px 5px;
+	margin: 0px 5px 5px 0px;
 	padding: 0px;
 }
 
@@ -134,6 +134,17 @@
 	text-align:right;
 	padding: 3px 5px 0 0 ;
 }
+.rounded .rtop, .rounded .rbottom{display:block; }
+.rounded .rtop *, .rounded .rbottom *{display: block; height: 1px; overflow: hidden;}
+.rounded .r1, .rounded .r2, .rounded .r3, .rounded .r4, .rounded .r5, .rounded .r6, .rounded .r7 {
+ height: 1px; overflow: hidden; border-style: solid; border-width: 0 5px; display: block;}
+.rounded .r1 {margin: 0 1px; height: 2px;}
+.rounded .r2 {margin: 0 2px; border-width: 0 6px;}
+.rounded .r3 {margin: 0 2px; border-width: 0 6px;}
+.rounded .r4 {margin: 0 3px;}
+.rounded .r5 {margin: 0 4px; border-width: 0 2px;}
+.rounded .r6 {margin: 0 6px; border-width: 0 2px;}
+.rounded .r7 {margin: 0 8px; border: none;}
 /* /wrapper -----------------------------------------------------------*/ 
 
 /* content -----------------------------------------------------------*/ 
