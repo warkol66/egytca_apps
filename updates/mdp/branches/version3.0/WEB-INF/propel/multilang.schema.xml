@@ -1,4 +1,4 @@
-<database defaultIdMethod="native" package="multilang.classes" name="application" >
+<database defaultIdMethod="native" package="services.classes" name="application" >
 
 	<table phpName="MultilangText" name="multilang_text">
 
