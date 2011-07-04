@@ -555,7 +555,6 @@ class Common {
 	* @return Idiomas del sistema
 	*/
 	function getAllLanguages() {
-		require_once("MultilangLanguagePeer.php");
 		$languages = MultilangLanguagePeer::getAll();
 		return $languages;
 	}
