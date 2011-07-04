@@ -21,11 +21,11 @@ class MultilangTextPeer extends BaseMultilangTextPeer {
 	 * @return $text string texto con reemplazo de caracteres especiales
 	 */
 	function replaceText($text) {
-		$text = str_replace("\'","\&#0039;",$text);
+/*		$text = str_replace("\'","\&#0039;",$text);
 		$text = str_replace('\"',"\&quot;",$text);
 		$text = str_replace("'","&#0039;",$text);
 		$text = str_replace('"',"&quot;",$text);
-		return $text;
+*/		return $text;
 	}
 
 	private $searchString;
@@ -116,7 +116,7 @@ class MultilangTextPeer extends BaseMultilangTextPeer {
 		$textObj = new MultilangText();
 		$textObj->setModuleName($moduleName);
 		$textObj->setLanguageCode($languageCode);
-		$textObj->setText(MultilangTextPeer::replaceText($text));
+		$textObj->setText($text);//MultilangTextPeer::replaceText($text));
 		$newId = MultilangTextPeer::getNextIdByModuleName($moduleName);
 		$textObj->setId($newId);
 		$textObj->save();

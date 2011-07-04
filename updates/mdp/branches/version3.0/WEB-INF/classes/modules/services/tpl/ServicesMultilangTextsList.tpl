@@ -1,3 +1,8 @@
+<script type="text/javascript" src="scripts/overlib_cssw3c.js"></script>
+<script type="text/javascript">
+	overlib_pagedefaults(FGCOLOR, '#e7ecf2', BGCOLOR, '#0066cc', TEXTCOLOR, '#666666',CELLPAD,15,BORDER,5,SNAPX,10,SNAPY,10, VAUTO);
+</script>
+
 <h2>##multilang,1,Multi-idioma##</h2>
 <h1>##multilang,20,Administrar Traducciones##</h1>
 <p>##multilang,46,Resultados de la búsqueda de textos en el módulo:## &quot;|-$moduleName-|&quot;</p>
@@ -14,7 +19,7 @@
 		<select name="moduleName" onChange="if (this.options[this.selectedIndex].value) this.form.submit()" > 
 			<option value="">##multilang,25,Seleccione un módulo##</option> 
 		|-foreach from=$modules item=eachModule name=for_module-|
-			<option value="|-$eachModule-|" |-$eachModule|selected:$moduleName-|>|-$eachModule|multilang_get_translation:"common"|escape-|</option>
+			<option value="|-$eachModule-|" |-$eachModule|selected:$moduleName-|>|-$eachModule|multilang_get_translation:"common"-|</option>
 		|-/foreach-|					
 		</select></p>
   	<input type="hidden" name="do" value="servicesMultilangTextsList" />
@@ -32,10 +37,10 @@
 		<p><label for="search">##multilang,35,Buscar texto##</label>
       <input name="search" type="text" id="search" value="|-$search-|" size="30" maxlength="35" />  	
 	  	<input type="submit" value="##common,4,Buscar##" />
-		</p></div>
+		</p>
   	<input type="hidden" name="moduleName" value="|-$moduleName-|" />
   	<input type="hidden" name="do" value="servicesMultilangTextsList" />
-</form>
+</form></div>
 |-/if-|
 </fieldset> 
 
@@ -67,10 +72,10 @@
       |-assign var="languageCode" value=$language->getCode()-|
       |-assign var="text" value=$textLanguages[$languageCode]-|
       |-if $text ne ""-|
-      	|-assign var="textContent" value=$text->getText()-|
+      	|-assign var="textContent" value=$text->getText()|escape-|
       |-/if-|
       <td>|-if $text ne ""-||-$text->gettext()-|<div align="right" style="margin-top:8px;margin-right:8px;float:right">
-			<a href="#" |-popup sticky=true caption="Text Code" trigger="onClick" text="##multilang,43,Código de inserción##: #&#0035;$moduleName,$textId,$textContent#&#0035;" snapx=10 snapy=10-|><img src="images/icon_copy.png" /></a></div>
+			<a href="#" |-popup sticky=true caption="Text Code" closetext="Cerrar" trigger="onClick" text="##multilang,43,Código de inserción##: #&#0035;$moduleName,$textId,$textContent#&#0035;"-|><img src="images/icon_copy.png" /></a></div>
       |-/if-|</td>
       |-/foreach-|
       <td align="center" nowrap="nowrap">
