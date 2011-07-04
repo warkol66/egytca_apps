@@ -35,7 +35,7 @@ class AffiliatesUsersDoPasswordRecoveryAction extends BaseAction {
 				$subject = Common::getTranslation('New password','users');
 				$body = $smarty->fetch("UsersPasswordRecoveryMail.tpl");
 
-				$mailTo = $_POST["mailAddress"]);
+				$mailTo = $_POST["mailAddress"];
 
 				global $system;
 				$mailFrom = $system["config"]["system"]["parameters"]["fromEmail"];
