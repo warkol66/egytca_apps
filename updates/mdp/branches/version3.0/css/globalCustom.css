@@ -495,3 +495,15 @@ option{
 	padding-right: 5px;
 	background: #FCFCFC;
 }
+
+/* Estilos para overDiv */
+#overDiv table td{
+	padding: 1px;
+}
+#overDiv table td table td{
+	padding: 6px;
+}
+#overDiv table td table td a{
+	text-decoration: none;
+	font-weight: bold;
+}
