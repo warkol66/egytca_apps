@@ -51,6 +51,9 @@ $gPath = ClassPath::setClassPath($moduleRootDir, $modulePaths, $osType);
 include $moduleRootDir.$modulePath;
 $modulePaths = ModulePaths::getModulePaths();
 
+$propelVersionPath='WEB-INF/lib-phpmvc/Propel/'.$propelVersion.'/runtime';
+$gPath = ClassPath::concatPaths($gPath, $propelVersionPath, $osType);
+
 $mPath = ClassPath::getClassPath($moduleRootDir, $modulePaths, $osType);
 $cPath = ClassPath::concatPaths($gPath, $mPath, $osType);
 

@@ -6,7 +6,7 @@
 * @package phpMVCconfig
 */
 
-if( defined('PHPMVC_PERFORM') ) {
+if (defined('PHPMVC_PERFORM')) {
 	require_once 'smarty/Smarty.class.php';
 	require_once 'smarty/SmartyML.class.php';
 }
