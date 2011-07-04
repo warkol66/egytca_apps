@@ -86,6 +86,10 @@ class IssuePeer extends BaseIssuePeer {
 	}
 
 	private $searchString;
+	private $categoryId;
+	private $impact;
+	private $valoration;
+	private $evolution;
 	private $limit;
 
 	//mapea las condiciones del filtro

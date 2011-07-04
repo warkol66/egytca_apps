@@ -61,7 +61,7 @@
 		<!-- And set some custom propertied on the PlugIn class					       -->
 		<!-- Note: The property name must match the class variable name exactly -->
 		<set-property property="caching"       value="0"/>
-		<set-property property="force_compile" value="true"/>
+		<set-property property="force_compile" value="false"/>
 		<set-property property="template_dir"  value="WEB-INF/tpl/"/>
 		<set-property property="compile_dir"   value="WEB-INF/smarty_tpl/templates_c/"/>
 		<set-property property="config_dir"    value="WEB-INF/smarty_tpl/configs/"/>
