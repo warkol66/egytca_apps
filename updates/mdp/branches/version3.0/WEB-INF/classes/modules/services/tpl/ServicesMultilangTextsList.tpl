@@ -5,7 +5,8 @@
 
 <h2>##multilang,1,Multi-idioma##</h2>
 <h1>##multilang,20,Administrar Traducciones##</h1>
-<p>##multilang,46,Resultados de la búsqueda de textos en el módulo:## &quot;|-$moduleName-|&quot;</p>
+|-if !$search-|<p>##multilang,21,Con esta aplicación puede administrar los textos que mostrará el sistema según el idioma del usuario. Seleccione un módulo y agregue un nuevo texto o edite los valores actuales.##</p>
+|-else-|<p>##multilang,46,Resultados de la búsqueda de textos en el módulo:## &quot;|-$moduleName-|&quot;</p>|-/if-|
 |-if $message eq "ok"-|
 <div class='successMessage'>##multilang,27,Texto guardado correctamente##</div>
 |-elseif $message eq "deleted_ok"-|
@@ -75,7 +76,7 @@
       	|-assign var="textContent" value=$text->getText()|escape-|
       |-/if-|
       <td>|-if $text ne ""-||-$text->gettext()-|<div align="right" style="margin-top:8px;margin-right:8px;float:right">
-			<a href="#" |-popup sticky=true caption="Text Code" closetext="Cerrar" trigger="onClick" text="##multilang,43,Código de inserción##: #&#0035;$moduleName,$textId,$textContent#&#0035;"-|><img src="images/icon_copy.png" /></a></div>
+			<a href="#" |-popup sticky=true caption="Text Code" closetext="Cerrar" trigger="onClick" text="##multilang,43,Código de inserción##:<br />#&#0035;$moduleName,$textId,$textContent#&#0035;"-|><img src="images/icon_copy.png" /></a></div>
       |-/if-|</td>
       |-/foreach-|
       <td align="center" nowrap="nowrap">
