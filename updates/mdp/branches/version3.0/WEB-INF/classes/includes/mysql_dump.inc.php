@@ -11,7 +11,7 @@
 
 *
 * @name    MySQLDump
-* @author  Daniele Vigan� - CreativeFactory.it <daniele.vigano@creativefactory.it> - based on a version by Andrea Ingaglio <andrea@coders4fun.com>
+* @author  Daniele Viganò - CreativeFactory.it <daniele.vigano@creativefactory.it> - based on a version by Andrea Ingaglio <andrea@coders4fun.com>
 * @version 2.0 - 02/10/2007
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
@@ -206,11 +206,11 @@ class MySQLDump {
 					if ($record[$field_name] === NULL)
 						$registerData .= " NULL";
 					else
-						$registerData .= '\''.@str_replace('\"','"',@mysql_escape_string($record[$field_name])).'\'';
+						$registerData .= '\''.@str_replace('\"','"',@mysql_real_escape_string($record[$field_name])).'\'';
 				$registerData .= ',';
 			}
 			$registerData = @substr($registerData,0,-1)."),\n";
-			//if data in greather than 1MB save
+			//if data in greather than 500KB save
 			if (strlen($data) + strlen($registerData) >= 524288) {
 				$data = @substr($data,0,-2).";\n\n";
 				$this->saveToFile($this->file,$data);
