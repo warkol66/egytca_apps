@@ -31,10 +31,14 @@ TextCounter.prototype = {
 
 		// update counter
 		if (this.input) {
-			if ((charCount-breaks) > this.maxLength)
+			if ((charCount-breaks) > this.maxLength) {
 				this.input.value = 0;
-			else
+				this.input.className = "charCountLimitReached";
+			}
+			else {
 				this.input.value = (this.maxLength + breaks) - charCount;
+				this.input.className = "charCount";
+			}
 		}
 	}
 }

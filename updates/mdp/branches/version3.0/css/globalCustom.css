@@ -507,3 +507,29 @@ option{
 	text-decoration: none;
 	font-weight: bold;
 }
+
+
+.charCount {
+	border: 1px solid #a0a0a0;/*#F0F0F0;*/
+	outline: 0 none;
+	cursor: help;
+	color: #255637;
+	font-weight: bold;
+	background:transparent url(../images/valid.png) no-repeat right;
+	-khtml-border-radius: 2px;
+	-opera-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+.charCountLimitReached {
+	border: 1px solid #8B0000;/*#F0F0F0;*/
+	outline: 0 none;
+	cursor: help;
+	color: #8B0000;
+	font-weight: bold;
+	background:transparent url(../images/prohibited.png) no-repeat right;
+	-khtml-border-radius: 2px;
+	-opera-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}

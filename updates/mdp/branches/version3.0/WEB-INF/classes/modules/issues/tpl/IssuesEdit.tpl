@@ -8,8 +8,13 @@
 		<fieldset title="Formulario de edición de datos de un issue">
 			<legend>Formulario de Administración de ##issues,1,Asuntos##</legend>
 			<p>
+<script src="scripts/textCounter.js" language="JavaScript" type="text/javascript"></script>
 				<label for="params[name]">##issues,2,Asunto##</label>
-				<input type="text" id="params[name]" name="params[name]" size="70" value="|-$issue->getName()|escape-|" title="##issues,2,Asunto##" />
+				<input type="text" id="params[name]" name="params[name]" size="70" value="|-$issue->getName()|escape-|" title="##issues,2,Asunto##" /> |-assign var=nameColumn value=$issueTable->getColumn('name')-||-assign var=size value=$nameColumn->getSize()-|
+<input type="text" id="remaining" size="2" title="Caracteres disponibles" alt="Caracteres disponibles" class="charCount" /> 
+<script type="text/javascript">
+var t1 = new TextCounter('params[name]', 'remaining', |-$size-|);
+</script> 
 			</p>
 			<p>
 				<label for="params[description]">Descripción</label>

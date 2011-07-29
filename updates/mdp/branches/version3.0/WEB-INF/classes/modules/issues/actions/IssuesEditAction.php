@@ -29,6 +29,9 @@ class IssuesEditAction extends BaseAction {
 		$smarty->assign("page",$_GET["page"]);
 		$smarty->assign("message",$_GET["message"]);
 
+		$issueTable = IssuePeer::getTableMap();
+		$smarty->assign("issueTable",$issueTable);
+
 		if (!empty($_GET["id"])) {
 			//voy a editar un objeto
 
