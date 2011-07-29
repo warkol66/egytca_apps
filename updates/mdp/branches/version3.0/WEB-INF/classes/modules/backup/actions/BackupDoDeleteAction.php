@@ -1,11 +1,9 @@
-﻿<?php
+<?php
 /**
  * BackupDeleteAction
  *
  * @package backup
  */
-
-require_once("BackupPeer.php");
 
 class BackupDoDeleteAction extends BaseAction {
 
@@ -40,5 +38,4 @@ class BackupDoDeleteAction extends BaseAction {
 			return $mapping->findForwardConfig('failure');
 		}
 	}
-
 }
