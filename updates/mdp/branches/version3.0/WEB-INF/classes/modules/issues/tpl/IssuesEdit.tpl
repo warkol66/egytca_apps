@@ -40,7 +40,7 @@
 				</select>
 			</p>
 			|-if isset($loginUser) && $loginUser->isSupervisor()-|
-				<p><label for="changedBy">|-if $issue->getVersion() gt 1-|Modificado|-else-|Creado|-/if-| por:</label> |-$issue->changedBy()-| - |-$issue->getUpdatedAt()|change_timezone|datetime_format-| </p>
+				<p><label for="changedBy">|-if $issue->getVersion() gt 1-|Modificado|-else-|Creado|-/if-| por:</label> |-$issue->changedBy()-| - |-$issue->getUpdatedAt()|change_timezone|dateTime_format-| </p>
 			|-/if-|
 			<p>
 				|-if $action eq 'edit'-|
@@ -71,6 +71,8 @@ function addActorToIssue(form) {
 					insertion: Insertion.Bottom
 				});
 	$('actorMsgField').innerHTML = '<span class="inProgress">Agregando actor al asunto...</span>';
+    $('autocomplete_actors').value = '';
+    $('addActorSubmit').disable();
 	return true;
 }
 
@@ -94,11 +96,11 @@ function removeActorFromIssue(form){
 	<div id="actorMsgField"></div>
 	<form method="post" style="display:inline;">
 		<div id="issueActor" style="position: relative;z-index:10000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_actors" label="Agregar actor al ##issues,4,asunto##" url="Main.php?do=actorsAutocompleteListX&getCandidates=1&issueId="|cat:$issue->getId() hiddenName="actor[id]"-||-*disableSubmit="addActorSubmit"*-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_actors" label="Agregar actor al ##issues,4,asunto##" url="Main.php?do=actorsAutocompleteListX&getCandidates=1&issueId="|cat:$issue->getId() hiddenName="actor[id]" disableSubmit="addActorSubmit"-|
 		</div>
 	<p>	<input type="hidden" name="do" id="do" value="issuesDoAddActorX" />
 		<input type="hidden" name="issueId" id="issueId" value="|-$issue->getId()-|" /> 
-    <input type="button" id="addActorSubmit" name="addActorSubmit" value="Agregar actor al ##issues,4,asunto##" title="Agregar actos al ##issues,4,asunto##" onClick="javascript:addActorToIssue(this.form)"/> </p>
+    <input type="button" id="addActorSubmit" disabled="disabled" name="addActorSubmit" value="Agregar actor al ##issues,4,asunto##" title="Agregar actos al ##issues,4,asunto##" onClick="javascript:addActorToIssue(this.form)"/> </p>
 	</form>
   <div id="issuesActorsList">
 		<ul id="actorList" class="iconOptionsList">
