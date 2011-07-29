@@ -17,6 +17,7 @@ class BackupPeer {
 
 	var $header = '';
 	var $pathIgnoreList = array('backups/','WEB-INF/smarty_tpl/templates_c');
+	private $ignoreHeaderAndFooter;
 
 	/**
 	 * Verifica actualemente si la configuracion de la base tiene prefijo
@@ -47,6 +48,13 @@ class BackupPeer {
 
 		$this->header = $header;
 		return true;
+	}
+
+	/**
+	 * Ignora la creación de encabezado y pie para correccion de camelcase
+	 */
+	function setIgnoreHeaderAndFooter() {
+		$this->ignoreHeaderAndFooter = true;
 	}
 
 	/**
@@ -100,11 +108,13 @@ class BackupPeer {
 		if (($tablePrefix = BackupPeer::configHasPrefix()) != false)
 			$dumper->setTablePrefix($tablePrefix);
 
-		$headerAndFooter = $this->getDumpHeaderAndFooter();
-		$header = $headerAndFooter["header"];
-		$footer = $headerAndFooter["footer"];
-		$filecontent = $dumper->doDumpToString();
-		$filecontents = $header.$filecontent.$footer;
+		if (!$this->ignoreHeaderAndFooter) {
+			$headerAndFooter = $this->getDumpHeaderAndFooter();
+			$header = $headerAndFooter["header"];
+			$footer = $headerAndFooter["footer"];
+			$filecontent = $dumper->doDumpToString();
+			$filecontents = $header.$filecontent.$footer;
+		}
 
 		mysql_close($connection);
 
@@ -176,6 +186,7 @@ class BackupPeer {
 		//nos guardamos un dump de la tabla de logs para hacerla trascender al respaldo que se está cargando
 		//esta tabla no se debe alterar al cargar un respaldo.
 		$this->setTableHeader('actionLogs_log');
+		$this->setIgnoreHeaderAndFooter();
 		$logsDump = $this->buildDataBackup();
 		$sqlQuery .= $logsDump; //ponemos la tabla de logs actual para que se cargue al final de todo.
 		
@@ -388,7 +399,6 @@ class BackupPeer {
 		$header = "";
 		$footer = "";
 		if ($osType == "WINDOWS" || $osType == "WINNT" || $osType == "WIN") {
-			$pathToXml = $moduleRootDir.'/WEB-INF/classes/propel/schema.xml';
 
 			//Path a schemas
 			$path = "WEB-INF/propel";
@@ -397,7 +407,7 @@ class BackupPeer {
 			$schemas = Array();
 
 			foreach ($schemasFile as $schema) {
-				if (substr($schema, -3) == "xml")
+				if (substr($schema, -10) == "schema.xml")
 					$schemas[] = $schema;
 			}
 
