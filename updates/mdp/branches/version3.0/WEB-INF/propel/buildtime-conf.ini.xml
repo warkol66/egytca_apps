@@ -2,24 +2,27 @@
 
 <config>
  <log>
-  <type>file</type>
-  <name>propel.log</name>
-  <ident>application</ident>
-  <level>7</level>
+	<type>file</type>
+	<name>propel.log</name>
+	<ident>application</ident>
+	<level>7</level>
  </log>
  <propel>
-  <datasources default="application">
-   <datasource id="application">
-    <!-- the Propel adapter (usually same as phptype of connection DSN) -->
-    <adapter>mysql</adapter>
-    <connection>
-     <dsn>mysql:host=localhost; dbname=anmaga_update</dsn>
-     <user>root</user>
-     <password>vertrigo</password>
-    </connection>
-   </datasource>
-  </datasources>
-  <debugpdo>
+	<datasources default="application">
+	 <datasource id="application">
+		<!-- the Propel adapter (usually same as phptype of connection DSN) -->
+		<adapter>mysql</adapter>
+		<connection>
+		 <dsn>mysql:host=localhost; dbname=$database</dsn>
+		 <user>$username</user>
+		 <password>$password</password>
+		 <settings>
+			<setting id="charset">utf8</setting>
+		 </settings>
+		</connection>
+	 </datasource>
+	</datasources>
+	<debugpdo>
 		<logging>
 			<details>
 				<method>
@@ -33,6 +36,6 @@
 				</mem>
 			</details>
 		</logging>
-   </debugpdo>
+	 </debugpdo>
  </propel>
 </config>
