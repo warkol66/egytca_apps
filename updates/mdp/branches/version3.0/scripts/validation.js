@@ -405,17 +405,18 @@ function clearFieldsFormat(elements) {
 
 
 /**
- * Fincion para contar caracteres
+ * Funcion para contar caracteres
  */
 var TextCounter = Class.create();
 TextCounter.prototype = {
-	initialize: function(textareaid, inputid, maxLength) {
+	initialize: function(textareaid, inputid, maxLength, showHide) {
 		this.maxLength = maxLength;
 		this.textarea = $(textareaid);
 		this.input = $(inputid);
 		this.input.value = maxLength;
 		this.input.readonly = true;
 		this.input.disabled = true;
+		this.input.style.display = showHide;
 		Event.observe(this.textarea, 'keyup', this.checkChars.bindAsEventListener(this));
 		Event.observe(this.textarea, 'keydown', this.checkChars.bindAsEventListener(this));
 		this.checkChars();
