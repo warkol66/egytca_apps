@@ -26,8 +26,7 @@ function actorsDeleteCategoryFromActor(form){
 				{
 					method: 'post',
 					postBody: fields,
-					evalScripts: true,
-				
+					evalScripts: true
 				});
 				
 	$('categoryMsgField').innerHTML = '<span class="inProgress">eliminando ##actors,2,Actor## de la categoría...</span>';

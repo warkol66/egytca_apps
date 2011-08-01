@@ -8,7 +8,7 @@ function modulesGetAllFieldsByEntityX(form){
 				{
 					method: 'post',
 					postBody: fields,
-					evalScripts: true,
+					evalScripts: true
 				});
 	$('fieldMsgField').innerHTML = '<p><span class="inProgress">buscando campos...</span></p>';
 	form['do'].value = 'modulesEntitiesFieldsDoEdit';

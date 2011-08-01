@@ -7,7 +7,7 @@ function resetPassword(form){
 				{
 					method: 'post',
 					postBody: fields,
-					evalScripts: true,
+					evalScripts: true
 				});
 	$('usersMsgField').innerHTML = '<span class="inProgress">generando nueva contraseña...</span>';
 	return true;

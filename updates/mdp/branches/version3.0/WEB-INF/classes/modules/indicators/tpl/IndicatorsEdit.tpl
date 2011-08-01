@@ -26,8 +26,7 @@ function indicatorsDeleteCategoryFromIndicator(form){
 				{
 					method: 'post',
 					postBody: fields,
-					evalScripts: true,
-				
+					evalScripts: true
 				});
 				
 	$('categoryMsgField').innerHTML = '<span class="inProgress">eliminando categoría del indicador...</span>';

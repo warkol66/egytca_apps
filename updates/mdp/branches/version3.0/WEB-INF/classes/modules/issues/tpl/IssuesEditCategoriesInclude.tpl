@@ -25,7 +25,7 @@ function issuesRemoveCategory(form){
 				{
 					method: 'post',
 					postBody: fields,
-					evalScripts: true,
+					evalScripts: true
 				});
 	$('categoryMsgField').innerHTML = '<span class="inProgress">eliminando ##issues,2,Asunto## de la categoría...</span>';
 	return true;
