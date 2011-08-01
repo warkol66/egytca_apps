@@ -422,7 +422,7 @@ TextCounter.prototype = {
 		this.checkChars();
 	},
 	checkChars: function(e) {
-		var includeBreaksInCount = false; // false = don't count a return (\r or \n) in the count.
+		var includeBreaksInCount = true; // false = don't count a return (\r or \n) in the count.
 		var charCount = this.textarea.value.length;
 		var breaks = 0;
 		if (!includeBreaksInCount) {
