@@ -32,13 +32,21 @@ TextCounter.prototype = {
 		// update counter
 		if (this.input) {
 			if ((charCount-breaks) > this.maxLength) {
-				this.input.value = 0;
-				this.input.className = "charCountLimitReached";
+                this.setCountAndClass(0, "charCountLimitReached");
 			}
 			else {
-				this.input.value = (this.maxLength + breaks) - charCount;
-				this.input.className = "charCount";
+                this.setCountAndClass((this.maxLength + breaks) - charCount, "charCount");
 			}
 		}
-	}
+	},
+    setCountAndClass: function (count, className) {
+
+        if (Element.readAttribute(this.input, 'value') == null)
+            this.input.innerHTML = count;
+        else
+            this.input.value = count;
+        
+        this.input.className = className;
+        
+    }
 }

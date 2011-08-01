@@ -11,7 +11,7 @@
 <script src="scripts/textCounter.js" language="JavaScript" type="text/javascript"></script>
 				<label for="params[name]">##issues,2,Asunto##</label>
 				<input type="text" id="params[name]" name="params[name]" size="70" value="|-$issue->getName()|escape-|" title="##issues,2,Asunto##" /> |-assign var=nameColumn value=$issueTable->getColumn('name')-||-assign var=size value=$nameColumn->getSize()-|
-<input type="text" id="remaining" size="2" title="Caracteres disponibles" alt="Caracteres disponibles" class="charCount" /> 
+<input type="text" id="remaining" size="2" title="Caracteres disponibles" alt="Caracteres disponibles" class="charCount" value="0" />
 <script type="text/javascript">
 var t1 = new TextCounter('params[name]', 'remaining', |-$size-|);
 </script> 
