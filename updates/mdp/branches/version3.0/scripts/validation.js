@@ -39,10 +39,10 @@ function validationValidateFormClienSide(form, doSubmit) {
 		validationSetInvalidFields(numericResult,validation_messageNumeric);
 		validationSetInvalidFields(dateResult,validation_messageDate);
 		validationSetInvalidFields(passResult,validation_messagePasswordMatch);
-		
+
 		if (Object.isFunction(showValidationFailureMessage))
 			showValidationFailureMessage(form);
-		
+
 		document.location.href = '#';
 		return false;
 	} else {
@@ -114,17 +114,17 @@ function validationValidateField(fieldId) {
 	}
 
 	if (field.hasClassName('mailValidation')) {
-		if (!(validationValidateElement(field, validationMailValidator))) 
+		if (!(validationValidateElement(field, validationMailValidator)))
 			validationSetInvalidField(field,validation_messageMail);
 	}
 
 	if (field.hasClassName('numericValidation')) {
-		if (!(validationValidateElement(field,  validationNumericValidator))) 
+		if (!(validationValidateElement(field,  validationNumericValidator)))
 			validationSetInvalidField(field,validation_messageNumeric);
 	}
 
 	if (field.hasClassName('dateValidation')) {
-		if (!(validationValidateElement(field, validationDateValidator))) 
+		if (!(validationValidateElement(field, validationDateValidator)))
 			validationSetInvalidField(field,validation_messageDate);
 	}
 
@@ -284,7 +284,7 @@ function validationMailValidator(element) {
  * @return boolean
  */
 function validationNumericValidator(element) {
-	
+
 	if ( Object.isFunction(validationCustomNumericValidator) ) {
 		return validationCustomNumericValidator(element);
 	}
@@ -298,7 +298,7 @@ function validationNumericValidator(element) {
  * @return boolean
  */
 function validationDateValidator(element) {
-	
+
 	if ( Object.isFunction(validationCustomDateValidator) ) {
 		return validationCustomDateValidator(element);
 	}
@@ -441,22 +441,20 @@ TextCounter.prototype = {
 
 		// update counter
 		if (this.input) {
-			if ((charCount-breaks) > this.maxLength) {
-                this.setCountAndClass(0, "charCountLimitReached");
-			}
-			else {
-                this.setCountAndClass((this.maxLength + breaks) - charCount, "charCount");
-			}
+			if ((charCount-breaks) > this.maxLength)
+				this.setCountAndClass(0, "charCountLimitReached");
+			else
+				this.setCountAndClass((this.maxLength + breaks) - charCount, "charCount");
 		}
 	},
-    setCountAndClass: function (count, className) {
+	setCountAndClass: function (count, className) {
 
-        if (Element.readAttribute(this.input, 'value') == null)
-            this.input.innerHTML = count;
-        else
-            this.input.value = count;
-        
-        this.input.className = className;
-        
-    }
+			if (Element.readAttribute(this.input, 'value') == null)
+				this.input.innerHTML = "&nbsp;" +count;
+			else
+				this.input.value = count;
+
+			this.input.className = className;
+
+	}
 }

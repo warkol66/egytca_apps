@@ -9,7 +9,7 @@
 			<legend>Formulario de Administración de ##issues,1,Asuntos##</legend>
 			<p>
 				<label for="params[name]">##issues,2,Asunto##</label>
-				<input type="text" id="params[name]" name="params[name]" size="70" value="|-$issue->getName()|escape-|" title="##issues,2,Asunto##" |-js_char_counter object=$issue columnName="name" fieldName="params[name]" idRemaining="remaining" sizeRemaining="3" classRemaining="charCount" showHide=1-| />
+				<input type="text" id="params[name]" name="params[name]" size="70" value="|-$issue->getName()|escape-|" title="##issues,2,Asunto##" |-js_char_counter object=$issue columnName="name" fieldName="params[name]" idRemaining="remaining" sizeRemaining="3" classRemaining="charCount" title="Cantidad de caracteres restantes" showHide=1 useSpan=0-| />
 			</p>
 			<p>
 				<label for="params[description]">Descripción</label>
