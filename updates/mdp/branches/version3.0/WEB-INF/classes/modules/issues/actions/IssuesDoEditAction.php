@@ -10,9 +10,6 @@ class IssuesDoEditAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -33,7 +30,7 @@ class IssuesDoEditAction extends BaseAction {
 			$issue = IssuePeer::get($_POST["id"]);
 			$issue = Common::setObjectFromParams($issue,$params);
 			
-			if (!$issue->save()) 
+			if ($issue->isModified() && !$issue->save()) 
 				return $this->returnFailure($mapping,$smarty,$issue);
 
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
