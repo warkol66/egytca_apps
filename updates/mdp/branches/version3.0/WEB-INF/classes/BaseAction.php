@@ -211,7 +211,7 @@ class BaseAction extends Action {
 		$myRedirectPath = $myRedirectConfig->getpath();
 
 		foreach ($params as $key => $value)
-			$myRedirectPath .= "&$key=$value";
+			$myRedirectPath .= "&$key=" . htmlentities(urlencode($value));
 
 		return new ForwardConfig($myRedirectPath, True);
 
@@ -228,7 +228,7 @@ class BaseAction extends Action {
 		$myRedirectPath = $myRedirectConfig->getpath();
 
 		foreach ($params as $key => $value)
-			$myRedirectPath .= "&filters[$key]=$value";
+			$myRedirectPath .= "&filters[$key]=" . htmlentities(urlencode($value));
 
 		return new ForwardConfig($myRedirectPath, True);
 
@@ -246,10 +246,10 @@ class BaseAction extends Action {
 		$myRedirectPath = $myRedirectConfig->getpath();
 
 		foreach ($params as $key => $value)
-			$myRedirectPath .= "&$key=$value";
+			$myRedirectPath .= "&$key=" . htmlentities(urlencode($value));
 
 		foreach ($filters as $key => $value)
-			$myRedirectPath .= "&filters[$key]=$value";
+			$myRedirectPath .= "&filters[$key]=" . htmlentities(urlencode($value));
 
 		return new ForwardConfig($myRedirectPath, True);
 
