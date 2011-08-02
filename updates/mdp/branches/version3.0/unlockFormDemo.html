@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<title>Slider unlock form</title>
+		<script src="scripts/prototype.js" type="text/javascript"></script>
+		<script src="scripts/slider.js" type="text/javascript"></script>
+	  <style type="text/css">
+		<!--
+		.sliderUnlock { background: url(images/sliderBackUnlocked.png) no-repeat;width: 120px; height: 60px;}
+		.sliderLocked { background: url(images/sliderBackLocked2.png) no-repeat;width: 120px; height: 60px;}
+		.handle { background: url(images/slider.png) no-repeat; cursor: col-resize; position: absolute; width: 30px; height: 25px; }
+		.track { position: absolute; width: 120px; height: 25px; }
+		-->
+    </style>
+	</head>
+	<body>
+	<form>
+		<div id="sliderWrap" class="sliderLocked">
+			<div id="track" class="track">
+				<div id="handle" class="handle"></div>
+			</div>
+		</div>
+		<div id="debugForm">Desbloquee el formulario</div>
+		<input type="submit" id="formSubmit" value="Enviar" disabled="disabled" />
+		</form>
+		<script type="text/javascript" language="javascript">
+		// <![CDATA[
+			var slider = new Control.Slider('handle', 'track', {
+				values: [0,1],
+				sliderValue: 0,
+				onSlide: function(v) { updateSlider(v); },
+				onChange: function(v) { updateSlider(v); }
+			});
+			function updateSlider(value) {
+				if (value == 1) {
+					$('sliderWrap').className = 'sliderUnlock';
+					$('debugForm').innerHTML = '<input type="hidden" value="formUnlocked" name="debugForm" /> Formulario desbloqueado!';
+					$('formSubmit').disabled = false;
+				}
+				else {
+					$('sliderWrap').className = 'sliderLocked';
+					$('debugForm').innerHTML = 'Desbloquee el formulario';
+					$('formSubmit').disabled = true;
+				}
+			}
+		// ]]>
+		</script>
+	</body>
+</html>
