@@ -480,3 +480,13 @@ a.textLink:hover {
 }
 a.textLink:visited, a.textLink:active{
 }
+
+/* InternalMail */
+fieldset #recipientsSelected li {
+	list-style: none;
+}
+#recipientsSelected li input {
+	margin-left: 120px;
+	margin-right: 5px;
+}
+/* /InternalMail */

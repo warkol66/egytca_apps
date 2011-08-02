@@ -12,7 +12,8 @@ class ConfigModule {
 			"showSwiftExceptions" => true,
 			"doLog" => true,
 			"unifiedUsernames" => true,
-			"backupTimeLimit" => 720
+			"backupTimeLimit" => 720,
+			"internalMailUseAffiliates" => false
 		),
 		"users" => array(
 			"licences" => 10,

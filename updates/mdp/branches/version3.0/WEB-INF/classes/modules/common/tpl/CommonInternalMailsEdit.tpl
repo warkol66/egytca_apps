@@ -5,7 +5,7 @@
 function recipientsUsersAfterUpdateElement(text, li) {
 	$('autocomplete_users').value = '';
 	var idx = $$('#recipientsSelected > li').size();
-	$('recipientsSelected').insert('<li><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+li.id+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="user" />'+li.innerHTML.stripTags()+'<input type="button" class="icon iconDelete" onClick="this.parentNode.remove()" /></li>')
+	$('recipientsSelected').insert('<li><input type="button" class="icon iconDelete" onClick="this.parentNode.remove()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+li.id+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="user" />'+li.innerHTML.stripTags()+'</li>')
     if (!li.hasClassName('informative_only')) {
         var submit = $('button_edit_internalMail');
         if (Object.isElement(submit))
@@ -16,7 +16,7 @@ function recipientsUsersAfterUpdateElement(text, li) {
 function recipientsAffiliatesAfterUpdateElement(text, li) {
 	$('autocomplete_affiliates').value = '';
 	var idx = $$('#recipientsSelected > li').size();
-	$('recipientsSelected').insert('<li><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+li.id+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+li.innerHTML.stripTags()+'<input type="button" class="icon iconDelete" onClick="this.parentNode.remove()" /></li>')
+	$('recipientsSelected').insert('<li><input type="button" class="icon iconDelete" onClick="this.parentNode.remove()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+li.id+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+li.innerHTML.stripTags()+'</li>')
     if (!li.hasClassName('informative_only')) {
         var submit = $('button_edit_internalMail');
         if (Object.isElement(submit))
@@ -54,17 +54,17 @@ function changeRecipientType(entityName) {
 			<p>
 				<label>Tipo de destinatario:</label>
 				<input type="radio" name="recipientType" value="user" onclick="changeRecipientType(this.value)" checked />##users,2,Usuario##
-				<input type="radio" name="recipientType" value="affiliateUser" onclick="changeRecipientType(this.value)" />##affiliates,2,Affiliado##
+|-if ($configModule->get("global","internalMailUseAffiliates"))-|<input type="radio" name="recipientType" value="affiliateUser" onclick="changeRecipientType(this.value)" />##affiliates,2,Affiliado##|-/if-|
 			</p>
 	
 			<div id="recipientsUsers" style="position: relative;">
 				|-include file="CommonAutocompleterInstanceInclude.tpl" id="autocomplete_users" label="Para" defaultValue="" defaultHiddenValue="" url="Main.php?do=usersAutocompleteListX" afterUpdateElement="recipientsUsersAfterUpdateElement"-|
 			</div>	
-			
+|-if ($configModule->get("global","internalMailUseAffiliates"))-|			
 			<div id="recipientsAffiliates" style="position: relative; display: none">
 				|-include file="CommonAutocompleterInstanceInclude.tpl" id="autocomplete_affiliates" label="Para" defaultValue="" defaultHiddenValue="" url="Main.php?do=affiliatesUsersAutocompleteListX" afterUpdateElement="recipientsAffiliatesAfterUpdateElement"-|
 			</div>
-			
+|-/if-|			
 			<span id="indicator2" style="display: none">
 				<img src="images/spinner.gif" alt="Procesando..." />
 			</span>
@@ -74,10 +74,10 @@ function changeRecipientType(entityName) {
 				<ul id="recipientsSelected">
 					|-foreach from=$internalMail->getRecipients() key=idx item=user-|
 						<li>
+							<input type="button" class="icon iconDelete" onClick="this.parentNode.remove()" title="Eliminar destinatario" />
 							<input type="hidden" name="internalMail[to][|-$idx-|][id]" value="|-$user->getId()-|" />
 							<input type="hidden" name="internalMail[to][|-$idx-|][type]" value="|-$recipients[$idx].type-|" />
 							|-if ($user->getName() ne '') or ($user->getSurname() ne '')-||-$user->getSurname()-|, |-$user->getName()-| - |-/if-|(|-$user->getUserName()-|)
-							<input type="button" class="icon iconDelete" onClick="this.parentNode.remove()" />
 						</li>
 					|-/foreach-|
 				</ul>

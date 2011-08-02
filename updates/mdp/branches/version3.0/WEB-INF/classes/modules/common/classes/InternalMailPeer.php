@@ -186,4 +186,20 @@ class InternalMailPeer extends BaseInternalMailPeer {
 			$baseMail->send();
 		}
 	}
+
+
+
+	function getIncludeHome() {
+		$internalMailPeer = new InternalMailPeer();
+		$pager = $internalMailPeer->getAllPaginatedFiltered(1);
+		$mails['messages'] = $pager->getResult();
+		$mails['count'] = $pager->count();
+
+		if ($mails['count'] < $pager->getTotalRecordCount())
+			$mails['pager'] = $pager;
+
+		return $mails;
+	}
+	
+
 } // InternalMailPeer
