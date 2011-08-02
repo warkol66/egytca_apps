@@ -23,23 +23,25 @@ class IssuesDoEditAction extends BaseAction {
 			$filters = $_POST["filters"];
 
 		$userParams = Common::userInfoToDoLog();
-		$params = array_merge_recursive($_POST["params"],$userParams);
+		$issueParams = array_merge_recursive($_POST["params"],$userParams);
 
 		if ($_POST["action"] == "edit") { // Existing actor
 
 			$issue = IssuePeer::get($_POST["id"]);
-			$issue = Common::setObjectFromParams($issue,$params);
+			$issue = Common::setObjectFromParams($issue,$issueParams);
 			
 			if ($issue->isModified() && !$issue->save()) 
 				return $this->returnFailure($mapping,$smarty,$issue);
 
+	if (headers_sent($filename, $linenum))
+		echo "Debug: Headers already sent in $filename on line $linenum\n";
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
 
 		}
 		else { // New actor
 
 			$issue = new Issue();
-			$issue = Common::setObjectFromParams($issue,$params);
+			$issue = Common::setObjectFromParams($issue,$issueParams);
 			if (!$issue->save())
 				return $this->returnFailure($mapping,$smarty,$issue);
 
