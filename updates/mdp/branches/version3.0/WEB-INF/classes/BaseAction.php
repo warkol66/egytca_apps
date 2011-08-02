@@ -312,6 +312,21 @@ class BaseAction extends Action {
 		}
 	}
 
+	function returnFailure($mapping,$smarty,$object,$forward) {
+
+		$objectName = lcfirst(get_class($object));
+		$smarty->assign($objectName,$object);
+
+		$id = $object->getId();
+		if (empty($id))
+			$smarty->assign("action","create");
+		else
+			$smarty->assign("action","edit");
+
+		$smarty->assign("message","error");
+		return $mapping->findForwardConfig($forward);
+	}
+
 	public function isAjax() {
 		return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
 	}

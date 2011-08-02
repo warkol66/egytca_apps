@@ -31,10 +31,8 @@ class IssuesDoEditAction extends BaseAction {
 			$issue = Common::setObjectFromParams($issue,$issueParams);
 			
 			if ($issue->isModified() && !$issue->save()) 
-				return $this->returnFailure($mapping,$smarty,$issue);
+				return $this->returnFailure($mapping,$smarty,$issue,'failure-edit');
 
-	if (headers_sent($filename, $linenum))
-		echo "Debug: Headers already sent in $filename on line $linenum\n";
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
 
 		}
