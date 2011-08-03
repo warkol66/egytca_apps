@@ -18,7 +18,7 @@
 
 	</table>
 
-	<table name="headlines_actor" phpName="HealineActor" isCrossRef="true" description="Headlines / Actors">
+	<table name="headlines_actor" phpName="HeadlineActor" isCrossRef="true" description="Headlines / Actors">
 
 		<column name="headlineId" required="true" primaryKey="true" type="INTEGER"  description="Headline ID"/>
 		<column name="actorId" required="true" primaryKey="true" type="INTEGER"  description="Actor ID"/>
@@ -34,7 +34,7 @@
 
 	</table>
 
-	<table name="headlines_issue" phpName="HealineIssue" isCrossRef="true" description="Headlines / Issues">
+	<table name="headlines_issue" phpName="HeadlineIssue" isCrossRef="true" description="Headlines / Issues">
 
 		<column name="headlineId" required="true" primaryKey="true" type="INTEGER"  description="Headline ID"/>
 		<column name="issueId" required="true" primaryKey="true" type="INTEGER"  description="Issues ID"/>

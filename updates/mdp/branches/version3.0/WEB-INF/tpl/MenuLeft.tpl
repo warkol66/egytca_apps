@@ -6,7 +6,7 @@
 		<div id="sectionApplications" style="display:|-if $module|upper eq 'ISSUES' || $module|upper eq 'ACTORS' || $module|upper eq 'HEADLINES'-|block|-else-|none|-/if-|">
 			<li><a href="Main.php?do=actorsList">Actores</a></li>
 			<li><a href="Main.php?do=issuesList">Asuntos</a></li>
-			<li><a href="Main.php?do=healinesList">Titulares</a></li>
+			<li><a href="Main.php?do=headlinesList">Titulares</a></li>
 		</div>
 
 		<li class="titleMenu" onclick="$('sectionAdmin').toggle()">Administración</li>

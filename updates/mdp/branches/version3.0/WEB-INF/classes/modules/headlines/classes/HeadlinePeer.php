@@ -14,6 +14,266 @@
  * @package    propel.generator.headlines.classes
  */
 class HeadlinePeer extends BaseHeadlinePeer {
+    
+        /** the default item name for this class */
+	const ITEM_NAME = 'Headlines';
+        
+        private $searchString;
+	private $limit;
+	private $adminActId;
+	private $issueId;
+        private $actorId;
+	private $candidates;
+        
+        
+        //mapea las condiciones del filtro
+	var $filterConditions = array(
+					"searchString"=>"setSearchString",
+					"limit" => "setLimit",
+					'adminActId' => 'setAdminActId',
+					'issueId' => 'setIssueId',
+                                        'actorId' => 'setActorId',
+					'getCandidates' => 'setCandidates'
+				);
+        
+        /**
+	 * Especifica una cadena de busqueda.
+	 * @param searchString cadena de busqueda.
+	 */
+	function setSearchString($searchString){
+		$this->searchString = $searchString;
+	}
+	
+ 	/**
+	 * Especifica una cantidad maxima de registros.
+	 * @param limit cantidad maxima de registros.
+	 */
+	function setLimit($limit){
+		$this->limit = $limit;
+	}
+	
+	/**
+	 * Especifica un acto administrativo cuyos headlines no deben aparecer en la busqueda.
+	 * @param int adminActId, id del acto administrativo.
+	 */
+	function setAdminActId($adminActId){
+		$this->adminActId = $adminActId;
+	}
 
+	/**
+	 * Especifica un asunto cuyos headlines no deben aparecer en la busqueda.
+	 * @param int issueId, id del issue.
+	 */
+	function setIssueId($issueId){
+		$this->issueId = $issueId;
+	}
+        
+        /**
+	 * Especifica un actor cuyos headlines no deben aparecer en la busqueda.
+	 * @param int actorId, id del actor.
+	 */
+	function setActorId($actorId){
+		$this->actorId = $actorId;
+	}
+
+	/**
+	 * Especifica un headline cuyos actores no deben aparecer en la busqueda.
+	 * @param int headlineId, id del headline.
+	 */
+	function setCandidates($candidates){
+		$this->candidates = $candidates;
+	}
+
+	/**
+	* Obtiene un headline.
+	*
+	* @param int $id id del headline
+	* @return boolean true si se actualizo la informacion correctamente, false sino
+	*/
+	function get($id){
+		return HeadlineQuery::create()->findPk($id);
+	}
+
+        /**
+	* Crea un headline nuevo.
+	*
+	* @param array $params con los datos del proyecto
+	* @return boolean true si se creo el headline correctamente, false sino
+	*/
+	function create($params,$con = null) {
+		$headline = new Headline();
+		$headline = Common::setObjectFromParams($headline,$params);
+		try {
+			$headline->save($con);
+			return true;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
+	}
+
+	/**
+	* Actualiza la informacion de un headline.
+	*
+	* @param int $id id del headline
+	* @param array $params datos del headline
+	* @return boolean true si se actualizo la informacion correctamente, false sino
+	*/
+	function update($id,$params){
+		$headline = HeadlineQuery::create()->findPk($id);
+		$headline = Common::setObjectFromParams($headline,$params);
+		try {
+			$headline->save($con);
+			return true;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
+	}
+
+        /**
+	* Elimina un headline a partir de los valores de la clave.
+	*
+	* @param int $id id del headline
+	* @return boolean true si se elimino correctamente el headline, false sino
+	*/
+	function delete($id){
+		$headline = HeadlinePeer::retrieveByPK($id);
+		try {
+			$headline->delete();
+			return true;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
+	}
+
+	/**
+	* Elimina definitivamente un headline a partir del id.
+	*
+	* @param int $id Id del headline
+	* @return boolean true
+	*/
+        function hardDelete($id) {
+		HeadlinePeer::disableSoftDelete();
+		$headline = HeadlinePeer::retrieveByPk($id);
+		try {
+			$headline->forceDelete();
+			return true;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
+	}
+
+        /**
+	* Obtiene todos los headline desactivados.
+	*
+	* @return array Informacion sobre los headline
+	*/
+	function getSoftDeleted() {
+		$criteria = new Criteria();
+		$criteria->add(HeadlinePeer::DELETED_AT, null, Criteria::ISNOTNULL);
+		HeadlinePeer::disableSoftDelete();
+		$headlines = HeadlinePeer::doSelect($criteria);
+		return $headlines;
+        }
+
+	/**
+	* Recupera del softdelete un headline
+	*
+	* @param int $id Id del headline
+	* @return boolean true
+	*/
+        function recoverDeleted($id) {
+		HeadlinePeer::disableSoftDelete();
+		$headline = HeadlinePeer::retrieveByPk($id);
+		try {
+			$headline->unDelete();
+			return true;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
+	}
+    
+        /**
+	 * Retorna el criteria generado a partir de los parametros de busqueda
+	 *
+	 * @return criteria $criteria Criteria con parametros de busqueda
+	 */
+	private function getSearchCriteria() {
+		$criteria = new Criteria();
+		$criteria->setIgnoreCase(true);
+		$criteria->setLimit($this->limit);
+		$criteria->addAscendingOrderByColumn(HeadlinePeer::ID);
+		
+		if (!empty($this->adminActId)) {
+			$headlinesParticipatingIds = AdminActParticipantQuery::create()
+									->filterByAdminActId($this->adminActId)
+									->filterByObjectType('Headline')
+									->select('Objectid')
+									->find();
+			$criteria->add(HeadlinePeer::ID, $headlinesParticipatingIds,Criteria::NOT_IN);
+		}
+
+		if (!empty($this->issueId)) {
+			$issue = IssueQuery::create()->findPk($this->issueId);
+			$issueHeadlinesIds = $issue->getAssignedHeadlinesArray();
+			if (!empty($this->candidates))
+				$criteria->add(HeadlinePeer::ID, $issueHeadlinesIds,Criteria::NOT_IN);
+			else
+				$criteria->filterByIssueId($this->issueId);
+		}
+
+		if ($this->searchString) {
+			$criteria->add(HeadlinePeer::NAME,"%" . $this->searchString . "%",Criteria::LIKE);
+			$criterionName = $criteria->getNewCriterion(HeadlinePeer::NAME,"%" . $this->searchString . "%",Criteria::LIKE);
+			$criteria->addOr($criterionName);
+			$criterionContent = $criteria->getNewCriterion(HeadlinePeer::CONTENT,"%" . $this->searchString . "%",Criteria::LIKE);
+			$criteria->addOr($criterionContent);
+		}
+
+		return $criteria;
+
+	}
+    
+    /**
+	* Obtiene todos los headline paginados segun la condicion de busqueda ingresada.
+	*
+	* @param int $page [optional] Numero de pagina actual
+	* @param int $perPage [optional] Cantidad de filas por pagina
+	* @return array Informacion sobre todos los headlines
+	*/
+	function getAllPaginatedFiltered($page=1,$perPage=-1)	{
+		if ($perPage == -1)
+			$perPage = Common::getRowsPerPage();
+		if (empty($page))
+			$page = 1;
+		$criteria = $this->getSearchCriteria();
+		$pager = new PropelPager($criteria,"HeadlinePeer", "doSelect",$page,$perPage);
+		return $pager;
+	}
+        
+        /**
+	* Obtiene todos los headline paginados segun la condicion de busqueda ingresada.
+	*
+	* @return array Informacion sobre todos los headlines
+	*/
+	function getAll()	{
+		$criteria = $this->getSearchCriteria();
+		$allObjects = HeadlinePeer::doSelect($criteria);
+		return $allObjects;
+	}
 
 } // HeadlinePeer
