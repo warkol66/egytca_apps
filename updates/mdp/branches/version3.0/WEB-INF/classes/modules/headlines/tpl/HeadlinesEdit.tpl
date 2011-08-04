@@ -52,8 +52,14 @@ function actorsDeleteCategoryFromActor(form){
 				<input type="text" id="params[name]" name="params[name]" size="50" value="|-$headline->getname()|escape-|" title="Nombre" /><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
 			</p>
 			<p>
-				<label for="params[content]">Content</label>
-				<input type="text" id="params[content]" name="params[content]" size="50" value="|-$headline->getcontent()|escape-|" title="Contenido" /><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
+				<label for="params[content]">Contenido</label>
+                                <textarea id="params[content]" name="params[content]" cols="42" rows="6" wrap="VIRTUAL" title="Contenido">|-$headline->getContent()|escape-|</textarea><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
+			</p>
+                        <p>     <label for="params[datePublished]">Fecha de Publicación</label>
+				<input id="params[datePublished]" name="params[datePublished]" type='text' value='|-$headline->getDatePublished()-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[datePublished]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+			</p>
+                        <p>     <label for="params[headlineDate]">Fecha del Titular</label>
+				<input id="params[headlineDate]" name="params[headlineDate]" type='text' value='|-$headline->getHeadlineDate()-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[headlineDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<p>
 				|-if $action eq 'edit'-|
