@@ -19,7 +19,7 @@ class Headline extends BaseHeadline {
 	const ITEM_NAME = 'Headline';
 
 	/**
-	* Obtiene el id de todas las categorías asignadas.
+	* Obtiene el id de todas las categorï¿½as asignadas.
 	*
 	*	@return array Id de todos los actor category asignados
 	*/
@@ -34,7 +34,7 @@ class Headline extends BaseHeadline {
 	 */
 	public function hasActor($actor, $type = null) {
 		$headlineActorQuery = HeadlineActorQuery::create()->filterByHeadline($this)
-															 ->filterByActor($actor);
+                        ->filterByActor($actor);
 		if ($type !== null)
 			$headlineActorQuery->filterByType($type);
 		
@@ -42,12 +42,32 @@ class Headline extends BaseHeadline {
 	}
 
 	/**
-	* Obtiene el id de todas las categorías asignadas.
+	* Obtiene el id de todos los actores asignados.
 	*
-	*	@return array Id de todos los actor category asignados
+	*	@return array Id de todos los actor asignados
 	*/
 	function getAssignedActorsArray(){
 		return HeadlineActorQuery::create()->filterByHeadline($this)->select('Actorid')->find()->toArray();
+	}
+        
+        /**
+	 * Determina la existencia de una relacion con un determindo issue.
+	 * @param $issue Object
+	 * @param $type Object[optional]
+	 */
+	public function hasIssue($issue) {
+		$headlineIssueQuery = HeadlineIssueQuery::create()->filterByHeadline($this)
+                        ->filterByIssue($issue);
+		return ($headlineIssueQuery->count() > 0);															 		
+	}
+        
+        /**
+	* Obtiene el id de todos los actores asignados.
+	*
+	*	@return array Id de todos los actor asignados
+	*/
+	function getAssignedIssuesArray(){
+		return HeadlineIssueQuery::create()->filterByHeadline($this)->select('Issueid')->find()->toArray();
 	}
 
 

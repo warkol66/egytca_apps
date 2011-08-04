@@ -78,3 +78,130 @@ function actorsDeleteCategoryFromActor(form){
 aca borre el ultimo parrafo de ActorsEdit, que no se dejaba comentar por algun
 motivo
 -->
+
+|-if $headline->getId() ne ''-|
+
+|-include file="CommonAutocompleterInclude.tpl" -|
+<script type="text/javascript" language="javascript" charset="utf-8">
+function addActorToHeadline(form) {
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'actorList'},
+				'Main.php?do=headlinesDoAddActorX',
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true,
+					insertion: Insertion.Bottom
+				});
+	$('actorMsgField').innerHTML = '<span class="inProgress">Agregando actor al titular...</span>';
+    $('autocomplete_actors').value = '';
+    $('addActorSubmit').disable();
+	return true;
+}
+
+function removeActorFromHeadline(form){
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'actorMsgField'},
+				'Main.php?do=headlinesDoRemoveActorX',
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true
+				});
+	$('actorMsgField').innerHTML = '<span class="inProgress">Eliminando actor...</span>';
+	return true;
+}
+</script>
+
+<fieldset title="Formulario de actores asociados al ##headlines,4,titular##">
+	<legend>Actores</legend>
+	<div id="actorMsgField"></div>
+	<form method="post" style="display:inline;">
+		<div id="headlineActor" style="position: relative;z-index:10000;">
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_actors" label="Agregar actor al ##headlines,4,titular##" url="Main.php?do=actorsAutocompleteListX&getCandidates=1&headlineId="|cat:$headline->getId() hiddenName="actor[id]" disableSubmit="addActorSubmit"-|
+		</div>
+	<p>	<input type="hidden" name="do" id="do" value="headlinesDoAddActorX" />
+		<input type="hidden" name="headlineId" id="headlineId" value="|-$headline->getId()-|" /> 
+    <input type="button" id="addActorSubmit" disabled="disabled" name="addActorSubmit" value="Agregar actor al ##headlines,4,titular##" title="Agregar actor al ##headlines,4,titular##" onClick="javascript:addActorToHeadline(this.form)"/> </p>
+	</form>
+  <div id="headlinesActorsList">
+		<ul id="actorList" class="iconOptionsList">
+			|-foreach from=$headline->getActors() item=actor-|
+			<li id="actorListItem|-$actor->getId()-|">
+						<form action="Main.php" method="post" style="display:inline;"> 
+							<input type="hidden" name="do" value="headlinesDoRemoveActorX" /> 
+							<input type="hidden" name="headlineId" value="|-$headline->getid()-|" /> 
+							<input type="hidden" name="actorId" value="|-$actor->getid()-|" /> 
+							<input type="button" name="submit_go_remove_actor" value="Borrar" onclick="if (confirm('Seguro que desea quitar el actor del titular?')) removeActorFromHeadline(this.form);" class="icon iconDelete" /> 
+						</form> |-$actor->getName()-|
+					</li>
+			|-/foreach-|
+			</ul>    
+		</div> 
+</fieldset>
+
+
+|-include file="CommonAutocompleterInclude.tpl" -|
+<script type="text/javascript" language="javascript" charset="utf-8">
+function addIssueToHeadline(form) {
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'issueList'},
+				'Main.php?do=headlinesDoAddIssueX',
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true,
+					insertion: Insertion.Bottom
+				});
+	$('issueMsgField').innerHTML = '<span class="inProgress">Agregando asunto al titular...</span>';
+    $('autocomplete_issues').value = '';
+    $('addIssueSubmit').disable();
+	return true;
+}
+
+function removeIssueFromHeadline(form){
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'issueMsgField'},
+				'Main.php?do=headlinesDoRemoveIssueX',
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true
+				});
+	$('issueMsgField').innerHTML = '<span class="inProgress">Eliminando asunto...</span>';
+	return true;
+}
+</script>
+
+<fieldset title="Formulario de asuntos asociados al ##headlines,4,titular##">
+	<legend>Asuntos</legend>
+	<div id="issueMsgField"></div>
+	<form method="post" style="display:inline;">
+		<div id="headlineIssue" style="position: relative;z-index:10000;">
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_issues" label="Agregar asunto al ##headlines,4,titular##" url="Main.php?do=issuesAutocompleteListX&getCandidates=1&headlineId="|cat:$headline->getId() hiddenName="issue[id]" disableSubmit="addIssueSubmit"-|
+		</div>
+	<p>	<input type="hidden" name="do" id="do" value="headlinesDoAddIssueX" />
+		<input type="hidden" name="headlineId" id="headlineId" value="|-$headline->getId()-|" /> 
+    <input type="button" id="addIssueSubmit" disabled="disabled" name="addIssueSubmit" value="Agregar asunto al ##headlines,4,titular##" title="Agregar asunto al ##headlines,4,titular##" onClick="javascript:addIssueToHeadline(this.form)"/> </p>
+	</form>
+  <div id="headlinesIssuesList">
+		<ul id="issueList" class="iconOptionsList">
+			|-foreach from=$headline->getIssues() item=issue-|
+			<li id="issueListItem|-$issue->getId()-|">
+						<form action="Main.php" method="post" style="display:inline;"> 
+							<input type="hidden" name="do" value="headlinesDoRemoveIssueX" /> 
+							<input type="hidden" name="headlineId" value="|-$headline->getid()-|" /> 
+							<input type="hidden" name="issueId" value="|-$issue->getid()-|" /> 
+							<input type="button" name="submit_go_remove_issue" value="Borrar" onclick="if (confirm('Seguro que desea quitar el asunto del titular?')) removeIssueFromHeadline(this.form);" class="icon iconDelete" /> 
+						</form> |-$issue->getName()-|
+					</li>
+			|-/foreach-|
+			</ul>    
+		</div> 
+</fieldset>
+
+|-/if-|
