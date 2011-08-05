@@ -1,44 +1,3 @@
-<!--
-<script language="JavaScript" type="text/javascript">
-
-function actorsAddCategoryToActor(form) {
-	
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'categoryList'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true,
-					insertion: Insertion.Bottom
-				});
-				
-	$('categoryMsgField').innerHTML = '<span class="inProgress">agregando ##actors,2,Actor## a la categoría...</span>';
-	
-	return true;
-}
-
-function actorsDeleteCategoryFromActor(form){
-
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'categoryMsgField'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				});
-				
-	$('categoryMsgField').innerHTML = '<span class="inProgress">eliminando ##actors,2,Actor## de la categoría...</span>';
-	
-	return true;
-
-}
-</script>
--->
-
 <h2>##headlines,1,Titulares##</h2>
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| ##headlines,2,Titular##</h1>
 <div id="div_headline">
@@ -56,10 +15,10 @@ function actorsDeleteCategoryFromActor(form){
                                 <textarea id="params[content]" name="params[content]" cols="42" rows="6" wrap="VIRTUAL" title="Contenido">|-$headline->getContent()|escape-|</textarea><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
 			</p>
                         <p>     <label for="params[datePublished]">Fecha de Publicación</label>
-				<input id="params[datePublished]" name="params[datePublished]" type='text' value='|-$headline->getDatePublished()-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[datePublished]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input id="params[datePublished]" name="params[datePublished]" type='text' value='|-$headline->getDatePublished()-|' size="12" /> <img src="images/help.png" width="16" height="15" border="0" onclick="displayDatePicker('params[datePublished]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
                         <p>     <label for="params[headlineDate]">Fecha del Titular</label>
-				<input id="params[headlineDate]" name="params[headlineDate]" type='text' value='|-$headline->getHeadlineDate()-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[headlineDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input id="params[headlineDate]" name="params[headlineDate]" type='text' value='|-$headline->getHeadlineDate()-|' size="12" /> <img src="images/help.png" width="16" height="15" border="0" onclick="displayDatePicker('params[headlineDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<p>
 				|-if $action eq 'edit'-|
@@ -74,10 +33,6 @@ function actorsDeleteCategoryFromActor(form){
 	</form>
 </div>
 
-<!--
-aca borre el ultimo parrafo de ActorsEdit, que no se dejaba comentar por algun
-motivo
--->
 
 |-if $headline->getId() ne ''-|
 
