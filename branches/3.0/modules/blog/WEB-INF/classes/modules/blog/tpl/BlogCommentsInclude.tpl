@@ -32,12 +32,15 @@
 			<label for="blogComment_text">Comentario</label><textarea id="blogComment_text" name="blogComment[text]" cols="65" rows="5" wrap="VIRTUAL" ></textarea>
 		</p>
 		<p><label>Código de seguridad</label><div id="captchamsgBoxAdder|-$entry->getId()-|">
-			<img src="Main.php?do=commonCaptchaGeneration&width=120&height=45&characters=5" />
+			<img src="Main.php?do=commonCaptchaGeneration" />
 			</div>
 		</p>
 		<p>
-			<label for="security_code">Ingrese el código de seguridad</label><input id="security_code" name="securityCode" type="text" size="10" />
-		</p>						
+			<label for="formId">Ingrese el código de seguridad</label><input id="formId" name="formId" type="text" size="10" />
+		</p>
+		<div id="cpatcha" style="display:none">		<p>
+			<label for="security_code">No completar</label><input id="security_code" name="securityCode" type="text" size="10" />
+		</p></div>
 		<p>	
 			<input type="hidden" name="entryId" value="|-$entry->getId()-|" id="entryId" />
 			<input type="hidden" name="do" value="blogCommentsDoAddX" id="do">

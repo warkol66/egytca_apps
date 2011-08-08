@@ -25,7 +25,7 @@ class BlogCommentsShowAction extends BaseAction {
 		$this->template->template = "TemplateAjax.tpl";
 
 		$blogCommentPeer = new BlogCommentPeer();
-		$comments = $blogCommentPeer->getAllByArticle($_POST["articleId"]);
+		$comments = $blogCommentPeer->getAllApprovedByEntry($_POST["articleId"]);
 		$article = BlogEntryPeer::get($_POST['articleId']);
 		$smarty->assign("comments",$comments);
 		$smarty->assign("article",$article);

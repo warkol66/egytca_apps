@@ -30,7 +30,7 @@ class BlogCommentsDoAddXAction extends BaseAction {
 
 		//estoy creando un nuevo blogComment
 		//validamos el captcha
-		if ( (empty($_POST['securityCode'])) || !Common::validateCaptcha($_POST['securityCode'])) {
+		if ( (empty($_POST['formId'])) || !Common::validateCaptcha($_POST['formId']) || !empty($_POST['securityCode'])) {
 			$smarty->assign('captcha',true);
 			return $mapping->findForwardConfig('failure');
 		}
