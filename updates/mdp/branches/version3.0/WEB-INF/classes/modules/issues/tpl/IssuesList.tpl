@@ -1,4 +1,4 @@
-<h2>Tablero de Gestión</h2>
+<h2>##issues,1,Asuntos##</h2>
 <h1>Administración de ##issues,1,Asuntos##</h1>
 <p>A continuación se muestra la lista de ##issues,1,Asuntos## cargados en el sistema.</p>
 <div id="div_issues"> 

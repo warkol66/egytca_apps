@@ -46,7 +46,8 @@ class IssuesDoEditAction extends BaseAction {
 			$logSufix = ', ' . Common::getTranslation('action: create','common');
 			Common::doLog('success', $_POST["params"]["name"] . ", " . $_POST["params"]["name"] . $logSufix);
 
-			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
+			$params['id'] = $issue->getId();
+			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');
 		}
 
 	}

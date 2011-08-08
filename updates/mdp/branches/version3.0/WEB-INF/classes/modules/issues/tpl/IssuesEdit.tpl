@@ -1,4 +1,3 @@
-
 <h2>##issues,1,Asuntos##</h2>
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| ##issues,2,Asunto##</h1>
 <div id="div_issue">

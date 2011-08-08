@@ -1,4 +1,4 @@
-<h2>Tablero de Gestión</h2>
+<h2>##headlines,1,Titulares##</h2>
 <h1>Administración de ##headlines,1,Titulares##</h1>
 <p>A continuación se muestra la lista de ##headlines,1,Titulares## cargados en el sistema.</p>
 <div id="div_headlines"> 
