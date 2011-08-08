@@ -53,7 +53,6 @@ class Headline extends BaseHeadline {
         /**
 	 * Determina la existencia de una relacion con un determindo issue.
 	 * @param $issue Object
-	 * @param $type Object[optional]
 	 */
 	public function hasIssue($issue) {
 		$headlineIssueQuery = HeadlineIssueQuery::create()->filterByHeadline($this)
@@ -69,6 +68,25 @@ class Headline extends BaseHeadline {
 	function getAssignedIssuesArray(){
 		return HeadlineIssueQuery::create()->filterByHeadline($this)->select('Issueid')->find()->toArray();
 	}
-
+        
+        /**
+	 * Determina la existencia de una relacion con un determindo headline.
+	 * @param $headline Object
+	 */
+	public function hasHeadline($headline) {
+		$headlineRelationQuery = HeadlineRelationQuery::create()->filterByHeadlineRelatedByHeadlinefromid($this)
+                        ->filterByHeadlineRelatedByHeadlinetoid($headline);
+		return ($headlineRelationQuery->count() > 0);													 		
+	}
+        
+        /**
+	* Obtiene el id de todos los actores asignados.
+	*
+	*	@return array Id de todos los actor asignados
+	*/
+	function getAssignedHeadlinesArray(){
+		return HeadlineRelationQuery::create()->filterByHeadlineRelatedByHeadlinefromid($this)->select('Headlinetoid')->find()->toArray();
+	}
+      
 
 } // Headline

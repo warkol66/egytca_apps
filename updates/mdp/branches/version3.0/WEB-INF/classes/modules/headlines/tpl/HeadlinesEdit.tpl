@@ -15,10 +15,10 @@
                                 <textarea id="params[content]" name="params[content]" cols="42" rows="6" wrap="VIRTUAL" title="Contenido">|-$headline->getContent()|escape-|</textarea><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
 			</p>
                         <p>     <label for="params[datePublished]">Fecha de Publicación</label>
-				<input id="params[datePublished]" name="params[datePublished]" type='text' value='|-$headline->getDatePublished()-|' size="12" /> <img src="images/help.png" width="16" height="15" border="0" onclick="displayDatePicker('params[datePublished]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input id="params[datePublished]" name="params[datePublished]" type='text' value='|-$headline->getDatePublished()-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[datePublished]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
                         <p>     <label for="params[headlineDate]">Fecha del Titular</label>
-				<input id="params[headlineDate]" name="params[headlineDate]" type='text' value='|-$headline->getHeadlineDate()-|' size="12" /> <img src="images/help.png" width="16" height="15" border="0" onclick="displayDatePicker('params[headlineDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input id="params[headlineDate]" name="params[headlineDate]" type='text' value='|-$headline->getHeadlineDate()-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[headlineDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<p>
 				|-if $action eq 'edit'-|
@@ -153,6 +153,67 @@ function removeIssueFromHeadline(form){
 							<input type="hidden" name="issueId" value="|-$issue->getid()-|" /> 
 							<input type="button" name="submit_go_remove_issue" value="Borrar" onclick="if (confirm('Seguro que desea quitar el asunto del titular?')) removeIssueFromHeadline(this.form);" class="icon iconDelete" /> 
 						</form> |-$issue->getName()-|
+					</li>
+			|-/foreach-|
+			</ul>    
+		</div> 
+</fieldset>
+
+|-include file="CommonAutocompleterInclude.tpl" -|
+<script type="text/javascript" language="javascript" charset="utf-8">
+function addRelationToHeadline(form) {
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'relationList'},
+				'Main.php?do=headlinesDoAddRelationX',
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true,
+					insertion: Insertion.Bottom
+				});
+	$('relationMsgField').innerHTML = '<span class="inProgress">Agregando titular al titular...</span>';
+    $('autocomplete_relations').value = '';
+    $('addRelationSubmit').disable();
+	return true;
+}
+
+function removeRelationFromHeadline(form){
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'relationMsgField'},
+				'Main.php?do=headlinesDoRemoveRelationX',
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true
+				});
+	$('relationMsgField').innerHTML = '<span class="inProgress">Eliminando titular...</span>';
+	return true;
+}
+</script>
+
+<fieldset title="Formulario de titulares asociados al ##headlines,4,titular##">
+	<legend>Titulares</legend>
+	<div id="relationMsgField"></div>
+	<form method="post" style="display:inline;">
+		<div id="headlineRelation" style="position: relative;z-index:10000;">
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_relations" label="Agregar titular al ##headlines,4,titular##" url="Main.php?do=headlinesAutocompleteListX&getCandidates=1&headlineId="|cat:$headline->getId() hiddenName="relation[id]" disableSubmit="addRelationSubmit"-|
+		</div>
+	<p>	<input type="hidden" name="do" id="do" value="headlinesDoAddRelationX" />
+		<input type="hidden" name="headlineId" id="headlineId" value="|-$headline->getId()-|" /> 
+    <input type="button" id="addRelationSubmit" disabled="disabled" name="addRelationSubmit" value="Agregar titular al ##headlines,4,titular##" title="Agregar titular al ##headlines,4,titular##" onClick="javascript:addRelationToHeadline(this.form)"/> </p>
+	</form>
+  <div id="headlinesRelationsList">
+		<ul id="relationList" class="iconOptionsList">
+			|-foreach from=$headline->getHeadlinesRelatedByHeadlinetoid() item=relation-|
+			<li id="relationListItem|-$relation->getId()-|">
+						<form action="Main.php" method="post" style="display:inline;"> 
+							<input type="hidden" name="do" value="headlinesDoRemoveRelationX" /> 
+							<input type="hidden" name="headlineId" value="|-$headline->getid()-|" /> 
+							<input type="hidden" name="relationId" value="|-$relation->getid()-|" /> 
+							<input type="button" name="submit_go_remove_relation" value="Borrar" onclick="if (confirm('Seguro que desea quitar el titular del titular?')) removeRelationFromHeadline(this.form);" class="icon iconDelete" /> 
+						</form> |-$relation->getName()-|
 					</li>
 			|-/foreach-|
 			</ul>    

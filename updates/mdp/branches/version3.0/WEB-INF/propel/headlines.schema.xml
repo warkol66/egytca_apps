@@ -64,4 +64,19 @@
 
 	</table>
 
+	<table name="headlines_relation" phpName="HeadlineRelation" isCrossRef="true" description="Tabla de relaciones de titulares">
+
+		<column name="headlineFromId" required="true" primaryKey="true" type="INTEGER"  description="ID Headline origen"/>
+		<column name="headlineToId" required="true" primaryKey="true" type="INTEGER"  description="ID Headline destino"/>
+
+		<foreign-key foreignTable="headlines_headline" onDelete="cascade">
+			<reference local="headlineFromId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="headlines_headline" onDelete="cascade">
+			<reference local="headlineToId" foreign="id"/>
+		</foreign-key>
+
+	</table>
+
 </database>

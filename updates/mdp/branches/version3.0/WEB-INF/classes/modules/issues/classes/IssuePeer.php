@@ -91,6 +91,8 @@ class IssuePeer extends BaseIssuePeer {
 	private $valoration;
 	private $evolution;
 	private $limit;
+        private $headlineId;
+        private $candidates;
 
 	//mapea las condiciones del filtro
 	var $filterConditions = array(
@@ -99,7 +101,9 @@ class IssuePeer extends BaseIssuePeer {
 					"impact"=>"setImpact",
 					"valoration"=>"setValoration",
 					"evolution"=>"setEvolution",
-					"limit" => "setLimit"
+					"limit" => "setLimit",
+                                        "headlineId" => "setHeadlineId",
+                                        "getCandidates" => "setCandidates"
 				);
 
  /**
@@ -148,6 +152,22 @@ class IssuePeer extends BaseIssuePeer {
 	 */
 	function setEvolution($evolution){
 		$this->evolution = $evolution;
+	}
+        
+        /**
+	 * Especifica un headline cuyos actores no deben aparecer en la busqueda.
+	 * @param int headlineId, id del headline.
+	 */
+	function setCandidates($candidates){
+		$this->candidates = $candidates;
+	}
+        
+        /**
+	 * Especifica un headline cuyos asuntos no deben aparecer en la busqueda.
+	 * @param int headlineId, id del headline.
+	 */
+	function setHeadlineId($headlineId){
+		$this->headlineId = $headlineId;
 	}
 
 	/**
@@ -312,6 +332,15 @@ class IssuePeer extends BaseIssuePeer {
 			$criteria->add(IssuePeer::NAME,"%" . $this->searchString . "%",Criteria::LIKE);
 			$criterionDescription = $criteria->getNewCriterion(IssuePeer::DESCRIPTION,"%" . $this->searchString . "%",Criteria::LIKE);
 			$criteria->addOr($criterionDescription);
+		}
+
+                if (!empty($this->headlineId)) {
+			$headline = HeadlineQuery::create()->findPk($this->headlineId);
+			$headlineIssuesIds = $headline->getAssignedIssuesArray();
+			if (!empty($this->candidates))
+				$criteria->add(IssuePeer::ID, $headlineIssuesIds,Criteria::NOT_IN);
+			else
+				$criteria->filterByHeadlineId($this->headlineId);
 		}
 
 		return $criteria;

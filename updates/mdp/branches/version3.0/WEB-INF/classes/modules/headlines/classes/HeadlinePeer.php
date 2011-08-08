@@ -23,6 +23,7 @@ class HeadlinePeer extends BaseHeadlinePeer {
 	private $adminActId;
 	private $issueId;
         private $actorId;
+        private $headlineId;
 	private $candidates;
         
         
@@ -33,7 +34,8 @@ class HeadlinePeer extends BaseHeadlinePeer {
 					'adminActId' => 'setAdminActId',
 					'issueId' => 'setIssueId',
                                         'actorId' => 'setActorId',
-					'getCandidates' => 'setCandidates'
+					'getCandidates' => 'setCandidates',
+                                        'headlineId' => 'setHeadlineId'
 				);
         
         /**
@@ -74,6 +76,14 @@ class HeadlinePeer extends BaseHeadlinePeer {
 	 */
 	function setActorId($actorId){
 		$this->actorId = $actorId;
+	}
+        
+        /**
+	 * Especifica un headline cuyos headlines no deben aparecer en la busqueda.
+	 * @param int headlineId, id del headline.
+	 */
+	function setHeadlineId($headlineId){
+		$this->headlineId = $headlineId;
 	}
 
 	/**
@@ -235,11 +245,18 @@ class HeadlinePeer extends BaseHeadlinePeer {
 			else
 				$criteria->filterByIssueId($this->issueId);
 		}
+                
+                if (!empty($this->headlineId)) {
+			$headline = HeadlineQuery::create()->findPk($this->headlineId);
+			$headlineHeadlinesIds = $headline->getAssignedHeadlinesArray();
+			if (!empty($this->candidates))
+				$criteria->add(HeadlinePeer::ID, $headlineHeadlinesIds,Criteria::NOT_IN);
+			else
+				$criteria->filterByHeadlineId($this->headlineId);
+		}
 
 		if ($this->searchString) {
 			$criteria->add(HeadlinePeer::NAME,"%" . $this->searchString . "%",Criteria::LIKE);
-			$criterionName = $criteria->getNewCriterion(HeadlinePeer::NAME,"%" . $this->searchString . "%",Criteria::LIKE);
-			$criteria->addOr($criterionName);
 			$criterionContent = $criteria->getNewCriterion(HeadlinePeer::CONTENT,"%" . $this->searchString . "%",Criteria::LIKE);
 			$criteria->addOr($criterionContent);
 		}

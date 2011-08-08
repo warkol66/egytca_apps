@@ -30,7 +30,15 @@ class IssuesAutocompleteListXAction extends BaseAction {
 
 		$issuePeer = new IssuePeer();
 
-		$filters = array ("searchString" => $searchString, "limit" => $_REQUEST['limit'], "adminActId" => $_REQUEST['adminActId']);
+		$filters = array ("searchString" => $searchString, "limit" => $_REQUEST['limit']/*, "adminActId" => $_REQUEST['adminActId']*/);
+                
+                if ($_REQUEST['adminActId'])
+			$filters = array_merge_recursive($filters, array("adminActId" => $_REQUEST['adminActId']));
+                elseif ($_REQUEST['headlineId'])
+			$filters = array_merge_recursive($filters, array("headlineId" => $_REQUEST['headlineId']));
+                if ($_REQUEST['getCandidates'])
+			$filters = array_merge_recursive($filters, array("getCandidates" => true));
+                
 		$this->applyFilters($issuePeer,$filters);
 		$issues = $issuePeer->getAll();
 		
