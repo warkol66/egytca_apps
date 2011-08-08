@@ -45,36 +45,6 @@ class HeadlinesAutocompleteListXAction extends BaseAction {
 		
 		$smarty->assign("relations",$headlines);
 		$smarty->assign("limit",$_REQUEST['limit']);
-
-/******************************************************************************/
-/*echo "<br/>************************<br/>";
-echo "Prueba:<br/><br/>";
-echo "count: " . count($headlines) . " - ";
-foreach($headlines as $h)
-{
-    echo " ";
-    echo $h->getName();
-}
-echo "<br />";
-
-if (count($headlines) == 0)
-{
-    echo "<b>No hay resultados que coincidan</b>";
-}else{
-    foreach($headlines as $h)
-    {
-        echo '<li id="' . $h->getId() . '">';
-        if ($h->getName() != '')
-            echo $h->getName();
-        echo '</li>';
-    }
-    if (count($headlines) == $limit)
-    {
-        echo "<b>Está viendo los primeros $limit resultados</b>";
-    }
-}
-echo "<br/>************************<br/>";*/
-/******************************************************************************/
                 
 		return $mapping->findForwardConfig('success');
 	}

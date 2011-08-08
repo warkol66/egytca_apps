@@ -98,7 +98,6 @@ function removeActorFromHeadline(form){
 </fieldset>
 
 
-|-include file="CommonAutocompleterInclude.tpl" -|
 <script type="text/javascript" language="javascript" charset="utf-8">
 function addIssueToHeadline(form) {
 	var fields = Form.serialize(form);
@@ -159,7 +158,6 @@ function removeIssueFromHeadline(form){
 		</div> 
 </fieldset>
 
-|-include file="CommonAutocompleterInclude.tpl" -|
 <script type="text/javascript" language="javascript" charset="utf-8">
 function addRelationToHeadline(form) {
 	var fields = Form.serialize(form);
