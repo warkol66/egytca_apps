@@ -39,14 +39,14 @@ class BlogCommentsListAction extends BaseAction {
 				$blogCommentPeer->setEntryId($_GET['filters']['entryId']);
 		}
 
-		if (isset($_GET['articleId'])) {
-			$blogCommentPeer->setArticleId($_GET['articleId']);
+		if (isset($_GET['entryId'])) {
+			$blogCommentPeer->setEntryId($_GET['entryId']);
 			$pager = $blogCommentPeer->getAllPaginatedFiltered($_GET["page"]);
-			$smarty->assign('articleId',$_GET['articleId']);
+			$smarty->assign('entryId',$_GET['entryId']);
 		}
 		else {
-			$articles = BlogEntryPeer::getLastEntries(50);
-			$smarty->assign('articles',$articles);
+			$entries = BlogEntryPeer::getLastEntries(50);
+			$smarty->assign('entries',$entries);
 			$pager = $blogCommentPeer->getAllPaginatedFiltered($_GET["page"]);
 		}
 
@@ -54,8 +54,8 @@ class BlogCommentsListAction extends BaseAction {
 		$smarty->assign("pager",$pager);
 		$url = "Main.php?do=blogCommentsList";
 
-		if (isset($_GET['articleId']))
-			$url .= '&articleId=' . $_GET['articleId'];
+		if (isset($_GET['entryId']))
+			$url .= '&entryId=' . $_GET['entryId'];
 
 		if (isset($_GET['page']))
 			$url .= '&page=' . $_GET['page'];

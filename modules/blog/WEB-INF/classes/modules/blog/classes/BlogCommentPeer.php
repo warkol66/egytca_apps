@@ -126,6 +126,8 @@ class BlogCommentPeer extends BaseBlogCommentPeer {
 
 		if (!empty($this->status))
 			$criteria->add(BlogCommentPeer::STATUS,$this->status);
+		else
+			$criteria->add(BlogCommentPeer::STATUS,BlogCommentPeer::SPAM,Criteria::NOT_EQUAL);
 
 		if (!empty($this->fromDate) && ! empty($this->toDate)) {
 			$criterion = $criteria->getNewCriterion(BlogCommentPeer::CREATIONDATE, $this->fromDate . ' 00:00:00', Criteria::GREATER_EQUAL);

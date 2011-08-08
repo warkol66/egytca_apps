@@ -13,7 +13,7 @@
 				|-/if-|
 				</div>
 				<div class="masInfo">
-					 <a href="Main.php?do=blogView&id=|-$blogEntry->getId()-|" title="Haga click aquí para comentar">Comentarios: |-$blogEntry->countBlogComments()-|</a>
+					 <a href="Main.php?do=blogView&id=|-$blogEntry->getId()-|" title="Haga click aquí para comentar">Comentarios: |-$blogEntry->getApprovedCommentsCount()-|</a>
 				</div>
 		<div class="tags">Etiquetas: |-foreach from=$blogEntry->getBlogTags() item=tag name=for_tagss-|
        <a href="Main.php?do=blogShow&tagId=|-$tag->getId()-|">|-$tag->getName()-|</a>&nbsp;|-/foreach-|

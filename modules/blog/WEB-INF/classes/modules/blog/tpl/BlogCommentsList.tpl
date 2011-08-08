@@ -79,7 +79,7 @@
 			</tr>
 	|-/if-|
 			<tr>
-				<th></th>
+				<th><input type="checkbox" name="allbox" value="checkbox" id="allBoxes" onChange="javascript:selectAllCheckboxes()" title="Seleccionar todos" /></th>
 				<th>Entrada</th>
 				<th>Comentario</th>
 				<th>Email</th>
@@ -143,7 +143,6 @@
 
 		<tr>
 			<td colspan="9">
-				<p><input type="button" name="selectAll" value="Seleccionar Todos" id="selectAll" onClick="javascript:selectAllCheckboxes()"/></p>								
 				<form action="Main.php" method="post" id='multipleCommentsChangeForm'>
 					<p>
 						Cambiar los Comentarios seleccionados al estado 

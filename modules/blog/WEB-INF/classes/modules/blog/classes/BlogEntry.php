@@ -55,7 +55,7 @@ class BlogEntry extends BaseBlogEntry {
 	private function getApprovedCommentsCriteria() {
 		$criteria = new Criteria();
 		$criteria->add(BlogCommentPeer::ENTRYID,$this->getId());
-		$criteria->add(BlogCommentPeer::STATUS,APPROVED);
+		$criteria->add(BlogCommentPeer::STATUS,BlogCommentPeer::APPROVED);
 		return $criteria;
 	}
 	
