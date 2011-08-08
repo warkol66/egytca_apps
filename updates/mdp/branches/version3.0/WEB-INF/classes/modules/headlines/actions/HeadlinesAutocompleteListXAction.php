@@ -43,7 +43,7 @@ class HeadlinesAutocompleteListXAction extends BaseAction {
 		$this->applyFilters($headlinePeer,$filters);
 		$headlines = $headlinePeer->getAll();
 		
-		$smarty->assign("relation",$headlines);
+		$smarty->assign("relations",$headlines);
 		$smarty->assign("limit",$_REQUEST['limit']);
 
 /******************************************************************************/
