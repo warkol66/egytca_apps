@@ -24,12 +24,17 @@ class DBConnection extends DB_Sql {
 		$password = $configDbData["password"];
 		$port = "";
 
+		$charSet = $configDbData["settings"]["charset"]["value"];
+
 		//Para conectar directamente, cargar valores en esta sección
 		$this->Database = $database;
 		$this->Host = $host;
 		$this->User = $user;
 		$this->Password = $password;
 		$this->Port = $port;
+
+    if (!empty($charSet))
+			$this->CharSet = $charSet;
 
 		//Verifico que se puede conectar a la base, de lo contrario die
 		if (!$this->connect()) {
