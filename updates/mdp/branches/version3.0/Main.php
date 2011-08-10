@@ -24,7 +24,8 @@ if (!empty($argc)) {
 	ini_set('display_errors',0);
 
 	foreach ($argv as $value) {
-		if (!preg_match('/Main.php/',$value)) {
+		// Exclude call to dispatcher as param
+		if (!strpos($value,'Main.php')) {
 			$parts = explode('=',$value);
 			$_REQUEST[$parts[0]] = $parts[1];
 			$_POST[$parts[0]] = $parts[1];
