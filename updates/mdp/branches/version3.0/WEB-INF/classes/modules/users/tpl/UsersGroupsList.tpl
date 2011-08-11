@@ -31,7 +31,7 @@
 	</p>
 	<p><input type="hidden" name="accion" value="edicion" />
 		 <input type='submit' name='guardar' value='##users,97,Guardar##'  />
-			<input type='button' onClick='javascript:history.go(-1)' value='##users,104,Regresar##'  />
+			<input type='button' onClick='location.href="Main.php?do=usersGroupsList"' value='##users,104,Regresar##'  />
 	</p>
 </form>
 </fieldset>
@@ -93,7 +93,7 @@
 		<td>|-$group->getName()-|</td>
 		<td nowrap><a href='Main.php?do=usersGroupsList&group=|-$group->getId()-|' alt='##users,114,Editar##' title='##users,114,Editar##'><img src="images/clear.png" class="icon iconEdit"></a>
 		|-if $group->getId() lt 4-|
-			<img src="images/clear.png" class="icon iconDeleteDisabled" title="Este grupo no se puede eliminar" alt="Este grupo no se puede eliminar">
+			<img src="images/clear.png" class="icon iconDelete disabled" title="Este grupo no se puede eliminar" alt="Este grupo no se puede eliminar">
 		|-else-|
 			<a href='Main.php?do=usersGroupsDoDelete&group=|-$group->getId()-|' title='##users,115,Eliminar##' alt='##users,115,Eliminar##' onclick="return confirm('##users,256,Esta opción eliminará permanentemente a este Grupo. ¿Está seguro que desea eliminarlo?##');"><img src="images/clear.png" class="icon iconDelete"></a>
 		|-/if-|</td>
