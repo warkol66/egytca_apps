@@ -10,9 +10,6 @@ class UsersListAction extends BaseAction {
 
     BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -52,18 +49,7 @@ class UsersListAction extends BaseAction {
 		$inactiveUsers = UserPeer::getInactives();
 		$smarty->assign("inactiveUsers",$inactiveUsers);
 
-/*		$softDeleted = $userPeer->getSoftDeleted();
-		$smarty->assign("inactiveUsers",$softDeleted);
-*/
     $smarty->assign("message",$_GET["message"]);
-    
-
-		$activeUsersCount = count($users);
-
-		global $system;
-
-		$licensesLeft = $system["config"]["users"]["licenses"] - $activeUsersCount;
-		$smarty->assign("licensesLeft",$licensesLeft);
 
 		return $mapping->findForwardConfig('success');
 	}

@@ -26,7 +26,7 @@ class Group extends BaseGroup {
 	*/
 	function getCandidateCategories() {
 
-		$categoriesIds = GroupCategoryQuery::create()->select('Categoryid')->filterByGroup($this)->find()->toArray();
+		$categoriesIds = GroupCategoryQuery::create()->select('Categoryid')->filterByGroup($this)->find();
 		$categories = CategoryQuery::create()->add(CategoryPeer::ID, $categoriesIds, Criteria::NOT_IN)->find();
 
 		return $categories;

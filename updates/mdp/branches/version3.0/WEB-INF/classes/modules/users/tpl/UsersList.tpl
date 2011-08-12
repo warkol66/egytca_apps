@@ -45,64 +45,75 @@ function resetPassword(form){
 	|-assign var="currentUserInfo" value=$currentUser->getUserInfo()-|
 	|-/if-|
 |-/if-|<span id="usersMsgField"></span>
+
 <table class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 	<tr>
-		<td colspan='5' class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Búsqueda por nombre</a>
+		<td  colspan="6" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Búsqueda por nombre</a>
 			<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none;|-/if-|"><form action='Main.php' method='get' style="display:inline;">
 				<input type="hidden" name="do" value="usersList" />
 				Nombre: <input name="filters[searchString]" type="text" title="Ingrese el nombre, parte del nombre, apellido o parte del apellido a buscar" value="|-$filters.searchString-|" size="50" />
+				Resultados por página
+				|-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getRowsPerPage()-|
 				&nbsp;&nbsp;<input type='submit' value='Buscar' class='tdSearchButton' />
-				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main?do=usersList'"/>|-/if-|
+				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=usersList'"/>|-/if-|
 		</form></div></td>
 	</tr>
-	|-if $licensesLeft gt 0-|
+	|-if "usersEdit"|security_has_access-||-if !isset($licensesLeft) || (isset($licensesLeft) && $licensesLeft gt 0)-|
 	<tr>
-		<th colspan="5"><div class="rightLink"><a href="Main.php?do=usersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Usuario</a></div></th>
+		<th colspan="6"><div class="rightLink"><a href="Main.php?do=usersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Usuario</a></div></th>
 	</tr>
-	|-/if-|
+	|-/if-||-/if-|
 	<tr>
 		<th width="25%" nowrap >##162,Identificación de Usuario##</th>
 		<th width="20%">##163,Nombre##</th>
 		<th width="30%">##164,Apellido##</th>
 		<th width="20%">Email</th>
+		<th width="10%">Nivel Permisos</th>
 		<th width="5%">&nbsp;</th>
 	</tr>
 	|-foreach from=$users item=user name=for_users-|
-	|-if $user->getUsername() neq 'system'-|<tr>
+	<tr>
 		<td>|-$user->getUsername()-|</td>
 		<td>|-$user->getName()-|</td>
 		<td>|-$user->getSurname()-|</td>
 		<td>|-$user->getMailAddress()-|</td>
-		<td nowrap><a href='Main.php?do=usersEdit&id=|-$user->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|' title="##114,Editar##"><img src="images/clear.png" class="icon iconEdit"></a>
-|-if $loginUser->getUsername() eq $user->getUsername()-|
-			<img src="images/clear.png" class="icon iconDelete disabled" title="No puede eliminar su propio usuario" alt="No puede eliminar su propio usuario">
-|-elseif $user->getLevelId() lt 3-|
-			<img src="images/clear.png" class="icon iconDelete disabled" title="No se puede eliminar. Para eliminar este usuario, debe tener nivel inferior a administrador" alt="No se puede eliminar. Para eliminar este usuario, debe tener nivel inferior a administrador">
-|-else-|
-			<a href='Main.php?do=usersDoDelete&user=|-$user->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|' title="##115,Eliminar##" onClick='return window.confirm("¿Esta seguro que quiere eliminar este usuario?")'><img src="images/clear.png" class="icon iconDelete"></a>
-|-/if-||-if ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() ne '')-|<form method="post">
+		<td>|-$user->getLevel()-|</td>
+		<td nowrap>|-if isset($loginUser)-|
+		|-if "usersEdit"|security_has_access-|
+		<a href='Main.php?do=usersEdit&id=|-$user->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|' title="##114,Editar##"><img src="images/clear.png" class="icon iconEdit"></a>
+		|-/if-|
+		|-if "usersDoDelete"|security_has_access-|
+			|-if $loginUser->getUsername() eq $user->getUsername()-|
+				<img src="images/clear.png" class="icon iconDelete disabled" title="No puede eliminar su propio usuario" alt="No puede eliminar su propio usuario">
+			|-elseif $user->getLevelId() lt 3-|
+				<img src="images/clear.png" class="icon iconDelete disabled" title="No se puede eliminar. Para eliminar este usuario, debe tener nivel inferior a administrador" alt="No se puede eliminar. Para eliminar este usuario, debe tener nivel inferior a administrador">
+			|-else-|
+				<a href='Main.php?do=usersDoDelete&user=|-$user->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|' title="##115,Eliminar##" onClick='return window.confirm("¿Esta seguro que quiere eliminar este usuario?")'><img src="images/clear.png" class="icon iconDelete"></a>
+			|-/if-|
+		|-/if-|
+		|-if ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() ne '')-|<form method="post">
 			<input type="hidden" name="do" value="usersPasswordResetX" />
 			<input type="hidden" name="id" value="|-$user->getId()-|" />
 			<input type="button" value="Resetear contraseña" onClick="if (confirm('¿Seguro que desea resetear esta contraseña?')){resetPassword(this.form)}; return false" title="Resetear contraseña" class="icon iconPassword">
 			</form>
-			|-elseif ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() eq '') -|
-						<input type="button" title="El usuario no podee dirección de correo electrónico, no se puede resetear la contraseña" class="icon iconPassword disabled">
-|-/if-|
-		</td>
-	</tr>|-/if-|
+		|-elseif ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() eq '') -|
+			<input type="button" title="El usuario no podee dirección de correo electrónico, no se puede resetear la contraseña" class="icon iconPassword disabled">
+		|-/if-|
+		|-/if-|</td>
+	</tr>
 	|-/foreach-|
-	|-if $licensesLeft gt 0-|
+	|-if "usersEdit"|security_has_access-||-if !isset($licensesLeft) || (isset($licensesLeft) && $licensesLeft gt 0)-|
 	<tr>
-		<th colspan="5"><div class="rightLink"><a href="Main.php?do=usersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Usuario</a></div></th>
+		<th colspan="6"><div class="rightLink"><a href="Main.php?do=usersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Usuario</a></div></th>
 	</tr>
 	|-else-|
 	<tr>
 		<td class='buttonCell' colspan='5'><input type='submit' value='##173,Nuevo Usuario##' class='button' onClick="return alert('Todas las licencias se encuentran en uso. Si desea dar de alta un nuevo usuario debe eliminar alguno de los existentes.');"/></td>
 	</tr>
-	|-/if-|
+	|-/if-||-/if-|
 		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
 			<tr> 
-				<td colspan="5" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+				<td colspan="6" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 			</tr>							
 		|-/if-|						
 </table>

@@ -10,11 +10,13 @@ class UserPeer extends BaseUserPeer {
 		const DELETEUSERS = false;
 
 	private $searchString;
+	private $perPage;
 	private $notInIds;
 
 	//mapea las condiciones del filtro
 	var $filterConditions = array(
-					"searchString"=>"setSearchString"
+					"searchString"=>"setSearchString",
+					"perPage"=>"setPerPage"
 				);
 
  /**
@@ -25,16 +27,24 @@ class UserPeer extends BaseUserPeer {
 		$this->searchString = $searchString;
 	}
 
+ /**
+	 * Especifica cantidad de resultados por pagina.
+	 * @param perPage integer cantidad de resultados por pagina.
+	 */
+	function setPerPage($perPage){
+		$this->perPage = $perPage;
+	}
+
 	/**
 	* Obtiene todos los usuarios.
 	*
 	*	@return array Informacion sobre todos los usuarios
 	*/
 	function getAll() {
-		$cond = new Criteria();
-		$cond->add(UserPeer::ACTIVE, 1);
-		$cond->add(UserPeer::ID, 0, Criteria::GREATER_THAN);
-		$todosObj = UserPeer::doSelect($cond);
+		$criteria = new Criteria();
+		$criteria->add(UserPeer::ACTIVE, 1);
+		$criteria->add(UserPeer::ID, 0, Criteria::GREATER_THAN); //Saco de los posibles resultados al usuario "system" id =-1
+		$todosObj = UserPeer::doSelect($criteria);
 		return $todosObj;
 	}
 
@@ -44,9 +54,10 @@ class UserPeer extends BaseUserPeer {
 	*	@return array Informacion sobre los usuarios
 	*/
 	function getInactives() {
-		$cond = new Criteria();
-		$cond->add(UserPeer::ACTIVE, 0);
-		$todosObj = UserPeer::doSelect($cond);
+		$criteria = new Criteria();
+		$criteria->add(UserPeer::ACTIVE, 0);
+		$criteria->add(UserPeer::ID, 0, Criteria::GREATER_THAN); //Saco de los posibles resultados al usuario "system" id =-1
+		$todosObj = UserPeer::doSelect($criteria);
 		return $todosObj;
 	}
 
@@ -55,8 +66,7 @@ class UserPeer extends BaseUserPeer {
 	*
 	*	@return array Informacion sobre los usuarios
 	*/
-	function getSoftDeleted()
-	{
+	function getSoftDeleted() {
 		$cond = new Criteria();
 		$cond->add(UserPeer::DELETED_AT, null, Criteria::ISNOTNULL);
 		UserPeer::disableSoftDelete();
@@ -168,8 +178,7 @@ class UserPeer extends BaseUserPeer {
 	* @param int $id Id del usuario
 	* @return array Informacion del usuario
 	*/
-	function get($id)
-	{
+	function get($id) {
 		$user = UserPeer::retrieveByPK($id);
 		return $user;
 	}
@@ -422,10 +431,11 @@ class UserPeer extends BaseUserPeer {
 	* @return User Informacion sobre el usuario, false si no fue exitosa la autenticacion
 	*/
 	function auth($username,$password) {
-		$cond = new Criteria();
-		$cond->add(UserPeer::USERNAME, $username);
-		$cond->add(UserPeer::ACTIVE, "1");
-		$user = UserPeer::doSelectOne($cond);
+		$criteria = new Criteria();
+		$criteria->add(UserPeer::USERNAME, $username);
+		$criteria->add(UserPeer::ID, 0, Criteria::GREATER_THAN); //Saco de los posibles resultados al usuario "system" id =-1
+		$criteria->add(UserPeer::ACTIVE, 1);
+		$user = UserPeer::doSelectOne($criteria);
 		if (!empty($user)) {
 			if ($user->getPassword() == md5($password."ASD")) {
 				$_SESSION['lastLogin'] = $user->getLastLogin();
@@ -452,6 +462,7 @@ class UserPeer extends BaseUserPeer {
 	function authenticateByUserAndMail($username, $mailAddress) {
 		$criteria = new Criteria();
 		$criteria->add(UserPeer::ACTIVE,1);
+		$criteria->add(UserPeer::ID, 0, Criteria::GREATER_THAN); //Saco de los posibles resultados al usuario "system" id =-1
 		$criteria->add(UserPeer::USERNAME,$username);
 		$criteria->add(UserPeer::MAILADDRESS,$mailAddress);
 		$user = UserPeer::doSelectOne($criteria);
@@ -469,10 +480,11 @@ class UserPeer extends BaseUserPeer {
 	* @return array [0] -> User Informacion sobre el usuario; [1] -> New password, false si no fue exitosa la autenticacion de usuario e email
 	*/
 	function generatePassword($username,$mailAddress) {
-		$cond = new Criteria();
-		$cond->add(UserPeer::USERNAME, $username);
-		$cond->add(UserPeer::ACTIVE, "1");
-		$user = UserPeer::doSelectOne($cond);
+		$criteria = new Criteria();
+		$criteria->add(UserPeer::USERNAME, $username);
+		$criteria->add(UserPeer::ID, 0, Criteria::GREATER_THAN); //Saco de los posibles resultados al usuario "system" id =-1
+		$criteria->add(UserPeer::ACTIVE, 1);
+		$user = UserPeer::doSelectOne($criteria);
 		if (!empty($user)) {
 			if ($user->getMailAddress() == $mailAddress ) {
 				$newPassword = UserPeer::getNewPassword();
@@ -513,8 +525,11 @@ class UserPeer extends BaseUserPeer {
 	* @return int Cantidad de filas por pagina
 	*/
 	function getRowsPerPage() {
-		global $system;
-		return $system["config"]["system"]["rowsPerPage"];
+		if (!isset($this->perPage))	{
+			global $system;
+			$this->perPage = $system["config"]["system"]["rowsPerPage"];
+		}
+		return $this->perPage;
 	}
 
 	/**
@@ -531,6 +546,7 @@ class UserPeer extends BaseUserPeer {
 			$page = 1;
 		$cond = new Criteria();
 		$cond->add(UserPeer::ACTIVE, 1);
+		$cond->add(UserPeer::ID, 0, Criteria::GREATER_THAN);
 		$pager = new PropelPager($cond,"UserPeer", "doSelect",$page,$perPage);
 		return $pager;
 	 }
@@ -564,14 +580,14 @@ class UserPeer extends BaseUserPeer {
 	*/
 	function getGroupCandidates($id){
 		$groups = GroupQuery::create()
- 			->select("Id")
-			->filterByUser(UserPeer::get($id))
-			->find(); 
+					 			->select("Id")
+								->filterByUser(UserPeer::get($id))
+								->find(); 
 
-		$criteria = new Criteria;
-		$criteria->add(GroupPeer::ID, $groups, Criteria::NOT_IN);
-		$groups = GroupPeer::doSelect($criteria);
-		return $groups;
+		$candidates = GroupQuery::create()
+											->add(GroupPeer::ID, $groups, Criteria::NOT_IN)
+											->find();
+		return $candidates;
 	}
 
  /**
@@ -583,6 +599,7 @@ class UserPeer extends BaseUserPeer {
 		$criteria = new Criteria();
 		$criteria->setIgnoreCase(true);
 		$criteria->add(UserPeer::ACTIVE, 1);
+		$criteria->add(UserPeer::ID, 0, Criteria::GREATER_THAN); //Saco de los posibles resultados al usuario "system" id =-1
 
 		if ($this->searchString) {
 			$criteria->add(UserPeer::USERNAME,"%" . $this->searchString . "%",Criteria::LIKE);
