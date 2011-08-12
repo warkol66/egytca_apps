@@ -14,46 +14,54 @@
  * @package    propel.generator.headlines.classes
  */
 class HeadlinePeer extends BaseHeadlinePeer {
-    
-        /** the default item name for this class */
+
+	/** the default item name for this class */
 	const ITEM_NAME = 'Headlines';
-        
-        private $searchString;
+
+	private $searchString;
 	private $limit;
 	private $adminActId;
 	private $issueId;
-        private $actorId;
-        private $headlineId;
+	private $actorId;
+	private $headlineId;
 	private $candidates;
-        
-        
-        //mapea las condiciones del filtro
+
+				//mapea las condiciones del filtro
 	var $filterConditions = array(
 					"searchString"=>"setSearchString",
+					"perPage"=>"setPerPage",
 					"limit" => "setLimit",
 					'adminActId' => 'setAdminActId',
 					'issueId' => 'setIssueId',
-                                        'actorId' => 'setActorId',
+					'actorId' => 'setActorId',
 					'getCandidates' => 'setCandidates',
-                                        'headlineId' => 'setHeadlineId'
+					'headlineId' => 'setHeadlineId'
 				);
-        
-        /**
+
+				/**
 	 * Especifica una cadena de busqueda.
 	 * @param searchString cadena de busqueda.
 	 */
 	function setSearchString($searchString){
 		$this->searchString = $searchString;
 	}
-	
- 	/**
+
+ /**
+	 * Especifica cantidad de resultados por pagina.
+	 * @param perPage integer cantidad de resultados por pagina.
+	 */
+	function setPerPage($perPage){
+		$this->perPage = $perPage;
+	}
+
+	/**
 	 * Especifica una cantidad maxima de registros.
 	 * @param limit cantidad maxima de registros.
 	 */
 	function setLimit($limit){
 		$this->limit = $limit;
 	}
-	
+
 	/**
 	 * Especifica un acto administrativo cuyos headlines no deben aparecer en la busqueda.
 	 * @param int adminActId, id del acto administrativo.
@@ -69,16 +77,16 @@ class HeadlinePeer extends BaseHeadlinePeer {
 	function setIssueId($issueId){
 		$this->issueId = $issueId;
 	}
-        
-        /**
+
+				/**
 	 * Especifica un actor cuyos headlines no deben aparecer en la busqueda.
 	 * @param int actorId, id del actor.
 	 */
 	function setActorId($actorId){
 		$this->actorId = $actorId;
 	}
-        
-        /**
+
+				/**
 	 * Especifica un headline cuyos headlines no deben aparecer en la busqueda.
 	 * @param int headlineId, id del headline.
 	 */
@@ -104,7 +112,7 @@ class HeadlinePeer extends BaseHeadlinePeer {
 		return HeadlineQuery::create()->findPk($id);
 	}
 
-        /**
+	/**
 	* Crea un headline nuevo.
 	*
 	* @param array $params con los datos del proyecto
@@ -145,7 +153,7 @@ class HeadlinePeer extends BaseHeadlinePeer {
 		}
 	}
 
-        /**
+	/**
 	* Elimina un headline a partir de los valores de la clave.
 	*
 	* @param int $id id del headline
@@ -170,7 +178,7 @@ class HeadlinePeer extends BaseHeadlinePeer {
 	* @param int $id Id del headline
 	* @return boolean true
 	*/
-        function hardDelete($id) {
+				function hardDelete($id) {
 		HeadlinePeer::disableSoftDelete();
 		$headline = HeadlinePeer::retrieveByPk($id);
 		try {
@@ -184,7 +192,7 @@ class HeadlinePeer extends BaseHeadlinePeer {
 		}
 	}
 
-        /**
+	/**
 	* Obtiene todos los headline desactivados.
 	*
 	* @return array Informacion sobre los headline
@@ -195,7 +203,7 @@ class HeadlinePeer extends BaseHeadlinePeer {
 		HeadlinePeer::disableSoftDelete();
 		$headlines = HeadlinePeer::doSelect($criteria);
 		return $headlines;
-        }
+				}
 
 	/**
 	* Recupera del softdelete un headline
@@ -203,7 +211,7 @@ class HeadlinePeer extends BaseHeadlinePeer {
 	* @param int $id Id del headline
 	* @return boolean true
 	*/
-        function recoverDeleted($id) {
+				function recoverDeleted($id) {
 		HeadlinePeer::disableSoftDelete();
 		$headline = HeadlinePeer::retrieveByPk($id);
 		try {
@@ -216,8 +224,8 @@ class HeadlinePeer extends BaseHeadlinePeer {
 			return false;
 		}
 	}
-    
-        /**
+
+	/**
 	 * Retorna el criteria generado a partir de los parametros de busqueda
 	 *
 	 * @return criteria $criteria Criteria con parametros de busqueda
@@ -227,7 +235,7 @@ class HeadlinePeer extends BaseHeadlinePeer {
 		$criteria->setIgnoreCase(true);
 		$criteria->setLimit($this->limit);
 		$criteria->addAscendingOrderByColumn(HeadlinePeer::ID);
-		
+
 		if (!empty($this->adminActId)) {
 			$headlinesParticipatingIds = AdminActParticipantQuery::create()
 									->filterByAdminActId($this->adminActId)
@@ -245,8 +253,8 @@ class HeadlinePeer extends BaseHeadlinePeer {
 			else
 				$criteria->filterByIssueId($this->issueId);
 		}
-                
-                if (!empty($this->headlineId)) {
+
+								if (!empty($this->headlineId)) {
 			$headline = HeadlineQuery::create()->findPk($this->headlineId);
 			$headlineHeadlinesIds = $headline->getAssignedHeadlinesArray();
 			if (!empty($this->candidates))
@@ -264,8 +272,19 @@ class HeadlinePeer extends BaseHeadlinePeer {
 		return $criteria;
 
 	}
-    
-    /**
+
+	/**
+	* Obtiene la cantidad de filas por pagina por defecto en los listado paginados.
+	*
+	* @return int Cantidad de filas por pagina
+	*/
+	function getRowsPerPage() {
+		if (!isset($this->perPage))
+			$this->perPage = Common::getRowsPerPage();
+		return $this->perPage;
+	}
+
+	/**
 	* Obtiene todos los headline paginados segun la condicion de busqueda ingresada.
 	*
 	* @param int $page [optional] Numero de pagina actual
@@ -274,23 +293,21 @@ class HeadlinePeer extends BaseHeadlinePeer {
 	*/
 	function getAllPaginatedFiltered($page=1,$perPage=-1)	{
 		if ($perPage == -1)
-			$perPage = Common::getRowsPerPage();
+			$perPage = $this->getRowsPerPage();
 		if (empty($page))
 			$page = 1;
 		$criteria = $this->getSearchCriteria();
 		$pager = new PropelPager($criteria,"HeadlinePeer", "doSelect",$page,$perPage);
 		return $pager;
 	}
-        
-        /**
+
+	/**
 	* Obtiene todos los headline paginados segun la condicion de busqueda ingresada.
 	*
 	* @return array Informacion sobre todos los headlines
 	*/
 	function getAll()	{
-		$criteria = $this->getSearchCriteria();
-		$allObjects = HeadlinePeer::doSelect($criteria);
-		return $allObjects;
+		return HeadlineQuery::create()->find();
 	}
 
 } // HeadlinePeer

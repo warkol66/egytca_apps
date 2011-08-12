@@ -44,18 +44,16 @@
         		<option value="|-$stageKey-|" |-$stageKey|selected:$filters.evolution-|>|-$stage-|</option>
 				|-/foreach-|
 				</select>
-			</p>				</p>
-<p>
+			Resultados por página |-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getRowsPerPage()-|				</p>
+				<p>
 					<input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
 					<input type="hidden" name="do" value="issuesList" />
-			&nbsp;&nbsp;
-					|-if $filters|@count gt 0-|
-				<input type="button" value="Quitar Filtros" onclick="location.href='Main.php?do=issuesList'"/></p>
-		|-/if-|</form></div></td>
+			&nbsp;&nbsp;|-if $filters|@count gt 0-|<input type="button" value="Quitar Filtros" onclick="location.href='Main.php?do=issuesList'"/>|-/if-|
+			</p></form></div></td>
 		</tr>
-			<tr>
+			|-if "issuesEdit"|security_has_access-|<tr>
 				 <th colspan="6" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=issuesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##issues,2,Asunto##</a></div></th>
-			</tr>
+			</tr>|-/if-|
 			<tr class="thFillTitle"> 
 				<th width="20%">##issues,2,Asunto##</th> 
 				<th width="40%">Descripción</th> 
@@ -77,14 +75,14 @@
 			<td>|-$issue->getValorationTypeTranslated()-|</td>
 			<td>|-$issue->getImpactTypeTranslated()-|</td>
 			<td>|-$issue->getEvolutionStageTranslated()-|</td>
-			<td nowrap> <form action="Main.php" method="get" style="display:inline;"> 
+			<td nowrap>|-if "issuesEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="issuesEdit" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$issue->getid()-|" /> 
 					<input type="submit" name="submit_go_edit_issue" value="Editar" titlke="Editar" class="icon iconEdit" /> 
-				</form>
-				<form action="Main.php" method="post" style="display:inline;"> 
+				</form>|-/if-|
+				|-if "issuesDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;"> 
 					<input type="hidden" name="do" value="issuesDoDelete" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
@@ -98,7 +96,7 @@
 					<input type="hidden" name="id" value="|-$issue->getid()-|" /> 
 					<input type="hidden" name="doHardDelete" value="true" /> 
 					<input type="submit" name="submit_go_delete_issue" value="Borrar" title="Eliminar completamente" onclick="return confirm('Seguro que desea eliminar el ##issues,2,Asunto## definitivamente?')" class="icon iconHardDelete" /> 
-			</form>|-/if-|</td> 
+			</form>|-/if-||-/if-|</td> 
 		</tr> 
 		|-/foreach-|
 		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
@@ -106,9 +104,9 @@
 			<td colspan="6" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
-			<tr>
+			|-if "issuesEdit"|security_has_access-|<tr>
 				 <th colspan="6" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=issuesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##issues,2,Asunto##</a></div></th>
-			</tr>
+			</tr>|-/if-|
 		|-/if-|
 		</tbody> 
 		 </table> 

@@ -14,16 +14,15 @@
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="headlinesList" />
 					Texto: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
-					&nbsp;&nbsp;<input type='submit' value='Buscar' class='tdSearchButton' />
+					Resultados por página |-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getRowsPerPage()-|
+					<input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
+				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=headlinesList'"/>|-/if-|
 			</form>
-					|-if $filters|@count gt 0-|<form  method="get">
-				<input type="hidden" name="do" value="headlinesList" />
-				<input type="submit" value="Quitar Filtros" />
-		</form>|-/if-|</div></td>
+		</div></td>
 		</tr>
-			<tr>
+			|-if "headlinesEdit"|security_has_access-|<tr>
 				 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=headlinesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##headlines,2,Titular##</a></div></th>
-			</tr>
+			</tr>|-/if-|
 			<tr class="thFillTitle"> 
 	<!--			<th width="5%">Id</th> -->
 				<th width="50%">##headlines,2,Titulares##</th> 
@@ -38,20 +37,17 @@
 	|-else-|
 		|-foreach from=$headlines item=headline name=for_headlines-|
 		<tr> 
-                   <!-- <td>|-$headline->getid()-|</td> -->
-                        <td>|-$headline->getName()-|</td> 
-                        <td>|-$headline->getContent()-|</td>
-
-
-
-			<td nowrap> <form action="Main.php" method="get" style="display:inline;"> 
+	 <!-- <td>|-$headline->getid()-|</td> -->
+				<td>|-$headline->getName()-|</td> 
+				<td>|-$headline->getContent()-|</td>
+			<td nowrap>|-if "headlinesEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="headlinesEdit" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$headline->getid()-|" /> 
 					<input type="submit" name="submit_go_edit_headline" value="Editar" title="Editar" class="icon iconEdit" /> 
-				</form> 
-				<form action="Main.php" method="post" style="display:inline;"> 
+				</form>|-/if-|
+				|-if "headlinesDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;"> 
 					<input type="hidden" name="do" value="headlinesDoDelete" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
@@ -65,7 +61,8 @@
 					<input type="hidden" name="id" value="|-$headline->getid()-|" /> 
 					<input type="hidden" name="doHardDelete" value="true" /> 
 					<input type="submit" name="submit_go_delete_headline" value="Borrar" title="Eliminar completamente" onclick="return confirm('Seguro que desea eliminar el ##headlines,2,Titular## definitivamente?')" class="icon iconHardDelete" /> 
-			</form>|-/if-|</td> 
+			</form>|-/if-|
+			|-/if-|</td> 
 		</tr> 
 		|-/foreach-|
 		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|

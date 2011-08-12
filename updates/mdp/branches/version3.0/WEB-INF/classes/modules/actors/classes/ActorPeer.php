@@ -28,6 +28,7 @@ class ActorPeer extends BaseActorPeer {
 	//mapea las condiciones del filtro
 	var $filterConditions = array(
 					"searchString"=>"setSearchString",
+					"perPage"=>"setPerPage",
 					"limit" => "setLimit",
 					'adminActId' => 'setAdminActId',
 					'issueId' => 'setIssueId',
@@ -43,6 +44,14 @@ class ActorPeer extends BaseActorPeer {
 		$this->searchString = $searchString;
 	}
 	
+ /**
+	 * Especifica cantidad de resultados por pagina.
+	 * @param perPage integer cantidad de resultados por pagina.
+	 */
+	function setPerPage($perPage){
+		$this->perPage = $perPage;
+	}
+
  	/**
 	 * Especifica una cantidad maxima de registros.
 	 * @param limit cantidad maxima de registros.
@@ -256,6 +265,17 @@ class ActorPeer extends BaseActorPeer {
 
 	}
 
+	/**
+	* Obtiene la cantidad de filas por pagina por defecto en los listado paginados.
+	*
+	* @return int Cantidad de filas por pagina
+	*/
+	function getRowsPerPage() {
+		if (!isset($this->perPage))
+			$this->perPage = Common::getRowsPerPage();
+		return $this->perPage;
+	}
+
  /**
 	* Obtiene todos los actor paginados segun la condicion de busqueda ingresada.
 	*
@@ -265,7 +285,7 @@ class ActorPeer extends BaseActorPeer {
 	*/
 	function getAllPaginatedFiltered($page=1,$perPage=-1)	{
 		if ($perPage == -1)
-			$perPage = Common::getRowsPerPage();
+			$perPage = $this->getRowsPerPage();
 		if (empty($page))
 			$page = 1;
 		$criteria = $this->getSearchCriteria();
@@ -279,9 +299,7 @@ class ActorPeer extends BaseActorPeer {
 	* @return array Informacion sobre todos los actores
 	*/
 	function getAll()	{
-		$criteria = $this->getSearchCriteria();
-		$allObjects = ActorPeer::doSelect($criteria);
-		return $allObjects;
+		return ActorQuery::create()->find();
 	}
 
 } // ActorPeer

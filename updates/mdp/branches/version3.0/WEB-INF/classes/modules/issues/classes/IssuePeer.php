@@ -97,13 +97,14 @@ class IssuePeer extends BaseIssuePeer {
 	//mapea las condiciones del filtro
 	var $filterConditions = array(
 					"searchString"=>"setSearchString",
+					"perPage"=>"setPerPage",
+					"limit" => "setLimit",
 					"categoryId"=>"setCategoryId",
 					"impact"=>"setImpact",
 					"valoration"=>"setValoration",
 					"evolution"=>"setEvolution",
-					"limit" => "setLimit",
-                                        "headlineId" => "setHeadlineId",
-                                        "getCandidates" => "setCandidates"
+          "headlineId" => "setHeadlineId",
+          "getCandidates" => "setCandidates"
 				);
 
  /**
@@ -113,7 +114,15 @@ class IssuePeer extends BaseIssuePeer {
 	function setSearchString($searchString){
 		$this->searchString = $searchString;
 	}
-	
+
+ /**
+	 * Especifica cantidad de resultados por pagina.
+	 * @param perPage integer cantidad de resultados por pagina.
+	 */
+	function setPerPage($perPage){
+		$this->perPage = $perPage;
+	}
+
  	/**
 	 * Especifica una cantidad maxima de registros.
 	 * @param limit cantidad maxima de registros.
@@ -121,7 +130,7 @@ class IssuePeer extends BaseIssuePeer {
 	function setLimit($limit){
 		$this->limit = $limit;
 	}
-	
+
  	/**
 	 * Especifica una categoria de busqueda.
 	 * @param categoryId categoria de busqueda
@@ -334,7 +343,7 @@ class IssuePeer extends BaseIssuePeer {
 			$criteria->addOr($criterionDescription);
 		}
 
-                if (!empty($this->headlineId)) {
+		if (!empty($this->headlineId)) {
 			$headline = HeadlineQuery::create()->findPk($this->headlineId);
 			$headlineIssuesIds = $headline->getAssignedIssuesArray();
 			if (!empty($this->candidates))
@@ -347,6 +356,17 @@ class IssuePeer extends BaseIssuePeer {
 
 	}
 
+	/**
+	* Obtiene la cantidad de filas por pagina por defecto en los listado paginados.
+	*
+	* @return int Cantidad de filas por pagina
+	*/
+	function getRowsPerPage() {
+		if (!isset($this->perPage))
+			$this->perPage = Common::getRowsPerPage();
+		return $this->perPage;
+	}
+
  /**
 	* Obtiene todos los issue paginados segun la condicion de busqueda ingresada.
 	*
@@ -356,7 +376,7 @@ class IssuePeer extends BaseIssuePeer {
 	*/
 	function getAllPaginatedFiltered($page=1,$perPage=-1)	{
 		if ($perPage == -1)
-			$perPage = Common::getRowsPerPage();
+			$perPage = $this->getRowsPerPage();
 		if (empty($page))
 			$page = 1;
 		$criteria = $this->getSearchCriteria();
@@ -370,9 +390,7 @@ class IssuePeer extends BaseIssuePeer {
 	* @return array Informacion sobre todos los issues
 	*/
 	function getAll()	{
-		$criteria = $this->getSearchCriteria();
-		$allObjects = IssuePeer::doSelect($criteria);
-		return $allObjects;
+		return IssueQuery::create()->find();
 	}
 
 } // IssuePeer

@@ -142,13 +142,13 @@ class Common {
 	 * Indica si es un usuario comun.
 	 */
 	function isSystemUser() {
-	
+
 		if (isset($_SESSION["loginUser"]))
 				return true;
 		return false;
-	
+
 	}
-	
+
 	/**
 	 * Indica si el usuario es administrador
 	 */
@@ -180,7 +180,7 @@ class Common {
 	function getAdminLogged() {
 		return $_SESSION["loginUser"];
 	}
-	
+
 	public static function getAdminGroupsIds() {
 		$user = Common::getAdminLogged();
 		$userGroups = $user->getGroups();
@@ -464,7 +464,6 @@ class Common {
 		setcookie($cookieName,$value);
 	}
 
-
 	/*
 	 * Verifica si un email existe.
 	 *
@@ -486,13 +485,13 @@ class Common {
 		// Get MX Records to find smtp servers handling this domain
 		if(getmxrr($domain, $mxhosts, $mxweight)) {
 			for($i=0;$i<count($mxhosts);$i++){
-					$mxs[$mxhosts[$i]] = $mxweight[$i];
+				$mxs[$mxhosts[$i]] = $mxweight[$i];
 			}
 			asort($mxs);
 			$mailers = array_keys($mxs);
-		}elseif(checkdnsrr($domain, 'A')) {
+		} elseif(checkdnsrr($domain, 'A')) {
 			$mailers[0] = gethostbyname($domain);
-		}else {
+		} else {
 			return false;
 		}
 		// Try to send to each mailserver
@@ -829,7 +828,7 @@ class Common {
 		//$object->setLastModification(time());
 		//$changes = $object->getChanges() + 1;
 		//$object->setChanges($changes);
-		return true;		
+		return true;
 	}
 
 	/**
@@ -852,7 +851,7 @@ class Common {
 				if (ConfigModule::get("global","showPropelExceptions"))
 					print_r($exp->getMessage());
 			}
-		}	
+		}
 	}
 
 	/**
@@ -866,13 +865,13 @@ class Common {
 		$logClassName = get_class($object) . 'Log';
 		//Solo guardo el log si hasToLog devuelve true, ademas de que existan todo los metodos necesarios de logueo
 		if (method_exists($object, 'hasToLog') && $object->hasToLog() && class_exists($logClassName) && method_exists($object, 'setToLog')) {
-			//seteo el parámetro de cambio menor
+			//seteo el parametro de cambio menor
 			if (method_exists($object, 'setMinorChange'))
 				$object->setMinorChange($objectParams['minorChange']);
 			$objectLog = new $logClassName;
 			Common::morphObjectValues($object, $objectLog);
 			$object->setToLog($objectLog);
-		}		
+		}
 	}
 
 	/**
@@ -894,7 +893,7 @@ class Common {
 				if ($currentValue != $value) {
 					if (!empty($value) || $value == "0")
 						$object->$setMethod($value);
-					else 
+					else
 						$object->$setMethod(null);
 				}
 			}
@@ -915,7 +914,7 @@ class Common {
 
 		return $object;
 	}
-	
+
 	/**
 	* Setea valores a un objeto a partir de un array de valores de sus atributos
 	*
@@ -974,80 +973,79 @@ class Common {
 
 		return $object;
 	}
-	
+
 	/**
 	 * Obtiene el formato de fecha expresado como para un DatePicker a partir de la configuración local.
 	 */
 	public static function getDatePickerDateFormat() {
 		global $system;
 		$dateFormat = $system['config']['system']['parameters']['dateFormat']['value'];
-		return strtolower(str_replace("-", "", $dateFormat));			
+		return strtolower(str_replace("-", "", $dateFormat));
 	}
-	
 
-  /**
-  * Genera una nueva contraseña aleatoria.
-  *
-  * @param int $length [optional] Longitud de la contraseña
-  * @return string Contraseña
-  */
+	/**
+	* Genera una nueva contraseña aleatoria.
+	*
+	* @param int $length [optional] Longitud de la contraseña
+	* @return string Contraseña
+	*/
 	function generateRandomPassword($length = 8){
-	  $password = "";
-	  $possible = "23456789@bcdefghijkmnopqrstuvwxyz";
-  	$i = 0;
-  	while ($i < $length) {
-  	  $char = substr($possible, mt_rand(0, strlen($possible)-1), 1);
-  	  if (!strstr($password, $char)) {
-	      $password .= $char;
-  	    $i++;
-	    }
-	  }
-	  return $password;
+		$password = "";
+		$possible = "23456789@bcdefghijkmnopqrstuvwxyz";
+		$i = 0;
+		while ($i < $length) {
+			$char = substr($possible, mt_rand(0, strlen($possible)-1), 1);
+			if (!strstr($password, $char)) {
+				$password .= $char;
+				$i++;
+			}
+		}
+		return $password;
 	}
 
-  /**
-  * This function transforms the php.ini notation for numbers (like '2M') to an integer (2*1024*1024 in this case)
-  *
-  * @param int $v string Parametro con valor y unidad
-  * @return int longitud del parametro
-  */
+	/**
+	* This function transforms the php.ini notation for numbers (like '2M') to an integer (2*1024*1024 in this case)
+	*
+	* @param int $v string Parametro con valor y unidad
+	* @return int longitud del parametro
+	*/
 
 	function let_to_num($v){ //
-	    $l = substr($v, -1);
-	    $ret = substr($v, 0, -1);
-	    switch(strtoupper($l)){
-	    case 'P':
-	        $ret *= 1024;
-	    case 'T':
-	        $ret *= 1024;
-	    case 'G':
-	        $ret *= 1024;
-	    case 'M':
-	        $ret *= 1024;
-	    case 'K':
-	        $ret *= 1024;
-	        break;
-	    }
-	    return $ret;
+			$l = substr($v, -1);
+			$ret = substr($v, 0, -1);
+			switch(strtoupper($l)){
+			case 'P':
+					$ret *= 1024;
+			case 'T':
+					$ret *= 1024;
+			case 'G':
+					$ret *= 1024;
+			case 'M':
+					$ret *= 1024;
+			case 'K':
+					$ret *= 1024;
+					break;
+			}
+			return $ret;
 	}
 
-  /**
-  * Determina el tamaño maximo de archivo a subir
-  *
-  * @return int tamaño del archivo en MB
-  */
+	/**
+	* Determina el tamano maximo de archivo a subir
+	*
+	* @return int tamano del archivo en MB
+	*/
 	function maxUploadSize() {
 		$max_upload_size = min(Common::let_to_num(ini_get('post_max_size')),
-		 Common::let_to_num(ini_get('upload_max_filesize')), 
+		 Common::let_to_num(ini_get('upload_max_filesize')),
 		 Common::let_to_num(ConfigModule::get("documents","maxUploadSize")));
 		return ($max_upload_size/(1024*1024));
 	}
-	
-  /**
-  * Encripta md5
-  *
-  * @return string encriptado
-  */
+
+	/**
+	* Encripta md5
+	*
+	* @return string encriptado
+	*/
 	function md5($pass) {
 		$crypt = md5($pass."ASD");
 		return $crypt;
@@ -1055,7 +1053,7 @@ class Common {
 
 	/**
 	 * Hace un explode transformando un string en un array asociativo
-	 * 
+	 *
 	 * @usage $str="key1=val1&key2=val2&key3=val3";
 	 * 		  $array=explode_assoc('=','&',$str);
 	 * @return $array
@@ -1063,114 +1061,112 @@ class Common {
 	 * @param $glue2 separador entre elementos.
 	 * @param $input string con la cadena para hacer el explode
 	 */
-	function explode_assoc($glue1, $glue2, $input)
-	{
-	  $array2=explode($glue2, $input);
-	  foreach($array2 as  $val)
-	  {
-	            $pos=strpos($val,$glue1);
-	            $key=substr($val,0,$pos);
-	            $array3[$key] =substr($val,$pos+1,strlen($val));
-	  }
-	  return $array3;
+	function explode_assoc($glue1, $glue2, $input) {
+		$array2 = explode($glue2, $input);
+		foreach($array2 as  $val) {
+			$pos=strpos($val,$glue1);
+			$key=substr($val,0,$pos);
+			$array3[$key] = substr($val,$pos+1,strlen($val));
+		}
+		return $array3;
 	}
-	
+
 	/**
- 	 * Convert a string to camel case, optionally capitalizing the first char and optionally setting which characters are
- 	 * acceptable.
- 	 * @param  string  $str              text to convert to camel case.
- 	 * @param  bool    $capitalizeFirst  optional. whether to capitalize the first chare (e.g. "camelCase" vs. "CamelCase").
- 	 * @param  string  $allowed          optional. regex of the chars to allow in the final string
- 	 * 
- 	 * @return string camel cased result
- 	 * 
- 	 * @author Sean P. O. MacCath-Moran   www.emanaton.com
- 	 */
+	 * Convert a string to camel case, optionally capitalizing the first char and optionally setting which characters are
+	 * acceptable.
+	 * @param  string  $str              text to convert to camel case.
+	 * @param  bool    $capitalizeFirst  optional. whether to capitalize the first chare (e.g. "camelCase" vs. "CamelCase").
+	 * @param  string  $allowed          optional. regex of the chars to allow in the final string
+	 *
+	 * @return string camel cased result
+	 *
+	 * @author Sean P. O. MacCath-Moran   www.emanaton.com
+	 */
 	public static function strtocamel($str, $capitalizeFirst = true, $allowed = 'A-Za-z0-9') {
-	    return preg_replace(
-	        array(
-	            '/([A-Z][a-z])/e', // all occurances of caps followed by lowers
-	            '/([a-zA-Z])([a-zA-Z]*)/e', // all occurances of words w/ first char captured separately
-	            '/[^'.$allowed.']+/e', // all non allowed chars (non alpha numerics, by default)
-	            '/^([a-zA-Z])/e' // first alpha char
-	        ),
-	        array(
-	            '" ".$1', // add spaces
-	            'strtoupper("$1").strtolower("$2")', // capitalize first, lower the rest
-	            '', // delete undesired chars
-	            'strto'.($capitalizeFirst ? 'upper' : 'lower').'("$1")' // force first char to upper or lower
-	        ),
-	        $str
-	    );
+		return preg_replace(
+				array(
+						'/([A-Z][a-z])/e', // all occurances of caps followed by lowers
+						'/([a-zA-Z])([a-zA-Z]*)/e', // all occurances of words w/ first char captured separately
+						'/[^'.$allowed.']+/e', // all non allowed chars (non alpha numerics, by default)
+						'/^([a-zA-Z])/e' // first alpha char
+				),
+				array(
+						'" ".$1', // add spaces
+						'strtoupper("$1").strtolower("$2")', // capitalize first, lower the rest
+						'', // delete undesired chars
+						'strto'.($capitalizeFirst ? 'upper' : 'lower').'("$1")' // force first char to upper or lower
+				),
+				$str
+		);
 	}
-	
+
 	/**
 	 * Pluralizes a string.
-	 * 
+	 *
 	 * @param $string input singular string.
 	 * @return pluralized string
-	 * 
+	 *
 	 * @author Paul Osman
 	 */
 	public static function pluralize( $string ) {
-        $plural = array(
-            array( '/(quiz)$/i',               "$1zes"   ),
-		    array( '/^(ox)$/i',                "$1en"    ),
-		    array( '/([m|l])ouse$/i',          "$1ice"   ),
-		    array( '/(matr|vert|ind)ix|ex$/i', "$1ices"  ),
-		    array( '/(x|ch|ss|sh)$/i',         "$1es"    ),
-		    array( '/([^aeiouy]|qu)y$/i',      "$1ies"   ),
-		    array( '/([^aeiouy]|qu)ies$/i',    "$1y"     ),
-    	    array( '/(hive)$/i',               "$1s"     ),
-    	    array( '/(?:([^f])fe|([lr])f)$/i', "$1$2ves" ),
-    	    array( '/sis$/i',                  "ses"     ),
-    	    array( '/([ti])um$/i',             "$1a"     ),
-    	    array( '/(buffal|tomat)o$/i',      "$1oes"   ),
-            array( '/(bu)s$/i',                "$1ses"   ),
-    	    array( '/(alias|status)$/i',       "$1es"    ),
-    	    array( '/(octop|vir)us$/i',        "$1i"     ),
-    	    array( '/(ax|test)is$/i',          "$1es"    ),
-    	    array( '/s$/i',                    "s"       ),
-    	    array( '/$/',                      "s"       )
-        );
- 
-        $irregular = array(
-		    array( 'move',   'moves'    ),
-		    array( 'sex',    'sexes'    ),
-		    array( 'child',  'children' ),
-		    array( 'man',    'men'      ),
-		    array( 'person', 'people'   )
-        );
- 
-        $uncountable = array( 
-		    'sheep', 
-		    'fish',
-		    'series',
-		    'species',
-		    'money',
-		    'rice',
-		    'information',
-		    'equipment'
-        );
- 
-        // save some time in the case that singular and plural are the same
-        if ( in_array( strtolower( $string ), $uncountable ) )
-	    	return $string;
- 
-        // check for irregular singular forms
-        foreach ( $irregular as $noun ) {
-		    if ( strtolower( $string ) == $noun[0] )
-		        return $noun[1];
-        }
- 
-        // check for matches using regular expressions
-        foreach ( $plural as $pattern ) {
-		    if ( preg_match( $pattern[0], $string ) )
-		        return preg_replace( $pattern[0], $pattern[1], $string );
-        }
- 
-        return $string;
-    }
+		$plural = array(
+				array( '/(quiz)$/i',               "$1zes"   ),
+				array( '/^(ox)$/i',                "$1en"    ),
+				array( '/([m|l])ouse$/i',          "$1ice"   ),
+				array( '/(matr|vert|ind)ix|ex$/i', "$1ices"  ),
+				array( '/(x|ch|ss|sh)$/i',         "$1es"    ),
+				array( '/([^aeiouy]|qu)y$/i',      "$1ies"   ),
+				array( '/([^aeiouy]|qu)ies$/i',    "$1y"     ),
+				array( '/(hive)$/i',               "$1s"     ),
+				array( '/(?:([^f])fe|([lr])f)$/i', "$1$2ves" ),
+				array( '/sis$/i',                  "ses"     ),
+				array( '/([ti])um$/i',             "$1a"     ),
+				array( '/(buffal|tomat)o$/i',      "$1oes"   ),
+				array( '/(bu)s$/i',                "$1ses"   ),
+				array( '/(alias|status)$/i',       "$1es"    ),
+				array( '/(octop|vir)us$/i',        "$1i"     ),
+				array( '/(ax|test)is$/i',          "$1es"    ),
+				array( '/s$/i',                    "s"       ),
+				array( '/$/',                      "s"       )
+		);
+
+		$irregular = array(
+				array( 'move',   'moves'    ),
+				array( 'sex',    'sexes'    ),
+				array( 'child',  'children' ),
+				array( 'man',    'men'      ),
+				array( 'person', 'people'   )
+		);
+
+		$uncountable = array(
+				'sheep',
+				'fish',
+				'series',
+				'species',
+				'money',
+				'rice',
+				'information',
+				'equipment'
+		);
+
+		// save some time in the case that singular and plural are the same
+		if ( in_array( strtolower( $string ), $uncountable ) )
+			return $string;
+
+		// check for irregular singular forms
+		foreach ( $irregular as $noun ) {
+			if ( strtolower( $string ) == $noun[0] )
+				return $noun[1];
+		}
+
+		// check for matches using regular expressions
+		foreach ( $plural as $pattern ) {
+			if ( preg_match( $pattern[0], $string ) )
+					return preg_replace( $pattern[0], $pattern[1], $string );
+		}
+
+		return $string;
+	}
 
 	/**
 	 * Asigna parametros a smarty
@@ -1189,22 +1185,22 @@ class Common {
 	}
 
 	/**
-	 * Obtiene todos los elementos de un Peer dada su criterio de búsqueda
-	 * paginados según los parámetros de página y elementos por página
+	 * Obtiene todos los elementos de un Peer dada su criterio de busqueda
+	 * paginados segun los parametros de pagina y elementos por pagina
 	 * @param $peer instancia del Peer de elementos a buscar
-	 * @param $page int número de página
-	 * @param $perPage int cantidad de elementos por página
-	 * @return pager 
+	 * @param $page int numero de pagina
+	 * @param $perPage int cantidad de elementos por pagina
+	 * @return pager
 	 */
-	public static function getAllPaginatedFiltered($peer, $page=1, $perPage=-1) {  
+	public static function getAllPaginatedFiltered($peer, $page=1, $perPage=-1) {
 		if ($perPage == -1)
-	      $perPage = 	Common::getRowsPerPage();
-	    if (empty($page))
-	      $page = 1;
-	
-	    $cond = $peer->getSearchCriteria();	    
-	    $pager = $cond->paginate($page,$perPage);
-	    return $pager;
+			$perPage = 	Common::getRowsPerPage();
+		if (empty($page))
+			$page = 1;
+
+		$criteria = $peer->getSearchCriteria();
+		$pager = $criteria->paginate($page,$perPage);
+		return $pager;
 	}
 
 } // end of class

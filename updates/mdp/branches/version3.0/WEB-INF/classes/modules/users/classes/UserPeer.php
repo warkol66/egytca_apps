@@ -525,10 +525,8 @@ class UserPeer extends BaseUserPeer {
 	* @return int Cantidad de filas por pagina
 	*/
 	function getRowsPerPage() {
-		if (!isset($this->perPage))	{
-			global $system;
-			$this->perPage = $system["config"]["system"]["rowsPerPage"];
-		}
+		if (!isset($this->perPage))
+			$this->perPage = Common::getRowsPerPage();
 		return $this->perPage;
 	}
 
@@ -541,7 +539,7 @@ class UserPeer extends BaseUserPeer {
 	*/
 	function getAllPaginated($page=1,$perPage=-1) {
 		if ($perPage == -1)
-			$perPage = 	UserPeer::getRowsPerPage();
+			$perPage = $this->getRowsPerPage();
 		if (empty($page))
 			$page = 1;
 		$cond = new Criteria();
