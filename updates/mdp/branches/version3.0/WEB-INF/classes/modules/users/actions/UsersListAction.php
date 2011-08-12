@@ -32,10 +32,6 @@ class UsersListAction extends BaseAction {
 			$this->applyFilters($userPeer,$filters,$smarty);
 		}
 
-		//timezone
-		$timezonePeer = new TimezonePeer();
-		$smarty->assign("timezones",$timezonePeer->getAll());
-
 		$pager = $userPeer->getAllPaginatedFiltered($page);
 		$smarty->assign("users",$pager->getResult());
 		$smarty->assign("pager",$pager);
