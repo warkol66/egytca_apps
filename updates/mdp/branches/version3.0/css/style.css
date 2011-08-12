@@ -203,23 +203,6 @@
 
 
 
-.errorMessage {
-	color: #B22222;
-	font-weight: bold;
-	padding: 8px;
-	margin: 9px;
-	border: 1px solid #B22222;
-	text-align: center;
-
-}
-.successMessage {
-	color: #007D62;
-	font-weight: bold;
-	padding: 8px;
-	margin: 9px;
-	border: 1px solid #007D62;
-	text-align: center;
-}
 
 .tdTitle {
 	font-size: 93%;

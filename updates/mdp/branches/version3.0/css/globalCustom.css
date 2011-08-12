@@ -491,6 +491,23 @@ div.autocomplete ul b {
 	padding-left: 30px;
 	padding-right: 30px;
 }
+.errorMessage {
+	color: #B22222;
+	font-weight: bold;
+	padding: 8px;
+	margin: 9px;
+	border: 1px solid #B22222;
+	text-align: center;
+}
+.successMessage {
+	color: #007D62;
+	font-weight: bold;
+	padding: 8px;
+	margin: 9px;
+	border: 1px solid #007D62;
+	text-align: center;
+}
+
 option{
 	padding-right: 5px;
 	background: #fcfcfc;
