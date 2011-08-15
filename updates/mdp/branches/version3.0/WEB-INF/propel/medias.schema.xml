@@ -3,9 +3,29 @@
 	<table name="medias_media" phpName="Media" description="Archivo de medios">
 
 		<column name="id" type="INTEGER" required="true" description="Id log" primaryKey="true" autoIncrement="true" />
-		<column name="media" type="VARCHAR" size="100" required="true" description="Nombre del medio" />
+		<column name="name" type="VARCHAR" size="200" required="true"  primaryString="true" description="Nombre del medio" />
+		<column name="typeId" type="INTEGER" size="5" required="true" description="Tipo de medio" />
+		<column name="description" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Descripcion del medio" />
 
 		<behavior name="timestampable" />
+		<behavior name="soft_delete" />
+
+		<foreign-key foreignTable="medias_type" >
+			<reference local="typeId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="medias_type" phpName="MediaType" description="Tipo de medios">
+
+		<column name="id" type="INTEGER" required="true" description="Id tipo medio" primaryKey="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="200" required="true"  primaryString="true" description="Tipo de medio" />
+
 		<behavior name="soft_delete" />
 
 		<vendor type="mysql">
@@ -14,4 +34,20 @@
 		</vendor>
 
 	</table>
+
+	<table name="medias_relation" phpName="MediaRelation" isCrossRef="true" description="Tabla de relaciones de medios">
+
+		<column name="mediaFromId" required="true" primaryKey="true" type="INTEGER" description="ID media origen"/>
+		<column name="mediaToId" required="true" primaryKey="true" type="INTEGER" description="ID media destino"/>
+
+		<foreign-key foreignTable="medias_media" onDelete="cascade">
+			<reference local="mediaFromId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="medias_media" onDelete="cascade">
+			<reference local="mediaToId" foreign="id"/>
+		</foreign-key>
+
+	</table>
+
 </database>
