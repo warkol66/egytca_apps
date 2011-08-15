@@ -24,6 +24,7 @@ class ActorPeer extends BaseActorPeer {
 	private $issueId;
 	private $headlineId;
 	private $candidates;
+	private $includeDeleted;
 
 	//mapea las condiciones del filtro
 	var $filterConditions = array(
@@ -33,6 +34,7 @@ class ActorPeer extends BaseActorPeer {
 					'adminActId' => 'setAdminActId',
 					'issueId' => 'setIssueId',
 					'headlineId' => 'setHeadlineId',
+					'includeDeleted' => 'setIncludeDeleted',
 					'getCandidates' => 'setCandidates'
 				);
 
@@ -90,6 +92,14 @@ class ActorPeer extends BaseActorPeer {
 	 */
 	function setCandidates($candidates){
 		$this->candidates = $candidates;
+	}
+
+	/**
+	 * Especifica si se incluyen los eliminados
+	 * @param bool includeDeleted, indica si se incluyen los elimindos
+	 */
+	function setIncludeDeleted($includeDeleted){
+		$this->includeDeleted = $includeDeleted;
 	}
 
 	/**
@@ -188,10 +198,8 @@ class ActorPeer extends BaseActorPeer {
 	*	@return array Informacion sobre los actor
 	*/
 	function getSoftDeleted() {
-		$criteria = new Criteria();
-		$criteria->add(ActorPeer::DELETED_AT, null, Criteria::ISNOTNULL);
-		ActorPeer::disableSoftDelete();
-		$actors = ActorPeer::doSelect($criteria);
+		ActorQuery::disableSoftDelete();
+		$actors = ActorQuery::create()->filterByDeletedAt(NULL, Criteria::NOT_EQUAL)->find();
 		return $actors;
   }
 
@@ -216,9 +224,9 @@ class ActorPeer extends BaseActorPeer {
 	}
 
  /**
-	 * Retorna el criteria generado a partir de los par�metros de b�squeda
+	 * Retorna el criteria generado a partir de los parametros de busqueda
 	 *
-	 * @return criteria $criteria Criteria con par�metros de b�squeda
+	 * @return criteria $criteria Criteria con parametros de busqueda
 	 */
 	private function getSearchCriteria() {
 		$criteria = new Criteria();
@@ -226,6 +234,9 @@ class ActorPeer extends BaseActorPeer {
 		$criteria->setLimit($this->limit);
 		$criteria->addAscendingOrderByColumn(ActorPeer::ID);
 		
+		if ($this->includeDeleted)
+			ActorPeer::disableSoftDelete();
+
 		if (!empty($this->adminActId)) {
 			$actorsParticipatingIds = AdminActParticipantQuery::create()
 									->filterByAdminActId($this->adminActId)

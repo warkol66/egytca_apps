@@ -15,7 +15,8 @@
 					<input type="hidden" name="do" value="actorsList" />
 					Texto: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
 					Resultados por página
-				|-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getRowsPerPage()-|				
+				|-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getRowsPerPage()-|	
+				|-if $loginUser->isSupervisor()-|Incluir eliminados<input name="filters[includeDeleted]" type="checkbox" value="true" |-$filters.includeDeleted|checked:"true"-|>|-/if-|
 					<input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
 				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=actorsList'"/>|-/if-|
 			</form>
@@ -63,7 +64,14 @@
 					<input type="hidden" name="id" value="|-$actor->getid()-|" /> 
 					<input type="hidden" name="doHardDelete" value="true" /> 
 					<input type="submit" name="submit_go_delete_actor" value="Borrar" title="Eliminar completamente" onclick="return confirm('Seguro que desea eliminar el ##actors,2,Actor## definitivamente?')" class="icon iconHardDelete" /> 
-			</form>|-/if-|
+			</form>
+			|-if $actor->getDeletedAt() != NULL-|<form action="Main.php" method="post" style="display:inline;"> 
+					<input type="hidden" name="do" value="actorsUndeleteX" /> 
+						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
+					<input type="hidden" name="id" value="|-$actor->getid()-|" /> 
+					<input type="submit" name="submit_go_delete_actor" value="Borrar" title="Recuperar registro" onclick="return confirm('Seguro que desea recuperar ##actors,2,Actor##?')" class="icon iconUndelete" /> 
+			</form>|-/if-||-/if-|
 			|-/if-|</td> 
 		</tr> 
 		|-/foreach-|
@@ -79,3 +87,4 @@
 		</tbody> 
 		 </table> 
 </div>
+	
