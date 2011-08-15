@@ -179,6 +179,8 @@ class BackupPeer {
 	 */
 	function restoreSQL($sqlQuery, $complete = false) {
 
+		global $osType;
+
 		require_once('config/DBConnection.inc.php');
 		$db = new DBConnection();
 		$connection = @mysql_connect($db->Host,$db->User,$db->Password);
@@ -194,6 +196,10 @@ class BackupPeer {
 
 		foreach ($queries as $query) {
 			$query = trim($query);
+
+			if ($query == "#Renombre de tablas con camelcase." && stristr($osType,"WIN") !== FALSE) //Fin de ejecucion de sql en Windows
+				break;
+
 			if (!empty($query))
 				$db->query($query);
 		}
@@ -398,7 +404,7 @@ class BackupPeer {
 		global $moduleRootDir,$osType;
 		$header = "";
 		$footer = "";
-		if ($osType == "WINDOWS" || $osType == "WINNT" || $osType == "WIN") {
+		if (stristr($osType,"WIN") !== FALSE) {
 
 			//Path a schemas
 			$path = "WEB-INF/propel";
@@ -429,8 +435,8 @@ class BackupPeer {
 				}
 			}
 
-			$header = "#Eliminacion de tablas con camelcase.\n";
-			$footer = "#Renombre de tablas con camelcase.\n";
+			$header = "#Eliminacion de tablas con camelcase.;\n";
+			$footer = "#Renombre de tablas con camelcase.;\n";
 
 			foreach ($tables as $table) {
 				$header .= "DROP TABLE IF EXISTS ". $table .";\n";
