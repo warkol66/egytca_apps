@@ -207,6 +207,19 @@ input.icon {
 .disabled, .disabled:hover{
 	background-color: #f0f0f0 !Important;
 }
+
+.mandatoryField {
+	background-image: url(../images/mandatory.png);
+	background-repeat: no-repeat;
+	background-position: center 0;
+	height: 10px;
+	width: 10px;
+	padding: 3px;
+}
+input[type="text"].emptyValidation {
+	outline: Red solid 1px;
+}
+
 /* INPUTS, ICONS & LINKS ------------------------------*/
 
 /* ADD   ----------------------------------------------*/

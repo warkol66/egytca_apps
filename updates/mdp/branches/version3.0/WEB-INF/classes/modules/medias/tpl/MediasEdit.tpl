@@ -45,7 +45,7 @@ function mediasDeleteCategoryFromActor(form){
 			<legend>Formulario de Administración de ##medias,1,Medios##</legend>
 			<p>
 				<label for="params[name]">Nombre</label>
-				<input type="text" id="params[name]" name="params[name]" size="60" value="|-$media->getName()|escape-|" title="Nombre" /><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
+				<input type="text" id="params[name]" name="params[name]" size="60" value="|-$media->getName()|escape-|" class="emptyValidation" title="Nombre" |-js_char_counter object=$media columnName="name" fieldName="params[name]" idRemaining="remaining" sizeRemaining="3" classRemaining="charCount" title="Cantidad de caracteres restantes" showHide=1 useSpan=0-| />|-validation_msg_box idField=params[name]-|
 			</p>
 			<p>
 				<label for="params[description]">Descripción</label>
@@ -55,6 +55,7 @@ function mediasDeleteCategoryFromActor(form){
 				|-if $action eq 'edit'-|
 				<input type="hidden" name="id" id="id" value="|-$media->getid()-|" />
 				|-/if-|
+				|-javascript_form_validation_button value='Guardar' title='Guardar'-|
 				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="mediasDoEdit" />
 				<input type="submit" id="button_edit_media" name="button_edit_media" title="Aceptar" value="Guardar" />

@@ -17,7 +17,7 @@
 		var validationMessage = $('validationFailureMessage');
 		if (!Object.isElement(validationMessage)) {
 			form.insert({
-				top: new Element('div', {id: 'validationFailureMessage', 'class': 'failureMessage'}).update('Tiene errores en el formulario, reviselo y vuelva a enviarlo.')
+				top: new Element('div', {id: 'validationFailureMessage', 'class': 'errorMessage'}).update('Tiene errores en el formulario, reviselo y vuelva a enviarlo.')
 			});
 		} else {
 			validationMessage.show();
