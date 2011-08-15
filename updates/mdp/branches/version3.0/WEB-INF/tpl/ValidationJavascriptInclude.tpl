@@ -136,4 +136,10 @@
 		else
 	       return false;
 	}
+
+	function showMandatoryFieldsMessage(form) {
+		var emptyArray = document.getElementsByClassName('emptyValidation',form);
+		if (emptyArray.length > 0)
+			document.write('<p class="mandatoryMessage">* Los campos indicados con borde rojo son obligatorios</p>');
+	}
 </script>

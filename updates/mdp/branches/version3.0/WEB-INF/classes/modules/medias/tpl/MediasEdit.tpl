@@ -51,16 +51,16 @@ function mediasDeleteCategoryFromActor(form){
 				<label for="params[description]">Descripción</label>
 				<textarea name="params[description]" cols="50" rows="5" wrap="VIRTUAL" id="params[description]" title="Description">|-$media->getdescription()|escape-|</textarea>
 			</p>
-			<p>
+			<p><script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 				|-if $action eq 'edit'-|
 				<input type="hidden" name="id" id="id" value="|-$media->getid()-|" />
 				|-/if-|
-				|-javascript_form_validation_button value='Guardar' title='Guardar'-|
 				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="mediasDoEdit" />
-				<input type="submit" id="button_edit_media" name="button_edit_media" title="Aceptar" value="Guardar" />
+				|-javascript_form_validation_button value='Guardar' title='Guardar'-|
 				<input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=mediasList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'"/>
 			</p>
 		</fieldset>
 	</form>
+
 </div>

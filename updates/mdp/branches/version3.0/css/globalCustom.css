@@ -216,8 +216,12 @@ input.icon {
 	width: 10px;
 	padding: 3px;
 }
+.mandatoryMessage {
+	color: #cf0000 !Important;
+	margin-left: 150px;
+}
 input[type="text"].emptyValidation {
-	outline: Red solid 1px;
+	outline: #ff0000 solid 1px;
 }
 
 /* INPUTS, ICONS & LINKS ------------------------------*/
