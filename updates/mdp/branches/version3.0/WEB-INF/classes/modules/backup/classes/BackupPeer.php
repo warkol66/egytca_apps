@@ -430,8 +430,10 @@ class BackupPeer {
 
 				foreach ($arrayTables as $tableElement) {
 					$tableName = $tableElement["_a"]["name"];
-					if (ereg("[A-Z]",$tableName))
+					if (preg_match("/[A-Z]/",$tableName))
 						$tables[] = $tableName;
+                    
+                    $tables = $this->addVersionableTableIfPossible($tables, $tableElement);
 				}
 			}
 
@@ -448,6 +450,40 @@ class BackupPeer {
 		}
 		return array("header"=>$header, "footer"=>$footer);
 	}
+    
+    /**
+     * Agrega la tabla proporcionada por el Behavior Versionable, al array
+     * de tablas para renombre, siempre y cuando este el Behavior definido.
+     * 
+     * @param   array $tables
+     * @param   array $tableElement
+     * @return  array
+     */
+    function addVersionableTableIfPossible($tables, $tableElement) {
+        
+        if (empty($tableElement["_c"]["behavior"])) return $tables;
+        
+        foreach ($tableElement["_c"]["behavior"] as $behavior) {
+            
+            if (!empty($behavior["_a"]["name"]) && ($behavior["_a"]["name"] != 'versionable'))
+                continue;
+            
+            $versionableTable = $tableElement["_a"]["name"] . '_version';
+            
+            if (!empty($behavior["_c"]["parameter"])) {
+                foreach ($behavior["_c"]["parameter"] as $parameter) {
+                    if ($parameter["_a"]["name"] == 'version_table')
+                        $versionableTable = $parameter["_a"]["value"];
+                }
+            }
+                
+            if (preg_match("/[A-Z]/", $versionableTable))
+                $tables[] = $versionableTable;
+            
+        }
+                
+        return $tables;
+    }
 
 	/**
 	 * Envio de un BackupExistente Por Email
