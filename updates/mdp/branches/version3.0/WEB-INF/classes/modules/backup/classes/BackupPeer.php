@@ -62,7 +62,7 @@ class BackupPeer {
 	 *
 	 * @return array de nombres de archivo
 	 */
-	function getBackupList() {
+	function getBackupList($order = "asc") {
 
 		$path = 'WEB-INF/../backups/';
 		$dir = opendir($path);
@@ -71,21 +71,24 @@ class BackupPeer {
 		while ($file = readdir($dir)) {
 
 			if (preg_match("/\.zip/i",$file)) {
-				$filename    = $path . $file;
-				$file_object = array(
-																'name' => $file,
-																'size' => (filesize($filename) / 1024),
-																'time' => filemtime($filename)
-														);
-
-				array_push($filenames,$file_object);
+				$filename = $path . $file;
+				$data = array(
+									'name' => $file,
+									'size' => (filesize($filename) / 1024),
+									'time' => filemtime($filename)
+								);
+				array_push($filenames,$data);
 			}
 
 		}
 		//ordenamos los nombres de archivo
-		sort($filenames);
+		if ($order == "desc")
+			rsort($filenames);
+		else
+			sort($filenames);
 
 		return $filenames;
+
 	}
 
 	/**
@@ -138,27 +141,27 @@ class BackupPeer {
 
 	/**
 	 * Crea un backup
-	 *	
+	 *
 	 * @return $zipContents si fue exitoso, false sino
 	 */
 	function createBackup($options, $path = 'WEB-INF/../backups/') {
-		
+
 		if (!isset($options['complete']))
 			$options['complete'] = false;
-			
+
 		if (!isset($options['toFile']))
 			$options['toFile'] = false;
-		
+
 		set_time_limit(ConfigModule::get("global","backupTimeLimit"));
 		$filename = BackupPeer::getFileName();
 		$filecontents = BackupPeer::buildDataBackup($options['toFile'] ? false : $filename,$path);
-		
+
 		$message = 'Se ha creado un backup';
 		$message .= $options['complete'] ? ' de datos' : ' completo';
 		$message .= $options['toFile'] ? ' para descarga' : ' en el servidor';
 		BackupPeer::writeToBackupLog($message);
 		$zipContents = BackupPeer::getZipFromDataFile($filecontents, $options['complete']);
-		
+
 		if (!$options['toFile']) {
 			if (file_put_contents($path . $filename, $zipContents))
 				return $zipContents;
@@ -167,7 +170,7 @@ class BackupPeer {
 		}
 		return $zipContents;
 	}
-	
+
 	public function getFileName() {
 		$currentDatetime = BackupPeer::getCurrentDatetime();
 		return Common::getSiteShortName() . '_' . date('Ymd_His',strtotime($currentDatetime)) . '.zip';
@@ -191,7 +194,7 @@ class BackupPeer {
 		$this->setIgnoreHeaderAndFooter();
 		$logsDump = $this->buildDataBackup();
 		$sqlQuery .= $logsDump; //ponemos la tabla de logs actual para que se cargue al final de todo.
-		
+
 		$queries = explode(";\n",$sqlQuery);
 
 		foreach ($queries as $query) {
@@ -217,7 +220,7 @@ class BackupPeer {
 	function restoreBackup($zipFilename, $originalFileName = null) {
 		if ($originalFileName === null)
 			$originalFileName = $zipFilename;
-			
+
 		set_time_limit(ConfigModule::get("global","backupTimeLimit"));
 
 		require_once("zip.class.php");
@@ -226,9 +229,9 @@ class BackupPeer {
 		$zipfile->read_zip($zipFilename);
 
 		$sql = '';
-		
+
 		$complete = false;
-		
+
 		foreach($zipfile->files as $filea) {
 			// condicion de busqueda del archivo SQL
 			if ($filea["name"] == "dump.sql" && ($filea["dir"] == './db' || empty($filea["dir"])))
@@ -252,7 +255,7 @@ class BackupPeer {
 		//hay procesamiento de SQL
 		if (!empty($sql))
 			$ret = BackupPeer::restoreSQL($sql, $complete);
-			
+
 		if (!$ret)
 			return false;
 
@@ -300,21 +303,21 @@ class BackupPeer {
 			$listing = array();
 			$dirHandler = @opendir('WEB-INF/../');
 			BackupPeer::directoryList(&$listing,$dirHandler,'WEB-INF/../');
-	
+
 			foreach ($listing as $route) {
 				$clearRoute = explode('WEB-INF/../',$route);
-	
+
 				if (!BackupPeer::routeHasToBeIgnored($clearRoute[1])) {
 					if (is_dir($route))
 						$zipfile->create_dir("./files/" . $clearRoute[1]);
 					if (is_file($route)) {
 						$contents = file_get_contents($route);
-						$zipfile->create_file($contents,'./files/' . $clearRoute[1]);
+						$zipfile->create_file($contents,"./files/" . $clearRoute[1]);
 					}
 				}
 			}
 		}
-		
+
 		return $zipfile->zipped_file();
 	}
 
@@ -432,8 +435,8 @@ class BackupPeer {
 					$tableName = $tableElement["_a"]["name"];
 					if (preg_match("/[A-Z]/",$tableName))
 						$tables[] = $tableName;
-                    
-                    $tables = $this->addVersionableTableIfPossible($tables, $tableElement);
+
+					$tables = $this->addVersionableTableIfApplicable($tables, $tableElement);
 				}
 			}
 
@@ -450,40 +453,41 @@ class BackupPeer {
 		}
 		return array("header"=>$header, "footer"=>$footer);
 	}
-    
-    /**
-     * Agrega la tabla proporcionada por el Behavior Versionable, al array
-     * de tablas para renombre, siempre y cuando este el Behavior definido.
-     * 
-     * @param   array $tables
-     * @param   array $tableElement
-     * @return  array
-     */
-    function addVersionableTableIfPossible($tables, $tableElement) {
-        
-        if (empty($tableElement["_c"]["behavior"])) return $tables;
-        
-        foreach ($tableElement["_c"]["behavior"] as $behavior) {
-            
-            if (!empty($behavior["_a"]["name"]) && ($behavior["_a"]["name"] != 'versionable'))
-                continue;
-            
-            $versionableTable = $tableElement["_a"]["name"] . '_version';
-            
-            if (!empty($behavior["_c"]["parameter"])) {
-                foreach ($behavior["_c"]["parameter"] as $parameter) {
-                    if ($parameter["_a"]["name"] == 'version_table')
-                        $versionableTable = $parameter["_a"]["value"];
-                }
-            }
-                
-            if (preg_match("/[A-Z]/", $versionableTable))
-                $tables[] = $versionableTable;
-            
-        }
-                
-        return $tables;
-    }
+
+	/**
+	 * Agrega la tabla proporcionada por el Behavior Versionable, al array
+	 * de tablas para renombre, siempre y cuando este el Behavior definido.
+	 *
+	 * @param   array $tables
+	 * @param   array $tableElement
+	 * @return  array
+	 */
+	function addVersionableTableIfApplicable($tables, $tableElement) {
+
+		if (empty($tableElement["_c"]["behavior"])) 
+			return $tables;
+
+		foreach ($tableElement["_c"]["behavior"] as $behavior) {
+
+			if (!empty($behavior["_a"]["name"]) && ($behavior["_a"]["name"] != 'versionable'))
+				continue;
+
+			$versionableTable = $tableElement["_a"]["name"] . '_version';
+
+			if (!empty($behavior["_c"]["parameter"])) {
+				foreach ($behavior["_c"]["parameter"] as $parameter) {
+					if ($parameter["_a"]["name"] == 'version_table')
+						$versionableTable = $parameter["_a"]["value"];
+				}
+			}
+
+			if (preg_match("/[A-Z]/", $versionableTable))
+				$tables[] = $versionableTable;
+
+		}
+
+		return $tables;
+	}
 
 	/**
 	 * Envio de un BackupExistente Por Email
@@ -492,17 +496,17 @@ class BackupPeer {
 	 */
 	function sendBackupToEmail($email = null, $filename = null, $complete = null) {
 		require_once('EmailManagement.php');
-		
+
 		$systemConfig = Common::getConfiguration('system');
-		
+
 		if ($complete === null)
 			$complete = false;
-		
+
 		if ($email === null) {
 			$recipients = $systemConfig['receiveMailBackup'];
 			$email = explode(',', $recipients);
 		}
-		
+
 		if ($filename === null) {
 			$filename = BackupPeer::getFileName();
 			BackupPeer::createBackup(array('toFile'=>false, 'complete'=>$complete));
@@ -510,7 +514,7 @@ class BackupPeer {
 		if (file_exists('WEB-INF/../backups/' . $filename) == false)
 			return false;
 		//creamos el attach utilizando el wrapper de archivo de Swift.
-		$attachment = Swift_Attachment::fromPath('WEB-INF/../backups/' . $filename, 'application/zip'); 
+		$attachment = Swift_Attachment::fromPath('WEB-INF/../backups/' . $filename, 'application/zip');
 
 		global $system;
 
@@ -527,6 +531,6 @@ class BackupPeer {
 
 		//realizamos el envio
 		$result = $manager->sendMessage($destination,$mailFrom,$message);
-		return $result;		
+		return $result;
 	}
 }
