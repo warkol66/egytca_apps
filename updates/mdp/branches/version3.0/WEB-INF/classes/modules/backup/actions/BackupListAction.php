@@ -30,8 +30,13 @@ class BackupListAction extends BaseAction {
 		$smarty->assign("module",$module); 
  
  		$backupPeer = new BackupPeer();
- 		$filenames = $backupPeer->getBackupList();	
+ 		
+ 		if (isset($_GET['order']) && $_GET['order'] == "desc")
+ 			$order = "desc";
+ 		$filenames = $backupPeer->getBackupList($order);	
 		
+ 		$smarty->assign('order',$order);
+
  		$smarty->assign('message',$_GET['message']);
 		$smarty->assign('filenames',$filenames);
 
