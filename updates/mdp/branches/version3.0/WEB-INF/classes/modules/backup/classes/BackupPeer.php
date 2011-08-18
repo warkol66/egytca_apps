@@ -244,7 +244,7 @@ class BackupPeer {
 				if ($filea['dir'] === './files')
 					$path = '';
 				else {
-					$clearRoute = explode('\.\/files\/',$filea['dir']);
+					$clearRoute = explode('./files/',$filea['dir']);
 					$path = $clearRoute[1] . '/';
 				}
 				//guardamos el archivo en su ubicacion
