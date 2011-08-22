@@ -11,12 +11,20 @@ class ConfigModule {
 			"showPropelExceptions" => true,
 			"showSwiftExceptions" => true,
 			"doLog" => true,
+			"unifiedLogin" => true,
 			"unifiedUsernames" => true,
 			"backupTimeLimit" => 720,
 			"internalMailUseAffiliates" => false
 		),
 		"users" => array(
 			"licences" => 10,
+			"useTimezones" => false,
+			"forceFirstPasswordChange" => true,
+			"askForNewPasswordOnRecovery" => false,
+			"useFilterByUserGroup" => true,
+			"passwordRecoveryExpirationTimeInHours" => 24
+		),
+		"clients" => array(
 			"useTimezones" => false,
 			"forceFirstPasswordChange" => true,
 			"askForNewPasswordOnRecovery" => false,
