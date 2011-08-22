@@ -5,16 +5,10 @@
 	  <column name="id" type="INTEGER" required="true" description="Id log" primaryKey="true" autoIncrement="true" />
 		<column name="userObjectType" type="VARCHAR" size="50" required="true" description="Tipo de usuario" />
 		<column name="userObjectId" type="INTEGER" required="true" description="Id del usuario" />
-	  <column name="userId" type="INTEGER" required="true" description="Id del usuario" />
-	  <column name="affiliateId" type="INTEGER" required="true" description="Id del afiliado" />
 	  <column name="datetime" type="TIMESTAMP" required="true" description="Fecha en que se logueo el dato" />
 	  <column name="action" type="VARCHAR" size="100" required="true" description="action en que se logueo el dato" />
 	  <column name="object" type="VARCHAR" size="100" required="true" description="objeto sobre el cual se realizo la accion"/>
 	  <column name="forward" type="VARCHAR" size="100" description="tipo de accion de la etiqueta"/>
-
-	  <foreign-key foreignTable="users_user" >
-	   <reference local="userId" foreign="id" />
-	  </foreign-key>
 
 	  <foreign-key foreignTable="security_action" >
 	   <reference local="action" foreign="action" />

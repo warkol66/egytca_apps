@@ -19,9 +19,6 @@ class CommonDoLoginAction extends BaseAction {
 		// Use a different template
 		$this->template->template = "TemplateWelcome.tpl";
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -32,52 +29,66 @@ class CommonDoLoginAction extends BaseAction {
 		$smarty->assign("module",$module);
 
 		if (ConfigModule::get("global","unifiedUsernames")) {
+
 			if (!empty($_POST["loginUsername"]) && !empty($_POST["loginPassword"])) {
 
-				$usernameExists = UserPeer::getByUsername($_POST['loginUsername']);
+				$usernameExists = Common::getByUsername($_POST['loginUsername']);
 
-				if (empty($usernameExists)) { //Si no existe el username del user
-					if (class_exists(AffiliateUserPeer)){
-						$AffiliateUsernameExists = AffiliateUserPeer::getByUsername($_POST['loginUsername']);
-						if (!empty($AffiliateUsernameExists)) { //Si exite el affiliateUser
-							if (!empty($_POST["loginUsername"]) && !empty($_POST["loginPassword"])) {
-								$user = AffiliateUserPeer::auth($_POST["loginUsername"],$_POST["loginPassword"]);
-								if (!empty($user)) {
-									$_SESSION["loginAffiliateUser"] = $user;
-									$smarty->assign("loginAffiliateUser",$user);
+				if (!empty($usernameExists)) { //Si existe el username
 
-									Common::doLog('success','affiliateUsername: ' . $_POST["loginUsername"]);
-									return $mapping->findForwardConfig('successAffiliateUsers');
-								}
-
-							}
-
-						}
-					}
-					else //No consigo usuario valido
-						return $mapping->findForwardConfig('failureNoUsername');
-					}
-					else { //Si encontre user
+					if (get_class($usernameExists) == "User") {
 						$user = UserPeer::auth($_POST["loginUsername"],$_POST["loginPassword"]);
 						if (!empty($user)) {
 							$_SESSION["loginUser"] = $user;
 							$smarty->assign("loginUser",$user);
-
 							Common::doLog('success','username: ' . $_POST["loginUsername"]);
-							$smarty->assign("SESSION",$_SESSION);
-
-						if (is_null($user->getPasswordUpdated()))
-							return $mapping->findForwardConfig('successUserFirstLogin');
-						else
-							return $mapping->findForwardConfig('successUser');
+							if (is_null($user->getPasswordUpdated()))
+								$forwardValue = 'successUsersFirstLogin';
+							else
+								$forwardValue = 'successUsers';
 						}
+						else //si no autentifico
+							$forwardValue = 'failureDataMissmatch';
 					}
+					else if (get_class($usernameExists) == "AffiliateUser") {
+						$user = AffiliateUserPeer::auth($_POST["loginUsername"],$_POST["loginPassword"]);
+						if (!empty($user)) {
+							$_SESSION["loginAffiliateUser"] = $user;
+							$smarty->assign("loginAffiliateUser",$user);
+							Common::doLog('success','affiliateUsername: ' . $_POST["loginUsername"]);
+							if (is_null($user->getPasswordUpdated()))
+								$forwardValue = 'successAffiliateUsersFirstLogin';
+							else
+								$forwardValue = 'successAffiliateUsers';
+						}
+						else //si no autentifico
+							$forwardValue = 'failureDataMissmatch';
+					}
+					else if (get_class($usernameExists) == "ClientUser") {
+						$user = ClientUserPeer::auth($_POST["loginUsername"],$_POST["loginPassword"]);
+						if (!empty($user)) {
+							$_SESSION["loginClientUser"] = $user;
+							$smarty->assign("loginClientUser",$user);
+							Common::doLog('success','clientUsername: ' . $_POST["loginUsername"]);
+							if (is_null($user->getPasswordUpdated()))
+								$forwardValue = 'successClientUsersFirstLogin';
+							else
+								$forwardValue = 'successClientUsers';
+						}
+						else //si no autentifico
+							$forwardValue = 'failureDataMissmatch';
+					}
+					//Si encontre usuario valido regreso con la informacion del $forwardValue
+					return $mapping->findForwardConfig($forwardValue);
 				}
-				else
-					return $mapping->findForwardConfig('failureMissingData');
+				else //No consigo usuario valido
+					return $mapping->findForwardConfig('failureDataMissmatch');
 			}
 			else
-				return $mapping->findForwardConfig('failureRedirectUserLogin');
+				return $mapping->findForwardConfig('failureMissingData');
+		}
+		else
+			return $mapping->findForwardConfig('failureRedirectUserLogin');
 
 		$this->template->template = "TemplateLogin.tpl";
 		$smarty->assign("message","wrongUser");

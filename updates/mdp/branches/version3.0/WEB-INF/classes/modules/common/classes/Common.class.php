@@ -80,6 +80,12 @@ class Common {
 			$userInfo["objectType"] = 'affiliate';
 			$userInfo["objectId"] = $userInfo["userId"];
 		}
+		else if (!empty($_SESSION["loginClientUser"])) {
+			$userInfo["userId"] = $_SESSION["loginClientUser"]->getId();
+			$userInfo["clientId"] = $_SESSION["loginClientUser"]->getClientId();
+			$userInfo["objectType"] = 'client';
+			$userInfo["objectId"] = $userInfo["userId"];
+		}
 
 		return $userInfo;
 	}
@@ -101,17 +107,12 @@ class Common {
 
 			try{
 				$logs = new ActionLog();
-				$logs->setUserId($userInfo["userId"]);
-				$logs->setAffiliateId($userInfo["affiliateId"]);
 				$logs->setDatetime(time());
 				$logs->setAction($action);
 				$logs->setObject($object);
 				$logs->setForward($forward);
-
-				//Nuevo log con ObjectType y ObjectId para liminar columnas de affiliateId, etc.
 				$logs->setUserObjectType($userInfo["objectType"]);
 				$logs->setUserObjectId($userInfo["objectId"]);
-
 				$logs->save();
 			}
 			catch (PropelException $exp) {
@@ -131,6 +132,15 @@ class Common {
 	}
 
 	/**
+	 * Indica si un usuario es cliente.
+	 */
+	function isClientUser() {
+		if (isset($_SESSION["loginClientUser"]))
+			return true;
+		return false;
+	}
+
+	/**
 	 * Obtiene el Id de un afiliado apartir de un usuario
 	 */
 	function getAffiliatedId() {
@@ -139,14 +149,20 @@ class Common {
 	}
 
 	/**
-	 * Indica si es un usuario comun.
+	 * Obtiene el Id de un afiliado apartir de un usuario
+	 */
+	function getClientId() {
+		$user = $_SESSION["loginClientUser"];
+		return $user->getClientId();
+	}
+
+	/**
+	 * Indica si es un usuario de sistema.
 	 */
 	function isSystemUser() {
-
 		if (isset($_SESSION["loginUser"]))
-				return true;
+			return true;
 		return false;
-
 	}
 
 	/**
@@ -181,37 +197,12 @@ class Common {
 		return $_SESSION["loginUser"];
 	}
 
-	public static function getAdminGroupsIds() {
-		$user = Common::getAdminLogged();
-		$userGroups = $user->getGroups();
-		$userGroupsIds = array();
-		foreach ($userGroups as $group) {
-			$userGroupsIds[] = $group->getGroupId();
-		}
-		return $userGroupsIds;
-	}
-
-	/**
-	 * Indica si el usuario es proveedor
-	 */
-	function isSupplier() {
-		if (!isset($_SESSION['loginUser']))
-			return false;
-		$user = $_SESSION['loginUser'];
-		return $user->isSupplier();
-	}
-
-	function getSupplierUserId() {
-		$user = $_SESSION["loginUser"];
-		return $user->getId();
-	}
-
 	/**
 	 * Indica si el usuario por registro
 	 */
 	function isRegistrationUser() {
 		if (isset($_SESSION["loginRegistrationUser"]))
-				return true;
+			return true;
 		return false;
 	}
 
@@ -222,6 +213,81 @@ class Common {
 		return $_SESSION["loginRegistrationUser"];
 	}
 
+	/**
+	* obtiene objeto user si esta logueado algun tipo de usuario
+	* @return obj $user con el objeto logueado de la session
+	*/
+	function getLoggedUser() {
+		$user = NULL;
+		if (!empty($_SESSION['loginUser']) && is_object($_SESSION['loginUser']) && get_class($_SESSION["loginUser"]) == "User")
+			$user = $_SESSION['loginUser'];
+		else if (!empty($_SESSION['loginUserByRegistration']) && is_object($_SESSION['loginUserByRegistration']) && get_class($_SESSION["loginUserByRegistration"]) == "UserByRegistration")
+			$user = $_SESSION['loginUserByRegistration'];
+		else if (!empty($_SESSION["loginAffiliateUser"]) && is_object($_SESSION['loginAffiliateUser']) && get_class($_SESSION["loginAffiliateUser"]) == "AffiliateUser")
+			$user = $_SESSION['loginAffiliateUser'];
+		else if (!empty($_SESSION["loginClientUser"]) && is_object($_SESSION['loginClientUser']) && get_class($_SESSION["loginClientUser"]) == "ClientUser")
+			$user = $_SESSION['loginClientUser'];
+
+		return $user;
+	}
+
+	/**
+	* obtiene usuario de los otros tipos disponibles
+	* @return obj $user si encuentra el usuario en otros tipos disponibles
+	*/
+	function getByUsername($username) {
+		$user = NULL;
+		$user = UserPeer::getByUsername($username);
+		if (!empty($user))
+			return $user;
+		if (class_exists(AffiliateUserPeer)){
+			$user = AffiliateUserPeer::getByUsername($username);
+			if (!empty($user))
+				return $user;
+		}
+		if (class_exists(ClientUserPeer)){
+			$user = ClientUserPeer::getByUsername($username);
+			if (!empty($user))
+				return $user;
+		}
+		return $user;
+	}
+
+	/**
+	 * Indica si hay login unificado en la configuracion del sistema
+	 * @return boolean
+	 */
+	function hasUnifiedLogin() {
+		if (ConfigModule::get("global","unifiedLogin"))
+			return true;
+		else
+			return false;
+	}
+
+	/**
+	* unifiedUsernames
+	* Informa si se utilizan usuarios unificados con todos los tipos de usuario
+	* @return boolean si usas los nombres unificados con todos los tipos de usuario
+	*/
+	function hasUnifiedUsernames(){
+		if (ConfigModule::get("global","unifiedUsernames"))
+			return true;
+		else
+			return false;
+	}
+
+	/**
+	 * Obtiene los grupos a los que pertenece un usuario
+	 */
+	public static function getAdminGroupsIds() {
+		$user = Common::getAdminLogged();
+		$userGroups = $user->getGroups();
+		$userGroupsIds = array();
+		foreach ($userGroups as $group) {
+			$userGroupsIds[] = $group->getGroupId();
+		}
+		return $userGroupsIds;
+	}
 
 	/*
 	 * Conversion del numero al formato numerico de mysql
@@ -260,15 +326,19 @@ class Common {
 		$dateArray = explode('-',$date);
 		$orderedDate = array();
 
-		for ($i=0; $i < count($formatArray); $i++) {
+		for ($i=0; $i < count($formatArray); $i++)
 			$orderedDate[$formatArray[$i]] = $dateArray[$i];
-		}
 
 		$mysqlDate =  $orderedDate['Y'] . '-' . $orderedDate['m'] . '-' . $orderedDate['d'];
-
 		return $mysqlDate;
 	}
 
+	/*
+	 * Conversion del fecha y hora al formato numerico de mysql
+	 * El mismo tiene en cuenta el formato de fecha y hora interno del sistema
+	 * @param string fecha y hora
+	 * @return string con el formato
+	 */
 	function convertToMysqlDatetimeFormat($date,$dateFormat='') {
 		global $system;
 
@@ -280,25 +350,12 @@ class Common {
 		$dateArray = explode('-',$date);
 		$orderedDate = array();
 
-		for ($i=0; $i < count($formatArray); $i++) {
+		for ($i=0; $i < count($formatArray); $i++)
 			$orderedDate[$formatArray[$i]] = $dateArray[$i];
-		}
 
 		$mysqlDate =  $orderedDate['Y'] . '-' . $orderedDate['m'] . '-' . $orderedDate['d'];
-
 		$mysqlDate = Common::getDatetimeOnGMT($mysqlDate);
-
 		return $mysqlDate;
-	}
-
-	/*
-	 * Devuelve el nombre corto del sistema
-	 * @return string nombre corto del sistema
-	 */
-	function getSiteShortName() {
-		global $system;
-		return $system['config']['system']['parameters']['siteShortName'];
-
 	}
 
 	/**
@@ -309,15 +366,11 @@ class Common {
 	function getDatetimeOnTimezone($datetime) {
 		require_once('TimezonePeer.php');
 
-		if (Common::isAdmin()) {
-			$user = Common::getAdminLogged();
-			$timezoneCode = $user->getTimezone();
-		}
+		$user = Common::getLoggedUser();
+		$method = "getTimezone";
 
-		if (Common::isAffiliatedUser()) {
-			$user = Common::getAffiliatedLogged();
+		if (method_exists($user,$method))
 			$timezoneCode = $user->getTimezone();
-		}
 
 		if (empty($timezoneCode) || $timezoneCode == "") {
 			//si no hubiera o no fuera un usuario administrador tomamos default de la aplicacion
@@ -326,13 +379,9 @@ class Common {
 
 			if ($timezoneCode == null)
 				$timezoneCode = 0;
-
 		}
-
 		$timezonePeer = new TimezonePeer();
-
 		return $timezonePeer->getGMT0TimeOnTimezone($datetime,$timezoneCode);
-
 	}
 
 	/**
@@ -341,18 +390,13 @@ class Common {
 	 * @return string datetime en la zona horaria GMT
 	 */
 	function getDatetimeOnGMT($datetime) {
-
 		require_once('TimezonePeer.php');
 
-		if (Common::isAdmin()) {
-			$user = Common::getAdminLogged();
-			$timezoneCode = $user->getTimezone();
-		}
+		$user = Common::getLoggedUser();
+		$method = "getTimezone";
 
-		if (Common::isAffiliatedUser()) {
-			$user = Common::getAffiliatedLogged();
+		if (method_exists($user,$method))
 			$timezoneCode = $user->getTimezone();
-		}
 
 		if (empty($timezoneCode) || $timezoneCode == "") {
 			//si no hubiera o no fuera un usuario administrador tomamos default de la aplicacion
@@ -363,9 +407,7 @@ class Common {
 		}
 
 		$timezonePeer = new TimezonePeer();
-
 		return $timezonePeer->getGMT0DatetimeFromTimezone($datetime,$timezoneCode);
-
 	}
 
 	/**
@@ -379,51 +421,8 @@ class Common {
 			unset($_SESSION['security_code']);
 			return true;
 		}
-
 		return false;
 	}
-
-	/**
-	 * Indica si el sistema tiene activo el modulo de newsletter.
-	 * @return boolean
-	 */
-	function systemHasNewsletter() {
-		if ((ConfigModule::get("registration","newsletterSubscription")) && (ModulePeer::hasNewslettersModule()))
-			return true;
-		else
-			return false;
-	}
-
-	/**
-	 * Devuelve el modo de registracion habilitado en el Modulo de Registracion por
-	 * la configuracion.
-	 */
-	function getRegistrationMode() {
-		global $system;
-		return $system["config"]["registration"]["mode"]["value"];
-	}
-
-	/**
-	 * Devuelve si la validacion por captcha esta habilitada en la configuracion
-	 * del modulo de registracion
-	 * @return boolean
-	 */
-	function getRegistrationCaptchaUse() {
-		global $system;
-		return ($system["config"]["registration"]["useCaptcha"]["value"] == 'YES');
-
-	}
-
-	/**
-	 * Devuelve si la validacion por captcha esta habilitada en la configuracion
-	 * del modulo de encuestas
-	 * @return boolean
-	 */
-	function getSurveysCaptchaUse() {
-		global $system;
-		return ($system["config"]["surveys"]["useCaptcha"]["value"] == 'YES');
-	}
-
 
 	/**
 	 * Valida si una direccion de email tiene estructura valida
@@ -431,37 +430,6 @@ class Common {
 	 */
 	function validateEmail($email) {
 		return preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i", $email);
-	}
-
-
-	/**
-	 * Indica si hay login unificado en la configuracion del sistema
-	 * @return boolean
-	 */
-	function hasUnifiedLogin() {
-		if (ConfigModule::get("affiliates","unifiedLogin"))
-			return true;
-		else
-			return false;
-	}
-
-	/**
-	 * Obtiene el valor de la opcion de login de la cookie
-	 * @return string El valor correspondiente o vacio si no esta seteada la cookie
-	 */
-	function getValueUnifiedLoginCookie() {
-		global $system;
-		$cookieName = $system["config"]["system"]["parameters"]['siteShortName'] . 'LoginOption';
-		return $_COOKIE[$cookieName];
-	}
-
-	/**
-	 * Define el valor de la opcion de login de la cookie
-	 */
-	function setValueUnifiedLoginCookie($value) {
-		global $system;
-		$cookieName = $system["config"]["system"]["parameters"]['siteShortName'] . 'LoginOption';
-		setcookie($cookieName,$value);
 	}
 
 	/*
@@ -538,6 +506,15 @@ class Common {
 		return true;
 	}
 
+	/*
+	 * Devuelve el nombre corto del sistema
+	 * @return string nombre corto del sistema
+	 */
+	function getSiteShortName() {
+		global $system;
+		return $system['config']['system']['parameters']['siteShortName'];
+	}
+
 	/**
 	* Obtiene la cantidad de filas por pagina por defecto en los listado paginados.
 	*
@@ -549,8 +526,50 @@ class Common {
 	}
 
 	/**
+	 * Obtiene los parametros de configuracion de un modulo
+	 *
+	 * @param string modulo con separador de miles y decimal segun la configuracion del sistema
+	 * @return array asociativo con los valores de configuracion del modulo
+	 */
+	function getModuleConfiguration($module) {
+		global $system;
+		$moduleConfig = $system['config'][strtolower($module)];
+		return $moduleConfig;
+	}
+
+	/**
+	 * getConfiguration
+	 * Obtiene los parametros de configuracion de un modulo
+	 * @param string modulo con separador de miles y decimal segun la configuracion del sistema
+	 * @return array asociativo con los valores de configuracion del modulo
+	 */
+	function getConfiguration($section) {
+		global $system;
+		$config = $system['config'][strtolower($section)];
+		return $config;
+	}
+
+	/**
+	 * Obtiene el valor de la opcion de login de la cookie
+	 * @return string El valor correspondiente o vacio si no esta seteada la cookie
+	 */
+	function getValueUnifiedLoginCookie() {
+		global $system;
+		$cookieName = $system["config"]["system"]["parameters"]['siteShortName'] . 'LoginOption';
+		return $_COOKIE[$cookieName];
+	}
+
+	/**
+	 * Define el valor de la opcion de login de la cookie
+	 */
+	function setValueUnifiedLoginCookie($value) {
+		global $system;
+		$cookieName = $system["config"]["system"]["parameters"]['siteShortName'] . 'LoginOption';
+		setcookie($cookieName,$value);
+	}
+
+	/**
 	* Obtiene los idiomas disponibles en el sistema.
-	*
 	* @return Idiomas del sistema
 	*/
 	function getAllLanguages() {
@@ -657,41 +676,6 @@ class Common {
 	}
 
 	/**
-	 * Indica si el los pedidos de cotizaciones manejan cantidades en el modulo import
-	 * @return boolean
-	 */
-	function importQuotesUseQuantities() {
-		if (ConfigModule::get("import","quotesUseQuantities"))
-			return true;
-		else
-			return false;
-	}
-
-	/**
-	 * Obtiene los parametros de configuracion de un modulo
-	 *
-	 * @param string modulo con separador de miles y decimal segun la configuracion del sistema
-	 * @return array asociativo con los valores de configuracion del modulo
-	 */
-	function getModuleConfiguration($module) {
-		global $system;
-		$moduleConfig = $system['config'][strtolower($module)];
-		return $moduleConfig;
-	}
-
-	/**
-	 * getConfiguration
-	 * Obtiene los parametros de configuracion de un modulo
-	 * @param string modulo con separador de miles y decimal segun la configuracion del sistema
-	 * @return array asociativo con los valores de configuracion del modulo
-	 */
-	function getConfiguration($section) {
-		global $system;
-		$config = $system['config'][strtolower($section)];
-		return $config;
-	}
-
-	/**
 	 * Indica si un request proviene de un robot de google.
 	 * @return boolean
 	 */
@@ -746,19 +730,6 @@ class Common {
 
 		$browser = new Browser();
 		return $browser;
-
-	}
-
-	/**
-	* unifiedUsernames
-	* Informa si se utilizan usuarios unificados con afiliados
-	* @return boolean si usas los nombres unificados con afiliados
-	*/
-	function hasUnifiedUsernames(){
-		if (ConfigModule::get("global","unifiedUsernames"))
-			return true;
-		else
-			return false;
 	}
 
 	/**
@@ -775,7 +746,7 @@ class Common {
 			$setMethod = "set".$fieldName;
 			$getMethod = "get".$fieldName;
 			$value = $fromObj->$getMethod();
-			if ( method_exists($toObj,$setMethod) ) {
+			if (method_exists($toObj,$setMethod)) {
 				if (!empty($value) || $value == "0")
 					$toObj->$setMethod($value);
 				else
@@ -806,7 +777,7 @@ class Common {
 			$setMethod = "set".$fieldName;
 			$getMethod = "get".$fieldName;
 			$value = $fromObj->$getMethod();
-			if ( method_exists($toObj,$setMethod) ) {
+			if (method_exists($toObj,$setMethod)) {
 				if (!empty($value) || $value == "0")
 					$toObj->$setMethod($value);
 				else
@@ -856,7 +827,6 @@ class Common {
 
 	/**
 	* Setea el objeto a loguear
-	*
 	* @param object $object Objeto a setear
 	* @param array $objectParams Valores
 	* @return Object
@@ -876,7 +846,6 @@ class Common {
 
 	/**
 	* Setea valores a un objeto a partir de un array de valores de sus atributos
-	*
 	* @param object $object Objeto a setear
 	* @param array $objectParams Valores
 	* @return Object
@@ -899,9 +868,12 @@ class Common {
 			}
 		}
 
-		if (method_exists($object, 'setUserObjectId')) {
-			$object->setUserObjectType('User');
-			$object->setUserObjectId($_SESSION["loginUser"]->getId());
+		if (method_exists($object, 'setUserObjectType') && method_exists($object, 'setUserObjectId')) {
+			$user = Common::getCurrentUser();
+			if (is_object($user)) {
+				$object->setUserObjectType(get_class($user));
+				$object->setUserObjectId($user->getId());
+			}
 		}
 
 		if (method_exists($object, 'setUpdated'))
@@ -958,9 +930,12 @@ class Common {
 		else if ($object->isNew())
 			$object->insertAsLastChildOf($parentNode);
 
-		if (method_exists($object, 'setObjectId')) {
-			$object->setObjectType('User');
-			$object->setObjectId($_SESSION["loginUser"]->getId());
+		if (method_exists($object, 'setUserObjectType') && method_exists($object, 'setUserObjectId')) {
+			$user = Common::getCurrentUser();
+			if (is_object($user)) {
+				$object->setUserObjectType(get_class($user));
+				$object->setUserObjectId($user->getId());
+			}
 		}
 
 		if (method_exists($object, 'setUpdated'))
@@ -975,19 +950,10 @@ class Common {
 	}
 
 	/**
-	 * Obtiene el formato de fecha expresado como para un DatePicker a partir de la configuración local.
-	 */
-	public static function getDatePickerDateFormat() {
-		global $system;
-		$dateFormat = $system['config']['system']['parameters']['dateFormat']['value'];
-		return strtolower(str_replace("-", "", $dateFormat));
-	}
-
-	/**
-	* Genera una nueva contraseña aleatoria.
+	* Genera una nueva contrasena aleatoria.
 	*
-	* @param int $length [optional] Longitud de la contraseña
-	* @return string Contraseña
+	* @param int $length [optional] Longitud de la contrasena
+	* @return string Contrasena
 	*/
 	function generateRandomPassword($length = 8){
 		$password = "";
@@ -1001,6 +967,26 @@ class Common {
 			}
 		}
 		return $password;
+	}
+
+	/**
+	* Determina el tamano maximo de archivo a subir
+	* @return int tamano del archivo en MB
+	*/
+	function maxUploadSize() {
+		$max_upload_size = min(Common::let_to_num(ini_get('post_max_size')),
+		 Common::let_to_num(ini_get('upload_max_filesize')),
+		 Common::let_to_num(ConfigModule::get("documents","maxUploadSize")));
+		return ($max_upload_size/(1024*1024));
+	}
+
+	/**
+	* Encripta md5
+	* @return string encriptado
+	*/
+	function md5($pass) {
+		$crypt = md5($pass."ASD");
+		return $crypt;
 	}
 
 	/**
@@ -1027,28 +1013,6 @@ class Common {
 					break;
 			}
 			return $ret;
-	}
-
-	/**
-	* Determina el tamano maximo de archivo a subir
-	*
-	* @return int tamano del archivo en MB
-	*/
-	function maxUploadSize() {
-		$max_upload_size = min(Common::let_to_num(ini_get('post_max_size')),
-		 Common::let_to_num(ini_get('upload_max_filesize')),
-		 Common::let_to_num(ConfigModule::get("documents","maxUploadSize")));
-		return ($max_upload_size/(1024*1024));
-	}
-
-	/**
-	* Encripta md5
-	*
-	* @return string encriptado
-	*/
-	function md5($pass) {
-		$crypt = md5($pass."ASD");
-		return $crypt;
 	}
 
 	/**
@@ -1202,5 +1166,85 @@ class Common {
 		$pager = $criteria->paginate($page,$perPage);
 		return $pager;
 	}
+
+	/**
+	 * Indica si el usuario es proveedor
+	 */
+	function isSupplier() {
+		if (!isset($_SESSION['loginUser']))
+			return false;
+		$user = $_SESSION['loginUser'];
+		return $user->isSupplier();
+	}
+
+	/**
+	 * Obtiene el id del proveedor
+	 */
+	function getSupplierUserId() {
+		$user = $_SESSION["loginUser"];
+		return $user->getId();
+	}
+
+	/**
+	 * Indica si el sistema tiene activo el modulo de newsletter.
+	 * @return boolean
+	 */
+	function systemHasNewsletter() {
+		if ((ConfigModule::get("registration","newsletterSubscription")) && (ModulePeer::hasNewslettersModule()))
+			return true;
+		else
+			return false;
+	}
+
+	/**
+	 * Devuelve el modo de registracion habilitado en el Modulo de Registracion por
+	 * la configuracion.
+	 */
+	function getRegistrationMode() {
+		global $system;
+		return $system["config"]["registration"]["mode"]["value"];
+	}
+
+	/**
+	 * Obtiene el formato de fecha expresado como para un DatePicker a partir de la configuración local.
+	 */
+	public static function getDatePickerDateFormat() {
+		global $system;
+		$dateFormat = $system['config']['system']['parameters']['dateFormat']['value'];
+		return strtolower(str_replace("-", "", $dateFormat));
+	}
+
+	/**
+	 * Devuelve si la validacion por captcha esta habilitada en la configuracion
+	 * del modulo de registracion
+	 * @return boolean
+	 */
+	function getRegistrationCaptchaUse() {
+		global $system;
+		return ($system["config"]["registration"]["useCaptcha"]["value"] == 'YES');
+
+	}
+
+	/**
+	 * Devuelve si la validacion por captcha esta habilitada en la configuracion
+	 * del modulo de encuestas
+	 * @return boolean
+	 */
+	function getSurveysCaptchaUse() {
+		global $system;
+		return ($system["config"]["surveys"]["useCaptcha"]["value"] == 'YES');
+	}
+
+	/**
+	 * Indica si el los pedidos de cotizaciones manejan cantidades en el modulo import
+	 * @return boolean
+	 */
+	function importQuotesUseQuantities() {
+		if (ConfigModule::get("import","quotesUseQuantities"))
+			return true;
+		else
+			return false;
+	}
+
 
 } // end of class

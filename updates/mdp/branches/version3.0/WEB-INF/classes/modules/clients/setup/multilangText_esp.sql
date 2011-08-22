@@ -1,0 +1,12 @@
+DELETE FROM `multilang_text` WHERE `moduleName` = 'clients' AND `languageCode` = 'esp';
+OPTIMIZE TABLE `multilang_text`;
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('1', 'clients', 'esp','Mayoristas');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('2', 'clients', 'esp','Usuarios de Mayoristas');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('3', 'clients', 'esp','Mayorista');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('4', 'clients', 'esp','Cliente');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('5', 'clients', 'esp','Clientes');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('6', 'clients', 'esp','Usuario Administrador');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('7', 'clients', 'esp','mayoristas');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('8', 'clients', 'esp','mayorista');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('9', 'clients', 'esp','cliente');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('10', 'clients', 'esp','clientes');

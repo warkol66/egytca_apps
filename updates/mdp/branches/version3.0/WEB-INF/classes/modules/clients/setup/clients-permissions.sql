@@ -1,0 +1,14 @@
+DELETE FROM `security_module` WHERE `module` = 'clients';
+OPTIMIZE TABLE `security_module`;
+INSERT INTO `security_module` ( `module` , `noCheckLogin` , `access` , `accessClientUser` , `accessRegistrationUser` ) VALUES ('clients', '', '3', '0','0');
+DELETE FROM `security_action` WHERE `module` = 'clients';
+OPTIMIZE TABLE `security_action`;
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessClientUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('clientsUsersAutocompleteListX','clients','','1073741823','1073741823','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessClientUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('clientsViewX','clients','','1073741823','1073741823','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessClientUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('clientsUsersDoLogout','clients','','1073741823','1073741823','1','','1','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessClientUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('clientsUsersValidationUsernameX','clients','','1073741823','1073741823','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessClientUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('clientsUsersPasswordDoChangeForRecovery','clients','','1073741823','1073741823','1','','1','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessClientUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('clientsUsersDoPasswordRecovery','clients','','0','0','1','','1','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessClientUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('clientsUsersPasswordRecoverySendConfirmationRequest','clients','','0','0','1','','1','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessClientUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('clientsUsersLogin','clients','','0','0','1','clientsUsersDoLogin','1','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessClientUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('clientsUsersPasswordRecovery','clients','','0','0','1','clientsUsersPasswordDoRecovery','1','0' );
