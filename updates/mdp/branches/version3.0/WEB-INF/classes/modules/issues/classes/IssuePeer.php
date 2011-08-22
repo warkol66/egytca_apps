@@ -384,13 +384,13 @@ class IssuePeer extends BaseIssuePeer {
 		return $pager;
 	}
 
- /**
-	* Obtiene todos los issue paginados segun la condicion de busqueda ingresada.
-	*
-	* @return array Informacion sobre todos los issues
+	/**
+	* Obtiene todos los issue existentes filtrados por la condicion $this->getSearchCriteria()
+	* @return PropelObjectCollection Todos los issue
 	*/
 	function getAll()	{
-		return IssueQuery::create()->find();
+		return IssuePeer::doSelect($this->getSearchCriteria());
 	}
+
 
 } // IssuePeer

@@ -305,12 +305,11 @@ class ActorPeer extends BaseActorPeer {
 	}
 
  /**
-	* Obtiene todos los actor paginados segun la condicion de busqueda ingresada.
-	*
-	* @return array Informacion sobre todos los actores
+	* Obtiene todos los actor existentes filtrados por la condicion $this->getSearchCriteria()
+	* @return PropelObjectCollection Todos los actores
 	*/
 	function getAll()	{
-		return ActorQuery::create()->find();
+		return ActorPeer::doSelect($this->getSearchCriteria());
 	}
 
 } // ActorPeer

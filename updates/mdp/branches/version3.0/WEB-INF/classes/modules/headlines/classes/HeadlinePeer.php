@@ -302,12 +302,11 @@ class HeadlinePeer extends BaseHeadlinePeer {
 	}
 
 	/**
-	* Obtiene todos los headline paginados segun la condicion de busqueda ingresada.
-	*
-	* @return array Informacion sobre todos los headlines
+	* Obtiene todos los headline existentes filtrados por la condicion $this->getSearchCriteria()
+	* @return PropelObjectCollection Todos los headlines
 	*/
 	function getAll()	{
-		return HeadlineQuery::create()->find();
+		return HeadlinePeer::doSelect($this->getSearchCriteria());
 	}
 
 } // HeadlinePeer
