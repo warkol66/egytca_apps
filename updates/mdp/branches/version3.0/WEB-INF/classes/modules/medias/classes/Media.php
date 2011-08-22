@@ -15,4 +15,11 @@
  */
 class Media extends BaseMedia {
 
+ /**
+	 * Devuelve el tipo de media.
+	 */
+	function getType(){
+		return MediaTypeQuery::create()->findOneById($this->getTypeId());
+	}
+
 } // Media

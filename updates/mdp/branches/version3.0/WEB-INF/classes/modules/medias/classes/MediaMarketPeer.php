@@ -3,7 +3,7 @@
 
 
 /**
- * Skeleton subclass for performing query and update operations on the 'medias_type' table.
+ * Skeleton subclass for performing query and update operations on the 'medias_market' table.
  *
  * Tipo de medios
  *
@@ -13,10 +13,10 @@
  *
  * @package    propel.generator.medias.classes
  */
-class MediaTypePeer extends BaseMediaTypePeer {
+class MediaMarketPeer extends BaseMediaMarketPeer {
 
 	/** the default item name for this class */
-	const ITEM_NAME = 'Media Types';
+	const ITEM_NAME = 'Media Markets';
 
 	private $searchString;
 	private $perPage;
@@ -70,7 +70,7 @@ class MediaTypePeer extends BaseMediaTypePeer {
 	* @return boolean true si se actualizo la informacion correctamente, false sino
 	*/
 	function get($id){
-		return MediaTypeQuery::create()->findPk($id);
+		return MediaMarketQuery::create()->findPk($id);
 	}
 
  /**
@@ -82,43 +82,16 @@ class MediaTypePeer extends BaseMediaTypePeer {
 		$criteria = new Criteria();
 		$criteria->setIgnoreCase(true);
 		$criteria->setLimit($this->limit);
-		$criteria->addAscendingOrderByColumn(MediaTypePeer::ID);
+		$criteria->addAscendingOrderByColumn(MediaMarketPeer::ID);
 		
 		if ($this->includeDeleted)
-			MediaTypePeer::disableSoftDelete();
-
-		if (!empty($this->adminActId)) {
-			$actorsParticipatingIds = AdminActParticipantQuery::create()
-									->filterByAdminActId($this->adminActId)
-									->filterByObjectType('Actor')
-									->select('Objectid')
-									->find();
-			$criteria->add(MediaTypePeer::ID, $actorsParticipatingIds,Criteria::NOT_IN);
-		}
-
-		if (!empty($this->issueId)) {
-			$issue = IssueQuery::create()->findPk($this->issueId);
-			$issueActorsIds = $issue->getAssignedActorsArray();
-			if (!empty($this->candidates))
-				$criteria->add(MediaTypePeer::ID, $issueActorsIds,Criteria::NOT_IN);
-			else
-				$criteria->filterByIssueId($this->issueId);
-		}
-
-		if (!empty($this->headlineId)) {
-			$headline = HeadlineQuery::create()->findPk($this->headlineId);
-			$headlineActorsIds = $headline->getAssignedActorsArray();
-			if (!empty($this->candidates))
-				$criteria->add(MediaTypePeer::ID, $headlineActorsIds,Criteria::NOT_IN);
-			else
-				$criteria->filterByHeadlineId($this->headlineId);
-		}
+			MediaMarketPeer::disableSoftDelete();
 
 		if ($this->searchString) {
-			$criteria->add(MediaTypePeer::NAME,"%" . $this->searchString . "%",Criteria::LIKE);
-			$criterionSurname = $criteria->getNewCriterion(MediaTypePeer::SURNAME,"%" . $this->searchString . "%",Criteria::LIKE);
+			$criteria->add(MediaMarketPeer::NAME,"%" . $this->searchString . "%",Criteria::LIKE);
+			$criterionSurname = $criteria->getNewCriterion(MediaMarketPeer::SURNAME,"%" . $this->searchString . "%",Criteria::LIKE);
 			$criteria->addOr($criterionSurname);
-			$criterionInstitution = $criteria->getNewCriterion(MediaTypePeer::INSTITUTION,"%" . $this->searchString . "%",Criteria::LIKE);
+			$criterionInstitution = $criteria->getNewCriterion(MediaMarketPeer::INSTITUTION,"%" . $this->searchString . "%",Criteria::LIKE);
 			$criteria->addOr($criterionInstitution);
 		}
 
@@ -150,16 +123,16 @@ class MediaTypePeer extends BaseMediaTypePeer {
 		if (empty($page))
 			$page = 1;
 		$criteria = $this->getSearchCriteria();
-		$pager = new PropelPager($criteria,"MediaTypePeer", "doSelect",$page,$perPage);
+		$pager = new PropelPager($criteria,"MediaMarketPeer", "doSelect",$page,$perPage);
 		return $pager;
 	}
 
 	/**
-	* Obtiene todos los media types existentes filtrados por la condicion $this->getSearchCriteria()
+	* Obtiene todos los media markets existentes filtrados por la condicion $this->getSearchCriteria()
 	* @return PropelObjectCollection Todos los issue
 	*/
 	function getAll()	{
-		return MediaTypePeer::doSelect($this->getSearchCriteria());
+		return MediaMarketPeer::doSelect($this->getSearchCriteria());
 	}
 
-} // MediaTypePeer
+} // MediaMarketPeer

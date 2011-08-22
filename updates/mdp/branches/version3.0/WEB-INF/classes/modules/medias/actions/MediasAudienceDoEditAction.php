@@ -1,8 +1,8 @@
 <?php
 
-class MediasDoEditAction extends BaseAction {
+class MediasAudienceDoEditAction extends BaseAction {
 
-	function MediasDoEditAction() {
+	function MediasAudienceDoEditAction() {
 		;
 	}
 
@@ -22,29 +22,26 @@ class MediasDoEditAction extends BaseAction {
 		if (!empty($_POST["filters"]))
 			$filters = $_POST["filters"];
 
-		$mediaTypes = MediaTypePeer::getAll();
-		$smarty->assign("mediaTypes",$mediaTypes);
-
 		$userParams = Common::userInfoToDoLog();
-		$mediaParams = array_merge_recursive($_POST["params"],$userParams);
+		$mediaAudienceParams = array_merge_recursive($_POST["params"],$userParams);
 
 		if ($_POST["action"] == "edit") { // Existing media
 
-			$media = MediaPeer::get($_POST["id"]);
-			$media = Common::setObjectFromParams($media,$mediaParams);
+			$mediaAudience = MediaAudiencePeer::get($_POST["id"]);
+			$mediaAudience = Common::setObjectFromParams($mediaAudience,$mediaAudienceParams);
 			
-			if ($media->isModified() && !$media->save()) 
-				return $this->returnFailure($mapping,$smarty,$media,'failure-edit');
+			if ($mediaAudience->isModified() && !$mediaAudience->save()) 
+				return $this->returnFailure($mapping,$smarty,$mediaAudience,'failure-edit');
 
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
 
 		}
 		else { // New media
 
-			$media = new Media();
-			$media = Common::setObjectFromParams($media,$mediaParams);
-			if (!$media->save())
-				return $this->returnFailure($mapping,$smarty,$media);
+			$mediaAudience = new MediaAudience();
+			$mediaAudience = Common::setObjectFromParams($mediaAudience,$mediaAudienceParams);
+			if (!$mediaAudience->save())
+				return $this->returnFailure($mapping,$smarty,$mediaAudience);
 
 			$logSufix = ', ' . Common::getTranslation('action: create','common');
 			Common::doLog('success', $_POST["params"]["name"] . ", " . $_POST["params"]["name"] . $logSufix);

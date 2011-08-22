@@ -154,13 +154,12 @@ class MediaPeer extends BaseMediaPeer {
 		return $pager;
 	}
 
- /**
-	* Obtiene todos los actor paginados segun la condicion de busqueda ingresada.
-	*
-	* @return array Informacion sobre todos los actores
+	/**
+	* Obtiene todos los media existentes filtrados por la condicion $this->getSearchCriteria()
+	* @return PropelObjectCollection Todos los issue
 	*/
 	function getAll()	{
-		return ActorQuery::create()->find();
+		return MediaPeer::doSelect($this->getSearchCriteria());
 	}
 
 } // MediaPeer

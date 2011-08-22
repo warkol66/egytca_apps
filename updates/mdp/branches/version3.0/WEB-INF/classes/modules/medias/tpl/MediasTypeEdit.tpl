@@ -1,48 +1,11 @@
-<script language="JavaScript" type="text/javascript">
-function actorsAddCategoryToActor(form) {
-	
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'categoryList'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true,
-					insertion: Insertion.Bottom
-				});
-				
-	$('categoryMsgField').innerHTML = '<span class="inProgress">agregando ##actors,2,Actor## a la categoría...</span>';
-	
-	return true;
-}
-
-function actorsDeleteCategoryFromActor(form){
-
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'categoryMsgField'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				});
-				
-	$('categoryMsgField').innerHTML = '<span class="inProgress">eliminando ##actors,2,Actor## de la categoría...</span>';
-	
-	return true;
-
-}
-</script>
-<h2>##actors,1,Actores##</h2>
-<h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| ##actors,2,Actor##</h1>
+<h2>Medios</h2>
+<h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| tipo</h1>
 <div id="div_type">
-	<p>Ingrese los datos del ##actors,2,Actor##</p>
-		|-if $message eq "error"-|<span class="message_error">Ha ocurrido un error al intentar guardar el ##actors,2,Actor##</span>|-/if-|
+	<p>Ingrese los datos del tipo de medio</p>
+		|-if $message eq "error"-|<span class="message_error">Ha ocurrido un error al intentar guardar el tipo</span>|-/if-|
 	<form name="form_edit_type" id="form_edit_type" action="Main.php" method="post">
-		<fieldset title="Formulario de edición de datos de un actor">
-			<legend>Formulario de Administración de ##actors,1,Actores##</legend>
+		<fieldset title="Formulario de edición de datos de un tipo">
+			<legend>Formulario de Administración de tipos de medio</legend>
 			<p>
 				<label for="params[name]">Nombre</label>
 				<input type="text" id="params[name]" name="params[name]" size="20" value="|-$mediaType->getName()|escape-|" title="Nombre" />

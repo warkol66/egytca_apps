@@ -1,8 +1,8 @@
 <?php
 
-class MediasEditAction extends BaseAction {
+class MediasAudienceEditAction extends BaseAction {
 
-	function MediasEditAction() {
+	function MediasAudienceEditAction() {
 		;
 	}
 
@@ -25,19 +25,25 @@ class MediasEditAction extends BaseAction {
 		$moduleConfig = Common::getModuleConfiguration($module);
 		$smarty->assign("moduleConfig",$moduleConfig);
 
-		$mediaTypes = MediaTypePeer::getAll();
-		$smarty->assign("mediaTypes",$mediaTypes);
-
 		if (!empty($_GET["id"])) {
 			//voy a editar un objeto
-			$media = MediaPeer::get($_GET["id"]);
-			$smarty->assign("media",$media);
+
+			$mediaAudience = MediaAudiencePeer::get($_GET["id"]);
+
+			if (!is_null($mediaAudience)) {
+
+			}
+			else
+				$mediaAudience = new MediaAudience();
+
+			$smarty->assign("mediaAudience",$mediaAudience);
 			$smarty->assign("action","edit");
+
 		}
 		else {
 			//voy a crear un objeto nuevo
-			$media = new Media();
-			$smarty->assign("media",$media);
+			$mediaAudience = new MediaAudience();
+			$smarty->assign("mediaAudience",$mediaAudience);
 			$smarty->assign("action","create");
 		}
 
