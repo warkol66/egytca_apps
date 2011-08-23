@@ -36,6 +36,9 @@ class MediasDoEditAction extends BaseAction {
 			if ($media->isModified() && !$media->save()) 
 				return $this->returnFailure($mapping,$smarty,$media,'failure-edit');
 
+			$logSufix = ', ' . Common::getTranslation('action: edit','common');
+			Common::doLog('success', $_POST["params"]["name"] . $logSufix);
+
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
 
 		}
@@ -47,7 +50,7 @@ class MediasDoEditAction extends BaseAction {
 				return $this->returnFailure($mapping,$smarty,$media);
 
 			$logSufix = ', ' . Common::getTranslation('action: create','common');
-			Common::doLog('success', $_POST["params"]["name"] . ", " . $_POST["params"]["name"] . $logSufix);
+			Common::doLog('success', $_POST["params"]["name"] . $logSufix);
 
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
 		}

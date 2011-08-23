@@ -131,7 +131,7 @@ class MediaTypePeer extends BaseMediaTypePeer {
 	* Obtiene todos los media types existentes filtrados por la condicion $this->getSearchCriteria()
 	* @return PropelObjectCollection Todos los issue
 	*/
-	function getAll()	{
+	function getAll($criteria = null) {
 		$criteria = MediaTypePeer::getSearchCriteria();
 		return MediaTypePeer::doSelect($criteria);
 	}

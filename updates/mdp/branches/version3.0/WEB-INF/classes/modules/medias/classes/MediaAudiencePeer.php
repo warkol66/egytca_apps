@@ -140,10 +140,10 @@ class MediaAudiencePeer extends BaseMediaAudiencePeer {
 	}
 
 	/**
-	* Obtiene todos los media markets existentes filtrados por la condicion $criteria
+	* Obtiene todos los MediaAudience existentes filtrados por la condicion $criteria
 	* @return PropelObjectCollection Todos los MediaAudience
 	*/
-	function getAll($criteria) {
+	function getAll($criteria = null) {
 		return MediaAudiencePeer::doSelect($criteria);
 	}
 

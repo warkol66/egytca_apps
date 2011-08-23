@@ -5,10 +5,10 @@ class MediasEditAction extends BaseAction {
 
 	function prepareEdit($smarty) {
 
-		$mediaMarkets = MediaMarketPeer::getAll();
+		$mediaMarkets = MediaMarketQuery::create()->find();
 		$smarty->assign('mediaMarkets',$mediaMarkets);
 
-		$mediaAudiences = MediaAudiencePeer::getAll();
+		$mediaAudiences = MediaAudienceQuery::create()->find();
 		$smarty->assign('mediaAudiences',$mediaAudiences);
 
 	}

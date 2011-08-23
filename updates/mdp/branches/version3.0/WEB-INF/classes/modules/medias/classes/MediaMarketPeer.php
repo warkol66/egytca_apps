@@ -131,7 +131,7 @@ class MediaMarketPeer extends BaseMediaMarketPeer {
 	* Obtiene todos los media markets existentes filtrados por la condicion $this->getSearchCriteria()
 	* @return PropelObjectCollection Todos los issue
 	*/
-	function getAll()	{
+	function getAll($criteria = null) {
 		$criteria = MediaMarketPeer::getSearchCriteria();
 		return MediaMarketPeer::doSelect($criteria);
 	}
