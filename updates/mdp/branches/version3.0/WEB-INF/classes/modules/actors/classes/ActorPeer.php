@@ -351,7 +351,7 @@ class ActorPeer extends BaseActorPeer {
 	}
 
  /**
-	* Obtiene todos los actor existentes filtrados por la condicion $this->getSearchCriteria()
+	* Obtiene todos los actor existentes filtrados por la condicion $criteria
 	* @return PropelObjectCollection Todos los actores
 	*/
 	function getAll($criteria) {
