@@ -31,7 +31,7 @@
 		</div>
 	</ul>
 
-	<a href="Main.php?do=|-if ($configModule->get("global","unifiedUsernames"))-|commonDoLogout|-else-|usersDoLogout|-/if-|" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")' id="logout"></a>
+	<a href="Main.php?do=|-if ($configModule->get("global","unifiedUsernames"))-|commonDoLogout|-else-|usersDoLogout|-/if-|" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")' id="logout">Salir del Sistema</a>
 |-else if !empty($loginAffiliateUser)-|
 	<ul>
 		<li class="menuLink"><a href="Main.php?do=usersWelcome">Ir al Inicio</a></li>
@@ -41,5 +41,5 @@
 			<li><a href="Main.php?do=affiliatesBranchsList">Administrar ##affiliates,5,Sucursales##</a></li>
 		</div>
 	</ul>
-	<a href="Main.php?do=|-if ($configModule->get("global","unifiedUsernames"))-|commonDoLogout|-else-|affiliatesUsersDoLogout|-/if-|" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")' id="logout"></a>
+	<a href="Main.php?do=|-if ($configModule->get("global","unifiedUsernames"))-|commonDoLogout|-else-|affiliatesUsersDoLogout|-/if-|" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")' id="logout">Salir del Sistema</a>
 |-/if-|

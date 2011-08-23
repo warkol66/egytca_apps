@@ -7,12 +7,20 @@ body {
 	font-size:77%; /* this makes the text sized at 10px */
 }
 /*  LOGIN  -----------------------------------------------*/
-#login { 
+#loginWrapper {
+	width: 100%;
+	text-align: center !Important;
+}
+#login {
+	width: 420px;
+	margin-left: auto !Important;
+	margin-right: auto !Important;
 }
 #loginTop { 
-	background-image:url(../images/loginTop.png);
+	background-image:url(../images/mdp.png);
 	background-position: top center;
 	background-repeat:no-repeat;
+	height: 120px;
 }
 #loginContent, #passRecovery { 
 	background-image:url(../images/loginContent.png);
@@ -29,11 +37,15 @@ body {
 	border: solid 1px #000066;
 }
 #loginButton { 
-	background-image:url(../images/buttonImageLogin.png);
-	background-position: top center;
-	background-repeat:no-repeat;
-	color: Navy;
-	border: none !Important;
+	background-image:url(../images/buttonLogin.png);
+	background-position: bottom;
+	background-repeat: no-repeat;
+	color: #ffffff;
+	font-size: 138%;
+	font-weight: bold;
+	vertical-align: top !Important;
+	width: 140px;
+	height: 50px;
 }
 #lostPassword a, #lostPassword a:visited { 
 	color: #003399;
@@ -43,14 +55,19 @@ body {
 	background-position: bottom center;
 	background-repeat: no-repeat;
 }
+#loginContentWrapper { 
+	background-color: #FFFFFF;
+	border-left: solid 5px #0066cc;
+	border-right: solid 5px #0066cc;
+}
 /*  /LOGIN  -----------------------------------------------*/
 
 /* wrapper -----------------------------------------------------------*/ 
 #wrapper { 
 }
 #header {
-	background-image: url(../images/topImage.png);
-	background-position: left 20px;
+	background-image: url(../images/header.png);
+	background-position: left;
 	background-repeat: no-repeat;
 	background-color: #FFFFFF;
 	border-bottom: 5px solid #0066cc;
@@ -205,9 +222,12 @@ a.editarRight:hover, a.editarRight:active {
 	border-right: none;
 }
 #logout{
-	background-image:url(../images/bot_salir.gif);
+	background-image:url(../images/buttonLogout.png);
 	background-position: top left;
 	background-repeat:no-repeat;
+	color: #003399;
+	font-weight:bold;
+	text-decoration: none;
 }
 
 
