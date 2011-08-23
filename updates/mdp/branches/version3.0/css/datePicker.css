@@ -1,6 +1,7 @@
 /* the div that holds the date picker calendar */
 .dpDiv {
-	}
+	z-index: 11001 !Important;
+}
 
 
 /* the table (within the div) that holds the date picker calendar */

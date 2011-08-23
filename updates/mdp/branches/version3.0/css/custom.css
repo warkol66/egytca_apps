@@ -230,6 +230,22 @@ a.editarRight:hover, a.editarRight:active {
 	text-decoration: none;
 }
 
+a.tooltip, a.tooltipWide{
+}
+a.tooltip img, a.tooltipWide img{
+}
+a.tooltip:hover,a.tooltipWide:hover {
+} /*BG color is a must for IE6*/
+a.tooltip span,a.tooltipWide span {
+	background:#ffffff; 
+}
+a.tooltipWide span {
+}
+a.tooltip:hover span, a.tooltipWide:hover span{
+	background: #ffffff; 
+	border:1px solid #FF6600; 
+	color: #006699;
+}
 
 /*  AGREGADOS -----------------------------------------------*/
 

@@ -325,3 +325,6 @@ ul.iconOptionsList li {
 	vertical-align: bottom;
 	padding-bottom: .3em;
 }
+.noDecoration {
+	text-decoration: none !Important;
+}
