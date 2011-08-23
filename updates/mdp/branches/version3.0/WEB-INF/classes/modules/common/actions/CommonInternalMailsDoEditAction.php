@@ -51,19 +51,18 @@ class CommonInternalMailsDoEditAction extends BaseAction {
 	 * @return true si se realizó con exito, false sino.
 	 */
 	protected function bindCurrentUserToParams(&$params) {
-		if (Common::isAffiliatedUser()) {
-			$currentUser = Common::getAffiliatedLogged();
-			$params['fromType'] = 'affiliateUser';
-			$params['fromId'] = $currentUser->getId();
-		} else if (Common::isSystemUser()){
-			$currentUser = Common::getAdminLogged();
-			$params['fromType'] = 'user';
-			$params['fromId'] = $currentUser->getId();
-		} else {
-			//No hay usuario logueado. El BaseAction no debería permitirlo,
-			//pero por si acaso...
+
+		$user = Common::getLoggedUser();
+
+		if (is_object($user) && get_class($user) == 'User')
+			$params = array_merge_recursive($params, array("fromType" => "user", "fromId" => $user->getId()));
+		else if (is_object($user) && get_class($user) == 'AffiliateUser')
+			$params = array_merge_recursive($params, array("fromType" => "affiliateUser", "fromId" => $user->getId()));
+		else if (is_object($user) && get_class($user) == 'ClientUser')
+			$params = array_merge_recursive($params, array("fromType" => "clientUser", "fromId" => $user->getId()));
+		else
 			return false;
-		}
+		
 		return true;
 	}
 }

@@ -8,8 +8,6 @@
 * @package actionlogs
 */
 
-require_once("BaseAction.php");
-
 class CommonActionLogsListAction extends BaseAction {
 
 
@@ -21,9 +19,6 @@ class CommonActionLogsListAction extends BaseAction {
 
     BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -52,6 +47,18 @@ class CommonActionLogsListAction extends BaseAction {
 				$affiliateUserPeer = new AffiliateUserPeer();
 				$affiliateUser = $affiliateUserPeer->getAll();
 				$smarty->assign("affiliateUser",$affiliateUser);
+			}
+		}
+
+		if (class_exists('ClientPeer')){
+			$clientPeer = new ClientPeer();
+			$clients = $clientPeer->getAll();
+			$smarty->assign("clients",$clientss);
+
+			if (class_exists('ClientUserPeer')){
+				$clientUserPeer = new ClientUserPeer();
+				$clientUser = $clientUserPeer->getAll();
+				$smarty->assign("clientUser",$clientUser);
 			}
 		}
 

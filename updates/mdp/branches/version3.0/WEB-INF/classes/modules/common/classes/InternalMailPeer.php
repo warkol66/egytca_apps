@@ -64,29 +64,18 @@ class InternalMailPeer extends BaseInternalMailPeer {
 		$criteria->setIgnoreCase(true);
 		$criteria->orderById();
 		
-		//Si hay algun usuario logueado, filtramos para obtener solo sus mensajes.
-		if (Common::isAffiliatedUser()) {
-			$currentUser = Common::getAffiliatedLogged();
-			if (!$this->searchSentOnly)
-				$criteria->filterByRecipientAffiliateUser($currentUser);
-			else
-				$criteria->sentByAffiliateUser($currentUser);
-		} else if (Common::isSystemUser()) {
-			$currentUser = Common::getAdminLogged();
-			if (!$this->searchSentOnly)
-				$criteria->filterByRecipientUser($currentUser);
-			else
-				$criteria->sentByUser($currentUser);
-		}
-		
-		if ($this->searchUnreadOnly) {
+		$user = Common::getLoggedUser();
+		if (!$this->searchSentOnly)
+			$criteria->filterByRecipient($user);
+		else
+			$criteria->sentByUser($user);
+	
+		if ($this->searchUnreadOnly)
 			$criteria->unread();
-		}
-		
-		if ($this->searchString) {
+
+		if ($this->searchString)
 			$criteria->searchByString($this->searchString);
-		}
-		
+
 		return $criteria;
 	}
 	

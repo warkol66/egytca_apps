@@ -27,7 +27,8 @@
 			<forward name="maintenance" path="Maintenance.tpl"/>
 			<forward name="welcome" path="/Main.php?do=commonWelcome" redirect="true" />
 			<forward name="usersWelcome" path="/Main.php?do=usersWelcome" redirect="true" />
-			<forward name="affiliateUsersWelcome" path="/Main.php?do=affiliateUsersWelcome" redirect="true" />
+			<forward name="affiliateUsersWelcome" path="/Main.php?do=affiliatesUsersWelcome" redirect="true" />
+			<forward name="clientUsersWelcome" path="/Main.php?do=clientsUsersWelcome" redirect="true" />
 		</action>
 
 		<action    path = "commonDoLogin"
