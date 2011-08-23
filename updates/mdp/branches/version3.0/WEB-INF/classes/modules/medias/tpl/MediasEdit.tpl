@@ -60,24 +60,6 @@ function mediasDeleteCategoryFromActor(form){
 				<label for="params[description]">Descripción</label>
 				<textarea name="params[description]" cols="50" rows="5" wrap="VIRTUAL" id="params[description]" title="Description">|-$media->getdescription()|escape-|</textarea>
 			<p>
-				<label for="params[markets]">Mercados</label>
-				<select name="params[markets]" size="4" id="params[markets]" >
-     		<option value="">Seleccione</option>
-				|-foreach from=$mediaMarkets item=mediaMarket name=for_mediaMarket-|
-        		<option value="|-$mediaMarket->getId()-|" |-$media->getTypeId()|selected:$mediaMarket->getId()-|>|-$mediaMarket->getName()-|</option>
-				|-/foreach-|
-				</select>
-			</p>
-			<p>
-				<label for="params[audiences]">Audiencia</label>
-				<select name="params[audiences]" size="4" id="params[audiences]" >
-     		<option value="">Seleccione</option>
-				|-foreach from=$mediaAudiences item=mediaAudience name=for_mediaAudience-|
-        		<option value="|-$mediaAudience->getId()-|" |-$media->getTypeId()|selected:$mediaAudience->getId()-|>|-$mediaAudience->getName()-|</option>
-				|-/foreach-|
-				</select>
-			</p>
-			<p>
 				<label for="params[address]">Dirección</label><input name="params[address]" size="60" value="|-$media->getAddress()|escape-|" type="text">
 			</p>
 			<p>
@@ -111,6 +93,23 @@ function mediasDeleteCategoryFromActor(form){
 			</p>
 		</fieldset>
 	</form>
+			<p>
+				<label for="params[markets]">Mercados</label>
+				<select name="params[markets]" size="5" multiple id="params[markets]" >
+				|-foreach from=$mediaMarkets item=mediaMarket name=for_mediaMarket-|
+        		<option value="|-$mediaMarket->getId()-|">|-$mediaMarket->getName()-|</option>
+				|-/foreach-|
+				</select>
+			</p>
+			<p>
+				<label for="params[audiences]">Audiencia</label>
+				<select name="params[audiences]" size="5" multiple id="params[audiences]" >
+				|-foreach from=$mediaAudiences item=mediaAudience name=for_mediaAudience-|
+        		<option value="|-$mediaAudience->getId()-|">|-$mediaAudience->getName()-|</option>
+				|-/foreach-|
+				</select>
+			</p>
+
 <fieldset>
 <legend>Contactos</legend>
 </fieldset>

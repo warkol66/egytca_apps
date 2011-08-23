@@ -87,33 +87,6 @@ class MediaTypePeer extends BaseMediaTypePeer {
 		if ($this->includeDeleted)
 			MediaTypePeer::disableSoftDelete();
 
-		if (!empty($this->adminActId)) {
-			$actorsParticipatingIds = AdminActParticipantQuery::create()
-									->filterByAdminActId($this->adminActId)
-									->filterByObjectType('Actor')
-									->select('Objectid')
-									->find();
-			$criteria->add(MediaTypePeer::ID, $actorsParticipatingIds,Criteria::NOT_IN);
-		}
-
-		if (!empty($this->issueId)) {
-			$issue = IssueQuery::create()->findPk($this->issueId);
-			$issueActorsIds = $issue->getAssignedActorsArray();
-			if (!empty($this->candidates))
-				$criteria->add(MediaTypePeer::ID, $issueActorsIds,Criteria::NOT_IN);
-			else
-				$criteria->filterByIssueId($this->issueId);
-		}
-
-		if (!empty($this->headlineId)) {
-			$headline = HeadlineQuery::create()->findPk($this->headlineId);
-			$headlineActorsIds = $headline->getAssignedActorsArray();
-			if (!empty($this->candidates))
-				$criteria->add(MediaTypePeer::ID, $headlineActorsIds,Criteria::NOT_IN);
-			else
-				$criteria->filterByHeadlineId($this->headlineId);
-		}
-
 		if ($this->searchString) {
 			$criteria->add(MediaTypePeer::NAME,"%" . $this->searchString . "%",Criteria::LIKE);
 			$criterionSurname = $criteria->getNewCriterion(MediaTypePeer::SURNAME,"%" . $this->searchString . "%",Criteria::LIKE);
@@ -159,7 +132,8 @@ class MediaTypePeer extends BaseMediaTypePeer {
 	* @return PropelObjectCollection Todos los issue
 	*/
 	function getAll()	{
-		return MediaTypePeer::doSelect($this->getSearchCriteria());
+		$criteria = MediaTypePeer::getSearchCriteria();
+		return MediaTypePeer::doSelect($criteria);
 	}
 
 } // MediaTypePeer

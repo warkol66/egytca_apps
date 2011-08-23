@@ -1,6 +1,17 @@
 <?php
 
+
 class MediasEditAction extends BaseAction {
+
+	function prepareEdit($smarty) {
+
+		$mediaMarkets = MediaMarketPeer::getAll();
+		$smarty->assign('mediaMarkets',$mediaMarkets);
+
+		$mediaAudiences = MediaAudiencePeer::getAll();
+		$smarty->assign('mediaAudiences',$mediaAudiences);
+
+	}
 
 	function MediasEditAction() {
 		;
@@ -44,6 +55,8 @@ class MediasEditAction extends BaseAction {
 		$smarty->assign("filters",$_GET["filters"]);
 		$smarty->assign("page",$_GET["page"]);
 		$smarty->assign("message",$_GET["message"]);
+
+  	$this->prepareEdit($smarty);
 
 		return $mapping->findForwardConfig('success');
 	}

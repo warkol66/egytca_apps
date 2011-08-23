@@ -132,7 +132,8 @@ class MediaMarketPeer extends BaseMediaMarketPeer {
 	* @return PropelObjectCollection Todos los issue
 	*/
 	function getAll()	{
-		return MediaMarketPeer::doSelect($this->getSearchCriteria());
+		$criteria = MediaMarketPeer::getSearchCriteria();
+		return MediaMarketPeer::doSelect($criteria);
 	}
 
 } // MediaMarketPeer

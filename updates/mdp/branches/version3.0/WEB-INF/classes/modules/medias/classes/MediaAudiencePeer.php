@@ -21,11 +21,13 @@ class MediaAudiencePeer extends BaseMediaAudiencePeer {
 	private $searchString;
 	private $perPage;
 	private $limit;
+	private $orderByName;
 	private $includeDeleted;
 
 	//mapea las condiciones del filtro
 	var $filterConditions = array(
 					"searchString"=>"setSearchString",
+					"orderByName"=>"setOrderByName",
 					"perPage"=>"setPerPage",
 					"limit" => "setLimit",
 					'includeDeleted' => 'setIncludeDeleted'
@@ -38,7 +40,15 @@ class MediaAudiencePeer extends BaseMediaAudiencePeer {
 	function setSearchString($searchString){
 		$this->searchString = $searchString;
 	}
-	
+
+ /**
+	 * Especifica si ordena los resultados por nombre
+	 * @param orderByName tipo de orden "asc" o "desc"
+	 */
+	function setOrderByName($orderByName){
+		$this->orderByName = $orderByName;
+	}
+
  /**
 	 * Especifica cantidad de resultados por pagina.
 	 * @param perPage integer cantidad de resultados por pagina.
@@ -79,21 +89,23 @@ class MediaAudiencePeer extends BaseMediaAudiencePeer {
 	 * @return criteria $criteria Criteria con parametros de busqueda
 	 */
 	private function getSearchCriteria() {
-		$criteria = new Criteria();
+		$criteria = MediaAudienceQuery::create();
+
 		$criteria->setIgnoreCase(true);
 		$criteria->setLimit($this->limit);
-		$criteria->addAscendingOrderByColumn(MediaAudiencePeer::ID);
 		
+		if (isset($this->orderByName) && $this->orderByName == "asc")
+			$criteria->orderByName();
+		else if (isset($this->orderByName) && $this->orderByName == "desc")
+			$criteria->orderByName(Criteria::DESC);
+		else
+			$criteria->orderById();
+
 		if ($this->includeDeleted)
 			MediaAudiencePeer::disableSoftDelete();
 
-		if ($this->searchString) {
+		if ($this->searchString)
 			$criteria->add(MediaAudiencePeer::NAME,"%" . $this->searchString . "%",Criteria::LIKE);
-			$criterionSurname = $criteria->getNewCriterion(MediaAudiencePeer::SURNAME,"%" . $this->searchString . "%",Criteria::LIKE);
-			$criteria->addOr($criterionSurname);
-			$criterionInstitution = $criteria->getNewCriterion(MediaAudiencePeer::INSTITUTION,"%" . $this->searchString . "%",Criteria::LIKE);
-			$criteria->addOr($criterionInstitution);
-		}
 
 		return $criteria;
 
@@ -128,11 +140,11 @@ class MediaAudiencePeer extends BaseMediaAudiencePeer {
 	}
 
 	/**
-	* Obtiene todos los media markets existentes filtrados por la condicion $this->getSearchCriteria()
-	* @return PropelObjectCollection Todos los issue
+	* Obtiene todos los media markets existentes filtrados por la condicion $criteria
+	* @return PropelObjectCollection Todos los MediaAudience
 	*/
-	function getAll()	{
-		return MediaAudiencePeer::doSelect($this->getSearchCriteria());
+	function getAll($criteria) {
+		return MediaAudiencePeer::doSelect($criteria);
 	}
 
 } // MediaAudiencePeer
