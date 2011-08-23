@@ -10,9 +10,6 @@ class CommonInternalMailsDoEditAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -24,7 +21,8 @@ class CommonInternalMailsDoEditAction extends BaseAction {
 		//Asociamos al usuario actual como remitente del mensaje.
 		if (!$this->bindCurrentUserToParams($params)) {
 			global $loginPath;
-			return new ForwardConfig('Main.php?do='.$loginPath, True);
+			$phpSelf = $_SERVER["PHP_SELF"];
+			return new ForwardConfig('/Main.php?do='.$loginPath, True);
 		}
 		
 		$smarty->assign("filters", $_POST["filters"]);
@@ -35,10 +33,10 @@ class CommonInternalMailsDoEditAction extends BaseAction {
 			$internalMail = new InternalMail;
 			Common::setObjectFromParams($internalMail, $params);
 			$internalMail->send();
-		} else {
+		}
+		else
 			//No hay edición de mensajes.
 			return $mapping->findForwardConfig('failure');
-		}
 		
 		return $mapping->findForwardConfig('success');
 	}
