@@ -13,7 +13,7 @@
 			|-if $message eq "wrongUser"-|
 				<div align='center' class='errorMessage'>Usuario desconocido o contraseña incorrecta!. Intente nuevamente.</div> 
 			|-elseif $message eq "missingData"-|
-				<div align='center' class='errorMessage'>Debe ingresar el usuario y contraseña para ingresar. Intente nuevamente.</div> 
+				<div align='center' class='errorMessage'>Para acceder al sistema debe ingresar usuario y contraseña. Intente nuevamente.</div> 
 			|-elseif $message eq "wrongHash"-|
 					<div align='center' class='errorMessage'>El código de confirmación ingresado parece ser invalido o bien ya ha sido utilizado. Por favor verifique la escritura o intente solicitar un código nuevo.</div>
 			|-elseif $message eq "expiredHash"-|
