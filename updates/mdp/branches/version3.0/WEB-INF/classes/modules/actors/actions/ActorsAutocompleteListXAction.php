@@ -32,14 +32,20 @@ class ActorsAutocompleteListXAction extends BaseAction {
 			$filters = array_merge_recursive($filters, array("adminActId" => $_REQUEST['adminActId']));
 		elseif ($_REQUEST['issueId'])
 			$filters = array_merge_recursive($filters, array("issueId" => $_REQUEST['issueId']));
-		elseif ($_REQUEST['headlineId'])
+		else if ($_REQUEST['headlineId'])
 			$filters = array_merge_recursive($filters, array("headlineId" => $_REQUEST['headlineId']));
+
 		if ($_REQUEST['getCandidates'])
 			$filters = array_merge_recursive($filters, array("getCandidates" => true));
 
+		if ($_REQUEST['issueId'])
+			$filters = array_merge_recursive($filters, array("relatedObject" => IssuePeer::get($_REQUEST['issueId'])));
+		else if ($_REQUEST['headlineId'])
+			$filters = array_merge_recursive($filters, array("relatedObject" => HeadlinePeer::get($_REQUEST['headlineId'])));
+
 		$actorPeer = new ActorPeer();
 		$this->applyFilters($actorPeer,$filters);
-		$actors = $actorPeer->getAll();
+		$actors = $actorPeer->getAll($actorPeer->getSearchCriteria());
 		
 		$smarty->assign("actors",$actors);
 		$smarty->assign("limit",$_REQUEST['limit']);
