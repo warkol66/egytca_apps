@@ -10,9 +10,6 @@ class CampaignsCommitmentDoEditXAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -20,13 +17,13 @@ class CampaignsCommitmentDoEditXAction extends BaseAction {
 		}
 
 		$module = "Campaign";
-		$section = "Campaign";
+		$section = "Commitment";
 
 		if ($_POST["commitmentId"]) {
 			$commitment = CampaignCommitmentPeer::get($_POST["commitmentId"]);
 			$commitment = Common::setObjectFromParams($commitment,$_POST["commitmentData"]);
 			
-			if (!$commitment->save()) {
+			if ($commitment->isModified() && !$commitment->save()) {
 				$smarty->assign("commitment",$commitment);
 				$smarty->assign("message","error");
 				return $mapping->findForwardConfig('failure');
@@ -36,7 +33,6 @@ class CampaignsCommitmentDoEditXAction extends BaseAction {
 			Common::doLog('success', substr($_POST["commitmentData"]["commitment"], 0, 60) . $logSufix);
 
 			$smarty->assign("commitment",$commitment);
-
 			return $mapping->findForwardConfig('success');
 
 		}
