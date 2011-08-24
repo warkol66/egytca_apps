@@ -102,7 +102,6 @@ class BackupPeer {
 
 		require_once('config/DBConnection.inc.php');
 		$db = new DBConnection();
-		$connection = @mysql_connect($db->Host,$db->User,$db->Password);
 
 		require_once('mysql_dump.inc.php');
 		$dumper = new MySQLDump($db->Database,$filename ? $path . $filename : false,false,false);
@@ -118,8 +117,6 @@ class BackupPeer {
 			$filecontent = $dumper->doDumpToString();
 			$filecontents = $header.$filecontent.$footer;
 		}
-
-		mysql_close($connection);
 
 		return $filecontents;
 
@@ -186,7 +183,6 @@ class BackupPeer {
 
 		require_once('config/DBConnection.inc.php');
 		$db = new DBConnection();
-		$connection = @mysql_connect($db->Host,$db->User,$db->Password);
 
 		//nos guardamos un dump de la tabla de logs para hacerla trascender al respaldo que se está cargando
 		//esta tabla no se debe alterar al cargar un respaldo.
@@ -207,7 +203,6 @@ class BackupPeer {
 				$db->query($query);
 		}
 
-		mysql_close($connection);
 		return true;
 	}
 
@@ -234,17 +229,17 @@ class BackupPeer {
 
 		foreach($zipfile->files as $filea) {
 			// condicion de busqueda del archivo SQL
-			if ($filea["name"] == "dump.sql" && ($filea["dir"] == './db' || empty($filea["dir"])))
+			if ($filea["name"] == "dump.sql" && (($filea["dir"] == './db' || empty($filea["dir"])) || ($filea["dir"] == '_/db' || empty($filea["dir"]))) )
 				$sql = $filea["data"];
 
 			//condicion para detectar archivos a reemplazar
-			if (strpos($filea["dir"],'./files') !== false) {
+			if (strpos($filea["dir"],'_/files') !== false) {
 				$complete = true;
 
-				if ($filea['dir'] === './files')
+				if ($filea['dir'] === '_/files')
 					$path = '';
 				else {
-					$clearRoute = explode('./files/',$filea['dir']);
+					$clearRoute = explode('_/files/',$filea['dir']);
 					$path = $clearRoute[1] . '/';
 				}
 				//guardamos el archivo en su ubicacion
@@ -294,12 +289,12 @@ class BackupPeer {
 	function getZipFromDataFile($datafile, $complete = false) {
 		require_once("zip.class.php");
 		$zipfile = new zipfile;
-		$zipfile->create_dir(".");
-		$zipfile->create_dir("./db/");
-		$zipfile->create_file($datafile, "./db/dump.sql");
+		$zipfile->create_dir("_");
+		$zipfile->create_dir("_/db/");
+		$zipfile->create_file($datafile, "_/db/dump.sql");
 
 		if ($complete) {
-			$zipfile->create_dir("./files/");
+			$zipfile->create_dir("_/files/");
 			$listing = array();
 			$dirHandler = @opendir('WEB-INF/../');
 			BackupPeer::directoryList(&$listing,$dirHandler,'WEB-INF/../');
@@ -309,10 +304,10 @@ class BackupPeer {
 
 				if (!BackupPeer::routeHasToBeIgnored($clearRoute[1])) {
 					if (is_dir($route))
-						$zipfile->create_dir("./files/" . $clearRoute[1]);
+						$zipfile->create_dir("_/files/" . $clearRoute[1]);
 					if (is_file($route)) {
 						$contents = file_get_contents($route);
-						$zipfile->create_file($contents,"./files/" . $clearRoute[1]);
+						$zipfile->create_file($contents,"_/files/" . $clearRoute[1]);
 					}
 				}
 			}
