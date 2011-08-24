@@ -2,6 +2,8 @@
 	$('form_edit_commitment').reset();
 	clearFormFieldsFormat('form_edit_commitment');
 
+	$('commitmentInfo').innerHTML = '';
+
 	var commitmentId = document.getElementById('commitmentId');
 	commitmentId.value = "|-$commitment->getId()-|";
 

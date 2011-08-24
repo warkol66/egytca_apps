@@ -46,5 +46,6 @@
 	row.appendChild(cell4);
 	row.appendChild(cell5);
 	//tabBody.appendChild(row);
+	initialize(); //Esto para que el lightbox vuelve a ver todos los elementos
 |-/if-|
 </script>
