@@ -1,5 +1,4 @@
 |-include file="CommonAutocompleterInclude.tpl"-|
-
 <script type="text/javascript" language="javascript" charset="utf-8">
 function addParticipantToCampaign(form) {
 	var fields = Form.serialize(form);
@@ -14,7 +13,6 @@ function addParticipantToCampaign(form) {
 	$('partieMsgField').innerHTML = '<span class="inProgress">agregando participante a campaña...</span>';
 	return true;
 }
-
 function deleteParticipantFromCampaign(form){
 	var fields = Form.serialize(form);
 	var myAjax = new Ajax.Updater(
@@ -44,16 +42,13 @@ function clearElement(element) {
 	e_ref=document.getElementById(element);
 	e_ref.innerHTML = '';
 }
-
 </script>
 <script type="text/javascript" src="scripts/lightbox.js"></script> 			
 <div id="lightbox2" class="leightbox"> 
-	<p align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconDelete" /></a> 
-	</p> 
+	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconDelete" /></a></p> 
 	|-include file="ActorsEditInclude.tpl"-|
 </div> 
-<h2>Tablero de Gestión</h2>
+<h2>Campañas</h2>
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| Campaña</h1>
 <div id="div_campaign">
 	<p>Ingrese los datos del Campaña</p>
@@ -64,7 +59,6 @@ function clearElement(element) {
 	|-elseif $message eq "error"-|
 		<div class="failureMessage">Ha ocurrido un error al intentar guardar la campaña</div>
 	|-/if-|
-
 	<form name="form_edit_campaign" id="form_edit_campaign" action="Main.php" method="post">
 		<fieldset title="Formulario de edición de datos de una Campaña">
 			<legend>Formulario de Administración de Campañas</legend>
@@ -134,9 +128,7 @@ function clearElement(element) {
 </fieldset>
 <script type="text/javascript" src="scripts/lightbox.js"></script>
 <div id="lightbox1" class="leightbox"> 
-	<p align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconDelete" /></a> 
-	</p> 
+	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconDelete" /></a></p>
 	|-include file="CampaignsCommitmentForm.tpl"-|
 </div> 
 <fieldset title="Formulario de edición de compromisos asociadas al campaña">
@@ -144,43 +136,41 @@ function clearElement(element) {
 |-assign var=commitments value=$campaign->getCampaignCommitments()-|
 			<div id="commitmentInfo"></div>
 		<table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders" id="commitmentsList">
-			<th colspan="6" class="thFillTitle"><div class="rightLink"><a href="#lightbox1" rel="lightbox1" class="lbOn addLink">Agregar compromiso</a></div></th>
+			<th colspan="6" class="thFillTitle"><form><div class="rightLink" onclick="editCommitment();"><input type="hidden" name="do" value="campaignsCommitmentEditX" /><input name="commitmentId" value="" type="hidden"><a href="#lightbox1" rel="lightbox1" class="lbOn addLink">Agregar compromiso</a></div></form></th>
 			<tr class="thFillTitle">
-			<th width="2%"></th>
-			<th width="50%">Compromiso</th>
-			<th width="20%">Responsable</th>
-			<th width="20%">Fecha</th>
-			<th width="5%">Cumplido</th>
-			<th width="2%"></th>
+				<th width="50%">Compromiso</th>
+				<th width="40%">Responsable</th>
+				<th width="5%">Fecha</th>
+				<th width="5%">Cumplido</th>
+				<th width="5%"></th>
 			</tr>
 			<tbody>
 |-if $commitments|@count gt 0-|
      |-foreach from=$commitments item=commitment name=for_commitments-|
 			<tr id="row_|-$commitment->getId()-|">
-			<td></td>
-			<td>|-$commitment->getCommitment()-|</td>
+			 <td>|-$commitment->getCommitment()-|</td>
 			 <td>|-$commitment->getResponsible()-|</td>
-			 <td>|-$commitment->getDate()|date_format-|</td>
-			 <td>|-$commitment->getAchieved()|yes_no|multilang_get_translation:"common"-|</td>
-			 <td nowrap="nowrap">
+			 <td align="center">|-$commitment->getDate()|date_format-|</td>
+			 <td align="center">|-$commitment->getAchieved()|yes_no|multilang_get_translation:"common"-|</td>
+			 <td nowrap="nowrap">|-if "campaignsCommitmentEditX"|security_has_access-|
 			 <form action="Main.php" method="post" style="display:inline;"> 
 					<input type="hidden" name="do" value="campaignsCommitmentEditX" /> 
 					<input type="hidden" name="id" value="|-$commitment->getid()-|" />
-					<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" name="submit_go_delete_campaign" value="Borrar" onclick="editCommitment(this.form);" class="icon iconEdit" /></a>
+					<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" name="submit_go_delete_campaign" value="Editar" title="Editar" onclick="editCommitment(this.form);" class="icon iconEdit" /></a>
 				</form>
 				|-if $loginUser->isAdmin() || $loginUser->isSupervisor()-|
 				<form action="Main.php" method="post" style="display:inline;"> 
 					<input type="hidden" name="do" value="campaignsCommitmentDoDeleteX" /> 
 					<input type="hidden" name="id" value="|-$commitment->getid()-|" /> 
-					<input type="button" name="submit_go_delete_campaign" value="Borrar" onclick="javascript: if (confirm('Seguro que desea eliminar este compromiso?')){deleteCommitment(this.form)}; return false" class="icon iconDelete" /> 
+					<input type="button" name="submit_go_delete_campaign" value="Borrar" title="Borrar" onclick="javascript: if (confirm('Seguro que desea eliminar este compromiso?')){deleteCommitment(this.form)}; return false" class="icon iconDelete" /> 
 			</form>
 			|-/if-|
 			|-if $loginUser->isSupervisor()-|				<form action="Main.php" method="post" style="display:inline;"> 
 					<input type="hidden" name="do" value="campaignsCommitmentDoDeleteX" /> 
 					<input type="hidden" name="id" value="|-$commitment->getid()-|" /> 
 					<input type="hidden" name="doHardDelete" value="true" /> 
-					<input type="button" name="submit_go_delete_campaign" value="Borrar" onclick="javascript: if (confirm('Seguro que desea eliminar este compromiso definitivamente?')){deleteCommitment(this.form)}; return false" class="icon iconDelete" /> 
-			</form>|-/if-|</td>
+					<input type="button" name="submit_go_delete_campaign" value="Borrar definitivamente" title="Borrar definitivamente" onclick="javascript: if (confirm('Seguro que desea eliminar este compromiso definitivamente?')){deleteCommitment(this.form)}; return false" class="icon iconHardDelete" /> 
+			</form>|-/if-||-/if-|</td>
 			 </tr>
     |-/foreach-|
 |-/if-|

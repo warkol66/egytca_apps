@@ -80,7 +80,7 @@
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$campaign->getid()-|" /> 
 					<input type="hidden" name="doHardDelete" value="true" /> 
-					<input type="submit" name="submit_go_delete_campaign" value="Borrar" onclick="return confirm('Seguro que desea eliminar esta campaña definitivamente?')" class="icon iconDelete" /> 
+					<input type="submit" name="submit_go_delete_campaign" value="Borrar" onclick="return confirm('Seguro que desea eliminar esta campaña definitivamente?')" class="icon iconHardDelete" /> 
 			</form>|-/if-|</td> 
 		</tr> 
 		|-/foreach-|

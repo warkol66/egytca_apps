@@ -14,6 +14,7 @@
 	}
 	function editCommitment(form) {
 		$('form_edit_commitment').reset();
+		$('form_edit_commitment').commitmentId.value = "";
 		var fields = Form.serialize(form);
 		var myAjax = new Ajax.Updater('commitmentInfo',
 					"Main.php?do=campaignsCommitmentEditX",
@@ -23,7 +24,7 @@
 						postBody: fields,
 						evalScripts: true
 					});
-		$('commitmentInfo').innerHTML = '<span class="inProgress">Procesando información</span><img src="images/spinner.gif" />';
+		$('commitmentInfo').innerHTML = '<span class="inProgress">Procesando información</span>';
 		return false;
 	}
 	function deleteCommitment(form) {
@@ -36,7 +37,7 @@
 						postBody: fields,
 						evalScripts: true
 					});
-		$('commitmentInfo').innerHTML = '<span class="inProgress">Procesando información</span><img src="images/spinner.gif" />';
+		$('commitmentInfo').innerHTML = '<span class="inProgress">Procesando información</span>';
 		return false;
 	}
 </script>

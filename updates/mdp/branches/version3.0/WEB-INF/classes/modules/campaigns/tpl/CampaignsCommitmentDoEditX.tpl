@@ -14,7 +14,6 @@
 	var cell3 = document.createElement("td");
 	var cell4 = document.createElement("td");
 	var cell5 = document.createElement("td");
-	var cell6 = document.createElement("td");
 |-else-|
   var row = document.getElementById("row_|-$commitment->getId()-|");
 	var cell1 = row.cells[0];
@@ -22,24 +21,21 @@
 	var cell3 = row.cells[2];
 	var cell4 = row.cells[3];
 	var cell5 = row.cells[4];
-	var cell6 = row.cells[5];
-
 |-/if-|
-	cell2.innerHTML = "|-$commitment->getCommitment()|escape:'html'|nl2br|strip-|";
-	cell3.innerHTML = "|-$commitment->getResponsible()|escape:'html'|strip-|";
-	cell4.innerHTML = "|-$commitment->getDate()|date_format-|";
-	cell5.innerHTML = '|-$commitment->getAchieved()|yes_no|multilang_get_translation:"common"-|';
+	cell1.innerHTML = "|-$commitment->getCommitment()|escape:'html'|nl2br|strip-|";
+	cell2.innerHTML = "|-$commitment->getResponsible()|escape:'html'|strip-|";
+	cell3.innerHTML = "<div align='center'>|-$commitment->getDate()|date_format-|</div>";
+	cell4.innerHTML = "<div align='center'>|-$commitment->getAchieved()|yes_no|multilang_get_translation:'common'-|</div>";
 |-if $action eq "create"-|
-	cell6.className = "noWrap";
-	cell6.innerHTML = '<form action="Main.php" method="get" style="display:inline;">';
-	cell6.innerHTML += '<input type="hidden" name="do" value="campaignCommitmentEditX" />';
-	cell6.innerHTML += '<input type="hidden" name="id" value="|-$commitment->getid()-|" />';
-	cell6.innerHTML += '<input type="submit" name="submit_go_edit_campaign" value="Editar" class="icon iconEdit" /></form> ';
-|-if $loginUser->isAdmin() || $loginUser->isSupervisor()-|	
-	cell6.innerHTML += '<form action="Main.php" method="post" style="display:inline;"><input type="hidden" name="do" value="campaignCommitmentDoDeleteX" /><input type="hidden" name="id" value="|-$commitment->getid()-|" /><input type="button" name="submit_go_delete_campaign" value="Borrar" onclick="javascript: if (confirm(\'Seguro que desea eliminar este compromiso?\')) deleteCommitment(this.form);" class="icon iconDelete" /></form> ';
-	|-/if-|
-	|-if $loginUser->isSupervisor()-|
-	cell6.innerHTML += '<form action="Main.php" method="post" style="display:inline;"><input type="hidden" name="do" value="campaignCommitmentDoDeleteX" /><input type="hidden" name="id" value="|-$commitment->getid()-|" /> <input type="hidden" name="doHardDelete" value="true" /><input type="button" name="submit_go_delete_campaign" value="Borrar" onclick="javascript: if (confirm(\'Seguro que desea eliminar este compromiso definitivamente?\')) deleteCommitment(this.form);" class="icon iconDelete" /></form>';
+	|-if "campaignsCommitmentEditX"|security_has_access-|
+		cell5.className = "noWrap";
+		cell5.innerHTML = '<form action="Main.php" method="post" style="display:inline;"><input type="hidden" name="do" value="campaignsCommitmentEditX" /><input type="hidden" name="id" value="|-$commitment->getid()-|" /><a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" name="submit_go_delete_campaign" value="Editar" onclick="editCommitment(this.form);" class="icon iconEdit" /></a></form> ';
+		|-if $loginUser->isAdmin() || $loginUser->isSupervisor()-|	
+			cell5.innerHTML += '<form action="Main.php" method="post" style="display:inline;"><input type="hidden" name="do" value="campaignsCommitmentDoDeleteX" /><input type="hidden" name="id" value="|-$commitment->getid()-|" /><input type="button" name="submit_go_delete_campaign" value="Borrar" title="Borrar" onclick="javascript: if (confirm(\'Seguro que desea eliminar este compromiso?\')) deleteCommitment(this.form);" class="icon iconDelete" /></form> ';
+		|-/if-|
+		|-if $loginUser->isSupervisor()-|
+		cell5.innerHTML += '<form action="Main.php" method="post" style="display:inline;"><input type="hidden" name="do" value="campaignsCommitmentDoDeleteX" /><input type="hidden" name="id" value="|-$commitment->getid()-|" /> <input type="hidden" name="doHardDelete" value="true" /><input type="button" name="submit_go_delete_campaign" value="Borrar definitivamente" title="Borrar definitivamente" onclick="javascript: if (confirm(\'Seguro que desea eliminar este compromiso definitivamente?\')) deleteCommitment(this.form);" class="icon iconHardDelete" /></form>';
+		|-/if-|
 	|-/if-|
 |-/if-|
 
@@ -49,7 +45,6 @@
 	row.appendChild(cell3);
 	row.appendChild(cell4);
 	row.appendChild(cell5);
-	row.appendChild(cell6);
 	//tabBody.appendChild(row);
 |-/if-|
 </script>
