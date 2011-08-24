@@ -64,23 +64,24 @@ function clearElement(element) {
 			<legend>Formulario de Administración de Campañas</legend>
 			<p>
 				<label for="params[type]">Tipo</label>
-				<select id="params[type]" name="params[type]" title="Tipo de Campaña"> 
+				<select id="params[type]" name="params[type]" title="Tipo de Campaña" class="emptyValidation"> 
 			<option value="">Seleccione tipo</option>
 			|-html_options options=$types selected=$campaign->getType()-|
-      </select> <img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
+      </select> |-validation_msg_box idField="params[type]"-| <img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
 			</p>
 			<p> 
 				<label for="params[startDate]">Fecha de Inicio</label>
-				<input type="text" id="params[startDate]" name="params[startDate]" value="|-$campaign->getstartDate()|date_format:"%d-%m-%Y"-|" title="Fecha del acto" />
-				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha"> </p> 
+				<input type="text" id="params[startDate]" name="params[startDate]" value="|-$campaign->getstartDate()|date_format:"%d-%m-%Y"-|" title="Fecha de inicio" class="dateValidation emptyValidation" size="12" />
+				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha"> |-validation_msg_box idField="params[startDate]"-| </p> 
 			<p> 
-				<label for="params[finishDate]">Fecha de Finalización</label>
-				<input type="text" id="params[finishDate]" name="params[finishDate]" value="|-$campaign->getfinishDate()|date_format:"%d-%m-%Y"-|" title="Fecha del acto" />
-				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[finishDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha"> </p> 
+				<label for="params_finishDate">Fecha de Finalización</label>
+				<input type="text" id="params[finishDate]" name="params[finishDate]" value="|-$campaign->getfinishDate()|date_format:"%d-%m-%Y"-|" title="Fecha de de finalización" class="dateValidation emptyValidation" size="12" />
+				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[finishDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha"> |-validation_msg_box idField="params[finishDate]"-|</p> 
 			<p>
 				<label for="params[description]">Descripción</label>
 				<textarea name="params[description]" cols="70" rows="6" wrap="virtual" id="params[description]" title="Descripción">|-$campaign->getdescription()|escape-|</textarea>
 			</p>
+		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 				|-if $action eq 'edit'-|
 				<input type="hidden" name="id" id="id" value="|-$campaign->getid()-|" />
 				|-else-|
@@ -89,7 +90,7 @@ function clearElement(element) {
 			<p>
 				|-include file="HiddenInputsInclude.tpl" action="$action" filters="$filters" page="$page"-|
 				<input type="hidden" name="do" id="do" value="campaignsDoEdit" />
-				<input type="submit" id="button_edit_campaign" name="button_edit_campaign" title="Aceptar" value="Guardar" />
+				<input type="button" id="button_edit_commitment" name="button_edit_campaign" title="Guardar" value="Guardar" onClick="javascript: if (validationValidateFormClienSide(this.form, false));" />
 				<input type="button" id="cancel" name="cancel" title="Volver al listado" value="Volver al listado" onClick="location.href='Main.php?do=campaignsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'"/>
 			</p>
 		</fieldset>

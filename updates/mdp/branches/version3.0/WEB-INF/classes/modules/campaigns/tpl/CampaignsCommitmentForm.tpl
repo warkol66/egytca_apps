@@ -14,7 +14,9 @@
 	}
 	function editCommitment(form) {
 		$('form_edit_commitment').reset();
+		clearFormFieldsFormat('form_edit_commitment');
 		$('form_edit_commitment').commitmentId.value = "";
+		$('validationFailureMessage').hide();
 		$('commitmentInfo').innerHTML = '';
 		var fields = Form.serialize(form);
 		var myAjax = new Ajax.Updater('commitmentInfo',
@@ -48,7 +50,7 @@
 	<div id="commitmentInfo"></div>
 	<form id="form_edit_commitment" name="form_edit_commitment" action="Main.php" method="post">
 	<p><label for="commitmentData[commitment]">Compromiso</label>
-		<textarea name="commitmentData[commitment]" cols="60" rows="3" wrap="virtual" id="commitmentData_commitment" title="Compromiso" class="emptyValidation"></textarea>|-validation_msg_box idField="commitmentData_commitment"-|
+		<textarea name="commitmentData[commitment]" cols="60" rows="3" wrap="virtual" id="commitmentData_commitment" title="Compromiso" class="emptyValidation"></textarea>|-validation_msg_box idField="commitmentData[commitment]"-|
 	</p>
 	<p><label for="commitmentData[responsible]">Responsable</label>
 		<input name="commitmentData[responsible]" type="text" id="commitmentData_responsible" title="Responsable" value="" size="60" />
@@ -61,7 +63,8 @@
 		<label for="commitmentData[achieved]">Cumplido</label>
 	    <input type="hidden" name="commitmentData[achieved]" value="0" />
 	    <input type="checkbox" name="commitmentData[achieved]" id="commitmentData_achieved" value="1" title="Marque esta opción si está cumplido el compromiso" />
-    </p> 
+    </p>
+		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 		<p>			
 				<input type="hidden" name="do" id="do" value="campaignsCommitmentDoEditX" />
 				<input type="hidden" name="commitmentId" id="commitmentId" value="" />

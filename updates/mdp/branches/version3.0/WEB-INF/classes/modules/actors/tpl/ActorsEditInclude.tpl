@@ -37,7 +37,7 @@
 			<p>
 				<input type="hidden" name="do" id="do" value="actorsDoEditX" />
 				<input type="button" id="button_edit_actor" name="button_edit_actor" title="Aceptar" value="Agregar nuevo" onClick="javascript:createActor(this.form)"/>
-				<a href="#" class="lbAction" rel="deactivate"><input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" /></a> 
+				<a href="#" class="lbAction noDecoration" rel="deactivate"><input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" /></a> 
 			</p>
 		</fieldset>
 	</form>

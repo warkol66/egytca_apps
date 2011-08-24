@@ -220,7 +220,7 @@ input.icon {
 	color: #cf0000 !Important;
 	margin-left: 150px;
 }
-input[type="text"].emptyValidation {
+input[type="text"].emptyValidation, textarea.emptyValidation, select.emptyValidation {
 	outline: #ff0000 solid 1px;
 }
 
