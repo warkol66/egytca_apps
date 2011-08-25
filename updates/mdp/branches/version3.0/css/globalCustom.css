@@ -570,3 +570,47 @@ option{
 	-webkit-border-radius: 2px;
 }
 /* /CharCount */
+
+/*		SOLAPAS LOGS*/
+#tabsLogs{
+	width:100%;
+	height:36px;
+	font-size:1.2em;
+	margin:0px 0px 0px 0px; /* IE6*/
+}
+#tabsLogs ul{
+	width:100%;
+	float:left;
+	display:inline;
+}
+#tabsLogs ul li{
+	width:104px;
+	height:30px;		
+	float:left;
+	display:block;
+	text-align:center;	
+	font-weight:bold;
+	padding-top: 2px;
+}
+#tabsLogs ul li.activeTab {
+	background:url(../images/tabs.png) 0 0px no-repeat;
+	line-height:3em;				
+}
+#tabsLogs ul li.unactiveTab{
+	background:url(../images/tabs.png) -104px 0px no-repeat;
+	line-height:3em;				
+}
+#tabsLogs ul li a{
+	width:104px;
+	height:30px;
+	float:left;
+	display:block;
+	line-height:1em;  /*  I6*/
+	color:#333333;
+	text-decoration:none;
+}
+#tabsLogs ul li.unactiveTab a:hover{
+	background:url(../images/tabs.png) -208px -2px no-repeat;
+	text-decoration:none;	
+	color:#333333;
+}
