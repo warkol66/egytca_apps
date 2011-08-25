@@ -30,7 +30,7 @@ class ActorsAutocompleteListXAction extends BaseAction {
 
 		if ($_REQUEST['adminActId'])
 			$filters = array_merge_recursive($filters, array("adminActId" => $_REQUEST['adminActId']));
-		elseif ($_REQUEST['issueId'])
+		else if ($_REQUEST['issueId'])
 			$filters = array_merge_recursive($filters, array("issueId" => $_REQUEST['issueId']));
 		else if ($_REQUEST['headlineId'])
 			$filters = array_merge_recursive($filters, array("headlineId" => $_REQUEST['headlineId']));
@@ -42,6 +42,8 @@ class ActorsAutocompleteListXAction extends BaseAction {
 			$filters = array_merge_recursive($filters, array("relatedObject" => IssuePeer::get($_REQUEST['issueId'])));
 		else if ($_REQUEST['headlineId'])
 			$filters = array_merge_recursive($filters, array("relatedObject" => HeadlinePeer::get($_REQUEST['headlineId'])));
+		else if ($_REQUEST['campaignId'])
+			$filters = array_merge_recursive($filters, array("relatedObject" => CampaignPeer::get($_REQUEST['campaignId'])));
 
 		$actorPeer = new ActorPeer();
 		$this->applyFilters($actorPeer,$filters);

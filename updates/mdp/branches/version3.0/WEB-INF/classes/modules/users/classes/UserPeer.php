@@ -13,10 +13,18 @@ class UserPeer extends BaseUserPeer {
 	private $perPage;
 	private $notInIds;
 
+	private $includeDeleted;
+
+	private $relatedObject;
+	private $candidates;
+
 	//mapea las condiciones del filtro
 	var $filterConditions = array(
 					"searchString"=>"setSearchString",
-					"perPage"=>"setPerPage"
+					"perPage"=>"setPerPage",
+					"includeDeleted" => "setIncludeDeleted",
+					"relatedObject" => "setRelatedObject",
+					"getCandidates" => "setCandidates"
 				);
 
  /**
@@ -36,16 +44,48 @@ class UserPeer extends BaseUserPeer {
 	}
 
 	/**
+	 * Especifica un objeto cuyos con actores relacionados
+	 * @param object relatedObject, Objeto relacionado
+	 */
+	function setRelatedObject($relatedObject){
+		$this->relatedObject = $relatedObject;
+	}
+
+	/**
+	 * Especifica un headline cuyos actores no deben aparecer en la busqueda.
+	 * @param int headlineId, id del headline.
+	 */
+	function setCandidates($candidates){
+		$this->candidates = $candidates;
+	}
+
+	/**
+	 * Especifica si se incluyen los eliminados
+	 * @param bool includeDeleted, indica si se incluyen los elimindos
+	 */
+	function setIncludeDeleted($includeDeleted){
+		$this->includeDeleted = $includeDeleted;
+	}
+
+	/**
 	* Obtiene todos los usuarios.
 	*
 	*	@return array Informacion sobre todos los usuarios
 	*/
-	function getAll() {
+/*	function getAll() {
 		$criteria = new Criteria();
 		$criteria->add(UserPeer::ACTIVE, 1);
 		$criteria->add(UserPeer::ID, 0, Criteria::GREATER_THAN); //Saco de los posibles resultados al usuario "system" id =-1
 		$todosObj = UserPeer::doSelect($criteria);
 		return $todosObj;
+	}
+*/
+ /**
+	* Obtiene todos los actor existentes filtrados por la condicion $criteria
+	* @return PropelObjectCollection Todos los actores
+	*/
+	function getAll($criteria = null) {
+		return UserPeer::doSelect($criteria);
 	}
 
 	 /**
@@ -593,11 +633,21 @@ class UserPeer extends BaseUserPeer {
 	 *
 	 * @return criteria $criteria Criteria con parámetros de búsqueda
 	 */
-	private function getSearchCriteria(){
+	public function getSearchCriteria(){
 		$criteria = new Criteria();
 		$criteria->setIgnoreCase(true);
 		$criteria->add(UserPeer::ACTIVE, 1);
 		$criteria->add(UserPeer::ID, 0, Criteria::GREATER_THAN); //Saco de los posibles resultados al usuario "system" id =-1
+
+		if ($this->includeDeleted)
+			UserPeer::disableSoftDelete();
+
+		if (!empty($this->relatedObject)) {
+			if (empty($this->candidates))
+				$criteria->filterBy($this->relatedObject);
+			else
+				$criteria->add(UserPeer::ID, $this->relatedObject->getAssignedUsersArray(), Criteria::NOT_IN);
+		}
 
 		if ($this->searchString) {
 			$criteria->add(UserPeer::USERNAME,"%" . $this->searchString . "%",Criteria::LIKE);

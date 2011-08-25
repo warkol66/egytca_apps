@@ -31,4 +31,31 @@ class Campaign extends BaseCampaign {
 		return $typeNameTranslated;
 	}
 
+	/**
+	* Obtiene el id de todas las categorías asignadas.
+	*
+	*	@return array Id de todos los actor category asignados
+	*/
+	function getAssignedActorsArray(){
+		return CampaignParticipantQuery::create()->filterByCampaign($this)->filterByObjecttype('actor')->select('Objectid')->find()->toArray();
+	}
+
+	/**
+	* Obtiene el id de todas las categorías asignadas.
+	*
+	*	@return array Id de todos los actor category asignados
+	*/
+	function getAssignedUsersArray(){
+		return CampaignParticipantQuery::create()->filterByCampaign($this)->filterByObjecttype('user')->select('Objectid')->find()->toArray();
+	}
+
+	/**
+	* Obtiene el id de todas las categorías asignadas.
+	*
+	*	@return array Id de todos los actor category asignados
+	*/
+	function getAssignedClientsArray(){
+		return CampaignParticipantQuery::create()->filterByCampaign($this)->filterByObjecttype('client')->select('Objectid')->find()->toArray();
+	}
+
 } // Campaign

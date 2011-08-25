@@ -101,20 +101,20 @@ function clearElement(element) {
 <fieldset title="Formulario de edición de participantes asociadas al campaña">
 	<legend>Participantes</legend>
 <div id="PartyAdding"> <span id="partieMsgField"></span> 
-  <form method="post" name="party_add_form" name="party_add_form"> 
+  <form method="post" name="party_add_form" id="party_add_form"> 
 		<p>
 			<label>El participante es</label>
 			<input type="radio" name="participant[type]" value="Actor" onclick="showParticipantType(this.value)" checked="checked" title="Si el participante no está en el listado de usuarios del sistema" />Actor
-			<a class="tooltipWide" href="#"><span>Sólo podrá agregar Actores que estén cargados en el sistema.</span><img src="images/icon_info.png"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#lightbox2" rel="lightbox2" class="lbOn addNew">Crear nuevo actor </a> <br />
+			<a class="tooltipWide" href="#"><span>Sólo podrá agregar Actores que estén cargados en el sistema.</span><img src="images/icon_info.png"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#lightbox2" rel="lightbox2" class="lbOn addLink">Crear nuevo actor </a> <br />
 			<input type="radio" name="participant[type]" value="User" onclick="showParticipantType(this.value)" title="Para incluir como participante a personas de la institución y con usuario del sistema" />Usuario
 		</p>
 
 		<div id="participantActor" style="position: relative;z-index:10000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_actors" label="Actor" url="Main.php?do=actorsAutocompleteListX" hiddenName="participant[actorId]" disableSubmit="addParticipant"-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_actors" label="Actor" url="Main.php?do=actorsAutocompleteListX&getCandidates=1&campaignId="|cat:$campaign->getId() hiddenName="participant[actorId]" disableSubmit="addParticipant"-|
 		</div>
 	
 		<div id="participantUser" style="display:none; position: relative;z-index:10000">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_users" label="Usuario" url="Main.php?do=usersAutocompleteListX" hiddenName="participant[userId]" disableSubmit="addParticipant"-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_users" label="Usuario" url="Main.php?do=usersAutocompleteListX&getCandidates=1&campaignId="|cat:$campaign->getId() hiddenName="participant[userId]" disableSubmit="addParticipant"-|
 		</div>
 	<p>
       <input type="hidden" name="do" id="do" value="campaignsDoAddParticipantX" /> 

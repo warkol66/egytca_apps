@@ -29,6 +29,8 @@ class ActorPeer extends BaseActorPeer {
 	private $adminActId;
 	private $issueId;
 	private $headlineId;
+
+	private $relatedObject;
 	private $candidates;
 
 	//mapea las condiciones del filtro
