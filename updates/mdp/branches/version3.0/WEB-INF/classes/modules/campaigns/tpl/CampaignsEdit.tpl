@@ -67,16 +67,16 @@ function clearElement(element) {
 				<select id="params[type]" name="params[type]" title="Tipo de Campaña" class="emptyValidation"> 
 			<option value="">Seleccione tipo</option>
 			|-html_options options=$types selected=$campaign->getType()-|
-      </select> |-validation_msg_box idField="params[type]"-| <img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
+      </select> |-validation_msg_box idField=params[type]-| <img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
 			</p>
 			<p> 
 				<label for="params[startDate]">Fecha de Inicio</label>
 				<input type="text" id="params[startDate]" name="params[startDate]" value="|-$campaign->getstartDate()|date_format:"%d-%m-%Y"-|" title="Fecha de inicio" class="dateValidation emptyValidation" size="12" />
-				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha"> |-validation_msg_box idField="params[startDate]"-| </p> 
+				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha"> |-validation_msg_box idField=params[startDate]-| </p> 
 			<p> 
 				<label for="params_finishDate">Fecha de Finalización</label>
 				<input type="text" id="params[finishDate]" name="params[finishDate]" value="|-$campaign->getfinishDate()|date_format:"%d-%m-%Y"-|" title="Fecha de de finalización" class="dateValidation emptyValidation" size="12" />
-				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[finishDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha"> |-validation_msg_box idField="params[finishDate]"-|</p> 
+				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[finishDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha"> |-validation_msg_box idField=params[finishDate]"-|</p> 
 			<p>
 				<label for="params[description]">Descripción</label>
 				<textarea name="params[description]" cols="70" rows="6" wrap="virtual" id="params[description]" title="Descripción">|-$campaign->getdescription()|escape-|</textarea>
@@ -90,7 +90,8 @@ function clearElement(element) {
 			<p>
 				|-include file="HiddenInputsInclude.tpl" action="$action" filters="$filters" page="$page"-|
 				<input type="hidden" name="do" id="do" value="campaignsDoEdit" />
-				<input type="button" id="button_edit_commitment" name="button_edit_campaign" title="Guardar" value="Guardar" onClick="javascript: if (validationValidateFormClienSide(this.form, false));" />
+				|-javascript_form_validation_button value='Guardar' title='Guardar'-|
+				<input type="submit" id="button_edit_campaign" name="button_edit_campaign" title="Guardar" value="Guardar" />
 				<input type="button" id="cancel" name="cancel" title="Volver al listado" value="Volver al listado" onClick="location.href='Main.php?do=campaignsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'"/>
 			</p>
 		</fieldset>
@@ -100,7 +101,7 @@ function clearElement(element) {
 <fieldset title="Formulario de edición de participantes asociadas al campaña">
 	<legend>Participantes</legend>
 <div id="PartyAdding"> <span id="partieMsgField"></span> 
-  <form method="post"> 
+  <form method="post" name="party_add_form" name="party_add_form"> 
 		<p>
 			<label>El participante es</label>
 			<input type="radio" name="participant[type]" value="Actor" onclick="showParticipantType(this.value)" checked="checked" title="Si el participante no está en el listado de usuarios del sistema" />Actor
@@ -116,7 +117,7 @@ function clearElement(element) {
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_users" label="Usuario" url="Main.php?do=usersAutocompleteListX" hiddenName="participant[userId]" disableSubmit="addParticipant"-|
 		</div>
 	<p>
-      <input type="hidden" name="do" id="do" value="campaignDoAddParticipantX" /> 
+      <input type="hidden" name="do" id="do" value="campaignsDoAddParticipantX" /> 
       <input type="hidden" name="campaignId" id="campaignId" value="|-$campaign->getId()-|" /> 
       <input type="button" id="addParticipant" value="Agregar participante a campaña" disabled onClick="javascript:addParticipantToCampaign(this.form)"/> 
     </p> 
@@ -137,7 +138,7 @@ function clearElement(element) {
 |-assign var=commitments value=$campaign->getCampaignCommitments()-|
 			<div id="commitmentInfo"></div>
 		<table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders" id="commitmentsList">
-			<th colspan="6" class="thFillTitle"><form><div class="rightLink" onclick="editCommitment();"><input type="hidden" name="do" value="campaignsCommitmentEditX" /><input name="commitmentId" value="" type="hidden"><a href="#lightbox1" rel="lightbox1" class="lbOn addLink">Agregar compromiso</a></div></form></th>
+			<th colspan="6" class="thFillTitle"><form name="campaign_add_commitment"><div class="rightLink" onclick="editCommitment();"><input type="hidden" name="do" value="campaignsCommitmentEditX" /><input name="commitmentId" value="" type="hidden"><a href="#lightbox1" rel="lightbox1" class="lbOn addLink">Agregar compromiso</a></div></form></th>
 			<tr class="thFillTitle">
 				<th width="50%">Compromiso</th>
 				<th width="40%">Responsable</th>

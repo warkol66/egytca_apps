@@ -7,4 +7,4 @@
 	$('partieMsgField').innerHTML = '<span class="resultFailure">Debe seleccionar de Usuarios o Actores existentes</span>';
 |-/if-|
 </script>
-|-include file="CampaignParticipantsInclude.tpl"-|
+|-include file="CampaignsParticipantsInclude.tpl"-|

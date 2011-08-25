@@ -100,7 +100,7 @@
 	function daysOfMonth(month, year) {
 
 		// se utiliza hashing para obtener la cantidad de días en lugar de un switch.
-		daysMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];		
+		var daysMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 		var days = daysMonths[month - 1];
 
 		// corrección por año bisiesto.

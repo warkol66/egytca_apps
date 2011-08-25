@@ -614,3 +614,11 @@ option{
 	text-decoration:none;	
 	color:#333333;
 }
+fieldset ul.optionDelete li {
+	padding-top: 5px;
+	list-style: none;
+	margin-left: 0px;
+}
+fieldset ul.optionDelete li:hover {
+	color: red;
+}

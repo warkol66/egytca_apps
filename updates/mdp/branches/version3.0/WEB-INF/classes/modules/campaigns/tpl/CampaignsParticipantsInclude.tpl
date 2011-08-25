@@ -2,7 +2,7 @@
      |-foreach from=$campaign->getCampaignParticipants() item=party name=for_parties-|
     <li id="partyListItem|-$party->getId()-|">
       <form  method="post" id="partyListItemForm|-$party->getId()-|"> 
-        <input type="hidden" name="do" id="do" value="campaignDoDeleteParticipantX" /> 
+        <input type="hidden" name="do" id="do" value="campaignsDoDeleteParticipantX" /> 
         <input type="hidden" name="campaignId"  value="|-$campaign->getId()-|" /> 
         <input type="hidden" name="partyId"  value="|-$party->getId()-|" /> 
 				<input type="button" value="Eliminar" title="Eliminar" onClick="if (confirm('¿Seguro que desea eliminar al participante de la campaña?')){deleteParticipantFromCampaign(this.form)}; return false" class="icon iconDelete" /></form> 

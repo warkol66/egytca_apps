@@ -16,7 +16,8 @@
 		$('form_edit_commitment').reset();
 		clearFormFieldsFormat('form_edit_commitment');
 		$('form_edit_commitment').commitmentId.value = "";
-		$('validationFailureMessage').hide();
+		if ($('validationFailureMessage'))
+			$('validationFailureMessage').hide();
 		$('commitmentInfo').innerHTML = '';
 		var fields = Form.serialize(form);
 		var myAjax = new Ajax.Updater('commitmentInfo',
