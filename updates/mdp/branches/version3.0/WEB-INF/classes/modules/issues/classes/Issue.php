@@ -19,7 +19,7 @@ class Issue extends BaseIssue {
 	const ITEM_NAME = 'Issue';
 
 	/**
-	* Obtiene el id de todas las categorías asignadas.
+	* Obtiene el id de todas las categorï¿½as asignadas.
 	*
 	*	@return array Id de todos los actor category asignados
 	*/
@@ -42,7 +42,7 @@ class Issue extends BaseIssue {
 	}
 
 	/**
-	* Obtiene el id de todas las categorías asignadas.
+	* Obtiene el id de todas las categorï¿½as asignadas.
 	*
 	*	@return array Id de todos los actor category asignados
 	*/
@@ -96,6 +96,18 @@ class Issue extends BaseIssue {
 		$type = $this->getEvolution();
 		$issueEvolutionStages = Common::getTranslatedArray(IssuePeer::getIssueEvolutionStages(),'issues');
 		return $issueEvolutionStages[$type];
+	}
+        
+        /**
+	 * Devuelve las versiones para el asunto ordenadas en por fecha de creaciÃ³n y paginadas.
+	 * @param string $orderType forma en que se ordena, Criteria::ASC = ascendente Criteria::DESC = descendente.
+	 * @param int $page numero de pagina.
+	 * @param int $maxPerPage cantidad maxima de elementos por pagina.
+	 * @return array Versions para el proyecto ordenados en forma decreciente por fecha de creaciÃ³n.
+	 */
+	public function getVersionsOrderedByUpdatedPaginated($orderType = Criteria::ASC, $page=1, $maxPerPage=5) {
+		$issueVersionPeer = new IssueVersionPeer();
+		return $issueVersionPeer->getAllByIssueIdOrderedByUpdatedPaginated($this->getId(), $orderType, $page, $maxPerPage);
 	}
 
 } // Issue
