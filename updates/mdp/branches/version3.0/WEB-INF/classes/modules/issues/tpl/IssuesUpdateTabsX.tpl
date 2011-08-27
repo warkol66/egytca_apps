@@ -1,8 +1,5 @@
 <div id='tabsLogs'>
     <ul>
-        <li class="unactiveTab">
-            <a href="#"  onClick='selectTab(this);$("status_info").show(); new Ajax.Updater("div_issue", "Main.php?do=issuesShowHistoryX", { method: "get", parameters: { id: "|-$issue->getId()-|", version: "|-$issue->getVersion()-|"}, evalScripts: true});'>Actual</a>
-        </li>
     |-if !$issueVersionsPager->isFirstPage()-|
         <li class="unactiveTab">
             <a href="#" onClick='new Ajax.Updater("tabsLogs", "Main.php?do=issuesUpdateTabsX", { method: "get", parameters: { id: "|-$issue->getId()-|", page: "|-$issueVersionsPager->getPreviousPage()-|"}});'>Anteriores</a>
