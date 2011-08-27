@@ -1,6 +1,8 @@
 <?php
 
-class IssuesEditAction extends BaseAction {
+include_once 'IssuesEditBaseAction.php';
+
+class IssuesEditAction extends IssuesEditBaseAction {
 
 	function IssuesEditAction() {
 		;
@@ -8,7 +10,7 @@ class IssuesEditAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-		BaseAction::execute($mapping, $form, $request, $response);
+		parent::execute($mapping, $form, $request, $response);
 
 		//////////
 		// Access the Smarty PlugIn instance
@@ -33,32 +35,7 @@ class IssuesEditAction extends BaseAction {
 		$smarty->assign("issueTable",$issueTable);
 
 		if (!empty($_GET["id"])) {
-			//voy a editar un objeto
-
-			$issue = IssuePeer::get($_GET["id"]);
-
-			if (!is_null($issue)) {
-				$actualCategories = $issue->getIssueCategorys();
-				$smarty->assign("actualCategories",$actualCategories);
-
-				if (!$actualCategories->isEmpty())
-					$excludeCategoriesIds = $issue->getAssignedCategoriesArray($_GET["id"]);
-
-				$criteria = new Criteria();
-				$criteria->add(IssueCategoryPeer::ID, $excludeCategoriesIds, Criteria::NOT_IN);
-				$categoryCandidates = IssueCategoryPeer::doSelect($criteria);
-				$smarty->assign("categoryCandidates",$categoryCandidates);
-
-			}
-			else {
-				$smarty->assign("message","Not valid issue Id");
-				$smarty->assign("url","Main.php?do=issuesList");
-				return $mapping->findForwardConfig('failure');
-			}
-
-			$smarty->assign("issue",$issue);
 			$smarty->assign("action","edit");
-
 		}
 		else {
 			//voy a crear un objeto nuevo
@@ -66,13 +43,6 @@ class IssuesEditAction extends BaseAction {
 			$smarty->assign("issue",$issue);
 			$smarty->assign("action","create");
 		}
-
-		$issueImpactTypes = Common::getTranslatedArray(IssuePeer::getIssueImpactTypes(),'issues');
-		$smarty->assign("issueImpactTypes",$issueImpactTypes);
-		$issueEvolutionStages = Common::getTranslatedArray(IssuePeer::getIssueEvolutionStages(),'issues');
-		$smarty->assign("issueEvolutionStages",$issueEvolutionStages);
-		$issueValorationTypes = Common::getTranslatedArray(IssuePeer::getIssueValorationTypes(),'issues');
-		$smarty->assign("issueValorationTypes",$issueValorationTypes);
 
 		return $mapping->findForwardConfig('success');
 	}

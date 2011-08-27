@@ -64,6 +64,7 @@ function issuesRemoveCategory(form){
 <div id="div_issueCategories"> 
   <fieldset title="Agregar ##issues,2,Asunto## a categorías de ##issues,2,Asunto##">
 	<legend>Categorías</legend>
+    |-if $action neq 'showLog'-|
     <form name="form_edit_issue_categories" id="form_edit_issue_categories" action="Main.php" method="post">
       <p> 
         <label for="categoryId">Categoría</label> 
@@ -81,19 +82,23 @@ function issuesRemoveCategory(form){
         <input type="hidden" id="do" name="do" value="issuesDoAddCategoryX" />
       </p>
     </form>
+    |-/if-|
     <div id="issuesCategoriesList">
-		<ul id="categoryList" class="iconOptionsList">
-			|-foreach from=$issue->getIssueCategorys() item=category-|
-			<li id="categoryListItem|-$category->getId()-|">
-						<form action="Main.php" method="post" style="display:inline;"> 
-							<input type="hidden" name="do" value="issuesDoRemoveCategoryX" /> 
-							<input type="hidden" name="issueId" value="|-$issue->getid()-|" /> 
-							<input type="hidden" name="categoryId" value="|-$category->getid()-|" /> 
-							<input type="button" name="submit_go_remove_category" value="Borrar" onclick="if (confirm('Seguro que desea quitar la categoria?')) issuesRemoveCategory(this.form);" class="icon iconDelete" /> 
-						</form> |-$category->getName()-|
-					</li>
-			|-/foreach-|
-			</ul>    
-		</div> 
+        <ul id="categoryList" class="iconOptionsList">
+            |-foreach from=$issue->getIssueCategorys() item=category-|
+            <li id="categoryListItem|-$category->getId()-|">
+                |-if $action neq 'showLog'-|
+		<form action="Main.php" method="post" style="display:inline;"> 
+                    <input type="hidden" name="do" value="issuesDoRemoveCategoryX" /> 
+                    <input type="hidden" name="issueId" value="|-$issue->getid()-|" /> 
+                    <input type="hidden" name="categoryId" value="|-$category->getid()-|" /> 
+                    <input type="button" name="submit_go_remove_category" value="Borrar" onclick="if (confirm('Seguro que desea quitar la categoria?')) issuesRemoveCategory(this.form);" class="icon iconDelete" /> 
+		</form>
+                |-/if-|
+                |-$category->getName()-|
+            </li>
+            |-/foreach-|
+	</ul>    
+    </div> 
   </fieldset> 
 </div>

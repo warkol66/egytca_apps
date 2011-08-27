@@ -1,14 +1,16 @@
 <?php
 
-class IssuesShowHistoryXAction extends BaseAction {
+include_once 'IssuesEditBaseAction.php';
+
+class IssuesShowHistoryXAction extends IssuesEditBaseAction {
     
-    function IssuesShowHistoryXAction() {
+function IssuesShowHistoryXAction() {
 		;
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
             
-            BaseAction::execute($mapping, $form, $request, $response);
+            parent::execute($mapping, $form, $request, $response);
             
             //////////
 		// Access the Smarty PlugIn instance
@@ -21,11 +23,8 @@ class IssuesShowHistoryXAction extends BaseAction {
 
 		$module = "Issues";
 		$smarty->assign("module",$module);
-
-                $issue = IssuePeer::get($_REQUEST["id"]);
-                $issue->toVersion($_REQUEST["version"]);
-                //$ic = new IssueCategory();$ic->get
-                $smarty->assign("issue", $issue);
+                
+                $smarty->assign("action", "showLog");
                 
                 return $mapping->findForwardConfig('success');
                 
