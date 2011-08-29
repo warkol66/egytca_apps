@@ -45,7 +45,8 @@ class ClientsBranchsDoEditAction extends BaseAction {
 		$branchParams = $_POST["params"];
 
 		if (!empty($_SESSION["loginUser"])) {
-			$clients = ClientPeer::getAll();
+			$clientPeer = new ClientPeer();
+			$clients = $clientPeer->getAll();
 			$smarty->assign("clients",$clients);
 			$smarty->assign("all",1);
 			$clientId = $branchParams["clientId"];

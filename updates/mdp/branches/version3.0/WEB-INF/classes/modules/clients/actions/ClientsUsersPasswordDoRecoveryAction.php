@@ -27,13 +27,10 @@ class ClientsUsersPasswordDoRecoveryAction extends BaseAction {
 		$userPeer = new ClientUserPeer();
 
 		$user = $userPeer->getByRecoveryHash($_GET["recoveryHash"]);
-
 		if (!empty($user) && $user->recoveryRequestIsValid()) {
-
 			$userName = $user->getUserName();
 			$userMail = $user->getMailAddress();
 			$userAndPassword = $userPeer->generatePassword($userName, $userMail);
-
 			if (!empty($userAndPassword)) {
 
 				$this->template->template = "TemplatePlain.tpl";

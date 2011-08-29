@@ -29,7 +29,7 @@ class ClientsListAction extends BaseAction {
 		
 		$this->applyFilters($clientPeer, $filters, $smarty);
 
-		$pager = $clientPeer->getSearchPaginated($_GET["page"]);
+		$pager = $clientPeer->getAllPaginatedFiltered($_GET["page"]);
 		
 		$url = "Main.php?do=clientsList";
 		foreach ($filters as $key => $value)

@@ -25,7 +25,8 @@ class ClientsBranchsEditAction extends BaseAction {
 		$smarty->assign("section",$section);
 
 		if (!empty($_SESSION["loginUser"])) {
-			$clients = ClientPeer::getAll();
+			$clientPeer = new ClientPeer();
+			$clients = $clientPeer->getAll();
 			$smarty->assign("clients",$clients);
 		}
 

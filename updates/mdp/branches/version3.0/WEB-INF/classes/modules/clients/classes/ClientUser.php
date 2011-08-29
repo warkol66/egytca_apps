@@ -18,6 +18,26 @@ class ClientUser extends BaseClientUser {
 	private $passwordString;
 	private $passwordUpdatedTime;
 
+	/**
+	* Genera el string a entregar por defecto reemplazando el __toString() del modelo
+	*
+	*	@return string string texto por defecto a mostar cuando se llama al objeto clientUser
+	*/
+	public function __toString() {
+		$string = '';
+		$name = $this->getName();
+		$surname = $this->getSurname();
+
+		if (ConfigModule::get("clients","toStringFormat") == "Surname, Name (Username)")
+			$string .= $surname . ', ' . $name;
+		else
+			$string .= $name . ', ' . $surname;
+
+		$string .= ' (' . $this->getUserName() . ')';
+
+		return $string;
+	}
+
 	function getGroups() {
 		return ClientGroupQuery::create()->filterByClientUser($this)->find();
 	}

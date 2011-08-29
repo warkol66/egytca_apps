@@ -15,21 +15,52 @@
  */
 class ClientUserPeer extends BaseClientUserPeer {
 
-	//Setea si se eliminan realmente los usuarios de la base de datos o se usa soft delete
-	const DELETEUSERS = false;
-	
 	private $searchClientId;
-	
-	
+
 	//mapea las condiciones del filtro
 	var $filterConditions = array(
-		"searchClientId"=>"setSearchClientId",
+					"searchClientId"=>"setSearchClientId",
+					"searchString"=>"setSearchString",
+					"perPage"=>"setPerPage",
+					"limit" => "setLimit"
 	);
 	
+ /**
+	 * Especifica el id de cliente
+	 * @param clientId id del cliente
+	 */
 	public function setSearchClientId($clientId) {
 		$this->searchClientId = $clientId;
 	}
 
+ /**
+	 * Especifica una cadena de busqueda.
+	 * @param searchString cadena de busqueda.
+	 */
+	function setSearchString($searchString){
+		$this->searchString = $searchString;
+	}
+
+ /**
+	 * Especifica cantidad de resultados por pagina.
+	 * @param perPage integer cantidad de resultados por pagina.
+	 */
+	function setPerPage($perPage){
+		$this->perPage = $perPage;
+	}
+
+ 	/**
+	 * Especifica una cantidad maxima de registros.
+	 * @param limit cantidad maxima de registros.
+	 */
+	function setLimit($limit){
+		$this->limit = $limit;
+	}
+	
+ 	/**
+	 * Especifica el ide de cliente
+	 * @param clientId id de cliente
+	 */
 	function getByClientId($clientId) {
 		return ClientUserQuery::create()->findByClientId($clientId);
 	}
@@ -40,7 +71,8 @@ class ClientUserPeer extends BaseClientUserPeer {
 	*	@return array Informacion sobre todos los usuarios
 	*/
 	function getAll() {
-		return ClientUserQuery::create()->find();
+    $criteria = $this->getSearchCriteria();
+		return ClientUserPeer::doSelect($criteria);
 	}
 
 	/**
@@ -147,7 +179,7 @@ class ClientUserPeer extends BaseClientUserPeer {
 	*/
 	function delete($id) {
 		$client = ClientUserPeer::retrieveByPk($id);
-		if (ClientUserPeer::DELETEUSERS)
+		if (!ConfigModule::get("clients","usersSoftDelete"))
 			$client->forceDelete();
 		else
 			$client->delete();
@@ -161,8 +193,18 @@ class ClientUserPeer extends BaseClientUserPeer {
 	* @return array Informacion del usuario
 	*/
 	function get($id) {
-		$user = ClientUserQuery::create()->findPk($id);
-		return $user;
+		return ClientUserQuery::create()->findPk($id);
+	}
+
+	/**
+	* Obtiene la cantidad de filas por pagina por defecto en los listado paginados.
+	*
+	* @return int Cantidad de filas por pagina
+	*/
+	function getRowsPerPage() {
+		if (!isset($this->perPage))
+			$this->perPage = Common::getRowsPerPage();
+		return $this->perPage;
 	}
 
 	/**
@@ -279,7 +321,7 @@ class ClientUserPeer extends BaseClientUserPeer {
 		$user = ClientUserQuery::create()->filterByUsername($usernameLowercase)->findOne();
 		if ( !empty($user) ) {
 			if ($user->getMailAddress() == $mailAddress ) {
-				$newPassword = ClientUserPeer::getNewPassword();
+				$newPassword = Common::generateRandomPassword();
 				$user->setPassword($newPassword);
 				$user->save();
 				$result = array();
@@ -292,26 +334,6 @@ class ClientUserPeer extends BaseClientUserPeer {
 	}
 
 	/**
-	* Genera una nueva contrase?a.
-	*
-	* @param int $length [optional] Longitud de la contrase?a
-	* @return string Contrase?a
-	*/
-	function getNewPassword($length = 8) {
-		$password = "";
-		$possible = "23456789bcdfghjkmnpqrstvwxyz$#%";
-		$i = 0;
-		while ($i < $length) {
-			$char = substr($possible, mt_rand(0, strlen($possible)-1), 1);
-			if (!strstr($password, $char)) {
-				$password .= $char;
-				$i++;
-			}
-		}
-		return $password;
-	}
-	
-	/**
 	 * Retorna el criteria generado a partir de lso parï¿½metros de bï¿½squeda
 	 *
 	 * @return criteria $criteria Criteria con parï¿½metros de bï¿½squeda
@@ -319,8 +341,19 @@ class ClientUserPeer extends BaseClientUserPeer {
 	private function getSearchCriteria() {
 		$criteria = new ClientUserQuery();
 		$criteria->setIgnoreCase(true);
+		$criteria->setLimit($this->limit);
 		$criteria->orderById();
 		
+		if ($this->searchString) {
+			$criteria->add(ClientUserPeer::USERNAME,"%" . $this->searchString . "%",Criteria::LIKE);
+			$criterionName = $criteria->getNewCriterion(ClientUserPeer::NAME,"%" . $this->searchString . "%",Criteria::LIKE);
+			$criteria->addOr($criterionName);
+			$criterionSurname = $criteria->getNewCriterion(ClientUserPeer::SURNAME,"%" . $this->searchString . "%",Criteria::LIKE);
+			$criteria->addOr($criterionSurname);
+			$criterionEmail = $criteria->getNewCriterion(ClientUserPeer::MAILADDRESS,"%" . $this->searchString . "%",Criteria::LIKE);
+			$criteria->addOr($criterionEmail);
+		}
+
 		if (!empty($_SESSION["loginUser"])) {
 			if (!empty($this->searchClientId)) {
 				$clientId = $this->searchClientId;
@@ -336,50 +369,21 @@ class ClientUserPeer extends BaseClientUserPeer {
 		return $criteria;
 	}
 		
-	 /**
-	* Obtiene todos los usuarios por cliente paginados segun la condicion de busqueda ingresada.
+ /**
+	* Obtiene todos los ClientUser paginados segun la condicion de busqueda ingresada.
 	*
 	* @param int $page [optional] Numero de pagina actual
 	* @param int $perPage [optional] Cantidad de filas por pagina
-	* @return array Informacion sobre todos los usuarios por cliente
+	* @return array Informacion sobre todos los actores
 	*/
-	function getSearchPaginated($page=1,$perPage=-1) {
+	function getAllPaginatedFiltered($page=1,$perPage=-1)	{
 		if ($perPage == -1)
-			$perPage = Common::getRowsPerPage();
+			$perPage = $this->getRowsPerPage();
 		if (empty($page))
 			$page = 1;
-		$cond = $this->getSearchCriteria();
-		$pager = new PropelPager($cond,"ClientUserPeer", "doSelect",$page,$perPage);
+		$criteria = $this->getSearchCriteria();
+		$pager = new PropelPager($criteria,"ClientUserPeer", "doSelect",$page,$perPage);
 		return $pager;
-	}
-	
-	 /**
-	* Obtiene todos los usuarios por cliente paginados.
-	*
-	* @param int $page [optional] Numero de pagina actual
-	* @param int $perPage [optional] Cantidad de filas por pagina
-	* @return array Informacion sobre todos los usuarios por cliente
-	*/
-	function getAllPaginated($page=1,$perPage=-1) {
-		if ($perPage == -1)
-			$perPage = 	Common::getRowsPerPage();
-
-		if (empty($page))
-			$page = 1;
-
-		$cond = new ClientUserQuery();
-
-		$pager = new PropelPager($cond,"ClientUserPeer", "doSelect",$page,$perPage);
-		return $pager;
-	}
-	
-	/**
-	* Obtiene todas los usuarios por cliente con las opciones de filtro asignadas al peer.
-	*
-	*/
-	function getAllFiltered() {
-		$cond = $this->getSearchCriteria();
-		return $cond->find();
 	}
 
 	/**
@@ -412,7 +416,7 @@ class ClientUserPeer extends BaseClientUserPeer {
 	}
 	
 	/**
-	 * Devuelve el usuario con recuperacion de contraseña pendiente que corresponda a partir
+	 * Devuelve el usuario con recuperacion de contraseðŸŸ°endiente que corresponda a partir
 	 * del hash pasado por parametro, si existe.
 	 *
 	 * @param string $recoveryHash hash mediante el cual se realiza la busqueda.
@@ -435,7 +439,7 @@ class ClientUserPeer extends BaseClientUserPeer {
 	* Actualiza la informacion de un usuario.
 	*
 	* @param int $id Id del usuario
-	* @param string $pass Contraseña del usuario
+	* @param string $pass ContraseðŸŸ¤el usuario
 	* @param int $timezone Zona horaria del usuario
 	* @return boolean true si se actualizo la informacion correctamente, false sino
 	*/

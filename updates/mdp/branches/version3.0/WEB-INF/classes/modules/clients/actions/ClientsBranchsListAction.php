@@ -8,11 +8,8 @@ class ClientsBranchsListAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -34,21 +31,20 @@ class ClientsBranchsListAction extends BaseAction {
 		$smarty->assign("url",$url);
 
 		if (!empty($_SESSION["loginUser"])) {
-			$clients = ClientPeer::getAll();
+			$clientPeer = new ClientPeer();
+			$clients = $clientPeer->getAll();
 			$smarty->assign("clients",$clients);
-		} else if (!empty($_SESSION["loginClientUser"])) {
-			$branchPeer->setSearchClientId($_SESSION["loginClientUser"]->getClientId());
-		} else {
-			return $mapping->findForwardConfig('failure');
 		}
+		else if (!empty($_SESSION["loginClientUser"]))
+			$branchPeer->setSearchClientId($_SESSION["loginClientUser"]->getClientId());
+		else
+			return $mapping->findForwardConfig('failure');
 
 		$pager = $branchPeer->getSearchPaginated($_GET["page"]);
 
 		$smarty->assign("branchs",$pager->getResult());
 		$smarty->assign("pager",$pager);
-
 		$smarty->assign("url",$url);
-
 		$smarty->assign("message",$_GET["message"]);
 
 		return $mapping->findForwardConfig('success');

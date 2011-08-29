@@ -15,56 +15,124 @@
  */
 class ClientPeer extends BaseClientPeer {
 
-	private $searchName;
+	private $searchString;
+	private $internalNumber;
+	private $perPage;
+	private $limit;
 
 	//mapea las condiciones del filtro
 	var $filterConditions = array(
-		"searchName"=>"setSearchName",
+					"searchString"=>"setSearchString",
+					"internalNumber"=>"setInternalNumber",
+					"perPage"=>"setPerPage",
+					"limit" => "setLimit"
 	);
 
-	public function setSearchName($name) {
-		$this->searchName = $name;
+ /**
+	 * Especifica una cadena de busqueda.
+	 * @param searchString cadena de busqueda.
+	 */
+	function setSearchString($searchString){
+		$this->searchString = $searchString;
 	}
 
+ /**
+	 * Especifica un internalNumber
+	 * @param internalNumber busqueda por internalNumber
+	 */
+	function setInternalNumber($internalNumber){
+		$this->internalNumber = $internalNumber;
+	}
+
+ /**
+	 * Especifica cantidad de resultados por pagina.
+	 * @param perPage integer cantidad de resultados por pagina.
+	 */
+	function setPerPage($perPage){
+		$this->perPage = $perPage;
+	}
+
+ 	/**
+	 * Especifica una cantidad maxima de registros.
+	 * @param limit cantidad maxima de registros.
+	 */
+	function setLimit($limit){
+		$this->limit = $limit;
+	}
+
+ /**
+	* Obtiene todos los clients existentes filtrados por $this->getSearchCriteria()
+	* @return PropelObjectCollection Todos los clients
+	*/
 	function getAll() {
-		$cond = new Criteria();
-		$todosObj = ClientPeer::doSelect($cond);
-		return $todosObj;
+    $criteria = $this->getSearchCriteria();
+		return ClientPeer::doSelect($criteria);
 	}
 
-	function getAllPaginated($page=1,$perPage=-1) {
+ /**
+	* Obtiene todos los client paginados segun la condicion de busqueda ingresada.
+	*
+	* @param int $page [optional] Numero de pagina actual
+	* @param int $perPage [optional] Cantidad de filas por pagina
+	* @return array Informacion sobre todos los client
+	*/
+	function getAllPaginatedFiltered($page=1,$perPage=-1)	{
 		if ($perPage == -1)
-			$perPage = Common::getRowsPerPage();
+			$perPage = $this->getRowsPerPage();
 		if (empty($page))
 			$page = 1;
-		$cond = new Criteria();
-		$cond->addAscendingOrderByColumn(ClientPeer::ID);
-
-		$pager = new PropelPager($cond,"ClientPeer", "doSelect",$page,$perPage);
+		$criteria = $this->getSearchCriteria();
+		$pager = new PropelPager($criteria,"ClientPeer", "doSelect",$page,$perPage);
 		return $pager;
 	}
 
-	function getByNamePaginated($name,$page=1,$perPage=-1) {
-		if ($perPage == -1)
-			$perPage = Common::getRowsPerPage();
-		if (empty($page))
-			$page = 1;
-		$cond = new Criteria();
-		$cond->add(ClientPeer::NAME,"%".$name."%",Criteria::LIKE);
-		$cond->addAscendingOrderByColumn(ClientPeer::ID);
-
-		$pager = new PropelPager($cond,"ClientPeer", "doSelect",$page,$perPage);
-		return $pager;
+	/**
+	* Obtiene la cantidad de filas por pagina por defecto en los listado paginados.
+	* @return int Cantidad de filas por pagina
+	*/
+	function getRowsPerPage() {
+		if (!isset($this->perPage))
+			$this->perPage = Common::getRowsPerPage();
+		return $this->perPage;
 	}
 
+	/**
+	* Obtiene un client.
+	*
+	* @param int $id id del issue
+	* @return boolean true si se actualizo la informacion correctamente, false sino
+	*/
 	function get($id) {
 		$client = ClientPeer::retrieveByPK($id);
 		return $client;
 	}
 
-	function getByName($name) {
-		return ClientQuery::create()->setIgnoreCase(true)->filterByName($name)->findOne();
+	/**
+	 * Retorna el criteria generado a partir de los parámetros de búsqueda
+	 *
+	 * @return criteria $criteria Criteria con parámetros de búsqueda
+	 */
+	private function getSearchCriteria() {
+		$criteria = new ClientQuery();
+		$criteria->setLimit($this->limit);
+		$criteria->setIgnoreCase(true);
+		$criteria->orderById();
+
+		if ($this->searchString)
+			$criteria->filterByName('%'.$this->searchString.'%', Criteria::LIKE);
+
+		if ($this->internalNumber)
+			$criteria->filterByInternalNumber($this->internalNumber);
+
+		return $criteria;
 	}
+
+
+
+
+
+
+
 
 	function update($id,$params) {
 		$client = ClientPeer::retrieveByPK($id);
@@ -79,50 +147,12 @@ class ClientPeer extends BaseClientPeer {
 		return true;
 	}
 
-
 	function create($params) {
 		$client = new Client();
 		Common::setObjectFromParams($client, $params);
 		if ($client->save())
 			return $client;
 		return true;
-	}
-
-	function getByInternalNumber($internalNumber) {
-		return ClientQuery::create()->filterByInternalNumber($internalNumber)->findOne();
-	}
-
-	/**
-	 * Retorna el criteria generado a partir de lso parámetros de búsqueda
-	 *
-	 * @return criteria $criteria Criteria con parámetros de búsqueda
-	 */
-	private function getSearchCriteria() {
-		$criteria = new ClientQuery();
-		$criteria->setIgnoreCase(true);
-		$criteria->orderById();
-
-		if (!empty($this->searchName))
-			$criteria->filterByName('%'.$this->searchName.'%', Criteria::LIKE);
-
-		return $criteria;
-	}
-
-	/**
-	* Obtiene todos los clientes paginados segun la condicion de busqueda ingresada.
-	*
-	* @param int $page [optional] Numero de pagina actual
-	* @param int $perPage [optional] Cantidad de filas por pagina
-	* @return array Informacion sobre todos los clientes
-	*/
-	function getSearchPaginated($page=1,$perPage=-1) {
-		if ($perPage == -1)
-			$perPage = Common::getRowsPerPage();
-		if (empty($page))
-			$page = 1;
-		$cond = $this->getSearchCriteria();
-		$pager = new PropelPager($cond,"ClientPeer", "doSelect",$page,$perPage);
-		return $pager;
 	}
 
 } // ClientPeer
