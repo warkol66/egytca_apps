@@ -32,7 +32,6 @@
         </li>
     </ul>
 </div>
-<div id='div_issue'></div>
-<script>
-    new Ajax.Updater("div_issue", "Main.php?do=issuesShowHistoryX", { method: "get", parameters: { id: "|-$issue->getId()-|", version: "|-$issue->getVersion()-|"}, evalScripts: true});
-</script>
+<div id='div_issue'>
+    |-include file='IssuesForm.tpl'-|
+</div>
