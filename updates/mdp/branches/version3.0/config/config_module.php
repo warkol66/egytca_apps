@@ -28,6 +28,9 @@ class ConfigModule {
 		"actors" => array(
 			"toStringFormat" => "Name Surname (Institution)" // "Surname, Name (Institution)"
 		),
+		"issues" => array(
+			"logsPerPage" => 5
+		),
 		"clients" => array(
 			"useTimezones" => false,
 			"forceFirstPasswordChange" => true,

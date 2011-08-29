@@ -48,7 +48,7 @@
 				<input type="hidden" name="do" id="do" value="issuesDoEdit" />
 				<input type="submit" id="button_edit_issue" name="button_edit_issue" title="Guardar cambios" value="Guardar" />
 				<input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=issuesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"/>
-                                |-/if-|
+        |-/if-|
 			</p>
 		</fieldset>
 	</form>

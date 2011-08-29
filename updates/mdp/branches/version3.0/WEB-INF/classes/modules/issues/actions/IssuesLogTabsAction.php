@@ -1,18 +1,15 @@
 <?php
 
 class IssuesLogTabsAction extends BaseAction {
-    
-    function IssuesLogTabsAction() {
+
+		function IssuesLogTabsAction() {
 		;
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
-            
-            BaseAction::execute($mapping, $form, $request, $response);
-            
-            //////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
+
+		BaseAction::execute($mapping, $form, $request, $response);
+
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -22,16 +19,16 @@ class IssuesLogTabsAction extends BaseAction {
 		$module = "Issues";
 		$smarty->assign("module",$module);
 
-                $maxPerPage = 4;
-                $issue = IssuePeer::get($_GET["id"]);
-                $issueVersionsPager = $issue->getVersionsOrderedByUpdatedPaginated(Criteria::DESC, 1, $maxPerPage);
-                
-                $smarty->assign("issue", $issue);
-                $smarty->assign("issueVersionsPager", $issueVersionsPager);
+		$maxPerPage = ConfigModule::get("issues","logsPerPage");
+		$issue = IssuePeer::get($_GET["id"]);
+		$issueVersionsPager = $issue->getVersionsOrderedByUpdatedPaginated(Criteria::DESC, 1, $maxPerPage);
 
-                return $mapping->findForwardConfig('success');
-                
-        }
-    
+		$smarty->assign("issue", $issue);
+		$smarty->assign("action", "showLog");
+		$smarty->assign("issueVersionsPager", $issueVersionsPager);
+
+		return $mapping->findForwardConfig('success');
+
+	}
+
 }
-?>

@@ -28,15 +28,11 @@
             <span>|-$issueVersionsPager->getFirstIndex()-| - |-$issueVersionsPager->getLastIndex()-| de |-$issue->countIssueVersions()-| versiones</span>
         </li>
         <li>
-            <span id="status_info" style="display: none">Cargando...</span>
+            <span id="status_info" style="display: none" class="inProgress">Cargando...</span>
         </li>
     </ul>
 </div>
 <div id='div_issue'></div>
-<p>
-    <input type="button" title="Editar Asunto" value="Editar Asunto" onClick="location.href='Main.php?do=issuesEdit&id=|-$issue->getId()-|'" />
-</p>
-
 <script>
     new Ajax.Updater("div_issue", "Main.php?do=issuesShowHistoryX", { method: "get", parameters: { id: "|-$issue->getId()-|", version: "|-$issue->getVersion()-|"}, evalScripts: true});
 </script>
