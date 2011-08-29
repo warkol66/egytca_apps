@@ -178,7 +178,7 @@ class HeadlinePeer extends BaseHeadlinePeer {
 	* @param int $id Id del headline
 	* @return boolean true
 	*/
-				function hardDelete($id) {
+	function hardDelete($id) {
 		HeadlinePeer::disableSoftDelete();
 		$headline = HeadlinePeer::retrieveByPk($id);
 		try {
@@ -211,7 +211,7 @@ class HeadlinePeer extends BaseHeadlinePeer {
 	* @param int $id Id del headline
 	* @return boolean true
 	*/
-				function recoverDeleted($id) {
+	function recoverDeleted($id) {
 		HeadlinePeer::disableSoftDelete();
 		$headline = HeadlinePeer::retrieveByPk($id);
 		try {
@@ -254,7 +254,7 @@ class HeadlinePeer extends BaseHeadlinePeer {
 				$criteria->filterByIssueId($this->issueId);
 		}
 
-								if (!empty($this->headlineId)) {
+		if (!empty($this->headlineId)) {
 			$headline = HeadlineQuery::create()->findPk($this->headlineId);
 			$headlineHeadlinesIds = $headline->getAssignedHeadlinesArray();
 			if (!empty($this->candidates))
@@ -306,7 +306,8 @@ class HeadlinePeer extends BaseHeadlinePeer {
 	* @return PropelObjectCollection Todos los headlines
 	*/
 	function getAll()	{
-		return HeadlinePeer::doSelect($this->getSearchCriteria());
+    $criteria = $this->getSearchCriteria();    
+		return HeadlinePeer::doSelect($criteria);
 	}
 
 } // HeadlinePeer

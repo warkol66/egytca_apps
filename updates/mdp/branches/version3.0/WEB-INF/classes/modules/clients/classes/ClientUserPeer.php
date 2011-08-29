@@ -156,8 +156,8 @@ class ClientUserPeer extends BaseClientUserPeer {
 		$usernameLowercase = strtolower($username);
 		$user = ClientUserQuery::create()->filterByUsername($usernameLowercase)->findOne();
 
-		if ( !empty($user) ) {
-			if ( $user->getPassword() == md5($password."ASD") ) {
+		if (!empty($user)) {
+			if ($user->getPassword() == Common::md5($password)) {
 				$_SESSION['lastLogin'] = $user->getLastLogin();	
 				$user->setLastLogin(time());
 				$user->save();

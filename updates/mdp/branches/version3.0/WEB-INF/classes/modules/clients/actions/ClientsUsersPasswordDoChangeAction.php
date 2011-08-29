@@ -27,11 +27,11 @@ class ClientsUsersPasswordDoChangeAction extends BaseAction {
 		$module = "Users";
 
 		$user = $_SESSION['loginClientUser'];
-		$currentPass = $_POST['currentPass'] . "ASD";
+		$currentPass = Common::md5($_POST['currentPass']);
 
 		$userPeer = New ClientUserPeer();
 
-		if ( (md5($currentPass) == $user->getPassword()) && ($_POST["pass"] == $_POST["pass2"]) ) {
+		if (($currentPass == $user->getPassword()) && ($_POST["pass"] == $_POST["pass2"]) ) {
 			
 			if ($_POST['currentPass'] == $_POST["pass"]){
 				$params = array ("message" => "changePassword");

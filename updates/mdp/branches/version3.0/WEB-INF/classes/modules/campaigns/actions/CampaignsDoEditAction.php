@@ -10,9 +10,6 @@ class CampaignsDoEditAction extends BaseAction {
 		$types = CampaignPeer::getCampaignTypes();
 		$smarty->assign("types",$types);
 
-		$policyGuidelines = PolicyGuidelinePeer::getAll();
-		$smarty->assign("policyGuidelines",$policyGuidelines);
-
 		$smarty->assign("action",$action);
 		$smarty->assign("campaign",$campaign);
 

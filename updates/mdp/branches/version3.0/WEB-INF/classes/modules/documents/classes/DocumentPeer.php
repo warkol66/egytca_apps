@@ -169,7 +169,7 @@ class DocumentPeer extends BaseDocumentPeer {
 			}
 
 			if(!empty($password)){
-				$document->setPassword(md5($password."ASD"));
+				$document->setPassword(Common::md5($password));
 			}
 
 			$document->save();
@@ -228,7 +228,7 @@ class DocumentPeer extends BaseDocumentPeer {
 			if (!empty($fileSize))
 				$obj->setSize($fileSize);
 			if (!empty($password))
-				$obj->setPassword(md5($password."ASD"));
+				$obj->setPassword(Common::md5($password));
 			else
 				$obj->setPassword();
 
@@ -562,7 +562,7 @@ class DocumentPeer extends BaseDocumentPeer {
 			if (!empty($file))
 				$obj->setRealfilename($file);
 			if (!empty($password))
-				$obj->setPassword(md5($password."ASD"));
+				$obj->setPassword(Common::md5($password));
 			else
 				$obj->setPassword();
 

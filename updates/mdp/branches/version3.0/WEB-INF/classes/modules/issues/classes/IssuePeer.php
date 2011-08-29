@@ -91,8 +91,8 @@ class IssuePeer extends BaseIssuePeer {
 	private $valoration;
 	private $evolution;
 	private $limit;
-        private $headlineId;
-        private $candidates;
+  private $headlineId;
+  private $candidates;
 
 	//mapea las condiciones del filtro
 	var $filterConditions = array(
@@ -389,7 +389,8 @@ class IssuePeer extends BaseIssuePeer {
 	* @return PropelObjectCollection Todos los issue
 	*/
 	function getAll()	{
-		return IssuePeer::doSelect($this->getSearchCriteria());
+    $criteria = $this->getSearchCriteria();    
+		return IssuePeer::doSelect($criteria);
 	}
 
 

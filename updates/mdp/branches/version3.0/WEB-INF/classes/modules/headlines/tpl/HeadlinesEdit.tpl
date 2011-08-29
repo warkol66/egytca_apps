@@ -90,7 +90,7 @@ function removeActorFromHeadline(form){
 							<input type="hidden" name="headlineId" value="|-$headline->getid()-|" /> 
 							<input type="hidden" name="actorId" value="|-$actor->getid()-|" /> 
 							<input type="button" name="submit_go_remove_actor" value="Borrar" onclick="if (confirm('Seguro que desea quitar el actor del titular?')) removeActorFromHeadline(this.form);" class="icon iconDelete" /> 
-						</form> |-$actor->getName()-|
+						</form> |-$actor-|
 					</li>
 			|-/foreach-|
 			</ul>    

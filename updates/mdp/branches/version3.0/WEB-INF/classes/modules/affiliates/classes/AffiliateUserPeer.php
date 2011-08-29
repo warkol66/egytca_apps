@@ -124,8 +124,8 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 		$usernameLowercase = strtolower($username);
 		$user = AffiliateUserQuery::create()->filterByUsername($usernameLowercase)->findOne();
 
-		if ( !empty($user) ) {
-			if ( $user->getPassword() == md5($password."ASD") ) {
+		if (!empty($user)) {
+			if ($user->getPassword() == Common::md5($password)) {
 				$_SESSION['lastLogin'] = $user->getLastLogin();	
 				$user->setLastLogin(time());
 				$user->save();
