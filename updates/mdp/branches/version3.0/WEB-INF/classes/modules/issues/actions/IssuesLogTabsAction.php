@@ -1,6 +1,8 @@
 <?php
 
-class IssuesLogTabsAction extends BaseAction {
+require_once 'IssuesEditBaseAction.php';
+
+class IssuesLogTabsAction extends IssuesEditBaseAction {
 
 		function IssuesLogTabsAction() {
 		;
@@ -8,7 +10,7 @@ class IssuesLogTabsAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-		BaseAction::execute($mapping, $form, $request, $response);
+		parent::execute($mapping, $form, $request, $response);
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
