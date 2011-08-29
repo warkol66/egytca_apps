@@ -21,7 +21,8 @@ class AffiliatesUsersDoEditAction extends BaseAction {
 		$smarty->assign('ownerCreation', $_POST["ownerCreation"]);
 
 		if (!empty($_SESSION["loginUser"])) {
-			$affiliates = AffiliatePeer::getAll();
+			$affiliatePeer = new AffiliatePeer();
+			$affiliates = $affiliatePeer->getAll();
 			$smarty->assign("affiliates",$affiliates);
 		}	
 

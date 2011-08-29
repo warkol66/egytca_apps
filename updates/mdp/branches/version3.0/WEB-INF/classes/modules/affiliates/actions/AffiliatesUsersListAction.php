@@ -38,22 +38,24 @@ class AffiliatesUsersListAction extends BaseAction {
 		if (!empty($_SESSION["loginUser"])) {
 			$affiliateId = $_GET['filters']["searchAffiliateId"];
 			if (!empty($affiliateId)) {
-				if ($affiliateId == -1){
+				if ($affiliateId == -1)
 					$deletedUsers = $usersPeer->getDeleteds();
-				} else{
+				else
 					$deletedUsers = $usersPeer->getDeletedsByAffiliate($affiliateId);
-				}
-			} else {
+			} 
+			else
 				$deletedUsers = $usersPeer->getDeleteds();
-			}
-			$affiliates = AffiliatePeer::getAll();
+
+			$affiliatePeer = new AffiliatePeer();
+			$affiliates = $affiliatePeer->getAll();
 			$smarty->assign("affiliates",$affiliates);
-		} else if (!empty($_SESSION["loginAffiliateUser"])) {
-		  	$affiliateId = $_SESSION["loginAffiliateUser"]->getAffiliateId();
+		} 
+		else if (!empty($_SESSION["loginAffiliateUser"])) {
+	  	$affiliateId = $_SESSION["loginAffiliateUser"]->getAffiliateId();
 			$deletedUsers = $usersPeer->getDeletedsByAffiliate($affiliateId);
-		} else {
+		} 
+		else
 			return $mapping->findForwardConfig('failure');
-		}
 		
 		$pager = $usersPeer->getSearchPaginated($page);
 		$smarty->assign("deletedUsers",$deletedUsers);

@@ -25,7 +25,8 @@ class AffiliatesBranchsEditAction extends BaseAction {
 		$smarty->assign("section",$section);
 
 		if (!empty($_SESSION["loginUser"])) {
-			$affiliates = AffiliatePeer::getAll();
+			$affiliatePeer = new AffiliatePeer();
+			$affiliates = $affiliatePeer->getAll();
 			$smarty->assign("affiliates",$affiliates);
 		}
 

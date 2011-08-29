@@ -279,7 +279,7 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 		$user = AffiliateUserQuery::create()->filterByUsername($usernameLowercase)->findOne();
 		if ( !empty($user) ) {
 			if ($user->getMailAddress() == $mailAddress ) {
-				$newPassword = AffiliateUserPeer::getNewPassword();
+				$newPassword = Common::generateRandomPassword();
 				$user->setPassword($newPassword);
 				$user->save();
 				$result = array();
@@ -291,26 +291,6 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 		return false;
 	}
 
-	/**
-	* Genera una nueva contrase?a.
-	*
-	* @param int $length [optional] Longitud de la contrase?a
-	* @return string Contrase?a
-	*/
-	function getNewPassword($length = 8) {
-		$password = "";
-		$possible = "23456789bcdfghjkmnpqrstvwxyz$#%";
-		$i = 0;
-		while ($i < $length) {
-			$char = substr($possible, mt_rand(0, strlen($possible)-1), 1);
-			if (!strstr($password, $char)) {
-				$password .= $char;
-				$i++;
-			}
-		}
-		return $password;
-	}
-	
 	/**
 	 * Retorna el criteria generado a partir de lso parï¿½metros de bï¿½squeda
 	 *
@@ -412,7 +392,7 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 	}
 	
 	/**
-	 * Devuelve el usuario con recuperacion de contraseña pendiente que corresponda a partir
+	 * Devuelve el usuario con recuperacion de contraseðŸŸ°endiente que corresponda a partir
 	 * del hash pasado por parametro, si existe.
 	 *
 	 * @param string $recoveryHash hash mediante el cual se realiza la busqueda.
@@ -435,7 +415,7 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 	* Actualiza la informacion de un usuario.
 	*
 	* @param int $id Id del usuario
-	* @param string $pass Contraseña del usuario
+	* @param string $pass ContraseðŸŸ¤el usuario
 	* @param int $timezone Zona horaria del usuario
 	* @return boolean true si se actualizo la informacion correctamente, false sino
 	*/

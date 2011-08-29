@@ -44,7 +44,8 @@ class AffiliatesUsersEditAction extends BaseAction {
 				$users = $usersPeer->getAll();
 				$deletedUsers = $usersPeer->getDeleteds();
 			}
-			$affiliates = AffiliatePeer::getAll();
+			$affiliatePeer = new AffiliatePeer();
+			$affiliates = $affiliatePeer->getAll();
 			$smarty->assign("affiliates",$affiliates);
 		}
 		else {

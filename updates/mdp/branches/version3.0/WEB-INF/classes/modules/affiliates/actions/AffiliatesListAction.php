@@ -29,7 +29,7 @@ class AffiliatesListAction extends BaseAction {
 		
 		$this->applyFilters($affiliatePeer, $filters, $smarty);
 
-		$pager = $affiliatePeer->getSearchPaginated($_GET["page"]);
+		$pager = $affiliatePeer->getAllPaginatedFiltered($_GET["page"]);
 		
 		$url = "Main.php?do=affiliatesList";
 		foreach ($filters as $key => $value)

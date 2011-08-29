@@ -45,7 +45,8 @@ class AffiliatesBranchsDoEditAction extends BaseAction {
 		$branchParams = $_POST["params"];
 
 		if (!empty($_SESSION["loginUser"])) {
-			$affiliates = AffiliatePeer::getAll();
+			$affiliatePeer = new AffiliatePeer();
+			$affiliates = $affiliatePeer->getAll();
 			$smarty->assign("affiliates",$affiliates);
 			$smarty->assign("all",1);
 			$affiliateId = $branchParams["affiliateId"];

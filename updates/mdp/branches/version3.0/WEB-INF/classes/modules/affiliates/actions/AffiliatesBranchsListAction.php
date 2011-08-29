@@ -34,13 +34,15 @@ class AffiliatesBranchsListAction extends BaseAction {
 		$smarty->assign("url",$url);
 
 		if (!empty($_SESSION["loginUser"])) {
-			$affiliates = AffiliatePeer::getAll();
+			$affiliatePeer = new AffiliatePeer();
+			$affiliates = $affiliatePeer->getAll();
 			$smarty->assign("affiliates",$affiliates);
-		} else if (!empty($_SESSION["loginAffiliateUser"])) {
-			$branchPeer->setSearchAffiliateId($_SESSION["loginAffiliateUser"]->getAffiliateId());
-		} else {
-			return $mapping->findForwardConfig('failure');
 		}
+		else if (!empty($_SESSION["loginAffiliateUser"]))
+			$branchPeer->setSearchAffiliateId($_SESSION["loginAffiliateUser"]->getAffiliateId());
+		else
+			return $mapping->findForwardConfig('failure');
+
 
 		$pager = $branchPeer->getSearchPaginated($_GET["page"]);
 
