@@ -72,3 +72,7 @@ function removeActorFromIssue(form){
     </div> 
 </fieldset>
 |-/if-|
+
+<p>
+    <input type="button" title="Ver Historia" value="Ver Historia" onClick="location.href='Main.php?do=issuesLogTabs&id=|-$issue->getId()-|'" />
+</p>

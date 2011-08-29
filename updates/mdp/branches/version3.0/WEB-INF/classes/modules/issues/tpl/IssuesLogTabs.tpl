@@ -7,16 +7,36 @@
     }      
 </script>
 
-<script type='text/javascript'>
-    new Ajax.Updater("tabsLogs", "Main.php?do=issuesUpdateTabsX", { method: "get", parameters: { id: "|-$issue->getId()-|", page: "1"}});
-</script>
+<div id='tabsLogs' >
+    <ul>
+    |-foreach from=$issueVersionsPager item=issueVersion name=for_issueVersions-|
+        |-if $issue->getVersion() eq $issueVersion->getVersion()-|
+        <li class="activeTab">
+        |-else-|
+        <li class="unactiveTab">
+        |-/if-|
+            <a href="#" id='version_|-$issueVersion->getVersion()-|_tab' onClick='selectTab(this);$("status_info").show(); new Ajax.Updater("div_issue", "Main.php?do=issuesShowHistoryX", { method: "get", parameters: { id: "|-$issueVersion->getId()-|", version: "|-$issueVersion->getVersion()-|"}, evalScripts: true});'>|-$issueVersion->getUpdatedAt()-|</a>
+        </li>
+    |-/foreach-|
+    |-if !$issueVersionsPager->isLastPage()-|
+        <li class="unactiveTab">
+            <a href="#" onClick='new Ajax.Updater("tabsLogs", "Main.php?do=issuesUpdateTabsX", { method: "get", parameters: { id: "|-$issue->getId()-|", page: "|-$issueVersionsPager->getNextPage()-|"}});'>Siguientes</a>
+        </li>
+    |-/if-|
 
-<div id='tabsLogs' ></div>
+        <li>
+            <span>|-$issueVersionsPager->getFirstIndex()-| - |-$issueVersionsPager->getLastIndex()-| de |-$issue->countIssueVersions()-| versiones</span>
+        </li>
+        <li>
+            <span id="status_info" style="display: none">Cargando...</span>
+        </li>
+    </ul>
+</div>
 <div id='div_issue'></div>
+<p>
+    <input type="button" title="Editar Asunto" value="Editar Asunto" onClick="location.href='Main.php?do=issuesEdit&id=|-$issue->getId()-|'" />
+</p>
 
 <script>
-    window.onload=function() {
-        selectTab(document.getElementById('version_|-$issue->getVersion()-|_tab'));
-        new Ajax.Updater("div_issue", "Main.php?do=issuesShowHistoryX", { method: "get", parameters: { id: "|-$issue->getId()-|", version: "|-$issue->getVersion()-|"}, evalScripts: true});
-    }
+    new Ajax.Updater("div_issue", "Main.php?do=issuesShowHistoryX", { method: "get", parameters: { id: "|-$issue->getId()-|", version: "|-$issue->getVersion()-|"}, evalScripts: true});
 </script>

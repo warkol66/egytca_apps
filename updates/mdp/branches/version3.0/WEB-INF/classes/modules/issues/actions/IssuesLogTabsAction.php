@@ -22,8 +22,12 @@ class IssuesLogTabsAction extends BaseAction {
 		$module = "Issues";
 		$smarty->assign("module",$module);
 
+                $maxPerPage = 4;
                 $issue = IssuePeer::get($_GET["id"]);
+                $issueVersionsPager = $issue->getVersionsOrderedByUpdatedPaginated(Criteria::DESC, 1, $maxPerPage);
+                
                 $smarty->assign("issue", $issue);
+                $smarty->assign("issueVersionsPager", $issueVersionsPager);
 
                 return $mapping->findForwardConfig('success');
                 
