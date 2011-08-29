@@ -6,7 +6,7 @@
 |-/if-|
 |-foreach from=$issueVersionsPager item=issueVersion name=for_issueVersions-|
     <li class="unactiveTab">
-        <a href="#" id='version_|-$issueVersion->getVersion()-|_tab' onClick='selectTab(this);$("status_info").show(); new Ajax.Updater("div_issue", "Main.php?do=issuesShowHistoryX", { method: "get", parameters: { id: "|-$issueVersion->getId()-|", version: "|-$issueVersion->getVersion()-|"}, evalScripts: true});'>|-$issueVersion->getUpdatedAt()-|</a>
+        <a href="#" id='version_|-$issueVersion->getVersion()-|_tab' onClick='selectTab(this);$("status_info").show(); new Ajax.Updater("div_issue", "Main.php?do=issuesShowHistoryX", { method: "get", parameters: { id: "|-$issueVersion->getId()-|", version: "|-$issueVersion->getVersion()-|"}, evalScripts: true});'>|-$issueVersion->getUpdatedAt()|change_timezone|date_format:"%d-%m-%Y %H:%M:%S"-|</a>
     </li>
 |-/foreach-|
 |-if !$issueVersionsPager->isLastPage()-|
