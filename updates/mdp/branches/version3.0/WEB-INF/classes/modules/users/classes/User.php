@@ -11,23 +11,35 @@ class User extends BaseUser {
 
 	private $passwordString;
 	private $passwordUpdatedTime;
-	
+
+	const FIRST_LOGIN = true;
+
+	/**
+	* Genera el string a entregar por defecto reemplazando el __toString() del modelo
+	*
+	*	@return string string texto por defecto a mostar cuando se llama al objeto user
+	*/
 	public function __toString() {
 		$string = '';
 		$name = $this->getName();
 		$surname = $this->getSurname();
-		if ( !empty($name) || !empty($surname) )
-			$string .= $surname . ', ' . $name . ' - ';
-		$string .= '(' . $this->getUserName() . ')';
+
+		if (ConfigModule::get("users","toStringFormat") == "Surname, Name (Username)")
+			$string .= $surname . ', ' . $name;
+		else
+			$string .= $name . ', ' . $surname;
+
+		$string .= ' (' . $this->getUserName() . ')';
+
 		return $string;
 	}
-	
+
  /**
 	 * Genera la clave encriptada a guardar
 	 * @param passwordString string clave ingresada pro usuario.
 	 */
 	function setPasswordString($passwordString){
-		$this->setPassword(md5($passwordString."ASD"));
+		$this->setPassword(Common::md5($passwordString));
 	}
 
  /**
@@ -39,14 +51,15 @@ class User extends BaseUser {
 	}
 
 	/*
-	 * Guarda el objecto, validandolo previamente. 
+	 * Guarda el objecto, validandolo previamente.
 	 */
 	public function save(PropelPDO $con = null) {
 		try {
-			if ($this->validate()) { 
+			if ($this->validate()) {
 				parent::save($con);
 				return true;
-			} else
+			}
+			else
 				return false;
 		}
 		catch (PropelException $exp) {
@@ -79,9 +92,9 @@ class User extends BaseUser {
 	function belongsToGroups($groups) {
 		$groupsArray = explode(";",$groups);
 
-		$c = new Criteria();
-		$c->add(UserGroupPeer::USERID, $this->getId());
-		$all = UserGroupPeer::doSelect($c);
+		$criteria = new Criteria();
+		$criteria->add(UserGroupPeer::USERID, $this->getId());
+		$all = UserGroupPeer::doSelect($criteria);
 		foreach ($all as $userGroup) {
 			if (in_array($userGroup->getGroupId(),$groupsArray))
 				return true;
@@ -97,26 +110,26 @@ class User extends BaseUser {
 		if ( $this->getLevelId() == 1 )
 			return true;
 		$groups = $this->getGroups();
-  	foreach ($groups as $group){
-  		if ( $group->getGroupId() == 1 )
-  			return true;
-  	}
+		foreach ($groups as $group){
+			if ( $group->getGroupId() == 1 )
+				return true;
+		}
 		return false;
 	}
 
 	/*
-	 * Indica si un usuario forma parte del grupo supervisor
+	 * Indica si un usuario forma parte del grupo admin
 	 * @returns true si pertenece al grupo, de lo contrario, false.
 	 */
 	function isAdmin() {
 		if ( $this->getLevelId() == 2 )
 			return true;
 
-  	$groups = $this->getGroups();
-  	foreach ($groups as $group) {
-  		if ( $group->getGroupId() == 2 )
-  			return true;
-  	}
+		$groups = $this->getGroups();
+		foreach ($groups as $group) {
+			if ( $group->getGroupId() == 2 )
+				return true;
+		}
 		return false;
 	}
 
@@ -145,12 +158,12 @@ class User extends BaseUser {
 		}
 		return $baseLevel;
 	}
-	
+
 	/**
 	 * Genera un hash para único a partir de datos del usuario. Y lo almacena junto con la fecha
 	 * de creación.
-	 * 
-	 * @return string hash. 
+	 *
+	 * @return string hash.
 	 */
 	function createRecoveryHash() {
 		$currentTime = time();
@@ -161,25 +174,23 @@ class User extends BaseUser {
 		$this->save();
 		return $recoveryHash;
 	}
-	
+
 	/**
 	 * Indica si el usuario ya tiene una peticion de recuperacion de contraseña pendiente de confirmacion.
-	 * 
-	 * @return bool verdadero si el usuario ya tiene una peticion de recuperacion de contraseña pendiente de confirmacion. 
+	 *
+	 * @return bool verdadero si el usuario ya tiene una peticion de recuperacion de contraseña pendiente de confirmacion.
 	 */
 	function recoveryRequestAlredyMade() {
-		if (($this->getRecoveryHash() != null) && ($this->recoveryRequestIsValid())) {
+		if (($this->getRecoveryHash() != null) && ($this->recoveryRequestIsValid()))
 			return true;
-		} else {
+		else
 			return false;
-		}
 	}
-	
-	
+
 	/**
 	 * Chequea si el tiempo transcurrido desde la petición de recuperacion de contraseña es
 	 * valido según los parametros configurados en el systema.
-	 * 
+	 *
 	 * @return bool true si el timpo transcurrido es válido, false si no.
 	 */
 	function recoveryRequestIsValid() {
@@ -188,19 +199,19 @@ class User extends BaseUser {
 		if (!empty($recoveryCreatedOn)) {
 			$recoveryCreatedOnTimestamp = $recoveryCreatedOn->format('U');
 			$elapsedHours = (time() - $recoveryCreatedOnTimestamp) / 3600;
-			if($elapsedHours <= ConfigModule::get('users','passwordRecoveryExpirationTimeInHours')) {
+			if( $elapsedHours <= ConfigModule::get('users','passwordRecoveryExpirationTimeInHours'))
 				return true;
-			} else {
+			else
 				return false;
-			}
-		} else {
-			return false;
 		}
+		else
+			return false;
 	}
-	
+
+
 	/**
 	 * Cambia la contraseña del usuario por la pasada por parametro (encriptada).
-	 * 
+	 *
 	 * @param string $password contraseña nueva
 	 */
 	function changePassword($password) {
@@ -209,19 +220,19 @@ class User extends BaseUser {
 		$this->save();
 	}
 
-  /**
-  * Genera una nueva contraseña.
-  *
-  * @param int $length [optional] Longitud de la contraseña
-  * @return string Contraseña
-  */
+	/**
+	* Genera una nueva contraseña.
+	*
+	* @param int $length [optional] Longitud de la contraseña
+	* @return string Contraseña
+	*/
 	function resetPassword($length = 8){
-	  $password = Common::generateRandomPassword();
+		$password = Common::generateRandomPassword();
 		$this->setPasswordString($password);
 		$this->setPasswordUpdatedTime(time());
 		try {
 			$this->save();
-			return $password;		
+			return $password;
 		}
 		catch (PropelException $exp) {
 			if (ConfigModule::get("global","showPropelExceptions"))
@@ -229,48 +240,59 @@ class User extends BaseUser {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Devuelve aquellas positions en las que el usuario es funcionario a cargo.
 	 */
 	public function getPositions() {
-		return PositionQuery::create()->addJoin(PositionTenurePeer::POSITIONCODE, PositionPeer::CODE)
-								  	  ->add(PositionTenurePeer::OBJECTTYPE, 'User', Criteria::EQUAL)
-								  	  ->add(PositionTenurePeer::OBJECTID, $this->getId(), Criteria::EQUAL)
-								  	  ->find();
+		if (class_exists("PositionTenurePeer") && class_exists("PositionPeer"))
+			return PositionQuery::create()->addJoin(PositionTenurePeer::POSITIONCODE, PositionPeer::CODE)
+											->add(PositionTenurePeer::OBJECTTYPE, 'User', Criteria::EQUAL)
+											->add(PositionTenurePeer::OBJECTID, $this->getId(), Criteria::EQUAL)
+											->find();
+		else
+			return;
+	}
+
+	/**
+	 * Devuelve el nivel del usuario.
+	 * @return propel Obje Level
+	 */
+	public function getLevel() {
+		return LevelQuery::create()->findOneById($this->getLevelId());
 	}
 
 /* Categories
  *
  */
- 
- /**
-  * Return an array with all the categories this user can access
-  *
-  * @return array of Catetegory
-  */
-  function getCategories(){
-  	if ($this->isAdmin() || $this->isSupervisor())
-  		return CategoryPeer::getAll();
 
-  	$sql = "SELECT ".CategoryPeer::TABLE_NAME.".* FROM ".UserGroupPeer::TABLE_NAME ." ,".
+ /**
+	* Return an array with all the categories this user can access
+	*
+	* @return array of Catetegory
+	*/
+	function getCategories(){
+		if ($this->isAdmin() || $this->isSupervisor())
+			return CategoryQuery::create()->find();
+
+		$sql = "SELECT ".CategoryPeer::TABLE_NAME.".* FROM ".UserGroupPeer::TABLE_NAME ." ,".
 						GroupCategoryPeer::TABLE_NAME .", ".CategoryPeer::TABLE_NAME .
 						" where ".UserGroupPeer::USERID ." = '".$this->getId()."' and ".
 						UserGroupPeer::GROUPID ." = ".GroupCategoryPeer::GROUPID ." and ".
 						GroupCategoryPeer::CATEGORYID ." = ".CategoryPeer::ID ." and ".
 						CategoryPeer::ACTIVE ." = 1";
 
-  	$con = Propel::getConnection(UserPeer::DATABASE_NAME);
+		$con = Propel::getConnection(UserPeer::DATABASE_NAME);
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
 		return CategoryPeer::populateObjects($stmt);
-  }
+	}
 
-  function getCategoriesByModule($module){
-  	if ($this->isAdmin() || $this->isSupervisor())
-  		return CategoryPeer::getAllByModule($module);
+	function getCategoriesByModule($module){
+		if ($this->isAdmin() || $this->isSupervisor())
+			return CategoryPeer::getAllByModule($module);
 
-  	$sql = "SELECT ".CategoryPeer::TABLE_NAME.".* FROM ".UserGroupPeer::TABLE_NAME ." ,".
+		$sql = "SELECT ".CategoryPeer::TABLE_NAME.".* FROM ".UserGroupPeer::TABLE_NAME ." ,".
 						GroupCategoryPeer::TABLE_NAME .", ".CategoryPeer::TABLE_NAME .
 						" where ".UserGroupPeer::USERID ." = '".$this->getId()."' and ".
 						UserGroupPeer::GROUPID ." = ".GroupCategoryPeer::GROUPID ." and ".
@@ -278,17 +300,17 @@ class User extends BaseUser {
 						CategoryPeer::ACTIVE ." = 1" . " and " .
 						CategoryPeer::MODULE . " = '$module'";
 
-  	$con = Propel::getConnection(UserPeer::DATABASE_NAME);
+		$con = Propel::getConnection(UserPeer::DATABASE_NAME);
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
 		return CategoryPeer::populateObjects($stmt);
-  }
+	}
 
-  function getParentCategoriesByModule($module){
-  	if ($this->isAdmin() || $this->isSupervisor())
-  		return CategoryPeer::getAllParentsByModule($module);
+	function getParentCategoriesByModule($module){
+		if ($this->isAdmin() || $this->isSupervisor())
+			return CategoryPeer::getAllParentsByModule($module);
 
-  	$sql = "SELECT ".CategoryPeer::TABLE_NAME.".* FROM ".UserGroupPeer::TABLE_NAME ." ,".
+		$sql = "SELECT ".CategoryPeer::TABLE_NAME.".* FROM ".UserGroupPeer::TABLE_NAME ." ,".
 						GroupCategoryPeer::TABLE_NAME .", ".CategoryPeer::TABLE_NAME .
 						" where ".UserGroupPeer::USERID ." = '".$this->getId()."' and ".
 						UserGroupPeer::GROUPID ." = ".GroupCategoryPeer::GROUPID ." and ".
@@ -297,17 +319,17 @@ class User extends BaseUser {
 						CategoryPeer::PARENTID ." = 0" . " and " .
 						CategoryPeer::MODULE . " = '$module'";
 
-  	$con = Propel::getConnection(UserPeer::DATABASE_NAME);
+		$con = Propel::getConnection(UserPeer::DATABASE_NAME);
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
 		return CategoryPeer::populateObjects($stmt);
-  }
+	}
 
-  function getChildrenCategories($categoryId) {
-  	if ($this->isAdmin() || $this->isSupervisor())
-  		return CategoryPeer::getAllParentsByModule($module);
+	function getChildrenCategories($categoryId) {
+		if ($this->isAdmin() || $this->isSupervisor())
+			return CategoryPeer::getAllParentsByModule($module);
 
-  	$sql = "SELECT ".CategoryPeer::TABLE_NAME.".* FROM ".UserGroupPeer::TABLE_NAME ." ,".
+		$sql = "SELECT ".CategoryPeer::TABLE_NAME.".* FROM ".UserGroupPeer::TABLE_NAME ." ,".
 						GroupCategoryPeer::TABLE_NAME .", ".CategoryPeer::TABLE_NAME .
 						" where ".UserGroupPeer::USERID ." = '".$this->getId()."' and ".
 						UserGroupPeer::GROUPID ." = ".GroupCategoryPeer::GROUPID ." and ".
@@ -315,17 +337,17 @@ class User extends BaseUser {
 						CategoryPeer::ACTIVE ." = 1" . " and " .
 						CategoryPeer::PARENTID . " = $categoryId" ;
 
-  	$con = Propel::getConnection(UserPeer::DATABASE_NAME);
+		$con = Propel::getConnection(UserPeer::DATABASE_NAME);
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
 		return CategoryPeer::populateObjects($stmt);
-  }
+	}
 
-  function getParentCategories(){
+	function getParentCategories(){
 		return $this->getChildrenCategories(0);
-  }
+	}
 
-  function getDocumentsChildrenCategories($categoryId) {
+	function getDocumentsChildrenCategories($categoryId) {
 
 		$criteria = new Criteria();
 		$criteria->add(CategoryPeer::ACTIVE, 1, Criteria::EQUAL);
@@ -343,11 +365,11 @@ class User extends BaseUser {
 
 		if (DocumentPeer::usesCategoriesGroupPermission()) {
 			$criteriOn1 = $criteria->getNewCriterion(CategoryPeer::ISPUBLIC, 1, Criteria::EQUAL);
-	
+
 			$criteria->addJoin(UserGroupPeer::GROUPID,GroupCategoryPeer::GROUPID,Criteria::INNER_JOIN);
 			$criteria->addJoin(GroupCategoryPeer::CATEGORYID, CategoryPeer::ID, Criteria::INNER_JOIN);
 			$criteria->add(UserGroupPeer::USERID,$this->getId());
-	
+
 			$criteriOn2 = $criteria->getNewCriterion(UserGroupPeer::USERID, $this->getId(), Criteria::EQUAL);
 			$criteriOn1->addOr($criteriOn2);
 			$criteria->add($criteriOn1);
@@ -358,17 +380,17 @@ class User extends BaseUser {
 
 		$result = CategoryPeer::doSelect($criteria);
 		return $result;
-  }
+	}
 
-  function getDocumentsParentCategories() {
+	function getDocumentsParentCategories() {
 		return $this->getDocumentsChildrenCategories(0);
-  }
+	}
 
 	function getParentsCategories() {
-  	if ($this->isAdmin() || $this->isSupervisor())
-  		return CategoryPeer::getAllParentsByModule($module);
+		if ($this->isAdmin() || $this->isSupervisor())
+			return CategoryPeer::getAllParentsByModule($module);
 
-  	$sql = "SELECT ".CategoryPeer::TABLE_NAME.".* FROM ".UserGroupPeer::TABLE_NAME ." ,".
+		$sql = "SELECT ".CategoryPeer::TABLE_NAME.".* FROM ".UserGroupPeer::TABLE_NAME ." ,".
 						GroupCategoryPeer::TABLE_NAME .", ".CategoryPeer::TABLE_NAME .
 						" where ".UserGroupPeer::USERID ." = '".$this->getId()."' and ".
 						UserGroupPeer::GROUPID ." = ".GroupCategoryPeer::GROUPID ." and ".
@@ -377,19 +399,19 @@ class User extends BaseUser {
 						CategoryPeer::MODULE . " = '$module' and " .
 						CategoryPeer::PARENTID . " = 0" ;
 
-  	$con = Propel::getConnection(UserPeer::DATABASE_NAME);
+		$con = Propel::getConnection(UserPeer::DATABASE_NAME);
 		$stmt = $con->prepare($sql);
 		$stmt->execute();
 		return CategoryPeer::populateObjects($stmt);
 	}
 
-  /**
-  * Asigna los grupos del usuario a una categoria.
-  *
-  * @param int $categoryId Id de la categoria
-  * @return void
-  */
-  function setGroupsToCategory($categoryId) {
+	/**
+	* Asigna los grupos del usuario a una categoria.
+	*
+	* @param int $categoryId Id de la categoria
+	* @return void
+	*/
+	function setGroupsToCategory($categoryId) {
 
 		foreach ($this->getGroups() as $group) {
 
@@ -422,9 +444,9 @@ class User extends BaseUser {
 
 		//solo se usan las categorias del modulo documentos
 		//no se usan generales
-		if (!DocumentPeer::usesGlobalCategories()) {
+		if (!DocumentPeer::usesGlobalCategories())
 			return array();
-		}
+
 		$criteria = new Criteria();
 
 		$criteria->addJoin(UserGroupPeer::GROUPID,GroupCategoryPeer::GROUPID,Criteria::INNER_JOIN);

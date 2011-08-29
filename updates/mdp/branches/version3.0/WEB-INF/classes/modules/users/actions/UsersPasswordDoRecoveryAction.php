@@ -5,8 +5,6 @@
  * @package users
  */
 
-require_once("EmailManagement.php");
-
 class UsersPasswordDoRecoveryAction extends BaseAction {
 
 	function UsersPasswordDoRecoveryAction() {
@@ -16,11 +14,7 @@ class UsersPasswordDoRecoveryAction extends BaseAction {
 	function execute($mapping, $form, &$request, &$response) {
 
 		BaseAction::execute($mapping, $form, $request, $response);
-		$this->template->template = "TemplatePlain.tpl";
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -28,7 +22,8 @@ class UsersPasswordDoRecoveryAction extends BaseAction {
 		}
 
 		$module = "Users";
-		
+		$section = "Users";
+
 		$userPeer = new UserPeer();
 
 		$user = $userPeer->getByRecoveryHash($_GET["recoveryHash"]);
@@ -37,6 +32,9 @@ class UsersPasswordDoRecoveryAction extends BaseAction {
 			$userMail = $user->getMailAddress();
 			$userAndPassword = $userPeer->generatePassword($userName, $userMail);
 			if (!empty($userAndPassword)) {
+
+				$this->template->template = "TemplatePlain.tpl";
+
 				$smarty->assign("user",$userAndPassword[0]);
 				$smarty->assign("password",$userAndPassword[1]);
 				$subject = Common::getTranslation('New password','users');
@@ -47,7 +45,9 @@ class UsersPasswordDoRecoveryAction extends BaseAction {
 				global $system;
 				$mailFrom = $system["config"]["system"]["parameters"]["fromEmail"];
 
+				require_once("EmailManagement.php");
 				$manager = new EmailManagement();
+
 				$message = $manager->createHTMLMessage($subject,$body);
 				$result = $manager->sendMessage($mailTo,$mailFrom,$message);
 				
@@ -60,13 +60,13 @@ class UsersPasswordDoRecoveryAction extends BaseAction {
 
 		$this->template->template = "TemplateLogin.tpl";
 		
-		if (empty($user)) {
+		if (empty($user))
 			$smarty->assign("message","wrongHash");
-		} else if (!$user->recoveryRequestIsValid()){
+		else if (!$user->recoveryRequestIsValid())
 			$smarty->assign("message","expiredHash");
-		} else {
+		else
 			$smarty->assign("message","anotherError");
-		}
+
 		return $mapping->findForwardConfig('failure');
 	}
 

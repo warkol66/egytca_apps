@@ -34,8 +34,8 @@ class UsersValidationPasswordXAction extends BaseAction {
 
 			$user = $_SESSION['loginUser'];
 
-			$currentPass = $_POST['currentPass'] . "ASD";
-			if ( md5($currentPass) == $user->getPassword() )
+			$currentPass = Common::md5($_POST['currentPass']);
+			if ($currentPass == $user->getPassword() )
 				$match = 0;
 
 			$smarty->assign('name',$name);

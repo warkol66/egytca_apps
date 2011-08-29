@@ -47,11 +47,9 @@ class UsersAutocompleteListXAction extends BaseAction {
 		else if ($_REQUEST['campaignId'])
 			$filters = array_merge_recursive($filters, array("relatedObject" => CampaignPeer::get($_REQUEST['campaignId'])));
 
-
 		$userPeer = new UserPeer();
 		$this->applyFilters($userPeer,$filters);
-		$users = $userPeer->getAll($userPeer->getSearchCriteria());
-
+		$users = $userPeer->getAll();
 
 		$smarty->assign("users",$users);
 		$smarty->assign("limit",$_REQUEST['limit']);
