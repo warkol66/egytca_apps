@@ -22,7 +22,8 @@ class IssuesLogTabsAction extends BaseAction {
 		$module = "Issues";
 		$smarty->assign("module",$module);
 
-                $smarty->assign("id", $_GET["id"]);
+                $issue = IssuePeer::get($_GET["id"]);
+                $smarty->assign("issue", $issue);
 
                 return $mapping->findForwardConfig('success');
                 
