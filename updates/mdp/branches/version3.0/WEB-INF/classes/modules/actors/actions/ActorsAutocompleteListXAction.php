@@ -47,7 +47,7 @@ class ActorsAutocompleteListXAction extends BaseAction {
 
 		$actorPeer = new ActorPeer();
 		$this->applyFilters($actorPeer,$filters);
-		$actors = $actorPeer->getAll($actorPeer->getSearchCriteria());
+    $actors = $actorPeer->getAll();
 		
 		$smarty->assign("actors",$actors);
 		$smarty->assign("limit",$_REQUEST['limit']);
