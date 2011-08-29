@@ -14,7 +14,9 @@
 <div id='tabsLogs' ></div>
 <div id='div_issue'></div>
 
-<script type='text/javascript'>
-    //selectTab(document.getElementById("version_|-$issue->getVersion()-|_tab"));
-    new Ajax.Updater("div_issue", "Main.php?do=issuesShowHistoryX", { method: "get", parameters: { id: "|-$issue->getId()-|", version: "|-$issue->getVersion()-|"}, evalScripts: true});
+<script>
+    window.onload=function() {
+        selectTab(document.getElementById('version_|-$issue->getVersion()-|_tab'));
+        new Ajax.Updater("div_issue", "Main.php?do=issuesShowHistoryX", { method: "get", parameters: { id: "|-$issue->getId()-|", version: "|-$issue->getVersion()-|"}, evalScripts: true});
+    }
 </script>
