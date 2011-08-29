@@ -22,14 +22,19 @@ class ConfigModule {
 			"forceFirstPasswordChange" => true,
 			"askForNewPasswordOnRecovery" => false,
 			"useFilterByUserGroup" => true,
-			"passwordRecoveryExpirationTimeInHours" => 24
+			"passwordRecoveryExpirationTimeInHours" => 24,
+			"toStringFormat" => "Surname, Name (Username)" // "Name Surname (Username)"
+		),
+		"actors" => array(
+			"toStringFormat" => "Name Surname (Institution)" // "Surname, Name (Institution)"
 		),
 		"clients" => array(
 			"useTimezones" => false,
 			"forceFirstPasswordChange" => true,
 			"askForNewPasswordOnRecovery" => false,
 			"useFilterByUserGroup" => true,
-			"passwordRecoveryExpirationTimeInHours" => 24
+			"passwordRecoveryExpirationTimeInHours" => 24,
+			"toStringFormat" => "Surname, Name (Username)" // "Name Surname (Username)"
 		),
 		"affiliates" => array(
 			"useTimezones" => false,

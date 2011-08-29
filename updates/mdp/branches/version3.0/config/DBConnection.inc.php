@@ -37,10 +37,8 @@ class DBConnection extends DB_Sql {
 			$this->CharSet = $charSet;
 
 		//Verifico que se puede conectar a la base, de lo contrario die
-		if (!$this->connect()) {
-			echo "No db conection!!!";
-			die();
-		}
+		if (!$this->connect())
+			die("No db conection!!!");
 
 	}
 
