@@ -156,10 +156,11 @@ class MediaPeer extends BaseMediaPeer {
 
 	/**
 	* Obtiene todos los media existentes filtrados por la condicion $this->getSearchCriteria()
-	* @return PropelObjectCollection Todos los issue
+	* @return PropelObjectCollection Todos los media
 	*/
 	function getAll()	{
-		return MediaPeer::doSelect($this->getSearchCriteria());
+    $criteria = $this->getSearchCriteria();    
+		return MediaPeer::doSelect($criteria);
 	}
 
 } // MediaPeer
