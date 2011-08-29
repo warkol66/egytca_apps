@@ -271,7 +271,7 @@ class ActorPeer extends BaseActorPeer {
 	 *
 	 * @return criteria $criteria Criteria con parametros de busqueda
 	 */
-	public function getSearchCriteria() {
+	private function getSearchCriteria() {
 		$criteria = ActorQuery::create();
 
 		$criteria->setIgnoreCase(true);
