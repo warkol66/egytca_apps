@@ -1,5 +1,3 @@
-<h2>##issues,1,Asuntos##</h2>
-<h1>|-if $action eq 'edit'-|Editar|-elseif $action eq 'showLog'-|Ver|-else-|Crear|-/if-| ##issues,2,Asunto##</h1>
 <div id="div_issue">
 	|-if $action neq 'showLog'-|<p>Ingrese los datos del ##issues,2,Asunto##</p>|-/if-|
 		|-if $message eq "error"-|<span class="message_error">Ha ocurrido un error al intentar guardar el ##issues,4,asunto##</span>|-/if-|
@@ -8,11 +6,11 @@
 			<legend>Formulario de Administración de ##issues,1,Asuntos##</legend>
 			<p>
 				<label for="params[name]">##issues,2,Asunto##</label>
-				<input type="text" id="params[name]" name="params[name]" size="70" value="|-$issue->getName()|escape-|" title="##issues,2,Asunto##" |-$action|readonly-| |-if $action neq 'showLog'-||-js_char_counter object=$issue columnName="name" fieldName="params[name]" idRemaining="remaining" sizeRemaining="3" classRemaining="charCount" title="Cantidad de caracteres restantes" showHide=1 useSpan=0-||-/if-| />
+				<input type="text" id="params[name]" name="params[name]" size="70" value="|-$issue->getName()|escape-|" title="##issues,2,Asunto##" |-$action|disabled-| |-if $action neq 'showLog'-||-js_char_counter object=$issue columnName="name" fieldName="params[name]" idRemaining="remaining" sizeRemaining="3" classRemaining="charCount" title="Cantidad de caracteres restantes" showHide=1 useSpan=0-||-/if-| />
 			</p>
 			<p>
 				<label for="params[description]">Descripción</label>
-				<textarea name="params[description]" cols="65" rows="6" wrap="VIRTUAL" id="params[description]" title="Descripción" |-$action|readonly-|>|-$issue->getDescription()|escape-|</textarea>
+				<textarea name="params[description]" cols="65" rows="6" wrap="VIRTUAL" id="params[description]" title="Descripción" |-$action|disabled-|>|-$issue->getDescription()|escape-|</textarea>
 			</p>
 			<p>
 				<label for="params[impact]">Impacto</label>
@@ -38,14 +36,14 @@
 				|-/foreach-|
 				</select>
 			</p>
-			|-if isset($loginUser) && $loginUser->isSupervisor()-|
+			|-if isset($loginUser) && $loginUser->isSupervisor() && $action neq 'create'-|
 				<p><label for="changedBy">|-if $issue->getVersion() gt 1-|Modificado|-else-|Creado|-/if-| por:</label> |-$issue->changedBy()-| - |-$issue->getUpdatedAt()|change_timezone|dateTime_format-| </p>
 			|-/if-|
 			<p>
 				|-if $action eq 'edit'-|
 				<input type="hidden" name="id" id="id" value="|-$issue->getid()-|" />
 				|-/if-|
-                                |-if $action neq 'showLog'-|
+        |-if $action neq 'showLog'-|
 				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="issuesDoEdit" />
 				<input type="submit" id="button_edit_issue" name="button_edit_issue" title="Guardar cambios" value="Guardar" />
@@ -55,74 +53,3 @@
 		</fieldset>
 	</form>
 </div>
-|-if $issue->getId() ne ''-|
-|-include file="IssuesEditCategoriesInclude.tpl"-|
-
-|-include file="CommonAutocompleterInclude.tpl" -|
-<script type="text/javascript" language="javascript" charset="utf-8">
-function addActorToIssue(form) {
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'actorList'},
-				'Main.php?do=issuesDoAddActorX',
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true,
-					insertion: Insertion.Bottom
-				});
-	$('actorMsgField').innerHTML = '<span class="inProgress">Agregando actor al asunto...</span>';
-    $('autocomplete_actors').value = '';
-    $('addActorSubmit').disable();
-	return true;
-}
-
-function removeActorFromIssue(form){
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'actorMsgField'},
-				'Main.php?do=issuesDoRemoveActorX',
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				});
-	$('actorMsgField').innerHTML = '<span class="inProgress">Eliminando actor...</span>';
-	return true;
-}
-</script>
-
-<fieldset title="Formulario de actores asociados al ##issues,4,asunto##">
-    <legend>Actores</legend>
-    <div id="actorMsgField"></div>
-    |-if $action neq 'showLog'-|
-    <form method="post" style="display:inline;">
-        <div id="issueActor" style="position: relative;z-index:10000;">
-            |-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_actors" label="Agregar actor al ##issues,4,asunto##" url="Main.php?do=actorsAutocompleteListX&getCandidates=1&issueId="|cat:$issue->getId() hiddenName="actor[id]" disableSubmit="addActorSubmit"-|
-	</div>
-	<p>
-            <input type="hidden" name="do" id="do" value="issuesDoAddActorX" />
-            <input type="hidden" name="issueId" id="issueId" value="|-$issue->getId()-|" /> 
-            <input type="button" id="addActorSubmit" disabled="disabled" name="addActorSubmit" value="Agregar actor al ##issues,4,asunto##" title="Agregar actos al ##issues,4,asunto##" onClick="javascript:addActorToIssue(this.form)"/>
-        </p>
-    </form>
-    |-/if-|
-    <div id="issuesActorsList">
-        <ul id="actorList" class="iconOptionsList">
-            |-foreach from=$issue->getActors() item=actor-|
-            <li id="actorListItem|-$actor->getId()-|">
-                |-if $action neq 'showLog'-|
-                <form action="Main.php" method="post" style="display:inline;"> 
-                    <input type="hidden" name="do" value="issuesDoRemoveActorX" /> 
-                    <input type="hidden" name="issueId" value="|-$issue->getid()-|" /> 
-                    <input type="hidden" name="actorId" value="|-$actor->getid()-|" /> 
-                    <input type="button" name="submit_go_remove_actor" value="Borrar" onclick="if (confirm('Seguro que desea quitar el actor del asunto?')) removeActorFromIssue(this.form);" class="icon iconDelete" /> 
-                </form>
-                |-/if-|
-                |-$actor->getName()-|
-            </li>
-            |-/foreach-|
-        </ul>    
-    </div> 
-</fieldset>
-|-/if-|
