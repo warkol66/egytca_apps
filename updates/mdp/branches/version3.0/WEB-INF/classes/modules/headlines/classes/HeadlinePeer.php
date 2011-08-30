@@ -17,6 +17,34 @@ class HeadlinePeer extends BaseHeadlinePeer {
 
 	/** the default item name for this class */
 	const ITEM_NAME = 'Headlines';
+	
+	const SPOKESMAN = 1;
+	const MENTION   = 2;
+
+	protected static $hedlineRoles = array(
+						HeadlinePeer::SPOKESMAN        => 'Vocero',
+						HeadlinePeer::MENTION          => 'Mencionado'
+					);
+
+	/**
+	 * Devuelve los tipos de rol
+	 */
+	public static function getHedlineRoles() {
+		$hedlineRoles = HeadlinePeer::$hedlineRoles;
+		return $hedlineRoles;
+	}
+
+	/**
+	* Obtiene el nombre traducido del tipo de rol.
+	*
+	* @return array tipos de rol traducido
+	*/
+	function getHedlineRolesTranslated() {
+		$roles = $this->getHedlineRoles();
+		foreach ($roles as $role)
+			$role[1] = Common::getTranslatedArray($role[1],'headlines');
+		return $roles;
+	}
 
 	private $searchString;
 	private $limit;

@@ -3,7 +3,7 @@
 	<table name="headlines_headline" phpName="Headline" description="Headline">
 
 		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Headline Id" autoIncrement="true"/>
-		<column name="name" required="true"  type="VARCHAR" size="255" description="Headline"/>
+		<column name="name" required="true"  type="VARCHAR" size="255" description="Headline" primaryString="true" />
 		<column name="content" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Headline content"/>
 		<column name="datePublished" type="TIMESTAMP" description="Fecha de publicacion" />
 		<column name="headlineDate" type="TIMESTAMP" description="Fecha del titular" />
@@ -23,6 +23,7 @@
 		<column name="headlineId" required="true" primaryKey="true" type="INTEGER"  description="Headline ID"/>
 		<column name="actorId" required="true" primaryKey="true" type="INTEGER"  description="Actor ID"/>
 		<column name="actorType" required="true" primaryKey="true" type="INTEGER"  description="Actor type ID"/>
+		<column name="role" type="INTEGER"  description="Actor role"/>
 
 		<foreign-key foreignTable="headlines_headline" onDelete="cascade">
 			<reference local="headlineId" foreign="id"/>

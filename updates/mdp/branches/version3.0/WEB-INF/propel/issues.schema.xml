@@ -3,7 +3,8 @@
 	<table name="issues_issue" phpName="Issue" description="Asuntos">
 
 		<column name="id" type="INTEGER" required="true" description="Id log" primaryKey="true" autoIncrement="true" />
-		<column name="name" type="VARCHAR" size="100" required="true" description="Nombre del issue" />
+		<column name="name" type="VARCHAR" size="100" required="true" description="Nombre del issue"  primaryString="true" />
+		<column name="parentId" type="INTEGER" description="Id del parent issue" />
 		<column name="description" type="LONGVARCHAR" sqlType="MEDIUMTEXT"  description="Descripcion del issue" />
 		<column name="impact" type="INTEGER" size="5" description="Impacto del issue" />
 		<column name="valoration" type="INTEGER" size="5" description="Valoracion del issue" />

@@ -110,4 +110,13 @@ class Issue extends BaseIssue {
 		return $issueVersionPeer->getAllByIssueIdOrderedByUpdatedPaginated($this->getId(), $orderType, $page, $maxPerPage);
 	}
 
+	/**
+	* Obtiene el id de todas las categor�as asignadas.
+	*
+	*	@return array Id de todos los actor category asignados
+	*/
+	function getParentIssue(){
+		return IssueQuery::create()->findOneById($this->getParentId());
+	}
+
 } // Issue

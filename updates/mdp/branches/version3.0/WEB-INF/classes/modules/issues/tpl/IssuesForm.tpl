@@ -9,6 +9,11 @@
 				<input type="text" id="params[name]" name="params[name]" size="70" value="|-$issue->getName()|escape-|" title="##issues,2,Asunto##" |-$action|disabled-| |-if $action neq 'showLog'-||-js_char_counter object=$issue columnName="name" fieldName="params[name]" idRemaining="remaining" sizeRemaining="3" classRemaining="charCount" title="Cantidad de caracteres restantes" showHide=1 useSpan=0-||-/if-| />
 			</p>
 			<p>
+			<div id="issueParent" style="position: relative;z-index:10000;">
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_parentId" label="Sub asunto de" url="Main.php?do=issuesAutocompleteListX" hiddenName="params[parentId]" defaultHiddenValue=$issue->getParentId() disableSubmit="button_edit_sub_issue" defaultValue=$issue->getParentIssue()-|
+			</div>
+			</p>
+			<p>
 				<label for="params[description]">Descripción</label>
 				<textarea name="params[description]" cols="65" rows="6" wrap="VIRTUAL" id="params[description]" title="Descripción" |-$action|disabled-|>|-$issue->getDescription()|escape-|</textarea>
 			</p>

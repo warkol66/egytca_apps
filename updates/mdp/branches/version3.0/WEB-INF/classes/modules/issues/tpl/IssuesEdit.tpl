@@ -1,10 +1,10 @@
 <h2>##issues,1,Asuntos##</h2>
 <h1>|-if $action eq 'edit'-|Editar|-elseif $action eq 'showLog'-|Ver|-else-|Crear|-/if-| ##issues,2,Asunto##</h1>
+|-include file="CommonAutocompleterInclude.tpl" -|
 |-include file='IssuesForm.tpl-|
 |-if $issue->getId() ne ''-|
 |-include file="IssuesEditCategoriesInclude.tpl"-|
 
-|-include file="CommonAutocompleterInclude.tpl" -|
 <script type="text/javascript" language="javascript" charset="utf-8">
 function addActorToIssue(form) {
 	var fields = Form.serialize(form);
@@ -71,8 +71,8 @@ function removeActorFromIssue(form){
         </ul>    
     </div> 
 </fieldset>
-|-/if-|
-
 <p>
     <input type="button" title="Ver Historia" value="Ver Historia" onClick="location.href='Main.php?do=issuesLogTabs&id=|-$issue->getId()-|'" />
 </p>
+|-/if-|
+

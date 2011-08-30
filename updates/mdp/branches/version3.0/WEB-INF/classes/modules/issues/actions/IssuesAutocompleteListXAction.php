@@ -23,22 +23,22 @@ class IssuesAutocompleteListXAction extends BaseAction {
 		
 		$smarty->assign("module",$module);
 		
-		$this->template->template = "TemplateAjax.tpl";
-
 		$searchString = $_REQUEST['value'];
 		$smarty->assign("searchString",$searchString);
 
-		$issuePeer = new IssuePeer();
-
-		$filters = array ("searchString" => $searchString, "limit" => $_REQUEST['limit']/*, "adminActId" => $_REQUEST['adminActId']*/);
+		$filters = array ("searchString" => $searchString, "limit" => $_REQUEST['limit']);
                 
-                if ($_REQUEST['adminActId'])
+		if ($_REQUEST['adminActId'])
 			$filters = array_merge_recursive($filters, array("adminActId" => $_REQUEST['adminActId']));
-                elseif ($_REQUEST['headlineId'])
+		else if ($_REQUEST['headlineId'])
 			$filters = array_merge_recursive($filters, array("headlineId" => $_REQUEST['headlineId']));
-                if ($_REQUEST['getCandidates'])
+		else if ($_REQUEST['issueId'])
+			$filters = array_merge_recursive($filters, array("relatedObject" => IssuePeer::get($_REQUEST['issueId'])));
+
+		if ($_REQUEST['getCandidates'])
 			$filters = array_merge_recursive($filters, array("getCandidates" => true));
                 
+		$issuePeer = new IssuePeer();
 		$this->applyFilters($issuePeer,$filters);
 		$issues = $issuePeer->getAll();
 		
