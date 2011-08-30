@@ -12,7 +12,7 @@ body {
 	text-align: center !Important;
 }
 #login {
-	width: 420px;
+	width: 330px;
 	margin-left: auto !Important;
 	margin-right: auto !Important;
 }
@@ -20,6 +20,7 @@ body {
 	background-image:url(../images/mdp.png);
 	background-position: top center;
 	background-repeat:no-repeat;
+	background-color: #C5C5C5;
 	height: 120px;
 }
 #loginContent, #passRecovery { 
@@ -114,6 +115,10 @@ body {
 .rounded .r1, .rounded .r2 {
 	background-color: #FFFFFF;  /* Mismo color de fondo del header*/
 }
+#loginTopBorder .rounded .r1, .rounded .r2 {
+	background-color: #C5C5C5;  /* Mismo color de fondo del header*/
+}
+
 /* /wrapper -----------------------------------------------------------*/ 
 
 /* content -----------------------------------------------------------*/ 

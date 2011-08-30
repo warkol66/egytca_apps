@@ -1,7 +1,7 @@
 <div id="loginWrapper"> 
 	<!-- Begin Login --> 
 	<div id="login">
-		<b class="rounded"><b class="rtop"><b class="r7"></b><b class="r6"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r1"></b></b></b>
+		<div id="loginTopBorder"><b class="rounded"><b class="rtop"><b class="r7"></b><b class="r6"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r1"></b></b></b></div>
 		 <!-- Begin loginContentWrapper --> 
 		<div id="loginContentWrapper">
 		<form method='post' action="Main.php"> 
@@ -42,6 +42,6 @@
 		</div><!-- End LoginBottom --> 
 		</form> 
 	 </div><!-- End LoginContentWrapper --> 
-	 <b class="rounded"><b class="rbottom "><b class="r1"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r6"></b><b class="r7"></b></b></b>	 
+	 <div id="loginBottomBorder"><b class="rounded"><b class="rbottom "><b class="r1"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r6"></b><b class="r7"></b></b></b></div>
 	</div><!-- End Login --> 
 </div><!-- End loginWrapper --> 
