@@ -6,16 +6,16 @@ function validationValidateFormClienSide(form, doSubmit) {
 	if (doSubmit === undefined)
 		doSubmit = true;
 
-	var valid = false;
+    var valid = false;
 
-	var emptyArray = document.getElementsByClassName('emptyValidation',form);
+    var emptyArray = $$('#' + Element.identify(form) + ' .emptyValidation');
 	var textArray = document.getElementsByClassName('textValidation',form);
 	var mailArray = document.getElementsByClassName('mailValidation',form);
 	var numericArray = document.getElementsByClassName('numericValidation',form);
 	var dateArray = document.getElementsByClassName('dateValidation',form);
 	var passwordMatchArray = document.getElementsByClassName('passwordMatch',form);
 
-	validationClearInvalidFields(emptyArray);
+    validationClearInvalidFields(emptyArray);
 	validationClearInvalidFields(mailArray);
 	validationClearInvalidFields(textArray);
 	validationClearInvalidFields(numericArray);
@@ -48,8 +48,8 @@ function validationValidateFormClienSide(form, doSubmit) {
 	} else {
 		if (Object.isFunction(hideValidationFailureMessage))
 			hideValidationFailureMessage(form);
-		if (doSubmit)
-			form.submit();
+		if (doSubmit) 
+            form.submit();
 		return true;
 	}
 }
@@ -361,7 +361,9 @@ function validationValidateFieldThruAjax(element,doAction) {
 
 function clearFormFieldsFormat(form) {
 
-	var emptyArray = document.getElementsByClassName('emptyValidation',form);
+//	var emptyArray = document.getElementsByClassName('emptyValidation',form);
+    var emptyArray = $$('#' + form + ' .emptyValidation');
+//    console.debug(form);
 	var textArray = document.getElementsByClassName('textValidation',form);
 	var mailArray = document.getElementsByClassName('mailValidation',form);
 	var numericArray = document.getElementsByClassName('numericValidation',form);

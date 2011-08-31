@@ -91,7 +91,6 @@ function clearElement(element) {
 				|-include file="HiddenInputsInclude.tpl" action="$action" filters="$filters" page="$page"-|
 				<input type="hidden" name="do" id="do" value="campaignsDoEdit" />
 				|-javascript_form_validation_button value='Guardar' title='Guardar'-|
-				<input type="submit" id="button_edit_campaign" name="button_edit_campaign" title="Guardar" value="Guardar" />
 				<input type="button" id="cancel" name="cancel" title="Volver al listado" value="Volver al listado" onClick="location.href='Main.php?do=campaignsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'"/>
 			</p>
 		</fieldset>
