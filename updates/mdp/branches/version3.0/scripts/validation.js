@@ -9,11 +9,11 @@ function validationValidateFormClienSide(form, doSubmit) {
     var valid = false;
 
     var emptyArray = $$('#' + Element.identify(form) + ' .emptyValidation');
-	var textArray = document.getElementsByClassName('textValidation',form);
-	var mailArray = document.getElementsByClassName('mailValidation',form);
-	var numericArray = document.getElementsByClassName('numericValidation',form);
-	var dateArray = document.getElementsByClassName('dateValidation',form);
-	var passwordMatchArray = document.getElementsByClassName('passwordMatch',form);
+    var textArray = $$('#' + Element.identify(form) + ' .textValidation');
+    var mailArray = $$('#' + Element.identify(form) + ' .mailValidation');
+    var numericArray = $$('#' + Element.identify(form) + ' .numericValidation');
+    var dateArray = $$('#' + Element.identify(form) + ' .dateValidation');
+    var passwordMatchArray = $$('#' + Element.identify(form) + ' .passwordMatch');
 
     validationClearInvalidFields(emptyArray);
 	validationClearInvalidFields(mailArray);
