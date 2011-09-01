@@ -23,7 +23,16 @@
 			</div></td>
 		</tr>
 			|-if "mediasTypeEdit"|security_has_access-|<tr>
-				 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=mediasTypeEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Tipo</a></div></th>
+                <th colspan="3" class="thFillTitle">
+                    <div class="rightLink">
+                        <a href="#" onclick="showInput('addInput1', 'addLink1'); return false;" id="addLink1" class="addLink">Agregar Tipo</a>
+                        <form id="addInput1" action="Main.php" method="POST" onsubmit="prepareAndSubmit(this); showInput('addLink1', 'addInput1'); return false;" style="display: none;">
+                            <input type="text"   name="name" />
+                            <input type="hidden" name="do" value="mediasTypeDoCreateListX" />
+                            <input type="submit" value="Guardar" style="display: none;" />
+                        </form>
+                    </div>
+                </th>
 			</tr>|-/if-|
 			<tr class="thFillTitle"> 
 	<!--			<th width="5%">Id</th> -->
@@ -31,7 +40,7 @@
 				<th width="5%">&nbsp;</th> 
 			</tr> 
 		</thead> 
-	<tbody>|-if $mediaTypes|@count eq 0-|
+	<tbody id="mediaTypeList">|-if $mediaTypes|@count eq 0-|
 		<tr>
 			 <td colspan="3">|-if isset($filter)-|No hay tipos que concuerden con la búsqueda|-else-|No hay tipos disponibles|-/if-|</td>
 		</tr>
@@ -39,7 +48,9 @@
 		|-foreach from=$mediaTypes item=mediaType name=for_types-|
 		<tr> 
 	<!--		<td>|-$mediaType->getid()-|</td> -->
-			<td>|-$mediaType->getName()-|</td>
+			<td>
+                <span id="media_type_|-$mediaType->getid()-|" class="in_place_editable">|-$mediaType->getName()-|</span>
+            </td>
 			<td nowrap>|-if "mediasTypeEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="mediasTypeEdit" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
@@ -73,16 +84,69 @@
 			|-/if-|</td> 
 		</tr> 
 		|-/foreach-|
+		</tbody> 
+        <tfoot>
 		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
 		<tr> 
 			<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 			|-if "mediasTypeEdit"|security_has_access-|<tr>
-				 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=mediasTypeEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Tipo</a></div></th>
+				 <th colspan="3" class="thFillTitle">
+                    <div class="rightLink">
+                        <a href="#" onclick="showInput('addInput2', 'addLink2'); return false;" id="addLink2" class="addLink">Agregar Tipo</a>
+                        <form id="addInput2" action="Main.php" method="POST" onsubmit="prepareAndSubmit(this); showInput('addLink2', 'addInput2'); return false;" style="display: none;">
+                            <input type="text"   name="name" />
+                            <input type="hidden" name="do" value="mediasTypeDoCreateListX" />
+                            <input type="submit" value="Guardar" style="display: none;" />
+                        </form>
+                    </div>
+                </th>
+
 			</tr>|-/if-|
 		|-/if-|
-		</tbody> 
-		 </table> 
+        </tfoot>
+    </table> 
 </div>
-	
+
+<script type="text/javascript">
+window.onload = function() {
+|-foreach from=$mediaTypes item=mediaType name=for_types-|
+    new Ajax.InPlaceEditor(
+        'media_type_|-$mediaType->getId()-|',
+        'Main.php?do=mediasTypeEditFieldX',
+        {
+            rows: 1,
+            okControl: false,
+            cancelText: 'Cancel',
+            clickToEditText: 'Haga click para editar',
+            callback: function(form, value) { 
+                return 'id=|-$mediaType->getId()-|&paramName=name&paramValue=' + encodeURIComponent(value);
+            }
+        }
+    );
+|-/foreach-|
+}
+
+function showInput(to_show, to_hide) {
+    $(to_show).show();
+    $(to_hide).hide();
+}
+
+function prepareAndSubmit(form) {
+    var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+        {
+            success: 'mediaTypeList'
+        },
+        'Main.php',
+        {
+            method: 'post',
+            postBody: fields,
+            evalScripts: true,
+            insertion: Insertion.Bottom
+        }
+    );
+    form.name.value = '';
+}
+</script>
