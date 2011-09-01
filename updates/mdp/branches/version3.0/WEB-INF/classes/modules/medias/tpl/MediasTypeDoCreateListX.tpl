@@ -49,6 +49,9 @@
             clickToEditText: 'Haga click para editar',
             callback: function(form, value) { 
                 return 'id=|-$mediaType->getId()-|&paramName=name&paramValue=' + encodeURIComponent(value);
+            },
+            onFormReady: function(obj,form) {
+                form.insert({ top: new Element('label').update('Nombre: ') });
             }
         }
     );

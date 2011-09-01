@@ -112,6 +112,14 @@
 </div>
 
 <script type="text/javascript">
+Ajax.InPlaceEditor.prototype.__enterEditMode = Ajax.InPlaceEditor.prototype.enterEditMode;
+Object.extend(Ajax.InPlaceEditor.prototype, {
+  enterEditMode:function(e) {
+    this.__enterEditMode(e);
+    this.triggerCallback('onFormReady',this._form);
+  }
+});
+
 window.onload = function() {
 |-foreach from=$mediaTypes item=mediaType name=for_types-|
     new Ajax.InPlaceEditor(
@@ -127,6 +135,9 @@ window.onload = function() {
             clickToEditText: 'Haga click para editar',
             callback: function(form, value) { 
                 return 'id=|-$mediaType->getId()-|&paramName=name&paramValue=' + encodeURIComponent(value);
+            },
+            onFormReady: function(obj,form) {
+                form.insert({ top: new Element('label').update('Nombre: ') });
             }
         }
     );
