@@ -130,6 +130,7 @@ window.onload = function() {
             okText: 'Guardar',
             cancelText: 'Cancelar',
             savingText: 'Guardando...',
+						savingClassName: 'inProgress',
             cancelControl: 'button',
             externalControl: 'media_type_edit_|-$mediaType->getid()-|',
             clickToEditText: 'Haga click para editar',

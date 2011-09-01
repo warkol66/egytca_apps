@@ -45,6 +45,7 @@
             cancelText: 'Cancelar',
             savingText: 'Guardando...',
             cancelControl: 'button',
+						savingClassName: 'inProgress',
             externalControl: 'media_type_edit_|-$mediaType->getid()-|',
             clickToEditText: 'Haga click para editar',
             callback: function(form, value) { 
