@@ -21,7 +21,7 @@ class HeadlinePeer extends BaseHeadlinePeer {
 	const SPOKESMAN = 1;
 	const MENTION   = 2;
 
-	protected static $hedlineRoles = array(
+	protected static $headlineRoles = array(
 						HeadlinePeer::SPOKESMAN        => 'Vocero',
 						HeadlinePeer::MENTION          => 'Mencionado'
 					);
@@ -29,9 +29,9 @@ class HeadlinePeer extends BaseHeadlinePeer {
 	/**
 	 * Devuelve los tipos de rol
 	 */
-	public static function getHedlineRoles() {
-		$hedlineRoles = HeadlinePeer::$hedlineRoles;
-		return $hedlineRoles;
+	public static function getHeadlineRoles() {
+		$headlineRoles = HeadlinePeer::$headlineRoles;
+		return $headlineRoles;
 	}
 
 	/**
@@ -39,8 +39,8 @@ class HeadlinePeer extends BaseHeadlinePeer {
 	*
 	* @return array tipos de rol traducido
 	*/
-	function getHedlineRolesTranslated() {
-		$roles = $this->getHedlineRoles();
+	function getHeadlineRolesTranslated() {
+		$roles = $this->getHeadlineRoles();
 		foreach ($roles as $role)
 			$role[1] = Common::getTranslatedArray($role[1],'headlines');
 		return $roles;
