@@ -29,7 +29,7 @@
                         <form id="addInput1" action="Main.php" method="POST" onsubmit="prepareAndSubmit(this); showInput('addLink1', 'addInput1'); return false;" style="display: none;">
                             <input type="text"   name="name" />
                             <input type="hidden" name="do" value="mediasTypeDoCreateListX" />
-                            <input type="submit" value="Guardar" style="display: none;" />
+                            <input type="submit" value="Guardar" />
                         </form>
                     </div>
                 </th>
@@ -56,7 +56,7 @@
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$mediaType->getid()-|" /> 
-					<input type="submit" name="submit_go_edit_type" value="Editar" title="Editar" class="icon iconEdit" /> 
+					<input type="submit" name="submit_go_edit_type" value="Editar" title="Editar" id="media_type_edit_|-$mediaType->getid()-|" class="icon iconEdit" /> 
 				</form> |-/if-|
 				|-if "mediasTypeDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;"> 
 					<input type="hidden" name="do" value="mediasTypeDoDelete" /> 
@@ -98,7 +98,7 @@
                         <form id="addInput2" action="Main.php" method="POST" onsubmit="prepareAndSubmit(this); showInput('addLink2', 'addInput2'); return false;" style="display: none;">
                             <input type="text"   name="name" />
                             <input type="hidden" name="do" value="mediasTypeDoCreateListX" />
-                            <input type="submit" value="Guardar" style="display: none;" />
+                            <input type="submit" value="Guardar" />
                         </form>
                     </div>
                 </th>
@@ -117,8 +117,10 @@ window.onload = function() {
         'Main.php?do=mediasTypeEditFieldX',
         {
             rows: 1,
-            okControl: false,
-            cancelText: 'Cancel',
+            okText: 'Guardar',
+            cancelText: 'Cancelar',
+            savingText: 'Guardando...',
+            externalControl: 'media_type_edit_|-$mediaType->getid()-|',
             clickToEditText: 'Haga click para editar',
             callback: function(form, value) { 
                 return 'id=|-$mediaType->getId()-|&paramName=name&paramValue=' + encodeURIComponent(value);

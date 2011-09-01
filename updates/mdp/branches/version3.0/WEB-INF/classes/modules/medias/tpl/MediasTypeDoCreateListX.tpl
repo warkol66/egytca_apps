@@ -7,7 +7,7 @@
                 |-include file="FiltersRedirectInclude.tpl" filters=$filters-|
                 |-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
             <input type="hidden" name="id" value="|-$mediaType->getid()-|" /> 
-            <input type="submit" name="submit_go_edit_type" value="Editar" title="Editar" class="icon iconEdit" /> 
+            <input type="submit" name="submit_go_edit_type" value="Editar" title="Editar" id="media_type_edit_|-$mediaType->getid()-|" class="icon iconEdit" /> 
         </form> |-/if-|
         |-if "mediasTypeDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;"> 
             <input type="hidden" name="do" value="mediasTypeDoDelete" /> 
@@ -41,8 +41,11 @@
         'Main.php?do=mediasTypeEditFieldX',
         {
             rows: 1,
+            okText: 'Guardar',
             okControl: false,
             cancelText: 'Cancel',
+            savingText: 'Guardando...',
+            externalControl: 'media_type_edit_|-$mediaType->getid()-|',
             clickToEditText: 'Haga click para editar',
             callback: function(form, value) { 
                 return 'id=|-$mediaType->getId()-|&paramName=name&paramValue=' + encodeURIComponent(value);
