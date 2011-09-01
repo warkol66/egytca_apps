@@ -45,10 +45,10 @@ input.icon, input.editor_ok_button, input.editor_cancel_button {
 	padding: 0;
 }
 /* Image Buttons and Links */
-.iconActivate, .iconAdd, .iconBack, .iconBudget, .iconDelete, .iconDetail, .iconDownload,
+.iconActivate, .iconAdd, .iconBack, .iconBudget, .iconDelete, .iconDetail, .iconDownload, .iconCancel,
 .iconEdit, .iconEmail, .iconFollow, .iconGoTo, .iconGraph, .iconHelp, .iconHistory, .iconIndicator,
 .iconInfo, .iconManufacture, .iconOrder, .iconPassword, .iconPlus, .iconRestore, .iconRestoreFromServer,
-.iconSendMultiple, .iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload,
+.iconSendMultiple, .iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload, .iconClose,
 .iconView, .iconViewGantt, .iconWeight, .iconAddToCart, .iconRemoveFromCart, .iconUpdateCart, .iconSetPrivileges, .iconOwner,
 .iconRead, .iconUnread, .iconEditUser, .iconAddUser, .iconPhoto, .iconHardDelete, .iconUndelete,
 input.editor_ok_button, input.editor_cancel_button {
@@ -66,8 +66,17 @@ input.editor_ok_button, input.editor_cancel_button {
 .iconEdit {
 	background-position: 0px 0px;
 }
-.iconDelete, input.editor_cancel_button  {
+.iconDelete {
+	background-position: -80px -120px;
+}
+.iconOptionsList .iconDelete {
 	background-position: -20px 0px;
+}
+.iconClose {
+	background-position: -20px 0px;
+}
+.iconCancel, input.editor_cancel_button  {
+	background-position: -100px -120px;
 }
 .iconView {
 	background-position: -40px 0px;
@@ -615,11 +624,6 @@ option{
 	text-decoration:none;	
 	color:#333333;
 }
-fieldset ul.optionDelete li {
-	padding-top: 5px;
-	list-style: none;
-	margin-left: 0px;
-}
-fieldset ul.optionDelete li:hover {
+ul.iconOptionsList li:hover {
 	color: red;
 }

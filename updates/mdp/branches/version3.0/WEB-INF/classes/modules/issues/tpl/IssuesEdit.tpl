@@ -65,7 +65,7 @@ function removeActorFromIssue(form){
                     <input type="button" name="submit_go_remove_actor" value="Borrar" onclick="if (confirm('Seguro que desea quitar el actor del asunto?')) removeActorFromIssue(this.form);" class="icon iconDelete" /> 
                 </form>
                 |-/if-|
-                |-$actor->getName()-|
+                |-$actor-|
             </li>
             |-/foreach-|
         </ul>    

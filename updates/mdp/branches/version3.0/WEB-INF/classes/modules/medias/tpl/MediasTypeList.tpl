@@ -31,7 +31,7 @@
                             <input type="text"   name="name" />
                             <input type="hidden" name="do" value="mediasTypeDoCreateListX" />
                             <input type="submit" value="Guardar" class="icon iconActivate" />
-                            <input type="button" value="Guardar" class="icon iconDelete" onclick="showInput('addLink1', 'addInput1');" />
+                            <input type="button" value="Guardar" class="icon iconCancel" onclick="showInput('addLink1', 'addInput1');" />
                         </form>
                     </div>
                 </th>

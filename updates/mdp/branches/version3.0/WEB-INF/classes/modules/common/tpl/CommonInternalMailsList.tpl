@@ -73,7 +73,7 @@
 
 <div id="lightbox1" class="leightbox"> 
 	<div align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar&nbsp;&nbsp;<input type="button" class="icon iconDelete" /></a> 
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
 	</div> 
 	<div id="lightboxContent">
 	</div>

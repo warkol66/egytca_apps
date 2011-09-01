@@ -317,13 +317,13 @@ div.autocomplete ul b {
 }
 /*  /BOX VARIABLES   ----------------------------------- */
 
-ul.iconOptionsList {
-}
 ul.iconOptionsList li {
+	list-style: none;
+	margin-left: 15px;
 	list-style: none;
 	line-height: 2em;
 	vertical-align: bottom;
-	padding-bottom: .3em;
+	padding-bottom: .2em;
 }
 .noDecoration {
 	text-decoration: none !Important;
@@ -334,4 +334,18 @@ ul.iconOptionsList li {
 }
 .editor_field, .editor_ok_button, .editor_cancel_button {
 	margin-right: 3px !Important;
+}
+.inplaceeditor-form label {
+	font-size: 93%;
+	line-height: 153.9%;
+	float: left;
+	font-weight: bold;
+	vertical-align: text-top;
+	text-align: right;
+	height: auto;
+	padding-top: 0;
+	margin-bottom: 0;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	display: block;
 }
