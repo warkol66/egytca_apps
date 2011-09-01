@@ -43,6 +43,7 @@
             rows: 1,
             okText: 'Guardar',
             okControl: false,
+						cancelControl: button,
             cancelText: 'Cancel',
             savingText: 'Guardando...',
             externalControl: 'media_type_edit_|-$mediaType->getid()-|',

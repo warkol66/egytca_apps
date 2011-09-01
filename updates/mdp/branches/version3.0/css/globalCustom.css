@@ -622,8 +622,3 @@ fieldset ul.optionDelete li {
 fieldset ul.optionDelete li:hover {
 	color: red;
 }
-
-/* In-Place Edit */
-.in_place_editable {
-    padding: 5px;
-}

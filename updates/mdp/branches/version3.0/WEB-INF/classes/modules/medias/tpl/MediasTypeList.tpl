@@ -29,7 +29,8 @@
                         <form id="addInput1" action="Main.php" method="POST" onsubmit="prepareAndSubmit(this); showInput('addLink1', 'addInput1'); return false;" style="display: none;">
                             <input type="text"   name="name" />
                             <input type="hidden" name="do" value="mediasTypeDoCreateListX" />
-                            <input type="submit" value="Guardar" />
+                            <input type="submit" value="Guardar" class="icon iconActivate" />
+                            <input type="button" value="Guardar" class="icon iconDelete" onclick="showInput('addLink1', 'addInput1');" />
                         </form>
                     </div>
                 </th>
@@ -49,7 +50,7 @@
 		<tr> 
 	<!--		<td>|-$mediaType->getid()-|</td> -->
 			<td>
-                <span id="media_type_|-$mediaType->getid()-|" class="in_place_editable">|-$mediaType->getName()-|</span>
+                |-if "mediasTypeEdit"|security_has_access-|<span id="media_type_|-$mediaType->getid()-|" class="in_place_editable">|-$mediaType->getName()-|</span>|-else-||-$mediaType->getName()-||-/if-|
             </td>
 			<td nowrap>|-if "mediasTypeEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="mediasTypeEdit" /> 

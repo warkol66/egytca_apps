@@ -328,3 +328,7 @@ ul.iconOptionsList li {
 .noDecoration {
 	text-decoration: none !Important;
 }
+/* In-Place Edit */
+.in_place_editable {
+    padding: 5px;
+}
