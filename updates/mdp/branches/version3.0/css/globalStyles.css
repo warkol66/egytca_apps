@@ -330,5 +330,8 @@ ul.iconOptionsList li {
 }
 /* In-Place Edit */
 .in_place_editable {
-    padding: 5px;
+	padding: 5px;
+}
+.editor_field, .editor_ok_button, .editor_cancel_button {
+	margin-right: 3px !Important;
 }
