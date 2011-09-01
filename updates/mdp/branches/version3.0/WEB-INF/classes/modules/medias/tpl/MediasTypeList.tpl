@@ -27,6 +27,7 @@
                     <div class="rightLink">
                         <a href="#" onclick="showInput('addInput1', 'addLink1'); return false;" id="addLink1" class="addLink">Agregar Tipo</a>
                         <form id="addInput1" action="Main.php" method="POST" onsubmit="prepareAndSubmit(this); showInput('addLink1', 'addInput1'); return false;" style="display: none;">
+                            <label>Ingrese nombre del tipo:</label>
                             <input type="text"   name="name" />
                             <input type="hidden" name="do" value="mediasTypeDoCreateListX" />
                             <input type="submit" value="Guardar" class="icon iconActivate" />
@@ -97,13 +98,13 @@
                     <div class="rightLink">
                         <a href="#" onclick="showInput('addInput2', 'addLink2'); return false;" id="addLink2" class="addLink">Agregar Tipo</a>
                         <form id="addInput2" action="Main.php" method="POST" onsubmit="prepareAndSubmit(this); showInput('addLink2', 'addInput2'); return false;" style="display: none;">
+                            <label>Ingrese nombre del tipo:</label>
                             <input type="text"   name="name" />
                             <input type="hidden" name="do" value="mediasTypeDoCreateListX" />
                             <input type="submit" value="Guardar" />
                         </form>
                     </div>
                 </th>
-
 			</tr>|-/if-|
 		|-/if-|
         </tfoot>
@@ -121,6 +122,7 @@ window.onload = function() {
             okText: 'Guardar',
             cancelText: 'Cancelar',
             savingText: 'Guardando...',
+            cancelControl: 'button',
             externalControl: 'media_type_edit_|-$mediaType->getid()-|',
             clickToEditText: 'Haga click para editar',
             callback: function(form, value) { 

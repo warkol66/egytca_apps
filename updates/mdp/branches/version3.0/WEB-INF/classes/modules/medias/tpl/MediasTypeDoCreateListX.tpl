@@ -42,10 +42,9 @@
         {
             rows: 1,
             okText: 'Guardar',
-            okControl: false,
-						cancelControl: button,
-            cancelText: 'Cancel',
+            cancelText: 'Cancelar',
             savingText: 'Guardando...',
+            cancelControl: 'button',
             externalControl: 'media_type_edit_|-$mediaType->getid()-|',
             clickToEditText: 'Haga click para editar',
             callback: function(form, value) { 
