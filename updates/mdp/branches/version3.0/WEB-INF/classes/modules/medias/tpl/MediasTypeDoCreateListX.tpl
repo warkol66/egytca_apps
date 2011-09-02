@@ -45,11 +45,15 @@
             cancelText: 'Cancelar',
             savingText: 'Guardando...',
             cancelControl: 'button',
-						savingClassName: 'inProgress',
+            savingClassName: 'inProgress',
             externalControl: 'media_type_edit_|-$mediaType->getid()-|',
             clickToEditText: 'Haga click para editar',
             callback: function(form, value) { 
                 return 'id=|-$mediaType->getId()-|&paramName=name&paramValue=' + encodeURIComponent(value);
+            },
+            onComplete: function(transport, element) {
+                clean_text_content_from(element);
+                new Effect.Highlight(element, { startcolor: this.options.highlightColor });
             },
             onFormReady: function(obj,form) {
                 form.insert({ top: new Element('label').update('Nombre: ') });

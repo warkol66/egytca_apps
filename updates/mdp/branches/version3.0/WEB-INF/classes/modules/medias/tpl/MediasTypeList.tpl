@@ -130,12 +130,16 @@ window.onload = function() {
             okText: 'Guardar',
             cancelText: 'Cancelar',
             savingText: 'Guardando...',
-						savingClassName: 'inProgress',
             cancelControl: 'button',
+            savingClassName: 'inProgress',
             externalControl: 'media_type_edit_|-$mediaType->getid()-|',
             clickToEditText: 'Haga click para editar',
             callback: function(form, value) { 
                 return 'id=|-$mediaType->getId()-|&paramName=name&paramValue=' + encodeURIComponent(value);
+            },
+            onComplete: function(transport, element) {
+                clean_text_content_from(element);
+                new Effect.Highlight(element, { startcolor: this.options.highlightColor });
             },
             onFormReady: function(obj,form) {
                 form.insert({ top: new Element('label').update('Nombre: ') });
@@ -152,8 +156,7 @@ function showInput(to_show, to_hide) {
 
 function prepareAndSubmit(form) {
     var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-        {
+	var myAjax = new Ajax.Updater({
             success: 'mediaTypeList'
         },
         'Main.php',
@@ -165,5 +168,13 @@ function prepareAndSubmit(form) {
         }
     );
     form.name.value = '';
+}
+
+function chomp(raw_text) {
+    return raw_text.replace(/(\n|\r)+$/, '');
+}
+
+function clean_text_content_from(element) {
+    element.innerHTML = chomp(element.innerHTML);
 }
 </script>
