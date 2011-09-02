@@ -111,9 +111,9 @@ class Issue extends BaseIssue {
 	}
 
 	/**
-	* Obtiene el id de todas las categor�as asignadas.
+	* Obtiene el issue padre.
 	*
-	*	@return array Id de todos los actor category asignados
+	*	@return issue padre.
 	*/
 	function getParentIssue(){
 		return IssueQuery::create()->findOneById($this->getParentId());
