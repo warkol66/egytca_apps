@@ -98,7 +98,9 @@ function removeActorFromHeadline(form){
 						|-/foreach-|
 						|-if $role neq ''-||-assign var=action value='show'-||-else-||-assign var=action value=''-||-/if-|
 						|-assign var=headlinePeer value=$headline->getPeer()-|
+						<span id='span_role_for_|-$actor->getId()-|'>
 						|-include file='HeadlinesSelectActorRole.tpl' action=$action actorId=$actor->getId() headlineId=$headline->getId() role=$role roles=$headlinePeer->getHeadlineRoles()-|
+						</span>
 					</li>
 			|-/foreach-|
 			</ul>    
