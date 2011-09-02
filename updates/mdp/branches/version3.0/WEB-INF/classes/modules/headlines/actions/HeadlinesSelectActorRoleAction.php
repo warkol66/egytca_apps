@@ -30,35 +30,11 @@ class HeadlinesSelectActorRoleAction extends BaseAction {
 		$headlineActor = HeadlineActorPeer::retrieveByPK(
 			$_GET["headlineId"], $_GET["actorId"], 0);
 		$roles = HeadlinePeer::getHeadlineRoles();
-		
+
 		if (!empty($roles[$_GET["role"]])) {
 			$headlineActor->setRole($_GET["role"]);
 			$headlineActor->save();
-			//$smarty->assign("role", );
 		}
-		
-		/*if (($_GET["role"]) == "spokesman") {
-			
-			$headlineActor->setRole(HeadlinePeer::SPOKESMAN);
-			$headlineActor->save();
-			$smarty->assign("role", "spokesman");
-		
-		} elseif (($_GET["role"]) == "mention") {
-			
-			$headlineActor->setRole(HeadlinePeer::MENTION);
-			$headlineActor->save();
-			$smarty->assign("role", "mention");
-		
-		} else {
-			switch ($headlineActor->getRole()) {
-				case HeadlinePeer::SPOKESMAN:
-					$smarty->assign("role", "spokesman");
-					break;
-				case HeadlinePeer::MENTION:
-					$smarty->assign("role", "mention");
-					break;
-			}
-		}*/
 		
 		if (!is_null($headlineActor->getRole())) {
 			$smarty->assign("role", $headlineActor->getRole());

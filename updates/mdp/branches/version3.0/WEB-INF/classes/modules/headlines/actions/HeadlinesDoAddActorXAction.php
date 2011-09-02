@@ -33,7 +33,7 @@ class HeadlinesDoAddActorXAction extends BaseAction {
 			return $mapping->findForwardConfig('success');
 		}
 
-		$smarty->assign('headlineId', $headline->getId());
+		$smarty->assign('headline', $headline);
 		$smarty->assign('actor', $actor);
 		$smarty->assign('message', 'success');
 
