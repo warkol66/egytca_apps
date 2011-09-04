@@ -7,6 +7,12 @@
 		<column name="content" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Headline content"/>
 		<column name="datePublished" type="TIMESTAMP" description="Fecha de publicacion" />
 		<column name="headlineDate" type="TIMESTAMP" description="Fecha del titular" />
+		<column name="url" type="VARCHAR" size="255" description="Url del titular" />
+		<column name="twitts" type="INTEGER" description="Twitts del titular" />
+		<column name="fcb" type="INTEGER" description="Fcb del titular" />
+		<column name="gplus" type="INTEGER" description="G+ del titular" />
+		<column name="comment" type="INTEGER" description="Comentario del titular" />
+		<column name="picture" type="BOOLEAN" description="Foto del titular" />
 
 		<behavior name="soft_delete" />
 		<behavior name="timestampable" />

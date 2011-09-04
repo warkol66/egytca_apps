@@ -14,11 +14,39 @@
 				<label for="params[content]">Contenido</label>
                                 <textarea id="params[content]" name="params[content]" cols="42" rows="6" wrap="VIRTUAL" title="Contenido">|-$headline->getContent()|escape-|</textarea><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
 			</p>
-                        <p>     <label for="params[datePublished]">Fecha de Publicación</label>
+                        <p>     
+				<label for="params[datePublished]">Fecha de Publicación</label>
 				<input id="params[datePublished]" name="params[datePublished]" type='text' value='|-$headline->getDatePublished()-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[datePublished]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
-                        <p>     <label for="params[headlineDate]">Fecha del Titular</label>
+                        <p>     
+				<label for="params[headlineDate]">Fecha del Titular</label>
 				<input id="params[headlineDate]" name="params[headlineDate]" type='text' value='|-$headline->getHeadlineDate()-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[headlineDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+			</p>
+			<p>     <label for="params[url]">Url del Titular</label>
+				<input id="params[url]" name="params[url]" type='text' value='|-$headline->getUrl()-|' size="65" />
+			</p>
+			<p>     
+				<label for="params[twitts]">Twitts del Titular</label>
+				<input id="params[twitts]" name="params[twitts]" type='text' value='|-$headline->getTwitts()-|' size="10" />
+			</p>
+			<p>     
+				<label for="params[fcb]">Fcb del Titular</label>
+				<input id="params[fcb]" name="params[fcb]" type='text' value='|-$headline->getFcb()-|' size="10" />
+			</p>
+			<p>     
+				<label for="params[gplus]">G+ del Titular</label>
+				<input id="params[gplus]" name="params[gplus]" type='text' value='|-$headline->getGplus()-|' size="10" />
+			</p>
+			<p>     
+				<label for="params[comment]">Comment del Titular</label>
+				<input id="params[comment]" name="params[comment]" type='text' value='|-$headline->getComment()-|' size="10" />
+			</p>
+			<p>     
+				<label for="params[picture]">Foto del Titular</label>
+				<select id="params[picture]" name="params[picture]">
+					<option value=0 |-if $headline->getPicture() neq 1-|selected="selected"|-/if-|>No</option>
+					<option value=1 |-if $headline->getPicture() eq 1-|selected="selected"|-/if-|>Sí</option>
+				</select>
 			</p>
 			<p>
 				|-if $action eq 'edit'-|
