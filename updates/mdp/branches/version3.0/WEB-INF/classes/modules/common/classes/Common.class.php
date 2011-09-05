@@ -1168,6 +1168,18 @@ class Common {
 	}
 
 	/**
+	 * Evalua dos numeros a bit level para comprobar permisos
+	 * @param $level int 
+	 * @param $bitlevel int 
+	 * @return true o false 
+	 */
+	function evaluateBitlevel($level,$bitlevel) {
+		if ($level == SecurityModulePeer::LEVEL_ALL)
+			return ($bitlevel == $level);
+		return ((intval($level) & intval($bitlevel)) > 0);
+	}
+
+	/**
 	 * Indica si el usuario es proveedor
 	 */
 	function isSupplier() {
