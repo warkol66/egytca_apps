@@ -73,6 +73,26 @@ class MediaMarketPeer extends BaseMediaMarketPeer {
 		return MediaMarketQuery::create()->findPk($id);
 	}
 
+	/**
+	* Elimina definitivamente un mediaMarket a partir del id.
+	*
+	* @param int $id Id del mediaMarket
+	* @return boolean true
+	*/
+  function hardDelete($id) {
+		MediaMarketPeer::disableSoftDelete();
+		$mediaMarket = MediaMarketPeer::retrieveByPk($id);
+		try {
+			$mediaMarket->forceDelete();
+			return true;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
+	}
+
  /**
 	 * Retorna el criteria generado a partir de los parametros de busqueda
 	 *

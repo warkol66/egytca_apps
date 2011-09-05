@@ -73,6 +73,26 @@ class MediaPeer extends BaseMediaPeer {
 		return MediaQuery::create()->findPk($id);
 	}
 
+	/**
+	* Elimina definitivamente un media a partir del id.
+	*
+	* @param int $id Id del media
+	* @return boolean true
+	*/
+  function hardDelete($id) {
+		MediaPeer::disableSoftDelete();
+		$media = MediaPeer::retrieveByPk($id);
+		try {
+			$media->forceDelete();
+			return true;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
+	}
+
  /**
 	 * Retorna el criteria generado a partir de los parametros de busqueda
 	 *

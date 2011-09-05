@@ -83,6 +83,26 @@ class MediaAudiencePeer extends BaseMediaAudiencePeer {
 		return MediaAudienceQuery::create()->findPk($id);
 	}
 
+	/**
+	* Elimina definitivamente un mediaAudience a partir del id.
+	*
+	* @param int $id Id del mediaAudience
+	* @return boolean true
+	*/
+  function hardDelete($id) {
+		MediaAudiencePeer::disableSoftDelete();
+		$mediaAudience = MediaAudiencePeer::retrieveByPk($id);
+		try {
+			$mediaAudience->forceDelete();
+			return true;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
+	}
+
  /**
 	 * Retorna el criteria generado a partir de los parametros de busqueda
 	 *

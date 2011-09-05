@@ -1,7 +1,7 @@
 <h2>Medios</h2>
 <h1>Administración de audiencias de medios</h1>
 <p>A continuación se muestra la lista de audiencias de medio cargados en el sistema.</p>
-<div id="div_types"> 
+<div id="div_audiences"> 
 	|-if $message eq "ok"-|
 		<div class="successMessage">Audiencia guardada correctamente</div>
 	|-elseif $message eq "deleted_ok"-|
@@ -36,23 +36,23 @@
 			 <td colspan="3">|-if isset($filter)-|No hay tipos que concuerden con la búsqueda|-else-|No hay tipos disponibles|-/if-|</td>
 		</tr>
 	|-else-|
-		|-foreach from=$mediaAudiences item=mediaAudience name=for_types-|
+		|-foreach from=$mediaAudiences item=mediaAudience name=for_audiences-|
 		<tr> 
 	<!--		<td>|-$mediaAudience->getid()-|</td> -->
-			<td>|-$mediaAudience->getName()-|</td>
+			<td>|-if "mediasAudienceEdit"|security_has_access-|<span id="media_audience_|-$mediaAudience->getId()-|" class="in_place_editable">|-$mediaAudience->getName()-|</span>|-else-||-$mediaAudience->getName()-||-/if-|</td>      
 			<td nowrap>|-if "mediasAudienceEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="mediasAudienceEdit" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$mediaAudience->getid()-|" /> 
-					<input type="submit" name="submit_go_edit_type" value="Editar" title="Editar" class="icon iconEdit" /> 
+					<input type="submit" name="submit_go_edit_audience" value="Editar" title="Editar" id="media_audience_edit_|-$mediaAudience->getid()-|" class="icon iconEdit" /> 
 				</form> |-/if-|
 				|-if "mediasAudienceDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;"> 
 					<input type="hidden" name="do" value="mediasAudienceDoDelete" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$mediaAudience->getid()-|" /> 
-					<input type="submit" name="submit_go_delete_type" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar el Tipo?')" class="icon iconDelete" /> 
+					<input type="submit" name="submit_go_delete_audience" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar el Tipo?')" class="icon iconDelete" /> 
 			</form>
 			|-if $loginUser->isSupervisor()-|
 			<form action="Main.php" method="post" style="display:inline;"> 
@@ -61,14 +61,14 @@
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$mediaAudience->getid()-|" /> 
 					<input type="hidden" name="doHardDelete" value="true" /> 
-					<input type="submit" name="submit_go_delete_type" value="Borrar" title="Eliminar completamente" onclick="return confirm('Seguro que desea eliminar el Tipo definitivamente?')" class="icon iconHardDelete" /> 
+					<input type="submit" name="submit_go_delete_audience" value="Borrar" title="Eliminar completamente" onclick="return confirm('Seguro que desea eliminar el Tipo definitivamente?')" class="icon iconHardDelete" /> 
 			</form>
 			|-if $mediaAudience->getDeletedAt() != NULL-|<form action="Main.php" method="post" style="display:inline;"> 
 					<input type="hidden" name="do" value="mediasAudienceUndeleteX" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$mediaAudience->getid()-|" /> 
-					<input type="submit" name="submit_go_delete_type" value="Borrar" title="Recuperar registro" onclick="return confirm('Seguro que desea recuperar Tipo?')" class="icon iconUndelete" /> 
+					<input type="submit" name="submit_go_delete_audience" value="Borrar" title="Recuperar registro" onclick="return confirm('Seguro que desea recuperar Tipo?')" class="icon iconUndelete" /> 
 			</form>|-/if-||-/if-|
 			|-/if-|</td> 
 		</tr> 
@@ -85,4 +85,70 @@
 		</tbody> 
 		 </table> 
 </div>
-	
+<script type="text/javascript">
+Ajax.InPlaceEditor.prototype.__enterEditMode = Ajax.InPlaceEditor.prototype.enterEditMode;
+Object.extend(Ajax.InPlaceEditor.prototype, {
+  enterEditMode:function(e) {
+    this.__enterEditMode(e);
+    this.triggerCallback('onFormReady',this._form);
+  }
+});
+
+window.onload = function() {
+|-foreach from=$mediaAudiences item=mediaAudience name=for_audiences-|
+    new Ajax.InPlaceEditor(
+        'media_audience_|-$mediaAudience->getId()-|',
+        'Main.php?do=mediasAudienceEditFieldX',
+        {
+            rows: 1,
+            okText: 'Guardar',
+            cancelText: 'Cancelar',
+            savingText: 'Guardando...',
+            cancelControl: 'button',
+            savingClassName: 'inProgress',
+            externalControl: 'media_audience_edit_|-$mediaAudience->getid()-|',
+            clickToEditText: 'Haga click para editar',
+            callback: function(form, value) { 
+                return 'id=|-$mediaAudience->getId()-|&paramName=name&paramValue=' + encodeURIComponent(value);
+            },
+            onComplete: function(transport, element) {
+                clean_text_content_from(element);
+                new Effect.Highlight(element, { startcolor: this.options.highlightColor });
+            },
+            onFormReady: function(obj,form) {
+                form.insert({ top: new Element('label').update('Nombre: ') });
+            }
+        }
+    );
+|-/foreach-|
+}
+
+function showInput(to_show, to_hide) {
+    $(to_show).show();
+    $(to_hide).hide();
+}
+
+function prepareAndSubmit(form) {
+    var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater({
+            success: 'mediaAudienceList'
+        },
+        'Main.php',
+        {
+            method: 'post',
+            postBody: fields,
+            evalScripts: true,
+            insertion: Insertion.Bottom
+        }
+    );
+    form.name.value = '';
+}
+
+function chomp(raw_text) {
+    return raw_text.replace(/(\n|\r)+$/, '');
+}
+
+function clean_text_content_from(element) {
+    element.innerHTML = chomp(element.innerHTML);
+}
+</script>
