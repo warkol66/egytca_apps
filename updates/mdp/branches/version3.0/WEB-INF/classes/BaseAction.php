@@ -129,29 +129,21 @@ class BaseAction extends Action {
 		header("Content-type: text/html; charset=UTF-8");
 
 		if (!$noCheckLogin) { //Verifica login $noCheckLogin != 1
-			if (!empty($loginUser) || !empty($loginUserAffiliate) || !empty($loginRegistrationUser)) {
 
+			$loggedUser = Common::getLoggedUser();
+			if (!empty($loggedUser)) {
 				if (!ConfigModule::get("global","noSecurity")) {
-
-					if (!empty($loginUser))
-						$user = $loginUser;
-					else if (!empty($loginUserAffiliate))
-						$user = $loginUserAffiliate;
-					else if (!empty($loginRegistrationUser))
-						$user = $loginRegistrationUser;
-
-					if (!empty($user))
-						$userLevel = $user->getLevel();
-
 					if (!empty($securityAction))
-						$access = $securityAction->getAccessByUser($user);
+						$access = $securityAction->getAccessByUser($loggedUser);
 					else if (!empty($securityModule))
-						$access = $securityModule->getAccessByUser($user);
+						$access = $securityModule->getAccessByUser($loggedUser);
 
-					if (!empty($securityAction) || !empty($securityModule)) {
+					if (empty($access)) {// No tiene permiso
+						header("Location:Main.php?do=securityNoPermission");
+						exit();
 					}
 				}
-				else {//No verifica seguridad
+				else { //No verifica seguridad
 				}
 			}
 			else { //Si requiere login y no hay sesion va a login

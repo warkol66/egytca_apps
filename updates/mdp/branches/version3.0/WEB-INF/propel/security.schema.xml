@@ -7,6 +7,7 @@
 		<column name="access" type="INTEGER" description="El acceso a ese action" />
 		<column name="accessAffiliateUser" type="INTEGER" description="El acceso a ese action para los usuarios por afiliados" />
 		<column name="accessRegistrationUser" type="INTEGER" description="El acceso a ese action para los usuarios por registracion" />
+		<column name="accessClientUser" type="INTEGER" description="El acceso a ese action para los usuarios por cliente" />
 		<column name="active" type="INTEGER" description="Si el action esta activo o no" />
 		<column name="pair" type="VARCHAR" size="100" description="Par del Action" />
 		<column name="noCheckLogin" type="BOOLEAN" default="false" description="Si no se chequea login ese action" />
@@ -28,6 +29,7 @@
 		<column name="access" type="INTEGER" description="El acceso a ese modulo" />
 		<column name="accessAffiliateUser" type="INTEGER" description="El acceso a ese modulo para los usuarios por afiliados" />
 		<column name="accessRegistrationUser" type="INTEGER" description="El acceso a ese modulo para los usuarios por registracion" />
+		<column name="accessClientUser" type="INTEGER" description="El acceso a ese action para los usuarios por cliente" />
 		<column name="noCheckLogin" type="BOOLEAN" default="false" description="Si no se chequea login ese modulo" />
 
 		<vendor type="mysql">

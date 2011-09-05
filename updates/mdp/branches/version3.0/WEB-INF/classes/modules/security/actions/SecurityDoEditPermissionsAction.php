@@ -27,7 +27,6 @@ class SecurityDoEditPermissionsAction extends BaseAction {
 	function updateActionsPermissionsToOutput($module,$pairs,$permission,$permissionAffiliate,$permissionRegistration,$noCheckLoginArray,$db) {
 
 		$sql = SecurityActionPeer::getSQLCleanup($module);
-
 		$queries = explode(";",$sql);
 
 		foreach ($queries as $query) {
@@ -47,7 +46,6 @@ class SecurityDoEditPermissionsAction extends BaseAction {
 
 				if ($bitLevel > 0)
 					$bitLevel += 1;	//El supervisor siempre tiene acceso
-
 			}
 
 			if (isset($permissionAffiliate[$action]['all'])) //para ese action todos los permisos
@@ -66,13 +64,9 @@ class SecurityDoEditPermissionsAction extends BaseAction {
 			if ($noCheckLoginArray[$action] == '1')
 				$noCheckLogin = 1;
 
-
 			$pairedAction = "";
 			if (array_key_exists('pair',$pairs[$action])) //vemos si la accion tiene definido un pair
 				$pairedAction = lcfirst($pairs[$action]['pair']);
-
-			//TODO FALTA SECCION
-			$section = '';
 
 			$securityAction = new SecurityAction();
 			$securityAction->setAction(lcfirst($action));
@@ -89,9 +83,7 @@ class SecurityDoEditPermissionsAction extends BaseAction {
 
 			if (!empty($sql))
 				$db->query($sql);
-
 		}
-
 	}
 
 	/**
@@ -122,9 +114,7 @@ class SecurityDoEditPermissionsAction extends BaseAction {
 
 			foreach ($permissionAffiliate['access'] as $access) {
 				$bitLevelAffiliate += $access;
-
 			}
-
 		}
 
 		$accessRegistrationUser = 0;
@@ -158,19 +148,12 @@ class SecurityDoEditPermissionsAction extends BaseAction {
 			if (!empty($query))
 				$db->query($query);
 		}
-
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
 
 		BaseAction::execute($mapping, $form, $request, $response);
-		global $PHP_SELF;
-		//////////
-		// Call our business logic from here
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
