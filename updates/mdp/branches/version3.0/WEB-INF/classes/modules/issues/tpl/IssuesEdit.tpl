@@ -76,4 +76,6 @@ function removeActorFromIssue(form){
 </p>
 |-/if-|
 
+|-if $action eq 'edit'-|
 |-include file="IssuesShowRelatedInclude.tpl"-|
+|-/if-|
