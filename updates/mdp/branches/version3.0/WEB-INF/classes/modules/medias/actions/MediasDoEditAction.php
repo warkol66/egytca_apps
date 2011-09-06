@@ -22,9 +22,6 @@ class MediasDoEditAction extends BaseAction {
 		if (!empty($_POST["filters"]))
 			$filters = $_POST["filters"];
 
-		$mediaTypes = MediaTypePeer::getAll();
-		$smarty->assign("mediaTypes",$mediaTypes);
-
 		$userParams = Common::userInfoToDoLog();
 		$mediaParams = array_merge_recursive($_POST["params"],$userParams);
 

@@ -11,6 +11,9 @@ class MediasEditAction extends BaseAction {
 		$mediaAudiences = MediaAudienceQuery::create()->find();
 		$smarty->assign('mediaAudiences',$mediaAudiences);
 
+		$mediaTypes = MediaTypeQuery::create()->find();
+		$smarty->assign("mediaTypes",$mediaTypes);
+
 	}
 
 	function MediasEditAction() {
@@ -35,9 +38,6 @@ class MediasEditAction extends BaseAction {
 
 		$moduleConfig = Common::getModuleConfiguration($module);
 		$smarty->assign("moduleConfig",$moduleConfig);
-
-		$mediaTypes = MediaTypePeer::getAll();
-		$smarty->assign("mediaTypes",$mediaTypes);
 
 		if (!empty($_GET["id"])) {
 			//voy a editar un objeto
