@@ -14,7 +14,9 @@
 			|-assign var=role value=$headlineActor->getRole()-|
 		|-/if-|
 	|-/foreach-|
-	|-if $role neq ''-||-assign var=action value='show'-||-else-||-assign var=action value=''-||-/if-|
+	|-if $role neq ''-||-assign var=actorRoleAction value='show'-||-else-||-assign var=actorRoleAction value=''-||-/if-|
 	|-assign var=headlinePeer value=$headline->getPeer()-|
-	|-include file='HeadlinesSelectActorRole.tpl' action=$action actorId=$actor->getId() headlineId=$headline->getId() role=$role roles=$headlinePeer->getHeadlineRoles()-|
+	<span id='span_role_for_|-$actor->getId()-|'>
+	|-include file='HeadlinesSelectActorRole.tpl' action=$actorRoleAction actorId=$actor->getId() headlineId=$headline->getId() role=$role roles=$headlinePeer->getHeadlineRoles()-|
+	</span>
 </li>
