@@ -40,11 +40,14 @@
 		<input type="hidden" name="category[isPublic]" value="0" />
 		<input type="checkbox" name="category[isPublic]" value="1" |-if $category->getIsPublic() eq 1-| checked="checked" |-/if-| />
 		</p>
+		<p>
+		|-include file="HiddenInputsInclude.tpl" action="$action" filters="$filters" page="$page"-|
 		<input type="hidden" name="id" id="id" value="|-$category->getId()-|" />
 		<input type="hidden" name="action" id="action" value="|-$action-|" />
 		<input type="hidden" name="do" id="do" value="categoriesDoEdit" />
-		<input type='submit' name="ncat" value="##149,Aceptar##" class='button' />
-		<input type='button' name="ncat" value="Regresar" class='button' onClick="history.back();"/>
+		<input type="submit" value="##149,Aceptar##" />
+		<input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=categoriesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"/>
+		</p>
 </form>
 
 </fieldset>

@@ -1,6 +1,6 @@
 |-foreach from=$categories item=category name=for_categories-|
 	|-if $category->getId() ne $actual-|
-		<option value="|-$category->getId()-|" |-if $category->getId() eq $selected-|selected="selected"|-/if-| |-if $selectedCategoryId neq '' and $category->getId() eq $selectedCategoryId-|selected="selected"|-/if-|>|-section name=spacesCategories start=0 loop=$count-|&nbsp;&nbsp;&nbsp;&nbsp;|-/section-||-$category->getName()-|</option>
+		<option value="|-$category->getId()-|" |-$category->getId()|selected:$selected-| |-$category->getId()|selected:$selectedCategoryId-|>|-section name=spacesCategories start=0 loop=$count-|&nbsp; &nbsp; |-/section-||-$category-|</option>
 	|-/if-|
 	|-assign var=newCount value=$count+1-|
 	|-assign var=childrens value=$category->getChildrenCategoriesByUser($loginUser)-|

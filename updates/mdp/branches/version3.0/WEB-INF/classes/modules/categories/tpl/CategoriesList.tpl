@@ -1,25 +1,33 @@
 <script language="JavaScript" type="text/JavaScript">
-function categoriesDoEditX() {
-	var pars = 'do=categoriesDoEditX';
-	var fields = Form.serialize('form_category_add');
-
-	var myAjax = new Ajax.Updater(
-				{success: 'categoriesListPlaceHolder'},
-				'Main.php?do=categoriesDoEditX',
-				{
-					method: 'post',
-					parameters: pars,
-					evalScripts: true,
-					postBody: fields,
-					insertion: Insertion.Bottom
-				});
-	$('categoryMsgField').innerHTML = '<span class="inProgress">agregando categoría...</span>';
-	$('name').value = "";
-}
+	function categoriesDoEditX() {
+		var pars = 'do=categoriesDoEditX';
+		var fields = Form.serialize('form_category_add');
+	
+		var myAjax = new Ajax.Updater(
+					{success: 'categoriesListPlaceHolder'},
+					'Main.php?do=categoriesDoEditX',
+					{
+						method: 'post',
+						parameters: pars,
+						evalScripts: true,
+						postBody: fields,
+						insertion: Insertion.Bottom
+					});
+		$('categoryMsgField').innerHTML = '<span class="inProgress">agregando categoría...</span>';
+		$('name').value = "";
+	}
 </script>
 <h2>##common,18,Configuración del Sistema##</h2>
 <h1>##139,Editar categorías##</h1>
-|-if $message eq "notdeleted"-|<div class='errorMessage'>##140,No se pudo eliminar la categoría porque posee datos asociados##.</div>|-/if-|
+<div id="categoriesResultMsg">
+|-if $message eq "ok"-|
+	<div class="successMessage">Categoría modificada correctamente</div>
+|-elseif $message eq "deleted_ok"-|
+	<div class="successMessage">Categoría eliminada correctamente</div>
+|-elseif $message eq "notdeleted"-|
+	<div class="failureMessage">##140,No se pudo eliminar la categoría porque posee datos asociados##.</div>
+|-/if-|
+</div>
 <p>##141,A continuación podrá editar la lista de categorías disponibles. Podrá Agregar, Modificar o Eliminar categorías de la lista de categorías disponibles. Sólo podrá eliminar las categorías que no tengan ningún dato asignado.##</p>
 <form method='get' action="Main.php" id="form_category_list" style="display:inline;">
 	<input type="hidden" name="do" value="categoriesList" />
@@ -32,18 +40,15 @@ function categoriesDoEditX() {
 				<option value="|-$moduleObj->getName()-|" |-$moduleObj->getName()|selected:$filters.searchModule-|>|-$moduleObj->getName()|multilang_get_translation:"common"-|</option>
 			|-/foreach-|
 			</select>
-			<input type='submit' name="ncat" value="Mostrar categorías" class='button' />
+			<input type="submit" value="Mostrar categorías" />
 			</p>
-<br />
-
+			<h3>Categorías del módulo</h3>
 		|-if $parentUserCategories|@count gt 0-|
-			<p>Categorías del módulo</p>
 			|-include file="CategoriesListInclude.tpl" categories=$parentUserCategories-|
 		|-else-|
 			<ul>
 				<li>El módulo no tiene categorías asociadas</li>
-				<div id="categoriesListPlaceHolder">
-			</div>
+				<div id="categoriesListPlaceHolder"></div>
 		</ul>
 		|-/if-|
 	</fieldset>
@@ -82,7 +87,7 @@ function categoriesDoEditX() {
 					|-include file="CategoriesOptionsInclude.tpl" categories=$parentUserCategories user=$user count='0'-|
 				</select>
 				&nbsp;&nbsp;
-				<input type='submit' name="mcat" value="##145,Modificar##" class='button' />
+				<input type="submit" value="##145,Modificar##" />
 				<input type="hidden" name="do" value="categoriesEdit" />
 			</form>
 				&nbsp;&nbsp;

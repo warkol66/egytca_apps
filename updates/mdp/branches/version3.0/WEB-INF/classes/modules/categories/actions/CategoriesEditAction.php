@@ -27,7 +27,7 @@ class CategoriesEditAction extends BaseAction {
     if (!empty($category)) {
 			$user = Common::getLoggedUser();
 
-			$parentCategories = $categoryPeer->getAllParentsByUserAndModule($user,$category->getModule());
+			$parentCategories = CategoryPeer::getAllParentsByUserAndModule($user,$category->getModule());
 			$smarty->assign("parentUserCategories",$parentCategories);
 
 			//categorias para select de categorias padre
