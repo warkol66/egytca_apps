@@ -76,3 +76,4 @@ function removeActorFromIssue(form){
 </p>
 |-/if-|
 
+|-include file="IssuesShowRelatedInclude.tpl"-|

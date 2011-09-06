@@ -1,8 +1,4 @@
-<label for='p_issue'>Asunto</label>
-<p id='p_issue'>
-	|-$issue->getName()-|
-</p>
-
+|-assign var=parent value=$issue->getParentIssue()-|
 |-if $parent neq ''-|
 <label for='p_parent'>Padre</label>
 <p id='p_parent'>
@@ -10,7 +6,8 @@
 </p>
 |-/if-|
 
-|-if $childsCount neq 0-|
+|-assign var=childs value=$issue->getChildIssues()-|
+|-if $childs neq ''-|
 <label for='ul_childs'>Hijos</label>
 <ul id='ul_childs'>
 	|-foreach from=$childs item=child-|

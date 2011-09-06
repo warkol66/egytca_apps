@@ -118,5 +118,23 @@ class Issue extends BaseIssue {
 	function getParentIssue(){
 		return IssueQuery::create()->findOneById($this->getParentId());
 	}
+	
+	/**
+	* Obtiene los hijos de un issue.
+	* 
+	*	@return array de Issues hijos, o null si no tiene.
+	*/
+	function getChildIssues() {
+		
+		$criteria = new Criteria();
+		$criteria->add("parentId", $this->getId(), Criteria::EQUAL);
+		$childs = IssuePeer::doSelect($criteria);
+		
+		if (count($childs) != 0) {
+			return $childs;
+		} else {
+			return null;
+		}
+	}
 
 } // Issue

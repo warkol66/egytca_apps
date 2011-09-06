@@ -10,7 +10,7 @@
 	<table id="tabla-issues" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead> 
 		<tr>
-			<td colspan="6" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda de ##issues,1,Asuntos## </a>
+			<td colspan="7" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda de ##issues,1,Asuntos## </a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<p>Texto: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
         Categoría <select name="filters[categoryId]" id="categoryId"> 
@@ -52,20 +52,21 @@
 			</p></form></div></td>
 		</tr>
 			|-if "issuesEdit"|security_has_access-|<tr>
-				 <th colspan="6" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=issuesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##issues,2,Asunto##</a></div></th>
+				 <th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=issuesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##issues,2,Asunto##</a></div></th>
 			</tr>|-/if-|
 			<tr class="thFillTitle"> 
 				<th width="20%">##issues,2,Asunto##</th> 
-				<th width="40%">Descripción</th> 
+				<th width="35%">Descripción</th> 
 				<th width="10%">Valoración</th>
 				<th width="10%">Impacto</th>
 				<th width="10%">Evolución</th> 
+				<th width="5%">Related</th>
 				<th width="5%">&nbsp;</th> 
 			</tr> 
 		</thead> 
 	<tbody>|-if $issues|@count eq 0-|
 		<tr>
-			 <td colspan="6">|-if isset($filter)-|No hay ##issues,1,Asuntos## que concuerden con la búsqueda|-else-|No hay ##issues,1,Asuntos## disponibles|-/if-|</td>
+			 <td colspan="7">|-if isset($filter)-|No hay ##issues,1,Asuntos## que concuerden con la búsqueda|-else-|No hay ##issues,1,Asuntos## disponibles|-/if-|</td>
 		</tr>
 	|-else-|
 		|-foreach from=$issues item=issue name=for_issues-|
@@ -75,6 +76,11 @@
 			<td>|-$issue->getValorationTypeTranslated()-|</td>
 			<td>|-$issue->getImpactTypeTranslated()-|</td>
 			<td>|-$issue->getEvolutionStageTranslated()-|</td>
+			<td style="text-align:center">
+				|-if $issue->getParentIssue() neq '' -| P |-else-| - |-/if-|
+				&nbsp; / &nbsp;
+				|-if $issue->getChildIssues() neq '' -| C |-else-| - |-/if-|
+			</td>
 			<td nowrap>|-if "issuesEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="issuesEdit" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
@@ -101,11 +107,11 @@
 		|-/foreach-|
 		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
 		<tr> 
-			<td colspan="6" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+			<td colspan="7" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 			|-if "issuesEdit"|security_has_access-|<tr>
-				 <th colspan="6" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=issuesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##issues,2,Asunto##</a></div></th>
+				 <th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=issuesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##issues,2,Asunto##</a></div></th>
 			</tr>|-/if-|
 		|-/if-|
 		</tbody> 
