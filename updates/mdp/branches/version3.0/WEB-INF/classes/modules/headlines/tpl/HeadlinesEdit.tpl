@@ -1,3 +1,9 @@
+<script type="text/javascript" src="scripts/lightbox.js"></script> 			
+<div id="lightbox2" class="leightbox"> 
+	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p> 
+	|-include file="ActorsEditInclude.tpl"-|
+</div> 
+
 <h2>##headlines,1,Titulares##</h2>
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| ##headlines,2,Titular##</h1>
 <div id="div_headline">
@@ -102,6 +108,7 @@ function removeActorFromHeadline(form){
 	<legend>Actores</legend>
 	<div id="actorMsgField"></div>
 	<form method="post" style="display:inline;">
+		<a class="tooltipWide" href="#"><span>Sólo podrá agregar Actores que estén cargados en el sistema.</span><img src="images/icon_info.png"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#lightbox2" rel="lightbox2" class="lbOn addLink">Crear nuevo actor </a> <br />
 		<div id="headlineActor" style="position: relative;z-index:10000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_actors" label="Agregar actor al ##headlines,4,titular##" url="Main.php?do=actorsAutocompleteListX&getCandidates=1&headlineId="|cat:$headline->getId() hiddenName="actor[id]" disableSubmit="addActorSubmit"-|
 		</div>

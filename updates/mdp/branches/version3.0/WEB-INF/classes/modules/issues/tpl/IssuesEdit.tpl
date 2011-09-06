@@ -1,3 +1,9 @@
+<script type="text/javascript" src="scripts/lightbox.js"></script> 			
+<div id="lightbox2" class="leightbox"> 
+	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p> 
+	|-include file="ActorsEditInclude.tpl"-|
+</div> 
+
 <h2>##issues,1,Asuntos##</h2>
 <h1>|-if $action eq 'edit'-|Editar|-elseif $action eq 'showLog'-|Ver|-else-|Crear|-/if-| ##issues,2,Asunto##</h1>
 |-include file="CommonAutocompleterInclude.tpl" -|
@@ -43,6 +49,7 @@ function removeActorFromIssue(form){
     <div id="actorMsgField"></div>
     |-if $action neq 'showLog'-|
     <form method="post" style="display:inline;">
+	<a class="tooltipWide" href="#"><span>Sólo podrá agregar Actores que estén cargados en el sistema.</span><img src="images/icon_info.png"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#lightbox2" rel="lightbox2" class="lbOn addLink">Crear nuevo actor </a> <br />
         <div id="issueActor" style="position: relative;z-index:10000;">
             |-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_actors" label="Agregar actor al ##issues,4,asunto##" url="Main.php?do=actorsAutocompleteListX&getCandidates=1&issueId="|cat:$issue->getId() hiddenName="actor[id]" disableSubmit="addActorSubmit"-|
 	</div>
