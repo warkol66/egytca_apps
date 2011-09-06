@@ -351,7 +351,7 @@ class User extends BaseUser {
 
 		$criteria = new Criteria();
 		$criteria->add(CategoryPeer::ACTIVE, 1, Criteria::EQUAL);
-		$criteria->add(CategoryPeer::PARENTID, $categoryId, Criteria::EQUAL);
+//		$criteria->add(CategoryPeer::PARENTID, $categoryId, Criteria::EQUAL);
 		$criteria->add(CategoryPeer::ISPUBLIC, 1, Criteria::EQUAL);
 
 		if (DocumentPeer::usesGlobalCategories()) {
