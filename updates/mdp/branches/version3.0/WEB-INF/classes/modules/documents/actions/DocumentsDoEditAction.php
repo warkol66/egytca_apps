@@ -108,10 +108,10 @@ class DocumentsDoEditAction extends DocumentsBaseAction {
 					$project = $queryInstance->findPK($_POST['entityId']);
 					$document->$addMethod($project);
 					$document->save();
-					return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping, 'success' . $_POST['entity']);
+					return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadSuccess'), $mapping, 'success' . $_POST['entity']);
 				}
 			}
-			return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'errormessage'=>'documentUploadError'), $mapping, 'failureUpload' . $_POST['entity']);
+			return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'errormessage'=>'uploadFailure'), $mapping, 'failureUpload' . $_POST['entity']);
 		}
 
 	}
