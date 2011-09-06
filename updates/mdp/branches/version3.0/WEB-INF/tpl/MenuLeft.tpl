@@ -3,10 +3,21 @@
 		<li><a href="Main.php?do=usersWelcome">Ir al Inicio</a></li>
 
 		<li class="titleMenu" onclick="$('sectionApplications').toggle()">Aplicaciones</li>
-		<div id="sectionApplications" style="display:|-if $module|upper eq 'ISSUES' || $module|upper eq 'ACTORS' || $module|upper eq 'HEADLINES'-|block|-else-|none|-/if-|">
+		<div id="sectionApplications" style="display:|-if $module|upper eq 'ISSUES' || $module|upper eq 'ACTORS' || $module|upper eq 'HEADLINES' || $module|upper eq 'CAMPAIGNS'-|block|-else-|none|-/if-|">
 			<li><a href="Main.php?do=actorsList">Actores</a></li>
 			<li><a href="Main.php?do=issuesList">Asuntos</a></li>
 			<li><a href="Main.php?do=headlinesList">Titulares</a></li>
+			<li><a href="Main.php?do=campaignsList">Campañas</a></li>
+		</div>
+
+		<li class="titleMenu" onclick="$('sectionConfigurations').toggle()">Configuración</li>
+		<div id="sectionConfigurations" style="display:|-if $module|upper eq 'CLIENTS' || $module|upper eq 'MEDIAS'-|block|-else-|none|-/if-|">
+			<li><a href="Main.php?do=mediasTypeList">Tipo de medios</a></li>
+			<li><a href="Main.php?do=mediasAudienceList">Audiencias</a></li>
+			<li><a href="Main.php?do=mediasMarketList">Mercados</a></li>
+			<li><a href="Main.php?do=mediasList">Medios</a></li>
+			<li><a href="Main.php?do=clientsList">Clientes</a></li>
+			<li><a href="Main.php?do=clientsUsersList">Usuarios de Clientes</a></li>
 		</div>
 
 		<li class="titleMenu" onclick="$('sectionAdmin').toggle()">Administración</li>
