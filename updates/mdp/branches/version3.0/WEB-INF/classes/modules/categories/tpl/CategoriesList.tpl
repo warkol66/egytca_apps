@@ -1,3 +1,22 @@
+<script language="JavaScript" type="text/JavaScript">
+function categoriesDoEditX() {
+	var pars = 'do=categoriesDoEditX';
+	var fields = Form.serialize('form_category_add');
+
+	var myAjax = new Ajax.Updater(
+				{success: 'categoriesListPlaceHolder'},
+				'Main.php?do=categoriesDoEditX',
+				{
+					method: 'post',
+					parameters: pars,
+					evalScripts: true,
+					postBody: fields,
+					insertion: Insertion.Bottom
+				});
+	$('categoryMsgField').innerHTML = '<span class="inProgress">agregando categoría...</span>';
+	$('name').value = "";
+}
+</script>
 <h2>##common,18,Configuración del Sistema##</h2>
 <h1>##139,Editar categorías##</h1>
 |-if $message eq "notdeleted"-|<div class='errorMessage'>##140,No se pudo eliminar la categoría porque posee datos asociados##.</div>|-/if-|
@@ -8,26 +27,25 @@
 	<legend>Categorías del Sistema</legend>
 			<p><label for="filters[searchModule]">Módulo</label>
 			<select name="filters[searchModule]">
-				<option value="all" |-if isset($filters.searchModule) and ($filters.searchModule eq 'all')-| selected="selected" |-/if-|>|-"-- Seleccione uno --"|multilang_get_translation:"common"-|</option>
-				<option value="" |-if isset($filters.searchModule) and $filters.searchModule eq ''-| selected="selected" |-/if-|>|-"Global"|multilang_get_translation:"common"-|</option>
+				<option value='' selected="selected">|-"Global"|multilang_get_translation:"common"-|</option>
 			|-foreach from=$modules item=moduleObj-|
-				<option value="|-$moduleObj->getName()-|" |-if isset($filters.searchModule) and ($moduleObj->getName() eq $filters.searchModule)-|selected="selected"|-/if-|>|-$moduleObj->getName()|multilang_get_translation:"common"-|</option>
+				<option value="|-$moduleObj->getName()-|" |-$moduleObj->getName()|selected:$filters.searchModule-|>|-$moduleObj->getName()|multilang_get_translation:"common"-|</option>
 			|-/foreach-|
 			</select>
 			<input type='submit' name="ncat" value="Mostrar categorías" class='button' />
 			</p>
 <br />
 
-		<div id="categoriesListPlaceHolder">
 		|-if $parentUserCategories|@count gt 0-|
 			<p>Categorías del módulo</p>
 			|-include file="CategoriesListInclude.tpl" categories=$parentUserCategories-|
 		|-else-|
 			<ul>
 				<li>El módulo no tiene categorías asociadas</li>
-			</ul>
+				<div id="categoriesListPlaceHolder">
+			</div>
+		</ul>
 		|-/if-|
-		</div>
 	</fieldset>
 </form>
 
@@ -38,8 +56,7 @@
 		<p><label for="category[name]">Nombre Categoría</label>
 		<input type="text" name="category[name]" id="name" value='' size="50" />
 		</p>
-		|-include file="FiltersRedirectInclude.tpl"-|
-		<input type="hidden" name="category[module]" value="|-if isset($filters.searchModule) and $filters.searchModule ne 'all'-||-$filters.searchModule-||-/if-|" id="selectedModule">
+		<input type="hidden" name="category[module]" value="|-$filters.searchModule-|" id="selectedModule">
 		<p><label for="category[parentId]">Dentro de</label>
 		<select name="category[parentId]" id="selectAddCategory">
 			<option value="0">Ninguna</option>
@@ -50,7 +67,7 @@
 			<input type="checkbox" name="category[isPublic]" value="1" />
 		</p>
 		<p><input type="hidden" name="do" value="categoriesDoEditX" />
-		<input type='button' onclick="categoriesDoEditX(this.form)" name="ncat" value="##143,Agregar##" class='button' /><span id="systemWorking" style="display:none;" class="inProgress">...Agregando Categoría...</span>
+		<input type='button' onclick="categoriesDoEditX(this.form)" name="ncat" value="##143,Agregar##" class='button' /> <span id="categoryMsgField"></span>
 		</p>
 	</fieldset>
 </form>

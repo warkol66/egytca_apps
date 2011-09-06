@@ -1,9 +1,8 @@
-<p>Categorías del módulo</p>
-|-include file="CategoriesListInclude.tpl" categories=$parentUserCategories-|
-
 |-if $newCategory neq ''-|
-
+	<li>|-$newCategory->getName()-|</li>		
 	<script type="text/javascript">
+		$('categoryMsgField').innerHTML = '<span class="resultSuccess">Categoría agregada</span>';
+
 		var selectAdd = $('selectAddCategory');
 		var selectModify = $('selectModifyCategory');
 	

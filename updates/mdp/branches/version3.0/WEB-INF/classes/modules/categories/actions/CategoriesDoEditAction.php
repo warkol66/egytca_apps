@@ -1,5 +1,9 @@
 <?php
 
+require_once("BaseAction.php");
+require_once("CategoryPeer.php");
+require_once("GroupCategoryPeer.php");
+
 class CategoriesDoEditAction extends BaseAction {
 
 
@@ -50,23 +54,28 @@ class CategoriesDoEditAction extends BaseAction {
 
 		if ( $_POST["accion"] == "edicion" ) {
 			//estoy editando un category existente
-      $category = $categoryPeer->get($_POST['id']);
+
+			if ($categoryPeer->update($_POST['id'], $categoryParams))
+				$myRedirectConfig = $mapping->findForwardConfig('success');
+			else
+				$myRedirectConfig = $mapping->findForwardConfig('failure');
+
+			$myRedirectPath = $myRedirectConfig->getpath();
+			$myRedirectPath .= '&categoryModule=' . $categoryParams['module'];
+			$fc = new ForwardConfig($myRedirectPath, True);
+			return $fc;
+
 		}
 		else {
 		  //estoy creando un nuevo category
-      $category = new Category;
-		}
-    Common::setObjectFromParams($category, $categoryParams);
-    if ($category->save())
-      $myRedirectConfig = $this->addFiltersToForwards(array('searchModule' => $categoryParams['module']), $mapping, 'success');
-    else
-      $myRedirectConfig = $this->addFiltersToForwards(array('searchModule' => $categoryParams['module']), $mapping, 'failure');
 
-    //le asigno permisos a la categoria creada a todos los grupos al cual pertenece el usuario
-    //separacion entre caso de usuario dependencia y usuario administrador  
-    if (isset($user) && $category->isNew()) {
-      $user->setGroupsToCategory($category->getId());
-    }
-    return $myRedirectConfig;
+			$categoryId = $categoryPeer->create($categoryParams);
+			//le asigno permisos a la categoria creada a todos los grupos al cual pertenece el usuario
+			$user = getLoginUser();
+			return $mapping->findForwardConfig('success');
+	
+		}
+
 	}
+
 }

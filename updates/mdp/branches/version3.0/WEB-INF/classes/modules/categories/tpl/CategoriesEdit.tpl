@@ -14,10 +14,6 @@
 			<label for="category[name]">Nombre</label>
 		<input type="text" name="category[name]" id="name" value='|-$category->getName()-|' size="50" />
 		</p>
-		<p>
-      <label for="description">Descripción</label>
-      <textarea name="category[description]" cols="45" rows="5" wrap="virtual" id="description">|-$category->getdescription()-|</textarea>
-    </p>
 	|-if $category->isParent()-|
 		<p><label for="category[module]">Módulo</label>
 		<select name="category[module]">
@@ -45,7 +41,7 @@
 		<input type="checkbox" name="category[isPublic]" value="1" |-if $category->getIsPublic() eq 1-| checked="checked" |-/if-| />
 		</p>
 		<input type="hidden" name="id" id="id" value="|-$category->getId()-|" />
-		<input type="hidden" name="accion" id="accion" value="edicion" />
+		<input type="hidden" name="action" id="action" value="|-$action-|" />
 		<input type="hidden" name="do" id="do" value="categoriesDoEdit" />
 		<input type='submit' name="ncat" value="##149,Aceptar##" class='button' />
 		<input type='button' name="ncat" value="Regresar" class='button' onClick="history.back();"/>
