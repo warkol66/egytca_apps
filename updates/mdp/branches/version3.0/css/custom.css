@@ -130,9 +130,8 @@ body {
 #rightColumn h2{
 	color:#999;
 }
-#rightColumn h3, h4 {
+#rightColumn h3, h4, h5 {
 	color:#0066CC;
-	margin-bottom: 5px !Important;
 }
 #rightColumn h2 a:link, #rightColumn h2 a:visited{
 	color: #003399;

@@ -3,12 +3,13 @@
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p> 
 	|-include file="ActorsEditInclude.tpl"-|
 </div> 
-
 <h2>##headlines,1,Titulares##</h2>
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| ##headlines,2,Titular##</h1>
 <div id="div_headline">
 	<p>Ingrese los datos del ##headlines,2,Titular##</p>
-		|-if $message eq "error"-|<span class="message_error">Ha ocurrido un error al intentar guardar el ##headlines,2,Titular##</span>|-/if-|
+		|-if $message eq "error"-|
+			<div class="failureMessage">Ha ocurrido un error al intentar guardar el ##headlines,2,Titular##</div>
+		|-/if-|
 	<form name="form_edit_headline" id="form_edit_headline" action="Main.php" method="post">
 		<fieldset title="Formulario de edición de datos de un titular">
 			<legend>Formulario de Administración de ##headlines,1,Titulares##</legend>
@@ -18,46 +19,48 @@
 			</p>
 			<p>
 				<label for="params[content]">Contenido</label>
-                                <textarea id="params[content]" name="params[content]" cols="42" rows="6" wrap="VIRTUAL" title="Contenido">|-$headline->getContent()|escape-|</textarea><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
+					<textarea id="params[content]" name="params[content]" cols="42" rows="6" wrap="VIRTUAL" title="Contenido">|-$headline->getContent()|escape-|</textarea><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
 			</p>
-                        <p>     
+			<p>     
 				<label for="params[datePublished]">Fecha de Publicación</label>
 				<input id="params[datePublished]" name="params[datePublished]" type='text' value='|-$headline->getDatePublished()-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[datePublished]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
-                        <p>     
+			<p>     
 				<label for="params[headlineDate]">Fecha del Titular</label>
 				<input id="params[headlineDate]" name="params[headlineDate]" type='text' value='|-$headline->getHeadlineDate()-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[headlineDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
-			<p>     <label for="params[url]">Url del Titular</label>
-				<input id="params[url]" name="params[url]" type='text' value='|-$headline->getUrl()-|' size="65" />
+		<p>
+			<label for="params[url]">Url</label>
+			<input id="params[url]" name="params[url]" type='text' value='|-$headline->getUrl()-|' size="65" title="Ingrese el url del titular incluyendo el el http://" />|-if $headline->getUrl() ne ''-| <a href="|-$headline->getUrl()-|" target="_blank" ><img src="images/clear.png" class="icon iconGoTo" /></a>|-/if-|
 			</p>
 			<p>     
-				<label for="params[twitts]">Twitts del Titular</label>
-				<input id="params[twitts]" name="params[twitts]" type='text' value='|-$headline->getTwitts()-|' size="10" />
-			</p>
-			<p>     
-				<label for="params[fcb]">Fcb del Titular</label>
-				<input id="params[fcb]" name="params[fcb]" type='text' value='|-$headline->getFcb()-|' size="10" />
-			</p>
-			<p>     
-				<label for="params[gplus]">G+ del Titular</label>
-				<input id="params[gplus]" name="params[gplus]" type='text' value='|-$headline->getGplus()-|' size="10" />
-			</p>
-			<p>     
-				<label for="params[comment]">Comment del Titular</label>
-				<input id="params[comment]" name="params[comment]" type='text' value='|-$headline->getComment()-|' size="10" />
-			</p>
-			<p>     
-				<label for="params[picture]">Foto del Titular</label>
+				<label for="params[picture]">Foto</label>
 				<select id="params[picture]" name="params[picture]">
-					<option value=0 |-if $headline->getPicture() neq 1-|selected="selected"|-/if-|>No</option>
-					<option value=1 |-if $headline->getPicture() eq 1-|selected="selected"|-/if-|>Sí</option>
+					<option value="0" |-$headline->getPicture()|selected:0-|>No</option>
+					<option value="1" |-$headline->getPicture()|selected:1-|>Sí</option>
 				</select>
+			</p>
+			<p>     
+				<label for="params[twitts]">Twitts</label>
+				<input id="params[twitts]" name="params[twitts]" type='text' value='|-$headline->getTwitts()-|' size="5" />
+			</p>
+			<p>     
+				<label for="params[fcb]">Fcb</label>
+				<input id="params[fcb]" name="params[fcb]" type='text' value='|-$headline->getFcb()-|' size="5" />
+			</p>
+			<p>     
+				<label for="params[gplus]">G+ </label>
+				<input id="params[gplus]" name="params[gplus]" type='text' value='|-$headline->getGplus()-|' size="5" />
+			</p>
+			<p>     
+				<label for="params[comment]">Comentarios</label>
+				<input id="params[comment]" name="params[comment]" type='text' value='|-$headline->getComment()-|' size="5" />
 			</p>
 			<p>
 				|-if $action eq 'edit'-|
 				<input type="hidden" name="id" id="id" value="|-$headline->getid()-|" />
 				|-/if-|
+				|-include file="HiddenInputsInclude.tpl" action="$action" filters="$filters" page="$page"-|
 				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="headlinesDoEdit" />
 				<input type="submit" id="button_edit_headline" name="button_edit_headline" title="Aceptar" value="Guardar" />
@@ -106,9 +109,10 @@ function removeActorFromHeadline(form){
 
 <fieldset title="Formulario de actores asociados al ##headlines,4,titular##">
 	<legend>Actores</legend>
+    |-if $action neq 'showLog'-|
+		<p>Para asociar un actor al titular, ingrese el nombre en la casilla. Si no está en el sistema puede <a href="#lightbox2" rel="lightbox2" class="lbOn addLink">Crear actor</a></p>
 	<div id="actorMsgField"></div>
 	<form method="post" style="display:inline;">
-		<a class="tooltipWide" href="#"><span>Sólo podrá agregar Actores que estén cargados en el sistema.</span><img src="images/icon_info.png"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#lightbox2" rel="lightbox2" class="lbOn addLink">Crear nuevo actor </a> <br />
 		<div id="headlineActor" style="position: relative;z-index:10000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_actors" label="Agregar actor al ##headlines,4,titular##" url="Main.php?do=actorsAutocompleteListX&getCandidates=1&headlineId="|cat:$headline->getId() hiddenName="actor[id]" disableSubmit="addActorSubmit"-|
 		</div>
@@ -116,6 +120,7 @@ function removeActorFromHeadline(form){
 		<input type="hidden" name="headlineId" id="headlineId" value="|-$headline->getId()-|" /> 
     <input type="button" id="addActorSubmit" disabled="disabled" name="addActorSubmit" value="Agregar actor al ##headlines,4,titular##" title="Agregar actor al ##headlines,4,titular##" onClick="javascript:addActorToHeadline(this.form)"/> </p>
 	</form>
+    |-/if-|
   <div id="headlinesActorsList">
 		<ul id="actorList" class="iconOptionsList">
 			|-foreach from=$headline->getActors() item=actor-|
@@ -125,7 +130,7 @@ function removeActorFromHeadline(form){
 							<input type="hidden" name="headlineId" value="|-$headline->getid()-|" /> 
 							<input type="hidden" name="actorId" value="|-$actor->getid()-|" /> 
 							<input type="button" name="submit_go_remove_actor" value="Borrar" onclick="if (confirm('Seguro que desea quitar el actor del titular?')) removeActorFromHeadline(this.form);" class="icon iconDelete" /> 
-						</form> |-$actor-|
+						</form> |-$actor-| &nbsp; &nbsp;
 						|-foreach from=$headline->getHeadlineActors() item=headlineActor-|
 							|-if $headlineActor->getActorId() eq $actor->getId()-|
 								|-assign var=role value=$headlineActor->getRole()-|
@@ -133,7 +138,7 @@ function removeActorFromHeadline(form){
 						|-/foreach-|
 						|-if $role neq ''-||-assign var=actorRoleAction value='show'-||-else-||-assign var=actorRoleAction value=''-||-/if-|
 						|-assign var=headlinePeer value=$headline->getPeer()-|
-						<span id='span_role_for_|-$actor->getId()-|'>
+						<span id='span_role_for_|-$actor->getId()-|' class="bold italic">
 						|-include file='HeadlinesSelectActorRole.tpl' action=$actorRoleAction actorId=$actor->getId() headlineId=$headline->getId() role=$role roles=$headlinePeer->getHeadlineRoles()-|
 						</span>
 					</li>

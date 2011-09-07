@@ -48,8 +48,8 @@ function removeActorFromIssue(form){
     <legend>Actores</legend>
     <div id="actorMsgField"></div>
     |-if $action neq 'showLog'-|
+		<p>Para asociar un actor al asunto, ingrese el nombre en la casilla. Si no está en el sistema puede <a href="#lightbox2" rel="lightbox2" class="lbOn addLink">Crear actor</a></p>
     <form method="post" style="display:inline;">
-	<a class="tooltipWide" href="#"><span>Sólo podrá agregar Actores que estén cargados en el sistema.</span><img src="images/icon_info.png"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#lightbox2" rel="lightbox2" class="lbOn addLink">Crear nuevo actor </a> <br />
         <div id="issueActor" style="position: relative;z-index:10000;">
             |-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_actors" label="Agregar actor al ##issues,4,asunto##" url="Main.php?do=actorsAutocompleteListX&getCandidates=1&issueId="|cat:$issue->getId() hiddenName="actor[id]" disableSubmit="addActorSubmit"-|
 	</div>

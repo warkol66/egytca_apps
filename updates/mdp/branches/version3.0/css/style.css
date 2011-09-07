@@ -140,21 +140,28 @@
 #rightColumn h2{
 	font-size:108%;
 	font-weight:normal;
-	margin-bottom: 5px;
+	margin-bottom:5px;
 }
 #rightColumn h3 {
 	font-size: 123.1%;
 	font-weight:bold;
-	padding-top: 20px;
-	padding-bottom: 5px;
-	margin-bottom:15px;
+	padding-top:20px;
+	padding-bottom:5px;
+	margin-bottom:5px;
 }
 #rightColumn h4 {
-	font-size: 138.5%;
+	font-size:138.5%;
 	font-weight:bold;
-	padding-top: 15px;
-	padding-bottom: 5px;
-	margin-bottom:15px;
+	padding-top:15px;
+	padding-bottom:5px;
+	margin-bottom:5px;
+}
+#rightColumn h5 {
+	font-size:116%;
+	font-weight:normal;
+	padding-top:5px;
+	padding-bottom:5px;
+	margin-bottom:5px;
 }
 #rightColumn h2 a:link, #rightColumn h2 a:visited{
 	font-size: inherit;
@@ -487,3 +494,9 @@ fieldset #recipientsSelected li {
 	margin-right: 5px;
 }
 /* /InternalMail */
+.bold {
+	font-weight: bold;
+}
+.italic {
+	font-style: italic;
+}
