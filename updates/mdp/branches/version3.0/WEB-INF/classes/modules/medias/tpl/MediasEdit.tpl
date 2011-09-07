@@ -86,6 +86,7 @@ function mediasDeleteCategoryFromActor(form){
 				|-if $action eq 'edit'-|
 				<input type="hidden" name="id" id="id" value="|-$media->getid()-|" />
 				|-/if-|
+				|-include file="HiddenInputsInclude.tpl" action="$action" filters="$filters" page="$page"-|
 				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="mediasDoEdit" />
 				|-javascript_form_validation_button value='Guardar' title='Guardar'-|

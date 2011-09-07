@@ -47,6 +47,7 @@
 				<input type="hidden" name="id" id="id" value="|-$issue->getid()-|" />
 				|-/if-|
         |-if $action neq 'showLog'-|
+				|-include file="HiddenInputsInclude.tpl" action="$action" filters="$filters" page="$page"-|
 				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="issuesDoEdit" />
 				<input type="submit" id="button_edit_issue" name="button_edit_issue" title="Guardar cambios" value="Guardar" />
