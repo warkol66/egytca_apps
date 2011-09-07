@@ -330,9 +330,14 @@ function validationValidateFieldThruAjax(element,doAction) {
 	var url = 'Main.php?do=' + doAction;
 
 	var actualValueName = 'actual' + element.name;
-	var actualValue = document.getElementById(actualValueName).value;
 
-	var fields = element.name + '=' + element.value + '&actual' + element.name + '=' + actualValue;
+	if (document.getElementById(actualValueName) != null) {
+		var actualValue = document.getElementById(actualValueName).value;
+		var fields = element.name + '=' + element.value + '&actual' + element.name + '=' + actualValue;
+	}
+	else
+		var fields = element.name + '=' + element.value;
+		
 	var myAjax = new Ajax.Request(
 	url,
 	{
