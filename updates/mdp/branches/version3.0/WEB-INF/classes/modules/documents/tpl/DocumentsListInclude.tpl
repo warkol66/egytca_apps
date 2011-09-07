@@ -1,8 +1,8 @@
-<div id="documentOperationInfo">
+|-if isset($label)-||-else-||-assign var=label value="documentos"-||-/if-|<div id="documentOperationInfo">
 |-if $message eq "uploadSuccess"-|
 	<div class="successMessage">Se han guardado los cambios correctamente</div>
 |-elseif $message eq "uploadFailure"-|
-	<div class="failureMessage">Ha ocurrido un error al intetar guarda los cambios</div>
+	<div class="failureMessage">Ha ocurrido un error al intetar guardar los cambios</div>
 |-/if-|
 </div>
 <div id="documentList" |-if $documents|@count gt 0-|style="display: block;"|-else-|style="display: none;"|-/if-|>
@@ -12,8 +12,10 @@
 		##documents,29,Documentos disponibles en la categoría## |-$selectedCategory->getName()-|
 	|-elseif $filters neq ''-|
 		##documents,27,Documentos obtenidos de la búsqueda##
-	|-else-|
+	|-elseif !$entity-|
 		##documents,28,Documentos disponibles##
+	|-else-|
+		|-$label|ucfirst-|	
 	|-/if-|
 	</legend>
 	<table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders">
@@ -32,7 +34,7 @@
 		</tr>
 		|-if $documents|@count eq 0-|
 			<tr id="noDocuments">
-				<td colspan="7"> Aun no hay publicaciones en esta categoría</td>
+				<td colspan="7"> Aun no hay |-$label-|</td>
 			</tr>
 		|-/if-|
 		|-foreach from=$documents item=document name=document-|

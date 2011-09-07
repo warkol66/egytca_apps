@@ -268,4 +268,7 @@ function removeRelationFromHeadline(form){
 		</div> 
 </fieldset>
 
+	|-include file="DocumentsListInclude.tpl" entity="Headline" entityId=$headline->getId() label="Clipping"-|
+	|-include file="DocumentsEditInclude.tpl" entity="Headline" entityId=$headline->getId() label="Clipping"-|
+
 |-/if-|

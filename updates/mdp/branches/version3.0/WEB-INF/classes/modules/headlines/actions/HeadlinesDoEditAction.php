@@ -33,7 +33,7 @@ class HeadlinesDoEditAction extends BaseAction {
 			if ($headline->isModified() && !$headline->save()) 
 				return $this->returnFailure($mapping,$smarty,$headline,'failure-edit');
 
-			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
+			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');
 
 		}
 		else { // New headline

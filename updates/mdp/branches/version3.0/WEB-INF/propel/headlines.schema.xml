@@ -86,4 +86,26 @@
 
 	</table>
 
+	<!-- Relacion many-to-many de headline con documents -->	
+	<table name="headlines_headlineDocument" phpName="HeadlineDocument" isCrossRef="true">
+
+		<column name="headlineId" type="INTEGER" primaryKey="true"/>
+		<column name="documentId" type="INTEGER" primaryKey="true"/>
+
+		<foreign-key foreignTable="headlines_headline" onDelete="CASCADE">
+  		<reference local="headlineId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="documents_document" onDelete="CASCADE">
+  		<reference local="documentId" foreign="id"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+
 </database>

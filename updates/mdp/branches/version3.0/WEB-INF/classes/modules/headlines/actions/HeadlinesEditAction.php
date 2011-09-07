@@ -10,9 +10,6 @@ class HeadlinesEditAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -41,6 +38,18 @@ class HeadlinesEditAction extends BaseAction {
 				$criteria->add(ActorCategoryPeer::ID, $excludeCategoriesIds, Criteria::NOT_IN);
 				$categoryCandidates = ActorCategoryPeer::doSelect($criteria);
 				$smarty->assign("categoryCandidates",$categoryCandidates);*/
+
+				//Adjuntar documentos
+				$smarty->assign("documentsUpload", true); //en el template se realizan subidas de documentos
+				$documentTypes = DocumentPeer::getDocumentsTypesConfig();
+				$smarty->assign("documentTypes",$documentTypes);
+	
+				$maxUploadSize =  Common::maxUploadSize();
+				$smarty->assign("maxUploadSize",$maxUploadSize);
+
+				// Busco todos los documentos asociados al headline
+				$documents = $headline->getDocuments();
+				$smarty->assign("documents",$documents);
 
 			}
 			else

@@ -75,7 +75,7 @@ class DocumentsDoEditAction extends DocumentsBaseAction {
 			else 
 				$documentPeer->updateDocument($_POST["id"],$_POST['title'],$_POST["description"],$_POST["date"],$_POST["category"],$_POST["password"],$_POST["extra"]);
 
-			return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping, 'success' . $_POST['entity']);
+			return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadSuccess'), $mapping, 'success' . $_POST['entity']);
 
 		}
 		else {
@@ -83,7 +83,7 @@ class DocumentsDoEditAction extends DocumentsBaseAction {
 			
 			//si no llega ningun archivo significa que la carga se realizo por swfUpload.
 			if(empty($_FILES["document_file"]['name'])) {
-				return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping, 'success' . $_POST['entity']);
+				return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadSuccess'), $mapping, 'success' . $_POST['entity']);
 			}
 
 			if($_POST["password"]!=$_POST["password_compare"]){
@@ -111,7 +111,7 @@ class DocumentsDoEditAction extends DocumentsBaseAction {
 					return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadSuccess'), $mapping, 'success' . $_POST['entity']);
 				}
 			}
-			return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'errormessage'=>'uploadFailure'), $mapping, 'failureUpload' . $_POST['entity']);
+			return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadFailure'), $mapping, 'failureUpload' . $_POST['entity']);
 		}
 
 	}
