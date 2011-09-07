@@ -1,15 +1,22 @@
-<form method='post' action="Main.php"> 
-	<div id="loginWrapper"> 
+<div id="loginWrapper"> 
 	<!-- Begin Login --> 
-	<div id="login"> 
+	<div id="login">
+		<div id="loginTopBorder"><b class="rounded"><b class="rtop"><b class="r7"></b><b class="r6"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r1"></b></b></b></div>
+		 <!-- Begin loginContentWrapper --> 
+		<div id="loginContentWrapper">
+		<form method='post' action="Main.php"> 
 		 <!-- Begin LoginTop --> 
-		 <div id="loginTop"></div> 
-		 <!-- End LoginTop --> 
+		 <div id="loginTop"></div><!-- End LoginTop --> 
 		 <!-- Begin LoginContent --> 
 		 <div id="loginContent"><br />
-			<noscript><div align='center' class='errorMessage'>Su navegador tiene desabilitada la ejecución de Javascript.<br /><br />Este sistema requiere que la habilite para su correcto funcionamiento.<br /><br />Podrá ingresar al sistema pero recuerde que algunas funciones pueden no ejecutarse correctamente.</div></noscript><p>|-if isset($unifiedLogin)-|Selecciones el tipo de usuario e i|-else-|I|-/if-|ngrese su usuario y contraseña para ingresar al sistema</p> 
+			<noscript><div align='center' class='errorMessage'>Su navegador tiene desabilitada la ejecución de Javascript.
+			<br /><br />Este sistema requiere que la habilite para su correcto funcionamiento.
+			<br /><br />Podrá ingresar al sistema pero recuerde que algunas funciones pueden no ejecutarse correctamente.</div></noscript>
+			<p>Ingrese su usuario y contraseña para ingresar al sistema</p> 
 			|-if $message eq "wrongUser"-|
 				<div align='center' class='errorMessage'>Usuario desconocido o contraseña incorrecta!. Intente nuevamente.</div> 
+			|-elseif $message eq "missingData"-|
+				<div align='center' class='errorMessage'>Para acceder al sistema debe ingresar usuario y contraseña. Intente nuevamente.</div> 
 			|-elseif $message eq "wrongHash"-|
 					<div align='center' class='errorMessage'>El código de confirmación ingresado parece ser invalido o bien ya ha sido utilizado. Por favor verifique la escritura o intente solicitar un código nuevo.</div>
 			|-elseif $message eq "expiredHash"-|
@@ -23,36 +30,21 @@
 			|-elseif $message eq "confirmationMailSent"-|
 				<div align='center' class='successMessage'>Se envió un mail de verificación a su casilla de correo.</div> 
 			|-/if-|
-			|-if isset($unifiedLogin)-|
-				|-if !$onlyAdmin-|
-				<p>Tipo de Usuario
-					 <select name="selectLoginMode" id="selectLoginMode" onChange="javascript:selectLoginAction(this.form)"> 
-						<option value="user" |-if $cookieSelection eq 'user'-|selected="selected"|-/if-|>Administrador</option> 
-						<option value="affiliateUser" |-if $cookieSelection eq 'affiliateUser'-|selected="selected"|-/if-|>Cliente</option> 
-					</select> 
-				 </p> 
-				|-/if-|
-				<input type="hidden" name="do" value="|-if $cookieSelection eq 'affiliateUser'-|affiliatesUsersDoLogin|-else-|usersDoLogin|-/if-|" id="loginFormDo" />
-			|-else-|
-				<input type="hidden" name="do" value="usersDoLogin" id="loginFormDo" />
-			|-/if-| 
+				<input type="hidden" name="do" value="affiliateUsersDoLogin" id="loginFormDo" />
 			<h1>Usuario</h1> 
-			<p><input type='text' name='loginUsername' size='35' /> 
-			 </p> 
+			<p><input type='text' name='loginUsername' size='35' /></p> 
 			<h1>Contraseña</h1> 
-			<p><input type='password' name='loginPassword' size='20' /> 
-			 </p> 
+			<p><input type='password' name='loginPassword' size='20' /></p> 
 		<!--[if lte IE 6]><p>Su versión actual de navegador es IExplorer 6.<br />Este sistema requiere que utilice una versión mas nueva de Interntet Explorer.<br />
-Debe actualizarla para el correcto funcionamiento del sistema.</p><![endif]-->
-		</div>
-		 <!-- End LoginContent --> 
+													Debe actualizarla para el correcto funcionamiento del sistema.</p><![endif]-->
+		</div><!-- End LoginContent --> 
 		 <!-- Begin LoginBottom --> 
 		 <div id="loginBottom">
-			<div id="loginButtonDiv"><input type='submit' value='Ingresar' id="loginButton" /> </div>
-			<div id="lostPassword"><a href="Main.php?do=usersPasswordRecovery">¿Olvidó su contraseña?</a></div>
-		</div> 
-		 <!-- End LoginBottom --> 
-	 </div> 
-	<!-- End Login --> 
-	</div>
-</form> 
+			<div id="loginButtonDiv"><input type='submit' value='Ingresar' id="loginButton" /></div>
+			<div id="lostPassword"><a href="Main.php?do=affiliateUsersPasswordRecovery">¿Olvidó su contraseña?</a></div>
+		</div><!-- End LoginBottom --> 
+		</form> 
+	 </div><!-- End LoginContentWrapper --> 
+	 <div id="loginBottomBorder"><b class="rounded"><b class="rbottom "><b class="r1"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r6"></b><b class="r7"></b></b></b></div>
+	</div><!-- End Login --> 
+</div><!-- End loginWrapper --> 

@@ -1,6 +1,6 @@
 <?php
 /**
- * UsersLoginAction
+ * ClientsUsersLoginAction
  *
  * @package users
  */
@@ -33,16 +33,6 @@ class ClientsUsersLoginAction extends BaseAction {
 
 		if (!empty($_SESSION["loginUser"]) || !empty($_SESSION["loginClientUser"]) )
 			return $mapping->findForwardConfig('welcome');
-
-		if (Common::hasUnifiedLogin()) {
-			$smarty->assign("unifiedLogin",true);
-
-			$value = Common::getValueUnifiedLoginCookie();
-			if (!empty($value) || $value == "0")
-				$smarty->assign('cookieSelection',$value);
-
-			return $mapping->findForwardConfig('success-unified');
-		}
 
 		return $mapping->findForwardConfig('success');
 	}

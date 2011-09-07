@@ -16,26 +16,17 @@
 								 name = "clientsUsersLogin"
 								scope = "request"
 						 validate = "true">
-				<description value="Modulo de ingreso"/>
-				<forward name="success" path="ClientsUsersLogin.tpl"/>
+			<forward name="success" path="ClientsUsersLogin.tpl"/>
+			<forward name="success-unified" path="/Main.php?do=usersLogin" redirect="true" />
 			<forward name="maintenance" path="Maintenance.tpl"/>
 			<forward name="welcome" path="/Main.php?do=clientsUsersWelcome" redirect="true" />
 		</action>
 		
-		<action    path = "clientsUsersLoginMaintenance"
-							 type = "ClientsUsersLoginMaintenanceAction"
-							 name = "clientsUsersLoginMaintenance"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="UsersLogin.tpl"/>
-		</action>
-
 		<action      path = "clientsUsersDoLogin"
 								 type = "ClientsUsersDoLoginAction"
 								 name = "clientsUsersDoLogin"
 								scope = "request"
 						 validate = "true">
-				<description value="Modulo de ingreso"/>
 				<forward name="success" path="ClientsUsersWelcome.tpl"/>
 				<forward name="failure-unified" path="UsersLogin.tpl"/>
 				<forward name="failure" path="ClientsUsersLogin.tpl"/>
