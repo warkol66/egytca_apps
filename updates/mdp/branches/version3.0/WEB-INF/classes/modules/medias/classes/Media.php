@@ -21,5 +21,18 @@ class Media extends BaseMedia {
 	function getType(){
 		return MediaTypeQuery::create()->findOneById($this->getTypeId());
 	}
+	
+	/*
+	 * Devuelve true si el media tiene el mediaMarket
+	 * y false en caso contrario.
+	 */
+	function hasMediaMarket($mediaMarket) {
+		foreach ($this->getMediaMarkets() as $associated) {
+			if ($associated->getId() == $mediaMarket->getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 } // Media
