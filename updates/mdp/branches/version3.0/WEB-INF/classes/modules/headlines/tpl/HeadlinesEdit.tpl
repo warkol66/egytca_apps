@@ -7,9 +7,11 @@
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| ##headlines,2,Titular##</h1>
 <div id="div_headline">
 	<p>Ingrese los datos del ##headlines,2,Titular##</p>
-		|-if $message eq "error"-|
-			<div class="failureMessage">Ha ocurrido un error al intentar guardar el ##headlines,2,Titular##</div>
-		|-/if-|
+	|-if $message eq "ok"-|
+		<div class="successMessage">Titular guardado correctamente</div>
+	|-elseif $message eq "error"-|
+		<div class="failureMessage">Ha ocurrido un error al intentar guardar el ##headlines,2,Titular##</div>
+	|-/if-|
 	<form name="form_edit_headline" id="form_edit_headline" action="Main.php" method="post">
 		<fieldset title="Formulario de edición de datos de un titular">
 			<legend>Formulario de Administración de ##headlines,1,Titulares##</legend>

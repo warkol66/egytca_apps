@@ -39,7 +39,7 @@
 		<tr> 
 	 <!-- <td>|-$headline->getid()-|</td> -->
 				<td>|-$headline->getName()-|</td> 
-				<td>|-$headline->getContent()-|</td>
+				<td>|-$headline->getContent()|truncate:300:"..."-|</td>
 			<td nowrap>|-if "headlinesEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="headlinesEdit" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|

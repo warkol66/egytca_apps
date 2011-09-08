@@ -30,6 +30,8 @@ class HeadlinesDoEditAction extends BaseAction {
 			$headline = HeadlinePeer::get($_POST["id"]);
 			$headline = Common::setObjectFromParams($headline,$headlineParams);
 			
+			$params["id"] = $_POST["id"];
+
 			if ($headline->isModified() && !$headline->save()) 
 				return $this->returnFailure($mapping,$smarty,$headline,'failure-edit');
 

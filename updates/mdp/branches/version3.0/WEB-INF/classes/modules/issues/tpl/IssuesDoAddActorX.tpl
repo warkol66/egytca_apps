@@ -8,5 +8,5 @@
 		<input type="hidden" name="issueId"  value="|-$issueId-|" />
 		<input type="hidden" name="actorId"  value="|-$actor->getId()-|" />			
 		<input type="button" value="Eliminar" onClick="javascript:removeActorFromIssue(this.form)" class="icon iconDelete" />
-	</form>	|-$actor->getName()-|
+	</form>	|-$actor-|
 </li>
