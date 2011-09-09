@@ -97,20 +97,20 @@ function mediasDeleteCategoryFromActor(form){
 			
 <script type="text/javascript">
 
-	function updateMarkets(options) {
+	function updateSelected(options, action) {
 		
 		var postParams = "";
 		postParams += "mediaId=|-$media->getId()-|";
 		
-		// Cargar markets selecionados
+		// Cargar selecionados
 		for (var i=0; i < options.length; i++) {
 			if (options[i].selected)
-				postParams += "&marketsIds[]="+options[i].value;
+				postParams += "&selectedIds[]="+options[i].value;
 		}
 		
 		new Ajax.Updater(
-			"test_div",//"marketsIds",
-			'Main.php?do=mediasUpdateMarkets',
+			"",
+			action,
 			{
 				method: 'post',
 				postBody: postParams,
@@ -120,31 +120,34 @@ function mediasDeleteCategoryFromActor(form){
 	}
 	
 </script>
-<div id="test_div"></div>
+
 <fieldset title="Formulario de mercados asociados al medio">
 	<legend>Mercados</legend>
 	<p>
 	<form method="post" id="form_markets">
 		<label for="markets">Mercados</label>
-		<select id="marketsIds" name="marketsIds[]" size="5" multiple="multiple" onChange="updateMarkets(this.options)" >
+		<select id="marketsIds" name="marketsIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=mediasUpdateMarkets')" >
 			|-foreach from=$mediaMarkets item=mediaMarket name=for_mediaMarket-|
         		<option value="|-$mediaMarket->getId()-|" |-if $media->hasMediaMarket($mediaMarket)-|selected="selected"|-/if-| >|-$mediaMarket->getName()-|</option>
 			|-/foreach-|
 		</select>
 	</form>
 	</p>
-
-
 </fieldset>
 		
+<fieldset title="Formulario de audiencias asociadas al medio">
+	<legend>Audiencias</legend>
 	<p>
-		<label for="params[audiences]">Audiencia</label>
-		<select name="params[audiences]" size="5" multiple id="params[audiences]" >
+	<form method="post" id="form_audiences">
+		<label for="audiences">Audiencias</label>
+		<select id="audiencesIds" name="audiencesIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=mediasUpdateAudiences')" >
 			|-foreach from=$mediaAudiences item=mediaAudience name=for_mediaAudience-|
-        		<option value="|-$mediaAudience->getId()-|">|-$mediaAudience->getName()-|</option>
+        		<option value="|-$mediaAudience->getId()-|" |-if $media->hasMediaAudience($mediaAudience)-|selected="selected"|-/if-| >|-$mediaAudience->getName()-|</option>
 			|-/foreach-|
 		</select>
+	</form>
 	</p>
+</fieldset>
 
 <fieldset>
 <legend>Contactos</legend>

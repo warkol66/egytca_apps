@@ -50,10 +50,10 @@ class MediasUpdateMarketsAction extends BaseAction {
 
 		$module = "Medias";
 
-		if (!empty($_POST["mediaId"]) && !(empty($_POST["marketsIds"]))) {
+		if (!empty($_POST["mediaId"]) && !(empty($_POST["selectedIds"]))) {
 		
 			$media = MediaPeer::get($_POST["mediaId"]);
-			$marketsIds = $_POST["marketsIds"];
+			$marketsIds = $_POST["selectedIds"];
 			$selectedMarkets = array();
 			
 			foreach ($marketsIds as $marketId) {
@@ -73,9 +73,6 @@ class MediasUpdateMarketsAction extends BaseAction {
 					$this->addMarket($media, $e);
 			}
 			
-			/*$media = MediaPeer::get($_POST["mediaId"]);
-			$smarty->assign('media', $media);
-			$smarty->assign('mediaMarkets', MediaMarketQuery::create()->find());*/
 		}
 
 		return $mapping->findForwardConfig('success');

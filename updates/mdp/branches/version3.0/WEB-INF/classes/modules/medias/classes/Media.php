@@ -34,5 +34,18 @@ class Media extends BaseMedia {
 		}
 		return false;
 	}
+	
+	/*
+	 * Devuelve true si el media tiene el mediaAudience
+	 * y false en caso contrario.
+	 */
+	function hasMediaAudience($mediaAudience) {
+		foreach ($this->getMediaAudiences() as $associated) {
+			if ($associated->getId() == $mediaAudience->getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 } // Media
