@@ -1,3 +1,6 @@
+<link type="text/css" href="css/chosen.css" rel="stylesheet">
+<script language="JavaScript" type="text/javascript" src="scripts/event.simulate.js"></script>
+<script language="JavaScript" type="text/javascript" src="scripts/chosen.js"></script>
 <script language="JavaScript" type="text/javascript">
 function mediasAddCategoryToActor(form) {
 	
@@ -126,7 +129,7 @@ function mediasDeleteCategoryFromActor(form){
 	<p>
 	<form method="post" id="form_markets">
 		<label for="markets">Mercados</label>
-		<select id="marketsIds" name="marketsIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=mediasUpdateMarkets')" >
+		<select class="chzn-select markets-chz-select" id="marketsIds" name="marketsIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=mediasUpdateMarkets')" >
 			|-foreach from=$mediaMarkets item=mediaMarket name=for_mediaMarket-|
         		<option value="|-$mediaMarket->getId()-|" |-if $media->hasMediaMarket($mediaMarket)-|selected="selected"|-/if-| >|-$mediaMarket->getName()-|</option>
 			|-/foreach-|
@@ -140,7 +143,7 @@ function mediasDeleteCategoryFromActor(form){
 	<p>
 	<form method="post" id="form_audiences">
 		<label for="audiences">Audiencias</label>
-		<select id="audiencesIds" name="audiencesIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=mediasUpdateAudiences')" >
+		<select class="chzn-select markets-chz-select" id="audiencesIds" name="audiencesIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=mediasUpdateAudiences')" >
 			|-foreach from=$mediaAudiences item=mediaAudience name=for_mediaAudience-|
         		<option value="|-$mediaAudience->getId()-|" |-if $media->hasMediaAudience($mediaAudience)-|selected="selected"|-/if-| >|-$mediaAudience->getName()-|</option>
 			|-/foreach-|

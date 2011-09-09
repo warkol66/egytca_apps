@@ -349,3 +349,7 @@ ul.iconOptionsList li {
 	padding-bottom: 5px;
 	display: block;
 }
+
+.markets-chz-select {
+    min-width: 500px;
+}
