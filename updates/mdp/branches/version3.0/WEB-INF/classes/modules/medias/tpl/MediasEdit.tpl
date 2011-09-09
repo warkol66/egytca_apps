@@ -124,8 +124,8 @@ function mediasDeleteCategoryFromActor(form){
 	
 </script>
 
-<fieldset title="Formulario de mercados asociados al medio">
-	<legend>Mercados</legend>
+<fieldset title="Formulario de mercados y audiencias asociados al medio">
+	<legend>Mercados y Audiencias</legend>
 	<p>
 	<form method="post" id="form_markets">
 		<label for="markets">Mercados</label>
@@ -136,10 +136,6 @@ function mediasDeleteCategoryFromActor(form){
 		</select>
 	</form>
 	</p>
-</fieldset>
-		
-<fieldset title="Formulario de audiencias asociadas al medio">
-	<legend>Audiencias</legend>
 	<p>
 	<form method="post" id="form_audiences">
 		<label for="audiences">Audiencias</label>
@@ -152,7 +148,7 @@ function mediasDeleteCategoryFromActor(form){
 	</p>
 </fieldset>
 
-<fieldset>
+<!--<fieldset>
 <legend>Contactos</legend>
 </fieldset>
-</div>
+</div>-->
