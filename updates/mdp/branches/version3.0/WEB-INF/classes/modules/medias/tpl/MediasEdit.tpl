@@ -96,73 +96,25 @@ function mediasDeleteCategoryFromActor(form){
 	</form>
 			
 <script type="text/javascript">
-	
-	var associated = new Array();
-	
-	|-foreach from=$media->getMediaMarkets() item=mediaMarket-|
-		associateMarket(|-$mediaMarket->getId()-|)
-	|-/foreach-|
-	
-	function hasItem(array, item) {
-		for (var i=0; i < array.length; i++) {
-			if (item == array[i])
-				return true;
-		}
-		return false;
-	}
-
-	function associateMarket(id) {
-		associated.push(id);
-	}
 
 	function updateMarkets(options) {
 		
-		var values = new Array();
-		
-		// Copia de associated que no cambia hasta terminar la
-		// actualizacion de los mercados
-		var associatedCopy = associated;
-		associated = new Array();
+		var postParams = "";
+		postParams += "mediaId=|-$media->getId()-|";
 		
 		// Cargar markets selecionados
 		for (var i=0; i < options.length; i++) {
 			if (options[i].selected)
-				values.push(options[i].value);
+				postParams += "&marketsIds[]="+options[i].value;
 		}
 		
-		// Quitar los markets que sobren
-		for (var i=0;i<associatedCopy.length;i++) {
-			if (!hasItem(values, associatedCopy[i])) {
-				removeMarketFromMedia(associatedCopy[i]);
-			}
-		}
-		
-		// Agregar los markets que falten
-		for (var i=0;i<values.length;i++) {
-			if (!hasItem(associatedCopy, values[i])) {
-				addMarketToMedia(values[i]);
-			}
-		}
-	}
-	
-	function addMarketToMedia(paramMarketId) {
 		new Ajax.Updater(
-			"params[markets]",
-			'Main.php?do=mediasDoAddMarketX',
+			"marketsIds",
+			'Main.php?do=mediasUpdateMarkets',
 			{
 				method: 'post',
-				parameters: { mediaId: "|-$media->getId()-|", marketId: paramMarketId, evalScripts: true}
-			});
-		return true;
-	}
-	
-	function removeMarketFromMedia(paramMarketId) {
-		new Ajax.Updater(
-			"params[markets]",
-			'Main.php?do=mediasDoRemoveMarketX',
-			{
-				method: 'post',
-				parameters: { mediaId: "|-$media->getId()-|", marketId: paramMarketId, evalScripts: true}
+				postBody: postParams,
+				evalScripts: true
 			});
 		return true;
 	}
@@ -171,23 +123,17 @@ function mediasDeleteCategoryFromActor(form){
 
 <fieldset title="Formulario de mercados asociados al medio">
 	<legend>Mercados</legend>
-
 	<p>
-		<label for="params[markets]">Mercados</label>
-		<select name="params[markets]" size="5" multiple id="params[markets]" onChange="updateMarkets(this.options)" >
+	<form method="post" id="form_markets">
+		<label for="markets">Mercados</label>
+		<select id="marketsIds" name="marketsIds[]" size="5" multiple="multiple" onChange="updateMarkets(this.options)" >
 			|-foreach from=$mediaMarkets item=mediaMarket name=for_mediaMarket-|
         		<option value="|-$mediaMarket->getId()-|" |-if $media->hasMediaMarket($mediaMarket)-|selected="selected"|-/if-| >|-$mediaMarket->getName()-|</option>
 			|-/foreach-|
 		</select>
+	</form>
 	</p>
 
-<p id="a">
-<script type="text/javascript">
-$('params[markets]').observe('change', function(event) {
-	console.debug(event);
-})
-</script>
-</p>
 
 </fieldset>
 		
