@@ -73,9 +73,9 @@ class MediasUpdateMarketsAction extends BaseAction {
 					$this->addMarket($media, $e);
 			}
 			
-			$media = MediaPeer::get($_POST["mediaId"]);
+			/*$media = MediaPeer::get($_POST["mediaId"]);
 			$smarty->assign('media', $media);
-			$smarty->assign('mediaMarkets', MediaMarketQuery::create()->find());
+			$smarty->assign('mediaMarkets', MediaMarketQuery::create()->find());*/
 		}
 
 		return $mapping->findForwardConfig('success');

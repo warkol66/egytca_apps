@@ -109,7 +109,7 @@ function mediasDeleteCategoryFromActor(form){
 		}
 		
 		new Ajax.Updater(
-			"marketsIds",
+			"test_div",//"marketsIds",
 			'Main.php?do=mediasUpdateMarkets',
 			{
 				method: 'post',
@@ -120,7 +120,7 @@ function mediasDeleteCategoryFromActor(form){
 	}
 	
 </script>
-
+<div id="test_div"></div>
 <fieldset title="Formulario de mercados asociados al medio">
 	<legend>Mercados</legend>
 	<p>
