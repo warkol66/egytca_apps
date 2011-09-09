@@ -3,14 +3,11 @@
 * DocumentsDoDownloadAction
 *
 * Permite la descarga de documentos subidos al sistema
-* 
+*
 * @package documents
 */
 
-require_once("DocumentsBaseAction.php");
-require_once("DocumentPeer.php");
-
-class DocumentsDoDownloadAction extends DocumentsBaseAction {
+class DocumentsDoDownloadAction extends BaseAction {
 
 	function DocumentsDoDownloadAction() {
 		;
@@ -18,7 +15,7 @@ class DocumentsDoDownloadAction extends DocumentsBaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
@@ -30,36 +27,51 @@ class DocumentsDoDownloadAction extends DocumentsBaseAction {
 		$smarty->assign("module",$module);
 
 		$documentPeer = new DocumentPeer();
-		
-		$id= $_REQUEST["id"];
-		$document = $documentPeer->getById($id);
 
-		$password=$_POST['password'];
+		$id = $_REQUEST["id"];
+		$document = $documentPeer->getById($id);
+		if (empty($document))
+			$document = new Document();
 
 		//validacion de password
-		if (!$this->documentPasswordValidation($document,$password)) {
+		$password = $_POST['password'];
+		if (!$document->checkPasswordValidation($password))
 			return $mapping->findForwardConfig('failure');
-		}
 
-		header('Pragma: public');   // required  
-    header('Expires: 0');       // no cache  
-    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');  
-    header('Cache-Control: private',false); 		
+		header('Pragma: public');   // required
+		header('Expires: 0');       // no cache
+		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+		header('Cache-Control: private',false);
 
-		$extension = strrchr(strtolower($document->getRealfilename(),'.'));
+		$extension = substr(strrchr(strtolower($document->getRealfilename()),'.'),1);
 		switch ($extension) {
-			case ".gif":
+			case "gif":
 				header('Content-Type: image/gif');
-			case ".jpg":
+				break;
+			case "jpg":
 				header('Content-Type: image/jpeg');
-			case ".png":
+				break;
+			case "png":
 				header('Content-Type: image/png');
+				break;
+			case "pdf":
+				header('Content-type: application/pdf');
+				break;
+			case "htm":
+				header('Content-Type: text/html',true);
+				break;
+			case "html":
+				header('Content-Type: text/html',true);
+				break;
+			default:
+				header('Content-Type: application',true);
+				break;
 		}
 
-    header("content-disposition: attachment; filename=\"" . str_replace('"',"'",$document->getRealfilename()) . "\"");
+		header("content-disposition: attachment; filename=\"" . str_replace('"',"'",$document->getRealfilename()) . "\"");
 
 		if ($document->getSize() != 0)
-			header("Content-Length: " . $document->getSize() ."; "); 
+			header("Content-Length: " . $document->getSize() ."; ");
 
 		$document->getContents();
 	}

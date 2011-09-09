@@ -4,13 +4,10 @@
 *
 *  Action que genera un cambio de estado en la base de datos, se le manda el nombre de una categoria
 *  y lo busca en dicha base de datos y finalmente lo elimina.
-* 
+*
 */
 
-require_once("DocumentsBaseAction.php");
-require_once("DocumentPeer.php");
-
-class DocumentsDoDeleteXAction extends DocumentsBaseAction {
+class DocumentsDoDeleteXAction extends BaseAction {
 
 	function DocumentsDoDeleteXAction() {
 		;
@@ -18,8 +15,7 @@ class DocumentsDoDeleteXAction extends DocumentsBaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
-
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
@@ -29,23 +25,22 @@ class DocumentsDoDeleteXAction extends DocumentsBaseAction {
 
 		$module = "Documentos";
 		$smarty->assign("module",$module);
-		
-		$this->template->template = 'TemplateAjax.tpl';
 
 		$documentPeer = new DocumentPeer();
 
 		////////////
-		// se obtiene el archivo a eliminar				
+		// se obtiene el archivo a eliminar
 		$id = $_POST["id"];
 		$smarty->assign("id", $id);
 		$document = $documentPeer->getById($id);
 		$password = $_POST['password'];
-		
+
 		//validacion de password
-		if (!$this->documentPasswordValidation($document,$password)) {
+		if (!$document->checkPasswordValidation($password)) {
 			$smarty->assign("errormessage", "wrongPasswordComparison");
 			return $mapping->findForwardConfig("failure");
-		} else {
+		}
+		else {
 			if (!empty($_POST['entity'])) {
 				$queryClassName = $_POST['entity'] . 'DocumentQuery';
 				if (class_exists($queryClassName)) {
@@ -57,7 +52,7 @@ class DocumentsDoDeleteXAction extends DocumentsBaseAction {
 						$smarty->assign("errormessage", "errorFound");
 						return $mapping->findForwardConfig("failure");
 					}
-					
+
 					//si el documento no tiene mas referencias cruzadas lo elimino.
 					$queryInstance = new $queryClassName;
 					if ($queryInstance->filterByDocumentId($_POST["id"])->count() <= 0) {
@@ -67,14 +62,15 @@ class DocumentsDoDeleteXAction extends DocumentsBaseAction {
 						}
 					}
 				}
-			} else {
+			}
+			else {
 				if (!$documentPeer->delete($_POST["id"])) {
 					$smarty->assign("errormessage", "errorFound");
 					return $mapping->findForwardConfig("failure");
 				}
 			}
 		}
-		$smarty->assign("message", "deletesuccess");
+		$smarty->assign("message", "deleteSuccess");
 		return $mapping->findForwardConfig("success");
 	}
 

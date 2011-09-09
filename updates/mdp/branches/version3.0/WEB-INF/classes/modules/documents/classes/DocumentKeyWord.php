@@ -1,7 +1,5 @@
 <?php
 
-require 'documents/classes/om/BaseDocumentKeyWord.php';
-
 
 /**
  * Skeleton subclass for representing a row from the 'documents_keyWord' table.
@@ -15,16 +13,5 @@ require 'documents/classes/om/BaseDocumentKeyWord.php';
  * @package    documents.classes
  */
 class DocumentKeyWord extends BaseDocumentKeyWord {
-
-	/**
-	 * Initializes internal state of DocumentKeyWord object.
-	 * @see        parent::__construct()
-	 */
-	public function __construct()
-	{
-		// Make sure that parent constructor is always invoked, since that
-		// is where any default values for this object are set.
-		parent::__construct();
-	}
 
 } // DocumentKeyWord

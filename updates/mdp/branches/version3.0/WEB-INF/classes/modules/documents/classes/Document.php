@@ -70,8 +70,8 @@ class Document extends BaseDocument {
 		$path_parts = pathinfo($file['name']);
 		$extension = $path_parts['extension'];
 
-		if ( is_array($file) and $file['size'] > 0) {
-			switch  ($extension) {
+		if (is_array($file) and $file['size'] > 0) {
+			switch ($extension) {
 				case "pdf":
 					$xpdf = "";
 					exec(ConfigModule::get("documents","pdftotextPath") . 'pdftotext -nopgbrk -enc UTF-8 -raw ' . $file['tmp_name']);

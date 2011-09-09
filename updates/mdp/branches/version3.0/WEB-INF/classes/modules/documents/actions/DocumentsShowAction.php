@@ -3,15 +3,11 @@
 * DocumentsShowAction
 *
 *  Action público utilizado para mostrar los documentos existentes
-* 
+*
 * @package documents
 */
 
-require_once("DocumentsBaseAction.php");
-require_once("DocumentPeer.php");
-require_once("ModulePeer.php");
-
-class DocumentsShowAction extends DocumentsBaseAction {
+class DocumentsShowAction extends BaseAction {
 
 	function DocumentsShowAction() {
 		;
@@ -19,11 +15,12 @@ class DocumentsShowAction extends DocumentsBaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		//////////
 		// Use a different template
 		$this->template->template = "TemplatePublicDocuments.tpl";
+
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -38,17 +35,20 @@ class DocumentsShowAction extends DocumentsBaseAction {
 		if (empty($_GET['page']))
 			$_GET['page'] = 1;
 		//filtros de busqueda.
-		
+
+		if ($_GET['filters']['contentCategoryId'] && !$_GET['filters']['categoryId'])
+			$_GET['filters']['categoryId'] = $_GET['filters']['contentCategoryId'];
+
 		//obtencion de documentos por categoria.
 		if (isset($_GET['categoryId'])) {
-			
+
 			if ($_GET['categoryId'] > 0) {
 
 				//se ha elegido una categoria
 				$selectedCategory = CategoryPeer::get($_GET['categoryId']);
 				$documentPeer->setCategory($selectedCategory);
 				$searchStringParams = $searchStringParams."&categoryId=".$_GET['categoryId'];
-			
+
 				$moduleName = $selectedCategory->getModule();
 				require_once('ModulePeer.php');
 				$selectedModule = ModulePeer::get($moduleName);
@@ -79,13 +79,13 @@ class DocumentsShowAction extends DocumentsBaseAction {
 				$documents = $documentPeer->getAllWithoutCategory();
 				$smarty->assign('documents',$documents);
 			}
-			
+
 			$smarty->assign('categoryId',$_GET['categoryId']);
 			$pager = $documentPeer->getAllPaginatedFilteredForShow($_GET['page']);
 			$smarty->assign('documents',$pager->getResult());
 			$smarty->assign('pager',$pager);
 			$url = "Main.php?do=documentsShow" . $searchStringParams;
-			$smarty->assign("url",$url);				
+			$smarty->assign("url",$url);
 
 		}
 		else {
@@ -150,17 +150,17 @@ class DocumentsShowAction extends DocumentsBaseAction {
 				$selectedModule = ModulePeer::get($_GET['filters']['selectedModule']);
 				$documentPeer->setModule($selectedModule);
 			}
-		
+
 			$smarty->assign('filters',$_GET['filters']);
-			
+
 			//realizamos la busqueda por filtros.
 //			$documents = $documentPeer->getAllFilteredPaginated($selectedCategory);
 			$pager = $documentPeer->getAllPaginatedFilteredForShow($_GET['page']);
 			$smarty->assign('documents',$pager->getResult());
 			$smarty->assign('pager',$pager);
 			$url = "Main.php?do=documentsShow" . $searchStringParams;
-			$smarty->assign("url",$url);				
-					
+			$smarty->assign("url",$url);
+
 		}
 		else {
 				$newest = $documentPeer->getNewest();
@@ -168,19 +168,9 @@ class DocumentsShowAction extends DocumentsBaseAction {
 			}
 		}
 
-
-		////////////
-		// $msg=0 --> no se muestra mensaje
-		// $msg=1 --> se muestra mensaje de error
-		// $msg=2 --> se muestra mensaje satisfactorio
-		if(empty($_GET["errormessage"])){
-			$msg="noError";
-		}
-		else $msg=$_GET["errormessage"];
-
 		$userPublic = UserPeer::getByUsername('system');
 		$smarty->assign('user',$userPublic);
-		
+
 		$publicationYears = DocumentPeer::getPublicationYears();
 		$smarty->assign('publicationYears',$publicationYears);
 
@@ -190,17 +180,43 @@ class DocumentsShowAction extends DocumentsBaseAction {
 
 		$modules = $documentPeer->getModulesWithDocuments();
 		$smarty->assign('modules',$modules);
-		
+
 		$parentCategories = $userPublic->getDocumentsParentCategories();
 
+		//Si se selecciona una categoria por contenido no paso las categorias, paso solo esa categoria
+		if ($_GET['filters']['fromContent']) {
+
+			require_once("Content.class.php");
+			$content = new Content();
+			$contentData = $content->get($_GET['filters']['fromContent']);
+			$contentData['content'] = $_GET['filters']['fromContent'];
+	
+			$parentCategories = $userPublic->getDocumentsParentCategories($_GET['filters']['contentCategoryId']);
+
+			$this->template->template = "TemplateContent.tpl";
+			$smarty->assign('contentData',$contentData);
+			$smarty->assign('fromContent',$_GET["fromContent"]);
+			$smarty->assign('categorySelected',CategoryPeer::get($_GET['filters']['contentCategoryId']));
+			$url = "Main.php?do=documentsShow&filters[fromContent]=" . $_GET['filters']['fromContent'] . "&filters[contentCategoryId]=" . $_GET['filters']['contentCategoryId'] .  $searchStringParams;
+			$smarty->assign("url",$url);				
+
+		}
 		$smarty->assign('parentCategories',$parentCategories);
-		
+
 		$documentsWithoutCategoryCount = $documentPeer->getDocumentsWithoutCategoryCount();
 		$smarty->assign('documentsWithoutCategoryCount',$documentsWithoutCategoryCount);
 
 		////////////
 		// se asignan las variables trabajadas
 		$smarty->assign("message",$msg);
+		$smarty->assign("results",$docs);
+		
+		if ($_REQUEST["rss"]=="1") {
+			$this->template->template = "TemplatePlain.tpl";
+			header("content-Type:application/rss+xml; charset=utf-8"); 
+			return $mapping->findForwardConfig('rss');
+		}			
+
 
 		return $mapping->findForwardConfig('success');
 
