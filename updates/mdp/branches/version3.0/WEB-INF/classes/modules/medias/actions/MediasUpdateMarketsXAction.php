@@ -1,8 +1,8 @@
 <?php
 
-class MediasUpdateMarketsAction extends BaseAction {
+class MediasUpdateMarketsXAction extends BaseAction {
 
-	function MediasUpdateMarketsAction() {
+	function MediasUpdateMarketsXAction() {
 		;
 	}
 	
@@ -50,7 +50,7 @@ class MediasUpdateMarketsAction extends BaseAction {
 
 		$module = "Medias";
 
-		if (!empty($_POST["mediaId"]) && !(empty($_POST["selectedIds"]))) {
+		if (!empty($_POST["mediaId"])) {
 		
 			$media = MediaPeer::get($_POST["mediaId"]);
 			$marketsIds = $_POST["selectedIds"];
