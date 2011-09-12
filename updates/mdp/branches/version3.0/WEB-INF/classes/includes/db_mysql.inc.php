@@ -411,4 +411,3 @@ function recordset2Array() {
   }
 
 }
-?>

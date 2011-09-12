@@ -1,5 +1,7 @@
 <?php
 
+require("config/DBConnection.inc.php");
+
 $backupPeer = new BackupPeer();
 
 if (!empty($_FILES['backup'])) {
@@ -73,17 +75,14 @@ class BackupPeer {
 		$zipfile->read_zip($zipFilename);
 
 		$sql = '';
-		$complete = false;
 
 		foreach($zipfile->files as $filea) {
 			// condicion de busqueda del archivo SQL
 			if ($filea["name"] == "dump.sql" && (($filea["dir"] == './db' || empty($filea["dir"])) || ($filea["dir"] == '_/db' || empty($filea["dir"]))) )
 				$sql = $filea["data"];
-
+			
 			//condicion para detectar archivos a reemplazar
 			if (strpos($filea["dir"],'_/files') !== false) {
-				$complete = true;
-
 				if ($filea['dir'] === '_/files')
 					$path = '';
 				else {
@@ -94,9 +93,6 @@ class BackupPeer {
 				file_put_contents('WEB-INF/../' . $path . $filea["name"] , $filea['data']);
 			}
 		}
-
-		if ($complete)
-			echo "Acrhivos restaurados satisfactoriamente";
 
 		//hay procesamiento de SQL
 		if (!empty($sql))
@@ -160,51 +156,6 @@ class BackupPeer {
 	}
 
 }
-
-/*
- * Definición de la Conexión a la Base de Datos
- * Modificada del config/DBConnection.inc.php.
- * @package Config
- */
-
-include_once("WEB-INF/classes/includes/db_mysql.inc.php");
-
-class DBConnection extends DB_Sql {
-
-	function DBConnection() {
-
-		$configDbFromPropel = include("config/application-conf.php");
-		
-		$configDbData = $configDbFromPropel["datasources"]["application"]["connection"];
-		$dsnParts = explode("=",$configDbData["dsn"]);
-		$database = $dsnParts[2];
-		$dsnParts2 = explode(";",$dsnParts[1]);
-		$host = $dsnParts2[0];
-		$user = $configDbData["user"];
-		$password = $configDbData["password"];
-		$port = "";
-
-		$charSet = $configDbData["settings"]["charset"]["value"];
-
-		//Para conectar directamente, cargar valores en esta sección
-		$this->Database = $database;
-		$this->Host = $host;
-		$this->User = $user;
-		$this->Password = $password;
-		$this->Port = $port;
-
-    if (!empty($charSet))
-			$this->CharSet = $charSet;
-
-		//Verifico que se puede conectar a la base, de lo contrario die
-		if (!$this->connect())
-			die("No se pudo actualizar la base de datos. Verifique los datos!!!");
-
-	}
-
-}
-
-//Clase zipfile del WEB-INF/classes/includes/zip.class.php
 
 class zipfile
 {

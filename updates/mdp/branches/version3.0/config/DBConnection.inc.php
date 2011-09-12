@@ -5,7 +5,7 @@
  * @package Config
  */
 
-include_once("WEB-INF/classes/includes/db_mysql.inc.php");
+require_once("WEB-INF/classes/includes/db_mysql.inc.php");
 
 class DBConnection extends DB_Sql {
 
