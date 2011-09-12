@@ -5,10 +5,12 @@ $backupPeer = new BackupPeer();
 if (!empty($_FILES['backup'])) {
 	$filename = $_FILES["backup"]['tmp_name'];
 	$originalFileName = $_FILES["backup"]['name'];
+	restoreBackup($backupPeer, $filename, $originalFileName);
 }
 else if (!empty($_GET['filename'])) {
 	$filename = $_GET['filename'];
 	$originalFileName = $filename;
+	restoreBackup($backupPeer, $filename, $originalFileName);
 }
 else {
 	echo "No ha seleccionado un archivo para instalar<br />";
@@ -21,17 +23,17 @@ else {
 	echo "<p>A continuacion indique el archivo local a restaurar en el sistema:</p>";
 	echo "<p><label>Archivo:</label><input type=\"file\" name=\"backup\" size=\"40\" /></p>";
 	echo "<p><input type=\"submit\" value=\"Restaurar respaldo local\" accept=\"txt/sql\" onclick=\"return confirm('Esta opción reemplazará la información en el sistema por la información en este respaldo. ¿Está seguro que desea continuar?');\"/></p>";
-	die;
+	echo "</form>";
 }
 
-if ($backupPeer->restoreBackup($filename, $originalFileName))
-	echo "Instalación completa";
-else
-	echo "No se pudo realizar la instalación";
+function restoreBackup($backupPeer, $filename, $originalFileName) {
+	
+	if ($backupPeer->restoreBackup($filename, $originalFileName))
+		echo "Instalación completa";
+	else
+		echo "No se pudo realizar la instalación";
+}
 
-?>
-
-<?php
 /**
  * BackupPeer
  * Modificado de WEB-INF/classes/moduyles/backup/classes/BackupPeer.php
@@ -157,9 +159,8 @@ class BackupPeer {
 
 	}
 
-}?>
+}
 
-<?php
 /*
  * Definición de la Conexión a la Base de Datos
  * Modificada del config/DBConnection.inc.php.
@@ -201,9 +202,9 @@ class DBConnection extends DB_Sql {
 
 	}
 
-}?>
+}
 
-<?php  //Clase zipfile del WEB-INF/classes/includes/zip.class.php
+//Clase zipfile del WEB-INF/classes/includes/zip.class.php
 
 class zipfile
 {
