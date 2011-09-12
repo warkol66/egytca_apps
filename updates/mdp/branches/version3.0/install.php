@@ -43,20 +43,25 @@ function restoreBackup($backupPeer, $filename, $originalFileName) {
  */
 class BackupPeer {
 
+	private $db;
+	
+	function BackupPeer() {
+		$this->db = new DBConnection();
+	}
+	
 	/**
 	 * Restauracion de Backup de sql
 	 * @param $sqlQuery string query a ejecutar
 	 */
 	function restoreSQL($sqlQuery) {
 		$osType = PHP_OS;
-		$db = new DBConnection();
 		$queries = explode(";\n",$sqlQuery);
 		foreach ($queries as $query) {
 			$query = trim($query);
 			if ($query == "#Renombre de tablas con camelcase." && stristr($osType,"WIN") !== FALSE) //Fin de ejecucion de sql en Windows
 				break;
 			if (!empty($query))
-				$db->query($query);
+				$this->db->query($query);
 		}
 		return true;
 	}
