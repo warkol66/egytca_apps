@@ -27,29 +27,34 @@ class UsersValidationUsernameXAction extends BaseAction {
 		$fieldname = 'userParams[username]';
 		$exist = 1;
 
-		if (strlen($_POST['userParams']['username']) >= 4) {
-			if (Common::hasUnifiedUsernames()) {
-				$usernameExists = UserPeer::getByUsername($_POST['userParams']['username']);
-				if (class_exists(AffiliateUserPeer))
-					$AffiliateUsernameExists = AffiliateUserPeer::getByUsername($_POST['userParams']['username']);
-				else
-					$AffiliateUsernameExists = NULL;
-				if (empty($usernameExists) && empty($AffiliateUsernameExists))
-					$exist = 0;
+		if ($_POST['userParams']['username'] == $_POST['actualuserParams']['username'])
+			$exist = 0;
+		else {
+			if (strlen($_POST['userParams']['username']) >= 4) {
+				if (Common::hasUnifiedUsernames()) {
+					$usernameExists = UserPeer::getByUsername($_POST['userParams']['username']);
+					if (class_exists(AffiliateUserPeer))
+						$AffiliateUsernameExists = AffiliateUserPeer::getByUsername($_POST['userParams']['username']);
+					else
+						$AffiliateUsernameExists = NULL;
+					if (empty($usernameExists) && empty($AffiliateUsernameExists))
+						$exist = 0;
+				}
+				else {
+					$usernameExists = UserPeer::getByUsername($_POST['userParams']['username']);
+					if (empty($usernameExists))
+						$exist = 0;
+				}
 			}
 			else {
-				$usernameExists = UserPeer::getByUsername($_POST['userParams']['username']);
-				if (empty($usernameExists))
-					$exist = 0;
+				$minLength = 1;
+				$smarty->assign('minLength',$minLength);
 			}
 		}
-		else
-			$minLength = 1;
-		$smarty->assign('minLength',$minLength);
+
 
 		$smarty->assign('name',$fieldname);
 		$smarty->assign('value',$exist);
-		$smarty->assign('message',$message);
 
 		return $mapping->findForwardConfig('success');
 

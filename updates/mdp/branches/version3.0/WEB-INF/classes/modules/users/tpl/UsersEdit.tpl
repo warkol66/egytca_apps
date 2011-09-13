@@ -78,10 +78,11 @@ function usersDoEditInfo(form){
 	<input type='hidden' name='id' value='|-if $action eq "edit"-||-$currentUser->getId()-||-/if-|' />
 |-if $action eq 'edit' and $currentUser->getId() lt 3-|
 	<p><label for="userParams[usernameDisabled]">##users,162,Identificación de Usuario##</label>
+	|-if $action eq 'edit' and $currentUser->getUsername() ne ''-|<input id='actualuserParams[username]' type='hidden' value='|-$currentUser->getUsername()-|' />|-/if-|
 		<input id='userParams[usernameDisabled]' name='userParams[usernameDisabled]' type='text' value='|-$currentUser->getUsername()-|' size="30" disabled="disabled" />
 |-else-|
 	<p><label for="userParams[username]">##users,162,Identificación de Usuario##</label>
-			<input id='actualuserParams[username]' type='hidden' value='|-$currentUser->getUsername()-|' />
+			|-if $action eq 'edit' and $currentUser->getUsername() ne ''-|<input id='actualuserParams[username]' type='hidden' value='|-$currentUser->getUsername()-|' />|-/if-|
 			<input id='userParams[username]' name='userParams[username]' type='text' value='|-$currentUser->getUsername()-|'  size="30" |-ajax_onchange_validation_attribute actionName=usersValidationUsernameX-| />|-validation_msg_box idField=userParams[username]-|
 |-/if-|</p>
 		<p><label for="userParams[name]">##users,163,Nombre##</label>
