@@ -418,7 +418,7 @@ function recordset2Array() {
  * Definición de la Conexión a la Base de Datos
  *
  * @package Config
- *
+ */
 
 class DBConnection extends DB_Sql {
 
