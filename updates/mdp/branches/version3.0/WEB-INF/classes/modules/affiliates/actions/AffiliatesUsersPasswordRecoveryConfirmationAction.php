@@ -5,8 +5,6 @@
  * @package affiliates
  */
 
-require_once("EmailManagement.php");
-
 class AffiliatesUsersPasswordRecoveryConfirmationAction extends BaseAction {
 
 	function AffiliatesUsersPasswordRecoveryConfirmationAction() {
@@ -19,9 +17,6 @@ class AffiliatesUsersPasswordRecoveryConfirmationAction extends BaseAction {
 
 		$this->template->template = "TemplatePlain.tpl";
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -35,9 +30,10 @@ class AffiliatesUsersPasswordRecoveryConfirmationAction extends BaseAction {
 		if (ConfigModule::get('affiliates','askForNewPasswordOnRecovery')) {
 			$smarty->assign("recoveryHash", $_GET["recoveryHash"]);
 			return $mapping->findForwardConfig('askNewPass');
-		} else {
-			return $this->addParamsToForwards(array("recoveryHash"=>$_GET["recoveryHash"]),$mapping,'sendNewPass');
 		}
+		else
+			return $this->addParamsToForwards(array("recoveryHash"=>$_GET["recoveryHash"]),$mapping,'sendNewPass');
+
 	}
 
 }

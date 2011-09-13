@@ -31,7 +31,7 @@ class AffiliatesUsersLoginAction extends BaseAction {
 
 		$smarty->assign("message",$_GET["message"]);
 
-		if (!empty($_SESSION["loginUser"]) || !empty($_SESSION["loginAffiliateUser"]) )
+		if (!empty($_SESSION["loginUser"]) || !empty($_SESSION["loginAffiliateUser"]))
 			return $mapping->findForwardConfig('welcome');
 
 		if (Common::hasUnifiedLogin()) {

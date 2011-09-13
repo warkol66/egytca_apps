@@ -11,14 +11,6 @@
 				<forward name="failure" path="/Main.php?do=affiliatesEdit" redirect="true" />
 		</action>
 		
-		<action    path = "affiliatesUsersAutocompleteListX"
-							 type = "AffiliatesUsersAutocompleteListXAction"
-							 name = "affiliatesUsersAutocompleteListX"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="AffiliatesUsersAutocompleteListXSuccess.tpl" />
-		</action>
-
 		<action      path = "affiliatesUsersLogin"
 								 type = "AffiliatesUsersLoginAction"
 								 name = "affiliatesUsersLogin"
@@ -30,14 +22,6 @@
 			<forward name="welcome" path="/Main.php?do=affiliatesUsersWelcome" redirect="true" />
 		</action>
 		
-		<action    path = "affiliatesUsersLoginMaintenance"
-							 type = "AffiliatesUsersLoginMaintenanceAction"
-							 name = "affiliatesUsersLoginMaintenance"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="UsersLogin.tpl"/>
-		</action>
-
 		<action      path = "affiliatesUsersDoLogin"
 								 type = "AffiliatesUsersDoLoginAction"
 								 name = "affiliatesUsersDoLogin"
@@ -217,14 +201,6 @@
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=affiliatesUsersGroupsEdit" redirect="true" />
 			<forward name="failure" path="/Main.php?do=affiliatesUsersGroupsEdit&amp;message=notRemovedFromGroup" redirect="true" />
-		</action>
-
-		<action    path = "affiliatesUsersValidationUsernameX"
-							 type = "AffiliatesUsersValidationUsernameXAction"
-							 name = "affiliatesUsersValidationUsernameX"
-							scope = "request"
-					 validate = "true">
-			<forward name="success"  path="AffiliatesUsersValidationUsername.tpl" />
 		</action>
 
 	</action-mappings>

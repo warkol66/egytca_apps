@@ -8,8 +8,7 @@ class AffiliatesSetOwnerAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
-
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
@@ -21,21 +20,17 @@ class AffiliatesSetOwnerAction extends BaseAction {
 		$smarty->assign("module",$module);
 
 		if ($_POST['userId'] && $_POST['affiliateId']) {
-		
 			$affiliate = AffiliatePeer::get($_POST['affiliateId']);
 			$affiliate->setOwnerId($_POST['userId']);
-			
 			try {
 				$affiliate->save();
 			}
-			catch(PropelException $exp) {
-				return $mapping->findForwardConfig('failure');	
+			catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->getMessage());
+				return $mapping->findForwardConfig('failure');
 			}
-		
 		}
-
 		return $mapping->findForwardConfig('success');
-
 	}
-
 }

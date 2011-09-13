@@ -32,7 +32,6 @@ Para terminar de crear el ##affiliates,3,Afiliado## debe crear una cuenta de usu
 		</ul>
 	</div>
 |-/if-|
-|-include file='ValidationJavascriptInclude.tpl'-|
 <form method="post" action="Main.php">
 	<fieldset title="Formulario de edición de usuario">
 	<legend>Usuario de ##affiliates,1,Afiliados## |-if $currentAffiliateUser->getAffiliateName() ne ''-|- |-$currentAffiliateUser->getAffiliateName()-||-/if-|</legend>

@@ -5,8 +5,6 @@
  * @package affiliates
  */
 
-require_once("EmailManagement.php");
-
 class AffiliatesUsersPasswordRecoverySendConfirmationRequestAction extends BaseAction {
 
 	function AffiliatesUsersPasswordRecoverySendConfirmationRequestAction() {
@@ -19,9 +17,6 @@ class AffiliatesUsersPasswordRecoverySendConfirmationRequestAction extends BaseA
 
 		$this->template->template = "TemplatePlain.tpl";
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -30,9 +25,9 @@ class AffiliatesUsersPasswordRecoverySendConfirmationRequestAction extends BaseA
 
 		$module = "Affiliates";
 
-		if ( !empty($_POST["username"]) && !empty($_POST["mailAddress"]) ) {
+		if (!empty($_POST["username"]) && !empty($_POST["mailAddress"])) {
 			if (Common::validateCaptcha($_POST['securityCode'])) {
-				$user = AffiliateUserPeer::authenticateByUserAndMail($_POST["username"],$_POST["mailAddress"]);
+				$user = AffiliateUserPeer::authenticateByUserAndMail($_POST["username"], $_POST["mailAddress"]);
 				if ( !empty($user)) {
 					if (!$user->recoveryRequestAlredyMade()) {
 						$subject = Common::getTranslation('New password','users');
@@ -40,25 +35,28 @@ class AffiliatesUsersPasswordRecoverySendConfirmationRequestAction extends BaseA
 						$recoveryHash = $user->createRecoveryHash();
 						$smarty->assign("recoveryHash",$recoveryHash);
 						$body = $smarty->fetch("AffiliatesUsersPasswordRecoveryConfirmationRequestMail.tpl");
-		
+
 						$mailTo = $user->getMailAddress();
-		
+
 						global $system;
 						$mailFrom = $system["config"]["system"]["parameters"]["fromEmail"];
-		
+
+						require_once("EmailManagement.php");
 						$manager = new EmailManagement();
 						$message = $manager->createHTMLMessage($subject,$body);
 						$result = $manager->sendMessage($mailTo,$mailFrom,$message);
-						
+
 						Common::doLog('success','username: ' . $_POST["username"] . ' Mail Address: ' . $_POST["mailAddress"]);
 						return $mapping->findForwardConfig('success');
-					} else {
+					}
+					else {
 						$this->template->template = "TemplateLogin.tpl";
 						$smarty->assign("message","requestAlredyMade");
 						return $mapping->findForwardConfig('failure');
 					}
 				}
-			} else {
+			}
+			else {
 				$this->template->template = "TemplateLogin.tpl";
 				$smarty->assign("message","wrongCaptcha");
 				return $mapping->findForwardConfig('failure');

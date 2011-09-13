@@ -15,9 +15,6 @@ class AffiliatesUsersPasswordDoChangeForRecoveryAction extends BaseAction {
 
     BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -36,13 +33,12 @@ class AffiliatesUsersPasswordDoChangeForRecoveryAction extends BaseAction {
 				return $mapping->findForwardConfig('success');
 			}
 		}
-		if (empty($user)) {
+		if (empty($user))
 			return $this->addParamsToForwards(array('message'=>'wrongHash'),$mapping,"failure");
-		}
-		if (!$user->recoveryRequestIsValid()){
+
+		if (!$user->recoveryRequestIsValid())
 			return $this->addParamsToForwards(array('message'=>'expiredHash'),$mapping,"failure");
-		}
-		
+
 		return $this->addParamsToForwards(array('message'=>'anotherError'),$mapping,"failure");
 			
 	}

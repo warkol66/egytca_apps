@@ -8,7 +8,7 @@ class AffiliatesEditAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
@@ -19,26 +19,23 @@ class AffiliatesEditAction extends BaseAction {
 		$module = "Affiliates";
 		$smarty->assign("module",$module);
 
-		$affiliatePeer= new AffiliatePeer();
+		$filters = $_GET["filters"];
+		$smarty->assign("filters",$filters);
 
-		$msg = $request->getParameter("message");
-		if(empty($msg)){
-			$msg="noError";
+		if ($_GET['id']) {
+			$affiliate =  AffiliatePeer::get($_GET['id']);
+			if (empty($affiliate)) {
+				$smarty->assign("notValidId","true");
+				$affiliate = new Affiliate();
+			}
+			else
+				$smarty->assign("action","edit");
 		}
-		$smarty->assign("message",$msg);
-
-		$id = $request->getParameter("id");
-		$affiliate = $affiliatePeer->get($id);
-		if (empty($affiliate)) {
-			$smarty->assign("action","create");
+		else {
 			$affiliate = new Affiliate();
+			$smarty->assign("action","create");
 		}
-		else
-			$smarty->assign("action","edit");
-		
 		$smarty->assign("affiliate",$affiliate);
 		return $mapping->findForwardConfig('success');
-
 	}
-
 }

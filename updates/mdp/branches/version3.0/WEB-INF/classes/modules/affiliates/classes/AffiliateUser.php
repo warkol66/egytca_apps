@@ -76,12 +76,7 @@ class AffiliateUser extends BaseAffiliateUser {
 	* @return string Nombre del afiliado
 	*/
 	function getAffiliate() {
-		$affiliateId = $this->getAffiliateId();
-		$affiliate = AffiliateQuery::create()->findPk($affiliateId);
-		if($affiliate)
-			return $affiliate->getName();
-		else
-			return;
+		return $this->getAffiliateRelatedByAffiliateid();
 	}
 
 	/**
@@ -96,20 +91,6 @@ class AffiliateUser extends BaseAffiliateUser {
 			return true;
 		else
 			return false;
-	}
-
-	/**
-	* Devuelve el nombre dle afiliado
-	*
-	* @return string con nombre del afiliado
-	*/
-	function getAffiliateName() {
-		$affiliateId = $this->getAffiliateId();
-		$affiliate = AffiliateQuery::create()->findPk($affiliateId);
-		if ($affiliate)
-			return $affiliate->getName();
-		else
-			return;
 	}
 
 	/**

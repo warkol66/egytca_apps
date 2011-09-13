@@ -98,18 +98,15 @@ class AffiliatePeer extends BaseAffiliatePeer {
 
 	/**
 	* Obtiene un affiliate.
-	*
-	* @param int $id id del issue
-	* @return boolean true si se actualizo la informacion correctamente, false sino
+	* @param int $id id del afiliado
+	* @return object affiliate
 	*/
 	function get($id) {
-		$affiliate = AffiliatePeer::retrieveByPK($id);
-		return $affiliate;
+		return AffiliateQuery::create()->findOneById($id);
 	}
 
 	/**
 	 * Retorna el criteria generado a partir de los parámetros de búsqueda
-	 *
 	 * @return criteria $criteria Criteria con parámetros de búsqueda
 	 */
 	private function getSearchCriteria() {
@@ -127,25 +124,9 @@ class AffiliatePeer extends BaseAffiliatePeer {
 		return $criteria;
 	}
 
-	function update($id,$params) {
-		$affiliate = AffiliatePeer::retrieveByPK($id);
-		Common::setObjectFromParams($affiliate, $params);
-		if ($affiliate->save())
-			return $affiliate;
-		return true;
-	}
 
 	function delete($id) {
-		AffiliateQuery::create()->filterByPrimaryKey($id)->delete();
-		return true;
-	}
-
-
-	function create($params) {
-		$affiliate = new Affiliate();
-		Common::setObjectFromParams($affiliate, $params);
-		if ($affiliate->save())
-			return $affiliate;
+		AffiliateQuery::create()->findOneById($id)->delete();
 		return true;
 	}
 

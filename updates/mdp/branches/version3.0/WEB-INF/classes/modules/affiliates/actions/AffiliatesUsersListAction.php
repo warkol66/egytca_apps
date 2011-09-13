@@ -8,11 +8,8 @@ class AffiliatesUsersListAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -21,19 +18,18 @@ class AffiliatesUsersListAction extends BaseAction {
 
 		$module = "Affiliates";
 		$section = "Users";
-
-	    $smarty->assign("module",$module);
-	    $smarty->assign("section",$section);
+		$smarty->assign("module",$module);
+		$smarty->assign("section",$section);
 
 		$usersPeer = new AffiliateUserPeer();
 		$filters = $_GET['filters'];
 		$this->applyFilters($usersPeer, $filters, $smarty);
-		
-		if (!empty($_GET["page"])){
+
+		if (!empty($_GET["page"])) {
 			$page = $_GET["page"];
 			$smarty->assign("page",$page);
 		}
-		
+
 		//Si esta logueado un usuario comun
 		if (!empty($_SESSION["loginUser"])) {
 			$affiliateId = $_GET['filters']["searchAffiliateId"];
@@ -42,24 +38,24 @@ class AffiliatesUsersListAction extends BaseAction {
 					$deletedUsers = $usersPeer->getDeleteds();
 				else
 					$deletedUsers = $usersPeer->getDeletedsByAffiliate($affiliateId);
-			} 
+			}
 			else
 				$deletedUsers = $usersPeer->getDeleteds();
 
 			$affiliatePeer = new AffiliatePeer();
 			$affiliates = $affiliatePeer->getAll();
 			$smarty->assign("affiliates",$affiliates);
-		} 
+		}
 		else if (!empty($_SESSION["loginAffiliateUser"])) {
-	  	$affiliateId = $_SESSION["loginAffiliateUser"]->getAffiliateId();
+			$affiliateId = $_SESSION["loginAffiliateUser"]->getAffiliateId();
 			$deletedUsers = $usersPeer->getDeletedsByAffiliate($affiliateId);
-		} 
+		}
 		else
 			return $mapping->findForwardConfig('failure');
-		
+
 		$pager = $usersPeer->getSearchPaginated($page);
 		$smarty->assign("deletedUsers",$deletedUsers);
-		
+
 		$smarty->assign("affiliateId",$affiliateId);
 
 		$url = "Main.php?do=affiliatesUsersList";
