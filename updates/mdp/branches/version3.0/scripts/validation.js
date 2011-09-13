@@ -347,13 +347,10 @@ function validationValidateFieldThruAjax(element,doAction) {
 			var response = transport.responseText.evalJSON();
 
 			$(response.name).style.background = '#C5F1C7 url(images/valid.png) no-repeat right';
-			$(response.disableElement).disabled = false;
 
-			if (response.value == 1) {
+			if (response.value == 1)
 				$(response.name).style.background = '#F4D3D3 url(images/invalid.png) no-repeat right';
-				$(response.disableElement).disabled = response.disabled;
-			}
-			var elementName = response.name + '_box';
+
 			var element = $(response.name + '_box');
 			if (element != null)
 				element.innerHTML = response.message;
