@@ -16,7 +16,8 @@
 class BackupPeer {
 
 	var $header = '';
-	var $pathIgnoreList = array('backups/','WEB-INF/smarty_tpl/templates_c/','.svn/','.git/');
+	var $pathIgnoreList = array('.svn/','.git/');
+	var $pathContentIgnoreList = array('backups/','WEB-INF/smarty_tpl/templates_c/');
 	private $ignoreHeaderAndFooter;
 
 	/**
@@ -73,10 +74,10 @@ class BackupPeer {
 			if (preg_match("/\.zip/i",$file)) {
 				$filename = $path . $file;
 				$data = array(
-									'name' => $file,
-									'size' => (filesize($filename) / 1024),
-									'time' => filemtime($filename)
-								);
+					'name' => $file,
+					'size' => (filesize($filename) / 1024),
+					'time' => filemtime($filename)
+				);
 				array_push($filenames,$data);
 			}
 
@@ -302,7 +303,8 @@ class BackupPeer {
 			foreach ($listing as $route) {
 				$clearRoute = explode('WEB-INF/../',$route);
 
-				if (!BackupPeer::routeHasToBeIgnored($clearRoute[1])) {
+				if (!BackupPeer::routeHasToBeIgnored($clearRoute[1]) &&
+					!BackupPeer::routeContentHasToBeIgnored($clearRoute[1]) ) {
 					if (is_dir($route))
 						$zipfile->create_dir("_/files/" . $clearRoute[1]);
 					if (is_file($route)) {
@@ -310,13 +312,21 @@ class BackupPeer {
 						$zipfile->create_file($contents,"_/files/" . $clearRoute[1]);
 					}
 				} else {
-					if (in_array($clearRoute[1], $this->pathIgnoreList)) // Es el directorio ignorado raiz
+					if (in_array($clearRoute[1], $this->pathContentIgnoreList)) // Es el directorio ignorado raiz
 						$zipfile->create_dir ("_/files/" . $clearRoute[1]);
 				}
 			}
 		}
 
 		return $zipfile->zipped_file();
+	}
+	
+	function routeContentHasToBeIgnored($route) {
+		foreach ($this->pathContentIgnoreList as $toIgnore) {
+			if (strpos($route,$toIgnore) !== false)
+				return true;
+		}
+		return false;
 	}
 
 	/**
