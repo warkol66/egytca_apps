@@ -79,17 +79,25 @@ class BackupPeer {
 
 		$sql = '';
 
+		$rootDir = "";
 		foreach($zipfile->files as $filea) {
+			if ($rootDir == "" && $filea["dir"] != "") {
+				if (strpos($filea["dir"], "./") === 0)
+					$rootDir = "./";
+				else
+					$rootDir = "_/";
+			}
+			
 			// condicion de busqueda del archivo SQL
 			if ($filea["name"] == "dump.sql" && (($filea["dir"] == './db' || empty($filea["dir"])) || ($filea["dir"] == '_/db' || empty($filea["dir"]))) )
 				$sql = $filea["data"];
 			
 			//condicion para detectar archivos a reemplazar
-			if (strpos($filea["dir"],'_/files') !== false) {
-				if ($filea['dir'] === '_/files')
+			if (strpos($filea["dir"], $rootDir.'files') !== false) {
+				if ($filea['dir'] === $rootDir.'files')
 					$path = '';
 				else {
-					$clearRoute = explode('_/files/',$filea['dir']);
+					$clearRoute = explode($rootDir.'files/',$filea['dir']);
 					$path = $clearRoute[1] . '/';
 					if (!empty($path) && !file_exists($path))
 						mkdir($path, 0777, true);
