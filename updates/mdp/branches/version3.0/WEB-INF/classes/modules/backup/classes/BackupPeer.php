@@ -16,7 +16,7 @@
 class BackupPeer {
 
 	var $header = '';
-	var $pathIgnoreList = array('backups/','WEB-INF/smarty_tpl/templates_c');
+	var $pathIgnoreList = array('backups/','WEB-INF/smarty_tpl/templates_c/','.svn/','.git/');
 	private $ignoreHeaderAndFooter;
 
 	/**
@@ -309,6 +309,9 @@ class BackupPeer {
 						$contents = file_get_contents($route);
 						$zipfile->create_file($contents,"_/files/" . $clearRoute[1]);
 					}
+				} else {
+					if (in_array($clearRoute[1], $this->pathIgnoreList)) // Es el directorio ignorado raiz
+						$zipfile->create_dir ("_/files/" . $clearRoute[1]);
 				}
 			}
 		}
