@@ -45,6 +45,8 @@ function restoreBackup($backupPeer, $filename, $originalFileName) {
  */
 class BackupPeer {
 
+	var $pathContentIgnoreList = array('backups/','WEB-INF/smarty_tpl/templates_c/');
+	
 	/**
 	 * Restauracion de Backup de sql
 	 * @param $sqlQuery string query a ejecutar
@@ -105,6 +107,11 @@ class BackupPeer {
 				//guardamos el archivo en su ubicacion
 				file_put_contents($path . $filea["name"] , $filea['data']);
 			}
+		}
+		
+		foreach ($this->pathContentIgnoreList as $createme) {
+			if (!file_exists($createme))
+				mkdir($createme, 0777, true);
 		}
 
 		//hay procesamiento de SQL

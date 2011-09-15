@@ -16,7 +16,7 @@
 class BackupPeer {
 
 	var $header = '';
-	var $pathIgnoreList = array('.svn/','.git/');
+	var $pathIgnoreList = array('.svn/','.git/', 'install.php');
 	var $pathContentIgnoreList = array('backups/','WEB-INF/smarty_tpl/templates_c/');
 	private $ignoreHeaderAndFooter;
 
@@ -254,6 +254,11 @@ class BackupPeer {
 				//guardamos el archivo en su ubicacion
 				file_put_contents($path . $filea["name"] , $filea['data']);
 			}
+		}
+		
+		foreach ($this->pathContentIgnoreList as $createme) {
+			if (!file_exists($createme))
+				mkdir($createme, 0777, true);
 		}
 
 		//hay procesamiento de SQL
