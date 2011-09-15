@@ -5,7 +5,7 @@
 function recipientsUsersAfterUpdateElement(text, li) {
 	$('autocomplete_users').value = '';
 	var idx = $$('#recipientsSelected > li').size();
-	$('recipientsSelected').insert('<li><input type="button" class="icon iconDelete" onClick="this.parentNode.remove()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+li.id+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="user" />'+li.innerHTML.stripTags()+'</li>')
+	$('recipientsSelected').insert('<li><input type="button" class="icon iconDelete" onClick="this.parentNode.remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+li.id+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="user" />'+li.innerHTML.stripTags()+'</li>')
     if (!li.hasClassName('informative_only')) {
         var submit = $('button_edit_internalMail');
         if (Object.isElement(submit))
@@ -16,7 +16,7 @@ function recipientsUsersAfterUpdateElement(text, li) {
 function recipientsAffiliatesAfterUpdateElement(text, li) {
 	$('autocomplete_affiliates').value = '';
 	var idx = $$('#recipientsSelected > li').size();
-	$('recipientsSelected').insert('<li><input type="button" class="icon iconDelete" onClick="this.parentNode.remove()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+li.id+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+li.innerHTML.stripTags()+'</li>')
+	$('recipientsSelected').insert('<li><input type="button" class="icon iconDelete" onClick="this.parentNode.remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+li.id+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+li.innerHTML.stripTags()+'</li>')
     if (!li.hasClassName('informative_only')) {
         var submit = $('button_edit_internalMail');
         if (Object.isElement(submit))
@@ -33,6 +33,11 @@ function changeRecipientType(entityName) {
 		$('recipientsAffiliates').hide();
 		$('recipientsUsers').show();
 	}	
+}
+
+function updateSubmitButton() {
+	if (($("recipientsSelected").childNodes.length - 1) <= 0)
+		$("button_edit_internalMail").disable();
 }
 </script>
 <h2>Mensajería Interna</h2>
@@ -74,7 +79,7 @@ function changeRecipientType(entityName) {
 				<ul id="recipientsSelected">
 					|-foreach from=$internalMail->getRecipients() key=idx item=user-|
 						<li>
-							<input type="button" class="icon iconDelete" onClick="this.parentNode.remove()" title="Eliminar destinatario" />
+							<input type="button" class="icon iconDelete" onClick="this.parentNode.remove();updateSubmitButton()" title="Eliminar destinatario" />
 							<input type="hidden" name="internalMail[to][|-$idx-|][id]" value="|-$user->getId()-|" />
 							<input type="hidden" name="internalMail[to][|-$idx-|][type]" value="|-$recipients[$idx].type-|" />
 							|-if ($user->getName() ne '') or ($user->getSurname() ne '')-||-$user->getSurname()-|, |-$user->getName()-| - |-/if-|(|-$user->getUserName()-|)
@@ -98,7 +103,7 @@ function changeRecipientType(entityName) {
 				<input type="hidden" name="id" id="id" value="|-$internalMail->getId()-|" />
 				<input type="hidden" name="internalMail[replyId]" id="internalMail[replyId]" value="|-$internalMail->getReplyId()-|" />
 				<input type="hidden" name="page" id="page" value="|-$page-|" />
-				<input type="submit" id="button_edit_internalMail" name="button_edit_internalMail" title="Enviar" value="Enviar" />
+				<input type="submit" id="button_edit_internalMail" name="button_edit_internalMail" title="Enviar" value="Enviar" disabled="disabled" />
 				<input type="button" id="cancel" name="cancel" title="Cancelar y volver al listado" value="Cancelar" onClick="location.href='Main.php?do=commonInternalMailsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'"/>
 			</p>
 		</fieldset>
