@@ -130,6 +130,8 @@ window.onload = function() {
             okText: 'Guardar',
             cancelText: 'Cancelar',
             savingText: 'Guardando...',
+						hoverClassName: 'in_place_hover',
+				    highlightColor: '#b7e0ff',
             cancelControl: 'button',
             savingClassName: 'inProgress',
             externalControl: 'media_type_edit_|-$mediaType->getid()-|',
