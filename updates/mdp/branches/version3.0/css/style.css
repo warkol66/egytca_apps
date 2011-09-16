@@ -186,82 +186,18 @@
 .tableTdBorders {
 	border-collapse: collapse;
 }
-.noPaddingCell {
-	padding: 0px;
-}
-
-
-
-
-
 .tdTitle {
 	font-size: 93%;
 	font-weight: bold;
 	vertical-align: middle;
 	margin: 7px 3px 5px 3px;
 }
-
-
-.deactivated {
-	text-decoration: none;
-}
 .paginateText {
 	display: inline;
 	padding: 3px;
 }
-
-
-
-
-
-
-.edit {
-
-	text-decoration: underline;
-}
-a.edit:link{
-	text-decoration: underline;
-}
-a.edit:visited{
-	text-decoration: underline;
-}
-a.edit:hover{
-	text-decoration: underline;
-}
-.delete {
-	text-decoration: underline;
-}
-a.delete:link{
-	text-decoration: underline;
-}
-a.delete:visited{
-	text-decoration: underline;
-}
-a.delete:hover{
-	text-decoration: underline;
-}
-.data {
-}
-a.data:link{
-	text-decoration: underline;
-}
-a.data:visited{	
-	text-decoration: underline;
-}
-a.data:hover{
-	text-decoration: underline;
-}
-.detail {
-	text-decoration: underline;
-}
-a.detail:link{
-	text-decoration: underline;
-}
-a.detail:visited{
-	text-decoration: underline;
-}
-a.detail:hover{
-	text-decoration: underline;
+#addressesList li:hover {
+	cursor: move;
 }
 .cellTextOptions {
 	text-align: center;
@@ -269,136 +205,8 @@ a.detail:hover{
 .tdTextOptions {
 	text-align: center;
 }
-.center {
-	text-align: center;
-}
-.left {
-	text-align: left;
-}
-.right {
-	text-align: right;
-}
-.top {
-	vertical-align: top; 
-}
-.middle {
-	vertical-align: middle; 
-}
-.bottom {
-	vertical-align: bottom; 
-}
-.buttonSmall {
-	font-size: 77%;
-}
-fieldset {
-	padding: 8px;
-	margin-bottom: 2em; /* IE 3.5em */
-	position: relative;
-}
-fieldset legend {
-	font-weight: bold;
-	font-size: 123.1%;
-	margin-bottom: 0.5em;
-	position: relative;  
-	margin-left: -.3em;
-	padding: .2em;
-}
-fieldset label {
-	font-size: 93%;
-	line-height: 153.9%;
-	width: 140px;
-	float: left;
-	font-weight: bold;
-	vertical-align: text-top;
-	text-align: right;
-	height: auto;
-	padding-top: 0;
-	margin-bottom: 0;
-	padding-right: 5px;
-	padding-bottom: 5px;
-	display: block;
-}
-fieldset p {
-	display: block;
-	height: auto;
-	clear: both;
-}
-fieldset fieldset legend {  
-	background-color: transparent;
-}
-fieldset fieldset label {
-	width: 90px;
-	font-weight: bold;
-	display: inline;
-}
-fieldset fieldset {
-	padding: 5px;
-	margin-left: 120px;
-}
-fieldset fieldset label {
-	font-weight: bold;
-	display: inline;
-}
-fieldset li {
-	margin-left: 35px;
-}
-fieldset {  
-	position: relative;
-}
-/*
-legend {  
-	margin-bottom: 0.5em;
-	position: relative;  
-	top: -1.5em;
-	margin-left: -.5em;
-	padding: .2em;
-}*/
-fieldset fieldset legend {  
-	background-color: transparent;
-}
 
-
-
-
-#addressesList li:hover {
-	cursor: move;
-}
-
-a.tooltip, a.tooltipWide{
-	vertical-align: top;
-	padding: 0 4px 0 4px;
-}
-a.tooltip img, a.tooltipWide img{
-	border: none;
-}
-a.tooltip:hover,a.tooltipWide:hover {
-	text-decoration:none;
-} /*BG color is a must for IE6*/
-a.tooltip span,a.tooltipWide span {
-	display:none; 
-	padding:2px 3px; 
-	margin-left: 18px; 
-	width:150px;
-	font-weight: normal !important;
-	text-align: justify !important;
-	z-index: 1000;
-}
-a.tooltipWide span {
-	width:300px;
-}
-a.tooltip:hover span, a.tooltipWide:hover span{
-	display: inline; 
-	position: absolute;
-	margin-top: -65px;
-}
-.noWrap {
-	white-space: nowrap;
-}
-
-
-/* -------------------------------------------------------------------*/ 
 /* MENU NAVEGACION   */
-/* -------------------------------------------------------------------*/ 
 #leftColumn ul { 
 	margin:0;   /*   styles-ie*/
 	width: 150px;
@@ -440,7 +248,6 @@ a.tooltip:hover span, a.tooltipWide:hover span{
 	padding: 7px 32px;
 	margin: 15px 0 0 2px;
 }
-
 .linksEdicion{
 	clear:left;
 	display:inline;
@@ -450,18 +257,6 @@ a.tooltip:hover span, a.tooltipWide:hover span{
 	color:#0066CC;
 	font-weight:bold;
 }
-/*  BOTON DE FIELDSET  */
-#fieldsetButton{
-	float:left;
-	display:block;
-	margin: 0 0 0 125px;
-	text-align:left;
-}
-
-fieldset li {
-	margin-left: 35px;
-}
-
 #help {
 	display:block;
 	height:20px;
@@ -476,27 +271,3 @@ fieldset li {
 	z-index:12000;
 }
 
-a.textLink {
-	text-decoration: none;
-}
-a.textLink:hover {
-	text-decoration: underline;
-}
-a.textLink:visited, a.textLink:active{
-}
-
-/* InternalMail */
-fieldset #recipientsSelected li {
-	list-style: none;
-}
-#recipientsSelected li input {
-	margin-left: 120px;
-	margin-right: 5px;
-}
-/* /InternalMail */
-.bold {
-	font-weight: bold;
-}
-.italic {
-	font-style: italic;
-}
