@@ -23,6 +23,7 @@
 }
 </script>
 <script src="scripts/overlib.js" type="text/javascript"></script>
+<script src="scripts/lightbox.js" language="JavaScript" type="text/javascript"></script>
 
 |-if $module eq 'Content'-|
 	<script src="Main.php?do=js&name=js&module=content&code=|-$currentLanguageCode-|" type="text/javascript"></script>

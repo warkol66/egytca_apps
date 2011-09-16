@@ -16,6 +16,7 @@ class DB_Sql {
   var $Database = "";
   var $User     = "";
   var $Password = "";
+  var $CharSet  = "";
 
   /* public: configuration parameters */
   var $Auto_Free     = 0;     ## Set to 1 for automatic mysql_free_result()
@@ -83,6 +84,9 @@ class DB_Sql {
         return 0;
       }
     }
+
+    if (isset($this->CharSet))
+    	mysql_query("SET NAMES $this->CharSet");
     
     return $this->Link_ID;
   }
@@ -407,4 +411,3 @@ function recordset2Array() {
   }
 
 }
-?>

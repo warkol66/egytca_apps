@@ -6,16 +6,16 @@ function validationValidateFormClienSide(form, doSubmit) {
 	if (doSubmit === undefined)
 		doSubmit = true;
 
-	var valid = false;
+    var valid = false;
 
-	var emptyArray = document.getElementsByClassName('emptyValidation',form);
-	var textArray = document.getElementsByClassName('textValidation',form);
-	var mailArray = document.getElementsByClassName('mailValidation',form);
-	var numericArray = document.getElementsByClassName('numericValidation',form);
-	var dateArray = document.getElementsByClassName('dateValidation',form);
-	var passwordMatchArray = document.getElementsByClassName('passwordMatch',form);
+    var emptyArray = $$('#' + Element.identify(form) + ' .emptyValidation');
+    var textArray = $$('#' + Element.identify(form) + ' .textValidation');
+    var mailArray = $$('#' + Element.identify(form) + ' .mailValidation');
+    var numericArray = $$('#' + Element.identify(form) + ' .numericValidation');
+    var dateArray = $$('#' + Element.identify(form) + ' .dateValidation');
+    var passwordMatchArray = $$('#' + Element.identify(form) + ' .passwordMatch');
 
-	validationClearInvalidFields(emptyArray);
+    validationClearInvalidFields(emptyArray);
 	validationClearInvalidFields(mailArray);
 	validationClearInvalidFields(textArray);
 	validationClearInvalidFields(numericArray);
@@ -39,17 +39,17 @@ function validationValidateFormClienSide(form, doSubmit) {
 		validationSetInvalidFields(numericResult,validation_messageNumeric);
 		validationSetInvalidFields(dateResult,validation_messageDate);
 		validationSetInvalidFields(passResult,validation_messagePasswordMatch);
-		
+
 		if (Object.isFunction(showValidationFailureMessage))
 			showValidationFailureMessage(form);
-		
+
 		document.location.href = '#';
 		return false;
 	} else {
 		if (Object.isFunction(hideValidationFailureMessage))
 			hideValidationFailureMessage(form);
-		if (doSubmit)
-			form.submit();
+		if (doSubmit) 
+            form.submit();
 		return true;
 	}
 }
@@ -114,17 +114,17 @@ function validationValidateField(fieldId) {
 	}
 
 	if (field.hasClassName('mailValidation')) {
-		if (!(validationValidateElement(field, validationMailValidator))) 
+		if (!(validationValidateElement(field, validationMailValidator)))
 			validationSetInvalidField(field,validation_messageMail);
 	}
 
 	if (field.hasClassName('numericValidation')) {
-		if (!(validationValidateElement(field,  validationNumericValidator))) 
+		if (!(validationValidateElement(field,  validationNumericValidator)))
 			validationSetInvalidField(field,validation_messageNumeric);
 	}
 
 	if (field.hasClassName('dateValidation')) {
-		if (!(validationValidateElement(field, validationDateValidator))) 
+		if (!(validationValidateElement(field, validationDateValidator)))
 			validationSetInvalidField(field,validation_messageDate);
 	}
 
@@ -284,7 +284,7 @@ function validationMailValidator(element) {
  * @return boolean
  */
 function validationNumericValidator(element) {
-	
+
 	if ( Object.isFunction(validationCustomNumericValidator) ) {
 		return validationCustomNumericValidator(element);
 	}
@@ -298,7 +298,7 @@ function validationNumericValidator(element) {
  * @return boolean
  */
 function validationDateValidator(element) {
-	
+
 	if ( Object.isFunction(validationCustomDateValidator) ) {
 		return validationCustomDateValidator(element);
 	}
@@ -330,9 +330,14 @@ function validationValidateFieldThruAjax(element,doAction) {
 	var url = 'Main.php?do=' + doAction;
 
 	var actualValueName = 'actual' + element.name;
-	var actualValue = document.getElementById(actualValueName).value;
 
-	var fields = element.name + '=' + element.value + '&actual' + element.name + '=' + actualValue;
+	if (document.getElementById(actualValueName) != null) {
+		var actualValue = document.getElementById(actualValueName).value;
+		var fields = element.name + '=' + element.value + '&actual' + element.name + '=' + actualValue;
+	}
+	else
+		var fields = element.name + '=' + element.value;
+		
 	var myAjax = new Ajax.Request(
 	url,
 	{
@@ -342,13 +347,10 @@ function validationValidateFieldThruAjax(element,doAction) {
 			var response = transport.responseText.evalJSON();
 
 			$(response.name).style.background = '#C5F1C7 url(images/valid.png) no-repeat right';
-			$(response.disableElement).disabled = false;
 
-			if (response.value == 1) {
+			if (response.value == 1)
 				$(response.name).style.background = '#F4D3D3 url(images/invalid.png) no-repeat right';
-				$(response.disableElement).disabled = response.disabled;
-			}
-			var elementName = response.name + '_box';
+
 			var element = $(response.name + '_box');
 			if (element != null)
 				element.innerHTML = response.message;
@@ -361,7 +363,9 @@ function validationValidateFieldThruAjax(element,doAction) {
 
 function clearFormFieldsFormat(form) {
 
-	var emptyArray = document.getElementsByClassName('emptyValidation',form);
+//	var emptyArray = document.getElementsByClassName('emptyValidation',form);
+    var emptyArray = $$('#' + form + ' .emptyValidation');
+//    console.debug(form);
 	var textArray = document.getElementsByClassName('textValidation',form);
 	var mailArray = document.getElementsByClassName('mailValidation',form);
 	var numericArray = document.getElementsByClassName('numericValidation',form);
@@ -401,4 +405,60 @@ function clearFieldsFormat(elements) {
 		clearFieldFormat(elements[i]);
 	};
 
+}
+
+
+/**
+ * Funcion para contar caracteres
+ */
+var TextCounter = Class.create();
+TextCounter.prototype = {
+	initialize: function(textareaid, inputid, maxLength, showHide) {
+		this.maxLength = maxLength;
+		this.textarea = $(textareaid);
+		this.input = $(inputid);
+		this.input.value = maxLength;
+		this.input.readonly = true;
+		this.input.disabled = true;
+		this.input.style.display = showHide;
+		Event.observe(this.textarea, 'keyup', this.checkChars.bindAsEventListener(this));
+		Event.observe(this.textarea, 'keydown', this.checkChars.bindAsEventListener(this));
+		this.checkChars();
+	},
+	checkChars: function(e) {
+		var includeBreaksInCount = true; // false = don't count a return (\r or \n) in the count.
+		var charCount = this.textarea.value.length;
+		var breaks = 0;
+		if (!includeBreaksInCount) {
+			var lines = this.textarea.value.split('\n');
+			breaks = lines.length;
+			// check for /r at the end of the lines (IE)
+			for (var i=0; i<lines.length; i++) {
+				var line = lines[ i ];
+				if (line.charCodeAt(line.length-1) == 13)
+					breaks++;
+			}
+		}
+		// check if over limit
+		if ((charCount-breaks) > this.maxLength)
+			this.textarea.value = this.textarea.value.substring(0, (this.maxLength + breaks) );
+
+		// update counter
+		if (this.input) {
+			if ((charCount-breaks) > this.maxLength)
+				this.setCountAndClass(0, "charCountLimitReached");
+			else
+				this.setCountAndClass((this.maxLength + breaks) - charCount, "charCount");
+		}
+	},
+	setCountAndClass: function (count, className) {
+
+			if (Element.readAttribute(this.input, 'value') == null)
+				this.input.innerHTML = "&nbsp;" +count;
+			else
+				this.input.value = count;
+
+			this.input.className = className;
+
+	}
 }

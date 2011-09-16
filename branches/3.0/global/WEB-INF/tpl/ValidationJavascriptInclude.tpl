@@ -17,7 +17,7 @@
 		var validationMessage = $('validationFailureMessage');
 		if (!Object.isElement(validationMessage)) {
 			form.insert({
-				top: new Element('div', {id: 'validationFailureMessage', 'class': 'failureMessage'}).update('Tiene errores en el formulario, reviselo y vuelva a enviarlo.')
+				top: new Element('div', {id: 'validationFailureMessage', 'class': 'errorMessage'}).update('Tiene errores en el formulario, revíselo y vuelva a enviarlo.')
 			});
 		} else {
 			validationMessage.show();
@@ -100,7 +100,7 @@
 	function daysOfMonth(month, year) {
 
 		// se utiliza hashing para obtener la cantidad de días en lugar de un switch.
-		daysMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];		
+		var daysMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 		var days = daysMonths[month - 1];
 
 		// corrección por año bisiesto.
@@ -135,5 +135,11 @@
 	       return true;
 		else
 	       return false;
+	}
+
+	function showMandatoryFieldsMessage(form) {
+		var emptyArray = document.getElementsByClassName('emptyValidation',form);
+		if (emptyArray.length > 0)
+			document.write('<p class="mandatoryMessage">* Los campos indicados con borde rojo son obligatorios</p>');
 	}
 </script>
