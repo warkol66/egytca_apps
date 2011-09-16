@@ -9,7 +9,6 @@
 
 include_once("Include.inc.php");
 include_once("TimezonePeer.php");
-include_once("TableroDependencyPeer.php");
 include_once("Common.class.php");
 include_once("Action.php");
 require_once("Smarty_config.inc.php");
@@ -29,30 +28,6 @@ class BaseAction extends Action {
 
 	function BaseAction() {
 		;
-	}
-
-	function getDependencyId() {
-		if (Common::isAffiliatedUser())
-			$dependencyId = Common::getAffiliatedId();
-		else {
-			if (!empty($_GET["dependencyId"]))
-				$dependencyId = $_GET["dependencyId"];
-			else {
-				if (!empty($_GET["objectiveId"])) {
-					require_once("TableroObjectivePeer.php");
-					$objective = TableroObjectivePeer::get($_GET["objectiveId"]);
-					$dependencyId = $objective->getAffiliateId();
-				}
-				if (!empty($_GET["projectId"])) {
-					require_once("TableroProjectPeer.php");
-					require_once("TableroObjectivePeer.php");
-					$project = TableroProjectPeer::get($_GET["projectId"]);
-					$objective = $project->getTableroObjective();
-					$dependencyId = $objective->getAffiliateId();
-				}
-			}
-		}
-		return $dependencyId;
 	}
 
 	// ----- Public Methods ------------------------------------------------- //
@@ -101,11 +76,11 @@ class BaseAction extends Action {
 		$smarty->assign('actualAction', $_REQUEST['do']);
 
 		$_SERVER['FULL_URL'] = 'http';
-		if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on')
+		if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']=='on')
 				$_SERVER['FULL_URL'] .=  's';
 		$_SERVER['FULL_URL'] .=  '://';
 		$serverPort = "";
-		if($_SERVER['SERVER_PORT']!='80')
+		if ($_SERVER['SERVER_PORT']!='80')
 			$serverPort = ":" . $_SERVER['SERVER_PORT'];
 
 		$systemUrl = $_SERVER['FULL_URL'].$_SERVER['HTTP_HOST'].substr($_SERVER['REQUEST_URI'],0,strrpos($_SERVER['REQUEST_URI'],"/")).$serverPort."/Main.php";
@@ -154,29 +129,21 @@ class BaseAction extends Action {
 		header("Content-type: text/html; charset=UTF-8");
 
 		if (!$noCheckLogin) { //Verifica login $noCheckLogin != 1
-			if (!empty($loginUser) || !empty($loginUserAffiliate) || !empty($loginRegistrationUser)) {
 
+			$loggedUser = Common::getLoggedUser();
+			if (!empty($loggedUser)) {
 				if (!ConfigModule::get("global","noSecurity")) {
-
-					if (!empty($loginUser))
-						$user = $loginUser;
-					else if (!empty($loginUserAffiliate))
-						$user = $loginUserAffiliate;
-					else if (!empty($loginRegistrationUser))
-						$user = $loginRegistrationUser;
-
-					if (!empty($user))
-						$userLevel = $user->getLevel();
-
 					if (!empty($securityAction))
-						$access = $securityAction->getAccessByUser($user);
+						$access = $securityAction->getAccessByUser($loggedUser);
 					else if (!empty($securityModule))
-						$access = $securityModule->getAccessByUser($user);
+						$access = $securityModule->getAccessByUser($loggedUser);
 
-					if (!empty($securityAction) || !empty($securityModule)) {
+					if (empty($access)) {// No tiene permiso
+						header("Location:Main.php?do=securityNoPermission");
+						exit();
 					}
 				}
-				else {//No verifica seguridad
+				else { //No verifica seguridad
 				}
 			}
 			else { //Si requiere login y no hay sesion va a login
@@ -236,7 +203,7 @@ class BaseAction extends Action {
 		$myRedirectPath = $myRedirectConfig->getpath();
 
 		foreach ($params as $key => $value)
-			$myRedirectPath .= "&$key=$value";
+			$myRedirectPath .= "&$key=" . htmlentities(urlencode($value));
 
 		return new ForwardConfig($myRedirectPath, True);
 
@@ -253,7 +220,7 @@ class BaseAction extends Action {
 		$myRedirectPath = $myRedirectConfig->getpath();
 
 		foreach ($params as $key => $value)
-			$myRedirectPath .= "&filters[$key]=$value";
+			$myRedirectPath .= "&filters[$key]=" . htmlentities(urlencode($value));
 
 		return new ForwardConfig($myRedirectPath, True);
 
@@ -271,10 +238,10 @@ class BaseAction extends Action {
 		$myRedirectPath = $myRedirectConfig->getpath();
 
 		foreach ($params as $key => $value)
-			$myRedirectPath .= "&$key=$value";
+			$myRedirectPath .= "&$key=" . htmlentities(urlencode($value));
 
 		foreach ($filters as $key => $value)
-			$myRedirectPath .= "&filters[$key]=$value";
+			$myRedirectPath .= "&filters[$key]=" . htmlentities(urlencode($value));
 
 		return new ForwardConfig($myRedirectPath, True);
 
@@ -335,6 +302,21 @@ class BaseAction extends Action {
 				}
 			}
 		}
+	}
+
+	function returnFailure($mapping,$smarty,$object,$forward) {
+
+		$objectName = lcfirst(get_class($object));
+		$smarty->assign($objectName,$object);
+
+		$id = $object->getId();
+		if (empty($id))
+			$smarty->assign("action","create");
+		else
+			$smarty->assign("action","edit");
+
+		$smarty->assign("message","error");
+		return $mapping->findForwardConfig($forward);
 	}
 
 	public function isAjax() {
