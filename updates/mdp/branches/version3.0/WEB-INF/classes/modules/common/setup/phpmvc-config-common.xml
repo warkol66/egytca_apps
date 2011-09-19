@@ -40,7 +40,7 @@
 			<forward name="failureMissingData" path="/Main.php?do=commonLogin&amp;message=missingData" redirect="true" />
 			<forward name="successUsers" path="/Main.php?do=usersWelcome" redirect="true" />
 			<forward name="successClientUsers" path="/Main.php?do=clientsUsersWelcome" redirect="true" />
-			<forward name="successAffiliateUsers" path="/Main.php?do=AffiliatesUsersWelcome" redirect="true" />
+			<forward name="successAffiliateUsers" path="/Main.php?do=affiliatesUsersWelcome" redirect="true" />
 			<forward name="successUsersFirstLogin" path="/Main.php?do=usersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
 			<forward name="successClientUsersFirstLogin" path="/Main.php?do=clientsUsersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
 			<forward name="successAffiliateUsersFirstLogin" path="/Main.php?do=affiliatesUsersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
