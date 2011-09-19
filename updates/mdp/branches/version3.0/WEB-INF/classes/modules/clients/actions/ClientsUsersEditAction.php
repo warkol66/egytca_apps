@@ -41,7 +41,7 @@ class ClientsUsersEditAction extends BaseAction {
 				$users = $usersPeer->getAll();
 				$deletedUsers = $usersPeer->getDeleteds();
 			}
-			$clients = ClientPeer::getAll();
+			$clients = ClientQuery::create()->find();
 			$smarty->assign("clients",$clients);
 		}
 		else {

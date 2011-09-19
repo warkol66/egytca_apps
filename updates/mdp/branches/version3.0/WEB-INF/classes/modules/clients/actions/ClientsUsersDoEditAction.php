@@ -75,9 +75,10 @@ class ClientsUsersDoEditAction extends BaseAction {
 			$clientUser = ClientUserPeer::get($_POST["id"]);
 
 		Common::setObjectFromParams($clientUser, $clientUserParams);
-		$clientUser->setPasswordString($_POST["pass"]);
-		$clientUser->setPasswordUpdatedTime();
-
+		if (!empty($_POST["pass"])) {
+			$clientUser->setPasswordString($_POST["pass"]);
+			$clientUser->setPasswordUpdatedTime();
+		}
 		$client = $_SESSION['newClient'];
 		if (!empty($client) && !empty($_POST["ownerCreation"])) {
 			$clientUser->validate();

@@ -1,6 +1,6 @@
 <h2>##clients,1,Clientes##</h2>
 <h1>Administración de Usuarios de ##clients,1,Clientes##</h1>
-	<p>A continuación podrá |-if $currentClientUser->getId() eq ''-|crear|-else-|editar|-/if-| el Usuario de ##clients,3,Cliente##|-if $currentClientUser->getClientName() ne ''-| de |-$currentClientUser->getClientName()-||-/if-|.</p>
+	<p>A continuación podrá |-if $currentClientUser->getId() eq ''-|crear|-else-|editar|-/if-| el Usuario de ##clients,3,Cliente##|-if $currentClientUser->getClient() ne ''-| de |-$currentClientUser->getClient()-||-/if-|.</p>
 	|-if $currentClientUser->getId() eq ''-|
 		<p>Ingrese la Identificación del usuario y la contraseña para el nuevo usuario, luego haga click en Guardar para generar el nuevo usuario.</p>
 		|-if $ownerCreation ne ''-|
@@ -35,9 +35,10 @@ Para terminar de crear el ##clients,3,Cliente## debe crear una cuenta de usuario
 |-include file='ValidationJavascriptInclude.tpl'-|
 <form method="post" action="Main.php">
 	<fieldset title="Formulario de edición de usuario">
-	<legend>Usuario de ##clients,1,Clientes## |-if $currentClientUser->getClientName() ne ''-|- |-$currentClientUser->getClientName()-||-/if-|</legend>
+	<legend>Usuario de ##clients,1,Clientes## |-if $currentClientUser->getClient() ne ''-|- |-$currentClientUser->getClient()-||-/if-|</legend>
 		<p>
 			<label for="clientUser[username]">Identificación de Usuario</label>
+	|-if $action eq 'edit' and $currentClientUser->getUsername() ne ''-|<input id='actualclientUser[username]' type='hidden' value='|-$currentClientUser->getUsername()-|' />|-/if-|
 			<input name="clientUser[username]" id="clientUser[username]" type="text"  value="|-$currentClientUser->getUsername()-|" size="40" |-ajax_onchange_validation_attribute actionName=clientsUsersValidationUsernameX-| />|-validation_msg_box idField=clientUser[username]-|
 		</p>
 		<p>

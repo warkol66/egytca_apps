@@ -37,6 +37,7 @@ Para terminar de crear el ##affiliates,3,Afiliado## debe crear una cuenta de usu
 	<legend>Usuario de ##affiliates,1,Afiliados## |-if $currentAffiliateUser->getAffiliate() ne ''-|- |-$currentAffiliateUser->getAffiliate()-||-/if-|</legend>
 		<p>
 			<label for="affiliateUser[username]">Identificación de Usuario</label>
+	|-if $action eq 'edit' and $currentAffiliateUser->getUsername() ne ''-|<input id='actualaffiliateUser[username]' type='hidden' value='|-$currentAffiliateUser->getUsername()-|' />|-/if-|
 			<input name="affiliateUser[username]" id="affiliateUser[username]" type="text"  value="|-$currentAffiliateUser->getUsername()-|" size="40" |-ajax_onchange_validation_attribute actionName=affiliatesUsersValidationUsernameX-| />|-validation_msg_box idField=affiliateUser[username]-|
 		</p>
 		<p>
