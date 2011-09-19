@@ -4,21 +4,8 @@ class URLRenderer {
 	
 	private $command;
 	
-	function URLRenderer() {
-		/**** debug ***/
-		echo "tu sistema operativo (" . phpuname('s') . "), ¿es 'Windows'?<br>";
-		/**************/
-		
-		switch (php_uname('s')) {
-			case 'Linux':
-				$this->command = './wkhtmltoimage-i386';
-				echo "estoy en linux!!<br>";//debug
-				break;
-			case 'Windows':
-				$this->command = '';//falta comando!!
-				echo "estas en Windows!!<br>";//debug
-				break;
-		}
+	function URLRenderer($command) {
+		$this->command = $command;
 	}
 	
 	/**
@@ -26,13 +13,11 @@ class URLRenderer {
 	 * @param string $url
 	 * @param string $image
 	 */
-	function render($url, $image) {
+	function render($url, $image = 'default_image.jpg') {
 		$return_var;
 		$output = array();
 		exec($this->command . ' ' . $url . ' ' . $image,
 			&$output, $return_var);
-	
-		echo "ret: <br>";print_r($return_var);echo "<br>";//debug
 		
 		if ($return_var != 0)
 			throw new Exception("Unable to render image");
@@ -65,14 +50,24 @@ class HeadlinesRenderUrlAction extends BaseAction {
 			$headline = HeadlinePeer::get($_GET["id"]);
 			$url = $headline->getUrl();
 			$temp_img = 'temp_headlineImage.jpg';
-			$renderer = new URLRenderer();
+			
+			switch (php_uname('s')) {
+				case 'Linux':
+					$renderer = new URLRenderer('./wkhtmltoimage-i386');
+					break;
+				default:
+					$smarty->assign("error_message", "Actualmente solo hay soporte para Linux.");
+					return $mapping->findForwardConfig('success');
+			}
 			
 			try {
 				$renderer->render($url, $temp_img);
-				$smarty->assign("imageFileName", $temp_img);
 			} catch (Exception $e) {
 				$smarty->assign("error_message", $e->getMessage());
+				return $mapping->findForwardConfig('success');
 			}
+			
+			$smarty->assign("imageFileName", $temp_img);
 			
 		} else {
 			$smarty->assign("error_message", "Not a valid ID");
