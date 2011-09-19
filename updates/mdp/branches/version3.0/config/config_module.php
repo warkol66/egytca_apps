@@ -44,7 +44,8 @@ class ConfigModule {
 			"forceFirstPasswordChange" => true,
 			"askForNewPasswordOnRecovery" => false,
 			"useFilterByUserGroup" => true,
-			"passwordRecoveryExpirationTimeInHours" => 24
+			"passwordRecoveryExpirationTimeInHours" => 24,
+			"toStringFormat" => "Surname, Name (Username)" // "Name Surname (Username)"
 		),
 		"documents" => array(
 			"useKeywords" => false,
