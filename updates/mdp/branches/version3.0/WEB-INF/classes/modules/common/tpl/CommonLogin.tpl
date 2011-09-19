@@ -10,7 +10,7 @@
 		 <!-- Begin LoginContent --> 
 		 <div id="loginContent"><br />
 			<noscript><div align='center' class='errorMessage'>Su navegador tiene desabilitada la ejecución de Javascript.<br /><br />Este sistema requiere que la habilite para su correcto funcionamiento.<br /><br />Podrá ingresar al sistema pero recuerde que algunas funciones pueden no ejecutarse correctamente.</div></noscript><p>|-if isset($unifiedLogin)-|Selecciones el tipo de usuario e i|-else-|I|-/if-|ngrese su usuario y contraseña para ingresar al sistema</p> 
-			|-if $message eq "wrongUser"-|
+			|-if $message eq "dataMissmatch"-|
 				<div align='center' class='errorMessage'>Usuario desconocido o contraseña incorrecta!. Intente nuevamente.</div> 
 			|-elseif $message eq "missingData"-|
 				<div align='center' class='errorMessage'>Para acceder al sistema debe ingresar usuario y contraseña. Intente nuevamente.</div> 

@@ -57,7 +57,7 @@
 		<li><a href="#" class="sub">Dependencias</a>
 	<ul>
 		<li><a href="Main.php?do=affiliatesList">Dependencias</a></li>
-		<li><a href="Main.php?do=affiliatesBranchsList">Oficinas Dependencias</a></li>
+		<li><a href="Main.php?do=affiliatesBranchesList">Oficinas Dependencias</a></li>
 		<li class="last"><a href="Main.php?do=affiliatesUsersList">Usuarios de Dependencias</a></li>
 			</ul></li>
 		<li><a href="#" class="sub">Tablero</a>

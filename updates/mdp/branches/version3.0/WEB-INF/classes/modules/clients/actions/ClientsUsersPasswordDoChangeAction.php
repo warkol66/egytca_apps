@@ -15,9 +15,6 @@ class ClientsUsersPasswordDoChangeAction extends BaseAction {
 
     BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -42,7 +39,7 @@ class ClientsUsersPasswordDoChangeAction extends BaseAction {
 				return $this->addParamsToForwards($params,$mapping,'changePassword');
 			}
 			else {
-				if ($userPeer->updatePass($user->getId(),$_POST["pass"],$_POST['mailAddress'],$_POST['timezone']) ) {
+				if ($userPeer->updatePass($user->getId(),Common::md5($_POST["pass"]),$_POST['mailAddress'],$_POST['timezone']) ) {
 					$user = ClientUserPeer::get($user->getId());
 					$_SESSION['loginClientUser'] = $user;
 					Common::doLog('success','username: ' . $_POST["username"] . ' pass: edit');
