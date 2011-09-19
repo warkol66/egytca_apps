@@ -1,8 +1,8 @@
 <?php
 
-class ClientsBranchsDoDeleteAction extends BaseAction {
+class ClientsBranchesDoDeleteAction extends BaseAction {
 
-	function ClientsBranchsDoDeleteAction() {
+	function ClientsBranchesDoDeleteAction() {
 		;
 	}
 
@@ -20,7 +20,7 @@ class ClientsBranchsDoDeleteAction extends BaseAction {
 		}
 
 		$module = "Clients";
-		$section = "Branchs";
+		$section = "Branches";
 
 		ClientBranchPeer::delete($_POST["id"]);
 

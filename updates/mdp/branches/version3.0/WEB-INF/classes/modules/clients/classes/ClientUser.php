@@ -84,7 +84,18 @@ class ClientUser extends BaseClientUser {
 		return;
 	}
 
-
+	/**
+	 * Informa si un usuario es owner del cliente relacionado al usuario
+	 * @param $user obj objeto propel user
+	 * @return bool true si es owner false si no.
+	 */
+	public funtion isOwner($user) {
+		$client = $this->getClient();
+		if ($client->isOwner($user))
+			return true;
+		else
+			return false;
+	}
 
 	function getAll() {
 		return ClientUserQuery::create()->find();
@@ -96,12 +107,7 @@ class ClientUser extends BaseClientUser {
 	* @return string Nombre del cliente
 	*/
 	function getClient() {
-		$clientId = $this->getClientId();
-		$client = ClientQuery::create()->findPk($clientId);
-		if($client)
-			return $client->getName();
-		else
-			return;
+		return $this->getClientRelatedByClientid();
 	}
 
 	/**
@@ -110,26 +116,11 @@ class ClientUser extends BaseClientUser {
 	* @return true o false
 	*/
 	function isClientOwner() {
-		$clientId = $this->getClientId();
-		$client = ClientQuery::create()->findPk($clientId);
+		$client = $this->getClient();
 		if ($client->getOwnerId() == $this->getId())
 			return true;
 		else
 			return false;
-	}
-
-	/**
-	* Devuelve el nombre dle cliente
-	*
-	* @return string con nombre del cliente
-	*/
-	function getClientName() {
-		$clientId = $this->getClientId();
-		$client = ClientQuery::create()->findPk($clientId);
-		if ($client)
-			return $client->getName();
-		else
-			return;
 	}
 
 	/**

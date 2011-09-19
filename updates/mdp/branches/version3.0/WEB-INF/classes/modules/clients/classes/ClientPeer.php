@@ -52,7 +52,7 @@ class ClientPeer extends BaseClientPeer {
 		$this->perPage = $perPage;
 	}
 
- 	/**
+	/**
 	 * Especifica una cantidad maxima de registros.
 	 * @param limit cantidad maxima de registros.
 	 */
@@ -65,7 +65,7 @@ class ClientPeer extends BaseClientPeer {
 	* @return PropelObjectCollection Todos los clients
 	*/
 	function getAll() {
-    $criteria = $this->getSearchCriteria();
+		$criteria = $this->getSearchCriteria();
 		return ClientPeer::doSelect($criteria);
 	}
 
@@ -98,18 +98,15 @@ class ClientPeer extends BaseClientPeer {
 
 	/**
 	* Obtiene un client.
-	*
 	* @param int $id id del issue
 	* @return boolean true si se actualizo la informacion correctamente, false sino
 	*/
 	function get($id) {
-		$client = ClientPeer::retrieveByPK($id);
-		return $client;
+		return ClientQuery::create()->findOneById($id);
 	}
 
 	/**
 	 * Retorna el criteria generado a partir de los parámetros de búsqueda
-	 *
 	 * @return criteria $criteria Criteria con parámetros de búsqueda
 	 */
 	private function getSearchCriteria() {
@@ -127,31 +124,8 @@ class ClientPeer extends BaseClientPeer {
 		return $criteria;
 	}
 
-
-
-
-
-
-
-
-	function update($id,$params) {
-		$client = ClientPeer::retrieveByPK($id);
-		Common::setObjectFromParams($client, $params);
-		if ($client->save())
-			return $client;
-		return true;
-	}
-
 	function delete($id) {
 		ClientQuery::create()->filterByPrimaryKey($id)->delete();
-		return true;
-	}
-
-	function create($params) {
-		$client = new Client();
-		Common::setObjectFromParams($client, $params);
-		if ($client->save())
-			return $client;
 		return true;
 	}
 

@@ -63,7 +63,7 @@
 					<form method="post">
 						<input type="hidden" name="userId" value="|-$user->getId()-|" />
 						<input type="hidden" name="clientId" value="|-$user->getClientId()-|" />
-						<input type="hidden" name="do" value="clientsSetOwner" />
+						<input type="hidden" name="do" value="clientsDoSetOwner" />
 						<input type="submit" title="Fijar como dueño" value="Fijar como dueño" class="icon iconSetPrivileges" />
 					</form>
 				|-/if-| 

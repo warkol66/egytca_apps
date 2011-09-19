@@ -1,8 +1,8 @@
 <?php
 
-class ClientsBranchsDoEditAction extends BaseAction {
+class ClientsBranchesDoEditAction extends BaseAction {
 
-	function ClientsBranchsDoEditAction() {
+	function ClientsBranchesDoEditAction() {
 		;
 	}
 
@@ -24,9 +24,6 @@ class ClientsBranchsDoEditAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -34,7 +31,7 @@ class ClientsBranchsDoEditAction extends BaseAction {
 		}
 
 		$module = "Clients";
-		$section = "Branchs";
+		$section = "Branches";
 
 		if ($_POST["page"] > 0)
 			$params["page"] = $_POST["page"];
@@ -48,13 +45,9 @@ class ClientsBranchsDoEditAction extends BaseAction {
 			$clientPeer = new ClientPeer();
 			$clients = $clientPeer->getAll();
 			$smarty->assign("clients",$clients);
-			$smarty->assign("all",1);
-			$clientId = $branchParams["clientId"];
 		}
-		else {
-			$clientId = $_SESSION["loginClientUser"]->getClientId();
-			$smarty->assign("all",0);
-		}
+		else
+			$branchParams['clientId'] = $_SESSION["loginClientUser"]->getClientId();
 
 		if (!empty($_POST["id"]))
 			$branch = ClientBranchPeer::get($_POST["id"]);

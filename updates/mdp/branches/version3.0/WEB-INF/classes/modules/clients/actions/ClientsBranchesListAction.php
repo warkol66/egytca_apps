@@ -1,8 +1,8 @@
 <?php
 
-class ClientsBranchsListAction extends BaseAction {
+class ClientsBranchesListAction extends BaseAction {
 
-	function ClientsBranchsListAction() {
+	function ClientsBranchesListAction() {
 		;
 	}
 
@@ -17,7 +17,7 @@ class ClientsBranchsListAction extends BaseAction {
 		}
 
 		$module = "Clients";
-		$section = "Branchs";
+		$section = "Branches";
 		$smarty->assign("module",$module);
 		$smarty->assign("section",$section);
 
@@ -25,7 +25,7 @@ class ClientsBranchsListAction extends BaseAction {
 		$filters = $_GET['filters'];
 
 		$this->applyFilters($branchPeer, $filters, $smarty);
-		$url = "Main.php?do=clientsBranchsList";
+		$url = "Main.php?do=clientsBranchesList";
 		foreach ($filters as $key => $value)
 			$url .= "&filters[$key]=$value";
 		$smarty->assign("url",$url);
@@ -42,7 +42,7 @@ class ClientsBranchsListAction extends BaseAction {
 
 		$pager = $branchPeer->getSearchPaginated($_GET["page"]);
 
-		$smarty->assign("branchs",$pager->getResult());
+		$smarty->assign("branches",$pager->getResult());
 		$smarty->assign("pager",$pager);
 		$smarty->assign("url",$url);
 		$smarty->assign("message",$_GET["message"]);

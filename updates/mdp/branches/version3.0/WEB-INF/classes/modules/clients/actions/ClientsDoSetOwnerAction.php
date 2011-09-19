@@ -1,15 +1,14 @@
 <?php
 
-class ClientsSetOwnerAction extends BaseAction {
+class ClientsDoSetOwnerAction extends BaseAction {
 
-	function ClientsSetOwnerAction() {
+	function ClientsDoSetOwnerAction() {
 		;
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
 
     BaseAction::execute($mapping, $form, $request, $response);
-
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
@@ -21,21 +20,17 @@ class ClientsSetOwnerAction extends BaseAction {
 		$smarty->assign("module",$module);
 
 		if ($_POST['userId'] && $_POST['clientId']) {
-		
 			$client = ClientPeer::get($_POST['clientId']);
 			$client->setOwnerId($_POST['userId']);
-			
 			try {
 				$client->save();
 			}
-			catch(PropelException $exp) {
-				return $mapping->findForwardConfig('failure');	
+			catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->getMessage());
+				return $mapping->findForwardConfig('failure');
 			}
-		
 		}
-
 		return $mapping->findForwardConfig('success');
-
 	}
-
 }

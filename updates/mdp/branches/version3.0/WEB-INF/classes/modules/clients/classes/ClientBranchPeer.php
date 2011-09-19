@@ -68,9 +68,9 @@ class ClientBranchPeer extends BaseClientBranchPeer {
 	}
 
 	/**
-	* Obtiene todos los branchs.
+	* Obtiene todos los branches.
 	*
-	*	@return array Informacion sobre todos los branchs
+	*	@return array Informacion sobre todos los branches
 	*/
 	function getAll() {
 		return ClientBranchQuery::create()->find();
@@ -90,20 +90,20 @@ class ClientBranchPeer extends BaseClientBranchPeer {
 	}
 
 	/**
-	* Obtiene todos los branchs de un client.
+	* Obtiene todos los branches de un client.
 	*
 	* @param int $clientId Id del client
-	*	@return array Informacion sobre todos los branchs
+	*	@return array Informacion sobre todos los branches
 	*/
 	function getAllByClientId($clientId) {
 		return ClientBranchQuery::create()->filterByClientId($clientId)->find();
 	}
 
 	/**
-	* Obtiene todos los branchs de un client.
+	* Obtiene todos los branches de un client.
 	*
 	* @param int $clientId Id del client
-	*	@return array Informacion sobre todos los branchs
+	*	@return array Informacion sobre todos los branches
 	*/
 	function getByCode($code) {
 		return ClientBranchQuery::create()->filterByCode($code)->findOne();
@@ -134,7 +134,7 @@ class ClientBranchPeer extends BaseClientBranchPeer {
 	*
 	* @param int $page [optional] Numero de pagina actual
 	* @param int $perPage [optional] Cantidad de filas por pagina
-	* @return Pager Pager con informacion sobre los branchs
+	* @return Pager Pager con informacion sobre los branches
 	*/
 	function getSearchPaginated($page=1,$perPage=-1) {
 		if ($perPage == -1)

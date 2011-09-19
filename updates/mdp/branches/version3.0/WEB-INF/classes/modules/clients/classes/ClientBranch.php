@@ -15,18 +15,17 @@
  */
 class ClientBranch extends BaseClientBranch {
 
-  /**
-  * Obtiene el nombre del cliente o nada si no lo encuentra
-  *
-  * @return string Nombre del cliente
-  */
-	function getClient() {
-		$clientId = $this->getClientId();
-		$client = ClientQuery::create()->findPk($clientId);
-		if($client)
-			return $client->getName();
+	/**
+	 * Informa si un usuario es owner del cliente relacionado al branch
+	 * @param $user obj objeto propel user
+	 * @return bool true si es owner false si no.
+	 */
+	public function isOwner($user) {
+		$client = $this->getClient();
+		if ($client->isOwner($user))
+			return true;
 		else
-			return;
-  }
+			return false;
+	}
 
 } // ClientBranch

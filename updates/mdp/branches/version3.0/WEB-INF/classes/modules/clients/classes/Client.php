@@ -46,6 +46,19 @@ class Client extends BaseClient {
 	}
 
 	/**
+	 * Informo si el usuario pasado a la funcion es el owner
+	 * @param $user obj objeto propel user
+	 * @return bool true si es owner, false si no
+	 */
+	function isOwner($user) {
+		$clientOwner = $this->getOwner();
+		if ($clientOwner == $user)
+			return true;
+		else
+			return false;
+	}
+
+	/**
 	* Métodos para uso con Catalog y Orders
 	*/
 

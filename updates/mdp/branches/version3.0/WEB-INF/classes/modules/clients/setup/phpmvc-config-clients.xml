@@ -52,6 +52,14 @@
 				<forward name="failure" path="ClientsUsersEdit.tpl" />
 		</action>
 
+		<action      path = "clientsDoSetOwner"
+								 type = "ClientsDoSetOwnerAction"
+								 name = "clientsDoSetOwnerEdit"
+								scope = "request"
+						 validate = "true">
+				<forward name="success" path="/Main.php?do=clientsUsersList" redirect="true" />
+		</action>
+
 		<action    path = "clientsUsersDoAddToGroup"
 							 type = "ClientsUsersDoAddToGroupAction"
 							 name = "clientsUsersDoAddToGroup"
