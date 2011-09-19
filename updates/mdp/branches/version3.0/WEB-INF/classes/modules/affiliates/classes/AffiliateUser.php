@@ -18,6 +18,26 @@ class AffiliateUser extends BaseAffiliateUser {
 	private $passwordString;
 	private $passwordUpdatedTime;
 
+	/**
+	* Genera el string a entregar por defecto reemplazando el __toString() del modelo
+	*
+	*	@return string string texto por defecto a mostar cuando se llama al objeto affiliateUser
+	*/
+	public function __toString() {
+		$string = '';
+		$name = $this->getName();
+		$surname = $this->getSurname();
+
+		if (ConfigModule::get("affiliates","toStringFormat") == "Surname, Name (Username)")
+			$string .= $surname . ', ' . $name;
+		else
+			$string .= $name . ', ' . $surname;
+
+		$string .= ' (' . $this->getUserName() . ')';
+
+		return $string;
+	}
+
 	function getGroups() {
 		return AffiliateGroupQuery::create()->filterByAffiliateUser($this)->find();
 	}
@@ -64,7 +84,18 @@ class AffiliateUser extends BaseAffiliateUser {
 		return;
 	}
 
-
+	/**
+	 * Informa si un usuario es owner del affiliate relacionado al usuario
+	 * @param $user obj objeto propel user
+	 * @return bool true si es owner false si no.
+	 */
+	public function isOwner($user) {
+		$affiliate = $this->getAffiliate();
+		if ($affiliate->isOwner($user))
+			return true;
+		else
+			return false;
+	}
 
 	function getAll() {
 		return AffiliateUserQuery::create()->find();
@@ -85,8 +116,7 @@ class AffiliateUser extends BaseAffiliateUser {
 	* @return true o false
 	*/
 	function isAffiliateOwner() {
-		$affiliateId = $this->getAffiliateId();
-		$affiliate = AffiliateQuery::create()->findPk($affiliateId);
+		$affiliate = $this->getAffiliate();
 		if ($affiliate->getOwnerId() == $this->getId())
 			return true;
 		else

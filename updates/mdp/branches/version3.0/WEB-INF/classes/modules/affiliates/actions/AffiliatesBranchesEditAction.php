@@ -1,8 +1,8 @@
 <?php
 
-class AffiliatesBranchsEditAction extends BaseAction {
+class AffiliatesBranchesEditAction extends BaseAction {
 
-	function AffiliatesBranchsEditAction() {
+	function AffiliatesBranchesEditAction() {
 		;
 	}
 
@@ -10,9 +10,6 @@ class AffiliatesBranchsEditAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -20,7 +17,7 @@ class AffiliatesBranchsEditAction extends BaseAction {
 		}
 
 		$module = "Affiliates";
-		$section = "Branchs";
+		$section = "Branches";
 		$smarty->assign("module",$module);
 		$smarty->assign("section",$section);
 

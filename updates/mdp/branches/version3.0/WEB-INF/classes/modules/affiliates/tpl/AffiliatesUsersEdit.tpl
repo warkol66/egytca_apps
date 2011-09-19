@@ -1,6 +1,6 @@
 <h2>##affiliates,1,Afiliados##</h2>
 <h1>Administración de Usuarios de ##affiliates,1,Afiliados##</h1>
-	<p>A continuación podrá |-if $currentAffiliateUser->getId() eq ''-|crear|-else-|editar|-/if-| el Usuario de ##affiliates,3,Afiliado##|-if $currentAffiliateUser->getAffiliateName() ne ''-| de |-$currentAffiliateUser->getAffiliateName()-||-/if-|.</p>
+	<p>A continuación podrá |-if $currentAffiliateUser->getId() eq ''-|crear|-else-|editar|-/if-| el Usuario de ##affiliates,3,Afiliado##|-if $currentAffiliateUser->getAffiliate() ne ''-| de |-$currentAffiliateUser->getAffiliate()-||-/if-|.</p>
 	|-if $currentAffiliateUser->getId() eq ''-|
 		<p>Ingrese la Identificación del usuario y la contraseña para el nuevo usuario, luego haga click en Guardar para generar el nuevo usuario.</p>
 		|-if $ownerCreation ne ''-|
@@ -34,7 +34,7 @@ Para terminar de crear el ##affiliates,3,Afiliado## debe crear una cuenta de usu
 |-/if-|
 <form method="post" action="Main.php">
 	<fieldset title="Formulario de edición de usuario">
-	<legend>Usuario de ##affiliates,1,Afiliados## |-if $currentAffiliateUser->getAffiliateName() ne ''-|- |-$currentAffiliateUser->getAffiliateName()-||-/if-|</legend>
+	<legend>Usuario de ##affiliates,1,Afiliados## |-if $currentAffiliateUser->getAffiliate() ne ''-|- |-$currentAffiliateUser->getAffiliate()-||-/if-|</legend>
 		<p>
 			<label for="affiliateUser[username]">Identificación de Usuario</label>
 			<input name="affiliateUser[username]" id="affiliateUser[username]" type="text"  value="|-$currentAffiliateUser->getUsername()-|" size="40" |-ajax_onchange_validation_attribute actionName=affiliatesUsersValidationUsernameX-| />|-validation_msg_box idField=affiliateUser[username]-|

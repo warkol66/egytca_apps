@@ -8,7 +8,7 @@ class AffiliatesViewXAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
@@ -17,10 +17,7 @@ class AffiliatesViewXAction extends BaseAction {
 		}
 
 		$module = "Affiliates";
-		$section = "Users";
-		
 		$smarty->assign("module",$module);
-		$smarty->assign("section",$section);
 
 		$id = $_GET["id"];
 

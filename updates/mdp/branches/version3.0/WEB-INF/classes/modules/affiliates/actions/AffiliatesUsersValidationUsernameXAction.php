@@ -10,16 +10,11 @@ class AffiliatesUsersValidationUsernameXAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
-
-		$this->template->template = 'TemplateAjax.tpl';
 
 		$module = "Validation";
 		$smarty->assign('module',$module);

@@ -53,9 +53,9 @@
 		<input type="hidden" name="action" id="action" value="|-$action-|" /> 
 			|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 			|-if isset($page)-| <input type="hidden" name="page" id="page" value="|-$page-|" />|-/if-|
-		<input type="hidden" name="do" id="do" value="affiliatesBranchsDoEdit" /> 
+		<input type="hidden" name="do" id="do" value="affiliatesBranchesDoEdit" /> 
 		<input type="submit" id="button_edit_branch" name="button_edit_branch" title="Aceptar" value="Aceptar" />
-		<input name="rmoveFilters" type="button" value="Cancelar" onclick="location.href='Main.php?do=affiliatesBranchsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"  />	</p>
+		<input name="rmoveFilters" type="button" value="Cancelar" onclick="location.href='Main.php?do=affiliatesBranchesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"  />	</p>
 	</fieldset>
 	</form> 
 </div>

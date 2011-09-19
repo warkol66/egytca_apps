@@ -53,6 +53,14 @@
 				<forward name="failure" path="AffiliatesUsersEdit.tpl" />
 		</action>
 
+		<action      path = "affiliatesDoSetOwner"
+								 type = "AffiliatesDoSetOwnerAction"
+								 name = "affiliatesDoSetOwnerEdit"
+								scope = "request"
+						 validate = "true">
+				<forward name="success" path="/Main.php?do=affiliatesUsersList" redirect="true" />
+		</action>
+
 		<action    path = "affiliatesUsersDoAddToGroup"
 							 type = "AffiliatesUsersDoAddToGroupAction"
 							 name = "affiliatesUsersDoAddToGroup"

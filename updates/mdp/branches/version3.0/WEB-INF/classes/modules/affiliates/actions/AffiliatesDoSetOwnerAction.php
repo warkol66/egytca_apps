@@ -1,8 +1,8 @@
 <?php
 
-class AffiliatesSetOwnerAction extends BaseAction {
+class AffiliatesDoSetOwnerAction extends BaseAction {
 
-	function AffiliatesSetOwnerAction() {
+	function AffiliatesDoSetOwnerAction() {
 		;
 	}
 

@@ -52,7 +52,7 @@ class AffiliatePeer extends BaseAffiliatePeer {
 		$this->perPage = $perPage;
 	}
 
- 	/**
+	/**
 	 * Especifica una cantidad maxima de registros.
 	 * @param limit cantidad maxima de registros.
 	 */
@@ -65,7 +65,7 @@ class AffiliatePeer extends BaseAffiliatePeer {
 	* @return PropelObjectCollection Todos los affiliates
 	*/
 	function getAll() {
-    $criteria = $this->getSearchCriteria();
+		$criteria = $this->getSearchCriteria();
 		return AffiliatePeer::doSelect($criteria);
 	}
 
@@ -123,7 +123,6 @@ class AffiliatePeer extends BaseAffiliatePeer {
 
 		return $criteria;
 	}
-
 
 	function delete($id) {
 		AffiliateQuery::create()->findOneById($id)->delete();

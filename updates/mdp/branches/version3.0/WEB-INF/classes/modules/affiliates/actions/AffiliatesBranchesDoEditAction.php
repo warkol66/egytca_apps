@@ -1,8 +1,8 @@
 <?php
 
-class AffiliatesBranchsDoEditAction extends BaseAction {
+class AffiliatesBranchesDoEditAction extends BaseAction {
 
-	function AffiliatesBranchsDoEditAction() {
+	function AffiliatesBranchesDoEditAction() {
 		;
 	}
 
@@ -24,9 +24,6 @@ class AffiliatesBranchsDoEditAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -34,7 +31,7 @@ class AffiliatesBranchsDoEditAction extends BaseAction {
 		}
 
 		$module = "Affiliates";
-		$section = "Branchs";
+		$section = "Branches";
 
 		if ($_POST["page"] > 0)
 			$params["page"] = $_POST["page"];
@@ -48,13 +45,9 @@ class AffiliatesBranchsDoEditAction extends BaseAction {
 			$affiliatePeer = new AffiliatePeer();
 			$affiliates = $affiliatePeer->getAll();
 			$smarty->assign("affiliates",$affiliates);
-			$smarty->assign("all",1);
-			$affiliateId = $branchParams["affiliateId"];
 		}
-		else {
-			$affiliateId = $_SESSION["loginAffiliateUser"]->getAffiliateId();
-			$smarty->assign("all",0);
-		}
+		else
+			$branchParams['affiliateId'] = $_SESSION["loginAffiliateUser"]->getAffiliateId();
 
 		if (!empty($_POST["id"]))
 			$branch = AffiliateBranchPeer::get($_POST["id"]);

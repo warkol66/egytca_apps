@@ -41,8 +41,7 @@ class AffiliatesUsersEditAction extends BaseAction {
 				$users = $usersPeer->getAll();
 				$deletedUsers = $usersPeer->getDeleteds();
 			}
-			$affiliatePeer = new AffiliatePeer();
-			$affiliates = $affiliatePeer->getAll();
+			$affiliates = AffiliateQuery::create()->find();
 			$smarty->assign("affiliates",$affiliates);
 		}
 		else {
@@ -69,7 +68,7 @@ class AffiliatesUsersEditAction extends BaseAction {
 
 		$smarty->assign("currentAffiliateUser", $user);
 
-		$levels = AffiliateLevelPeer::getAll();
+		$levels = AffiliateLevelQuery::create()->find();
 		$smarty->assign("levels",$levels);
 
 		$groups = $user->getNotAssignedGroups();
