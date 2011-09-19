@@ -465,4 +465,8 @@ class ClientUserPeer extends BaseClientUserPeer {
 		return ClientUserQuery::create()->owners()->find();
 	}
 
+	public static function getIdsArray($client) {
+		return ClientUserQuery::create()->select('Id')->findByClientid($client->getId());
+	}
+
 } // ClientUserPeer

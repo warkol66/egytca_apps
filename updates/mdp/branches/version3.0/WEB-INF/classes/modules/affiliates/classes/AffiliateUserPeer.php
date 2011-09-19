@@ -441,4 +441,9 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 		return AffiliateUserQuery::create()->owners()->find();
 	}
 
+	public static function getIdsArray($affiliate) {
+		return AffiliateUserQuery::create()->select('Id')->findByAffiliateid($affiliate->getId());
+	}
+
+
 } // AffiliateUserPeer

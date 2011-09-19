@@ -19,12 +19,12 @@
 				  </p>
 				<p> 
 					<label for="filters[dateFrom]">Fecha Desde</label>
-						<input name="filters[dateFrom]" id="filters[dateFrom]" type="text" value="|-$filters.dateFrom-|" size="10">
+						<input name="filters[dateFrom]" id="filters[dateFrom]" type="text" value="|-$filters.dateFrom|date_format-|" size="10">
 						&nbsp;&nbsp;<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateFrom]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">  <span class="size4">(dd-mm-aaaa)</span>
 					</p>
 				<p> 
 					<label for="filters[dateTo]">Fecha Hasta</label>
-						<input name="filters[dateTo]" id="filters[dateTo]"type="text" value="|-$filters.dateTo-|" size="10">
+						<input name="filters[dateTo]" id="filters[dateTo]"type="text" value="|-$filters.dateTo|date_format-|" size="10">
 						&nbsp;&nbsp;<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateTo]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">  <span class="size4">(dd-mm-aaaa)</span>
 					</p>
 					<p>
@@ -40,7 +40,7 @@
 				<p> 
 					<label for="filters[affiliateId]">Afiliado</label>
 						<select name="filters[affiliateId]" id="filters[affiliateId]">
-						  <option value="-1">Todos</option>
+						  <option value="">Todos</option>
 						  |-foreach from=$affiliates item=affiliateItem name=foreachaff-|
 						  <option value="|-$affiliateItem->getId()-|" |-$affiliateItem->getId()|selected:$filters.affiliateId-|>|-$affiliateItem->getName()|truncate:95:"..."-|</option>
 						  |-/foreach-|
