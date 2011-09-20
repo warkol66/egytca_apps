@@ -34,6 +34,7 @@
 		<p>
 			<label for="params[url]">Url</label>
 			<input id="params[url]" name="params[url]" type='text' value='|-$headline->getUrl()-|' size="65" title="Ingrese el url del titular incluyendo el el http://" />|-if $headline->getUrl() ne ''-| <a href="|-$headline->getUrl()-|" target="_blank" ><img src="images/clear.png" class="icon iconGoTo" /></a>|-/if-|
+			<a style='display:inline' href='Main.php?do=headlinesRenderUrl&id=|-$headline->getId()-|' >Capturar imagen</a>
 			</p>
 			<p>     
 				<label for="params[picture]">Foto</label>

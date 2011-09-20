@@ -34,6 +34,8 @@ Operación OK. Imagen guardada en |-$imageFileName-|<br>
 			{method: 'post', action: 'Main.php?do=headlinesCropImage'});
 			
 		form.insert(new Element('input',
+			{name: 'headlineId', value: '|-$id-|', type: 'hidden'}));
+		form.insert(new Element('input',
 			{name: 'image_file', value: '|-$imageFileName-|', type: 'hidden'}));
 			
 		form.insert(new Element('input',

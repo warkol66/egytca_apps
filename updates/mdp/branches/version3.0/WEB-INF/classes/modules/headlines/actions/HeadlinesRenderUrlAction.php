@@ -4,6 +4,8 @@ require_once('WebkitHtmlRenderer.php');
 
 class HeadlinesRenderUrlAction extends BaseAction {
 
+	private $TMP_DIR = '.';
+	
 	function HeadlinesRenderUrlAction() {
 		;
 	}
@@ -25,7 +27,7 @@ class HeadlinesRenderUrlAction extends BaseAction {
 			
 			$headline = HeadlinePeer::get($_GET["id"]);
 			$url = $headline->getUrl();
-			$temp_img = uniqid().'.jpg';
+			$temp_img = $this->TMP_DIR.'/cropme-'.uniqid().'.jpg';
 			
 			$renderer = new WebkitHtmlRenderer();
 			
@@ -36,6 +38,7 @@ class HeadlinesRenderUrlAction extends BaseAction {
 				return $mapping->findForwardConfig('success');
 			}
 			
+			$smarty->assign("id", $_GET["id"]);
 			$smarty->assign("imageFileName", $temp_img);
 			
 		} else {

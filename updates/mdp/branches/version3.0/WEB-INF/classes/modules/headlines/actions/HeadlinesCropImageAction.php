@@ -1,6 +1,8 @@
 <?php
 
 class HeadlinesCropImageAction extends BaseAction {
+	
+	private $IMAGES_PATH = './WEB-INF/classes/modules/headlines/files/clipping';
 
 	function HeadlinesCropImageAction() {
 		;
@@ -34,7 +36,7 @@ class HeadlinesCropImageAction extends BaseAction {
 		$canvas = imagecreatetruecolor($crop_width, $crop_height);
 		$current_image = imagecreatefromjpeg($filename);
 		imagecopy($canvas, $current_image, 0, 0, $left, $top, $crop_width, $crop_height);
-		imagejpeg($canvas, 'croped.jpeg', 100);
+		imagejpeg($canvas, $this->IMAGES_PATH.'/'.$_POST["headlineId"].'.jpeg', 100);
 		
 		unlink($filename); // delete temp image
 		
