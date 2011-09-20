@@ -67,7 +67,11 @@ class HeadlinesRenderUrlAction extends BaseAction {
 				return $mapping->findForwardConfig('success');
 			}
 			
+			list($width, $height) = getimagesize($tmp_img);
+			
 			$smarty->assign("imageFileName", $temp_img);
+			$smarty->assign("width", $width);
+			$smarty->assign("height", $height);
 			
 		} else {
 			$smarty->assign("error_message", "Not a valid ID");
