@@ -15,7 +15,19 @@ Operación OK. Imagen guardada en |-$imageFileName-|<br>
 
 <script type="text/javascript" charset="utf-8">
 	
+	var workFinished = false;
 	var x1, y1, width, height;
+	
+	function tempImageRemoval() {
+		if (!workFinished)
+			new Ajax.Request(
+				'Main.php?do=headlinesRemoveTempImageX',
+				{
+					method: 'post',
+					parameters: {filename: '|-$imageFileName-|'}
+				}
+			);
+	}
 	
 	function applyCrop() {
 		var form = new Element('form',
@@ -39,6 +51,8 @@ Operación OK. Imagen guardada en |-$imageFileName-|<br>
 			{name: 'displayed_height', value: '|-$displayedHeight-|', type: 'hidden'}));
 			
 		$(document.body).insert(form);
+		
+		workFinished = true;
 		form.submit();
 	}
 	
@@ -61,6 +75,8 @@ Operación OK. Imagen guardada en |-$imageFileName-|<br>
 			);
 		}
 	);
+	
+	Event.observe(window, 'unload', tempImageRemoval);
 </script>
 
 <div id="div_cropable">
