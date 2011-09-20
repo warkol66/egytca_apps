@@ -1,30 +1,6 @@
 <?php
 
-class URLRenderer {
-	
-	private $command;
-	
-	function URLRenderer($command) {
-		$this->command = $command;
-	}
-	
-	/**
-	 *
-	 * @param string $url
-	 * @param string $image
-	 */
-	function render($url, $image = 'default_image.jpg') {
-		$return_var;
-		$output = array();
-		exec($this->command . ' ' . $url . ' ' . $image,
-			&$output, $return_var);
-		
-		if ($return_var != 0)
-			throw new Exception("Unable to render image");
-		
-	}
-	
-}
+require_once('WebkitHtmlRenderer.php');
 
 class HeadlinesRenderUrlAction extends BaseAction {
 
@@ -49,32 +25,21 @@ class HeadlinesRenderUrlAction extends BaseAction {
 			
 			$headline = HeadlinePeer::get($_GET["id"]);
 			$url = $headline->getUrl();
-			$temp_img = 'temp_headlineImage.jpg';
+			$temp_img = uniqid().'.jpg';
 			
-			switch (php_uname('s')) {
-				case 'Linux':
-					$renderer = new URLRenderer('./wkhtmltoimage-i386');
-					break;
-				default:
-					$smarty->assign("error_message", "Actualmente solo hay soporte para Linux.");
-					return $mapping->findForwardConfig('success');
-			}
+			$renderer = new WebkitHtmlRenderer();
 			
 			try {
 				$renderer->render($url, $temp_img);
-			} catch (Exception $e) {
+			} catch (RenderException $e) {
 				$smarty->assign("error_message", $e->getMessage());
 				return $mapping->findForwardConfig('success');
 			}
 			
-			list($width, $height) = getimagesize($tmp_img);
-			
 			$smarty->assign("imageFileName", $temp_img);
-			$smarty->assign("width", $width);
-			$smarty->assign("height", $height);
 			
 		} else {
-			$smarty->assign("error_message", "Not a valid ID");
+			$smarty->assign("error_message", "ID inválido");
 		}
 		
 		return $mapping->findForwardConfig('success');
