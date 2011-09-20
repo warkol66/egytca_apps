@@ -31,14 +31,11 @@ class ClientsUsersListAction extends BaseAction {
 			$smarty->assign("page",$page);
 		}
 
-		//Si esta logueado un usuario comun
+		//Si esta logueado un usuario de sistema
 		if (!empty($_SESSION["loginUser"])) {
-			$clientId = $_GET['filters']["searchClientId"];
-			if (!empty($clientId)) {
-				if ($clientId == -1)
-					$deletedUsers = $usersPeer->getDeleteds();
-				else
-					$deletedUsers = $usersPeer->getDeletedsByClient($clientId);
+			if (!empty($_GET['filters']["searchClientId"])) {
+				if ($_GET['filters']["searchClientId"] > 0)
+					$deletedUsers = $usersPeer->getDeletedsByClient($_GET['filters']["searchClientId"]);
 			}
 			else
 				$deletedUsers = $usersPeer->getDeleteds();
@@ -66,7 +63,6 @@ class ClientsUsersListAction extends BaseAction {
 
 		$smarty->assign("users", $pager->getResult());
 		$smarty->assign("pager", $pager);
-		$smarty->assign("affId",$clientId);
 		$smarty->assign("message",$_GET["message"]);
 
 		return $mapping->findForwardConfig('success');

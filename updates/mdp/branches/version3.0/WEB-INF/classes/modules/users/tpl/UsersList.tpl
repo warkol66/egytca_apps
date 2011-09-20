@@ -48,13 +48,13 @@ function resetPassword(form){
 
 <table class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 	<tr>
-		<td  colspan="6" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Búsqueda por nombre</a>
+		<td  colspan="6" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Buscar usuario</a>
 			<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none;|-/if-|"><form action='Main.php' method='get' style="display:inline;">
 				<input type="hidden" name="do" value="usersList" />
 				Nombre: <input name="filters[searchString]" type="text" title="Ingrese el nombre, parte del nombre, apellido o parte del apellido a buscar" value="|-$filters.searchString-|" size="50" />
 				Resultados por página
 				|-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getRowsPerPage()-|
-				&nbsp;&nbsp;<input type='submit' value='Buscar' class='tdSearchButton' />
+				&nbsp;&nbsp;<input type='submit' value='Buscar' />
 				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=usersList'"/>|-/if-|
 		</form></div></td>
 	</tr>

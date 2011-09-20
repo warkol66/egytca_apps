@@ -1,3 +1,18 @@
+<script language="JavaScript" type="text/javascript">
+function resetPassword(form){
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'usersMsgField'},
+				url,
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true
+				});
+	$('usersMsgField').innerHTML = '<span class="inProgress">generando nueva contraseña...</span>';
+	return true;
+}
+</script>
 <h2>##affiliates,1,Afiliados##</h2>
 <h1>Administración de Usuarios de ##affiliates,1,Afiliados##</h1>
 <p>A continuación podrá editar la lista de Usuarios de ##affiliates,1,Afiliados## del sistema.</p>
@@ -10,22 +25,26 @@
 |-elseif $message eq "ownerNotEdited"-|
 <div class='errorMessage'>El dueño no ha sido modificado</div>
 |-/if-|
+<span id="usersMsgField"></span>
 <table cellpadding='5' cellspacing='0' width='100%' class='tableTdBorders'>
 |-if $loginUser ne ''-|
 <tr>
-<td colspan="5" class="tdSearch">
-			<form action="Main.php" method="get">
+<td colspan="5" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Buscar usuario</a>
+			<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none;|-/if-|"><form action="Main.php" method="get">
+			<p>Texto a buscar: <input name="filters[searchString]" type="text" title="Ingrese el nombre, parte del nombre, apellido o parte del apellido a buscar" value="|-$filters.searchString-|" size="50" /></p>
 			<p>Filtrar por ##affiliates,3,Afiliado##
 			<select name="filters[searchAffiliateId]" onchange="this.form.submit();">
 					<option value="0">Seleccione un ##affiliates,3,Afiliado##</option>
-					<option value="-1">Todos</option>
 				|-foreach from=$affiliates item=affiliate name=for_affiliate-|
 					<option value="|-$affiliate->getId()-|"|-if $affiliate->getId() eq $filters.searchAffiliateId-| selected="selected"|-/if-|>|-$affiliate->getName()-|</option>
 				|-/foreach-|
 			</select> 
+				Resultados por página
+				|-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getRowsPerPage()-|
+				<input type='submit' value='Buscar' />
 				|-if $filters.searchAffiliateId gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=affiliatesUsersList'" />|-/if-|</p>
 			<input type="hidden" name="do" value="affiliatesUsersList" />
-		</form>
+		</form></div>
 </td>
 </tr>
 |-/if-|
@@ -46,20 +65,21 @@
 		<td width="25%">|-$user->getSurname()-|, |-$user->getName()-|</td>
 		<td width="25%">|-$user->getMailAddress()-|</td>
 		<td width="10%" nowrap>
-			<form action="Main.php" method="get" style="display:inline;"> 
+			|-if "affiliatesUsersEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="affiliatesUsersEdit" /> 
 			  <input type="hidden" name="id" value="|-$user->getId()-|" /> 
 			  <input type="submit" name="submit_go_edit_affiliate" title="Editar" value="Editar" class="icon iconEdit" /> 
-			</form>
+			</form>|-/if-|
+			|-if "affiliatesUsersDoDelete"|security_has_access-|
 			<form action="Main.php" method="post" style="display:inline;"> 
 			  <input type="hidden" name="do" value="affiliatesUsersDoDelete" /> 
 			  <input type="hidden" name="id" value="|-$user->getId()-|" /> 
 			  <input type="submit" name="submit_go_delete_affiliate" value="Borrar" |-if $user->isAffiliateOwner()-|title="Para eliminar este usuario debe asignar la administración del afiliado a otro usuario" class="icon iconDelete disabled" onclick="return false;"|-else-|title="Eliminar" class="icon iconDelete" onclick="return confirm('Seguro que desea eliminar el usuario?')"|-/if-|  /> 
-			</form>
+			</form>|-/if-|
 		    |-if $loginUser ne ''-|
 				|-if $user->isAffiliateOwner()-|
 					<img src="images/clear.png" class="icon iconOwner" title="Este es el usuario dueño del ##affiliates,3,Afiliado##" />
-				|-else-|
+				|-else if "affiliatesDoSetOwner"|security_has_access-|
 					<form method="post">
 						<input type="hidden" name="userId" value="|-$user->getId()-|" />
 						<input type="hidden" name="affiliateId" value="|-$user->getAffiliateId()-|" />
@@ -68,6 +88,16 @@
 					</form>
 				|-/if-| 
 			|-/if-|
+		|-if "affiliatesUsersPasswordResetX"|security_has_access-|
+			|-if ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() ne '')-|<form method="post">
+				<input type="hidden" name="do" value="affiliatesUsersPasswordResetX" />
+				<input type="hidden" name="id" value="|-$user->getId()-|" />
+				<input type="button" value="Resetear contraseña" onClick="if (confirm('¿Seguro que desea resetear esta contraseña?')){resetPassword(this.form)}; return false" title="Resetear contraseña" class="icon iconPassword">
+				</form>
+			|-else if ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() eq '')-|
+				<input type="button" title="El usuario no podee dirección de correo electrónico, no se puede resetear la contraseña" class="icon iconPassword disabled">
+			|-/if-|
+		|-/if-|
 		</td>
 	</tr>
 	|-/foreach-|

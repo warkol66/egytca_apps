@@ -17,21 +17,17 @@ class ClientUserPeer extends BaseClientUserPeer {
 
 	private $searchClientId;
 
+	private $searchString;
+	private $perPage;
+	private $limit;
+
 	//mapea las condiciones del filtro
 	var $filterConditions = array(
-					"searchClientId"=>"setSearchClientId",
 					"searchString"=>"setSearchString",
+					"searchClientId"=>"setSearchClientId",
 					"perPage"=>"setPerPage",
 					"limit" => "setLimit"
 	);
-	
- /**
-	 * Especifica el id de cliente
-	 * @param clientId id del cliente
-	 */
-	public function setSearchClientId($clientId) {
-		$this->searchClientId = $clientId;
-	}
 
  /**
 	 * Especifica una cadena de busqueda.
@@ -42,6 +38,14 @@ class ClientUserPeer extends BaseClientUserPeer {
 	}
 
  /**
+	 * Especifica el id de cliente
+	 * @param clientId id del cliente
+	 */
+	public function setSearchClientId($clientId) {
+		$this->searchClientId = $clientId;
+	}
+
+ /**
 	 * Especifica cantidad de resultados por pagina.
 	 * @param perPage integer cantidad de resultados por pagina.
 	 */
@@ -49,17 +53,17 @@ class ClientUserPeer extends BaseClientUserPeer {
 		$this->perPage = $perPage;
 	}
 
- 	/**
+	/**
 	 * Especifica una cantidad maxima de registros.
 	 * @param limit cantidad maxima de registros.
 	 */
 	function setLimit($limit){
 		$this->limit = $limit;
 	}
-	
- 	/**
-	 * Especifica el ide de cliente
-	 * @param clientId id de cliente
+
+	/**
+	 * Obtiene los usuarios por id de cliente
+	 * @param int $clientId id de cliente
 	 */
 	function getByClientId($clientId) {
 		return ClientUserQuery::create()->findByClientId($clientId);
@@ -67,18 +71,15 @@ class ClientUserPeer extends BaseClientUserPeer {
 
 	/**
 	* Obtiene todos los usuarios por cliente.
-	*
-	*	@return array Informacion sobre todos los usuarios
+	* @return array Informacion sobre todos los usuarios
 	*/
 	function getAll() {
-    $criteria = $this->getSearchCriteria();
-		return ClientUserPeer::doSelect($criteria);
+		return ClientUserQuery::create()->find();
 	}
 
 	/**
 	* Obtiene todos los usuarios desactivados.
-	*
-	*	@return array Informacion sobre los usuarios
+	* @return array Informacion sobre los usuarios
 	*/
 	function getDeleteds() {
 		ClientUserQuery::disableSoftDelete();
@@ -88,9 +89,8 @@ class ClientUserPeer extends BaseClientUserPeer {
 
 	/**
 	* Obtiene todos los usuarios desactivados.
-	*
 	* @param int $clientId Id del cliente
-	*	@return array Informacion sobre los usuarios
+	* @return array Informacion sobre los usuarios
 	*/
 	function getDeletedsByClient($clientId) {
 		ClientUserQuery::disableSoftDelete();
@@ -148,17 +148,17 @@ class ClientUserPeer extends BaseClientUserPeer {
 	* Autentica a un usuario por cliente.
 	*
 	* @param string $username Nombre de usuario
-	* @param string $password Contrase?a 
+	* @param string $password Contrase?a
 	* @return User Informacion sobre el usuario, false si no fue exitosa la autenticacion
 	*/
 	function auth($username, $password) {
-		
+
 		$usernameLowercase = strtolower($username);
 		$user = ClientUserQuery::create()->filterByUsername($usernameLowercase)->findOne();
 
 		if (!empty($user)) {
 			if ($user->getPassword() == Common::md5($password)) {
-				$_SESSION['lastLogin'] = $user->getLastLogin();	
+				$_SESSION['lastLogin'] = $user->getLastLogin();
 				$user->setLastLogin(time());
 				$user->save();
 				if (is_null($user->getPasswordUpdated()) && ConfigModule::get("clients","forceFirstPasswordChange"))
@@ -172,7 +172,7 @@ class ClientUserPeer extends BaseClientUserPeer {
 	}
 
 	/**
-	* Setea el acceso en 0 o elimina usuario 
+	* Setea el acceso en 0 o elimina usuario
 	*
 	* @param int $id Id del usuario
 	* @return boolean true
@@ -221,7 +221,7 @@ class ClientUserPeer extends BaseClientUserPeer {
 	*/
 	function update($id, $params) {
 		$userByClient = ClientUserPeer::retrieveByPK($id);
-		
+
 		foreach ($params as $key => $value) {
 			$setMethod = "set".$key;
 			if ( method_exists($userByClient,$setMethod) ) {
@@ -241,7 +241,7 @@ class ClientUserPeer extends BaseClientUserPeer {
 			return false;
 		}
 	}
-	
+
 	/**
 	* Obtiene los grupos de usuarios en los cuales es miembro un usuario por cliente.
 	*
@@ -255,7 +255,7 @@ class ClientUserPeer extends BaseClientUserPeer {
 							->endUse()
 								->find();
 	}
-	
+
 	/**
 	* Agrega un usuario a un grupo de usuarios.
 	*
@@ -275,7 +275,7 @@ class ClientUserPeer extends BaseClientUserPeer {
 			return false;
 		}
 	}
-	
+
 	/**
 	* Elimina un usuario de un grupo de usuarios.
 	*
@@ -294,15 +294,15 @@ class ClientUserPeer extends BaseClientUserPeer {
 			return false;
 		}
 	}
-	
+
 	/**
 	* Activa un usuario por cliente a partir del id.
 	*
 	* @param int $id Id del usuario
-	*	@return boolean true
+	* @return boolean true
 	*/
 	function activate($id) {
-			ClientUserQuery::disableSoftDelete();
+		ClientUserQuery::disableSoftDelete();
 		$user = ClientUserPeer::retrieveByPk($id);
 		ClientUserQuery::enableSoftDelete();
 		$user->unDelete();
@@ -334,16 +334,15 @@ class ClientUserPeer extends BaseClientUserPeer {
 	}
 
 	/**
-	 * Retorna el criteria generado a partir de lso par�metros de b�squeda
-	 *
-	 * @return criteria $criteria Criteria con par�metros de b�squeda
+	 * Retorna el criteria generado a partir de los parametros de busqueda
+	 * @return criteria $criteria Criteria con parametros de busqueda
 	 */
 	private function getSearchCriteria() {
 		$criteria = new ClientUserQuery();
 		$criteria->setIgnoreCase(true);
 		$criteria->setLimit($this->limit);
 		$criteria->orderById();
-		
+
 		if ($this->searchString) {
 			$criteria->add(ClientUserPeer::USERNAME,"%" . $this->searchString . "%",Criteria::LIKE);
 			$criterionName = $criteria->getNewCriterion(ClientUserPeer::NAME,"%" . $this->searchString . "%",Criteria::LIKE);
@@ -355,20 +354,17 @@ class ClientUserPeer extends BaseClientUserPeer {
 		}
 
 		if (!empty($_SESSION["loginUser"])) {
-			if (!empty($this->searchClientId)) {
-				$clientId = $this->searchClientId;
-				if ($clientId != -1)
-					$criteria->filterByClientId($clientId);
-			}
-		} 
+			if (!empty($this->searchClientId) && $this->searchClientId > 0)
+				$criteria->filterByClientId($this->searchClientId);
+		}
 		else if (!empty($_SESSION["loginClientUser"])) {
 			$clientId = $_SESSION["loginClientUser"]->getClientId();
 			$criteria->filterByClientId($clientId);
 		}
-			
+
 		return $criteria;
 	}
-		
+
  /**
 	* Obtiene todos los ClientUser paginados segun la condicion de busqueda ingresada.
 	*
@@ -396,7 +392,7 @@ class ClientUserPeer extends BaseClientUserPeer {
 		$user = ClientUserQuery::create()->setIgnoreCase(1)->findOneByUsername($username);
 		return $user;
 	}
-	
+
 	/**
 	 * Authentica un usuario por nombre de usuario y mail.
 	 *
@@ -414,7 +410,7 @@ class ClientUserPeer extends BaseClientUserPeer {
 			return $user;
 		return false;
 	}
-	
+
 	/**
 	 * Devuelve el usuario con recuperacion de contrase🟰endiente que corresponda a partir
 	 * del hash pasado por parametro, si existe.
@@ -434,7 +430,7 @@ class ClientUserPeer extends BaseClientUserPeer {
 		else
 			return false;
 	 }
-	 
+
 	/**
 	* Actualiza la informacion de un usuario.
 	*
@@ -460,11 +456,20 @@ class ClientUserPeer extends BaseClientUserPeer {
 			return false;
 		}
 	}
-	
+
+	/**
+	* Obtiene todos los usuarios owners
+	* @return array propel obj clientUSers
+	*/
 	public static function getAllOwners() {
 		return ClientUserQuery::create()->owners()->find();
 	}
 
+	/**
+	* Obtiene un array de Id de usuarios de un cliente determinado
+	* @param propel obj $client Cliente
+	* @return array Ids de usuarios asociados al cliente
+	*/
 	public static function getIdsArray($client) {
 		return ClientUserQuery::create()->select('Id')->findByClientid($client->getId());
 	}

@@ -44,7 +44,7 @@ class ActorsDoEditAction extends BaseAction {
 				return $this->returnFailure($mapping,$smarty,$actor);
 
 			$logSufix = ', ' . Common::getTranslation('action: create','common');
-			Common::doLog('success', $_POST["params"]["name"] . ", " . $_POST["params"]["name"] . $logSufix);
+			Common::doLog('success', $_POST["params"]["surname"] . ", " . $_POST["params"]["name"] . $logSufix);
 
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
 		}

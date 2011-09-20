@@ -30,14 +30,11 @@ class AffiliatesUsersListAction extends BaseAction {
 			$smarty->assign("page",$page);
 		}
 
-		//Si esta logueado un usuario comun
+		//Si esta logueado un usuario de sistema
 		if (!empty($_SESSION["loginUser"])) {
-			$affiliateId = $_GET['filters']["searchAffiliateId"];
-			if (!empty($affiliateId)) {
-				if ($affiliateId == -1)
-					$deletedUsers = $usersPeer->getDeleteds();
-				else
-					$deletedUsers = $usersPeer->getDeletedsByAffiliate($affiliateId);
+			if (!empty($_GET['filters']["searchAffiliateId"])) {
+				if ($_GET['filters']["searchAffiliateId"] > 0)
+					$deletedUsers = $usersPeer->getDeletedsByAffiliate($_GET['filters']["searchAffiliateId"]);
 			}
 			else
 				$deletedUsers = $usersPeer->getDeleteds();
@@ -53,7 +50,7 @@ class AffiliatesUsersListAction extends BaseAction {
 		else
 			return $mapping->findForwardConfig('failure');
 
-		$pager = $usersPeer->getSearchPaginated($page);
+		$pager = $usersPeer->getAllPaginatedFiltered($page);
 		$smarty->assign("deletedUsers",$deletedUsers);
 
 		$smarty->assign("affiliateId",$affiliateId);
@@ -65,7 +62,6 @@ class AffiliatesUsersListAction extends BaseAction {
 
 		$smarty->assign("users", $pager->getResult());
 		$smarty->assign("pager", $pager);
-		$smarty->assign("affId",$affiliateId);
 		$smarty->assign("message",$_GET["message"]);
 
 		return $mapping->findForwardConfig('success');
