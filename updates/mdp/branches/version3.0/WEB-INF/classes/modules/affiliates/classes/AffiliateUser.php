@@ -205,7 +205,7 @@ class AffiliateUser extends BaseAffiliateUser {
 		if (!empty($recoveryCreatedOn)) {
 			$recoveryCreatedOnTimestamp = $recoveryCreatedOn->format('U');
 			$elapsedHours = (time() - $recoveryCreatedOnTimestamp) / 3600;
-			if($elapsedHours <= ConfigModule::get('affiliates','passwordRecoveryExpirationTimeInHours'))
+			if($elapsedHours <= ConfigModule::get('affiliates','passwordHashExpirationTime'))
 				return true;
 			else
 				return false;
@@ -220,7 +220,7 @@ class AffiliateUser extends BaseAffiliateUser {
 	 * @param string $password contraseña nueva
 	 */
 	function changePassword($password) {
-		$this->setPassword($password);
+		$this->setPasswordString($password);
 		$this->setPasswordUpdatedTime(time());
 		$this->save();
 	}
@@ -270,5 +270,12 @@ class AffiliateUser extends BaseAffiliateUser {
 		return false;
 	}
 
+	/**
+	 * Informo a que modulo pertenece el usuario
+	 * @return string module Nombre de modulo
+	 */
+	function getModule() {
+		return "Affiliates";
+	}
 
 } // AffiliateUser

@@ -4,7 +4,7 @@
 		<div id="loginTopBorder"><b class="rounded"><b class="rtop"><b class="r7"></b><b class="r6"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r1"></b></b></b></div>
 		 <!-- Begin loginContentWrapper --> 
 		<div id="loginContentWrapper">
-		<form method='post' action="Main.php?do=usersPasswordRecoverySendConfirmationRequest">
+		<form method='post' action="Main.php?do=usersPasswordRecoveryDoRequest">
 		 <!-- Begin LoginTop --> 
 		 <div id="loginTop"></div><!-- End LoginTop --> 
 		 <!-- Begin LoginContent --> 

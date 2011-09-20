@@ -199,7 +199,7 @@ class User extends BaseUser {
 		if (!empty($recoveryCreatedOn)) {
 			$recoveryCreatedOnTimestamp = $recoveryCreatedOn->format('U');
 			$elapsedHours = (time() - $recoveryCreatedOnTimestamp) / 3600;
-			if( $elapsedHours <= ConfigModule::get('users','passwordRecoveryExpirationTimeInHours'))
+			if( $elapsedHours <= ConfigModule::get('users','passwordHashExpirationTime'))
 				return true;
 			else
 				return false;
@@ -459,6 +459,14 @@ class User extends BaseUser {
 		$result = CategoryPeer::doSelect($criteria);
 		return $result;
 
+	}
+
+	/**
+	 * Informo a que modulo pertenece el usuario
+	 * @return string module Nombre de modulo
+	 */
+	function getModule() {
+		return "Users";
 	}
 
  /**

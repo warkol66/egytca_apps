@@ -28,7 +28,7 @@
 			|-elseif $message eq "passwordChanged"-|
 				<div align='center' class='successMessage'>Contraseña cambiada exitosamente.</div> 
 			|-elseif $message eq "confirmationMailSent"-|
-				<div align='center' class='successMessage'>Se envió un mail de verificación a su casilla de correo.</div> 
+				<div align='center' class='successMessage'>Se envió un mail de verificación a su casilla de correo. Siga las intrucciones indicadas en el mismo para recuperar su contraseña.</div> 
 			|-/if-|
 				<input type="hidden" name="do" value="affiliateUsersDoLogin" id="loginFormDo" />
 			<h1>Usuario</h1> 

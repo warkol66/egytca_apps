@@ -254,6 +254,52 @@ class Common {
 	}
 
 	/**
+	* obtiene objeto user si esta logueado algun tipo de usuario
+	* @return obj $user con el objeto logueado de la session
+	*/
+	function authenticateByUserAndMail($username,$email) {
+		if (class_exists(UserPeer)){
+			$user = UserPeer::authenticateByUserAndMail($username,$email);
+			if (!empty($user))
+				return $user;
+		}
+		if (class_exists(AffiliateUserPeer)){
+			$user = AffiliateUserPeer::authenticateByUserAndMail($username,$email);
+			if (!empty($user))
+				return $user;
+		}
+		if (class_exists(ClientUserPeer)){
+			$user = ClientUserPeer::authenticateByUserAndMail($username,$email);
+			if (!empty($user))
+				return $user;
+		}
+		return;
+	}
+
+	/**
+	* obtiene objeto user si esta logueado algun tipo de usuario
+	* @return obj $user con el objeto logueado de la session
+	*/
+	function getByRecoveryHash($hash) {
+		if (class_exists(UserPeer)){
+			$user = UserPeer::getByRecoveryHash($hash);
+			if (!empty($user))
+				return $user;
+		}
+		if (class_exists(AffiliateUserPeer)){
+			$user = AffiliateUserPeer::getByRecoveryHash($hash);
+			if (!empty($user))
+				return $user;
+		}
+		if (class_exists(ClientUserPeer)){
+			$user = ClientUserPeer::getByRecoveryHash($hash);
+			if (!empty($user))
+				return $user;
+		}
+		return;
+	}
+
+	/**
 	 * Indica si hay login unificado en la configuracion del sistema
 	 * @return boolean
 	 */

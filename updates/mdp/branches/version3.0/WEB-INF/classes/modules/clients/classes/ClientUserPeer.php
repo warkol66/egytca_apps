@@ -412,7 +412,7 @@ class ClientUserPeer extends BaseClientUserPeer {
 	}
 
 	/**
-	 * Devuelve el usuario con recuperacion de contrase🟰endiente que corresponda a partir
+	 * Devuelve el usuario con recuperacion de clave pendiente que corresponda a partir
 	 * del hash pasado por parametro, si existe.
 	 *
 	 * @param string $recoveryHash hash mediante el cual se realiza la busqueda.
@@ -435,7 +435,7 @@ class ClientUserPeer extends BaseClientUserPeer {
 	* Actualiza la informacion de un usuario.
 	*
 	* @param int $id Id del usuario
-	* @param string $pass Contrase🟤el usuario
+	* @param string $pass Clave el usuario
 	* @param int $timezone Zona horaria del usuario
 	* @return boolean true si se actualizo la informacion correctamente, false sino
 	*/

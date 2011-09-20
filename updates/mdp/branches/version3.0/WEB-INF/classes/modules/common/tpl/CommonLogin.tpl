@@ -9,7 +9,10 @@
 		 <div id="loginTop"></div><!-- End LoginTop --> 
 		 <!-- Begin LoginContent --> 
 		 <div id="loginContent"><br />
-			<noscript><div align='center' class='errorMessage'>Su navegador tiene desabilitada la ejecución de Javascript.<br /><br />Este sistema requiere que la habilite para su correcto funcionamiento.<br /><br />Podrá ingresar al sistema pero recuerde que algunas funciones pueden no ejecutarse correctamente.</div></noscript><p>|-if isset($unifiedLogin)-|Selecciones el tipo de usuario e i|-else-|I|-/if-|ngrese su usuario y contraseña para ingresar al sistema</p> 
+ 			<noscript><div align='center' class='errorMessage'>Su navegador tiene desabilitada la ejecución de Javascript.
+			<br /><br />Este sistema requiere que la habilite para su correcto funcionamiento.
+			<br /><br />Podrá ingresar al sistema pero recuerde que algunas funciones pueden no ejecutarse correctamente.</div></noscript>
+			<p>|-if isset($unifiedLogin)-|Selecciones el tipo de usuario e i|-else-|I|-/if-|ngrese su usuario y contraseña para ingresar al sistema</p> 
 			|-if $message eq "dataMissmatch"-|
 				<div align='center' class='errorMessage'>Usuario desconocido o contraseña incorrecta!. Intente nuevamente.</div> 
 			|-elseif $message eq "missingData"-|
@@ -25,7 +28,7 @@
 			|-elseif $message eq "passwordChanged"-|
 				<div align='center' class='successMessage'>Contraseña cambiada exitosamente.</div> 
 			|-elseif $message eq "confirmationMailSent"-|
-				<div align='center' class='successMessage'>Se envió un mail de verificación a su casilla de correo.</div> 
+				<div align='center' class='successMessage'>Se envió un mail de verificación a su casilla de correo. Siga las intrucciones indicadas en el mismo para recuperar su contraseña.</div> 
 			|-/if-|
 				<input type="hidden" name="do" value="commonDoLogin" id="loginFormDo" />
 			<h1>Usuario</h1> 

@@ -1,15 +1,13 @@
 <?php
 /**
- * UsersPasswordRecoverySendConfirmationRequestAction
+ * ClientsUsersPasswordRecoveryDoRequestAction
  *
- * @package users
+ * @package clients
  */
 
-require_once("EmailManagement.php");
+class ClientsUsersPasswordRecoveryDoRequestAction extends BaseAction {
 
-class UsersPasswordRecoverySendConfirmationRequestAction extends BaseAction {
-
-	function UsersPasswordRecoverySendConfirmationRequestAction() {
+	function ClientsUsersPasswordRecoveryDoRequestAction() {
 		;
 	}
 
@@ -19,33 +17,32 @@ class UsersPasswordRecoverySendConfirmationRequestAction extends BaseAction {
 
 		$this->template->template = "TemplatePlain.tpl";
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$module = "Users";
+		$module = "Clients";
+		$section = "Users";
 
 		if ( !empty($_POST["username"]) && !empty($_POST["mailAddress"]) ) {
 			if (Common::validateCaptcha($_POST['securityCode'])) {
-				$user = UserPeer::authenticateByUserAndMail($_POST["username"],$_POST["mailAddress"]);
+				$user = ClientUserPeer::authenticateByUserAndMail($_POST["username"],$_POST["mailAddress"]);
 				if ( !empty($user)) {
 					if (!$user->recoveryRequestAlredyMade()) {
 						$subject = Common::getTranslation('New password','users');
 						$smarty->assign("user",$user);
 						$recoveryHash = $user->createRecoveryHash();
 						$smarty->assign("recoveryHash",$recoveryHash);
-						$body = $smarty->fetch("UsersPasswordRecoveryConfirmationRequestMail.tpl");
+						$body = $smarty->fetch("ClientsUsersPasswordRecoveryRequest.tpl");
 		
 						$mailTo = $user->getMailAddress();
 		
 						global $system;
 						$mailFrom = $system["config"]["system"]["parameters"]["fromEmail"];
 		
+						require_once("EmailManagement.php");
 						$manager = new EmailManagement();
 						$message = $manager->createHTMLMessage($subject,$body);
 						$result = $manager->sendMessage($mailTo,$mailFrom,$message);

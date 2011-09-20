@@ -21,9 +21,9 @@
 			<forward name="successFirstLogin" path="/Main.php?do=usersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
 		</action>
 
-		<action    path = "usersPasswordRecoverySendConfirmationRequest"
-							 type = "UsersPasswordRecoverySendConfirmationRequestAction"
-							 name = "usersPasswordRecoverySendConfirmationRequest"
+		<action    path = "usersPasswordRecoveryDoRequest"
+							 type = "UsersPasswordRecoveryDoRequestAction"
+							 name = "usersPasswordRecoveryDoRequest"
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=usersLogin&amp;message=confirmationMailSent" redirect="true" />
@@ -36,21 +36,21 @@
 							scope = "request"
 					 validate = "true">
 			<forward name="askNewPass" path="UsersNewPasswordForRecovery.tpl"/>
-			<forward name="sendNewPass" path="/Main.php?do=usersPasswordDoRecovery" redirect="true"/>
+			<forward name="sendNewPass" path="/Main.php?do=usersPasswordDoRecover" redirect="true"/>
 		</action>
 
-		<action    path = "usersPasswordDoChangeForRecovery"
-							 type = "UsersPasswordDoChangeForRecoveryAction"
-							 name = "usersPasswordDoChangeForRecovery"
+		<action    path = "usersPasswordDoSetFromRecovery"
+							 type = "UsersPasswordDoSetFromRecoveryAction"
+							 name = "usersPasswordDoSetFromRecovery"
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=usersLogin&amp;message=passwordChanged" redirect="true"/>
 			<forward name="failure" path="/Main.php?do=usersLogin" redirect="true"/>
 		</action>
 
-		<action    path = "usersPasswordDoRecovery"
-							 type = "UsersPasswordDoRecoveryAction"
-							 name = "usersPasswordDoRecovery"
+		<action    path = "usersPasswordDoRecover"
+							 type = "UsersPasswordDoRecoverAction"
+							 name = "usersPasswordDoRecover"
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=usersLogin&amp;message=passwordSent" redirect="true" />

@@ -106,9 +106,9 @@
 			<forward name="failure" path="/Main.php?do=clientsUsersPasswordChange&amp;message=message" redirect="true"/>
 		</action>
 		
-		<action    path = "clientsUsersPasswordRecoverySendConfirmationRequest"
-							 type = "ClientsUsersPasswordRecoverySendConfirmationRequestAction"
-							 name = "clientsUsersPasswordRecoverySendConfirmationRequest"
+		<action    path = "clientsUsersPasswordRecoveryDoRequest"
+							 type = "ClientsUsersPasswordRecoveryDoRequestAction"
+							 name = "clientsUsersPasswordRecoveryDoRequest"
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=clientsUsersLogin&amp;message=confirmationMailSent" redirect="true" />
@@ -121,7 +121,7 @@
 							scope = "request"
 					 validate = "true">
 			<forward name="askNewPass" path="ClientsUsersNewPasswordForRecovery.tpl"/>
-			<forward name="sendNewPass" path="/Main.php?do=clientsUsersPasswordDoRecovery" redirect="true"/>
+			<forward name="sendNewPass" path="/Main.php?do=clientsUsersPasswordDoRecover" redirect="true"/>
 		</action>
 		
 		<action    path = "clientsUsersPasswordDoChangeForRecovery"
@@ -133,9 +133,9 @@
 			<forward name="failure" path="/Main.php?do=clientsUsersLogin" redirect="true"/>
 		</action>
 
-		<action    path = "clientsUsersPasswordDoRecovery"
-							 type = "ClientsUsersPasswordDoRecoveryAction"
-							 name = "clientsUsersPasswordDoRecovery"
+		<action    path = "clientsUsersPasswordDoRecover"
+							 type = "ClientsUsersPasswordDoRecoverAction"
+							 name = "clientsUsersPasswordDoRecover"
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=clientsUsersLogin&amp;message=passwordSent" redirect="true" />

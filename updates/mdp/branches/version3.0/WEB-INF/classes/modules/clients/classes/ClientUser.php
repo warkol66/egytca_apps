@@ -205,7 +205,7 @@ class ClientUser extends BaseClientUser {
 		if (!empty($recoveryCreatedOn)) {
 			$recoveryCreatedOnTimestamp = $recoveryCreatedOn->format('U');
 			$elapsedHours = (time() - $recoveryCreatedOnTimestamp) / 3600;
-			if($elapsedHours <= ConfigModule::get('clients','passwordRecoveryExpirationTimeInHours'))
+			if($elapsedHours <= ConfigModule::get('clients','passwordHashExpirationTime'))
 				return true;
 			else
 				return false;
@@ -220,7 +220,7 @@ class ClientUser extends BaseClientUser {
 	 * @param string $password contraseña nueva
 	 */
 	function changePassword($password) {
-		$this->setPassword($password);
+		$this->setPasswordString($password);
 		$this->setPasswordUpdatedTime(time());
 		$this->save();
 	}
@@ -270,5 +270,12 @@ class ClientUser extends BaseClientUser {
 		return false;
 	}
 
+	/**
+	 * Informo a que modulo pertenece el usuario
+	 * @return string module Nombre de modulo
+	 */
+	function getModule() {
+		return "Clients";
+	}
 
 } // ClientUser

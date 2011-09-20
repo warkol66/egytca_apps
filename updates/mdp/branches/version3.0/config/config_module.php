@@ -22,7 +22,7 @@ class ConfigModule {
 			"forceFirstPasswordChange" => true,
 			"askForNewPasswordOnRecovery" => false,
 			"useFilterByUserGroup" => true,
-			"passwordRecoveryExpirationTimeInHours" => 24,
+			"passwordHashExpirationTime" => 24,
 			"toStringFormat" => "Surname, Name (Username)" // "Name Surname (Username)"
 		),
 		"actors" => array(
@@ -36,15 +36,15 @@ class ConfigModule {
 			"forceFirstPasswordChange" => true,
 			"askForNewPasswordOnRecovery" => false,
 			"useFilterByUserGroup" => true,
-			"passwordRecoveryExpirationTimeInHours" => 24,
+			"passwordHashExpirationTime" => 24,
 			"toStringFormat" => "Surname, Name (Username)" // "Name Surname (Username)"
 		),
 		"affiliates" => array(
 			"useTimezones" => false,
 			"forceFirstPasswordChange" => true,
-			"askForNewPasswordOnRecovery" => false,
+			"askForNewPasswordOnRecovery" => true,
 			"useFilterByUserGroup" => true,
-			"passwordRecoveryExpirationTimeInHours" => 24,
+			"passwordHashExpirationTime" => 24,
 			"toStringFormat" => "Surname, Name (Username)" // "Name Surname (Username)"
 		),
 		"documents" => array(

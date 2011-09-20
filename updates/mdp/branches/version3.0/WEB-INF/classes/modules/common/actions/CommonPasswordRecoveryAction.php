@@ -19,9 +19,6 @@ class CommonPasswordRecoveryAction extends BaseAction {
    	// Use a different template
 		$this->template->template = "TemplateLogin.tpl";
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {

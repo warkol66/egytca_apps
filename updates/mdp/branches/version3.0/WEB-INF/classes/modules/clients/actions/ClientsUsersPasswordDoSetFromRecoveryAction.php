@@ -1,23 +1,20 @@
 <?php
-/** 
- * ClientsUsersPasswordDoChangeForRecoveryAction
+/**
+ * ClientsUsersPasswordDoSetFromRecoveryAction
  *
- * @package clients 
+ * @package clients
  */
 
-class ClientsUsersPasswordDoChangeForRecoveryAction extends BaseAction {
+class ClientsUsersPasswordDoSetFromRecoveryAction extends BaseAction {
 
-	function ClientsUsersPasswordDoChangeForRecoveryAction() {
+	function ClientsUsersPasswordDoSetFromRecoveryAction() {
 		;
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -25,26 +22,24 @@ class ClientsUsersPasswordDoChangeForRecoveryAction extends BaseAction {
 		}
 
 		$module = "Clients";
+		$section = "Users";
 
-		$userPeer = New ClientUserPeer();
 		if (($_POST["pass"] == $_POST["pass2"])) {
-			$user = $userPeer->getByRecoveryHash($_POST["recoveryHash"]);
+			$user = ClientUserPeer::getByRecoveryHash($_POST["recoveryHash"]);
 			if (!empty($user) && $user->recoveryRequestIsValid()) {
 				$user->changePassword($_POST["pass"]);
 				$user->setRecoveryhash(null);
+				$user->setrecoveryHashCreatedOn(null);
 				$user->save();
 				return $mapping->findForwardConfig('success');
 			}
 		}
-		if (empty($user)) {
+		if (empty($user))
 			return $this->addParamsToForwards(array('message'=>'wrongHash'),$mapping,"failure");
-		}
-		if (!$user->recoveryRequestIsValid()){
-			return $this->addParamsToForwards(array('message'=>'expiredHash'),$mapping,"failure");
-		}
-		
-		return $this->addParamsToForwards(array('message'=>'anotherError'),$mapping,"failure");
-			
-	}
 
+		if (!$user->recoveryRequestIsValid())
+			return $this->addParamsToForwards(array('message'=>'expiredHash'),$mapping,"failure");
+
+		return $this->addParamsToForwards(array('message'=>'anotherError'),$mapping,"failure");
+	}
 }

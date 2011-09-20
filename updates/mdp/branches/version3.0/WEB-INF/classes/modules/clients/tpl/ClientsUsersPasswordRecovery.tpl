@@ -1,5 +1,5 @@
 <script type="text/javascript" language="javascript" src="scripts/login.js"></script>
-<form method='post' action="Main.php?do=clientsUsersPasswordRecoverySendConfirmationRequest">
+<form method='post' action="Main.php?do=clientsUsersPasswordRecoveryDoRequest">
 	<div id="loginWrapper">
 	<!-- Begin Login --> 
 	<div id="login"><img src="images/passRecoveryTop.png" />

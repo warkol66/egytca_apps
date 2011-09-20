@@ -49,9 +49,9 @@
 			<forward name="failureRedirectAffiliateUsersLogin" path="/Main.php?do=affiliatesUsersLogin" redirect="true" />
 		</action>
 
-		<action    path = "commonPasswordRecoverySendConfirmationRequest"
-							 type = "CommonPasswordRecoverySendConfirmationRequestAction"
-							 name = "commonPasswordRecoverySendConfirmationRequest"
+		<action    path = "commonPasswordRecoveryDoRequest"
+							 type = "CommonPasswordRecoveryDoRequestAction"
+							 name = "commonPasswordRecoveryDoRequest"
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=commonLogin&amp;message=confirmationMailSent" redirect="true" />
@@ -64,24 +64,25 @@
 							scope = "request"
 					 validate = "true">
 			<forward name="askNewPass" path="CommonNewPasswordForRecovery.tpl"/>
-			<forward name="sendNewPass" path="/Main.php?do=commonPasswordDoRecovery" redirect="true"/>
+			<forward name="sendNewPass" path="/Main.php?do=commonPasswordDoRecover" redirect="true"/>
 		</action>
 		
-		<action    path = "commonPasswordDoChangeForRecovery"
-							 type = "CommonPasswordDoChangeForRecoveryAction"
-							 name = "commonPasswordDoChangeForRecovery"
+		<action    path = "commonPasswordDoSetFromRecovery"
+							 type = "CommonPasswordDoSetFromRecoveryAction"
+							 name = "commonPasswordDoSetFromRecovery"
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=commonLogin&amp;message=passwordChanged" redirect="true"/>
 			<forward name="failure" path="/Main.php?do=commonLogin" redirect="true"/>
 		</action>
 
-		<action    path = "commonPasswordDoRecovery"
-							 type = "CommonPasswordDoRecoveryAction"
-							 name = "commonPasswordDoRecovery"
+		<action    path = "commonPasswordDoRecover"
+							 type = "CommonPasswordDoRecoverAction"
+							 name = "commonPasswordDoRecover"
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=commonLogin&amp;message=passwordSent" redirect="true" />
+			<forward name="askNewPass" path="CommonPasswordSetFromRecovery.tpl"/>
 			<forward name="failure" path="CommonLogin.tpl"/>
 		</action>
 

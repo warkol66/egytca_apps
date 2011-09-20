@@ -16,8 +16,8 @@
 								 name = "affiliatesUsersLogin"
 								scope = "request"
 						 validate = "true">
-				<description value="Modulo de ingreso"/>
-				<forward name="success" path="AffiliatesUsersLogin.tpl"/>
+			<forward name="success" path="AffiliatesUsersLogin.tpl"/>
+			<forward name="success-unified" path="/Main.php?do=usersLogin" redirect="true" />
 			<forward name="maintenance" path="Maintenance.tpl"/>
 			<forward name="welcome" path="/Main.php?do=affiliatesUsersWelcome" redirect="true" />
 		</action>
@@ -27,7 +27,6 @@
 								 name = "affiliatesUsersDoLogin"
 								scope = "request"
 						 validate = "true">
-				<description value="Modulo de ingreso"/>
 				<forward name="success" path="AffiliatesUsersWelcome.tpl"/>
 				<forward name="failure-unified" path="UsersLogin.tpl"/>
 				<forward name="failure" path="AffiliatesUsersLogin.tpl"/>
@@ -96,15 +95,6 @@
 			<forward name="success" path="AffiliatesUsersPasswordRecovery.tpl"/>
 		</action>
 
-		<action    path = "affiliatesUsersDoPasswordRecovery"
-							 type = "AffiliatesUsersDoPasswordRecoveryAction"
-							 name = "affiliatesUsersDoPasswordRecovery"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="/Main.php?do=affiliatesUsersLogin&amp;message=passwordSent" redirect="true" />
-			<forward name="failure" path="AffiliatesUsersPasswordRecovery.tpl"/>
-		</action>
-		
 		<action    path = "affiliatesUsersPasswordDoChange"
 							 type = "AffiliatesUsersPasswordDoChangeAction"
 							 name = "affiliatesUsersPasswordDoChange"
@@ -115,36 +105,27 @@
 			<forward name="failure" path="/Main.php?do=affiliatesUsersPasswordChange&amp;message=message" redirect="true"/>
 		</action>
 		
-		<action    path = "affiliatesUsersPasswordRecoverySendConfirmationRequest"
-							 type = "AffiliatesUsersPasswordRecoverySendConfirmationRequestAction"
-							 name = "affiliatesUsersPasswordRecoverySendConfirmationRequest"
+		<action    path = "affiliatesUsersPasswordRecoveryDoRequest"
+							 type = "AffiliatesUsersPasswordRecoveryDoRequestAction"
+							 name = "affiliatesUsersPasswordRecoveryDoRequest"
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=affiliatesUsersLogin&amp;message=confirmationMailSent" redirect="true" />
 			<forward name="failure" path="AffiliatesUsersPasswordRecovery.tpl"/>
 		</action>
 		
-		<action    path = "affiliatesUsersPasswordRecoveryConfirmation"
-							 type = "AffiliatesUsersPasswordRecoveryConfirmationAction"
-							 name = "affiliatesUsersPasswordRecoveryConfirmation"
-							scope = "request"
-					 validate = "true">
-			<forward name="askNewPass" path="AffiliatesUsersNewPasswordForRecovery.tpl"/>
-			<forward name="sendNewPass" path="/Main.php?do=affiliatesUsersPasswordDoRecovery" redirect="true"/>
-		</action>
-		
-		<action    path = "affiliatesUsersPasswordDoChangeForRecovery"
-							 type = "AffiliatesUsersPasswordDoChangeForRecoveryAction"
-							 name = "affiliatesUsersPasswordDoChangeForRecovery"
+		<action    path = "affiliatesUsersPasswordDoSetFromRecovery"
+							 type = "AffiliatesUsersPasswordDoSetFromRecoveryAction"
+							 name = "affiliatesUsersPasswordDoSetFromRecovery"
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=affiliatesUsersLogin&amp;message=passwordChanged" redirect="true"/>
 			<forward name="failure" path="/Main.php?do=affiliatesUsersLogin" redirect="true"/>
 		</action>
 
-		<action    path = "affiliatesUsersPasswordDoRecovery"
-							 type = "AffiliatesUsersPasswordDoRecoveryAction"
-							 name = "affiliatesUsersPasswordDoRecovery"
+		<action    path = "affiliatesUsersPasswordDoRecover"
+							 type = "AffiliatesUsersPasswordDoRecoverAction"
+							 name = "affiliatesUsersPasswordDoRecover"
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=affiliatesUsersLogin&amp;message=passwordSent" redirect="true" />

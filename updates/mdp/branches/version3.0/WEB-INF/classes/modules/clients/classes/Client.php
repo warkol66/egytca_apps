@@ -147,7 +147,6 @@ class Client extends BaseClient {
 		return $result;
 	}
 
-
 	/**
 	 * Obtengo precio de producto del cliente si tiene lista de precios si no, toma la general
 	 * @param object producto del catalogo
