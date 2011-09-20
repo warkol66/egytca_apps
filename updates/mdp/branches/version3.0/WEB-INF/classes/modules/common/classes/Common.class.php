@@ -96,10 +96,10 @@ class Common {
 	* @param string $user datos del usuario
 	* @param string $action nombre del action
 	* @param string $forward tipo de forward (success, failure, errorLog, etc)
-	* @param string $object objeto sobre el cual se realizo la accion
+	* @param string $message mensaje resultado de la accion
 	* @return void
 	*/
-	function doLog($forward,$object=null) {
+	function doLog($forward,$message=null) {
 		if (ConfigModule::get("global","doLog")){
 
 			$action = ucfirst($_REQUEST['do']);
@@ -109,7 +109,7 @@ class Common {
 				$logs = new ActionLog();
 				$logs->setDatetime(time());
 				$logs->setAction($action);
-				$logs->setObject($object);
+				$logs->setMessage($message);
 				$logs->setForward($forward);
 				$logs->setUserObjectType($userInfo["objectType"]);
 				$logs->setUserObjectId($userInfo["objectId"]);
