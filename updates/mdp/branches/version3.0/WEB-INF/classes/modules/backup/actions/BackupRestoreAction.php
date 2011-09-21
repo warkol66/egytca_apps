@@ -5,8 +5,6 @@
  * @package backup
  */
 
-require_once("BackupPeer.php");
-
 class BackupRestoreAction extends BaseAction {
 
 	function BackupRestoreAction() {
@@ -17,9 +15,6 @@ class BackupRestoreAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -29,24 +24,28 @@ class BackupRestoreAction extends BaseAction {
 		$module = "Backup";
 		$smarty->assign("module",$module);
 
+		require_once("BackupPeer.php");
 		$backupPeer = new BackupPeer();
 
 		if (!empty($_FILES['backup'])) {
 			$filename = $_FILES["backup"]['tmp_name'];
 			$originalFileName = $_FILES["backup"]['name'];
-		} else if (!empty($_POST['filename'])) {
+		}
+		else if (!empty($_POST['filename'])) {
 			$filename = 'WEB-INF/../backups/' . $_POST['filename'];
 			$originalFileName = $filename;
-		} else {
-			Common::doLog('failure',$filename);
+		}
+		else {
+			Common::doLog('failure', 'filename: ' . $_POST['filename']);
 			return $mapping->findForwardConfig('failure');
 		}
 		
 		if ($backupPeer->restoreBackup($filename, $originalFileName)) {
-			Common::doLog('success',$filename);
+			Common::doLog('success', 'filename: ' . $filename);
 			return $mapping->findForwardConfig('success');
-		} else {
-			Common::doLog('failure',$filename);
+		}
+		else {
+			Common::doLog('failure', 'filename: ' . $filename);
 			return $mapping->findForwardConfig('failure');
 		}
 	}

@@ -5,8 +5,6 @@
  * @package backup
  */
 
-require_once("BackupPeer.php");
-
 class BackupSendByEmailAction extends BaseAction {
 
 	function BackupSendByEmailAction() {
@@ -17,9 +15,6 @@ class BackupSendByEmailAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -28,31 +23,35 @@ class BackupSendByEmailAction extends BaseAction {
 
 		$module = "Backup";
 		$smarty->assign("module",$module);
-		
+
 		$systemConfig = Common::getConfiguration('system');
-		
+
 		$filename = null;
 		$email = null;
 		$complete = null;
-		
+
 		if (!empty($_POST['filename']))
 			$filename = $_POST['filename'];
-			
-		if (!empty($_POST['email']))	
+
+		if (!empty($_POST['email']))
 			$email = $_POST['email'];
-			
-		if (!empty($_POST['complete']))	
+
+		if (!empty($_POST['complete']))
 			$complete = $_POST['complete'];
-			
+
+		require_once("BackupPeer.php");
 		$backupPeer = new BackupPeer();
-		
+
 		if($backupPeer->sendBackupToEmail($email, $filename, $complete)) {
 			Common::doLog('success','system');
-			if (empty($filename)) die; //Estamos ejecutando por cron.
+			if (empty($filename))
+				die; //Estamos ejecutando por cron.
 			return $mapping->findForwardConfig('success');
-		} else {
+		}
+		else {
 			Common::doLog('failure','system');
-			if (empty($filename)) die; //Estamos ejecutando por cron.
+			if (empty($filename))
+				die; //Estamos ejecutando por cron.
 			return $mapping->findForwardConfig('failure');
 		}
 
