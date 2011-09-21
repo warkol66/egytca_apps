@@ -10,24 +10,22 @@ class IssuesDoEditXAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$this->template->template = 'TemplateAjax.tpl';
-
 		$issue = new Issue();
 		$issue = Common::setObjectFromParams($issue,$_POST["params"]);
 		if (!$issue->save())
 			return $mapping->findForwardConfig('failure');			
 
-		$logSufix = ', ' . Common::getTranslation('action: create','common');
-		Common::doLog('success', $_POST["params"]["name"] . $logSufix);
+		if (mb_strlen($_POST["params"]["name"]) > 120)
+			$cont = " ... ";
+
+		$logSufix = "$cont, " . Common::getTranslation('action: create','common');
+		Common::doLog('success', substr($_POST["params"]["name"], 0, 120) . $logSufix);
 
 		return $mapping->findForwardConfig('success');			
 

@@ -29,8 +29,11 @@ class CampaignsCommitmentDoEditXAction extends BaseAction {
 				return $mapping->findForwardConfig('failure');
 			}
 
-			$logSufix = ', ' . Common::getTranslation('action: edit','common');
-			Common::doLog('success', substr($_POST["commitmentData"]["commitment"], 0, 60) . $logSufix);
+			if (mb_strlen($_POST["commitmentData"]["commitment"]) > 120)
+				$cont = " ... ";
+
+			$logSufix = "$cont, " . Common::getTranslation('action: edit','common');
+			Common::doLog('success', substr($_POST["commitmentData"]["commitment"], 0, 120) . $logSufix);
 
 			$smarty->assign("commitment",$commitment);
 			return $mapping->findForwardConfig('success');
@@ -50,8 +53,11 @@ class CampaignsCommitmentDoEditXAction extends BaseAction {
 			$smarty->assign("action","create");
 			$smarty->assign("commitment",$commitment);
 	
-			$logSufix = ', ' . Common::getTranslation('action: create','common');
-			Common::doLog('success', substr($_POST["commitmentData"]["commitment"], 0, 60) . $logSufix);
+			if (mb_strlen($_POST["commitmentData"]["commitment"]) > 120)
+				$cont = " ... ";
+
+			$logSufix = "$cont, " . Common::getTranslation('action: create','common');
+			Common::doLog('success', substr($_POST["commitmentData"]["commitment"], 0, 120) . $logSufix);
 	
 			return $mapping->findForwardConfig('success');
 		}

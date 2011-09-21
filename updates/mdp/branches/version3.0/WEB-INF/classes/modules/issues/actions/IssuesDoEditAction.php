@@ -25,7 +25,7 @@ class IssuesDoEditAction extends BaseAction {
 		$userParams = Common::userInfoToDoLog();
 		$issueParams = array_merge_recursive($_POST["params"],$userParams);
 
-		if ($_POST["action"] == "edit") { // Existing actor
+		if ($_POST["action"] == "edit") { // Existing Issue
 
 			$issue = IssuePeer::get($_POST["id"]);
 			$issue = Common::setObjectFromParams($issue,$issueParams);
@@ -36,15 +36,18 @@ class IssuesDoEditAction extends BaseAction {
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
 
 		}
-		else { // New actor
+		else { // New Issue
 
 			$issue = new Issue();
 			$issue = Common::setObjectFromParams($issue,$issueParams);
 			if (!$issue->save())
 				return $this->returnFailure($mapping,$smarty,$issue);
 
-			$logSufix = ', ' . Common::getTranslation('action: create','common');
-			Common::doLog('success', $_POST["params"]["name"] . ", " . $_POST["params"]["name"] . $logSufix);
+			if (mb_strlen($_POST["params"]["name"]) > 120)
+				$cont = " ... ";
+
+			$logSufix = "$cont, " . Common::getTranslation('action: create','common');
+			Common::doLog('success', substr($_POST["params"]["name"], 0, 120) . $logSufix);
 
 			$params['id'] = $issue->getId();
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');

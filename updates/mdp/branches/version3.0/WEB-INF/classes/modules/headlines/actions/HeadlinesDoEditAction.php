@@ -45,13 +45,14 @@ class HeadlinesDoEditAction extends BaseAction {
 			if (!$headline->save())
 				return $this->returnFailure($mapping,$smarty,$headline);
 
-			$logSufix = ', ' . Common::getTranslation('action: create','common');
-			Common::doLog('success', $_POST["params"]["name"] . ", " . $_POST["params"]["name"] . $logSufix);
+			if (mb_strlen($_POST["params"]["name"]) > 120)
+				$cont = " ... ";
+
+			$logSufix = "$cont, " . Common::getTranslation('action: create','common');
+			Common::doLog('success', substr($_POST["params"]["name"], 0, 120) . $logSufix);
 
 			$params['id'] = $headline->getId();
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');
 		}
-
 	}
-
 }
