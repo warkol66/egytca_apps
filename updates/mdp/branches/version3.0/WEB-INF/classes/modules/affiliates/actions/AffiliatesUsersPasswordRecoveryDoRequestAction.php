@@ -47,7 +47,7 @@ class AffiliatesUsersPasswordRecoveryDoRequestAction extends BaseAction {
 						$message = $manager->createHTMLMessage($subject,$body);
 						$result = $manager->sendMessage($mailTo,$mailFrom,$message);
 
-						Common::doLog('success','username: ' . $_POST["username"] . ' Mail Address: ' . $_POST["mailAddress"]);
+						Common::doLog('success','username: ' . $_POST["username"] . ' => ' . $_POST["mailAddress"]);
 						return $mapping->findForwardConfig('success');
 					}
 					else {
@@ -67,7 +67,7 @@ class AffiliatesUsersPasswordRecoveryDoRequestAction extends BaseAction {
 		$this->template->template = "TemplateLogin.tpl";
 
 		$smarty->assign("message","wrongUser");
-		Common::doLog('failure','username: ' . $_POST["username"] . ' Mail Address: ' . $_POST["mailAddress"]);
+		Common::doLog('failure','username: ' . $_POST["username"] . ' => ' . $_POST["mailAddress"]);
 		return $mapping->findForwardConfig('failure');
 	}
 

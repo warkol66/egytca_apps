@@ -27,18 +27,18 @@ function resetPassword(form){
 |-/if-|
 <span id="usersMsgField"></span>
 <table cellpadding='5' cellspacing='0' width='100%' class='tableTdBorders'>
-|-if $loginUser ne ''-|
+|-if $loginUser ne '' || $loginAffiliateUser ne ''-|
 <tr>
 <td colspan="5" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Buscar usuario</a>
 			<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none;|-/if-|"><form action="Main.php" method="get">
 			<p>Texto a buscar: <input name="filters[searchString]" type="text" title="Ingrese el nombre, parte del nombre, apellido o parte del apellido a buscar" value="|-$filters.searchString-|" size="50" /></p>
-			<p>Filtrar por ##affiliates,3,Afiliado##
+			<p>|-if $loginUser ne ''-|Filtrar por ##affiliates,3,Afiliado##
 			<select name="filters[searchAffiliateId]" onchange="this.form.submit();">
 					<option value="0">Seleccione un ##affiliates,3,Afiliado##</option>
 				|-foreach from=$affiliates item=affiliate name=for_affiliate-|
 					<option value="|-$affiliate->getId()-|"|-if $affiliate->getId() eq $filters.searchAffiliateId-| selected="selected"|-/if-|>|-$affiliate->getName()-|</option>
 				|-/foreach-|
-			</select> 
+			</select>|-/if-| 
 				Resultados por página
 				|-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getRowsPerPage()-|
 				<input type='submit' value='Buscar' />
@@ -79,7 +79,7 @@ function resetPassword(form){
 		    |-if $loginUser ne ''-|
 				|-if $user->isAffiliateOwner()-|
 					<img src="images/clear.png" class="icon iconOwner" title="Este es el usuario dueño del ##affiliates,3,Afiliado##" />
-				|-else if "affiliatesDoSetOwner"|security_has_access-|
+				|-elseif "affiliatesDoSetOwner"|security_has_access-|
 					<form method="post">
 						<input type="hidden" name="userId" value="|-$user->getId()-|" />
 						<input type="hidden" name="affiliateId" value="|-$user->getAffiliateId()-|" />
@@ -89,13 +89,13 @@ function resetPassword(form){
 				|-/if-| 
 			|-/if-|
 		|-if "affiliatesUsersPasswordResetX"|security_has_access-|
-			|-if ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() ne '')-|<form method="post">
+			|-if ($user->getMailAddress() ne '') && (!isset($loginAffiliateUser) || (isset($loginAffiliateUser) && ($loginAffiliateUser->getUsername() neq $user->getUsername())))-|<form method="post">
 				<input type="hidden" name="do" value="affiliatesUsersPasswordResetX" />
 				<input type="hidden" name="id" value="|-$user->getId()-|" />
-				<input type="button" value="Resetear contraseña" onClick="if (confirm('¿Seguro que desea resetear esta contraseña?')){resetPassword(this.form)}; return false" title="Resetear contraseña" class="icon iconPassword">
+				<input type="button" value="Resetear contraseña" onClick="if (confirm('Una nueva contraseña se enviará por correo a la dirección del usuario. ¿Seguro que desea resetear esta contraseña?')){resetPassword(this.form)}; return false" title="Resetear contraseña" class="icon iconPassword">
 				</form>
-			|-else if ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() eq '')-|
-				<input type="button" title="El usuario no podee dirección de correo electrónico, no se puede resetear la contraseña" class="icon iconPassword disabled">
+			|-elseif ($user->getMailAddress() eq '' && (isset($loginAffiliateUser) && ($loginAffiliateUser->getUsername() neq $user->getUsername())))-|
+				<input type="button" title="El usuario no posee dirección de correo electrónico, no se puede resetear la contraseña" class="icon iconPassword disabled">
 			|-/if-|
 		|-/if-|
 		</td>

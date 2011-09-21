@@ -94,7 +94,7 @@ function resetPassword(form){
 		|-if ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() ne '')-|<form method="post">
 			<input type="hidden" name="do" value="usersPasswordResetX" />
 			<input type="hidden" name="id" value="|-$user->getId()-|" />
-			<input type="button" value="Resetear contraseña" onClick="if (confirm('¿Seguro que desea resetear esta contraseña?')){resetPassword(this.form)}; return false" title="Resetear contraseña" class="icon iconPassword">
+			<input type="button" value="Resetear contraseña" onClick="if (confirm('Una nueva contraseña se enviará por correo a la dirección del usuario. ¿Seguro que desea resetear esta contraseña?')){resetPassword(this.form)}; return false" title="Resetear contraseña" class="icon iconPassword">
 			</form>
 		|-elseif ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() eq '') -|
 			<input type="button" title="El usuario no podee dirección de correo electrónico, no se puede resetear la contraseña" class="icon iconPassword disabled">
