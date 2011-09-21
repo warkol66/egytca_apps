@@ -52,15 +52,14 @@
 			<th width="2%">&nbsp;</th>
 		</tr>
 		|-foreach from=$currentGroupCategories item=groupCategory name=for_group_category-|
-			|-assign var="category" value=$groupCategory->getCategory()-|
 			<tr>
-				<td>|-$category->getName()-|</td>
-				<td nowrap><a href="Main.php?do=usersGroupsDoRemoveCatFromGroup&category=|-$category->getId()-|&group=|-$currentGroup->getId()-|" title='Eliminar acceso del grupo esta categoría' alt='Eliminar acceso del grupo esta categoría' onclick="return confirm('##users,257,Esta opción remueve el acceso del grupo a la categoría. ¿Está seguro que desea eliminarlo?##');"><img src="images/clear.png" class="icon iconDelete"></a></td>
+				<td>|-$groupCategory->getName()-|</td>
+				<td nowrap><a href="Main.php?do=usersGroupsDoRemoveCatFromGroup&category=|-$groupCategory->getId()-|&group=|-$currentGroup->getId()-|" title='Eliminar acceso del grupo esta categoría' alt='Eliminar acceso del grupo esta categoría' onclick="return confirm('##users,257,Esta opción remueve el acceso del grupo a la categoría. ¿Está seguro que desea eliminarlo?##');"><img src="images/clear.png" class="icon iconDelete"></a></td>
 			</tr>
 		|-/foreach-|
 	|-/if-|
 	<tr>
-		<td colspan='2'>|-if $categories|@count eq 0 && $currentGroupCategories|@count neq 0-|
+		<td colspan="2" class="controlsTd">|-if $categories|@count eq 0 && $currentGroupCategories|@count neq 0-|
 		El grupo ya tiene acceso a todas las cetegorías
 		|-else-|
 		<form action='Main.php' method='post'>
@@ -70,7 +69,7 @@
 					<option value="" selected="selected"></option>
 					<option value="" selected="selected">##users,103,Seleccione una categoría##</option>
 						|-foreach from=$categories item=category name=for_categories-|
-					<option value="|-$category->getId()-|">|-$category->getName()-|</option>
+					<option value="|-$category->getId()-|">|-section name=spacesCategories start=0 loop=$category->getLevel()-|&nbsp; &nbsp; |-/section-||-$category->getName()-|</option>
 						|-/foreach-|
 				</select>
 				<input type="hidden" name="group" value="|-$currentGroup->getId()-|" />

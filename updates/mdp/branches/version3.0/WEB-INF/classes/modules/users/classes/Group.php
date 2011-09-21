@@ -13,10 +13,7 @@ class Group extends BaseGroup {
 	* @return array GroupCategories
 	*/
 	function getCategories() {
-		$cond = new Criteria();
-		$cond->add(GroupCategoryPeer::GROUPID, $this->getId());
-		$todosObj = GroupCategoryPeer::doSelectJoinCategory($cond);
-		return $todosObj;
+		return $this->getCategorys();
 	}
 
 	/**

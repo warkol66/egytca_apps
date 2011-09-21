@@ -44,7 +44,6 @@ class User extends BaseUser {
 
  /**
 	 * Especifica la fecha de actualizacion de la clave
-	 * @param passwordUpdatedTime string con fecha de actualizacion de clave.
 	 */
 	function setPasswordUpdatedTime(){
 		$this->setPasswordUpdated(time());
@@ -216,7 +215,7 @@ class User extends BaseUser {
 	 */
 	function changePassword($password) {
 		$this->setPasswordString($password);
-		$this->setPasswordUpdatedTime(time());
+		$this->setPasswordUpdatedTime();
 		$this->save();
 	}
 
@@ -229,7 +228,7 @@ class User extends BaseUser {
 	function resetPassword($length = 8){
 		$password = Common::generateRandomPassword();
 		$this->setPasswordString($password);
-		$this->setPasswordUpdatedTime(time());
+		$this->setPasswordUpdatedTime();
 		try {
 			$this->save();
 			return $password;

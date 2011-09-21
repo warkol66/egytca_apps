@@ -536,18 +536,14 @@ class UserPeer extends BaseUserPeer {
 		* @return user usuario correspondiente si existe, false si no.
 		*
 		*/
-	 function getByRecoveryHash($recoveryHash) {
-			if (!empty($recoveryHash)){
-				$user = UserQuery::create()->findOneByRecoveryHash($recoveryHash);
-				if (!empty($user)) {
-					return $user;
-				} else {
-					return false;
-				}
-		} else {
-			return false;
+	function getByRecoveryHash($recoveryHash) {
+		if (!empty($recoveryHash)) {
+			$user = UserQuery::create()->findOneByRecoveryHash($recoveryHash);
+			if (!empty($user))
+				return $user;
 		}
-	 }
+		return false;
+	}
 
  /**
 	* Obtiene todos los grupos posibles a elegir

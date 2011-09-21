@@ -275,6 +275,15 @@ table.tableTdBorders td {
 	background-color: #f4f6f3;
 	color: #0066CC;
 }
+fieldset table.tableTdBorders td {
+	background: #FFFFFF; /* Fondo del rightColumn */
+}
+ fieldset table.tableTdBorders td.controlsTd {
+ 	background: transparent;
+ }
+fieldset table.tableTdBorders th {
+	background: #E3E9F1; /* #E3E9F1 o #C6CBD9 o #DFE5ED*/ 
+}
 /* /TABLES   -------------------------------------------*/
 
 .buttonImageLogin {

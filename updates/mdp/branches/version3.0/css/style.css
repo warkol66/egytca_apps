@@ -44,7 +44,7 @@
 	text-align:right;
 }
 #lostPassword a { 
-	padding-right:30px;
+	padding: 5px 30px 5px 30px;
 	text-decoration: none;
 }
 #lostPassword a:hover { 
@@ -52,7 +52,7 @@
 	text-decoration: underline;
 }
 #loginBottom { 
-	height: 90px;	
+	height: 100px;	
 }
 /*  /LOGIN  -----------------------------------------------*/
 

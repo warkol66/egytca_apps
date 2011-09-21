@@ -43,14 +43,15 @@
 			<input type="submit" value="Mostrar categorías" />
 			</p>
 			<h3>Categorías del módulo</h3>
-		|-if $parentUserCategories|@count gt 0-|
+			<div id="categoriesListPlaceHolder">
+		|-if $parentUserCategories|@count gt 0-|		
 			|-include file="CategoriesListInclude.tpl" categories=$parentUserCategories-|
 		|-else-|
 			<ul>
 				<li>El módulo no tiene categorías asociadas</li>
-				<div id="categoriesListPlaceHolder"></div>
 		</ul>
 		|-/if-|
+		</div>
 	</fieldset>
 </form>
 

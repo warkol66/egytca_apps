@@ -1,6 +1,6 @@
 <?php
 /** 
- * UsersGroupsDoEditAction
+ * UsersGroupsListAction
  *
  * @package users 
  * @subpackage groups 
@@ -16,9 +16,6 @@ class UsersGroupsListAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -36,19 +33,16 @@ class UsersGroupsListAction extends BaseAction {
 
 		$smarty->assign("message",$_GET["message"]);
 
-		if ( !empty($_GET["group"]) ) {
+		if (!empty($_GET["group"])) {
 			//voy a editar un grupo
-
-				$group = GroupPeer::get($_GET["group"]);
-				$smarty->assign("currentGroup",$group);
-				$groupCategories = $group->getGroupCategorys();
-				$smarty->assign("currentGroupCategories",$groupCategories);
-				$categories = $group->getCandidateCategories();
-				$smarty->assign("categories",$categories);
-
-				$smarty->assign("accion","edicion");
+			$group = GroupPeer::get($_GET["group"]);
+			$smarty->assign("currentGroup",$group);
+			$groupCategories = $group->getCategories();
+			$smarty->assign("currentGroupCategories",$groupCategories);
+			$categories = $group->getCandidateCategories();
+			$smarty->assign("categories",$categories);
+			$smarty->assign("accion","edicion");
 		}
 		return $mapping->findForwardConfig('success');
 	}
-
 }
