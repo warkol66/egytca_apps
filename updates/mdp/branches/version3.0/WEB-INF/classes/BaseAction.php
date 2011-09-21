@@ -107,6 +107,8 @@ class BaseAction extends Action {
 			$loginUser = $_SESSION["loginUser"];
 		if (isset($_SESSION["loginAffiliateUser"]) && is_object($_SESSION["loginAffiliateUser"]) && get_class($_SESSION["loginAffiliateUser"]) == "AffiliateUser")
 			$loginUserAffiliate = $_SESSION["loginAffiliateUser"];
+		if (isset($_SESSION["loginClientUser"]) && is_object($_SESSION["loginClientUser"]) && get_class($_SESSION["loginClientUser"]) == "ClientUser")
+			$loginClientUser = $_SESSION["loginClientUser"];
 		if (isset($_SESSION["loginRegistrationUser"]) && is_object($_SESSION["loginRegistrationUser"]) && get_class($_SESSION["loginRegistrationUser"]) == "RegistrationUser")
 			$loginRegistrationUser = $_SESSION["loginRegistrationUser"];
 
@@ -160,9 +162,11 @@ class BaseAction extends Action {
 
 		if (isset($loginUser))
 			$smarty->assign("loginUser",$loginUser);
-		if (isset($loginUserAffiliate))
+		else if (isset($loginUserAffiliate))
 			$smarty->assign("loginAffiliateUser",$loginUserAffiliate);
-		if (isset($loginRegistrationUser))
+		else if (isset($loginClientUser))
+			$smarty->assign("loginClientUser",$loginClientUser);
+		else if (isset($loginRegistrationUser))
 			$smarty->assign("loginRegistrationUser",$loginRegistrationUser);
 
 		$smarty->assign("currentLanguageCode",Common::getCurrentLanguageCode());
