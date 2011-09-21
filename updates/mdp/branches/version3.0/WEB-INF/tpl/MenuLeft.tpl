@@ -53,7 +53,7 @@
 
 	<a href="Main.php?do=|-if ($configModule->get("global","unifiedUsernames"))-|commonDoLogout|-else-|usersDoLogout|-/if-|" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")' id="logout">Salir del Sistema</a>
 	|-/if-|
-|-else if !empty($loginAffiliateUser)-|
+|-elseif !empty($loginAffiliateUser)-|
 	|-if $SESSION.firstLogin-|
 		<ul>
 			<li><a href="Main.php?do=affiliatesUsersPasswordChange&firstLogin=firstLogin">Actualice su clave</a></li>
