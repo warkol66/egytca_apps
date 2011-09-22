@@ -27,12 +27,13 @@ class HeadlinesRenderUrlAction extends BaseAction {
 			$url = $headline->getUrl();
 			
 			$image_path = ConfigModule::get('headlines', 'clippingsPath');
-			$temp_img = $image_path.'cropme-'.uniqid().'.jpg';
+			$temp_img = 'cropme-'.uniqid().'.jpg';
+			$image_fullname = $image_path . $temp_img;
 			
 			$renderer = new WebkitHtmlRenderer();
 			
 			try {
-				$renderer->render($url, $temp_img);
+				$renderer->render($url, $image_fullname);
 			} catch (RenderException $e) {
 				$smarty->assign("error_message", $e->getMessage());
 				return $mapping->findForwardConfig('success');
@@ -40,8 +41,8 @@ class HeadlinesRenderUrlAction extends BaseAction {
 			
 			$smarty->assign("id", $_GET["id"]);
 			$smarty->assign("image", $temp_img);
+			$smarty->assign("image_path", $image_path);
 			
-			$image_fullname = $temp_img;
 			require_once('HeadlinesLimitSize.inc.php');
 			
 			$smarty->assign('displayedWidth', $displayedWidth);

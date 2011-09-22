@@ -28,7 +28,8 @@ class HeadlinesViewClippingAction extends BaseAction {
 			
 			if (file_exists($image_fullname)) {
 				
-				$smarty->assign('image', $image_fullname);
+				$smarty->assign('image', $_GET["id"].'.jpg');
+				$smarty->assign('image_path', $clippingsPath);
 				
 				require_once('HeadlinesLimitSize.inc.php');
 			
