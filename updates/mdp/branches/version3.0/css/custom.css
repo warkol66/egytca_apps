@@ -370,3 +370,7 @@ ul#directions_results {
 	text-decoration:none;	
 	color:#333333;
 }
+
+#categoriesListPlaceHolder ul.iconOptionsList li:hover {
+	color: #333; /* Color rightColumn */
+}

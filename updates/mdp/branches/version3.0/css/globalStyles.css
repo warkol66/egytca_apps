@@ -384,10 +384,36 @@ fieldset #recipientsSelected li {
 ul.iconOptionsList li {
 	list-style: none;
 	margin-left: 15px;
-	list-style: none;
 	line-height: 2em;
 	vertical-align: bottom;
 	padding-bottom: .2em;
+}
+#categoriesListPlaceHolder ul.iconOptionsList li {
+	list-style: circle;
+}
+#categoriesListPlaceHolder ul.iconOptionsList ul li {
+	list-style:  square;
+	margin-left: 35px;
+}
+#categoriesListPlaceHolder ul.iconOptionsList ul ul li {
+	list-style: circle;
+	margin-left: 55px;
+}
+#categoriesListPlaceHolder ul.iconOptionsList ul ul ul li {
+	list-style: square;
+	margin-left: 75px;
+}
+#categoriesListPlaceHolder ul.iconOptionsList ul ul ul ul li {
+	list-style: circle;
+	margin-left: 95px;
+}
+#categoriesListPlaceHolder ul.iconOptionsList ul ul ul ul ul li {
+	list-style: square;
+	margin-left: 105px;
+}
+#categoriesListPlaceHolder ul.iconOptionsList ul ul ul ul ul ul li {
+	list-style: circle;
+	margin-left: 135px;
 }
 .noDecoration {
 	text-decoration: none !Important;
