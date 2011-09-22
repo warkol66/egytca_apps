@@ -2,91 +2,54 @@
 	|-$error_message-|
 |-else-|
 	
-<!---- displayed image size ---->
-|-assign var='displayedWidth' value='500'-|
-|-assign var='displayedHeight' value='333'-|
-<!------------------------------>
-	
-Operación OK. Imagen guardada en |-$imageFileName-|<br>
+|-include file='HeadlinesCropImageInclude.tpl'-|
 
-<script src="scripts/prototype.js" type="text/javascript"></script>
-<script src="scripts/scriptaculous.js" type="text/javascript"></script>
-<script src="scripts/cropper.js" type="text/javascript"></script>
-
-<script type="text/javascript" charset="utf-8">
+<script type='text/javascript'>
+	function gotoViewCrop() {
+		window.location='Main.php?do=headlinesViewClipping&id=|-$id-|';
+	}
 	
-	var workFinished = false;
-	var x1, y1, width, height;
-	
-	function tempImageRemoval() {
-		if (!workFinished)
-			new Ajax.Request(
-				'Main.php?do=headlinesRemoveTempImageX',
-				{
-					method: 'post',
-					parameters: {filename: '|-$imageFileName-|'}
+	function saveUnmodified() {
+		new Ajax.Request(
+			'Main.php?do=headlinesDoCropImageX',
+			{
+				method: 'post',
+				parameters: {
+					headline_id: '|-$id-|',
+					image_file: '|-$image-|',
+					relative_x: 0,
+					relative_y: 0,
+					relative_width: '|-$displayedWidth-|',
+					relative_height: '|-$displayedHeight-|',
+					displayed_width: '|-$displayedWidth-|',
+					displayed_height: '|-$displayedHeight-|'
 				}
-			);
+			}
+		);
 	}
 	
-	function applyCrop() {
-		var form = new Element('form',
-			{method: 'post', action: 'Main.php?do=headlinesCropImage'});
-			
-		form.insert(new Element('input',
-			{name: 'headlineId', value: '|-$id-|', type: 'hidden'}));
-		form.insert(new Element('input',
-			{name: 'image_file', value: '|-$imageFileName-|', type: 'hidden'}));
-			
-		form.insert(new Element('input',
-			{name: 'relative_x', value: x1, type: 'hidden'}));
-		form.insert(new Element('input',
-			{name: 'relative_y', value: y1, type: 'hidden'}));
-		form.insert(new Element('input',
-			{name: 'relative_width', value: width, type: 'hidden'}));
-		form.insert(new Element('input',
-			{name: 'relative_height', value: height, type: 'hidden'}));
-			
-		form.insert(new Element('input',
-			{name: 'displayed_width', value: '|-$displayedWidth-|', type: 'hidden'}));
-		form.insert(new Element('input',
-			{name: 'displayed_height', value: '|-$displayedHeight-|', type: 'hidden'}));
-			
-		$(document.body).insert(form);
-		
-		workFinished = true;
-		form.submit();
+	function disableEdit() {
+		disableCrop();
+		$('button_save_unmodified').show();
+		$('button_start_crop').show();
+		$('button_cancel_crop').hide();
+		$('button_save_crop').hide();
 	}
 	
-	function onEndCrop( coords, dimensions ) {
-		x1 = coords.x1;
-		y1 = coords.y1;
-		width = dimensions.width;
-		height = dimensions.height;
+	function enableEdit() {
+		enableCrop();
+		$('button_save_unmodified').hide();
+		$('button_start_crop').hide();
+		$('button_cancel_crop').show();
+		$('button_save_crop').show();
 	}
 	
-	Event.observe( 
-		window, 
-		'load', 
-		function() { 
-			new Cropper.Img( 
-				'cropableImage',
-				{
-					onEndCrop: onEndCrop 
-				}
-			);
-		}
-	);
-	
-	Event.observe(window, 'unload', tempImageRemoval);
+	Event.observe(window, 'load', disableEdit);
 </script>
 
-<div id="div_cropable">
-	<img src="|-$imageFileName-|" id="cropableImage" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />
-</div>
+<input type='button' id='button_save_crop' value='Guardar' onClick='applyCrop();gotoViewCrop()' />
+<input type='button' id='button_save_unmodified' value='Guardar' onClick='saveUnmodified();gotoViewCrop()' />
+<input type='button' id='button_start_crop' value='Recortar' onClick='enableEdit()' />
+<input type='button' id='button_cancel_crop' value='Cancelar' onClick='disableEdit()' />
 
-<p>
-<input type='button' value='save' onClick='applyCrop()' />
-</p>
-	
 |-/if-|

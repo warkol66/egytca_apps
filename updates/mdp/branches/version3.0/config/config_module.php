@@ -62,6 +62,9 @@ class ConfigModule {
 				"Pdf" => "pdf",
 				"Images" => "jpeg,jpg,png,gif"
 				)
+		),
+		"headlines" => array(
+			"clippingsPath" => "./WEB-INF/classes/modules/headlines/files/clipping/"
 		)
 	);
 

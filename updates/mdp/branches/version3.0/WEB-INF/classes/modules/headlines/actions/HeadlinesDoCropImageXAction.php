@@ -1,10 +1,8 @@
 <?php
 
-class HeadlinesCropImageAction extends BaseAction {
+class HeadlinesDoCropImageXAction extends BaseAction {
 	
-	private $IMAGES_PATH = './WEB-INF/classes/modules/headlines/files/clipping';
-
-	function HeadlinesCropImageAction() {
+	function HeadlinesDoCropImageXAction() {
 		;
 	}
 
@@ -22,6 +20,8 @@ class HeadlinesCropImageAction extends BaseAction {
 		}
 		
 		$filename = $_POST["image_file"];
+		$images_path = ConfigModule::get('headlines', 'clippingsPath');
+		$new_image_filename = $images_path . $_POST['headline_id'].'.jpg';
  
 		// Get dimensions of the original image
 		list($current_width, $current_height) = getimagesize($filename);
@@ -36,13 +36,18 @@ class HeadlinesCropImageAction extends BaseAction {
 		$canvas = imagecreatetruecolor($crop_width, $crop_height);
 		$current_image = imagecreatefromjpeg($filename);
 		imagecopy($canvas, $current_image, 0, 0, $left, $top, $crop_width, $crop_height);
-		imagejpeg($canvas, $this->IMAGES_PATH.'/'.$_POST["headlineId"].'.jpeg', 100);
-		
-		unlink($filename); // delete temp image
-		
-		// para borrar
-		echo '<a href="Main.php?do=headlinesRenderUrl&id=1">Main.php?do=headlinesRenderUrl&id=1</a>';
-		
+
+		if (!file_exists($images_path))
+			mkdir ($images_path, 0777, true);
+
+		$tempName = $images_path.'temp-'.uniqid();
+
+		imagejpeg($canvas, $tempName, 100);
+
+		if (file_exists($new_image_filename))
+			unlink($new_image_filename);
+		rename($tempName, $new_image_filename);
+
 		return $mapping->findForwardConfig('success');
 	}
 }

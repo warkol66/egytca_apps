@@ -20,9 +20,8 @@ class WebkitHtmlRenderer {
 	 * @param string $image
 	 */
 	function render($url, $image = 'default_image.jpg') {
-		$return_var = shell_exec($this->command . ' ' . $url . ' ' . $image
-			. ' && echo $?');
-		if (!isset($return_var))// || $return_var === '')
+		$return_var = shell_exec($this->command . ' ' . $url . ' ' . $image);
+		if (!file_exists($image))
 			throw new RenderException("No se pudo capturar la imagen.");
 	}
 	

@@ -4,8 +4,6 @@ require_once('WebkitHtmlRenderer.php');
 
 class HeadlinesRenderUrlAction extends BaseAction {
 
-	private $TMP_DIR = '.';
-	
 	function HeadlinesRenderUrlAction() {
 		;
 	}
@@ -27,7 +25,9 @@ class HeadlinesRenderUrlAction extends BaseAction {
 			
 			$headline = HeadlinePeer::get($_GET["id"]);
 			$url = $headline->getUrl();
-			$temp_img = $this->TMP_DIR.'/cropme-'.uniqid().'.jpg';
+			
+			$image_path = ConfigModule::get('headlines', 'clippingsPath');
+			$temp_img = $image_path.'cropme-'.uniqid().'.jpg';
 			
 			$renderer = new WebkitHtmlRenderer();
 			
@@ -39,7 +39,13 @@ class HeadlinesRenderUrlAction extends BaseAction {
 			}
 			
 			$smarty->assign("id", $_GET["id"]);
-			$smarty->assign("imageFileName", $temp_img);
+			$smarty->assign("image", $temp_img);
+			
+			$image_fullname = $temp_img;
+			require_once('HeadlinesLimitSize.inc.php');
+			
+			$smarty->assign('displayedWidth', $displayedWidth);
+			$smarty->assign('displayedHeight', $displayedHeight);
 			
 		} else {
 			$smarty->assign("error_message", "ID inválido");
