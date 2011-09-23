@@ -1,5 +1,5 @@
-|-if $error_message neq ''-|
-	|-$error_message-|
+|-if $errorMessage neq ''-|
+	|-$errorMessage-|
 |-elseif $image eq ''-|
 	No hay una imágen asociada al titular.
 	&nbsp;

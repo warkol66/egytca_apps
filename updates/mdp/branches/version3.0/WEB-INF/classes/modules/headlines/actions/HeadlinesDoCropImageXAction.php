@@ -19,34 +19,34 @@ class HeadlinesDoCropImageXAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 		
-		$filename = $_POST["image_file"];
-		$images_path = ConfigModule::get('headlines', 'clippingsPath');
-		$new_image_filename = $images_path . $_POST['headline_id'].'.jpg';
+		$filename = $_POST["imageFile"];
+		$imagesPath = ConfigModule::get('headlines', 'clippingsPath');
+		$newImageFilename = $imagesPath . $_POST['headlineId'].'.jpg';
  
 		// Get dimensions of the original image
-		list($current_width, $current_height) = getimagesize($filename);
+		list($currentWidth, $currentHeight) = getimagesize($filename);
 
-		$left = intval(($_POST['relative_x'] / $_POST['displayed_width']) * $current_width);
-		$top = intval(($_POST['relative_y'] / $_POST['displayed_height']) * $current_height);
+		$left = intval(($_POST['relativeX'] / $_POST['displayedWidth']) * $currentWidth);
+		$top = intval(($_POST['relativeY'] / $_POST['displayedHeight']) * $currentHeight);
 
-		$crop_width = intval(($_POST['relative_width'] / $_POST['displayed_width']) * $current_width);
-		$crop_height = intval(($_POST['relative_height'] / $_POST['displayed_height']) * $current_height);
+		$cropWidth = intval(($_POST['relativeWidth'] / $_POST['displayedWidth']) * $currentWidth);
+		$cropHeight = intval(($_POST['relativeHeight'] / $_POST['displayedHeight']) * $currentHeight);
  
 		// Resample the image
-		$canvas = imagecreatetruecolor($crop_width, $crop_height);
-		$current_image = imagecreatefromjpeg($filename);
-		imagecopy($canvas, $current_image, 0, 0, $left, $top, $crop_width, $crop_height);
+		$canvas = imagecreatetruecolor($cropWidth, $cropHeight);
+		$currentImage = imagecreatefromjpeg($filename);
+		imagecopy($canvas, $currentImage, 0, 0, $left, $top, $cropWidth, $cropHeight);
 
-		if (!file_exists($images_path))
-			mkdir ($images_path, 0777, true);
+		if (!file_exists($imagesPath))
+			mkdir ($imagesPath, 0777, true);
 
-		$tempName = $images_path.'temp-'.uniqid();
+		$tempName = $imagesPath.'temp-'.uniqid();
 
 		imagejpeg($canvas, $tempName, 100);
 
-		if (file_exists($new_image_filename))
-			unlink($new_image_filename);
-		rename($tempName, $new_image_filename);
+		if (file_exists($newImageFilename))
+			unlink($newImageFilename);
+		rename($tempName, $newImageFilename);
 
 		return $mapping->findForwardConfig('success');
 	}

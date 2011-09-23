@@ -1,11 +1,11 @@
 <?php
-list($width, $height) = getimagesize($image_fullname);
+list($width, $height) = getimagesize($imageFullname);
 
 global $system;
-$max_width = $system['config']['clippings']['maxDisplayableWidth'];;
+$maxWidth = $system['config']['clippings']['maxDisplayableWidth'];;
 
-if ($width > $max_width) {
-	$displayedWidth = $max_width;
+if ($width > $maxWidth) {
+	$displayedWidth = $maxWidth;
 	$displayedHeight = intval(($displayedWidth / $width) * $height);
 } else {
 	$displayedWidth = $width;

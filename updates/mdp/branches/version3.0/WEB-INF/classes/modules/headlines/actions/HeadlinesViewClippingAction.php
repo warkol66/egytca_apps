@@ -22,14 +22,14 @@ class HeadlinesViewClippingAction extends BaseAction {
 		if (isset($_GET["id"]) && $_GET["id"] != '') {
 			
 			$clippingsPath = ConfigModule::get("headlines","clippingsPath");
-			$image_fullname = $clippingsPath.$_GET["id"].'.jpg';
+			$imageFullname = $clippingsPath.$_GET["id"].'.jpg';
 			
 			$smarty->assign('id', $_GET["id"]);
 			
-			if (file_exists($image_fullname)) {
+			if (file_exists($imageFullname)) {
 				
 				$smarty->assign('image', $_GET["id"].'.jpg');
-				$smarty->assign('image_path', $clippingsPath);
+				$smarty->assign('imagePath', $clippingsPath);
 				
 				require_once('HeadlinesLimitSize.inc.php');
 			
@@ -38,7 +38,7 @@ class HeadlinesViewClippingAction extends BaseAction {
 			}
 			
 		} else {
-			$smarty->assign("error_message", "ID inválido");
+			$smarty->assign("errorMessage", "ID inválido");
 		}
 		
 		return $mapping->findForwardConfig('success');

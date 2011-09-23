@@ -22,14 +22,14 @@
 			{
 				method: 'post',
 				parameters: {
-					headline_id: '|-$id-|',
-					image_file: '|-$image_path-|'+'|-$image-|',
-					relative_x: x1,
-					relative_y: y1,
-					relative_width: width,
-					relative_height: height,
-					displayed_width: '|-$displayedWidth-|',
-					displayed_height: '|-$displayedHeight-|'
+					headlineId: '|-$id-|',
+					imageFile: '|-$imagePath-|'+'|-$image-|',
+					relativeX: x1,
+					relativeY: y1,
+					relativeWidth: width,
+					relativeHeight: height,
+					displayedWidth: '|-$displayedWidth-|',
+					displayedHeight: '|-$displayedHeight-|'
 				}
 			}
 		);
@@ -59,9 +59,9 @@
 </script>
 
 <div id="div_cropable">
-	<img src="Main.php?do=headlinesGetClipping&file=|-$image_path-||-$image-|" id="cropableImage" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />
+	<img src="Main.php?do=headlinesGetClipping&file=|-$imagePath-||-$image-|" id="cropableImage" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />
 </div>
 
 <div id="div_non_cropable">
-	<img src="Main.php?do=headlinesGetClipping&file=|-$image_path-||-$image-|" id="nonCropableImage" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />
+	<img src="Main.php?do=headlinesGetClipping&file=|-$imagePath-||-$image-|" id="nonCropableImage" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />
 </div>

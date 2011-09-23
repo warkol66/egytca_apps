@@ -26,25 +26,28 @@ class HeadlinesRenderUrlAction extends BaseAction {
 			$headline = HeadlinePeer::get($_GET["id"]);
 			$url = $headline->getUrl();
 			
-			$image_path = ConfigModule::get('headlines', 'clippingsTmpPath');
-			if (!file_exists($image_path))
-				mkdir ($image_path, 0777, true);
+			$imagePath = ConfigModule::get('headlines', 'clippingsTmpPath');
+			if (!file_exists($imagePath))
+				mkdir ($imagePath, 0777, true);
 			
-			$temp_img = 'cropme-'.uniqid().'.jpg';
-			$image_fullname = $image_path . $temp_img;
+			// borrar imagenes temporales viejas
+			shell_exec('tmpwatch 1 '.$imagePath);
+			
+			$tempImg = 'cropme-'.uniqid().'.jpg';
+			$imageFullname = $imagePath . $tempImg;
 			
 			$renderer = new WebkitHtmlRenderer();
 			
 			try {
-				$renderer->render($url, $image_fullname);
+				$renderer->render($url, $imageFullname);
 			} catch (RenderException $e) {
-				$smarty->assign("error_message", $e->getMessage());
+				$smarty->assign("errorMessage", $e->getMessage());
 				return $mapping->findForwardConfig('success');
 			}
 			
 			$smarty->assign("id", $_GET["id"]);
-			$smarty->assign("image", $temp_img);
-			$smarty->assign("image_path", $image_path);
+			$smarty->assign("image", $tempImg);
+			$smarty->assign("imagePath", $imagePath);
 			
 			require_once('HeadlinesLimitSize.inc.php');
 			
@@ -52,7 +55,7 @@ class HeadlinesRenderUrlAction extends BaseAction {
 			$smarty->assign('displayedHeight', $displayedHeight);
 			
 		} else {
-			$smarty->assign("error_message", "ID inválido");
+			$smarty->assign("errorMessage", "ID inválido");
 		}
 		
 		return $mapping->findForwardConfig('success');

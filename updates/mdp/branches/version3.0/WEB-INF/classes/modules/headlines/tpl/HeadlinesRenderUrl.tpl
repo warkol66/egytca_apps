@@ -1,5 +1,5 @@
-|-if $error_message neq ''-|
-	|-$error_message-|
+|-if $errorMessage neq ''-|
+	|-$errorMessage-|
 |-else-|
 	
 |-include file='HeadlinesCropImageInclude.tpl'-|
@@ -15,14 +15,14 @@
 			{
 				method: 'post',
 				parameters: {
-					headline_id: '|-$id-|',
-					image_file: '|-$image_path-|' + '|-$image-|',
-					relative_x: 0,
-					relative_y: 0,
-					relative_width: '|-$displayedWidth-|',
-					relative_height: '|-$displayedHeight-|',
-					displayed_width: '|-$displayedWidth-|',
-					displayed_height: '|-$displayedHeight-|'
+					headlineId: '|-$id-|',
+					imageFile: '|-$imagePath-|' + '|-$image-|',
+					relativeX: 0,
+					relativeY: 0,
+					relativeWidth: '|-$displayedWidth-|',
+					relativeHeight: '|-$displayedHeight-|',
+					displayedWidth: '|-$displayedWidth-|',
+					displayedHeight: '|-$displayedHeight-|'
 				}
 			}
 		);
