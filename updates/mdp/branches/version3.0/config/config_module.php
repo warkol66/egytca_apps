@@ -64,7 +64,8 @@ class ConfigModule {
 				)
 		),
 		"headlines" => array(
-			"clippingsPath" => "./WEB-INF/classes/modules/headlines/files/clipping/"
+			"clippingsPath" => "./WEB-INF/classes/modules/headlines/files/clipping/",
+			"clippingsTmpPath" => "./WEB-INF/classes/modules/headlines/files/clipping/tmp/"
 		)
 	);
 

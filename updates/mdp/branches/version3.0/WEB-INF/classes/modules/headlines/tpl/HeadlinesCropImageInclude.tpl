@@ -59,9 +59,9 @@
 </script>
 
 <div id="div_cropable">
-	<img src="Main.php?do=headlinesGetClipping&name=|-$image-|" id="cropableImage" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />
+	<img src="Main.php?do=headlinesGetClipping&file=|-$image_path-||-$image-|" id="cropableImage" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />
 </div>
 
 <div id="div_non_cropable">
-	<img src="Main.php?do=headlinesGetClipping&name=|-$image-|" id="nonCropableImage" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />
+	<img src="Main.php?do=headlinesGetClipping&file=|-$image_path-||-$image-|" id="nonCropableImage" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />
 </div>

@@ -26,7 +26,10 @@ class HeadlinesRenderUrlAction extends BaseAction {
 			$headline = HeadlinePeer::get($_GET["id"]);
 			$url = $headline->getUrl();
 			
-			$image_path = ConfigModule::get('headlines', 'clippingsPath');
+			$image_path = ConfigModule::get('headlines', 'clippingsTmpPath');
+			if (!file_exists($image_path))
+				mkdir ($image_path, 0777, true);
+			
 			$temp_img = 'cropme-'.uniqid().'.jpg';
 			$image_fullname = $image_path . $temp_img;
 			
