@@ -99,4 +99,8 @@
 		</usePasswords>
 		<newestLimit>6</newestLimit>
 	</documents>
+	<clippings>
+		<quality>94</quality>
+		<maxDisplayableWidth>800</maxDisplayableWidth>
+	</clippings>
 </config>

@@ -20,7 +20,9 @@ class WebkitHtmlRenderer {
 	 * @param string $image
 	 */
 	function render($url, $image = 'default_image.jpg') {
-		$quality = 20;
+		global $system;
+		$quality = $thousandsSeparator = $system['config']['clippings']['quality'];
+		
 		$return_var = shell_exec($this->command.' --quality '.$quality.' '.$url.' '.$image);
 		if (!file_exists($image))
 			throw new RenderException("No se pudo capturar la imagen.");

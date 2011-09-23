@@ -1,7 +1,8 @@
 <?php
 list($width, $height) = getimagesize($image_fullname);
 
-$max_width = 500;
+global $system;
+$max_width = $system['config']['clippings']['maxDisplayableWidth'];;
 
 if ($width > $max_width) {
 	$displayedWidth = $max_width;
