@@ -14,7 +14,8 @@ class ConfigModule {
 			"unifiedLogin" => true,
 			"unifiedUsernames" => true,
 			"backupTimeLimit" => 720,
-			"internalMailUseAffiliates" => false
+			"tmpwatch" => "/usr/sbin/tmpwatch",
+			"internalMailUseAffiliates" => false 
 		),
 		"users" => array(
 			"licences" => 10,
