@@ -19,12 +19,16 @@ class HeadlinesGetClippingAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 		
-		if (isset($_GET["file"]) && $_GET["file"] != '') {
+		if (isset($_GET["image"]) && $_GET["image"] != '') {
+			if (isset($_GET["temp"]) && $_GET["temp"] == '1') 
+				$imagePath = ConfigModule::get('headlines', 'clippingsTmpPath');
+			else
+				$imagePath = ConfigModule::get('headlines', 'clippingsPath');
 			
-			$file = $_GET["file"];
+			$imageFullname = $imagePath.$_GET["image"];
 			
 			header('Content-Type: image/jpeg');
-			readfile($file);
+			readfile($imageFullname);
 			
 		} else {
 			throw new Exception('Invalid ID');

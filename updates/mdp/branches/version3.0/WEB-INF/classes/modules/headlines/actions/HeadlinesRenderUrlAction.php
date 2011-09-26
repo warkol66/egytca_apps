@@ -47,7 +47,8 @@ class HeadlinesRenderUrlAction extends BaseAction {
 			}
 			
 			$smarty->assign("id", $_GET["id"]);
-			$smarty->assign("image", $imageFullname);
+			$smarty->assign("image", $tempImg);
+			$smarty->assign("temp", true);
 			
 			list($displayedWidth, $displayedHeight) = Headline::getClippingDisplaySize($imageFullname);
 			

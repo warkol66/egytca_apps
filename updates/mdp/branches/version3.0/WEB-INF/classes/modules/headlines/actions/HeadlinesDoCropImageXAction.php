@@ -19,7 +19,11 @@ class HeadlinesDoCropImageXAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 		
-		$filename = $_POST["imageFile"];
+		if (isset($_POST["temp"]) && $_POST["temp"] == '1') 
+				$filename = ConfigModule::get('headlines', 'clippingsTmpPath').$_POST["imageFile"];
+			else
+				$filename = ConfigModule::get('headlines', 'clippingsPath').$_POST["imageFile"];
+		
 		$imagesPath = ConfigModule::get('headlines', 'clippingsPath');
 		$newImageFilename = $imagesPath . $_POST['headlineId'].'.jpg';
  
