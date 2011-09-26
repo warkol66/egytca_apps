@@ -16,7 +16,7 @@
 				method: 'post',
 				parameters: {
 					headlineId: '|-$id-|',
-					imageFile: '|-$imagePath-|' + '|-$image-|',
+					imageFile: '|-$image-|',
 					relativeX: 0,
 					relativeY: 0,
 					relativeWidth: '|-$displayedWidth-|',

@@ -28,8 +28,7 @@ class HeadlinesViewClippingAction extends BaseAction {
 			
 			if (file_exists($imageFullname)) {
 				
-				$smarty->assign('image', $_GET["id"].'.jpg');
-				$smarty->assign('imagePath', $clippingsPath);
+				$smarty->assign('image', $imageFullname);
 				
 				list($displayedWidth, $displayedHeight) = Headline::getClippingDisplaySize($imageFullname);
 			

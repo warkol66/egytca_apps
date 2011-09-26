@@ -23,7 +23,7 @@
 				method: 'post',
 				parameters: {
 					headlineId: '|-$id-|',
-					imageFile: '|-$imagePath-|'+'|-$image-|',
+					imageFile: '|-$image-|',
 					relativeX: x1,
 					relativeY: y1,
 					relativeWidth: width,
@@ -59,9 +59,9 @@
 </script>
 
 <div id="div_cropable">
-	<img src="Main.php?do=headlinesGetClipping&file=|-$imagePath-||-$image-|" id="cropableImage" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />
+	<img src="Main.php?do=headlinesGetClipping&file=|-$image-|" id="cropableImage" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />
 </div>
 
 <div id="div_non_cropable">
-	<img src="Main.php?do=headlinesGetClipping&file=|-$imagePath-||-$image-|" id="nonCropableImage" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />
+	<img src="Main.php?do=headlinesGetClipping&file=|-$image-|" id="nonCropableImage" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />
 </div>
