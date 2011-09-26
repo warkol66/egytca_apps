@@ -31,8 +31,9 @@ class HeadlinesRenderUrlAction extends BaseAction {
 				mkdir ($imagePath, 0777, true);
 			
 			// borrar imagenes temporales viejas
-			shell_exec('tmpwatch 1 '.$imagePath);
-			
+			$tmpwatch = ConfigModule::get('global', 'tmpwatch');
+			shell_exec($tmpwatch .' -d 1 '.$imagePath);
+
 			$tempImg = 'cropme-'.uniqid().'.jpg';
 			$imageFullname = $imagePath . $tempImg;
 			
