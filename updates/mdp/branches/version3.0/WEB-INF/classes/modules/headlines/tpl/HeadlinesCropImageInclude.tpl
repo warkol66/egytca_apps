@@ -59,7 +59,7 @@
 	Event.observe(window, 'load', disableCrop);
 </script>
 
-<div id="div_cropable">
+<div id="div_cropable" style="display:none">
 	<img src="Main.php?do=headlinesGetClipping&image=|-$image-||-if $temp neq ''-|&temp=1|-/if-|" id="cropableImage" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />
 </div>
 
