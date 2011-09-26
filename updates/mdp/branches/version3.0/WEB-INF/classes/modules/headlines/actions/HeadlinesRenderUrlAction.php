@@ -50,7 +50,7 @@ class HeadlinesRenderUrlAction extends BaseAction {
 			$smarty->assign("image", $tempImg);
 			$smarty->assign("imagePath", $imagePath);
 			
-			require_once('HeadlinesLimitSize.inc.php');
+			list($displayedWidth, $displayedHeight) = Headline::getClippingDisplaySize($imageFullname);
 			
 			$smarty->assign('displayedWidth', $displayedWidth);
 			$smarty->assign('displayedHeight', $displayedHeight);

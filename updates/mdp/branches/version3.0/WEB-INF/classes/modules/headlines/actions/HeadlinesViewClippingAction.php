@@ -31,7 +31,7 @@ class HeadlinesViewClippingAction extends BaseAction {
 				$smarty->assign('image', $_GET["id"].'.jpg');
 				$smarty->assign('imagePath', $clippingsPath);
 				
-				require_once('HeadlinesLimitSize.inc.php');
+				list($displayedWidth, $displayedHeight) = Headline::getClippingDisplaySize($imageFullname);
 			
 				$smarty->assign('displayedWidth', $displayedWidth);
 				$smarty->assign('displayedHeight', $displayedHeight);

@@ -87,6 +87,26 @@ class Headline extends BaseHeadline {
 	function getAssignedHeadlinesArray(){
 		return HeadlineRelationQuery::create()->filterByHeadlineRelatedByHeadlinefromid($this)->select('Headlinetoid')->find()->toArray();
 	}
-      
+	
+	
+	/**
+	 * Obtiene el ancho y alto a mostrar de un clipping basado
+	 * en el maximo ancho permitido por la configuracion.
+	 */
+	public function getClippingDisplaySize($imageFullname) {
+		list($width, $height) = getimagesize($imageFullname);
+		global $system;
+		$maxWidth = $system['config']['clippings']['maxDisplayableWidth'];;
+
+		if ($width > $maxWidth) {
+			$displayedWidth = $maxWidth;
+			$displayedHeight = intval(($displayedWidth / $width) * $height);
+		} else {
+			$displayedWidth = $width;
+			$displayedHeight = $height;
+		}
+		
+		return array($displayedWidth, $displayedHeight);
+	}
 
 } // Headline
