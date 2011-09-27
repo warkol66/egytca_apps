@@ -109,4 +109,20 @@ class Headline extends BaseHeadline {
 		return array($displayedWidth, $displayedHeight);
 	}
 
+ /**
+	* Indica si el headline titne clipping o no
+	*	@return bool si tiene o no clipping
+	*/
+	public function hasClipping() {
+
+		$clippingsPath = ConfigModule::get("headlines","clippingsPath");
+		$imageFullname = $clippingsPath . $this->getId() . '.jpg';
+
+		if (file_exists($imageFullname))
+			return true;
+		else
+			return false;
+	}
+
+
 } // Headline

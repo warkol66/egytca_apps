@@ -44,13 +44,13 @@ input.icon, input.editor_ok_button, input.editor_cancel_button {
 	padding: 0;
 }
 /* Image Buttons and Links */
-.iconActivate, .iconAdd, .iconBack, .iconBudget, .iconDelete, .iconDetail, .iconDownload, .iconCancel,
-.iconEdit, .iconEmail, .iconFollow, .iconGoTo, .iconGraph, .iconHelp, .iconHistory, .iconIndicator,
-.iconInfo, .iconManufacture, .iconOrder, .iconPassword, .iconPlus, .iconRestore, .iconRestoreFromServer,
-.iconSendMultiple, .iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload, .iconClose,
-.iconView, .iconViewGantt, .iconWeight, .iconAddToCart, .iconRemoveFromCart, .iconUpdateCart, .iconSetPrivileges, .iconOwner,
-.iconRead, .iconUnread, .iconEditUser, .iconAddUser, .iconPhoto, .iconHardDelete, .iconUndelete,
-input.editor_ok_button, input.editor_cancel_button {
+.iconActivate, .iconAdd, .iconBack, .iconBudget, .iconDelete, .iconDetail, .iconDownload, .iconCancel, .iconEdit, .iconEmail,
+.iconFollow, .iconGoTo, .iconGraph, .iconHelp, .iconHistory, .iconIndicator, .iconTableh3 , .iconNote, .iconDocument, .iconAttach,
+.iconInfo, .iconManufacture, .iconOrder, .iconPassword, .iconPlus, .iconRestore, .iconRestoreFromServer, .iconSendMultiple,
+.iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload, .iconClose, .iconView, .iconViewGantt, .iconWeight,
+.iconAddToCart, .iconRemoveFromCart, .iconUpdateCart, .iconSetPrivileges, .iconOwner, .iconRead, .iconUnread, .iconEditUser,
+.iconAddUser, .iconPhoto, .iconHardDelete, .iconUndelete, .iconCut, .iconCrop, .iconNews, .iconNewsAdd, .iconNewsLink, .iconNewsGoTo,
+.iconNewsDelete, .iconNewsClipping, input.editor_ok_button, input.editor_cancel_button {
 	background: url(../images/icons_all.png) no-repeat #f0f0f0;
 }
 .disabled {
@@ -209,6 +209,31 @@ input.editor_ok_button, input.editor_cancel_button {
 .iconUndelete {
 	background-position: -20px -120px;
 }
+.iconCut {
+	background-position: -160px -100px;
+}
+.iconCrop {
+	background-position: -180px -100px;
+}
+.iconNews {
+	background-position: 0px -140px;
+}
+.iconNewsAdd {
+	background-position: -20px -140px;
+}
+.iconNewsLink {
+	background-position: -40px -140px;
+}
+.iconNewsGoTo {
+	background-position: -60px -140px;
+}
+.iconNewsDelete {
+	background-position: -80px -140px;
+}
+.iconNewsClipping {
+	background-position: -100px -140px;
+}
+
 .icon:hover{
 	background-color: #c0c0c0;
 	border: solid 1px #909090 !Important;;
