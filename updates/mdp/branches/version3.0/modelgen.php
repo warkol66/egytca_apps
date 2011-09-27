@@ -4,14 +4,14 @@ error_reporting(E_ALL);
 ini_set('display_errors',1);
 
 
-function go() {
-	
+function generate() {
+
 $output = '';
 
 $projectHome = shell_exec('echo $PWD');
 $projectHome = substr($projectHome, 0, -1);
 
-$command = 'php -d html_errors=off -qC "./phing.php"';// > out.html 2> err.html';
+$command = './migrate';
 
 exec($command, $output, $return_var);
 foreach ($output as $index => $lineContent) {
@@ -41,7 +41,7 @@ echo '</form>';
 echo '</p>';
 
 if (isset($_POST["go"]) && $_POST["go"] == 'true') {
-	go();
+	generate();
 }
 
 ?>

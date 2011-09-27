@@ -1,0 +1,8 @@
+#!/bin/sh
+
+PROJECT_HOME=$PWD
+PROPEL_GEN_HOME=$PROJECT_HOME/WEB-INF/lib-phpmvc/Propel/1.6.0/generator
+MODEL_DIR=$PROJECT_HOME/WEB-INF/propel
+PHING_COMMAND=$PROJECT_HOME/WEB-INF/lib-phpmvc/phing-2.4.6/bin/phing
+
+$PHING_COMMAND -f $PROPEL_GEN_HOME/build.xml -Dusing.propel-gen=true -Dproject.dir=$MODEL_DIR $*
