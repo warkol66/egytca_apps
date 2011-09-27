@@ -13,23 +13,13 @@ $projectHome = substr($projectHome, 0, -1);
 
 $command = './migrate';
 
-exec($command, $output, $return_var);
-foreach ($output as $index => $lineContent) {
-	echo $lineContent.'<br>';
-}
-echo "<br>";
+// Borrar salidas viejas
+shell_exec('echo estoy vacio > stdout.txt');
+shell_exec('echo estoy vacio > stderr.txt');
 
-exec($command.' diff', $output, $return_var);
-foreach ($output as $index => $lineContent) {
-	echo $lineContent.'<br>';
-}
-echo "<br>";
-
-exec($command.' migrate', $output, $return_var);
-foreach ($output as $index => $lineContent) {
-	echo $lineContent.'<br>';
-}
-echo "<br>";
+shell_exec($command.' > stdout.txt 2> stderr.txt');
+shell_exec($command.' diff > stdout.txt 2> stderr.txt');
+//shell_exec($command.' migrate > stdout.txt 2> stderr.txt');
 
 }
 
