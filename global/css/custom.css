@@ -7,12 +7,21 @@ body {
 	font-size:77%; /* this makes the text sized at 10px */
 }
 /*  LOGIN  -----------------------------------------------*/
-#login { 
+#loginWrapper {
+	width: 100%;
+	text-align: center !Important;
+}
+#login {
+	width: 330px;
+	margin-left: auto !Important;
+	margin-right: auto !Important;
 }
 #loginTop { 
-	background-image:url(../images/loginTop.png);
+	background-image:url(../images/mdp.png);
 	background-position: top center;
 	background-repeat:no-repeat;
+	background-color: #C5C5C5;
+	height: 120px;
 }
 #loginContent, #passRecovery { 
 	background-image:url(../images/loginContent.png);
@@ -29,11 +38,15 @@ body {
 	border: solid 1px #000066;
 }
 #loginButton { 
-	background-image:url(../images/buttonImageLogin.png);
-	background-position: top center;
-	background-repeat:no-repeat;
-	color: Navy;
-	border: none !Important;
+	background-image:url(../images/buttonLogin.png);
+	background-position: bottom;
+	background-repeat: no-repeat;
+	color: #ffffff;
+	font-size: 138%;
+	font-weight: bold;
+	vertical-align: top !Important;
+	width: 140px;
+	height: 50px;
 }
 #lostPassword a, #lostPassword a:visited { 
 	color: #003399;
@@ -43,22 +56,34 @@ body {
 	background-position: bottom center;
 	background-repeat: no-repeat;
 }
+#loginContentWrapper { 
+	background-color: #FFFFFF;
+	border-left: solid 5px #0066cc;
+	border-right: solid 5px #0066cc;
+}
 /*  /LOGIN  -----------------------------------------------*/
 
 /* wrapper -----------------------------------------------------------*/ 
 #wrapper { 
 }
 #header {
-	background-image: url(../images/topImage.png);
-	background-position: left 20px;
+	background-image: url(../images/header.png);
+	background-position: left;
 	background-repeat: no-repeat;
+	background-color: #FFFFFF;
+	border-bottom: 5px solid #0066cc;
+	border-left: solid 5px #0066cc;
+	border-right: solid 5px #0066cc;
 }
 #contentWrapper { 
-	background-image: url(../images/bkg-2columns.gif);
+	background-image: url(../images/bkg-2columns.png);
 	background-repeat: repeat-y;
+	border-left: solid 5px #0066cc;
+	border-right: solid 5px #0066cc;
+	background-color: #FFFFFF;
 }
 #contentCloser { 
-	background-image: url(../images/bkg-2columns.gif);
+	background-image: url(../images/bkg-2columns.png);
 	background-repeat: repeat-y;
 }
 #leftColumn{
@@ -82,6 +107,19 @@ body {
 #footer p{
 	color: #ffffff;
 }
+.rounded .r1, .rounded .r2, .rounded .r3, .rounded .r4, .rounded .r5, .rounded .r6, .rounded .r7 {
+	border-color: #0066cc;
+}
+.rounded .r3, .rounded .r4, .rounded .r5, .rounded .r6, .rounded .r7 {
+	background-color: #0066cc;
+}
+.rounded .r1, .rounded .r2 {
+	background-color: #FFFFFF;  /* Mismo color de fondo del header*/
+}
+#loginTopBorder .rounded .r1, .rounded .r2 {
+	background-color: #C5C5C5;  /* Mismo color de fondo del header*/
+}
+
 /* /wrapper -----------------------------------------------------------*/ 
 
 /* content -----------------------------------------------------------*/ 
@@ -93,9 +131,8 @@ body {
 #rightColumn h2{
 	color:#999;
 }
-#rightColumn h3, h4 {
+#rightColumn h3, h4, h5 {
 	color:#0066CC;
-	margin-bottom: 5px !Important;
 }
 #rightColumn h2 a:link, #rightColumn h2 a:visited{
 	color: #003399;
@@ -113,49 +150,7 @@ body {
 }
 /* /content -----------------------------------------------------------*/ 
 
-/*   OTROS LINKS   ------------------------*/
-
-/* posiciona el link de "AGREGAR NUEVA ..." y VOLVER */
-.rightLink{
-}
-/* BOTON AGREGAR NUEVA ...  */
-a.agregarNueva:link, a.agregarNueva:visited {
-	background-image:url(../images/icon_more.gif);
-	background-position:left top;
-	background-repeat:no-repeat;
-}
-
-a.agregarNueva:hover, a.agregarNueva:active {
-	color:#009900;}
-/* /BOTON AGREGAR NUEVA ...  */
-
-
-/* BOTON VOLVER  */
-a.volver:link, a.volver:visited {
-}
-
-a.volver:hover, a.volver:active {
-	color:#009900;
-}
-/* /BOTON VOLVER  */
-
-/* BOTON EDITAR ...  */
-a.editarRight:link, a.editarRight:visited {
-	background-image: url(../images/icon_editar_small.gif);
-	background-position:left top;
-	background-repeat:no-repeat;
-}
-
-a.editarRight:hover, a.editarRight:active {
-	color:#009900;}
-/* /BOTON AGREGAR NUEVA ...  */
-
-
-/* -------------------------------------------------------------------*/ 
-
 /* MENU NAVEGACION   */
-
-/* -------------------------------------------------------------------*/ 
 #leftColumn ul { 
 	background-color: #e7ebf0;
 }
@@ -190,17 +185,14 @@ a.editarRight:hover, a.editarRight:active {
 	border-right: none;
 }
 #logout{
-	background-image:url(../images/bot_salir.gif);
+	background-image:url(../images/buttonLogout.png);
 	background-position: top left;
 	background-repeat:no-repeat;
+	color: #003399;
+	font-weight:bold;
+	text-decoration: none;
 }
-
-
 /*  AGREGADOS -----------------------------------------------*/
-
-.linksEdicion{
-}
-
 .flagGreen {
 	background: Green;
 	color: White;
@@ -258,13 +250,6 @@ a.blackNoDecoration:visited {
 	text-decoration: none;
 }
 
-
-
-
-
-
-
-
 /* TABLES   -------------------------------------------*/
 table{
 }
@@ -290,68 +275,17 @@ table.tableTdBorders td {
 	background-color: #f4f6f3;
 	color: #0066CC;
 }
+fieldset table.tableTdBorders td {
+	background: #FFFFFF; /* Fondo del rightColumn */
+}
+ fieldset table.tableTdBorders td.controlsTd {
+ 	background: transparent;
+ }
+fieldset table.tableTdBorders th {
+	background: #E3E9F1; /* #E3E9F1 o #C6CBD9 o #DFE5ED*/ 
+}
 /* /TABLES   -------------------------------------------*/
 
-.mandatory {
-	display: inline;
-	vertical-align: top;
-	color: #FF0000;
-}
-.deactivated {
-	color: #999999;
-}
-.edit {
-	color: #007D62;
-}
-a.edit:link{
-	color: #007D62;
-}
-a.edit:visited{
-	color: #007D62;
-}
-a.edit:hover{
-	color: #FFFFFF;
-	background-color: #44A08C;
-}
-.delete {
-	color: #CF2600;
-}
-a.delete:link{
-	color: #CF2600;
-}
-a.delete:visited{
-	color: #CF2600;
-}
-a.delete:hover{
-	color: #FFFFFF;
-	background-color: #D54322;
-}
-.data {
-	color: #000000;
-}
-a.data:link{
-	color: #505050;
-}
-a.data:visited{	
-	color: #505050;
-}
-a.data:hover{
-	color: #FFFFFF;
-	background-color: #505050;
-}
-.detail {
-	color: #000066;
-}
-a.detail:link{
-	color: #000066;
-}
-a.detail:visited{
-	color: #000066;
-}
-a.detail:hover{
-	color: #FFFFFF;
-	background-color: #000066;
-}
 .buttonImageLogin {
 	font-size: 0px !Important;
 	width: 100px;
@@ -362,46 +296,11 @@ a.detail:hover{
 	background: url(../images/buttonImageLogin.png) no-repeat center;
 	cursor: pointer;	
 }
-.errorMessage {
-	color: #B22222;
-	font-weight: bold;
-	padding: 8px;
-	margin: 9px;
-	border: 1px solid #B22222;
-	text-align: center;
-}
-.successMessage {
-	color: #007D62;
-	font-weight: bold;
-	padding: 8px;
-	margin: 9px;
-	border: 1px solid #007D62;
-	text-align: center;
-}
-fieldset {  
-	background-color: #f7f7f8;
-}
-legend, fieldset legend, fieldset fieldset legend {  
-	color:#0066CC !Important;
-}
-.read {
-	color: Blue;
-}
-.unread{
-	color: Green;
-	font-weight: bold;
-}
 
 /* mapa google */
 #map_canvas {
 	height: 560px !Important;
 }
-
-#addresses_list li:hover {
-	cursor: move;
-}
-
-
 #helpMap {
 	background-color:#FFFFFF;
 	border:#0066cc 1px solid;
@@ -409,42 +308,6 @@ legend, fieldset legend, fieldset fieldset legend {
 	-opera-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
-}
-
-a.textLink {
-	color:#0054A4;
-}
-a.textLink:hover {
-	color: #00005B;
-}
-a.textLink:visited, a.textLink:active{
-	color:#0054A4;
-}
-.textLinkButton {
-	color:#0054A4;
-	background-color: #e0e0e0;
-	border: 1px outset #a0a0a0;/*#F0F0F0;*/
-	outline: 0 none;
-	cursor: pointer;
-	clear: right;
-	-khtml-border-radius: .2em;
-	-opera-border-radius: .2em;
-	-moz-border-radius: .2em;
-	-webkit-border-radius: .2em;
-	border-radius: .2em;
-	text-decoration: none;
-	display: inline;
-	line-height: 1.85em;
-	padding: .25em .4em .3em .4em;
-	vertical-align: middle;
-	white-space: nowrap;
-}
-.textLinkButton:hover {
-	background-color: #a0a0a0;/*#d0d0d0; */
-	border: outset 1px  #808080;
-}
-.textLinkButton:visited, a.textLink:active{
-	color:#0054A4;
 }
 
 ul#directions_results {
@@ -463,4 +326,51 @@ ul#directions_results {
 #directions_results li:hover {
 	color: #0054A4;
 	cursor: pointer;
+}
+/*		SOLAPAS LOGS*/
+#tabsLogs{
+	width:100%;
+	height:36px;
+	font-size:100%;
+	margin:0px 0px 0px 0px; /* IE6*/
+}
+#tabsLogs ul{
+	width:100%;
+	float:left;
+	display:inline;
+}
+#tabsLogs ul li{
+	width:104px;
+	height:30px;		
+	float:left;
+	display:block;
+	text-align:center;	
+	font-weight:bold;
+	padding-top: 2px;
+}
+#tabsLogs ul li.activeTab {
+	background:url(../images/tabs.png) 0 0px no-repeat;
+	line-height:3em;				
+}
+#tabsLogs ul li.unactiveTab{
+	background:url(../images/tabs.png) -104px 0px no-repeat;
+	line-height:3em;				
+}
+#tabsLogs ul li a{
+	width:104px;
+	height:30px;
+	float:left;
+	display:block;
+	line-height:1em;  /*  I6*/
+	color:#333333;
+	text-decoration:none;
+}
+#tabsLogs ul li.unactiveTab a:hover{
+	background:url(../images/tabs.png) -208px -2px no-repeat;
+	text-decoration:none;	
+	color:#333333;
+}
+
+#categoriesListPlaceHolder ul.iconOptionsList li:hover {
+	color: #333; /* Color rightColumn */
 }

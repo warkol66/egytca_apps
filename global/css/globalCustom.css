@@ -1,9 +1,7 @@
 /* GLOBAL Custom */
-
 * {
 	font-family: Arial, Helvetica, sans-serif, Geneva;
 }
-
 /* INPUTS, ICONS & LINKS ------------------------------*/
 input[type="submit"], input[type="button"], input[type="reset"] {
 	background-color: #e0e0e0;
@@ -18,10 +16,11 @@ input[type="submit"], input[type="button"], input[type="reset"] {
 	padding: 2px 12px 2px 12px;
 }
 input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
-	background-color: #a0a0a0;/*#d0d0d0; */
-	border: outset 1px  #808080;
+	background-color: #a0a0a0 !Important;/*#d0d0d0; */
+	border: outset 1px  #808080 !Important;
 }
 .icon, .editor_ok_button, .editor_cancel_button  {
+	background-color: #e0e0e0 !Important;/*#d0d0d0; */
 	border: solid 1px #ababab !Important;
 	line-height: 999px;
 	vertical-align: top;
@@ -45,13 +44,13 @@ input.icon, input.editor_ok_button, input.editor_cancel_button {
 	padding: 0;
 }
 /* Image Buttons and Links */
-.iconActivate, .iconAdd, .iconBack, .iconBudget, .iconDelete, .iconDetail, .iconDownload, .iconCancel,
-.iconEdit, .iconEmail, .iconFollow, .iconGoTo, .iconGraph, .iconHelp, .iconHistory, .iconIndicator,
-.iconInfo, .iconManufacture, .iconOrder, .iconPassword, .iconPlus, .iconRestore, .iconRestoreFromServer,
-.iconSendMultiple, .iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload, .iconClose,
-.iconView, .iconViewGantt, .iconWeight, .iconAddToCart, .iconRemoveFromCart, .iconUpdateCart, .iconSetPrivileges, .iconOwner,
-.iconRead, .iconUnread, .iconEditUser, .iconAddUser, .iconPhoto, .iconHardDelete, .iconUndelete,
-input.editor_ok_button, input.editor_cancel_button {
+.iconActivate, .iconAdd, .iconBack, .iconBudget, .iconDelete, .iconDetail, .iconDownload, .iconCancel, .iconEdit, .iconEmail,
+.iconFollow, .iconGoTo, .iconGraph, .iconHelp, .iconHistory, .iconIndicator, .iconTableh3 , .iconNote, .iconDocument, .iconAttach,
+.iconInfo, .iconManufacture, .iconOrder, .iconPassword, .iconPlus, .iconRestore, .iconRestoreFromServer, .iconSendMultiple,
+.iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload, .iconClose, .iconView, .iconViewGantt, .iconWeight,
+.iconAddToCart, .iconRemoveFromCart, .iconUpdateCart, .iconSetPrivileges, .iconOwner, .iconRead, .iconUnread, .iconEditUser,
+.iconAddUser, .iconPhoto, .iconHardDelete, .iconUndelete, .iconCut, .iconCrop, .iconNews, .iconNewsAdd, .iconNewsLink, .iconNewsGoTo,
+.iconNewsDelete, .iconNewsClipping, input.editor_ok_button, input.editor_cancel_button {
 	background: url(../images/icons_all.png) no-repeat #f0f0f0;
 }
 .disabled {
@@ -210,6 +209,31 @@ input.editor_ok_button, input.editor_cancel_button {
 .iconUndelete {
 	background-position: -20px -120px;
 }
+.iconCut {
+	background-position: -160px -100px;
+}
+.iconCrop {
+	background-position: -180px -100px;
+}
+.iconNews {
+	background-position: 0px -140px;
+}
+.iconNewsAdd {
+	background-position: -20px -140px;
+}
+.iconNewsLink {
+	background-position: -40px -140px;
+}
+.iconNewsGoTo {
+	background-position: -60px -140px;
+}
+.iconNewsDelete {
+	background-position: -80px -140px;
+}
+.iconNewsClipping {
+	background-position: -100px -140px;
+}
+
 .icon:hover{
 	background-color: #c0c0c0;
 	border: solid 1px #909090 !Important;;
@@ -222,6 +246,7 @@ input.editor_ok_button, input.editor_cancel_button {
 	background-image: url(../images/mandatory.png);
 	background-repeat: no-repeat;
 	background-position: center 0;
+	vertical-align: top;
 	height: 10px;
 	width: 10px;
 	padding: 3px;
@@ -233,9 +258,6 @@ input.editor_ok_button, input.editor_cancel_button {
 input[type="text"].emptyValidation, textarea.emptyValidation, select.emptyValidation {
 	outline: #ff0000 solid 1px;
 }
-
-/* INPUTS, ICONS & LINKS ------------------------------*/
-
 /* ADD   ----------------------------------------------*/
 a.addLink:link, a.addLink:visited {
 	color:#0054A4;
@@ -243,12 +265,10 @@ a.addLink:link, a.addLink:visited {
 	background-position:left top;
 	background-repeat:no-repeat;
 }
-
 a.addLink:hover, a.addLink:active {
 	color:#009900;
 }
 /* ADD   ----------------------------------------------*/
-
 /* SEARCH   -------------------------------------------*/
 a.tdTitSearch{
 	background-color: #f4f6f3;
@@ -292,7 +312,6 @@ a.searchLink:hover, a.searchLink:active {
 	color:#009900;
 }
 /* SEARCH   -------------------------------------------*/
-
 /* MAILS   --------------------------------------------*/
 a.linkMailNew:link, a.linkMailNew:visited,
 a.linkMailMarkRead:link, a.linkMailMarkRead:visited,
@@ -330,7 +349,6 @@ a.linkMailForward {
 a.linkMailDelete {
 	background-image:url(../images/icon_mailDelete.png);
 }
-
 /* PAGINADO    ----------------------------*/
 .pages{	
 	background-color: #FFF;
@@ -346,7 +364,6 @@ a.pageLink:hover, a.pageLink:active {
 	background-color:#eaeee8;
 }
 /* /PAGINADO    ----------------------------*/
-
 .textLinkButton {
 	color:#000000;
 	background-color: #e0e0e0;
@@ -359,7 +376,6 @@ a.pageLink:hover, a.pageLink:active {
 .textLinkButton:visited, a.textLink:active{
 	color:#000000;
 }
-
 /* Leightbox    ----------------------------*/
 .overlayFade{
 }
@@ -382,7 +398,6 @@ a.lbOn {
 #overlay[id]{ 
 }
 /* /Leightbox    ----------------------------*/
-
 /* Autocomplete    ----------------------------*/
 div.autocomplete {
 	position:absolute !important;
@@ -417,7 +432,6 @@ div.autocomplete ul b {
   background-color: white;
 }
 /* /Autocomplete    ----------------------------*/
-
 /*  BOX VARIABLES   ----------------------------------- */
 #boxVariables{
 	background-color: #f4f6f3;
@@ -498,36 +512,26 @@ div.autocomplete ul b {
 	border: solid 1px #999;
 }
 /*  /BOX VARIABLES   ----------------------------------- */
-
-
 .inProgress {
 	font-weight: bold;
 	color: #D2691E !Important;
 	text-decoration: blink;
-	padding-left: 30px;
-	padding-right: 30px;
+	padding: 5px 30px 5px 30px;
 	margin-left: 30px;
 	background: url(../images/spinner.gif) no-repeat;
+	display: inline-block;
 }
 .resultSuccess {
 	font-weight: bold;
 	color: #00008B;
-	padding-left: 30px;
-	padding-right: 30px;
+	padding: 5px 30px 5px 30px;
+	display: inline-block;
 }
 .resultFailure {
 	font-weight: bold;
 	color: #B22222;	
-	padding-left: 30px;
-	padding-right: 30px;
-}
-.errorMessage {
-	color: #B22222;
-	font-weight: bold;
-	padding: 8px;
-	margin: 9px;
-	border: 1px solid #B22222;
-	text-align: center;
+	padding: 5px 30px 5px 30px;
+	display: inline-block;
 }
 .successMessage {
 	color: #007D62;
@@ -537,12 +541,23 @@ div.autocomplete ul b {
 	border: 1px solid #007D62;
 	text-align: center;
 }
-
-option{
+.errorMessage {
+	color: #B22222;
+	font-weight: bold;
+	padding: 8px;
+	margin: 9px;
+	border: 1px solid #B22222;
+	text-align: center;
+}
+#actorMsgField, #categoryMsgField, #fieldMsgField, #groupMsgField, #issueMsgField,
+#partieMsgField, #relationMsgField, #userInfoMsgField, #usersMsgField {
+	padding: 5px 30px 5px 30px;
+	display: inline-block;	
+}
+option {
 	padding-right: 5px;
 	background: #fcfcfc;
 }
-
 /* overDiv */
 #overDiv table td{
 	padding: 1px;
@@ -555,7 +570,6 @@ option{
 	font-weight: bold;
 }
 /* /overDiv */
-
 /* CharCount */
 .charCount {
 	color: #255637 !Important;
@@ -581,49 +595,99 @@ option{
 }
 /* /CharCount */
 
-/*		SOLAPAS LOGS*/
-#tabsLogs{
-	width:100%;
-	height:36px;
-	font-size:100%;
-	margin:0px 0px 0px 0px; /* IE6*/
-}
-#tabsLogs ul{
-	width:100%;
-	float:left;
-	display:inline;
-}
-#tabsLogs ul li{
-	width:104px;
-	height:30px;		
-	float:left;
-	display:block;
-	text-align:center;	
-	font-weight:bold;
-	padding-top: 2px;
-}
-#tabsLogs ul li.activeTab {
-	background:url(../images/tabs.png) 0 0px no-repeat;
-	line-height:3em;				
-}
-#tabsLogs ul li.unactiveTab{
-	background:url(../images/tabs.png) -104px 0px no-repeat;
-	line-height:3em;				
-}
-#tabsLogs ul li a{
-	width:104px;
-	height:30px;
-	float:left;
-	display:block;
-	line-height:1em;  /*  I6*/
-	color:#333333;
-	text-decoration:none;
-}
-#tabsLogs ul li.unactiveTab a:hover{
-	background:url(../images/tabs.png) -208px -2px no-repeat;
-	text-decoration:none;	
-	color:#333333;
-}
 ul.iconOptionsList li:hover {
 	color: red;
+}
+fieldset {  
+	background-color: #f7f7f8;
+}
+legend, fieldset legend, fieldset fieldset legend {  
+	color:#0066CC !Important;
+}
+.read {
+	color: Blue;
+}
+.unread{
+	color: Green;
+	font-weight: bold;
+}
+
+/* tooltip ----- */
+a.tooltip, a.tooltipWide{
+}
+a.tooltip img, a.tooltipWide img{
+}
+a.tooltip:hover,a.tooltipWide:hover {
+} /*BG color is a must for IE6*/
+a.tooltip span,a.tooltipWide span {
+	background:#ffffff; 
+}
+a.tooltipWide span {
+}
+a.tooltip:hover span, a.tooltipWide:hover span{
+	background: #ffffff; 
+	border:1px solid #FF6600; 
+	color: #006699;
+}
+/* /tooltip ----- */
+
+.mandatory {
+	display: inline;
+	vertical-align: top;
+	color: #FF0000;
+}
+.deactivated {
+	color: #999999;
+}
+.edit {
+	color: #007D62;
+}
+a.edit:link{
+	color: #007D62;
+}
+a.edit:visited{
+	color: #007D62;
+}
+a.edit:hover{
+	color: #FFFFFF;
+	background-color: #44A08C;
+}
+.delete {
+	color: #CF2600;
+}
+a.delete:link{
+	color: #CF2600;
+}
+a.delete:visited{
+	color: #CF2600;
+}
+a.delete:hover{
+	color: #FFFFFF;
+	background-color: #D54322;
+}
+.data {
+	color: #000000;
+}
+a.data:link{
+	color: #505050;
+}
+a.data:visited{	
+	color: #505050;
+}
+a.data:hover{
+	color: #FFFFFF;
+	background-color: #505050;
+}
+.detail {
+	color: #000066;
+}
+a.detail:link{
+	color: #000066;
+}
+a.detail:visited{
+	color: #000066;
+}
+a.detail:hover{
+	color: #FFFFFF;
+	background-color: #000066;
 }

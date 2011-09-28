@@ -1,5 +1,4 @@
 /* GLOBAL Styles */
-
 * {
 	padding: 0; 
 	margin: 0; 
@@ -19,7 +18,6 @@ a:active, a:focus, input:active, input:focus {
 a img{
 	border: none;
 }
-
 /* ADD   ----------------------------------------------*/
 a.addLink {
 	line-height: 1.4em;
@@ -36,7 +34,6 @@ a.addLink:hover, a.addLink:active {
 	text-decoration: none;
 }
 /* /ADD   ----------------------------------------------*/
-
 /* SEARCH   -------------------------------------------*/
 a.tdTitSearch{
 	display: block;
@@ -93,9 +90,6 @@ a.linkMailDelete,a.linkMailDelete:link {
 	text-decoration: none;
 }
 /* /MAILS   --------------------------------------------*/
-
-/*   TABLES   ------------------------------*/
-/*   OTROS LINKS   ------------------------*/
 
 /* posiciona el link de "AGREGAR NUEVA ..." y VOLVER */
 .rightLink{
@@ -231,6 +225,76 @@ div.autocomplete ul li,  div.autocomplete ul b{
 div.autocomplete ul b {
 }
 /* /Autocomplete    ----------------------------*/
+/* fieldset    ----------------------------*/
+fieldset {
+	padding: 8px;
+	margin-bottom: 2em; /* IE 3.5em */
+	position: relative;
+}
+fieldset legend {
+	font-weight: bold;
+	font-size: 123.1%;
+	margin-bottom: 0.5em;
+	position: relative;  
+	margin-left: -.3em;
+	padding: .2em;
+}
+fieldset label {
+	font-size: 93%;
+	line-height: 153.9%;
+	width: 140px;
+	float: left;
+	font-weight: bold;
+	vertical-align: text-top;
+	text-align: right;
+	height: auto;
+	padding-top: 0;
+	margin-bottom: 0;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	display: block;
+}
+fieldset p {
+	display: block;
+	height: auto;
+	clear: both;
+}
+fieldset fieldset legend {  
+	background-color: transparent;
+}
+fieldset fieldset label {
+	width: 90px;
+	font-weight: bold;
+	display: inline;
+}
+fieldset fieldset {
+	padding: 5px;
+	margin-left: 120px;
+}
+fieldset fieldset label {
+	font-weight: bold;
+	display: inline;
+}
+fieldset li {
+	margin-left: 35px;
+}
+fieldset {  
+	position: relative;
+}
+fieldset fieldset legend {  
+	background-color: transparent;
+}
+/*  /fieldset  ----------------------------------- */
+
+/* InternalMail */
+fieldset #recipientsSelected li {
+	list-style: none;
+}
+#recipientsSelected li input {
+	margin-left: 120px;
+	margin-right: 5px;
+}
+/* /InternalMail */
 
 /*  BOX VARIABLES   ----------------------------------- */
 #boxVariables{
@@ -320,10 +384,36 @@ div.autocomplete ul b {
 ul.iconOptionsList li {
 	list-style: none;
 	margin-left: 15px;
-	list-style: none;
 	line-height: 2em;
 	vertical-align: bottom;
 	padding-bottom: .2em;
+}
+#categoriesListPlaceHolder ul.iconOptionsList li {
+	list-style: circle;
+}
+#categoriesListPlaceHolder ul.iconOptionsList ul li {
+	list-style:  square;
+	margin-left: 35px;
+}
+#categoriesListPlaceHolder ul.iconOptionsList ul ul li {
+	list-style: circle;
+	margin-left: 55px;
+}
+#categoriesListPlaceHolder ul.iconOptionsList ul ul ul li {
+	list-style: square;
+	margin-left: 75px;
+}
+#categoriesListPlaceHolder ul.iconOptionsList ul ul ul ul li {
+	list-style: circle;
+	margin-left: 95px;
+}
+#categoriesListPlaceHolder ul.iconOptionsList ul ul ul ul ul li {
+	list-style: square;
+	margin-left: 105px;
+}
+#categoriesListPlaceHolder ul.iconOptionsList ul ul ul ul ul ul li {
+	list-style: circle;
+	margin-left: 135px;
 }
 .noDecoration {
 	text-decoration: none !Important;
@@ -349,7 +439,160 @@ ul.iconOptionsList li {
 	padding-bottom: 5px;
 	display: block;
 }
-
 .markets-chz-select {
-    min-width: 500px;
+	min-width: 500px;
+}
+.in_place_editable {
+	padding: 4px;
+	border: 1px solid transparent;/*#F0F0F0;*/
+	outline: 0 none;
+	cursor: pointer;
+	-khtml-border-radius: 2px;
+	-opera-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+.in_place_hover {
+	background-color: #b0e9ff !Important; /*  b7e0ff*/
+	padding: 4px;
+	border: 1px outset #a0a0a0;/*#F0F0F0;*/
+	outline: 0 none;
+	cursor: pointer;
+	-khtml-border-radius: 2px;
+	-opera-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	padding-right: 25px !Important;
+	background-image: url(../images/icon_iconEdit.png) !Important;
+	background-repeat: no-repeat !Important;
+	background-color: #f0f0f0;
+	background-position: right !Important;
+}
+form.inplaceeditor-form {
+	padding:5px;
+	display: inline-block;
+	background-color: #f7f7f8 !Important;
+	border: 1px groove #a0a0a0;/*#F0F0F0;*/
+	-khtml-border-radius: 2px;
+	-opera-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+.edit {
+	text-decoration: underline;
+}
+a.edit:link{
+	text-decoration: underline;
+}
+a.edit:visited{
+	text-decoration: underline;
+}
+a.edit:hover{
+	text-decoration: underline;
+}
+.delete {
+	text-decoration: underline;
+}
+a.delete:link{
+	text-decoration: underline;
+}
+a.delete:visited{
+	text-decoration: underline;
+}
+a.delete:hover{
+	text-decoration: underline;
+}
+.data {
+}
+a.data:link{
+	text-decoration: underline;
+}
+a.data:visited{	
+	text-decoration: underline;
+}
+a.data:hover{
+	text-decoration: underline;
+}
+.detail {
+	text-decoration: underline;
+}
+a.detail:link{
+	text-decoration: underline;
+}
+a.detail:visited{
+	text-decoration: underline;
+}
+a.detail:hover{
+	text-decoration: underline;
+}
+.deactivated {
+	text-decoration: none;
+}
+.center {
+	text-align: center;
+}
+.left {
+	text-align: left;
+}
+.right {
+	text-align: right;
+}
+.top {
+	vertical-align: top; 
+}
+.middle {
+	vertical-align: middle; 
+}
+.bottom {
+	vertical-align: bottom; 
+}
+.noWrap {
+	white-space: nowrap;
+}
+.noPaddingCell {
+	padding: 0px;
+}
+.bold {
+	font-weight: bold;
+}
+.italic {
+	font-style: italic;
+}
+/* tooltip ------*/
+a.tooltip, a.tooltipWide{
+	vertical-align: top;
+	padding: 0 4px 0 4px;
+}
+a.tooltip img, a.tooltipWide img{
+	border: none;
+}
+a.tooltip:hover,a.tooltipWide:hover {
+	text-decoration:none;
+} /*BG color is a must for IE6*/
+a.tooltip span, a.tooltipWide span {
+	display:none; 
+	padding:2px 3px; 
+	margin-left: 18px; 
+	width:150px;
+	font-weight: normal !important;
+	text-align: justify !important;
+	z-index: 1000;
+}
+a.tooltipWide span {
+	width:300px;
+}
+a.tooltip:hover span, a.tooltipWide:hover span{
+	display: inline; 
+	position: absolute;
+	margin-top: -65px;
+}
+/* /tooltip ------*/
+
+a.textLink {
+	text-decoration: none;
+}
+a.textLink:hover {
+	text-decoration: underline;
+}
+a.textLink:visited, a.textLink:active{
 }
