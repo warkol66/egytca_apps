@@ -36,8 +36,8 @@ class AffiliatesUsersPasswordChangeAction extends BaseAction {
 		$timezonePeer = new TimezonePeer();
 		$smarty->assign("timezones",$timezonePeer->getAll());	
 
-    	$smarty->assign("message",$_GET["message"]);
-    	$smarty->assign("firstLogin",$_GET["firstLogin"]);
+  	$smarty->assign("message",$_GET["message"]);
+  	$smarty->assign("firstLogin",$_GET["firstLogin"]);
 
 		$smarty->assign("currentUser",$_SESSION["loginAffiliateUser"]);
 

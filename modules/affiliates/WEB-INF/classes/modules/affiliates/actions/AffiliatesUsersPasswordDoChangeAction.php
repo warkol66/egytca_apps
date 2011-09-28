@@ -15,9 +15,6 @@ class AffiliatesUsersPasswordDoChangeAction extends BaseAction {
 
     BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -27,11 +24,11 @@ class AffiliatesUsersPasswordDoChangeAction extends BaseAction {
 		$module = "Users";
 
 		$user = $_SESSION['loginAffiliateUser'];
-		$currentPass = $_POST['currentPass'] . "ASD";
+		$currentPass = Common::md5($_POST['currentPass']);
 
 		$userPeer = New AffiliateUserPeer();
 
-		if ( (md5($currentPass) == $user->getPassword()) && ($_POST["pass"] == $_POST["pass2"]) ) {
+		if (($currentPass == $user->getPassword()) && ($_POST["pass"] == $_POST["pass2"])) {
 			
 			if ($_POST['currentPass'] == $_POST["pass"]){
 				$params = array ("message" => "changePassword");
@@ -42,7 +39,7 @@ class AffiliatesUsersPasswordDoChangeAction extends BaseAction {
 				return $this->addParamsToForwards($params,$mapping,'changePassword');
 			}
 			else {
-				if ($userPeer->updatePass($user->getId(),$_POST["pass"],$_POST['mailAddress'],$_POST['timezone']) ) {
+				if ($userPeer->updatePass($user->getId(),Common::md5($_POST["pass"]),$_POST['mailAddress'],$_POST['timezone']) ) {
 					$user = AffiliateUserPeer::get($user->getId());
 					$_SESSION['loginAffiliateUser'] = $user;
 					Common::doLog('success','username: ' . $_POST["username"] . ' pass: edit');

@@ -1,23 +1,20 @@
 <?php
-/** 
- * AffiliatesUsersPasswordDoChangeForRecoveryAction
+/**
+ * AffiliatesUsersPasswordDoSetFromRecoveryAction
  *
- * @package affiliates 
+ * @package affiliates
  */
 
-class AffiliatesUsersPasswordDoChangeForRecoveryAction extends BaseAction {
+class AffiliatesUsersPasswordDoSetFromRecoveryAction extends BaseAction {
 
-	function AffiliatesUsersPasswordDoChangeForRecoveryAction() {
+	function AffiliatesUsersPasswordDoSetFromRecoveryAction() {
 		;
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -25,26 +22,26 @@ class AffiliatesUsersPasswordDoChangeForRecoveryAction extends BaseAction {
 		}
 
 		$module = "Affiliates";
+		$section = "Users";
 
-		$userPeer = New AffiliateUserPeer();
 		if (($_POST["pass"] == $_POST["pass2"])) {
-			$user = $userPeer->getByRecoveryHash($_POST["recoveryHash"]);
+			$user = AffiliateUserPeer::getByRecoveryHash($_POST["recoveryHash"]);
 			if (!empty($user) && $user->recoveryRequestIsValid()) {
 				$user->changePassword($_POST["pass"]);
 				$user->setRecoveryhash(null);
+				$user->setrecoveryHashCreatedOn(null);
 				$user->save();
 				return $mapping->findForwardConfig('success');
 			}
 		}
-		if (empty($user)) {
+		if (empty($user))
 			return $this->addParamsToForwards(array('message'=>'wrongHash'),$mapping,"failure");
-		}
-		if (!$user->recoveryRequestIsValid()){
+
+		if (!$user->recoveryRequestIsValid())
 			return $this->addParamsToForwards(array('message'=>'expiredHash'),$mapping,"failure");
-		}
-		
+
 		return $this->addParamsToForwards(array('message'=>'anotherError'),$mapping,"failure");
-			
+
 	}
 
 }

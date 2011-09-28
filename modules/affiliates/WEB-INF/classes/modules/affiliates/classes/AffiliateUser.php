@@ -18,6 +18,26 @@ class AffiliateUser extends BaseAffiliateUser {
 	private $passwordString;
 	private $passwordUpdatedTime;
 
+	/**
+	* Genera el string a entregar por defecto reemplazando el __toString() del modelo
+	*
+	*	@return string string texto por defecto a mostar cuando se llama al objeto affiliateUser
+	*/
+	public function __toString() {
+		$string = '';
+		$name = $this->getName();
+		$surname = $this->getSurname();
+
+		if (ConfigModule::get("affiliates","toStringFormat") == "Surname, Name (Username)")
+			$string .= $surname . ', ' . $name;
+		else
+			$string .= $name . ', ' . $surname;
+
+		$string .= ' (' . $this->getUserName() . ')';
+
+		return $string;
+	}
+
 	function getGroups() {
 		return AffiliateGroupQuery::create()->filterByAffiliateUser($this)->find();
 	}
@@ -64,7 +84,18 @@ class AffiliateUser extends BaseAffiliateUser {
 		return;
 	}
 
-
+	/**
+	 * Informa si un usuario es owner del affiliate relacionado al usuario
+	 * @param $user obj objeto propel user
+	 * @return bool true si es owner false si no.
+	 */
+	public function isOwner($user) {
+		$affiliate = $this->getAffiliate();
+		if ($affiliate->isOwner($user))
+			return true;
+		else
+			return false;
+	}
 
 	function getAll() {
 		return AffiliateUserQuery::create()->find();
@@ -76,12 +107,7 @@ class AffiliateUser extends BaseAffiliateUser {
 	* @return string Nombre del afiliado
 	*/
 	function getAffiliate() {
-		$affiliateId = $this->getAffiliateId();
-		$affiliate = AffiliateQuery::create()->findPk($affiliateId);
-		if($affiliate)
-			return $affiliate->getName();
-		else
-			return;
+		return $this->getAffiliateRelatedByAffiliateid();
 	}
 
 	/**
@@ -90,26 +116,11 @@ class AffiliateUser extends BaseAffiliateUser {
 	* @return true o false
 	*/
 	function isAffiliateOwner() {
-		$affiliateId = $this->getAffiliateId();
-		$affiliate = AffiliateQuery::create()->findPk($affiliateId);
+		$affiliate = $this->getAffiliate();
 		if ($affiliate->getOwnerId() == $this->getId())
 			return true;
 		else
 			return false;
-	}
-
-	/**
-	* Devuelve el nombre dle afiliado
-	*
-	* @return string con nombre del afiliado
-	*/
-	function getAffiliateName() {
-		$affiliateId = $this->getAffiliateId();
-		$affiliate = AffiliateQuery::create()->findPk($affiliateId);
-		if ($affiliate)
-			return $affiliate->getName();
-		else
-			return;
 	}
 
 	/**
@@ -120,15 +131,15 @@ class AffiliateUser extends BaseAffiliateUser {
 		parent::setUserName($usernameLowercase);
 		return $this;
 	}
-
+/*
 	public function setPassword($password) {
 		if(!empty($password)){
-			parent::setPassword(md5($password."ASD"));
+			parent::setPassword(Common::md5($passwordString));
 			$this->setPasswordUpdatedTime(time());
 		}
 		return $this;
 	}
-
+*/
 	/**
 	 * Especifica la fecha de actualizacion de la clave
 	 * @param passwordUpdatedTime string con fecha de actualizacion de clave.
@@ -194,7 +205,7 @@ class AffiliateUser extends BaseAffiliateUser {
 		if (!empty($recoveryCreatedOn)) {
 			$recoveryCreatedOnTimestamp = $recoveryCreatedOn->format('U');
 			$elapsedHours = (time() - $recoveryCreatedOnTimestamp) / 3600;
-			if($elapsedHours <= ConfigModule::get('affiliates','passwordRecoveryExpirationTimeInHours'))
+			if($elapsedHours <= ConfigModule::get('affiliates','passwordHashExpirationTime'))
 				return true;
 			else
 				return false;
@@ -209,7 +220,7 @@ class AffiliateUser extends BaseAffiliateUser {
 	 * @param string $password contraseña nueva
 	 */
 	function changePassword($password) {
-		$this->setPassword($password);
+		$this->setPasswordString($password);
 		$this->setPasswordUpdatedTime(time());
 		$this->save();
 	}
@@ -222,7 +233,7 @@ class AffiliateUser extends BaseAffiliateUser {
 		*/
 	function resetPassword($length = 8){
 		$password = Common::generateRandomPassword();
-		$this->setPassword($password);
+		$this->setPasswordString($password);
 		$this->setPasswordUpdatedTime(time());
 		try {
 			$this->save();
@@ -233,6 +244,38 @@ class AffiliateUser extends BaseAffiliateUser {
 				print_r($exp->getMessage());
 			return false;
 		}
+	}
+
+ /**
+	 * Genera la clave encriptada a guardar
+	 * @param passwordString string clave ingresada pro usuario.
+	 */
+	function setPasswordString($passwordString){
+		$this->setPassword(Common::md5($passwordString));
+	}
+
+	/*
+	 * Se agrega al AffiliateUser por compatibilidad con el User
+	 * @returns false siempre.
+	 */
+	function isSupervisor() {
+		return false;
+	}
+
+	/*
+	 * Se agrega al AffiliateUser por compatibilidad con el User
+	 * @returns false siempre.
+	 */
+	function isAdmin() {
+		return false;
+	}
+
+	/**
+	 * Informo a que modulo pertenece el usuario
+	 * @return string module Nombre de modulo
+	 */
+	function getModule() {
+		return "Affiliates";
 	}
 
 } // AffiliateUser

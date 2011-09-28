@@ -35,8 +35,8 @@
 			<input name="params[name]" type="text" value="|-$currentGroup->getName()-|" size="60">
 		</p>
 		<p>
-			<input name="save" type="submit" class="botonchico" value="##97,Guardar##"> 
-			<input type='button' onClick='javascript:history.go(-1)' value='##104,Regresar##' class='botonchico' />
+			<input name="save" type="submit" value="##97,Guardar##" /> 
+			<input type='button' onClick='javascript:history.go(-1)' value='##104,Regresar##' />
 		</p>
 	</fieldset>
 </form>
@@ -80,7 +80,7 @@
 			</select>
 			<input type="hidden" name="do" value="affiliatesUsersGroupsDoAddCategory" />
 			<input type="hidden" name="group" value="|-$currentGroup->getId()-|" />
-			<input type='submit' value='##123,Agregar##' class='boton' />
+			<input type='submit' value='##123,Agregar##' />
 		</form>
 	</p>
 </fieldset>

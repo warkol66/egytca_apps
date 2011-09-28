@@ -8,11 +8,8 @@ class AffiliatesUsersEditAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -22,8 +19,8 @@ class AffiliatesUsersEditAction extends BaseAction {
 		$module = "Affiliates";
 		$section = "Users";
 
-  	$smarty->assign("module",$module);
-  	$smarty->assign("section",$section);
+		$smarty->assign("module",$module);
+		$smarty->assign("section",$section);
 
 		$usersPeer = new AffiliateUserPeer();
 
@@ -44,7 +41,7 @@ class AffiliatesUsersEditAction extends BaseAction {
 				$users = $usersPeer->getAll();
 				$deletedUsers = $usersPeer->getDeleteds();
 			}
-			$affiliates = AffiliatePeer::getAll();
+			$affiliates = AffiliateQuery::create()->find();
 			$smarty->assign("affiliates",$affiliates);
 		}
 		else {
@@ -55,28 +52,28 @@ class AffiliatesUsersEditAction extends BaseAction {
 
 		$smarty->assign("affiliateId",$affiliateId);
 
-  	if (!empty($_GET["id"])) {
+		if (!empty($_GET["id"])) {
 
 			$user = $usersPeer->get($_GET["id"]);
 
 			$groups = $usersPeer->getGroupsByUser($_GET["id"]);
 			$smarty->assign("currentUserGroups",$groups);
 
-    	$smarty->assign("action","edit");
+			$smarty->assign("action","edit");
 		}
 		else {
-      $user = new AffiliateUser;
+			$user = new AffiliateUser;
 			$smarty->assign("action","create");
 		}
-    
-    $smarty->assign("currentAffiliateUser", $user);
-    
-    $levels = AffiliateLevelPeer::getAll();
-    $smarty->assign("levels",$levels);
-    
-    $groups = $user->getNotAssignedGroups();
-    $smarty->assign("groups",$groups);
-		
+
+		$smarty->assign("currentAffiliateUser", $user);
+
+		$levels = AffiliateLevelQuery::create()->find();
+		$smarty->assign("levels",$levels);
+
+		$groups = $user->getNotAssignedGroups();
+		$smarty->assign("groups",$groups);
+
 		$smarty->assign('ownerCreation', $_GET["ownerCreation"]);
 
 		$smarty->assign("message",$_GET["message"]);

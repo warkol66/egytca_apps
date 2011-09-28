@@ -5,8 +5,6 @@
  * @package affiliates 
  */
 
-require_once("EmailManagement.php");
-
 class AffiliatesUsersPasswordResetXAction extends BaseAction {
 
 	function AffiliatesUsersPasswordResetXAction() {
@@ -17,16 +15,11 @@ class AffiliatesUsersPasswordResetXAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
-
-		$this->template->template = 'TemplateAjax.tpl';
 
 		$module = "Affiliates";
 		$smarty->assign('module',$module);
@@ -36,6 +29,7 @@ class AffiliatesUsersPasswordResetXAction extends BaseAction {
 
 		$user = AffiliateUserPeer::get($_POST['id']);
 		$password = $user->resetPassword();
+
 		if ($password) {
 			$smarty->assign("user",$user);
 			$smarty->assign("password",$password);
@@ -47,6 +41,8 @@ class AffiliatesUsersPasswordResetXAction extends BaseAction {
 			global $system;
 			$mailFrom = $system["config"]["system"]["parameters"]["fromEmail"];
 
+			require_once("EmailManagement.php");
+
 			$manager = new EmailManagement();
 			$message = $manager->createHTMLMessage($subject,$body);
 			$result = $manager->sendMessage($mailTo,$mailFrom,$message);
@@ -54,7 +50,6 @@ class AffiliatesUsersPasswordResetXAction extends BaseAction {
 			
 		$smarty->assign('name',$fieldname);
 		$smarty->assign('value',$exist);
-		$smarty->assign('message',$message);
 
 		return $mapping->findForwardConfig('success');
 

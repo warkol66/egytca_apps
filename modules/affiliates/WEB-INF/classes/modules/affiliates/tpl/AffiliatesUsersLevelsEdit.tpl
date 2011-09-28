@@ -30,8 +30,8 @@
 		<p>
 			<input type="hidden" name="id" value="|-$currentLevel->getId()-|" />
 			<input type="hidden" name="do" value="affiliatesUsersLevelsDoEdit" />
-			<input name="save" type="submit" class="botonchico" value="##97,Guardar##"> 
-			<input type="button" onClick="javascript:history.go(-1)" value="##104,Regresar##" class="botonchico"  />
+			<input name="save" type="submit" value="##97,Guardar##" /> 
+			<input type="button" onClick="javascript:history.go(-1)" value="##104,Regresar##" />
 		</p>
 	</fieldset>
 </form>

@@ -19,7 +19,8 @@ class AffiliatesDoEditAction extends BaseAction {
 		$module = "Affiliates";
 		$smarty->assign("module",$module);
 
-		$affiliatePeer = new AffiliatePeer();
+		$filters = $_POST["filters"];
+		$smarty->assign("filters",$filters);
 
 		if ($_POST["action"] == "edit" && !empty($_POST["id"])) {
 			$params["id"] = $_POST["id"];
@@ -27,7 +28,7 @@ class AffiliatesDoEditAction extends BaseAction {
 			if (!empty($affiliate)) {
 				$affiliate = Common::setObjectFromParams($affiliate,$_POST["params"]);
 
-				if ($affiliate->isModified() && !$affiliate->save()) 
+				if ($affiliate->isModified() && $affiliate->validate() && !$affiliate->save()) 
 					return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'failure');
 	
 				$smarty->assign("message","ok");

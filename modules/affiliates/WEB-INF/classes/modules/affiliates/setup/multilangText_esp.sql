@@ -1,8 +1,12 @@
 DELETE FROM `multilang_text` WHERE `moduleName` = 'affiliates' AND `languageCode` = 'esp';
 OPTIMIZE TABLE `multilang_text`;
-INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('1', 'affiliates', 'esp','Afiliados');
-INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('2', 'affiliates', 'esp','Usuarios de Afiliados');
-INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('3', 'affiliates', 'esp','Afiliado');
-INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('4', 'affiliates', 'esp','Sucursal');
-INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('5', 'affiliates', 'esp','Sucursales');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('1', 'affiliates', 'esp','Mayoristas');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('2', 'affiliates', 'esp','Usuarios de Mayoristas');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('3', 'affiliates', 'esp','Mayorista');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('4', 'affiliates', 'esp','Cliente');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('5', 'affiliates', 'esp','Clientes');
 INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('6', 'affiliates', 'esp','Usuario Administrador');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('7', 'affiliates', 'esp','mayoristas');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('8', 'affiliates', 'esp','mayorista');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('9', 'affiliates', 'esp','cliente');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('10', 'affiliates', 'esp','clientes');

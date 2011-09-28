@@ -21,7 +21,8 @@ class AffiliatesUsersDoEditAction extends BaseAction {
 		$smarty->assign('ownerCreation', $_POST["ownerCreation"]);
 
 		if (!empty($_SESSION["loginUser"])) {
-			$affiliates = AffiliatePeer::getAll();
+			$affiliatePeer = new AffiliatePeer();
+			$affiliates = $affiliatePeer->getAll();
 			$smarty->assign("affiliates",$affiliates);
 		}	
 
@@ -35,30 +36,6 @@ class AffiliatesUsersDoEditAction extends BaseAction {
 		}
 	}
 
-
-	/**
-	* execute
-	*
-	* Procesa la solicitud HTTP solicitada, y crea su respectiva respuesta HTTP o
-	* bien lo manda hacia otra web en donde aqui la crea. Devuelve un 
-	* "ActionForward" describiendo donde y como se debe mandar la solicitud o
-	* NULL si la respuesta ha sido completada. 
-	* 
-	* 
-	* //@param ActionConfig		El ActionConfig (mapping) usado para seleccionar los sucesos
-	* //@param ActionForm			El opcional ActionForm con los contenidos de las peticiones
-	* //@param HttpRequestBase	El HTTP request de lo que se esta  procesando
-	* //@param HttpRequestBase	La respuesta HTTP de lo que estan creando
-	* //@public
-	* 
-	* 
-	* @param string $mapping una variable que muestra los sucesos
-	* @param array $form con todo el contenido a ejecutar
-	* @param pointer &$request puntero a un string de lo que se esta solicitando
-	* @param pointer &$response puntero a un string de la respuesta que ha dado el servidor
-	* @return ActionForward string $mapping con la cadena "sucess" o "failure"
-	*
-	*/
 	function execute($mapping, $form, &$request, &$response) {
 
     BaseAction::execute($mapping, $form, $request, $response);
@@ -79,7 +56,7 @@ class AffiliatesUsersDoEditAction extends BaseAction {
 		
 		$affiliateUserParams = $_POST["affiliateUser"];
 
-		if ( !empty($_SESSION["loginUser"]) )
+		if (!empty($_SESSION["loginUser"]))
 			$affiliateId = $_POST["affiliateUser"]["affiliateId"];
 		else
 			$affiliateId = $_SESSION["loginAffiliateUser"]->getAffiliateId();
@@ -87,7 +64,7 @@ class AffiliatesUsersDoEditAction extends BaseAction {
 		
 		$filters = array('searchAffiliateId' => $affiliateId);
 		
-		if ( ( empty($_POST["id"]) && empty($affiliateUserParams["password"]) ) || ($affiliateUserParams["password"] != $affiliateUserParams["password2"]) ) {
+		if ((empty($_POST["id"]) && empty($_POST["pass"])) || ($_POST["pass"] != $_POST["pass2"])) {
 			$this->assignObjects($smarty);
 			$smarty->assign("message","wrongPassword");
 			return $mapping->findForwardConfig('failure');
@@ -99,6 +76,10 @@ class AffiliatesUsersDoEditAction extends BaseAction {
 			$affiliateUser = AffiliateUserPeer::get($_POST["id"]);
 		
 		Common::setObjectFromParams($affiliateUser, $affiliateUserParams);
+		if (!empty($_POST["pass"])) {
+			$affiliateUser->setPasswordString($_POST["pass"]);
+			$affiliateUser->setPasswordUpdatedTime();
+		}
 		
 		$affiliate = $_SESSION['newAffiliate'];
 		if (!empty($affiliate) && !empty($_POST["ownerCreation"])) {
