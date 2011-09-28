@@ -6,105 +6,10 @@ class SecurityEditPermissionsAction extends BaseAction {
 		;
 	}
 
-	function evaluateBitlevel($level,$bitlevel) {
-		//si el valor que queda al restarle el nivel a evaluar es mayor o igual a cero, ese
-		//nivel esta seteado
-
-		if ($level == SecurityModulePeer::LEVEL_ALL)
-			return ($bitlevel == $level);
-
-		return ((intval($level) & intval($bitlevel)) > 0);
-
-	}
-
-	function getAccessToActions($actions) {
-
-		$access = array();
-
-		foreach ($actions as $action) {
-			$lcAction = lcfirst($action);
-
-			$securityAction = SecurityActionPeer::getByNameOrPair($lcAction);
-			if (!empty($securityAction)) {
-	
-				$access[$action] = array();
-				$access[$action]['noCheckLogin'] = $securityAction->getNoCheckLogin();
-	
-				$bitLevel = $securityAction->getAccess();
-				if ($bitLevel == SecurityModulePeer::LEVEL_ALL) {
-					$access[$action]['bitLevel'] = 0;
-					$access[$action]['all'] = 1;
-				}
-				else
-					$access[$action]['bitLevel'] = $bitLevel;
-	
-				if (class_exists("AffiliateLevelPeer")) {
-	
-					$bitLevelAffiliate = $securityAction->getAccessAffiliateUser();
-					if ($bitLevelAffiliate == SecurityModulePeer::LEVEL_ALL) {
-						$access[$action]['bitLevelAffiliate'] = 0;
-						$access[$action]['affiliateAll'] = 1;
-					}
-					else
-						$access[$action]['bitLevelAffiliate'] = $bitLevelAffiliate;
-
-				}
-	
-				if (class_exists("RegistrationUser"))
-					$access[$action]['permissionRegistration'] = $securityAction->getAccessRegistrationUser();
-
-			}
-
-		}
-
-		return $access;
-	}
-
-	function getAccessToModule($module) {
-
-		$access = array();
-		$securityModule = SecurityModulePeer::getAccess($module);
-
-		if (!empty($securityModule)) {
-
-			//Permisos para usuarios
-			$bitLevel = $securityModule->getAccess();
-			if ($bitLevel == (SecurityModulePeer::LEVEL_ALL)) {		
-				$access['permissionGeneral'][all] = 1;
-				$bitLevel = 0;
-			}
-			$userLevels = LevelPeer::getAll();
-			foreach ($userLevels as $level)
-				$access['permissionGeneral'][$level->getBitLevel()] = $this->evaluateBitlevel($level->getBitLevel(),$bitLevel);
-
-
-			//Permisos para usuarios por afiliado
-			if (class_exists("AffiliateLevelPeer")) {
-				$bitLevelAffiliate = $securityModule->getAccessAffiliateUser();
-				$affiliateUserLevels = AffiliateLevelPeer::getAll();
-				foreach ($affiliateUserLevels as $level)
-					$access['permissionAffiliateGeneral'][$level->getBitLevel()] = $this->evaluateBitlevel($level->getBitLevel(),$bitLevelAffiliate);
-				$access['permissionAffiliateGeneral'][all] = $this->evaluateBitlevel(SecurityModulePeer::LEVEL_ALL,$bitLevelAffiliate);
-			}
-			//Permisos para usauarios por registro
-			if (class_exists("RegistrationUser"))
-				$access['permissionRegistrationGeneral'] = $securityModule->getAccessRegistrationUser();
-
-		}
-		return $access;
-	}
-
-
 	function execute($mapping, $form, &$request, &$response) {
 
 		BaseAction::execute($mapping, $form, $request, $response);
-		global $PHP_SELF;
-		//////////
-		// Call our business logic from here
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -177,10 +82,10 @@ class SecurityEditPermissionsAction extends BaseAction {
 		if (empty($moduleSelected))
 			$moduleSelected = new SecurityModule();
 
-		$generalAccess = $this->getAccessToModule($_GET['moduleName']);
+		$generalAccess = SecurityModulePeer::getAccessToModule($_GET['moduleName']);
 
-		$withoutPairAccess = $this->getAccessToActions($withoutPair);
-		$withPairAccess = $this->getAccessToActions($withPair);
+		$withoutPairAccess = SecurityActionPeer::getAccessToActions($withoutPair);
+		$withPairAccess = SecurityActionPeer::getAccessToActions($withPair);
 
 		$smarty->assign('moduleSelected',$moduleSelected);
 		$smarty->assign('withoutPairAccess',$withoutPairAccess);
