@@ -16,8 +16,8 @@ function generate() {
 	shell_exec('echo estoy vacio > stderr.txt');
 
 	shell_exec($command.' > stdout.txt 2> stderr.txt');
-	shell_exec($command.' diff > stdout.txt 2> stderr.txt');
-	//shell_exec($command.' migrate > stdout.txt 2> stderr.txt');
+	shell_exec($command.' diff >> stdout.txt 2>> stderr.txt');
+	//shell_exec($command.' migrate >> stdout.txt 2>> stderr.txt');
 
 	echo '<p>listo</p>';
 	
