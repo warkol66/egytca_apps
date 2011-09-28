@@ -1,7 +1,5 @@
 <?php
 
-//Accion que devuelve el listado de usuarios para mostrar en el autocomplete
-
 class UsersAutocompleteListXAction extends BaseAction {
 
 	function UsersAutocompleteListXAction() {
@@ -22,29 +20,37 @@ class UsersAutocompleteListXAction extends BaseAction {
 		}
 
 		$module = "Users";
-		
 		$smarty->assign("module",$module);
 		
-		$this->template->template = "TemplateAjax.tpl";
-
 		$searchString = $_REQUEST['value'];
 		$smarty->assign("searchString",$searchString);
 
-		if (!empty($_REQUEST['adminActId'])) {
-			$userParticipatingIds = AdminActParticipantQuery::create()
-									->filterByAdminActId($_REQUEST['adminActId'])
-									->filterByObjectType('User')
-									->select('Objectid')
-									->find();
-		}
-		
-		$users = UserQuery::create()->where('User.Username LIKE ?', "%" . $searchString . "%")
-									->orWhere('User.Name LIKE ?', "%" . $searchString . "%")
-									->orWhere('User.Surname LIKE ?', "%" . $searchString . "%")
-									->where('User.Id NOT IN ?', $userParticipatingIds)
-									->limit($_REQUEST['limit'])
-									->find();
-		
+
+		$filters = array("searchString" => $searchString, "limit" => $_REQUEST['limit']);
+
+		if ($_REQUEST['adminActId'])
+			$filters = array_merge_recursive($filters, array("adminActId" => $_REQUEST['adminActId']));
+		else if ($_REQUEST['issueId'])
+			$filters = array_merge_recursive($filters, array("issueId" => $_REQUEST['issueId']));
+		else if ($_REQUEST['headlineId'])
+			$filters = array_merge_recursive($filters, array("headlineId" => $_REQUEST['headlineId']));
+
+		if ($_REQUEST['getCandidates'])
+			$filters = array_merge_recursive($filters, array("getCandidates" => true));
+
+		if ($_REQUEST['adminActId'])
+			$filters = array_merge_recursive($filters, array("relatedObject" => IssuePeer::get($_REQUEST['adminActId'])));
+		else if ($_REQUEST['issueId'])
+			$filters = array_merge_recursive($filters, array("relatedObject" => IssuePeer::get($_REQUEST['issueId'])));
+		else if ($_REQUEST['headlineId'])
+			$filters = array_merge_recursive($filters, array("relatedObject" => HeadlinePeer::get($_REQUEST['headlineId'])));
+		else if ($_REQUEST['campaignId'])
+			$filters = array_merge_recursive($filters, array("relatedObject" => CampaignPeer::get($_REQUEST['campaignId'])));
+
+		$userPeer = new UserPeer();
+		$this->applyFilters($userPeer,$filters);
+		$users = $userPeer->getAll();
+
 		$smarty->assign("users",$users);
 		$smarty->assign("limit",$_REQUEST['limit']);
 

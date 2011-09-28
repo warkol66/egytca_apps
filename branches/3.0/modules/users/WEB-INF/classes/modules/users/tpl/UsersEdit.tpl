@@ -52,7 +52,7 @@ function usersDoDeleteFromGroup(form){
 				{
 					method: 'post',
 					postBody: fields,
-					evalScripts: true,
+					evalScripts: true
 				});
 	$('groupMsgField').innerHTML = '<span class="inProgress">eliminando usuario de grupo...</span>';
 	return true;
@@ -78,9 +78,11 @@ function usersDoEditInfo(form){
 	<input type='hidden' name='id' value='|-if $action eq "edit"-||-$currentUser->getId()-||-/if-|' />
 |-if $action eq 'edit' and $currentUser->getId() lt 3-|
 	<p><label for="userParams[usernameDisabled]">##users,162,Identificación de Usuario##</label>
+	|-if $action eq 'edit' and $currentUser->getUsername() ne ''-|<input id='actualuserParams[username]' type='hidden' value='|-$currentUser->getUsername()-|' />|-/if-|
 		<input id='userParams[usernameDisabled]' name='userParams[usernameDisabled]' type='text' value='|-$currentUser->getUsername()-|' size="30" disabled="disabled" />
 |-else-|
 	<p><label for="userParams[username]">##users,162,Identificación de Usuario##</label>
+			|-if $action eq 'edit' and $currentUser->getUsername() ne ''-|<input id='actualuserParams[username]' type='hidden' value='|-$currentUser->getUsername()-|' />|-/if-|
 			<input id='userParams[username]' name='userParams[username]' type='text' value='|-$currentUser->getUsername()-|'  size="30" |-ajax_onchange_validation_attribute actionName=usersValidationUsernameX-| />|-validation_msg_box idField=userParams[username]-|
 |-/if-|</p>
 		<p><label for="userParams[name]">##users,163,Nombre##</label>
@@ -141,16 +143,16 @@ function usersDoEditInfo(form){
 				<input type="button" value="Agregar Usuario al grupo" onClick="javascript:usersDoAddFromGroup(this.form)"/> 
 			</p> 
 		</form> 
-		<ul id="groupList">
+		<ul id="groupList" class="iconOptionsList">
 			 |-foreach from=$currentUser->getGroups() item=groupRelation name=for_group-|			 
 			 |-assign var="group" value=$groupRelation->getGroup()-|
-			<li id="groupListItem|-$group->getId()-|">|-$group->getName()-|
+			<li id="groupListItem|-$group->getId()-|">
 				<form  method="post"> 
 					<input type="hidden" name="do" id="do" value="usersDoDeleteFromGroupX" /> 
 					<input type="hidden" name="userId"  value="|-$currentUser->getId()-|" /> 
 					<input type="hidden" name="groupId"  value="|-$group->getId()-|" /> 
-					<input type="button" value="Eliminar" onClick="javascript:usersDoDeleteFromGroup(this.form)" class="icon iconDelete" /> 
-				</form> 
+					<input type="button" value="Eliminar" onClick="javascript:usersDoDeleteFromGroup(this.form)" class="icon iconDelete" title="Eliminar el usuario del grupo"/> 
+				</form> |-$group->getName()-|
 			</li> 
 			|-/foreach-|
 		</ul> 
