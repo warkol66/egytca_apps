@@ -67,7 +67,7 @@
 		<thead>
 			<tr class="tableTdHeader">
 				<th width="1%">&nbsp;</th>
-				<th width="60%">Nombre de Archivo</th>
+				<th width="60%">Nombre de Archivo <a href="Main.php?do=backupList|-if $order neq 'desc'-|&order=desc|-/if-|" title="Cambiar el orden"><img src="images/icon_sort.png"/></a></th>
 				<th width="20%">Fecha y hora</th>
 				<th width="15%">Tamaño</th>
 				<th width="4%">&nbsp;</th>

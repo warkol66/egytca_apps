@@ -16,7 +16,9 @@
 class BackupPeer {
 
 	var $header = '';
-	var $pathIgnoreList = array('backups/','WEB-INF/smarty_tpl/templates_c');
+	var $pathIgnoreList = array('.svn/','.git/', 'install.php');
+	var $pathContentIgnoreList = array('backups/','WEB-INF/smarty_tpl/templates_c/');
+	private $ignoreHeaderAndFooter;
 
 	/**
 	 * Verifica actualemente si la configuracion de la base tiene prefijo
@@ -50,11 +52,18 @@ class BackupPeer {
 	}
 
 	/**
+	 * Ignora la creación de encabezado y pie para correccion de camelcase
+	 */
+	function setIgnoreHeaderAndFooter() {
+		$this->ignoreHeaderAndFooter = true;
+	}
+
+	/**
 	 * Obtiene el listado de backups almacenados en el servidor
 	 *
 	 * @return array de nombres de archivo
 	 */
-	function getBackupList() {
+	function getBackupList($order = "asc") {
 
 		$path = 'WEB-INF/../backups/';
 		$dir = opendir($path);
@@ -63,21 +72,24 @@ class BackupPeer {
 		while ($file = readdir($dir)) {
 
 			if (preg_match("/\.zip/i",$file)) {
-				$filename    = $path . $file;
-				$file_object = array(
-																'name' => $file,
-																'size' => (filesize($filename) / 1024),
-																'time' => filemtime($filename)
-														);
-
-				array_push($filenames,$file_object);
+				$filename = $path . $file;
+				$data = array(
+					'name' => $file,
+					'size' => (filesize($filename) / 1024),
+					'time' => filemtime($filename)
+				);
+				array_push($filenames,$data);
 			}
 
 		}
 		//ordenamos los nombres de archivo
-		sort($filenames);
+		if ($order == "desc")
+			rsort($filenames);
+		else
+			sort($filenames);
 
 		return $filenames;
+
 	}
 
 	/**
@@ -91,7 +103,6 @@ class BackupPeer {
 
 		require_once('config/DBConnection.inc.php');
 		$db = new DBConnection();
-		$connection = @mysql_connect($db->Host,$db->User,$db->Password);
 
 		require_once('mysql_dump.inc.php');
 		$dumper = new MySQLDump($db->Database,$filename ? $path . $filename : false,false,false);
@@ -100,13 +111,13 @@ class BackupPeer {
 		if (($tablePrefix = BackupPeer::configHasPrefix()) != false)
 			$dumper->setTablePrefix($tablePrefix);
 
-		$headerAndFooter = $this->getDumpHeaderAndFooter();
-		$header = $headerAndFooter["header"];
-		$footer = $headerAndFooter["footer"];
-		$filecontent = $dumper->doDumpToString();
-		$filecontents = $header.$filecontent.$footer;
-
-		mysql_close($connection);
+		if (!$this->ignoreHeaderAndFooter) {
+			$headerAndFooter = $this->getDumpHeaderAndFooter();
+			$header = $headerAndFooter["header"];
+			$footer = $headerAndFooter["footer"];
+			$filecontent = $dumper->doDumpToString();
+			$filecontents = $header.$filecontent.$footer;
+		}
 
 		return $filecontents;
 
@@ -128,27 +139,27 @@ class BackupPeer {
 
 	/**
 	 * Crea un backup
-	 *	
+	 *
 	 * @return $zipContents si fue exitoso, false sino
 	 */
 	function createBackup($options, $path = 'WEB-INF/../backups/') {
-		
+
 		if (!isset($options['complete']))
 			$options['complete'] = false;
-			
+
 		if (!isset($options['toFile']))
 			$options['toFile'] = false;
-		
+
 		set_time_limit(ConfigModule::get("global","backupTimeLimit"));
 		$filename = BackupPeer::getFileName();
 		$filecontents = BackupPeer::buildDataBackup($options['toFile'] ? false : $filename,$path);
-		
+
 		$message = 'Se ha creado un backup';
 		$message .= $options['complete'] ? ' de datos' : ' completo';
 		$message .= $options['toFile'] ? ' para descarga' : ' en el servidor';
 		BackupPeer::writeToBackupLog($message);
 		$zipContents = BackupPeer::getZipFromDataFile($filecontents, $options['complete']);
-		
+
 		if (!$options['toFile']) {
 			if (file_put_contents($path . $filename, $zipContents))
 				return $zipContents;
@@ -157,7 +168,7 @@ class BackupPeer {
 		}
 		return $zipContents;
 	}
-	
+
 	public function getFileName() {
 		$currentDatetime = BackupPeer::getCurrentDatetime();
 		return Common::getSiteShortName() . '_' . date('Ymd_His',strtotime($currentDatetime)) . '.zip';
@@ -169,25 +180,30 @@ class BackupPeer {
 	 */
 	function restoreSQL($sqlQuery, $complete = false) {
 
+		global $osType;
+
 		require_once('config/DBConnection.inc.php');
 		$db = new DBConnection();
-		$connection = @mysql_connect($db->Host,$db->User,$db->Password);
 
 		//nos guardamos un dump de la tabla de logs para hacerla trascender al respaldo que se está cargando
 		//esta tabla no se debe alterar al cargar un respaldo.
 		$this->setTableHeader('actionLogs_log');
+		$this->setIgnoreHeaderAndFooter();
 		$logsDump = $this->buildDataBackup();
 		$sqlQuery .= $logsDump; //ponemos la tabla de logs actual para que se cargue al final de todo.
-		
+
 		$queries = explode(";\n",$sqlQuery);
 
 		foreach ($queries as $query) {
 			$query = trim($query);
+
+			if ($query == "#Renombre de tablas con camelcase." && stristr($osType,"WIN") !== FALSE) //Fin de ejecucion de sql en Windows
+				break;
+
 			if (!empty($query))
 				$db->query($query);
 		}
 
-		mysql_close($connection);
 		return true;
 	}
 
@@ -200,7 +216,7 @@ class BackupPeer {
 	function restoreBackup($zipFilename, $originalFileName = null) {
 		if ($originalFileName === null)
 			$originalFileName = $zipFilename;
-			
+
 		set_time_limit(ConfigModule::get("global","backupTimeLimit"));
 
 		require_once("zip.class.php");
@@ -209,33 +225,46 @@ class BackupPeer {
 		$zipfile->read_zip($zipFilename);
 
 		$sql = '';
-		
+
 		$complete = false;
-		
+
+		$rootDir = "";
 		foreach($zipfile->files as $filea) {
+			if ($rootDir == "" && $filea["dir"] != "") {
+				if (strpos($filea["dir"], "./") === 0)
+					$rootDir = "./";
+				else
+					$rootDir = "_/";
+			}
+			
 			// condicion de busqueda del archivo SQL
-			if ($filea["name"] == "dump.sql" && ($filea["dir"] == './db' || empty($filea["dir"])))
+			if ($filea["name"] == "dump.sql" && (($filea["dir"] == './db' || empty($filea["dir"])) || ($filea["dir"] == '_/db' || empty($filea["dir"]))) )
 				$sql = $filea["data"];
-
+			
 			//condicion para detectar archivos a reemplazar
-			if (strpos($filea["dir"],'./files') !== false) {
-				$complete = true;
-
-				if ($filea['dir'] === './files')
+			if (strpos($filea["dir"], $rootDir.'files') !== false) {
+				if ($filea['dir'] === $rootDir.'files')
 					$path = '';
 				else {
-					$clearRoute = explode('\.\/files\/',$filea['dir']);
+					$clearRoute = explode($rootDir.'files/',$filea['dir']);
 					$path = $clearRoute[1] . '/';
+					if (!empty($path) && !file_exists($path))
+						mkdir($path, 0777, true);
 				}
 				//guardamos el archivo en su ubicacion
-				file_put_contents('WEB-INF/../' . $path . $filea["name"] , $filea['data']);
+				file_put_contents($path . $filea["name"] , $filea['data']);
 			}
+		}
+		
+		foreach ($this->pathContentIgnoreList as $createme) {
+			if (!file_exists($createme))
+				mkdir($createme, 0777, true);
 		}
 
 		//hay procesamiento de SQL
 		if (!empty($sql))
 			$ret = BackupPeer::restoreSQL($sql, $complete);
-			
+
 		if (!$ret)
 			return false;
 
@@ -274,31 +303,43 @@ class BackupPeer {
 	function getZipFromDataFile($datafile, $complete = false) {
 		require_once("zip.class.php");
 		$zipfile = new zipfile;
-		$zipfile->create_dir(".");
-		$zipfile->create_dir("./db/");
-		$zipfile->create_file($datafile, "./db/dump.sql");
+		$zipfile->create_dir("_");
+		$zipfile->create_dir("_/db/");
+		$zipfile->create_file($datafile, "_/db/dump.sql");
 
 		if ($complete) {
-			$zipfile->create_dir("./files/");
+			$zipfile->create_dir("_/files/");
 			$listing = array();
 			$dirHandler = @opendir('WEB-INF/../');
 			BackupPeer::directoryList(&$listing,$dirHandler,'WEB-INF/../');
-	
+
 			foreach ($listing as $route) {
 				$clearRoute = explode('WEB-INF/../',$route);
-	
-				if (!BackupPeer::routeHasToBeIgnored($clearRoute[1])) {
+
+				if (!BackupPeer::routeHasToBeIgnored($clearRoute[1]) &&
+					!BackupPeer::routeContentHasToBeIgnored($clearRoute[1]) ) {
 					if (is_dir($route))
-						$zipfile->create_dir("./files/" . $clearRoute[1]);
+						$zipfile->create_dir("_/files/" . $clearRoute[1]);
 					if (is_file($route)) {
 						$contents = file_get_contents($route);
-						$zipfile->create_file($contents,'./files/' . $clearRoute[1]);
+						$zipfile->create_file($contents,"_/files/" . $clearRoute[1]);
 					}
+				} else {
+					if (in_array($clearRoute[1], $this->pathContentIgnoreList)) // Es el directorio ignorado raiz
+						$zipfile->create_dir ("_/files/" . $clearRoute[1]);
 				}
 			}
 		}
-		
+
 		return $zipfile->zipped_file();
+	}
+	
+	function routeContentHasToBeIgnored($route) {
+		foreach ($this->pathContentIgnoreList as $toIgnore) {
+			if (strpos($route,$toIgnore) !== false)
+				return true;
+		}
+		return false;
 	}
 
 	/**
@@ -387,8 +428,7 @@ class BackupPeer {
 		global $moduleRootDir,$osType;
 		$header = "";
 		$footer = "";
-		if ($osType == "WINDOWS" || $osType == "WINNT" || $osType == "WIN") {
-			$pathToXml = $moduleRootDir.'/WEB-INF/classes/propel/schema.xml';
+		if (stristr($osType,"WIN") !== FALSE) {
 
 			//Path a schemas
 			$path = "WEB-INF/propel";
@@ -397,7 +437,7 @@ class BackupPeer {
 			$schemas = Array();
 
 			foreach ($schemasFile as $schema) {
-				if (substr($schema, -3) == "xml")
+				if (substr($schema, -10) == "schema.xml")
 					$schemas[] = $schema;
 			}
 
@@ -414,13 +454,15 @@ class BackupPeer {
 
 				foreach ($arrayTables as $tableElement) {
 					$tableName = $tableElement["_a"]["name"];
-					if (ereg("[A-Z]",$tableName))
+					if (preg_match("/[A-Z]/",$tableName))
 						$tables[] = $tableName;
+
+					$tables = $this->addVersionableTableIfApplicable($tables, $tableElement);
 				}
 			}
 
-			$header = "#Eliminacion de tablas con camelcase.\n";
-			$footer = "#Renombre de tablas con camelcase.\n";
+			$header = "#Eliminacion de tablas con camelcase.;\n";
+			$footer = "#Renombre de tablas con camelcase.;\n";
 
 			foreach ($tables as $table) {
 				$header .= "DROP TABLE IF EXISTS ". $table .";\n";
@@ -434,23 +476,58 @@ class BackupPeer {
 	}
 
 	/**
+	 * Agrega la tabla proporcionada por el Behavior Versionable, al array
+	 * de tablas para renombre, siempre y cuando este el Behavior definido.
+	 *
+	 * @param   array $tables
+	 * @param   array $tableElement
+	 * @return  array
+	 */
+	function addVersionableTableIfApplicable($tables, $tableElement) {
+
+		if (empty($tableElement["_c"]["behavior"])) 
+			return $tables;
+
+		foreach ($tableElement["_c"]["behavior"] as $behavior) {
+
+			if (!empty($behavior["_a"]["name"]) && ($behavior["_a"]["name"] != 'versionable'))
+				continue;
+
+			$versionableTable = $tableElement["_a"]["name"] . '_version';
+
+			if (!empty($behavior["_c"]["parameter"])) {
+				foreach ($behavior["_c"]["parameter"] as $parameter) {
+					if ($parameter["_a"]["name"] == 'version_table')
+						$versionableTable = $parameter["_a"]["value"];
+				}
+			}
+
+			if (preg_match("/[A-Z]/", $versionableTable))
+				$tables[] = $versionableTable;
+
+		}
+
+		return $tables;
+	}
+
+	/**
 	 * Envio de un BackupExistente Por Email
 	 * @param string nombre del archivo a enviar
 	 * @param string email del destinatario
 	 */
 	function sendBackupToEmail($email = null, $filename = null, $complete = null) {
 		require_once('EmailManagement.php');
-		
+
 		$systemConfig = Common::getConfiguration('system');
-		
+
 		if ($complete === null)
 			$complete = false;
-		
+
 		if ($email === null) {
 			$recipients = $systemConfig['receiveMailBackup'];
 			$email = explode(',', $recipients);
 		}
-		
+
 		if ($filename === null) {
 			$filename = BackupPeer::getFileName();
 			BackupPeer::createBackup(array('toFile'=>false, 'complete'=>$complete));
@@ -458,7 +535,7 @@ class BackupPeer {
 		if (file_exists('WEB-INF/../backups/' . $filename) == false)
 			return false;
 		//creamos el attach utilizando el wrapper de archivo de Swift.
-		$attachment = Swift_Attachment::fromPath('WEB-INF/../backups/' . $filename, 'application/zip'); 
+		$attachment = Swift_Attachment::fromPath('WEB-INF/../backups/' . $filename, 'application/zip');
 
 		global $system;
 
@@ -475,6 +552,6 @@ class BackupPeer {
 
 		//realizamos el envio
 		$result = $manager->sendMessage($destination,$mailFrom,$message);
-		return $result;		
+		return $result;
 	}
 }

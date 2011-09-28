@@ -5,8 +5,6 @@
  * @package backup
  */
 
-require_once("BackupPeer.php");
-
 class BackupCreateAction extends BaseAction {
 
 	function BackupCreateAction() {
@@ -17,9 +15,6 @@ class BackupCreateAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -29,24 +24,24 @@ class BackupCreateAction extends BaseAction {
 		$module = "Backup";
 		$smarty->assign("module",$module);
 
+		require_once("BackupPeer.php");
 		$backupPeer = new BackupPeer();
 		
 		$options = $_GET['options'];
 		$content = $backupPeer->createBackup($options);
 		if (!$content) {
-			Common::doLog('failure');
+			Common::doLog('failure','Error creating backup');
 			return $mapping->findForwardConfig('failure');
 		}
 		
-		Common::doLog('success');
+		$filename = $backupPeer->getFileName();
+
+		Common::doLog('success','Backup created: ' . $filename);
 		
 		if ($options['toFile']) {
-			$filename = $backupPeer->getFileName();
-
 			header("Content-type: application/zip");
 			header('Content-Disposition: attachment; filename="'.$filename.'"');
 			echo $content;
-	
 			die;
 		}
 		return $mapping->findForwardConfig('success');

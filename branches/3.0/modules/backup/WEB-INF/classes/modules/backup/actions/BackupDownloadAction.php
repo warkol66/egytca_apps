@@ -5,8 +5,6 @@
  * @package backup
  */
 
-require_once("BackupPeer.php");
-
 class BackupDownloadAction extends BaseAction {
 
 	function BackupDownloadAction() {
@@ -17,9 +15,6 @@ class BackupDownloadAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -29,6 +24,7 @@ class BackupDownloadAction extends BaseAction {
 		$module = "Backup";
 		$smarty->assign("module",$module);
 
+		require_once("BackupPeer.php");
 		$backupPeer = new BackupPeer();
 
 		if ($_GET['filename']) {
@@ -46,5 +42,4 @@ class BackupDownloadAction extends BaseAction {
 		}
 		die;
 	}
-
 }
