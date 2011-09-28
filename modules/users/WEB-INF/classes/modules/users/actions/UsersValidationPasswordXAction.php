@@ -13,18 +13,13 @@ class UsersValidationPasswordXAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-				BaseAction::execute($mapping, $form, $request, $response);
+			BaseAction::execute($mapping, $form, $request, $response);
 
-			//////////
-			// Access the Smarty PlugIn instance
-			// Note the reference "=&"
 			$plugInKey = 'SMARTY_PLUGIN';
 			$smarty =& $this->actionServer->getPlugIn($plugInKey);
 			if($smarty == NULL) {
 				echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 			}
-
-			$this->template->template = 'TemplateAjax.tpl';
 
 			$module = "Validation";
 			$smarty->assign('module',$module);
@@ -34,13 +29,12 @@ class UsersValidationPasswordXAction extends BaseAction {
 
 			$user = $_SESSION['loginUser'];
 
-			$currentPass = $_POST['currentPass'] . "ASD";
-			if ( md5($currentPass) == $user->getPassword() )
+			$currentPass = Common::md5($_POST['currentPass']);
+			if ($currentPass == $user->getPassword() )
 				$match = 0;
 
 			$smarty->assign('name',$name);
 			$smarty->assign('value',$match);
-			$smarty->assign('message',$message);
 
 			return $mapping->findForwardConfig('success');
 

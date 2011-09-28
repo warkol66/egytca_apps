@@ -27,8 +27,7 @@
 		</p>
 		<p><input type="hidden" name="accion" value="edicion" />
 				<input type='submit' name='guardar' value='##97,Guardar##'  class='button' />
-				&nbsp;&nbsp;
-				<input type='button' onClick='javascript:history.go(-1)' value='##104,Regresar##' class='button'  />
+				<input type='button' onClick='location.href="Main.php?do=usersLevelsList"' value='##users,104,Regresar##'  />
 			</p>
 </form>
 </fieldset>
@@ -53,11 +52,11 @@
 	</tr>
 	|-/foreach-|
 	<tr>
-		<td colspan='2'><form action='Main.php' method='post'>
+		<td colspan="2" class="controlsTd"><form action='Main.php' method='post'>
 				##195,Agregar Nivel de Usuarios##&nbsp;&nbsp;
 				<input type="hidden" name="do" value="usersLevelsDoEdit" />
 				<input type="text" name="name" value="" />
-				<input type='submit' value='##123,Agregar##' class='button' />
+				<input type="submit" value='##123,Agregar##' class='button' />
 			</form></td>
 	</tr>
 </table>

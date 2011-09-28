@@ -26,8 +26,7 @@ function usersDoDeleteFromGroup(form){
 				{
 					method: 'post',
 					postBody: fields,
-					evalScripts: true,
-				
+					evalScripts: true
 				});
 				
 	$('groupMsgField').innerHTML = '<span class="inProgress">eliminando usuario de grupo...</span>';

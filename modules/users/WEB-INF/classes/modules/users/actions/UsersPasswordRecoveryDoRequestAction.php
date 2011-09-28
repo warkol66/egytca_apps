@@ -1,15 +1,13 @@
 <?php
 /**
- * UsersPasswordRecoverySendConfirmationRequestAction
+ * UsersPasswordRecoveryDoRequestAction
  *
  * @package users
  */
 
-require_once("EmailManagement.php");
+class UsersPasswordRecoveryDoRequestAction extends BaseAction {
 
-class UsersPasswordRecoverySendConfirmationRequestAction extends BaseAction {
-
-	function UsersPasswordRecoverySendConfirmationRequestAction() {
+	function UsersPasswordRecoveryDoRequestAction() {
 		;
 	}
 
@@ -19,9 +17,6 @@ class UsersPasswordRecoverySendConfirmationRequestAction extends BaseAction {
 
 		$this->template->template = "TemplatePlain.tpl";
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -29,6 +24,7 @@ class UsersPasswordRecoverySendConfirmationRequestAction extends BaseAction {
 		}
 
 		$module = "Users";
+		$section = "Users";
 
 		if ( !empty($_POST["username"]) && !empty($_POST["mailAddress"]) ) {
 			if (Common::validateCaptcha($_POST['securityCode'])) {
@@ -39,13 +35,14 @@ class UsersPasswordRecoverySendConfirmationRequestAction extends BaseAction {
 						$smarty->assign("user",$user);
 						$recoveryHash = $user->createRecoveryHash();
 						$smarty->assign("recoveryHash",$recoveryHash);
-						$body = $smarty->fetch("UsersPasswordRecoveryConfirmationRequestMail.tpl");
+						$body = $smarty->fetch("UsersPasswordRecoveryRequest.tpl");
 		
 						$mailTo = $user->getMailAddress();
 		
 						global $system;
 						$mailFrom = $system["config"]["system"]["parameters"]["fromEmail"];
 		
+						require_once("EmailManagement.php");
 						$manager = new EmailManagement();
 						$message = $manager->createHTMLMessage($subject,$body);
 						$result = $manager->sendMessage($mailTo,$mailFrom,$message);

@@ -21,56 +21,40 @@
 			<forward name="successFirstLogin" path="/Main.php?do=usersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
 		</action>
 
-		<action    path = "usersAutocompleteListX"
-							 type = "UsersAutocompleteListXAction"
-							 name = "usersAutocompleteListX"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="UsersAutocompleteListXSuccess.tpl" />
-		</action>
-		
-		<action    path = "usersPasswordRecoverySendConfirmationRequest"
-							 type = "UsersPasswordRecoverySendConfirmationRequestAction"
-							 name = "usersPasswordRecoverySendConfirmationRequest"
+		<action    path = "usersPasswordRecoveryDoRequest"
+							 type = "UsersPasswordRecoveryDoRequestAction"
+							 name = "usersPasswordRecoveryDoRequest"
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=usersLogin&amp;message=confirmationMailSent" redirect="true" />
 			<forward name="failure" path="UsersPasswordRecovery.tpl"/>
 		</action>
-		
+
 		<action    path = "usersPasswordRecoveryConfirmation"
 							 type = "UsersPasswordRecoveryConfirmationAction"
 							 name = "usersPasswordRecoveryConfirmation"
 							scope = "request"
 					 validate = "true">
 			<forward name="askNewPass" path="UsersNewPasswordForRecovery.tpl"/>
-			<forward name="sendNewPass" path="/Main.php?do=usersPasswordDoRecovery" redirect="true"/>
+			<forward name="sendNewPass" path="/Main.php?do=usersPasswordDoRecover" redirect="true"/>
 		</action>
-		
-		<action    path = "usersPasswordDoChangeForRecovery"
-							 type = "UsersPasswordDoChangeForRecoveryAction"
-							 name = "usersPasswordDoChangeForRecovery"
+
+		<action    path = "usersPasswordDoSetFromRecovery"
+							 type = "UsersPasswordDoSetFromRecoveryAction"
+							 name = "usersPasswordDoSetFromRecovery"
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=usersLogin&amp;message=passwordChanged" redirect="true"/>
 			<forward name="failure" path="/Main.php?do=usersLogin" redirect="true"/>
 		</action>
 
-		<action    path = "usersPasswordDoRecovery"
-							 type = "UsersPasswordDoRecoveryAction"
-							 name = "usersPasswordDoRecovery"
+		<action    path = "usersPasswordDoRecover"
+							 type = "UsersPasswordDoRecoverAction"
+							 name = "usersPasswordDoRecover"
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=usersLogin&amp;message=passwordSent" redirect="true" />
 			<forward name="failure" path="UsersLogin.tpl"/>
-		</action>
-
-		<action    path = "usersWelcome"
-							 type = "UsersWelcomeAction"
-							 name = "usersWelcome"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="UsersWelcome.tpl"/>
 		</action>
 
 		<action    path = "usersLoginMaintenance"
@@ -87,24 +71,6 @@
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=usersLogin" redirect="true"/>
-		</action>
-<!--
-		<action    path = "usersDoEdit"
-							 type = "UsersDoEditAction"
-							 name = "usersDoEdit"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="/Main.php?do=usersList&amp;message=saved" redirect="true"/>
-			<forward name="successAdd" path="/Main.php?do=usersList&amp;message=added" redirect="true"/>
-			<forward name="successCreated" path="/Main.php?do=usersEdit&amp;message=saved" redirect="true"/>
-		</action>
--->
-		<action    path = "usersDoEditInfoX"
-							 type = "UsersDoEditInfoXAction"
-							 name = "usersDoEditInfoX"
-							scope = "request"
-					 validate = "true">
-			<forward name="success"  path="UsersDoEditInfoX.tpl" />
 		</action>
 
 		<action    path = "usersDoEditInfo"
