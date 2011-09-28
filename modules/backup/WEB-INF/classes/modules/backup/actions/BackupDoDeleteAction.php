@@ -1,11 +1,9 @@
-﻿<?php
+<?php
 /**
  * BackupDeleteAction
  *
  * @package backup
  */
-
-require_once("BackupPeer.php");
 
 class BackupDoDeleteAction extends BaseAction {
 
@@ -17,9 +15,6 @@ class BackupDoDeleteAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -29,16 +24,16 @@ class BackupDoDeleteAction extends BaseAction {
 		$module = "Backup";
 		$smarty->assign("module",$module);
 
+		require_once("BackupPeer.php");
 		$backupPeer = new BackupPeer();
 
 		if ($backupPeer->deleteBackup($_POST['filename'])) {
-			Common::doLog('success');
+			Common::doLog('success','Backup deleted: ' . $_POST['filename']));
 			return $mapping->findForwardConfig('success');
 		}
 		else {
-			Common::doLog('failure');
+			Common::doLog('failure','Backup not deleted: ' . $_POST['filename']));
 			return $mapping->findForwardConfig('failure');
 		}
 	}
-
 }
