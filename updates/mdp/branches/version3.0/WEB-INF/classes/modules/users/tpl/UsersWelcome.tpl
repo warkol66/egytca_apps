@@ -6,5 +6,5 @@ Bienvenido al Sistema |-$parameters.siteName-|</h2>
 <br>|-$parameters.news-|
 |-/if-|
 </p>
-
+|-if $configModule->get("users","internalMail")-||-module_include entity="InternalMail" action="IncludeHome" options="template=CommonInternalMailsList.tpl"-||-/if-|
 

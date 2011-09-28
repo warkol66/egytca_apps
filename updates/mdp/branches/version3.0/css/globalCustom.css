@@ -246,6 +246,7 @@ input.icon, input.editor_ok_button, input.editor_cancel_button {
 	background-image: url(../images/mandatory.png);
 	background-repeat: no-repeat;
 	background-position: center 0;
+	vertical-align: top;
 	height: 10px;
 	width: 10px;
 	padding: 3px;

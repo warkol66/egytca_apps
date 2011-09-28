@@ -24,6 +24,7 @@ class ConfigModule {
 			"askForNewPasswordOnRecovery" => false,
 			"useFilterByUserGroup" => true,
 			"passwordHashExpirationTime" => 24,
+			"internalMail" => true,
 			"toStringFormat" => "Surname, Name (Username)" // "Name Surname (Username)"
 		),
 		"actors" => array(

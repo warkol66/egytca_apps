@@ -63,7 +63,7 @@
 	padding: 0 0 0 0; /*  1px necesary to show margin-bottom of footer n FF*/
 }
 #header {
-	width: 955px;
+	width: 945px;
 	height: 45px;
 	margin: 0;
 	padding: 0;
@@ -80,7 +80,7 @@
 	display:none;
 }
 #contentWrapper { 
-	width: 955px;
+	width: 945px;
 	margin: auto;
 	padding: 0px 0px 0px 0px; /*  1px necesary to show margin-bottom of footer n FF*/
 }
@@ -101,7 +101,7 @@
 
 #rightColumn { 
 	float: right;
-	width: 760px;   /* ie6*/ /*ie7*/ 
+	width: 750px;   /* ie6*/ /*ie7*/ 
 	display: inline;
 	border: none;
 	margin: 0 5px 5px 0;
