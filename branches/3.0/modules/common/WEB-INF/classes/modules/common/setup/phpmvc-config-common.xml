@@ -1,30 +1,6 @@
 <!-- Module Common -->
 	<action-mappings>
 
-		<action    path = "commonIndex"
-							 type = "CommonIndexAction"
-							 name = "commonIndex"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="/Main.php?do=usersLogin" redirect="true" />
-		</action>
-
-		<action    path = "commonMaintenance"
-							 type = "CommonMaintenanceAction"
-							 name = "commonMaintenance"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="CommonMaintenance.tpl" />
-		</action>
-
-		<action    path = "installGenerateConfig"
-							 type = "InstallGenerateConfigAction"
-							 name = "nstallGenerateConfig"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="InstallGenerateConfig.tpl" />
-		</action>
-
 		<action    path = "js"
 							 type = "JsAction"
 							 name = "jsConfig"
@@ -33,27 +9,12 @@
 			<forward name="success" path="Js.tpl" />
 		</action>
 
-		<action    path = "commonSetLanguage"
-							 type = "CommonSetLanguageAction"
-							 name = "commonSetLanguage"
-							scope = "request"
-					 validate = "true">
-		</action>
-
 		<action    path = "commonTemplatePublic"
 							 type = "CommonTemplatePublicAction"
 							 name = "commonTemplatePublic"
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="TemplatePublicCenterMarker.tpl" />
-		</action>
-
-		<action  path = "commonCaptchaGeneration"
-						 type = "CommonCaptchaGenerationAction"
-						 name = "commonCaptchaGeneration"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="TemplateAjax.tpl"/>
 		</action>
 
 		<action    path = "commonLogin"
@@ -66,7 +27,8 @@
 			<forward name="maintenance" path="Maintenance.tpl"/>
 			<forward name="welcome" path="/Main.php?do=commonWelcome" redirect="true" />
 			<forward name="usersWelcome" path="/Main.php?do=usersWelcome" redirect="true" />
-			<forward name="affiliateUsersWelcome" path="/Main.php?do=affiliateUsersWelcome" redirect="true" />
+			<forward name="affiliateUsersWelcome" path="/Main.php?do=affiliatesUsersWelcome" redirect="true" />
+			<forward name="clientUsersWelcome" path="/Main.php?do=clientsUsersWelcome" redirect="true" />
 		</action>
 
 		<action    path = "commonDoLogin"
@@ -74,18 +36,22 @@
 							 name = "commonDoLogin"
 							scope = "request"
 					 validate = "true">
-			<forward name="successUser" path="/Main.php?do=usersWelcome" redirect="true" />
-			<forward name="successUserFirstLogin" path="/Main.php?do=usersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
-			<forward name="failure" path="CommonLogin.tpl"/>
+			<forward name="failureDataMissmatch" path="/Main.php?do=commonLogin&amp;message=dataMissmatch" redirect="true" />
 			<forward name="failureMissingData" path="/Main.php?do=commonLogin&amp;message=missingData" redirect="true" />
-			<forward name="successAffiliateUsers" path="AffiliatesUsersWelcome.tpl"/>
-			<forward name="failureRedirectUserLogin" path="/Main.php?do=usersLogin" redirect="true" />
-			<forward name="failure" path="CommonLogin.tpl"/>
+			<forward name="successUsers" path="/Main.php?do=usersWelcome" redirect="true" />
+			<forward name="successClientUsers" path="/Main.php?do=clientsUsersWelcome" redirect="true" />
+			<forward name="successAffiliateUsers" path="/Main.php?do=affiliatesUsersWelcome" redirect="true" />
+			<forward name="successUsersFirstLogin" path="/Main.php?do=usersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
+			<forward name="successClientUsersFirstLogin" path="/Main.php?do=clientsUsersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
+			<forward name="successAffiliateUsersFirstLogin" path="/Main.php?do=affiliatesUsersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
+			<forward name="failureRedirectUsersLogin" path="/Main.php?do=usersLogin" redirect="true" />
+			<forward name="failureRedirectClientUsersLogin" path="/Main.php?do=clientsUsersLogin" redirect="true" />
+			<forward name="failureRedirectAffiliateUsersLogin" path="/Main.php?do=affiliatesUsersLogin" redirect="true" />
 		</action>
 
-		<action    path = "commonPasswordRecoverySendConfirmationRequest"
-							 type = "CommonPasswordRecoverySendConfirmationRequestAction"
-							 name = "commonPasswordRecoverySendConfirmationRequest"
+		<action    path = "commonPasswordRecoveryDoRequest"
+							 type = "CommonPasswordRecoveryDoRequestAction"
+							 name = "commonPasswordRecoveryDoRequest"
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=commonLogin&amp;message=confirmationMailSent" redirect="true" />
@@ -98,33 +64,26 @@
 							scope = "request"
 					 validate = "true">
 			<forward name="askNewPass" path="CommonNewPasswordForRecovery.tpl"/>
-			<forward name="sendNewPass" path="/Main.php?do=commonPasswordDoRecovery" redirect="true"/>
+			<forward name="sendNewPass" path="/Main.php?do=commonPasswordDoRecover" redirect="true"/>
 		</action>
 		
-		<action    path = "commonPasswordDoChangeForRecovery"
-							 type = "CommonPasswordDoChangeForRecoveryAction"
-							 name = "commonPasswordDoChangeForRecovery"
+		<action    path = "commonPasswordDoSetFromRecovery"
+							 type = "CommonPasswordDoSetFromRecoveryAction"
+							 name = "commonPasswordDoSetFromRecovery"
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=commonLogin&amp;message=passwordChanged" redirect="true"/>
 			<forward name="failure" path="/Main.php?do=commonLogin" redirect="true"/>
 		</action>
 
-		<action    path = "commonPasswordDoRecovery"
-							 type = "CommonPasswordDoRecoveryAction"
-							 name = "commonPasswordDoRecovery"
+		<action    path = "commonPasswordDoRecover"
+							 type = "CommonPasswordDoRecoverAction"
+							 name = "commonPasswordDoRecover"
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=commonLogin&amp;message=passwordSent" redirect="true" />
+			<forward name="askNewPass" path="CommonPasswordSetFromRecovery.tpl"/>
 			<forward name="failure" path="CommonLogin.tpl"/>
-		</action>
-
-		<action    path = "commonWelcome"
-							 type = "CommonWelcomeAction"
-							 name = "commonWelcome"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="CommonWelcome.tpl"/>
 		</action>
 
 		<action    path = "commonLoginMaintenance"
@@ -143,62 +102,6 @@
 			<forward name="success" path="/Main.php?do=commonLogin" redirect="true"/>
 		</action>
 
-		<action    path = "commonMap"
-							 type = "CommonMapAction"
-							 name = "commonMap"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="CommonMap.tpl" />
-		</action>
-
-		<action    path = "commonGraph"
-							 type = "CommonGraphAction"
-							 name = "commonGraph"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="CommonGraph.tpl" />
-		</action>
-
-		<action    path = "commonMenuItemsList"
-							 type = "CommonMenuItemsListAction"
-							 name = "commonMenuItemsList"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="CommonMenuItemsList.tpl" />
-		</action>
-
-		<action    path = "commonMenuItemsEdit"
-							 type = "CommonMenuItemsEditAction"
-							 name = "commonMenuItemsEdit"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="CommonMenuItemsEdit.tpl" />
-		</action>
-
-		<action    path = "commonMenuItemsActionsAutocompleteListX"
-							 type = "CommonMenuItemsActionsAutocompleteListXAction"
-							 name = "commonMenuItemsActionsAutocompleteListX"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="CommonMenuItemsActionsAutocompleteListXSuccess.tpl" />
-		</action>
-
-		<action    path = "commonMenuItemsGetActionInfoX"
-							 type = "CommonMenuItemsGetActionInfoXAction"
-							 name = "commonMenuItemsGetActionInfoX"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="CommonMenuItemsGetActionInfoXSuccess.tpl" />
-		</action>
-
-		<action    path = "commonMenuItemsDoEdit"
-							 type = "CommonMenuItemsDoEditAction"
-							 name = "commonMenuItemsDoEdit"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="/Main.php?do=commonMenuItemsList" redirect="true" />
-		</action>
-
 		<action    path = "commonMenuItemsDoDeleteX"
 							 type = "CommonMenuItemsDoDeleteXAction"
 							 name = "commonMenuItemsDoDeleteX"
@@ -206,14 +109,6 @@
 					 validate = "true">
 			<forward  name="success" path="CommonMenuItemsDoDeleteXSuccess.tpl" />
 			<forward  name="failure" path="CommonMenuItemsDoDeleteXFailure.tpl" />
-		</action>
-
-		<action    path = "commonMenuItemsShow"
-							 type = "CommonMenuItemsShowAction"
-							 name = "commonMenuItemsShow"
-							scope = "request"
-					 validate = "true">
-			<forward  name="success" path="CommonMenuItemsShow.tpl" />
 		</action>
 
 		<action    path = "commonMenuItemsDoEditOrderX"
@@ -246,22 +141,6 @@
 
 <!-- Section ActionLogs -->
 
-		<action    path = "commonActionLogsList"
-							 type = "CommonActionLogsListAction"
-							 name = "commonActionLogsList"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="CommonActionLogsList.tpl"/>
-		</action>
-
-		<action    path = "commonActionLogsPurge"
-							 type = "CommonActionLogsPurgeAction"
-							 name = "commonActionLogsPurge"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="CommonActionLogsPurge.tpl"/>
-		</action>
-
 		<action    path = "commonActionLogsDoPurge"
 							 type = "CommonActionLogsDoPurgeAction"
 							 name = "commonActionLogsDoPurge"
@@ -274,29 +153,6 @@
 
 <!-- Section Config -->
 
-		<action    path = "commonConfigView"
-							 type = "CommonConfigViewAction"
-							 name = "commonConfigView"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="CommonConfigView.tpl"/>
-		</action>
-
-		<action    path = "commonConfigEdit"
-							 type = "CommonConfigEditAction"
-							 name = "commonConfigEdit"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="CommonConfigEdit.tpl"/>
-		</action>
-
-		<action    path = "commonConfigSet"
-							 type = "CommonConfigSetAction"
-							 name = "commonConfigSet"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="CommonConfigSet.tpl"/>
-		</action>
 
 		<action    path = "commonConfigDoSet"
 							 type = "CommonConfigDoSetAction"

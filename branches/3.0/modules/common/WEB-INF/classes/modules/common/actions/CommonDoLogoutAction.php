@@ -21,10 +21,16 @@ class CommonDoLogoutAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		if (isset($_SESSION["loginUser"]) && is_object($_SESSION["loginUser"]) && get_class($_SESSION["loginUser"]) == "User")
-			$user = $_SESSION["loginUser"];
-		elseif (isset($_SESSION["loginAffiliateUser"]) && is_object($_SESSION["loginAffiliateUser"]) && get_class($_SESSION["loginAffiliateUser"]) == "AffiliateUser")
-			$user = $_SESSION["loginAffiliateUser"];
+		$user = Common::getLoggedUser();
+
+		if (is_object($user)) {
+			if(method_exists($user,"getUsername"))
+				$username = $user->getUsername();
+			else
+				$username ="";
+			$classname = lcfirst(get_class($username));
+			Common::doLog('success', $classname . 'username: ' . $username);
+		}
 
 		if($_SESSION["lastLogin"])
 			unset($_SESSION["lastLogin"]);
@@ -35,11 +41,11 @@ class CommonDoLogoutAction extends BaseAction {
 		if($_SESSION["loginAffiliateUser"])
 			unset($_SESSION["loginAffiliateUser"]);
 
-		if (is_object($user)) {
-			$username = $user->getUsername();
-			$classname = lcfirst(get_class($username));
-			Common::doLog('success', $classname . 'name: ' . $username);
-		}
+		if($_SESSION["loginUserByRegistration"])
+			unset($_SESSION["loginUserByRegistration"]);
+
+		if($_SESSION["loginClientUser"])
+			unset($_SESSION["loginClientUser"]);
 
 		return $mapping->findForwardConfig('success');
 

@@ -19,10 +19,21 @@ class ActionLogPeer extends BaseActionLogPeer {
 	private $userId;
 	private $module;
 	private $affiliateId;
+	private $clientId;
+
+	//mapea las condiciones del filtro
+	var $filterConditions = array(
+					"dateFrom"=>"setDateFrom",
+					"dateTo" => "setDateTo",
+					"userId"=>"setUserId",
+					"module"=>"setModule",
+					"affiliateId"=>"setAffiliateId",
+					"clientId" => "setClientId"
+				);
+
 
 	/**
 	 * Especifica una fecha desde para una busqueda personalizada.
-	 *
 	 * @param $fromDate string YYYY-MM-DD
 	 */
 	public function setDateFrom($dateFrom) {
@@ -31,7 +42,6 @@ class ActionLogPeer extends BaseActionLogPeer {
 
 	/**
 	 * Especifica una fecha hasta para una busqueda personalizada.
-	 *
 	 * @param $toDate string YYYY-MM-DD
 	 */
 	public function setDateTo($dateTo) {
@@ -39,58 +49,68 @@ class ActionLogPeer extends BaseActionLogPeer {
 	}
 
 	/**
-	 * Especifica un usuario como criteriod e búsqueda
-	 *
-	 * @param $userId int 
+	 * Especifica un usuario como criterio de búsqueda
+	 * @param $userId int
 	 */
 	public function setUserId($userId) {
 		$this->userId = $userId;
 	}
 
 	/**
-	 * Especifica un módulo como criteriod e búsqueda
-	 *
-	 * @param $userId string 
+	 * Especifica un módulo como criterio de búsqueda
+	 * @param $userId string
 	 */
 	public function setModule($module) {
 		$this->module = $module;
 	}
 
 	/**
-	 * Especifica un afiliado como criteriod e búsqueda
-	 *
-	 * @param $userId int 
+	 * Especifica un afiliado como criterio de búsqueda
+	 * @param $affiliateId int
 	 */
 	public function setAffiliateId($affiliateId) {
 		$this->affiliateId = $affiliateId;
 	}
 
-  /**
-   * Aplica ordenamiento por fecha de creación a las consultas
-   */	
-  public function setOrderByDatetime() {
-    $this->orderByDatetime = true;
-  }
+	/**
+	 * Especifica un cliente como criterio de búsqueda
+	 * @param $clientId int
+	 */
+	public function setClientId($clientId) {
+		$this->clientId = $clientId;
+	}
 
-  /**
-   * Crea una Criteria a partir de las condiciones de filtro ingresadas al peer.
-   * @return Criteria instancia de criteria
-   */
-  private function getCriteria() {
+	/**
+	 * Aplica ordenamiento por fecha de creación a las consultas
+	 */
+	public function setOrderByDatetime() {
+		$this->orderByDatetime = true;
+	}
+
+	/**
+	 * Crea una Criteria a partir de las condiciones de filtro ingresadas al peer.
+	 * @return Criteria instancia de criteria
+	 */
+	private function getCriteria() {
 		$criteria = new Criteria();
-	
+
 		if ($this->orderByDatetime)
 			$criteria->addDescendingOrderByColumn(ActionLogPeer::DATETIME);
 
-		if (!empty($this->userId)) 
-			$criteria->add(ActionLogPeer::USERID, $this->userId);
-
-		if (!empty($this->affiliateId)) 
-			$criteria->add(ActionLogPeer::AFFILIATEID, $this->affiliateId);
-
-		if (!empty($this->module)) 
+		if (!empty($this->userId)) {
+			$criteria->add(ActionLogPeer::USEROBJECTTYPE, "user");
+			$criteria->add(ActionLogPeer::USEROBJECTID, $this->userId);
+		}
+		if (!empty($this->affiliateId)) {
+			$criteria->add(ActionLogPeer::USEROBJECTTYPE, "affiliate");
+			$criteria->add(ActionLogPeer::USEROBJECTID, $this->affiliateId);
+		}
+		if (!empty($this->clientId)) {
+			$criteria->add(ActionLogPeer::USEROBJECTTYPE, "client");
+			$criteria->add(ActionLogPeer::USEROBJECTID, $this->clientId);
+		}
+		if (!empty($this->module))
 			$criteria->add(ActionLogPeer::ACTION, ucfirst($this->module) . '%', Criteria::LIKE);
-
 
 		if (!empty($this->dateFrom) && !empty($this->dateTo)) {
 			$criterion = $criteria->getNewCriterion(ActionLogPeer::DATETIME, $this->dateFrom, Criteria::GREATER_EQUAL);
@@ -98,10 +118,9 @@ class ActionLogPeer extends BaseActionLogPeer {
 			$criteria->add($criterion);
 		}
 		else {
-			
-			if (!empty($this->dateFrom)) 
+			if (!empty($this->dateFrom))
 				$criteria->add(ActionLogPeer::DATETIME, $this->dateFrom, Criteria::GREATER_EQUAL);
-			if (!empty($this->dateTo))				
+			if (!empty($this->dateTo))
 				$criteria->add(ActionLogPeer::DATETIME,$this->dateTo, Criteria::LESS_EQUAL);
 		}
 
@@ -109,112 +128,15 @@ class ActionLogPeer extends BaseActionLogPeer {
 
 	}
 
-  /**
-  * Obtiene la cantidad de filas por pagina por defecto en los listado paginados.
-  *
-  * @return int Cantidad de filas por pagina
-  */
-  function getRowsPerPage() {
-  	$systemConfig = Common::getModuleConfiguration('System');
-  	return $systemConfig['rowsPerPage'];
-  }
-
 	/**
+	* Obtiene la cantidad de filas por pagina por defecto en los listado paginados.
 	*
-	* selectAllByRequirementsPaginated
-	*	Crea un filtro por requerimientos enviados a la funcion, devuelve un listado filtrado
-	* @param datetime $dateFrom fecha filtro de inicio del listado
-	* @param datetime $dateTo fecha filtro del fin de listado
-	* @param int $selectUser usuario filtro seleccionado
-	* @param string $module nombre del modulo seleccionado para el filtro
-	* @param int $page pagina del paginado
-	* @return object $pager listado filtrado y paginado
+	* @return int Cantidad de filas por pagina
 	*/
-
-	function selectAllByRequirementsPaginated ($dateFrom,$dateTo,$selectUser,$module,$page=1,$perPage=25) {
-		if (empty($page))
-			$page = 1;
-		$cond = new Criteria();
-		$cond->addAscendingOrderByColumn(ActionLogPeer::ID);
-
-		$cond->addMultipleJoin(array(
-			    array(ActionLogLabelPeer::FORWARD, ActionLogPeer::FORWARD),
-			    array(ActionLogPeer::ACTION, ActionLogLabelPeer::ACTION)),
-			    Criteria::LEFT_JOIN);
-
-		$cond->add(ActionLogLabelPeer::LANGUAGE,Common::getCurrentLanguageCode());
-		$cond->addJoin(ActionLogPeer::USERID, UserPeer::ID, Criteria::LEFT_JOIN);
-		$cond->addJoin(ActionLogPeer::ACTION, SecurityActionLabelPeer::ACTION, Criteria::LEFT_JOIN);
-
-		$criterion = $cond->getNewCriterion(ActionLogPeer::DATETIME, $dateTo, Criteria::LESS_EQUAL);
-		$criterion->addAnd($cond->getNewCriterion(ActionLogPeer::DATETIME, $dateFrom, Criteria::GREATER_EQUAL ));
-    $cond->add($criterion);
-
-		////////
-		// ultima version con afiliado = 0
-		if ($selectUser != 0){
-			$cond->add(ActionLogPeer::USERID, $selectUser);
-			$cond->add(ActionLogPeer::AFFILIATEID, 0);
-		}
-
-		if($module != 0)
-			$cond->add(ActionLogLabelPeer::ACTION, ucfirst($module) . '%', CRITERIA::LIKE);
-
-		$pager = new PropelPager($cond,"ActionLogPeer", "doSelect",$page,$perPage);
-
-		return $pager;
-
+	function getRowsPerPage() {
+		$systemConfig = Common::getModuleConfiguration('System');
+		return $systemConfig['rowsPerPage'];
 	}
-
-
-
-	/**
-	*
-	* selectAllByRequirementsAndAffiliatePaginated
-	*	Crea un filtro por requerimientos y afiliados enviados a la funcion, devuelve un listado filtrado
-	* @param datetime $dateFrom fecha filtro de inicio del listado
-	* @param datetime $dateTo fecha filtro del fin de listado
-	* @param int $selectUser usuario filtro seleccionado
-	* @param int $affiliate id del afiliado
-	* @param string $module nombre del modulo seleccionado para el filtro
-	* @param int $page pagina del paginado
-	* @return object $pager listado filtrado y paginado
-	*/
-	function selectAllByRequirementsAndAffiliatePaginated  ($dateFrom,$dateTo,$selectUser,$affiliate,$module,$page=1,$perPage=25) {
-		if (empty($page))
-			$page = 1;
-		$cond = new Criteria();
-		$cond->addAscendingOrderByColumn(ActionLogPeer::ID);
-
-		$cond->addMultipleJoin(array(
-			    array(ActionLogLabelPeer::FORWARD, ActionLogPeer::FORWARD),
-			    array(ActionLogPeer::ACTION, ActionLogLabelPeer::ACTION)),
-			    Criteria::LEFT_JOIN);
-
-		$criterion = $cond->getNewCriterion(ActionLogPeer::DATETIME, $dateTo, Criteria::LESS_EQUAL);
-		$criterion->addAnd($cond->getNewCriterion(ActionLogPeer::DATETIME, $dateFrom, Criteria::GREATER_EQUAL ));
-    $cond->add($criterion);
-
-		////////////
-		// Version con afiliado
-		@include_once('AffiliatePeer.php');
-		if (class_exists('AffiliatePeer')){
-			$cond->addJoin(ActionLogPeer::AFFILIATEID, AffiliatePeer::ID,Criteria::LEFT_JOIN);
-			$cond->add(ActionLogPeer::AFFILIATEID, $affiliate,Criteria::EQUAL);
-			$cond->addJoin(ActionLogPeer::USERID, AffiliateUserPeer::ID,Criteria::LEFT_JOIN);
-		}
-
-		if ($selectUser != 0)
-			$cond->add(ActionLogPeer::USERID, $selectUser);
-
-		if($module != 0)
-			$cond->add(ActionLogLabelPeer::ACTION, ucfirst($module) . '%', CRITERIA::LIKE);
-
-		$pager = new PropelPager($cond,"ActionLogPeer", "doSelect",$page,$perPage);
-
-		return $pager;
-	}
-
 
 	/**
 	* deleteLogs
@@ -223,17 +145,21 @@ class ActionLogPeer extends BaseActionLogPeer {
 	* @param datetime $dateTo fin de fecha de purgacion
 	*/
 	function deleteLogs($dateFrom,$dateTo) {
-		try{
+		try {
 			$cond = new Criteria();
 
 			$cond->add(ActionLogPeer::DATETIME, $dateFrom." 00:00:00", Criteria::GREATER_THAN );
 			$cond->add(ActionLogPeer::DATETIME, $dateTo." 23:59:59", Criteria::LESS_THAN );
 			$selectedLogs = ActionLogPeer::doSelect($cond);
 
-			foreach($selectedLogs as $obj) {
-					$obj->delete();
-			}
-		}catch (PropelException $e) {}
+			foreach($selectedLogs as $obj)
+				$obj->delete();
+
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+		}
 		return;
 	}
 
@@ -256,39 +182,84 @@ class ActionLogPeer extends BaseActionLogPeer {
 	}
 
 
-  /**
-  * Obtiene todos los logs paginados con las opciones de filtro asignadas al peer.
-  *
-  * @param int $page [optional] Numero de pagina actual
-  * @param int $perPage [optional] Cantidad de filas por pagina
-  *	@return array Informacion sobre todos los actionlogs
-  */
-  function getAllPaginatedFiltered($page=1,$perPage=-1) {  
-    if ($perPage == -1)
-      $perPage = 	ActionLogPeer::getRowsPerPage();
-    if (empty($page))
-      $page = 1;
-    $cond = $this->getCriteria();
+	/**
+	* Obtiene todos los logs paginados con las opciones de filtro asignadas al peer.
+	*
+	* @param int $page [optional] Numero de pagina actual
+	* @param int $perPage [optional] Cantidad de filas por pagina
+	*	@return array Informacion sobre todos los actionlogs
+	*/
+	function getAllPaginatedFiltered($page=1,$perPage=-1) {
+		if ($perPage == -1)
+			$perPage = 	ActionLogPeer::getRowsPerPage();
+		if (empty($page))
+			$page = 1;
+		$cond = $this->getSearchCriteria();
+		$pager = new PropelPager($cond,"ActionLogPeer", "doSelect",$page,$perPage);
+		return $pager;
+	 }
 
-    $pager = new PropelPager($cond,"ActionLogPeer", "doSelect",$page,$perPage);
-    return $pager;
-   }
+	/**
+	* Obtiene todos los noticias paginados.
+	*
+	* @param int $page [optional] Numero de pagina actual
+	* @param int $perPage [optional] Cantidad de filas por pagina
+	*	@return array Informacion sobre todos los newsarticles
+	*/
+	function getAllPaginated($page=1,$perPage=-1) {
+		if ($perPage == -1)
+			$perPage = 	ActionLogPeer::getRowsPerPage();
+		if (empty($page))
+			$page = 1;
+		$cond = new Criteria();
+		$pager = new PropelPager($cond,"ActionLogPeer", "doSelect",$page,$perPage);
+		return $pager;
+	 }
 
-  /**
-  * Obtiene todos los noticias paginados.
-  *
-  * @param int $page [optional] Numero de pagina actual
-  * @param int $perPage [optional] Cantidad de filas por pagina
-  *	@return array Informacion sobre todos los newsarticles
-  */
-  function getAllPaginated($page=1,$perPage=-1) {  
-    if ($perPage == -1)
-      $perPage = 	ActionLogPeer::getRowsPerPage();
-    if (empty($page))
-      $page = 1;
-    $cond = new Criteria();     
-    $pager = new PropelPager($cond,"ActionLogPeer", "doSelect",$page,$perPage);
-    return $pager;
-   }
+	/**
+	 * Crea una Criteria a partir de las condiciones de filtro ingresadas al peer.
+	 * @return Criteria instancia de criteria
+	 */
+	private function getSearchCriteria() {
+		$criteria = ActionLogQuery::create();
+
+		if ($this->orderByDatetime)
+			$criteria->addDescendingOrderByColumn(ActionLogPeer::DATETIME);
+
+		if (!empty($this->userId)) {
+			$criteria->add(ActionLogPeer::USEROBJECTTYPE, "user");
+			$criteria->add(ActionLogPeer::USEROBJECTID, $this->userId);
+		}
+		if (!empty($this->affiliateId)) {
+			$criteria->add(ActionLogPeer::USEROBJECTTYPE, "affiliate");
+			$affiliate = AffiliatePeer::get($this->affiliateId);
+			$affiliateUsers = AffiliateUserPeer::getIdsArray($affiliate);
+			$criteria->add(ActionLogPeer::USEROBJECTID, $affiliateUsers, CRITERIA::IN);
+		}
+		if (!empty($this->clientId)) {
+			$criteria->add(ActionLogPeer::USEROBJECTTYPE, "client");
+			$client = ClientPeer::get($this->clientId);
+			$clientUsers = ClientUserPeer::getIdsArray($client);
+			$criteria->add(ActionLogPeer::USEROBJECTID, $clientUsers, CRITERIA::IN);
+		}
+		if (!empty($this->module))
+			$criteria->add(ActionLogPeer::ACTION, ucfirst($this->module) . '%', Criteria::LIKE);
+
+		if (!empty($this->dateFrom) && !empty($this->dateTo)) {
+			$criterion = $criteria->getNewCriterion(ActionLogPeer::DATETIME, $this->dateFrom, Criteria::GREATER_EQUAL);
+			$criterion->addAnd($criteria->getNewCriterion(ActionLogPeer::DATETIME, $this->dateTo . " 23:59:59", Criteria::LESS_EQUAL));
+			$criteria->add($criterion);
+		}
+		else {
+			if (!empty($this->dateFrom))
+				$criteria->add(ActionLogPeer::DATETIME, $this->dateFrom, Criteria::GREATER_EQUAL);
+			if (!empty($this->dateTo))
+				$criteria->add(ActionLogPeer::DATETIME, $this->dateTo . " 23:59:59", Criteria::LESS_EQUAL);
+		}
+
+		return $criteria;
+
+	}
+
 
 } // ActionLogPeer

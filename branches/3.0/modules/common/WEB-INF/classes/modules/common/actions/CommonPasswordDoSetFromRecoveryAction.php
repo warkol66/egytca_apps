@@ -1,23 +1,20 @@
 <?php
-/** 
- * CommonPasswordDoChangeForRecoveryAction
+/**
+ * CommonPasswordDoSetFromRecoveryAction
  *
- * @package users 
+ * @package users
  */
 
-class CommonPasswordDoChangeForRecoveryAction extends BaseAction {
+class CommonPasswordDoSetFromRecoveryAction extends BaseAction {
 
-	function CommonPasswordDoChangeForRecoveryAction() {
+	function CommonPasswordDoSetFromRecoveryAction() {
 		;
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -27,25 +24,24 @@ class CommonPasswordDoChangeForRecoveryAction extends BaseAction {
 		$module = "Common";
 		$section = "Users";
 
-		$userPeer = New UserPeer();
 		if (($_POST["pass"] == $_POST["pass2"])) {
-			$user = $userPeer->getByRecoveryHash($_POST["recoveryHash"]);
+			$user = Common::getByRecoveryHash($_POST["recoveryHash"]);
 			if (!empty($user) && $user->recoveryRequestIsValid()) {
 				$user->changePassword($_POST["pass"]);
 				$user->setRecoveryhash(null);
+				$user->setrecoveryHashCreatedOn(null);
 				$user->save();
 				return $mapping->findForwardConfig('success');
 			}
 		}
-		if (empty($user)) {
+		if (empty($user))
 			return $this->addParamsToForwards(array('message'=>'wrongHash'),$mapping,"failure");
-		}
-		if (!$user->recoveryRequestIsValid()){
+
+		if (!$user->recoveryRequestIsValid())
 			return $this->addParamsToForwards(array('message'=>'expiredHash'),$mapping,"failure");
-		}
-		
+
 		return $this->addParamsToForwards(array('message'=>'anotherError'),$mapping,"failure");
-			
+
 	}
 
 }

@@ -16,78 +16,71 @@ class ActionLog extends BaseActionLog {
 
 	private $queryObjs = array(
 		'user' => 'UserQuery',
-		'affiliate' => 'AffiliateUserQuery'
+		'affiliate' => 'AffiliateUserQuery',
+		'client' => 'ClientUserQuery'
 	);
 
 	/**
-	 * Obtiene el usuario remitente.
-	 */
+	* Obtiene el objeto uduario asociado al log.
+	* @return object objeto usuario
+	*/
 	public function getUserObject() {
-		$criteria = new $this->queryObjs[$this->getUserObjectType()];
-		return $criteria->findPk($this->getUserObjectId());
+		if (array_key_exists($this->getUserObjectType(), $this->queryObjs)) {
+			$queryClass = $this->queryObjs[$this->getUserObjectType()];
+			if (class_exists($queryClass)) {
+				$criteria = new $queryClass;
+				return $criteria->findPk($this->getUserObjectId());
+			}
+		}
+		return;
 	}
 
 	/**
-	*
 	* Obtiene la etiqueta de ese modulo
-	*
 	* @return string label la etiqueta
 	*/
-	
 	function getLabel(){
-		
-		try{
-		include_once 'ActionLogLabelPeer.php';
-		global $system;
-		$language = Common::getCurrentLanguageCode();
-		if(empty($language))
-			$language='eng';
-		$logLabelInfo=ActionLogLabelPeer::getByInfo($this->GetAction(),$this->GetForward(),$language);
-		return $logLabelInfo;
-		}catch (PropelException $e) {}
+		try {
+			global $system;
+			$language = Common::getCurrentLanguageCode();
+			if(empty($language))
+				$language='eng';
+			$logLabelInfo=ActionLogLabelPeer::getByInfo($this->GetAction(),$this->GetForward(),$language);
+			return $logLabelInfo;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+		}
 	}
 
 	/**
-	* getActionLabel
 	* Obtiene la etiqueta del action
-	*
 	* @return string label la etiqueta
 	*/
-	
 	function getActionLabel(){
-		
-		try{
-			include_once 'SecurityActionLabelPeer.php';
-	
+		try {
 			$language = Common::getCurrentLanguageCode();
 			if(empty($language))
 				$language='eng';
 			$actionLabelInfo = SecurityActionLabelPeer::getByActionAndLanguage($this->getAction(),$language);
 			return $actionLabelInfo;
-		}catch (PropelException $e) {}
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+		}
 	}
 
 	public function getSecurityAction() {
-		
 		$result = parent::getSecurityAction();
-		
 		//si es un action con Do, buscamos la informacion sin el do
 		//ya que en ese caso se da de alta como pair
 		if (empty($result) && (preg_match("/(.*)([a-z]Do[A-Z])(.*)/",$this->getAction(),$parts))) {
-			
 			$actionWithoutDo = $parts[1].$parts[2][0].$parts[2][3].$parts[3];
-			$result = SecurityActionPeer::get($actionWithoutDo);		
-		
+			$result = SecurityActionPeer::get($actionWithoutDo);
 		}
-		
 		return $result;
-	
-	}
-
-	function getAffiliateUser(){
-		$criteria = new Criteria();
-		require_once('AffiliateUserPeer.php');
-		return AffiliateUserPeer::get($this->getAffiliateId());
 	}
 
 } // ActionLog

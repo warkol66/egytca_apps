@@ -17,9 +17,10 @@ class InternalMail extends BaseInternalMail {
 	
 	private $queryObjs = array(
 		'user' => 'UserQuery',
-		'affiliateUser' => 'AffiliateUserQuery'
+		'affiliateUser' => 'AffiliateUserQuery',
+		'clientUser' => 'ClientUserQuery'
 	);
-	
+
 	public function save(PropelPDO $con = null) {
 		try {
 			if ($this->validate()) { 
@@ -63,8 +64,15 @@ class InternalMail extends BaseInternalMail {
 	 * Obtiene el usuario remitente.
 	 */
 	public function getFrom() {
-		$criteria = new $this->queryObjs[$this->getFromType()];
-		return $criteria->findPk($this->getFromId());
+
+		if (array_key_exists($this->getFromType(), $this->queryObjs)) {
+			$queryClass = $this->queryObjs[$this->getFromType()];
+			if (class_exists($queryClass)) {
+				$criteria = new $queryClass;
+				return $criteria->findPk($this->getFromId());
+			}
+		}
+		return;
 	}
 	
 	public function hasBeenRead() {

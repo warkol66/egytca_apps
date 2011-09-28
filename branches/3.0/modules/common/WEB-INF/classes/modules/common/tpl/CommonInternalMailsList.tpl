@@ -1,16 +1,20 @@
+|-if !$result-|
 <h2>Mensajería Interna</h2>
 <h1>Administración de Mensajes</h1>
 <p>A continuación se muestra la lista de mensajes.</p>
-<div id="div_internalMails"> 
 	|-if $message eq "ok"-|
 		<div class="successMessage">Mensaje enviado correctamente</div>
 	|-elseif $message eq "deleted_ok"-|
 		<div class="successMessage">Mensaje eliminado correctamente</div>
 	|-/if-|
+|-else-|
+<h3>Mensajería Interna</h3>
+|-/if-|
+<div id="div_internalMails"> 
 	<table id="tabla-internalMails" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead> 
 			<tr>
-				<td colspan="5" class="tdSearch"><div class="rightLink"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Filtros de busqueda</a></div>
+				<td colspan="5" class="tdSearch"><div class="rightLink"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Filtros de búsqueda</a></div>
 					<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;">
 						<form action='Main.php' method='get' style="display:inline;">
 							<input type="hidden" name="do" value="commonInternalMailsList" />
@@ -26,15 +30,12 @@
 								<input class="filter" name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
 							</p>
 							<p>
-								<input type='submit' value='Buscar' />
+								<input type="submit" value="Buscar" />
+							|-if $filters|@count gt 0-|
+							<input type="button" value="Quitar Filtros" onClick="location.href='Main.php?do=commonInternalMailsList'" />
+							|-/if-|
 							</p>
 						</form>
-						|-if $filters|@count gt 0-|
-						<form  method="get">
-							<input type="hidden" name="do" value="commonInternalMailsList" />
-							<input type="submit" value="Quitar Filtros" />
-						</form>
-						|-/if-|
 					</div>
 				</td>
 			</tr>
@@ -61,18 +62,22 @@
 			</tr> 
 		</thead> 
 		<tbody id="internalMailsList">
+		|-if !$result-|
 			|-include file="CommonInternalMailsListTableBodyInclude.tpl"-|
+		|-else-|
+			|-include file="CommonInternalMailsListTableBodyInclude.tpl" internalMails=$result.messages pager=$result.pager url="Main.php?do=commonInternalMailsList"-|
+		|-/if-|
 		</tbody> 
 	</table> 
 </div>
 
 <div id="lightbox1" class="leightbox"> 
 	<div align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar&nbsp;&nbsp;<input type="button" class="icon iconDelete" /></a> 
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
 	</div> 
 	<div id="lightboxContent">
-	</div
-></div> 
+	</div>
+</div> 
 
 <script type="text/javascript" language="javascript" charset="utf-8">
 	var selected=-1;
