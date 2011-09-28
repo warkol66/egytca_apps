@@ -28,11 +28,11 @@ class BackupDoDeleteAction extends BaseAction {
 		$backupPeer = new BackupPeer();
 
 		if ($backupPeer->deleteBackup($_POST['filename'])) {
-			Common::doLog('success','Backup deleted: ' . $_POST['filename']));
+			Common::doLog('success','Backup deleted: ' . $_POST['filename']);
 			return $mapping->findForwardConfig('success');
 		}
 		else {
-			Common::doLog('failure','Backup not deleted: ' . $_POST['filename']));
+			Common::doLog('failure','Backup not deleted: ' . $_POST['filename']);
 			return $mapping->findForwardConfig('failure');
 		}
 	}
