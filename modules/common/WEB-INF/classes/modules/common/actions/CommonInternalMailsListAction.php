@@ -36,7 +36,7 @@ class CommonInternalMailsListAction extends BaseAction {
 		$smarty->assign("internalMails", $pager->getResult());
 		$smarty->assign("pager", $pager);
 
-		$url = "Main.php?do=commonInternalMailList";
+		$url = "Main.php?do=commonInternalMailsList";
 		foreach ($filters as $key => $value)
 			$url .= "&filters[$key]=$value";
 		$smarty->assign("url", $url);

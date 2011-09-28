@@ -1,4 +1,4 @@
-  <ul id="partiesList" class="optionDelete">
+  <ul id="partiesList" class="iconOptionsList">
      |-foreach from=$alertSubscription->getUsers() item=party name=for_parties-|
     <li id="partyListItem|-$party->getId()-|">
       <form  method="post"> 

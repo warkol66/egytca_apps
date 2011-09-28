@@ -1,15 +1,13 @@
 <?php
 /**
- * CommonPasswordRecoverySendConfirmationRequestAction
+ * CommonPasswordRecoveryDoRequestAction
  *
  * @package users
  */
 
-require_once("EmailManagement.php");
+class CommonPasswordRecoveryDoRequestAction extends BaseAction {
 
-class CommonPasswordRecoverySendConfirmationRequestAction extends BaseAction {
-
-	function CommonPasswordRecoverySendConfirmationRequestAction() {
+	function CommonPasswordRecoveryDoRequestAction() {
 		;
 	}
 
@@ -19,9 +17,6 @@ class CommonPasswordRecoverySendConfirmationRequestAction extends BaseAction {
 
 		$this->template->template = "TemplatePlain.tpl";
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -31,35 +26,42 @@ class CommonPasswordRecoverySendConfirmationRequestAction extends BaseAction {
 		$module = "Common";
 		$section = "Users";
 
-		if ( !empty($_POST["username"]) && !empty($_POST["mailAddress"]) ) {
+		if (!empty($_POST["username"]) && !empty($_POST["mailAddress"])) {
 			if (Common::validateCaptcha($_POST['securityCode'])) {
-				$user = UserPeer::authenticateByUserAndMail($_POST["username"],$_POST["mailAddress"]);
-				if ( !empty($user)) {
+				if (ConfigModule::get("global","unifiedUsernames"))
+					$user = Common::authenticateByUserAndMail($_POST["username"],$_POST["mailAddress"]);
+				else
+					$user = UserPeer::authenticateByUserAndMail($_POST["username"],$_POST["mailAddress"]);
+
+				if (!empty($user)) {
 					if (!$user->recoveryRequestAlredyMade()) {
 						$subject = Common::getTranslation('New password','users');
 						$smarty->assign("user",$user);
 						$recoveryHash = $user->createRecoveryHash();
 						$smarty->assign("recoveryHash",$recoveryHash);
-						$body = $smarty->fetch("CommonPasswordRecoveryConfirmationRequestMail.tpl");
+						$body = $smarty->fetch("CommonPasswordRecoveryRequest.tpl");
 		
 						$mailTo = $user->getMailAddress();
 		
 						global $system;
 						$mailFrom = $system["config"]["system"]["parameters"]["fromEmail"];
 		
+						require_once("EmailManagement.php");
 						$manager = new EmailManagement();
 						$message = $manager->createHTMLMessage($subject,$body);
 						$result = $manager->sendMessage($mailTo,$mailFrom,$message);
 						
-						Common::doLog('success','username: ' . $_POST["username"] . ' Mail Address: ' . $_POST["mailAddress"]);
+						Common::doLog('success','username: ' . $_POST["username"] . ' => ' . $_POST["mailAddress"]);
 						return $mapping->findForwardConfig('success');
-					} else {
+					}
+					else {
 						$this->template->template = "TemplateLogin.tpl";
 						$smarty->assign("message","requestAlredyMade");
 						return $mapping->findForwardConfig('failure');
 					}
 				}
-			} else {
+			}
+			else {
 				$this->template->template = "TemplateLogin.tpl";
 				$smarty->assign("message","wrongCaptcha");
 				return $mapping->findForwardConfig('failure');
@@ -69,7 +71,7 @@ class CommonPasswordRecoverySendConfirmationRequestAction extends BaseAction {
 		$this->template->template = "TemplateLogin.tpl";
 
 		$smarty->assign("message","wrongUser");
-		Common::doLog('failure','username: ' . $_POST["username"] . ' Mail Address: ' . $_POST["mailAddress"]);
+		Common::doLog('failure','username: ' . $_POST["username"] . ' => ' . $_POST["mailAddress"]);
 		return $mapping->findForwardConfig('failure');
 	}
 

@@ -25,5 +25,9 @@
 	<span id="|-if $indicator ne ''-||-$indicator-||-else-||-$id-|_indicator|-/if-|" style="display: none">
 		<img src="images/spinner.gif" alt="Procesando..." />
 	</span>
+|-if $buttonValue ne '' -|
+	<input type="submit" id="|-$button_edit_sub_issue-|" title="|-$buttonValue-|" |-if !$enableOnEdit-|disabled |-/if-| value="|-$buttonValue-|"  style="display: inline;"/>
+|-/if-|
+
 </p>
 <div id="|-$id-|_choices" class="autocomplete" style="display: none;"></div>

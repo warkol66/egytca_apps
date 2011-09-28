@@ -10,9 +10,6 @@ class CommonInternalMailsDoEditAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -24,7 +21,8 @@ class CommonInternalMailsDoEditAction extends BaseAction {
 		//Asociamos al usuario actual como remitente del mensaje.
 		if (!$this->bindCurrentUserToParams($params)) {
 			global $loginPath;
-			return new ForwardConfig('Main.php?do='.$loginPath, True);
+			$phpSelf = $_SERVER["PHP_SELF"];
+			return new ForwardConfig('/Main.php?do='.$loginPath, True);
 		}
 		
 		$smarty->assign("filters", $_POST["filters"]);
@@ -35,10 +33,10 @@ class CommonInternalMailsDoEditAction extends BaseAction {
 			$internalMail = new InternalMail;
 			Common::setObjectFromParams($internalMail, $params);
 			$internalMail->send();
-		} else {
+		}
+		else
 			//No hay edición de mensajes.
 			return $mapping->findForwardConfig('failure');
-		}
 		
 		return $mapping->findForwardConfig('success');
 	}
@@ -51,19 +49,18 @@ class CommonInternalMailsDoEditAction extends BaseAction {
 	 * @return true si se realizó con exito, false sino.
 	 */
 	protected function bindCurrentUserToParams(&$params) {
-		if (Common::isAffiliatedUser()) {
-			$currentUser = Common::getAffiliatedLogged();
-			$params['fromType'] = 'affiliateUser';
-			$params['fromId'] = $currentUser->getId();
-		} else if (Common::isSystemUser()){
-			$currentUser = Common::getAdminLogged();
-			$params['fromType'] = 'user';
-			$params['fromId'] = $currentUser->getId();
-		} else {
-			//No hay usuario logueado. El BaseAction no debería permitirlo,
-			//pero por si acaso...
+
+		$user = Common::getLoggedUser();
+
+		if (is_object($user) && get_class($user) == 'User')
+			$params = array_merge_recursive($params, array("fromType" => "user", "fromId" => $user->getId()));
+		else if (is_object($user) && get_class($user) == 'AffiliateUser')
+			$params = array_merge_recursive($params, array("fromType" => "affiliateUser", "fromId" => $user->getId()));
+		else if (is_object($user) && get_class($user) == 'ClientUser')
+			$params = array_merge_recursive($params, array("fromType" => "clientUser", "fromId" => $user->getId()));
+		else
 			return false;
-		}
+		
 		return true;
 	}
 }

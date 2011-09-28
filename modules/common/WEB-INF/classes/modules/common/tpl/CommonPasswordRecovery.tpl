@@ -1,11 +1,12 @@
-<script type="text/javascript" language="javascript" src="scripts/login.js"></script>
-<form method='post' action="Main.php?do=commonPasswordRecoverySendConfirmationRequest">
-	<div id="loginWrapper">
+<div id="loginWrapper"> 
 	<!-- Begin Login --> 
-	<div id="login"><img src="images/passRecoveryTop.png" />
+	<div id="login">
+		<div id="loginTopBorder"><b class="rounded"><b class="rtop"><b class="r7"></b><b class="r6"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r1"></b></b></b></div>
+		 <!-- Begin loginContentWrapper --> 
+		<div id="loginContentWrapper">
+		<form method='post' action="Main.php?do=commonPasswordRecoveryDoRequest">
 		 <!-- Begin LoginTop --> 
-		 <div id="loginTop"></div> 
-		 <!-- End LoginTop --> 
+		 <div id="loginTop"></div><!-- End LoginTop --> 
 		 <!-- Begin LoginContent --> 
 		 <div id="passRecovery"><br />
 			<noscript><div align='center' class='errorMessage'>Su navegador tiene desabilitada la ejecución de Javascript.<br /><br />Este sistema requiere que la habilite para su correcto funcionamiento.<br /><br />Podrá ingresar al sistema pero recuerde que algunas funciones pueden no ejecutarse correctamente.</div></noscript>
@@ -27,7 +28,7 @@
 							<!--Captcha -->
 							<p>
 								<label for="newsletterSubscribe">Código de Seguridad</label>
-								<img src="Main.php?do=commonCaptchaGeneration&width=120&height=45&characters=5" />
+								<img src="Main.php?do=commonCaptchaGeneration" />
 							</p>
 							<p>
 								Ingrese el código de seguridad de la imagen <br />
@@ -36,19 +37,14 @@
 							<!-- End Captcha -->
 				|-/if-|
 		<!--[if lte IE 6]><p>Su versión actual de navegador es IExplorer 6.<br />Este sistema requiere que utilice una versión mas nueva de Interntet Explorer.<br />
-Debe actualizarla para el correcto funcionamiento del sistema.</p><![endif]-->
+													Debe actualizarla para el correcto funcionamiento del sistema.</p><![endif]-->
+		</div><!-- End LoginContent --> 
 		 <!-- Begin LoginBottom --> 
 		 <div id="loginBottom">
-			<input type='submit' value='Solicitar contraseña' id="loginButton" /> 
-		</div> 
-		 <!-- End LoginBottom --> 
-		</div>
-		 <!-- End LoginContent --> 
-	 </div> 
-	<!-- End Login --> 
-	</div>
-	<script>
-	self.moveTo(0,0); self.resizeTo(screen.availWidth,screen.availHeight)
-	self.focus()
-</script> 
-</form> 
+			<div id="loginButtonDiv"><input type='submit' value='Enviar solicitud' id="loginButton" /></div>
+		</div><!-- End LoginBottom --> 
+		</form> 
+	 </div><!-- End LoginContentWrapper --> 
+	 <div id="loginBottomBorder"><b class="rounded"><b class="rbottom "><b class="r1"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r6"></b><b class="r7"></b></b></b></div>
+	</div><!-- End Login --> 
+</div><!-- End loginWrapper --> 

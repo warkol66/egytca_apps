@@ -8,8 +8,6 @@
 * @package actionlogs
 */
 
-require_once("BaseAction.php");
-
 class CommonActionLogsListAction extends BaseAction {
 
 
@@ -21,9 +19,6 @@ class CommonActionLogsListAction extends BaseAction {
 
     BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -50,46 +45,46 @@ class CommonActionLogsListAction extends BaseAction {
 
 			if (class_exists('AffiliateUserPeer')){
 				$affiliateUserPeer = new AffiliateUserPeer();
-				$affiliateUser = $affiliateUserPeer->getAll();
-				$smarty->assign("affiliateUser",$affiliateUser);
+				$affiliatesUsers = $affiliateUserPeer->getAll();
+				$smarty->assign("affiliatesUser",$affiliatesUsers);
+			}
+		}
+		if (class_exists('ClientPeer')){
+			$clientPeer = new ClientPeer();
+			$clients = $clientPeer->getAll();
+			$smarty->assign("clients",$clients);
+
+			if (class_exists('ClientUserPeer')){
+				$clientUserPeer = new ClientUserPeer();
+				$clientUsers = $clientUserPeer->getAll();
+				$smarty->assign("clientUsers",$clientUsers);
 			}
 		}
 
-		$logs = new ActionLogPeer();
 		$actionLogPeer = new ActionLogPeer();
-		$url= 'Main.php?do=commonActionLogsList';
 		
- 		if (!empty($_GET['filters'])) {
+		if (!empty($_GET['filters'])){
+			if (empty($_GET['filters']['dateFrom']) && empty($_GET['filters']['dateTo'])) {
+				$_GET['filters']["dateFrom"] = date('d-m-Y',mktime(0,0,0,date("m")-1,date("d"),date("Y")));
+				$_GET['filters']["dateTo"] = date('d-m-Y');
+			}
 
-			$actionLogPeer->setOrderByDatetime();
-			if ($_GET['filters']['dateFrom'])
-				$actionLogPeer->setDateFrom(Common::convertToMysqlDateFormat($_GET['filters']['dateFrom']) . ' 00:00:00');
-			if ($_GET['filters']['dateTo'])
-				$actionLogPeer->setDateTo(Common::convertToMysqlDateFormat($_GET['filters']['dateTo']) . ' 23:59:59');
-			if ($_GET['filters']['module'])
-				$actionLogPeer->setModule($_GET['filters']['module']);
-			if ($_GET['filters']['userId'])
-				$actionLogPeer->setUserId($_GET['filters']['userId']);
-			if ($_GET['filters']['affiliateId'])
-				$actionLogPeer->setAffiliateId($_GET['filters']['affiliateId']);
+			$filters = $_GET['filters'];
 
+			$filters["dateFrom"] = Common::convertToMysqlDateFormat($filters["dateFrom"]);
+			$filters["dateTo"] = Common::convertToMysqlDateFormat($filters["dateTo"]);
+
+			$this->applyFilters($actionLogPeer,$filters,$smarty);
 			$pager = $actionLogPeer->getAllPaginatedFiltered($_GET["page"]);
-
-			foreach ($_GET['filters'] as $key => $value)
-				$url .= "&filters[$key]=$value";
-		}
-		else if (!empty($_GET['listLogs']))
-			$pager = $actionLogPeer->getAllPaginated($_GET["page"]);
-
-		if (empty($_GET['filters']['dateFrom']) && empty($_GET['filters']['dateTo'])) {
-			$_GET['filters']["dateFrom"] = date('d-m-Y',mktime(0,0,0,date("m")-1,date("d"),date("Y")));
-			$_GET['filters']["dateTo"] = date('d-m-Y');
+			$logs = $pager->getResult();
 		}
 
-		$smarty->assign("filters",$_GET['filters']);
-		if (!empty($pager))
-			$smarty->assign("logs",$pager->getResult());
+		$url= 'Main.php?do=commonActionLogsList';
+		$smarty->assign("logs",$logs);
 		$smarty->assign("pager",$pager);
+		foreach ($filters as $key => $value)
+			$url .= "&filters[$key]=$value";
+		$smarty->assign("url",$url);
 		if (isset($_GET['page']))
 			$url .= '&page=' . $_GET['page'];
 		$smarty->assign("url",$url);

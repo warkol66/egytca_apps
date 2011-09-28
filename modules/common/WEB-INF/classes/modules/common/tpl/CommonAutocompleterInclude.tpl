@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="css/autocomplete.css" type="text/css">
 <script type="text/javascript" language="javascript" charset="utf-8">
 	/**
 	 * @param: id_of_text_field, id del input donde se ingresa el texto para autocompletar.
@@ -27,7 +26,7 @@
 								}
 								update.style.width = 'auto';
 								Effect.Appear(update,{duration:0.15});
-					        }
+					   }
 					};
 				} else {
 					if (Object.isUndefined(options.paramName)) {
@@ -57,7 +56,7 @@
 							}
 							update.style.width = 'auto';
 							Effect.Appear(update,{duration:0.15});
-				        };
+				    };
 					}
 				}
 				$super(id_of_text_field, id_of_div_to_populate, url, options);
