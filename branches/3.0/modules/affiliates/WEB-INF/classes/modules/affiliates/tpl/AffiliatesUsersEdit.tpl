@@ -1,17 +1,15 @@
-<h2>Configuración del Sistema</h2>
-	<h1>Administración de Usuarios por Afiliados</h1>
-	<p>A continuación podrá |-if $currentAffiliateUser->getId() eq ''-|crear|-else-|editar|-/if-| el Usuario por Afiliado|-if $currentAffiliateUser->getAffiliateName() ne ''-| de |-$currentAffiliateUser->getAffiliateName()-||-/if-|.</p>
+<h2>##affiliates,1,Afiliados##</h2>
+<h1>Administración de Usuarios de ##affiliates,1,Afiliados##</h1>
+	<p>A continuación podrá |-if $currentAffiliateUser->getId() eq ''-|crear|-else-|editar|-/if-| el Usuario de ##affiliates,3,Afiliado##|-if $currentAffiliateUser->getAffiliate() ne ''-| de |-$currentAffiliateUser->getAffiliate()-||-/if-|.</p>
 	|-if $currentAffiliateUser->getId() eq ''-|
+		<p>Ingrese la Identificación del usuario y la contraseña para el nuevo usuario, luego haga click en Guardar para generar el nuevo usuario.</p>
 		|-if $ownerCreation ne ''-|
-			Para terminar de crear el afiliado debe crear una cuenta de usuario asociada. <br />
+			<p><div class="successMessage">El sistema ha recibido su solicitud.<br />
+Para terminar de crear el ##affiliates,3,Afiliado## debe crear una cuenta de usuario asociada.</div></p>
 		|-/if-|
-		Ingrese la Identificación del usuario y la contraseña para el nuevo usuario,  luego haga click en Guardar para generar el nuevo usuario.
 	|-else-|
-			Realice los cambios en el usuario y haga click en Aceptar para guardar las modificaciones.
+			<p>Realice los cambios en el usuario y haga click en Aceptar para guardar las modificaciones.</p>
 	|-/if-| 
-	<br />
-	<br />
-	
 |-if $message eq "wrongPassword"-|
 	<div class='errorMessage'>Las contraseñas deben coincidir</div>
 |-elseif $message eq "emptyAffiliate"-|
@@ -34,12 +32,12 @@
 		</ul>
 	</div>
 |-/if-|
-|-include file='ValidationJavascriptInclude.tpl'-|
 <form method="post" action="Main.php">
 	<fieldset title="Formulario de edición de usuario">
-	<legend>Usuario por Afiliado |-if $currentAffiliateUser->getAffiliateName() ne ''-|- |-$currentAffiliateUser->getAffiliateName()-||-/if-|</legend>
+	<legend>Usuario de ##affiliates,1,Afiliados## |-if $currentAffiliateUser->getAffiliate() ne ''-|- |-$currentAffiliateUser->getAffiliate()-||-/if-|</legend>
 		<p>
 			<label for="affiliateUser[username]">Identificación de Usuario</label>
+	|-if $action eq 'edit' and $currentAffiliateUser->getUsername() ne ''-|<input id='actualaffiliateUser[username]' type='hidden' value='|-$currentAffiliateUser->getUsername()-|' />|-/if-|
 			<input name="affiliateUser[username]" id="affiliateUser[username]" type="text"  value="|-$currentAffiliateUser->getUsername()-|" size="40" |-ajax_onchange_validation_attribute actionName=affiliatesUsersValidationUsernameX-| />|-validation_msg_box idField=affiliateUser[username]-|
 		</p>
 		<p>
@@ -71,8 +69,9 @@
 		</p>|-/if-|
 		|-if $affiliates|@count > 0 && $ownerCreation eq ''-|
 		<p>
-			<label for="affiliateUser[affiliateId]">Afiliado</label>
+			<label for="affiliateUser[affiliateId]">##affiliates,3,Afiliado##</label>
 			<select name="affiliateUser[affiliateId]">
+					<option value="">Seleccione ##affiliates,3,Afiliado##</option>
 				|-foreach from=$affiliates item=affiliate name=for_affiliates-|
 					<option value="|-$affiliate->getId()-|"|-if $affiliate->getId() eq $currentAffiliateUser->getAffiliateId()-| selected="selected"|-/if-|>|-$affiliate->getName()-|</option>
 				|-/foreach-|
@@ -128,7 +127,7 @@
 			</select>
 			<input type="hidden" name="do" value="affiliatesUsersDoAddToGroup" />
 			<input type="hidden" name="user" value="|-$currentAffiliateUser->getId()-|" />
-			<input type="submit" value="Agregar" class="button" />
+			<input type="submit" value="Agregar" />
 		</form>
 	</p>
 </fieldset>

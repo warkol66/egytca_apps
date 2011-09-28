@@ -17,26 +17,63 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 
 	//Setea si se eliminan realmente los usuarios de la base de datos o se usa soft delete
 	const DELETEUSERS = false;
-	
+
 	private $searchAffiliateId;
-	
-	
+
+	private $searchString;
+	private $perPage;
+	private $limit;
+
 	//mapea las condiciones del filtro
 	var $filterConditions = array(
-		"searchAffiliateId"=>"setSearchAffiliateId",
+					"searchString"=>"setSearchString",
+					"searchAffiliateId"=>"setSearchAffiliateId",
+					"perPage"=>"setPerPage",
+					"limit" => "setLimit"
 	);
-	
+
+ /**
+	 * Especifica una cadena de busqueda.
+	 * @param searchString cadena de busqueda.
+	 */
+	function setSearchString($searchString){
+		$this->searchString = $searchString;
+	}
+
+ /**
+	 * Especifica un id de afiliado para busqueda
+	 * @param $affiliateId int id de afilido
+	 */
 	public function setSearchAffiliateId($affiliateId) {
 		$this->searchAffiliateId = $affiliateId;
 	}
 
+ /**
+	 * Especifica cantidad de resultados por pagina.
+	 * @param perPage integer cantidad de resultados por pagina.
+	 */
+	function setPerPage($perPage){
+		$this->perPage = $perPage;
+	}
+
+	/**
+	 * Especifica una cantidad maxima de registros.
+	 * @param limit cantidad maxima de registros.
+	 */
+	function setLimit($limit){
+		$this->limit = $limit;
+	}
+
+	/**
+	 * Obtiene los usuarios por id de afiliado
+	 * @param int $affiliateId id de afiliado
+	 */
 	function getByAffiliateId($affiliateId) {
 		return AffiliateUserQuery::create()->findByAffiliateId($affiliateId);
 	}
 
 	/**
 	* Obtiene todos los usuarios por afiliado.
-	*
 	*	@return array Informacion sobre todos los usuarios
 	*/
 	function getAll() {
@@ -45,7 +82,6 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 
 	/**
 	* Obtiene todos los usuarios desactivados.
-	*
 	*	@return array Informacion sobre los usuarios
 	*/
 	function getDeleteds() {
@@ -56,7 +92,6 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 
 	/**
 	* Obtiene todos los usuarios desactivados.
-	*
 	* @param int $affiliateId Id del afiliado
 	*	@return array Informacion sobre los usuarios
 	*/
@@ -116,17 +151,17 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 	* Autentica a un usuario por afiliado.
 	*
 	* @param string $username Nombre de usuario
-	* @param string $password Contrase?a 
+	* @param string $password Contrase?a
 	* @return User Informacion sobre el usuario, false si no fue exitosa la autenticacion
 	*/
 	function auth($username, $password) {
-		
+
 		$usernameLowercase = strtolower($username);
 		$user = AffiliateUserQuery::create()->filterByUsername($usernameLowercase)->findOne();
 
-		if ( !empty($user) ) {
-			if ( $user->getPassword() == md5($password."ASD") ) {
-				$_SESSION['lastLogin'] = $user->getLastLogin();	
+		if (!empty($user)) {
+			if ($user->getPassword() == Common::md5($password)) {
+				$_SESSION['lastLogin'] = $user->getLastLogin();
 				$user->setLastLogin(time());
 				$user->save();
 				if (is_null($user->getPasswordUpdated()) && ConfigModule::get("affiliates","forceFirstPasswordChange"))
@@ -140,7 +175,7 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 	}
 
 	/**
-	* Setea el acceso en 0 o elimina usuario 
+	* Setea el acceso en 0 o elimina usuario
 	*
 	* @param int $id Id del usuario
 	* @return boolean true
@@ -166,6 +201,17 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 	}
 
 	/**
+	* Obtiene la cantidad de filas por pagina por defecto en los listado paginados.
+	*
+	* @return int Cantidad de filas por pagina
+	*/
+	function getRowsPerPage() {
+		if (!isset($this->perPage))
+			$this->perPage = Common::getRowsPerPage();
+		return $this->perPage;
+	}
+
+	/**
 	* Actualiza la informacion de un usuario por afiliado.
 	*
 	* @param int $id Id del usuario
@@ -179,7 +225,7 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 	*/
 	function update($id, $params) {
 		$userByAffiliate = AffiliateUserPeer::retrieveByPK($id);
-		
+
 		foreach ($params as $key => $value) {
 			$setMethod = "set".$key;
 			if ( method_exists($userByAffiliate,$setMethod) ) {
@@ -199,7 +245,7 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 			return false;
 		}
 	}
-	
+
 	/**
 	* Obtiene los grupos de usuarios en los cuales es miembro un usuario por afiliado.
 	*
@@ -213,7 +259,7 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 							->endUse()
 								->find();
 	}
-	
+
 	/**
 	* Agrega un usuario a un grupo de usuarios.
 	*
@@ -233,7 +279,7 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 			return false;
 		}
 	}
-	
+
 	/**
 	* Elimina un usuario de un grupo de usuarios.
 	*
@@ -252,7 +298,7 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 			return false;
 		}
 	}
-	
+
 	/**
 	* Activa un usuario por afiliado a partir del id.
 	*
@@ -260,7 +306,7 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 	*	@return boolean true
 	*/
 	function activate($id) {
-			AffiliateUserQuery::disableSoftDelete();
+		AffiliateUserQuery::disableSoftDelete();
 		$user = AffiliateUserPeer::retrieveByPk($id);
 		AffiliateUserQuery::enableSoftDelete();
 		$user->unDelete();
@@ -279,7 +325,7 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 		$user = AffiliateUserQuery::create()->filterByUsername($usernameLowercase)->findOne();
 		if ( !empty($user) ) {
 			if ($user->getMailAddress() == $mailAddress ) {
-				$newPassword = AffiliateUserPeer::getNewPassword();
+				$newPassword = Common::generateRandomPassword();
 				$user->setPassword($newPassword);
 				$user->save();
 				$result = array();
@@ -292,50 +338,36 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 	}
 
 	/**
-	* Genera una nueva contrase?a.
-	*
-	* @param int $length [optional] Longitud de la contrase?a
-	* @return string Contrase?a
-	*/
-	function getNewPassword($length = 8) {
-		$password = "";
-		$possible = "23456789bcdfghjkmnpqrstvwxyz$#%";
-		$i = 0;
-		while ($i < $length) {
-			$char = substr($possible, mt_rand(0, strlen($possible)-1), 1);
-			if (!strstr($password, $char)) {
-				$password .= $char;
-				$i++;
-			}
-		}
-		return $password;
-	}
-	
-	/**
-	 * Retorna el criteria generado a partir de lso parï¿½metros de bï¿½squeda
-	 *
-	 * @return criteria $criteria Criteria con parï¿½metros de bï¿½squeda
+	 * Retorna el criteria generado a partir de los parametros de busqueda
+	 * @return criteria $criteria Criteria con parametros de busqueda
 	 */
 	private function getSearchCriteria() {
 		$criteria = new AffiliateUserQuery();
 		$criteria->setIgnoreCase(true);
 		$criteria->orderById();
-		
+
+		if ($this->searchString) {
+			$criteria->add(AffiliateUserPeer::USERNAME,"%" . $this->searchString . "%",Criteria::LIKE);
+			$criterionName = $criteria->getNewCriterion(AffiliateUserPeer::NAME,"%" . $this->searchString . "%",Criteria::LIKE);
+			$criteria->addOr($criterionName);
+			$criterionSurname = $criteria->getNewCriterion(AffiliateUserPeer::SURNAME,"%" . $this->searchString . "%",Criteria::LIKE);
+			$criteria->addOr($criterionSurname);
+			$criterionEmail = $criteria->getNewCriterion(AffiliateUserPeer::MAILADDRESS,"%" . $this->searchString . "%",Criteria::LIKE);
+			$criteria->addOr($criterionEmail);
+		}
+
 		if (!empty($_SESSION["loginUser"])) {
-			if (!empty($this->searchAffiliateId)) {
-				$affiliateId = $this->searchAffiliateId;
-				if ($affiliateId != -1)
-					$criteria->filterByAffiliateId($affiliateId);
-			}
-		} 
+			if (!empty($this->searchAffiliateId) && $this->searchAffiliateId > 0)
+				$criteria->filterByAffiliateId($this->searchAffiliateId);
+		}
 		else if (!empty($_SESSION["loginAffiliateUser"])) {
 			$affiliateId = $_SESSION["loginAffiliateUser"]->getAffiliateId();
 			$criteria->filterByAffiliateId($affiliateId);
 		}
-			
+
 		return $criteria;
 	}
-		
+
 	 /**
 	* Obtiene todos los usuarios por afiliado paginados segun la condicion de busqueda ingresada.
 	*
@@ -343,9 +375,9 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 	* @param int $perPage [optional] Cantidad de filas por pagina
 	* @return array Informacion sobre todos los usuarios por afiliado
 	*/
-	function getSearchPaginated($page=1,$perPage=-1) {
+	function getAllPaginatedFiltered($page=1,$perPage=-1) {
 		if ($perPage == -1)
-			$perPage = Common::getRowsPerPage();
+			$perPage = $this->getRowsPerPage();
 		if (empty($page))
 			$page = 1;
 		$cond = $this->getSearchCriteria();
@@ -353,35 +385,6 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 		return $pager;
 	}
 	
-	 /**
-	* Obtiene todos los usuarios por afiliado paginados.
-	*
-	* @param int $page [optional] Numero de pagina actual
-	* @param int $perPage [optional] Cantidad de filas por pagina
-	* @return array Informacion sobre todos los usuarios por afiliado
-	*/
-	function getAllPaginated($page=1,$perPage=-1) {
-		if ($perPage == -1)
-			$perPage = 	Common::getRowsPerPage();
-
-		if (empty($page))
-			$page = 1;
-
-		$cond = new AffiliateUserQuery();
-
-		$pager = new PropelPager($cond,"AffiliateUserPeer", "doSelect",$page,$perPage);
-		return $pager;
-	}
-	
-	/**
-	* Obtiene todas los usuarios por afiliado con las opciones de filtro asignadas al peer.
-	*
-	*/
-	function getAllFiltered() {
-		$cond = $this->getSearchCriteria();
-		return $cond->find();
-	}
-
 	/**
 	* Obtiene la informacion de un usuario segun su nombre de usuario
 	*
@@ -392,7 +395,7 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 		$user = AffiliateUserQuery::create()->setIgnoreCase(1)->findOneByUsername($username);
 		return $user;
 	}
-	
+
 	/**
 	 * Authentica un usuario por nombre de usuario y mail.
 	 *
@@ -410,9 +413,9 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 			return $user;
 		return false;
 	}
-	
+
 	/**
-	 * Devuelve el usuario con recuperacion de contraseña pendiente que corresponda a partir
+	 * Devuelve el usuario con recuperacion de contraseðŸŸ°endiente que corresponda a partir
 	 * del hash pasado por parametro, si existe.
 	 *
 	 * @param string $recoveryHash hash mediante el cual se realiza la busqueda.
@@ -430,12 +433,12 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 		else
 			return false;
 	 }
-	 
+
 	/**
 	* Actualiza la informacion de un usuario.
 	*
 	* @param int $id Id del usuario
-	* @param string $pass Contraseña del usuario
+	* @param string $pass ContraseðŸŸ¤el usuario
 	* @param int $timezone Zona horaria del usuario
 	* @return boolean true si se actualizo la informacion correctamente, false sino
 	*/
@@ -456,9 +459,22 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 			return false;
 		}
 	}
-	
+
+	/**
+	* Obtiene todos los usuarios owners
+	* @return array propel obj affiliateUsers
+	*/
 	public static function getAllOwners() {
 		return AffiliateUserQuery::create()->owners()->find();
+	}
+
+	/**
+	* Obtiene un array de Id de usuarios de un afiliado determinado
+	* @param propel obj $affiliate Afiliado
+	* @return array  Ids de usuarios asociados al afiliado
+	*/
+	public static function getIdsArray($affiliate) {
+		return AffiliateUserQuery::create()->select('Id')->findByAffiliateid($affiliate->getId());
 	}
 
 } // AffiliateUserPeer

@@ -1,14 +1,14 @@
 <?php
 
-class AffiliatesUsersDoDeleteAction extends BaseAction {
+class AffiliatesBranchesDoDeleteAction extends BaseAction {
 
-	function AffiliatesUsersDoDeleteAction() {
+	function AffiliatesBranchesDoDeleteAction() {
 		;
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
@@ -17,7 +17,7 @@ class AffiliatesUsersDoDeleteAction extends BaseAction {
 		}
 
 		$module = "Affiliates";
-		$section = "Users";
+		$section = "Branches";
 
 		if ($_POST["page"] > 0)
 			$params["page"] = $_POST["page"];
@@ -25,13 +25,13 @@ class AffiliatesUsersDoDeleteAction extends BaseAction {
 		if (!empty($_POST["filters"]))
 			$filters = $_POST["filters"];
 
-		$affiliateUser = AffiliateUserPeer::get($_POST["id"]);
+		$affiliateBranch = AffiliateBranchPeer::get($_POST["id"]);
 		
-		if (Common::isAffiliatedUser() && !$affiliateUser->isOwner(Common::getLoggedUser()))
+		if (Common::isAffiliatedUser() && !$affiliateBranch->isOwner(Common::getLoggedUser()))
 			//es usuario afiliado pero no es duenio de la instancia
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'failure');
 
-		if ($affiliateUser->delete())
+		if ($affiliateBranch->delete())
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
 		else
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'failure');

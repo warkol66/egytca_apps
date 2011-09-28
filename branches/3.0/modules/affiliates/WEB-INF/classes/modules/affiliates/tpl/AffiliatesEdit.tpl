@@ -5,6 +5,7 @@
 |-else-|		
 	<p>A continuación podrá editar los datos del ##affiliates,3,Afiliado##.</p>
 |-/if-|
+|-if !$notValidId-|	
 	<fieldset title="Formulario de edición de nombre del Afiliado">
 		<legend>##affiliates,1,Afiliados##</legend>
 		<p>Realice los cambios y para guardar haga click en "Guardar Cambios"</p>
@@ -14,8 +15,8 @@
 		 <p><label for="params[name]">Nombre</label>
 			<input name="params[name]" type="text" value="|-$affiliate->getName()|escape-|" size="60">
 		 </p>
-		 <p><label for="params[internalId]">ID interno</label>
-			<input name="params[internalId]" type="text" value="|-$affiliate->getInternalNumber()|escape-|" size="15"> 
+		 <p><label for="params[internalNumber]">ID interno</label>
+			<input name="params[internalNumber]" type="text" value="|-$affiliate->getInternalNumber()|escape-|" size="15"> 
 		</p>
 		 <p><label for="params[address]">Dirección</label>
 				<input name="params[address]" type="text" value="|-$affiliate->getAddress()|escape-|" size="55"> 
@@ -43,3 +44,7 @@
 			 </p>
 		</form>
 	</fieldset>
+|-else-|
+<div class="errorMessage">El identificador del afiliado ingresado no es válido. Seleccione un afiliado de la lista.</div>
+				<input type='button' onClick='location.href="Main.php?do=affiliatesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de ##affiliates,1,Afiliados##"/>
+|-/if-|

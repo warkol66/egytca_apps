@@ -14,19 +14,18 @@
  * @package    propel.generator.affiliates.classes
  */
 class AffiliateBranch extends BaseAffiliateBranch {
-
-  /**
-  * Obtiene el nombre del afiliado o nada si no lo encuentra
-  *
-  * @return string Nombre del afiliado
-  */
-	function getAffiliate() {
-		$affiliateId = $this->getAffiliateId();
-		$affiliate = AffiliateQuery::create()->findPk($affiliateId);
-		if($affiliate)
-			return $affiliate->getName();
+	
+	/**
+	 * Informa si un usuario es owner del afiliado relacionado al branch
+	 * @param $user obj objeto propel user
+	 * @return bool true si es owner false si no.
+	 */
+	public function isOwner($user) {
+		$affiliate = $this->getAffiliate();
+		if ($affiliate->isOwner($user))
+			return true;
 		else
-			return;
-  }
+			return false;
+	}
 
 } // AffiliateBranch

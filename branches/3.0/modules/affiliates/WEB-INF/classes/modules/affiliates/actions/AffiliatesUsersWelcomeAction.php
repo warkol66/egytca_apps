@@ -1,8 +1,8 @@
 <?php
-/** 
+/**
  * AffiliatesUsersWelcomeAction
  *
- * @package affiliates 
+ * @package affiliates
  */
 
 class AffiliatesUsersWelcomeAction extends BaseAction {
@@ -13,15 +13,12 @@ class AffiliatesUsersWelcomeAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		//////////
 		// Use a different template
 		$this->template->template = "TemplateWelcome.tpl";
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -29,7 +26,7 @@ class AffiliatesUsersWelcomeAction extends BaseAction {
 		}
 
 		$module = "Affiliates";
-		
+
 		return $mapping->findForwardConfig('success');
 	}
 

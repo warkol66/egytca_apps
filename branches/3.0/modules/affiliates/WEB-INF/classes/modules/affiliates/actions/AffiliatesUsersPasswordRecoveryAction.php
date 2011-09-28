@@ -1,8 +1,8 @@
 <?php
-/** 
+/**
  * AffiliatesUsersPasswordRecoveryAction
  *
- * @package affiliates 
+ * @package affiliates
  */
 
 class AffiliatesUsersPasswordRecoveryAction extends BaseAction {
@@ -13,15 +13,12 @@ class AffiliatesUsersPasswordRecoveryAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
-
-  	//////////
-   	// Use a different template
-		$this->template->template = "TemplateLogin.tpl";
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
+		// Use a different template
+		$this->template->template = "TemplateLogin.tpl";
+
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {

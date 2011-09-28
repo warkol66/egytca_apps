@@ -15,114 +15,118 @@
  */
 class AffiliatePeer extends BaseAffiliatePeer {
 
-	private $searchName;
+	private $searchString;
+	private $internalNumber;
+	private $perPage;
+	private $limit;
 
 	//mapea las condiciones del filtro
 	var $filterConditions = array(
-		"searchName"=>"setSearchName",
+					"searchString"=>"setSearchString",
+					"internalNumber"=>"setInternalNumber",
+					"perPage"=>"setPerPage",
+					"limit" => "setLimit"
 	);
 
-	public function setSearchName($name) {
-		$this->searchName = $name;
+ /**
+	 * Especifica una cadena de busqueda.
+	 * @param searchString cadena de busqueda.
+	 */
+	function setSearchString($searchString){
+		$this->searchString = $searchString;
 	}
 
-	function getAll() {
-		$cond = new Criteria();
-		$todosObj = AffiliatePeer::doSelect($cond);
-		return $todosObj;
+ /**
+	 * Especifica un internalNumber
+	 * @param internalNumber busqueda por internalNumber
+	 */
+	function setInternalNumber($internalNumber){
+		$this->internalNumber = $internalNumber;
 	}
 
-	function getAllPaginated($page=1,$perPage=-1) {
-		if ($perPage == -1)
-			$perPage = Common::getRowsPerPage();
-		if (empty($page))
-			$page = 1;
-		$cond = new Criteria();
-		$cond->addAscendingOrderByColumn(AffiliatePeer::ID);
-
-		$pager = new PropelPager($cond,"AffiliatePeer", "doSelect",$page,$perPage);
-		return $pager;
-	}
-
-	function getByNamePaginated($name,$page=1,$perPage=-1) {
-		if ($perPage == -1)
-			$perPage = Common::getRowsPerPage();
-		if (empty($page))
-			$page = 1;
-		$cond = new Criteria();
-		$cond->add(AffiliatePeer::NAME,"%".$name."%",Criteria::LIKE);
-		$cond->addAscendingOrderByColumn(AffiliatePeer::ID);
-
-		$pager = new PropelPager($cond,"AffiliatePeer", "doSelect",$page,$perPage);
-		return $pager;
-	}
-
-	function get($id) {
-		$affiliate = AffiliatePeer::retrieveByPK($id);
-		return $affiliate;
-	}
-
-	function getByName($name) {
-		return AffiliateQuery::create()->setIgnoreCase(true)->filterByName($name)->findOne();
-	}
-
-	function update($id,$params) {
-		$affiliate = AffiliatePeer::retrieveByPK($id);
-		Common::setObjectFromParams($affiliate, $params);
-		if ($affiliate->save())
-			return $affiliate;
-		return true;
-	}
-
-	function delete($id) {
-		AffiliateQuery::create()->filterByPrimaryKey($id)->delete();
-		return true;
-	}
-
-
-	function create($params) {
-		$affiliate = new Affiliate();
-		Common::setObjectFromParams($affiliate, $params);
-		if ($affiliate->save())
-			return $affiliate;
-		return true;
-	}
-
-	function getByInternalNumber($internalNumber) {
-		return AffiliateQuery::create()->filterByInternalNumber($internalNumber)->findOne();
+ /**
+	 * Especifica cantidad de resultados por pagina.
+	 * @param perPage integer cantidad de resultados por pagina.
+	 */
+	function setPerPage($perPage){
+		$this->perPage = $perPage;
 	}
 
 	/**
-	 * Retorna el criteria generado a partir de lso parámetros de búsqueda
-	 *
+	 * Especifica una cantidad maxima de registros.
+	 * @param limit cantidad maxima de registros.
+	 */
+	function setLimit($limit){
+		$this->limit = $limit;
+	}
+
+ /**
+	* Obtiene todos los affiliate existentes filtrados por $this->getSearchCriteria()
+	* @return PropelObjectCollection Todos los affiliates
+	*/
+	function getAll() {
+		$criteria = $this->getSearchCriteria();
+		return AffiliatePeer::doSelect($criteria);
+	}
+
+ /**
+	* Obtiene todos los affiliate paginados segun la condicion de busqueda ingresada.
+	*
+	* @param int $page [optional] Numero de pagina actual
+	* @param int $perPage [optional] Cantidad de filas por pagina
+	* @return array Informacion sobre todos los affiliate
+	*/
+	function getAllPaginatedFiltered($page=1,$perPage=-1)	{
+		if ($perPage == -1)
+			$perPage = $this->getRowsPerPage();
+		if (empty($page))
+			$page = 1;
+		$criteria = $this->getSearchCriteria();
+		$pager = new PropelPager($criteria,"AffiliatePeer", "doSelect",$page,$perPage);
+		return $pager;
+	}
+
+	/**
+	* Obtiene la cantidad de filas por pagina por defecto en los listado paginados.
+	* @return int Cantidad de filas por pagina
+	*/
+	function getRowsPerPage() {
+		if (!isset($this->perPage))
+			$this->perPage = Common::getRowsPerPage();
+		return $this->perPage;
+	}
+
+	/**
+	* Obtiene un affiliate.
+	* @param int $id id del afiliado
+	* @return object affiliate
+	*/
+	function get($id) {
+		return AffiliateQuery::create()->findOneById($id);
+	}
+
+	/**
+	 * Retorna el criteria generado a partir de los parámetros de búsqueda
 	 * @return criteria $criteria Criteria con parámetros de búsqueda
 	 */
 	private function getSearchCriteria() {
 		$criteria = new AffiliateQuery();
+		$criteria->setLimit($this->limit);
 		$criteria->setIgnoreCase(true);
 		$criteria->orderById();
 
-		if (!empty($this->searchName))
-			$criteria->filterByName('%'.$this->searchName.'%', Criteria::LIKE);
+		if ($this->searchString)
+			$criteria->filterByName('%'.$this->searchString.'%', Criteria::LIKE);
+
+		if ($this->internalNumber)
+			$criteria->filterByInternalNumber($this->internalNumber);
 
 		return $criteria;
 	}
 
-	/**
-	* Obtiene todos los afiliados paginados segun la condicion de busqueda ingresada.
-	*
-	* @param int $page [optional] Numero de pagina actual
-	* @param int $perPage [optional] Cantidad de filas por pagina
-	* @return array Informacion sobre todos los afiliados
-	*/
-	function getSearchPaginated($page=1,$perPage=-1) {
-		if ($perPage == -1)
-			$perPage = Common::getRowsPerPage();
-		if (empty($page))
-			$page = 1;
-		$cond = $this->getSearchCriteria();
-		$pager = new PropelPager($cond,"AffiliatePeer", "doSelect",$page,$perPage);
-		return $pager;
+	function delete($id) {
+		AffiliateQuery::create()->findOneById($id)->delete();
+		return true;
 	}
 
 } // AffiliatePeer

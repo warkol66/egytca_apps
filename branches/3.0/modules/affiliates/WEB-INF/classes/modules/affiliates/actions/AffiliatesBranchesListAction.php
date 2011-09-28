@@ -1,8 +1,8 @@
 <?php
 
-class AffiliatesBranchsListAction extends BaseAction {
+class AffiliatesBranchesListAction extends BaseAction {
 
-	function AffiliatesBranchsListAction() {
+	function AffiliatesBranchesListAction() {
 		;
 	}
 
@@ -10,9 +10,6 @@ class AffiliatesBranchsListAction extends BaseAction {
 
     BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -20,7 +17,7 @@ class AffiliatesBranchsListAction extends BaseAction {
 		}
 
 		$module = "Affiliates";
-		$section = "Branchs";
+		$section = "Branches";
 		$smarty->assign("module",$module);
 		$smarty->assign("section",$section);
 
@@ -28,23 +25,25 @@ class AffiliatesBranchsListAction extends BaseAction {
 		$filters = $_GET['filters'];
 
 		$this->applyFilters($branchPeer, $filters, $smarty);
-		$url = "Main.php?do=affiliatesBranchsList";
+		$url = "Main.php?do=affiliatesBranchesList";
 		foreach ($filters as $key => $value)
 			$url .= "&filters[$key]=$value";
 		$smarty->assign("url",$url);
 
 		if (!empty($_SESSION["loginUser"])) {
-			$affiliates = AffiliatePeer::getAll();
+			$affiliatePeer = new AffiliatePeer();
+			$affiliates = $affiliatePeer->getAll();
 			$smarty->assign("affiliates",$affiliates);
-		} else if (!empty($_SESSION["loginAffiliateUser"])) {
-			$branchPeer->setSearchAffiliateId($_SESSION["loginAffiliateUser"]->getAffiliateId());
-		} else {
-			return $mapping->findForwardConfig('failure');
 		}
+		else if (!empty($_SESSION["loginAffiliateUser"]))
+			$branchPeer->setSearchAffiliateId($_SESSION["loginAffiliateUser"]->getAffiliateId());
+		else
+			return $mapping->findForwardConfig('failure');
+
 
 		$pager = $branchPeer->getSearchPaginated($_GET["page"]);
 
-		$smarty->assign("branchs",$pager->getResult());
+		$smarty->assign("branches",$pager->getResult());
 		$smarty->assign("pager",$pager);
 
 		$smarty->assign("url",$url);
