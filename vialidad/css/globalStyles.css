@@ -1,0 +1,598 @@
+/* GLOBAL Styles */
+* {
+	padding: 0; 
+	margin: 0; 
+}
+body {
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	vertical-align:top;
+}
+form {
+	display:inline;
+}
+a:active, a:focus, input:active, input:focus {
+	outline: 0 none;
+}
+a img{
+	border: none;
+}
+/* ADD   ----------------------------------------------*/
+a.addLink {
+	line-height: 1.4em;
+	vertical-align: middle;
+	display: inline-block;
+}
+a.addLink:link, a.addLink:visited {
+	font-weight: bold;
+	padding: 0 5px 0 20px;
+	margin: 3px;
+	text-decoration: none;
+}
+a.addLink:hover, a.addLink:active {
+	text-decoration: none;
+}
+/* /ADD   ----------------------------------------------*/
+/* SEARCH   -------------------------------------------*/
+a.tdTitSearch{
+	display: block;
+	clear:right;
+	font-weight:bold;
+	text-align:left;
+	padding: 8px 20px 8px 30px;
+}
+.tdSearch{
+	height: 40px;	
+	text-align:left;
+	padding: 4px;
+	vertical-align:middle;
+}
+#divSearch{
+	width: 80%;
+	float:left;
+	position:relative;
+	margin: 8px 0 0 30px;   /* ie */
+}
+.tdSearch input{
+	margin-top: 0;
+}
+.tdSearch img{
+	margin:0;
+}
+a.tdSearchButton:link, 
+a.tdSearchButton:visited  {
+	width:auto;
+	display:inline;
+	padding: 0px 5px;
+	margin: 0 0 0 3px;
+	font-weight:bold;
+	text-decoration:none;	
+}
+a.tdSearchButton:hover, 
+a.tdSearchButton:active  {
+}
+/* /SEARCH   -------------------------------------------*/
+
+/* MAILS   --------------------------------------------*/
+a.linkMailNew,a.linkMailNew:link,
+a.linkMailMarkRead,a.linkMailMarkRead:link,
+a.linkMailMarkUnread,a.linkMailMarkUnread:link,
+a.linkMailReply,a.linkMailReply:link,
+a.linkMailForward,a.linkMailForward:link,
+a.linkMailDelete,a.linkMailDelete:link {
+	line-height: 1.4em;
+	vertical-align: middle;
+	display: inline-block;
+	font-weight: bold;
+	padding: 0 5px 0 20px;
+	margin: 3px;
+	text-decoration: none;
+}
+/* /MAILS   --------------------------------------------*/
+
+/* posiciona el link de "AGREGAR NUEVA ..." y VOLVER */
+.rightLink{
+	float:right;
+	display:inline;
+	clear:left;
+}
+/* PAGINADO    ----------------------------*/
+.pages{	
+	height: 37px;
+	text-align:center;
+	vertical-align:middle;
+	font-weight:bold;
+}
+a.pageLink:link, a.pageLink:visited {
+	font-weight:normal;
+	text-decoration:underline;
+	margin: 0 2px;
+}
+a.pageLink:hover, a.pageLink:active {
+	font-weight:normal;
+	text-decoration:underline;
+	margin: 0 2px;
+}
+.tdFooter{
+	padding: 5px;
+	text-align:left;
+}
+/* /PAGINADO    ----------------------------*/
+
+.textLinkButton {
+	outline: 0 none;
+	cursor: pointer;
+	clear: right;
+	-khtml-border-radius: .2em;
+	-opera-border-radius: .2em;
+	-moz-border-radius: .2em;
+	-webkit-border-radius: .2em;
+	border-radius: .2em;
+	text-decoration: none;
+	display: inline;
+	line-height: 1.85em;
+	padding: .25em .4em .3em .4em;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+.textLinkButton:hover {
+}
+.textLinkButton:visited, a.textLink:active{
+}
+
+/* Leightbox    ----------------------------*/
+.overlayFade{
+	display: none;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	z-index:11001;
+	overflow: hidden;
+}
+.overlayForm {
+	display: none;
+	position: absolute;
+	top: 25%;
+	left: 25%;
+	width: 50%;
+	height: 50%;
+	padding: 20px;
+	z-index:11002;
+	overflow: auto;
+}
+.leightbox {
+	display: none;
+	position: fixed;
+	margin: auto;
+	width: auto;
+	height: auto;
+	padding: 2em;
+	background-color: white;
+	text-align: left;
+	top: 10%;
+	z-index:11001;
+	max-height: 80%;
+	-khtml-border-radius: 10px;
+	-opera-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+.innerLighbox {
+	overflow: auto;
+	max-height: 500px;
+}
+.close {
+	clear: both;
+	display: block;
+}
+#overlay{
+	display:none;
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	z-index:11000;
+	-moz-opacity: 0.5;
+	opacity:.50;
+	filter: alpha(opacity=50);
+}
+a.lbOn {
+	text-decoration: none !Important;
+}
+.lightbox[id]{
+ /* IE6 and below Can't See This */
+	position:fixed;
+}
+#overlay[id]{ 
+/* IE6 and below Can't See This */
+	position:fixed;    
+}
+/* /Leightbox    ----------------------------*/
+
+/* Autocomplete    ----------------------------*/
+div.autocomplete {
+}
+div.autocomplete ul {
+}
+div.autocomplete ul li.selected {
+}
+div.autocomplete ul li,  div.autocomplete ul b{
+}
+div.autocomplete ul b {
+}
+/* /Autocomplete    ----------------------------*/
+/* fieldset    ----------------------------*/
+fieldset {
+	padding: 8px;
+	margin-bottom: 2em; /* IE 3.5em */
+	position: relative;
+}
+fieldset legend {
+	font-weight: bold;
+	font-size: 123.1%;
+	margin-bottom: 0.5em;
+	position: relative;  
+	margin-left: -.3em;
+	padding: .2em;
+}
+fieldset label {
+	font-size: 93%;
+	line-height: 153.9%;
+	width: 140px;
+	float: left;
+	font-weight: bold;
+	vertical-align: text-top;
+	text-align: right;
+	height: auto;
+	padding-top: 0;
+	margin-bottom: 0;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	display: block;
+}
+fieldset p {
+	display: block;
+	height: auto;
+	clear: both;
+}
+fieldset fieldset legend {  
+	background-color: transparent;
+}
+fieldset fieldset label {
+	width: 90px;
+	font-weight: bold;
+	display: inline;
+}
+fieldset fieldset {
+	padding: 5px;
+	margin-left: 120px;
+}
+fieldset fieldset label {
+	font-weight: bold;
+	display: inline;
+}
+fieldset li {
+	margin-left: 35px;
+}
+fieldset {  
+	position: relative;
+}
+fieldset fieldset legend {  
+	background-color: transparent;
+}
+/*  /fieldset  ----------------------------------- */
+
+/* InternalMail */
+fieldset #recipientsSelected li {
+	list-style: none;
+}
+#recipientsSelected li input {
+	margin-left: 120px;
+	margin-right: 5px;
+}
+/* /InternalMail */
+
+/*  BOX VARIABLES   ----------------------------------- */
+#boxVariables{
+	width: 97%;
+	height: auto;
+	margin: 1em 0 2em 0;
+	padding: 1em;
+}
+#boxVariables ul{
+	padding-left: 10px;
+}
+#boxVariables * label {
+	vertical-align: top;
+}
+/*  INITIAL UL*/
+#boxVariables ul li{
+	font-weight: bold;
+	list-style: none;
+	padding-left: 1em;	
+	margin-bottom: 1em;
+	margin-top: 0.5em;
+}
+/*FIRST UL */
+#boxVariables ul li ul li{
+	font-weight:bold;
+	list-style: none;
+	padding-left: 1em;	
+	margin-bottom: 1em;
+}
+/* SECOND UL, THIRD UL, FOURTH UL, FIFTH UL */
+#boxVariables ul li ul li ul li,
+#boxVariables ul li ul li ul li ul li,
+#boxVariables ul li ul li ul li ul li ul li {
+	font-weight:normal;
+	text-transform: none;	
+	list-style: none;
+	padding-left: 1em;		
+	margin-bottom: 0;	
+}
+/* Boton Atributo ------------------*/
+#boxVariables a{
+	font-weight:normal;
+	text-transform:none;
+	width: 14px;
+	height: 14px;
+	margin: 0 3px 3px 3px;
+	display: inline;
+	clear: left;	
+}
+#boxVariables a.atributo:link,
+#boxVariables a.atributo:visited {
+	text-decoration: none;
+}
+#boxVariables a.atributo:hover,
+#boxVariables a.atributo:active {
+	text-decoration: none;
+}
+/* Boton Seccion ------------------*/
+#boxVariables a.seccion:link,
+#boxVariables a.seccion:visited {
+	text-decoration:none;
+}
+#boxVariables a.seccion:hover,
+#boxVariables a.seccion:active {
+	text-decoration:underline;
+}
+/* Boton ELIMNINAR SECCION ------------------*/
+#boxVariables a.eliminar1:link,
+#boxVariables a.eliminar1:visited {
+	text-decoration:none;
+}
+#boxVariables a.eliminar1:hover,
+#boxVariables a.eliminar1:active {
+	text-decoration:underline;
+}
+/* Boton ELIMNINAR ATRIBUTO ------------------*/
+#boxVariables a.eliminar2:link,
+#boxVariables a.eliminar2:visited {
+	text-decoration:none;
+}
+#boxVariables a.eliminar2:hover,
+#boxVariables a.eliminar2:active {
+	text-decoration:underline;
+}
+/*  /BOX VARIABLES   ----------------------------------- */
+
+ul.iconOptionsList li {
+	list-style: none;
+	margin-left: 15px;
+	line-height: 2em;
+	vertical-align: bottom;
+	padding-bottom: .2em;
+}
+#categoriesListPlaceHolder ul.iconOptionsList li {
+	list-style: circle;
+}
+#categoriesListPlaceHolder ul.iconOptionsList ul li {
+	list-style:  square;
+	margin-left: 35px;
+}
+#categoriesListPlaceHolder ul.iconOptionsList ul ul li {
+	list-style: circle;
+	margin-left: 55px;
+}
+#categoriesListPlaceHolder ul.iconOptionsList ul ul ul li {
+	list-style: square;
+	margin-left: 75px;
+}
+#categoriesListPlaceHolder ul.iconOptionsList ul ul ul ul li {
+	list-style: circle;
+	margin-left: 95px;
+}
+#categoriesListPlaceHolder ul.iconOptionsList ul ul ul ul ul li {
+	list-style: square;
+	margin-left: 105px;
+}
+#categoriesListPlaceHolder ul.iconOptionsList ul ul ul ul ul ul li {
+	list-style: circle;
+	margin-left: 135px;
+}
+.noDecoration {
+	text-decoration: none !Important;
+}
+/* In-Place Edit */
+.in_place_editable {
+	padding: 5px;
+}
+.editor_field, .editor_ok_button, .editor_cancel_button {
+	margin-right: 3px !Important;
+}
+.inplaceeditor-form label {
+	font-size: 93%;
+	line-height: 153.9%;
+	float: left;
+	font-weight: bold;
+	vertical-align: text-top;
+	text-align: right;
+	height: auto;
+	padding-top: 0;
+	margin-bottom: 0;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	display: block;
+}
+.markets-chz-select {
+	min-width: 500px;
+}
+.in_place_editable {
+	padding: 4px;
+	border: 1px solid transparent;/*#F0F0F0;*/
+	outline: 0 none;
+	cursor: pointer;
+	-khtml-border-radius: 2px;
+	-opera-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+.in_place_hover {
+	background-color: #b0e9ff !Important; /*  b7e0ff*/
+	padding: 4px;
+	border: 1px outset #a0a0a0;/*#F0F0F0;*/
+	outline: 0 none;
+	cursor: pointer;
+	-khtml-border-radius: 2px;
+	-opera-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	padding-right: 25px !Important;
+	background-image: url(../images/icon_iconEdit.png) !Important;
+	background-repeat: no-repeat !Important;
+	background-color: #f0f0f0;
+	background-position: right !Important;
+}
+form.inplaceeditor-form {
+	padding:5px;
+	display: inline-block;
+	background-color: #f7f7f8 !Important;
+	border: 1px groove #a0a0a0;/*#F0F0F0;*/
+	-khtml-border-radius: 2px;
+	-opera-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+.edit {
+	text-decoration: underline;
+}
+a.edit:link{
+	text-decoration: underline;
+}
+a.edit:visited{
+	text-decoration: underline;
+}
+a.edit:hover{
+	text-decoration: underline;
+}
+.delete {
+	text-decoration: underline;
+}
+a.delete:link{
+	text-decoration: underline;
+}
+a.delete:visited{
+	text-decoration: underline;
+}
+a.delete:hover{
+	text-decoration: underline;
+}
+.data {
+}
+a.data:link{
+	text-decoration: underline;
+}
+a.data:visited{	
+	text-decoration: underline;
+}
+a.data:hover{
+	text-decoration: underline;
+}
+.detail {
+	text-decoration: underline;
+}
+a.detail:link{
+	text-decoration: underline;
+}
+a.detail:visited{
+	text-decoration: underline;
+}
+a.detail:hover{
+	text-decoration: underline;
+}
+.deactivated {
+	text-decoration: none;
+}
+.center {
+	text-align: center;
+}
+.left {
+	text-align: left;
+}
+.right {
+	text-align: right;
+}
+.top {
+	vertical-align: top; 
+}
+.middle {
+	vertical-align: middle; 
+}
+.bottom {
+	vertical-align: bottom; 
+}
+.noWrap {
+	white-space: nowrap;
+}
+.noPaddingCell {
+	padding: 0px;
+}
+.bold {
+	font-weight: bold;
+}
+.italic {
+	font-style: italic;
+}
+/* tooltip ------*/
+a.tooltip, a.tooltipWide{
+	vertical-align: top;
+	padding: 0 4px 0 4px;
+}
+a.tooltip img, a.tooltipWide img{
+	border: none;
+}
+a.tooltip:hover,a.tooltipWide:hover {
+	text-decoration:none;
+} /*BG color is a must for IE6*/
+a.tooltip span, a.tooltipWide span {
+	display:none; 
+	padding:2px 3px; 
+	margin-left: 18px; 
+	width:150px;
+	font-weight: normal !important;
+	text-align: justify !important;
+	z-index: 1000;
+}
+a.tooltipWide span {
+	width:300px;
+}
+a.tooltip:hover span, a.tooltipWide:hover span{
+	display: inline; 
+	position: absolute;
+	margin-top: -65px;
+}
+/* /tooltip ------*/
+
+a.textLink {
+	text-decoration: none;
+}
+a.textLink:hover {
+	text-decoration: underline;
+}
+a.textLink:visited, a.textLink:active{
+}

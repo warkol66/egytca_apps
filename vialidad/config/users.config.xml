@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf8"?>
+<config>
+	<users>
+		<documentTypes>
+			<dni>1</dni>
+			<cuil>2</cuil>
+			<otro>3</otro>
+		</documentTypes>
+	</users>
+</config>
