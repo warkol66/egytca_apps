@@ -1,0 +1,85 @@
+<database defaultIdMethod="native" package="vialidad.classes" name="application" >
+
+	<table phpName="Bulletin" name="vialidad_bulletin">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="number" type="VARCHAR" size="10" required="true" primaryString="true" />
+		<column name="bulletinDate" type="DATE" description="Fecha del Boletin" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="Supply" name="vialidad_supply">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="PriceBulletin" name="vialidad_priceBulletin" isCrossRef="true">
+
+		<column name="bulletinId" type="INTEGER" required="true" />
+		<column name="supplyId" type="INTEGER" required="true" />
+		<column name="preliminaryPrice" type="DECIMAL" size="12" scale="2" description="Precio provisorio" />
+		<column name="definitivePrice" type="DECIMAL" size="12" scale="2" description="Precio definitivo" />
+
+		<foreign-key foreignTable="vialidad_bulletin" >
+			<reference local="bulletinId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="vialidad_supply" >
+			<reference local="supplyId" foreign="id" />
+		</foreign-key>
+
+	</table>
+
+	<table phpName="Contract" name="vialidad_contract">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="ConstructionItem" name="vialidad_constructionItem">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="ConstructionItemRelation" name="vialidad_constructionItemRelation" isCrossRef="true">
+
+		<column name="itemId" type="INTEGER" required="true" />
+		<column name="supplyId" type="INTEGER" required="true" />
+		<column name="proportion" type="DECIMAL" size="12" scale="2" description="Precio definitivo" />
+
+		<foreign-key foreignTable="vialidad_constructionItem" >
+			<reference local="itemId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="vialidad_supply" >
+			<reference local="supplyId" foreign="id" />
+		</foreign-key>
+
+	</table>
+
+</database>
