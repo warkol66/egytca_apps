@@ -1,8 +1,28 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors',1);
+//processing using commandline
+if (!empty($argc)) {
 
+	//if called by commandline don't want any error display o reporting
+	error_reporting(0);
+	ini_set('display_errors',0);
+
+	foreach ($argv as $value) {
+		// Exclude call to dispatcher as param
+		if (strpos($value,'modelgen.php') === false) {
+			$parts = explode('=',$value);
+			$_POST["modelgen"][$parts[0]] = $parts[1];
+			echo "parts0: ".$parts[0]." | parts1: ". $parts[1];
+		} 
+	}
+	$_ENV['PHPMVC_MODE_CLI'] = true;
+} else {
+	
+	error_reporting(E_ALL);
+	ini_set('display_errors',1);
+	
+	$_ENV['PHPMVC_MODE_CLI'] = false;
+}
 
 if (isset($_POST["modelgen"])) {
 
@@ -30,9 +50,19 @@ if (isset($_POST["modelgen"])) {
 
 ?>
 
-<form action="modelgen.php" method="post" >
+<script type="text/javascript">
+	function formSubmit() {
+		document.getElementById('p_status').innerHTML='Corriendo';
+		document.getElementById('button_run').disabled=true;
+		document.getElementById('form_commands').submit();
+	}
+</script>
+
+<form id="form_commands" action="modelgen.php" method="post" >
 	<input type="checkbox" name="modelgen[normal]" value="true" checked="true" />modelgen<br />
 	<input type="checkbox" name="modelgen[diff]" value="true" checked="true" />modelgen diff<br />
 	<input type="checkbox" name="modelgen[migrate]" value="true" />modelgen migrate<br />
-	<input type="submit" value="correr" />
+	<input type="button" id="button_run" value="correr" onClick="formSubmit()" />
 </form>
+
+<p id="p_status"></p>
