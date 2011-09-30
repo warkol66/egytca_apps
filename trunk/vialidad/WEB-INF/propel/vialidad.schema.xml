@@ -27,8 +27,8 @@
 
 	<table phpName="PriceBulletin" name="vialidad_priceBulletin" isCrossRef="true">
 
-		<column name="bulletinId" type="INTEGER" required="true" />
-		<column name="supplyId" type="INTEGER" required="true" />
+		<column name="bulletinId" type="INTEGER" required="true" primaryKey="true" />
+		<column name="supplyId" type="INTEGER" required="true" primaryKey="true" />
 		<column name="preliminaryPrice" type="DECIMAL" size="12" scale="2" description="Precio provisorio" />
 		<column name="definitivePrice" type="DECIMAL" size="12" scale="2" description="Precio definitivo" />
 
@@ -68,8 +68,8 @@
 
 	<table phpName="ConstructionItemRelation" name="vialidad_constructionItemRelation" isCrossRef="true">
 
-		<column name="itemId" type="INTEGER" required="true" />
-		<column name="supplyId" type="INTEGER" required="true" />
+		<column name="itemId" type="INTEGER" required="true" primaryKey="true" />
+		<column name="supplyId" type="INTEGER" required="true" primaryKey="true" />
 		<column name="proportion" type="DECIMAL" size="12" scale="2" description="Precio definitivo" />
 
 		<foreign-key foreignTable="vialidad_constructionItem" >
