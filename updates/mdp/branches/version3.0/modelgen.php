@@ -12,7 +12,6 @@ if (!empty($argc)) {
 		if (strpos($value,'modelgen.php') === false) {
 			$parts = explode('=',$value);
 			$_POST["modelgen"][$parts[0]] = $parts[1];
-			echo "parts0: ".$parts[0]." | parts1: ". $parts[1];
 		} 
 	}
 	$_ENV['PHPMVC_MODE_CLI'] = true;
