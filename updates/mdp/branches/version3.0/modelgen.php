@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors',1);
 
 
-function generate() {
+if (isset($_POST["modelgen"])) {
 
 	$projectHome = shell_exec('echo $PWD');
 	$projectHome = substr($projectHome, 0, -1);
@@ -12,27 +12,27 @@ function generate() {
 	$command = './migrate';
 
 	// Borrar salidas viejas
-	shell_exec('echo estoy vacio > stdout.txt');
-	shell_exec('echo estoy vacio > stderr.txt');
+	shell_exec('"" > stdout.txt');
+	shell_exec('"" > stderr.txt');
 
-	shell_exec($command.' > stdout.txt 2> stderr.txt');
-	shell_exec($command.' diff >> stdout.txt 2>> stderr.txt');
-	//shell_exec($command.' migrate >> stdout.txt 2>> stderr.txt');
+	putenv('MIGRATION_DEBUG=1');
 
-	echo '<p>listo</p>';
+	if (isset($_POST["modelgen"]["normal"]))
+		shell_exec($command.' >> stdout.txt 2>> stderr.txt');
 	
-}
+	if (isset($_POST["modelgen"]["diff"]))
+		shell_exec($command.' diff >> stdout.txt 2>> stderr.txt');
+	
+	if (isset($_POST["modelgen"]["migrate"]))
+		shell_exec($command.' migrate >> stdout.txt 2>> stderr.txt');
 
-echo '<p>';
-echo '<form action="modelgen.php" method="post" >';
-echo '<input type="hidden" name="go" value="true" />';
-echo '<input type="submit" value="GO!" />';
-echo '</form>';
-echo '</p>';
-
-if (isset($_POST["go"]) && $_POST["go"] == 'true') {
-	echo '<p>trabajando...</p>';
-	generate();
 }
 
 ?>
+
+<form action="modelgen.php" method="post" >
+	<input type="checkbox" name="modelgen[normal]" value="true" checked="true" />modelgen<br />
+	<input type="checkbox" name="modelgen[diff]" value="true" checked="true" />modelgen diff<br />
+	<input type="checkbox" name="modelgen[migrate]" value="true" />modelgen migrate<br />
+	<input type="submit" value="correr" />
+</form>
