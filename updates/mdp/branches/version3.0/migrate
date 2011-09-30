@@ -1,8 +1,22 @@
 #!/bin/sh
 
 PROJECT_HOME=$PWD
-PROPEL_GEN_HOME=$PROJECT_HOME/WEB-INF/lib-phpmvc/Propel/1.6.0/generator
+PROPEL_GEN_HOME=$PROJECT_HOME/WEB-INF/lib-phpmvc/Propel/1.6.1/generator
 MODEL_DIR=$PROJECT_HOME/WEB-INF/propel
 PHING_COMMAND=$PROJECT_HOME/WEB-INF/lib-phpmvc/phing-2.4.6/bin/phing
 
-$PHING_COMMAND -f $PROPEL_GEN_HOME/build.xml -Dusing.propel-gen=true -Dproject.dir=$MODEL_DIR $*
+FINAL_COMMAND="$PHING_COMMAND -f $PROPEL_GEN_HOME/build.xml -Dusing.propel-gen=true -Dproject.dir=$MODEL_DIR $*"
+
+################ debug ################
+if [ -n "$MIGRATION_DEBUG" ]; then
+	
+	echo "PROJECT_HOME: $PROJECT_HOME"
+	echo "PROPEL_GEN_HOME: $PROPEL_GEN_HOME"
+	echo "MODEL_DIR: $MODEL_DIR"
+	echo "PHING_COMMAND: $PHING_COMMAND"
+	echo "FINAL_COMMAND: $FINAL_COMMAND"
+
+fi
+#######################################
+
+$FINAL_COMMAND
