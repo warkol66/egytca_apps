@@ -51,11 +51,11 @@
 			<affiliateNews>Novedades: Bienvenido al Sistema</affiliateNews>
 		</parameters>
 		<errorReporting>
-			<value>E_ALL ^ E_NOTICE ^ E_WARNINGS</value>
+			<value>E_ALL & ~E_NOTICE ~E_WARNING</value>
 			<element_type>Options</element_type>
 			<element_options>
 				<option_1></option_1>
-				<option_2>E_ALL ^ E_NOTICE ^ E_WARNINGS</option_2>
+				<option_2>E_ALL - E_NOTICE - E_WARNINGS</option_2>
 				<option_3>E_ALL</option_3>
 				<option_4>E_STRICT</option_4>
 			</element_options>
