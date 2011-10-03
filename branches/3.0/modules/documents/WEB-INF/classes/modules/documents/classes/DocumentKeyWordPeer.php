@@ -1,6 +1,4 @@
 <?php
-// The parent class
-require_once 'documents/classes/om/BaseDocumentKeyWordPeer.php';
 
 /**
  * Skeleton subclass for performing query and update operations on the 'documents_keyWord' table.

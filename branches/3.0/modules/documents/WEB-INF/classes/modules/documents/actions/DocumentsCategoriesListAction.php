@@ -8,10 +8,7 @@
 * @package documents
 */
 
-require_once("DocumentsBaseAction.php");
-require_once("CategoryPeer.php");
-
-class DocumentsCategoriesListAction extends DocumentsBaseAction {
+class DocumentsCategoriesListAction extends BaseAction {
 
 	function DocumentsCategoriesListAction() {
 		;
@@ -20,7 +17,6 @@ class DocumentsCategoriesListAction extends DocumentsBaseAction {
 	function execute($mapping, $form, &$request, &$response) {
 
     BaseAction::execute($mapping, $form, $request, $response);
-
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);

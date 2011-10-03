@@ -8,9 +8,7 @@
 * @package documents
 */
 
-require_once("DocumentsBaseAction.php");
-
-class DocumentsEditAction extends DocumentsBaseAction {
+class DocumentsEditAction extends BaseAction {
 
 	function DocumentsEditAction() {
 		;
@@ -18,7 +16,7 @@ class DocumentsEditAction extends DocumentsBaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
@@ -38,14 +36,14 @@ class DocumentsEditAction extends DocumentsBaseAction {
 		$smarty->assign('user',$user);
 		$categories = $categoryPeer->getAllParentsByUserAndModule($user,$module);
 		$smarty->assign("categories",$categories);
-		
+
 		$smarty->assign("documentsUpload", true); //en el template se realizan subidas de documentos
 		$documentTypes = DocumentPeer::getDocumentsTypesConfig();
 		$smarty->assign("documentTypes",$documentTypes);
-		
+
 		$maxUploadSize =  Common::maxUploadSize();
 		$smarty->assign("maxUploadSize",$maxUploadSize);
-		
+
 		$moduleConfig = Common::getModuleConfiguration($module);
 		if ($moduleConfig["usePasswords"]["value"] == "YES")
 			$usePasswords = true;
@@ -59,24 +57,23 @@ class DocumentsEditAction extends DocumentsBaseAction {
 
 		//caso de edicion de un documento
 		if (isset($_POST['id'])) {
-	
-			$msg=$request->getParameter("message");
+
+			$msg = $request->getParameter("message");
 			if(empty($msg))
-				$msg="noError";
+				$msg = "noError";
 
 			$smarty->assign("message",$msg);
 
 			// obtengo el documento seleccionado
 			$id = $_POST["id"];
-			$document = $documentPeer->getById($id);
+			$document = DocumentPeer::get($id);
 
 			//password enviado desde el listado
 			$password = $_POST['password'];
-		
-			//validacion de password
-			if (!$this->documentPasswordValidation($document,$password))
-				return $mapping->findForwardConfig('failure-edit');
 
+			//validacion de password
+			if (!$document->checkPasswordValidation($password))
+				return $mapping->findForwardConfig('failure-edit');
 
 			$smarty->assign("action","edit");
 
@@ -84,29 +81,18 @@ class DocumentsEditAction extends DocumentsBaseAction {
 			$smarty->assign("entity",$_POST['entity']);
 			$smarty->assign("entityId",$_POST['entityId']);
 			return $mapping->findForwardConfig('success-edit');
-			
+
 		}
 		else
 			$smarty->assign("action","create");
 
-
 		//caso de creacion de nuevo documento
 		$categoryPeer = new CategoryPeer();
-		
-		////////////
-		// $msg=0 --> no se muestra mensaje
-		// $msg=1 --> se muestra mensaje de error
-		// $msg=2 --> se muestra mensaje satisfactorio
-		if(empty($_GET["errormessage"]))
-			$msg="noError";
-		else 
-			$msg=$_GET["errormessage"];
 
 		$smarty->assign("docscategory",$categoryId);
-		$smarty->assign("msg",$msg);
 		$smarty->assign("date",date("d/m/y"));
 
-		return $mapping->findForwardConfig('success-upload');			
+		return $mapping->findForwardConfig('success-upload');
 
 	}
 

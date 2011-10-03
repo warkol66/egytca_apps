@@ -1,6 +1,7 @@
 <?php
 
 
+
 /**
  * Skeleton subclass for performing query and update operations on the 'documents_document' table.
  *
@@ -13,25 +14,5 @@
  * @package    propel.generator.documents.classes
  */
 class DocumentQuery extends BaseDocumentQuery {
-
-	/**
-	 * Returns a new DocumentQuery object.
-	 *
-	 * @param     string $modelAlias The alias of a model in the query
-	 * @param     Criteria $criteria Optional Criteria to build the query from
-	 *
-	 * @return    DocumentQuery
-	 */
-	public static function create($modelAlias = null, $criteria = null)
-	{
-		if ($criteria instanceof DocumentQuery) {
-			return $criteria;
-		}
-		$query = new self('application', 'Document', $modelAlias);
-		if ($criteria instanceof Criteria) {
-			$query->mergeWith($criteria);
-		}
-		return $query;
-	}
 
 } // DocumentQuery

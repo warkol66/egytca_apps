@@ -4,12 +4,9 @@
 *
 *  Action que genera un cambio de estado en la base de datos, le llegan datos de
 *  un documento y los actualiza  en dicha base de datos.
-* 
+*
 * @package documents
 */
-
-require_once("BaseAction.php");
-require_once("DocumentKeyWordPeer.php");
 
 class DocumentsKeyWordDoEditAction extends BaseAction {
 
@@ -19,8 +16,7 @@ class DocumentsKeyWordDoEditAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
-
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
