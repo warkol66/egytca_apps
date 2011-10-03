@@ -1,13 +1,11 @@
 <?php
 /**
-* DocumentsDoDownloadAction
+* DocumentsDoViewImageAction
 *
 * Permite la descarga de documentos subidos al sistema
 * 
 * @package documents
 */
-
-require_once("DocumentsBaseAction.php");
 
 class DocumentsDoViewImageAction extends DocumentsBaseAction {
 
@@ -28,12 +26,11 @@ class DocumentsDoViewImageAction extends DocumentsBaseAction {
 		$module = "Documents";
 		$smarty->assign("module",$module);
 
-		$documentPeer = new DocumentPeer();
-		
-		$id= $_REQUEST["id"];
-		$document = $documentPeer->getById($id);
+		$id = $_REQUEST["id"];
+		$document = DocumentPeer::get($id);
 
 		$extension = strrchr(strtolower($document->getRealfilename()),'.');
+
 		switch ($extension) {
 			case ".gif":
 				header('Content-Type: image/gif');

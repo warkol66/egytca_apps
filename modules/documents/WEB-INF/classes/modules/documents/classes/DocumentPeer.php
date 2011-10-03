@@ -7,6 +7,7 @@
 class DocumentPeer extends BaseDocumentPeer {
 
 	//string para busqueda por palabra
+	private $searchString;
 	private $textSearch = '';
 	private $filename = '';
 	private $description = '';
@@ -19,13 +20,37 @@ class DocumentPeer extends BaseDocumentPeer {
 	private $keyWords = '';
 	private $publishedYear = '';
 
+	//mapea las condiciones del filtro
+	var $filterConditions = array(
+					"searchString"=>"setSearchString",
+					"textSearch"=>"setTextSearch",
+					"title"=>"setTitle",
+					"author"=>"setAuthor",
+					"categoryId"=>"setCategory",
+					"description"=>"setDescription",
+					"filename"=>"setFilename",
+					"keyWords"=>"setKeyWords",
+					"selectedModule"=>"setModule",
+					"startDate"=>"setStartDate",
+					"endDate"=>"setEndDate",
+					"publishedYear" => "setPublishedYear",
+					"perPage"=>"setPerPage"
+				);
+
+ /**
+	 * Especifica una cadena de busqueda.
+	 * @param searchString cadena de busqueda.
+	 */
+	function setSearchString($searchString){
+		$this->searchString = $searchString;
+	}
+	
 	/**
 	 * Determina una descripcion para el filtro.
 	 * @param string cadena de busqueda
 	 */
 	function setDescription($string) {
 		$this->description = $string;
-		return true;
 	}
 
 	/**
@@ -34,9 +59,7 @@ class DocumentPeer extends BaseDocumentPeer {
 	 */
 	function setFilename($string) {
 		$this->filename = $string;
-		return true;
 	}
-
 
 	/**
 	 * Determina una fecha de inicio para busqueda de fechas.
@@ -95,7 +118,7 @@ class DocumentPeer extends BaseDocumentPeer {
 	}
 
 	/**
-	 * Determina un a�o de b�squeda de publicaci�n.
+	 * Determina un year de busqueda de publicacion.
 	 * @param integer year
 	 */
 	function setPublishedYear($publishedYear) {
@@ -103,17 +126,19 @@ class DocumentPeer extends BaseDocumentPeer {
 	}
 
 	/**
-	 * Determina un texto para b�squeda.
+	 * Determina un texto para busqueda.
 	 * @param string textSearch
 	 */
 	function setTextSearch($textSearch) {
 		$this->textSearch = $textSearch;
 	}
 
-	function getAll() {
-		$cond = new Criteria();
-		$todosObj = DocumentPeer::doSelect($cond);
-		return $todosObj;
+ /**
+	 * Especifica cantidad de resultados por pagina.
+	 * @param perPage integer cantidad de resultados por pagina.
+	 */
+	function setPerPage($perPage){
+		$this->perPage = $perPage;
 	}
 
 	/**
@@ -124,13 +149,11 @@ class DocumentPeer extends BaseDocumentPeer {
 	function getRowsPerPage() {
 		$moduleConfig = Common::getModuleConfiguration('Documents');
 		if ($moduleConfig["rowsPerPage"] > 0)
-			return $moduleConfig["rowsPerPage"];
-		else {
-			$systemConfig = Common::getModuleConfiguration('System');
-			return $systemConfig['rowsPerPage'];
-		}
+			$this->perPage = $moduleConfig["rowsPerPage"];
+		else if (!isset($this->perPage))
+			$this->perPage = Common::getRowsPerPage();
+		return $this->perPage;
 	}
-
 
 	/**
 	 * Crea una nueva instancia del documento y lleva a cabo la carga de la misma
@@ -169,7 +192,7 @@ class DocumentPeer extends BaseDocumentPeer {
 			}
 
 			if(!empty($password)){
-				$document->setPassword(md5($password."ASD"));
+				$document->setPassword(Common::md5($password));
 			}
 
 			$document->save();
@@ -187,18 +210,17 @@ class DocumentPeer extends BaseDocumentPeer {
 		return $document;
 	}
 
-
+	function get($id) {
+		return DocumentQuery::create()->findOneById($id);
+	}
 
 	function getArchive($id) {
-				$obj = DocumentPeer::retrieveByPK($id);
-		return $obj;
+		return DocumentQuery::create()->findOneById($id);
 	}
 
 	function getById($id) {
-		$obj = DocumentPeer::retrieveByPK($id);
-		return $obj;
+		return DocumentQuery::create()->findOneById($id);
 	}
-
 
 	function getDocumentsType($id) {
 				$cond = new Criteria();
@@ -206,7 +228,6 @@ class DocumentPeer extends BaseDocumentPeer {
 		$obj = DocumentPeer::doSelect($cond);
 		return $obj;
 	}
-
 
 	function updateDocument($id,$title,$description,$document_date,$category,$password,$extra,$file) {
 
@@ -228,7 +249,7 @@ class DocumentPeer extends BaseDocumentPeer {
 			if (!empty($fileSize))
 				$obj->setSize($fileSize);
 			if (!empty($password))
-				$obj->setPassword(md5($password."ASD"));
+				$obj->setPassword(Common::md5($password));
 			else
 				$obj->setPassword();
 
@@ -314,74 +335,74 @@ class DocumentPeer extends BaseDocumentPeer {
 	}
 
 
-		/**
-		 * Indica si se utilizan las categorias globales o solo las del modulo documentos
-		 * @return boolean
-		 */
-		public function usesGlobalCategories() {
+	/**
+	 * Indica si se utilizan las categorias globales o solo las del modulo documentos
+	 * @return boolean
+	 */
+	public function usesGlobalCategories() {
 
-			$moduleConfig = Common::getModuleConfiguration('documents');
-			if ($moduleConfig['useGlobalCategories']['value'] == 'YES')
-				return true;
+		$moduleConfig = Common::getModuleConfiguration('documents');
+		if ($moduleConfig['useGlobalCategories']['value'] == 'YES')
+			return true;
 
-			return false;
+		return false;
 
-		}
+	}
 
-		/**
-		 * Indica si se utilizan las categorias globales o solo las del modulo documentos
-		 * @return boolean
-		 */
-		public function usesCategoriesGroupPermission() {
+	/**
+	 * Indica si se utilizan las categorias globales o solo las del modulo documentos
+	 * @return boolean
+	 */
+	public function usesCategoriesGroupPermission() {
 
-			$moduleConfig = Common::getModuleConfiguration('documents');
-			if ($moduleConfig['usesCategoriesGroupPermission']['value'] == 'YES')
-				return true;
+		$moduleConfig = Common::getModuleConfiguration('documents');
+		if ($moduleConfig['usesCategoriesGroupPermission']['value'] == 'YES')
+			return true;
 
-			return false;
+		return false;
 
-		}
+	}
 
-		/**
-		 * Obtiene los modulos que poseen documentos en el sistema.
-		 *
-		 */
-		public function getModulesWithDocuments() {
+	/**
+	 * Obtiene los modulos que poseen documentos en el sistema.
+	 *
+	 */
+	public function getModulesWithDocuments() {
 
-			require_once('ModulePeer.php');
+		require_once('ModulePeer.php');
 
-			//solo el modulo documentos tiene categorias.
-			$criteria = new Criteria();
-			$criteria->add(ModulePeer::NAME,'documents');
-			$modules = ModulePeer::doSelect($criteria);
+		//solo el modulo documentos tiene categorias.
+		$criteria = new Criteria();
+		$criteria->add(ModulePeer::NAME,'documents');
+		$modules = ModulePeer::doSelect($criteria);
 
-			return $modules;
-		}
+		return $modules;
+	}
 
-		/**
-		 * Crea una criteria a partir de los filtros indicados en la clase peer.
-		 *
-		 */
-		private function getFilterCriteria() {
+	/**
+	 * Crea una criteria a partir de los filtros indicados en la clase peer.
+	 *
+	 */
+	private function getFilterCriteria() {
 
-			$criteria = new Criteria();
-			$criteria->setIgnoreCase(true);
-			$criteria->addDescendingOrderByColumn(DocumentPeer::DOCUMENT_DATE);
+		$criteria = new Criteria();
+		$criteria->setIgnoreCase(true);
+		$criteria->addDescendingOrderByColumn(DocumentPeer::DOCUMENT_DATE);
 
-			if (!empty($this->textSearch)) { //Busqueda por texto
+		if (!empty($this->textSearch)) { //Busqueda por texto
 
-				$fields = DocumentPeer::DESCRIPTION . ' , ' .
-							DocumentPeer::TITLE . ' , ' .
-							DocumentPeer::REALFILENAME . ' , ' .
-							DocumentPeer::AUTHOR . ' , ' .
-							DocumentPeer::KEYWORDS . ' , ' .
-							DocumentPeer::FULLTEXTCONTENT;
-				$criteria->add(DocumentPeer::DESCRIPTION, "MATCH (" . $fields . ") AGAINST('" . $this->textSearch . "')", Criteria::CUSTOM);
-				if (!empty($this->startDate) && !empty($this->endDate)) {
-					$criterion = $criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->startDate, Criteria::GREATER_EQUAL);
-					$criterion->addAnd($criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->endDate, Criteria::LESS_EQUAL));
-					$criteria->add($criterion);
-				} else {
+			$fields = DocumentPeer::DESCRIPTION . ' , ' .
+						DocumentPeer::TITLE . ' , ' .
+						DocumentPeer::REALFILENAME . ' , ' .
+						DocumentPeer::AUTHOR . ' , ' .
+						DocumentPeer::KEYWORDS . ' , ' .
+						DocumentPeer::FULLTEXTCONTENT;
+			$criteria->add(DocumentPeer::DESCRIPTION, "MATCH (" . $fields . ") AGAINST('" . $this->textSearch . "')", Criteria::CUSTOM);
+			if (!empty($this->startDate) && !empty($this->endDate)) {
+				$criterion = $criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->startDate, Criteria::GREATER_EQUAL);
+				$criterion->addAnd($criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->endDate, Criteria::LESS_EQUAL));
+				$criteria->add($criterion);
+			} else {
 
 					if (!empty($this->startDate))
 						$criteria->add(DocumentPeer::DOCUMENT_DATE,$this->startDate,Criteria::GREATER_EQUAL);
@@ -480,145 +501,235 @@ class DocumentPeer extends BaseDocumentPeer {
 		}
 	}
 
-		/**
-		 * Obtiene los documentos de una categoria
-		 * @param Category instancia de categoria.
-		 *
-		 */
-		public function getAllFiltered($category) {
+	/**
+	 * Crea una criteria a partir de los filtros indicados en la clase peer.
+	 *
+	 */
+	private function getSearchCriteria() {
 
-			$criteria = $this->getFilterCriteria();
+		$criteria = DocumentQuery::create();
+		$criteria->setIgnoreCase(true);
+		$criteria->addDescendingOrderByColumn(DocumentPeer::DOCUMENT_DATE);
 
-			return DocumentPeer::doSelect($criteria);
+		if ($this->searchString) {
+			$fields = DocumentPeer::DESCRIPTION . ', ' . DocumentPeer::TITLE . ', ' . DocumentPeer::REALFILENAME . ', ' . DocumentPeer::AUTHOR . ', ' .
+						DocumentPeer::KEYWORDS . ', ' . DocumentPeer::FULLTEXTCONTENT;
+			$criteria->add(DocumentPeer::DESCRIPTION, "MATCH (" . $fields . ") AGAINST('" . $this->searchString . "')", Criteria::CUSTOM);
 		}
 
-		/**
-		 * Obtiene los documentos de una categoria
-		 * @param Category instancia de categoria.
-		 *
-		 */
-		public function getAllFilteredPaginated($category) {
+		if (!empty($this->textSearch)) { //Busqueda por texto
 
-			$criteria = $this->getFilterCriteria();
+			$fields = DocumentPeer::DESCRIPTION . ' , ' .
+						DocumentPeer::TITLE . ' , ' .
+						DocumentPeer::REALFILENAME . ' , ' .
+						DocumentPeer::AUTHOR . ' , ' .
+						DocumentPeer::KEYWORDS . ' , ' .
+						DocumentPeer::FULLTEXTCONTENT;
+			$criteria->add(DocumentPeer::DESCRIPTION, "MATCH (" . $fields . ") AGAINST('" . $this->textSearch . "')", Criteria::CUSTOM);
+			if (!empty($this->startDate) && !empty($this->endDate)) {
+				$criterion = $criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->startDate, Criteria::GREATER_EQUAL);
+				$criterion->addAnd($criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->endDate, Criteria::LESS_EQUAL));
+				$criteria->add($criterion);
+			} else {
 
-			return DocumentPeer::doSelect($criteria);
-		}
+					if (!empty($this->startDate))
+						$criteria->add(DocumentPeer::DOCUMENT_DATE,$this->startDate,Criteria::GREATER_EQUAL);
 
-		/**
-		 * Devuelve la cantidad de documentos que hay en una categoria
-		 * @return integer
-		 */
-		public function getDocumentsByCategoryCount($category) {
+					if (!empty($this->endDate))
+						$criteria->add(DocumentPeer::DOCUMENT_DATE,$this->endDate,Criteria::LESS_EQUAL);
 
-			$criteria = new Criteria();
-			$criteria->add(DocumentPeer::CATEGORYID,$category->getId());
-			return count(DocumentPeer::doSelect($criteria));
-
-		}
-
-		public function getDocumentsWithoutCategoryCount() {
-
-			$criteria = new Criteria();
-			$criteria->add(DocumentPeer::CATEGORYID,0);
-			return count(DocumentPeer::doSelect($criteria));
-
-		}
-
-		/**
-		 * Obtiene todos los documentos sin categoria
-		 * @return array de instancias de Document
-		 */
-		public function getAllWithoutCategory() {
-
-			$criteria = new Criteria();
-			$criteria->add(DocumentPeer::CATEGORYID,0);
-			return DocumentPeer::doSelect($criteria);
-
-		}
-
-		function getGeneralPublicParentCategories() {
-			require_once('CategoryPeer.php');
-			$criteria = new Criteria();
-			$criteria->add(CategoryPeer::ACTIVE, 1, Criteria::EQUAL);
-			$criteria->add(CategoryPeer::ISPUBLIC, 1, Criteria::EQUAL);
-			$criteria->add(CategoryPeer::PARENTID, 0, Criteria::EQUAL);
-			$criteriOn = $criteria->getNewCriterion(CategoryPeer::MODULE, 'documents', Criteria::EQUAL);
-			$criteriOn->addOr($criteria->getNewCriterion(CategoryPeer::MODULE, '', Criteria::EQUAL));
-			$criteria->add($criteriOn);
-			$resultObject = CategoryPeer::doSelect($criteria);
-			return $resultObject;
-
-		}
-
-	function updateImportedDocument($id,$title,$description,$document_date,$category,$password,$extra,$file) {
-
-		try {
-
-			$obj = DocumentPeer::retrieveByPK($id);
-			$obj->setTitle($title);
-			$obj->setDescription($description);
-			$obj->setDate($document_date);
-			$obj->setCategoryid($category);
-			if (!empty($file))
-				$obj->setRealfilename($file);
-			if (!empty($password))
-				$obj->setPassword(md5($password."ASD"));
-			else
-				$obj->setPassword();
-
-			foreach ($extra as $key => $value) {
-				$setMethod = "set".$key;
-				if ( method_exists($obj,$setMethod) ) {
-					if (!empty($value) || $value == "0")
-						$obj->$setMethod($value);
-					else
-						$obj->$setMethod(null);
 				}
+
+				if (!empty($this->category)) {
+					$category = $this->category;
+					$childrenCategories = CategoryPeer::getByParent($category->getId());
+					if (count($childrenCategories) > 0) {
+						$criterion = $criteria->getNewCriterion(DocumentPeer::CATEGORYID, $category->getId());
+						foreach ($childrenCategories as $child)
+							$criterion->addOr($criteria->getNewCriterion(DocumentPeer::CATEGORYID, $child->getId()));
+
+						$criteria->add($criterion);
+					}
+					else
+						$criteria->add(DocumentPeer::CATEGORYID,$category->getId());
+				}
+
+			return $criteria;
+
+		}
+		else { //Busqueda por cada campo
+
+			if (!empty($this->description))
+				$criteria->add(DocumentPeer::DESCRIPTION,"%" . $this->description . "%",Criteria::LIKE);
+
+			if (!empty($this->startDate) && !empty($this->endDate)) {
+				$criterion = $criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->startDate, Criteria::GREATER_EQUAL);
+				$criterion->addAnd($criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->endDate, Criteria::LESS_EQUAL));
+				$criteria->add($criterion);
+			}
+			else {
+
+				if (!empty($this->startDate))
+					$criteria->add(DocumentPeer::DOCUMENT_DATE,$this->startDate,Criteria::GREATER_EQUAL);
+
+				if (!empty($this->endDate))
+					$criteria->add(DocumentPeer::DOCUMENT_DATE,$this->endDate,Criteria::LESS_EQUAL);
+
 			}
 
-			$obj->save();
+			if (!empty($this->publishedYear))
+				$criteria->add($criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, 'DATE_FORMAT('. DocumentPeer::DOCUMENT_DATE .", '%Y')='" . $this->publishedYear ."'", Criteria::CUSTOM));
 
-		}
-		catch (PropelException $exp) {
-			return false;
-		}
+				// Funciona con having sobre un alias
+				//				DocumentPeer::addSelectColumns($criteria);
+				//        $criteria->addSelectColumn('DATE_FORMAT('. DocumentPeer::DOCUMENT_DATE .", '%Y') AS PublishedYear");
+				//				$criteria->addHaving($criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, "PublishedYear='" . $this->publishedYear ."'", Criteria::CUSTOM));
 
-		return true;
+				// Funciona con criterion
+				//				$criterion = $criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->publishedYear."-01-01", Criteria::GREATER_EQUAL);
+				//				$criterion->addAnd($criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->publishedYear."-12-31", Criteria::LESS_EQUAL));
+				//				$criteria->add($criterion);
+
+			if (!empty($this->category)) {
+				$category = $this->category;
+				$childrenCategories = CategoryPeer::getByParent($category->getId());
+				if (count($childrenCategories) > 0) {
+					$criterion = $criteria->getNewCriterion(DocumentPeer::CATEGORYID, $category->getId());
+					foreach ($childrenCategories as $child)
+						$criterion->addOr($criteria->getNewCriterion(DocumentPeer::CATEGORYID, $child->getId()));
+
+					$criteria->add($criterion);
+				}
+				else
+					$criteria->add(DocumentPeer::CATEGORYID,$category->getId());
+			}
+
+			if (!empty($this->title))
+				$criteria->add(DocumentPeer::TITLE,"%" . $this->title . "%",Criteria::LIKE);
+
+			if (!empty($this->filename))
+				$criteria->add(DocumentPeer::REALFILENAME,"%" . $this->filename . "%",Criteria::LIKE);
+
+			if (!empty($this->author))
+				$criteria->add(DocumentPeer::AUTHOR,"%" . $this->author . "%",Criteria::LIKE);
+
+
+			if (!empty($this->keyWords)) {
+				$keyWords = explode(',',$this->textSearch);
+				foreach ($keyWords as $keyWord) {
+					if (!isset($criterionKeyWords))
+						$criterionKeyWords = $criteria->getNewCriterion(DocumentPeer::KEYWORDS,"%" . $word . "%",Criteria::LIKE);
+					else
+						$criterionKeyWords->addOr($criteria->getNewCriterion(DocumentPeer::KEYWORDS,"%" . $word . "%",Criteria::LIKE));
+				}
+				$criteria->add($criterionKeyWords);
+			}
+
+			return $criteria;
+		}
 	}
 
 	/**
-	 * Trae las �ltimas publicaciones.
+	 * Obtiene los documentos de una categoria
+	 * @param Category instancia de categoria.
 	 *
 	 */
-		public function getNewest($newestLimit = 0) {
-
-			if ($newestLimit == 0) {
-				$moduleConfig = Common::getModuleConfiguration('documents');
-				$newestLimit = $moduleConfig['newestLimit'];
-				if ($newestLimit < 1)
-					$newestLimit = 5;
-			}
-
-			$criteria = new Criteria();
-			$criteria->addDescendingOrderByColumn(DocumentPeer::DOCUMENT_DATE);
-			$criteria->setLimit($newestLimit);
-
-			return DocumentPeer::doSelect($criteria);
-
-		}
+	public function getAllFiltered($category) {
+		$criteria = $this->getFilterCriteria();
+		return DocumentPeer::doSelect($criteria);
+	}
 
 	/**
-	 * Trae las �ltimas publicaciones.
+	 * Obtiene los documentos de una categoria
+	 * @param Category instancia de categoria.
 	 *
 	 */
-		public function getPublicationYears() {
+	public function getAllFilteredPaginated($category) {
+		$criteria = $this->getFilterCriteria();
+		return DocumentPeer::doSelect($criteria);
+	}
 
-			$criteria = new Criteria();
-			$criteria->addAscendingOrderByColumn(DocumentPeer::DOCUMENT_DATE);
-			$criteria->addGroupByColumn('DATE_FORMAT(' .DocumentPeer::DOCUMENT_DATE. ", '%Y')");
-			return DocumentPeer::doSelect($criteria);
+ /**
+	* Obtiene todos los actor paginados segun la condicion de busqueda ingresada.
+	*
+	* @param int $page [optional] Numero de pagina actual
+	* @param int $perPage [optional] Cantidad de filas por pagina
+	* @return array Informacion sobre todos los actores
+	*/
+	function getAllPaginatedFiltered($page=1,$perPage=-1)	{
+		if ($perPage == -1)
+			$perPage = $this->getRowsPerPage();
+		if (empty($page))
+			$page = 1;
+		$criteria = $this->getSearchCriteria();
+		$pager = new PropelPager($criteria,"DocumentPeer", "doSelect",$page,$perPage);
+		return $pager;
+	}
 
+	/**
+	 * Devuelve la cantidad de documentos que hay en una categoria
+	 * @return integer
+	 */
+	public function getDocumentsByCategoryCount($category) {
+		$criteria = new Criteria();
+		$criteria->add(DocumentPeer::CATEGORYID,$category->getId());
+		return count(DocumentPeer::doSelect($criteria));
+	}
+
+	public function getDocumentsWithoutCategoryCount() {
+		$criteria = new Criteria();
+		$criteria->add(DocumentPeer::CATEGORYID,0);
+		return count(DocumentPeer::doSelect($criteria));
+	}
+
+	/**
+	 * Obtiene todos los documentos sin categoria
+	 * @return array de instancias de Document
+	 */
+	public function getAllWithoutCategory() {
+		$criteria = new Criteria();
+		$criteria->add(DocumentPeer::CATEGORYID,0);
+		return DocumentPeer::doSelect($criteria);
+	}
+
+	function getGeneralPublicParentCategories() {
+		require_once('CategoryPeer.php');
+		$criteria = new Criteria();
+		$criteria->add(CategoryPeer::ACTIVE, 1, Criteria::EQUAL);
+		$criteria->add(CategoryPeer::ISPUBLIC, 1, Criteria::EQUAL);
+		$criteria->add(CategoryPeer::PARENTID, 0, Criteria::EQUAL);
+		$criteriOn = $criteria->getNewCriterion(CategoryPeer::MODULE, 'documents', Criteria::EQUAL);
+		$criteriOn->addOr($criteria->getNewCriterion(CategoryPeer::MODULE, '', Criteria::EQUAL));
+		$criteria->add($criteriOn);
+		$resultObject = CategoryPeer::doSelect($criteria);
+		return $resultObject;
+
+	}
+
+	/**
+	 * Trae las ultimas publicaciones.
+	 *
+	 */
+	public function getNewest($newestLimit = 0) {
+		if ($newestLimit == 0) {
+			$moduleConfig = Common::getModuleConfiguration('documents');
+			$newestLimit = $moduleConfig['newestLimit'];
+			if ($newestLimit < 1)
+				$newestLimit = 5;
 		}
+		return DocumentQuery::create()->orderByDate(Criteria::DESC)->limit($newestLimit)->find();
+	}
+
+	/**
+	 * Obtiene los years de publicacion existentes
+	 *
+	 */
+	public function getPublicationYears() {
+		$criteria = new Criteria();
+		$criteria->addAscendingOrderByColumn(DocumentPeer::DOCUMENT_DATE);
+		$criteria->addGroupByColumn('DATE_FORMAT(' .DocumentPeer::DOCUMENT_DATE. ", '%Y')");
+		return DocumentPeer::doSelect($criteria);
+	}
 
 	/**
 	* Obtiene todos los noticias paginados con las opciones de filtro asignadas al peer.
@@ -641,14 +752,21 @@ class DocumentPeer extends BaseDocumentPeer {
 	 * @example Array ( [Word] => *.doc;*.docx; [Excel] => *.xls;*.xlsx; )
 	 * @return Array $documentTypes, array asociativo con la informacion de los tipos de documentos soportados.
 	 */
-	 public static function getDocumentsTypesConfig() {
+	public static function getDocumentsTypesConfig() {
 		$documentTypesConfig = ConfigModule::get("documents","documentTypes");
 		foreach ($documentTypesConfig as $key => $extensions){
 			$explodeExtensions = explode(",",$extensions);
-			foreach ($explodeExtensions as $extension){
+			foreach ($explodeExtensions as $extension)
 				$documentTypes[$key] .= "*." . $extension . ";";
-			}
 		}
 		return $documentTypes;
-	 }
+	}
+
+	function getAll() {
+		$cond = new Criteria();
+		$todosObj = DocumentPeer::doSelect($cond);
+		return $todosObj;
+	}
+
+
 }

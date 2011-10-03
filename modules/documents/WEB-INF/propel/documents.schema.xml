@@ -13,12 +13,42 @@
 		<column name="number" type="VARCHAR" size="10" description="Numero de Publicacion" />		
 		<column name="size" type="INTEGER" description="Tamano de archivo" />
 		<column name="fullTextContent" type="LONGVARCHAR" description="Contenido del archivo" />
+
+		<index name="fullTextContent">
+			<index-column name="title" />
+			<index-column name="realFilename" />
+			<index-column name="description" />
+			<index-column name="author" />
+			<index-column name="keyWords" />
+			<index-column name="fullTextContent" />
+
+			<vendor type="mysql">
+				<parameter name="Index_type" value="FULLTEXT"/>
+			</vendor>
+
+		</index>
+
 		<foreign-key foreignTable="categories_category"  onDelete="cascade" >
 			<reference local="categoryId" foreign="id" />
 		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
 	</table>
+
 	<table phpName="DocumentKeyWord" name="documents_keyWord" description="Palabras clave de documentos">
+
 		<column name="id" type="INTEGER" description="Id palabra clave" primaryKey="true" autoIncrement="true"  />
 		<column name="keyWord" type="VARCHAR" size="255" description="Palabra clave"/>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
 	</table>
+
 </database>

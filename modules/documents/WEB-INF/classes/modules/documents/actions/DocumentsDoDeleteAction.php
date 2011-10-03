@@ -4,13 +4,10 @@
 *
 *  Action que genera un cambio de estado en la base de datos, se le manda el nombre de una categoria
 *  y lo busca en dicha base de datos y finalmente lo elimina.
-* 
+*
 */
 
-require_once("DocumentsBaseAction.php");
-require_once("DocumentPeer.php");
-
-class DocumentsDoDeleteAction extends DocumentsBaseAction {
+class DocumentsDoDeleteAction extends BaseAction {
 
 	function DocumentsDoDeleteAction() {
 		;
@@ -18,8 +15,7 @@ class DocumentsDoDeleteAction extends DocumentsBaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
-
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
@@ -33,13 +29,13 @@ class DocumentsDoDeleteAction extends DocumentsBaseAction {
 		$documentPeer = new DocumentPeer();
 
 		////////////
-		// se obtiene el archivo a eliminar				
+		// se obtiene el archivo a eliminar
 		$id = $_POST["id"];
 		$document = $documentPeer->getById($id);
 		$password = $_POST['password'];
-		
+
 		//validacion de password
-		if (!$this->documentPasswordValidation($document,$password))
+		if (!$document->checkPasswordValidation($password))
 			return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'errormessage'=>'wrongPasswordComparison'), $mapping, 'failure' . $_POST['entity']);
 		else {
 			if (!empty($_POST['entity'])) {
@@ -52,7 +48,7 @@ class DocumentsDoDeleteAction extends DocumentsBaseAction {
 					} catch(Exception $e) {
 						return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'errormessage'=>'errorFound'), $mapping, 'failure' . $_POST['entity']);
 					}
-					
+
 					//si el documento no tiene mas referencias cruzadas lo elimino.
 					$queryInstance = new $queryClassName;
 					if ($queryInstance->filterByDocumentId($_POST["id"])->count() <= 0) {
@@ -60,13 +56,14 @@ class DocumentsDoDeleteAction extends DocumentsBaseAction {
 							return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'errormessage'=>'errorFound'), $mapping, 'failure' . $_POST['entity']);
 					}
 				}
-			} else {
+			}
+			else {
 				if (!$documentPeer->delete($_POST["id"])) {
 					$smarty->assign("errormessage", "errorFound");
 					return $mapping->findForwardConfig("failure");
 				}
 			}
-			
+
 		}
 		return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'deletesuccess'), $mapping, 'success' . $_POST['entity']);
 

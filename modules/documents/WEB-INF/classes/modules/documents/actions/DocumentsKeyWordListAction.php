@@ -7,9 +7,6 @@
 * @package documents
 */
 
-require_once("BaseAction.php");
-require_once("DocumentKeyWordPeer.php");
-
 class DocumentsKeyWordListAction extends BaseAction {
 
 	function DocumentsKeyWordListAction() {

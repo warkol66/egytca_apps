@@ -2,22 +2,6 @@
 
 	<action-mappings module="Documents">
 
-		<action    path = "documentsList"
-							 type = "DocumentsListAction"
-							 name = "documentsList"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="DocumentsList.tpl"/>
-		</action>
-
-		<action    path = "documentsShow"
-							 type = "DocumentsShowAction"
-							 name = "documentsShow"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="DocumentsShow.tpl"/>
-		</action>
-
 		<action    path = "documentsEdit"
 							 type = "DocumentsEditAction"
 							 name = "documentsEdit"
@@ -69,6 +53,12 @@
 			<!-- Forwards para el modulo Panel - ReportSection -->
 			<forward name="successReportSection" path="/Main.php?do=panelReportsSectionsEdit" redirect="true"/>
 			<forward name="failureUploadReportSection" path="/Main.php?do=panelReportsSectionsEdit" redirect="true"/>
+			<!-- Forwards para el modulo Campaigns -->
+			<forward name="successCampaign" path="/Main.php?do=campaignsEdit" redirect="true"/>
+			<forward name="failureUploadCampaign" path="/Main.php?do=campaignsEdit" redirect="true"/>
+			<!-- Forwards para el modulo Headlines -->
+			<forward name="successHeadline" path="/Main.php?do=headlinesEdit" redirect="true"/>
+			<forward name="failureUploadHeadline" path="/Main.php?do=headlinesEdit" redirect="true"/>
 		</action>
 
 		<action    path = "documentsDoDelete"
@@ -81,6 +71,12 @@
 			<!-- Forwards para el modulo Projects -->
 				<forward name="successProject" path="/Main.php?do=projectsEdit" redirect="true"/>
 				<forward name="failureProject" path="/Main.php?do=projectsEdit" redirect="true" />
+			<!-- Forwards para el modulo Campaigns -->
+				<forward name="successCampaign" path="/Main.php?do=campaignsEdit" redirect="true"/>
+				<forward name="failureCampaign" path="/Main.php?do=campaignsEdit" redirect="true" />
+			<!-- Forwards para el modulo Headlines -->
+				<forward name="successHeadline" path="/Main.php?do=headlinesEdit" redirect="true"/>
+				<forward name="failureHeadline" path="/Main.php?do=headlinesEdit" redirect="true" />
 		</action>
 
 		<action    path = "documentsDoDeleteX"
@@ -101,24 +97,6 @@
 					 validate = "true">
 			<forward name="success" path="DocumentsKeyWordList.tpl"/>
 			<forward name="include" path="DocumentsKeyWordListInclude.tpl"/>
-		</action>
-
-		<action    path = "documentsKeyWordEdit"
-							 type = "DocumentsKeyWordEditAction"
-							 name = "documentsKeyWordEdit"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="DocumentsKeyWordEdit.tpl"/>
-			<forward name="failure" path="/Main.php?do=documentsList" redirect="true"/>
-		</action>
-
-		<action    path = "documentsKeyWordDoEdit"
-							 type = "DocumentsKeyWordDoEditAction"
-							 name = "documentsKeyWordDoEdit"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="/Main.php?do=documentsKeyWordList" redirect="true"/>
-			<forward name="failure" path="DocumentsKeyWordEdit.tpl"/>
 		</action>
 
 		<action    path = "documentsKeyWordDoDelete"

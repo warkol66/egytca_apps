@@ -8,16 +8,6 @@
 * @package documents
 */
 
-require_once("BaseAction.php");
-require_once("DocumentKeyWordPeer.php");
-
-/**
-* DocumentsEditAction
-*
-*  Esta clase hereda la clase BaseAction
-* 
-*/
-
 class DocumentsKeyWordEditAction extends BaseAction {
 
 	function DocumentsKeyWordEditAction() {
@@ -26,7 +16,7 @@ class DocumentsKeyWordEditAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
 
 		$plugInKey = 'SMARTY_PLUGIN';
@@ -46,6 +36,7 @@ class DocumentsKeyWordEditAction extends BaseAction {
 			$keyWord = $keyWordPeer->get($_REQUEST["id"]);
 			$smarty->assign("keyWord",$keyWord);
 		}
+
 		return $mapping->findForwardConfig('success');
 
 	}

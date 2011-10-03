@@ -8,10 +8,7 @@
 * @package documents
 */
 
-require_once("DocumentsBaseAction.php");
-require_once("DocumentPeer.php");
-
-class DocumentsDoEditAction extends DocumentsBaseAction {
+class DocumentsDoEditAction extends BaseAction {
 
 	function DocumentsDoEditAction() {
 		;
@@ -56,7 +53,7 @@ class DocumentsDoEditAction extends DocumentsBaseAction {
 			$password = $_POST["old_password"];
 			
 			//validacion de password
-			if (!$this->documentPasswordValidation($document,$password)) {
+			if (!$document->checkPasswordValidation($password)) {
 
 				$this->failureSmartySetup($smarty,$document);
 				$smarty->assign('message','wrongPassword');
@@ -105,8 +102,8 @@ class DocumentsDoEditAction extends DocumentsBaseAction {
 				$queryClass = $_POST['entity'] . 'Query';
 				if ( class_exists($queryClass) ) {
 					$queryInstance = new $queryClass;
-					$project = $queryInstance->findPK($_POST['entityId']);
-					$document->$addMethod($project);
+					$entity = $queryInstance->findPK($_POST['entityId']);
+					$document->$addMethod($entity);
 					$document->save();
 					return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping, 'success' . $_POST['entity']);
 				}

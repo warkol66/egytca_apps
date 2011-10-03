@@ -1,4 +1,4 @@
-<div id="documentAdder">
+|-if isset($label)-||-else-||-assign var=label value="documentos"-||-/if-|<div id="documentAdder">
 <div id="documentOperationInfo">
 |-if $message eq "wrongPasswordComparison"-|
 	<div class="failureMessage">Error: Las contraseñas ingresadas no concuerdan</div>
@@ -7,7 +7,7 @@
 |-elseif $msg eq "wrongPasswordComparison"-|
 	<div class="failureMessage">Error: Las contraseñas ingresadas no concuerdan</div>
 	|-elseif $msg eq "wrongCategory"-|
-	<div class="failureMessage">Error: Debe seleccionar un tipo de documento</div>
+	<div class="failureMessage">Error: Debe seleccionar un tipo de archivo</div>
 |-/if-|
 </div>
 
@@ -15,20 +15,20 @@
 	|-if $document neq''-|
 	<input type="hidden" name="id" value="|-$document->getId()-|">
 	|-/if-|
-	<fieldset title="Formulario para Agregar Nuevo Documento">
+	<fieldset title="Formulario para Agregar Nuevo |-$label-|">
 		|-if $document neq ''-|
 		<legend>Editar Documento</legend>
-			<p>Ingrese los datos correspondientes al documento. Seleccione un nuevo documento si desea reemplazar el documento actual ("|-$document->getRealFilename()-|")</p>	
+			<p>Ingrese los datos correspondientes al |-$label-|. Seleccione un nuevo |-$label-| si desea reemplazar el actual ("|-$document->getRealFilename()-|")</p>	
 		|-elseif $module eq "Documents" && $entity eq ''-|
 		<legend>Formulario de Documentos</legend>
 			<p>Ingrese los datos correspondientes al documento</p>	
 		|-else-|
-		<legend>Anexar Documentos</legend>
-			<p>Ingrese los datos correspondientes al documento que desea anexar.</p>		
+		<legend>Anexar |-$label-|</legend>
+			<p>Ingrese los datos correspondientes al |-$label-| que desea anexar.</p>		
 		|-/if-|
 			<div id="divSWFUploadUI" |-if !$configModule->get('documents', useSWFUploader)-|style="display:none;"|-/if-|>
 			<p>
-				<label for="documentType">Tipo de Contenido</label>
+				<label for="documentType">Tipo de archivo</label>
 				<select name="documentType" id="document_type" onChange="javascript:changeTypeFileManager()">
 					|-foreach from=$documentTypes key=key item=value-|
 						<option value="|-$key-|">|-$key-|</option>
@@ -68,7 +68,7 @@
 			</p>
 			<p>
 				<label for="title">Título</label>
-				<textarea name="title" cols="55" rows="3" wrap="virtual" title="Título">|-if $document neq ''-||-$document->getTitle()|escape-||-/if-|</textarea>
+				<textarea name="title" cols="55" rows="2" wrap="virtual" title="Título">|-if $document neq ''-||-$document->getTitle()|escape-||-/if-|</textarea>
 			</p>
 			<p>
 				<label for="description">Descripción</label>
@@ -118,7 +118,7 @@
 				 	<input type="hidden" name="entity" value="|-$entity-|" />
 				 	<input type="hidden" name="entityId" value="|-$entityId-|" />
 			 	|-/if-|
-				<input type="submit" name="uploadButton" value="|-if $document neq ''-|Guardar Cambios|-else-|Agregar Documento|-/if-|" id="btnSubmit">|-if $module eq 'Documents' && $action eq 'edit'-|<input name="return" type="button" value="Regresar" onClick="history.back(-1);"/>|-/if-|<span id="msgBoxUploader"></span>
+				<input type="submit" name="uploadButton" value="|-if $document neq ''-|Guardar Cambios|-else-|Agregar |-$label-||-/if-|" id="btnSubmit">|-if $module eq 'Documents' && $action eq 'edit'-|<input name="return" type="button" value="Regresar" onClick="history.back(-1);"/>|-/if-|<span id="msgBoxUploader"></span>
 			 </p>
 	</fieldset>
 </form>
