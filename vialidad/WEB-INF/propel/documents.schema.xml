@@ -28,9 +28,9 @@
 
 		</index>
 
-		<foreign-key foreignTable="categories_category"  onDelete="cascade" >
+<!--		<foreign-key foreignTable="categories_category"  onDelete="cascade" >
 			<reference local="categoryId" foreign="id" />
-		</foreign-key>
+		</foreign-key> -->
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
@@ -39,7 +39,7 @@
 
 	</table>
 
-	<table phpName="DocumentKeyWord" name="documents_keyWord" description="Palabras clave de documentos">
+<!--	<table phpName="DocumentKeyWord" name="documents_keyWord" description="Palabras clave de documentos">
 
 		<column name="id" type="INTEGER" description="Id palabra clave" primaryKey="true" autoIncrement="true"  />
 		<column name="keyWord" type="VARCHAR" size="255" description="Palabra clave"/>
@@ -49,6 +49,6 @@
 			<parameter name="Collate" value="utf8_general_ci"/>
 		</vendor>
 
-	</table>
+	</table>-->
 
 </database>
