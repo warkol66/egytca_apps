@@ -5,7 +5,7 @@
  * @package Config
  */
 
-include_once("WEB-INF/classes/includes/db_mysql.inc.php");
+require_once("WEB-INF/classes/includes/db_mysql.inc.php");
 
 class DBConnection extends DB_Sql {
 
@@ -24,6 +24,8 @@ class DBConnection extends DB_Sql {
 		$password = $configDbData["password"];
 		$port = "";
 
+		$charSet = $configDbData["settings"]["charset"]["value"];
+
 		//Para conectar directamente, cargar valores en esta sección
 		$this->Database = $database;
 		$this->Host = $host;
@@ -31,11 +33,12 @@ class DBConnection extends DB_Sql {
 		$this->Password = $password;
 		$this->Port = $port;
 
+    if (!empty($charSet))
+			$this->CharSet = $charSet;
+
 		//Verifico que se puede conectar a la base, de lo contrario die
-		if (!$this->connect()) {
-			echo "No db conection!!!";
-			die();
-		}
+		if (!$this->connect())
+			die("No db conection!!!");
 
 	}
 
