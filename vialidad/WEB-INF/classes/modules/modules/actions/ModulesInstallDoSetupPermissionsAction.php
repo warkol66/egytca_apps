@@ -1,8 +1,8 @@
 <?php
 /**
- * InstallDoSetupPermissionsAction
+ * ModulesInstallDoSetupPermissionsAction
  *
- * @package install
+ * @package modules
  */
 
 class ModulesInstallDoSetupPermissionsAction extends BaseAction {
@@ -154,13 +154,7 @@ class ModulesInstallDoSetupPermissionsAction extends BaseAction {
 	function execute($mapping, $form, &$request, &$response) {
 
 		BaseAction::execute($mapping, $form, $request, $response);
-		global $PHP_SELF;
-		//////////
-		// Call our business logic from here
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {

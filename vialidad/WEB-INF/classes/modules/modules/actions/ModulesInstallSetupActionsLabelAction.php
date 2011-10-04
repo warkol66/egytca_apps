@@ -1,8 +1,8 @@
 <?php
 /**
- * InstallSetupActionsLabelAction
+ * ModulesInstallSetupActionsLabelAction
  *
- * @package install
+ * @package modules
  */
 
 require_once("includes/assoc_array2xml.php");
@@ -16,18 +16,16 @@ class ModulesInstallSetupActionsLabelAction extends BaseAction {
 	function execute($mapping, $form, &$request, &$response) {
 
 		BaseAction::execute($mapping, $form, $request, $response);
-		global $PHP_SELF;
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$module = "Install";
+		$module = "Modules";
+		$smarty->assign("module",$module);
+		$section = "Install";
 		$smarty->assign("module",$module);
 
 		$modulePeer = new ModulePeer();
