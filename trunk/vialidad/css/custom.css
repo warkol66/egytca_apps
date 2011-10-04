@@ -63,7 +63,7 @@ body {
 /*  /LOGIN  -----------------------------------------------*/
 
 /* wrapper -----------------------------------------------------------*/ 
-#wrapper { 
+#wrapper {
 }
 #header {
 	background-image: url(../images/logo1.gif);
@@ -85,9 +85,10 @@ body {
 	clear: both;
 }
 #contentWrapper { 
+	width: 950px;
 	background-image: url(../images/bkg-2columns.png);
 	background-repeat: repeat-y;
-	border-left: solid 5px transparent;
+/*	border-left: solid 5px transparent; */
 	border-right: solid 5px transparent;
 	background-color: #FFFFFF;
 }
@@ -198,19 +199,24 @@ body {
 	border-left: none;
 	border-right: none;
 }
-#logout{
+#leftColumn li.titleMenu:hover, #logout:hover { 
+	color: #ffffff;
+	background-color: #FF9900;
+}
+#logout {
 	background-image:url(../images/logout.png);
-	background-position: top left;
 	background-repeat:no-repeat;
+	background-position: 4px center;
 	color: #ff7800;
 	background-color: #eeecde;
 	font-weight:bold;
 	text-decoration: none;
-	width: 122px !Important;
-	height: 21px !Important;
+	line-height: 26px;
+	width: 123px !Important;
+	height: 26px !Important;
 	margin: 0;
-	margin-top: 10px;
-	padding: 4px 0 0 28px !Important;
+	margin-top: 1px;
+	padding: 2px 0 2px 32px !Important;
 	
 }
 /*  AGREGADOS -----------------------------------------------*/
