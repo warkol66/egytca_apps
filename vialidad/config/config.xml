@@ -40,9 +40,9 @@
 			<thousandsSeparator>.</thousandsSeparator>
 			<decimalSeparator>,</decimalSeparator>
 			<numberOfDecimals>2</numberOfDecimals>
-			<siteName>Sistema</siteName>
-			<siteDescription>Sistema de Gestión</siteDescription>
-			<siteShortName>sistema</siteShortName>
+			<siteName>MOPC - Ministerio de Obras Públicas y Comunicaciones</siteName>
+			<siteDescription>Administración de certificados electrónicos de obras</siteDescription>
+			<siteShortName>vialidad</siteShortName>
 			<webmasterMail>moddebugger@gmail.com</webmasterMail>
 			<debugMail>moddebugger@gmail.com</debugMail>
 			<fromEmail>moddebugger@gmail.com</fromEmail>
@@ -51,16 +51,18 @@
 			<affiliateNews>Novedades: Bienvenido al Sistema</affiliateNews>
 		</parameters>
 		<errorReporting>
-			<value>E_ALL & ~E_NOTICE ~E_WARNING</value>
+			<value>E_ALL &amp; ~E_NOTICE ~E_WARNING</value>
 			<element_type>Options</element_type>
 			<element_options>
-				<option_1></option_1>
-				<option_2>E_ALL - E_NOTICE - E_WARNINGS</option_2>
-				<option_3>E_ALL</option_3>
-				<option_4>E_STRICT</option_4>
+				<option_1>NONE</option_1>
+				<option_2>E_ALL</option_2>
+				<option_3>E_ALL &amp; ~E_NOTICE</option_3>
+				<option_4>E_ALL &amp; ~E_NOTICE ~E_WARNING</option_4>
+				<option_5>E_STRICT</option_5>
 			</element_options>
 		</errorReporting>
 		<rowsPerPage>25</rowsPerPage>
+		<language>esp</language>
 	</system>
 	<email>
 		<mode>
@@ -72,10 +74,10 @@
 			</element_options>
 		</mode>
 		<smtpOptions>
-			<smtpHost></smtpHost>
-			<smtpPort></smtpPort>
-			<smtpUsername></smtpUsername>
-			<smtpPassword></smtpPassword>
+			<smtpHost>vialidad.sistemas.biz</smtpHost>
+			<smtpPort>587</smtpPort>
+			<smtpUsername>sistema@vialidad.sistemas.biz</smtpUsername>
+			<smtpPassword>vialidad2011</smtpPassword>
 			<smtpSsl>
 				<value>NO</value>
 				<element_type>YES/NO</element_type>
