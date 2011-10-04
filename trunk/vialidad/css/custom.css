@@ -1,6 +1,5 @@
 body {
-	background-color: #e7ecf2;
-	background-image: url(../images/bkg_panel.png);
+	background-color: #eeecde;
 	background-position:top left;
 	background-repeat:repeat-x;
 	background-attachment: fixed;
@@ -17,11 +16,11 @@ body {
 	margin-right: auto !Important;
 }
 #loginTop { 
-	background-image:url(../images/mdp.png);
+	background-image:url(../images/logo2.gif);
 	background-position: top center;
 	background-repeat:no-repeat;
-	background-color: #C5C5C5;
-	height: 120px;
+	background-color: #FF9900;
+	height: 50px;
 }
 #loginContent, #passRecovery { 
 	background-image:url(../images/loginContent.png);
@@ -67,19 +66,29 @@ body {
 #wrapper { 
 }
 #header {
-	background-image: url(../images/header.png);
+	background-image: url(../images/logo1.gif);
 	background-position: left;
 	background-repeat: no-repeat;
-	background-color: #FFFFFF;
-	border-bottom: 5px solid #0066cc;
-	border-left: solid 5px #0066cc;
-	border-right: solid 5px #0066cc;
+	background-color: #FF9900;
+	border-bottom: 5px solid transparent;
+	border-left: solid 5px transparent;
+	border-right: solid 5px transparent;
+	float: left;
+}
+#headerLogo {
+	float: right;
+	margin-right: 10px;
+}
+#separatorHeader {
+	background-color: #eeecde;
+	height: 25px;
+	clear: both;
 }
 #contentWrapper { 
 	background-image: url(../images/bkg-2columns.png);
 	background-repeat: repeat-y;
-	border-left: solid 5px #0066cc;
-	border-right: solid 5px #0066cc;
+	border-left: solid 5px transparent;
+	border-right: solid 5px transparent;
 	background-color: #FFFFFF;
 }
 #contentCloser { 
@@ -98,11 +107,16 @@ body {
 	background-color: #FFFFFF;
 	color: #333;
 }
+#separatorFooter {
+	background-color: #eeecde;
+	height: 15px;
+	clear: both;
+}
 #footer { 
-	background-color: #9ccc66;
-	border-bottom: solid 5px #0066cc;
-	border-left: solid 5px #0066cc;
-	border-right: solid 5px #0066cc;
+	background-color: #FF9900;
+	border-bottom: solid 5px transparent;
+	border-left: solid 5px transparent;
+	border-right: solid 5px transparent;
 }
 #footer p{
 	color: #ffffff;
@@ -117,7 +131,7 @@ body {
 	background-color: #FFFFFF;  /* Mismo color de fondo del header*/
 }
 #loginTopBorder .rounded .r1, #loginTopBorder .rounded .r2 {
-	background-color: #C5C5C5;  /* Mismo color de fondo #loginTop */
+	background-color: #FF9900;  /* Mismo color de fondo #loginTop */
 }
 
 /* /wrapper -----------------------------------------------------------*/ 
