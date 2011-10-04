@@ -166,7 +166,7 @@ body {
 
 /* MENU NAVEGACION   */
 #leftColumn ul { 
-	background-color: #e7ebf0;
+	background-color: #ffbc58;
 }
 
 #leftColumn li { 
@@ -177,8 +177,8 @@ body {
 	color: #000;
 }
 #leftColumn li a:hover { 
-	background-color:#d3dbe4;
-	background-image:url(../images/list-image_arrow1.gif);
+	background-color:#fddaa5;
+	background-image:url(../images/list-image_arrow1.png);
 	background-position:3px 6px;
 	background-repeat:no-repeat;
 }
@@ -188,8 +188,8 @@ body {
 	background-image: none;
 }
 .titleMenu { 
-	color: #003399;
-	background-color: #bdcad7;
+	color: #ff7800;
+	background-color: #eeecde;
 	background-image:url(../images/tit1_bkg.gif);
 	background-repeat:repeat-X;
 	background-position: left top;
@@ -199,12 +199,19 @@ body {
 	border-right: none;
 }
 #logout{
-	background-image:url(../images/buttonLogout.png);
+	background-image:url(../images/logout.png);
 	background-position: top left;
 	background-repeat:no-repeat;
-	color: #003399;
+	color: #ff7800;
+	background-color: #eeecde;
 	font-weight:bold;
 	text-decoration: none;
+	width: 122px !Important;
+	height: 21px !Important;
+	margin: 0;
+	margin-top: 10px;
+	padding: 4px 0 0 28px !Important;
+	
 }
 /*  AGREGADOS -----------------------------------------------*/
 .flagGreen {
