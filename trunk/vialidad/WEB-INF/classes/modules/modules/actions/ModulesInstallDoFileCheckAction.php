@@ -1,8 +1,8 @@
 <?php
 /**
- * InstallDoFileCheckAction
+ * ModulesInstallDoFileCheckAction
  *
- * @package install
+ * @package modules
  */
 
 require_once("includes/assoc_array2xml.php");
@@ -37,13 +37,7 @@ class ModulesInstallDoFileCheckAction extends BaseAction {
 	function execute($mapping, $form, &$request, &$response) {
 
 		BaseAction::execute($mapping, $form, $request, $response);
-		global $PHP_SELF;
-		//////////
-		// Call our business logic from here
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
