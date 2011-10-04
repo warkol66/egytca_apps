@@ -1,52 +1,73 @@
-|-if $loginUser neq ""-|
+|-if !empty($loginUser)-|
+	|-if $SESSION.firstLogin-|
+	<ul>
+			<li><a href="Main.php?do=usersPasswordChange&firstLogin=firstLogin">Actualice su clave</a></li>
+	</ul>
+	<a href="Main.php?do=|-if ($configModule->get("global","unifiedUsernames"))-|commonDoLogout|-else-|usersDoLogout|-/if-|" onClick='return window.confirm("Si ya actualizó su clave, puede proceder a salir del sistema. ¿Esta seguro que quiere salir del sistema?")' id="logout">Salir del Sistema</a>
+	|-else-|
 	<ul>
 		<li><a href="Main.php?do=usersWelcome">Ir al Inicio</a></li>
 
-		<li class="titleMenu">Aplicaciones</li>
-			<li><a href="Main.php?do=lausiThemesList">Motivos</a></li>
-			<li><a href="Main.php?do=lausiAddressesList">Direcciones</a></li>
-			<li><a href="Main.php?do=lausiClientsList">Clientes</a></li>
-			<li><a href="Main.php?do=lausiClientAddressesList">Direcciones Importantes de Clientes</a></li>
-			<li><a href="Main.php?do=lausiBillboardsList">Carteleras</a></li>
-			<li><a href="Main.php?do=lausiCircuitsList">Circuitos</a></li>
-			<li><a href="Main.php?do=lausiRegionsList">Barrios</a></li>
-			<li><a href="Main.php?do=lausiWorkforcesList">Contratistas</a></li>
-			<li><a href="Main.php?do=lausiWorkforcesAssignAdmin">Avisos Sextuples por Contratista</a></li>
-			<!--<li><a href="Main.php?do=lausiAddressesOrder">Ordenamiento de Direcciones</a></li>-->
+		<li class="titleMenu" onclick="$('sectionApplications').toggle()">Aplicaciones</li>
+		<div id="sectionApplications" style="display:|-if $module|upper eq 'ISSUES' || $module|upper eq 'ACTORS' || $module|upper eq 'HEADLINES' || $module|upper eq 'CAMPAIGNS'-|block|-else-|none|-/if-|">
+			<li><a href="Main.php?do=actorsList">Actores</a></li>
+			<li><a href="Main.php?do=issuesList">Asuntos</a></li>
+			<li><a href="Main.php?do=headlinesList">Titulares</a></li>
+			<li><a href="Main.php?do=campaignsList">Campañas</a></li>
+		</div>
+
+		<li class="titleMenu" onclick="$('sectionConfigurations').toggle()">Configuración</li>
+		<div id="sectionConfigurations" style="display:|-if $module|upper eq 'CLIENTS' || $module|upper eq 'MEDIAS'-|block|-else-|none|-/if-|">
+			<li><a href="Main.php?do=mediasTypeList">Tipo de medios</a></li>
+			<li><a href="Main.php?do=mediasAudienceList">Audiencias</a></li>
+			<li><a href="Main.php?do=mediasMarketList">Mercados</a></li>
+
+			<li><a href="Main.php?do=actorsCategoryList">Categorías de actores</a></li>
+			<li><a href="Main.php?do=issuesCategoryList">Categorías de asuntos</a></li>
+
+			<li><a href="Main.php?do=mediasList">Medios</a></li>
+			<li><a href="Main.php?do=clientsList">Clientes</a></li>
+			<li><a href="Main.php?do=clientsUsersList">Usuarios de Clientes</a></li>
+		</div>
+
+		<li class="titleMenu" onclick="$('sectionAdmin').toggle()">Administración</li>
+		<div id="sectionAdmin" style="display:|-if $module|upper eq 'USERS' || $module|upper eq 'AFFILIATES' || $module|upper eq 'MODULES' 
+		|| $module|upper eq 'COMMON' || $module|upper eq 'SURVEYS' || $module|upper eq 'SECURITY'-|block|-else-|none|-/if-|">
+			<li><a href="Main.php?do=affiliatesList">##affiliates,1,Afiliados##</a></li>
+			<li><a href="Main.php?do=affiliatesBranchesList">##affiliates,5,Sucursales##</a></li>
+			<li><a href="Main.php?do=affiliatesUsersList">##affiliates,2,Usuarios del afiliado##</a></li>
+			<li><a href="Main.php?do=commonConfigSet">Cambiar Configuración</a></li>
+			<li><a href="Main.php?do=commonConfigEdit">Editar Configuración</a></li>
+			<li><a href="Main.php?do=commonConfigView">Ver Configuración</a></li>
 			<li><a href="Main.php?do=backupList">Respaldos</a></li>
-
-		<li class="titleMenu">Distribución de Motivos</li>
-			<li><a href="Main.php?do=lausiDistributeByRegion">Por Barrio</a></li>
-			<li><a href="Main.php?do=lausiDistributeByCircuit">Por Circuito</a></li>
-			<li><a href="Main.php?do=lausiDistributeByCircuitPercentage">Porcentual Por Circuito</a></li>
-			<li><a href="Main.php?do=lausiDistributeByRating">Por Valoración</a></li>
-			<li><a href="Main.php?do=lausiDistributeByLocation">Por Ubicación Geográfica</a></li>
-			<li><a href="Main.php?do=lausiThemesRotate">Rotación de Motivos</a></li>		
-			<li><a href="Main.php?do=lausiAdvertisementsList">Ver Avisos</a></li>
-		
-		<li class="titleMenu">Asignar Avisos Séxtuples</li>
-			<li><a href="Main.php?do=lausiWorkforcesAssign">Asignar Contratistas</a></li>
-
-		<li class="titleMenu">Pautas</li>
-		<li><a href="Main.php?do=lausiCampaignsShow">Administrar Motivos</a></li>
-
-		<li class="titleMenu">Reportes</li>
-			<li><a href="Main.php?do=lausiReportsRouteSheet">Hoja de Ruta Séxtuples</a></li>
-			<li><a href="Main.php?do=lausiReportsSheetsLocation">Hoja de Ruta Dobles</a></li>
-			<li><a href="Main.php?do=lausiReportsThemes">Motivos</a></li>
-			<li><a href="Main.php?do=lausiAdvertisementsList&amp;clientReport=1">Para Clientes</a></li>
-			<li><a href="Main.php?do=lausiReportsAddresses">Direcciones</a></li>
-			<li><a href="Main.php?do=lausiReportsBillboardsOwned">Carteleras por Circuito</a></li>			
-			<li><a href="Main.php?do=lausiReportsThemesCircuit">Motivos por Circuito</a></li>
-
-		<li class="titleMenu"><a href="javascript:switch_vis('adminMenu');" class="titleLink">Administración</a></li>
-			<div id="adminMenu" style="display:|-if $module|lower eq 'users' || $module|lower eq 'categories' || $module|lower eq 'config' || $module|lower eq 'calendar'-|block|-else-|none|-/if-|;">			<li><a href="Main.php?do=usersList">Usuarios</a></li>
-			<li><a href="Main.php?do=usersGroupsList">Grupos de Usuarios</a></li>
-			<li><a href="Main.php?do=usersLevelsList">Niveles Usuarios</a></li>
-			<li><a href="Main.php?do=configView">Ver Configuración</a></li>
-			<li><a href="Main.php?do=configSet">Configurar Sistema</a></li>
-			<li><a href="Main.php?do=configEdit">Editar Configuración</a></li>
+			<li><a href="Main.php?do=usersList">Usuarios</a></li>
+			<li><a href="Main.php?do=usersLevelsList">Administrar Niveles de Usuario</a></li>
+			<li><a href="Main.php?do=usersGroupsList">Administrar Grupos de Usuarios</a></li>
+			<li><a href="Main.php?do=modulesList">Administrar módulos</a></li>
+			<li><a href="Main.php?do=modulesInstallList">Instalar Modulos</a></li>
+		|-if $loginUser->isSupervisor()-|
+			<li><a href="Main.php?do=securityEditPermissions">Administrar Permisos</a></li>
+		|-/if-|
 		</div>
 	</ul>
-	<a href="Main.php?do=usersDoLogout" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")' id="logout"></a>
+
+	<a href="Main.php?do=|-if ($configModule->get("global","unifiedUsernames"))-|commonDoLogout|-else-|usersDoLogout|-/if-|" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")' id="logout">Salir del Sistema</a>
+	|-/if-|
+|-elseif !empty($loginAffiliateUser)-|
+	|-if $SESSION.firstLogin-|
+		<ul>
+			<li><a href="Main.php?do=affiliatesUsersPasswordChange&firstLogin=firstLogin">Actualice su clave</a></li>
+		</ul>
+		<a href="Main.php?do=|-if ($configModule->get("global","unifiedUsernames"))-|commonDoLogout|-else-|affiliatesUsersDoLogout|-/if-|" onClick='return window.confirm("Si ya actualizó su clave, puede proceder a salir del sistema. ¿Esta seguro que quiere salir del sistema?")' id="logout">Salir del Sistema</a>
+	|-else-|
+	<ul>
+		<li class="menuLink"><a href="Main.php?do=affiliatesUsersWelcome">Ir al Inicio</a></li>
+		<li class="titleMenu" onclick="switch_vis('sectionAdmin')">Administración</li>
+		<div id="sectionAdmin" style="display:|-if $module|upper eq "AFFILIATES" || $module|upper eq "SURVEYS"-|block|-else-|none|-/if-|">
+			<li><a href="Main.php?do=affiliatesUsersList">Administrar Usuarios</a></li>
+			<li><a href="Main.php?do=affiliatesBranchesList">Administrar ##affiliates,5,Sucursales##</a></li>
+		</div>
+	</ul>
+	<a href="Main.php?do=|-if ($configModule->get("global","unifiedUsernames"))-|commonDoLogout|-else-|affiliatesUsersDoLogout|-/if-|" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")' id="logout">Salir del Sistema</a>
+	|-/if-|
 |-/if-|
