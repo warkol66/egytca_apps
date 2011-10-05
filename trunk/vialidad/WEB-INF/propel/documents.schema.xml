@@ -51,4 +51,22 @@
 
 	</table>-->
 
+	<!-- Relacion many-to-many con documents -->	
+	<table name="documents_relatedEntity" phpName="DocumentRelatedEntity">
+
+		<column name="documentId" type="INTEGER" primaryKey="true" description="Id del documento" />
+		<column name="entityType" type="VARCHAR" primaryKey="true" size="32" description="Nombre de la entidad" />
+		<column name="entityId" type="INTEGER" primaryKey="true" description="Id de la entidad asociada"/>
+
+		<foreign-key foreignTable="documents_document" onDelete="CASCADE">
+  		<reference local="documentId" foreign="id"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
 </database>
