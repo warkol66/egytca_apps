@@ -7,7 +7,7 @@
 		<fieldset title="Formulario de edici&oacute;n de datos de un Bolet&iacute;n">
 			<legend>Formulario de Administraci&oacute;n de Boletines</legend>
 			<p>
-				<label for="params[name]">N&uacute;mero</label>
+				<label for="params[number]">N&uacute;mero</label>
 				<input type="text" id="params[number]" name="params[number]" size="10" value="|-$bulletin->getNumber()|escape-|" title="N&uacute;mero" /><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
 			</p>
 			<p>     
