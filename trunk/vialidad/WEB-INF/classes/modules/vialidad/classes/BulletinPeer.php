@@ -89,6 +89,17 @@ class BulletinPeer extends BaseBulletinPeer {
 	}
 	
 	/**
+	 * Obtiene la cantidad de filas por pagina por defecto en los listado paginados.
+	 * 
+	 * @return int Cantidad de filas por pagina
+	 */
+	function getRowsPerPage() {
+		if (!isset($this->perPage))
+			$this->perPage = Common::getRowsPerPage();
+		return $this->perPage;
+	}
+	
+	/**
 	 * Obtiene todos los bulletin paginados segun la condicion de busqueda ingresada.
 	 * 
 	 * @param int $page [optional] Numero de pagina actual
@@ -97,12 +108,82 @@ class BulletinPeer extends BaseBulletinPeer {
 	 */
 	function getAllPaginatedFiltered($page=1,$perPage=-1)	{
 		if ($perPage == -1)
-			// TODO: usar Common::getRowsPerPage()
-			$perPage = 25; // Common::getRowsPerPage() parece no estar funcionando
-			//$perPage = Common::getRowsPerPage();
+			$perPage = $this->getRowsPerPage();
 		$criteria = $this->getSearchCriteria();
 		$pager = new PropelPager($criteria,"BulletinPeer", "doSelect",$page,$perPage);
 		return $pager;
+	}
+	
+	/**
+	 * Elimina un bulletin a partir de los valores de la clave.
+	 * 
+	 * @param int $id id del bulletin
+	 * @return boolean true si se elimino correctamente el bulletin, false sino
+	 */
+	function delete($id){
+		$bulletin = BulletinPeer::retrieveByPK($id);
+		try {
+			$bulletin->delete();
+			return true;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
+	}
+	
+	/**
+	 * Elimina definitivamente un bulletin a partir del id.
+	 *
+	 * @param int $id Id del bulletin
+	 * @return boolean true
+	 */
+	function hardDelete($id) {
+		BulletinPeer::disableSoftDelete();
+		$bulletin = BulletinPeer::retrieveByPk($id);
+		try {
+			$bulletin->forceDelete();
+			return true;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
+	}
+	
+	/**
+	 * Obtiene todos los bulletin desactivados.
+	 * 
+	 * @return array Informacion sobre los bulletin
+	 */
+	function getSoftDeleted() {
+		$criteria = new Criteria();
+		$criteria->add(BulletinPeer::DELETED_AT, null, Criteria::ISNOTNULL);
+		BulletinPeer::disableSoftDelete();
+		$bulletins = BulletinPeer::doSelect($criteria);
+		return $bulletins;
+	}
+
+	/**
+	 * Recupera del softdelete un bulletin
+	 * 
+	 * @param int $id Id del bulletin
+	 * @return boolean true
+	 */
+	function recoverDeleted($id) {
+		BulletinPeer::disableSoftDelete();
+		$bulletin = BulletinPeer::retrieveByPk($id);
+		try {
+			$bulletin->unDelete();
+			return true;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
 	}
 
 } // BulletinPeer
