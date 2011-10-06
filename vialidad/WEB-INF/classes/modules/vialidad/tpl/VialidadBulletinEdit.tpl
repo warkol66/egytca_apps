@@ -1,3 +1,44 @@
+<script type="text/javascript">
+	
+	var preliminaryPrice;
+	var definitivePrice;
+	
+	function editPrice(changedCell, supplyId) {
+		new Ajax.Updater(
+			changedCell.parentNode,
+			'Main.php?do=vialidadBulletinDoEditPriceX',
+			{
+				method: 'post',
+				parameters: {
+					bulletinId: '|-$bulletin->getId()-|',
+					supplyId: supplyId,
+					preliminaryPrice: preliminaryPrice,
+					definitivePrice: definitivePrice
+				}
+			}
+		);
+	}
+	
+	function editDefinitivePrice(supplyId) {
+	
+		definitivePrice = $('input_nuevo_valor').value;
+		preliminaryPrice = $('td_preliminary_'+supplyId).innerHTML;
+		changedCell = $('td_definitive_'+supplyId);
+		
+		editPrice(changedCell, supplyId);
+	}
+	
+	function editPreliminaryPrice(supplyId) {
+		
+		preliminaryPrice = $('input_nuevo_valor').value;
+		definitivePrice = $('td_definitive_'+supplyId).innerHTML;
+		changedCell = $('td_preliminary_'+supplyId);
+		
+		editPrice(changedCell, supplyId);
+	}
+	
+</script>
+
 <h2>Boletines</h2>
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| Bolet&iacute;n</h1>
 <div id="div_bulletin">
@@ -25,4 +66,41 @@
 			</p>
 		</fieldset>
 	</form>
+	
+	<div_supplies>
+	<table id="table_supplies" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
+		<thead>
+		<tr class="thFillTitle"> 
+			<th width="40%">Insumo</th> 
+			<th width="30%">Precio Preliminar</th> 
+			<th width="30%">Precio Definitivo</th> 
+		</tr>
+		</thead>
+		<tbody>
+		|-if $prices|@count eq 0-|
+		<tr>
+			<td colspan="3">No hay Insumos que mostrar</td>
+		</tr>
+		|-else-|
+		|-foreach from=$prices item=price-|
+		<tr>
+			|-assign var=supply value=$price->getSupply()-|
+			<td>|-$supply->getName()-|</td>
+			
+			<td id="td_preliminary_|-$supply->getId()-|" onclick="editPreliminaryPrice('|-$supply->getId()-|');">
+			|-if $price->getPreliminaryPrice() neq -1-||-$price->getPreliminaryPrice()-||-else-|-|-/if-|
+			</td>
+			
+			<td id="td_definitive_|-$supply->getId()-|" onclick="editDefinitivePrice('|-$supply->getId()-|');">
+			|-if $price->getDefinitivePrice() neq -1-||-$price->getDefinitivePrice()-||-else-|-|-/if-|
+			</td>
+		</tr>
+		|-/foreach-|
+		|-/if-|
+		</tbody>
+	</table>
+	</div_supplies>
+	
+	<label for="input_nuevo_valor">Click sobre un precio para reemplazar valor por</label>
+	<input type="text" id="input_nuevo_valor"/>
 </div>

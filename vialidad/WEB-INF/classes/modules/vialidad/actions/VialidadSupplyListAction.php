@@ -1,5 +1,7 @@
 <?php
 
+// TODO: Filtros no andan.
+
 class VialidadSupplyListAction extends BaseAction {
 
 	function VialidadSupplyListAction() {

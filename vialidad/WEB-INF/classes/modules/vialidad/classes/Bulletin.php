@@ -14,5 +14,35 @@
  * @package    propel.generator.vialidad.classes
  */
 class Bulletin extends BaseBulletin {
+	
+	/**
+	 * Determina la existencia de una relacion con un determindo Supply.
+	 * @param $supply Supply
+	 */
+	public function hasSupply($supply) {
+		$related = PriceBulletinQuery::create()->filterByBulletin($this)
+                        ->filterBySupply($supply);
+		return ($related->count() > 0);														 		
+	}
+	
+	public function addSupply($supply)
+	{
+		if ($this->collSupplys === null) {
+			$this->initSupplys();
+		}
+		if (!$this->collSupplys->contains($supply)) { // only add it if the **same** object is not already associated
+			$priceBulletin = new PriceBulletin();
+			$priceBulletin->setSupply($supply);
+			$priceBulletin->setPreliminaryprice(-1);
+			$priceBulletin->setDefinitiveprice(-1);
+			$this->addPriceBulletin($priceBulletin);
 
+			$this->collSupplys[]= $supply;
+		}
+	}
+	
+	public function getPriceBulletin($supplyid) {
+		return PriceBulletinPeer::retrieveByPK($this->getId(), $supplyid);
+	}
+	
 } // Bulletin

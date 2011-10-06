@@ -14,5 +14,23 @@
  * @package    propel.generator.vialidad.classes
  */
 class PriceBulletinPeer extends BasePriceBulletinPeer {
+	
+	/**
+	 * Elimina un PriceBulletin.
+	 * 
+	 * @param PriceBulletin $priceBulletin
+	 * @return boolean true si se elimino correctamente el PriceBulletin, false sino
+	 */
+	function delete($priceBulletin){
+		try {
+			$priceBulletin->delete();
+			return true;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
+	}
 
 } // PriceBulletinPeer
