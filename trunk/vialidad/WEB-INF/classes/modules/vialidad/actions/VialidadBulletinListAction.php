@@ -1,5 +1,7 @@
 <?php
 
+// TODO: Filtros no andan.
+
 class VialidadBulletinListAction extends BaseAction {
 
 	function VialidadBulletinListAction() {
@@ -40,7 +42,7 @@ class VialidadBulletinListAction extends BaseAction {
 		$smarty->assign('bulletins',$pager->getResult());
 		$smarty->assign("pager",$pager);
 
-		$url = "Main.php?do=vialidadList";
+		$url = "Main.php?do=vialidadBulletinList";
 		foreach ($filters as $key => $value)
 			$url .= "&filters[$key]=$value";
 		$smarty->assign("url",$url);
