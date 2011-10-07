@@ -1,8 +1,8 @@
 <?php
 
-class VialidadSupplyDoEditAction extends BaseAction {
+class VialidadSupplyDoEditXAction extends BaseAction {
 
-	function VialidadSupplyDoEditAction() {
+	function VialidadSupplyDoEditXAction() {
 		;
 	}
 
@@ -16,14 +16,8 @@ class VialidadSupplyDoEditAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		if ($_POST["page"] > 0)
-			$params["page"] = $_POST["page"];
-
-		if (!empty($_POST["filters"]))
-			$filters = $_POST["filters"];
-
 		$userParams = Common::userInfoToDoLog();
-		$supplyParams = array_merge_recursive($_POST["params"],$userParams);
+		$supplyParams = array_merge_recursive(array("name" => $_POST["name"]),$userParams);
 
 		if ($_POST["action"] == "edit") { // Existing supply
 
@@ -31,21 +25,20 @@ class VialidadSupplyDoEditAction extends BaseAction {
 			$supply = Common::setObjectFromParams($supply,$supplyParams);
 			
 			if ($supply->isModified() && !$supply->save()) 
-				return $this->returnFailure($mapping,$smarty,$supply,'failure-edit');
-
-			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
-
+				throw new Exception("Couldn't save supply");
 		}
 		else { // New supply
 
 			$supply = new Supply();
 			$supply = Common::setObjectFromParams($supply,$supplyParams);
 			if (!$supply->save())
-				return $this->returnFailure($mapping,$smarty,$supply);
-
-			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
+				throw new Exception("Couldn't save supply");
+			$smarty->assign('newSupply', $supply);
 		}
-
+		
+		$supplies = SupplyQuery::create()->find();
+		$smarty->assign('supplies', $supplies);
+		return $mapping->findForwardConfig('success');
 	}
 
 }
