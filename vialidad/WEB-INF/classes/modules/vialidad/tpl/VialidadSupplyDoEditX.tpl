@@ -1,6 +1,6 @@
 |-if $supplies|@count eq 0-|
 <tr>
-	<td colspan="2">|-if isset($filter)-|No hay Insumos que concuerden con la b&uacute;squeda|-else-|No hay Insumos disponibles|-/if-|</td>
+	<td colspan="2">|-if isset($filter)-|No hay Insumos que concuerden con la búsqueda|-else-|No hay Insumos disponibles|-/if-|</td>
 </tr>
 |-else-|
 |-foreach from=$supplies item=supply name=for_supples-|

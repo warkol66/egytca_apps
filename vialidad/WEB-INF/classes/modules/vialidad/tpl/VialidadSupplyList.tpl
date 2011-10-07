@@ -5,6 +5,8 @@
 	|-if $message eq "deleted_ok"-|
 		<div class="successMessage">Insumo eliminado correctamente</div>
 	|-/if-|
+				<div name="working_status_message" style="display:none;" class="inProgress">Trabajando...</div>
+				<div name="done_status_message" style="display:none;" class="successMessage">Insumo agregado</div>
 	<table id="table_supplies" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead> 
 		<tr>
@@ -29,12 +31,10 @@
 		|-if "vialidadSupplyEdit"|security_has_access-|
 		<tr>
 			<th colspan="2" class="thFillTitle">
-				<span name="working_status_message" style="display:none;">Trabajando...</span>
-				<span name="done_status_message" style="display:none;">Listo</span>
 				<div class="rightLink">
 					<a href="#" onclick="showInput('addInput1', 'addLink1'); return false;" id="addLink1" class="addLink">Agregar Insumo</a>
 					<form id="addInput1" action="Main.php" method="POST" onsubmit="setStatus('working'); prepareAndSubmit(this); showInput('addLink1', 'addInput1'); setStatus('done'); return false;" style="display: none;">
-						<label>Ingrese nombre del tipo:</label>
+						<label>Ingrese nombre del insumo:</label>
 						<input type="text"   name="name" />
 						<input type="hidden" name="do" value="vialidadSupplyDoEditX" />
 						<input type="submit" value="Guardar" class="icon iconActivate" />
@@ -115,12 +115,10 @@
 		|-if "vialidadSupplyEdit"|security_has_access-|
 		<tr>
 			<th colspan="2" class="thFillTitle">
-				<span name="working_status_message" style="display:none;">Trabajando...</span>
-				<span name="done_status_message" style="display:none;">Listo</span>
 				<div class="rightLink">
 					<a href="#" onclick="showInput('addInput2', 'addLink2'); return false;" id="addLink2" class="addLink">Agregar Insumo</a>
 					<form id="addInput2" action="Main.php" method="POST" onsubmit="setStatus('working'); prepareAndSubmit(this); showInput('addLink2', 'addInput2'); setStatus('done'); return false;" style="display: none;">
-						<label>Ingrese nombre del tipo:</label>
+						<label>Ingrese nombre del insumo:</label>
 						<input type="text"   name="name" />
 						<input type="hidden" name="do" value="vialidadSupplyDoEditX" />
 						<input type="submit" value="Guardar" class="icon iconActivate" />
