@@ -1,44 +1,3 @@
-<script type="text/javascript">
-	
-	var preliminaryPrice;
-	var definitivePrice;
-	
-	function editPrice(changedCell, supplyId) {
-		new Ajax.Updater(
-			changedCell.parentNode,
-			'Main.php?do=vialidadBulletinDoEditPriceX',
-			{
-				method: 'post',
-				parameters: {
-					bulletinId: '|-$bulletin->getId()-|',
-					supplyId: supplyId,
-					preliminaryPrice: preliminaryPrice,
-					definitivePrice: definitivePrice
-				}
-			}
-		);
-	}
-	
-	function editDefinitivePrice(supplyId) {
-	
-		definitivePrice = $('input_nuevo_valor').value;
-		preliminaryPrice = $('td_preliminary_'+supplyId).innerHTML;
-		changedCell = $('td_definitive_'+supplyId);
-		
-		editPrice(changedCell, supplyId);
-	}
-	
-	function editPreliminaryPrice(supplyId) {
-		
-		preliminaryPrice = $('input_nuevo_valor').value;
-		definitivePrice = $('td_definitive_'+supplyId).innerHTML;
-		changedCell = $('td_preliminary_'+supplyId);
-		
-		editPrice(changedCell, supplyId);
-	}
-	
-</script>
-
 <h2>Boletines</h2>
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| Bolet&iacute;n</h1>
 <div id="div_bulletin">
@@ -71,9 +30,9 @@
 	<table id="table_supplies" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead>
 		<tr class="thFillTitle"> 
-			<th width="40%">Insumo</th> 
-			<th width="30%">Precio Preliminar</th> 
-			<th width="30%">Precio Definitivo</th> 
+			<th width="30%">Insumo</th> 
+			<th width="35%">Precio Preliminar</th> 
+			<th width="35%">Precio Definitivo</th> 
 		</tr>
 		</thead>
 		<tbody>
@@ -87,12 +46,24 @@
 			|-assign var=supply value=$price->getSupply()-|
 			<td>|-$supply->getName()-|</td>
 			
-			<td id="td_preliminary_|-$supply->getId()-|" onclick="editPreliminaryPrice('|-$supply->getId()-|');">
-			|-if $price->getPreliminaryPrice() neq -1-||-$price->getPreliminaryPrice()-||-else-|-|-/if-|
+			<td>
+				|-if "vialidadSupplyEdit"|security_has_access-|
+				<span id="price_preliminary_|-$supply->getId()-|" class="in_place_editable">
+					|-if $price->getPreliminaryPrice() neq ''-||-$price->getPreliminaryPrice()-||-else-|-|-/if-|
+				</span>
+				|-else-|
+				|-if $price->getPreliminaryPrice() neq ''-||-$price->getPreliminaryPrice()-||-else-|-|-/if-|
+				|-/if-|
 			</td>
 			
-			<td id="td_definitive_|-$supply->getId()-|" onclick="editDefinitivePrice('|-$supply->getId()-|');">
-			|-if $price->getDefinitivePrice() neq -1-||-$price->getDefinitivePrice()-||-else-|-|-/if-|
+			<td>
+				|-if "vialidadSupplyEdit"|security_has_access-|
+				<span id="price_definitive_|-$supply->getId()-|" class="in_place_editable">
+					|-if $price->getDefinitivePrice() neq ''-||-$price->getDefinitivePrice()-||-else-|-|-/if-|
+				</span>
+				|-else-|
+				|-if $price->getDefinitivePrice() neq ''-||-$price->getDefinitivePrice()-||-else-|-|-/if-|
+				|-/if-|
 			</td>
 		</tr>
 		|-/foreach-|
@@ -100,7 +71,64 @@
 		</tbody>
 	</table>
 	</div_supplies>
-	
-	<label for="input_nuevo_valor">Click sobre un precio para reemplazar valor por</label>
-	<input type="text" id="input_nuevo_valor"/>
 </div>
+
+<script type="text/javascript">
+
+Ajax.InPlaceEditor.prototype.__enterEditMode = Ajax.InPlaceEditor.prototype.enterEditMode;
+Object.extend(Ajax.InPlaceEditor.prototype, {
+	enterEditMode:function(e) {
+		this.__enterEditMode(e);
+		this.triggerCallback('onFormReady',this._form);
+	}
+});
+
+function attachInPlaceEditors(priceType) {
+|-foreach from=$prices item=price name=for_prices_ajax-|
+	|-assign var=supply value=$price->getSupply()-|
+	new Ajax.InPlaceEditor(
+		'price_'+priceType+'_|-$supply->getId()-|',
+		'Main.php?do=vialidadPriceDoEditFieldX',
+		{
+			rows: 1,
+			okText: 'Guardar',
+			cancelText: 'Cancelar',
+			savingText: 'Guardando...',
+			hoverClassName: 'in_place_hover',
+			highlightColor: '#b7e0ff',
+			cancelControl: 'button',
+			savingClassName: 'inProgress',
+			clickToEditText: 'Haga click para editar',
+			callback: function(form, value) {
+				return 'bulletinId=|-$bulletin->getId()-|&supplyId=|-$supply->getId()-|&paramName='+priceType+'Price&paramValue=' + encodeURIComponent(value);
+			},
+			onComplete: function(transport, element) {
+				clean_text_content_from(element);
+				new Effect.Highlight(element, { startcolor: this.options.highlightColor });
+			},
+			onFormReady: function(obj,form) {
+				form.insert({ top: new Element('label').update('Nombre: ') });
+			}
+		}
+	);
+|-/foreach-|
+}
+
+window.onload = function() {
+	attachInPlaceEditors('preliminary');
+	attachInPlaceEditors('definitive');
+}
+
+function showInput(to_show, to_hide) {
+	$(to_show).show();
+	$(to_hide).hide();
+}
+
+function chomp(raw_text) {
+	return raw_text.replace(/(\n|\r)+$/, '');
+}
+
+function clean_text_content_from(element) {
+	element.innerHTML = chomp(element.innerHTML);
+}
+</script>
