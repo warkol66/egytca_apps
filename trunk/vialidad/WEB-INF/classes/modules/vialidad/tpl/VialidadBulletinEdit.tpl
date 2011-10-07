@@ -1,17 +1,17 @@
 <h2>Boletines</h2>
-<h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| Bolet&iacute;n</h1>
+<h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| Boletín</h1>
 <div id="div_bulletin">
-	<p>Ingrese los datos del Bolet&iacute;n</p>
-	|-if $message eq "error"-|<span class="message_error">Ha ocurrido un error al intentar guardar el Bolet&iacute;n</span>|-/if-|
+	<p>Ingrese los datos del Boletín</p>
+	|-if $message eq "error"-|<span class="message_error">Ha ocurrido un error al intentar guardar el Boletín</span>|-/if-|
 	<form name="form_edit_bulletin" id="form_edit_bulletin" action="Main.php" method="post">
 		<fieldset title="Formulario de edici&oacute;n de datos de un Bolet&iacute;n">
-			<legend>Formulario de Administraci&oacute;n de Boletines</legend>
+			<legend>Formulario de Administración de Boletines</legend>
 			<p>
-				<label for="params[number]">N&uacute;mero</label>
+				<label for="params[number]">Número</label>
 				<input type="text" id="params[number]" name="params[number]" size="10" value="|-$bulletin->getNumber()|escape-|" title="N&uacute;mero" /><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
 			</p>
 			<p>     
-				<label for="params[bulletinDate]">Fecha del Bolet&iacute;n</label>
+				<label for="params[bulletinDate]">Fecha del Boletín</label>
 				<input id="params[bulletinDate]" name="params[bulletinDate]" type='text' value='|-$bulletin->getBulletinDate()-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[bulletinDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<p>
@@ -26,7 +26,7 @@
 		</fieldset>
 	</form>
 	
-	<div_supplies>
+	<div id=div_supplies>
 	<table id="table_supplies" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead>
 		<tr class="thFillTitle"> 
@@ -45,36 +45,22 @@
 		<tr>
 			|-assign var=supply value=$price->getSupply()-|
 			<td>|-$supply->getName()-|</td>
-			
-			<td>
-				|-if "vialidadSupplyEdit"|security_has_access-|
-				<span id="price_preliminary_|-$supply->getId()-|" class="in_place_editable">
-					|-if $price->getPreliminaryPrice() neq ''-||-$price->getPreliminaryPrice()-||-else-|-|-/if-|
-				</span>
-				|-else-|
-				|-if $price->getPreliminaryPrice() neq ''-||-$price->getPreliminaryPrice()-||-else-|-|-/if-|
-				|-/if-|
+			<td align="right">|-if "vialidadSupplyEdit"|security_has_access-|
+			<span id="price_preliminary_|-$supply->getId()-|" class="in_place_editable">|-if $price->getPreliminaryPrice() neq ''-||-$price->getPreliminaryPrice()|system_numeric_format-||-else-|-|-/if-|</span>|-else-||-if $price->getPreliminaryPrice() neq ''-||-$price->getPreliminaryPrice()|system_numeric_format-||-else-|-|-/if-||-/if-|
 			</td>
-			
-			<td>
+			<td align="right">
 				|-if "vialidadSupplyEdit"|security_has_access-|
-				<span id="price_definitive_|-$supply->getId()-|" class="in_place_editable">
-					|-if $price->getDefinitivePrice() neq ''-||-$price->getDefinitivePrice()-||-else-|-|-/if-|
-				</span>
-				|-else-|
-				|-if $price->getDefinitivePrice() neq ''-||-$price->getDefinitivePrice()-||-else-|-|-/if-|
-				|-/if-|
+				<span id="price_definitive_|-$supply->getId()-|" class="in_place_editable">|-if $price->getDefinitivePrice() neq ''-||-$price->getDefinitivePrice()|system_numeric_format-||-else-|-|-/if-|</span>|-else-||-if $price->getDefinitivePrice() neq ''-||-$price->getDefinitivePrice()|system_numeric_format-||-else-|-|-/if-||-/if-|
 			</td>
 		</tr>
 		|-/foreach-|
 		|-/if-|
 		</tbody>
 	</table>
-	</div_supplies>
+	</div>
 </div>
 
 <script type="text/javascript">
-
 Ajax.InPlaceEditor.prototype.__enterEditMode = Ajax.InPlaceEditor.prototype.enterEditMode;
 Object.extend(Ajax.InPlaceEditor.prototype, {
 	enterEditMode:function(e) {
@@ -107,7 +93,7 @@ function attachInPlaceEditors(priceType) {
 				new Effect.Highlight(element, { startcolor: this.options.highlightColor });
 			},
 			onFormReady: function(obj,form) {
-				form.insert({ top: new Element('label').update('Nombre: ') });
+				form.insert({ top: new Element('label').update('Precio: ') });
 			}
 		}
 	);

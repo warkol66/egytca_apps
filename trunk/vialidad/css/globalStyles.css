@@ -421,6 +421,7 @@ ul.iconOptionsList li {
 /* In-Place Edit */
 .in_place_editable {
 	padding: 5px;
+	background-image: none !Important;
 }
 .editor_field, .editor_ok_button, .editor_cancel_button {
 	margin-right: 3px !Important;
