@@ -25,22 +25,6 @@ class Bulletin extends BaseBulletin {
 		return ($related->count() > 0);														 		
 	}
 	
-	public function addSupply($supply)
-	{
-		if ($this->collSupplys === null) {
-			$this->initSupplys();
-		}
-		if (!$this->collSupplys->contains($supply)) { // only add it if the **same** object is not already associated
-			$priceBulletin = new PriceBulletin();
-			$priceBulletin->setSupply($supply);
-			$priceBulletin->setPreliminaryprice(-1);
-			$priceBulletin->setDefinitiveprice(-1);
-			$this->addPriceBulletin($priceBulletin);
-
-			$this->collSupplys[]= $supply;
-		}
-	}
-	
 	public function getPriceBulletin($supplyid) {
 		return PriceBulletinPeer::retrieveByPK($this->getId(), $supplyid);
 	}
