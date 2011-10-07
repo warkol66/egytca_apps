@@ -58,8 +58,9 @@
 |-/if-|
 
 
-|-if $newSupply neq ''-|
+
 <script type="text/javascript">
+|-foreach from=$supplies item=supply name=for_supplies_ajax-|
 new Ajax.InPlaceEditor(
 	'supply_|-$supply->getId()-|',
 	'Main.php?do=vialidadSupplyEditFieldX',
@@ -86,5 +87,5 @@ new Ajax.InPlaceEditor(
 		}
 	}
 );
+|-/foreach-|
 </script>
-|-/if-|
