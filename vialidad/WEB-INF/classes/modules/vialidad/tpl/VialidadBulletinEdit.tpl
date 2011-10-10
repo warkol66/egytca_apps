@@ -30,9 +30,9 @@
 	<table id="table_supplies" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead>
 		<tr class="thFillTitle"> 
-			<th width="30%">Insumo</th> 
-			<th width="35%">Precio Preliminar</th> 
-			<th width="35%">Precio Definitivo</th> 
+			<th width="50%">Insumo</th> 
+			<th width="25%">Precio Preliminar</th> 
+			<th width="25%">Precio Definitivo</th> 
 		</tr>
 		</thead>
 		<tbody>

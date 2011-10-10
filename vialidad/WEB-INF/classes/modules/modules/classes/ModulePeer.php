@@ -213,4 +213,22 @@ class ModulePeer extends BaseModulePeer {
 		return $modules;
 	}
 
+/**
+ *	Obtiene todos los módulos almacenados en la base de datos
+ *	@return array $modules Modulos almacenados en la base de datos
+ */
+	function getAllPresent() {
+
+		$modulePath = "WEB-INF/classes/modules/";
+		$directoryHandler = opendir($modulePath);
+		$modules = array();
+
+		while (false !== ($moduleName = readdir($directoryHandler)))
+			if (is_dir($modulePath . $moduleName) && ($moduleName[0] != "."))
+				array_push($modules, $moduleName);
+
+		closedir($directoryHandler);
+		return $modules;
+	}
+
 } // ModulePeer
