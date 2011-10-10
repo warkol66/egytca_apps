@@ -9,13 +9,13 @@
 		<li><a href="Main.php?do=usersWelcome">Ir al Inicio</a></li>
 
 		<li class="titleMenu" onclick="$('sectionApplications').toggle()">Aplicaciones</li>
-		<div id="sectionApplications" style="display:|-if $module|upper eq 'VIALIDAD'-|block|-else-|none|-/if-|">
-			<li><a href="Main.php?do=actorsList">Contratos</a></li>
-			<li><a href="Main.php?do=issuesList">Contratistas</a></li>
-			<li><a href="Main.php?do=headlinesList">Boletines</a></li>
-			<li><a href="Main.php?do=campaignsList">Paremétricas</a></li>
-			<li><a href="Main.php?do=campaignsList">Actas de Medición</a></li>
-			<li><a href="Main.php?do=campaignsList">Certificados de Obra</a></li>
+		<div id="sectionApplications" style="display:|-if $module|upper eq 'VIALIDAD' || $module|upper eq 'AFFILIATES'-|block|-else-|none|-/if-|">
+			<li><a href="#">Contratos</a></li>
+			<li><a href="Main.php?do=affiliatesList">##affiliates,1,Afiliados##</a></li>
+			<li><a href="Main.php?do=vialidadBulletinList">Boletines</a></li>
+			<li><a href="#">Paremétricas</a></li>
+			<li><a href="#">Actas de Medición</a></li>
+			<li><a href="#">Certificados de Obra</a></li>
 		</div>
 
 		<li class="titleMenu" onclick="$('sectionAdmin').toggle()">Administración</li>
@@ -49,6 +49,12 @@
 	|-else-|
 	<ul>
 		<li class="menuLink"><a href="Main.php?do=affiliatesUsersWelcome">Ir al Inicio</a></li>
+
+		<li class="titleMenu" onclick="$('sectionApplications').toggle()">Aplicaciones</li>
+		<div id="sectionApplications" style="display:|-if $module|upper eq 'VIALIDAD' || $module|upper eq 'AFFILIATES'-|block|-else-|none|-/if-|">
+			<li><a href="Main.php?do=vialidadBulletinList">Boletines</a></li>
+		</div>
+
 		<li class="titleMenu" onclick="switch_vis('sectionAdmin')">Administración</li>
 		<div id="sectionAdmin" style="display:|-if $module|upper eq "AFFILIATES" || $module|upper eq "SURVEYS"-|block|-else-|none|-/if-|">
 			<li><a href="Main.php?do=affiliatesUsersList">Administrar Usuarios</a></li>
