@@ -72,7 +72,7 @@ class DocumentsEditAction extends BaseAction {
 			$password = $_POST['password'];
 
 			//validacion de password
-			if (!$document->checkPasswordValidation($password))
+			if (!$document->checkPassword($password))
 				return $mapping->findForwardConfig('failure-edit');
 
 			$smarty->assign("action","edit");

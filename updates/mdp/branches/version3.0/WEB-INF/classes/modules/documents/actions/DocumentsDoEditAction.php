@@ -87,7 +87,7 @@ class DocumentsDoEditAction extends BaseAction {
 			$password = $_POST["old_password"];
 			
 			//validacion de password
-			if (!$document->checkPasswordValidation($password)) {
+			if (!$document->checkPassword($password)) {
 
 				$this->failureSmartySetup($smarty,$document);
 				$smarty->assign('message','wrongPassword');
