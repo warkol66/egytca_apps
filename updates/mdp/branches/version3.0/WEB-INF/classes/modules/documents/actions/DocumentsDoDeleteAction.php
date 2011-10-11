@@ -69,7 +69,7 @@ class DocumentsDoDeleteAction extends BaseAction {
 		$password = $_POST['password'];
 
 		//validacion de password
-		if (!$document->checkPasswordValidation($password))
+		if (!$document->checkPassword($password))
 			return $this->redirect('failure', array('id'=>$_POST['entityId'],'errormessage'=>'wrongPasswordComparison'));
 		else {
 			if (!empty($_POST['entity'])) {

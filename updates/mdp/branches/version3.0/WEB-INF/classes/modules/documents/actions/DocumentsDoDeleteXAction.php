@@ -36,7 +36,7 @@ class DocumentsDoDeleteXAction extends BaseAction {
 		$password = $_POST['password'];
 
 		//validacion de password
-		if (!$document->checkPasswordValidation($password)) {
+		if (!$document->checkPassword($password)) {
 			$smarty->assign("errormessage", "wrongPasswordComparison");
 			return $mapping->findForwardConfig("failure");
 		}
