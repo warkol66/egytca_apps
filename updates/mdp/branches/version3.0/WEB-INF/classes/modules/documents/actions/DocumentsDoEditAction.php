@@ -1,4 +1,7 @@
 <?php
+
+require_once 'import/ActionPrefixGetter.php';
+
 /**
 * DocumentsDoEditAction
 *
@@ -12,6 +15,37 @@ class DocumentsDoEditAction extends BaseAction {
 
 	function DocumentsDoEditAction() {
 		;
+	}
+	
+	function redirectTo($url) {
+		return header('Location: '.$url);
+	}
+	
+	function addParams($params, $url) {
+		$urlWithParams = $url;
+		foreach ($params as $param => $value) {
+			$urlWithParams .= '&'.$param.'='.$value;
+		}
+		return $urlWithParams;
+	}
+	
+	function redirect($operationResult, $params) {
+		
+		switch ($operationResult) {
+			case 'success':
+				$actionPrefix = ActionPrefixGetter::scan(
+					$_SERVER['HTTP_REFERER'], 'Edit');
+				return $this->redirectTo($this->addParams($params,
+					'Main.php?do='.$actionPrefix.'Edit'));
+			case 'failureUpload':
+				$actionPrefix = ActionPrefixGetter::scan(
+					$_SERVER['HTTP_REFERER'], 'Edit');
+				return $this->redirectTo($this->addParams($params,
+					'Main.php?do='.$actionPrefix.'Edit'));
+			default:
+				throw new Exception('invalid argument "'.$operationResult
+					.'" for '.$operationResult);
+		}
 	}
 	
 	function failureSmartySetup($smarty,$document) {
@@ -72,7 +106,7 @@ class DocumentsDoEditAction extends BaseAction {
 			else 
 				$documentPeer->updateDocument($_POST["id"],$_POST['title'],$_POST["description"],$_POST["date"],$_POST["category"],$_POST["password"],$_POST["extra"]);
 
-			return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping, 'success' . $_POST['entity']);
+			return $this->redirect('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'));
 
 		}
 		else {
@@ -80,7 +114,7 @@ class DocumentsDoEditAction extends BaseAction {
 			
 			//si no llega ningun archivo significa que la carga se realizo por swfUpload.
 			if(empty($_FILES["document_file"]['name'])) {
-				return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping, 'success' . $_POST['entity']);
+				return $this->redirect('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'));
 			}
 
 			if($_POST["password"]!=$_POST["password_compare"]){
@@ -105,10 +139,10 @@ class DocumentsDoEditAction extends BaseAction {
 					$entity = $queryInstance->findPK($_POST['entityId']);
 					$document->$addMethod($entity);
 					$document->save();
-					return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping, 'success' . $_POST['entity']);
+					return $this->redirect('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'));
 				}
 			}
-			return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'errormessage'=>'documentUploadError'), $mapping, 'failureUpload' . $_POST['entity']);
+			return $this->redirect('failureUpload', array('id'=>$_POST['entityId'],'errormessage'=>'documentUploadError'));
 		}
 
 	}
