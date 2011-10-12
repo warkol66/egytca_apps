@@ -48,7 +48,7 @@
 		|-foreach from=$bulletins item=bulletin name=for_bulletins-|
 		<tr> 
 			<td>|-$bulletin->getNumber()-|</td>
-			<td>|-$bulletin->getBulletindate()|date_format-|</td>
+			<td>|-$bulletin->getBulletindate()|date_format:"%B / %Y"|@ucfirst-|</td>
 			<td nowrap>
 				|-if "vialidadBulletinEdit"|security_has_access-|
 				<form action="Main.php" method="get">
