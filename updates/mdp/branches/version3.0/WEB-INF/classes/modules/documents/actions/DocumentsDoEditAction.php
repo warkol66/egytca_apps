@@ -17,10 +17,6 @@ class DocumentsDoEditAction extends BaseAction {
 		;
 	}
 	
-	function redirectTo($url) {
-		return header('Location: '.$url);
-	}
-	
 	function addParams($params, $url) {
 		$urlWithParams = $url;
 		foreach ($params as $param => $value) {
@@ -29,23 +25,32 @@ class DocumentsDoEditAction extends BaseAction {
 		return $urlWithParams;
 	}
 	
-	function redirect($operationResult, $params) {
+	function generateDynamicForward($forwardName, $params) {
 		
-		switch ($operationResult) {
+		switch ($forwardName) {
 			case 'success':
 				$actionPrefix = ActionPrefixGetter::scan(
 					$_SERVER['HTTP_REFERER'], 'Edit');
-				return $this->redirectTo($this->addParams($params,
-					'Main.php?do='.$actionPrefix.'Edit'));
+				return new ForwardConfig($this->addParams($params,
+					'Main.php?do='.$actionPrefix.'Edit'), True);
 			case 'failureUpload':
 				$actionPrefix = ActionPrefixGetter::scan(
 					$_SERVER['HTTP_REFERER'], 'Edit');
-				return $this->redirectTo($this->addParams($params,
-					'Main.php?do='.$actionPrefix.'Edit'));
+				return new ForwardConfig($this->addParams($params,
+					'Main.php?do='.$actionPrefix.'Edit'), True);
 			default:
-				throw new Exception('invalid argument "'.$operationResult
-					.'" for '.$operationResult);
+				throw new Exception('invalid argument "'.$forwardName
+					.'" for '.$forwardName);
 		}
+	}
+	
+	function findEntityForwardConfig($forwardName, $params, $mapping) {
+		
+		$fconf = $mapping->findForwardConfig($forwardName);
+		if (!is_null($fconf))
+			return $this->addParamsToForwards($params, $mapping, $forwardName . $_POST['entity']);
+		else
+			return $this->generateDynamicForward($forwardName, $params);
 	}
 	
 	function failureSmartySetup($smarty,$document) {
@@ -72,7 +77,7 @@ class DocumentsDoEditAction extends BaseAction {
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
-
+		
 		$module = "Documents";
 		$smarty->assign("module",$module);
 
@@ -106,7 +111,7 @@ class DocumentsDoEditAction extends BaseAction {
 			else 
 				$documentPeer->updateDocument($_POST["id"],$_POST['title'],$_POST["description"],$_POST["date"],$_POST["category"],$_POST["password"],$_POST["extra"]);
 
-			return $this->redirect('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'));
+			return $this->findEntityForwardConfig('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping);
 
 		}
 		else {
@@ -114,7 +119,7 @@ class DocumentsDoEditAction extends BaseAction {
 			
 			//si no llega ningun archivo significa que la carga se realizo por swfUpload.
 			if(empty($_FILES["document_file"]['name'])) {
-				return $this->redirect('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'));
+				return $this->findEntityForwardConfig('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping);
 			}
 
 			if($_POST["password"]!=$_POST["password_compare"]){
@@ -139,10 +144,14 @@ class DocumentsDoEditAction extends BaseAction {
 					$entity = $queryInstance->findPK($_POST['entityId']);
 					$document->$addMethod($entity);
 					$document->save();
-					return $this->redirect('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'));
+					return $this->findEntityForwardConfig('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping);
 				}
+			} else {
+				/*reviso si está en nueva tabla.
+				si está hago lo mismo de arriba.
+				si no está salgo del else y devuelvo error.*/
 			}
-			return $this->redirect('failureUpload', array('id'=>$_POST['entityId'],'errormessage'=>'documentUploadError'));
+			return $this->findEntityForwardConfig('failureUpload', array('id'=>$_POST['entityId'],'errormessage'=>'documentUploadError'), $mapping);
 		}
 
 	}
