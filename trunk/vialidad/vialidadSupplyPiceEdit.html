@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>Contratistas - MOPC - Ministerio de Obras Públicas y Comunicaciones</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="css/main.css" type="text/css">
+<!--[if lte IE 6]> <link href="css/styles-ie6.css" rel="stylesheet" type="text/css"> <![endif]-->
+<!--[if gt IE 6]> <link href="css/styles-ie.css" rel="stylesheet" type="text/css"> <![endif]-->
+<!--[if IE 7]> <link href="css/styles-ie7.css" rel="stylesheet" type="text/css"> <![endif]-->
+<!--[if IE 8]> <link href="css/styles-ie8.css" rel="stylesheet" type="text/css"> <![endif]-->
+<link rel="stylesheet" href="css/mainHandheld.css" type="text/css" media="handheld">
+<link rel="stylesheet" href="css/print.css" type="text/css" media="print">
+<link rel="shortcut icon" href="images/favicon.ico">
+<script language="JavaScript" type="text/JavaScript">
+	var url="http://vialidad.sistemas.biz/Main.php";
+</script>
+<script src="scripts/prototype.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/datePicker.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/effects.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/dragdrop.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/functions.js" language="JavaScript" type="text/javascript"></script>
+<script language="JavaScript" type="text/JavaScript">
+	var url="http://vialidad.sistemas.biz/Main.php";
+<!-- Swampy browser-->
+	var sb_browser_url = '/scripts/swampy_browser';
+	var sb_site_url = 'http://vialidad.sistemas.biz';
+<!-- Variable width styles-->
+ if (navigator.appName.indexOf("Microsoft")>=0) {
+  if (document.documentElement.clientWidth < 1000) // Use window.innerWidth or screen.width
+		document.write('<link href="css/styleNarrow.css" rel="stylesheet" type="text/css">');
+	else if (document.documentElement.clientWidth > 1300)
+		document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css">');
+}else{
+  if (window.innerWidth < 1000) // Use window.innerWidth or screen.width
+		document.write('<link href="css/styleNarrow.css" rel="stylesheet" type="text/css">');
+	else if (window.innerWidth > 1300)
+		document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css">');
+}
+</script>
+<script src="scripts/overlib.js" type="text/javascript"></script>
+<script src="scripts/lightbox.js" language="JavaScript" type="text/javascript"></script>
+
+
+<!-- libreria de validación client-side externa -->
+<script language="JavaScript" type="text/javascript" src="scripts/js_validation_library.js"></script>
+<!-- libreria de validación del framework-->
+<script language="JavaScript" type="text/javascript" src="scripts/validation.js"></script>
+<script type="text/javascript">
+	var validation_messageEmpty = 'El campo &quot;%field%&quot; no puede estar vacío';
+	var validation_messageText = 'El campo &quot;%field%&quot; debe contener un texto válido';
+	var validation_messageMail = 'El campo &quot;%field%&quot; debe contener un mail válido';
+	var validation_messageNumeric = 'El campo &quot;%field%&quot; es un número inválido';
+	var validation_messageDate = 'El campo &quot;%field%&quot; tiene una fecha/formato inválido (d-m-Y)';
+	var validation_messagePasswordMatch = 'Las contraseñas no coinciden';
+</script>
+
+<script type="text/javascript" >
+
+	function showValidationFailureMessage(form) {
+		var validationMessage = $('validationFailureMessage');
+		if (!Object.isElement(validationMessage)) {
+			form.insert({
+				top: new Element('div', {id: 'validationFailureMessage', 'class': 'errorMessage'}).update('Tiene errores en el formulario, revíselo y vuelva a enviarlo.')
+			});
+		} else {
+			validationMessage.show();
+		}
+	}
+
+	function hideValidationFailureMessage(form) {
+		var validationMessage = $('validationFailureMessage');
+		if (Object.isElement(validationMessage)) {
+			validationMessage.hide();
+		}
+	}
+	
+	function validationCustomNumericValidator(element) {
+		var regExp = '/^[\\d]*([\\.]?[\\d]{3,3})*([\\,][\\d]+)?$/';
+		return validateField(element, regExp);	
+	}
+
+	function validationCustomDateValidator(element) {
+		if (element.value == '')
+			return true;
+			
+		var dateFormat = 'd-m-Y';
+		var regExp = '/^(()|(' + dateFormat + '))$/';
+		regExp = regExp.gsub('d', '(0[1-9]|[12][0-9]|3[01])');
+		regExp = regExp.gsub('m', '(0[1-9]|1[012])');
+		regExp = regExp.gsub('y', '\\d{2,2}');
+		regExp = regExp.gsub('Y', '\\d{4,4}');
+		
+		if ( validateField(element, regExp) ) { // si está bien formada...
+
+			// filtramos el día.
+			var dayRegExp = dateFormat.gsub(/[myY]/, '');
+			dayRegExp = dayRegExp.gsub(/^(.)*-d$/, '-\\d{2,2}$');
+			dayRegExp = dayRegExp.gsub(/^d(.)*$/, '^\\d{2,2}-');
+			dayRegExp = dayRegExp.gsub(/^(.)*-d-(.)*$/, '-\\d{2,2}-');
+			dayRegExp = new RegExp(dayRegExp);
+			var day = dayRegExp.exec(element.value)[0].gsub('-', '');
+
+			// filtramos el mes.
+			var monthRegExp = dateFormat.gsub(/[dyY]/, '');
+			monthRegExp = monthRegExp.gsub(/^(.)*-m$/, '-\\d{2,2}$');
+			monthRegExp = monthRegExp.gsub(/^m(.)*$/, '^\\d{2,2}-');
+			monthRegExp = monthRegExp.gsub(/^(.)*-m-(.)*$/, '-\\d{2,2}-');
+			monthRegExp = new RegExp(monthRegExp);
+			var month = monthRegExp.exec(element.value)[0].gsub('-', '');
+
+			// filtramos el año.
+			var yearRegExp = dateFormat.gsub(/[dm]/, '');
+			yearRegExp = yearRegExp.gsub(/^(.)*-y$/, '-\\d{2,2}$');
+			yearRegExp = yearRegExp.gsub(/^(.)*-Y$/, '-\\d{4,4}$');
+			yearRegExp = yearRegExp.gsub(/^y(.)*$/, '\\^d{2,2}-');
+			yearRegExp = yearRegExp.gsub(/^Y(.)*$/, '\\^d{4,4}-');
+			yearRegExp = yearRegExp.gsub(/^(.)*-y-(.)*$/, '-\\d{2,2}-');
+			yearRegExp = yearRegExp.gsub(/^(.)*-Y-(.)*$/, '-\\d{4,4}-');
+			yearRegExp = new RegExp(yearRegExp);
+			var year = yearRegExp.exec(element.value)[0].gsub('-', '');
+
+			year = convertToFourDigits(year);
+
+			return validateDate(parseInt(day, 10), parseInt(month, 10), parseInt(year, 10) );
+		}
+		return false;
+	}
+
+	function validateDate(day, month, year) {
+
+		if ( (month > 0) && (month <= 12) ) {
+			if ( (day > 0) && (day <= daysOfMonth(month, year)) ) {
+				return true;
+			}
+		}	
+		return false;
+	}
+
+	/**
+	 * Determina la cantidad de días que contiene un determinado mes
+	 * dependiendo también de si el año es bisiesto o no.
+	 */
+	function daysOfMonth(month, year) {
+
+		// se utiliza hashing para obtener la cantidad de días en lugar de un switch.
+		var daysMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+		var days = daysMonths[month - 1];
+
+		// corrección por año bisiesto.
+		if ( (month == 2) && isLeapYear(year) )
+			days++;
+		
+		return days;	
+	}
+
+	/**
+	 * Convierte un año de 2 digitos en uno de 4 que se corresponda con
+	 * el siglo corriente.
+	 */
+	function convertToFourDigits(year) {
+		if (year.lenght == 2) {
+			currentYear = new Date();
+			currentYear = currentYear.getFullYear();
+			return currentYear.truncate(2) + year;
+		}
+		return year;
+	}
+
+	/**
+	 * Determina si un año es bisiesto
+	 */
+	function isLeapYear(year) {	
+		if ( (year % 400) == 0 )
+	       return true;
+		else if ( (year % 100) == 0 )
+	       return false;
+		else if ( (year % 4) == 0 )
+	       return true;
+		else
+	       return false;
+	}
+
+	function showMandatoryFieldsMessage(form) {
+		var emptyArray = document.getElementsByClassName('emptyValidation',form);
+		if (emptyArray.length > 0)
+			document.write('<p class="mandatoryMessage">* Los campos indicados con borde rojo son obligatorios</p>');
+	}
+</script></head>
+<body>
+<!-- Begin Wrapper -->
+<div id="wrapper">
+	<!-- Begin Header -->
+	<div id="header">
+		<a href="Main.php"><strong>MOPC - Ministerio de Obras Públicas y Comunicaciones</strong></a>
+		<div id="headerLogo"><img src="images/logo2.gif" /></div>
+	</div>
+		<!-- End Header -->
+	<!-- Begin contentWrapper -->
+		<div id="separatorHeader"></div>
+		<div id="contentWrapper">
+			<!-- Begin Left Column -->
+				<div id="leftColumn">
+							<ul>
+		<li><a href="Main.php?do=usersWelcome">Ir al Inicio</a></li>
+
+		<li class="titleMenu" onclick="$('sectionApplications').toggle()">Aplicaciones</li>
+		<div id="sectionApplications" style="display:block">
+			<li><a href="#">Contratos</a></li>
+			<li><a href="Main.php?do=affiliatesList">Contratistas</a></li>
+			<li><a href="Main.php?do=vialidadBulletinList">Boletines</a></li>
+			<li><a href="#">Paremétricas</a></li>
+			<li><a href="#">Actas de Medición</a></li>
+			<li><a href="#">Certificados de Obra</a></li>
+		</div>
+
+		<li class="titleMenu" onclick="$('sectionAdmin').toggle()">Administración</li>
+		<div id="sectionAdmin" style="display:block">
+			<li><a href="Main.php?do=affiliatesList">Contratistas</a></li>
+			<li><a href="Main.php?do=affiliatesUsersList">Usuarios de Contratistas</a></li>
+			<li><a href="Main.php?do=commonConfigSet">Cambiar Configuración</a></li>
+			<li><a href="Main.php?do=commonConfigEdit">Editar Configuración</a></li>
+			<li><a href="Main.php?do=commonConfigView">Ver Configuración</a></li>
+			<li><a href="Main.php?do=backupList">Respaldos</a></li>
+			<li><a href="Main.php?do=usersList">Usuarios</a></li>
+			<li><a href="Main.php?do=usersLevelsList">Administrar Niveles de Usuario</a></li>
+			<li><a href="Main.php?do=usersGroupsList">Administrar Grupos de Usuarios</a></li>
+			<li><a href="Main.php?do=modulesList">Administrar módulos</a></li>
+			<li><a href="Main.php?do=modulesInstallList">Instalar Modulos</a></li>
+					<li><a href="Main.php?do=securityEditPermissions">Administrar Permisos</a></li>
+				</div>
+	</ul>
+
+	<a href="Main.php?do=commonDoLogout" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")' id="logout">Salir del Sistema</a>
+					</div>
+			<!-- End Left Column -->
+			<!-- Begin Right Column -->
+				<div id="rightColumn">
+					<!--centerHTML start-->
+					<h2>Contratistas</h2>
+	<h1>Administración de Contratistas - Crear Contratista</h1>
+	
+	<p>A continuación podrá ingresar los datos para crear el Contratista.</p>
+	
+	<fieldset title="Formulario de edición de nombre del Afiliado">
+		<legend>Contratistas</legend>
+		<p>Realice los cambios y para guardar haga click en "Guardar Cambios"</p>
+			<form method="post" action="Main.php?do=affiliatesDoEdit">
+			<input type="hidden" value="create" name="action">
+			<input type="hidden" value="" name="id">
+		 <p><label for="params[name]">Nombre</label>
+			<input name="params[name]" type="text" value="" size="60">
+		 </p>
+		 <p><label for="params[internalNumber]">ID interno</label>
+			<input name="params[internalNumber]" type="text" value="" size="15"> 
+		</p>
+		 <p><label for="params[address]">Dirección</label>
+				<input name="params[address]" type="text" value="" size="55"> 
+		</p>
+		 <p><label for="params[phone]">Teléfono</label>
+				<input name="params[phone]" type="text" value="" size="25"> 
+			</p>
+		 <p><label for="params[mail]">E-mail</label>
+				<input name="params[mail]" id="params[mail]" type="text" value="" size="30" class="mailValidation" onchange="javascript:validationValidateFieldClienSide('params[mail]');" /> <span id='params[mail]_box'></span>
+			</p>
+		 <p><label for="params[contact]">Persona contacto</label>
+				<input name="params[contact]" type="text" value="" size="40"> 
+			</p>
+		 <p><label for="params[contactEmail]">Email persona contacto</label>
+				<input name="params[contactEmail]" type="text" value="" size="40">
+			</p>
+		 <p><label for="params[web]">Sitio WEB</label>
+				<input name="params[web]" type="text" value="" size="40">
+			</p>
+		 <p><label for="params[memo]">Información</label>
+				<textarea name="params[memo]" cols="45" rows="6" wrap="VIRTUAL"></textarea>
+			</p>
+		 <p><input name="save" type="submit" value="Guardar Cambios"> 
+				<input type='button' onClick='location.href="Main.php?do=affiliatesList"' value='Regresar' title="Regresar al listado de Contratistas"/>
+			 </p>
+		</form>
+	</fieldset>
+
+					<!--centerHTML end -->
+				</div>
+			<!-- End Right Column -->
+	<!-- Begin contentCloser -->
+	<div id="contentCloser"></div>
+	<!-- End contentCloser -->
+	</div>
+	<!-- End contentWrapper -->
+	<!-- Begin Footer -->
+		<div id="separatorFooter"></div>
+	<div id="footer">		       
+		<p>Desarrollado por Módulos Empresarios.</p>
+	</div>
+	<!-- End Footer -->
+</div>
+<!-- End Wrapper -->
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>
+
