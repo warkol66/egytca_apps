@@ -2,15 +2,15 @@
 <html>
 <head>
 <title>Contratistas - MOPC - Ministerio de Obras Públicas y Comunicaciones</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="css/main.css" type="text/css">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
 <!--[if lte IE 6]> <link href="css/styles-ie6.css" rel="stylesheet" type="text/css"> <![endif]-->
 <!--[if gt IE 6]> <link href="css/styles-ie.css" rel="stylesheet" type="text/css"> <![endif]-->
 <!--[if IE 7]> <link href="css/styles-ie7.css" rel="stylesheet" type="text/css"> <![endif]-->
 <!--[if IE 8]> <link href="css/styles-ie8.css" rel="stylesheet" type="text/css"> <![endif]-->
-<link rel="stylesheet" href="css/mainHandheld.css" type="text/css" media="handheld">
-<link rel="stylesheet" href="css/print.css" type="text/css" media="print">
-<link rel="shortcut icon" href="images/favicon.ico">
+<link rel="stylesheet" href="css/mainHandheld.css" type="text/css" media="handheld" />
+<link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+<link rel="shortcut icon" href="images/favicon.ico" />
 <script language="JavaScript" type="text/JavaScript">
 	var url="http://vialidad.sistemas.biz/Main.php";
 </script>
@@ -237,47 +237,76 @@
 			<!-- Begin Right Column -->
 				<div id="rightColumn">
 					<!--centerHTML start-->
-					<h2>Contratistas</h2>
-	<h1>Administración de Contratistas - Crear Contratista</h1>
+					<h2>Boletines</h2>
+	<h1>Administración de Precios - Octubre 2011 </h1>
 	
-	<p>A continuación podrá ingresar los datos para crear el Contratista.</p>
+	<p>A continuación podrá administrar los precios del insumo: Cemento Portland</p>
 	
 	<fieldset title="Formulario de edición de nombre del Afiliado">
-		<legend>Contratistas</legend>
-		<p>Realice los cambios y para guardar haga click en "Guardar Cambios"</p>
-			<form method="post" action="Main.php?do=affiliatesDoEdit">
-			<input type="hidden" value="create" name="action">
-			<input type="hidden" value="" name="id">
-		 <p><label for="params[name]">Nombre</label>
-			<input name="params[name]" type="text" value="" size="60">
+		<legend>Cemento Portland</legend>
+		<form action="Main.php?do=affiliatesDoEdit" method="post" enctype="multipart/form-data">
+		<p>Ingrese el precio en cada proveedor y haga click en &quot;Guardar&quot; </p>
+		<p>Precio 1 </p>
+			<p><label for="params[supplier1]">Proveedor</label>
+			<input name="params[supplier1]" type="text" value="Autocomplete del ABM de supppliers" size="50" />
 		 </p>
-		 <p><label for="params[internalNumber]">ID interno</label>
-			<input name="params[internalNumber]" type="text" value="" size="15"> 
+		 <p>
+		   <label for="params[price1]">Precio</label>
+			<input name="params[price1]" type="text" value="" size="15" /> 
+		 </p>
+			<p><label for="params[file1]">Respaldo</label>
+		   <input type="file" name="params[file1]" />		
+		      </p>
+		 <p>
+		   <label for="params[definitivePrice1]">Definitivo</label>
+				<input name="params[definitivePrice1]" type="checkbox" value="1" size="55" /> 
 		</p>
-		 <p><label for="params[address]">Dirección</label>
-				<input name="params[address]" type="text" value="" size="55"> 
+		<p>Precio 2 </p>
+			<p><label for="params[supplier1]">Proveedor</label>
+			<input name="params[supplier1]" type="text" value="Autocomplete del ABM de supppliers" size="50" />
+		 </p>
+		 <p>
+		   <label for="params[price1]">Precio</label>
+			<input name="params[price1]" type="text" value="" size="15" /> 
 		</p>
-		 <p><label for="params[phone]">Teléfono</label>
-				<input name="params[phone]" type="text" value="" size="25"> 
-			</p>
-		 <p><label for="params[mail]">E-mail</label>
-				<input name="params[mail]" id="params[mail]" type="text" value="" size="30" class="mailValidation" onchange="javascript:validationValidateFieldClienSide('params[mail]');" /> <span id='params[mail]_box'></span>
-			</p>
-		 <p><label for="params[contact]">Persona contacto</label>
-				<input name="params[contact]" type="text" value="" size="40"> 
-			</p>
-		 <p><label for="params[contactEmail]">Email persona contacto</label>
-				<input name="params[contactEmail]" type="text" value="" size="40">
-			</p>
-		 <p><label for="params[web]">Sitio WEB</label>
-				<input name="params[web]" type="text" value="" size="40">
-			</p>
-		 <p><label for="params[memo]">Información</label>
-				<textarea name="params[memo]" cols="45" rows="6" wrap="VIRTUAL"></textarea>
-			</p>
-		 <p><input name="save" type="submit" value="Guardar Cambios"> 
+			<p><label for="params[file1]">Respaldo</label>
+		   <input type="file" name="params[file1]" />		
+		      </p>
+		 <p>
+		   <label for="params[definitivePrice1]">Definitivo</label>
+				<input name="params[definitivePrice1]" type="checkbox" value="1" size="55" /> 
+		</p>
+		<p>Precio 3 </p>
+			<p><label for="params[supplier1]">Proveedor</label>
+			<input name="params[supplier1]" type="text" value="Autocomplete del ABM de supppliers" size="50" />
+		 </p>
+		 <p>
+		   <label for="params[price1]">Precio</label>
+			<input name="params[price1]" type="text" value="" size="15" /> 
+		</p>
+			<p><label for="params[file1]">Respaldo</label>
+		   <input type="file" name="params[file1]" />		
+		      </p>
+		 <p>
+		   <label for="params[definitivePrice1]">Definitivo</label>
+				<input name="params[definitivePrice1]" type="checkbox" value="1" size="55" /> 
+		</p>
+	
+
+		<h3>Precio del boletín</h3>
+		 <p>
+		   <label for="params[price]">Precio</label>
+			<input name="params[price]" type="text" value="Calculado como promedio de los valores 1,2 y 3" size="15" /> 
+		</p>
+		 <p>
+		   <label for="params[definitivePrice1]">Establecer como definitivo</label>
+				<input name="params[definitivePrice1]" type="checkbox" value="1" size="55" /> 
+		</p>
+	
+		 <p><input name="save" type="submit" value="Guardar Cambios" /> 
 				<input type='button' onClick='location.href="Main.php?do=affiliatesList"' value='Regresar' title="Regresar al listado de Contratistas"/>
 			 </p>
+
 		</form>
 	</fieldset>
 
@@ -301,4 +330,4 @@
 <p>&nbsp;</p>
 </body>
 </html>
-
+
