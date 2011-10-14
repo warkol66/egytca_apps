@@ -42,10 +42,46 @@
 
 	</table>
 
+	<table phpName="Supplier" name="vialidad_supplier" description="Proveedores">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id proveedor" autoIncrement="true" />
+		<column name="name" required="true" type="VARCHAR" size="255" description="nombre proveedor" primaryString="true" />
+		<column name="address" type="VARCHAR" size="255" description="Direccion proveedor"/>
+		<column name="phone" type="VARCHAR" size="50" description="Telefono proveedor"/>
+		<column name="email" type="VARCHAR" size="50" description="Email proveedor"/>
+		<column name="contact" type="VARCHAR" size="50" description="Nombre de persona de contacto"/>
+		<column name="contactEmail" type="VARCHAR" size="100" description="Email de persona de contacto"/>
+		<column name="web" type="VARCHAR" size="255" description="Direccion web del proveedor"/>
+		<column name="memo" type="LONGVARCHAR" description="Informacion adicional del proveedor"/>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
 	<table phpName="Contract" name="vialidad_contract">
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="Construction" name="vialidad_construction">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
+		<column name="contractId" type="INTEGER" />
+		<column name="description" type="LONGVARCHAR" />
+
+		<foreign-key foreignTable="vialidad_contract" >
+			<reference local="contractId" foreign="id" />
+		</foreign-key>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
