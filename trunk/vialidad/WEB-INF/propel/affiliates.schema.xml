@@ -27,6 +27,36 @@
 
 	</table>
 
+	<table name="affiliates_verifier" phpName="Verifier" description="Verificadoras">
+  	<column name="id" required="true" primaryKey="true" type="INTEGER" />
+  	<column name="verifierCode" type="VARCHAR" size="50" description="Codigo de verificador"/>
+
+	  <behavior name="delegate">
+	    <parameter name="to" value="affiliates_affiliate" />
+	  </behavior>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="affiliates_contractor" phpName="Contractor" description="Constructoras">
+  	<column name="id" required="true" primaryKey="true" type="INTEGER" />
+		<column name="contractorCode" type="VARCHAR" size="50" description="Codigo de constructora"/>
+
+	  <behavior name="delegate">
+	    <parameter name="to" value="affiliates_affiliate" />
+	  </behavior>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
 	<table name="affiliates_user" phpName="AffiliateUser" description="Usuarios de afiliado">
 		<column name="id" required="true" primaryKey="true" type="INTEGER" description="User Id" autoIncrement="true"/>
 		<column name="affiliateId" required="true" type="INTEGER" description="Id afiliado"/>

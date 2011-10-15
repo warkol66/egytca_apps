@@ -29,34 +29,34 @@
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 	<tr>
 		<td colspan='3' class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda por nombre</a><div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get'>
-				<input type="hidden" name="do" value="affiliatesList" />
+				<input type="hidden" name="do" value="affiliatesContractorsList" />
 				Nombre: <input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="30" />
 				&nbsp;&nbsp;<input type='submit' value='Buscar' />
-				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=affiliatesList'" />|-/if-|
+				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=affiliatesContractorsList'" />|-/if-|
 			</form></div></td>
 	</tr>
-	|-if "affiliatesEdit"|security_has_access-|<tr>
-		<th colspan="3"><div class="rightLink"><a href="Main.php?do=affiliatesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##affiliates,3,Afiliado##</a></div></th>
+	|-if "affiliatesContractorsEdit"|security_has_access-|<tr>
+		<th colspan="3"><div class="rightLink"><a href="Main.php?do=affiliatesContractorsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##affiliates,3,Afiliado##</a></div></th>
 	</tr>|-/if-|
 	|-foreach from=$affiliates item=affiliate name=for_affiliate-|
 	<tr>
 		<td width="5%">|-$affiliate->getId()-|</td>
 		<td width="85%">|-$affiliate->getName()-| |-if $affiliate->getOwnerId() neq "" -||-assign var=owner value=$affiliate->getOwner()-| [ Usuario Dueño: |-$owner->getUsername()-| ] |-/if-|</td>
-		<td width="10%" nowrap>|-if "affiliatesViewX"|security_has_access-|
+		<td width="10%" nowrap>|-if "affiliatesContractorsViewX"|security_has_access-|
 					<form action="Main.php" method="get" style="display:inline;">
-						<input type="hidden" name="do" value="affiliatesViewX" />
+						<input type="hidden" name="do" value="affiliatesContractorsViewX" />
 						<input type="hidden" name="id" value="|-$affiliate->getId()-|" />
-						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("affiliatesViewDiv", "Main.php?do=affiliatesViewX&id=|-$affiliate->getId()-|", { method: "post", parameters: { id: "|-$affiliate->getId()-|"}, evalScripts: true})};$("affiliatesViewWorking").innerHTML = "<span class=\"inProgress\">buscando información...</span>";' value="Ver detalle" name="submit_go_show_project" /></a>
+						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("affiliatesContractorsViewDiv", "Main.php?do=affiliatesContractorsViewX&id=|-$affiliate->getId()-|", { method: "post", parameters: { id: "|-$affiliate->getId()-|"}, evalScripts: true})};$("affiliatesViewWorking").innerHTML = "<span class=\"inProgress\">buscando información...</span>";' value="Ver detalle" name="submit_go_show_project" /></a>
 					</form>|-/if-|
-			|-if "affiliatesEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
-			  <input type="hidden" name="do" value="affiliatesEdit" /> 
+			|-if "affiliatesContractorsEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
+			  <input type="hidden" name="do" value="affiliatesContractorsEdit" /> 
 			  <input type="hidden" name="id" value="|-$affiliate->getId()-|" /> 
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 					|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 			  <input type="submit" name="submit_go_edit_affiliate" value="Editar" class="icon iconEdit" /> 
 			</form>|-/if-|
-			|-if "affiliatesDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;"> 
-			  <input type="hidden" name="do" value="affiliatesDoDelete" /> 
+			|-if "affiliatesContractorsDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;"> 
+			  <input type="hidden" name="do" value="affiliatesContractorsDoDelete" /> 
 			  <input type="hidden" name="id" value="|-$affiliate->getId()-|" /> 
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 					|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
@@ -70,7 +70,7 @@
 		<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td>
 	</tr>
 	|-/if-|
-	|-if "affiliatesEdit"|security_has_access && $affiliates|@count gt 5-|<tr>
-		<th colspan="3"><div class="rightLink"><a href="Main.php?do=affiliatesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##affiliates,3,Afiliado##</a></div></th>
+	|-if "affiliatesContractorsEdit"|security_has_access && $affiliates|@count gt 5-|<tr>
+		<th colspan="3"><div class="rightLink"><a href="Main.php?do=affiliatesContractorsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##affiliates,3,Afiliado##</a></div></th>
 	</tr>|-/if-|
 </table>

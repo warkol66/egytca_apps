@@ -1,5 +1,4 @@
 <?php
-require_once 'BaseAction.php';
 
 class AffiliatesUsersDoEditAction extends BaseAction {
 
@@ -40,7 +39,6 @@ class AffiliatesUsersDoEditAction extends BaseAction {
 
     BaseAction::execute($mapping, $form, $request, $response);
 
-
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -53,7 +51,6 @@ class AffiliatesUsersDoEditAction extends BaseAction {
 		$smarty->assign("section",$section);
 		
 		$usersPeer= new AffiliateUserPeer();
-		
 		$affiliateUserParams = $_POST["affiliateUser"];
 
 		if (!empty($_SESSION["loginUser"]))
@@ -80,7 +77,6 @@ class AffiliatesUsersDoEditAction extends BaseAction {
 			$affiliateUser->setPasswordString($_POST["pass"]);
 			$affiliateUser->setPasswordUpdatedTime();
 		}
-		
 		$affiliate = $_SESSION['newAffiliate'];
 		if (!empty($affiliate) && !empty($_POST["ownerCreation"])) {
 			$affiliateUser->validate();
