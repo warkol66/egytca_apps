@@ -11,6 +11,26 @@
 				<forward name="failure" path="/Main.php?do=affiliatesEdit" redirect="true" />
 		</action>
 		
+		<action      path = "affiliatesContractorsDoEdit"
+								 type = "AffiliatesContractorsDoEditAction"
+								 name = "affiliatesContractorsDoEdit"
+								scope = "request"
+						 validate = "true">
+				<forward name="success" path="/Main.php?do=affiliatesContractorsList" redirect="true" />
+				<forward name="success-create" path="/Main.php?do=affiliatesUsersEdit" redirect="true" />
+				<forward name="failure" path="/Main.php?do=affiliatesContractorsEdit" redirect="true" />
+		</action>
+
+		<action      path = "affiliatesVerifiersDoEdit"
+								 type = "AffiliatesVerifiersDoEditAction"
+								 name = "affiliatesVerifiersDoEdit"
+								scope = "request"
+						 validate = "true">
+				<forward name="success" path="/Main.php?do=affiliatesVerifiersList" redirect="true" />
+				<forward name="success-create" path="/Main.php?do=affiliatesUsersEdit" redirect="true" />
+				<forward name="failure" path="/Main.php?do=affiliatesVerifiersEdit" redirect="true" />
+		</action>
+
 		<action      path = "affiliatesUsersLogin"
 								 type = "AffiliatesUsersLoginAction"
 								 name = "affiliatesUsersLogin"

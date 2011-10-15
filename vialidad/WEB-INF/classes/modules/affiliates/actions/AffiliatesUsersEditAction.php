@@ -74,8 +74,7 @@ class AffiliatesUsersEditAction extends BaseAction {
 		$groups = $user->getNotAssignedGroups();
 		$smarty->assign("groups",$groups);
 
-		$smarty->assign('ownerCreation', $_GET["ownerCreation"]);
-
+		$smarty->assign("ownerCreation", $_GET["ownerCreation"]);
 		$smarty->assign("message",$_GET["message"]);
 
 		return $mapping->findForwardConfig('success');
