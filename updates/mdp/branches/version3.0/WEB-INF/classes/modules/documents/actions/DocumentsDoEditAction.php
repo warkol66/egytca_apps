@@ -1,6 +1,6 @@
 <?php
 
-require_once 'import/ActionPrefixGetter.php';
+require_once 'import/ActionGetter.php';
 
 /**
 * DocumentsDoEditAction
@@ -29,15 +29,15 @@ class DocumentsDoEditAction extends BaseAction {
 		
 		switch ($forwardName) {
 			case 'success':
-				$actionPrefix = ActionPrefixGetter::scan(
-					$_SERVER['HTTP_REFERER'], 'Edit');
+				$action = ActionGetter::scan(
+					$_SERVER['HTTP_REFERER']);
 				return new ForwardConfig($this->addParams($params,
-					'Main.php?do='.$actionPrefix.'Edit'), True);
+					'Main.php?do='.$action), True);
 			case 'failureUpload':
-				$actionPrefix = ActionPrefixGetter::scan(
-					$_SERVER['HTTP_REFERER'], 'Edit');
+				$actionPrefix = ActionGetter::scan(
+					$_SERVER['HTTP_REFERER']);
 				return new ForwardConfig($this->addParams($params,
-					'Main.php?do='.$actionPrefix.'Edit'), True);
+					'Main.php?do='.$action), True);
 			default:
 				throw new Exception('invalid argument "'.$forwardName
 					.'" for '.$forwardName);
@@ -146,8 +146,8 @@ class DocumentsDoEditAction extends BaseAction {
 					$document->save();
 					return $this->findEntityForwardConfig('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping);
 				}
-			} else {
-				/*reviso si está en nueva tabla.
+			} else {/*$d=new Document(); $d->add
+				reviso si está en nueva tabla.
 				si está hago lo mismo de arriba.
 				si no está salgo del else y devuelvo error.*/
 			}

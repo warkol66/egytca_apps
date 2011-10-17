@@ -1,6 +1,6 @@
 <?php
 
-require_once 'import/ActionPrefixGetter.php';
+require_once 'import/ActionGetter.php';
 
 /**
 * DocumentsDoDeleteAction
@@ -16,10 +16,6 @@ class DocumentsDoDeleteAction extends BaseAction {
 		;
 	}
 	
-	function redirectTo($url) {
-		return header('Location: '.$url);
-	}
-	
 	function addParams($params, $url) {
 		$urlWithParams = $url;
 		foreach ($params as $param => $value) {
@@ -32,15 +28,15 @@ class DocumentsDoDeleteAction extends BaseAction {
 		
 		switch ($forwardName) {
 			case 'success':
-				$actionPrefix = ActionPrefixGetter::scan(
-					$_SERVER['HTTP_REFERER'], 'Edit');
+				$action = ActionGetter::scan(
+					$_SERVER['HTTP_REFERER']);
 				return new ForwardConfig($this->addParams($params,
-					'Main.php?do='.$actionPrefix.'Edit'), True);
+					'Main.php?do='.$action), True);
 			case 'failure':
-				$actionPrefix = ActionPrefixGetter::scan(
-					$_SERVER['HTTP_REFERER'], 'Edit');
+				$action = ActionGetter::scan(
+					$_SERVER['HTTP_REFERER']);
 				return new ForwardConfig($this->addParams($params,
-					'Main.php?do='.$actionPrefix.'Edit'), True);
+					'Main.php?do='.$action), True);
 			default:
 				throw new Exception('invalid argument "'.$forwardName
 					.'" for '.$forwardName);

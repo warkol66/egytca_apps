@@ -11,15 +11,17 @@ class ActionPrefixGetter {
 				throw new Exception('invalid url');
 		}
 		
-		$actionPrefixPos = $doParamPos + 4;
+		$actionPos = $doParamPos + 4;
 		
-		$actionPos = strpos($url, $action);
-		if ($actionPos === false)
-			throw new Exception('invalid action');
+		$paramsPos = strpos($url, '&', $actionPos);
 		
-		$actionPrefixLength = $actionPos - $actionPrefixPos;
+		if ($paramsPos === false) {
+			$actionLength = ( strlen($string) - 1 ) - $actionPos;
+		} else {
+			$actionLength = $paramsPos - $actionPos;
+		}
 		
-		return substr($url, $actionPrefixPos, $actionPrefixLength);
+		return substr($url, $actionPos, $actionLength);
 	}
 	
 }
