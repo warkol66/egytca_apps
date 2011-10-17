@@ -21,7 +21,7 @@ class AffiliatesContractorsListAction extends BaseAction {
 
   	$smarty->assign("message",$_GET["message"]);
 		
-		$affiliatePeer = new ContractorPeer;
+		$affiliatePeer = new AffiliatePeer();
 		$filters = $_GET["filters"];
 		$this->applyFilters($affiliatePeer, $filters, $smarty);
 

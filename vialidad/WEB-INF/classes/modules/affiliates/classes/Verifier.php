@@ -3,9 +3,9 @@
 
 
 /**
- * Skeleton subclass for representing a row from the 'affiliates_verifier' table.
+ * Skeleton subclass for representing a row from one of the subclasses of the 'affiliates_affiliate' table.
  *
- * Verificadoras
+ * Afiliados
  *
  * You should add additional methods to this class to meet the
  * application requirements.  This class will only be generated as
@@ -13,47 +13,15 @@
  *
  * @package    propel.generator.affiliates.classes
  */
-class Verifier extends BaseVerifier {
+class Verifier extends Affiliate {
 
 	/**
-	 * Validaciones para el guardado de un verificador
-	 * @return bool affiliate creado o no
+	 * Constructs a new Verifier class, setting the class_key column to AffiliatePeer::CLASSKEY_3.
 	 */
-	public function save(PropelPDO $con = null) {
-		try {
-			if ($this->validate()) {
-				parent::save($con);
-				return true;
-			} else {
-				return false;
-			}
-		}
-		catch (PropelException $exp) {
-			if (ConfigModule::get("global","showPropelExceptions"))
-				print_r($exp->getMessage());
-			return false;
-		}
-	}
-
-	/**
-	 * Obtengo el usuario Owner con permisos de administracion sobre el verificador
-	 * @return object usuario owner
-	 */
-	function getOwner() {
-		return AffiliateUserPeer::get($this->getOwnerId());
-	}
-
-	/**
-	 * Informo si el usuario pasado a la funcion es el owner
-	 * @param $user obj objeto propel user
-	 * @return bool true si es owner, false si no
-	 */
-	function isOwner($user) {
-		$affiliateOwner = $this->getOwner();
-		if ($affiliateOwner == $user)
-			return true;
-		else
-			return false;
+	public function __construct()
+	{
+		parent::__construct();
+		$this->setClassKey(AffiliatePeer::CLASSKEY_3);
 	}
 
 } // Verifier

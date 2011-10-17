@@ -13,42 +13,18 @@
 		<column name="web" type="VARCHAR" size="255" description="Direccion web del afiliado"/>
 		<column name="memo" type="LONGVARCHAR" description="Informacion adicional del afiliado"/>
 
-		<behavior name="soft_delete" />
+  <column name="class_key" type="INTEGER" inheritance="single">
+    <inheritance key="1" class="Affiliate"/>
+    <inheritance key="2" class="Contractor" extends="Affiliate"/>
+    <inheritance key="3" class="Verifier" extends="Affiliate"/>
+  </column>
+  
+  	<behavior name="soft_delete" />
 		<behavior name="timestampable" />
 
 		<foreign-key foreignTable="affiliates_user" >
 			<reference local="ownerId" foreign="id" />
 		</foreign-key>
-
-		<vendor type="mysql">
-			<parameter name="Charset" value="utf8"/>
-			<parameter name="Collate" value="utf8_general_ci"/>
-		</vendor>
-
-	</table>
-
-	<table name="affiliates_verifier" phpName="Verifier" description="Verificadoras">
-  	<column name="id" required="true" primaryKey="true" type="INTEGER" />
-  	<column name="verifierCode" type="VARCHAR" size="50" description="Codigo de verificador"/>
-
-	  <behavior name="delegate">
-	    <parameter name="to" value="affiliates_affiliate" />
-	  </behavior>
-
-		<vendor type="mysql">
-			<parameter name="Charset" value="utf8"/>
-			<parameter name="Collate" value="utf8_general_ci"/>
-		</vendor>
-
-	</table>
-
-	<table name="affiliates_contractor" phpName="Contractor" description="Constructoras">
-  	<column name="id" required="true" primaryKey="true" type="INTEGER" />
-		<column name="contractorCode" type="VARCHAR" size="50" description="Codigo de constructora"/>
-
-	  <behavior name="delegate">
-	    <parameter name="to" value="affiliates_affiliate" />
-	  </behavior>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>

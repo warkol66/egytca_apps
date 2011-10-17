@@ -23,7 +23,7 @@ class AffiliatesContractorsEditAction extends BaseAction {
 		$smarty->assign("filters",$filters);
 
 		if ($_GET['id']) {
-			$affiliate =  ContractorPeer::get($_GET['id']);
+			$affiliate =  ContractorQuery::create()->findPk($_GET['id']);
 			if (empty($affiliate)) {
 				$smarty->assign("notValidId","true");
 				$affiliate = new Contractor();
