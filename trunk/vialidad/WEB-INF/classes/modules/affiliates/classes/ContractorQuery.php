@@ -3,9 +3,9 @@
 
 
 /**
- * Skeleton subclass for performing query and update operations on the 'affiliates_contractor' table.
+ * Skeleton subclass for representing a query for one of the subclasses of the 'affiliates_affiliate' table.
  *
- * Constructoras
+ * Afiliados
  *
  * You should add additional methods to this class to meet the
  * application requirements.  This class will only be generated as

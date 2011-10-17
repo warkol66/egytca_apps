@@ -20,7 +20,7 @@
 		</p>
 		 <p>
 		   <label for="params[contractorCode]">Código de Contratista</label>
-			<input name="params[contractorCode]" type="text" value="|-$affiliate->getContractorCode()|escape-|" size="15"> 
+			<input name="params[contractorCode]" type="text" value="|-*$affiliate->getContractorCode()|escape*-|" size="15"> 
 		</p>
 		 <p><label for="params[address]">Dirección</label>
 				<input name="params[address]" type="text" value="|-$affiliate->getAddress()|escape-|" size="55"> 

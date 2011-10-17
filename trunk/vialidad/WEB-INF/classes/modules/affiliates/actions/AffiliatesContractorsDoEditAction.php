@@ -36,7 +36,7 @@ class AffiliatesContractorsDoEditAction extends BaseAction {
 			}
 		}
 		else {
-			$affiliate = new Affiliate();
+			$affiliate = new Contractor();
 			$affiliate = Common::setObjectFromParams($affiliate,$_POST["params"]);
 
 			if (!$affiliate->validate()) {
