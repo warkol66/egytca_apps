@@ -25,7 +25,7 @@
 
 	</table>
 
-	<table phpName="PriceBulletin" name="vialidad_priceBulletin" isCrossRef="true">
+	<table phpName="PriceBulletin" name="vialidad_priceBulletin">
 
         <column name="id"         type="INTEGER" required="true" primaryKey="true" />
 		<column name="bulletinId" type="INTEGER" required="true" />
