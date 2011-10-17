@@ -27,11 +27,27 @@
 
 	<table phpName="PriceBulletin" name="vialidad_priceBulletin" isCrossRef="true">
 
-		<column name="bulletinId" type="INTEGER" required="true" primaryKey="true" />
-		<column name="supplyId" type="INTEGER" required="true" primaryKey="true" />
-		<column name="preliminaryPrice" type="DECIMAL" size="12" scale="2" description="Precio provisorio" />
-		<column name="definitivePrice" type="DECIMAL" size="12" scale="2" description="Precio definitivo" />
+        <column name="id"         type="INTEGER" required="true" primaryKey="true" />
+		<column name="bulletinId" type="INTEGER" required="true" />
+		<column name="supplyId"   type="INTEGER" required="true" />
+		<column name="averagePrice" type="DECIMAL" size="12" scale="2" description="Precio provisorio" />
+		<column name="definitive" type="BOOLEAN" required="true" description="Indica si el precio es definitivo o no" />
 
+        <column name="supplierId1" type="INTEGER" required="true" />
+		<column name="price1"      type="DECIMAL" size="12" scale="2" description="Precio provisorio, proveedor 1" />
+		<column name="definitive1" type="BOOLEAN" required="true" description="Indica si el precio es definitivo o no, proveedor 1" />
+		<column name="supplierDocument1" type="INTEGER" required="true" description="Documento respaldatorio, proveedor 1" />
+        
+        <column name="supplierId2" type="INTEGER" required="true" />
+		<column name="price2"      type="DECIMAL" size="12" scale="2" description="Precio provisorio, proveedor 2" />
+		<column name="definitive2" type="BOOLEAN" required="true" description="Indica si el precio es definitivo o no, proveedor 2" />
+		<column name="supplierDocument2" type="INTEGER" required="true" description="Documento respaldatorio, proveedor 2" />
+        
+        <column name="supplierId3" type="INTEGER" required="true" />
+		<column name="price3"      type="DECIMAL" size="12" scale="2" description="Precio provisorio, proveedor 3" />
+		<column name="definitive3" type="BOOLEAN" required="true" description="Indica si el precio es definitivo o no, proveedor 3" />
+		<column name="supplierDocument3" type="INTEGER" required="true" description="Documento respaldatorio, proveedor 3" />
+        
 		<foreign-key foreignTable="vialidad_bulletin" >
 			<reference local="bulletinId" foreign="id" />
 		</foreign-key>
@@ -40,6 +56,26 @@
 			<reference local="supplyId" foreign="id" />
 		</foreign-key>
 
+		<foreign-key foreignTable="vialidad_supplier" >
+			<reference local="supplierId1" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="vialidad_supplier" >
+			<reference local="supplierId2" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="vialidad_supplier" >
+			<reference local="supplierId3" foreign="id" />
+		</foreign-key>
+        
+		<foreign-key foreignTable="documents_document" >
+			<reference local="supplierDocument1" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="documents_document" >
+			<reference local="supplierDocument2" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="documents_document" >
+			<reference local="supplierDocument3" foreign="id" />
+		</foreign-key>
+        
 	</table>
 
 	<table phpName="Supplier" name="vialidad_supplier" description="Proveedores">
