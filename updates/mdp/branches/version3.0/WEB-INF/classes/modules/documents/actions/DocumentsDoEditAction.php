@@ -34,7 +34,7 @@ class DocumentsDoEditAction extends BaseAction {
 				return new ForwardConfig($this->addParams($params,
 					'Main.php?do='.$action), True);
 			case 'failureUpload':
-				$actionPrefix = ActionGetter::scan(
+				$action = ActionGetter::scan(
 					$_SERVER['HTTP_REFERER']);
 				return new ForwardConfig($this->addParams($params,
 					'Main.php?do='.$action), True);
@@ -146,10 +146,6 @@ class DocumentsDoEditAction extends BaseAction {
 					$document->save();
 					return $this->findEntityForwardConfig('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping);
 				}
-			} else {/*$d=new Document(); $d->add
-				reviso si está en nueva tabla.
-				si está hago lo mismo de arriba.
-				si no está salgo del else y devuelvo error.*/
 			}
 			return $this->findEntityForwardConfig('failureUpload', array('id'=>$_POST['entityId'],'errormessage'=>'documentUploadError'), $mapping);
 		}
