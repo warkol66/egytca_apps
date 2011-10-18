@@ -8,7 +8,7 @@ class VialidadSuppliersListAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
@@ -16,24 +16,26 @@ class VialidadSuppliersListAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$module = "VialidadSuppliers";
-  	$smarty->assign("module",$module);
+		$module = "Vialidad";
+		$smarty->assign("module",$module);
+		$section = "Suppliers";
+		$smarty->assign("section",$section);
 
-  	$smarty->assign("message",$_GET["message"]);
-		
-		$affiliatePeer = new AffiliatePeer;
+		$smarty->assign("message",$_GET["message"]);
+
+		$supplierPeer = new SupplierPeer;
 		$filters = $_GET["filters"];
-		
-		$this->applyFilters($affiliatePeer, $filters, $smarty);
 
-		$pager = $affiliatePeer->getAllPaginatedFiltered($_GET["page"]);
-		
-		$url = "Main.php?do=vialidadsuppliersList";
+		$this->applyFilters($supplierPeer, $filters, $smarty);
+
+		$pager = $supplierPeer->getAllPaginatedFiltered($_GET["page"]);
+
+		$url = "Main.php?do=vialidadSuppliersList";
 		foreach ($filters as $key => $value)
 			$url .= "&filters[$key]=$value";
 		$smarty->assign("url",$url);
 
-		$smarty->assign("vialidadsuppliers",$pager->getResult());
+		$smarty->assign("suppliers",$pager->getResult());
 		$smarty->assign("pager",$pager);
 
 		return $mapping->findForwardConfig('success');

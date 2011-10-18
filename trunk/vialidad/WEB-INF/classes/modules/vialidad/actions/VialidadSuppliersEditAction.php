@@ -16,26 +16,28 @@ class VialidadSuppliersEditAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$module = "VialidadSuppliers";
+		$module = "Vialidad";
 		$smarty->assign("module",$module);
+		$section = "Suppliers";
+		$smarty->assign("section",$section);
 
 		$filters = $_GET["filters"];
 		$smarty->assign("filters",$filters);
 
 		if ($_GET['id']) {
-			$affiliate =  AffiliatePeer::get($_GET['id']);
-			if (empty($affiliate)) {
+			$supplier =  SupplierPeer::get($_GET['id']);
+			if (empty($supplier)) {
 				$smarty->assign("notValidId","true");
-				$affiliate = new Affiliate();
+				$supplier = new Supplier();
 			}
 			else
 				$smarty->assign("action","edit");
 		}
 		else {
-			$affiliate = new Affiliate();
+			$supplier = new Supplier();
 			$smarty->assign("action","create");
 		}
-		$smarty->assign("affiliate",$affiliate);
+		$smarty->assign("supplier",$supplier);
 		return $mapping->findForwardConfig('success');
 	}
 }

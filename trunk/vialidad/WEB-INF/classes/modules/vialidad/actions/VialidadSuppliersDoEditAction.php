@@ -16,40 +16,52 @@ class VialidadSuppliersDoEditAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$module = "VialidadSuppliers";
+		$module = "Vialidad";
 		$smarty->assign("module",$module);
+		$section = "Suppliers";
+		$smarty->assign("section",$section);
 
-		$filters = $_POST["filters"];
+		if ($_POST["page"] > 0)
+			$params["page"] = $_POST["page"];
+
+		if (!empty($_POST["filters"]))
+			$filters = $_POST["filters"];
+
+		$userParams = Common::userInfoToDoLog();
+		$supplierParams = array_merge_recursive($_POST["params"],$userParams);
+
 		$smarty->assign("filters",$filters);
 
 		if ($_POST["action"] == "edit" && !empty($_POST["id"])) {
 			$params["id"] = $_POST["id"];
-			$affiliate = AffiliatePeer::get($_POST["id"]);
-			if (!empty($affiliate)) {
-				$affiliate = Common::setObjectFromParams($affiliate,$_POST["params"]);
+			$supplier = SupplierPeer::get($_POST["id"]);
+			if (!empty($supplier)) {
+				$supplier = Common::setObjectFromParams($supplier,$_POST["params"]);
 
-				if ($affiliate->isModified() && $affiliate->validate() && !$affiliate->save()) 
+				if ($supplier->isModified() && $supplier->validate() && !$supplier->save()) 
 					return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'failure');
 	
 				$smarty->assign("message","ok");
-				return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
+				return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');
 			}
 		}
 		else {
-			$affiliate = new Affiliate();
-			$affiliate = Common::setObjectFromParams($affiliate,$_POST["params"]);
+			$supplier = new Supplier();
+			$supplier = Common::setObjectFromParams($supplier,$supplierParams);
 
-			if(!$affiliate->validate()) {
-				$smarty->assign("affiliate",$affiliate);
-				$smarty->assign("message","error");
-				return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'failure');
-			}
-			else{
-				$_SESSION['newAffiliate'] = $affiliate;
-				$params['ownerCreation'] = 1;
-				return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-create');
-			}
+			if (!$supplier->save())
+				return $this->returnFailure($mapping,$smarty,$supplier);
+
+			if (mb_strlen($_POST["params"]["name"]) > 120)
+				$cont = " ... ";
+
+			$logSufix = "$cont, " . Common::getTranslation('action: create','common');
+			Common::doLog('success', substr($_POST["params"]["name"], 0, 120) . $logSufix);
+
+			$params['id'] = $supplier->getId();
+			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');
 		}
+
 	}
 
 }

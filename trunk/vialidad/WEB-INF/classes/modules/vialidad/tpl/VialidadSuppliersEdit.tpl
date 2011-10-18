@@ -5,8 +5,11 @@
 |-else-|		
 	<p>A continuación podrá editar los datos del Proveedor.</p>
 |-/if-|
+|-if $message eq "ok"-|
+	<div  class="successMessage">Proveedor guardado</div>
+|-/if-|
 |-if !$notValidId-|	
-	<fieldset title="Formulario de edición de nombre del Afiliado">
+	<fieldset title="Formulario de edición de nombre del Proveedor">
 		<legend>Proveedores</legend>
 		<p>Realice los cambios y para guardar haga click en "Guardar Cambios"</p>
 			<form method="post" action="Main.php?do=vialidadSuppliersDoEdit">
@@ -15,9 +18,6 @@
 		 <p><label for="params[name]">Nombre</label>
 			<input name="params[name]" type="text" value="|-$supplier->getName()|escape-|" size="60">
 		 </p>
-		 <p><label for="params[internalNumber]">ID interno</label>
-			<input name="params[internalNumber]" type="text" value="|-$supplier->getInternalNumber()|escape-|" size="15"> 
-		</p>
 		 <p><label for="params[address]">Dirección</label>
 				<input name="params[address]" type="text" value="|-$supplier->getAddress()|escape-|" size="55"> 
 		</p>
@@ -45,6 +45,6 @@
 		</form>
 	</fieldset>
 |-else-|
-<div class="errorMessage">El identificador del afiliado ingresado no es válido. Seleccione un afiliado de la lista.</div>
-				<input type='button' onClick='location.href="Main.php?do=vialidadSuppliersList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Proveedores"/>
+<div class="errorMessage">El identificador del proveedor ingresado no es válido. Seleccione un proveedor de la lista.</div>
+<input type='button' onClick='location.href="Main.php?do=vialidadSuppliersList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Proveedores"/>
 |-/if-|
