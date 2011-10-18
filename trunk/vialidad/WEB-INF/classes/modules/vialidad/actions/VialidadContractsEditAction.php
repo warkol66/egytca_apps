@@ -1,8 +1,8 @@
 <?php
 
-class VialidadSuppliersEditAction extends BaseAction {
+class VialidadContractsEditAction extends BaseAction {
 
-	function VialidadSuppliersEditAction() {
+	function VialidadContractsEditAction() {
 		;
 	}
 
@@ -18,7 +18,7 @@ class VialidadSuppliersEditAction extends BaseAction {
 
 		$module = "Vialidad";
 		$smarty->assign("module",$module);
-		$section = "Suppliers";
+		$section = "Contracts";
 		$smarty->assign("section",$section);
 
 		$filters = $_GET["filters"];
@@ -28,19 +28,19 @@ class VialidadSuppliersEditAction extends BaseAction {
 		$smarty->assign("message",$message);
 
 		if ($_GET['id']) {
-			$supplier =  SupplierPeer::get($_GET['id']);
-			if (empty($supplier)) {
+			$contract =  ContractPeer::get($_GET['id']);
+			if (empty($contract)) {
 				$smarty->assign("notValidId","true");
-				$supplier = new Supplier();
+				$contract = new Contract();
 			}
 			else
 				$smarty->assign("action","edit");
 		}
 		else {
-			$supplier = new Supplier();
+			$contract = new Contract();
 			$smarty->assign("action","create");
 		}
-		$smarty->assign("supplier",$supplier);
+		$smarty->assign("contract",$contract);
 		return $mapping->findForwardConfig('success');
 	}
 }

@@ -3,7 +3,7 @@
 
 
 /**
- * Skeleton subclass for performing query and update operations on the 'vialidad_contract' table.
+ * Skeleton subclass for performing query and update operations on the 'vialidad_construction' table.
  *
  * 
  *
@@ -13,10 +13,10 @@
  *
  * @package    propel.generator.vialidad.classes
  */
-class ContractPeer extends BaseContractPeer {
+class ConstructionPeer extends BaseConstructionPeer {
 
 	/** the default item name for this class */
-	const ITEM_NAME = 'Contracts';
+	const ITEM_NAME = 'Constructions';
 
 	private $searchString;
 	private $perPage;
@@ -54,14 +54,14 @@ class ContractPeer extends BaseContractPeer {
 	}
 
 	/**
-	 * Obtiene un contract.
+	 * Obtiene un construction.
 	 *
-	 * @param int $id id del contract
+	 * @param int $id id del construction
 	 * @return boolean true si se actualizo la informacion correctamente, false sino
 	 */
 	function get($id){
-		$contract = ContractQuery::create()->findPk($id);
-		return $contract;
+		$construction = ConstructionQuery::create()->findPk($id);
+		return $construction;
 	}
 
 	/**
@@ -71,13 +71,13 @@ class ContractPeer extends BaseContractPeer {
 	 */
 	private function getSearchCriteria() {
 
-		$criteria = new ContractQuery();
+		$criteria = new ConstructionQuery();
 		$criteria->setIgnoreCase(true);
 		$criteria->setLimit($this->limit);
-		$criteria->addAscendingOrderByColumn(ContractPeer::ID);
+		$criteria->addAscendingOrderByColumn(ConstructionPeer::ID);
 
 		if ($this->searchString)
-			$criteria->add(ContractPeer::NAME,"%" . $this->searchString . "%",Criteria::LIKE);
+			$criteria->add(ConstructionPeer::NAME,"%" . $this->searchString . "%",Criteria::LIKE);
 
 		return $criteria;
 
@@ -95,30 +95,30 @@ class ContractPeer extends BaseContractPeer {
 	}
 
 	/**
-	 * Obtiene todos los contract paginados segun la condicion de busqueda ingresada.
+	 * Obtiene todos los construction paginados segun la condicion de busqueda ingresada.
 	 *
 	 * @param int $page [optional] Numero de pagina actual
 	 * @param int $perPage [optional] Cantidad de filas por pagina
-	 * @return array Informacion sobre todos los contract
+	 * @return array Informacion sobre todos los construction
 	 */
 	function getAllPaginatedFiltered($page=1,$perPage=-1)	{
 		if ($perPage == -1)
 			$perPage = $this->getRowsPerPage();
 		$criteria = $this->getSearchCriteria();
-		$pager = new PropelPager($criteria,"ContractPeer", "doSelect",$page,$perPage);
+		$pager = new PropelPager($criteria,"ConstructionPeer", "doSelect",$page,$perPage);
 		return $pager;
 	}
 
 	/**
-	 * Elimina un contract a partir de los valores de la clave.
+	 * Elimina un construction a partir de los valores de la clave.
 	 *
-	 * @param int $id id del contract
-	 * @return boolean true si se elimino correctamente el contract, false sino
+	 * @param int $id id del construction
+	 * @return boolean true si se elimino correctamente el construction, false sino
 	 */
 	function delete($id){
-		$contract = ContractPeer::retrieveByPK($id);
+		$construction = ConstructionPeer::retrieveByPK($id);
 		try {
-			$contract->delete();
+			$construction->delete();
 			return true;
 		}
 		catch (PropelException $exp) {
@@ -128,4 +128,4 @@ class ContractPeer extends BaseContractPeer {
 		}
 	}
 
-} // ContractPeer
+} // ConstructionPeer

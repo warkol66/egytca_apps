@@ -27,27 +27,27 @@
 
 	<table phpName="PriceBulletin" name="vialidad_priceBulletin">
 
-        <column name="id"         type="INTEGER" required="true" primaryKey="true" />
+		<column name="id"         type="INTEGER" required="true" primaryKey="true" />
 		<column name="bulletinId" type="INTEGER" required="true" />
 		<column name="supplyId"   type="INTEGER" required="true" />
 		<column name="averagePrice" type="DECIMAL" size="12" scale="2" description="Precio provisorio" />
 		<column name="definitive" type="BOOLEAN" description="Indica si el precio es definitivo o no" />
 
-        <column name="supplierId1" type="INTEGER" required="true" />
+		<column name="supplierId1" type="INTEGER" required="true" />
 		<column name="price1"      type="DECIMAL" size="12" scale="2" description="Precio provisorio, proveedor 1" />
 		<column name="definitive1" type="BOOLEAN" description="Indica si el precio es definitivo o no, proveedor 1" />
 		<column name="supplierDocument1" type="INTEGER" description="Documento respaldatorio, proveedor 1" />
-        
-        <column name="supplierId2" type="INTEGER" required="true" />
+
+		<column name="supplierId2" type="INTEGER" required="true" />
 		<column name="price2"      type="DECIMAL" size="12" scale="2" description="Precio provisorio, proveedor 2" />
 		<column name="definitive2" type="BOOLEAN" description="Indica si el precio es definitivo o no, proveedor 2" />
 		<column name="supplierDocument2" type="INTEGER" description="Documento respaldatorio, proveedor 2" />
-        
-        <column name="supplierId3" type="INTEGER" required="true" />
+
+		<column name="supplierId3" type="INTEGER" required="true" />
 		<column name="price3"      type="DECIMAL" size="12" scale="2" description="Precio provisorio, proveedor 3" />
 		<column name="definitive3" type="BOOLEAN" description="Indica si el precio es definitivo o no, proveedor 3" />
 		<column name="supplierDocument3" type="INTEGER" description="Documento respaldatorio, proveedor 3" />
-        
+
 		<foreign-key foreignTable="vialidad_bulletin" >
 			<reference local="bulletinId" foreign="id" />
 		</foreign-key>
@@ -59,23 +59,27 @@
 		<foreign-key foreignTable="vialidad_supplier" >
 			<reference local="supplierId1" foreign="id" />
 		</foreign-key>
+
 		<foreign-key foreignTable="vialidad_supplier" >
 			<reference local="supplierId2" foreign="id" />
 		</foreign-key>
+
 		<foreign-key foreignTable="vialidad_supplier" >
 			<reference local="supplierId3" foreign="id" />
 		</foreign-key>
-        
+
 		<foreign-key foreignTable="documents_document" >
 			<reference local="supplierDocument1" foreign="id" />
 		</foreign-key>
+
 		<foreign-key foreignTable="documents_document" >
 			<reference local="supplierDocument2" foreign="id" />
 		</foreign-key>
+
 		<foreign-key foreignTable="documents_document" >
 			<reference local="supplierDocument3" foreign="id" />
 		</foreign-key>
-        
+
 	</table>
 
 	<table phpName="Supplier" name="vialidad_supplier" description="Proveedores">
@@ -99,7 +103,18 @@
 	<table phpName="Contract" name="vialidad_contract">
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
-		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
+		<column name="code" type="VARCHAR" size="50" required="true" description="Codigo del contrato" />
+		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" description="Nombre del contrato" />
+		<column name="contractorId" type="INTEGER"  description="Id del contratista" />
+		<column name="verifyerId" type="INTEGER"  description="Id del verificador" />
+
+		<foreign-key foreignTable="affiliates_affiliate" >
+			<reference local="contractorId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="affiliates_affiliate" >
+			<reference local="verifyerId" foreign="id" />
+		</foreign-key>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
@@ -112,7 +127,7 @@
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
-		<column name="contractId" type="INTEGER" />
+		<column name="contractId" type="INTEGER" description="Id del contrato" />
 		<column name="description" type="LONGVARCHAR" />
 
 		<foreign-key foreignTable="vialidad_contract" >
