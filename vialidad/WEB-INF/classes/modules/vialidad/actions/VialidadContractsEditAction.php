@@ -35,6 +35,10 @@ class VialidadContractsEditAction extends BaseAction {
 			}
 			else
 				$smarty->assign("action","edit");
+
+			$constructions = $contract->getConstructions();
+			$smarty->assign("constructions",$constructions);
+
 		}
 		else {
 			$contract = new Contract();

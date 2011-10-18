@@ -15,6 +15,15 @@
 			<form method="post" action="Main.php?do=vialidadConstructionsDoEdit">
 			<input type="hidden" value="|-$action-|" name="action">
 			<input type="hidden" value="|-$construction->getId()-|" name="id">
+		 <p><label for="params[contractId]">Contrato</label>
+				<select id="params[contractId]" name="params[contractId]" |-$action|disabled-| >
+					<option value="">Seleccione el contrato</option>
+				|-foreach from=$contracts item=contract name=for_contract-|
+        		<option value="|-$contract->getId()-|" |-$construction->getContractId()|selected:$contract->getId()-|>|-$contract-|</option>
+				|-/foreach-|
+				</select>
+			</p>
+		 </p>
 		 <p><label for="params[name]">Nombre</label>
 			<input name="params[name]" type="text" value="|-$construction->getName()|escape-|" size="60">
 		 </p>

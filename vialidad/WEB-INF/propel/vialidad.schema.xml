@@ -106,14 +106,14 @@
 		<column name="code" type="VARCHAR" size="50" required="true" description="Codigo del contrato" />
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" description="Nombre del contrato" />
 		<column name="contractorId" type="INTEGER"  description="Id del contratista" />
-		<column name="verifyerId" type="INTEGER"  description="Id del verificador" />
+		<column name="verifierId" type="INTEGER"  description="Id del verificador" />
 
 		<foreign-key foreignTable="affiliates_affiliate" >
 			<reference local="contractorId" foreign="id" />
 		</foreign-key>
 
 		<foreign-key foreignTable="affiliates_affiliate" >
-			<reference local="verifyerId" foreign="id" />
+			<reference local="verifierId" foreign="id" />
 		</foreign-key>
 
 		<vendor type="mysql">

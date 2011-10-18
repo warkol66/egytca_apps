@@ -27,6 +27,9 @@ class VialidadConstructionsEditAction extends BaseAction {
 		$message = $_GET["message"];
 		$smarty->assign("message",$message);
 
+		$contracts = ContractQuery::create()->find();
+		$smarty->assign("contracts",$contracts);
+
 		if ($_GET['id']) {
 			$construction =  ConstructionPeer::get($_GET['id']);
 			if (empty($construction)) {
