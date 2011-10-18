@@ -14,6 +14,15 @@ class DocumentsDoEditAction extends BaseAction {
 		;
 	}
 	
+	function findEntityForwardConfig($forwardName, $params, $mapping) {
+		
+		$fconf = $mapping->findForwardConfig($forwardName);
+		if (!is_null($fconf))
+			return $this->addParamsToForwards($params, $mapping, $forwardName . $_POST['entity']);
+		else
+			return $mapping->generateDynamicForward($forwardName, $params);
+	}
+	
 	function failureSmartySetup($smarty,$document) {
 		
 		require_once('CategoryPeer.php');
@@ -72,7 +81,7 @@ class DocumentsDoEditAction extends BaseAction {
 			else 
 				$documentPeer->updateDocument($_POST["id"],$_POST['title'],$_POST["description"],$_POST["date"],$_POST["category"],$_POST["password"],$_POST["extra"]);
 
-			return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping, 'success' . $_POST['entity']);
+			return $this->findEntityForwardConfig('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping);
 
 		}
 		else {
@@ -80,7 +89,7 @@ class DocumentsDoEditAction extends BaseAction {
 			
 			//si no llega ningun archivo significa que la carga se realizo por swfUpload.
 			if(empty($_FILES["document_file"]['name'])) {
-				return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping, 'success' . $_POST['entity']);
+				return $this->findEntityForwardConfig('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping);
 			}
 
 			if($_POST["password"]!=$_POST["password_compare"]){
@@ -105,10 +114,22 @@ class DocumentsDoEditAction extends BaseAction {
 					$entity = $queryInstance->findPK($_POST['entityId']);
 					$document->$addMethod($entity);
 					$document->save();
-					return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping, 'success' . $_POST['entity']);
+					return $this->findEntityForwardConfig('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping);
+				}
+			} else {
+				if (!empty($_POST['entityId'])) {
+					$relatedEntity = new DocumentRelatedEntity();
+					$relatedEntity->fromArray(array(
+						'entityId' => $_POST['entityId'],
+						'entityType' => $_POST['entity'],
+						'documentId' => $document->getId()
+					));
+					$document->addDocumentRelatedEntity($relatedEntity);
+					$document->save();
+					return $this->findEntityForwardConfig('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping);
 				}
 			}
-			return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'errormessage'=>'documentUploadError'), $mapping, 'failureUpload' . $_POST['entity']);
+			return $this->findEntityForwardConfig('failure', array('id'=>$_POST['entityId'],'errormessage'=>'documentUploadError'), $mapping);
 		}
 
 	}
