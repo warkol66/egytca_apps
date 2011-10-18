@@ -1,22 +1,22 @@
 <h2>Insumos</h2>
-<h1>Administraci&oacute;n de Insumos</h1>
-<p>A continuaci&oacute;n se muestra la lista de Insumos cargados en el sistema.</p>
+<h1>Administración de Insumos</h1>
+<p>A continuación se muestra la lista de Insumos cargados en el sistema.</p>
 <div id="div_supplies"> 
 	|-if $message eq "deleted_ok"-|
 		<div class="successMessage">Insumo eliminado correctamente</div>
 	|-/if-|
-				<div name="working_status_message" style="display:none;" class="inProgress">Trabajando...</div>
-				<div name="done_status_message" style="display:none;" class="successMessage">Insumo agregado</div>
+	<div name="working_status_message" style="display:none;" class="inProgress">Trabajando...</div>
+	<div name="done_status_message" style="display:none;" class="successMessage">Insumo agregado</div>
 	<table id="table_supplies" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead> 
 		<tr>
-			<td colspan="2" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">B&uacute;squeda de Insumos </a>
+			<td colspan="2" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Búsqueda de Insumos </a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;">
 				<form action='Main.php' method='get' style="display:inline;">
 					<p>Texto: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" /></p>
 					<p>Resultados por página |-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getRowsPerPage()-|</p>
 					<p>
-						<input type="submit" value="Buscar" title="Buscar con los par&aacute;metros ingresados" />
+						<input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
 						<input type="hidden" name="do" value="vialidadSupplyList" />
 						&nbsp;&nbsp;
 						|-if $filters|@count gt 0-|
@@ -54,16 +54,16 @@
 		<tbody id="suppliesList">
 		|-if $supplies|@count eq 0-|
 		<tr>
-			<td colspan="2">|-if isset($filter)-|No hay Insumos que concuerden con la b&uacute;squeda|-else-|No hay Insumos disponibles|-/if-|</td>
+			<td colspan="2">|-if isset($filter)-|No hay Insumos que concuerden con la búsqueda|-else-|No hay Insumos disponibles|-/if-|</td>
 		</tr>
 		|-else-|
 		|-foreach from=$supplies item=supply name=for_supples-|
 		<tr> 
 			<td>
 				|-if "vialidadSupplyEdit"|security_has_access-|
-				<span id="supply_|-$supply->getId()-|" class="in_place_editable">|-$supply->getName()|escape-|</span>
+				<span id="supply_|-$supply->getId()-|" class="in_place_editable">|-$supply->getName()-|</span>
 				|-else-|
-				|-$supply->getName()|escape-|
+				|-$supply->getName()-|
 				|-/if-|
 			</td>
 			<td nowrap>
@@ -86,19 +86,6 @@
 					<input type="hidden" name="id" value="|-$supply->getid()-|" />
 					<input type="submit" name="submit_go_delete_vialidad_supply" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar el Insumo?')" class="icon iconDelete" />
 				</form>
-					
-				|-if isset($loginUser) && $loginUser->isSupervisor()-|
-				<form action="Main.php" method="post" style="display:inline;">
-					<input type="hidden" name="do" value="vialidadSupplyDoDelete" />
-					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-					|-if isset($pager) && ($pager->getPage() ne 1)-|
-					<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />
-					|-/if-|
-					<input type="hidden" name="id" value="|-$supply->getid()-|" />
-					<input type="hidden" name="doHardDelete" value="true" /> 
-					<input type="submit" name="submit_go_delete_vialidad_supply" value="Borrar" title="Eliminar completamente" onclick="return confirm('Seguro que desea eliminar el Insumo definitivamente?')" class="icon iconHardDelete" /> 
-				</form>
-				|-/if-|
 				|-/if-|
 			</td>
 		</tr> 
