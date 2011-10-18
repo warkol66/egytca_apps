@@ -16,16 +16,25 @@ class VialidadSuppliersDoDeleteAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$module = "VialidadSuppliers";
+		$module = "Vialidad";
+		$smarty->assign("module",$module);
+		$section = "Suppliers";
+		$smarty->assign("section",$section);
 
-		$affiliate = AffiliatePeer::get($_POST["id"]);
+		$supplier = SupplierPeer::get($_POST["id"]);
+		$supplier->delete();
 
-		if ($affiliate->delete())
+		if ($supplier->isDeleted()) {
+			if (mb_strlen($supplier->getName()) > 120)
+				$cont = " ... ";
+			$logSufix = "$cont, " . Common::getTranslation('action: delete','common');
+			Common::doLog('success', substr($supplier->getName(), 0, 120) . $logSufix);
+
 			return $mapping->findForwardConfig('success');
+		}
 		else
 			return $mapping->findForwardConfig('failure');
 
-		return $mapping->findForwardConfig('success');
 	}
 
 }
