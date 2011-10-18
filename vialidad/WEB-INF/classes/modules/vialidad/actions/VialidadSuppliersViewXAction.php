@@ -16,13 +16,15 @@ class VialidadSuppliersViewXAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$module = "VialidadSuppliers";
+		$module = "Vialidad";
 		$smarty->assign("module",$module);
+		$section = "Suppliers";
+		$smarty->assign("section",$section);
 
 		$id = $_GET["id"];
 
-		$affiliate = AffiliatePeer::get($id);
-		$smarty->assign("affiliate",$affiliate);
+		$supplier = SupplierPeer::get($id);
+		$smarty->assign("supplier",$supplier);
 
 		return $mapping->findForwardConfig('success');
 	}

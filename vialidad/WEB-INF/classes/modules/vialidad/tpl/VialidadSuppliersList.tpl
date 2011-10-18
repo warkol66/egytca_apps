@@ -38,29 +38,29 @@
 	|-if "vialidadSuppliersEdit"|security_has_access-|<tr>
 		<th colspan="3"><div class="rightLink"><a href="Main.php?do=vialidadSuppliersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Proveedor</a></div></th>
 	</tr>|-/if-|
-	|-foreach from=$vialidadSuppliers item=affiliate name=for_affiliate-|
+	|-foreach from=$suppliers item=supplier name=for_supplier-|
 	<tr>
-		<td width="5%">|-$affiliate->getId()-|</td>
-		<td width="85%">|-$affiliate->getName()-|</td>
+		<td width="5%">|-$supplier->getId()-|</td>
+		<td width="85%">|-$supplier->getName()-|</td>
 		<td width="10%" nowrap>|-if "vialidadSuppliersViewX"|security_has_access-|
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="vialidadSuppliersViewX" />
-						<input type="hidden" name="id" value="|-$affiliate->getId()-|" />
-						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("vialidadSuppliersViewDiv", "Main.php?do=vialidadSuppliersViewX&id=|-$affiliate->getId()-|", { method: "post", parameters: { id: "|-$affiliate->getId()-|"}, evalScripts: true})};$("vialidadSuppliersViewWorking").innerHTML = "<span class=\"inProgress\">buscando información...</span>";' value="Ver detalle" name="submit_go_show_project" /></a>
+						<input type="hidden" name="id" value="|-$supplier->getId()-|" />
+						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("vialidadSuppliersViewDiv", "Main.php?do=vialidadSuppliersViewX&id=|-$supplier->getId()-|", { method: "post", parameters: { id: "|-$supplier->getId()-|"}, evalScripts: true})};$("vialidadSuppliersViewWorking").innerHTML = "<span class=\"inProgress\">buscando información...</span>";' value="Ver detalle" name="submit_go_show_project" /></a>
 					</form>|-/if-|
 			|-if "vialidadSuppliersEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="vialidadSuppliersEdit" /> 
-			  <input type="hidden" name="id" value="|-$affiliate->getId()-|" /> 
+			  <input type="hidden" name="id" value="|-$supplier->getId()-|" /> 
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 					|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-			  <input type="submit" name="submit_go_edit_affiliate" value="Editar" class="icon iconEdit" /> 
+			  <input type="submit" name="submit_go_edit_supplier" value="Editar" class="icon iconEdit" /> 
 			</form>|-/if-|
 			|-if "vialidadSuppliersDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;"> 
 			  <input type="hidden" name="do" value="vialidadSuppliersDoDelete" /> 
-			  <input type="hidden" name="id" value="|-$affiliate->getId()-|" /> 
+			  <input type="hidden" name="id" value="|-$supplier->getId()-|" /> 
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 					|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-			  <input type="submit" name="submit_go_delete_affiliate" value="Borrar" onclick="return confirm('Seguro que desea eliminar el Proveedor?')" class="icon iconDelete" /> 
+			  <input type="submit" name="submit_go_delete_supplier" value="Borrar" onclick="return confirm('Seguro que desea eliminar el Proveedor?')" class="icon iconDelete" /> 
 			</form>|-/if-|
     </td>
 	</tr>
