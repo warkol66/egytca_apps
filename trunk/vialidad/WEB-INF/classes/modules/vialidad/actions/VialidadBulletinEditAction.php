@@ -32,7 +32,34 @@ class VialidadBulletinEditAction extends BaseAction {
 
 			$smarty->assign("bulletin",$bulletin);
 			$smarty->assign("action","edit");
+			
+			$supplies = SupplyQuery::create()->find();
+		
+			$suppliesArray = array();
+			foreach ($supplies as $supply) {
+				array_push($suppliesArray, $supply);
+			}
 
+			// Si un supply se elimino, destruyo su priceBulletin
+			foreach ($bulletin->getPriceBulletins() as $priceBulletin) {
+				if(!in_array($priceBulletin->getSupply(), $suppliesArray))
+					PriceBulletinPeer::delete($priceBulletin);
+			}
+			
+			// Si un supply se agrego, creo su priceBulletin
+			foreach ($supplies as $supply) {
+				if (!$bulletin->hasSupply($supply)) {
+					$bulletin->addSupply($supply);
+					if (!$bulletin->save()) {
+						throw new Exception("Couldn't save bulletin");
+					}
+				}
+			}
+			
+			$prices = PriceBulletinQuery::create()->filterByBulletin($bulletin)->find();
+			
+			$smarty->assign("prices", $prices);
+			
 		} else {
 			//voy a crear un objeto nuevo
 			$bulletin = new Bulletin();
@@ -40,32 +67,6 @@ class VialidadBulletinEditAction extends BaseAction {
 			$smarty->assign("action","create");
 		}
 
-		$supplies = SupplyQuery::create()->find();
-		
-		$suppliesArray = array();
-		foreach ($supplies as $supply) {
-			array_push($suppliesArray, $supply);
-		}
-
-		// Si un supply se elimino, destruyo su priceBulletin
-		foreach ($bulletin->getPriceBulletins() as $priceBulletin) {
-			if(!in_array($priceBulletin->getSupply(), $suppliesArray))
-				PriceBulletinPeer::delete($priceBulletin);
-		}
-		
-		// Si un supply se agrego, creo su priceBulletin
-		foreach ($supplies as $supply) {
-			if (!$bulletin->hasSupply($supply)) {
-				$bulletin->addSupply($supply);
-				if (!$bulletin->save()) {
-					throw new Exception("Couldn't save bulletin");
-				}
-			}
-		}
-		
-		$prices = PriceBulletinQuery::create()->filterByBulletin($bulletin)->find();
-		
-		$smarty->assign("prices", $prices);
 		$smarty->assign("filters",$_GET["filters"]);
 		$smarty->assign("page",$_GET["page"]);
 		$smarty->assign("message",$_GET["message"]);

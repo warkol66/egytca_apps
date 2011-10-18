@@ -26,6 +26,7 @@
 		</fieldset>
 	</form>
 	
+	|-if $prices neq ''-|
 	<div id=div_supplies>
 	<table id="table_supplies" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead>
@@ -58,6 +59,7 @@
 		</tbody>
 	</table>
 	</div>
+	|-/if-|
 </div>
 
 <script type="text/javascript">
