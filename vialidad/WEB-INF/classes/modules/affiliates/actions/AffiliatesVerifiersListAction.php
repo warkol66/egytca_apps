@@ -21,7 +21,7 @@ class AffiliatesVerifiersListAction extends BaseAction {
 
   	$smarty->assign("message",$_GET["message"]);
 		
-		$affiliatePeer = new VerifierPeer;
+		$affiliatePeer = new AffiliatePeer;
 		$filters = $_GET["filters"];
 		$this->applyFilters($affiliatePeer, $filters, $smarty);
 
