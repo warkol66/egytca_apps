@@ -11,10 +11,12 @@
 <h2>Proveedores</h2>
 	<h1>Administración de Proveedores</h1>
 	<p>A continuación podrá editar la lista de Proveedores del sistema.</p>
-|-if $message eq "deleted"-|
+|-if $message eq "ok"-|
+	<div  class="successMessage">Proveedor guardado correctamente</div>
+|-elseif $message eq "deleted_ok"-|
 	<div  class="successMessage">Proveedor eliminado</div>
-|-elseif $message eq "errorUpdate"-|
-	<div  class="errorMessage">Ha ocurrido un error al intentar guardar la información. Intente nuevamente.</div>
+|-elseif $message eq "not_deleted"-|
+	<div  class="errorMessage">Ha ocurrido un error al intentar eliminar el proveedor.</div>
 |-elseif $message eq "saved"-|
 	<div  class="successMessage">Grupo de Usuarios guardado</div>
 |-elseif $message eq "edited"-|
