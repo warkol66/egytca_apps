@@ -44,6 +44,21 @@ class ConfigModule {
 				"Pdf" => "pdf",
 				"Images" => "jpeg,jpg,png,gif"
 				)
+		),
+		"vialidad" => array(
+			"units" => array(
+				"m" => "metro",
+				"m2" => "metro cuadrado",
+				"m3" => "metro cúbico",
+				"Kg" => "Kilogramo",
+				"T" => "Tonelada",
+				"l" => "litro",
+				"a" => "área",
+				"Ha" => "Hectárea",
+				"u" => "unidad",
+				"Km" => "Kilómetro",
+				"Km2" => "Kilómetro cuadrado"
+			)
 		)
 	);
 
