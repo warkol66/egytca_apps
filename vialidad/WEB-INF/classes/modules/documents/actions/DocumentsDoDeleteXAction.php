@@ -36,30 +36,38 @@ class DocumentsDoDeleteXAction extends BaseAction {
 		$password = $_POST['password'];
 
 		//validacion de password
-		if (!$document->checkPasswordValidation($password)) {
+		if (!$document->checkPassword($password)) {
 			$smarty->assign("errormessage", "wrongPasswordComparison");
 			return $mapping->findForwardConfig("failure");
 		}
 		else {
 			if (!empty($_POST['entity'])) {
 				$queryClassName = $_POST['entity'] . 'DocumentQuery';
-				if (class_exists($queryClassName)) {
-					$methodName = 'findOneByDocumentIdAnd' . $_POST['entity'] . 'Id';
-					try{
+				try {
+					if (class_exists($queryClassName)) {
 						$queryInstance = new $queryClassName;
+						$methodName = 'findOneByDocumentIdAnd' . $_POST['entity'] . 'Id';
 						$queryInstance->$methodName($_POST["id"], $_POST['entityId'])->delete();
-					} catch(Exception $e) {
+					} else {
+						$queryInstance = new DocumentRelatedEntityQuery();
+						$methodName = 'findOneByArray(array('.
+							'"documentId" => $_POST["id"]'.
+							'"entityId" => $_POST["entityId""]'.
+							'"entityType => $_POST["entity"]'.
+						'))';
+						$queryInstance->$methodName()->delete();
+					}
+				} catch(Exception $e) {
+					$smarty->assign("errormessage", "errorFound");
+					return $mapping->findForwardConfig("failure");
+				}
+				
+				//si el documento no tiene mas referencias cruzadas lo elimino.
+				$queryInstance = new $queryClassName;
+				if ($queryInstance->filterByDocumentId($_POST["id"])->count() <= 0) {
+					if (!$documentPeer->delete($_POST["id"])) {
 						$smarty->assign("errormessage", "errorFound");
 						return $mapping->findForwardConfig("failure");
-					}
-
-					//si el documento no tiene mas referencias cruzadas lo elimino.
-					$queryInstance = new $queryClassName;
-					if ($queryInstance->filterByDocumentId($_POST["id"])->count() <= 0) {
-						if (!$documentPeer->delete($_POST["id"])) {
-							$smarty->assign("errormessage", "errorFound");
-							return $mapping->findForwardConfig("failure");
-						}
 					}
 				}
 			}
