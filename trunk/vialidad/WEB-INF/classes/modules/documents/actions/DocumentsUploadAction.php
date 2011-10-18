@@ -77,6 +77,22 @@ class DocumentsUploadAction extends BaseAction {
 						$smarty->assign('document', $document);
 						return $mapping->findForwardConfig('success');
 					}
+				}  else {
+					if (!empty($_POST['entityId'])) {
+						$relatedEntity = new DocumentRelatedEntity();
+						$relatedEntity->fromArray(array(
+							'entityId' => $_POST['entityId'],
+							'entityType' => $_POST['entity'],
+							'documentId' => $document->getId()
+						));
+						$document->addDocumentRelatedEntity($relatedEntity);
+						$document->save();
+						$smarty->assign('message', 'successUpload');
+						$smarty->assign('entity', $_POST['entity']);
+						$smarty->assign('entityId', $_POST['entityId']);
+						$smarty->assign('document', $document);
+						return $mapping->findForwardConfig('success');
+					}
 				}
 				$smarty->assign('message','errorRelation');
 				return $mapping->findForwardConfig('failure');
