@@ -56,7 +56,7 @@
 	<!-- Load our PlugIn class here (case sensetive class name)					     -->
 	<!-- Note: The attribute names must match the class methods					     -->
 	<!-- Eg: 'key' maps to 'setKey(..)'															         -->
-	<plug-in className="SmartyPlugInDriver"
+	<plug-in className="SmartyMLPlugInDriver"
 								 key="SMARTY_PLUGIN">
 		<!-- And set some custom propertied on the PlugIn class					       -->
 		<!-- Note: The property name must match the class variable name exactly -->
