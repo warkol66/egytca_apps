@@ -34,17 +34,6 @@ class VialidadBulletinEditAction extends BaseAction {
 			$smarty->assign("action","edit");
 			
 			$supplies = SupplyQuery::create()->find();
-		
-			$suppliesArray = array();
-			foreach ($supplies as $supply) {
-				array_push($suppliesArray, $supply);
-			}
-
-			// Si un supply se elimino, destruyo su priceBulletin
-			foreach ($bulletin->getPriceBulletins() as $priceBulletin) {
-				if(!in_array($priceBulletin->getSupply(), $suppliesArray))
-					PriceBulletinPeer::delete($priceBulletin);
-			}
 			
 			// Si un supply se agrego, creo su priceBulletin
 			foreach ($supplies as $supply) {
