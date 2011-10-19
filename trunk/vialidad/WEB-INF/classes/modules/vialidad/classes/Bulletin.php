@@ -26,7 +26,20 @@ class Bulletin extends BaseBulletin {
 	}
 	
 	public function getPriceBulletin($supplyid) {
-		return PriceBulletinPeer::retrieveByPK($this->getId(), $supplyid);
+		return PriceBulletinQuery::create()->filterByBulletinid($this->getId())
+			->filterBySupplyid($supplyid)->findOne();
+	}
+	
+	/**
+	 * Asocia un Supply al Bulletin
+	 * 
+	 * @param Supply $supply Supply a asociar.
+	 */
+	public function addSupply($supply) {
+		$priceBulletin = new PriceBulletin();
+		$priceBulletin->setBulletin($this);
+		$priceBulletin->setSupply($supply);
+		$priceBulletin->setDefinitive(false);
 	}
 	
 } // Bulletin

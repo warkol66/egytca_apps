@@ -27,7 +27,7 @@
 
 	<table phpName="PriceBulletin" name="vialidad_priceBulletin">
 
-		<column name="id"         type="INTEGER" required="true" primaryKey="true" />
+		<column name="id"         type="INTEGER" required="true" primaryKey="true" autoIncrement="true" />
 		<column name="bulletinId" type="INTEGER" required="true" />
 		<column name="supplyId"   type="INTEGER" required="true" />
 		<column name="averagePrice" type="DECIMAL" size="12" scale="2" description="Precio provisorio" />
@@ -48,11 +48,11 @@
 		<column name="definitive3" type="BOOLEAN" description="Indica si el precio es definitivo o no, proveedor 3" />
 		<column name="supplierDocument3" type="INTEGER" description="Documento respaldatorio, proveedor 3" />
 
-		<foreign-key foreignTable="vialidad_bulletin" >
+		<foreign-key foreignTable="vialidad_bulletin" onDelete="cascade" >
 			<reference local="bulletinId" foreign="id" />
 		</foreign-key>
 
-		<foreign-key foreignTable="vialidad_supply" >
+		<foreign-key foreignTable="vialidad_supply" onDelete="cascade" >
 			<reference local="supplyId" foreign="id" />
 		</foreign-key>
 

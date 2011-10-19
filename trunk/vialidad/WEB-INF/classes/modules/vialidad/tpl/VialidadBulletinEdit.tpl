@@ -32,8 +32,9 @@
 		<thead>
 		<tr class="thFillTitle"> 
 			<th width="50%">Insumo</th> 
-			<th width="25%">Precio Preliminar</th> 
-			<th width="25%">Precio Definitivo</th> 
+			<th width="35%">Precio</th> 
+			<th width="10%">Definitivo</th>
+			<th width="5%">&nbsp;</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -46,12 +47,22 @@
 		<tr>
 			|-assign var=supply value=$price->getSupply()-|
 			<td>|-$supply->getName()-|</td>
-			<td align="right">|-if "vialidadSupplyEdit"|security_has_access-|
-			<span id="price_preliminary_|-$supply->getId()-|" class="in_place_editable">|-if $price->getPreliminaryPrice() neq ''-||-$price->getPreliminaryPrice()|system_numeric_format-||-else-|-|-/if-|</span>|-else-||-if $price->getPreliminaryPrice() neq ''-||-$price->getPreliminaryPrice()|system_numeric_format-||-else-|-|-/if-||-/if-|
-			</td>
 			<td align="right">
-				|-if "vialidadSupplyEdit"|security_has_access-|
-				<span id="price_definitive_|-$supply->getId()-|" class="in_place_editable">|-if $price->getDefinitivePrice() neq ''-||-$price->getDefinitivePrice()|system_numeric_format-||-else-|-|-/if-|</span>|-else-||-if $price->getDefinitivePrice() neq ''-||-$price->getDefinitivePrice()|system_numeric_format-||-else-|-|-/if-||-/if-|
+				|-if $price->getAveragePrice() neq ''-|
+				|-$price->getAveragePrice()|system_numeric_format-|
+				|-else-|
+				-
+				|-/if-|
+			</td>
+			<td align="center">
+				|-if $price->getDefinitive() eq 'true'-|
+				si
+				|-else-|
+				no
+				|-/if-|
+			</td>
+			<td align="center" >
+				<a href='#'>Editar</a>
 			</td>
 		</tr>
 		|-/foreach-|
@@ -61,62 +72,3 @@
 	</div>
 	|-/if-|
 </div>
-
-<script type="text/javascript">
-Ajax.InPlaceEditor.prototype.__enterEditMode = Ajax.InPlaceEditor.prototype.enterEditMode;
-Object.extend(Ajax.InPlaceEditor.prototype, {
-	enterEditMode:function(e) {
-		this.__enterEditMode(e);
-		this.triggerCallback('onFormReady',this._form);
-	}
-});
-
-function attachInPlaceEditors(priceType) {
-|-foreach from=$prices item=price name=for_prices_ajax-|
-	|-assign var=supply value=$price->getSupply()-|
-	new Ajax.InPlaceEditor(
-		'price_'+priceType+'_|-$supply->getId()-|',
-		'Main.php?do=vialidadPriceDoEditFieldX',
-		{
-			rows: 1,
-			okText: 'Guardar',
-			cancelText: 'Cancelar',
-			savingText: 'Guardando...',
-			hoverClassName: 'in_place_hover',
-			highlightColor: '#b7e0ff',
-			cancelControl: 'button',
-			savingClassName: 'inProgress',
-			clickToEditText: 'Haga click para editar',
-			callback: function(form, value) {
-				return 'bulletinId=|-$bulletin->getId()-|&supplyId=|-$supply->getId()-|&paramName='+priceType+'Price&paramValue=' + encodeURIComponent(value);
-			},
-			onComplete: function(transport, element) {
-				clean_text_content_from(element);
-				new Effect.Highlight(element, { startcolor: this.options.highlightColor });
-			},
-			onFormReady: function(obj,form) {
-				form.insert({ top: new Element('label').update('Precio: ') });
-			}
-		}
-	);
-|-/foreach-|
-}
-
-window.onload = function() {
-	attachInPlaceEditors('preliminary');
-	attachInPlaceEditors('definitive');
-}
-
-function showInput(to_show, to_hide) {
-	$(to_show).show();
-	$(to_hide).hide();
-}
-
-function chomp(raw_text) {
-	return raw_text.replace(/(\n|\r)+$/, '');
-}
-
-function clean_text_content_from(element) {
-	element.innerHTML = chomp(element.innerHTML);
-}
-</script>
