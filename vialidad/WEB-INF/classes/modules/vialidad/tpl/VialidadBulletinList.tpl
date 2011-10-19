@@ -71,18 +71,6 @@
 					<input type="hidden" name="id" value="|-$bulletin->getid()-|" />
 					<input type="submit" name="submit_go_delete_vialidad_bulletin" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar el Boletín?')" class="icon iconDelete" />
 				</form>
-				|-if isset($loginUser) && $loginUser->isSupervisor()-|
-				<form action="Main.php" method="post">
-					<input type="hidden" name="do" value="vialidadBulletinDoDelete" />
-					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-					|-if isset($pager) && ($pager->getPage() ne 1)-|
-					<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />
-					|-/if-|
-					<input type="hidden" name="id" value="|-$bulletin->getid()-|" />
-					<input type="hidden" name="doHardDelete" value="true" /> 
-					<input type="submit" name="submit_go_delete_vialidad_bulletin" value="Borrar" title="Eliminar completamente" onclick="return confirm('Seguro que desea eliminar el Boletín definitivamente?')" class="icon iconHardDelete" /> 
-				</form>
-				|-/if-|
 				|-/if-|
 			</td>
 		</tr> 
