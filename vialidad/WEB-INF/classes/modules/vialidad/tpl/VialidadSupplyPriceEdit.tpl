@@ -12,85 +12,61 @@
 	<legend>|-$supply->getName()-|</legend>
 	<form action="Main.php?do=vialidadSupplyPriceDoEdit" method="post" enctype="multipart/form-data">
 	<p>Ingrese el precio en cada proveedor y haga click en &quot;Guardar&quot; </p>
-	
-	<p>Precio 1 </p>
-	<p>
-		<div id="supplier1" style="position: relative;z-index:10000;">
-		|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_supplier1" label="Proveedor"
-			url="Main.php?do=vialidadSuppliersAutocompleteListX" hiddenName="params[supplierId1]" disableSubmit="save" -|
-		</div>
-	</p>
-	<p>
-		<label for="params[price1]">Precio</label>
-		<input name="params[price1]" type="text" size="15" value="|-$priceBulletin->getPrice1()-|" />
-	</p>
-	<p>
-		<!-- name no debe ser params[file1] porque los datos del priceBulletin se modifican con el array $_POST["params"] -->
-		<label for="file1">Respaldo</label>
-		<input type="file" name="file1" />		
-	</p>
-	<p>
+<table class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
+	<tr>
+		<th>Precio</th>
+		<th>Proveedor</th>
+		<th>Precio</th>
+		<th>&nbsp;</th>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td><div id="supplier1" style="position: relative;z-index:12000;">|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_supplier1" label="" url="Main.php?do=vialidadSuppliersAutocompleteListX" hiddenName="params[supplierId1]" disableSubmit="save"-|		</div></td>
+		<td><input name="params[price1]" type="text" size="15" value="|-$priceBulletin->getPrice1()-|" /></td>
+		<td><!-- name no debe ser params[file1] porque los datos del priceBulletin se modifican con el array $_POST["params"] -->
+		<label for="file1">Respaldo</label><input type="file" name="file1" />		
 		<label for="params[definitive1]">Definitivo</label>
-		<input name="params[definitive1]" type="checkbox" value="1"
-		       |-if $priceBulletin->getDefinitive1() eq true-|checked="checked"|-/if-|/> 
-	</p>
-	
-	<p>Precio 2 </p>
-	<p>
-		<label for="params[supplierId2]">Proveedor</label>
-		<input name="params[supplierId2]" type="text" size="50"
-			|-if $priceBulletin->getSupplierId2() neq 0-|value="|-$priceBulletin->getSupplierId2()-|"
-			|-else-|value=""|-/if-|
-		/>
-	</p>
-	<p>
-		<label for="params[price2]">Precio</label>
-		<input name="params[price2]" type="text" size="15" value="|-$priceBulletin->getPrice2()-|" />
-	</p>
-	<p>
-		<!-- name no debe ser params[file2] porque los datos del priceBulletin se modifican con el array $_POST["params"] -->
-		<label for="file2">Respaldo</label>
-		<input type="file" name="file2" />		
-	</p>
-	<p>
+		<input name="params[definitive1]" type="checkbox" value="1" |-$priceBulletin->getDefinitive1()|checked-| /></td>
+	</tr>
+	<tr>
+		<td> 2</td>
+		<td><div id="supplier2" style="position: relative;z-index:11000;">
+		|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_supplier2" label="" url="Main.php?do=vialidadSuppliersAutocompleteListX" hiddenName="params[supplierId2]" disableSubmit="save" -|
+		</div></td>
+		<td><input name="params[price2]" type="text" size="15" value="|-$priceBulletin->getPrice2()-|" /></td>
+		<td><!-- name no debe ser params[file2] porque los datos del priceBulletin se modifican con el array $_POST["params"] -->
+		<label for="file2">Respaldo</label><input type="file" name="file2" />		
 		<label for="params[definitive2]">Definitivo</label>
-		<input name="params[definitive2]" type="checkbox" value="1"
-		       |-if $priceBulletin->getDefinitive2() eq true-|checked="checked"|-/if-|/> 
-	</p>
-	
-	<p>Precio 3 </p>
-	<p>
-		<label for="params[supplierId3]">Proveedor</label>
-		<input name="params[supplierId3]" type="text" size="50"
-			|-if $priceBulletin->getSupplierId3() neq 0-|value="|-$priceBulletin->getSupplierId3()-|"
-			|-else-|value=""|-/if-|
-		/>
-	</p>
-	<p>
-		<label for="params[price3]">Precio</label>
-		<input name="params[price3]" type="text" size="15" value="|-$priceBulletin->getPrice3()-|" />
-	</p>
-	<p>
-		<!-- name no debe ser params[file3] porque los datos del priceBulletin se modifican con el array $_POST["params"] -->
-		<label for="file3">Respaldo</label>
-		<input type="file" name="file3" />		
-	</p>
-	<p>
+		<input name="params[definitive2]" type="checkbox" value="1" |-$priceBulletin->getDefinitive2()|checked-| /></td>
+	</tr>
+	<tr>
+		<td> 3</td>
+		<td><div id="supplier3" style="position: relative;z-index:10000;">
+		|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_supplier3" label="" url="Main.php?do=vialidadSuppliersAutocompleteListX" hiddenName="params[supplierId3]" disableSubmit="save" -|
+		</div></td>
+		<td><input name="params[price3]" type="text" size="15" value="|-$priceBulletin->getPrice3()-|" /></td>
+		<td><!-- name no debe ser params[file3] porque los datos del priceBulletin se modifican con el array $_POST["params"] -->
+		<label for="file3">Respaldo</label><input type="file" name="file3" />		
 		<label for="params[definitive3]">Definitivo</label>
-		<input name="params[definitive3]" type="checkbox" value="1"
-		       |-if $priceBulletin->getDefinitive3() eq true-|checked="checked"|-/if-|/> 
-	</p>
+		<input name="params[definitive3]" type="checkbox" value="1" |-$priceBulletin->getDefinitive3()|checked-| /></td>
+	</tr>
+	</table>
 	
+
+
 	<h3>Precio del boletín</h3>
 	<p>
-		<label for="params[averagePrice]">Precio</label>
-		<input name="params[averagePrice]" disabled="disabled" type="text" value="Calculado como promedio de los valores 1, 2 y 3" size="15" /> 
+		<input name="button" type='button' title="Calcular precio" onClick=''  value='Calcular precio' />
 	</p>
+	<p>
+		  <label for="params[averagePrice]">Precio</label>
+	  <input name="params[averagePrice]" disabled="disabled" type="text" value="Calculado como promedio de los valores 1, 2 y 3" size="15" /> 
+	  </p>
 	<p>
 		<!-- si es admin debe poder marcarlo como definitivo -->
 		<label for="params[definitive]">Definitivo</label>
 		<input name="params[definitive]" type="checkbox" value="1" disabled="disabled"
-		       |-if $priceBulletin->getDefinitive() eq true-|checked="checked"|-/if-|/> 
+		       |-$priceBulletin->getDefinitive()|checked-|/> 
 	</p>
 	<p>
 		<input name="save" id="save" type="submit" value="Guardar Cambios" /> 
