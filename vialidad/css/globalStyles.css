@@ -597,3 +597,11 @@ a.textLink:hover {
 }
 a.textLink:visited, a.textLink:active{
 }
+
+fieldset .tableTdBorders p {
+	width: auto !Important;
+}
+fieldset .tableTdBorders label {
+	margin-left: 0 !Important;
+	width: auto !Important;
+}

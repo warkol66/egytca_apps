@@ -17,16 +17,17 @@
 		<th>Precio</th>
 		<th>Proveedor</th>
 		<th>Precio</th>
-		<th>&nbsp;</th>
+		<th>Respaldo</th>
+	<th>Definitivo</th>
 	</tr>
 	<tr>
 		<td>1</td>
 		<td><div id="supplier1" style="position: relative;z-index:12000;">|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_supplier1" label="" url="Main.php?do=vialidadSuppliersAutocompleteListX" hiddenName="params[supplierId1]" disableSubmit="save"-|		</div></td>
 		<td><input name="params[price1]" type="text" size="15" value="|-$priceBulletin->getPrice1()-|" /></td>
 		<td><!-- name no debe ser params[file1] porque los datos del priceBulletin se modifican con el array $_POST["params"] -->
-		<label for="file1">Respaldo</label><input type="file" name="file1" />		
-		<label for="params[definitive1]">Definitivo</label>
-		<input name="params[definitive1]" type="checkbox" value="1" |-$priceBulletin->getDefinitive1()|checked-| /></td>
+		<input type="file" name="file1" />		
+		</td>
+	<td><input name="params[definitive1]" type="checkbox" value="1" |-$priceBulletin->getDefinitive1()|checked-| /></td>
 	</tr>
 	<tr>
 		<td> 2</td>
@@ -35,9 +36,9 @@
 		</div></td>
 		<td><input name="params[price2]" type="text" size="15" value="|-$priceBulletin->getPrice2()-|" /></td>
 		<td><!-- name no debe ser params[file2] porque los datos del priceBulletin se modifican con el array $_POST["params"] -->
-		<label for="file2">Respaldo</label><input type="file" name="file2" />		
-		<label for="params[definitive2]">Definitivo</label>
-		<input name="params[definitive2]" type="checkbox" value="1" |-$priceBulletin->getDefinitive2()|checked-| /></td>
+		<input type="file" name="file2" />		
+		</td>
+	<td><input name="params[definitive2]" type="checkbox" value="1" |-$priceBulletin->getDefinitive2()|checked-| /></td>
 	</tr>
 	<tr>
 		<td> 3</td>
@@ -46,9 +47,9 @@
 		</div></td>
 		<td><input name="params[price3]" type="text" size="15" value="|-$priceBulletin->getPrice3()-|" /></td>
 		<td><!-- name no debe ser params[file3] porque los datos del priceBulletin se modifican con el array $_POST["params"] -->
-		<label for="file3">Respaldo</label><input type="file" name="file3" />		
-		<label for="params[definitive3]">Definitivo</label>
-		<input name="params[definitive3]" type="checkbox" value="1" |-$priceBulletin->getDefinitive3()|checked-| /></td>
+		<input type="file" name="file3" />		
+		</td>
+	<td><input name="params[definitive3]" type="checkbox" value="1" |-$priceBulletin->getDefinitive3()|checked-| /></td>
 	</tr>
 	</table>
 	
