@@ -63,6 +63,17 @@ class SupplierPeer extends BaseSupplierPeer {
 		$supplier = SupplierQuery::create()->findPk($id);
 		return $supplier;
 	}
+	
+	/**
+	 * Obtiene todos los supplier existentes filtrados por la condicion
+	 * $this->getSearchCriteria()
+	 * 
+	 * @return PropelObjectCollection Todos los headlines
+	 */
+	function getAll() {
+		$criteria = $this->getSearchCriteria();
+		return SupplierPeer::doSelect($criteria);
+	}
 
 	/**
 	 * Retorna el criteria generado a partir de los parametros de busqueda
