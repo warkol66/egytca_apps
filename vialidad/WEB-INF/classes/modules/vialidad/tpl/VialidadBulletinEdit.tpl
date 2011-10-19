@@ -62,7 +62,7 @@
 				|-/if-|
 			</td>
 			<td align="center" >
-				<a href='#'>Editar</a>
+				<a href='Main.php?do=vialidadSupplyPriceEdit&amp;bulletinId=|-$bulletin->getId()-|&amp;supplyId=|-$supply->getId()-|'>Editar</a>
 			</td>
 		</tr>
 		|-/foreach-|
