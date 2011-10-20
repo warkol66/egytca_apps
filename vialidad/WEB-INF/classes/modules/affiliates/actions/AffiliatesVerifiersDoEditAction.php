@@ -24,7 +24,7 @@ class AffiliatesVerifiersDoEditAction extends BaseAction {
 
 		if ($_POST["action"] == "edit" && !empty($_POST["id"])) {
 			$params["id"] = $_POST["id"];
-			$affiliate = AffiliatePeer::get($_POST["id"]);
+			$affiliate = VerifierQuery::create()->findPk($_POST["id"]);
 			if (!empty($affiliate)) {
 				$affiliate = Common::setObjectFromParams($affiliate,$_POST["params"]);
 
@@ -36,7 +36,7 @@ class AffiliatesVerifiersDoEditAction extends BaseAction {
 			}
 		}
 		else {
-			$affiliate = new Affiliate();
+			$affiliate = new Verifier();
 			$affiliate = Common::setObjectFromParams($affiliate,$_POST["params"]);
 
 			if (!$affiliate->validate()) {

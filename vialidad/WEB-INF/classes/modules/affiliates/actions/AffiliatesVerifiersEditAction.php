@@ -23,7 +23,7 @@ class AffiliatesVerifiersEditAction extends BaseAction {
 		$smarty->assign("filters",$filters);
 
 		if ($_GET['id']) {
-			$affiliate =  VerifierPeer::get($_GET['id']);
+			$affiliate =  VerifierQuery::create()->findPk($_GET['id']);
 			if (empty($affiliate)) {
 				$smarty->assign("notValidId","true");
 				$affiliate = new Verifier();

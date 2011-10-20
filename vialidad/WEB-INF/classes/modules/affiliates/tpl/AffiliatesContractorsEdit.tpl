@@ -1,13 +1,13 @@
-<h2>##affiliates,1,Afiliados##</h2>
-	<h1>Administración de ##affiliates,1,Afiliados## - |-if $action eq 'create'-|Crear|-else-|Editar|-/if-| ##affiliates,3,Afiliado##</h1>
+<h2>Contratistas</h2>
+	<h1>Administración de Contratistas - |-if $action eq 'create'-|Crear|-else-|Editar|-/if-| Contratista</h1>
 |-if $action eq 'create'-|	
-	<p>A continuación podrá ingresar los datos para crear el ##affiliates,3,Afiliado##.</p>
+	<p>A continuación podrá ingresar los datos para crear el Contratista.</p>
 |-else-|		
-	<p>A continuación podrá editar los datos del ##affiliates,3,Afiliado##.</p>
+	<p>A continuación podrá editar los datos del Contratista.</p>
 |-/if-|
 |-if !$notValidId-|	
 	<fieldset title="Formulario de edición de nombre del Afiliado">
-		<legend>##affiliates,1,Afiliados##</legend>
+		<legend>Contratistas</legend>
 		<p>Realice los cambios y para guardar haga click en "Guardar Cambios"</p>
 			<form method="post" action="Main.php?do=affiliatesContractorsDoEdit">
 			<input type="hidden" value="|-$action-|" name="action">
@@ -44,11 +44,11 @@
 				<textarea name="params[memo]" cols="45" rows="6" wrap="VIRTUAL">|-$affiliate->getMemo()|escape-|</textarea>
 			</p>
 		 <p><input name="save" type="submit" value="Guardar Cambios"> 
-				<input type="button" onClick='location.href="Main.php?do=affiliatesContractorsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de ##affiliates,1,Afiliados##"/>
+				<input type="button" onClick='location.href="Main.php?do=affiliatesContractorsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Contratistas"/>
 			 </p>
 		</form>
 	</fieldset>
 |-else-|
-<div class="errorMessage">El identificador del afiliado ingresado no es válido. Seleccione un afiliado de la lista.</div>
-				<input type='button' onClick='location.href="Main.php?do=affiliatesContractorsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de ##affiliates,1,Afiliados##"/>
+<div class="errorMessage">El identificador del contratista ingresado no es válido. Seleccione un contratista de la lista.</div>
+				<input type='button' onClick='location.href="Main.php?do=affiliatesContractorsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Contratistas"/>
 |-/if-|
