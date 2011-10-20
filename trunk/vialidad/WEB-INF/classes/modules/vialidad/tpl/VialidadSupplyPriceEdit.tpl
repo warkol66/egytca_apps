@@ -38,9 +38,14 @@
 		<td align="center"><input id="definitive1" onchange="setParam('definitive1', this.checked);updateDefinitive();" type="checkbox" value="1" |-$priceBulletin->getDefinitive1()|checked_bool-| /></td>
 		<!-- <td><input type="file" name="file1" /></td> -->
 		<td align="center">
-			<button id="button_attach_supplier1" onclick="showAttachForm(1)" type="button" class="icon iconAttach" />
-			<button id="button_view_supplier1" style="display:none" onclick="viewDocument(1)" type="button" class="icon iconView" />
-			<button id="button_delete_supplier1" style="display:none" onclick="deleteDocument(1)" type="button" class="icon iconDelete" />
+			<a id="button_attach_supplier1" |-if $document1 neq ''-|style="display:none"|-/if-| href="#lightbox1" rel="lightbox1" class="lbOn" ><img src="images/icon_add.png" /></a>
+			<input id="button_view_supplier1" |-if $document1 eq ''-|style="display:none"|-/if-| onclick="viewDocument(1)" type="button" class="icon iconView" />
+			<form action="Main.php?do=documentsDoDelete" method="post">
+				<input type="hidden" name="id" value="|-$priceBulletin->getSupplierDocument1()-|" />
+				<input type="hidden" name="entityId" value="|-$priceBulletin->getId()|cat:1-|" />
+				<input type="hidden" name="entity" value="SupplierPrice" />
+				<input type="submit" |-if $document1 eq ''-|style="display:none"|-/if-| class="icon iconDelete" />
+			</form>
 		</td>
 	</tr>
 	<tr>
@@ -61,9 +66,14 @@
 		<td align="center"><input id="definitive2" onchange="setParam('definitive2', this.checked);updateDefinitive();" type="checkbox" value="1" |-$priceBulletin->getDefinitive2()|checked_bool-| /></td>
 		<!-- <td><input type="file" name="file2" /></td> -->
 		<td align="center">
-			<button id="button_attach_supplier2" onclick="showAttachForm(2)" type="button" class="icon iconAttach" />
-			<button id="button_view_supplier2" style="display:none" onclick="viewDocument(2)" type="button" class="icon iconView" />
-			<button id="button_delete_supplier2" style="display:none" onclick="deleteDocument(2)" type="button" class="icon iconDelete" />
+			<a id="button_attach_supplier2" |-if $document2 neq ''-|style="display:none"|-/if-| href="#lightbox2" rel="lightbox2" class="lbOn" ><img src="images/icon_add.png" /></a>
+			<input id="button_view_supplier2" |-if $document2 eq ''-|style="display:none"|-/if-| onclick="viewDocument(2)" type="button" class="icon iconView" />
+			<form action="Main.php?do=documentsDoDelete" method="post">
+				<input type="hidden" name="id" value="|-$priceBulletin->getSupplierDocument2()-|" />
+				<input type="hidden" name="entityId" value="|-$priceBulletin->getId()|cat:2-|" />
+				<input type="hidden" name="entity" value="SupplierPrice" />
+				<input type="submit" |-if $document2 eq ''-|style="display:none"|-/if-| class="icon iconDelete" />
+			</form>
 		</td>
 	</tr>
 	<tr>
@@ -84,9 +94,14 @@
 		<td align="center"><input id="definitive3" onchange="setParam('definitive3', this.checked);updateDefinitive();" type="checkbox" value="1" |-$priceBulletin->getDefinitive3()|checked_bool-| /></td>
 		<!-- <td><input type="file" name="file3" /></td> -->
 		<td align="center">
-			<button id="button_attach_supplier3" onclick="showAttachForm(3)" type="button" class="icon iconAttach" />
-			<button id="button_view_supplier3" style="display:none" onclick="viewDocument(3)" type="button" class="icon iconView" />
-			<button id="button_delete_supplier3" style="display:none" onclick="deleteDocument(3)" type="button" class="icon iconDelete" />
+			<a |-if $document3 neq ''-|style="display:none"|-/if-| href="#lightbox3" rel="lightbox3" class="lbOn" ><img src="images/icon_add.png" /></a>
+			<input |-if $document3 eq ''-|style="display:none"|-/if-| onclick="viewDocument(3)" type="button" class="icon iconView" />
+			<form action="Main.php?do=documentsDoDelete" method="post">
+				<input type="hidden" name="id" value="|-$priceBulletin->getSupplierDocument3()-|" />
+				<input type="hidden" name="entityId" value="|-$priceBulletin->getId()|cat:3-|" />
+				<input type="hidden" name="entity" value="SupplierPrice" />
+				<input type="submit" |-if $document3 eq ''-|style="display:none"|-/if-| class="icon iconDelete" />
+			</form>
 		</td>
 	</tr>
 	</table>
@@ -110,14 +125,23 @@
 	</p>
 	</form>
 </fieldset>
+	
+<script type="text/javascript" src="scripts/lightbox.js"></script>
+|-section name=lightboxes start=1 loop=4 step=1-|
+|-assign var=i value=$smarty.section.lightboxes.index-|
+<div id="lightbox|-$i-|" class="leightbox"> 
+	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p>
+	
+	<!-------------- Provisorio --------------->
+	|-include file="DocumentsEditInclude.tpl" entity="SupplierPrice" entityId=$priceBulletin->getId()|cat:$i label="Respaldo"-|
+	<!----------------------------------------->
+</div> 
+|-/section-|
+
 
 <script type="text/javascript">
-	
-function showAttachForm(number) {}
-	
-function viewDocument(number) {}
 
-function deleteDocument(number) {}
+function viewDocument(number) {}
 	
 function updateSupplier(number) {
 	var name = 'supplierId'+number;
