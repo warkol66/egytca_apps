@@ -15,8 +15,11 @@
 			<form method="post" action="Main.php?do=vialidadSuppliersDoEdit">
 			<input type="hidden" value="|-$action-|" name="action">
 			<input type="hidden" value="|-$supplier->getId()-|" name="id">
-		 <p><label for="params[name]">Nombre</label>
+		 <p><label for="params[name]">Razón Social</label>
 			<input name="params[name]" type="text" value="|-$supplier->getName()|escape-|" size="60">
+		 </p>
+		 <p><label for="params[ruc]">RUC</label>
+			<input name="params[ruc]" type="text" value="|-$supplier->getRuc()|escape-|" size="20">
 		 </p>
 		 <p><label for="params[address]">Dirección</label>
 				<input name="params[address]" type="text" value="|-$supplier->getAddress()|escape-|" size="55"> 
@@ -39,7 +42,36 @@
 		 <p><label for="params[memo]">Información</label>
 				<textarea name="params[memo]" cols="45" rows="6" wrap="VIRTUAL">|-$supplier->getMemo()|escape-|</textarea>
 			</p>
-		 <p><input name="save" type="submit" value="Guardar Cambios"> 
+<h3>Contactos</h3>
+<table class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
+<tr>
+<th>Nombre</th>
+<th>Cargo</th>
+<th>Teléfono</th>
+<th>E-mail</th>
+</tr>
+<tr>
+<td><input name="params[contact1]" type="text" value="|-$supplier->getContact1()|escape-|" size="30"></td>
+<td><input name="params[position1]" type="text" value="|-$supplier->getPosition1()|escape-|" size="30"></td>
+<td><input name="params[phone1]" type="text" value="|-$supplier->getPhone1()|escape-|" size="20"></td>
+<td><input name="params[contactEmail1]" type="text" value="|-$supplier->getContactEmail1()|escape-|" size="30"></td>
+</tr>
+<tr>
+<td><input name="params[contact2]" type="text" value="|-$supplier->getContact2()|escape-|" size="30"></td>
+<td><input name="params[position2]" type="text" value="|-$supplier->getPosition2()|escape-|" size="30"></td>
+<td><input name="params[phone2]" type="text" value="|-$supplier->getPhone2()|escape-|" size="20"></td>
+<td><input name="params[contactEmail2]" type="text" value="|-$supplier->getContactEmail2()|escape-|" size="30"></td>
+</tr>
+<tr>
+<td><input name="params[contact3]" type="text" value="|-$supplier->getContact3()|escape-|" size="30"></td>
+<td><input name="params[position3]" type="text" value="|-$supplier->getPosition3()|escape-|" size="30"></td>
+<td><input name="params[phone3]" type="text" value="|-$supplier->getPhone3()|escape-|" size="20"></td>
+<td><input name="params[contactEmail3]" type="text" value="|-$supplier->getContactEmail3()|escape-|" size="30"></td>
+</tr>
+</table>
+<p>&nbsp;</p>
+		 <p>
+		 <input name="save" type="submit" value="Guardar Cambios"> 
 				<input type='button' onClick='location.href="Main.php?do=vialidadSuppliersList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Proveedores"/>
 			 </p>
 		</form>

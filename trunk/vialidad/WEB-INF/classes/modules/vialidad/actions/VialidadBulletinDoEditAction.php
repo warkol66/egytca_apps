@@ -33,7 +33,8 @@ class VialidadBulletinDoEditAction extends BaseAction {
 			if ($bulletin->isModified() && !$bulletin->save()) 
 				return $this->returnFailure($mapping,$smarty,$bulletin,'failure-edit');
 
-			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
+			$params["id"] = $_POST["id"];
+			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');
 
 		}
 		else { // New bulletin
@@ -43,7 +44,8 @@ class VialidadBulletinDoEditAction extends BaseAction {
 			if (!$bulletin->save())
 				return $this->returnFailure($mapping,$smarty,$bulletin);
 
-			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
+			$params["id"] = $_POST["id"];
+			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');
 		}
 
 	}
