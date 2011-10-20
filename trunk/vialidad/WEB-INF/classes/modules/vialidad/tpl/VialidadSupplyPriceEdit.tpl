@@ -24,57 +24,70 @@
 		<td>1</td>
 		<td>
 			<div id="supplier1_non_edit">
-				<span id="supplier1_name">nombre del supplier 1</span>
+				|-assign var='supplier1' value=$priceBulletin->getSupplierRelatedBySupplierid1()-|
+				<span id="supplier1_name">|-if $supplier1 neq ''-||-$supplier1->getName()-||-else-|&nbsp;-&nbsp;|-/if-|</span>
 				<button type="button" onclick="setSupplierEdition(1, true);" class="icon iconEdit" />
 			</div>
 			<div id="supplier1_edit" style="display:none">
 				<div id="supplier1_autocomplete" style="position: relative;z-index:12000;display: inline;">|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_supplier1" label="" url="Main.php?do=vialidadSuppliersAutocompleteListX" hiddenName="supplierId1" disableSubmit="save_supplier1"-|</div>
-				<button id="save_supplier1" type="button" disabled="disabled" onclick="updateSupplier(3)" class="icon iconActivate" />
+				<button id="save_supplier1" type="button" disabled="disabled" onclick="updateSupplier(1)" class="icon iconActivate" />
 				<button type="button" onclick="setSupplierEdition(1, false);" class="icon iconClose" />
 			</div>
 		</td>
 		<td align="right"><span id="price1" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceBulletin->getPrice1()|system_numeric_format-|</span></td>
 		<td align="center"><input id="definitive1" onchange="setParam('definitive1', this.checked);updateDefinitive();" type="checkbox" value="1" |-$priceBulletin->getDefinitive1()|checked_bool-| /></td>
 		<!-- <td><input type="file" name="file1" /></td> -->
-		<td align="center">				<button type="button" onclick="setSupplierEdition(1, false);" class="icon iconAttach" />
-				<button type="button" onclick="setSupplierEdition(1, false);" class="icon iconView" />
-</td>
+		<td align="center">
+			<button id="button_attach_supplier1" onclick="showAttachForm(1)" type="button" class="icon iconAttach" />
+			<button id="button_view_supplier1" style="display:none" onclick="viewDocument(1)" type="button" class="icon iconView" />
+			<button id="button_delete_supplier1" style="display:none" onclick="deleteDocument(1)" type="button" class="icon iconDelete" />
+		</td>
 	</tr>
 	<tr>
 		<td>2</td>
 		<td>
 			<div id="supplier2_non_edit">
-				<span id="supplier2_name">nombre del supplier 2</span>
-				<button type="button" onclick="setSupplierEdition(2, true);" >E</button>
+				|-assign var='supplier2' value=$priceBulletin->getSupplierRelatedBySupplierid2()-|
+				<span id="supplier2_name">|-if $supplier2 neq ''-||-$supplier2->getName()-||-else-|&nbsp;-&nbsp;|-/if-|</span>
+				<button type="button" onclick="setSupplierEdition(2, true);" class="icon iconEdit" />
 			</div>
 			<div id="supplier2_edit" style="display:none">
 				<div id="supplier2_autocomplete" style="position: relative;z-index:11000;">|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_supplier2" label="" url="Main.php?do=vialidadSuppliersAutocompleteListX" hiddenName="supplierId2" disableSubmit="save_supplier2" -|</div>
-				<button id="save_supplier2" type="button" disabled="disabled" onclick="updateSupplier(3)" >:)</button>
-				<button type="button" onclick="setSupplierEdition(2, false);" >:(</button>
+				<button id="save_supplier2" type="button" disabled="disabled" onclick="updateSupplier(2)" class="icon iconActivate" />
+				<button type="button" onclick="setSupplierEdition(2, false);" class="icon iconClose" />
 			</div>
 		</td>
 		<td align="right"><span id="price2" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceBulletin->getPrice2()|system_numeric_format-|</span></td>
 		<td align="center"><input id="definitive2" onchange="setParam('definitive2', this.checked);updateDefinitive();" type="checkbox" value="1" |-$priceBulletin->getDefinitive2()|checked_bool-| /></td>
 		<!-- <td><input type="file" name="file2" /></td> -->
-		<td align="center">botones</td>
+		<td align="center">
+			<button id="button_attach_supplier2" onclick="showAttachForm(2)" type="button" class="icon iconAttach" />
+			<button id="button_view_supplier2" style="display:none" onclick="viewDocument(2)" type="button" class="icon iconView" />
+			<button id="button_delete_supplier2" style="display:none" onclick="deleteDocument(2)" type="button" class="icon iconDelete" />
+		</td>
 	</tr>
 	<tr>
 		<td>3</td>
 		<td>
 			<div id="supplier3_non_edit">
-				<span id="supplier3_name">nombre del supplier 3</span>
-				<button type="button" onclick="setSupplierEdition(3, true);" >E</button>
+				|-assign var='supplier3' value=$priceBulletin->getSupplierRelatedBySupplierid3()-|
+				<span id="supplier3_name">|-if $supplier3 neq ''-||-$supplier3->getName()-||-else-|&nbsp;-&nbsp;|-/if-|</span>
+				<button type="button" onclick="setSupplierEdition(3, true);" class="icon iconEdit" />
 			</div>
 			<div id="supplier3_edit" style="display:none">
 				<div id="supplier3_autocomplete" style="position: relative;z-index:10000;">|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_supplier3" label="" url="Main.php?do=vialidadSuppliersAutocompleteListX" hiddenName="supplierId3" disableSubmit="save_supplier3" -|</div>
-				<button id="save_supplier3" type="button" disabled="disabled" onclick="updateSupplier(3)" >:)</button>
-				<button type="button" onclick="setSupplierEdition(3, false);" >:(</button>
+				<button id="save_supplier3" type="button" disabled="disabled" onclick="updateSupplier(3)" class="icon iconActivate" />
+				<button type="button" onclick="setSupplierEdition(3, false);" class="icon iconClose" />
 			</div>
 		</td>
 		<td align="right"><span id="price3" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceBulletin->getPrice3()|system_numeric_format-|</span></td>
 		<td align="center"><input id="definitive3" onchange="setParam('definitive3', this.checked);updateDefinitive();" type="checkbox" value="1" |-$priceBulletin->getDefinitive3()|checked_bool-| /></td>
 		<!-- <td><input type="file" name="file3" /></td> -->
-		<td align="center">botones</td>
+		<td align="center">
+			<button id="button_attach_supplier3" onclick="showAttachForm(3)" type="button" class="icon iconAttach" />
+			<button id="button_view_supplier3" style="display:none" onclick="viewDocument(3)" type="button" class="icon iconView" />
+			<button id="button_delete_supplier3" style="display:none" onclick="deleteDocument(3)" type="button" class="icon iconDelete" />
+		</td>
 	</tr>
 	</table>
 	
@@ -100,18 +113,31 @@
 
 <script type="text/javascript">
 	
+function showAttachForm(number) {}
+	
+function viewDocument(number) {}
+
+function deleteDocument(number) {}
+	
 function updateSupplier(number) {
 	var name = 'supplierId'+number;
 	var value = $('autocomplete_supplier'+number+'_selected_id').value;
 	
-	// solo para probar
-	//$('averagePrice').value = value;
+	new Ajax.Updater(
+		'supplier'+number+'_name',
+		'Main.php?do=vialidadSupplyPriceEditFieldX',
+		{
+			method: 'post',
+			parameters: {
+				bulletinId: "|-$bulletin->getId()-|",
+				supplyId: "|-$supply->getId()-|",
+				paramName: name,
+				paramValue: value
+			}
+		}
+	);
 	
-	// esto debería ir cuando funcione bien
-	/*
-	setParam(name, value);
-	$('supplier'+number+'_name').innerHTML= nombre del 'supplier'+number
-	*/
+	setSupplierEdition(number, false);
 }
 
 function setSupplierEdition(supplierNumber, value) {
@@ -154,9 +180,6 @@ function updateAveragePrice() {
 	var cant = 0;
 	var sum = 0;
 	
-	
-	//$('averagePrice').value = $('price1').innerHTML;
-		
 	for (var i=1; i<=3; i++) {
 		var value = parseFloat($('price'+i).innerHTML);
 		if (value != 0) {
@@ -200,9 +223,7 @@ function attachInPlaceEditor(name) {
 				clean_text_content_from(element);
 				new Effect.Highlight(element, { startcolor: this.options.highlightColor });
 			},
-			onFormReady: function(obj,form) {
-				form.insert({ top: new Element('label').update('Precio: ') });
-			}
+			onFormReady: function(obj,form) {}
 		}
 	);
 }
@@ -213,10 +234,6 @@ window.onload = function() {
 	attachInPlaceEditor('price3');
 }
 
-function showInput(to_show, to_hide) {
-	$(to_show).show();
-	$(to_hide).hide();
-}
 
 function chomp(raw_text) {
 	return raw_text.replace(/(\n|\r)+$/, '');
