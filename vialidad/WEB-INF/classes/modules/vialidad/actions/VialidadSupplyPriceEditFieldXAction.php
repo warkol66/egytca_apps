@@ -30,8 +30,14 @@ class VialidadSupplyPriceEditFieldXAction extends BaseAction {
 			$priceBulletin->save();
 		}
 
-		if (!empty($_POST['paramName']))
-			$smarty->assign("paramValue", $priceBulletin->getByName($_POST['paramName'], BasePeer::TYPE_FIELDNAME));
+		if (!empty($_POST['paramName'])) {
+			if (stripos($_POST['paramName'], 'supplierId') !== false) {
+				$supplierId = $priceBulletin->getByName($_POST['paramName'], BasePeer::TYPE_FIELDNAME);
+				$smarty->assign("paramValue", SupplierPeer::retrieveByPK($supplierId));
+			} else {
+				$smarty->assign("paramValue", $priceBulletin->getByName($_POST['paramName'], BasePeer::TYPE_FIELDNAME));
+			}
+		}
 
 		return $mapping->findForwardConfig('success');
 	}
