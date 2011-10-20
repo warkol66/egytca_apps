@@ -17,6 +17,7 @@ class AffiliatePeer extends BaseAffiliatePeer {
 
 	private $searchString;
 	private $internalNumber;
+    private $classKey;
 	private $perPage;
 	private $limit;
 
@@ -24,6 +25,7 @@ class AffiliatePeer extends BaseAffiliatePeer {
 	var $filterConditions = array(
 					"searchString"=>"setSearchString",
 					"internalNumber"=>"setInternalNumber",
+                    "classKey"=>"setClassKey",
 					"perPage"=>"setPerPage",
 					"limit" => "setLimit"
 	);
@@ -43,6 +45,14 @@ class AffiliatePeer extends BaseAffiliatePeer {
 	function setInternalNumber($internalNumber){
 		$this->internalNumber = $internalNumber;
 	}
+    
+    /**
+     * Especifica la classKey
+     * @param type $classKey 
+     */
+    function setClassKey($classKey) {
+        $this->classKey = $classKey;
+    }
 
  /**
 	 * Especifica cantidad de resultados por pagina.
@@ -120,6 +130,9 @@ class AffiliatePeer extends BaseAffiliatePeer {
 
 		if ($this->internalNumber)
 			$criteria->filterByInternalNumber($this->internalNumber);
+
+        if ($this->classKey)
+			$criteria->filterByClassKey($this->classKey);
 
 		return $criteria;
 	}
