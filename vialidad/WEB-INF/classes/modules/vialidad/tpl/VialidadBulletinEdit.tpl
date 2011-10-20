@@ -69,7 +69,7 @@
 				|-/if-|
 			</td>
 			<td align="center">
-				<input name="publish[]" type="checkbox" value="1" |-$price->getPublish()|checked_bool-| |-if $bulletin->getPublished()-|disabled="disabled"|-/if-|>
+				<input onchange="updatePublish('|-$supply->getId()-|', this.checked);" name="publish[]" type="checkbox" value="1" |-$price->getPublish()|checked_bool-| |-if $bulletin->getPublished()-|disabled="disabled"|-/if-|>
 			</td>
 			<td align="center">
 				|-$price->getDefinitive()|si_no-|
@@ -85,3 +85,20 @@
 	</div>
 	|-/if-|
 </div>
+
+<script type="text/javascript">
+function updatePublish(supplyId, value) {
+	new Ajax.Request(
+		'Main.php?do=vialidadSupplyPriceEditFieldX',
+		{
+			method: 'post',
+			parameters: {
+				bulletinId: "|-$bulletin->getId()-|",
+				supplyId: supplyId,
+				paramName: 'publish',
+				paramValue: value
+			}
+		}
+	);
+}
+</script>
