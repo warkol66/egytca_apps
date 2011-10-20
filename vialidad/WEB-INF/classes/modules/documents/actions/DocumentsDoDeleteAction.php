@@ -15,11 +15,12 @@ class DocumentsDoDeleteAction extends BaseAction {
 	
 	function findEntityForwardConfig($forwardName, $params, $mapping) {
 		
-		$fconf = $mapping->findForwardConfig($forwardName);
+		$entityForwardName = $forwardName . $_POST['entity'];
+		$fconf = $mapping->findForwardConfig($entityForwardName);
 		if (!is_null($fconf))
-			return $this->addParamsToForwards($params, $mapping, $forwardName . $_POST['entity']);
+			return $this->addParamsToForwards($params, $mapping, $entityForwardName);
 		else
-			return $this->generateDynamicForward($forwardName, $params);
+			return $mapping->generateDynamicForward($forwardName, $params, array('message', 'errormessage'));
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
@@ -45,7 +46,7 @@ class DocumentsDoDeleteAction extends BaseAction {
 
 		//validacion de password
 		if (!$document->checkPassword($password))
-			return $this->findEntityForwardConfig('failure', array('id'=>$_POST['entityId'],'errormessage'=>'wrongPasswordComparison'), $mapping);
+			return $this->findEntityForwardConfig('failure', array('errormessage'=>'wrongPasswordComparison'), $mapping);
 		else {
 			if (!empty($_POST['entity'])) {
 				$queryClassName = $_POST['entity'] . 'DocumentQuery';
@@ -56,22 +57,18 @@ class DocumentsDoDeleteAction extends BaseAction {
 						$queryInstance->$methodName($_POST["id"], $_POST['entityId'])->delete();
 					} else {
 						$queryInstance = new DocumentRelatedEntityQuery();
-						$methodName = 'findOneByArray(array('.
-							'"documentId" => $_POST["id"]'.
-							'"entityId" => $_POST["entityId""]'.
-							'"entityType => $_POST["entity"]'.
-						'))';
-						$queryInstance->$methodName()->delete();
+						$queryInstance->filterByDocumentid($_POST["id"])->filterByEntityid($_POST["entityId"])
+							->filterByEntitytype($_POST["entity"])->findOne()->delete();
 					}
 				} catch(Exception $e) {
-					return $this->findEntityForwardConfig('failure', array('id'=>$_POST['entityId'],'errormessage'=>'errorFound'), $mapping);
+					return $this->findEntityForwardConfig('failure', array('errormessage'=>'errorFound'), $mapping);
 				}
 
 				//si el documento no tiene mas referencias cruzadas lo elimino.
 				$queryInstance = new $queryClassName;
 				if ($queryInstance->filterByDocumentId($_POST["id"])->count() <= 0) {
 					if (!$documentPeer->delete($_POST["id"]))
-						return $this->findEntityForwardConfig('failure', array('id'=>$_POST['entityId'],'errormessage'=>'errorFound'), $mapping);
+						return $this->findEntityForwardConfig('failure', array('errormessage'=>'errorFound'), $mapping);
 				}
 			}
 			else {
@@ -82,7 +79,7 @@ class DocumentsDoDeleteAction extends BaseAction {
 			}
 
 		}
-		return $this->findEntityForwardConfig('success', array('id'=>$_POST['entityId'],'message'=>'deletesuccess'), $mapping);
+		return $this->findEntityForwardConfig('success', array('message'=>'deletesuccess'), $mapping);
 
 	}
 
