@@ -18,6 +18,16 @@ class Affiliate extends BaseAffiliate {
 	private $hasPriceList;
 
 	/**
+	 * Constructs a new Affiliate class, setting the class_key column to 
+     * AffiliatePeer::CLASSKEY_AFFILIATE.
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->setClassKey(AffiliatePeer::CLASSKEY_AFFILIATE);
+	}
+    
+	/**
 	 * Validaciones para el guardado de un afiliado
 	 * @return bool affiliate creado o no
 	 */

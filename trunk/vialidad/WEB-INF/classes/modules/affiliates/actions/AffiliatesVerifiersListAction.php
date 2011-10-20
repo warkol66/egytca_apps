@@ -4,10 +4,11 @@ require_once 'AffiliatesListAction.php';
 
 class AffiliatesVerifiersListAction extends AffiliatesListAction {
 
-	function AffiliatesVerifiersListAction() {
+	public function AffiliatesVerifiersListAction() {
         parent::__construct();
         $this->set('listAction', 'affiliatesVerifiersList');
         $this->set('classKey', AffiliatePeer::CLASSKEY_VERIFIER);
+        $this->set('query', VerifierQuery::create());
 	}
 
 }

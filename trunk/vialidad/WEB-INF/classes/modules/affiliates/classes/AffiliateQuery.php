@@ -15,4 +15,34 @@
  */
 class AffiliateQuery extends BaseAffiliateQuery {
 
+    /**
+     * Permite agregar un filtro personalizado a la Query, que puede ser 
+     * traducido al campo correspondiente.
+     * 
+     * @param   type $filterName
+     * @param   type $filterValue
+     * @return  AffiliateQuery 
+     */
+    public function addFilter($filterName, $filterValue) {
+        
+        $filterName = ucfirst($filterName);
+        
+        switch ($filterName) {
+            case 'searchString':
+                $this->filterByName("%$filterValue%", Criteria::LIKE);
+                break;
+
+            default:
+                if (in_array($filterName, AffiliatePeer::getFieldNames(BasePeer::TYPE_PHPNAME)))
+                    $this->filterBy($filterName, $filterValue);
+                else {
+                    //Log - campo inexistente.
+                }
+                    
+                break;
+        }
+        
+        return $this;
+    }
+    
 } // AffiliateQuery
