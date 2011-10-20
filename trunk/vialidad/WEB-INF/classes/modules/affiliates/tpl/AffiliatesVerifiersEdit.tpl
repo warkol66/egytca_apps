@@ -1,13 +1,13 @@
-<h2>##affiliates,1,Afiliados##</h2>
-	<h1>Administración de ##affiliates,1,Afiliados## - |-if $action eq 'create'-|Crear|-else-|Editar|-/if-| ##affiliates,3,Afiliado##</h1>
+<h2>Verificadoras</h2>
+	<h1>Administración de Verificadoras - |-if $action eq 'create'-|Crear|-else-|Editar|-/if-| ##affiliates,3,Afiliado##</h1>
 |-if $action eq 'create'-|	
-	<p>A continuación podrá ingresar los datos para crear el ##affiliates,3,Afiliado##.</p>
+	<p>A continuación podrá ingresar los datos para crear Verificadora.</p>
 |-else-|		
-	<p>A continuación podrá editar los datos del ##affiliates,3,Afiliado##.</p>
+	<p>A continuación podrá editar los datos de Verificadora.</p>
 |-/if-|
 |-if !$notValidId-|	
-	<fieldset title="Formulario de edición de nombre del Afiliado">
-		<legend>##affiliates,1,Afiliados##</legend>
+	<fieldset title="Formulario de edición de nombre de Verificadora">
+		<legend>Verificadoras</legend>
 		<p>Realice los cambios y para guardar haga click en "Guardar Cambios"</p>
 			<form method="post" action="Main.php?do=affiliatesVerifiersDoEdit">
 			<input type="hidden" value="|-$action-|" name="action">
@@ -17,10 +17,6 @@
 		 </p>
 		 <p><label for="params[internalNumber]">ID interno</label>
 			<input name="params[internalNumber]" type="text" value="|-$affiliate->getInternalNumber()|escape-|" size="15"> 
-		</p>
-		 <p>
-		   <label for="params[verifierCode]">Código de Verificador</label>
-			<input name="params[verifierCode]" type="text" value="|-$affiliate->getVerifierCode()|escape-|" size="15"> 
 		</p>
 		 <p><label for="params[address]">Dirección</label>
 				<input name="params[address]" type="text" value="|-$affiliate->getAddress()|escape-|" size="55"> 
@@ -44,11 +40,11 @@
 				<textarea name="params[memo]" cols="45" rows="6" wrap="VIRTUAL">|-$affiliate->getMemo()|escape-|</textarea>
 			</p>
 		 <p><input name="save" type="submit" value="Guardar Cambios"> 
-				<input type="button" onClick='location.href="Main.php?do=affiliatesVerifiersList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de ##affiliates,1,Afiliados##"/>
+				<input type="button" onClick='location.href="Main.php?do=affiliatesVerifiersList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Verificadoras"/>
 			 </p>
 		</form>
 	</fieldset>
 |-else-|
-<div class="errorMessage">El identificador del afiliado ingresado no es válido. Seleccione un afiliado de la lista.</div>
-				<input type='button' onClick='location.href="Main.php?do=affiliatesVerifiersList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de ##affiliates,1,Afiliados##"/>
+<div class="errorMessage">El identificador de verificadora ingresado no es válido. Seleccione una verificadora de la lista.</div>
+				<input type='button' onClick='location.href="Main.php?do=affiliatesVerifiersList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Verificadoras"/>
 |-/if-|
