@@ -13,7 +13,8 @@ class AffiliatesListAction extends BaseAction {
             'module'     => 'Affiliates',
             'listAction' => 'affiliatesList',
             'classKey'   => AffiliatePeer::CLASSKEY_AFFILIATE,
-            'peer'       => new AffiliatePeer()
+            'peer'       => new AffiliatePeer(),
+            'query'      => AffiliateQuery::create()
         );
 	}
 
@@ -33,9 +34,10 @@ class AffiliatesListAction extends BaseAction {
         $smarty->assign("message",$_GET["message"]);
 
         $filters = $_GET["filters"];
-
+        
         $affiliatePeer = $this->getPeer($filters);
         $pager = $affiliatePeer->getAllPaginatedFiltered($_GET["page"]);
+//        $pager = $this->createPager($filters, $_GET["page"]);
 
         $url = "Main.php?do=". $this->get('listAction');
         foreach ($filters as $key => $value)
@@ -84,6 +86,37 @@ class AffiliatesListAction extends BaseAction {
         }
         
         return $peer;
+    }
+    
+    /**
+     * Acceso a la clase Query, con los filtros establecidos.
+     * @param   array $filters
+     * @return  AffiliateQuery
+     */
+    protected function getQuery($filters) {
+        $query = $this->get('query');
+        $query = AffiliateQuery::create();
+        
+        $filters["classKey"] = $this->get('classKey');
+		foreach($filters as $filterName => $filterValue) {
+			if (isset($filterValue)) {
+                $query->addFilter($filterName, $filterValue);
+			}
+        }
+        
+        return $query;
+    }
+    
+    /**
+     * Encapsulamiento de la creacion del Pager (Factory Method).
+     * @param   array $filters
+     * @param   int $page
+     * @return  PropelPager 
+     */
+    protected function createPager($filters, $page = 1) {
+        $perPage = Common::getRowsPerPage();
+        $query = $this->getQuery($filters);
+        return new PropelPager($query, "AffiliatePeer", "doSelect", $page, $perPage);
     }
 
 }

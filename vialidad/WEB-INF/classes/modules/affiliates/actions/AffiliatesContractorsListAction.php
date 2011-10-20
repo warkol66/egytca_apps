@@ -8,6 +8,7 @@ class AffiliatesContractorsListAction extends AffiliatesListAction {
         parent::__construct();
         $this->set('listAction', 'affiliatesContractorsList');
         $this->set('classKey', AffiliatePeer::CLASSKEY_CONTRACTOR);
+        $this->set('query', ContractQuery::create());
 	}
 
 }
