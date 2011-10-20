@@ -44,7 +44,7 @@ class VialidadBulletinDoEditAction extends BaseAction {
 			if (!$bulletin->save())
 				return $this->returnFailure($mapping,$smarty,$bulletin);
 
-			$params["id"] = $_POST["id"];
+			$params["id"] = $bulletin->getId();
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');
 		}
 
