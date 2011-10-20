@@ -37,7 +37,7 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
 	-webkit-border-radius: .2em;
 	border-radius: .2em;
 }
-input.icon, input.editor_ok_button, input.editor_cancel_button {
+input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 	width: 22px !Important;
 	height: 22px !Important;
 	margin: 0;
