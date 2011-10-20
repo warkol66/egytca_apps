@@ -21,7 +21,7 @@ class Verifier extends Affiliate {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->setClassKey(AffiliatePeer::CLASSKEY_3);
+		$this->setClassKey(AffiliatePeer::CLASSKEY_VERIFIER);
 	}
 
 } // Verifier

@@ -21,7 +21,7 @@ class Contractor extends Affiliate {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->setClassKey(AffiliatePeer::CLASSKEY_2);
+		$this->setClassKey(AffiliatePeer::CLASSKEY_CONTRACTOR);
 	}
 
 } // Contractor
