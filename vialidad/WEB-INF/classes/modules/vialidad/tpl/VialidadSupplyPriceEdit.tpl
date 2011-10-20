@@ -25,18 +25,20 @@
 		<td>
 			<div id="supplier1_non_edit">
 				<span id="supplier1_name">nombre del supplier 1</span>
-				<button type="button" onclick="setSupplierEdition(1, true);" >E</button>
+				<button type="button" onclick="setSupplierEdition(1, true);" class="icon iconEdit" />
 			</div>
 			<div id="supplier1_edit" style="display:none">
-				<div id="supplier1_autocomplete" style="position: relative;z-index:12000;">|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_supplier1" label="" url="Main.php?do=vialidadSuppliersAutocompleteListX" hiddenName="supplierId1" disableSubmit="save_supplier1"-|</div>
-				<button id="save_supplier1" type="button" disabled="disabled" onclick="updateSupplier(3)" >:)</button>
-				<button type="button" onclick="setSupplierEdition(1, false);" >:(</button>
+				<div id="supplier1_autocomplete" style="position: relative;z-index:12000;display: inline;">|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_supplier1" label="" url="Main.php?do=vialidadSuppliersAutocompleteListX" hiddenName="supplierId1" disableSubmit="save_supplier1"-|</div>
+				<button id="save_supplier1" type="button" disabled="disabled" onclick="updateSupplier(3)" class="icon iconActivate" />
+				<button type="button" onclick="setSupplierEdition(1, false);" class="icon iconClose" />
 			</div>
 		</td>
 		<td align="right"><span id="price1" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceBulletin->getPrice1()|system_numeric_format-|</span></td>
 		<td align="center"><input id="definitive1" onchange="setParam('definitive1', this.checked);updateDefinitive();" type="checkbox" value="1" |-$priceBulletin->getDefinitive1()|checked_bool-| /></td>
 		<!-- <td><input type="file" name="file1" /></td> -->
-		<td align="center">botones</td>
+		<td align="center">				<button type="button" onclick="setSupplierEdition(1, false);" class="icon iconAttach" />
+				<button type="button" onclick="setSupplierEdition(1, false);" class="icon iconView" />
+</td>
 	</tr>
 	<tr>
 		<td>2</td>

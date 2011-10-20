@@ -33,6 +33,7 @@
 		<tr class="thFillTitle"> 
 			<th width="50%">Insumo</th> 
 			<th width="35%">Precio</th> 
+			<th width="10%">Publicar</th>
 			<th width="10%">Definitivo</th>
 			<th width="5%">&nbsp;</th>
 		</tr>
@@ -55,14 +56,13 @@
 				|-/if-|
 			</td>
 			<td align="center">
-				|-if $price->getDefinitive() eq 'true'-|
-				si
-				|-else-|
-				no
-				|-/if-|
+				<input name="publish[]" type="checkbox" value="1" checked="checked">
+			</td>
+			<td align="center">
+				|-$price->getDefinitive()|si_no-|
 			</td>
 			<td align="center" >
-				<a href='Main.php?do=vialidadSupplyPriceEdit&amp;bulletinId=|-$bulletin->getId()-|&amp;supplyId=|-$supply->getId()-|'>Editar</a>
+				<a href='Main.php?do=vialidadSupplyPriceEdit&amp;bulletinId=|-$bulletin->getId()-|&amp;supplyId=|-$supply->getId()-|'><img src="images/clear.png" class="icon iconEdit"></a>
 			</td>
 		</tr>
 		|-/foreach-|
