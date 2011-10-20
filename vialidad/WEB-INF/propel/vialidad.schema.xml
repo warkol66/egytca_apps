@@ -5,6 +5,8 @@
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="number" type="VARCHAR" size="10" required="true" primaryString="true" />
 		<column name="bulletinDate" type="DATE" description="Fecha del Boletin" />
+		<column name="comments" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Observaciones" />
+		<column name="published" type="BOOLEAN" description="Indica si esta publicado" />
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
@@ -31,6 +33,7 @@
 		<column name="bulletinId" type="INTEGER" required="true" />
 		<column name="supplyId"   type="INTEGER" required="true" />
 		<column name="averagePrice" type="DECIMAL" size="12" scale="2" description="Precio provisorio" />
+		<column name="publish" type="BOOLEAN" defaultValue="1" description="Indica si el precio se publica o no" />
 		<column name="definitive" type="BOOLEAN" description="Indica si el precio es definitivo o no" />
 
 		<column name="supplierId1" type="INTEGER" required="true" />
@@ -85,6 +88,7 @@
 	<table phpName="Supplier" name="vialidad_supplier" description="Proveedores">
 		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id proveedor" autoIncrement="true" />
 		<column name="name" required="true" type="VARCHAR" size="255" description="nombre proveedor" primaryString="true" />
+		<column name="ruc" type="VARCHAR" size="50" description="RUC"/>
 		<column name="address" type="VARCHAR" size="255" description="Direccion proveedor"/>
 		<column name="phone" type="VARCHAR" size="50" description="Telefono proveedor"/>
 		<column name="email" type="VARCHAR" size="50" description="Email proveedor"/>
@@ -92,6 +96,21 @@
 		<column name="contactEmail" type="VARCHAR" size="100" description="Email de persona de contacto"/>
 		<column name="web" type="VARCHAR" size="255" description="Direccion web del proveedor"/>
 		<column name="memo" type="LONGVARCHAR" description="Informacion adicional del proveedor"/>
+
+		<column name="contact1" type="VARCHAR" size="100" description="Nombre de persona de contacto 1"/>
+		<column name="position1" type="VARCHAR" size="75" description="Cargo de persona de contacto 1"/>
+		<column name="phone1" type="VARCHAR" size="75" description="Telefono de persona de contacto 1"/>
+		<column name="contactEmail1" type="VARCHAR" size="100" description="Email de persona de contacto 1"/>
+
+		<column name="contact2" type="VARCHAR" size="100" description="Nombre de persona de contacto 2"/>
+		<column name="position2" type="VARCHAR" size="75" description="Cargo de persona de contacto 2"/>
+		<column name="phone2" type="VARCHAR" size="75" description="Telefono de persona de contacto 2"/>
+		<column name="contactEmail2" type="VARCHAR" size="100" description="Email de persona de contacto 2"/>
+
+		<column name="contact3" type="VARCHAR" size="100" description="Nombre de persona de contacto 3"/>
+		<column name="position3" type="VARCHAR" size="75" description="Cargo de persona de contacto 3"/>
+		<column name="phone3" type="VARCHAR" size="75" description="Telefono de persona de contacto 3"/>
+		<column name="contactEmail3" type="VARCHAR" size="100" description="Email de persona de contacto 3"/>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>

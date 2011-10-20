@@ -1,5 +1,5 @@
 <h2>Boletines</h2>
-<h1>Administración de Boletines</h1>
+<h1>Administración de Boletines Formula Paramétrica</h1>
 <p>A continuación se muestra la lista de Boletines cargados en el sistema.</p>
 <div id="div_bulletins"> 
 	|-if $message eq "ok"-|
@@ -10,7 +10,7 @@
 	<table id="table_bulletins" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead> 
 		<tr>
-			<td colspan="3" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Búsqueda de Boletines</a>
+			<td colspan="4" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Búsqueda de Boletines</a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;">
 				<form action='Main.php' method='get' style="display:inline;">
 					<p>Texto: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" /></p>
@@ -30,25 +30,27 @@
 		
 		|-if "vialidadBulletinEdit"|security_has_access-|
 		<tr>
-			<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadBulletinEdit" class="addLink">Agregar Boletín</a></div></th>
+			<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadBulletinEdit" class="addLink">Agregar Boletín</a></div></th>
 		</tr>
 		|-/if-|
 		<tr class="thFillTitle"> 
-			<th width="50%">Número de Boletín</th> 
+			<th width="30%">Número de Boletín</th> 
 			<th width="45%">Fecha</th> 
+			<th width="20%">Publicado</th> 
 			<th width="5%">&nbsp;</th> 
 		</tr> 
 		</thead> 
 		<tbody>
 		|-if $bulletins|@count eq 0-|
 		<tr>
-			<td colspan="3">|-if isset($filter)-|No hay Boletines que concuerden con la búsqueda|-else-|No hay Boletines disponibles|-/if-|</td>
+			<td colspan="4">|-if isset($filter)-|No hay Boletines que concuerden con la búsqueda|-else-|No hay Boletines disponibles|-/if-|</td>
 		</tr>
 		|-else-|
 		|-foreach from=$bulletins item=bulletin name=for_bulletins-|
 		<tr> 
 			<td>|-$bulletin->getNumber()-|</td>
 			<td>|-$bulletin->getBulletindate()|date_format:"%B / %Y"|@ucfirst-|</td>
+			<td>|-$bulletin->getPublished()|si_no-|</td>
 			<td nowrap>
 				|-if "vialidadBulletinEdit"|security_has_access-|
 				<form action="Main.php" method="get">
@@ -78,12 +80,12 @@
 		|-/if-|
 		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
 		<tr> 
-			<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+			<td colspan="4" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 		|-if "vialidadBulletinEdit"|security_has_access-|
 		<tr>
-			<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadBulletinEdit" class="addLink">Agregar Boletín</a></div></th>
+			<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadBulletinEdit" class="addLink">Agregar Boletín</a></div></th>
 		</tr>
 		|-/if-|
 		</tbody> 

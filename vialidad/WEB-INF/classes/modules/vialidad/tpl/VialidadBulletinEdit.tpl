@@ -1,10 +1,14 @@
 <h2>Boletines</h2>
-<h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| Boletín</h1>
+<h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| Boletín Formula Paramétrica</h1>
 <div id="div_bulletin">
 	<p>Ingrese los datos del Boletín</p>
-	|-if $message eq "error"-|<span class="message_error">Ha ocurrido un error al intentar guardar el Boletín</span>|-/if-|
+	|-if $message eq "error"-|
+		<div class="failureMessage">Ha ocurrido un error al intentar guardar el Boletín Formula Paramétrica</div>
+	|-elseif $message eq "ok"-|
+		<div class="successMessage">Cambios guardados correctamente</div>
+	|-/if-|
 	<form name="form_edit_bulletin" id="form_edit_bulletin" action="Main.php" method="post">
-		<fieldset title="Formulario de edici&oacute;n de datos de un Bolet&iacute;n">
+		<fieldset title="Formulario de edición de datos de un Boletín">
 			<legend>Formulario de Administración de Boletines</legend>
 			<p>
 				<label for="params[number]">Número</label>
@@ -14,6 +18,15 @@
 				<label for="params[bulletinDate]">Fecha del Boletín</label>
 				<input id="params[bulletinDate]" name="params[bulletinDate]" type='text' value='|-$bulletin->getBulletinDate()|date_format-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[bulletinDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
+		<p>     
+				<label for="params[comments]">Observaciones</label>
+				<textarea name="params[comments]" cols="60" wrap="VIRTUAL" id="params[comments]" title="Observaciones">|-$bulletin->getComments()|escape-|</textarea>
+			</p>
+		<p>     
+				<label for="params[published]">Publicado</label>
+				<input name="params[published]" type="hidden" value="0">
+				<input name="params[published]" type="checkbox" value="1" |-$bulletin->getPublished()|checked_bool-| title="Indica si el boletín acepta modificaciones o no">
+			</p>
 			<p>
 				|-if $action eq 'edit'-|
 				<input type="hidden" name="id" id="id" value="|-$bulletin->getid()-|" />
@@ -21,7 +34,7 @@
 				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="vialidadBulletinDoEdit" />
 				<input type="submit" id="button_edit_bulletin" name="button_edit_bulletin" title="Aceptar" value="Guardar" />
-				<input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=vialidadBulletinList'"/>
+				<input type="button" id="cancel" name="cancel" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=vialidadBulletinList'"/>
 			</p>
 		</fieldset>
 	</form>
@@ -56,13 +69,13 @@
 				|-/if-|
 			</td>
 			<td align="center">
-				<input name="publish[]" type="checkbox" value="1" checked="checked">
+				<input name="publish[]" type="checkbox" value="1" |-$price->getPublish()|checked_bool-| |-if $bulletin->getPublished()-|disabled="disabled"|-/if-|>
 			</td>
 			<td align="center">
 				|-$price->getDefinitive()|si_no-|
 			</td>
-			<td align="center" >
-				<a href='Main.php?do=vialidadSupplyPriceEdit&amp;bulletinId=|-$bulletin->getId()-|&amp;supplyId=|-$supply->getId()-|'><img src="images/clear.png" class="icon iconEdit"></a>
+			<td align="center">|-if !$bulletin->getPublished()-|
+				<a href='Main.php?do=vialidadSupplyPriceEdit&amp;bulletinId=|-$bulletin->getId()-|&amp;supplyId=|-$supply->getId()-|'><img src="images/clear.png" class="icon iconEdit"></a>|-/if-|
 			</td>
 		</tr>
 		|-/foreach-|
