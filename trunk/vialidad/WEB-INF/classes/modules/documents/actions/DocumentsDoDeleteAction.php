@@ -55,17 +55,18 @@ class DocumentsDoDeleteAction extends BaseAction {
 						$queryInstance = new $queryClassName;
 						$methodName = 'findOneByDocumentIdAnd' . $_POST['entity'] . 'Id';
 						$queryInstance->$methodName($_POST["id"], $_POST['entityId'])->delete();
+						$queryInstance = new $queryClassName;
 					} else {
 						$queryInstance = new DocumentRelatedEntityQuery();
 						$queryInstance->filterByDocumentid($_POST["id"])->filterByEntityid($_POST["entityId"])
 							->filterByEntitytype($_POST["entity"])->findOne()->delete();
+						$queryInstance = new DocumentRelatedEntityQuery();
 					}
 				} catch(Exception $e) {
 					return $this->findEntityForwardConfig('failure', array('errormessage'=>'errorFound'), $mapping);
 				}
 
 				//si el documento no tiene mas referencias cruzadas lo elimino.
-				$queryInstance = new $queryClassName;
 				if ($queryInstance->filterByDocumentId($_POST["id"])->count() <= 0) {
 					if (!$documentPeer->delete($_POST["id"]))
 						return $this->findEntityForwardConfig('failure', array('errormessage'=>'errorFound'), $mapping);

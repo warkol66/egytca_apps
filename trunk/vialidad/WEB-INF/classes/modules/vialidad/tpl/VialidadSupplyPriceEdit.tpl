@@ -10,7 +10,6 @@
 
 <fieldset title="Formulario de edición de precios del Insumo">
 	<legend>|-$supply->getName()-|</legend>
-	<form action="Main.php?do=vialidadSupplyPriceDoEdit" method="post" enctype="multipart/form-data">
 	<p>Ingrese el precio en cada proveedor y haga click en &quot;Guardar&quot; </p>
 <table class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 	<tr>
@@ -44,7 +43,7 @@
 				<input type="hidden" name="id" value="|-$priceBulletin->getSupplierDocument1()-|" />
 				<input type="hidden" name="entityId" value="|-$priceBulletin->getId()|cat:1-|" />
 				<input type="hidden" name="entity" value="SupplierPrice" />
-				<input type="submit" |-if $document1 eq ''-|style="display:none"|-/if-| class="icon iconDelete" />
+				<input type="submit" |-if $document1 eq ''-|style="display:none"|-/if-| onclick="return confirm('Seguro que desea eliminar el respaldo definitivamente?')" class="icon iconDelete" />
 			</form>
 		</td>
 	</tr>
@@ -72,7 +71,7 @@
 				<input type="hidden" name="id" value="|-$priceBulletin->getSupplierDocument2()-|" />
 				<input type="hidden" name="entityId" value="|-$priceBulletin->getId()|cat:2-|" />
 				<input type="hidden" name="entity" value="SupplierPrice" />
-				<input type="submit" |-if $document2 eq ''-|style="display:none"|-/if-| class="icon iconDelete" />
+				<input type="submit" |-if $document2 eq ''-|style="display:none"|-/if-| onclick="return confirm('Seguro que desea eliminar el respaldo definitivamente?')" class="icon iconDelete" />
 			</form>
 		</td>
 	</tr>
@@ -100,7 +99,7 @@
 				<input type="hidden" name="id" value="|-$priceBulletin->getSupplierDocument3()-|" />
 				<input type="hidden" name="entityId" value="|-$priceBulletin->getId()|cat:3-|" />
 				<input type="hidden" name="entity" value="SupplierPrice" />
-				<input type="submit" |-if $document3 eq ''-|style="display:none"|-/if-| class="icon iconDelete" />
+				<input type="submit" |-if $document3 eq ''-|style="display:none"|-/if-| onclick="return confirm('Seguro que desea eliminar el respaldo definitivamente?')" class="icon iconDelete" />
 			</form>
 		</td>
 	</tr>
@@ -123,7 +122,6 @@
 		<input type='button'  value='Regresar' title="Regresar al listado de Contratistas"
 		      onClick='location.href="Main.php?do=vialidadBulletinEdit&amp;id=|-$bulletin->getId()-|&amp;submit_go_edit_vialidad_bulletin=Editar"' />
 	</p>
-	</form>
 </fieldset>
 	
 <script type="text/javascript" src="scripts/lightbox.js"></script>
