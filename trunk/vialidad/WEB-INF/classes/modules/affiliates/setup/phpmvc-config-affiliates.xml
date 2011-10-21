@@ -69,6 +69,8 @@
 						 validate = "true">
 				<forward name="success" path="/Main.php?do=affiliatesUsersList" redirect="true" />
 				<forward name="success-owner" path="/Main.php?do=affiliatesList" redirect="true" />
+				<forward name="success-verifier-owner" path="/Main.php?do=affiliatesVerifiersList" redirect="true" />
+				<forward name="success-contracto-owner" path="/Main.php?do=affiliatesContractorsList" redirect="true" />
 				<forward name="failure" path="AffiliatesUsersEdit.tpl" />
 		</action>
 
