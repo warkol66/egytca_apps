@@ -23,10 +23,14 @@ class Document extends BaseDocument {
 	 * @return boolean
 	 */
 	public function checkPassword($password) {
-		if ($this->getPassword() == Common::md5($password) )
+		if ($this->isPasswordProtected()) {
+			if ($this->getPassword() == Common::md5($password) )
+				return true;
+			else
+				return false;
+		}
+		else
 			return true;
-
-		return false;
 	}
 	
 	/**
