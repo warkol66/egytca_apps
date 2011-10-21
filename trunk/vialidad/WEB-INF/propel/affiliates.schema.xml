@@ -34,7 +34,6 @@
 	    <inheritance key="3" class="Verifier" extends="Affiliate"/>
 	  </column>
   
-  	<behavior name="soft_delete" />
 		<behavior name="timestampable" />
 
 		<foreign-key foreignTable="affiliates_user" >
