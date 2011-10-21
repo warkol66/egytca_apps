@@ -13,11 +13,26 @@
 		<column name="web" type="VARCHAR" size="255" description="Direccion web del afiliado"/>
 		<column name="memo" type="LONGVARCHAR" description="Informacion adicional del afiliado"/>
 
-  <column name="class_key" type="INTEGER" inheritance="single">
-    <inheritance key="1" class="Affiliate"/>
-    <inheritance key="2" class="Contractor" extends="Affiliate"/>
-    <inheritance key="3" class="Verifier" extends="Affiliate"/>
-  </column>
+		<column name="contact1" type="VARCHAR" size="100" description="Nombre de persona de contacto 1"/>
+		<column name="position1" type="VARCHAR" size="75" description="Cargo de persona de contacto 1"/>
+		<column name="phone1" type="VARCHAR" size="75" description="Telefono de persona de contacto 1"/>
+		<column name="contactEmail1" type="VARCHAR" size="100" description="Email de persona de contacto 1"/>
+
+		<column name="contact2" type="VARCHAR" size="100" description="Nombre de persona de contacto 2"/>
+		<column name="position2" type="VARCHAR" size="75" description="Cargo de persona de contacto 2"/>
+		<column name="phone2" type="VARCHAR" size="75" description="Telefono de persona de contacto 2"/>
+		<column name="contactEmail2" type="VARCHAR" size="100" description="Email de persona de contacto 2"/>
+
+		<column name="contact3" type="VARCHAR" size="100" description="Nombre de persona de contacto 3"/>
+		<column name="position3" type="VARCHAR" size="75" description="Cargo de persona de contacto 3"/>
+		<column name="phone3" type="VARCHAR" size="75" description="Telefono de persona de contacto 3"/>
+		<column name="contactEmail3" type="VARCHAR" size="100" description="Email de persona de contacto 3"/>
+
+	  <column name="class_key" type="INTEGER" inheritance="single">
+	    <inheritance key="1" class="Affiliate"/>
+	    <inheritance key="2" class="Contractor" extends="Affiliate"/>
+	    <inheritance key="3" class="Verifier" extends="Affiliate"/>
+	  </column>
   
   	<behavior name="soft_delete" />
 		<behavior name="timestampable" />

@@ -104,7 +104,19 @@ class AffiliatesUsersDoEditAction extends BaseAction {
 				$smarty->assign("message","errorUpdate");
 				return $mapping->findForwardConfig('failure');
 			}
-			return $this->addFiltersToForwards($filters, $mapping, 'success-owner');
+			$classKey = $affiliate->getclassKey();
+			switch ($classKey) {
+				case 1:
+					$forward = "success-owner";
+					break;
+				case 2:
+					$forward = "success-contractor-owner";
+					break;
+				case 3:
+					$forward = "success-verifier-owner";
+					break;
+			}
+			return $this->addFiltersToForwards($filters, $mapping, $forward);
 		}
 		
 		return $this->addFiltersToForwards($filters, $mapping, 'success');

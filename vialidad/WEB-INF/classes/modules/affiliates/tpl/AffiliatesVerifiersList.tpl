@@ -28,7 +28,7 @@
 |-/if-|
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 	<tr>
-		<td colspan='3' class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda por nombre</a><div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get'>
+		<td colspan="2" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda por nombre</a><div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get'>
 				<input type="hidden" name="do" value="affiliatesVerifiersList" />
 				Nombre: <input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="30" />
 				&nbsp;&nbsp;<input type='submit' value='Buscar' />
@@ -36,17 +36,16 @@
 			</form></div></td>
 	</tr>
 	|-if "affiliatesVerifiersEdit"|security_has_access-|<tr>
-		<th colspan="3"><div class="rightLink"><a href="Main.php?do=affiliatesVerifiersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Verificadora</a></div></th>
+		<th colspan="2"><div class="rightLink"><a href="Main.php?do=affiliatesVerifiersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Verificadora</a></div></th>
 	</tr>|-/if-|
 	|-foreach from=$affiliates item=affiliate name=for_affiliate-|
 	<tr>
-		<td width="5%">|-$affiliate->getId()-|</td>
-		<td width="85%">|-$affiliate->getName()-| |-if $affiliate->getOwnerId() neq "" -||-assign var=owner value=$affiliate->getOwner()-| [ Usuario Dueño: |-$owner->getUsername()-| ] |-/if-|</td>
+		<td width="90%">|-$affiliate->getName()-| |-if $affiliate->getOwnerId() neq "" -||-assign var=owner value=$affiliate->getOwner()-| [ Usuario Dueño: |-$owner->getUsername()-| ] |-/if-|</td>
 		<td width="10%" nowrap>|-if "affiliatesVerifiersViewX"|security_has_access-|
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="affiliatesVerifiersViewX" />
 						<input type="hidden" name="id" value="|-$affiliate->getId()-|" />
-						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("affiliatesVerifiersViewDiv", "Main.php?do=affiliatesVerifiersViewX&id=|-$affiliate->getId()-|", { method: "post", parameters: { id: "|-$affiliate->getId()-|"}, evalScripts: true})};$("affiliatesViewWorking").innerHTML = "<span class=\"inProgress\">buscando información...</span>";' value="Ver detalle" name="submit_go_show_project" /></a>
+						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("affiliatesViewDiv", "Main.php?do=affiliatesVerifiersViewX&id=|-$affiliate->getId()-|", { method: "post", parameters: { id: "|-$affiliate->getId()-|"}, evalScripts: true})};$("affiliatesViewWorking").innerHTML = "<span class=\"inProgress\">buscando información...</span>";' value="Ver detalle" name="submit_go_show_project" /></a>
 					</form>|-/if-|
 			|-if "affiliatesVerifiersEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="affiliatesVerifiersEdit" /> 
@@ -67,10 +66,10 @@
 	|-/foreach-|
 		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
 	<tr>
-		<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td>
+		<td colspan="2" class="pages">|-include file="PaginateInclude.tpl"-|</td>
 	</tr>
 	|-/if-|
 	|-if "affiliatesVerifiersEdit"|security_has_access && $affiliates|@count gt 5-|<tr>
-		<th colspan="3"><div class="rightLink"><a href="Main.php?do=affiliatesVerifiersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Verificadora</a></div></th>
+		<th colspan="2"><div class="rightLink"><a href="Main.php?do=affiliatesVerifiersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Verificadora</a></div></th>
 	</tr>|-/if-|
 </table>
