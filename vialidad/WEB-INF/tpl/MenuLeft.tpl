@@ -20,7 +20,7 @@
 			<li><a href="Main.php?do=vialidadSupplyList">Insumos</a></li>
 
 			<li><a href="Main.php?do=vialidadBulletinList">Boletines</a></li>
-			<li><a href="#">Paremétricas</a></li>
+			<li><a href="#">Paramétricas</a></li>
 			<li><a href="#">Actas de Medición</a></li>
 			<li><a href="#">Certificados de Obra</a></li>
 		</div>
@@ -28,8 +28,7 @@
 		<li class="titleMenu" onclick="$('sectionAdmin').toggle()">Administración</li>
 		<div id="sectionAdmin" style="display:|-if $module|upper eq 'USERS' || $module|upper eq 'AFFILIATES' || $module|upper eq 'MODULES' 
 		|| $module|upper eq 'COMMON' || $module|upper eq 'SURVEYS' || $module|upper eq 'SECURITY' || $module|upper eq 'BACKUP'-|block|-else-|none|-/if-|">
-			<li><a href="Main.php?do=affiliatesList">##affiliates,1,Afiliados##</a></li>
-			<li><a href="Main.php?do=affiliatesUsersList">##affiliates,2,Usuarios del afiliado##</a></li>
+			<li><a href="Main.php?do=affiliatesUsersList">Usuarios de afiliados</a></li>
 			<li><a href="Main.php?do=commonConfigSet">Cambiar Configuración</a></li>
 			<li><a href="Main.php?do=commonConfigEdit">Editar Configuración</a></li>
 			<li><a href="Main.php?do=commonConfigView">Ver Configuración</a></li>
