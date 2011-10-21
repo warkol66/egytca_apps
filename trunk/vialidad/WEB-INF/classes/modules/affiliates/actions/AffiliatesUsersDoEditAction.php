@@ -90,7 +90,22 @@ class AffiliatesUsersDoEditAction extends BaseAction {
 			$affiliate->save(); //necesitamos que tenga id
 			$affiliateUser->setAffiliateRelatedByAffiliateid($affiliate);
 		}
-		
+
+		$classKey = $affiliate->getclassKey();
+		switch ($classKey) {
+			case 1:
+				$forward = "success-owner";
+				break;
+			case 2:
+				$forward = "success-contractor-owner";
+				$affiliateUser->setLevelid(1);
+				break;
+			case 3:
+				$forward = "success-verifier-owner";
+				$affiliateUser->setLevelid(2);
+				break;
+		}
+
 		if (!$affiliateUser->save()) {
 			$this->assignObjects($smarty);
 			$smarty->assign("message","errorUpdate");
@@ -103,18 +118,6 @@ class AffiliatesUsersDoEditAction extends BaseAction {
 				$this->assignObjects($smarty);
 				$smarty->assign("message","errorUpdate");
 				return $mapping->findForwardConfig('failure');
-			}
-			$classKey = $affiliate->getclassKey();
-			switch ($classKey) {
-				case 1:
-					$forward = "success-owner";
-					break;
-				case 2:
-					$forward = "success-contractor-owner";
-					break;
-				case 3:
-					$forward = "success-verifier-owner";
-					break;
 			}
 			return $this->addFiltersToForwards($filters, $mapping, $forward);
 		}

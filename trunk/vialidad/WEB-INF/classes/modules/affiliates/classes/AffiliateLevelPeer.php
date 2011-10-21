@@ -42,19 +42,22 @@ class AffiliateLevelPeer extends BaseAffiliateLevelPeer {
 	function create($name) {
 		$level = new AffiliateLevel();
 		$level->setName($name);
+		$bitLevel = AffiliateLevelPeer::getUnusedBitLevel();
+		if ($bitLevel !== false)
+			$level->setBitlevel($bitLevel);
 		$level->save();
 		return true;
 	}
 
 	function getUnusedBitLevel() {
-		$levels = AffiliateLevelQuery::create()->orderByBitLevel()->find();
+		$levels = AffiliateLevelQuery::create()->orderByBitlevel()->find();
 		if (empty($levels))
 			return 1;
-		$maxLevel = $levels->getLast()->getBitLevel();
-		if ( $maxLevel > 1073741823) {
+		$maxLevel = $levels->getLast()->getBitlevel();
+		if ($maxLevel > 1073741823) {
 			//Tengo que ver si se borro alguno y volver a utilizarlo
 			for ($i=0;$i<count($levels);$i++) {
-				if ($levels[$i]->getBitLevel() != pow(2,$i))
+				if ($levels[$i]->getBitlevel() != pow(2,$i))
 					return pow(2,$i);
 			}
 			return false;

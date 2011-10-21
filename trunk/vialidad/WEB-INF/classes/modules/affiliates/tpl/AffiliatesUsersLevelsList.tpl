@@ -1,16 +1,14 @@
 <h2>##40,Configuración del Sistema##</h2>
-	<h1>Administración de Niveles de Usuarios</h1>
-	<p>A continuación podrá ver la lista de niveles de usuarios.</p>
+<h1>Administración de Niveles de Usuarios</h1>
+<p>A continuación podrá ver la lista de niveles de usuarios.</p>
 |-if $message eq "deleted"-|
-<div align='center' class='successMessage'>##181,Nivel de Usuarios eliminado##</div>
+<div class="successMessage">##181,Nivel de Usuarios eliminado##</div>
+|-elseif $message eq "saved"-|
+<div class="successMessage">##183,Nivel de Usuarios guardado##</div>
 |-/if-|
-|-if $message eq "saved"-|
-<div align='center' class='successMessage'>##183,Nivel de Usuarios guardado##</div>
-|-/if-|
-
-<table class='tablaborde' cellpadding='5' cellspacing='1' width='100%'>
-	<tr class="thFillTitle">
-			<th colspan="8"><div class="rightLink"><a href="Main.php?do=affiliatesUsersLevelsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##affiliates,1,Afiliado##</a></div></th>
+<table width="100%" border="0" cellpadding="5" cellspacing="0" class="tableTdBorders">
+	<tr>
+		<th colspan="2"><div class="rightLink"><a href="Main.php?do=affiliatesUsersLevelsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Nivel</a></div></th>
 	</tr>
 	<tr>
 		<th width="90%" nowrap="nowrap">##194,Niveles de Usuarios del Sistema ##</th>
@@ -18,8 +16,7 @@
 	</tr>
 	|-foreach from=$levels item=level name=for_levels-|
 	<tr>
-		<td class='celldato'><div class='titulo2'>|-$level->getName()-|</div></td>
-	
+		<td>|-$level->getName()-|</td>
 		<td width="1%" nowrap>
 			<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="affiliatesUsersLevelsEdit" /> 
@@ -36,10 +33,10 @@
 	|-/foreach-|
 	|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
 		<tr> 
-			<td colspan="8" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+			<td colspan="2" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 		</tr>							
 	|-/if-|
-    <tr class="thFillTitle">
-		<th colspan="8"><div class="rightLink"><a href="Main.php?do=affiliatesUsersLevelsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##affiliates,1,Afiliado##</a></div></th>
+    <tr>
+		<th colspan="2"><div class="rightLink"><a href="Main.php?do=affiliatesUsersLevelsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Nivel</a></div></th>
 	</tr>
 </table>
