@@ -12,19 +12,19 @@
 	<h1>Administración de ##affiliates,1,Afiliados##</h1>
 	<p>A continuación podrá editar la lista de ##affiliates,1,Afiliados## del sistema.</p>
 |-if $message eq "deleted"-|
-	<div align='center' class='successMessage'>##affiliates,3,Afiliado## eliminado</div>
+	<div  class="successMessage">##affiliates,3,Afiliado## eliminado</div>
 |-elseif $message eq "errorUpdate"-|
-	<div align='center' class='errorMessage'>Ha ocurrido un error al intentar guardar la información. Intente nuevamente.</div>
+	<div  class="errorMessage">Ha ocurrido un error al intentar guardar la información. Intente nuevamente.</div>
 |-elseif $message eq "saved"-|
-	<div align='center' class='successMessage'>Grupo de Usuarios guardado</div>
+	<div  class="successMessage">Grupo de Usuarios guardado</div>
 |-elseif $message eq "edited"-|
-	<div align='center' class='successMessage'>##affiliates,3,Afiliado## guardado</div>
+	<div  class="successMessage">##affiliates,3,Afiliado## guardado</div>
 |-elseif $message eq "blankName"-|
-	<div align='center' class='errorMessage'>El Grupo de Usuarios debe tener un Nombre</div>
+	<div  class="errorMessage">El Grupo de Usuarios debe tener un Nombre</div>
 |-elseif $message eq "notAddedToGroup"-|
-	<div align='center' class='errorMessage'>Ha ocurrido un error al intentar agregar la categoría al grupo</div>
+	<div  class="errorMessage">Ha ocurrido un error al intentar agregar la categoría al grupo</div>
 |-elseif $message eq "notRemovedFromGroup"-|
-	<div align='center' class='errorMessage'>Ha ocurrido un error al intentar eliminar la categoría del grupo</div>
+	<div  class="errorMessage">Ha ocurrido un error al intentar eliminar la categoría del grupo</div>
 |-/if-|
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 	<tr>
@@ -70,7 +70,7 @@
 		<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td>
 	</tr>
 	|-/if-|
-	|-if "affiliatesEdit"|security_has_access-|<tr>
+	|-if "affiliatesEdit"|security_has_access && $affiliates|@count gt 5-|<tr>
 		<th colspan="3"><div class="rightLink"><a href="Main.php?do=affiliatesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##affiliates,3,Afiliado##</a></div></th>
 	</tr>|-/if-|
 </table>

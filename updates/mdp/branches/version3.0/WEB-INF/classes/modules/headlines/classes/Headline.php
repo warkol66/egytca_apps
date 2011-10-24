@@ -96,16 +96,21 @@ class Headline extends BaseHeadline {
 	public function getClippingDisplaySize($imageFullname) {
 		list($width, $height) = getimagesize($imageFullname);
 		global $system;
-		$maxWidth = $system['config']['clippings']['maxDisplayableWidth'];;
+		$maxWidth = $system['config']['clippings']['maxDisplayableWidth'];
+		$maxHeight = $system['config']['clippings']['maxDisplayableHeight'];
 
-		if ($width > $maxWidth) {
-			$displayedWidth = $maxWidth;
-			$displayedHeight = intval(($displayedWidth / $width) * $height);
-		} else {
+		if ($width <= $maxWidth && $height <= $maxHeight) {
 			$displayedWidth = $width;
 			$displayedHeight = $height;
 		}
-		
+		else if ($width > $maxWidth && $height <= $maxHeight) {
+			$displayedWidth = $maxWidth;
+			$displayedHeight = intval(($displayedWidth / $width) * $height);
+		}
+		else {
+			$displayedHeight = $maxHeight;
+			$displayedWidth = intval(($displayedHeight / $height) * $width);
+		}
 		return array($displayedWidth, $displayedHeight);
 	}
 

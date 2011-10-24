@@ -3,7 +3,7 @@
 	<system>
 		<parameters>
 			<debugMode>
-				<value>YES</value>
+				<value></value>
 				<element_type>YES/NO</element_type>
 			</debugMode>
 			<developmentMode>
@@ -51,7 +51,7 @@
 			<affiliateNews>Novedades: Bienvenido al Sistema</affiliateNews>
 		</parameters>
 		<errorReporting>
-			<value>E_STRICT</value>
+			<value>E_ALL</value>
 			<element_type>Options</element_type>
 			<element_options>
 				<option_1></option_1>
@@ -61,10 +61,11 @@
 			</element_options>
 		</errorReporting>
 		<rowsPerPage>25</rowsPerPage>
+		<language>esp</language>
 	</system>
 	<email>
 		<mode>
-			<value>PHP</value>
+			<value>SMTP</value>
 			<element_type>Options</element_type>
 			<element_options>
 				<option_1>PHP</option_1>
@@ -72,10 +73,10 @@
 			</element_options>
 		</mode>
 		<smtpOptions>
-			<smtpHost></smtpHost>
-			<smtpPort></smtpPort>
-			<smtpUsername></smtpUsername>
-			<smtpPassword></smtpPassword>
+			<smtpHost>mail.anmagaexport.modulserver.com.ar</smtpHost>
+			<smtpPort>587</smtpPort>
+			<smtpUsername>anmagaex</smtpUsername>
+			<smtpPassword>Anmaga</smtpPassword>
 			<smtpSsl>
 				<value>NO</value>
 				<element_type>YES/NO</element_type>
@@ -102,5 +103,6 @@
 	<clippings>
 		<quality>94</quality>
 		<maxDisplayableWidth>800</maxDisplayableWidth>
+		<maxDisplayableHeight>600</maxDisplayableHeight>
 	</clippings>
 </config>
