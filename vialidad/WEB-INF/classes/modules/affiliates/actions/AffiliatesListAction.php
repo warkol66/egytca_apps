@@ -95,7 +95,6 @@ class AffiliatesListAction extends BaseAction {
      */
     protected function getQuery($filters) {
         $query = $this->get('query');
-        $query = AffiliateQuery::create();
         
         $filters["classKey"] = $this->get('classKey');
 		foreach($filters as $filterName => $filterValue) {
