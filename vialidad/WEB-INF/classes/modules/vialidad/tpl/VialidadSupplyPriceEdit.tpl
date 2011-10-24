@@ -35,10 +35,9 @@
 		</td>
 		<td align="right"><span id="price1" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceBulletin->getPrice1()|system_numeric_format-|</span></td>
 		<td align="center"><input id="definitive1" onchange="setParam('definitive1', this.checked);updateDefinitive();" type="checkbox" value="1" |-$priceBulletin->getDefinitive1()|checked_bool-| /></td>
-		<!-- <td><input type="file" name="file1" /></td> -->
 		<td align="center">
-			<a id="button_attach_supplier1" |-if $document1 neq ''-|style="display:none"|-/if-| href="#lightbox1" rel="lightbox1" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>
-			<input id="button_view_supplier1" |-if $document1 eq ''-|style="display:none"|-/if-| onclick="window.open('Main.php?do=documentsDoView&id=|-$priceBulletin->getSupplierDocument1()-|')" type="button" class="icon iconView" />
+			<a |-if $document1 neq ''-|style="display:none"|-/if-| href="#lightbox1" rel="lightbox1" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>
+			<input |-if $document1 eq ''-|style="display:none"|-/if-| onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$priceBulletin->getSupplierDocument1()-|')" type="button" class="icon iconView" />
 			<form action="Main.php?do=documentsDoDelete" method="post">
 				<input type="hidden" name="id" value="|-$priceBulletin->getSupplierDocument1()-|" />
 				<input type="hidden" name="entityId" value="|-$priceBulletin->getId()|cat:1-|" />
@@ -63,10 +62,9 @@
 		</td>
 		<td align="right"><span id="price2" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceBulletin->getPrice2()|system_numeric_format-|</span></td>
 		<td align="center"><input id="definitive2" onchange="setParam('definitive2', this.checked);updateDefinitive();" type="checkbox" value="1" |-$priceBulletin->getDefinitive2()|checked_bool-| /></td>
-		<!-- <td><input type="file" name="file2" /></td> -->
 		<td align="center">
-			<a id="button_attach_supplier2" |-if $document2 neq ''-|style="display:none"|-/if-| href="#lightbox2" rel="lightbox2" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>
-			<input id="button_view_supplier2" |-if $document2 eq ''-|style="display:none"|-/if-| onclick="window.open('Main.php?do=documentsDoView&id=|-$priceBulletin->getSupplierDocument2()-|')" type="button" class="icon iconView" />
+			<a |-if $document2 neq ''-|style="display:none"|-/if-| href="#lightbox2" rel="lightbox2" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>
+			<input |-if $document2 eq ''-|style="display:none"|-/if-| onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$priceBulletin->getSupplierDocument2()-|')" type="button" class="icon iconView" />
 			<form action="Main.php?do=documentsDoDelete" method="post">
 				<input type="hidden" name="id" value="|-$priceBulletin->getSupplierDocument2()-|" />
 				<input type="hidden" name="entityId" value="|-$priceBulletin->getId()|cat:2-|" />
@@ -91,10 +89,9 @@
 		</td>
 		<td align="right"><span id="price3" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceBulletin->getPrice3()|system_numeric_format-|</span></td>
 		<td align="center"><input id="definitive3" onchange="setParam('definitive3', this.checked);updateDefinitive();" type="checkbox" value="1" |-$priceBulletin->getDefinitive3()|checked_bool-| /></td>
-		<!-- <td><input type="file" name="file3" /></td> -->
 		<td align="center">
 			<a |-if $document3 neq ''-|style="display:none"|-/if-| href="#lightbox3" rel="lightbox3" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>
-			<input |-if $document3 eq ''-|style="display:none"|-/if-| onclick="window.open('Main.php?do=documentsDoView&id=|-$priceBulletin->getSupplierDocument3()-|')" type="button" class="icon iconView" />
+			<input |-if $document3 eq ''-|style="display:none"|-/if-| onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$priceBulletin->getSupplierDocument3()-|')" type="button" class="icon iconView" />
 			<form action="Main.php?do=documentsDoDelete" method="post">
 				<input type="hidden" name="id" value="|-$priceBulletin->getSupplierDocument3()-|" />
 				<input type="hidden" name="entityId" value="|-$priceBulletin->getId()|cat:3-|" />

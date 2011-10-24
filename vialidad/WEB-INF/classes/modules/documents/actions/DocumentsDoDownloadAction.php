@@ -34,9 +34,10 @@ class DocumentsDoDownloadAction extends BaseAction {
 			$document = new Document();
 
 		//validacion de password
-		$password = $_POST['password'];
+		//desactualizado y no debería chequear pwd si el doc no tiene
+		/*$password = $_POST['password'];
 		if (!$document->checkPasswordValidation($password))
-			return $mapping->findForwardConfig('failure');
+			return $mapping->findForwardConfig('failure');*/
 
 		header('Pragma: public');   // required
 		header('Expires: 0');       // no cache
@@ -68,7 +69,8 @@ class DocumentsDoDownloadAction extends BaseAction {
 				break;
 		}
 
-		header("content-disposition: attachment; filename=\"" . str_replace('"',"'",$document->getRealfilename()) . "\"");
+		if (!$_REQUEST["view"])
+			header("content-disposition: attachment; filename=\"" . str_replace('"',"'",$document->getRealfilename()) . "\"");
 
 		if ($document->getSize() != 0)
 			header("Content-Length: " . $document->getSize() ."; ");
