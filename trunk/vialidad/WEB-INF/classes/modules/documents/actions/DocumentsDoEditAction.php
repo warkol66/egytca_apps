@@ -88,6 +88,13 @@ class DocumentsDoEditAction extends BaseAction {
 		else {
 			//caso de upload o creacion de nuevo documento
 			
+			//si no existe el directorio de documentos se lo crea.
+			$moduleConfig = Common::getModuleConfiguration('documents');
+			$documentsPath = $moduleConfig['documentsPath'];
+			if (!file_exists($documentsPath))
+				if(!mkdir($documentsPath))
+					throw new Exception("no se pudo crear directorio de documentos");
+			
 			//si no llega ningun archivo significa que la carga se realizo por swfUpload.
 			if(empty($_FILES["document_file"]['name'])) {
 				return $this->findEntityForwardConfig('success', array('message'=>'uploadsuccess'), $mapping);
@@ -101,6 +108,8 @@ class DocumentsDoEditAction extends BaseAction {
 			////////////
 			// se inserta en la base de datos todo lo ingresado en el formulario anterior y la fecha
 			$document = $documentPeer->create($_FILES["document_file"],$_POST['title'],$_POST["description"],$_POST['date'],$_POST["category"],$_POST["password"],$_POST["extra"]);
+			if ($document === false)
+				return $this->findEntityForwardConfig('failure', array('errormessage'=>'documentUploadError'), $mapping);
 			
 			// Si no le tenemos que asociar ninguna entidad terminamos la accion acá
 			if (empty($_POST['entity'])) {

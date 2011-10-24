@@ -205,7 +205,8 @@ class DocumentPeer extends BaseDocumentPeer {
 		$moduleConfig = Common::getModuleConfiguration('documents');
 		$documentsPath = $moduleConfig['documentsPath'];
 
-		move_uploaded_file($file['tmp_name'],$documentsPath . '/' . $document->getId());
+		if (!move_uploaded_file($file['tmp_name'],$documentsPath . '/' . $document->getId()))
+			return false;
 
 		return $document;
 	}
