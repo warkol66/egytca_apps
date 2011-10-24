@@ -70,6 +70,8 @@ class AffiliatesListAction extends BaseAction {
     }
     
     /**
+     * A punto de deprecarse.
+     * 
      * Acceso a la clase Peer, con los filtros establecidos.
      * @param   array $filters
      * @return  AffiliatePeer
