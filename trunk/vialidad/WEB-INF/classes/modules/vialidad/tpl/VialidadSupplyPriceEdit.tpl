@@ -29,8 +29,8 @@
 			</div>
 			<div id="supplier1_edit" style="display:none">
 				<div id="supplier1_autocomplete" style="position: relative;z-index:12000;display: inline;">|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_supplier1" label="" url="Main.php?do=vialidadSuppliersAutocompleteListX" hiddenName="supplierId1" disableSubmit="save_supplier1"-|</div>
-				<button id="save_supplier1" type="button" disabled="disabled" onclick="updateSupplier(1)" class="icon iconActivate" />
-				<button type="button" onclick="setSupplierEdition(1, false);" class="icon iconClose" />
+				<button id="save_supplier1" type="button" disabled="disabled" onclick="updateSupplier(1)" class="icon iconActivate" style="margin-right:3px;"/>
+				<button type="button" onclick="setSupplierEdition(1, false);" class="icon iconCancel" />
 			</div>
 		</td>
 		<td align="right"><span id="price1" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceBulletin->getPrice1()|system_numeric_format-|</span></td>
@@ -57,8 +57,8 @@
 			</div>
 			<div id="supplier2_edit" style="display:none">
 				<div id="supplier2_autocomplete" style="position: relative;z-index:11000;">|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_supplier2" label="" url="Main.php?do=vialidadSuppliersAutocompleteListX" hiddenName="supplierId2" disableSubmit="save_supplier2" -|</div>
-				<button id="save_supplier2" type="button" disabled="disabled" onclick="updateSupplier(2)" class="icon iconActivate" />
-				<button type="button" onclick="setSupplierEdition(2, false);" class="icon iconClose" />
+				<button id="save_supplier2" type="button" disabled="disabled" onclick="updateSupplier(2)" class="icon iconActivate"  style="margin-right:3px;"/>
+				<button type="button" onclick="setSupplierEdition(2, false);" class="icon iconCancel" />
 			</div>
 		</td>
 		<td align="right"><span id="price2" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceBulletin->getPrice2()|system_numeric_format-|</span></td>
@@ -85,8 +85,8 @@
 			</div>
 			<div id="supplier3_edit" style="display:none">
 				<div id="supplier3_autocomplete" style="position: relative;z-index:10000;">|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_supplier3" label="" url="Main.php?do=vialidadSuppliersAutocompleteListX" hiddenName="supplierId3" disableSubmit="save_supplier3" -|</div>
-				<button id="save_supplier3" type="button" disabled="disabled" onclick="updateSupplier(3)" class="icon iconActivate" />
-				<button type="button" onclick="setSupplierEdition(3, false);" class="icon iconClose" />
+				<button id="save_supplier3" type="button" disabled="disabled" onclick="updateSupplier(3)" class="icon iconActivate"  style="margin-right:3px;"/>
+				<button type="button" onclick="setSupplierEdition(3, false);" class="icon iconCancel" />
 			</div>
 		</td>
 		<td align="right"><span id="price3" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceBulletin->getPrice3()|system_numeric_format-|</span></td>
