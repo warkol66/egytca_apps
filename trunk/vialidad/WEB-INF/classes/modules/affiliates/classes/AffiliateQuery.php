@@ -28,7 +28,7 @@ class AffiliateQuery extends BaseAffiliateQuery {
         $filterName = ucfirst($filterName);
         
         switch ($filterName) {
-            case 'searchString':
+            case 'SearchString':
                 $this->filterByName("%$filterValue%", Criteria::LIKE);
                 break;
 
@@ -40,6 +40,21 @@ class AffiliateQuery extends BaseAffiliateQuery {
                 }
                     
                 break;
+        }
+        
+        return $this;
+    }
+    
+    /**
+     * Agrega el limite a la consulta, si existe.
+     * 
+     * @param   int $limit 
+     * @return  AffiliateQuery
+     */
+    public function limitIfExists($limit = null) {
+        
+        if (!empty($limit)) {
+            $this->limit($limit);
         }
         
         return $this;
