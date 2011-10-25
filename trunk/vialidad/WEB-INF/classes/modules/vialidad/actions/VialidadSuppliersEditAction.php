@@ -28,7 +28,7 @@ class VialidadSuppliersEditAction extends BaseAction {
 		$smarty->assign("message",$message);
 
 		if ($_GET['id']) {
-			$supplier =  SupplierPeer::get($_GET['id']);
+			$supplier = SupplierQuery::create()->findPk($_GET["id"]);
 			if (empty($supplier)) {
 				$smarty->assign("notValidId","true");
 				$supplier = new Supplier();

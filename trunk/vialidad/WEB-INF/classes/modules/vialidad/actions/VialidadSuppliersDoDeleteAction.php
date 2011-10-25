@@ -21,7 +21,7 @@ class VialidadSuppliersDoDeleteAction extends BaseAction {
 		$section = "Suppliers";
 		$smarty->assign("section",$section);
 
-		$supplier = SupplierPeer::get($_POST["id"]);
+		$supplier = SupplierQuery::create()->findPk($_POST["id"]);
 		$supplier->delete();
 
 		if ($supplier->isDeleted()) {
