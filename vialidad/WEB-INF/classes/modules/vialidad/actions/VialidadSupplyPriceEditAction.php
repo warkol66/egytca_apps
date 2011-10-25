@@ -32,6 +32,7 @@ class VialidadSupplyPriceEditAction extends BaseAction {
 			$smarty->assign('document1', $priceBulletin->getDocumentRelatedBySupplierdocument1());
 			$smarty->assign('document2', $priceBulletin->getDocumentRelatedBySupplierdocument2());
 			$smarty->assign('document3', $priceBulletin->getDocumentRelatedBySupplierdocument3());
+			$smarty->assign('allSuppliers', SupplierQuery::create()->find());
 			
 			return $mapping->findForwardConfig('success');
 			
