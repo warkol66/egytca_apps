@@ -326,5 +326,27 @@ class BaseAction extends Action {
 	public function isAjax() {
 		return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
 	}
+    
+    /**
+     * Crea un pager basado en la implementacion del metodo getQuery.
+     * 
+     * @param   array $filters
+     * @param   int $page
+     * @param   int $perPage
+     * @return  PropelModelPager
+     */
+    protected function createPager($filters, $page = 1, $perPage = 10) {
+        $query = $this->getQuery($filters);
+        return $query->paginate($page, $perPage);
+    }    
+    
+    /**
+     * Provee acceso a la clase Query.
+     * 
+     * @param   array $filters 
+     */
+    protected function getQuery($filters) {
+        throw new Exception("getQuery must be implemeneted in order to use createPager");
+    }
 }
 
