@@ -1,8 +1,8 @@
 <?php
 
-class VialidadSupplyPriceAddDocumentAction extends BaseAction {
+class VialidadSupplyPriceDoAddDocumentAction extends BaseAction {
 
-	function VialidadSupplyPriceAddDocumentAction() {
+	function VialidadSupplyPriceDoAddDocumentAction() {
 		;
 	}
 

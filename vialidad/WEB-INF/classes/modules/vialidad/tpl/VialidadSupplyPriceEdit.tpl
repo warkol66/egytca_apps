@@ -29,7 +29,7 @@
 		<td align="center">
 			<a |-if $document1 neq ''-|style="display:none"|-/if-| href="#lightbox1" rel="lightbox1" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>
 			<input |-if $document1 eq ''-|style="display:none"|-/if-| onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$priceBulletin->getSupplierDocument1()-|')" type="button" class="icon iconView" />
-			<form action="Main.php?do=vialidadSupplyPriceDeleteDocument" method="post">
+			<form action="Main.php?do=vialidadSupplyPriceDoDeleteDocument" method="post">
 				<input type="hidden" name="id" value="|-$priceBulletin->getId()-|" />
 				<input type="hidden" name="supplierNumber" value="1" />
 				<input type="submit" |-if $document1 eq ''-|style="display:none"|-/if-| onclick="return confirm('Seguro que desea eliminar el respaldo definitivamente?')" class="icon iconDelete" />
@@ -48,7 +48,7 @@
 		<td align="center">
 			<a |-if $document2 neq ''-|style="display:none"|-/if-| href="#lightbox2" rel="lightbox2" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>
 			<input |-if $document2 eq ''-|style="display:none"|-/if-| onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$priceBulletin->getSupplierDocument2()-|')" type="button" class="icon iconView" />
-			<form action="Main.php?do=vialidadSupplyPriceDeleteDocument" method="post">
+			<form action="Main.php?do=vialidadSupplyPriceDoDeleteDocument" method="post">
 				<input type="hidden" name="id" value="|-$priceBulletin->getId()-|" />
 				<input type="hidden" name="supplierNumber" value="2" />
 				<input type="submit" |-if $document2 eq ''-|style="display:none"|-/if-| onclick="return confirm('Seguro que desea eliminar el respaldo definitivamente?')" class="icon iconDelete" />
@@ -67,7 +67,7 @@
 		<td align="center">
 			<a |-if $document3 neq ''-|style="display:none"|-/if-| href="#lightbox3" rel="lightbox3" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>
 			<input |-if $document3 eq ''-|style="display:none"|-/if-| onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$priceBulletin->getSupplierDocument3()-|')" type="button" class="icon iconView" />
-			<form action="Main.php?do=vialidadSupplyPriceDeleteDocument" method="post">
+			<form action="Main.php?do=vialidadSupplyPriceDoDeleteDocument" method="post">
 				<input type="hidden" name="id" value="|-$priceBulletin->getId()-|" />
 				<input type="hidden" name="supplierNumber" value="3" />
 				<input type="submit" |-if $document3 eq ''-|style="display:none"|-/if-| onclick="return confirm('Seguro que desea eliminar el respaldo definitivamente?')" class="icon iconDelete" />
@@ -103,7 +103,7 @@
 	
 
 	
-	<form method="post" action="Main.php?do=vialidadSupplyPriceAddDocument" enctype="multipart/form-data" id="documentsAdderForm|-$i-|">
+	<form method="post" action="Main.php?do=vialidadSupplyPriceDoAddDocument" enctype="multipart/form-data" id="documentsAdderForm|-$i-|">
 	<input type="hidden" name="id" value="|-$priceBulletin->getId()-|" />
 	<input type="hidden" name="supplierNumber" value="|-$i-|" />
 	<fieldset title="Formulario para Agregar Nuevo Respaldo">
