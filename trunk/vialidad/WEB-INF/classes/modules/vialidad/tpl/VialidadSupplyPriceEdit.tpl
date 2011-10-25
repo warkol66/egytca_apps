@@ -1,8 +1,6 @@
 |-assign var='bulletin' value=$priceBulletin->getBulletin()-|
 |-assign var='supply' value=$priceBulletin->getSupply()-|
 
-|-include file="CommonAutocompleterInclude.tpl" -|
-
 <h2>Boletines</h2>
 <h1>Administración de Precios - |-$bulletin->getBulletindate()|date_format:"%B / %Y"|@ucfirst-|</h1>
 	
@@ -22,16 +20,9 @@
 	<tr>
 		<td>1</td>
 		<td>
-			<div id="supplier1_non_edit">
-				|-assign var='supplier1' value=$priceBulletin->getSupplierRelatedBySupplierid1()-|
-				<span id="supplier1_name">|-if $supplier1 neq ''-||-$supplier1->getName()-||-else-|&nbsp;-&nbsp;|-/if-|</span>
-				<button type="button" onclick="setSupplierEdition(1, true);" class="icon iconEdit" />
-			</div>
-			<div id="supplier1_edit" style="display:none">
-				<div id="supplier1_autocomplete" style="position: relative;z-index:12000;display: inline;">|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_supplier1" label="" url="Main.php?do=vialidadSuppliersAutocompleteListX" hiddenName="supplierId1" disableSubmit="save_supplier1"-|</div>
-				<button id="save_supplier1" type="button" disabled="disabled" onclick="updateSupplier(1)" class="icon iconActivate" style="margin-right:3px;"/>
-				<button type="button" onclick="setSupplierEdition(1, false);" class="icon iconCancel" />
-			</div>
+			|-assign var='supplier1' value=$priceBulletin->getSupplierRelatedBySupplierid1()-|
+			<span id="supplier1_name">|-if $supplier1 neq ''-||-$supplier1->getName()-||-else-|&nbsp;-&nbsp;|-/if-|</span>
+			<div id="autocomplete_choices1" class="autocomplete" style="position: relative;z-index:12000;display: none;" ></div>
 		</td>
 		<td align="right"><span id="price1" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceBulletin->getPrice1()|system_numeric_format-|</span></td>
 		<td align="center"><input id="definitive1" onchange="setParam('definitive1', this.checked);updateDefinitive();" type="checkbox" value="1" |-$priceBulletin->getDefinitive1()|checked_bool-| /></td>
@@ -48,16 +39,9 @@
 	<tr>
 		<td>2</td>
 		<td>
-			<div id="supplier2_non_edit">
-				|-assign var='supplier2' value=$priceBulletin->getSupplierRelatedBySupplierid2()-|
-				<span id="supplier2_name">|-if $supplier2 neq ''-||-$supplier2->getName()-||-else-|&nbsp;-&nbsp;|-/if-|</span>
-				<button type="button" onclick="setSupplierEdition(2, true);" class="icon iconEdit" />
-			</div>
-			<div id="supplier2_edit" style="display:none">
-				<div id="supplier2_autocomplete" style="position: relative;z-index:11000;">|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_supplier2" label="" url="Main.php?do=vialidadSuppliersAutocompleteListX" hiddenName="supplierId2" disableSubmit="save_supplier2" -|</div>
-				<button id="save_supplier2" type="button" disabled="disabled" onclick="updateSupplier(2)" class="icon iconActivate"  style="margin-right:3px;"/>
-				<button type="button" onclick="setSupplierEdition(2, false);" class="icon iconCancel" />
-			</div>
+			|-assign var='supplier2' value=$priceBulletin->getSupplierRelatedBySupplierid2()-|
+			<span id="supplier2_name">|-if $supplier2 neq ''-||-$supplier2->getName()-||-else-|&nbsp;-&nbsp;|-/if-|</span>
+			<div id="autocomplete_choices2" class="autocomplete" style="position: relative;z-index:11000;display:none;" ></div>
 		</td>
 		<td align="right"><span id="price2" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceBulletin->getPrice2()|system_numeric_format-|</span></td>
 		<td align="center"><input id="definitive2" onchange="setParam('definitive2', this.checked);updateDefinitive();" type="checkbox" value="1" |-$priceBulletin->getDefinitive2()|checked_bool-| /></td>
@@ -74,16 +58,9 @@
 	<tr>
 		<td>3</td>
 		<td>
-			<div id="supplier3_non_edit">
-				|-assign var='supplier3' value=$priceBulletin->getSupplierRelatedBySupplierid3()-|
-				<span id="supplier3_name">|-if $supplier3 neq ''-||-$supplier3->getName()-||-else-|&nbsp;-&nbsp;|-/if-|</span>
-				<button type="button" onclick="setSupplierEdition(3, true);" class="icon iconEdit" />
-			</div>
-			<div id="supplier3_edit" style="display:none">
-				<div id="supplier3_autocomplete" style="position: relative;z-index:10000;">|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_supplier3" label="" url="Main.php?do=vialidadSuppliersAutocompleteListX" hiddenName="supplierId3" disableSubmit="save_supplier3" -|</div>
-				<button id="save_supplier3" type="button" disabled="disabled" onclick="updateSupplier(3)" class="icon iconActivate"  style="margin-right:3px;"/>
-				<button type="button" onclick="setSupplierEdition(3, false);" class="icon iconCancel" />
-			</div>
+			|-assign var='supplier3' value=$priceBulletin->getSupplierRelatedBySupplierid3()-|
+			<span id="supplier3_name">|-if $supplier3 neq ''-||-$supplier3->getName()-||-else-|&nbsp;-&nbsp;|-/if-|</span>
+			<div id="autocomplete_choices3" class="autocomplete" style="position: relative;z-index:10000;display:none;" ></div>
 		</td>
 		<td align="right"><span id="price3" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceBulletin->getPrice3()|system_numeric_format-|</span></td>
 		<td align="center"><input id="definitive3" onchange="setParam('definitive3', this.checked);updateDefinitive();" type="checkbox" value="1" |-$priceBulletin->getDefinitive3()|checked_bool-| /></td>
@@ -158,33 +135,33 @@
 </div> 
 |-/section-|
 
-<!--
-<p>
-	<span id="span_inplace_edit">clickeame</span>
-	<input type="text" id="autocomplete" name="value"/>
-	<div id="autocomplete_choices" class="autocomplete"></div>
-</p>
+
 <script type="text/javascript">
 	
-new Ajax.Autocompleter(
-	"autocomplete",
-	"autocomplete_choices",
-	"Main.php?do=vialidadSuppliersAutocompleteListX",
-	{
-		minChars: 3
-	}
+var requestParamValue;
+var supplierId = new Array();
+var submitButton;
+
+function attachSupplierAutocompleter(elementName, number) {
+	new Ajax.Autocompleter(
+		elementName,
+		"autocomplete_choices"+number,
+		"Main.php?do=vialidadSuppliersAutocompleteListX",
+		{
+			minChars: 3,
+			afterUpdateElement: function(text, li) {
+				requestParamValue = supplierId[text.value];
+				if (requestParamValue > 0)
+					submitButton.enable();
+			}
+		}
 );
-</script>
+}
 
--->
-
-<script type="text/javascript">
-
-/*
 function attachSupplierEditor(number) {
 	new Ajax.InPlaceEditor(
-		'supplierId'+number,
-		'ain.php?do=vialidadSupplyPriceEditFieldX',
+		'supplier'+number+'_name',
+		'Main.php?do=vialidadSupplyPriceEditFieldX',
 		{
 			rows: 1,
 			okText: 'Guardar',
@@ -196,49 +173,22 @@ function attachSupplierEditor(number) {
 			savingClassName: 'inProgress',
 			clickToEditText: 'Haga click para editar',
 			callback: function(form, value) {
-				return 'bulletinId=|-$bulletin->getId()-|&supplyId=|-$supply->getId()-|&paramName=supplier1&paramValue=' + encodeURIComponent(value);
+				return 'bulletinId=|-$bulletin->getId()-|&supplyId=|-$supply->getId()-|&paramName=supplierId'+number+'&paramValue=' + requestParamValue;
 			},
 			onComplete: function(transport, element) {
 				clean_text_content_from(element);
 				new Effect.Highlight(element, { startcolor: this.options.highlightColor });
 			},
-			onFormReady: function(obj,form) {}
-		}
-	);
-}
-
-*/
-	
-function updateSupplier(number) {
-	var name = 'supplierId'+number;
-	var value = $('autocomplete_supplier'+number+'_selected_id').value;
-	
-	new Ajax.Updater(
-		'supplier'+number+'_name',
-		'Main.php?do=vialidadSupplyPriceEditFieldX',
-		{
-			method: 'post',
-			parameters: {
-				bulletinId: "|-$bulletin->getId()-|",
-				supplyId: "|-$supply->getId()-|",
-				paramName: name,
-				paramValue: value
+			onFormReady: function(obj,form) {
+				var input = form.elements['value'];
+				submitButton =form.elements[1];
+				
+				submitButton.disable();
+				attachSupplierAutocompleter(input, number);
+				requestParamValue = supplierId[input.value];
 			}
 		}
 	);
-	
-	setSupplierEdition(number, false);
-}
-
-function setSupplierEdition(supplierNumber, value) {
-	if (value == true) {
-		$('supplier'+supplierNumber+'_non_edit').hide();
-		$('supplier'+supplierNumber+'_edit').show();
-	} else {
-		
-		$('supplier'+supplierNumber+'_edit').hide();
-		$('supplier'+supplierNumber+'_non_edit').show();
-	}
 }
 
 function setParam(name, value) {
@@ -319,11 +269,20 @@ function attachInPlaceEditor(name) {
 }
 
 window.onload = function() {
+	loadSupplierIds();
 	attachInPlaceEditor('price1');
 	attachInPlaceEditor('price2');
 	attachInPlaceEditor('price3');
+	attachSupplierEditor(1);
+	attachSupplierEditor(2);
+	attachSupplierEditor(3);
 }
 
+function loadSupplierIds() {
+	|-foreach from=$allSuppliers item=supplier-|
+	supplierId['|-$supplier->getName()-|'] = '|-$supplier->getId()-|';
+	|-/foreach-|
+}
 
 function chomp(raw_text) {
 	return raw_text.replace(/(\n|\r)+$/, '');
