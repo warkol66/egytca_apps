@@ -38,10 +38,9 @@
 		<td align="center">
 			<a |-if $document1 neq ''-|style="display:none"|-/if-| href="#lightbox1" rel="lightbox1" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>
 			<input |-if $document1 eq ''-|style="display:none"|-/if-| onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$priceBulletin->getSupplierDocument1()-|')" type="button" class="icon iconView" />
-			<form action="Main.php?do=documentsDoDelete" method="post">
-				<input type="hidden" name="id" value="|-$priceBulletin->getSupplierDocument1()-|" />
-				<input type="hidden" name="entityId" value="|-$priceBulletin->getId()|cat:1-|" />
-				<input type="hidden" name="entity" value="SupplierPrice" />
+			<form action="Main.php?do=vialidadSupplyPriceDeleteDocument" method="post">
+				<input type="hidden" name="id" value="|-$priceBulletin->getId()-|" />
+				<input type="hidden" name="supplierNumber" value="1" />
 				<input type="submit" |-if $document1 eq ''-|style="display:none"|-/if-| onclick="return confirm('Seguro que desea eliminar el respaldo definitivamente?')" class="icon iconDelete" />
 			</form>
 		</td>
@@ -65,10 +64,9 @@
 		<td align="center">
 			<a |-if $document2 neq ''-|style="display:none"|-/if-| href="#lightbox2" rel="lightbox2" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>
 			<input |-if $document2 eq ''-|style="display:none"|-/if-| onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$priceBulletin->getSupplierDocument2()-|')" type="button" class="icon iconView" />
-			<form action="Main.php?do=documentsDoDelete" method="post">
-				<input type="hidden" name="id" value="|-$priceBulletin->getSupplierDocument2()-|" />
-				<input type="hidden" name="entityId" value="|-$priceBulletin->getId()|cat:2-|" />
-				<input type="hidden" name="entity" value="SupplierPrice" />
+			<form action="Main.php?do=vialidadSupplyPriceDeleteDocument" method="post">
+				<input type="hidden" name="id" value="|-$priceBulletin->getId()-|" />
+				<input type="hidden" name="supplierNumber" value="2" />
 				<input type="submit" |-if $document2 eq ''-|style="display:none"|-/if-| onclick="return confirm('Seguro que desea eliminar el respaldo definitivamente?')" class="icon iconDelete" />
 			</form>
 		</td>
@@ -92,10 +90,9 @@
 		<td align="center">
 			<a |-if $document3 neq ''-|style="display:none"|-/if-| href="#lightbox3" rel="lightbox3" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>
 			<input |-if $document3 eq ''-|style="display:none"|-/if-| onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$priceBulletin->getSupplierDocument3()-|')" type="button" class="icon iconView" />
-			<form action="Main.php?do=documentsDoDelete" method="post">
-				<input type="hidden" name="id" value="|-$priceBulletin->getSupplierDocument3()-|" />
-				<input type="hidden" name="entityId" value="|-$priceBulletin->getId()|cat:3-|" />
-				<input type="hidden" name="entity" value="SupplierPrice" />
+			<form action="Main.php?do=vialidadSupplyPriceDeleteDocument" method="post">
+				<input type="hidden" name="id" value="|-$priceBulletin->getId()-|" />
+				<input type="hidden" name="supplierNumber" value="3" />
 				<input type="submit" |-if $document3 eq ''-|style="display:none"|-/if-| onclick="return confirm('Seguro que desea eliminar el respaldo definitivamente?')" class="icon iconDelete" />
 			</form>
 		</td>
@@ -127,14 +124,90 @@
 <div id="lightbox|-$i-|" class="leightbox"> 
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p>
 	
-	<!-------------- Provisorio --------------->
-	|-include file="DocumentsEditInclude.tpl" entity="SupplierPrice" entityId=$priceBulletin->getId()|cat:$i label="Respaldo"-|
-	<!----------------------------------------->
+
+	
+	<form method="post" action="Main.php?do=vialidadSupplyPriceAddDocument" enctype="multipart/form-data" id="documentsAdderForm|-$i-|">
+	<input type="hidden" name="id" value="|-$priceBulletin->getId()-|" />
+	<input type="hidden" name="supplierNumber" value="|-$i-|" />
+	<fieldset title="Formulario para Agregar Nuevo Respaldo">
+		<legend>Anexar Respaldo</legend>
+		<p>Ingrese los datos correspondientes al Respaldo que desea anexar.</p>
+		<p>
+			<label for="document_file">Archivo</label>
+			<input type="file" id="document_file|-$i-|" name="document_file" title="Seleccione el archivo" size="45"/>
+		</p>
+		<p>
+			<label for="date">Fecha</label>
+			<input name="date" type="text" value="|-$smarty.now|date_format:'%d-%m-%Y'-|" size="10" title="Fecha del documento (Formato: dd-mm-yyyy)"/>
+			<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('date', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+		</p>
+		<p>
+			<label for="title">Título</label>
+			<textarea name="title" cols="55" rows="2" wrap="virtual" title="Título"></textarea>
+		</p>
+		<p>
+			<label for="description">Descripción</label>
+			<textarea name="description" cols="55" rows="6" wrap="VIRTUAL" title="Descripción"></textarea>
+		</p>
+		<div id="upload_info"></div>
+		<p>
+			<input type="submit" name="uploadButton" value="Agregar Respaldo" ><span id="msgBoxUploader|-$i-|"></span>
+		</p>
+	</fieldset>
+	</form>
 </div> 
 |-/section-|
 
+<!--
+<p>
+	<span id="span_inplace_edit">clickeame</span>
+	<input type="text" id="autocomplete" name="value"/>
+	<div id="autocomplete_choices" class="autocomplete"></div>
+</p>
+<script type="text/javascript">
+	
+new Ajax.Autocompleter(
+	"autocomplete",
+	"autocomplete_choices",
+	"Main.php?do=vialidadSuppliersAutocompleteListX",
+	{
+		minChars: 3
+	}
+);
+</script>
+
+-->
 
 <script type="text/javascript">
+
+/*
+function attachSupplierEditor(number) {
+	new Ajax.InPlaceEditor(
+		'supplierId'+number,
+		'ain.php?do=vialidadSupplyPriceEditFieldX',
+		{
+			rows: 1,
+			okText: 'Guardar',
+			cancelText: 'Cancelar',
+			savingText: 'Guardando...',
+			hoverClassName: 'in_place_hover',
+			highlightColor: '#b7e0ff',
+			cancelControl: 'button',
+			savingClassName: 'inProgress',
+			clickToEditText: 'Haga click para editar',
+			callback: function(form, value) {
+				return 'bulletinId=|-$bulletin->getId()-|&supplyId=|-$supply->getId()-|&paramName=supplier1&paramValue=' + encodeURIComponent(value);
+			},
+			onComplete: function(transport, element) {
+				clean_text_content_from(element);
+				new Effect.Highlight(element, { startcolor: this.options.highlightColor });
+			},
+			onFormReady: function(obj,form) {}
+		}
+	);
+}
+
+*/
 	
 function updateSupplier(number) {
 	var name = 'supplierId'+number;
