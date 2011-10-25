@@ -29,38 +29,9 @@ class VialidadSupplyPriceEditAction extends BaseAction {
 				throw new Exception("PriceBulletin doesn't exist");
 			
 			$smarty->assign('priceBulletin', $priceBulletin);
-			
-			/*********** Provisorio ***********/
-			$filteredQuery = DocumentRelatedEntityQuery::create()->filterByEntitytype("SupplierPrice")
-				->filterByEntityid($priceBulletin->getId().'1');
-			if ($filteredQuery->count() == 1)
-				//$smarty->assign('document1', $filteredQuery->findOne());
-				$priceBulletin->setSupplierdocument1($filteredQuery->findOne()->getDocumentId());
-			
-			$filteredQuery = DocumentRelatedEntityQuery::create()->filterByEntitytype("SupplierPrice")
-				->filterByEntityid($priceBulletin->getId().'2');
-			if ($filteredQuery->count() == 1)
-				//$smarty->assign('document2', $filteredQuery->findOne());
-				$priceBulletin->setSupplierdocument2($filteredQuery->findOne()->getDocumentId());
-			
-			$filteredQuery = DocumentRelatedEntityQuery::create()->filterByEntitytype("SupplierPrice")
-				->filterByEntityid($priceBulletin->getId().'3');
-			if ($filteredQuery->count() == 1)
-				//$smarty->assign('document3', $filteredQuery->findOne());
-				$priceBulletin->setSupplierdocument3($filteredQuery->findOne()->getDocumentId());
-			/**********************************/
-			
-			if (!is_null($priceBulletin->getSupplierdocument1())) {
-				$smarty->assign('document1', $priceBulletin->getDocumentRelatedBySupplierdocument1());
-			}
-			
-			if (!is_null($priceBulletin->getSupplierdocument2())) {
-				$smarty->assign('document2', $priceBulletin->getDocumentRelatedBySupplierdocument2());
-			}
-			
-			if (!is_null($priceBulletin->getSupplierdocument3())) {
-				$smarty->assign('document3', $priceBulletin->getDocumentRelatedBySupplierdocument3());
-			}
+			$smarty->assign('document1', $priceBulletin->getDocumentRelatedBySupplierdocument1());
+			$smarty->assign('document2', $priceBulletin->getDocumentRelatedBySupplierdocument2());
+			$smarty->assign('document3', $priceBulletin->getDocumentRelatedBySupplierdocument3());
 			
 			return $mapping->findForwardConfig('success');
 			
