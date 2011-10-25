@@ -34,7 +34,7 @@ class VialidadSuppliersDoEditAction extends BaseAction {
 
 		if ($_POST["action"] == "edit" && !empty($_POST["id"])) {
 			$params["id"] = $_POST["id"];
-			$supplier = SupplierPeer::get($_POST["id"]);
+			$supplier = SupplierQuery::create()->findPk($_POST["id"]);
 			if (!empty($supplier)) {
 				$supplier = Common::setObjectFromParams($supplier,$_POST["params"]);
 

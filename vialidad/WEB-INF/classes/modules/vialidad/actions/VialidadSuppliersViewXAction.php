@@ -23,7 +23,7 @@ class VialidadSuppliersViewXAction extends BaseAction {
 
 		$id = $_GET["id"];
 
-		$supplier = SupplierPeer::get($id);
+		$supplier = SupplierQuery::create()->findPk($_POST["id"]);
 		$smarty->assign("supplier",$supplier);
 
 		return $mapping->findForwardConfig('success');

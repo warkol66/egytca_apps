@@ -9,8 +9,8 @@
 	</div>
 </div> 
 <h2>Proveedores</h2>
-	<h1>Administraci&oacute;n de Proveedores</h1>
-    <p>A continuaci&oacute;n podr&aacute; editar la lista de Proveedores del sistema.</p>
+	<h1>Administración de Proveedores</h1>
+	<p>A continuación podrá editar la lista de Proveedores del sistema.</p>
 |-if $message eq "ok"-|
 	<div  class="successMessage">Proveedor guardado correctamente</div>
 |-elseif $message eq "deleted_ok"-|
@@ -24,9 +24,9 @@
 |-elseif $message eq "blankName"-|
 	<div  class="errorMessage">El Grupo de Usuarios debe tener un Nombre</div>
 |-elseif $message eq "notAddedToGroup"-|
-	<div  class="errorMessage">Ha ocurrido un error al intentar agregar la categor&iacute;a al grupo</div>
+	<div  class="errorMessage">Ha ocurrido un error al intentar agregar la categoría al grupo</div>
 |-elseif $message eq "notRemovedFromGroup"-|
-	<div  class="errorMessage">Ha ocurrido un error al intentar eliminar la categor&iacute;a del grupo</div>
+	<div  class="errorMessage">Ha ocurrido un error al intentar eliminar la categoría del grupo</div>
 |-/if-|
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 	<tr>
@@ -48,7 +48,7 @@
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="vialidadSuppliersViewX" />
 						<input type="hidden" name="id" value="|-$supplier->getId()-|" />
-						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("vialidadSuppliersViewDiv", "Main.php?do=vialidadSuppliersViewX&id=|-$supplier->getId()-|", { method: "post", parameters: { id: "|-$supplier->getId()-|"}, evalScripts: true})};$("vialidadSuppliersViewWorking").innerHTML = "<span class=\"inProgress\">buscando informaciÃÂ³n...</span>";' value="Ver detalle" name="submit_go_show_project" /></a>
+						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("vialidadSuppliersViewDiv", "Main.php?do=vialidadSuppliersViewX&id=|-$supplier->getId()-|", { method: "post", parameters: { id: "|-$supplier->getId()-|"}, evalScripts: true})};$("vialidadSuppliersViewWorking").innerHTML = "<span class=\"inProgress\">buscando información...</span>";' value="Ver detalle" name="submit_go_show_project" /></a>
 					</form>|-/if-|
 			|-if "vialidadSuppliersEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="vialidadSuppliersEdit" /> 
@@ -67,7 +67,7 @@
     </td>
 	</tr>
 	|-/foreach-|
-		|-if isset($pager) && ($pager->getLastPage() gt 1)-|
+		|-if isset($pager) && $pager->haveToPaginate()-|
 	<tr>
 		<td colspan="3" class="pages">|-include file="ModelPagerInclude.tpl"-|</td>
 	</tr>
