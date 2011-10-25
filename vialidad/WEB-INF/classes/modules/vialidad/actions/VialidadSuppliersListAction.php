@@ -24,7 +24,8 @@ class VialidadSuppliersListAction extends BaseAction {
 		$smarty->assign("message",$_GET["message"]);
 
 		$filters = $_GET["filters"];
-        $pager = $this->createPager($filters, $_GET["page"], $filters['perPage']);
+        $pager = SupplierQuery::create()
+            ->createPager($filters, $_GET["page"], $filters['perPage']);
 		
 		$url = "Main.php?do=vialidadSuppliersList";
 		foreach ($filters as $key => $value)
@@ -38,8 +39,4 @@ class VialidadSuppliersListAction extends BaseAction {
 		return $mapping->findForwardConfig('success');
 	}
     
-    protected function getQuery($filters) {
-        return SupplierQuery::create()->addFilters($filters);
-    }
-
 }

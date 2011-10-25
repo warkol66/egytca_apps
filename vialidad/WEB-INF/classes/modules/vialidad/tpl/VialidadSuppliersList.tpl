@@ -48,7 +48,7 @@
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="vialidadSuppliersViewX" />
 						<input type="hidden" name="id" value="|-$supplier->getId()-|" />
-						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("vialidadSuppliersViewDiv", "Main.php?do=vialidadSuppliersViewX&id=|-$supplier->getId()-|", { method: "post", parameters: { id: "|-$supplier->getId()-|"}, evalScripts: true})};$("vialidadSuppliersViewWorking").innerHTML = "<span class=\"inProgress\">buscando informaciÃ³n...</span>";' value="Ver detalle" name="submit_go_show_project" /></a>
+						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("vialidadSuppliersViewDiv", "Main.php?do=vialidadSuppliersViewX&id=|-$supplier->getId()-|", { method: "post", parameters: { id: "|-$supplier->getId()-|"}, evalScripts: true})};$("vialidadSuppliersViewWorking").innerHTML = "<span class=\"inProgress\">buscando informaciÃÂ³n...</span>";' value="Ver detalle" name="submit_go_show_project" /></a>
 					</form>|-/if-|
 			|-if "vialidadSuppliersEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="vialidadSuppliersEdit" /> 
@@ -69,7 +69,7 @@
 	|-/foreach-|
 		|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 	<tr>
-		<td colspan="3" class="pages">|-include file="ModelPaginateInclude.tpl"-|</td>
+		<td colspan="3" class="pages">|-include file="ModelPagerInclude.tpl"-|</td>
 	</tr>
 	|-/if-|
 	|-if "vialidadSuppliersEdit"|security_has_access && $vialidadSuppliers|@count gt 5-|<tr>
