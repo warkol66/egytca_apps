@@ -20,7 +20,7 @@ class DocumentsDoDeleteAction extends BaseAction {
 		if (!is_null($fconf))
 			return $this->addParamsToForwards($params, $mapping, $entityForwardName);
 		else
-			return $mapping->generateDynamicForward($forwardName, $params, array('message', 'errormessage'));
+			return $this->generateDynamicForward($forwardName, $params, array('message', 'errormessage'));
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
