@@ -15,22 +15,21 @@ class VialidadSupplyPriceDoDeleteDocumentAction extends BaseAction {
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
-		
-		if ( isset($_POST["id"]) && $_POST["id"] != '' &&
-			isset($_POST["supplierNumber"]) && $_POST["supplierNumber"] != '' ) {
-			
+
+		if (isset($_POST["id"]) && $_POST["id"] != '' &&
+			isset($_POST["supplierNumber"]) && $_POST["supplierNumber"] != '') {
+
 			$priceBulletin = PriceBulletinPeer::retrieveByPK($_POST["id"]);
-			
+
 			$methodName = 'getSupplierdocument'.$_POST['supplierNumber'];
 			$documentPeer = new DocumentPeer();
-			
+
 			if (!$documentPeer->delete($priceBulletin->$methodName()))
 				throw new Exception('error deleting document');
-			
-		} else {
-			throw new Exception('invalid supplierNumber');
 		}
-		
-		return $mapping->generateDynamicForward('success');
+		else
+			throw new Exception('invalid supplierNumber');
+
+		return $this->generateDynamicForward('success');
 	}
 }
