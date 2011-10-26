@@ -19,6 +19,13 @@ class VialidadSupplyPriceDoAddDocumentAction extends BaseAction {
 		if ( isset($_POST["id"]) && $_POST["id"] != '' &&
 			isset($_POST["supplierNumber"]) && $_POST["supplierNumber"] != '' ) {
 			
+			//si no existe el directorio de documentos se lo crea.
+			$moduleConfig = Common::getModuleConfiguration('documents');
+			$documentsPath = $moduleConfig['documentsPath'];
+			if (!file_exists($documentsPath))
+				if(!mkdir($documentsPath))
+					throw new Exception("no se pudo crear directorio de documentos");
+			
 			$priceBulletin = PriceBulletinPeer::retrieveByPK($_POST["id"]);
 			
 			$documentPeer = new DocumentPeer();
