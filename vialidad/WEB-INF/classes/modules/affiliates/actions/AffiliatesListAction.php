@@ -34,18 +34,19 @@ class AffiliatesListAction extends BaseAction {
         $smarty->assign("message",$_GET["message"]);
 
         $filters = $_GET["filters"];
+        $smarty->assign("filters", $filters);
         
-        $affiliatePeer = $this->getPeer($filters);
-        $pager = $affiliatePeer->getAllPaginatedFiltered($_GET["page"]);
-//        $pager = $this->createPager($filters, $_GET["page"]);
+//        $affiliatePeer = $this->getPeer($filters);
+//        $pager = $affiliatePeer->getAllPaginatedFiltered($_GET["page"]);
+        $filters["classKey"] = $this->get('classKey');
+        $pager = $this->get('query')->createPager($filters, $_GET["page"], $filters["perPage"]);
 
         $url = "Main.php?do=". $this->get('listAction');
         foreach ($filters as $key => $value)
             $url .= "&filters[$key]=$value";
 
-        $smarty->assign("filters", $filters);
         $smarty->assign("url", $url);
-        $smarty->assign("affiliates", $pager->getResult());
+        $smarty->assign("affiliates", $pager->getResults());
         $smarty->assign("pager", $pager);
 
         return $mapping->findForwardConfig('success');
@@ -84,28 +85,10 @@ class AffiliatesListAction extends BaseAction {
 			if (isset($filters[$filterKey])) {
 				$filterMethod = $peer->filterConditions[$filterKey];
 				$peer->$filterMethod($filters[$filterKey]);
-			}
+}
         }
         
         return $peer;
-    }
-    
-    /**
-     * Acceso a la clase Query, con los filtros establecidos.
-     * @param   array $filters
-     * @return  AffiliateQuery
-     */
-    protected function getQuery($filters) {
-        $query = $this->get('query');
-        
-        $filters["classKey"] = $this->get('classKey');
-		foreach($filters as $filterName => $filterValue) {
-			if (isset($filterValue)) {
-                $query->addFilter($filterName, $filterValue);
-			}
-        }
-        
-        return $query;
     }
     
     /**
