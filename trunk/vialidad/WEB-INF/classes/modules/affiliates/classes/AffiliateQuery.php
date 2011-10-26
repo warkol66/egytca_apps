@@ -21,7 +21,7 @@ class AffiliateQuery extends BaseAffiliateQuery {
      * 
      * @param   type $filterName
      * @param   type $filterValue
-     * @return  AffiliateQuery 
+     * @return  ModelCriteria 
      */
     public function addFilter($filterName, $filterValue) {
         
@@ -45,11 +45,37 @@ class AffiliateQuery extends BaseAffiliateQuery {
         return $this;
     }
     
+	/**
+	 * Agrega multiples filtros a la Query.
+	 *
+	 * @see     addFilter
+	 * @param   type $filters
+	 * @return  ModelCriteria
+	 */
+	public function addFilters($filters = array()) {
+		foreach ($filters as $name => $value)
+				$this->addFilter($name, $value);
+
+		return $this;
+	}
+
+	/**
+	 * Crea un pager.
+	 *
+	 * @param   array $filters
+	 * @param   int $page
+	 * @param   int $perPage
+	 * @return  PropelModelPager
+	 */
+	public function createPager($filters, $page = 1, $perPage = 10) {
+		return $this->addFilters($filters)->paginate($page, $perPage);
+	}
+    
     /**
      * Agrega el limite a la consulta, si existe.
      * 
      * @param   int $limit 
-     * @return  AffiliateQuery
+     * @return  ModelCriteria
      */
     public function limitIfExists($limit = null) {
         
