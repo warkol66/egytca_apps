@@ -36,8 +36,6 @@ class AffiliatesListAction extends BaseAction {
         $filters = $_GET["filters"];
         $smarty->assign("filters", $filters);
         
-//        $affiliatePeer = $this->getPeer($filters);
-//        $pager = $affiliatePeer->getAllPaginatedFiltered($_GET["page"]);
         $filters["classKey"] = $this->get('classKey');
         $pager = $this->get('query')->createPager($filters, $_GET["page"], $filters["perPage"]);
 
@@ -70,37 +68,4 @@ class AffiliatesListAction extends BaseAction {
         $this->parameterHolder[$name] = $value;
     }
     
-    /**
-     * A punto de deprecarse.
-     * 
-     * Acceso a la clase Peer, con los filtros establecidos.
-     * @param   array $filters
-     * @return  AffiliatePeer
-     */
-    protected function getPeer($filters) {
-        $peer = $this->get('peer');
-        
-        $filters["classKey"] = $this->get('classKey');
-		foreach(array_keys($peer->filterConditions) as $filterKey) {
-			if (isset($filters[$filterKey])) {
-				$filterMethod = $peer->filterConditions[$filterKey];
-				$peer->$filterMethod($filters[$filterKey]);
-}
-        }
-        
-        return $peer;
-    }
-    
-    /**
-     * Encapsulamiento de la creacion del Pager (Factory Method).
-     * @param   array $filters
-     * @param   int $page
-     * @return  PropelPager 
-     */
-    protected function createPager($filters, $page = 1) {
-        $perPage = Common::getRowsPerPage();
-        $query = $this->getQuery($filters);
-        return new PropelPager($query, "AffiliatePeer", "doSelect", $page, $perPage);
-    }
-
 }
