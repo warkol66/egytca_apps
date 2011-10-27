@@ -164,6 +164,7 @@ function attachSupplierEditor(number) {
 		'Main.php?do=vialidadSupplyPriceEditFieldX',
 		{
 			rows: 1,
+			cols: 50,
 			okText: 'Guardar',
 			cancelText: 'Cancelar',
 			savingText: 'Guardando...',
@@ -183,6 +184,8 @@ function attachSupplierEditor(number) {
 				var input = form.elements['value'];
 				submitButton =form.elements[1];
 				
+				if (input.value == '&nbsp;-&nbsp;')
+					input.value = '-';
 				submitButton.disable();
 				attachSupplierAutocompleter(input, number);
 				requestParamValue = supplierId[input.value];
