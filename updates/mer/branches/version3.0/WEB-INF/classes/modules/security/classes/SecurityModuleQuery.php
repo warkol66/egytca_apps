@@ -2,9 +2,9 @@
 
 
 /**
- * Skeleton subclass for performing query and update operations on the 'security_action' table.
+ * Skeleton subclass for performing query and update operations on the 'security_module' table.
  *
- * Actions del sistema
+ * Modulos del sistema
  *
  * You should add additional methods to this class to meet the
  * application requirements.  This class will only be generated as
@@ -12,6 +12,6 @@
  *
  * @package    propel.generator.security.classes
  */
-class SecurityActionQuery extends BaseSecurityActionQuery {
+class SecurityModuleQuery extends BaseSecurityModuleQuery {
 
-} // SecurityActionQuery
+} // SecurityModuleQuery
