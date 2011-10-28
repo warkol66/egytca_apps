@@ -7,6 +7,14 @@
   <column name="created" required="true"  type="TIMESTAMP"  description="Creation date for"/>
   <column name="updated" required="true"  type="TIMESTAMP"  description="Last update date"/>
   <column name="levelId" type="INTEGER" description="User Level" />
+
+		<column name="lastLogin" type="TIMESTAMP" description="Fecha del ultimo login del usuario" />
+		<column name="timezone" type="VARCHAR" size="25" description="Timezone GMT del usuario" />
+		<column name="recoveryHash" type="VARCHAR" size="255" description="Hash enviado para la recuperacion de clave" />
+		<column name="recoveryHashCreatedOn" type="TIMESTAMP" description="Momento de la solicitud para la recuperacion de clave" />
+		<column name="mailAddress" type="VARCHAR" size="90" description="Direccion electronica"/>
+		<column name="mailAddressAlt" type="VARCHAR" size="90" description="Direccion electronica alternativa"/>
+
 	<unique>
 		<unique-column name="username" />
 	</unique>

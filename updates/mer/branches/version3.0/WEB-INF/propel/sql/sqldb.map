@@ -1,8 +1,0 @@
-# Sqlfile -> Database map
-actors.classes.schema.sql=application
-documents.classes.schema.sql=application
-mer.classes.schema.sql=application
-security.classes.schema.sql=application
-users.classes.schema.sql=application
-modules.classes.schema.sql=application
-multilang.classes.schema.sql=application
