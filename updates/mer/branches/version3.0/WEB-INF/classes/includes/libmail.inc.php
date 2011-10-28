@@ -8,23 +8,32 @@
 define('ARCHIVO_LOG_MAIL',"mail.log");
 
 /*
+
+
 	this class encapsulates the PHP mail() function.
 	implements CC, Bcc, Priority headers
 
+
+@version	1.3 
+
+- added ReplyTo( $address ) method
+- added Receipt() method - to add a mail receipt
+- added optionnal charset parameter to Body() method. this should fix charset problem on some mail clients
+			 
 @example
 
 	include "libmail.php";
-
+	
 	$m= new Mail; // create the mail
 	$m->From( "leo@isp.com" );
 	$m->To( "destination@somewhere.fr" );
 	$m->Subject( "the subject of the mail" );	
 
 	$message= "Hello world!\nthis is a test of the Mail class\nplease ignore\nThanks.";
-	$m->Body( $message);	// SET the body
+	$m->Body( $message);	// set the body
 	$m->Cc( "someone@somewhere.fr");
 	$m->Bcc( "someoneelse@somewhere.fr");
-	$m->Priority(4) ;	// SET the priority to Low 
+	$m->Priority(4) ;	// set the priority to Low 
 	$m->Attach( "/home/leo/toto.gif", "image/gif" ) ;	// attach a file of type image/gif
 	$m->Send();	// send the mail
 	echo "the mail below has been sent:<br><pre>", $m->Get(), "</pre>";
@@ -36,6 +45,7 @@ LASTMOD
 @author	Leo West - lwest@free.fr
 
 */
+
 
 class Mail
 {
@@ -68,7 +78,7 @@ class Mail
 	*/
 	var $priorities = array( '1 (Highest)', '2 (High)', '3 (Normal)', '4 (Low)', '5 (Lowest)' );
 	/*
-	character SET of message
+	character set of message
 	@var string
 	*/
 	var $charset = "us-ascii";
@@ -78,11 +88,12 @@ class Mail
 
 /*
 	Mail contructor
+
 */
 
 function Mail()
 {
-	$this->autoCheck( false );
+	$this->autoCheck( true );
 	$this->boundary= "--" . md5( uniqid("myboundary") );
 }
 
@@ -92,7 +103,7 @@ activate or desactivate the email addresses validator
 ex: autoCheck( true ) turn the validator on
 by default autoCheck feature is on
 
-@param boolean	$bool SET to true to turn on the auto validation
+@param boolean	$bool set to true to turn on the auto validation
 @access public
 */
 function autoCheck( $bool )
@@ -127,14 +138,14 @@ function From( $from )
 {
 
 	if( ! is_string($from) ) {
-		echo "Class Mail: error, FROM is not a string";
+		echo "Class Mail: error, From is not a string";
 		exit;
 	}
 	$this->xheaders['From'] = $from;
 }
 
 /*
- SET the Reply-to header 
+ set the Reply-to header 
  @param string $email should be an email address
 
 */ 
@@ -183,7 +194,7 @@ function To( $to )
 
 /*		Cc()
  *		set the CC headers ( carbon copy )
- *		$cc : email address(es), accept both array AND string
+ *		$cc : email address(es), accept both array and string
  */
 
 function Cc( $cc )
@@ -200,7 +211,7 @@ function Cc( $cc )
 
 /*		Bcc()
  *		set the Bcc headers ( blank carbon copy ). 
- *		$bcc : email address(es), accept both array AND string
+ *		$bcc : email address(es), accept both array and string
  */
 
 function Bcc( $bcc )
@@ -244,7 +255,7 @@ function Organization( $org )
 
 /*		Priority( $priority )
  *		set the mail priority 
- *		$priority : integer taken between 1 (highest) AND 5 ( lowest )
+ *		$priority : integer taken between 1 (highest) and 5 ( lowest )
  *		ex: $mail->Priority(1) ; => Highest
  */
  
@@ -331,30 +342,34 @@ function BuildMail()
 }
 
 /*		
-	fornat AND send the mail
+	fornat and send the mail
 	@access public
+
 */ 
 function Send()
 {
-	global $enDesarrollo;
 	$this->BuildMail();
 
 	$this->strTo = implode( ", ", $this->sendto );
 
-	// Si el sistema esta en modo desarrollo, no envio el mail, y lo logueo en el archivo de logueo de mails
-	if ( (isset($enDesarrollo)) && ($enDesarrollo==true) ) {
-  	$handle = fopen(ARCHIVO_LOG_MAIL, "a");
+	// Obtengo las variables de configuración del sistema y la variable de captura de mails
+	global $system;
+	$mailCapture = $system["config"]["system"]["parameters"]["mailCapture"]["value"];
+
+	// Si el sistema esta en modo captura de mails, no envio el mail, y lo logueo en el archivo de logueo de mails
+	if ($mailCapture == "YES") {
+		$handle = fopen(ARCHIVO_LOG_MAIL, "a");
 		fwrite($handle, "DATE TIME: ".date("Y-m-d H:i:s (T)")."\n");
-  	fwrite($handle, "TO: ".$this->sendto[0]."\n");
-  	fwrite($handle, "SUBJECT: ".$this->xheaders['Subject']."\n");
-  	fwrite($handle, "BODY:\n".$this->fullBody);
-  	fwrite($handle, "HEADERS: ".$this->headers."\n\n");
-  	fclose($handle);
-  	return true;
+		fwrite($handle, "TO: ".$this->sendto[0]."\n");
+		fwrite($handle, "SUBJECT: ".$this->xheaders['Subject']."\n");
+		fwrite($handle, "BODY:\n".$this->fullBody);
+		fwrite($handle, "HEADERS: ".$this->headers."\n\n");
+		fclose($handle);
+		return true;
 	}
 	else {
 		// envoie du mail
-		$res = @mail( $strTo, $this->xheaders['Subject'], $this->fullBody, $this->headers );
+		$res = @mail( $this->strTo, $this->xheaders['Subject'], $this->fullBody, $this->headers );
 	}
 }
 
@@ -385,17 +400,17 @@ function ValidEmail($address)
 	if( ereg( ".*<(.+)>", $address, $regs ) ) {
 		$address = $regs[1];
 	}
- 	if(ereg( "^[^@  ]+@([a-zA-Z0-9\-]+\.)+([a-zA-Z0-9\-]{2}|net|com|gov|mil|org|edu|int)\$",$address) ) 
- 		return true;
- 	else
- 		return false;
+	if(ereg( "^[^@  ]+@([a-zA-Z0-9\-]+\.)+([a-zA-Z0-9\-]{2}|net|com|gov|mil|org|edu|int)\$",$address) ) 
+		return true;
+	else
+		return false;
 }
 
 
 /*
 	check validity of email addresses 
 	@param	array $aad - 
-	@return if unvalid, output an error message AND exit, this may -should- be customized
+	@return if unvalid, output an error message and exit, this may -should- be customized
  */
  
 function CheckAdresses( $aad )
@@ -410,7 +425,7 @@ function CheckAdresses( $aad )
 
 
 /*
- check AND encode attach file(s) . internal use only
+ check and encode attach file(s) . internal use only
  @access private
 */
 
@@ -450,5 +465,3 @@ function _build_attachement()
 }
 
 } // class Mail
-
-?>

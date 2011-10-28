@@ -8,29 +8,31 @@
   require_once('Smarty_config.inc.php');
 
   include_once('Constants.inc.php');
-  define('MAXIMOS_RESULTADOS_POR_PAGINA',20);
-  //ini_set("error_reporting",E_ALL);
-  //ini_set("show_errors",true);
+  define('MAXIMOS_RESULTADOS_POR_PAGINA',15);
+
+  ini_set("show_errors",true);
   session_cache_limiter('nocache');
   session_start();
   extract($_SESSION,EXTR_PREFIX_ALL,'session');
   extract($_GET,EXTR_PREFIX_ALL,'get');
   extract($_POST,EXTR_PREFIX_ALL,'post');
-  //error_reporting(0);
 
+  //Configuracion de Error Reporting
+  global $system;
+  if (isset($system)) {
+  	
+	$conversionTable = array('E_ALL ^ E_NOTICE'=> 6135, 'E_ALL' => 6143, 'E_STRICT' => 2048);
+  	$level = $system["config"]["system"]["errorReporting"]["value"];
+  	
+  	if ($level == "") {
+  		ini_set("error_reporting",6143);
+  	}
+  	else {
+  		ini_set("error_reporting",$conversionTable[$level]);
+  	}
+  		
+  }
 
-/*
- * Variable para indicar si el sitio se encuentra en estado de desarrollo
- * Captura los mails generados por el sistema y los guarda en un archivo de texto
- */ 
-	global $enDesarrollo;
-	$enDesarrollo = $_SESSION["parametros"]["SISTEMA_EN_DESARROLLO"];
-/*
- * Variable para indicar si el sitio se encuentra en mantenimiento
- * No permite loguear ningun usuario nuevo, solo el supervisor
- */ 
-	global $enMantenimiento;
-	$enMantenimiento = $_SESSION["parametros"]["SISTEMA_EN_MANTENIMIENTO"];
 
   /**
   * getBrowser
@@ -71,8 +73,7 @@
   *
   * @return makedate
   */
-	function makedate($unit = '', $time = '', $mask = '')
-	{
+	function makedate($unit = '', $time = '', $mask = ''){
 		$validunit = '/^[-+]?\b[0-9]+\b$/';
 		$validtime = '/^\b(day|week|month|year)\b$/i';
 		$validmask = '/^(short|long|([dmy[:space:][:punct:]]+))$/i';
@@ -167,8 +168,7 @@
   *
   * @return userErrorHandler
   */
-	function userErrorHandler($errno, $errmsg, $filename, $linenum, $vars)
-	{
+	function userErrorHandler($errno, $errmsg, $filename, $linenum, $vars){
 		$dt = date("Y-m-d H:i:s (T)");
 		$errortype = array (
 				E_ERROR           => "Error",
@@ -194,23 +194,19 @@
 		$err .= "\t<scriptname>"    . $filename .   "</scriptname>\n";
 		$err .= "\t<scriptlinenum>" . $linenum .    "</scriptlinenum>\n";
 
-		if (in_array($errno, $user_errors)) 
-		{
+		if (in_array($errno, $user_errors)){
 			$err .= "\t<vartrace>" . wddx_serialize_value($vars, "Variables") . "</vartrace>\n";
 		}
 		$err .= "</errorentry>\n\n";
 		
-		if (!empty($errstr) && eregi('^(sql)$', $errstr)) 
-		{
+		if (!empty($errstr) && eregi('^(sql)$', $errstr)){
 			$MYSQL_ERRNO = mysql_errno();
 			$MYSQL_ERROR = mysql_error();
 			$err .="<errormysql>".$MYSQL_ERRNO.":".$MYSQL_ERROR."</errormysql>";
 		}
 		if ($errno == E_USER_ERROR || $errno == E_ERROR || $errno == E_CORE_ERROR  ||
-				$errno == E_COMPILE_ERROR || $errno == mysql_errno() ) 
-		{
-			if(($_SESSION['parametros']['MODO_DEBUG']==1)) 
-			{
+				$errno == E_COMPILE_ERROR || $errno == mysql_errno() ) {
+			if(($_SESSION['parametros']['MODO_DEBUG']==1)) {
 				include_once("libmail.inc.php");
 				$m = new Mail();
 				$m->From("debug@modulosempresarios.net");
@@ -226,94 +222,354 @@
 		}
 	}
 
-  /**
-  * loguear
-  * 
-  * loguear
-  *
-	*	@pendiente
-  * @return loguear
-  */
-	function loguear($descripcion="") 
-	{
-		include_once "WEB-INF/classes/includes/Menu.class.php";
-		$menu = new Menu();
-    $base = new DBConnection();
-    $base->connect();
-  
-   	if (!ereg("\\\?do=([^&]*)",$_SERVER['QUERY_STRING'],$campos))
-		{
-   		ereg("&do=([^&]*)&",$_SERVER['QUERY_STRING'],$campos);
+class Common
+{
+	/**
+	* Indica si el sistema se encuentra en mantenimiento y se debe reenviar al usuario a la pantalla de Maintenance.
+	*
+	* @return true si el sistema esta en mantenimiento
+	**/
+	function inMaintenance(){
+		global $system;
+		$maintenance = $system["config"]["system"]["parameters"]["underMaintenance"]["value"];
+		
+		//si no esta el sistema en mantenimiento, devolver false
+		if ($maintenance != "YES")
+			return false;
+		
+		$noCheckMaintenance = array();
+		$noCheckMaintenance[] = "maintenance";
+		$noCheckMaintenance[] = "usersLoginMaintenance";
+		$noCheckMaintenance[] = "usersDoLogin";		
+		$noCheckMaintenance[] = "usersDoLogout";	
+		
+		$isNoCheckMaintenanceAction = array_search($_REQUEST["do"],$noCheckMaintenance);
+
+		//si es un action que no requiere chequeo de mantenimiento, devolver false
+		if ($isNoCheckMaintenanceAction !== false)
+			return false;
+			
+		$user = $_SESSION["loginUser"];
+				
+		if (!empty($user)) {
+			$level = $user->getLevel();
+			//si el usuario logueado tiene un nivel menor a 3 (supervisor y admin), devolver false
+			if ($level < 3) 
+				return false;
 		}
-		$accion = $campos[1];
-		$arbol = $menu->obtenerArbolPermisosAsociativo();
-		$modulo = $arbol[ucwords($accion)]['modulo'];
-/*		if (!empty($_SESSION['usuario']))
-		{
-			$sql = "SELECT * FROM mer_auditoria_accion WHERE id_auditoria_accion='$accion'";
-			$base->query($sql);
-			if ($base->num_rows()==0)
-    	{
-				$base->query("INSERT INTO mer_auditoria_accion(id_auditoria_accion,descripcion) VALUES('$accion','$accion')");
+		
+		//si llego hasta aca, devolver true		
+		return true;
+	}
+
+/*
+* Ejemplo: Common::debugger(dirname(__FILE__)."/archivo.sql","Query: ",$query);
+*
+*/
+	function debugger($file,$message,$variable){
+  	$handle = fopen($file, "a");
+		fwrite($handle, $message.$variable."\n");
+  	fclose($handle);
+	}
+
+
+	/**
+	* Devuelve la edad de una persona a partir de una fecha de nacimiento entregada
+	* @param string $birth fecha de nacimiento a calcular, el formato será año-dia-mes
+	* @return int $ageYears edad de la fecha entregada
+	*
+	*/
+
+	function getAge($birth){
+	
+	///////////
+	/// el formato va a ser año dia mes
+	///$birth='1985-29-11';
+		$birthday=explode("-",$birth);
+		
+		$ageTime = mktime(0, 0, 0, $birthday[2], $birthday[1], $birthday[0]);
+
+		$time = time(); 
+		$age = ($ageTime < 0) ? ( $time + ($ageTime * -1) ) : $time - $ageTime;
+		$year = 60 * 60 * 24 * 365;
+		$ageYears = $age / $year;
+		$ageYears=floor($ageYears);
+
+		//echo "Edad: $ageYears";
+
+		return ($ageYears);
+	}
+
+		///
+		///////////
+		
+
+
+	/**
+	* Devuelve la fecha minima en la que una persona pudo nacer a partir de una determinada edad
+	* @param string $age edad de la persona
+	* @return int $yearFilter su minima fecha de nacimiento
+	*
+	*/
+
+	function getDateOfBirth($age){
+		$year=date('Y');
+
+		$minYear=$year-$age;
+
+
+		//////////
+		// filtros de fechas usados para concatenar y para comparar
+		$filter=date("m-d");
+		$compareFilter=date("Y-m-d");
+
+		$yearFilter=$minYear."-".$filter;
+		//echo "menor año $minYearFilter,, mayor año $maxYearFilter";	
+
+		//////////
+		// adicionalmente se puede habilitar la comparacion
+		// $comparefilter contiene la fecha actual y $yearFilter la minima fecha de nacimiento de la persona
+
+
+		return $yearFilter;
+	}
+	
+	/**
+	*	Recibe una fecha en formato mm-dd-yyyy y la devuelve yyyy-mm-dd
+	* 
+	* @param string $usDate Fecha en formato mm-dd-yyyy
+	* @return string Fecha en formate yyyy-mm-dd
+  */
+	function usDateToDbDate($usDate) {
+		$dateExplode = explode("-", $usDate);
+		$dbDate = date("Y-m-d",mktime(0,0,0,$dateExplode[1],$dateExplode[0],$dateExplode[2]));
+		return $dbDate;
+ 	}	
+
+	/**
+	* obtiene el id de usuario y de afiliado
+	*
+	* @return array $info informacion encontrada
+	*/	
+	function userInfoToDoLog(){
+			
+		$info = array();
+		if(!empty($_SESSION['loginUser'])){
+			$info["userId"] = $_SESSION['loginUser'];
+			if(is_object($info["userId"]))
+				$info["userId"]=$info["userId"]->getId();
+			$info["affiliateId"] = 0;
+		}
+		elseif(!empty($_SESSION['loginUserByRegistration'])){ 
+			$info["userId"]=$_SESSION['loginUserByRegistration'];
+			$info["affiliateId"] =999999 ;
+
+		}
+		else{
+
+			
+			if(is_object($_SESSION["loginAffiliateUser"])){
+				//////////
+				// version con propel toma esta linea
+				$info["userId"]=$_SESSION["loginAffiliateUser"]->getId();
+				$info["affiliateId"]=$_SESSION["loginAffiliateUser"]->getAffiliateId();
 			}
-    	$base->query("INSERT INTO mer_auditoria(id_usuario,fecha_hora,modulo,id_mer_auditoria_accion,descripcion) VALUES(".$_SESSION['id_usuario'].",now(),'$modulo','$accion','$descripcion')");
-	  	$base->free();
+
+				//////////
+				// version sin propel toma esta linea
+			else $info["userId"]=$_SESSION["loginAffiliateUser"];
+		}
+		return $info;
+	}
+
+
+/**
+* Guarda un registro de log.
+* 
+* @param string $user datos del usuario
+* @param string $action nombre del action
+* @param string $forward tipo de forward (success, failure, errorLog, etc)
+* @param string $object objeto sobre el cual se realizó la acción
+* @return void
+*/
+function doLog($forward,$object=null) {
+
+	include_once 'ActionLog.php';	
+
+	/*	@include_once('ActionLogLabelPeer.php');
+	if (class_exists('ActionLogLabelPeer')){
+		$actionLogLabel = new ActionLogLabelPeer();
+		$actionLogLabelObject=$actionLogLabel->getAllByActionLanguageEsp($_REQUEST['do'],$forward);
+	}*/
+	
+	//obtengo el action adonde se esta	
+	$action = strtoupper(substr($_REQUEST['do'],0,1)) . substr($_REQUEST['do'],1,strlen($_REQUEST['do']));
+	$userInfo = Common::userInfoToDoLog();
+	
+	try{
+		$logs = new ActionLog();
+		$logs->setUserId($userInfo["userId"]);
+		$logs->setAffiliateId($userInfo["affiliateId"]);
+		$logs->setDatetime(time());
+		$logs->setAction($action);
+		$logs->setObject($object);
+		$logs->setForward($forward);
+		$logs->save();
+	}
+	catch (PropelException $e) {
+		;	
+	}
+}
+/**
+ * Indica si un usuario es afiliado.
+ */
+function isAffiliatedUser() {
+	
+	if (isset($_SESSION["loginAffiliateUser"]))
+			return true;
+	return false;
+	
+}
+
+/**
+ * Indica si es un usuario comun.
+ */
+function isSystemUser() {
+
+	if (isset($_SESSION["loginUser"]))
+			return true;
+	return false;
+
+}
+
+function getAffiliatedId() {
+	
+	$user = $_SESSION["loginAffiliateUser"];
+	return $user->getAffiliateId();
+	
+}
+
+function isAdmin() {
+
+	if (!isset($_SESSION['loginUser']))
+		return false;
+	
+	$user = $_SESSION['loginUser'];
+	return $user->isAdmin();
+
+}
+
+
+function getAdminUserId() {
+
+	$user = $_SESSION["loginUser"];
+	return $user->getId();
+
+}
+
+function getAffiliatedLogged() {
+
+	return $_SESSION["loginAffiliateUser"];
+
+}
+
+function getAdminLogged() {
+
+	return $_SESSION["loginUser"];
+
+}
+
+function isSupplier() {
+
+	if (!isset($_SESSION['loginUser']))
+		return false;
+	
+	$user = $_SESSION['loginUser'];
+	return $user->isSupplier();
+
+}
+
+function getSupplierUserId() {
+
+	$user = $_SESSION["loginUser"];
+	return $user->getId();
+
+}
+
+	/*
+	 * Conversion del numero al formato numerico de mysql
+	 *
+	 * @param string numero con separador de miles y decimal segun la configuracion del sistema
+	 * @return string con el formato 
+	 */
+	function convertToMysqlNumericFormat($number) {
+
+		global $system;
+
+		$thousandsSeparator = $system['config']['system']['parameters']['thousandsSeparator'];
+		$decimalSeparator = $system['config']['system']['parameters']['decimalSeparator'];
+	
+		$number = str_replace($thousandsSeparator,'',$number);
+		//el separador de miles en MySQL es punto
+		$number = str_replace($decimalSeparator,'.',$number);
+	
+		return $number;	
+	
+	}
+	
+	/*
+	 * Devuelve el nombre corto del sistema
+	 * @return string nombre corto del sistema
+	 */
+	function getSiteShortName() {
+		
+		global $system;
+		return $system['config']['system']['parameters']['siteShortName'];
+		
+	}
+	
+	/**
+	 * Devuelve un datetime en la zona horaria del usuario actual
+	 * @param string datetime
+	 * @return string datetime en la zona horaria correspondiente al usuario
+	 */
+	function getDatetimeOnTimezone($datetime) {
+
+		require_once('TimezonePeer.php');
+
+/*		if (Common::isAdmin()) {
+			//es el caso de un usuario administrador el valor de su perfil
+			$user = Common::getAdminLogged();
+			$timezoneCode = $user->getTimezone();		
+
+		}
+
+		if (Common::isAffiliatedUser()) {
+			//es el caso de un usuario affiliado el valor de su perfil
+
+			$user = Common::getAffiliatedLogged();
+			$timezoneCode = $user->getTimezone();		
+
 		}
 */
-	}
+		if (empty($timezoneCode) || $timezoneCode == "") {		
+			//si no hubiera o no fuera un usuario administrador tomamos default de la aplicacion
+			global $system;
+			$timezoneCode = $system["config"]["system"]["parameters"]["applicationTimeZoneGMT"]["value"];
 
-  /**
-  * obtenerUsuarioSistema
-  * 
-  * obtenerUsuarioSistema
-  *
-  * @return obtenerUsuarioSistema
-  */
-	function obtenerUsuarioSistema()
-	{
-		$dir = dirname(__FILE__);
-		ereg(".*\/(.*)\/public_html",$dir,$campos);
-		if (!empty($campos[1]))
-		{
-			$usuario_sistema = $campos[1];
+			//solucion por el problema del pasaje de XML a array de PHP
+			//que toma el 0 como null
+			if ($timezoneCode == null)
+				$timezoneCode = 0;
+
 		}
-		else
-		{
-			$usuario_sistema = null;
-		}
-		return $usuario_sistema;
+
+
+		$timezonePeer = new TimezonePeer();
+
+		return $timezonePeer->getGMT0TimeOnTimezone($datetime,$timezoneCode);
+		
 	}
 
-  /**
-  * estaLogueado
-  * 
-  * estaLogueado
-  *
-  * @return estaLogueado
-  */
-	function estaLogueado() {
-		global $enMantenimiento;
 
-		if ( (isSet($_SESSION['usuario'])) && ($_SESSION['usuario']=="Supervisor") )
-			return true;
-		if ($enMantenimiento == true)
-			return false;
-		if(isSet($_SESSION['usuario']))
-			return true;
-		else
-			return false;
-	}
-
-  /**
-  * sitioEnMantenimiento
-  * 
-  * sitioEnMantenimiento
-  *
-  * @return sitioEnMantenimiento
-  */
-	function sitioEnMantenimiento() {
-		global $enMantenimiento;
-		return $enMantenimiento;
-	}
-
-?>
+}

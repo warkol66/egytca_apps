@@ -14,7 +14,7 @@ class SmartyOutputFilter{
 	 *
 	 * @var string
 	 */
-	public $template = 'template.tpl';
+	public $template = 'Template.tpl';
 	/**
 	 * Smarty postfilter
 	 *
