@@ -1,0 +1,693 @@
+/* GLOBAL Custom */
+* {
+	font-family: Arial, Helvetica, sans-serif, Geneva;
+}
+/* INPUTS, ICONS & LINKS ------------------------------*/
+input[type="submit"], input[type="button"], input[type="reset"] {
+	background-color: #e0e0e0;
+	border: 1px outset #a0a0a0;/*#F0F0F0;*/
+	outline: 0 none;
+	cursor: pointer;
+	-khtml-border-radius: 2px;
+	-opera-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	margin: 0 5px 0 5px;
+	padding: 2px 12px 2px 12px;
+}
+input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
+	background-color: #a0a0a0 !Important;/*#d0d0d0; */
+	border: outset 1px  #808080 !Important;
+}
+.icon, .editor_ok_button, .editor_cancel_button  {
+	background-color: #e0e0e0 !Important;/*#d0d0d0; */
+	border: solid 1px #ababab !Important;
+	line-height: 999px;
+	vertical-align: top;
+	overflow: hidden;
+	width: 20px;
+	height: 20px;
+	color: transparent !Important;
+	outline: 0 none;
+	cursor: pointer;
+	vertical-align:top;
+	-khtml-border-radius: .2em;
+	-opera-border-radius: .2em;
+	-moz-border-radius: .2em;
+	-webkit-border-radius: .2em;
+	border-radius: .2em;
+}
+input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
+	width: 22px !Important;
+	height: 22px !Important;
+	margin: 0;
+	padding: 0;
+}
+/* Image Buttons and Links */
+.iconActivate, .iconAdd, .iconBack, .iconBudget, .iconDelete, .iconDetail, .iconDownload, .iconCancel, .iconEdit, .iconEmail,
+.iconFollow, .iconGoTo, .iconGraph, .iconHelp, .iconHistory, .iconIndicator, .iconTableh3 , .iconNote, .iconDocument, .iconAttach,
+.iconInfo, .iconManufacture, .iconOrder, .iconPassword, .iconPlus, .iconRestore, .iconRestoreFromServer, .iconSendMultiple,
+.iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload, .iconClose, .iconView, .iconViewGantt, .iconWeight,
+.iconAddToCart, .iconRemoveFromCart, .iconUpdateCart, .iconSetPrivileges, .iconOwner, .iconRead, .iconUnread, .iconEditUser,
+.iconAddUser, .iconPhoto, .iconHardDelete, .iconUndelete, .iconCut, .iconCrop, .iconNews, .iconNewsAdd, .iconNewsLink, .iconNewsGoTo,
+.iconNewsDelete, .iconNewsClipping, input.editor_ok_button, input.editor_cancel_button {
+	background: url(../images/icons_all.png) no-repeat #f0f0f0;
+}
+.disabled {
+	background: url(../images/icons_all_dis.png) no-repeat #f0f0f0;
+	border: solid 1px #ababab !Important;;
+	-khtml-border-radius: .2em;
+	-opera-border-radius: .2em;
+	-moz-border-radius: .2em;
+	-webkit-border-radius: .2em;
+	border-radius: .2em;
+}
+.iconEdit {
+	background-position: 0px 0px;
+}
+.iconDelete {
+	background-position: -80px -120px;
+}
+.iconOptionsList .iconDelete {
+	background-position: -20px 0px;
+}
+.iconClose {
+	background-position: -20px 0px;
+}
+.iconCancel, input.editor_cancel_button  {
+	background-position: -100px -120px;
+}
+.iconView {
+	background-position: -40px 0px;
+}
+.iconUpload {
+	background-position: -60px 0px;
+}
+.iconDownload {
+	background-position: -80px 0px;
+}
+.iconAdd {
+	background-position: -100px 0px;
+}
+.iconInfo {
+	background-position: -120px 0px;
+}
+.iconHelp {
+	background-position: -140px 0px;
+}
+.iconBack {
+	background-position: -160px 0px;
+}
+.iconGoTo {
+	background-position: -180px 0px;
+}
+.iconStoreInServer {
+	background-position: 0px -20px;
+}
+.iconStoreLocal {
+	background-position: -20px -20px;
+}
+.iconRestoreFromServer {
+	background-position: -40px -20px;
+}
+.iconRestore {
+	background-position: -80px -20px;
+}
+.iconEmail {
+	background-position: -100px -20px;
+}
+.iconSendMultiple {
+	background-position: -120px -80px;
+}
+.iconOrder {
+	background-position: -120px -20px;
+}
+.iconWeight {
+	background-position: -140px -20px;
+}
+.iconActivate, input.editor_ok_button {
+	background-position: -160px -20px;
+}
+.iconHistory {
+	background-position: -180px -20px;
+}
+.iconThumbnail {
+	background-position: -20px -40px;
+}
+.iconViewGantt {
+	background-position: -60px -40px;
+}
+.iconManufacture {
+	background-position: -80px -40px;
+}
+.iconIndicator {
+	background-position: -100px -40px;
+}
+.iconTableh3 {
+	background-position: -120px -40px;
+}
+.iconNote {
+	background-position: -140px -40px;
+}
+.iconDocument {
+	background-position: -160px -40px;
+}
+.iconAttach {
+	background-position: -180px -40px;
+}
+.iconGraph {
+	background-position: -0px -60px;
+}
+.iconFollow {
+	background-position: -20px -60px;
+}
+.iconPlus {
+	background-position: -40px -60px;
+}
+.iconDetail {
+	background-position: -60px -60px;
+}
+.iconBudget {
+	background-position: -100px -60px;
+}
+.iconPassword {
+	background-position: -80px -60px;
+}
+.iconAddToCart {
+	background-position: -140px -60px;
+}
+.iconRemoveFromCart {
+	background-position: -160px -60px;
+}
+.iconUpdateCart{
+	background-position: -180px -60px;
+}
+.iconSetPrivileges{
+	background-position: -20px -80px;
+}
+.iconOwner{
+	background-position: -0px -80px;
+}
+.iconRead{
+	background-position: -40px -100px;
+}
+.iconUnread{
+	background-position: -60px -100px;
+}
+.iconEditUser {
+	background-position: -120px -60px;
+}
+.iconAddUser {
+	background-position: -120px -100px;
+}
+.iconPhoto {
+	background-position: -140px -100px;
+}
+.iconHardDelete {
+	background-position: -0px -120px;
+}
+.iconUndelete {
+	background-position: -20px -120px;
+}
+.iconCut {
+	background-position: -160px -100px;
+}
+.iconCrop {
+	background-position: -180px -100px;
+}
+.iconNews {
+	background-position: 0px -140px;
+}
+.iconNewsAdd {
+	background-position: -20px -140px;
+}
+.iconNewsLink {
+	background-position: -40px -140px;
+}
+.iconNewsGoTo {
+	background-position: -60px -140px;
+}
+.iconNewsDelete {
+	background-position: -80px -140px;
+}
+.iconNewsClipping {
+	background-position: -100px -140px;
+}
+
+.icon:hover{
+	background-color: #c0c0c0;
+	border: solid 1px #909090 !Important;;
+}
+.disabled, .disabled:hover{
+	background-color: #f0f0f0 !Important;
+}
+
+.mandatoryField {
+	background-image: url(../images/mandatory.png);
+	background-repeat: no-repeat;
+	background-position: center 0;
+	vertical-align: top;
+	height: 10px;
+	width: 10px;
+	padding: 3px;
+}
+.mandatoryMessage {
+	color: #cf0000 !Important;
+	margin-left: 150px;
+}
+input[type="text"].emptyValidation, textarea.emptyValidation, select.emptyValidation {
+	outline: #ff0000 solid 1px;
+}
+/* ADD   ----------------------------------------------*/
+a.addLink:link, a.addLink:visited {
+	color:#0054A4;
+	background-image:url(../images/icon_add.png);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+a.addLink:hover, a.addLink:active {
+	color:#009900;
+}
+/* ADD   ----------------------------------------------*/
+/* SEARCH   -------------------------------------------*/
+a.tdTitSearch{
+	background-color: #f4f6f3;
+	background-image:url(../images/icon_search.png);
+	background-position:11px 7px;
+	background-repeat:no-repeat;
+	text-decoration: none;
+	color:#0054A4;
+}
+a.tdTitSearch:hover, a.tdTitSearch:active {
+	color:#009900;
+}
+a.tdTitSearch:visited {
+	color:#0054A4;
+}
+.tdSearch{
+	background-color: #f4f6f3;
+	color: #000000;
+}
+a.tdSearchButton:link, 
+a.tdSearchButton:visited  {
+	border: solid 1px #a7a6aa;
+	color: #333;
+	background-position:left top;
+	background-repeat: repeat-x;	
+	background-color:#d2d0c3;
+}
+a.tdSearchButton:hover, 
+a.tdSearchButton:active  {
+	color: #FFFFFF;
+	background-color:#999999;
+	background-image: none;
+}
+a.searchLink:link, a.searchLink:visited {
+	color:#0054A4;
+	background-image: url(../images/icon_search.png);
+	background-position:left top;
+	background-repeat: no-repeat;
+}
+a.searchLink:hover, a.searchLink:active {
+	color:#009900;
+}
+/* SEARCH   -------------------------------------------*/
+/* MAILS   --------------------------------------------*/
+a.linkMailNew:link, a.linkMailNew:visited,
+a.linkMailMarkRead:link, a.linkMailMarkRead:visited,
+a.linkMailMarkUnread:link, a.linkMailMarkUnread:visited,
+a.linkMailReply:link, a.linkMailReply:visited,
+a.linkMailForward:link, a.linkMailForward:visited,
+a.linkMailDelete:link, a.linkMailDelete:visited {
+	color:#0054A4;
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+a.linkMailNew:hover, a.linkMailNew:active,
+a.linkMailMarkRead:hover, a.linkMailMarkRead:active,
+a.linkMailMarkUnread:hover, a.linkMailMarkUnread:active,
+a.linkMailReply:hover, a.linkMailReply:active,
+a.linkMailForward:hover, a.linkMailForward:active,
+a.linkMailDelete:hover, a.linkMailDelete:active {
+	color:#009900;
+}
+a.linkMailNew {
+	background-image:url(../images/icon_mailNew.png);
+}
+a.linkMailMarkRead {
+	background-image:url(../images/icon_mailMarkRead.png);
+}
+a.linkMailMarkUnread {
+	background-image:url(../images/icon_mailMarkUnread.png);
+}
+a.linkMailReply {
+	background-image:url(../images/icon_mailReply.png);
+}
+a.linkMailForward {
+	background-image:url(../images/icon_mailForward.png);
+}
+a.linkMailDelete {
+	background-image:url(../images/icon_mailDelete.png);
+}
+/* PAGINADO    ----------------------------*/
+.pages{	
+	background-color: #FFF;
+	color:#0066CC;
+}
+a.pageLink:link, a.pageLink:visited {
+	color:#666;
+}
+a.pageLink:hover, a.pageLink:active {
+	color:#0066CC;
+}
+.tdFooter{
+	background-color:#eaeee8;
+}
+/* /PAGINADO    ----------------------------*/
+.textLinkButton {
+	color:#000000;
+	background-color: #e0e0e0;
+	border: 1px outset #a0a0a0;/*#F0F0F0;*/
+}
+.textLinkButton:hover {
+	background-color: #a0a0a0;/*#d0d0d0; */
+	border: outset 1px  #808080;
+}
+.textLinkButton:visited, a.textLink:active{
+	color:#000000;
+}
+/* Leightbox    ----------------------------*/
+.overlayFade{
+}
+.overlayForm {
+}
+.leightbox {
+	border: 1px solid orange;
+}
+.innerLighbox {
+}
+.close {
+}
+#overlay{
+	background-color:#cdcdcd;
+}
+a.lbOn {
+}
+.lightbox[id]{
+}
+#overlay[id]{ 
+}
+/* /Leightbox    ----------------------------*/
+/* Autocomplete    ----------------------------*/
+div.autocomplete {
+	position:absolute !important;
+  background-color:white;
+  border:1px outset #888;
+  margin:0;
+  padding:0;
+  z-index: 9999;
+}
+div.autocomplete ul {
+  list-style-type:none;
+  margin:0;
+  padding:0;
+  width: auto;
+}
+div.autocomplete ul li.selected {
+	background-color: #b6e8ff;
+}
+div.autocomplete ul li,  div.autocomplete ul b{
+  list-style-type:none;
+  display: block;
+  margin:4px;
+  padding:1px;
+  padding-left:4px;
+  padding-right:20px;
+  white-space: nowrap;
+  cursor:pointer;
+}
+div.autocomplete ul b {
+  font-style: italic;
+  font-size: 1em;
+  background-color: white;
+}
+/* /Autocomplete    ----------------------------*/
+/*  BOX VARIABLES   ----------------------------------- */
+#boxVariables{
+	background-color: #f4f6f3;
+	color:#000;		
+	border: solid 1px #999;
+}
+#boxVariables ul{
+}
+/*  INITIAL UL*/
+#boxVariables ul li{
+	color:#000;
+	background-image:url(../images/bullet-0.gif);
+	background-position:0 4px;
+	background-repeat:no-repeat;
+}
+/*FIRST UL, THIRD UL, FIFTH UL  */
+#boxVariables ul li ul li,
+#boxVariables ul li ul li ul li ul li,
+#boxVariables ul li ul li ul li ul li ul li ul li {
+	color:#0066CC;
+	background-image:url(../images/bullet-1.gif);
+	background-position:0 4px;
+	background-repeat:no-repeat;
+}
+/* SECOND UL, FOURTH UL */
+#boxVariables ul li ul li ul li,
+#boxVariables ul li ul li ul li ul li ul li{
+	color:#000;
+	background-image:url(../images/bullet-2.gif);
+	background-position:0 4px;
+	background-repeat:no-repeat;
+}
+/* Boton Atributo ------------------*/
+#boxVariables a{
+}
+#boxVariables a.atributo:link,
+#boxVariables a.atributo:visited {
+	background-image:url(../images/add-comment-blue.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+#boxVariables a.atributo:hover,
+#boxVariables a.atributo:active {
+}
+/* Boton Seccion ------------------*/
+#boxVariables a.seccion:link,
+#boxVariables a.seccion:visited {
+	background-image:url(../images/add-folder-green.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+#boxVariables a.seccion:hover,
+#boxVariables a.seccion:active {
+}
+/* Boton ELIMNINAR SECCION ------------------*/
+#boxVariables a.eliminar1:link,
+#boxVariables a.eliminar1:visited {
+	color: #FF0000;
+	background-image:url(../images/delete-folder-green.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+#boxVariables a.eliminar1:hover,
+#boxVariables a.eliminar1:active {
+}
+/* Boton ELIMNINAR ATRIBUTO ------------------*/
+#boxVariables a.eliminar2:link,
+#boxVariables a.eliminar2:visited {
+	color: #FF0000;
+	background-image:url(../images/delete-comment-blue.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+#boxVariables a.eliminar2:hover,
+#boxVariables a.eliminar2:active {
+}
+.textboxVariables{
+	border: solid 1px #999;
+}
+/*  /BOX VARIABLES   ----------------------------------- */
+.inProgress {
+	font-weight: bold;
+	color: #D2691E !Important;
+	text-decoration: blink;
+	padding: 5px 30px 5px 30px;
+	margin-left: 30px;
+	background: url(../images/spinner.gif) no-repeat;
+	display: inline-block;
+}
+.resultSuccess {
+	font-weight: bold;
+	color: #00008B;
+	padding: 5px 30px 5px 30px;
+	display: inline-block;
+}
+.resultFailure {
+	font-weight: bold;
+	color: #B22222;	
+	padding: 5px 30px 5px 30px;
+	display: inline-block;
+}
+.successMessage {
+	color: #007D62;
+	font-weight: bold;
+	padding: 8px;
+	margin: 9px;
+	border: 1px solid #007D62;
+	text-align: center;
+}
+.errorMessage {
+	color: #B22222;
+	font-weight: bold;
+	padding: 8px;
+	margin: 9px;
+	border: 1px solid #B22222;
+	text-align: center;
+}
+#actorMsgField, #categoryMsgField, #fieldMsgField, #groupMsgField, #issueMsgField,
+#partieMsgField, #relationMsgField, #userInfoMsgField, #usersMsgField {
+	padding: 5px 30px 5px 30px;
+	display: inline-block;	
+}
+option {
+	padding-right: 5px;
+	background: #fcfcfc;
+}
+/* overDiv */
+#overDiv table td{
+	padding: 1px;
+}
+#overDiv table td table td{
+	padding: 6px;
+}
+#overDiv table td table td a{
+	text-decoration: none;
+	font-weight: bold;
+}
+/* /overDiv */
+/* CharCount */
+.charCount {
+	color: #255637 !Important;
+	background: transparent url(../images/valid.png) no-repeat right;
+	border: 1px solid transparent;/*#a0a0a0;*/
+}
+.charCountLimitReached {
+	color: #8B0000 !Important;
+	background: transparent url(../images/prohibited.png) no-repeat right;
+	border: 1px solid transparent;/*#8B0000;*/
+}
+.charCount, .charCountLimitReached {
+	outline: 0 none;
+	cursor: help;
+	text-align: right;
+	padding-right: 18px;
+	font-weight: bold;
+	border: 1px solid transparent;/*#8B0000;*/
+	-khtml-border-radius: 2px;
+	-opera-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+/* /CharCount */
+
+ul.iconOptionsList li:hover {
+	color: red;
+}
+fieldset {  
+	background-color: #f7f7f8;
+}
+legend, fieldset legend, fieldset fieldset legend {  
+	color:#0066CC !Important;
+}
+.read {
+	color: Blue;
+}
+.unread{
+	color: Green;
+	font-weight: bold;
+}
+
+/* tooltip ----- */
+a.tooltip, a.tooltipWide{
+}
+a.tooltip img, a.tooltipWide img{
+}
+a.tooltip:hover,a.tooltipWide:hover {
+} /*BG color is a must for IE6*/
+a.tooltip span,a.tooltipWide span {
+	background:#ffffff; 
+}
+a.tooltipWide span {
+}
+a.tooltip:hover span, a.tooltipWide:hover span{
+	background: #ffffff; 
+	border:1px solid #FF6600; 
+	color: #006699;
+}
+/* /tooltip ----- */
+
+.mandatory {
+	display: inline;
+	vertical-align: top;
+	color: #FF0000;
+}
+.deactivated {
+	color: #999999;
+}
+.edit {
+	color: #007D62;
+}
+a.edit:link{
+	color: #007D62;
+}
+a.edit:visited{
+	color: #007D62;
+}
+a.edit:hover{
+	color: #FFFFFF;
+	background-color: #44A08C;
+}
+.delete {
+	color: #CF2600;
+}
+a.delete:link{
+	color: #CF2600;
+}
+a.delete:visited{
+	color: #CF2600;
+}
+a.delete:hover{
+	color: #FFFFFF;
+	background-color: #D54322;
+}
+.data {
+	color: #000000;
+}
+a.data:link{
+	color: #505050;
+}
+a.data:visited{	
+	color: #505050;
+}
+a.data:hover{
+	color: #FFFFFF;
+	background-color: #505050;
+}
+.detail {
+	color: #000066;
+}
+a.detail:link{
+	color: #000066;
+}
+a.detail:visited{
+	color: #000066;
+}
+a.detail:hover{
+	color: #FFFFFF;
+	background-color: #000066;
+}

@@ -1,0 +1,11 @@
+/* CSS Document */
+fieldset {
+	margin-top: 2em;
+	margin-bottom: 2.5em; /*    2em ORIGINAL */
+}
+fieldset legend {
+	margin-top: -3.30em;
+	margin-left: -.1em;
+	padding-left: 2px;
+	padding-right: 2px;
+}

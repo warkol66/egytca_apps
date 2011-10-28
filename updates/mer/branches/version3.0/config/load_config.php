@@ -25,3 +25,4 @@ else {
 	}
 }
 require "config_module.php";
+?>
