@@ -6,9 +6,9 @@
 |-elseif $message eq "ok"-|
 	<div class="successMessage">Cambios guardados correctamente</div>
 |-/if-|
-<form name="form_edit_construction_item" id="form_edit_construction_item" action="Main.php" method="post">
 <fieldset title="Formulario de |-if $action eq 'create'-|creación|-else-|edición|-/if-| del item de construcción">
 	<legend>Item</legend>
+<form name="form_edit_construction_item" id="form_edit_construction_item" action="Main.php" method="post">
 	<p>Ingrese los datos correspondientes y haga click en &quot;Guardar&quot; </p>
 	<p>
 		<label for="params[name]">Nombre</label>
@@ -40,9 +40,7 @@
 		<input name="save" type="submit" value="Guardar Cambios" title="Guardar Cambios" /> 
 		<input type='button' onClick='location.href="Main.php?do=vialidadConstructionItemList"' value='Regresar' title="Regresar al listado de Items de Construcci&oacute;n" />
 	</p>
-</fieldset>
 </form>
-
 |-if $action eq 'edit'-|
 <h3>Componentes</h3>
 <div id="div_items"> 
@@ -85,27 +83,24 @@
 			|-/if-|
 		</tbody>
 		<tfoot>
-			<tr><th colspan="3" class="thFillTitle"><div class="rightLink">
-				<a href="#" id="link_add2" class="addLink" onclick="$('link_add2').hide();$('form_add2').show();return false">Agregar m&aacute;s insumos </a>
-				<form id="form_add2" style="display:none" action="Main.php" method="post">
-					<input type="text" name="value" id="new_supply2" />
-					<input name="add_supply_button" type="button" disabled="disabled" class="icon iconActivate" onclick="addSupply($('new_supply2').value);$('form_add2').hide();$('link_add2').show();" />
-					<div id="div_autocomplete2" class="autocomplete" style="display:none"></div>
-					<input type="button" class="icon iconCancel" onclick="$('form_add2').hide();$('link_add2').show();" />
-				</form>
-			</div></th></tr>
+			<tr>
+			  <td colspan="3" class="thFillTitle"><p>Total 
+	<input name="params[price1]2" type="text" value="" size="15" /> 
+</p><p id="message_invalid_proportions" style="display:none">Proporciones inválidas</p>
+	
+<p id="message_incomplete_proportions" style="display:none">Item incompleto</p>
+&nbsp;</td>
+			</tr>
 		</tfoot>
 	</table>
 </div>
 
-<p>Total 
-	<input name="params[price1]2" type="text" value="Suma de los insumos, debe sumar 100%" size="15" /> 
-</p>
-|-/if-|
 
-<p id="message_invalid_proportions" style="display:none">Proporciones inválidas</p>
-	
-<p id="message_incomplete_proportions" style="display:none">Item incompleto</p>
+|-/if-|
+</fieldset>
+
+
+
 
 <script type="text/javascript">
 
