@@ -32,7 +32,7 @@ class GraphPeer extends BaseGraphPeer {
 		$cond2 = new Criteria();
 		$todosObj = GraphModelPeer::doSelect($cond2);
 		for ($i=0; i<count($todosObj); $i++) {
-    	$todosObj[$i]->judgement =
+//    	$todosObj[$i]->judgement =
 		}
 		return $todosObj;
   }
