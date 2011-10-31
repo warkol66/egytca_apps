@@ -8,17 +8,17 @@
 		<div id="vialidadSuppliersViewDiv"></div>
 	</div>
 </div> 
-<h2>Items de Constrcción</h2>
-	<h1>Administración de Items de Constrcción</h1>
-	<p>A continuación podrá editar la lista de Items de Constrcción del sistema.</p>
+<h2>Items de Construcción</h2>
+	<h1>Administración de Items de Construcción</h1>
+	<p>A continuación podrá editar la lista de Items de Construcción del sistema.</p>
 |-if $message eq "ok"-|
-	<div  class="successMessage">Items de Constrcción guardado correctamente</div>
+	<div  class="successMessage">Items de Construcción guardado correctamente</div>
 |-elseif $message eq "deleted_ok"-|
-	<div  class="successMessage">Items de Constrcción eliminado</div>
+	<div  class="successMessage">Items de Construcción eliminado</div>
 |-elseif $message eq "not_deleted"-|
-	<div  class="errorMessage">Ha ocurrido un error al intentar eliminar el Items de Constrcción.</div>
+	<div  class="errorMessage">Ha ocurrido un error al intentar eliminar el Items de Construcción.</div>
 |-elseif $message eq "edited"-|
-	<div  class="successMessage">Items de Constrcción guardado</div>
+	<div  class="successMessage">Items de Construcción guardado</div>
 |-/if-|
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 	<tr>
