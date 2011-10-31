@@ -164,6 +164,9 @@
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
+		<column name="code" type="INTEGER" description="Codigo" />
+		<column name="price" type="DECIMAL" size="12" scale="2" description="Precio " />
+		<column name="unit" type="VARCHAR" size="12" description="Unidad" />
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
@@ -178,11 +181,11 @@
 		<column name="supplyId" type="INTEGER" required="true" primaryKey="true" />
 		<column name="proportion" type="DECIMAL" size="12" scale="2" description="Precio definitivo" />
 
-		<foreign-key foreignTable="vialidad_constructionItem" >
+		<foreign-key foreignTable="vialidad_constructionItem" onDelete="cascade" >
 			<reference local="itemId" foreign="id" />
 		</foreign-key>
 
-		<foreign-key foreignTable="vialidad_supply" >
+		<foreign-key foreignTable="vialidad_supply" onDelete="cascade" >
 			<reference local="supplyId" foreign="id" />
 		</foreign-key>
 
