@@ -58,7 +58,7 @@
      <reference local="groupId" foreign="id"/>
   </foreign-key>
  </table>
- <table name="users_groupCategory" phpName='GroupCategory' description="Groups / Categories">
+ <table name="users_groupCategory" phpName='GroupCategory' description="Groups / Categories" isCrossRef="true">
   <column name="groupId" required="true" primaryKey='true' type="INTEGER"  description="Group ID"/>
   <column name="categoryId" required="true" primaryKey='true' type="INTEGER"  description="Category ID"/>
   <foreign-key foreignTable="users_group" onDelete="cascade">
