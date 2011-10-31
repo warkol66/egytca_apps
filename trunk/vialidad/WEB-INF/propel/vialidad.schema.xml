@@ -164,7 +164,7 @@
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
-		<column name="code" type="INTEGER" description="Codigo" />
+		<column name="code" type="VARCHAR" size="50" description="Codigo" />
 		<column name="price" type="DECIMAL" size="12" scale="2" description="Precio " />
 		<column name="unit" type="VARCHAR" size="12" description="Unidad" />
 
