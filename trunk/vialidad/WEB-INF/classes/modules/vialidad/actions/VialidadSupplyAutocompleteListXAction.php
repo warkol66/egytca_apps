@@ -23,13 +23,10 @@ class VialidadSupplyAutocompleteListXAction extends BaseAction {
 		
 		$searchString = $_REQUEST['value'];
 		$smarty->assign("searchString",$searchString);
-
-
-		$filters = array("searchString" => $searchString, "limit" => $_REQUEST['limit']);
-
-		$supplyPeer = new SupplyPeer();
-		$this->applyFilters($supplyPeer,$filters);
-		$supplies = $supplyPeer->getAll();
+		
+		$supplies = SupplyQuery::create()->where('Supply.Name LIKE ?', "%" . $searchString . "%")
+									->limit($_REQUEST['limit'])
+									->find();
 
 		$smarty->assign("supplies",$supplies);
 		$smarty->assign("limit",$_REQUEST['limit']);

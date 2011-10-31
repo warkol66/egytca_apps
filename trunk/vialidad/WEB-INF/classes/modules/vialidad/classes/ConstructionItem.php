@@ -14,5 +14,15 @@
  * @package    propel.generator.vialidad.classes
  */
 class ConstructionItem extends BaseConstructionItem {
+	
+	/**
+	 * Determina la existencia de una relacion con un determindo Supply.
+	 * @param $supply Supply
+	 */
+	public function hasSupply($supply) {
+		$related = ConstructionItemRelationQuery::create()->filterByConstructionItem($this)
+			->filterBySupply($supply);
+		return ($related->count() > 0);														 		
+	}
 
 } // ConstructionItem
