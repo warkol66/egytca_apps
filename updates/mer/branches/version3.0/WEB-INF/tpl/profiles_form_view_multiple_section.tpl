@@ -1,4 +1,4 @@
-<table class="tablaborde" border="0" cellpadding="0" cellspacing="1" width="100%">
+<table class="tableTdBorders" border="0" cellpadding="0" cellspacing="1" width="100%">
  	|-foreach from=$section->doSelectQuestions() item=question name=foreachQuestions-||-if $smarty.foreach.foreachQuestions.first-|
 	<tr>
 		<td class='celltitulo' width='20%'><div class="titulo2">|-$childSection->getTitle()-|</div></td> 
@@ -9,7 +9,7 @@
 	<tr> 
 		<td width='20%' valign='top' class='celltitulo'><div class='titulo2'>|-$question-|</div></td> 
 		|-foreach from=$actors item=actor-|
-		<td class='celldato' width='|-$cellwidth-|%'>|-$question->getAnswer($actor)-|</td> 
+		<td width='|-$cellwidth-|%'>|-$question->getAnswer($actor)-|</td> 
 		|-/foreach-|</tr> 
 	|-/foreach-||-foreach from=$section->getChildSections() item=childSection-|
 	<tr> 

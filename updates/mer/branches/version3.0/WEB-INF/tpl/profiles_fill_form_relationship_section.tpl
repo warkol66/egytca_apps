@@ -19,11 +19,11 @@
 		</div></td>
 	<td width="4%" class="celldato">|-if $smarty.request.showAll-|
 				<input type="checkbox" id="active_|-$question->getId()-|" name="applyableQuestions[]" value="|-$question->getID()-|" |-if $question->appliesToRelationship($actor1,$actor2) -|checked='checked'|-/if-| />|-/if-|</td>
-	<td width="26%" class='celldato' nowrap="nowrap">|-$question->relationshipToHTML($actor1,$actor2)-|
+	<td width="26%" nowrap="nowrap">|-$question->relationshipToHTML($actor1,$actor2)-|
 				<!-- <script type="text/javascript">setActiveQuestion(|-$question->getId()-|)
 				</script>
 				--></td>
-	<td width="10%" class='celldato' nowrap="nowrap">|-$question->getUnit()-|</td>
+	<td width="10%" nowrap="nowrap">|-$question->getUnit()-|</td>
 </tr>
 |-/foreach-|
 	|-foreach from=$section->getChildSections() item=childSection-|

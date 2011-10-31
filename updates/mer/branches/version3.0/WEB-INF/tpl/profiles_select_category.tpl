@@ -24,7 +24,7 @@
 			<td>&nbsp;</td>
 		</tr>
 	</table>
-	<table class="tablaborde" border="0" cellpadding="3" cellspacing="1" width="100%">
+	<table class="tableTdBorders" border="0" cellpadding="3" cellspacing="1" width="100%">
 		<tr>
 			<td class="celltitulo2" nowrap="nowrap" width="35%">##103,Seleccione una categoría##</td>
 			<td class="celldato"><input name="modulo" value="contacto" type="hidden">
@@ -35,9 +35,9 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="cellboton" colspan="2"><input value="##120,Continuar##" class="boton" type="submit">
+			<td class="cellboton" colspan="2"><input value="##120,Continuar##" type="submit">
 				&nbsp;&nbsp;
-				<input onclick="history.go(-1)" value="##104,Regresar##" class="boton" type="button"></td>
+				<input onclick="history.go(-1)" value="##104,Regresar##" type="button"></td>
 		</tr>
 	</table>
 </form>

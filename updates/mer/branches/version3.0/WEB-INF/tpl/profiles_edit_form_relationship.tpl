@@ -1,6 +1,6 @@
 <table border='0' cellpadding='0' cellspacing='0' width='100%'>
 	<tr>
-		<td class='titulo'>##40,Configuración del Sistema##</td>
+		<td class='titulo'>Configuración del Sistema</td>
 	</tr>
 	<tr>
 		<td class='subrayatitulo'><img src="images/clear.gif" alt=" " width='1' height='3' /></td>
@@ -44,12 +44,12 @@
 	<input type="hidden" name='newSectionParentId' value='' />
 	<input type="hidden" name="form" value="|-$form->getId()-|" />
 	<input type="hidden" name="forward" value="profilesFormRelEdit" />	
-	<table width='100%' border="0" cellpadding="3" cellspacing="1" class='tablaborde0'>
+	<table width='100%' border="0" cellpadding="3" cellspacing="1" class='tableTdBorders0'>
 		<tr>
 			<th colspan='4'><a name='edit'>##218,Agregar Pregunta##</a></th>
 		</tr>
 			<tr>
-			<td class='celldato'>##219,Sección##</td>
+			<td>##219,Sección##</td>
 			<td colspan='3' class="celldato"><select name='sectionId' onChange="checkCat(this)">
 			|-html_options options=$sections selected=$question->getSectionId()-|
 				</select>
@@ -71,7 +71,7 @@
 		</tr>
 			<tr>
 			<td valign='top' class="celldato">##222,Tipo de Pregunta##</td>
-			<td colspan='3' class="celldato"><table width="100%" border="0" cellpadding="3" cellspacing="1" class="tablaborde0">
+			<td colspan='3' class="celldato"><table width="100%" border="0" cellpadding="3" cellspacing="1" class="tableTdBorders0">
 					|-foreach from=$question->getTypes() item=typeName key=typeId -|
 					|- if $typeId ne $smarty.const.QUESTION_TYPE_OPTIONS -|
 					<tr>
@@ -82,7 +82,7 @@
 					|-else-|
 					<tr>
 						<td valign='top' class="celldato"><input type='radio' name='questionType' value='3' |-if $question->getType() eq $typeId -|checked='checked'|-/if-| onClick='switch_vis("optionsTable","block");' />##229,Opciones##</td>
-						<td class="celldato"><div id="optionsTable" style='display:|-if $question->getType() eq $typeId -|block|-else-|none|-/if-|;'><table width="100%" border="0" cellpadding="3" cellspacing="1" class="tablaborde0">
+						<td class="celldato"><div id="optionsTable" style='display:|-if $question->getType() eq $typeId -|block|-else-|none|-/if-|;'><table width="100%" border="0" cellpadding="3" cellspacing="1" class="tableTdBorders0">
 								<tr>
 									<th>##223,Selec. Inicial##</th>
 									<th align='left'>##224,Valor##</th>
@@ -103,7 +103,7 @@
 				</table></td>
 		</tr>
 			<tr>
-			<td colspan='4' class='cellboton'><input type='submit' name='n_preg' value='##228,Guardar pregunta##'  class='boton' /></td>
+			<td colspan='4' class='cellboton'><input type='submit' name='n_preg' value='##228,Guardar pregunta##' /></td>
 		</tr>
 		</table>
 </form>

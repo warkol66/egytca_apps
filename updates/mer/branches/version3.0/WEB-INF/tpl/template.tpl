@@ -3,6 +3,7 @@
 <head>
 <title>##12,Sistema para Manejo Estratégico de Relaciones con los Actores Clave##</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="css/main.css" type="text/css">
 <link rel="stylesheet" href="css/mer.css" type="text/css">
 <!--[if !IE]>--> <link href="css/mer_mozilla.css" rel="stylesheet" type="text/css"> <!--<![endif]-->
 <link rel="shortcut icon" href="images/mer.ico">
@@ -23,31 +24,9 @@
 				<tr>
 					<td valign='top'>|-include file=menu_upper.tpl-|</td>
 				</tr>
-			</table>
-			<table width='100%' border='0' cellspacing='0' cellpadding='0'>
-				<tr>
-					<td><img src="images/clear.gif" width="10" height="5"></td>
-					<td width='100%'><img src="images/clear.gif" width="10" height="5"></td>
-					<td><img src="images/clear.gif" width="10" height="5"></td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td><!--centerHTML start-->
-						|-$centerHTML-|
-							<!--centerHTML end --></td>
-					<td>&nbsp;</td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-				</tr>
-		</table></td>
+			</table><div id="rightColumn">|-$centerHTML-|
+			</div>
+		</td>
 		<td align="left" valign="top" class="bordederecho"><table width="100%" border="0" cellspacing="0" cellpadding="0" name="Principal">
 				<tr valign="top">
 					<td height="20" class="filled1"><img src="images/clear.gif" width="4" height="20"></td>

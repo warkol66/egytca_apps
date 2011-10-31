@@ -23,13 +23,13 @@
 		</tr>
 	</table>
 |-if $smarty.request.status eq 'ok' -|<div align="center" class="textoerror">##206,Cambios guardados##</div> |-/if-|
-	<table class="tablaborde" border="0" cellpadding="0" cellspacing="1" width="100%">
+	<table class="tableTdBorders" border="0" cellpadding="0" cellspacing="1" width="100%">
 			<tr>
 				<th colspan="2">##202,Caracterización de## |-$actor-|</th>
 			</tr>
 	<tr>
 		<td width="10%" nowrap class='celltitulo'><div class='titulo2'>Formulario:</td>
-		<td class='celldato'>|-assign var=formId value=$form->getId()-| <div class='titulo2' style="display: inline;">|-$form->getname($formId)-|</div>|-if $forms|@count gt 1 -| 
+		<td>|-assign var=formId value=$form->getId()-| <div class='titulo2' style="display: inline;">|-$form->getname($formId)-|</div>|-if $forms|@count gt 1 -| 
 			<div id='formselect' class='texto_noimprimir' style="display: inline;">&nbsp;&nbsp;|-include file="profiles_include_select_form.tpl"-|</div>
 			|-/if-|		 </td>
 	</tr>
@@ -53,7 +53,7 @@
 				</td>
 		</tr>
 	</table>
-	<table class="tablaborde" border="0" cellpadding="0" cellspacing="1" width="100%">
+	<table class="tableTdBorders" border="0" cellpadding="0" cellspacing="1" width="100%">
 |-if $smarty.request.showAll-|		
 	<tr>
 		<td class="celldato">&nbsp;</td>
@@ -67,7 +67,7 @@
 			<td class="celldato">&nbsp;</td>
 		</tr>|-/if-|
 		<tr>
-			<td class="cellboton"><input name="guardar" value="##203,Guardar datos de la sección##" class="boton" type="submit">
+			<td class="cellboton"><input name="guardar" value="##203,Guardar datos de la sección##" type="submit">
 			</td>
 		</tr>
 		<tr>

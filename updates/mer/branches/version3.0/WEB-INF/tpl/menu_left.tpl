@@ -192,7 +192,7 @@
 				<div class='divmenu2sec'><a href="Main.php?do=categoriesList" class='menu2sec'>##74,Editar categorías##</a></div>
 			</div></td>
 	</tr>
-	|-if $login_user->isAdmin() eq 1 || $login_user->isSupervisor() eq 1-|
+	|-if $login_user neq 1-|
 	<tr>
 		<td class="menu2back_on">##75,USUARIOS##</td>
 	</tr>
@@ -206,7 +206,7 @@
 				<div class='divmenu2sec'><a href="Main.php?do=groupsList" class='menu2sec'>##77,Administrar Grupos##</a></div>
 			</div></td>
 	</tr>
-	|-if $login_user->isSupervisor() eq 1-|
+	|-if $login_user neq 1-|
 	<tr>
 		<td class="menu2back_on">##78,CUESTIONARIOS##</td>
 	</tr>

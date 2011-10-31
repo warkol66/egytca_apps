@@ -1,37 +1,10 @@
+<h2>Manejo Estratégico de Relaciones</h2>
+<h1>Configuración del Sistema</h1>
+<p>Para utilizar el sistema debe completar los siguientes pasos. Una vez completados podrá pasar a la carga de datos de los perfiles cada uno de  los Actores.</p>
 <table width='100%' border='0' cellspacing="0" cellpadding='0'>
 	<tr>
 		<td>&nbsp;</td>
-		<td><span class="tit1">##40,Configuración del Sistema##</span></td>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td class='subrayatitulo'><img src="images/clear.gif" height='3' width='1'></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td><p>##41,Para utilizar el sistema debe completar los siguientes pasos. Una vez  completados podrá pasar a la carga de datos de los perfiles cada uno de  los Actores.##</p></td>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td class='titulo2'>##42,Configurar: ACTORES##</td>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
+		<td class='titulo2'><h3>##42,Configurar: ACTORES##</h3></td>
 		<td>&nbsp;</td>
 	</tr>
 	<tr>
@@ -112,12 +85,7 @@
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td class='titulo2'>##51,Configurar: CATEGORIAS DE ACTORES ## </td>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
+		<td class='titulo2'><h3>##51,Configurar: CATEGORIAS DE ACTORES ##</h3> </td>
 		<td>&nbsp;</td>
 	</tr>
 	<tr>
@@ -139,15 +107,10 @@
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>
 	</tr>
-	|-if $login_user->isAdmin() eq 1 || $login_user->isSupervisor() eq 1-|
+	|-if $login_user neq 1-|
 	<tr>
 		<td>&nbsp;</td>
-		<td class='titulo2'>##54,Configurar: USUARIOS##</td>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
+		<td class='titulo2'><h3>##54,Configurar: USUARIOS##</h3></td>
 		<td>&nbsp;</td>
 	</tr>
 	<tr>
@@ -169,15 +132,10 @@
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>
 	</tr>
-	|-if $login_user->isSupervisor() eq 1-|
+	|-if $login_user neq 1-||-*if $login_user->isSupervisor() eq 1*-|
 	<tr>
 		<td>&nbsp;</td>
-		<td class='titulo2'>##57,Configurar: CUESTIONARIOS##</td>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
+		<td class='titulo2'><h3>##57,Configurar: CUESTIONARIOS##</h3></td>
 		<td>&nbsp;</td>
 	</tr>
 	<tr>
@@ -220,12 +178,7 @@
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td class='titulo2'>##62,Configurar: GRAFICOS##</td>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
+		<td class='titulo2'><h3>##62,Configurar: GRAFICOS##</h3></td>
 		<td>&nbsp;</td>
 	</tr>
 	<tr>
@@ -268,13 +221,8 @@
 	</tr>
 	<tr>
   	<td>&nbsp;</td>
-  	<td class='titulo2'>Permisos y Niveles de Usuarios </td>
+  	<td class='titulo2'><h3>Permisos y Niveles de Usuarios</h3></td>
   	<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
@@ -316,7 +264,7 @@
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td class='titulo2'>Configuración General </td>
+		<td class='titulo2'><h3>Configuración General</h3></td>
 		<td>&nbsp;</td>
 	</tr>
 	<tr>
@@ -340,7 +288,7 @@
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td class='titulo2'>Configuración General </td>
+		<td class='titulo2'><h3>Configuración General</h3></td>
 		<td>&nbsp;</td>
 	</tr>
 	<tr>

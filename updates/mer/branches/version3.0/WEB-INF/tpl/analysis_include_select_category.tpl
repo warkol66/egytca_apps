@@ -1,8 +1,8 @@
 <form method='get' name='sel'>
-	<table class='tablaborde' cellspacing='1' cellpadding='0' border='0' width='100%'>
+	<table class='tableTdBorders' cellspacing='1' cellpadding='0' border='0' width='100%'>
 		<tr>
 			<td class='celltitulo' width='35%' nowrap><div class='titulo2'>##103,Seleccione una categoría##</div></td>
-			<td class='celldato'><select name="category" onChange="document.sel.submit();">
+			<td><select name="category" onChange="document.sel.submit();">
 					<option value="0">##103,Seleccione una categoría##</option>
 								|-foreach from=$categories item=category name=for_categories-|
 					<option value="|-$category->getId()-|">|-$category->getName()-|</option>
@@ -12,9 +12,9 @@
 			</td>
 		</tr>
 		<tr>
-			<td class='cellboton' colspan='2'><input type='submit' value='##120,Continuar##'  class='boton' />
+			<td class='cellboton' colspan='2'><input type='submit' value='##120,Continuar##' />
 				&nbsp;&nbsp;
-				<input type='button' onClick='history.go(-1)' value='##104,Regresar##'  class='boton' />
+				<input type='button' onClick='history.go(-1)' value='##104,Regresar##' />
 			</td>
 		</tr>
 	</table>

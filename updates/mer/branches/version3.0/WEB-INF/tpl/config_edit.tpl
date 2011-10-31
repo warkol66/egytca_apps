@@ -36,7 +36,7 @@
 		</li>
 	</ul>
 	<input type="hidden" name="do" value="configDoEdit" />
-	<input type="submit" value="Guardar" class="boton" />
+	<input type="submit" value="Guardar" />
 </form>
 
 <a href="Main.php?do=configView">Ver Config</a>

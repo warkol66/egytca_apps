@@ -22,7 +22,7 @@
 		<td>&nbsp;</td>
 	</tr>
 </table>
-<table class="tablaborde" border="0" cellpadding="0" cellspacing="1" width="100%">
+<table class="tableTdBorders" border="0" cellpadding="0" cellspacing="1" width="100%">
 	<tr>
 		<th colspan="2">##202,Caracterización de## |-$actor->getName()-|</th>
 	</tr>

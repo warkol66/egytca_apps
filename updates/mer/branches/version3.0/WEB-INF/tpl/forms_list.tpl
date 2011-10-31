@@ -3,7 +3,7 @@
 					|-if $message eq "ok"-|<span class="message_ok">Form guardado correctamente</span>|-/if-|
 					|-if $message eq "deleted_ok"-|<span class="message_ok">Form eliminado correctamente</span>|-/if-|
 					<h3><a href="Main.php?do=formsEdit">Agregar Form</a></h3>
-					<table class='tablaborde0'>
+					<table class='tableTdBorders0'>
 						<thead>
 							<tr>
 																<th>Name</th>
@@ -20,12 +20,12 @@
 									<form action="Main.php" method="get">
 										<input type="hidden" name="do" value="formsEdit" />
 										<input type="hidden" name="id" value="|-$form->getid()-|" />
-										<input type="submit" value="Editar" class="boton" />
+										<input type="submit" value="Editar" />
 									</form>
 									<form action="Main.php" method="post">
 										<input type="hidden" name="do" value="formsDoDelete" />
 										<input type="hidden" name="id" value="|-$form->getid()-|" />
-										<input type="submit" value="Borrar" onclick="return confirm('Seguro que desea eliminar el form?')" class="boton" />
+										<input type="submit" value="Borrar" onclick="return confirm('Seguro que desea eliminar el form?')" />
 									</form>
 								</td>
 							</tr>

@@ -1,26 +1,6 @@
-<table border='0' cellpadding='0' cellspacing='0' width='100%'>
-	<tr>
-		<td class='titulo'>##40,Configuración del Sistema##</td>
-	</tr>
-	<tr>
-		<td class='subrayatitulo'><img src="images/clear.gif" alt=" " width='1' height='3' /></td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td class='fondotitulo'><span class="mda_nombremodulo">##216,Administrar Preguntas##</span></td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td class='texto'><span class="comentariostd">##230,En esta sección podrá administrar las preguntas del perfil del Actor. Para agregar preguntas puede hacer## <a href="#edit">##93,click aquí##</a>.</span></td>
-	</tr>
-		<tr>
-			<td>&nbsp;</td>
-		</tr>
-	</table>
+<h2>Configuración del Sistema</h2>
+	<h1>Administrar Preguntas</h1>
+	<p>En esta sección podrá administrar las preguntas del perfil del Actor. Para agregar preguntas puede hacer <a href="#edit">click aquí</a>.</p>
 <form method="get" action="Main.php">
 	<input type="hidden" name="do" value="|-$do-|" />
 	|-if $actor ne ""-|
@@ -32,7 +12,7 @@
 	|-if $actor2 ne ""-|
 	<input type="hidden" name="actor2" value="|-$actor2->getId()-|" />
 	|-/if-|
-	<table class="tablaborde" border="0" cellpadding="3" cellspacing="1" width="100%">
+	<table class="tableTdBorders" border="0" cellpadding="3" cellspacing="1" width="100%">
 		<tr>
 			<td class="celltitulo2" nowrap="nowrap" width="35%">Seleccione un formulario</td>
 			<td class="celldato">
@@ -45,9 +25,9 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="cellboton" colspan="2"><input value="##120,Continuar##" class="boton" type="submit">
+			<td class="cellboton" colspan="2"><input value="##120,Continuar##" type="submit">
 				&nbsp;&nbsp;
-				<input onclick="history.go(-1)" value="##104,Regresar##" class="boton" type="button"></td>
+				<input onclick="history.go(-1)" value="##104,Regresar##" type="button"></td>
 		</tr>
 	</table>
 </form>

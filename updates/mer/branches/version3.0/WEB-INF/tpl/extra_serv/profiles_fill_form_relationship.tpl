@@ -1,4 +1,4 @@
-<table width='100%' cellspacing='1' cellpadding='0' border='0' class='tablaborde'>
+<table width='100%' cellspacing='1' cellpadding='0' border='0' class='tableTdBorders'>
 	<tr>
 		<th colspan='2'> <form method="GET" action="Main.php" style="display:inline">
 				<input type="hidden" name="do" value="|-$smarty.request.do-|" />
@@ -13,7 +13,7 @@
 	|-if $actor2->getId() -|
 	<tr>
 		<td width="10%" valign='top' nowrap class='celltitulo'><div class='titulo2'>Formulario:</td>
-		<td valign='top' class='celldato'>|-assign var=formId value=$form->getId()-| <div class='titulo2'  style="display: inline;">|-$form->getname($formId)-|</div>|-if $forms|@count gt 1 -| 
+		<td valign='top'>|-assign var=formId value=$form->getId()-| <div class='titulo2'  style="display: inline;">|-$form->getname($formId)-|</div>|-if $forms|@count gt 1 -| 
 			<div id='formselect' class='texto_noimprimir' style="display: inline;">&nbsp;&nbsp;|-include file="profiles_include_select_form.tpl"-|</div>
 			|-/if-|		 
 		</td>
@@ -29,7 +29,7 @@
 	|-if $smarty.request.showAll-|
 	<input type="hidden" name="showAll" value="1" />
 	|-/if-|
-	<table class="tablaborde" cellpadding="0" cellspacing="1" width="100%">
+	<table class="tableTdBorders" cellpadding="0" cellspacing="1" width="100%">
 		<tr>
 			<th width='60%'>Pregunta</th>
 			<th width="4%">|-if $smarty.request.showAll-|Activa|-/if-|</th>
@@ -40,7 +40,7 @@
 		|-include file=profiles_fill_form_relationship_section.tpl section=$form->getRootSection() -|
 		|-/foreach-|
 	</table>
-	<table class="tablaborde" border="0" cellpadding="0" cellspacing="1" width="100%">
+	<table class="tableTdBorders" border="0" cellpadding="0" cellspacing="1" width="100%">
 |-if $smarty.request.showAll-|		
 	<tr>
 		<td class="celldato">&nbsp;</td>

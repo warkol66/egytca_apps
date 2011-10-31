@@ -23,7 +23,7 @@
 							|-/if-|
 								<input type="hidden" name="action" id="action" value="|-$action-|" />
 								<input type="hidden" name="do" id="do" value="formsDoEdit" />
-								<input type="submit" id="button_edit_form" title="Aceptar" value="Aceptar" class="boton" />
+								<input type="submit" id="button_edit_form" title="Aceptar" value="Aceptar" />
 							</p>
 			      </fieldset>
 					</form>

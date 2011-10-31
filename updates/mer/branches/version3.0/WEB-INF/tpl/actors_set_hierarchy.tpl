@@ -1,31 +1,11 @@
-<table border='0' cellpadding='0' cellspacing='0' width='100%'>
-	<tr>
-		<td class='titulo'>##40,Configuración del Sistema##</td>
-	</tr>
-	<tr>
-		<td class='subrayatitulo'><img src="images/clear.gif" height='3' width='1'></td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td class='fondotitulo'>##128,Jerarquización de Actores por Categoría##</td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td class='texto'>##129,Seleccione cada una de las categorías de Actores y defina con la ayuda del sistema los más importantes mediante la metodología de jerarquización propuesta. Una vez completado el cálculo debe guardar el resultado para utilizar los Actores resultantes en los gráficos y análisis.##</td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-	</tr>
-</table>
+<h2>Configuración del Sistema</h2>
+	<h1>Jerarquización de Actores por Categoría</h1>
+	<p>Seleccione cada una de las categorías de Actores y defina con la ayuda del sistema los más importantes mediante la metodología de jerarquización propuesta. Una vez completado el cálculo debe guardar el resultado para utilizar los Actores resultantes en los gráficos y análisis.</p>
 <form name='cats'>
-	<table class='tablaborde' cellspacing='1' cellpadding='3' border='0' width='100%'>
+	<table class='tableTdBorders' cellspacing='1' cellpadding='3' border='0' width='100%'>
 		<tr>
 			<td class='titulodato1' width='35%' nowrap>##130,Seleccione una categoría a jerarquizar##</td>
-			<td class='celldato'><select name="cat" onChange="document.cats.submit();">
+			<td><select name="cat" onChange="document.cats.submit();">
 					<option value="0">##103,Seleccione una categoría##</option>
 						|-foreach from=$categories item=category name=for_categories-|
 					<option value="|-$category->getId()-|">|-$category->getName()-|</option>
@@ -35,9 +15,9 @@
 				&nbsp;<a href="javascript:void(null)" onClick="alert('##137,Recorra las filas de la siguiente tabla y seleccionando sobre las filas qué Actor es más importante que el expresado en la columna. Al finalizar, pulse el botón &quot;Calcular jerarquía&quot; y en la columna total aparecerá el órden de importancia.##')">##38,Ayuda##</a></td>
 		</tr>
 		<tr>
-			<td class='cellboton' colspan='2'><input type='submit' value='##120,Continuar##'  class='boton' />
+			<td class='cellboton' colspan='2'><input type='submit' value='##120,Continuar##' />
 				&nbsp;&nbsp;
-				<input type='button' onClick='history.go(-1)' value='##104,Regresar##'  class='boton' /></td>
+				<input type='button' onClick='history.go(-1)' value='##104,Regresar##' /></td>
 		</tr>
 	</table>
 </form>
@@ -45,7 +25,7 @@
 	|-if ($manual eq "1")-| 
 	<form name='j' method='post' action="Main.php">
 	<input type='hidden' name='category' value='|-$currentCategory->getId()-|' />
-	<table width="100%" border="0" cellpadding="0" cellspacing="1" class='tablaborde'>
+	<table width="100%" border="0" cellpadding="0" cellspacing="1" class='tableTdBorders'>
 		<tr>
 			<td class='titulodato1' colspan='2'>##131,Jerarquización Manual##</td>
 		</tr>
@@ -63,8 +43,8 @@
 		|-/foreach-|
 		<tr>
 			<td class='cellboton' colspan='2'><input type="hidden" name="do" value="actorsDoSetManualActorsHierarchy" />
-				<input type='submit' name='guardar' value='##132,Guardar Resultado##' class='boton' />&nbsp;&nbsp;
-				<input type='button' onClick='limpiar(|-$actorsCountPlus1-|)' name='Button' value='##98,Borrar todo##' class='boton' />
+				<input type='submit' name='guardar' value='##132,Guardar Resultado##' />&nbsp;&nbsp;
+				<input type='button' onClick='limpiar(|-$actorsCountPlus1-|)' name='Button' value='##98,Borrar todo##' />
 			</td>
 		</tr>
 	</table>
@@ -84,7 +64,7 @@
 			<a href="Main.php?do=actorsSetActorsHierarchy&amp;cat=|-$currentCategory->getId()-|">##133,Jerarquización Asistida##</a> |-else-|
 			<form name='j' method='post' onSubmit='calcular(|-$actorsCountPlus1-|)' action="Main.php">
 	<input type='hidden' name='category' value='|-$currentCategory->getId()-|' />
-	<table width="100%" border="0" cellpadding="0" cellspacing="1" class='tablaborde'>
+	<table width="100%" border="0" cellpadding="0" cellspacing="1" class='tableTdBorders'>
 					<tr>
 			<td class='titulodato1' colspan='|-$actorsCountPlus3-|'>##134,Jerarquización x Categoría##</td>
 		</tr>
@@ -112,12 +92,12 @@
 		</tr>
 					|-/foreach-|
 					<tr>
-			<td class='cellboton' colspan='|-$actorsCountPlus3-|'><input type='button' name='Button3' onClick='calcular(|-$actorsCountPlus1-|)' value='##136,Calcular jerarquía##' class='boton' />
+			<td class='cellboton' colspan='|-$actorsCountPlus3-|'><input type='button' name='Button3' onClick='calcular(|-$actorsCountPlus1-|)' value='##136,Calcular jerarquía##' />
 							&nbsp;&nbsp;
-							<input type='button' onClick='limpiar(|-$actorsCountPlus1-|)' name='Button' value='##98,Borrar todo##' class='boton' />
+							<input type='button' onClick='limpiar(|-$actorsCountPlus1-|)' name='Button' value='##98,Borrar todo##' />
 							&nbsp;&nbsp;
 							<input type="hidden" name="do" value="actorsDoSetActorsHierarchy" />
-							<input type='submit' name='guardar' value='##132,Guardar Resultado##' class='boton' />
+							<input type='submit' name='guardar' value='##132,Guardar Resultado##' />
 						</td>
 		</tr>
 				</table>
@@ -161,14 +141,14 @@
 			|-if $principalActors|count ne 0-| <br />
 			<br />
 			<h2>##121,Actores de la categoría## &quot;|-$currentCategory->getName()-|&quot;</h2>
-			<table class='tablaborde' border='0' width='70%' cellspacing='1' cellpadding='4'>
+			<table class='tableTdBorders' border='0' width='70%' cellspacing='1' cellpadding='4'>
 	<tr>
 					<th colspan='2'>##101,Nombre del Actor##</th>
 				</tr>
 	|-foreach from=$principalActors item=principal name=for_principal-|
 	<tr>
 					<td class='titulodato1' width='10%'>|-$smarty.foreach.for_principal.iteration-|</td>
-					<td class='celldato'><span class='titulo2'>|-$principal->getName()-|</span></td>
+					<td><span class='titulo2'>|-$principal->getName()-|</span></td>
 				</tr>
 	|-/foreach-|
 </table>

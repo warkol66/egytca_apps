@@ -35,6 +35,6 @@
 		<br /> 
 		|-/foreach-|
 	</ul> 
-	<input type="button" class="boton" value="Mostrar Intercambios" onclick="showGraphNetwork('|-$urlActors-|')" /> 
+	<input type="button" value="Mostrar Intercambios" onclick="showGraphNetwork('|-$urlActors-|')" /> 
 </form> 
 |-/if-| 

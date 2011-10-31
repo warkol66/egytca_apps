@@ -20,14 +20,14 @@
 		<td> 
 		|-foreach from=$graphs item=graph name=for_graphs-|
 			<form action='Main.php' method='post'>
-				<a name='id-|-$graph->getId()-|'></a><div id='hide|-$graph->getId()-|' class='noPrint' align="right"><input type='button' id='button|-$graph->getId()-|' value='Ocultar Sección' class='FormButton' onClick='switch_vis("|-$graph->getId()-|");switch_value("button|-$graph->getId()-|");' />Gráfico &quot;|-$graph->getName()-|&quot;</div>
+				<a name='id-|-$graph->getId()-|'></a><div id='hide|-$graph->getId()-|' class='noPrint' align="right"><input type='button' id='button|-$graph->getId()-|' value='Ocultar Sección' onClick='switch_vis("|-$graph->getId()-|");switch_value("button|-$graph->getId()-|");' />Gráfico &quot;|-$graph->getName()-|&quot;</div>
 				<div id='|-$graph->getId()-|' style='display:block;'>  
-				<table width='100%' class='tablaborde' cellpadding='0' cellspacing='1' border='0'>
+				<table width='100%' class='tableTdBorders' cellpadding='0' cellspacing='1' border='0'>
 					<tr>
 						<th colspan='2'> |-$graph->getName()-|</th>
 					</tr>
 					<tr>
-						<td class='celldato' width='90%'><img src='Main.php?do=analysisGraphShow&graph=|-$graph->getId()-|&actor=|-$actor->getId()-|&category=|-$category->getId()-|' /> </td>
+						<td width='90%'><img src='Main.php?do=analysisGraphShow&graph=|-$graph->getId()-|&actor=|-$actor->getId()-|&category=|-$category->getId()-|' /> </td>
 						<td class='cellbotonbtm' width='100'>&nbsp;</td>
 					</tr>
 					<tr>
@@ -47,7 +47,7 @@
 			|-/foreach-| 
 
 <!-- ingreso nuevo -->
-				<table width='100%' class='tablaborde' cellpadding='0' cellspacing='1' border='0'>
+				<table width='100%' class='tableTdBorders' cellpadding='0' cellspacing='1' border='0'>
 					<tr>
 						<th colspan='2'>Cuadro Síntesis de Perfil de "|-$actor->getName()-|"</th>
 					</tr>
@@ -55,7 +55,7 @@
 			|-assign var=answer value=$question->getAnswer($actor)-|
 					<tr>
 						<td valign="top" width='35%' class="titulodato1"><div class="titulo">|-$question->getQuestion()-|</div></td>
-					<td class='celldato' width='65%'>|-$answer-|</td>
+					<td width='65%'>|-$answer-|</td>
 					</tr>
 				|-/foreach-|
 				</table>
@@ -67,12 +67,12 @@
 			|-assign var=answer value=$question->getAnswer($actor)-|
 			<form action='Main.php' method='post'>
 				<a name='id-894'></a>
-				<table width='100%' class='tablaborde' cellpadding='0' cellspacing='1' border='0'>
+				<table width='100%' class='tableTdBorders' cellpadding='0' cellspacing='1' border='0'>
 					<tr>
 						<th colspan='2'> |-$question->getQuestion()-| </th>
 					</tr>
 					<tr>
-						<td class='celldato' width='90%'>|-$answer-|</td>
+						<td width='90%'>|-$answer-|</td>
 					</tr>
 					<tr>
 						<td colspan="2" valign='top' nowrap class='fondoffffff'><table border="0" cellpadding="0" cellspacing="0">
@@ -95,7 +95,7 @@ fin anterior -->
 <br />
 <table width='100%' border='0' align='center' cellpadding="0" cellspacing="0">
 	<tr>
-		<td><table class='tablaborde' width='100%' border='0' cellpadding='0' cellspacing='1'>
+		<td><table class='tableTdBorders' width='100%' border='0' cellpadding='0' cellspacing='1'>
 				<tr>
 					<th colspan='2'><a name='sintesis'>##241,Cuadro Síntesis de Evaluación de ## "
 						|-$actor->getName()-|"</a></th>
@@ -107,14 +107,14 @@ fin anterior -->
 				|-foreach from=$graphs item=graph name=for_graph_judgements-|
 				<tr>
 					<td class='celltitulo'><div class='titulo2'> <a href='#id-894'>|-$graph->getName()-|</a> </div></td>
-					<td class='celldato'>|-$graph->judgement-|</td>
+					<td>|-$graph->judgement-|</td>
 				</tr>
 				|-/foreach-|
 <!-- inicio anterior				|-foreach from=$analysisQuestions item=question name=for_analysis_questions-|
 				|-assign var=answer value=$question->getAnswer($actor)-|
 				<tr>
 					<td class='celltitulo'><div class='titulo2'> <a href='#id-894'>|-$question->getQuestion()-|</a> </div></td>
-					<td class='celldato'>|-if $answer-||-$answer->getJudgement()-||-/if-|</td>
+					<td>|-if $answer-||-$answer->getJudgement()-||-/if-|</td>
 				</tr>
 				|-/foreach-|
 fin anterior -->
@@ -123,7 +123,7 @@ fin anterior -->
 	<tr>
 		<td><br />
 			<form action='Main.php' method='post' style='display: inline;'>
-				<table class='tablaborde' width='100%' border='0' cellpadding='3' cellspacing='1'>
+				<table class='tableTdBorders' width='100%' border='0' cellpadding='3' cellspacing='1'>
 					<tr>
 						<th colspan='2'> ##242,Calificación de la Relación##
 							<select name='mark' >
@@ -139,7 +139,7 @@ fin anterior -->
 					</tr>
 					<tr>
 						<td width="20%" nowrap class='celltitulo'><div class='titulo'>&nbsp;&nbsp;##243,Juicio Síntesis##</div></td>
-						<td class='celldato'>|-if $judgement ne ""-||-$judgement->getJudgement()-||-/if-|</td>
+						<td>|-if $judgement ne ""-||-$judgement->getJudgement()-||-/if-|</td>
 					</tr>
 				</table>
 			</form></td>

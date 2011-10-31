@@ -1,4 +1,4 @@
-<table class="tablaborde" border="0" cellpadding="0" cellspacing="1" width="100%">
+<table class="tableTdBorders" border="0" cellpadding="0" cellspacing="1" width="100%">
 |-if $smarty.request.showAll or $section->doCountQuestionsForActor($actor) gt 0-|
 	<tr>
 		<td valign='top' colspan='|-if $smarty.request.showAll-|3|-else-|2|-/if-|' class='celltitulo'><div class="titulo2">|-$section->getTitle()-|</div></td>
@@ -17,7 +17,7 @@
 			<input type="checkbox" id="active_|-$question->getId()-|" name="applyableQuestions[]" value="|-$question->getID()-|" |-if $question->appliesTo($actor)-|checked='checked'|-/if-| />
 		</td>
 	|-/if-|
-		<td width='40%' nowrap='nowrap' class='celldato'>|-$question->toHTML($actor)-|</td>
+		<td width='40%' nowrap='nowrap'>|-$question->toHTML($actor)-|</td>
 	</tr>
 |-/foreach-|
 |-foreach from=$section->getChildSections() item=childSection-|

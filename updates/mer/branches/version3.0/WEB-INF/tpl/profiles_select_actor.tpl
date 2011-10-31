@@ -1,28 +1,13 @@
 <form method="get" name="sel">
-	<table border="0" cellpadding="0" cellspacing="0" width="100%">
-		<tr>
-			<td class="titulo">##197,Caracterización de Actores##</td>
-		</tr>
-		<tr>
-			<td class="subrayatitulo"><img src="index.php_files/clear.gif" height="3" width="1"></td>
-		</tr>
-		<tr>
-			<td>&nbsp;</td>
-		</tr>
-		<tr>
-			<td class="fondotitulo">##198,Edición de Perfiles##</td>
-		</tr>
-		<tr>
-			<td>&nbsp;</td>
-		</tr>
-		<tr>
-			<td class="texto">##199,En este módulo podrá definir el perfil de los Actores completando un cuestionario de caracterización para cada uno. Seleccione una categoría y se mostrarán los Actores correspondientes a la misma, luego seleccione un Actor para realizar la caracterización del mismo.##</td>
+	<h2>Caracterización de Actores</h2>
+		<h1>Edición de Perfiles</h1>
+		<p>En este módulo podrá definir el perfil de los Actores completando un cuestionario de caracterización para cada uno. Seleccione una categoría y se mostrarán los Actores correspondientes a la misma, luego seleccione un Actor para realizar la caracterización del mismo.</p>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
 		</tr>
 	</table>
-	<table class="tablaborde" border="0" cellpadding="3" cellspacing="1" width="100%">
+	<table class="tableTdBorders" border="0" cellpadding="3" cellspacing="1" width="100%">
 		<tr>
 			<th colspan="2">##200,Actores Clave de## &quot;|-$category->getName()-|&quot;</th>
 		</tr>
@@ -33,7 +18,7 @@
 		</tr>
 		|-/foreach-|
 		<tr>
-			<td class="cellboton" colspan="2"><input name="button" type="button" class="boton" onclick="history.go(-1)" value="##104,Regresar##" /></td>
+			<td class="cellboton" colspan="2"><input name="button" type="button" onclick="history.go(-1)" value="##104,Regresar##" /></td>
 		</tr>
 	</table>
 </form>

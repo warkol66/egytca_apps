@@ -1,5 +1,5 @@
 <form name="security" action="Main.php?do=securityActionDoLoad" method="POST"> 
-	<table width="75%" border="0" align="center" cellpadding="0" cellspacing="1" class="tablaborde"> 
+	<table width="75%" border="0" align="center" cellpadding="0" cellspacing="1" class="tableTdBorders"> 
 		<tr> 
 			<th scope="col">Actions</th>
 			<th scope="col">Activar</th> 

@@ -1,5 +1,5 @@
 
-	<table width='100%' cellspacing='1' cellpadding='0' border='0' class='tablaborde'>
+	<table width='100%' cellspacing='1' cellpadding='0' border='0' class='tableTdBorders'>
 <tr>
 
 <th colspan='2'>
@@ -18,7 +18,7 @@ Relaciones entre |-$actor1->getName()-| y <select name='actor2' onchange="this.f
 
 <a href="Main.php?do=analysisCompareRel&actor=|-$actor1->getId()-|&actor2=|-$actor2->getId()-|">Nuevo Grafico</a>
 
-<table class='tablaborde0'>
+<table class='tableTdBorders0'>
 	<thead>
 		<tr>
 			<th>Name</th><th>Judgement</th><th></th>
@@ -36,14 +36,14 @@ Relaciones entre |-$actor1->getName()-| y <select name='actor2' onchange="this.f
 					<input type="hidden" name="do" value="analysisGraphRelationDoEdit" />
 					<input type="hidden" name="id" value="|-$graph->getId()-|" />
           <input type="hidden" name="graphName" value="|-$graph->getName()-|" />
-					<input type="submit" value="Cambiar Nombre" class="boton" onclick="return changeNameGraphRelation(this.parentNode)" />
+					<input type="submit" value="Cambiar Nombre" onclick="return changeNameGraphRelation(this.parentNode)" />
 				</form>
 				<form action="Main.php" method="post">
 					<input type="hidden" name="do" value="analysisGraphRelationDoDelete" />
 					<input type="hidden" name="actor" value="|-$actor1->getId()-|" />
 					<input type="hidden" name="actor2" value="|-$actor2->getId()-|" />
 					<input type="hidden" name="id" value="|-$graph->getId()-|" />
-					<input type="submit" value="Borrar" onclick="return confirm('Seguro que desea eliminar el grafico?')" class="boton" />
+					<input type="submit" value="Borrar" onclick="return confirm('Seguro que desea eliminar el grafico?')" />
 				</form>
 			</td>			
 		</tr>

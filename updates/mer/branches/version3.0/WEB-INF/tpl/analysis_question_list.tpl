@@ -7,7 +7,7 @@
 					<form action="Main.php" method="post" style="display:inline;">
 						<input type="hidden" name="question" value="|-$question->getId()-|" />
 						<input type="hidden" name="do" value="analysisQuestionDoDelete" />
-						<input type="submit" value="Delete" class="boton" />
+						<input type="submit" value="Delete" />
 					</form>
 	</li>
 	|-/foreach-|
@@ -21,5 +21,5 @@
 						|-/foreach-|
 						</select>
 						<input type="hidden" name="do" value="analysisQuestionDoEdit" />
-						<input type="submit" value="Add" class="boton" />
+						<input type="submit" value="Add" />
 					</form>

@@ -39,20 +39,20 @@
 						|-/if-|
 						<form method='post' action="Main.php?do=usersDoLogin">
 							<center>
-								<table width='520' border="0" cellpadding='5' cellspacing='1' class='tablaborde'>
+								<table width='520' border="0" cellpadding='5' cellspacing='1' class='tableTdBorders'>
 									<tr>
 										<td colspan='2' class='titulodato1'>##3,Ingrese su Identificación de usuario y contraseña para ingresar al sistema##</td>
 									</tr>
 									<tr>
 										<td width='20%' nowrap class='titulodato1'>##8,Identificación de Usuario ##</td>
-										<td class='celldato'><input type='text' name='username' size='35' /></td>
+										<td><input type='text' name='username' size='35' /></td>
 									</tr>
 									<tr>
 										<td class='titulodato1'>##9,Contraseña##</td>
-										<td class='celldato'><input type='password' name='password' size='20' /></td>
+										<td><input type='password' name='password' size='20' /></td>
 									</tr>
 									<tr>
-										<td colspan='2' class='celldato' align='center'><input type='submit' value='##10,Ingresar##' class='boton' /></td>
+										<td colspan='2' align='center'><input type='submit' value='##10,Ingresar##' /></td>
 									</tr>
 								</table>
 							</center>

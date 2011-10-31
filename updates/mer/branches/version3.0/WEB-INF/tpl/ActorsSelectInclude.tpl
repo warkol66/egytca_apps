@@ -1,7 +1,7 @@
 <form method='get' name='sel'>
 	<table class='tableTdBorders' cellspacing='0' cellpadding='0' border='0' width='100%'>
 		<tr>
-			<th colspan='2'><div class='textTitleTh'>##200,Actores Clave de## &quot;|-$category->getName()-|&quot;</div></th>
+			<th colspan='2'>##200,Actores Clave de## &quot;|-$category->getName()-|&quot;</th>
 		</tr>
 		|-foreach from=$principalActors item=actor name=for_principal_actors-|
 		<tr>
@@ -10,7 +10,7 @@
 		</tr>
 		|-/foreach-|
 		<tr>
-			<td class='tdButton' colspan='2'><input name="button" type='button' class='boton' onclick='history.go(-1)' value='##104,Regresar##' /></td>
+			<td class='tdButton' colspan='2'><input name="button" type='button' onclick='history.go(-1)' value='##104,Regresar##' /></td>
 		</tr>
 	</table>
 </form>

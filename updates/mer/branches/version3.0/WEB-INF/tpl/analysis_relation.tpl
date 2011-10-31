@@ -1,5 +1,5 @@
 
-	<table width='100%' cellspacing='1' cellpadding='0' border='0' class='tablaborde'>
+	<table width='100%' cellspacing='1' cellpadding='0' border='0' class='tableTdBorders'>
 <tr>
 
 <th colspan='2'>
@@ -22,12 +22,12 @@ Relaciones entre |-$actor1->getName()-| y <select name='actor2' onchange="this.f
 		|-foreach from=$graphs item=graph name=for_graphs-|
 			<form action='Main.php' method='post'>
 				<a name='id-894'></a>
-				<table width='100%' class='tablaborde' cellpadding='0' cellspacing='1' border='0'>
+				<table width='100%' class='tableTdBorders' cellpadding='0' cellspacing='1' border='0'>
 					<tr>
 						<th colspan='2'> |-$graph->getName()-| </th>
 					</tr>
 					<tr>
-						<td class='celldato' width='90%'>
+						<td width='90%'>
 							<img src="Main.php?do=analysisGraphRelationShow&graphId=|-$graph->getId()-|" alt="Error al Generar el Grafico Comparativo - No existen datos para las relaciones seleccionadas" />
 						</td>
 					</tr>
@@ -46,8 +46,8 @@ Relaciones entre |-$actor1->getName()-| y <select name='actor2' onchange="this.f
 					<tr>
 						<td colspan='2' class='cellboton'><input type="hidden" name="do" value="analysisRelationJudgementDoEdit" />
 							<input type="hidden" name="graphId" value="|-$graph->getId()-|" />
-							<input type='submit' name='gnota' value='##240,Guardar Juicio##' class='boton' />
-							<input type='button' onClick='location.href="Main.php?do=analysisRelation&actor=|-$actor1->getId()-|"' value='##104,Regresar##'  class='boton' />
+							<input type='submit' name='gnota' value='##240,Guardar Juicio##' />
+							<input type='button' onClick='location.href="Main.php?do=analysisRelation&actor=|-$actor1->getId()-|"' value='##104,Regresar##' />
 						</td>
 					</tr>
 				</table>
@@ -59,7 +59,7 @@ Relaciones entre |-$actor1->getName()-| y <select name='actor2' onchange="this.f
 <br />
 <table width='100%' border='0' align='center' cellpadding="0" cellspacing="0">
 	<tr>
-		<td><table class='tablaborde' width='100%' border='0' cellpadding='0' cellspacing='1'>
+		<td><table class='tableTdBorders' width='100%' border='0' cellpadding='0' cellspacing='1'>
 				<tr>
 					<th colspan='2'><a name='sintesis'>##241,Cuadro Síntesis de Evaluación de &quot;##
 						|-$actor1->getName()-|&quot; -> &quot;|-if $actor2->getName() ne "all"-||-$actor2->getName()-||-else-|Todos|-/if-|&quot;</a></th>
@@ -71,7 +71,7 @@ Relaciones entre |-$actor1->getName()-| y <select name='actor2' onchange="this.f
 				|-foreach from=$graphs item=graph name=for_graph_judgements-|
 				<tr>
 					<td class='celltitulo'><div class='titulo2'> <a href='#id-894'>|-$graph->getName()-|</a> </div></td>
-					<td class='celldato'>|-$graph->getJudgement()-|</td>
+					<td>|-$graph->getJudgement()-|</td>
 				</tr>
 				|-/foreach-|
 			</table></td>

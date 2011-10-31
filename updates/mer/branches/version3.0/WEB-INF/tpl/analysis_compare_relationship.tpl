@@ -1,5 +1,5 @@
 
-	<table width='100%' cellspacing='1' cellpadding='0' border='0' class='tablaborde'>
+	<table width='100%' cellspacing='1' cellpadding='0' border='0' class='tableTdBorders'>
 <tr>
 
 <th colspan='2'>
@@ -30,7 +30,7 @@ Relaciones entre |-$actor1->getName()-| y <select name='actor2' onchange="this.f
 <input type="hidden" name="do" value="|-$smarty.request.do-|" />
 <input type="hidden" name="actor" value="|-$actor1->getId()-|" />
 <input type="hidden" name="actor2" value="|-$actor2->getId()-|" />
-<input type="submit" class="boton" value="Ver Grafico" />
+<input type="submit" value="Ver Grafico" />
 </form>
 |-/if-|
 
@@ -53,7 +53,7 @@ Relaciones entre |-$actor1->getName()-| y <select name='actor2' onchange="this.f
 <input type="hidden" name="do" value="analysisGraphRelationDoSave" />
 <input type="hidden" name="actor" value="|-$actor1->getId()-|" />
 <input type="hidden" name="actor2" value="|-$actor2->getId()-|" />
-<input type="submit" class="boton" value="Guardar Grafico" />
+<input type="submit" value="Guardar Grafico" />
 </form>
 
 |-/if-|

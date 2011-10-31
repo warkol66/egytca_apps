@@ -35,7 +35,7 @@
 							</tr>
 						</table>
 							<center>
-								<table width='520' border="0" cellpadding='5' cellspacing='1' class='tablaborde'>
+								<table width='520' border="0" cellpadding='5' cellspacing='1' class='tableTdBorders'>
 									<tr>
 										<td class='titulodato1'>&nbsp;</td>
 									</tr>

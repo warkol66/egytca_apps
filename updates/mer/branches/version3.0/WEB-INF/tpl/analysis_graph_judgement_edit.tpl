@@ -28,7 +28,7 @@
 
 <a href='Main.php?do=analysisGraphList'>Volver a la lista de Gr&aacute;ficos</a> <br /><br />
 <form method='post' action="Main.php">
-<table width="500" cellpadding='0' cellspacing='1' class='tablaborde0'>
+<table width="500" cellpadding='0' cellspacing='1' class='tableTdBorders0'>
 	<tr>
 		  <td colspan='2' class="tituloseccion01"> Gr&aacute;fico: |-$graph->getName()-|
 											</td>
@@ -50,7 +50,7 @@
 		<td colspan='2' class="celboton">
 			<input type="hidden" name="graph" value="|-$graph->getId()-|" />
 			<input type="hidden" name="do" value="analysisGraphJudgementDoEdit" />
-			<input type='submit' value='Guardar' class='boton' >
+			<input type='submit' value='Guardar' >
 		</td>
 	</tr>
 </table>

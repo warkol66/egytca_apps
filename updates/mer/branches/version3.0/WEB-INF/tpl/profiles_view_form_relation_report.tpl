@@ -1,4 +1,4 @@
-<table width='100%' cellspacing='1' cellpadding='0' border='0' class='tablaborde'>
+<table width='100%' cellspacing='1' cellpadding='0' border='0' class='tableTdBorders'>
 	<tr>
 		<th colspan='3'> <form method="GET" action="Main.php" style="display:inline">
 				<input type="hidden" name="do" value="profilesFormRelView" />

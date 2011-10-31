@@ -1,4 +1,4 @@
-<table class="tablaborde" border="0" cellpadding="0" cellspacing="1" width="100%">
+<table class="tableTdBorders" border="0" cellpadding="0" cellspacing="1" width="100%">
 	|-if $section->doCountQuestionsForActor($actor) gt 0-|
 	<tr>
 	<td valign='top' colspan='2' class='celltitulo'><div class="titulo2">|-$section->getTitle() -|</div></td>
@@ -8,7 +8,7 @@
 	|-foreach from=$questions item=question-|
 	<tr>
 		<td width='70%' valign='top' class='celltitulo'><div class='titulo2'>|-$question->getQuestion()-|</div></td>
-		<td width="30%" class='celldato'>|-$question->getAnswer($actor)-|</td>
+		<td width="30%">|-$question->getAnswer($actor)-|</td>
 	</tr>
 |-/foreach-|
 |-foreach from=$section->getChildSections() item=childSection-|

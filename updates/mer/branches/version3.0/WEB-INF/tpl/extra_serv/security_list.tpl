@@ -1,6 +1,6 @@
 <a href="Main.php?do=actionList">Lista Actions</a> 
 <form name="security2" action="Main.php?do=securityDoSave" method="POST"> 
-	<table width="100%" border="0" cellpadding="0" cellspacing="1" class="tablaborde"> 
+	<table width="100%" border="0" cellpadding="0" cellspacing="1" class="tableTdBorders"> 
 		<tr> 
 			<th scope="col">Actions</th> 
 			|-foreach from=$levels item=level name=levelkey-|

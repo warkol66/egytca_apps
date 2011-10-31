@@ -1,4 +1,4 @@
-<table width='100%' cellspacing='1' cellpadding='0' border='0' class='tablaborde'>
+<table width='100%' cellspacing='1' cellpadding='0' border='0' class='tableTdBorders'>
 	<tr>
 		<th colspan='3'> <form method="GET" action="Main.php" style="display:inline">
 				<input type="hidden" name="do" value="profilesFormRelView" />
@@ -18,7 +18,7 @@
 	|-if $actor2->getId()-|
 	<tr>
 		<td width="10%" valign='top' nowrap class='celltitulo'><div class='titulo2'>Formulario:</td>
-		<td valign='top' class='celldato'>|-assign var=formId value=$form->getId()-| <div class='titulo2'>|-$form->getname($formId)-|</div>|-if $forms|@count gt 1 -| 
+		<td valign='top'>|-assign var=formId value=$form->getId()-| <div class='titulo2'>|-$form->getname($formId)-|</div>|-if $forms|@count gt 1 -| 
 			<div id='formselect' class='texto_noimprimir' style="display: inline;">&nbsp;&nbsp;|-include file="profiles_include_select_form.tpl" relation=1-|</div>
 			|-/if-|		 </td>
 	</tr>

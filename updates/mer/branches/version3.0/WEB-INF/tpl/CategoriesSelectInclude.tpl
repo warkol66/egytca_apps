@@ -12,7 +12,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td class='tdButton' colspan='2'><input type='submit' value='##150,Mostrar lista de Actores##' class='boton' />
+			<td class='tdButton' colspan='2'><input type='submit' value='##150,Mostrar lista de Actores##' />
 			</td>
 		</tr>
 	</table>

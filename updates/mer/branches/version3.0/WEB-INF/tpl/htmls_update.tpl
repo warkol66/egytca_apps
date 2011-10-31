@@ -37,7 +37,7 @@
                       ¿Problemas?</a></div></td>
                 </tr>
                 <tr align="center">
-                  <td colspan=2> <input name=subir type=submit class="boton" value="Subir">
+                  <td colspan=2> <input name=subir type=submit value="Subir">
                   </td>
                 </tr>
               </table>

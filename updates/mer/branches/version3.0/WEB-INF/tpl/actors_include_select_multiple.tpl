@@ -32,14 +32,14 @@
 			<td width="65%"> <form method="get" action="Main.php" style="display:inline;"> 
 					<input type="hidden" name="do" value="|-$select-|" />
 					<input type="hidden" name="alls" value="1" /> 
-					<input type="submit" value="Listar ciudades" class="boton" /> 
+					<input type="submit" value="Listar ciudades" /> 
 				</form></td> 
 		</tr> 
 		<tr>
 			<td colspan="2">&nbsp;</td>
 		</tr>
 		<tr> 
-			<td class="tdButton" colspan="2"><input onclick="history.go(-1)" value="Regresar" class="boton" type="button"></td> 
+			<td class="tdButton" colspan="2"><input onclick="history.go(-1)" value="Regresar" type="button"></td> 
 		</tr> 
 	</tbody> 
 </table> 
@@ -68,7 +68,7 @@
 		</tr> 
 		|-/foreach-|
 		<tr> 
-			<td class="tdButton" colspan="2"><input value="Comparar" class="boton" type="submit"> &nbsp;&nbsp;&nbsp;<input onclick="history.go(-1)" value="Regresar" class="boton" type="button"></td> 
+			<td class="tdButton" colspan="2"><input value="Comparar" type="submit"> &nbsp;&nbsp;&nbsp;<input onclick="history.go(-1)" value="Regresar" type="button"></td> 
 		</tr> 
 	</table> 
 </form> 

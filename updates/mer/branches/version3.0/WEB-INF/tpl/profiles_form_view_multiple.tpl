@@ -17,7 +17,7 @@
 						<td>&nbsp;</td>
 					</tr>
 				</tbody></table>
-				<table class="tablaborde" border="0" cellpadding="0" cellspacing="1" width="100%">
+				<table class="tableTdBorders" border="0" cellpadding="0" cellspacing="1" width="100%">
 					<tr> 
 						<th colspan="2">Comparaci&oacute;n de Ciudades <div class="titulo2">(|-foreach from=$actors item=actor name=actorsLoop-||-if $smarty.foreach.actorsLoop.first-||-else-|-|-/if-||-$actor->getName()-||-/foreach-|)</div></td>
 		
@@ -26,7 +26,7 @@
 					</tr>
 					<tr>
 						<td width="10%" nowrap class='celltitulo'><div class='titulo2'>Formulario:</td>
-						<td class='celldato'>|-if $form ne ""-||-assign var=formId value=$form->getId()-| <div class='titulo2' style="display: inline;">|-$form->getname($formId)-|</div>|-/if-||-if $forms|@count gt 0 -|
+						<td>|-if $form ne ""-||-assign var=formId value=$form->getId()-| <div class='titulo2' style="display: inline;">|-$form->getname($formId)-|</div>|-/if-||-if $forms|@count gt 0 -|
 							<div id='formselect' class='texto_noimprimir' style="display: inline;">&nbsp;&nbsp;|-include file="profiles_include_select_form_multiple.tpl"-|</div>
 							|-/if-|		 
 						</td>

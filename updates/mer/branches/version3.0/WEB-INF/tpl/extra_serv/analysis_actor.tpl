@@ -29,13 +29,13 @@
 		|-foreach from=$graphs item=graph name=for_graphs-|
 			<form action='Main.php' method='post'>
 				<a name='id-894'></a>
-				<table width='100%' class='tablaborde' cellpadding='0' cellspacing='1' border='0'>
+				<table width='100%' class='tableTdBorders' cellpadding='0' cellspacing='1' border='0'>
 					<tr>
 						<th colspan='2'> |-$graph->getName()-| </th>
 					</tr>
 					<tr>
-						<td class='celldato' width='90%'><img src='Main.php?do=analysisGraphShow&graph=|-$graph->getId()-|&actor=|-$actor->getId()-|&category=|-$category->getId()-|' /> </td>
-						<td class='cellbotonbtm' width='100'><table width='90' class='tablaborde' border='0' cellspacing='1' cellpadding='3'>
+						<td width='90%'><img src='Main.php?do=analysisGraphShow&graph=|-$graph->getId()-|&actor=|-$actor->getId()-|&category=|-$category->getId()-|' /> </td>
+						<td class='cellbotonbtm' width='100'><table width='90' class='tableTdBorders' border='0' cellspacing='1' cellpadding='3'>
 								<tr>
 									<td nowrap class='cellasistjuicio'><a href='javascript:void(null);' onClick="window.open('Main.php?do=analysisGraphJudgementAssistant&graph=|-$graph->getId()-|','asistente','toolbars=no,width=450,height=350,scrollbars=yes')"><b>##238,Asistente de Juicios##</b></a></td>
 								</tr>
@@ -58,8 +58,8 @@
 							<input type="hidden" name="actor" value="|-$actor->getId()-|" />
 							<input type="hidden" name="category" value="|-$category->getId()-|" />
 							<input type="hidden" name="graph" value="|-$graph->getId()-|" />
-							<input type='submit' name='gnota' value='##240,Guardar Juicio##' class='boton' />
-							<input type='button' onClick='location.href="Main.php?do=analysisCategory&category=|-$category->getId()-|"' value='##104,Regresar##'  class='boton' />
+							<input type='submit' name='gnota' value='##240,Guardar Juicio##' />
+							<input type='button' onClick='location.href="Main.php?do=analysisCategory&category=|-$category->getId()-|"' value='##104,Regresar##' />
 						</td>
 					</tr>
 				</table>
@@ -67,7 +67,7 @@
 			|-/foreach-| 
 
 <!-- ingreso nuevo -->
-				<table width='100%' class='tablaborde' cellpadding='0' cellspacing='1' border='0'>
+				<table width='100%' class='tableTdBorders' cellpadding='0' cellspacing='1' border='0'>
 					<tr>
 						<th colspan='2'>Cuadro Síntesis de Perfil de "|-$actor->getName()-|"</th>
 					</tr>
@@ -75,7 +75,7 @@
 			|-assign var=answer value=$question->getAnswer($actor)-|
 					<tr>
 						<td valign="top" width='35%' class="titulodato1"><div class="titulo">|-$question->getQuestion()-|</div></td>
-					<td class='celldato' width='65%'>|-$answer-|</td>
+					<td width='65%'>|-$answer-|</td>
 					</tr>
 				|-/foreach-|
 				</table>
@@ -87,12 +87,12 @@
 			|-assign var=answer value=$question->getAnswer($actor)-|
 			<form action='Main.php' method='post'>
 				<a name='id-894'></a>
-				<table width='100%' class='tablaborde' cellpadding='0' cellspacing='1' border='0'>
+				<table width='100%' class='tableTdBorders' cellpadding='0' cellspacing='1' border='0'>
 					<tr>
 						<th colspan='2'> |-$question->getQuestion()-| </th>
 					</tr>
 					<tr>
-						<td class='celldato' width='90%'>|-$answer-|</td>
+						<td width='90%'>|-$answer-|</td>
 					</tr>
 					<tr>
 						<td colspan="2" valign='top' nowrap class='fondoffffff'><table border="0" cellpadding="0" cellspacing="0">
@@ -111,8 +111,8 @@
 							<input type="hidden" name="actor" value="|-$actor->getId()-|" />
 							<input type="hidden" name="category" value="|-$category->getId()-|" />
 							<input type="hidden" name="question" value="|-$question->getId()-|" />
-							<input type='submit' name='gnota' value='##240,Guardar Juicio##' class='boton' />
-							<input type='button' onClick='location.href="Main.php?do=analysisCategory&category=|-$category->getId()-|"' value='##104,Regresar##'  class='boton' />
+							<input type='submit' name='gnota' value='##240,Guardar Juicio##' />
+							<input type='button' onClick='location.href="Main.php?do=analysisCategory&category=|-$category->getId()-|"' value='##104,Regresar##' />
 						</td>
 					</tr>
 				</table>
@@ -125,7 +125,7 @@ fin anterior -->
 <br />
 <table width='100%' border='0' align='center' cellpadding="0" cellspacing="0">
 	<tr>
-		<td><table class='tablaborde' width='100%' border='0' cellpadding='0' cellspacing='1'>
+		<td><table class='tableTdBorders' width='100%' border='0' cellpadding='0' cellspacing='1'>
 				<tr>
 					<th colspan='2'><a name='sintesis'>##241,Cuadro Síntesis de Evaluación de ## "
 						|-$actor->getName()-|"</a></th>
@@ -137,14 +137,14 @@ fin anterior -->
 				|-foreach from=$graphs item=graph name=for_graph_judgements-|
 				<tr>
 					<td class='celltitulo'><div class='titulo2'> <a href='#id-894'>|-$graph->getName()-|</a> </div></td>
-					<td class='celldato'>|-$graph->judgement-|</td>
+					<td>|-$graph->judgement-|</td>
 				</tr>
 				|-/foreach-|
 <!-- inicio anterior				|-foreach from=$analysisQuestions item=question name=for_analysis_questions-|
 				|-assign var=answer value=$question->getAnswer($actor)-|
 				<tr>
 					<td class='celltitulo'><div class='titulo2'> <a href='#id-894'>|-$question->getQuestion()-|</a> </div></td>
-					<td class='celldato'>|-if $answer-||-$answer->getJudgement()-||-/if-|</td>
+					<td>|-if $answer-||-$answer->getJudgement()-||-/if-|</td>
 				</tr>
 				|-/foreach-|
 fin anterior -->
@@ -153,7 +153,7 @@ fin anterior -->
 	<tr>
 		<td><br />
 			<form action='Main.php' method='post' style='display: inline;'>
-				<table class='tablaborde' width='100%' border='0' cellpadding='3' cellspacing='1'>
+				<table class='tableTdBorders' width='100%' border='0' cellpadding='3' cellspacing='1'>
 					<tr>
 						<th colspan='2'> ##242,Calificación de la Relación##
 							<select name='mark' >
@@ -169,15 +169,15 @@ fin anterior -->
 					</tr>
 					<tr>
 						<td width="20%" nowrap class='celltitulo'><div class='titulo'>&nbsp;&nbsp;##243,Juicio Síntesis##</div></td>
-						<td class='celldato'><textarea name='judgement' cols='85' rows='4' class='textodato' wrap='virtual'>|-if $judgement ne ""-||-$judgement->getJudgement()-||-/if-|</textarea></td>
+						<td><textarea name='judgement' cols='85' rows='4' class='textodato' wrap='virtual'>|-if $judgement ne ""-||-$judgement->getJudgement()-||-/if-|</textarea></td>
 					</tr>
 					<tr>
 						<td colspan='2' align='center' class='cellboton'><input type="hidden" name="do" value="analysisActorJudgementDoEdit" />
 							<input type="hidden" name="actor" value="|-$actor->getId()-|" />
 							<input type="hidden" name="category" value="|-$category->getId()-|" />
-							<input type='submit' name='guardarc' value='##97,Guardar##'  class='boton' />
+							<input type='submit' name='guardarc' value='##97,Guardar##' />
 							&nbsp;&nbsp;
-							<input type='button' onClick='history.go(-1)' value='##104,Regresar##'  class='boton' />
+							<input type='button' onClick='history.go(-1)' value='##104,Regresar##' />
 						</td>
 					</tr>
 				</table>
@@ -185,7 +185,7 @@ fin anterior -->
 	</tr>
 	<tr>
 		<td><br />
-			<table width="100%" border="0" cellspacing="1" cellpadding="3" class='tablaborde'>
+			<table width="100%" border="0" cellspacing="1" cellpadding="3" class='tableTdBorders'>
       	<tr>
       		<td class="celltitulo2" colspan="3">&nbsp;##244,Asistentes Virtuales##</td>
      		</tr>

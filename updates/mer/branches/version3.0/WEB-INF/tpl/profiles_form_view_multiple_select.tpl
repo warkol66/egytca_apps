@@ -12,30 +12,8 @@
 		return true;
 	}
 </script>
- <table border="0" cellpadding="0" cellspacing="0" width="100%"> 
-	<tbody> 
-		<tr> 
-			<td class="titulo">Comparación de Ciudades</td> 
-		</tr> 
-		<tr> 
-			<td class="subrayatitulo"><img src="index.php_files/clear.gif" height="3" width="1"></td> 
-		</tr> 
-		<tr> 
-			<td>&nbsp;</td> 
-		</tr> 
-		<tr> 
-			<td class="fondotitulo">Comparar Ciudades </td> 
-		</tr> 
-		 <tr> 
-			<td>&nbsp;</td> 
-		</tr> 
-		 <tr> 
-			<td class="texto">En este módulo podrá seleccionar varias ciudades para comparar sus datos en un cuadro comparativo. Seleccione a continuaci&oacute;n las ciudades a comparar. </td> 
-		</tr> 
-		 <tr> 
-			<td>&nbsp;</td> 
-		</tr> 
-	 </tbody> 
-</table> 
+ <h2>Comparación de Ciudades</h2> 
+			<h1>Comparar Ciudades </h1> 
+		<p>En este módulo podrá seleccionar varias ciudades para comparar sus datos en un cuadro comparativo. Seleccione a continuación las ciudades a comparar. </p> 
 |-include file="actors_include_select_multiple.tpl" do="profilesFormViewMultiple" select="profilesFormViewMultipleSelect"-|
 

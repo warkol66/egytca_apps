@@ -4,7 +4,7 @@
 </tr>
 <tr>
 	<td colspan="3" class="cellwhite" style='padding-left:12px;'>
-		<table cellpadding="0" cellspacing="1" class="tablaborde" width="100%">
+		<table cellpadding="0" cellspacing="1" class="tableTdBorders" width="100%">
 			<tr>
 				<th width="50%">##207,Indicador##</th>
 				<th width="25%">##208,Actual##</th>
@@ -14,8 +14,8 @@
 			|-assign var=values value=$question->getRelationshipValues($actor1,$actor2)-|
 			<tr>
 				<td valign='top' class='celltitulo'><div class='titulo2'><label for='q_|-$question->getId()-|'>|-$question->getQuestion()-|</label></div></td>
-				<td class='celldato'>|-$values[0]-| |-$question->getUnit()-|</td>
-				<td class='celldato'>|-$values[1]-| |-$question->getUnit()-|</td>
+				<td>|-$values[0]-| |-$question->getUnit()-|</td>
+				<td>|-$values[1]-| |-$question->getUnit()-|</td>
 			</tr>
 			|-/foreach-|
 			|-foreach from=$section->getChildSections() item=childSection-|
