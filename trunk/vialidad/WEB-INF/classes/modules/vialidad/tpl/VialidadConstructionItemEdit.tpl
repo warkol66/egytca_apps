@@ -1,6 +1,6 @@
-<h2>Boletines</h2>
+<h2>Paramétricas</h2>
 <h1>Administración de Items </h1>
-<p>A continuación podrá administrar la composici&oacute;n del item  </p>
+<p>A continuación podrá administrar la composición del item  </p>
 |-if $message eq "error"-|
 	<div class="failureMessage">Ha ocurrido un error al intentar guardar el Item</div>
 |-elseif $message eq "ok"-|
@@ -15,7 +15,7 @@
 		<input type="text" id="params[name]" name="params[name]" size="50" value="|-$item->getName()|escape-|" title="Nombre" /><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
 	</p>
 	<p>
-		<label for="params[code]">C&oacute;digo</label>
+		<label for="params[code]">Código</label>
 		<input id="params[code]" name="params[code]" type="text" value="|-$item->getCode()-|" size="15" title="C&oacute;digo" />
 	</p>
 	<p>
@@ -27,18 +27,13 @@
 		</select>
 	</p>
 	<p>
-		<label for="params[price]">Precio</label>
-		<!--<input id="params[price]" name="params[price]" type="text" value="" size="15" /> -->
-		<span id="param[price]">Precio</span>
-	</p>
-	<p>
 		|-if $action eq 'edit'-|
 		<input type="hidden" name="id" id="id" value="|-$item->getid()-|" />
 		|-/if-|
 		<input type="hidden" name="action" id="action" value="|-$action-|" />
 		<input type="hidden" name="do" value="vialidadConstructionItemDoEdit" />
 		<input name="save" type="submit" value="Guardar Cambios" title="Guardar Cambios" /> 
-		<input type='button' onClick='location.href="Main.php?do=vialidadConstructionItemList"' value='Regresar' title="Regresar al listado de Items de Construcci&oacute;n" />
+		<input type='button' onClick='location.href="Main.php?do=vialidadConstructionItemList"' value='Regresar' title="Regresar al listado de Items de Construcción" />
 	</p>
 </form>
 |-if $action eq 'edit'-|
@@ -47,7 +42,7 @@
 	<table class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 		<thead>
 			<tr><th colspan="3" class="thFillTitle"><div class="rightLink">
-				<a href="#" id="link_add1" class="addLink" onclick="$('link_add1').hide();$('form_add1').show();return false">Agregar m&aacute;s insumos </a>
+				<a href="#" id="link_add1" class="addLink" onclick="$('link_add1').hide();$('form_add1').show();return false">Agregar más insumos </a>
 				<form id="form_add1" style="display:none" action="Main.php" method="post">
 					<input type="text" name="value" id="new_supply1" />
 					<input name="add_supply_button" type="button" disabled="disabled" class="icon iconActivate" onclick="addSupply($('new_supply1').value);$('form_add2').hide();$('link_add2').show();" />
