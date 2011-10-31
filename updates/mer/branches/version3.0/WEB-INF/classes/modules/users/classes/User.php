@@ -46,23 +46,12 @@ class User extends BaseUser {
     * @return array of Actor
     */
   function getActors(){
-  	$sql = "SELECT DISTINCT ".ActorPeer::TABLE_NAME.".* FROM ".UserGroupPeer::TABLE_NAME ." ,".GroupCategoryPeer::TABLE_NAME ." , ".ActorPeer::TABLE_NAME ." where ".UserGroupPeer::USERID ." = '".$this->getId()."' and ".UserGroupPeer::GROUPID ." = ".GroupCategoryPeer::GROUPID ." and ".GroupCategoryPeer::CATEGORYID ." = ".ActorPeer::CATEGORYID ;
-  	
-  	$con = Propel::getConnection(UserPeer::DATABASE_NAME);
 
-$stmt = $con->prepare($sql);
-$stmt->execute();
+		$groups = UserGroupQuery::create()->select('Groupid')->findByUser($this);
+		$categoryAllowed = GroupCategoryQuery::create()->select('Categoryid')->filterByGroupid($groups, CRITERIA::IN)->find();
+		$actors = ActorQuery::create()->filterByCategoryid($categoryAllowed, CRITERIA::IN)->find();
+    return $actors;	  	
 
-$formatter = new PropelObjectFormatter();
-$formatter->setClass('Actor');
-$userActors = $formatter->format($stmt);
-
-
-    return $userActors;	  	
-
-//    $stmt = $con->createStatement();
-//    $rs = $stmt->executeQuery($sql, ResultSet::FETCHMODE_NUM);    
-//    return BaseActorPeer::populateObjects($rs);
   }
   
    /**

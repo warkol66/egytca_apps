@@ -202,8 +202,9 @@ class UserPeer extends BaseUserPeer {
 		$cond = new Criteria();
 		$cond->add(UserPeer::USERNAME, $username);
 		$cond->add(UserPeer::ACTIVE, "1");
-		$todosObj = UserPeer::doSelectJoinUserInfo($cond);
-		$user = $todosObj[0];
+//		$todosObj = UserPeer::doSelectJoinUserInfo($cond);
+//		$user = $todosObj[0];
+		$user = UserPeer::doSelectOne($cond);
 		if ( !empty($user) ) {
 			if ( $user->getPassword() == md5($password."ASD") ) {
 				return $user;
