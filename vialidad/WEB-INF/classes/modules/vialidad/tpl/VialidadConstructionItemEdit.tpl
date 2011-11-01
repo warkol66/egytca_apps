@@ -45,7 +45,7 @@
 				<a href="#" id="link_add1" class="addLink" onclick="$('link_add1').hide();$('form_add1').show();return false">Agregar más insumos </a>
 				<form id="form_add1" style="display:none" action="Main.php" method="post">
 					<input type="text" name="value" id="new_supply1" />
-					<input name="add_supply_button" type="button" disabled="disabled" class="icon iconActivate" onclick="addSupply($('new_supply1').value);$('form_add2').hide();$('link_add2').show();" />
+					<input name="add_supply_button" type="button" disabled="disabled" class="icon iconActivate" onclick="addSupply($('new_supply1').value);$('form_add1').hide();$('link_add1').show();" />
 					<div id="div_autocomplete1" class="autocomplete" style="display:none"></div>
 					<input type="button" class="icon iconCancel" onclick="$('form_add1').hide();$('link_add1').show();" />
 				</form>
@@ -62,17 +62,7 @@
 			|-else-|
 			
 			|-foreach from=$components item=component-|
-			<tr>
-				<td>|-$component->getSupply()-|</td>
-				<td><span id="proportion|-$component->getSupplyid()-|" name="span_proportion">|-$component->getProportion()-|</span>&nbsp;%</td>
-				<td align="center">
-					|-if "vialidadConstructionItemDoRemoveRelationX"|security_has_access-|<form action="Main.php" method="post" onsubmit="removeRelationX(this);return false;" style="display:inline;">
-						<input type="hidden" name="itemId" value="|-$item->getId()-|" />
-						<input type="hidden" name="supplyId" value="|-$component->getSupplyid()-|" />
-						<input type="submit" name="submit_go_remove_item_relation" value="Borrar" onclick="return confirm('Seguro que desea eliminar el Insumo')" class="icon iconDelete" /> 
-					</form>|-/if-|
-				</td>
-			</tr>
+			|-include file="VialidadConstructionItemRelationTableRowInclude.tpl" component=$component item=$item-|
 			|-/foreach-|
 			
 			|-/if-|
@@ -220,7 +210,7 @@ function attachInPlaceEditor(supplyId, element) {
 			clickToEditText: 'Haga click para editar',
 			callback: function(form, value) {
 				var result = checkProportions(value);
-				if (result == 1) {
+				if (result == 1 || isNaN(parseFloat(value))) {
 					return 'itemId=|-$item->getId()-|&supplyId='+supplyId+'&paramName=proportion';
 				}
 				
