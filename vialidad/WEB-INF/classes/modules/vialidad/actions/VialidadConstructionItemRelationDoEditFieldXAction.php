@@ -24,10 +24,31 @@ class VialidadConstructionItemRelationDoEditFieldXAction extends BaseAction {
 
 		$itemRelation = ConstructionItemRelationQuery::create()->filterByItemid($_POST["itemId"])
 			->filterBySupplyid($_POST["supplyId"])->findOne();
-
+		
 		if (!empty($_POST['paramName']) && !empty($_POST['paramValue'])) {
-			$itemRelation->setByName($_POST['paramName'], $_POST['paramValue'], BasePeer::TYPE_FIELDNAME);
-			$itemRelation->save();
+			
+			if ($_POST['paramName'] == 'proportion') {
+				
+				$allRelations = ConstructionItemRelationQuery::create()->filterByItemid($_POST["itemId"])->find();
+				$totalProportion = 0;
+				
+				foreach ($allRelations as $relation)
+					$totalProportion += $relation->getProportion();
+				
+				$totalProportion -= $itemRelation->getProportion();
+				$totalProportion += $_POST['paramValue'];
+				
+				if ($totalProportion <= 100) {
+					$itemRelation->setByName($_POST['paramName'], $_POST['paramValue'], BasePeer::TYPE_FIELDNAME);
+					$itemRelation->save();
+				} else {
+					throw new Exception('invalid proportion');
+				}
+				
+			} else {
+				$itemRelation->setByName($_POST['paramName'], $_POST['paramValue'], BasePeer::TYPE_FIELDNAME);
+				$itemRelation->save();
+			}
 		}
 
 		if (!empty($_POST['paramName'])) {

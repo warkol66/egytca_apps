@@ -112,7 +112,6 @@ Event.observe(
 		attachInPlaceEditor('|-$component->getSupplyid()-|', 'proportion|-$component->getSupplyid()-|')
 		|-/foreach-|
 		attachSupplyAutocompleter('new_supply1', 'div_autocomplete1');
-		attachSupplyAutocompleter('new_supply2', 'div_autocomplete2');
 	}
 )
 
@@ -222,9 +221,7 @@ function attachInPlaceEditor(supplyId, element) {
 			callback: function(form, value) {
 				var result = checkProportions(value);
 				if (result == 1) {
-					alert('proporciones inválidas');
-					// TODO: buscar mejor solución que usar una accion sin parametros validos
-					return '';
+					return 'itemId=|-$item->getId()-|&supplyId='+supplyId+'&paramName=proportion';
 				}
 				
 				return 'itemId=|-$item->getId()-|&supplyId='+supplyId+'&paramName=proportion&paramValue='+encodeURIComponent(value);
