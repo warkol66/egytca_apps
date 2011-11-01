@@ -41,15 +41,17 @@
 <div id="div_items"> 
 	<table class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 		<thead>
-			<tr><th colspan="3" class="thFillTitle"><div class="rightLink">
+			<tr>
+			<th colspan="3" class="thFillTitle"><div class="rightLink">
 				<a href="#" id="link_add1" class="addLink" onclick="$('link_add1').hide();$('form_add1').show();return false">Agregar más insumos </a>
 				<form id="form_add1" style="display:none" action="Main.php" method="post">
-					<input type="text" name="value" id="new_supply1" />
+					<input type="text" name="value" id="new_supply1" size="50" /><div id="div_autocomplete1" class="autocomplete" style="position: relative;display:none"></div>
 					<input name="add_supply_button" type="button" disabled="disabled" class="icon iconActivate" onclick="addSupply($('new_supply1').value);$('form_add1').hide();$('link_add1').show();" />
-					<div id="div_autocomplete1" class="autocomplete" style="display:none"></div>
 					<input type="button" class="icon iconCancel" onclick="$('form_add1').hide();$('link_add1').show();" />
 				</form>
-			</div></th></tr>
+			</div>
+			</th>
+		</tr>
 			<tr class="thFillTitle">
 				<th width=50%>Insumo</th>
 				<th width=45%>Proporción</th>
@@ -199,7 +201,7 @@ function attachInPlaceEditor(supplyId, element) {
 		'Main.php?do=vialidadConstructionItemRelationDoEditFieldX',
 		{
 			rows: 1,
-			cols: 20,
+			cols: 8,
 			okText: 'Guardar',
 			cancelText: 'Cancelar',
 			savingText: 'Guardando...',
