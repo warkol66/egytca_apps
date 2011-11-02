@@ -12,7 +12,7 @@
 		<div id="sectionApplications" style="display:|-if $module|upper eq 'VIALIDAD' || $module|upper eq 'AFFILIATES'-|block|-else-|none|-/if-|">
 
 			<li><a href="Main.php?do=affiliatesContractorsList">Contratistas</a></li>
-			<li><a href="Main.php?do=affiliatesVerifiersList">Verificadoras</a></li>
+			<li><a href="Main.php?do=affiliatesVerifiersList">Fiscalizadoras</a></li>
 			<li><a href="Main.php?do=vialidadContractsList">Contratos</a></li>
 			<li><a href="Main.php?do=vialidadConstructionsList">Obras</a></li>
 			<li><a href="Main.php?do=vialidadSuppliersList">Proveedores</a></li>
@@ -28,7 +28,7 @@
 		<li class="titleMenu" onclick="$('sectionAdmin').toggle()">Administración</li>
 		<div id="sectionAdmin" style="display:|-if $module|upper eq 'USERS' || $module|upper eq 'AFFILIATES' || $module|upper eq 'MODULES' 
 		|| $module|upper eq 'COMMON' || $module|upper eq 'SURVEYS' || $module|upper eq 'SECURITY' || $module|upper eq 'BACKUP'-|block|-else-|none|-/if-|">
-			<li><a href="Main.php?do=affiliatesUsersList">Usuarios de afiliados</a></li>
+			<li><a href="Main.php?do=affiliatesUsersList">Usuarios de Empresas</a></li>
 			<li><a href="Main.php?do=commonConfigSet">Cambiar Configuración</a></li>
 			<li><a href="Main.php?do=commonConfigEdit">Editar Configuración</a></li>
 			<li><a href="Main.php?do=commonConfigView">Ver Configuración</a></li>

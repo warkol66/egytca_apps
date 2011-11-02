@@ -48,7 +48,7 @@
 	<!-- Begin Footer -->
 		<div id="separatorFooter"></div>
 	<div id="footer">		       
-		<p>Desarrollado por Módulos Empresarios.</p>
+		<p>&nbsp;</p>
 	</div>
 	<!-- End Footer -->
 </div>

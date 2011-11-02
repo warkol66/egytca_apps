@@ -58,7 +58,7 @@ Para terminar de crear el ##affiliates,3,Afiliado## debe crear una cuenta de usu
 		<p><label for="pass2">##users,166,Repetir Contraseña##</label>
 			<input id='pass2' name='pass2' type='password' value='' size="20" class="" onchange="javascript:validationValidateFieldClienSide('pass2');" /> |-validation_msg_box idField=pass2-|
 		</p>
-|-if $levels|@count gt 0-|		<p>
+|-if $levels|@count gt 0 && $ownerCreation eq '' -|		<p>
 			<label for="affiliateUser[levelId]">Nivel de Usuario</label>
 	        <select name="affiliateUser[levelId]">
 	        	<option value="">Seleccionar nivel</option>

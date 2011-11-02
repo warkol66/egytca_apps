@@ -8,17 +8,17 @@
 		<div id="affiliatesViewDiv"></div>
 	</div>
 </div> 
-<h2>Verificadoras</h2>
-	<h1>Administración de Verificadoras</h1>
-	<p>A continuación podrá editar la lista de Verificadoras del sistema.</p>
+<h2>Fiscalizadoras</h2>
+	<h1>Administración de Fiscalizadoras</h1>
+	<p>A continuación podrá editar la lista de Fiscalizadoras del sistema.</p>
 |-if $message eq "deleted"-|
-	<div  class="successMessage">Verificadora eliminado</div>
+	<div  class="successMessage">Fiscalizadora eliminado</div>
 |-elseif $message eq "errorUpdate"-|
 	<div  class="errorMessage">Ha ocurrido un error al intentar guardar la información. Intente nuevamente.</div>
 |-elseif $message eq "saved"-|
 	<div  class="successMessage">Grupo de Usuarios guardado</div>
 |-elseif $message eq "edited"-|
-	<div  class="successMessage">Verificadora guardado</div>
+	<div  class="successMessage">Fiscalizadora guardado</div>
 |-elseif $message eq "blankName"-|
 	<div  class="errorMessage">El Grupo de Usuarios debe tener un Nombre</div>
 |-elseif $message eq "notAddedToGroup"-|
@@ -36,7 +36,7 @@
 			</form></div></td>
 	</tr>
 	|-if "affiliatesVerifiersEdit"|security_has_access-|<tr>
-		<th colspan="2"><div class="rightLink"><a href="Main.php?do=affiliatesVerifiersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Verificadora</a></div></th>
+		<th colspan="2"><div class="rightLink"><a href="Main.php?do=affiliatesVerifiersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Fiscalizadora</a></div></th>
 	</tr>|-/if-|
 	|-foreach from=$affiliates item=affiliate name=for_affiliate-|
 	<tr>
@@ -59,7 +59,7 @@
 			  <input type="hidden" name="id" value="|-$affiliate->getId()-|" /> 
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 					|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-			  <input type="submit" name="submit_go_delete_affiliate" value="Borrar" onclick="return confirm('Seguro que desea eliminar el Verificadora?')" class="icon iconDelete" /> 
+			  <input type="submit" name="submit_go_delete_affiliate" value="Borrar" onclick="return confirm('Seguro que desea eliminar el Fiscalizadora?')" class="icon iconDelete" /> 
 			</form>|-/if-|
     </td>
 	</tr>
@@ -70,6 +70,6 @@
 	</tr>
 	|-/if-|
 	|-if "affiliatesVerifiersEdit"|security_has_access && $affiliates|@count gt 5-|<tr>
-		<th colspan="2"><div class="rightLink"><a href="Main.php?do=affiliatesVerifiersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Verificadora</a></div></th>
+		<th colspan="2"><div class="rightLink"><a href="Main.php?do=affiliatesVerifiersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Fiscalizadora</a></div></th>
 	</tr>|-/if-|
 </table>

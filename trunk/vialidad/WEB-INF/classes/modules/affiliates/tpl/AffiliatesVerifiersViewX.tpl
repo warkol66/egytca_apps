@@ -2,15 +2,15 @@
 	$('affiliatesViewWorking').innerHTML = '';
 </script>
 <div style="margin:2px">
-<h2>Verificadoras</h2>
-	<h1>Administración de Verificadoras</h1>
+<h2>Fiscalizadoras</h2>
+	<h1>Administración de Fiscalizadoras</h1>
 <table border="0" cellpadding="4" cellspacing="0" class="tableTdBorders"> 
 	<tr> 
 		<td width="20%" nowrap class="tdTitle">Nombre:</td> 
 		<td>|-$affiliate->getName()-|</td> 
 	</tr> 
 	<tr> 
-		<td width="20%" nowrap class="tdTitle">ID interno</td> 
+		<td width="20%" nowrap class="tdTitle">RUC</td> 
 		<td> |-$affiliate->getInternalNumber()-| </td> 
 	</tr> 
 	<tr> 
