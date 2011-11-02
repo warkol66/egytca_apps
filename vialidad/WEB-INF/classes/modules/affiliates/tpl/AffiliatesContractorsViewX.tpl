@@ -10,7 +10,7 @@
 		<td>|-$affiliate->getName()-|</td> 
 	</tr> 
 	<tr> 
-		<td width="20%" nowrap class="tdTitle">ID interno</td> 
+		<td width="20%" nowrap class="tdTitle">RUC</td> 
 		<td> |-$affiliate->getInternalNumber()-| </td> 
 	</tr> 
 	<tr> 
