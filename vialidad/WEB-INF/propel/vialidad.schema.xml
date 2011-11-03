@@ -35,19 +35,22 @@
 		<column name="averagePrice" type="DECIMAL" size="12" scale="2" description="Precio provisorio" />
 		<column name="publish" type="BOOLEAN" defaultValue="1" description="Indica si el precio se publica o no" />
 		<column name="definitive" type="BOOLEAN" description="Indica si el precio es definitivo o no" />
+		<column name="definitiveOn" type="DATE" description="Fecha que se marco definitivo" />
+		<column name="modifiedPrice" type="DECIMAL" size="12" scale="2" description="Precio modificado" />
+		<column name="modifiedOn"    type="DATE" description="Fecha que se marco modificado" />
 
 		<column name="supplierId1" type="INTEGER" required="true" />
-		<column name="price1"      type="DECIMAL" size="12" scale="2" description="Precio provisorio, proveedor 1" />
+		<column name="price1"      type="DECIMAL" size="12" scale="2" description="Precio proveedor 1" />
 		<column name="definitive1" type="BOOLEAN" description="Indica si el precio es definitivo o no, proveedor 1" />
 		<column name="supplierDocument1" type="INTEGER" description="Documento respaldatorio, proveedor 1" />
 
 		<column name="supplierId2" type="INTEGER" required="true" />
-		<column name="price2"      type="DECIMAL" size="12" scale="2" description="Precio provisorio, proveedor 2" />
+		<column name="price2"      type="DECIMAL" size="12" scale="2" description="Precio proveedor 2" />
 		<column name="definitive2" type="BOOLEAN" description="Indica si el precio es definitivo o no, proveedor 2" />
 		<column name="supplierDocument2" type="INTEGER" description="Documento respaldatorio, proveedor 2" />
 
 		<column name="supplierId3" type="INTEGER" required="true" />
-		<column name="price3"      type="DECIMAL" size="12" scale="2" description="Precio provisorio, proveedor 3" />
+		<column name="price3"      type="DECIMAL" size="12" scale="2" description="Precio proveedor 3" />
 		<column name="definitive3" type="BOOLEAN" description="Indica si el precio es definitivo o no, proveedor 3" />
 		<column name="supplierDocument3" type="INTEGER" description="Documento respaldatorio, proveedor 3" />
 
@@ -71,15 +74,15 @@
 			<reference local="supplierId3" foreign="id" />
 		</foreign-key>
 
-		<foreign-key foreignTable="documents_document" >
+		<foreign-key foreignTable="documents_document" onDelete="cascade">
 			<reference local="supplierDocument1" foreign="id" />
 		</foreign-key>
 
-		<foreign-key foreignTable="documents_document" >
+		<foreign-key foreignTable="documents_document" onDelete="cascade">
 			<reference local="supplierDocument2" foreign="id" />
 		</foreign-key>
 
-		<foreign-key foreignTable="documents_document" >
+		<foreign-key foreignTable="documents_document" onDelete="cascade">
 			<reference local="supplierDocument3" foreign="id" />
 		</foreign-key>
 
