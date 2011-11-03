@@ -128,14 +128,9 @@
 		<column name="code" type="VARCHAR" size="50" required="true" description="Codigo del contrato" />
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" description="Nombre del contrato" />
 		<column name="contractorId" type="INTEGER"  description="Id del contratista" />
-		<column name="verifierId" type="INTEGER"  description="Id del verificador" />
 
 		<foreign-key foreignTable="affiliates_affiliate" >
 			<reference local="contractorId" foreign="id" />
-		</foreign-key>
-
-		<foreign-key foreignTable="affiliates_affiliate" >
-			<reference local="verifierId" foreign="id" />
 		</foreign-key>
 
 		<vendor type="mysql">
@@ -151,9 +146,14 @@
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
 		<column name="contractId" type="INTEGER" description="Id del contrato" />
 		<column name="description" type="LONGVARCHAR" />
+		<column name="verifierId" type="INTEGER"  description="Id del verificador" />
 
 		<foreign-key foreignTable="vialidad_contract" >
 			<reference local="contractId" foreign="id" />
+		</foreign-key>
+		
+		<foreign-key foreignTable="affiliates_affiliate" >
+			<reference local="verifierId" foreign="id" />
 		</foreign-key>
 
 		<vendor type="mysql">
@@ -170,7 +170,12 @@
 		<column name="code" type="VARCHAR" size="50" description="Codigo" />
 		<column name="price" type="DECIMAL" size="12" scale="2" description="Precio " />
 		<column name="unit" type="VARCHAR" size="12" description="Unidad" />
+		<column name="constructionId" type="INTEGER" description="Id del construction" />
 
+		<foreign-key foreignTable="vialidad_construction" >
+			<reference local="constructionId" foreign="id" />
+		</foreign-key>
+		
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>

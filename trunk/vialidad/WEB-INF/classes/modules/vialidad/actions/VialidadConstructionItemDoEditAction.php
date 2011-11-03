@@ -33,6 +33,13 @@ class VialidadConstructionItemDoEditAction extends BaseAction {
 			if ($item->isModified() && !$item->save()) 
 				return $this->returnFailure($mapping,$smarty,$item,'failure-edit');
 
+			if (!empty($_REQUEST["params"]["constructionId"])) {
+				$construction = ConstructionQuery::create()->findOneById($_REQUEST["params"]["constructionId"]);
+				$construction->clearConstructionItems();
+				$construction->addConstructionItem($item);
+				$construction->save();
+			}
+				
 			$params["id"] = $_POST["id"];
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');
 
@@ -44,6 +51,12 @@ class VialidadConstructionItemDoEditAction extends BaseAction {
 			if (!$item->save())
 				return $this->returnFailure($mapping,$smarty,$item);
 
+			if (!empty($_REQUEST["params"]["constructionId"])) {
+				$construction = ConstructionQuery::create()->findOneById($_REQUEST["params"]["constructionId"]);
+				$construction->addConstructionItem($item);
+				$construction->save();
+			}
+			
 			$params["id"] = $item->getId();
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');
 		}

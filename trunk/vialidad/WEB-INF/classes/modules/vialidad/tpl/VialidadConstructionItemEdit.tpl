@@ -32,6 +32,9 @@
 		|-/if-|
 		<input type="hidden" name="action" id="action" value="|-$action-|" />
 		<input type="hidden" name="do" value="vialidadConstructionItemDoEdit" />
+		|-if $constructionId neq ''-|
+		<input type="hidden" name="params[constructionId]" value="|-$constructionId-|" />
+		|-/if-|
 		<input name="save" type="submit" value="Guardar Cambios" title="Guardar Cambios" /> 
 		<input type='button' onClick='location.href="Main.php?do=vialidadConstructionItemList"' value='Regresar' title="Regresar al listado de Items de Construcción" />
 	</p>

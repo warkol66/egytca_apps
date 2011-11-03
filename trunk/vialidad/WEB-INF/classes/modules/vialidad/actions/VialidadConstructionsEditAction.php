@@ -38,6 +38,9 @@ class VialidadConstructionsEditAction extends BaseAction {
 			}
 			else
 				$smarty->assign("action","edit");
+			
+			$items = $construction->getConstructionItems();
+			$smarty->assign("items",$items);
 		}
 		else {
 			$construction = new Construction();

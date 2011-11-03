@@ -41,6 +41,13 @@ class VialidadConstructionsDoEditAction extends BaseAction {
 				if ($construction->isModified() && $construction->validate() && !$construction->save()) 
 					return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'failure');
 	
+				if (!empty($_REQUEST["params"]["contractId"])) {
+					$contract = ContractQuery::create()->findOneById($_REQUEST["params"]["contractId"]);
+					$contract->clearConstructions();
+					$contract->addConstruction($construction);
+					$contract->save();
+				}
+				
 				$smarty->assign("message","ok");
 				return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');
 			}
@@ -59,6 +66,13 @@ class VialidadConstructionsDoEditAction extends BaseAction {
 			Common::doLog('success', substr($_POST["params"]["name"], 0, 120) . $logSufix);
 
 			$params['id'] = $construction->getId();
+			
+			if (!empty($_REQUEST["params"]["contractId"])) {
+				$contract = ContractQuery::create()->findOneById($_REQUEST["params"]["contractId"]);
+				$contract->addConstruction($construction);
+				$contract->save();
+			}
+			
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');
 		}
 
