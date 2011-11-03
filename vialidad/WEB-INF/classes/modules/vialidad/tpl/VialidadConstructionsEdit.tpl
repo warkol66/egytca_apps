@@ -1,3 +1,4 @@
+|-include file="CommonAutocompleterInclude.tpl" -|
 <h2>Obras</h2>
 	<h1>Administración de Obras - |-if $action eq 'create'-|Crear|-else-|Editar|-/if-| Obra</h1>
 |-if $action eq 'create'-|	
