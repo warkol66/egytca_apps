@@ -15,4 +15,13 @@
  */
 class PriceBulletin extends BasePriceBulletin {
 
+ /**
+	 * Especifica el precio modificado (modifiedPrice) y la fecha de modificacion
+	 * params $price decimal precio modificado
+	 */
+	function setModified($price){
+		$this->setModifiedPrice($price);
+		$this->setModifiedOn(time());
+	}
+
 } // PriceBulletin
