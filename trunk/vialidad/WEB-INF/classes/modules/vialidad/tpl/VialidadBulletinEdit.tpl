@@ -45,19 +45,23 @@
 		<thead>
 		<tr class="thFillTitle"> 
 			<th width="50%">Insumo</th> 
-			<th width="35%">Precio</th> 
+			<th width="15%">Precio</th> 
 			<th width="10%">Publicar</th>
 			<th width="10%">Definitivo</th>
-			<th width="5%">&nbsp;</th>
+			|-if $bulletin->getPublished()-|
+			<th width="15%">Definitivo en</th>
+			<th width="15%">Modificado</th>
+			|-else-|
+			<th width="10%">&nbsp;</th>|-/if-|
 		</tr>
 		</thead>
 		<tbody>
 		|-if $prices|@count eq 0-|
 		<tr>
-			<td colspan="3">No hay Insumos que mostrar</td>
+			<td colspan="|-if $bulletin->getPublished()-|4|-else-|3|-/if-|">No hay Insumos que mostrar</td>
 		</tr>
 		|-else-|
-		|-foreach from=$prices item=price-|
+		|-foreach from=$prices item=price name=for_items-|
 		<tr>
 			|-assign var=supply value=$price->getSupply()-|
 			<td>|-$supply->getName()-|</td>
@@ -71,12 +75,13 @@
 			<td align="center">
 				<input onchange="updatePublish('|-$supply->getId()-|', this.checked);" name="publish[]" type="checkbox" value="1" |-$price->getPublish()|checked_bool-| |-if $bulletin->getPublished()-|disabled="disabled"|-/if-|>
 			</td>
-			<td align="center">
-				|-$price->getDefinitive()|si_no-|
-			</td>
-			<td align="center">|-if !$bulletin->getPublished()-|
-				<a href='Main.php?do=vialidadSupplyPriceEdit&amp;bulletinId=|-$bulletin->getId()-|&amp;supplyId=|-$supply->getId()-|'><img src="images/clear.png" class="icon iconEdit"></a>|-/if-|
-			</td>
+			<td align="center">|-$price->getDefinitive()|si_no-|</td>
+			|-if $bulletin->getPublished()-|
+			<td>|-$price->getDefinitiveOn()|date_format:"%B / %Y"|@ucfirst-| |-if $smarty.foreach.for_items.first-|Aca debería poder colocar una fecha, que sólo sea modificable si el precio no era definitivo|-/if-|</td>
+			<td>|-if $smarty.foreach.for_items.first-|Cuando el precio no es definitivo, colocar un inplace editor para modificar el valor "modifiedPrice", necesitaría una regla tambien que una vez modificado el precio se actualice el campo modifiedOn con el valor now()|-/if-|</td>
+			|-else-|
+			<td align="center"><a href='Main.php?do=vialidadSupplyPriceEdit&amp;bulletinId=|-$bulletin->getId()-|&amp;supplyId=|-$supply->getId()-|'><img src="images/clear.png" class="icon iconEdit"></a></td>
+			|-/if-|
 		</tr>
 		|-/foreach-|
 		|-/if-|
