@@ -19,6 +19,10 @@
 		<input id="params[code]" name="params[code]" type="text" value="|-$item->getCode()-|" size="15" title="C&oacute;digo" />
 	</p>
 	<p>
+		<label for="params[quantity]">Cantidad</label>
+		<input id="params[quantity]" name="params[quantity]" type="text" value="|-$item->getQuantity()-|" size="15" title="Cantidad" />
+	</p>
+	<p>
 		<label for="params[unit]">Unidad</label>
 		<select id="params[unit]" name="params[unit]">
 			|-foreach from=$units item=unit-|
@@ -35,8 +39,11 @@
 		|-if $constructionId neq ''-|
 		<input type="hidden" name="params[constructionId]" value="|-$constructionId-|" />
 		|-/if-|
+		|-if $returnConstructionId neq ""-|
+		<input type="hidden" name="returnToConstruction" value="|-$returnConstructionId-|" />
+		|-/if-|
 		<input name="save" type="submit" value="Guardar Cambios" title="Guardar Cambios" /> 
-		<input type='button' onClick='location.href="Main.php?do=vialidadConstructionItemList"' value='Regresar' title="Regresar al listado de Items de Construcción" />
+		<input type='button' onClick='location.href="|-if $returnConstructionId neq ""-|Main.php?do=vialidadConstructionsEdit&id=|-$returnConstructionId-||-else-|Main.php?do=vialidadConstructionItemList|-/if-|"' value='Regresar' title="Regresar al listado de Items de Construcción" />
 	</p>
 </form>
 |-if $action eq 'edit'-|

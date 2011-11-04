@@ -34,8 +34,11 @@
 		 <div id="verifier" style="position: relative;z-index:10000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_verifierId" label="Verificador" url="Main.php?do=affiliatesVerifiersAutocompleteListX" hiddenName="params[verifierId]" defaultHiddenValue=$construction->getVerifierId() defaultValue=$construction->getAffiliate()-|
 		 </div>
+		 |-if $returnContractId neq ""-|
+		 <input type="hidden" name="returnToContract" value="|-$returnContractId-|" />
+		 |-/if-|
 		 <p><input name="save" type="submit" value="Guardar Cambios"> 
-				<input id="button_back" type='button' onClick='location.href="Main.php?do=vialidadConstructionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Obras"/>
+				<input id="button_back" type='button' onClick='location.href="|-if $returnContractId neq ""-|Main.php?do=vialidadContractsEdit&id=|-$returnContractId-||-else-|Main.php?do=vialidadConstructionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-||-/if-|"' value='##104,Regresar##' title="Regresar"/>
 			 </p>
 		</form>
 	</fieldset>
@@ -48,43 +51,40 @@
 |-if $action eq 'edit'-|
 <h3>Items de Construcción</h3>
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
+	<thead>
 	|-if "vialidadConstructionItemEdit"|security_has_access-|<tr>
 		<th colspan="4" class="thFillTitle"><div class="rightLink">
 			<form action="Main.php?do=vialidadConstructionItemEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" method="post">
 			<input type="hidden" name="constructionId" value="|-$construction->getId()-|" />
 			<a href="#" onclick='this.parentNode.submit()' class="addLink">Agregar Item</a></form>
 		</div></th>
-	</tr>|-/if-|
+	</tr>
+	<tr><th colspan="4" class="thFillTitle"><div class="rightLink">
+		<a href="#" id="link_copy1" class="addLink" onclick="$('link_copy1').hide();$('form_copy1').show();return false">Agregar desde otro Item</a>
+		<form id="form_copy1" style="display:none" action="Main.php" method="post">
+			<div style="position: relative;z-index:10000;">
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_items" label="copiar de" url="Main.php?do=vialidadConstructionItemAutocompleteListX" hiddenName="copiedId" disableSubmit="copyItemSubmit"-|
+			</div>
+			<input type="hidden" name="constructionId" value="|-$construction->getId()-|" />
+			<input id="copyItemSubmit" type="button" disabled="disabled" class="icon iconActivate" onclick="copyItem(this.parentNode);$('form_copy1').hide();$('link_copy1').show();" />
+			<input type="button" class="icon iconCancel" onclick="$('form_copy1').hide();$('link_copy1').show();" />
+		</form>
+	</div></th></tr>
+	|-/if-|
 	<tr>
 		<th width="10%">Código</th>
 		<th width="75%">Item</th>
-		<th width="10%">Unidad</th>
+		<th width="10%">Cantidad</th>
 		<th width="5%">&nbsp;
 		</th>
 	</tr>
+	</thead>
+	<tbody id="items_table_body">
 	|-foreach from=$items item=item name=for_item-|
-	<tr>
-		<td nowrap="nowrap">|-$item->getCode()-|</td>
-		<td>|-$item->getName()-|</td>
-		<td nowrap="nowrap" align="center">|-$item->getUnit()-|</td>
-		<td nowrap="nowrap">
-			|-if "vialidadConstructionItemEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
-			  <input type="hidden" name="do" value="vialidadConstructionItemEdit" /> 
-			  <input type="hidden" name="id" value="|-$item->getId()-|" /> 
-					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-					|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-			  <input type="submit" name="submit_go_edit_item" value="Editar" class="icon iconEdit" /> 
-			</form>|-/if-|
-			|-if "vialidadConstructionItemDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;"> 
-			  <input type="hidden" name="do" value="vialidadConstructionItemDoDelete" /> 
-			  <input type="hidden" name="id" value="|-$item->getId()-|" /> 
-					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-					|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-			  <input type="submit" name="submit_go_delete_item" value="Borrar" onclick="return confirm('Seguro que desea eliminar el Item de Construcción?')" class="icon iconDelete" /> 
-			</form>|-/if-|
-		</td>
-	</tr>
+		|-include file="VialidadConstructionsTableRowInclude.tpl" item=$item constructionId=$construction->getId() filters=$filters pager=$pager-|
 	|-/foreach-|
+	</tbody>
+	<tfoot>
 	|-if isset($pager) && $pager->haveToPaginate()-|
 	<tr>
 		<td colspan="4" class="pages">|-include file="ModelPagerInclude.tpl"-|</td>
@@ -93,5 +93,40 @@
 	|-if "vialidadConstructionItemEdit"|security_has_access && $items|@count gt 5-|<tr>
 		<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadConstructionItemEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Item</a></div></th>
 	</tr>|-/if-|
+	</tfoot>
 </table>
 |-/if-|
+
+<script type="text/javascript">
+
+function copyItem(form) {
+	var fields = Form.serialize(form);
+	new Ajax.Updater(
+		{success: 'items_table_body'},
+		'Main.php?do=vialidadConstructionsAddItemFromOtherX',
+		{
+			method: 'post',
+			parameters: fields,
+			insertion: 'bottom',
+			evalScripts: true
+		}
+	);
+}
+
+function removeItem(itemId) {
+	new Ajax.Request(
+		'Main.php?do=vialidadConstructionItemDoDelete',
+		{
+			method: 'post',
+			parameters: {
+				id: itemId
+			},
+			evalScripts: true,
+			onSuccess: function() {
+				$('items_table_body').removeChild($('item'+itemId));
+			}
+		}
+	);
+}
+
+</script>

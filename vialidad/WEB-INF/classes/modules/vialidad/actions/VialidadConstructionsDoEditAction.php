@@ -31,6 +31,9 @@ class VialidadConstructionsDoEditAction extends BaseAction {
 		$constructionParams = array_merge_recursive($_POST["params"],$userParams);
 
 		$smarty->assign("filters",$filters);
+		
+		if (!empty($_REQUEST["returnToContract"]))
+			$params["returnToContract"] = $_REQUEST["returnToContract"];
 
 		if ($_POST["action"] == "edit" && !empty($_POST["id"])) {
 			$params["id"] = $_POST["id"];
