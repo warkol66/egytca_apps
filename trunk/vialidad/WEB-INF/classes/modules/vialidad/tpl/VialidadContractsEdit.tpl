@@ -40,6 +40,7 @@
 |-if $action eq 'edit'-|
 <h3>Obras</h3>
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
+	<thead>
 	|-if "vialidadConstructionsEdit"|security_has_access-|<tr>
 		<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadConstructionsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Obra</a></div></th>
 	</tr>|-/if-|
@@ -49,28 +50,29 @@
 		<th width="5%">&nbsp;
 		</th>
 	</tr>
+	</thead>
+	<tbody id="constructions_table_body">
 	|-foreach from=$constructions item=construction name=for_constructions-|
-	<tr>
+	<tr id="construction|-$construction->getId()-|">
 		<td nowrap="nowrap">|-$construction->getName()-|</td>
 		<td nowrap="nowrap">|-$construction->getDescription()-|</td>
 		<td nowrap="nowrap">
 			|-if "vialidadConstructionsEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="vialidadConstructionsEdit" /> 
 			  <input type="hidden" name="id" value="|-$construction->getId()-|" /> 
+			  <input type="hidden" name="returnToContract" value="|-$contract->getId()-|" />
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 					|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 			  <input type="submit" name="submit_go_edit_item" value="Editar" class="icon iconEdit" /> 
 			</form>|-/if-|
-			|-if "vialidadConstructionsDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;"> 
-			  <input type="hidden" name="do" value="vialidadConstructionsDoDelete" /> 
-			  <input type="hidden" name="id" value="|-$construction->getId()-|" /> 
-					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-					|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-			  <input type="submit" name="submit_go_delete_item" value="Borrar" onclick="return confirm('Seguro que desea eliminar el Item de Construcción?')" class="icon iconDelete" /> 
-			</form>|-/if-|
+			|-if "vialidadConstructionsDoDelete"|security_has_access-|
+				<input type="submit" name="submit_go_delete_item" value="Borrar" onclick="return confirm('Seguro que desea eliminar la Obra?') ? removeConstruction('|-$construction->getId()-|'): '';" class="icon iconDelete" /> 
+			|-/if-|
 		</td>
 	</tr>
 	|-/foreach-|
+	</tbody>
+	<tfoot>
 	|-if isset($pager) && $pager->haveToPaginate()-|
 	<tr>
 		<td colspan="4" class="pages">|-include file="ModelPagerInclude.tpl"-|</td>
@@ -79,5 +81,26 @@
 	|-if "vialidadConstructionItemEdit"|security_has_access && $items|@count gt 5-|<tr>
 		<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadConstructionItemEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Obra</a></div></th>
 	</tr>|-/if-|
+	</tfoot>
 </table>
 |-/if-|
+
+<script type="text/javascript">
+	
+function removeConstruction(constructionId) {
+	new Ajax.Request(
+		'Main.php?do=vialidadConstructionsDoDelete',
+		{
+			method: 'post',
+			parameters: {
+				id: constructionId
+			},
+			evalScripts: true,
+			onSuccess: function() {
+				$('constructions_table_body').removeChild($('construction'+constructionId));
+			}
+		}
+	);
+}
+
+</script>

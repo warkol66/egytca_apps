@@ -46,6 +46,10 @@ class VialidadConstructionsEditAction extends BaseAction {
 			$construction = new Construction();
 			$smarty->assign("action","create");
 		}
+		
+		if (!empty($_GET['returnToContract']))
+			$smarty->assign('returnContractId', $_GET['returnToContract']);
+		
 		$smarty->assign("construction",$construction);
 		return $mapping->findForwardConfig('success');
 	}

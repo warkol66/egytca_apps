@@ -148,7 +148,7 @@
 		<column name="description" type="LONGVARCHAR" />
 		<column name="verifierId" type="INTEGER"  description="Id del verificador" />
 
-		<foreign-key foreignTable="vialidad_contract" >
+		<foreign-key foreignTable="vialidad_contract" onDelete="cascade" >
 			<reference local="contractId" foreign="id" />
 		</foreign-key>
 		
@@ -169,10 +169,11 @@
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
 		<column name="code" type="VARCHAR" size="50" description="Codigo" />
 		<column name="price" type="DECIMAL" size="12" scale="2" description="Precio " />
+		<column name="quantity" type="DECIMAL" size="12" scale="2" description="Cantidad " />
 		<column name="unit" type="VARCHAR" size="12" description="Unidad" />
 		<column name="constructionId" type="INTEGER" description="Id del construction" />
 
-		<foreign-key foreignTable="vialidad_construction" >
+		<foreign-key foreignTable="vialidad_construction" onDelete="cascade" >
 			<reference local="constructionId" foreign="id" />
 		</foreign-key>
 		

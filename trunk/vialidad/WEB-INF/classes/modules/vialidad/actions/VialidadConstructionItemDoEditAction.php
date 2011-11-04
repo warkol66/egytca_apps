@@ -21,6 +21,9 @@ class VialidadConstructionItemDoEditAction extends BaseAction {
 
 		if (!empty($_POST["filters"]))
 			$filters = $_POST["filters"];
+		
+		if (!empty($_REQUEST["returnToConstruction"]))
+			$params["returnToConstruction"] = $_REQUEST["returnToConstruction"];
 
 		$userParams = Common::userInfoToDoLog();
 		$itemParams = array_merge_recursive($_POST["params"],$userParams);
