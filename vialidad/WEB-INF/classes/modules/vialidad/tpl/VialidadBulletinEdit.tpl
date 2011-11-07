@@ -61,8 +61,9 @@
 			<td colspan="|-if $bulletin->getPublished()-|4|-else-|3|-/if-|">No hay Insumos que mostrar</td>
 		</tr>
 		|-else-|
-		|-foreach from=$prices item=price name=for_items-|
-		<tr>
+		|-foreach from=$prices key=idx item=price name=for_items-|
+		<tr id="priceRow|-$idx-|">
+            |-assign var=priceInformation value=$price->getPrice()-|
 			|-assign var=supply value=$price->getSupply()-|
 			<td>|-$supply->getName()-|</td>
 			<td align="right">
@@ -77,8 +78,20 @@
 			</td>
 			<td align="center">|-$price->getDefinitive()|si_no-|</td>
 			|-if $bulletin->getPublished()-|
-			<td>|-$price->getDefinitiveOn()|date_format:"%B / %Y"|@ucfirst-| |-if $smarty.foreach.for_items.first-|Aca debería poder colocar una fecha, que sólo sea modificable si el precio no era definitivo|-/if-|</td>
-			<td>|-if $smarty.foreach.for_items.first-|Cuando el precio no es definitivo, colocar un inplace editor para modificar el valor "modifiedPrice", necesitaría una regla tambien que una vez modificado el precio se actualice el campo modifiedOn con el valor now()|-/if-|</td>
+			<td>
+                |-if !$price->getDefinitive()-|
+                <span id="modifiedOn|-$idx-|" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$price->getDefinitiveOn()|date_format:"%B / %Y"|@ucfirst-|</span>
+                |-else-|
+                <span>|-$price->getDefinitiveOn()|date_format:"%B / %Y"|@ucfirst-|</span>
+                |-/if-|
+            </td>
+			<td>
+                |-if !$price->getDefinitive()-|
+                <span id="price|-$idx-|" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceInformation.price|system_numeric_format-|</span>
+                |-else-|
+                <span>|-$priceInformation.price|system_numeric_format-|</span>
+                |-/if-|
+            </td>
 			|-else-|
 			<td align="center"><a href='Main.php?do=vialidadSupplyPriceEdit&amp;bulletinId=|-$bulletin->getId()-|&amp;supplyId=|-$supply->getId()-|'><img src="images/clear.png" class="icon iconEdit"></a></td>
 			|-/if-|
@@ -90,6 +103,8 @@
 	</div>
 	|-/if-|
 </div>
+
+|-include file="InPlaceEditorInclude.tpl"-|
 
 <script type="text/javascript">
 function updatePublish(supplyId, value) {
@@ -106,4 +121,28 @@ function updatePublish(supplyId, value) {
 		}
 	);
 }
+
+|-foreach from=$prices key=idx item=price name=for_items-|
+    |-if !$price->getDefinitive()-|
+    // Modified On
+    attachInPlaceEditor({
+        action   : 'vialidadSupplyPriceEditFieldX',
+        selector : 'modifiedOn|-$idx-|',
+        params   : 'bulletinId=|-$price->getBulletinId()-|&supplyId=|-$price->getSupplyId()-|',
+        paramName: 'modifiedOn'
+    });
+    // Modified Price
+    attachInPlaceEditor({
+        action   : 'vialidadSupplyPriceEditModifiedPriceX',
+        selector : 'price|-$idx-|',
+        params   : 'bulletinId=|-$price->getBulletinId()-|&supplyId=|-$price->getSupplyId()-|&index=|-$idx-|',
+        paramName: 'modifiedPrice',
+        onComplete: function(transport, element) {
+            $('priceRow|-$idx-|').innerHTML = transport.responseText;
+        }
+    });
+    |-/if-|
+|-/foreach-|
+
 </script>
+
