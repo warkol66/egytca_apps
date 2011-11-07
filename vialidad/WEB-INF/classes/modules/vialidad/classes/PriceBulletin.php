@@ -29,17 +29,17 @@ class PriceBulletin extends BasePriceBulletin {
 	 * return array precio definitivo y su estado
 	 */
 	function getPrice(){
-		if (!null($this->getModifiedPrice())) {
+		if (!is_null($this->getModifiedPrice())) {
 			$price["price"] = $this->getModifiedPrice();
 			$price["status"] = "Modificado";
 			$price["modifiedOn"] = $this->getModifiedOn();
 		}
-		else if (!$this->getDefinitive() && !null($this->getDefinitiveOn())) {
+		else if (!$this->getDefinitive() && !is_null($this->getDefinitiveOn())) {
 			$price["price"] = $this->getAveragePrice();
 			$price["status"] = "Definitivo*";
 			$price["definitiveOn"] = $this->getDefinitiveOn();
 		}
-		else if (!$this->getDefinitive() && null($this->getDefinitiveOn())) {
+		else if (!$this->getDefinitive() && is_null($this->getDefinitiveOn())) {
 			$price["price"] = $this->getAveragePrice();
 			$price["status"] = "Provisorio";
 		}
@@ -49,5 +49,5 @@ class PriceBulletin extends BasePriceBulletin {
 		}
 		return $price;
 	}
-
+    
 } // PriceBulletin
