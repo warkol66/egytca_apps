@@ -199,5 +199,41 @@
 		</foreign-key>
 
 	</table>
+    
+	<table phpName="MeasurementRecord" name="vialidad_measurementRecord">
 
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="maeasurementDate" type="DATE" description="Fecha del acta de medicion" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="MeasurementRecordRelation" name="vialidad_measurementRecordRelation">
+
+        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="itemId" type="INTEGER" required="true" />
+		<column name="measurmentRecordId" type="INTEGER" required="true" />
+        <column name="quantity" type="DECIMAL" size="12" scale="2" description="Cantidad " />
+        <column name="verified" type="BOOLEAN" description="Indica si esta publicado" />
+        <column name="documentId" type="INTEGER" description="Documento respaldatorio" />
+		<column name="comments" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Observaciones" />
+
+		<foreign-key foreignTable="vialidad_constructionItem" onDelete="cascade" >
+			<reference local="itemId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="vialidad_measurementRecord" onDelete="cascade" >
+			<reference local="measurmentRecordId" foreign="id" />
+		</foreign-key>
+        
+		<foreign-key foreignTable="documents_document" onDelete="cascade">
+			<reference local="documentId" foreign="id" />
+		</foreign-key>
+
+	</table>
+    
 </database>
