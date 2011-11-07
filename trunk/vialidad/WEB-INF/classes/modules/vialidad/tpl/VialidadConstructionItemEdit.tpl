@@ -1,6 +1,6 @@
 <h2>Paramétricas</h2>
 <h1>Administración de Items </h1>
-<p>A continuación podrá administrar la composición del item  </p>
+<p>A continuación podrá administrar la composición del item</p>
 |-if $message eq "error"-|
 	<div class="failureMessage">Ha ocurrido un error al intentar guardar el Item</div>
 |-elseif $message eq "ok"-|
@@ -10,6 +10,10 @@
 	<legend>Item</legend>
 <form name="form_edit_construction_item" id="form_edit_construction_item" action="Main.php" method="post">
 	<p>Ingrese los datos correspondientes y haga click en &quot;Guardar&quot; </p>
+	|-if $item->getId() gt 0-|
+	<p><label for="construction">Obra:</label>|-$item->getConstruction()-|</p>
+	|-/if-|
+
 	<p>
 		<label for="params[name]">Nombre</label>
 		<input type="text" id="params[name]" name="params[name]" size="50" value="|-$item->getName()|escape-|" title="Nombre" /><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
