@@ -25,6 +25,8 @@ class VialidadConstructionsAddItemFromOtherXAction extends BaseAction {
 			
 			$construction = ConstructionQuery::create()->findOneById($_POST['constructionId']);
 			$copied = ConstructionItemQuery::create()->findOneById($_POST['copiedId']);
+			$copied->setCode(NULL);
+			$copied->setQuantity(NULL);
 			$newItem = new ConstructionItem();
 			
 			$copied->copyInto($newItem);

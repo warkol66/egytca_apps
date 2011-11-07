@@ -60,14 +60,14 @@
 		</div></th>
 	</tr>
 	<tr><th colspan="4" class="thFillTitle"><div class="rightLink">
-		<a href="#" id="link_copy1" class="addLink" onclick="$('link_copy1').hide();$('form_copy1').show();return false">Agregar desde otro Item</a>
+		<a href="#" id="link_copy1" class="addLink" onclick="$('link_copy1').hide();$('form_copy1').show();return false">Agregar desde otra obra</a>
 		<form id="form_copy1" style="display:none" action="Main.php" method="post">
 			<div style="position: relative;z-index:10000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_items" label="copiar de" url="Main.php?do=vialidadConstructionItemAutocompleteListX" hiddenName="copiedId" disableSubmit="copyItemSubmit"-|
-			</div>
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_items" label="Buscar item" url="Main.php?do=vialidadConstructionItemAutocompleteListX" hiddenName="copiedId" disableSubmit="copyItemSubmit" notIncludeParagraph=true-|
 			<input type="hidden" name="constructionId" value="|-$construction->getId()-|" />
 			<input id="copyItemSubmit" type="button" disabled="disabled" class="icon iconActivate" onclick="copyItem(this.parentNode);$('form_copy1').hide();$('link_copy1').show();" />
 			<input type="button" class="icon iconCancel" onclick="$('form_copy1').hide();$('link_copy1').show();" />
+			</div>
 		</form>
 	</div></th></tr>
 	|-/if-|

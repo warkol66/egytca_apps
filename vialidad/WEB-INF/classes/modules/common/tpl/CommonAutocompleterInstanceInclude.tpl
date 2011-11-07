@@ -1,12 +1,10 @@
 |-if $id eq ''-|
 	|-assign var="id" value="autocompleter"-|
 |-/if-|
-
 <script type="text/javascript" language="javascript" charset="utf-8">
 	var |-$id-|_instance;
 </script>
-
-<p>
+|-if !$notIncludeParagraph-|<p>|-/if-|
 	<label for="|-$id-|">|-$label-|</label>
 	<input type="text" id="|-$id-|" name="autocomplete_parameter" value="|-$defaultValue-|" size="60"
 		onChange="|-$onChange-|" 
@@ -28,6 +26,5 @@
 |-if $buttonValue ne '' -|
 	<input type="submit" id="|-$button_edit_sub_issue-|" title="|-$buttonValue-|" |-if !$enableOnEdit-|disabled |-/if-| value="|-$buttonValue-|"  style="display: inline;"/>
 |-/if-|
-
-</p>
+|-if !$notIncludeParagraph-|<p>|-/if-|
 <div id="|-$id-|_choices" class="autocomplete" style="display: none;"></div>
