@@ -203,8 +203,13 @@
 	<table phpName="MeasurementRecord" name="vialidad_measurementRecord">
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
-		<column name="maeasurementDate" type="DATE" description="Fecha del acta de medicion" />
+		<column name="measurementDate" type="DATE" description="Fecha del acta de medicion" />
+		<column name="constructionId" type="INTEGER" description="Id del construction" />
 
+		<foreign-key foreignTable="vialidad_construction" onDelete="cascade" >
+			<reference local="constructionId" foreign="id" />
+		</foreign-key>
+		
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
@@ -214,12 +219,12 @@
 
 	<table phpName="MeasurementRecordRelation" name="vialidad_measurementRecordRelation">
 
-        <column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="itemId" type="INTEGER" required="true" />
-		<column name="measurmentRecordId" type="INTEGER" required="true" />
-        <column name="quantity" type="DECIMAL" size="12" scale="2" description="Cantidad " />
-        <column name="verified" type="BOOLEAN" description="Indica si esta publicado" />
-        <column name="documentId" type="INTEGER" description="Documento respaldatorio" />
+		<column name="measurementRecordId" type="INTEGER" required="true" />
+		<column name="quantity" type="DECIMAL" size="12" scale="2" description="Cantidad " />
+		<column name="verified" type="BOOLEAN" description="Indica si esta publicado" />
+		<column name="documentId" type="INTEGER" description="Documento respaldatorio" />
 		<column name="comments" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Observaciones" />
 
 		<foreign-key foreignTable="vialidad_constructionItem" onDelete="cascade" >
@@ -227,10 +232,10 @@
 		</foreign-key>
 
 		<foreign-key foreignTable="vialidad_measurementRecord" onDelete="cascade" >
-			<reference local="measurmentRecordId" foreign="id" />
+			<reference local="measurementRecordId" foreign="id" />
 		</foreign-key>
         
-		<foreign-key foreignTable="documents_document" onDelete="cascade">
+		<foreign-key foreignTable="documents_document">
 			<reference local="documentId" foreign="id" />
 		</foreign-key>
 
