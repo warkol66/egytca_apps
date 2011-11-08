@@ -74,15 +74,15 @@
 			<reference local="supplierId3" foreign="id" />
 		</foreign-key>
 
-		<foreign-key foreignTable="documents_document" onDelete="cascade">
+		<foreign-key foreignTable="documents_document">
 			<reference local="supplierDocument1" foreign="id" />
 		</foreign-key>
 
-		<foreign-key foreignTable="documents_document" onDelete="cascade">
+		<foreign-key foreignTable="documents_document">
 			<reference local="supplierDocument2" foreign="id" />
 		</foreign-key>
 
-		<foreign-key foreignTable="documents_document" onDelete="cascade">
+		<foreign-key foreignTable="documents_document">
 			<reference local="supplierDocument3" foreign="id" />
 		</foreign-key>
 
