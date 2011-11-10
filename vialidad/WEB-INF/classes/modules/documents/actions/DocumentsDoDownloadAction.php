@@ -71,9 +71,11 @@ class DocumentsDoDownloadAction extends BaseAction {
 
 		if (!$_REQUEST["view"])
 			header("content-disposition: attachment; filename=\"" . str_replace('"',"'",$document->getRealfilename()) . "\"");
+		else
+			header("content-disposition: inline; filename=\"" . str_replace('"',"'",$document->getRealfilename()) . "\"");
 
-		if ($document->getSize() != 0)
-			header("Content-Length: " . $document->getSize() ."; ");
+//		if ($document->getSize() != 0)
+//			header("Content-Length: " . $document->getSize() ."; ");
 
 		$document->getContents();
 	}

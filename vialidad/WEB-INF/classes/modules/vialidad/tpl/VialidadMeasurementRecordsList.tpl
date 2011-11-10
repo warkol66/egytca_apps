@@ -33,7 +33,7 @@
 	|-else-||-foreach from=$records item=record name=for_records-|
 	<tr>
 		<td>|-$record->getConstruction()-|</td>
-		<td>|-$record->getMeasurementDate()|date_format-|</td>
+		<td>|-$record->getMeasurementDate()|date_format:"%B / %Y"|@ucfirst-|</td>
 		<td nowrap align="center">
 			|-if "vialidadMeasurementRecordsEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="vialidadMeasurementRecordsEdit" /> 
