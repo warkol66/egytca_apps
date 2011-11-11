@@ -53,6 +53,8 @@ class VialidadMeasurementRecordsEditAction extends BaseAction {
 				
 				$itemRecords = MeasurementRecordRelationQuery::create()->findByMeasurementrecordid($_GET["id"]);
 				$smarty->assign('itemRecords', $itemRecords);
+			} else {
+				throw new Exception('measurementRecord doesn\'t have a valid Construction ID');
 			}
 		}
 		else {
