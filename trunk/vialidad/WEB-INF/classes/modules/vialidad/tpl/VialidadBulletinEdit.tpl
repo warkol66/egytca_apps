@@ -44,13 +44,14 @@
 	<table id="table_supplies" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead>
 		<tr class="thFillTitle"> 
-			<th width="50%">Insumo</th> 
-			<th width="15%">Precio</th> 
-			<th width="10%">Publicar</th>
-			<th width="10%">Definitivo</th>
+			<th width="25%">Insumo</th> 
+			<th width="10%">Precio</th> 
+			<th width="6%">Publicar</th>
+			<th width="5%">Definitivo</th>
 			|-if $bulletin->getPublished()-|
 			<th width="15%">Definitivo en</th>
-			<th width="15%">Modificado</th>
+			<th width="10%">Modificado</th>
+            <th width="15%">Modificado en</th>
 			|-else-|
 			<th width="10%">&nbsp;</th>|-/if-|
 		</tr>
@@ -78,18 +79,25 @@
 			</td>
 			<td align="center">|-$price->getDefinitive()|si_no-|</td>
 			|-if $bulletin->getPublished()-|
-			<td>
+			<td align="center">
                 |-if !$price->getDefinitive()-|
-                <span id="modifiedOn|-$idx-|" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$price->getDefinitiveOn()|date_format:"%B / %Y"|@ucfirst-|</span>
+                <span id="definitiveOn|-$idx-|" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$price->getDefinitiveOn()|date_format:"%B / %Y"|@ucfirst-|</span>
                 |-else-|
                 <span>|-$price->getDefinitiveOn()|date_format:"%B / %Y"|@ucfirst-|</span>
                 |-/if-|
             </td>
-			<td>
+			<td align="right">
                 |-if !$price->getDefinitive()-|
                 <span id="price|-$idx-|" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceInformation.price|system_numeric_format-|</span>
                 |-else-|
                 <span>|-$priceInformation.price|system_numeric_format-|</span>
+                |-/if-|
+            </td>
+            <td align="center">
+                |-if !$price->getDefinitive()-|
+                <span id="modifiedOn|-$idx-|" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$price->getModifiedOn()|date_format:"%B / %Y"|@ucfirst-|</span>
+                |-else-|
+                <span>|-$price->getModifiedOn()|date_format:"%B / %Y"|@ucfirst-|</span>
                 |-/if-|
             </td>
 			|-else-|
@@ -124,6 +132,13 @@ function updatePublish(supplyId, value) {
 
 |-foreach from=$prices key=idx item=price name=for_items-|
     |-if !$price->getDefinitive()-|
+    // Definitive On
+    attachInPlaceEditor({
+        action   : 'vialidadSupplyPriceEditFieldX',
+        selector : 'definitiveOn|-$idx-|',
+        params   : 'bulletinId=|-$price->getBulletinId()-|&supplyId=|-$price->getSupplyId()-|',
+        paramName: 'definitiveOn'
+    });
     // Modified On
     attachInPlaceEditor({
         action   : 'vialidadSupplyPriceEditFieldX',
