@@ -20,6 +20,9 @@ class VialidadMeasurementRecordsDoEditAction extends BaseAction {
 		$smarty->assign("module",$module);
 		$section = "MeasurementRecords";
 		$smarty->assign("section",$section);
+		
+		if ( empty($_POST['params']['constructionId']) || empty($_POST['params']['measurementDate']) )
+			throw new Exception('invalid arguments');
 
 		if ($_POST["page"] > 0)
 			$params["page"] = $_POST["page"];

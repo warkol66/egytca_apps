@@ -7,7 +7,7 @@
 	|-elseif $message eq "ok"-|
 		<div class="successMessage">Cambios guardados correctamente</div>
 	|-/if-|
-	<form name="form_edit_record" id="form_edit_record" action="Main.php" method="post">
+	<form name="form_edit_record" id="form_edit_record" onsubmit="return validateForm()" action="Main.php" method="post">
 		<fieldset title="Formulario de edición de datos de un Acta de Medición">
 			<legend>Formulario de Administración de Actas de Medición</legend>
 			<p>
@@ -30,6 +30,7 @@
 				<input type="hidden" name="do" id="do" value="vialidadMeasurementRecordsDoEdit" />
 				<input type="submit" id="button_edit_record" name="button_edit_record" title="Aceptar" value="Guardar" />
 				<input type="button" id="cancel" name="cancel" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=vialidadMeasurementRecordsList'"/>
+			<div id="div_form_error" style="display:none">Falta completar campos</div>
 			</p>
 		</fieldset>
 	</form>
@@ -113,6 +114,30 @@
 
 <script type="text/javascript">
 
+Event.observe(
+	window,
+	'load',
+	function() {
+		|-if $action eq 'edit'-|
+		attachInPlaceEditors();
+		|-/if-|
+	}
+);
+	
+function validateForm() {
+	var submit = true;
+	var params = ['constructionId', 'measurementDate'];
+	
+	for (var i=0; i<params.length; i++) {
+		if (!($('form_edit_record').elements['params['+params[i]+']'].value)) {
+			submit = false;
+			$('div_form_error').show();
+		}
+	}
+	
+	return submit;
+}
+
 function updateVerified(itemRecordId, checkedValue) {
 	new Ajax.Request(
 		'Main.php?do=vialidadMeasurementRecordRelationsEditFieldX',
@@ -127,38 +152,33 @@ function updateVerified(itemRecordId, checkedValue) {
 	);
 }
 
-|-if $action eq 'edit'-|
-Event.observe(
-	window,
-	'load',
-	function() {
-		|-foreach from=$itemRecords item=itemRecord-|
-		new Ajax.InPlaceEditor(
-			'quantity|-$itemRecord->getId()-|',
-			'Main.php?do=vialidadMeasurementRecordRelationsEditFieldX',
-			{
-				rows: 1,
-				cols: 12,
-				okText: 'Guardar',
-				cancelText: 'Cancelar',
-				savingText: 'Guardando...',
-				hoverClassName: 'in_place_hover',
-				highlightColor: '#b7e0ff',
-				cancelControl: 'button',
-				savingClassName: 'inProgress',
-				clickToEditText: 'Haga click para editar',
-				callback: function(form, value) {
-					return 'id=|-$itemRecord->getId()-|&paramName=quantity&paramValue=' + encodeURIComponent(value);
-				},
-				onComplete: function(transport, element) {
-					element.innerHTML = element.innerHTML.replace(/(\n|\r)+$/, '');
-					new Effect.Highlight(element, { startcolor: this.options.highlightColor });
-				}
+function attachInPlaceEditors() {
+	|-foreach from=$itemRecords item=itemRecord-|
+	new Ajax.InPlaceEditor(
+		'quantity|-$itemRecord->getId()-|',
+		'Main.php?do=vialidadMeasurementRecordRelationsEditFieldX',
+		{
+			rows: 1,
+			cols: 12,
+			okText: 'Guardar',
+			cancelText: 'Cancelar',
+			savingText: 'Guardando...',
+			hoverClassName: 'in_place_hover',
+			highlightColor: '#b7e0ff',
+			cancelControl: 'button',
+			savingClassName: 'inProgress',
+			clickToEditText: 'Haga click para editar',
+			callback: function(form, value) {
+				return 'id=|-$itemRecord->getId()-|&paramName=quantity&paramValue=' + encodeURIComponent(value);
+			},
+			onComplete: function(transport, element) {
+				element.innerHTML = element.innerHTML.replace(/(\n|\r)+$/, '');
+				new Effect.Highlight(element, { startcolor: this.options.highlightColor });
 			}
-		);
-		|-/foreach-|
-	}
-);
-|-/if-|
+		}
+	);
+	|-/foreach-|
+}
+
 </script>
 
