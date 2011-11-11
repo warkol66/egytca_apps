@@ -14,26 +14,41 @@
 </td>
 <td align="center">|-$price->getDefinitive()|si_no-|</td>
 |-if $bulletin->getPublished()-|
-<td>
+<td align="center">
     |-if !$price->getDefinitive()-|
-    <span id="modifiedOn|-$idx-|" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$price->getDefinitiveOn()|date_format:"%B / %Y"|@ucfirst-|</span>
+    <span id="definitiveOn|-$idx-|" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$price->getDefinitiveOn()|date_format:"%B / %Y"|@ucfirst-|</span>
     |-else-|
     <span>|-$price->getDefinitiveOn()|date_format:"%B / %Y"|@ucfirst-|</span>
     |-/if-|
 </td>
-<td>
+<td align="right"> 
     |-if !$price->getDefinitive()-|
     <span id="price|-$idx-|" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceInformation.price|system_numeric_format-|</span>
     |-else-|
     <span>|-$priceInformation.price|system_numeric_format-|</span>
     |-/if-|
 </td>
+<td align="center">
+    |-if !$price->getDefinitive()-|
+    <span id="modifiedOn|-$idx-|" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$price->getModifiedOn()|date_format:"%B / %Y"|@ucfirst-|</span>
+    |-else-|
+    <span>|-$price->getModifiedOn()|date_format:"%B / %Y"|@ucfirst-|</span>
+    |-/if-|
+</td>
+
 |-else-|
 <td align="center"><a href='Main.php?do=vialidadSupplyPriceEdit&amp;bulletinId=|-$bulletin->getId()-|&amp;supplyId=|-$supply->getId()-|'><img src="images/clear.png" class="icon iconEdit"></a></td>
 |-/if-|
 
 <script type="text/javascript">
 |-if !$price->getDefinitive()-|
+    // Definitive On
+    attachInPlaceEditor({
+        action   : 'vialidadSupplyPriceEditFieldX',
+        selector : 'definitiveOn|-$idx-|',
+        params   : 'bulletinId=|-$price->getBulletinId()-|&supplyId=|-$price->getSupplyId()-|',
+        paramName: 'definitiveOn'
+    });
     // Modified On
     attachInPlaceEditor({
         action   : 'vialidadSupplyPriceEditFieldX',
