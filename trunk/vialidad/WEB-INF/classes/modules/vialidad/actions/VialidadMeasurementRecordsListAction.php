@@ -25,11 +25,14 @@ class VialidadMeasurementRecordsListAction extends BaseAction {
 
 		$filters = $_GET["filters"];
 		$pager = MeasurementRecordQuery::create()->createPager($filters, $_GET["page"], $filters["perPage"]);
-		
+
 		$url = "Main.php?do=vialidadMeasrementRecordsList";
 		foreach ($filters as $key => $value)
 			$url .= "&filters[$key]=$value";
 		$smarty->assign("url",$url);
+
+		if (!empty($filters["constructionid"]))
+			$smarty->assign("defaultConstructionValue",ConstructionQuery::create()->findPk($filters["constructionid"]));
 
 		$smarty->assign("filters",$filters);
 		$smarty->assign("records",$pager->getResults());
@@ -37,5 +40,5 @@ class VialidadMeasurementRecordsListAction extends BaseAction {
 
 		return $mapping->findForwardConfig("success");
 	}
-		
+
 }
