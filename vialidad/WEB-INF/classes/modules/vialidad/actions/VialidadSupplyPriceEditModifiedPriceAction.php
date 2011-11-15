@@ -1,8 +1,8 @@
 <?php
 
-class VialidadSupplyPriceEditModifiedPriceXAction extends BaseAction {
+class VialidadSupplyPriceEditModifiedPriceAction extends BaseAction {
 
-	function VialidadSupplyPriceEditModifiedPriceXAction() {
+	function VialidadSupplyPriceEditModifiedPriceAction() {
 		;
 	}
 
@@ -25,15 +25,23 @@ class VialidadSupplyPriceEditModifiedPriceXAction extends BaseAction {
 		$priceBulletin = PriceBulletinQuery::create()->filterByBulletinid($_POST["bulletinId"])
 			->filterBySupplyid($_POST["supplyId"])->findOne();
 
-		if (!empty($_POST['paramValue'])) {
-            $priceBulletin->setModified($_POST['paramValue']);
-			$priceBulletin->save();
-		}
+        $modifiedOn = $_POST['modifiedOn'. $_POST['priceIndex']];
+        $definitiveOn = $_POST['definitiveOn'. $_POST['priceIndex']];
+        
+        $priceBulletin->setModifiedprice($_POST['modifiedPrice']);
+        
+        if (!empty($modifiedOn))
+            $priceBulletin->setModifiedon($modifiedOn);
+        
+        if (!empty($definitiveOn))
+            $priceBulletin->setDefinitiveon($definitiveOn);
+        
+        $priceBulletin->save();
         
         $smarty->assign("price", $priceBulletin);
         $smarty->assign("idx", $_POST["index"]);
 
-		return $mapping->findForwardConfig('success');
+		return $this->generateDynamicForward('success');
 	}
 
 }
