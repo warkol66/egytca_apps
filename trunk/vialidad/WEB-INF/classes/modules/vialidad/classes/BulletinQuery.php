@@ -34,11 +34,8 @@ class BulletinQuery extends BaseBulletinQuery {
 			case 'SearchString':
 				$this->filterByName("%$filterValue%", Criteria::LIKE);
 				break;
-			case 'DateFrom':
-				$this->filterByBulletindate($filterValue, Criteria::GREATER_EQUAL);
-				break;
-			case 'DateTo':
-				$this->filterByBulletindate($filterValue, Criteria::LESS_EQUAL);
+			case 'Bulletindate':
+				$this->filterByBulletindate($filterValue, Criteria::IN);
 				break;
 			default:
 				if (in_array($filterName, BulletinPeer::getFieldNames(BasePeer::TYPE_PHPNAME)))

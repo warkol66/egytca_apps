@@ -35,6 +35,9 @@ class ConstructionItemQuery extends BaseConstructionItemQuery {
 			case 'SearchString':
 				$this->filterByName("%$filterValue%", Criteria::LIKE);
 				break;
+			case 'Contractid':
+				$this->useConstructionQuery()->filterByContractid($filterValue)->endUse();
+				break;
 			default:
 				if (in_array($filterName, ConstructionItemPeer::getFieldNames(BasePeer::TYPE_PHPNAME)))
 						$this->filterBy($filterName, $filterValue);
