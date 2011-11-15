@@ -19,11 +19,11 @@
 					</p>
 					<p>
 						Fecha
-						<label for="filters[dateFrom]">desde:</label>
-						<input name="filters[dateFrom]" type='text' value='|-if isset($filters.dateFrom)-||-$filters.dateFrom|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateFrom]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+						<label for="filters[bulletindate][min]">desde:</label>
+						<input name="filters[bulletindate][min]" type='text' value='|-if isset($filters.bulletindate.min)-||-$filters.bulletindate.min|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[bulletindate][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 						&nbsp;
-						<label for="filters[dateTo]">hasta:</label>
-						<input name="filters[dateTo]" type='text' value='|-if isset($filters.dateTo)-||-$filters.dateTo|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateTo]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+						<label for="filters[bulletindate][max]">hasta:</label>
+						<input name="filters[bulletindate][max]" type='text' value='|-if isset($filters.bulletindate.max)-||-$filters.bulletindate.max|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[bulletindate][max]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 					</p>
 					<p>
 						<label for="filters[published]">Publicado:</label>

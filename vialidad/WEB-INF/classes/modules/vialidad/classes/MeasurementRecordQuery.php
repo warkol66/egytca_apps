@@ -35,14 +35,12 @@ class MeasurementRecordQuery extends BaseMeasurementRecordQuery {
 			case 'SearchString':
 				$this->filterByName("%$filterValue%", Criteria::LIKE);
 				break;
-			case 'DateFrom':
-				$this->filterByMeasurementdate($filterValue, Criteria::GREATER_EQUAL);
-				break;
-			case 'DateTo':
-				$this->filterByMeasurementdate($filterValue, Criteria::LESS_EQUAL);
+			case 'Measurementdate':
+				$this->filterByMeasurementdate($filterValue, Criteria::IN);
 				break;
 			default:
-				if (in_array($filterName, MeasurementRecordPeer::getFieldNames(BasePeer::TYPE_PHPNAME)))
+				if (in_array($filterName, MeasurementRecordPeer::getFieldNames(BasePeer::TYPE_PHPNAME))
+					|| is_array($filterValue) )
 						$this->filterBy($filterName, $filterValue);
 				else {
 						//Log - campo inexistente.

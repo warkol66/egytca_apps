@@ -34,8 +34,14 @@
 					</p>
 					<p>
 						<label for="filters[constructionid]">Obra:</label>
+						<div style="position: relative;z-index:11000;">
+						|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_constructions" url="Main.php?do=vialidadConstructionsAutocompleteListX" hiddenName="filters[constructionid]" disableSubmit="button_filtersSubmit"-|
+						</div>
+					</p>
+					<p>
+						<label for="filters[contractid]">Contrato:</label>
 						<div style="position: relative;z-index:10000;">
-						|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=vialidadConstructionsAutocompleteListX" hiddenName="filters[constructionid]" disableSubmit="button_filtersSubmit"-|
+						|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_contracts" url="Main.php?do=vialidadContractsAutocompleteListX" hiddenName="filters[contractid]" disableSubmit="button_filtersSubmit"-|
 						</div>
 					</p>
 					&nbsp;&nbsp;
