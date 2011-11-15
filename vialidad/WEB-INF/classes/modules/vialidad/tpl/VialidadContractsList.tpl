@@ -34,13 +34,12 @@
 		<td colspan='3' class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Buscar contrato</a><div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get'>
 			<input type="hidden" name="do" value="vialidadContractsList" />
 			<p>
-				<label for="filters[searchString]">Nombre:</label>
+				<label for="filters[searchString]">Nombre</label>
 				<input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="30" />
 			</p>
 			<p>
-				<label for="filters[contractorid]">Contratista:</label>
 				<div style="position: relative;z-index:10000;">
-				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=affiliatesContractorsAutocompleteListX" hiddenName="filters[contractorid]" disableSubmit="button_filtersSubmit"-|
+				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=affiliatesContractorsAutocompleteListX" hiddenName="filters[contractorid]" disableSubmit="button_filtersSubmit" label="Contratista" defaultValue=$defaultContractorValue-|
 				</div>
 			</p>
 			&nbsp;&nbsp;<input id="button_filtersSubmit" type='submit' value='Buscar' />
