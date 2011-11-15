@@ -72,7 +72,7 @@
 		<td colspan="3" class="pages">|-include file="ModelPagerInclude.tpl"-|</td>
 	</tr>
 	|-/if-|
-	|-if "vialidadSuppliersEdit"|security_has_access && $vialidadSuppliers|@count gt 5-|<tr>
+	|-if "vialidadSuppliersEdit"|security_has_access && $suppliers|@count gt 5-|<tr>
 		<th colspan="3"><div class="rightLink"><a href="Main.php?do=vialidadSuppliersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Proveedor</a></div></th>
 	</tr>|-/if-|
 </table>
