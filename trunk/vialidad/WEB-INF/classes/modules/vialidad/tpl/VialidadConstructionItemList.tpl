@@ -1,4 +1,5 @@
-<script type="text/javascript" src="scripts/lightbox.js"></script> 			
+|-include file="CommonAutocompleterInclude.tpl" -|
+<script type="text/javascript" src="scripts/lightbox.js"></script> 
 <div id="lightbox1" class="leightbox">
 	<p align="right">				
 		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
@@ -23,14 +24,22 @@
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 	<tr>
 		<td colspan="4" class="tdSearch">
-			<a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda por nombre</a>
+			<a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Búsqueda de items</a>
 			<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;">
 				<form action='Main.php' method='get'>
 					<input type="hidden" name="do" value="vialidadConstructionItemList" />
-					Nombre:
-					<input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="30" />
+					<p>
+						<label for="filters[searchString]">Nombre:</label>
+						<input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el nombre a buscar" />
+					</p>
+					<p>
+						<label for="filters[constructionid]">Obra:</label>
+						<div style="position: relative;z-index:10000;">
+						|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=vialidadConstructionsAutocompleteListX" hiddenName="filters[constructionid]" disableSubmit="button_filtersSubmit"-|
+						</div>
+					</p>
 					&nbsp;&nbsp;
-					<input type='submit' value='Buscar' />
+					<input id="button_filtersSubmit" type='submit' value='Buscar' />
 					|-if $filters|@count gt 0-|
 					<input name="removeFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=vialidadConstructionItemList'" />
 					|-/if-|

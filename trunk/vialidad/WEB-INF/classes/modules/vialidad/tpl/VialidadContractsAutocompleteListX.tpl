@@ -1,11 +1,11 @@
 <ul>
-	|-if count($suppliers) == 0-|
+	|-if count($contracts) == 0-|
 		<b>No hay resultados que coincidan</b>
 	|-else-|
-		|-foreach from=$suppliers item=supplier-|
-			<li id="|-$supplier->getId()-|">|-$supplier->getName()-|</li>
+		|-foreach from=$contracts item=contract-|
+			<li id="|-$contract->getId()-|">|-$contract->getName()-|</li>
 		|-/foreach-|
-		|-if count($suppliers) == $limit-|
+		|-if count($contracts) == $limit-|
 			<b>Está viendo los primeros |-$limit-| resultados</b>
 		|-/if-|
 	|-/if-|

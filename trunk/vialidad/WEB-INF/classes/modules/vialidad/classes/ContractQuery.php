@@ -14,5 +14,61 @@
  * @package    propel.generator.vialidad.classes
  */
 class ContractQuery extends BaseContractQuery {
+	
+	/**
+	 * Permite agregar un filtro personalizado a la Query, que puede ser
+	 * traducido al campo correspondiente.
+	 * @param   type $filterName
+	 * @param   type $filterValue
+	 * @return  ModelCriteria 
+	 */
+	public function addFilter($filterName, $filterValue) {
+		
+		$filterName = ucfirst($filterName);
+		
+		// empty() no sirve porque algunos filtros admiten 0 como valor
+		if (!isset($filterValue) || $filterValue == null)
+			return $this;
+		
+		switch ($filterName) {
+			case 'SearchString':
+				$this->filterByName("%$filterValue%", Criteria::LIKE);
+				break;
+			default:
+				if (in_array($filterName, ContractPeer::getFieldNames(BasePeer::TYPE_PHPNAME)))
+					$this->filterBy($filterName, $filterValue);
+				else {
+					//Log - campo inexistente.
+				}
+				break;
+		}
+		return $this;
+	}
+	
+	/**
+	 * Agrega multiples filtros a la Query.
+	 *
+	 * @see     addFilter
+	 * @param   type $filters
+	 * @return  ModelCriteria
+	 */
+	public function addFilters($filters = array()) {
+		foreach ($filters as $name => $value)
+				$this->addFilter($name, $value);
+
+		return $this;
+	}
+
+	/**
+	 * Crea un pager.
+	 *
+	 * @param   array $filters
+	 * @param   int $page
+	 * @param   int $perPage
+	 * @return  PropelModelPager
+	 */
+	public function createPager($filters, $page = 1, $perPage = 10) {
+		return $this->addFilters($filters)->paginate($page, $perPage);
+	}
 
 } // ContractQuery

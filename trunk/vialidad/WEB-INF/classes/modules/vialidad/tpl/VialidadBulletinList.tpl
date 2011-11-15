@@ -13,8 +13,26 @@
 			<td colspan="4" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Búsqueda de Boletines</a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;">
 				<form action='Main.php' method='get' style="display:inline;">
-					<p>Texto: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" /></p>
-					<p>Resultados por página |-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getRowsPerPage()-|</p>
+					<p>
+						<label for="filters[number]">Número:</label>
+						<input name="filters[number]" type="text" value="|-if isset($filters.number)-||-$filters.number-||-/if-|" size="30" title="Ingrese el número a buscar" />
+					</p>
+					<p>
+						Fecha
+						<label for="filters[dateFrom]">desde:</label>
+						<input name="filters[dateFrom]" type='text' value='|-if isset($filters.dateFrom)-||-$filters.dateFrom|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateFrom]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+						&nbsp;
+						<label for="filters[dateTo]">hasta:</label>
+						<input name="filters[dateTo]" type='text' value='|-if isset($filters.dateTo)-||-$filters.dateTo|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateTo]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+					</p>
+					<p>
+						<label for="filters[published]">Publicado:</label>
+						<select name="filters[published]">
+							<option value="" |-if isset($filters.published)-|selected="selected"|-/if-|>DESACTIVAR</option>
+							<option value="0" |-$filters.published|selected:"0"-|>NO</option>
+							<option value="1" |-$filters.published|selected:"1"-|>SI</option>
+						</select>
+					</p>
 					<p>
 						<input type="submit" value="Buscar" title="Buscar con los par&aacute;metros ingresados" />
 						<input type="hidden" name="do" value="vialidadBulletinList" />
@@ -78,7 +96,7 @@
 		</tr> 
 		|-/foreach-|
 		|-/if-|
-		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
+		|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
 			<td colspan="4" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 		</tr>

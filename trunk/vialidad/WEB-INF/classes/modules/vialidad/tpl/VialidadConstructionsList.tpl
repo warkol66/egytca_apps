@@ -1,4 +1,5 @@
-<script type="text/javascript" src="scripts/lightbox.js"></script> 			
+|-include file="CommonAutocompleterInclude.tpl" -|
+<script type="text/javascript" src="scripts/lightbox.js"></script>
 <div id="lightbox1" class="leightbox">
 	<p align="right">				
 		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
@@ -30,11 +31,26 @@
 |-/if-|
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 	<tr>
-		<td colspan='3' class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda por nombre</a><div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get'>
-				<input type="hidden" name="do" value="vialidadConstructionsList" />
-				Nombre: <input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="30" />
-				&nbsp;&nbsp;<input type='submit' value='Buscar' />
-				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=vialidadConstructionsList'" />|-/if-|
+		<td colspan='3' class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Buscar obra</a><div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get'>
+			<input type="hidden" name="do" value="vialidadConstructionsList" />
+			<p>
+				<label for="filters[searchString]">Nombre:</label>
+				<input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="30" />
+			</p>
+			<p>
+				<label for="filters[contractid]">Contrato:</label>
+				<div div="div_filters[contractid]" style="position: relative;z-index:11000;">
+				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_contracts" url="Main.php?do=vialidadContractsAutocompleteListX" hiddenName="filters[contractid]" disableSubmit="button_filtersSubmit"-|
+				</div>
+			</p>
+			<p>
+				<label for="filters[verifierid]">Verificador:</label>
+				<div div="div_filters[verifierid]" style="position: relative;z-index:10000;">
+				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_verifiers" url="Main.php?do=affiliatesVerifiersAutocompleteListX" hiddenName="filters[verifierid]" disableSubmit="button_filtersSubmit"-|
+				</div>
+			</p>
+			&nbsp;&nbsp;<input id="button_filtersSubmit" type='submit' value='Buscar' />
+			|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=vialidadConstructionsList'" />|-/if-|
 			</form></div></td>
 	</tr>
 	|-if "vialidadConstructionsEdit"|security_has_access-|<tr>
@@ -67,7 +83,7 @@
     </td>
 	</tr>
 	|-/foreach-|
-		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
+		|-if isset($pager) && $pager->haveToPaginate()-|
 	<tr>
 		<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td>
 	</tr>

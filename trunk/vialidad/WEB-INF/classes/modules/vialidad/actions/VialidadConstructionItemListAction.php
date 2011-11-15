@@ -1,7 +1,5 @@
 <?php
 
-// TODO: Filtros no andan.
-
 class VialidadConstructionItemListAction extends BaseAction {
 
 	function VialidadConstructionItemListAction() {

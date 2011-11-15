@@ -19,27 +19,13 @@ class VialidadSupplyListAction extends BaseAction {
 		}
 		
 		$module = 'Vialidad';
-		
 		$smarty->assign('module',$module);
 
-		if (isset($_GET['page']))
-			$page = $_GET['page'];
+		$filters = $_GET["filters"];
+		$pager = SupplyQuery::create()->createPager($filters, $_GET["page"], $filters["perPage"]);
 		
-		$smarty->assign('page',$page);
-
-		$supplyPeer = new SupplyPeer();
-
-		if (!empty($_GET['filters'])){
-			$filters = $_GET['filters'];
-			$this->applyFilters($supplyPeer,$filters,$smarty);
-		}
-
-		if (isset($page))
-			$pager = $supplyPeer->getAllPaginatedFiltered($page);
-		else
-			$pager = $supplyPeer->getAllPaginatedFiltered();
-		
-		$smarty->assign('supplies',$pager->getResult());
+		$smarty->assign('filters', $filters);
+		$smarty->assign('supplies',$pager->getResults());
 		$smarty->assign("pager",$pager);
 
 		$url = "Main.php?do=vialidadSupplyList";

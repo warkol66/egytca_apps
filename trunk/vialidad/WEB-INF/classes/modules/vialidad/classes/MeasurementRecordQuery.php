@@ -26,12 +26,21 @@ class MeasurementRecordQuery extends BaseMeasurementRecordQuery {
 	public function addFilter($filterName, $filterValue) {
 
 		$filterName = ucfirst($filterName);
+		
+		// empty() no sirve porque algunos filtros admiten 0 como valor
+		if (!isset($filterValue) || $filterValue == null)
+			return $this;
 
 		switch ($filterName) {
 			case 'SearchString':
 				$this->filterByName("%$filterValue%", Criteria::LIKE);
 				break;
-
+			case 'DateFrom':
+				$this->filterByMeasurementdate($filterValue, Criteria::GREATER_EQUAL);
+				break;
+			case 'DateTo':
+				$this->filterByMeasurementdate($filterValue, Criteria::LESS_EQUAL);
+				break;
 			default:
 				if (in_array($filterName, MeasurementRecordPeer::getFieldNames(BasePeer::TYPE_PHPNAME)))
 						$this->filterBy($filterName, $filterValue);

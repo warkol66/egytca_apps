@@ -23,19 +23,16 @@ class VialidadConstructionsListAction extends BaseAction {
 
 		$smarty->assign("message",$_GET["message"]);
 
-		$constructionPeer = new ConstructionPeer;
 		$filters = $_GET["filters"];
-
-		$this->applyFilters($constructionPeer, $filters, $smarty);
-
-		$pager = $constructionPeer->getAllPaginatedFiltered($_GET["page"]);
+		$pager = ConstructionQuery::create()->createPager($filters, $_GET["page"], $filters["perPage"]);
 
 		$url = "Main.php?do=vialidadConstructionsList";
 		foreach ($filters as $key => $value)
 			$url .= "&filters[$key]=$value";
 		$smarty->assign("url",$url);
 
-		$smarty->assign("constructions",$pager->getResult());
+		$smarty->assign("filters", $filters);
+		$smarty->assign("constructions",$pager->getResults());
 		$smarty->assign("pager",$pager);
 
 		return $mapping->findForwardConfig('success');

@@ -26,6 +26,10 @@ class SupplierQuery extends BaseSupplierQuery {
 	public function addFilter($filterName, $filterValue) {
 
 		$filterName = ucfirst($filterName);
+		
+		// empty() no sirve porque algunos filtros admiten 0 como valor
+		if (!isset($filterValue) || $filterValue == null)
+			return $this;
 
 		switch ($filterName) {
 			case 'SearchString':
