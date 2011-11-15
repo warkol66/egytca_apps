@@ -31,6 +31,9 @@ class VialidadContractsListAction extends BaseAction {
 			$url .= "&filters[$key]=$value";
 		$smarty->assign("url",$url);
 
+		if (!empty($filters["contractorid"]))
+			$smarty->assign("defaultContractorValue",ContractorQuery::create()->findPk($filters["contractorid"]));
+		
 		$smarty->assign("filters", $filters);
 		$smarty->assign("contracts",$pager->getResults());
 		$smarty->assign("pager",$pager);

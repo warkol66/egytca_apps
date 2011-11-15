@@ -30,6 +30,12 @@ class VialidadConstructionsListAction extends BaseAction {
 		foreach ($filters as $key => $value)
 			$url .= "&filters[$key]=$value";
 		$smarty->assign("url",$url);
+		
+		if (!empty($filters["contractid"]))
+			$smarty->assign("defaultContractValue",ContractQuery::create()->findPk($filters["contractid"]));
+		
+		if (!empty($filters["verifierid"]))
+			$smarty->assign("defaultVerifierValue",VerifierQuery::create()->findPk($filters["verifierid"]));
 
 		$smarty->assign("filters", $filters);
 		$smarty->assign("constructions",$pager->getResults());

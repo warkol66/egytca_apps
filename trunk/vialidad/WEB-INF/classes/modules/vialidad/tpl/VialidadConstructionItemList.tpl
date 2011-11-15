@@ -29,19 +29,17 @@
 				<form action='Main.php' method='get'>
 					<input type="hidden" name="do" value="vialidadConstructionItemList" />
 					<p>
-						<label for="filters[searchString]">Nombre:</label>
+						<label for="filters[searchString]">Nombre</label>
 						<input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el nombre a buscar" />
 					</p>
 					<p>
-						<label for="filters[constructionid]">Obra:</label>
 						<div style="position: relative;z-index:11000;">
-						|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_constructions" url="Main.php?do=vialidadConstructionsAutocompleteListX" hiddenName="filters[constructionid]" disableSubmit="button_filtersSubmit"-|
+						|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_constructions" url="Main.php?do=vialidadConstructionsAutocompleteListX" hiddenName="filters[constructionid]" disableSubmit="button_filtersSubmit" label="Obra" defaultValue=$defaultConstructionValue-|
 						</div>
 					</p>
 					<p>
-						<label for="filters[contractid]">Contrato:</label>
 						<div style="position: relative;z-index:10000;">
-						|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_contracts" url="Main.php?do=vialidadContractsAutocompleteListX" hiddenName="filters[contractid]" disableSubmit="button_filtersSubmit"-|
+						|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_contracts" url="Main.php?do=vialidadContractsAutocompleteListX" hiddenName="filters[contractid]" disableSubmit="button_filtersSubmit" label="Contrato" defaultValue=$defaultContractValue-|
 						</div>
 					</p>
 					&nbsp;&nbsp;

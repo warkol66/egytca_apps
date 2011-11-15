@@ -34,19 +34,17 @@
 		<td colspan='3' class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Buscar obra</a><div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get'>
 			<input type="hidden" name="do" value="vialidadConstructionsList" />
 			<p>
-				<label for="filters[searchString]">Nombre:</label>
+				<label for="filters[searchString]">Nombre</label>
 				<input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="30" />
 			</p>
 			<p>
-				<label for="filters[contractid]">Contrato:</label>
 				<div div="div_filters[contractid]" style="position: relative;z-index:11000;">
-				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_contracts" url="Main.php?do=vialidadContractsAutocompleteListX" hiddenName="filters[contractid]" disableSubmit="button_filtersSubmit"-|
+				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_contracts" url="Main.php?do=vialidadContractsAutocompleteListX" hiddenName="filters[contractid]" disableSubmit="button_filtersSubmit" label="Contrato" defaultValue=$defaultContractValue-|
 				</div>
 			</p>
 			<p>
-				<label for="filters[verifierid]">Verificador:</label>
 				<div div="div_filters[verifierid]" style="position: relative;z-index:10000;">
-				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_verifiers" url="Main.php?do=affiliatesVerifiersAutocompleteListX" hiddenName="filters[verifierid]" disableSubmit="button_filtersSubmit"-|
+				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_verifiers" url="Main.php?do=affiliatesVerifiersAutocompleteListX" hiddenName="filters[verifierid]" disableSubmit="button_filtersSubmit" label="Verificador" defaultValue=$defaultVerifierValue-|
 				</div>
 			</p>
 			&nbsp;&nbsp;<input id="button_filtersSubmit" type='submit' value='Buscar' />
