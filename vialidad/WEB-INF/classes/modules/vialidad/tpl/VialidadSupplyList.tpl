@@ -14,7 +14,6 @@
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;">
 				<form action='Main.php' method='get' style="display:inline;">
 					<p>Texto: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" /></p>
-					<p>Resultados por página |-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getRowsPerPage()-|</p>
 					<p>
 						<input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
 						<input type="hidden" name="do" value="vialidadSupplyList" />
@@ -92,7 +91,7 @@
 		|-/foreach-|
 		|-/if-|
 		
-		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
+		|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
 			<td colspan="2" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 		</tr>

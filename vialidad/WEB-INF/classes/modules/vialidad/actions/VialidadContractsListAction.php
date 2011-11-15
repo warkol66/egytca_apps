@@ -23,19 +23,16 @@ class VialidadContractsListAction extends BaseAction {
 
 		$smarty->assign("message",$_GET["message"]);
 
-		$contractPeer = new ContractPeer;
 		$filters = $_GET["filters"];
-
-		$this->applyFilters($contractPeer, $filters, $smarty);
-
-		$pager = $contractPeer->getAllPaginatedFiltered($_GET["page"]);
+		$pager = ContractQuery::create()->createPager($filters, $_GET["page"], $filters["perPage"]);
 
 		$url = "Main.php?do=vialidadContractsList";
 		foreach ($filters as $key => $value)
 			$url .= "&filters[$key]=$value";
 		$smarty->assign("url",$url);
 
-		$smarty->assign("contracts",$pager->getResult());
+		$smarty->assign("filters", $filters);
+		$smarty->assign("contracts",$pager->getResults());
 		$smarty->assign("pager",$pager);
 
 		return $mapping->findForwardConfig('success');

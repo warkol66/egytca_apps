@@ -1,7 +1,5 @@
 <?php
 
-// TODO: Filtros no andan.
-
 class VialidadBulletinListAction extends BaseAction {
 
 	function VialidadBulletinListAction() {
@@ -19,27 +17,13 @@ class VialidadBulletinListAction extends BaseAction {
 		}
 		
 		$module = 'Vialidad';
-		
 		$smarty->assign('module',$module);
 
-		if (isset($_GET['page']))
-			$page = $_GET['page'];
+		$filters = $_GET["filters"];
+		$pager = BulletinQuery::create()->createPager($filters, $_GET["page"], $filters["perPage"]);
 		
-		$smarty->assign('page',$page);
-
-		$bulletinPeer = new BulletinPeer();
-
-		if (!empty($_GET['filters'])){
-			$filters = $_GET['filters'];
-			$this->applyFilters($bulletinPeer,$filters,$smarty);
-		}
-
-		if (isset($page))
-			$pager = $bulletinPeer->getAllPaginatedFiltered($page);
-		else
-			$pager = $bulletinPeer->getAllPaginatedFiltered();
-		
-		$smarty->assign('bulletins',$pager->getResult());
+		$smarty->assign("filters",$filters);
+		$smarty->assign('bulletins',$pager->getResults());
 		$smarty->assign("pager",$pager);
 
 		$url = "Main.php?do=vialidadBulletinList";
