@@ -15,17 +15,16 @@
 		<td colspan='3' class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Buscar Acta</a><div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get'>
 			<input type="hidden" name="do" value="vialidadMeasurementRecordsList" />
 			<p>
-				<label for="filters[constructionid]">Obra:</label>
 				<div style="position: relative;z-index:10000;">
-				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=vialidadConstructionsAutocompleteListX" hiddenName="filters[constructionid]" disableSubmit="button_filtersSubmit"-|
+				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=vialidadConstructionsAutocompleteListX" hiddenName="filters[constructionid]" disableSubmit="button_filtersSubmit" label="Obra" defaultValue=$defaultConstructionValue-|
 				</div>
 			</p>
 			<p>
 				Fecha
-				<label for="filters[measurementdate][min]">desde:</label>
+				<label for="filters[measurementdate][min]">desde</label>
 				<input name="filters[measurementdate][min]" type='text' value='|-if isset($filters.measurementdate.min)-||-$filters.measurementdate.min|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[measurementdate][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 				&nbsp;
-				<label for="filters[measurementdate][max]">hasta:</label>
+				<label for="filters[measurementdate][max]">hasta</label>
 				<input name="filters[measurementdate][max]" type='text' value='|-if isset($filters.measurementdate.max)-||-$filters.measurementdate.max|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[measurementdate][max]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			&nbsp;&nbsp;<input id="button_filtersSubmit" type='submit' value='Buscar' />
