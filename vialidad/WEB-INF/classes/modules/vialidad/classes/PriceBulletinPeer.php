@@ -15,6 +15,18 @@
  */
 class PriceBulletinPeer extends BasePriceBulletinPeer {
 	
+    /** Precio definitivo */
+    const PRICE_DEFINITIVE = "Definitivo";
+    
+    /** Precio provisorio */
+    const PRICE_PROVISORY = "Provisorio";
+    
+    /** Precio modificado a mano */
+    const PRICE_MODIFIED = "Modificado";
+    
+    /** Precio modificado a mano definitivo */
+    const PRICE_MODIFIED_DEFINITIVE = "Definitivo*";
+    
 	/**
 	 * Elimina un PriceBulletin.
 	 * 

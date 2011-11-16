@@ -31,21 +31,21 @@ class PriceBulletin extends BasePriceBulletin {
 	function getPrice(){
 		if (!is_null($this->getModifiedPrice())) {
 			$price["price"] = $this->getModifiedPrice();
-			$price["status"] = "Modificado";
+			$price["status"] = PriceBulletinPeer::PRICE_MODIFIED;
 			$price["modifiedOn"] = $this->getModifiedOn();
 		}
 		else if (!$this->getDefinitive() && !is_null($this->getDefinitiveOn())) {
 			$price["price"] = $this->getAveragePrice();
-			$price["status"] = "Definitivo*";
+			$price["status"] = PriceBulletinPeer::PRICE_MODIFIED_DEFINITIVE;
 			$price["definitiveOn"] = $this->getDefinitiveOn();
 		}
 		else if (!$this->getDefinitive() && is_null($this->getDefinitiveOn())) {
 			$price["price"] = $this->getAveragePrice();
-			$price["status"] = "Provisorio";
+			$price["status"] = PriceBulletinPeer::PRICE_PROVISORY;
 		}
 		else {
 			$price["price"] = $this->getAveragePrice();
-			$price["status"] = "Definitivo";
+			$price["status"] = PriceBulletinPeer::PRICE_DEFINITIVE;
 		}
 		return $price;
 	}
