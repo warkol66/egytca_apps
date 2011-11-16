@@ -22,10 +22,6 @@
 			</p>
 			|-if $action eq 'edit'-|
 			<p>
-				<label for="span_suggestedPrice">Precio Sugerido</label>
-				<span id="span_suggestedPrice">|-$suggestedPrice-|</span>
-			</p>
-			<p>
 				<label for="params[totalPrice]">Precio Total</label>
 				<input type="text" id="params[totalPrice]" name="params[totalPrice]" size="12" value="|-$certificate->getTotalPrice()-|" title="Precio total" />
 			</p>

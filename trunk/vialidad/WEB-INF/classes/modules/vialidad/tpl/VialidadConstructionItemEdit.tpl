@@ -35,6 +35,14 @@
 		</select>
 	</p>
 	<p>
+		<label for="span_suggestedPrice">Precio Sugerido</label>
+		<span id="span_suggestedPrice">|-$suggestedPrice-|</span>
+	</p>
+	<p>
+		<label for="params[price]">Precio</label>
+		<input name="params[price]" type="text" value="|-$item->getPrice()-|" size="15" />
+	</p>
+	<p>
 		|-if $action eq 'edit'-|
 		<input type="hidden" name="id" id="id" value="|-$item->getid()-|" />
 		|-/if-|
@@ -84,14 +92,10 @@
 			|-/if-|
 		</tbody>
 		<tfoot>
-			<tr>
-			  <td colspan="3" class="thFillTitle"><p>Total 
-	<input name="params[price1]2" type="text" value="" size="15" /> 
-</p><p id="message_invalid_proportions" style="display:none">Proporciones inválidas</p>
-	
-<p id="message_incomplete_proportions" style="display:none">Item incompleto</p>
-&nbsp;</td>
-			</tr>
+			<tr><td align="center" colspan="3" class="thFillTitle">
+				<span id="message_invalid_proportions" style="display:none">Proporciones inválidas</span>
+				<span id="message_incomplete_proportions" style="display:none">Item incompleto</span>
+			</td></tr>
 		</tfoot>
 	</table>
 </div>
