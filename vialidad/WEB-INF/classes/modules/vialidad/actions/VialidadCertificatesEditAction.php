@@ -5,6 +5,22 @@ class VialidadCertificatesEditAction extends BaseAction {
 	function VialidadCertificatesEditAction() {
 		;
 	}
+	
+	function precioSugerido($certificate) {
+		
+		$measurementRecordId = $certificate->getMeasurementrecordid();
+		$relations = MeasurementRecordRelationQuery::create()
+			->filterByMeasurementrecordid($measurementRecordId)->find();
+		
+		$suggestedPrice = 0;
+		
+		foreach ($relations as $relation) {
+			$item = ConstructionItemQuery::create()->findOneById($relation->getItemId());
+			$suggestedPrice += $relation->getQuantity() * $item->getPrice();
+		}
+		
+		return $suggestedPrice;
+	}
 
 	function execute($mapping, $form, &$request, &$response) {
 
@@ -32,22 +48,11 @@ class VialidadCertificatesEditAction extends BaseAction {
 			if (empty($certificate)) {
 				$smarty->assign("notValidId","true");
 				$certificate = new Certificate();
+				$smarty->assign("action","create");
 			}
 			else {
-				/* Calculo del precio sugerido */
-				$measurementRecordId = $certificate->getMeasurementrecordid();
-				$relations = MeasurementRecordRelationQuery::create()
-					->filterByMeasurementrecordid($measurementRecordId)->find();
-			
-				$suggestedPrice = 0;
-				
-				foreach ($relations as $relation) {
-					$relativePrice = 1; // Reemplazar por precio del construction item. Esperando a que contesten duda por pivotal.
-					$suggestedPrice += $relation->getQuantity() * $relativePrice;
-				}
-				/* fin Calculo del precio sugerido */
-				
-				$smarty->assign("suggestedPrice", $suggestedPrice);
+				if (is_null($certificate->getTotalprice()))
+					$certificate->setTotalprice($this->precioSugerido($certificate));
 				$smarty->assign("action","edit");
 			}
 		}
