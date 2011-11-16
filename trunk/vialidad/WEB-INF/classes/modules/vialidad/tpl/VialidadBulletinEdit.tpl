@@ -85,7 +85,11 @@
                 <span>|-$priceInformation.price|system_numeric_format-|</span>
             </td>
             <td align="center">
+                |-if !$price->getDefinitive()-|
                 <a href="#lightbox|-$idx-|" rel="lightbox|-$idx-|" class="lbOn"><img src="images/clear.png" class="icon iconEdit"></a>
+                |-else-|
+                &nbsp;
+                |-/if-|
             </td>
 			|-else-|
 			<td align="center"><a href='Main.php?do=vialidadSupplyPriceEdit&amp;bulletinId=|-$bulletin->getId()-|&amp;supplyId=|-$supply->getId()-|'><img src="images/clear.png" class="icon iconEdit"></a></td>
