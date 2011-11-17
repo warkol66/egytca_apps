@@ -259,5 +259,29 @@
 		</vendor>
 
 	</table>
-    
+
+    <table phpName="CertificateItemPriceRelation" name="vialidad_certificateItemPriceRelation">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="certificateId" type="INTEGER" required="true" />
+        <column name="itemId" type="INTEGER" required="true" />
+        <column name="price" type="DECIMAL" size="12" scale="2" description="Precio" />
+
+        <behavior name="timestampable" />
+
+		<foreign-key foreignTable="vialidad_constructionItem" onDelete="cascade" >
+			<reference local="itemId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="vialidad_certificate" onDelete="cascade" >
+			<reference local="certificateId" foreign="id" />
+		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
 </database>
