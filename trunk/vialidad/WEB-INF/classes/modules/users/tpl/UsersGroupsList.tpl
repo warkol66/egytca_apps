@@ -35,7 +35,7 @@
 	</p>
 </form>
 </fieldset>
-
+|-if $configModule->get("users","useGroupCategories")-|
 <fieldset title="Lista de grupos y categorías del sistema">
 <legend>Acceso a categorías por grupos</legend>
 <table class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
@@ -77,7 +77,7 @@
 			</form>|-/if-|</td>
 	</tr>
 </table>
-</fieldset>
+</fieldset>|-/if-|
 |-/if-|
 <br />
 <fieldset title="Lista de grupos de usuarios del sistema">

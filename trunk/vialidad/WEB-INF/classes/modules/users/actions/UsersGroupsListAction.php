@@ -37,10 +37,12 @@ class UsersGroupsListAction extends BaseAction {
 			//voy a editar un grupo
 			$group = GroupPeer::get($_GET["group"]);
 			$smarty->assign("currentGroup",$group);
-			$groupCategories = $group->getCategories();
-			$smarty->assign("currentGroupCategories",$groupCategories);
-			$categories = $group->getCandidateCategories();
-			$smarty->assign("categories",$categories);
+			if (ConfigModule::get("users","useGroupCategories")) {
+				$groupCategories = $group->getCategories();
+				$smarty->assign("currentGroupCategories",$groupCategories);
+				$categories = $group->getCandidateCategories();
+				$smarty->assign("categories",$categories);
+			}
 			$smarty->assign("accion","edicion");
 		}
 		return $mapping->findForwardConfig('success');

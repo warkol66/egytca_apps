@@ -26,6 +26,7 @@ class ConfigModule {
 			"useTimezones" => false,
 			"forceFirstPasswordChange" => true,
 			"askForNewPasswordOnRecovery" => false,
+			"useGroupCategories" => false,
 			"useFilterByUserGroup" => true,
 			"passwordRecoveryExpirationTimeInHours" => 24
 		),
