@@ -48,7 +48,7 @@
 		
 		|-if "vialidadBulletinEdit"|security_has_access-|
 		<tr>
-			<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadBulletinEdit" class="addLink">Agregar Boletín</a></div></th>
+			<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadBulletinCreateFromOther" class="addLink">Agregar Boletín</a></div></th>
 		</tr>
 		|-/if-|
 		<tr class="thFillTitle"> 
@@ -103,9 +103,27 @@
 		|-/if-|
 		|-if "vialidadBulletinEdit"|security_has_access-|
 		<tr>
-			<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadBulletinEdit" class="addLink">Agregar Boletín</a></div></th>
+			<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadBulletinCreateFromOther" class="addLink">Agregar Boletín</a></div></th>
 		</tr>
 		|-/if-|
 		</tbody> 
 	</table> 
 </div>
+
+<script type="text/javascript">
+
+function copyItem(form) {
+	var fields = Form.serialize(form);
+	new Ajax.Updater(
+		{success: 'items_table_body'},
+		'Main.php?do=vialidadConstructionsAddItemFromOtherX',
+		{
+			method: 'post',
+			parameters: fields,
+			insertion: 'bottom',
+			evalScripts: true
+		}
+	);
+}
+
+</script>
