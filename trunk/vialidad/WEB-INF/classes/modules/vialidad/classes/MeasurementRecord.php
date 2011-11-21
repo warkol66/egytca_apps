@@ -30,6 +30,7 @@ class MeasurementRecord extends BaseMeasurementRecord {
 		$relation->setConstructionItem($item);
 		$relation->setMeasurementRecord($this);
 		$relation->setQuantity(0);
+		$relation->setPrice($relation->suggestedPrice());
 		$relation->setVerified(false);
 	}
 	

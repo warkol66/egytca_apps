@@ -5,22 +5,6 @@ class VialidadCertificatesEditAction extends BaseAction {
 	function VialidadCertificatesEditAction() {
 		;
 	}
-	
-	function precioSugerido($certificate) {
-		
-		$measurementRecordId = $certificate->getMeasurementrecordid();
-		$relations = MeasurementRecordRelationQuery::create()
-			->filterByMeasurementrecordid($measurementRecordId)->find();
-		
-		$suggestedPrice = 0;
-		
-		foreach ($relations as $relation) {
-			$item = ConstructionItemQuery::create()->findOneById($relation->getItemId());
-			$suggestedPrice += $relation->getQuantity() * $item->getPrice();
-		}
-		
-		return $suggestedPrice;
-	}
 
 	function execute($mapping, $form, &$request, &$response) {
 
@@ -51,8 +35,14 @@ class VialidadCertificatesEditAction extends BaseAction {
 				$smarty->assign("action","create");
 			}
 			else {
-				if (is_null($certificate->getTotalprice()))
-					$certificate->setTotalprice($this->precioSugerido($certificate));
+				$relations = MeasurementRecordRelationQuery::create()
+					->filterByMeasurementrecordid($certificate->getMeasurementrecordid())->find();
+				
+				//TODO confirmar
+				$certificate->setTotalprice($certificate->totalPrice());
+				////////////////
+
+				$smarty->assign("relations", $relations);
 				$smarty->assign("action","edit");
 			}
 		}

@@ -30,10 +30,33 @@ class CertificateQuery extends BaseCertificateQuery {
 		// empty() no sirve porque algunos filtros admiten 0 como valor
 		if (!isset($filterValue) || $filterValue == null)
 			return $this;
+		if (is_array($filterValue)) {
+			foreach ($filterValue as $value) {
+				if (!isset($value) || $value == null)
+					return $this;
+			}
+		}
 
 		switch ($filterName) {
 			case 'SearchString':
 				$this->filterByName("%$filterValue%", Criteria::LIKE);
+				break;
+			case 'Date':
+				$this->useMeasurementRecordQuery()->filterByMeasurementdate($filterValue, Criteria::IN)->endUse();
+				break;
+			case 'Constructionid':
+				$this->useMeasurementRecordQuery()->filterByConstructionid($filterValue)->endUse();
+				break;
+			case 'Contractid':
+				$this->useMeasurementRecordQuery()->
+					useConstructionQuery()->filterByContractid($filterValue)
+					->endUse()->endUse();
+				break;
+			case 'Contractorid':
+				$this->useMeasurementRecordQuery()->
+					useConstructionQuery()->
+					useContractQuery()->filterByContractorid($filterValue)
+					->endUse()->endUse();
 				break;
 			default:
 				if (in_array($filterName, MeasurementRecordPeer::getFieldNames(BasePeer::TYPE_PHPNAME))

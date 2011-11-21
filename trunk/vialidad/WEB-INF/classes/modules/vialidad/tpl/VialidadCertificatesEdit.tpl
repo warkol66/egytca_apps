@@ -22,13 +22,14 @@
 			</p>
 			|-if $action eq 'edit'-|
 			<p>
-				<label for="params[totalPrice]">Precio Total</label>
-				<input type="text" id="params[totalPrice]" name="params[totalPrice]" size="12" value="|-$certificate->getTotalPrice()-|" title="Precio total" />
+				<label for="totalPrice">Precio Total</label>
+				<span id="totalPrice" name="totalPrice" size="12" title="Precio total">|-$certificate->totalPrice()-|</span>
 			</p>
 			|-/if-|
 			<p>
 				|-if $action eq 'edit'-|
-				<input type="hidden" name="id" id="id" value="|-$certificate->getid()-|" />
+				<input type="hidden" name="id" value="|-$certificate->getid()-|" />
+				<input type="hidden" name="action" value="edit" />
 				|-/if-|
 				<input type="hidden" name="do" id="do" value="vialidadCertificatesDoEdit" />
 				<input type="submit" id="button_edit_certificate" name="button_edit_certificate" title="Aceptar" value="Guardar" />
@@ -37,10 +38,54 @@
 			</p>
 		</fieldset>
 	</form>
+	
+	|-if $action eq 'edit'-|
+	<div id=div_itemPrices>
+	<table id="table_itemPrices" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
+		<thead>
+		<tr class="thFillTitle"> 
+			<th width="50%">Item</th> 
+			<th width="20%">Cantidad</th> 
+			<th width="20%">Precio</th>
+			<th width="10%">&nbsp;</th>
+		</tr>
+		</thead>
+		<tbody>
+		|-if $relations->count() eq 0-|
+		<tr>
+			<td colspan="4">No hay Items que mostrar</td>
+		</tr>
+		|-else-|
+		|-foreach from=$relations item=relation name=for_relations-|
+		<tr>
+			|-assign var=item value=$relation->getConstructionItem()-|
+			<td>|-$item->getName()-|</td>
+			<td><span id="quantity|-$relation->getId()-|">|-$relation->getQuantity()-|</span></td>
+			<td><span id="price|-$relation->getId()-|">|-$relation->getPrice()-|</span></td>
+			<td align="center"><input id="button_priceEdit|-$relation->getId()-|" type="button" class="icon iconEdit"/></td>
+		</tr>
+		|-/foreach-|
+		|-/if-|
+		</tbody>
+	</table>
+	</div>
+	|-/if-|
 </div>
 
 
 <script type="text/javascript">
+	
+var oldPrice = 0;
+
+Event.observe(
+	window,
+	'load',
+	function() {
+		|-if $action eq 'edit'-|
+		attachInPlaceEditors();
+		|-/if-|
+	}
+);
 	
 function validateForm() {
 	var submit = true;
@@ -54,6 +99,40 @@ function validateForm() {
 	}
 	
 	return submit;
+}
+
+function attachInPlaceEditors() {
+	|-foreach from=$relations item=relation-|
+	new Ajax.InPlaceEditor(
+		'price|-$relation->getId()-|',
+		'Main.php?do=vialidadMeasurementRecordRelationsEditFieldX',
+		{
+			rows: 1,
+			cols: 12,
+			okText: 'Guardar',
+			cancelText: 'Cancelar',
+			savingText: 'Guardando...',
+			hoverClassName: 'in_place_hover',
+			highlightColor: '#b7e0ff',
+			cancelControl: 'button',
+			savingClassName: 'inProgress',
+			clickToEditText: 'Haga click para editar',
+			externalControl: 'button_priceEdit|-$relation->getId()-|',
+			callback: function(form, value) {
+				return 'id=|-$relation->getId()-|&paramName=price&paramValue=' + encodeURIComponent(value);
+			},
+			onComplete: function(transport, element) {
+				element.innerHTML = element.innerHTML.replace(/(\n|\r)+$/, '');
+				new Effect.Highlight(element, { startcolor: this.options.highlightColor });
+				updateTotalPrice();
+			}
+		}
+	);
+	|-/foreach-|
+}
+
+function updateTotalPrice() {
+	// codigo para actualizar precio
 }
 
 </script>
