@@ -14,5 +14,18 @@
  * @package    propel.generator.vialidad.classes
  */
 class Certificate extends BaseCertificate {
+	
+	function totalPrice() {
+		
+		$measurementRecordId = $this->getMeasurementrecordid();
+		$relations = MeasurementRecordRelationQuery::create()
+			->filterByMeasurementrecordid($measurementRecordId)->find();
+		
+		$price = 0;
+		foreach ($relations as $relation) {
+			$price += $relation->getPrice();
+		}
+		return $price;
+	}
 
 } // Certificate

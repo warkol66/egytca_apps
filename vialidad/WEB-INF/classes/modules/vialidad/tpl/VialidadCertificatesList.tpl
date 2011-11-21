@@ -14,7 +14,29 @@
 	<tr>
 		<td colspan='3' class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Buscar Certificado</a><div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get'>
 			<input type="hidden" name="do" value="vialidadCertificatesList" />
-			
+			<p>
+				<div style="position: relative;z-index:12000;">
+				|-include id="autocompleter_construction" file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=vialidadConstructionsAutocompleteListX" hiddenName="filters[constructionid]" disableSubmit="button_filtersSubmit" label="Obra" defaultValue=$defaultConstructionValue-|
+				</div>
+			</p>
+			<p>
+				<div style="position: relative;z-index:11000;">
+				|-include id="autocompleter_contractor" file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=affiliatesContractorsAutocompleteListX" hiddenName="filters[contractorid]" disableSubmit="button_filtersSubmit" label="Contratista" defaultValue=$defaultContractorValue-|
+				</div>
+			</p>
+			<p>
+				<div style="position: relative;z-index:10000;">
+				|-include id="autocompleter_contract" file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=vialidadContractsAutocompleteListX" hiddenName="filters[contractid]" disableSubmit="button_filtersSubmit" label="Contrato" defaultValue=$defaultContractValue-|
+				</div>
+			</p>
+			<p>
+				Fecha
+				<label for="filters[date][min]">desde</label>
+				<input name="filters[date][min]" type='text' value='|-if isset($filters.date.min)-||-$filters.date.min|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[date][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				&nbsp;
+				<label for="filters[date][max]">hasta</label>
+				<input name="filters[date][max]" type='text' value='|-if isset($filters.date.max)-||-$filters.date.max|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[date][max]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+			</p>
 			&nbsp;&nbsp;<input id="button_filtersSubmit" type='submit' value='Buscar' />
 			|-if $filters|@count gt 0-|<input name="removeFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=vialidadCertificatesList'" />|-/if-|
 		</form></div></td>
@@ -30,7 +52,7 @@
 	</thead>
 	<tbody>
 	|-if $certificates->count() eq 0-|
-	<tr><td colspan="3">No hay certificados cargados en el sistema</td></tr>
+	<tr><td colspan="3">No hay certificados que mostrar</td></tr>
 	|-else-||-foreach from=$certificates item=certificate name=for_certificates-|
 	<tr>
 		|-assign var=record value=$certificate->getMeasurementRecord()-|

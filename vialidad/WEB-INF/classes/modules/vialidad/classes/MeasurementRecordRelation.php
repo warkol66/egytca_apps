@@ -14,5 +14,26 @@
  * @package    propel.generator.vialidad.classes
  */
 class MeasurementRecordRelation extends BaseMeasurementRecordRelation {
+	
+	/**
+	 * Calcula el precio sugerido para el ConstructionItem asociado en el
+	 * período del MeasurementRecord asociado.
+	 */
+	function suggestedPrice() {
+		$unitPrice = 0;
+		
+		$periodo = $this->getMeasurementRecord()->getMeasurementdate('%d/%m/%Y');
+		$bulletin = BulletinQuery::create()->filterByPeriodo($periodo)->findOne();
+		
+		$itemRelations = ConstructionItemRelationQuery::create()
+			->filterByConstructionItem($this->getConstructionItem())->find();
+		foreach ($itemRelations as $itemRelation) {
+			$priceBulletin = PriceBulletinQuery::create()->filterBySupplyid($itemRelation->getSupplyId())
+				->filterByBulletin($bulletin)->findOne();
+			$unitPrice += $priceBulletin->getAverageprice() * $itemRelation->getProportion() / 100;
+		}
+
+		return $unitPrice * $quantity;
+	}
 
 } // MeasurementRecordRelation

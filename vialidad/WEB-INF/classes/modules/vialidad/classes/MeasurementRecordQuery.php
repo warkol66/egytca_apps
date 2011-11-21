@@ -16,6 +16,17 @@
 class MeasurementRecordQuery extends BaseMeasurementRecordQuery {
 	
 	/**
+	 * Filtra la Query por fechas con mismo mes y año
+	 */
+	public function filterByPeriodo($date) {
+		$array = split('/', $date); // $array: (day, month, year)
+		$range['min'] = DateTime::createFromFormat('d/m/Y', '1/'.$array[1].'/'.$array[2]);
+		$lastDayOfMonth = date("t", strtotime($array[1].'/'.$array[0].'/'.$array[2]));
+		$range['max'] = DateTime::createFromFormat('d/m/Y', $lastDayOfMonth.'/'.$array[1].'/'.$array[2]);
+		return $this->filterByMeasurementdate($range);
+	}
+	
+	/**
 	 * Permite agregar un filtro personalizado a la Query, que puede ser
 	 * traducido al campo correspondiente.
 	 *
@@ -30,6 +41,12 @@ class MeasurementRecordQuery extends BaseMeasurementRecordQuery {
 		// empty() no sirve porque algunos filtros admiten 0 como valor
 		if (!isset($filterValue) || $filterValue == null)
 			return $this;
+		if (is_array($filterValue)) {
+			foreach ($filterValue as $value) {
+				if (!isset($value) || $value == null)
+					return $this;
+			}
+		}
 
 		switch ($filterName) {
 			case 'SearchString':

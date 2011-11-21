@@ -35,14 +35,6 @@
 		</select>
 	</p>
 	<p>
-		<label for="span_suggestedPrice">Precio Sugerido</label>
-		<span id="span_suggestedPrice">|-$suggestedPrice-|</span>
-	</p>
-	<p>
-		<label for="params[price]">Precio</label>
-		<input name="params[price]" type="text" value="|-$item->getPrice()-|" size="15" />
-	</p>
-	<p>
 		|-if $action eq 'edit'-|
 		<input type="hidden" name="id" id="id" value="|-$item->getid()-|" />
 		|-/if-|
