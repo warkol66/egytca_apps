@@ -15,7 +15,7 @@
  */
 class Certificate extends BaseCertificate {
 	
-	function totalPrice() {
+	function calculatePrice() {
 		
 		$measurementRecordId = $this->getMeasurementrecordid();
 		$relations = MeasurementRecordRelationQuery::create()
@@ -23,7 +23,7 @@ class Certificate extends BaseCertificate {
 		
 		$price = 0;
 		foreach ($relations as $relation) {
-			$price += $relation->getPrice();
+			$price += $relation->getTotalPrice();
 		}
 		return $price;
 	}
