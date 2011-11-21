@@ -23,7 +23,7 @@
 			|-if $action eq 'edit'-|
 			<p>
 				<label for="totalPrice">Precio Total</label>
-				<span id="totalPrice" name="totalPrice" size="12" title="Precio total">|-$certificate->totalPrice()-|</span>
+				<span id="totalPrice" name="totalPrice" size="12" title="Precio total">|-$certificate->calculatePrice()-|</span>
 			</p>
 			|-/if-|
 			<p>
@@ -45,15 +45,16 @@
 		<thead>
 		<tr class="thFillTitle"> 
 			<th width="50%">Item</th> 
-			<th width="20%">Cantidad</th> 
-			<th width="20%">Precio</th>
-			<th width="10%">&nbsp;</th>
+			<th width="15%">Cantidad</th> 
+			<th width="15%">Precio por cantidad 1</th>
+			<th width="15%">Precio total</th>
+			<th width="5%">&nbsp;</th>
 		</tr>
 		</thead>
 		<tbody>
 		|-if $relations->count() eq 0-|
 		<tr>
-			<td colspan="4">No hay Items que mostrar</td>
+			<td colspan="5">No hay Items que mostrar</td>
 		</tr>
 		|-else-|
 		|-foreach from=$relations item=relation name=for_relations-|
@@ -62,6 +63,7 @@
 			<td>|-$item->getName()-|</td>
 			<td><span id="quantity|-$relation->getId()-|">|-$relation->getQuantity()-|</span></td>
 			<td><span id="price|-$relation->getId()-|">|-$relation->getPrice()-|</span></td>
+			<td><span id="totalPrice|-$relation->getId()-|">|-$relation->getTotalPrice()-|</span></td>
 			<td align="center"><input id="button_priceEdit|-$relation->getId()-|" type="button" class="icon iconEdit"/></td>
 		</tr>
 		|-/foreach-|
@@ -124,15 +126,34 @@ function attachInPlaceEditors() {
 			onComplete: function(transport, element) {
 				element.innerHTML = element.innerHTML.replace(/(\n|\r)+$/, '');
 				new Effect.Highlight(element, { startcolor: this.options.highlightColor });
-				updateTotalPrice();
+				updateCertificateTotalPrice();
+				updateItemTotalPrice('|-$relation->getId()-|');
 			}
 		}
 	);
 	|-/foreach-|
 }
 
-function updateTotalPrice() {
-	// codigo para actualizar precio
+function updateCertificateTotalPrice() {
+	new Ajax.Updater(
+		{success: 'totalPrice'},
+		'Main.php?do=vialidadCertificatesGetTotalPriceX',
+		{
+			method: 'post',
+			parameters: {id: '|-$certificate->getid()-|'}
+		}
+	);
+}
+
+function updateItemTotalPrice(relationId) {
+	new Ajax.Updater(
+		{success: 'totalPrice'+relationId},
+		'Main.php?do=vialidadMeasurementRecordRelationsGetTotalPriceX',
+		{
+			method: 'post',
+			parameters: {id: relationId}
+		}
+	);
 }
 
 </script>

@@ -33,7 +33,20 @@ class MeasurementRecordRelation extends BaseMeasurementRecordRelation {
 			$unitPrice += $priceBulletin->getAverageprice() * $itemRelation->getProportion() / 100;
 		}
 
-		return $unitPrice * $quantity;
+		return $unitPrice;
+	}
+	
+	function getTotalPrice() {
+		return $this->getPrice() * $this->getQuantity();
+	}
+	
+	function postSave(PropelPDO $con = null) {
+		parent::postSave($con);
+		$certificate = CertificateQuery::create()->filterByMeasurementrecordid($this->getMeasurementrecordid())->findOne();
+		if (!is_null($certificate)) { // el Certificate puede no existir
+			$certificate->setTotalprice($certificate->calculatePrice());
+			$certificate->save();
+		}
 	}
 
 } // MeasurementRecordRelation

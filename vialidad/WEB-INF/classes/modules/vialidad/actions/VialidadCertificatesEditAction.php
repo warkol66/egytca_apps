@@ -37,10 +37,6 @@ class VialidadCertificatesEditAction extends BaseAction {
 			else {
 				$relations = MeasurementRecordRelationQuery::create()
 					->filterByMeasurementrecordid($certificate->getMeasurementrecordid())->find();
-				
-				//TODO confirmar
-				$certificate->setTotalprice($certificate->totalPrice());
-				////////////////
 
 				$smarty->assign("relations", $relations);
 				$smarty->assign("action","edit");
