@@ -16,6 +16,43 @@
 class Bulletin extends BaseBulletin {
 	
 	/**
+	 * Inicializa un bulletin con varios campos de otro.
+	 * 
+	 * @param Bulletin $other the bulletin to be copied.
+	 */
+	public function createFrom($other) {
+		
+	}
+	
+	/**
+	 * Replica los priceBulletins de otro bulletin (aunque algunos
+	 * campos como "definitive" se inicializan en false).
+	 * 
+	 * @param Bulletin $other the bulletin to be copied.
+	 */
+	public function copyPricesFrom($other) {
+		foreach ($other->getPriceBulletins() as $priceBulletin) {
+			
+			$newPriceBulletin = new PriceBulletin();
+			$priceBulletin->copyInto($newPriceBulletin);
+			$newPriceBulletin->setBulletin($this);
+			
+			$newPriceBulletin->setPublish(false);
+			$newPriceBulletin->setAverageprice(0);
+			$newPriceBulletin->setDefinitive(false);
+			$newPriceBulletin->setDefinitive1(false);
+			$newPriceBulletin->setSupplierdocument1(null);
+			$newPriceBulletin->setDefinitive2(false);
+			$newPriceBulletin->setSupplierdocument2(null);
+			$newPriceBulletin->setDefinitive3(false);
+			$newPriceBulletin->setSupplierdocument3(null);
+		
+			$newPriceBulletin->save();
+			$this->save();	
+		}
+	}
+	
+	/**
 	 * Determina la existencia de una relacion con un determindo Supply.
 	 * @param $supply Supply
 	 */
