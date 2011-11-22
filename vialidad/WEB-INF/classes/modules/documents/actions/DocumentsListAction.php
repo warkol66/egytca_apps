@@ -47,7 +47,7 @@ class DocumentsListAction extends BaseAction {
 		$smarty->assign("pager",$pager);
 
 		//obtencion de documentos por categoria.
-		if (isset($_GET['categoryId'])) {
+		if (class_exists("Category") && isset($_GET['categoryId'])) {
 
 			if ($_GET['categoryId'] > 0) {
 

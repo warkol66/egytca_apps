@@ -28,14 +28,18 @@ class DocumentsEditAction extends BaseAction {
 		$smarty->assign("module",$module);
 
 		$documentPeer= new DocumentPeer();
-		$categoryPeer = new CategoryPeer();
+
 
 		////////////
 		//obtengo las categorias que el usuario puede acceder
 		$user = Common::getAdminLogged();
 		$smarty->assign('user',$user);
-		$categories = $categoryPeer->getAllParentsByUserAndModule($user,$module);
-		$smarty->assign("categories",$categories);
+
+		if (class_exists("Category")) {
+			$categoryPeer = new CategoryPeer();
+			$categories = $categoryPeer->getAllParentsByUserAndModule($user,$module);
+			$smarty->assign("categories",$categories);
+		}
 
 		$smarty->assign("documentsUpload", true); //en el template se realizan subidas de documentos
 		$documentTypes = DocumentPeer::getDocumentsTypesConfig();
@@ -72,7 +76,7 @@ class DocumentsEditAction extends BaseAction {
 			$password = $_POST['password'];
 
 			//validacion de password
-			if (!$document->checkPasswordValidation($password))
+			if (!$document->checkPassword($password))
 				return $mapping->findForwardConfig('failure-edit');
 
 			$smarty->assign("action","edit");
@@ -85,9 +89,6 @@ class DocumentsEditAction extends BaseAction {
 		}
 		else
 			$smarty->assign("action","create");
-
-		//caso de creacion de nuevo documento
-		$categoryPeer = new CategoryPeer();
 
 		$smarty->assign("docscategory",$categoryId);
 		$smarty->assign("date",date("d/m/y"));
