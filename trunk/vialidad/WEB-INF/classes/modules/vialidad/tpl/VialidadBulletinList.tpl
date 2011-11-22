@@ -48,7 +48,7 @@
 		
 		|-if "vialidadBulletinEdit"|security_has_access-|
 		<tr>
-			<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadBulletinCreateFromOther" class="addLink">Agregar Boletín</a></div></th>
+			<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadBulletinEdit" class="addLink">Agregar Boletín</a></div></th>
 		</tr>
 		|-/if-|
 		<tr class="thFillTitle"> 
@@ -103,7 +103,7 @@
 		|-/if-|
 		|-if "vialidadBulletinEdit"|security_has_access-|
 		<tr>
-			<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadBulletinCreateFromOther" class="addLink">Agregar Boletín</a></div></th>
+			<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadBulletinEdit" class="addLink">Agregar Boletín</a></div></th>
 		</tr>
 		|-/if-|
 		</tbody> 

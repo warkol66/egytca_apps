@@ -43,6 +43,11 @@ class VialidadBulletinDoEditAction extends BaseAction {
 			$bulletin = Common::setObjectFromParams($bulletin,$bulletinParams);
 			if (!$bulletin->save())
 				return $this->returnFailure($mapping,$smarty,$bulletin);
+			
+			if ($_POST["action"] == "copy") {
+				$toBeCopied = BulletinQuery::create()->findOneById($_POST['toBeCopiedId']);
+				$bulletin->copyPricesFrom($toBeCopied);
+			}
 
 			$params["id"] = $bulletin->getId();
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');

@@ -50,10 +50,21 @@ class VialidadBulletinEditAction extends BaseAction {
 			$smarty->assign("prices", $prices);
 			
 		} else {
-			//voy a crear un objeto nuevo
-			$bulletin = new Bulletin();
-			$smarty->assign("bulletin",$bulletin);
-			$smarty->assign("action","create");
+			//voy a crear un objeto nuevo a partir del último bulletin
+			
+			$last = BulletinQuery::create()->orderByBulletindate(Criteria::DESC)->findOne();
+			$last->setNumber($last->getNumber()+1);
+			$date = $last->getBulletindate('%m/%d/%Y');
+			$last->setBulletindate(date('d-m-Y',strtotime("$date +1 month")));
+			$last->setComments(null);
+			$last->setPublished(false);
+			
+			$new = new Bulletin();
+			$last->copyInto($new);
+			
+			$smarty->assign('toBeCopiedId', $last->getId());
+			$smarty->assign("bulletin",$new);
+			$smarty->assign("action","copy");
 		}
 
 		$smarty->assign("filters",$_GET["filters"]);
