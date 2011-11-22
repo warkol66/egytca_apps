@@ -26,8 +26,6 @@ class DocumentsDoEditAction extends BaseAction {
 	
 	function failureSmartySetup($smarty,$document) {
 		
-		require_once('CategoryPeer.php');
-		
 		//obtengo las categorias que el usuario puede acceder	
 		$user = Common::getAdminLogged();
 		$smarty->assign('user',$user);
@@ -63,7 +61,7 @@ class DocumentsDoEditAction extends BaseAction {
 			$password = $_POST["old_password"];
 			
 			//validacion de password
-			if (!$document->checkPasswordValidation($password)) {
+			if (!$document->checkPassword($password)) {
 
 				$this->failureSmartySetup($smarty,$document);
 				$smarty->assign('message','wrongPassword');

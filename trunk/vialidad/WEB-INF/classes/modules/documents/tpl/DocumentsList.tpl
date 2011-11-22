@@ -43,41 +43,35 @@ function checkPassDelete(form){
 	<div class="successMessage">El documento fue editado satisfactoriamente</div> 
 |-/if-|
 </div>
-<p style="text-align:right;"><a href="javascript:void(null);" onClick="switch_vis('searchOptions','block');" class="searchLink">##documents,9,Buscar Documentos##</a></p>
-|-include file='DocumentsSearchDialogInclude.tpl' do="documentsList"-|
-
 |-if $filters eq ''-|
 	|-if (isset($selectedModule))-|
 		|-*include file='DocumentsCategoriesListInclude.tpl' user=$user selectedModule=$selectedModule selectedCategory=$selectedCategory*-|
-			<form action="Main.php" method="get"><p><label for="category">Categoría</label>
+			<form action="Main.php" method="get">
+			|-if $parentCategories|@count gt 0-|
+			<p><label for="category">Categoría</label>
 				<select name="categoryId" onchange="this.form.submit();">
 					<option value=''>Sin Categoría</option>
 				|-include file="DocumentsCategoriesListSelectInclude.tpl" categories=$parentCategories user=$user selectedCategoryId=$filters.categoryId count='0'-|
 					</select>
+					|-/if-|
 						<input type="hidden" name="do" value="documentsList" />
 			</p></form>
 	|-else-|
 		|-*include file='DocumentsCategoriesListInclude.tpl' user=$user generalParentCategories=$generalParentCategories categoryId=$categoryId documentsWithoutCategoryCount=$documentsWithoutCategoryCount*-|
-			<form action="Main.php" method="get"><p><label for="category">Categoría</label>
+			<form action="Main.php" method="get">
+			|-if $parentCategories|@count gt 0-|
+			<p><label for="category">Categoría</label>
 				<select name="categoryId" onchange="this.form.submit();">
 					<option value=''>Sin Categoría</option>
 				|-include file="DocumentsCategoriesListSelectInclude.tpl" categories=$parentCategories user=$user selectedCategoryId=$filters.categoryId count='0'-|
 					</select>
+					|-/if-|
 						<input type="hidden" name="do" value="documentsList" />
 			</p></form>
 	|-/if-|
 |-/if-|
 
 |-if $documents neq ''-|
-	<fieldset name="Listado de documentos disponibles">
-		<legend>|-if $selectedCategory neq ''-|
-			##documents,29,Documentos disponibles en la categoría## |-$selectedCategory->getName()-|
-		|-elseif $filters neq ''-|
-			##documents,27,Documentos obtenidos de la búsqueda##
-		|-else-|
-			##documents,28,Documentos disponibles##
-		|-/if-|</legend>
-	</fieldset>
 		<table id="table-documents" width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders">
 		<tr>
 			<td colspan="7" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">##documents,9,Buscar Documentos##</a>
@@ -112,7 +106,7 @@ function checkPassDelete(form){
 			|-foreach from=$documents item=document name=document-|
 
 			<tr id="row_|-$document->getId()-|"valign="top">	
-				<td nowrap="nowrap">|-$document->getDocumentdate()|date_format:"%m-%Y"-|</td>
+				<td nowrap="nowrap">|-$document->getDocumentdate()|date_format:"%d-%m-%Y"-|</td>
 				<td>|-$document->getTitle()-|</td>
 				<td>|-$document->getRealfilename()-||-if $document->getPassword() eq ""-||-else-|(*)|-/if-|</td>
 				<td>|-$document->getDescription()-|</td>

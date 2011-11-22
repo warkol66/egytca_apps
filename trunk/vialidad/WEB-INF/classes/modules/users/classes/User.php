@@ -348,6 +348,8 @@ class User extends BaseUser {
 
 	function getDocumentsChildrenCategories($categoryId) {
 
+		if (!class_exists("Category"))
+			return;
 		$criteria = new Criteria();
 		$criteria->add(CategoryPeer::ACTIVE, 1, Criteria::EQUAL);
 //		$criteria->add(CategoryPeer::PARENTID, $categoryId, Criteria::EQUAL);

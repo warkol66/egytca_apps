@@ -74,7 +74,7 @@
 				<label for="description">Descripción</label>
 			 	<textarea name="description" cols="55" rows="6" wrap="VIRTUAL" title="Descripción">|-if $document neq ''-||-$document->getDescription()|escape-||-/if-|</textarea>
   			</p> 
-  			|-if $module eq "Documents" && $entity eq ''-|
+  			|-if $module eq "Documents" && $entity eq '' && $parentCategories|@count gt 0-|
 				<p><label for="category">Categoría</label>
 					<select name="category">
 						<option value=''>Sin Categoría</option>
