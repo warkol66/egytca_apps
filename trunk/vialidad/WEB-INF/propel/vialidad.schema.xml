@@ -243,6 +243,30 @@
 
 	</table>
     
+	<table phpName="MeasurementRecordComment" name="vialidad_measurementRecordComment">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="measurementRecordId" type="INTEGER" required="true" />
+        <column name="userId"  type="INTEGER" required="true" description="Usuario" />
+        <column name="content" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Contenido del comentario" />
+
+		<behavior name="timestampable" />
+
+		<foreign-key foreignTable="vialidad_measurementRecord" onDelete="cascade" >
+			<reference local="measurementRecordId" foreign="id" />
+		</foreign-key>
+		
+        <foreign-key foreignTable="users_user">
+         <reference local="userId" foreign="id"/>
+        </foreign-key>
+        
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+    
 	<table phpName="Certificate" name="vialidad_certificate">
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
