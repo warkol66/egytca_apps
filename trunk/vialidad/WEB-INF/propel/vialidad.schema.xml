@@ -19,6 +19,7 @@
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
+		<column name="unit" type="VARCHAR" size="12" description="Unidad" />
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>

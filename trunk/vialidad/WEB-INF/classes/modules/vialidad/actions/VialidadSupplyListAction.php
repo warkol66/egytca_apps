@@ -35,6 +35,12 @@ class VialidadSupplyListAction extends BaseAction {
 
 		$smarty->assign("message",$_GET["message"]);
 		
+		$allUnits = array();
+		foreach (ConfigModule::get('vialidad', 'units') as $unit => $desc) {
+			array_push($allUnits, $unit);
+		}
+		$smarty->assign('allUnits', $allUnits);
+		
 		return $mapping->findForwardConfig('success');
 	}
 	

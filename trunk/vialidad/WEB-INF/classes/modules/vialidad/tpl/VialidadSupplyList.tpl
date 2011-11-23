@@ -10,7 +10,7 @@
 	<table id="table_supplies" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead> 
 		<tr>
-			<td colspan="2" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Búsqueda de Insumos </a>
+			<td colspan="3" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Búsqueda de Insumos </a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;">
 				<form action='Main.php' method='get' style="display:inline;">
 					<p>Texto: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" /></p>
@@ -29,12 +29,18 @@
 		
 		|-if "vialidadSupplyEdit"|security_has_access-|
 		<tr>
-			<th colspan="2" class="thFillTitle">
+			<th colspan="3" class="thFillTitle">
 				<div class="rightLink">
 					<a href="#" onclick="showInput('addInput1', 'addLink1'); return false;" id="addLink1" class="addLink">Agregar Insumo</a>
 					<form id="addInput1" action="Main.php" method="POST" onsubmit="setStatus('working'); prepareAndSubmit(this); showInput('addLink1', 'addInput1'); setStatus('done'); return false;" style="display: none;">
 						<label>Ingrese nombre del insumo:</label>
-						<input type="text"   name="name" />
+						<input type="text"   name="params[name]" />
+						<label for="name[unit]">Unidad</label>
+						<select name="params[unit]">
+							|-foreach from=$allUnits item=unit-|
+							<option value="|-$unit-|">|-$unit-|</option>
+							|-/foreach-|
+						</select>
 						<input type="hidden" name="do" value="vialidadSupplyDoEditX" />
 						<input type="submit" value="Guardar" class="icon iconActivate" />
 						<input type="button" value="Cancelar" class="icon iconCancel" onclick="showInput('addLink1', 'addInput1');" />
@@ -45,7 +51,8 @@
 		|-/if-|
 		
 		<tr class="thFillTitle"> 
-			<th width="95%">Nombre</th>
+			<th width="60%">Nombre</th>
+			<th width="35%">Unidad</th>
 			<th width="5%">&nbsp;</th>
 		</tr>
 		</thead>
@@ -53,7 +60,7 @@
 		<tbody id="suppliesList">
 		|-if $supplies|@count eq 0-|
 		<tr>
-			<td colspan="2">|-if isset($filter)-|No hay Insumos que concuerden con la búsqueda|-else-|No hay Insumos disponibles|-/if-|</td>
+			<td colspan="3">|-if isset($filter)-|No hay Insumos que concuerden con la búsqueda|-else-|No hay Insumos disponibles|-/if-|</td>
 		</tr>
 		|-else-|
 		|-foreach from=$supplies item=supply name=for_supples-|
@@ -63,6 +70,18 @@
 				<span id="supply_|-$supply->getId()-|" class="in_place_editable">|-$supply->getName()-|</span>
 				|-else-|
 				|-$supply->getName()-|
+				|-/if-|
+			</td>
+			<td>
+				|-if "vialidadSupplyEdit"|security_has_access-|
+					<span id="unit_|-$supply->getId()-|" class="in_place_editable">|-$supply->getUnit()-|</span>
+				<!--<select id="select_unit_|-$supply->getId()-|" style="display:none" onchange="updateUnit('|-$supply->getId()-|', this.value);this.hide();$('span_unit_|-$supply->getId()-|').show();" onblur="this.hide();$('span_unit_|-$supply->getId()-|').show();">
+					|-foreach from=$allUnits item=unit-|
+					<option value="|-$unit-|" |-$unit|selected:$supply->getUnit()-|>|-$unit-|</option>
+					|-/foreach-|
+				</select>-->
+				|-else-|
+				|-$supply->getUnit()-|
 				|-/if-|
 			</td>
 			<td nowrap>
@@ -93,14 +112,14 @@
 		
 		|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
-			<td colspan="2" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+			<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 		</tbody>
 		<tfoot>
 		|-if "vialidadSupplyEdit"|security_has_access-|
 		<tr>
-			<th colspan="2" class="thFillTitle">
+			<th colspan="3" class="thFillTitle">
 				<div class="rightLink">
 					<a href="#" onclick="showInput('addInput2', 'addLink2'); return false;" id="addLink2" class="addLink">Agregar Insumo</a>
 					<form id="addInput2" action="Main.php" method="POST" onsubmit="setStatus('working'); prepareAndSubmit(this); showInput('addLink2', 'addInput2'); setStatus('done'); return false;" style="display: none;">
@@ -120,6 +139,21 @@
 
 
 <script type="text/javascript">
+
+function updateUnit(id, value) {
+	new Ajax.Updater(
+		'span_unit_'+id,
+		'Main.php?do=vialidadSupplyEditFieldX',
+		{
+			method: 'post',
+			parameters: {
+				id: id,
+				paramName: 'unit',
+				paramValue: value
+			}
+		}
+	);
+}
 
 function setStatus(status) {
 	switch (status) {
@@ -153,8 +187,8 @@ Object.extend(Ajax.InPlaceEditor.prototype, {
 	}
 });
 
-window.onload = function() {
-|-foreach from=$supplies item=supply name=for_supplies_ajax-|
+function attachNameInPlaceEditors() {
+	|-foreach from=$supplies item=supply name=for_supplies_ajax-|
 	new Ajax.InPlaceEditor(
 		'supply_|-$supply->getId()-|',
 		'Main.php?do=vialidadSupplyEditFieldX',
@@ -182,6 +216,49 @@ window.onload = function() {
 		}
 	);
 |-/foreach-|
+}
+
+function attachUnitInPlaceEditors() {
+	var allUnits = new Array();
+	|-foreach from=$allUnits item=unit-|
+	allUnits.push("--- |-$unit-| ---");
+	|-/foreach-|
+	
+	|-foreach from=$supplies item=supply-|
+	new Ajax.InPlaceCollectionEditor(
+		'unit_|-$supply->getId()-|',
+		'Main.php?do=vialidadSupplyEditFieldX',
+		{
+			collection: allUnits,
+			ajaxOptions: { method: 'post' },
+			okText: 'Guardar',
+			cancelText: 'Cancelar',
+			savingText: 'Guardando...',
+			hoverClassName: 'in_place_hover',
+			highlightColor: '#b7e0ff',
+			cancelControl: 'button',
+			savingClassName: 'inProgress',
+			callback: function(form, value) {
+				return 'id=|-$supply->getId()-|&paramName=unit&paramValue='
+					+ encodeURIComponent(clean(value));
+			},
+			onFormReady: function(obj,form) {
+				form.insert({ top: new Element('label').update('Unidad: ') });
+			}
+		}
+	);
+	|-/foreach-|
+}
+
+function clean(value) {
+	var aux;
+	aux = value.replace(/---\s/, '');
+	return aux.replace(/\s---$/, '');
+}
+
+window.onload = function() {
+	attachUnitInPlaceEditors();
+	attachNameInPlaceEditors();
 }
 
 function showInput(to_show, to_hide) {

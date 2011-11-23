@@ -17,7 +17,7 @@ class VialidadSupplyDoEditXAction extends BaseAction {
 		}
 
 		$userParams = Common::userInfoToDoLog();
-		$supplyParams = array_merge_recursive(array("name" => $_POST["name"]),$userParams);
+		$supplyParams = array_merge_recursive($_POST["params"],$userParams);
 
 		if ($_POST["action"] == "edit") { // Existing supply
 
