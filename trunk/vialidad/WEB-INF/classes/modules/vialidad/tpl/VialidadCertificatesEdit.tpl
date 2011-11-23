@@ -14,7 +14,7 @@
 				<label for="params[measurementRecordId]">Acta</label>
 				<select name="params[measurementRecordId]">
 					<option value="">Seleccione un Acta</option>
-					|-foreach from=$allRecords item=record-|
+					|-foreach from=$eligibleRecords item=record-|
 					|-assign var=construction value=$record->getConstruction()-|
 					<option value="|-$record->getId()-|" |-$record->getId()|selected:$certificate->getMeasurementRecordId()-|>|-$construction->getName()-|&nbsp;-&nbsp;|-$record->getMeasurementDate()|date_format:"%B / %Y"|@ucfirst-|</option>
 					|-/foreach-|
