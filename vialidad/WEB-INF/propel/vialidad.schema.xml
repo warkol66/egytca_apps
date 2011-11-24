@@ -257,10 +257,6 @@
 			<reference local="measurementRecordId" foreign="id" />
 		</foreign-key>
 		
-        <foreign-key foreignTable="users_user">
-         <reference local="userId" foreign="id"/>
-        </foreign-key>
-        
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
