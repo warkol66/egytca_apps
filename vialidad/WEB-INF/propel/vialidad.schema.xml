@@ -248,6 +248,7 @@
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="measurementRecordId" type="INTEGER" required="true" />
         <column name="userId"  type="INTEGER" required="true" description="Usuario" />
+        <column name="userType" type="ENUM" valueSet="users_user, affiliates_user" required="true" description="Usuario" />
         <column name="content" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Contenido del comentario" />
 
 		<behavior name="timestampable" />
