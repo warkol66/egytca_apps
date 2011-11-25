@@ -37,6 +37,7 @@
 						<input type="text"   name="params[name]" />
 						<label for="name[unit]">Unidad</label>
 						<select name="params[unit]">
+							<option value="">-</option>
 							|-foreach from=$allUnits item=unit-|
 							<option value="|-$unit-|">|-$unit-|</option>
 							|-/foreach-|
@@ -220,6 +221,7 @@ function attachNameInPlaceEditors() {
 
 function attachUnitInPlaceEditors() {
 	var allUnits = new Array();
+	allUnits.push("-");
 	|-foreach from=$allUnits item=unit-|
 	allUnits.push("--- |-$unit-| ---");
 	|-/foreach-|

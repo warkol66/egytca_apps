@@ -41,16 +41,19 @@
 		<column name="modifiedOn"    type="DATE" description="Fecha que se marco modificado" />
 
 		<column name="supplierId1" type="INTEGER" required="true" />
+		<column name="lastPrice1"  type="DECIMAL" size="12" scale="2" description="Precio anterior proveedor 1" />
 		<column name="price1"      type="DECIMAL" size="12" scale="2" description="Precio proveedor 1" />
 		<column name="definitive1" type="BOOLEAN" description="Indica si el precio es definitivo o no, proveedor 1" />
 		<column name="supplierDocument1" type="INTEGER" description="Documento respaldatorio, proveedor 1" />
 
 		<column name="supplierId2" type="INTEGER" required="true" />
+		<column name="lastPrice2"  type="DECIMAL" size="12" scale="2" description="Precio anterior proveedor 2" />
 		<column name="price2"      type="DECIMAL" size="12" scale="2" description="Precio proveedor 2" />
 		<column name="definitive2" type="BOOLEAN" description="Indica si el precio es definitivo o no, proveedor 2" />
 		<column name="supplierDocument2" type="INTEGER" description="Documento respaldatorio, proveedor 2" />
 
 		<column name="supplierId3" type="INTEGER" required="true" />
+		<column name="lastPrice3"  type="DECIMAL" size="12" scale="2" description="Precio anterior proveedor 3" />
 		<column name="price3"      type="DECIMAL" size="12" scale="2" description="Precio proveedor 3" />
 		<column name="definitive3" type="BOOLEAN" description="Indica si el precio es definitivo o no, proveedor 3" />
 		<column name="supplierDocument3" type="INTEGER" description="Documento respaldatorio, proveedor 3" />
