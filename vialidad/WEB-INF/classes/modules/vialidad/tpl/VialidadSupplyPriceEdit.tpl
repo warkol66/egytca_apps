@@ -4,7 +4,10 @@
 <h2>Boletines</h2>
 <h1>Administración de Precios - |-$bulletin->getBulletindate()|date_format:"%B / %Y"|@ucfirst-|</h1>
 	
-<p>A continuación podrá administrar los precios del insumo: |-$supply->getName()-|</p>
+<p>A continuación podrá administrar los precios del insumo: |-$supply->getName()-|. <br />
+El precio es por "<strong>|-$supply->getUnit()-|</strong>" expresado en Guaraníes (sin separador de miles).<br />
+El precio anterior se muestra como referencia y no puede ser modificado.
+</p>
 
 <fieldset title="Formulario de edición de precios del Insumo">
 	<legend>|-$supply->getName()-|</legend>
@@ -12,7 +15,8 @@
 <table class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 	<tr>
 		<th width="4%">Precio</th>
-		<th>Proveedor</th>
+		<th width="50%">Proveedor</th>
+		<th width="20%">Precio anterior</th>
 		<th width="20%">Precio</th>
 		<th width="6%">Definitivo</th>
 		<th width="8%">Respaldo</th>
@@ -24,16 +28,21 @@
 			<span id="supplier1_name">|-if $supplier1 neq ''-||-$supplier1->getName()-||-else-|&nbsp;-&nbsp;|-/if-|</span>
 			<div id="autocomplete_choices1" class="autocomplete" style="position: relative;z-index:12000;display: none;" ></div>
 		</td>
+		<td align="right">|-$priceBulletin->getLastprice1()|system_numeric_format-|</td>
 		<td align="right"><span id="price1" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceBulletin->getPrice1()|system_numeric_format-|</span></td>
 		<td align="center"><input id="definitive1" onchange="setParam('definitive1', this.checked);updateDefinitive();" type="checkbox" value="1" |-$priceBulletin->getDefinitive1()|checked_bool-| /></td>
-		<td align="center">
-			<a |-if $document1 neq ''-|style="display:none"|-/if-| href="#lightbox1" rel="lightbox1" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>
-			<input |-if $document1 eq ''-|style="display:none"|-/if-| onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$priceBulletin->getSupplierDocument1()-|')" type="button" class="icon iconView" />
+		<td align="center" nowrap="nowrap">
+			|-if $document1 eq ''-|<a href="#lightbox1" rel="lightbox1" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>|-/if-|
+			|-if $document1 neq ''-|
+			|-assign var=document1 value=$priceBulletin->getDocumentRelatedBySupplierdocument1()-|
+			|-if !empty($document1) && ($document1->getDescription() neq '' || $document1->getTitle() ne '')-|
+			<a class="tooltip" href="#"><span>|-$document1->getTitle()-|<br />|-$document1->getDescription()-|</span><img src="images/clear.png" class="icon iconInfo"></a>|-/if-|
+			<input onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$priceBulletin->getSupplierDocument1()-|')" type="button" class="icon iconView" />
 			<form action="Main.php?do=vialidadSupplyPriceDoDeleteDocument" method="post">
 				<input type="hidden" name="id" value="|-$priceBulletin->getId()-|" />
 				<input type="hidden" name="supplierNumber" value="1" />
-				<input type="submit" |-if $document1 eq ''-|style="display:none"|-/if-| onclick="return confirm('Seguro que desea eliminar el respaldo definitivamente?')" class="icon iconDelete" />
-			</form>
+				<input type="submit"  onclick="return confirm('Seguro que desea eliminar el respaldo definitivamente?')" class="icon iconDelete" />
+			</form>|-/if-|
 		</td>
 	</tr>
 	<tr>
@@ -43,16 +52,21 @@
 			<span id="supplier2_name">|-if $supplier2 neq ''-||-$supplier2->getName()-||-else-|&nbsp;-&nbsp;|-/if-|</span>
 			<div id="autocomplete_choices2" class="autocomplete" style="position: relative;z-index:11000;display:none;" ></div>
 		</td>
+		<td align="right">|-$priceBulletin->getLastprice2()|system_numeric_format-|</td>
 		<td align="right"><span id="price2" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceBulletin->getPrice2()|system_numeric_format-|</span></td>
 		<td align="center"><input id="definitive2" onchange="setParam('definitive2', this.checked);updateDefinitive();" type="checkbox" value="1" |-$priceBulletin->getDefinitive2()|checked_bool-| /></td>
 		<td align="center">
-			<a |-if $document2 neq ''-|style="display:none"|-/if-| href="#lightbox2" rel="lightbox2" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>
-			<input |-if $document2 eq ''-|style="display:none"|-/if-| onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$priceBulletin->getSupplierDocument2()-|')" type="button" class="icon iconView" />
+			|-if $document2 eq ''-|<a href="#lightbox2" rel="lightbox2" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>|-/if-|
+			|-if $document2 neq ''-|
+			|-assign var=document2 value=$priceBulletin->getDocumentRelatedBySupplierdocument2()-|
+			|-if !empty($document2) && ($document2->getDescription() neq '' || $document2->getTitle() ne '')-|
+			<a class="tooltip" href="#"><span>|-$document2->getTitle()-|<br />|-$document2->getDescription()-|</span><img src="images/clear.png" class="icon iconInfo"></a>|-/if-|
+			<input onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$priceBulletin->getSupplierDocument2()-|')" type="button" class="icon iconView" />
 			<form action="Main.php?do=vialidadSupplyPriceDoDeleteDocument" method="post">
 				<input type="hidden" name="id" value="|-$priceBulletin->getId()-|" />
 				<input type="hidden" name="supplierNumber" value="2" />
-				<input type="submit" |-if $document2 eq ''-|style="display:none"|-/if-| onclick="return confirm('Seguro que desea eliminar el respaldo definitivamente?')" class="icon iconDelete" />
-			</form>
+				<input type="submit" onclick="return confirm('Seguro que desea eliminar el respaldo definitivamente?')" class="icon iconDelete" />
+			</form>|-/if-|
 		</td>
 	</tr>
 	<tr>
@@ -62,19 +76,24 @@
 			<span id="supplier3_name">|-if $supplier3 neq ''-||-$supplier3->getName()-||-else-|&nbsp;-&nbsp;|-/if-|</span>
 			<div id="autocomplete_choices3" class="autocomplete" style="position: relative;z-index:10000;display:none;" ></div>
 		</td>
+		<td align="right">|-$priceBulletin->getLastprice3()|system_numeric_format-|</td>
 		<td align="right"><span id="price3" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceBulletin->getPrice3()|system_numeric_format-|</span></td>
 		<td align="center"><input id="definitive3" onchange="setParam('definitive3', this.checked);updateDefinitive();" type="checkbox" value="1" |-$priceBulletin->getDefinitive3()|checked_bool-| /></td>
 		<td align="center">
-			<a |-if $document3 neq ''-|style="display:none"|-/if-| href="#lightbox3" rel="lightbox3" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>
-			<input |-if $document3 eq ''-|style="display:none"|-/if-| onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$priceBulletin->getSupplierDocument3()-|')" type="button" class="icon iconView" />
+			|-if $document3 eq ''-|<a href="#lightbox3" rel="lightbox3" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>|-/if-|
+			|-if $document3 neq ''-|
+			|-assign var=document3 value=$priceBulletin->getDocumentRelatedBySupplierdocument3()-|
+			|-if !empty($document3) && ($document3->getDescription() neq '' || $document3->getTitle() ne '')-|
+			<a class="tooltip" href="#"><span>|-$document3->getTitle()-|<br />|-$document3->getDescription()-|</span><img src="images/clear.png" class="icon iconInfo"></a>|-/if-|
+			<input onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$priceBulletin->getSupplierDocument3()-|')" type="button" class="icon iconView" />
 			<form action="Main.php?do=vialidadSupplyPriceDoDeleteDocument" method="post">
 				<input type="hidden" name="id" value="|-$priceBulletin->getId()-|" />
 				<input type="hidden" name="supplierNumber" value="3" />
-				<input type="submit" |-if $document3 eq ''-|style="display:none"|-/if-| onclick="return confirm('Seguro que desea eliminar el respaldo definitivamente?')" class="icon iconDelete" />
-			</form>
+				<input type="submit" onclick="return confirm('Seguro que desea eliminar el respaldo definitivamente?')" class="icon iconDelete" />
+			</form>|-/if-|
 		</td>
 	</tr>
-	</table>
+</table>
 	
 
 

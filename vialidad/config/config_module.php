@@ -58,7 +58,11 @@ class ConfigModule {
 				"Ha" => "Hectárea",
 				"u" => "unidad",
 				"Km" => "Kilómetro",
-				"Km2" => "Kilómetro cuadrado"
+				"Km2" => "Kilómetro cuadrado",
+				"pulg2m" => "Pulgada por metro cuadrado",
+				"Gs" => "Guaraní",
+				"Gs/h" => "Guaraníes por hora",
+				"%" => "Porcentaje"
 			)
 		)
 	);
