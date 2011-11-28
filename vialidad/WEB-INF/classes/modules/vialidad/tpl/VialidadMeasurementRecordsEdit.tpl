@@ -23,6 +23,9 @@
 				<label for="params[measurementDate]">Período</label>
 				<input type="text" id="params[measurementDate]" name="params[measurementDate]" size="12" value="|-$record->getMeasurementDate()|date_format-|" title="Período" /><img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[measurementDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
+			|-if $action eq 'edit'-|
+			<p><a href="#lightbox_comments" rel="lightbox_comments" class="lbOn">Comentarios</a></p>
+			|-/if-|
 			<p>
 				|-if $action eq 'edit'-|
 				<input type="hidden" name="id" id="id" value="|-$record->getid()-|" />
@@ -76,6 +79,9 @@
 </div>
 
 <script type="text/javascript" src="scripts/lightbox.js"></script>
+
+|-if $action eq 'edit'-|
+	
 |-foreach from=$itemRecords item=itemRecord-|
 <div id="lightbox|-$itemRecord->getId()-|" class="leightbox">
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p>
@@ -111,6 +117,99 @@
 </div>
 |-/foreach-|
 
+<div id="lightbox_comments" class="leightbox">
+	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p>
+	
+	<div id="comments" style="height:300px; overflow:scroll;">
+		
+		<!-- decomentar para ver como quedaría -->
+		<div >
+			<p>theUser:</p>
+			<p>theContent asdasda asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</p>
+			<hr />
+		</div>
+		<div >
+			<p>theUser:</p>
+			<p>theContent asdasda asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</p>
+			<hr />
+		</div>
+		<div >
+			<p>theUser:</p>
+			<p>theContent asdasda asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</p>
+			<hr />
+		</div>
+		<div >
+			<p>theUser:</p>
+			<p>theContent asdasda asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</p>
+			<hr />
+		</div>
+		<div >
+			<p>theUser:</p>
+			<p>theContent asdasda asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</p>
+			<hr />
+		</div>
+		<div >
+			<p>theUser:</p>
+			<p>theContent asdasda asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</p>
+			<hr />
+		</div>
+		<div >
+			<p>theUser:</p>
+			<p>theContent asdasda asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</p>
+			<hr />
+		</div>
+		<!-- -->
+		
+		|-foreach from=$comments item=comment-|
+		<div>
+			<p>|-$comment.user-|:</p>
+			<p>|-$comment.content-|</p>
+		</div>
+		<hr />
+		|-/foreach-|
+	</div>
+	<div>
+		<form id="newComment">
+			<!-- usuario?
+			<input type="hidden" name="params[userId]" value="cualUsuario?????" />
+			<input type="hidden" name="params[userType]" value="?????" o esto lo deduce la accion?
+			-->
+			<input type="hidden" name="params[measurementRecordId]" value="|-$record->getId()-|" />
+			<p><textarea style="width:100%;" name="params[content]"></textarea></p>
+			<p><button type="button" onclick="addComment(this.form);">Agregar comentario</button></p>
+		</form>
+	</div>
+</div>
+			
+|-/if-|
 
 <script type="text/javascript">
 
@@ -123,6 +222,31 @@ Event.observe(
 		|-/if-|
 	}
 );
+
+function addComment(form) {
+	var fields = Form.serialize(form);
+	
+	// si no se escribio un nuevo comentario termino aca
+	if (form.elements['params[content]'].value == '')
+		return;
+	
+	// limpio la textarea para un nuevo comentario
+	form.elements['params[content]'].value = '';
+	
+	console.log(fields);
+	console.log('falta agregar usuario');
+	return; //averiguar el tema del usuario
+
+	new Ajax.Updater(
+		'comments',
+		'Main.php?do=vialidadMeasurementRecordsDoAddCommentX',
+		{
+			method: 'post',
+			postBody: fields,
+			insertion: 'bottom'
+		}
+	);
+}
 	
 function validateForm() {
 	var submit = true;

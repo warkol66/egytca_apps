@@ -32,29 +32,41 @@ class VialidadMeasurementRecordsEditAction extends BaseAction {
 			if (empty($record)) {
 				$smarty->assign("notValidId","true");
 				$record = new MeasurementRecord();
+				$smarty->assign("action","create");
 			}
-			else
+			else {
 				$smarty->assign("action","edit");
 			
-			$construction = ConstructionQuery::create()->findOneById($record->getConstructionid());
-			if ($construction) {
+				$construction = ConstructionQuery::create()->findOneById($record->getConstructionid());
+				if ($construction) {
 				
-				$items = $construction->getConstructionItems();
+					$items = $construction->getConstructionItems();
 				
-				// Si un item se agrego, creo su itemRecord
-				foreach ($items as $item) {
-					if (!$record->hasItem($item)) {
-						$record->addItem($item);
-						if (!$record->save()) {
-							throw new Exception("Couldn't save record");
+					// Si un item se agrego, creo su itemRecord
+					foreach ($items as $item) {
+						if (!$record->hasItem($item)) {
+							$record->addItem($item);
+							if (!$record->save()) {
+								throw new Exception("Couldn't save record");
+							}
 						}
 					}
+				
+					$itemRecords = MeasurementRecordRelationQuery::create()->findByMeasurementrecordid($_GET["id"]);
+					$smarty->assign('itemRecords', $itemRecords);
+				} else {
+					throw new Exception('measurementRecord doesn\'t have a valid Construction ID');
 				}
 				
-				$itemRecords = MeasurementRecordRelationQuery::create()->findByMeasurementrecordid($_GET["id"]);
-				$smarty->assign('itemRecords', $itemRecords);
-			} else {
-				throw new Exception('measurementRecord doesn\'t have a valid Construction ID');
+				$templateComments = array();
+				$comments = MeasurementRecordCommentQuery::create()->findByMeasurementrecordid($_GET['id']);
+				/*foreach ($comments as $comment) {
+					$user = ???; como conseguir usuario?
+					$content = $comment->getContent();
+					array_push($templateComments, array($user => $content));
+				}*/
+				
+				$smarty->assign('comments', $templateComments);
 			}
 		}
 		else {
