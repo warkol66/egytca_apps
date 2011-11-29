@@ -16,7 +16,7 @@
 		|-if "vialidadSupplyEdit"|security_has_access-|
 			<input type="hidden" name="do" value="vialidadSupplyEdit" />
 			|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-			|-if isset($pager) && ($pager->getPage() ne 1)-|
+			|-if isset($pager) && ($pager->getPage() gt 1)-|
 			<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />
 			|-/if-|
 			<input type="hidden" name="id" value="|-$supply->getid()-|" />
@@ -26,7 +26,7 @@
 		<form action="Main.php" method="post" style="display:inline;">
 			<input type="hidden" name="do" value="vialidadSupplyDoDelete" />
 			|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-			|-if isset($pager) && ($pager->getPage() ne 1)-|
+			|-if isset($pager) && ($pager->getPage() gt 1)-|
 			<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />
 			|-/if-|
 			<input type="hidden" name="id" value="|-$supply->getid()-|" />
@@ -37,7 +37,7 @@
 		<form action="Main.php" method="post" style="display:inline;">
 			<input type="hidden" name="do" value="vialidadSupplyDoDelete" />
 			|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-			|-if isset($pager) && ($pager->getPage() ne 1)-|
+			|-if isset($pager) && ($pager->getPage() gt 1)-|
 			<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />
 			|-/if-|
 			<input type="hidden" name="id" value="|-$supply->getid()-|" />

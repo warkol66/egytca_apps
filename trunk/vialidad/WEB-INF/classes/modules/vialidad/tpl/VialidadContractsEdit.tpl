@@ -62,7 +62,7 @@
 			  <input type="hidden" name="id" value="|-$construction->getId()-|" /> 
 			  <input type="hidden" name="returnToContract" value="|-$contract->getId()-|" />
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-					|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
+					|-if isset($pager) && ($pager->getPage() gt 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 			  <input type="submit" name="submit_go_edit_item" value="Editar" class="icon iconEdit" /> 
 			</form>|-/if-|
 			|-if "vialidadConstructionsDoDelete"|security_has_access-|

@@ -86,7 +86,7 @@
 				<form action="Main.php" method="get">
 					<input type="hidden" name="do" value="vialidadBulletinEdit" />
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-					|-if isset($pager) && ($pager->getPage() ne 1)-|
+					|-if isset($pager) && ($pager->getPage() gt 1)-|
 					<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />
 					|-/if-|
 					<input type="hidden" name="id" value="|-$bulletin->getid()-|" />
@@ -97,7 +97,7 @@
 				<form action="Main.php" method="post">
 					<input type="hidden" name="do" value="vialidadBulletinDoDelete" />
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-					|-if isset($pager) && ($pager->getPage() ne 1)-|
+					|-if isset($pager) && ($pager->getPage() gt 1)-|
 					<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />
 					|-/if-|
 					<input type="hidden" name="id" value="|-$bulletin->getid()-|" />
