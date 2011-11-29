@@ -14,6 +14,32 @@
  * @package    propel.generator.vialidad.classes
  */
 class PriceBulletin extends BasePriceBulletin {
+	
+	/**
+	 * Calcula el averagePrice a partir de los precios de los proveedores.
+	 */
+	function calculatePrice() {
+		$cant = 0;
+		$sum = 0;
+		
+		if (!is_null($this->getPrice1())) {
+			$sum += $this->getPrice1();
+			$cant++;
+		}
+		
+		if (!is_null($this->getPrice2())) {
+			$sum += $this->getPrice2();
+			$cant++;
+		}
+		
+		if (!is_null($this->getPrice3())) {
+			$sum += $this->getPrice3();
+			$cant++;
+		}
+		
+		return $cant != 0 ? $sum/$cant : 0;
+	
+	}
 
  /**
 	 * Especifica el precio modificado (modifiedPrice) y la fecha de modificacion
