@@ -291,11 +291,14 @@ fieldset fieldset legend {
 	float: left;
 	width: 70px;
 	font-weight: bold;
-	vertical-align: text-top;
+	vertical-align: text-bottom;
 	text-align: right;
 	height: auto;
 	display: block;
 	padding-right: 5px;
+}
+#divSearch td p label {
+	width: 40px;
 }
 #divSearch td p {
 	width: auto;
@@ -303,6 +306,9 @@ fieldset fieldset legend {
 #divSearch td {
 	border: 1px solid transparent !Important;
 	padding: 0 !Important;
+}
+#divSearch p input[type="text"] {
+	padding: .1em;
 }
 
 
