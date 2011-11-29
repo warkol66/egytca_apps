@@ -100,7 +100,7 @@ El precio anterior se muestra como referencia y no puede ser modificado.
 	<h3>Precio del boletín</h3>
 	<p>
 		<label for="averagePrice">Precio</label>
-		<input id="averagePrice" style="display:inline" disabled="disabled" type="text" value="|-$priceBulletin->getAveragePrice()-|" size="15" />
+		<span id="averagePrice">|-$priceBulletin->getAveragePrice()-|</span>
 		<input name="button" type='button' title="Calcular precio" onClick='updateAveragePrice()'  value='Calcular precio' />
 	</p>
 	<p>
@@ -235,21 +235,14 @@ function updateDefinitive() {
 }
 
 function updateAveragePrice() {
-	var cant = 0;
-	var sum = 0;
-	
-	for (var i=1; i<=3; i++) {
-		var value = parseFloat($('price'+i).innerHTML);
-		if (value != 0) {
-			cant++;
-			sum += value;
+	new Ajax.Updater(
+		'averagePrice',
+		'Main.php?do=vialidadSupplyPriceCalculateAveragePriceX',
+		{
+			method: 'post',
+			parameters: {id: '|-$priceBulletin->getId()-|'}
 		}
-	}
-	
-	if (cant != 0) {
-		setParam('averagePrice', sum/cant);
-		$('averagePrice').value = sum/cant;
-	}
+	);
 }
 	
 Ajax.InPlaceEditor.prototype.__enterEditMode = Ajax.InPlaceEditor.prototype.enterEditMode;
