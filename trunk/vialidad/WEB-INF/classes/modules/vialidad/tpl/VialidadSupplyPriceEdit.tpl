@@ -36,7 +36,7 @@ El precio anterior se muestra como referencia y no puede ser modificado.
 			|-if $document1 neq ''-|
 			|-assign var=document1 value=$priceBulletin->getDocumentRelatedBySupplierdocument1()-|
 			|-if !empty($document1) && ($document1->getDescription() neq '' || $document1->getTitle() ne '')-|
-			<a class="tooltip" href="#"><span>|-$document1->getTitle()-|<br />|-$document1->getDescription()-|</span><img src="images/clear.png" class="icon iconInfo"></a>|-/if-|
+			<a class="tooltip" href="#"><span>|-$document1->getDescription()-|</span><img src="images/clear.png" class="icon iconInfo"></a>|-/if-|
 			<input onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$priceBulletin->getSupplierDocument1()-|')" type="button" class="icon iconView" />
 			<form action="Main.php?do=vialidadSupplyPriceDoDeleteDocument" method="post">
 				<input type="hidden" name="id" value="|-$priceBulletin->getId()-|" />
@@ -60,7 +60,7 @@ El precio anterior se muestra como referencia y no puede ser modificado.
 			|-if $document2 neq ''-|
 			|-assign var=document2 value=$priceBulletin->getDocumentRelatedBySupplierdocument2()-|
 			|-if !empty($document2) && ($document2->getDescription() neq '' || $document2->getTitle() ne '')-|
-			<a class="tooltip" href="#"><span>|-$document2->getTitle()-|<br />|-$document2->getDescription()-|</span><img src="images/clear.png" class="icon iconInfo"></a>|-/if-|
+			<a class="tooltip" href="#"><span>|-$document2->getDescription()-|</span><img src="images/clear.png" class="icon iconInfo"></a>|-/if-|
 			<input onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$priceBulletin->getSupplierDocument2()-|')" type="button" class="icon iconView" />
 			<form action="Main.php?do=vialidadSupplyPriceDoDeleteDocument" method="post">
 				<input type="hidden" name="id" value="|-$priceBulletin->getId()-|" />
@@ -84,7 +84,7 @@ El precio anterior se muestra como referencia y no puede ser modificado.
 			|-if $document3 neq ''-|
 			|-assign var=document3 value=$priceBulletin->getDocumentRelatedBySupplierdocument3()-|
 			|-if !empty($document3) && ($document3->getDescription() neq '' || $document3->getTitle() ne '')-|
-			<a class="tooltip" href="#"><span>|-$document3->getTitle()-|<br />|-$document3->getDescription()-|</span><img src="images/clear.png" class="icon iconInfo"></a>|-/if-|
+			<a class="tooltip" href="#"><span>|-$document3->getDescription()-|</span><img src="images/clear.png" class="icon iconInfo"></a>|-/if-|
 			<input onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$priceBulletin->getSupplierDocument3()-|')" type="button" class="icon iconView" />
 			<form action="Main.php?do=vialidadSupplyPriceDoDeleteDocument" method="post">
 				<input type="hidden" name="id" value="|-$priceBulletin->getId()-|" />
@@ -138,11 +138,7 @@ El precio anterior se muestra como referencia y no puede ser modificado.
 			<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('date', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 		</p>
 		<p>
-			<label for="title">Título</label>
-			<textarea name="title" cols="55" rows="2" wrap="virtual" title="Título"></textarea>
-		</p>
-		<p>
-			<label for="description">Descripción</label>
+			<label for="description">Comentarios</label>
 			<textarea name="description" cols="55" rows="6" wrap="VIRTUAL" title="Descripción"></textarea>
 		</p>
 		<div id="upload_info"></div>

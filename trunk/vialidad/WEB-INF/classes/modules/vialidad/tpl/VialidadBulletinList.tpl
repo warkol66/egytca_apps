@@ -13,26 +13,38 @@
 			<td colspan="4" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Búsqueda de Boletines</a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;">
 				<form action='Main.php' method='get' style="display:inline;">
-					<p>
+					<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td valign="top"><p>
 						<label for="filters[number]">Número</label>
-						<input name="filters[number]" type="text" value="|-if isset($filters.number)-||-$filters.number-||-/if-|" size="30" title="Ingrese el número a buscar" />
+						<input name="filters[number]" type="text" value="|-if isset($filters.number)-||-$filters.number-||-/if-|" size="5" title="Ingrese el número a buscar" />
 					</p>
-					<p>
-						Fecha
-						<label for="filters[bulletindate][min]">desde</label>
-						<input name="filters[bulletindate][min]" type='text' value='|-if isset($filters.bulletindate.min)-||-$filters.bulletindate.min|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[bulletindate][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
-						&nbsp;
-						<label for="filters[bulletindate][max]">hasta</label>
-						<input name="filters[bulletindate][max]" type='text' value='|-if isset($filters.bulletindate.max)-||-$filters.bulletindate.max|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[bulletindate][max]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
-					</p>
-					<p>
+										<p>
 						<label for="filters[published]">Publicado</label>
 						<select name="filters[published]">
-							<option value="" |-if isset($filters.published)-|selected="selected"|-/if-|>DESACTIVAR</option>
-							<option value="0" |-$filters.published|selected:"0"-|>NO</option>
-							<option value="1" |-$filters.published|selected:"1"-|>SI</option>
+							<option value="" |-if isset($filters.published)-|selected="selected"|-/if-|>Seleccionar</option>
+							<option value="0" |-$filters.published|selected:"0"-|>No</option>
+							<option value="1" |-$filters.published|selected:"1"-|>Si</option>
 						</select>
 					</p>
+</td>
+    <td valign="top">
+      <p><label>Fecha</label>
+      </p></td>
+    <td valign="top"><p>
+						<label for="filters[bulletindate][min]">desde</label>
+						<input name="filters[bulletindate][min]" type='text' value='|-if isset($filters.bulletindate.min)-||-$filters.bulletindate.min|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[bulletindate][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+						<br />
+						<label for="filters[bulletindate][max]">hasta</label>
+						<input name="filters[bulletindate][max]" type='text' value='|-if isset($filters.bulletindate.max)-||-$filters.bulletindate.max|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[bulletindate][max]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+					</p></td>
+  </tr>
+  <tr>
+    <td colspan="3"></td>
+    </tr>
+</table>
+					
+
 					<p>
 						<input type="submit" value="Buscar" title="Buscar con los par&aacute;metros ingresados" />
 						<input type="hidden" name="do" value="vialidadBulletinList" />
