@@ -52,14 +52,14 @@
 			  <input type="hidden" name="do" value="vialidadMeasurementRecordsEdit" /> 
 			  <input type="hidden" name="id" value="|-$record->getId()-|" /> 
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-					|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
+					|-if isset($pager) && ($pager->getPage() gt 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 			  <input type="submit" name="submit_go_edit_record" value="Editar" class="icon iconEdit" /> 
 			</form>|-/if-|
 			|-if "vialidadMeasurementRecordsDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;"> 
 			  <input type="hidden" name="do" value="vialidadMeasurementRecordsDoDelete" /> 
 			  <input type="hidden" name="id" value="|-$record->getId()-|" /> 
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-					|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
+					|-if isset($pager) && ($pager->getPage() gt 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 			  <input type="submit" name="submit_go_delete_record" value="Borrar" onclick="return confirm('Seguro que desea eliminar el Acta de Medición?')" class="icon iconDelete" /> 
 			</form>|-/if-|
 		</td>

@@ -8,7 +8,7 @@
 		  <input type="hidden" name="id" value="|-$item->getId()-|" /> 
 		  <input type="hidden" name="returnToConstruction" value="|-$constructionId-|" />
 				|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-				|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
+				|-if isset($pager) && ($pager->getPage() gt 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 		  <input type="submit" name="submit_go_edit_item" value="Editar" class="icon iconEdit" /> 
 		</form>|-/if-|
 		|-if "vialidadConstructionItemDoDelete"|security_has_access-|
