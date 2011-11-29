@@ -31,11 +31,11 @@
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 	<tr>
 		<td colspan='3' class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda por nombre</a><div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get'>
-				<input type="hidden" name="do" value="vialidadSuppliersList" />
-				Nombre: <input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="30" />
+				<p><input type="hidden" name="do" value="vialidadSuppliersList" />
+				<label for="filters[searchString]">Nombre</label><input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="30" />
 				&nbsp;&nbsp;<input type='submit' value='Buscar' />
 				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=vialidadSuppliersList'" />|-/if-|
-			</form></div></td>
+			</p></form></div></td>
 	</tr>
 	|-if "vialidadSuppliersEdit"|security_has_access-|<tr>
 		<th colspan="3"><div class="rightLink"><a href="Main.php?do=vialidadSuppliersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Proveedor</a></div></th>

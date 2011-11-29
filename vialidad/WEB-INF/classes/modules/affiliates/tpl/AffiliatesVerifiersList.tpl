@@ -30,10 +30,10 @@
 	<tr>
 		<td colspan="2" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda por nombre</a><div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get'>
 				<input type="hidden" name="do" value="affiliatesVerifiersList" />
-				Nombre: <input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="30" />
+				<p><label for="filters[searchString]">Nombre</label> <input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="30" />
 				&nbsp;&nbsp;<input type='submit' value='Buscar' />
 				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=affiliatesVerifiersList'" />|-/if-|
-			</form></div></td>
+			</p></form></div></td>
 	</tr>
 	|-if "affiliatesVerifiersEdit"|security_has_access-|<tr>
 		<th colspan="2"><div class="rightLink"><a href="Main.php?do=affiliatesVerifiersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Fiscalizadora</a></div></th>

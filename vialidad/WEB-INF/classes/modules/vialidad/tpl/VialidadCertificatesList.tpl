@@ -29,14 +29,19 @@
 				|-include id="autocompleter_contract" file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=vialidadContractsAutocompleteListX" hiddenName="filters[contractid]" disableSubmit="button_filtersSubmit" label="Contrato" defaultValue=$defaultContractValue-|
 				</div>
 			</p>
-			<p>
-				Fecha
+			<table><tr><td valign="top">
+			  <p><label for="filters[date][min]">Fecha</label>
+			  </p></td>
+			<td valign="top">
+			  <p>
 				<label for="filters[date][min]">desde</label>
 				<input name="filters[date][min]" type='text' value='|-if isset($filters.date.min)-||-$filters.date.min|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[date][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
-				&nbsp;
-				<label for="filters[date][max]">hasta</label>
+				</td>
+				<td valign="top">
+				  <p><label for="filters[date][max]">hasta</label>
 				<input name="filters[date][max]" type='text' value='|-if isset($filters.date.max)-||-$filters.date.max|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[date][max]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
-			</p>
+			</p></td>
+				</tr></table>				
 			&nbsp;&nbsp;<input id="button_filtersSubmit" type='submit' value='Buscar' />
 			|-if $filters|@count gt 0-|<input name="removeFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=vialidadCertificatesList'" />|-/if-|
 		</form></div></td>
