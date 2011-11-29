@@ -26,6 +26,10 @@ class VialidadSupplyPriceEditFieldXAction extends BaseAction {
 			->filterBySupplyid($_POST["supplyId"])->findOne();
 
 		if (!empty($_POST['paramName']) && !empty($_POST['paramValue'])) {
+			if (preg_match("/^price.[0-9]*$/", $_POST['paramName'])) {
+				$_POST['paramValue'] = Common::convertToMysqlNumericFormat($_POST['paramValue']);
+				$smarty->assign('isNumeric', true);
+			}
 			$priceBulletin->setByName($_POST['paramName'], $_POST['paramValue'], BasePeer::TYPE_FIELDNAME);
 			$priceBulletin->save();
 		}
