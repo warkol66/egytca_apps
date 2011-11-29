@@ -100,7 +100,7 @@ El precio anterior se muestra como referencia y no puede ser modificado.
 	<h3>Precio del boletín</h3>
 	<p>
 		<label for="averagePrice">Precio</label>
-		<span id="averagePrice">|-$priceBulletin->getAveragePrice()-|</span>
+		<span id="averagePrice">|-$priceBulletin->getAveragePrice()|system_numeric_format-|</span>
 		<input name="button" type='button' title="Calcular precio" onClick='updateAveragePrice()'  value='Calcular precio' />
 	</p>
 	<p>

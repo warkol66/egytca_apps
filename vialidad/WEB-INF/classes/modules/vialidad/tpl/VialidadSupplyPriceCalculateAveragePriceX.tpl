@@ -1,1 +1,1 @@
-|-$price-|
+|-$price|system_numeric_format-|
