@@ -33,14 +33,15 @@ class VialidadMeasurementRecordsDoAddCommentXAction extends BaseAction {
 				throw new Exception('wrong params');
 		}
 		
-		$comment = new MeasurementRecordComment();
+		$user = Common::getLoggedUser();
+		$_POST['params']['userId'] = $user->getId();
+		$_POST['params']['userType'] = get_class($user);
 		
-		//por que no anda?
-		//$comment->fromArray($_POST['params']);
-		$comment->setUserid($_POST['params']['userId']);
-		$comment->setUserType($_POST['params']['userType']);
-		$comment->setMeasurementrecordid($_POST['params']['measurementRecordId']);
-		$comment->setContent($_POST['params']['content']);
+		$userParams = Common::userInfoToDoLog();
+		$commentParams = array_merge_recursive($_POST["params"],$userParams);
+		
+		$comment = new MeasurementRecordComment();
+		$comment = Common::setObjectFromParams($comment,$commentParams);
 		
 		$comment->save();
 		

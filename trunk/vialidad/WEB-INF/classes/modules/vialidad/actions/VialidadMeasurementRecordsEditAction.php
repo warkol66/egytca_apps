@@ -45,10 +45,6 @@ class VialidadMeasurementRecordsEditAction extends BaseAction {
 					->orderByCreatedAt(Criteria::DESC)->find();
 				
 				$smarty->assign('comments', $comments);
-				
-				$user = Common::getLoggedUser();
-				$smarty->assign('userId', $user->getId());
-				$smarty->assign('userType', get_class($user));
 			}
 		}
 		else {
