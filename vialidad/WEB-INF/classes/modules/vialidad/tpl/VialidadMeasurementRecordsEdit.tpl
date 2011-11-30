@@ -132,8 +132,6 @@
 	<div>
 	<br />
 		<form id="newComment">
-			<input type="hidden" name="params[userId]" value="|-$userId-|" />
-			<input type="hidden" name="params[userType]" value="|-$userType-|" />
 			<input type="hidden" name="params[measurementRecordId]" value="|-$record->getId()-|" />
 			<p><textarea name="params[content]" rows="3" wrap="VIRTUAL" style="width:55%;"></textarea>
 			</p>
