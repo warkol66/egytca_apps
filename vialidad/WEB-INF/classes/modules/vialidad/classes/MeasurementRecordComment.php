@@ -14,5 +14,19 @@
  * @package    propel.generator.vialidad.classes
  */
 class MeasurementRecordComment extends BaseMeasurementRecordComment {
+	
+	public function getUser() {
+		if (is_null($this->getUserid()))
+			return null;
+		
+		switch ($this->getUsertype()) {
+			case MeasurementRecordCommentPeer::USERTYPE_AFFILIATES_USER:
+				return AffiliateUserQuery::create()->findOneById($this->getUserid());
+			case MeasurementRecordCommentPeer::USERTYPE_USERS_USER:
+				return UserQuery::create()->findOneById($this->getUserid());
+			default:
+				throw new Exception('comment has user id but user type is not recognized');
+		}
+	}
 
 } // MeasurementRecordComment

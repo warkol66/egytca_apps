@@ -120,78 +120,96 @@
 <div id="lightbox_comments" class="leightbox">
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p>
 	
-	<div id="comments" style="height:300px; overflow:scroll;">
+	<div id="comments" style="height:300px; overflow-y:scroll;">
 		
 		<!-- decomentar para ver como quedaría -->
-		<div >
-			<p>theUser:</p>
-			<p>theContent asdasda asdasd asdasd asdasd asdasd asdasd
+		<div class="comment">
+			<div class="commentUser">theUser:</div>
+			<div class="commentContent">
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</p>
-			<hr />
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</div>
 		</div>
-		<div >
-			<p>theUser:</p>
-			<p>theContent asdasda asdasd asdasd asdasd asdasd asdasd
+		<hr />
+		<div class="comment">
+			<div class="commentUser">theUser:</div>
+			<div class="commentContent">
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</p>
-			<hr />
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</div>
 		</div>
-		<div >
-			<p>theUser:</p>
-			<p>theContent asdasda asdasd asdasd asdasd asdasd asdasd
+		<hr />
+		<div class="comment">
+			<div class="commentUser">theUser:</div>
+			<div class="commentContent">
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</p>
-			<hr />
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</div>
 		</div>
-		<div >
-			<p>theUser:</p>
-			<p>theContent asdasda asdasd asdasd asdasd asdasd asdasd
+		<hr />
+		<div class="comment">
+			<div class="commentUser">theUser:</div>
+			<div class="commentContent">
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</p>
-			<hr />
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</div>
 		</div>
-		<div >
-			<p>theUser:</p>
-			<p>theContent asdasda asdasd asdasd asdasd asdasd asdasd
+		<hr />
+		<div class="comment">
+			<div class="commentUser">theUser:</div>
+			<div class="commentContent">
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</p>
-			<hr />
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</div>
 		</div>
-		<div >
-			<p>theUser:</p>
-			<p>theContent asdasda asdasd asdasd asdasd asdasd asdasd
+		<hr />
+		<div class="comment">
+			<div class="commentUser">theUser:</div>
+			<div class="commentContent">
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</p>
-			<hr />
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</div>
 		</div>
-		<div >
-			<p>theUser:</p>
-			<p>theContent asdasda asdasd asdasd asdasd asdasd asdasd
+		<hr />
+		<div class="comment">
+			<div class="commentUser">theUser:</div>
+			<div class="commentContent">
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
 			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</p>
-			<hr />
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</div>
 		</div>
+		<hr />
+		<div class="comment">
+			<div class="commentUser">theUser:</div>
+			<div class="commentContent">
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</div>
+		</div>
+		<hr />
+		<div class="comment">
+			<div class="commentUser">theUser:</div>
+			<div class="commentContent">
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
+			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</div>
+		</div>
+		<hr />
 		<!-- -->
 		
 		|-foreach from=$comments item=comment-|
-		<div>
-			<p>|-$comment.user-|:</p>
-			<p>|-$comment.content-|</p>
+		<div class="comment">
+			<div class="commentUser">|-$comment->getUser()-|:</div>
+			<div class="commentContent">|-$comment->getContent()-|</div>
 		</div>
 		<hr />
 		|-/foreach-|
@@ -243,7 +261,7 @@ function addComment(form) {
 		{
 			method: 'post',
 			postBody: fields,
-			insertion: 'bottom'
+			insertion: 'top'
 		}
 	);
 }

@@ -37,36 +37,14 @@ class VialidadMeasurementRecordsEditAction extends BaseAction {
 			else {
 				$smarty->assign("action","edit");
 			
-				$construction = ConstructionQuery::create()->findOneById($record->getConstructionid());
-				if ($construction) {
+				$record->updateItems();
+				$itemRecords = MeasurementRecordRelationQuery::create()->findByMeasurementrecordid($_GET["id"]);
+				$smarty->assign('itemRecords', $itemRecords);
 				
-					$items = $construction->getConstructionItems();
+				$comments = MeasurementRecordCommentQuery::create()->filterByMeasurementrecordid($_GET['id'])
+					->orderByCreatedAt(Criteria::DESC)->find();
 				
-					// Si un item se agrego, creo su itemRecord
-					foreach ($items as $item) {
-						if (!$record->hasItem($item)) {
-							$record->addItem($item);
-							if (!$record->save()) {
-								throw new Exception("Couldn't save record");
-							}
-						}
-					}
-				
-					$itemRecords = MeasurementRecordRelationQuery::create()->findByMeasurementrecordid($_GET["id"]);
-					$smarty->assign('itemRecords', $itemRecords);
-				} else {
-					throw new Exception('measurementRecord doesn\'t have a valid Construction ID');
-				}
-				
-				$templateComments = array();
-				$comments = MeasurementRecordCommentQuery::create()->findByMeasurementrecordid($_GET['id']);
-				/*foreach ($comments as $comment) {
-					$user = ???; como conseguir usuario?
-					$content = $comment->getContent();
-					array_push($templateComments, array($user => $content));
-				}*/
-				
-				$smarty->assign('comments', $templateComments);
+				$smarty->assign('comments', $comments);
 			}
 		}
 		else {

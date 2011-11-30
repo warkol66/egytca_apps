@@ -16,6 +16,33 @@
 class MeasurementRecord extends BaseMeasurementRecord {
 	
 	/**
+	 * Crea los MeasurementRecordRelation que le falten al MeasurementRecord
+	 */
+	public function updateItems() {
+		$recordPeriodTimestamp = DateTime::createFromFormat('m/Y', $this->getMeasurementdate('%m/%Y'));
+		$actualPeriodTimestamp = DateTime::createFromFormat('m/Y', date(m/Y));
+		
+		// si el acta es de un período anterior a la creacion del item no lo agrego
+		if ( ($recordPeriodTimestamp - $actualPeriodTimestamp ) < 0)
+			return;
+		
+		$construction = ConstructionQuery::create()->findOneById($this->getConstructionid());
+		if ($construction) {
+			$items = $construction->getConstructionItems();
+			
+			// Si un item se agrego, creo su itemRecord
+			foreach ($items as $item) {
+				if (!$this->hasItem($item)) {
+					$this->addItem($item);
+				}
+			}
+			$this->save();
+		} else {
+			throw new Exception('measurementRecord doesn\'t have a valid Construction ID');
+		}
+	}
+	
+	/**
 	 * Determina la existencia de una relacion con un determindo ConstructionItem.
 	 * @param $constructionItem ConstructionItem
 	 */
