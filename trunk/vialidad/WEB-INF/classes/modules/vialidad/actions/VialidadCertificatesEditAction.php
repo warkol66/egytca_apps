@@ -35,6 +35,8 @@ class VialidadCertificatesEditAction extends BaseAction {
 				$smarty->assign("action","create");
 			}
 			else {
+				$certificate->getMeasurementRecord()->updateItems();
+				
 				$relations = MeasurementRecordRelationQuery::create()
 					->filterByMeasurementrecordid($certificate->getMeasurementrecordid())->find();
 

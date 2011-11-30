@@ -1,5 +1,5 @@
-<div>
-	<p>|-$user-|:</p>
-	<p>|-$content-|</p>
-	<hr />
+<div class="comment">
+	<div class="commentUser">|-$user-|:</div>
+	<div class="commentContent">|-$content-|</div>
 </div>
+<hr />
