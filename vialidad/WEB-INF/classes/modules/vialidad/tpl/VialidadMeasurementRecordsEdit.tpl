@@ -121,94 +121,10 @@
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p>
 	
 	<div id="comments" style="height:300px; overflow-y:scroll;">
-		
-		<!-- decomentar para ver como quedaría -->
-		<div class="comment">
-			<div class="commentUser">theUser:</div>
-			<div class="commentContent">
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</div>
-		</div>
-		<hr />
-		<div class="comment">
-			<div class="commentUser">theUser:</div>
-			<div class="commentContent">
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</div>
-		</div>
-		<hr />
-		<div class="comment">
-			<div class="commentUser">theUser:</div>
-			<div class="commentContent">
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</div>
-		</div>
-		<hr />
-		<div class="comment">
-			<div class="commentUser">theUser:</div>
-			<div class="commentContent">
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</div>
-		</div>
-		<hr />
-		<div class="comment">
-			<div class="commentUser">theUser:</div>
-			<div class="commentContent">
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</div>
-		</div>
-		<hr />
-		<div class="comment">
-			<div class="commentUser">theUser:</div>
-			<div class="commentContent">
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</div>
-		</div>
-		<hr />
-		<div class="comment">
-			<div class="commentUser">theUser:</div>
-			<div class="commentContent">
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</div>
-		</div>
-		<hr />
-		<div class="comment">
-			<div class="commentUser">theUser:</div>
-			<div class="commentContent">
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</div>
-		</div>
-		<hr />
-		<div class="comment">
-			<div class="commentUser">theUser:</div>
-			<div class="commentContent">
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd
-			asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd asdasd</div>
-		</div>
-		<hr />
-		<!-- -->
-		
 		|-foreach from=$comments item=comment-|
 		<div class="comment">
-			<div class="commentUser">|-$comment->getUser()-|:</div>
+			|-assign var=commentUser value=$comment->getUser()-|
+			<div class="commentUser">|-$commentUser->getUsername()-|:</div>
 			<div class="commentContent">|-$comment->getContent()-|</div>
 		</div>
 		<hr />
@@ -216,10 +132,8 @@
 	</div>
 	<div>
 		<form id="newComment">
-			<!-- usuario?
-			<input type="hidden" name="params[userId]" value="cualUsuario?????" />
-			<input type="hidden" name="params[userType]" value="?????" o esto lo deduce la accion?
-			-->
+			<input type="hidden" name="params[userId]" value="|-$userId-|" />
+			<input type="hidden" name="params[userType]" value="|-$userType-|" />
 			<input type="hidden" name="params[measurementRecordId]" value="|-$record->getId()-|" />
 			<p><textarea style="width:100%;" name="params[content]"></textarea></p>
 			<p><button type="button" onclick="addComment(this.form);">Agregar comentario</button></p>
@@ -250,10 +164,6 @@ function addComment(form) {
 	
 	// limpio la textarea para un nuevo comentario
 	form.elements['params[content]'].value = '';
-	
-	console.log(fields);
-	console.log('falta agregar usuario');
-	return; //averiguar el tema del usuario
 
 	new Ajax.Updater(
 		'comments',

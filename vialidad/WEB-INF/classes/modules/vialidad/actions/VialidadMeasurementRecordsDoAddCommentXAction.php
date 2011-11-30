@@ -32,17 +32,19 @@ class VialidadMeasurementRecordsDoAddCommentXAction extends BaseAction {
 			if (empty($param))
 				throw new Exception('wrong params');
 		}
-
-		// vienen todos los parametros por post
-		// o el tipo de usuario se deduce aca???
-		throw new Exception('no quiero olvidarme de revisar esto');
 		
 		$comment = new MeasurementRecordComment();
-		$comment->fromArray($_POST['params']);
+		
+		//por que no anda?
+		//$comment->fromArray($_POST['params']);
+		$comment->setUserid($_POST['params']['userId']);
+		$comment->setUserType($_POST['params']['userType']);
+		$comment->setMeasurementrecordid($_POST['params']['measurementRecordId']);
+		$comment->setContent($_POST['params']['content']);
+		
 		$comment->save();
 		
-		throw new Exception('no quiero olvidarme de revisar esto');//$smarty->assign('user', $comment->getUser???);
-		$smarty->assign('content', $comment->getContent());
+		$smarty->assign('comment', $comment);
 		
 		return $mapping->findForwardConfig('success');
 	}
