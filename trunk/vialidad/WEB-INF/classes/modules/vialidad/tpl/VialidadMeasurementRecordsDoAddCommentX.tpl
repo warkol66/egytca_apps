@@ -1,5 +1,6 @@
 <div class="comment">
-	<div class="commentUser">|-$user-|:</div>
-	<div class="commentContent">|-$content-|</div>
+	|-assign var=commentUser value=$comment->getUser()-|
+	<div class="commentUser">|-$commentUser->getUsername()-|:</div>
+	<div class="commentContent">|-$comment->getContent()-|</div>
 </div>
 <hr />
