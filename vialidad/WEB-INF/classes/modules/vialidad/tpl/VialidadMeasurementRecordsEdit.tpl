@@ -120,22 +120,23 @@
 <div id="lightbox_comments" class="leightbox">
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p>
 	
-	<div id="comments" style="height:300px; overflow-y:scroll;">
+	<div id="comments" style="height:auto; overflow-y:scroll; width:90%;">
 		|-foreach from=$comments item=comment-|
 		<div class="comment">
 			|-assign var=commentUser value=$comment->getUser()-|
-			<div class="commentUser">|-$commentUser->getUsername()-|:</div>
+			<div class="commentUser"><h3>|-$commentUser->getUsername()-| (|-$comment->getCreatedAt()|change_timezone|date_format:"%d-%m-%Y a las %R"-|)</h3></div>
 			<div class="commentContent">|-$comment->getContent()-|</div>
 		</div>
-		<hr />
 		|-/foreach-|
 	</div>
 	<div>
+	<br />
 		<form id="newComment">
 			<input type="hidden" name="params[userId]" value="|-$userId-|" />
 			<input type="hidden" name="params[userType]" value="|-$userType-|" />
 			<input type="hidden" name="params[measurementRecordId]" value="|-$record->getId()-|" />
-			<p><textarea style="width:100%;" name="params[content]"></textarea></p>
+			<p><textarea name="params[content]" rows="3" wrap="VIRTUAL" style="width:55%;"></textarea>
+			</p>
 			<p><button type="button" onclick="addComment(this.form);">Agregar comentario</button></p>
 		</form>
 	</div>
