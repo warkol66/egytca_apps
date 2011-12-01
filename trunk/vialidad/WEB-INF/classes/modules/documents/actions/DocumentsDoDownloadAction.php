@@ -76,9 +76,9 @@ class DocumentsDoDownloadAction extends BaseAction {
 		else
 			header("content-disposition: inline; filename=\"" . str_replace('"',"'",$document->getRealfilename()) . "\"");
 
-/*		if ($document->getSize() != 0)
-			header("Content-Length: " . $document->getSize() ."; ");
-*/
+		if ($document->getSize() != 0)
+			header("Content-Length: " . $document->getSize());
+
 		$document->getContents();
 	}
 
