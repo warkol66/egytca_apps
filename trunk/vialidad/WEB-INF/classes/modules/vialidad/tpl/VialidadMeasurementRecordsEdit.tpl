@@ -120,7 +120,7 @@
 <div id="lightbox_comments" class="leightbox">
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p>
 	
-	<div id="comments" style="height:auto; overflow-y:scroll; width:90%;">
+	<div id="comments" style="height:300px; overflow-y:scroll; width:300px;">
 		|-foreach from=$comments item=comment-|
 		<div class="comment">
 			|-assign var=commentUser value=$comment->getUser()-|
@@ -130,11 +130,10 @@
 		|-/foreach-|
 	</div>
 	<div>
-	<br />
+		<br />
 		<form id="newComment">
 			<input type="hidden" name="params[measurementRecordId]" value="|-$record->getId()-|" />
-			<p><textarea name="params[content]" rows="3" wrap="VIRTUAL" style="width:55%;"></textarea>
-			</p>
+			<p><textarea name="params[content]" rows="3" wrap="VIRTUAL" style="width:55%;"></textarea></p>
 			<p><button type="button" onclick="addComment(this.form);">Agregar comentario</button></p>
 		</form>
 	</div>
@@ -151,8 +150,17 @@ Event.observe(
 		|-if $action eq 'edit'-|
 		attachInPlaceEditors();
 		|-/if-|
+		setCommentsDimensions();
 	}
 );
+
+function setCommentsDimensions() {
+	
+	var width = 0.9 * $('comments').parentNode.getWidth();
+	var height = 0.3 * $('comments').parentNode.getWidth();
+	$('comments').style.width = width+'px';
+	$('comments').style.height = height+'px';
+}
 
 function addComment(form) {
 	var fields = Form.serialize(form);

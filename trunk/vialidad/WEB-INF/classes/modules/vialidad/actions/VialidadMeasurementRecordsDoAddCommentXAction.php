@@ -37,11 +37,8 @@ class VialidadMeasurementRecordsDoAddCommentXAction extends BaseAction {
 		$_POST['params']['userId'] = $user->getId();
 		$_POST['params']['userType'] = get_class($user);
 		
-		$userParams = Common::userInfoToDoLog();
-		$commentParams = array_merge_recursive($_POST["params"],$userParams);
-		
 		$comment = new MeasurementRecordComment();
-		$comment = Common::setObjectFromParams($comment,$commentParams);
+		$comment = Common::setObjectFromParams($comment, $_POST['params']);
 		
 		$comment->save();
 		
