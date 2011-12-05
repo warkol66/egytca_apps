@@ -41,6 +41,8 @@ class VialidadConstructionsListAction extends BaseAction {
 		$smarty->assign("constructions",$pager->getResults());
 		$smarty->assign("pager",$pager);
 
+		if ($_GET['toPrint'])
+			$this->template->template = 'VialidadConstructionsListPrint.tpl';
 		return $mapping->findForwardConfig('success');
 	}
 
