@@ -22,12 +22,19 @@ class VialidadCertificatesViewGraphXmlAction extends BaseAction {
 		$smarty->assign("section",$section);
 		
 		if (!empty($_GET['constructionId'])) {
+			
+			$certificatesQuery = CertificateQuery::create()->useMeasurementRecordQuery()
+					->filterByConstructionid($_GET['constructionId']);
 
-			$certificates = CertificateQuery::create()->useMeasurementRecordQuery()
-				->filterByConstructionid($_GET['constructionId'])
-				->filterByMeasurementdate($_GET['date'], Criteria::IN)
-				->orderByMeasurementdate(Criteria::ASC)
-				->endUse()->find();
+			if (!empty($_GET['date']['min']) && !empty($_GET['date']['max'])) {
+				$certificatesQuery->filterByMeasurementdate($_GET['date'], Criteria::IN);
+			} else if (!empty($_GET['date']['min'])) {
+				$certificatesQuery->filterByMeasurementdate($_GET['date']['min'], Criteria::GREATER_EQUAL);
+			} else if (!empty($_GET['date']['max'])) {
+				$certificatesQuery->filterByMeasurementdate($_GET['date']['max'], Criteria::LESS_EQUAL);
+			} //else don't filter by date
+			
+			$certificates = $certificatesQuery->orderByMeasurementdate(Criteria::ASC)->endUse()->find();
 			
 			$dates = array();
 			$prices = array();

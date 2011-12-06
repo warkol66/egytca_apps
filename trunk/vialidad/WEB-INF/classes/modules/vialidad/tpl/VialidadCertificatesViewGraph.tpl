@@ -15,9 +15,9 @@
 function drawChart() {
 	var chart = new FusionCharts("scripts/FusionCharts/MSLine.swf", "ChartId", "640", "420", "0", "0");
 	var dataUrl = encodeURIComponent("Main.php?do=vialidadCertificatesViewGraphXml&constructionId=|-$constructionId-|");
-	dataUrl += encodeURIComponent('&')+Form.serialize($("params"));
+	dataUrl += '&'+Form.serialize($("params"));
 	
-	chart.setDataURL(dataUrl);
+	chart.setDataURL(dataUrl.replace(new RegExp( '&', 'g' ), '%26').replace(new RegExp( '=', 'g' ), '%3D'));
 	chart.render("chartDiv");
 }
 
