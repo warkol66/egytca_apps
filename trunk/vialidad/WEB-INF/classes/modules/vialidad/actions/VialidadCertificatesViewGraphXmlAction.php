@@ -22,7 +22,7 @@ class VialidadCertificatesViewGraphXmlAction extends BaseAction {
 		$smarty->assign("section",$section);
 		
 		if (!empty($_GET['constructionId'])) {
-			
+
 			$certificates = CertificateQuery::create()->useMeasurementRecordQuery()
 				->filterByConstructionid($_GET['constructionId'])
 				->filterByMeasurementdate($_GET['date'], Criteria::IN)
@@ -35,13 +35,13 @@ class VialidadCertificatesViewGraphXmlAction extends BaseAction {
 			foreach ($certificates as $certificate) {
 				$acummulated += $certificate->getTotalPrice();
 				array_push($prices, $acummulated);
-				$date = DateTime::createFromFormat("Y/m/d", $certificate->getMeasurementRecord()->getMeasurementDate());
-				array_push($dates, $date->format("m-Y"));
+				array_push($dates, $certificate->getMeasurementRecord()->getMeasurementDate('%m-%Y'));
 			}
 			
 			$smarty->assign('construction', ConstructionQuery::create()->findOneById($_GET['constructionId']));
 			$smarty->assign('dates', $dates);
 			$smarty->assign('prices', $prices);
+			$smarty->assign('asd', "qwe");
 			
 			$this->template->template = 'TemplateAjax.tpl';
 			header ("content-type: text/xml; charset=utf-8");

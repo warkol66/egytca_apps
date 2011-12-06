@@ -15,18 +15,10 @@
 function drawChart() {
 	var chart = new FusionCharts("scripts/FusionCharts/MSLine.swf", "ChartId", "640", "420", "0", "0");
 	var dataUrl = encodeURIComponent("Main.php?do=vialidadCertificatesViewGraphXml&constructionId=|-$constructionId-|");
-	dataUrl += Form.serialize($("params"));
-	console.log(dataUrl);
+	dataUrl += encodeURIComponent('&')+Form.serialize($("params"));
+	
 	chart.setDataURL(dataUrl);
 	chart.render("chartDiv");
-	
-	new Ajax.Request(
-		"Main.php?do=vialidadCertificatesViewGraphXml&constructionId=|-$constructionId-|",
-		{
-			method: 'get',
-			parameters: Form.serialize($("params"))
-		}
-	);
 }
 
 </script>
