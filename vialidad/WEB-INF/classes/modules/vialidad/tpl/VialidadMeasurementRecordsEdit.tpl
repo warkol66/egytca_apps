@@ -43,9 +43,10 @@
 	<table id="table_itemsRecords" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead>
 		<tr class="thFillTitle"> 
-			<th width="50%">Item</th> 
-			<th width="20%">Cantidad</th> 
-			<th width="20%">Verificado</th>
+			<th width="55%">Item</th> 
+			<th width="15%">Cantidad</th> 
+			<th width="5%">Unidad</th> 
+			<th width="10%">Verificado</th>
 			<th width="10%">Documento</th>
 		</tr>
 		</thead>
@@ -59,8 +60,10 @@
 		<tr>
 			|-assign var=item value=$itemRecord->getConstructionItem()-|
 			<td>|-$item->getName()-|</td>
-			<td><span id="quantity|-$itemRecord->getId()-|" class="inPlaceEditable">|-$itemRecord->getQuantity()|system_numeric_format-|</span></td>
-			<td><input type="checkbox" |-$itemRecord->getVerified()|checked_bool-| onchange="updateVerified('|-$itemRecord->getId()-|', this.checked)" /></td>
+			<td align="right"><span id="quantity|-$itemRecord->getId()-|" class="inPlaceEditable">|-$itemRecord->getQuantity()|system_numeric_format-|</span></td>
+			<td align="center">|-$item->getUnit()-|</td>
+			<td align="center">
+			  <input type="checkbox" |-$itemRecord->getVerified()|checked_bool-| onchange="updateVerified('|-$itemRecord->getId()-|', this.checked)" /></td>
 			<td align="center">
 				<a |-if $itemRecord->getDocumentid() neq ''-|style="display:none"|-/if-| href="#lightbox|-$itemRecord->getId()-|" rel="lightbox|-$itemRecord->getId()-|" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>
 				<input |-if $itemRecord->getDocumentid() eq ''-|style="display:none"|-/if-| onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$itemRecord->getDocumentid()-|')" type="button" class="icon iconView" />

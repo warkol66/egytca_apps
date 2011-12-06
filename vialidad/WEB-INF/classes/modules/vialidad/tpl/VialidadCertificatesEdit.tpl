@@ -45,8 +45,9 @@
 		<thead>
 		<tr class="thFillTitle"> 
 			<th width="50%">Item</th> 
-			<th width="15%">Cantidad</th> 
-			<th width="15%">Precio por cantidad 1</th>
+			<th width="10%">Cantidad</th> 
+			<th width="5%">Unidad</th> 
+			<th width="10%">Precio unitario</th>
 			<th width="15%">Precio total</th>
 			<th width="5%">&nbsp;</th>
 		</tr>
@@ -61,7 +62,8 @@
 		<tr>
 			|-assign var=item value=$relation->getConstructionItem()-|
 			<td>|-$item->getName()-|</td>
-			<td align="right"><span id="quantity|-$relation->getId()-|">|-$relation->getQuantity()|system_numeric_format-|</span></td>
+			<td align="right">|-$relation->getQuantity()|system_numeric_format-|</td>
+			<td align="center">|-$item->getUnit()-|</td>
 			<td align="right"><span id="price|-$relation->getId()-|">|-$relation->getPrice()|system_numeric_format-|</span></td>
 			<td align="right"><span id="totalPrice|-$relation->getId()-|">|-$relation->getTotalPrice()|system_numeric_format-|</span></td>
 			<td align="center"><input id="button_priceEdit|-$relation->getId()-|" type="button" class="icon iconEdit"/></td>
