@@ -24,8 +24,8 @@
 			  <p><label for="filters[date][min]">Fecha</label>
 			  </p></td>
 			<td valign="top"><p>
-				<label for="filters[date][min]">desde</label>
-				<input name="filters[date][min]" type='text' value='|-if isset($filters.date.min)-||-$filters.date.min|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[date][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<label for="filters[measurementdate][min]">desde</label>
+				<input name="filters[measurementdate][min]" type='text' value='|-if isset($filters.date.min)-||-$filters.measurementdate.min|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[measurementdate][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 				</p>
 				</td>
 				<td valign="top"><p>
