@@ -23,7 +23,7 @@
 			|-if $action eq 'edit'-|
 			<p>
 				<label for="totalPrice">Precio Total</label>
-				<span id="totalPrice" name="totalPrice" size="12" title="Precio total">|-$certificate->calculatePrice()-|</span>
+				<span id="totalPrice" name="totalPrice" size="12" title="Precio total">|-$certificate->calculatePrice()|system_numeric_format-|</span>
 			</p>
 			|-/if-|
 			<p>
@@ -61,9 +61,9 @@
 		<tr>
 			|-assign var=item value=$relation->getConstructionItem()-|
 			<td>|-$item->getName()-|</td>
-			<td><span id="quantity|-$relation->getId()-|">|-$relation->getQuantity()-|</span></td>
-			<td><span id="price|-$relation->getId()-|">|-$relation->getPrice()-|</span></td>
-			<td><span id="totalPrice|-$relation->getId()-|">|-$relation->getTotalPrice()-|</span></td>
+			<td align="right"><span id="quantity|-$relation->getId()-|">|-$relation->getQuantity()|system_numeric_format-|</span></td>
+			<td align="right"><span id="price|-$relation->getId()-|">|-$relation->getPrice()|system_numeric_format-|</span></td>
+			<td align="right"><span id="totalPrice|-$relation->getId()-|">|-$relation->getTotalPrice()|system_numeric_format-|</span></td>
 			<td align="center"><input id="button_priceEdit|-$relation->getId()-|" type="button" class="icon iconEdit"/></td>
 		</tr>
 		|-/foreach-|
