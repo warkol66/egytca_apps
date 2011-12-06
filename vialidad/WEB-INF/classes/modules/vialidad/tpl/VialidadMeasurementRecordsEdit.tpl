@@ -59,7 +59,7 @@
 		<tr>
 			|-assign var=item value=$itemRecord->getConstructionItem()-|
 			<td>|-$item->getName()-|</td>
-			<td><span id="quantity|-$itemRecord->getId()-|" class="inPlaceEditable">|-$itemRecord->getQuantity()-|</span></td>
+			<td><span id="quantity|-$itemRecord->getId()-|" class="inPlaceEditable">|-$itemRecord->getQuantity()|system_numeric_format-|</span></td>
 			<td><input type="checkbox" |-$itemRecord->getVerified()|checked_bool-| onchange="updateVerified('|-$itemRecord->getId()-|', this.checked)" /></td>
 			<td align="center">
 				<a |-if $itemRecord->getDocumentid() neq ''-|style="display:none"|-/if-| href="#lightbox|-$itemRecord->getId()-|" rel="lightbox|-$itemRecord->getId()-|" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>
