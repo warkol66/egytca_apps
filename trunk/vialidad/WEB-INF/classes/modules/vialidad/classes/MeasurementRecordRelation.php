@@ -24,7 +24,9 @@ class MeasurementRecordRelation extends BaseMeasurementRecordRelation {
 		
 		$periodo = $this->getMeasurementRecord()->getMeasurementdate('%d/%m/%Y');
 		$bulletin = BulletinQuery::create()->filterByPeriodo($periodo)->findOne();
-		
+		if (is_null($bulletin))
+			return null;
+			
 		$itemRelations = ConstructionItemRelationQuery::create()
 			->filterByConstructionItem($this->getConstructionItem())->find();
 		foreach ($itemRelations as $itemRelation) {
