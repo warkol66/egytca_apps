@@ -1,4 +1,4 @@
-<chart caption='Reporte de Obras'>
+<chart caption='Reporte de Obras' decimals='2' labelDisplay='Rotate' slantLabels='1'>
 	<categories>
 	|-foreach from=$dates item=date-|
 		<category label='|-$date-|' />
