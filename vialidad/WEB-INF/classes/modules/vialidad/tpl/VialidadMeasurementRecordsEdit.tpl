@@ -23,9 +23,6 @@
 				<label for="params[measurementDate]">Período</label>
 				<input type="text" id="params[measurementDate]" name="params[measurementDate]" size="12" value="|-$record->getMeasurementDate()|date_format-|" title="Período" /><img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[measurementDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
-			|-if $action eq 'edit'-|
-			<p><a href="#lightbox_comments" rel="lightbox_comments" class="lbOn">Comentarios</a></p>
-			|-/if-|
 			<p>
 				|-if $action eq 'edit'-|
 				<input type="hidden" name="id" id="id" value="|-$record->getid()-|" />
@@ -33,6 +30,9 @@
 				<input type="hidden" name="do" id="do" value="vialidadMeasurementRecordsDoEdit" />
 				<input type="submit" id="button_edit_record" name="button_edit_record" title="Aceptar" value="Guardar" />
 				<input type="button" id="cancel" name="cancel" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=vialidadMeasurementRecordsList'"/>
+			|-if $action eq 'edit'-|
+				<a href="#lightbox_comments" rel="lightbox_comments" class="lbOn"><input type="button" title="Comentarios" value="Comentarios" /></a>
+			|-/if-|
 			<div id="div_form_error" style="display:none">Falta completar campos</div>
 			</p>
 		</fieldset>
@@ -121,6 +121,7 @@
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p>
 	
 	<div id="comments" style="height:300px; overflow-y:scroll; width:300px;">
+	|-if $comments|@count gt 0-|
 		|-foreach from=$comments item=comment-|
 		<div class="comment">
 			|-assign var=commentUser value=$comment->getUser()-|
@@ -128,15 +129,19 @@
 			<div class="commentContent">|-$comment->getContent()-|</div>
 		</div>
 		|-/foreach-|
+	|-else-|
+		<div class="comment">
+			<div class="commentContent">No hay comentarios asociados</div>
+		</div>
+		|-/if-|
 	</div>
-	<div>
 		<br />
 		<form id="newComment">
 			<input type="hidden" name="params[measurementRecordId]" value="|-$record->getId()-|" />
-			<p><textarea name="params[content]" rows="3" wrap="VIRTUAL" style="width:55%;"></textarea></p>
-			<p><button type="button" onclick="addComment(this.form);">Agregar comentario</button></p>
+			<textarea name="params[content]" rows="3" wrap="VIRTUAL" style="width:55%;"></textarea>
+		<br />
+			<input type="button" onclick="addComment(this.form);" value="Agregar comentario" />
 		</form>
-	</div>
 </div>
 			
 |-/if-|
