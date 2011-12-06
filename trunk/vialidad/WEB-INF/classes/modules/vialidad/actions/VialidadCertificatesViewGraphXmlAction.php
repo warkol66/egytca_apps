@@ -41,7 +41,6 @@ class VialidadCertificatesViewGraphXmlAction extends BaseAction {
 			$smarty->assign('construction', ConstructionQuery::create()->findOneById($_GET['constructionId']));
 			$smarty->assign('dates', $dates);
 			$smarty->assign('prices', $prices);
-			$smarty->assign('asd', "qwe");
 			
 			$this->template->template = 'TemplateAjax.tpl';
 			header ("content-type: text/xml; charset=utf-8");
