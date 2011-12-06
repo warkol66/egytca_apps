@@ -53,6 +53,10 @@ class VialidadConstructionItemEditAction extends BaseAction {
 		$smarty->assign('message', $_GET['message']);
 		$smarty->assign('item', $item);
 		
+		if ($_GET['toPrint']) {
+			$this->template->template = 'TemplatePrint.tpl';
+			$smarty->assign('toPrint', true);
+		}
 		return $mapping->findForwardConfig('success');
 	}
 

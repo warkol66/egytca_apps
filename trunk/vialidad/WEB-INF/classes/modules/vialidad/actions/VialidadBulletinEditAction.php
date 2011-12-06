@@ -71,6 +71,10 @@ class VialidadBulletinEditAction extends BaseAction {
 		$smarty->assign("page",$_GET["page"]);
 		$smarty->assign("message",$_GET["message"]);
 
+		if ($_GET['toPrint']) {
+			$this->template->template = 'TemplatePrint.tpl';
+			$smarty->assign('toPrint', true);
+		}
 		return $mapping->findForwardConfig('success');
 	}
 
