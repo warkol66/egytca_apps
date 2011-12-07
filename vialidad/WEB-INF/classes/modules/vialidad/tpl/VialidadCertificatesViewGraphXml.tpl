@@ -5,9 +5,16 @@
 	|-/foreach-|
 	</categories>
 	
-	<dataset seriesName='|-$construction->getName()-|' showValues='0'>
+	<dataset seriesName='Certificados' showValues='0'>
 	|-foreach from=$prices item=price-|
 		<set value='|-$price-|' />
+	|-/foreach-|
+	</dataset>
+	<dataset seriesName='Acumulado' showValues='0'>
+	|-foreach from=$prices item=price-|
+	|-math equation="x + y" x=$price y=$acumulado assign=suma-|
+		<set value='|-$suma-|' />
+	|-assign var=acumulado value=$suma-|
 	|-/foreach-|
 	</dataset>
 </chart>

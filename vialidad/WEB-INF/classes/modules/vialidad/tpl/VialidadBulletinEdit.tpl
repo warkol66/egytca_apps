@@ -1,4 +1,4 @@
-<h2>Boletines</h2>
+|-if !$toPrint-|<h2>Boletines</h2>
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| Boletín Formula Paramétrica</h1>
 <div id="div_bulletin">
 	<p>Ingrese los datos del Boletín</p>
@@ -7,7 +7,6 @@
 	|-elseif $message eq "ok"-|
 		<div class="successMessage">Cambios guardados correctamente</div>
 	|-/if-|
-	
 	<form name="form_edit_bulletin" id="form_edit_bulletin" action="Main.php" method="post">
 	<fieldset title="Formulario de edición de datos de un Boletín">
 		<legend>Formulario de Administración de Boletines</legend>
@@ -39,6 +38,7 @@
 			<input type="hidden" name="do" id="do" value="vialidadBulletinDoEdit" />
 			<input type="submit" id="button_edit_bulletin" name="button_edit_bulletin" title="Aceptar" value="Guardar" />
 			<input type="button" id="cancel" name="cancel" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=vialidadBulletinList'"/>
+			<a href="Main.php?do=vialidadBulletinEdit&id=|-$bulletin->getid()-|&toPrint=true" target="_blank" tilte="Imprimir" class="noDecoration"><input type="button" value="Imprimir" /></a>
 		</p>
 	</fieldset>
 </form>
@@ -149,3 +149,6 @@ function updatePublish(supplyId, value) {
 }
 </script>
 
+|-else-|
+|-include file="VialidadBulletinPrint.tpl"-|
+|-/if-|	

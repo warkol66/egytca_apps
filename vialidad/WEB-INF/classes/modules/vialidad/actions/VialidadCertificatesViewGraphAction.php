@@ -24,6 +24,8 @@ class VialidadCertificatesViewGraphAction extends BaseAction {
 		if (!empty($_GET['constructionId'])) {
 			
 			$smarty->assign('constructionId', $_GET['constructionId']);
+			$smarty->assign('construction', ConstructionQuery::create()->findPK($_GET['constructionId']));
+
 			return $mapping->findForwardConfig("success");
 		} else {
 			throw new Exception('wrong params');
