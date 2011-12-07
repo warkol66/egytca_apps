@@ -41,13 +41,14 @@ class VialidadCertificatesViewGraphXmlAction extends BaseAction {
 			$acummulated = 0;
 			foreach ($certificates as $certificate) {
 				$acummulated += $certificate->getTotalPrice();
-				array_push($prices, $acummulated);
+				$certificatesArray[] = $certificate->getTotalPrice();
+				$acumulatedArray[] = $acummulated;
 				array_push($dates, $certificate->getMeasurementRecord()->getMeasurementDate('%m-%Y'));
 			}
-			
 			$smarty->assign('construction', ConstructionQuery::create()->findOneById($_GET['constructionId']));
 			$smarty->assign('dates', $dates);
-			$smarty->assign('prices', $prices);
+			$smarty->assign('certificatesArray', $certificatesArray);
+			$smarty->assign('acumulatedArray', $acumulatedArray);
 			
 			$this->template->template = 'TemplateAjax.tpl';
 			header ("content-type: text/xml; charset=utf-8");

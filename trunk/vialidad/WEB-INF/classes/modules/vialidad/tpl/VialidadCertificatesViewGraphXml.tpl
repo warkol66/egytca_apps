@@ -6,15 +6,13 @@
 	</categories>
 	
 	<dataset seriesName='Certificados' showValues='0'>
-	|-foreach from=$prices item=price-|
-		<set value='|-$price-|' />
+	|-foreach from=$certificatesArray item=certificate-|
+		<set value='|-$certificate-|' />
 	|-/foreach-|
 	</dataset>
 	<dataset seriesName='Acumulado' showValues='0'>
-	|-foreach from=$prices item=price-|
-	|-math equation="x + y" x=$price y=$acumulado assign=suma-|
-		<set value='|-$suma-|' />
-	|-assign var=acumulado value=$suma-|
+	|-foreach from=$acumulatedArray item=acumulated-|
+		<set value='|-$acumulated-|' />
 	|-/foreach-|
 	</dataset>
 </chart>
