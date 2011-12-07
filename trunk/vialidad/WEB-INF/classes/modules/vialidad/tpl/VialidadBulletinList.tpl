@@ -101,6 +101,7 @@
 					<input type="submit" name="submit_go_delete_vialidad_bulletin" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar el Boletín?')" class="icon iconDelete" />
 				</form>
 				|-/if-|
+					<a href="Main.php?do=vialidadBulletinEdit&id=|-$bulletin->getid()-|&toPrint=true" target="_blank" tilte="Imprimir"><img src="images/clear.png" class="icon iconPrint" /></a>
 			</td>
 		</tr> 
 		|-/foreach-|
