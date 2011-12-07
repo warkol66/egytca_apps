@@ -286,6 +286,32 @@ fieldset fieldset legend {
 }
 /*  /fieldset  ----------------------------------- */
 
+
+#divSearch p label {
+	float: left;
+	width: 70px;
+	font-weight: bold;
+	vertical-align: text-bottom;
+	text-align: right;
+	height: auto;
+	display: block;
+	padding-right: 5px;
+}
+#divSearch td p label {
+	width: 40px;
+}
+#divSearch td p {
+	width: auto;
+}
+#divSearch td {
+	border: 1px solid transparent !Important;
+	padding: 0 !Important;
+}
+#divSearch p input[type="text"] {
+	padding: .1em;
+}
+
+
 /* InternalMail */
 fieldset #recipientsSelected li {
 	list-style: none;
@@ -421,6 +447,7 @@ ul.iconOptionsList li {
 /* In-Place Edit */
 .in_place_editable {
 	padding: 5px;
+	background-image: none !Important;
 }
 .editor_field, .editor_ok_button, .editor_cancel_button {
 	margin-right: 3px !Important;
@@ -595,4 +622,12 @@ a.textLink:hover {
 	text-decoration: underline;
 }
 a.textLink:visited, a.textLink:active{
+}
+
+fieldset .tableTdBorders p {
+	width: auto !Important;
+}
+fieldset .tableTdBorders label {
+	margin-left: 0 !Important;
+	width: auto !Important;
 }

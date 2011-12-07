@@ -37,7 +37,7 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
 	-webkit-border-radius: .2em;
 	border-radius: .2em;
 }
-input.icon, input.editor_ok_button, input.editor_cancel_button {
+input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 	width: 22px !Important;
 	height: 22px !Important;
 	margin: 0;
@@ -47,7 +47,7 @@ input.icon, input.editor_ok_button, input.editor_cancel_button {
 .iconActivate, .iconAdd, .iconBack, .iconBudget, .iconDelete, .iconDetail, .iconDownload, .iconCancel, .iconEdit, .iconEmail,
 .iconFollow, .iconGoTo, .iconGraph, .iconHelp, .iconHistory, .iconIndicator, .iconTableh3 , .iconNote, .iconDocument, .iconAttach,
 .iconInfo, .iconManufacture, .iconOrder, .iconPassword, .iconPlus, .iconRestore, .iconRestoreFromServer, .iconSendMultiple,
-.iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload, .iconClose, .iconView, .iconViewGantt, .iconWeight,
+.iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload, .iconClose, .iconView, .iconViewGantt, .iconWeight, .iconPrint,
 .iconAddToCart, .iconRemoveFromCart, .iconUpdateCart, .iconSetPrivileges, .iconOwner, .iconRead, .iconUnread, .iconEditUser,
 .iconAddUser, .iconPhoto, .iconHardDelete, .iconUndelete, .iconCut, .iconCrop, .iconNews, .iconNewsAdd, .iconNewsLink, .iconNewsGoTo,
 .iconNewsDelete, .iconNewsClipping, input.editor_ok_button, input.editor_cancel_button {
@@ -109,6 +109,9 @@ input.icon, input.editor_ok_button, input.editor_cancel_button {
 }
 .iconRestoreFromServer {
 	background-position: -40px -20px;
+}
+.iconPrint {
+	background-position: -60px -20px;
 }
 .iconRestore {
 	background-position: -80px -20px;
@@ -425,6 +428,7 @@ div.autocomplete ul li,  div.autocomplete ul b{
   padding-right:20px;
   white-space: nowrap;
   cursor:pointer;
+  text-align: left;
 }
 div.autocomplete ul b {
   font-style: italic;
