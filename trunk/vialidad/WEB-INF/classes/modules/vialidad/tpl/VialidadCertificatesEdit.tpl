@@ -12,6 +12,7 @@
 			<legend>Formulario de Administración de Certificado de Obra</legend>
 			<p>
 				<label for="params[measurementRecordId]">Acta</label>
+				|-if $action eq "create"-|
 				<select name="params[measurementRecordId]">
 					<option value="">Seleccione un Acta</option>
 					|-foreach from=$eligibleRecords item=record-|
@@ -19,6 +20,11 @@
 					<option value="|-$record->getId()-|" |-$record->getId()|selected:$certificate->getMeasurementRecordId()-|>|-$construction->getName()-|&nbsp;-&nbsp;|-$record->getMeasurementDate()|date_format:"%B / %Y"|@ucfirst-|</option>
 					|-/foreach-|
 				</select>
+				|-else-|
+				|-assign var=record value=$certificate->getMeasurementRecord()-|
+				|-assign var=construction value=$record->getConstruction()-|
+				<span>|-$construction->getName()-|&nbsp;-&nbsp;|-$record->getMeasurementDate()|date_format:"%B / %Y"|@ucfirst-|</span>
+				|-/if-|
 			</p>
 			|-if $action eq 'edit'-|
 			<p>
