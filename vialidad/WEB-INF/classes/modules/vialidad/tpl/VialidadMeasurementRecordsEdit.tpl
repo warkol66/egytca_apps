@@ -31,14 +31,18 @@
 			</p>
 			<p>
 				<label for="params[measurementDate]">Período</label>
+				|-if $action eq "create"-|
 				<input type="text" id="params[measurementDate]" name="params[measurementDate]" size="12" value="|-$record->getMeasurementDate()|date_format-|" title="Período" /><img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[measurementDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				|-else-|
+				<span>|-$record->getMeasurementDate()|date_format-|</span>
+				|-/if-|
 			</p>
 			<p>
 				|-if $action eq 'edit'-|
 				<input type="hidden" name="id" id="id" value="|-$record->getid()-|" />
 				|-/if-|
 				<input type="hidden" name="do" id="do" value="vialidadMeasurementRecordsDoEdit" />
-				<input type="submit" id="button_edit_record" name="button_edit_record" title="Aceptar" value="Guardar" />
+				<input type="submit" id="button_edit_record" name="button_edit_record" |-if $action eq "create"-|disabled="disabled"|-/if-| title="Aceptar" value="Guardar" />
 				<input type="button" id="cancel" name="cancel" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=vialidadMeasurementRecordsList'"/>
 			|-if $action eq 'edit'-|
 				<a href="#lightbox_comments" rel="lightbox_comments" class="lbOn"><input type="button" title="Comentarios" value="Comentarios" /></a>
@@ -167,8 +171,8 @@ Event.observe(
 	function() {
 		|-if $action eq 'edit'-|
 		attachInPlaceEditors();
-		|-/if-|
 		setCommentsDimensions();
+		|-/if-|
 	}
 );
 

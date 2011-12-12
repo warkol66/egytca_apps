@@ -42,7 +42,7 @@
 				<input type="hidden" name="action" value="edit" />
 				|-/if-|
 				<input type="hidden" name="do" id="do" value="vialidadCertificatesDoEdit" />
-				<input type="submit" id="button_edit_certificate" name="button_edit_certificate" disabled="disabled" title="Aceptar" value="Guardar" />
+				<input type="submit" id="button_edit_certificate" name="button_edit_certificate" |-if $action eq "create"-|disabled="disabled"|-/if-| title="Aceptar" value="Guardar" />
 				<input type="button" id="cancel" name="cancel" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=vialidadCertificatesList'"/>
 				<div id="div_form_error" style="display:none">Falta completar campos</div>
 			</p>
