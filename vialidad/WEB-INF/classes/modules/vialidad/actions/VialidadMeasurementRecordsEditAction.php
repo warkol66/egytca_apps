@@ -51,9 +51,6 @@ class VialidadMeasurementRecordsEditAction extends BaseAction {
 			$smarty->assign("action","create");
 		}
 		
-		$constructions = ConstructionQuery::create()->find();
-		
-		$smarty->assign('allConstructions', $constructions);
 		$smarty->assign("record",$record);
 		return $mapping->findForwardConfig('success');
 	}
