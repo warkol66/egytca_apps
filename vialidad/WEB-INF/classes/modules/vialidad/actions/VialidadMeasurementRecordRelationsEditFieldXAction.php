@@ -25,6 +25,11 @@ class VialidadMeasurementRecordRelationsEditFieldXAction extends BaseAction {
 		$relation = MeasurementRecordRelationQuery::create()->findOneById($_POST['id']);
 
 		if (!empty($_POST['paramName']) && !empty($_POST['paramValue'])) {
+			
+			if ($_POST['paramName'] == 'price' || $_POST['paramName'] == 'quantity') {
+				$_POST['paramValue'] = Common::convertToMysqlNumericFormat($_POST['paramValue']);
+				$smarty->assign('isNumeric', true);
+			}
 			$relation->setByName($_POST['paramName'], $_POST['paramValue'], BasePeer::TYPE_FIELDNAME);
 			$relation->save();
 		}
