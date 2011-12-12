@@ -1,3 +1,4 @@
+|-include file="CommonAutocompleterInclude.tpl" -|
 <h2>Actas de Medición</h2>
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| Acta de Medición</h1>
 <div id="div_bulletin">
@@ -11,17 +12,14 @@
 		<fieldset title="Formulario de edición de datos de un Acta de Medición">
 			<legend>Formulario de Administración de Actas de Medición</legend>
 			<p>
-				<label for="params[constructionId]">Obra</label>
-				|-if $action eq "create"-|
-				<select name="params[constructionId]">
-					<option value="">Seleccione una Obra</option>
-					|-foreach from=$allConstructions item=construction-|
-					<option value="|-$construction->getId()-|" |-$construction->getId()|selected:$record->getConstructionId()-|>|-$construction->getName()-|</option>
-					|-/foreach-|
-				</select>
-				|-else-|
 				|-assign var=construction value=$record->getConstruction()-|
-				<span>|-$construction->getName()-|</span>
+				|-if $action eq "create"-|
+				<div style="position: relative;z-index:10000;">
+				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=vialidadConstructionsAutocompleteListX" hiddenName="params[constructionId]" disableSubmit="button_edit_record" label="Obra"-|
+				</div>
+				|-else-|
+				<label for="params[constructionId]">Obra</label>
+				<span name="params[constructionId]">|-$construction->getName()-|</span>
 				|-/if-|
 			</p>
 			<p>
