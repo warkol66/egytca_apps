@@ -12,12 +12,17 @@
 			<legend>Formulario de Administración de Actas de Medición</legend>
 			<p>
 				<label for="params[constructionId]">Obra</label>
+				|-if $action eq "create"-|
 				<select name="params[constructionId]">
 					<option value="">Seleccione una Obra</option>
 					|-foreach from=$allConstructions item=construction-|
 					<option value="|-$construction->getId()-|" |-$construction->getId()|selected:$record->getConstructionId()-|>|-$construction->getName()-|</option>
 					|-/foreach-|
 				</select>
+				|-else-|
+				|-assign var=construction value=$record->getConstruction()-|
+				<span>|-$construction->getName()-|</span>
+				|-/if-|
 			</p>
 			<p>
 				<label for="params[measurementDate]">Período</label>
