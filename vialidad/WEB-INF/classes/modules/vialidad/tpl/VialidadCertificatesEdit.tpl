@@ -5,6 +5,8 @@
 <input type='button' onClick='location.href="Main.php?do=vialidadCertificatesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Certificados"/>
 |-else-|
 
+|-include file="CommonAutocompleterInclude.tpl" -|
+
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| Certificado de Obra</h1>
 <div id="div_certificate">
 	<p>Ingrese los datos del Certificado de Obra</p>
@@ -17,18 +19,14 @@
 		<fieldset title="Formulario de edición de datos de un Certificado de Obra">
 			<legend>Formulario de Administración de Certificado de Obra</legend>
 			<p>
-				<label for="params[measurementRecordId]">Acta</label>
 				|-if $action eq "create"-|
-				<select name="params[measurementRecordId]">
-					<option value="">Seleccione un Acta</option>
-					|-foreach from=$eligibleRecords item=record-|
-					|-assign var=construction value=$record->getConstruction()-|
-					<option value="|-$record->getId()-|" |-$record->getId()|selected:$certificate->getMeasurementRecordId()-|>|-$construction->getName()-|&nbsp;-&nbsp;|-$record->getMeasurementDate()|date_format:"%B / %Y"|@ucfirst-|</option>
-					|-/foreach-|
-				</select>
+				<div style="position: relative;z-index:10000;">
+				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=vialidadMeasurementRecordsAutocompleteListX&noCertificate=1" hiddenName="params[measurementRecordId]" disableSubmit="button_edit_certificate" label="Acta"-|
+				</div>
 				|-else-|
 				|-assign var=record value=$certificate->getMeasurementRecord()-|
 				|-assign var=construction value=$record->getConstruction()-|
+				<label for="params[measurementRecordId]">Acta</label>
 				<span>|-$construction->getName()-|&nbsp;-&nbsp;|-$record->getMeasurementDate()|date_format:"%B / %Y"|@ucfirst-|</span>
 				|-/if-|
 			</p>
@@ -44,7 +42,7 @@
 				<input type="hidden" name="action" value="edit" />
 				|-/if-|
 				<input type="hidden" name="do" id="do" value="vialidadCertificatesDoEdit" />
-				<input type="submit" id="button_edit_certificate" name="button_edit_certificate" title="Aceptar" value="Guardar" />
+				<input type="submit" id="button_edit_certificate" name="button_edit_certificate" disabled="disabled" title="Aceptar" value="Guardar" />
 				<input type="button" id="cancel" name="cancel" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=vialidadCertificatesList'"/>
 				<div id="div_form_error" style="display:none">Falta completar campos</div>
 			</p>

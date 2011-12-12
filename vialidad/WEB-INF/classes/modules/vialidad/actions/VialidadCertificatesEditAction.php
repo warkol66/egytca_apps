@@ -48,14 +48,6 @@ class VialidadCertificatesEditAction extends BaseAction {
 			$smarty->assign("action","create");
 		}
 		
-		$otherCertificates = CertificateQuery::create()->find();
-		$recordsQuery = MeasurementRecordQuery::create();
-		
-		foreach ($otherCertificates as $otherCertificate) {
-			$recordsQuery->filterByCertificate($otherCertificate, Criteria::NOT_EQUAL);
-		}
-		
-		$smarty->assign('eligibleRecords', $recordsQuery->find());
 		$smarty->assign("certificate",$certificate);
 		return $mapping->findForwardConfig('success');
 	}
