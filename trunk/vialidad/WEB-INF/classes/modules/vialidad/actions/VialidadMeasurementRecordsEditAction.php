@@ -31,8 +31,7 @@ class VialidadMeasurementRecordsEditAction extends BaseAction {
 			$record = MeasurementRecordQuery::create()->findPk($_GET["id"]);
 			if (empty($record)) {
 				$smarty->assign("notValidId","true");
-				$record = new MeasurementRecord();
-				$smarty->assign("action","create");
+				return $mapping->findForwardConfig('success');
 			}
 			else {
 				$smarty->assign("action","edit");

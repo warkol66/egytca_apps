@@ -1,6 +1,13 @@
-|-include file="CommonAutocompleterInclude.tpl" -|
 <h2>Obras</h2>
-	<h1>Administración de Obras - |-if $action eq 'create'-|Crear|-else-|Editar|-/if-| Obra</h1>
+
+|-if $notValidId eq "true"-|
+<div class="errorMessage">El identificador de la obra ingresado no es válido. Seleccione una obra del listado.</div>
+<input type='button' onClick='location.href="Main.php?do=vialidadConstructionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Obras"/>
+|-else-|
+
+|-include file="CommonAutocompleterInclude.tpl" -|
+
+<h1>Administración de Obras - |-if $action eq 'create'-|Crear|-else-|Editar|-/if-| Obra</h1>
 |-if $action eq 'create'-|	
 	<p>A continuación podrá ingresar los datos para crear el Obra.</p>
 |-else-|		
@@ -130,3 +137,5 @@ function removeItem(itemId) {
 }
 
 </script>
+
+|-/if-|

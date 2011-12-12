@@ -34,7 +34,7 @@ class VialidadConstructionsEditAction extends BaseAction {
 			$construction =  ConstructionPeer::get($_GET['id']);
 			if (empty($construction)) {
 				$smarty->assign("notValidId","true");
-				$construction = new Construction();
+				return $mapping->findForwardConfig('success');
 			}
 			else
 				$smarty->assign("action","edit");

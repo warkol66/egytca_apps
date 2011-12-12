@@ -31,7 +31,7 @@ class VialidadContractsEditAction extends BaseAction {
 			$contract =  ContractPeer::get($_GET['id']);
 			if (empty($contract)) {
 				$smarty->assign("notValidId","true");
-				$contract = new Contract();
+				return $mapping->findForwardConfig('success');
 			}
 			else
 				$smarty->assign("action","edit");
