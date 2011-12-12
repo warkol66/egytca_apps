@@ -22,8 +22,10 @@ class VialidadConstructionItemEditAction extends BaseAction {
 		if (!empty($_GET["id"])) {
 			//voy a editar un objeto
 			$item = ConstructionItemQuery::create()->findOneById($_GET["id"]);
-			if (is_null($item))
-				throw new Exception('invalid id: '.$_GET['id']);
+			if (is_null($item)) {
+				$smarty->assign("notValidId", "true");
+				return $mapping->findForwardConfig('success');
+			}
 			
 			$components = ConstructionItemRelationQuery::create()->filterByConstructionItem($item)->find();
 			$allSupplies = SupplyQuery::create()->find();

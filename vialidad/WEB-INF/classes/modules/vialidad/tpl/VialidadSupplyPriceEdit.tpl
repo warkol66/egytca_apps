@@ -1,7 +1,12 @@
+<h2>Boletines</h2>
+|-if $notValidId eq "true"-|
+<div class="errorMessage">El identificador del item ingresado no es válido. Seleccione un item de un boletín.</div>
+<input type='button' onClick='location.href="Main.php?do=vialidadBulletinList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Boletines"/>
+|-else-|
+
 |-assign var='bulletin' value=$priceBulletin->getBulletin()-|
 |-assign var='supply' value=$priceBulletin->getSupply()-|
 
-<h2>Boletines</h2>
 <h1>Administración de Precios - |-$bulletin->getBulletindate()|date_format:"%B / %Y"|@ucfirst-|</h1>
 	
 <p>A continuación podrá administrar los precios del insumo: |-$supply->getName()-|. <br />
@@ -303,3 +308,5 @@ function clean_text_content_from(element) {
 	element.innerHTML = chomp(element.innerHTML);
 }
 </script>
+
+|-/if-|

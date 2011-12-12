@@ -31,8 +31,7 @@ class VialidadCertificatesEditAction extends BaseAction {
 			$certificate = CertificateQuery::create()->findPk($_GET["id"]);
 			if (empty($certificate)) {
 				$smarty->assign("notValidId","true");
-				$certificate = new Certificate();
-				$smarty->assign("action","create");
+				return $mapping->findForwardConfig('success');
 			}
 			else {
 				$certificate->getMeasurementRecord()->updateItems();

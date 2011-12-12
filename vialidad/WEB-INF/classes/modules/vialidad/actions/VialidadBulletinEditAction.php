@@ -26,9 +26,11 @@ class VialidadBulletinEditAction extends BaseAction {
 			//voy a editar un objeto
 
 			$bulletin = BulletinPeer::get($_GET["id"]);
-
-			if (is_null($bulletin))
-				throw new Exception("Invalid ID");
+			
+			if (is_null($bulletin)) {
+				$smarty->assign("notValidId", "true");
+				return $mapping->findForwardConfig('success');
+			}
 
 			$smarty->assign("bulletin",$bulletin);
 			$smarty->assign("action","edit");

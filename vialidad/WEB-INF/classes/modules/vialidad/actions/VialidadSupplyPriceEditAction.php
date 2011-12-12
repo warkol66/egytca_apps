@@ -25,8 +25,11 @@ class VialidadSupplyPriceEditAction extends BaseAction {
 			$priceBulletin = PriceBulletinQuery::create()
 				->filterByBulletinid($_GET["bulletinId"])
 				->filterBySupplyid($_GET["supplyId"])->findOne();
-			if (is_null($priceBulletin))
-				throw new Exception("PriceBulletin doesn't exist");
+			
+			if (is_null($priceBulletin)) {
+				$smarty->assign("notValidId", "true");
+				return $mapping->findForwardConfig('success');
+			}
 			
 			$smarty->assign('priceBulletin', $priceBulletin);
 			$smarty->assign('document1', $priceBulletin->getDocumentRelatedBySupplierdocument1());

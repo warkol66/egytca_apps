@@ -1,5 +1,12 @@
-|-include file="CommonAutocompleterInclude.tpl" -|
 <h2>Actas de Medición</h2>
+
+|-if $notValidId eq "true"-|
+<div class="errorMessage">El identificador del acta ingresado no es válido. Seleccione un acta del listado.</div>
+<input type='button' onClick='location.href="Main.php?do=vialidadMeasurementRecordsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Actas"/>
+|-else-|
+
+|-include file="CommonAutocompleterInclude.tpl" -|
+
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| Acta de Medición</h1>
 <div id="div_bulletin">
 	<p>Ingrese los datos del Acta de Medición</p>
@@ -252,3 +259,4 @@ function attachInPlaceEditors() {
 
 </script>
 
+|-/if-|

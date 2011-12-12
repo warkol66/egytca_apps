@@ -1,4 +1,11 @@
-|-if !$toPrint-|<h2>Boletines</h2>
+|-if !$toPrint-|
+<h2>Boletines</h2>
+
+|-if $notValidId eq "true"-|
+<div class="errorMessage">El identificador del boletín ingresado no es válido. Seleccione un item del listado.</div>
+<input type='button' onClick='location.href="Main.php?do=vialidadBulletinList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Boletines"/>
+|-else-|
+
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| Boletín Formula Paramétrica</h1>
 <div id="div_bulletin">
 	<p>Ingrese los datos del Boletín</p>
@@ -148,6 +155,8 @@ function updatePublish(supplyId, value) {
 	);
 }
 </script>
+
+|-/if-| <!-- $notValidId eq "false" -->
 
 |-else-|
 |-include file="VialidadBulletinPrint.tpl"-|

@@ -1,6 +1,13 @@
-|-include file="CommonAutocompleterInclude.tpl" -|
 <h2>Contratos</h2>
-	<h1>Administración de Contratos - |-if $action eq 'create'-|Crear|-else-|Editar|-/if-| Contrato</h1>
+
+|-if $notValidId eq "true"-|
+<div class="errorMessage">El identificador del contrato ingresado no es válido. Seleccione un item del listado.</div>
+<input type='button' onClick='location.href="Main.php?do=vialidadContractsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Contratos"/>
+|-else-|
+
+|-include file="CommonAutocompleterInclude.tpl" -|
+
+<h1>Administración de Contratos - |-if $action eq 'create'-|Crear|-else-|Editar|-/if-| Contrato</h1>
 |-if $action eq 'create'-|	
 	<p>A continuación podrá ingresar los datos para crear el Contrato.</p>
 |-else-|		
@@ -104,3 +111,5 @@ function removeConstruction(constructionId) {
 }
 
 </script>
+
+|-/if-|
