@@ -1,0 +1,11 @@
+<!-- Module Htmls -->
+  <action-mappings>
+    <action    path = "htmlsDoEdit"
+               type = "HtmlsDoEditAction"
+               name = "htmlsDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="HtmlsEdit.tpl"/>
+    </action>
+  </action-mappings>
+<!-- End Module Htmls -->

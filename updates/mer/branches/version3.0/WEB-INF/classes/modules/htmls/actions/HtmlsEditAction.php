@@ -1,8 +1,8 @@
 <?php
 
-class HtmlsShowAction extends BaseAction {
+class HtmlsEditAction extends BaseAction {
 
-	function HtmlsShowAction() {
+	function HtmlsEditAction() {
 		;
 	}
 
@@ -19,12 +19,7 @@ class HtmlsShowAction extends BaseAction {
 		$module = 'HTMLS';
 		$smarty->assign("module",$module);
 
-		$name = $_GET["name"];
-
-		if (file_exists("WEB-INF/tpl/htmls_".$name."_external.tpl"))
-			$this->template->template = "htmls_".$name."_external.tpl";
-
-		$smarty->assign("htmlFile","htmls_".$name.".tpl");
+		$smarty->assign("message",$_GET["message"]);
 
 		return $mapping->findForwardConfig('success');
 
