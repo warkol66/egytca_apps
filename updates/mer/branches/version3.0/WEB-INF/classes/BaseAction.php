@@ -134,7 +134,7 @@ class BaseAction extends Action {
 
 			$loggedUser = Common::getLoggedUser();
 			if (!empty($loggedUser)) {
-				if (!ConfigModule::get("global","noSecurity")) {
+				if (!ConfigModule::get("global","noSecurity") && $actionRequested != "securityNoPermission") {
 					if (!empty($securityAction))
 						$access = $securityAction->getAccessByUser($loggedUser);
 					else if (!empty($securityModule))
