@@ -15,6 +15,14 @@
  */
 class CertificateQuery extends BaseCertificateQuery {
 	
+	public function __construct($dbName = 'application', $modelName = 'Certificate', $modelAlias = null) {
+		parent::__construct($dbName, $modelName, $modelAlias);
+		$user = Common::getLoggedUser();
+		if (get_class($user) == "AffiliateUser")
+			$this->useMeasurementRecordQuery()->useConstructionQuery()->useContractQuery()
+				->filterByAffiliate($user->getAffiliate())->endUse()->endUse()->endUse();
+	}
+	
 	/**
 	 * Permite agregar un filtro personalizado a la Query, que puede ser
 	 * traducido al campo correspondiente.
