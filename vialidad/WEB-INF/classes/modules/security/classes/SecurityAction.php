@@ -111,12 +111,17 @@ class SecurityAction extends BaseSecurityAction {
 	 */
 	function getAccessByUser($user) {
 		$userClass = get_class($user);
-		$access = 0;
 		$method = "getAccess";
 		if ($userClass != "User")
 			$method .= $userClass;
-		$access = $this->$method();
-		return $access;
+		$actionBitLevel = $this->$method();
+
+		$level = $user->getLevel();
+
+		if ($level->getBitLevel() & $actionBitLevel)
+			return true;
+		else
+			return false;
 	}
 
 	/**

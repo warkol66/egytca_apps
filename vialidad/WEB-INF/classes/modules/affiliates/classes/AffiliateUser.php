@@ -278,4 +278,13 @@ class AffiliateUser extends BaseAffiliateUser {
 		return "Affiliates";
 	}
 
+	/**
+	 * Obtengo el usuario Owner con permisos de administracion sobre el afiliado
+	 * @return object usuario owner
+	 */
+	function getLevel() {
+		return $this->getAffiliateLevel();
+	}
+
+
 } // AffiliateUser
