@@ -91,22 +91,24 @@ class AffiliatesUsersDoEditAction extends BaseAction {
 			$affiliateUser->setAffiliateRelatedByAffiliateid($affiliate);
 		}
 
-		$classKey = $affiliate->getclassKey();
-		switch ($classKey) {
-			case 1:
-				$forward = "success-owner";
-				break;
-			case 2:
-				$forward = "success-contractor-owner";
-				$affiliateUser->setLevelid(1);
-				break;
-			case 3:
-				$forward = "success-verifier-owner";
-				$affiliateUser->setLevelid(2);
-				break;
+		if (!empty($affiliate) && !empty($_POST["ownerCreation"])) {
+			$classKey = $affiliate->getclassKey();
+			switch ($classKey) {
+				case 1:
+					$forward = "success-owner";
+					break;
+				case 2:
+					$forward = "success-contractor-owner";
+					$affiliateUser->setLevelid(1);
+					break;
+				case 3:
+					$forward = "success-verifier-owner";
+					$affiliateUser->setLevelid(2);
+					break;
+			}
 		}
 
-		if (!$affiliateUser->save()) {
+		if ($affiliateUser->isModified() && !$affiliateUser->save()) {
 			$this->assignObjects($smarty);
 			$smarty->assign("message","errorUpdate");
 			return $mapping->findForwardConfig('failure');

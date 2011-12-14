@@ -38,14 +38,15 @@ class AffiliatesUsersDoLoginAction extends BaseAction {
 			$user = AffiliateUserPeer::auth($_POST["loginUsername"],$_POST["loginPassword"]);
 			if (!empty($user)) {
 				$_SESSION["loginAffiliateUser"] = $user;
+				$_SESSION["affiliate"] = $user->getAffiliate();
 				$smarty->assign("loginAffiliateUser",$user);
 				Common::doLog('success','username: ' . $_POST["loginUsername"]);
 				$smarty->assign("SESSION",$_SESSION);
 
-			if (is_null($user->getPasswordUpdated()))
-				return $mapping->findForwardConfig('successFirstLogin');
-			else
-				return $mapping->findForwardConfig('success');
+				if (is_null($user->getPasswordUpdated()))
+					return $mapping->findForwardConfig('successFirstLogin');
+				else
+					return $mapping->findForwardConfig('success');
 			}
 		}
 
