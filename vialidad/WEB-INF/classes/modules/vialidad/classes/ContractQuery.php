@@ -15,6 +15,13 @@
  */
 class ContractQuery extends BaseContractQuery {
 	
+	public function __construct($dbName = 'application', $modelName = 'Contract', $modelAlias = null) {
+		parent::__construct($dbName, $modelName, $modelAlias);
+		$user = Common::getLoggedUser();
+		if (get_class($user) == "AffiliateUser")
+			$this->filterByAffiliate($user->getAffiliate());
+	}
+	
 	/**
 	 * Permite agregar un filtro personalizado a la Query, que puede ser
 	 * traducido al campo correspondiente.

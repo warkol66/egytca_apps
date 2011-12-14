@@ -15,6 +15,25 @@
  */
 class MeasurementRecordQuery extends BaseMeasurementRecordQuery {
 	
+	public function __construct($dbName = 'application', $modelName = 'MeasurementRecord', $modelAlias = null) {
+		parent::__construct($dbName, $modelName, $modelAlias);
+		$user = Common::getLoggedUser();
+		if (get_class($user) == "AffiliateUser") {
+			switch ($user->getAffiliate()->getClassKey()) {
+				case AffiliatePeer::CLASSKEY_VERIFIER:
+					$this->useConstructionQuery()->filterByAffiliate($user->getAffiliate())->endUse();
+					break;
+				case AffiliatePeer::CLASSKEY_CONTRACTOR:
+					$this->useConstructionQuery()->useContractQuery()->
+						filterByAffiliate($user->getAffiliate())->endUse()->endUse();
+					break;
+				default:
+					// don't filter
+					break;
+			}
+		}
+	}
+	
 	/**
 	 * Filtra la Query por fechas con mismo mes y año
 	 */

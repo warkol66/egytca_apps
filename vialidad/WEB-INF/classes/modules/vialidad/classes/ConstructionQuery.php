@@ -15,6 +15,24 @@
  */
 class ConstructionQuery extends BaseConstructionQuery {
 	
+	public function __construct($dbName = 'application', $modelName = 'Construction', $modelAlias = null) {
+		parent::__construct($dbName, $modelName, $modelAlias);
+		$user = Common::getLoggedUser();
+		if (get_class($user) == "AffiliateUser") {
+			switch ($user->getAffiliate()->getClassKey()) {
+				case AffiliatePeer::CLASSKEY_VERIFIER:
+					$this->filterByAffiliate($user->getAffiliate());
+					break;
+				case AffiliatePeer::CLASSKEY_CONTRACTOR:
+					$this->useContractQuery()->filterByAffiliate($user->getAffiliate())->endUse();
+					break;
+				default:
+					// don't filter
+					break;
+			}
+		}
+	}
+	
 	/**
 	 * Permite agregar un filtro personalizado a la Query, que puede ser
 	 * traducido al campo correspondiente.
