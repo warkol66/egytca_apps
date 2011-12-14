@@ -54,6 +54,7 @@ class CommonDoLoginAction extends BaseAction {
 						$user = AffiliateUserPeer::auth($_POST["loginUsername"],$_POST["loginPassword"]);
 						if (!empty($user)) {
 							$_SESSION["loginAffiliateUser"] = $user;
+							$_SESSION["affiliate"] = $user->getAffiliate();
 							$smarty->assign("loginAffiliateUser",$user);
 							Common::doLog('success','affiliateUsername: ' . $_POST["loginUsername"]);
 							if (is_null($user->getPasswordUpdated()))
