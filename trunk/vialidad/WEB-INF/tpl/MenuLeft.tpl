@@ -57,13 +57,23 @@
 		<li class="menuLink"><a href="Main.php?do=affiliatesUsersWelcome">Ir al Inicio</a></li>
 
 		<li class="titleMenu" onclick="$('sectionApplications').toggle()">Aplicaciones</li>
-		<div id="sectionApplications" style="display:|-if $module|upper eq 'VIALIDAD' || $module|upper eq 'AFFILIATES'-|block|-else-|none|-/if-|">
+		<div id="sectionApplications" style="display:|-if $module|upper eq 'VIALIDAD'-|block|-else-|none|-/if-|">
+		|-if !empty($SESSION.affiliate) && is_object($SESSION.affiliate)-|
+			|-assign var=classKey value=$SESSION.affiliate->getClasskey()-|
+			|-if $classKey eq '2'-||-* 2=contractor, 3=verifier *-|
+			<li><a href="Main.php?do=vialidadContractsList">Contratos</a></li>
+			|-/if-|
+			<li><a href="Main.php?do=vialidadConstructionsList">Obras</a></li>
+			<li><a href="Main.php?do=vialidadMeasurementRecordsList">Actas de Medición</a></li>
+		|-/if-|
+
 			<li><a href="Main.php?do=vialidadBulletinList">Boletines</a></li>
 		</div>
 
 		<li class="titleMenu" onclick="switch_vis('sectionAdmin')">Administración</li>
-		<div id="sectionAdmin" style="display:|-if $module|upper eq "AFFILIATES" || $module|upper eq "SURVEYS"-|block|-else-|none|-/if-|">
+		<div id="sectionAdmin" style="display:|-if $module|upper eq "AFFILIATES"-|block|-else-|none|-/if-|">
 			<li><a href="Main.php?do=affiliatesUsersList">Administrar Usuarios</a></li>
+
 		</div>
 	</ul>
 	<a href="Main.php?do=|-if ($configModule->get("global","unifiedUsernames"))-|commonDoLogout|-else-|affiliatesUsersDoLogout|-/if-|" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")' id="logout">Salir del Sistema</a>
