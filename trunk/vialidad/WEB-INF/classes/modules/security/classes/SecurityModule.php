@@ -79,8 +79,13 @@ class SecurityModule extends BaseSecurityModule {
 		$method = "getAccess";
 		if ($userClass != "User")
 			$method .= $userClass;
-		$access = $this->$method();
-		return $access;
+		$moduleBitLevel = $this->$method();
+
+		$level = $user->getLevel();
+		if ($level->getBitLevel() & $moduleBitLevel)
+			return true;
+		else
+			return false;
 	}
 
 } // SecurityModule
