@@ -691,3 +691,26 @@ a.detail:hover{
 	color: #FFFFFF;
 	background-color: #000066;
 }
+
+
+
+
+
+/*  .formFieldset   ----------------------------------- */
+.formFieldset {
+}
+.formFieldset ul{
+}
+/*  INITIAL UL*/
+.formFieldset ul li{
+}
+/*FIRST UL, THIRD UL, FIFTH UL  */
+.formFieldset ul li ul li,
+.formFieldset ul li ul li ul li ul li,
+.formFieldset ul li ul li ul li ul li ul li ul li {
+}
+/* SECOND UL, FOURTH UL */
+.formFieldset ul li ul li ul li,
+.formFieldset ul li ul li ul li ul li ul li{
+}
+/*  /.formFieldset   ----------------------------------- */

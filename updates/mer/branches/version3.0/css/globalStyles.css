@@ -605,3 +605,41 @@ fieldset .tableTdBorders label {
 	margin-left: 0 !Important;
 	width: auto !Important;
 }
+
+/*  .formFieldset   ----------------------------------- */
+.formFieldset {
+	padding: 1em;
+}
+.formFieldset ul{
+	padding-left: 2px;
+}
+.formFieldset * label {
+	vertical-align: top;
+}
+/*  INITIAL UL*/
+.formFieldset ul li{
+	font-weight: bold;
+	list-style: none;
+	padding-left: 5px;	
+	margin-bottom: 1em;
+	margin-top: 0.5em;
+}
+/*FIRST UL */
+.formFieldset ul li ul li{
+	font-weight:bold;
+	list-style: none;
+	padding-left: 5px;	
+	margin-bottom: 1em;
+}
+/* SECOND UL, THIRD UL, FOURTH UL, FIFTH UL */
+.formFieldset ul li ul li ul li,
+.formFieldset ul li ul li ul li ul li,
+.formFieldset ul li ul li ul li ul li ul li {
+	font-weight:normal;
+	text-transform: none;	
+	list-style: none;
+	padding-left: 5px;		
+	margin-bottom: 0;	
+}
+
+/*  /.formFieldset   ----------------------------------- */
