@@ -5,14 +5,16 @@
 	|-/foreach-|
 	</categories>
 	
-	<dataset seriesName='Certificados' showValues='0'>
+	|-foreach from=$constructions item=construction-|
+	<dataset seriesName='Certificados|-if $entityType eq "contract"-| de |-$construction-||-/if-|' showValues='0'>
 	|-foreach from=$periods item=period-|
-		<set value='|-$constructionPriceData->getPriceOnPeriod($period)-|' />
+		<set value='|-$construction->getPriceOnPeriod($period)-|' />
 	|-/foreach-|
 	</dataset>
-	<dataset seriesName='Acumulado' showValues='0'>
+	<dataset seriesName='Acumulado|-if $entityType eq "contract"-| de |-$construction-||-/if-|' showValues='0'>
 	|-foreach from=$periods item=period-|
-		<set value='|-$constructionPriceData->getAccumulatedPriceOnPeriod($period)-|' />
+		<set value='|-$construction->getAccumulatedPriceOnPeriod($period)-|' />
 	|-/foreach-|
 	</dataset>
+	|-/foreach-|
 </chart>

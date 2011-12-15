@@ -1,98 +1,7 @@
 <?php
 
-class Period {
-	private $date;
-	
-	function Period($date, $format  = "d-m-Y") {
-		$dateTime = DateTime::createFromFormat($format, $date);
-		$this->date = strtotime("01-".$dateTime->format("m-Y"));
-	}
-	
-	static function getPeriodsInRange($from, $to, $format = "d-m-Y") {
-		$first = new Period($from, $format);
-		$last = new Period($to, $format);
-		
-		$periods = array();
-		for ($aPeriod = clone $first; $aPeriod->isLessEqualThan($last); $aPeriod = $aPeriod->getNextPeriod())
-			$periods[] = $aPeriod;
-		
-		return $periods;
-	}
-	
-	public function __toString() {
-		return date("m-Y", $this->date);
-	}
-	
-	function getMin($format = "d-m-Y") {
-		return date($format, strtotime("1-".date("m-Y", $this->date)));
-	}
-	
-	function getMax($format = "d-m-Y") {
-		return date($format, strtotime(date("t-m-Y", $this->date)));
-	}
-	
-	function getLimits($format = "d-m-Y") {
-		return array("min" => $this->getMin(), "max" => $this->getMax());
-	}
-	
-	function getNextPeriod() {
-		return new Period(date("d-m-Y", strtotime(date("d-m-Y", $this->date)." + 1 month")));
-	}
-	
-	function getPreviousPeriod(){
-		return new Period(date("d-m-Y", strtotime(date("d-m-Y", $this->date)." - 1 month")));
-	}
-	
-	function isGreaterThan($other) {
-		return ($this->date - $other->date) > 0 ? true : false;
-	}
-	
-	function isGreaterEqualThan($other) {
-		return ($this->date - $other->date) >= 0 ? true : false;
-	}
-	
-	function isLessThan($other) {
-		return ($this->date - $other->date) < 0 ? true : false;
-	}
-	
-	function isLessEqualThan($other) {
-		return ($this->date - $other->date) <= 0 ? true : false;
-	}
-	
-	function isEqualTo($other) {
-		return ($this->date - $other->date) == 0 ? true : false;
-	}
-}
-
-class ConstructionPriceData {
-	
-	private $construction;
-	
-	function ConstructionPriceData($construction) {
-		$this->construction = $construction;
-	}
-	
-	function getConstruction() {
-		return $this->construction;
-	}
-	
-	function getPriceOnPeriod($period) {
-		$certificate = CertificateQuery::create()->useMeasurementRecordQuery()->filterByConstruction($this->construction)
-			->filterByMeasurementdate($period->getLimits("d-m-Y"))->endUse()->findOne();
-		return is_null($certificate) ? 0 : $certificate->getTotalPrice();
-	}
-	
-	function getAccumulatedPriceOnPeriod($period) {
-		$certificates = CertificateQuery::create()->useMeasurementRecordQuery()->filterByConstruction($this->construction)
-			->filterByMeasurementdate($period->getMax("d-m-Y"), Criteria::LESS_EQUAL)->endUse()->find();
-		
-		$price = 0;
-		foreach($certificates as $certificate)
-			$price += $certificate->getTotalPrice();
-		
-		return $price;
-	}
-}
+set_include_path(get_include_path().":../classes/");
+require_once 'Period.php';
 
 class VialidadCertificatesViewGraphXmlAction extends BaseAction {
 
@@ -100,15 +9,15 @@ class VialidadCertificatesViewGraphXmlAction extends BaseAction {
 		;
 	}
 	
-	function getLimitPeriods($constructionId) {
+	function getLimitPeriods($constructions) {
 		
-		$min = 
+		$query = CertificateQuery::create();
+		foreach ($constructions as $construction) {
+			$query->mergeWith(CertificateQuery::create()->useMeasurementRecordQuery()
+			->filterByConstruction($construction)->endUse(), Criteria::LOGICAL_OR);
+		}
 		
-		$max =
-		
-		$query = CertificateQuery::create()->useMeasurementRecordQuery()
-			->filterByConstructionid($_GET['constructionId']);
-		
+		$query = $query->useMeasurementRecordQuery();
 		if (!empty($_GET['date']['min'])) {
 			// ignoro el dia del measurementdate
 			$aux = new Period($_GET['date']['min']);
@@ -149,16 +58,25 @@ class VialidadCertificatesViewGraphXmlAction extends BaseAction {
 		$section = "Certificates";
 		$smarty->assign("section",$section);
 		
-		if (!empty($_GET['constructionId'])) {
+		if ( !empty($_GET['entityId']) && !empty($_GET['entityType']) ) {
 
-			$construction = ConstructionQuery::create()->findOneById($_GET['constructionId']);
+			switch ($_GET['entityType']) {
+				case 'construction':
+					$constructions = ConstructionQuery::create()->findById($_GET['entityId']);
+					break;
+				case 'contract':
+					$constructions = ConstructionQuery::create()->findByContractid($_GET['entityId']);
+					break;
+				default:
+					throw new Exception('wrong params');
+			}
 			
-			$limits = $this->getLimitPeriods($_GET['constructionId']);
+			$limits = $this->getLimitPeriods($constructions);
 			
 			$periods = Period::getPeriodsInRange($limits["min"], $limits["max"]);
-			$constructionPriceData = new ConstructionPriceData($construction);
 			
-			$smarty->assign('constructionPriceData', $constructionPriceData);
+			$smarty->assign("entityType", $_GET["entityType"]);
+			$smarty->assign('constructions', $constructions);
 			$smarty->assign('periods', $periods);
 			
 			$this->template->template = 'TemplateAjax.tpl';
