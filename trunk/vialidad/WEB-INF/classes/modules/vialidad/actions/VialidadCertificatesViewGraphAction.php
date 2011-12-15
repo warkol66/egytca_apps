@@ -21,10 +21,27 @@ class VialidadCertificatesViewGraphAction extends BaseAction {
 		$section = "Certificates";
 		$smarty->assign("section",$section);
 
+		// borrame?
 		if (!empty($_GET['constructionId'])) {
+			$_GET['entityType'] = 'construction';
+			$_GET['entityId'] = $_GET['constructionId'];
+		}
 			
-			$smarty->assign('constructionId', $_GET['constructionId']);
-			$smarty->assign('construction', ConstructionQuery::create()->findPK($_GET['constructionId']));
+		if ( !empty($_GET['entityType']) && !empty($_GET['entityId']) ) {
+			
+			switch ($_GET['entityType']) {
+				case 'construction':
+					$entity = ConstructionQuery::create()->findOneById($_GET['entityId']);
+					break;
+				case 'contract':
+					$entity = ContractQuery::create()->findOneById($_GET['entityId']);
+					break;
+				default:
+					throw new Exception('wrong params');
+			}
+			
+			$smarty->assign('entity', $entity);
+			$smarty->assign('entityType', $_GET['entityType']);
 
 			return $mapping->findForwardConfig("success");
 		} else {
