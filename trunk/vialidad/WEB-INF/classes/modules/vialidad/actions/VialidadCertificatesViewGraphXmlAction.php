@@ -17,7 +17,7 @@ class VialidadCertificatesViewGraphXmlAction extends BaseAction {
 			->filterByConstruction($construction)->endUse(), Criteria::LOGICAL_OR);
 		}
 		
-		$query = $query->useMeasurementRecordQuery();
+		$query = $query->_and()->useMeasurementRecordQuery();
 		if (!empty($_GET['date']['min'])) {
 			// ignoro el dia del measurementdate
 			$aux = new Period($_GET['date']['min']);
