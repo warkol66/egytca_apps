@@ -19,12 +19,14 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
 	background-color: #a0a0a0 !Important;/*#d0d0d0; */
 	border: outset 1px  #808080 !Important;
 }
+input[type="submit"].icon, input[type="button"].icon, input[type="reset"].icon {
+	line-height: 999px;
+	overflow: hidden;
+}
 .icon, .editor_ok_button, .editor_cancel_button  {
 	background-color: #e0e0e0 !Important;/*#d0d0d0; */
 	border: solid 1px #ababab !Important;
-	line-height: 999px;
 	vertical-align: top;
-	overflow: hidden;
 	width: 20px;
 	height: 20px;
 	color: transparent !Important;
@@ -50,7 +52,7 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 .iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload, .iconClose, .iconView, .iconViewGantt, .iconWeight,
 .iconAddToCart, .iconRemoveFromCart, .iconUpdateCart, .iconSetPrivileges, .iconOwner, .iconRead, .iconUnread, .iconEditUser,
 .iconAddUser, .iconPhoto, .iconHardDelete, .iconUndelete, .iconCut, .iconCrop, .iconNews, .iconNewsAdd, .iconNewsLink, .iconNewsGoTo,
-.iconNewsDelete, .iconNewsClipping, input.editor_ok_button, input.editor_cancel_button {
+.iconNewsDelete, .iconNewsClipping, .iconSort, .iconUnordered, input.editor_ok_button, input.editor_cancel_button {
 	background: url(../images/icons_all.png) no-repeat #f0f0f0;
 }
 .disabled {
@@ -229,6 +231,12 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 }
 .iconNewsDelete {
 	background-position: -80px -140px;
+}
+.iconSort {
+	background-position: -140px -120px;
+}
+.iconUnordered {
+	background-position: -120px -120px;
 }
 .iconNewsClipping {
 	background-position: -100px -140px;
@@ -714,3 +722,17 @@ a.detail:hover{
 .formFieldset ul li ul li ul li ul li ul li{
 }
 /*  /.formFieldset   ----------------------------------- */
+
+a.follow {
+	color: #000066;
+	padding: 2px 5px 2px 22px;
+}
+a.follow:link,a.follow:visited{
+	color: #000066;
+	text-decoration: none;
+}
+a.follow:hover{
+	color: #000066;
+	background-image: url(../images/icon_follow.png);
+	background-repeat: no-repeat;
+}
