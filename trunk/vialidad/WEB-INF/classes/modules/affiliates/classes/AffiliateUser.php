@@ -131,15 +131,7 @@ class AffiliateUser extends BaseAffiliateUser {
 		parent::setUserName($usernameLowercase);
 		return $this;
 	}
-/*
-	public function setPassword($password) {
-		if(!empty($password)){
-			parent::setPassword(Common::md5($passwordString));
-			$this->setPasswordUpdatedTime(time());
-		}
-		return $this;
-	}
-*/
+
 	/**
 	 * Especifica la fecha de actualizacion de la clave
 	 * @param passwordUpdatedTime string con fecha de actualizacion de clave.
@@ -279,8 +271,8 @@ class AffiliateUser extends BaseAffiliateUser {
 	}
 
 	/**
-	 * Obtengo el usuario Owner con permisos de administracion sobre el afiliado
-	 * @return object usuario owner
+	 * Obtengo el nivel del usuario por afiliado para usar el mismo nombre de metodo que el usuario de sistema
+	 * @return object AffiliateLevel
 	 */
 	function getLevel() {
 		return $this->getAffiliateLevel();
