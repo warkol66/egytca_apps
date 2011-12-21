@@ -1,8 +1,8 @@
 <?php
 /**
- * UsersDoLogoutAction
+ * CommonDoLogoutAction
  *
- * @package users
+ * @package common
  */
 
 class CommonDoLogoutAction extends BaseAction {
@@ -38,9 +38,10 @@ class CommonDoLogoutAction extends BaseAction {
 		if($_SESSION["loginUser"])
 			unset($_SESSION["loginUser"]);
 
-		if($_SESSION["loginAffiliateUser"])
+		if($_SESSION["loginAffiliateUser"]) {
 			unset($_SESSION["loginAffiliateUser"]);
-
+			unset($_SESSION["affiliate"]);
+		}
 		if($_SESSION["loginUserByRegistration"])
 			unset($_SESSION["loginUserByRegistration"]);
 

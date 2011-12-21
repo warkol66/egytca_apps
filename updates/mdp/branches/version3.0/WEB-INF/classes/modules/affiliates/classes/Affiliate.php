@@ -17,6 +17,7 @@ class Affiliate extends BaseAffiliate {
 
 	private $hasPriceList;
 
+    
 	/**
 	 * Validaciones para el guardado de un afiliado
 	 * @return bool affiliate creado o no

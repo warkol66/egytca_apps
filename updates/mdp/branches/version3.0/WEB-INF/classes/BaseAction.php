@@ -134,7 +134,7 @@ class BaseAction extends Action {
 
 			$loggedUser = Common::getLoggedUser();
 			if (!empty($loggedUser)) {
-				if (!ConfigModule::get("global","noSecurity")) {
+				if (!ConfigModule::get("global","noSecurity") && $actionRequested != "securityNoPermission") {
 					if (!empty($securityAction))
 						$access = $securityAction->getAccessByUser($loggedUser);
 					else if (!empty($securityModule))
@@ -200,6 +200,7 @@ class BaseAction extends Action {
 	 * @param $params array with parameters with key and value
 	 * @param $mapping
 	 * @param $forwardName nombre del forward que se quiere modificar de ese mapping
+	 * @returns ForwardConfig con los parametros agregados
 	 */
 	function addParamsToForwards($params,$mapping,$forwardName) {
 
@@ -217,6 +218,7 @@ class BaseAction extends Action {
 	 * @param $params array with parameters with key and value
 	 * @param $mapping
 	 * @param $forwardName nombre del forward que se quiere modificar de ese mapping
+	 * @returns ForwardConfig con los parametros agregados
 	 */
 	function addFiltersToForwards($params,$mapping,$forwardName) {
 
@@ -235,6 +237,7 @@ class BaseAction extends Action {
 	 * @param $params array with parameters with key and value
 	 * @param $mapping
 	 * @param $forwardName nombre del forward que se quiere modificar de ese mapping
+	 * @returns ForwardConfig con los parametros agregados
 	 */
 	function addParamsAndFiltersToForwards($params,$filters,$mapping,$forwardName) {
 
@@ -256,6 +259,7 @@ class BaseAction extends Action {
 	 * @param Class $peer instancia de clase peer de propel
 	 * @param array $filterValuer valores de filtro a verificar, los metodos de set en la clase peer deben tener antepuesto a estos nombres, 'set'
 	 * @param $smarty instancia de smarty sobre la cual se esta trabajando (tener en cuenta que al trabajar con una referencia a smarty, no hay problema de pasaje por parametro)
+	 * @returns Peer con los filtros aplicados
 	 */
 	function applyFilters($peer,$filters,$smarty = '') {
 		if (!empty($smarty))
@@ -265,7 +269,6 @@ class BaseAction extends Action {
 				$filterMethod = $peer->filterConditions[$filterKey];
 				$peer->$filterMethod($filters[$filterKey]);
 			}
-
 		return $peer;
 	}
 	
@@ -286,11 +289,10 @@ class BaseAction extends Action {
 			$objectPackageName = $tableMap->getPackage();
 			$objectModuleName = ucwords(preg_replace('/.classes$/', '', $objectPackageName));
 			$pluralizedObjectClassName = Common::pluralize($tableMap->getClassName());
-			if ($objectModuleName != $pluralizedObjectClassName) {
+			if ($objectModuleName != $pluralizedObjectClassName)
 				$formTemplateName = $objectModuleName . $pluralizedObjectClassName . 'Form.tpl';
-			} else {
+			else
 				$formTemplateName = $pluralizedObjectClassName . 'Form.tpl';
-			}
 			$smarty->assign('formTemplateName', $formTemplateName);
 			$relations = $tableMap->getRelations();
 			foreach ($relations as $relation) {
@@ -298,9 +300,8 @@ class BaseAction extends Action {
 					$foreignTable = $relation->getForeignTable();
 					$foreignEntityName = $foreignTable->getClassName();
 					$foreignPeerClassName = $foreignTable->getPeerClassName();
-					if (method_exists($foreignPeerClassName, 'getAll')) {
+					if (method_exists($foreignPeerClassName, 'getAll'))
 						$foreignEntities = call_user_func(array($foreignPeerClassName, 'getAll'));
-					}
 					$pluralizedEntityName = Common::pluralize(Common::strtocamel($foreignEntityName, false));
 					$smarty->assign($pluralizedEntityName, $foreignEntities);
 				}
@@ -308,6 +309,13 @@ class BaseAction extends Action {
 		}
 	}
 
+	/**
+	 * Respuesta generica de errores luego de un DoEdit
+	 * @param $mapping mapping del phpmvc-config
+	 * @param $smarty instancia de smarty
+	 * @param $object objeto que se queria guardar
+	 * @param $forward forward
+	 */
 	function returnFailure($mapping,$smarty,$object,$forward) {
 
 		$objectName = lcfirst(get_class($object));
@@ -323,8 +331,93 @@ class BaseAction extends Action {
 		return $mapping->findForwardConfig($forward);
 	}
 
+	/**
+	 * Indica si una accion fu invocadamediante ajax
+	 * @returns bool si fue invocada via ajax true, si no, false
+	 */
 	public function isAjax() {
 		return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
 	}
-}
 
+	/**
+	 * Agrega parametros a un url
+	 * @param $url string con url
+	 * @param $params array con parametros a agregar a un url
+	 * @returns url mas parametros
+	 */
+	function addParams($url, $params) {
+		$urlWithParams = $url;
+		foreach ($params as $param => $value) {
+			$urlWithParams .= '&'.$param.'='.$value;
+		}
+		return $urlWithParams;
+	}
+
+	/**
+	 * Elimina determinados parametros de una url
+	 * @param $url string con url
+	 * @param $paramsForRemoval array con parametros a remover a un url
+	 * @returns url sin parametrosmas parametros
+	 */
+	function removeParams($url, $paramsForRemoval) {
+		$temp = preg_split('/\?/', $url);
+		$prefix = $temp[0];
+		$oldParams = $temp[1];
+		$oldNameValuePairs = preg_split('/&/', $oldParams);
+		$newNameValuePairs = array();
+		foreach ($oldNameValuePairs as $nameValuePair) {
+			$markedForRemoval = false;
+			foreach ($paramsForRemoval as $paramForRemoval) {
+				$aux = preg_split('/=/', $nameValuePair);
+				if ($paramForRemoval == $aux[0])
+					$markedForRemoval = true;
+			}
+			if (!$markedForRemoval)
+				array_push($newNameValuePairs, $nameValuePair);
+		}
+		$newUrl = $prefix;
+		$isFirst = true;
+		foreach ($newNameValuePairs as $nameValuePair) {
+			if ($isFirst) {
+				$newUrl .= '?';
+				$isFirst = false;
+			}
+			else
+				$newUrl .= '&';
+
+			$newUrl .= $nameValuePair;
+		}
+		return $newUrl;
+	}
+
+	/**
+	 * Genera un forward dinamico a partir de un forward existente agregando o sacando parametros a la url
+	 * @param $forwardName nombre del forward
+	 * @param array $addParams parametros a agregar a la url
+	 * @param array $removeParams parametros a remover a la url
+	 * @returns ForwardConfig generado
+	 */
+	function generateDynamicForward($forwardName, $addParams = array(), $removeParams = array()) {
+		switch ($forwardName) {
+			case 'success':
+				//$action = $this->getAction($_SERVER['HTTP_REFERER']);
+				$url = $_SERVER['HTTP_REFERER'];
+				$url = $this->removeParams($url, $removeParams);
+				$url = $this->addParams($url, $addParams);
+				/*return new ForwardConfig($this->addParams($addParams,
+					'Main.php?do='.$action), True);*/
+				return new ForwardConfig($url, True);
+			case 'failure':
+				//$action = $this->getAction($_SERVER['HTTP_REFERER']);
+				$url = $_SERVER['HTTP_REFERER'];
+				$url = $this->removeParams($url, $removeParams);
+				$url = $this->addParams($url, $addParams);
+				/*return new ForwardConfig($this->addParams($addParams,
+					'Main.php?do='.$action), True);*/
+				return new ForwardConfig($url, True);
+			default:
+				throw new Exception('invalid argument "'.$forwardName.'" for '.$forwardName);
+		}
+	}
+
+} // BaseAction
