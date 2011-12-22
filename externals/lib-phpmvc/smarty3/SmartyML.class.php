@@ -59,21 +59,17 @@
 		return $tpl_path;
 	}
 	
-	function fetch($_smarty_tpl_file, $_smarty_cache_id = null, $_smarty_compile_id = null, $_smarty_display = false) {
+	public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false, $merge_tpl_vars = true, $no_output_filter = false) {
 		// We need to set the cache id and the compile id so a new script will be
 		// compiled for each language. This makes things really fast ;-)
-		$_smarty_compile_id = $this->language->getCurrentLanguage().'-'.$_smarty_compile_id;
-		$_smarty_cache_id = $_smarty_compile_id;
+		$compile_id = $this->language->getCurrentLanguage().'-'.$compile_id;
+		$cache_id = $compile_id;
 		
 		$originalTemplateDir = $this->getTemplateDir();
 		$this->addTemplateDir($this->getModuleTemplatePath());
 		
-		//print_r($this->getTemplateDir());die;
-		//$asd = $this->createTemplate($template, $_smarty_cache_id, $_smarty_compile_id, $_smarty_display, false);
-		//print_r($asd);
-		
 		// Now call parent method
-		$return = parent::fetch( $_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $_smarty_display );
+		$return = parent::fetch($template, $cache_id, $compile_id, $parent, $display, $merge_tpl_vars, $no_output_filter);
 		$this->setTemplateDir($originalTemplateDir);
 		
 		return $return;
