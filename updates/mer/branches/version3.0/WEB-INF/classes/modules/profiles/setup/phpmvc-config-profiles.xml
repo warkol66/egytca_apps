@@ -1,0 +1,160 @@
+<!-- ========== Action Mapping MER ============================== -->
+	<action-mappings>
+
+		<action    path = "profilesFormViewSelectCategory"
+							 type = "ProfilesFormViewSelectCategoryAction"
+							 name = "ProfilesFormViewSelectCategory"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="category_select_view.tpl" />           
+		</action>
+
+		<action    path = "doProfilesFormEdit"
+							 type = "DoProfilesFormEditAction"
+							 name = "doProfilesFormEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=profilesFormEdit&amp;status=ok" redirect="true" />
+			<forward name="failure" path="/Main.php?do=profiles_edit_form.tpl&amp;status=error" redirect="true" />
+		</action>
+
+		<action    path = "profilesFormRelEdit"
+							 type = "ProfilesFormRelEditAction"
+							 name = "ProfilesFormRelEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="profiles_edit_form_relationship.tpl" />
+			<forward name="select_form" path="profiles_select_form.tpl" />
+		</action>
+
+		<action    path = "doProfilesFormRelEdit"
+							 type = "DoProfilesFormRelEditAction"
+							 name = "doProfilesFormRelEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=profilesFormRelEdit&amp;status=ok" redirect="true" />
+			<forward name="failure" path="/Main.php?do=profiles_edit_form_relationship.tpl&amp;status=error" redirect="true" />
+		</action>        
+
+		<action    path = "profilesFormFillSelectCategory"
+							 type = "ProfilesFormFillSelectCategoryAction"
+							 name = "ProfilesFormFillSelectCategory"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="category_select_fill.tpl" />           
+		</action>
+
+
+		<action    path = "profilesFormRelFill"
+							 type = "ProfilesFormRelFillAction"
+							 name = "ProfilesFormRelFill"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="profiles_fill_form_relationship.tpl" />
+			<forward name="select_form" path="profiles_select_form.tpl" />
+		</action>    
+
+		<action    path = "doProfilesFormRelFill"
+							 type = "DoProfilesFormRelFillAction"
+							 name = "doProfilesFormRelFill"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=profilesFormRelFill&amp;status=ok" redirect="true" />
+			<forward name="failure" path="/Main.php?do=profiles_fill_form_relationship.tpl&amp;status=error" redirect="true" />
+		</action>
+
+		<action    path = "profilesFormRelSelectCategory"
+							 type = "ProfilesFormRelSelectCategoryAction"
+							 name = "profilesFormRelSelectCategory"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="category_select.tpl" />
+		</action>
+
+		<action    path = "profilesFormRelView"
+							 type = "ProfilesFormRelFillAction"
+							 name = "ProfilesFormRelFill"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="profiles_view_form_relationship.tpl" />
+			<forward name="select_form" path="profiles_select_form.tpl" />
+			<forward name="report" path="profiles_view_form_relation_report.tpl" />
+		</action>
+
+		<action    path = "profilesFormRelViewSelectCategory"
+							 type = "ProfilesFormRelViewSelectCategoryAction"
+							 name = "ProfilesFormRelViewSelectCategory"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="category_select.tpl" />           
+		</action>    
+
+		<action    path = "profilesSelectCategory"
+							 type = "ProfilesSelectCategoryAction"
+							 name = "ProfilesSelectCategory"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="category_select.tpl" />
+		</action> 
+		
+		<action    path = "profilesFormViewMultiple"
+							 type = "ProfilesFormViewMultipleAction"
+							 name = "ProfilesFormViewMultiple"
+							scope = "request"
+					 validate = "true">
+				<forward name="success" path="profiles_form_view_multiple.tpl" />
+		</action>
+
+		<action    path = "profilesFormViewMultipleSelect"
+							 type = "ProfilesFormViewMultipleSelectAction"
+							 name = "ProfilesFormViewMultipleSelect"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="profiles_form_view_multiple_select.tpl" />
+		</action>
+
+
+
+
+
+
+		<action    path = "profilesEdit"
+							 type = "ProfilesEditAction"
+							 name = "ProfilesEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProfilesEdit.tpl" />
+			<forward name="select_form" path="ProfilesFormSelect.tpl" />
+		</action>    
+
+		<action    path = "profilesDoEdit"
+							 type = "ProfilesDoEditAction"
+							 name = "profilesDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=profilesEdit&amp;status=ok" redirect="true" />
+			<forward name="failure" path="/Main.php?do=ProfilesEdit.tpl&amp;status=error" redirect="true" />
+		</action>
+
+		<action    path = "profilesView"
+							 type = "ProfilesViewAction"
+							 name = "ProfilesView"
+							scope = "request"
+					 validate = "true">
+				<forward name="success" path="ProfilesView.tpl" />
+				<forward name="report" path="ProfilesViewReport.tpl" />
+				<forward name="select_form" path="ProfilesFormSelect.tpl" />
+		</action>
+
+		<action    path = "profilesFormEdit"
+							 type = "ProfilesFormEditAction"
+							 name = "ProfilesFormEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProfilesFormEdit.tpl" />
+			<forward name="select_form" path="ProfilesFormSelect.tpl" />
+		</action>
+
+	</action-mappings>
+
+		
