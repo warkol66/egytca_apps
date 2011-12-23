@@ -11,10 +11,22 @@
  *
  * @package mer 
  */
+
+define("QUESTION_TYPE_STRING",1);
+define("QUESTION_TYPE_TEXT",2);
+define("QUESTION_TYPE_OPTIONS",3);
+define("QUESTION_TYPE_DATE",4);
+define("QUESTION_TYPE_MONEY",5);
+define("QUESTION_TYPE_NUMBER",6);
+define("QUESTION_TYPE_BOOLEAN",7);
+
 class Question extends BaseQuestion {
+
+
 	function __toString(){
 		return $this->getQuestion();
 	}
+
 	/**
 	 * Return the relationship values between actor 1 and actor 2
 	 *
@@ -96,7 +108,7 @@ class Question extends BaseQuestion {
 				$ret[$value] = ucfirst(strtolower(substr($name,14)));
 			}
 		}
-		return $ret;
+		return QuestionPeer::$questionTypes;//$ret;
 	}
 	
 	function getAnswerText($actor) {
@@ -170,7 +182,7 @@ class Question extends BaseQuestion {
 		if ($minItems){
 			if (count($options) < $minItems){
 				for ($i=count($options); $i<$minItems; $i++){
-					$options[] = new questionOption();
+					$options[] = new QuestionOption();
 				}
 			}
 		}		
@@ -191,7 +203,7 @@ class Question extends BaseQuestion {
 		$order = 0;
 		foreach ($keys as $i=>$key){			
 			if ($keys[$i] !== '' && !empty($text[$i])){
-				$questionOption = new questionOption();
+				$questionOption = new QuestionOption();
 				$questionOption->setValue($keys[$i]);
 				$questionOption->setText($text[$i]);
 				$questionOption->setquestion($this);

@@ -13,6 +13,52 @@
  */
 class QuestionPeer extends BaseQuestionPeer {
 
+	/** the default item name for this class */
+	const ITEM_NAME = 'Questions';
+
+	const TYPE_STRING       = 1;
+	const TYPE_TEXT         = 2;
+	const TYPE_OPTIONS      = 3;
+	const TYPE_DATE         = 4;
+	const TYPE_CURRENCY     = 5;
+	const TYPE_NUMBER       = 6;
+	const TYPE_BOOLEAN      = 7;
+
+	//nombre de los tipos de pregunta
+	public static $questionTypes = array(
+
+						QuestionPeer::TYPE_STRING      => 'String',
+						QuestionPeer::TYPE_TEXT        => 'Text',
+						QuestionPeer::TYPE_OPTIONS     => 'Option',
+						QuestionPeer::TYPE_DATE        => 'Date',
+						QuestionPeer::TYPE_CURRENCY    => 'Currency',
+						QuestionPeer::TYPE_NUMBER      => 'Number',
+						QuestionPeer::TYPE_BOOLEAN     => 'Boolean'
+					);
+
+	/**
+	 * Devuelve los tipos de pregunta
+	 * @return array tipos de pregunta
+	 */
+
+	public static function getQuestionTypes()	{
+		$questionTypes = QuestionPeer::$questionTypes;
+		return $questionTypes;
+	}
+
+	/**
+	 * Devuelve los nombres de los tipos de pregunta traducidos
+	 * @return array tipos de pregunta traducidos
+	 */
+	public function getQuestionTypesTranslated() {
+		$questionTypes = QuestionPeer::$questionTypes;
+
+		foreach(array_keys($questionTypes) as $key)
+				$questionTypesTranslated[$key] = Common::getTranslation($questionTypes[$key],'profiles');
+
+		return $questionTypesTranslated;
+	}
+
 	function get($id) {
   	$obj = QuestionPeer::retrieveByPK($id);
   	return $obj;
