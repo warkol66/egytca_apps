@@ -22,7 +22,7 @@ class SmartyOutputFilter{
 	 * @param Smarty $smarty
 	 * @return string
 	 */
-   	function smarty_add_template($html, &$smarty){
+   	function smarty_add_template($html, $smarty){
    		if (!empty($GLOBALS[__FUNCTION__])){return $html;}
    		$GLOBALS[__FUNCTION__] = true;
    		$smarty->assign("centerHTML",$html);
