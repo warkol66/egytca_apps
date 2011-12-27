@@ -3,7 +3,7 @@
 |-elseif $image eq ''-|
 	No hay una imágen asociada al titular.
 	&nbsp;
-	<a href='Main.php?do=headlinesRenderUrl&id=|-$id-|'>Capturar imágen</a>
+	<input type='button' id='button_render' value='Capturar imágen' onClick='location.href="Main.php?do=headlinesRenderUrl&id=|-$id-|"' />
 |-else-|
 	
 |-include file='HeadlinesCropImageInclude.tpl'-|
@@ -30,11 +30,13 @@
 	Event.observe(window, 'load', disableEdit);
 </script>
 
+<p><br>
+
 <input type='button' id='button_save_crop' value='Guardar' onClick='applyCrop();setTimeout("reload()", 500)' style="display:none" />
 <input type='button' id='button_start_crop' value='Recortar' onClick='enableEdit()' />
 <input type='button' id='button_cancel_crop' value='Cancelar' onClick='disableEdit()' style="display:none" />
-<p>
-	<a href='Main.php?do=headlinesEdit&id=|-$id-|&submit_go_edit_headline=Editar'>Volver a edición</a>
+<input type='button' id='button_render' value='Capturar nuevamente' onClick='location.href="Main.php?do=headlinesRenderUrl&id=|-$id-|"' />
+<input type='button' id='button_return_edit' value='Volver a edición' onClick='location.href="Main.php?do=headlinesEdit&id=|-$id-|&submit_go_edit_headline=Editar"' />
 </p>
 
 |-/if-|
