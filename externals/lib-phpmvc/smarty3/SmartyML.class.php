@@ -35,7 +35,7 @@
   }
 
 
-  class SmartyML extends SmartyBC {
+  class SmartyML extends Smarty {
     var $language;
     
 	function __construct ($locale="") {
@@ -67,6 +67,7 @@
 		
 		$originalTemplateDir = $this->getTemplateDir();
 		$this->addTemplateDir($this->getModuleTemplatePath());
+		$this->addTemplateDir('WEB-INF/classes/modules/common/tpl');
 		
 		// Now call parent method
 		$return = parent::fetch($template, $cache_id, $compile_id, $parent, $display, $merge_tpl_vars, $no_output_filter);
