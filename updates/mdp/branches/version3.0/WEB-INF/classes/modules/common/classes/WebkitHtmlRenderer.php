@@ -4,14 +4,10 @@ class RenderException extends Exception {}
 
 class WebkitHtmlRenderer {
 	
-	private $system_command = array(
-			'Linux' => './wkhtmltoimage-i386'
-		);
-	
 	private $command;
 	
 	function WebkitHtmlRenderer() {
-		$this->command = $this->system_command[php_uname('s')];
+		$this->command = './' . ConfigModule::get("headlines","clippingApp");
 	}
 	
 	/**
@@ -21,7 +17,7 @@ class WebkitHtmlRenderer {
 	 */
 	function render($url, $image = 'default_image.jpg') {
 		global $system;
-		$quality = $thousandsSeparator = $system['config']['clippings']['quality'];
+		$quality = $system['config']['clippings']['quality'];
 		
 		$return_var = shell_exec($this->command.' --quality '.$quality.' '.$url.' '.$image);
 		if (!file_exists($image))
