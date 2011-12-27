@@ -46,7 +46,7 @@
 		// $smarty->loadTranslationTable() to load custom translation tables
 		$this->language = new ngLanguage($locale); // create a new language object
 		$GLOBALS['_NG_LANGUAGE_'] =& $this->language;
-		$this->register_prefilter("smarty_prefilter_i18n");
+		$this->registerFilter("pre", "smarty_prefilter_i18n");
 	} 
 	
 	private function getModuleTemplatePath() {
