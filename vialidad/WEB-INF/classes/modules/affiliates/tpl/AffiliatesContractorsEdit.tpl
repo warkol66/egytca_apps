@@ -13,22 +13,22 @@
 			<input type="hidden" value="|-$action-|" name="action">
 			<input type="hidden" value="|-$affiliate->getId()-|" name="id">
 		 <p><label for="params[name]">Nombre</label>
-			<input name="params[name]" type="text" value="|-$affiliate->getName()|escape-|" size="60">
+			<input name="params[name]" id="params[name]" type="text" value="|-$affiliate->getName()|escape-|" class="emptyValidation" size="60"> |-validation_msg_box idField=params[name]-|
 		 </p>
 		 <p><label for="params[internalNumber]">RUC</label>
-			<input name="params[internalNumber]" type="text" value="|-$affiliate->getInternalNumber()|escape-|" size="15"> 
+			<input name="params[internalNumber]" id="params[internalNumber]" type="text" value="|-$affiliate->getInternalNumber()|escape-|" class="emptyValidation" size="15"> |-validation_msg_box idField=params[internalNumber]-|
 		</p>
 		 <p><label for="params[address]">Dirección</label>
-				<input name="params[address]" type="text" value="|-$affiliate->getAddress()|escape-|" size="55"> 
+				<input name="params[address]" id="params[address]" type="text" value="|-$affiliate->getAddress()|escape-|" class="emptyValidation" size="55"> |-validation_msg_box idField=params[address]-|
 		</p>
 		 <p><label for="params[phone]">Teléfono</label>
-				<input name="params[phone]" type="text" value="|-$affiliate->getPhone()|escape-|" size="25"> 
+				<input name="params[phone]" id="params[phone]" type="text" value="|-$affiliate->getPhone()|escape-|" class="emptyValidation" size="25"> |-validation_msg_box idField=params[phone]-|
 			</p>
 		 <p><label for="params[mail]">E-mail</label>
-				<input name="params[mail]" id="params[mail]" type="text" value="|-$affiliate->getEmail()|escape-|" size="30" class="mailValidation" onchange="javascript:validationValidateFieldClienSide('params[mail]');" /> |-validation_msg_box idField=params[mail]-|
+				<input name="params[mail]" id="params[mail]" type="text" value="|-$affiliate->getEmail()|escape-|" size="30" class="mailValidation emptyValidation" onchange="javascript:validationValidateFieldClienSide('params[mail]');" /> |-validation_msg_box idField=params[mail]-|
 			</p>
 		 <p><label for="params[contact]">Persona contacto</label>
-				<input name="params[contact]" type="text" value="|-$affiliate->getContact()|escape-|" size="40"> 
+				<input name="params[contact]" id="params[contact]" type="text" value="|-$affiliate->getContact()|escape-|" class="emptyValidation" size="40"> |-validation_msg_box idField=params[contact]-|
 			</p>
 		 <p><label for="params[contactEmail]">Email persona contacto</label>
 				<input name="params[contactEmail]" type="text" value="|-$affiliate->getContactEmail()|escape-|" size="40">
@@ -67,7 +67,9 @@
 </tr>
 </table>
 <p>&nbsp;</p>
-		 <p><input name="save" type="submit" value="Guardar Cambios"> 
+		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
+		 <p>
+			|-javascript_form_validation_button value='Guardar' title='Guardar'-|
 				<input type="button" onClick='location.href="Main.php?do=affiliatesContractorsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Contratistas"/>
 			 </p>
 		</form>
