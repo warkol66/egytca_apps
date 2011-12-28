@@ -2,18 +2,20 @@
 <h2>Configuración del Sistema</h2>
 <h1>Instalación de Módulos del Sistema: Módulo <strong>|-$moduleName-|</strong>.</h1>
 <fieldset>
-	<legend>Configuración de Permisos</legend>
-	<p>Asigne los permisos correspondientes</p> 
+	<legend>Configuración de permisos</legend>
+	<p>Ingrese la información correspondiente a permisos en el formulario a continuación, luego pulse el botón correspondiente a la acción que desee realizar.</p> 
 	<form method="post">
 		<p>
 		<input type="submit" value="Generar archivo de permisos" />
 		|-include file="ModulesInstallFormNavigationInclude.tpl"-|
 	</p>
+</fieldset>
 
+<fieldset>
+	<legend>Asignación de permisos</legend>
 	<input type="hidden" name="moduleName" value="|-$moduleName-|" />
 |-include file="SecurityEditPermissionsFormInclude.tpl"-|
- <p>&nbsp;</p>
-
+</fieldset>
 	<p>
 	<input type="hidden" name="do" value="modulesInstallDoSetupPermissions" />
 	|-foreach from=$languages item=language-|
@@ -26,4 +28,3 @@
 		|-include file="ModulesInstallFormNavigationInclude.tpl"-|
 	</p>
 </form>
-</fieldset>

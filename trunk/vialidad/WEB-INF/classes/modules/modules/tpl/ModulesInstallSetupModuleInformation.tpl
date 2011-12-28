@@ -2,6 +2,18 @@
 <h2>Configuración del Sistema</h2>
 <h1>Instalación de Módulos: Módulo <strong>|-$moduleName|capitalize-|</strong>.</h1>
 <form  method="post">
+
+<fieldset>
+	<legend>Información del Módulo</legend>
+	<p>Ingrese la información correspondiente al módulo en el formulario a continuación, luego pulse el botón correspondiente a la acción que desee realizar.</p> 
+	<p>
+		<input type="submit" value="Guardar archivo de información" />
+		|-include file="ModulesInstallFormNavigationInclude.tpl"-|
+	</p>
+</fieldset>
+
+
+
 	<fieldset>
 		<legend>Información del Módulo</legend>
 		<p>Ingrese la información correspondiente al módulo</p>
@@ -68,7 +80,8 @@
 			</p>
 			|-/foreach-|
 				
-		<input type="hidden" name="moduleName" value="|-$moduleName-|" />
+	</fieldset>	
+		<p><input type="hidden" name="moduleName" value="|-$moduleName-|" />
 		<input type="hidden" name="do" value="modulesInstallDoSetupModuleInformation" />
 		|-foreach from=$languages item=language-|
 		<input type="hidden" name="languages[]" value="|-$language->getCode()-|" />
@@ -76,7 +89,6 @@
 		|-if isset($mode)-|
 		<input type="hidden" name="mode" value="|-$mode-|" id="mode">
 		|-/if-|	
-		<input type="submit" value="Generar archivo de información" />
-		|-include file="ModulesInstallFormNavigationInclude.tpl"-|
-	</fieldset>	
+		<input type="submit" value="Guardar archivo de información" />
+		|-include file="ModulesInstallFormNavigationInclude.tpl"-|</p>
 </form>
