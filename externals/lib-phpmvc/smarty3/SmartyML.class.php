@@ -49,31 +49,14 @@
 		$this->registerFilter("pre", "smarty_prefilter_i18n");
 	} 
 	
-	private function getModuleTemplatePath() {
-		$templateVars = $this->getTemplateVars();
-		$module = $templateVars['module'];
-		
-		$modules_path = 'WEB-INF/classes/modules';
-		$tpl_path = $modules_path . '/' . lcfirst($module) . '/' . 'tpl';
-		
-		return $tpl_path;
-	}
-	
 	public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false, $merge_tpl_vars = true, $no_output_filter = false) {
 		// We need to set the cache id and the compile id so a new script will be
 		// compiled for each language. This makes things really fast ;-)
 		$compile_id = $this->language->getCurrentLanguage().'-'.$compile_id;
 		$cache_id = $compile_id;
 		
-		$originalTemplateDir = $this->getTemplateDir();
-		$this->addTemplateDir($this->getModuleTemplatePath());
-		$this->addTemplateDir('WEB-INF/classes/modules/common/tpl');
-		
 		// Now call parent method
-		$return = parent::fetch($template, $cache_id, $compile_id, $parent, $display, $merge_tpl_vars, $no_output_filter);
-		$this->setTemplateDir($originalTemplateDir);
-		
-		return $return;
+		return parent::fetch($template, $cache_id, $compile_id, $parent, $display, $merge_tpl_vars, $no_output_filter);
 	}
 
   /**

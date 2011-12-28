@@ -16,6 +16,22 @@
  * @subpackage Template
  */
 abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
+	
+	/**
+	 * Obtiene el path de templates del modulo de la primera parte del nombre del tpl
+	 *
+	 * @param string $name
+	 * @return string template path
+	 */
+	private function getModuleTemplatePath($name) {
+		$regs = array();
+		if (preg_match('/^([A-Z][a-z]*)[A-Z]/',$name,$regs)) {
+			$module = strtolower($regs[1]);
+			$module_path = 'WEB-INF/classes/modules';
+			$tpl_path = $module_path.'/'.$module.'/'.'tpl';
+			return $tpl_path;
+		}
+	}
 
     /**
      * fetches a rendered Smarty template
@@ -31,6 +47,15 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
      */
     public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false, $merge_tpl_vars = true, $no_output_filter = false)
     {
+	    // guardo el templateDir actual para restaurarlo mas tarde
+	    $originalTemplateDir = $this->getTemplateDir();
+	    
+	    // agrego el path necesario de acuerdo al template que necesito
+	    if (is_string($template) && !file_exists($this->getTemplateDir().$template))
+		    $this->addTemplateDir($this->getModuleTemplatePath($template));
+	    elseif ($template === null && $this instanceof $this->template_class && !empty($this->template_resource))
+		    $this->addTemplateDir($this->getModuleTemplatePath($this->template_resource));
+	    
         if ($template === null && $this instanceof $this->template_class) {
             $template = $this;
         }
@@ -287,6 +312,10 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
         if (isset($this->error_reporting)) {
             error_reporting($_smarty_old_error_level);
         }
+	
+	// restauro el templateDir original
+	$this->setTemplateDir($originalTemplateDir);
+	
         // display or fetch
         if ($display) {
             if ($this->caching && $this->cache_modified_check) {
