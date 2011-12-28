@@ -38,7 +38,7 @@ Para terminar de crear el ##affiliates,3,Afiliado## debe crear una cuenta de usu
 		<p>
 			<label for="affiliateUser[username]">Identificación de Usuario</label>
 	|-if $action eq 'edit' and $currentAffiliateUser->getUsername() ne ''-|<input id='actualaffiliateUser[username]' type='hidden' value='|-$currentAffiliateUser->getUsername()-|' />|-/if-|
-			<input name="affiliateUser[username]" id="affiliateUser[username]" type="text"  value="|-$currentAffiliateUser->getUsername()-|" size="40" |-ajax_onchange_validation_attribute actionName=affiliatesUsersValidationUsernameX-| />|-validation_msg_box idField=affiliateUser[username]-|
+			<input name="affiliateUser[username]" id="affiliateUser[username]" type="text"  value="|-$currentAffiliateUser->getUsername()-|" class="emptyValidation" size="40" |-ajax_onchange_validation_attribute actionName=affiliatesUsersValidationUsernameX-| />|-validation_msg_box idField=affiliateUser[username]-|
 		</p>
 		<p>
 			<label for="affiliateUser[name]">Nombre</label>
@@ -50,17 +50,17 @@ Para terminar de crear el ##affiliates,3,Afiliado## debe crear una cuenta de usu
 		</p>
 		<p>
 			<label for="affiliateUser[mailAddress]">E-mail</label>
-			<input name="affiliateUser[mailAddress]" id="affiliateUser[mailAddress]" type="text"  value="|-$currentAffiliateUser->getMailAddress()-|" size="60"  class="mailValidation" onchange="javascript:validationValidateFieldClienSide('affiliateUser[mailAddress]');" /> |-validation_msg_box idField=affiliateUser[mailAddress]-|
+			<input name="affiliateUser[mailAddress]" id="affiliateUser[mailAddress]" type="text"  value="|-$currentAffiliateUser->getMailAddress()-|" size="60"  class="mailValidation emptyValidation" onchange="javascript:validationValidateFieldClienSide('affiliateUser[mailAddress]');" /> |-validation_msg_box idField=affiliateUser[mailAddress]-|
 		</p>
 		<p><label for="pass">##users,165,Contraseña##</label>
-			<input id='pass' name='pass' type='password' value='' size="20" class="" onchange="javascript:setElementClass('pass','emptyValidation');setElementClass('pass2','passwordMatch');validationValidateFieldClienSide('pass');" /> |-validation_msg_box idField=pass-|
+			<input id='pass' name='pass' type='password' value='' size="20" class="|-if $currentAffiliateUser->isNew()-|emptyValidation|-/if-|" onChange="javascript:setElementClass('pass','emptyValidation');setElementClass('pass2','passwordMatch');validationValidateFieldClienSide('pass');" /> |-validation_msg_box idField=pass-|
 		</p>
 		<p><label for="pass2">##users,166,Repetir Contraseña##</label>
-			<input id='pass2' name='pass2' type='password' value='' size="20" class="" onchange="javascript:validationValidateFieldClienSide('pass2');" /> |-validation_msg_box idField=pass2-|
+			<input id='pass2' name='pass2' type='password' value='' size="20" class="|-if $currentAffiliateUser->isNew()-|emptyValidation|-/if-|" onChange="javascript:validationValidateFieldClienSide('pass2');" /> |-validation_msg_box idField=pass2-|
 		</p>
 |-if $levels|@count gt 0 && $ownerCreation eq '' -|		<p>
 			<label for="affiliateUser[levelId]">Nivel de Usuario</label>
-	        <select name="affiliateUser[levelId]">
+	        <select name="affiliateUser[levelId]" class="emptyValidation">
 	        	<option value="">Seleccionar nivel</option>
 				|-foreach from=$levels item=level name=for_levels-|
 	        		<option value="|-$level->getId()-|" |-$level->getId()|selected:$currentAffiliateUser->getLevelId()-|>|-$level->getName()-|</option>
@@ -70,7 +70,7 @@ Para terminar de crear el ##affiliates,3,Afiliado## debe crear una cuenta de usu
 		|-if $affiliates|@count > 0 && $ownerCreation eq ''-|
 		<p>
 			<label for="affiliateUser[affiliateId]">##affiliates,3,Afiliado##</label>
-			<select name="affiliateUser[affiliateId]">
+			<select name="affiliateUser[affiliateId]" class="emptyValidation">
 					<option value="">Seleccione ##affiliates,3,Afiliado##</option>
 				|-foreach from=$affiliates item=affiliate name=for_affiliates-|
 					<option value="|-$affiliate->getId()-|"|-if $affiliate->getId() eq $currentAffiliateUser->getAffiliateId()-| selected="selected"|-/if-|>|-$affiliate->getName()-|</option>
@@ -78,11 +78,12 @@ Para terminar de crear el ##affiliates,3,Afiliado## debe crear una cuenta de usu
 			</select>
 		</p>
 		|-/if-|
+		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 		<p>
 			<input type="hidden" name="ownerCreation" value="|-$ownerCreation-|" />
 			<input type="hidden" name="id" value="|-$currentAffiliateUser->getId()-|" />
 			<input type="hidden" name="do" value="affiliatesUsersDoEdit" />
-			|-javascript_form_validation_button value='##97,Guardar##' title='##97,Guardar##'-|
+			|-javascript_form_validation_button value='Guardar' title='Guardar'-|
 			<input type='button' onClick='javascript:history.go(-1)' value='##104,Regresar##' />
 		</p>
 	</fieldset>
