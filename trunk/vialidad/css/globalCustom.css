@@ -19,12 +19,14 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
 	background-color: #a0a0a0 !Important;/*#d0d0d0; */
 	border: outset 1px  #808080 !Important;
 }
+input[type="submit"].icon, input[type="button"].icon, input[type="reset"].icon {
+	line-height: 999px;
+	overflow: hidden;
+}
 .icon, .editor_ok_button, .editor_cancel_button  {
 	background-color: #e0e0e0 !Important;/*#d0d0d0; */
 	border: solid 1px #ababab !Important;
-	line-height: 999px;
 	vertical-align: top;
-	overflow: hidden;
 	width: 20px;
 	height: 20px;
 	color: transparent !Important;
@@ -47,10 +49,10 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 .iconActivate, .iconAdd, .iconBack, .iconBudget, .iconDelete, .iconDetail, .iconDownload, .iconCancel, .iconEdit, .iconEmail,
 .iconFollow, .iconGoTo, .iconGraph, .iconHelp, .iconHistory, .iconIndicator, .iconTableh3 , .iconNote, .iconDocument, .iconAttach,
 .iconInfo, .iconManufacture, .iconOrder, .iconPassword, .iconPlus, .iconRestore, .iconRestoreFromServer, .iconSendMultiple,
-.iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload, .iconClose, .iconView, .iconViewGantt, .iconWeight, .iconPrint,
+.iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload, .iconClose, .iconView, .iconViewGantt, .iconWeight,
 .iconAddToCart, .iconRemoveFromCart, .iconUpdateCart, .iconSetPrivileges, .iconOwner, .iconRead, .iconUnread, .iconEditUser,
 .iconAddUser, .iconPhoto, .iconHardDelete, .iconUndelete, .iconCut, .iconCrop, .iconNews, .iconNewsAdd, .iconNewsLink, .iconNewsGoTo,
-.iconNewsDelete, .iconNewsClipping, input.editor_ok_button, input.editor_cancel_button {
+.iconNewsDelete, .iconNewsClipping, .iconSort, .iconUnordered, .iconListEdit, input.editor_ok_button, input.editor_cancel_button {
 	background: url(../images/icons_all.png) no-repeat #f0f0f0;
 }
 .disabled {
@@ -65,17 +67,8 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 .iconEdit {
 	background-position: 0px 0px;
 }
-.iconDelete {
-	background-position: -80px -120px;
-}
-.iconOptionsList .iconDelete {
+.iconClose, .iconOptionsList .iconDelete {
 	background-position: -20px 0px;
-}
-.iconClose {
-	background-position: -20px 0px;
-}
-.iconCancel, input.editor_cancel_button  {
-	background-position: -100px -120px;
 }
 .iconView {
 	background-position: -40px 0px;
@@ -118,9 +111,6 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 }
 .iconEmail {
 	background-position: -100px -20px;
-}
-.iconSendMultiple {
-	background-position: -120px -80px;
 }
 .iconOrder {
 	background-position: -120px -20px;
@@ -170,11 +160,14 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 .iconDetail {
 	background-position: -60px -60px;
 }
+.iconPassword {
+	background-position: -80px -60px;
+}
 .iconBudget {
 	background-position: -100px -60px;
 }
-.iconPassword {
-	background-position: -80px -60px;
+.iconEditUser {
+	background-position: -120px -60px;
 }
 .iconAddToCart {
 	background-position: -140px -60px;
@@ -185,11 +178,14 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 .iconUpdateCart{
 	background-position: -180px -60px;
 }
+.iconOwner{
+	background-position: -0px -80px;
+}
 .iconSetPrivileges{
 	background-position: -20px -80px;
 }
-.iconOwner{
-	background-position: -0px -80px;
+.iconSendMultiple {
+	background-position: -120px -80px;
 }
 .iconRead{
 	background-position: -40px -100px;
@@ -197,14 +193,17 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 .iconUnread{
 	background-position: -60px -100px;
 }
-.iconEditUser {
-	background-position: -120px -60px;
-}
 .iconAddUser {
 	background-position: -120px -100px;
 }
 .iconPhoto {
 	background-position: -140px -100px;
+}
+.iconCut {
+	background-position: -160px -100px;
+}
+.iconCrop {
+	background-position: -180px -100px;
 }
 .iconHardDelete {
 	background-position: -0px -120px;
@@ -212,11 +211,20 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 .iconUndelete {
 	background-position: -20px -120px;
 }
-.iconCut {
-	background-position: -160px -100px;
+.iconDelete {
+	background-position: -80px -120px;
 }
-.iconCrop {
-	background-position: -180px -100px;
+.iconCancel, input.editor_cancel_button  {
+	background-position: -100px -120px;
+}
+.iconUnordered {
+	background-position: -120px -120px;
+}
+.iconSort {
+	background-position: -140px -120px;
+}
+.iconListEdit {
+	background-position: -160px -120px;
 }
 .iconNews {
 	background-position: 0px -140px;
@@ -258,7 +266,7 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 	color: #cf0000 !Important;
 	margin-left: 150px;
 }
-input[type="text"].emptyValidation, textarea.emptyValidation, select.emptyValidation {
+input[type="text"].emptyValidation, input[type="password"].emptyValidation, textarea.emptyValidation, select.emptyValidation {
 	outline: #ff0000 solid 1px;
 }
 /* ADD   ----------------------------------------------*/
@@ -694,4 +702,41 @@ a.detail:visited{
 a.detail:hover{
 	color: #FFFFFF;
 	background-color: #000066;
+}
+
+
+
+
+
+/*  .formFieldset   ----------------------------------- */
+.formFieldset {
+}
+.formFieldset ul{
+}
+/*  INITIAL UL*/
+.formFieldset ul li{
+}
+/*FIRST UL, THIRD UL, FIFTH UL  */
+.formFieldset ul li ul li,
+.formFieldset ul li ul li ul li ul li,
+.formFieldset ul li ul li ul li ul li ul li ul li {
+}
+/* SECOND UL, FOURTH UL */
+.formFieldset ul li ul li ul li,
+.formFieldset ul li ul li ul li ul li ul li{
+}
+/*  /.formFieldset   ----------------------------------- */
+
+a.follow {
+	color: #000066;
+	padding: 2px 5px 2px 22px;
+}
+a.follow:link,a.follow:visited{
+	color: #000066;
+	text-decoration: none;
+}
+a.follow:hover{
+	color: #000066;
+	background-image: url(../images/icon_follow.png);
+	background-repeat: no-repeat;
 }
