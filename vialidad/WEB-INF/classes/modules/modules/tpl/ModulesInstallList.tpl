@@ -15,13 +15,26 @@
 |-if $modulesToInstall|@count gt 0-|
 	<h4>Módulos disponibles para instalar</h4>
 	<p>
+<script language="JavaScript" type="text/JavaScript">
+function checkAll(elementName) {
+	allbox = document.getElementById("allBoxes");
+  var elements = document.getElementsByName(elementName);
+  for (var i = 0; i < elements.length; i++) {
+  	elements[i].checked = allbox.checked;
+  }
+}
+</script>
 <table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders"> 
-	<tr> 
-		<th width="20%" scope="col">Nombre del Módulo</th> 
+	<tr>
+	  <th width="2%" scope="col">&nbsp;</th> 
+		<th width="18%" scope="col">Nombre del Módulo</th> 
 		<th width="80%" scope="col">Pasos Específicos del proceso de instalación</th> 
 	</tr> 
 	|-foreach from=$modulesToInstall item=eachModule name=modulef-|
-	<tr> 
+	<tr>
+	  <th>
+	    <input type="checkbox" name="modules[]" value="|-$eachModule-|">
+	  </th> 
 		<td>|-$eachModule|multilang_get_translation:"common"-|</td> 
 		<td nowrap>
 			<form method="get">
@@ -57,6 +70,13 @@
 		</td> 
 	</tr> 
 	|-/foreach-|
+	|-if $modulesToInstall|count gt 0-|
+	<tr>
+	  <th width="2%" scope="col">
+		<input id="allBoxes" onclick="javascript:checkAll('modules[]')" type="checkbox" title="Seleccionar todo"></th>
+		<td colspan="2"><input name="installChecked" type="button" value="Instalar módulos seleccionados"></td>
+		</tr>
+	|-/if-|
 </table>
 |-/if-|
 |-if $modulesInstalled|@count gt 0-|
@@ -110,3 +130,5 @@
 	|-/foreach-|
 </table>
 |-/if-|
+
+
