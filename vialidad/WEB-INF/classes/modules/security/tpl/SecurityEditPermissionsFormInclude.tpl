@@ -1,3 +1,5 @@
+<h4>Permisos del Módulo</h4>
+<p>Asigne el nivel de permisos que usará el sistema por defecto para todas las acciones del módulo.</p>
 <table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders"> 
 	<tr> 
 		<th scope="col">Módulo</th>
@@ -29,7 +31,7 @@
 	</tr> 
 </table>
 
-<h4>Permisos de Actions</h4>
+<h4>Permisos de Acciones</h4>
 <p>Dejar vacios aquellos actions que hereden permisos del módulo.</p>
 <table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders"> 
 	<tr> 
