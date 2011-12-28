@@ -39,7 +39,7 @@
 			 <textarea name="params[description]" rows="4" cols="58">|-$construction->getDescription()-|</textarea>
 		 </p>
 		 <div id="verifier" style="position: relative;z-index:10000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_verifierId" label="Verificador" url="Main.php?do=affiliatesVerifiersAutocompleteListX" hiddenName="params[verifierId]" defaultHiddenValue=$construction->getVerifierId() defaultValue=$construction->getAffiliate()-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_verifierId" label="Fiscalizadora" url="Main.php?do=affiliatesVerifiersAutocompleteListX" hiddenName="params[verifierId]" defaultHiddenValue=$construction->getVerifierId() defaultValue=$construction->getAffiliate()-|
 		 </div>
 		 |-if $returnContractId neq ""-|
 		 <input type="hidden" name="returnToContract" value="|-$returnContractId-|" />

@@ -9,7 +9,19 @@
 		|-if "vialidadSupplyEdit"|security_has_access-|
 		<span id="supply_|-$supply->getId()-|" class="in_place_editable">|-$supply->getName()|escape-|</span>
 		|-else-|
-		|-$supply->getName()|escape-|
+		|-$supply->getName()-|
+		|-/if-|
+	</td>
+	<td>
+		|-if "vialidadSupplyEdit"|security_has_access-|
+			<span id="unit_|-$supply->getId()-|" class="in_place_editable">|-$supply->getUnit()-|</span>
+		<!--<select id="select_unit_|-$supply->getId()-|" style="display:none" onchange="updateUnit('|-$supply->getId()-|', this.value);this.hide();$('span_unit_|-$supply->getId()-|').show();" onblur="this.hide();$('span_unit_|-$supply->getId()-|').show();">
+			|-foreach from=$allUnits item=unit-|
+			<option value="|-$unit-|" |-$unit|selected:$supply->getUnit()-|>|-$unit-|</option>
+			|-/foreach-|
+		</select>-->
+		|-else-|
+		|-$supply->getUnit()-|
 		|-/if-|
 	</td>
 	<td nowrap>
@@ -33,19 +45,9 @@
 			<input type="submit" name="submit_go_delete_vialidad_supply" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar el Insumo?')" class="icon iconDelete" />
 		</form>
 			
-		|-if isset($loginUser) && $loginUser->isSupervisor()-|
-		<form action="Main.php" method="post" style="display:inline;">
-			<input type="hidden" name="do" value="vialidadSupplyDoDelete" />
-			|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-			|-if isset($pager) && ($pager->getPage() gt 1)-|
-			<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />
-			|-/if-|
-			<input type="hidden" name="id" value="|-$supply->getid()-|" />
-			<input type="hidden" name="doHardDelete" value="true" /> 
-			<input type="submit" name="submit_go_delete_vialidad_supply" value="Borrar" title="Eliminar completamente" onclick="return confirm('Seguro que desea eliminar el Insumo definitivamente?')" class="icon iconHardDelete" /> 
-		</form>
 		|-/if-|
-		|-/if-|
+
+				
 	</td>
 </tr> 
 |-/foreach-|
