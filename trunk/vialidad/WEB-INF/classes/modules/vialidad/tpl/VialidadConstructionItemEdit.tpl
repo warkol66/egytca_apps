@@ -91,8 +91,8 @@
 		</tbody>
 		<tfoot>
 			<tr><td align="center" colspan="3" class="thFillTitle">
-				<span id="message_invalid_proportions" style="display:none">Proporciones inválidas</span>
-				<span id="message_incomplete_proportions" style="display:none">Item incompleto</span>
+				<div id="message_invalid_proportions" class="errorMessage" style="display:none">Proporciones inválidas, se ha superado el 100%</div>
+				<div id="message_incomplete_proportions" class="inProgress" style="display:none">Item incompleto, no se ha llegado al 100%</div>
 			</td></tr>
 		</tfoot>
 	</table>

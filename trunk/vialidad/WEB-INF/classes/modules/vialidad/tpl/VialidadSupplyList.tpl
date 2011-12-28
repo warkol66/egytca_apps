@@ -125,12 +125,20 @@
 					<a href="#" onclick="showInput('addInput2', 'addLink2'); return false;" id="addLink2" class="addLink">Agregar Insumo</a>
 					<form id="addInput2" action="Main.php" method="POST" onsubmit="setStatus('working'); prepareAndSubmit(this); showInput('addLink2', 'addInput2'); setStatus('done'); return false;" style="display: none;">
 						<label>Ingrese nombre del insumo:</label>
-						<input type="text"   name="name" />
+						<input type="text"   name="params[name]" />
+						<label for="name[unit]">Unidad</label>
+						<select name="params[unit]">
+							<option value="">-</option>
+							|-foreach from=$allUnits item=unit-|
+							<option value="|-$unit-|">|-$unit-|</option>
+							|-/foreach-|
+						</select>
 						<input type="hidden" name="do" value="vialidadSupplyDoEditX" />
 						<input type="submit" value="Guardar" class="icon iconActivate" />
 						<input type="button" value="Cancelar" class="icon iconCancel" onclick="showInput('addLink2', 'addInput2');" />
 					</form>
 				</div>
+
 			</th>
 		</tr>
 		|-/if-|
