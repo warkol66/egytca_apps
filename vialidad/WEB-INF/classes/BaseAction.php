@@ -177,8 +177,11 @@ class BaseAction extends Action {
 		$smarty->assign("mapping",$mapping);
 
 		$this->template = new SmartyOutputFilter();
-		//$smarty->register_outputfilter(array($this->template,"smarty_add_template"));
-		$smarty->registerFilter("output", array($this->template,"smarty_add_template"));
+		if (Smarty::SMARTY_VERSION == "Smarty-3.1.6")
+			$smarty->registerFilter("output", array($this->template,"smarty_add_template"));
+		else
+			$smarty->register_outputfilter(array($this->template,"smarty_add_template"));
+		
 
 		if ($this->isAjax()) {
 			//Si es llamado via ajax, se usa el template externo correspondiente
@@ -190,9 +193,12 @@ class BaseAction extends Action {
 		$smarty->assign("parameters",$systemParameters["parameters"]);
 		$smarty->assign("SESSION",$_SESSION);
 
-		if (!empty($GLOBALS['_NG_LANGUAGE_']))
-			//$smarty->register_outputfilter("smarty_outputfilter_i18n");
-			$smarty->registerFilter("output", "smarty_outputfilter_i18n");
+		if (!empty($GLOBALS['_NG_LANGUAGE_'])) {
+			if (Smarty::SMARTY_VERSION == "Smarty-3.1.6")
+				$smarty->registerFilter("output", "smarty_outputfilter_i18n");
+			else
+				$smarty->register_outputfilter("smarty_outputfilter_i18n");
+		}	
 
 		$smarty->assign("languagesAvailable",common::getAllLanguages());
 
