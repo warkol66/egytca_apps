@@ -177,7 +177,7 @@ class BaseAction extends Action {
 		$smarty->assign("mapping",$mapping);
 
 		$this->template = new SmartyOutputFilter();
-		if (Smarty::SMARTY_VERSION == "Smarty-3.1.6")
+		if (defined('Smarty::SMARTY_VERSION') && Smarty::SMARTY_VERSION == "Smarty-3.1.6")
 			$smarty->registerFilter("output", array($this->template,"smarty_add_template"));
 		else
 			$smarty->register_outputfilter(array($this->template,"smarty_add_template"));
@@ -194,7 +194,7 @@ class BaseAction extends Action {
 		$smarty->assign("SESSION",$_SESSION);
 
 		if (!empty($GLOBALS['_NG_LANGUAGE_'])) {
-			if (Smarty::SMARTY_VERSION == "Smarty-3.1.6")
+			if (defined('Smarty::SMARTY_VERSION') && Smarty::SMARTY_VERSION == "Smarty-3.1.6")
 				$smarty->registerFilter("output", "smarty_outputfilter_i18n");
 			else
 				$smarty->register_outputfilter("smarty_outputfilter_i18n");
