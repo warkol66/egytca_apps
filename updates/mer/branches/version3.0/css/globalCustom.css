@@ -49,15 +49,15 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 .iconActivate, .iconAdd, .iconBack, .iconBudget, .iconDelete, .iconDetail, .iconDownload, .iconCancel, .iconEdit, .iconEmail,
 .iconFollow, .iconGoTo, .iconGraph, .iconHelp, .iconHistory, .iconIndicator, .iconTableh3 , .iconNote, .iconDocument, .iconAttach,
 .iconInfo, .iconManufacture, .iconOrder, .iconPassword, .iconPlus, .iconRestore, .iconRestoreFromServer, .iconSendMultiple,
-.iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload, .iconClose, .iconView, .iconViewGantt, .iconWeight,
+.iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload, .iconClose, .iconView, .iconViewGantt, .iconWeight, .iconPrint,
 .iconAddToCart, .iconRemoveFromCart, .iconUpdateCart, .iconSetPrivileges, .iconOwner, .iconRead, .iconUnread, .iconEditUser,
 .iconAddUser, .iconPhoto, .iconHardDelete, .iconUndelete, .iconCut, .iconCrop, .iconNews, .iconNewsAdd, .iconNewsLink, .iconNewsGoTo,
-.iconNewsDelete, .iconNewsClipping, .iconSort, .iconUnordered, input.editor_ok_button, input.editor_cancel_button {
+.iconNewsDelete, .iconNewsClipping, .iconSort, .iconUnordered, .iconListEdit, input.editor_ok_button, input.editor_cancel_button {
 	background: url(../images/icons_all.png) no-repeat #f0f0f0;
 }
 .disabled {
 	background: url(../images/icons_all_dis.png) no-repeat #f0f0f0;
-	border: solid 1px #ababab !Important;;
+	border: solid 1px #ababab !Important;
 	-khtml-border-radius: .2em;
 	-opera-border-radius: .2em;
 	-moz-border-radius: .2em;
@@ -67,17 +67,8 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 .iconEdit {
 	background-position: 0px 0px;
 }
-.iconDelete {
-	background-position: -80px -120px;
-}
-.iconOptionsList .iconDelete {
+.iconClose, .iconOptionsList .iconDelete {
 	background-position: -20px 0px;
-}
-.iconClose {
-	background-position: -20px 0px;
-}
-.iconCancel, input.editor_cancel_button  {
-	background-position: -100px -120px;
 }
 .iconView {
 	background-position: -40px 0px;
@@ -112,14 +103,14 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 .iconRestoreFromServer {
 	background-position: -40px -20px;
 }
+.iconPrint {
+	background-position: -60px -20px;
+}
 .iconRestore {
 	background-position: -80px -20px;
 }
 .iconEmail {
 	background-position: -100px -20px;
-}
-.iconSendMultiple {
-	background-position: -120px -80px;
 }
 .iconOrder {
 	background-position: -120px -20px;
@@ -169,11 +160,14 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 .iconDetail {
 	background-position: -60px -60px;
 }
+.iconPassword {
+	background-position: -80px -60px;
+}
 .iconBudget {
 	background-position: -100px -60px;
 }
-.iconPassword {
-	background-position: -80px -60px;
+.iconEditUser {
+	background-position: -120px -60px;
 }
 .iconAddToCart {
 	background-position: -140px -60px;
@@ -184,11 +178,14 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 .iconUpdateCart{
 	background-position: -180px -60px;
 }
+.iconOwner{
+	background-position: -0px -80px;
+}
 .iconSetPrivileges{
 	background-position: -20px -80px;
 }
-.iconOwner{
-	background-position: -0px -80px;
+.iconSendMultiple {
+	background-position: -120px -80px;
 }
 .iconRead{
 	background-position: -40px -100px;
@@ -196,14 +193,17 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 .iconUnread{
 	background-position: -60px -100px;
 }
-.iconEditUser {
-	background-position: -120px -60px;
-}
 .iconAddUser {
 	background-position: -120px -100px;
 }
 .iconPhoto {
 	background-position: -140px -100px;
+}
+.iconCut {
+	background-position: -160px -100px;
+}
+.iconCrop {
+	background-position: -180px -100px;
 }
 .iconHardDelete {
 	background-position: -0px -120px;
@@ -211,11 +211,20 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 .iconUndelete {
 	background-position: -20px -120px;
 }
-.iconCut {
-	background-position: -160px -100px;
+.iconDelete {
+	background-position: -80px -120px;
 }
-.iconCrop {
-	background-position: -180px -100px;
+.iconCancel, input.editor_cancel_button  {
+	background-position: -100px -120px;
+}
+.iconUnordered {
+	background-position: -120px -120px;
+}
+.iconSort {
+	background-position: -140px -120px;
+}
+.iconListEdit {
+	background-position: -160px -120px;
 }
 .iconNews {
 	background-position: 0px -140px;
@@ -231,12 +240,6 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 }
 .iconNewsDelete {
 	background-position: -80px -140px;
-}
-.iconSort {
-	background-position: -140px -120px;
-}
-.iconUnordered {
-	background-position: -120px -120px;
 }
 .iconNewsClipping {
 	background-position: -100px -140px;
@@ -263,7 +266,7 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 	color: #cf0000 !Important;
 	margin-left: 150px;
 }
-input[type="text"].emptyValidation, textarea.emptyValidation, select.emptyValidation {
+input[type="text"].emptyValidation, input[type="password"].emptyValidation, textarea.emptyValidation, select.emptyValidation {
 	outline: #ff0000 solid 1px;
 }
 /* ADD   ----------------------------------------------*/
@@ -296,15 +299,15 @@ a.tdTitSearch:visited {
 	background-color: #f4f6f3;
 	color: #000000;
 }
-a.tdSearchButton:link, 
+a.tdSearchButton:link,
 a.tdSearchButton:visited  {
 	border: solid 1px #a7a6aa;
 	color: #333;
 	background-position:left top;
-	background-repeat: repeat-x;	
+	background-repeat: repeat-x;
 	background-color:#d2d0c3;
 }
-a.tdSearchButton:hover, 
+a.tdSearchButton:hover,
 a.tdSearchButton:active  {
 	color: #FFFFFF;
 	background-color:#999999;
@@ -358,7 +361,7 @@ a.linkMailDelete {
 	background-image:url(../images/icon_mailDelete.png);
 }
 /* PAGINADO    ----------------------------*/
-.pages{	
+.pages{
 	background-color: #FFF;
 	color:#0066CC;
 }
@@ -403,47 +406,48 @@ a.lbOn {
 }
 .lightbox[id]{
 }
-#overlay[id]{ 
+#overlay[id]{
 }
 /* /Leightbox    ----------------------------*/
 /* Autocomplete    ----------------------------*/
 div.autocomplete {
 	position:absolute !important;
-  background-color:white;
-  border:1px outset #888;
-  margin:0;
-  padding:0;
-  z-index: 9999;
+	background-color:white;
+	border:1px outset #888;
+	margin:0;
+	padding:0;
+	z-index: 9999;
 }
 div.autocomplete ul {
-  list-style-type:none;
-  margin:0;
-  padding:0;
-  width: auto;
+	list-style-type:none;
+	margin:0;
+	padding:0;
+	width: auto;
 }
 div.autocomplete ul li.selected {
 	background-color: #b6e8ff;
 }
 div.autocomplete ul li,  div.autocomplete ul b{
-  list-style-type:none;
-  display: block;
-  margin:4px;
-  padding:1px;
-  padding-left:4px;
-  padding-right:20px;
-  white-space: nowrap;
-  cursor:pointer;
+	list-style-type:none;
+	display: block;
+	margin:4px;
+	padding:1px;
+	padding-left:4px;
+	padding-right:20px;
+	white-space: nowrap;
+	cursor:pointer;
+	text-align: left;
 }
 div.autocomplete ul b {
-  font-style: italic;
-  font-size: 1em;
-  background-color: white;
+	font-style: italic;
+	font-size: 1em;
+	background-color: white;
 }
 /* /Autocomplete    ----------------------------*/
 /*  BOX VARIABLES   ----------------------------------- */
 #boxVariables{
 	background-color: #f4f6f3;
-	color:#000;		
+	color:#000;
 	border: solid 1px #999;
 }
 #boxVariables ul{
@@ -537,7 +541,7 @@ div.autocomplete ul b {
 }
 .resultFailure {
 	font-weight: bold;
-	color: #B22222;	
+	color: #B22222;
 	padding: 5px 30px 5px 30px;
 	display: inline-block;
 }
@@ -560,7 +564,7 @@ div.autocomplete ul b {
 #actorMsgField, #categoryMsgField, #fieldMsgField, #groupMsgField, #issueMsgField,
 #partieMsgField, #relationMsgField, #userInfoMsgField, #usersMsgField {
 	padding: 5px 30px 5px 30px;
-	display: inline-block;	
+	display: inline-block;
 }
 option {
 	padding-right: 5px;
@@ -606,10 +610,10 @@ option {
 ul.iconOptionsList li:hover {
 	color: red;
 }
-fieldset {  
+fieldset {
 	background-color: #f7f7f8;
 }
-legend, fieldset legend, fieldset fieldset legend {  
+legend, fieldset legend, fieldset fieldset legend {
 	color:#0066CC !Important;
 }
 .read {
@@ -628,13 +632,13 @@ a.tooltip img, a.tooltipWide img{
 a.tooltip:hover,a.tooltipWide:hover {
 } /*BG color is a must for IE6*/
 a.tooltip span,a.tooltipWide span {
-	background:#ffffff; 
+	background:#ffffff;
 }
 a.tooltipWide span {
 }
 a.tooltip:hover span, a.tooltipWide:hover span{
-	background: #ffffff; 
-	border:1px solid #FF6600; 
+	background: #ffffff;
+	border:1px solid #FF6600;
 	color: #006699;
 }
 /* /tooltip ----- */
@@ -679,7 +683,7 @@ a.delete:hover{
 a.data:link{
 	color: #505050;
 }
-a.data:visited{	
+a.data:visited{
 	color: #505050;
 }
 a.data:hover{
@@ -699,10 +703,6 @@ a.detail:hover{
 	color: #FFFFFF;
 	background-color: #000066;
 }
-
-
-
-
 
 /*  .formFieldset   ----------------------------------- */
 .formFieldset {
