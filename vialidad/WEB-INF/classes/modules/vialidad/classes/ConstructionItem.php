@@ -16,6 +16,16 @@
 class ConstructionItem extends BaseConstructionItem {
 	
 	/**
+	 * @param Supply $supply
+	 * @return float proportion of $supply in the ConstructionItem
+	 */
+	public function getProportionForSupply($supply) {
+		$itemRelation = ConstructionItemRelationQuery::create()->filterByConstructionItem($this)
+			->filterBySupply($supply)->findOne();
+		return is_null($itemRelation) ? 0.00 : $itemRelation->getProportion();
+	}
+	
+	/**
 	 * Determina la existencia de una relacion con un determindo Supply.
 	 * @param $supply Supply
 	 */
