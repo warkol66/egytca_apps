@@ -132,7 +132,7 @@ class BaseAction extends Action {
 
 		if (!$noCheckLogin) { //Verifica login $noCheckLogin != 1
 
-			$loggedUser = Common::getLoggedUser();
+			$loggedUser = Common::getLoggedUser();			
 			if (!empty($loggedUser)) {
 				if (!ConfigModule::get("global","noSecurity") && $actionRequested != "securityNoPermission") {
 					if (!empty($securityAction))
@@ -150,8 +150,10 @@ class BaseAction extends Action {
 			}
 			else { //Si requiere login y no hay sesion va a login
 				global $loginPath;
-				header("Location:Main.php?do=$loginPath");
-				exit();
+				if ($actionRequested != $loginPath && $actionRequested != "commonDoLogin" && $actionRequested != "usersDoLogin") {
+					header("Location:Main.php?do=$loginPath");
+					exit();
+				}
 			}
 		}
 		else { // No verifica login
@@ -177,14 +179,13 @@ class BaseAction extends Action {
 		$smarty->assign("mapping",$mapping);
 
 		$this->template = new SmartyOutputFilter();
-		if (defined('Smarty::SMARTY_VERSION') && Smarty::SMARTY_VERSION == "Smarty-3.1.6")
+		if (defined('Smarty::SMARTY_VERSION'))
 			$smarty->registerFilter("output", array($this->template,"smarty_add_template"));
 		else
 			$smarty->register_outputfilter(array($this->template,"smarty_add_template"));
-		
+
 
 		if ($this->isAjax()) {
-			//Si es llamado via ajax, se usa el template externo correspondiente
 			$this->template->template = 'TemplateAjax.tpl';
 			$smarty->assign("isAjax", true);
 		}
@@ -194,11 +195,11 @@ class BaseAction extends Action {
 		$smarty->assign("SESSION",$_SESSION);
 
 		if (!empty($GLOBALS['_NG_LANGUAGE_'])) {
-			if (defined('Smarty::SMARTY_VERSION') && Smarty::SMARTY_VERSION == "Smarty-3.1.6")
+			if (defined('Smarty::SMARTY_VERSION'))
 				$smarty->registerFilter("output", "smarty_outputfilter_i18n");
 			else
 				$smarty->register_outputfilter("smarty_outputfilter_i18n");
-		}	
+		}
 
 		$smarty->assign("languagesAvailable",common::getAllLanguages());
 
