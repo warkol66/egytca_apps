@@ -1,7 +1,7 @@
 /* GLOBAL Styles */
 * {
-	padding: 0; 
-	margin: 0; 
+	padding: 0;
+	margin: 0;
 }
 body {
 	margin-top: 0px;
@@ -43,7 +43,7 @@ a.tdTitSearch{
 	padding: 8px 20px 8px 30px;
 }
 .tdSearch{
-	height: 40px;	
+	height: 40px;
 	text-align:left;
 	padding: 4px;
 	vertical-align:middle;
@@ -60,16 +60,16 @@ a.tdTitSearch{
 .tdSearch img{
 	margin:0;
 }
-a.tdSearchButton:link, 
+a.tdSearchButton:link,
 a.tdSearchButton:visited  {
 	width:auto;
 	display:inline;
 	padding: 0px 5px;
 	margin: 0 0 0 3px;
 	font-weight:bold;
-	text-decoration:none;	
+	text-decoration:none;
 }
-a.tdSearchButton:hover, 
+a.tdSearchButton:hover,
 a.tdSearchButton:active  {
 }
 /* /SEARCH   -------------------------------------------*/
@@ -98,7 +98,7 @@ a.linkMailDelete,a.linkMailDelete:link {
 	clear:left;
 }
 /* PAGINADO    ----------------------------*/
-.pages{	
+.pages{
 	height: 37px;
 	text-align:center;
 	vertical-align:middle;
@@ -207,9 +207,9 @@ a.lbOn {
  /* IE6 and below Can't See This */
 	position:fixed;
 }
-#overlay[id]{ 
+#overlay[id]{
 /* IE6 and below Can't See This */
-	position:fixed;    
+	position:fixed;
 }
 /* /Leightbox    ----------------------------*/
 
@@ -235,7 +235,7 @@ fieldset legend {
 	font-weight: bold;
 	font-size: 123.1%;
 	margin-bottom: 0.5em;
-	position: relative;  
+	position: relative;
 	margin-left: -.3em;
 	padding: .2em;
 }
@@ -259,7 +259,7 @@ fieldset p {
 	height: auto;
 	clear: both;
 }
-fieldset fieldset legend {  
+fieldset fieldset legend {
 	background-color: transparent;
 }
 fieldset fieldset label {
@@ -278,10 +278,10 @@ fieldset fieldset label {
 fieldset li {
 	margin-left: 35px;
 }
-fieldset {  
+fieldset {
 	position: relative;
 }
-fieldset fieldset legend {  
+fieldset fieldset legend {
 	background-color: transparent;
 }
 /*  /fieldset  ----------------------------------- */
@@ -311,7 +311,6 @@ fieldset fieldset legend {
 	padding: .1em;
 }
 
-
 /* InternalMail */
 fieldset #recipientsSelected li {
 	list-style: none;
@@ -339,7 +338,7 @@ fieldset #recipientsSelected li {
 #boxVariables ul li{
 	font-weight: bold;
 	list-style: none;
-	padding-left: 1em;	
+	padding-left: 1em;
 	margin-bottom: 1em;
 	margin-top: 0.5em;
 }
@@ -347,7 +346,7 @@ fieldset #recipientsSelected li {
 #boxVariables ul li ul li{
 	font-weight:bold;
 	list-style: none;
-	padding-left: 1em;	
+	padding-left: 1em;
 	margin-bottom: 1em;
 }
 /* SECOND UL, THIRD UL, FOURTH UL, FIFTH UL */
@@ -355,10 +354,10 @@ fieldset #recipientsSelected li {
 #boxVariables ul li ul li ul li ul li,
 #boxVariables ul li ul li ul li ul li ul li {
 	font-weight:normal;
-	text-transform: none;	
+	text-transform: none;
 	list-style: none;
-	padding-left: 1em;		
-	margin-bottom: 0;	
+	padding-left: 1em;
+	margin-bottom: 0;
 }
 /* Boton Atributo ------------------*/
 #boxVariables a{
@@ -368,7 +367,7 @@ fieldset #recipientsSelected li {
 	height: 14px;
 	margin: 0 3px 3px 3px;
 	display: inline;
-	clear: left;	
+	clear: left;
 }
 #boxVariables a.atributo:link,
 #boxVariables a.atributo:visited {
@@ -534,7 +533,7 @@ a.delete:hover{
 a.data:link{
 	text-decoration: underline;
 }
-a.data:visited{	
+a.data:visited{
 	text-decoration: underline;
 }
 a.data:hover{
@@ -565,13 +564,13 @@ a.detail:hover{
 	text-align: right;
 }
 .top {
-	vertical-align: top; 
+	vertical-align: top;
 }
 .middle {
-	vertical-align: middle; 
+	vertical-align: middle;
 }
 .bottom {
-	vertical-align: bottom; 
+	vertical-align: bottom;
 }
 .noWrap {
 	white-space: nowrap;
@@ -597,9 +596,9 @@ a.tooltip:hover,a.tooltipWide:hover {
 	text-decoration:none;
 } /*BG color is a must for IE6*/
 a.tooltip span, a.tooltipWide span {
-	display:none; 
-	padding:2px 3px; 
-	margin-left: 18px; 
+	display:none;
+	padding:2px 3px;
+	margin-left: 18px;
 	width:150px;
 	font-weight: normal !important;
 	text-align: justify !important;
@@ -609,7 +608,7 @@ a.tooltipWide span {
 	width:300px;
 }
 a.tooltip:hover span, a.tooltipWide:hover span{
-	display: inline; 
+	display: inline;
 	position: absolute;
 	margin-top: -65px;
 }
@@ -631,3 +630,41 @@ fieldset .tableTdBorders label {
 	margin-left: 0 !Important;
 	width: auto !Important;
 }
+
+/*  .formFieldset   ----------------------------------- */
+.formFieldset {
+	padding: 1em;
+}
+.formFieldset ul{
+	padding-left: 2px;
+}
+.formFieldset * label {
+	vertical-align: top;
+}
+/*  INITIAL UL*/
+.formFieldset ul li{
+	font-weight: bold;
+	list-style: none;
+	padding-left: 5px;
+	margin-bottom: 1em;
+	margin-top: 0.5em;
+}
+/*FIRST UL */
+.formFieldset ul li ul li{
+	font-weight:bold;
+	list-style: none;
+	padding-left: 5px;
+	margin-bottom: 1em;
+}
+/* SECOND UL, THIRD UL, FOURTH UL, FIFTH UL */
+.formFieldset ul li ul li ul li,
+.formFieldset ul li ul li ul li ul li,
+.formFieldset ul li ul li ul li ul li ul li {
+	font-weight:normal;
+	text-transform: none;
+	list-style: none;
+	padding-left: 5px;
+	margin-bottom: 0;
+}
+
+/*  /.formFieldset   ----------------------------------- */
