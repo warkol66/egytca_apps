@@ -100,9 +100,9 @@ class BaseAction extends Action {
 			$moduleRequested = $regs[1];
 		if (empty($moduleRequested) && $actionRequested == "js")
 			$moduleRequested = "common";
-		
+
 		$smarty->assign("module",$moduleRequested);
-		
+
 		if (isset($_SESSION["loginUser"]) && is_object($_SESSION["loginUser"]) && get_class($_SESSION["loginUser"]) == "User")
 			$loginUser = $_SESSION["loginUser"];
 		if (isset($_SESSION["loginAffiliateUser"]) && is_object($_SESSION["loginAffiliateUser"]) && get_class($_SESSION["loginAffiliateUser"]) == "AffiliateUser")
@@ -132,9 +132,9 @@ class BaseAction extends Action {
 
 		if (!$noCheckLogin) { //Verifica login $noCheckLogin != 1
 
-			$loggedUser = Common::getLoggedUser();
+			$loggedUser = Common::getLoggedUser();			
 			if (!empty($loggedUser)) {
-				if (!ConfigModule::get("global","noSecurity")) {
+				if (!ConfigModule::get("global","noSecurity") && $actionRequested != "securityNoPermission") {
 					if (!empty($securityAction))
 						$access = $securityAction->getAccessByUser($loggedUser);
 					else if (!empty($securityModule))
@@ -150,8 +150,10 @@ class BaseAction extends Action {
 			}
 			else { //Si requiere login y no hay sesion va a login
 				global $loginPath;
-				header("Location:Main.php?do=$loginPath");
-				exit();
+				if ($actionRequested != $loginPath && $actionRequested != "commonDoLogin" && $actionRequested != "usersDoLogin") {
+					header("Location:Main.php?do=$loginPath");
+					exit();
+				}
 			}
 		}
 		else { // No verifica login
@@ -177,8 +179,12 @@ class BaseAction extends Action {
 		$smarty->assign("mapping",$mapping);
 
 		$this->template = new SmartyOutputFilter();
-		$smarty->register_outputfilter(array($this->template,"smarty_add_template"));
-		
+		if (defined('Smarty::SMARTY_VERSION'))
+			$smarty->registerFilter("output", array($this->template,"smarty_add_template"));
+		else
+			$smarty->register_outputfilter(array($this->template,"smarty_add_template"));
+
+
 		if ($this->isAjax()) {
 			$this->template->template = 'TemplateAjax.tpl';
 			$smarty->assign("isAjax", true);
@@ -188,8 +194,12 @@ class BaseAction extends Action {
 		$smarty->assign("parameters",$systemParameters["parameters"]);
 		$smarty->assign("SESSION",$_SESSION);
 
-		if (!empty($GLOBALS['_NG_LANGUAGE_']))
-			$smarty->register_outputfilter("smarty_outputfilter_i18n");
+		if (!empty($GLOBALS['_NG_LANGUAGE_'])) {
+			if (defined('Smarty::SMARTY_VERSION'))
+				$smarty->registerFilter("output", "smarty_outputfilter_i18n");
+			else
+				$smarty->register_outputfilter("smarty_outputfilter_i18n");
+		}
 
 		$smarty->assign("languagesAvailable",common::getAllLanguages());
 
@@ -200,6 +210,7 @@ class BaseAction extends Action {
 	 * @param $params array with parameters with key and value
 	 * @param $mapping
 	 * @param $forwardName nombre del forward que se quiere modificar de ese mapping
+	 * @returns ForwardConfig con los parametros agregados
 	 */
 	function addParamsToForwards($params,$mapping,$forwardName) {
 
@@ -217,6 +228,7 @@ class BaseAction extends Action {
 	 * @param $params array with parameters with key and value
 	 * @param $mapping
 	 * @param $forwardName nombre del forward que se quiere modificar de ese mapping
+	 * @returns ForwardConfig con los parametros agregados
 	 */
 	function addFiltersToForwards($params,$mapping,$forwardName) {
 
@@ -235,6 +247,7 @@ class BaseAction extends Action {
 	 * @param $params array with parameters with key and value
 	 * @param $mapping
 	 * @param $forwardName nombre del forward que se quiere modificar de ese mapping
+	 * @returns ForwardConfig con los parametros agregados
 	 */
 	function addParamsAndFiltersToForwards($params,$filters,$mapping,$forwardName) {
 
@@ -256,6 +269,7 @@ class BaseAction extends Action {
 	 * @param Class $peer instancia de clase peer de propel
 	 * @param array $filterValuer valores de filtro a verificar, los metodos de set en la clase peer deben tener antepuesto a estos nombres, 'set'
 	 * @param $smarty instancia de smarty sobre la cual se esta trabajando (tener en cuenta que al trabajar con una referencia a smarty, no hay problema de pasaje por parametro)
+	 * @returns Peer con los filtros aplicados
 	 */
 	function applyFilters($peer,$filters,$smarty = '') {
 		if (!empty($smarty))
@@ -265,17 +279,16 @@ class BaseAction extends Action {
 				$filterMethod = $peer->filterConditions[$filterKey];
 				$peer->$filterMethod($filters[$filterKey]);
 			}
-
 		return $peer;
 	}
-	
+
 	/**
 	 * Consulta la base de datos y obtiene la información básica que generalmente es requerida por una vista de formulario
 	 * sencilla de una entidad. Tener en cuenta que la entidad propiamente dicha debe ser asignada por separado.
-	 * 
+	 *
 	 * En la vista quedan accesibles las instancias de entidades relacionadas con sus respectivos nombres pluralizados.
 	 * Además se asigna el nombre tentativo del formulario que contiene la vista a incluir si se trata de un formulario embutido.
-	 * 
+	 *
 	 * @param $objectClassName nombre de la clase php de la entidad.
 	 * @param $smarty instancia de smarty sobre la cual se esta trabajando (tener en cuenta que al trabajar con una referencia a smarty, no hay problema de pasaje por parametro)
 	 */
@@ -286,11 +299,10 @@ class BaseAction extends Action {
 			$objectPackageName = $tableMap->getPackage();
 			$objectModuleName = ucwords(preg_replace('/.classes$/', '', $objectPackageName));
 			$pluralizedObjectClassName = Common::pluralize($tableMap->getClassName());
-			if ($objectModuleName != $pluralizedObjectClassName) {
+			if ($objectModuleName != $pluralizedObjectClassName)
 				$formTemplateName = $objectModuleName . $pluralizedObjectClassName . 'Form.tpl';
-			} else {
+			else
 				$formTemplateName = $pluralizedObjectClassName . 'Form.tpl';
-			}
 			$smarty->assign('formTemplateName', $formTemplateName);
 			$relations = $tableMap->getRelations();
 			foreach ($relations as $relation) {
@@ -298,9 +310,8 @@ class BaseAction extends Action {
 					$foreignTable = $relation->getForeignTable();
 					$foreignEntityName = $foreignTable->getClassName();
 					$foreignPeerClassName = $foreignTable->getPeerClassName();
-					if (method_exists($foreignPeerClassName, 'getAll')) {
+					if (method_exists($foreignPeerClassName, 'getAll'))
 						$foreignEntities = call_user_func(array($foreignPeerClassName, 'getAll'));
-					}
 					$pluralizedEntityName = Common::pluralize(Common::strtocamel($foreignEntityName, false));
 					$smarty->assign($pluralizedEntityName, $foreignEntities);
 				}
@@ -308,6 +319,13 @@ class BaseAction extends Action {
 		}
 	}
 
+	/**
+	 * Respuesta generica de errores luego de un DoEdit
+	 * @param $mapping mapping del phpmvc-config
+	 * @param $smarty instancia de smarty
+	 * @param $object objeto que se queria guardar
+	 * @param $forward forward
+	 */
 	function returnFailure($mapping,$smarty,$object,$forward) {
 
 		$objectName = lcfirst(get_class($object));
@@ -323,8 +341,93 @@ class BaseAction extends Action {
 		return $mapping->findForwardConfig($forward);
 	}
 
+	/**
+	 * Indica si una accion fu invocadamediante ajax
+	 * @returns bool si fue invocada via ajax true, si no, false
+	 */
 	public function isAjax() {
 		return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
 	}
-}
 
+	/**
+	 * Agrega parametros a un url
+	 * @param $url string con url
+	 * @param $params array con parametros a agregar a un url
+	 * @returns url mas parametros
+	 */
+	function addParams($url, $params) {
+		$urlWithParams = $url;
+		foreach ($params as $param => $value) {
+			$urlWithParams .= '&'.$param.'='.$value;
+		}
+		return $urlWithParams;
+	}
+
+	/**
+	 * Elimina determinados parametros de una url
+	 * @param $url string con url
+	 * @param $paramsForRemoval array con parametros a remover a un url
+	 * @returns url sin parametrosmas parametros
+	 */
+	function removeParams($url, $paramsForRemoval) {
+		$temp = preg_split('/\?/', $url);
+		$prefix = $temp[0];
+		$oldParams = $temp[1];
+		$oldNameValuePairs = preg_split('/&/', $oldParams);
+		$newNameValuePairs = array();
+		foreach ($oldNameValuePairs as $nameValuePair) {
+			$markedForRemoval = false;
+			foreach ($paramsForRemoval as $paramForRemoval) {
+				$aux = preg_split('/=/', $nameValuePair);
+				if ($paramForRemoval == $aux[0])
+					$markedForRemoval = true;
+			}
+			if (!$markedForRemoval)
+				array_push($newNameValuePairs, $nameValuePair);
+		}
+		$newUrl = $prefix;
+		$isFirst = true;
+		foreach ($newNameValuePairs as $nameValuePair) {
+			if ($isFirst) {
+				$newUrl .= '?';
+				$isFirst = false;
+			}
+			else
+				$newUrl .= '&';
+
+			$newUrl .= $nameValuePair;
+		}
+		return $newUrl;
+	}
+
+	/**
+	 * Genera un forward dinamico a partir de un forward existente agregando o sacando parametros a la url
+	 * @param $forwardName nombre del forward
+	 * @param array $addParams parametros a agregar a la url
+	 * @param array $removeParams parametros a remover a la url
+	 * @returns ForwardConfig generado
+	 */
+	function generateDynamicForward($forwardName, $addParams = array(), $removeParams = array()) {
+		switch ($forwardName) {
+			case 'success':
+				//$action = $this->getAction($_SERVER['HTTP_REFERER']);
+				$url = $_SERVER['HTTP_REFERER'];
+				$url = $this->removeParams($url, $removeParams);
+				$url = $this->addParams($url, $addParams);
+				/*return new ForwardConfig($this->addParams($addParams,
+					'Main.php?do='.$action), True);*/
+				return new ForwardConfig($url, True);
+			case 'failure':
+				//$action = $this->getAction($_SERVER['HTTP_REFERER']);
+				$url = $_SERVER['HTTP_REFERER'];
+				$url = $this->removeParams($url, $removeParams);
+				$url = $this->addParams($url, $addParams);
+				/*return new ForwardConfig($this->addParams($addParams,
+					'Main.php?do='.$action), True);*/
+				return new ForwardConfig($url, True);
+			default:
+				throw new Exception('invalid argument "'.$forwardName.'" for '.$forwardName);
+		}
+	}
+
+} // BaseAction

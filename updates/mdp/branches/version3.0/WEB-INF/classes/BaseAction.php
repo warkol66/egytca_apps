@@ -100,9 +100,9 @@ class BaseAction extends Action {
 			$moduleRequested = $regs[1];
 		if (empty($moduleRequested) && $actionRequested == "js")
 			$moduleRequested = "common";
-		
+
 		$smarty->assign("module",$moduleRequested);
-		
+
 		if (isset($_SESSION["loginUser"]) && is_object($_SESSION["loginUser"]) && get_class($_SESSION["loginUser"]) == "User")
 			$loginUser = $_SESSION["loginUser"];
 		if (isset($_SESSION["loginAffiliateUser"]) && is_object($_SESSION["loginAffiliateUser"]) && get_class($_SESSION["loginAffiliateUser"]) == "AffiliateUser")
@@ -132,7 +132,7 @@ class BaseAction extends Action {
 
 		if (!$noCheckLogin) { //Verifica login $noCheckLogin != 1
 
-			$loggedUser = Common::getLoggedUser();
+			$loggedUser = Common::getLoggedUser();			
 			if (!empty($loggedUser)) {
 				if (!ConfigModule::get("global","noSecurity") && $actionRequested != "securityNoPermission") {
 					if (!empty($securityAction))
@@ -150,8 +150,10 @@ class BaseAction extends Action {
 			}
 			else { //Si requiere login y no hay sesion va a login
 				global $loginPath;
-				header("Location:Main.php?do=$loginPath");
-				exit();
+				if ($actionRequested != $loginPath && $actionRequested != "commonDoLogin" && $actionRequested != "usersDoLogin") {
+					header("Location:Main.php?do=$loginPath");
+					exit();
+				}
 			}
 		}
 		else { // No verifica login
@@ -177,8 +179,12 @@ class BaseAction extends Action {
 		$smarty->assign("mapping",$mapping);
 
 		$this->template = new SmartyOutputFilter();
-		$smarty->register_outputfilter(array($this->template,"smarty_add_template"));
-		
+		if (defined('Smarty::SMARTY_VERSION'))
+			$smarty->registerFilter("output", array($this->template,"smarty_add_template"));
+		else
+			$smarty->register_outputfilter(array($this->template,"smarty_add_template"));
+
+
 		if ($this->isAjax()) {
 			$this->template->template = 'TemplateAjax.tpl';
 			$smarty->assign("isAjax", true);
@@ -188,8 +194,12 @@ class BaseAction extends Action {
 		$smarty->assign("parameters",$systemParameters["parameters"]);
 		$smarty->assign("SESSION",$_SESSION);
 
-		if (!empty($GLOBALS['_NG_LANGUAGE_']))
-			$smarty->register_outputfilter("smarty_outputfilter_i18n");
+		if (!empty($GLOBALS['_NG_LANGUAGE_'])) {
+			if (defined('Smarty::SMARTY_VERSION'))
+				$smarty->registerFilter("output", "smarty_outputfilter_i18n");
+			else
+				$smarty->register_outputfilter("smarty_outputfilter_i18n");
+		}
 
 		$smarty->assign("languagesAvailable",common::getAllLanguages());
 
@@ -271,14 +281,14 @@ class BaseAction extends Action {
 			}
 		return $peer;
 	}
-	
+
 	/**
 	 * Consulta la base de datos y obtiene la información básica que generalmente es requerida por una vista de formulario
 	 * sencilla de una entidad. Tener en cuenta que la entidad propiamente dicha debe ser asignada por separado.
-	 * 
+	 *
 	 * En la vista quedan accesibles las instancias de entidades relacionadas con sus respectivos nombres pluralizados.
 	 * Además se asigna el nombre tentativo del formulario que contiene la vista a incluir si se trata de un formulario embutido.
-	 * 
+	 *
 	 * @param $objectClassName nombre de la clase php de la entidad.
 	 * @param $smarty instancia de smarty sobre la cual se esta trabajando (tener en cuenta que al trabajar con una referencia a smarty, no hay problema de pasaje por parametro)
 	 */
