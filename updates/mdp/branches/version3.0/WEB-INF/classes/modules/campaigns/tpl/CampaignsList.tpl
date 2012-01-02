@@ -76,14 +76,7 @@
 					<input type="submit" name="submit_go_delete_campaign" value="Borrar" onclick="return confirm('Seguro que desea eliminar esta campaña?')" class="icon iconDelete" /> 
 			</form>
 			|-/if-|
-			|-if $loginUser->isSupervisor()-|				<form action="Main.php" method="post" style="display:inline;"> 
-					<input type="hidden" name="do" value="campaignsDoDelete" /> 
-						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-					<input type="hidden" name="id" value="|-$campaign->getid()-|" /> 
-					<input type="hidden" name="doHardDelete" value="true" /> 
-					<input type="submit" name="submit_go_delete_campaign" value="Borrar" onclick="return confirm('Seguro que desea eliminar esta campaña definitivamente?')" class="icon iconHardDelete" /> 
-			</form>|-/if-|</td> 
+			</td> 
 		</tr> 
 		|-/foreach-|
 		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|

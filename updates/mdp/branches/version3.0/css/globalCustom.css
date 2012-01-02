@@ -45,6 +45,9 @@ input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 	margin: 0;
 	padding: 0;
 }
+a.icon {
+	display: block;
+}
 /* Image Buttons and Links */
 .iconActivate, .iconAdd, .iconBack, .iconBudget, .iconDelete, .iconDetail, .iconDownload, .iconCancel, .iconEdit, .iconEmail,
 .iconFollow, .iconGoTo, .iconGraph, .iconHelp, .iconHistory, .iconIndicator, .iconTableh3 , .iconNote, .iconDocument, .iconAttach,
@@ -735,4 +738,31 @@ a.follow:hover{
 	color: #000066;
 	background-image: url(../images/icon_follow.png);
 	background-repeat: no-repeat;
+}
+
+a.return {
+	color: #000066;
+	padding: 2px 5px 2px 22px;
+	background-image: url(../images/icon_follow.png);
+	background-repeat: no-repeat;
+}
+a.return:link,a.return:visited{
+	color: #000066;
+	text-decoration: none;
+}
+a.report:hover{
+	color: #000066;
+}
+a.report {
+	color: #000066;
+	padding: 2px 5px 2px 22px;
+	background-image: url(../images/icon_print.png);
+	background-repeat: no-repeat;
+}
+a.report:link,a.return:visited{
+	color: #000066;
+	text-decoration: none;
+}
+a.report:hover{
+	color: #000066;
 }
