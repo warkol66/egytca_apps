@@ -1,5 +1,13 @@
 |-if $errorMessage neq ''-|
-	|-$errorMessage-|
+	<div>|-$errorMessage-|</div>
+	<div>
+		<form action="Main.php?do=headlinesRenderUrl&id=|-$id-|" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="manual" value="1" />
+			<label for="file">Subir manualmente:</label>
+			<input type="file" name="clipping" id="clipping" />
+			<input type="submit" name="submit" value="Subir" />
+		</form>
+	</div>
 |-else-|
 	
 |-include file='HeadlinesCropImageInclude.tpl'-|

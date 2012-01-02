@@ -37,16 +37,26 @@ class HeadlinesRenderUrlAction extends BaseAction {
 			$tempImg = 'cropme-'.uniqid().'.jpg';
 			$imageFullname = $imagePath . $tempImg;
 			
-			$renderer = new WebkitHtmlRenderer();
+			$smarty->assign("id", $_GET["id"]);
 			
-			try {
-				$renderer->render($url, $imageFullname);
-			} catch (RenderException $e) {
-				$smarty->assign("errorMessage", $e->getMessage());
-				return $mapping->findForwardConfig('success');
+			if (isset($_POST['manual']) && $_POST['manual'] == '1') {
+				if ($_FILES["clipping"]["error"] > 0) {
+					$smarty->assign('errorMessage', $_FILES['clipping']['error']);
+					return $mapping->findForwardConfig('success');
+				} else {
+					move_uploaded_file($_FILES["clipping"]["tmp_name"], $imageFullname);
+				}
+			} else { // automatic
+				$renderer = new WebkitHtmlRenderer();
+				
+				try {
+					$renderer->render($url, $imageFullname);
+				} catch (RenderException $e) {
+					$smarty->assign("errorMessage", $e->getMessage());
+					return $mapping->findForwardConfig('success');
+				}
 			}
 			
-			$smarty->assign("id", $_GET["id"]);
 			$smarty->assign("image", $tempImg);
 			$smarty->assign("temp", true);
 			
