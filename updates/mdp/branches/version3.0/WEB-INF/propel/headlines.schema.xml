@@ -13,9 +13,18 @@
 		<column name="gplus" type="INTEGER" description="G+ del titular" />
 		<column name="comment" type="INTEGER" description="Comentario del titular" />
 		<column name="picture" type="BOOLEAN" description="Foto del titular" />
+		<column name="campaignId" type="INTEGER" description="Campaign ID"/>
+		<column name="mediaId" type="INTEGER" description="Media ID"/>
 
-		<behavior name="soft_delete" />
 		<behavior name="timestampable" />
+
+		<foreign-key foreignTable="campaigns_campaign" onDelete="cascade">
+			<reference local="campaignId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="medias_media" onDelete="cascade">
+			<reference local="mediaId" foreign="id"/>
+		</foreign-key>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
@@ -56,7 +65,7 @@
 
 	</table>
 
-	<table name="headlines_media" phpName="HeadlineMedia" isCrossRef="true" description="Headlines / Issues">
+<!--	<table name="headlines_media" phpName="HeadlineMedia" isCrossRef="true" description="Headlines / Issues">
 
 		<column name="headlineId" required="true" primaryKey="true" type="INTEGER"  description="Headline ID"/>
 		<column name="mediaId" required="true" primaryKey="true" type="INTEGER"  description="Medias ID"/>
@@ -70,7 +79,7 @@
 		</foreign-key>
 
 	</table>
-
+-->
 	<table name="headlines_relation" phpName="HeadlineRelation" isCrossRef="true" description="Tabla de relaciones de titulares">
 
 		<column name="headlineFromId" required="true" primaryKey="true" type="INTEGER"  description="ID Headline origen"/>

@@ -3,9 +3,10 @@
 	<table name="campaigns_campaign" phpName="Campaign" description="Base de Campaigns">
 
 		<column name="id" description="Identificacion de la Campaign" type="INTEGER" required="true" primaryKey="true" autoIncrement="true" />
+		<column name="name" description="Nombre de la Campaign" type="VARCHAR" size="255" primaryString="true" />
 		<column name="type" description="Tipo de Campaign" type="INTEGER" />
-		<column name="startDate" description="Fecha inicio de la campaign" type="DATE" required="true" />
-		<column name="finishDate" description="Fecha final de la campaign" type="DATE" required="true" />
+		<column name="startDate" description="Fecha inicio de la campaign" type="DATE" />
+		<column name="finishDate" description="Fecha final de la campaign" type="DATE" />
 		<column name="clientId" description="Cliente asociado" type="INTEGER" />
 		<column name="description" description="Descripcion de la Campaign" type="LONGVARCHAR" />
 		<column name="responsible" description="Persona Responsable de la campaign" type="CHAR" size="120" />
