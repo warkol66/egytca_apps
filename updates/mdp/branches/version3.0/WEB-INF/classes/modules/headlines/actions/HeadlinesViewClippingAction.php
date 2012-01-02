@@ -10,9 +10,6 @@ class HeadlinesViewClippingAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty = $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -35,11 +32,13 @@ class HeadlinesViewClippingAction extends BaseAction {
 				$smarty->assign('displayedWidth', $displayedWidth);
 				$smarty->assign('displayedHeight', $displayedHeight);
 			}
-			
-		} else {
-			$smarty->assign("errorMessage", "ID inválido");
 		}
-		
+		else
+			$smarty->assign("errorMessage", "ID inválido");
+
+		if ($_GET["noTemplate"])
+			$this->template->template = 'TemplateAjax.tpl';
+
 		return $mapping->findForwardConfig('success');
 	}
 }

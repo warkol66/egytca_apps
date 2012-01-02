@@ -3,6 +3,7 @@
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p> 
 	|-include file="ActorsEditInclude.tpl"-|
 </div> 
+|-include file="CommonAutocompleterInclude.tpl" -|
 <h2>##headlines,1,Titulares##</h2>
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| ##headlines,2,Titular##</h1>
 <div id="div_headline">
@@ -15,6 +16,12 @@
 	<form name="form_edit_headline" id="form_edit_headline" action="Main.php" method="post">
 		<fieldset title="Formulario de edición de datos de un titular">
 			<legend>Formulario de Administración de ##headlines,1,Titulares##</legend>
+		<div id="campaign" style="position: relative;z-index:11000;">
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_campaignId" label="Campaña" url="Main.php?do=campaignsAutocompleteListX" hiddenName="params[campaignId]" defaultHiddenValue=$headline->getCampaignId() defaultValue=$headline->getCampaign()-|
+		</div>
+		<div id="campaign" style="position: relative;z-index:10000;">
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_mediaId" label="Medio" url="Main.php?do=mediasAutocompleteListX" hiddenName="params[mediaId]" defaultHiddenValue=$headline->getMediaId() defaultValue=$headline->getMedia()-|
+		</div>
 			<p>
 				<label for="params[name]">Nombre</label>
 				<input type="text" id="params[name]" name="params[name]" size="50" value="|-$headline->getname()|escape-|" title="Nombre" /><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
@@ -33,8 +40,8 @@
 			</p>
 		<p>
 			<label for="params[url]">Url</label>
-			<input id="params[url]" name="params[url]" type='text' value='|-$headline->getUrl()-|' size="65" title="Ingrese el url del titular incluyendo el el http://" />|-if $headline->getUrl() ne ''-| <a href="|-$headline->getUrl()-|" target="_blank" title="Ir a nota original" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a>|-/if-|
-			|-if $headline->hasClipping()-|<a href="Main.php?do=headlinesViewClipping&id=|-$headline->getId()-|" title="Ver recorte"><img src="images/clear.png" class="icon iconNewsClipping" /></a>|-/if-|
+			<input id="params[url]" name="params[url]" type='text' value='|-$headline->getUrl()-|' size="65" title="Ingrese el url del titular incluyendo el el http://" />|-if $headline->getUrl() ne ''-| <a href="|-$headline->getUrl()-|" target="_blank" title="Ir a nota original" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a> |-/if-|
+			|-if $headline->hasClipping()-|<a href="Main.php?do=headlinesViewClipping&id=|-$headline->getId()-|" title="Ver recorte"><img src="images/clear.png" class="icon iconNewsClipping" /></a>|-else-|<a href="Main.php?do=headlinesRenderUrl&id=|-$headline->getId()-|" title="Generar recorte"><img src="images/clear.png" class="icon iconNewsAdd" /></a> |-/if-|
 			</p>
 			<p>     
 				<label for="params[picture]">Foto</label>
@@ -76,7 +83,6 @@
 
 |-if $headline->getId() ne ''-|
 
-|-include file="CommonAutocompleterInclude.tpl" -|
 <script type="text/javascript" language="javascript" charset="utf-8">
 function addActorToHeadline(form) {
 	var fields = Form.serialize(form);

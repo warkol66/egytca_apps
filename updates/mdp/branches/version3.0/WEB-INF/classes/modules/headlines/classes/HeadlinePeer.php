@@ -18,12 +18,14 @@ class HeadlinePeer extends BaseHeadlinePeer {
 	/** the default item name for this class */
 	const ITEM_NAME = 'Headlines';
 	
-	const SPOKESMAN = 1;
-	const MENTION   = 2;
+	const SPOKESMAN   = 1;
+	const MENTION     = 2;
+	const JOURNALIST  = 3;
 
 	protected static $headlineRoles = array(
 						HeadlinePeer::SPOKESMAN        => 'Vocero',
-						HeadlinePeer::MENTION          => 'Mencionado'
+						HeadlinePeer::MENTION          => 'Mencionado',
+						HeadlinePeer::JOURNALIST       => 'Periodista'
 					);
 
 	/**
@@ -262,7 +264,7 @@ class HeadlinePeer extends BaseHeadlinePeer {
 		$criteria = new Criteria();
 		$criteria->setIgnoreCase(true);
 		$criteria->setLimit($this->limit);
-		$criteria->addAscendingOrderByColumn(HeadlinePeer::ID);
+		$criteria->addDescendingOrderByColumn(HeadlinePeer::ID);
 
 		if (!empty($this->adminActId)) {
 			$headlinesParticipatingIds = AdminActParticipantQuery::create()

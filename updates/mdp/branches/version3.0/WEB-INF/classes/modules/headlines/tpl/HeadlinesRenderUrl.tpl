@@ -17,9 +17,10 @@
 				parameters: {
 					headlineId: '|-$id-|',
 					imageFile: '|-$image-|',
-					|-if $temp neq ''-|temp: '1',|-/if-|
-					relativeX: 0,
-					relativeY: 0,
+					|-if $temp neq ''-|temp: '1',
+					|-/if-|
+					relativeX: '0',
+					relativeY: '0',
 					relativeWidth: '|-$displayedWidth-|',
 					relativeHeight: '|-$displayedHeight-|',
 					displayedWidth: '|-$displayedWidth-|',
