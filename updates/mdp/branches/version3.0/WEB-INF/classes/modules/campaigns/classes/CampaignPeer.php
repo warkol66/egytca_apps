@@ -23,6 +23,7 @@ class CampaignPeer extends BaseCampaignPeer {
 	const INTERVIEW          = 3;
 	const SPONSOR            = 4; 
 	const JUDGE              = 5;
+	const EARNED             = 6;
 
 	//nombre de los tipos de garantia
 	protected static $campaignTypes = array(
@@ -30,7 +31,8 @@ class CampaignPeer extends BaseCampaignPeer {
 						CampaignPeer::PUBLIC_APPEREANCE  => 'Public Appereance',
 						CampaignPeer::INTERVIEW          => 'Interview',
 						CampaignPeer::SPONSOR            => 'Sponsor',
-						CampaignPeer::JUDGE              => 'Judge'
+						CampaignPeer::JUDGE              => 'Judge',
+						CampaignPeer::EARNED             => 'Earned'
 					);
 
 	private $searchString;

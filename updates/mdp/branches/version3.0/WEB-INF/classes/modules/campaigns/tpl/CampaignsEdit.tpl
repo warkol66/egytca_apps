@@ -198,15 +198,17 @@ function clearElement(element) {
 		<thead> 
 			<tr class="thFillTitle"> 
 				<th width="1%">&nbsp;</th> 
-				<th width="29%">##headlines,2,Titulares##</th> 
-				<th width="60%">##headlines,3,Contenido##</th> 
+				<th width="20%">##headlines,2,Titulares##</th>
+				<th width="10%">Medio</th>
+				<th width="59%">##headlines,3,Contenido##</th> 
 			</tr> 
 		</thead> 
 	<tbody>
 		|-foreach from=$headlines item=headline name=for_headlines-|
 		<tr> 
 				<td>|-if $headline->hasClipping()-|<a href="Main.php?do=headlinesViewClipping&id=|-$headline->getId()-|" title="Ver recorte" class="icon iconNewsClipping" target="_blank"></a>|-/if-|</td>
-				<td>|-$headline->getName()-|</td> 
+				<td>|-$headline->getName()-|</td>
+				<td>|-$headline->getMedia()-|</td>
 				<td>|-$headline->getContent()|truncate:800:"..."-|</td>
 		</tr> 
 		|-/foreach-|
@@ -230,9 +232,8 @@ function clearElement(element) {
 <h4>Clipping</h4>
 	|-foreach from=$headlines item=headline name=for_headlines-|
 			<p><strong>Medio: </strong>|-$headline->getMedia()-|</p>
-			<p><strong>Titular:</strong> |-$headline->getName()-|</p>
-			<p><strong>Fecha Publicación:</strong> |-$headline->getDatePublished()|date_format-|</p>
-			<p><strong>URL:</strong> |-$headline->getUrl()-|</p>
+			<p><strong>Titulo: </strong> <a href="|-$headline->getUrl()-|" target="_blank"> |-$headline->getName()-|</a></p>
+			<p><strong>Fecha Publicación: </strong> |-$headline->getDatePublished()|date_format-|</p>
 			<p>|-if $headline->hasClipping()-|<img src="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />|-/if-|</p>
 	|-/foreach-|
 	<br style="page-break-after:auto">
