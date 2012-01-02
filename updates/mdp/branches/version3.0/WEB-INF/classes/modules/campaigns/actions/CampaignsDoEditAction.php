@@ -48,20 +48,25 @@ class CampaignsDoEditAction extends BaseAction {
 		if (!empty($_POST["filters"]))
 			$filters = $_POST["filters"];
 
-		if ($_POST["id"] && $_POST["action"] == "edit") { // Existing campaign
+		if ($_POST["id"]) { // Existing campaign
 
-			$campaign = CampaignPeer::get($_POST["id"]);
-			$campaign = Common::setObjectFromParams($campaign,$_POST["params"]);
+			$campaign = CampaignQuery::create()->findPK($_POST["id"]);
 
-			$params["id"] = $_POST["id"];
+			if (!empty($campaign)) {
+				if (isset($_POST["params"]["id"]))
+					unset($_POST["params"]["id"]);
+				$campaign = Common::setObjectFromParams($campaign,$_POST["params"]);
 
-			$smarty = $this->prepareSmarty($params,$filters,$mapping,$smarty,$campaign,'edit');
-	
-			if ($campaign->isModified() && !$campaign->save())
-				return $this->returnFailure($params,$filters,$mapping,$smarty,$campaign,'edit');
+				$params["id"] = $_POST["id"];
 
-			$smarty->assign("message","ok");
-			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');
+				$smarty = $this->prepareSmarty($params,$filters,$mapping,$smarty,$campaign,'edit');
+
+				if ($campaign->isModified() && !$campaign->save())
+					return $this->returnFailure($params,$filters,$mapping,$smarty,$campaign,'edit');
+
+				$smarty->assign("message","ok");
+				return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');
+			}
 		}
 		else { // New campaign
 

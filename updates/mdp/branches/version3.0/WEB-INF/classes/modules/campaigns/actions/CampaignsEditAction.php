@@ -30,39 +30,44 @@ class CampaignsEditAction extends BaseAction {
 		if (!empty($_GET["id"])) {
 			//voy a editar un campaign
 
-			$campaign = CampaignPeer::get($_GET["id"]);
+			$campaign = CampaignQuery::create()->findPK($_GET["id"]);
 
-			$smarty->assign("campaign",$campaign);
-			$smarty->assign("action","edit");
+			if (empty($campaign))
+				$smarty->assign("notValidId",true);
+			else {
+				$smarty->assign("campaign",$campaign);
 
-			//Adjuntar documentos
-			$smarty->assign("documentsUpload", true); //en el template se realizan subidas de documentos
-			$documentTypes = DocumentPeer::getDocumentsTypesConfig();
-			$smarty->assign("documentTypes",$documentTypes);
+				//Adjuntar documentos
+				$smarty->assign("documentsUpload", true); //en el template se realizan subidas de documentos
+				$documentTypes = DocumentPeer::getDocumentsTypesConfig();
+				$smarty->assign("documentTypes",$documentTypes);
 
-			$maxUploadSize =  Common::maxUploadSize();
-			$smarty->assign("maxUploadSize",$maxUploadSize);
+				$maxUploadSize =  Common::maxUploadSize();
+				$smarty->assign("maxUploadSize",$maxUploadSize);
 
-			$moduleConfig = Common::getModuleConfiguration($module);
-			if ($moduleConfig["usePasswords"]["value"] == "YES")
-				$usePasswords = true;
-			$smarty->assign("usePasswords",$usePasswords);
+				$moduleConfig = Common::getModuleConfiguration($module);
+				if ($moduleConfig["usePasswords"]["value"] == "YES")
+					$usePasswords = true;
+				$smarty->assign("usePasswords",$usePasswords);
 
-			// Busco todos los documentos asociados al campaign
-			$documents = $campaign->getDocuments();
-			$smarty->assign("documents",$documents);
+				// Busco todos los documentos asociados al campaign
+				$documents = $campaign->getDocuments();
+				$smarty->assign("documents",$documents);
 
+				if ($_GET["report"]) {
+					$this->template->template = "TemplatePrint.tpl";
+					$smarty->assign("report",true);
+				}
+			}
 		}
-		else {
-			//voy a crear un project nuevo
-			$campaign = new Campaign();
-			$smarty->assign("campaign",$campaign);
-			$smarty->assign("action","create");
-		}
+		else
+			//voy a crear un campaign nuevo
+			$smarty->assign("campaign",new Campaign());
 
 		$smarty->assign("filters",$_GET["filters"]);
 		$smarty->assign("page",$_GET["page"]);
 		$smarty->assign("message",$_GET["message"]);
+
 
 		return $mapping->findForwardConfig('success');
 	}

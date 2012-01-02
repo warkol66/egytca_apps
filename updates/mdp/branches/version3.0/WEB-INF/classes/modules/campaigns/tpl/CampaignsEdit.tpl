@@ -1,3 +1,5 @@
+|-if !$notValidId-|
+|-if !$report-|
 |-include file="CommonAutocompleterInclude.tpl"-|
 <script type="text/javascript" language="javascript" charset="utf-8">
 function addParticipantToCampaign(form) {
@@ -49,10 +51,10 @@ function clearElement(element) {
 	|-include file="ActorsEditInclude.tpl"-|
 </div> 
 <h2>Campañas</h2>
-<h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| Campaña</h1>
+<h1>|-if $campaign->isNew()-|Crear|-else-|Editar|-/if-| Campaña</h1>
 <div id="div_campaign">
 	<p>Ingrese los datos del Campaña</p>
-		<p><a href="#" onClick="location.href='Main.php?do=campaignsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'">Volver atras</a>
+		<p><a href="#" onClick="location.href='Main.php?do=campaignsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'">Volver al listado</a> <a href="Main.php?do=campaignsEdit&report=1&id=|-$campaign->getId()-|">Generar Reporte</a>
 		</p>
 	|-if $message eq "ok"-|
 		<div class="successMessage">Campaña guardada correctamente</div>
@@ -63,11 +65,15 @@ function clearElement(element) {
 		<fieldset title="Formulario de edición de datos de una Campaña">
 			<legend>Formulario de Administración de Campañas</legend>
 			<p>
+				<label for="params[name]">Nombre</label>
+				<input name="params[name]" type="text" id="params[name]" title="Nombre" value="|-$campaign->getName()|escape-|" size="50" class="emptyValidation"> |-validation_msg_box idField=params[name]-|
+			</p>
+			<p>
 				<label for="params[type]">Tipo</label>
 				<select id="params[type]" name="params[type]" title="Tipo de Campaña" class="emptyValidation"> 
 			<option value="">Seleccione tipo</option>
 			|-html_options options=$types selected=$campaign->getType()-|
-      </select> |-validation_msg_box idField=params[type]-| <img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
+      </select> |-validation_msg_box idField=params[type]-|
 			</p>
 			<p> 
 				<label for="params[startDate]">Fecha de Inicio</label>
@@ -81,14 +87,17 @@ function clearElement(element) {
 				<label for="params[description]">Descripción</label>
 				<textarea name="params[description]" cols="70" rows="6" wrap="virtual" id="params[description]" title="Descripción">|-$campaign->getdescription()|escape-|</textarea>
 			</p>
+		<div id="client" style="position: relative;z-index:10000;">
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_clientId" label="Cliente" url="Main.php?do=clientsAutocompleteListX" hiddenName="params[clientId]" defaultHiddenValue=$campaign->getClientId() defaultValue=$campaign->getClient()-|
+		</div>
 		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
-				|-if $action eq 'edit'-|
-				<input type="hidden" name="id" id="id" value="|-$campaign->getid()-|" />
-				|-else-|
+				|-if $campaign->isNew()-|
 			<p>* Para agregar información sobre participantes o anexar documentos, debe guardar primero el campaña. </p>
-				|-/if-|
+				|-else-|
+					<input type="hidden" name="id" id="id" value="|-$campaign->getid()-|" />
+			|-/if-|
 			<p>
-				|-include file="HiddenInputsInclude.tpl" action="$action" filters="$filters" page="$page"-|
+				|-include file="HiddenInputsInclude.tpl" filters="$filters" page="$page"-|
 				<input type="hidden" name="do" id="do" value="campaignsDoEdit" />
 				|-javascript_form_validation_button value='Guardar' title='Guardar'-|
 				<input type="button" id="cancel" name="cancel" title="Volver al listado" value="Volver al listado" onClick="location.href='Main.php?do=campaignsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'"/>
@@ -96,7 +105,7 @@ function clearElement(element) {
 		</fieldset>
 	</form>
 </div>
-|-if isset($action) and $action neq 'create'-|
+|-if !$campaign->isNew()-|
 <fieldset title="Formulario de edición de participantes asociadas al campaña">
 	<legend>Participantes</legend>
 <div id="PartyAdding"> <span id="partieMsgField"></span> 
@@ -172,7 +181,7 @@ function clearElement(element) {
 					<input type="hidden" name="doHardDelete" value="true" /> 
 					<input type="button" name="submit_go_delete_campaign" value="Borrar definitivamente" title="Borrar definitivamente" onclick="javascript: if (confirm('Seguro que desea eliminar este compromiso definitivamente?')){deleteCommitment(this.form)}; return false" class="icon iconHardDelete" /> 
 			</form>|-/if-||-/if-|</td>
-			 </tr>
+		  </tr>
     |-/foreach-|
 |-/if-|
 		</tbody>
@@ -180,4 +189,56 @@ function clearElement(element) {
 </fieldset>
 	|-include file="DocumentsListInclude.tpl" entity="Campaign" entityId=$campaign->getId()-|
 	|-include file="DocumentsEditInclude.tpl" entity="Campaign" entityId=$campaign->getId()-|
-|-/if-| 
+|-/if-|
+|-if $campaign->getHeadlines()|count gt 0-|
+|-assign var=headlines value=$campaign->getHeadlines()-|
+<div id="div_headlines"> 
+<h4>Titulares</h4>
+	<table id="tabla-headlines" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
+		<thead> 
+			<tr class="thFillTitle"> 
+				<th width="1%">&nbsp;</th> 
+				<th width="29%">##headlines,2,Titulares##</th> 
+				<th width="60%">##headlines,3,Contenido##</th> 
+			</tr> 
+		</thead> 
+	<tbody>
+		|-foreach from=$headlines item=headline name=for_headlines-|
+		<tr> 
+				<td>|-if $headline->hasClipping()-|<a href="Main.php?do=headlinesViewClipping&id=|-$headline->getId()-|" title="Ver recorte" class="icon iconNewsClipping" target="_blank"></a>|-/if-|</td>
+				<td>|-$headline->getName()-|</td> 
+				<td>|-$headline->getContent()|truncate:800:"..."-|</td>
+		</tr> 
+		|-/foreach-|
+		</tbody> 
+ </table> 
+</div>
+|-/if-|
+
+|-else-||-*Si es reporte*-|
+<h1>|-$campaign->getName()-|</h1> 
+<h2>Clipping de repercusiones de prensa - |-$campaign->getClient()-|</h2>
+		<p>Tipo: |-$campaign->getTypeTranslated()-| - Período: |-$campaign->getStartDate()|date_format:"%d-%m-%Y"-| al |-$campaign->getFinishDate()|date_format:"%d-%m-%Y"-|</p> 
+		<p>|-$campaign->getDescription()-|</p>
+		<p>|-foreach from=$campaign->getCampaignParticipants() item=party name=for_parties-|<ul>
+	 |-if $party->getObject() != NULL-||-assign var=partyObject value=$party->getObject()-||-$partyObject->getName()-| |-$partyObject->getSurname()-||-if $party->getObjectType() eq 'Actor' && $partyObject->getInstitution() ne ''-| (|-$partyObject->getInstitution()-|)|-/if-||-/if-|<ul>
+	|-/foreach-|</p> 
+	<br style="page-break-after:auto">
+|-if $campaign->getHeadlines()|count gt 0-|
+|-assign var=headlines value=$campaign->getHeadlines()-|
+<div id="div_headlines"> 
+<h4>Clipping</h4>
+	|-foreach from=$headlines item=headline name=for_headlines-|
+			<p><strong>Medio: </strong>|-$headline->getMedia()-|</p>
+			<p><strong>Titular:</strong> |-$headline->getName()-|</p>
+			<p><strong>Fecha Publicación:</strong> |-$headline->getDatePublished()|date_format-|</p>
+			<p><strong>URL:</strong> |-$headline->getUrl()-|</p>
+			<p>|-if $headline->hasClipping()-|<img src="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />|-/if-|</p>
+	|-/foreach-|
+	<br style="page-break-after:auto">
+</div>
+|-/if-|
+|-/if-||-*/Si es reporte*-|
+|-else-||-*Si no es valido el id*-|
+Debe elegir una campaña valida
+|-/if-|

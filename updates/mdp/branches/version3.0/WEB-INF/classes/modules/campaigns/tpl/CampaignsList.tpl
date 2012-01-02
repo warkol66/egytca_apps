@@ -15,7 +15,7 @@
 	<table id="tabla-campaigns" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 <thead> |-if !$result-|		
 		<tr>
-			<td colspan="6" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda de campañas</a>
+			<td colspan="7" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda de campañas</a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="campaignsList" />
 					Texto a buscar: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
@@ -28,7 +28,7 @@
 		</form>|-/if-|</div></td>
 		</tr>
 			<tr>
-				 <th colspan="6" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=campaignsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Campaña</a></div></th>
+				 <th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=campaignsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Campaña</a></div></th>
 			</tr>
 |-/if-|
 
@@ -36,8 +36,9 @@
 			<tr class="thFillTitle"> 
 	<!--			<th width="5%">Id</th> -->
 				<th width="5%">Fechas</th> 
-				<th width="20%">Cliente</th> 
+				<th width="10%">Cliente</th> 
 				<th width="10%">Tipo</th> 
+				<th width="10%">Nombre</th> 
 				<th width="30%">Descripción</th> 
 				<th width="30%">Participantes</th> 
 				<th width="5%">&nbsp;</th> 
@@ -45,15 +46,16 @@
 		</thead> 
 	<tbody>|-if $campaigns|@count eq 0-|
 		<tr>
-			 <td colspan="6">|-if isset($filter)-|No hay campañas que concuerden con la búsqueda|-else-|No hay campañas disponibles|-/if-|</td>
+			 <td colspan="7">|-if isset($filter)-|No hay campañas que concuerden con la búsqueda|-else-|No hay campañas disponibles|-/if-|</td>
 		</tr>
 	|-else-|
 		|-foreach from=$campaigns item=campaign name=for_campaigns-|
 		<tr> 
 	<!--		<td>|-$campaign->getid()-|</td> -->
 			<td align="center">|-$campaign->getStartDate()|date_format:"%d-%m-%Y"-| al |-$campaign->getFinishDate()|date_format:"%d-%m-%Y"-|</td> 
-			<td>&nbsp;</td>
+			<td>|-$campaign->getClient()-|</td>
 			<td>|-$campaign->getTypeTranslated()-|</td> 
+			<td>|-$campaign->getName()-|</td> 
 			<td>|-$campaign->getDescription()-|</td> 
 			<td>|-foreach from=$campaign->getCampaignParticipants() item=party name=for_parties-|<ul>
      |-if $party->getObject() != NULL-||-assign var=partyObject value=$party->getObject()-||-$partyObject->getName()-| |-$partyObject->getSurname()-||-if $party->getObjectType() eq 'Actor' && $partyObject->getInstitution() ne ''-| (|-$partyObject->getInstitution()-|)|-/if-||-/if-|<ul>
@@ -86,11 +88,11 @@
 		|-/foreach-|
 		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
 		<tr> 
-			<td colspan="6" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+			<td colspan="7">|-include file="PaginateInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
-			<tr>
-				 <th colspan="6" class="thFillTitle">|-if $campaigns|@count gt 5-|<div class="rightLink"><a href="Main.php?do=campaignsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Campaña</a></div>|-/if-|</th>
+			<tr class="thFillTitle">
+				 <th colspan="7">|-if $campaigns|@count gt 5-|<div class="rightLink"><a href="Main.php?do=campaignsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Campaña</a></div>|-/if-|</th>
 			</tr>
 		|-/if-|
 		</tbody> 
