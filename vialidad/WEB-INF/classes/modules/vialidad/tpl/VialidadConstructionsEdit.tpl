@@ -57,6 +57,7 @@
 
 |-if $action eq 'edit'-|
 <h3>Items de Construcción</h3>
+<p align="right"><a class="report" href="Main.php?do=vialidadConstructionItemReport&id=|-$construction->getId()-|">Generar Reporte</a></p>
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 	<thead>
 	|-if "vialidadConstructionItemEdit"|security_has_access-|<tr>

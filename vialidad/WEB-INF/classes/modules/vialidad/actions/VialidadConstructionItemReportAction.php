@@ -21,8 +21,9 @@ class VialidadConstructionItemReportAction extends BaseAction {
 		$section = "ConstructionItem";
 		$smarty->assign("section",$section);
 
+		$construction = ConstructionQuery::create()->findPK($_GET["id"]);
 		$supplies = SupplyQuery::create()->find();
-		$items = ConstructionItemQuery::create()->find();
+		$items = ConstructionItemQuery::create()->filterByConstruction($construction)->find();
 		
 		/* Cosas para usar el ExcelManagement. No probadas. No pensadas a fondo
 		
@@ -45,8 +46,9 @@ class VialidadConstructionItemReportAction extends BaseAction {
 		// Cosas para crear el csv, y descargarlo.
 		// Si queda esto el Action probablemente deberia tener un Do por algun lado
 		ob_end_clean();
-		header('Content-type: text/csv');
-		header('Content-Disposition: attachment; filename="reporte.csv"');
+		header("Content-type: text/csv;");
+		header("Content-Disposition: attachment; filename='Reporte.csv'");
+		echo "\xEF\xBB\xBF"; // UTF-8 BOM
 		$delimiter = ',';
 		// table header
 		foreach ($supplies as $supply)
