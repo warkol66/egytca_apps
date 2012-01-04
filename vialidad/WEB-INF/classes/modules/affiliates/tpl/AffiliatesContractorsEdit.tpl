@@ -24,8 +24,8 @@
 		 <p><label for="params[phone]">Teléfono</label>
 				<input name="params[phone]" id="params[phone]" type="text" value="|-$affiliate->getPhone()|escape-|" class="emptyValidation" size="25"> |-validation_msg_box idField=params[phone]-|
 			</p>
-		 <p><label for="params[mail]">E-mail</label>
-				<input name="params[mail]" id="params[mail]" type="text" value="|-$affiliate->getEmail()|escape-|" size="30" class="mailValidation emptyValidation" onchange="javascript:validationValidateFieldClienSide('params[mail]');" /> |-validation_msg_box idField=params[mail]-|
+		 <p><label for="params[email]">E-mail</label>
+				<input name="params[email]" id="params[email]" type="text" value="|-$affiliate->getEmail()|escape-|" size="30" class="mailValidation emptyValidation" onchange="javascript:validationValidateFieldClienSide('params[email]');" /> |-validation_msg_box idField=params[email]-|
 			</p>
 		 <p><label for="params[contact]">Persona contacto</label>
 				<input name="params[contact]" id="params[contact]" type="text" value="|-$affiliate->getContact()|escape-|" class="emptyValidation" size="40"> |-validation_msg_box idField=params[contact]-|
