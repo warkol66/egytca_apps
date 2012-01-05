@@ -41,26 +41,13 @@ class CommonRelationsFinderAction extends BaseAction {
 			
 			$relatedEntities = array();
 			
-			echo "-------------------------------------<br/>";
-			echo "<b>tipos de relaciones</b><br/>2 es ONE_TO_MANY<br/>4 es MANY_TO_MANY<br/><br/>";
-			
 			foreach ($tableMap->getRelations() as $relation) {
 				$relatedEntityClass = $relation->getLocalTable()->getPhpName();
-				$relatedEntityQuery = $relation->getLocalTable()->getPhpName().'Query';
+				$relatedEntityQuery = $relatedEntityClass.'Query';
 				
-				echo $relatedEntityClass.": ".$relation->getType()."<br>";
-				
-				if ($relation->getType() == RelationMap::MANY_TO_MANY) {
-					//$relatedEntities[$relatedEntityClass] = 'pending...';
-				} else {
-					$foreignIdColumns = $relation->getLocalColumns();
-					$foreignIdColumn = $foreignIdColumns[0]->getPhpName();
-					
-					$relatedEntities[$relatedEntityClass] = $relatedEntityQuery::create()->filterBy($foreignIdColumn, $entity->getId());
-				}
+				$filterByEntity = 'filterBy'.$entityType;
+				$relatedEntities[$relatedEntityClass] = $relatedEntityQuery::create()->$filterByEntity($entity);
 			}
-			
-			echo "-------------------------------------<br/>";
 			
 			$smarty->assign('relatedEntities', $relatedEntities);
 			return $mapping->findForwardConfig('success');
