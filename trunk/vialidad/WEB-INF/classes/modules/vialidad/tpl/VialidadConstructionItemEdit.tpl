@@ -22,7 +22,7 @@
 
 	<p>
 		<label for="params[name]">Nombre</label>
-		<input type="text" id="params[name]" name="params[name]" size="50" value="|-$item->getName()|escape-|" title="Nombre" /><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
+		<input type="text" id="params[name]" name="params[name]" size="50" value="|-$item->getName()|escape-|" title="Nombre" class="emptyValidation" /> |-validation_msg_box idField="params[name]"-|
 	</p>
 	<p>
 		<label for="params[code]">Código</label>
@@ -52,7 +52,8 @@
 		|-if $returnConstructionId neq ""-|
 		<input type="hidden" name="returnToConstruction" value="|-$returnConstructionId-|" />
 		|-/if-|
-		<input name="save" type="submit" value="Guardar Cambios" title="Guardar Cambios" /> 
+		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
+			|-javascript_form_validation_button value='Guardar' title='Guardar'-|
 		<input type='button' onClick='location.href="|-if $returnConstructionId neq ""-|Main.php?do=vialidadConstructionsEdit&id=|-$returnConstructionId-||-else-|Main.php?do=vialidadConstructionItemList|-/if-|"' value='Regresar' title="Regresar al listado de Items de Construcción" />
 	</p>
 </form>

@@ -16,22 +16,22 @@
 			<input type="hidden" value="|-$action-|" name="action">
 			<input type="hidden" value="|-$supplier->getId()-|" name="id">
 		 <p><label for="params[name]">Razón Social</label>
-			<input name="params[name]" id="params[name]" type="text" value="|-$supplier->getName()|escape-|" class="emptyValidation" size="60"> |-validation_msg_box idField=params[name]-|
+			<input name="params[name]" id="params[name]" type="text" value="|-$supplier->getName()|escape-|" class="emptyValidation" size="60"> |-validation_msg_box idField="params[name]"-|
 		 </p>
 		 <p><label for="params[ruc]">RUC</label>
-			<input name="params[ruc]" id="params[ruc]" type="text" value="|-$supplier->getRuc()|escape-|" class="emptyValidation" size="15"> |-validation_msg_box idField=params[ruc]-|
+			<input name="params[ruc]" id="params[ruc]" type="text" value="|-$supplier->getRuc()|escape-|" class="emptyValidation"  size="12" maxlength="9" title="Ingrese el RUC sin guiones"> |-validation_msg_box idField="params[ruc]"-|
 		 </p>
 		 <p><label for="params[address]">Dirección</label>
-				<input name="params[address]" id="params[address]" type="text" value="|-$supplier->getAddress()|escape-|" class="emptyValidation" size="55"> |-validation_msg_box idField=params[address]-|
+				<input name="params[address]" id="params[address]" type="text" value="|-$supplier->getAddress()|escape-|" class="emptyValidation" size="55"> |-validation_msg_box idField="params[address]"-|
 		</p>
 		 <p><label for="params[phone]">Teléfono</label>
-				<input name="params[phone]" id="params[phone]" type="text" value="|-$supplier->getPhone()|escape-|" class="emptyValidation" size="25"> |-validation_msg_box idField=params[phone]-|
+				<input name="params[phone]" id="params[phone]" type="text" value="|-$supplier->getPhone()|escape-|" class="emptyValidation" size="25"> |-validation_msg_box idField="params[phone]"-|
 			</p>
 		 <p><label for="params[email]">E-mail</label>
-				<input name="params[email]" id="params[email]" type="text" value="|-$supplier->getEmail()|escape-|" size="30" class="mailValidation emptyValidation" onchange="javascript:validationValidateFieldClienSide('params[email]');" /> |-validation_msg_box idField=params[email]-|
+				<input name="params[email]" id="params[email]" type="text" value="|-$supplier->getEmail()|escape-|" size="30" class="mailValidation emptyValidation" onchange="javascript:validationValidateFieldClienSide('params[email]');" /> |-validation_msg_box idField="params[email]"-|
 			</p>
 		 <p><label for="params[contact]">Persona contacto</label>
-				<input name="params[contact]" id="params[contact]" type="text" value="|-$supplier->getContact()|escape-|" class="emptyValidation"  size="40"> |-validation_msg_box idField=params[contact]-|
+				<input name="params[contact]" id="params[contact]" type="text" value="|-$supplier->getContact()|escape-|" class="emptyValidation"  size="40"> |-validation_msg_box idField="params[contact]"-|
 			</p>
 		 <p><label for="params[contactEmail]">Email persona contacto</label>
 				<input name="params[contactEmail]" type="text" value="|-$supplier->getContactEmail()|escape-|" size="40">
@@ -74,7 +74,7 @@
 		 <p>
 				|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 				|-if $page gt 1-| <input type="hidden" name="page" id="page" value="|-$page-|" />|-/if-|
-		 <input name="save" type="submit" value="Guardar Cambios"> 
+			|-javascript_form_validation_button value='Guardar' title='Guardar'-|
 				<input type='button' onClick='location.href="Main.php?do=vialidadSuppliersList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Proveedores"/>
 			 </p>
 		</form>

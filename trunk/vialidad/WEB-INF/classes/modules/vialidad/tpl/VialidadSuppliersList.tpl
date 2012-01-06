@@ -32,7 +32,7 @@
 	<tr>
 		<td colspan='3' class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda por nombre</a><div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get'>
 				<p><input type="hidden" name="do" value="vialidadSuppliersList" />
-				<label for="filters[searchString]">Nombre</label><input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="30" />
+				<label for="filters[searchString]">Razón Social</label><input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="30" />
 				&nbsp;&nbsp;<input type='submit' value='Buscar' />
 				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=vialidadSuppliersList'" />|-/if-|
 			</p></form></div></td>
