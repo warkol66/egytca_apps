@@ -78,7 +78,7 @@
 					|-if isset($pager) && ($pager->getPage() gt 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 			  <input type="submit" name="submit_go_delete_construction" value="Borrar" onclick="return confirm('Seguro que desea eliminar el Obra?')" class="icon iconDelete" /> 
 			</form>|-/if-|
-			<input type="button" title="Gráficos de ejecución" value="Gráficos de ejecución" onClick="location.href='Main.php?do=vialidadCertificatesViewGraph&constructionId=|-$construction->getid()-|'" class="icon iconGraph"/>
+			<input type="button" title="Gráficos de ejecución" value="Gráficos de ejecución" onClick="location.href='Main.php?do=vialidadCertificatesViewGraph&entityType=construction&entityId=|-$construction->getid()-|'" class="icon iconGraph"/>
     </td>
 	</tr>
 	|-/foreach-|
