@@ -29,6 +29,9 @@ class VialidadConstructionItemRelationDoEditFieldXAction extends BaseAction {
 			
 			if ($_POST['paramName'] == 'proportion') {
 				
+				$_POST['paramValue'] = Common::convertToMysqlNumericFormat($_POST['paramValue']);
+				$smarty->assign('isNumeric', true);
+				
 				$allRelations = ConstructionItemRelationQuery::create()->filterByItemid($_POST["itemId"])->find();
 				$totalProportion = 0;
 				

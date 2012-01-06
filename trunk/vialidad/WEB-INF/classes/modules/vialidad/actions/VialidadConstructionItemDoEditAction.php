@@ -24,6 +24,8 @@ class VialidadConstructionItemDoEditAction extends BaseAction {
 		
 		if (!empty($_REQUEST["returnToConstruction"]))
 			$params["returnToConstruction"] = $_REQUEST["returnToConstruction"];
+		
+		$_POST['params']['quantity'] = Common::convertToMysqlNumericFormat($_POST['params']['quantity']);
 
 		$userParams = Common::userInfoToDoLog();
 		$itemParams = array_merge_recursive($_POST["params"],$userParams);
