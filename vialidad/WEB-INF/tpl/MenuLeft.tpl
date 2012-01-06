@@ -20,7 +20,7 @@
 			<li><a href="Main.php?do=vialidadSupplyList">Insumos</a></li>
 
 			<li><a href="Main.php?do=vialidadBulletinList">Boletines</a></li>
-			<li><a href="Main.php?do=vialidadConstructionItemList">Paramétricas</a></li>
+			<li><a href="Main.php?do=vialidadConstructionItemList">Paramétricas de Obra</a></li>
 			<li><a href="Main.php?do=vialidadMeasurementRecordsList">Actas de Medición</a></li>
 			<li><a href="Main.php?do=vialidadCertificatesList">Certificados de Obra</a></li>
 		</div>
