@@ -58,7 +58,7 @@ a.icon {
 .iconNewsDelete, .iconNewsClipping, .iconSort, .iconUnordered, .iconListEdit, input.editor_ok_button, input.editor_cancel_button {
 	background: url(../images/icons_all.png) no-repeat #f0f0f0;
 }
-.disabled {
+.disabled, input[disabled].icon {
 	background: url(../images/icons_all_dis.png) no-repeat #f0f0f0;
 	border: solid 1px #ababab !Important;
 	-khtml-border-radius: .2em;
@@ -252,7 +252,8 @@ a.icon {
 	background-color: #c0c0c0;
 	border: solid 1px #909090 !Important;;
 }
-.disabled, input.disabled, .disabled:hover, input.disabled:hover {
+.disabled, input.disabled, .disabled:hover, input.disabled:hover, input[disabled].icon,
+.icon .disabled, input.icon .disabled, .icon .disabled:hover, input.icon .disabled:hover {
 	background-color: #f0f0f0 !Important;
 	border: solid 1px #ababab !Important;
 }
