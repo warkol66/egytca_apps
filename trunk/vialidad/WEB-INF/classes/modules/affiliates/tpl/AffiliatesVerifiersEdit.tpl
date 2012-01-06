@@ -12,23 +12,24 @@
 			<form method="post" action="Main.php?do=affiliatesVerifiersDoEdit">
 			<input type="hidden" value="|-$action-|" name="action">
 			<input type="hidden" value="|-$affiliate->getId()-|" name="id">
-		 <p><label for="params[name]">Nombre</label>
-			<input name="params[name]" id="params[name]" type="text" value="|-$affiliate->getName()|escape-|" class="emptyValidation" size="60"> |-validation_msg_box idField=params[name]-|
+		 <p><label for="params[name]">Razón Social</label>
+			<input name="params[name]" id="params[name]" type="text" value="|-$affiliate->getName()|escape-|" class="emptyValidation" size="60"> |-validation_msg_box idField="params[name]"-|
 		 </p>
 		 <p><label for="params[internalNumber]">RUC</label>
-			<input name="params[internalNumber]" id="params[internalNumber]" type="text" value="|-$affiliate->getInternalNumber()|escape-|" class="emptyValidation" size="15"> |-validation_msg_box idField=params[internalNumber]-|
+			<input name="params[internalNumber]" type="text" class="emptyValidation" id="params[internalNumber]" value="|-$affiliate->getInternalNumber()|escape-|" size="12" maxlength="9" title="Ingrese el RUC sin guiones"> 
+			|-validation_msg_box idField="params[internalNumber]"-|
 		</p>
 		 <p><label for="params[address]">Dirección</label>
-				<input name="params[address]" id="params[address]" type="text" value="|-$affiliate->getAddress()|escape-|" class="emptyValidation" size="55"> |-validation_msg_box idField=params[address]-|
+				<input name="params[address]" id="params[address]" type="text" value="|-$affiliate->getAddress()|escape-|" class="emptyValidation" size="55"> |-validation_msg_box idField="params[address]"-|
 		</p>
 		 <p><label for="params[phone]">Teléfono</label>
-				<input name="params[phone]" id="params[phone]" type="text" value="|-$affiliate->getPhone()|escape-|" class="emptyValidation" size="25"> |-validation_msg_box idField=params[phone]-|
+				<input name="params[phone]" id="params[phone]" type="text" value="|-$affiliate->getPhone()|escape-|" class="emptyValidation" size="25"> |-validation_msg_box idField="params[phone]"-|
 			</p>
 		 <p><label for="params[email]">E-mail</label>
-				<input name="params[email]" id="params[email]" type="text" value="|-$affiliate->getEmail()|escape-|" size="30" class="mailValidation emptyValidation" onchange="javascript:validationValidateFieldClienSide('params[email]');" /> |-validation_msg_box idField=params[mail]-|
+				<input name="params[email]" id="params[email]" type="text" value="|-$affiliate->getEmail()|escape-|" size="30" class="mailValidation emptyValidation" onchange="javascript:validationValidateFieldClienSide('params[email]');" /> |-validation_msg_box idField="params[mail]"-|
 			</p>
 		 <p><label for="params[contact]">Persona contacto</label>
-				<input name="params[contact]" id="params[contact]" type="text" value="|-$affiliate->getContact()|escape-|" class="emptyValidation" size="40"> |-validation_msg_box idField=params[contact]-|
+				<input name="params[contact]" id="params[contact]" type="text" value="|-$affiliate->getContact()|escape-|" class="emptyValidation" size="40"> |-validation_msg_box idField="params[contact]"-|
 			</p>
 		 <p><label for="params[contactEmail]">Email persona contacto</label>
 				<input name="params[contactEmail]" type="text" value="|-$affiliate->getContactEmail()|escape-|" size="40">
