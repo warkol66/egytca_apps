@@ -30,7 +30,7 @@
 	</p>
 	<p>
 		<label for="params[quantity]">Cantidad</label>
-		<input id="params[quantity]" name="params[quantity]" type="text" value="|-$item->getQuantity()-|" size="15" title="Cantidad" />
+		<input id="params[quantity]" name="params[quantity]" type="text" value="|-$item->getQuantity()|system_numeric_format-|" size="15" title="Cantidad" />
 	</p>
 	<p>
 		<label for="params[unit]">Unidad</label>
@@ -141,12 +141,18 @@ function checkProportions(v) {
 	}
 }
 
+function toJavascriptFormat(value) {
+	return value.replace('.', '', 'g').replace(',', '.', 'g');
+}
+
 function calculateTotalProportion(value) {
 	var sum = 0;
 	var spans = document.getElementsByName('span_proportion');
+	
+	value = toJavascriptFormat(value.toString());
 
 	for (var i=0; i<spans.length; i++) {
-		var val = parseFloat(spans[i].innerHTML);
+		var val = parseFloat(toJavascriptFormat(spans[i].innerHTML));
 		if (!isNaN(val))
 			sum += val;
 	}
