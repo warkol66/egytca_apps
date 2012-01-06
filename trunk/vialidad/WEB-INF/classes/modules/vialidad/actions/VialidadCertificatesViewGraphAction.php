@@ -20,33 +20,29 @@ class VialidadCertificatesViewGraphAction extends BaseAction {
 		$smarty->assign("module",$module);
 		$section = "Certificates";
 		$smarty->assign("section",$section);
+		
+		if (!empty($_GET['entityType']) && !empty($_GET['entityId'])) {
+			
+			$entityQueryClass = ucfirst($_GET['entityType']) . "Query";
+			
+			if (class_exists($entityQueryClass)) {
+	
+				$entity = $entityQueryClass::create()->findOneById($_GET['entityId']);
+	
+				if (empty($entity))
+					$smarty->assign("notValidId",true);
+				else
+					$smarty->assign('entity', $entity);
 
-		// borrame?
-		if (!empty($_GET['constructionId'])) {
-			$_GET['entityType'] = 'construction';
-			$_GET['entityId'] = $_GET['constructionId'];
-		}
-			
-		if ( !empty($_GET['entityType']) && !empty($_GET['entityId']) ) {
-			
-			switch ($_GET['entityType']) {
-				case 'construction':
-					$entity = ConstructionQuery::create()->findOneById($_GET['entityId']);
-					break;
-				case 'contract':
-					$entity = ContractQuery::create()->findOneById($_GET['entityId']);
-					break;
-				default:
-					throw new Exception('wrong params');
 			}
-			
-			$smarty->assign('entity', $entity);
-			$smarty->assign('entityType', $_GET['entityType']);
+			else
+				$smarty->assign("notValidEntity",true);
 
+			$smarty->assign('entityType', $_GET['entityType']);
 			return $mapping->findForwardConfig("success");
-		} else {
-			throw new Exception('wrong params');
+
 		}
+		return $mapping->findForwardConfig("failure");
 	}
 		
 }
