@@ -47,7 +47,7 @@ class VialidadConstructionItemReportAction extends BaseAction {
 		// Si queda esto el Action probablemente deberia tener un Do por algun lado
 		ob_end_clean();
 		header("Content-type: text/csv;");
-		header("Content-Disposition: attachment; filename='Reporte.csv'");
+		header("Content-Disposition: attachment; filename=Reporte.csv");
 		echo "\xEF\xBB\xBF"; // UTF-8 BOM
 		$delimiter = ',';
 		// table header
