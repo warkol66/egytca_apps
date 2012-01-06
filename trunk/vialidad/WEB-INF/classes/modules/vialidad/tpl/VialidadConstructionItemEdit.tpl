@@ -64,10 +64,10 @@
 		<thead>
 			<tr>
 			<th colspan="3" class="thFillTitle"><div class="rightLink">
-				<a href="#" id="link_add1" class="addLink" onclick="$('link_add1').hide();$('form_add1').show();return false">Agregar más insumos </a>
-				<form id="form_add1" style="display:none" action="Main.php" method="post">
+				<a href="#" id="link_add1" class="addLink" onclick="$('link_add1').hide();$('form_add1').show();$('new_supply1').focus();return false">Agregar más insumos </a>
+				<form id="form_add1" style="display:none" action="Main.php" method="post" onsubmit="addSupply($('new_supply1').value);$('form_add1').hide();$('link_add1').show();return false;">
 					<input type="text" name="value" id="new_supply1" size="50" /><div id="div_autocomplete1" class="autocomplete" style="position: relative;display:none"></div>
-					<input name="add_supply_button" type="button" disabled="disabled" class="icon iconActivate" onclick="addSupply($('new_supply1').value);$('form_add1').hide();$('link_add1').show();" />
+					<input name="add_supply_button" type="submit" disabled="disabled" class="icon iconActivate" />
 					<input type="button" class="icon iconCancel" onclick="$('form_add1').hide();$('link_add1').show();" />
 				</form>
 			</div>
@@ -213,8 +213,8 @@ function attachSupplyAutocompleter(element, autocompleteDiv) {
 					form.elements["add_supply_button"].enable();
 				else
 					form.elements["add_supply_button"].disable();
+				}
 			}
-		}
 	);
 }
 
