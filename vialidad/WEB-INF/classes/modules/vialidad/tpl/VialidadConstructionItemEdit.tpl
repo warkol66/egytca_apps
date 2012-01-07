@@ -67,8 +67,8 @@
 				<a href="#" id="link_add1" class="addLink" onclick="$('link_add1').hide();$('form_add1').show();$('new_supply1').focus();return false">Agregar más insumos </a>
 				<form id="form_add1" style="display:none" action="Main.php" method="post" onsubmit="addSupply($('new_supply1').value);$('form_add1').hide();$('link_add1').show();$('new_supply1').clear();return false;">
 					<input type="text" name="value" id="new_supply1" size="50" /><div id="div_autocomplete1" class="autocomplete" style="position: relative;display:none"></div>
-					<input name="add_supply_button" type="submit" disabled="disabled" class="icon iconActivate" />
-					<input type="button" class="icon iconCancel" onclick="$('form_add1').hide();$('link_add1').show();$('new_supply1').clear();" />
+					<input name="add_supply_button" id="add_supply_button" type="submit" disabled="disabled" class="icon iconActivate" />
+					<input type="button" class="icon iconCancel" onclick="$('form_add1').hide();$('link_add1').show();$('new_supply1').clear();$('add_supply_button').disable();" />
 				</form>
 			</div>
 			</th>
@@ -204,7 +204,7 @@ function attachSupplyAutocompleter(element, autocompleteDiv) {
 	new Ajax.Autocompleter(
 		element,
 		autocompleteDiv,
-		"Main.php?do=vialidadSupplyAutocompleteListX",
+		"Main.php?do=vialidadSupplyAutocompleteListX&getCandidates=true&entityType=ConstructionItem&entityId=|-$item->getId()-|&relation=ConstructionItemRelation",
 		{
 			minChars: 3,
 			afterUpdateElement: function(text, li) {
