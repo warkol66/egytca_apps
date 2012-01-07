@@ -23,17 +23,23 @@ class SupplyQuery extends BaseSupplyQuery {
 	 * @return  ModelCriteria 
 	 */
 	public function addFilter($filterName, $filterValue) {
-		
+
 		$filterName = ucfirst($filterName);
-		
+
 		// empty() no sirve porque algunos filtros admiten 0 como valor
 		if (!isset($filterValue) || $filterValue == null)
 			return $this;
-		
+
 		switch ($filterName) {
+
 			case 'SearchString':
 				$this->filterByName("%$filterValue%", Criteria::LIKE);
 				break;
+
+			case 'GetCandidates':
+				$this->filterById($filterValue, Criteria::NOT_IN);
+				break;
+
 			default:
 				if (in_array($filterName, SupplyPeer::getFieldNames(BasePeer::TYPE_PHPNAME)))
 					$this->filterBy($filterName, $filterValue);

@@ -24,7 +24,28 @@ class VialidadSupplyAutocompleteListXAction extends BaseAction {
 		$searchString = $_REQUEST['value'];
 		$smarty->assign("searchString",$searchString);
 		
-		$supplies = SupplyQuery::create()->where('Supply.Name LIKE ?', "%" . $searchString . "%")
+		$filters = array("searchString" => $searchString); 
+		
+		if ($_REQUEST['getCandidates']) {
+
+			$entityType = $_REQUEST['entityType'];
+			$entityQuery = ucfirst($entityType) . "Query";
+
+			if (class_exists($entityQuery))
+				$entity = $entityQuery::create()->findById($_REQUEST['entityId']);
+
+			$relationQuery = ucfirst($_REQUEST['relation']) . "Query";
+			
+			$filter = "filterBy" . ucfirst($entityType);
+			if (class_exists($entityQuery))
+				$actualIds = $relationQuery::create()->select("Supplyid")->$filter($entity)->find()->toArray();
+
+			$filters = array_merge_recursive($filters, array("getCandidates" => $actualIds));
+
+		}
+
+		$supplies = SupplyQuery::create()
+									->addFilters($filters)
 									->limit($_REQUEST['limit'])
 									->find();
 
