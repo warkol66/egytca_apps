@@ -4,8 +4,7 @@
 <title>|-if isset($module)-||-$module|multilang_get_translation:"common"-| - |-/if-||-$parameters.siteName-|</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="css/main.css" type="text/css">
-<!--[if lte IE 6]> <link href="css/styles-ie6.css" rel="stylesheet" type="text/css"> <![endif]-->
-<!--[if gt IE 6]> <link href="css/styles-ie.css" rel="stylesheet" type="text/css"> <![endif]-->
+<!--[if lte IE 6]> <link href="css/styles-ie.css" rel="stylesheet" type="text/css"> <![endif]-->
 <!--[if IE 7]> <link href="css/styles-ie7.css" rel="stylesheet" type="text/css"> <![endif]-->
 <!--[if IE 8]> <link href="css/styles-ie8.css" rel="stylesheet" type="text/css"> <![endif]-->
 <link rel="stylesheet" href="css/mainHandheld.css" type="text/css" media="handheld">
@@ -19,10 +18,11 @@
 <body>
 <!-- Begin Wrapper -->
 <div id="wrapper">
+	<b class="rounded"><b class="rtop"><b class="r7"></b><b class="r6"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r1"></b></b></b>
 	<!-- Begin Header -->
 	<div id="header">
-		<a href="Main.php"><strong>|-$parameters.siteName-|</strong></a>
 		<div id="headerLogo"><img src="images/logo2.gif" /></div>
+		<a href="Main.php"><strong>|-$parameters.siteName-|</strong></a>
 	</div>
 		<!-- End Header -->
 	<!-- Begin contentWrapper -->

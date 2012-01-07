@@ -1,5 +1,6 @@
 body {
 	background-color: #eeecde;
+	background-image: none; /* url(../images/bkg_panel.png) */
 	background-position:top left;
 	background-repeat:repeat-x;
 	background-attachment: fixed;
@@ -205,8 +206,8 @@ body {
 }
 #logout {
 	background-image:url(../images/logout.png);
-	background-repeat:no-repeat;
 	background-position: 4px center;
+	background-repeat:no-repeat;
 	color: #ff7800;
 	background-color: #eeecde;
 	font-weight:bold;
@@ -217,7 +218,6 @@ body {
 	margin: 0;
 	margin-top: 1px;
 	padding: 2px 0 2px 32px !Important;
-	
 }
 /*  AGREGADOS -----------------------------------------------*/
 .flagGreen {
