@@ -3,7 +3,7 @@
 
 
 /**
- * Skeleton subclass for performing query and update operations on the 'medias_mediaAudiences' table.
+ * Skeleton subclass for performing query and update operations on the 'medias_audienceRelation' table.
  *
  * Tabla de relaciones de medios y sus audiencias
  *
@@ -13,6 +13,6 @@
  *
  * @package    propel.generator.medias.classes
  */
-class MediaAudiencesQuery extends BaseMediaAudiencesQuery {
+class MediaAudienceRelationPeer extends BaseMediaAudienceRelationPeer {
 
-} // MediaAudiencesQuery
+} // MediaAudienceRelationPeer

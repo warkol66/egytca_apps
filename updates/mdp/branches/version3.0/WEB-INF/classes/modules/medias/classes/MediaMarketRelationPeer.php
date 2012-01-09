@@ -3,7 +3,7 @@
 
 
 /**
- * Skeleton subclass for representing a row from the 'medias_mediaMarkets' table.
+ * Skeleton subclass for performing query and update operations on the 'medias_marketRelation' table.
  *
  * Tabla de relaciones de medios y sus mercados
  *
@@ -13,6 +13,6 @@
  *
  * @package    propel.generator.medias.classes
  */
-class MediaMarkets extends BaseMediaMarkets {
+class MediaMarketRelationPeer extends BaseMediaMarketRelationPeer {
 
-} // MediaMarkets
+} // MediaMarketRelationPeer

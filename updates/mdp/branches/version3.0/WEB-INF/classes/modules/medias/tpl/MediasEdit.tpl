@@ -39,10 +39,14 @@ function mediasDeleteCategoryFromActor(form){
 }
 </script>
 <h2>##medias,1,Medios##</h2>
-<h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| ##medias,2,Medio##</h1>
+<h1>|-if $media->isNew()-|Crear|-else-|Editar|-/if-| ##medias,2,Medio##</h1>
 <div id="div_media">
 	<p>Ingrese los datos del ##medias,2,Medio##</p>
-		|-if $message eq "error"-|<span class="message_error">Ha ocurrido un error al intentar guardar el ##medias,2,Medio##</span>|-/if-|
+	|-if $message eq "ok"-|
+		<div class="successMessage">##medias,2,Medio## guardado correctamente</div>
+	|-elseif $message eq "error"-|
+		<div class="failureMessage">Ha ocurrido un error al intentar guardar el ##medias,2,Medio##</div>
+	|-/if-|
 	<form name="form_edit_media" id="form_edit_media" action="Main.php" method="post">
 		<fieldset title="Formulario de edición de datos de un medio">
 			<legend>Formulario de Administración de ##medias,1,Medios##</legend>
@@ -55,9 +59,17 @@ function mediasDeleteCategoryFromActor(form){
 				<select id="params[typeId]" name="params[typeId]" >
         		<option value="">Seleccione</option>
 				|-foreach from=$mediaTypes item=mediaType name=for_mediaType-|
-        		<option value="|-$mediaType->getId()-|">|-$mediaType->getName()-|</option>
+        		<option value="|-$mediaType->getId()-|"|-$media->getTypeId()|selected:$mediaType->getId()-|>|-$mediaType->getName()-|</option>
 				|-/foreach-|
 				</select>
+			</p>
+			<p>
+				<label for="params[importance]">Importancia</label>
+				<input name="params[importance]" type="hidden" value="0" />
+				&nbsp; 1 <input name="params[importance]" type="radio" value="1" |-$media->getImportance()|checked:1-|/>
+				&nbsp; 2 <input name="params[importance]" type="radio" value="2" |-$media->getImportance()|checked:2-|/>
+				&nbsp; 3 <input name="params[importance]" type="radio" value="3" |-$media->getImportance()|checked:3-|/>
+				&nbsp; 4 <input name="params[importance]" type="radio" value="4" |-$media->getImportance()|checked:4-|/>
 			</p>
 			<p>
 				<label for="params[description]">Descripción</label>
@@ -86,18 +98,18 @@ function mediasDeleteCategoryFromActor(form){
 
 			</p><script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 			<p>
-				|-if $action eq 'edit'-|
+				|-if !$media->isNew()-|
 				<input type="hidden" name="id" id="id" value="|-$media->getid()-|" />
 				|-/if-|
 				|-include file="HiddenInputsInclude.tpl" action="$action" filters="$filters" page="$page"-|
-				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="mediasDoEdit" />
 				|-javascript_form_validation_button value='Guardar' title='Guardar'-|
-				<input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=mediasList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'"/>
+				<input type="button" id="cancel" name="cancel" title="Regresar al listado" value="Regresar al listado" onClick="location.href='Main.php?do=mediasList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'"/>
 			</p>
 		</fieldset>
 	</form>
-			
+
+|-if !$media->isNew()-|
 <script type="text/javascript">
 
 	function updateSelected(options, action) {
@@ -147,7 +159,7 @@ function mediasDeleteCategoryFromActor(form){
 	</form>
 	</p>
 </fieldset>
-
+|-/if-|
 <!--<fieldset>
 <legend>Contactos</legend>
 </fieldset>-->

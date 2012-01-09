@@ -6,6 +6,8 @@
 		<div class="successMessage">##medias,2,Medio## guardado correctamente</div>
 	|-elseif $message eq "deleted_ok"-|
 		<div class="successMessage">##medias,2,Medio## eliminado correctamente</div>
+	|-elseif $message eq "not_deleted"-|
+		<div class="errorMessage">No de pudo eliminar el ##medias,2,Medio##</div>
 	|-/if-|
 	<table id="tabla-medias" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead> 
@@ -49,7 +51,7 @@
 		<tr> 
 	<!--		<td>|-$media->getid()-|</td> -->
 			<td>|-$media->getName()-|</td> 
-			<td>|-assign var=types value=$media->getMediaTypes()-|</td> 
+			<td>|-$media->getMediaType()-|</td> 
 			<td>|-$media->getDescription()-|</td> 
 			<td nowrap>|-if "mediasEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="mediasEdit" /> 
@@ -65,22 +67,6 @@
 					<input type="hidden" name="id" value="|-$media->getid()-|" /> 
 					<input type="submit" name="submit_go_delete_media" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar el ##medias,2,Medio##?')" class="icon iconDelete" /> 
 			</form>
-			|-if $loginUser->isSupervisor()-|
-			<form action="Main.php" method="post" style="display:inline;"> 
-					<input type="hidden" name="do" value="mediasDoDelete" /> 
-						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-					<input type="hidden" name="id" value="|-$media->getid()-|" /> 
-					<input type="hidden" name="doHardDelete" value="true" /> 
-					<input type="submit" name="submit_go_delete_media" value="Borrar" title="Eliminar completamente" onclick="return confirm('Seguro que desea eliminar el ##medias,2,Medio## definitivamente?')" class="icon iconHardDelete" /> 
-			</form>
-			|-if $media->getDeletedAt() != NULL-|<form action="Main.php" method="post" style="display:inline;"> 
-					<input type="hidden" name="do" value="mediasUndeleteX" /> 
-						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-					<input type="hidden" name="id" value="|-$media->getid()-|" /> 
-					<input type="submit" name="submit_go_delete_media" value="Borrar" title="Recuperar registro" onclick="return confirm('Seguro que desea recuperar ##medias,2,Medio##?')" class="icon iconUndelete" /> 
-			</form>|-/if-||-/if-|
 			|-/if-|</td> 
 		</tr> 
 		|-/foreach-|

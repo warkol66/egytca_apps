@@ -10,28 +10,21 @@ class MediasDoDeleteAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
+		if (isset($_POST["id"])) {
+			$media = MediaQuery::create()->findPK($_POST["id"]);
+			if (!empty($media)) {
+				$media->delete();
+				if ($media->isDeleted()) {
+					if (mb_strlen($media->getName()) > 120)
+						$cont = " ... ";
 
-		if ($_POST["doHardDelete"]) {
-			if (MediaPeer::hardDelete($_POST["id"]))
-				return $mapping->findForwardConfig('success');
-			else
-				return $mapping->findForwardConfig('failure');
+					$logSufix = "$cont, " . Common::getTranslation('action: delete','common');
+					Common::doLog('success', substr($media->getName(), 0, 120) . $logSufix);
+
+					return $mapping->findForwardConfig('success');
+				}
+			}
 		}
-		else {
-			if (MediaPeer::delete($_POST["id"]))
-				return $mapping->findForwardConfig('success');
-			else
-				return $mapping->findForwardConfig('failure');
-		}
-	
+		return $mapping->findForwardConfig('failure');
 	}
-
 }

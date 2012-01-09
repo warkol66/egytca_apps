@@ -12,9 +12,19 @@
 		<column name="email" type="VARCHAR" size="200" required="true" description="Direccion email" />
 		<column name="receptionist" type="VARCHAR" size="200" required="true" description="Recepcionista" />
 		<column name="description" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Descripcion del medio" />
+		<column name="typeId" type="INTEGER" description="ID media destino"/>
+		<column name="groupId" type="INTEGER" description="ID media destino"/>
+		<column name="importance" type="TINYINT" description="Importancia del medio"/>
 
 		<behavior name="timestampable" />
-		<behavior name="soft_delete" />
+
+		<foreign-key foreignTable="medias_type" onDelete="cascade">
+			<reference local="typeId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="medias_media" onDelete="cascade">
+			<reference local="groupId" foreign="id"/>
+		</foreign-key>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
@@ -28,27 +38,10 @@
 		<column name="id" type="INTEGER" required="true" description="Id tipo medio" primaryKey="true" autoIncrement="true" />
 		<column name="name" type="VARCHAR" size="200" required="true"  primaryString="true" description="Tipo de medio" />
 
-		<behavior name="soft_delete" />
-
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
 		</vendor>
-
-	</table>
-
-	<table name="medias_mediaTypes" phpName="MediaTypes" isCrossRef="true" description="Tabla de relaciones de medios">
-
-		<column name="mediaId" required="true" primaryKey="true" type="INTEGER" description="ID media origen"/>
-		<column name="mediaTypeId" required="true" primaryKey="true" type="INTEGER" description="ID media destino"/>
-
-		<foreign-key foreignTable="medias_media" onDelete="cascade">
-			<reference local="mediaId" foreign="id"/>
-		</foreign-key>
-
-		<foreign-key foreignTable="medias_type" onDelete="cascade">
-			<reference local="mediaTypeId" foreign="id"/>
-		</foreign-key>
 
 	</table>
 
@@ -57,8 +50,6 @@
 		<column name="id" type="INTEGER" required="true" description="Id mercado del medio" primaryKey="true" autoIncrement="true" />
 		<column name="name" type="VARCHAR" size="200" required="true"  primaryString="true" description="Mercado del medio" />
 
-		<behavior name="soft_delete" />
-
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
@@ -66,7 +57,7 @@
 
 	</table>
 
-	<table name="medias_mediaMarkets" phpName="MediaMarkets" isCrossRef="true" description="Tabla de relaciones de medios y sus mercados">
+	<table name="medias_marketRelation" phpName="MediaMarketRelation" isCrossRef="true" description="Tabla de relaciones de medios y sus mercados">
 
 		<column name="mediaId" required="true" primaryKey="true" type="INTEGER" description="ID media origen"/>
 		<column name="mediaMarketId" required="true" primaryKey="true" type="INTEGER" description="ID media destino"/>
@@ -86,8 +77,6 @@
 		<column name="id" type="INTEGER" required="true" description="Id mercado de la audiencia" primaryKey="true" autoIncrement="true" />
 		<column name="name" type="VARCHAR" size="200" required="true"  primaryString="true" description="Mercado del medio" />
 
-		<behavior name="soft_delete" />
-
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
@@ -95,7 +84,7 @@
 
 	</table>
 
-	<table name="medias_mediaAudiences" phpName="MediaAudiences" isCrossRef="true" description="Tabla de relaciones de medios y sus audiencias">
+	<table name="medias_audienceRelation" phpName="MediaAudienceRelation" isCrossRef="true" description="Tabla de relaciones de medios y sus audiencias">
 
 		<column name="mediaId" required="true" primaryKey="true" type="INTEGER" description="ID media origen"/>
 		<column name="mediaAudienceId" required="true" primaryKey="true" type="INTEGER" description="ID media destino"/>

@@ -24,9 +24,6 @@ class MediasEditAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -41,16 +38,17 @@ class MediasEditAction extends BaseAction {
 
 		if (!empty($_GET["id"])) {
 			//voy a editar un objeto
-			$media = MediaPeer::get($_GET["id"]);
-			$smarty->assign("media",$media);
-			$smarty->assign("action","edit");
+			$media = MediaQuery::create()->findPK($_GET["id"]);
+			if (empty($media))
+				$smarty->assign("notValidId",true);
+			else
+				$smarty->assign("media",$media);
 		}
-		else {
+		else
 			//voy a crear un objeto nuevo
 			$media = new Media();
-			$smarty->assign("media",$media);
-			$smarty->assign("action","create");
-		}
+
+		$smarty->assign("media",$media);
 
 		$smarty->assign("filters",$_GET["filters"]);
 		$smarty->assign("page",$_GET["page"]);

@@ -129,5 +129,30 @@ class Headline extends BaseHeadline {
 			return false;
 	}
 
+ /**
+	* Obtiene la importancia tomada de la importancia del medio
+	*	@return int importance
+	*/
+	public function getMediaName() {
+
+		$media = MediaQuery::create()->findPK($this->getId());
+		if (empty($media))
+			$media = new Media();
+		return $media->getName();
+	}
+
+ /**
+	* Obtiene la importancia tomada de la importancia del medio
+	*	@return int importance
+	*/
+	public function getImportance() {
+
+		$media = MediaQuery::create()->findPK($this->getId());
+		if (empty($media))
+			$media = new Media();
+		return $media->getImportance();
+	}
+
+
 
 } // Headline

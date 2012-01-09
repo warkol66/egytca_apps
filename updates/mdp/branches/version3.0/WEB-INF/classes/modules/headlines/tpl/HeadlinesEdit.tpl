@@ -67,6 +67,24 @@
 				<input id="params[comment]" name="params[comment]" type='text' value='|-$headline->getComment()-|' size="5" />
 			</p>
 			<p>
+				<label for="params[value]">Valoración</label>
+				<input name="params[value]" type="hidden" value="0" />
+				&nbsp; 1 <input name="params[value]" type="radio" value="1" |-$headline->getValue()|checked:1-|/>
+				&nbsp; 2 <input name="params[value]" type="radio" value="2" |-$headline->getValue()|checked:2-|/>
+				&nbsp; 3 <input name="params[value]" type="radio" value="3" |-$headline->getValue()|checked:3-|/>
+				&nbsp; 4 <input name="params[value]" type="radio" value="4" |-$headline->getValue()|checked:4-|/>
+				&nbsp; 5 <input name="params[value]" type="radio" value="5" |-$headline->getValue()|checked:5-|/>
+			</p>
+			<p>
+				<label for="params[relevance]">Relevancia</label>
+				<input name="params[relevance]" type="hidden" value="0" />
+				&nbsp; 1 <input name="params[relevance]" type="radio" value="1" |-$headline->getRelevance()|checked:1-|/>
+				&nbsp; 2 <input name="params[relevance]" type="radio" value="2" |-$headline->getRelevance()|checked:2-|/>
+				&nbsp; 3 <input name="params[relevance]" type="radio" value="3" |-$headline->getRelevance()|checked:3-|/>
+				&nbsp; 4 <input name="params[relevance]" type="radio" value="4" |-$headline->getRelevance()|checked:4-|/>
+				&nbsp; 5 <input name="params[relevance]" type="radio" value="5" |-$headline->getRelevance()|checked:5-|/>
+			</p>
+			<p>
 				|-if $action eq 'edit'-|
 				<input type="hidden" name="id" id="id" value="|-$headline->getid()-|" />
 				|-/if-|

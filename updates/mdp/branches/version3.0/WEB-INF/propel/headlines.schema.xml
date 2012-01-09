@@ -15,6 +15,8 @@
 		<column name="picture" type="BOOLEAN" description="Foto del titular" />
 		<column name="campaignId" type="INTEGER" description="Campaign ID"/>
 		<column name="mediaId" type="INTEGER" description="Media ID"/>
+		<column name="value" type="TINYINT" description="Valoracion de la noticia"/>
+		<column name="relevance" type="TINYINT" description="Valoracion del medio"/>
 
 		<behavior name="timestampable" />
 

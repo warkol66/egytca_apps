@@ -218,7 +218,49 @@ function clearElement(element) {
 |-/if-|
 
 |-else-||-*Si es reporte*-|
+|-if $campaign->getHeadlines()|count gt 0-|
+|-assign var=headlines value=$campaign->getHeadlines()-|
+
 <h1>|-$campaign->getName()-|</h1> 
+<h2>Resumen</h2>
+<table border="1">
+	<tr>
+			<th>Medio</th>
+			<th>Fecha</th>
+			<th>Publicación</th>
+			<th>Tipo</th>
+			<th>Foto</th>
+			<th>Twitts</th>
+			<th>Fcb</th>
+			<th>G+</th>
+			<th>Coment.</th>
+			<th>Importancia</th>
+			<th>Valoración</th>
+			<th>Relevancia</th>
+			<th>Actores</th>
+	</tr>
+	|-foreach from=$headlines item=headline name=for_headlines-|
+	<tr>
+			<td>|-$headline->getMediaName()-|</td>
+			<td>|-$headline->getHeadlineDate()|date_format-|</td>
+			<td>|-$headline->getDatePublished()|date_format-|</td>
+			<td>|-*$media->getType()*-|</td>
+			<td>|-$headline->getPicture()|si_no-|</td>
+			<td>|-$headline->getTwitts()-|</td>
+			<td>|-$headline->getFcb()-|</td>
+			<td>|-$headline->getGplus()-|</td>
+			<td>|-$headline->getComment()-|</td>
+			<td>|-$headline->getImportance()-|</td>
+			<td>|-$headline->getValue()-|</td>
+			<td>|-$headline->getRelevance()-|</td>
+		<td>|-if $headline->getActors()|count gt 0-|<ul>|-foreach from=$headline->getActors() item=actor-|
+						<ul>|-$actor-|</ul>
+				|-/foreach-|</ul>|-/if-|
+</td>
+	</tr>
+	|-/foreach-|
+</table>		
+	
 <h2>Clipping de repercusiones de prensa - |-$campaign->getClient()-|</h2>
 		<p>Tipo: |-$campaign->getTypeTranslated()-| - Período: |-$campaign->getStartDate()|date_format:"%d-%m-%Y"-| al |-$campaign->getFinishDate()|date_format:"%d-%m-%Y"-|</p> 
 		<p>|-$campaign->getDescription()-|</p>
@@ -226,8 +268,6 @@ function clearElement(element) {
 	 |-if $party->getObject() != NULL-||-assign var=partyObject value=$party->getObject()-||-$partyObject->getName()-| |-$partyObject->getSurname()-||-if $party->getObjectType() eq 'Actor' && $partyObject->getInstitution() ne ''-| (|-$partyObject->getInstitution()-|)|-/if-||-/if-|<ul>
 	|-/foreach-|</p> 
 	<br style="page-break-after:auto">
-|-if $campaign->getHeadlines()|count gt 0-|
-|-assign var=headlines value=$campaign->getHeadlines()-|
 <div id="div_headlines"> 
 <h4>Clipping</h4>
 	|-foreach from=$headlines item=headline name=for_headlines-|
@@ -237,6 +277,8 @@ function clearElement(element) {
 			<p>|-if $headline->hasClipping()-|<img src="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />|-/if-|</p>
 	|-/foreach-|
 	<br style="page-break-after:auto">
+	
+
 </div>
 |-/if-|
 |-/if-||-*/Si es reporte*-|
