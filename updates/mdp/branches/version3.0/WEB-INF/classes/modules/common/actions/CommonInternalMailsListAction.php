@@ -10,9 +10,6 @@ class CommonInternalMailsListAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty = $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -30,7 +27,11 @@ class CommonInternalMailsListAction extends BaseAction {
 			$filters = $_GET['filters'];
 			$this->applyFilters($internalMailPeer, $filters, $smarty);
 		}
-		
+
+		if (!empty($_GET["sent"])) {
+			$internalMailPeer->setSearchSentOnly(true);
+			$smarty->assign("sent", true);
+		}
 		$pager = $internalMailPeer->getAllPaginatedFiltered($page);
 
 		$smarty->assign("internalMails", $pager->getResult());

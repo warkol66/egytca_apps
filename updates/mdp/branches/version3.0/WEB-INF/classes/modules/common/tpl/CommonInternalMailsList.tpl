@@ -41,7 +41,10 @@
 			</tr>
 			<tr>
 				<th colspan="5">
-						<a href="Main.php?do=commonInternalMailsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="linkMailNew">Nuevo mensaje</a>
+					<a href="Main.php?do=commonInternalMailsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="linkMailNew">Nuevo mensaje</a>
+					<div class="rightLink">
+						<a href="Main.php?do=commonInternalMailsList|-if $sent-||-else-|&sent=true|-/if-|" class="return">|-if $sent-|Ver recibidos|-else-|Ver enviados|-/if-|</a>
+					</div>
 					<div class="rightLink">
 						<a href="#" class="linkMailDelete" onClick="javascript:deleteMessages();return false;">Eliminar</a>
 					</div>
