@@ -74,8 +74,19 @@ body {
 	border-bottom: 5px solid #0066cc;
 	border-left: solid 5px #0066cc;
 	border-right: solid 5px #0066cc;
+	float: left;
+}
+#headerLogo {
+	float: right;
+	margin-right: 10px;
+}
+#separatorHeader {
+/*	background-color: #eeecde;
+	height: 25px;
+	clear: both;*/
 }
 #contentWrapper { 
+	/* width: 950px; */
 	background-image: url(../images/bkg-2columns.png);
 	background-repeat: repeat-y;
 	border-left: solid 5px #0066cc;
@@ -98,6 +109,11 @@ body {
 	background-color: #FFFFFF;
 	color: #333;
 }
+#separatorFooter {
+/*	background-color: #eeecde;
+	height: 15px;
+	clear: both; */
+}
 #footer { 
 	background-color: #9ccc66;
 	border-bottom: solid 5px #0066cc;
@@ -119,7 +135,7 @@ body {
 #loginTopBorder .rounded .r1, #loginTopBorder .rounded .r2 {
 	background-color: #C5C5C5;  /* Mismo color de fondo #loginTop */
 }
-
+#wrapper .rounded {display: none}
 /* /wrapper -----------------------------------------------------------*/ 
 
 /* content -----------------------------------------------------------*/ 
@@ -184,13 +200,24 @@ body {
 	border-left: none;
 	border-right: none;
 }
+#leftColumn li.titleMenu:hover, #logout:hover { 
+/*	color: #ffffff;
+	background-color: #FF9900;*/
+}
 #logout{
 	background-image:url(../images/buttonLogout.png);
 	background-position: top left;
 	background-repeat:no-repeat;
 	color: #003399;
+	/* background-color: #eeecde; */
 	font-weight:bold;
 	text-decoration: none;
+/*	line-height: 26px;
+	width: 123px !Important;
+	height: 26px !Important;
+	margin: 0;
+	margin-top: 1px;
+	padding: 2px 0 2px 32px !Important; */
 }
 /*  AGREGADOS -----------------------------------------------*/
 .flagGreen {

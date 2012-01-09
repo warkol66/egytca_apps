@@ -58,7 +58,7 @@ a.icon {
 .iconNewsDelete, .iconNewsClipping, .iconSort, .iconUnordered, .iconListEdit, input.editor_ok_button, input.editor_cancel_button {
 	background: url(../images/icons_all.png) no-repeat #f0f0f0;
 }
-.disabled {
+.disabled, input[disabled].icon {
 	background: url(../images/icons_all_dis.png) no-repeat #f0f0f0;
 	border: solid 1px #ababab !Important;
 	-khtml-border-radius: .2em;
@@ -247,13 +247,14 @@ a.icon {
 .iconNewsClipping {
 	background-position: -100px -140px;
 }
-
-.icon:hover{
+.icon:hover {
 	background-color: #c0c0c0;
 	border: solid 1px #909090 !Important;;
 }
-.disabled, .disabled:hover{
+.disabled, input.disabled, .disabled:hover, input.disabled:hover, input[disabled].icon,
+.icon .disabled, input.icon .disabled, .icon .disabled:hover, input.icon .disabled:hover {
 	background-color: #f0f0f0 !Important;
+	border: solid 1px #ababab !Important;
 }
 
 .mandatoryField {
@@ -740,29 +741,20 @@ a.follow:hover{
 	background-repeat: no-repeat;
 }
 
+
 a.return {
-	color: #000066;
-	padding: 2px 5px 2px 22px;
 	background-image: url(../images/icon_follow.png);
-	background-repeat: no-repeat;
-}
-a.return:link,a.return:visited{
-	color: #000066;
-	text-decoration: none;
-}
-a.report:hover{
-	color: #000066;
 }
 a.report {
-	color: #000066;
-	padding: 2px 5px 2px 22px;
 	background-image: url(../images/icon_print.png);
-	background-repeat: no-repeat;
 }
-a.report:link,a.return:visited{
-	color: #000066;
-	text-decoration: none;
+a.return, a.return:link, a.return:visited
+a.report, a.report:link, a.report:visited  {
+	color:#0054A4;
+	background-position:left top;
+	background-repeat:no-repeat;
 }
+a.report:hover
 a.report:hover{
-	color: #000066;
+	text-decoration: underline !Important;
 }

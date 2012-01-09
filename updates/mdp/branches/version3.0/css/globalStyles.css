@@ -668,3 +668,13 @@ fieldset .tableTdBorders label {
 }
 
 /*  /.formFieldset   ----------------------------------- */
+
+a.return, a.report {
+	line-height: 1.4em;
+	vertical-align: middle;
+	display: inline-block;
+	font-weight: bold;
+	padding: 0 5px 0 20px;
+	margin: 3px;
+	text-decoration: none;
+}
