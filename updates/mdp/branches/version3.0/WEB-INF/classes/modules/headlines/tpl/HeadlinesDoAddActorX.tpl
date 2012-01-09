@@ -3,7 +3,7 @@
 </script>
 
 <li id="actorListItem|-$actor->getId()-|" title="Actor asociado al titular">
-	<form  method="post">
+	<form action="Main.php" method="post" style="display:inline;"> 
 		<input type="hidden" name="do" id="do" value="headlinesDoRemoveActorX" />
 		<input type="hidden" name="headlineId"  value="|-$headline->getId()-|" />
 		<input type="hidden" name="actorId"  value="|-$actor->getId()-|" />			
@@ -17,6 +17,6 @@
 	|-if $role neq ''-||-assign var=actorRoleAction value='show'-||-else-||-assign var=actorRoleAction value=''-||-/if-|
 	|-assign var=headlinePeer value=$headline->getPeer()-|
 	<span id='span_role_for_|-$actor->getId()-|' class="bold italic" title="Modifique el rol del actor en el titular">
-	|-include file='HeadlinesSelectActorRole.tpl' action=$actorRoleAction actorId=$actor->getId() headlineId=$headline->getId() role=$role roles=$headlinePeer->getHeadlineRoles()-|
+	|-include file='HeadlinesSelectActorRole.tpl' action=$actorRoleAction actorId=$actor->getId() role=$role roles=$headlinePeer->getHeadlineRoles()-|
 	</span>
 </li>

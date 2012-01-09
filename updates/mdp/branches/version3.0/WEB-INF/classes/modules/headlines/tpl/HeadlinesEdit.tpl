@@ -23,7 +23,7 @@
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_mediaId" label="Medio" url="Main.php?do=mediasAutocompleteListX" hiddenName="params[mediaId]" defaultHiddenValue=$headline->getMediaId() defaultValue=$headline->getMedia()-|
 		</div>
 			<p>
-				<label for="params[name]">Nombre</label>
+				<label for="params[name]">Titular</label>
 				<input type="text" id="params[name]" name="params[name]" size="50" value="|-$headline->getname()|escape-|" title="Nombre" /><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
 			</p>
 			<p>
@@ -99,39 +99,58 @@
 </div>
 
 
-|-if $headline->getId() ne ''-|
+|-if !$headline->isNew()-|
 
 <script type="text/javascript" language="javascript" charset="utf-8">
-function addActorToHeadline(form) {
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'actorList'},
-				'Main.php?do=headlinesDoAddActorX',
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true,
-					insertion: Insertion.Bottom
-				});
-	$('actorMsgField').innerHTML = '<span class="inProgress">Agregando actor al titular...</span>';
-    $('autocomplete_actors').value = '';
-    $('addActorSubmit').disable();
-	return true;
-}
+	function addActorToHeadline(form) {
+		var fields = Form.serialize(form);
+		var myAjax = new Ajax.Updater(
+					{success: 'actorList'},
+					'Main.php?do=headlinesDoAddActorX',
+					{
+						method: 'post',
+						postBody: fields,
+						evalScripts: true,
+						insertion: Insertion.Bottom
+					});
+		$('actorMsgField').innerHTML = '<span class="inProgress">Agregando actor al titular...</span>';
+			$('autocomplete_actors').value = '';
+			$('addActorSubmit').disable();
+		return true;
+	}
+	
+	function removeActorFromHeadline(form){
+		var fields = Form.serialize(form);
+		var myAjax = new Ajax.Updater(
+					{success: 'actorMsgField'},
+					'Main.php?do=headlinesDoRemoveActorX',
+					{
+						method: 'post',
+						postBody: fields,
+						evalScripts: true
+					});
+		$('actorMsgField').innerHTML = '<span class="inProgress">Eliminando actor...</span>';
+		return true;
+	}
 
-function removeActorFromHeadline(form){
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'actorMsgField'},
-				'Main.php?do=headlinesDoRemoveActorX',
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				});
-	$('actorMsgField').innerHTML = '<span class="inProgress">Eliminando actor...</span>';
-	return true;
-}
+	function selectRole(actorId, roleValue) {
+		new Ajax.Updater (
+			'span_role_for_'+actorId,
+			'Main.php?do=headlinesSelectActorRole',
+			{
+				method: 'get',
+				parameters: {
+					headlineId: |-$headline->getId()-|,
+					actorId: actorId,
+					role: roleValue
+				}
+			});
+	}
+
+	function displayRoleSelector(actorId) {
+		$('p_role_for_'+actorId).hide();
+		$('select_role_for_'+actorId).show();
+	}
 </script>
 
 <fieldset title="Formulario de actores asociados al ##headlines,4,titular##">
@@ -166,7 +185,7 @@ function removeActorFromHeadline(form){
 						|-if $role neq ''-||-assign var=actorRoleAction value='show'-||-else-||-assign var=actorRoleAction value=''-||-/if-|
 						|-assign var=headlinePeer value=$headline->getPeer()-|
 						<span id='span_role_for_|-$actor->getId()-|' class="bold italic" title="Modifique el rol del actor en el titular">
-						|-include file='HeadlinesSelectActorRole.tpl' action=$actorRoleAction actorId=$actor->getId() headlineId=$headline->getId() role=$role roles=$headlinePeer->getHeadlineRoles()-|
+						|-include file='HeadlinesSelectActorRole.tpl' action=$actorRoleAction actorId=$actor->getId() role=$role roles=$headlinePeer->getHeadlineRoles()-|
 						</span>
 					</li>
 			|-/foreach-|
