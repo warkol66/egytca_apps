@@ -1,5 +1,4 @@
-<h2>Asuntos:</h2>
-
+<h3>Asuntos</h3>
 |-foreach from=$collection item=issue-|
-	<p>|-$issue->getName()-|</p>
+	<p>|-$issue-|</p>
 |-/foreach-|

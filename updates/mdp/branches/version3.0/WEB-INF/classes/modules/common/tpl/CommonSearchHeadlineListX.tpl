@@ -1,5 +1,4 @@
-<h2>Headlines:</h2>
-
+<h3>Titulares</h3>
 |-foreach from=$collection item=headline-|
-	<p>|-$headline->getName()-|</p>
+	<p>|-$headline-| <a href="Main.php?do=headlinesEdit&id=|-$headline->getId()-|" class="icon iconView inlineTable" target="_blank"></a></p>
 |-/foreach-|

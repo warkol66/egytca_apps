@@ -10,9 +10,6 @@ class CommonRelationsFinderAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty = $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -21,20 +18,22 @@ class CommonRelationsFinderAction extends BaseAction {
 
 		$module = "Common";
 		$smarty->assign("module",$module);
-		
-		if (!empty($_GET['entity']) && !empty($_GET['id'])) {
+
+print_r($_GET);
+
+		if (!empty($_GET['entityType']) && !empty($_GET['entityId'])) {
 			
-			$entityType = $_GET['entity'];
+			$entityType = $_GET['entityType'];
 			$entityQueryClass = $entityType.'Query';
 			if (!class_exists($entityQueryClass)) {
-				$smarty->assign('message', 'invalid entity');
+				$smarty->assign("message", "invalid entity");
 				return $mapping->findForwardConfig('failure');
 			}
 			
-			$entity = $entityQueryClass::create()->findOneById($_GET['id']);
+			$entity = $entityQueryClass::create()->findOneById($_GET['entityId']);
 			if (is_null($entity)) {
-				$smarty->assign('message', 'invalid id');
-				return $mapping->findForwardConfig('failure');
+				$smarty->assign("message", "invalid id");
+				return $mapping->findForwardConfig("failure");
 			}
 			
 			$tableMap = $entity->getPeer()->getTableMap();
@@ -53,15 +52,15 @@ class CommonRelationsFinderAction extends BaseAction {
 				}
 			}
 			
-			$smarty->assign('entityType', $entityType);
-			$smarty->assign('entityId', $entity->getId());
-			$smarty->assign('relatedEntities', $relatedEntities);
+			$smarty->assign("entity", $entity);
+			$smarty->assign("entityType", $entityType);
+			$smarty->assign("entityId", $entity->getId());
+			$smarty->assign("relatedEntities", $relatedEntities);
 			
-			return $mapping->findForwardConfig('success');
+			return $mapping->findForwardConfig("success");
 			
-		} else {
-			$smarty->assign('message', 'wrong params');
-			return $mapping->findForwardConfig('failure');
 		}
+		else
+			return $mapping->findForwardConfig("success");
 	}
 }

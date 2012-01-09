@@ -1,5 +1,4 @@
-<h2>Actores:</h2>
-
+<h3>Actores</h3>
 |-foreach from=$collection item=actor-|
-	<p>|-$actor->getName()-|</p>
+	<p>|-$actor-|</p>
 |-/foreach-|
