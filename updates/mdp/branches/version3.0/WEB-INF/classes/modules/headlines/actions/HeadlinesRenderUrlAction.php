@@ -12,9 +12,6 @@ class HeadlinesRenderUrlAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty = $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -23,51 +20,58 @@ class HeadlinesRenderUrlAction extends BaseAction {
 
 		if (isset($_GET["id"]) && $_GET["id"] != '') {
 			
-			$headline = HeadlinePeer::get($_GET["id"]);
-			$url = $headline->getUrl();
-			
-			$imagePath = ConfigModule::get('headlines', 'clippingsTmpPath');
-			if (!file_exists($imagePath))
-				mkdir ($imagePath, 0777, true);
-			
-			// borrar imagenes temporales viejas
-			$tmpwatch = ConfigModule::get('global', 'tmpwatch');
-			shell_exec($tmpwatch .' -d 1 '.$imagePath);
+			$headline = HeadlineQuery::create()->findPK($_GET["id"]);
 
-			$tempImg = 'cropme-'.uniqid().'.jpg';
-			$imageFullname = $imagePath . $tempImg;
+			if (!empty($headline)) {
+
+				$url = $headline->getUrl();
 			
-			$smarty->assign("id", $_GET["id"]);
+				$imagePath = ConfigModule::get('headlines', 'clippingsTmpPath');
+				if (!file_exists($imagePath))
+					mkdir ($imagePath, 0777, true);
 			
-			if (isset($_POST['manual']) && $_POST['manual'] == '1') {
-				if ($_FILES["clipping"]["error"] > 0) {
-					$smarty->assign('errorMessage', $_FILES['clipping']['error']);
-					return $mapping->findForwardConfig('success');
-				} else {
-					move_uploaded_file($_FILES["clipping"]["tmp_name"], $imageFullname);
+				// borrar imagenes temporales viejas
+				$tmpwatch = ConfigModule::get('global', 'tmpwatch');
+				shell_exec($tmpwatch .' -d 1 '.$imagePath);
+
+				$tempImg = 'cropme-'.uniqid().'.jpg';
+				$imageFullname = $imagePath . $tempImg;
+			
+				$smarty->assign("id", $_GET["id"]);
+			
+				if (isset($_POST['manual']) && $_POST['manual'] == '1') {
+					if ($_FILES["clipping"]["error"] > 0) {
+						$smarty->assign('errorMessage', $_FILES['clipping']['error']);
+						return $mapping->findForwardConfig('success');
+					}
+					else
+						move_uploaded_file($_FILES["clipping"]["tmp_name"], $imageFullname);
 				}
-			} else { // automatic
-				$renderer = new WebkitHtmlRenderer();
+				else { // automatic
+					$renderer = new WebkitHtmlRenderer();
+					
+					try {
+						$renderer->render($url, $imageFullname);
+					} catch (RenderException $e) {
+						$smarty->assign("errorMessage", $e->getMessage());
+						return $mapping->findForwardConfig('success');
+					}
+				}
+
+				$smarty->assign("image", $tempImg);
+				$smarty->assign("temp", true);
 				
-				try {
-					$renderer->render($url, $imageFullname);
-				} catch (RenderException $e) {
-					$smarty->assign("errorMessage", $e->getMessage());
-					return $mapping->findForwardConfig('success');
-				}
+				list($displayedWidth, $displayedHeight) = Headline::getClippingDisplaySize($imageFullname);
+				
+				$smarty->assign('displayedWidth', $displayedWidth);
+				$smarty->assign('displayedHeight', $displayedHeight);
+
 			}
-			
-			$smarty->assign("image", $tempImg);
-			$smarty->assign("temp", true);
-			
-			list($displayedWidth, $displayedHeight) = Headline::getClippingDisplaySize($imageFullname);
-			
-			$smarty->assign('displayedWidth', $displayedWidth);
-			$smarty->assign('displayedHeight', $displayedHeight);
-			
-		} else {
-			$smarty->assign("errorMessage", "ID inválido");
+			else
+				return $mapping->findForwardConfig("failure");
 		}
+		else
+			$smarty->assign("errorMessage", "ID inválido");
 		
 		return $mapping->findForwardConfig('success');
 	}

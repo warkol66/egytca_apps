@@ -154,13 +154,13 @@
 </script>
 
 <fieldset title="Formulario de actores asociados al ##headlines,4,titular##">
-	<legend>Actores</legend>
+	<legend>Relación con Actores</legend>
     |-if $action neq 'showLog'-|
 		<p>Para asociar un actor al titular, ingrese el nombre en la casilla. Si no está en el sistema puede <a href="#lightbox2" rel="lightbox2" class="lbOn addLink">Crear actor</a></p>
 	<div id="actorMsgField"></div>
 	<form method="post" style="display:inline;">
 		<div id="headlineActor" style="position: relative;z-index:10000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_actors" label="Agregar actor al ##headlines,4,titular##" url="Main.php?do=actorsAutocompleteListX&getCandidates=1&headlineId="|cat:$headline->getId() hiddenName="actor[id]" disableSubmit="addActorSubmit"-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_actors" label="Relacionar con actor" url="Main.php?do=actorsAutocompleteListX&getCandidates=1&headlineId="|cat:$headline->getId() hiddenName="actor[id]" disableSubmit="addActorSubmit"-|
 		</div>
 	<p>	<input type="hidden" name="do" id="do" value="headlinesDoAddActorX" />
 		<input type="hidden" name="headlineId" id="headlineId" value="|-$headline->getId()-|" /> 
@@ -228,11 +228,11 @@ function removeIssueFromHeadline(form){
 </script>
 
 <fieldset title="Formulario de asuntos asociados al ##headlines,4,titular##">
-	<legend>Asuntos</legend>
+	<legend>Relación con Asuntos</legend>
 	<div id="issueMsgField"></div>
 	<form method="post" style="display:inline;">
 		<div id="headlineIssue" style="position: relative;z-index:10000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_issues" label="Agregar asunto al ##headlines,4,titular##" url="Main.php?do=issuesAutocompleteListX&getCandidates=1&headlineId="|cat:$headline->getId() hiddenName="issue[id]" disableSubmit="addIssueSubmit"-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_issues" label="Relacionar con asunto" url="Main.php?do=issuesAutocompleteListX&getCandidates=1&headlineId="|cat:$headline->getId() hiddenName="issue[id]" disableSubmit="addIssueSubmit"-|
 		</div>
 	<p>	<input type="hidden" name="do" id="do" value="headlinesDoAddIssueX" />
 		<input type="hidden" name="headlineId" id="headlineId" value="|-$headline->getId()-|" /> 
@@ -288,11 +288,11 @@ function removeRelationFromHeadline(form){
 </script>
 
 <fieldset title="Formulario de titulares asociados al ##headlines,4,titular##">
-	<legend>Titulares</legend>
+	<legend>Relación con Titulares</legend>
 	<div id="relationMsgField"></div>
 	<form method="post" style="display:inline;">
 		<div id="headlineRelation" style="position: relative;z-index:10000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_relations" label="Agregar titular al ##headlines,4,titular##" url="Main.php?do=headlinesAutocompleteListX&getCandidates=1&headlineId="|cat:$headline->getId() hiddenName="relation[id]" disableSubmit="addRelationSubmit"-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_relations" label="Relacionar con ##headlines,4,titular##" url="Main.php?do=headlinesAutocompleteListX&getCandidates=1&headlineId="|cat:$headline->getId() hiddenName="relation[id]" disableSubmit="addRelationSubmit"-|
 		</div>
 	<p>	<input type="hidden" name="do" id="do" value="headlinesDoAddRelationX" />
 		<input type="hidden" name="headlineId" id="headlineId" value="|-$headline->getId()-|" /> 

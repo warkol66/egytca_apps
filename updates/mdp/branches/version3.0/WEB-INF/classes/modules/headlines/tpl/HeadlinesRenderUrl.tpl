@@ -1,13 +1,5 @@
 |-if $errorMessage neq ''-|
 	<div>|-$errorMessage-|</div>
-	<div>
-		<form action="Main.php?do=headlinesRenderUrl&id=|-$id-|" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="manual" value="1" />
-			<label for="file">Subir manualmente:</label>
-			<input type="file" name="clipping" id="clipping" />
-			<input type="submit" name="submit" value="Subir" />
-		</form>
-	</div>
 |-else-|
 	
 |-include file='HeadlinesCropImageInclude.tpl'-|
@@ -64,7 +56,19 @@
 <input type='button' id='button_start_crop' value='Recortar' onClick='enableEdit()' />
 <input type='button' id='button_cancel_crop' value='Cancelar' onClick='disableEdit()' style="display:none" />
 <input type='button' id='button_render' value='Capturar nuevamente' onClick='location.href="Main.php?do=headlinesRenderUrl&id=|-$id-|"' />
+<input type='button' id='button_manual_upload' value='Subir imagen' onClick="$('manualUpload').show();" />
 <input type='button' id='button_return_edit' value='Volver a edición' onClick='location.href="Main.php?do=headlinesEdit&id=|-$id-|&submit_go_edit_headline=Editar"' />
 </p>
 
 |-/if-|
+
+
+	<div id="manualUpload" style="|-if !$errorMessage-|display:none;|-/if-|">
+		<form action="Main.php?do=headlinesRenderUrl&id=|-$id-|" method="post" enctype="multipart/form-data">
+			<p><label for="file">Subir manualmente:</label>
+			<input type="file" name="clipping" id="clipping" /></p>
+			<input type="hidden" name="manual" value="1" />
+			<p><input type="submit" name="submit" value="Subir" /></p>
+		</form>
+	</div>
+

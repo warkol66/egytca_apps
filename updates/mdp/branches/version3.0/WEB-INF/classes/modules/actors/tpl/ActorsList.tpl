@@ -56,22 +56,6 @@
 					<input type="hidden" name="id" value="|-$actor->getid()-|" /> 
 					<input type="submit" name="submit_go_delete_actor" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar el ##actors,2,Actor##?')" class="icon iconDelete" /> 
 			</form>
-			|-if $loginUser->isSupervisor()-|
-			<form action="Main.php" method="post" style="display:inline;"> 
-					<input type="hidden" name="do" value="actorsDoDelete" /> 
-						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-					<input type="hidden" name="id" value="|-$actor->getid()-|" /> 
-					<input type="hidden" name="doHardDelete" value="true" /> 
-					<input type="submit" name="submit_go_delete_actor" value="Borrar" title="Eliminar completamente" onclick="return confirm('Seguro que desea eliminar el ##actors,2,Actor## definitivamente?')" class="icon iconHardDelete" /> 
-			</form>
-			|-if $actor->getDeletedAt() != NULL-|<form action="Main.php" method="post" style="display:inline;"> 
-					<input type="hidden" name="do" value="actorsUndeleteX" /> 
-						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-					<input type="hidden" name="id" value="|-$actor->getid()-|" /> 
-					<input type="submit" name="submit_go_delete_actor" value="Borrar" title="Recuperar registro" onclick="return confirm('Seguro que desea recuperar ##actors,2,Actor##?')" class="icon iconUndelete" /> 
-			</form>|-/if-||-/if-|
 			|-/if-|</td> 
 		</tr> 
 		|-/foreach-|
