@@ -206,7 +206,7 @@ function clearElement(element) {
 	<tbody>
 		|-foreach from=$headlines item=headline name=for_headlines-|
 		<tr> 
-				<td>|-if $headline->hasClipping()-|<a href="Main.php?do=headlinesViewClipping&id=|-$headline->getId()-|" title="Ver recorte" class="icon iconNewsClipping" target="_blank"></a>|-/if-|</td>
+				<td>|-if $headline->hasClipping()-|<a href="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" title="Ver recorte" class="icon iconNewsClipping" target="_blank"></a>|-/if-|</td>
 				<td>|-$headline->getName()-|</td>
 				<td>|-$headline->getMedia()-|</td>
 				<td>|-$headline->getContent()|truncate:800:"..."-|</td>
@@ -220,9 +220,10 @@ function clearElement(element) {
 |-else-||-*Si es reporte*-|
 |-if $campaign->getHeadlines()|count gt 0-|
 |-assign var=headlines value=$campaign->getHeadlines()-|
-
 <h1>|-$campaign->getName()-|</h1> 
 <h2>Resumen</h2>
+		<p>Tipo: |-$campaign->getTypeTranslated()-| - Período: |-$campaign->getStartDate()|date_format:"%d-%m-%Y"-| al |-$campaign->getFinishDate()|date_format:"%d-%m-%Y"-|</p> 
+		<p>|-$campaign->getDescription()-|</p>
 <table border="1">
 	<tr>
 			<th>Medio</th>
@@ -241,7 +242,7 @@ function clearElement(element) {
 	</tr>
 	|-foreach from=$headlines item=headline name=for_headlines-|
 	<tr>
-			<td>|-$headline->getMediaName()-|</td>
+			<td>|-$headline->getMedia()-|</td>
 			<td>|-$headline->getHeadlineDate()|date_format-|</td>
 			<td>|-$headline->getDatePublished()|date_format-|</td>
 			<td>|-*$media->getType()*-|</td>
@@ -262,8 +263,6 @@ function clearElement(element) {
 </table>		
 	
 <h2>Clipping de repercusiones de prensa - |-$campaign->getClient()-|</h2>
-		<p>Tipo: |-$campaign->getTypeTranslated()-| - Período: |-$campaign->getStartDate()|date_format:"%d-%m-%Y"-| al |-$campaign->getFinishDate()|date_format:"%d-%m-%Y"-|</p> 
-		<p>|-$campaign->getDescription()-|</p>
 		<p>|-foreach from=$campaign->getCampaignParticipants() item=party name=for_parties-|<ul>
 	 |-if $party->getObject() != NULL-||-assign var=partyObject value=$party->getObject()-||-$partyObject->getName()-| |-$partyObject->getSurname()-||-if $party->getObjectType() eq 'Actor' && $partyObject->getInstitution() ne ''-| (|-$partyObject->getInstitution()-|)|-/if-||-/if-|<ul>
 	|-/foreach-|</p> 
@@ -274,7 +273,7 @@ function clearElement(element) {
 			<p><strong>Medio: </strong>|-$headline->getMedia()-|</p>
 			<p><strong>Titulo: </strong> <a href="|-$headline->getUrl()-|" target="_blank"> |-$headline->getName()-|</a></p>
 			<p><strong>Fecha Publicación: </strong> |-$headline->getDatePublished()|date_format-|</p>
-			<p>|-if $headline->hasClipping()-|<img src="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />|-/if-|</p>
+			<p>|-if $headline->hasClipping()-|<img src="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" />|-/if-|</p>
 	|-/foreach-|
 	<br style="page-break-after:auto">
 	

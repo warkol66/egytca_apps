@@ -32,48 +32,48 @@
 			</p>
 			<p>     
 				<label for="params[datePublished]">Fecha de Publicación</label>
-				<input id="params[datePublished]" name="params[datePublished]" type='text' value='|-$headline->getDatePublished()-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[datePublished]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input id="params[datePublished]" name="params[datePublished]" type='text' value='|-$headline->getDatePublished()-|' size="12" title="Ingrese la fecha de publicación" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[datePublished]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<p>     
 				<label for="params[headlineDate]">Fecha del Titular</label>
-				<input id="params[headlineDate]" name="params[headlineDate]" type='text' value='|-$headline->getHeadlineDate()-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[headlineDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input id="params[headlineDate]" name="params[headlineDate]" type='text' value='|-$headline->getHeadlineDate()-|' size="12" title="Ingrese la fecha de titular" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[headlineDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 		<p>
 			<label for="params[url]">Url</label>
-			<input id="params[url]" name="params[url]" type='text' value='|-$headline->getUrl()-|' size="65" title="Ingrese el url del titular incluyendo el el http://" />|-if $headline->getUrl() ne ''-| <a href="|-$headline->getUrl()-|" target="_blank" title="Ir a nota original" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a> |-/if-|
+			<input id="params[url]" name="params[url]" type='text' value='|-$headline->getUrl()-|' size="65" title="Ingrese el url del titular incluyendo el http://" />|-if $headline->getUrl() ne ''-| <a href="|-$headline->getUrl()-|" target="_blank" title="Ir a nota original" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a> |-/if-|
 			|-if $headline->hasClipping()-|<a href="Main.php?do=headlinesViewClipping&id=|-$headline->getId()-|" title="Ver recorte"><img src="images/clear.png" class="icon iconNewsClipping" /></a>|-else-|<a href="Main.php?do=headlinesRenderUrl&id=|-$headline->getId()-|" title="Generar recorte"><img src="images/clear.png" class="icon iconNewsAdd" /></a> |-/if-|
 			</p>
 			<p>     
 				<label for="params[picture]">Foto</label>
-				<select id="params[picture]" name="params[picture]">
+				<select id="params[picture]" name="params[picture]" title="Indique si incluye foto">
 					<option value="0" |-$headline->getPicture()|selected:0-|>No</option>
 					<option value="1" |-$headline->getPicture()|selected:1-|>Sí</option>
 				</select>
 			</p>
 			<p>     
 				<label for="params[twitts]">Twitts</label>
-				<input id="params[twitts]" name="params[twitts]" type='text' value='|-$headline->getTwitts()-|' size="5" />
+				<input id="params[twitts]" name="params[twitts]" type='text' value='|-$headline->getTwitts()-|' size="5" title="Retweets"/>
 			</p>
 			<p>     
 				<label for="params[fcb]">Fcb</label>
-				<input id="params[fcb]" name="params[fcb]" type='text' value='|-$headline->getFcb()-|' size="5" />
+				<input id="params[fcb]" name="params[fcb]" type='text' value='|-$headline->getFcb()-|' size="5" title="Fcbkpost" />
 			</p>
 			<p>     
 				<label for="params[gplus]">G+ </label>
-				<input id="params[gplus]" name="params[gplus]" type='text' value='|-$headline->getGplus()-|' size="5" />
+				<input id="params[gplus]" name="params[gplus]" type='text' value='|-$headline->getGplus()-|' size="5" title="G+" />
 			</p>
 			<p>     
 				<label for="params[comment]">Comentarios</label>
-				<input id="params[comment]" name="params[comment]" type='text' value='|-$headline->getComment()-|' size="5" />
+				<input id="params[comment]" name="params[comment]" type='text' value='|-$headline->getComment()-|' size="5" title="Commments" />
 			</p>
 			<p>
 				<label for="params[value]">Valoración</label>
 				<input name="params[value]" type="hidden" value="0" />
-				&nbsp; 1 <input name="params[value]" type="radio" value="1" |-$headline->getValue()|checked:1-|/>
-				&nbsp; 2 <input name="params[value]" type="radio" value="2" |-$headline->getValue()|checked:2-|/>
-				&nbsp; 3 <input name="params[value]" type="radio" value="3" |-$headline->getValue()|checked:3-|/>
-				&nbsp; 4 <input name="params[value]" type="radio" value="4" |-$headline->getValue()|checked:4-|/>
-				&nbsp; 5 <input name="params[value]" type="radio" value="5" |-$headline->getValue()|checked:5-|/>
+				&nbsp; 1 <input name="params[value]" type="radio" value="1" |-$headline->getValue()|checked:1-| title="Seleccione el valor de la noticia" />
+				&nbsp; 2 <input name="params[value]" type="radio" value="2" |-$headline->getValue()|checked:2-| title="Seleccione el valor de la noticia" />
+				&nbsp; 3 <input name="params[value]" type="radio" value="3" |-$headline->getValue()|checked:3-| title="Seleccione el valor de la noticia" />
+				&nbsp; 4 <input name="params[value]" type="radio" value="4" |-$headline->getValue()|checked:4-| title="Seleccione el valor de la noticia" />
+				&nbsp; 5 <input name="params[value]" type="radio" value="5" |-$headline->getValue()|checked:5-| title="Seleccione el valor de la noticia" />
 			</p>
 			<p>
 				<label for="params[relevance]">Relevancia</label>
