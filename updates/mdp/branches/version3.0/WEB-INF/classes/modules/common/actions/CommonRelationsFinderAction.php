@@ -19,8 +19,6 @@ class CommonRelationsFinderAction extends BaseAction {
 		$module = "Common";
 		$smarty->assign("module",$module);
 
-print_r($_GET);
-
 		if (!empty($_GET['entityType']) && !empty($_GET['entityId'])) {
 			
 			$entityType = $_GET['entityType'];

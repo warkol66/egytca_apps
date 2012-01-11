@@ -6,9 +6,9 @@
 <fieldset>
 <legend>Seleccione</legend>
 <form method="get">
- Actores <input name="entityType" type="radio" value="Actor" onclick="$('searchActor').show();$('searchIssue').hide();$('searchHeadline').hide();" />
- Asuntos <input name="entityType" type="radio" value="Issue" onclick="$('searchActor').hide();$('searchIssue').show();$('searchHeadline').hide();" />
- Titulares <input name="entityType" type="radio" value="Headline" onclick="$('searchActor').hide();$('searchIssue').hide();$('searchHeadline').show();" />		 
+ Actores <input name="entityType" type="radio" value="Actor" onclick="$('searchActor').show();$('searchIssue').hide();$('searchHeadline').hide(); selectForSubmit('searchActor');" />
+ Asuntos <input name="entityType" type="radio" value="Issue" onclick="$('searchActor').hide();$('searchIssue').show();$('searchHeadline').hide(); selectForSubmit('searchIssue');" />
+ Titulares <input name="entityType" type="radio" value="Headline" onclick="$('searchActor').hide();$('searchIssue').hide();$('searchHeadline').show(); selectForSubmit('searchHeadline');" />		 
 		<div id="searchActor" style="position: relative;z-index:12000;display:none;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_actors" label="Nombre del actor" url="Main.php?do=actorsAutocompleteListX" hiddenName="entityId"-|
 		</div>
@@ -22,6 +22,23 @@
 <p><input type="submit" value="Buscar" /></p>
 </form>
 </fieldset>
+			
+<script type="text/javascript">
+	
+	function selectForSubmit(containerId) {
+		var elements = document.getElementsByName('entityId');
+		
+		for (var i = 0; i < elements.length; i++) {
+			if (elements[i].descendantOf(containerId))
+				elements[i].enable();
+			else
+				elements[i].disable();
+		}
+		
+	}
+	
+</script>
+			
 |-else-|
 <p>Relación de entidades con: <strong>"|-$entity-|"</strong></p>
 |-assign var=totalCount value=0-|
