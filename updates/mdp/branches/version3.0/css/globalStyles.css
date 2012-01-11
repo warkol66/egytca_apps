@@ -678,3 +678,7 @@ a.return, a.report {
 	margin: 3px;
 	text-decoration: none;
 }
+
+.inlineTable, a.inlineTable {
+	display: inline-table !Important;
+}

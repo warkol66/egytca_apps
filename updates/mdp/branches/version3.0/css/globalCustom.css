@@ -2,10 +2,12 @@
 * {
 	font-family: Arial, Helvetica, sans-serif, Geneva;
 }
+
+
 /* INPUTS, ICONS & LINKS ------------------------------*/
 input[type="submit"], input[type="button"], input[type="reset"] {
 	background-color: #e0e0e0;
-	border: 1px outset #a0a0a0;/*#F0F0F0;*/
+	border: 1px outset #D5D5D5;/*#F0F0F0;*/
 	outline: 0 none;
 	cursor: pointer;
 	-khtml-border-radius: 2px;
@@ -16,13 +18,18 @@ input[type="submit"], input[type="button"], input[type="reset"] {
 	padding: 2px 12px 2px 12px;
 }
 input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
-	background-color: #a0a0a0 !Important;/*#d0d0d0; */
+	background-color: #00000 !Important;/*#d0d0d0; */
 	border: outset 1px  #808080 !Important;
 }
-input[type="submit"].icon, input[type="button"].icon, input[type="reset"].icon {
-	line-height: 999px;
-	overflow: hidden;
+input[disabled="disabled"], input[type="disabled"]:hover {
+	color: #5a5a5a !Important;
+	background-color:  #e0e0e0 !Important;
 }
+input[type="submit"].icon, input[type="button"].icon, input[type="reset"].icon {
+	line-height: 999px !Important;
+	overflow: hidden !Important;
+}
+input[type="submit"].icon, input[type="button"].icon,
 .icon, .editor_ok_button, .editor_cancel_button  {
 	background-color: #e0e0e0 !Important;/*#d0d0d0; */
 	border: solid 1px #ababab !Important;
@@ -39,6 +46,7 @@ input[type="submit"].icon, input[type="button"].icon, input[type="reset"].icon {
 	-webkit-border-radius: .2em;
 	border-radius: .2em;
 }
+input[type="submit"].icon, input[type="button"].icon,
 input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 	width: 22px !Important;
 	height: 22px !Important;
@@ -49,17 +57,15 @@ a.icon {
 	display: block;
 }
 /* Image Buttons and Links */
-.iconActivate, .iconAdd, .iconBack, .iconBudget, .iconDelete, .iconDetail, .iconDownload, .iconCancel, .iconEdit, .iconEmail,
-.iconFollow, .iconGoTo, .iconGraph, .iconHelp, .iconHistory, .iconIndicator, .iconTableh3 , .iconNote, .iconDocument, .iconAttach,
-.iconInfo, .iconManufacture, .iconOrder, .iconPassword, .iconPlus, .iconRestore, .iconRestoreFromServer, .iconSendMultiple,
-.iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload, .iconClose, .iconView, .iconViewGantt, .iconWeight, .iconPrint,
-.iconAddToCart, .iconRemoveFromCart, .iconUpdateCart, .iconSetPrivileges, .iconOwner, .iconRead, .iconUnread, .iconEditUser,
-.iconAddUser, .iconPhoto, .iconHardDelete, .iconUndelete, .iconCut, .iconCrop, .iconNews, .iconNewsAdd, .iconNewsLink, .iconNewsGoTo,
-.iconNewsDelete, .iconNewsClipping, .iconSort, .iconUnordered, .iconListEdit, input.editor_ok_button, input.editor_cancel_button {
-	background: url(../images/icons_all.png) no-repeat #f0f0f0;
+.icon, input.editor_ok_button, input.editor_cancel_button,
+input[type="submit"].icon, input[type="button"].icon {
+	background-image: url(../images/icons_all.png) !Important;
+	background-repeat: no-repeat !Important;
+	background-color: #f0f0f0 !Important;
+	background-position: 0 0;
 }
 .disabled, input[disabled].icon {
-	background: url(../images/icons_all_dis.png) no-repeat #f0f0f0;
+	background: url(../images/icons_all_dis.png) no-repeat #f0f0f0 !Important;
 	border: solid 1px #ababab !Important;
 	-khtml-border-radius: .2em;
 	-opera-border-radius: .2em;
@@ -68,191 +74,132 @@ a.icon {
 	border-radius: .2em;
 }
 .iconEdit {
-	background-position: 0px 0px;
-}
+	background-position: 0px 0px !Important; }
 .iconClose, .iconOptionsList .iconDelete {
-	background-position: -20px 0px;
-}
+	background-position: -20px 0px !Important; }
 .iconView {
-	background-position: -40px 0px;
-}
+	background-position: -40px 0px !Important; }
 .iconUpload {
-	background-position: -60px 0px;
-}
+	background-position: -60px 0px !Important; }
 .iconDownload {
-	background-position: -80px 0px;
-}
+	background-position: -80px 0px !Important; }
 .iconAdd {
-	background-position: -100px 0px;
-}
+	background-position: -100px 0px !Important; }
 .iconInfo {
-	background-position: -120px 0px;
-}
+	background-position: -120px 0px !Important; }
 .iconHelp {
-	background-position: -140px 0px;
-}
+	background-position: -140px 0px !Important; }
 .iconBack {
-	background-position: -160px 0px;
-}
+	background-position: -160px 0px !Important; }
 .iconGoTo {
-	background-position: -180px 0px;
-}
+	background-position: -180px 0px !Important; }
 .iconStoreInServer {
-	background-position: 0px -20px;
-}
+	background-position: 0px -20px !Important; }
 .iconStoreLocal {
-	background-position: -20px -20px;
-}
+	background-position: -20px -20px !Important; }
 .iconRestoreFromServer {
-	background-position: -40px -20px;
-}
+	background-position: -40px -20px !Important; }
 .iconPrint {
-	background-position: -60px -20px;
-}
+	background-position: -60px -20px !Important; }
 .iconRestore {
-	background-position: -80px -20px;
-}
+	background-position: -80px -20px !Important; }
 .iconEmail {
-	background-position: -100px -20px;
-}
+	background-position: -100px -20px !Important; }
 .iconOrder {
-	background-position: -120px -20px;
-}
+	background-position: -120px -20px !Important; }
 .iconWeight {
-	background-position: -140px -20px;
-}
+	background-position: -140px -20px !Important; }
 .iconActivate, input.editor_ok_button {
-	background-position: -160px -20px;
-}
+	background-position: -160px -20px !Important; }
 .iconHistory {
-	background-position: -180px -20px;
-}
+	background-position: -180px -20px !Important; }
 .iconThumbnail {
-	background-position: -20px -40px;
-}
+	background-position: -20px -40px !Important; }
 .iconViewGantt {
-	background-position: -60px -40px;
-}
+	background-position: -60px -40px !Important; }
 .iconManufacture {
-	background-position: -80px -40px;
-}
+	background-position: -80px -40px !Important; }
 .iconIndicator {
-	background-position: -100px -40px;
-}
+	background-position: -100px -40px !Important; }
 .iconTableh3 {
-	background-position: -120px -40px;
-}
+	background-position: -120px -40px !Important; }
 .iconNote {
-	background-position: -140px -40px;
-}
+	background-position: -140px -40px !Important; }
 .iconDocument {
-	background-position: -160px -40px;
-}
+	background-position: -160px -40px !Important; }
 .iconAttach {
-	background-position: -180px -40px;
-}
+	background-position: -180px -40px !Important; }
 .iconGraph {
-	background-position: -0px -60px;
-}
+	background-position: -0px -60px !Important; }
 .iconFollow {
-	background-position: -20px -60px;
-}
+	background-position: -20px -60px !Important; }
 .iconPlus {
-	background-position: -40px -60px;
-}
+	background-position: -40px -60px !Important; }
 .iconDetail {
-	background-position: -60px -60px;
-}
+	background-position: -60px -60px !Important; }
 .iconPassword {
-	background-position: -80px -60px;
-}
+	background-position: -80px -60px !Important; }
 .iconBudget {
-	background-position: -100px -60px;
-}
+	background-position: -100px -60px !Important; }
 .iconEditUser {
-	background-position: -120px -60px;
-}
+	background-position: -120px -60px !Important; }
 .iconAddToCart {
-	background-position: -140px -60px;
-}
+	background-position: -140px -60px !Important; }
 .iconRemoveFromCart {
-	background-position: -160px -60px;
-}
+	background-position: -160px -60px !Important; }
 .iconUpdateCart{
-	background-position: -180px -60px;
-}
+	background-position: -180px -60px !Important; }
 .iconOwner{
-	background-position: -0px -80px;
-}
+	background-position: -0px -80px !Important; }
 .iconSetPrivileges{
-	background-position: -20px -80px;
-}
+	background-position: -20px -80px !Important; }
 .iconSendMultiple {
-	background-position: -120px -80px;
-}
+	background-position: -120px -80px !Important; }
 .iconRead{
-	background-position: -40px -100px;
-}
+	background-position: -40px -100px !Important; }
 .iconUnread{
-	background-position: -60px -100px;
-}
+	background-position: -60px -100px !Important; }
 .iconAddUser {
-	background-position: -120px -100px;
-}
+	background-position: -120px -100px !Important; }
 .iconPhoto {
-	background-position: -140px -100px;
-}
+	background-position: -140px -100px !Important; }
 .iconCut {
-	background-position: -160px -100px;
-}
+	background-position: -160px -100px !Important; }
 .iconCrop {
-	background-position: -180px -100px;
-}
+	background-position: -180px -100px !Important; }
 .iconHardDelete {
-	background-position: -0px -120px;
-}
+	background-position: -0px -120px !Important; }
 .iconUndelete {
-	background-position: -20px -120px;
-}
+	background-position: -20px -120px !Important; }
 .iconDelete {
-	background-position: -80px -120px;
-}
-.iconCancel, input.editor_cancel_button  {
-	background-position: -100px -120px;
-}
+	background-position: -80px -120px !Important; }
+.iconCancel, input.editor_cancel_button {
+	background-position: -100px -120px !Important; }
 .iconUnordered {
-	background-position: -120px -120px;
-}
+	background-position: -120px -120px !Important; }
 .iconSort {
-	background-position: -140px -120px;
-}
+	background-position: -140px -120px !Important; }
 .iconListEdit {
-	background-position: -160px -120px;
-}
+	background-position: -160px -120px !Important; }
 .iconNews {
-	background-position: 0px -140px;
-}
+	background-position: 0px -140px !Important; }
 .iconNewsAdd {
-	background-position: -20px -140px;
-}
+	background-position: -20px -140px !Important; }
 .iconNewsLink {
-	background-position: -40px -140px;
-}
+	background-position: -40px -140px !Important; }
 .iconNewsGoTo {
-	background-position: -60px -140px;
-}
+	background-position: -60px -140px !Important; }
 .iconNewsDelete {
-	background-position: -80px -140px;
-}
+	background-position: -80px -140px !Important; }
 .iconNewsClipping {
-	background-position: -100px -140px;
+	background-position: -100px -140px !Important; }
+.icon:hover,input[type="submit"].icon:hover, input[type="button"].icon:hover  {
+	background-color: #b9b9b9 !Important;
+	border: 1px solid #a3a3a3 !Important;
 }
-.icon:hover {
-	background-color: #c0c0c0;
-	border: solid 1px #909090 !Important;;
-}
-.disabled, input.disabled, .disabled:hover, input.disabled:hover, input[disabled].icon,
+.disabled, input.disabled, .disabled:hover, input.disabled:hover, input[disabled].icon,  input[disabled="disabled"].icon
 .icon .disabled, input.icon .disabled, .icon .disabled:hover, input.icon .disabled:hover {
+	color: #cdcdcd !Important;
 	background-color: #f0f0f0 !Important;
 	border: solid 1px #ababab !Important;
 }
@@ -271,7 +218,7 @@ a.icon {
 	margin-left: 150px;
 }
 input[type="text"].emptyValidation, input[type="password"].emptyValidation, textarea.emptyValidation, select.emptyValidation {
-	outline: #ff0000 solid 1px;
+	border: 1px solid #ff0000;
 }
 /* ADD   ----------------------------------------------*/
 a.addLink:link, a.addLink:visited {
