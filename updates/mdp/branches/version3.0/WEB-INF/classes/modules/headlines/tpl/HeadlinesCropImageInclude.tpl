@@ -4,7 +4,10 @@
 
 <script type="text/javascript" charset="utf-8">
 	
-	var x1, y1, width, height;
+	var x1 = '0';
+	var y1 = '0';
+	var width = '|-$displayedWidth-|';
+	var height = '|-$displayedHeight-|';
 	
 	function enableCrop() {
 		$('div_non_cropable').hide();
@@ -43,6 +46,13 @@
 		height = dimensions.height;
 	}
 	
+	function Coords(x1, y1, x2, y2) {
+		this.x1=x1;
+		this.y1=y1;
+		this.x2=x2;
+		this.y2=y2;
+	}
+	
 	Event.observe( 
 		window, 
 		'load', 
@@ -50,7 +60,8 @@
 			new Cropper.Img( 
 				'cropableImage',
 				{
-					onEndCrop: onEndCrop 
+					onEndCrop: onEndCrop,
+					onloadCoords: new Coords(0, 0, '|-$displayedWidth-|', '|-$displayedHeight-|')
 				}
 			);
 		}
