@@ -19,7 +19,7 @@
 			<input name="params[name]" id="params[name]" type="text" value="|-$supplier->getName()|escape-|" class="emptyValidation" size="60"> |-validation_msg_box idField="params[name]"-|
 		 </p>
 		 <p><label for="params[ruc]">RUC</label>
-			<input name="params[ruc]" id="params[ruc]" type="text" value="|-$supplier->getRuc()|escape-|" class="emptyValidation"  size="12" maxlength="9" title="Ingrese el RUC sin guiones"> |-validation_msg_box idField="params[ruc]"-|
+			<input name="params[ruc]" id="params[ruc]" type="text" value="|-$supplier->getRuc()|escape-|" class="emptyValidation"  size="9" maxlength="9" title="Ingrese el RUC sin guiones"> |-validation_msg_box idField="params[ruc]"-|
 		 </p>
 		 <p><label for="params[address]">Dirección</label>
 				<input name="params[address]" id="params[address]" type="text" value="|-$supplier->getAddress()|escape-|" class="emptyValidation" size="55"> |-validation_msg_box idField="params[address]"-|

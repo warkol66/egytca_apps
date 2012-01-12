@@ -4,9 +4,9 @@
 	<p align="right">				
 		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
 	</p> 
-	<div id="vialidadConstructionsViewWorking"></div>
+	<div id="viewWorking"></div>
 	<div class="innerLighbox">
-		<div id="vialidadConstructionsViewDiv"></div>
+		<div id="viewDiv"></div>
 	</div>
 </div> 
 <h2>Obras</h2>
@@ -62,7 +62,7 @@
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="vialidadConstructionsViewX" />
 						<input type="hidden" name="id" value="|-$construction->getId()-|" />
-						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("vialidadConstructionsViewDiv", "Main.php?do=vialidadConstructionsViewX&id=|-$construction->getId()-|", { method: "post", parameters: { id: "|-$construction->getId()-|"}, evalScripts: true})};$("vialidadConstructionsViewWorking").innerHTML = "<span class=\"inProgress\">buscando información...</span>";' value="Ver detalle" name="submit_go_show_project" /></a>
+						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("viewDiv", "Main.php?do=vialidadConstructionsViewX&id=|-$construction->getId()-|", { method: "post", parameters: { id: "|-$construction->getId()-|"}, evalScripts: true})};$("viewWorking").innerHTML = "<span class=\"inProgress\">buscando información...</span>";' value="Ver detalle" name="submit_go_show" /></a>
 					</form>|-/if-|
 			|-if "vialidadConstructionsEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="vialidadConstructionsEdit" /> 

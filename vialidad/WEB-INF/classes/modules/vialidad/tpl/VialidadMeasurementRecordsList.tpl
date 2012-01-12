@@ -1,4 +1,14 @@
 |-include file="CommonAutocompleterInclude.tpl" -|
+<script type="text/javascript" src="scripts/lightbox.js"></script>
+<div id="lightbox1" class="leightbox">
+	<p align="right">				
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
+	</p> 
+	<div id="viewWorking"></div>
+	<div class="innerLighbox">
+		<div id="viewDiv"></div>
+	</div>
+</div> 
 <h2>Actas de Medición</h2>
 <h1>Administración de Actas de Medición</h1>
 <p>A continuación podrá editar la lista de Actas de Medición del sistema.</p>
@@ -54,6 +64,11 @@
 		<td>|-$record->getConstruction()-|</td>
 		<td>|-$record->getMeasurementDate()|date_format:"%B / %Y"|@ucfirst-|</td>
 		<td nowrap align="center">
+					<form action="Main.php" method="get" style="display:inline;">
+						<input type="hidden" name="do" value="vialidadMeasurementRecordsViewX" />
+						<input type="hidden" name="id" value="|-$record->getId()-|" />
+						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("viewDiv", "Main.php?do=vialidadMeasurementRecordsViewX&id=|-$record->getId()-|", { method: "post", parameters: { id: "|-$record->getId()-|"}, evalScripts: true})};$("viewWorking").innerHTML = "<span class=\"inProgress\">buscando información...</span>";' value="Ver detalle" name="submit_go_view" /></a>
+					</form>
 			|-if "vialidadMeasurementRecordsEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="vialidadMeasurementRecordsEdit" /> 
 			  <input type="hidden" name="id" value="|-$record->getId()-|" /> 

@@ -4,9 +4,9 @@
 	<p align="right">				
 		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
 	</p> 
-	<div id="vialidadSuppliersViewWorking"></div>
+	<div id="viewWorking"></div>
 	<div class="innerLighbox">
-		<div id="vialidadSuppliersViewDiv"></div>
+		<div id="viewDiv"></div>
 	</div>
 </div> 
 <h2>Paramétricas de Obra</h2>
@@ -67,6 +67,12 @@
 		<td>|-$item->getName()-|</td>
 		<td nowrap="nowrap" align="center">|-$item->getUnit()-|</td>
 		<td nowrap="nowrap">
+					<form action="Main.php" method="get" style="display:inline;">
+						<input type="hidden" name="do" value="vialidadConstructionItemViewX" />
+						<input type="hidden" name="id" value="|-$item->getId()-|" />
+						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("viewDiv", "Main.php?do=vialidadConstructionItemViewX&id=|-$item->getId()-|", { method: "post", parameters: { id: "|-$item->getId()-|"}, evalScripts: true})};$("viewWorking").innerHTML = "<span class=\"inProgress\">buscando información...</span>";' value="Ver detalle" name="submit_go_view" /></a>
+					</form>
+
 			|-if "vialidadConstructionItemEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="vialidadConstructionItemEdit" /> 
 			  <input type="hidden" name="id" value="|-$item->getId()-|" /> 

@@ -34,4 +34,23 @@ class Construction extends BaseConstruction {
 		return $price;
 	}
 
+	/**
+	 * Obtiene el Contractor
+	 *
+	 * @return  object contractor
+	 */
+	public function getContractor() {
+		$contract = $this->getContract(); 
+		return $contract->getAffiliate();
+	}
+
+	/**
+	 * Obtiene el Contractor
+	 *
+	 * @return  object contractor
+	 */
+	public function getVerifier() {
+		return $this->getAffiliate();
+	}
+
 } // Construction

@@ -1,4 +1,14 @@
 |-include file="CommonAutocompleterInclude.tpl" -|
+<script type="text/javascript" src="scripts/lightbox.js"></script>
+<div id="lightbox1" class="leightbox">
+	<p align="right">				
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
+	</p> 
+	<div id="viewWorking"></div>
+	<div class="innerLighbox">
+		<div id="viewDiv"></div>
+	</div>
+</div> 
 <h2>Certificados de Obra</h2>
 <h1>Administración de Certificados de Obra</h1>
 <p>A continuación podrá editar la lista de Certificados de Obra del sistema.</p>
@@ -64,6 +74,10 @@
 		<td>|-$record->getConstruction()-|</td>
 		<td>|-$record->getMeasurementDate()|date_format:"%B / %Y"|@ucfirst-|</td>
 		<td nowrap align="center">
+		
+						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("viewDiv", "Main.php?do=vialidadCertificatesViewX&id=|-$certificate->getId()-|", { method: "post", parameters: { id: "|-$certificate->getId()-|"}, evalScripts: true})};$("viewWorking").innerHTML = "<span class=\"inProgress\">buscando información...</span>";' value="Ver detalle" name="submit_go_view" /></a>
+
+
 			|-if "vialidadCertificatesEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="vialidadCertificatesEdit" /> 
 			  <input type="hidden" name="id" value="|-$certificate->getId()-|" /> 
