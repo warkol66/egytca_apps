@@ -39,7 +39,7 @@ Para terminar de crear el ##clients,3,Cliente## debe crear una cuenta de usuario
 		<p>
 			<label for="clientUser[username]">Identificación de Usuario</label>
 	|-if $action eq 'edit' and $currentClientUser->getUsername() ne ''-|<input id='actualclientUser[username]' type='hidden' value='|-$currentClientUser->getUsername()-|' />|-/if-|
-			<input name="clientUser[username]" id="clientUser[username]" type="text"  value="|-$currentClientUser->getUsername()-|" size="40" |-ajax_onchange_validation_attribute actionName=clientsUsersValidationUsernameX-| />|-validation_msg_box idField=clientUser[username]-|
+			<input name="clientUser[username]" id="clientUser[username]" type="text"  value="|-$currentClientUser->getUsername()-|" size="40" |-ajax_onchange_validation_attribute actionName=clientsUsersValidationUsernameX-| />|-validation_msg_box idField="clientUser[username]"-|
 		</p>
 		<p>
 			<label for="clientUser[name]">Nombre</label>
@@ -51,7 +51,7 @@ Para terminar de crear el ##clients,3,Cliente## debe crear una cuenta de usuario
 		</p>
 		<p>
 			<label for="clientUser[mailAddress]">E-mail</label>
-			<input name="clientUser[mailAddress]" id="clientUser[mailAddress]" type="text"  value="|-$currentClientUser->getMailAddress()-|" size="60"  class="mailValidation" onchange="javascript:validationValidateFieldClienSide('clientUser[mailAddress]');" /> |-validation_msg_box idField=clientUser[mailAddress]-|
+			<input name="clientUser[mailAddress]" id="clientUser[mailAddress]" type="text"  value="|-$currentClientUser->getMailAddress()-|" size="60"  class="mailValidation" onchange="javascript:validationValidateFieldClienSide('clientUser[mailAddress]');" /> |-validation_msg_box idField="clientUser[mailAddress]"-|
 		</p>
 		<p><label for="pass">##users,165,Contraseña##</label>
 			<input id='pass' name='pass' type='password' value='' size="20" class="" onchange="javascript:setElementClass('pass','emptyValidation');setElementClass('pass2','passwordMatch');validationValidateFieldClienSide('pass');" /> |-validation_msg_box idField=pass-|

@@ -24,7 +24,7 @@
 				<input name="params[phone]" type="text" value="|-$client->getPhone()|escape-|" size="25"> 
 			</p>
 		 <p><label for="params[mail]">E-mail</label>
-				<input name="params[mail]" id="params[mail]" type="text" value="|-$client->getEmail()|escape-|" size="30" class="mailValidation" onchange="javascript:validationValidateFieldClienSide('params[mail]');" /> |-validation_msg_box idField=params[mail]-|
+				<input name="params[mail]" id="params[mail]" type="text" value="|-$client->getEmail()|escape-|" size="30" class="mailValidation" onchange="javascript:validationValidateFieldClienSide('params[mail]');" /> |-validation_msg_box idField="params[mail]"-|
 			</p>
 		 <p><label for="params[contact]">Persona contacto</label>
 				<input name="params[contact]" type="text" value="|-$client->getContact()|escape-|" size="40"> 

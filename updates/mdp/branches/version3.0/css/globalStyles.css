@@ -287,15 +287,23 @@ fieldset fieldset legend {
 /*  /fieldset  ----------------------------------- */
 
 
-#divSearch p label {
-	float: left;
-	width: 70px;
-	font-weight: bold;
+#divSearch p label, #divSearch label {
+	width: 80px;
 	vertical-align: text-bottom;
 	text-align: right;
 	height: auto;
-	display: block;
+	display: inline-table;
 	padding-right: 5px;
+	margin-right: 7px;
+}
+.labelWide {
+	width: 150px !Important;
+}
+.labelWider {
+	width: 250px !Important;
+}
+#divSearch input{
+	clear: both;
 }
 #divSearch td p label {
 	width: 40px;
@@ -307,9 +315,9 @@ fieldset fieldset legend {
 	border: 1px solid transparent !Important;
 	padding: 0 !Important;
 }
-#divSearch p input[type="text"] {
+/*#divSearch p input[type="text"] {
 	padding: .1em;
-}
+}*/
 
 /* InternalMail */
 fieldset #recipientsSelected li {

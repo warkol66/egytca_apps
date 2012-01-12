@@ -66,19 +66,19 @@ function clearElement(element) {
 			<legend>Formulario de Administración de Campañas</legend>
 			<p>
 				<label for="params[name]">Nombre</label>
-				<input name="params[name]" type="text" id="params[name]" title="Nombre" value="|-$campaign->getName()|escape-|" size="50" class="emptyValidation"> |-validation_msg_box idField=params[name]-|
+				<input name="params[name]" type="text" id="params[name]" title="Nombre" value="|-$campaign->getName()|escape-|" size="50" class="emptyValidation"> |-validation_msg_box idField="params[name]"-|
 			</p>
 			<p>
 				<label for="params[type]">Tipo</label>
 				<select id="params[type]" name="params[type]" title="Tipo de Campaña" class="emptyValidation"> 
 			<option value="">Seleccione tipo</option>
 			|-html_options options=$types selected=$campaign->getType()-|
-      </select> |-validation_msg_box idField=params[type]-|
+      </select> |-validation_msg_box idField="params[type]"-|
 			</p>
 			<p> 
 				<label for="params[startDate]">Fecha de Inicio</label>
 				<input type="text" id="params[startDate]" name="params[startDate]" value="|-$campaign->getstartDate()|date_format:"%d-%m-%Y"-|" title="Fecha de inicio" class="dateValidation emptyValidation" size="12" />
-				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha"> |-validation_msg_box idField=params[startDate]-| </p> 
+				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha"> |-validation_msg_box idField="params[startDate]"-| </p> 
 			<p> 
 				<label for="params[finishDate]">Fecha de Finalización</label>
 				<input type="text" id="params[finishDate]" name="params[finishDate]" value="|-$campaign->getfinishDate()|date_format:"%d-%m-%Y"-|" title="Fecha de de finalización" class="dateValidation emptyValidation" size="12" />
