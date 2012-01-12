@@ -61,8 +61,18 @@ class MeasurementRecord extends BaseMeasurementRecord {
 		$relation->setVerified(false);
 	}
 	
-	public function getConstruction() {
+/*	public function getConstruction() {
 		return ConstructionQuery::create()->findOneById($this->getConstructionid());
+	}
+*/
+	/**
+	 * Obtiene el Contractor
+	 *
+	 * @return  object contractor
+	 */
+	public function getContract() {
+		$construction = $this->getConstruction(); 
+		return $construction->getContract();
 	}
 
 } // MeasurementRecord

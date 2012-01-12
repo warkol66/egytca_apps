@@ -15,4 +15,13 @@
  */
 class Contract extends BaseContract {
 
+	/**
+	 * Obtiene el Contractor
+	 *
+	 * @return  object contractor
+	 */
+	public function getContractor() {
+		return $this->getAffiliate();
+	}
+
 } // Contract
