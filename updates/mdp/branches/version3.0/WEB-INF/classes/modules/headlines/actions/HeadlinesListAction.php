@@ -24,17 +24,26 @@ class HeadlinesListAction extends BaseAction {
 
 		$headlinePeer = new HeadlinePeer();
 
-		if (!empty($_GET["page"])){
+		if (!empty($_GET["page"])) {
 			$page = $_GET["page"];
 			$smarty->assign("page",$page);
 		}
-		if (!empty($_GET['filters'])){
+		if (!empty($_GET['filters']))
 			$filters = $_GET['filters'];
-			$this->applyFilters($headlinePeer,$filters,$smarty);
-		}
-		$pager = $headlinePeer->getAllPaginatedFiltered($page);
+			
+		if (!empty($_GET['filters']['fromDate']))
+			$fromDate = $_GET['filters']['fromDate'];
 
-		$smarty->assign("headlines",$pager->getResult());
+		if (!empty($_GET['filters']['toDate']))
+			$toDate = $_GET['filters']['toDate'];
+
+		if (isset($fromDate) || isset($toDate))
+			$filters['datePublished'] = Common::getPeriodArray($fromDate,$toDate);
+
+		$pager = HeadlineQuery::create()->createPager($filters,$page,$filters["perPage"]);
+
+		$smarty->assign("filters", $filters);
+		$smarty->assign("headlines",$pager->getResults());
 		$smarty->assign("pager",$pager);
 
 		$url = "Main.php?do=headlinesList";

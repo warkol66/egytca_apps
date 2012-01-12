@@ -8,7 +8,7 @@
 
 <p>
 	<label for="|-$id-|">|-$label-|</label>
-	<input type="text" id="|-$id-|" name="autocomplete_parameter" value="|-$defaultValue-|" size="60"
+	<input type="text" id="|-$id-|" name="|-$name-|" value="|-$defaultValue-|" size="60"
 		onChange="|-$onChange-|" 
 		onBlur="|-$id-|_instance.unregister();" 
 		onfocus="this.select(); 

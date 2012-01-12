@@ -1226,6 +1226,27 @@ class Common {
 	}
 
 	/**
+	* Genera un array con los parametros de fecha desde hasta
+	*
+	* @return array dechas max y min
+	*/
+	function getPeriodArray($fromDate = null, $toDate = null) {
+		if (!empty($fromDate))
+			$fromDate = Common::convertToMysqlDatetimeFormat($fromDate);
+		if (!empty($toDate))
+			$toDate = Common::convertToMysqlDatetimeFormat($toDate);
+
+		if (!is_null($fromDate) && !is_null($toDate))
+			$periodArray = array("min" => $fromDate, "max" => $toDate);
+		else if (!is_null($fromDate))
+			$periodArray = array("min" => $fromDate);
+		else
+			$periodArray = array("max" => $toDate);
+
+		return $periodArray;
+	}
+
+	/**
 	 * Indica si el usuario es proveedor
 	 */
 	function isSupplier() {
