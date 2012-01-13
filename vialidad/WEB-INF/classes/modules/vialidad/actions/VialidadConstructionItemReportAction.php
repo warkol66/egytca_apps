@@ -21,59 +21,61 @@ class VialidadConstructionItemReportAction extends BaseAction {
 		$section = "ConstructionItem";
 		$smarty->assign("section",$section);
 
-		$construction = ConstructionQuery::create()->findPK($_GET["id"]);
-		$supplies = SupplyQuery::create()->find();
-		$items = ConstructionItemQuery::create()->filterByConstruction($construction)->find();
+		if (!empty($_GET['id'])) {
+			$construction = ConstructionQuery::create()->findPK($_GET["id"]);
+			$supplies = SupplyQuery::create()->find();
+			$items = ConstructionItemQuery::create()->filterByConstruction($construction)->find();
 		
-		/* Cosas para usar el ExcelManagement. No probadas. No pensadas a fondo
-		
-		$dataMatrix = array();
-		foreach ($items as $item) {
-			$newRow = array($item->getName());
-			foreach ($supplies as $supply) {
-				$newRow[] = $item->getProportionForSupply($supply);
+			/* Cosas para usar el ExcelManagement. No probadas. No pensadas a fondo
+			
+			$dataMatrix = array();
+			foreach ($items as $item) {
+				$newRow = array($item->getName());
+				foreach ($supplies as $supply) {
+					$newRow[] = $item->getProportionForSupply($supply);
+				}
+				$dataMatrix[] = $newRow;
 			}
-			$dataMatrix[] = $newRow;
+			
+			$excelManagment = new ExcelManagement();
+			$excelManagment->setTableHeaders($supplies->toArray('name'));
+			$excelManagment->setData($dataMatrix);
+			$excelManagment->sendToClient();
+			
+			fin cosas para usar el ExcelManagement */
+			
+			if ($_GET['action'] != 'show') {
+				
+				// crear el csv, y descargarlo.
+				
+				ob_end_clean();
+				header("Content-type: text/csv;");
+				header("Content-Disposition: attachment; filename=Reporte.csv");
+				echo "\xEF\xBB\xBF"; // UTF-8 BOM
+				$delimiter = ',';
+				// table header
+				foreach ($supplies as $supply)
+					print $delimiter.$supply->getName();
+				print "\n";
+				// table body
+				foreach ($items as $item) {
+					print $item->getName();
+					foreach ($supplies as $supply)
+						print $delimiter.$item->getProportionForSupply($supply).' %';
+					print "\n";
+				}
+				return;
+				
+			} else {
+				// ver el reporte en un tpl en el browser
+				
+				$this->template->template = 'TemplatePrint.tpl';
+				
+				$smarty->assign('supplies', $supplies);
+				$smarty->assign('items', $items);
+				
+				return $mapping->findForwardConfig("success");
+			}
 		}
-		
-		$excelManagment = new ExcelManagement();
-		$excelManagment->setTableHeaders($supplies->toArray('name'));
-		$excelManagment->setData($dataMatrix);
-		$excelManagment->sendToClient();
-		
-		fin cosas para usar el ExcelManagement */
-		
-		// Cosas para crear el csv, y descargarlo.
-		// Si queda esto el Action probablemente deberia tener un Do por algun lado
-		ob_end_clean();
-		header("Content-type: text/csv;");
-		header("Content-Disposition: attachment; filename=Reporte.csv");
-		echo "\xEF\xBB\xBF"; // UTF-8 BOM
-		$delimiter = ',';
-		// table header
-		foreach ($supplies as $supply)
-			print $delimiter.$supply->getName();
-		print "\n";
-		// table body
-		foreach ($items as $item) {
-			print $item->getName();
-			foreach ($supplies as $supply)
-				print $delimiter.$item->getProportionForSupply($supply).' %';
-			print "\n";
-		}
-		return;
-		// fin cosas para crear el csv
-		
-		/* Cosas para ver el reporte en un template en el browser
-		
-		$this->template->template = 'TemplatePrint.tpl';
-		
-		$smarty->assign('supplies', $supplies);
-		$smarty->assign('items', $items);
-
-		return $mapping->findForwardConfig("success");
-		
-		fin cosas para ver el reporte */
 	}
-		
 }
