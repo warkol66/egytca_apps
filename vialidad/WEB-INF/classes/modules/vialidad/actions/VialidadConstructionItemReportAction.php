@@ -22,7 +22,13 @@ class VialidadConstructionItemReportAction extends BaseAction {
 		$smarty->assign("section",$section);
 
 		if (!empty($_GET['id'])) {
+			
 			$construction = ConstructionQuery::create()->findPK($_GET["id"]);
+			if (is_null($construction)) {
+				$smarty->assign('message', 'id inválido');
+				$smarty->assign('url', $_SERVER['HTTP_REFERER']);
+				return $mapping->findForwardConfig('failure');
+			}
 			$supplies = SupplyQuery::create()->find();
 			$items = ConstructionItemQuery::create()->filterByConstruction($construction)->find();
 		
@@ -76,6 +82,9 @@ class VialidadConstructionItemReportAction extends BaseAction {
 				
 				return $mapping->findForwardConfig("success");
 			}
+		} else {
+			$smarty->assign('message', 'parámetros incorrectos');
+			return $mapping->findForwardConfig('failure');
 		}
 	}
 }
