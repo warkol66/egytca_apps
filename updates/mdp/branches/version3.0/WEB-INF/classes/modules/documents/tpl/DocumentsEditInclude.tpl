@@ -12,7 +12,7 @@
 </div>
 
 <form method="post" action="Main.php?do=documentsDoEdit" enctype="multipart/form-data" name="formSearch" id="documentsAdderForm">
-	|-if $document neq''-|
+	|-if $document neq ''-|
 	<input type="hidden" name="id" value="|-$document->getId()-|">
 	|-/if-|
 	<fieldset title="Formulario para Agregar Nuevo |-$label-|">

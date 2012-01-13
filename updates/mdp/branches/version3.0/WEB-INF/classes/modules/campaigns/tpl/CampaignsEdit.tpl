@@ -82,7 +82,7 @@ function clearElement(element) {
 			<p> 
 				<label for="params[finishDate]">Fecha de Finalización</label>
 				<input type="text" id="params[finishDate]" name="params[finishDate]" value="|-$campaign->getfinishDate()|date_format:"%d-%m-%Y"-|" title="Fecha de de finalización" class="dateValidation emptyValidation" size="12" />
-				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[finishDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha"> |-validation_msg_box idField=params[finishDate]"-|</p> 
+				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[finishDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha"> |-validation_msg_box idField="params[finishDate]"-|</p> 
 			<p>
 				<label for="params[description]">Descripción</label>
 				<textarea name="params[description]" cols="70" rows="6" wrap="virtual" id="params[description]" title="Descripción">|-$campaign->getdescription()|escape-|</textarea>
