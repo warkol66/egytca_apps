@@ -36,11 +36,11 @@ function smarty_function_include_module($params, &$smarty)
     $smartyOutputFilter = new SmartyOutputFilter();
     $smartyOutputFilter->template = 'TemplateInclude.tpl';
     $oldSmartyOutputFilter = $smarty->_plugins['outputfilter']['SmartyOutputFilter_smarty_add_template'][0];
-    $smarty->register_outputfilter(array($smartyOutputFilter,"smarty_add_template"));
+    $smarty->registerFilter('output', array($smartyOutputFilter,"smarty_add_template"));
     
     //Si esta vacio el template opcional, debo buscar el template en el forward del action
     if (empty($options['template'])) {
-        $vars = $smarty->get_template_vars();
+        $vars = $smarty->getTemplateVars();
         $mapping = $vars["mapping"];
         $applicationConfig = $mapping->getApplicationConfig();
         $actionPath = $module.$action;
@@ -61,14 +61,10 @@ function smarty_function_include_module($params, &$smarty)
     } else
         $template = $options['template'];
         
-    //Obtengo el html resultante
-		if( !$smarty->template_exists($template) ){
-			echo "NO EXISTE TEMPLATE: '".$template."'.";
-		}
     $html_result = $smarty->fetch($template); 
     
     //vuelvo a poner el viejo outputfilter de antes
-    $smarty->register_outputfilter($oldSmartyOutputFilter);
+    $smarty->registerFilter('output', array($oldSmartyOutputFilter, 'smarty_add_template'));
 
     return $html_result;
 }
