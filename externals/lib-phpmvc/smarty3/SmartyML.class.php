@@ -1,5 +1,5 @@
 <?php
-  require_once ("SmartyBC.class.php");
+  require_once ("Smarty.class.php");
 
   /**
    * smarty_prefilter_i18n()
