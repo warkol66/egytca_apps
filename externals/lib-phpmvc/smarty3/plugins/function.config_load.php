@@ -38,14 +38,14 @@ function smarty_function_config_load($params, &$smarty)
         $_global = isset($params['global']) ? $smarty->_dequote($params['global']) : false;
 
         if (!isset($_file) || strlen($_file) == 0) {
-            $smarty->trigger_error("missing 'file' attribute in config_load tag", E_USER_ERROR, __FILE__, __LINE__);
+            trigger_error("missing 'file' attribute in config_load tag", E_USER_ERROR, __FILE__, __LINE__);
         }
 
         if (isset($_scope)) {
             if ($_scope != 'local' &&
                 $_scope != 'parent' &&
                 $_scope != 'global') {
-                $smarty->trigger_error("invalid 'scope' attribute value", E_USER_ERROR, __FILE__, __LINE__);
+                trigger_error("invalid 'scope' attribute value", E_USER_ERROR, __FILE__, __LINE__);
             }
         } else {
             if ($_global) {
