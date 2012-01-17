@@ -66,7 +66,6 @@
 			{
 				method: 'get',
 				parameters: {
-					entity: relatedEntitiesType,
 					relatedEntity: '|-$entityType-|',
 					relatedId: '|-$entityId-|'
 				}

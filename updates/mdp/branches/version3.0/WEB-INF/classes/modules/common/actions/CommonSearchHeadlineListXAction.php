@@ -10,6 +10,7 @@ class CommonSearchHeadlineListXAction extends CommonSearchEntityListXAction {
 	
 	function execute($mapping, $form, &$request, &$response) {
 		try {
+			$_GET['entity'] = 'Headline';
 			parent::execute($mapping, $form, $request, $response);
 			return $mapping->findForwardConfig('success');
 		} catch (Exception $e) {
