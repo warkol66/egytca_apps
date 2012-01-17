@@ -43,6 +43,7 @@ class CommonSearchEntityListXAction extends BaseAction {
 			$pager = $entityQueryClass::create()->$filterByEntity($relatedEntity)->createPager($_GET['filters'], $_GET['page'], $_GET['filters']['perPage']);
 			
 			$smarty->assign('entities', $pager->getResults());
+			$smarty->assign("pager",$pager);
 			
 		} else {
 			throw new Exception('wrong params');
