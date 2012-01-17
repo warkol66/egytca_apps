@@ -59,16 +59,20 @@
 |-/foreach-|
 
 <script type="text/javascript">
-	function loadRelatedEntitiesContent(relatedEntitiesType) {
+	function loadRelatedEntitiesContent(relatedEntitiesType, filtersForm) {
+		
+		if (!filtersForm)
+			var filtersForm = document.createElement('form');
+		
+		var params = Form.serialize(filtersForm)+'&relatedEntity=|-$entityType-|&relatedId=|-$entityId-|';
+		
 		new Ajax.Updater(
 			relatedEntitiesType+'_content_include',
 			'Main.php?do=commonSearch'+relatedEntitiesType+'ListX',
 			{
 				method: 'get',
-				parameters: {
-					relatedEntity: '|-$entityType-|',
-					relatedId: '|-$entityId-|'
-				}
+				parameters: params,
+				evalScripts: true
 			}
 		);
 	}

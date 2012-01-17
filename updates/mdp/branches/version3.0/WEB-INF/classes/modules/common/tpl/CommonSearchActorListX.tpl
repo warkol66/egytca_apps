@@ -1,6 +1,7 @@
 |-extends file="CommonSearchEntityListX.tpl"-|
-|-block name=entityName-|Actores|-/block-|
+|-block name=entityType-|Actor|-/block-|
+|-block name=title-|Actores|-/block-|
 |-block name=filters-||-/block-|
 |-block name=entity-|
-	<p>|-$entity-|</p>
+	<p>|-$entity-| <a href="Main.php?do=ActorsEdit&id=|-$entity->getId()-|" class="icon iconView inlineTable" target="_blank"></a></p>
 |-/block-|

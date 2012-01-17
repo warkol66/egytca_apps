@@ -40,9 +40,9 @@ class CommonSearchEntityListXAction extends BaseAction {
 				throw new Exception('invalid entity');
 			
 			$filterByEntity = 'filterBy'.$relatedEntityType;
-			$collection = $entityQueryClass::create()->$filterByEntity($relatedEntity)->find();
+			$pager = $entityQueryClass::create()->$filterByEntity($relatedEntity)->createPager($_GET['filters'], $_GET['page'], $_GET['filters']['perPage']);
 			
-			$smarty->assign('collection', $collection);
+			$smarty->assign('entities', $pager->getResults());
 			
 		} else {
 			throw new Exception('wrong params');
