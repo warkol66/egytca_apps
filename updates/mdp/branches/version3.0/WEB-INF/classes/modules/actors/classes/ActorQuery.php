@@ -41,7 +41,9 @@ class ActorQuery extends BaseActorQuery {
 			case 'SearchString':
 				$this->filterByName("%$filterValue%", Criteria::LIKE)
 				->_or()
-				->filterByContent("%$filterValue%", Criteria::LIKE);
+					->filterBySurname("%$filterValue%", Criteria::LIKE)
+				->_or()
+					->filterByInstitution("%$filterValue%", Criteria::LIKE);
 				break;
 			default:
 				if (in_array($filterName, ActorPeer::getFieldNames(BasePeer::TYPE_PHPNAME))

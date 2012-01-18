@@ -41,7 +41,7 @@ class IssueQuery extends BaseIssueQuery {
 			case 'SearchString':
 				$this->filterByName("%$filterValue%", Criteria::LIKE)
 				->_or()
-				->filterByContent("%$filterValue%", Criteria::LIKE);
+					->filterByDescription("%$filterValue%", Criteria::LIKE);
 				break;
 			default:
 				if (in_array($filterName, IssuePeer::getFieldNames(BasePeer::TYPE_PHPNAME))
