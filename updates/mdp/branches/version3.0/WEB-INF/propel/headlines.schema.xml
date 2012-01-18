@@ -82,7 +82,7 @@
 
 	</table>
 -->
-	<table name="headlines_relation" phpName="HeadlineRelation" isCrossRef="true" description="Tabla de relaciones de titulares">
+<!--	<table name="headlines_relation" phpName="HeadlineRelation" isCrossRef="true" description="Tabla de relaciones de titulares">
 
 		<column name="headlineFromId" required="true" primaryKey="true" type="INTEGER"  description="ID Headline origen"/>
 		<column name="headlineToId" required="true" primaryKey="true" type="INTEGER"  description="ID Headline destino"/>
@@ -96,6 +96,14 @@
 		</foreign-key>
 
 	</table>
+-->
+
+	<table name="headlines_relation" phpName="HeadlineRelation" description="Tabla de relaciones de titulares">
+	  <behavior name="equal_nest">
+	    <parameter name="parent_table" value="headlines_headline" />
+	  </behavior>
+	</table>
+
 
 	<!-- Relacion many-to-many de headline con documents -->	
 	<table name="headlines_headlineDocument" phpName="HeadlineDocument" isCrossRef="true">
