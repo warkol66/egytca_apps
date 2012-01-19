@@ -72,7 +72,21 @@ class MeasurementRecord extends BaseMeasurementRecord {
 	 */
 	public function getContract() {
 		$construction = $this->getConstruction(); 
+		if (empty($construction))
+			$construction = new Construction();
 		return $construction->getContract();
+	}
+
+	/**
+	 * Obtiene el Contractor
+	 *
+	 * @return  object contractor
+	 */
+	public function getContractor() {
+		$construction = $this->getConstruction();
+		if (empty($construction))
+			$construction = new Construction();
+		return $construction->getContractor();
 	}
 
 } // MeasurementRecord
