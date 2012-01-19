@@ -58,17 +58,25 @@ class VialidadConstructionItemReportAction extends BaseAction {
 				header("Content-type: text/csv;");
 				header("Content-Disposition: attachment; filename=Reporte.csv");
 				echo "\xEF\xBB\xBF"; // UTF-8 BOM
-				$delimiter = ',';
+				$delimiter = ",";
+				$lineFeed = "\r\n";
+
+				// Document header
+				print "Contrato: " . $construction->getContract().$lineFeed;
+				print "Obra: " . $construction.$lineFeed;
+
 				// table header
+				print "Código" . $delimiter. "Item";
+
 				foreach ($supplies as $supply)
-					print $delimiter.$supply->getName();
-				print "\n";
+					print $delimiter . '"' . $supply->getName(). '"';
+				print $lineFeed;
 				// table body
 				foreach ($items as $item) {
-					print $item->getName();
+					print $item->getName() . $delimiter . $item->getName();
 					foreach ($supplies as $supply)
 						print $delimiter.$item->getProportionForSupply($supply).' %';
-					print "\n";
+					print $lineFeed;
 				}
 				return;
 				
@@ -77,6 +85,7 @@ class VialidadConstructionItemReportAction extends BaseAction {
 				
 				$this->template->template = 'TemplatePrint.tpl';
 				
+				$smarty->assign('construction', $construction);
 				$smarty->assign('supplies', $supplies);
 				$smarty->assign('items', $items);
 				

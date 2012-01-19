@@ -27,12 +27,20 @@
 			<input name="params[name]" type="text" value="|-$contract->getName()|escape-|" size="60">
 		 </p>
 		 <p>
-		   <label for="params[code]">Código</label>
-				<input name="params[code]" type="text" value="|-$contract->getCode()|escape-|" size="55"> 
+		   <label for="params[code]">Número</label>
+				<input name="params[code]" type="text" value="|-$contract->getCode()|escape-|" size="15"> 
 		</p>
 			<div id="contractor" style="position: relative;z-index:11000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_contractorId" label="Contratista" url="Main.php?do=affiliatesContractorsAutocompleteListX" hiddenName="params[contractorId]" defaultHiddenValue=$contract->getContractorId() defaultValue=$contract->getAffiliate()-|
 			</div>
+			<p>     
+				<label for="params[startDate]">Fecha de firma</label>
+				<input id="params[startDate]" name="params[startDate]" type='text' value='|-$contract->getStartDate()|date_format-|' size="12" title="Ingrese la fecha de inicio" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+			</p>
+		 <p><label for="params[contractLength]">Plazo contractual</label>
+			<input name="params[contractLength]" type="text" value="|-$contract->getContractLength()|escape-|" size="6"> días
+		 </p>
+
 	 <p><input name="save" type="submit" value="Guardar Cambios"> 
 				<input type='button' onClick='location.href="Main.php?do=vialidadContractsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Contratos"/>
 			 </p>

@@ -41,6 +41,19 @@
 		 <div id="verifier" style="position: relative;z-index:10000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_verifierId" label="Fiscalizadora" url="Main.php?do=affiliatesVerifiersAutocompleteListX" hiddenName="params[verifierId]" defaultHiddenValue=$construction->getVerifierId() defaultValue=$construction->getAffiliate()-|
 		 </div>
+		 <p><label for="params[region]">Departamento/s</label>
+			<input name="params[region]" type="text" value="|-$construction->getRegion()|escape-|" size="40">
+		 </p>
+		 <p><label for="params[type]">Tipo de Obra</label>
+			<input name="params[type]" type="text" value="|-$construction->getType()|escape-|" size="40">
+		 </p>
+		 <p><label for="params[length]">Longitud</label>
+			<input name="params[length]" type="text" value="|-$construction->getLength()|escape-|" size="6"> Kms.
+		 </p>
+			<p>     
+				<label for="params[startDate]">Fecha de inicio</label>
+				<input id="params[startDate]" name="params[startDate]" type='text' value='|-$construction->getStartDate()|date_format-|' size="12" title="Ingrese la fecha de inicio" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+			</p>
 		 |-if $returnContractId neq ""-|
 		 <input type="hidden" name="returnToContract" value="|-$returnContractId-|" />
 		 |-/if-|
@@ -57,7 +70,7 @@
 
 |-if $action eq 'edit'-|
 <h3>Items de Construcción</h3>
-<p align="right"><a class="report" href="Main.php?do=vialidadConstructionItemReport&id=|-$construction->getId()-|">Generar Reporte</a></p>
+<p align="right"><a class="report" href="Main.php?do=vialidadConstructionItemReport&id=|-$construction->getId()-|&action=show" target="_blank">Ver Reporte</a> <a class="download" href="Main.php?do=vialidadConstructionItemReport&id=|-$construction->getId()-|">Descargar Reporte</a></p>
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 	<thead>
 	|-if "vialidadConstructionItemEdit"|security_has_access-|<tr>

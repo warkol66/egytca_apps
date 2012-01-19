@@ -33,8 +33,12 @@
 			|-if $action eq 'edit'-|
 			<p>
 				<label for="totalPrice">Precio Total</label>
-				<span id="totalPrice" name="totalPrice" size="12" title="Precio total">|-$certificate->calculatePrice()|system_numeric_format-|</span>
+				<span id="totalPrice" name="totalPrice" title="Precio total">|-$certificate->calculatePrice()|system_numeric_format-|</span>
 			</p>
+		 <p>
+		   <label for="params[code]">Número</label>
+				<span id="code" name="code" title="Número">|-$record->getCode()-|</span>
+		</p>
 			|-/if-|
 			<p>
 				|-if $action eq 'edit'-|

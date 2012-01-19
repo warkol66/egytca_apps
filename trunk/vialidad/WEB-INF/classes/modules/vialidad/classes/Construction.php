@@ -41,6 +41,8 @@ class Construction extends BaseConstruction {
 	 */
 	public function getContractor() {
 		$contract = $this->getContract(); 
+		if (empty($contract))
+			$contract = new Contract();
 		return $contract->getAffiliate();
 	}
 

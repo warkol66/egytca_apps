@@ -37,6 +37,14 @@
 				<span>|-$record->getMeasurementDate()|date_format-|</span>
 				|-/if-|
 			</p>
+		 <p>
+		   <label for="params[code]">Número</label>
+				|-if $action eq "create"-|
+				<input name="params[code]" type="text" value="|-$record->getCode()|escape-|" size="8"> 
+				|-else-|
+				<span>|-$record->getCode()-|</span>
+				|-/if-|
+		</p>
 			<p>
 				|-if $action eq 'edit'-|
 				<input type="hidden" name="id" id="id" value="|-$record->getid()-|" />
