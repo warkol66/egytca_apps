@@ -1,0 +1,59 @@
+@import url("golbalCustom.css");
+@import url("golbalStyles.css");
+@import url("custom.css");
+@import url("style.css");
+
+* {
+	font-family: Arial, Helvetica, sans-serif, Geneva;
+}
+body {
+    font-size: 85%;
+		background-color: #ffffff;
+}
+.noPrint {
+	display : none;
+}
+#wrapper { 
+	margin: 0 0;
+	width: 760px;   /* ie6*/ /*ie7*/ 
+}
+#contentWrapper, #contentCloser {
+	width: 760px;
+	background-image: none;
+}
+#leftColumn { 
+	width: 0;
+}
+#rightColumn { 
+	float: none !Important;
+	display: inherit !Important;
+	width: 760px;   /* ie6*/ /*ie7*/ 
+}
+#rightColumn h1{
+	font-size: 167%;
+	font-weight:bold;
+	padding-bottom: 5px;
+	margin-bottom:15px;
+}
+#rightColumn h2{
+	font-size: 123.1%;
+	font-weight:normal;
+	margin-bottom: 5px;
+}
+#rightColumn h3 {
+	font-size: 138.5%;
+	font-weight: bold;
+	padding-top: 15px;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+}
+#rightColumn h4 {
+	font-size: 131%;
+	font-weight: bold;
+	padding-top: 15px;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+}
+#map_canvas {
+	display: none;
+}

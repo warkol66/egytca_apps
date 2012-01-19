@@ -748,13 +748,18 @@ a.return {
 a.report {
 	background-image: url(../images/icon_print.png);
 }
-a.return, a.return:link, a.return:visited
-a.report, a.report:link, a.report:visited  {
+a.download {
+	background-image: url(../images/icon_download.png);
+}
+a.return, a.return:link, a.return:visited,
+a.report, a.report:link, a.report:visited,
+a.download, a.download:link, a.download:visited  {
 	color:#0054A4;
 	background-position:left top;
 	background-repeat:no-repeat;
 }
-a.report:hover
-a.report:hover{
+a.return:hover,
+a.report:hover,
+a.download:hover{
 	text-decoration: underline !Important;
 }
