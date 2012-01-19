@@ -27,9 +27,10 @@ class VialidadSupplyAutocompleteListXAction extends BaseAction {
 		$filters = array("searchString" => $searchString); 
 		
 		if ($_REQUEST['getCandidates']) {
-			$filters = array_merge_recursive($filters, array('HorriblyNamedFilter' => array( // TODO: el nombre del filtro!!
+			$filters = array_merge_recursive($filters, array('EntityFilter' => array(
 				'entityType' => $_REQUEST['entityType'],
-				'entityId' => $_REQUEST['entityId']
+				'entityId' => $_REQUEST['entityId'],
+				'getCandidates' => $_REQUEST['getCandidates']
 			)));
 		}
 
