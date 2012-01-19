@@ -36,24 +36,26 @@ table tr {
 	page-break-inside: avoid !Important;
 	page-break-after: auto !Important;
 }
-.tableTdBorders tbody tr td, .tableTdBorders tbody tr th {
-	border-bottom: 1px solid #cdcdcd;
-	padding: 2px 0 1px 0;
-	border-collapse: separate;
+* table.tableTdBorders tbody tr td, table.tableTdBorders tbody tr th,
+#wrapper #contentWrapper #rightColumn table.tableTdBorders tbody tr td,
+#wrapper #contentWrapper #rightColumn table.tableTdBorders tbody tr th {
+	border-bottom: 1px solid #cdcdcd !Important;
+	padding: 2px 0 1px 0 !Important;
+	border-collapse: separate !Important;
 }
-.tableTdBorders thead tr th {
+table.tableTdBorders thead tr th {
 	border-bottom: 1px #cdcdcd solid;
 }
-.tableTdBorders tbody tr td,
-.tableTdBorders tbody tr th{
+table.tableTdBorders tbody tr td,
+table.tableTdBorders tbody tr th{
 	border-right: 1px #cdcdcd solid;
 }
 /* Igual al anterior, separada por el IE */
-.tableTdBorders thead tr:last-child th {
+table.tableTdBorders thead tr:last-child th {
 	border-right: 1px #cdcdcd solid;
 }
-.tableTdBorders tbody tr td:last-child,
-.tableTdBorders tbody tr th:last-child,
-.tableTdBorders thead tr:last-child th:last-child {
+table.tableTdBorders tbody tr td:last-child,
+table.tableTdBorders tbody tr th:last-child,
+table.tableTdBorders thead tr:last-child th:last-child {
 	border-right: 3px #cdcdcd double;
 }

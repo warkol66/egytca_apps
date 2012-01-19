@@ -135,7 +135,7 @@ body {
 #loginTopBorder .rounded .r1, #loginTopBorder .rounded .r2 {
 	background-color: #FF9900;  /* Mismo color de fondo #loginTop */
 }
-
+#wrapper .rounded {display: none}
 /* /wrapper -----------------------------------------------------------*/ 
 
 /* content -----------------------------------------------------------*/ 
