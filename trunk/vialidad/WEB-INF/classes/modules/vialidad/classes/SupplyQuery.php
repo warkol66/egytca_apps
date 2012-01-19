@@ -39,6 +39,19 @@ class SupplyQuery extends BaseSupplyQuery {
 			case 'GetCandidates':
 				$this->filterById($filterValue, Criteria::NOT_IN);
 				break;
+			
+			case 'HorriblyNamedFilter': // TODO: decidir nombre!!
+				
+				$entityQuery = ucfirst($filterValue['entityType']).'Query';
+				if (!class_exists($filterValue['entityType']) || !class_exists($entityQuery))
+					break; // nothing to filter
+				
+				$entity = $entityQuery::create()->findOneById($filterValue['entityId']);
+				
+				$filterByEntity = 'filterBy'.ucfirst($filterValue['entityType']);
+				$unwanted = SupplyQuery::create()->select("Id")->$filterByEntity($entity)->find()->toArray();
+				$this->filterById($unwanted, Criteria::NOT_IN);
+				break;
 
 			default:
 				if (in_array($filterName, SupplyPeer::getFieldNames(BasePeer::TYPE_PHPNAME)))
