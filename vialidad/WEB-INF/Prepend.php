@@ -7,8 +7,8 @@
 */
 
 if( defined('PHPMVC_PERFORM') ) {
-	require_once 'smarty/Smarty.class.php';
-	require_once 'smarty/SmartyML.class.php';
+	require_once 'smarty3/Smarty.class.php';
+	require_once 'smarty3/SmartyML.class.php';
 }
 else {
 	require_once("$appServerRootDir/WEB-INF/classes/phpmvc/utils/ActionDispatcher.php");

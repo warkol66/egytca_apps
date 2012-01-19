@@ -16,7 +16,7 @@
 			<input name="params[name]" id="params[name]" type="text" value="|-$affiliate->getName()|escape-|" class="emptyValidation" size="60"> |-validation_msg_box idField="params[name]"-|
 		 </p>
 		 <p><label for="params[internalNumber]">RUC</label>
-			<input name="params[internalNumber]" type="text" class="emptyValidation" id="params[internalNumber]" value="|-$affiliate->getInternalNumber()|escape-|" size="12" maxlength="9" title="Ingrese el RUC sin guiones"> |-validation_msg_box idField="params[internalNumber]"-|
+			<input name="params[internalNumber]" type="text" class="emptyValidation" id="params[internalNumber]" value="|-$affiliate->getInternalNumber()|escape-|" size="9" maxlength="9" title="Ingrese el RUC sin guiones"> |-validation_msg_box idField="params[internalNumber]"-|
 		</p>
 		 <p><label for="params[address]">Dirección</label>
 				<input name="params[address]" id="params[address]" type="text" value="|-$affiliate->getAddress()|escape-|" class="emptyValidation" size="55"> |-validation_msg_box idField="params[address]"-|

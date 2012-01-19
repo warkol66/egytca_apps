@@ -1,6 +1,6 @@
 <?php
 /*
- * Configuraci�n del Smarty Templates
+ * Configuracion del Smarty Templates
  *
  * @package Config
  */
@@ -9,12 +9,14 @@
  *
  */
 class SmartyOutputFilter{
+
 	/**
 	 * External template file to use
 	 *
 	 * @var string
 	 */
 	public $template = 'Template.tpl';
+
 	/**
 	 * Smarty postfilter
 	 *
@@ -22,13 +24,14 @@ class SmartyOutputFilter{
 	 * @param Smarty $smarty
 	 * @return string
 	 */
-   	function smarty_add_template($html, $smarty){
-   		if (!empty($GLOBALS[__FUNCTION__])){return $html;}
-   		$GLOBALS[__FUNCTION__] = true;
-   		$smarty->assign("centerHTML",$html);
-   		$html = $smarty->fetch($this->template);   		
-   		$GLOBALS[__FUNCTION__] = false;
-   		return $html;
-   	}
+	function smarty_add_template($html, $smarty){
+		if (!empty($GLOBALS[__FUNCTION__]))
+			return $html;
+		$GLOBALS[__FUNCTION__] = true;
+		$smarty->assign("centerHTML",$html);
+		$html = $smarty->fetch($this->template);
+		$GLOBALS[__FUNCTION__] = false;
+		return $html;
+	}
+
 }
-?>
