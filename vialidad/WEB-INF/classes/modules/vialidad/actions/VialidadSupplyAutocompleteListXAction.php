@@ -27,21 +27,10 @@ class VialidadSupplyAutocompleteListXAction extends BaseAction {
 		$filters = array("searchString" => $searchString); 
 		
 		if ($_REQUEST['getCandidates']) {
-
-			$entityType = $_REQUEST['entityType'];
-			$entityQuery = ucfirst($entityType) . "Query";
-
-			if (class_exists($entityQuery))
-				$entity = $entityQuery::create()->findById($_REQUEST['entityId']);
-
-			$relationQuery = ucfirst($_REQUEST['relation']) . "Query";
-			
-			$filter = "filterBy" . ucfirst($entityType);
-			if (class_exists($entityQuery))
-				$actualIds = $relationQuery::create()->select("Supplyid")->$filter($entity)->find()->toArray();
-
-			$filters = array_merge_recursive($filters, array("getCandidates" => $actualIds));
-
+			$filters = array_merge_recursive($filters, array('HorriblyNamedFilter' => array( // TODO: el nombre del filtro!!
+				'entityType' => $_REQUEST['entityType'],
+				'entityId' => $_REQUEST['entityId']
+			)));
 		}
 
 		$supplies = SupplyQuery::create()
