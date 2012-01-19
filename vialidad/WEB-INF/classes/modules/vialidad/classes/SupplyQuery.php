@@ -49,10 +49,14 @@ class SupplyQuery extends BaseSupplyQuery {
 				$entity = $entityQuery::create()->findOneById($filterValue['entityId']);
 
 				$filterByEntity = 'filterBy'.ucfirst($filterValue['entityType']);
-				if ($filterValue['getCandidates']) {
-					$alreadyRelated = SupplyQuery::create()->select("Id")->$filterByEntity($entity)->find()->toArray();
-					$this->filterById($alreadyRelated, Criteria::NOT_IN);
-				}
+				
+				if ($filterValue['getCandidates'])
+					$comparison = Criteria::NOT_IN;
+				else
+					$comparison = Criteria::IN;
+				
+				$alreadyRelated = SupplyQuery::create()->select("Id")->$filterByEntity($entity)->find()->toArray();
+				$this->filterById($alreadyRelated, $comparison);
 				break;
 
 			default:
