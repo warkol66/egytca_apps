@@ -132,6 +132,11 @@
 		<column name="code" type="VARCHAR" size="50" required="true" description="Codigo del contrato" />
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" description="Nombre del contrato" />
 		<column name="contractorId" type="INTEGER"  description="Id del contratista" />
+		<column name="startDate" type="DATE" description="Fecha de firma" />
+		<column name="ammount" type="DECIMAL" size="15" scale="2"  description="Monto del Contrato" />
+		<column name="ammountModified" type="DECIMAL" size="15" scale="2"  description="Monto modificado" />
+		<column name="finnantialSources" type="VARCHAR" size="255" description="Fuentes de Financiamiento" />
+		<column name="contractLength" type="INTEGER" size="5" description="Longitud del contrato en dias" />
 
 		<foreign-key foreignTable="affiliates_affiliate" >
 			<reference local="contractorId" foreign="id" />
@@ -151,6 +156,10 @@
 		<column name="contractId" type="INTEGER" description="Id del contrato" />
 		<column name="description" type="LONGVARCHAR" />
 		<column name="verifierId" type="INTEGER"  description="Id del verificador" />
+		<column name="region" type="VARCHAR" size="255" description="Departamentos" />
+		<column name="type" type="VARCHAR" size="255" description="Tipo de Obra" />
+		<column name="length" type="VARCHAR" size="5" description="Longitud" />
+		<column name="startDate" type="DATE" description="Fecha de inicio" />
 
 		<foreign-key foreignTable="vialidad_contract" onDelete="cascade" >
 			<reference local="contractId" foreign="id" />
@@ -209,6 +218,7 @@
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="measurementDate" type="DATE" description="Fecha del acta de medicion" />
 		<column name="constructionId" type="INTEGER" description="Id del construction" />
+		<column name="code" type="VARCHAR" size="10" required="true" description="Numero de Medicion" />
 
 		<foreign-key foreignTable="vialidad_construction" onDelete="cascade" >
 			<reference local="constructionId" foreign="id" />
