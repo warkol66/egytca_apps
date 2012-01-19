@@ -204,7 +204,7 @@ function attachSupplyAutocompleter(element, autocompleteDiv) {
 	new Ajax.Autocompleter(
 		element,
 		autocompleteDiv,
-		"Main.php?do=vialidadSupplyAutocompleteListX&getCandidates=true&entityType=ConstructionItem&entityId=|-$item->getId()-|&relation=ConstructionItemRelation",
+		"Main.php?do=vialidadSupplyAutocompleteListX&getCandidates=true&entityType=ConstructionItem&entityId=|-$item->getId()-|",
 		{
 			minChars: 3,
 			afterUpdateElement: function(text, li) {

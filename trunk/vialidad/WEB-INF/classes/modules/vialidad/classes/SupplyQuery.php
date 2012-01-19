@@ -5,7 +5,7 @@
 /**
  * Skeleton subclass for performing query and update operations on the 'vialidad_supply' table.
  *
- * 
+ *
  *
  * You should add additional methods to this class to meet the
  * application requirements.  This class will only be generated as
@@ -14,13 +14,13 @@
  * @package    propel.generator.vialidad.classes
  */
 class SupplyQuery extends BaseSupplyQuery {
-	
+
 	/**
 	 * Permite agregar un filtro personalizado a la Query, que puede ser
 	 * traducido al campo correspondiente.
 	 * @param   type $filterName
 	 * @param   type $filterValue
-	 * @return  ModelCriteria 
+	 * @return  ModelCriteria
 	 */
 	public function addFilter($filterName, $filterValue) {
 
@@ -39,18 +39,20 @@ class SupplyQuery extends BaseSupplyQuery {
 			case 'GetCandidates':
 				$this->filterById($filterValue, Criteria::NOT_IN);
 				break;
-			
-			case 'HorriblyNamedFilter': // TODO: decidir nombre!!
-				
+
+			case 'EntityFilter':
+
 				$entityQuery = ucfirst($filterValue['entityType']).'Query';
-				if (!class_exists($filterValue['entityType']) || !class_exists($entityQuery))
+				if (!class_exists(ucfirst($filterValue['entityType'])) || !class_exists($entityQuery))
 					break; // nothing to filter
-				
+
 				$entity = $entityQuery::create()->findOneById($filterValue['entityId']);
-				
+
 				$filterByEntity = 'filterBy'.ucfirst($filterValue['entityType']);
-				$unwanted = SupplyQuery::create()->select("Id")->$filterByEntity($entity)->find()->toArray();
-				$this->filterById($unwanted, Criteria::NOT_IN);
+				if ($filterValue['getCandidates']) {
+					$alreadyRelated = SupplyQuery::create()->select("Id")->$filterByEntity($entity)->find()->toArray();
+					$this->filterById($alreadyRelated, Criteria::NOT_IN);
+				}
 				break;
 
 			default:
@@ -63,7 +65,7 @@ class SupplyQuery extends BaseSupplyQuery {
 		}
 		return $this;
 	}
-	
+
 	/**
 	 * Agrega multiples filtros a la Query.
 	 *
