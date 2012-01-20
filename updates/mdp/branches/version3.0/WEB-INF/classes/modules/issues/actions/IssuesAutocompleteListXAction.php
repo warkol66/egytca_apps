@@ -23,28 +23,45 @@ class IssuesAutocompleteListXAction extends BaseAction {
 		
 		$smarty->assign("module",$module);
 		
+		// backwards compatibility
+		if ($_REQUEST['adminActId']) {
+			throw new Exception('esto quedó sin implementar!!');
+		} else if ($_REQUEST['headlineId']) {
+			$_REQUEST['entityType'] = 'Headline';
+			$_REQUEST['entityId'] = $_REQUEST['headlineId'];
+		} else if ($_REQUEST['issueId']) {
+			$_REQUEST['ids'][] = $_REQUEST['issueId'];
+		}
+		
+			
 		$searchString = $_REQUEST['value'];
 		$smarty->assign("searchString",$searchString);
-
-		$filters = array ("searchString" => $searchString, "limit" => $_REQUEST['limit']);
-                
-		if ($_REQUEST['adminActId'])
-			$filters = array_merge_recursive($filters, array("adminActId" => $_REQUEST['adminActId']));
-		else if ($_REQUEST['headlineId'])
-			$filters = array_merge_recursive($filters, array("headlineId" => $_REQUEST['headlineId']));
-		else if ($_REQUEST['issueId'])
-			$filters = array_merge_recursive($filters, array("relatedObject" => IssuePeer::get($_REQUEST['issueId'])));
-
-		if ($_REQUEST['getCandidates'])
-			$filters = array_merge_recursive($filters, array("getCandidates" => true));
-                
-		$issuePeer = new IssuePeer();
-		$this->applyFilters($issuePeer,$filters);
-		$issues = $issuePeer->getAll();
+		
+		$filters = array ("searchString" => $searchString);
+		
+		if (!empty($_REQUEST['entityType']) && !empty($_REQUEST['entityId'])) {
+			$filters = array_merge($filters, array('EntityFilter' => array(
+				'entityType' => $_REQUEST['entityType'],
+				'entityId' => $_REQUEST['entityId'],
+				'getCandidates' => !empty($_REQUEST['getCandidates'])
+			)));
+		}
+		
+		if (is_array($_REQUEST['ids'])) {
+			$filters = array_merge($filters, array('IdsFilter' => array(
+				'ids' => $_REQUEST['ids'],
+				'getCandidates' => !empty($_REQUEST['getCandidates'])
+			)));
+		}
+		
+		$issues = IssueQuery::create()
+			->addFilters($filters)
+			->limit($_REQUEST['limit'])
+			->find();
 		
 		$smarty->assign("issues",$issues);
 		$smarty->assign("limit",$_REQUEST['limit']);
-
+		
 		return $mapping->findForwardConfig('success');
 	}
 
