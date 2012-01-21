@@ -29,11 +29,11 @@ class ActorQuery extends BaseActorQuery {
 		
 		// empty() no sirve porque algunos filtros admiten 0 como valor
 		// quiero permitir false como valor
-		if (!isset($filterValue) || $filterValue === null)
+		if (!isset($filterValue) || ($filterValue == null && $filterValue !== false) )
 			return $this;
 		if (is_array($filterValue)) {
 			foreach ($filterValue as $value) {
-				if (!isset($value) || $value === null)
+				if (!isset($value) || ($value == null && $value !== false) )
 					return $this;
 			}
 		}
