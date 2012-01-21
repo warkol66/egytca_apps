@@ -24,9 +24,7 @@ class IssuesAutocompleteListXAction extends BaseAction {
 		$smarty->assign("module",$module);
 		
 		// backwards compatibility
-		if ($_REQUEST['adminActId']) {
-			throw new Exception('esto quedó sin implementar!!');
-		} else if ($_REQUEST['headlineId']) {
+		if ($_REQUEST['headlineId']) {
 			$_REQUEST['entityType'] = 'Headline';
 			$_REQUEST['entityId'] = $_REQUEST['headlineId'];
 		} else if ($_REQUEST['issueId']) {

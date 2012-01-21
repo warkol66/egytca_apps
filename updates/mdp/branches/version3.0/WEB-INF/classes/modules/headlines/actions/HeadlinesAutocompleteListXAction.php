@@ -24,9 +24,7 @@ class HeadlinesAutocompleteListXAction extends BaseAction {
 
 		
 		// backwards compatibility
-		if ($_REQUEST['adminActId']) {
-			throw new Exception('Debug: esto quedó sin implementar!!');
-		} else if ($_REQUEST['issueId']) {
+		if ($_REQUEST['issueId']) {
 			$_REQUEST['entityType'] = 'Issue';
 			$_REQUEST['entityId'] = $_REQUEST['issueId'];
 		}  else if ($_REQUEST['actorId']) {
