@@ -58,6 +58,10 @@ class HeadlineQuery extends BaseHeadlineQuery {
 				->endUse();
 				break;
 			
+			case 'DatePublished':
+				$this->filterByDatepublished($filterValue);
+				break;
+			
 			case 'IdsFilter':
 				$comparison = $filterValue['getCandidates'] ? $comparison = Criteria::NOT_IN : $comparison = Criteria::IN;
 				$this->filterById($filterValue['ids'], $comparison);
