@@ -44,7 +44,7 @@ class BaseQuery {
          * entonces lo invoca.
          */
         if (method_exists($this->query, $filterName)) {
-            call_user_func(array($this->query, $filterName), $filterValue);
+            call_user_func_array(array($this->query, $filterName), $filterValue);
             return $this->query;
         }
         

@@ -70,16 +70,17 @@ class SupplyQuery extends BaseSupplyQuery {
 		return $this;
 	}
     
-    public function EntityFilter($filterValue) {
-        $entityQuery = ucfirst($filterValue['entityType']).'Query';
-        if (!class_exists(ucfirst($filterValue['entityType'])) || !class_exists($entityQuery))
+    public function EntityFilter($entityType, $entityId, $getCandidates) {
+
+        $entityQuery = ucfirst($entityType).'Query';
+        if (!class_exists(ucfirst($entityType)) || !class_exists($entityQuery))
             break; // nothing to filter
 
-        $entity = $entityQuery::create()->findOneById($filterValue['entityId']);
+        $entity = $entityQuery::create()->findOneById($entityId);
 
-        $filterByEntity = 'filterBy'.ucfirst($filterValue['entityType']);
+        $filterByEntity = 'filterBy'.ucfirst($entityType);
 
-        if ($filterValue['getCandidates'])
+        if ($getCandidates)
             $comparison = Criteria::NOT_IN;
         else
             $comparison = Criteria::IN;
