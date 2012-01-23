@@ -69,16 +69,16 @@ class Headline extends BaseHeadline {
 		return HeadlineIssueQuery::create()->filterByHeadline($this)->select('Issueid')->find()->toArray();
 	}
         
-        /**
+   /**
 	 * Determina la existencia de una relacion con un determindo headline.
 	 * @param $headline Object
 	 */
-	public function hasHeadline($headline) {
-		$headlineRelationQuery = HeadlineRelationQuery::create()->filterByHeadlineRelatedByHeadlinefromid($this)
-                        ->filterByHeadlineRelatedByHeadlinetoid($headline);
-		return ($headlineRelationQuery->count() > 0);													 		
+/*	public function hasHeadline() {
+		$headlineRelation = $this->getHeadlineRelations();
+		if (count($headlineRelation) > 0)
+		return true;													 		
 	}
-        
+  */      
         /**
 	* Obtiene el id de todos los actores asignados.
 	*

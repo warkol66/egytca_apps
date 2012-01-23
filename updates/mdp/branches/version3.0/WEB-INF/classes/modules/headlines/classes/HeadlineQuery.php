@@ -25,80 +25,47 @@ class HeadlineQuery extends BaseHeadlineQuery {
 	 */
 	public function addFilter($filterName, $filterValue) {
 
-		$filterName = ucfirst($filterName);
-		
-		// empty() no sirve porque algunos filtros admiten 0 como valor
-		// quiero permitir false como valor
-		if (!isset($filterValue) || ($filterValue == null && $filterValue !== false) )
-			return $this;
-		if (is_array($filterValue)) {
-			foreach ($filterValue as $value) {
-				if (!isset($value) || ($value == null && $value !== false) )
-					return $this;
-			}
-		}
-
 		switch ($filterName) {
-			
-			case 'SearchString':
+
+			case 'searchString':
 				$this->filterByName("%$filterValue%", Criteria::LIKE)
-				->_or()
+					->_or()
 				->filterByContent("%$filterValue%", Criteria::LIKE);
 				break;
-			
-			case 'ActorId':
-				$this->useHeadlineActorQuery()
-					->filterByActorid($filterValue)
-				->endUse();
-				break;
-			
-			case 'IssueId':
-				$this->useHeadlineIssueQuery()
-					->filterByIssueid($filterValue)
-				->endUse();
-				break;
-			
-			case 'DatePublished':
+
+			case 'rangePublished':
+
 				$this->filterByDatepublished($filterValue);
 				break;
-			
-			case 'IdsFilter':
-				$comparison = $filterValue['getCandidates'] ? $comparison = Criteria::NOT_IN : $comparison = Criteria::IN;
-				$this->filterById($filterValue['ids'], $comparison);
-				break;
-			
-			case 'EntityFilter':
 
-				$entityQueryClass = ucfirst($filterValue['entityType']).'Query';
+			case 'entityFilter':
+
+				$entityQueryClass = ucfirst($filterValue['entityType']) . "Query";
 				if (!class_exists(ucfirst($filterValue['entityType'])) || !class_exists($entityQueryClass))
 					break; // nothing to filter
 
 				$entity = $entityQueryClass::create()->findOneById($filterValue['entityId']);
-				
-				if (get_class($this) == $entityQueryClass) {
-					$this->addFilter('IdsFilter', array(
-						'ids' => array($entity->getId()),
-						'getCandidates' => $filterValue['getCandidates']
-					));
-					break;
-				}
-
 				$filterByEntity = 'filterBy'.ucfirst($filterValue['entityType']);
-				
-				$comparison = $filterValue['getCandidates'] ? $comparison = Criteria::NOT_IN : $comparison = Criteria::IN;
-				
-				$auxiliarQueryClass = get_class($this);
-				$alreadyRelated = $auxiliarQueryClass::create()->select("Id")->$filterByEntity($entity)->find()->toArray();
-				$this->filterById($alreadyRelated, $comparison);
-				break;
-				
-			default:
-				if (in_array($filterName, HeadlinePeer::getFieldNames(BasePeer::TYPE_PHPNAME))
-					|| is_array($filterValue) )
-						$this->filterBy($filterName, $filterValue);
-				else {
-						//Log - campo inexistente.
+
+				$queryClass = get_class($this);
+
+				if ($filterValue['getCandidates']) {
+					$alreadyRelated = $queryClass::create()->select("Id")->$filterByEntity($entity)->find()->toArray();
+					$this->filterById($alreadyRelated, Criteria::NOT_IN);
 				}
+				else
+					$this->$filterByEntity($entity);
+
+				break;
+
+			default:
+
+				$peer = str_replace("Query","Peer",get_class($this));
+				$filterName = ucfirst($filterName);
+				if (in_array($filterName, $peer::getFieldNames(BasePeer::TYPE_PHPNAME)))
+					$this->filterBy($filterName, $filterValue);
+				else if (is_array($filterValue))
+					$this->addFilters($filterValue);
 
 				break;
 		}
@@ -115,11 +82,11 @@ class HeadlineQuery extends BaseHeadlineQuery {
 	 */
 	public function addFilters($filters = array()) {
 		foreach ($filters as $name => $value)
+			if ((isset($value) && $value != null) && $name != "perPage")
 				$this->addFilter($name, $value);
-
 		return $this;
 	}
-	
+
 	/**
 	 * Crea un pager.
 	 *

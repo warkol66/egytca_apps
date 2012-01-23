@@ -24,8 +24,8 @@
 				</div>
 			</p>
 			<p>
-				<div div="div_filters[campaignId]" style="position: relative;z-index:11000;">
-				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_campaigns" url="Main.php?do=campaignsAutocompleteListX" hiddenName="filters[campaignId]" label="Campaña" defaultValue=$filters.campaignName defaultHiddenValue=$filters.campaignId name="filters[campaignName]"-|
+				<div div="div_filters[campaignid]" style="position: relative;z-index:11000;">
+				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_campaigns" url="Main.php?do=campaignsAutocompleteListX" hiddenName="filters[campaignid]" label="Campaña" defaultValue=$filters.campaignName defaultHiddenValue=$filters.campaignid name="filters[campaignName]"-|
 				</div>
 			</p>
 			<p>
@@ -37,7 +37,7 @@
 					<label for="filters[fromDate]">Fecha desde</label>
 					<input id="filters[fromDate]" name="filters[fromDate]" type="text" value="|-$filters.fromDate-|" size="12" title="Fecha desde" />
 					<label for="filters[toDate]">Fecha hasta</label>
-					<input id="filters[toDate]" name="filters[toDate]" type="text" value="|-if isset($filters.toDate)-||-$filters.toDate-||-/if-|" size="12" title="Fecha hasta" />
+					<input id="filters[toDate]" name="filters[toDate]" type="text" value="|-$filters.toDate-|" size="12" title="Fecha hasta" />
 					<!--<label for="filters[datePublished]">de publicación</label>
 					<input id="filters[datePublished]" name="filters[datePublished]" type="checkbox" value="1" title="Fecha de inicio" |-$filters.datePublished|checked_bool-| />
 					<label for="filters[headlineDate]">del titular</label>

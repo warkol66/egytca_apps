@@ -17,11 +17,11 @@ class HeadlinesDoAddRelationXAction extends BaseAction {
 		$module = "Headlines";
 		
 		$headline = HeadlineQuery::create()->findPk($_POST['headlineId']);
-		$relation = HeadlineQuery::create()->findPk($_POST['relation']['id']);
+		$related = HeadlineQuery::create()->findPk($_POST['relation']['id']);
 
-		if (!empty($headline) && !empty($relation)) {
-			if (!$headline->hasHeadline($relation)) {
-				$headline->addHeadlineRelatedByHeadlinetoid($relation);
+		if (!empty($headline) && !empty($related)) {
+			if (!$headline->hasHeadlineRelation($related)) {
+				$headline->addHeadlineRelation($related);
 				if (!$headline->save()) {
 					$smarty->assign('message', 'failure');
 					return $mapping->findForwardConfig('success');
@@ -33,7 +33,7 @@ class HeadlinesDoAddRelationXAction extends BaseAction {
 			return $mapping->findForwardConfig('success');
 		}
 		$smarty->assign('headlineId', $headline->getId());
-		$smarty->assign('relation', $relation);
+		$smarty->assign('related', $related);
 		$smarty->assign('message', 'success');
 		return $mapping->findForwardConfig('success');
 	}

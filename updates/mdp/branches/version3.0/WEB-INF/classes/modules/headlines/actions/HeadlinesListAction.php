@@ -37,8 +37,20 @@ class HeadlinesListAction extends BaseAction {
 		if (!empty($_GET['filters']['toDate']))
 			$toDate = $_GET['filters']['toDate'];
 
+		if (!empty($_GET['filters']['actorId']))
+			$filters = array_merge_recursive($filters, array('Actor' => array('entityFilter' => array(
+				'entityType' => "Actor",
+				'entityId' => $_GET['filters']['actorId']
+			))));
+
+		if (!empty($_GET['filters']['issueId']))
+			$filters = array_merge_recursive($filters, array('Issue' => array('entityFilter' => array(
+				'entityType' => "Issue",
+				'entityId' => $_GET['filters']['issueId']
+			))));
+
 		if (isset($fromDate) || isset($toDate))
-			$filters['datePublished'] = Common::getPeriodArray($fromDate,$toDate);
+			$filters['rangePublished'] = Common::getPeriodArray($fromDate,$toDate);
 
 		$pager = HeadlineQuery::create()->createPager($filters,$page,$filters["perPage"]);
 

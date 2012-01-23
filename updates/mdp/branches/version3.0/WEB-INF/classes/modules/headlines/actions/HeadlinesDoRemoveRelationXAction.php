@@ -21,16 +21,16 @@ class HeadlinesDoRemoveRelationXAction extends BaseAction {
 		if (!empty($_POST["headlineId"]) && !(empty($_POST["relationId"]))) {
 		
 			$headline = HeadlineQuery::create()->findPk($_POST["headlineId"]);
-			$relation = HeadlineQuery::create()->findPk($_POST["relationId"]);
+			$related = HeadlineQuery::create()->findPk($_POST["relationId"]);
 
-			if (!empty($headline) && !empty($relation)) {
+			if (!empty($headline) && !empty($related)) {
 
 				$filtered = HeadlineRelationQuery::create()->filterByHeadlineRelatedByHeadlinefromid($headline)
                                         ->filterByHeadlineRelatedByHeadlinetoid($relation)->findOne();
 				if (!empty($filtered))
 					try {
 						$filtered->delete();
-						$smarty->assign('relation',$relation);
+						$smarty->assign('related',$related);
 						return $mapping->findForwardConfig('success');
 					}
 					catch (PropelException $exp) {
@@ -40,7 +40,7 @@ class HeadlinesDoRemoveRelationXAction extends BaseAction {
 			}
 		}
 
-		$smarty->assign('errorTagId','categoryMsgField');
+		$smarty->assign('errorTagId','msgField');
 		return $mapping->findForwardConfig('failure');
 	}
 
