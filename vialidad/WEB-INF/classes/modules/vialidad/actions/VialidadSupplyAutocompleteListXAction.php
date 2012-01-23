@@ -34,10 +34,16 @@ class VialidadSupplyAutocompleteListXAction extends BaseAction {
 			)));
 		}
 
-		$supplies = SupplyQuery::create()
-									->addFilters($filters)
-									->limit($_REQUEST['limit'])
-									->find();
+        require_once 'BaseQuery.php';
+        $supplies = BaseQuery::create('Supply')
+            ->addFilters($filters)
+            ->limit($_REQUEST['limit'])
+        ->find();
+        
+//		$supplies = SupplyQuery::create()
+//									->addFilters($filters)
+//									->limit($_REQUEST['limit'])
+//									->find();
 
 		$smarty->assign("supplies",$supplies);
 		$smarty->assign("limit",$_REQUEST['limit']);
