@@ -75,6 +75,18 @@ class BaseQuery {
     }
     
 	/**
+	 * Crea un pager.
+	 *
+	 * @param   array $filters
+	 * @param   int $page
+	 * @param   int $perPage
+	 * @return  PropelModelPager
+	 */
+	public function createPager($filters, $page = 1, $perPage = 10) {
+		return $this->addFilters($filters)->paginate($page, $perPage);
+	}
+    
+	/**
 	 * Agrega multiples filtros a la Query.
 	 *
 	 * @see     addFilter
