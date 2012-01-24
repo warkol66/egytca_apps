@@ -54,8 +54,8 @@ class HeadlinesAutocompleteListXAction extends BaseAction {
 				'getCandidates' => !empty($_REQUEST['getCandidates'])
 			)));
 		}
-		
-		$headlines = HeadlineQuery::create()
+
+        $headlines = BaseQuery::create('Headline')
 			->addFilters($filters)
 			->limit($_REQUEST['limit'])
 			->find();
