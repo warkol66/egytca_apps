@@ -38,9 +38,10 @@
 		<th scope="col">Usuarios</th> 
 	|-if !empty($affiliateLevels)-|<th scope="col">Usuarios Por Afiliado</th>|-/if-|
 	|-if !empty($registrationAvailable)-|<th scope="col">Usuarios Por Registro</th>|-/if-|
+		<th scope="col">&nbsp</th>
 	</tr> 
 	|-foreach from=$withoutPair item=action name=modulef-|
-	<tr> 
+	<tr id="tr_|-$action-|"> 
 		<td><h3>|-$action|multilang_get_actionLabel_translation-|</h3>
       <em>|-$action-|</em></td> 
 		<td><input type="checkbox" name="noCheckLogin[|-$action-|]" value="1" |-$withoutPairAccess.$action.noCheckLogin|checked:1-| /></td>
@@ -59,11 +60,12 @@
 			<input type="checkbox" name="permissionAffiliate[|-$action-|][all]" value="true" |-$withoutPairAccess.$action.affiliateAll|checked:1-|> Todos</td> |-/if-|
 		|-if !empty($registrationAvailable)-|<td>
 			<input type="checkbox" name="permissionRegistration[|-$action-|]" value="1" |-$withoutPairAccess.$action.permissionRegistration|checked:1-|/></td>|-/if-|
+			<td><button onclick="removeAction('|-$moduleName-|', '|-$action-|', removeTr('|-$action-|')); return false;">remover</button></td>
 	</tr> 
 	|-/foreach-|
 
 	|-foreach from=$withPair item=action name=modulef-|
-	<tr> 
+	<tr id="tr_|-$action-|"> 
 		<td><h3>|-$action|multilang_get_actionLabel_translation-|</h3>
       <em>|-$action-|</em></td> 
 		<td>
@@ -84,6 +86,16 @@
 			<input type="hidden" name="permissionAffiliate[|-$action-|][access][]" value="0" /></td> |-/if-|
 		|-if !empty($registrationAvailable)-|<td>
 			<input type="checkbox" name="permissionRegistration[|-$action-|]" value="1" |-$withPairAccess.$action.permissionRegistration|checked:1-|/></td>	 |-/if-|	
+			<td><button onclick="removeAction('|-$moduleName-|', '|-$action-|', removeTr('|-$action-|')); return false;">remover</button></td>
 	</tr> 
 	|-/foreach-|
 </table> 
+
+<script type="text/javascript" src="WEB-INF/classes/modules/modules/tpl/RemoveAction.js"></script>
+
+<script type="text/javascript">
+	function removeTr(action) {
+		var tr = $('tr_'+action);
+		tr.parentNode.removeChild(tr);
+	}
+</script>

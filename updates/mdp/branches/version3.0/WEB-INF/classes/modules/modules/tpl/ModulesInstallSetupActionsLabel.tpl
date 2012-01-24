@@ -1,4 +1,5 @@
 <script type="text/javascript" src="Main.php?do=js&name=js&module=modules&code=|-$currentLanguageCode-|"></script>
+<script type="text/javascript" src="WEB-INF/classes/modules/modules/tpl/RemoveAction.js"></script>
 <h2>Configuración del Sistema</h2>
 <h1>Instalación de Módulos: Módulo <strong>|-$moduleName|capitalize-|</strong>.</h1>
 <form method="post">
@@ -12,7 +13,7 @@
 </fieldset>
 
 |-foreach from=$actions item=action-|
-	<fieldset> 
+	<fieldset id="fieldset_|-$action-|"> 
 		<legend>|-$action-|</legend>
 			<h4>|-$label|capitalize-|</h4>
 			|-foreach from=$languages item=language-|
@@ -29,6 +30,7 @@
 					<input name="labels[|-$action-|][|-$languageCode-|][description]" type="text" value="|-if isset($actualLabels)-||-$actualLabels.$action.$languageCode.description-||-/if-|" size="60">
 				</p>
 			|-/foreach-|
+			<button onclick="removeAction('|-$moduleName-|', '|-$action-|', removeFieldset('|-$action-|')); return false;">eliminar</button>
 	</fieldset>
 	|-/foreach-|
 	
@@ -45,3 +47,10 @@
 		|-include file="ModulesInstallFormNavigationInclude.tpl"-|
 	</p>
 </form>
+
+<script type="text/javascript">
+	function removeFieldset(action) {
+		var fieldset = $('fieldset_'+action);
+		fieldset.parentNode.removeChild(fieldset);
+	}
+</script>
