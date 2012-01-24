@@ -12,6 +12,7 @@ include_once("TimezonePeer.php");
 include_once("Common.class.php");
 include_once("Action.php");
 require_once("Smarty_config.inc.php");
+require_once("BaseQuery.php");
 
 /**
 * Implementation of <strong>Action</strong> that demonstrates the use of the Smarty

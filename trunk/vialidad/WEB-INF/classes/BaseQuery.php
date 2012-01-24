@@ -2,9 +2,10 @@
 
 
 /**
- * Class Query.
- *
- * @author nico
+ * Clase BaseQuery.
+ * 
+ * Actua como Proxy de una ModelCriteria, y como Adapter adaptando funcionalidad
+ * para el filtrado.
  */
 class BaseQuery {
 
@@ -25,6 +26,12 @@ class BaseQuery {
         }
     }
     
+    /**
+     * Constructor estatico usado para el encadenamiento.
+     * 
+     * @param  mixed $modelNameOrModelCriteria
+     * @return BaseQuery 
+     */
     public static function create($modelNameOrModelCriteria) {
         return new BaseQuery($modelNameOrModelCriteria);
     }
@@ -35,7 +42,7 @@ class BaseQuery {
 	 *
 	 * @param   string $filterName
 	 * @param   mixed $filterValue
-	 * @return  ModelCriteria
+	 * @return  BaseQuery
 	 */
     public function addFilter($filterName, $filterValue) {
         
@@ -43,9 +50,8 @@ class BaseQuery {
          * Si el $filterName existe como metodo en el objeto query,
          * entonces lo invoca.
          */
-        if (method_exists($this->query, $filterName)) {
-            call_user_func_array(array($this->query, $filterName), $filterValue);
-            return $this->query;
+        if ($this->callIfPossible($filterName, $filterValue)) {
+            return $this;
         }
         
 		switch ($filterName) {
@@ -65,7 +71,7 @@ class BaseQuery {
 				break;
 		}
 
-		return $this->query;
+		return $this;
     }
     
 	/**
@@ -79,7 +85,43 @@ class BaseQuery {
 		foreach ($filters as $name => $value)
 			if ((isset($value) && $value != null) && $name != "perPage")
 				$this->addFilter($name, $value);
-		return $this->query;
+		return $this;
 	}
-
+    
+    /**
+     * Proxy method.
+     * 
+     * Redirecciona los llamados de metodos que no sean de la BaseQuery
+     * a $this->query.
+     * 
+     * Devuelve un resultado, o $this.
+     * 
+     * @param   string $name
+     * @param   mixed $arguments
+     * @return  mixed
+     */
+    public function __call($name, $arguments) {
+        
+        $result = $this->callIfPossible($name, $arguments);
+        
+        if ($result instanceof ModelCriteria)
+            return $this;
+            
+        return $result;
+    }
+    
+    /**
+     * De existir, invoca al $method de la $this->query.
+     * 
+     * @param   string $method
+     * @param   mixed $arguments
+     * @return  mixed 
+     */
+    private function callIfPossible($method, $arguments) {
+        if (method_exists($this->query, $method)) {
+            return call_user_func_array(array($this->query, $method), $arguments);
+        }
+        return FALSE;
+    }
+    
 } // Query
