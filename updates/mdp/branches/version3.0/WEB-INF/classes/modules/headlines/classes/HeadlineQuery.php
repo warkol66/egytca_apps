@@ -16,13 +16,15 @@
 class HeadlineQuery extends BaseHeadlineQuery {
 
     public function searchString($nameOrContent) {
-        return $this->filterByName("%$filterValue%", Criteria::LIKE)
+        $this->where("Headline.Name LIKE ?", "%$nameOrContent%")
             ->_or()
-        ->filterByContent("%$filterValue%", Criteria::LIKE);
+        ->where("Headline.Content LIKE ?", "%$nameOrContent%");
+        
+        return $this;
     }
     
-    public function rangePublished($min, $max) {
-        return $this->filterByDatepublished(array('min' => $min, 'max' => $max));
+    public function rangePublished($range) {
+        return $this->filterByDatepublished($range);
     }
 
 } // HeadlineQuery

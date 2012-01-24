@@ -16,6 +16,13 @@ class BaseQuery {
      */
     private $query;
     
+    /**
+     * Clase de la query a la que se le aplican los filtros.
+     * 
+     * @var string
+     */
+    private $queryClass;
+    
     public function BaseQuery($modelNameOrModelCriteria) {
         if ($modelNameOrModelCriteria instanceof ModelCriteria) {
             $this->query = $modelNameOrModelCriteria;
@@ -24,6 +31,7 @@ class BaseQuery {
             $queryClass  = $modelNameOrModelCriteria . "Query";
             $this->query = $queryClass::create();
         }
+        $this->queryClass = get_class($this->query);
     }
     
     /**
@@ -50,7 +58,8 @@ class BaseQuery {
          * Si el $filterName existe como metodo en el objeto query,
          * entonces lo invoca.
          */
-        if ($this->callIfPossible($filterName, $filterValue)) {
+        $result = $this->callIfPossible($filterName, $filterValue);
+        if ($result instanceof ModelCriteria) {
             return $this;
         }
         
@@ -86,9 +95,11 @@ class BaseQuery {
 	 * @return  Object ModelCriteria
 	 */
 	public function addFilters($filters = array()) {
-		foreach ($filters as $name => $value)
+		foreach ($filters as $name => $value) {
+//            echo " existe filtro $name ? ". method_exists($this->queryClass, $name) . "<br />";
 			if ((isset($value) && $value != null) && $name != "perPage")
 				$this->addFilter($name, $value);
+        }
 		return $this;
 	}
     
@@ -120,8 +131,9 @@ class BaseQuery {
         
         $result = $this->callIfPossible($name, $arguments);
         
-        if ($result instanceof ModelCriteria)
+        if ($result instanceof ModelCriteria) {
             return $this;
+        }
             
         return $result;
     }
@@ -134,7 +146,11 @@ class BaseQuery {
      * @return  mixed 
      */
     private function callIfPossible($method, $arguments) {
-        if (method_exists($this->query, $method)) {
+        if (method_exists($this->queryClass, $method)) {
+//            echo " invocando $method <br />";
+            if (!is_array($arguments))
+                $arguments = array($arguments);
+            
             return call_user_func_array(array($this->query, $method), $arguments);
         }
         return FALSE;

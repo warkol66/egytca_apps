@@ -50,7 +50,7 @@ class HeadlinesListAction extends BaseAction {
 			))));
 
 		if (isset($fromDate) || isset($toDate))
-			$filters['rangePublished'] = Common::getPeriodArray($fromDate,$toDate);
+			$filters['rangePublished'] = array('range' => Common::getPeriodArray($fromDate,$toDate));
 
 		$pager = BaseQuery::create('Headline')->createPager($filters,$page,$filters["perPage"]);
 
