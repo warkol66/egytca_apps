@@ -127,12 +127,9 @@
 				require_once('EmailManagement.php');
 				$manager = new EmailManagement();
 
-				if (isset($_SESSION["loginUser"]))
-					$userInfo = $_SESSION["loginUser"]->getUsername();
-				elseif (isset($_SESSION["loginAffiliateUser"]))
-					$userInfo = $_SESSION["loginAffiliateUser"];
-				elseif (isset($_SESSION["loginRegistrationUser"]))
-					$userInfo = $_SESSION["loginRegistrationUser"];
+				$user = Common::getLoggedUser();
+				if (is_object($user))
+					$userInfo = $user->getUsername();
 				else
 					$userInfo = "Visitor";
 
