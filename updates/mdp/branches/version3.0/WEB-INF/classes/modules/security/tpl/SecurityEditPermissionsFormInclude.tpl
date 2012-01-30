@@ -1,3 +1,4 @@
+|-include file="ModulesRemoveAction.tpl"-|
 <table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders"> 
 	<tr> 
 		<th scope="col">Módulo</th>
@@ -38,7 +39,7 @@
 		<th scope="col">Usuarios</th> 
 	|-if !empty($affiliateLevels)-|<th scope="col">Usuarios Por Afiliado</th>|-/if-|
 	|-if !empty($registrationAvailable)-|<th scope="col">Usuarios Por Registro</th>|-/if-|
-		<th scope="col">&nbsp</th>
+		<th scope="col"></th>
 	</tr> 
 	|-foreach from=$withoutPair item=action name=modulef-|
 	<tr id="tr_|-$action-|"> 
@@ -60,7 +61,8 @@
 			<input type="checkbox" name="permissionAffiliate[|-$action-|][all]" value="true" |-$withoutPairAccess.$action.affiliateAll|checked:1-|> Todos</td> |-/if-|
 		|-if !empty($registrationAvailable)-|<td>
 			<input type="checkbox" name="permissionRegistration[|-$action-|]" value="1" |-$withoutPairAccess.$action.permissionRegistration|checked:1-|/></td>|-/if-|
-			<td><button onclick="removeAction('|-$moduleName-|', '|-$action-|', removeTr('|-$action-|')); return false;">remover</button></td>
+			<td align="center" nowrap>
+	  <input type="button" value="Remover" class="icon iconDelete" onclick="removeAction('|-$moduleName-|', '|-$action-|', removeTr('|-$action-|')); return false;"  /></td>
 	</tr> 
 	|-/foreach-|
 
@@ -86,8 +88,8 @@
 			<input type="hidden" name="permissionAffiliate[|-$action-|][access][]" value="0" /></td> |-/if-|
 		|-if !empty($registrationAvailable)-|<td>
 			<input type="checkbox" name="permissionRegistration[|-$action-|]" value="1" |-$withPairAccess.$action.permissionRegistration|checked:1-|/></td>	 |-/if-|	
-			<td><button onclick="removeAction('|-$moduleName-|', '|-$action-|', removeTr('|-$action-|')); return false;">remover</button></td>
-	</tr> 
+			<td align="center" nowrap><input type="button" class="icon iconDelete" onclick="removeAction('|-$moduleName-|', '|-$action-|', removeTr('|-$action-|')); return false;" value="Remover" /></td>
+</tr> 
 	|-/foreach-|
 </table> 
 

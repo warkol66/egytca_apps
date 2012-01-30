@@ -1,5 +1,5 @@
 <script type="text/javascript" src="Main.php?do=js&name=js&module=modules&code=|-$currentLanguageCode-|"></script>
-<script type="text/javascript" src="WEB-INF/classes/modules/modules/tpl/RemoveAction.js"></script>
+|-include file="ModulesRemoveAction.tpl"-|
 <h2>Configuración del Sistema</h2>
 <h1>Instalación de Módulos: Módulo <strong>|-$moduleName|capitalize-|</strong>.</h1>
 <form method="post">
@@ -14,13 +14,11 @@
 
 |-foreach from=$actions item=action-|
 	<fieldset id="fieldset_|-$action-|"> 
-		<legend>|-$action-|</legend>
-			<h4>|-$label|capitalize-|</h4>
+		<legend>|-$action-|&nbsp; &nbsp; &nbsp; &nbsp; <input type="button" value="Remover" class="icon iconDelete" onclick="removeAction('|-$moduleName-|', '|-$action-|', removeFieldset('|-$action-|')); return false;" /></legend>
+			<p>|-$label|capitalize-|</p>
 			|-foreach from=$languages item=language-|
 				|-assign var=languageCode value=$language->getCode()-|
-				<p>
-					<legend>|-$language->getName()-|</legend>
-				</p>
+				<h3>|-$language->getName()-|</h3>
 				<p>
 					<label for="labels[|-$action-|][|-$languageCode-|][label]">Etiqueta</label>
 					<input name="labels[|-$action-|][|-$languageCode-|][label]" type="text" value="|-if isset($actualLabels)-||-$actualLabels.$action.$languageCode.label-||-/if-|" size="60">
@@ -30,7 +28,6 @@
 					<input name="labels[|-$action-|][|-$languageCode-|][description]" type="text" value="|-if isset($actualLabels)-||-$actualLabels.$action.$languageCode.description-||-/if-|" size="60">
 				</p>
 			|-/foreach-|
-			<button onclick="removeAction('|-$moduleName-|', '|-$action-|', removeFieldset('|-$action-|')); return false;">eliminar</button>
 	</fieldset>
 	|-/foreach-|
 	
