@@ -550,6 +550,12 @@ div.autocomplete ul b {
 	padding: 5px 30px 5px 30px;
 	display: inline-block;
 }
+.error {
+	font-weight: bold;
+	color: #B22222;
+	padding: 0 0 0 5px;
+	display: inline-block;
+}
 .successMessage {
 	color: #007D62;
 	font-weight: bold;
