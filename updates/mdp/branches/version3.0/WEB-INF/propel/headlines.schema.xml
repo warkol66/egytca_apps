@@ -131,17 +131,17 @@
 		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Headline Id" autoIncrement="true"/>
 		<column name="internalId" required="true" type="VARCHAR" size="255" description="Headline internal Id" />
 		<column name="headlineId" type="INTEGER" description="Headline Id"/>
+		<column name="campaignId" type="INTEGER" description="Campaign ID"/>
 		<column name="name" required="true" type="VARCHAR" size="255" description="Headline" primaryString="true" />
 		<column name="content" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Headline content"/>
 		<column name="datePublished" type="TIMESTAMP" description="Fecha de publicacion" />
 		<column name="headlineDate" type="TIMESTAMP" description="Fecha del titular" />
 		<column name="url" type="VARCHAR" size="255" description="Url del titular" />
 		<column name="picture" type="BOOLEAN" description="Foto del titular" />
-		<column name="campaignId" type="INTEGER" description="Campaign ID"/>
 		<column name="mediaName" type="VARCHAR" size="255" description="Media Name"/>
-		<column name="keywords" type="VARCHAR" size="255" description="Palabras clave de la busqueda"/>
 		<column name="mediaId" type="INTEGER" description="Media ID"/>
-		<column name="status" type="INTEGER" description="Estado del headline importado"/>
+		<column name="keywords" type="VARCHAR" size="255" description="Palabras clave de la busqueda"/>
+        <column name="status" type="INTEGER" description="Estado del headline importado"/>
 
 		<behavior name="timestampable" />
 
