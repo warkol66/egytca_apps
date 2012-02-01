@@ -157,7 +157,11 @@
 			<reference local="mediaId" foreign="id"/>
 		</foreign-key>
 
-		<vendor type="mysql">
+        <unique>
+            <unique-column name="internalId" />
+        </unique>
+        
+        <vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
 		</vendor>

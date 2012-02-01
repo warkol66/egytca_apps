@@ -14,5 +14,16 @@
  * @package    propel.generator.headlines.classes
  */
 class HeadlineParsed extends BaseHeadlineParsed {
-
+    
+    /**
+     * Antes de guardar un objeto HeadlineParsed nuevo lo dejamos en estado IDLE.
+     * 
+     * @param   PropelPDO $con
+     * @return  boolean
+     */
+    public function preInsert(PropelPDO $con = null) {
+        $this->setStatus(HeadlineParsedQuery::STATUS_IDLE);
+        return true;
+    }
+    
 } // HeadlineParsed

@@ -22,8 +22,6 @@ class HeadlinesDoParseXAction extends BaseAction {
             $request->getParameter('campaignId')
         )->find();
         $smarty->assign('headlinesParsed', $headlinesParsed);
-//        print_r($request->getParameter('campaignId'));
-//        print_r($headlines);die;
 
 		return $mapping->findForwardConfig('success');
 	}
