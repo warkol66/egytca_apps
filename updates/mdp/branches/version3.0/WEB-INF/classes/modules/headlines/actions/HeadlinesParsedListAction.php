@@ -15,17 +15,21 @@ class HeadlinesParsedListAction extends BaseAction {
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
-        
-        $campaignId = $request->getParameter('campaignId');
-        $headlinesParsed = HeadlineParsedQuery::create()
-            ->filterByCampaignid($campaignId)
-            ->orderByStatus()
-        ->find();
-        $smarty->assign('campaignId', $campaignId);
-        $smarty->assign('headlinesParsed', $headlinesParsed);
+
+		$campaignId = $request->getParameter('campaignId');
+		$campaign = CampaignQuery::create()->findOneById($campaignId);
+
+		$headlinesParsed = HeadlineParsedQuery::create()
+											->filterByCampaign($campaign)
+											->filterByStatus(array('max' => HeadlineParsedQuery::STATUS_PROCESSED))
+											->orderByStatus()
+											->find();
+
+		$smarty->assign('campaign', $campaign);
+		$smarty->assign('campaignId', $campaignId);
+		$smarty->assign('headlinesParsed', $headlinesParsed);
 
 		return $mapping->findForwardConfig('success');
 	}
-    
-    
+
 }
