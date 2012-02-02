@@ -4,12 +4,22 @@ require_once 'phpQuery/phpQuery.php';
 
 /**
  * Clase Scrapper.
- * 
- * @author nico
  */
 class Scrapper {
     
-    public static $SELECTORS = array(
+    /**
+     * Url usada para buscar noticias.
+     * 
+     * @var string
+     */
+    private $searchEngineUrl = 'http://news.google.com.ar/?';
+    
+    /**
+     * Selectores utilizados en el scrapeo.
+     * 
+     * @var array
+     */
+    private static $SELECTORS = array(
         'items' => '#top-stories.blended-section .blended-wrapper',
         'item_url' => '.esc-lead-article-title-wrapper a.article',
         'item_title' => '.esc-lead-article-title-wrapper .titletext',
@@ -18,8 +28,18 @@ class Scrapper {
         'item_snippet' => '.esc-lead-snippet-wrapper'
     );
     
+    /**
+     * Palabras clave utilizadas en la busqueda.
+     * 
+     * @var mixed
+     */
     private $keywords;
     
+    /**
+     * Campaign a la que se refiere la busqueda.
+     * 
+     * @var int
+     */
     private $campaignId;
 
     /**
@@ -37,7 +57,7 @@ class Scrapper {
     
     private function getSanitizedKeywords() {
         $kw = is_array($this->keywords) ? implode(' ', $this->keywords) : $this->keywords;
-        return urldecode($kw);
+        return urlencode($kw);
     }
     
     private function sanitizeHtml($html) {
@@ -46,15 +66,28 @@ class Scrapper {
         return $sanitized;
     }
     
+    /**
+     * Parsea noticias y devuelve un array de HeadlineParsed.
+     * 
+     * @return  array
+     */
     public function find() {
         $news = $this->getGoogleNews();
         return $this->buildHeadlinesParsed($news);
     }
     
+    private function buildQueryParams() {
+        $params = array(
+            'q' => $this->getSanitizedKeywords()
+        );
+        
+        return http_build_query($params);
+    }
+    
     private function getGoogleNews() {
         
-        $q  = $this->getSanitizedKeywords();
-        $pq = phpQuery::newDocumentFile('http://news.google.com.ar/?q=' . $q);
+        $q  = $this->buildQueryParams();
+        $pq = phpQuery::newDocumentFile($this->searchEngineUrl . $q);
 
         $news = array();
         foreach ($pq[self::$SELECTORS['items']] as $item) {
@@ -72,7 +105,7 @@ class Scrapper {
     }
     
     /**
-     * TODO hidratar y guardar el objeto
+     * Crea los objetos HeadlineParsed a partir de los datos recopilados.
      * 
      * @param array $news
      * @return array
