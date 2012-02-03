@@ -11,7 +11,8 @@
 		  |-$headline->getMedia()-||-/if-| -- </strong>|-$headline->getMedia()-||-$headline->getContent()-|</li></ul></li>
     |-/foreach-|
 <script language="JavaScript" type="text/javascript">
-	$('noHeadlines').innerHTML = '';
+	if($('noHeadlines'))
+		$('noHeadlines').innerHTML = '';
 </script>
 |-else-|
 <li id="noHeadlines">|-if $included-|No hay Titulares por procesar|-else-|No hay más Titulares disponibles|-/if-|</li>

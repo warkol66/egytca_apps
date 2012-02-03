@@ -1,4 +1,5 @@
 <h2>Titulares</h2>
+|-if !$notValidId-|
 <h1>Importar Titulares - |-$campaign-|</h1>
 <div id="lightbox1" class="leightbox"> 
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a></p> 
@@ -36,3 +37,7 @@ $("search_button").observe('click', function(event) {
 			$("noHeadlines").innerHTML = "";
 });
 </script>
+|-else-|
+<div class="errorMessage">El identificador ingresado no es válido. Seleccione un item del listado.</div>
+<input type='button' onClick='location.href="Main.php?do=campaignsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Campañas"/>
+|-/if-|

@@ -37,13 +37,13 @@ class HeadlinesParsedSaveXAction extends BaseAction {
 					$imageFullname = $imagePath . $headline->getId() . ".jpg";
 
 					$renderer = new WebkitHtmlRenderer();
-					$renderer->render($url, $imageFullname,true);
+					$renderer->render($url, $imageFullname, true);
 					//Fin clipping
 
 					$headline->setStatus(HeadlineParsedQuery::STATUS_PROCESSED);
 					if($headline->isModified() && $headline->save()){
 					}
-					$smarty->assign("headline",$newHeadline);
+					$smarty->assign("headline",$headline);
 					return $mapping->findForwardConfig('success');
 				}
 			}
