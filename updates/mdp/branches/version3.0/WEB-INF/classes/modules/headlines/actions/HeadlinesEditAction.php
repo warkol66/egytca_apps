@@ -27,7 +27,7 @@ class HeadlinesEditAction extends BaseAction {
 
 			$headline = HeadlinePeer::get($_GET["id"]);
 
-			if (!is_null($headline)) {
+			if (!empty($headline)) {
 				/*$actualCategories = $actor->getActorCategorys();
 				$smarty->assign("actualCategories",$actualCategories);
 
@@ -53,19 +53,22 @@ class HeadlinesEditAction extends BaseAction {
 
 			}
 			else
-				$headline = new Headline();
+				$smarty->assign("notValidId",true);
 
-			$smarty->assign("headline",$headline);
-			$smarty->assign("action","edit");
 
 		}
 		else {
 			//voy a crear un objeto nuevo
 			$headline = new Headline();
-			$smarty->assign("headline",$headline);
-			$smarty->assign("action","create");
+			$campaignId = $request->getParameter('campaignId');
+			if (!empty($campaignId)) {
+				$campaign = CampaignQuery::create()->findOneById($campaignId);
+				if (!empty($campaign))
+					$headline->setCampaignId($campaignId);
+			}
 		}
 
+		$smarty->assign("headline",$headline);
 		$smarty->assign("filters",$_GET["filters"]);
 		$smarty->assign("page",$_GET["page"]);
 		$smarty->assign("message",$_GET["message"]);

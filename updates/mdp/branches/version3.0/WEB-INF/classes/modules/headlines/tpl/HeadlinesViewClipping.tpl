@@ -37,6 +37,7 @@
 <input type='button' id='button_cancel_crop' value='Cancelar' onClick='disableEdit()' style="display:none" />
 <input type='button' id='button_render' value='Capturar nuevamente' onClick='location.href="Main.php?do=headlinesRenderUrl&id=|-$id-|"' />
 <input type='button' id='button_return_edit' value='Volver a edición' onClick='location.href="Main.php?do=headlinesEdit&id=|-$id-|&submit_go_edit_headline=Editar"' />
+<input type='button' id='button_create_new' value='Crear nuevo' onClick='location.href="Main.php?do=headlinesEdit&campaignId=|-$headline->getCampaignId()-|"' />
 </p>
 
 |-/if-|

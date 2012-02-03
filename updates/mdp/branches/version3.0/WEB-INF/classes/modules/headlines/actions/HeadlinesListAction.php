@@ -52,7 +52,7 @@ class HeadlinesListAction extends BaseAction {
 		if (isset($fromDate) || isset($toDate))
 			$filters['rangePublished'] = array('range' => Common::getPeriodArray($fromDate,$toDate));
 
-		$pager = BaseQuery::create('Headline')->createPager($filters,$page,$filters["perPage"]);
+		$pager = BaseQuery::create('Headline')->orderByCreatedAt('desc')->createPager($filters,$page,$filters["perPage"]);
 
 		$smarty->assign("filters", $filters);
 		$smarty->assign("headlines",$pager->getResults());

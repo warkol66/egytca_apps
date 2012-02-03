@@ -24,11 +24,11 @@
 		</div>
 			<p>
 				<label for="params[name]">Titular</label>
-				<input type="text" id="params[name]" name="params[name]" size="50" value="|-$headline->getname()|escape-|" title="Nombre" /><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
+				<input type="text" id="params[name]" name="params[name]" size="50" value="|-$headline->getname()|escape-|" title="Nombre" class="emptyValidation" /> |-validation_msg_box idField="params[name]"-|
 			</p>
 			<p>
 				<label for="params[content]">Contenido</label>
-					<textarea id="params[content]" name="params[content]" cols="42" rows="6" wrap="VIRTUAL" title="Contenido">|-$headline->getContent()|escape-|</textarea><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
+					<textarea id="params[content]" name="params[content]" cols="42" rows="6" wrap="VIRTUAL" title="Contenido" class="emptyValidation">|-$headline->getContent()|escape-|</textarea> |-validation_msg_box idField="params[content]"-|
 			</p>
 			<p>     
 				<label for="params[datePublished]">Fecha de Publicación</label>
@@ -85,14 +85,14 @@
 				&nbsp; 5 <input name="params[relevance]" type="radio" value="5" |-$headline->getRelevance()|checked:5-|/>
 			</p>
 			<p>
-				|-if $action eq 'edit'-|
-				<input type="hidden" name="id" id="id" value="|-$headline->getid()-|" />
-				|-/if-|
+			<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 				|-include file="HiddenInputsInclude.tpl" action="$action" filters="$filters" page="$page"-|
-				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="headlinesDoEdit" />
-				<input type="submit" id="button_edit_headline" name="button_edit_headline" title="Aceptar" value="Guardar" />
-				<input type="button" id="cancel" name="cancel" title="Regresar al listado" value="Regresar al listado" onClick="location.href='Main.php?do=headlinesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"/>
+				|-javascript_form_validation_button value='Guardar' title='Guardar'-|
+				<input type="button" id="cancel" name="cancel" title="Regresar al listado" value="Regresar al listado" onClick="location.href='Main.php?do=headlinesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) && $page gt 0-|&page=|-$page-||-/if-|'"/>
+				|-if !$headline->isNew()-|
+				<input type="hidden" name="id" id="id" value="|-$headline->getid()-|" />
+				<input type='button' id='button_create_new' value='Crear nuevo' onClick='location.href="Main.php?do=headlinesEdit&campaignId=|-$headline->getCampaignId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) && $page gt 0-|&page=|-$page-||-/if-|"' />|-/if-|
 			</p>
 		</fieldset>
 	</form>
