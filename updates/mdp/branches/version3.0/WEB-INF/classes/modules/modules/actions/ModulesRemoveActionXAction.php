@@ -6,9 +6,9 @@
  */
 
 
-class ModulesInstallRemoveActionXAction extends BaseAction {
+class ModulesRemoveActionXAction extends BaseAction {
 
-	function ModulesInstallRemoveActionXAction() {
+	function ModulesRemoveActionXAction() {
 		;
 	}
 

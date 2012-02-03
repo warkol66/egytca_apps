@@ -32,6 +32,7 @@
 
 <h4>Permisos de Actions</h4>
 <p>Dejar vacios aquellos actions que hereden permisos del módulo.</p>
+<div id="resultDiv"></div>
 <table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders"> 
 	<tr> 
 		<th scope="col">Action</th>
@@ -92,12 +93,3 @@
 </tr> 
 	|-/foreach-|
 </table> 
-
-<script type="text/javascript" src="WEB-INF/classes/modules/modules/tpl/RemoveAction.js"></script>
-
-<script type="text/javascript">
-	function removeTr(action) {
-		var tr = $('tr_'+action);
-		tr.parentNode.removeChild(tr);
-	}
-</script>

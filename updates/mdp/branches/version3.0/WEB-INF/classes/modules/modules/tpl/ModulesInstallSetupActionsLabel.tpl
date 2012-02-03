@@ -11,7 +11,7 @@
 		|-include file="ModulesInstallFormNavigationInclude.tpl"-|
 	</p>
 </fieldset>
-
+<div id="resultDiv"></div>
 |-foreach from=$actions item=action-|
 	<fieldset id="fieldset_|-$action-|"> 
 		<legend>|-$action-|&nbsp; &nbsp; &nbsp; &nbsp; <input type="button" value="Remover" class="icon iconDelete" onclick="removeAction('|-$moduleName-|', '|-$action-|', removeFieldset('|-$action-|')); return false;" /></legend>
@@ -45,9 +45,3 @@
 	</p>
 </form>
 
-<script type="text/javascript">
-	function removeFieldset(action) {
-		var fieldset = $('fieldset_'+action);
-		fieldset.parentNode.removeChild(fieldset);
-	}
-</script>
