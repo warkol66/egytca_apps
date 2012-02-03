@@ -785,14 +785,14 @@ class Common {
 	* @param object toObj Objeto de destino
 	* @return boolean si se pudo guardar el objeto de destino
 	*/
-	function morphObject($fromObj,$toObj)	{
+	function saveMorphObject($fromObj,$toObj)	{
 		$peer = $fromObj->getPeer();
 		$fieldNames = $peer->getFieldNames();
 		foreach ($fieldNames as $fieldName) {
 			$setMethod = "set".$fieldName;
 			$getMethod = "get".$fieldName;
 			$value = $fromObj->$getMethod();
-			if (method_exists($toObj,$setMethod)) {
+			if (method_exists($toObj,$setMethod) && ($setMethod != "setId")) {
 				if (!empty($value) || $value == "0")
 					$toObj->$setMethod($value);
 				else
@@ -823,7 +823,7 @@ class Common {
 			$setMethod = "set".$fieldName;
 			$getMethod = "get".$fieldName;
 			$value = $fromObj->$getMethod();
-			if (method_exists($toObj,$setMethod)) {
+			if (method_exists($toObj,$setMethod) && ($setMethod != "setId")) {
 				if (!empty($value) || $value == "0")
 					$toObj->$setMethod($value);
 				else
