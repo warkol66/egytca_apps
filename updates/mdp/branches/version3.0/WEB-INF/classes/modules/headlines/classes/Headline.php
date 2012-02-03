@@ -153,6 +153,11 @@ class Headline extends BaseHeadline {
 		return $media->getImportance();
 	}
 
-
+    /**
+     * TODO: este codigo se parece mucho al de Scrapper#buildInternalId
+     */
+    public function buildInternalId() {
+        $this->setInternalid(md5($this->getCampaignid() . $this->getUrl()));
+    }
 
 } // Headline
