@@ -17,6 +17,7 @@
 		<column name="mediaId" type="INTEGER" description="Media ID"/>
 		<column name="value" type="TINYINT" description="Valoracion de la noticia"/>
 		<column name="relevance" type="TINYINT" description="Valoracion del medio"/>
+        <column name="internalId" required="true" type="VARCHAR" size="255" description="Headline internal Id" />
 
 		<behavior name="timestampable" />
 
@@ -27,6 +28,10 @@
 		<foreign-key foreignTable="medias_media" onDelete="cascade">
 			<reference local="mediaId" foreign="id"/>
 		</foreign-key>
+        
+        <unique>
+            <unique-column name="internalId" />
+        </unique>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
@@ -142,6 +147,7 @@
 		<column name="mediaId" type="INTEGER" description="Media ID"/>
 		<column name="keywords" type="VARCHAR" size="255" description="Palabras clave de la busqueda"/>
         <column name="status" type="INTEGER" description="Estado del headline importado"/>
+        <column name="moreSourcesUrl" type="VARCHAR" size="255" description="Url para obtener mas titulares de distintas fuentes"/>
 
 		<behavior name="timestampable" />
 
