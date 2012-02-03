@@ -87,7 +87,7 @@ class Scrapper {
     private function getGoogleNews() {
         
         $q  = $this->buildQueryParams();
-        $pq = phpQuery::newDocumentFile($this->searchEngineUrl . $q);
+        $pq = phpQuery::newDocumentFile($this->searchEngineUrl . $q . "&num=50");
 
         $news = array();
         foreach ($pq[self::$SELECTORS['items']] as $item) {
@@ -114,11 +114,19 @@ class Scrapper {
         $campaign = CampaignQuery::create()->findPk($this->campaignId);
         $headlinesParsed = array();
         foreach ($news as $parsedNews) {
-            $internalId = $this->buildInternalId($parsedNews);
+          $internalId = $this->buildInternalId($parsedNews);
+					$exist = HeadlineParsedQuery::create()->findOneByInternalid($internalId);
+					if (!$exist) {
+            $media = MediaQuery::create()->findOneByName($parsedNews['source']);
+            if (!empty($media))
+            	$parsedNews['mediaId'] = $media->getId();
+							
             try {
                 $h = $this->buildObject()
                     ->setInternalid($internalId)
                     ->setCampaignid($this->campaignId)
+                    ->setMediaid($parsedNews['mediaId'])
+                    ->setMedianame($parsedNews['source'])
                     ->setName($parsedNews['title'])
                     ->setContent($parsedNews['snippet'])
                     ->setDatepublished($parsedNews['timestamp'])
@@ -133,6 +141,7 @@ class Scrapper {
 //                echo "headline $internalId existente <br />";
 //                echo $e->getTraceAsString();
             }
+          }
         }
         return $headlinesParsed;
     }
@@ -145,7 +154,7 @@ class Scrapper {
     }
     
     private function buildInternalId($parsedNews) {
-        $hash = md5($this->campaignId . $parsedNews['title']);
+        $hash = md5($this->campaignId . $parsedNews['url']);
         return $hash;
     }
     
