@@ -17,6 +17,11 @@ input[type="submit"], input[type="button"], input[type="reset"] {
 	margin: 0 5px 0 5px;
 	padding: 2px 12px 2px 12px;
 }
+input#remaining{
+	border: none !Important;
+	box-shadow: none !Important;
+	text-align: left !Important;
+}
 input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
 	background-color: #00000 !Important;/*#d0d0d0; */
 	border: outset 1px  #808080 !Important;
@@ -700,13 +705,18 @@ a.return {
 a.report {
 	background-image: url(../images/icon_print.png);
 }
-a.return, a.return:link, a.return:visited
-a.report, a.report:link, a.report:visited  {
+a.importHeadlines {
+	background-image: url(../images/icon_news.png);
+}
+a.return, a.return:link, a.return:visited,
+a.report, a.report:link, a.report:visited,
+a.importHeadlines, a.importHeadlines:link, a.importHeadlines:visited {
 	color:#0054A4;
 	background-position:left top;
 	background-repeat:no-repeat;
 }
-a.report:hover
-a.report:hover{
+a.report:hover,
+a.report:hover,
+a.importHeadlines:hover{
 	text-decoration: underline !Important;
 }
