@@ -23,9 +23,22 @@ class HeadlinesParsedSaveXAction extends BaseAction {
 			$headline = HeadlineParsedQuery::create()->findOneById($_GET["id"]);
 			if (!is_null($headline)) {
 				$newHeadline = new Headline();
-				Common::morphObject($headline,$newHeadline);
-				
+				$newHeadline = Common::morphObjectValues($headline,$newHeadline);
+
 				if($newHeadline->isModified() && $newHeadline->save()) {
+
+					//Creo el clipping
+					require_once('WebkitHtmlRenderer.php');
+					$url = $headline->getUrl();
+					$imagePath = ConfigModule::get('headlines', 'clippingsPath');
+					if (!file_exists($imagePath))
+						mkdir ($imagePath, 0777, true);
+
+					$imageFullname = $imagePath . $headline->getId() . ".jpg";
+
+					$renderer = new WebkitHtmlRenderer();
+					$renderer->render($url, $imageFullname,true);
+					//Fin clipping
 
 					$headline->setStatus(HeadlineParsedQuery::STATUS_PROCESSED);
 					if($headline->isModified() && $headline->save()){

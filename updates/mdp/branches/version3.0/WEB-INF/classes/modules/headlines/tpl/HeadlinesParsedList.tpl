@@ -20,7 +20,7 @@
 <div id="resultDiv"></div>
 <fieldset>
 <legend>Titulares</legend>
-<ul id="list" class="iconOptionsList">
+<ul id="list" class="iconList">
 |-include file="HeadlinesParsedListInclude.tpl" included=true-|
 </ul>
 </fieldset>
