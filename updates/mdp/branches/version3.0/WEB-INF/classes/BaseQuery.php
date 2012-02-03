@@ -8,6 +8,8 @@
  * para el filtrado.
  */
 class BaseQuery {
+    
+    private static $MAGIC_METHODS = array('findBy', 'findOneBy', 'filterBy', 'orderBy', 'groupBy');
 
     /**
      * Instancia de la clase query a la que se le aplican los filtros.
@@ -146,7 +148,7 @@ class BaseQuery {
      * @return  mixed 
      */
     private function callIfPossible($method, $arguments) {
-        if (method_exists($this->queryClass, $method)) {
+        if (method_exists($this->queryClass, $method) || ($this->isMagicMethod($method))) {
 //            echo " invocando $method <br />";
             if (!is_array($arguments))
                 $arguments = array($arguments);
@@ -156,6 +158,19 @@ class BaseQuery {
         return FALSE;
     }
     
+    /**
+     * Se fija si $method es un metodo magico.
+     * 
+     * @param   string $method
+     * @return  boolean
+     */
+    private function isMagicMethod($method) {
+        foreach (self::$MAGIC_METHODS as $magicMethod) {
+            if (preg_match("/^$magicMethod/", $method))
+                return true;
+        }
+        return false;
+    }
     
     public function entityFilter($filterValue) {
 
