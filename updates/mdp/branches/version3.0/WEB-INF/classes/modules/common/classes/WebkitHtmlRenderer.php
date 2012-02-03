@@ -26,9 +26,11 @@ class WebkitHtmlRenderer {
 
 		}
 		
-		$return_var = shell_exec($this->command.' --quality ' . $quality . $sizeSettings ' "' . $url . '" ' . $image);
-		if (!file_exists($image) || filesize($image) <= 0)
-			throw new RenderException("No se pudo capturar la imagen.");
+		if (!stristr(PHP_OS,"WIN")) { //No hay renderer para win
+			$return_var = shell_exec($this->command.' --quality ' . $quality . $sizeSettings . ' "' . $url . '" ' . $image);
+			if (!file_exists($image) || filesize($image) <= 0)
+				throw new RenderException("No se pudo capturar la imagen.");
+		}
 	}
 	
 }
