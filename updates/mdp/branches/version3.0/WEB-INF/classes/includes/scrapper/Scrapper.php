@@ -9,10 +9,11 @@ class Scrapper {
     
     /**
      * Url usada para buscar noticias.
+     * Debe tener la barra '/' al final.
      * 
      * @var string
      */
-    private $searchEngineUrl = 'http://news.google.com.ar/?';
+    private $searchEngineUrl = 'http://news.google.com/';
     
     /**
      * Selectores utilizados en el scrapeo.
@@ -25,7 +26,8 @@ class Scrapper {
         'item_title' => '.esc-lead-article-title-wrapper .titletext',
         'item_source' => '.esc-lead-article-source',
         'item_timestamp' => '.esc-lead-article-timestamp',
-        'item_snippet' => '.esc-lead-snippet-wrapper'
+        'item_snippet' => '.esc-lead-snippet-wrapper',
+        'item_more_links' => '.esc-extension-wrapper a.more-coverage-text'
     );
     
     /**
@@ -43,14 +45,21 @@ class Scrapper {
     private $campaignId;
 
     /**
-     *
      * @param mixed $keywords 
+     * @param int $campaignId
      */
     public function Scrapper($keywords, $campaignId) {
         $this->keywords = $keywords;
         $this->campaignId = $campaignId;
     }
     
+    /**
+     * Constructor estatico.
+     * 
+     * @param mixed $keywords
+     * @param int $campaignId
+     * @return Scrapper 
+     */
     public static function create($keywords, $campaignId) {
         return new Scrapper($keywords, $campaignId);
     }
@@ -76,19 +85,25 @@ class Scrapper {
         return $this->buildHeadlinesParsed($news);
     }
     
+    /**
+     * Construye los parametros de url.
+     * 
+     * @return  string
+     */
     private function buildQueryParams() {
         $params = array(
-            'q' => $this->getSanitizedKeywords()
+            'q' => $this->getSanitizedKeywords(),
+            'num' => '50'
         );
         
-        return http_build_query($params);
+        return '?'. http_build_query($params);
     }
     
     private function getGoogleNews() {
         
         $q  = $this->buildQueryParams();
-        $pq = phpQuery::newDocumentFile($this->searchEngineUrl . $q . "&num=50");
-
+        $pq = phpQuery::newDocumentFile($this->searchEngineUrl . $q);
+        
         $news = array();
         foreach ($pq[self::$SELECTORS['items']] as $item) {
             $timestamp = $this->sanitizeHtml($pq->find(self::$SELECTORS['item_timestamp'], $item)->html());
@@ -97,7 +112,8 @@ class Scrapper {
                 'title'     => $this->sanitizeHtml($pq->find(self::$SELECTORS['item_title'], $item)->html()),
                 'source'    => $this->sanitizeHtml($pq->find(self::$SELECTORS['item_source'], $item)->html()),
                 'timestamp' => $this->parseTimestamp($timestamp),
-                'snippet'   => $this->sanitizeHtml($pq->find(self::$SELECTORS['item_snippet'], $item)->html())
+                'snippet'   => $this->sanitizeHtml($pq->find(self::$SELECTORS['item_snippet'], $item)->html()),
+                'more_sources_url' => $this->parseMoreSourcesUrl($pq->find(self::$SELECTORS['item_more_links'], $item)->attr('href'))
             );
         }
         
@@ -132,6 +148,7 @@ class Scrapper {
                     ->setDatepublished($parsedNews['timestamp'])
                     ->setHeadlinedate($parsedNews['timestamp'])
                     ->setUrl($parsedNews['url'])
+                    ->setMoresourcesurl($parsedNews['more_sources_url'])
                     ->setKeywords($this->getSanitizedKeywords())
                 ;
                 $h->save();
@@ -173,6 +190,10 @@ class Scrapper {
 //            echo "ts es int ". $hours ."<br />";
 //        }
             
+    }
+    
+    private function parseMoreSourcesUrl($url) {
+        return !empty($url) ? $this->searchEngineUrl . preg_replace("/^\//", "", $url) : "";
     }
 
 } // Scrapper
