@@ -95,14 +95,7 @@
 					<input type="hidden" name="id" value="|-$issue->getid()-|" /> 
 					<input type="submit" name="submit_go_delete_issue" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar el ##issues,2,Asunto##?')" class="icon iconDelete" /> 
 			</form>
-			|-if isset($loginUser) && $loginUser->isSupervisor()-|				<form action="Main.php" method="post" style="display:inline;"> 
-					<input type="hidden" name="do" value="issuesDoDelete" /> 
-						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-					<input type="hidden" name="id" value="|-$issue->getid()-|" /> 
-					<input type="hidden" name="doHardDelete" value="true" /> 
-					<input type="submit" name="submit_go_delete_issue" value="Borrar" title="Eliminar completamente" onclick="return confirm('Seguro que desea eliminar el ##issues,2,Asunto## definitivamente?')" class="icon iconHardDelete" /> 
-			</form>|-/if-||-/if-|</td> 
+			|-/if-|</td> 
 		</tr> 
 		|-/foreach-|
 		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
