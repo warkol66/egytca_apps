@@ -2,14 +2,14 @@
 <html>
 <head>
 <title>|-if isset($module)-||-$module|multilang_get_translation:"common"-| - |-/if-||-$parameters.siteName-|</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="css/main.css" type="text/css">
-<!--[if lte IE 6]> <link href="css/styles-ie.css" rel="stylesheet" type="text/css"> <![endif]-->
-<!--[if IE 7]> <link href="css/styles-ie7.css" rel="stylesheet" type="text/css"> <![endif]-->
-<!--[if IE 8]> <link href="css/styles-ie8.css" rel="stylesheet" type="text/css"> <![endif]-->
-<link rel="stylesheet" href="css/mainHandheld.css" type="text/css" media="handheld">
-<link rel="stylesheet" href="css/print.css" type="text/css" media="print">
-<link rel="shortcut icon" href="images/favicon.ico">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
+<!--[if lte IE 6]> <link href="css/styles-ie.css" rel="stylesheet" type="text/css" /> <![endif]-->
+<!--[if IE 7]> <link href="css/styles-ie7.css" rel="stylesheet" type="text/css" /> <![endif]-->
+<!--[if IE 8]> <link href="css/styles-ie8.css" rel="stylesheet" type="text/css" /> <![endif]-->
+<link rel="stylesheet" href="css/mainHandheld.css" type="text/css" media="handheld" />
+<link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+<link rel="shortcut icon" href="images/favicon.ico" />
 <script language="JavaScript" type="text/JavaScript">
 	var url="|-$systemUrl-|";
 </script>

@@ -414,7 +414,7 @@ fieldset #recipientsSelected li {
 }
 /*  /BOX VARIABLES   ----------------------------------- */
 
-ul.iconOptionsList li {
+ul.iconOptionsList li, ul.iconList li {
 	list-style: none;
 	margin-left: 15px;
 	line-height: 2em;
@@ -448,6 +448,14 @@ ul.iconOptionsList li {
 	list-style: circle;
 	margin-left: 135px;
 }
+ul.iconList li ul li {
+	list-style: none;
+	margin-left: 90px;
+	vertical-align: bottom;
+	line-height: normal;
+	padding-bottom: 0.50em;
+}
+
 .noDecoration {
 	text-decoration: none !Important;
 }

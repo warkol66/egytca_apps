@@ -6,7 +6,7 @@ class ConfigModule {
 		"global" => array(
 			"debugMode" => true,
 			"noSecurity" => true,
-			"noCheckLogin" => true,
+			"noCheckLogin" => false,
 			"developmentMode" => true,
 			"showPropelExceptions" => true,
 			"showSwiftExceptions" => true,
@@ -66,6 +66,7 @@ class ConfigModule {
 				)
 		),
 		"headlines" => array(
+			"searchEngineUrl" => "http://news.google.com",
 			"clippingsPath" => "./WEB-INF/classes/modules/headlines/files/clipping/",
 			"clippingsTmpPath" => "./WEB-INF/classes/modules/headlines/files/clipping/tmp/",
 			"clippingApp" => "wkhtmltoimage"
