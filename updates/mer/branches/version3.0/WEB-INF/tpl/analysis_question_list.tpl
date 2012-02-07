@@ -16,7 +16,7 @@
 					<form action="Main.php" method="post">
 						<select name="question">
 							<option value="">Select Question</option>
-						|-foreach from=$forms item=form -|
+						|-foreach from=$forms item=form-|
 							|-include file=analysis_include_form_section_options.tpl section=$form->getRootSection()-|
 						|-/foreach-|
 						</select>

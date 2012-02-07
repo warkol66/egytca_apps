@@ -76,7 +76,7 @@
 	<tr>
 		<td height="2" class="menu2back2"><img src="images/clear.gif" width="1" height="1"></td>
 	</tr>
-	|-if $section neq "Analysis" && $section neq "AnalysisRelations" -|
+	|-if $section neq "Analysis" && $section neq "AnalysisRelations"-|
 	<tr>
 		<td height="15" class="menu2back_off"><a href="Main.php?do=analysisSelectCategory" class='linkmenu2backoff'>##31,ANALISIS##</a></td>
 	</tr>

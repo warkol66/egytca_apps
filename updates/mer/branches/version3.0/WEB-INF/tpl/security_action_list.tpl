@@ -1,4 +1,4 @@
-|-if $moduleView ne 'todos' -|<h3>Seguridad del módulo |-$moduleView-|</h3>
+|-if $moduleView ne 'todos'-|<h3>Seguridad del módulo |-$moduleView-|</h3>
 |-else-|<h3>Seguridad de |-$moduleView-| los módulos</h3>
 |-/if-|
 <form name="securityFilter" id="securityFilter" action="Main.php" method="get">

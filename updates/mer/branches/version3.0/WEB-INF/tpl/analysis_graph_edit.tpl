@@ -92,7 +92,7 @@
 		<tr id="tr_select_simple_x"|-if $action eq "edit" and $graph->getTypeX() ne 0-| style="display:none"|-/if-|>
 			<td class='celltitulo1'>Valores</td>
 			<td><select name="select_simple_x">
-				|-foreach from=$forms item=form -|
+				|-foreach from=$forms item=form-|
 					|-include file=analysis_include_form_section_options.tpl section=$form->getRootSection() questions=$questionsX0-|
 				|-/foreach-|
 				</select>
@@ -101,7 +101,7 @@
 		<tr id="tr_select_multiple_x"|-if ($action eq "edit" and $graph->getTypeX() lt 4) or $action eq "new"-| style="display:none"|-/if-|>
 			<td class='celltitulo1'>Valores</td>
 			<td><select multiple="multiple" name="select_multiple_x[]">
-				|-foreach from=$forms item=form -|
+				|-foreach from=$forms item=form-|
 					|-include file=analysis_include_form_section_options.tpl section=$form->getRootSection() questions=$questionsX4-|
 				|-/foreach-|
 				</select>
@@ -110,12 +110,12 @@
 		<tr id="tr_select_multiple_doble_x"|-if ($action eq "edit" and ($graph->getTypeX() lt 1 or $graph->getTypeX() gt 3) ) or $action eq "new"-| style="display:none"|-/if-|>
 			<td class='celltitulo1'>Valores</td>
 			<td><select multiple="multiple" name="select_multiple_doble_1_x[]">
-				|-foreach from=$forms item=form -|
+				|-foreach from=$forms item=form-|
 						|-include file=analysis_include_form_section_options.tpl section=$form->getRootSection() questions=$questionsX2-|
 				|-/foreach-|
 				</select>
 				<select multiple="multiple" name="select_multiple_doble_2_x[]">
-					|-foreach from=$forms item=form -|
+					|-foreach from=$forms item=form-|
 						|-include file=analysis_include_form_section_options.tpl section=$form->getRootSection() questions=$questionsX3-|
 					|-/foreach-|
 				</select>
@@ -145,7 +145,7 @@
 			<td class='celltitulo1'>Valores</td>
 			<td><select name="select_simple_y">
 					
-						|-foreach from=$forms item=form -|
+						|-foreach from=$forms item=form-|
 							|-include file=analysis_include_form_section_options.tpl section=$form->getRootSection() questions=$questionsY0-|
 						|-/foreach-|
 					
@@ -156,7 +156,7 @@
 			<td class='celltitulo1'>Valores</td>
 			<td><select multiple="multiple" name="select_multiple_y[]">
 					
-						|-foreach from=$forms item=form -|
+						|-foreach from=$forms item=form-|
 							|-include file=analysis_include_form_section_options.tpl section=$form->getRootSection() questions=$questionsY4-|
 						|-/foreach-|
 						
@@ -167,14 +167,14 @@
 			<td class='celltitulo1'>Valores</td>
 			<td><select name="select_multiple_doble_1_y[]" multiple="multiple">
 					
-						|-foreach from=$forms item=form -|
+						|-foreach from=$forms item=form-|
 							|-include file=analysis_include_form_section_options.tpl section=$form->getRootSection() questions=$questionsY2-|
 						|-/foreach-|
 						
 				</select>
 				<select name="select_multiple_doble_2_y[]" multiple="multiple">
 					
-						|-foreach from=$forms item=form -|
+						|-foreach from=$forms item=form-|
 							|-include file=analysis_include_form_section_options.tpl section=$form->getRootSection() questions=$questionsY3-|
 						|-/foreach-|
 						
@@ -206,7 +206,7 @@
 		<tr id="tr_select_simple_z"|-if $action eq "edit" and $graph->getTypeZ() ne 0-| style="display:none"|-/if-|>
 			<td class='celltitulo1'>Valores</td>
 			<td><select name="select_simple_z">
-					|-foreach from=$forms item=form -|
+					|-foreach from=$forms item=form-|
 						|-include file=analysis_include_form_section_options.tpl section=$form->getRootSection() questions=$questionsZ0-|
 					|-/foreach-|
 				</select>
@@ -215,7 +215,7 @@
 		<tr id="tr_select_multiple_z"|-if ($action eq "edit" and $graph->getTypeZ() lt 4) or $action eq "new"-| style="display:none"|-/if-|>
 			<td class='celltitulo1'>Valores</td>
 			<td><select multiple="multiple" name="select_multiple_z[]">
-				|-foreach from=$forms item=form -|
+				|-foreach from=$forms item=form-|
 					|-include file=analysis_include_form_section_options.tpl section=$form->getRootSection() questions=$questionsZ4-|
 				|-/foreach-|
 				</select>
@@ -224,12 +224,12 @@
 		<tr id="tr_select_multiple_doble_z"|-if ($action eq "edit" and ($graph->getTypeZ() lt 1 or $graph->getTypeZ() gt 3) ) or $action eq "new"-| style="display:none"|-/if-|>
 			<td class='celltitulo1'>Valores</td>
 			<td><select multiple="multiple" name="select_multiple_doble_1_z[]">
-				|-foreach from=$forms item=form -|
+				|-foreach from=$forms item=form-|
 					|-include file=analysis_include_form_section_options.tpl section=$form->getRootSection() questions=$questionsZ2-|
 				|-/foreach-|
 				</select>
 				<select multiple="multiple" name="select_multiple_doble_2_z[]">
-					|-foreach from=$forms item=form -|
+					|-foreach from=$forms item=form-|
 						|-include file=analysis_include_form_section_options.tpl section=$form->getRootSection() questions=$questionsZ3-|
 					|-/foreach-|
 				</select>
@@ -240,7 +240,7 @@
 		<tr>
 			<td class='celltitulo1'>Preguntas</td>
 			<td><select name="select_questions[]" size="12" multiple="multiple">
-				|-foreach from=$forms item=form -|
+				|-foreach from=$forms item=form-|
 					|-include file=analysis_include_form_section_options.tpl section=$form->getRootSection() questions=$questionsX10-|
 				|-/foreach-|
 				</select>

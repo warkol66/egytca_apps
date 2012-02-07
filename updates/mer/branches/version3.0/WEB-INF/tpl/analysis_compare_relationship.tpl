@@ -6,7 +6,7 @@
 <form method="GET" action="Main.php" style="display:inline">
 	<input type="hidden" name="do" value="|-$smarty.request.do-|" />
 	<input type="hidden" name="actor" value="|-$actor1->getId()-|" />
-Relaciones entre |-$actor1->getName()-| y <select name='actor2' onchange="this.form.submit()">|-html_options options=$actors selected=$actor2->getId() -|</select>
+Relaciones entre |-$actor1->getName()-| y <select name='actor2' onchange="this.form.submit()">|-html_options options=$actors selected=$actor2->getId()-|</select>
 </form>
 </th>
 
@@ -34,7 +34,7 @@ Relaciones entre |-$actor1->getName()-| y <select name='actor2' onchange="this.f
 </form>
 |-/if-|
 
-|-if $stringQuestions ne "" -|
+|-if $stringQuestions ne ""-|
 	<img src="Main.php?do=analysisGraphCompareShow&actor1=|-$actor1->getId()-|&actor2=|-$actor2->getId()-|&|-$stringQuestions-|" alt="Error al Generar el Grafico Comparativo - No existen datos para las relaciones seleccionadas" />
 
 <form method="post" action="Main.php">

@@ -17,7 +17,7 @@
 		<td width="10%" nowrap class="tdTitle2"><div class="textTitle2">Formulario:</div></td> 
 		<td clas="tdTextTitle">|-if $form ne ""-||-assign var=formId value=$form->getId()-|
 			<div class="noPrint" style="display: inline;">|-$form->getname($formId)-|</div> 
-			|-/if-||-if $forms|@count gt 1 -|
+			|-/if-||-if $forms|@count gt 1-|
 			<div id='formselect' class='noPrint' style="display: inline;">&nbsp;&nbsp;|-include file="profiles_include_select_form_multiple.tpl"-|</div> 
 			|-/if-| </td> 
 	</tr> 
