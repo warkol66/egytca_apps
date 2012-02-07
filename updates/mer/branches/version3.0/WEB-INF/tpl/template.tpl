@@ -1,44 +1,58 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-<title>##12,Sistema para Manejo Estratégico de Relaciones con los Actores Clave##</title>
+<title>|-if isset($module)-||-$module|multilang_get_translation:"common"-| - |-/if-||-$parameters.siteName-|</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="css/main.css" type="text/css">
-<link rel="stylesheet" href="css/mer.css" type="text/css">
-<!--[if !IE]>--> <link href="css/mer_mozilla.css" rel="stylesheet" type="text/css"> <!--<![endif]-->
-<link rel="shortcut icon" href="images/mer.ico">
-<script src="scripts/functions.js">
+<!--[if lte IE 6]> <link href="css/styles-ie6.css" rel="stylesheet" type="text/css"> <![endif]-->
+<!--[if gt IE 6]> <link href="css/styles-ie.css" rel="stylesheet" type="text/css"> <![endif]-->
+<!--[if IE 7]> <link href="css/styles-ie7.css" rel="stylesheet" type="text/css"> <![endif]-->
+<!--[if IE 8]> <link href="css/styles-ie8.css" rel="stylesheet" type="text/css"> <![endif]-->
+<link rel="stylesheet" href="css/mainHandheld.css" type="text/css" media="handheld">
+<link rel="stylesheet" href="css/print.css" type="text/css" media="print">
+<link rel="shortcut icon" href="images/favicon.ico">
+<script language="JavaScript" type="text/JavaScript">
+	var url="|-$systemUrl-|";
 </script>
+|-include file='TemplateJsIncludes.tpl'-|
 </head>
-<body class='granfondo' leftmargin='2' topmargin='2'>
-<table width="980" border="0" cellspacing="0" cellpadding="0">
-	<tr>
-		<td valign="top" height="5"><a href="index.php?modulo=inicio"><img src="images/merlogo_n1.gif" width="101" height="5" border="0"></a></td>
-		<td height="5" align="left" valign="top" class="filled1"></td>
-		<td align="left" height="5" valign="top"><img src="images/menu_rtc.gif" width="6" height="5"></td>
-	</tr>
-	<tr>
-		<td width="99" valign="top" class="fondomenu"><a href="index.php?modulo=inicio"><img src="images/merlogo_n3.png" width="99" height="80" border="0"></a>|-include file=menu_left.tpl-|
-			<p>&nbsp;</p></td>
-		<td height='720' valign='top' class='fondoffffff'><table width='100%' border='0' cellspacing='0' cellpadding='0' height='20' class='filled1'>
-				<tr>
-					<td valign='top'>|-include file=menu_upper.tpl-|</td>
-				</tr>
-			</table><div id="rightColumn">|-$centerHTML-|
-			</div>
-		</td>
-		<td align="left" valign="top" class="bordederecho"><table width="100%" border="0" cellspacing="0" cellpadding="0" name="Principal">
-				<tr valign="top">
-					<td height="20" class="filled1"><img src="images/clear.gif" width="4" height="20"></td>
-				</tr>
-			</table></td>
-	</tr>
-	<tr>
-		<td height="6" class="bordebajo_izq"><img src="images/clear.gif" width="100" height="6"></td>
-		<td height="6" class="bordebajo"><img src="images/clear.gif" width="794" height="6"></td>
-		<td height="6"><img src="images/rbbluewh.gif" width="6" height="6"></td>
-	</tr>
-</table>
+<body>
+<!-- Begin Wrapper -->
+<div id="wrapper">
+	<!-- Begin Header -->
+	<div id="header">
+		<a href="Main.php"><strong>|-$parameters.siteName-|</strong></a>
+		<div id="headerLogo"><img src="images/logo2.png" /></div>
+	</div>
+		<!-- End Header -->
+	<!-- Begin contentWrapper -->
+		<div id="separatorHeader"></div>
+		<div id="contentWrapper">
+			<!-- Begin Left Column -->
+				<div id="leftColumn">
+					|-include file="MenuLeft.tpl"-|
+				</div>
+			<!-- End Left Column -->
+			<!-- Begin Right Column -->
+				<div id="rightColumn">
+					<!--centerHTML start-->
+					|-$centerHTML-|
+					<!--centerHTML end -->
+				</div>
+			<!-- End Right Column -->
+	<!-- Begin contentCloser -->
+	<div id="contentCloser"></div>
+	<!-- End contentCloser -->
+	</div>
+	<!-- End contentWrapper -->
+	<!-- Begin Footer -->
+		<div id="separatorFooter"></div>
+	<div id="footer">		       
+		<p>Desarrollado por Módulos Empresarios.</p>
+	</div>
+	<!-- End Footer -->
+</div>
+<!-- End Wrapper -->
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 </body>
