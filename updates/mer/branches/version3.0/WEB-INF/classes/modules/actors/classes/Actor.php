@@ -11,17 +11,19 @@
  * @package mer 
  */
 class Actor extends BaseActor {
+
 	function __toString(){
 		return $this->getName();
 	}
+
 	function replaceAnswers($answers){
-		require_once("mer/Answer.php");
+
 		GraphActorPeer::setOldByActor($this);
 		GraphCategoryPeer::setOldByCategory($this->getCategory());
 		foreach ($answers as $questionId => $answer){
 			$answerO = AnswerPeer::getAnswerByActorAndQuestion($this->getId(),$questionId);
 			if (empty($answerO))
-				$answerO = new answer();
+				$answerO = new Answer();
 			$answerO->setQuestionid($questionId);
 			$answerO->setAnswer($answer);
 			$answerO->setActor($this);
@@ -32,18 +34,20 @@ class Actor extends BaseActor {
 	
 	function replaceActive($applyableQuestions,$form) {
 		$questions = $form->getAllQuestions();
-		require_once("mer/ActorActiveQuestionPeer.php");
+
 		foreach ($questions as $question) {
+
 			if (in_array($question->getId(),$applyableQuestions)) {
-				$actQuestion = ActorActiveQuestionPeer::get($this,$question);
-				if (empty($actQuestion))
+				$actQuestion = ActorActiveQuestionQuery::create()->findPK(array($question->getId(),$this->getId()));
+				if (empty($actQuestion)) {
 					$actQuestion = new ActorActiveQuestion();
-				$actQuestion->setActorId($this->getId());
-				$actQuestion->setQuestionId($question->getId());
-				$actQuestion->save();
+					$actQuestion->setActorId($this->getId());
+					$actQuestion->setQuestionId($question->getId());
+					$actQuestion->save();
+				}
 			}
 			else
-        	ActorActiveQuestionPeer::delete($this,$question);
+        ActorActiveQuestionPeer::delete($this,$question);
 		}
 	}
 	
