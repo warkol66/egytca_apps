@@ -1,11 +1,12 @@
+<h2>##headlines,1,Titulares##</h2>
+|-if !$notValidId-|
+<h1>|-if !$headline->isNew()-|Editar|-else-|Crear|-/if-| ##headlines,2,Titular##</h1>
 <script type="text/javascript" src="scripts/lightbox.js"></script> 			
 <div id="lightbox2" class="leightbox"> 
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p> 
 	|-include file="ActorsEditInclude.tpl"-|
 </div> 
 |-include file="CommonAutocompleterInclude.tpl" -|
-<h2>##headlines,1,Titulares##</h2>
-<h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| ##headlines,2,Titular##</h1>
 <div id="div_headline">
 	<p>Ingrese los datos del ##headlines,2,Titular##</p>
 	|-if $message eq "ok"-|
@@ -86,7 +87,7 @@
 			</p>
 			<p>
 			<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
-				|-include file="HiddenInputsInclude.tpl" action="$action" filters="$filters" page="$page"-|
+				|-include file="HiddenInputsInclude.tpl" filters="$filters" page="$page"-|
 				<input type="hidden" name="do" id="do" value="headlinesDoEdit" />
 				|-javascript_form_validation_button value='Guardar' title='Guardar'-|
 				<input type="button" id="cancel" name="cancel" title="Regresar al listado" value="Regresar al listado" onClick="location.href='Main.php?do=headlinesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) && $page gt 0-|&page=|-$page-||-/if-|'"/>
@@ -317,4 +318,8 @@ function removeRelationFromHeadline(form){
 	|-include file="DocumentsListInclude.tpl" entity="Headline" entityId=$headline->getId() label="Clipping"-|
 	|-include file="DocumentsEditInclude.tpl" entity="Headline" entityId=$headline->getId() label="Clipping"-|
 
+|-/if-|
+|-else-|
+<div class="errorMessage">El identificador ingresado no es válido. Seleccione un item del listado.</div>
+<input type='button' onClick='location.href="Main.php?do=headlinesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Titulares"/>
 |-/if-|

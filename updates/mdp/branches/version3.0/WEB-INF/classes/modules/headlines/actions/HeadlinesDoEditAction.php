@@ -25,18 +25,19 @@ class HeadlinesDoEditAction extends BaseAction {
 		$userParams = Common::userInfoToDoLog();
 		$headlineParams = array_merge_recursive($_POST["params"],$userParams);
 
-		if ($_POST["action"] == "edit") { // Existing headline
+		if (isset($_POST["id"])) { // Existing headline
 
-			$headline = HeadlinePeer::get($_POST["id"]);
-			$headline = Common::setObjectFromParams($headline,$headlineParams);
-			
-			$params["id"] = $_POST["id"];
+			$headline = HeadlineQuery::create()->findPK($request->getParameter("id"));
+			if (!empty($headline)) {
+				$headline = Common::setObjectFromParams($headline,$headlineParams);
 
-			if ($headline->isModified() && !$headline->save()) 
-				return $this->returnFailure($mapping,$smarty,$headline,'failure-edit');
+				$params["id"] = $_POST["id"];
 
-			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');
+				if ($headline->isModified() && !$headline->save())
+					return $this->returnFailure($mapping,$smarty,$headline,'failure-edit');
 
+				return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');
+			}
 		}
 		else { // New headline
 

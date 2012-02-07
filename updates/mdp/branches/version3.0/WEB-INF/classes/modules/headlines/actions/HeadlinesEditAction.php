@@ -23,27 +23,15 @@ class HeadlinesEditAction extends BaseAction {
 		$smarty->assign("moduleConfig",$moduleConfig);
 
 		if (!empty($_GET["id"])) {
-			//voy a editar un objeto
 
-			$headline = HeadlinePeer::get($_GET["id"]);
-
+			$headline = HeadlineQuery::create()->findPK($request->getParameter("id"));
 			if (!empty($headline)) {
-				/*$actualCategories = $actor->getActorCategorys();
-				$smarty->assign("actualCategories",$actualCategories);
-
-				if (!$actualCategories->isEmpty())
-					$excludeCategoriesIds = $actor->getAssignedCategoriesArray($_GET["id"]);
-
-				$criteria = new Criteria();
-				$criteria->add(ActorCategoryPeer::ID, $excludeCategoriesIds, Criteria::NOT_IN);
-				$categoryCandidates = ActorCategoryPeer::doSelect($criteria);
-				$smarty->assign("categoryCandidates",$categoryCandidates);*/
 
 				//Adjuntar documentos
 				$smarty->assign("documentsUpload", true); //en el template se realizan subidas de documentos
 				$documentTypes = DocumentPeer::getDocumentsTypesConfig();
 				$smarty->assign("documentTypes",$documentTypes);
-	
+
 				$maxUploadSize =  Common::maxUploadSize();
 				$smarty->assign("maxUploadSize",$maxUploadSize);
 
