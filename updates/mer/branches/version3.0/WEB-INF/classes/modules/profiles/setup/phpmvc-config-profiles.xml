@@ -6,8 +6,17 @@
 							 name = "ProfilesFormViewSelectCategory"
 							scope = "request"
 					 validate = "true">
-			<forward name="success" path="category_select_view.tpl" />           
+			<forward name="success" path="CategorySelectView.tpl" />           
 		</action>
+
+		<action    path = "profilesFormFillSelectCategory"
+							 type = "ProfilesFormFillSelectCategoryAction"
+							 name = "ProfilesFormFillSelectCategory"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ProfilesFormFillSelectCategory.tpl" />           
+		</action>
+
 
 		<action    path = "doProfilesFormEdit"
 							 type = "DoProfilesFormEditAction"
@@ -35,14 +44,6 @@
 			<forward name="success" path="/Main.php?do=profilesFormRelEdit&amp;status=ok" redirect="true" />
 			<forward name="failure" path="/Main.php?do=profiles_edit_form_relationship.tpl&amp;status=error" redirect="true" />
 		</action>        
-
-		<action    path = "profilesFormFillSelectCategory"
-							 type = "ProfilesFormFillSelectCategoryAction"
-							 name = "ProfilesFormFillSelectCategory"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="category_select_fill.tpl" />           
-		</action>
 
 
 		<action    path = "profilesFormRelFill"
@@ -146,12 +147,12 @@
 				<forward name="select_form" path="ProfilesFormSelect.tpl" />
 		</action>
 
-		<action    path = "profilesFormEdit"
-							 type = "ProfilesFormEditAction"
-							 name = "ProfilesFormEdit"
+		<action    path = "profilesFormQuestionEdit"
+							 type = "ProfilesFormQuestionEditAction"
+							 name = "ProfilesFormQuestionEdit"
 							scope = "request"
 					 validate = "true">
-			<forward name="success" path="ProfilesFormEdit.tpl" />
+			<forward name="success" path="ProfilesFormQuestionEdit.tpl" />
 			<forward name="select_form" path="ProfilesFormSelect.tpl" />
 		</action>
 

@@ -8,7 +8,7 @@ class ProfilesFormEditAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-		BaseAction::execute($mapping, $form, $request, $response);
+    BaseAction::execute($mapping, $form, $request, $response);
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
@@ -16,66 +16,30 @@ class ProfilesFormEditAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$module = "Profiles";
-		$section = "Configure";
+		$module = "Profile";
+		$section = "Forms";
+    $smarty->assign("module",$module);
+    $smarty->assign("section",$section);
 
-		$smarty->assign("module",$module);
-		$smarty->assign("section",$section);
+		if ($_GET["page"] > 0)
+			$smarty->assign("page",$_GET["page"]);
 
-		if ($_GET["createForm"]) {
-			$smarty->assign("createForm",true);
-			return $mapping->findForwardConfig('success');
+		$filters = $_GET["filters"];
+		$smarty->assign("filters",$filters);
+
+		$message = $_GET["message"];
+		$smarty->assign("message",$message);
+
+		$form = new Form();
+
+    if (!empty($_GET["id"])) {
+			$form = FormQuery::create()->findPK($_GET["id"]);
+			if (empty($form))
+				$smarty->assign("notValidId",true);		
 		}
 
-
-		if (!empty($_GET["form"]))
-			$forms[0] = FormPeer::get($_GET["form"]);
-		else {
-			$formsC = new Criteria();
-			$formsC->add(FormPeer::RELATIONSHIP,false);
-			$forms = FormPeer::doSelect($formsC);
-		}
-
-		if (count($forms) == 1) {
-
-			$crit = new Criteria();
-			$crit->add(FormPeer::ID,$forms[0]->getId());
-			$sections = FormPeer::getSectionsTree($crit);
-
-			if ($request->getParameter("questionId")) {
-				try {
-					$question = QuestionPeer::retrieveByPK($request->getParameter("questionId"));
-				}
-				catch (PropelException $e) {
-					echo "Error retrieving question id:".$request->getParameter("questionId");
-				}
-			}
-			else
-				$question = new Question();
-
-			$smarty->assign("question",$question);
-			$smarty->assign("positions",range(1,30));
-			$smarty->assign("forms",$forms);
-			$smarty->assign("form",$forms[0]);
-			$smarty->assign("sections",$sections);
-
-			$form = $forms[0];
-			$questions = $form->getAllQuestions();
-			$smarty->assign('questions',$questions);
-
-			return $mapping->findForwardConfig('success');
-		}
-
-		if (count($forms) == 0) {
-			$formsC = new Criteria();
-			$formsC->add(FormPeer::RELATIONSHIP,false);
-			$forms = FormPeer::doSelect($formsC);
-		}
-
-		$smarty->assign("forms",$forms);
-		$smarty->assign("do","profilesFormEdit");
-
-		return $mapping->findForwardConfig('select_form');
+		$smarty->assign("form",$form);
+		return $mapping->findForwardConfig('success');
 	}
 
 }

@@ -49,7 +49,8 @@ class ProfilesEditAction extends BaseAction {
 
 		$smarty->assign("actor",$actor);
 		$smarty->assign("forms",$forms);
-		$smarty->assign("do","profilesDoEdit");
+		$smarty->assign("form",FormQuery::create()->findPK($_GET["form"]));
+		$smarty->assign("do","profilesEdit");
 
 		if (count($forms) == 1) {
 

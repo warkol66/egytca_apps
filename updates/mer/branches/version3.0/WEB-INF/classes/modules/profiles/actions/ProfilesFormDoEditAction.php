@@ -2,91 +2,60 @@
 
 class ProfilesFormDoEditAction extends BaseAction {
 
+	function ProfilesFormDoEditAction() {
+		;
+	}
+
 	function execute($mapping, $form, &$request, &$response) {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
-		
-		$module = "Mer";
-		$section = "Profiles";
-		
-    $smarty->assign("module",$module);
-    $smarty->assign("section",$section);			
+		$module = "Profiles";
+		$section = "Forms";
 
-		if ($request->getParameter("newForm")) {
+		if ($_POST["page"] > 0)
+			$params["page"] = $_POST["page"];
+
+		if (!empty($_POST["filters"]))
+			$filters = $_POST["filters"];
+
+		$userParams = Common::userInfoToDoLog();
+		$mediaParams = array_merge_recursive($_POST["params"],$userParams);
+
+		if ($request->getParameter("id")) {
+			$form = FormQuery::create()->findPK($_POST["id"]);
+			if (!empty($form)) {
+				if (isset($_POST["params"]["id"]))
+					unset($_POST["params"]["id"]);
+
+				$form = Common::setObjectFromParams($form,$_POST["params"]);
+				if ($form->isModified() && !$form->save())
+					return $mapping->findForwardConfig('failure');
+				else {
+					if (mb_strlen($form->getName()) > 120)
+						$cont = " ... ";
+					$logSufix = "$cont, " . Common::getTranslation('action: edit','common');
+					Common::doLog('success', substr($form->getName(), 0, 120) . $logSufix);
+					return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
+				}
+			}
+		}
+		else {
 			$form = new Form();
 			$form = Common::setObjectFromParams($form,$_POST["params"]);
 			$section = new FormSection();
-			$section->setTitle("Now");
+			$section->setTitle($_POST["sectionTitle"]);
 			$section->save();
 			$form->setRootSectionid($section->getId());
-			if ($form->save())
-				return $mapping->findForwardConfig('success');
+			if ($form->save()) {
+				if (mb_strlen($form->getName()) > 120)
+					$cont = " ... ";
+				$logSufix = "$cont, " . Common::getTranslation('action: create','common');
+				Common::doLog('success', substr($form->getName(), 0, 120) . $logSufix);
+				return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
+			}
 			else
-				return $mapping->findForwardConfig('failure-create');			
+				return $mapping->findForwardConfig('failure-create');
 		}
-		if ($request->getParameter("questionId")) {
-			try {
-				$question = QuestionQuery::create()->findPK($request->getParameter("questionId"));
-			}
-			catch (PropelException $e) {
-				echo "Error retrieving question id:".$request->getParameter("questionId");
-			}
-		}
-		elseif ($request->getParameter("edit"))
-			$question = new Question();
-		elseif ($request->getParameter("delete") && $request->getParameter("sectionId")) {
-			// delete section
-			$section = FormSectionQuery::create()->findPK($request->getParameter("sectionId"));
-			if ($section)
-				$section->delete();
-		}
-		if ($request->getParameter("edit_section") && $request->getParameter("sectionId")) {
-			// edit section
-			$section = FormSectionQuery::create()->findPK($request->getParameter("sectionId"));
-			if ($section) {
-				$section->setTitle($request->getParameter("newTitle"));
-				$section->save();
-			}
-		}
-		if ($request->getParameter("edit") && $question) { // save new question and create section if needed
-			if ($request->getParameter("newSection") && $request->getParameter("newSectionParentId")) {
-				$section = new FormSection();
-				$section->setTitle($request->getParameter("newSection"));
-				$section->setParentsectionid($request->getParameter("newSectionParentId"));
-				$section->save();
-				$question->setSectionid($section->getId());					
-			}
-			else			
-				$question->setSectionid($request->getParameter("sectionId"));			
-
-			$question->setType($request->getParameter("questionType"));
-			$question->setUnit($request->getParameter("unit"));
-			$question->setQuestion($request->getPArameter("question"));
-			$question->setPosition($request->getParameter("position"));
-			try {
-				$question->save();
-			}
-			catch (PropelException $e) {
-				echo "Error saving Question";			
-			}
-			if ($request->getParameter("questionType") == QUESTION_TYPE_OPTIONS)
-				$question->replaceOptions($request->getParameterValues("opc"),$request->getParameterValues("rta"),$request->getParameter("default"));
-
-		}
-		elseif ($request->getParameter("delete") && !empty($question) && is_object($question) && $question->getId())
-			$question->delete();
-
-		$actionForward = $request->getParameter("forward");
-		if (empty($actionForward))
-			$actionForward = "profilesFormEdit";
-
-		header("Location: Main.php?do=".$actionForward."&form=".$request->getParameter("form"));
-		exit;
 	}
 }

@@ -1,7 +1,12 @@
 |-if !$notValidId-|
+|-if $do eq "profilesView"-|
 <h2>Configuración del Sistema</h2>
-	<h1>Administrar Preguntas</h1>
-	<p>En esta sección podrá administrar las preguntas del perfil del Actor. Para agregar preguntas puede hacer <a href="#edit">click aquí</a>.</p>
+	<h1>Visualización de perfiles</h1>
+	<p>En esta sección podrá vel el perfil del Actor.</p>
+|-elseif $do eq "profilesEdit"-|
+<h2>Configuración del Sistema</h2>
+	<h1>Edición de Perfiles</h1>
+	<p>En esta sección podrá modificar la información de caracterización del Actor.</p>|-/if-|
 <form method="get" action="Main.php">
 	<input type="hidden" name="do" value="|-$do-|" />
 	|-if $actor ne ""-|

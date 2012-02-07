@@ -4,9 +4,9 @@
 	<tr>
 		<th colspan="2">##202,Caracterización de## |-$actor->getName()-|</th>
 	</tr>
-	|-foreach from=$forms item=form -|
+	|-foreach from=$forms item=form-|
 	|-if $form->getRootSection()-|
-	|-include file=profiles_form_view_section.tpl section=$form->getRootSection() -|
+	|-include file="ProfilesFormViewSection.tpl" section=$form->getRootSection()-|
 	|-/if-|
 	|-/foreach-|
 	</tr>

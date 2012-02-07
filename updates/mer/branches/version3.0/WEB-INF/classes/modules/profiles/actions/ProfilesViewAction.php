@@ -44,6 +44,7 @@ class ProfilesViewAction extends BaseAction {
 
 		$smarty->assign('actor',$actor);
 		$smarty->assign("forms",$forms);
+		$smarty->assign("form",FormQuery::create()->findPK($_GET["form"]));
 		$smarty->assign("do","profilesView");
 
 		if (count($forms) == 1) {
