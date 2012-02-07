@@ -14,20 +14,22 @@
 <script type="text/javascript" >
 
 	function showValidationFailureMessage(form) {
-		var validationMessage = $('validationFailureMessage');
-		if (!Object.isElement(validationMessage)) {
+		var actionMessage = $('actionMessage');
+		if (!Object.isElement(actionMessage)) {
 			form.insert({
-				top: new Element('div', {id: 'validationFailureMessage', 'class': 'errorMessage'}).update('Tiene errores en el formulario, revíselo y vuelva a enviarlo.')
+				top: new Element('div', {id: 'actionMessage', 'class': 'errorMessage'}).update('Tiene errores en el formulario, revíselo y vuelva a enviarlo.')
 			});
 		} else {
-			validationMessage.show();
+			actionMessage.className = 'errorMessage';
+			actionMessage.update('Tiene errores en el formulario, revíselo y vuelva a enviarlo.');
+			actionMessage.show();
 		}
 	}
 
 	function hideValidationFailureMessage(form) {
-		var validationMessage = $('validationFailureMessage');
-		if (Object.isElement(validationMessage)) {
-			validationMessage.hide();
+		var actionMessage = $('actionMessage');
+		if (Object.isElement(actionMessage)) {
+			actionMessage.hide();
 		}
 	}
 	
