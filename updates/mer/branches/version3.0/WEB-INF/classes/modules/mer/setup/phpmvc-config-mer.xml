@@ -1,0 +1,344 @@
+<!-- ========== Action Mapping MER ============================== -->
+  <action-mappings>
+    <action    path = "analysisActor"
+               type = "AnalysisActorAction"
+               name = "analysisActor"
+              scope = "request"
+           validate = "true">
+	    <forward name="success" path="analysis_actor.tpl" />
+	    <forward name="report" path="analysis_actor_report.tpl" />
+    </action>
+    
+    <action    path = "analysisActorJudgementDoEdit"
+               type = "AnalysisActorJudgementDoEditAction"
+               name = "analysisActorJudgementDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="/Main.php?do=analysisActor" redirect="true" />
+    </action>
+    
+    <action    path = "analysisSelectCategory"
+               type = "AnalysisSelectCategoryAction"
+               name = "analysisSelectCategory"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_select_category.tpl" />
+    </action>
+    
+    <action    path = "analysisCategory"
+               type = "AnalysisCategoryAction"
+               name = "analysisCategory"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_category.tpl" />
+    </action>
+
+    <action    path = "analysisGraphShow"
+               type = "AnalysisGraphShowAction"
+               name = "analysisGraphShow"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_show.tpl" />
+    </action>
+    
+    <action    path = "analysisGraphNetworkShow"
+               type = "AnalysisGraphNetworkShowAction"
+               name = "analysisGraphNetworkShow"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_network_show.tpl" />
+    </action>
+    
+    <action    path = "analysisGraphNetwork"
+               type = "AnalysisGraphNetworkAction"
+               name = "analysisGraphNetwork"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_network.tpl" />
+    </action>
+    
+    <action    path = "analysisGraphNetworkSelectActors"
+               type = "AnalysisGraphNetworkSelectActorsAction"
+               name = "analysisGraphNetworkSelectActors"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="analysis_graph_network_select_actors.tpl" />
+    </action>
+    
+    <action    path = "analysisGraphCompareShow"
+               type = "AnalysisGraphCompareShowAction"
+               name = "analysisGraphCompareShow"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_show.tpl" />
+    </action>
+    
+    <action    path = "analysisGraphRelationShow"
+               type = "AnalysisGraphRelationShowAction"
+               name = "analysisGraphRelationShow"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_show.tpl" />
+    </action>
+    
+    <action    path = "analysisGraphRelationDoSave"
+               type = "AnalysisGraphRelationDoSaveAction"
+               name = "analysisGraphRelationDoSave"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_show.tpl" />
+    </action>
+    
+    <action    path = "analysisCompareRelSelectCategory"
+               type = "AnalysisCompareRelSelectCategoryAction"
+               name = "analysisCompareRelSelectCategory"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="category_select.tpl" />
+    </action>
+
+    <action    path = "analysisRelationSelectCategory"
+               type = "AnalysisRelationSelectCategoryAction"
+               name = "analysisRelationSelectCategory"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="category_select.tpl" />
+    </action>
+    
+        <action    path = "analysisCompareRel"
+               type = "AnalysisCompareRelAction"
+               name = "analysisCompareRel"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="analysis_compare_relationship.tpl" />
+    </action>
+    
+        <action    path = "analysisRelation"
+               type = "AnalysisRelationAction"
+               name = "analysisRelation"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="analysis_relation.tpl" />
+    	<forward name="list" path="analysis_relation_list.tpl" />
+    </action>
+    
+        <action    path = "analysisGraphRelationDoDelete"
+               type = "AnalysisGraphRelationDoDeleteAction"
+               name = "analysisGraphRelationDoDelete"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="analysis_relation.tpl" />
+    </action>
+    
+        <action    path = "analysisGraphRelationDoEdit"
+               type = "AnalysisGraphRelationDoEditAction"
+               name = "analysisGraphRelationDoEdit"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="analysis_relation.tpl" />
+    </action>
+    
+        <action    path = "analysisRelationJudgementDoEdit"
+               type = "AnalysisRelationJudgementDoEditAction"
+               name = "analysisRelationJudgementDoEdit"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="analysis_relation.tpl" />
+    </action>
+
+    <action    path = "analysisGraphList"
+               type = "AnalysisGraphListAction"
+               name = "analysisGraphList"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_list.tpl" />
+    </action>
+
+    <action    path = "analysisGraphEdit"
+               type = "AnalysisGraphEditAction"
+               name = "analysisGraphEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_edit.tpl" />
+    </action>
+    
+    <action    path = "analysisGraphDoEdit"
+               type = "AnalysisGraphDoEditAction"
+               name = "analysisGraphDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="/Main.php?do=analysisGraphList" redirect="true" />
+    </action>
+    
+    <action    path = "analysisGraphDoDelete"
+               type = "AnalysisGraphDoDeleteAction"
+               name = "analysisGraphDoDelete"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="/Main.php?do=analysisGraphList" redirect="true" />
+    </action>
+
+    <action    path = "analysisGraphJudgementAssistant"
+               type = "AnalysisGraphJudgementAssistantAction"
+               name = "analysisGraphJudgementAssistant"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_judgement_assistant.tpl" />
+    </action>
+
+    <action    path = "analysisGraphJudgementEdit"
+               type = "AnalysisGraphJudgementEditAction"
+               name = "analysisGraphJudgementEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_judgement_edit.tpl" />
+    </action>
+
+    <action    path = "analysisGraphJudgementDoEdit"
+               type = "AnalysisGraphJudgementDoEditAction"
+               name = "analysisGraphJudgementDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="/Main.php?do=analysisGraphList" redirect="true" />
+    </action>
+    
+    <action    path = "analysisGraphJudgementShow"
+               type = "AnalysisGraphJudgementShowAction"
+               name = "analysisGraphJudgementShow"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_graph_judgement_show.tpl" />
+    </action>
+    
+    <action    path = "analysisQuestionList"
+               type = "AnalysisQuestionListAction"
+               name = "analysisQuestionList"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_question_list.tpl" />
+    </action>
+
+    <action    path = "analysisQuestionDoEdit"
+               type = "AnalysisQuestionDoEditAction"
+               name = "analysisQuestionDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="/Main.php?do=analysisQuestionList" redirect="true" />
+    </action>
+    
+    <action    path = "analysisQuestionDoDelete"
+               type = "AnalysisQuestionDoDeleteAction"
+               name = "analysisQuestionDoDelete"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="/Main.php?do=analysisQuestionList" redirect="true" />
+    </action>
+
+    <action    path = "analysisGetQuestionByLabel"
+               type = "AnalysisGetQuestionByLabelAction"
+               name = "analysisGetQuestionByLabel"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_get_question_by_label.tpl" />
+    <forward name="failure" path="analysis_question_not_found.tpl" />
+    </action>
+    
+    <action    path = "analysisQuestionLabelList"
+               type = "AnalysisQuestionLabelListAction"
+               name = "analysisQuestionLabelList"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="analysis_question_label_list.tpl" />
+    </action>
+
+    <action    path = "analysisQuestionLabelDoEdit"
+               type = "AnalysisQuestionLabelDoEditAction"
+               name = "analysisQuestionLabelDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="/Main.php?do=analysisQuestionLabelList" redirect="true" />
+    <forward name="failure" path="/Main.php?do=analysisQuestionLabelList&amp;message=error" redirect="true" />
+    </action>
+
+    <action    path = "analysisQuestionLabelDoDelete"
+               type = "AnalysisQuestionLabelDoDeleteAction"
+               name = "analysisQuestionLabelDoDelete"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="/Main.php?do=analysisQuestionLabelList" redirect="true" />
+    </action>
+  </action-mappings>
+
+<!-- Module Mer - Section Strategies -->
+  <action-mappings>
+      <action    path = "strategiesSelectCategory"
+               type = "StrategiesSelectCategoryAction"
+               name = "strategiesSelectCategory"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="strategies_select_category.tpl" />
+    </action>
+
+    <action    path = "strategiesCategory"
+               type = "StrategiesCategoryAction"
+               name = "strategiesCategory"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="strategies_category.tpl" />
+    </action>
+    
+    <action    path = "strategiesActor"
+               type = "StrategiesActorAction"
+               name = "strategiesActor"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="strategies_actor.tpl" />
+    </action>
+    
+    <action    path = "strategiesActorDoEdit"
+               type = "StrategiesActorDoEditAction"
+               name = "strategiesActorDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="strategies_actor.tpl" />
+    </action>
+  </action-mappings>
+<!-- Fin Section Strategies -->
+
+<!-- Module Mer - Section Forms -->
+  <action-mappings>
+    <action    path = "formsEdit"
+               type = "FormsEditAction"
+               name = "formsEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="forms_edit.tpl" />
+    </action>
+
+    <action    path = "formsDoEdit"
+               type = "FormsDoEditAction"
+               name = "formsDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="/Main.php?do=formsList&amp;message=ok" redirect="true" />
+    <forward name="failure" path="forms_edit.tpl" />
+    </action>
+
+    <action    path = "formsList"
+               type = "FormsListAction"
+               name = "formsList"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="forms_list.tpl" />
+    </action>
+
+    <action    path = "formsDoDelete"
+               type = "FormsDoDeleteAction"
+               name = "formsDoDelete"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="/Main.php?do=formsList&amp;message=deleted_ok" redirect="true" />
+    </action>
+  </action-mappings>
+<!-- Fin Section Forms -->
+    
