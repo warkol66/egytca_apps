@@ -1,4 +1,4 @@
-|-include file="CommonAutocompleterInclude.tpl" -|
+|-include file="CommonAutocompleterInclude.tpl"-|
 <script type="text/javascript" src="scripts/lightbox.js"></script> 
 <div id="lightbox1" class="leightbox">
 	<p align="right">				

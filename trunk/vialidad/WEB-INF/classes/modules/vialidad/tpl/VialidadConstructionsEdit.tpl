@@ -5,7 +5,7 @@
 <input type='button' onClick='location.href="Main.php?do=vialidadConstructionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Obras"/>
 |-else-|
 
-|-include file="CommonAutocompleterInclude.tpl" -|
+|-include file="CommonAutocompleterInclude.tpl"-|
 
 <h1>Administración de Obras - |-if $action eq 'create'-|Crear|-else-|Editar|-/if-| Obra</h1>
 |-if $action eq 'create'-|	

@@ -5,7 +5,7 @@
 <input type='button' onClick='location.href="Main.php?do=vialidadCertificatesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Certificados"/>
 |-else-|
 
-|-include file="CommonAutocompleterInclude.tpl" -|
+|-include file="CommonAutocompleterInclude.tpl"-|
 
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| Certificado de Obra</h1>
 <div id="div_certificate">

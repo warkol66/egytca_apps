@@ -5,7 +5,7 @@
 <input type='button' onClick='location.href="Main.php?do=vialidadContractsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Contratos"/>
 |-else-|
 
-|-include file="CommonAutocompleterInclude.tpl" -|
+|-include file="CommonAutocompleterInclude.tpl"-|
 
 <h1>Administración de Contratos - |-if $action eq 'create'-|Crear|-else-|Editar|-/if-| Contrato</h1>
 |-if $action eq 'create'-|	

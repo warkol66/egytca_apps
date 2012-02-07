@@ -3,4 +3,4 @@
 	$('entityFieldSelector').show();
 	$('button_edit_scheduleSubscription').enable();
 </script>
-|-include file="CommonSchedulesSubscriptionsEntityFieldSelectorInclude.tpl" -|
+|-include file="CommonSchedulesSubscriptionsEntityFieldSelectorInclude.tpl"-|
