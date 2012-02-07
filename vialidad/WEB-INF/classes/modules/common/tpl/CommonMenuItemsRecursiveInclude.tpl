@@ -27,7 +27,7 @@
 		|-assign var=childs value=$menuItem->getAllChilds()-|
 				<li |-if $smarty.foreach.$itName.last-|class="last"|-/if-|>
 					|-assign var=menuInfo value=$menuItem->getMenuInfo()-|
-					<a title="|-$menuInfo->getTitle()-|" |-if !$childs->isEmpty() -|class="sub"|-/if-| href="|-$menuItem->getUrl()-|">|-$menuInfo->getName()-|</a>
+					<a title="|-$menuInfo->getTitle()-|" |-if !$childs->isEmpty()-|class="sub"|-/if-| href="|-$menuItem->getUrl()-|">|-$menuInfo->getName()-|</a>
 					|-include file="CommonMenuItemsRecursiveInclude.tpl" menuItems=$childs parentId=$menuItem->getId()-|
 				</li>
 		|-/foreach-|
@@ -37,9 +37,9 @@
 		|-assign var=itName value="it_$parentId"-|
 		|-foreach from=$menuItems item=menuItem name="$itName"-|
 		|-assign var=childs value=$menuItem->getAllChilds()-|
-				<li |-if !$childs->isEmpty() -|class="titleMenu"|-else-|class="menuLink"|-/if-|>
+				<li |-if !$childs->isEmpty()-|class="titleMenu"|-else-|class="menuLink"|-/if-|>
 					|-assign var=menuInfo value=$menuItem->getMenuInfo()-|
-					<a |-if !$childs->isEmpty() -|href="javascript:switch_vis('menu_|-$menuItem->getId()-|');" class="linkSwitchMenu"|-else-|href="|-$menuItem->getUrl()-|"|-/if-| title="|-$menuInfo->getTitle()-|" >|-$menuInfo->getName()-|</a>
+					<a |-if !$childs->isEmpty()-|href="javascript:switch_vis('menu_|-$menuItem->getId()-|');" class="linkSwitchMenu"|-else-|href="|-$menuItem->getUrl()-|"|-/if-| title="|-$menuInfo->getTitle()-|" >|-$menuInfo->getName()-|</a>
 					<div id="menu_|-$menuItem->getId()-|" style="display:none;" >
 						|-include file="CommonMenuItemsRecursiveInclude.tpl" menuItems=$childs parentId=$menuItem->getId()-|
 					</div>

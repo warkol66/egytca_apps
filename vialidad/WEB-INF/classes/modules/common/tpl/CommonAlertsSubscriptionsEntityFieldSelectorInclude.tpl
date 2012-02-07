@@ -1,4 +1,4 @@
-|-if $entityNameFields ne '' and count($entityNameFields) > 0 -|
+|-if $entityNameFields ne '' and count($entityNameFields) > 0-|
 <p>
 	<label for="alertSubscription[entityNameFieldUniqueName]">Campo a mostrar como nombre</label>
 	<select name="alertSubscription[entityNameFieldUniqueName]">
@@ -9,7 +9,7 @@
 </p>
 |-/if-|
 
-|-if $entityDateFields ne '' and count($entityDateFields) > 0 -|
+|-if $entityDateFields ne '' and count($entityDateFields) > 0-|
 <p>
 	<label for="alertSubscription[entityDateFieldUniqueName]">Campo a inspeccionar</label>
 	<select name="alertSubscription[entityDateFieldUniqueName]">

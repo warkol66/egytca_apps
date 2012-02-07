@@ -40,7 +40,7 @@
 	</tr>|-/if-|
 	|-foreach from=$affiliates item=affiliate name=for_affiliate-|
 	<tr>
-		<td width="90%">|-$affiliate->getName()-| |-if $affiliate->getOwnerId() neq "" -||-assign var=owner value=$affiliate->getOwner()-| [ Usuario Dueño: |-$owner->getUsername()-| ] |-/if-|</td>
+		<td width="90%">|-$affiliate->getName()-| |-if $affiliate->getOwnerId() neq ""-||-assign var=owner value=$affiliate->getOwner()-| [ Usuario Dueño: |-$owner->getUsername()-| ] |-/if-|</td>
 		<td width="10%" nowrap>|-if "affiliatesVerifiersViewX"|security_has_access-|
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="affiliatesVerifiersViewX" />
