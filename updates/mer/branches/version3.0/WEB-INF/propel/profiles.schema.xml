@@ -1,0 +1,89 @@
+﻿<database defaultIdMethod="native" package="profiles.classes" name="application" >
+
+	<table phpName="Form" name="MER_form" description="Formularios de Perfiles">
+
+		<column name="id" autoIncrement="true" type="INTEGER" required="true" description="" primaryKey="true" />
+		<column name="name" type="VARCHAR" size="255" required="true" description="Nombre del formulario" primaryString="true" />
+		<column name="description" type="LONGVARCHAR" description="Descripcion del formulario" />
+		<column name="relationship" type="BOOLEAN" default="0" description="Is this form a relationship form (between actors)?" />
+		<column name="rootSectionId" type="INTEGER" description="" />
+
+		<foreign-key foreignTable="MER_formSection"  >
+			<reference local="rootSectionId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="FormSection" name="MER_formSection" description="Secciones de Formularios de Perfil" >
+
+		<column name="id" autoIncrement="true" type="INTEGER" required="true" description="" primaryKey="true" />
+		<column name="parentSectionId" type="INTEGER" description="Nested sections" />
+		<column name="position" type="INTEGER" required="true" default="1" description="Section order" />
+		<column name="title" type="VARCHAR" size="255" required="true" description="Section title" primaryString="true" />
+
+		<foreign-key foreignTable="MER_formSection" onDelete="cascade">
+			<reference local="parentSectionId" foreign="id" />
+		</foreign-key>
+
+		<index>
+			<index-column name="parentSectionId" />
+		</index>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="Question" name="MER_formSectionQuestion" description="Preguntas del Formulario de Perfiles" >
+
+		<column name="id" autoIncrement="true" type="INTEGER" required="true" description="" primaryKey="true" />
+		<column name="sectionId" type="INTEGER" required="true" description="" />
+		<column name="question" type="VARCHAR" size="255" required="true" description="" primaryString="true" />
+		<column name="type" type="SMALLINT" required="true" description="" />
+		<column name="position" type="INTEGER" required="true" description="" />
+		<column name="unit" type="VARCHAR" size="20" description="" />
+		<column name="analysis" default="false" type="BOOLEAN" description="Aparece la pregunta en analysis?"/>
+		<column name="label" type="VARCHAR" size="50" description="Label de la pregunta" />
+
+<!--		<unique>
+			<unique-column name="label" />
+		</unique> TODO Revisar-->
+
+		<foreign-key foreignTable="MER_formSection" onDelete="cascade" >
+			<reference local="sectionId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="QuestionOption" name="MER_formSectionQuestionOption" description="Options for type-select questions" >
+
+		<column type="INTEGER" name="questionId" required="true" description="" primaryKey="true" />
+		<column type="INTEGER" name="position" required="true" description="" primaryKey="true" />
+		<column type="VARCHAR" size="255" name="value" required="true" description="" />
+		<column type="VARCHAR" size="255" name="text" required="true" description="" />
+		<column type="BOOLEAN" name="defaultOpc" description="" />
+
+		<foreign-key foreignTable="MER_formSectionQuestion" onDelete="cascade" >
+			<reference local="questionId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>
