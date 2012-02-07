@@ -1,5 +1,80 @@
 <?xml version="1.0" encoding="utf8"?>
 <config>
+	<system>
+		<parameters>
+			<debugMode>
+				<value>YES</value>
+				<element_type>YES/NO</element_type>
+			</debugMode>
+			<developmentMode>
+				<value>YES</value>
+				<element_type>YES/NO</element_type>
+			</developmentMode>
+			<mailCapture>
+				<value>YES</value>
+				<element_type>YES/NO</element_type>
+			</mailCapture>
+			<underMaintenance>
+				<value>NO</value>
+				<element_type>YES/NO</element_type>
+			</underMaintenance>
+			<dateFormat>
+				<value>d-m-Y</value>
+				<element_type>Options</element_type>
+				<element_options>
+					<option_1>d-m-Y</option_1>
+					<option_2>m-d-Y</option_2>
+					<option_3>d-m-y</option_3>
+					<option_4>m-d-y</option_4>
+				</element_options>
+			</dateFormat>
+			<thousandsSeparator>.</thousandsSeparator>
+			<decimalSeparator>,</decimalSeparator>
+			<numberOfDecimals>2</numberOfDecimals>
+			<siteName>MER - Manejo Estratégico de Relaciones</siteName>
+			<siteDescription>Manejo Estratégico de Relaciones</siteDescription>
+			<siteShortName>mer</siteShortName>
+			<webmasterMail>moddebugger@gmail.com</webmasterMail>
+			<debugMail>moddebugger@gmail.com</debugMail>
+			<fromEmail>moddebugger@gmail.com</fromEmail>
+			<tablePrefix></tablePrefix>
+			<news>Novedades: Bienvenido al Sistema</news>
+			<affiliateNews>Novedades: Bienvenido al Sistema</affiliateNews>
+		</parameters>
+		<errorReporting>
+			<value>E_ALL &amp; ~E_NOTICE ~E_WARNING</value>
+			<element_type>Options</element_type>
+			<element_options>
+				<option_1>NONE</option_1>
+				<option_2>E_ALL</option_2>
+				<option_3>E_ALL &amp; ~E_NOTICE</option_3>
+				<option_4>E_ALL &amp; ~E_NOTICE ~E_WARNING</option_4>
+				<option_5>E_STRICT</option_5>
+			</element_options>
+		</errorReporting>
+		<rowsPerPage>25</rowsPerPage>
+		<language>esp</language>
+	</system>
+	<email>
+		<mode>
+			<value>SMTP</value>
+			<element_type>Options</element_type>
+			<element_options>
+				<option_1>PHP</option_1>
+				<option_2>SMTP</option_2>
+			</element_options>
+		</mode>
+		<smtpOptions>
+			<smtpHost>vialidad.sistemas.biz</smtpHost>
+			<smtpPort>587</smtpPort>
+			<smtpUsername>sistema@vialidad.sistemas.biz</smtpUsername>
+			<smtpPassword>vialidad2011</smtpPassword>
+			<smtpSsl>
+				<value>NO</value>
+				<element_type>YES/NO</element_type>
+			</smtpSsl>
+		</smtpOptions>
+	</email>
 	<mluse>
 		<language>esC</language>
 	</mluse>
