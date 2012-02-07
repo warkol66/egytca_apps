@@ -72,7 +72,7 @@ function actorsDeleteCategoryFromActor(form){
 				|-if $page gt 1-| <input type="hidden" name="page" id="page" value="|-$page-|" />|-/if-|
 				<input type="hidden" name="do" id="do" value="actorsDoEdit" />
 				|-javascript_form_validation_button value='Guardar' title='Guardar'-|
-				<input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=actorsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'"/>
+				<input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=actorsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"/>
 			</p>
 		</fieldset>
 	</form>

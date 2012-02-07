@@ -1,4 +1,4 @@
-|-if $menuItem ne '' -|
+|-if $menuItem ne ''-|
 |-assign var=menuInfo value=$menuItem->getMenuInfo()-|
 <h1>|-$menuInfo->getName()-|</h1>
 <div class="horizontalMenu">

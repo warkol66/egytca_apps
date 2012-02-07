@@ -41,7 +41,7 @@
 	|-foreach from=$affiliates item=affiliate name=for_affiliate-|
 	<tr>
 		<td width="5%">|-$affiliate->getId()-|</td>
-		<td width="85%">|-$affiliate->getName()-| |-if $affiliate->getOwnerId() neq "" -||-assign var=owner value=$affiliate->getOwner()-| [ Usuario Dueño: |-$owner->getUsername()-| ] |-/if-|</td>
+		<td width="85%">|-$affiliate->getName()-| |-if $affiliate->getOwnerId() neq ""-||-assign var=owner value=$affiliate->getOwner()-| [ Usuario Dueño: |-$owner->getUsername()-| ] |-/if-|</td>
 		<td width="10%" nowrap>|-if "affiliatesViewX"|security_has_access-|
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="affiliatesViewX" />

@@ -6,7 +6,7 @@
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p> 
 	|-include file="ActorsEditInclude.tpl"-|
 </div> 
-|-include file="CommonAutocompleterInclude.tpl" -|
+|-include file="CommonAutocompleterInclude.tpl"-|
 <div id="div_headline">
 	<p>Ingrese los datos del ##headlines,2,Titular##</p>
 	|-if $message eq "ok"-|

@@ -1,1 +1,1 @@
-|-include file="HeadlinesParsedListInclude.tpl" -|
+|-include file="HeadlinesParsedListInclude.tpl"-|

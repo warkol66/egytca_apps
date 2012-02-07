@@ -1,4 +1,4 @@
-|-include file="CommonAutocompleterInclude.tpl" -|
+|-include file="CommonAutocompleterInclude.tpl"-|
 
 <script type="text/javascript" language="javascript" charset="utf-8">
 function addUserToScheduleSubscription(form) {
@@ -64,7 +64,7 @@ function showEntityFieldSelector(entityName) {
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| Suscripción a Agenda</h1>
 <div id="div_scheduleSubscription">
 	<p>Ingrese los datos del Suscripción a Agenda</p>
-		<p><a href="#" onClick="location.href='Main.php?do=commonSchedulesSubscriptionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'">Volver atras</a>
+		<p><a href="#" onClick="location.href='Main.php?do=commonSchedulesSubscriptionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'">Volver atras</a>
 		</p>
 	|-if $message eq "ok"-|
 		<div class="successMessage">Suscripción a Agenda guardado correctamente</div>
@@ -99,7 +99,7 @@ function showEntityFieldSelector(entityName) {
 			<p>
 				<input type="hidden" name="do" id="do" value="commonSchedulesSubscriptionsDoEdit" />
 				<input type="submit" id="button_edit_scheduleSubscription" name="button_edit_scheduleSubscription" title="Aceptar" value="Guardar" />
-				<input type="button" id="cancel" name="cancel" title="Volver al listado" value="Volver al listado" onClick="location.href='Main.php?do=commonSchedulesSubscriptionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'"/>
+				<input type="button" id="cancel" name="cancel" title="Volver al listado" value="Volver al listado" onClick="location.href='Main.php?do=commonSchedulesSubscriptionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"/>
 			</p>
 		</fieldset>
 	</form>

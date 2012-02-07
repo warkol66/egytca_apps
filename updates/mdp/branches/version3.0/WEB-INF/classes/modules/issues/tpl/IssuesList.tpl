@@ -77,9 +77,9 @@
 			<td>|-$issue->getImpactTypeTranslated()-|</td>
 			<td>|-$issue->getEvolutionStageTranslated()-|</td>
 			<td style="text-align:center">
-				|-if $issue->getParentIssue() neq '' -| P |-else-| - |-/if-|
+				|-if $issue->getParentIssue() neq ''-| P |-else-| - |-/if-|
 				&nbsp; / &nbsp;
-				|-if $issue->getChildIssues() neq '' -| C |-else-| - |-/if-|
+				|-if $issue->getChildIssues() neq ''-| C |-else-| - |-/if-|
 			</td>
 			<td nowrap>|-if "issuesEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="issuesEdit" /> 

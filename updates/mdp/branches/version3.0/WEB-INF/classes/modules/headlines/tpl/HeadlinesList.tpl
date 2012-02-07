@@ -1,4 +1,4 @@
-|-include file="CommonAutocompleterInclude.tpl" -|
+|-include file="CommonAutocompleterInclude.tpl"-|
 <h2>##headlines,1,Titulares##</h2>
 <h1>Administración de ##headlines,1,Titulares##</h1>
 <p>A continuación se muestra la lista de ##headlines,1,Titulares## cargados en el sistema.</p>

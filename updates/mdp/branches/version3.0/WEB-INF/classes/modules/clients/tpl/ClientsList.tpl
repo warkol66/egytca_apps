@@ -41,7 +41,7 @@
 	|-foreach from=$clients item=client name=for_client-|
 	<tr>
 		<td width="5%">|-$client->getId()-|</td>
-		<td width="85%">|-$client->getName()-| |-if $client->getOwnerId() neq "" -||-assign var=owner value=$client->getOwner()-| [ Usuario Dueño: |-$owner->getUsername()-| ] |-/if-|</td>
+		<td width="85%">|-$client->getName()-| |-if $client->getOwnerId() neq ""-||-assign var=owner value=$client->getOwner()-| [ Usuario Dueño: |-$owner->getUsername()-| ] |-/if-|</td>
 		<td width="10%" nowrap>
 					<form action="Main.php" method="get" style="display:inline;">
 						

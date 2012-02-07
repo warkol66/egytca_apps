@@ -6,7 +6,7 @@
 
 <h2>##issues,1,Asuntos##</h2>
 <h1>|-if $action eq 'edit'-|Editar|-elseif $action eq 'showLog'-|Ver|-else-|Crear|-/if-| ##issues,2,Asunto##</h1>
-|-include file="CommonAutocompleterInclude.tpl" -|
+|-include file="CommonAutocompleterInclude.tpl"-|
 |-include file='IssuesForm.tpl'-|
 |-if $issue->getId() ne ''-|
 |-include file="IssuesEditCategoriesInclude.tpl"-|

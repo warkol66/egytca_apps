@@ -54,7 +54,7 @@ function clearElement(element) {
 <h1>|-if $campaign->isNew()-|Crear|-else-|Editar|-/if-| Campaña</h1>
 <div id="div_campaign">
 	<p>Ingrese los datos del Campaña</p>
-		<p align="right"><a href="#" class="return" onClick="location.href='Main.php?do=campaignsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'">Volver al listado</a> &nbsp;&nbsp; |-if !$campaign->isNew()-|<a class="importHeadlines" href="Main.php?do=headlinesParsedList&campaignId=|-$campaign->getId()-|">Obtener Titulares</a>&nbsp; &nbsp; <a class="report" href="Main.php?do=campaignsEdit&report=1&id=|-$campaign->getId()-|">Generar Reporte</a>|-/if-|
+		<p align="right"><a href="#" class="return" onClick="location.href='Main.php?do=campaignsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'">Volver al listado</a> &nbsp;&nbsp; |-if !$campaign->isNew()-|<a class="importHeadlines" href="Main.php?do=headlinesParsedList&campaignId=|-$campaign->getId()-|">Obtener Titulares</a>&nbsp; &nbsp; <a class="report" href="Main.php?do=campaignsEdit&report=1&id=|-$campaign->getId()-|">Generar Reporte</a>|-/if-|
 		</p>
 	|-if $message eq "ok"-|
 		<div class="successMessage">Campaña guardada correctamente</div>
@@ -100,7 +100,7 @@ function clearElement(element) {
 				|-include file="HiddenInputsInclude.tpl" filters="$filters" page="$page"-|
 				<input type="hidden" name="do" id="do" value="campaignsDoEdit" />
 				|-javascript_form_validation_button value='Guardar' title='Guardar'-|
-				<input type="button" id="cancel" name="cancel" title="Volver al listado" value="Volver al listado" onClick="location.href='Main.php?do=campaignsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'"/>
+				<input type="button" id="cancel" name="cancel" title="Volver al listado" value="Volver al listado" onClick="location.href='Main.php?do=campaignsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"/>
 			</p>
 		</fieldset>
 	</form>

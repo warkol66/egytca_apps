@@ -1,7 +1,7 @@
 <h2>Buscador</h2>
 <h1>Buscador de Relaciones</h1>
 |-if !$entity-|
-|-include file="CommonAutocompleterInclude.tpl" -|
+|-include file="CommonAutocompleterInclude.tpl"-|
 <p>Seleccione el tipo de entidad y busque las relaciones con otras entidades en el sistema</p>
 <fieldset>
 <legend>Seleccione</legend>
