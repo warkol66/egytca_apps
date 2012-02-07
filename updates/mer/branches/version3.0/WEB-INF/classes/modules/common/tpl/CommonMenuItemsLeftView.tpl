@@ -1,4 +1,4 @@
-|-if $result.menuItem ne '' -|
+|-if $result.menuItem ne ''-|
 <div class="leftMenu">
 	<nav>
 		<div>

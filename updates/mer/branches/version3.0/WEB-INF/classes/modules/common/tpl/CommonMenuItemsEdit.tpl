@@ -95,7 +95,7 @@
 	
 	</fieldset>
 	
-	|-if !isset($create) -|
+	|-if !isset($create)-|
 	<fieldset>
 		<legend>Vista Preliminar</legend>
 		|-include_module module=Common action=MenuItemsShow options="template=CommonMenuItemsHorizontalView.tpl&id="|cat:$menuItem->getId()-|

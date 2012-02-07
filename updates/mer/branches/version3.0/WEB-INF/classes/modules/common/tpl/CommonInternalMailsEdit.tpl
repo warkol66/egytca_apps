@@ -1,4 +1,4 @@
-|-include file="CommonAutocompleterInclude.tpl" -|
+|-include file="CommonAutocompleterInclude.tpl"-|
 |-include file="CommonEditTinyMceInclude.tpl" elements="internalMail[body]" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"-|
 <script type="text/javascript" language="javascript" charset="utf-8">
 
@@ -44,7 +44,7 @@ function updateSubmitButton() {
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| Mensaje</h1>
 <div id="div_internalMail">
 	<p>Ingrese los datos del mensaje</p>
-		<p><a href="#" onClick="location.href='Main.php?do=commonInternalMailsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'">Volver atras</a>
+		<p><a href="#" onClick="location.href='Main.php?do=commonInternalMailsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'">Volver atras</a>
 		</p>
 	|-if $message eq "ok"-|
 		<div class="successMessage">Mensaje enviado correctamente</div>
@@ -104,7 +104,7 @@ function updateSubmitButton() {
 				<input type="hidden" name="internalMail[replyId]" id="internalMail[replyId]" value="|-$internalMail->getReplyId()-|" />
 				<input type="hidden" name="page" id="page" value="|-$page-|" />
 				<input type="submit" id="button_edit_internalMail" name="button_edit_internalMail" title="Enviar" value="Enviar" disabled="disabled" />
-				<input type="button" id="cancel" name="cancel" title="Cancelar y volver al listado" value="Cancelar" onClick="location.href='Main.php?do=commonInternalMailsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'"/>
+				<input type="button" id="cancel" name="cancel" title="Cancelar y volver al listado" value="Cancelar" onClick="location.href='Main.php?do=commonInternalMailsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"/>
 			</p>
 		</fieldset>
 	</form>
