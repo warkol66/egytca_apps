@@ -7,7 +7,7 @@ class WebkitHtmlRenderer {
 	private $command;
 	
 	function WebkitHtmlRenderer() {
-		$this->command = './' . ConfigModule::get("headlines","clippingApp");
+		$this->command = realpath('./' . ConfigModule::get("headlines","clippingApp"));
 	}
 	
 	/**
@@ -22,10 +22,10 @@ class WebkitHtmlRenderer {
 		if ($defaultSettings) {
 			$height = $system['config']['clippings']['height'];
 			$width = $system['config']['clippings']['width'];
-			$sizeSettings = " --width " . $width . " --height" . $height;
+			$sizeSettings = " --width " . $width . " --height " . $height;
 
 		}
-		
+        
 		if (!stristr(PHP_OS,"WIN")) { //No hay renderer para win
 			$return_var = shell_exec($this->command.' --quality ' . $quality . $sizeSettings . ' "' . $url . '" ' . $image);
 			if (!file_exists($image) || filesize($image) <= 0)
