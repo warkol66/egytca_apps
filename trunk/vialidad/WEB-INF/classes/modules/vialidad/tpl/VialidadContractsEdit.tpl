@@ -37,8 +37,14 @@
 				<label for="params[startDate]">Fecha de firma</label>
 				<input id="params[startDate]" name="params[startDate]" type='text' value='|-$contract->getStartDate()|date_format-|' size="12" title="Ingrese la fecha de inicio" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
+		 <p><label for="params[ammount]">Monto del Contrato</label>
+			<input name="params[ammount]" type="text" value="|-$contract->getAmmount()|escape|system_numeric_format:0-|" size="15">
+		 </p>
+		 <p><label for="params[ammountModified]">Monto Modificado</label>
+			<input name="params[ammountModified]" type="text" value="|-$contract->getAmmountModified()|escape|system_numeric_format:0-|" size="15">
+		 </p>
 		 <p><label for="params[contractLength]">Plazo contractual</label>
-			<input name="params[contractLength]" type="text" value="|-$contract->getContractLength()|escape-|" size="6"> días
+			<input name="params[contractLength]" type="text" value="|-$contract->getContractLength()|system_numeric_format:0-|" size="6"> días
 		 </p>
 
 	 <p><input name="save" type="submit" value="Guardar Cambios"> 
@@ -52,7 +58,99 @@
 |-/if-|
 
 
-|-if $action eq 'edit'-|
+<script type="text/javascript" language="javascript" charset="utf-8">
+	function addSourceToContract(form) {
+		var fields = Form.serialize(form);
+		var myAjax = new Ajax.Updater(
+					{success: 'sourceList'},
+					'Main.php?do=vialidadContractsDoAddSourceX',
+					{
+						method: 'post',
+						postBody: fields,
+						evalScripts: true,
+						insertion: Insertion.Bottom
+					});
+		$('sourceMsgField').innerHTML = '<span class="inProgress">Agregando fuente al contrato...</span>';
+			$('autocomplete_sources').value = '';
+			$('addSourceSubmit').disable();
+		return true;
+	}
+	
+	function removeSourceFromContract(form){
+		var fields = Form.serialize(form);
+		var myAjax = new Ajax.Updater(
+					{success: 'sourceMsgField'},
+					'Main.php?do=vialidadContractsDoRemoveSourceX',
+					{
+						method: 'post',
+						postBody: fields,
+						evalScripts: true
+					});
+		$('sourceMsgField').innerHTML = '<span class="inProgress">Eliminando fuente...</span>';
+		return true;
+	}
+
+	function selectAmmount(sourceId, ammountValue) {
+		new Ajax.Updater (
+			'span_ammount_for_'+sourceId,
+			'Main.php?do=vialidadContractsSelectSourceAmmount',
+			{
+				method: 'get',
+				parameters: {
+					contractId: |-$contract->getId()-|,
+					sourceId: sourceId,
+					ammount: ammountValue
+				}
+			});
+	}
+
+	function displayAmmountSelector(sourceId) {
+		$('p_ammount_for_'+sourceId).hide();
+		$('select_ammount_for_'+sourceId).show();
+	}
+</script>
+
+<fieldset title="Formulario de sourcees asociados al contrato">
+	<legend>Fuentes de Financiamiento del Contrato</legend>
+    |-if $action neq 'showLog'-|
+	<!--	<p>Para asociar un source al contrato, ingrese el nombre en la casilla. Si no está en el sistema puede <a href="#lightbox2" rel="lightbox2" class="lbOn addLink">Crear source</a></p>-->
+	<div id="sourceMsgField"></div>
+	<form method="post" style="display:inline;">
+		<div id="contractSource" style="position: relative;z-index:10000;">
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_sources" label="Agregar fuente" url="Main.php?do=commonAutocompleteListX&object=source&getCandidates=1&contractId="|cat:$contract->getId() hiddenName="sourceId" disableSubmit="addSourceSubmit"-|
+		</div>
+	<p>	<input type="hidden" name="do" id="do" value="vialidadContractsDoAddSourceX" />
+		<input type="hidden" name="contractId" id="contractId" value="|-$contract->getId()-|" /> 
+    <input type="button" id="addSourceSubmit" disabled="disabled" name="addSourceSubmit" value="Agregar source al contrato" title="Agregar source al contrato" onClick="javascript:addSourceToContract(this.form)"/> </p>
+	</form>
+    |-/if-|
+  <div id="contractsSourcesList">
+		<ul id="sourceList" class="iconOptionsList">
+			|-foreach from=$contract->getSources() item=source-|
+			<li id="sourceListItem|-$source->getId()-|" title="Source asociado al contrato">
+						<form action="Main.php" method="post" style="display:inline;"> 
+							<input type="hidden" name="do" value="vialidadContractsDoRemoveSourceX" /> 
+							<input type="hidden" name="contractId" value="|-$contract->getid()-|" /> 
+							<input type="hidden" name="sourceId" value="|-$source->getid()-|" /> 
+							<input type="button" name="submit_go_remove_source" value="Borrar" title="Eliminar fuente de contrato" onclick="if (confirm('Seguro que desea fuente el source del contrato?')) removeSourceFromContract(this.form);" class="icon iconDelete" /> 
+						</form> |-$source-| &nbsp; &nbsp;
+						|-foreach from=$contract->getContractSources() item=contractSource-|
+							|-if $contractSource->getSourceId() eq $source->getId()-|
+								|-assign var=ammount value=$contractSource->getAmmount()-|
+							|-/if-|
+						|-/foreach-|
+						|-if $ammount neq ''-||-assign var=sourceAmmountAction value='show'-||-else-||-assign var=sourceAmmountAction value=''-||-/if-|
+						|-assign var=contractPeer value=$contract->getPeer()-|
+						<span id='span_ammount_for_|-$source->getId()-|' class="bold italic" title="Modifique el monto del financiamiento de la fuente para el contrato">
+						|-*include file='VialidadContractsSelectSourceAmmount.tpl' action=$sourceAmmountAction sourceId=$source->getId() ammount=$ammount ammounts=$contractPeer->getContractAmmounts()*-|
+						</span>
+					</li>
+			|-/foreach-|
+			</ul>    
+		</div> 
+</fieldset>
+
+|-if !$contract->isNew()-|
 <h3>Obras</h3>
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 	<thead>

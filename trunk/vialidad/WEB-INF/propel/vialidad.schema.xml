@@ -135,7 +135,6 @@
 		<column name="startDate" type="DATE" description="Fecha de firma" />
 		<column name="ammount" type="DECIMAL" size="15" scale="2"  description="Monto del Contrato" />
 		<column name="ammountModified" type="DECIMAL" size="15" scale="2"  description="Monto modificado" />
-		<column name="finnantialSources" type="VARCHAR" size="255" description="Fuentes de Financiamiento" />
 		<column name="contractLength" type="INTEGER" size="5" description="Longitud del contrato en dias" />
 
 		<foreign-key foreignTable="affiliates_affiliate" >
@@ -146,6 +145,34 @@
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
 		</vendor>
+
+	</table>
+
+	<table phpName="Source" name="vialidad_source">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="vialidad_contractSource" phpName="ContractSource" isCrossRef="true" description="Contract / Source">
+
+		<column name="contractId" required="true" primaryKey="true" type="INTEGER" description="Contract ID"/>
+		<column name="sourceId" required="true" primaryKey="true" type="INTEGER" description="Source ID"/>
+		<column name="ammount" required="true" type="DECIMAL" size="15" scale="2" description="Ammount"/>
+
+		<foreign-key foreignTable="vialidad_contract" onDelete="cascade">
+			<reference local="contractId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="vialidad_source" onDelete="cascade">
+			<reference local="sourceId" foreign="id"/>
+		</foreign-key>
 
 	</table>
 
@@ -282,6 +309,7 @@
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="measurementRecordId" type="INTEGER" required="true" />
 		<column name="totalPrice" type="DECIMAL" size="12" scale="2" description="Precio" />
+		<column name="status" type="INTEGER"  description="Estado del certificado" />
 
 		<behavior name="timestampable" />
 
