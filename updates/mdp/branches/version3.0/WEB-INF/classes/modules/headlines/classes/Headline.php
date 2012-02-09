@@ -153,11 +153,26 @@ class Headline extends BaseHeadline {
 		return $media->getImportance();
 	}
 
-    /**
-     * TODO: este codigo se parece mucho al de Scrapper#buildInternalId
-     */
-    public function buildInternalId() {
-        $this->setInternalid(md5($this->getCampaignid() . $this->getUrl()));
-    }
+	/**
+	* Genero el internalId antes de guardar el registro
+	* TODO: este codigo se parece mucho al de Scrapper#buildInternalId
+	* TODO: versión provisoria, revisar para convertirlo en metodo definitivo con campos obligatorios
+	*/
+	public function buildInternalId() {
+		$url = $this->getUrl();
+		if (empty($url))
+			$this->setInternalid(md5($this->getCampaignid() . $this->getContent() . $this->getMediaId()));
+		else
+			$this->setInternalid(md5($this->getCampaignid() . $this->getUrl()));
+	}
+
+ /**
+	* Antes de guardar el registro
+	*	@return true
+	*/
+	public function preSave(PropelPDO $con = null) {
+		$this->buildInternalId();
+		return true;
+	}
 
 } // Headline
