@@ -54,9 +54,15 @@
 				<input type="hidden" name="nextDo" value="modulesInstallFileCheck" />
 				<input type="submit" value="Ejecutar Instalación" />
 			</form>
+			<form>
+				<input type="checkbox" name="modules[]" value="|-$eachModule-|" />
+			</form>
 		</td> 
 	</tr> 
 	|-/foreach-|
+	<tr>
+		<td colspan="2"><button onclick="uncheckedInstall()">install selected modules</button></td>
+	</tr>
 </table>
 |-/if-|
 |-if $modulesInstalled|@count gt 0-|
@@ -110,3 +116,19 @@
 	|-/foreach-|
 </table>
 |-/if-|
+
+<script type="text/javascript">
+	function uncheckedInstall() {
+		
+		var modules = document.getElementsByName('modules[]');
+		
+		var form = document.createElement('form');
+		form.action = 'Main.php?do=modulesInstallUnchecked';
+		form.method = 'post';
+		for (var i = 0; i < modules.length; i++) {
+			form.appendChild(modules[i].clone());
+		}
+		
+		form.submit();
+	}
+</script>
