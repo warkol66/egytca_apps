@@ -3,7 +3,7 @@
 <p>A continuación se muestra la lista de Fuentes de Financiamiento cargados en el sistema.</p>
 <div id="div_sources"> 
 	|-if $message eq "deleted_ok"-|
-		<div class="successMessage">Fuente de Financiamiento eliminado correctamente</div>
+		<div class="successMessage" id="actionMessage">Fuente de Financiamiento eliminado correctamente</div>
 	|-/if-|
 	<div name="working_status_message" style="display:none;" class="inProgress">Trabajando...</div>
 	<div name="done_status_message" style="display:none;" class="successMessage"> Fuente de Financiamiento agregada</div>
@@ -31,15 +31,15 @@
 		<tr>
 			<th colspan="3" class="thFillTitle">
 				<div class="rightLink">
-					<a href="#" onclick="showInput('addInput1', 'addLink1'); return false;" id="addLink1" class="addLink">Agregar Fuente de Financiamiento</a>
-					<form id="addInput1" action="Main.php" method="POST" onsubmit="setStatus('working'); prepareAndSubmit(this); showInput('addLink1', 'addInput1'); setStatus('done'); return false;" style="display: none;">
+					<a href="#" onclick="toggleInput('addInput1', 'addLink1'); return false;" id="addLink1" class="addLink">Agregar Fuente de Financiamiento</a>
+					<form id="addInput1" action="Main.php" method="POST" onsubmit="setStatus('working'); prepareAndSubmit(this); toggleInput('addLink1', 'addInput1'); setStatus('done'); reset(this); return false;" style="display: none;">
 						Fuente de Financiamiento <label for="name[code]">Código</label>
 						<input type="text" name="params[code]" size="3" />
 						<label for="name[name]">Nombre</label>
 						<input type="text" name="params[name]" size="25" />
 						<input type="hidden" name="do" value="vialidadSourcesDoEditX" />
 						<input type="submit" value="Guardar" class="icon iconActivate" />
-						<input type="button" value="Cancelar" class="icon iconCancel" onclick="showInput('addLink1', 'addInput1');" />
+						<input type="button" value="Cancelar" class="icon iconCancel" onclick="toggleInput('addLink1', 'addInput1');" />
 					</form>
 				</div>
 			</th>
@@ -54,73 +54,24 @@
 		</thead>
 	
 		<tbody id="sourcesList">
-		|-if $sources|@count eq 0-|
-		<tr>
-			<td colspan="3">|-if isset($filter)-|No hay Fuentes de Financiamiento que concuerden con la búsqueda|-else-|No hay Fuentes de Financiamiento disponibles|-/if-|</td>
-		</tr>
-		|-else-|
-		|-foreach from=$sources item=source name=for_sources-|
-		<tr> 
-			<td>
-				|-if "vialidadSourcesEdit"|security_has_access-|
-				<span id="code_|-$source->getId()-|" class="in_place_editable">|-$source->getCode()-|</span>
-				|-else-|
-				|-$source->getCode()-|
-				|-/if-|
-			</td>
-			<td>
-				|-if "vialidadSourcesEdit"|security_has_access-|
-				<span id="name_|-$source->getId()-|" class="in_place_editable">|-$source->getName()-|</span>
-				|-else-|
-				|-$source->getName()-|
-				|-/if-|
-			</td>
-			<td nowrap>
-				|-if "vialidadSourcesEdit"|security_has_access-|
-					<input type="hidden" name="do" value="vialidadSourcesEdit" />
-					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-					|-if isset($pager) && ($pager->getPage() gt 1)-|
-					<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />
-					|-/if-|
-					<input type="hidden" name="id" value="|-$source->getid()-|" />
-					<input type="submit" id="source_edit_|-$source->getId()-|" name="submit_go_edit_vialidad_source" value="Editar" title="Editar" class="icon iconEdit" />
-				|-/if-|
-				|-if "vialidadSourcesDoDelete"|security_has_access-|
-				<form action="Main.php" method="post" style="display:inline;">
-					<input type="hidden" name="do" value="vialidadSourcesDoDelete" />
-					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-					|-if isset($pager) && ($pager->getPage() gt 1)-|
-					<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />
-					|-/if-|
-					<input type="hidden" name="id" value="|-$source->getid()-|" />
-					<input type="submit" name="submit_go_delete_vialidad_source" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar la Fuente de Financiamiento?')" class="icon iconDelete" />
-				</form>
-				|-/if-|
-			</td>
-		</tr> 
-		|-/foreach-|
-		|-/if-|
-		
-		|-if isset($pager) && $pager->haveToPaginate()-|
-		<tr> 
-			<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
-		</tr>
-		|-/if-|
+
+	|-include file="VialidadSourcesListInclude.tpl"-|
+
 		</tbody>
 		<tfoot>
 		|-if "vialidadSourcesEdit"|security_has_access-|
 		<tr>
 			<th colspan="3" class="thFillTitle">
 				<div class="rightLink">
-					<a href="#" onclick="showInput('addInput2', 'addLink2'); return false;" id="addLink2" class="addLink">Agregar Fuente de Financiamiento</a>
-					<form id="addInput2" action="Main.php" method="POST" onsubmit="setStatus('working'); prepareAndSubmit(this); showInput('addLink2', 'addInput2'); setStatus('done'); return false;" style="display: none;">
+					<a href="#" onclick="toggleInput('addInput2', 'addLink2'); return false;" id="addLink2" class="addLink">Agregar Fuente de Financiamiento</a>
+					<form id="addInput2" action="Main.php" method="POST" onsubmit="setStatus('working'); prepareAndSubmit(this); toggleInput('addLink2', 'addInput2'); setStatus('done'); reset(this); return false;" style="display: none;">
 						Fuente de Financiamiento <label for="name[code]">Código</label>
 						<input type="text" name="params[code]" size="3" />
 						<label for="name[name]">Nombre</label>
 						<input type="text" name="params[name]" size="25" />
 						<input type="hidden" name="do" value="vialidadSourcesDoEditX" />
 						<input type="submit" value="Guardar" class="icon iconActivate" />
-						<input type="button" value="Cancelar" class="icon iconCancel" onclick="showInput('addLink2', 'addInput2');" />
+						<input type="button" value="Cancelar" class="icon iconCancel" onclick="toggleInput('addLink2', 'addInput2');" />
 					</form>
 				</div>
 
@@ -134,6 +85,11 @@
 
 <script type="text/javascript">
 function setStatus(status) {
+
+	var actionMessage = $('actionMessage');
+	if (actionMessage)
+		actionMessage.hide();
+
 	switch (status) {
 		case 'working':
 			msgs = document.getElementsByName('done_status_message');
@@ -165,74 +121,8 @@ Object.extend(Ajax.InPlaceEditor.prototype, {
 	}
 });
 
-function attachNameInPlaceEditors() {
-	|-foreach from=$sources item=source name=for_sources_ajax-|
-	new Ajax.InPlaceEditor(
-		'name_|-$source->getId()-|',
-		'Main.php?do=vialidadSourcesEditFieldX',
-		{
-			rows: 1,
-			size: 35,
-			okText: 'Guardar',
-			cancelText: 'Cancelar',
-			savingText: 'Guardando...',
-			hoverClassName: 'in_place_hover',
-			highlightColor: '#b7e0ff',
-			cancelControl: 'button',
-			savingClassName: 'inProgress',
-			externalControl: 'name_edit_|-$source->getId()-|',
-			clickToEditText: 'Haga click para editar',
-			callback: function(form, value) {
-				return 'id=|-$source->getId()-|&paramName=name&paramValue=' + encodeURIComponent(value);
-			},
-			onComplete: function(transport, element) {
-				clean_text_content_from(element);
-				new Effect.Highlight(element, { startcolor: this.options.highlightColor });
-			},
-			onFormReady: function(obj,form) {
-				form.insert({ top: new Element('label').update('Nombre: ') });
-			}
-		}
-	);
-|-/foreach-|
-}
-function attachCodeInPlaceEditors() {
-	|-foreach from=$sources item=source name=for_sources_ajax-|
-	new Ajax.InPlaceEditor(
-		'code_|-$source->getId()-|',
-		'Main.php?do=vialidadSourcesEditFieldX',
-		{
-			rows: 1,
-			size: 6,
-			okText: 'Guardar',
-			cancelText: 'Cancelar',
-			savingText: 'Guardando...',
-			hoverClassName: 'in_place_hover',
-			highlightColor: '#b7e0ff',
-			cancelControl: 'button',
-			savingClassName: 'inProgress',
-			externalControl: 'code_edit_|-$source->getId()-|',
-			clickToEditText: 'Haga click para editar',
-			callback: function(form, value) {
-				return 'id=|-$source->getId()-|&paramName=code&paramValue=' + encodeURIComponent(value);
-			},
-			onComplete: function(transport, element) {
-				clean_text_content_from(element);
-				new Effect.Highlight(element, { startcolor: this.options.highlightColor });
-			},
-			onFormReady: function(obj,form) {
-				form.insert({ top: new Element('label').update('Código: ') });
-			}
-		}
-	);
-|-/foreach-|
-}
-window.onload = function() {
-	attachNameInPlaceEditors();
-	attachCodeInPlaceEditors();
-}
 
-function showInput(to_show, to_hide) {
+function toggleInput(to_show, to_hide) {
     $(to_show).show();
     $(to_hide).hide();
 }
