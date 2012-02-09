@@ -10,9 +10,9 @@
 <div id="div_headline">
 	<p>Ingrese los datos del ##headlines,2,Titular##</p>
 	|-if $message eq "ok"-|
-		<div class="successMessage">Titular guardado correctamente</div>
+		<div class="successMessage" id="actionMessage">Titular guardado correctamente</div>
 	|-elseif $message eq "error"-|
-		<div class="failureMessage">Ha ocurrido un error al intentar guardar el ##headlines,2,Titular##</div>
+		<div class="failureMessage" id="actionMessage">Ha ocurrido un error al intentar guardar el ##headlines,2,Titular##</div>
 	|-/if-|
 	<form name="form_edit_headline" id="form_edit_headline" action="Main.php" method="post">
 		<fieldset title="Formulario de edición de datos de un titular">
@@ -21,7 +21,7 @@
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_campaignId" label="Campaña" url="Main.php?do=campaignsAutocompleteListX" hiddenName="params[campaignId]" defaultHiddenValue=$headline->getCampaignId() defaultValue=$headline->getCampaign()-|
 		</div>
 		<div id="campaign" style="position: relative;z-index:10000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_mediaId" label="Medio" url="Main.php?do=mediasAutocompleteListX" hiddenName="params[mediaId]" defaultHiddenValue=$headline->getMediaId() defaultValue=$headline->getMedia()-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_mediaId" label="Medio" url="Main.php?do=mediasAutocompleteListX" hiddenName="params[mediaId]" defaultHiddenValue=$headline->getMediaId() defaultValue=$headline->getMedia() class="emptyValidation"-|
 		</div>
 			<p>
 				<label for="params[name]">Titular</label>
