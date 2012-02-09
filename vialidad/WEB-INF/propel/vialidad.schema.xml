@@ -151,6 +151,7 @@
 	<table phpName="Source" name="vialidad_source">
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="code" type="VARCHAR" size="50" description="Codigo de la fuente" />
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
 
 		<vendor type="mysql">
