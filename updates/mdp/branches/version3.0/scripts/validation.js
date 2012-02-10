@@ -364,7 +364,7 @@ function validationValidateFieldThruAjax(element,doAction) {
 function clearFormFieldsFormat(form) {
 
 //	var emptyArray = document.getElementsByClassName('emptyValidation',form);
-    var emptyArray = $$('#' + form + ' .emptyValidation');
+    var emptyArray = $$('#' + Element.identify(form) + ' .emptyValidation');
 //    console.debug(form);
 	var textArray = document.getElementsByClassName('textValidation',form);
 	var mailArray = document.getElementsByClassName('mailValidation',form);
