@@ -21,7 +21,7 @@ class Scrapper {
      * @var array
      */
     private static $SELECTORS = array(
-        'items' => '#top-stories.blended-section .blended-wrapper',
+        'items' => '#top-stories .blended-wrapper',
         'item_url' => '.esc-lead-article-title-wrapper a.article',
         'item_title' => '.esc-lead-article-title-wrapper .titletext',
         'item_source' => '.esc-lead-article-source',
