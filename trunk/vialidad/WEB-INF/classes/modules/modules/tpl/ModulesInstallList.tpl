@@ -23,6 +23,20 @@ function checkAll(elementName) {
   	elements[i].checked = allbox.checked;
   }
 }
+
+function uncheckedInstall() {
+	
+	var modules = document.getElementsByName('modules[]');
+	
+	var form = document.createElement('form');
+	form.action = 'Main.php?do=modulesInstallUnchecked';
+	form.method = 'post';
+	for (var i = 0; i < modules.length; i++) {
+		form.appendChild(modules[i].clone());
+	}
+	
+	form.submit();
+}
 </script>
 <table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders"> 
 	<tr>
@@ -74,7 +88,7 @@ function checkAll(elementName) {
 	<tr>
 	  <th width="2%" scope="col">
 		<input id="allBoxes" onclick="javascript:checkAll('modules[]')" type="checkbox" title="Seleccionar todo"></th>
-		<td colspan="2"><input name="installChecked" type="button" value="Instalar módulos seleccionados"></td>
+		<td colspan="2"><input name="installChecked" type="button" value="Instalar módulos seleccionados" onclick="uncheckedInstall();"></td>
 		</tr>
 	|-/if-|
 </table>
