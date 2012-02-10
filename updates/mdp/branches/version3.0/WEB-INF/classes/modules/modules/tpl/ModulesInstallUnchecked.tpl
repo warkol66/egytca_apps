@@ -23,7 +23,6 @@
 	
 |-/if-|
 
-<script type="text/javascript" src="WEB-INF/classes/modules/modules/tpl/ModulesInstallJs.js"></script>
 <script type="text/javascript">
 	
 	var success = true;
@@ -33,16 +32,29 @@
 				
 			var form = document.createElement('form');
 			
-			var inputModuleName = createHidden('moduleName', '|-$module-|');
+			var inputModuleName = document.createElement('input');
+			inputModuleName.type = 'hidden';
+			inputModuleName.name = 'moduleName';
+			inputModuleName.value = '|-$module-|';
+			
 			form.appendChild(inputModuleName);
 			
-			var inputExecuteSQL = createHidden('executeSQL',1);
+			
+			var inputExecuteSQL = document.createElement('input');
+			inputExecuteSQL.type = 'hidden';
+			inputExecuteSQL.name = 'executeSQL';
+			inputExecuteSQL.value = 1;
+			
 			form.appendChild(inputExecuteSQL);
 			
 			var languages = document.getElementsByName('languages[]');
 			for (var i = 0; i < languages.length; i++) {
 				if (languages[i].checked) {
-					var inputLanguage = createHidden('languages[]', languages[i].value);
+					var inputLanguage = document.createElement('input');
+					inputLanguage.type = 'hidden';
+					inputLanguage.name = 'languages[]';
+					inputLanguage.value = languages[i].value;
+					
 					form.appendChild(inputLanguage);
 				}
 			}
