@@ -15,6 +15,10 @@
 |-if $modulesToInstall|@count gt 0-|
 	<h4>Módulos disponibles para instalar</h4>
 	<p>
+		
+<!-- new form is inserted here (for firefox compatibility) -->
+<div id="dummy" style="display:none;"></div>
+
 <script language="JavaScript" type="text/JavaScript">
 function checkAll(elementName) {
 	allbox = document.getElementById("allBoxes");
@@ -34,6 +38,8 @@ function uncheckedInstall() {
 	for (var i = 0; i < modules.length; i++) {
 		form.appendChild(modules[i].clone());
 	}
+	
+	$('dummy').appendChild(form); // firefox compatibility
 	
 	form.submit();
 }
