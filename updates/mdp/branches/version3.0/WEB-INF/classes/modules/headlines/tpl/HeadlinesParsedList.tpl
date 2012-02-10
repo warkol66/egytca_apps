@@ -9,11 +9,11 @@
 </div></div> 
 <fieldset>
 <legend>Obtener Titulares</legend>
-    <form id="form" action="Main.php?do=headlinesDoParseX" method="POST">
+    <form id="form" action="Main.php?do=headlinesDoParseX" onsubmit="headlinesSearch(); return false;" method="POST">
         <input name="campaignId" value="|-$campaignId-|" type="hidden" />
  <p><label for="q">Palabras clave</label>
  <input name="q" value="" size="60" />
- <input type="button" id="search_button" onclick="return false;" value="Buscar" />
+ <input type="submit" id="search_button" value="Buscar" />
  <input type="button" id="return_button" onclick="location.href='Main.php?do=headlinesList'" value="Regresar al listado" />
  </p> 
     </form>
@@ -26,7 +26,7 @@
 </ul>
 </fieldset>
 <script type="text/javascript">
-$("search_button").observe('click', function(event) {
+function headlinesSearch() {
     new Ajax.Updater('list', "Main.php?do=headlinesDoParseX", {
         parameters: $('form').serialize(),
         insertion: 'top',
@@ -35,7 +35,7 @@ $("search_button").observe('click', function(event) {
 		$("resultDiv").innerHTML = "<span class=\"inProgress\">Buscando titulares...</span>";
 		if (document.getElementById("noHeadlines"))
 			$("noHeadlines").innerHTML = "";
-});
+}
 </script>
 |-else-|
 <div class="errorMessage">El identificador ingresado no es válido. Seleccione un item del listado.</div>
