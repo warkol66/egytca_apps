@@ -16,14 +16,17 @@
 	 * Muestra los errores de validación
 	 */
 	function showValidationFailureMessage(form) {
+		var validationMessage = $('validationMessage');
 		var actionMessage = $('actionMessage');
-		if (!Object.isElement(actionMessage)) {
+		if (Object.isElement(actionMessage))
+			actionMessage.remove();
+		if (!Object.isElement(validationMessage)) {
 			form.insert({
-				top: new Element('div', {id: 'actionMessage', 'class': 'errorMessage'}).update('##common,,Tiene errores en el formulario, revíselo y vuelva a enviarlo.##')
+				top: new Element('div', {id: 'validationMessage', 'class': 'errorMessage'}).update('##common,,Tiene errores en el formulario, revíselo y vuelva a enviarlo.##')
 			});
-		} else {
-			actionMessage.toggleClassName('errorMessage').update('##common,,Tiene errores en el formulario, revíselo y vuelva a enviarlo.##').show();
 		}
+		else
+			validationMessage.toggleClassName('errorMessage').update('##common,,Tiene errores en el formulario, revíselo y vuelva a enviarlo.##').show();
 	}
 
 	/**
