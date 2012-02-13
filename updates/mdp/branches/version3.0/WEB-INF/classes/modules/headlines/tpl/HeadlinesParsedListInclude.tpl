@@ -15,6 +15,8 @@
 <script language="JavaScript" type="text/javascript">
 	if($('noHeadlines'))
 		$('noHeadlines').innerHTML = '';
+	initialize();
+
 </script>
 |-else-|
 <li id="noHeadlines">|-if $included-|No hay Titulares por procesar|-else-|No hay más Titulares disponibles|-/if-|</li>
