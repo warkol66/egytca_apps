@@ -8,6 +8,8 @@
  * para el filtrado.
  */
 class BaseQuery {
+    
+    private static $MAGIC_METHODS = array('findBy', 'findOneBy', 'filterBy', 'orderBy', 'groupBy');
 
     /**
      * Instancia de la clase query a la que se le aplican los filtros.
@@ -15,6 +17,13 @@ class BaseQuery {
      * @var ModelCriteria
      */
     private $query;
+    
+    /**
+     * Clase de la query a la que se le aplican los filtros.
+     * 
+     * @var string
+     */
+    private $queryClass;
     
     public function BaseQuery($modelNameOrModelCriteria) {
         if ($modelNameOrModelCriteria instanceof ModelCriteria) {
@@ -24,6 +33,7 @@ class BaseQuery {
             $queryClass  = $modelNameOrModelCriteria . "Query";
             $this->query = $queryClass::create();
         }
+        $this->queryClass = get_class($this->query);
     }
     
     /**
@@ -50,7 +60,8 @@ class BaseQuery {
          * Si el $filterName existe como metodo en el objeto query,
          * entonces lo invoca.
          */
-        if ($this->callIfPossible($filterName, $filterValue)) {
+        $result = $this->callIfPossible($filterName, $filterValue);
+        if ($result instanceof ModelCriteria) {
             return $this;
         }
         
@@ -59,6 +70,10 @@ class BaseQuery {
 			case 'searchString':
 				$this->query->filterByName("%$filterValue%", Criteria::LIKE);
 				break;
+            
+            case 'entityFilter':
+                $this->entityFilter($filterValue);
+                break;
 
 			default:
 				$peer = $this->query->getModelPeerName();
@@ -75,6 +90,22 @@ class BaseQuery {
     }
     
 	/**
+	 * Agrega multiples filtros a la Query.
+	 *
+	 * @see     addFilter
+	 * @param   array $filters
+	 * @return  Object ModelCriteria
+	 */
+	public function addFilters($filters = array()) {
+		foreach ($filters as $name => $value) {
+//            echo " existe filtro $name ? ". method_exists($this->queryClass, $name) . "<br />";
+			if ((isset($value) && $value != null) && $name != "perPage")
+				$this->addFilter($name, $value);
+        }
+		return $this;
+	}
+    
+	/**
 	 * Crea un pager.
 	 *
 	 * @param   array $filters
@@ -84,20 +115,6 @@ class BaseQuery {
 	 */
 	public function createPager($filters, $page = 1, $perPage = 10) {
 		return $this->addFilters($filters)->paginate($page, $perPage);
-	}
-    
-	/**
-	 * Agrega multiples filtros a la Query.
-	 *
-	 * @see     addFilter
-	 * @param   array $filters
-	 * @return  Object ModelCriteria
-	 */
-	public function addFilters($filters = array()) {
-		foreach ($filters as $name => $value)
-			if ((isset($value) && $value != null) && $name != "perPage")
-				$this->addFilter($name, $value);
-		return $this;
 	}
     
     /**
@@ -116,8 +133,9 @@ class BaseQuery {
         
         $result = $this->callIfPossible($name, $arguments);
         
-        if ($result instanceof ModelCriteria)
+        if ($result instanceof ModelCriteria) {
             return $this;
+        }
             
         return $result;
     }
@@ -130,10 +148,48 @@ class BaseQuery {
      * @return  mixed 
      */
     private function callIfPossible($method, $arguments) {
-        if (method_exists($this->query, $method)) {
+        if (method_exists($this->queryClass, $method) || ($this->isMagicMethod($method))) {
+//            echo " invocando $method <br />";
+            if (!is_array($arguments))
+                $arguments = array($arguments);
+            
             return call_user_func_array(array($this->query, $method), $arguments);
         }
         return FALSE;
+    }
+    
+    /**
+     * Se fija si $method es un metodo magico.
+     * 
+     * @param   string $method
+     * @return  boolean
+     */
+    private function isMagicMethod($method) {
+        foreach (self::$MAGIC_METHODS as $magicMethod) {
+            if (preg_match("/^$magicMethod/", $method))
+                return true;
+        }
+        return false;
+    }
+    
+    public function entityFilter($filterValue) {
+
+        $entityQueryClass = ucfirst($filterValue['entityType']) . "Query";
+        if (!class_exists(ucfirst($filterValue['entityType'])) || !class_exists($entityQueryClass))
+            break; // nothing to filter
+
+        $entity = $entityQueryClass::create()->findOneById($filterValue['entityId']);
+        $filterByEntity = 'filterBy'.ucfirst($filterValue['entityType']);
+
+        $queryClass = get_class($this);
+
+        if ($filterValue['getCandidates']) {
+            $alreadyRelated = $queryClass::create()->select("Id")->$filterByEntity($entity)->find()->toArray();
+            $this->query->filterById($alreadyRelated, Criteria::NOT_IN);
+        }
+        else
+            $this->query->$filterByEntity($entity);
+        
     }
     
 } // Query
