@@ -161,9 +161,9 @@ class Headline extends BaseHeadline {
 	public function buildInternalId() {
 		$url = $this->getUrl();
 		if (empty($url))
-			$this->setInternalid(md5($this->getCampaignid() . $this->getContent() . $this->getMediaId()));
+			$this->setInternalid(md5($this->getCampaignid() . $this->getName() . $this->getContent() . $this->getMediaId()));
 		else
-			$this->setInternalid(md5($this->getCampaignid() . $this->getUrl()));
+			$this->setInternalid(md5($this->getCampaignid() . $this->getName() .  $this->getUrl()));
 	}
 
  /**
