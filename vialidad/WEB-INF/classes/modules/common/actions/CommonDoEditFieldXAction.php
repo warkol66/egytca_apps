@@ -20,16 +20,15 @@ class CommonDoEditFieldXAction extends BaseAction {
 		$objectId = $request->getParameter('objectId');
 
 		$object = BaseQuery::create($objectType)->findOneById($objectId);
-		
-		if (!empty($_POST['paramName']) && !empty($_POST['paramValue'])) {
+
+		if (!empty($object) && is_object($object) && (!empty($_POST['paramName']) && !empty($_POST['paramValue']))) {
 			$object->setByName($_POST['paramName'], $_POST['paramValue'], BasePeer::TYPE_FIELDNAME);
-			$object->save();
+			if ($object->isModified() && $object->save())
+				$smarty->assign("paramValue", $object->getByName($_POST['paramName'], BasePeer::TYPE_FIELDNAME));
+			else
+				$smarty->assign("paramValue", $object->getByName($_POST['paramName'], BasePeer::TYPE_FIELDNAME));
 		}
-		
-		if (!empty($_POST['paramName'])) {
-			$smarty->assign("paramValue", $object->getByName($_POST['paramName'], BasePeer::TYPE_FIELDNAME));
-		}
-		
+
 		return $mapping->findForwardConfig('success');
 	}
 
