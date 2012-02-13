@@ -1,8 +1,8 @@
 <?php
 
-class VialidadSourcesListAction extends BaseAction {
+class VialidadConstructionTypesListAction extends BaseAction {
 
-	function VialidadSourcesListAction() {
+	function VialidadConstructionTypesListAction() {
 		;
 	}
 
@@ -18,24 +18,24 @@ class VialidadSourcesListAction extends BaseAction {
 
 		$module = "Vialidad";
 		$smarty->assign("module",$module);
-		$section = "Sources";
+		$section = "ConstructionTypes";
 		$smarty->assign("section",$section);
 
 		$smarty->assign("message",$_GET["message"]);
 
 		$filters = $_GET["filters"];
-		$pager = BaseQuery::create('Source')->createPager($filters, $_GET["page"], $filters["perPage"]);
+		$pager = BaseQuery::create('ConstructionType')->createPager($filters, $_GET["page"], $filters["perPage"]);
 
-		$url = "Main.php?do=vialidadSourcesList";
+		$url = "Main.php?do=vialidadConstructionTypesList";
 		foreach ($filters as $key => $value)
 			$url .= "&filters[$key]=$value";
 		$smarty->assign("url",$url);
 
-		if (!empty($filters["sourceId"]))
-			$smarty->assign("defaultSourceValue",SourceorQuery::create()->findPk($filters["sourceId"]));
+		if (!empty($filters["constructionTypeId"]))
+			$smarty->assign("defaultConstructionTypeValue",ConstructionTypeQuery::create()->findPk($filters["constructionTypeId"]));
 		
 		$smarty->assign("filters", $filters);
-		$smarty->assign("sources",$pager->getResults());
+		$smarty->assign("constructionTypes",$pager->getResults());
 		$smarty->assign("pager",$pager);
 
 		return $mapping->findForwardConfig('success');

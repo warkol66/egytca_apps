@@ -65,10 +65,14 @@
 			highlightColor: '#b7e0ff',
 			cancelControl: 'button',
 			savingClassName: 'inProgress',
-			externalControl: 'name_edit_|-$source->getId()-|',
+			externalControl: 'source_edit_|-$source->getId()-|',
 			clickToEditText: 'Haga click para editar',
 			callback: function(form, value) {
 				return 'id=|-$source->getId()-|&paramName=name&paramValue=' + encodeURIComponent(value);
+			},
+			onComplete: function(transport, element) {
+				clean_text_content_from(element);
+				new Effect.Highlight(element, { startcolor: this.options.highlightColor });
 			},
 			onFormReady: function(obj,form) {
 				form.insert({ top: new Element('label').update('Nombre: ') });
