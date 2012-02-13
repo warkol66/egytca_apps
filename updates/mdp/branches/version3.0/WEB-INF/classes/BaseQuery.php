@@ -47,8 +47,8 @@ class BaseQuery {
     }
     
 	/**
-	 * Permite agregar un filtro personalizado a la Query, que puede ser
-	 * traducido al campo correspondiente.
+	 * Permite agregar un filtro a la Query, este filtro puede ser 
+     * o bien un campo del modelo o bien un filtro personalizado.
 	 *
 	 * @param   string $filterName
 	 * @param   mixed $filterValue
