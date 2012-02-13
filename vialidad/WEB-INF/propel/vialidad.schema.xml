@@ -177,15 +177,16 @@
 
 	</table>
 
+
 	<table phpName="Construction" name="vialidad_construction">
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
 		<column name="contractId" type="INTEGER" description="Id del contrato" />
 		<column name="description" type="LONGVARCHAR" />
-		<column name="verifierId" type="INTEGER"  description="Id del verificador" />
+		<column name="verifierId" type="INTEGER" size="5" description="Id del verificador" />
 		<column name="region" type="VARCHAR" size="255" description="Departamentos" />
-		<column name="type" type="VARCHAR" size="255" description="Tipo de Obra" />
+		<column name="type" type="INTEGER" size="5" description="Tipo de Obra" />
 		<column name="length" type="VARCHAR" size="5" description="Longitud" />
 		<column name="startDate" type="DATE" description="Fecha de inicio" />
 
@@ -201,6 +202,45 @@
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
 		</vendor>
+
+	</table>
+
+	<table phpName="ConstructionType" name="vialidad_constructionType">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" description="Tipo de Obra" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="Department" name="vialidad_department">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" description="Departamentos" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="vialidad_constructionDepartment" phpName="ConstructionDepartment" isCrossRef="true" description="Construction / Deparment">
+
+		<column name="constructionId" required="true" primaryKey="true" type="INTEGER" description="Construction ID"/>
+		<column name="departmentId" required="true" primaryKey="true" type="INTEGER" description="Department ID"/>
+
+		<foreign-key foreignTable="vialidad_construction" onDelete="cascade">
+			<reference local="constructionId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="vialidad_department" onDelete="cascade">
+			<reference local="departmentId" foreign="id"/>
+		</foreign-key>
 
 	</table>
 
