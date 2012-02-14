@@ -66,7 +66,7 @@ class Scrapper {
     
     private function getSanitizedKeywords() {
         $kw = is_array($this->keywords) ? implode(' ', $this->keywords) : $this->keywords;
-        return urlencode($kw);
+        return $kw;
     }
     
     private function sanitizeHtml($html) {
@@ -103,7 +103,7 @@ class Scrapper {
         
         $q  = $this->buildQueryParams();
         $pq = phpQuery::newDocumentFile($this->searchEngineUrl . $q);
-        
+//        echo $pq->html();
         $news = array();
         foreach ($pq[self::$SELECTORS['items']] as $item) {
             $timestamp = $this->sanitizeHtml($pq->find(self::$SELECTORS['item_timestamp'], $item)->html());
