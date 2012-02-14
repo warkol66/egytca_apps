@@ -24,6 +24,7 @@ class HeadlinesRenderUrlAction extends BaseAction {
 
 			if (!empty($headline)) {
 
+				$smarty->assign("headline", $headline);
 				$url = $headline->getUrl();
 			
 				$imagePath = ConfigModule::get('headlines', 'clippingsTmpPath');
@@ -68,10 +69,10 @@ class HeadlinesRenderUrlAction extends BaseAction {
 
 			}
 			else
-				return $mapping->findForwardConfig("failure");
+				$smarty->assign("errorMessage", "invalidId");
 		}
 		else
-			$smarty->assign("errorMessage", "ID inválido");
+			$smarty->assign("errorMessage", "invalidId");
 		
 		return $mapping->findForwardConfig('success');
 	}
