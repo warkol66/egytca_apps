@@ -16,6 +16,43 @@
 class Media extends BaseMedia {
 	
 	
+	function preSave(PropelPDO $con = null) {
+		parent::preSave($con);
+		
+		$aliasedMedia = $this->getMediaRelatedByAliasof();
+		if (!is_null($aliasedMedia))
+			$this->setAliasof($aliasedMedia->resolveAliases());
+		
+		return true;
+	}
+	
+	function postSave(PropelPDO $con = null) {
+		parent::postSave($con);
+		
+		// Actualizo los aliases
+		if (!is_null($this->getAliasof())) {
+			$medias = MediaQuery::create()->filterByMediaRelatedByAliasof($this)->find();
+			foreach ($medias as $media) {
+				if ($media->getMediaRelatedByAliasof() == $this) {
+					$media->setAliasof($this->getAliasof());
+					$media->save();
+				}
+			}
+			
+			$headlines = HeadlineQuery::create()->filterByMedia($this)->find();
+			foreach ($headlines as $headline) {
+				if ($headline->getMedia() == $this)
+					$headline->setMediaid($this->getAliasof());
+			}
+			
+			$headlinesParsed = HeadlineParsedQuery::create()->filterByMedia($this)->find();
+			foreach ($headlinesParsed as $headlineParsed) {
+				if ($headlineParsed->getMedia() == $this)
+					$headlineParsed->setMediaid($this->getAliasof());
+			}
+		}
+	}
+	
 	/**
 	 * Devuelve el eslabon más lejano en la cadena de aliases
 	 * 

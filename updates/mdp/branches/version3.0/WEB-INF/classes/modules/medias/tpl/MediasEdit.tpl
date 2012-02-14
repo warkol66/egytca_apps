@@ -1,3 +1,4 @@
+|-include file="CommonAutocompleterInclude.tpl"-|
 <link type="text/css" href="css/chosen.css" rel="stylesheet">
 <script language="JavaScript" type="text/javascript" src="scripts/event.simulate.js"></script>
 <script language="JavaScript" type="text/javascript" src="scripts/chosen.js"></script>
@@ -94,6 +95,11 @@ function mediasDeleteCategoryFromActor(form){
 			</p>
 			<p>
 				<label for="params[mediakitUrl]">Mediakit Url</label><input name="params[mediakitUrl]" size="60" value="|-$media->getMediakitUrl()|escape-|" type="text">
+			</p>
+			<p>
+				<div style="position: relative;z-index:10000;">
+				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_medias" url="Main.php?do=mediasAutocompleteListX" hiddenName="params[aliasOf]" label="Alias de" defaultValue=$media->getMediaRelatedByAliasof() defaultHiddenValue=$media->getAliasof() name="params[aliasOf]"-|
+				</div>
 			</p>
 
 			</p><script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>

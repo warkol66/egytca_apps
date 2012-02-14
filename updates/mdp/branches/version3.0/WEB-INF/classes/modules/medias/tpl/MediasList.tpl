@@ -7,12 +7,12 @@
 	|-elseif $message eq "deleted_ok"-|
 		<div class="successMessage">##medias,2,Medio## eliminado correctamente</div>
 	|-elseif $message eq "not_deleted"-|
-		<div class="errorMessage">No de pudo eliminar el ##medias,2,Medio##</div>
+		<div class="errorMessage">No se pudo eliminar el ##medias,2,Medio##</div>
 	|-/if-|
 	<table id="tabla-medias" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead> 
 		<tr>
-			<td colspan="4" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda de ##medias,1,Medios## </a>
+			<td colspan="5" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda de ##medias,1,Medios## </a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="mediasList" />
 					Texto: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
@@ -32,19 +32,20 @@
 			</div></td>
 		</tr>
 			|-if "mediasEdit"|security_has_access-|<tr>
-				 <th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=mediasEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##medias,2,Medio##</a></div></th>
+				 <th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=mediasEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##medias,2,Medio##</a></div></th>
 			</tr>|-/if-|
 			<tr class="thFillTitle"> 
 	<!--			<th width="5%">Id</th> -->
-				<th width="40%">##medias,2,Medio##</th> 
-				<th width="20%">Tipo</th> 
+				<th width="20%">##medias,2,Medio##</th> 
+				<th width="15%">Tipo</th> 
 				<th width="40%">Descripción</th> 
-				<th width="5%">&nbsp;</th> 
+				<th width="20%">Alias de</th>
+				<th width="5%">&nbsp;</th>
 			</tr> 
 		</thead> 
 	<tbody>|-if $medias|@count eq 0-|
 		<tr>
-			 <td colspan="4">|-if isset($filter)-|No hay ##medias,1,Medios## que concuerden con la búsqueda|-else-|No hay ##medias,1,Medios## disponibles|-/if-|</td>
+			 <td colspan="5">|-if isset($filter)-|No hay ##medias,1,Medios## que concuerden con la búsqueda|-else-|No hay ##medias,1,Medios## disponibles|-/if-|</td>
 		</tr>
 	|-else-|
 		|-foreach from=$medias item=media name=for_medias-|
@@ -53,6 +54,7 @@
 			<td>|-$media->getName()-|</td> 
 			<td>|-$media->getMediaType()-|</td> 
 			<td>|-$media->getDescription()-|</td> 
+			<td>|-$media->getMediaRelatedByAliasof()-|</td>
 			<td nowrap>|-if "mediasEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="mediasEdit" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
@@ -72,11 +74,11 @@
 		|-/foreach-|
 		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
 		<tr> 
-			<td colspan="4" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+			<td colspan="5" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 			|-if "mediasEdit"|security_has_access-|<tr>
-				 <th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=mediasEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##medias,2,Medio##</a></div></th>
+				 <th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=mediasEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##medias,2,Medio##</a></div></th>
 			</tr>|-/if-|
 		|-/if-|
 		</tbody> 
