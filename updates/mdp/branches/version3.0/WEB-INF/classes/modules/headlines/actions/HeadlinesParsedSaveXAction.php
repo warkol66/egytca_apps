@@ -29,12 +29,12 @@ class HeadlinesParsedSaveXAction extends BaseAction {
 
 					//Creo el clipping
 					require_once('WebkitHtmlRenderer.php');
-					$url = $headline->getUrl();
+					$url = $newHeadline->getUrl();
 					$imagePath = ConfigModule::get('headlines', 'clippingsPath');
 					if (!file_exists($imagePath))
 						mkdir ($imagePath, 0777, true);
 
-					$imageFullname = $imagePath . $headline->getId() . ".jpg";
+					$imageFullname = $imagePath . $newHeadline->getId() . ".jpg";
 
 					$renderer = new WebkitHtmlRenderer();
 					$renderer->render($url, $imageFullname, true);
