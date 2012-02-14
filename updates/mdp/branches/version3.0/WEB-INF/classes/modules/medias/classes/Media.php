@@ -14,6 +14,33 @@
  * @package    propel.generator.medias.classes
  */
 class Media extends BaseMedia {
+	
+	
+	/**
+	 * Devuelve el eslabon más lejano en la cadena de aliases
+	 * 
+	 * @return Media Ultimo media referenciado por la cadena de aliases
+	 */
+	function resolveAliases($alreadyResolved = null) {
+		
+		if (is_null($this->getAliasof()))
+			return $this;
+		
+		if (is_null($alreadyResolved))
+			$alreadyResolved = array();
+		
+		if (in_array($this->getId(), $alreadyResolved))
+			throw new Exception("circular reference found in aliases");
+		
+		$alreadyResolved[] = $this->getId();
+		
+		$aliasedMedia = MediaQuery::create()->findOneById($this->getAliasof());
+		if (is_null($aliasedMedia))
+			throw new Exception("aliasOf is not a valid ID");
+		
+		return $aliasedMedia->resolveAliases($alreadyResolved);
+		
+	}
 
  /**
 	 * Devuelve el tipo de media.

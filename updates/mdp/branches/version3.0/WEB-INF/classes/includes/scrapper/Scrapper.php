@@ -134,8 +134,10 @@ class Scrapper {
 					$exist = HeadlineParsedQuery::create()->findOneByInternalid($internalId);
 					if (!$exist) {
             $media = MediaQuery::create()->findOneByName($parsedNews['source']);
-            if (!empty($media))
+	    if (!empty($media)) {
+		$media = $media->resolveAliases();
             	$parsedNews['mediaId'] = $media->getId();
+	    }
 							
             try {
                 $h = $this->buildObject()
