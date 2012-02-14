@@ -50,6 +50,9 @@ class VialidadConstructionsEditAction extends BaseAction {
 		if (!empty($_GET['returnToContract']))
 			$smarty->assign('returnContractId', $_GET['returnToContract']);
 		
+		$smarty->assign("departments",DepartmentQuery::create()->find());
+		$smarty->assign("types",ConstructionTypeQuery::create()->find());
+
 		$smarty->assign("construction",$construction);
 		return $mapping->findForwardConfig('success');
 	}

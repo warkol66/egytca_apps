@@ -1,5 +1,7 @@
+<link type="text/css" href="css/chosen.css" rel="stylesheet">
+<script language="JavaScript" type="text/javascript" src="scripts/event.simulate.js"></script>
+<script language="JavaScript" type="text/javascript" src="scripts/chosen.js"></script>
 <h2>Obras</h2>
-
 |-if $notValidId eq "true"-|
 <div class="errorMessage">El identificador de la obra ingresado no es válido. Seleccione una obra del listado.</div>
 <input type='button' onClick='location.href="Main.php?do=vialidadConstructionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Obras"/>
@@ -41,13 +43,16 @@
 		 <div id="verifier" style="position: relative;z-index:10000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_verifierId" label="Fiscalizadora" url="Main.php?do=affiliatesVerifiersAutocompleteListX" hiddenName="params[verifierId]" defaultHiddenValue=$construction->getVerifierId() defaultValue=$construction->getAffiliate()-|
 		 </div>
-		 <p><label for="params[region]">Departamento/s</label>
-			<input name="params[region]" type="text" value="|-$construction->getRegion()|escape-|" size="40">
-		 </p>
-		 <p><label for="params[type]">Tipo de Obra</label>
-			<input name="params[type]" type="text" value="|-$construction->getType()|escape-|" size="40">
-		 </p>
-		 <p><label for="params[length]">Longitud</label>
+			<p>
+				<label for="params[typeId]">Tipo del Obra</label>
+				<select id="params[typeId]" name="params[typeId]" >
+        		<option value="">Seleccione</option>
+				|-foreach from=$types item=type name=for_type-|
+        		<option value="|-$type->getId()-|"|-$construction->getTypeId()|selected:$type->getId()-|>|-$type-|</option>
+				|-/foreach-|
+				</select>
+			</p>
+			 <p><label for="params[length]">Longitud</label>
 			<input name="params[length]" type="text" value="|-$construction->getLength()|escape-|" size="6"> Kms.
 		 </p>
 			<p>     
@@ -69,6 +74,45 @@
 
 
 |-if $action eq 'edit'-|
+|-if !$contract->isNew()-|
+<script type="text/javascript">
+
+	function updateSelected(options, action) {
+		
+		var postParams = "";
+		postParams += "constructionId=|-$construction->getId()-|";
+		
+		// Cargar selecionados
+		for (var i=0; i < options.length; i++) {
+			if (options[i].selected)
+				postParams += "&departmentsIds[]="+options[i].value;
+		}
+		
+		new Ajax.Updater(
+			"",
+			action,
+			{
+				method: 'post',
+				postBody: postParams,
+				evalScripts: true
+			});
+		return true;
+	}
+</script>
+<fieldset title="Formulario de departamentos afectados por la obra">
+	<legend>Departamentos</legend>
+	<p>
+	<form method="post" id="form_departments">
+		<label for="departments">Departamentos</label>
+		<select class="chzn-select departments-chz-select" data-placeholder="Seleccione uno o varios departamentos..." id="departmentsIds" name="departmentsIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=vialidadConstructionDepartmentsDoUpdateX')" >
+			|-foreach from=$departments item=department name=for_department-|
+        		<option value="|-$department->getId()-|" |-if $construction->hasDepartment($department)-|selected="selected"|-/if-| >|-$department-|</option>
+			|-/foreach-|
+		</select>
+	</form>
+	</p>
+</fieldset>
+|-/if-|
 <h3>Items de Construcción</h3>
 <p align="right"><a class="report" href="Main.php?do=vialidadConstructionItemReport&id=|-$construction->getId()-|&action=show" target="_blank">Ver Reporte</a> <a class="download" href="Main.php?do=vialidadConstructionItemReport&id=|-$construction->getId()-|">Descargar Reporte</a></p>
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>

@@ -186,7 +186,7 @@
 		<column name="description" type="LONGVARCHAR" />
 		<column name="verifierId" type="INTEGER" size="5" description="Id del verificador" />
 		<column name="region" type="VARCHAR" size="255" description="Departamentos" />
-		<column name="type" type="INTEGER" size="5" description="Tipo de Obra" />
+		<column name="typeId" type="INTEGER" size="5" description="Tipo de Obra" />
 		<column name="length" type="VARCHAR" size="5" description="Longitud" />
 		<column name="startDate" type="DATE" description="Fecha de inicio" />
 
@@ -196,6 +196,10 @@
 		
 		<foreign-key foreignTable="affiliates_affiliate" >
 			<reference local="verifierId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="vialidad_constructionType" onDelete="cascade" >
+			<reference local="typeId" foreign="id" />
 		</foreign-key>
 
 		<vendor type="mysql">
