@@ -23,6 +23,12 @@
 			<li><a href="Main.php?do=vialidadConstructionItemList">Paramétricas de Obra</a></li>
 			<li><a href="Main.php?do=vialidadMeasurementRecordsList">Actas de Medición</a></li>
 			<li><a href="Main.php?do=vialidadCertificatesList">Certificados de Obra</a></li>
+
+
+			<li><a href="Main.php?do=vialidadSourcesList">Fuentes de Finaciamiento</a></li>
+			<li><a href="Main.php?do=vialidadDepartmentsList">Departamentos</a></li>
+			<li><a href="Main.php?do=vialidadConstructionTypesList">Tipos de Obra</a></li>
+
 		</div>
 
 		<li class="titleMenu" onclick="$('sectionAdmin').toggle()">Administración</li>
