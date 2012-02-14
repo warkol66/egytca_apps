@@ -21,7 +21,7 @@ class HeadlinesParsedListAction extends BaseAction {
 		if ($campaign) {
 			$headlinesParsed = HeadlineParsedQuery::create()
 												->filterByCampaign($campaign)
-												->filterByStatus(array('max' => HeadlineParsedQuery::STATUS_PROCESSED))
+												->filterByStatus(array('max' => HeadlineParsedQuery::STATUS_PROCESSING))
 												->orderByStatus()
 												->find();
 	
