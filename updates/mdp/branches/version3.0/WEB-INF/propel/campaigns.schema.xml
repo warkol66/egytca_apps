@@ -9,11 +9,12 @@
 		<column name="finishDate" description="Fecha final de la campaign" type="DATE" />
 		<column name="clientId" description="Cliente asociado" type="INTEGER" />
 		<column name="description" description="Descripcion de la Campaign" type="LONGVARCHAR" />
+		<column name="defaultKeywords" description="Palabras clave por defecto para prensa" type="CHAR" size="255" />
 		<column name="responsible" description="Persona Responsable de la campaign" type="CHAR" size="120" />
 
 		<behavior name="soft_delete" />
 
-		<foreign-key foreignTable="clients_client">
+		<foreign-key foreignTable="affiliates_affiliate">
 			<reference local="clientId" foreign="id" />
 		</foreign-key>
 

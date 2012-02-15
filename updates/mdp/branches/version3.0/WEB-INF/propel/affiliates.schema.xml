@@ -13,7 +13,11 @@
 		<column name="web" type="VARCHAR" size="255" description="Direccion web del afiliado"/>
 		<column name="memo" type="LONGVARCHAR" description="Informacion adicional del afiliado"/>
 
-		<behavior name="soft_delete" />
+	  <column name="class_key" type="INTEGER" inheritance="single">
+	    <inheritance key="1" class="Affiliate"/>
+	    <inheritance key="2" class="Client" extends="Affiliate"/>
+	  </column>
+
 		<behavior name="timestampable" />
 
 		<foreign-key foreignTable="affiliates_user" >
@@ -47,7 +51,6 @@
 			<unique-column name="username" />
 		</unique>
 
-		<behavior name="soft_delete" />
 		<behavior name="timestampable" />
 
 		<foreign-key foreignTable="affiliates_level" >
