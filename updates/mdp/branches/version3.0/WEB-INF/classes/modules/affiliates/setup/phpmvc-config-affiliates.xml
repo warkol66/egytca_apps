@@ -11,6 +11,16 @@
 				<forward name="failure" path="/Main.php?do=affiliatesEdit" redirect="true" />
 		</action>
 		
+		<action      path = "affiliatesClientsDoEdit"
+								 type = "AffiliatesClientsDoEditAction"
+								 name = "affiliatesClientsDoEdit"
+								scope = "request"
+						 validate = "true">
+				<forward name="success" path="/Main.php?do=affiliatesClientsList" redirect="true" />
+				<forward name="success-create" path="/Main.php?do=affiliatesUsersEdit" redirect="true" />
+				<forward name="failure" path="/Main.php?do=affiliatesClientsEdit" redirect="true" />
+		</action>
+
 		<action      path = "affiliatesUsersLogin"
 								 type = "AffiliatesUsersLoginAction"
 								 name = "affiliatesUsersLogin"
@@ -49,6 +59,7 @@
 						 validate = "true">
 				<forward name="success" path="/Main.php?do=affiliatesUsersList" redirect="true" />
 				<forward name="success-owner" path="/Main.php?do=affiliatesList" redirect="true" />
+				<forward name="success-owner-client" path="/Main.php?do=affiliatesClientsList" redirect="true" />
 				<forward name="failure" path="AffiliatesUsersEdit.tpl" />
 		</action>
 

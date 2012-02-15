@@ -107,7 +107,11 @@ class AffiliateUser extends BaseAffiliateUser {
 	* @return string Nombre del afiliado
 	*/
 	function getAffiliate() {
-		return $this->getAffiliateRelatedByAffiliateid();
+		$affiliate = $this->getAffiliateRelatedByAffiliateid();
+		if (!empty($affiliate))
+			return $affiliate;
+		else
+			return new Affiliate();
 	}
 
 	/**

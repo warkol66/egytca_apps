@@ -1,8 +1,8 @@
 <?php
 
-class ClientsViewXAction extends BaseAction {
+class AffiliatesClientsViewXAction extends BaseAction {
 
-	function ClientsViewXAction() {
+	function AffiliatesClientsViewXAction() {
 		;
 	}
 
@@ -16,13 +16,14 @@ class ClientsViewXAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$module = "Clients";
+		$module = "Affiliates";
 		$smarty->assign("module",$module);
+		$section = "Clients";
+		$smarty->assign("section",$section);
 
-		$id = $_GET["id"];
-
-		$client = ClientPeer::get($id);
-		$smarty->assign("client",$client);
+		$id = $request->getParameter("id");
+    $affiliate = ClientQuery::create()->findOneById($id);
+		$smarty->assign("affiliate",$affiliate);
 
 		return $mapping->findForwardConfig('success');
 	}

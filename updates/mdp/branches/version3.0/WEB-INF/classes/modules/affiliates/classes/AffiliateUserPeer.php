@@ -85,9 +85,9 @@ class AffiliateUserPeer extends BaseAffiliateUserPeer {
 	*	@return array Informacion sobre los usuarios
 	*/
 	function getDeleteds() {
-		AffiliateUserQuery::disableSoftDelete();
+/*		AffiliateUserQuery::disableSoftDelete();
 		return AffiliateUserQuery::create()->filterByDeletedAt(null, Criteria::ISNOTNULL)
-					 ->find();
+					 ->find();*/;
 	}
 
 	/**

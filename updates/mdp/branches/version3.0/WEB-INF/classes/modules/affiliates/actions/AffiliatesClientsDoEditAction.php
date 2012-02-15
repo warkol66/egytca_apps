@@ -1,8 +1,8 @@
 <?php
 
-class ClientsDoEditAction extends BaseAction {
+class AffiliatesClientsDoEditAction extends BaseAction {
 
-	function ClientsDoEditAction() {
+	function AffiliatesClientsDoEditAction() {
 		;
 	}
 
@@ -16,18 +16,20 @@ class ClientsDoEditAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$module = "Clients";
+		$module = "Affiliates";
 		$smarty->assign("module",$module);
 
-		$clientPeer = new ClientPeer();
+		$filters = $_POST["filters"];
+		$smarty->assign("filters",$filters);
 
-		if ($_POST["action"] == "edit" && !empty($_POST["id"])) {
-			$params["id"] = $_POST["id"];
-			$client = ClientPeer::get($_POST["id"]);
-			if (!empty($client)) {
-				$client = Common::setObjectFromParams($client,$_POST["params"]);
+		$id = $request->getParameter("id");
 
-				if ($client->isModified() && !$client->save()) 
+		if (!empty($id)) {
+			$affiliate = ClientQuery::create()->findPk($id);
+			if (!empty($affiliate)) {
+				$affiliate = Common::setObjectFromParams($affiliate,$_POST["params"]);
+
+				if ($affiliate->isModified() && $affiliate->validate() && !$affiliate->save()) 
 					return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'failure');
 	
 				$smarty->assign("message","ok");
@@ -35,17 +37,18 @@ class ClientsDoEditAction extends BaseAction {
 			}
 		}
 		else {
-			$client = new Client();
-			$client = Common::setObjectFromParams($client,$_POST["params"]);
+			$affiliate = new Client();
+			$affiliate = Common::setObjectFromParams($affiliate,$_POST["params"]);
 
-			if(!$client->validate()) {
-				$smarty->assign("client",$client);
+			if (!$affiliate->validate()) {
+				$smarty->assign("affiliate",$affiliate);
 				$smarty->assign("message","error");
 				return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'failure');
 			}
-			else{
-				$_SESSION['newClient'] = $client;
+			else {
+				$_SESSION['newAffiliate'] = $affiliate;
 				$params['ownerCreation'] = 1;
+				$params['class'] = 'Client';
 				return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-create');
 			}
 		}

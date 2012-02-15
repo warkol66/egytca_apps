@@ -108,7 +108,9 @@ class AffiliatesUsersDoEditAction extends BaseAction {
 				$smarty->assign("message","errorUpdate");
 				return $mapping->findForwardConfig('failure');
 			}
-			return $this->addFiltersToForwards($filters, $mapping, 'success-owner');
+			if (!empty($_POST['filters']['class']))
+				$class = '-' . lcfirst($_POST['filters']['class']);
+			return $this->addFiltersToForwards($filters, $mapping, 'success-owner' . $class);
 		}
 		
 		return $this->addFiltersToForwards($filters, $mapping, 'success');

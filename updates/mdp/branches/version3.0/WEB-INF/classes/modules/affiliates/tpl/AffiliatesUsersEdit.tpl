@@ -38,19 +38,19 @@ Para terminar de crear el ##affiliates,3,Afiliado## debe crear una cuenta de usu
 		<p>
 			<label for="affiliateUser[username]">Identificación de Usuario</label>
 	|-if $action eq 'edit' and $currentAffiliateUser->getUsername() ne ''-|<input id='actualaffiliateUser[username]' type='hidden' value='|-$currentAffiliateUser->getUsername()-|' />|-/if-|
-			<input name="affiliateUser[username]" id="affiliateUser[username]" type="text"  value="|-$currentAffiliateUser->getUsername()-|" size="40" |-ajax_onchange_validation_attribute actionName=affiliatesUsersValidationUsernameX-| />|-validation_msg_box idField="affiliateUser[username]"-|
+			<input name="affiliateUser[username]" id="affiliateUser[username]" type="text"  value="|-$currentAffiliateUser->getUsername()-|" size="40" class="emptyValidation" |-ajax_onchange_validation_attribute actionName=affiliatesUsersValidationUsernameX-| /> |-validation_msg_box idField="affiliateUser[username]"-|
 		</p>
 		<p>
 			<label for="affiliateUser[name]">Nombre</label>
-			<input name="affiliateUser[name]" type="text"  value="|-$currentAffiliateUser->getName()-|" size="60" />
+			<input name="affiliateUser[name]" type="text"  value="|-$currentAffiliateUser->getName()-|" class="emptyValidation" size="60"> |-validation_msg_box idField="params[name]"-|
 		</p>
 		<p>
 			<label for="affiliateUser[surname]">Apellido</label>
-			<input name="affiliateUser[surname]" type="text"  value="|-$currentAffiliateUser->getSurname()-|" size="60" />
+			<input name="affiliateUser[surname]" type="text"  value="|-$currentAffiliateUser->getSurname()-|" class="emptyValidation" size="60"> |-validation_msg_box idField="params[name]"-|
 		</p>
 		<p>
 			<label for="affiliateUser[mailAddress]">E-mail</label>
-			<input name="affiliateUser[mailAddress]" id="affiliateUser[mailAddress]" type="text"  value="|-$currentAffiliateUser->getMailAddress()-|" size="60"  class="mailValidation" onchange="javascript:validationValidateFieldClienSide('affiliateUser[mailAddress]');" /> |-validation_msg_box idField=2affiliateUser[mailAddress]"-|
+			<input name="affiliateUser[mailAddress]" id="affiliateUser[mailAddress]" type="text"  value="|-$currentAffiliateUser->getMailAddress()-|" size="60"  class="emptyValidation mailValidation" onchange="javascript:validationValidateFieldClienSide('affiliateUser[mailAddress]');" /> |-validation_msg_box idField="affiliateUser[mailAddress]"-|
 		</p>
 		<p><label for="pass">##users,165,Contraseña##</label>
 			<input id='pass' name='pass' type='password' value='' size="20" class="" onchange="javascript:setElementClass('pass','emptyValidation');setElementClass('pass2','passwordMatch');validationValidateFieldClienSide('pass');" /> |-validation_msg_box idField=pass-|
@@ -82,6 +82,7 @@ Para terminar de crear el ##affiliates,3,Afiliado## debe crear una cuenta de usu
 			<input type="hidden" name="ownerCreation" value="|-$ownerCreation-|" />
 			<input type="hidden" name="id" value="|-$currentAffiliateUser->getId()-|" />
 			<input type="hidden" name="do" value="affiliatesUsersDoEdit" />
+			|-include file="HiddenInputsInclude.tpl" filters="$filters" page="$page"-|
 			|-javascript_form_validation_button value='##97,Guardar##' title='##97,Guardar##'-|
 			<input type='button' onClick='javascript:history.go(-1)' value='##104,Regresar##' />
 		</p>

@@ -21,6 +21,12 @@ class AffiliatesUsersEditAction extends BaseAction {
 
 		$smarty->assign("module",$module);
 		$smarty->assign("section",$section);
+		
+		$class = $request->getParameter('class');
+		if (!empty($class))
+			$filters['class'] = $class;
+
+		$smarty->assign("filters",$filters);
 
 		$usersPeer = new AffiliateUserPeer();
 

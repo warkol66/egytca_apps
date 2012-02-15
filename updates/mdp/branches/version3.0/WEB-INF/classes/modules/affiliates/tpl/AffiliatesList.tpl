@@ -65,9 +65,9 @@
     </td>
 	</tr>
 	|-/foreach-|
-		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
+		|-if isset($pager) && $pager->haveToPaginate()-|
 	<tr>
-		<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td>
+		<td colspan="3" class="pages">|-include file="ModelPagerInclude.tpl"-|</td>
 	</tr>
 	|-/if-|
 	|-if "affiliatesEdit"|security_has_access && $affiliates|@count gt 5-|<tr>
