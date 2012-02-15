@@ -58,4 +58,14 @@ class Campaign extends BaseCampaign {
 		return CampaignParticipantQuery::create()->filterByCampaign($this)->filterByObjecttype('client')->select('Objectid')->find()->toArray();
 	}
 
+	/**
+	* Obtiene el cliente
+	*
+	* @return string nombre del tipo
+	*/
+	function getClient() {
+		$client = ClientQuery::create()->findOneById($this->getClientId());
+		return $client;
+	}
+
 } // Campaign
