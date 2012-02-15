@@ -274,6 +274,9 @@ function validationTextValidator(element) {
  */
 function validationMailValidator(element) {
 
+	if (element.value == '')
+		return true;
+
 	return validateField(element, 'email');
 
 }
