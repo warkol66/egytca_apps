@@ -12,7 +12,7 @@
     <form id="form" action="Main.php?do=headlinesDoParseX" onsubmit="headlinesSearch(); return false;" method="POST">
         <input name="campaignId" value="|-$campaignId-|" type="hidden" />
  <p><label for="q">Palabras clave</label>
- <input name="q" value="" size="60" />
+ <input name="q" value="|-$campaign->getDefaultKeywords()|escape-|" size="60" />
  <input type="submit" id="search_button" value="Buscar" />
  <input type="button" id="return_button" onclick="location.href='Main.php?do=headlinesList'" value="Regresar al listado" />
  </p> 
