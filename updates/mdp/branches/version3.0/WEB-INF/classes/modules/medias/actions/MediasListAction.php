@@ -1,5 +1,7 @@
 <?php
 
+require_once 'WEB-INF/classes/BaseQuery.php';
+
 class MediasListAction extends BaseAction {
 
 	function MediasListAction() {
@@ -25,20 +27,20 @@ class MediasListAction extends BaseAction {
 		$moduleConfig = Common::getModuleConfiguration($module);
 		$smarty->assign("moduleConfig",$moduleConfig);
 
-		$mediaPeer = new MediaPeer();
-
 		if (!empty($_GET["page"])){
 			$page = $_GET["page"];
 			$smarty->assign("page",$page);
 		}
-		if (!empty($_GET['filters'])){
-			$filters = $_GET['filters'];
-			$this->applyFilters($mediaPeer,$filters,$smarty);
-		}
-		$pager = $mediaPeer->getAllPaginatedFiltered($page);
-
-		$smarty->assign("medias",$pager->getResult());
+		
+		$filters = $_GET['filters'];
+		
+		$pager = BaseQuery::create('Media')
+			->filterByAliasof(null)
+			->createPager($filters, $page, $filters['perPage']);
+		
+		$smarty->assign("medias",$pager->getResults());
 		$smarty->assign("pager",$pager);
+		$smarty->assign("filters", $filters);
 
 		$url = "Main.php?do=mediasList";
 		foreach ($filters as $key => $value)

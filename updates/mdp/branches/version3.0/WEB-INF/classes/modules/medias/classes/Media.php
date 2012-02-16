@@ -21,7 +21,7 @@ class Media extends BaseMedia {
 		
 		$aliasedMedia = $this->getMediaRelatedByAliasof();
 		if (!is_null($aliasedMedia))
-			$this->setAliasof($aliasedMedia->resolveAliases());
+			$this->setAliasof($aliasedMedia->resolveAliases()->getId());
 		
 		return true;
 	}
