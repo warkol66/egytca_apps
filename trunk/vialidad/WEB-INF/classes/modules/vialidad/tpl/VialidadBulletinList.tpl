@@ -70,7 +70,7 @@
 		<tbody>
 		|-if $bulletins|@count eq 0-|
 		<tr>
-			<td colspan="4">|-if isset($filter)-|No hay Boletines que concuerden con la búsqueda|-else-|No hay Boletines disponibles|-/if-|</td>
+			<td colspan="4">|-if isset($filters)-|No hay Boletines que concuerden con la búsqueda|-else-|No hay Boletines disponibles|-/if-|</td>
 		</tr>
 		|-else-|
 		|-foreach from=$bulletins item=bulletin name=for_bulletins-|
