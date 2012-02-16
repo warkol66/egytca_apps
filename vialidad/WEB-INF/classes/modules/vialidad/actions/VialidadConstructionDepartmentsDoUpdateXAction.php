@@ -75,7 +75,7 @@ class VialidadConstructionDepartmentsDoUpdateXAction extends BaseAction {
 			
 		}
 
-//		return $mapping->findForwardConfig('success');
-die;	}
+		return null;
+	}
 
 }
