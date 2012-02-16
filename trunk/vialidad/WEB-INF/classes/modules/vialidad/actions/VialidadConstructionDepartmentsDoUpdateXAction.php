@@ -59,7 +59,7 @@ class VialidadConstructionDepartmentsDoUpdateXAction extends BaseAction {
 			foreach ($departmentsIds as $departmentId) {
 				array_push($selectedDepartments, DepartmentQuery::create()->findOneById($departmentId)); 
 			}
-			$associatedDepartments = $construction->getConstructionDepartments();
+			$associatedDepartments = $construction->getDepartments();
 			
 			// Quitar los departments que sobren
 			foreach ($associatedDepartments as $e) {
