@@ -26,7 +26,7 @@ class MediasUpdateAudiencesXAction extends BaseAction {
 	function removeAudience($media, $audience) {
 		
 		$media = MediaPeer::get($_POST["mediaId"]);
-		$relation = MediaAudiencesQuery::create()->filterByMedia($media)->filterByMediaAudience($audience)->findOne();
+		$relation = MediaAudienceRelationQuery::create()->filterByMedia($media)->filterByMediaAudience($audience)->findOne();
 		
 		if (!empty($relation))
 			try {
@@ -75,7 +75,7 @@ class MediasUpdateAudiencesXAction extends BaseAction {
 			
 		}
 
-		return $mapping->findForwardConfig('success');
+		return null;
 	}
 
 }
