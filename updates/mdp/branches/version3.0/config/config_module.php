@@ -69,8 +69,14 @@ class ConfigModule {
 			"searchEngineUrl" => "http://news.google.com",
 			"clippingsPath" => "./WEB-INF/classes/modules/headlines/files/clipping/",
 			"clippingsTmpPath" => "./WEB-INF/classes/modules/headlines/files/clipping/tmp/",
-			"clippingApp" => "wkhtmltoimage"
-		)
+			"clippingApp" => "wkhtmltoimage",
+            "contentProvider" => array(
+                "strategies" => array(
+                    "googleNews" => "GoogleNewsStrategy",
+                    "google"     => "GoogleStrategy"
+                )
+            )
+        )
 	);
 
 	public static function get($module,$key) {
