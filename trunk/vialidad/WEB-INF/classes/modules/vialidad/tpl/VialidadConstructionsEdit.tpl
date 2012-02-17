@@ -104,7 +104,7 @@
 	<p>
 	<form method="post" id="form_departments">
 		<label for="departments">Departamentos</label>
-		<select class="chzn-select departments-chz-select" data-placeholder="Seleccione uno o varios departamentos..." id="departmentsIds" name="departmentsIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=vialidadConstructionDepartmentsDoUpdateX')" style="min-width: 70%;">
+		<select class="chzn-select departments-chz-select" data-placeholder="Seleccione uno o varios departamentos..." id="departmentsIds" name="departmentsIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=vialidadConstructionDepartmentsDoUpdateX')" >
 			|-foreach from=$departments item=department name=for_department-|
         		<option value="|-$department->getId()-|" |-if $construction->hasDepartment($department)-|selected="selected"|-/if-| >|-$department-|</option>
 			|-/foreach-|
