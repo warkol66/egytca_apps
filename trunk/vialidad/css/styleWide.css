@@ -19,3 +19,6 @@
 #rightColumn fieldset p {
 	width: 780px;
 }
+.wide-chz-select {
+	min-width: 640px;
+}

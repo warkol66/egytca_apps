@@ -270,4 +270,6 @@
 	position:absolute;
 	z-index:12000;
 }
-
+.wide-chz-select {
+	min-width: 370px;
+}
