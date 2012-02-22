@@ -40,7 +40,7 @@ class Certificate extends BaseCertificate {
 		return $price;
 	}
 	
-	function getAdjustmenCoeficient() {
+	function getAdjustmentCoeficient() {
 		$contractDate = $this->getMeasurementRecord()->getContract()->getStartdate('%d-%m-%Y');
 		$certificateDate = $this->getMeasurementRecord()->getMeasurementdate('%d-%m-%Y');
 		
