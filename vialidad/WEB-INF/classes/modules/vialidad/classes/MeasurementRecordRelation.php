@@ -20,10 +20,16 @@ class MeasurementRecordRelation extends BaseMeasurementRecordRelation {
 	 * período del MeasurementRecord asociado.
 	 */
 	function suggestedPrice() {
-		$unitPrice = 0;
 		
 		$periodo = $this->getMeasurementRecord()->getMeasurementdate('%d/%m/%Y');
-		$bulletin = BulletinQuery::create()->filterByPeriodo($periodo)->findOne();
+		return $this->getEstimatedPrice($periodo, 'd/m/Y');
+	}
+	
+	function getEstimatedPrice($datestring, $format = 'd-m-Y') {
+		$unitPrice = 0;
+		
+		$dateTime = DateTime::createFromFormat($format, $datestring);
+		$bulletin = BulletinQuery::create()->filterByPeriodo($dateTime->format('d/m/Y'))->findOne();
 		if (is_null($bulletin))
 			return null;
 			
@@ -40,6 +46,10 @@ class MeasurementRecordRelation extends BaseMeasurementRecordRelation {
 	
 	function getTotalPrice() {
 		return $this->getPrice() * $this->getQuantity();
+	}
+	
+	function getEstimatedTotalPrice($datestring, $format = 'd-m-Y') {
+		return $this->getEstimatedPrice($datestring, $format) * $this->getQuantity();
 	}
 	
 	function postSave(PropelPDO $con = null) {
