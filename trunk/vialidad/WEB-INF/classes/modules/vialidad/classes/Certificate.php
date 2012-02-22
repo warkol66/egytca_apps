@@ -27,5 +27,17 @@ class Certificate extends BaseCertificate {
 		}
 		return $price;
 	}
+	
+	function getEstimatedPrice($datestring, $format = 'd-m-Y') {
+		$relations = MeasurementRecordRelationQuery::create()
+			->filterByMeasurementrecordid($this->getMeasurementrecordid())
+			->find();
+		
+		$price = 0;
+		foreach ($relations as $relation) {
+			$price += $relation->getEstimatedTotalPrice($datestring, $format);
+		}
+		return $price;
+	}
 
 } // Certificate
