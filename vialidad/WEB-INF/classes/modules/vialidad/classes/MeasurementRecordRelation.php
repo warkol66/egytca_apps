@@ -26,22 +26,7 @@ class MeasurementRecordRelation extends BaseMeasurementRecordRelation {
 	}
 	
 	function getEstimatedPrice($datestring, $format = 'd-m-Y') {
-		$unitPrice = 0;
-		
-		$dateTime = DateTime::createFromFormat($format, $datestring);
-		$bulletin = BulletinQuery::create()->filterByPeriodo($dateTime->format('d/m/Y'))->findOne();
-		if (is_null($bulletin))
-			return null;
-			
-		$itemRelations = ConstructionItemRelationQuery::create()
-			->filterByConstructionItem($this->getConstructionItem())->find();
-		foreach ($itemRelations as $itemRelation) {
-			$priceBulletin = PriceBulletinQuery::create()->filterBySupplyid($itemRelation->getSupplyId())
-				->filterByBulletin($bulletin)->findOne();
-			$unitPrice += $priceBulletin->getAverageprice() * $itemRelation->getProportion() / 100;
-		}
-
-		return $unitPrice;
+		return $this->getConstructionItem()->getEstimatedPrice($datestring, $format);
 	}
 	
 	function getTotalPrice() {

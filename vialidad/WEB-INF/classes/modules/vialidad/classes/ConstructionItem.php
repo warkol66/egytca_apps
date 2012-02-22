@@ -34,5 +34,28 @@ class ConstructionItem extends BaseConstructionItem {
 			->filterBySupply($supply);
 		return ($related->count() > 0);														 		
 	}
+	
+	function getEstimatedPrice($datestring, $format = 'd-m-Y') {
+		$price = 0;
+		
+		$dateTime = DateTime::createFromFormat($format, $datestring);
+		$bulletin = BulletinQuery::create()->filterByPeriodo($dateTime->format('d/m/Y'))->findOne();
+		if (is_null($bulletin))
+			return null;
+			
+		$itemRelations = ConstructionItemRelationQuery::create()
+			->filterByConstructionItem($this)->find();
+		foreach ($itemRelations as $itemRelation) {
+			$priceBulletin = PriceBulletinQuery::create()->filterBySupplyid($itemRelation->getSupplyId())
+				->filterByBulletin($bulletin)->findOne();
+			$price += $priceBulletin->getAverageprice() * $itemRelation->getProportion() / 100;
+		}
+
+		return $price;
+	}
+	
+	function getAdjustmentCoeficient($newDatestring, $oldDatestring, $format) {
+		return $this->getEstimatedPrice($newDatestring, $format) / $this->getEstimatedPrice($oldDatestring, $format);
+	}
 
 } // ConstructionItem
