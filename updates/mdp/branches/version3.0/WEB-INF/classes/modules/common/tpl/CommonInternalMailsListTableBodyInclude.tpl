@@ -21,7 +21,11 @@
 		<td onClick="view(|-$internalMail->getId()-|);return false;">
 			<a rel="lightbox1" class="lbOn">
 				<div class="cellContent">
+		|-if is_object($fromObj)-|
 					|-if $internalMail->getFromType() eq 'user' && $internalMail->getFromid() lt 3-||-$fromObj->getName()-||-else-||-$fromObj->getName()-| |-$fromObj->getSurname()-||-/if-|
+			|-else-|
+			N/A
+			|-/if-|
 				</div>
 			</a>
 		</td> 

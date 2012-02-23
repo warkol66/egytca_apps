@@ -88,7 +88,7 @@ body {
 }
 #separatorHeader {
 	background-color: #e7ecf2;
-	height: 0;
+	height: 8px;
 }
 #contentWrapper {
 	width: 950px;

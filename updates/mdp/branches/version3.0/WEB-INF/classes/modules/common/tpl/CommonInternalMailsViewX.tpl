@@ -10,7 +10,11 @@
 		<p class="textAfterLabel">
 			<label>De: </label>
 			|-assign var=userFrom value=$internalMail->getFrom()-|
+					|-if is_object($userFrom)-|
 			|-$userFrom->getName()-|
+			|-else-|
+			N/A
+			|-/if-|
 		</p>
 |-if ($internalMail->getFromId() neq "-1" && $internalMail->getFromType() neq "user")-|		<p class="textAfterLabel">
 			<label>Para: </label>

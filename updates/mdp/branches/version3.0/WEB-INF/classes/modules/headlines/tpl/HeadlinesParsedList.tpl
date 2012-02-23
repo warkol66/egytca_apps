@@ -1,12 +1,12 @@
 <h2>Titulares</h2>
 |-if !$notValidId-|
 <h1>Importar Titulares - |-$campaign-|</h1>
-<div id="lightbox1" class="leightbox"> 
+<div id="lightbox1" class="leightbox">
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a></p> 
 <div id="viewWorking"></div>
 	<div class="innerLighbox">
 		<div id="viewDiv"></div>
-</div></div> 
+</div></div>
 <fieldset>
 <legend>Obtener Titulares</legend>
     <form id="form" action="Main.php?do=headlinesDoParseX" onsubmit="headlinesSearch(); return false;" method="POST">
