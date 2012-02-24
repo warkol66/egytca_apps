@@ -24,8 +24,10 @@ class HeadlinesParsedSaveXAction extends BaseAction {
 			if (!is_null($headline)) {
 				$newHeadline = new Headline();
 				$newHeadline = Common::morphObjectValues($headline,$newHeadline);
-
-				if($newHeadline->isModified() && $newHeadline->save()) {
+				
+				$newHeadline->buildInternalId();
+				$headlineExist = HeadlineQuery::create()->findOneByInternalid($newHeadline->getInternalId());
+				if(!$headlineExist && $newHeadline->isModified() && $newHeadline->save()) {
 
 					//Creo el clipping
 					require_once('WebkitHtmlRenderer.php');
@@ -43,9 +45,9 @@ class HeadlinesParsedSaveXAction extends BaseAction {
 					$headline->setStatus(HeadlineParsedQuery::STATUS_PROCESSED);
 					if($headline->isModified() && $headline->save()){
 					}
-					$smarty->assign("headline",$headline);
-					return $mapping->findForwardConfig('success');
 				}
+				$smarty->assign("headline",$headline);
+				return $mapping->findForwardConfig('success');
 			}
 		}
 		return $mapping->findForwardConfig('failure');

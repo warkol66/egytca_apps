@@ -5,7 +5,11 @@
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a></p> 
 <div id="viewWorking"></div>
 	<div class="innerLighbox">
-		<div id="viewDiv"></div>
+		<div id="viewDiv">|-include file="CommonAutocompleterInclude.tpl"-|
+		<div id="mediaAlias" style="display:none">
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_mediaId" label="Guardar como alias de otro medio" url="Main.php?do=mediasAutocompleteListX" hiddenName="params[aliasOf]"  defaultHiddenValue="" defaultValue="" disableSubmit="saveAlias"-|
+		</div>
+</div>
 </div></div>
 <fieldset>
 <legend>Obtener Titulares</legend>
@@ -20,7 +24,10 @@
 </fieldset>
 <div id="resultDiv"></div>
 <fieldset>
-<legend>Titulares</legend>
+<legend>Titulares &nbsp; &nbsp; &nbsp; &nbsp; 
+<input type="button" class="icon iconActivate" title="Aceptar todos" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=headlinesParsedSaveAllX&id=|-$campaign->getId()-|", { method: "post", parameters: { id: "|-$campaign->getId()-|"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">guardando titulares...</span>";' value="Descartar todos" />
+<input type="button" class="icon iconDelete" title="Descartar todos" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=headlinesParsedDiscardAllX&id=|-$campaign->getId()-|", { method: "post", parameters: { id: "|-$campaign->getId()-|"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando titulares...</span>";' value="Guardar todos" />
+</legend>
 <ul id="list" class="iconList">
 |-include file="HeadlinesParsedListInclude.tpl" included=true-|
 </ul>

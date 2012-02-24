@@ -2,15 +2,21 @@
 	$('viewWorking').innerHTML = '';
 	initialize();
 </script>
-
 |-if !empty($headline)-|
 <div id="viewWorking"></div>
 	<div class="innerLighbox">
 		<div id="viewDiv">
 		<p>Palabras clave: <strong>|-$headline->getKeywords()-|</strong> // |-if $headline->getMediaId() eq 0-|  Medio:  <strong>|-$headline->getMediaName()-| </strong>
+|-include file="CommonAutocompleterInclude.tpl"-|
 		<input type="button" value="Agregar medio" onClick="$('addMediaX').show();" />
 		<div id="addMediaX" style="display:none;">
-		<form><p><label for="media[name]">Nombre del medio</label> <input type="text" value="|-$headline->getMediaName()|escape-|"/><input type="button" value="Guardar"></p>
+		<form>
+		<input type="hidden" name="media[alias]" value="|-$headline->getMediaName()|escape-|" />
+		<p><label for="media[name]">Nombre del medio</label> <input name="media[name]" type="text" value="|-$headline->getMediaName()|escape-|"/><input type="button" value="Crear medio">
+		</p>
+		<div id="mediaAlias" style="position: relative;z-index:12000;">
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_mediaId" label="Guardar como alias de otro medio" url="Main.php?do=mediasAutocompleteListX" hiddenName="params[aliasOf]"  defaultHiddenValue="" defaultValue="" disableSubmit="saveAlias"-|
+		<input type="button" id="saveAlias" name="saveAlias" disabled="disabled" value="Guardar alias"/></div>
 		</form>
 		</div> 
 		 |-else-|

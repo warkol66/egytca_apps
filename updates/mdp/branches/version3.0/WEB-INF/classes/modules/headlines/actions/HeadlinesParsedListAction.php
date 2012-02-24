@@ -20,10 +20,10 @@ class HeadlinesParsedListAction extends BaseAction {
 		$campaign = CampaignQuery::create()->findOneById($campaignId);
 		if ($campaign) {
 			$headlinesParsed = HeadlineParsedQuery::create()
-												->filterByCampaign($campaign)
-												->filterByStatus(array('max' => HeadlineParsedQuery::STATUS_PROCESSING))
-												->orderByStatus()
-												->find();
+					->filterByCampaign($campaign)
+					->filterByStatus(array('max' => HeadlineParsedQuery::STATUS_PROCESSING))
+					->orderByStatus()
+					->find();
 	
 			$smarty->assign('campaign', $campaign);
 			$smarty->assign('campaignId', $campaignId);

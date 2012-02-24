@@ -20,7 +20,7 @@
 		<div id="campaign" style="position: relative;z-index:11000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_campaignId" label="Campaña" url="Main.php?do=campaignsAutocompleteListX" hiddenName="params[campaignId]" defaultHiddenValue=$headline->getCampaignId() defaultValue=$headline->getCampaign()-|
 		</div>
-		<div id="campaign" style="position: relative;z-index:10000;">
+		<div id="media" style="position: relative;z-index:10000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_mediaId" label="Medio" url="Main.php?do=mediasAutocompleteListX" hiddenName="params[mediaId]" defaultHiddenValue=$headline->getMediaId() defaultValue=$headline->getMedia() class="emptyValidation"-|
 		</div>
 			<p>
