@@ -54,6 +54,8 @@
 	</form>
 	
 	|-if $action eq 'edit'-|
+	
+	<h3>Items</h3>
 	<div id=div_itemPrices>
 	<table id="table_itemPrices" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead>
@@ -81,6 +83,32 @@
 			<td align="right"><span id="price|-$relation->getId()-|">|-$relation->getPrice()|system_numeric_format-|</span></td>
 			<td align="right"><span id="totalPrice|-$relation->getId()-|">|-$relation->getTotalPrice()|system_numeric_format-|</span></td>
 			<td align="center"><input id="button_priceEdit|-$relation->getId()-|" type="button" class="icon iconEdit"/></td>
+		</tr>
+		|-/foreach-|
+		|-/if-|
+		</tbody>
+	</table>
+	</div>
+	
+	<h3>Multas</h3>
+	<div id=div_fines>
+	<table id="table_fines" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
+		<thead>
+		<tr class="thFillTitle"> 
+			<th width="85%">Descripción</th> 
+			<th width="15%">Precio</th>
+		</tr>
+		</thead>
+		<tbody>
+		|-if $fines->count() eq 0-|
+		<tr>
+			<td colspan="3">No hay multas que mostrar</td>
+		</tr>
+		|-else-|
+		|-foreach from=$fines item=fine-|
+		<tr>
+			<td>|-$fine->getDescription()-|</td>
+			<td align="right">|-$fine->getPrice()|system_numeric_format-|</td>
 		</tr>
 		|-/foreach-|
 		|-/if-|

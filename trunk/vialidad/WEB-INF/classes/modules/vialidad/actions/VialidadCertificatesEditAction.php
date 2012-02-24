@@ -41,6 +41,15 @@ class VialidadCertificatesEditAction extends BaseAction {
 
 				$smarty->assign("relations", $relations);
 				$smarty->assign("action","edit");
+				
+				$fines = $certificate->getMeasurementRecord()->getFines();
+				$smarty->assign('fines', $fines);
+				
+				$dailyWorks = $certificate->getMeasurementRecord()->getDailyWorks();
+				$smarty->assign('dailyWorks', $dailyWorks);
+				
+				$adjustments = $certificate->getMeasurementRecord()->getAdjustments();
+				$smarty->assign('adjustments', $adjustments);
 			}
 		}
 		else {

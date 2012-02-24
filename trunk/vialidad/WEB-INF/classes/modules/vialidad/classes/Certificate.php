@@ -15,6 +15,25 @@
  */
 class Certificate extends BaseCertificate {
 	
+	function getExtrasPrice() {
+		$price = 0;
+		
+		$fines = $this->getMeasurementRecord()->getFines();
+		$dailyWorks = $this->getMeasurementRecord()->getDailyWorks();
+		$adjustments = $this->getMeasurementRecord()->getAdjustments();
+		
+		foreach ($fines as $fine)
+			$price += $fine->getPrice();
+		
+		foreach ($dailyWorks as $dailyWork)
+			$price += $dailyWork->getPrice();
+		
+		foreach ($adjustments as $adjustment)
+			$price += $adjustment->getPrice();
+		
+		return $price;
+	}
+	
 	function calculatePrice() {
 		
 		$measurementRecordId = $this->getMeasurementrecordid();
@@ -25,6 +44,7 @@ class Certificate extends BaseCertificate {
 		foreach ($relations as $relation) {
 			$price += $relation->getTotalPrice();
 		}
+		$price += $this->getExtrasPrice();
 		return $price;
 	}
 	
@@ -37,6 +57,7 @@ class Certificate extends BaseCertificate {
 		foreach ($relations as $relation) {
 			$price += $relation->getEstimatedTotalPrice($datestring, $format);
 		}
+		$price += $this->getExtrasPrice();
 		return $price;
 	}
 
