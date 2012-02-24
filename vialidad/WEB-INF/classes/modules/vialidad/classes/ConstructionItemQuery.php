@@ -15,6 +15,11 @@
  */
 class ConstructionItemQuery extends BaseConstructionItemQuery {
 	
+	function preSelect(PropelPDO $con) {
+		parent::preSelect($con);
+		$this->filterBy('ClassKey', ConstructionItemPeer::CLASSKEY_CONSTRUCTIONITEM);
+	}
+	
 	/**
 	 * Permite agregar un filtro personalizado a la Query, que puede ser
 	 * traducido al campo correspondiente.

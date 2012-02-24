@@ -257,6 +257,14 @@
 		<column name="quantity" type="DECIMAL" size="12" scale="2" description="Cantidad " />
 		<column name="unit" type="VARCHAR" size="12" description="Unidad" />
 		<column name="constructionId" type="INTEGER" description="Id del construction" />
+		<column name="description" type="LONGVARCHAR" />
+		<column name="date" type="DATE" />
+		<column name="class_key" type="INTEGER" inheritance="single">
+			<inheritance key="1" class="ConstructionItem"/>
+			<inheritance key="2" class="Fine" extends="ConstructionItem"/>
+			<inheritance key="3" class="DailyWork" extends="ConstructionItem"/>
+			<inheritance key="4" class="Adjustment" extends="ConstructionItem"/>
+		</column>
 
 		<foreign-key foreignTable="vialidad_construction" onDelete="cascade" >
 			<reference local="constructionId" foreign="id" />

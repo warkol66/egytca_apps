@@ -41,6 +41,9 @@ class VialidadConstructionsEditAction extends BaseAction {
 			
 			$items = $construction->getConstructionItems();
 			$smarty->assign("items",$items);
+			
+			$fines = FineQuery::create()->filterByConstruction($construction)->find();
+			$smarty->assign("fines", $fines);
 		}
 		else {
 			$construction = new Construction();
