@@ -1,6 +1,6 @@
 <?php
 
-
+require_once 'Period.php';
 
 /**
  * Skeleton subclass for representing a row from the 'vialidad_measurementRecord' table.
@@ -87,6 +87,48 @@ class MeasurementRecord extends BaseMeasurementRecord {
 		if (empty($construction))
 			$construction = new Construction();
 		return $construction->getContractor();
+	}
+	
+	/**
+	 * Obtiene los items de tipo Fine
+	 * @return type 
+	 */
+	function getFines() {
+		return FineQuery::create()
+			->filterByConstructionid($this->getConstructionid())
+			->filterByDate($this->getPeriod()->getLimits('Y-m-d'))
+			->find();
+	}
+	
+	/**
+	 * Obtiene los items de tipo DailyWork
+	 * @return type 
+	 */
+	function getDailyWorks() {
+		return DailyWorkQuery::create()
+			->filterByConstructionid($this->getConstructionid())
+			->filterByDate($this->getPeriod()->getLimits('Y-m-d'))
+			->find();
+	}
+	
+	/**
+	 * Obtiene los items de tipo Adjustment
+	 * @return type 
+	 */
+	function getAdjustments() {
+		return AdjustmentQuery::create()
+			->filterByConstructionid($this->getConstructionid())
+			->filterByDate($this->getPeriod()->getLimits('Y-m-d'))
+			->find();
+	}
+	
+	/**
+	 * Obtiene el periodo
+	 * 
+	 * @return Period 
+	 */
+	function getPeriod() {
+		return new Period($this->getMeasurementdate('%Y-%m-%d'), 'Y-m-d');
 	}
 
 } // MeasurementRecord

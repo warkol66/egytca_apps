@@ -61,6 +61,8 @@
 	</form>
 	
 	|-if $action eq 'edit'-|
+	
+	<h3>Items</h3>
 	<div id=div_itemsRecords>
 	<table id="table_itemsRecords" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead>
@@ -94,6 +96,32 @@
 					<input type="submit" |-if $itemRecord->getDocumentid() eq ''-|style="display:none"|-/if-| onclick="return confirm('Seguro que desea eliminar el documento definitivamente?')" class="icon iconDelete" />
 				</form>
 			</td>
+		</tr>
+		|-/foreach-|
+		|-/if-|
+		</tbody>
+	</table>
+	</div>
+	
+	<h3>Multas</h3>
+	<div id=div_fines>
+	<table id="table_fines" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
+		<thead>
+		<tr class="thFillTitle"> 
+			<th width="85%">Descripción</th> 
+			<th width="15%">Precio</th>
+		</tr>
+		</thead>
+		<tbody>
+		|-if $fines->count() eq 0-|
+		<tr>
+			<td colspan="3">No hay multas que mostrar</td>
+		</tr>
+		|-else-|
+		|-foreach from=$fines item=fine-|
+		<tr>
+			<td>|-$fine->getDescription()-|</td>
+			<td align="right">|-$fine->getPrice()|system_numeric_format-|</td>
 		</tr>
 		|-/foreach-|
 		|-/if-|
