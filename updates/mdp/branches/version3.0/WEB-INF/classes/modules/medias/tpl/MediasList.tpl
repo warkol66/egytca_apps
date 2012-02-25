@@ -17,16 +17,15 @@
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="mediasList" />
 					Texto: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
-				<label for="params[typeId]">Tipo</label>
-				<select name="params[typeId]" id="params[typeId]" >
+				<label for="filters[typeid]">Tipo</label>
+				<select name="filters[typeid]" id="filters[typeid]" >
      		<option value="">Seleccione</option>
 				|-foreach from=$mediaTypes item=mediaType name=for_mediaType-|
-        		<option value="|-$mediaType->getId()-|" |-$media->getTypeId()|selected:$mediaType->getId()-|>|-$mediaType->getName()-|</option>
+        		<option value="|-$mediaType->getId()-|" |-$mediaType->getId()|selected:$filters.typeid-|>|-$mediaType->getName()-|</option>
 				|-/foreach-|
 				</select>
 					Resultados por página
 				|-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$filters.perPage-|	
-				|-if $loginUser->isSupervisor()-|Incluir eliminados<input name="filters[includeDeleted]" type="checkbox" value="true" |-$filters.includeDeleted|checked:"true"-|>|-/if-|
 					<input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
 				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=mediasList'"/>|-/if-|
 			</form>
@@ -53,7 +52,7 @@
 	<!--		<td>|-$media->getid()-|</td> -->
 			<td nowrap="nowrap">
 				|-$media->getName()-|
-				<a href="#" id="link_makeAlias|-$media->getId()-|" onclick="this.hide(); $('form_makeAlias|-$media->getId()-|').show(); return false;">make alias</a>
+				<!--	<a href="#" id="link_makeAlias|-$media->getId()-|" onclick="this.hide(); $('form_makeAlias|-$media->getId()-|').show(); return false;">make alias</a>
 				<form onsubmit="makeAlias('|-$media->getId()-|'); return false;" id="form_makeAlias|-$media->getId()-|" style="display:none;">
 					<div style="position: relative;z-index:10000; display:inline;">
 						|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_medias|-$media->getId()-|" url="Main.php?do=mediasAutocompleteListX" hiddenName="aliasOf" label="&nbsp;-&nbsp;alias de" disableSubmit="submit_media|-$media->getId()-|"-|
@@ -61,7 +60,7 @@
 					<input type="hidden" name="mediaId" value="|-$media->getId()-|" />
 					<input type="submit" id="submit_media|-$media->getId()-|" disabled="disabled" value="make alias" />
 					<input type="button" onclick="this.form.hide(); $('link_makeAlias|-$media->getId()-|').show();" value="cancelar" />
-				</form>
+				</form>-->
 			</td> 
 			<td>|-$media->getMediaType()-|</td> 
 			<td>|-$media->getDescription()-|</td> 
@@ -84,7 +83,7 @@
 		|-/foreach-|
 		|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
-			<td colspan="4" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+			<td colspan="4" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 			|-if "mediasEdit"|security_has_access-|<tr>

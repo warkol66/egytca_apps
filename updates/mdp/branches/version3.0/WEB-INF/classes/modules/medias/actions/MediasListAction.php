@@ -31,12 +31,17 @@ class MediasListAction extends BaseAction {
 			$page = $_GET["page"];
 			$smarty->assign("page",$page);
 		}
-		
+
 		$filters = $_GET['filters'];
 		
+		if (isset($filters["perPage"]) && $filters["perPage"] > 0)
+			$perPage = $filters["perPage"];
+		else
+			$perPage = Common::getRowsPerPage();
+
 		$pager = BaseQuery::create('Media')
 			->filterByAliasof(null)
-			->createPager($filters, $page, $filters['perPage']);
+			->createPager($filters, $page, $perPage);
 		
 		$smarty->assign("medias",$pager->getResults());
 		$smarty->assign("pager",$pager);
@@ -46,6 +51,9 @@ class MediasListAction extends BaseAction {
 		foreach ($filters as $key => $value)
 			$url .= "&filters[$key]=$value";
 		$smarty->assign("url",$url);
+
+		$mediaTypes = MediaTypeQuery::create()->find();
+		$smarty->assign("mediaTypes",$mediaTypes);
 
 		$smarty->assign("message",$_GET["message"]);
 		return $mapping->findForwardConfig('success');
