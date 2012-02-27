@@ -36,6 +36,12 @@ class VialidadFineDoEditXAction extends BaseAction {
 				$construction->save();
 			}
 			
+			if (mb_strlen($_REQUEST["params"]["description"]) > 120)
+				$cont = " ... ";
+
+			$logSufix = "$cont, " . Common::getTranslation('action: edit','common');
+			Common::doLog('success', substr($_REQUEST["params"]["description"], 0, 120) . $logSufix);
+
 			$smarty->assign('fine', $fine);
 			return $mapping->findForwardConfig('success');
 
@@ -53,6 +59,12 @@ class VialidadFineDoEditXAction extends BaseAction {
 				$construction->save();
 			}
 			
+			if (mb_strlen($_REQUEST["params"]["description"]) > 120)
+				$cont = " ... ";
+
+			$logSufix = "$cont, " . Common::getTranslation('action: create','common');
+			Common::doLog('success', substr($_REQUEST["params"]["description"], 0, 120) . $logSufix);
+
 			$smarty->assign('fine', $fine);
 			return $mapping->findForwardConfig('success');
 		}

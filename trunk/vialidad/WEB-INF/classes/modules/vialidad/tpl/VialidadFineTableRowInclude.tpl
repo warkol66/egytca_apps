@@ -1,7 +1,7 @@
 <tr id="fine|-$fine->getId()-|">
 	<td nowrap="nowrap"><span id="fine_description|-$fine->getId()-|">|-$fine->getDescription()-|</span></td>
 	<td nowrap="nowrap" align="center"><span id="fine_date|-$fine->getId()-|">|-$fine->getDate()|date_format-|</span></td>
-	<td nowrap="nowrap" align="center"><span id="fine_price|-$fine->getId()-|">|-$fine->getPrice()|system_numeric_format-|</span></td>
+	<td nowrap="nowrap" align="right"><span id="fine_price|-$fine->getId()-|">|-$fine->getPrice()|system_numeric_format-|</span></td>
 	<td nowrap="nowrap" align="center">
 		|-if "vialidadFineDoEditFieldX"|security_has_access-|
 			<input type="button" name="submit_go_delete_item" value="Borrar" onclick="confirm('Seguro que desea eliminar el Item de Construcción?') ? removeFine('|-$fine->getId()-|'): '';" class="icon iconDelete" /> 
