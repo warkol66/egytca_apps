@@ -16,11 +16,16 @@ class HeadlinesDoParseXAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
         
-        require 'scrapper/Scrapper.php';
-        $headlinesParsed = Scrapper::create(
+        require 'contentProvider/HeadlineContentProvider.php';
+        $headlinesParsed = HeadlineContentProvider::create(
             $request->getParameter('q'), 
             $request->getParameter('campaignId')
-        )->find();
+        )->setStrategy('googleNews')
+//         ->setParameters(array(
+//             'dateFilter' => 'day' // ultimo dia
+//         ))
+         ->find();
+        
         $smarty->assign('headlinesParsed', $headlinesParsed);
 
 		return $mapping->findForwardConfig('success');

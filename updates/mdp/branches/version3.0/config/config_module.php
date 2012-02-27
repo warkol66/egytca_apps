@@ -72,11 +72,13 @@ class ConfigModule {
 			"clippingApp" => "wkhtmltoimage",
             "contentProvider" => array(
                 "strategies" => array(
+                    "default"    => "GoogleNewsStrategy",
+                    "compound"   => "CompoundStrategy",
                     "googleNews" => "GoogleNewsStrategy",
                     "google"     => "GoogleStrategy"
                 )
             )
-        )
+		)
 	);
 
 	public static function get($module,$key) {
