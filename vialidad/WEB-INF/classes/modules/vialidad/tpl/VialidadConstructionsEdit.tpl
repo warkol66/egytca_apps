@@ -172,9 +172,9 @@
 				<input type="hidden" name="params[constructionId]" value="|-$construction->getId()-|" />
 				<label>Descripción</label>
 				<input type="text" size="60" name="params[description]" />
-				<label>Período</label>
+				<label>Fecha</label>
 				<input type="text" size="12" name="params[date]" />
-				<label>Precio</label>
+				<label>Importe</label>
 				<input type="text" size="12" name="params[price]" />
 				<input type="submit" class="icon iconActivate" />
 				<input type="button" class="icon iconCancel" onclick="this.form.hide(); $('link_addFine').show();" />
@@ -184,8 +184,8 @@
 	|-/if-|
 	<tr>
 		<th width="70%">Descripción</th>
-		<th width="15%">Período</th>
-		<th width="10%">Precio</th>
+		<th width="15%">Fecha</th>
+		<th width="10%">Importe</th>
 		<th width="3%">&nbsp;
 		</th>
 	</tr>
