@@ -20,6 +20,7 @@
  <input type="submit" id="search_button" value="Buscar" />
  <input type="button" id="return_button" onclick="location.href='Main.php?do=headlinesList'" value="Regresar al listado" />
  </p> 
+ <p><label for="strategies[]">Búscar en</label> |-foreach from=$parseStategies item=strategy key=strategyName-|&nbsp; &nbsp; |-$strategy-| <input name="strategies[]" type="checkbox" value="|-$strategyName-|" checked="cehcked">|-/foreach-|</p>
     </form>
 </fieldset>
 <div id="resultDiv"></div>

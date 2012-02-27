@@ -28,6 +28,10 @@ class HeadlinesParsedListAction extends BaseAction {
 			$smarty->assign('campaign', $campaign);
 			$smarty->assign('campaignId', $campaignId);
 			$smarty->assign('headlinesParsed', $headlinesParsed);
+
+			$contentProviders = ConfigModule::get("headlines","contentProvider");
+			$parseStategies = $contentProviders["strategies"];
+			$smarty->assign('parseStategies', $parseStategies);
 		}
 		else
 			$smarty->assign('notValidId',true);
