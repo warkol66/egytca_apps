@@ -38,7 +38,11 @@ class Certificate extends BaseCertificate {
 		
 		$measurementRecordId = $this->getMeasurementrecordid();
 		$relations = MeasurementRecordRelationQuery::create()
-			->filterByMeasurementrecordid($measurementRecordId)->find();
+			->filterByMeasurementrecordid($measurementRecordId)
+			->useConstructionItemQuery()
+			->filterByClassKey(ConstructionItemPeer::CLASSKEY_CONSTRUCTIONITEM)
+			->endUse()
+			->find();
 		
 		$price = 0;
 		foreach ($relations as $relation) {
@@ -51,6 +55,9 @@ class Certificate extends BaseCertificate {
 	function getEstimatedPrice($datestring, $format = 'd-m-Y') {
 		$relations = MeasurementRecordRelationQuery::create()
 			->filterByMeasurementrecordid($this->getMeasurementrecordid())
+			->useConstructionItemQuery()
+			->filterByClassKey(ConstructionItemPeer::CLASSKEY_CONSTRUCTIONITEM)
+			->endUse()
 			->find();
 		
 		$price = 0;

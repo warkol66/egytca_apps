@@ -23,5 +23,9 @@ class Adjustment extends ConstructionItem {
 		parent::__construct();
 		$this->setClassKey(ConstructionItemPeer::CLASSKEY_4);
 	}
+	
+	public function getMeasurementRecordRelation() {
+		return MeasurementRecordRelationQuery::create()->filterByConstructionItem($this)->findOne();
+	}
 
 } // Adjustment

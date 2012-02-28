@@ -37,7 +37,11 @@ class VialidadCertificatesViewXAction extends BaseAction {
 				$certificate->getMeasurementRecord()->updateItems();
 				
 				$relations = MeasurementRecordRelationQuery::create()
-					->filterByMeasurementrecordid($certificate->getMeasurementrecordid())->find();
+					->filterByMeasurementrecordid($certificate->getMeasurementrecordid())
+					->useConstructionItemQuery()
+					->filterByClassKey(ConstructionItemPeer::CLASSKEY_CONSTRUCTIONITEM)
+					->endUse()
+					->find();
 
 				$smarty->assign("relations", $relations);
 				$smarty->assign("action","edit");

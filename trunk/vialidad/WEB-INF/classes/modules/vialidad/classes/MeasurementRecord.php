@@ -42,6 +42,31 @@ class MeasurementRecord extends BaseMeasurementRecord {
 		}
 	}
 	
+	public function updateExtrasRelations() {
+		
+		$fines = $this->getFines();
+		foreach ($fines as $fine) {
+			if (!$this->hasItem($fine)) {
+				$this->addItem($fine);
+			}
+		}
+		
+		$dailyWorks = $this->getDailyWorks();
+		foreach ($dailyWorks as $dailyWork) {
+			if (!$this->hasItem($dailyWork)) {
+				$this->addItem($dailyWork);
+			}
+		}
+		
+		$adjustments = $this->getAdjustments();
+		foreach ($adjustments as $adjustment) {
+			if (!$this->hasItem($adjustment)) {
+				$this->addItem($adjustment);
+			}
+		}
+		$this->save();
+	}
+	
 	/**
 	 * Determina la existencia de una relacion con un determindo ConstructionItem.
 	 * @param $constructionItem ConstructionItem

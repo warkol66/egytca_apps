@@ -35,9 +35,14 @@ class VialidadCertificatesEditAction extends BaseAction {
 			}
 			else {
 				$certificate->getMeasurementRecord()->updateItems();
+				$certificate->getMeasurementRecord()->updateExtrasRelations();
 				
 				$relations = MeasurementRecordRelationQuery::create()
-					->filterByMeasurementrecordid($certificate->getMeasurementrecordid())->find();
+					->filterByMeasurementrecordid($certificate->getMeasurementrecordid())
+					->useConstructionItemQuery()
+					->filterByClassKey(ConstructionItemPeer::CLASSKEY_CONSTRUCTIONITEM)
+					->endUse()
+					->find();
 
 				$smarty->assign("relations", $relations);
 				$smarty->assign("action","edit");
