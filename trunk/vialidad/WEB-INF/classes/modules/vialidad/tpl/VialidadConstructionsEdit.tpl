@@ -161,73 +161,42 @@
 	</tfoot>
 </table>
 
-<h3>Multas</h3>
-<table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
-	<thead>
-	|-if "vialidadFineDoEditX"|security_has_access-|
-	<tr>
-		<th colspan="4" class="thFillTitle"><div class="rightLink">
-			<a href="#" id="link_addFine" class="addLink" onclick="this.hide(); $('form_addFine').show(); return false">Agregar Multa</a>
-			<form id="form_addFine" onsubmit="addFine(this); this.hide(); $('link_addFine').show(); return false;" style="display:none">
-				<input type="hidden" name="params[constructionId]" value="|-$construction->getId()-|" />
-				<label>Descripción</label>
-				<input type="text" size="60" name="params[description]" />
-				<label>Fecha</label>
-				<input type="text" size="12" name="params[date]" />
-				<label>Importe</label>
-				<input type="text" size="12" name="params[price]" />
-				<input type="submit" class="icon iconActivate" />
-				<input type="button" class="icon iconCancel" onclick="this.form.hide(); $('link_addFine').show();" />
-			</form>
-		</div></th>
-	</tr>
-	|-/if-|
-	<tr>
-		<th width="70%">Descripción</th>
-		<th width="15%">Fecha</th>
-		<th width="10%">Importe</th>
-		<th width="3%">&nbsp;
-		</th>
-	</tr>
-	</thead>
-	<tbody id="fines">
-	|-foreach from=$fines item=fine-|
-		|-include file="VialidadFineTableRowInclude.tpl" fine=$fine-|
-	|-/foreach-|
-	</tbody>
-</table>
+|-include
+	file="VialidadConstructionExtraTableInclude.tpl"
+	extras=$fines
+	extraType="fine"
+	extraName="Multas"
+	deleteText="Seguro que desea eliminar la Multa?"
+	createAction="vialidadFineDoEditX"
+	editAction="vialidadFineDoEditFieldX"
+	deleteAction="vialidadFineDoDeleteX"
+-|
+
+|-include
+	file="VialidadConstructionExtraTableInclude.tpl"
+	extras=$dailyWorks
+	extraType="dailyWork"
+	extraName="Trabajos por Día"
+	deleteText="Seguro que desea eliminar el Trabajo por Día?"
+	createAction="vialidadDailyWorkDoEditX"
+	editAction="vialidadDailyWorkDoEditFieldX"
+	deleteAction="vialidadDailyWorkDoDeleteX"
+-|
+
+|-include
+	file="VialidadConstructionExtraTableInclude.tpl"
+	extras=$adjustments
+	extraType="adjustment"
+	extraName="Ajustes"
+	deleteText="Seguro que desea eliminar el Ajuste?"
+	createAction="vialidadAdjustmentDoEditX"
+	editAction="vialidadAdjustmentDoEditFieldX"
+	deleteAction="vialidadAdjustmentDoDeleteX"
+-|
+
 |-/if-|
 
 <script type="text/javascript">
-
-function addFine(form) {
-	new Ajax.Updater(
-		{success: 'fines'},
-		'Main.php?do=vialidadFineDoEditX',
-		{
-			methos: 'post',
-			parameters: Form.serialize(form),
-			insertion: 'bottom',
-			evalScripts: true
-		}
-	);
-}
-
-function removeFine(id) {
-	new Ajax.Request(
-		'Main.php?do=vialidadFineDoDeleteX',
-		{
-			method: 'post',
-			parameters: {
-				id: id
-			},
-			evalScripts: true,
-			onSuccess: function() {
-				$('fines').removeChild($('fine'+id));
-			}
-		}
-	);
-}
 
 function copyItem(form) {
 	var fields = Form.serialize(form);
