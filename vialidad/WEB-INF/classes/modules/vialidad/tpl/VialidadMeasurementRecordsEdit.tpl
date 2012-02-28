@@ -128,6 +128,59 @@
 		</tbody>
 	</table>
 	</div>
+	
+	<h3>Trabajos por Día</h3>
+	<div id=div_dailyWorks>
+	<table id="table_dailyWorks" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
+		<thead>
+		<tr class="thFillTitle"> 
+			<th width="85%">Descripción</th> 
+			<th width="15%">Precio</th>
+		</tr>
+		</thead>
+		<tbody>
+		|-if $dailyWorks->count() eq 0-|
+		<tr>
+			<td colspan="3">No hay trabajos por día que mostrar</td>
+		</tr>
+		|-else-|
+		|-foreach from=$dailyWorks item=dailyWork-|
+		<tr>
+			<td>|-$dailyWork->getDescription()-|</td>
+			<td align="right">|-$dailyWork->getPrice()|system_numeric_format-|</td>
+		</tr>
+		|-/foreach-|
+		|-/if-|
+		</tbody>
+	</table>
+	</div>
+	
+	<h3>Ajustes</h3>
+	<div id=div_adjustments>
+	<table id="table_adjustments" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
+		<thead>
+		<tr class="thFillTitle"> 
+			<th width="85%">Descripción</th> 
+			<th width="15%">Precio</th>
+		</tr>
+		</thead>
+		<tbody>
+		|-if $adjustments->count() eq 0-|
+		<tr>
+			<td colspan="3">No hay ajustes que mostrar</td>
+		</tr>
+		|-else-|
+		|-foreach from=$adjustments item=adjustment-|
+		<tr>
+			<td>|-$adjustment->getDescription()-|</td>
+			<td align="right">|-$adjustment->getPrice()|system_numeric_format-|</td>
+		</tr>
+		|-/foreach-|
+		|-/if-|
+		</tbody>
+	</table>
+	</div>
+	
 	|-/if-|
 </div>
 
