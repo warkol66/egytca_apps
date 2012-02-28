@@ -23,5 +23,9 @@ class DailyWork extends ConstructionItem {
 		parent::__construct();
 		$this->setClassKey(ConstructionItemPeer::CLASSKEY_3);
 	}
+	
+	public function getMeasurementRecordRelation() {
+		return MeasurementRecordRelationQuery::create()->filterByConstructionItem($this)->findOne();
+	}
 
 } // DailyWork

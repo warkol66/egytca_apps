@@ -37,7 +37,12 @@ class VialidadMeasurementRecordsEditAction extends BaseAction {
 				$smarty->assign("action","edit");
 			
 				$record->updateItems();
-				$itemRecords = MeasurementRecordRelationQuery::create()->findByMeasurementrecordid($_GET["id"]);
+				$record->updateExtrasRelations();
+				$itemRecords = MeasurementRecordRelationQuery::create()
+					->useConstructionItemQuery()
+					->filterByClassKey(ConstructionItemPeer::CLASSKEY_CONSTRUCTIONITEM)
+					->endUse()
+					->findByMeasurementrecordid($_GET["id"]);
 				$smarty->assign('itemRecords', $itemRecords);
 				
 				$fines = $record->getFines();
