@@ -60,7 +60,7 @@ class GoogleNewsStrategy extends AbstractParserStrategy {
                 'url'       => $this->parseUrl($pq->find($this->getSelector('item_url'), $item)->attr('href')),
                 'title'     => $this->fixEncoding($pq->find($this->getSelector('item_title'), $item)->html()),
                 'source'    => $this->sanitizeHtml($source),
-                'timestamp' => $this->parseTimestamp($this->sanitizeHtml($timestamp)),
+                'timestamp' => $this->parseTimestamp($timestamp),
                 'snippet'   => $this->fixEncoding($pq->find($this->getSelector('item_snippet'), $item)->html()),
                 'more_sources_url' => $this->parseMoreSourcesUrl(
                     $pq->find($this->getSelector('item_more_links'), $item)->attr('href')
@@ -103,6 +103,11 @@ class GoogleNewsStrategy extends AbstractParserStrategy {
             unset($params["dateFilter"]);
             $this->setQueryParameters($params);
         }
+    }
+    
+    protected function parseTimestamp($timestamp) {
+        $parser = new TimestampParser(trim($timestamp));
+        return $parser->parse();
     }
     
 } // GoogleNewsStrategy

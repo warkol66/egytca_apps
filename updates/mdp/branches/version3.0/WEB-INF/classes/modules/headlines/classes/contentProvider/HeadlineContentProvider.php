@@ -5,6 +5,7 @@ require_once 'contentProvider/AbstractParserStrategy.php';
 require_once 'contentProvider/GoogleNewsStrategy.php';
 require_once 'contentProvider/GoogleStrategy.php';
 require_once 'contentProvider/CompoundStrategy.php';
+require_once 'contentProvider/TimestampParser.php';
 
 /**
  * Clase HeadlineContentProvider.
