@@ -103,6 +103,7 @@
 	</table>
 	</div>
 	
+		|-if $fines->count() gt 0-|
 	<h3>Multas</h3>
 	<div id=div_fines>
 	<table id="table_fines" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
@@ -115,11 +116,6 @@
 		</tr>
 		</thead>
 		<tbody>
-		|-if $fines->count() eq 0-|
-		<tr>
-			<td colspan="4">No hay multas que mostrar</td>
-		</tr>
-		|-else-|
 		|-foreach from=$fines item=fine-|
 		<tr>
 			<td>|-$fine->getDescription()-|</td>
@@ -138,11 +134,12 @@
 			</td>
 		</tr>
 		|-/foreach-|
-		|-/if-|
 		</tbody>
 	</table>
 	</div>
+		|-/if-|
 	
+		|-if $dailyWorks->count() gt 0-|
 	<h3>Trabajos por Día</h3>
 	<div id=div_dailyWorks>
 	<table id="table_dailyWorks" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
@@ -155,11 +152,6 @@
 		</tr>
 		</thead>
 		<tbody>
-		|-if $dailyWorks->count() eq 0-|
-		<tr>
-			<td colspan="4">No hay trabajos por día que mostrar</td>
-		</tr>
-		|-else-|
 		|-foreach from=$dailyWorks item=dailyWork-|
 		<tr>
 			<td>|-$dailyWork->getDescription()-|</td>
@@ -178,11 +170,12 @@
 			</td>
 		</tr>
 		|-/foreach-|
-		|-/if-|
 		</tbody>
 	</table>
 	</div>
+		|-/if-|
 	
+		|-if $adjustments->count() gt 0-|
 	<h3>Ajustes</h3>
 	<div id=div_adjustments>
 	<table id="table_adjustments" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
@@ -195,11 +188,6 @@
 		</tr>
 		</thead>
 		<tbody>
-		|-if $adjustments->count() eq 0-|
-		<tr>
-			<td colspan="4">No hay ajustes que mostrar</td>
-		</tr>
-		|-else-|
 		|-foreach from=$adjustments item=adjustment-|
 		<tr>
 			<td>|-$adjustment->getDescription()-|</td>
@@ -218,10 +206,10 @@
 			</td>
 		</tr>
 		|-/foreach-|
-		|-/if-|
 		</tbody>
 	</table>
 	</div>
+		|-/if-|
 	
 	|-/if-|
 </div>
