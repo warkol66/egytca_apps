@@ -150,25 +150,38 @@ abstract class AbstractParserStrategy {
         return $this->searchEngineUrl . $this->buildQueryParams();
     }
     
-    protected function parseTimestamp($timestamp) {
-        $timestampSplitted = preg_split('/', $timestamp);
-        if (count($timestampSplitted) == 3) {
-            return $timestamp;
-        }
-        else {
-            return "";
-        }
-        
-//        TODO: Opcion deseable pero el is_int no anda =/
-//        $hours = preg_replace("/hace ([0-9]+) hora[s]?/", "$1", $timestamp);
-//        if (is_int($hours)) {
-//            echo "ts es int ". $hours ."<br />";
+//    protected function parseTimestamp($timestamp) {
+//        $timestampSplitted = preg_split('/', $timestamp);
+//        if (count($timestampSplitted) == 3) {
+//            return $timestamp;
 //        }
-            
-    }
+//        else {
+//            return "";
+//        }
+//        
+////        TODO: Opcion deseable pero el is_int no anda =/
+////        $hours = preg_replace("/hace ([0-9]+) hora[s]?/", "$1", $timestamp);
+////        if (is_int($hours)) {
+////            echo "ts es int ". $hours ."<br />";
+////        }
+//            
+//    }
     
     protected function parseMoreSourcesUrl($url) {
         return !empty($url) ? $this->searchEngineUrl . preg_replace("/^\//", "", $url) : "";
+    }
+    
+    protected function parseUrl($url) {
+        return preg_replace("/^\/url\?q=/", "", $url);
+    }
+    
+    protected function fixEncoding($html) {
+        return utf8_encode($this->sanitizeHtml($html));
+    }
+    
+    protected function parseTimestamp($timestamp) {
+        $parser = new TimestampParser(trim($timestamp));
+        return $parser->parse();
     }
 
 } // AbstractParserStrategy

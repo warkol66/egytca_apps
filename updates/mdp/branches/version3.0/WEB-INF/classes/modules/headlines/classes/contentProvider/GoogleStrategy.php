@@ -11,11 +11,9 @@ class GoogleStrategy extends AbstractParserStrategy {
         $this->setSelectors(array(
             'items' => '#ires .g',
             'item_url' => '.r a',
-            'item_title' => '.esc-lead-article-title-wrapper .titletext',
-//            'item_source' => '.esc-lead-article-source',
-//            'item_timestamp' => '.esc-lead-article-timestamp',
-            'item_snippet' => '.s', // tiene otras partes no deseadas!!
-//            'item_more_links' => '.esc-extension-wrapper a.more-coverage-text'
+            'item_title' => '.r a',
+            'item_source' => '.s div cite',
+            'item_body' => '.s'
         ));
 	$this->setQueryParameters(array(
             'hl' => 'es'
@@ -26,27 +24,44 @@ class GoogleStrategy extends AbstractParserStrategy {
         $pq = phpQuery::newDocumentFile($this->buildQueryUrl());
 	
 	$news = array();
+	
+	/************************** debug **********************************/
 	foreach ($pq[$this->getSelector('items')] as $item) {
-		echo $this->sanitizeHtml($pq->find($this->getSelector('item_snippet'), $item)->html());
+		$urlAndMore = $this->parseUrl($pq->find($this->getSelector('item_url'), $item)->attr('href'));
+		$urlAndMore_chunks = preg_split("/&/", $urlAndMore);
+		
+//		print_r($urlAndMore_chunks);
+		echo "url: ".$urlAndMore_chunks[0]."<br/>";
+		// horrible - debería hacerse con el $pq de ser posible
+			$chunks = preg_split("/<div>/", $pq->find($this->getSelector('item_body'), $item)->html());
+			list($timestamp, $snippet) = $this->parseDateAndSnippet($this->fixEncoding($chunks[0]));
+		echo "timestamp: ".$timestamp."<br/>";
+		echo "snippet: ". $snippet."<br/>";
 		echo "<br />";
 	}
 	
 	print_r($pq->html());
 	die("|-the end-|");
+	/*********************** fin debug *********************************/
         
         
         foreach ($pq[$this->getSelector('items')] as $item) {
 		if ($this->mustUse($item)) {
 			
-			$href = $this->sanitizeHtml($pq->find($this->getSelector('item_url'), $item)->attr('href'));
-			$timestamp = $this->sanitizeHtml($pq->find($this->getSelector('item_timestamp'), $item)->html());
+			// TODO: arreglar caracteres
+			$urlAndMore = $this->sanitizeHtml($this->parseUrl($pq->find($this->getSelector('item_url'), $item)->attr('href')));
+			$urlAndMore_chunks = preg_split("/&/", $urlAndMore);
+			
+			// horrible - debería hacerse con el $pq de ser posible
+			$chunks = preg_split("/<div>/", $pq->find($this->getSelector('item_body'), $item)->html());
+			list($timestamp, $snippet) = $this->parseDateAndSnippet($this->fixEncoding($chunks[0]));
+			
 			$news[] = array(
-			    'url' => $this->parseUrl($href),
-			    'title' => $this->sanitizeHtml($pq->find($this->getSelector('item_title'), $item)->html()),
-//			    'source' => $this->sanitizeHtml($pq->find($this->getSelector('item_source'), $item)->html()),
-//			    'timestamp' => $this->parseTimestamp($timestamp),
-			    'snippet' => $this->sanitizeHtml($pq->find($this->getSelector('item_snippet'), $item)->html()),
-//			    'more_sources_url' => $this->parseMoreSourcesUrl($pq->find($this->getSelector('item_more_links'), $item)->attr('href'))
+			    'url' => $urlAndMore_chunks[0],
+			    'title' => $this->fixEncoding($pq->find($this->getSelector('item_title'), $item)->html()),
+			    'source' => $this->parseSource($this->fixEncoding($pq->find($this->getSelector('item_source'), $item)->html())),
+			    'timestamp' => $timestamp,
+			    'snippet' => $snippet
 			);
 		}
         }
@@ -54,8 +69,23 @@ class GoogleStrategy extends AbstractParserStrategy {
         return $news;
     }
     
-    private function parseUrl() {
-	    return "unaUrl";
-    }
-    
+        protected function parseDateAndSnippet($html) {
+		$chunks = preg_split("/\.\.\./", $html, 2);
+		
+		$timestamp = $this->parseTimestamp($chunks[0]);
+		if (!is_null($timestamp))
+			return array($timestamp, $chunks[1]);
+		else
+			return array(null, $html);
+	}
+	
+	protected function parseSource($url) {
+		$chunks = preg_split("/\//", $url);
+		return $chunks[0];
+	}
+	
+	protected function mustUse($item) {
+		// TODO: filtrar resultados no deseados
+		return true;
+	}
 } // GoogleStrategy
