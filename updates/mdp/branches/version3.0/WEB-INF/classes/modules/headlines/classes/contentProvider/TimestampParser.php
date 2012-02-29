@@ -26,11 +26,18 @@ class TimestampParser {
         $this->date = new DateTime();
     }
     
+    /**
+     * Intenta obtener una fecha a partir del timestamp pasado al constructor.
+     * Si lo logra, devuelve la fecha en formato $timestampFormat. 
+     * Si no lo logra, devuelve null.
+     * 
+     * @return mixed
+     */
     public function parse() {
         if (empty($this->timestamp)) return null;
         
         // Si no matchea con ninguno anterior pruebo si es una fecha.
-        if (!$this->parseI18n(self::$REGEX["es"]) && !$this->parseI18n(self::$REGEX["en"])) {
+        if (!$this->parseI18n("es") && !$this->parseI18n("en")) {
             try {
                 $this->date = new DateTime($this->timestamp);
             }
@@ -42,7 +49,8 @@ class TimestampParser {
         return $this->toTimestamp();
     }
     
-    private function parseI18n($regex) {
+    private function parseI18n($lang) {
+        $regex = self::$REGEX[$lang];
         $preged = preg_replace("/ /", "", $this->timestamp);
         
         if (preg_match($regex["minutes"], $preged)) {
