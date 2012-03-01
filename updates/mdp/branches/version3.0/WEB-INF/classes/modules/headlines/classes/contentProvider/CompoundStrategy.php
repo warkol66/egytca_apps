@@ -14,8 +14,8 @@ class CompoundStrategy extends AbstractParserStrategy {
     public function parse() {
         $news = array();
         foreach ($this->strategies as $strategyName => $strategy) {
-            $strategyNews = $strategy->parse();
-            $news = $news + $strategyNews;
+            foreach ($strategy->parse() as $result)
+                $news[] = $result;
         }
         return $news;
     }

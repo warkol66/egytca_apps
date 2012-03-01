@@ -121,6 +121,7 @@ abstract class AbstractParserStrategy {
      *  - timestamp           fecha del titular
      *  - snippet             resumen del titular
      *  - more_sources_url    url que lleva a mas fuentes para un mismo tema.
+     *  - strategy            estrategia que parseo el titular
      * 
      * @return array
      */
@@ -149,23 +150,6 @@ abstract class AbstractParserStrategy {
     protected function buildQueryUrl() {
         return $this->searchEngineUrl . $this->buildQueryParams();
     }
-    
-//    protected function parseTimestamp($timestamp) {
-//        $timestampSplitted = preg_split('/', $timestamp);
-//        if (count($timestampSplitted) == 3) {
-//            return $timestamp;
-//        }
-//        else {
-//            return "";
-//        }
-//        
-////        TODO: Opcion deseable pero el is_int no anda =/
-////        $hours = preg_replace("/hace ([0-9]+) hora[s]?/", "$1", $timestamp);
-////        if (is_int($hours)) {
-////            echo "ts es int ". $hours ."<br />";
-////        }
-//            
-//    }
     
     protected function parseMoreSourcesUrl($url) {
         return !empty($url) ? $this->searchEngineUrl . preg_replace("/^\//", "", $url) : "";

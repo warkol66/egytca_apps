@@ -30,7 +30,7 @@ class HeadlinesParsedListAction extends BaseAction {
 			$smarty->assign('headlinesParsed', $headlinesParsed);
 
 			$contentProviders = ConfigModule::get("headlines","contentProvider");
-			$parseStategies = $contentProviders["strategies"];
+			$parseStategies = $contentProviders["strategies_options"];
 			$smarty->assign('parseStategies', $parseStategies);
 		}
 		else

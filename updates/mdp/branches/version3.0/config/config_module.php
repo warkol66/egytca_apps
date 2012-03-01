@@ -76,6 +76,12 @@ class ConfigModule {
                     "compound"   => "CompoundStrategy",
                     "googleNews" => "GoogleNewsStrategy",
                     "google"     => "GoogleStrategy"
+                ),
+                "strategies_options" => array(
+                    // "twitter" => "Twitter",
+                    // "bing"    => "Bing",
+                    "googleNews" => "Google News",
+                    "google"     => "Google"
                 )
             )
 		)

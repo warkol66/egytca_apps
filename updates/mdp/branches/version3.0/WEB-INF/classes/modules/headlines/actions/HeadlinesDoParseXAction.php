@@ -20,7 +20,7 @@ class HeadlinesDoParseXAction extends BaseAction {
         $headlinesParsed = HeadlineContentProvider::create(
             $request->getParameter('q'), 
             $request->getParameter('campaignId')
-        )->setStrategy('googleNews')
+        )->setStrategy($_REQUEST['strategies'])
 //         ->setParameters(array(
 //             'dateFilter' => 'day' // ultimo dia
 //         ))

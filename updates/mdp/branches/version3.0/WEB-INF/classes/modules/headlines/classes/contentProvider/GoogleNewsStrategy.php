@@ -64,13 +64,11 @@ class GoogleNewsStrategy extends AbstractParserStrategy {
                 'snippet'   => $this->fixEncoding($pq->find($this->getSelector('item_snippet'), $item)->html()),
                 'more_sources_url' => $this->parseMoreSourcesUrl(
                     $pq->find($this->getSelector('item_more_links'), $item)->attr('href')
-                )
+                ),
+                'strategy'  => 'googleNews'
             );
         }
-//        print_r($this->buildQueryUrl());
-//        print_r($pq->html());
-//        print_r($news);
-//        die;
+
         return $news;
     }
     

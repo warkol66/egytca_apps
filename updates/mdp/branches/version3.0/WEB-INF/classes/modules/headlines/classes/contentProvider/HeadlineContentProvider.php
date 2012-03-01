@@ -111,13 +111,12 @@ class HeadlineContentProvider {
      */
     public function setStrategy($name) {
         if (is_array($name)) {
+            $strategies = array();
             foreach ($name as $strategyName) {
-                $strategies = array();
                 if ($this->isValidStrategy($strategyName)) {
                     $strategies[$strategyName] = $this->buildStrategy($strategyName);
                 }
 //                else throw new Exception("Estategia $name inexistente");
-                
                 $this->strategy = $this->buildStrategy('compound');
                 $this->strategy->setStrategies($strategies);
             }
@@ -201,6 +200,7 @@ class HeadlineContentProvider {
                     ->setUrl($parsedNews['url'])
                     ->setMoresourcesurl($parsedNews['more_sources_url'])
                     ->setKeywords($this->getSanitizedKeywords())
+                    ->setStrategy($parsedNews['strategy'])
                 ;
                 $h->save();
                 $headlinesParsed[] = $h;

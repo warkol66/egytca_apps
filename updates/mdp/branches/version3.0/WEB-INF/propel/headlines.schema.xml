@@ -148,7 +148,8 @@
 		<column name="keywords" type="VARCHAR" size="255" description="Palabras clave de la busqueda"/>
         <column name="status" type="INTEGER" description="Estado del headline importado"/>
         <column name="moreSourcesUrl" type="VARCHAR" size="255" description="Url para obtener mas titulares de distintas fuentes"/>
-
+        <column name="strategy" type="VARCHAR" size="50" description="Estrategia que parseo el titular" />
+        
 		<behavior name="timestampable" />
 
 		<foreign-key foreignTable="headlines_headline">
