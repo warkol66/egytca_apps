@@ -39,6 +39,9 @@ function smarty_modifiercompiler_unescape($params, $compiler)
 
         case 'html':
             return 'htmlspecialchars_decode(' . $params[0] . ', ENT_QUOTES)';
+	
+	case 'url':
+		return 'urldecode(' . $params[0] . ')';
 
         default:
             return $params[0];

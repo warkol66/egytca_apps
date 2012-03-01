@@ -22,7 +22,7 @@
 		 |-else-|
 		  Medio:  <strong>|-$headline->getMediaId()-| </strong>
 		 |-/if-|</p>
-			<iframe src="|-$headline->getUrl()-|" style="width:100%; height:380px;" scrolling="auto"></iframe>
+			<iframe src="|-$headline->getUrl()|unescape:'url'-|" style="width:100%; height:380px;" scrolling="auto"></iframe>
 		</div>
 </div>
 <p style="padding-top:15px;">
@@ -31,5 +31,5 @@
 <input type="button" value="Eliminar"  onClick='{new Ajax.Updater("resultDiv", "Main.php?do=headlinesParsedSaveX&id=|-$headline->getId()-|", { method: "post", parameters: { id: "|-$headline->getId()-|"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">guardando titular...</span>";$("viewDiv").innerHTML = "";$("lightbox1").hide();$("overlay").hide();' />
 </p>
 |-else-|
-No se encontraró la noticia.
+No se encontrarï¿½ la noticia.
 |-/if-|

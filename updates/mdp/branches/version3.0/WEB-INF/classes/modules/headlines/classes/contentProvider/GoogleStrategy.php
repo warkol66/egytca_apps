@@ -24,38 +24,16 @@ class GoogleStrategy extends AbstractParserStrategy {
         $pq = phpQuery::newDocumentFile($this->buildQueryUrl());
 	
 	$news = array();
-	
-	/************************** debug **********************************/
-	foreach ($pq[$this->getSelector('items')] as $item) {
+        foreach ($pq[$this->getSelector('items')] as $item) {
+		
 		$urlAndMore = $this->parseUrl($pq->find($this->getSelector('item_url'), $item)->attr('href'));
 		$urlAndMore_chunks = preg_split("/&/", $urlAndMore);
 		
-//		print_r($urlAndMore_chunks);
-		echo "url: ".$urlAndMore_chunks[0]."<br/>";
 		// horrible - debería hacerse con el $pq de ser posible
-			$chunks = preg_split("/<div>/", $pq->find($this->getSelector('item_body'), $item)->html());
-			list($timestamp, $snippet) = $this->parseDateAndSnippet($this->fixEncoding($chunks[0]));
-		echo "timestamp: ".$timestamp."<br/>";
-		echo "snippet: ". $snippet."<br/>";
-		echo "<br />";
-	}
-	
-	print_r($pq->html());
-	die("|-the end-|");
-	/*********************** fin debug *********************************/
-        
-        
-        foreach ($pq[$this->getSelector('items')] as $item) {
-		if ($this->mustUse($item)) {
-			
-			// TODO: arreglar caracteres
-			$urlAndMore = $this->sanitizeHtml($this->parseUrl($pq->find($this->getSelector('item_url'), $item)->attr('href')));
-			$urlAndMore_chunks = preg_split("/&/", $urlAndMore);
-			
-			// horrible - debería hacerse con el $pq de ser posible
-			$chunks = preg_split("/<div>/", $pq->find($this->getSelector('item_body'), $item)->html());
-			list($timestamp, $snippet) = $this->parseDateAndSnippet($this->fixEncoding($chunks[0]));
-			
+		$chunks = preg_split("/<div>/", $pq->find($this->getSelector('item_body'), $item)->html());
+		list($timestamp, $snippet) = $this->parseDateAndSnippet($this->fixEncoding($chunks[0]));
+		
+		if ($this->mustUseItem($snippet)) {
 			$news[] = array(
 			    'url' => $urlAndMore_chunks[0],
 			    'title' => $this->fixEncoding($pq->find($this->getSelector('item_title'), $item)->html()),
@@ -84,8 +62,7 @@ class GoogleStrategy extends AbstractParserStrategy {
 		return $chunks[0];
 	}
 	
-	protected function mustUse($item) {
-		// TODO: filtrar resultados no deseados
-		return true;
+	protected function mustUseItem($itemSnippet) {
+		return !empty($itemSnippet);
 	}
 } // GoogleStrategy
