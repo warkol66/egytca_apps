@@ -172,7 +172,7 @@ abstract class AbstractParserStrategy {
     }
     
     protected function parseUrl($url) {
-        return preg_replace("/^\/url\?q=/", "", $url);
+        return urldecode(preg_replace("/^\/url\?q=/", "", $url));
     }
     
     protected function fixEncoding($html) {

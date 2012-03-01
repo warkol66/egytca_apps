@@ -22,7 +22,7 @@
 		 |-else-|
 		  Medio:  <strong>|-$headline->getMediaId()-| </strong>
 		 |-/if-|</p>
-			<iframe src="|-$headline->getUrl()|unescape:'url'-|" style="width:100%; height:380px;" scrolling="auto"></iframe>
+			<iframe src="|-$headline->getUrl()-|" style="width:100%; height:380px;" scrolling="auto"></iframe>
 		</div>
 </div>
 <p style="padding-top:15px;">
