@@ -29,27 +29,38 @@ class Media extends BaseMedia {
 	function postSave(PropelPDO $con = null) {
 		parent::postSave($con);
 		
-		// Actualizo los aliases
-		if (!is_null($this->getAliasof())) {
-			$medias = MediaQuery::create()->filterByMediaRelatedByAliasof($this)->find();
-			foreach ($medias as $media) {
-				if ($media->getMediaRelatedByAliasof() == $this) {
-					$media->setAliasof($this->getAliasof());
-					$media->save();
-				}
+		$medias = MediaQuery::create()->filterByMediaRelatedByAliasof($this)->find();
+		foreach ($medias as $media) {
+			$media->setAliasof($this->resolveAliases()->getId());
+			$media->save();
+		}
+		
+		$headlines = HeadlineQuery::create()->filterByMedia($this)->find();
+		foreach ($headlines as $headline) {
+			$headline->setMediaid($this->resolveAliases()->getId());
+			$headline->save();
+		}
+		
+		$headlinesParsed = HeadlineParsedQuery::create()->find();
+		foreach ($headlinesParsed as $headlineParsed) {
+			
+			/*
+			 * Si tiene mediaName pero no mediaId, y el mediaName corresponde a un media
+			 * existente, seteo como mediaId el id de ese media.
+			 */
+			if (is_null($headlineParsed->getMediaid())) {
+				$mediaByName = MediaQuery::create()->findOneByName($headlineParsed->getMedianame());
+				if (!is_null($mediaByName))
+					$headlineParsed->setMediaid($mediaByName->getId());
 			}
 			
-			$headlines = HeadlineQuery::create()->filterByMedia($this)->find();
-			foreach ($headlines as $headline) {
-				if ($headline->getMedia() == $this)
-					$headline->setMediaid($this->getAliasof());
+			if (!is_null($headlineParsed->getMediaid())) {
+				$finalMedia = $headlineParsed->getMedia()->resolveAliases();
+				$headlineParsed->setMediaid($finalMedia->getId());
+				$headlineParsed->setMediaName($finalMedia->getName());
 			}
 			
-			$headlinesParsed = HeadlineParsedQuery::create()->filterByMedia($this)->find();
-			foreach ($headlinesParsed as $headlineParsed) {
-				if ($headlineParsed->getMedia() == $this)
-					$headlineParsed->setMediaid($this->getAliasof());
-			}
+			$headlineParsed->save();
 		}
 	}
 	
