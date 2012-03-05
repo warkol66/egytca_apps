@@ -11,9 +11,10 @@
 		<input id="addMedia" type="button" value="Agregar medio" onClick="$('addMediaX').toggle();$('addMedia').toggle();$('cancelAddMedia').toggle();$('headlineParsedView').toggle();" />
 		<input id="cancelAddMedia" type="button" value="Cancelar"  style="display:none;" onClick="$('addMediaX').toggle();$('addMedia').toggle();$('cancelAddMedia').toggle();$('headlineParsedView').toggle();"/>
 		<div id="addMediaX" style="display:none;">
+			<p><span id="successMessage"></span></p>
 			<fieldset>
 				<legend>Crear medio</legend>
-				<form onsubmit="createMedia(this); return false;">
+				<form onsubmit="createMedia(this, 'Medio creado'); return false;">
 					<p>
 						<label for="params[name]">Nombre del medio</label>
 						<input type="text" name="params[name]" readonly="readonly" value="|-$headline->getMediaName()|escape-|" size="35" />
@@ -39,7 +40,7 @@
 				</fieldset>
 			<fieldset>
 			<legend>Crear alias</legend>
-				<form onsubmit="createMedia(this); return false;">
+				<form onsubmit="createMedia(this, 'Alias creado'); return false;">
 					<input type="hidden" name="params[name]" value="|-$headline->getMediaName()|escape-|" />
 					<div id="mediaAlias" style="position: relative;z-index:12000;">
 						|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_mediaId" label="Guardar como alias de otro medio" url="Main.php?do=mediasAutocompleteListX" hiddenName="params[aliasOf]"  defaultHiddenValue="" defaultValue="" disableSubmit="saveAlias"-|
@@ -63,12 +64,15 @@
 </div>
 
 <script type="text/javascript">
-	createMedia = function(form) {
+	createMedia = function(form, msg) {
 		new Ajax.Request(
 			'Main.php?do=mediasDoEditX',
 			{
 				method: 'post',
-				parameters: Form.serialize(form)
+				parameters: Form.serialize(form),
+				onSuccess: function() {
+					$('successMessage').innerHTML = msg;
+				}
 			}
 		);
 	}
