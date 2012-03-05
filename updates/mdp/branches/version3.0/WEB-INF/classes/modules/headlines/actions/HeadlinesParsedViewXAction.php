@@ -23,6 +23,10 @@ class HeadlinesParsedViewXAction extends BaseAction {
 			$headline = HeadlineParsedQuery::create()->findOneById($_GET["id"]);
 			if (!is_null($headline)) {
 				$smarty->assign("headline",$headline);
+				if ($headline->getMediaId() == NULL) {
+					$mediaTypes = MediaTypeQuery::create()->find();
+					$smarty->assign("mediaTypes",$mediaTypes);					
+				}
 				return $mapping->findForwardConfig('success');
 			}
 		}
