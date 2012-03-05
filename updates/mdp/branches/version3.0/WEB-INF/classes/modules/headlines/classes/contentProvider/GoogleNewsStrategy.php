@@ -85,6 +85,12 @@ class GoogleNewsStrategy extends AbstractParserStrategy {
         return parent::buildQueryParams();
     }
     
+    protected function parseUrl($url) {
+	    $urlAndMore = urldecode(preg_replace("/^\/url\?q=/", "", $url));
+	    $urlAndMore_chunks = preg_split("/&/", $urlAndMore);
+	    return $urlAndMore_chunks[0];
+    }
+    
     private function translateDateFilter() {
         $params = $this->getQueryParameters();
         if (array_key_exists("dateFilter", $params)) {

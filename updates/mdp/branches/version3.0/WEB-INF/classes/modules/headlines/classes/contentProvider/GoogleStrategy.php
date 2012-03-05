@@ -25,9 +25,6 @@ class GoogleStrategy extends AbstractParserStrategy {
 	
         $news = array();
         foreach ($pq[$this->getSelector('items')] as $item) {
-		
-            $urlAndMore = $this->parseUrl($pq->find($this->getSelector('item_url'), $item)->attr('href'));
-            $urlAndMore_chunks = preg_split("/&/", $urlAndMore);
 
             // horrible - debería hacerse con el $pq de ser posible
             $chunks = preg_split("/<div>/", $pq->find($this->getSelector('item_body'), $item)->html());
@@ -35,7 +32,7 @@ class GoogleStrategy extends AbstractParserStrategy {
 
             if ($this->mustUseItem($snippet)) {
                 $news[] = array(
-                    'url' => $urlAndMore_chunks[0],
+                    'url' => $this->parseUrl($pq->find($this->getSelector('item_url'), $item)->attr('href')),
                     'title' => $this->fixEncoding($pq->find($this->getSelector('item_title'), $item)->html()),
                     'source' => $this->parseSource($this->fixEncoding($pq->find($this->getSelector('item_source'), $item)->html())),
                     'timestamp' => $timestamp,
@@ -65,5 +62,11 @@ class GoogleStrategy extends AbstractParserStrategy {
 	
 	protected function mustUseItem($itemSnippet) {
 		return !empty($itemSnippet);
+	}
+	
+	protected function parseUrl($url) {
+		$urlAndMore = urldecode(preg_replace("/^\/url\?q=/", "", $url));
+		$urlAndMore_chunks = preg_split("/&/", $urlAndMore);
+		return $urlAndMore_chunks[0];
 	}
 } // GoogleStrategy

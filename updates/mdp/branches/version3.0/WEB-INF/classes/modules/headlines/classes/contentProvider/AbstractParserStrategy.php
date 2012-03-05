@@ -155,10 +155,6 @@ abstract class AbstractParserStrategy {
         return !empty($url) ? $this->searchEngineUrl . preg_replace("/^\//", "", $url) : "";
     }
     
-    protected function parseUrl($url) {
-        return urldecode(preg_replace("/^\/url\?q=/", "", $url));
-    }
-    
     protected function fixEncoding($html) {
         return utf8_encode($this->sanitizeHtml($html));
     }
