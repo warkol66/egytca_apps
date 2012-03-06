@@ -156,7 +156,7 @@ abstract class AbstractParserStrategy {
     }
     
     protected function fixEncoding($html) {
-        return utf8_encode($this->sanitizeHtml($html));
+        return mb_convert_encoding($this->sanitizeHtml($html), "UTF-8");
     }
     
     protected function parseTimestamp($timestamp) {
