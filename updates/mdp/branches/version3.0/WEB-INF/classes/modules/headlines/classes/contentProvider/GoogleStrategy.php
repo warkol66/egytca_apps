@@ -15,13 +15,13 @@ class GoogleStrategy extends AbstractParserStrategy {
             'item_source' => '.s div cite',
             'item_body' => '.s'
         ));
-	$this->setQueryParameters(array(
+        $this->setQueryParameters(array(
             'hl' => 'es'
         ));
     }
     
     public function parse() {
-        $pq = phpQuery::newDocumentFile($this->buildQueryUrl());
+        $pq = $this->getDocument();
 	
         $news = array();
         foreach ($pq[$this->getSelector('items')] as $item) {
@@ -41,7 +41,7 @@ class GoogleStrategy extends AbstractParserStrategy {
                 );
     		}
         }
-
+        
         return $news;
     }
     

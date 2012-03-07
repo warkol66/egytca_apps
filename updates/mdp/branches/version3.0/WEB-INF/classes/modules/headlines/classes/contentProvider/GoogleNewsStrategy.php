@@ -49,7 +49,7 @@ class GoogleNewsStrategy extends AbstractParserStrategy {
     }
     
     public function parse() {
-        $pq = phpQuery::newDocumentFile($this->buildQueryUrl());
+        $pq = $this->getDocument();
         
         $news = array();
         foreach ($pq[$this->getSelector('items')] as $item) {
@@ -68,7 +68,7 @@ class GoogleNewsStrategy extends AbstractParserStrategy {
                 'strategy'  => 'googleNews'
             );
         }
-
+        
         return $news;
     }
     

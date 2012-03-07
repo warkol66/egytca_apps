@@ -34,6 +34,13 @@ abstract class AbstractParserStrategy {
     private $queryParams;
     
     /**
+     * Parametros a recibir en la proxima consulta.
+     * 
+     * @var array
+     */
+    private $nextQueryParams;
+    
+    /**
      * Constructor.
      * 
      * @param string $keywords 
@@ -42,6 +49,7 @@ abstract class AbstractParserStrategy {
         $this->keywords = $keywords;
         $this->selectors = array();
         $this->queryParams = array();
+        $this->nextQueryParams = array();
         $this->initialize();
     }
     
@@ -100,6 +108,15 @@ abstract class AbstractParserStrategy {
     }
     
     /**
+     * Devuelve los parametros que se necesitan recibir en la proxima consulta.
+     * 
+     * @return array
+     */
+    public function getNextQueryParameters() {
+        return $this->nextQueryParams;
+    }
+    
+    /**
      * @return string 
      */
     protected function getKeywords() {
@@ -132,6 +149,15 @@ abstract class AbstractParserStrategy {
     }
     
     /**
+     * Devuelve el documento utilizado en el scrapeo.
+     * 
+     * @return phpQueryObject
+     */
+    protected function getDocument() {
+        return phpQuery::newDocumentFileHTML($this->buildQueryUrl(), "utf-8");
+    }
+    
+    /**
      * Construye los parametros de url.
      * 
      * @return  string
@@ -156,8 +182,27 @@ abstract class AbstractParserStrategy {
     }
     
     protected function fixEncoding($html) {
-        return mb_convert_encoding($this->sanitizeHtml($html), "UTF-8");
+        return $this->convertSmartQuotes($this->sanitizeHtml($html));
     }
+    
+    private function convertSmartQuotes($string) 
+    {
+        $search = array(utf8_encode(chr(ord("„"))),
+                        utf8_encode(chr(ord("`"))),
+                        utf8_encode(chr(ord("´"))),
+                        utf8_encode(chr(147)),  // 0093
+                        utf8_encode(chr(148)),  // 0094
+                        utf8_encode(chr(151))); // 0097
+
+        $replace = array(",", 
+                         "'", 
+                         "'", 
+                         "\"", 
+                         "\"",
+                         "-"); 
+
+        return str_replace($search, $replace, $string); 
+    } 
     
     protected function parseTimestamp($timestamp) {
         $parser = new TimestampParser(trim($timestamp));

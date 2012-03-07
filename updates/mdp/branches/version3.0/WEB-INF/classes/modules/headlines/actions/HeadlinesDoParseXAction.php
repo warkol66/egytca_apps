@@ -17,16 +17,20 @@ class HeadlinesDoParseXAction extends BaseAction {
 		}
         
         require 'contentProvider/HeadlineContentProvider.php';
-        $headlinesParsed = HeadlineContentProvider::create(
+//        devuelve solo la 1er estrategia y no el array =(
+//        $request->getParameter('strategies')
+//        print_r($request->getParameter('strategies')); die;
+        $provider = HeadlineContentProvider::create(
             $request->getParameter('q'), 
             $request->getParameter('campaignId')
         )->setStrategy($_REQUEST['strategies'])
-//         ->setParameters(array(
-//             'dateFilter' => 'day' // ultimo dia
-//         ))
-         ->find();
+         ->setParameters($_REQUEST['strategiesParams']);
+        
+        $headlinesParsed = $provider->find();
+        $strategiesParams = $provider->getParameters();
         
         $smarty->assign('headlinesParsed', $headlinesParsed);
+        $smarty->assign('strategiesParams', $strategiesParams);
 
 		return $mapping->findForwardConfig('success');
 	}

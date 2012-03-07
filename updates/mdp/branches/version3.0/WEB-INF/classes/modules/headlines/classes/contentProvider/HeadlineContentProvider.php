@@ -150,9 +150,18 @@ class HeadlineContentProvider {
      * @param array $params
      * @return HeadlineContentProvider 
      */
-    public function setParameters(array $params) {
+    public function setParameters(array $params = array()) {
         $this->strategy->addQueryParameters($params);
         return $this;
+    }
+    
+    /**
+     * Devuelve los parametros para la proxima consulta.
+     * 
+     * @return array
+     */
+    public function getParameters() {
+        return $this->strategy->getNextQueryParameters();
     }
     
     private function getSanitizedKeywords() {
