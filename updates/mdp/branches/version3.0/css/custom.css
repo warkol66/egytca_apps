@@ -519,3 +519,10 @@ input[type="submit"], input[type="button"], input[type="reset"], input[disabled=
 	background: -moz-linear-gradient(top,  #ffffff,  #cccccc);
 	background: -o-linear-gradient(top,  #ffffff,  #cccccc);
 }
+input[readonly="readonly"] {
+	background-color: #dcdcdc;
+}
+input[disabled="disabled"] {
+	color: #4F4F4F;
+	background-color: #d0d0d0;
+}

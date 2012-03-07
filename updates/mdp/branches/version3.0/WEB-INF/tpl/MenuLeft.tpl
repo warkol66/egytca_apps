@@ -26,8 +26,8 @@
 			<li><a href="Main.php?do=issuesCategoryList">Categorías de asuntos</a></li>
 
 			<li><a href="Main.php?do=mediasList">Medios</a></li>
-			<li><a href="Main.php?do=clientsList">Clientes</a></li>
-			<li><a href="Main.php?do=clientsUsersList">Usuarios de Clientes</a></li>
+			<li><a href="Main.php?do=affiliatesClientsList">Clientes</a></li>
+			<li><a href="Main.php?do=affiliatesUsersList">Usuarios de Clientes</a></li>
 		</div>
 
 		<li class="titleMenu" onclick="$('sectionAdmin').toggle()">Administración</li>

@@ -17,7 +17,7 @@
 				<form onsubmit="createMedia(this, 'Medio creado'); return false;">
 					<p>
 						<label for="params[name]">Nombre del medio</label>
-						<input type="text" name="params[name]" readonly="readonly" value="|-$headline->getMediaName()|escape-|" size="35" />
+						<input type="text" name="params[name]" readonly="readonly" value="|-$headline->getMediaName()|escape-|" size="35" title="El nombre del medio está definido por la fuente, si quiere utilizar otro nombre, cree el medio con el nombre deseado y asigne este nombre como alias." />
 					</p>
 					<p>
 						<label for="params[typeId]">Tipo</label>
@@ -70,7 +70,10 @@
 				method: 'post',
 				parameters: Form.serialize(form),
 				onSuccess: function() {
-					$('successMessage').innerHTML = msg;
+					$('successMessage').innerHTML = '<span class="resultSuccess">'+msg+'</span>';
+					$('addMediaX').toggle();
+					$('cancelAddMedia').toggle();
+					$('headlineParsedView').toggle();
 				}
 			}
 		);
