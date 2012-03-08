@@ -1,5 +1,2 @@
-<div class="successMessage">##medias,2,Medio## guardado correctamente</div>
-
-<script type="text/javascript">
-	$('form_edit_media').reset();
-</script>
+<input type="hidden" id="editedMediaResponseId" value="|-$media->getId()-|" />
+<input type="hidden" id="editedMediaResponseName" value="|-$media->getName()-|" />

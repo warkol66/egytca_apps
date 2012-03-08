@@ -38,7 +38,8 @@ class MediasDoEditXAction extends BaseAction {
 			$logSufix = ', ' . Common::getTranslation('action: edit','common');
 			Common::doLog('success', $_POST["params"]["name"] . $logSufix);
 
-			return;
+			$smarty->assign('media', $media);
+			return $mapping->findForwardConfig('success');
 
 		}
 		else { // New media
@@ -57,7 +58,8 @@ class MediasDoEditXAction extends BaseAction {
 				$logSufix = ', ' . Common::getTranslation('action: create','common');
 				Common::doLog('success', $_POST["params"]["name"] . $logSufix);
 
-				return;
+				$smarty->assign('media', $media);
+				return $mapping->findForwardConfig('success');
 			}
 
 		}

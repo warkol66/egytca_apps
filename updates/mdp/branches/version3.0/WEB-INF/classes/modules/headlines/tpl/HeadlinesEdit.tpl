@@ -6,6 +6,48 @@
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p> 
 	|-include file="ActorsEditInclude.tpl"-|
 </div> 
+
+<div id="lightbox_medias" class="leightbox"> 
+	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p> 
+	<form onsubmit="createMedia(this); return false;">
+		<fieldset title="Formulario de edición de datos de un ##medias,2,Medio##">
+			<legend>Formulario de Creación de ##medias,1,Medios##</legend>
+			<div id="createMediaOperationInfo"></div>
+			<p>
+				<label for="params[name]">Nombre</label>
+				<input type="text" id="params[name]" name="params[name]" size="60" title="Nombre" />
+			</p>
+			<p>
+				<input type="submit" title="Aceptar" value="Agregar nuevo" />
+				<a href="#" class="lbAction" rel="deactivate"><input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" /></a> 
+			</p>
+		</fieldset>
+	</form>
+</div> 
+<div id="mediasCreateResponseDummy" style="display:none"></div>
+<script type="text/javascript">
+	function createMedia(form) {
+		
+		$('createMediaOperationInfo').innerHTML = '<span class="inProgress">Procesando información</span><img src="images/spinner.gif" />';
+		
+		new Ajax.Updater(
+			"mediasCreateResponseDummy" ,
+			"Main.php?do=mediasDoEditX",
+			{
+				method: 'post',
+				postBody: Form.serialize(form),
+				evalScripts: true,
+				onComplete: function() {
+					$('createMediaOperationInfo').innerHTML="medio creado";
+					
+					document.getElementsByName("params[mediaId]")[0].value = $("editedMediaResponseId").value;
+					$("autocomplete_mediaId").value = $("editedMediaResponseName").value;
+				}
+			}
+		);
+	}
+</script>
+
 |-include file="CommonAutocompleterInclude.tpl"-|
 <div id="div_headline">
 	<p>Ingrese los datos del ##headlines,2,Titular##</p>
@@ -21,7 +63,7 @@
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_campaignId" label="Campaña" url="Main.php?do=campaignsAutocompleteListX" hiddenName="params[campaignId]" defaultHiddenValue=$headline->getCampaignId() defaultValue=$headline->getCampaign()-|
 		</div>
 		<div id="media" style="position: relative;z-index:10000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_mediaId" label="Medio" url="Main.php?do=mediasAutocompleteListX" hiddenName="params[mediaId]" defaultHiddenValue=$headline->getMediaId() defaultValue=$headline->getMedia() class="emptyValidation"-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" onChange="initialize();" id="autocomplete_mediaId" label="Medio" url="Main.php?do=mediasAutocompleteListX&lightboxId=lightbox_medias" hiddenName="params[mediaId]" defaultHiddenValue=$headline->getMediaId() defaultValue=$headline->getMedia() class="emptyValidation"-|
 		</div>
 			<p>
 				<label for="params[name]">Titular</label>
