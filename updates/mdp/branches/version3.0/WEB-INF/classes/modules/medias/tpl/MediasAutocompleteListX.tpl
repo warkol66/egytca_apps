@@ -2,7 +2,7 @@
 	|-if count($medias) == 0-|
 		<b>No hay resultados que coincidan</b>
 		|-if $lightboxId-|
-			<a href="#lightbox_medias" rel="lightbox_medias" class="lbOn addLink">Crear Medio</a>
+			<a href="#lightbox_medias" rel="lightbox_medias" class="lbOn addLink" style="float:right;">Crear Medio</a>
 		|-/if-|
 	|-else-|
 		|-foreach from=$medias item=media-|

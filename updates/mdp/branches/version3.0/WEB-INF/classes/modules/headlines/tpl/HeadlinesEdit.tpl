@@ -17,9 +17,25 @@
 				<label for="params[name]">Nombre</label>
 				<input type="text" id="params[name]" name="params[name]" size="60" title="Nombre" />
 			</p>
-			<p>
+					<p>
+						<label for="params[typeId]">Tipo</label>
+						<select id="params[typeId]" name="params[typeId]" >
+								<option value="">Seleccione</option>
+						|-foreach from=$mediaTypes item=mediaType name=for_mediaType-|
+								<option value="|-$mediaType->getId()-|">|-$mediaType->getName()-|</option>
+						|-/foreach-|
+						</select>
+						</p>
+					<p>
+						<label for="params[importance]">Importancia</label>
+						&nbsp; 1 <input name="params[importance]" type="radio" value="1"/>
+						&nbsp; 2 <input name="params[importance]" type="radio" value="2"/>
+						&nbsp; 3 <input name="params[importance]" type="radio" value="3"/>
+						&nbsp; 4 <input name="params[importance]" type="radio" value="4"/>
+					</p>			
+					<p>
 				<input type="submit" title="Aceptar" value="Agregar nuevo" />
-				<a href="#" class="lbAction" rel="deactivate"><input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" /></a> 
+				<a href="#" class="lbAction noDecoration" rel="deactivate"><input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" /></a> 
 			</p>
 		</fieldset>
 	</form>
@@ -38,7 +54,7 @@
 				postBody: Form.serialize(form),
 				evalScripts: true,
 				onComplete: function() {
-					$('createMediaOperationInfo').innerHTML="medio creado";
+					$('createMediaOperationInfo').innerHTML='<span class="resultSuccess">Medio creado</span>';
 					
 					document.getElementsByName("params[mediaId]")[0].value = $("editedMediaResponseId").value;
 					$("autocomplete_mediaId").value = $("editedMediaResponseName").value;
