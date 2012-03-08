@@ -73,7 +73,12 @@ class GoogleNewsStrategy extends AbstractParserStrategy {
     }
     
     protected function parseSourceAndTimestamp($html) {
-        return preg_split("/-/", $this->fixEncoding($html));
+	    preg_match(/* /(?<source>¿que poner?) */ "/ - (?<timestamp>[^-]*$)/", $this->fixEncoding($html), $matches);
+	    
+	    // idealmente esto debería conseguirse arriba con la regexp adecuada
+	    $matches["source"] = preg_replace("/ -[^-]*$/", '', $this->fixEncoding($html));
+	    
+	    return array($matches["source"], $matches["timestamp"]);
     }
     
     protected function parseMoreSourcesUrl($url) {
