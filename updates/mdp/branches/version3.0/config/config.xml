@@ -107,4 +107,7 @@
 		<maxDisplayableWidth>800</maxDisplayableWidth>
 		<maxDisplayableHeight>600</maxDisplayableHeight>
 	</clippings>
+	<headlines>
+		<maxParsedResults>50</maxParsedResults>
+	</headlines>
 </config>
