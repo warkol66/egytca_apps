@@ -37,4 +37,12 @@ class CompoundStrategy extends AbstractParserStrategy {
         $this->strategies = $strategies;
     }
     
+    public function getNextQueryParameters() {
+	    $params = array();
+	    foreach ($this->strategies as $strategyName => $strategy) {
+		    $params[$strategyName] = $strategy->getNextQueryParameters();
+	    }
+	    return $params;
+    }
+    
 } // CompoundStrategy

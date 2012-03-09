@@ -48,6 +48,17 @@ class GoogleNewsStrategy extends AbstractParserStrategy {
         ));
     }
     
+    public function getNextQueryParameters() {
+	    $params = parent::getQueryParameters();
+	    $nextParams = parent::getNextQueryParameters();
+	    
+	    if (!$params['start'])
+		    $params['start'] = 0;
+	    $nextParams['start'] = $params['start'] + 10;
+	    
+	    return $nextParams;
+    }
+    
     public function parse() {
         $pq = $this->getDocument();
         

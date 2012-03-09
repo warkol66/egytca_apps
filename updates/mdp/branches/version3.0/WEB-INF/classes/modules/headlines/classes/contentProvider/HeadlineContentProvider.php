@@ -174,9 +174,9 @@ class HeadlineContentProvider {
      * 
      * @return  array
      */
-    public function find() {
+    public function find(&$ignored, &$total) {
         $news = $this->strategy->parse();
-        return $this->buildHeadlinesParsed($news);
+        return $this->buildHeadlinesParsed($news, $ignored, $total);
     }
     
     /**
@@ -185,10 +185,13 @@ class HeadlineContentProvider {
      * @param array $news
      * @return array
      */
-    private function buildHeadlinesParsed($news) {
+    private function buildHeadlinesParsed($news, &$ignored, &$total) {
         $campaign = CampaignQuery::create()->findPk($this->campaignId);
         $headlinesParsed = array();
+	$ignored = 0;
+	$total = 0;
         foreach ($news as $parsedNews) {
+		$total++;
             $internalId = $this->buildInternalId($parsedNews);
             $media = MediaQuery::create()->findOneByName($parsedNews['source']);
             if (!empty($media)) {
@@ -215,6 +218,7 @@ class HeadlineContentProvider {
                 $headlinesParsed[] = $h;
             }
             catch (PropelException $e) {
+		    $ignored++;
 //                echo "headline $internalId existente <br />";
 //                echo $e->getTraceAsString();
             }
