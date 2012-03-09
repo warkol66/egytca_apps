@@ -31,19 +31,23 @@ class HeadlinesDoParseXAction extends BaseAction {
 		$stopTrigger = 4/10;
 		
 		$headlinesParsed = array();
+		$parsedCount = 0;
 //		$debug = true;
-		while (count($headlinesParsed) < $maxParsedResults) {
+		while ($parsedCount < $maxParsedResults) {
 			
 			$loopResults = $provider->find($ignored, $total);
 			
 			$headlinesParsed = array_merge($headlinesParsed, $loopResults);
 			$provider->setParameters($provider->getParameters());
 			
+			$parsedCount += $total;
+			
 			if ($debug) {
 				echo "iterarion parsed count: ".$total."<br />";
 				echo "iterarion ignored count: ".$ignored."<br />";
 				echo "iterarion created count: ".count($loopResults)."<br />";
-				echo "total count: ".count($headlinesParsed)."<br />";
+				echo "headlinesParsed count: ".count($headlinesParsed)."<br />";
+				echo "total parsed count: ".$parsedCount."<br />";
 				echo "<br />";
 			}
 			
