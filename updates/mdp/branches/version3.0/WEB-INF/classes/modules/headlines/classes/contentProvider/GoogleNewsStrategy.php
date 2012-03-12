@@ -87,9 +87,10 @@ class GoogleNewsStrategy extends AbstractParserStrategy {
 	    preg_match(/* /(?<source>¿que poner?) */ "/ - (?<timestamp>[^-]*$)/", $this->fixEncoding($html), $matches);
 	    
 	    // idealmente esto debería conseguirse arriba con la regexp adecuada
-	    $matches["source"] = preg_replace("/ -[^-]*$/", '', $this->fixEncoding($html));
+	    $source = preg_replace("/ -[^-]*$/", '', $this->fixEncoding($html));
+        $ts = preg_replace("/$source - ([^-]*)$/", '$1', $this->fixEncoding($html));
 	    
-	    return array($matches["source"], $matches["timestamp"]);
+	    return array($source, $ts);
     }
     
     protected function parseMoreSourcesUrl($url) {

@@ -1,11 +1,13 @@
 <?php
 
+$dir = dirname(__FILE__);
+
 require_once 'phpQuery/phpQuery.php';
-require_once 'contentProvider/AbstractParserStrategy.php';
-require_once 'contentProvider/GoogleNewsStrategy.php';
-require_once 'contentProvider/GoogleStrategy.php';
-require_once 'contentProvider/CompoundStrategy.php';
-require_once 'contentProvider/TimestampParser.php';
+require_once $dir . '/AbstractParserStrategy.php';
+require_once $dir . '/GoogleNewsStrategy.php';
+require_once $dir . '/GoogleStrategy.php';
+require_once $dir . '/CompoundStrategy.php';
+require_once $dir . '/TimestampParser.php';
 
 /**
  * Clase HeadlineContentProvider.
@@ -131,6 +133,13 @@ class HeadlineContentProvider {
         return $this;
     }
     
+    /**
+     * @return AbstractParserStrategy
+     */
+    protected function getStrategy() {
+        return $this->strategy;
+    }
+
     private function isValidStrategy($name) {
         return array_key_exists($name, $this->config["strategies"]);
     }
@@ -193,6 +202,8 @@ class HeadlineContentProvider {
         foreach ($news as $parsedNews) {
 		$total++;
             $internalId = $this->buildInternalId($parsedNews);
+            $parsedNews['mediaId'] = null;
+            $parsedNews['more_sources_url'] = null;
             $media = MediaQuery::create()->findOneByName($parsedNews['source']);
             if (!empty($media)) {
                 $media = $media->resolveAliases();
