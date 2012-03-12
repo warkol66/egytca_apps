@@ -514,7 +514,7 @@ class DOMDocumentWrapper {
 			.($xhtml ? '/' : '')
 			.'>';
 		if (strpos($html, '<head') === false) {
-			if (strpos($hltml, '<html') === false) {
+			if (strpos($html, '<html') === false) {
 				return $meta.$html;
 			} else {
 				return preg_replace(
@@ -4466,6 +4466,14 @@ abstract class phpQuery {
 	public static $lastModified = null;
 	public static $active = 0;
 	public static $dumpCount = 0;
+    
+    /**
+     * Reponse headers obtained by newDocumentFile call.
+     * 
+     * @var array
+     */
+    public static $RESPONSE_HEADERS = array();
+    
 	/**
 	 * Multi-purpose function.
 	 * Use pq() as shortcut.
@@ -4766,6 +4774,7 @@ abstract class phpQuery {
 		$documentID = self::createDocumentWrapper(
 			file_get_contents($file), $contentType
 		);
+        self::$RESPONSE_HEADERS = $http_response_header;
 		return new phpQueryObject($documentID);
 	}
 	/**

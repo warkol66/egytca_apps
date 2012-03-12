@@ -82,6 +82,10 @@ class ConfigModule {
                     // "bing"    => "Bing",
                     "googleNews" => "Google News",
                     "google"     => "Google"
+                ),
+                "errors" => array(
+                    "service_unavailable" => "Ha realizado muchas consultas, espere 5 min e intente de nuevo.",
+                    "empty_response"      => "No hubo respuesta"
                 )
             )
 		)

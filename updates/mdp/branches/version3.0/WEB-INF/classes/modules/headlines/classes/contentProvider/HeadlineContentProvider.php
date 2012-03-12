@@ -189,7 +189,12 @@ class HeadlineContentProvider {
      * @return array
      */
     public function getErrors() {
-        return $this->strategy->getErrors();
+        $errors = array();
+        foreach ($this->strategy->getErrors() as $error) {
+            $error['message'] = $this->config['errors'][$error['code']];
+            $errors[] = $error;
+        }
+        return $errors;
     }
     
     private function getSanitizedKeywords() {

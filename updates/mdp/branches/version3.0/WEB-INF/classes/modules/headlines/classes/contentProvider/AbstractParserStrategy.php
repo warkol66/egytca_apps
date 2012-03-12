@@ -185,10 +185,20 @@ abstract class AbstractParserStrategy {
      */
     protected function getDocument() {
         $document = phpQuery::newDocumentFileHTML($this->buildQueryUrl(), "utf-8");
+        
+        if ($this->isResponse503()) $this->addError('service_unavailable');
+        
         $html = $document->find('html')->html();
-        if (empty($html)) $this->addError('empty_response', 'No hubo respuesta');
+        if (empty($html)) $this->addError('empty_response');
             
         return $document;
+    }
+    
+    private function isResponse503() {
+        foreach (phpQuery::$RESPONSE_HEADERS as $header) {
+            if ($header == "HTTP/1.0 503 Service Unavailable") return true;
+        }
+        return false;
     }
     
     /**
