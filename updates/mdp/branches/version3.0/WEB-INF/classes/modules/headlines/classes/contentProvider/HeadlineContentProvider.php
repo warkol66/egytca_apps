@@ -173,6 +173,25 @@ class HeadlineContentProvider {
         return $this->strategy->getNextQueryParameters();
     }
     
+    /**
+     * Verifica si hubo errores en el parseo.
+     * 
+     * @return boolean
+     */
+    public function hasErrors() {
+        return $this->strategy->hasErrors();
+    }
+    
+    /**
+     * Obtiene codigo y mensaje de los errores ocurridos en el parseo de una
+     * consulta.
+     * 
+     * @return array
+     */
+    public function getErrors() {
+        return $this->strategy->getErrors();
+    }
+    
     private function getSanitizedKeywords() {
         $kw = is_array($this->keywords) ? implode(' ', $this->keywords) : $this->keywords;
         return $kw;

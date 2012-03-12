@@ -45,4 +45,20 @@ class CompoundStrategy extends AbstractParserStrategy {
 	    return $params;
     }
     
+    public function hasErrors() {
+        foreach ($this->strategies as $strategyName => $strategy) {
+            if ($strategy->hasErrors()) return true;
+        }
+        return false;
+    }
+    
+    public function getErrors() {
+        $errors = array();
+        foreach ($this->strategies as $strategyName => $strategy) {
+            foreach ($strategy->getErrors() as $error)
+                $errors[] = $error;
+        }
+        return $errors;
+    }
+    
 } // CompoundStrategy

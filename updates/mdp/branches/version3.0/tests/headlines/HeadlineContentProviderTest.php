@@ -33,6 +33,14 @@ while ($canBringMoreResults) {
     foreach ($rawData as $data) {
         echo " -> title: {$data['title']}\n";
     }
+    
+    if ($provider->hasErrors()) {
+        echo "Hubo errores de parseo:\n";
+        foreach ($provider->getErrors() as $error) {
+            echo " -> code: {$error['code']}, message: {$error['message']}\n";
+        }
+    }
+    
     echo "\n\n";
     
     if ($count == 0) $canBringMoreResults = false;

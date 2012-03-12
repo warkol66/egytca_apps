@@ -41,6 +41,13 @@ abstract class AbstractParserStrategy {
     private $nextQueryParams;
     
     /**
+     * Contenedor de los errores surgidos en una consulta.
+     * 
+     * @var array
+     */
+    private $errors;
+    
+    /**
      * Constructor.
      * 
      * @param string $keywords 
@@ -50,6 +57,7 @@ abstract class AbstractParserStrategy {
         $this->selectors = array();
         $this->queryParams = array();
         $this->nextQueryParams = array();
+        $this->errors = array();
         $this->initialize();
     }
     
@@ -124,6 +132,28 @@ abstract class AbstractParserStrategy {
     }
     
     /**
+     * @return boolean
+     */
+    public function hasErrors() {
+        return !empty($this->errors);
+    }
+    
+    protected function setErrors(array $e) {
+        $this->errors = $e;
+    }
+    
+    /**
+     * @return array
+     */
+    public function getErrors() {
+        return $this->errors;
+    }
+    
+    protected function addError($code, $message = null) {
+        $this->errors[] = array('code' => $code, 'message' => $message);
+    }
+    
+    /**
      * Metodo para inicializar la configuracion de la estrategia.
      */
     abstract protected function initialize();
@@ -154,7 +184,11 @@ abstract class AbstractParserStrategy {
      * @return phpQueryObject
      */
     protected function getDocument() {
-        return phpQuery::newDocumentFileHTML($this->buildQueryUrl(), "utf-8");
+        $document = phpQuery::newDocumentFileHTML($this->buildQueryUrl(), "utf-8");
+        $html = $document->find('html')->html();
+        if (empty($html)) $this->addError('empty_response', 'No hubo respuesta');
+            
+        return $document;
     }
     
     /**
