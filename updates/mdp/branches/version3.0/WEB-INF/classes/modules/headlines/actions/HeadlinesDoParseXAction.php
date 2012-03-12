@@ -28,7 +28,7 @@ class HeadlinesDoParseXAction extends BaseAction {
 		
 		$config = Common::getConfiguration('headlines');
 		$maxParsedResults = $config['maxParsedResults'];
-		$stopTrigger = 4/10;
+		$stopTrigger = 10/10;
 		
 		$headlinesParsed = array();
 		$parsedCount = 0;
