@@ -65,9 +65,11 @@ class HeadlinesDoParseXAction extends BaseAction {
 		}
 		
 		$strategiesParams = $provider->getParameters();
+        $parseErrors = $provider->getErrors();
 		
 		$smarty->assign('headlinesParsed', $headlinesParsed);
 		$smarty->assign('strategiesParams', $strategiesParams);
+        $smarty->assign('parseErrors', $parseErrors);
 		
 		return $mapping->findForwardConfig('success');
 	}

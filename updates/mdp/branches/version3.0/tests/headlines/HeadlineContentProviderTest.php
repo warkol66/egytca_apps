@@ -37,7 +37,7 @@ while ($canBringMoreResults) {
     if ($provider->hasErrors()) {
         echo "Hubo errores de parseo:\n";
         foreach ($provider->getErrors() as $error) {
-            echo " -> code: {$error['code']}, message: {$error['message']}\n";
+            echo " -> code: {$error["code"]}, message: {$error["message"]}, strategy: {$error["strategy"]}\n";
         }
     }
     

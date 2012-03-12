@@ -55,8 +55,9 @@ class CompoundStrategy extends AbstractParserStrategy {
     public function getErrors() {
         $errors = array();
         foreach ($this->strategies as $strategyName => $strategy) {
-            foreach ($strategy->getErrors() as $error)
-                $errors[] = $error;
+            foreach ($strategy->getErrors() as $error) {
+                $errors[] = array_merge($error, array("strategy" => $strategyName));
+            }
         }
         return $errors;
     }

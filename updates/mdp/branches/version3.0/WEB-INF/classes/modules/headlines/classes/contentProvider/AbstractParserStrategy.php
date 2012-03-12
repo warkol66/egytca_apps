@@ -195,8 +195,9 @@ abstract class AbstractParserStrategy {
     }
     
     private function isResponse503() {
+        $lookFor = "HTTP/1.0 503 Service Unavailable";
         foreach (phpQuery::$RESPONSE_HEADERS as $header) {
-            if ($header == "HTTP/1.0 503 Service Unavailable") return true;
+            if (strcasecmp($header, $lookFor) == 0) return true;
         }
         return false;
     }
