@@ -3,7 +3,7 @@
 
 class MediasEditAction extends BaseAction {
 
-	function prepareEdit($smarty) {
+	function prepareEdit($smarty, $media) {
 
 		$mediaMarkets = MediaMarketQuery::create()->find();
 		$smarty->assign('mediaMarkets',$mediaMarkets);
@@ -13,6 +13,9 @@ class MediasEditAction extends BaseAction {
 
 		$mediaTypes = MediaTypeQuery::create()->find();
 		$smarty->assign("mediaTypes",$mediaTypes);
+		
+		$allAlias = MediaQuery::create()->filterByAliasof($media->getId())->find();
+		$smarty->assign('allAlias', $allAlias);
 
 	}
 
@@ -54,7 +57,7 @@ class MediasEditAction extends BaseAction {
 		$smarty->assign("page",$_GET["page"]);
 		$smarty->assign("message",$_GET["message"]);
 
-  	$this->prepareEdit($smarty);
+		$this->prepareEdit($smarty, $media);
 
 		return $mapping->findForwardConfig('success');
 	}

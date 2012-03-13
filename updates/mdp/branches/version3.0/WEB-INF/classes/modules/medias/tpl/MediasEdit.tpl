@@ -165,6 +165,20 @@ function mediasDeleteCategoryFromActor(form){
 	</form>
 	</p>
 </fieldset>
+
+<fieldset title="Formulario de alias de este medio">
+	<legend>Alias</legend>
+	<p>
+	<form method="post" id="form_alias">
+		<label for="aliasIds">Alias</label>
+		<select class="chzn-select markets-chz-select" data-placeholder="Seleccione uno o varios alias..." id="aliasIds" name="aliasIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=mediasUpdateAliasX')" >
+			|-foreach from=$allAlias item=alias-|
+        		<option value="|-$alias->getId()-|" |-if $media->hasAlias($alias)-|selected="selected"|-/if-| >|-$alias->getName()-|</option>
+			|-/foreach-|
+		</select>
+	</form>
+	</p>
+</fieldset>
 |-/if-|
 <!--<fieldset>
 <legend>Contactos</legend>

@@ -122,5 +122,19 @@ class Media extends BaseMedia {
 		}
 		return false;
 	}
+	
+	/*
+	 * Devuelve true si el media tiene el alias
+	 * y false en caso contrario.
+	 */
+	function hasAlias($alias) {
+		$allAssociated = MediaQuery::create()->filterByAliasof($this->getId())->find();
+		foreach ($allAssociated as $associated) {
+			if ($associated->getId() == $alias->getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 } // Media
