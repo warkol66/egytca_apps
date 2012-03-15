@@ -24,9 +24,16 @@ class MediasAutocompleteListXAction extends BaseAction {
 		$searchString = $_REQUEST['value'];
 		$smarty->assign("searchString",$searchString);
 
-		$medias = MediaQuery::create()->where('Media.Name LIKE ?', "%" . $searchString . "%")
-									->limit($_REQUEST['limit'])
-									->find();
+		$mediaQuery = MediaQuery::create()->where('Media.Name LIKE ?', "%" . $searchString . "%");
+		
+		if (!empty($_REQUEST['hideAlias'])) {
+			$mediaQuery->filterByAliasof(null);
+		}
+		
+		$medias = $mediaQuery
+			->limit($_REQUEST['limit'])
+			->find();
+		
 		$lightboxId = empty($_REQUEST['lightboxId']) ? '' : $_REQUEST['lightboxId'];
 		
 		$smarty->assign("medias",$medias);
