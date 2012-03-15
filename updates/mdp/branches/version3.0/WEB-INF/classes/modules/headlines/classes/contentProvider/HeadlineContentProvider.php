@@ -207,9 +207,51 @@ class HeadlineContentProvider {
      * 
      * @return  array
      */
-    public function find(&$ignored, &$total) {
+    public function find(&$ignored = null, &$total = null) {
         $news = $this->strategy->parse();
         return $this->buildHeadlinesParsed($news, $ignored, $total);
+    }
+    
+    public function findALot($maxParsedResults) {
+	    
+	    $stopTrigger = 10/10;
+	    $headlinesParsed = array();
+	    $parsedCount = 0;
+//	    $debug = true;
+	    
+	    while ($parsedCount < $maxParsedResults) {
+		    
+		    $loopResults = $this->find($ignored, $total);
+		    
+		    $headlinesParsed = array_merge($headlinesParsed, $loopResults);
+		    $this->setParameters($this->getParameters());
+		    
+		    $parsedCount += $total;
+		    
+		    if ($debug) {
+			    echo "iterarion parsed count: ".$total."<br />";
+			    echo "iterarion ignored count: ".$ignored."<br />";
+			    echo "iterarion created count: ".count($loopResults)."<br />";
+			    echo "headlinesParsed count: ".count($headlinesParsed)."<br />";
+			    echo "total parsed count: ".$parsedCount."<br />";
+			    echo "<br />";
+		    }
+		    
+		    if ($ignored / $total > $stopTrigger) {
+			    if ($debug) {
+				    echo "too many ignored results - trigger activated - stopping...<br />";
+			    }
+			    break;
+		    }
+		    
+		    if ($debug) {
+			    if ( !(count($headlinesParsed) < $maxParsedResults) )
+				    echo "limit exceeded - operation finished<br />";
+		    }
+	    }
+	    
+	    return $headlinesParsed;
+	    
     }
     
     /**
@@ -218,7 +260,7 @@ class HeadlineContentProvider {
      * @param array $news
      * @return array
      */
-    private function buildHeadlinesParsed($news, &$ignored, &$total) {
+    private function buildHeadlinesParsed($news, &$ignored = null, &$total = null) {
         $campaign = CampaignQuery::create()->findPk($this->campaignId);
         $headlinesParsed = array();
 	$ignored = 0;
