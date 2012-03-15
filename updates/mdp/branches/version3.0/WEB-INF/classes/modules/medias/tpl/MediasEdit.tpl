@@ -199,7 +199,7 @@ function mediasDeleteCategoryFromActor(form){
 	<form method="post" id="form_alias">
 		<div style="position: relative;z-index:9500;">
 			<label for="aliasIds">Alias</label>
-			<select class="chzn-select markets-chz-select" data-placeholder="Seleccione uno o varios alias..." id="aliasIds" name="aliasIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=mediasUpdateAliasX'); removeUnselected(this.options);" >
+			<select class="chzn-select markets-chz-select" data-placeholder="No hay alias de este medio..." id="aliasIds" name="aliasIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=mediasUpdateAliasX'); removeUnselected(this.options);" >
 				|-foreach from=$allAlias item=alias-|
 				<option value="|-$alias->getId()-|" |-if $media->hasAlias($alias)-|selected="selected"|-/if-| >|-$alias->getName()-|</option>
 				|-/foreach-|
