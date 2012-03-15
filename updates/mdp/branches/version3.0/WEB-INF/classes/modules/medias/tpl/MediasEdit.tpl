@@ -167,8 +167,6 @@ function mediasDeleteCategoryFromActor(form){
 	}
 	
 </script>
-<input id="myInput" type="button" onclick="console.log('clicked');" />
-<input id="otherInput" type="button" onmouseover="console.log('mouseover'); $('myInput').onclick.call(); $('aliasIds').onchange.call();" />
 <fieldset title="Formulario de mercados y audiencias asociados al medio">
 	<legend>Mercados y Audiencias</legend>
 	<p>
