@@ -16,6 +16,12 @@ class MediasEditAction extends BaseAction {
 		
 		$allAlias = MediaQuery::create()->filterByAliasof($media->getId())->find();
 		$smarty->assign('allAlias', $allAlias);
+		
+		$availableMedias = MediaQuery::create()
+			->filterByAliasof(null)
+			->filterById($media->getId(), Criteria::NOT_EQUAL)
+			->find();
+		$smarty->assign('availableMedias', $availableMedias);
 
 	}
 

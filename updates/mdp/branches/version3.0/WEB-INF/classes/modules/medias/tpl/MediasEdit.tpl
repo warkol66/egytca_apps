@@ -140,32 +140,6 @@ function mediasDeleteCategoryFromActor(form){
 		return true;
 	}
 	
-	function addAlias(form) {
-		var id = document.getElementsByName("newAliasId")[0].value;
-		var name = $("autocomplete_alias").value;
-		
-		option = document.createElement("option");
-		option.value = id;
-		option.textContent = name;
-		option.selected = true;
-		
-		$("aliasIds").appendChild(option);
-		Event.fire($("aliasIds"), "liszt:updated");
-		updateSelected($("aliasIds").options, 'Main.php?do=mediasUpdateAliasX');
-		
-		$("autocomplete_alias").value = "";
-		$("newAliasSubmit").disable();
-	}
-	
-	function removeUnselected(options) {
-		for (var i = 0; i < options.length; i++) {
-			if (!options[i].selected) {
-				options[i].parentNode.removeChild(options[i]);
-			}
-		}
-		Event.fire($("aliasIds"), "liszt:updated"); // tira un error, no se por que. aunque todo parece andar bien.
-	}
-	
 </script>
 <fieldset title="Formulario de mercados y audiencias asociados al medio">
 	<legend>Mercados y Audiencias</legend>
@@ -197,19 +171,14 @@ function mediasDeleteCategoryFromActor(form){
 	<form method="post" id="form_alias">
 		<div style="position: relative;z-index:9500;">
 			<label for="aliasIds">Alias</label>
-			<select class="chzn-select markets-chz-select" data-placeholder="No hay alias de este medio..." id="aliasIds" name="aliasIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=mediasUpdateAliasX'); removeUnselected(this.options);" >
+			<select class="chzn-select markets-chz-select" data-placeholder="Seleccione uno o varios alias..." id="aliasIds" name="aliasIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=mediasUpdateAliasX');" >
 				|-foreach from=$allAlias item=alias-|
-				<option value="|-$alias->getId()-|" |-if $media->hasAlias($alias)-|selected="selected"|-/if-| >|-$alias->getName()-|</option>
+				<option value="|-$alias->getId()-|" selected="selected">|-$alias->getName()-|</option>
+				|-/foreach-|
+				|-foreach from=$availableMedias item=availableMedia-|
+				<option value="|-$availableMedia->getId()-|">|-$availableMedia->getName()-|</option>
 				|-/foreach-|
 			</select>
-		</div>
-	</form>
-	</p>
-	<p>
-	<form onsubmit="addAlias(this); return false;">
-		<div style="position: relative;z-index:9000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_alias" url="Main.php?do=mediasAutocompleteListX&hideAlias=1" hiddenName="newAliasId" label="Asignar nuevo alias" disableSubmit="newAliasSubmit"-|
-			<input id="newAliasSubmit" type="submit" disabled="disabled" value="Asignar" />
 		</div>
 	</form>
 	</p>

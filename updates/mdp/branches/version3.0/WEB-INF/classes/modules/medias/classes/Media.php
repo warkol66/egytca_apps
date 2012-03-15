@@ -128,13 +128,12 @@ class Media extends BaseMedia {
 	 * y false en caso contrario.
 	 */
 	function hasAlias($alias) {
-		$allAssociated = MediaQuery::create()->filterByAliasof($this->getId())->find();
-		foreach ($allAssociated as $associated) {
-			if ($associated->getId() == $alias->getId()) {
-				return true;
-			}
-		}
-		return false;
+		$associatedCount = MediaQuery::create()
+			->filterByAliasof($this->getId())
+			->filterById($alias->getId())
+			->count();
+		
+		return $associatedCount > 0;
 	}
 
 } // Media
