@@ -39,7 +39,7 @@ class HeadlinesParsedSaveXAction extends BaseAction {
 					$imageFullname = $imagePath . $newHeadline->getId() . ".jpg";
 
 					$renderer = new WebkitHtmlRenderer();
-					$renderer->render($url, $imageFullname, true);
+					$renderer->render($url, $imageFullname, true, true);
 					//Fin clipping
 
 					$headline->setStatus(HeadlineParsedQuery::STATUS_PROCESSED);
