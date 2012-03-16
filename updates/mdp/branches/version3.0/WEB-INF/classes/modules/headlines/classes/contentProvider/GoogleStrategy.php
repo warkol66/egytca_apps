@@ -20,6 +20,12 @@ class GoogleStrategy extends AbstractParserStrategy {
         ));
     }
     
+    public function addQueryParameters(array $params) {
+	    require_once 'GoogleParamsManager.php';
+	    $newParams = GoogleParamsManager::convertGlobal($params);
+	    parent::addQueryParameters($newParams);
+    }
+    
     public function getNextQueryParameters() {
 	    $params = parent::getQueryParameters();
 	    $nextParams = parent::getNextQueryParameters();

@@ -19,14 +19,6 @@
  */
 class GoogleNewsStrategy extends AbstractParserStrategy {
     
-    private static $DATE_FILTER_MAP = array(
-        'dateFilter' => 'tbs',
-        'hour'       => 'qdr:h',
-        'day'        => 'qdr:d',
-        'week'       => 'qdr:w',
-        'month'      => 'qdr:m',
-        'year'       => 'qdr:y',
-    );
 
     public function initialize() {
         //http://www.google.com.ar/search?hl=es&gl=ar&tbm=nws&q=sabella&tbs=qdr:w&start=0
@@ -46,6 +38,12 @@ class GoogleNewsStrategy extends AbstractParserStrategy {
             'tbm' => 'nws',
             'btnmeta_news_search' => 1
         ));
+    }
+    
+    public function addQueryParameters(array $params) {
+	    require_once 'GoogleParamsManager.php';
+	    $newParams = GoogleParamsManager::convertGlobal($params);
+	    parent::addQueryParameters($newParams);
     }
     
     public function getNextQueryParameters() {

@@ -26,6 +26,14 @@ class HeadlinesDoParseXAction extends BaseAction {
 		)->setStrategy($_REQUEST['strategies'])
 		->setParameters($_REQUEST['strategiesParams']);
 		
+		foreach ($_REQUEST['strategies'] as $strategyName) {
+			$provider->setParameters(array(
+				$strategyName => array(
+					'dateFilter' => $_REQUEST['dateFilter']
+				)
+			));
+		}
+		
 		$config = Common::getConfiguration('headlines');
 		$maxParsedResults = $config['maxParsedResults'];
 		
