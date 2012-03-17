@@ -17,20 +17,18 @@
         <input name="campaignId" value="|-$campaignId-|" type="hidden" />
  <p><label for="q">Palabras clave</label>
  <input name="q" value="|-$campaign->getDefaultKeywords()|escape-|" size="60" />
- <div>
-	 <div onclick="this.hide(); $('dateFilter').show();">Rango de fechas</div>
+ <input type="submit" id="search_button" value="Buscar" />
+ <input type="button" id="return_button" onclick="location.href='Main.php?do=headlinesList'" value="Regresar al listado" />
+ </p> 
+ <p><label for="strategies[]">Búscar en</label> |-foreach from=$parseStategies item=strategy key=strategyName-|&nbsp; &nbsp; |-$strategy-| <input name="strategies[]" type="checkbox" value="|-$strategyName-|" checked="checked">|-/foreach-|</p>
+	 <p><label for="dateFilter" onclick="$('dateFilter').toggle();">Rango de fechas</label>
 	 <select id="dateFilter" style="display:none" name="dateFilter">
 		 <option value="day">Último día</option>
 		 <option value="week" selected="selected">Última semana</option>
 		 <option value="month">Último mes</option>
 		 <option value="year">Último año</option>
 		 <option value="">Todo</option>
-	 </select>
-</div>
- <input type="submit" id="search_button" value="Buscar" />
- <input type="button" id="return_button" onclick="location.href='Main.php?do=headlinesList'" value="Regresar al listado" />
- </p> 
- <p><label for="strategies[]">Búscar en</label> |-foreach from=$parseStategies item=strategy key=strategyName-|&nbsp; &nbsp; |-$strategy-| <input name="strategies[]" type="checkbox" value="|-$strategyName-|" checked="checked">|-/foreach-|</p>
+	 </select></p>
     </form>
 </fieldset>
 <div id="resultDiv"></div>
