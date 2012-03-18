@@ -59,21 +59,36 @@ class GoogleNewsStrategy extends AbstractParserStrategy {
     
     public function parse() {
         $pq = $this->getDocument();
+	
+	if ($pq->text() == '')
+		$this->addError('empty_response');
         
         $news = array();
+	$resultsErrorsExist = false;
         foreach ($pq[$this->getSelector('items')] as $item) {
             list($source, $timestamp) = $this->parseSourceAndTimestamp(
                 $pq->find($this->getSelector('item_source'), $item)->html()
             );
+	    
+	    $url = $this->parseUrl($pq->find($this->getSelector('item_url'), $item)->attr('href'));
+	    $title = $this->fixEncoding($pq->find($this->getSelector('item_title'), $item)->html());
+	    $source = $this->sanitizeHtml($source);
+	    $timestamp = $this->parseTimestamp($timestamp);
+	    $snippet = $this->fixEncoding($pq->find($this->getSelector('item_snippet'), $item)->html());
+	    $moreSourcesUrl = $this->parseMoreSourcesUrl($pq->find($this->getSelector('item_more_links'), $item)->attr('href'));
+	    
+	    if ( !$resultsErrorsExist && ($url == '' || $title == '' || $source == '' || $timestamp == '' || $snippet == '') ) {
+		    $this->addError('invalid_headline');
+		    $resultsErrorsExist = true;
+	    }
+	    
             $news[] = array(
-                'url'       => $this->parseUrl($pq->find($this->getSelector('item_url'), $item)->attr('href')),
-                'title'     => $this->fixEncoding($pq->find($this->getSelector('item_title'), $item)->html()),
-                'source'    => $this->sanitizeHtml($source),
-                'timestamp' => $this->parseTimestamp($timestamp),
-                'snippet'   => $this->fixEncoding($pq->find($this->getSelector('item_snippet'), $item)->html()),
-                'more_sources_url' => $this->parseMoreSourcesUrl(
-                    $pq->find($this->getSelector('item_more_links'), $item)->attr('href')
-                ),
+                'url'       => $url,
+                'title'     => $title,
+                'source'    => $source,
+                'timestamp' => $timestamp,
+                'snippet'   => $snippet,
+                'more_sources_url' => $moreSourcesUrl,
                 'strategy'  => 'googleNews'
             );
         }

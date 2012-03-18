@@ -40,18 +40,31 @@ class GoogleStrategy extends AbstractParserStrategy {
     public function parse() {
         $pq = $this->getDocument();
 	
-        $news = array();
+	if ($pq->text() == '')
+		$this->addError('empty_response');
+	
+	 $news = array();
+	$resultsErrorsExist = false;
         foreach ($pq[$this->getSelector('items')] as $item) {
-
+		
             // horrible - debería hacerse con el $pq de ser posible
             $chunks = preg_split("/<div>/", $pq->find($this->getSelector('item_body'), $item)->html());
             list($timestamp, $snippet) = $this->parseDateAndSnippet($this->fixEncoding($chunks[0]));
+	    
+	    $url = $this->parseUrl($pq->find($this->getSelector('item_url'), $item)->attr('href'));
+	    $title = $this->fixEncoding($pq->find($this->getSelector('item_title'), $item)->html());
+	    $source = $this->parseSource($this->fixEncoding($pq->find($this->getSelector('item_source'), $item)->html()));
+	    
+	    if ( !$resultsErrorsExist && ($url == '' || $title == '' || $source == '' || $snippet == '') ) {
+		    $this->addError('invalid_headline');
+		    $resultsErrorsExist = true;
+	    }
 
             if ($this->mustUseItem($snippet)) {
                 $news[] = array(
-                    'url' => $this->parseUrl($pq->find($this->getSelector('item_url'), $item)->attr('href')),
-                    'title' => $this->fixEncoding($pq->find($this->getSelector('item_title'), $item)->html()),
-                    'source' => $this->parseSource($this->fixEncoding($pq->find($this->getSelector('item_source'), $item)->html())),
+                    'url' => $url,
+                    'title' => $title,
+                    'source' => $source,
                     'timestamp' => $timestamp,
                     'snippet' => $snippet,
                     'strategy' => 'google'

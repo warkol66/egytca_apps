@@ -1,5 +1,15 @@
 <script language="JavaScript" type="text/javascript">
+	|-if $parseErrors|count eq 0-|
 	$("resultDiv").innerHTML = '';
+	|-else-|
+		$("resultDiv").innerHTML =
+		'<span>Se produjeron errores durante el parseo:</span>'
+		+ '<ul>'
+		|-foreach from=$parseErrors item=error-|
+			+ '<li>|-$error.message-|</li>'
+		|-/foreach-|
+		+ '</ul>'
+	|-/if-|
 </script>
 
 |-if $headlinesParsed|count gt 0-|

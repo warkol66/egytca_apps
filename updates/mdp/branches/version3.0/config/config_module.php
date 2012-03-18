@@ -85,7 +85,8 @@ class ConfigModule {
                 ),
                 "errors" => array(
                     "service_unavailable" => "Ha realizado muchas consultas, espere 5 min e intente de nuevo.",
-                    "empty_response"      => "No hubo respuesta"
+                    "empty_response"      => "No hubo respuesta",
+		    "invalid_headline"    => "Hay algunos resultados con errores"
                 )
             )
 		)

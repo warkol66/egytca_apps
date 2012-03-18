@@ -5,6 +5,10 @@ class HeadlinesDoParseXAction extends BaseAction {
 	function HeadlinesDoParseXAction() {
 		;
 	}
+	
+	static function uningnoredError($error) {
+		return $error['code'] != 'invalid_headline';
+	}
 
 	function execute($mapping, $form, &$request, &$response) {
 
@@ -40,7 +44,7 @@ class HeadlinesDoParseXAction extends BaseAction {
 		$headlinesParsed = $provider->findALot($maxParsedResults);
 		
 		$strategiesParams = $provider->getParameters();
-		$parseErrors = $provider->getErrors();
+		$parseErrors = array_filter($provider->getErrors(), 'HeadlinesDoParseXAction::uningnoredError');
 		
 		$smarty->assign('headlinesParsed', $headlinesParsed);
 		$smarty->assign('strategiesParams', $strategiesParams);
