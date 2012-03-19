@@ -23,13 +23,18 @@ class HeadlinesParsedMoreXAction extends BaseAction {
 			$headline = HeadlineParsedQuery::create()->findOneById($_GET["id"]);
 			if (!is_null($headline)) {
 				
-				// Parsear el url
-				$more = $headline->getMoreSourcesUrl();
-				if($headline->isModified() && $headline->save()) {
-				// TODO
-				// Armar el url para el scrapper
-//					return $mapping->findForwardConfig('success');
-				}
+				require 'contentProvider/HeadlineContentProvider.php';
+				
+				$provider = HeadlineContentProvider::create('', $headline->getCampaignid())
+					->setStrategy($headline->getStrategy());
+				
+				$headlinesParsed = $provider->findMore($_GET['id']);
+				$smarty->assign('headlinesParsed', $headlinesParsed);
+				
+				return $mapping->findForwardConfig('success');
+				
+			} else {
+				throw new Exception('invalid ID');
 			}
 		}
 		return $mapping->findForwardConfig('failure');

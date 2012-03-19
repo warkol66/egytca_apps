@@ -56,8 +56,12 @@ class GoogleNewsStrategy extends AbstractParserStrategy {
 	    
 	    return $nextParams;
     }
-    
-    public function parse() {
+
+    public function parse($url = null) {
+	    
+	    if (!is_null($url))
+		    return $this->parseMore($url);
+	    
         $pq = $this->getDocument();
 	
 	if ($pq->text() == '')
@@ -92,9 +96,54 @@ class GoogleNewsStrategy extends AbstractParserStrategy {
                 'strategy'  => 'googleNews'
             );
         }
-        
+	
         return $news;
     }
+    
+	public function parseMore($url) {
+		
+		$moreSelectors = array(
+			'items' => '#mc-left .story',
+			'item_title' => '.titletext',
+			'item_url' => '.title a',
+			'item_source' => '.sub-title .source',
+			'item_timestamp' => '.sub-title .date',
+			'item_snippet' => '.body .snippet'
+		);
+		
+		
+		$pq = $this->getDocument($url);
+		
+		if ($pq->text() == '')
+			$this->addError('empty_response');
+		
+		$news = array();
+		$resultsErrorsExist = false;
+		foreach ($pq[$moreSelectors['items']] as $item) {
+			
+			$title = $this->fixEncoding($pq->find($moreSelectors['item_title'], $item)->html());
+			$url = $pq->find($moreSelectors['item_url'], $item)->attr('href');
+			$source = $this->fixEncoding($pq->find($moreSelectors['item_source'], $item)->html());
+			$timestamp = $this->parseTimestamp($this->fixEncoding($pq->find($moreSelectors['item_timestamp'], $item)->html()));
+			$snippet = $this->fixEncoding($pq->find($moreSelectors['item_snippet'], $item)->html());
+			
+			if ( !$resultsErrorsExist && ($url == '' || $title == '' || $source == '' || $timestamp == '' || $snippet == '') ) {
+				$this->addError('invalid_headline');
+				$resultsErrorsExist = true;
+			}
+			
+			$news[] = array(
+				'url'       => $url,
+				'title'     => $title,
+				'source'    => $source,
+				'timestamp' => $timestamp,
+				'snippet'   => $snippet,
+				'strategy'  => 'googleNews'
+			);
+		}
+		
+		return $news;
+	}
     
     protected function parseSourceAndTimestamp($html) {
 	    preg_match(/* /(?<source>¿que poner?) */ "/ - (?<timestamp>[^-]*$)/", $this->fixEncoding($html), $matches);

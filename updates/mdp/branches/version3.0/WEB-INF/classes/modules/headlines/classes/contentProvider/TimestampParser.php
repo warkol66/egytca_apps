@@ -39,7 +39,7 @@ class TimestampParser {
         // Si no matchea con ninguno anterior pruebo si es una fecha.
         if (!$this->parseI18n("es") && !$this->parseI18n("en")) {
             try {
-                $this->date = new DateTime($this->timestamp);
+                $this->date = $this->parseDate($this->timestamp);
             }
             catch (Exception $e) {
                 return null;
@@ -47,6 +47,15 @@ class TimestampParser {
         }
         
         return $this->toTimestamp();
+    }
+    
+    private function parseDate($date) {
+	    $parts = preg_split('/\//', $date);
+	    if (count($parts) == 3) {
+		    if (strlen($parts[0]) == 2 && strlen($parts[1]) == 2 && strlen($parts[2]) == 4)
+			    return DateTime::createFromFormat('d/m/Y', $date);
+	    }
+	    return new DateTime($date);
     }
     
     private function parseI18n($lang) {

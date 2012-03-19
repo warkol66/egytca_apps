@@ -172,7 +172,7 @@ abstract class AbstractParserStrategy {
      * 
      * @return array
      */
-    abstract public function parse();
+    abstract public function parse($url = null);
     
     protected function sanitizeHtml($html) {
         return trim(strip_tags($html));
@@ -183,8 +183,10 @@ abstract class AbstractParserStrategy {
      * 
      * @return phpQueryObject
      */
-    protected function getDocument() {
-        $document = phpQuery::newDocumentFileHTML($this->buildQueryUrl(), "utf-8");
+    protected function getDocument($url = null) {
+	    if (is_null($url))
+		    $url = $this->buildQueryUrl();
+        $document = phpQuery::newDocumentFileHTML($url, "utf-8");
         
         if ($this->isResponse503()) $this->addError('service_unavailable');
         
@@ -227,7 +229,12 @@ abstract class AbstractParserStrategy {
     }
     
     protected function fixEncoding($html) {
-        return $this->convertSmartQuotes($this->sanitizeHtml($html));
+        return $this->convertSmartQuotes($this->removeLrmChar($this->sanitizeHtml($html)));
+    }
+    
+    // removes the &lrm; char
+    private function removeLrmChar($string) {
+	    return str_replace(urldecode("%E2%80%8E"), "", $string);
     }
     
     private function convertSmartQuotes($string) 

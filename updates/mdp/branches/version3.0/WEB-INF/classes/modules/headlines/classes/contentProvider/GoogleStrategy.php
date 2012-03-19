@@ -37,8 +37,8 @@ class GoogleStrategy extends AbstractParserStrategy {
 	    return $nextParams;
     }
     
-    public function parse() {
-        $pq = $this->getDocument();
+    public function parse($url = null) {
+        $pq = $this->getDocument($url);
 	
 	if ($pq->text() == '')
 		$this->addError('empty_response');

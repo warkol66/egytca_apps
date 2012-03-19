@@ -255,6 +255,22 @@ class HeadlineContentProvider {
     }
     
     /**
+     * Parsea noticias relacionadas a otro headline y devuelve un array de HeadlineParsed.
+     * 
+     * @return  array
+     */
+    public function findMore($id) {
+	    $headline = HeadlineParsedQuery::create()->findOneById($id);
+	    if (is_null($headline)) {
+		    throw new Exception('invalid ID');
+	    } else {
+		    $url = $headline->getMoresourcesurl();
+		    $news = $this->strategy->parse($url);
+		    return $this->buildHeadlinesParsed($news);
+	    }
+    }
+    
+    /**
      * Crea los objetos HeadlineParsed a partir de los datos recopilados.
      * 
      * @param array $news
@@ -269,7 +285,7 @@ class HeadlineContentProvider {
 		$total++;
             $internalId = $this->buildInternalId($parsedNews);
             $parsedNews['mediaId'] = null;
-            $parsedNews['more_sources_url'] = null;
+//            $parsedNews['more_sources_url'] = null; ¿por qué estaba esta linea?
             $media = MediaQuery::create()->findOneByName($parsedNews['source']);
             if (!empty($media)) {
                 $media = $media->resolveAliases();
