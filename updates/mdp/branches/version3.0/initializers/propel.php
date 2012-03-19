@@ -6,7 +6,8 @@ $appDir = realpath(dirname(__FILE__) . '/../');
 //$logger = new MyLogger();
 
 // Include the main Propel script
-require_once $appDir . '/WEB-INF/lib-phpmvc/Propel/1.6.0/runtime/lib/Propel.php';
+require_once $appDir . '/config/config.php';
+require_once $appDir . '/WEB-INF/lib-phpmvc/Propel/'. $propelVersion .'/runtime/lib/Propel.php';
 
 //Propel::setLogger($logger);
 
