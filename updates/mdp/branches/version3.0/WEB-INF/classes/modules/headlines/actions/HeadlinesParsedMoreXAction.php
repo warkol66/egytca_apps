@@ -31,6 +31,9 @@ class HeadlinesParsedMoreXAction extends BaseAction {
 				$headlinesParsed = $provider->findMore($_GET['id']);
 				$smarty->assign('headlinesParsed', $headlinesParsed);
 				
+				$parseErrors = $provider->getErrors();
+				$smarty->assign('parseErrors', $parseErrors);
+				
 				return $mapping->findForwardConfig('success');
 				
 			} else {

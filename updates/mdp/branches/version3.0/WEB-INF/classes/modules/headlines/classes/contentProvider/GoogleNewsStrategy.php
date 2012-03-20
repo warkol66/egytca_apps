@@ -45,7 +45,7 @@ class GoogleNewsStrategy extends AbstractParserStrategy {
 	    $newParams = GoogleParamsManager::convertGlobal($params);
 	    parent::addQueryParameters($newParams);
     }
-    
+	
     public function getNextQueryParameters() {
 	    $params = parent::getQueryParameters();
 	    $nextParams = parent::getNextQueryParameters();
@@ -56,49 +56,67 @@ class GoogleNewsStrategy extends AbstractParserStrategy {
 	    
 	    return $nextParams;
     }
-
-    public function parse($url = null) {
-	    
-	    if (!is_null($url))
-		    return $this->parseMore($url);
-	    
-        $pq = $this->getDocument();
-	
-	if ($pq->text() == '')
-		$this->addError('empty_response');
-        
-        $news = array();
-	$resultsErrorsExist = false;
-        foreach ($pq[$this->getSelector('items')] as $item) {
-            list($source, $timestamp) = $this->parseSourceAndTimestamp(
-                $pq->find($this->getSelector('item_source'), $item)->html()
-            );
-	    
-	    $url = $this->parseUrl($pq->find($this->getSelector('item_url'), $item)->attr('href'));
-	    $title = $this->fixEncoding($pq->find($this->getSelector('item_title'), $item)->html());
-	    $source = $this->sanitizeHtml($source);
-	    $timestamp = $this->parseTimestamp($timestamp);
-	    $snippet = $this->fixEncoding($pq->find($this->getSelector('item_snippet'), $item)->html());
-	    $moreSourcesUrl = $this->parseMoreSourcesUrl($pq->find($this->getSelector('item_more_links'), $item)->attr('href'));
-	    
-	    if ( !$resultsErrorsExist && ($url == '' || $title == '' || $source == '' || $timestamp == '' || $snippet == '') ) {
-		    $this->addError('invalid_headline');
-		    $resultsErrorsExist = true;
-	    }
-	    
-            $news[] = array(
-                'url'       => $url,
-                'title'     => $title,
-                'source'    => $source,
-                'timestamp' => $timestamp,
-                'snippet'   => $snippet,
-                'more_sources_url' => $moreSourcesUrl,
-                'strategy'  => 'googleNews'
-            );
-        }
-	
-        return $news;
-    }
+    
+	public function parse($url = null) {
+		
+		$debug = false;
+		
+		if (!is_null($url))
+			return $this->parseMore($url);
+		
+		$pq = $this->getDocument();
+		
+		$news = array();
+		$resultsErrorsExist = false;
+		foreach ($pq[$this->getSelector('items')] as $item) {
+			list($source, $timestamp) = $this->parseSourceAndTimestamp(
+				$pq->find($this->getSelector('item_source'), $item)->html()
+			);
+		
+			if ($debug) {
+				echo "timestamp text for processing: $timestamp<br />";
+				echo "<br />";
+			}
+			
+			$url = $this->parseUrl($pq->find($this->getSelector('item_url'), $item)->attr('href'));
+			$title = $this->fixEncoding($pq->find($this->getSelector('item_title'), $item)->html());
+			$source = $this->sanitizeHtml($source);
+			$timestamp = $this->parseTimestamp($timestamp);
+			$snippet = $this->fixEncoding($pq->find($this->getSelector('item_snippet'), $item)->html());
+			$moreSourcesUrl = $this->parseMoreSourcesUrl(
+				$pq->find($this->getSelector('item_more_links'), $item)->attr('href')
+			);
+		
+			if ($debug) {
+				echo "url: $url<br />";
+				echo "title: $title<br />";
+				echo "source: $source<br />";
+				echo "timestamp: $timestamp<br />";
+				echo "snippet: $snippet<br />";
+				echo "moreSourcesUrl: $moreSourcesUrl<br />";
+				echo "<br />";
+			}
+			
+			if ( !$resultsErrorsExist && ($url == '' || $title == ''
+				|| $source == '' || $timestamp == '' || $snippet == '') ) {
+				
+				$this->addError('invalid_headline');
+				$resultsErrorsExist = true;
+			}
+			
+			$news[] = array(
+				'url'       => $url,
+				'title'     => $title,
+				'source'    => $source,
+				'timestamp' => $timestamp,
+				'snippet'   => $snippet,
+				'more_sources_url' => $moreSourcesUrl,
+				'strategy'  => 'googleNews'
+			);
+		}
+		
+		return $news;
+	}
     
 	public function parseMore($url) {
 		
@@ -114,9 +132,6 @@ class GoogleNewsStrategy extends AbstractParserStrategy {
 		
 		$pq = $this->getDocument($url);
 		
-		if ($pq->text() == '')
-			$this->addError('empty_response');
-		
 		$news = array();
 		$resultsErrorsExist = false;
 		foreach ($pq[$moreSelectors['items']] as $item) {
@@ -124,10 +139,14 @@ class GoogleNewsStrategy extends AbstractParserStrategy {
 			$title = $this->fixEncoding($pq->find($moreSelectors['item_title'], $item)->html());
 			$url = $pq->find($moreSelectors['item_url'], $item)->attr('href');
 			$source = $this->fixEncoding($pq->find($moreSelectors['item_source'], $item)->html());
-			$timestamp = $this->parseTimestamp($this->fixEncoding($pq->find($moreSelectors['item_timestamp'], $item)->html()));
+			$timestamp = $this->parseTimestamp($this->fixEncoding(
+				$pq->find($moreSelectors['item_timestamp'], $item)->html())
+			);
 			$snippet = $this->fixEncoding($pq->find($moreSelectors['item_snippet'], $item)->html());
 			
-			if ( !$resultsErrorsExist && ($url == '' || $title == '' || $source == '' || $timestamp == '' || $snippet == '') ) {
+			if ( !$resultsErrorsExist && ($url == '' || $title == ''
+				|| $source == '' || $timestamp == '' || $snippet == '') ) {
+				
 				$this->addError('invalid_headline');
 				$resultsErrorsExist = true;
 			}
@@ -146,13 +165,13 @@ class GoogleNewsStrategy extends AbstractParserStrategy {
 	}
     
     protected function parseSourceAndTimestamp($html) {
-	    preg_match(/* /(?<source>¿que poner?) */ "/ - (?<timestamp>[^-]*$)/", $this->fixEncoding($html), $matches);
+	    preg_match(/* /(?<source>¿que poner?) */ "/\s-\s(?<timestamp>[^-]*$)/", $this->fixEncoding($html), $matches);
 	    
 	    // idealmente esto debería conseguirse arriba con la regexp adecuada
-	    $source = preg_replace("/ -[^-]*$/", '', $this->fixEncoding($html));
-        $ts = preg_replace("/$source - ([^-]*)$/", '$1', $this->fixEncoding($html));
+	    $source = preg_replace("/\s-[^-]*$/", '', $this->fixEncoding($html));
+//	    $ts = preg_replace("/$source\s-\s([^-]*)$/", '$1', $this->fixEncoding($html)); por algun motivo esto dejo de andar en algunas fechas
 	    
-	    return array($source, $ts);
+	    return array($source, $matches['timestamp']);
     }
     
     protected function parseMoreSourcesUrl($url) {

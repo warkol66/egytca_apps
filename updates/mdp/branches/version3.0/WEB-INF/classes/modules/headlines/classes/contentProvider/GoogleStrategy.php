@@ -36,44 +36,56 @@ class GoogleStrategy extends AbstractParserStrategy {
 	    
 	    return $nextParams;
     }
-    
-    public function parse($url = null) {
-        $pq = $this->getDocument($url);
-	
-	if ($pq->text() == '')
-		$this->addError('empty_response');
-	
-	 $news = array();
-	$resultsErrorsExist = false;
-        foreach ($pq[$this->getSelector('items')] as $item) {
-		
-            // horrible - debería hacerse con el $pq de ser posible
-            $chunks = preg_split("/<div>/", $pq->find($this->getSelector('item_body'), $item)->html());
-            list($timestamp, $snippet) = $this->parseDateAndSnippet($this->fixEncoding($chunks[0]));
-	    
-	    $url = $this->parseUrl($pq->find($this->getSelector('item_url'), $item)->attr('href'));
-	    $title = $this->fixEncoding($pq->find($this->getSelector('item_title'), $item)->html());
-	    $source = $this->parseSource($this->fixEncoding($pq->find($this->getSelector('item_source'), $item)->html()));
-	    
-	    if ( !$resultsErrorsExist && ($url == '' || $title == '' || $source == '' || $snippet == '') ) {
-		    $this->addError('invalid_headline');
-		    $resultsErrorsExist = true;
-	    }
 
-            if ($this->mustUseItem($snippet)) {
-                $news[] = array(
-                    'url' => $url,
-                    'title' => $title,
-                    'source' => $source,
-                    'timestamp' => $timestamp,
-                    'snippet' => $snippet,
-                    'strategy' => 'google'
-                );
-    		}
-        }
-        
-        return $news;
-    }
+	public function parse($url = null) {
+		
+		$debug = false;
+		
+		$pq = $this->getDocument($url);
+		
+		$news = array();
+		$resultsErrorsExist = false;
+		foreach ($pq[$this->getSelector('items')] as $item) {
+			
+			if (!$this->mustUseItem($pq, $item))
+				continue;
+			
+			// horrible - debería hacerse con el $pq de ser posible
+			$chunks = preg_split("/<div>/", $pq->find($this->getSelector('item_body'), $item)->html());
+			list($timestamp, $snippet) = $this->parseDateAndSnippet($this->fixEncoding($chunks[0]));
+			
+			$url = $this->parseUrl($pq->find($this->getSelector('item_url'), $item)->attr('href'));
+			$title = $this->fixEncoding($pq->find($this->getSelector('item_title'), $item)->html());
+			$source = $this->parseSource(
+				$this->fixEncoding($pq->find($this->getSelector('item_source'), $item)->html())
+			);
+			
+			if ( !$resultsErrorsExist && ($url == '' || $title == '' || $source == '' || $snippet == '') ) {
+				$this->addError('invalid_headline');
+				$resultsErrorsExist = true;
+			}
+			
+			if ($debug) {
+				echo "url: $url<br />";
+				echo "title: $title<br />";
+				echo "source: $source<br />";
+				echo "timestamp: $timestamp<br />";
+				echo "snippet: $snippet<br />";
+				echo "<br />";
+			}
+			
+			$news[] = array(
+				'url' => $url,
+				'title' => $title,
+				'source' => $source,
+				'timestamp' => $timestamp,
+				'snippet' => $snippet,
+				'strategy' => 'google'
+			);
+		}
+		
+		return $news;
+	}
     
         protected function parseDateAndSnippet($html) {
 		$chunks = preg_split("/\.\.\./", $html, 2);
@@ -90,8 +102,17 @@ class GoogleStrategy extends AbstractParserStrategy {
 		return $chunks[0];
 	}
 	
-	protected function mustUseItem($itemSnippet) {
-		return !empty($itemSnippet);
+	protected function mustUseItem($pq, $item) {
+		$extrasTable = $pq->find('.ts', $item)->html();
+		if (!empty($extrasTable)) // is news or videos block
+			return false;
+		
+		$itemBody = $pq->find('.s', $item)->html();
+//		$brTag = $pq->find('<br>', $item); existance check?
+		if (empty($itemBody) /* && exists $brTag */) // is images block
+			return false;
+		
+		return true;
 	}
 	
 	protected function parseUrl($url) {
