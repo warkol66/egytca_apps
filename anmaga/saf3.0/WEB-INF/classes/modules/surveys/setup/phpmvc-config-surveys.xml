@@ -1,0 +1,78 @@
+<!-- Module Surveys -->
+<!-- Section Surveys -->
+	<action-mappings>
+
+		<action    path = "surveysQuestionsDoEdit"
+							 type = "SurveysQuestionsDoEditAction"
+							 name = "surveysQuestionsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="SurveysQuestionsEdit.tpl" />
+			<forward name="failure" path="SurveysQuestionsEdit.tpl" />
+		</action>
+
+		<action    path = "surveysAnswerOptionsAddX"
+							 type = "SurveysAnswerOptionsAddXAction"
+							 name = "surveysAnswerOptionsAddX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="SurveysAnswerOptionsAddX.tpl" />
+			<forward name="failure" path="SurveysAnswerOptionsAddXFailure.tpl" />
+		</action>
+
+		<action    path = "surveysAnswerOptionsDeleteX"
+							 type = "SurveysAnswerOptionsDeleteXAction"
+							 name = "surveysAnswerOptionsDeleteX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="SurveysAnswerOptionsDeleteX.tpl" />
+			<forward name="failure" path="SurveysAnswerOptionsDeleteXFailure.tpl" />
+		</action>
+
+		<action    path = "surveysShow"
+							 type = "SurveysShowAction"
+							 name = "surveysShow"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="SurveysShow.tpl" />
+			<forward name="failure-visibility" path="SurveysShowFailureVisibility.tpl" />
+		</action>
+
+		<action    path = "surveysDisplay"
+							 type = "SurveysDisplayAction"
+							 name = "surveysDisplay"
+							scope = "request"
+					 validate = "true">
+			<forward name="include" path="SurveysDisplayInclude.tpl" />
+		</action>
+
+		<action    path = "surveysRespondX"
+							 type = "SurveysRespondXAction"
+							 name = "surveysRespondX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="SurveysRespondX.tpl" />
+			<forward name="failure" path="SurveysRespondXFailure.tpl" />
+		</action>
+
+		<action    path = "surveysAnswersDoDelete"
+							 type = "SurveysAnswersDoDeleteAction"
+							 name = "surveysAnswersDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=surveysAnswersList&amp;message=deleted_ok" redirect="true" />
+		</action>
+		
+		<action    path = "surveysDoGenerateProductsSurvey"
+							 type = "SurveysDoGenerateProductsSurveyAction"
+							 name = "surveysDoGenerateProductsSurvey"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=surveysGenerateProductsSurvey&amp;message=ok" redirect="true" />
+			<forward name="failure" path="/Main.php?do=surveysGenerateProductsSurvey&amp;message=error" redirect="true" />
+		</action>
+
+	</action-mappings>
+
+<!-- End Section Surveys -->
+<!-- End Module Surveys -->

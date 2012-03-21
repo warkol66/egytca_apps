@@ -1,0 +1,93 @@
+<database defaultIdMethod="native" package="surveys.classes" name="application" >
+
+	<table phpName="Survey" name="surveys_survey" description="Encuestas">
+
+		<column name="id" type="INTEGER"  required="true" description="Id Encuesta" primaryKey="true" autoIncrement="true"  />
+		<column name="name" type="VARCHAR" size='255' required="true" description="Pregunta de la encuesta" />
+		<column name="isPublic" type="BOOLEAN" default='1' required="true" description="Es publica?" />
+		<column name="startDate" type="DATE" required="true" description="Fecha de inicio de la encuesta"/>
+		<column name="endDate" type="DATE" required="true" description="Fecha de finalizacion de la encuesta"/>
+
+		<behavior name="soft_delete" />
+		<behavior name="timestampable" />
+		
+		<validator column="name">
+  			<rule name="required" message="El nombre es requerido." />
+		</validator>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="SurveyQuestion" name="surveys_question" description="Pregunta a Encuesta">
+
+		<column name="id" type="INTEGER"  required="true" description="Id Encuesta" primaryKey="true" autoIncrement="true"  />
+		<column name="surveyId" type="INTEGER"  required="true" description="Id Encuesta" />
+		<column name="question" type="VARCHAR" size='255' required="true" description="Pregunta de la encuesta" />
+		<column name="multipleAnswer" default='0' type="BOOLEAN" description="Soporta seleccion de multiples respuestas?" />
+
+		<foreign-key foreignTable="surveys_survey" onDelete="cascade">
+			<reference local="surveyId" foreign="id" />
+		</foreign-key>
+		
+		<validator column="question">
+  			<rule name="required" message="La pregunta es requerida." />
+		</validator>
+		
+		<validator column="surveyId">
+  			<rule name="required" message="La pregunta necesita una encuesta asociada." />
+		</validator>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="SurveyAnswerOption" name="surveys_answerOption" description="Opciones de respuesta para una determinada Pregunta">
+
+		<column name="id" type="INTEGER"  required="true" description="Id de pregunta de encuesta" primaryKey="true" autoIncrement="true"  />
+		<column name="questionId" type="INTEGER"  required="true" description="Id de Pregunta" />
+		<column name="answer" type="VARCHAR" size='255' required="true" description="Respuesta de la encuesta" />
+
+		<foreign-key foreignTable="surveys_question" onDelete="cascade">
+			<reference local="questionId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="SurveyAnswer" name="surveys_answer" description="Respuesta seleccionada al realizar una encuesta por un usuario publico o registrado">
+
+		<column name="id" type="INTEGER"  required="true" description="Id Encuesta" primaryKey="true" autoIncrement="true"  />
+		<column name="questionId" type="INTEGER"  required="true" description="Id de Pregunta" />
+		<column name="answerOptionId" type="INTEGER"  required="true" description="Id de Respuesta Seleccionada"/>
+		<column name="objectId" type="INTEGER" description="Id del objeto que genero la respuesta"/>
+		<column name="objectType" type="VARCHAR" size="50" description="Tipo de objeto que genero la respuesta" />
+		
+		<behavior name="timestampable" />
+
+		<foreign-key foreignTable="surveys_question" onDelete="cascade">
+			<reference local="questionId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="surveys_answerOption" onDelete="cascade">
+			<reference local="answerOptionId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>

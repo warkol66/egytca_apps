@@ -1,0 +1,137 @@
+<database defaultIdMethod="native" package="orders.classes" name="application" >
+
+	<table phpName="Order" name="orders_order" description="Pedido de Productos">
+
+		<column name="id" autoIncrement="true" type="INTEGER" required="true" description="Id del pedido" primaryKey='true' />
+		<column name="number" type="INTEGER" description="Numero interno del pedido" />
+		<column name="created" type="TIMESTAMP"  required="true" description="Fecha en que se creo el pedido" />
+		<column name="userId" type="INTEGER"  required="true" description="Id del usuario" />
+		<column name="affiliateId" type="INTEGER"  required="true" description="Id del afiliado" />
+		<column name="branchId" type="INTEGER"  description="Id de la sucursal" />
+		<column name="total" type="FLOAT" description="Precio total del pedido" />
+		<column name="state" type="INTEGER" description="Estado del pedido" />
+
+		<foreign-key foreignTable="affiliates_user" >
+			<reference local="userId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="affiliates_affiliate" >
+			<reference local="affiliateId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="affiliates_branch" >
+			<reference local="branchId" foreign="id" />
+		</foreign-key>
+
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+	</table>
+
+	<table phpName="OrderItem" name="orders_orderItem" description="Item del Pedido de Productos">
+	
+		<column name="id" autoIncrement="true" type="INTEGER" required="true" description="Id del item del pedido" primaryKey='true' />
+		<column name="orderId" type="INTEGER"  required="true" description="Id del pedido" />
+		<column name="productCode" size="255" type="VARCHAR" description="Codigo del producto" />
+		<column name="price" type="FLOAT" description="Precio del producto" />
+		<column name="quantity" type="INTEGER" description="Cantidad del producto en el pedido" />
+	
+		<foreign-key foreignTable="orders_order" onDelete="cascade">
+			<reference local="orderId" foreign="id" />
+		</foreign-key>
+	
+		<foreign-key foreignTable="catalog_product" >
+			<reference local="productCode" foreign="code" />
+		</foreign-key>
+	
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+	</table>
+
+	<table phpName="OrderStateChange" name="orders_stateChanges" description="Cambios de Estado de Pedidos de Productos">
+	
+		<column name="id" autoIncrement="true" type="INTEGER" required="true" description="Id del cambio de estado del pedido" primaryKey='true' />
+		<column name="created" type="TIMESTAMP"  required="true" description="Fecha en que se cambio el estado" />
+		<column name="orderId" type="INTEGER"  required="true" description="Id del pedido" />
+		<column name="userId" type="INTEGER"  required="true" description="Id del usuario" />
+		<column name="affiliateId" type="INTEGER"  required="true" description="Id del afiliado" />
+		<column name="state" type="INTEGER" required="true" description="Nuevo estado" />
+		<column name="comment" type="LONGVARCHAR" description="Comentarios" />
+	
+		<foreign-key foreignTable="orders_order" onDelete="cascade">
+			<reference local="orderId" foreign="id" />
+		</foreign-key>
+	
+		<foreign-key foreignTable="affiliates_user" >
+			<reference local="userId" foreign="id" />
+		</foreign-key>
+	
+		<foreign-key foreignTable="affiliates_affiliate" >
+			<reference local="affiliateId" foreign="id" />
+		</foreign-key>
+	
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+	</table>
+
+	<table phpName="OrderTemplate" name="orders_orderTemplate" description="Plantillas de Pedido de Productos">
+	
+		<column name="id" autoIncrement="true" type="INTEGER" required="true" description="Id del pedido" primaryKey='true' />
+		<column name="name" size="255" type="VARCHAR" required="true" description="Nombre de la plantilla" />
+		<column name="created" type="TIMESTAMP"  required="true" description="Fecha en que se creo el pedido" />
+		<column name="userId" type="INTEGER"  required="true" description="Id del usuario" />
+		<column name="affiliateId" type="INTEGER"  required="true" description="Id del afiliado" />
+		<column name="branchId" type="INTEGER"  description="Id de la sucursal" />
+		<column name="total" type="FLOAT" description="Precio total del pedido" />
+	
+		<foreign-key foreignTable="affiliates_user" >
+			<reference local="userId" foreign="id" />
+		</foreign-key>
+	
+		<foreign-key foreignTable="affiliates_affiliate" >
+			<reference local="affiliateId" foreign="id" />
+		</foreign-key>
+	
+		<foreign-key foreignTable="affiliates_branch" >
+			<reference local="branchId" foreign="id" />
+		</foreign-key>
+	
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+	</table>
+
+	<table phpName="OrderTemplateItem" name="orders_orderTemplateItem" description="Item de la Plantilla de Pedido de Productos">
+	
+		<column name="id" autoIncrement="true" type="INTEGER" required="true" description="Id del item del pedido" primaryKey='true' />
+		<column name="orderTemplateId" type="INTEGER"  required="true" description="Id del pedido" />
+		<column name="productCode" size="255" type="VARCHAR" description="Codigo del producto" />
+		<column name="price" type="FLOAT" description="Precio del producto" />
+		<column name="quantity" type="INTEGER" description="Cantidad del producto en el pedido" />
+	
+		<foreign-key foreignTable="orders_orderTemplate" onDelete="cascade">
+			<reference local="orderTemplateId" foreign="id" />
+		</foreign-key>
+	
+		<foreign-key foreignTable="catalog_product" >
+			<reference local="productCode" foreign="code" />
+		</foreign-key>
+	
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+	</table>
+
+</database>

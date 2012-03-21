@@ -1,0 +1,324 @@
+01001001;DISPLAY 24 PZAS AMBIENTADOR PALMERA (SURTIDOS);display 24 pzas ambientador palmera (surtidos);40194;;;D24
+01001010;DISPLAY 24 PZAS AMBIENTADOR HOJA (SURTIDO);display 24 pzas ambientador hoja (surtido);40194;;;D24
+01001020;DISPLAY 24 PZAS AMBIENTADOR PINO (SURTIDOS);display 24 pzas ambientador pino (surtidos);40194;;;D24
+01001100;DISPLAY 12 PZAS AMBIENTADOR PLAYERO (SURTIDOS);display 12 pzas ambientador playero (surtidos);41580;;;D12
+01002001;DISPLAY 12 PZAS AMBIENTADOR GEL (SURTIDOS);display 12 pzas ambientador gel (surtidos);58905;;;D12
+01003001;DISPLAY 24 PZAS AMBIENTADOR SPRAY (SURTIDOS);display 24 pzas ambientador spray (surtidos);76810;;;D24
+01004001;DISPLAY 12 PZAS AMB. A/A WHITE WHEEL (SURTIDOS);display 12 pzas amb. a/a white wheel (surtidos);75190;;;D12
+01004010;DISPLAY 12 PZAS AMB. A/A BLUE ICE (SURTIDOS);display 12 pzas amb. a/a blue ice (surtidos);90552;;;D12
+01004020;DISPLAY 12 PZAS AMB. A/A ELEGANCE (SURTIDOS);display 12 pzas amb. a/a elegance (surtidos);84490;;;D12
+01004030;DISPLAY 12 PZAS AMB. A/A SPORT RACING (SURTIDOS);display 12 pzas amb. a/a sport racing (surtidos);98120;;;D12
+01010001;SHAMPOO GALON;shampoo galon;6035;;;UNID
+01010010;SHAMPOO LITRO;shampoo litro;2280;;;UNID
+01010020;SHAMPOO TAMBOR 208 LTS;shampoo tambor 208 lts;285000;;;UNID
+01100001;REFRIGERANTE VERDE GALON;refrigerante verde galon;3295;;;UNID
+01100005;REFRIGERANTE VERDE LITRO;refrigerante verde litro;0;;;UNID
+01100010;REFRIGERANTE VERDE TAMBOR 208 LTS;refrigerante verde tambor 208 lts;154000;;;UNID
+01101001;REFRIGERANTE ROJO GALON;refrigerante rojo galon;3295;;;UNID
+01101010;REFRIGERANTE ROJO TAMBOR 208 LTS;refrigerante rojo tambor 208 lts;154000;;;UNID
+01102100;REFRIGERANTE GALON (ETIQUETA BRILLANTE);refrigerante galon (etiqueta brillante);0;;;UNID
+01110001;WIPER GALON (LIQUIDO LIMPIAPARABRISAS);wiper galon (liquido limpiaparabrisas);4795;;;UNID
+01110010;WIPER LITRO (LIQUIDO LIMPIAPARABRISAS);wiper litro (liquido limpiaparabrisas);1895;;;UNID
+01110020;WIPER TAMBOR 208 LTS (LIQUIDO LIMPIAPARABRISAS);wiper tambor 208 lts (liquido limpiaparabrisas);150000;;;UNID
+02001001;TAPASOL ALUMINIZADO ENRROLLABLE;tapasol aluminizado enrrollable;5800;;;UNID
+02001005;TAPASOL ACORDEON (SURTIDO 4 COLORES);tapasol acordeon (surtido 4 colores);9010;;;UNID
+02001010;TAPASOL SPRING SHADE;tapasol spring shade;12075;;;UNID
+02010001;COBERTOR PARA VEHICULO (TALLA M);cobertor para vehiculo (talla m);0;;;UNID
+02010010;COBERTOR PARA VEHICULOS (TALLA XL);cobertor para vehiculos (talla xl);0;;;UNID
+02010020;COBERTOR PARA VEHICULOS(TALLA 4X4);cobertor para vehiculos(talla 4x4);0;;;UNID
+02010100;COBERTOR PREMIUM PARA VEHICULO (TALLA M);cobertor premium para vehiculo (talla m);85000;;;UNID
+02010110;COBERTOR PREMIUM PARA VEHICULOS (TALLA XL);cobertor premium para vehiculos (talla xl);93000;;;UNID
+02010120;COBERTOR PREMIUM PARA VEHICULOS(TALLA 4X4);cobertor premium para vehiculos(talla 4x4);93500;;;UNID
+02020001;CUBRE VOLANTES MASAJEADOR 3403 NEGRO;cubre volantes masajeador 3403 negro;7950;;;UNID
+02020003;CUBRE VOLANTES MASAJEADOR 3201 FIBRA DE CARBONO;cubre volantes masajeador 3201 fibra de carbono;7950;;;UNID
+02020005;CUBRE VOLANTES MASAJEADOR 3502 MADERA;cubre volantes masajeador 3502 madera;7950;;;UNID
+02020010;CUBRE VOLANTES DE LUJO 23513/1 NEGRO;cubre volantes de lujo 23513/1 negro;13980;;;UNID
+02020012;CUBRE VOLANTES DE LUJO 3301 NEGRO Y GRIS;cubre volantes de lujo 3301 negro y gris;13980;;;UNID
+02020014;CUBRE VOLANTES DE LUJO 23516/7 NEGRO Y MARRON;cubre volantes de lujo 23516/7 negro y marron;13980;;;UNID
+02020016;CUBRE VOLANTES PREMIUM 51032 NEGRO;cubre volantes premium 51032 negro;23600;;;UNID
+02020018;CUBRE VOLANTES PREMIUM 51032 GRIS;cubre volantes premium 51032 gris;23600;;;UNID
+02020020;CUBRE VOLANTES PREMIUM 2401CUERO GRIS CLARO;cubre volantes premium 2401cuero gris claro;23600;;;UNID
+02020022;CUBRE VOLANTES PREMIUM 3903 CUERO GRIS OSCURO;cubre volantes premium 3903 cuero gris oscuro;23600;;;UNID
+02020024;CUBRE VOLANTES PREMIUM 23353/4 ERGONOMICO GRIS;cubre volantes premium 23353/4 ergonomico gris;23600;;;UNID
+02020026;CUBRE VOLANTES PREMIUM 23353/1 ERGONOMICO NEGRO;cubre volantes premium 23353/1 ergonomico negro;23600;;;UNID
+02020028;CUBRE VOLANTES PREMIUM 23550/1 SPORT GRIS;cubre volantes premium 23550/1 sport gris;23600;;;UNID
+02020030;CUBRE VOLANTES PREMIUM 23550/1 SPORT NEGRO;cubre volantes premium 23550/1 sport negro;23600;;;UNID
+02020032;CUBRE VOLANTES PREMIUM 52002 FIBRA DE CARBONO NEGRO;cubre volantes premium 52002 fibra de carbono negro;23600;;;UNID
+02020034;CUBRE VOLANTES PREMIUM 52002 FIBRA DE CARBONO GRIS;cubre volantes premium 52002 fibra de carbono gris;23600;;;UNID
+02020050;CUBRE VOLANTES RACING CON BANDANAS NEGRO Y AZUL;cubre volantes racing con bandanas negro y azul;16480;;;UNID
+02020052;CUBRE VOLANTES RACING CON BANDANAS AZUL Y GRIS;cubre volantes racing con bandanas azul y gris;16480;;;UNID
+02020054;CUBRE VOLANTES RACING CON BANDANAS AMARILLO Y NEGRO;cubre volantes racing con bandanas amarillo y negro;16480;;;UNID
+02040001;CUBRE ASIENTOS DE ALGODON;cubre asientos de algodon;49048;;;UNID
+02040020;CUBRE ASIENTOS DE JACQUARD;cubre asientos de jacquard;69800;;;UNID
+02040030;CUBRE ASIENTOS IMPERMEABLE (2 PZAS);cubre asientos impermeable (2 pzas);26915;;;UNID
+02040100;CUBRE ASIENTOS SPORT GRIS Y NEGRO;cubre asientos sport gris y negro;88000;;;UNID
+02040110;CUBRE ASIENTOS SPORT NEGRO Y GRIS;cubre asientos sport negro y gris;88000;;;UNID
+02040500;SET CUBRE ASIENTOS, CUBRE VOLANTE Y 2 BANDANAS;set cubre asientos, cubre volante y 2 bandanas;0;;;UNID
+02040610;CUBRE ASIENTOS RACING NEGRO Y GRIS;cubre asientos racing negro y gris;102500;;;UNID
+02040620;CUBRE ASIENTOS RACING AZUL Y GRIS;cubre asientos racing azul y gris;102500;;;UNID
+02040630;CUBRE ASIENTOS RACING AMARILLO Y NEGRO;cubre asientos racing amarillo y negro;102500;;;UNID
+02110001;PORTA BEBIDAS;porta bebidas;8680;;;UNID
+02120010;PORTA CELULAR;porta celular;8665;;;UNID
+02150001;PORTA LENTES;porta lentes;9695;;;UNID
+02160001;ESTUCHE PORTA 24 CDS;estuche porta 24 cds;18750;;;UNID
+02160100;ESTUCHE PORTA 12 CDS DE TAPASOL;estuche porta 12 cds de tapasol;18750;;;UNID
+02200010;TRANCA VOLANTE SUPER GANCHO;tranca volante super gancho;0;;;UNID
+02300010;"TAZAS PREMIUM 13"" (ZT-887) (MODELO A)";"tazas premium 13"" (zt-887) (modelo a)";50750;;;UNID
+02300015;"TAZAS PREMIUM 13"" (ZT-1022) (MODELO B)";"tazas premium 13"" (zt-1022) (modelo b)";50750;;;UNID
+02300020;"TAZAS PREMIUM 13"" (ZT-868) (MODELO C)";"tazas premium 13"" (zt-868) (modelo c)";50750;;;UNID
+02300025;"TAZAS PREMIUM 13"" (ZT-8083) (MODELO D)";"tazas premium 13"" (zt-8083) (modelo d)";50750;;;UNID
+02300030;"TAZAS PREMIUM 13"" (ZT-9126) (MODELO E)";"tazas premium 13"" (zt-9126) (modelo e)";50750;;;UNID
+02300035;"TAZAS PREMIUM 13"" (ZT-9054) (MODELO F)";"tazas premium 13"" (zt-9054) (modelo f)";50750;;;UNID
+02300040;"TAZAS PREMIUM 13"" (ZT-8321) MODELO G)";"tazas premium 13"" (zt-8321) modelo g)";50750;;;UNID
+02300045;"TAZAS PREMIUM 13"" (ZT-8107) (MODELO H)";"tazas premium 13"" (zt-8107) (modelo h)";50750;;;UNID
+02300050;"TAZAS PREMIUM 13"" (ZT-1026) (MODELO I)";"tazas premium 13"" (zt-1026) (modelo i)";50750;;;UNID
+02300055;"TAZAS PREMIUM 13"" (ZT-1027) (MODELO J)";"tazas premium 13"" (zt-1027) (modelo j)";50750;;;UNID
+02300060;"TAZAS PREMIUM 13"" (ZT-1025) (MODELO K)";"tazas premium 13"" (zt-1025) (modelo k)";50750;;;UNID
+02300100;"BULTO TAZAS  PREMIUM  MIXTO 13"" (MODELO Z)";"bulto tazas  premium  mixto 13"" (modelo z)";0;;;UNID
+02300105;"BULTO TAZAS PREMIUM MIXTO 13"" (MODELO ZZ)";"bulto tazas premium mixto 13"" (modelo zz)";0;;;UNID
+02302010;"TAZAS PREMIUM 14"" (ZT-887) (MODELO A)";"tazas premium 14"" (zt-887) (modelo a)";50750;;;UNID
+02302015;"TAZAS PREMIUM 14"" (ZT-1022) (MODELO B)";"tazas premium 14"" (zt-1022) (modelo b)";50750;;;UNID
+02302020;"TAZAS PREMIUM 14"" (ZT868) (MODELO C)";"tazas premium 14"" (zt868) (modelo c)";50750;;;UNID
+02302025;"TAZAS PREMIUM 14"" (ZT-8083) (MODELO D)";"tazas premium 14"" (zt-8083) (modelo d)";50750;;;UNID
+02302030;"TAZAS PREMIUM 14"" (ZT-9126) (MODELO E)";"tazas premium 14"" (zt-9126) (modelo e)";50750;;;UNID
+02302035;"TAZAS PREMIUM 14"" (ZT-9054) (MODELO F)";"tazas premium 14"" (zt-9054) (modelo f)";50750;;;UNID
+02302040;"TAZAS PREMIUM 14"" (ZT-8321) (MODELO G)";"tazas premium 14"" (zt-8321) (modelo g)";50750;;;UNID
+02302045;"TAZAS PREMIUM 14"" (ZT-8107) (MODELO H)";"tazas premium 14"" (zt-8107) (modelo h)";50750;;;UNID
+02302050;"TAZAS PREMIUM 14"" (ZT-1026) (MODELO I)";"tazas premium 14"" (zt-1026) (modelo i)";50750;;;UNID
+02302055;"TAZAS PREMIUM 14"" (ZT-1027) (MODELO J)";"tazas premium 14"" (zt-1027) (modelo j)";50750;;;UNID
+02302060;"TAZAS PREMIUM 14"" (ZT-1025) (MODELO K)";"tazas premium 14"" (zt-1025) (modelo k)";50750;;;UNID
+02302100;"BULTO TAZAS  PREMIUM  MIXTO 14"" (MODELO Z)";"bulto tazas  premium  mixto 14"" (modelo z)";0;;;UNID
+02302105;"BULTO TAZAS PREMIUM MIXTO 14"" (MODELO ZZ)";"bulto tazas premium mixto 14"" (modelo zz)";0;;;UNID
+02304010;"TAZAS PREMIUM 15"" (ZT-887) (MODELO A)";"tazas premium 15"" (zt-887) (modelo a)";50750;;;UNID
+02304015;"TAZAS PREMIUM 15"" (ZT-1022) (MODELO B)";"tazas premium 15"" (zt-1022) (modelo b)";50750;;;UNID
+02304020;"TAZAS PREMIUM 15"" (ZT868) (MODELO C)";"tazas premium 15"" (zt868) (modelo c)";50750;;;UNID
+02304025;"TAZAS PREMIUM 15"" (ZT-8083) (MODELO D)";"tazas premium 15"" (zt-8083) (modelo d)";50750;;;UNID
+02304030;"TAZAS PREMIUM 15"" (ZT-9126) (MODELO E)";"tazas premium 15"" (zt-9126) (modelo e)";50750;;;UNID
+02304035;"TAZAS PREMIUM 15"" (ZT-9054) (MODELO F)";"tazas premium 15"" (zt-9054) (modelo f)";50750;;;UNID
+02304040;"TAZAS PREMIUM 15"" (ZT-8321) (MODELO G)";"tazas premium 15"" (zt-8321) (modelo g)";50750;;;UNID
+02304045;"TAZAS PREMIUM 15"" (ZT-8107) (MODELO H)";"tazas premium 15"" (zt-8107) (modelo h)";50750;;;UNID
+02304050;"TAZAS PREMIUM 15"" (ZT-1026) (MODELO I)";"tazas premium 15"" (zt-1026) (modelo i)";50750;;;UNID
+02304055;"TAZAS PREMIUM 15"" (ZT-1027) (MODELO J)";"tazas premium 15"" (zt-1027) (modelo j)";50750;;;UNID
+02304060;"TAZAS PREMIUM 15"" (ZT-1025) (MODELO K)";"tazas premium 15"" (zt-1025) (modelo k)";50750;;;UNID
+02305010;"JUEGO DE TAZAS TUNING 13"" (ZT-8013) (MODELO TA) (COLORES SURTIDOS)";"juego de tazas tuning 13"" (zt-8013) (modelo ta) (colores surtidos)";45600;;;UNID
+02305015;"JUEGO DE TAZAS TUNING 13"" (ZT-513) (MODELO TB) (COLORES SURTIDOS)";"juego de tazas tuning 13"" (zt-513) (modelo tb) (colores surtidos)";45600;;;UNID
+02305020;"JUEGO DE TAZAS TUNING 13"" (ZT-9054) (MODELO TC) (COLORES SURTIDOS)";"juego de tazas tuning 13"" (zt-9054) (modelo tc) (colores surtidos)";45600;;;UNID
+02305025;"JUEGO DE TAZAS TUNING 13"" (ZT-542) (MODELO TD) (COLORES SURTIDOS)";"juego de tazas tuning 13"" (zt-542) (modelo td) (colores surtidos)";45600;;;UNID
+02307010;"JUEGO DE TAZAS TUNING 14"" (ZT-8013) (MODELO TA) (COLORES SURTIDOS)";"juego de tazas tuning 14"" (zt-8013) (modelo ta) (colores surtidos)";45600;;;UNID
+02310001;ESTERILLA CON IMANES NEGRO;esterilla con imanes negro;20400;;;UNID
+02310005;ESTERILLA CON IMANES GRIS;esterilla con imanes gris;20400;;;UNID
+02310010;ESTERILLA MASAJEADORA DE MADERA;esterilla masajeadora de madera;27000;;;UNID
+02310100;ESTERILLA TUNING AZUL Y NEGRO;esterilla tuning azul y negro;42500;;;UNID
+02310110;ESTERILLA TUNING GRIS Y NEGRO;esterilla tuning gris y negro;42500;;;UNID
+02310120;ESTERILLA TUNING GRIS Y AZUL;esterilla tuning gris y azul;42500;;;UNID
+02400001;ADAPTADOR DE SALIDA TRIPLE;adaptador de salida triple;12450;;;UNID
+02410001;LUZ DE MAPA;luz de mapa;5810;;;UNID
+03001001;HIDROLAVADORA A2020;hidrolavadora a2020;282500;;;UNID
+03010001;ASPIRADORA CON TANQUE Y FILTRO LAVABLE;aspiradora con tanque y filtro lavable;48975;;;UNID
+03010010;SUPER ASPIRADORA HUMEDO/SECO;super aspiradora humedo/seco;33625;;;UNID
+03020010;ESPONJAS DE COLORES TIPO HUESO;esponjas de colores tipo hueso;5200;;;UNID
+03020020;"ESPONJA DE PVA EN FORMA DE ""D""";"esponja de pva en forma de ""d""";6500;;;UNID
+03030010;MINI HARAGAN LIMPIAVIDRIOS CON DEPOSITO;mini haragan limpiavidrios con deposito;9025;;;UNID
+03040001;CUERO PARA AUTOMOVILES PEQUEÑO;cuero para automoviles pequeño;11495;;;UNID
+03040010;CUERO PARA AUTOMOVILES GRANDE;cuero para automoviles grande;21985;;;UNID
+03042010;SET DE 4 PIEZAS DE PAÑOS DE MICRO FIBRA PARA AUTOS;set de 4 piezas de paños de micro fibra para autos;22500;;;UNID
+03100001;BOMBA DE AIRE DE PIE CON MANOMETRO;bomba de aire de pie con manometro;11800;;;UNID
+03100010;BOMBA DE AIRE DE MANO CON MANOMETRO;bomba de aire de mano con manometro;18230;;;UNID
+03110001;MINI COMPRESOR 250 PSI (CAUDAL POR PULSO);mini compresor 250 psi (caudal por pulso);26000;;;UNID
+03110005;MINI COMPRESOR METALICO 250 PSI (CAUDALCONTINUO);mini compresor metalico 250 psi (caudalcontinuo);80500;;;UNID
+03110010;COMPRESOR DE AIRE 3 EN 1 (300 PSI);compresor de aire 3 en 1 (300 psi);43440;;;UNID
+03120001;MEDIDOR DE PRESION DE AIRE TIPO LAPIZ;medidor de presion de aire tipo lapiz;1765;;;UNID
+03130001;"LLAVE DE CRUZ DE 14""";"llave de cruz de 14""";11215;;;UNID
+03130010;"LLAVE DE CRUZ DE 20""";"llave de cruz de 20""";13600;;;UNID
+03130020;"LLAVE DE CRUZ DE 25""";"llave de cruz de 25""";33150;;;UNID
+03132001;LLAVE DE ARTILLERIA 1 1/16 X 1 1/4;llave de artilleria 1 1/16 x 1 1/4;42950;;;UNID
+03132010;LLAVE DE ARTILLERIA 1 1/8 X 1 1/4;llave de artilleria 1 1/8 x 1 1/4;42950;;;UNID
+03132020;LLAVE DE ARTILLERIA 1 X 1 1/4;llave de artilleria 1 x 1 1/4;42950;;;UNID
+03132030;LLAVE DE ARTILLERIA 1 5/16 X 1 1/4;llave de artilleria 1 5/16 x 1 1/4;42950;;;UNID
+03140001;GATO DE BOTELLA (2 TON);gato de botella (2 ton);21000;;;UNID
+03140020;GATO DE BOTELLA (4 TON);gato de botella (4 ton);29405;;;UNID
+03140040;GATO DE BOTELLA (6 TON);gato de botella (6 ton);40250;;;UNID
+03140050;GATO DE BOTELLA (8 TON);gato de botella (8 ton);61468;;;UNID
+03140060;GATO DE BOTELLA (10 TON);gato de botella (10 ton);67355;;;UNID
+03140070;GATO DE BOTELLA (12 TON);gato de botella (12 ton);76960;;;UNID
+03140080;GATO DE BOTELLA (20 TON);gato de botella (20 ton);120000;;;UNID
+03140090;GATO DE BOTELLA (30 TON);gato de botella (30 ton);165000;;;UNID
+03140100;GATO DE BOTELLA (50 TON);gato de botella (50 ton);285000;;;UNID
+03141001;GATO DE BOTELLA CON ESTUCHE (2 TON);gato de botella con estuche (2 ton);33630;;;UNID
+03141010;GATO DE BOTELLA CON ESTUCHE (4 TON);gato de botella con estuche (4 ton);47535;;;UNID
+03141020;GATO DE BOTELLA CON ESTUCHE (6 TON);gato de botella con estuche (6 ton);67090;;;UNID
+03142001;GATO CAIMAN (2 TON);gato caiman (2 ton);43500;;;UNID
+03142010;GATO CAIMAN PREMIUM 2 TON;gato caiman premium 2 ton;75850;;;UNID
+03143001;GATO CAIMAN CON ESTUCHE (2 TON);gato caiman con estuche (2 ton);54000;;;UNID
+03144010;GATO CAIMAN 2 1/2 TON DE TALLER;gato caiman 2 1/2 ton de taller;291000;;;UNID
+03145010;"GATO PARA RUSTICOS HIGH LIFT 48""";"gato para rusticos high lift 48""";156500;;;UNID
+03150010;SOPORTES DE VEHICULO (BURROS) PARA MECANICO (2 TON) PLEGABLES;soportes de vehiculo (burros) para mecanico (2 ton) plegables;36000;;;UNID
+03150020;SOPORTES DE VEHICULO (BURROS) PARA MECANICO (4 TON);soportes de vehiculo (burros) para mecanico (4 ton);0;;;UNID
+03230001;KIT VIAL DE EMERGENCIA;kit vial de emergencia;42500;;;UNID
+03240001;CEPILLO LIMPIABORNES;cepillo limpiabornes;3310;;;UNID
+03250001;"LLAVE SACABUJIAS 5/8""";"llave sacabujias 5/8""";5480;;;UNID
+03250010;"LLAVE SACABUJIAS 13/16""";"llave sacabujias 13/16""";5420;;;UNID
+03250100;"LLAVE SACABUJIAS PROFESIONAL 13/16"" Y 5/8"" CROMO VANADIO";"llave sacabujias profesional 13/16"" y 5/8"" cromo vanadio";24350;;;UNID
+03300001;CABLE AUXILIAR 150 AMP CON ESTUCHE;cable auxiliar 150 amp con estuche;13450;;;UNID
+03300005;CABLE AUXILIAR 250 AMP CON ESTUCHE;cable auxiliar 250 amp con estuche;17726,5;;;UNID
+03300010;CABLE AUXILIAR 500 AMP CON ESTUCHE;cable auxiliar 500 amp con estuche;27520;;;UNID
+03310001;TRIANGULO DE SEGURIDAD EXTRA REFLECTIVO;triangulo de seguridad extra reflectivo;6405;;;UNID
+03312001;"CONO DE SEGURIDAD 10""";"cono de seguridad 10""";19395;;;UNID
+03312010;"CONO DE SEGURIDAD 18""";"cono de seguridad 18""";26030;;;UNID
+03312020;"CONO DE SEGURIDAD 28""";"cono de seguridad 28""";39225;;;UNID
+03312030;"CONO DE SEGURIDAD PLEGABLE 18""";"cono de seguridad plegable 18""";34825;;;UNID
+03320001;LAMPARA DE EMERGENCIA (ENCENDEDOR Y BATERIA);lampara de emergencia (encendedor y bateria);12650;;;UNID
+03320010;LAMPARA FLUORESCENTE (ENCENDEDOR Y BATERIA);lampara fluorescente (encendedor y bateria);15140;;;UNID
+03340001;EXTINTOR 2.5 LBS (POLVO QUIMICO SECO ABC);extintor 2.5 lbs (polvo quimico seco abc);46195;;;UNID
+03340010;EXTINTOR 5 LBS (POLVO QUIMICO SECO ABC);extintor 5 lbs (polvo quimico seco abc);65890;;;UNID
+03340020;EXTINTOR 10 LBS (POLVO QUIMICO SECO ABC);extintor 10 lbs (polvo quimico seco abc);97230;;;UNID
+03340030;EXTINTOR 20 LBS (POLVO QUIMICO SECO ABC);extintor 20 lbs (polvo quimico seco abc);187975;;;UNID
+04140001;CINTA METRICA 3 MTS;cinta metrica 3 mts;3555;;;UNID
+04140010;CINTA METRICA 5 MTS;cinta metrica 5 mts;6290;;;UNID
+04140020;CINTA METRICA 8 MTS;cinta metrica 8 mts;10990;;;UNID
+04170001;KIT DE CARPINTERIA 48 PZAS;kit de carpinteria 48 pzas;30920;;;UNID
+04170040;KIT DE ELECTRICISTA;kit de electricista;17120;;;UNID
+04170050;KIT DE 10 PIEZAS MECHAS Y PUNTAS;kit de 10 piezas mechas y puntas;5360;;;UNID
+04170060;KIT DE 500 PIEZAS MECHAS Y RAMPLUG;kit de 500 piezas mechas y ramplug;17120;;;UNID
+04170070;KIT DE 19 PIEZAS MECHAS DE TITANIO;kit de 19 piezas mechas de titanio;27060;;;UNID
+04500001;EMP. 06 PZAS. CINTA DE EMBALAJE TRANSPARENTE (35 MTS);emp. 06 pzas. cinta de embalaje transparente (35 mts);9120;;;E6
+04500010;EMP. 06 PZAS. CINTA DE EMBALAJE TRANSPARENTE (90 MTS);emp. 06 pzas. cinta de embalaje transparente (90 mts);22380;;;E6
+04510001;EMP. 10 PZAS TEIPE ELECTRICO DE PVC;emp. 10 pzas teipe electrico de pvc;8500;;;E10
+04520001;"TEFLON DE 1/2""";"teflon de 1/2""";185;;;UNID
+04520010;"TEFLON DE 3/4""";"teflon de 3/4""";2001;;;UNID
+04520020;"TEFLON DE 1""";"teflon de 1""";2780;;;UNID
+04550001;DISPENSADOR DE CINTA DE EMBALAR;dispensador de cinta de embalar;12500;;;UNID
+04600001;"CANILLA ACERO 1/2"" X 1/2"" (CONECTOR DE BRONCE)";"canilla acero 1/2"" x 1/2"" (conector de bronce)";3225;;;UNID
+04600010;"CANILLA ACERO 1/2"" X 5/8"" (CONECTOR DE BRONCE)";"canilla acero 1/2"" x 5/8"" (conector de bronce)";4075;;;UNID
+04700010;REGLETA MULTITOMA MASTER PLUG (BLANCA);regleta multitoma master plug (blanca);11105;;;UNID
+04710010;PROTECTOR DE PICOS MASTER PLUG (75 JOULES);protector de picos master plug (75 joules);12650;;;UNID
+04800030;BOMBA DE AGUA PERIFERICA DE 0.5 PH;bomba de agua periferica de 0.5 ph;0;;;UNID
+05001001;EMP. 10 PZAS BOMBILLO 9004 HALOGENO (100/80W);emp. 10 pzas bombillo 9004 halogeno (100/80w);47150;;;E10
+05001005;EMP. 10 PZAS BOMBILLO 9004 HALOGENO (60/55W);emp. 10 pzas bombillo 9004 halogeno (60/55w);47150;;;E10
+05001010;EMP. 10 PZAS BOMBILLO 9004 HALOGENO (130/100W);emp. 10 pzas bombillo 9004 halogeno (130/100w);47150;;;E10
+05001020;EMP. 10 PZAS BOMBILLO 9005 HALOGENO (80W);emp. 10 pzas bombillo 9005 halogeno (80w);44000;;;E10
+05001025;EMP. 10 PZAS BOMBILLO 9005 HALOGENO (100W);emp. 10 pzas bombillo 9005 halogeno (100w);44000;;;E10
+05001040;EMP. 10 PZAS BOMBILLO 9006 HALOGENO (80W);emp. 10 pzas bombillo 9006 halogeno (80w);44000;;;E10
+05001045;EMP. 10 PZAS BOMBILLO 9006 HALOGENO (100W);emp. 10 pzas bombillo 9006 halogeno (100w);44000;;;E10
+05001060;EMP. 10 PZAS BOMBILLO 9007 HALOGENO (100/80W);emp. 10 pzas bombillo 9007 halogeno (100/80w);48450;;;E10
+05001065;EMP. 10 PZAS BOMBILLO 9007 HALOGENO (60/55W);emp. 10 pzas bombillo 9007 halogeno (60/55w);48450;;;E10
+05001070;EMP. 10 PZAS BOMBILLO 9007 HALOGENO (130/100W);emp. 10 pzas bombillo 9007 halogeno (130/100w);48450;;;E10
+05002001;EMP. 10 PZAS BOMBILLO H1 HALOGENO (55W);emp. 10 pzas bombillo h1 halogeno (55w);9750;;;E10
+05002005;EMP. 10 PZAS BOMBILLO H1 HALOGENO (100W);emp. 10 pzas bombillo h1 halogeno (100w);9750;;;E10
+05002040;EMP. 10 PZAS BOMBILLO H3 HALOGENO (55W);emp. 10 pzas bombillo h3 halogeno (55w);9750;;;E10
+05002045;EMP. 10 PZAS BOMBILLO H3 HALOGENO (100W);emp. 10 pzas bombillo h3 halogeno (100w);9750;;;E10
+05002060;EMP. 10 PZAS BOMBILLO H4 P43T  HALOGENO (100/90W);emp. 10 pzas bombillo h4 p43t  halogeno (100/90w);26700;;;E10
+05002065;EMP. 10 PZAS BOMBILLO H4 P43T  HALOGENO (60/55W);emp. 10 pzas bombillo h4 p43t  halogeno (60/55w);26700;;;E10
+05002070;EMP. 10 PZAS BOMBILLO H4 P43T  HALOGENO (130/100W);emp. 10 pzas bombillo h4 p43t  halogeno (130/100w);26700;;;E10
+05002080;EMP. 10 PZAS BOMBILLO  H4 P45T HALOGENO (100/90W);emp. 10 pzas bombillo  h4 p45t halogeno (100/90w);26700;;;E10
+05002085;EMP. 10 PZAS BOMBILLO  H4 P45T HALOGENO (60/55W);emp. 10 pzas bombillo  h4 p45t halogeno (60/55w);26700;;;E10
+05002090;EMP. 10 PZAS BOMBILLO  H4 P45T HALOGENO (130/100W);emp. 10 pzas bombillo  h4 p45t halogeno (130/100w);26700;;;E10
+05002100;EMP. 10 PZAS BOMBILLO  H7 HALOGENO (55W);emp. 10 pzas bombillo  h7 halogeno (55w);31200;;;E10
+05002105;EMP. 10 PZAS BOMBILLO  H7 HALOGENO (100W);emp. 10 pzas bombillo  h7 halogeno (100w);31200;;;E10
+05003001;EMP. 10 PZAS BOMBILLO 9004 XENON (100/80W);emp. 10 pzas bombillo 9004 xenon (100/80w);64800;;;E10
+05003005;EMP. 10 PZAS BOMBILLO 9004 XENON (60/55W);emp. 10 pzas bombillo 9004 xenon (60/55w);64800;;;E10
+05003010;EMP. 10 PZAS BOMBILLO 9004 XENON (130/100W);emp. 10 pzas bombillo 9004 xenon (130/100w);64800;;;E10
+05003020;EMP. 10 PZAS BOMBILLO 9005 XENON (80W);emp. 10 pzas bombillo 9005 xenon (80w);62250;;;E10
+05003025;EMP. 10 PZAS BOMBILLO 9005 XENON (100W);emp. 10 pzas bombillo 9005 xenon (100w);62250;;;E10
+05003040;EMP. 10 PZAS BOMBILLO 9006 XENON (80W);emp. 10 pzas bombillo 9006 xenon (80w);62250;;;E10
+05003045;EMP. 10 PZAS BOMBILLO 9006 XENON (100W);emp. 10 pzas bombillo 9006 xenon (100w);62250;;;E10
+05003060;EMP. 10 PZAS BOMBILLO 9007 XENON (100/80W);emp. 10 pzas bombillo 9007 xenon (100/80w);65800;;;E10
+05003065;EMP. 10 PZAS BOMBILLO 9007 XENON (60/55W);emp. 10 pzas bombillo 9007 xenon (60/55w);65800;;;E10
+05003070;EMP. 10 PZAS BOMBILLO 9007 XENON (130/100W);emp. 10 pzas bombillo 9007 xenon (130/100w);65800;;;E10
+05004001;EMP. 10 PZAS BOMBILLO H1 XENON (55W);emp. 10 pzas bombillo h1 xenon (55w);22300;;;E10
+05004005;EMP. 10 PZAS BOMBILLO H1 XENON (100W);emp. 10 pzas bombillo h1 xenon (100w);22300;;;E10
+05004040;EMP. 10 PZAS BOMBILLO H3 XENON (55W);emp. 10 pzas bombillo h3 xenon (55w);22300;;;E10
+05004045;EMP. 10 PZAS BOMBILLO H3 XENON (100W);emp. 10 pzas bombillo h3 xenon (100w);22300;;;E10
+05004060;EMP. 10 PZAS BOMBILLO H4 P43T XENON (100/90W);emp. 10 pzas bombillo h4 p43t xenon (100/90w);48900;;;E10
+05004065;EMP. 10 PZAS BOMBILLO H4 P43T XENON (60/55W);emp. 10 pzas bombillo h4 p43t xenon (60/55w);48900;;;E10
+05004070;EMP. 10 PZAS BOMBILLO H4 P43T XENON (130/100W);emp. 10 pzas bombillo h4 p43t xenon (130/100w);48900;;;E10
+05004080;EMP. 10 PZAS BOMBILLO H4 P45T XENON (100/90W);emp. 10 pzas bombillo h4 p45t xenon (100/90w);48900;;;E10
+05004085;EMP. 10 PZAS BOMBILLO H4 P45T XENON (60/55W);emp. 10 pzas bombillo h4 p45t xenon (60/55w);48900;;;E10
+05004090;EMP. 10 PZAS BOMBILLO H4 P45T XENON (130/100W);emp. 10 pzas bombillo h4 p45t xenon (130/100w);48900;;;E10
+05004100;EMP. 10 PZAS BOMBILLO H7 XENON (55W);emp. 10 pzas bombillo h7 xenon (55w);72500;;;E10
+05004105;EMP. 10 PZAS BOMBILLO H7 XENON (100W);emp. 10 pzas bombillo h7 xenon (100w);72500;;;E10
+05005001;CAJA DE 100 PZAS BOMBILLO AUTOMOTRIZ Nº53;caja de 100 pzas bombillo automotriz nº53;16500;;;C100
+05005010;CAJA DE 50 PZAS BOMBILLO AUTOMOTRIZ Nº 57;caja de 50 pzas bombillo automotriz nº 57;8250;;;C50
+05005020;CAJA DE 10 PZAS BOMBILLO AUTOMOTRIZ Nº 67;caja de 10 pzas bombillo automotriz nº 67;1800;;;C10
+05005030;CAJA DE 10 PZAS BOMBILLO 1034 (DOBLE CONTACTO);caja de 10 pzas bombillo 1034 (doble contacto);3150;;;C10
+05005040;CAJA DE 10 PZAS BOMBILLO 1073 (UN CONTACTO);caja de 10 pzas bombillo 1073 (un contacto);3150;;;C10
+05005050;CAJA DE 100 PZAS BOMBILLO T-5 (B-73) MUELITA;caja de 100 pzas bombillo t-5 (b-73) muelita;22000;;;C100
+05005060;CAJA DE 100 PZAS BOMBILLO T-10 (B-158) MUELA;caja de 100 pzas bombillo t-10 (b-158) muela;18000;;;C100
+05005070;CAJA DE 10 PZAS BOMBILLO T-15 (B-912) MUELA GDE.;caja de 10 pzas bombillo t-15 (b-912) muela gde.;3650;;;C10
+05005080;CAJA DE 10 PZAS BOMBILLO T20-1 (UN CONTACTO);caja de 10 pzas bombillo t20-1 (un contacto);14800;;;C10
+05005090;CAJA DE 10 PZAS BOMBILLO T20-2 (DOBLE CONTACTO);caja de 10 pzas bombillo t20-2 (doble contacto);14800;;;C10
+05005100;CAJA DE 10 PZAS BOMBILLO 3156 (UN CONTACTO);caja de 10 pzas bombillo 3156 (un contacto);31150;;;C10
+05005110;CAJA DE 10 PZAS BOMBILLO 3157 (DOBLE CONTACTO);caja de 10 pzas bombillo 3157 (doble contacto);31150;;;C10
+05040001;FLASHER 552 TERMICO;flasher 552 termico;0;;;UNID
+05040010;FLASHER 550 TERMICO;flasher 550 termico;0;;;UNID
+05041001;FLASHER 552 ELECTRONICO;flasher 552 electronico;0;;;UNID
+05041010;FLASHER 550 ELECTRONICO;flasher 550 electronico;0;;;UNID
+05100010;RELE SPARK 5 PATAS (INVERSION DE POLARIDAD);rele spark 5 patas (inversion de polaridad);0;;;UNID
+05100050;RELE HR-112 3 PATAS METALICO;rele hr-112 3 patas metalico;0;;;UNID
+05100060;RELE HR-95 DE CORNETA (GM);rele hr-95 de corneta (gm);0;;;UNID
+05100070;RELE NLR-132 DE LUCES DUAL CON FUSIBLES MODERNOS;rele nlr-132 de luces dual con fusibles modernos;0;;;UNID
+05100080;RELE NLR-112 DE LUCES DUAL CON FUSIBLES DE VIDRIO;rele nlr-112 de luces dual con fusibles de vidrio;0;;;UNID
+05110010;CAJA DE 10 PZAS. MICRO SWITCH DE PALANCA (2 PASES, 2 PATAS);caja de 10 pzas. micro switch de palanca (2 pases, 2 patas);0;;;UNID
+05110020;CAJA DE 10 PZAS. MICRO SWITCH DE PALANCA (2 PASES, 3 PATAS);caja de 10 pzas. micro switch de palanca (2 pases, 3 patas);0;;;UNID
+05111010;EMP. DE 10 PZAS. INTERRUPTOR VENTANA ELECTRICA UNIVERSAL;emp. de 10 pzas. interruptor ventana electrica universal;0;;;UNID
+05210001;"ELECTROVENTILADOR UNIVERSAL 9""";"electroventilador universal 9""";44525;;;UNID
+05210010;"ELECTROVENTILADOR UNIVERSAL 10""";"electroventilador universal 10""";46480;;;UNID
+05210020;"ELECTROVENTILADOR UNIVERSAL 12""";"electroventilador universal 12""";48880;;;UNID
+05210030;"ELECTROVENTILADOR UNIVERSAL 14""";"electroventilador universal 14""";75050;;;UNID
+05220001;JUEGO DE CORNETAS CROMADAS CON REJILLA (V-1210);juego de cornetas cromadas con rejilla (v-1210);15680;;;UNID
+05220005;JUEGO DE CORNETAS PLATILLO NEGRAS (V-1595);juego de cornetas platillo negras (v-1595);16540;;;UNID
+05220010;CORNETA PLATILLO NEGRA TONO GRAVE (V-1295L);corneta platillo negra tono grave (v-1295l);8650;;;UNID
+05220015;CORNETA PLATILLO NEGRA TONO AGUDO (V-1295H);corneta platillo negra tono agudo (v-1295h);8650;;;UNID
+05220020;JUEGO DE CORNETAS PLATILLO PLATEADAS (V-1590);juego de cornetas platillo plateadas (v-1590);23950;;;UNID
+05220025;CORNETA PLATILLO PLATEADA TONO GRAVE (V-1590L);corneta platillo plateada tono grave (v-1590l);12500;;;UNID
+05220030;CORNETA PLATILLO PLATEADA TONO AGUDO (V-1590H);corneta platillo plateada tono agudo (v-1590h);12500;;;UNID
+05220040;JUEGO DE CORNETAS CARACOL (V-1675);juego de cornetas caracol (v-1675);28365;;;UNID
+05220050;JUEGO DE CORNETAS CARACOL CON REJILLA (V-1680);juego de cornetas caracol con rejilla (v-1680);16360;;;UNID
+05220060;KIT DE TROMPETAS DE AIRE (V-1460);kit de trompetas de aire (v-1460);30460;;;UNID
+05250010;ALARMA ELECTRONICA PARA VEHICULOS;alarma electronica para vehiculos;0;;;UNID
+05250020;ALARMA ELECTRONICA PREMIUM PARA VEHICULOS;alarma electronica premium para vehiculos;0;;;UNID
+05250030;ALARMA ELECTRONICA ULTRA PARA VEHICULOS;alarma electronica ultra para vehiculos;0;;;UNID
+05251010;CONTROL REMOTO PARA ALARMA ELECTRONICA;control remoto para alarma electronica;0;;;UNID
+05251020;CONTROL REMOTO PARA ALARMA ELECTRONICA PREMIUM;control remoto para alarma electronica premium;0;;;UNID
+05251030;CONTROL REMOTO PARA ALARMA ELECTRONICA ULTRA;control remoto para alarma electronica ultra;0;;;UNID
+05252010;SIRENA ELECTRONICA DE 6 TONOS 12V.;sirena electronica de 6 tonos 12v.;15160;;;UNID
+05252020;SENSOR DE IMPACTO PARA ALARMAS;sensor de impacto para alarmas;0;;;UNID
+05254010;SELENOIDE DE PUERTAS ELECTRICAS (2 CABLES);selenoide de puertas electricas (2 cables);0;;;UNID
+05254020;SELENOIDE DE PUERTAS ELECTRICAS (5 CABLES);selenoide de puertas electricas (5 cables);0;;;UNID
+05254030;KIT DE SEGUROS ELECTRICOS PARA 2 PUERTAS;kit de seguros electricos para 2 puertas;0;;;UNID
+05254040;KIT DE SEGUROS ELECTRICOS PARA 4 PUERTAS;kit de seguros electricos para 4 puertas;0;;;UNID
+05255010;MODULO POWER WINDOWS;modulo power windows;0;;;UNID
+05260010;SENSOR ELECTRONICO DE APARCAMIENTO;sensor electronico de aparcamiento;145080;;;UNID
+06040010;"CEPILLO LIMPIAPARABRISAS 12""";"cepillo limpiaparabrisas 12""";4500;;;UNID
+06040015;"CEPILLO LIMPIAPARABRISAS 14""";"cepillo limpiaparabrisas 14""";4850;;;UNID
+06040020;"CEPILLO LIMPIAPARABRISAS 16""";"cepillo limpiaparabrisas 16""";5020;;;UNID
+06040025;"CEPILLO LIMPIAPARABRISAS 18""";"cepillo limpiaparabrisas 18""";5420;;;UNID
+06040030;"CEPILLO LIMPIAPARABRISAS 20""";"cepillo limpiaparabrisas 20""";5650;;;UNID
+06040100;"CEPILLO LIMPIAPARABRISAS MIXTO 16"" Y 18""";"cepillo limpiaparabrisas mixto 16"" y 18""";5350;;;UNID
+06041010;"JUEGO DE CEPILLOS LIMPIAPARABRISAS 12"" PREMIUM DE SILICON";"juego de cepillos limpiaparabrisas 12"" premium de silicon";9000;;;UNID
+06041015;"JUEGO DE CEPILLOS LIMPIAPARABRISAS 14"" PREMIUM DE SILICON";"juego de cepillos limpiaparabrisas 14"" premium de silicon";9700;;;UNID
+06041020;"JUEGO DE CEPILLOS LIMPIAPARABRISAS 16"" PREMIUM DE SILICON";"juego de cepillos limpiaparabrisas 16"" premium de silicon";10450;;;UNID
+06041025;"JUEGO DE CEPILLOS LIMPIAPARABRISAS 18"" PREMIUM DE SILICON";"juego de cepillos limpiaparabrisas 18"" premium de silicon";11800;;;UNID
+06041030;"JUEGO DE CEPILLOS LIMPIAPARABRISAS 20"" PREMIUM DE SILICON";"juego de cepillos limpiaparabrisas 20"" premium de silicon";12950;;;UNID
+06041035;"JUEGO DE CEPILLOS LIMPIAPARABRISAS 22"" PREMIUM DE SILICON";"juego de cepillos limpiaparabrisas 22"" premium de silicon";14850;;;UNID
+06140010;CRUCETA 315G;cruceta 315g;9680;;;UNID
+06140020;CRUCETA 319;cruceta 319;9900;;;UNID
+06140030;CRUCETA 329;cruceta 329;9020;;;UNID
+06140040;CRUCETA 330;cruceta 330;13950;;;UNID
+06140050;CRUCETA 331;cruceta 331;12452;;;UNID
+06140060;CRUCETA 351;cruceta 351;18740;;;UNID
+06140070;CRUCETA 354;cruceta 354;9680;;;UNID
+06140080;CRUCETA 369;cruceta 369;8932;;;UNID
+06140090;CRUCETA 371;cruceta 371;13156;;;UNID
+06140100;CRUCETA 372;cruceta 372;12804;;;UNID
+06140110;CRUCETA 387;cruceta 387;12280;;;UNID
+06140120;CRUCETA 429;cruceta 429;10825;;;UNID
+06140130;CRUCETA 433;cruceta 433;10825;;;UNID
+06140140;CRUCETA 434;cruceta 434;12365;;;UNID
+06140150;CRUCETA 437G;cruceta 437g;9550;;;UNID
+06140160;CRUCETA 492;cruceta 492;12280;;;UNID
+06140170;CRUCETA 534G;cruceta 534g;10520;;;UNID
+06140180;CRUCETA 964;cruceta 964;14565;;;UNID
+06400010;FILTRO DE GASOLINA UNIVERSAL FF-061;filtro de gasolina universal ff-061;1350;;;UNID
+06400020;FILTRO DE GASOLINA UNIVERSAL FF-001;filtro de gasolina universal ff-001;1420;;;UNID
+06400030;EMP. 10 PZAS FILTRO DE GASOLINA UNIVERSAL FF-1518;emp. 10 pzas filtro de gasolina universal ff-1518;12000;;;E10
