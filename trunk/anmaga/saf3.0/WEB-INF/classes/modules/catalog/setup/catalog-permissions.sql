@@ -1,0 +1,14 @@
+DELETE FROM `security_module` WHERE `module` = 'catalog';
+OPTIMIZE TABLE `security_module`;
+INSERT INTO `security_module` ( `module` , `noCheckLogin` , `access` , `accessAffiliateUser` , `accessRegistrationUser` ) VALUES ('catalog', '', '3', '0','0');
+DELETE FROM `security_action` WHERE `module` = 'catalog';
+OPTIMIZE TABLE `security_action`;
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('catalogAffiliateProductList','catalog','','1073741823','1073741823','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('catalogShow','catalog','','1073741823','1073741823','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('catalogProductsAutocompleteListX','catalog','','1073741823','1073741823','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('catalogProductsGetImage','catalog','','1073741823','1073741823','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('catalogProductImageViewX','catalog','','1073741823','1073741823','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('catalogProductCategoriesList','catalog','','1073741823','1073741823','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('catalogAffiliateProductCodesList','catalog','','1073741823','1073741823','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('catalogProductCategoriesGetImage','catalog','','1073741823','1073741823','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('catalogProductsList','catalog','','1073741823','1073741823','1','','','0' );

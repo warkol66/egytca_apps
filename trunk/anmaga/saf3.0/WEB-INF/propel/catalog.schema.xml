@@ -1,0 +1,133 @@
+<database defaultIdMethod="native" package="catalog.classes" name="application" >
+
+	<table phpName="AffiliateProduct" name="catalog_affiliateProduct" isCrossRef="true" description="Precios de Productos por Afiliado">
+
+		<column name="productId" type="INTEGER" description="Producto" required="true" primaryKey='true' />
+		<column name="affiliateId" type="INTEGER" description="Afiliado" required="true" primaryKey='true' />
+		<column name="price" type="FLOAT" description="Precio del producto" />
+
+		<unique>
+			<unique-column name="productId" />
+			<unique-column name="affiliateId" />
+		</unique>
+
+		<foreign-key foreignTable="catalog_product" >
+			<reference local="productId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="affiliates_affiliate" >
+			<reference local="affiliateId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="AffiliateProductCode" name="catalog_affiliateProductCode" description="Codigos de Productos por Afiliado">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
+		<column name="affiliateId" type="INTEGER" description="Afiliado" required="true" />
+		<column name="productCode" size="255" type="VARCHAR" description="Codigo del Producto" />
+		<column name="productCodeAffiliate" size="255" type="VARCHAR" description="Codigo del Producto para el afiliado" />
+
+		<unique>
+			<unique-column name="affiliateId" />
+			<unique-column name="productCodeAffiliate" />
+		</unique>
+
+		<foreign-key foreignTable="affiliates_affiliate" >
+			<reference local="affiliateId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="Product" name="catalog_product" description="Producto">
+
+		<column name="id" autoIncrement="true" type="INTEGER" required="true" description="Id del producto" primaryKey='true' />
+		<column name="code" size="255" type="VARCHAR" description="Codigo del producto" />
+		<column name="name" size="255" type="VARCHAR" required="true" description="Nombre del producto" />
+		<column name="description" size="255" type="VARCHAR" required="false" description="Descripcion" />
+		<column name="price" type="FLOAT" description="Precio del producto" />
+		<column name="unitId" type="INTEGER" description="Unidades" />
+		<column name="measureUnitId" type="INTEGER" description="Unidad de Medida" />
+		<column name="active" required="true" default="true"  type="BOOLEAN"  description="Is product active?"/>
+		<column name="orderCode" size="255" type="VARCHAR" description="Codigo de ordenamiento del producto" />
+		<column name="salesUnit" type="INTEGER" default="1" description="Multiplo de la unidad de medida en que se puede ordenar el producto" />
+		<column name="stockAlert" type="INTEGER" description="Stock alert" />
+		<column name="stock01" type="INTEGER" description="Stock 01" />
+		<column name="stock02" type="INTEGER" description="Stock 02" />
+		<column name="stock03" type="INTEGER" description="Stock 03" />
+
+		<unique>
+			<unique-column name="code" />
+		</unique>
+
+		<foreign-key foreignTable="catalog_unit" >
+			<reference local="unitId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="catalog_measureUnit" >
+			<reference local="measureUnitId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="Unit" name="catalog_unit" description="Unidades">
+
+		<column name="id" autoIncrement="true" type="INTEGER" required="true" description="Id de la unidad" primaryKey='true' />
+		<column name="name" type="VARCHAR" size="255" required="true" description="Unidad" />
+		<column name="unitQuantity" type="INTEGER" required="true" description="Cantidad de unidades que posee la unidad" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="MeasureUnit" name="catalog_measureUnit" description="Unidad de Medida">
+
+		<column name="id" autoIncrement="true" type="INTEGER" required="true" description="Id de la unidad de medida" primaryKey='true' />
+		<column name="name" type="VARCHAR" size="255" required="true" description="Unidad de Medida" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="catalog_productCategory" phpName='ProductCategory' isCrossRef="true" description="Relacion Categorias y Productos">
+
+		<column name="productCode" required="true" primaryKey="true" size="255" type="VARCHAR" description="Codigo del producto"/>
+		<column name="categoryId" required="true" primaryKey="true" type="INTEGER" size="5" description="Category Id"/>
+
+		<foreign-key foreignTable="categories_category" onDelete="CASCADE">
+			<reference local="categoryId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="catalog_product" onDelete="CASCADE">
+			<reference local="productCode" foreign="code" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>

@@ -1,0 +1,271 @@
+<html><head>
+
+<title>Clase Paginado - Documentación</title><script language="JavaScript">
+// Variables generales para diferenciar browsers
+var ns=(document.layers);
+var ie=(document.all);
+var w3=(document.getElementById && !ie);
+if (ie){
+	var appVer = navigator.appVersion.toLowerCase();
+	var iePos  = appVer.indexOf('msie');
+    if (iePos !=-1) 
+       var ieVer = parseFloat(appVer.substring(iePos+5,appVer.indexOf(';',iePos)));
+}
+
+// Funcion para obtener el nombre del iframe / ilayer segun corresponda
+function objLayFrm(name){
+	if(ie) return 'document.all.' + name;
+	else if(ns)	return 'document.layers["' + name + '"]';
+	else if(w3) return 'document.getElementById("' + name + '")';
+}
+
+// Funcion para mostrar el iframe / ilayer segun corresponda
+function show(object) {
+	if(ie || w3) obj=eval(objLayFrm(object) + '.style');
+	else if(ns)	obj=eval(objLayFrm(object));
+	obj.visibility = 'visible';
+}
+
+// Funcion para ocultar el iframe / ilayer segun corresponda
+function hide(object) {
+	if(ie || w3) obj=eval(objLayFrm(object) + '.style');
+	else if(ns)	obj=eval(objLayFrm(object));
+	obj.visibility = 'hidden';
+}
+</script><style>
+html, body {
+	height:		100%;
+	margin:		0;
+	padding:	0;
+	color:		black;
+	
+	font-size:	13px;
+	font-family:	"Verdana", "Tahoma", "Helvetica", "Sans-Serif";
+}		
+h1, h2,h3,h4,h5,h6 {
+	padding:		2px 10px 2px 10px;
+	background:		rgb(234,242,255);
+	border-bottom:	1px solid rgb(120,172,255);
+}
+h1,h2 {
+	font-weight:	normal;
+}
+h3,h4,h5,h6 {
+	font-weight:	bold;
+}
+h1 {
+	font-size:		30px;
+}
+h2 {
+	font-size:		20px;
+}
+h3 {
+	font-size:		13px;
+	margin-left:	30px;
+	margin-right:	10px;
+}
+p {
+	margin:			10px;
+	margin-left:	60px;
+	font-size:		13px;
+	color:			black;
+}
+a {
+	text-decoration:none;
+	color:			rgb(0,66,174);
+}
+a:hover {/*rgb(0,66,174)*/
+	color:			rgb(0,66,174);
+	background:		rgb(234,242,255);
+}
+a:visited {
+	color:			rgb(120,172,255);
+}
+a:visited:hover {
+	color:			rgb(0,66,174);
+}
+hr {
+	margin-left:		10%;
+	margin-right:		10%;
+	padding:			0;
+	text-align:			left;
+	height:				1px;
+	color:				rgb(120,172,255);
+	background-color:	rgb(120,172,255);
+	border-bottom:		1px solid rgb(120,172,255);
+	border:				0;
+}
+pre {
+	margin:			20px;
+	margin-left:	30px;
+	background:		#F4F9FF;
+	padding:		2px;
+	border:			1px solid rgb(120,172,255);
+}
+li {
+	margin-left:	30px;
+}
+</style></head>
+
+
+<body>
+<h2>Clase Paginado - class.paginado.php</h2>
+<h3>Descripción</h3>
+<p> Esta clase, permite al usuario realizar consultas a una base de datos, y devolver 
+  los resultados en forma de "<b>páginas</b>", junto a los métodos necesarios 
+  para realizar una navegación entre éstas. La implementación de la misma es muy 
+  sencilla y los métodos prácticamente intuitivos.</p>
+<p>La idea detrás de esta clase, es proveer a los usuarios, un medio sencillo 
+  de utilizar, para realizar paginación de resultados, utilizando medio 
+  eficientes y produciendo, de esta manera, una programación más 
+  clara y entendible.</p>
+<p>Se ha elegido hacer el desarrollo como una clase, y su funcionalidad como métodos 
+  de la misma, para utilizar los beneficios de la programación orientada 
+  a objetos, como pueden ser la <i><b>extensibilidad</b></i> y la <i><b>modularización</b></i>.</p>
+<h3>Modo de Uso</h3>
+<p> Los pasos para utilizar la clase son los siguientes:</p>
+<ul>
+  <li>Conectarse a la base de datos</li>
+  <li>Instanciar un Objeto de la Clase</li>
+  <li>Configurar ciertos parámetros</li>
+  <li>Realizar la consulta</li>
+  <li>Mostrar los resultados</li>
+  <li>Mostrar la navegación de los resultados</li>
+</ul>
+<h3>Ejemplo de Uso</h3>
+<div id="synopsis"> 
+  <pre><code><font color="#000000"><font color="#0000cc">&lt;?<br></font><font color="#ff9900">// Conectamos a la Base de Datos<br></font><font color="#0000cc">$Conn&nbsp;</font><font color="#006600">=&nbsp;</font><font color="#0000cc">mysql_connect</font><font color="#006600">(</font><font color="#cc0000">"localhost"</font><font color="#006600">,&nbsp;</font><font color="#cc0000">"usuario"</font><font color="#006600">,&nbsp;</font><font color="#cc0000">"password"</font><font color="#006600">);<br></font><font color="#0000cc">mysql_select_db</font><font color="#006600">(</font><font color="#cc0000">"base_de_datos"</font><font color="#006600">);<br><br></font><font color="#ff9900">// Obtenemos la página actual, por el método que más nos guste<br>// Por defecto, la página se propaga por la variable $pagina<br></font><font color="#0000cc">$pagina&nbsp;</font><font color="#006600">=&nbsp;</font><font color="#0000cc">$HTTP_GET_VARS</font><font color="#006600">[</font><font color="#cc0000">"pagina"</font><font color="#006600">];<br><br></font><font color="#ff9900">// Incluimos la Clase Paginado<br></font><font color="#006600">include(</font><font color="#cc0000">"class.paginado.php"</font><font color="#006600">);<br></font><font color="#0000cc">$rs&nbsp;</font><font color="#006600">=&nbsp;new&nbsp;</font><font color="#0000cc">paginado</font><font color="#006600">(</font><font color="#0000cc">$Conn</font><font color="#006600">);&nbsp;</font><font color="#ff9900">// instanciamos un objeto<br></font><font color="#0000cc">$rs</font><font color="#006600">-&gt;</font><font color="#0000cc">pagina</font><font color="#006600">(</font><font color="#0000cc">$pagina</font><font color="#006600">);&nbsp;</font><font color="#ff9900">// Le indicamos en que página estamos - 1 por defecto<br></font><font color="#0000cc">$rs</font><font color="#006600">-&gt;</font><font color="#0000cc">porPagina</font><font color="#006600">(</font><font color="#0000cc">10</font><font color="#006600">);&nbsp;</font><font color="#ff9900">// Le decimos cuantos registros por página queremos - 20 por defecto
+</font><font color="#0000cc">$rs</font><font color="#006600">-&gt;</font><font color="#0000cc">propagar</font><font color="#006600">(</font><font color="#cc0000">"forum"</font><font color="#006600">);&nbsp;</font><font color="#ff9900">// Le decimos las variables que queremos propagar en los links<br></font><font color="#006600">if(!</font><font color="#0000cc">$rs</font><font color="#006600">-&gt;</font><font color="#0000cc">query</font><font color="#006600">(</font><font color="#cc0000">"SELECT * FROM clientes"</font><font color="#006600">))&nbsp;</font><font color="#ff9900">// Y ejecutamos nuestra consulta.<br></font><font color="#006600">{<br>&nbsp;&nbsp;&nbsp;&nbsp;die(&nbsp;</font><font color="#0000cc">$rs</font><font color="#006600">-&gt;</font><font color="#0000cc">error</font><font color="#006600">()&nbsp;);&nbsp;</font><font color="#ff9900">// Si Query devolvió falso, hubo un error y lo mostramos.<br></font><font color="#006600">}<br>echo&nbsp;</font><font color="#cc0000">"Mostrando "</font><font color="#006600">.</font><font color="#0000cc">$rs</font><font color="#006600">-&gt;</font><font color="#0000cc">desde</font><font color="#006600">().</font><font color="#cc0000">" - "</font><font color="#006600">.</font><font color="#0000cc">$rs</font><font color="#006600">-&gt;</font><font color="#0000cc">hasta</font><font color="#006600">().</font><font color="#cc0000">" de un total de "</font><font color="#006600">.</font><font color="#0000cc">$rs</font><font color="#006600">-&gt;</font><font color="#0000cc">total</font><font color="#006600">().</font><font color="#cc0000">"&lt;br&gt;"</font><font color="#006600">;<br></font><font color="#ff9900">// Recorremos todos los resultados y los mostramos.</font><font color="#006600">
+while(</font><font color="#0000cc">$row&nbsp;</font><font color="#006600">=&nbsp;</font><font color="#0000cc">$rs</font><font color="#006600">-&gt;</font><font color="#0000cc">obtenerArray</font><font color="#006600">())<br>{<br>&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</font><font color="#0000cc">$row</font><font color="#006600">[</font><font color="#cc0000">"apellido"</font><font color="#006600">].</font><font color="#cc0000">", "</font><font color="#006600">.</font><font color="#0000cc">$row</font><font color="#006600">[</font><font color="#cc0000">"nombre"</font><font color="#006600">].</font><font color="#cc0000">"&lt;br&gt;"</font><font color="#006600">;<br>&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</font><font color="#cc0000">"Email : "</font><font color="#006600">.</font><font color="#0000cc">$row</font><font color="#006600">[</font><font color="#cc0000">"email"</font><font color="#006600">];<br>&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</font><font color="#cc0000">"&lt;hr&gt;"</font><font color="#006600">;<br>}&nbsp;</font><font color="#ff9900">// while
+// Finalmente mostramos los medios para la navegación entre los resultados.<br></font><font color="#006600">echo&nbsp;</font><font color="#0000cc">$rs</font><font color="#006600">-&gt;</font><font color="#0000cc">anterior</font><font color="#006600">().</font><font color="#cc0000">" - "</font><font color="#006600">.</font><font color="#0000cc">$rs</font><font color="#006600">-&gt;</font><font color="#0000cc">nroPaginas</font><font color="#006600">().</font><font color="#cc0000">" - "</font><font color="#006600">.</font><font color="#0000cc">$rs</font><font color="#006600">-&gt;</font><font color="#0000cc">siguiente</font><font color="#006600">();<br></font><font color="#0000cc">?&gt;</font></font></code></pre>
+</div>
+<h2>Métodos básicos de la Clase</h2>
+<h3>Constructor del Objeto( $ResourceLink )</h3>
+<p>El método Constructor del objeto, es el método que se llama automáticamente 
+  cuando se ejecuta una instanciación de la clase. Este método, 
+  que se llama igual que la clase, debe recibir como parámetro un link 
+  de recurso, hacia una conexión establecida con la Base de Datos, ya habiendo 
+  sido seleccionada una base de datos. Ej:</p>
+<pre><code><font color="#000000"><font color="#0000cc">&lt;?<br>$Conn&nbsp;</font><font color="#006600">=&nbsp;</font><font color="#0000cc">mysql_connect</font><font color="#006600">(</font><font color="#cc0000">"localhost"</font><font color="#006600">,&nbsp;</font><font color="#cc0000">"usuario"</font><font color="#006600">,&nbsp;</font><font color="#cc0000">"password"</font><font color="#006600">);<br></font><font color="#0000cc">mysql_select_db</font><font color="#006600">(</font><font color="#cc0000">"base_de_datos"</font><font color="#006600">);
+<br></font><font color="#0000cc">$obj&nbsp;</font><font color="#006600">=&nbsp;new&nbsp;</font><font color="#0000cc">paginado</font><font color="#006600">(</font><font color="#0000cc">$Conn</font><font color="#006600">);<br></font><font color="#0000cc">?&gt;</font></font></code></pre>
+<h3>pagina ( $NroPagina )</h3>
+<p>El método <font face="Courier New, Courier, mono">pagina()</font> le 
+  indica al objeto a cuál página de los resultados queremos acceder. 
+  En caso de querer acceder a un número de página inexistente en 
+  los resultados, el objeto aborta su ejecución, y setea un mensaje interno 
+  de error informando el motivo del error.</p>
+<p>De no indicarse a que página se quiere acceder, el objeto toma por defecto, 
+  el valor <b>1</b>. Este método también puede ser invocado sin 
+  parámetros, en ese caso, retorna el valor de la página actual.</p>
+<h3>porPágina ( $NroDeResultados )</h3>
+<p>Este método nos permite indicarle al objeto, cuántos resultados 
+  debe obtener por cada una de las páginas. De no indicarse, el objeto 
+  posee un valor por defecto de <b>20</b> resultados por página.</p>
+<p>Al igual que el método anterior, puede ser llamado sin parámetros, 
+  devolviendo de esa manera el valor seteado en el objeto actualmente.</p>
+<h3>query ( $SentenciaSql )</h3>
+<p>A este método, se le debe pasar una sentencia SQL válida, debiéndo 
+  esta ser un <b>SELECT</b> que no utilice la directiva <b>LIMIT</b> (caso contrario 
+  se producirá un error de sintaxis luego y el objeto cancelará 
+  su ejecución, devolviendo <b>FALSE</b>).</p>
+<p>El método primero hará una llamada a la base, para averiguar 
+  la cantidad total de resultados que genera la consulta. Con éste número, 
+  define si la página solicitada está dentro del número posible 
+  de páginas y finalmente, realiza la consulta, retornando una cantidad 
+  de resultados igual a la definida con el método <font face="Courier New, Courier, mono">porPagina()</font>.</p>
+<p>Los resultados de la consulta quedan guardados dentro del objeto y quedan listos 
+  para ser utilizados.</p>
+<h3>obtenerArray ( )</h3>
+<p>Método análogo al nativo de PHP <font face="Courier New, Courier, mono">mysql_fetch_array()</font>. 
+  Este método permite recuperar un registro de los resultados, en forma 
+  de array asociativo. En caso de no haber más resultados, entonces retorna 
+  <b>FALSE</b>, por lo cual es posible recorrer los resultados secuencialmente 
+  hasta su finalización. Ej:</p>
+<pre><code><font color="#000000"><font color="#006600">while&nbsp;(</font><font color="#0000cc">$fila&nbsp;</font><font color="#006600">=&nbsp;</font><font color="#0000cc">$obj</font><font color="#006600">-&gt;</font><font color="#0000cc">obtenerArray</font><font color="#006600">())
+{
+&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</font><font color="#0000cc">$fila</font><font color="#006600">[</font><font color="#cc0000">"apellido"</font><font color="#006600">].</font><font color="#cc0000">", "</font><font color="#006600">.</font><font color="#0000cc">fila</font><font color="#006600">[</font><font color="#cc0000">"nombre"</font><font color="#006600">].</font><font color="#cc0000">"&lt;br&gt;"</font><font color="#006600">;
+&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</font><font color="#cc0000">"Email: "</font><font color="#006600">.</font><font color="#0000cc">$fila</font><font color="#006600">[</font><font color="#cc0000">"email"</font><font color="#006600">];
+}</font></font></code></pre>
+<p>Este método no recibe ningún parámetro, ya que trabaja 
+  con el link de resultados interno del objeto.</p>
+<h3>siguiente ( [$CódigoHTML] )</h3>
+<p>Si la consulta devolviera más de una página de resultados, al 
+  invocar este método, retorna el código HTML de un link hacia la 
+  siguiente página, siempre y cuando no estemos mostrando la última 
+  de las páginas, en este caso, no retorna nada.</p>
+<p>Por defecto, el método retorna solo un texto ("<b>Siguiente &gt;</b>"), 
+  convertido en link hacia la siguiente página, pero esto puede modificarse 
+  si, en cambio, invocamos al método pasándole como parámetro, 
+  el código HTML de la frase o lo que sea que queramos aparezca como link. 
+  Los siguientes son dos ejemplos, uno cambiando el texto y el otro reemplazándolo 
+  por una imagen:</p>
+<pre><code><font color="#000000"><font color="#ff9900">// Esto cambiará el texto por defecto.<br></font><font color="#0000cc">$obj</font><font color="#006600">-&gt;</font><font color="#0000cc">siguiente</font><font color="#006600">(</font><font color="#cc0000">"Más resultados -&gt;"</font><font color="#006600">);
+
+</font><font color="#ff9900">// Ahora, con esto, reemplazamos el texto anterio
+// por una imagen, que será utilizada dentro de un<br>// link (Tag &lt;A&gt;).
+</font><font color="#0000cc">$obj</font><font color="#006600">-&gt;</font><font color="#0000cc">siguiente</font><font color="#006600">(</font><font color="#cc0000">"&lt;img src=\"/icons/forward.gif\" border=\"0\"&gt;"</font><font color="#006600">);</font></font></code></pre>
+<h3>anterior ( [$CódigoHTML] )</h3>
+<p>Método análogo al anterior en funcionamiento, solo que en vez 
+  de retornar el código hacia la siguiente página, lo hace para 
+  la página anterior de los resultados, solo si no estamos actualmente 
+  posicionados en la primera página. También es similar el comportamiento 
+  que permite cambiar el texto por defecto ("<b>&lt; Anterior</b>"), 
+  por otro o por una imagen, haciendo al ejemplo anterior completamente válido 
+  para este método también.</p>
+<h3>nroPaginas ( )</h3>
+<p>Este método devuelve una lista separada por pipes de todos los números 
+  de páginas generadas por la consulta, en código HTML. Cada uno 
+  de estos números es un link hacia la página correspondiente, excepto 
+  el número de la página actual, que es resaltado en negrita. Ej:</p>
+<pre><code><font color="#000000"><font color="#ff9900">// Suponiento que la consulta retorna 50 resultados<br>// y que se muestran 10 resultados por página.<br></font><font color="#0000cc">$obj</font><font color="#006600">-&gt;</font><font color="#0000cc">pagina</font><font color="#006600">(</font><font color="#0000cc">3</font><font color="#006600">);<br></font><font color="#0000cc">$obj</font><font color="#006600">-&gt;</font><font color="#0000cc">porPagina</font><font color="#006600">(</font><font color="#0000cc">10</font><font color="#006600">);<br>...<br></font><font color="#0000cc">$obj</font><font color="#006600">-&gt;</font><font color="#0000cc">nroPaginas</font><font color="#006600">();<br></font></font>
+</code>Esto devolvería :<br>
+<a href="http://www.web-studio.com.ar/proyectos/paginado/paginado_documentacion.htm?pagina=1">1</a> | <a href="http://www.web-studio.com.ar/proyectos/paginado/paginado_documentacion.htm?pagina=2">2</a> | <b>3</b> | <a href="http://www.web-studio.com.ar/proyectos/paginado/paginado_documentacion.htm?pagina=4">4</a> | <a href="http://www.web-studio.com.ar/proyectos/paginado/paginado_documentacion.htm?pagina=5">5</a>
+</pre>
+
+<h2>Otros Métodos de la Clase</h2>
+<p>Luego de realizada la consulta, el objeto posee ciertos atributos que pueden 
+  ser de utilidad al usuario de la clase para ofrecer más información 
+  sobre la consulta realizada y sobre los resultados de la misma.</p>
+<h3>error ( )</h3>
+<p>Devuelve una descripción textual del último error generado dentro 
+  del objeto, ante una mal función del objeto o errores en la sintaxis 
+  de la consulta que se intentó ejecutar contra la Base de Datos.</p>
+<h3>total ( )</h3>
+<p>Devuelve la cantidad total de registros que retorna la consulta ejecutada.</p>
+<h3>totalPaginas ( )</h3>
+<p>Devuelve la cantidad total de páginas que retorna la consulta ejecutada.</p>
+<h3>registros ( )</h3>
+<p>Devuelve la cantidad de registros que contiene la página actual de la 
+  consulta.</p>
+<h3>desde ( )</h3>
+<p>Devuelve el índice dentro del total de resultados, del primer elemento 
+  de la página actual.</p>
+<h3>hasta ( )</h3>
+<p>Devuelve el índice dentor del total de resultados, del último 
+  elemento de la página actual.</p>
+<h3>propagar ( )</h3>
+<p>Este método recibe como parámetros los nombres de las variables 
+  que deseamos propagar desde los links generados por <b>nroPaginas()</b>, <b>siguiente()</b> 
+  y <b>anterior()</b>. Estas variables deben pertenecer al entorno global del 
+  Script, ya que de otra manera no serán reconocidas.</p>
+<h3>obtenerRegistros ( )</h3>
+<p>Este método no recibe parámetros, y lo que hace es devolver todos los registros de la pagina actual como un array.</p>
+<h2>Versión y Licencia</h2>
+<p>Esta versión de la Clase actualmente es la 0.1, del 27 de Febrero de 
+  2002 12:43. Cualquier comentario sobre la documentación o sobre la clase, 
+  así como cualquier contribución hacia el código de la misma, 
+  puede ser enviado a <a href="mailto:ws2000@web-studio.com.ar?subject=Sobre%20la%20Clase%20Paginado">ws2000@web-studio.com.ar</a>.</p>
+<p>Esta clase es Open Source (Código Libre). Esto significa que cualquier 
+  la puede utilizar y modificar, sin pagar un centavo por ello. Esta clase utiliza 
+  la licencia GPL (GNU General Public License) que pueden ver en <a href="http://www.gnu.org/licenses/" target="_blank">http://www.gnu.org/licenses/</a>, 
+  para informarse que es lo que pueden o no hacer con un software que está 
+  bajo esta licencia.</p>
+<h2>Ver también</h2>
+<ul>
+  <li>Sitio oficial del Proyecto PHP - <a href="http://www.php.net/" target="_blank">http://www.php.net</a></li>
+  <li>Sitio oficial de mySQL - <a href="http://www.mysql.com/" target="_blank">http://www.mysql.com</a></li>
+  <li>Introducción a la Programación Orientada a Objetos - <a href="http://www.phpbuilder.com/columns/luis20000420.php3?print_mode=1" target="_blank">http://www.phpbuilder.com/columns/luis20000420.php3?print_mode=1</a></li>
+</ul>
+<hr>
+<p>&nbsp;</p>
+</body></html>

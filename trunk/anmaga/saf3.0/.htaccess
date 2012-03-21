@@ -1,0 +1,6 @@
+Options +FollowSymlinks
+
+RewriteEngine on
+RewriteBase /
+
+RewriteRule productImages/(.*\.(png|gif|jpg)) WEB-INF/products/$1 [NC,L]

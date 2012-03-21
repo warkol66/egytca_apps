@@ -1,0 +1,65 @@
+/* CSS Document */
+
+#leftColumn li a { 
+	width:135px; /* 150px ORIGINAL */
+}
+#leftColumn li a:hover { 
+	width:135px; /* 150px ORIGINAL */
+}
+#rightColumn { 
+	width: 760px;  /*   760px ORIGINAL */
+}
+#rssSearchBox {
+	margin-top: 2px;
+	line-height: 20px;
+}
+fieldset {
+	margin-top: 2em;
+	margin-bottom: 3.5em; /*    2em ORIGINAL */
+}
+fieldset legend {
+	margin-top: -3.5em;
+	margin-left: -.1em;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+.contentLi{
+	background-image:url(../images/bullet-2.gif);
+	background-position:0 8px;
+	background-repeat:no-repeat;
+	list-style-type: disc;
+	list-style: none;
+	padding-left: 20px;
+}
+#myTreeContainer li {
+	background-position:11px;
+	margin-left:-10px;
+}
+div.autocomplete {
+	position: relative !Important;
+	top:0px !Important;
+	left:125px !Important;
+	width:350px  !Important;
+	z-index:9999 !Important;
+}
+.textLinkButton {
+	line-height: 2em !Important;
+	vertical-align: bottom !Important;
+	padding: 0 .4em 0 .4em;
+}
+/* Image Buttons and Links */
+input.iconActivate, input.iconAdd, input.iconBack, input.iconBudget, input.iconDelete, input.iconDetail, input.iconDownload,
+input.iconEdit, input.iconEmail, input.iconFollow, input.iconGoTo, input.iconGraph, input.iconHelp, input.iconHistory, input.iconIndicator,
+input.iconInfo, input.iconManufacture, input.iconOrder, input.iconPassword, input.iconPlus, input.iconRestore, input.iconRestoreFromServer,
+input.iconSendMultiple, input.iconStoreInServer, input.iconStoreLocal, input.iconThumbnail, input.iconUpload,
+input.iconView, input.iconViewGantt, input.iconWeight, input.iconAddToCart, input.iconRemoveFromCart, input.iconUpdateCart,
+input.iconSetPrivileges, input.iconOwner, input.iconRead, input.iconUnread {
+	line-height: 999px;
+	vertical-align: top;
+	overflow: hidden;
+}
+#loginButton { 
+	line-height: 999px;
+	vertical-align: top;
+	overflow: hidden;
+}

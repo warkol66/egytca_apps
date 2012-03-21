@@ -1,0 +1,20 @@
+/* CSS Document */
+
+@import url("globalStyles.css");
+@import url("globalCustom.css");
+
+@import url("style.css");
+@import url("custom.css");
+
+@import url("datePicker.css");
+
+.cabezal {
+	border-bottom: solid #00008B thin;
+	color: #000000;
+}
+.headText {
+	display: block;
+}
+col.colCollapse {
+	display:none;
+}

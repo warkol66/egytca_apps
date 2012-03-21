@@ -1,0 +1,254 @@
+<!-- Module Catalog -->
+	<action-mappings module="Catalog">
+		<action    path = "catalogShow"
+							 type = "CatalogShowAction"
+							 name = "catalogShow"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="CatalogShow.tpl" />
+		</action>
+	</action-mappings>
+
+<!-- Module Catalog - Section Products -->
+	<action-mappings module="Catalog" section="Products">
+
+		<action    path = "catalogProductsDoUpdate"
+							 type = "CatalogProductsDoUpdateAction"
+							 name = "catalogProductsDoUpdate"
+							scope = "request"
+					 validate = "true">
+		</action>
+
+		<action    path = "catalogProductsGetImage"
+							 type = "CatalogProductsGetImageAction"
+							 name = "catalogProductsGetImage"
+							scope = "request"
+					 validate = "true">
+		</action>
+
+		<action    path = "catalogProductsDoLoadInCategory"
+							 type = "CatalogProductsDoLoadInCategoryAction"
+							 name = "catalogProductsDoLoadInCategory"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=catalogProductCategoriesEdit" redirect="true" />
+		</action>
+
+		<action    path = "catalogProductsDoLoadWithCategory"
+							 type = "CatalogProductsDoLoadWithCategoryAction"
+							 name = "catalogProductsDoLoadWithCategory"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=catalogProductCategoriesList" redirect="true" />
+		</action>
+
+		<action    path = "catalogProductsList"
+							 type = "CatalogProductsListAction"
+							 name = "catalogProductsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="CatalogProductsList.tpl" />
+			<forward name="csv" path="CatalogProductsListCsv.tpl" />	
+		</action>
+
+		<action    path = "catalogProductsDoDelete"
+							 type = "CatalogProductsDoDeleteAction"
+							 name = "catalogProductsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=catalogProductsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+	</action-mappings>
+<!-- End Section Products -->
+
+<!-- Module Catalog - Section ProductCategories -->
+	<action-mappings module="Catalog" section="ProductCategories">
+		<action    path = "catalogProductCategoriesEdit"
+							 type = "CatalogProductCategoriesEditAction"
+							 name = "catalogProductCategoriesEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="CatalogProductCategoriesEdit.tpl" />
+		</action>
+
+		<action    path = "catalogProductCategoriesGetImage"
+							 type = "CatalogProductCategoriesGetImageAction"
+							 name = "catalogProductCategoriesGetImage"
+							scope = "request"
+					 validate = "true">
+		</action>
+
+		<action    path = "catalogProductCategoriesDoEdit"
+							 type = "CatalogProductCategoriesDoEditAction"
+							 name = "catalogProductCategoriesDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=catalogProductCategoriesList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="CatalogProductCategoriesEdit.tpl" />
+		</action>
+
+		<action    path = "catalogProductCategoriesList"
+							 type = "CatalogProductCategoriesListAction"
+							 name = "catalogProductCategoriesList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="CatalogProductCategoriesList.tpl" />
+		</action>
+
+		<action    path = "catalogProductCategoriesDoDelete"
+							 type = "CatalogProductCategoriesDoDeleteAction"
+							 name = "catalogProductCategoriesDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=catalogProductCategoriesList&amp;message=deleted_ok" redirect="true" />
+		</action>
+	</action-mappings>
+<!-- End Section ProductCategories -->
+
+<!-- Module Catalog - Section Units -->
+	<action-mappings module="Catalog" section="Units">
+		<action    path = "catalogUnitsEdit"
+							 type = "CatalogUnitsEditAction"
+							 name = "catalogUnitsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="CatalogUnitsEdit.tpl" />
+		</action>
+
+		<action    path = "catalogUnitsDoEdit"
+							 type = "CatalogUnitsDoEditAction"
+							 name = "catalogUnitsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=catalogUnitsList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="CatalogUnitsEdit.tpl" />
+		</action>
+
+		<action    path = "catalogUnitsList"
+							 type = "CatalogUnitsListAction"
+							 name = "catalogUnitsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="CatalogUnitsList.tpl" />
+		</action>
+
+		<action    path = "catalogUnitsDoDelete"
+							 type = "CatalogUnitsDoDeleteAction"
+							 name = "catalogUnitsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=catalogUnitsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+	</action-mappings>
+<!-- End Section Units -->
+
+<!-- Module Catalog - Section MeasureUnits -->
+	<action-mappings module="Catalog" section="MeasureUnits">
+		<action    path = "catalogMeasureUnitsEdit"
+							 type = "CatalogMeasureUnitsEditAction"
+							 name = "catalogMeasureUnitsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="CatalogMeasureUnitsEdit.tpl" />
+		</action>
+
+		<action    path = "catalogMeasureUnitsDoEdit"
+							 type = "CatalogMeasureUnitsDoEditAction"
+							 name = "catalogMeasureUnitsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=catalogMeasureUnitsList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="CatalogMeasureUnitsEdit.tpl" />
+		</action>
+
+		<action    path = "catalogMeasureUnitsList"
+							 type = "CatalogMeasureUnitsListAction"
+							 name = "catalogMeasureUnitsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="CatalogMeasureUnitsList.tpl" />
+		</action>
+
+		<action    path = "catalogMeasureUnitsDoDelete"
+							 type = "CatalogMeasureUnitsDoDeleteAction"
+							 name = "catalogMeasureUnitsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=catalogMeasureUnitsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+<!-- End Section MeasureUnits -->		
+<!-- Module Catalog - Section AffilateProductsImport -->
+
+    <action    path = "catalogAffiliateProductsImport"
+               type = "CatalogAffiliateProductsImportAction"
+               name = "catalogAffiliateProductsImport"
+              scope = "request"
+           validate = "true">
+		<forward name="success"  path="CatalogAffiliateProductsImport.tpl" />
+    </action>
+ 
+   
+    <action    path = "catalogAffiliateProductsDoImport"
+               type = "CatalogAffiliateProductsDoImportAction"
+               name = "catalogAffiliateProductsDoImport"
+              scope = "request"
+           validate = "true">
+		<forward name="success"  path="CatalogAffiliateProductsImport.tpl" />
+    </action>
+
+<!-- End Section AffilateProductsImport -->
+
+<!-- Section AffiliateProductCodes -->
+    <action    path = "catalogAffiliateProductCodesEdit"
+               type = "CatalogAffiliateProductCodesEditAction"
+               name = "catalogAffiliateProductCodesEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="CatalogAffiliateProductCodesEdit.tpl" />
+    </action>
+
+    <action    path = "catalogAffiliateProductCodesDoEdit"
+               type = "CatalogAffiliateProductCodesDoEditAction"
+               name = "catalogAffiliateProductCodesDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="/Main.php?do=catalogAffiliateProductCodesList&amp;message=ok" redirect="true" />
+    <forward name="failure" path="CatalogAffiliateProductCodesEdit.tpl" />
+    </action>
+
+    <action    path = "catalogAffiliateProductCodesList"
+               type = "CatalogAffiliateProductCodesListAction"
+               name = "catalogAffiliateProductCodesList"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="CatalogAffiliateProductCodesList.tpl" />
+    </action>
+
+    <action    path = "catalogAffiliateProductCodesDoDel"
+               type = "CatalogAffiliateProductCodesDoDelAction"
+               name = "catalogAffiliateProductCodesDoDel"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="/Main.php?do=catalogAffiliateProductCodesList&amp;message=deleted_ok" redirect="true" />
+    </action>
+
+	<action    path = "catalogAffiliateProductList"
+						 type = "CatalogAffiliateProductListAction"
+						 name = "catalogAffiliateProductList"
+						scope = "request"
+				 validate = "true">
+		<forward name="success" path="CatalogAffiliateProductList.tpl" />
+	</action>
+
+	<action    path = "catalogPricesAutoUpdate"
+						 type = "CatalogPricesAutoUpdateAction"
+						 name = "catalogPricesAutoUpdate"
+						scope = "request"
+				 validate = "true">	
+	</action>
+	
+
+<!-- End Section AffiliateProductCodes -->
+	</action-mappings>
+
+<!-- End Module Catalog -->
