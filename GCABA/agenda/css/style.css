@@ -1,0 +1,266 @@
+body {
+}
+/*  LOGIN  -----------------------------------------------*/
+#login {
+	display: block;
+	margin:30px auto 0 auto;
+	text-align: center;
+}
+#loginTop {
+}
+#loginContent, #passRecovery {
+	text-align:left;
+}
+#loginContent h1, #passRecovery h1, #passRecovery h2 {
+	font-weight: bold;
+	font-size: 138.5%;
+	padding-left: 25px;
+}
+#loginContent p, #passRecovery p {
+	font-weight: bold;
+	padding-left: 25px;
+	padding-right: 25px;
+	padding-bottom: 15px;
+}
+#loginContent input, #passRecovery input {
+	width: 260px;
+	height: 20px;
+	margin-bottom: 10px;
+}
+#security_code {
+	width: 100px !Important;
+}
+#loginButton {
+	margin: 0 auto 0 auto !Important;
+	background-color: transparent !Important;
+	border: none !Important;
+	cursor: pointer !Important;
+	text-align:center !Important;
+}
+#loginButtonDiv {
+	margin: 0 auto 25px auto !Important;
+	text-align:center !Important;
+}
+#lostPassword {
+	text-align:right;
+}
+#lostPassword a {
+	padding: 5px 30px 5px 30px;
+	text-decoration: none;
+}
+#lostPassword a:hover {
+	padding-right:30px;
+	text-decoration: underline;
+}
+#loginBottom {
+}
+#loginContentWrapper {
+}
+/*  /LOGIN  -----------------------------------------------*/
+
+/* wrapper -----------------------------------------------------------*/
+#wrapper {
+	margin: 0 auto;
+	padding: 0 0 0 0; /*  1px necesary to show margin-bottom of footer n FF*/
+}
+#header {
+	margin: 0;
+	padding: 0;
+	display: block;
+}
+#headerLogo {
+}
+#header a{
+	width:115px;
+	height: 35px;
+	float: left;
+	display: block;
+	margin: 8px 0 0 8px;
+}
+#header a strong{
+	display:none;
+}
+#separatorHeader {
+	clear: both;
+}
+#contentWrapper {
+	margin: auto;
+	padding: 0px 0px 0px 0px; /*  1px necesary to show margin-bottom of footer n FF*/
+}
+#contentCloser {
+	margin: auto;
+	clear: both;
+	display: block;
+}
+#leftColumn {
+	clear: both;
+	float: left;
+	border: none;
+	margin: 0px 5px 5px 0px;
+	padding: 0px;
+}
+
+#rightColumn {
+	float: right;
+	display: inline;
+	border: none;
+	margin: 0 5px 5px 0;
+	padding: 15px;
+}
+#separatorFooter {
+	clear: both;
+}
+#footer {
+	clear: both;
+	border: none;
+}
+#footer p{
+	text-align:right;
+	padding: 3px 5px 0 0 ;
+}
+.rounded .rtop, .rounded .rbottom{display:block; }
+.rounded .rtop *, .rounded .rbottom *{display: block; height: 1px; overflow: hidden;}
+.rounded .r1, .rounded .r2, .rounded .r3, .rounded .r4, .rounded .r5, .rounded .r6, .rounded .r7 {
+ height: 1px; overflow: hidden; border-style: solid; border-width: 0 5px; display: block;}
+.rounded .r1 {margin: 0 1px; height: 2px;}
+.rounded .r2 {margin: 0 2px; border-width: 0 6px;}
+.rounded .r3 {margin: 0 2px; border-width: 0 6px;}
+.rounded .r4 {margin: 0 3px;}
+.rounded .r5 {margin: 0 4px; border-width: 0 2px;}
+.rounded .r6 {margin: 0 6px; border-width: 0 2px;}
+.rounded .r7 {margin: 0 8px; border: none;}
+/* /wrapper -----------------------------------------------------------*/
+
+/* content -----------------------------------------------------------*/
+#rightColumn h1{
+	font-size: 153.9%;
+	font-weight:bold;
+	padding-bottom: 5px;
+	margin-bottom:15px;
+}
+#rightColumn h2{
+	font-size:108%;
+	font-weight:normal;
+	margin-bottom:5px;
+}
+#rightColumn h3 {
+	font-size: 123.1%;
+	font-weight:bold;
+	padding-top:20px;
+	padding-bottom:5px;
+	margin-bottom:5px;
+}
+#rightColumn h4 {
+	font-size:138.5%;
+	font-weight:bold;
+	padding-top:15px;
+	padding-bottom:5px;
+	margin-bottom:5px;
+}
+#rightColumn h5 {
+	font-size:116%;
+	font-weight:normal;
+	padding-top:5px;
+	padding-bottom:5px;
+	margin-bottom:5px;
+}
+#rightColumn h2 a:link, #rightColumn h2 a:visited{
+	font-size: inherit;
+	font-weight:normal;
+	text-decoration:none;
+}
+#rightColumn h2 a:hover, #rightColumn h2 a:active{
+	font-size: inherit;
+	font-weight:normal;
+	text-decoration:underline;
+}
+#rightColumn p{
+	margin-bottom: 10px;
+	padding-right: 10px;
+}
+.paragraphEdit {
+	padding-left: 25px;
+}
+/* /content -----------------------------------------------------------*/
+
+.tableTdBorders {
+	border-collapse: collapse;
+}
+.tdTitle {
+	font-size: 93%;
+	font-weight: bold;
+	vertical-align: middle;
+	margin: 7px 3px 5px 3px;
+}
+.paginateText {
+	display: inline;
+	padding: 3px;
+}
+#addressesList li:hover {
+	cursor: move;
+}
+.cellTextOptions {
+	text-align: center;
+}
+.tdTextOptions {
+	text-align: center;
+}
+
+/* MENU NAVEGACION   */
+#leftColumn ul {
+	margin:0;   /*   styles-ie*/
+}
+#leftColumn li {
+	margin:0;
+	list-style: none;
+}
+#leftColumn li a {
+	height:auto;
+	display:block;
+	padding: 4px 0px 4px 0px;
+	padding: 4px 3px 4px 10px;
+	text-align:left;
+	text-decoration:none;
+	list-style-position:outside;
+	vertical-align:top;
+}
+#leftColumn li a:hover {
+	height:auto;
+}
+#leftColumn li a.titleLink, #leftColumn li a.titleLink:hover{
+	padding:0;
+	margin:0;
+	list-style: none;
+}
+.titleMenu {
+	margin:0;
+	padding: 5px;
+	text-transform:uppercase;
+	font-weight:bold;
+}
+#logout{
+	display:block;
+}
+.linksEdicion{
+	clear:left;
+	display:inline;
+}
+/*  AGREGADOS -----------------------------------------------*/
+#projectFilter label{
+	color:#0066CC;
+	font-weight:bold;
+}
+#help {
+	display:block;
+	height:20px;
+	width:100%;
+	padding-right:50px;
+}
+#helpMap {
+	padding:10px;
+	float:left;
+	margin-bottom:10px;
+	position:absolute;
+	z-index:12000;
+}
+

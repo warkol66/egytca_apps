@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<moduleInstalation>
+	<moduleInstalation:config>
+		<label>Users</label>
+		<description>Administrador de Usuarios del Sistema</description>
+		<esp>
+			<label>Users</label>
+			<description>Administrador de Usuarios del Sistema</description>
+		</esp>
+		<eng>
+			<label>Users</label>
+			<description>Users manager</description>
+		</eng>
+		<alwaysActive>1</alwaysActive>
+		<moduleDependencies>
+			<module1>Modules</module1>
+		</moduleDependencies>
+	</moduleInstalation:config>
+	<moduleInstalation:actions>
+		<usersList>
+			<actionLogs>
+				<success>
+					<label>Mostrar lista de usuarios del sistema</label>
+					<esp>Mostrar lista de usuarios del sistema</esp>
+					<eng>List users</eng>
+				</success>
+			</actionLogs>
+			<securityAction>
+				<usersBitLevel>1</usersBitLevel>
+				<usersByaffiliateBitLevel>1</usersByaffiliateBitLevel>
+				<actionPair></actionPair>
+			</securityAction>
+		</usersList>
+		<usersDoDelete>
+			<actionLogs>
+				<success>
+					<label>Borrar usuario</label>
+					<esp>Borrar usuario</esp>
+					<eng>delete user </eng>
+				</success>
+				<failure>
+					<label>No pudo Borrar usuario</label>
+					<esp>No pudo Borrar usuario</esp>
+					<eng>He cannot delete user</eng>
+				</failure>
+			</actionLogs>
+			<securityAction>
+				<usersBitLevel>1</usersBitLevel>
+				<usersByaffiliateBitLevel>1</usersByaffiliateBitLevel>
+				<actionPair></actionPair>
+			</securityAction>
+		</usersDoDelete>
+	</moduleInstalation:actions>
+	<moduleInstalation:sql>
+- 
+-- Estructura de tabla para la tabla `users_group`
+-- 
+
+CREATE TABLE IF NOT EXISTS `users_group` (
+  `id` int(11) NOT NULL auto_increment COMMENT 'Group ID',
+  `name` varchar(255) NOT NULL COMMENT 'Group Name',
+  `created` datetime NOT NULL COMMENT 'Creation date for',
+  `updated` datetime NOT NULL COMMENT 'Last update date',
+  `bitLevel` int(11) default NULL COMMENT 'Nivel',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `users_group_U_1` (`name`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Groups' AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+-- 
+-- Estructura de tabla para la tabla `users_groupcategory`
+-- 
+
+CREATE TABLE IF NOT EXISTS `users_groupcategory` (
+  `groupId` int(11) NOT NULL COMMENT 'Group ID',
+  `categoryId` int(11) NOT NULL COMMENT 'Category ID',
+  PRIMARY KEY  (`groupId`,`categoryId`),
+  KEY `users_groupCategory_FI_2` (`categoryId`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Groups / Categories';
+
+-- --------------------------------------------------------
+
+-- 
+-- Estructura de tabla para la tabla `users_level`
+-- 
+
+CREATE TABLE IF NOT EXISTS `users_level` (
+  `id` int(11) NOT NULL auto_increment COMMENT 'Level ID',
+  `name` varchar(255) NOT NULL COMMENT 'Level Name',
+  `bitLevel` int(11) default NULL COMMENT 'Bit del nivel',
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `users_level_U_1` (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Levels' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+-- 
+-- Estructura de tabla para la tabla `users_user`
+-- 
+
+CREATE TABLE IF NOT EXISTS `users_user` (
+  `id` int(11) NOT NULL auto_increment COMMENT 'User Id',
+  `username` varchar(255) NOT NULL COMMENT 'username',
+  `password` varchar(255) NOT NULL COMMENT 'password',
+  `active` int(11) NOT NULL COMMENT 'Is user active?',
+  `created` datetime NOT NULL COMMENT 'Creation date for',
+  `updated` datetime NOT NULL COMMENT 'Last update date',
+  `levelId` int(11) default NULL COMMENT 'User Level',
+  `lastLogin` datetime NOT NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `users_user_U_1` (`username`),
+  KEY `users_user_FI_2` (`levelId`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COMMENT='Users' AUTO_INCREMENT=4 ;
+
+-- --------------------------------------------------------
+
+-- 
+-- Estructura de tabla para la tabla `users_usergroup`
+-- 
+
+CREATE TABLE IF NOT EXISTS `users_usergroup` (
+  `userId` int(11) NOT NULL COMMENT 'Group ID',
+  `groupId` int(11) NOT NULL COMMENT 'Group ID',
+  PRIMARY KEY  (`userId`,`groupId`),
+  KEY `users_userGroup_FI_2` (`groupId`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Users / Groups';
+
+-- --------------------------------------------------------
+
+-- 
+-- Estructura de tabla para la tabla `users_userinfo`
+-- 
+
+CREATE TABLE IF NOT EXISTS `users_userinfo` (
+  `userId` int(11) NOT NULL COMMENT 'User Id',
+  `name` varchar(255) default NULL COMMENT 'name',
+  `surname` varchar(255) default NULL COMMENT 'surname',
+  `mailAddress` varchar(200) NOT NULL,
+  PRIMARY KEY  (`userId`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Information about users';
+
+	</moduleInstalation:sql>
+</moduleInstalation>
