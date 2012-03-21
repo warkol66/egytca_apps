@@ -1,0 +1,12 @@
+DELETE FROM `security_module` WHERE `module` = 'calendar';
+INSERT INTO `security_module` ( `module` , `noCheckLogin` , `access` , `accessAffiliateUser` , `accessRegistrationUser` ) VALUES ('calendar', '', '7', '0','0');
+DELETE FROM `security_action` WHERE `module` = 'calendar';
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('calendarEventsChangeStatuses','calendar','','3','0','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('calendarEventsChangeStatusX','calendar','','3','0','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('calendarEventsWeek','calendar','','0','0','1','','1','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('calendarEventsView','calendar','','0','0','1','','1','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('calendarEventsGetThumbnail','calendar','','0','0','1','','1','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('calendarEventsMonth','calendar','','0','0','1','','1','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('calendarEventsShow','calendar','','0','0','1','','1','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('calendarEventsSearch','calendar','','0','0','1','','1','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('calendarMediasGetImage','calendar','','0','0','1','','1','0' );
