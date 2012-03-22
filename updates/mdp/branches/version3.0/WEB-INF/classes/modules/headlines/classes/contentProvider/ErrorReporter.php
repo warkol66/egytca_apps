@@ -9,10 +9,9 @@ class ErrorReporter {
 		require_once 'EmailManagement.php';
 		
 		$emailMgr = new EmailManagement();
-//		$emailMgr->setTestMode(true);
-		$emailMgr->setTestMode(false);
+		$emailMgr->setTestMode(true);
 		
-		$recipients = 'canuhedc@gmail.com';
+		$recipients = null; // will be overriden
 		$subject = 'errors parsing headlines';
 		$mailFrom = 'canuhedc@gmail.com';
 		$mailBody = '';
