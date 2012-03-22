@@ -36,7 +36,7 @@ class HeadlinesRenderUrlAction extends BaseAction {
 				shell_exec($tmpwatch .' -d 1 '.$imagePath);
 
 				$tempImg = 'cropme-'.uniqid().'.jpg';
-				$imageFullname = $imagePath . $tempImg;
+				$imageFullname = realpath($imagePath) . "/" . $tempImg;
 			
 				$smarty->assign("id", $_GET["id"]);
 			

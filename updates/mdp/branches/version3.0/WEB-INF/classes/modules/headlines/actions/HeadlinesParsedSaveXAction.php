@@ -36,7 +36,7 @@ class HeadlinesParsedSaveXAction extends BaseAction {
 					if (!file_exists($imagePath))
 						mkdir ($imagePath, 0777, true);
 
-					$imageFullname = $imagePath . $newHeadline->getId() . ".jpg";
+					$imageFullname = realpath($imagePath) . "/" . $newHeadline->getId() . ".jpg";
 
 					$renderer = new WebkitHtmlRenderer();
 					$renderer->render($url, $imageFullname, true, true);

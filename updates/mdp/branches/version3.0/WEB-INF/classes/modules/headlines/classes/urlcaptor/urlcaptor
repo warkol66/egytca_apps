@@ -1,0 +1,32 @@
+#! /bin/sh
+
+USAGE_HELP="
+Usage: urlcaptor command\n
+\nCommands:\n
+\tstart\tStarts the url image caption daemon\n
+\tstop\tStops the url image caption daemon\n
+\tstatus\tShows the status of the daemon
+"
+
+case "$1" in
+	"start")
+		./urlcaptord > /dev/null 2>/dev/null &
+		echo "PID=$!" > urlcaptor.dat
+		;;
+	"stop")
+		PID=`grep "PID" "urlcaptor.dat" | sed -e "s/PID=//"`
+		kill $PID
+		echo "PID=" > urlcaptor.dat
+		;;
+	"status")
+		PID=`grep "PID" "urlcaptor.dat" | sed -e "s/PID=//"`
+		if [ -z "$PID" ] ; then
+			echo "stopped"
+		else
+			echo "running"
+		fi
+		;;
+	*)
+		echo $USAGE_HELP
+		;;
+esac

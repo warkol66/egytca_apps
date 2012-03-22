@@ -1,0 +1,39 @@
+#! /bin/sh
+
+# use urlcaptor to control this daemon
+
+configFile="config.ini"
+
+app=`grep "application" $configFile | sed -e "s/application=//"`
+queue=`grep "queue" $configFile | sed -e "s/queue=//"`
+
+# $1: file
+capture() {
+	file="queue/$1"
+
+	quality=`grep "quality" $file | sed -e "s/quality=//"`
+	width=`grep "width" $file | sed -e "s/width=//"`
+	height=`grep "height" $file | sed -e "s/height=//"`
+	url=`grep "url" $file | sed -e "s/url=//"`
+	image=`grep "image" $file | sed -e "s/image=//"`
+
+	$app --quality $quality --width $width --height $height $url $image > /dev/null 2>/dev/null
+	
+	return $?
+}
+
+while true; do
+	files=`ls -1 $queue`
+	for file in $files ; do
+		capture $file
+		# a veces captura la imagen pero devuelve error. ojo!
+		if [ $? = 0 ] ; then
+#			TODO ok => log ok
+			rm -f $file
+		else
+			rm -f $file # mv $file instead?
+#			TODO error => log error
+		fi
+	done
+	sleep 5s
+done
