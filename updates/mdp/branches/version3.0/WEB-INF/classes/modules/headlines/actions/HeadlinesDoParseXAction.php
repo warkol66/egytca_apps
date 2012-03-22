@@ -42,6 +42,15 @@ class HeadlinesDoParseXAction extends BaseAction {
 		$strategiesParams = $provider->getParameters();
 		$parseErrors = $provider->getErrors();
 		
+		if (!empty($parseErrors)) {
+			global $system;
+			$debugMode = $system['config']['system']['parameters']['debugMode']['value'];
+			if ($debugMode == 'YES') {
+				require_once 'contentProvider/ErrorReporter.php';
+				ErrorReporter::report($parseErrors);
+			}
+		}
+		
 		$smarty->assign('headlinesParsed', $headlinesParsed);
 		$smarty->assign('strategiesParams', $strategiesParams);
 		$smarty->assign('parseErrors', $parseErrors);

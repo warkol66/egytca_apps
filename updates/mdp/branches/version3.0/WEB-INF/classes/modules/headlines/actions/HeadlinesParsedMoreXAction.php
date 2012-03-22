@@ -34,6 +34,15 @@ class HeadlinesParsedMoreXAction extends BaseAction {
 				$parseErrors = $provider->getErrors();
 				$smarty->assign('parseErrors', $parseErrors);
 				
+				if (!empty($parseErrors)) {
+					global $system;
+					$debugMode = $system['config']['system']['parameters']['debugMode']['value'];
+					if ($debugMode == 'YES') {
+						require_once 'contentProvider/ErrorReporter.php';
+						ErrorReporter::report($parseErrors);
+					}
+				}
+				
 				return $mapping->findForwardConfig('success');
 				
 			} else {
