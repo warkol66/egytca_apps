@@ -11,9 +11,11 @@ class ErrorReporter {
 		$emailMgr = new EmailManagement();
 		$emailMgr->setTestMode(true);
 		
-		$recipients = null; // will be overriden
+		global $system;
+		
+		$recipients = $system['config']['system']['parameters']['debugMail']; // will be overriden
 		$subject = 'errors parsing headlines';
-		$mailFrom = 'canuhedc@gmail.com';
+		$mailFrom = $system['config']['system']['parameters']['fromEmail'];
 		$mailBody = '';
 		
 		foreach ($errors as $error) {
