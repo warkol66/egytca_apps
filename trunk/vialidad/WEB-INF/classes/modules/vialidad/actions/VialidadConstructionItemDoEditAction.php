@@ -51,6 +51,7 @@ class VialidadConstructionItemDoEditAction extends BaseAction {
 		}
 		else { // New item
 
+			$itemParams["classKey"] = 1;
 			$item = new ConstructionItem();
 			$item = Common::setObjectFromParams($item,$itemParams);
 			if (!$item->save())
