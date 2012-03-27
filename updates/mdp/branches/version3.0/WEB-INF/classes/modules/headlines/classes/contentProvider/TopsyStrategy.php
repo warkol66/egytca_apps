@@ -38,7 +38,7 @@ class TopsyStrategy extends AbstractParserStrategy {
 			'item_title' => '.title',
 			'item_source' => '.title .external',
 			'item_timestamp' => '.actions .date-link',
-			'item_snippet' => '.body',
+			'item_snippet' => '.twitter-post-text',
 			'next_link' => '#body-wrap .pager-box-body .next'
 		));
 	}
