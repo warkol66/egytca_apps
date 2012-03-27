@@ -69,26 +69,28 @@ class ConfigModule {
 			"searchEngineUrl" => "http://news.google.com",
 			"clippingsPath" => "./WEB-INF/classes/modules/headlines/files/clipping/",
 			"clippingsTmpPath" => "./WEB-INF/classes/modules/headlines/files/clipping/tmp/",
-			"clippingApp" => "wkhtmltoimage",
-            "contentProvider" => array(
-                "strategies" => array(
-                    "default"    => "GoogleNewsStrategy",
-                    "compound"   => "CompoundStrategy",
-                    "googleNews" => "GoogleNewsStrategy",
-                    "google"     => "GoogleStrategy"
-                ),
-                "strategies_options" => array(
-                    // "twitter" => "Twitter",
-                    // "bing"    => "Bing",
-                    "googleNews" => "Google News",
-                    "google"     => "Google"
-                ),
-                "errors" => array(
-                    "service_unavailable" => "Ha realizado muchas consultas, espere 5 min e intente de nuevo.",
-                    "empty_response"      => "No hubo respuesta",
-		    "invalid_headline"    => "Hay algunos resultados con errores"
-                )
-            )
+			"clippingApp" => "./WEB-INF/classes/modules/headlines/classes/urlcaptor/wkhtmltoimage",
+			"contentProvider" => array(
+				"strategies" => array(
+					"default"    => "GoogleNewsStrategy",
+					"compound"   => "CompoundStrategy",
+					"googleNews" => "GoogleNewsStrategy",
+					"google"     => "GoogleStrategy",
+					"topsy"      => "TopsyStrategy"
+				),
+				"strategies_options" => array(
+					// "twitter" => "Twitter",
+					// "bing"    => "Bing",
+					"googleNews" => "Google News",
+					"google"     => "Google",
+					"topsy"      => "Topsy"
+				),
+				"errors" => array(
+					"service_unavailable" => "Ha realizado muchas consultas, espere 5 min e intente de nuevo.",
+					"empty_response"      => "No hubo respuesta",
+					"invalid_headline"    => "Hay algunos resultados con errores"
+				)
+			)
 		)
 	);
 

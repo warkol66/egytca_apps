@@ -41,6 +41,10 @@ class HeadlinesParsedMoreXAction extends BaseAction {
 						require_once 'contentProvider/ErrorReporter.php';
 						ErrorReporter::report($parseErrors);
 					}
+				} else {
+					$headline->setMoresourcesurl(null);
+					if (!$headline->save())
+						throw new Exception("couldn't save changes");
 				}
 				
 				return $mapping->findForwardConfig('success');

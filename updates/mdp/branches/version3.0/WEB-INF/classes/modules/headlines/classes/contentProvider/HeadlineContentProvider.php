@@ -6,6 +6,7 @@ require_once 'phpQuery/phpQuery.php';
 require_once $dir . '/AbstractParserStrategy.php';
 require_once $dir . '/GoogleNewsStrategy.php';
 require_once $dir . '/GoogleStrategy.php';
+require_once $dir . '/TopsyStrategy.php';
 require_once $dir . '/CompoundStrategy.php';
 require_once $dir . '/TimestampParser.php';
 

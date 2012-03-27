@@ -124,6 +124,10 @@ abstract class AbstractParserStrategy {
         return $this->nextQueryParams;
     }
     
+	protected function setNextQueryParameters($params) {
+		$this->nextQueryParams = array_merge($this->getNextQueryParameters(), $params);
+	}
+    
     /**
      * @return string 
      */
