@@ -22,7 +22,7 @@ class VialidadConstructionItemReportAction extends BaseAction {
 		$smarty->assign("section",$section);
 
 		if (!empty($_GET['id'])) {
-			
+
 			$construction = ConstructionQuery::create()->findPK($_GET["id"]);
 			if (is_null($construction)) {
 				$smarty->assign('message', 'id inválido');
@@ -31,9 +31,9 @@ class VialidadConstructionItemReportAction extends BaseAction {
 			}
 			$supplies = SupplyQuery::create()->find();
 			$items = ConstructionItemQuery::create()->filterByConstruction($construction)->find();
-		
+
 			/* Cosas para usar el ExcelManagement. No probadas. No pensadas a fondo
-			
+
 			$dataMatrix = array();
 			foreach ($items as $item) {
 				$newRow = array($item->getName());
@@ -42,23 +42,35 @@ class VialidadConstructionItemReportAction extends BaseAction {
 				}
 				$dataMatrix[] = $newRow;
 			}
-			
+
 			$excelManagment = new ExcelManagement();
 			$excelManagment->setTableHeaders($supplies->toArray('name'));
 			$excelManagment->setData($dataMatrix);
 			$excelManagment->sendToClient();
-			
+
 			fin cosas para usar el ExcelManagement */
-			
+
 			if ($_GET['action'] != 'show') {
-				
+
 				// crear el csv, y descargarlo.
-				
+
 				ob_end_clean();
 				header("Content-type: text/csv;");
 				header("Content-Disposition: attachment; filename=Reporte.csv");
 				echo "\xEF\xBB\xBF"; // UTF-8 BOM
-				$delimiter = ",";
+
+				global $system;
+
+				$thousandsSeparator = $system['config']['system']['parameters']['thousandsSeparator'];
+				$decimalSeparator = $system['config']['system']['parameters']['decimalSeparator'];
+				$numberOfDecimals = $system['config']['system']['parameters']['numberOfDecimals'];
+
+				$config = Common::getModuleConfiguration("system");
+				if ($decimalSeparator == ".")
+					$delimiter = ",";
+				else
+					$delimiter = ";";
+
 				$lineFeed = "\r\n";
 
 				// Document header
@@ -74,21 +86,25 @@ class VialidadConstructionItemReportAction extends BaseAction {
 				// table body
 				foreach ($items as $item) {
 					print $item->getName() . $delimiter . $item->getName();
-					foreach ($supplies as $supply)
-						print $delimiter.$item->getProportionForSupply($supply).' %';
+					foreach ($supplies as $supply) {
+						if ($decimalSeparator == ".")
+							print $delimiter.$item->getProportionForSupply($supply).'%';
+						else
+							print $delimiter.number_format($item->getProportionForSupply($supply),$numberOfDecimals,$decimalSeparator,$thousandsSeparator).'%';
+					}
 					print $lineFeed;
 				}
 				return;
-				
+
 			} else {
 				// ver el reporte en un tpl en el browser
-				
+
 				$this->template->template = 'TemplatePrint.tpl';
-				
+
 				$smarty->assign('construction', $construction);
 				$smarty->assign('supplies', $supplies);
 				$smarty->assign('items', $items);
-				
+
 				return $mapping->findForwardConfig("success");
 			}
 		} else {
