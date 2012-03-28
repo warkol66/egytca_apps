@@ -238,9 +238,19 @@ class HeadlineContentProvider {
 			    echo "<br />";
 		    }
 		    
-		    if ($ignored / $total > $stopTrigger) {
+		    $noResults = $total == 0;
+		    $error = $this->getErrors();
+		    $repeated = $ignored / $total > $stopTrigger;
+		    if ($noResults || $error || $repeated) {
 			    if ($debug) {
-				    echo "too many ignored results - trigger activated - stopping...<br />";
+				    echo "loop stopped - reason:<br />";
+				    if ($noResults)
+					    echo "search brought no results<br />";
+				    elseif ($error)
+					    echo "error ocurred<br />";
+				    else // if ($repeated)
+					    echo "too many ignored results (repeated headlines)<br />";
+				    echo "<br />";
 			    }
 			    break;
 		    }
