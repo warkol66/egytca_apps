@@ -183,20 +183,21 @@ class HeadlineContentProvider {
         return $this->strategy->hasErrors();
     }
     
-    /**
-     * Obtiene codigo y mensaje de los errores ocurridos en el parseo de una
-     * consulta.
-     * 
-     * @return array
-     */
-    public function getErrors() {
-        $errors = array();
-        foreach ($this->strategy->getErrors() as $error) {
-            $error['message'] = $this->config['errors'][$error['code']];
-            $errors[] = $error;
-        }
-        return $errors;
-    }
+	/**
+	 * Obtiene codigo y mensaje de los errores ocurridos en el parseo de una
+	 * consulta.
+	 * 
+	 * @return array
+	 */
+	public function getErrors() {
+		$errors = array();
+		foreach ($this->strategy->getErrors() as $error) {
+			$error['message'] = $this->config['errors'][$error['code']];
+			if (!in_array($error, $errors))
+				$errors[] = $error;
+		}
+		return $errors;
+	}
     
     private function getSanitizedKeywords() {
         $kw = is_array($this->keywords) ? implode(' ', $this->keywords) : $this->keywords;

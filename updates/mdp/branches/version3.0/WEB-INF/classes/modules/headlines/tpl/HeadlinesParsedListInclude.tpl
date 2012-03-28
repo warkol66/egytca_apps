@@ -6,7 +6,7 @@
 		'<span>Se produjeron errores durante el parseo:</span>'
 		+ '<ul>'
 		|-foreach from=$parseErrors item=error-|
-			+ '<li>|-$error.message-|</li>'
+			+ '<li>|-$error.strategy-|: |-$error.message-|</li>'
 		|-/foreach-|
 		+ '</ul>'
 	|-/if-|
