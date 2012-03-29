@@ -46,7 +46,12 @@ class HeadlinesParsedSaveAllXAction extends BaseAction {
 							$imageFullname = realpath($imagePath) . "/" . $newHeadline->getId() . ".jpg";
 		
 							$renderer = new WebkitHtmlRenderer();
-							$renderer->putInQueue($url, $imageFullname, true);
+							try {
+								$renderer->putInQueue($url, $imageFullname, true);
+							} catch (Exception $e) {
+								$smarty->assign('errorMessage', $e->getMessage());
+								return $mapping->findForwardConfig('success');
+							}
 							//Fin clipping
 
 							$headline->setStatus(HeadlineParsedQuery::STATUS_PROCESSED);

@@ -54,13 +54,19 @@ class WebkitHtmlRenderer {
 		$content = "quality=$quality\n"."width=$width\n"."height=$height\n";
 		$content .= "url=$url\n"."image=$image\n";
 		
-		$queueDir = './WEB-INF/classes/modules/headlines/classes/urlcaptor/queue';
-		if (!file_exists($queueDir))
+		$urlcaptorDir = './WEB-INF/classes/modules/headlines/classes/urlcaptor';
+		
+		$queueDir = $urlcaptorDir . '/' . 'queue';
+		if (!file_exists($qeueDir))
 			mkdir ($queueDir, 0777, true);
+		if (!file_exists($queueDir))
+			throw new Exception('No se pudo crear el directorio '.$queueDir.'. Verifique la configuración de permisos');
 		
 		$filename = $queueDir.'/'.uniqid();
-		
 		file_put_contents($filename, $content);
+		
+		if (!file_exists($filename))
+			throw new Exception('No se pudo crear el archivo '.$filename.'. Verifique la configuración de permisos');
 	}
 	
 }
