@@ -8,9 +8,14 @@ Usage: urlcaptor command\n
 \tstatus\tShows the status of the daemon
 "
 
+configFile="config.ini"
+
+out=`grep "stdout" $configFile | sed -e "s/stdout=//"`
+err=`grep "stderr" $configFile | sed -e "s/stderr=//"`
+
 case "$1" in
 	"start")
-		./urlcaptord > /dev/null 2>/dev/null &
+		./urlcaptord > $out 2> $err &
 		echo "PID=$!" > urlcaptor.dat
 		;;
 	"stop")
