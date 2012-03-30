@@ -24,27 +24,54 @@ if (!empty($argc)) {
 }
 
 if (isset($_POST["modelgen"])) {
-
-	$projectHome = shell_exec('echo $PWD');
-	$projectHome = substr($projectHome, 0, -1);
-
-	$command = './migrate';
-
-	// Borrar salidas viejas
-	shell_exec('"" > stdout.txt');
-	shell_exec('"" > stderr.txt');
-
-	putenv('MIGRATION_DEBUG=1');
-
-	if (isset($_POST["modelgen"]["normal"]))
-		shell_exec($command.' >> stdout.txt 2>> stderr.txt');
 	
-	if (isset($_POST["modelgen"]["diff"]))
-		shell_exec($command.' diff >> stdout.txt 2>> stderr.txt');
+	$sqlDir = realpath('./WEB-INF/propel/sql/');
+	$migrationsDir = realpath('./WEB-INF/propel/migrations/');
+	$root = realpath('.');
 	
-	if (isset($_POST["modelgen"]["migrate"]))
-		shell_exec($command.' migrate >> stdout.txt 2>> stderr.txt');
-
+	$permissionsError = false;
+	
+	require_once 'WEB-INF/classes/modules/common/classes/Common.class.php';
+	error_reporting(0);
+	ini_set('display_errors',0);
+	
+	if (!Common::isWritable($root)) {
+		$permissionsError = true;
+		echo "No se puede escribir en el directorio $root. Verifique la configuraci&oacute;n de permisos.<br />";
+	}
+	
+	if (!Common::isWritable($sqlDir)) {
+		$permissionsError = true;
+		echo "No se puede escribir en el directorio $sqlDir. Verifique la configuraci&oacute;n de permisos.<br />";
+	}
+	
+	if (!Common::isWritable($migrationsDir)) {
+		$permissionsError = true;
+		echo "No se puede escribir en el directorio $migrationsDir. Verifique la configuraci&oacute;n de permisos.<br />";
+	}
+	
+	if (!$permissionsError) {
+		
+		$projectHome = shell_exec('echo $PWD');
+		$projectHome = substr($projectHome, 0, -1);
+		
+		$command = './migrate';
+		
+		// Borrar salidas viejas
+		shell_exec('"" > stdout.txt');
+		shell_exec('"" > stderr.txt');
+		
+//		putenv('MIGRATION_DEBUG=1');
+		
+		if (isset($_POST["modelgen"]["normal"]))
+			shell_exec($command.' >> stdout.txt 2>> stderr.txt');
+		
+		if (isset($_POST["modelgen"]["diff"]))
+			shell_exec($command.' diff >> stdout.txt 2>> stderr.txt');
+		
+		if (isset($_POST["modelgen"]["migrate"]))
+			shell_exec($command.' migrate >> stdout.txt 2>> stderr.txt');
+	}
 }
 
 ?>
@@ -65,3 +92,5 @@ if (isset($_POST["modelgen"])) {
 </form>
 
 <p id="p_status"></p>
+
+<div><?php echo file_get_contents('stdout.txt');?></div>
