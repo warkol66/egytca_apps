@@ -54,19 +54,22 @@ class WebkitHtmlRenderer {
 		$content = "quality=$quality\n"."width=$width\n"."height=$height\n";
 		$content .= "url=$url\n"."image=$image\n";
 		
-		$urlcaptorDir = './WEB-INF/classes/modules/headlines/classes/urlcaptor';
+		$queueParentDir = './WEB-INF/classes/modules/headlines/classes/urlcaptor';
 		
-		$queueDir = $urlcaptorDir . '/' . 'queue';
-		if (!file_exists($qeueDir))
-			mkdir ($queueDir, 0777, true);
-		if (!file_exists($queueDir))
-			throw new Exception('No se pudo crear el directorio '.$queueDir.'. Verifique la configuración de permisos');
+		$queueDir = $queueParentDir . '/' . 'queue';
+		if (!file_exists($queueDir)) {
+			if (Common::isWritable($queueParentDir))
+				mkdir($queueDir, 0777, true);
+			else
+				throw new Exception("No se puede escribir en el directorio $queueParentDir. Verifique la configuración de permisos.");
+		}
 		
-		$filename = $queueDir.'/'.uniqid();
-		file_put_contents($filename, $content);
-		
-		if (!file_exists($filename))
-			throw new Exception('No se pudo crear el archivo '.$filename.'. Verifique la configuración de permisos');
+		if (Common::isWritable($queueDir)) {
+			$filename = $queueDir.'/'.uniqid();
+			file_put_contents($filename, $content);
+		} else {
+			throw new Exception("No se puede escribir en el directorio $queueDir. Verifique la configuración de permisos.");
+		}
 	}
 	
 }

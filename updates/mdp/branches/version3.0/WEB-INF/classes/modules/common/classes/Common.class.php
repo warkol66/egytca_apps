@@ -1324,6 +1324,20 @@ class Common {
 		else
 			return false;
 	}
+	
+	/**
+	 * Returns true if $path has write permissions or false otherwise
+	 *
+	 * @param string $path
+	 * @return boolean 
+	 */
+	public static function isWritable($path) {
+		$testfile = $path.'/test.test';
+		file_put_contents($testfile, 'asd');
+		$return = file_exists($testfile);
+		unlink($testfile);
+		return $return;
+	}
 
 
 } // end of class
