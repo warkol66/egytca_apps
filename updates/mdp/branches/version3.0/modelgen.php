@@ -50,16 +50,36 @@ if (isset($_POST["modelgen"])) {
 		echo "No se puede escribir en el directorio $migrationsDir. Verifique la configuraci&oacute;n de permisos.<br />";
 	}
 	
+	$modulesDir = realpath('./WEB-INF/classes/modules');
+	foreach (scandir($modulesDir) as $module) {
+		$omDir = realpath("$modulesDir/$module/classes/om");
+		$mapDir = realpath("$modulesDir/$module/classes/map");
+		
+		if (file_exists($omDir)) {
+			if (!Common::isWritable($omDir)) {
+				$permissionsError = true;
+				echo "No se puede escribir en el directorio $omDir. Verifique la configuraci&oacute;n de permisos.<br />";
+			}
+		}
+		
+		if (file_exists($mapDir)) {
+			if (!Common::isWritable($mapDir)) {
+				$permissionsError = true;
+				echo "No se puede escribir en el directorio $mapDir. Verifique la configuraci&oacute;n de permisos.<br />";
+			}
+		}
+	}
+	
+	// Borrar salidas viejas
+	shell_exec('"" > stdout.txt');
+	shell_exec('"" > stderr.txt');
+	
 	if (!$permissionsError) {
 		
 		$projectHome = shell_exec('echo $PWD');
 		$projectHome = substr($projectHome, 0, -1);
 		
 		$command = './migrate';
-		
-		// Borrar salidas viejas
-		shell_exec('"" > stdout.txt');
-		shell_exec('"" > stderr.txt');
 		
 //		putenv('MIGRATION_DEBUG=1');
 		
