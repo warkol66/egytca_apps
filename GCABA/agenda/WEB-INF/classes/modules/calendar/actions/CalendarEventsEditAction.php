@@ -27,22 +27,20 @@ class CalendarEventsEditAction extends BaseAction {
 				
     if ( !empty($_GET["id"]) ) {
 			//voy a editar un evento
-			$calendarEvent = CalendarEventPeer::get($_GET["id"]);
+			$calendarEvent = CalendarEventQuery::create()->findOneById($_GET["id"]);
 			
 			$smarty->assign("calendarEvent",$calendarEvent);
-			if ($calendarEventsConfig['useRegions']['value'] == "YES") {
+/*			if ($calendarEventsConfig['useRegions']['value'] == "YES") {
 				require_once("RegionPeer.php");		
-				$smarty->assign("regionIdValues",RegionPeer::getAll());
+				$smarty->assign("regionIdValues",RegionQuery::create()->find());
 			}
-			if ($calendarEventsConfig['useCategories']['value'] == "YES") {
-				require_once("CategoryPeer.php");		
-				$smarty->assign("categoryIdValues",CategoryPeer::getAll());
-			}
-			require_once("UserPeer.php");		
-			$smarty->assign("userIdValues",UserPeer::getAll());
+			if ($calendarEventsConfig['useCategories']['value'] == "YES")
+				$smarty->assign("categoryIdValues",CategoryQuery::create()->find());
+
+			$smarty->assign("userIdValues",UserQuery::create()->find());
 			//buscamos las medias de articulo para listarlas
-			$smarty->assign("calendarMedias",CalendarMediaPeer::getAll($_GET['id']));
-			
+			$smarty->assign("calendarMedias",CalendarMediaQuery::create()->find($_GET['id']));
+*/			
 			$smarty->assign("images",$calendarEvent->getImages());
 /*			$smarty->assign("sounds",$newsarticle->getSounds());
 			$smarty->assign("videos",$newsarticle->getVideos());
@@ -53,17 +51,13 @@ class CalendarEventsEditAction extends BaseAction {
 			//voy a crear un calendarevent nuevo
 			$calendarEvent = new CalendarEvent();
 			$smarty->assign("calendarEvent",$calendarEvent);			
-			if ($calendarEventsConfig['useRegions']['value'] == "YES") {
-				require_once("RegionPeer.php");		
-				$smarty->assign("regionIdValues",RegionPeer::getAll());
-			}
-			if ($calendarEventsConfig['useCategories']['value'] == "YES") {
-				require_once("CategoryPeer.php");		
-				$smarty->assign("categoryIdValues",CategoryPeer::getAll());
-			}
-			require_once("UserPeer.php");		
-			$smarty->assign("userIdValues",UserPeer::getAll());
+			if ($calendarEventsConfig['useRegions']['value'] == "YES")
+				$smarty->assign("regionIdValues",RegionQuery::create()->find());
 
+			if ($calendarEventsConfig['useCategories']['value'] == "YES")
+				$smarty->assign("categoryIdValues",CategoryPeer::getAll());
+
+			$smarty->assign("userIdValues",UserQuery::create()->find());
 			$smarty->assign("action","create");
 		}
 

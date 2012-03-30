@@ -43,4 +43,22 @@
 
 	</table>
 
+	<table phpName="RegionPoint" name="regions_point" description="Puntos que conforman el perimetro de las regiones">
+	
+		<column name="id" type="INTEGER"  required="true" description="Id del punto" primaryKey="true" autoIncrement="true"  />
+		<column name="regionId" type="INTEGER" required="true"/>
+		<column name="latitude" type="NUMERIC" size="12" scale="9" description="latitud" />
+		<column name="longitude" type="NUMERIC" size="12" scale="9" description="longitud" />
+		
+		<foreign-key foreignTable="regions_region">
+			<reference local="regionId" foreign="id"/>
+		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
 </database>

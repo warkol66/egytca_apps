@@ -10,20 +10,92 @@
 		<column name="startDate" type="TIMESTAMP" description="Fecha inicio Actividad" />
 		<column name="endDate" type="TIMESTAMP" description="Fecha fin Actividad" />
 		<column name="sourceContact" type="VARCHAR" size="150" description="Mas informacion" />
+		<column name="typeId" type="INTEGER" description="Tipo de evento" />
+		<column name="agendaType" type="INTEGER" description="Tipo de agenda" />
 		<column name="status" type="INTEGER" description="Estado del evento" />
-		<column name="regionId" type="INTEGER" description="Id de la provincia" />
-		<column name="categoryId" type="INTEGER" description="Id de la categoria" />
 		<column name="userId" type="INTEGER"  required="true" description="Id del usuario" />
+		<column name="latitude" type="NUMERIC" size="12" scale="9" description="latitud" />
+		<column name="longitude" type="NUMERIC" size="12" scale="9" description="longitud" />
+		<column name="street" type="VARCHAR" size="100" description="Nombre de la calle" />
+		<column name="number" type="INTEGER" description="numero de la calle" />
 
 		<foreign-key foreignTable="users_user" >
 			<reference local="userId" foreign="id" />
 		</foreign-key>
 
-		<foreign-key foreignTable="categories_category" >
+		<foreign-key foreignTable="calendar_eventType" >
+			<reference local="typeId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="EventType" name="calendar_eventType" description="Base de tipos de evento">
+	
+		<column name="id" type="INTEGER"  required="true" description="Id de tipo de evento" primaryKey="true" autoIncrement="true"  />
+		<column name="name" type="VARCHAR" size="100" required="true" description="Nombre del tipo de evento" />
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="calendar_eventCategory" phpName="EventCategory" description="Relacion de eventos y Categories" isCrossRef="true">
+
+		<column name="eventId" required="true" primaryKey="true" type="INTEGER" description="Event ID"/>
+		<column name="categoryId" required="true" primaryKey="true" type="INTEGER" description="Category ID"/>
+
+		<foreign-key foreignTable="calendar_event" onDelete="CASCADE" >
+			<reference local="eventId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="categories_category" onDelete="CASCADE" >
 			<reference local="categoryId" foreign="id" />
 		</foreign-key>
 
-		<foreign-key foreignTable="regions_region" >
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="calendar_eventActor" phpName="EventActor" description="Relacion de eventos y actores" isCrossRef="true">
+
+		<column name="actorId" required="true" primaryKey="true" type="INTEGER" description="Event ID"/>
+		<column name="eventId" required="true" primaryKey="true" type="INTEGER" description="Category ID"/>
+
+		<foreign-key foreignTable="calendar_event" onDelete="CASCADE" >
+			<reference local="eventId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="actors_actor" onDelete="CASCADE" >
+			<reference local="actorId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="calendar_eventRegion" phpName="EventRegion" description="Relacion de eventos y regiones" isCrossRef="true">
+
+		<column name="regionId" required="true" primaryKey="true" type="INTEGER" description="Event ID"/>
+		<column name="eventId" required="true" primaryKey="true" type="INTEGER" description="Category ID"/>
+
+		<foreign-key foreignTable="calendar_event" onDelete="CASCADE" >
+			<reference local="eventId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="regions_region" onDelete="CASCADE" >
 			<reference local="regionId" foreign="id" />
 		</foreign-key>
 
@@ -57,6 +129,20 @@
 			<reference local="calendarEventId" foreign="id" />
 		</foreign-key>
 
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="CalendarAxis" name="calendar_axis" description="Base de Ejes">
+	
+		<column name="id" type="INTEGER"  required="true" description="Id de Eje" primaryKey="true" autoIncrement="true"  />
+		<column name="name" type="VARCHAR" size="100" required="true" description="Nombre del eje" />
+		<column name="description" type="LONGVARCHAR" description="descripcion del eje" />
+		<column name="color" type="VARCHAR" size="7" description="Color del eje" />
+		
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
