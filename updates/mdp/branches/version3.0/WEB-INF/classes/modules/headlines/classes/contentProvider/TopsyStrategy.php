@@ -38,6 +38,7 @@ class TopsyStrategy extends AbstractParserStrategy {
 			'item_title' => '.title',
 			'item_source' => '.title .external',
 			'item_timestamp' => '.actions .date-link',
+			'item_alternative_timestamp' => '.attrib .date',
 			'item_snippet' => '.twitter-post-text',
 			'next_link' => '#body-wrap .pager-box-body .next'
 		));
@@ -80,6 +81,7 @@ class TopsyStrategy extends AbstractParserStrategy {
 		foreach ($pq[$this->getSelector('items')] as $item) {
 			
 			$timestamp = $this->fixEncoding($pq->find($this->getSelector('item_timestamp'), $item)->html());
+			$alternativeTimestamp = $this->fixEncoding($pq->find($this->getSelector('item_alternative_timestamp'), $item)->html());
 			$source = $this->fixEncoding($pq->find($this->getSelector('item_source'), $item)->attr('href'));
 			
 			if ($debug) {
@@ -90,6 +92,10 @@ class TopsyStrategy extends AbstractParserStrategy {
 			$title = $this->fixEncoding($pq->find($this->getSelector('item_title'), $item)->html());
 			$source = $this->parseSource($source);
 			$timestamp = $this->parseTimestamp($timestamp);
+			if ($timestamp == '') {
+				$timestamp = $this->parseTimestamp($alternativeTimestamp);
+			}
+			
 			$snippet = $this->fixEncoding($pq->find($this->getSelector('item_snippet'), $item)->html());
 			
 			if ($debug) {
@@ -102,7 +108,7 @@ class TopsyStrategy extends AbstractParserStrategy {
 			}
 			
 			if ( !$resultsErrorsExist && ($url == '' || $title == ''
-				|| $source == '' || $timestamp == '' || $snippet == '') ) {
+				|| $source == '' || $timestamp == '') ) {
 				
 				$this->addError('invalid_headline');
 				$resultsErrorsExist = true;
