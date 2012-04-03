@@ -63,14 +63,14 @@
 						
 						<input type="hidden" name="do" value="calendarMediasEdit" />
 						<input type="hidden" name="id" value="|-$calendarMedias->getid()-|" />
-						<input type="submit" name="submit_go_edit_calendarMedia" value="Editar" class="buttonImageEdit" />
+						<input type="submit" name="submit_go_edit_calendarMedia" value="Editar" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<!--pasaje de parametros de filtros -->
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						<input type="hidden" name="do" value="calendarMediasDoDelete" />
 						<input type="hidden" name="id" value="|-$calendarMedias->getid()-|" />
-						<input type="submit" name="submit_go_delete_calendarMedia" value="Borrar" onclick="return confirm('Seguro que desea eliminar el calendarMedia?')" class="buttonImageDelete" />
+						<input type="submit" name="submit_go_delete_calendarMedia" value="Borrar" onclick="return confirm('Seguro que desea eliminar el calendarMedia?')" class="icon iconDelete" />
 					</form>				
 					</td>
 			</tr>

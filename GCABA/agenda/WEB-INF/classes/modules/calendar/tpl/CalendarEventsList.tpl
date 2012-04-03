@@ -90,14 +90,14 @@
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						<input type="hidden" name="do" value="calendarEventsEdit" />
 						<input type="hidden" name="id" value="|-$calendarEvent->getid()-|" />
-						<input type="submit" name="submit_go_edit_calendarEvent" value="Editar" class="buttonImageEdit" />
+						<input type="submit" name="submit_go_edit_calendarEvent" value="Editar" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<!--pasaje de parametros de filtros -->
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						<input type="hidden" name="do" value="calendarEventsDoDelete" />
 						<input type="hidden" name="id" value="|-$calendarEvent->getid()-|" />
-						<input type="submit" name="submit_go_delete_calendarEvent" value="Borrar" onclick="return confirm('Seguro que desea eliminar el calendarEvent?')" class="buttonImageDelete" />
+						<input type="submit" name="submit_go_delete_calendarEvent" value="Borrar" onclick="return confirm('Seguro que desea eliminar el calendarEvent?')" class="icon iconDelete" />
 					</form>
 					|-else-|
 					
