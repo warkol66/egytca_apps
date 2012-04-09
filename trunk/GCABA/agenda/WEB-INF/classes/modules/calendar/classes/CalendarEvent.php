@@ -14,6 +14,17 @@
 class CalendarEvent extends BaseCalendarEvent {
 	
 	/**
+	 * Devuelve true si el CalendarEvent tiene asociado el eje,
+	 * y false caso contrario.
+	 * 
+	 * @param CalendarAxis $axis
+	 * @return boolean
+	 */
+	public function hasCalendarAxis($axis) {
+		return EventAxisQuery::create()->filterByAxisid($axis->getId())->count() > 0;
+	}
+	
+	/**
 	 * Devuelve true si el CalendarEvent tiene asociado el actor,
 	 * y false caso contrario.
 	 * 
