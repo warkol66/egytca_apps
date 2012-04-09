@@ -95,6 +95,14 @@
 					</select>
 				</p>
 				<p>
+					<label for="calendarEvent_axes">Ejes</label>
+					<select multiple="multiple" id="calendarEvent_axes" name="calendarEvent[axesIds][]" title="ejes">
+					|-foreach from=$axes item=object-|
+						<option value="|-$object->getid()-|" |-$calendarEvent->hasCalendarAxis($object)|selected:true-| style="color:|-$object->getColor()-|;">|-$object->getname()-|</option>
+					|-/foreach-|
+					</select>
+				</p>
+				<p>
 					<label for="calendarEvent_userId">Usuario</label>
 					<select id="calendarEvent_userId" name="calendarEvent[userId]" title="userId">
 						<option value="">Seleccione un Usuario</option>
