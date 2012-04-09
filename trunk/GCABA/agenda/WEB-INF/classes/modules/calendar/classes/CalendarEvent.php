@@ -14,6 +14,39 @@
 class CalendarEvent extends BaseCalendarEvent {
 	
 	/**
+	 * Devuelve true si el CalendarEvent tiene asociado el actor,
+	 * y false caso contrario.
+	 * 
+	 * @param EventActor $actor
+	 * @return boolean
+	 */
+	public function hasActor($actor) {
+		return EventActorQuery::create()->filterByActorid($actor->getId())->count() > 0;
+	}
+	
+	/**
+	 * Devuelve true si el CalendarEvent tiene asociada la categoría,
+	 * y false caso contrario.
+	 * 
+	 * @param Category $region
+	 * @return boolean
+	 */
+	public function hasCategory($category) {
+		return EventCategoryQuery::create()->filterByCategoryid($category->getId())->count() > 0;
+	}
+	
+	/**
+	 * Devuelve true si el CalendarEvent tiene asociada la region,
+	 * y false caso contrario.
+	 * 
+	 * @param Region $region
+	 * @return boolean
+	 */
+	public function hasRegion($region) {
+		return EventRegionQuery::create()->filterByRegionid($region->getId())->count() > 0;
+	}
+	
+	/**
 	 * Devuelve el nombre del estado actual en que se encuentra la noticia
 	 *
 	 */
@@ -116,11 +149,11 @@ class CalendarEvent extends BaseCalendarEvent {
 	}
 	
   /**
-  * Obtiene todos los d�as que ocupa el Evento en el A�o y Mes parametro, sabiendo que el evento por lo menos esta en un dia de ese mes
+  * Obtiene todos los días que ocupa el Evento en el Año y Mes parámetro, sabiendo que el evento por lo menos esta en un día de ese mes
   *
-  * @param int $year A�o
+  * @param int $year Año
   * @param int $month Mes
-  *	@return array d�as que ocupa el Evento en el A�o y Mes especificado
+  * @return array días que ocupa el Evento en el Año y Mes especificado
   */
   function getEventDaysOnMonth($year,$month) {
 	$days = array();
