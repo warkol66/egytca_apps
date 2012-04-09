@@ -23,6 +23,20 @@ class CalendarEventPeer extends BaseCalendarEventPeer {
 	const PUBLISHED = 2;
 	const ARCHIVED = 3;
 
+	const AGENDA_JEFE_GOBIERNO = 1;
+	const AGENDA_MINISTROS = 2;
+	const AGENDA_OTROS_FUNCIONARIOS = 3;
+	
+	/**
+	 * @return array AgendaTypeKey => description
+	 */
+	public function getAgendas() {
+		$agendas = array();
+		$agendas[CalendarEventPeer::AGENDA_JEFE_GOBIERNO] = 'Jefe de Gobierno';
+		$agendas[CalendarEventPeer::AGENDA_MINISTROS] = 'Ministros';
+		$agendas[CalendarEventPeer::AGENDA_OTROS_FUNCIONARIOS] = 'Otros funcionarios';
+		return $agendas;
+	}
 
 	/**
 	 * Especifica una cadena de busqueda. Cada palabra de la cadena sera extraida y buscada en
@@ -420,9 +434,9 @@ class CalendarEventPeer extends BaseCalendarEventPeer {
 	 }
 
 	/**
-	* Obtiene todos los eventos del mes/año
+	* Obtiene todos los eventos del mes/aï¿½o
 	*
-	* @param int $year Año
+	* @param int $year Aï¿½o
 	* @param int $month Mes
 	*	@return array Informacion sobre todos los CalendarEvents del mes
 	*/
@@ -457,9 +471,9 @@ class CalendarEventPeer extends BaseCalendarEventPeer {
 	 }
 
  /**
-	* Obtiene todos los eventos anteriores al mes/año
+	* Obtiene todos los eventos anteriores al mes/aï¿½o
 	*
-	* @param int $year Año
+	* @param int $year Aï¿½o
 	* @param int $month Mes
 	*	@return array Informacion sobre todos los CalendarEvents del mes
 	*/
