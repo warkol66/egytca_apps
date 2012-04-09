@@ -56,6 +56,7 @@ class CalendarEventsDoEditAction extends BaseAction {
 		$this->updateRegions($calendarEvent);
 		$this->updateCategories($calendarEvent);
 		$this->updateActors($calendarEvent);
+		$this->updateAxes($calendarEvent);
 		$calendarEvent->save();
 		
 		//redireccionamiento con opciones correctas
@@ -65,6 +66,8 @@ class CalendarEventsDoEditAction extends BaseAction {
 	
 	private function updateRegions($calendarEvent) {
 		$regionsIds = $_POST['calendarEvent']['regionsIds'];
+		if (empty($regionsIds))
+			$regionsIds = array();
 		
 		$oldRegionsIds = array();
 		foreach (EventRegionQuery::create()->findByEventid($calendarEvent->getId()) as $e) {
@@ -87,6 +90,8 @@ class CalendarEventsDoEditAction extends BaseAction {
 	
 	private function updateCategories($calendarEvent) {
 		$categoriesIds = $_POST['calendarEvent']['categoriesIds'];
+		if (empty($categoriesIds))
+			$categoriesIds = array();
 		
 		$oldCategoriesIds = array();
 		foreach (EventCategoryQuery::create()->findByEventid($calendarEvent->getId()) as $e) {
@@ -109,13 +114,15 @@ class CalendarEventsDoEditAction extends BaseAction {
 	
 	private function updateActors($calendarEvent) {
 		$actorsIds = $_POST['calendarEvent']['actorsIds'];
+		if (empty($actorsIds))
+			$actorsIds = array();
 		
 		$oldActorsIds = array();
 		foreach (EventActorQuery::create()->findByEventid($calendarEvent->getId()) as $e) {
 			$oldActorsIds[] = $e->getActorid();
 		}
 		
-		$actorsIdsForRemoval = array_diff($oldActorsIds, $oldActorsIds);
+		$actorsIdsForRemoval = array_diff($oldActorsIds, $actorsIds);
 		foreach ($actorsIdsForRemoval as $actorIdForRemoval) {
 			$eventActor = EventActorQuery::create()->findOneByActorid($actorIdForRemoval);
 			$eventActor->delete();
@@ -125,6 +132,30 @@ class CalendarEventsDoEditAction extends BaseAction {
 			$actor = RegionQuery::create()->findOneById($actorId);
 			if (!$calendarEvent->hasActor($actor)) {
 				$calendarEvent->addActor($actor);
+			}
+		}
+	}
+	
+	private function updateAxes($calendarEvent) {
+		$axesIds = $_POST['calendarEvent']['axesIds'];
+		if (empty($axesIds))
+			$axesIds = array();
+		
+		$oldAxesIds = array();
+		foreach (EventAxisQuery::create()->findByEventid($calendarEvent->getId()) as $e) {
+			$oldAxesIds[] = $e->getAxisid();
+		}
+		
+		$axesIdsForRemoval = array_diff($oldAxesIds, $axesIds);
+		foreach ($axesIdsForRemoval as $axisIdForRemoval) {
+			$eventAxis = EventAxisQuery::create()->findOneByAxisid($axisIdForRemoval);
+			$eventAxis->delete();
+		}
+		
+		foreach ($axesIds as $axisId) {
+			$axis = CalendarAxisQuery::create()->findOneById($axisId);
+			if (!$calendarEvent->hasCalendarAxis($axis)) {
+				$calendarEvent->addCalendarAxis($axis);
 			}
 		}
 	}
