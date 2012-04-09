@@ -103,6 +103,15 @@
 					</select>
 				</p>
 				<p>
+					<label for="calendarEvent_typeId">Tipo de evento</label>
+					<select id="calendarEvent_typeId" name="calendarEvent[typeId]" title="tipo de evento">
+						<option value="">Seleccione un Tipo</option>
+					|-foreach from=$eventTypes item=object-|
+						<option value="|-$object->getid()-|" |-$calendarEvent->getTypeId()|selected:$object->getid()-|>|-$object->getname()-|</option>
+					|-/foreach-|
+					</select>
+				</p>
+				<p>
 					<label for="calendarEvent_userId">Usuario</label>
 					<select id="calendarEvent_userId" name="calendarEvent[userId]" title="userId">
 						<option value="">Seleccione un Usuario</option>
