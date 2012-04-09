@@ -105,6 +105,26 @@
 		</vendor>
 
 	</table>
+	
+	<table name="calendar_eventAxis" phpName="EventAxis" description="Relacion de eventos y ejes" isCrossRef="true">
+
+		<column name="axisId" required="true" primaryKey="true" type="INTEGER" description="Event ID"/>
+		<column name="eventId" required="true" primaryKey="true" type="INTEGER" description="Category ID"/>
+
+		<foreign-key foreignTable="calendar_event" onDelete="CASCADE" >
+			<reference local="eventId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="calendar_axis" onDelete="CASCADE" >
+			<reference local="axisId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
 
 	<table phpName="CalendarMedia" name="calendar_media" description="Media del calendario">
 
