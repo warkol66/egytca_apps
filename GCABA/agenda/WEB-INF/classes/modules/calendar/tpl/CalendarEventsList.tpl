@@ -47,8 +47,6 @@
 				<th width="2%"></th>
 				<th width="40%">Título</th>
 				<th width="8%">Fecha</th>
-|-if $calendarEventsConfig.useRegions.value eq "YES"-|<th width="12%">Provincia</th>|-/if-|
-|-if $calendarEventsConfig.useRegions.value eq "YES"-|<th width="12%">Categoría</th>|-/if-|
 <!--								<th>Usuario</th> -->
 				<th width="15%">Estado</th>
 				<th width="2%">&nbsp;</th>
@@ -60,14 +58,6 @@
 				<td><input type="checkbox" name="selected[]" value="|-$calendarEvent->getId()-|"></td>
 				<td>|-$calendarEvent->gettitle()-|</td>
 				<td>|-$calendarEvent->getstartDate()|date_format:"%d-%m-%Y"-|</td>
-|-if $calendarEventsConfig.useRegions.value eq "YES"-|<td>
-					|-assign var=region value=$calendarEvent->getRegion()-|
-					|-if empty($region)-|N/A|-else-||-$region->getName()-||-/if-|
-				</td>|-/if-|
-|-if $calendarEventsConfig.useCategories.value eq "YES"-|<td>
-					|-assign var=category value=$calendarEvent->getCategory()-|
-					|-if empty($category)-|N/A|-else-||-$category->getName()-||-/if-|
-				</td>|-/if-|
 <!--								<td>|-$calendarEvent->getuserId()-|</td> -->
 				<td>|-if "calendarEventsChangeStatusX"|security_user_has_access-|	
 						<form action="Main.php" method="post" id="formStatuscalendarEvent|-$calendarEvent->getId()-|">
