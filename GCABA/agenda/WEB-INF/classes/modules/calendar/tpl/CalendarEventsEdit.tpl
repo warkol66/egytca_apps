@@ -64,12 +64,21 @@
 				|-if not empty($eventid)-|
 				<p>
 					<label for="calendarEvent_status">Estado</label>
-					<select name="calendarEvent[status]">
+					<select name="calendarEvent[status]" id="calendarEvent_status">
 						|-foreach from=$calendarEventStatus key=key item=name-|
-							<option value="|-$key-|" |-if ($calendarEvent->getStatus()) eq $key-|selected="selected"|-/if-|>|-$name-|</option>
+							<option value="|-$key-|" |-$calendarEvent->getStatus()|selected:$key-|>|-$name-|</option>
 						|-/foreach-|
 					</select>
 				</p>|-/if-|
+				<p>
+					<label for="calendarEvent_agendaType">Agenda</label>
+					<select name="calendarEvent[agendaType]" id="calendarEvent_agendaType">
+							<option>Seleccione una Agenda</option>
+						|-foreach from=$agendaTypes key=key item=name-|
+							<option value="|-$key-|" |-$calendarEvent->getAgendaType()|selected:$key-|>|-$name-|</option>
+						|-/foreach-|
+					</select>
+				</p>
 |-if $calendarEventsConfig.useRegions.value eq "YES"-|<p>
 					<label for="calendarEvent_regions">Comunas</label>
 					<select multiple="multiple" id="calendarEvent_regions" name="calendarEvent[regionsIds][]" title="comunas">
