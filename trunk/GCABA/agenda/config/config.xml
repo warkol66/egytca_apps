@@ -47,15 +47,15 @@
 			<thousandsSeparator>.</thousandsSeparator>
 			<decimalSeparator>,</decimalSeparator>
 			<numberOfDecimals>2</numberOfDecimals>
-			<siteName>Negociadora Anmaga</siteName>
-			<siteDescription>Sistema de Administración de Pedidos de Negociadora Anmaga</siteDescription>
-			<siteShortName>Anmaga</siteShortName>
+			<siteName>Gobierno de la Ciudad Autónoma de Buenos Aires</siteName>
+			<siteDescription>Sistema de Administración de Agenda de Gobierno de la Ciudad Autónoma de Buenos Aires</siteDescription>
+			<siteShortName>AgendaGCABA</siteShortName>
 			<webmasterMail>gflamerich@gmail.com</webmasterMail>
 			<debugMail>dbugger.modulnet@gmail.com</debugMail>
-			<fromEmail>facturacion.anmaga@gmail.com</fromEmail>
+			<fromEmail>dbugger.modulnet@gmail.com</fromEmail>
 			<tablePrefix></tablePrefix>
-			<news>Novedades: Bienvenido al sistema Anmaga.</news>
-			<affiliateNews>Novedades: distinguidos Clientes, Bienvenido al sistema Anmaga.</affiliateNews>
+			<news>Novedades: Bienvenido a la Agenda de Gobierno de la Ciudad Autónoma de Buenos Aires.</news>
+			<affiliateNews>Novedades: Bienvenido a la Agenda de Gobierno de la Ciudad Autónoma de Buenos Aires.</affiliateNews>
 		</parameters>
 		<errorReporting>
 			<value>E_ALL &amp; ~E_NOTICE ~E_WARNING</value>
