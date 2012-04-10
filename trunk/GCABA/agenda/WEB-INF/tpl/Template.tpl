@@ -13,7 +13,9 @@
 <script language="JavaScript" type="text/JavaScript">
 	var url="|-$systemUrl-|";
 </script>
-|-include file='TemplateJsIncludes.tpl'-|
+|-block name=jsIncludes-|
+	|-include file='TemplateJsIncludes.tpl'-|
+|-/block-|
 </head>
 <body>
 <!-- Begin Wrapper -->

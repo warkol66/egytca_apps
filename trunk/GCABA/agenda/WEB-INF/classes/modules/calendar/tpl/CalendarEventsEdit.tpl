@@ -1,5 +1,12 @@
 |-include file='CalendarEventsEditTinyMceInclude.tpl' elements="calendarEvent_body" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"-|
 |-popup_init src="scripts/overlib.js"-|
+<link type="text/css" href="css/chosen.css" rel="stylesheet">
+<script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".chzn-select").chosen();
+	});
+</script>
 <h2>Administración de Eventos</h2>
 <h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Evento</h1>
 |-if $message eq "error"-|
@@ -81,7 +88,7 @@
 				</p>
 |-if $calendarEventsConfig.useRegions.value eq "YES"-|<p>
 					<label for="calendarEvent_regions">Comunas</label>
-					<select multiple="multiple" id="calendarEvent_regions" name="calendarEvent[regionsIds][]" title="comunas">
+					<select class="chzn-select markets-chz-select" data-placeholder="Seleccione una o varias comunas..." multiple="multiple" id="calendarEvent_regions" name="calendarEvent[regionsIds][]" size="5" title="comunas">
 					|-foreach from=$regions item=object-|
 						<option value="|-$object->getid()-|" |-$calendarEvent->hasRegion($object)|selected:true-|>|-$object->getname()-|</option>
 					|-/foreach-|
@@ -89,7 +96,7 @@
 				</p>|-/if-|
 |-if $calendarEventsConfig.useCategories.value eq "YES"-|<p>
 					<label for="calendarEvent_categories">Dependencias</label>
-					<select multiple="multiple" id="calendarEvent_categories" name="calendarEvent[categoriesIds][]" title="dependencias">
+					<select class="chzn-select markets-chz-select" data-placeholder="Seleccione una o varias dependencias..." multiple="multiple" id="calendarEvent_categories" name="calendarEvent[categoriesIds][]" size="5" title="dependencias">
 					|-foreach from=$categories item=object-|
 						<option value="|-$object->getid()-|" |-$calendarEvent->hasCategory($object)|selected:true-|>|-$object->getname()-|</option>
 					|-/foreach-|
@@ -97,7 +104,7 @@
 				</p>|-/if-|
 				<p>
 					<label for="calendarEvent_actors">Actores</label>
-					<select multiple="multiple" id="calendarEvent_actors" name="calendarEvent[actorsIds][]" title="actores">
+					<select class="chzn-select markets-chz-select" data-placeholder="Seleccione uno o varios actores..." multiple="multiple" id="calendarEvent_actors" name="calendarEvent[actorsIds][]" size="5" title="actores">
 					|-foreach from=$categories item=object-|
 						<option value="|-$object->getid()-|" |-$calendarEvent->hasActor($object)|selected:true-|>|-$object->getname()-|</option>
 					|-/foreach-|
@@ -105,7 +112,7 @@
 				</p>
 				<p>
 					<label for="calendarEvent_axes">Ejes</label>
-					<select multiple="multiple" id="calendarEvent_axes" name="calendarEvent[axesIds][]" title="ejes">
+					<select class="chzn-select markets-chz-select" data-placeholder="Seleccione uno o varios ejes..." multiple="multiple" id="calendarEvent_axes" name="calendarEvent[axesIds][]" size="5" title="ejes">
 					|-foreach from=$axes item=object-|
 						<option value="|-$object->getid()-|" |-$calendarEvent->hasCalendarAxis($object)|selected:true-| style="color:|-$object->getColor()-|;">|-$object->getname()-|</option>
 					|-/foreach-|
@@ -139,7 +146,7 @@
 					
 					<input type="hidden" name="action" id="action" value="|-$action-|" />
 					<input type="hidden" name="do" id="doEdit" value="calendarEventsDoEdit" />
-					<input type="button" id="button_edit_calendarEvent" name="button_edit_calendarEvent" title="Aceptar" value="Aceptar" onClick="javascript:submitEventCreation(this.form)"  />
+					<input type="button" id="button_edit_calendarEvent" name="button_edit_calendarEvent" title="Aceptar" value="Aceptar" onClick="this.form.submit();/*javascript:submitEventCreation(this.form)*/"  />
 |-if $calendarEventsConfig.bodyOnEventsShow.value eq "YES"-|
 					<input type="button" id="button_edit_calendarEvent" name="button_edit_calendarEvent" title="Aceptar" value="Vista previa del evento" onClick="javascript:submitEventsPreviewDetailed(this.form)"  />
 |-else-|
