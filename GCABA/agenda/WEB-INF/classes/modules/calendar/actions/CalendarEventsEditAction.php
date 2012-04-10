@@ -77,6 +77,8 @@ class CalendarEventsEditAction extends BaseAction {
 		if (!empty($_GET['filters'])) {
 			$smarty->assign('filters',$_GET['filters']);
 		}
+		
+		$this->template->template = 'TemplateJQuery.tpl';
 
 		return $mapping->findForwardConfig('success');
 	}
