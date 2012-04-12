@@ -190,7 +190,7 @@ class CampaignPeer extends BaseCampaignPeer {
 	private function getSearchCriteria(){
 		$criteria = new Criteria();
 		$criteria->setIgnoreCase(true);
-		$criteria->addAscendingOrderByColumn(CampaignPeer::ID);
+		$criteria->addDescendingOrderByColumn(CampaignPeer::ID);
 
 		if ($this->searchString) {
 			$criteria->add(CampaignPeer::NAME,"%" . $this->searchString . "%",Criteria::LIKE);

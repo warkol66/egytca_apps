@@ -22,19 +22,16 @@ class HeadlinesDoAddRelationXAction extends BaseAction {
 		if (!empty($headline) && !empty($related)) {
 			if (!$headline->hasHeadlineRelation($related)) {
 				$headline->addHeadlineRelation($related);
-				if (!$headline->save()) {
-					$smarty->assign('message', 'failure');
-					return $mapping->findForwardConfig('success');
-				} 
+				$headline->save();
+				$smarty->assign('headlineId', $headline->getId());
+				$smarty->assign('related', $related);
+				$smarty->assign('message', 'success');
+				return $mapping->findForwardConfig('success'); 
 			}
 		}
 		else {
 			$smarty->assign('message', 'failure');
-			return $mapping->findForwardConfig('success');
+			return $mapping->findForwardConfig('failure');
 		}
-		$smarty->assign('headlineId', $headline->getId());
-		$smarty->assign('related', $related);
-		$smarty->assign('message', 'success');
-		return $mapping->findForwardConfig('success');
 	}
 }

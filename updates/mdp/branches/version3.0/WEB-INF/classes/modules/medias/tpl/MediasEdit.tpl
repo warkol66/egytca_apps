@@ -73,6 +73,15 @@ function mediasDeleteCategoryFromActor(form){
 				&nbsp; 4 <input name="params[importance]" type="radio" value="4" |-$media->getImportance()|checked:4-|/>
 			</p>
 			<p>
+				<label for="params[bias]">Afinidad</label>
+				<input name="params[bias]" type="hidden" value="0" />
+				&nbsp; -2 <input name="params[bias]" type="radio" value="-2" |-$media->getBias()|checked:-2-|/>
+				&nbsp; -1 <input name="params[bias]" type="radio" value="-1" |-$media->getBias()|checked:-1-|/>
+				&nbsp; 0 <input name="params[bias]" type="radio" value="0" |-$media->getBias()|checked:0-|/>
+				&nbsp; 1 <input name="params[bias]" type="radio" value="1" |-$media->getBias()|checked:1-|/>
+				&nbsp; 2 <input name="params[bias]" type="radio" value="2" |-$media->getBias()|checked:2-|/>
+			</p>
+			<p>
 				<label for="params[description]">Descripción</label>
 				<textarea name="params[description]" cols="50" rows="5" wrap="VIRTUAL" id="params[description]" title="Description">|-$media->getdescription()|escape-|</textarea>
 			<p>

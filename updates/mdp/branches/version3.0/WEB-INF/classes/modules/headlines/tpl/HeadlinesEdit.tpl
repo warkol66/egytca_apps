@@ -28,11 +28,19 @@
 						</p>
 					<p>
 						<label for="params[importance]">Importancia</label>
-						&nbsp; 1 <input name="params[importance]" type="radio" value="1"/>
-						&nbsp; 2 <input name="params[importance]" type="radio" value="2"/>
-						&nbsp; 3 <input name="params[importance]" type="radio" value="3"/>
-						&nbsp; 4 <input name="params[importance]" type="radio" value="4"/>
+						&nbsp; 1 <input name="params[importance]" type="radio" value="1" />
+						&nbsp; 2 <input name="params[importance]" type="radio" value="2" />
+						&nbsp; 3 <input name="params[importance]" type="radio" value="3" />
+						&nbsp; 4 <input name="params[importance]" type="radio" value="4" />
 					</p>			
+			<p>
+				<label for="params[bias]">Afinidad</label>
+				&nbsp; -2 <input name="params[bias]" type="radio" value="-2" />
+				&nbsp; -1 <input name="params[bias]" type="radio" value="-1" />
+				&nbsp; 0 <input name="params[bias]" type="radio" value="0" />
+				&nbsp; 1 <input name="params[bias]" type="radio" value="1" />
+				&nbsp; 2 <input name="params[bias]" type="radio" value="2" />
+			</p>
 					<p>
 				<input type="submit" title="Aceptar" value="Agregar nuevo" />
 				<a href="#" class="lbAction noDecoration" rel="deactivate"><input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" /></a> 

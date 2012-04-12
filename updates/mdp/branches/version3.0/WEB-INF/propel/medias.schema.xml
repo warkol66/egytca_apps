@@ -15,6 +15,7 @@
 		<column name="typeId" type="INTEGER" description="ID media destino"/>
 		<column name="groupId" type="INTEGER" description="ID media destino"/>
 		<column name="importance" type="TINYINT" description="Importancia del medio"/>
+		<column name="bias" type="TINYINT" description="Afinidad del medio"/>
 		<column name="aliasOf" type="INTEGER" description="ID media referenciado" />
 
 		<behavior name="timestampable" />
