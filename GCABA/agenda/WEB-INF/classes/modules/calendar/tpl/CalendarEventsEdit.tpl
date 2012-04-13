@@ -147,7 +147,6 @@
 					<input type="hidden" name="action" id="action" value="|-$action-|" />
 					<input type="hidden" name="do" id="doEdit" value="calendarEventsDoEdit" />
 					|-javascript_form_validation_button value='Aceptar' title='Aceptar'-|
-					<input type="button" id="button_edit_calendarEvent" name="button_edit_calendarEvent" title="Aceptar" value="Aceptar" onClick="this.form.submit();/*javascript:submitEventCreation(this.form)*/"  />
 |-if $calendarEventsConfig.bodyOnEventsShow.value eq "YES"-|
 					<input type="button" id="button_edit_calendarEvent" name="button_edit_calendarEvent" title="Aceptar" value="Vista previa del evento" onClick="javascript:submitEventsPreviewDetailed(this.form)"  />
 |-else-|
