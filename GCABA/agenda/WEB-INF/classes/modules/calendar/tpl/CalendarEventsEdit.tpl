@@ -19,7 +19,7 @@
 			<legend>Formulario de Calendario de Eventos</legend>
 				<p>
 					<label for="calendarEvent_title">Título</label>
-					<input name="calendarEvent[title]" type="text" id="calendarEvent_title" title="title" value="|-$calendarEvent->getTitle()|escape-|" size="60" maxlength="255" />
+					<input name="calendarEvent[title]" type="text" id="calendarEvent_title" title="title" value="|-$calendarEvent->getTitle()|escape-|" class="emptyValidation" size="60" maxlength="255" />
 				</p>
 |-if $calendarEventsConfig.useSummary.value eq "YES"-|<p>
 					<label for="calendarEvent_summary">Resumen</label>
@@ -146,6 +146,7 @@
 					
 					<input type="hidden" name="action" id="action" value="|-$action-|" />
 					<input type="hidden" name="do" id="doEdit" value="calendarEventsDoEdit" />
+					|-javascript_form_validation_button value='Aceptar' title='Aceptar'-|
 					<input type="button" id="button_edit_calendarEvent" name="button_edit_calendarEvent" title="Aceptar" value="Aceptar" onClick="this.form.submit();/*javascript:submitEventCreation(this.form)*/"  />
 |-if $calendarEventsConfig.bodyOnEventsShow.value eq "YES"-|
 					<input type="button" id="button_edit_calendarEvent" name="button_edit_calendarEvent" title="Aceptar" value="Vista previa del evento" onClick="javascript:submitEventsPreviewDetailed(this.form)"  />
