@@ -14,19 +14,17 @@
 <script type="text/javascript" >
 
 	function showValidationFailureMessage(form) {
-		var validationMessage = $('validationFailureMessage');
-		if (!Object.isElement(validationMessage)) {
-			form.insert({
-				top: new Element('div', {id: 'validationFailureMessage', 'class': 'resultFailure'}).update('Tiene errores en el formulario, corrija los errores para volver a enviarlo.')
-			});
+		var validationMessage = $('#validationFailureMessage');
+		if (validationMessage.length == 0) {
+			$('<div id="validationFailureMessage" class="resultFailure">Tiene errores en el formulario, corrija los errores para volver a enviarlo.</div>').prependTo(form);
 		} else {
 			validationMessage.show();
 		}
 	}
 
 	function hideValidationFailureMessage(form) {
-		var validationMessage = $('validationFailureMessage');
-		if (Object.isElement(validationMessage)) {
+		var validationMessage = $('#validationFailureMessage');
+		if (validationMessage.length > 0) {
 			validationMessage.hide();
 		}
 	}
