@@ -18,6 +18,7 @@
 		<column name="longitude" type="NUMERIC" size="12" scale="9" description="longitud" />
 		<column name="street" type="VARCHAR" size="100" description="Nombre de la calle" />
 		<column name="number" type="INTEGER" description="numero de la calle" />
+		<column name="campaignCommitment" type="BOOLEAN" sqlType="BOOL" default="false" />
 
 		<foreign-key foreignTable="users_user" >
 			<reference local="userId" foreign="id" />
