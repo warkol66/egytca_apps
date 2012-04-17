@@ -6,16 +6,18 @@ function validationValidateFormClienSide(form, doSubmit) {
 	if (doSubmit === undefined)
 		doSubmit = true;
 
-    var valid = false;
-
-    var emptyArray = $$('#' + Element.identify(form) + ' .emptyValidation');
-    var textArray = $$('#' + Element.identify(form) + ' .textValidation');
-    var mailArray = $$('#' + Element.identify(form) + ' .mailValidation');
-    var numericArray = $$('#' + Element.identify(form) + ' .numericValidation');
-    var dateArray = $$('#' + Element.identify(form) + ' .dateValidation');
-    var passwordMatchArray = $$('#' + Element.identify(form) + ' .passwordMatch');
-
-    validationClearInvalidFields(emptyArray);
+	var valid = false;
+	
+	var formId = $(form).attr('id');
+	
+	var emptyArray = $('#' + formId + ' .emptyValidation');
+	var textArray = $('#' +  formId+ ' .textValidation');
+	var mailArray = $('#' + formId + ' .mailValidation');
+	var numericArray = $('#' + formId + ' .numericValidation');
+	var dateArray = $('#' + formId + ' .dateValidation');
+	var passwordMatchArray = $('#' + formId + ' .passwordMatch');
+	
+	validationClearInvalidFields(emptyArray);
 	validationClearInvalidFields(mailArray);
 	validationClearInvalidFields(textArray);
 	validationClearInvalidFields(numericArray);
@@ -40,16 +42,16 @@ function validationValidateFormClienSide(form, doSubmit) {
 		validationSetInvalidFields(dateResult,validation_messageDate);
 		validationSetInvalidFields(passResult,validation_messagePasswordMatch);
 
-		if (Object.isFunction(showValidationFailureMessage))
+		if (jQuery.isFunction(showValidationFailureMessage))
 			showValidationFailureMessage(form);
 
 		document.location.href = '#';
 		return false;
 	} else {
-		if (Object.isFunction(hideValidationFailureMessage))
+		if (jQuery.isFunction(hideValidationFailureMessage))
 			hideValidationFailureMessage(form);
 		if (doSubmit) 
-            form.submit();
+			form.submit();
 		return true;
 	}
 }
@@ -61,7 +63,7 @@ function validationValidateFormClienSide(form, doSubmit) {
 function validationValidateFieldClienSide(id) {
 
 	var valid = false;
-	var field = document.getElementById(id);
+	var field = $('#'+id);
 	var validationClass = field.className;
 	validationClearInvalidField(field);
 
@@ -99,7 +101,7 @@ function validationValidateFieldClienSide(id) {
  * @param String fieldId id de dom del nombre del elemento a validar.
  */
 function validationValidateField(fieldId) {
-	var field = $(fieldId);
+	var field = $('#'+fieldId);
 
 	validationClearInvalidField(field);
 
@@ -145,8 +147,9 @@ function validationClearInvalidField(element) {
 	element.style.border = '';
 	element.style.background = '';
 	element.style.background = '#C5F1C7 url(images/valid.png) no-repeat right';
-	if ($(element.id + '_box') != null)
-		$(element.id + '_box').innerHTML = '';
+	var box = $('#' + element.id + '_box');
+	if (box != null)
+		box.innerHTML = '';
 
 }
 
@@ -187,11 +190,12 @@ function validationSetInvalidField(element,message) {
 
 	element.style.background = '#F4D3D3 url(images/invalid.png) no-repeat right';
 
-	if ($(element.id + '_box') != null) {
+	var box = $('#' + element.id + '_box');
+	if (box != null) {
 
 		//buscamos el del elemento correspondiente
 		var fieldName = '';
-		var labels = document.getElementsByTagName('label');
+		var labels = $('label');
 		var forAttr;
 		for (var j=0; j < labels.length; j++) {
 			forAttr = labels[j].attributes.getNamedItem('for');
@@ -200,14 +204,14 @@ function validationSetInvalidField(element,message) {
 			}
 		};
 
-		if ($(element.id + '_box').innerHTML != '') {
+		if (box.innerHTML != '') {
 			//personalizacion de mensaje si se encuentra label
-			$(element.id + '_box').innerHTML = $(element.id + '_box').innerHTML + ', ';
+			box.innerHTML = box.innerHTML + ', ';
 		}
 
 		var newMessage = message.replace(/%field%/,fieldName);
 
-		$(element.id + '_box').innerHTML = $(element.id + '_box').innerHTML + newMessage;
+		box = box.innerHTML + newMessage;
 	}
 
 }
@@ -288,7 +292,7 @@ function validationMailValidator(element) {
  */
 function validationNumericValidator(element) {
 
-	if ( Object.isFunction(validationCustomNumericValidator) ) {
+	if ( jQuery.isFunction(validationCustomNumericValidator) ) {
 		return validationCustomNumericValidator(element);
 	}
 	return validateField(element, 'num');
@@ -302,7 +306,7 @@ function validationNumericValidator(element) {
  */
 function validationDateValidator(element) {
 
-	if ( Object.isFunction(validationCustomDateValidator) ) {
+	if ( jQuery.isFunction(validationCustomDateValidator) ) {
 		return validationCustomDateValidator(element);
 	}
 	return validateField(element, 'date');
@@ -310,12 +314,12 @@ function validationDateValidator(element) {
 }
 
 /**
- * Validador coincidencia de contrase�a
+ * Validador coincidencia de contraseña
  * @param Element element elemento DOM
  */
 function validationPasswordMatchValidator(element) {
 
-	var pass = document.getElementById('pass');
+	var pass = $('#pass')
 
 	if (element.value == pass.value)
 		return true;
@@ -328,52 +332,71 @@ function validationPasswordMatchValidator(element) {
  * @param Element element elemento DOM a validar
  * @param String doAction nombre del action con el cual se realizara la validacion por AJAX.
  */
-function validationValidateFieldThruAjax(element,doAction) {
+//function validationValidateFieldThruAjax(element,doAction) {
+//
+//	var url = 'Main.php?do=' + doAction;
+//
+//	var actualValueName = 'actual' + element.name;
+//
+//	if (document.getElementById(actualValueName) != null) {
+//		var actualValue = document.getElementById(actualValueName).value;
+//		var fields = element.name + '=' + element.value + '&actual' + element.name + '=' + actualValue;
+//	}
+//	else
+//		var fields = element.name + '=' + element.value;
+//	
+//	jQuery.post(
+//		url,
+//		fields
+//	).success(
+//		function(data, textStatus, jqXHR) {
+//			var response = data.evalJSON();
+//
+//			$(response.name).style.background = '#C5F1C7 url(images/valid.png) no-repeat right';
+//
+//			if (response.value == 1)
+//				$(response.name).style.background = '#F4D3D3 url(images/invalid.png) no-repeat right';
+//
+//			var element = $(response.name + '_box');
+//			if (element != null)
+//				element.innerHTML = response.message;
+//
+//		}
+//	);
+	
+//	var myAjax = new Ajax.Request(
+//	url,
+//	{
+//		method: 'post',
+//		postBody: fields,
+//		onSuccess: function(transport) {
+//			var response = transport.responseText.evalJSON();
+//
+//			$(response.name).style.background = '#C5F1C7 url(images/valid.png) no-repeat right';
+//
+//			if (response.value == 1)
+//				$(response.name).style.background = '#F4D3D3 url(images/invalid.png) no-repeat right';
+//
+//			var element = $(response.name + '_box');
+//			if (element != null)
+//				element.innerHTML = response.message;
+//
+//		}
+//
+//	});
 
-	var url = 'Main.php?do=' + doAction;
-
-	var actualValueName = 'actual' + element.name;
-
-	if (document.getElementById(actualValueName) != null) {
-		var actualValue = document.getElementById(actualValueName).value;
-		var fields = element.name + '=' + element.value + '&actual' + element.name + '=' + actualValue;
-	}
-	else
-		var fields = element.name + '=' + element.value;
-		
-	var myAjax = new Ajax.Request(
-	url,
-	{
-		method: 'post',
-		postBody: fields,
-		onSuccess: function(transport) {
-			var response = transport.responseText.evalJSON();
-
-			$(response.name).style.background = '#C5F1C7 url(images/valid.png) no-repeat right';
-
-			if (response.value == 1)
-				$(response.name).style.background = '#F4D3D3 url(images/invalid.png) no-repeat right';
-
-			var element = $(response.name + '_box');
-			if (element != null)
-				element.innerHTML = response.message;
-
-		}
-
-	});
-
-}
+//}
 
 function clearFormFieldsFormat(form) {
-
-//	var emptyArray = document.getElementsByClassName('emptyValidation',form);
-    var emptyArray = $$('#' + Element.identify(form) + ' .emptyValidation');
-//    console.debug(form);
-	var textArray = document.getElementsByClassName('textValidation',form);
-	var mailArray = document.getElementsByClassName('mailValidation',form);
-	var numericArray = document.getElementsByClassName('numericValidation',form);
-	var dateArray = document.getElementsByClassName('dateValidation',form);
-	var passwordMatchArray = document.getElementsByClassName('passwordMatch',form);
+	
+	var formId = $(form).attr('id');
+	
+	var emptyArray = $('#' + formId + ' .emptyValidation');
+	var textArray = $('#' +  formId+ ' .textValidation');
+	var mailArray = $('#' + formId + ' .mailValidation');
+	var numericArray = $('#' + formId + ' .numericValidation');
+	var dateArray = $('#' + formId + ' .dateValidation');
+	var passwordMatchArray = $('#' + formId + ' .passwordMatch');
 
 	clearFieldsFormat(emptyArray);
 	clearFieldsFormat(mailArray);
@@ -392,8 +415,9 @@ function clearFieldFormat(element) {
 
 	element.style.border = '';
 	element.style.background = '';
-	if ($(element.id + '_box') != null)
-		$(element.id + '_box').innerHTML = '';
+	var box = $('#' + element.id + '_box');
+	if (box != null)
+		box.innerHTML = '';
 
 }
 
@@ -414,54 +438,53 @@ function clearFieldsFormat(elements) {
 /**
  * Funcion para contar caracteres
  */
-var TextCounter = Class.create();
-TextCounter.prototype = {
-	initialize: function(textareaid, inputid, maxLength, showHide) {
-		this.maxLength = maxLength;
-		this.textarea = $(textareaid);
-		this.input = $(inputid);
-		this.input.value = maxLength;
-		this.input.readonly = true;
-		this.input.disabled = true;
-		this.input.style.display = showHide;
-		Event.observe(this.textarea, 'keyup', this.checkChars.bindAsEventListener(this));
-		Event.observe(this.textarea, 'keydown', this.checkChars.bindAsEventListener(this));
-		this.checkChars();
-	},
-	checkChars: function(e) {
-		var includeBreaksInCount = true; // false = don't count a return (\r or \n) in the count.
-		var charCount = this.textarea.value.length;
-		var breaks = 0;
-		if (!includeBreaksInCount) {
-			var lines = this.textarea.value.split('\n');
-			breaks = lines.length;
-			// check for /r at the end of the lines (IE)
-			for (var i=0; i<lines.length; i++) {
-				var line = lines[ i ];
-				if (line.charCodeAt(line.length-1) == 13)
-					breaks++;
-			}
-		}
-		// check if over limit
-		if ((charCount-breaks) > this.maxLength)
-			this.textarea.value = this.textarea.value.substring(0, (this.maxLength + breaks) );
-
-		// update counter
-		if (this.input) {
-			if ((charCount-breaks) > this.maxLength)
-				this.setCountAndClass(0, "charCountLimitReached");
-			else
-				this.setCountAndClass((this.maxLength + breaks) - charCount, "charCount");
-		}
-	},
-	setCountAndClass: function (count, className) {
-
-			if (Element.readAttribute(this.input, 'value') == null)
-				this.input.innerHTML = "&nbsp;" +count;
-			else
-				this.input.value = count;
-
-			this.input.className = className;
-
-	}
-}
+//var TextCounter = function(){};
+//TextCounter.prototype = {
+//	initialize: function(textareaid, inputid, maxLength, showHide) {
+//		this.maxLength = maxLength;
+//		this.textarea = $(textareaid);
+//		this.input = $(inputid);
+//		this.input.value = maxLength;
+//		this.input.readonly = true;
+//		this.input.disabled = true;
+//		this.input.style.display = showHide;
+//		$(this.textarea).keyup(this.checkChars.bindAsEventListener(this));
+//		$(this.textarea).keydown(this.checkChars.bindAsEventListener(this));
+//		this.checkChars();
+//	},
+//	checkChars: function(e) {
+//		var includeBreaksInCount = true; // false = don't count a return (\r or \n) in the count.
+//		var charCount = this.textarea.value.length;
+//		var breaks = 0;
+//		if (!includeBreaksInCount) {
+//			var lines = this.textarea.value.split('\n');
+//			breaks = lines.length;
+//			// check for /r at the end of the lines (IE)
+//			for (var i=0; i<lines.length; i++) {
+//				var line = lines[ i ];
+//				if (line.charCodeAt(line.length-1) == 13)
+//					breaks++;
+//			}
+//		}
+//		// check if over limit
+//		if ((charCount-breaks) > this.maxLength)
+//			this.textarea.value = this.textarea.value.substring(0, (this.maxLength + breaks) );
+//
+//		// update counter
+//		if (this.input) {
+//			if ((charCount-breaks) > this.maxLength)
+//				this.setCountAndClass(0, "charCountLimitReached");
+//			else
+//				this.setCountAndClass((this.maxLength + breaks) - charCount, "charCount");
+//		}
+//	},
+//	setCountAndClass: function (count, className) {
+//			if ($(this.input).val() == null)
+//				this.input.innerHTML = "&nbsp;" +count;
+//			else
+//				this.input.value = count;
+//
+//			this.input.className = className;
+//
+//	}
+//}

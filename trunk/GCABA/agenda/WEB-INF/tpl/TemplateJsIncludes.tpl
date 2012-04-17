@@ -39,6 +39,7 @@
 	<script src="Main.php?do=js&name=js&module=positions" type="text/javascript"></script>
 |-/if-|
 
+|-include file="ValidationJavascriptInclude.tpl"-|
 |-if $documentsUpload && $configModule->get('documents', 'useSWFUploader')-|
 	|-include file="DocumentsSwfUploadInclude.tpl"-|	
 |-/if-|
