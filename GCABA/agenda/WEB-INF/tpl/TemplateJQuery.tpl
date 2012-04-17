@@ -1,10 +1,6 @@
 |-extends file="Template.tpl"-|
 |-block name=jsIncludes-|
 
-<!-- duplicado -->
-
-<!--<script src="Main.php?do=js&name=js&module=common&code=|-$currentLanguageCode-|" type="text/javascript"></script>-->
-
 <script language="JavaScript" type="text/JavaScript">
 	var url="|-$systemUrl-|";
 <!-- Swampy browser-->
@@ -23,10 +19,11 @@
 		document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css">');
 }
 </script>
-<!-- /duplicado -->
 
 <script src="scripts/jquery.min.js" language="JavaScript" type="text/javascript"></script>
 <script src="scripts/jquery-ui.custom.min.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/jquery/functions.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/overlib.js" type="text/javascript"></script>
 
 |-include file="ValidationJavascriptInclude.jquery.tpl"-|
 
