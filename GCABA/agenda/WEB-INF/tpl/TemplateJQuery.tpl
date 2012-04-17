@@ -28,6 +28,6 @@
 <script src="scripts/jquery.min.js" language="JavaScript" type="text/javascript"></script>
 <script src="scripts/jquery-ui.custom.min.js" language="JavaScript" type="text/javascript"></script>
 
-|-include file="ValidationJavascriptInclude.tpl"-|
+|-include file="ValidationJavascriptInclude.jquery.tpl"-|
 
 |-/block-|
