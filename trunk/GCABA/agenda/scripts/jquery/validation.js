@@ -8,14 +8,12 @@ function validationValidateFormClienSide(form, doSubmit) {
 
 	var valid = false;
 	
-	var formId = $(form).attr('id');
-	
-	var emptyArray = $('#' + formId + ' .emptyValidation');
-	var textArray = $('#' +  formId+ ' .textValidation');
-	var mailArray = $('#' + formId + ' .mailValidation');
-	var numericArray = $('#' + formId + ' .numericValidation');
-	var dateArray = $('#' + formId + ' .dateValidation');
-	var passwordMatchArray = $('#' + formId + ' .passwordMatch');
+	var emptyArray = document.getElementsByClassName('emptyValidation', form);
+	var textArray = document.getElementsByClassName('textValidation', form);
+	var mailArray = document.getElementsByClassName('mailValidation', form);
+	var numericArray = document.getElementsByClassName('numericValidation', form);
+	var dateArray = document.getElementsByClassName('dateValidation', form);
+	var passwordMatchArray = document.getElementsByClassName('passwordMatch', form);
 	
 	validationClearInvalidFields(emptyArray);
 	validationClearInvalidFields(mailArray);
@@ -63,7 +61,7 @@ function validationValidateFormClienSide(form, doSubmit) {
 function validationValidateFieldClienSide(id) {
 
 	var valid = false;
-	var field = $('#'+id);
+	var field = document.getElementById(id);
 	var validationClass = field.className;
 	validationClearInvalidField(field);
 
@@ -101,7 +99,7 @@ function validationValidateFieldClienSide(id) {
  * @param String fieldId id de dom del nombre del elemento a validar.
  */
 function validationValidateField(fieldId) {
-	var field = $('#'+fieldId);
+	var field = document.getElementById(fieldId);
 
 	validationClearInvalidField(field);
 
@@ -147,7 +145,7 @@ function validationClearInvalidField(element) {
 	element.style.border = '';
 	element.style.background = '';
 	element.style.background = '#C5F1C7 url(images/valid.png) no-repeat right';
-	var box = $('#' + element.id + '_box');
+	var box = document.getElementById(element.id + '_box');
 	if (box != null)
 		box.innerHTML = '';
 
@@ -190,12 +188,12 @@ function validationSetInvalidField(element,message) {
 
 	element.style.background = '#F4D3D3 url(images/invalid.png) no-repeat right';
 
-	var box = $('#' + element.id + '_box');
+	var box = document.getElementById(element.id + '_box');
 	if (box != null) {
 
 		//buscamos el del elemento correspondiente
 		var fieldName = '';
-		var labels = $('label');
+		var labels = document.getElementsByTagName('label');
 		var forAttr;
 		for (var j=0; j < labels.length; j++) {
 			forAttr = labels[j].attributes.getNamedItem('for');
@@ -319,7 +317,7 @@ function validationDateValidator(element) {
  */
 function validationPasswordMatchValidator(element) {
 
-	var pass = $('#pass')
+	var pass = document.getElementById('pass');
 
 	if (element.value == pass.value)
 		return true;
@@ -389,14 +387,12 @@ function validationPasswordMatchValidator(element) {
 
 function clearFormFieldsFormat(form) {
 	
-	var formId = $(form).attr('id');
-	
-	var emptyArray = $('#' + formId + ' .emptyValidation');
-	var textArray = $('#' +  formId+ ' .textValidation');
-	var mailArray = $('#' + formId + ' .mailValidation');
-	var numericArray = $('#' + formId + ' .numericValidation');
-	var dateArray = $('#' + formId + ' .dateValidation');
-	var passwordMatchArray = $('#' + formId + ' .passwordMatch');
+	var emptyArray = document.getElementsByClassName('emptyValidation', form);
+	var textArray = document.getElementsByClassName('textValidation', form);
+	var mailArray = document.getElementsByClassName('mailValidation', form);
+	var numericArray = document.getElementsByClassName('numericValidation', form);
+	var dateArray = document.getElementsByClassName('dateValidation', form);
+	var passwordMatchArray = document.getElementsByClassName('passwordMatch', form);
 
 	clearFieldsFormat(emptyArray);
 	clearFieldsFormat(mailArray);
@@ -415,7 +411,7 @@ function clearFieldFormat(element) {
 
 	element.style.border = '';
 	element.style.background = '';
-	var box = $('#' + element.id + '_box');
+	var box = document.getElementById(element.id + '_box');
 	if (box != null)
 		box.innerHTML = '';
 
