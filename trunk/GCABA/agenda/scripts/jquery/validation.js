@@ -434,53 +434,59 @@ function clearFieldsFormat(elements) {
 /**
  * Funcion para contar caracteres
  */
-//var TextCounter = function(){};
-//TextCounter.prototype = {
-//	initialize: function(textareaid, inputid, maxLength, showHide) {
-//		this.maxLength = maxLength;
-//		this.textarea = $(textareaid);
-//		this.input = $(inputid);
-//		this.input.value = maxLength;
-//		this.input.readonly = true;
-//		this.input.disabled = true;
-//		this.input.style.display = showHide;
-//		$(this.textarea).keyup(this.checkChars.bindAsEventListener(this));
-//		$(this.textarea).keydown(this.checkChars.bindAsEventListener(this));
-//		this.checkChars();
-//	},
-//	checkChars: function(e) {
-//		var includeBreaksInCount = true; // false = don't count a return (\r or \n) in the count.
-//		var charCount = this.textarea.value.length;
-//		var breaks = 0;
-//		if (!includeBreaksInCount) {
-//			var lines = this.textarea.value.split('\n');
-//			breaks = lines.length;
-//			// check for /r at the end of the lines (IE)
-//			for (var i=0; i<lines.length; i++) {
-//				var line = lines[ i ];
-//				if (line.charCodeAt(line.length-1) == 13)
-//					breaks++;
-//			}
-//		}
-//		// check if over limit
-//		if ((charCount-breaks) > this.maxLength)
-//			this.textarea.value = this.textarea.value.substring(0, (this.maxLength + breaks) );
-//
-//		// update counter
-//		if (this.input) {
-//			if ((charCount-breaks) > this.maxLength)
-//				this.setCountAndClass(0, "charCountLimitReached");
-//			else
-//				this.setCountAndClass((this.maxLength + breaks) - charCount, "charCount");
-//		}
-//	},
-//	setCountAndClass: function (count, className) {
-//			if ($(this.input).val() == null)
-//				this.input.innerHTML = "&nbsp;" +count;
-//			else
-//				this.input.value = count;
-//
-//			this.input.className = className;
-//
-//	}
-//}
+var TextCounter = function(textareaid, inputid, maxLength, showHide){
+	if ( !(this instanceof TextCounter) )
+		return new TextCounter();
+	
+	this.initialize(textareaid, inputid, maxLength, showHide);
+};
+
+TextCounter.prototype = {
+	initialize: function(textareaid, inputid, maxLength, showHide) {
+		this.maxLength = maxLength;
+		this.textarea = document.getElementById(textareaid);
+		this.input = document.getElementById(inputid);
+		this.input.value = maxLength;
+		this.input.readonly = true;
+		this.input.disabled = true;
+		this.input.style.display = showHide;
+		$(this.textarea).bind('keyup', this, function(event) { event.data.checkChars(); });
+		$(this.textarea).bind('keydown', this, function(event) { event.data.checkChars(); });
+		this.checkChars();
+	},
+	checkChars: function(e) {
+		var includeBreaksInCount = true; // false = don't count a return (\r or \n) in the count.
+		var charCount = this.textarea.value.length;
+		var breaks = 0;
+		if (!includeBreaksInCount) {
+			var lines = this.textarea.value.split('\n');
+			breaks = lines.length;
+			// check for /r at the end of the lines (IE)
+			for (var i=0; i<lines.length; i++) {
+				var line = lines[ i ];
+				if (line.charCodeAt(line.length-1) == 13)
+					breaks++;
+			}
+		}
+		// check if over limit
+		if ((charCount-breaks) > this.maxLength)
+			this.textarea.value = this.textarea.value.substring(0, (this.maxLength + breaks) );
+
+		// update counter
+		if (this.input) {
+			if ((charCount-breaks) > this.maxLength)
+				this.setCountAndClass(0, "charCountLimitReached");
+			else
+				this.setCountAndClass((this.maxLength + breaks) - charCount, "charCount");
+		}
+	},
+	setCountAndClass: function (count, className) {
+			if (this.input.value == null)
+				this.input.innerHTML = "&nbsp;" +count;
+			else
+				this.input.value = count;
+
+			this.input.className = className;
+
+	}
+}
