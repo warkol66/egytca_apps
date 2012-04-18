@@ -7,6 +7,7 @@
 		$(".chzn-select").chosen();
 	});
 </script>
+|-include file="CalendarEventsMapInclude.tpl" locateButtonId="button_locate" disableId="button_edit_calendarEvent" streetId="calendarEvent_street" numberId="calendarEvent_number" latitudeId="calendarEvent_latitude" longitudeId="calendarEvent_longitude"-|
 <h2>Administración de Eventos</h2>
 <h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Evento</h1>
 |-if $message eq "error"-|
@@ -66,6 +67,9 @@
 				<p>
 					<label for="calendarEvent_longitude">Longitud</label>
 					<input name="calendarEvent[longitude]" type="text" id="calendarEvent_longitude" title="longitud" value="|-$calendarEvent->getLongitude()-|" size="20" />
+				</p>
+				<p>
+					<input type="button" id="button_locate" value="Buscar en mapa" title="Buscar en Mapa" onClick="calendarMap.locate();"/>
 				</p>
 				|-assign var=eventid value=$calendarEvent->getId()-|
 				|-if not empty($eventid)-|
@@ -146,12 +150,12 @@
 					
 					<input type="hidden" name="action" id="action" value="|-$action-|" />
 					<input type="hidden" name="do" id="doEdit" value="calendarEventsDoEdit" />
-					|-javascript_form_validation_button value='Aceptar' title='Aceptar'-|
+					|-javascript_form_validation_button id="button_edit_calendarEvent" value='Aceptar' title='Aceptar'-|
 |-if $calendarEventsConfig.bodyOnEventsShow.value eq "YES"-|
-					<input type="button" id="button_edit_calendarEvent" name="button_edit_calendarEvent" title="Aceptar" value="Vista previa del evento" onClick="javascript:submitEventsPreviewDetailed(this.form)"  />
+					<input type="button" id="button_preview_calendarEvent" name="button_preview_calendarEvent" title="Aceptar" value="Vista previa del evento" onClick="javascript:submitEventsPreviewDetailed(this.form)"  />
 |-else-|
-<input type="button" id="button_edit_calendarEvent" name="button_edit_calendarEvent" title="Aceptar" value="Vista previa en Home" onClick="javascript:submitEventsPreviewOnHome(this.form)"/>
-					<input type="button" id="button_edit_calendarEvent" name="button_edit_calendarEvent" title="Aceptar" value="Vista previa del Detalle" onClick="javascript:submitEventsPreviewDetailed(this.form)"  />
+<input type="button" id="button_previewOnHome_calendarEvent" name="button_previewOnHome_calendarEvent" title="Aceptar" value="Vista previa en Home" onClick="javascript:submitEventsPreviewOnHome(this.form)"/>
+					<input type="button" id="button_preview_calendarEvent" name="button_preview_calendarEvent" title="Aceptar" value="Vista previa del Detalle" onClick="javascript:submitEventsPreviewDetailed(this.form)"  />
 |-/if-|
 				</p>
 			</fieldset>
