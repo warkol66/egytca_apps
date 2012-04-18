@@ -4,9 +4,6 @@
 <script src="scripts/effects.js" language="JavaScript" type="text/javascript"></script>
 <script src="scripts/dragdrop.js" language="JavaScript" type="text/javascript"></script>
 <script src="scripts/functions.js" language="JavaScript" type="text/javascript"></script>
-<script src="Main.php?do=js&name=js&module=common&code=|-$currentLanguageCode-|" type="text/javascript"></script>
-<script src="Main.php?do=js&name=js&module=categories&code=|-$currentLanguageCode-|" type="text/javascript"></script>
-<script src="Main.php?do=js&name=js&module=|-$module|lower-|&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 <script language="JavaScript" type="text/JavaScript">
 	var url="|-$systemUrl-|";
 <!-- Swampy browser-->
@@ -34,7 +31,6 @@
 |-elseif $module eq 'Multilang'-|
 	<script src="Main.php?do=js&name=js&module=multilang&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 |-elseif $module eq 'Calendar'-|
-	<script src="Main.php?do=js&name=js&module=calendar&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 |-elseif $module eq 'Positions'-|
 	<script src="Main.php?do=js&name=js&module=positions" type="text/javascript"></script>
 |-/if-|
