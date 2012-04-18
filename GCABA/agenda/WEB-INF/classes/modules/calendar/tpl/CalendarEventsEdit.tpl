@@ -7,7 +7,6 @@
 		$(".chzn-select").chosen();
 	});
 </script>
-|-include file="CalendarEventsMapInclude.tpl" locateButtonId="button_locate" disableId="button_edit_calendarEvent" streetId="calendarEvent_street" numberId="calendarEvent_number" latitudeId="calendarEvent_latitude" longitudeId="calendarEvent_longitude"-|
 <h2>Administración de Eventos</h2>
 <h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Evento</h1>
 |-if $message eq "error"-|
@@ -60,16 +59,17 @@
 					<label for="calendarEvent_number">Número</label>
 					<input name="calendarEvent[number]" type="text" id="calendarEvent_number" title="número" value="|-$calendarEvent->getNumber()-|" size="8" />
 				</p>
-				<p>
-					<label for="calendarEvent_latitude">Latitud</label>
-					<input name="calendarEvent[latitude]" type="text" id="calendarEvent_latitude" title="latitud" value="|-$calendarEvent->getLatitude()-|" size="20" />
-				</p>
-				<p>
-					<label for="calendarEvent_longitude">Longitud</label>
-					<input name="calendarEvent[longitude]" type="text" id="calendarEvent_longitude" title="longitud" value="|-$calendarEvent->getLongitude()-|" size="20" />
-				</p>
+|-include file="CalendarEventsMapInclude.tpl" locateButtonId="button_locate" disableId="button_edit_calendarEvent" streetId="calendarEvent_street" numberId="calendarEvent_number" latitudeId="calendarEvent_latitude" longitudeId="calendarEvent_longitude"-|
 				<p>
 					<input type="button" id="button_locate" value="Buscar en mapa" title="Buscar en Mapa" onClick="calendarMap.locate();"/>
+				</p>
+				<p style="display: none">
+					<label for="calendarEvent_latitude">Latitud</label>
+					<input name="calendarEvent[latitude]" type="text" id="calendarEvent_latitude" title="latitud" value="|-$calendarEvent->getLatitude()-|" size="20" readonly="readonly" />
+				</p>
+				<p style="display: none">
+					<label for="calendarEvent_longitude">Longitud</label>
+					<input name="calendarEvent[longitude]" type="text" id="calendarEvent_longitude" title="longitud" value="|-$calendarEvent->getLongitude()-|" size="20" readonly="readonly"/>
 				</p>
 				|-assign var=eventid value=$calendarEvent->getId()-|
 				|-if not empty($eventid)-|

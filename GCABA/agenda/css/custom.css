@@ -342,7 +342,9 @@ fieldset table.tableTdBorders th {
 
 /* mapa google */
 #map_canvas {
-	height: 560px !Important;
+	height: 360px !Important;
+	width: 540px !Important;
+	margin-left: 150px;
 }
 #helpMap {
 	background-color:#FFFFFF;
