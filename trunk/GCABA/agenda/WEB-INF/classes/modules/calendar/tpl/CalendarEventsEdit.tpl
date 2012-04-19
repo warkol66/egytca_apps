@@ -1,8 +1,21 @@
 |-include file='CalendarEventsEditTinyMceInclude.tpl' elements="calendarEvent_body" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"-|
 |-popup_init src="scripts/overlib.js"-|
-<link type="text/css" href="css/chosen.css" rel="stylesheet">
+<link type="text/css" href="css/chosen.css" rel="stylesheet" />
 <script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
+<link type="text/css" href="css/smoothness/jquery-ui-1.8.19.custom.css" rel="Stylesheet" />
+<script type="text/javascript" src="scripts/jquery/jquery-ui-1.8.19.custom.min.js"></script>
 <script type="text/javascript">
+	$(document).ready(function() {
+		
+		$(".chzn-select").chosen();
+		initializeDatePickers();
+		
+		$('#calendarEvent_street').change(updateLocateButton);
+		$('#calendarEvent_number').change(updateLocateButton);
+		$('#calendarEvent_latitude').change(updateLocateButton);
+		$('#calendarEvent_longitude').change(updateLocateButton);
+	});
+	
 	function updateLocateButton() {
 		
 		var text;
@@ -16,15 +29,14 @@
 		$('#button_locate').attr('title', text);
 	}
 	
-	$(document).ready(function() {
-		
-		$(".chzn-select").chosen();
-		
-		$('#calendarEvent_street').change(updateLocateButton);
-		$('#calendarEvent_number').change(updateLocateButton);
-		$('#calendarEvent_latitude').change(updateLocateButton);
-		$('#calendarEvent_longitude').change(updateLocateButton);
-	});
+	function initializeDatePickers() {
+		$.datepicker.setDefaults({
+			dateFormat: 'dd-mm-yy'
+		});
+		$('#calendarEvent_creationDate').datepicker();
+		$('#calendarEvent_startDate').datepicker();
+		$('#calendarEvent_endDate').datepicker();
+	}
 </script>
 <h2>Administración de Eventos</h2>
 <h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Evento</h1>
@@ -54,20 +66,17 @@
 				</p>|-/if-|
 				<p>
 					<label for="calendarEvent_creationDate">Fecha de Creación</label>
-					<input name="calendarEvent[creationDate]" type="text" id="calendarEvent_creationDate" title="creationDate" value="|-if $action eq 'edit'-||-$calendarEvent->getcreationDate()|date_format:"%d-%m-%Y"-||-else-||-$smarty.now|date_format:"%Y-%m-%d %T"|change_timezone|date_format:"%d-%m-%Y"-||-/if-|" size="12" /> 
-					<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('calendarEvent[creationDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+					<input name="calendarEvent[creationDate]" type="text" id="calendarEvent_creationDate" title="creationDate" value="|-if $action eq 'edit'-||-$calendarEvent->getcreationDate()|date_format:"%d-%m-%Y"-||-else-||-$smarty.now|date_format:"%Y-%m-%d %T"|change_timezone|date_format:"%d-%m-%Y"-||-/if-|" size="12" />
 					<a href="#" |-popup sticky=true caption="Fechas de la agenda" trigger="onMouseOver" text="Las fechas deben completarse para que el evento se registre correctamente.<br />La fecha de creación ubicará el evento por orden descendente en la página principal, las fechas de inicio y fin de la actividad le indican al sistema la vigencia del mismo." snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a>
 				</p>
 				<p>
 					<label for="calendarEvent_startDate">Fecha de Inicio Actividad</label>
 					<input name="calendarEvent[startDate]" type="text" id="calendarEvent_startDate" title="creationDate" value="|-$calendarEvent->getstartDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
-					<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('calendarEvent[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 					<a href="#" |-popup sticky=true caption="Fechas de la agenda" trigger="onMouseOver" text="Las fechas deben completarse para que el evento se registre correctamente.<br />La fecha de creación ubicará el evento por orden descendente en la página principal, las fechas de inicio y fin de la actividad le indican al sistema la vigencia del mismo." snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a>
 				</p>
 				<p>
 					<label for="calendarEvent_endDate">Fecha de Fin Actividad</label>
 					<input name="calendarEvent[endDate]" type="text" id="calendarEvent_endDate" title="endDate" value="|-$calendarEvent->getendDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
-					<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('calendarEvent[endDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 					<a href="#" |-popup sticky=true caption="Fechas de la agenda" trigger="onMouseOver" text="Las fechas deben completarse para que el evento se registre correctamente.<br />La fecha de creación ubicará el evento por orden descendente en la página principal, las fechas de inicio y fin de la actividad le indican al sistema la vigencia del mismo." snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a>
 				</p>							
 				<p>
