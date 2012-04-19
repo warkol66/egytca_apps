@@ -4,10 +4,10 @@
 	<div id="map_canvas"></div>
 	<br />
 	<p>
-		<input id="hide_map" type="button" value="Ocultar mapa" title="Ocultar mapa" onClick="$('#map_container').hide();$('#show_map').show()"/>
+		<input id="hide_map" type="button" value="Ocultar mapa" title="Ocultar mapa" onClick="$('#map_container').hide();/*$('#show_map').show()*/"/>
 	</p>
 </div>
-<p><input id="show_map" type="button" value="Mostrar mapa" title="Mostrar mapa" onClick="$('#map_container').show(); $(this).hide()" style="display:none;"/></p>
+<!--<p><input id="show_map" type="button" value="Mostrar mapa" title="Mostrar mapa" onClick="$('#map_container').show(); $(this).hide()" style="display:none;"/></p>-->
 <!-- fin mapa google -->
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
