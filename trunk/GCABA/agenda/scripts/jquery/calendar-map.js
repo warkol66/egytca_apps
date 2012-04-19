@@ -67,10 +67,13 @@ CalendarMap = function(disableId, streetId, numberId, longitudeId, latitudeId) {
 		
 		var addressComponents = result.address_components;
 		var routeComponent = _this.getComponent(addressComponents, 'route');
-		if (routeComponent)
+		if (routeComponent) {
 			_this.street.val(routeComponent.long_name);
-		else
+			_this.street.change();
+		} else {
 			_this.street.val('');
+			_this.street.change();
+		}
 
 		var number = _this.getComponent(addressComponents, 'street_number').long_name;
 		if (number) {
@@ -82,13 +85,16 @@ CalendarMap = function(disableId, streetId, numberId, longitudeId, latitudeId) {
 			number = '';
 		}
 		_this.number.val(number);
+		_this.number.change();
 		
 		var markerId = _this.idsByPosition[result.geometry.location.toString()];
 		_this.setMarkerInfo(markerId, result.formatted_address);
 		_this.showMarkerInfo(markerId);
 		
 		_this.latitude.val(result.geometry.location.lat());
+		_this.latitude.change();
 		_this.longitude.val(result.geometry.location.lng());
+		_this.longitude.change();
 		
 		var region = _this.getComponent(addressComponents, 'neighborhood').long_name;
 		_this.selectRegion(region);

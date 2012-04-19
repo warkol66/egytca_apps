@@ -3,8 +3,27 @@
 <link type="text/css" href="css/chosen.css" rel="stylesheet">
 <script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
 <script type="text/javascript">
+	function updateLocateButton() {
+		
+		var text;
+		
+		if ( $('#calendarEvent_latitude').val() != '' && $('#calendarEvent_street').val() != '' )
+			{text = 'Ver en mapa';console.log('ver');}
+		else
+			{text = 'Buscar en mapa';console.log('buscar');}
+		
+		$('#button_locate').attr('value', text);
+		$('#button_locate').attr('title', text);
+	}
+	
 	$(document).ready(function() {
+		
 		$(".chzn-select").chosen();
+		
+		$('#calendarEvent_street').change(updateLocateButton);
+		$('#calendarEvent_number').change(updateLocateButton);
+		$('#calendarEvent_latitude').change(updateLocateButton);
+		$('#calendarEvent_longitude').change(updateLocateButton);
 	});
 </script>
 <h2>Administración de Eventos</h2>
@@ -61,7 +80,12 @@
 				</p>
 |-include file="CalendarEventsMapInclude.tpl" locateButtonId="button_locate" disableId="button_edit_calendarEvent" streetId="calendarEvent_street" numberId="calendarEvent_number" latitudeId="calendarEvent_latitude" longitudeId="calendarEvent_longitude"-|
 				<p>
-					<input type="button" id="button_locate" value="Buscar en mapa" title="Buscar en Mapa" onClick="calendarMap.locate();"/>
+					|-if !($calendarEvent->getLatitude() eq '') && !($calendarEvent->getStreet() eq '')-|
+						|-assign var=locateButtonText value="Ver en mapa"-|
+					|-else-|
+						|-assign var=locateButtonText value="Buscar en mapa"-|
+					|-/if-|
+					<input type="button" id="button_locate" value="|-$locateButtonText-|" title="|-$locateButtonText-|" />
 				</p>
 				<p style="display: none">
 					<label for="calendarEvent_latitude">Latitud</label>

@@ -17,7 +17,7 @@
 
 <script type="text/javascript">
 
-var calendarMap;
+	var calendarMap;
 
 	$(document).ready(function() {
 		calendarMap = new CalendarMap('|-$disableId-|', '|-$streetId-|', '|-$numberId-|', '|-$latitudeId-|', '|-$longitudeId-|');
@@ -30,5 +30,17 @@ var calendarMap;
 		}
 		
 		$('#|-$locateButtonId-|').on('click', calendarMap, function(event) { event.data.locate() } );
+		$('#|-$streetId-|').change(disableIfNotEmpty);
+		$('#|-$numberId-|').change(disableIfNotEmpty);
+		$('#|-$latitudeId-|').change(disableIfNotEmpty);
+		$('#|-$longitudeId-|').change(disableIfNotEmpty);
+		
 	});
+	
+	function disableIfNotEmpty(event) {
+		if ($(this).val() == '')
+			$('#|-$disableId-|').removeAttr('disabled');
+		else
+			$('#|-$disableId-|').attr('disabled', 'disabled');
+	}
 </script>
