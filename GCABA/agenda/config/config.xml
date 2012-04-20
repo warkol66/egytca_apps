@@ -44,6 +44,16 @@
 					<option_4>m-d-y</option_4>
 				</element_options>
 			</dateFormat>
+			<dateTimeFormat>
+				<value>d-m-Y H:M</value>
+				<element_type>Options</element_type>
+				<element_options>
+					<option_1>d-m-Y H:M</option_1>
+					<option_2>m-d-Y H:M:S</option_2>
+					<option_3>d-m-y H:M</option_3>
+					<option_4>m-d-y H:M:S</option_4>
+				</element_options>
+			</dateTimeFormat>
 			<thousandsSeparator>.</thousandsSeparator>
 			<decimalSeparator>,</decimalSeparator>
 			<numberOfDecimals>2</numberOfDecimals>
