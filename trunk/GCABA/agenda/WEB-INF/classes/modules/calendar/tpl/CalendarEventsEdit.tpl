@@ -4,6 +4,8 @@
 <script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
 <link type="text/css" href="css/smoothness/jquery-ui-1.8.19.custom.css" rel="Stylesheet" />
 <script type="text/javascript" src="scripts/jquery/jquery-ui-1.8.19.custom.min.js"></script>
+<link type="text/css" href="css/jquery-ui-timepicker-addon.css" rel="Stylesheet" />
+<script type="text/javascript" src="scripts/jquery/jquery-ui-timepicker-addon.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		
@@ -33,9 +35,9 @@
 		$.datepicker.setDefaults({
 			dateFormat: 'dd-mm-yy'
 		});
-		$('#calendarEvent_creationDate').datepicker();
-		$('#calendarEvent_startDate').datepicker();
-		$('#calendarEvent_endDate').datepicker();
+		$('#calendarEvent_creationDate').datetimepicker();
+		$('#calendarEvent_startDate').datetimepicker();
+		$('#calendarEvent_endDate').datetimepicker();
 	}
 </script>
 <h2>Administración de Eventos</h2>
