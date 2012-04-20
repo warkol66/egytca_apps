@@ -57,7 +57,7 @@
 			<tr>
 				<td><input type="checkbox" name="selected[]" value="|-$calendarEvent->getId()-|"></td>
 				<td>|-$calendarEvent->gettitle()-|</td>
-				<td>|-$calendarEvent->getstartDate()|date_format:"%d-%m-%Y"-|</td>
+				<td>|-$calendarEvent->getstartDate()|dateTime_format-|</td>
 <!--								<td>|-$calendarEvent->getuserId()-|</td> -->
 				<td>|-if "calendarEventsChangeStatusX"|security_user_has_access-|	
 						<form action="Main.php" method="post" id="formStatuscalendarEvent|-$calendarEvent->getId()-|">

@@ -68,17 +68,17 @@
 				</p>|-/if-|
 				<p>
 					<label for="calendarEvent_creationDate">Fecha de Creación</label>
-					<input name="calendarEvent[creationDate]" type="text" id="calendarEvent_creationDate" title="creationDate" value="|-if $action eq 'edit'-||-$calendarEvent->getcreationDate()|date_format:"%d-%m-%Y"-||-else-||-$smarty.now|date_format:"%Y-%m-%d %T"|change_timezone|date_format:"%d-%m-%Y"-||-/if-|" size="12" />
+					<input name="calendarEvent[creationDate]" type="text" id="calendarEvent_creationDate" title="creationDate" value="|-if $calendarEvent->isNew()-||-$smarty.now|dateTime_format|change_timezone|date_format:"%d-%m-%Y"-||-else-||-$calendarEvent->getcreationDate()|dateTime_format-||-/if-|" size="18" />
 					<a href="#" |-popup sticky=true caption="Fechas de la agenda" trigger="onMouseOver" text="Las fechas deben completarse para que el evento se registre correctamente.<br />La fecha de creación ubicará el evento por orden descendente en la página principal, las fechas de inicio y fin de la actividad le indican al sistema la vigencia del mismo." snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a>
 				</p>
 				<p>
 					<label for="calendarEvent_startDate">Fecha de Inicio Actividad</label>
-					<input name="calendarEvent[startDate]" type="text" id="calendarEvent_startDate" title="creationDate" value="|-$calendarEvent->getstartDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+					<input name="calendarEvent[startDate]" type="text" id="calendarEvent_startDate" title="creationDate" value="|-$calendarEvent->getstartDate()|dateTime_format-|" size="18" /> 
 					<a href="#" |-popup sticky=true caption="Fechas de la agenda" trigger="onMouseOver" text="Las fechas deben completarse para que el evento se registre correctamente.<br />La fecha de creación ubicará el evento por orden descendente en la página principal, las fechas de inicio y fin de la actividad le indican al sistema la vigencia del mismo." snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a>
 				</p>
 				<p>
 					<label for="calendarEvent_endDate">Fecha de Fin Actividad</label>
-					<input name="calendarEvent[endDate]" type="text" id="calendarEvent_endDate" title="endDate" value="|-$calendarEvent->getendDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+					<input name="calendarEvent[endDate]" type="text" id="calendarEvent_endDate" title="endDate" value="|-$calendarEvent->getendDate()|dateTime_format-|" size="18" /> 
 					<a href="#" |-popup sticky=true caption="Fechas de la agenda" trigger="onMouseOver" text="Las fechas deben completarse para que el evento se registre correctamente.<br />La fecha de creación ubicará el evento por orden descendente en la página principal, las fechas de inicio y fin de la actividad le indican al sistema la vigencia del mismo." snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a>
 				</p>							
 				<p>
@@ -186,12 +186,7 @@
 					<input type="hidden" name="action" id="action" value="|-$action-|" />
 					<input type="hidden" name="do" id="doEdit" value="calendarEventsDoEdit" />
 					|-javascript_form_validation_button id="button_edit_calendarEvent" value='Aceptar' title='Aceptar'-|
-|-if $calendarEventsConfig.bodyOnEventsShow.value eq "YES"-|
-					<input type="button" id="button_preview_calendarEvent" name="button_preview_calendarEvent" title="Aceptar" value="Vista previa del evento" onClick="javascript:submitEventsPreviewDetailed(this.form)"  />
-|-else-|
-<input type="button" id="button_previewOnHome_calendarEvent" name="button_previewOnHome_calendarEvent" title="Aceptar" value="Vista previa en Home" onClick="javascript:submitEventsPreviewOnHome(this.form)"/>
-					<input type="button" id="button_preview_calendarEvent" name="button_preview_calendarEvent" title="Aceptar" value="Vista previa del Detalle" onClick="javascript:submitEventsPreviewDetailed(this.form)"  />
-|-/if-|
+	<input type='button' onClick='location.href="Main.php?do=calendarEventsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Eventos"/>
 				</p>
 			</fieldset>
 		</form>
