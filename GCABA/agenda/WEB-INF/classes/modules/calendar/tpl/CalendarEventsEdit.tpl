@@ -23,9 +23,9 @@
 		var text;
 		
 		if ( $('#calendarEvent_latitude').val() != '' && $('#calendarEvent_street').val() != '' )
-			{text = 'Ver en mapa';console.log('ver');}
+			text = 'Ver en mapa';
 		else
-			{text = 'Buscar en mapa';console.log('buscar');}
+			text = 'Buscar en mapa';
 		
 		$('#button_locate').attr('value', text);
 		$('#button_locate').attr('title', text);
