@@ -21,7 +21,7 @@
 </script>
 
 <script src="scripts/jquery.min.js" language="JavaScript" type="text/javascript"></script>
-<script src="scripts/jquery-ui.custom.min.js" language="JavaScript" type="text/javascript"></script>
+<!--<script src="scripts/jquery-ui.custom.min.js" language="JavaScript" type="text/javascript"></script>-->
 <script src="scripts/jquery/functions.js" language="JavaScript" type="text/javascript"></script>
 <script src="scripts/overlib.js" type="text/javascript"></script>
 
