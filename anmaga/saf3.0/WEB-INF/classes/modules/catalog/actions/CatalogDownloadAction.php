@@ -1,11 +1,11 @@
 <?php
 
-class CatalogShowAction extends BaseAction {
+class CatalogDownloadAction extends BaseAction {
 
 
 	// ----- Constructor ---------------------------------------------------- //
 
-	function CatalogShowAction() {
+	function CatalogDownloadAction() {
 		;
 	}
 
@@ -30,6 +30,8 @@ class CatalogShowAction extends BaseAction {
 
     BaseAction::execute($mapping, $form, $request, $response);
 
+    $this->template->template = "TemplateJquery.tpl";
+    
 		//////////
 		// Access the Smarty PlugIn instance
 		// Note the reference "=&"
@@ -47,33 +49,10 @@ class CatalogShowAction extends BaseAction {
 
 
 		$productPeer = new ProductPeer;
-			
-		if (Common::isAffiliatedUser() && AffiliateProductPeer::affiliateHasPriceList(Common::getAffiliatedId()))
-	    $productPeer->setSearchAffiliateId(Common::getAffiliatedId());
-
-    $filters = $_GET['filters'];
-    $this->applyFilters($productPeer, $filters, $smarty);
-
-    $pager = $productPeer->getAllPaginatedFiltered($_GET["page"]);
-		$products = $pager->getResult();
-		$smarty->assign("pager",$pager);
-		$url = "Main.php?do=catalogShow";
-    foreach ($filters as $key => $value)
-      $url .= "&filters[$key]=$value";
-    $smarty->assign("url",$url);
-    if ($_GET["all"] == "1")
-      $products = $productPeer->getAll();
-		$smarty->assign("products",$products);
-	  $smarty->assign("message",$_GET["message"]);	
-		
-    //print_r($products->toJSON());die;
     
-    /*
-    if ($_GET["json"] == "1") {
-      foreach ($products as $product) {
-        
-      }
-    }*/
+    $products = $productPeer->getAll();
+			
+    $smarty->assign("products",$products);    
     
 		return $mapping->findForwardConfig('success');
 		
