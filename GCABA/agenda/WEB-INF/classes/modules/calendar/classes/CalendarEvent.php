@@ -21,7 +21,7 @@ class CalendarEvent extends BaseCalendarEvent {
 	 * @return boolean
 	 */
 	public function hasCalendarAxis($axis) {
-		return EventAxisQuery::create()->filterByAxisid($axis->getId())->count() > 0;
+//		return EventAxisQuery::create()->filterByAxisid($axis->getId())->count() > 0;
 	}
 	
 	/**

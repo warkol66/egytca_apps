@@ -18,6 +18,7 @@
 		<column name="longitude" type="NUMERIC" size="12" scale="9" description="longitud" />
 		<column name="street" type="VARCHAR" size="100" description="Nombre de la calle" />
 		<column name="number" type="INTEGER" description="numero de la calle" />
+		<column name="axisId" type="INTEGER"  required="true" description="Id del eje" />
 		<column name="campaignCommitment" type="BOOLEAN" sqlType="BOOL" default="false" />
 
 		<foreign-key foreignTable="users_user" >
@@ -26,6 +27,10 @@
 
 		<foreign-key foreignTable="calendar_eventType" >
 			<reference local="typeId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="calendar_axis" >
+			<reference local="axisId" foreign="id" />
 		</foreign-key>
 
 		<vendor type="mysql">
@@ -107,7 +112,7 @@
 
 	</table>
 	
-	<table name="calendar_eventAxis" phpName="EventAxis" description="Relacion de eventos y ejes" isCrossRef="true">
+<!--	<table name="calendar_eventAxis" phpName="EventAxis" description="Relacion de eventos y ejes" isCrossRef="true">
 
 		<column name="axisId" required="true" primaryKey="true" type="INTEGER" description="Event ID"/>
 		<column name="eventId" required="true" primaryKey="true" type="INTEGER" description="Category ID"/>
@@ -126,7 +131,7 @@
 		</vendor>
 
 	</table>
-
+-->
 	<table phpName="CalendarMedia" name="calendar_media" description="Media del calendario">
 
 		<column name="id" type="INTEGER"  required="true" description="Id media" primaryKey="true" autoIncrement="true"  />

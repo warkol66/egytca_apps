@@ -19,12 +19,10 @@ class CalendarEventsDoEditAction extends BaseAction {
 		$module = "Calendar";
 		$smarty->assign("module",$module);
 				
-
-		if ( $_POST["action"] == "edit" ) {
-			//estoy editando un evento existente
-			CalendarEventPeer::update($_POST["calendarEvent"]);
-			$calendarEvent = CalendarEventQuery::create()->findOneById($_POST['calendarEvent']['id']);
-		}
+		$id = $request->getParameter("id");
+		$calendarEvent = CalendarEventQuery::create()->findOneById($id);
+		if (!empty($calendarEvent))
+			$calendarEvent = Common::setObjectFromParams($calendarEvent, $_POST['calendarEvent']);
 		else {
 			//estoy creando un nuevo evento
 			$calendarEvent = new CalendarEvent();
@@ -34,7 +32,6 @@ class CalendarEventsDoEditAction extends BaseAction {
 		$this->updateRegions($calendarEvent);
 		$this->updateCategories($calendarEvent);
 		$this->updateActors($calendarEvent);
-		$this->updateAxes($calendarEvent);
 		
 		try {
 			$calendarEvent->save();
