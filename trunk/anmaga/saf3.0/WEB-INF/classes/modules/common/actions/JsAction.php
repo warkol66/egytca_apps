@@ -10,9 +10,6 @@ class JsAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -24,8 +21,11 @@ class JsAction extends BaseAction {
 
 		global $moduleRootDir;
 
-		if (!empty($_GET["module"]))
+		if (!empty($_GET["module"])) {
 			$path = $moduleRootDir . "/WEB-INF/classes/modules/" . $_GET["module"] . "/tpl/" . ucfirst($_GET["module"]) . ucfirst($_GET["name"]) . ".js";
+			if (!file_exists($filename))
+				die;
+		}
 		else
 			$path = "Common" . ucfirst($_GET["name"]) . ".js";
 
@@ -33,8 +33,5 @@ class JsAction extends BaseAction {
 		header("Content-Type: application/javascript;");
 
 		$text = $smarty->display($path);
-
 	}
-
 }
-
