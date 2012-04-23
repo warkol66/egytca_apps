@@ -7,6 +7,8 @@
 <link type="text/css" href="css/jquery-ui-timepicker-addon.css" rel="Stylesheet" />
 <script type="text/javascript" src="scripts/jquery/jquery-ui-timepicker-addon.js"></script>
 <script type="text/javascript" src="scripts/jquery/jquery.ui.datepicker-es.js"></script>
+<script type="text/javascript" src="scripts/jquery/jquery-ui-sliderAccess.js"></script>
+<script type="text/javascript" src="scripts/jquery/jquery.ui.touch-punch.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		
@@ -35,6 +37,14 @@
 	function initializeDatePickers() {
 		$.datepicker.setDefaults({
 			dateFormat: 'dd-mm-yy',
+			numberOfMonths: 3,
+			minDate: 0	
+		});
+		$.timepicker.setDefaults({
+			hourGrid: 3,
+			minuteGrid: 5,
+			addSliderAccess: true,
+			sliderAccessArgs: { touchonly: false }
 		});
 		$('#calendarEvent_creationDate').datetimepicker();
 		$('#calendarEvent_startDate').datetimepicker();
