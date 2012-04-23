@@ -6,6 +6,7 @@
 <script type="text/javascript" src="scripts/jquery/jquery-ui-1.8.19.custom.min.js"></script>
 <link type="text/css" href="css/jquery-ui-timepicker-addon.css" rel="Stylesheet" />
 <script type="text/javascript" src="scripts/jquery/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="scripts/jquery/jquery.ui.datepicker-es.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		
@@ -33,7 +34,7 @@
 	
 	function initializeDatePickers() {
 		$.datepicker.setDefaults({
-			dateFormat: 'dd-mm-yy'
+			dateFormat: 'dd-mm-yy',
 		});
 		$('#calendarEvent_creationDate').datetimepicker();
 		$('#calendarEvent_startDate').datetimepicker();
@@ -150,10 +151,11 @@
 					</select>
 				</p>
 				<p>
-					<label for="calendarEvent_axes">Ejes</label>
-					<select class="chzn-select markets-chz-select" data-placeholder="Seleccione uno o varios ejes..." multiple="multiple" id="calendarEvent_axes" name="calendarEvent[axesIds][]" size="5" title="ejes">
+					<label for="calendarEvent_axisId">Eje de gestión</label>
+					<select id="calendarEvent_axis" name="calendarEvent[axisId]" title="Eje de gestión">
+						<option value="">Seleccione el eje</option>
 					|-foreach from=$axes item=object-|
-						<option value="|-$object->getid()-|" |-$calendarEvent->hasCalendarAxis($object)|selected:true-| style="color:|-$object->getColor()-|;">|-$object->getname()-|</option>
+						<option value="|-$object->getId()-|" |-$calendarEvent->getAxisId()|selected:$object->getId()-|>|-$object->getName()-|</option>
 					|-/foreach-|
 					</select>
 				</p>
@@ -162,9 +164,14 @@
 					<select id="calendarEvent_typeId" name="calendarEvent[typeId]" title="tipo de evento">
 						<option value="">Seleccione un Tipo</option>
 					|-foreach from=$eventTypes item=object-|
-						<option value="|-$object->getid()-|" |-$calendarEvent->getTypeId()|selected:$object->getid()-|>|-$object->getname()-|</option>
+						<option value="|-$object->getid()-|" |-$calendarEvent->getTypeId()|selected:$object->getId()-|>|-$object->getName()-|</option>
 					|-/foreach-|
 					</select>
+				</p>
+				<p>
+					<label for="calendarEvent_campaignCommitment">Compromiso de campaña</label>
+					<input name="calendarEvent[campaignCommitment]" type="hidden" value="0">
+					<input name="calendarEvent[campaignCommitment]" type="checkbox" |-$calendarEvent->getCampaignCommitment()|checked_bool-| value="1">
 				</p>
 				<p>
 					<label for="calendarEvent_userId">Usuario</label>
@@ -176,14 +183,11 @@
 					</select>
 				</p>
 				<p>
-					|-if $action eq "edit"-|
-					<input type="hidden" name="calendarEvent[id]" id="calendarEvent_id" value="|-$calendarEvent->getid()-|" />
+					|-if !$calendarEvent->isNew()-|
+					<input type="hidden" name="id" id="calendarEvent_id" value="|-$calendarEvent->getid()-|" />
 					|-/if-|
-					
 					<!--pasaje de parametros de filtros -->
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-					
-					<input type="hidden" name="action" id="action" value="|-$action-|" />
 					<input type="hidden" name="do" id="doEdit" value="calendarEventsDoEdit" />
 					|-javascript_form_validation_button id="button_edit_calendarEvent" value='Aceptar' title='Aceptar'-|
 	<input type='button' onClick='location.href="Main.php?do=calendarEventsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Eventos"/>
