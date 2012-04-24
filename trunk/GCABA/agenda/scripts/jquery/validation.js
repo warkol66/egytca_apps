@@ -330,60 +330,41 @@ function validationPasswordMatchValidator(element) {
  * @param Element element elemento DOM a validar
  * @param String doAction nombre del action con el cual se realizara la validacion por AJAX.
  */
-//function validationValidateFieldThruAjax(element,doAction) {
-//
-//	var url = 'Main.php?do=' + doAction;
-//
-//	var actualValueName = 'actual' + element.name;
-//
-//	if (document.getElementById(actualValueName) != null) {
-//		var actualValue = document.getElementById(actualValueName).value;
-//		var fields = element.name + '=' + element.value + '&actual' + element.name + '=' + actualValue;
-//	}
-//	else
-//		var fields = element.name + '=' + element.value;
-//	
-//	jQuery.post(
-//		url,
-//		fields
-//	).success(
-//		function(data, textStatus, jqXHR) {
-//			var response = data.evalJSON();
-//
-//			$(response.name).style.background = '#C5F1C7 url(images/valid.png) no-repeat right';
-//
-//			if (response.value == 1)
-//				$(response.name).style.background = '#F4D3D3 url(images/invalid.png) no-repeat right';
-//
-//			var element = $(response.name + '_box');
-//			if (element != null)
-//				element.innerHTML = response.message;
-//
-//		}
-//	);
-	
-//	var myAjax = new Ajax.Request(
-//	url,
-//	{
-//		method: 'post',
-//		postBody: fields,
-//		onSuccess: function(transport) {
-//			var response = transport.responseText.evalJSON();
-//
-//			$(response.name).style.background = '#C5F1C7 url(images/valid.png) no-repeat right';
-//
-//			if (response.value == 1)
-//				$(response.name).style.background = '#F4D3D3 url(images/invalid.png) no-repeat right';
-//
-//			var element = $(response.name + '_box');
-//			if (element != null)
-//				element.innerHTML = response.message;
-//
-//		}
-//
-//	});
+function validationValidateFieldThruAjax(element,doAction) {
 
-//}
+	var url = 'Main.php?do=' + doAction;
+
+	var actualValueName = 'actual' + element.name;
+
+	if (document.getElementById(actualValueName) != null) {
+		var actualValue = document.getElementById(actualValueName).value;
+		var fields = element.name + '=' + element.value + '&actual' + element.name + '=' + actualValue;
+	}
+	else
+		var fields = element.name + '=' + element.value;
+	
+	$.ajax({
+		url: url,
+		method: 'post',
+		data: fields,
+		dataType: 'json',
+		success: function(data) {
+			var response = data;
+			console.log(response);
+
+			document.getElementById(response.name).style.background = '#C5F1C7 url(images/valid.png) no-repeat right';
+
+			if (response.value == 1)
+				document.getElementById(response.name).style.background = '#F4D3D3 url(images/invalid.png) no-repeat right';
+
+			var element = document.getElementById(response.name + '_box');
+			if (element != null)
+				element.innerHTML = response.message;
+
+		}
+	});
+
+}
 
 function clearFormFieldsFormat(form) {
 	
