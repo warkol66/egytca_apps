@@ -484,6 +484,11 @@ class User extends BaseUser {
 		$this->reload();
 		if ($this->getSession() == session_id())
 			return true;
+		else {
+			if($_SESSION["loginUser"])
+				unset($_SESSION["loginUser"]);
+			return false;
+		}
 	}
 
 } // User
