@@ -104,15 +104,6 @@ class BaseAction extends Action {
 
 		$smarty->assign("module",$moduleRequested);
 
-		if (isset($_SESSION["loginUser"]) && is_object($_SESSION["loginUser"]) && get_class($_SESSION["loginUser"]) == "User")
-			$loginUser = $_SESSION["loginUser"];
-		if (isset($_SESSION["loginAffiliateUser"]) && is_object($_SESSION["loginAffiliateUser"]) && get_class($_SESSION["loginAffiliateUser"]) == "AffiliateUser")
-			$loginUserAffiliate = $_SESSION["loginAffiliateUser"];
-		if (isset($_SESSION["loginClientUser"]) && is_object($_SESSION["loginClientUser"]) && get_class($_SESSION["loginClientUser"]) == "ClientUser")
-			$loginClientUser = $_SESSION["loginClientUser"];
-		if (isset($_SESSION["loginRegistrationUser"]) && is_object($_SESSION["loginRegistrationUser"]) && get_class($_SESSION["loginRegistrationUser"]) == "RegistrationUser")
-			$loginRegistrationUser = $_SESSION["loginRegistrationUser"];
-
 		$securityAction = SecurityActionPeer::getByNameOrPair($actionRequested);
 		$securityModule = SecurityModulePeer::get($moduleRequested);
 
@@ -159,6 +150,19 @@ class BaseAction extends Action {
 		}
 		else { // No verifica login
 		}
+
+		if (isset($loggedUser))
+			$smarty->assign("loggedUser",$loggedUser);
+
+
+		if (isset($_SESSION["loginUser"]) && is_object($_SESSION["loginUser"]) && get_class($_SESSION["loginUser"]) == "User")
+			$loginUser = $_SESSION["loginUser"];
+		if (isset($_SESSION["loginAffiliateUser"]) && is_object($_SESSION["loginAffiliateUser"]) && get_class($_SESSION["loginAffiliateUser"]) == "AffiliateUser")
+			$loginUserAffiliate = $_SESSION["loginAffiliateUser"];
+		if (isset($_SESSION["loginClientUser"]) && is_object($_SESSION["loginClientUser"]) && get_class($_SESSION["loginClientUser"]) == "ClientUser")
+			$loginClientUser = $_SESSION["loginClientUser"];
+		if (isset($_SESSION["loginRegistrationUser"]) && is_object($_SESSION["loginRegistrationUser"]) && get_class($_SESSION["loginRegistrationUser"]) == "RegistrationUser")
+			$loginRegistrationUser = $_SESSION["loginRegistrationUser"];
 
 		if (!empty($loginUserAffiliate))
 			$smarty->assign("affiliateId",$loginUserAffiliate->getAffiliateId());

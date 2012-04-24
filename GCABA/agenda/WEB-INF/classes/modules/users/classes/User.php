@@ -476,4 +476,14 @@ class User extends BaseUser {
 		$this->setActive('1');
 	}
 
+ /**
+	 * Verifica que la sesion sea la correspondiente
+	 * @return bool true si la sesion se corresponde con el usuario o si no se verifica
+	 */
+	function verifySession() {
+		$this->reload();
+		if ($this->getSession() == session_id())
+			return true;
+	}
+
 } // User

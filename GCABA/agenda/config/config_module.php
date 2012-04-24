@@ -7,6 +7,7 @@ class ConfigModule {
 			"debugMode" => true,
 			"noSecurity" => true,
 			"noCheckLogin" => true,
+			"concurrentSession" => false,
 			"developmentMode" => true,
 			"showPropelExceptions" => true,
 			"doLog" => true,
