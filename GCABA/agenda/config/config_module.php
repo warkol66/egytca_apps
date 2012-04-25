@@ -7,7 +7,7 @@ class ConfigModule {
 			"debugMode" => true,
 			"noSecurity" => true,
 			"noCheckLogin" => false,
-			"concurrentSession" => false,
+			"concurrentSession" => true,
 			"developmentMode" => true,
 			"showPropelExceptions" => true,
 			"doLog" => true,
@@ -43,6 +43,9 @@ class ConfigModule {
 				11 => 'Comune',
 				12 => 'Neighborhood'
 			)
+		),
+		"calendar" => array(
+			"useHTML"  => false
 		)
 	);
 
