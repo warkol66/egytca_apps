@@ -40,7 +40,7 @@ function validationValidateFormClienSide(form, doSubmit) {
 		validationSetInvalidFields(dateResult,validation_messageDate);
 		validationSetInvalidFields(passResult,validation_messagePasswordMatch);
 
-		if (jQuery.isFunction(showValidationFailureMessage))
+		if (jQuery.isFunction(showValidationFailureMessage)) 
 			showValidationFailureMessage(form);
 
 		document.location.href = '#';
@@ -209,7 +209,7 @@ function validationSetInvalidField(element,message) {
 
 		var newMessage = message.replace(/%field%/,fieldName);
 
-		box = box.innerHTML + newMessage;
+		box.innerHTML = box.innerHTML + newMessage;
 	}
 
 }
