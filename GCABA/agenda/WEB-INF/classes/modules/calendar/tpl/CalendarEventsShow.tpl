@@ -1,17 +1,17 @@
 <!-- TITULO AGENDA -->
-<div id="titleAgenda"><div id="icoAgenda"><a href="Main.php?do=calendarEventsMonth">&nbsp;</a></div>Agenda</div>
+<div id="titleAgenda"><div id="icoAgenda"><a href="Main.php?do=calendarShow">&nbsp;</a></div>Agenda</div>
 <!-- **************************************** --> 		   
 <!--  AGENDA NOTICIA  **************************************** -->
 <div id="div_calendarEvents">
 		|-foreach from=$calendarEvents item=calendarEvent name=for_calendarEvents-|
 			<div id="event|-$calendarEvent->getId()-|" class="news02">|-if $calendarEvent->hasImages()-|<img src="Main.php?do=calendarEventsGetThumbnail&id=|-$calendarEvent->getId()-|" width="85" height="86" align="left" class="agendaImage"/>|-/if-|
 		<!--	 	<h4>Publicado el |-$calendarEvent->getCreationDate()|date_format:"%d de %B, %Y"-|</h4> -->
-
+|-*
 					<h4>|-assign var=region value=$calendarEvent->getRegion()-|
 					|-if not empty($region)-||-$region->getName()-||-/if-|
 					|-assign var=category value=$calendarEvent->getCategory()-|
 					|-if not empty($category)-||-if not empty($region)-|&gt;&gt;|-/if-||-$category->getName()-||-/if-|</h4>
-
+*-|
 
 		|-assign var=startDateMonth value=$calendarEvent->getStartDate()|date_format:"%m"-|
 		|-assign var=startDateYear  value=$calendarEvent->getStartDate()|date_format:"%Y"-|
