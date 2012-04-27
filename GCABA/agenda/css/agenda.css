@@ -1,0 +1,447 @@
+@charset "UTF-8";
+/* CSS Document */
+
+
+/*  HEADER 1*/
+	.container_16 .header1{
+		width:1010px;
+		background-image:url(../images/header1_bkg.png);
+		background-repeat:repeat-x;
+		background-position:top left;
+		margin:0;
+		padding:0;
+	}
+	
+		/* branding
+	----------------------------------------------- */
+	h1#branding {
+	width:559px;
+	height:65px;
+	background-image:url(../images/header1_bsas.png);
+	background-repeat:no-repeat;
+	float:left;
+	margin:0;
+	padding:0;
+	}
+	.slogan{
+	width:146px;
+	height:65px;
+	background-image:url(../images/header1_slogan.png);
+	background-repeat:no-repeat;
+	float:right;
+	margin:0;
+	padding:0;}
+	
+	.eyefishContainer{
+	width:159px;
+	height:65px;
+	background-image:url(../images/header1_eyefish.jpg);
+	background-repeat:no-repeat;
+	float:right;}
+
+
+
+.container_16 .colummAgenda{
+width:857px;
+margin-right:0;
+margin-left:17px;
+}
+
+.container_16 .colummSidebar{
+width:118px;
+min-height:389px;
+background-image:url(../images/columnaDrecha.png);
+background-repeat:no-repeat;
+border: solid 1px #666666;
+border-left:none;
+margin-right:17px;
+margin-left:0;}
+
+/* Navegacion Menu 1
+---------------------------------------------------------------*/
+	.boxNav1{
+	height:24px;
+	background-image: url(../images/header_menu1.png);
+	background-repeat:no-repeat;
+	background-color:#CCCCCC;}
+
+/*  Navegacion menu 2 (solapas colores)
+---------------------------------------------------------------*/
+	.boxNavSolapas{
+	height:27px;
+	background-image: url(../images/header_menu2.png);
+	background-repeat:no-repeat;}
+	
+		.boxNavSolapas ul{
+		margin:0 auto 0 auto;}
+		.boxNavSolapas ul li{
+		display:inline;
+		float:left;}
+		.boxNavSolapas ul li a{
+		display:block;
+		height:27px;
+		cursor:pointer;
+		border:solid 1px #FF0000;}	
+				
+				li.solTurismo a{width:125px;}
+				li.solVida a{width:120px;}
+				li.solTransformando a{width:120px;}
+				li.solCiudad a{width:120px;}
+				li.solAgenda a{width:120px;}
+				li.solSocial a{width:120px;}	
+				li.solOtros a{width:115px;}					
+		
+/* Indicador del mes */
+	.boxNavMonth{
+	width:25%;
+	display:inline;
+	float:left;
+	background-color:#FFFF00;}
+
+/* Boton FullScreen */
+	.boxFullscreen{
+	width:75%;
+	float:left;
+	display:inline;
+	text-align:right;}
+
+
+/*   AGENDA     --------------------------*/
+	.boxAgendaContainer{
+	width:100%;
+	border:solid 1px #ff0000}
+	
+		#calendar {
+		width: 857px;
+		margin: 0 auto;
+		}
+		
+		.scrollContainerAgenda{
+		border-top:#FF0000;
+		width:857px;
+		height:420px;
+		overflow:scroll;}
+		
+		/* ancho de los TD de días*/
+		/* debe ser igual al de .fc-widget-header (en fullcalendar.js)*/
+		.agendaMensual{}
+	
+/*	FONDO GRIS   --------------*/
+	table.agendaBkgGris{
+	background-color:#e7e7e7;
+	background-image: url(../images/agenda_bkg-Gris.png);
+	background-position: 0 0;
+	background-repeat:no-repeat;}
+
+/* ----------------------------------------*/ 
+/* ----------------------------------------*/ 
+
+
+/*   Complementos de fullcalendar.css  */
+	
+/* ----------------------------------------*/ 
+/* ----------------------------------------*/ 
+	
+	.fc-header-left{
+	width:180px;
+	background-color:#fdbc08;
+	background-image:url(../images/bkg_month.gif);
+	background-repeat: repeat-x;
+	background-position: top left;
+	-moz-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
+	}
+	
+	.fc-button-content{
+	width:110px;
+	font-weight:bold;
+	text-transform:capitalize;}
+	
+	.fc-header-right{
+	background-color:#dfdfdf;
+	background-image:url(../images/bkg_header-right.gif);
+	background-repeat: repeat-x;
+	background-position: top left;
+	-moz-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
+	}	
+	
+	.fc-header-left	.fc-button{
+	width:35px;}
+	
+	
+	 /*   DETALLES DE CUADRO EVENTO -------------------------*/
+	 .eventoContainer {
+	 position:relative;}
+	 	.eventoContent{
+		width:115px;
+		background-color:#ff3929;
+		height:auto;
+		line-height:1em;}
+		
+		.eventoFooter{
+		width:115px;
+		height:7px;
+		background-image: url(../images/backgroundsH.png);
+		background-repeat:repeat-x;
+		-moz-border-radius: 0 0 5px 5px;
+		border-radius: 0 0 5px 5px;
+		}
+	 
+			 /* HORARIO*/
+			 .fc-event-time{
+				width:110px;
+				height:15px;
+				padding:9px 0 0 0;
+				display:block;
+				background-image: url(../images/backgroundsH.png);
+				background-repeat:repeat-x;
+				color:#FFF;
+				font-size:10px;
+				font-weight:bold;
+				clear:both;
+				-moz-border-radius: 5px 0 0 0;
+				border-radius: 5px 0 0 0;
+				}
+			/* TITULO    */
+			.fc-event-title{
+			display:block;
+			margin:0 2px 0 3px;
+			padding:3px 0 0 0;
+			color:#000;
+			font-weight:bold;}
+			
+			.fc-event-title	img{
+			text-align:right;
+			border: solid 1px #FFF;
+			-moz-border-radius: 3px;
+			border-radius: 3px;
+			margin:3px 2px 2px 2px;}
+			
+			/*  TEXTO  */
+			.fc-event-text{
+			font-weight:normal;
+			display:block;}
+			
+			/*  BOTONERA --------*/
+			 ul.botoneraSmallEvento{
+			position:absolute;
+			top:0;
+			right:0;
+			/*background-color:#0033CC;*/}
+			
+				   ul.botoneraSmallEvento li{
+					float:right;
+					display:inline;
+					margin-right:2px;
+					}
+					ul.botoneraSmallEvento li a{
+					width:15px;
+					height:15px;
+					display:block;
+					padding:0;
+					background-image:url(../images/evento_sprite.png);
+					background-repeat:no-repeat;
+					}
+					/**/
+						ul.botoneraSmallEvento li.eventoBot01 a{
+						background-position:-248px 0;
+						}
+						ul.botoneraSmallEvento li.eventoBot02 a{
+						background-position:-232px 0;
+						}
+						
+
+			/*   COLORES DE HEADERS, FOOTERS y BOTONERAS segun seccion 	*/
+			.amarillo .fc-event-time {
+			background-position:0 0;}
+			.amarillo .eventoContent{
+			background-color:#FFCC00;}
+			.amarillo .eventoFooter {
+			background-position:0 -120px;}
+			.amarillo ul.botoneraSmallEvento li.eventoBot01 a{
+			background-position:-248px 0;}
+			.amarillo ul.botoneraSmallEvento li.eventoBot02 a{
+			background-position:-232px 0;}
+						
+			.verde1 .fc-event-time {
+			background-position:0 -18px;}
+			.verde1 .eventoContent{
+			background-color:#88d852;}
+			.verde1 .eventoFooter {
+			background-position:0 -137px;}
+			.verde1 ul.botoneraSmallEvento li.eventoBot01 a{
+			background-position:-248px -17px;}
+			.verde1 ul.botoneraSmallEvento li.eventoBot02 a{
+			background-position:-232px -17px;}
+
+			.verde2 .fc-event-time {
+			background-position:0 -34px;}
+			.verde2 .eventoContent{
+			background-color:#359e7d;}
+			.verde2 .eventoFooter {
+			background-position:0 -154px;}
+			.verde2 ul.botoneraSmallEvento li.eventoBot01 a{
+			background-position:-248px -34px;}
+			.verde2 ul.botoneraSmallEvento li.eventoBot02 a{
+			background-position:-232px -34px;}
+						
+			.cyan .fc-event-time {
+			background-position:0 -52px;}
+			.cyan .eventoContent{
+			background-color:#3dbeff;}
+			.cyan .eventoFooter {
+			background-position:0 -171px;}
+			.cyan ul.botoneraSmallEvento li.eventoBot01 a{
+			background-position:-248px -51px;}
+			.cyan ul.botoneraSmallEvento li.eventoBot02 a{
+			background-position:-232px -51px;}
+						
+			.rojo .fc-event-time {
+			background-position:0 -68px;}
+			.rojo .eventoContent{
+			background-color:#ff3929;}
+			.rojo .eventoFooter {
+			background-position:0 -188px;}
+			.rojo ul.botoneraSmallEvento li.eventoBot01 a{
+			background-position:-248px -68px;}
+			.rojo ul.botoneraSmallEvento li.eventoBot02 a{
+			background-position:-232px -68px;}
+						
+			.naranja .fc-event-time {
+			background-position:0 -86px;}
+			.naranja .eventoContent{
+			background-color:#ff9c0d;}
+			.naranja .eventoFooter {
+			background-position:0 -205px;}
+			.naranja ul.botoneraSmallEvento li.eventoBot01 a{
+			background-position:-248px -85px;}
+			.naranja ul.botoneraSmallEvento li.eventoBot02 a{
+			background-position:-232px -85px;}
+						
+			.gris .fc-event-time {
+			background-position:0 -103px;}
+			.gris .eventoContent{
+			background-color:#c0c0c0;}
+			.gris .eventoFooter {
+			background-position:0 -222px;}
+			.gris ul.botoneraSmallEvento li.eventoBot01 a{
+			background-position:-248px -102px;}
+			.gris ul.botoneraSmallEvento li.eventoBot02 a{
+			background-position:-232px -102px;}
+
+
+
+/*   AGENDA SEMANAL  */
+/* ----------------------------------------*/ 
+		.fc-agenda-allday .fc-agenda-axis,
+		.fc-agenda-days .fc-agenda-axis,
+		.fc-agenda .fc-agenda-axis {
+			width: 50px;
+			color:#FFF;
+			font-size:11px;
+			font-weight:bold;
+			background-image: url(../images/backgroundsH.png);
+			background-repeat:repeat-x;
+			background-position:0 -239px;
+			background-color:#eeab02;
+			padding:8px 4px 2px 2px;
+			}
+			.bkgAllday{
+			background-color: #999999;
+			zoom: 1;
+			filter: alpha(opacity=40);
+			opacity: 0.4;}
+			
+			.fc-widget-content {  /* <td>, usually */
+			border: 1px solid #FF0000;
+			}
+						
+			
+/*   FIN Complementos de fullcalendar.css  */
+/* ----------------------------------------*/ 
+
+
+/* ----------------------------------------*/ 
+
+/* DIVS DE DATOS DE EVENTO*/
+
+/* ----------------------------------------*/ 
+	.boxEvento{
+	width:115px;
+	position:relative;
+	z-index:1;
+	
+	margin:0 0 0 200px;}
+	
+	/* EVENTO HEADER -------------------*/
+	.boxEventoHeader{
+	width:115px;
+	height:15px;}
+		
+		.boxEvento .headerOrange{
+		background-image: url(../images/evento_header_orange100.png);
+		background-position: top left;
+		background-repeat:no-repeat;
+		}
+		
+	.boxEventoHeader{
+	width:115px;
+	height:15px;}
+	
+	/*  Horario  */
+	.boxEventoHeader h2{  
+	margin:0 0 0 5px;
+	padding:3px 0 0 0;
+	color:#FFF;
+	font-weight:bold;
+	font-size:9px;
+	z-index:1000;}
+	
+
+
+	/* EVENTO CONTENT -------------------*/
+	.boxEventoContent{
+	width:115px;
+	height:auto;
+	line-height:1em;}
+
+	.boxEventoContent h3{
+	font-size:9px;
+	line-height:9px;
+	margin:0px 3px 0 5px;
+	padding-top:2px;}	
+	
+	.boxEventoContent h3 img{
+	text-align:right;
+	border: solid 1px #FFF;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	margin:0 2px 2px 2px;}
+	
+	.boxEventoContent p{
+	font-size:9px;
+	margin:0 3px 0 5px;}	
+		
+		.boxEvento .contentOrange{
+		background-image: url(../images/boxEvento_bkg_orange100.png);
+		background-position: bottom left;
+		background-repeat:no-repeat;
+		padding-bottom:7px;
+		/*
+	zoom: 1;
+	filter: alpha(opacity=40);
+	opacity: 0.4;*/
+		}
+		
+		
+
+	/*   FERIADO      */			
+	.boxFeriado {
+	background-color:#999999;
+	/* transparencia */
+	}
+			
+
+
+

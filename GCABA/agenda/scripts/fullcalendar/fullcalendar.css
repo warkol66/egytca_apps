@@ -41,7 +41,7 @@ html .fc,
 	}
 
 .fc-header-left {
-	width: 25%;
+	/*width: 25%;*/
 	text-align: left;
 	}
 	
@@ -50,7 +50,8 @@ html .fc,
 	}
 	
 .fc-header-right {
-	width: 25%;
+/*	width: 25%;*/
+	width:auto;
 	text-align: right;
 	}
 	
@@ -121,14 +122,25 @@ html .fc,
 
 /* Cell Styles
 ------------------------------------------------------------------------*/
+.fc-widget-header{   /*demm*/
+background-color:#e5e5e3;
+text-align:left;
+/*width:14.3%;*/
+/*width:119px;*/}
+
+	/* ancho de los dias de semana */
+	.fc-mon, .fc-tue, .fc-wed, .fc-thu, 
+	.fc-fri, .fc-sat, .fc-sun {	width:119px;}
 
 .fc-widget-header,    /* <th>, usually */
 .fc-widget-content {  /* <td>, usually */
-	border: 1px solid #ccc;
+	border: 1px solid #FFF;
 	}
 	
 .fc-state-highlight { /* <td> today cell */ /* TODO: add .fc-today to <th> */
-	background: #ffc;
+	background: #666;
+	opacity: .2;
+	filter: alpha(opacity=20); /* for IE */	
 	}
 	
 .fc-cell-overlay { /* semi-transparent rectangle while dragging */
@@ -167,7 +179,8 @@ html .fc,
 .fc-button-content {
 	position: relative;
 	float: left;
-	height: 1.9em;
+/*	height: 1.9em;*/
+	height:20px;
 	line-height: 1.9em;
 	padding: 0 .6em;
 	white-space: nowrap;
@@ -217,7 +230,6 @@ html .fc,
 .fc-state-default .fc-button-inner {
 	border-style: solid;
 	border-color: #ccc #bbb #aaa;
-	background: #F3F3F3;
 	color: #000;
 	}
 	
@@ -261,7 +273,8 @@ html .fc,
 .fc-event {
 	border-style: solid;
 	border-width: 0;
-	font-size: .85em;
+/*	font-size: .85em;*/
+	font-size:9px;
 	cursor: default;
 	}
 	
@@ -279,9 +292,9 @@ a.fc-event {
 	}
 	
 .fc-event-skin {
-	border-color: #36c;     /* default BORDER color */
-	background-color: #36c; /* default BACKGROUND color */
-	color: #fff;            /* default TEXT color */
+/*	border-color: #36c;     /* default BORDER color */
+/*	background-color: #36c; /* default BACKGROUND color */
+/*	color: #fff;            /* default TEXT color */
 	}
 	
 .fc-event-inner {
@@ -293,11 +306,13 @@ a.fc-event {
 	overflow: hidden;
 	}
 	
-.fc-event-time,
-.fc-event-title {
-	padding: 0 1px;
+.fc-event-time{
+	padding: 0 2px;
 	}
-	
+.fc-event-title,
+.fc-event-text {
+	margin: 0 2px;
+	}	
 .fc .ui-resizable-handle { /*** TODO: don't use ui-resizable anymore, change class ***/
 	display: block;
 	position: absolute;
@@ -313,7 +328,7 @@ a.fc-event {
 ------------------------------------------------------------------------*/
 
 .fc-event-hori {
-	border-width: 1px 0;
+/*	border-width: 1px 0;*/
 	margin-bottom: 1px;
 	}
 	
@@ -384,11 +399,11 @@ a.fc-event {
 -----------------------------------------------------------------*/
 	
 .fc-corner-left .fc-event-inner {
-	border-left-width: 1px;
+	/*border-left-width: 1px;*/
 	}
 	
 .fc-corner-right .fc-event-inner {
-	border-right-width: 1px;
+/*	border-right-width: 1px;*/
 	}
 	
 .fc-corner-top .fc-event-inner {
@@ -440,6 +455,7 @@ table.fc-border-separate {
 .fc-grid .fc-day-number {
 	float: right;
 	padding: 0 2px;
+	bottom:0;
 	}
 	
 .fc-grid .fc-other-month .fc-day-number {
@@ -485,12 +501,9 @@ table.fc-border-separate {
 	}
 	
 .fc-agenda .fc-agenda-axis {
-	width: 50px;
-	padding: 0 4px;
 	vertical-align: middle;
 	text-align: right;
 	white-space: nowrap;
-	font-weight: normal;
 	}
 	
 .fc-agenda .fc-day-content {
