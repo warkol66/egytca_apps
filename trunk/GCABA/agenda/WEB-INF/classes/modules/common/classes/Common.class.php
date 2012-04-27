@@ -228,8 +228,10 @@ class Common {
 		else if (!empty($_SESSION["loginClientUser"]) && is_object($_SESSION['loginClientUser']) && get_class($_SESSION["loginClientUser"]) == "ClientUser")
 			$user = $_SESSION['loginClientUser'];
 
-		if (!ConfigModule::get("global","concurrentSession") && is_object($user) && $user->verifySession())
+		if (ConfigModule::get("global","concurrentSession"))
 			return $user;
+		else if (is_object($user) && $user->verifySession())
+			return $user;		
 	}
 
 	/**
