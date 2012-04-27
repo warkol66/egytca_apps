@@ -75,7 +75,6 @@ class SecurityModule extends BaseSecurityModule {
 	 */
 	function getAccessByUser($user) {
 		$userClass = get_class($user);
-		$access = 0;
 		$method = "getAccess";
 		if ($userClass != "User")
 			$method .= $userClass;
