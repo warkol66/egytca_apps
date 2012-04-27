@@ -23,7 +23,7 @@ class CalendarShowAction extends BaseAction {
 		
 		$smarty->assign('events', $events);
 		
-		$this->template->template = 'TemplateJQuery.tpl';
+		$this->template->template = 'TemplateCalendar.tpl';
 		return $mapping->findForwardConfig('success');
 	}
 
