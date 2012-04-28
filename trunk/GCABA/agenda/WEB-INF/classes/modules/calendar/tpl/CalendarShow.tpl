@@ -2,23 +2,6 @@
 <link rel='stylesheet' type='text/css' href='scripts/fullcalendar/fullcalendar.css' />
 <script type="text/javascript" src="scripts/jquery/jquery-ui-1.8.19.custom.min.js"></script>
 <script type='text/javascript' src='scripts/fullcalendar/fullcalendar.min.js'></script>
-
-<style type='text/css'>
-
-	body {
-		margin-top: 40px;
-		text-align: center;
-		font-size: 14px;
-		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-		}
-
-	#calendar {
-		width: 900px;
-		margin: 0 auto;
-		}
-
-</style>
-
 <div id="calendar"></div>
 
 <script type="text/javascript">
@@ -40,7 +23,8 @@
 			},
 			firstDay: 1,
 //			aspectRatio: 0.5,
-//			defaultView: 'basicWeek',
+			defaultView: 'agendaWeek',
+			allDayText: 'T/día',
 			firstHour: 9,
 			minTime: 8,
 			maxTime: 22,
@@ -66,7 +50,7 @@
 			selectable: true,
 			selectHelper: true,
 			select: function(start, end, allDay) {
-				var title = prompt('Event Title:');
+				var title = prompt('Evento');
 				if (title) {
 					calendar.fullCalendar('renderEvent',
 						{
@@ -81,7 +65,7 @@
 				calendar.fullCalendar('unselect');
 				console.log('crear evento por ajax');
 			},
-			editable: true,
+			editable: true, // esto se modifica segun el permiso del usuario, si tien permiso para modificar se pone true
 			events: events
 		});
 	}
@@ -108,12 +92,12 @@
 					allDay: false,
 //					start: new Date('2012/04/14'),
 //					start: new Date(y, m, 1),
-					color: 'yellow',   // esto anda?
-					textColor: 'white',
-					borderColor: 'red',
-					backgroundColor: '|-assign var="axis" value=$event->getCalendarAxis()-||-if $axis-||-$axis->getColor()-||-else-||-$defaultBgColor-||-/if-|',
-					className: 'noClass',
-					editable: true
+//					color: 'yellow',   // esto anda?
+//					textColor: 'white',
+//					borderColor: 'clear',
+//					backgroundColor: '|-assign var="axis" value=$event->getCalendarAxis()-||-if $axis-||-$axis->getColor()-||-else-||-$defaultBgColor-||-/if-|',
+					className: 'amarillo', // aca van a venir los colores en lugar del backgroundColor
+					editable: true // esto se modifica segun el permiso del usuario, si tien permiso para modificar se pone true
 				}
 			|-/foreach-|
 //				más opciones
