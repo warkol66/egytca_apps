@@ -3,12 +3,16 @@
 <head>
 <title>|-if isset($module)-||-$module|multilang_get_translation:"common"-| - |-/if-||-$parameters.siteName-|</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" href="css/main.css" type="text/css" />
-<!--[if lte IE 6]> <link href="css/styles-ie6.css" rel="stylesheet" type="text/css" /> <![endif]-->
-<!--[if IE 7]> <link href="css/styles-ie7.css" rel="stylesheet" type="text/css" /> <![endif]-->
-<!--[if IE 8]> <link href="css/styles-ie8.css" rel="stylesheet" type="text/css" /> <![endif]-->
-<link rel="stylesheet" href="css/mainHandheld.css" type="text/css" media="handheld" />
-<link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+<link rel="stylesheet" type="text/css" href="css/basics.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="css/960.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="css/agenda.css" media="screen" />
+<!-- 		<link rel="stylesheet" type="text/css" href="css/layout.css" media="screen" />-->
+        
+		<!--[if IE 6]><link rel="stylesheet" type="text/css" href="../css/ie6.css" media="screen" /><![endif]-->
+		<!--[if IE 7]><link rel="stylesheet" type="text/css" href="../css/ie.css" media="screen" /><![endif]-->
+        
+<link rel="stylesheet" type="text/css" href="scripts/fullcalendar/fullcalendar.css" />
+<link rel="stylesheet" type="text/css" href="scripts/fullcalendar/fullcalendar.print.css" media="print" />
 <link rel="shortcut icon" href="images/favicon.ico" />
 <script language="JavaScript" type="text/JavaScript">
 	var url="|-$systemUrl-|";
@@ -17,43 +21,57 @@
 	|-include file='TemplateJsIncludes.jquery.tpl'-|
 |-/block-|
 </head>
-<body>
-<!-- Begin Wrapper -->
-<div id="wrapper">
-	<b class="rounded"><b class="rtop"><b class="r7"></b><b class="r6"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r1"></b></b></b>
-	<!-- Begin Header -->
-	<div id="header">
-		<a href="Main.php"><strong>|-$parameters.siteName-|</strong></a>
-	</div>
-	<!-- End Header -->
-	<!-- Begin contentWrapper -->
-		<div id="contentWrapper">
-			<!-- Begin Left Column -->
-				<div id="leftColumn">
-					|-include file="MenuLeft.tpl"-|
-				</div>
-			<!-- End Left Column -->
-			<!-- Begin Right Column -->
-				<div id="rightColumn">
+<style type="text/css">
+/*
+	calendar {
+	width: 857px;
+	margin-top: 0;
+	margin-right: auto;
+	margin-bottom: 0;
+	margin-left: auto;
+		}
+*/
+</style>        
+	</head>
+	<body>
+		<div class="container_16">
+			<div class="grid_16 header1">
+				<h1 id="branding"></h1>
+                <span class="eyefishContainer"></span>
+				<span class="slogan"></span>
+
+			</div>
+            <div class="clear"></div>
+            <div class="boxNav1">	</div>
+			
+            <div class="clear"></div>
+			<div class="grid_13 colummAgenda">
+
+
+			<div class="boxNavSolapas">
+						<ul>
+                        	<li class="solTurismo"><a href="#" alt="Turismo"></a></li>
+                        	<li class="solVida"><a href="#" alt="Vida Sana / Plan Verde"></a></li>
+                        	<li class="solTransformando"><a href="#" alt="Transformando la ciudad"></a></li>
+                        	<li class="solCiudad"><a href="#" alt="Ciudad Segura"></a></li>
+                        	<li class="solAgenda"><a href="#" alt="Agenda Cultural"></a></li>
+                        	<li class="solSocial"><a href="#" alt="R.Social/Crec. Personal"></a></li>
+                            <li class="solOtros"><a href="#" alt="Otros"></a></li>                  
+                       </ul>                                                                                    
+			</div>
+                    <div class="clear"></div>
 					<!--centerHTML start-->
 					|-$centerHTML-|
 					<!--centerHTML end -->
+			</div>
+<!--end of boxAgendaContainer  -->
+		
+				<div class="grid_3 colummSidebar">
+					<div class="box">
+						<p>02</p>
+					</div>
 				</div>
-			<!-- End Right Column -->
-	<!-- Begin contentCloser -->
-	<div id="contentCloser"></div>
-	<!-- End contentCloser -->
-	</div>
-	<!-- End contentWrapper -->
-	<!-- Begin Footer -->
-	<div id="footer">		       
-		<p>Desarrollado por Módulos Empresarios.</p>
-	</div>
-	<!-- End Footer -->
-</div>
-<!-- End Wrapper -->
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+				<div class="clear"></div>  
+		
 </body>
 </html>
-

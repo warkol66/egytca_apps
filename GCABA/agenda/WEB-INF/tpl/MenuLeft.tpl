@@ -1,7 +1,7 @@
 |-if !empty($loginUser)-|
 	<ul>
 		<li class="menuLink"><a href="Main.php?do=usersWelcome">Ir al Inicio</a></li>
-		<li class="menuLink"><a href="Main.php?do=calendarEventsShow">Ver Agenda</a></li>
+		<li class="menuLink"><a href="Main.php?do=calendarShow" target="_blank">Ver Agenda</a></li>
 		<li class="titleMenu" onclick="switch_vis('sectionCatalog')">Agenda</li>
 		<div id="sectionCatalog" style="display:|-if $module|upper eq "CALENDAR"-|block|-else-|none|-/if-|">
 			<li><a href="Main.php?do=calendarEventsList">Administrar Agenda</a></li>
