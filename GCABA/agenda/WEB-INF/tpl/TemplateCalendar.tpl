@@ -37,41 +37,37 @@
 		<div class="container_16">
 			<div class="grid_16 header1">
 				<h1 id="branding"></h1>
-                <span class="eyefishContainer"></span>
+				<span class="eyefishContainer"></span>
 				<span class="slogan"></span>
-
 			</div>
-            <div class="clear"></div>
-            <div class="boxNav1">	</div>
-			
-            <div class="clear"></div>
+			<div class="clear"></div>
+			<div class="boxNav1"></div>
+			<div class="clear"></div>
 			<div class="grid_13 colummAgenda">
-
-
-			<div class="boxNavSolapas">
-						<ul>
-                        	<li class="solTurismo"><a href="#" alt="Turismo"></a></li>
-                        	<li class="solVida"><a href="#" alt="Vida Sana / Plan Verde"></a></li>
-                        	<li class="solTransformando"><a href="#" alt="Transformando la ciudad"></a></li>
-                        	<li class="solCiudad"><a href="#" alt="Ciudad Segura"></a></li>
-                        	<li class="solAgenda"><a href="#" alt="Agenda Cultural"></a></li>
-                        	<li class="solSocial"><a href="#" alt="R.Social/Crec. Personal"></a></li>
-                            <li class="solOtros"><a href="#" alt="Otros"></a></li>                  
-                       </ul>                                                                                    
+				<div class="boxNavSolapas">
+					<ul>
+						<li class="solTurismo"><a href="#" alt="Turismo"></a></li>
+						<li class="solVida"><a href="#" alt="Vida Sana / Plan Verde"></a></li>
+						<li class="solTransformando"><a href="#" alt="Transformando la ciudad"></a></li>
+						<li class="solCiudad"><a href="#" alt="Ciudad Segura"></a></li>
+						<li class="solAgenda"><a href="#" alt="Agenda Cultural"></a></li>
+						<li class="solSocial"><a href="#" alt="R.Social/Crec. Personal"></a></li>
+						<li class="solOtros"><a href="#" alt="Otros"></a></li>                  
+				 </ul>                                                                                    
 			</div>
-                    <div class="clear"></div>
+		<div class="clear"></div>
 					<!--centerHTML start-->
 					|-$centerHTML-|
 					<!--centerHTML end -->
-			</div>
+                        </div>
 <!--end of boxAgendaContainer  -->
-		
+		</div>
 				<div class="grid_3 colummSidebar">
 					<div class="box">
 						<p>02</p>
 					</div>
 				</div>
 				<div class="clear"></div>  
-		
+		</div>
 </body>
 </html>

@@ -1,0 +1,13 @@
+@charset "UTF-8";
+/* CSS Document */
+
+		 .fc-event-time{
+				}
+				
+		.eventoFooter{
+		}
+		
+			.fc-event-title	img{
+			border-radius: 3px;
+				behavior: url(css/ie-pie/PIE.htc); /*  Para que RADIUS CORNER funcione en ie6, IE7, IE8*/
+			}
