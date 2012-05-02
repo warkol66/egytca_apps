@@ -49,22 +49,7 @@
 			},
 			selectable: true,
 			selectHelper: true,
-			select: function(start, end, allDay) {
-				var title = prompt('Evento');
-				if (title) {
-					calendar.fullCalendar('renderEvent',
-						{
-							title: title,
-							start: start,
-							end: end,
-							allDay: allDay
-						},
-						true // make the event "stick"
-					);
-				}
-				calendar.fullCalendar('unselect');
-				console.log('crear evento por ajax');
-			},
+			select: newEvent,
 			editable: true, // esto se modifica segun el permiso del usuario, si tien permiso para modificar se pone true
 			events: events
 		});
@@ -80,18 +65,12 @@
 		return [
 			|-assign var="first" value=true-|
 			|-foreach from=$events item="event"-|
-				|-if $first-|
-					|-assign var="first" value=false-|
-				|-else-|
-					,
-				|-/if-|
+				|-if !$event@first-|,|-/if-|
 				{
 					title: '|-$event->getTitle()-|',
 					start: new Date('|-$event->getStartDate()|date_format:"%Y/%m/%d %H:%M"-|'),
 					end: new Date('|-$event->getEndDate()|date_format:"%Y/%m/%d %H:%M"-|'),
 					allDay: false,
-//					start: new Date('2012/04/14'),
-//					start: new Date(y, m, 1),
 //					color: 'yellow',   // esto anda?
 //					textColor: 'white',
 //					borderColor: 'clear',
@@ -116,4 +95,43 @@
 		]
 	}
 	
+	newEvent = function(start, end, allDay) {
+		$('#newEvent #calendarEvent_startDate').val(start);
+		$('#newEvent #calendarEvent_endDate').val(end);
+		$('#newEvent').show();
+	}
+	
+	doCreateEvent = function(form) {
+		
+		$.ajax({
+			url: 'Main.php?do=calendarEventsDoEditX',
+			type: 'post',
+			dataType: 'json',
+			data: $(form).serialize(),
+			success: function(data) {
+				console.log(data);
+				calendar.fullCalendar(
+					'renderEvent',
+					{
+						title: data.title,
+						start: data.start,
+						end: data.end,
+						allDay: false
+					},
+					true // make the event "stick"
+				);
+			}
+		});
+		
+		calendar.fullCalendar('unselect');
+	}
+	
 </script>
+
+<div id="newEvent" style="display:none; position:absolute; top:10em; z-index:999999; background-color:white; border-style:solid; border-width:2px">
+	|-include file="CalendarEventsFormInclude.tpl"
+		onsubmit="return false;"
+		onaccept="doCreateEvent(this.form); $('#newEvent').hide();"
+		oncancel="$('#newEvent').hide();"
+	-|
+</div>
