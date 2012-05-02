@@ -33,9 +33,9 @@
 	padding:0;}
 	
 	.eyefishContainer{
-	width:159px;
+	width:210px;
 	height:65px;
-	background-image:url(../images/header1_eyefish.jpg);
+	background-image:url(../images/header1_eyefish.png);
 	background-repeat:no-repeat;
 	float:right;}
 
@@ -61,23 +61,35 @@ margin-left:0;}
 	height:24px;
 	/*background-image: url(../images/header_menu1.png);
 	background-repeat:no-repeat;*/
-	background-color:#CCCCCC;}
+	background-color:#CCCCCC;
+	display:block;}
 
 	.boxNav1 ul {
 	display:inline;}
 	.boxNav1 ul li {
 	float:left;
 	display:block;
-	padding: 3px 4px;}	
+	padding: 3px 4px;
+	margin:0 3px 0 0;}	
 
-	.boxNav1 ul li.botSmall {
-	padding:0;}
+	.boxNav1 ul li.botSmall { padding:0;}
 	.boxNav1 ul li.botSmall a {
-	width:24px;
-	height:24px;
+	width:26px;
+	height:26px;
 	display:block;
-	background-color:#009900;}
+	background-color:#d7d8d3;
+	background-image:url(../images/menuIcon_sprite.gif);
+	background-repeat:no-repeat;
+	border: solid 1px #999999;}
+	
+	.menuIcon_01{ background-position:0 5px;}
+	.menuIcon_02{ background-position:-26px 5px;}
+	.menuIcon_03{ background-position:-52px 5px;}
+	.menuIcon_04{ background-position:-78px 5px;}	
+	.menuIcon_05{ background-position:-104px 5px;}
+	.menuIcon_06{ background-position:-130px 5px;}
 
+	.boxNav1 ul li.botSmall a:hover { border: solid 1px #333333;}
 
 
 /*  Navegacion menu 2 (solapas colores)
@@ -93,7 +105,7 @@ margin-left:0;}
 		float:left;
 		margin:0 3px 0 0;}
 		.boxNavSolapas ul li a{
-		min-width:60px;
+		min-width:55px;
 		display:block;
 		height:27px;
 		cursor:pointer;
@@ -101,19 +113,19 @@ margin-left:0;}
 		color:#000000;
 		font-size:10px;
 		line-height:25px;
-		padding:0 10px 0 20px;
-			   -webkit-border-radius: 0 0 5px 5px;
+		padding:0 5px 0 20px;
+/		 -webkit-border-radius: 0 0 5px 5px;
 		    -moz-border-radius: 0 0 5px 5px;
     		border-radius: 0 0 5px 5px;
 			behavior: url(css/ie-pie/PIE.htc);}	
 				
-				li.solTurismo a{ background-color:#FFCC00;}
-				li.solVida a{background-color:#88d852;}
-				li.solTransformando a{width:120px; background-color:#359e7d;}
-				li.solCiudad a{ background-color:#3dbeff;}
-				li.solAgenda a{background-color:#ff3929;}
-				li.solSocial a{background-color:#ff9c0d;}	
-				li.solOtros a{	background-color:#c0c0c0;}		
+				.boxNavSolapas ul li.solTurismo a{ background-color:#FFCC00;}
+				.boxNavSolapas ul li.solVida a{background-color:#88d852;}
+				.boxNavSolapas ul li.solTransformando a{background-color:#359e7d;}
+				.boxNavSolapas ul li.solCiudad a{ background-color:#3dbeff;}
+				.boxNavSolapas ul li.solAgenda a{background-color:#ff3929;}
+				.boxNavSolapas ul li.solSocial a{background-color:#ff9c0d;}	
+				.boxNavSolapas ul li.solOtros a{	background-color:#c0c0c0;}		
 		.boxNavSolapas ul li a:hover{
 		height:35px;
 		line-height:33px;
@@ -217,14 +229,12 @@ margin-left:0;}
 	font-size:18px;
 	}
 	
-	.fc-header-left	.fc-button{
-/*	width:35px;*/}
-	
 	
 	 /*   DETALLES DE CUADRO EVENTO -------------------------*/
 /*	 .eventoContainer */
-		.fc-event .fc-event-inner{
+	.fc-event .fc-event-inner{
 	 position:relative;}
+	 
 	 	.eventoContent{
 /*		width:115px;*/
 		width:100%;
@@ -433,40 +443,43 @@ margin-left:0;}
 		width: 50px;}		
 		
 		/*agenda semanal */
-		.fc-agenda-days .fc-agenda-axis	{5%}
+		.fc-view-agendaWeek .fc-agenda-axis	{width:5%}
+		.fc-view-agendaWeek .fc-agenda-allday .fc-agenda-axis {width:5%}
 		
-		.fc-agenda-days .fc-mon, 
-		.fc-agenda-days .fc-tue, 
-		.fc-agenda-days .fc-wed, 
-		.fc-agenda-days	.fc-thu, 
-		.fc-agenda-days .fc-fri, 
-		.fc-agenda-days .fc-sat, 
-		.fc-agenda-days .fc-sun  {
+		.fc-view-agendaWeek .fc-mon, 
+		.fc-view-agendaWeek .fc-tue, 
+		.fc-view-agendaWeek .fc-wed, 
+		.fc-view-agendaWeek	.fc-thu, 
+		.fc-view-agendaWeek.fc-fri, 
+		.fc-view-agendaWeek .fc-sat, 
+		.fc-view-agendaWeek .fc-sun  {
 		width:13.6%;
 		}
-		.fc-agenda-days  .fc-agenda-slots  .fc-agenda-axis{
+		.fc-view-agendaWeek  .fc-agenda-slots  .fc-agenda-axis{
 		width:5%;}
-		.fc-agenda-days .fc-agenda-slots .fc-mon,
-		.fc-agenda-days .fc-agenda-slots .fc-tue,
-		.fc-agenda-days .fc-agenda-slots .fc-wed,
-		.fc-agenda-days .fc-agenda-slots .fc-thu,
-		.fc-agenda-days .fc-agenda-slots .fc-fri,
-		.fc-agenda-days .fc-agenda-slots .fc-sat,
-		.fc-agenda-days .fc-agenda-slots .fc-sun {
+		.fc-view-agendaWeek .fc-agenda-slots .fc-mon,
+		.fc-view-agendaWeek .fc-agenda-slots .fc-tue,
+		.fc-view-agendaWeek .fc-agenda-slots .fc-wed,
+		.fc-view-agendaWeek .fc-agenda-slots .fc-thu,
+		.fc-view-agendaWeek .fc-agenda-slots .fc-fri,
+		.fc-view-agendaWeek .fc-agenda-slots .fc-sat,
+		.fc-view-agendaWeek .fc-agenda-slots .fc-sun {
 		width:13.6%;
 		}
 			
 		.fc-agenda .fc-agenda-axis,
-		.fc-agenda-days .fc-agenda-axis,		
-		.fc-view-agendaDay  .fc-agenda-slots  .fc-agenda-axis,
-		.fc-agenda-allday .fc-agenda-axis {
+		.fc-view-agendaWeek .fc-agenda-axis,	/* agenda semanal*/
+		.fc-view-agendaWeek .fc-agenda-slots .fc-agenda-axis,	/* agenda semanal*/
+		.fc-view-agendaWeek .fc-agenda-allday .fc-agenda-axis, 	/* agenda semanal*/
+		
+		.fc-view-agendaDay  .fc-agenda-slots  .fc-agenda-axis /* agenda diaria*/ {
 			color:#FFF;
 			font-size:11px;
 			font-weight:bold;
 			background-image: url(../images/backgroundsH.png);
 			background-repeat:repeat-x;
 			background-position:0 -239px;
-			background-color:#eeab02;
+			background-color:#eeab03;
 			padding:8px 4px 2px 2px;
 			}
 /*			fc-view-agendaDay .fc-agenda-axis{
@@ -476,17 +489,21 @@ margin-left:0;}
 		/* AGENDA DIARIA */		
 		.fc-view-agendaDay .fc-today{/*height: 710px;*/ height:auto;}
 		
-		.fc-view-agendaDay  .fc-agenda-slots  .fc-agenda-axis{
-		width:5%;}
-		.fc-view-agendaDay .fc-agenda-days .fc-widget-content {
-		width:95%;
-		}
+		.fc-view-agendaDay .fc-agenda-allday .fc-agenda-axis{	width:5%;}
 		
-		/* Para ocultar la linea de DIA Y FECHA (que se vea doble, con la que ya está arriba )*/
-		.fc-view-agendaDay .fc-agenda-days .fc-widget-header{
-		display:none;}
-		.fc-view-agendaDay .fc-agenda-days thead{
-		display:none;}		
+		.fc-view-agendaDay  .fc-agenda-days  .fc-agenda-axis{	width:5%;}
+		.fc-view-agendaDay .fc-agenda-days .fc-mon,
+		.fc-view-agendaDay .fc-agenda-days .fc-tue,
+		.fc-view-agendaDay .fc-agenda-days .fc-wed,
+		.fc-view-agendaDay .fc-agenda-days .fc-thu,
+		.fc-view-agendaDay .fc-agenda-days .fc-fri,
+		.fc-view-agendaDay .fc-agenda-days .fc-sat,
+		.fc-view-agendaDay .fc-agenda-days .fc-sun {	width:95%; /*display:none;*/}
+		
+		.fc-view-agendaDay  .fc-agenda-slots .fc-widget-header{	width:5%;}
+		.fc-view-agendaDay  .fc-agenda-slots .fc-widget-content{	width:95%;}
+
+/*		.fc-view-agendaDay .fc-agenda-days thead{ display:none;}*/
 			
 			/*.bkgAllday*/
 /*			.fc-agenda-allday .fc-last{
@@ -506,7 +523,8 @@ margin-left:0;}
 			.fc-widget-content {  /* <td>, usually */
 			border: 1px solid #FF0000;
 			}
-						
+			
+			.fc-view-agendaDay .fc-agenda-allday {/*top:3px;*/}
 			
 /*   FIN Complementos de fullcalendar.css  */
 /* ----------------------------------------*/ 
@@ -640,8 +658,8 @@ margin-left:0;}
 	border:solid 2px #999999;}
 	
 	.pendientesArrowLeft, .pendientesArrowRight{width:2.5%; float:left; }
-	.pendientesArrowLeft a, .pendientesArrowRight a{
-	width:100%; height:49px; display:block; padding:15px 0 0 0; text-align:center; 
+	.pendientesArrowLeft a, .pendientesArrowRight a{line-height:15px;
+	width:100%; height:49px; display:block; padding:0; text-align:center; 
 	font-weight:bold; font-family:"Arial Ultra", "Arial Black", "Arial Bold", Helvetica, sans-serif; 
 	font-size:15px;}
 	.pendientesArrowLeft a:hover, .pendientesArrowRight a:hover{
@@ -649,7 +667,7 @@ margin-left:0;}
 	.pendientesArrowLeft a:active, .pendientesArrowRight a:active{
 	color:#666666;	}	
 	
-	.pendientesContent {width:95%; float:left; height:55px;}
+	.pendientesContent {width:95%; float:left; height:55px; background-color:#999999}
 	
 		.pendientesContent ul{
 		height:55px; margin:5px 0;}
@@ -658,11 +676,11 @@ margin-left:0;}
 			height:55px;float:left;
 			border-right:solid 1px #999999;
 			margin:0;}
-			.pendientesContent ul li first{
+			/*.pendientesContent ul li first{
 			width:19.9%;
 			height:40px;float:left;
 			border-right:solid 1px #999999;
-			margin:0 5px 0 5px;}		
+			margin:0 5px 0 5px;}		*/
 		.solapitaVerde{ 
 		width:15px;
 		height:55px; 

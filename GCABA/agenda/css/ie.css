@@ -11,3 +11,7 @@
 			border-radius: 3px;
 				behavior: url(css/ie-pie/PIE.htc); /*  Para que RADIUS CORNER funcione en ie6, IE7, IE8*/
 			}
+			
+			
+.pendientesContent ul li{
+width:10%;}			
