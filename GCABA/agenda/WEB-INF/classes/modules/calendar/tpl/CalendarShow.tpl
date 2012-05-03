@@ -51,7 +51,14 @@
 			selectHelper: true,
 			select: newEvent,
 			editable: true, // esto se modifica segun el permiso del usuario, si tien permiso para modificar se pone true
-			events: events
+			events: events,
+            eventAfterRender: function(event, element, view) {
+                var elem = $(element);
+                buttons = "<span class='event_button event_delete_button'></span>";
+                buttons+= "<span class='event_button event_edit_button'></span>";
+                buttons+= "<span class='clearfix'></span>";
+                $(".fc-event-time", elem).append(buttons);
+            }
 		});
 	}
 	
