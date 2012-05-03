@@ -765,5 +765,12 @@ margin-left:0;}
 			width:100%;}
 			#colDerGrafico02{
 			border-top:solid 4px #fed652;width:100%;}
-				
 	
+.clearfix { clear: both; }
+/* */
+#calendar .fc-event, #calendar .fc-event .fc-event-inner { border-width: 0; }
+
+/* Botones del evento del calendario */
+.event_button { display: block; float: right; width: 15px; height: 15px; }
+.event_edit_button { background-image: url(../images/eventoButton_editar.gif); }
+.event_delete_button { background-image: url(../images/evento_botonBorrar.gif); margin-right: 15px; }
