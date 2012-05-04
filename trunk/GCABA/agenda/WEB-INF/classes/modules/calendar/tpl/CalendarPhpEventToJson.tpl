@@ -11,5 +11,6 @@
 	"body": "|-$event->getBody()-|",
 	"creationDate": "|-$event->getCreationDate("%Y/%m/%d %H:%M")-|",
 	"street": "|-$event->getStreet()-|",
-	"number": "|-$event->getNumber()-|"
+	"number": "|-$event->getNumber()-|",
+	"axisId": "|-$event->getAxisId()-|"
 }

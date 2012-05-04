@@ -106,6 +106,7 @@
 		
 		// seleccionar selects
 //		console.log('asd', $('#editEvent #calendarEvent_axisId option[value="2"]'));
+		$('#editEvent #calendarEvent_axisId option[value="'+event.axisId+'"]').attr('selected', 'selected');
 		
 		$('#editEvent').show();
 	}
