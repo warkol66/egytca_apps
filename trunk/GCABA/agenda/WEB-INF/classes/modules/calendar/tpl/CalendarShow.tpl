@@ -79,28 +79,9 @@
 			|-assign var="first" value=true-|
 			|-foreach from=$events item="event"-|
 				|-if !$event@first-|,|-/if-|
-				{
-					id: '|-$event->getId()-|',
-					title: '|-$event->getTitle()-|',
-					start: new Date('|-$event->getStartDate()|date_format:"%Y/%m/%d %H:%M"-|'),
-					end: new Date('|-$event->getEndDate()|date_format:"%Y/%m/%d %H:%M"-|'),
-					allDay: false,
-//					color: 'yellow',   // esto anda?
-//					textColor: 'white',
-//					borderColor: 'clear',
-//					backgroundColor: '|-assign var="axis" value=$event->getCalendarAxis()-||-if $axis-||-$axis->getColor()-||-else-||-$defaultBgColor-||-/if-|',
-					className: '|-assign var="axis" value=$event->getCalendarAxis()-||-if $axis-||-$axis->getCssClass()-||-else-|gris|-/if-|', // aca van a venir los colores en lugar del backgroundColor
-					editable: true // esto se modifica segun el permiso del usuario, si tien permiso para modificar se pone true
-//					,updateDates
-				}
+				|-include file="CalendarPhpEventToJson.tpl" event=$event-|
 			|-/foreach-|
 //				más opciones
-//				{
-//					id: 999,
-//					title: 'Bbicicleateadas',
-//					start: new Date(y, m, d+4, 16, 0),
-//					allDay: false
-//				},
 //				{
 //					title: 'Salir Seguro\nIr al site',
 //					start: new Date(y, m, 28),
@@ -111,15 +92,21 @@
 	}
 	
 	newEvent = function(start, end, allDay) {
-		$('#newEvent #calendarEvent_creationDate').val(new Date());
-		$('#newEvent #calendarEvent_startDate').val(start);
-		$('#newEvent #calendarEvent_endDate').val(end);
+		$('#newEvent #calendarEvent_creationDate').val(getFormattedDatetime(new Date()));
+		$('#newEvent #calendarEvent_startDate').val(getFormattedDatetime(start));
+		$('#newEvent #calendarEvent_endDate').val(getFormattedDatetime(end));
 		$('#newEvent').show();
 	}
 	
 	editEvent = function(event) {
-		$('#editEvent #calendarEvent_startDate').val(event.start);
-		$('#editEvent #calendarEvent_endDate').val(event.end);
+		// setear valores
+		$('#editEvent #calendarEvent_startDate').val(getFormattedDatetime(event.start));
+		$('#editEvent #calendarEvent_endDate').val(getFormattedDatetime(event.end));
+		
+		// deseleccionar todos los selects
+		
+		// seleccionar selects
+		
 		$('#editEvent').show();
 	}
 	

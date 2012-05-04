@@ -1,10 +1,10 @@
-<link type="text/css" href="css/chosen.css" rel="stylesheet" />
+<!--<link type="text/css" href="css/chosen.css" rel="stylesheet" />
 <script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".chzn-select").chosen();
 	});
-</script>
+</script>-->
 
 <form action="|-$action-|" method="|-$method-|" onsubmit="|-$onsubmit|escape-|">
 		<p>
@@ -118,6 +118,7 @@
 				|-/foreach-|
 			</select>
 		</p>
+		<input type="hidden" name="id" value="" />
 		<p>
 			<input type="button" id="acceptButton" value="Aceptar" onclick="|-$onaccept|escape-|" />
 			<input type='button' id="cancelButton" onClick='|-$oncancel|escape-|' value='Cancelar' />
