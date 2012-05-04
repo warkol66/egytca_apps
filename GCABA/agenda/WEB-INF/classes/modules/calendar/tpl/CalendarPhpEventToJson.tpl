@@ -1,6 +1,7 @@
 {
 	"id": "|-$event->getId()-|",
 	"title": "|-$event->getTitle()-|",
+    "body": "|-$event->getBody()-|",
 	"start": "|-$event->getStartDate()-|",
 	"end": "|-$event->getEndDate()-|",
 	"allDay": false,
