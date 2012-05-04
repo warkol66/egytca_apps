@@ -89,7 +89,7 @@
 //					textColor: 'white',
 //					borderColor: 'clear',
 //					backgroundColor: '|-assign var="axis" value=$event->getCalendarAxis()-||-if $axis-||-$axis->getColor()-||-else-||-$defaultBgColor-||-/if-|',
-					className: 'amarillo', // aca van a venir los colores en lugar del backgroundColor
+					className: '|-assign var="axis" value=$event->getCalendarAxis()-||-if $axis-||-$axis->getCssClass()-||-else-|gris|-/if-|', // aca van a venir los colores en lugar del backgroundColor
 					editable: true // esto se modifica segun el permiso del usuario, si tien permiso para modificar se pone true
 //					,updateDates
 				}
