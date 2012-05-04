@@ -137,13 +137,13 @@
 			<div class="grid_13 colummAgenda">
 				<div class="boxNavSolapas">
 					<ul>
-						<li class="solTurismo"><a href="#">Turismo</a></li>
-						<li class="solVida"><a href="#">Vida Sana / Plan Verde</a></li>
-						<li class="solTransformando"><a href="#">Transformando la ciudad</a></li>
-						<li class="solCiudad"><a href="#">Ciudad Segura</a></li>
-						<li class="solAgenda"><a href="#">Agenda Cultural</a></li>
-						<li class="solSocial"><a href="#">R.Social/Crec. Personal</a></li>
-						<li class="solOtros"><a href="#">Otros</a></li>                  
+						<li class="solTurismo" hide="Turismo"><a href="#">Turismo</a></li>
+						<li class="solVida" hide="Vida Sana / Plan Verde"><a href="#">Vida Sana / Plan Verde</a></li>
+						<li class="solTransformando" hide="Transformando la ciudad"><a href="#">Transformando la ciudad</a></li>
+						<li class="solCiudad" hide="Ciudad Segura"><a href="#">Ciudad Segura</a></li>
+						<li class="solAgenda" hide="Agenda Cultural"><a href="#">Agenda Cultural</a></li>
+						<li class="solSocial" hide="R.Social/Crec. Personal"><a href="#">R.Social/Crec. Personal</a></li>
+						<li class="solOtros" hide="Otros"><a href="#">Otros</a></li>                  
 				 </ul>                                                                                    
 				</div>
 		<div class="clear"></div>

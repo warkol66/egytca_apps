@@ -1,4 +1,20 @@
 Calendar = {
+    options: {
+        /* name => cssClass */
+        axisMap: {},
+        allEventsShown: true
+    },
+    initialize: function(opts) {
+        this.options = $.extend({}, this.options, opts);
+        this.registerNavbarClick();
+    },
+    /**
+     * TODO: Usar
+     *  
+     *  $.fullCalendar.formatDate( date, formatString [, options ] ) -> String
+     *  http://arshaw.com/fullcalendar/docs/utilities/formatDate/
+     *  
+     */
     eventAfterRender: function(event, element, view) {
         var elem = $(element);
         var template = $("#calendarTemplates .fc-event").html();
@@ -12,5 +28,25 @@ Calendar = {
         template = template.replace("%title", event.title);
         template = template.replace("%body", event.body);
         elem.html(template);
+    },
+    registerNavbarClick: function() {
+        $(".boxNavSolapas li").click(function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            var selector = Calendar.options.axisMap[$this.attr('hide')];
+            if (Calendar.options.allEventsShown) {
+                $(".fc-event").hide();
+                $("." + selector).show();
+                Calendar.options.allEventsShown = false;
+            }
+            else {
+                $(".fc-event").fadeOut();
+                $("." + selector).fadeIn();
+            }
+        });
+    },
+    showAllEvents: function() {
+        $(".fc-event").show();
+        Calendar.options.allEventsShown = true;
     }
 }
