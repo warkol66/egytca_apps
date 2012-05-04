@@ -94,8 +94,8 @@
 
 	<table name="calendar_eventRegion" phpName="EventRegion" description="Relacion de eventos y regiones" isCrossRef="true">
 
-		<column name="regionId" required="true" primaryKey="true" type="INTEGER" description="Event ID"/>
-		<column name="eventId" required="true" primaryKey="true" type="INTEGER" description="Category ID"/>
+		<column name="eventId" required="true" primaryKey="true" type="INTEGER" description="Event ID"/>
+		<column name="regionId" required="true" primaryKey="true" type="INTEGER" description="Region ID"/>
 
 		<foreign-key foreignTable="calendar_event" onDelete="CASCADE" >
 			<reference local="eventId" foreign="id" />
