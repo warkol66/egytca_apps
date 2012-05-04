@@ -52,13 +52,13 @@
 			select: newEvent,
 			editable: true, // esto se modifica segun el permiso del usuario, si tien permiso para modificar se pone true
 			events: events,
-            eventAfterRender: function(event, element, view) {
-                var elem = $(element);
-                buttons = "<span class='event_button event_delete_button'></span>";
-                buttons+= "<span class='event_button event_edit_button'></span>";
-                buttons+= "<span class='clearfix'></span>";
-                $(".fc-event-time", elem).append(buttons);
-            }
+			eventAfterRender: function(event, element, view) {
+				var elem = $(element);
+				var editButton = $("<span class='event_button event_delete_button'></span>").click(function(){doDeleteEvent(event)});
+				var deleteButton = $("<span class='event_button event_edit_button'></span>").click(function(){editEvent(event)});
+				var clearfix = $("<span class='clearfix'></span>");
+				$(".fc-event-time", elem).append(editButton).append(deleteButton).append(clearfix);;
+			}
 		});
 	}
 	
@@ -74,6 +74,7 @@
 			|-foreach from=$events item="event"-|
 				|-if !$event@first-|,|-/if-|
 				{
+					id: '|-$event->getId()-|',
 					title: '|-$event->getTitle()-|',
 					start: new Date('|-$event->getStartDate()|date_format:"%Y/%m/%d %H:%M"-|'),
 					end: new Date('|-$event->getEndDate()|date_format:"%Y/%m/%d %H:%M"-|'),
@@ -84,6 +85,7 @@
 //					backgroundColor: '|-assign var="axis" value=$event->getCalendarAxis()-||-if $axis-||-$axis->getColor()-||-else-||-$defaultBgColor-||-/if-|',
 					className: 'amarillo', // aca van a venir los colores en lugar del backgroundColor
 					editable: true // esto se modifica segun el permiso del usuario, si tien permiso para modificar se pone true
+//					,updateDates
 				}
 			|-/foreach-|
 //				más opciones
@@ -103,42 +105,104 @@
 	}
 	
 	newEvent = function(start, end, allDay) {
+		$('#newEvent #calendarEvent_creationDate').val(new Date());
 		$('#newEvent #calendarEvent_startDate').val(start);
 		$('#newEvent #calendarEvent_endDate').val(end);
 		$('#newEvent').show();
 	}
 	
+	editEvent = function(event) {
+		$('#editEvent #calendarEvent_startDate').val(event.start);
+		$('#editEvent #calendarEvent_endDate').val(event.end);
+		$('#editEvent').show();
+	}
+	
 	doCreateEvent = function(form) {
 		
-		$.ajax({
-			url: 'Main.php?do=calendarEventsDoEditX',
-			type: 'post',
-			dataType: 'json',
-			data: $(form).serialize(),
-			success: function(data) {
-				console.log(data);
-				calendar.fullCalendar(
-					'renderEvent',
-					{
-						title: data.title,
-						start: data.start,
-						end: data.end,
-						allDay: false
-					},
-					true // make the event "stick"
-				);
-			}
+		var data = $(form).serialize();
+		
+		editRequest(data, function(event) {
+			calendar.fullCalendar(
+				'renderEvent',
+				event,
+				true // make the event "stick"
+			);
 		});
 		
 		calendar.fullCalendar('unselect');
 	}
 	
+	doEditEvent = function(form) {
+		
+		var data = $(form).serialize();
+		
+		editRequest(data, function() {
+			console.log('edit success');
+		});
+	}
+	
+	doDeleteEvent = function(event) {
+		
+		$.ajax({
+			url: 'Main.php?do=calendarEventsDoDeleteX',
+			type: 'post',
+			data: { id: event.id }
+		});
+		
+		calendar.fullCalendar('removeEvents', event.id);
+	}
+	
+	editRequest = function(data, onSuccess) {
+		
+		$.ajax({
+			url: 'Main.php?do=calendarEventsDoEditX',
+			type: 'post',
+			dataType: 'json',
+			data: data,
+			success: onSuccess
+		});
+	}
+	
 </script>
 
 <div id="newEvent" style="display:none; position:absolute; top:10em; z-index:999999; background-color:white; border-style:solid; border-width:2px">
-	|-include file="CalendarEventsFormInclude.tpl"
+	<form>
+		<p>
+			<label for="calendarEvent_title">Título</label>
+			<input name="calendarEvent[title]" type="text" id="calendarEvent_title" title="title" value="" size="60" maxlength="255" />
+		</p>
+		<p>
+			<label for="calendarEvent_axisId">Eje de gestión</label>
+			<select id="calendarEvent_axis" name="calendarEvent[axisId]" title="Eje de gestión">
+				<option value="">Seleccione el eje</option>
+				|-foreach from=$axes item=object-|
+					<option value="|-$object->getId()-|">|-$object->getName()-|</option>
+				|-/foreach-|
+			</select>
+		</p>
+		<p>
+			<input name="calendarEvent[creationDate]" type="hidden" id="calendarEvent_creationDate" title="creationDate" value="|-$smarty.now|dateTime_format|change_timezone|date_format:"%d-%m-%Y"-|" size="18" />
+			<input name="calendarEvent[startDate]" type="hidden" id="calendarEvent_startDate" title="startDate" value="" size="18" />
+			<input name="calendarEvent[endDate]" type="hidden" id="calendarEvent_endDate" title="endDate" value="" size="18" />
+			
+			<input type="button" id="acceptButton" value="Aceptar" onclick="doCreateEvent(this.form); $('#newEvent').hide();" />
+			<input type='button' id="cancelButton" onClick='$("#newEvent").hide();' value='Cancelar' />
+		</p>
+	</form>
+</div>
+
+<div id="editEvent" style="display:none; position:absolute; top:10em; z-index:999999; background-color:white; border-style:solid; border-width:2px">
+	|-include file="CalendarEventsEditFormInclude.tpl"
 		onsubmit="return false;"
-		onaccept="doCreateEvent(this.form); $('#newEvent').hide();"
-		oncancel="$('#newEvent').hide();"
+		onaccept="doEditEvent(this.form); $('#editEvent').hide();"
+		oncancel="$('#editEvent').hide();"
+		regions=$regions
+		categories=$categories
+		users=$users
+		actors=$actors
+		axes=$axes
+		eventTypes=$eventTypes
+		agendaTypes=$agendaTypes
+		calendarEventStatus=$calendarEventStatus
 	-|
 </div>

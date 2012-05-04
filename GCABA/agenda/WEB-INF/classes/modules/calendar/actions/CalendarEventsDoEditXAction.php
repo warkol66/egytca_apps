@@ -32,20 +32,19 @@ class CalendarEventsDoEditXAction extends BaseAction {
 		$this->updateRegions($calendarEvent);
 		$this->updateCategories($calendarEvent);
 		$this->updateActors($calendarEvent);
-//		commented out for debugging
-//		
-//		try {
-//			$calendarEvent->save();
-//		} catch (Exception $e) {
-//			$smarty->assign("regions", RegionQuery::create()->find());
-//			$smarty->assign("categories", CategoryQuery::create()->find());
-//			$smarty->assign("users", UserQuery::create()->find());
-//			$smarty->assign("calendarEvent",$calendarEvent);	
-//			$smarty->assign("action","create");
-//			$smarty->assign("message","error");
-//			return $this->addFiltersToForwards($_POST['filters'],$mapping,'failure');
-//		}
-//		
+		
+		try {
+			$calendarEvent->save();
+		} catch (Exception $e) {
+			$smarty->assign("regions", RegionQuery::create()->find());
+			$smarty->assign("categories", CategoryQuery::create()->find());
+			$smarty->assign("users", UserQuery::create()->find());
+			$smarty->assign("calendarEvent",$calendarEvent);	
+			$smarty->assign("action","create");
+			$smarty->assign("message","error");
+			return $this->addFiltersToForwards($_POST['filters'],$mapping,'failure');
+		}
+		
 		
 		$smarty->assign('event', $calendarEvent);
 		return $mapping->findForwardConfig('success');

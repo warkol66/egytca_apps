@@ -19,9 +19,24 @@ class CalendarShowAction extends BaseAction {
 		$module = "Calendar";
 		$smarty->assign("module",$module);
 		
-		$events = CalendarEventQuery::create()->find();
+		$moduleConfig = Common::getModuleConfiguration($module);
+		$smarty->assign("moduleConfig",$moduleConfig);
+		$calendarEventsConfig = $moduleConfig["calendarEvents"];
+		$smarty->assign("calendarEventsConfig",$calendarEventsConfig);
 		
+		$events = CalendarEventQuery::create()->find();
 		$smarty->assign('events', $events);
+		
+		if ($calendarEventsConfig['useRegions']['value'] == "YES")
+			$smarty->assign("regions", RegionQuery::create()->find());
+		if ($calendarEventsConfig['useCategories']['value'] == "YES")
+			$smarty->assign("categories", CategoryQuery::create()->find());
+		$smarty->assign("users", UserQuery::create()->find());
+		$smarty->assign('actors', ActorQuery::create()->find());
+		$smarty->assign('axes', CalendarAxisQuery::create()->find());
+		$smarty->assign('eventTypes', EventTypeQuery::create()->find());
+		$smarty->assign('agendaTypes', CalendarEventPeer::getAgendas());
+		$smarty->assign("calendarEventStatus",CalendarEventPeer::getStatus());
 		
 		$this->template->template = 'TemplateCalendar.tpl';
 		return $mapping->findForwardConfig('success');
