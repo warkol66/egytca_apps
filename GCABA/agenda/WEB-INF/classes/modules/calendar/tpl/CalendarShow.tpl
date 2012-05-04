@@ -11,6 +11,7 @@
 	$(document).ready(function() {
 		var events = loadEvents();
 		calendar = createCalendar(events);
+        Calendar.initialize({ axisMap: |-json_encode($axisMap)-| })
 	});
 	
 	createCalendar = function(events) {

@@ -14,5 +14,20 @@
  * @package    propel.generator.calendar.classes
  */
 class CalendarAxisQuery extends BaseCalendarAxisQuery {
+    
+    /**
+     * Devuelve un mapeo:
+     *  name => cssClass
+     * 
+     * @return array
+     */
+    public function findAxisMap() {
+        $results = $this->find();
+        $map = array();
+        foreach ($this->find() as $axis)
+            $map[$axis->getName()] = $axis->getCssClass();
+        
+        return $map;
+    }
 
 } // CalendarAxisQuery
