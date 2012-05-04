@@ -20,6 +20,8 @@
 		<column name="number" type="INTEGER" description="numero de la calle" />
 		<column name="axisId" type="INTEGER"  required="true" description="Id del eje" />
 		<column name="campaignCommitment" type="BOOLEAN" sqlType="BOOL" default="false" />
+		<column name="kind" type="INTEGER" description="Tipo de evento" />
+		<column name="agenda" type="INTEGER" description="Agenda" />
 
 		<foreign-key foreignTable="users_user" >
 			<reference local="userId" foreign="id" />

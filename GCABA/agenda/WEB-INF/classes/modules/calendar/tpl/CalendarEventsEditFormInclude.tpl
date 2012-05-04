@@ -5,7 +5,7 @@
 		$(".chzn-select").chosen();
 	});
 </script>-->
-
+<fieldset>
 <form action="|-$action-|" method="|-$method-|" onsubmit="|-$onsubmit|escape-|">
 		<p>
 			<label for="calendarEvent_title">Título</label>
@@ -13,7 +13,7 @@
 		</p>
 		<p>
 			<label for="calendarEvent_body">Texto del Evento</label>
-			<textarea name="calendarEvent[body]" cols="60" rows="15" wrap="VIRTUAL"  id="calendarEvent_body"></textarea>
+			<textarea name="calendarEvent[body]" cols="60" rows="3" wrap="VIRTUAL" id="calendarEvent_body"></textarea>
 		</p>
 		<input name="calendarEvent[creationDate]" type="hidden" id="calendarEvent_creationDate" title="creationDate" value="" size="18" />
 		<input name="calendarEvent[startDate]" type="hidden" id="calendarEvent_startDate" title="startDate" value="" size="18" /> 
@@ -62,6 +62,15 @@
 				|-/foreach-|
 			</select>
 		</p>
+			<p><label for="calendarEvent_kind">Tipo de evento</label>
+				<select name="calendarEvent[kind]" id="calendarEvent_kind">
+					<option value="0">Seleccione Tipo de evento</option>
+				|-foreach from=$kinds item=kind name=foreach_kinds-|
+					<option value="|-$kind@key-|">|-$kind-|</option>
+				|-/foreach-|
+				</select>
+		</p>
+
 |-if $calendarEventsConfig.useRegions.value eq "YES"-|<p>
 			<label for="calendarEvent_regions">Comunas</label>
 			<select class="chzn-select markets-chz-select" data-placeholder="Seleccione una o varias comunas..." multiple="multiple" id="calendarEvent_regions" name="calendarEvent[regionsIds][]" size="5" title="comunas">
@@ -96,9 +105,9 @@
 			</select>
 		</p>
 		<p>
-			<label for="calendarEvent_typeId">Tipo de evento</label>
+			<label for="calendarEvent_typeId">Formato</label>
 			<select id="calendarEvent_typeId" name="calendarEvent[typeId]" title="tipo de evento">
-				<option value="">Seleccione un Tipo</option>
+				<option value="">Seleccione un formato</option>
 				|-foreach from=$eventTypes item=object-|
 					<option value="|-$object->getid()-|">|-$object->getName()-|</option>
 				|-/foreach-|
@@ -119,8 +128,12 @@
 			</select>
 		</p>
 		<input type="hidden" id="calendarEvent_id" name="id" value="" />
-		<p>
+		<p class="arrangeButtons">
 			<input type="button" id="acceptButton" value="Aceptar" onclick="|-$onaccept|escape-|" />
 			<input type='button' id="cancelButton" onClick='|-$oncancel|escape-|' value='Cancelar' />
 		</p>
 	</form>
+</fieldset>
+<script language="JavaScript" type="text/JavaScript">
+		$(".chzn-select").chosen();
+		</script>

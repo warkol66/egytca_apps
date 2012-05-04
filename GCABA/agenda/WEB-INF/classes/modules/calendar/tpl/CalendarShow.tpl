@@ -33,6 +33,11 @@
 			monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
 			dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
 			dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+			columnFormat: {
+				month: 'dddd',    // Monday, Wednesday, etc
+				week: 'ddd dd/MM', // Monday 9/7
+				day: ''  // Monday 9/7
+			},
 			buttonText:{
 					prev:     '&nbsp;&#9668;&nbsp;',  // left triangle
 					next:     '&nbsp;&#9658;&nbsp;',  // right triangle
@@ -194,11 +199,19 @@
 	}
 </script>
 
-<div id="newEvent" style="display:none; position:absolute; top:10em; z-index:999999; background-color:white; border-style:solid; border-width:2px">
-	<form>
+<div id="newEvent" style="display:none; position:absolute; top:10em; z-index:999999; background-color: #333; border-style:solid; border-width:2px;">
+	<fieldset><form>
 		<p>
 			<label for="calendarEvent_title">Título</label>
 			<input name="calendarEvent[title]" type="text" id="calendarEvent_title" title="title" value="" size="60" maxlength="255" />
+		</p>
+		<p><label for="calendarEvent_kind">Tipo de evento</label>
+				<select name="calendarEvent[kind]" id="calendarEvent_kind">
+					<option value="0">Seleccione Tipo de evento</option>
+				|-foreach from=$kinds item=kind name=foreach_kinds-|
+					<option value="|-$kind@key-|">|-$kind-|</option>
+				|-/foreach-|
+				</select>
 		</p>
 		<p>
 			<label for="calendarEvent_axisId">Eje de gestión</label>
@@ -210,17 +223,25 @@
 			</select>
 		</p>
 		<p>
+			<label for="calendarEvent_agenda">Agenda</label>
+			<select id="calendarEvent_agenda" name="calendarEvent[agenda]" title="Agenda">
+				<option value="0" selected="selected">Seleccione la agenda</option>
+				|-foreach from=$agendas item=agenda name=foreach_agendas-|
+					<option value="|-$agenda@key-|">|-$agenda-|</option>
+				|-/foreach-|
+				</select>
+		</p>
+		<p class="arrangeButtons">
 			<input name="calendarEvent[creationDate]" type="hidden" id="calendarEvent_creationDate" title="creationDate" value="|-$smarty.now|dateTime_format|change_timezone|date_format:"%d-%m-%Y"-|" size="18" />
 			<input name="calendarEvent[startDate]" type="hidden" id="calendarEvent_startDate" title="startDate" value="" size="18" />
 			<input name="calendarEvent[endDate]" type="hidden" id="calendarEvent_endDate" title="endDate" value="" size="18" />
-			
 			<input type="button" id="acceptButton" value="Aceptar" onclick="doCreateEvent(this.form); $('#newEvent').hide();" />
 			<input type='button' id="cancelButton" onClick='$("#newEvent").hide();' value='Cancelar' />
 		</p>
-	</form>
+	</form></fieldset>
 </div>
 
-<div id="editEvent" style="display:none; position:absolute; top:10em; z-index:999999; background-color:white; border-style:solid; border-width:2px">
+<div id="editEvent" style="display:none; position:absolute; top:10em; z-index:999999; background-color: #333; border-style:solid; border-width:2px">
 	|-include file="CalendarEventsEditFormInclude.tpl"
 		onsubmit="return false;"
 		onaccept="doEditEvent(this.form); $('#editEvent').hide();"
@@ -251,7 +272,9 @@
                 <span class="fc-event-text">%body</span>
             </div>
             <div class="eventoFooter"></div>
-            <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+						<div class="ui-resizable-handle ui-resizable-s">=</div> 
     	</div>
   	</div>   
 </div>
+<!--Para cuando no hay permisos de edicion!!!!!            <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>-->
+

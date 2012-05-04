@@ -37,8 +37,8 @@
 	function initializeDatePickers() {
 		$.datepicker.setDefaults({
 			dateFormat: 'dd-mm-yy',
-			numberOfMonths: 3,
-			minDate: 0	
+			numberOfMonths: 3
+//			minDate: 0	
 		});
 		$.timepicker.setDefaults({
 			hourGrid: 3,
@@ -71,7 +71,7 @@
 				</p>|-/if-|
 				<p>
 					<label for="calendarEvent_body">Texto del Evento</label>
-					<textarea name="calendarEvent[body]" cols="60" rows="15" wrap="VIRTUAL"  id="calendarEvent_body">|-$calendarEvent->getbody()|htmlentities-|</textarea>
+					<textarea name="calendarEvent[body]" cols="60" rows="15" wrap="VIRTUAL"  id="calendarEvent_body">|-$calendarEvent->getbody()|escape-|</textarea>
 			</p>
 				<p>
 |-if $calendarEventsConfig.useSource.value eq "YES"-|<label for="calendarEvent_sourceContact">Más información</label>
@@ -136,6 +136,14 @@
 						|-/foreach-|
 					</select>
 				</p>
+			<p><label for="calendarEvent_kind">Tipo de evento</label>
+				<select name="calendarEvent[kind]" id="calendarEvent_kind">
+					<option value="0">Seleccione Tipo de evento</option>
+				|-foreach from=$kinds item=kind name=foreach_kinds-|
+					<option value="|-$kind@key-|" |-$calendarEvent->getKind()|selected:$kind@key-|>|-$kind-|</option>
+				|-/foreach-|
+				</select>
+		</p>
 |-if $calendarEventsConfig.useRegions.value eq "YES"-|<p>
 					<label for="calendarEvent_regions">Comunas</label>
 					<select class="chzn-select markets-chz-select" data-placeholder="Seleccione una o varias comunas..." multiple="multiple" id="calendarEvent_regions" name="calendarEvent[regionsIds][]" size="5" title="comunas">
@@ -169,10 +177,19 @@
 					|-/foreach-|
 					</select>
 				</p>
+		<p>
+			<label for="calendarEvent_agenda">Agenda</label>
+			<select id="calendarEvent_agenda" name="calendarEvent[agenda]" title="Agenda">
+				<option value="0" selected="selected">Todas</option>
+				|-foreach from=$agendas item=agenda name=foreach_agendas-|
+					<option value="|-$agenda@key-|" |-$calendarEvent->getAgenda()|selected:$agenda@key-|>|-$agenda-|</option>
+				|-/foreach-|
+				</select>
+		</p>
 				<p>
-					<label for="calendarEvent_typeId">Tipo de evento</label>
+					<label for="calendarEvent_typeId">Formato</label>
 					<select id="calendarEvent_typeId" name="calendarEvent[typeId]" title="tipo de evento">
-						<option value="">Seleccione un Tipo</option>
+						<option value="">Seleccione un formato</option>
 					|-foreach from=$eventTypes item=object-|
 						<option value="|-$object->getid()-|" |-$calendarEvent->getTypeId()|selected:$object->getId()-|>|-$object->getName()-|</option>
 					|-/foreach-|
