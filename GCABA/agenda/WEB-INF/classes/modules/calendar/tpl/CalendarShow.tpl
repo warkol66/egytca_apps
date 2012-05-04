@@ -1,4 +1,3 @@
-|-assign var="defaultBgColor" value="grey"-|
 <link rel='stylesheet' type='text/css' href='scripts/fullcalendar/fullcalendar.css' />
 <script type="text/javascript" src="scripts/jquery/jquery-ui-1.8.19.custom.min.js"></script>
 <script type='text/javascript' src='scripts/fullcalendar/fullcalendar.min.js'></script>
@@ -64,25 +63,12 @@
 	}
 	
 	loadEvents = function() {
-		
-		var date = new Date();
-		var d = date.getDate();
-		var m = date.getMonth();
-		var y = date.getFullYear();
-		
 		return [
 			|-assign var="first" value=true-|
 			|-foreach from=$events item="event"-|
 				|-if !$event@first-|,|-/if-|
 				|-include file="CalendarPhpEventToJson.tpl" event=$event-|
 			|-/foreach-|
-//				más opciones
-//				{
-//					title: 'Salir Seguro\nIr al site',
-//					start: new Date(y, m, 28),
-//					end: new Date(y, m, 29),
-//					url: 'http://www.saliseguro.gob.ar'
-//				}
 		]
 	}
 	
@@ -94,9 +80,15 @@
 	}
 	
 	editEvent = function(event) {
-		// setear valores
+		
+		$('#editEvent #calendarEvent_id').val(event.id);
+		$('#editEvent #calendarEvent_title').val(event.title);
+		$('#editEvent #calendarEvent_body').val(event.body);
+		$('#editEvent #calendarEvent_creationDate').val(getFormattedDatetime(new Date(event.creationDate)));
 		$('#editEvent #calendarEvent_startDate').val(getFormattedDatetime(event.start));
 		$('#editEvent #calendarEvent_endDate').val(getFormattedDatetime(event.end));
+		$('#editEvent #calendarEvent_street').val(event.street);
+		$('#editEvent #calendarEvent_number').val(event.number);
 		
 		// deseleccionar todos los selects
 		
@@ -124,8 +116,15 @@
 		
 		var data = $(form).serialize();
 		
-		editRequest(data, function() {
-			console.log('edit success');
+		editRequest(data, function(event) {
+			/* updateEvent no sirve porque el evento no es el original
+			sino uno nuevo con los mismos datos */
+			calendar.fullCalendar('removeEvents', event.id);
+			calendar.fullCalendar(
+				'renderEvent',
+				event,
+				true // make the event "stick"
+			);
 		});
 	}
 	
@@ -134,10 +133,11 @@
 		$.ajax({
 			url: 'Main.php?do=calendarEventsDoDeleteX',
 			type: 'post',
-			data: { id: event.id }
+			data: { id: event.id },
+			success: function() {
+				calendar.fullCalendar('removeEvents', event.id);
+			}
 		});
-		
-		calendar.fullCalendar('removeEvents', event.id);
 	}
 	
 	editRequest = function(data, onSuccess) {

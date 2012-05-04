@@ -118,7 +118,7 @@
 				|-/foreach-|
 			</select>
 		</p>
-		<input type="hidden" name="id" value="" />
+		<input type="hidden" id="calendarEvent_id" name="id" value="" />
 		<p>
 			<input type="button" id="acceptButton" value="Aceptar" onclick="|-$onaccept|escape-|" />
 			<input type='button' id="cancelButton" onClick='|-$oncancel|escape-|' value='Cancelar' />
