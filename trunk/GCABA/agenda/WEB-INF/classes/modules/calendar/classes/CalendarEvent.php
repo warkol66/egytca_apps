@@ -54,7 +54,7 @@ class CalendarEvent extends BaseCalendarEvent {
 	 * @return boolean
 	 */
 	public function hasRegion($region) {
-		return EventRegionQuery::create()->filterByRegionid($region->getId())->count() > 0;
+		return EventRegionQuery::create()->filterByCalendarEvent($this)->filterByRegion($region)->count() > 0;
 	}
 	
 	/**
