@@ -214,13 +214,10 @@
                     <li class="eventoBot01"><a href="#"></a></li> 
                     <li class="eventoBot02"><a href="#"></a></li> 
                 </ul>
-                %start
+                %start-%end
             </span>
             <div class="eventoContent">
-                <span class="fc-event-title">
-                    <img src="images/imagen_foto.png" align="right" />
-                    %title
-                </span>
+                <span class="fc-event-title"><img src="images/imagen_foto.png" align="right" />%title</span>
                 <span class="fc-event-text">%body</span>
             </div>
             <div class="eventoFooter"></div>
