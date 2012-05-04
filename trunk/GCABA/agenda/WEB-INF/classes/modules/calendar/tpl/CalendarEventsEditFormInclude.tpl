@@ -88,7 +88,7 @@
 		</p>
 		<p>
 			<label for="calendarEvent_axisId">Eje de gestión</label>
-			<select id="calendarEvent_axis" name="calendarEvent[axisId]" title="Eje de gestión">
+			<select id="calendarEvent_axisId" name="calendarEvent[axisId]" title="Eje de gestión">
 				<option value="">Seleccione el eje</option>
 				|-foreach from=$axes item=object-|
 					<option value="|-$object->getId()-|">|-$object->getName()-|</option>
