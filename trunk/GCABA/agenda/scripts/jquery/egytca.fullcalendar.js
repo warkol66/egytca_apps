@@ -5,7 +5,10 @@ Calendar = {
         elem.addClass(event.className);
         var startDate = new Date(event.start);
         var start = startDate.toString().replace(/.* ([0-9][0-9]:[0-9][0-9]):00 .*/, "$1");
+        var endDate = new Date(event.end);
+        var end = endDate.toString().replace(/.* ([0-9][0-9]:[0-9][0-9]):00 .*/, "$1");
         template = template.replace("%start", start);
+        template = template.replace("%end", end);
         template = template.replace("%title", event.title);
         template = template.replace("%body", event.body);
         elem.html(template);
