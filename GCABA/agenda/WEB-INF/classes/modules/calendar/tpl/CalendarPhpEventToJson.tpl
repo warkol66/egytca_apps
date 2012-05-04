@@ -12,5 +12,30 @@
 	"creationDate": "|-$event->getCreationDate("%Y/%m/%d %H:%M")-|",
 	"street": "|-$event->getStreet()-|",
 	"number": "|-$event->getNumber()-|",
-	"axisId": "|-$event->getAxisId()-|"
+	"axisId": "|-$event->getAxisId()-|",
+	"status": "|-$event->getStatus()-|",
+	"agendaType": "|-$event->getAgendaType()-|",
+	"typeId": "|-$event->getTypeId()-|",
+	"userId": "|-$event->getUserId()-|",
+	"regionsIds":
+		[
+			|-foreach from=$event->getRegions() item=region-|
+				|-if !$region@first-|,|-/if-|
+				"|-$region->getId()-|"
+			|-/foreach-|
+		],
+	"categoriesIds":
+		[
+			|-foreach from=$event->getCategorys() item=category-|
+				|-if !$category@first-|,|-/if-|
+				"|-$category->getId()-|"
+			|-/foreach-|
+		],
+	"actorsIds":
+		[
+			|-foreach from=$event->getActors() item=actor-|
+				|-if !$actor@first-|,|-/if-|
+				"|-$actor->getId()-|"
+			|-/foreach-|
+		]
 }

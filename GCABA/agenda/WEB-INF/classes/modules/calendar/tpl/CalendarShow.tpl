@@ -104,9 +104,25 @@
 		$('#editEvent #calendarEvent_userId option:selected').removeAttr("selected");
 
 		
-		// seleccionar selects
-//		console.log('asd', $('#editEvent #calendarEvent_axisId option[value="2"]'));
+		// seleccionar options de selects simples
+		$('#editEvent #calendarEvent_status option[value="'+event.status+'"]').attr('selected', 'selected');
+		$('#editEvent #calendarEvent_agendaType option[value="'+event.agendaType+'"]').attr('selected', 'selected');
 		$('#editEvent #calendarEvent_axisId option[value="'+event.axisId+'"]').attr('selected', 'selected');
+		$('#editEvent #calendarEvent_typeId option[value="'+event.typeId+'"]').attr('selected', 'selected');
+		$('#editEvent #calendarEvent_userId option[value="'+event.userId+'"]').attr('selected', 'selected');
+		
+		// seleccionar options de selects multiples
+		for (var i = 0; i < event.regionsIds.length; i++) {
+			$('#editEvent #calendarEvent_regions option[value="'+event.regionsIds[i]+'"]').attr('selected', 'selected');
+		}
+		for (var i = 0; i < event.categoriesIds.length; i++) {
+			$('#editEvent #calendarEvent_categories option[value="'+event.categoriesIds[i]+'"]').attr('selected', 'selected');
+		}
+		for (var i = 0; i < event.regionsIds.length; i++) {
+			$('#editEvent #calendarEvent_actors option[value="'+event.actorsIds[i]+'"]').attr('selected', 'selected');
+		}
+		
+		console.log('falta cargar datos del checkbox!!');
 		
 		$('#editEvent').show();
 	}
