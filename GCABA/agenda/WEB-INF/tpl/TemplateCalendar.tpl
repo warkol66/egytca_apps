@@ -68,7 +68,8 @@
 				<span class="slogan"></span>
 
 			</div><!-- /grid_16 header1 -->
-            <div class="boxNav1"><!-- boxNav1 -->
+            <div class="boxNav1"><!-- boxNav1 --><form action='Main.php' method='get' style="display:inline;">
+					<input type="hidden" name="do" value="calendarShow" />
                 <ul>
                     <!-- <li class="botSmall"><a href="#" class="menuIcon_01"></a></li>
                     <li class="botSmall"><a href="#" class="menuIcon_02"></a></li>
@@ -78,7 +79,7 @@
                     <li class="botSmall"><a href="#" class="menuIcon_06"></a></li>
                     <li>Tipo de evento:
                         <label>
-                        <select name="select" id="select" style="width: 70px">
+                        <select name="filters[searchKind]" id="searchKind" style="width: 70px" onChange="this.form.submit();">
                           <option value="0">Todos</option>
                           <option value="1">AAA</option>
                           <option value="2">Otros eventos</option>
@@ -88,7 +89,7 @@
                     </li>
                     <li>Agenda:
                         <label>
-                        <select name="select" id="select" style="width: 80px">
+                        <select name="filters[searchAgenda]" id="searchAgenda" style="width: 80px" onChange="this.form.submit();">
                             <option value="0" selected="selected">Todas</option>
                             <option value="1">Agenda del Jefe de Gobierno</option>
                             <option value="2">Agenda de la Vicejefa / Ministros</option>
@@ -98,7 +99,7 @@
                     </li>
                      <li>Funcionarios:
                         <label>
-                        <select name="select" id="select" style="width: 80px">
+                        <select name="filters[searchActor]" id="searchActor" style="width: 80px" onChange="this.form.submit();">
                             <option value="0" selected="selected">Todos</option>
                             <option value="1">Mauricio Macri</option>
                             <option value="2">Ma. Eugenia Vidal</option>
@@ -108,7 +109,7 @@
                     </li>
                      <li>Dependencias:
                         <label>
-                        <select name="select" id="select" style="width: 80px">
+                        <select name="filters[searchCategory]" id="searchCategory" style="width: 80px" onChange="this.form.submit();">
                             <option value="1" selected="selected">Todas</option>
                             <option value="2">Jefatura de Gabinete</option>
                             <option value="3">Ministerio de Ambiente y Espacio Público</option>
@@ -118,7 +119,7 @@
                     </li>
                      <li>Comunas:
                         <label>
-                        <select name="select" id="select" style="width: 80px">
+                        <select name="filters[searchRegion]" id="searchRegion" style="width: 80px" onChange="this.form.submit();">
                             <option value="0" selected="selected">Todas</option>
 												|-foreach from=$regions item=region name=foreach_regions-|
                             <option value="|-$region->getId()-|">|-$region->getName()-||-assign var=subregions value=$region->getChildren()-| (|-foreach from=$subregions item=subregion name=foreach_subregion-||-$subregion->getName()-||-if !$subregion@last-|, |-/if-||-/foreach-|)</option>
@@ -127,9 +128,9 @@
                         </label>
                     </li>
                     
-                    <li>* <a href="#">CC</a></li>
+                    <li>* <a href="Main.php?do=calendarShow&filters[searchCampaignCommitment]=1">CC</a></li>
                     <li>07/02/2012 *** <a href="#">Ir</a></li>
-                </ul>                                                            
+                </ul> </form>                                                           
               	</div><!-- /boxNav1 -->
 			
         <div class="clear"></div>
