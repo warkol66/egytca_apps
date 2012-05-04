@@ -27,6 +27,9 @@ Calendar = {
         template = template.replace("%title", event.title);
         template = template.replace("%body", event.body);
         elem.html(template);
+	
+	$('.eventoBot01', elem).click(function(){doDeleteEvent(event)});
+	$('.eventoBot02', elem).click(function(){editEvent(event)});
     },
     registerNavbarClick: function() {
         $(".boxNavSolapas li").click(function(e) {

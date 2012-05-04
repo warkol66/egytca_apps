@@ -91,9 +91,21 @@
 		$('#editEvent #calendarEvent_street').val(event.street);
 		$('#editEvent #calendarEvent_number').val(event.number);
 		
-		// deseleccionar todos los selects
+		// deseleccionar todos los selects multiples
+		$('#editEvent #calendarEvent_regions').attr('selectedIndex', '-1').children("option:selected").removeAttr("selected");
+		$('#editEvent #calendarEvent_categories').attr('selectedIndex', '-1').children("option:selected").removeAttr("selected");
+		$('#editEvent #calendarEvent_actors').attr('selectedIndex', '-1').children("option:selected").removeAttr("selected");
+		
+		// deseleccionar los selects simples
+		$('#editEvent #calendarEvent_status option:selected').removeAttr("selected");
+		$('#editEvent #calendarEvent_agendaType option:selected').removeAttr("selected");
+		$('#editEvent #calendarEvent_axisId option:selected').removeAttr("selected");
+		$('#editEvent #calendarEvent_typeId option:selected').removeAttr("selected");
+		$('#editEvent #calendarEvent_userId option:selected').removeAttr("selected");
+
 		
 		// seleccionar selects
+//		console.log('asd', $('#editEvent #calendarEvent_axisId option[value="2"]'));
 		
 		$('#editEvent').show();
 	}
