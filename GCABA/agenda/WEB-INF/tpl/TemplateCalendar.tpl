@@ -13,9 +13,10 @@
 		<!--[if IE 8]><link rel="stylesheet" type="text/css" href="css/ie8.css" media="screen" /><![endif]-->
 		<!--[if IE 9]><link rel="stylesheet" type="text/css" href="css/ie9.css" media="screen" /><![endif]-->
 		<!--[if IE]><link rel="stylesheet" type="text/css" href="css/ie.css" media="screen" /><![endif]-->   
-        
+
 <link rel="stylesheet" type="text/css" href="scripts/fullcalendar/fullcalendar.css" />
 <link rel="stylesheet" type="text/css" href="scripts/fullcalendar/fullcalendar.print.css" media="print" />
+<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" />       
 <link rel="shortcut icon" href="images/favicon.ico" />
 <script language="JavaScript" type="text/JavaScript">
 	var url="|-$systemUrl-|";
@@ -24,7 +25,33 @@
 	|-include file='TemplateJsIncludes.jquery.tpl'-|
 |-/block-|
 	<script src="scripts/fisheye.js"></script>
-</head>
+		<script type="text/javascript">
+			$(function(){
+
+				// Accordion
+				$("#accordion").accordion({ header: "h3" });
+
+				// Datepicker
+				$('#datepicker').datepicker({
+					inline: true
+				});
+
+				//hover states on the static widgets
+				$('#dialog_link, ul#icons li').hover(
+					function() { $(this).addClass('ui-state-hover'); },
+					function() { $(this).removeClass('ui-state-hover'); }
+				);
+
+			});
+			function MM_showHideLayers() { //v9.0
+  var i,p,v,obj,args=MM_showHideLayers.arguments;
+  for (i=0; i<(args.length-2); i+=3) 
+  with (document) if (getElementById && ((obj=getElementById(args[i]))!=null)) { v=args[i+2];
+    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v=='hide')?'hidden':v; }
+    obj.visibility=v; }
+}
+
+		</script></head>
 <body>
 		<div class="container_16">
 			<div class="grid_16 header1">
@@ -163,24 +190,71 @@
 		                        </div> <!-- end of PENDIENTESCONTAINER -->
                         </div> <!-- end of PENDIENTES -->
 		</div>
-        <!-- NUEVO toda la colDrecha -->
 				<div class="grid_3 colummSidebar">
-					<div class="box">
+					<div class="box boxBuscador">
                     <label>
-                    <input name="textfield" type="text" id="textfield" class="textBuscador"/>
+                    <input name="textfield" type="text" class="textBuscador" id="textfield" value="Buscar"/>
 <a href="#" class="botBuscador"></a>
                     </label>
+                    </div>
                     <div class="clear"></div>
-                    <!--
-                    <div class="colDerGrapfico">
-                        <span><a href="javascript:void(0);" onclick="MM_showHideLayers('colDerGrafico01','','show','colDerGrafico02','','hide')" class="solapa01">Ejes %</a></span>
-                        <span><a href="javascript:void(0);" onclick="MM_showHideLayers('colDerGrafico01','','hide','colDerGrafico02','','show')" class="solapa02">Ministerios %</a></span>  
-                        <span div="colDerGrafico01"><img src="images/grafico.png" alt="" width="115" height="123" /></span>                  
-                        <span div="colDerGrafico02"><img src="images/grafico02.png" alt="" width="115" height="123" /></span>                    </div>
-                    -->
+   					<div class="box">
+                    <div id="accordion">
+	<h3 class="color1"><a href="#">% Ejes</a></h3>
+	<div>
+		<img src="images/grafico.png" alt="" width="115" height="123" />
+	</div>
+	<h3 class="color2"><a href="#">% Ministerios</a></h3>
+	<div>
+		<img src="images/grafico02.png" alt="" width="115" height="123" />
+	</div>
+	<h3><a href="#">Crisis</a></h3>
+    <div>
+    	<ul>
+	    	<li><a href="#">Dengue</a></li>
+	    	<li><a href="#">Inundaciones</a></li>
+	    	<li><a href="#">Subte</a></li>
+	    	<li><a href="#">Roger Waters</a></li>                                    
+        </ul>
+	</div>
+	<h3><a href="#">Coyuntura</a></h3>
+    <div>
+    	<ul>
+	    	<li><a href="#">Lanzamiento control de autos oficiales</a></li>
+	    	<li><a href="#">Link</a></li>
+	    	<li><a href="#">Link</a></li>
+	    	<li><a href="#">Link</a></li>                                    
+        </ul>    
+	</div>
+	<h3><a href="#">Campaña Nacional</a></h3>
+    <div>
+    	<ul>
+	    	<li><a href="#">Link</a></li>
+	    	<li><a href="#">Link</a></li>
+	    	<li><a href="#">Link</a></li>
+	    	<li><a href="#">Link</a></li>                                    
+        </ul>    
+	</div>
+	<h3><a href="#">Campaña Publicitaria</a></h3>
+    <div>
+    	<ul>
+	    	<li><a href="#">Link</a></li>
+	    	<li><a href="#">Link</a></li>
+	    	<li><a href="#">Link</a></li>
+	    	<li><a href="#">Link</a></li>                                    
+        </ul>    
+	</div>
+                    
+	
+</div>
+                    
+                    
+                    
+                    
 					</div>
 		</div>
 				<div class="clear"></div>  
 		</div>
+  
 </body>
 </html>
