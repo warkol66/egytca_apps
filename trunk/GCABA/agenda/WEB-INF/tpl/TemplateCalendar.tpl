@@ -3,6 +3,7 @@
 <head>
 <title>|-if isset($module)-||-$module|multilang_get_translation:"common"-| - |-/if-||-$parameters.siteName-|</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/main.css" type="text/css" />
 <link rel="stylesheet" type="text/css" href="css/basics.css" media="screen" />
 <link rel="stylesheet" type="text/css" href="css/960.css" media="screen" />
 <link rel="stylesheet" type="text/css" href="css/agenda.css" media="screen" />
@@ -14,13 +15,26 @@
 		<!--[if IE 9]><link rel="stylesheet" type="text/css" href="css/ie9.css" media="screen" /><![endif]-->
 		<!--[if IE]><link rel="stylesheet" type="text/css" href="css/ie.css" media="screen" /><![endif]-->   
 
+<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="scripts/fullcalendar/fullcalendar.css" />
 <link rel="stylesheet" type="text/css" href="scripts/fullcalendar/fullcalendar.print.css" media="print" />
-<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" />       
 <link rel="shortcut icon" href="images/favicon.ico" />
 <script language="JavaScript" type="text/JavaScript">
 	var url="|-$systemUrl-|";
 </script>
+<style type="text/css">
+<!--
+#newEvent, #editEvent {
+	padding: 15px !Important;
+}
+#newEvent *, #editEvent * {
+	margin-top: 0.3em !Important;
+}
+#newEvent fieldset, #editEvent fieldset {
+	border:0 !Important;
+}
+-->
+</style>
 |-block name=jsIncludes-|
 	|-include file='TemplateJsIncludes.jquery.tpl'-|
 |-/block-|
@@ -51,7 +65,12 @@
     obj.visibility=v; }
 }
 
-		</script></head>
+
+		</script>
+<link type="text/css" href="css/chosen.css" rel="stylesheet" />
+<script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
+		
+		</head>
 <body>
 		<div class="container_16">
 			<div class="grid_16 header1">
@@ -68,7 +87,7 @@
 				<span class="slogan"></span>
 
 			</div><!-- /grid_16 header1 -->
-            <div class="boxNav1"><!-- boxNav1 --><form action='Main.php' method='get' style="display:inline;">
+            <div class="boxNav1"><!-- boxNav1 --><form action='Main.php' method='get' style="display:inline;" name="filters">
 					<input type="hidden" name="do" value="calendarShow" />
                 <ul>
                     <!-- <li class="botSmall"><a href="#" class="menuIcon_01"></a></li>
@@ -77,28 +96,23 @@
                     <li class="botSmall"><a href="#" class="menuIcon_04"></a></li>
                     <li class="botSmall"><a href="#" class="menuIcon_05"></a></li>
                     <li class="botSmall"><a href="#" class="menuIcon_06"></a></li>
-                    <li>Tipo de evento:
-                        <label>
-                        <select name="filters[searchKind]" id="searchKind" style="width: 70px" onChange="this.form.submit();">
+                    <li><span>Tipo de evento:</span><br />
+                        <select name="filters[kind]" id="kind" style="width: 70px" onChange="this.form.submit();">
                           <option value="0">Todos</option>
-                          <option value="1">AAA</option>
-                          <option value="2">Otros eventos</option>
-	                        <option value="3">Agenda cultural</option>
+												|-foreach from=$kinds item=kind name=foreach_kinds-|
+	                        <option value="|-$kind@key-|">|-$kind-|</option>
+												|-/foreach-|
                         </select>
-                        </label>
                     </li>
-                    <li>Agenda:
-                        <label>
-                        <select name="filters[searchAgenda]" id="searchAgenda" style="width: 80px" onChange="this.form.submit();">
+                    <li><span>Agenda:</span><br />
+                        <select name="filters[agenda]" id="agenda" style="width: 80px" onChange="this.form.submit();">
                             <option value="0" selected="selected">Todas</option>
-                            <option value="1">Agenda del Jefe de Gobierno</option>
-                            <option value="2">Agenda de la Vicejefa / Ministros</option>
-                            <option value="3">Agendas de Otros funcionarios</option>
+												|-foreach from=$agendas item=agenda name=foreach_agendas-|
+	                        <option value="|-$agenda@key-|">|-$agenda-|</option>
+												|-/foreach-|
                         </select>
-                        </label>
                     </li>
-                     <li>Funcionarios:
-                        <label>
+                     <li><span>Funcionarios:</span><br />
                         <select name="filters[searchActor]" id="searchActor" style="width: 80px" onChange="this.form.submit();">
                             <option value="0" selected="selected">Todos</option>
                             <option value="1">Mauricio Macri</option>
@@ -107,31 +121,29 @@
                         </select>
                         </label>
                     </li>
-                     <li>Dependencias:
-                        <label>
+                     <li>
+                       <span>Dependencias:</span><br />
                         <select name="filters[searchCategory]" id="searchCategory" style="width: 80px" onChange="this.form.submit();">
-                            <option value="1" selected="selected">Todas</option>
-                            <option value="2">Jefatura de Gabinete</option>
-                            <option value="3">Ministerio de Ambiente y Espacio Público</option>
-                            <option value="4">Ministerio de Cultura</option>
+                            <option value="0" selected="selected">Todas</option>
+                            <option value="1">Jefatura de Gabinete</option>
+                            <option value="2">Ministerio de Ambiente y Espacio Público</option>
+                            <option value="3">Ministerio de Cultura</option>
                         </select>
-                        </label>
                     </li>
-                     <li>Comunas:
-                        <label>
+                     <li><span>Comunas:</span><br />
                         <select name="filters[searchRegion]" id="searchRegion" style="width: 80px" onChange="this.form.submit();">
                             <option value="0" selected="selected">Todas</option>
 												|-foreach from=$regions item=region name=foreach_regions-|
-                            <option value="|-$region->getId()-|">|-$region->getName()-||-assign var=subregions value=$region->getChildren()-| (|-foreach from=$subregions item=subregion name=foreach_subregion-||-$subregion->getName()-||-if !$subregion@last-|, |-/if-||-/foreach-|)</option>
+                            <option value="|-$region->getId()-|" |-$filters.searchRegion|selected:$region->getId()-|>|-$region->getName()-||-assign var=subregions value=$region->getChildren()-| (|-foreach from=$subregions item=subregion name=foreach_subregion-||-$subregion->getName()-||-if !$subregion@last-|, |-/if-||-/foreach-|)</option>
 												|-/foreach-|
                         </select>
-                        </label>
                     </li>
+
+                    <li class="buttonCC"><input name="filters[campaigncommitment]" type="checkbox" value="1"  onClick="this.form.submit();" |-$filters.campaigncommitment|checked_bool-|/><a href="#"></a></li>
+                    <li class="pickDate"><span>Fecha:</span><br /><input type="text" name="filters[selectedDate]" id="datepicker" size="10" maxlength="10" ><a href="javascript:document.filters.submit();" class="dateGo">Ir</a>
                     
-                    <li>* <a href="Main.php?do=calendarShow&filters[searchCampaignCommitment]=1">CC</a></li>
-                    <li>07/02/2012 *** <a href="#">Ir</a></li>
                 </ul> </form>                                                           
-              	</div><!-- /boxNav1 -->
+     	</div><!-- /boxNav1 -->
 			
         <div class="clear"></div>
 			<div class="grid_13 colummAgenda">
@@ -151,40 +163,41 @@
 					<!--centerHTML start-->
 					|-$centerHTML-|
 					<!--centerHTML end -->
-                        </div><!--end of boxAgendaContainer  -->
+        </div><!--end of boxAgendaContainer  -->
                         <div id="pendientes">
 	                        <div id="solapaPendientes">
-                            <!-- <a href="javascript:void(0);"  id="toggle-paragraphs">-->
                             <a href="javascript:void(0);" onclick="MM_showHideLayers('paragraphs','','show')">Pendientes</a></div>
                        	<div class="pendientesContainer" id="paragraphs">
 			                        <div class="pendientesArrowLeft"><a href="#"><</a></div>
+                                    
 		                        	<div class="pendientesContent">
                                     	<ul>
-	                                        <li>
-                                                <div class="solapitaVerde"></div>
+	                                        <li class="verde1">
+                                                <div class="solapita"></div>
                                                 <div class="pendienteDato"><span>1Rock en Parque Roca</span> Villa Saavedra</div>
                                                 <div class="pendienteBotones"><a href="#" class="pendienteEditar"></a><a href="#" class="pendienteBorrar"></a></div>
                                             </li>
-	                                        <li>
-                                                <div class="solapitaVerde"></div>
-                                                <div class="pendienteDato"><span>2Rock en Parque Roca</span> Villa Saavedra</div>
+											<li class="verde2">
+                                                <div class="solapita"></div>
+                                                <div class="pendienteDato"><span>1Rock en Parque Roca</span> Villa Saavedra</div>
                                                 <div class="pendienteBotones"><a href="#" class="pendienteEditar"></a><a href="#" class="pendienteBorrar"></a></div>
-                                            </li>
-	                                        <li>
-                                                <div class="solapitaVerde"></div>
-                                                <div class="pendienteDato"><span>3Rock en Parque Roca</span> Villa Saavedra</div>
+                                            </li> 
+											<li class="amarillo">
+                                                <div class="solapita"></div>
+                                                <div class="pendienteDato"><span>1Rock en Parque Roca</span> Villa Saavedra</div>
                                                 <div class="pendienteBotones"><a href="#" class="pendienteEditar"></a><a href="#" class="pendienteBorrar"></a></div>
-                                            </li>
-                                        <li>
-                                                <div class="solapitaVerde"></div>
-                                                <div class="pendienteDato"><span>Rock en Parque Roca</span> Villa Saavedra</div>
+                                            </li> 
+											<li class="cyan">
+                                                <div class="solapita"></div>
+                                                <div class="pendienteDato"><span>1Rock en Parque Roca</span> Villa Saavedra</div>
                                                 <div class="pendienteBotones"><a href="#" class="pendienteEditar"></a><a href="#" class="pendienteBorrar"></a></div>
-                                        </li>
-	                                        <li>
-                                                <div class="solapitaVerde"></div>
-                                                <div class="pendienteDato"><span>Rock en Parque Roca</span> Villa Saavedra</div>
+                                            </li> 
+
+											<li class="rojo">
+                                                <div class="solapita"></div>
+                                                <div class="pendienteDato"><span>1Rock en Parque Roca</span> Villa Saavedra</div>
                                                 <div class="pendienteBotones"><a href="#" class="pendienteEditar"></a><a href="#" class="pendienteBorrar"></a></div>
-                                            </li>                                                                                                                                                                                
+                                            </li>                                                                                                                                    
                                        </ul>                                                                                        
         		                    </div>
            		           <div class="pendientesArrowRight"><a href="#">></a></div>
@@ -197,7 +210,7 @@
                     <input name="textfield" type="text" class="textBuscador" id="textfield" value="Buscar"/>
 <a href="#" class="botBuscador"></a>
                     </label>
-                    </div>
+          </div>
                     <div class="clear"></div>
    					<div class="box">
                     <div id="accordion">

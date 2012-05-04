@@ -41,29 +41,34 @@
 
 
 
-.container_16 .colummAgenda{
-width:857px;
-margin-right:0;
-margin-left:17px;
-}
-
-.container_16 .colummSidebar{
-width:113px;
-min-height:750px;
-border: solid 1px #666666;
-margin-right:0px;
-margin-left:5px;
-overflow:hidden;}
+		.container_16 .colummAgenda{
+		width:857px;
+		margin-right:0;
+		margin-left:17px;
+		}
+		
+		.container_16 .colummSidebar{
+		width:113px;
+		min-height:750px;
+		border: solid 1px #666666;
+/*		margin-right:0px;*/
+		margin-left:5px;
+		overflow:hidden;}
 
 /* Navegacion Menu 1
 ---------------------------------------------------------------*/
 	.boxNav1{
 	width:100%;
-	height:40px;
-	background-color:#CCCCCC;
+	height:46px; 
+	background-color:#ccc;
+	-moz-background-color:#ff0000;
 	display:block;
 	float:left;
-	margin:0 0 8px 0;}
+	margin:0 0 8px 0;
+	z-index:1000;}
+	
+	.boxNav1 select,
+	.boxNav1 #kind{-moz-border:none;}
 
 	.boxNav1 ul {
 	display:inline; margin: 5px 0 0 0;}
@@ -104,7 +109,7 @@ overflow:hidden;}
 	display:block;
 	float:left;
 	background-image:url(../images/icon_CC.gif);
-	margin:10px 0 0 2px;}
+	margin:13px 0 0 2px;}
 	
 	/* Calendario  */
 	.boxNav1 ul li.pickDate{}
@@ -113,51 +118,9 @@ overflow:hidden;}
 	.boxNav1 ul li.pickDate a.dateGo{ width:15px; height:15px;  float:left; display:block; background-image:url(../images/bkg_headerButtonBkg.gif); background-repeat:repeat-x; background-position:bottom; background-color:#FFFFFF; border:solid 1px #999999; padding:0 0 0 3px; margin:4px 0 0 5px;}
 
 
-/*  Navegacion menu 2 (solapas colores)
----------------------------------------------------------------*/
-	.boxNavSolapas{
-	height:40px;
-	background-repeat:no-repeat;}
-	
-		.boxNavSolapas ul{
-		margin:0 auto 0 auto;}
-		.boxNavSolapas ul li{
-		display:inline;
-		float:left;
-		margin:0 3px 0 0;}
-		.boxNavSolapas ul li a{
-		min-width:55px;
-		display:block;
-		height:27px;
-		cursor:pointer;
-		white-space:nowrap;
-		color:#000000;
-		font-size:10px;
-		line-height:25px;
-		padding:0 5px 0 20px;
-/		 -webkit-border-radius: 0 0 5px 5px;
-		    -moz-border-radius: 0 0 5px 5px;
-    		border-radius: 0 0 5px 5px;
-			behavior: url(css/ie-pie/PIE.htc);}	
-				
-				.boxNavSolapas ul li.solTurismo a{ background-color:#FFCC00;}
-				.boxNavSolapas ul li.solVida a{background-color:#88d852;}
-				.boxNavSolapas ul li.solTransformando a{background-color:#359e7d;}
-				.boxNavSolapas ul li.solCiudad a{ background-color:#3dbeff;}
-				.boxNavSolapas ul li.solAgenda a{background-color:#ff3929;}
-				.boxNavSolapas ul li.solSocial a{background-color:#ff9c0d;}	
-				.boxNavSolapas ul li.solOtros a{	background-color:#c0c0c0;}		
-		.boxNavSolapas ul li a:hover{
-		height:35px;
-		line-height:33px;
-		}
-		.boxNavSolapas ul li a:active{
-		color:#FFFFFF;
-		background-color:#666666;
-		height:35px;
-		line-height:33px;
-		}		
-		
+/*  MENU 2 , DE SOLAPAS, ABAJO DE TODO */
+
+
 /* Indicador del mes */
 	.boxNavMonth{
 	width:25%;
@@ -260,6 +223,7 @@ overflow:hidden;}
 /*		width:115px;*/
 		width:100%;
 		height:auto;
+		display:block; /* newnew*/
 		line-height:1em;
 		padding:0 0 5px 0;
 		
@@ -288,15 +252,14 @@ overflow:hidden;}
 	/*	}*/
 	 
 			 /* HORARIO*/
-			 .fc-event-time{
-			width:115px;
+			 .fc-event-time{width:115px;
 			/*width:100%;*/
 				height:15px;
 				padding:9px 0 0 0;
 				display:block;
 				background-image: url(../images/backgroundsH.png);
 				background-repeat:repeat-x;
-				color:#FFF;
+				color:#000;
 				font-size:10px;
 				font-weight:bold;
 				clear:both;
@@ -307,6 +270,8 @@ overflow:hidden;}
 			behavior: url(css/ie-pie/PIE.htc);	
 				/*  PIE BEHAVIOR en ie7.css, para que RADIUS CORNER funcione en ie6, IE7, IE8*/				
 				}
+		 .fc-view-agendaDay .fc-event-time {width:100%;} /* newnew*/		
+				
 			/* TITULO    */
 			.fc-event-title{
 			display:block;
@@ -324,7 +289,7 @@ overflow:hidden;}
 			margin:3px 2px 2px 2px;
 			-moz-border-radius: 3px;
 			border-radius: 3px;
-				/*  PIE BEHAVIOR en ie7.css, para que RADIUS CORNER funcione en ie6, IE7, IE8*/						
+				behavior: url(css/ie-pie/PIE.htc); 
 			}
 			
 			/*  TEXTO  */
@@ -364,7 +329,7 @@ overflow:hidden;}
 			/*   COLORES DE HEADERS, FOOTERS y BOTONERAS segun seccion 	*/
 			.amarillo .fc-event-time {
 			background-position:0 0;}
-			.amarillo .eventoContent{
+			.amarillo {
 			background-color:#FFCC00;}
 /*			.amarillo .eventoFooter {
 			background-position:0 -120px;}*/
@@ -375,7 +340,7 @@ overflow:hidden;}
 						
 			.verde1 .fc-event-time {
 			background-position:0 -18px;}
-			.verde1 .eventoContent{
+			.verde1 {
 			background-color:#88d852;}
 /*			.verde1 .eventoFooter {
 			background-position:0 -137px;}*/
@@ -386,7 +351,7 @@ overflow:hidden;}
 
 			.verde2 .fc-event-time {
 			background-position:0 -34px;}
-			.verde2 .eventoContent{
+			.verde2{
 			background-color:#359e7d;}
 	/*		.verde2 .eventoFooter {
 			background-position:0 -154px;}*/
@@ -397,7 +362,7 @@ overflow:hidden;}
 						
 			.cyan .fc-event-time {
 			background-position:0 -52px;}
-			.cyan .eventoContent{
+			.cyan{
 			background-color:#3dbeff;}
 /*			.cyan .eventoFooter {
 			background-position:0 -171px;}*/
@@ -408,7 +373,7 @@ overflow:hidden;}
 						
 			.rojo .fc-event-time {
 			background-position:0 -68px;}
-			.rojo .eventoContent{
+			.rojo {
 			background-color:#ff3929;}
 /*			.rojo .eventoFooter {
 			background-position:0 -188px;}*/
@@ -419,7 +384,7 @@ overflow:hidden;}
 						
 			.naranja .fc-event-time {
 			background-position:0 -86px;}
-			.naranja .eventoContent{
+			.naranja {
 			background-color:#ff9c0d;}
 /*			.naranja .eventoFooter {
 			background-position:0 -205px;}*/
@@ -430,7 +395,7 @@ overflow:hidden;}
 						
 			.gris .fc-event-time {
 			background-position:0 -103px;}
-			.gris .eventoContent{
+			.gris {
 			background-color:#c0c0c0;}
 /*			.gris .eventoFooter {
 			background-position:0 -222px;}*/
@@ -474,7 +439,7 @@ overflow:hidden;}
 		.fc-view-agendaWeek.fc-fri, 
 		.fc-view-agendaWeek .fc-sat, 
 		.fc-view-agendaWeek .fc-sun  {
-		width:13.6%;
+		width:13.3%;
 		}
 		.fc-view-agendaWeek  .fc-agenda-slots  .fc-agenda-axis{
 		width:5%;}
@@ -485,7 +450,7 @@ overflow:hidden;}
 		.fc-view-agendaWeek .fc-agenda-slots .fc-fri,
 		.fc-view-agendaWeek .fc-agenda-slots .fc-sat,
 		.fc-view-agendaWeek .fc-agenda-slots .fc-sun {
-		width:13.6%;
+		width:13.3%;
 		}
 			
 		.fc-agenda .fc-agenda-axis,
@@ -636,8 +601,8 @@ overflow:hidden;}
 	#solapaPendientes{
 	width:100%;
 	height:20px;
-	margin-top:-25px;
-	border-bottom:solid 4px #333333;
+/*	margin-top:-25px;*/
+	border-top:solid 4px #333333;
 	position:relative}
 	
 		#solapaPendientes a{
@@ -655,15 +620,15 @@ overflow:hidden;}
 		text-align:center;
 		text-transform:uppercase;
 		line-height:25px;
-		   -webkit-border-radius: 5px 5px 0 0;
-		    -moz-border-radius: 5px 5px 0 0;
-    		border-radius:5px 5px 0 0;
+		   -webkit-border-radius: 0 0 5px 5px;
+		    -moz-border-radius: 0 0 5px 5px;
+    		border-radius: 0 0 5px 5px;
 			behavior: url(css/ie-pie/PIE.htc);}
 		#solapaPendientes a:hover{
 		background-color:#333;
 		height:29px;
 		line-height:29px;
-		top:-4px;}
+		/*top:-4px;*/}
 		
 		#solapaPendientes a:hover.pendientesContainer,
 		#solapaPendientes a:active.pendientesContainer {
@@ -828,3 +793,89 @@ overflow:hidden;}
 			border-top:solid 4px #fed652;width:100%;}
 				
 	*/
+	
+	
+	
+	
+	
+
+
+/*  Navegacion menu 2 (solapas colores)
+---------------------------------------------------------------*/
+	.boxNavSolapas{
+	height:40px;
+	background-repeat:no-repeat;}
+	
+		.boxNavSolapas ul{
+		margin:0 auto 0 auto;}
+		.boxNavSolapas ul li{
+		height:35px;
+		display:inline;
+		float:left;
+		margin:0 3px 0 0;}
+		
+		.boxNavSolapas ul li a{
+		min-width:55px;
+		display:block;
+		height:27px;
+		cursor:pointer;
+		white-space:nowrap;
+		color:#000000;
+		font-size:10px;
+		line-height:25px;
+		padding:0 5px 0 20px;
+		 -webkit-border-radius: 0 0 5px 5px;
+		    -moz-border-radius: 0 0 5px 5px;
+    		border-radius: 0 0 5px 5px;
+			behavior: url(css/ie-pie/PIE.htc) !important;}			
+				
+				.boxNavSolapas ul li.solTurismo a{ background-color:#FFCC00;}
+				.boxNavSolapas ul li.solVida a{background-color:#88d852;}
+				.boxNavSolapas ul li.solTransformando a{background-color:#359e7d;}
+				.boxNavSolapas ul li.solCiudad a{ background-color:#3dbeff;}
+				.boxNavSolapas ul li.solAgenda a{background-color:#ff3929;}
+				.boxNavSolapas ul li.solSocial a{background-color:#ff9c0d;}	
+				.boxNavSolapas ul li.solOtros a{	background-color:#c0c0c0;}	
+			
+	/*	.boxNavSolapasLink{
+		min-width:55px;
+		display:block;
+		height:27px;
+		cursor:pointer;
+		white-space:nowrap;
+		color:#000000;
+		font-size:10px;
+		line-height:25px;
+		padding:0 5px 0 20px;
+		
+			-webkit-border-radius: 5px 5px 0 0;
+		    -moz-border-radius: 5px 5px 0 0;
+    		border-radius:5px 5px 0 0;
+			behavior: url(css/ie-pie/PIE.htc);}				
+				
+				.solTurismo a.boxNavSolapasLink{ background-color:#FFCC00;}
+				.solVida a.boxNavSolapasLink{background-color:#88d852; -pie-background-color:#FFCC00;}
+				.boxNavSolapas.solTransformando a{background-color:#359e7d;}
+				.boxNavSolapas ul li.solCiudad a{ background-color:#3dbeff;}
+				.boxNavSolapas ul li.solAgenda a{background-color:#ff3929;}
+				.boxNavSolapas ul li.solSocial a{background-color:#ff9c0d;}	
+				.boxNavSolapas ul li.solOtros a{	background-color:#c0c0c0;}		*/
+		.boxNavSolapas ul li a:hover{
+		height:35px;
+		line-height:33px;
+		}
+		.boxNavSolapas ul li a:active{
+		color:#FFFFFF;
+		background-color:#666666;
+		height:35px;
+		line-height:33px;
+		}		
+
+/*   FORM PARA NEW EVENT & EDIT EVENT  */
+
+#newEvent, #editEvent {padding:0px; color:#FFFFFF;}
+
+#newEvent .arrangeButtons,
+#editEvent .arrangeButtons {padding-left:150px;}
+
+
