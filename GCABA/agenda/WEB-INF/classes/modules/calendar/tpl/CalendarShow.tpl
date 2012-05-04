@@ -207,7 +207,7 @@
 </div>
 
 <div id="calendarTemplates" style="display: none;">
-    <div class="fc-event fc-event-skin fc-event-hori fc-event-draggable fc-corner-left fc-corner-right gris">
+    <div class="fc-event fc-event-skin fc-event-hori fc-event-draggable fc-corner-left fc-corner-right">
 		<div class="fc-event-inner fc-event-skin eventoContainer">
             <span class="fc-event-time">
                 <ul class="botoneraSmallEvento">
