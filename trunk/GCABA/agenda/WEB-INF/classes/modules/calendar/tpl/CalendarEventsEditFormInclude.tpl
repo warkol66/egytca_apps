@@ -1,3 +1,11 @@
+<link type="text/css" href="css/chosen.css" rel="stylesheet" />
+<script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".chzn-select").chosen();
+	});
+</script>
+
 <form action="|-$action-|" method="|-$method-|" onsubmit="|-$onsubmit|escape-|">
 		<p>
 			<label for="calendarEvent_title">Título</label>
@@ -7,18 +15,9 @@
 			<label for="calendarEvent_body">Texto del Evento</label>
 			<textarea name="calendarEvent[body]" cols="60" rows="15" wrap="VIRTUAL"  id="calendarEvent_body"></textarea>
 		</p>
-		<p>
-			<label for="calendarEvent_creationDate">Fecha de Creación</label>
-			<input name="calendarEvent[creationDate]" type="text" id="calendarEvent_creationDate" title="creationDate" value="|-$smarty.now|dateTime_format|change_timezone|date_format:"%d-%m-%Y"-|" size="18" />
-		</p>
-		<p>
-			<label for="calendarEvent_startDate">Fecha de Inicio Actividad</label>
-			<input name="calendarEvent[startDate]" type="text" id="calendarEvent_startDate" title="startDate" value="" size="18" /> 
-		</p>
-		<p>
-			<label for="calendarEvent_endDate">Fecha de Fin Actividad</label>
-			<input name="calendarEvent[endDate]" type="text" id="calendarEvent_endDate" title="endDate" value="" size="18" /> 
-		</p>
+		<input name="calendarEvent[creationDate]" type="hidden" id="calendarEvent_creationDate" title="creationDate" value="" size="18" />
+		<input name="calendarEvent[startDate]" type="hidden" id="calendarEvent_startDate" title="startDate" value="" size="18" /> 
+		<input name="calendarEvent[endDate]" type="hidden" id="calendarEvent_endDate" title="endDate" value="" size="18" /> 
 		<p>
 			<label for="calendarEvent_street">Calle</label>
 			<input name="calendarEvent[street]" type="text" id="calendarEvent_street" title="calle" value="" size="30" />
@@ -121,7 +120,6 @@
 		</p>
 		<p>
 			<input type="button" id="acceptButton" value="Aceptar" onclick="|-$onaccept|escape-|" />
-			|-*|-javascript_form_validation_button id="button_edit_calendarEvent" value='Aceptar' title='Aceptar'-|*-|
 			<input type='button' id="cancelButton" onClick='|-$oncancel|escape-|' value='Cancelar' />
 		</p>
 	</form>
