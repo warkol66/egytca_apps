@@ -1,8 +1,7 @@
 Calendar = {
     options: {
         /* name => cssClass */
-        axisMap: {},
-        allEventsShown: true
+        axisMap: {}
     },
     initialize: function(opts) {
         this.options = $.extend({}, this.options, opts);
@@ -34,19 +33,11 @@ Calendar = {
             e.preventDefault();
             var $this = $(this);
             var selector = Calendar.options.axisMap[$this.attr('hide')];
-            if (Calendar.options.allEventsShown) {
-                $(".fc-event").hide();
-                $("." + selector).show();
-                Calendar.options.allEventsShown = false;
-            }
-            else {
-                $(".fc-event").fadeOut();
-                $("." + selector).fadeIn();
-            }
+            $(".fc-event").hide();
+            $("." + selector).show();
         });
     },
     showAllEvents: function() {
         $(".fc-event").show();
-        Calendar.options.allEventsShown = true;
     }
 }
