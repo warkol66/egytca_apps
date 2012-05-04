@@ -58,6 +58,12 @@
 				var deleteButton = $("<span class='event_button event_edit_button'></span>").click(function(){editEvent(event)});
 				var clearfix = $("<span class='clearfix'></span>");
 				$(".fc-event-time", elem).append(editButton).append(deleteButton).append(clearfix);;
+			},
+			eventResize: function(event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view) {
+				updateEventDatetime(event);
+			},
+			eventDrop: function( event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view ) {
+				updateEventDatetime(event);
 			}
 		});
 	}
@@ -163,6 +169,17 @@
 		});
 	}
 	
+	updateEventDatetime = function(event) {
+		var data = 'id='+event.id;
+		data += '&calendarEvent[startDate]='+getFormattedDatetime(event.start);
+		data += '&calendarEvent[endDate]='+getFormattedDatetime(event.end);
+		
+		editRequest(data);
+	}
+	
+	getFormattedDatetime = function(date) {
+		return date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+	}
 </script>
 
 <div id="newEvent" style="display:none; position:absolute; top:10em; z-index:999999; background-color:white; border-style:solid; border-width:2px">
