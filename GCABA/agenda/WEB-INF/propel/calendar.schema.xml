@@ -168,6 +168,7 @@
 		<column name="name" type="VARCHAR" size="100" required="true" description="Nombre del eje" />
 		<column name="description" type="LONGVARCHAR" description="descripcion del eje" />
 		<column name="color" type="VARCHAR" size="7" description="Color del eje" />
+		<column name="cssClass" type="VARCHAR" size="15" description="Clase del eje" />
 		
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>

@@ -51,55 +51,51 @@
                     <li class="botSmall"><a href="#" class="menuIcon_06"></a></li>
                     <li>Tipo de evento:
                         <label>
-                        <select name="select" id="select">
-                            <option value="1">Todos</option>
-                            <option value="2">Opcion 2</option>
-                            <option value="3">Opcion 3</option>
-                        <option value="4">Opcion 4</option>
+                        <select name="select" id="select" style="width: 70px">
+                          <option value="0">Todos</option>
+                          <option value="1">AAA</option>
+                          <option value="2">Otros eventos</option>
+	                        <option value="3">Agenda cultural</option>
                         </select>
                         </label>
                     </li>
                     <li>Agenda:
                         <label>
-                        <select name="select" id="select">
-                            <option value="1">Todas</option>
-                            <option value="2">Opcion 2</option>
-                            <option value="3">Opcion 3</option>
-                            <option value="4">Opcion 4</option>
+                        <select name="select" id="select" style="width: 80px">
+                            <option value="0" selected="selected">Todas</option>
+                            <option value="1">Agenda del Jefe de Gobierno</option>
+                            <option value="2">Agenda de la Vicejefa / Ministros</option>
+                            <option value="3">Agendas de Otros funcionarios</option>
                         </select>
                         </label>
                     </li>
                      <li>Funcionarios:
                         <label>
-                        <select name="select" id="select">
-                            <option value="1">Todos</option>
-                            <option value="2">Opcion 2</option>
-                            <option value="3">Opcion 3</option>
-                            <option value="4">Opcion 4</option>
+                        <select name="select" id="select" style="width: 80px">
+                            <option value="0" selected="selected">Todos</option>
+                            <option value="1">Mauricio Macri</option>
+                            <option value="2">Ma. Eugenia Vidal</option>
+                            <option value="3">Horacio Rodriguez Larreta</option>
                         </select>
                         </label>
                     </li>
                      <li>Dependencias:
                         <label>
-                        <select name="select" id="select">
-                            <option value="1">Todas</option>
-                            <option value="2">Opcion 2</option>
-                            <option value="3">Opcion 3</option>
-                            <option value="4">Opcion 4</option>
+                        <select name="select" id="select" style="width: 80px">
+                            <option value="1" selected="selected">Todas</option>
+                            <option value="2">Jefatura de Gabinete</option>
+                            <option value="3">Ministerio de Ambiente y Espacio Público</option>
+                            <option value="4">Ministerio de Cultura</option>
                         </select>
                         </label>
                     </li>
                      <li>Comunas:
                         <label>
-                        <select name="select" id="select">
-                            <option value="0">Todas</option>
-                            <option value="1">Comuna 1</option>
-                            <option value="2">Comuna 2</option>
-                            <option value="3">Comuna 3</option>
-                            <option value="4">Comuna 4</option>
-                            <option value="5">Comuna 5</option>
-                            <option value="6">Comuna 6</option>
-                            <option value="7">Comuna 7</option>
+                        <select name="select" id="select" style="width: 80px">
+                            <option value="0" selected="selected">Todas</option>
+												|-foreach from=$regions item=region name=foreach_regions-|
+                            <option value="|-$region->getId()-|">|-$region->getName()-||-assign var=subregions value=$region->getChildren()-| (|-foreach from=$subregions item=subregion name=foreach_subregion-||-$subregion->getName()-||-if !$subregion@last-|, |-/if-||-/foreach-|)</option>
+												|-/foreach-|
                         </select>
                         </label>
                     </li>
