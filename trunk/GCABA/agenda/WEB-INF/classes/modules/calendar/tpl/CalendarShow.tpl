@@ -2,6 +2,7 @@
 <link rel='stylesheet' type='text/css' href='scripts/fullcalendar/fullcalendar.css' />
 <script type="text/javascript" src="scripts/jquery/jquery-ui-1.8.19.custom.min.js"></script>
 <script type='text/javascript' src='scripts/fullcalendar/fullcalendar.min.js'></script>
+<script type='text/javascript' src='scripts/jquery/egytca.fullcalendar.js'></script>
 <div id="calendar"></div>
 
 <script type="text/javascript">
@@ -52,13 +53,7 @@
 			select: newEvent,
 			editable: true, // esto se modifica segun el permiso del usuario, si tien permiso para modificar se pone true
 			events: events,
-			eventAfterRender: function(event, element, view) {
-				var elem = $(element);
-				var editButton = $("<span class='event_button event_delete_button'></span>").click(function(){doDeleteEvent(event)});
-				var deleteButton = $("<span class='event_button event_edit_button'></span>").click(function(){editEvent(event)});
-				var clearfix = $("<span class='clearfix'></span>");
-				$(".fc-event-time", elem).append(editButton).append(deleteButton).append(clearfix);;
-			},
+			eventAfterRender: Calendar.eventAfterRender,
 			eventResize: function(event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view) {
 				updateEventDatetime(event);
 			},
@@ -209,4 +204,27 @@
 		agendaTypes=$agendaTypes
 		calendarEventStatus=$calendarEventStatus
 	-|
+</div>
+
+<div id="calendarTemplates" style="display: none;">
+    <div class="fc-event fc-event-skin fc-event-hori fc-event-draggable fc-corner-left fc-corner-right gris">
+		<div class="fc-event-inner fc-event-skin eventoContainer">
+            <span class="fc-event-time">
+                <ul class="botoneraSmallEvento">
+                    <li class="eventoBot01"><a href="#"></a></li> 
+                    <li class="eventoBot02"><a href="#"></a></li> 
+                </ul>
+                %start
+            </span>
+            <div class="eventoContent">
+                <span class="fc-event-title">
+                    <img src="images/imagen_foto.png" align="right" />
+                    %title
+                </span>
+                <span class="fc-event-text">%body</span>
+            </div>
+            <div class="eventoFooter"></div>
+            <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+    	</div>
+  	</div>   
 </div>
