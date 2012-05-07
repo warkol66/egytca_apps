@@ -5,11 +5,6 @@
 //		$(".chzn-select").chosen(); fancybox lo rompe
 	});
 </script>
-<script type="text/css">
-	.markets-chz-select {
-	min-width: 500px;
-}
-</script>
 <fieldset>
 <form action="|-$action-|" method="|-$method-|" onsubmit="|-$onsubmit|escape-|">
 		<p>
