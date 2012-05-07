@@ -101,11 +101,12 @@ border: none !Important;
                     <li class="botSmall"><a href="#" class="menuIcon_04"></a></li>
                     <li class="botSmall"><a href="#" class="menuIcon_05"></a></li>
                     <li class="botSmall"><a href="#" class="menuIcon_06"></a></li>
+                    <li class="botSmall"><a href="Main.php?do=calendarShow" class="menuIcon_06">Quitar</a></li>
                     <li><span>Tipo de evento:</span><br />
                         <select name="filters[kind]" id="kind" style="width: 70px" onChange="this.form.submit();">
                           <option value="">Todos</option>
 												|-foreach from=$kinds item=kind name=foreach_kinds-|
-	                        <option value="|-$kind@key-|">|-$kind-|</option>
+	                        <option value="|-$kind@key-|" |-$filters.kind|selected:$kind@key-|>|-$kind-|</option>
 												|-/foreach-|
                         </select>
                     </li>
@@ -113,7 +114,7 @@ border: none !Important;
                         <select name="filters[agenda]" id="agenda" style="width: 80px" onChange="this.form.submit();">
                             <option value="" selected="selected">Todas</option>
 												|-foreach from=$agendas item=agenda name=foreach_agendas-|
-	                        <option value="|-$agenda@key-|">|-$agenda-|</option>
+	                        <option value="|-$agenda@key-|" |-$filters.agenda|selected:$agenda@key-|>|-$agenda-|</option>
 												|-/foreach-|
                         </select>
                     </li>
