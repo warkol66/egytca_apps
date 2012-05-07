@@ -2,8 +2,13 @@
 <script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$(".chzn-select").chosen();
+//		$(".chzn-select").chosen(); fancybox lo rompe
 	});
+</script>
+<script type="text/css">
+	.markets-chz-select {
+	min-width: 500px;
+}
 </script>
 <fieldset>
 <form action="|-$action-|" method="|-$method-|" onsubmit="|-$onsubmit|escape-|">

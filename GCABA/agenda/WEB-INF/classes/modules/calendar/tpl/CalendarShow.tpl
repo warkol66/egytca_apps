@@ -134,6 +134,8 @@
 			$('#editEvent #calendarEvent_actors option[value="'+event.actorsIds[i]+'"]').attr('selected', 'selected');
 		}
 		
+		$(".chzn-select").chosen(); // chosen/fancybox hack
+		
 		console.log('falta cargar datos del checkbox!!');
 	}
 	
