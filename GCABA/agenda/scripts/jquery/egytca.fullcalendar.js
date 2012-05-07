@@ -28,14 +28,16 @@ Calendar = {
         template = template.replace("%body", event.body);
         elem.html(template);
 	
-	$('.eventoBot01', elem).click(function(e){ 
-        e.preventDefault(); 
-        doDeleteEvent(event);
-    });
+	$(".eventoBot02 a").fancybox();
+	
+	$('.eventoBot01', elem).click(function(e){
+		e.preventDefault();
+		doDeleteEvent(event);
+	});
 	$('.eventoBot02', elem).click(function(e){
-        e.preventDefault();
-        editEvent(event);
-    });
+		e.preventDefault();
+		editEvent(event);
+	});
     },
     registerNavbarClick: function() {
         $(".boxNavSolapas li").click(function(e) {

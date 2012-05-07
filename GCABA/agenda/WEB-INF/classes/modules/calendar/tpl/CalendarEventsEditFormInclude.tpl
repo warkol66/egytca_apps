@@ -1,10 +1,10 @@
-<!--<link type="text/css" href="css/chosen.css" rel="stylesheet" />
+<link type="text/css" href="css/chosen.css" rel="stylesheet" />
 <script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".chzn-select").chosen();
 	});
-</script>-->
+</script>
 <fieldset>
 <form action="|-$action-|" method="|-$method-|" onsubmit="|-$onsubmit|escape-|">
 		<p>
@@ -134,6 +134,3 @@
 		</p>
 	</form>
 </fieldset>
-<script language="JavaScript" type="text/JavaScript">
-		$(".chzn-select").chosen();
-		</script>
