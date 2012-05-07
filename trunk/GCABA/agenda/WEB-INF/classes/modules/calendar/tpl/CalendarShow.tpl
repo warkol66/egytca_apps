@@ -2,7 +2,12 @@
 <script type="text/javascript" src="scripts/jquery/jquery-ui-1.8.19.custom.min.js"></script>
 <script type='text/javascript' src='scripts/fullcalendar/fullcalendar.min.js'></script>
 <script type='text/javascript' src='scripts/jquery/egytca.fullcalendar.js'></script>
+<link rel="stylesheet" href="scripts/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
+<script type='text/javascript' src='scripts/fancybox/jquery.fancybox-1.3.4.pack.js'></script>
+<script type="text/javascript" src="scripts/fancybox/jquery.easing-1.3.pack.js"></script>
+<script type="text/javascript" src="scripts/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 <div id="calendar"></div>
+<a id="newEventFancyboxDummy" style="display:none" href="#newEvent"></a>
 
 <script type="text/javascript">
 	
@@ -11,7 +16,8 @@
 	$(document).ready(function() {
 		var events = loadEvents();
 		calendar = createCalendar(events);
-        Calendar.initialize({ axisMap: |-json_encode($axisMap)-| })
+		Calendar.initialize({ axisMap: |-json_encode($axisMap)-| });
+		$('#newEventFancyboxDummy').fancybox();
 	});
 	
 	createCalendar = function(events) {
@@ -82,7 +88,8 @@
 		$('#newEvent #calendarEvent_creationDate').val(getFormattedDatetime(new Date()));
 		$('#newEvent #calendarEvent_startDate').val(getFormattedDatetime(start));
 		$('#newEvent #calendarEvent_endDate').val(getFormattedDatetime(end));
-		$('#newEvent').show();
+		
+		$('#newEventFancyboxDummy').click();
 	}
 	
 	editEvent = function(event) {
@@ -128,8 +135,6 @@
 		}
 		
 		console.log('falta cargar datos del checkbox!!');
-		
-		$('#editEvent').show();
 	}
 	
 	doCreateEvent = function(form) {
@@ -199,7 +204,7 @@
 	}
 </script>
 
-<div id="newEvent" style="display:none; position:absolute; top:10em; z-index:999999; background-color: #333; border-style:solid; border-width:2px;">
+<div style="display:none;"><div id="newEvent">
 	<fieldset><form>
 		<p>
 			<label for="calendarEvent_title">Título</label>
@@ -235,17 +240,17 @@
 			<input name="calendarEvent[creationDate]" type="hidden" id="calendarEvent_creationDate" title="creationDate" value="|-$smarty.now|dateTime_format|change_timezone|date_format:"%d-%m-%Y"-|" size="18" />
 			<input name="calendarEvent[startDate]" type="hidden" id="calendarEvent_startDate" title="startDate" value="" size="18" />
 			<input name="calendarEvent[endDate]" type="hidden" id="calendarEvent_endDate" title="endDate" value="" size="18" />
-			<input type="button" id="acceptButton" value="Aceptar" onclick="doCreateEvent(this.form); $('#newEvent').hide();" />
-			<input type='button' id="cancelButton" onClick='$("#newEvent").hide();' value='Cancelar' />
+			<input type="button" id="acceptButton" value="Aceptar" onclick="doCreateEvent(this.form); $.fancybox.close();" />
+			<input type='button' id="cancelButton" onClick='$.fancybox.close();' value='Cancelar' />
 		</p>
 	</form></fieldset>
-</div>
+</div></div>
 
-<div id="editEvent" style="display:none; position:absolute; top:10em; z-index:999999; background-color: #333; border-style:solid; border-width:2px">
+<div style="display:none;"><div id="editEvent">
 	|-include file="CalendarEventsEditFormInclude.tpl"
 		onsubmit="return false;"
-		onaccept="doEditEvent(this.form); $('#editEvent').hide();"
-		oncancel="$('#editEvent').hide();"
+		onaccept="doEditEvent(this.form); $.fancybox.close();"
+		oncancel="$.fancybox.close();"
 		regions=$regions
 		categories=$categories
 		users=$users
@@ -255,7 +260,7 @@
 		agendaTypes=$agendaTypes
 		calendarEventStatus=$calendarEventStatus
 	-|
-</div>
+</div></div>
 
 <div id="calendarTemplates" style="display: none;">
     <div class="fc-event fc-event-skin fc-event-hori fc-event-draggable fc-corner-left fc-corner-right">
@@ -263,7 +268,7 @@
             <span class="fc-event-time">
                 <ul class="botoneraSmallEvento">
                     <li class="eventoBot01"><a href="#"></a></li> 
-                    <li class="eventoBot02"><a href="#"></a></li> 
+                    <li class="eventoBot02"><a href="#editEvent"></a></li> 
                 </ul>
                 %start-%end
             </span>
