@@ -45,8 +45,13 @@ class CalendarEventsDoEditAction extends BaseAction {
 			return $this->addFiltersToForwards($_POST['filters'],$mapping,'failure');
 		}
 		
-		//redireccionamiento con opciones correctas
-		return $this->addFiltersToForwards($_POST['filters'],$mapping,'success');
+		if ($this->isAjax()) {
+			$smarty->assign('event', $calendarEvent);
+			$smarty->display('CalendarEventsDoEditX.tpl'); // no need for return
+		} else {
+			//redireccionamiento con opciones correctas
+			return $this->addFiltersToForwards($_POST['filters'],$mapping,'success');
+		}
 
 	}
 	
