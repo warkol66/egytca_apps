@@ -39,12 +39,13 @@ class CalendarShowAction extends BaseAction {
 		if ($calendarEventsConfig['useCategories']['value'] == "YES")
 			$smarty->assign("categories", CategoryQuery::create()->find());
 
-		$smarty->assign("regions", RegionQuery::create()->filterByType('11')->find());
+		$smarty->assign("comunes", RegionQuery::create()->filterByType('11')->find());
+		$smarty->assign("regions", RegionQuery::create()->filterByType(array(min =>'11'))->find());
 
 		$smarty->assign("users", UserQuery::create()->find());
 		$smarty->assign('actors', ActorQuery::create()->find());
 		$smarty->assign('axes', CalendarAxisQuery::create()->find());
-        $smarty->assign('axisMap', CalendarAxisQuery::create()->findAxisMap());
+    $smarty->assign('axisMap', CalendarAxisQuery::create()->findAxisMap());
 
 		$smarty->assign('eventTypes', EventTypeQuery::create()->find());
 		$smarty->assign('agendaTypes', CalendarEventPeer::getAgendas());

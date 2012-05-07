@@ -26,6 +26,11 @@
 <!--
 #newEvent, #editEvent {
 	padding: 15px !Important;
+
+}
+#fancybox-outer, #fancybox-content {
+background-color: #333 !Important;
+border: none !Important;
 }
 #newEvent *, #editEvent * {
 	margin-top: 0.3em !Important;
@@ -98,7 +103,7 @@
                     <li class="botSmall"><a href="#" class="menuIcon_06"></a></li>
                     <li><span>Tipo de evento:</span><br />
                         <select name="filters[kind]" id="kind" style="width: 70px" onChange="this.form.submit();">
-                          <option value="0">Todos</option>
+                          <option value="">Todos</option>
 												|-foreach from=$kinds item=kind name=foreach_kinds-|
 	                        <option value="|-$kind@key-|">|-$kind-|</option>
 												|-/foreach-|
@@ -106,7 +111,7 @@
                     </li>
                     <li><span>Agenda:</span><br />
                         <select name="filters[agenda]" id="agenda" style="width: 80px" onChange="this.form.submit();">
-                            <option value="0" selected="selected">Todas</option>
+                            <option value="" selected="selected">Todas</option>
 												|-foreach from=$agendas item=agenda name=foreach_agendas-|
 	                        <option value="|-$agenda@key-|">|-$agenda-|</option>
 												|-/foreach-|
@@ -114,7 +119,7 @@
                     </li>
                      <li><span>Funcionarios:</span><br />
                         <select name="filters[searchActor]" id="searchActor" style="width: 80px" onChange="this.form.submit();">
-                            <option value="0" selected="selected">Todos</option>
+                            <option value="" selected="selected">Todos</option>
                             <option value="1">Mauricio Macri</option>
                             <option value="2">Ma. Eugenia Vidal</option>
                             <option value="3">Horacio Rodriguez Larreta</option>
@@ -124,17 +129,17 @@
                      <li>
                        <span>Dependencias:</span><br />
                         <select name="filters[searchCategory]" id="searchCategory" style="width: 80px" onChange="this.form.submit();">
-                            <option value="0" selected="selected">Todas</option>
+                            <option value="" selected="selected">Todas</option>
                             <option value="1">Jefatura de Gabinete</option>
                             <option value="2">Ministerio de Ambiente y Espacio Público</option>
                             <option value="3">Ministerio de Cultura</option>
                         </select>
                     </li>
                      <li><span>Comunas:</span><br />
-                        <select name="filters[searchRegion]" id="searchRegion" style="width: 80px" onChange="this.form.submit();">
-                            <option value="0" selected="selected">Todas</option>
-												|-foreach from=$regions item=region name=foreach_regions-|
-                            <option value="|-$region->getId()-|" |-$filters.searchRegion|selected:$region->getId()-|>|-$region->getName()-||-assign var=subregions value=$region->getChildren()-| (|-foreach from=$subregions item=subregion name=foreach_subregion-||-$subregion->getName()-||-if !$subregion@last-|, |-/if-||-/foreach-|)</option>
+                        <select name="filters[searchRegionId]" id="searchRegion" style="width: 80px" onChange="this.form.submit();">
+                            <option value="" selected="selected">Todas</option>
+												|-foreach from=$comunes item=comune name=foreach_comunes-|
+                            <option value="|-$comune->getId()-|" |-$filters.searchRegionId|selected:$comune->getId()-|>|-$comune->getName()-||-assign var=subregions value=$comune->getChildren()-| (|-foreach from=$subregions item=subregion name=foreach_subregion-||-$subregion->getName()-||-if !$subregion@last-|, |-/if-||-/foreach-|)</option>
 												|-/foreach-|
                         </select>
                     </li>
