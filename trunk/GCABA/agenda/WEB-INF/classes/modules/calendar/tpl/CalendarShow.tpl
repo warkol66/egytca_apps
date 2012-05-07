@@ -183,7 +183,7 @@
 	editRequest = function(data, onSuccess) {
 		
 		$.ajax({
-			url: 'Main.php?do=calendarEventsDoEditX',
+			url: 'Main.php?do=calendarEventsDoEdit',
 			type: 'post',
 			dataType: 'json',
 			data: data,
