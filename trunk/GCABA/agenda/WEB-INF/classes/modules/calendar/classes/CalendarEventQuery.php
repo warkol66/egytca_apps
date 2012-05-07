@@ -43,5 +43,11 @@ class CalendarEventQuery extends BaseCalendarEventQuery {
 		);				
 		return $agendas;
 	}
+    
+    public function filterByRegionId($regionId) {
+        return $this->useEventRegionQuery()
+            ->filterByRegionid($regionId)
+        ->endUse();
+    }
 
 } // CalendarEventQuery
