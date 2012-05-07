@@ -15,9 +15,9 @@
 class CalendarEventQuery extends BaseCalendarEventQuery {
 
 	/**
-	 * Devuelve array con tipos (kinds) de evento 
+	 * Devuelve array con tipos (kinds) de evento
 	 *  id => Tipo de agenda
-	 * 
+	 *
 	 * @return array tipos de agenda
 	 */
 	public function getEventKinds() {
@@ -25,14 +25,14 @@ class CalendarEventQuery extends BaseCalendarEventQuery {
 			1 => 'AAA',
 			2 => 'Otros eventos',
 			3 => 'Agenda Cultural',
-		);				
+		);
 		return $agendaType;
 	}
 
 	/**
-	 * Devuelve array con tipos (kinds) de evento 
+	 * Devuelve array con tipos (kinds) de evento
 	 *  id => Tipo de agenda
-	 * 
+	 *
 	 * @return array tipos de agenda
 	 */
 	public function getAgendas() {
@@ -40,14 +40,28 @@ class CalendarEventQuery extends BaseCalendarEventQuery {
 			1 => 'Jefe de Gobierno',
 			2 => 'Ministros',
 			3 => 'Otros funcionarios',
-		);				
+		);
 		return $agendas;
 	}
-    
-    public function filterByRegionId($regionId) {
-        return $this->useEventRegionQuery()
-            ->filterByRegionid($regionId)
-        ->endUse();
-    }
+
+	/**
+	 * Filtra por regiones y sus descendientes
+	 *  $regionId int id de la region a buscar
+	 *
+	 * @return condicion de filtrado por regiones afectadas
+	 */
+	public function searchRegionId($regionId) {
+		$region = RegionQuery::create()->findOneById($regionId);
+		if (!empty($region)) {
+			$children = $region->getChildren();
+			$regionIds = array($region->getId());
+			foreach ($children as $child)
+				$regionIds[] = $child->getId();
+
+			return $this->useEventRegionQuery()
+								->filterByRegionid($regionIds)
+							->endUse();
+		}
+	}
 
 } // CalendarEventQuery
