@@ -1,0 +1,101 @@
+<!-- Module Modules -->
+	<action-mappings module="Modules">
+
+		<action    path = "modulesDoActivateX"
+							 type = "ModulesDoActivateXAction"
+							 name = "modulesDoActivateX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ModulesDoActivateXModuleSuccess.tpl"/>
+			<forward name="errorDependencyOff" path="ModulesDoActivateXModuleOff.tpl"/>
+			<forward name="errorDependencyOn" path="ModulesDoActivateXModuleOn.tpl"/>
+		</action>
+
+		<action    path = "modulesDoCreateXml"
+							 type = "ModulesDoCreateXml"
+							 name = "modulesDoCreateXml"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=modulesCreateXml&amp;message=ok" redirect="true" />
+		</action>
+
+		<action    path = "modulesEntitiesCreate"
+							 type = "ModulesEntitiesCreateAction"
+							 name = "modulesEntitiesCreate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="ModulesEntitiesCreate.tpl" />
+			<forward name="created"  path="/Main.php?do=modulesEntitiesList&amp;message=ok" redirect="true" />
+			<forward name="failure"  path="ModulesEntitiesCreate.tpl" />
+		</action>
+
+		<action    path = "modulesEntitiesFieldsDoEdit"
+							 type = "ModulesEntitiesFieldsDoEditAction"
+							 name = "modulesEntitiesFieldsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=modulesEntitiesList&amp;message=ok" redirect="true" />
+		</action>
+
+	</action-mappings>
+<!-- End Module Modules -->
+
+<!-- Section Install -->
+	<action-mappings>
+
+		<action    path = "modulesInstallDoSetupModuleInformation"
+							 type = "ModulesInstallDoSetupModuleInformationAction"
+							 name = "modulesInstallDoSetupModuleInformation"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="/Main.php?do=modulesInstallSetupActionsLabel" />
+			<forward name="success-step"  path="/Main.php?do=modulesInstallList&amp;message=step-success" redirect="true"/>
+		</action>
+
+		<action    path = "modulesInstallDoSetupActionsLabel"
+							 type = "ModulesInstallDoSetupActionsLabelAction"
+							 name = "modulesInstallDoSetupActionsLabel"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="/Main.php?do=modulesInstallSetupPermissions" redirect="true" />
+			<forward name="success-step"  path="/Main.php?do=modulesInstallList&amp;message=step-success" redirect="true"/>
+		</action>
+
+		<action    path = "modulesInstallDoSetupPermissions"
+							 type = "ModulesInstallDoSetupPermissionsAction"
+							 name = "modulesInstallDoSetupPermissions"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="/Main.php?do=modulesInstallSetupMessages" redirect="true" />
+			<forward name="success-step"  path="/Main.php?do=modulesInstallList&amp;message=step-success" redirect="true"/>
+		</action>
+
+		<action    path = "modulesInstallSetupMessages"
+							 type = "ModulesInstallSetupMessagesAction"
+							 name = "modulesInstallSetupMessages"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="ModulesInstallSetupMessages.tpl" />
+			<forward name="failure" path="/Main.php?do=modulesInstallList" redirect="true"/>
+			<forward name="failure-xml" path="/Main.php?do=modulesInstallList&amp;message=phpmvc-xml-error" redirect="true"/>
+		</action>
+
+		<action    path = "modulesInstallDoSetupMessages"
+							 type = "ModulesInstallDoSetupMessagesAction"
+							 name = "modulesInstallDoSetupMessages"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="/Main.php?do=modulesInstallFileCheck" />
+			<forward name="success-step"  path="/Main.php?do=modulesInstallList&amp;message=step-success" redirect="true"/>
+		</action>
+
+		<action    path = "modulesInstallDoFileCheck"
+							 type = "ModulesInstallDoFileCheckAction"
+							 name = "modulesInstallDoFileCheck"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="/Main.php?do=modulesInstallList" />
+		</action>
+
+	</action-mappings>
+<!-- End Section Install -->

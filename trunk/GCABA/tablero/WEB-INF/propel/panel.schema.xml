@@ -1,0 +1,416 @@
+<database defaultIdMethod="native" package="panel.classes" name="application" >
+
+	<table name="panel_guarantee" phpName="Guarantee" description="Base de Garantias">
+
+		<column name="id" description="Identificacion de la garantia" type="INTEGER" required="true" primaryKey="true" autoIncrement="true" />
+		<column name="code" description="Numero o codigo" type="CHAR" size="80" />
+		<column name="type" description="Tipo de garantia" type="INTEGER" />
+		<column name="projectId" description="Id del proyecto" type="INTEGER" />
+		<column name="contractorId" description="Id del contratista" type="INTEGER" />
+		<column name="issuer" description="Emisor" type="CHAR" required="true" size="125" />
+		<column name="currency" description="Moneda" type="INTEGER" />
+		<column name="ammount" description="Monto" type="DECIMAL" size="12" scale="2" />
+		<column name="issueDate" description="Fecha emision" type="DATE" required="true" />
+		<column name="expirationType" description="Tipo de vencimiento" type="INTEGER" />
+		<column name="expirationDate" description="Fecha de vencimiento" type="DATE" />
+		<column name="expirationTerms" description="Terminos de vencimiento" type="CHAR" size="80" />
+		<column name="returned" description="Garantia devuelta" type="BOOLEAN" sqlType="BOOL" />
+
+		<behavior name="soft_delete" />
+
+		<foreign-key foreignTable="projects_project" onDelete="setnull">
+			<reference local="projectId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="panel_contractor" onDelete="setnull">
+			<reference local="contractorId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<!-- Relacion many-to-many de guarantee con documents -->	
+	<table name="panel_guaranteeDocument" phpName="GuaranteeDocument" isCrossRef="true">
+
+		<column name="guaranteeId" type="INTEGER" primaryKey="true"/>
+		<column name="documentId" type="INTEGER" primaryKey="true"/>
+
+		<foreign-key foreignTable="panel_guarantee" onDelete="CASCADE">
+  		<reference local="guaranteeId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="documents_document" onDelete="CASCADE">
+  		<reference local="documentId" foreign="id"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="panel_contractor" phpName="Contractor" description="Base de Contratistas">
+		<column name="id" description="Identificacion del Contratista" type="INTEGER" required="true" primaryKey="true" autoIncrement="true" />
+		<column name="name" description="Nombre" type="CHAR" size="255" />
+		<column name="cuit" description="Nombre" type="CHAR" size="11" />
+		<column name="address" description="Direccion" type="CHAR" size="255" />
+		<column name="phone" description="Direccion" type="CHAR" size="120" />
+		<column name="contact" description="Persona Contacto" type="CHAR" size="120" />
+
+		<behavior name="soft_delete" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="panel_contractorCategory" phpName="ContractorCategory" description="Categorias de Contractistas">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
+		<column name="name" required="true" type="VARCHAR" size="100" description="Name"/>
+		<column name="order" type="INTEGER" size="4" description="Orden"/>
+
+	  <behavior name="nested_set">
+	    <parameter name="use_scope" value="true" />
+	    <parameter name="scope_column" value="scope" />
+	  </behavior>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="panel_contractorCategoryRelation" phpName="ContractorCategoryRelation" isCrossRef="true" description="Relacion Contractistas y Categorias">
+
+		<column name="contractorId" required="true" primaryKey="true" type="INTEGER" size="5" description="Id Contractor"/>
+		<column name="categoryId" required="true" primaryKey="true" type="INTEGER" size="5" description="Category Id"/>
+
+	  <foreign-key foreignTable="panel_contractor" onDelete="CASCADE">
+	    <reference local="contractorId" foreign="id" />
+	  </foreign-key>
+
+	  <foreign-key foreignTable="panel_contractorCategory" onDelete="CASCADE">
+	    <reference local="categoryId" foreign="id" />
+	  </foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="panel_administrativeAct" phpName="AdministrativeAct" description="Base de Actos Administrativos">
+
+		<column name="id" description="Identificacion del Acto Administrativo" type="INTEGER" required="true" primaryKey="true" autoIncrement="true" />
+		<column name="type" description="Tipo de acto" type="INTEGER" />
+		<column name="object" description="Objeto del Acto" type="CHAR" size="120" />
+		<column name="actDate" description="Fecha del acto" type="DATE" required="true" />
+		<column name="description" description="Descripcion del Acto" type="LONGVARCHAR" />
+		<column name="projectId" description="Id del proyecto" type="INTEGER" />
+
+		<behavior name="soft_delete" />
+
+		<foreign-key foreignTable="projects_project" onDelete="setnull">
+			<reference local="projectId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="panel_adminActParticipant" phpName="AdminActParticipant" description="Base de participantes en actos administrativos">
+
+		<column name="id" description="Identificacion del Participante del Acto Administrativo" type="INTEGER" required="true" primaryKey="true" autoIncrement="true" />
+		<column name="adminActId" description="Id del Acto Administrativo" type="INTEGER" required="true" />
+		<column name="objectType" description="Tipo de participante" type="VARCHAR" size="50" required="true" />
+		<column name="objectId" description="Id del participante" type="INTEGER" required="true" />
+
+	  <unique>
+	    <unique-column name="adminActId" />
+	    <unique-column name="objectType" />
+	    <unique-column name="objectId" />
+	  </unique>
+
+		<foreign-key foreignTable="panel_administrativeAct" onDelete="CASCADE">
+			<reference local="adminActId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<!-- Relacion many-to-many de projects con documents -->	
+	<table name="panel_administrativeActDocument" phpName="AdministrativeActDocument" isCrossRef="true">
+
+		<column name="administrativeActId" type="INTEGER" primaryKey="true"/>
+		<column name="documentId" type="INTEGER" primaryKey="true"/>
+
+		<foreign-key foreignTable="panel_administrativeAct" onDelete="CASCADE">
+  		<reference local="administrativeActId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="documents_document" onDelete="CASCADE">
+  		<reference local="documentId" foreign="id"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<!-- Misiones -->
+	<table name="panel_mission" phpName="Mission" description="Base de Misiones">
+
+		<column name="id" description="Identificacion de la Mision" type="INTEGER" required="true" primaryKey="true" autoIncrement="true" />
+		<column name="type" description="Tipo de Mision" type="INTEGER" />
+		<column name="startDate" description="Fecha de la mision" type="DATE" required="true" />
+		<column name="finishDate" description="Fecha de la mision" type="DATE" required="true" />
+		<column name="policyGuidelineId" description="Prestamo asociado" type="INTEGER" />
+		<column name="description" description="Descripcion de la Mision" type="LONGVARCHAR" />
+		<column name="responsible" description="Persona Responsable de la mision" type="CHAR" size="120" />
+
+		<behavior name="soft_delete" />
+
+		<foreign-key foreignTable="objectives_policyGuideline" onDelete="setnull">
+			<reference local="policyGuidelineId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="panel_missionParticipant" phpName="MissionParticipant" description="Base de participantes en misiones">
+
+		<column name="id" description="Identificacion del Participante de la Mision" type="INTEGER" required="true" primaryKey="true" autoIncrement="true" />
+		<column name="missionId" description="Id de la mision" type="INTEGER" required="true" />
+		<column name="objectType" description="Tipo de participante" type="VARCHAR" size="50" required="true" />
+		<column name="objectId" description="Id del participante" type="INTEGER" required="true" />
+
+	  <unique>
+	    <unique-column name="missionId" />
+	    <unique-column name="objectType" />
+	    <unique-column name="objectId" />
+	  </unique>
+
+		<foreign-key foreignTable="panel_mission" onDelete="CASCADE">
+			<reference local="missionId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="panel_missionCommitment" phpName="MissionCommitment" description="Base de Compromisos de Misiones">
+
+		<column name="id" description="Identificacion de Compromiso de la Mision" type="INTEGER" required="true" primaryKey="true" autoIncrement="true" />
+		<column name="missionId" description="Id de la Mision" type="INTEGER" />
+		<column name="participantId" description="Id del participante" type="INTEGER" />
+		<column name="responsible" description="Responsables" type="CHAR" size="255" />
+		<column name="commitment" description="Descripcion del Compromiso" type="LONGVARCHAR" />
+		<column name="achieved" description="Logrado" type="BOOLEAN" sqlType="BOOL" />
+		<column name="date" description="Fecha del compromiso" type="DATE" required="true" />
+
+		<behavior name="soft_delete" />
+
+		<foreign-key foreignTable="panel_mission" onDelete="CASCADE">
+			<reference local="missionId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="panel_missionParticipant">
+			<reference local="participantId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<!-- Relacion many-to-many de mission con documents -->	
+	<table name="panel_missionDocument" phpName="MissionDocument" isCrossRef="true">
+
+		<column name="missionId" type="INTEGER" primaryKey="true"/>
+		<column name="documentId" type="INTEGER" primaryKey="true"/>
+
+		<foreign-key foreignTable="panel_mission" onDelete="CASCADE">
+  		<reference local="missionId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="documents_document" onDelete="CASCADE">
+  		<reference local="documentId" foreign="id"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<!-- Secciones de reportes a BM -->	
+	<table name="panel_reportSection" phpName="ReportSection" description="Seccion de reporte al BM">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
+		<column name="code" required="true" type="INTEGER" description="Codigo de la seccion, usado para poder generar nuevas versiones de la misma seccion, el cual mantiene el code pero genera una nueva version"/>
+		<column name="name" required="true" type="VARCHAR" size="100" description="Name"/>
+		<column name="versionId" required="true" type="INTEGER" description="Version"/>
+		<column name="type" required="true" type="INTEGER" size="5" description="Tipo de seccion del reporte"/>
+		<column name="content" type="LONGVARCHAR" description="Content" sqlType="MEDIUMTEXT" />
+		<column name="enviromentalSupervision" type="LONGVARCHAR" description="Supervision Ambiantal" sqlType="MEDIUMTEXT" />
+		<column name="objectType" type="VARCHAR" size="50" description="Tipo de entidad relacionada."/>
+		<column name="objectId" type="INTEGER" size="5" description="Id de la entidad relacionada."/>
+		<column name="completed" type="BOOLEAN" sqlType="BOOL" description="Completada" />
+		<column name="updated" type="TIMESTAMP"  description="Updated" />
+
+		<unique>
+			<unique-column name="code" />
+			<unique-column name="versionId" />
+		</unique>
+		
+		<foreign-key foreignTable="panel_reportVersion" >
+			<reference local="versionId" foreign="id" />
+		</foreign-key>
+		
+	  	<behavior name="nested_set">
+	    	<parameter name="use_scope" value="true" />
+	    	<parameter name="scope_column" value="versionId" />
+	  	</behavior>
+		
+		<behavior name="soft_delete" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+	</table>
+	
+	<table name="panel_reportVersion" phpName='ReportVersion' description="Versiones de reportes">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
+		<column name="dateFrom" type="TIMESTAMP" description="Fecha de inicio de validez del reporte" />
+		<column name="dateTo" type="TIMESTAMP"  description="Fecha de fin de validez del reporte" />
+		<column name="name" type="VARCHAR" description="Activity Name"/>
+		<column name="description" required="false" type="LONGVARCHAR" description="Descripcion de la version" />
+
+		<behavior name="soft_delete" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+	</table>
+
+	<!-- Relacion many-to-many de secciones de reporte con documents -->	
+	<table name="panel_reportDocument" phpName="ReportSectionDocument" isCrossRef="true">
+		<column name="reportSectionId" type="INTEGER" primaryKey="true"/>
+		<column name="documentId" type="INTEGER" primaryKey="true"/>
+
+		<foreign-key foreignTable="panel_reportSection" onDelete="CASCADE">
+  			<reference local="reportSectionId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="documents_document" onDelete="CASCADE">
+  			<reference local="documentId" foreign="id"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+	</table>
+	
+
+	<table name="panel_notification" phpName="Notification">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
+		<column name="userId" type="INTEGER" description="Id del usuario al que se envio la notificacion." />
+		<column name="type" type="INTEGER" description="Tipo de notificacion."/>
+		<column name="deliveredOn" type="TIMESTAMP" description="Fecha en que fue enviada la notificacion por ultima vez." />
+		<column name="mailBody" type="LONGVARCHAR" description="Cuerpo del mensaje enviado." />
+
+		<foreign-key foreignTable="users_user">
+  			<reference local="userId" foreign="id"/>
+		</foreign-key>
+		
+		<index>
+     		<index-column name="mailBody"/>
+			<vendor type="mysql">
+    			<parameter name="Index_type" value="FULLTEXT"/>
+  			</vendor>
+  		</index>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+	</table>
+	
+	<!-- Marcos de Resultados -->	
+	<table name="panel_resultFrameIndicator" phpName="ResultFrameIndicator" description="Indicador del Marco de Resultados">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
+		<column name="name" required="true" type="VARCHAR" size="100" description="Name"/>
+		<column name="type" required="true" type="INTEGER" size="5" description="Tipo de indicador"/>
+		<column name="useData" description="Utiliza o no datos de indicador" type="BOOLEAN" sqlType="BOOL" />
+		<column name="valueType" type="INTEGER" size="5" description="Tipo de valor del indicador"/>
+		<column name="content" type="LONGVARCHAR" description="Content" sqlType="MEDIUMTEXT" />
+		<column name="objectType" type="VARCHAR" size="50" description="Tipo de entidad relacionada."/>
+		<column name="objectId" type="INTEGER" size="5" description="Id de la entidad relacionada."/>
+		<column name="frequency" required="true" type="INTEGER" size="5" description="Frecuencia"/>
+		<column name="baseValue" type="VARCHAR" size="255" description="Valor base"/>
+		<column name="dataRecolectionInstrument" type="VARCHAR" size="255" description="Instrumento de recoleccion de datos"/>
+		<column name="dataRecolectionResponsible" type="VARCHAR" size="255" description="Encargado de recolectar datos"/>
+		<column name="updated" type="TIMESTAMP"  description="Updated" />
+		
+	  	<behavior name="nested_set" />
+		
+		<behavior name="soft_delete" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+	</table>
+	
+	<table name="panel_resultFrameValue" phpName="ResultFrameValue" description="Valores de los indicadores del Marco de Resultados">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
+		<column name="resultFrameIndicatorId" type="INTEGER" description="Id del indicador del marco de resultados asociado." />
+		<column name="year" type="INTEGER" description="Year"/>
+		<column name="value" type="VARCHAR" size="255" description="Content" />
+		<column name="goal" type="VARCHAR" size="255" description="Content" />
+		<column name="updated" type="TIMESTAMP"  description="Updated" />
+		
+		<foreign-key foreignTable="panel_resultFrameIndicator">
+  			<reference local="resultFrameIndicatorId" foreign="id"/>
+		</foreign-key>
+		
+		<behavior name="soft_delete" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+	</table>
+
+</database>

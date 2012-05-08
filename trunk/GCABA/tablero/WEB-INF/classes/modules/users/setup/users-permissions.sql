@@ -1,0 +1,13 @@
+DELETE FROM `security_module` WHERE `module` = 'users';
+INSERT INTO `security_module` ( `module` , `noCheckLogin` , `access` , `accessAffiliateUser` , `accessRegistrationUser` ) VALUES ('users', '', '3', '0','0');
+DELETE FROM `security_action` WHERE `module` = 'users';
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('usersValidationPasswordX','users','','1073741823','0','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('usersValidationUsernameX','users','','1073741823','0','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('usersPasswordChange','users','','1073741823','0','1','usersPasswordDoChange','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('usersLoginMaintenance','users','','0','0','1','','1','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('usersDoLogout','users','','0','0','1','','1','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('usersPasswordRecoverySendConfirmationRequest','users','','0','0','1','','1','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('usersPasswordDoChangeForRecovery','users','','0','0','1','','1','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('usersPasswordRecoveryConfirmation','users','','0','0','1','','1','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('usersLogin','users','','0','0','1','usersDoLogin','1','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('usersPasswordRecovery','users','','0','0','1','usersPasswordDoRecovery','1','0' );

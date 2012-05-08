@@ -1,0 +1,134 @@
+<database defaultIdMethod="native" package="modules.classes" name="application" >
+
+	<table name="modules_module" phpName='Module' description=" Registro de modulos">
+
+		<column name="name" required="true" primaryKey='true' size="255" type="VARCHAR"  description="nombre del modulo"/>
+		<column name="active" required="true" type="BOOLEAN"  default="0" description="Estado del modulo"/>
+		<column name="alwaysActive" required="true" type="BOOLEAN"  default="0" description="Modulo siempre activo"/>
+		<column name="hasCategories" required="true" type="BOOLEAN"  default="0" description="El Modulo tiene categorias relacionadas?"/>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="modules_dependency" phpName='ModuleDependency' description="Dependencia de modulos ">
+
+		<column size="50" type="VARCHAR" primaryKey='true' name="moduleName" description="Modulo" />
+		<column size="50" type="VARCHAR" primaryKey='true' name="dependence" description="Modulos de los cuales depende" />
+
+		<foreign-key foreignTable="modules_module" onDelete="cascade">
+			<reference local="moduleName" foreign="name"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="modules_label" phpName='ModuleLabel' description="Etiquetas de modulos ">
+
+		<column name="id" type="INTEGER"  required="true" description="Id module label" primaryKey="true" autoIncrement="true"  />
+		<column name="name" required="true" primaryKey='true' size="255" type="VARCHAR"  description="nombre del modulo"/>
+		<column size="255" type="VARCHAR" name="label" description="Etiqueta" />
+		<column size="255" type="VARCHAR" name="description" description="Descripcion del modulo" />
+		<column name="language" type="VARCHAR" size="100" description="idioma de la etiqueta"/>
+
+		<foreign-key foreignTable="modules_module" onDelete="cascade">
+			<reference local="name" foreign="name"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+ </table>
+
+
+	<table name="modules_entity" phpName='ModuleEntity' description="Entidades de modulos ">
+
+		<column name="moduleName" required="true" size="50" type="VARCHAR" description="nombre del modulo"/>
+		<column name="name" required="true" size="50" type="VARCHAR" primaryKey="true" description="Nombre de la entidad"/>
+		<column name="phpName" size="50" type="VARCHAR" description="Nombre de la Clase" />
+		<column name="description" size="255" type="VARCHAR" description="Descripcion de la entidad" />
+		<column name="softDelete" type="BOOLEAN" sqlType="BOOL" description="Indica si usa softdelete" />
+		<column name="relation" type="BOOLEAN" sqlType="BOOL" description="Indica si es una entidad principal o una relacion de dos entidades" />
+		<column name="saveLog" type="BOOLEAN" sqlType="BOOL" description="Indica si guarda log de cambios" />
+		<column name="nestedset" type="BOOLEAN" sqlType="BOOL" description="Indica si es una entidad nestedset" />
+		<column name="scopeFieldUniqueName" size="100" type="VARCHAR" description="Indica el campo que es usado como scope en el nestedset" />
+    <column name="behaviors" type="BLOB" description="Indica los behaviors que tiene la entidad" />
+
+		<foreign-key foreignTable="modules_module">
+			<reference local="moduleName" foreign="name"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="modules_entityField">
+			<reference local="scopeFieldUniqueName" foreign="uniqueName"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="modules_entityField" phpName='ModuleEntityField' description="Campos de las entidades de modulos">
+
+		<column name="uniqueName" required="true" size="100" type="VARCHAR" primaryKey="true" description="Nombre unico del campo"/>
+		<column name="entityName" required="true" size="50" type="VARCHAR" description="Nombre de la entidad"/>
+		<column name="name" required="true" size="50" type="VARCHAR" description="Nombre del campo (max 50 caracteres)"/>
+		<column name="description" size="255" type="VARCHAR" description="Descripcion del campo (comment)" />
+		<column name="isRequired" type="BOOLEAN" sqlType="BOOL" description="Indica si es obligatorio" />
+		<column name="defaultValue" size="255" type="VARCHAR" description="Valor por defecto" />
+		<column name="isPrimaryKey" type="BOOLEAN" sqlType="BOOL" description="Indica si clave primaria" />
+		<column name="isAutoIncrement" type="BOOLEAN" sqlType="BOOL" description="Indica si el campo es autoincremental" />
+		<column name="order" required="true" type="INTEGER" description="Orden" />
+		<column name="type" required="true" type="INTEGER" description="Tipo de campo" />
+		<column name="unique" type="BOOLEAN" sqlType="BOOL" description="Indica si es unica" />
+		<column name="size" type="INTEGER" description="Size del campo" />
+		<column name="aggregateExpression" size="255" type="VARCHAR" description="Detalles de la expresion agregada" />
+		<column name="label" size="255" type="VARCHAR" description="Etiqueta para el formulario" />
+		<column name="formFieldType" type="INTEGER" description="Tipo de campo para formulario" />
+		<column name="formFieldSize" type="INTEGER" description="Size del campo en formulario" />
+		<column name="formFieldLines" type="INTEGER" description="Size del campo en formulario lineas" />
+		<column name="formFieldUseCalendar" sqlType="BOOL" description="Si utiliza o no el calendario en formulario" />
+		<column name="foreignKeyTable" size="50" type="VARCHAR" description="Entidad con la que enlaza la clave remota" />
+		<column name="foreignKeyRemote" size="100" type="VARCHAR" description="Nombre del campo en la tabla remota" />
+    <column name="onDelete" size="30" type="VARCHAR" description="Comportamiento onDelete" />
+    <column name="automatic" type="BOOLEAN" sqlType="BOOL" description="Indica si es una columna autogenerada por un behavior" />
+
+		<foreign-key foreignTable="modules_entity" onDelete="cascade">
+				<reference local="entityName" foreign="name"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="modules_entity" onDelete="setnull">
+				<reference local="foreignKeyTable" foreign="name"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="modules_entityField" onDelete="setnull">
+				<reference local="foreignKeyRemote" foreign="uniqueName"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+ </table>
+ <table name="modules_entityFieldValidation" phpName='ModuleEntityFieldValidation' description="Validaciones de los campos de las entidades de modulos ">
+    <column name="entityFieldUniqueName" required="true" size="100" type="VARCHAR" primaryKey="true" description="Nombre unico del campo" />
+    <column name="name" required="true" size="50" type="VARCHAR" primaryKey="true" description="Nombre del validador"/>
+    <column name="value" size="50" type="VARCHAR" description="Valor del validador" />
+	<column name="message" size="255" type="VARCHAR" description="Mensaje" />
+    <foreign-key foreignTable="modules_entityField" onDelete="cascade">
+        <reference local="entityFieldUniqueName" foreign="uniqueName"/>
+    </foreign-key> 
+ </table>
+
+</database>

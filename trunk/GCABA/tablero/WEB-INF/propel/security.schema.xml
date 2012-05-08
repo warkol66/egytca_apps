@@ -1,0 +1,55 @@
+<database defaultIdMethod="native" package="security.classes" name="application" >
+
+	<table name="security_action" phpName="SecurityAction"  description="Actions del sistema">
+		<column name="action" type="VARCHAR" size="100" description="Action pagina" primaryKey='true' />
+		<column name="module" type="VARCHAR" size="100" description="Modulo" />
+		<column name="section" type="VARCHAR" size="100" description="Seccion"/>
+		<column name="access" type="INTEGER" description="El acceso a ese action" />
+		<column name="accessAffiliateUser" type="INTEGER" description="El acceso a ese action para los usuarios por afiliados" />
+		<column name="accessRegistrationUser" type="INTEGER" description="El acceso a ese action para los usuarios por registracion" />
+		<column name="active" type="INTEGER" description="Si el action esta activo o no" />
+		<column name="pair" type="VARCHAR" size="100" description="Par del Action" />
+		<column name="noCheckLogin" type="BOOLEAN" default="false" description="Si no se chequea login ese action" />
+
+		<foreign-key foreignTable="security_module" >
+			<reference local="module" foreign="module" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="security_module" phpName="SecurityModule"  description="Modulos del sistema">
+
+		<column name="module" type="VARCHAR" size="100" description="Modulo" primaryKey='true'/>
+		<column name="access" type="INTEGER" description="El acceso a ese modulo" />
+		<column name="accessAffiliateUser" type="INTEGER" description="El acceso a ese modulo para los usuarios por afiliados" />
+		<column name="accessRegistrationUser" type="INTEGER" description="El acceso a ese modulo para los usuarios por registracion" />
+		<column name="noCheckLogin" type="BOOLEAN" default="false" description="Si no se chequea login ese modulo" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="security_actionLabel" phpName="SecurityActionLabel"  description="etiquetas de actions de seguridad">
+
+		<column name="id" type="INTEGER"  required="true" description="Id label security" primaryKey="true" autoIncrement="true"  />
+		<column name="action" type="VARCHAR" size="100" description="Action pagina" primaryKey='true' />
+		<column name="language" type="VARCHAR" size="100" description="Idioma de la etiqueta" />
+		<column name="label" type="VARCHAR" size="100" description="Etiqueta"/>
+		<column name="description" type="VARCHAR" size="255" description="Descripcion"/>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>

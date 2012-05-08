@@ -1,0 +1,122 @@
+<!-- Module Positions -->
+	<action-mappings>
+
+		<action    path = "positionsEdit"
+							 type = "PositionsEditAction"
+							 name = "positionsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="PositionsEdit.tpl" />
+		</action>
+
+		<action    path = "positionsDoEdit"
+							 type = "PositionsDoEditAction"
+							 name = "positionsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=positionsList&amp;message=ok" redirect="true" />
+			<forward name="successCreate" path="/Main.php?do=positionsEdit&amp;message=ok" redirect="true" />
+			<forward name="failure" path="PositionsEdit.tpl" />
+		</action>
+
+		<action    path = "positionsTenuresDoEdit"
+							 type = "PositionsTenuresDoEditAction"
+							 name = "positionsTenuresDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=positionsEdit&amp;message=ok" redirect="true" />
+			<forward name="failure" path="PositionsEdit.tpl" />
+		</action>
+
+		<action    path = "positionsList"
+							 type = "PositionsListAction"
+							 name = "positionsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="PositionsList.tpl" />
+		</action>
+
+		<action    path = "positionsVersionsEdit"
+							 type = "PositionsVersionsEditAction"
+							 name = "positionsVersionsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="PositionsVersionsEdit.tpl" />
+		</action>
+
+		<action    path = "positionsVersionsDoEdit"
+							 type = "PositionsVersionsDoEditAction"
+							 name = "positionsVersionsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=positionsVersionsList&amp;message=ok" redirect="true" />
+			<forward name="successCreate" path="/Main.php?do=positionsList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="PositionsVersionsEdit.tpl" />
+		</action>
+
+		<action    path = "positionsVersionsList"
+							 type = "PositionsVersionsListAction"
+							 name = "positionsVersionsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="PositionsVersionsList.tpl" />
+		</action>
+		
+		<action    path = "positionsUsersListX"
+							 type = "PositionsUsersListXAction"
+							 name = "positionsUsersListX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="PositionsUsersListXSuccess.tpl" />
+		</action>
+
+		<action    path = "positionsChartView"
+							 type = "PositionsChartViewAction"
+							 name = "positionsChartView"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="PositionsChartView.tpl" />
+		</action>
+
+		<action    path = "positionsDoDelete"
+							 type = "PositionsDoDeleteAction"
+							 name = "positionsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=positionsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "positionsTenuresDoDelete"
+							 type = "PositionsTenuresDoDeleteAction"
+							 name = "positionsTenuresDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=positionsEdit&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "positionsGetAllParentsByPositionX"
+							 type = "PositionsGetAllParentsByPositionXAction"
+							 name = "positionsGetAllParentsByPositionX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="PositionsGetAllParentsByPositionX.tpl" />
+		</action>
+
+		<action    path = "positionsHome"
+							 type = "PositionsHomeAction"
+							 name = "positionsHome"
+							scope = "request"
+					 validate = "true">
+			<forward name="include" path="PositionsHomeInclude.tpl" />
+		</action>
+
+		<action    path = "positionsShow"
+							 type = "PositionsShowAction"
+							 name = "positionsShow"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="PositionsShow.tpl" />
+		</action>
+
+	</action-mappings>
+<!-- Fin Module Positions -->

@@ -1,0 +1,568 @@
+/* CSS   */
+
+* { padding: 0; margin: 0; 
+ font-family: Arial, Helvetica, sans-serif, Geneva;
+ }
+
+body {
+}
+
+/*  LOGIN  -----------------------------------------------*/
+#login { 
+	float:left;
+	display:block;
+	margin:40px auto 0 auto;
+	width:100%;
+	padding:0;
+	text-align:center;
+}
+#loginTop { 
+	width: 361px;
+	height: 115px;
+	padding: 0;
+	margin: 0 auto;
+}
+
+#loginContent { 
+	width: 301px;
+	height: auto;	
+	margin: 0 auto;
+	padding: 15px 0 0 0;
+	text-align:left;
+}
+#loginContent h1{ 
+	font-weight:bold;
+	font-size: 1.4em;
+}
+#loginContent p{ 
+	font-weight:bold;
+	font-size: 1.1em;
+	padding-bottom: 15px;
+}
+
+#loginContent input { 
+	width: 300px;
+	height:20px;
+	margin-bottom:10px;
+	font-size:1.2em;
+}
+
+#ingresar { 
+	width: 93px;
+	height: 48px;
+	display:block;
+	margin: 0 auto 0 auto;
+}
+
+#loginBottom { 
+	width: 361px;
+	height: 130px;	
+	margin: 10px auto 0 auto;
+	padding: 0;
+	vertical-align:bottom;
+}
+
+/*  /LOGIN  -----------------------------------------------*/
+
+#wrapper { 
+	margin: 0 auto;
+	width: 955px;
+	padding: 0 0 0 0; /*  1px necesary to show margin-bottom of footer n FF*/
+}
+#header {
+
+	width: 955px;
+	float: left;
+	height: 108px;
+	margin: 0;
+	padding: 0;
+}
+#header a{
+	width:115px;
+	height: 63px;
+	 float: left;
+	 display:block;
+	 margin: 38px 0 0 8px;
+}
+#header a strong{
+	 display:none;
+}
+
+#leftcolumn { 
+	 width: 150px;
+	float: left;
+	border: none;
+	margin: 0px 5px 5px 5px;
+	padding: 0;
+}
+
+#rightcolumn { 
+	float: right;
+	width: 760px;   /* ie6*/ /*ie7*/ 
+	display: inline;
+	border: none;
+	margin: 0 5px 5px 0;
+	padding: 0px;
+}
+
+#footer { 
+	width: 945px; /* 955px - 5leftBorder - 5px rightBorder*/
+	height: 20px;
+	clear: both;
+	border: none;
+	margin: 0 5px 0px 5px;
+}
+
+#footer p{
+	font-size:1em;
+	text-align:right;
+	padding: 3px 5px 0 0 ;
+}
+
+/* -------------------------------------------------------------------*/ 
+
+/* CONTENIDO   */
+
+/* -------------------------------------------------------------------*/ 
+#rightcolumn h1{
+	font-family:Arial, Helvetica, sans-serif, Geneva;
+	font-size: 1.7em;
+	font-weight:bold;
+	padding-bottom:5px;
+	margin-bottom:15px;
+}
+#rightcolumn h2{
+	font-family:Arial, Helvetica, sans-serif, Geneva;
+	font-size:1.2em;
+	font-weight:normal;
+	margin-bottom: 5px;
+}
+
+#rightcolumn h2 a:link, #rightcolumn h2 a:visited{
+	font-family:Arial, Helvetica, sans-serif, Geneva;
+	font-size: inherit;
+	font-weight:normal;
+	text-decoration:none;
+}
+#rightcolumn h2 a:hover, #rightcolumn h2 a:active{
+	font-family:Arial, Helvetica, sans-serif, Geneva;
+	font-size: inherit;
+	font-weight:normal;
+	text-decoration:underline;	
+}
+
+#rightcolumn p{
+	width: 590px;
+	font-family:Arial, Helvetica, sans-serif, Geneva;
+	font-size: 1.1em; /*NEW, px to em*/
+	margin-bottom: 10px;
+	padding-right: 10px;
+}
+#rightcolumn fieldset p{
+	width: 570px;
+	font-family:Arial, Helvetica, sans-serif, Geneva;
+	font-size: 1.1em; /*NEW, px to em*/
+	padding-top: 10px;
+	padding-bottom: 14px;
+	padding-right: 10px;
+}
+.paragraphEdit {
+	padding-left: 25px;
+}
+
+/* -------------------------------------------------------------------*/ 
+/*  TABLES
+/* -------------------------------------------------------------------*/ 
+.table1{
+	height: 25px;
+	margin:  10px 0 20px 0;
+	font-family:Arial, Helvetica, sans-serif, Geneva;
+}
+
+/* TD with FINAL BUTTON ------------------------------------ */
+.tdButton{
+	height: 45px;
+	text-align:center;
+	vertical-align:middle;
+	padding-bottom:0;
+/*	background-color: */	
+}
+a.tdAgregar:link, 
+a.tdAgregar:visited  {
+	width:auto;
+	display:inline;
+	padding: 5px 15px 3px 15px;
+	margin: 0 0 0 3px;
+	font-size: 1.1em;
+	font-weight:bold;
+	vertical-align: middle;	
+	text-decoration:none;
+}
+
+a.tdAgregar:hover, 
+a.tdAgregar:active  {
+}
+/* /TD with FINAL BUTTON ------------------------------------ */
+
+/*  TD 2 colores -------------------------------------*/
+.line1, .line2 {
+	padding: 3px 10px 3px 10px;
+	}
+
+.line2{
+}
+
+.col1, .col2, .colGeneral{
+	padding: 3px 10px 3px 10px;
+}
+
+
+
+/* BOTONES EDICION   ----------------------------*/
+a.datos:link, a.datos:visited, a.editar:link, a.editar:visited, a.borrar:link, a.borrar:visited {
+	font-weight:bold;
+	text-decoration:underline;
+	padding:1px 3px 1px 3px;
+}
+a.datos:link, a.datos:visited  {
+}
+a.editar:link, a.editar:visited {
+}
+a.borrar:link, a.borrar:visited {
+}
+
+a.datos:hover, a.datos:active,
+a.editar:hover, a.editar:active,
+a.borrar:hover, a.borrar:active {
+	font-weight:bold;
+	text-decoration:underline;
+}
+a.datos:hover, a.datos:active  {
+}
+a.editar:hover, a.editar:active {
+}
+a.borrar:hover, a.borrar:active {
+}
+	
+	
+/*   OTROS LINKS   ------------------------*/
+
+/* posiciona el link de "AGREGAR NUEVA ..." y VOLVER */
+.rightLink{
+	float:right;
+	display:inline;
+	clear:left;
+}
+/* BOTON AGREGAR NUEVA ...  */
+a.agregarNueva:link, a.agregarNueva:visited {
+	height:15px;
+	font-weight:normal;
+	padding: 0 5px 0 20px;
+	margin: 3px;
+}
+
+a.agregarNueva:hover, a.agregarNueva:active {
+}
+/* /BOTON AGREGAR NUEVA ...  */
+
+
+/* BOTON VOLVER  */
+a.volver:link, a.volver:visited {
+	font-size:1.1em;
+	font-weight:normal;
+	padding: 0 5px 0 20px;
+	margin: 3px;
+}
+
+a.volver:hover, a.volver:active {
+	font-size:1.1em;
+}
+/* /BOTON VOLVER  */
+
+
+
+/* BOTON EDITAR ...  */
+a.editarRight:link, a.editarRight:visited {
+	font-weight:normal;
+	padding: 0 5px 0 20px;
+	margin: 3px;
+}
+
+a.editarRight:hover, a.editarRight:active {
+}
+/* /BOTON AGREGAR NUEVA ...  */
+
+
+	
+/* PAGINADO    ----------------------------*/
+.pages{	
+	height: 37px;
+	font-size: 0.9em;
+	text-align:center;
+	vertical-align:middle;
+	font-weight:bold;
+}
+
+a.pageLink:link, a.pageLink:visited {
+	font-weight:normal;
+	text-decoration:underline;
+	margin: 0 2px;
+}
+
+a.pageLink:hover, a.pageLink:active {
+	font-weight:normal;
+	text-decoration:underline;
+	margin: 0 2px;
+}
+
+
+.tdFooter{
+	padding: 5px;
+	text-align:left;
+}
+
+
+
+/* SEARCH   -------------------------------------------*/
+.tdTitSearch{
+	width: 22%;	
+	display:inline;
+	clear:right;
+	font-weight:bold;
+	text-align:left;
+	padding-left: 30px;
+	padding-bottom:10px;
+}
+.tdSearch{
+	width: 95%;
+	height: 35px;	
+	text-align:left;
+	padding: 4px;
+	vertical-align:middle;
+}
+
+/* NEW! */
+#divSearch{
+	width: 80%;
+	float:left;
+	position:relative;
+	margin: 8px 0 0 30px;   /* ie */
+}
+
+.tdSearch input{
+	font-size:1.1em;
+	margin-top: 0;
+}
+.tdSearch img{
+	margin:0;
+}
+
+
+
+a.tdSearchButton:link, 
+a.tdSearchButton:visited  {
+	width:auto;
+	display:inline;
+	padding: 0px 5px;
+	margin: 0 0 0 3px;
+	font-size: 1.1em;
+	font-weight:bold;
+	text-decoration:none;	
+}
+a.tdSearchButton:hover, 
+a.tdSearchButton:active  {
+}
+
+/* -------------------------------------------------------------------*/ 
+
+/* MENU NAVEGACION   */
+
+/* -------------------------------------------------------------------*/ 
+#leftcolumn ul { 
+	margin:0;   /*   styles-ie*/
+	width: 150px;
+}
+
+#leftcolumn li { 
+	margin:0;
+	list-style: none;
+}
+#leftcolumn li a { 
+	width:150px; /* 140px styles-ie6.css*/
+	height:auto;
+	display:block;
+	font-size:1.2em;
+	padding: 4px 0px 4px 0px;
+	padding: 4px 3px 4px 10px;
+	text-align:left;
+	text-decoration:none;
+	list-style-position:outside;
+	vertical-align:top;
+}
+#leftcolumn li a:hover { 
+	width:135px;  /* 140px stylres-ie6.css*/
+	height:auto;
+}
+
+
+li#titDependencias, 
+li#titConfiguracion, 
+li#titAdministracion { 
+	margin:0;
+	padding: 5px;
+	font-size:1.2em;
+	text-transform:uppercase;
+	font-weight:bold;	
+}
+
+.titleMenu { 
+	margin:0;
+	padding: 5px;
+	font-size:1.2em;
+	text-transform:uppercase;
+	font-weight:bold;	
+}
+
+#logoutLink {
+	width: 147px;
+	height: 31px;
+	display: block;
+	margin: 15px 0 0 2px;
+}
+
+
+/*  BOX VARIABLES   ----------------------------------- */
+#boxVariables{
+	width:97%;
+	height:auto;
+	margin: 10px 0 20px 0;
+	padding: 10px;
+
+}
+
+
+#boxVariables ul{
+	padding-left: 10px;
+}
+
+/*  INITIAL UL*/
+#boxVariables ul li{
+	font-weight:bold;
+	font-size: 1.3em;
+	list-style: none;
+	padding-left: 15px;	
+	margin-bottom: 10px;
+	margin-top:5px;
+}
+
+/*FIRST UL */
+#boxVariables ul li ul li{
+	font-weight:bold;
+	font-size: 1em;
+	list-style: none;
+	padding-left: 15px;	
+	margin-bottom: 10px;
+}
+/* SECOND UL */
+#boxVariables ul li ul li ul li{
+	font-weight:normal;
+	text-transform: none;	
+	font-size: 1.0em ; /* 11px/13px = 1.1818em*/
+	list-style: none;
+	padding-left: 15px;		
+	margin-bottom: 0;	
+}
+/* THIRD UL  */
+#boxVariables ul li ul li ul li ul li{
+	font-weight:normal;
+	text-transform: none;		
+	font-size: 1.0em;
+	list-style: none;
+	padding-left: 15px;	
+	margin-bottom: 0;
+}
+
+/* Boton Atributo ------------------*/
+#boxVariables a{
+	font-size: 1em;
+	font-weight:normal;
+	text-transform:none;
+	width:14px;
+	height: 14px;
+	margin: 0 5px;
+	padding: 0 7px 3px 16px;
+	display:inline;
+	clear:left;	
+}
+
+#boxVariables a.atributo:link,
+#boxVariables a.atributo:visited {
+	text-decoration: none;
+}
+#boxVariables a.atributo:hover,
+#boxVariables a.atributo:active {
+	text-decoration:underline;
+}
+
+/* Boton Seccion ------------------*/
+#boxVariables a.seccion:link,
+#boxVariables a.seccion:visited {
+	text-decoration:none;
+}
+#boxVariables a.seccion:hover,
+#boxVariables a.seccion:active {
+	text-decoration:underline;
+}
+
+
+/* Boton ELIMNINAR SECCION ------------------*/
+#boxVariables a.eliminar1:link,
+#boxVariables a.eliminar1:visited {
+	text-decoration:none;
+}
+#boxVariables a.eliminar1:hover,
+#boxVariables a.eliminar1:active {
+	text-decoration:underline;
+}
+
+
+/* Boton ELIMNINAR ATRIBUTO ------------------*/
+#boxVariables a.eliminar2:link,
+#boxVariables a.eliminar2:visited {
+	text-decoration:none;
+}
+#boxVariables a.eliminar2:hover,
+#boxVariables a.eliminar2:active {
+	text-decoration:underline;
+}
+
+.textboxVariables{
+	font-size: 1em;
+	height:12px;
+	padding-left: 5px;
+}
+
+.linksEdicion{
+	clear:left;
+	display:inline;
+}
+
+/*  AGREGADOS -----------------------------------------------*/
+
+
+#projectFilter label{	
+	color:#0066CC;
+	font-weight:bold;
+}
+
+/*  BOTON DE FIELDSET  */
+#fieldsetButton{
+	float:left;
+	display:block;
+	margin: 0 0 0 125px;
+	text-align:left;
+}
+
+fieldset li {
+	margin-left: 35px;
+}

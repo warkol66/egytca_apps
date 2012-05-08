@@ -1,0 +1,300 @@
+<!-- Module Affiliates -->
+	<action-mappings module="Affiliates">
+
+		<action    path = "affiliatesList"
+							 type = "AffiliatesListAction"
+							 name = "affiliatesList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="AffiliatesList.tpl"/>
+		</action>
+
+		<action    path = "affiliatesEdit"
+							 type = "AffiliatesEditAction"
+							 name = "affiliatesEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="AffiliatesEdit.tpl"/>
+		</action>
+
+		<action    path = "affiliatesAddAffiliate"
+							 type = "AffiliatesAddAffiliateAction"
+							 name = "affiliatesAddAffiliate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="AffiliatesAdd.tpl"/>
+		</action>
+
+		<action    path = "affiliatesViewAffiliate"
+							 type = "AffiliatesViewAffiliateAction"
+							 name = "affiliatesViewAffiliate"
+							scope = "request"
+					 validate = "true">
+				<forward name="success" path="AffiliatesView.tpl"/>
+		</action>
+
+		<action    path = "affiliatesDoEdit"
+							 type = "AffiliatesDoEditAction"
+							 name = "affiliatesDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesList&amp;message=edited" redirect="true" />
+			<forward name="failure" path="AffiliatesEdit.tpl"/>
+		</action>
+
+		<action    path = "affiliatesDoEditInfo"
+							 type = "AffiliatesDoEditInfoAction"
+							 name = "affiliatesDoEditInfo"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesList&amp;message=edited" redirect="true" />
+		</action>
+
+		<action    path = "affiliatesDoDelete"
+							 type = "AffiliatesDoDeleteAction"
+							 name = "affiliatesDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesList&amp;message=deleted" redirect="true" />
+			<forward name="failure" path="/Main.php?do=affiliatesList&amp;message=notdeleted" redirect="true" />
+		</action>
+
+		<action    path = "affiliatesDoAddAffiliate"
+							 type = "AffiliatesDoAddAffiliateAction"
+							 name = "affiliatesDoAddAffiliate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesList&amp;message=created" redirect="true" />
+			<forward name="failure" path="AffiliatesAdd.tpl"/>
+		</action>
+
+<!-- Section Branches -->
+
+		<action    path = "affiliatesBranchsEdit"
+							 type = "AffiliatesBranchsEditAction"
+							 name = "affiliatesBranchsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="AffiliatesBranchsEdit.tpl" />
+		</action>
+
+		<action    path = "affiliatesBranchsDoEdit"
+							 type = "AffiliatesBranchsDoEditAction"
+							 name = "affiliatesBranchsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="Main.php?do=affiliatesBranchsList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="AffiliatesBranchsEdit.tpl" />
+		</action>
+
+		<action    path = "affiliatesBranchsList"
+							 type = "AffiliatesBranchsListAction"
+							 name = "affiliatesBranchsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="AffiliatesBranchsList.tpl" />
+		</action>
+
+		<action    path = "affiliatesBranchsDoDelete"
+							 type = "AffiliatesBranchsDoDeleteAction"
+							 name = "affiliatesBranchsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="Main.php?do=affiliatesBranchsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+<!-- End Section Branches -->
+
+<!-- Section Users -->
+
+		<action      path = "affiliatesUsersList"
+								 type = "AffiliatesUsersListAction"
+								 name = "affiliatesUsersList"
+								scope = "request"
+						 validate = "true">
+				<forward name="success" path="AffiliatesUsersList.tpl"/>
+		</action>
+
+		<action      path = "affiliatesUsersDoEditUser"
+								 type = "AffiliatesUsersDoEditUserAction"
+								 name = "affiliatesUsersDoEditUser"
+								scope = "request"
+						 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersList&amp;message=saved" redirect="true" />
+			<forward name="failure" path="AffiliatesUsersList.tpl" />
+		</action>
+
+		<action      path = "affiliatesUsersDoDelete"
+								 type = "AffiliatesUsersDoDeleteAction"
+								 name = "affiliatesUsersDoDelete"
+								scope = "request"
+						 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersList&amp;message=deleted" redirect="true" />
+		</action>
+
+		<action      path = "affiliatesUsersLogin"
+								 type = "AffiliatesUsersLoginAction"
+								 name = "affiliatesUsersLogin"
+								scope = "request"
+						 validate = "true">
+				<description value="Modulo de ingreso"/>
+				<forward name="success" path="AffiliatesUsersLogin.tpl"/>
+				<forward name="success-unified" path="/Main.php?do=usersLogin" redirect="true"/>
+		</action>
+
+		<action      path = "affiliatesUsersDoLogin"
+								 type = "AffiliatesUsersDoLoginAction"
+								 name = "affiliatesUsersDoLogin"
+								scope = "request"
+						 validate = "true">
+				<description value="Modulo de ingreso"/>
+				<forward name="success" path="AffiliatesUsersWelcome.tpl"/>
+				<forward name="failure-unified" path="UsersLogin.tpl"/>
+				<forward name="failure" path="AffiliatesUsersLogin.tpl"/>
+		</action>
+
+		<action      path = "affiliatesUsersWelcome"
+								 type = "AffiliatesUsersWelcomeAction"
+								 name = "affiliatesUsersWelcome"
+								scope = "request"
+						 validate = "true">
+				<forward name="success" path="AffiliatesUsersWelcome.tpl"/>
+		</action>
+
+		<action      path = "affiliatesUsersDoLogout"
+								 type = "AffiliatesUsersDoLogoutAction"
+								 name = "affiliatesUsersDoLogout"
+								scope = "request"
+						 validate = "true">
+				<forward name="success-unified" path="/Main.php?do=usersLogin" redirect="true" />
+				<forward name="success" path="/Main.php?do=affiliatesUsersLogin" redirect="true" />
+		</action>
+
+		<action    path = "affiliatesUsersDoAddToGroup"
+							 type = "AffiliatesUsersDoAddToGroupAction"
+							 name = "affiliatesUsersDoAddToGroup"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="Main.php?do=affiliatesUsersList" redirect="true" />
+		</action>
+
+		<action    path = "affiliatesUsersDoActivate"
+							 type = "AffiliatesUsersDoActivateAction"
+							 name = "affiliatesUsersDoActivate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersList&amp;message=activated" redirect="true" />
+			<forward name="failure" path="/Main.php?do=affiliatesUsersList&amp;message=notactivated" redirect="true" />
+		</action>
+
+		<action    path = "affiliatesUsersDoRemoveFromGroup"
+							 type = "AffiliatesUsersDoRemoveFromGroupAction"
+							 name = "affiliatesUsersDoRemoveFromGroup"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="Main.php?do=affiliatesUsersList" redirect="true" />
+		</action>
+
+		<action    path = "affiliatesUsersPasswordRecovery"
+							 type = "AffiliatesUsersPasswordRecoveryAction"
+							 name = "affiliatesUsersPasswordRecovery"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="AffiliatesUsersPasswordRecovery.tpl"/>
+		</action>
+
+		<action    path = "affiliatesUsersDoPasswordRecovery"
+							 type = "AffiliatesUsersDoPasswordRecoveryAction"
+							 name = "affiliatesUsersDoPasswordRecovery"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersLogin&amp;message=passwordSent" redirect="true" />
+			<forward name="failure" path="AffiliatesUsersPasswordRecovery.tpl"/>
+		</action>
+
+<!-- Module AffiliatesUsers - Section Levels -->
+
+		<action    path = "affiliatesUsersLevelsList"
+							 type = "AffiliatesUsersLevelsListAction"
+							 name = "affiliatesUsersLevelsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="AffiliatesUsersLevelsList.tpl"/>
+		</action>
+
+		<action    path = "affiliatesUsersLevelsDoEdit"
+							 type = "AffiliatesUsersLevelsDoEditAction"
+							 name = "affiliatesUsersLevelsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersLevelsList&amp;message=saved" redirect="true"/>
+			<forward name="blankName" path="/Main.php?do=affiliatesUsersLevelsList&amp;message=blankName" redirect="true"/>
+		</action>
+
+		<action    path = "affiliatesUsersLevelsDoDelete"
+							 type = "AffiliatesUsersLevelsDoDeleteAction"
+							 name = "affiliatesUsersLevelsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersLevelsList&amp;message=deleted" redirect="true" />
+			<forward name="failure" path="/Main.php?do=affiliatesUsersLevelsList&amp;message=notdeleted" redirect="true" />
+		</action>
+
+<!-- End Section - Levels -->
+
+<!-- Module AffiliatesUsers - Section Groups -->
+
+		<action    path = "affiliatesUsersGroupsList"
+							 type = "AffiliatesUsersGroupsListAction"
+							 name = "affiliatesUsersGroupsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="AffiliatesUsersGroupsList.tpl"/>
+		</action>
+
+		<action    path = "affiliatesUsersGroupsDoEdit"
+							 type = "AffiliatesUsersGroupsDoEditAction"
+							 name = "affiliatesUsersGroupsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersGroupsList&amp;message=saved" redirect="true"/>
+			<forward name="blankName" path="/Main.php?do=affiliatesUsersGroupsList&amp;message=blankName" redirect="true"/>
+		</action>
+
+		<action    path = "affiliatesUsersGroupsDoDelete"
+							 type = "AffiliatesUsersGroupsDoDeleteAction"
+							 name = "affiliatesUsersGroupsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersGroupsList&amp;message=deleted" redirect="true" />
+			<forward name="failure" path="/Main.php?do=affiliatesUsersGroupsList&amp;message=notdeleted" redirect="true" />
+		</action>
+
+		<action    path = "affiliatesUsersGroupsDoAddCategory"
+							 type = "AffiliatesUsersGroupsDoAddCategoryAction"
+							 name = "affiliatesUsersGroupsDoAddCategory"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersGroupsList" redirect="true" />
+		</action>
+
+		<action    path = "affiliatesUsersGroupsDoRemCategory"
+							 type = "AffiliatesUsersGroupsDoRemCategoryAction"
+							 name = "affiliatesUsersGroupsDoRemCategory"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersGroupsList" redirect="true" />
+		</action>
+
+		<action    path = "affiliatesUsersValidationUsernameX"
+							 type = "AffiliatesUsersValidationUsernameXAction"
+							 name = "affiliatesUsersValidationUsernameX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="AffiliatesUsersValidationUsername.tpl" />
+		</action>
+
+	</action-mappings>
+<!-- End Section - Groups -->
+
+<!-- End Module Affiliates -->

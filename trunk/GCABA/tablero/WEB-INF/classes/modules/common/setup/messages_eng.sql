@@ -1,0 +1,10 @@
+DELETE FROM `actionLogs_label` WHERE `action` LIKE 'Common%' AND `language` = 'eng';
+OPTIMIZE TABLE `actionLogs_label`;
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'CommonDoLogin', 'Users logged in sucessfully','eng','successUser');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'CommonDoLogin', 'User first login sucessfully','eng','successUserFirstLogin');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'CommonDoLogin', 'Error','eng','failure');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'CommonDoLogin', 'Failure, missing data','eng','failureMissingData');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'CommonDoLogin', 'Users logged in sucessfully','eng','successAffiliateUsers');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'CommonDoLogin', 'User redirected','eng','failureRedirectUserLogin');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'CommonDoLogout', 'User logout','eng','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'CommonActionLogsDoPurge', 'Action logs purged sucessfully','eng','success');

@@ -1,0 +1,9 @@
+@media print {
+	.printHidden {
+		display: none;
+	}
+}
+body {
+	background-color: #ffffff;
+	background-image: none;
+}

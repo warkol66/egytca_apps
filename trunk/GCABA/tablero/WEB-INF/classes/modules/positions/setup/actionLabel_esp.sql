@@ -1,0 +1,13 @@
+DELETE FROM `security_actionLabel` WHERE `action` LIKE 'Positions%' AND `language` = 'esp';
+OPTIMIZE TABLE `security_actionLabel`;
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsEdit', 'Modificar cargo', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsVersionsEdit', 'Modificar las versiones', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsList', 'Ver listado de cargos y dependencias', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsTenuresDoDelete', 'Eliminar responsable a cargo de una posición', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsDoDelete', 'Eliminar cargo o dependencia', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsUsersListX', 'Obtener listado de usuarios del autocompletar', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsVersionsList', 'Ver listado de versiones', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsGetAllParentsByPositionX', 'Obtener lso posibles padres por tipo de posición', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsShow', 'Miestra los objetivos de las dependencias o cargos', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsChartView', 'Muestra el organigrama gráfico', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('PositionsTenuresDoEdit', 'Modificación de un responsable a cargo', 'esp');

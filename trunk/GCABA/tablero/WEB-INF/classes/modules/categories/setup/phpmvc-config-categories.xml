@@ -1,0 +1,14 @@
+<!-- Module Categories -->
+	<action-mappings module="Categories">
+
+		<action    path = "categoriesDoEditX"
+							 type = "CategoriesDoEditXAction"
+							 name = "categoriesDoEditX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="CategoriesIncludeRow.tpl" />
+			<forward name="failure" path="CategoriesEdit.tpl" />
+		</action>
+
+	</action-mappings>
+<!-- End Categories -->

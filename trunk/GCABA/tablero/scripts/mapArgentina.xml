@@ -1,0 +1,50 @@
+<map 
+	borderColor='FFFFFF' 
+	connectorColor='000000' 
+	fillAlpha='70' 
+	hoverColor='FFFFFF' 
+	showBevel='1' 
+	useSNameInLabels='0'
+	showCanvasBorder='0'
+	baseFont='Verdana'
+	showLegend='0'
+	toolTipSepChar = ': '
+	hoverOnEmpty = '0'
+	bgColor = 'cdecff'
+	reverseLegend = '1'
+	legendCaption = "Accidentes por Km recorrido en rutas"
+	>
+	<colorRange>
+		<color minValue='0' maxValue='40' displayValue='Sin Información' color='9bd6fb' />
+    <color minValue='50' maxValue='60' displayValue='Crítica' color='ff0000' />
+  	<color minValue='60' maxValue='70' displayValue='Bajo Riezgo' color='ffc382' />
+    <color minValue='70' maxValue='80' displayValue='Riezgo Medio' color='f4ff40' />
+  	<color minValue='80' maxValue='90' displayValue='Bajo Riezgo' color='c2fd9b' />
+  	<color minValue='90' maxValue='100' displayValue='Ideal' color='0fd100' />
+	</colorRange>
+	<data>
+		<entity id="01" displayValue="Buenos Aires" value="80" toolText=""/>
+		<entity id="02" displayValue="Catamarca" value="60" toolText="Situción bajo riezgo"/>
+		<entity id="03" displayValue="Chaco" value="50" toolText="Situción Riezgo"/>
+		<entity id="04" displayValue="Chubut" value="80" toolText=""/>
+		<entity id="05" displayValue="Córdoba" value="50" toolText="Situción Crítica"/>
+		<entity id="06" displayValue="Corrientes" value="95" 	showToolTip='0' />
+		<entity id="07" displayValue="C.A.B.A" value="70" toolText=""/>
+		<entity id="08" displayValue="Entre Ríos" value="30" toolText="Situción Riezgo"/>
+		<entity id="09" displayValue="Formosa" value="20" toolText=""/>
+		<entity id="10" displayValue="Jujuy" value="80" toolText="Situción Baja criticidad"/>
+		<entity id="11" displayValue="La Pampa" value="10" toolText=""/>
+		<entity id="12" displayValue="La Rioja" value="40" toolText="Situción Bajo Riezgo"/>
+		<entity id="13" displayValue="Mendoza" value="60" toolText="Situción Alto Riezgo"/>
+		<entity id="14" displayValue="Misiones" value="90" toolText="Situción Riezgo Medio"/>
+		<entity id="15" displayValue="Neuquén" value="40" toolText="Situción Crítica"/>
+		<entity id="16" displayValue="Rio Negro" value="30" toolText=""/>
+		<entity id="17" displayValue="Salta" value="70" toolText=""/>
+		<entity id="18" displayValue="San Juan" value="90" toolText=""/>
+		<entity id="19" displayValue="San Luis" value="60" toolText=""/>
+		<entity id="20" displayValue="Santa Cruz" value="70" toolText=""/>
+		<entity id="21" displayValue="Santa Fe" value="90" toolText=" "/>
+		<entity id="22" displayValue="Santiago del Estero" value="100" toolText=""/>
+		<entity id="23" displayValue="Tierra del Fuego" value="20" toolText=""/>
+		<entity id="24" displayValue="Tucumán" value="60" toolText=""/>	</data>
+</map>
