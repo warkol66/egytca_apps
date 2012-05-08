@@ -43,6 +43,7 @@ border: none !Important;
 |-block name=jsIncludes-|
 	|-include file='TemplateJsIncludes.jquery.tpl'-|
 |-/block-|
+<script type="text/javascript" src="scripts/jquery/jquery.ui.datepicker-es.js"></script>
 	<script src="scripts/fisheye.js"></script>
 		<script type="text/javascript">
 			$(function(){
@@ -52,10 +53,11 @@ border: none !Important;
 
 				// Datepicker
 				$('#datepicker').datepicker({
-					inline: true
+						dateFormat: 'dd-mm-yy',
+						inline: true
 				});
 
-				//hover states on the static widgets
+			//hover states on the static widgets
 				$('#dialog_link, ul#icons li').hover(
 					function() { $(this).addClass('ui-state-hover'); },
 					function() { $(this).removeClass('ui-state-hover'); }
@@ -146,7 +148,7 @@ border: none !Important;
                     </li>
 
                     <li class="buttonCC"><input name="filters[campaigncommitment]" type="checkbox" value="1"  onClick="this.form.submit();" |-$filters.campaigncommitment|checked_bool-|/><a href="#"></a></li>
-                    <li class="pickDate"><span>Fecha:</span><br /><input type="text" name="filters[selectedDate]" id="datepicker" size="10" maxlength="10" ><a href="javascript:document.filters.submit();" class="dateGo">Ir</a>
+                    <li class="pickDate"><span>Fecha:</span><br /><input type="text" name="filters[selectedDate]" id="datepicker" size="10" maxlength="10" style="position:relative;z-index: 100000;" ><a href="javascript:document.filters.submit();" class="dateGo">Ir</a>
                     
                 </ul> </form>                                                           
      	</div><!-- /boxNav1 -->
