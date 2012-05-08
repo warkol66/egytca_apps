@@ -233,6 +233,7 @@
   padding: 7px 7px 8px;
   margin: 0;
   list-style: none;
+	color: #000; /*Agregado por el fancybox, no se veian las opciones del select*/
 }
 .chzn-container .chzn-results .active-result {
   cursor: pointer;
