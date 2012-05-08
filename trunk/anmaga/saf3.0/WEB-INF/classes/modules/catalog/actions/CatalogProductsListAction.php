@@ -36,8 +36,10 @@ class CatalogProductsListAction extends BaseAction {
 			$products = $productPeer->getAll();
 			$smarty->assign("products",$products);
 			$this->template->template = "TemplateCsv.tpl";	
+
 			header("content-disposition: attachment; filename=products.csv");
 			header("Content-type: text/csv; charset=UTF-8");			
+			echo "\xEF\xBB\xBF"; // UTF-8 BOM
 			return $mapping->findForwardConfig('csv');
 		}
     $pager = $productPeer->getAllPaginatedFiltered($_GET["page"]);

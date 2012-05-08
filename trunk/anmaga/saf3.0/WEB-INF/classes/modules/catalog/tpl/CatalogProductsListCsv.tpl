@@ -1,5 +1,3 @@
 #Header Código;Nombre;Descripción;Precio;Categoría;Unidad;Unidad de Medida
-|-foreach from=$products item=node name=for_products-||-assign var=product value=$node->getInfo()-||-assign var=parentNode value=$node->getParentNode()-||-assign var=unit value=$product->getUnit()-||-assign var=measureUnit value=$product->getMeasureUnit()-|
-|-$product->getcode()-|;|-$node->getname()-|;|-$product->getdescription()|strip-|;|-$product->getprice()|system_numeric_format-|;|-if $parentNode-||-$parentNode->getName()-||-/if-|;|-if $unit-||-$unit->getName()-||-/if-|;|-if $measureUnit-||-$measureUnit->getName()-||-/if-|
-
+|-foreach from=$products item=product name=for_products-||-assign var=unit value=$product->getUnit()-||-assign var=measureUnit value=$product->getMeasureUnit()-|'|-$product->getcode()-|';'|-$product->getname()-|';'|-$product->getdescription()|strip-|';|-$product->getPrice()|system_numeric_format-|;'|-assign var=categories value=$product->getCategorys()-||-foreach from=$categories item=category name=for_categories-||-if $category-||-if !$category@first-| / |-/if-||-$category->getName()-||-/if-||-/foreach-|';'|-if $unit-||-$unit->getName()-||-/if-|';'|-if $measureUnit-||-$measureUnit->getName()-||-/if-|'
 |-/foreach-|
