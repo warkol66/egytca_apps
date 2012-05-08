@@ -7,6 +7,7 @@
 <link type="text/css" href="css/jquery-ui-timepicker-addon.css" rel="Stylesheet" />
 <script type="text/javascript" src="scripts/jquery/jquery-ui-timepicker-addon.js"></script>
 <script type="text/javascript" src="scripts/jquery/jquery.ui.datepicker-es.js"></script>
+<script type="text/javascript" src="scripts/jquery/jquery.ui.timepicker-es.js"></script>
 <script type="text/javascript" src="scripts/jquery/jquery-ui-sliderAccess.js"></script>
 <script type="text/javascript" src="scripts/jquery/jquery.ui.touch-punch.min.js"></script>
 <script type="text/javascript">

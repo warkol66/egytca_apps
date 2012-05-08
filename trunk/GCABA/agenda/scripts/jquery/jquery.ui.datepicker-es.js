@@ -21,17 +21,5 @@ jQuery(function($){
 		yearSuffix: ''};
 	$.datepicker.setDefaults($.datepicker.regional['es']);
 
-	$.timepicker.regional['es'] = {
-		timeOnlyTitle: 'Seleccione hora',
-		timeText: 'Hora',
-		hourText: 'Hora',
-		minuteText: 'Minuto',
-		secondText: 'Segundo',
-		millisecText: 'milisegundo',
-		currentText: 'Ahora',
-		closeText: 'Cerrar',
-		ampm: false};
-	$.timepicker.setDefaults($.timepicker.regional['es']);
-
 });
 
