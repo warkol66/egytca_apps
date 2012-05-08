@@ -1,0 +1,30 @@
+/* CSS Document */
+
+.menuTop {
+	margin-left: 0px; 
+}
+#content li{
+	margin: 10px 0px 0px 15px;
+}
+#rightcolumn {
+	width: 150px; 
+}
+#content {
+	margin: 5px 0px 5px 5px;
+}
+#content #newsMiddle li{
+	list-style-type: square;
+	margin:5px 0px 0px 15px;
+}
+/* Hack para margen negativo */
+#documentsShow label {
+	position: relative;
+	display: inline-block;
+}
+img {
+/*	behavior: url(iepngfix/iepngfix.htc); */
+}
+fieldset input {
+	position:relative;
+	top:-0.35em;
+}

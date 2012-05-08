@@ -1,0 +1,1 @@
+|-include file="CommonWelcome.tpl"-|

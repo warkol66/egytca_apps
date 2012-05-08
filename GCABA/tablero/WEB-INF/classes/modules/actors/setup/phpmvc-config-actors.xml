@@ -1,0 +1,114 @@
+<!-- Module Actors -->
+
+	<action-mappings>
+		<action    path = "actorsEdit"
+							 type = "ActorsEditAction"
+							 name = "actorsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ActorsEdit.tpl" />
+		</action>
+
+		<action    path = "actorsDoEdit"
+							 type = "ActorsDoEditAction"
+							 name = "actorsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=actorsList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="/Main.php?do=actorsEdit" redirect="true"/>
+		</action>
+
+		<action    path = "actorsList"
+							 type = "ActorsListAction"
+							 name = "actorsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ActorsList.tpl" />
+		</action>
+
+		<action    path = "actorsAutocompleteListX"
+							 type = "ActorsAutocompleteListXAction"
+							 name = "actorsAutocompleteListX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ActorsAutocompleteListXSuccess.tpl" />
+		</action>
+
+		<action    path = "actorsDoDelete"
+							 type = "ActorsDoDeleteAction"
+							 name = "actorsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=actorsList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "actorsEditX"
+							 type = "ActorsEditXAction"
+							 name = "actorsEditX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ActorsEditX.tpl" />
+		</action>
+
+		<action    path = "actorsDoEditX"
+							 type = "ActorsDoEditXAction"
+							 name = "actorsDoEditX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ActorsDoEditX.tpl" />
+		</action>
+
+		<action    path = "actorsCategoryEdit"
+							 type = "ActorsCategoryEditAction"
+							 name = "actorsCategoryEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ActorsCategoryEdit.tpl" />
+		</action>
+
+		<action    path = "actorsCategoryDoEdit"
+							 type = "ActorsCategoryDoEditAction"
+							 name = "actorsCategoryDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=actorsCategoryList&amp;message=ok" redirect="true" />
+			<forward name="failure" path="ActorsCategoryEdit.tpl" />
+		</action>
+
+		<action    path = "actorsCategoryList"
+							 type = "ActorsCategoryListAction"
+							 name = "actorsCategoryList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ActorsCategoryList.tpl" />
+		</action>
+
+		<action    path = "actorsCategoryDoDelete"
+							 type = "ActorsCategoryDoDeleteAction"
+							 name = "actorsCategoryDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=actorsCategoryList&amp;message=deleted_ok" redirect="true" />
+		</action>
+
+		<action    path = "actorsDoAddCategoryToActorX"
+							 type = "ActorsDoAddCategoryToActorXAction"
+							 name = "actorsDoAddCategoryToActorX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ActorsDoAddCategoryToActorX.tpl" />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+		<action    path = "actorsDoDeleteCategoryFromActorX"
+							 type = "ActorsDoDeleteCategoryFromActorXAction"
+							 name = "actorsDoDeleteCategoryFromActorX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ActorsDoDeleteCategoryFromActorX.tpl"  />
+			<forward name="failure" path="Error.tpl"  />
+		</action>
+
+	</action-mappings>
+
+<!-- Fin Module Actors -->

@@ -1,0 +1,3 @@
+Generar un jpg a partir de un pdf
+
+/usr/bin/gs -q -dNOPAUSE -dBATCH -sDEVICE=jpeg -r72 -dLastPage=1 -sOutputFile=test300.jpg test.pdf

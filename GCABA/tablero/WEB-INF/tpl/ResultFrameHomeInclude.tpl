@@ -1,0 +1,2 @@
+|-module_include entity="ResultFrameIndicator" action="IncludeResultFrameIndicatorView" options="template=ResultFrameHomeViewInclude.tpl"-|
+|-module_include entity="ReportVersion" action="IncludeAll" options="template=PanelReportsVersionsList.tpl"-|

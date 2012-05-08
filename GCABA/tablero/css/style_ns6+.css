@@ -1,0 +1,35 @@
+/*  Correcciones para Mozilla 1.4+/Netscape6+  */
+body,td,input,textarea,.TXTnormal {
+}
+.botonchico {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 0.95em;
+	background: #DCDCDC;
+}
+.botonchico2 {
+	width: 3.70em;
+	height: 1.70em;
+}
+.botonchico3 {
+	width: 5.60em;
+	height: 1.70em;
+}
+.tdSize1 {
+	font-size: 0.80em;
+}
+.tdSize2 {
+	font-size: 0.90em;
+}
+.paginateText {
+	font-size: 0.90em;
+}
+.menuButton {
+	font-size: 0.95em;
+}
+.buttonSmall {
+	font-size: .80em;
+	height: 1.80em;
+}
+.mceExternalToolbar {
+	margin-left: 125px !Important;
+}

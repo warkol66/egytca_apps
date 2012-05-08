@@ -1,0 +1,1615 @@
+/* CSS   */
+* {
+	font-family: Arial, Helvetica, sans-serif, Geneva;
+}
+body,html {
+	background-color:  #dadbdf;
+	background-image: url(../images/bkg-panel-01-1920px.jpg);
+	background-position:top left;
+	background-repeat:no-repeat;
+	background-attachment: fixed;
+}
+body {
+	font-size:62.5%; /* this makes the text sized at 10px */
+}
+/*  LOGIN  -----------------------------------------------*/
+#login { 
+	background-image:url(../images/bkg_login.jpg);
+	background-position: top center;
+	background-repeat:no-repeat;
+}
+#loginTop { /*
+	background-image:url(../images/loginTop.png);
+	background-position: top center;
+	background-repeat:no-repeat;*/
+}
+#loginWrapper{
+	width: 1024px;
+	margin: auto;
+}
+#loginContent, #loginContentMaintenance, #passRecovery { 
+	background-image:url(../images/loginContent.png);
+	background-position: 15px 15px;
+	background-repeat:no-repeat;
+	
+	border-top: solid 1px #FFFFFF;
+	border-right: solid 1px #FFFFFF;	
+	border-bottom: solid 1px #33ccff;
+	border-left: solid 1px #33ccff;	
+	margin: 210px 90% 0px 10%;
+}
+#passRecovery { 
+	background-image:url(../images/passRecovery.png);
+	margin-top: 180px;
+}
+#loginContentMaintenance { 
+	background-image:url(../images/maintenance.png);
+	margin-top: 180px;
+	min-height: 145px;
+}
+#loginContent h1,#passRecovery h1{ 
+	color: #000066;
+}
+#loginContent h2,#passRecovery h2{ 
+	color: #FFFFFF;
+}
+#loginContent p, #passRecovery p{ 
+	color: #000000;
+}
+
+#loginContent input.inputLogin, #passRecovery input.inputLogin { 
+	border: solid 1px #000066;
+}
+
+#loginButton { 
+	background-image:url(../images/buttonImageLogin.png);
+	background-position: top center;
+	background-repeat:no-repeat;
+	color: Navy;
+}
+
+#loginBottom { 
+/*	background-image:url(../images/loginBottom.png);
+	background-position: bottom center;
+	background-repeat: no-repeat;*/
+}
+
+/*  /LOGIN  -----------------------------------------------*/
+
+#wrapper { 
+/*	background-color: #d6d6d6;
+	background-image: url(../images/bkg-2columns.gif);
+	background-position: left 30px;
+	background-repeat: repeat-y;*/
+	width: 98% !Important;
+}
+
+#header {
+/*	background-image: url(../images/headerAdminLogo.png);*/
+	background-position: right 10px;
+	background-repeat: no-repeat;
+	border-bottom: 5px solid #B0BCC2;
+}
+#header a.systemLogo{ /*DEMM*/
+	width:500px;
+	height: 60px;
+	float: left;
+	display: block;
+	margin: 5px 0 0 8px;
+	background-image: url(../images/headerAdminHome.gif);
+	background-repeat: no-repeat;
+}
+#mainMenuH{
+	background: url(../images/bg-nav.png) repeat-x 0 0 #f1f1f1;
+	border-bottom:solid 5px #343434;	
+}
+
+#contentWrapper {
+/*	background-image: url(../images/bkg-leftColumn.png);
+	background-repeat: repeat-y;*/
+	background-color: #d6d6d6 !Important;
+	min-height: 400px;
+}
+#contentCloser { 
+	background-image: url(../images/bkg-2columns.png);
+	background-repeat: repeat-y;
+}
+
+#leftColumn{
+	color: #333;
+	background-image:url(../images/leftcolumn_bottom.png);
+	background-position: left bottom;
+	background-repeat:no-repeat;
+	padding-bottom: 150px;
+	vertical-align:top;
+}
+
+
+#rightColumn {
+/*	background-color: #FFFFFF; */
+	color: #333;
+	width: 97.8%;
+}
+
+#footer { 
+	background-color: #FF9900;
+/*	background-image: url(../images/bkg-leftColumn_footer.png);
+	background-repeat: repeat-y;*/
+}
+
+#footer p{
+	color: #FFF;
+}
+#footer #footerAdmin a{
+	background: url(../images/footerAdmin.png);
+}
+/* /wrapper -----------------------------------------------------------*/ 
+
+/* content -----------------------------------------------------------*/ 
+#rightColumn h1{
+	color:#0054A4;
+	border-bottom: solid 1px #0054A4;
+}
+#rightColumn h2{
+	color:#999;
+}
+#rightColumn h3, h4 {
+	color:#0054A4;
+}
+#rightColumn #clusterConditions h4 {
+	width: 65%;
+	border-top: 1px double #0054A4;
+}
+
+#rightColumn h2 a:link, #rightColumn h2 a:visited{
+	color: #003399;
+}
+#rightColumn h2 a:hover, #rightColumn h2 a:active{
+	color: #0000FF;
+}
+
+
+#rightColumn p{
+	color:#000;
+/*	border-right: solid 1px #CCC;*/  /*New*/
+}
+.paragraphEdit{
+	background-image:url(../images/icon_write.gif);
+	min-height: 30px; /*Ajusto altura mínima acorde al ícono*/
+	background-repeat:no-repeat;
+	background-position:left top;
+}
+
+/* -------------------------------------------------------------------*/ 
+/*  TABLES
+/* -------------------------------------------------------------------*/ 
+.table1{
+	background-color: #999999;
+	color:#000;	
+}
+
+/*.table1*/ th{
+	background-color: #f4f6f3;
+	color: #0054A4;
+}
+
+
+
+/* TD with FINAL BUTTON ------------------------------------ */
+.tdButton{
+	background-color: #f4f6f3;
+}
+
+/*  TD 2 colores -------------------------------------*/
+.line1, .line2 {
+	background-color: #FFF;
+	color:#000;
+}
+
+.line2{
+	background-color: #F9FAF8;
+}
+
+.col1, .col2, .colGeneral{
+	background-color: #FFF;
+	color:#000;	
+}
+
+
+
+	
+/*   OTROS LINKS   ------------------------*/
+
+/* posiciona el link de "AGREGAR NUEVA ..." y VOLVER */
+.rightLink{
+}
+/* BOTON AGREGAR NUEVA ...  */
+a.agregarNueva:link, a.agregarNueva:visited {
+	background-image:url(../images/icon_more.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+
+a.agregarNueva:hover, a.agregarNueva:active {
+	color:#009900;}
+/* /BOTON AGREGAR NUEVA ...  */
+
+
+/* BOTON VOLVER  */
+a.volver:link, a.volver:visited {
+}
+
+a.volver:hover, a.volver:active {
+	color:#009900;
+}
+/* /BOTON VOLVER  */
+
+/* BOTON EDITAR ...  */
+a.editarRight:link, a.editarRight:visited {
+	background-image: url(../images/icon_editar_small.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+
+a.editarRight:hover, a.editarRight:active {
+	color:#009900;}
+/* /BOTON AGREGAR NUEVA ...  */
+
+
+	
+/* PAGINADO    ----------------------------*/
+.pages{	
+	background-color: #FFF;
+	color:#0054A4;
+}
+
+a.pageLink:link, a.pageLink:visited {
+	color:#666;
+}
+
+a.pageLink:hover, a.pageLink:active {
+	color:#0054A4;
+}
+
+
+.tdFooter{
+	background-color:#eaeee8;
+}
+
+
+
+/* SEARCH   -------------------------------------------*/
+.tdTitSearch{
+	/*width: 22%;*/
+	display:inline;
+	clear:right;
+	font-weight:bold;
+	text-align:right;
+	padding-left: 30px;
+	padding-bottom:10px;
+	/*background-color: #f4f6f3;*/
+	background-image:url(../images/icon_search.gif);
+	background-position:8px 2px;
+	background-repeat:no-repeat;
+	color: #0054A4;
+	text-decoration: none;
+}
+.tdSearch{
+	background-color: #f4f6f3;
+	color: #000000;
+}
+.tdSearch input{
+	color: #333;
+	border: solid 1px #a7a6aa;
+}
+.tdSearch img{
+}
+a.tdTitSearch{
+	display:inline;
+	float: right;
+}
+a.tdSearchButton:link, 
+a.tdSearchButton:visited  {
+	border: solid 1px #a7a6aa;
+	color: #333;
+	background-image:url(../images/bot_bkg.gif);
+	background-position:left top;
+	background-repeat: repeat-x;	
+	background-color:#d2d0c3;
+}
+a.tdSearchButton:hover, 
+a.tdSearchButton:active  {
+	color: #FFFFFF;
+	background-color:#999999;
+	background-image: none;
+}
+
+/* -------------------------------------------------------------------*/ 
+
+/* MENU NAVEGACION   */
+
+/* -------------------------------------------------------------------*/ 
+#leftColumn ul { 
+	background-color: #e7ebf0;
+}
+
+#leftColumn li { 
+	border-bottom: solid 1px #FFF;
+/*	border-top: solid 1px #FFF;	*/
+}
+#leftColumn li.menuLink a { 
+	color: #000000;
+}
+#leftColumn li.menuLink a:hover { 
+	background-color:#d3dbe4;
+	background-image:url(../images/list-image_arrow1.gif);
+	background-position:3px 6px;
+	background-repeat:no-repeat;
+}
+
+.titleMenu { 
+	color: #003399;
+	background-color: #bdcad7;
+	background-image:url(../images/tit1_bkg.gif);
+	background-repeat:repeat-X;
+	background-position: left top;
+	
+	border-top: solid 1px #DBFFFF;
+	border-bottom: solid 1px #4d667f;
+	border-left: none;
+	border-right: none;
+}
+.linkSwitchMenu, .linkSwitchMenu:visited {
+	color: #003399;
+}
+
+#logout{
+	background-image:url(../images/bot_salir.gif);
+	background-position: top left;
+	background-repeat:no-repeat;
+}
+
+/* -------------------------------------------------------------------*/ 
+
+/* MENU IZQUIERDO   */
+
+/* -------------------------------------------------------------------*/ 
+
+div.leftMenu {
+	width: 200px;
+	overflow-x: hidden;
+}
+
+.leftMenu ul { 
+	background-color: #e7ebf0;
+	margin: 0;
+	margin-left: 20px;
+	padding: 0;
+	list-style: none;
+	width:auto;
+}
+
+.leftMenu li { 
+	text-align:center;
+/*	border-top: solid 1px #FFF;	*/
+}
+.leftMenu li.menuLink a { 
+	color: #000000;
+}
+.leftMenu li.menuLink a:hover { 
+	background-color:#d3dbe4;
+	background-image:url(../images/list-image_arrow1.gif);
+	background-position:3px 6px;
+	background-repeat:no-repeat;
+}
+
+
+/*  BOX VARIABLES   ----------------------------------- */
+#boxVariables{
+	background-color: #f4f6f3;
+	color:#000;		
+	border: solid 1px #999;
+}
+
+
+#boxVariables ul{
+}
+
+/*  INITIAL UL*/
+#boxVariables ul li{
+	color:#000;
+	background-image:url(../images/bullet-0.gif);
+	background-position:0 4px;
+	background-repeat:no-repeat;
+}
+
+/*FIRST UL */
+#boxVariables ul li ul li{
+	color:#0054A4;
+	background-image:url(../images/bullet-1.gif);
+	background-position:0 4px;
+	background-repeat:no-repeat;
+}
+
+/* SECOND UL */
+#boxVariables ul li ul li ul li{
+	color:#000;
+	background-image:url(../images/bullet-2.gif);
+	background-position:0 4px;
+	background-repeat:no-repeat;
+}
+/* THIRD UL  */
+#boxVariables ul li ul li ul li ul li{
+	color:#000;
+	background-image:url(../images/bullet-1.gif);
+	background-position:0 4px;
+	background-repeat:no-repeat;
+}
+
+/* Boton Atributo ------------------*/
+#boxVariables a{
+}
+
+#boxVariables a.atributo:link,
+#boxVariables a.atributo:visited {
+	background-image:url(../images/add-comment-blue.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+#boxVariables a.atributo:hover,
+#boxVariables a.atributo:active {
+}
+
+/* Boton Seccion ------------------*/
+#boxVariables a.seccion:link,
+#boxVariables a.seccion:visited {
+	background-image:url(../images/add-folder-green.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+#boxVariables a.seccion:hover,
+#boxVariables a.seccion:active {
+}
+
+
+/* Boton ELIMNINAR SECCION ------------------*/
+#boxVariables a.eliminar1:link,
+#boxVariables a.eliminar1:visited {
+	color: #FF0000;
+	background-image:url(../images/delete-folder-green.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+#boxVariables a.eliminar1:hover,
+#boxVariables a.eliminar1:active {
+}
+
+
+/* Boton ELIMNINAR ATRIBUTO ------------------*/
+#boxVariables a.eliminar2:link,
+#boxVariables a.eliminar2:visited {
+	color: #FF0000;
+	background-image:url(../images/delete-comment-blue.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+#boxVariables a.eliminar2:hover,
+#boxVariables a.eliminar2:active {
+}
+
+.textboxVariables{
+	border: solid 1px #999;
+}
+
+.linksEdicion{
+}
+
+.flagGreen, .flagYellow, .flagRed, .flagBlue, .flagBlack, .flagWhite {
+	outline: 0 none;
+	cursor: pointer;
+	text-decoration: none;
+	font-weight: bold;
+	width: 35px;
+	height: 35px;
+	/*background: url(../images/indicador-whiteBackGrnd.png) no-repeat;*/
+	background: url(../images/indicador.gif) no-repeat;
+	display: block;
+	float: left;
+	line-height: 36px;
+	vertical-align: middle;
+}
+.flagRed {
+	background-position: 0px 0px;
+}
+.flagYellow {
+	background-position: -35px 0px;
+}
+.flagGreen {
+	background-position: -70px 0px;
+}
+.flagBlue {
+	background-position: -105px 0px;
+}
+.flagWhite {
+	background-position: -140px 0px;
+}
+.flagBlack {
+	background-position: -175px 0px;
+}
+.flagRed:hover {
+	background-position: 0px -35px;
+}
+.flagYellow:hover {
+	background-position: -35px -35px;
+}
+.flagGreen:hover {
+	background-position: -70px -35px;
+}
+.flagBlue:hover {
+	background-position: -105px -35px;
+}
+.flagWhite:hover {
+	background-position: -140px -35px;
+}
+.flagBlack:hover {
+	background-position: -175px -35px;
+}
+.whiteNoDecoration {
+	color: White ;
+	text-decoration: none;
+}
+a.whiteNoDecoration {
+	color: White ;
+	text-decoration: none;
+}
+a.whiteNoDecoration:link {
+	color: White ;
+	text-decoration: none;
+}
+a.whiteNoDecoration:hover {
+	color: White;
+	text-decoration: none;
+}
+a.whiteNoDecoration:hover {
+	color: White;
+	text-decoration: none;
+}
+a.blackNoDecoration:link {
+	color: Black;
+	text-decoration: none;
+}
+a.blackNoDecoration:hover {
+	color: Black;
+	text-decoration: none;
+}
+a.blackNoDecoration:visited {
+	color: Black;
+	text-decoration: none;
+}
+
+
+
+.thresultado {
+	color: #FFFFFF;
+	background-color: #112139;
+}
+.botones {
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+.row_odd {
+	background: #BFD3FF; /* #BFD3FF o #AFC3FE  #FFCBCB*/
+}
+.row_even {
+	background: #D6DBE9; /* #D6DBE9 o #C6CBD9*/
+}
+.tableTdBorders {
+	border-collapse: collapse;
+}
+table.tableTdBorders th {
+	border: 1px solid #A9A9A9;
+	padding: 5px;
+}
+table.tableTdBorders td {
+	border: 1px solid #A9A9A9;
+	padding: 4px;
+	vertical-align: top;
+}
+fieldset table.tableTdBorders tr {
+	background: #FFFFFF;
+}
+
+/*table.tableTdBorders td:first-child { */
+/*	font-weight: bolder;	
+}*/
+.tdBorders {
+	border: 1px solid #112139;
+}
+.tdBorders td {
+	border-top: 1px solid #FFFFFF;
+	border-bottom: 1px solid #000000;
+	padding: 10px;
+}
+
+.mandatory {
+	display: inline;
+	vertical-align: top;
+	color: #FF0000;
+}
+.mandatoryField {
+	background-image: url(../images/mandatory.png);
+	background-repeat: no-repeat;
+	background-position: center 0;
+	height: 10px;
+	width: 10px;
+	padding: 3px;
+}
+
+/* New Styles*/
+.menuButton {
+	color: #112139;
+	background-image: url(../images/menuBullet10_DarkGrey.png);
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-color: #F5F5F5;
+	border: 1px solid #112139;
+}
+a.menuButton:link {
+	color: #112139;
+	background-image: url(../images/menuBullet10_DarkGrey.png);
+	background-color: #F5F5F5;
+}
+a.menuButton:visited {
+	color: #112139;
+	background-image: url(../images/menuBullet10_DarkGrey.png);
+	background-color: #F5F5F5;
+}
+a.menuButton:hover {
+	color: #505050;
+	background-image: url(../images/menuBullet10_DarkGrey_over.png);
+	background-color: #FFFFFF;
+}
+a.menuButton:active {
+	color: #505050;
+	background-image: url(../images/menuBullet10_DarkGrey_over.png);
+	background-color: #F5F5F5;
+}
+.menuSubButton {
+	color: #112139;
+	background-image: url(../images/menuBullet10_DarkGrey.png);
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-color: #F5F5F5;
+}
+a.menuSubButton:link {
+	color: #112139;
+	background-image: url(../images/menuBullet10_DarkGrey.png);
+	background-color: #F5F5F5;
+}
+a.menuSubButton:visited {
+	color: #112139;
+	background-image: url(../images/menuBullet10_DarkGrey.png);
+	background-color: #F5F5F5;
+}
+a.menuSubButton:hover {
+	color: #505050;
+	background-image: url(../images/menuBullet10_DarkGrey_over.png);
+	background-color: #FFFFFF;
+}
+a.menuSubButton:active {
+	color: #505050;
+	background-image: url(../images/menuBullet10_DarkGrey_over.png);
+	background-color: #F5F5F5;
+}
+.menuSection {
+	border: 1px solid #112139;
+}
+.title {
+	color: #112139;
+}
+.backgroundTitle {
+	background: url(../images/tablafondo1.gif);
+	border: 1px solid #999999;
+	color: #112139;
+}
+.underlineTitle {
+	background: url(../images/back_gris_tit.gif);
+	border: #999999 1px solid;
+}
+.buttonCell {
+	background-color: #FFFFFF;
+}
+.dataTitle {
+	background-color: #112139;
+	color: #112139;
+	border: 3px solid #ffffff;
+}
+.button {
+	background: #DCDCDC;
+}
+a.button:active {
+	background-color: #FFFFFF;
+	color: #B22222;
+}
+.tdTitle {
+	background-color: #112139;
+	color: #112139;
+	border: 3px solid #ffffff;
+	background-color: #ffffff;
+}
+.thFillTitle {
+	background-color: #f4f6f3;
+	color: #0054A4;
+}
+.deactivated {
+	color: #999999;
+}
+.tableNoTdBorders {
+	border-collapse: collapse;
+	border: none;
+}
+
+.edit {
+	color: #007D62;
+}
+a.edit:link{
+	color: #007D62;
+}
+a.edit:visited{
+	color: #007D62;
+}
+a.edit:hover{
+	color: #FFFFFF;
+	background-color: #44A08C;
+}
+.delete {
+	color: #CF2600;
+}
+a.delete:link{
+	color: #CF2600;
+}
+a.delete:visited{
+	color: #CF2600;
+}
+a.delete:hover{
+	color: #FFFFFF;
+	background-color: #D54322;
+}
+.data {
+	color: #000000;
+}
+a.data:link{
+	color: #505050;
+}
+a.data:visited{	
+	color: #505050;
+}
+a.data:hover{
+	color: #FFFFFF;
+	background-color: #505050;
+}
+.detail {
+	color: #000066;
+}
+a.detail:link{
+	color: #000066;
+}
+a.detail:visited{
+	color: #000066;
+}
+a.detail:hover{
+	color: #FFFFFF;
+	background-color: #000066;
+}
+fieldset {
+}
+
+/* Image Buttons and Links */
+.buttonImageDelete, .linkImageDelete, .buttonImageEdit, .linkImageEdit, .buttonImageView, .linkImageView,
+.buttonImageAdd, .linkImageAdd, .buttonImageGoTo, .linkImageGoTo, .buttonImageBack, .linkImageBack,
+.buttonImageViewGantt, .linkImageViewGantt, .buttonImageUpload, .linkImageUpload, 
+.buttonImageDownload, .linkImageDownload, .buttonImageInfo, .linkImageInfo, .buttonImageHelp, .linkImageHelp,
+.buttonImageActivate, .linkImageActivate, .buttonImageEmail, .linkImageEmail, .buttonImageSendMultiple, .linkImageSendMultiple,
+.buttonImageHistory, .linkImageHistory, .buttonImageStoreInServer, .linkImageStoreInServer,
+.buttonImageStoreLocal, .linkImageStoreLocal, .buttonImageRestore, .linkImageRestore, .buttonImagePassword, .linkImagePassword,
+.buttonImageRestoreFromServer, .linlImageRestoreFromServer, .buttonImageThumbnail, .linkImageThumbnail,
+.buttonImageWeight, .linkImageWeight, .buttonImageOrder, .linkImageOrder, .buttonImageBudget, .linkImageBudget,
+.buttonImageManufacture, .linkImageManufacture, .buttonImageIndicator, .linkImageIndicator, .buttonImageGraph, .linkImageGraph,
+.buttonFollow, .linkImageFollow, .buttonImagePlus, .linkImagePlus, .buttonImageDetail, .linkImageDetail  {
+	background: url(../images/linkImage_all.png) no-repeat #e3e3e3;
+	/*background: url(../images/linkImage_all.png) no-repeat;*/
+	border: solid 1px #ababab;
+}
+.buttonImageDeleteDisabled, .linkImageDeleteDisabled, .buttonImageEditDisabled, .linkImageEditDisabled,
+.buttonImageDownloadDisabled, .linkImageDownloadDisabled, .buttonImageActivateDisabled, .linkImageActivateDisabled,
+.buttonImageViewDisabled, .linkImageViewDisabled, .buttonImageUploadDisabled, .linkImageUploadDisabled,
+.buttonImageEmailDisabled, .linkImageEmailDisabled, .buttonImageSendMultipleDisabled, .linkImageSendMultipleDisabled,
+.buttonImageAddDisabled, .linkImageAddDisabled, .buttonImageHistoryDisabled, .linkImageHistoryDisabled, .buttonImagePasswordDisabled, .linkImagePasswordDisabled,
+.buttonImageStoreInServerDisabled, .linkImageStoreInServerDisabled, .buttonImageStoreLocalDisabled, .linkImageStoreLocalDisabled,
+.buttonImageRestoreDisabled, .linkImageRestoreDisabled, .buttonImageRestoreFromServerDisabled, .linkImageRestoreFromServerDisabled, .buttonImageInfoDisabled, .linkImageInfoDisabled,
+.buttonImageThumbnailDisabled, .linkImageThumbnailDisabled, .buttonImageWeightDisabled, .linkImageWeightDisabled,
+.buttonImageOrderDisabled, .linkImageOrderDisabled, .buttonImageManufactureDisabled, .linkImageManufactureDisabled,
+.buttonImageIndicatorDisabled, .linkImageIndicatorDisabled, .buttonImageGraphDisabled, .linkImageGraphDisabled, .buttonImageBudgetDisabled, .linkImageBudgetDisabled,
+.buttonImageFollowDisabled, .linkImageFollowDisabled, .buttonImagePlusDisabled, .linkImagePlusDisabled, .buttonImageDetailDisabled, .linkImageDetailDisabled {
+	background: url(../images/linkImage_all_dis.png) no-repeat #e3e3e3;
+	/*background: url(../images/linkImage_all_dis.png) no-repeat; */
+	border: solid 1px #ababab;
+}
+
+.buttonImageEdit, .linkImageEdit, .buttonImageEditDisabled, .linkImageEditDisabled {
+	background-position: 0px 0px;
+}
+.buttonImageDelete, .linkImageDelete, .buttonImageDeleteDisabled, .linkImageDeleteDisabled {
+	background-position: -20px 0px;
+}
+.buttonImageView, .linkImageView, .buttonImageViewDisabled, .linkImageViewDisabled {
+	background-position: -40px 0px;
+}
+.buttonImageUpload, .linkImageUpload, .buttonImageUploadDisabled, .linkImageUploadDisabled{
+	background-position: -60px 0px;
+}
+.buttonImageDownload, .linkImageDownload, .buttonImageDownloadDisabled, .linkImageDownloadDisabled {
+	background-position: -80px 0px;
+}
+.buttonImageAdd, .linkImageAdd, .buttonImageAddDisabled, .linkImageAddDisabled {
+	background-position: -100px 0px;
+}
+.buttonImageInfo, .linkImageInfo, .buttonImageInfoDisabled, .linkImageInfoDisabled {
+	background-position: -120px 0px;
+}
+.buttonImageHelp, .linkImageHelp {
+	background-position: -140px 0px;
+}
+.buttonImageBack, .linkImageBack {
+	background-position: -160px 0px;
+}
+.buttonImageGoTo, .linkImageGoTo {
+	background-position: -180px 0px;
+}
+.buttonImageStoreInServer, .linkImageStoreInServer, .buttonImageStoreInServerDisabled, .linkImageStoreInServerDisabled {
+	background-position: 0px -20px;
+}
+.buttonImageStoreLocal, .linkImageStoreLocal, .buttonImageStoreLocalDisabled, .linkImageStoreLocalDisabled {
+	background-position: -20px -20px;
+}
+.buttonImageRestoreFromServer, .linlImageRestoreFromServer, .buttonImageRestoreFromServerDisabled, .linkImageRestoreFromServerDisabled  {
+	background-position: -40px -20px;
+}
+.buttonImageRestore, .linkImageRestore, .buttonImageRestoreDisabled, .linkImageRestoreDisabled {
+	background-position: -60px -20px;
+}
+.buttonImageEmail, .linkImageEmail, .buttonImageEmailDisabled, .linkImageEmailDisabled {
+	background-position: -80px -20px;
+}
+.buttonImageSendMultiple, .linkImageSendMultiple, .buttonImageSendMultipleDisabled, .linkImageSendMultipleDisabled {
+	background-position: -100px -20px;
+}
+.buttonImageOrder, .linkImageOrder, .buttonImageOrderDisabled, .linkImageOrderDisabled {
+	background-position: -120px -20px;
+}
+.buttonImageWeight, .linkImageWeight, .buttonImageWeightDisabled, .linkImageWeightDisabled {
+	background-position: -140px -20px;
+}
+.buttonImageActivate, .linkImageActivate, .buttonImageActivateDisabled, .linkImageActivateDisabled {
+	background-position: -160px -20px;
+}
+.buttonImageHistory, .linkImageHistory, .buttonImageHistoryDisabled, .linkImageHistoryDisabled  {
+	background-position: -180px -20px;
+}
+.buttonImageThumbnail, .linkImageThumbnail, .buttonImageThumbnailDisabled, .linkImageThumbnailDisabled {
+	background-position: -20px -40px;
+}
+.buttonImageViewGantt, .linkImageViewGantt {
+	background-position: -60px -40px;
+}
+.buttonImageManufacture, .linkImageManufacture, .buttonImageManufactureDisabled, .linkImageManufactureDisabled {
+	background-position: -80px -40px;
+}
+
+/*nuevos Tab.Paraguay*/
+.buttonImageIndicator, .linkImageIndicator, .buttonImageIndicatorDisabled, .linkImageIndicatorDisabled {
+	background-position: -100px -40px;
+}
+.buttonImageTableh3, .linkImageTableh3, .buttonImageTableh3Disabled, .linkImageTableh3Disabled {
+	background-position: -120px -40px;
+}
+.buttonImageNote, .linkImageNote, .buttonImageNoteDisabled, .linkImageNoteDisabled {
+	background-position: -140px -40px;
+}
+.buttonImageDocument, .linkImageDocument, .buttonImageDocumentDisabled, .linkImageDocumentDisabled {
+	background-position: -160px -40px;
+}
+.buttonImageAttach, .linkImageAttach, .buttonImageAttachDisabled, .linkImageAttachDisabled {
+	background-position: -180px -40px;
+}
+.buttonImageGraph, .linkImageGraph, .buttonImageGraphDisabled, .linkImageGraphDisabled {
+	background-position: -0px -60px;
+}
+.buttonFollow, .linkImageFollow, .buttonImageFollowDisabled, .linkImageFollowDisabled {
+	background-position: -20px -60px;
+}
+.buttonImagePlus, .linkImagePlus, .buttonImagePlusDisabled, .linkImagePlusDisabled {
+	background-position: -40px -60px;
+}
+.buttonImageDetail, .linkImageDetail, .buttonImageDetailDisabled, .linkImageDetailDisabled {
+	background-position: -60px -60px;
+}
+.buttonImageBudget, .linkImageBudget, .buttonImageBudgetDisabled, .linkImageBudgetDisabled {
+	background-position: -100px -60px;
+}
+.buttonImagePassword, .linkImagePassword, .buttonImagePasswordDisabled, .linkImagePasswordDisabled {
+	background-position: -80px -60px;
+}
+
+/* Image Buttons and Links */
+.buttonImageDelete:hover, .linkImageDelete:hover, .buttonImageEdit:hover, .linkImageEdit:hover,.buttonImageView:hover, .linkImageView:hover,
+.buttonImageAdd:hover, .linkImageAdd:hover, .buttonImageGoTo:hover, .linkImageGoTo:hover, .buttonImageBack:hover, .linkImageBack:hover,
+.buttonImageViewGantt:hover, .linkImageViewGantt:hover, .buttonImageUpload:hover, .linkImageUpload:hover,  .buttonImagePassword:hover, .linkImagePassword:hover,
+.buttonImageDownload:hover, .linkImageDownload:hover, .buttonImageInfo:hover, .linkImageInfo:hover, .buttonImageHelp:hover, .linkImageHelp:hover,
+.buttonImageActivate:hover, .linkImageActivate:hover, .buttonImageEmail:hover, .linkImageEmail:hover, .buttonImageSendMultiple:hover, .linkImageSendMultiple:hover,
+.buttonImageHistory:hover, .linkImageHistory:hover, .buttonImageStoreInServer:hover, .linkImageStoreInServer:hover,
+.buttonImageStoreLocal:hover, .linkImageStoreLocal:hover, .buttonImageRestore:hover, .linkImageRestore:hover, 
+.buttonImageRestoreFromServer:hover, .linlImageRestoreFromServer:hover, .buttonImageThumbnail:hover, .linkImageThumbnail:hover,
+.buttonImageWeight:hover, .linkImageWeight:hover, .buttonImageOrder:hover, .linkImageOrder:hover, .buttonImageBudget:hover, .linkImageBudget:hover,
+.buttonImageManufacture:hover, .linkImageManufacture:hover, .buttonImageIndicator:hover, .linkImageIndicator:hover, .buttonImageGraph:hover, .linkImageGraph:hover,
+.buttonFollow:hover, .linkImageFollow:hover, .buttonImagePlus:hover, .linkImagePlus:hover, .buttonImageDetail:hover, .linkImageDetail:hover  {
+	background-color: #f1f1f1;
+	border: solid 1px #d3d2d2;
+}
+.buttonImageDeleteDisabled:hover, .linkImageDeleteDisabled:hover, .buttonImageEditDisabled:hover, .linkImageEditDisabled:hover,
+.buttonImageDownloadDisabled:hover, .linkImageDownloadDisabled:hover, .buttonImageActivateDisabled:hover, .linkImageActivateDisabled:hover,
+.buttonImageViewDisabled:hover, .linkImageViewDisabled:hover, .buttonImageUploadDisabled:hover, .linkImageUploadDisabled:hover,
+.buttonImageEmailDisabled:hover, .linkImageEmailDisabled:hover, .buttonImageSendMultipleDisabled:hover, .linkImageSendMultipleDisabled:hover,
+.buttonImageAddDisabled:hover, .linkImageAddDisabled:hover, .buttonImageHistoryDisabled:hover, .linkImageHistoryDisabled:hover,  .buttonImagePasswordDisabled:hover, .linkImagePasswordDisabled:hover,
+.buttonImageStoreInServerDisabled:hover, .linkImageStoreInServerDisabled:hover, .buttonImageStoreLocalDisabled:hover, .linkImageStoreLocalDisabled:hover,
+.buttonImageRestoreDisabled:hover, .linkImageRestoreDisabled:hover, .buttonImageRestoreFromServerDisabled:hover, .linkImageRestoreFromServerDisabled:hover, .buttonImageInfoDisabled:hover, .linkImageInfoDisabled:hover,
+.buttonImageThumbnailDisabled:hover, .linkImageThumbnailDisabled:hover, .buttonImageWeightDisabled:hover, .linkImageWeightDisabled:hover,
+.buttonImageOrderDisabled:hover, .linkImageOrderDisabled:hover, .buttonImageManufactureDisabled:hover, .linkImageManufactureDisabled:hover,
+.buttonImageIndicatorDisabled:hover, .linkImageIndicatorDisabled:hover, .buttonImageGraphDisabled:hover, .linkImageGraphDisabled:hover, .buttonImageBudgetDisabled:hover, .linkImageBudgetDisabled:hover,
+.buttonImageFollowDisabled:hover, .linkImageFollowDisabled:hover,.buttonImagePlusDisabled:hover, .linkImagePlusDisabled:hover,.buttonImageDetailDisabled:hover, .linkImageDetailDisabled {
+	background-color: #f1f1f1;
+	border: solid 1px #d3d2d2;
+}
+.buttonImageViewGantt2 {
+	font-size: 0px !Important;
+	width: 30px;
+	height: 30px;
+	color: #ffffff !Important;
+	background-color: transparent;
+	border: none;
+	outline: 0 none;
+	cursor: pointer;	
+	background: url(../images/bot_graph.png) no-repeat;
+}
+fieldset {  
+background-color: #f7f7f8;
+}
+
+legend {  
+	color:#0054A4
+}
+
+/* LINK AGREGAR NUEVA ...  */
+
+a.addLink:link, a.addLink:visited {
+	color:#0054A4;
+	background-image:url(../images/icon_add.png);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+
+a.addLink:hover, a.addLink:active {
+	color:#009900;
+}
+/* /LINK AGREGAR NUEVA ...  */
+
+a.searchLink:link, a.searchLink:visited {
+	color:#0054A4;
+	background-image: url(../images/icon_search.png);
+	background-position:left top;
+	background-repeat: no-repeat;
+}
+a.searchLink:hover, a.searchLink:active {
+	color:#009900;
+}
+
+#soundsList li, #imagesList li, #videosList li {
+	margin-bottom : 10px;
+}
+
+
+fieldset textarea.readOnly, fieldset input.readOnly {
+	background-color: #f7f7f8;
+	border: none;
+}
+
+/*#header {border-bottom: 5px solid #343434;} */
+#header {border-color:#343434; background-color: #343434; 
+				/*background-image:url(../images/bkg_header.gif);
+				background-position:left top;
+				background-repeat:repeat-x;*/}
+#contentWrapper {border-color:#343434; background-color: #FFFFFF;}
+#footer {border-color:#343434;}
+#wrapper .content {border-color:#343434; background-color: #FFFFFF;}
+.rounded .r1, .rounded .r2, .rounded .r3, .rounded .r4, .rounded .r5, .rounded .r6, .rounded .r7 {
+ border-color: #343434;}
+.rounded .r1, .rounded .r2 {background-color: #343434;}
+.rounded .r3, .rounded .r4, .rounded .r5, .rounded .r6, .rounded .r7 {background-color: #343434;}
+
+a.path_Mark:link, a.path_Mark:visited {
+	color:#0054A4;
+	background-image:url(../images/path_Mark.png);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+
+a.path_Mark:hover, a.path_Mark:active {
+	background-image:url(../images/path_Mark_over.png);
+}
+.path_Mark_current {
+	color:#007c54;
+	background-image:url(../images/path_Mark_current.png);
+	background-position: left top;
+	background-repeat: no-repeat;
+	line-height: 50px;
+}
+.navChain {
+	background-color: #dde5eb;
+	border: 1px solid transparent;
+}
+
+.linkImageEsp {
+	background: url(../images/esp.png) no-repeat center;
+}
+.linkImageEng {
+	background: url(../images/eng.png) no-repeat center;
+}
+
+
+/* BOTON AGREGAR NUEVA ...  */
+a.addNew {
+	height:18px;
+	font-weight: bold;
+	text-decoration: none;
+	background-image:url(../images/icon_more.gif);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+a.addNew:link, a.addNew:visited {
+	padding: 1px 5px 1px 20px;
+	margin: 3px;
+	color: #003399;
+}
+
+a.addNew:hover, a.addNew:active {
+	color:#009900;}
+/* /BOTON AGREGAR NUEVA ...  */
+
+.paginateText a.detail {
+	text-decoration: none;
+}
+
+
+.gaugeGreen, .gaugeYellow, .gaugeRed {
+	outline: 0 none;
+	cursor: pointer;
+	text-decoration: none;
+	font-weight: bold;
+	width: 23px;
+	height: 23px;
+	background: url(../images/gauge.png) no-repeat;
+	display: block;
+	float: left;
+	line-height: 23px;
+	vertical-align: middle;
+}
+.gaugeGreen {
+	background-position: -230px 0px;
+}
+.gaugeYellow {
+	background-position: -115px 0px;
+}
+.gaugeRed {
+	background-position: -23px 0px;
+}
+
+div#dependenciesHome,
+div#rightBlock {
+	display: block;
+	float: left;
+}
+div#dependenciesHome{
+	width:35%;
+/*	min-width: 350px;*/
+}
+div#rightBlock {
+	margin-left: 10px;
+	width: 530px;
+}
+
+
+/*		SOLAPAS*/
+#tabsHome{
+	width:100%;
+	height:36px;
+	font-size:1.2em;
+	margin:0px 0px 0px 0px; /* IE6*/
+}
+#tabsHome ul{
+	width:100%;
+	float:left;
+	display:inline;
+}
+#tabsHome ul li{
+	width:104px;
+	height:30px;		
+	float:left;
+	display:block;
+	text-align:center;	
+	font-weight:bold;
+}
+#tabsHome ul li.activeTab {
+	background:url(../images/tabs.png) 0 0px no-repeat;
+	line-height:3em;				
+}
+#tabsHome ul li.unactiveTab{
+	background:url(../images/tabs.png) -104px 0px no-repeat;
+	line-height:3em;				
+}
+#tabsHome ul li a{
+	width:104px;
+	height:30px;
+	float:left;
+	display:block;
+	line-height:3em;  /*  I6*/
+	color:#333333;
+	text-decoration:none;
+}
+#tabsHome ul li.unactiveTab a:hover{
+	background:url(../images/tabs.png) -208px 0px no-repeat;
+	text-decoration:none;	
+	color:#333333;
+}
+		
+#solapasContent{
+	width:100%;
+	height:459px;
+	font-size:1.2em;
+	margin:0px 0px 0px 0px; /* IE6*/
+	/*//background-color:#00CC00;*/
+}
+
+/*		SOLAPAS LOGS*/
+#tabsLogs{
+	width:100%;
+	height:36px;
+	font-size:1.2em;
+	margin:0px 0px 0px 0px; /* IE6*/
+}
+#tabsLogs ul{
+	width:100%;
+	float:left;
+	display:inline;
+}
+#tabsLogs ul li{
+	width:104px;
+	height:30px;		
+	float:left;
+	display:block;
+	text-align:center;	
+	font-weight:bold;
+	padding-top: 2px;
+}
+#tabsLogs ul li.activeTab {
+	background:url(../images/tabs.png) 0 0px no-repeat;
+	line-height:3em;				
+}
+#tabsLogs ul li.unactiveTab{
+	background:url(../images/tabs.png) -104px 0px no-repeat;
+	line-height:3em;				
+}
+#tabsLogs ul li a{
+	width:104px;
+	height:30px;
+	float:left;
+	display:block;
+	line-height:1em;  /*  I6*/
+	color:#333333;
+	text-decoration:none;
+}
+#tabsLogs ul li.unactiveTab a:hover{
+	background:url(../images/tabs.png) -208px -2px no-repeat;
+	text-decoration:none;	
+	color:#333333;
+}
+
+#header ul li a.home,#header ul li a.password,#header ul li a.mail,#header ul li a.agenda,
+#header ul li a.help,#header ul li a.logout, #header ul li a.admin, #header ul li a.print{
+	background:url(../images/topButtons.png) no-repeat;
+}
+#header ul li a.home{
+	background-position: -29px 0px;
+}
+#header ul li a.home:hover{
+	background-position: -29px -29px;
+}
+#header ul li a.password{
+	background-position: -58px 0px;
+}
+#header ul li a.password:hover{
+	background-position: -58px -29px;
+}
+#header ul li a.mail{
+	background-position: 0px 0px;
+}
+#header ul li a.mail:hover{
+	background-position: 0px -29px;
+}
+#header ul li a.agenda{
+	background-position: -87px 0px;
+}
+#header ul li a.agenda:hover{
+	background-position: -87px -29px;
+}
+#header ul li a.help{
+	background-position: -116px 0px;
+}
+#header ul li a.help:hover{
+	background-position: -116px -29px;
+}
+#header ul li a.logout{
+	background-position: -145px 0px;
+}
+#header ul li a.logout:hover{
+	background-position: -145px -29px;
+}
+#header ul li a.admin{
+	background-position: -174px 0px;
+}
+#header ul li a.admin:hover{
+	background-position: -174px -29px;
+}
+#header ul li a.print{
+	background-position: -232px 0px;
+}
+#header ul li a.print:hover{
+	background-position: -232px -29px;
+}
+	
+#loginContent { 
+	margin: 210px 90% 0px 10%;
+}
+
+
+
+.gauge0, .gauge10, .gauge20, .gauge30, .gauge40, .gauge50,
+.gauge60, .gauge70, .gauge80, .gauge90, .gauge100 {
+	outline: 0 none;
+	text-decoration: none;
+	font-weight: bold;
+	width: 23px;
+	height: 23px;
+	background: url(../images/gauge.png) no-repeat;
+	display: block;
+	float: left;
+	line-height: 23px;
+	vertical-align: middle;
+}
+.gauge0 {
+	background-position: -0px 0px;
+}
+.gauge10 {
+	background-position: -23px 0px;
+}
+.gauge20 {
+	background-position: -46px 0px;
+}
+.gauge30 {
+	background-position: -69px 0px;
+}
+.gauge40 {
+	background-position: -92px 0px;
+}
+.gauge50 {
+	background-position: -115px 0px;
+}
+.gauge60 {
+	background-position: -138px 0px;
+}
+.gauge70 {
+	background-position: -161px 0px;
+}
+.gauge80 {
+	background-position: -184px 0px;
+}
+.gauge90 {
+	background-position: -207px 0px;
+}
+.gauge100 {
+	background-position: -230px 0px;
+}
+table.tableTdBorders td.noPaddingCell {
+}
+a.tooltip, a.tooltipWide{
+}
+a.tooltip img, a.tooltipWide img{
+}
+a.tooltip:hover,a.tooltipWide:hover {
+} /*BG color is a must for IE6*/
+a.tooltip span,a.tooltipWide span {
+	background:#ffffff; 
+}
+a.tooltipWide span {
+}
+a.tooltip:hover span, a.tooltipWide:hover span{
+	background: #ffffff; 
+	border:1px solid #FF6600; 
+	color: #006699;
+}
+
+
+a.follow {
+	color: #000066;
+	background-image: url(../images/linkImage_all.png);
+	background-repeat: no-repeat;
+	background-position: -180px 0px;
+	padding: 2px 5px 2px 20px;
+}
+a.follow:link,a.follow:visited{
+	color: #000066;
+	text-decoration: none;
+}
+a.follow:hover{
+	color: #FFFFFF;
+	background-color: #000066;
+}
+
+
+.overlayFade{
+	background-color: #cdcdcd;
+	-moz-opacity: 0.5;
+	opacity:.50;
+	filter: alpha(opacity=50);
+}
+.overlayForm {
+	border: 1px solid orange;
+	background-color: white;
+	-khtml-border-radius: 5px;
+	-opera-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+
+}
+
+fieldset input.formError, fieldset select.formError, fieldset textarea.formError {
+	border: 1px solid #8B0000;
+	background-color: #FFDFDF;
+}
+fieldset select.formError option {
+  background-color: #FFFFFF;
+}
+
+table.tableTdBorders td.tdClose {
+	background-color: #FFFFFF;
+	height: 4px;
+	padding:0;
+	margin: 0;
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+}
+table.tableTdBorders td.tdSplit {
+	background-color: #FFFFFF;
+	border-left: none;
+	border-right: none;
+	height: 4px;
+	padding:0;
+	margin: 0;
+}
+
+
+/* Image Buttons and Links */
+.iconActivate, .iconAdd, .iconBack, .iconBudget, .iconDelete, .iconDetail, .iconDownload,
+.iconEdit, .iconEmail, .iconFollow, .iconGoTo, .iconGraph, .iconHelp, .iconHistory, .iconIndicator,
+.iconInfo, .iconManufacture, .iconOrder, .iconPassword, .iconPlus, .iconRestore, .iconRestoreFromServer,
+.iconSendMultiple, .iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload,
+.iconView, .iconViewGantt, .iconWeight {
+	font-size: 0px !Important;
+	width: 20px;
+	height: 20px;
+	color: transparent !Important;
+	border: none;
+	outline: 0 none;
+	cursor: pointer;
+	vertical-align:top;
+}
+input.iconActivate, input.iconAdd, input.iconBack, input.iconBudget, input.iconDelete, input.iconDetail, input.iconDownload,
+input.iconEdit, input.iconEmail, input.iconFollow, input.iconGoTo, input.iconGraph, input.iconHelp, input.iconHistory, input.iconIndicator,
+input.iconInfo, input.iconManufacture, input.iconOrder, input.iconPassword, input.iconPlus, input.iconRestore, input.iconRestoreFromServer,
+input.iconSendMultiple, input.iconStoreInServer, input.iconStoreLocal, input.iconThumbnail, input.iconUpload,
+input.iconView, input.iconViewGantt, input.iconWeight {
+	width: 22px;
+	height: 22px;
+}
+.iconActivate, .iconAdd, .iconBack, .iconBudget, .iconDelete, .iconDetail, .iconDownload,
+.iconEdit, .iconEmail, .iconFollow, .iconGoTo, .iconGraph, .iconHelp, .iconHistory, .iconIndicator,
+.iconInfo, .iconManufacture, .iconOrder, .iconPassword, .iconPlus, .iconRestore, .iconRestoreFromServer,
+.iconSendMultiple, .iconStoreInServer, .iconStoreLocal, .iconThumbnail, .iconUpload,
+.iconView, .iconViewGantt, .iconWeight {
+	background: url(../images/icons_all.png) no-repeat #e3e3e3;
+	border: solid 1px #ababab;
+}
+.disabled {
+	background: url(../images/icons_all_dis.png) no-repeat #e3e3e3;
+	border: solid 1px #ababab;
+}
+.iconEdit {
+	background-position: 0px 0px;
+}
+.iconDelete {
+	background-position: -20px 0px;
+}
+.iconView {
+	background-position: -40px 0px;
+}
+.iconUpload {
+	background-position: -60px 0px;
+}
+.iconDownload {
+	background-position: -80px 0px;
+}
+.iconAdd {
+	background-position: -100px 0px;
+}
+.iconInfo {
+	background-position: -120px 0px;
+}
+.iconHelp {
+	background-position: -140px 0px;
+}
+.iconBack {
+	background-position: -160px 0px;
+}
+.iconGoTo {
+	background-position: -180px 0px;
+}
+.iconStoreInServer {
+	background-position: 0px -20px;
+}
+.iconStoreLocal {
+	background-position: -20px -20px;
+}
+.iconRestoreFromServer {
+	background-position: -40px -20px;
+}
+.iconRestore {
+	background-position: -60px -20px;
+}
+.iconEmail {
+	background-position: -80px -20px;
+}
+.iconSendMultiple {
+	background-position: -100px -20px;
+}
+.iconOrder {
+	background-position: -120px -20px;
+}
+.iconWeight {
+	background-position: -140px -20px;
+}
+.iconActivate {
+	background-position: -160px -20px;
+}
+.iconHistory {
+	background-position: -180px -20px;
+}
+.iconThumbnail {
+	background-position: -20px -40px;
+}
+.iconViewGantt {
+	background-position: -60px -40px;
+}
+.iconManufacture {
+	background-position: -80px -40px;
+}
+.iconIndicator {
+	background-position: -100px -40px;
+}
+.iconTableh3 {
+	background-position: -120px -40px;
+}
+.iconNote {
+	background-position: -140px -40px;
+}
+.iconDocument {
+	background-position: -160px -40px;
+}
+.iconAttach {
+	background-position: -180px -40px;
+}
+.iconGraph {
+	background-position: -0px -60px;
+}
+.iconFollow {
+	background-position: -20px -60px;
+}
+.iconPlus {
+	background-position: -40px -60px;
+}
+.iconDetail {
+	background-position: -60px -60px;
+}
+.iconBudget {
+	background-position: -100px -60px;
+}
+.iconPassword {
+	background-position: -80px -60px;
+}
+.iconActivate:hover, .iconAdd:hover, .iconBack:hover, .iconBudget:hover, .iconDelete:hover, .iconDetail:hover, .iconDownload:hover,
+.iconEdit:hover, .iconEmail:hover, .iconFollow:hover, .iconGoTo:hover, .iconGraph:hover, .iconHelp:hover, .iconHistory:hover, .iconIndicator:hover,
+.iconInfo:hover, .iconManufacture:hover, .iconOrder:hover, .iconPassword:hover, .iconPlus:hover, .iconRestore:hover, .iconRestoreFromServer:hover,
+.iconSendMultiple:hover, .iconStoreInServer:hover, .iconStoreLocal:hover, .iconThumbnail:hover, .iconUpload:hover,
+.iconView:hover, .iconViewGantt:hover, .iconWeight:hover {
+	background-color: #f1f1f1;
+	border: solid 1px #d3d2d2;
+}
+.disabled:hover {
+	background-color: #e3e3e3;
+	border: solid 1px #ababab;
+}
+
+.nestedTable tr.nestedRow1 { background-color: #7DBEFF; }
+.nestedTable tr.nestedRow2 { background-color: #A6D2FF; }
+.nestedTable tr.nestedRow3 { background-color: #C6E2FF; }
+.nestedTable tr.nestedRow4 { }
+
+
+/* BOTON AGREGAR NUEVA ...  */
+a.linkView {
+	height:18px;
+	font-weight: bold;
+	text-decoration: none;
+	background-image:url(../images/icon_view.png);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+a.linkView:link, a.linkView:visited {
+	padding: 1px 5px 1px 20px;
+	margin: 3px;
+	color: #003399;
+}
+
+a.linkView:hover, a.addNew:active {
+	color:#009900;}
+/* /BOTON AGREGAR NUEVA ...  */
+
+
+/* Image Buttons and Links */
+.iconGraphHome {
+	font-size: 0px !Important;
+	width: 110px;
+	height: 60px;
+	color: transparent !Important;
+	border: none;
+	outline: 0 none;
+	cursor: pointer;
+	vertical-align:top;
+}
+input.iconGraphHome {
+	width: 110px;
+	height: 60px;
+}
+.iconGraphHome {
+	background: url(../images/iconGraphHome.png) no-repeat #e3e3e3;
+	border: solid 1px #ababab;
+}
+#navBar {
+	font-size: 108%;
+}
+#navBar a {
+}
+#navBar a:hover {
+}
+#navBar a:visited, #navBar a:link, #navBar a:active {
+	color: #0054a4;
+}

@@ -1,0 +1,55 @@
+<!-- Module Documents -->
+	<action-mappings module="Documents">
+		<action    path = "documentsList"
+							 type = "DocumentsListAction"
+							 name = "documentsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="DocumentsList.tpl"/>
+		</action>
+
+		<action    path = "documentsEdit"
+							 type = "DocumentsEditAction"
+							 name = "documentsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success-edit" path="DocumentsEdit.tpl"/>
+			<forward name="success-upload" path="DocumentsEdit.tpl"/>
+			<forward name="failure-edit" path="/Main.php?do=documentsList&amp;errormessage=wrongPassword" redirect="true"/>
+		</action>
+
+		<action    path = "documentsDoDownload"
+							 type = "DocumentsDoDownloadAction"
+							 name = "documentsDoDownload"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=documentsList" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=documentsList&amp;errormessage=wrongPassword" redirect="true"/>
+
+		</action>
+
+		<action    path = "documentsDoEdit"
+							 type = "DocumentsDoEditAction"
+							 name = "documentsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success-edit" path="/Main.php?do=documentsList" redirect="true"/>
+			<forward name="failure" path="DocumentsEdit.tpl"/>
+			<forward name="success-upload" path="/Main.php?do=documentsList" redirect="true"/>
+			<forward name="failure-upload-password" path="/Main.php?do=documentsEdit&amp;errormessage=wrongPasswordComparison" redirect="true" />
+
+			
+		</action>
+
+		<action    path = "documentsDoDelete"
+							 type = "DocumentsDoDeleteAction"
+							 name = "documentsDoDeleteAction"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=documentsList" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=documentsList&amp;errormessage=wrongPassword" redirect="true" />
+		
+		</action>
+		
+	</action-mappings>
+<!-- End Module Documents -->

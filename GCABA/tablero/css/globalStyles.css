@@ -1,0 +1,130 @@
+/*
+NEW GLOBAL CUSTOM
+*/
+* {
+	padding: 0; 
+	margin: 0; 
+}
+body {
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	vertical-align:top;
+}
+form {
+	display:inline;
+}
+a:active, a:focus, input:active, input:focus {
+	outline: 0 none;
+}
+a img{
+	border: none;
+}
+
+/* ADD   ----------------------------------------------*/
+a.addLink {
+	line-height: 1.4em;
+	vertical-align: middle;
+	display: inline-block;
+}
+a.addLink:link, a.addLink:visited {
+	font-weight: bold;
+	padding: 0 5px 0 20px;
+	margin: 3px;
+	text-decoration: none;
+}
+a.addLink:hover, a.addLink:active {
+	text-decoration: none;
+}
+/* /ADD   ----------------------------------------------*/
+
+/* SEARCH   -------------------------------------------*/
+a.tdTitSearch{
+	display: block;
+	width: 22%;	
+	clear:right;
+	font-weight:bold;
+	text-align:left;
+	padding: 8px 5px 8px 30px;
+}
+.tdSearch{
+	width: 95%;
+	height: 40px;	
+	text-align:left;
+	padding: 4px;
+	vertical-align:middle;
+}
+#divSearch{
+	width: 80%;
+	float:left;
+	position:relative;
+	margin: 8px 0 0 30px;   /* ie */
+}
+.tdSearch input{
+	margin-top: 0;
+}
+.tdSearch img{
+	margin:0;
+}
+a.tdSearchButton:link, 
+a.tdSearchButton:visited  {
+	width:auto;
+	display:inline;
+	padding: 0px 5px;
+	margin: 0 0 0 3px;
+	font-weight:bold;
+	text-decoration:none;	
+}
+a.tdSearchButton:hover, 
+a.tdSearchButton:active  {
+}
+/* /SEARCH   -------------------------------------------*/
+
+/* MAILS   --------------------------------------------*/
+a.linkMailNew,a.linkMailNew:link,
+a.linkMailMarkRead,a.linkMailMarkRead:link,
+a.linkMailMarkUnread,a.linkMailMarkUnread:link,
+a.linkMailReply,a.linkMailReply:link,
+a.linkMailForward,a.linkMailForward:link,
+a.linkMailDelete,a.linkMailDelete:link {
+	line-height: 1.4em;
+	vertical-align: middle;
+	display: inline-block;
+	font-weight: bold;
+	padding: 0 5px 0 20px;
+	margin: 3px;
+	text-decoration: none;
+}
+/* /MAILS   --------------------------------------------*/
+
+/*   TABLES   ------------------------------*/
+/*   OTROS LINKS   ------------------------*/
+
+/* posiciona el link de "AGREGAR NUEVA ..." y VOLVER */
+.rightLink{
+	float:right;
+	display:inline;
+	clear:left;
+}
+/* PAGINADO    ----------------------------*/
+.pages{	
+	height: 37px;
+	text-align:center;
+	vertical-align:middle;
+	font-weight:bold;
+}
+a.pageLink:link, a.pageLink:visited {
+	font-weight:normal;
+	text-decoration:underline;
+	margin: 0 2px;
+}
+a.pageLink:hover, a.pageLink:active {
+	font-weight:normal;
+	text-decoration:underline;
+	margin: 0 2px;
+}
+.tdFooter{
+	padding: 5px;
+	text-align:left;
+}
+/* /PAGINADO    ----------------------------*/
