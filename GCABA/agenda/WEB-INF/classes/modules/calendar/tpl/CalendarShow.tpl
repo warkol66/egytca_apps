@@ -208,6 +208,7 @@
 
 <div style="display:none;"><div id="newEvent">
 	<fieldset><form>
+	<h1>Crear nuevo evento</h1>
 		<p>
 			<label for="calendarEvent_title">Título</label>
 			<input name="calendarEvent[title]" type="text" id="calendarEvent_title" title="title" value="" size="60" maxlength="255" />
