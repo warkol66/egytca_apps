@@ -49,7 +49,7 @@
 		
 		.container_16 .colummSidebar{
 		width:113px;
-		min-height:750px;
+		min-height:720px;
 		border: solid 1px #666666;
 /*		margin-right:0px;*/
 		margin-left:5px;
@@ -57,6 +57,16 @@
 
 /* Navegacion Menu 1
 ---------------------------------------------------------------*/
+	.resetFilter{
+	width:32px;
+	height:32px;
+	display:block;
+	float:right;
+	right:10px;
+	background-image:url(../images/bot_resetFilter.png);
+	margin:5px 10px 0 0;
+	}
+	
 	.boxNav1{
 	width:100%;
 	height:46px; 
@@ -636,13 +646,13 @@
 		
 
 	.pendientesContainer{
-	height:60px;
+	height:72px;
 	display:block;
 	visibility: hidden;
 	padding-bottom:5px;
 	background-color:#FFFFFF;
 	border:solid 2px #999999;
-	margin:0 0 10px 0;}
+	margin:15px 0 10px 0;}
 	
 	.pendientesArrowLeft, .pendientesArrowRight{width:2.5%; float:left; }
 	.pendientesArrowLeft a, .pendientesArrowRight a{line-height:55px;
@@ -654,61 +664,68 @@
 	.pendientesArrowLeft a:active, .pendientesArrowRight a:active{
 	color:#666666;	}	
 	
-	.pendientesContent {width:95%; float:left; height:55px;}
+	.pendientesContent {width:95%; float:left; height:80px; display:block;}
 	
 		.pendientesContent ul{
 		width:100%;
-		height:55px; margin:5px 0;}
+		height:80px; margin:5px 0;}
 			.pendientesContent ul li{
-			width:20%;
-			height:55px;float:left;}
+			width:19%;
+			height:55px;float:left; margin:0 3px;}
 			
 		.pendientesContent .solapita{ 
-		width:15px;
-		height:57px; 
+		display:none;
+/*		width:15px;
+		height:55px; 
 		float:left; 
 		margin:0;
 		display:block;
 		   -webkit-border-radius: 10px 0 0 10px;
 				-moz-border-radius: 10px 0 0 10px;
 				border-radius:10px 0 0 10px;
+				behavior: url(css/ie-pie/PIE.htc);*/}
+		.pendientesContent ul li .pendienteDato {width:73%; margin:0; height:55px; float:left; display:block;
+		padding:5px;
+		  -webkit-border-radius: 10px 0 0 10px;
+				-moz-border-radius: 10px 0 0 10px;
+				border-radius:10px 0 0 10px;
 				behavior: url(css/ie-pie/PIE.htc);}
-		.pendientesContent ul li .pendienteDato {width:75%;margin:0; height:55px; float:left;}
+				
 		.pendientesContent 	.pendienteDato span {font-weight:bold;}	
 		.pendientesContent 	.pendienteBotones{
-			float:left; width:20px; margin:0;	height:57px; 
+			float:right; width:20px; margin:0;	height:55px; padding:5px;
 		   -webkit-border-radius: 0 10px 10px 0;
 				-moz-border-radius:  0 10px 10px 0;
 				border-radius: 0 10px 10px 0;
 				behavior: url(css/ie-pie/PIE.htc);}
 		/*colores */
-		.pendientesContent .amarillo .solapita{background-color:#ffcc00;}
-		.pendientesContent .amarillo .pendienteDato {border:solid 1px #ffcc00;}	
-		.pendientesContent .amarillo .pendienteBotones	{background-color: #ffcc00;}
+		.pendientesContent .amarillo {background-color:#FFFFFF;}
+		.pendientesContent .amarillo .pendienteDato,
+		.pendientesContent .amarillo .pendienteBotones	{background-color: #FFCC00;}
 		
-		.pendientesContent .verde1 .solapita{background-color:#009900;}
-		.pendientesContent .verde1 .pendienteDato {border:solid 1px #009900;}	
-		.pendientesContent .verde1 .pendienteBotones	{background-color: #009900;}
+		.pendientesContent .verde1 { background-color:#FFFFFF}
+		.pendientesContent .verde1 .pendienteDato {background-color:#88d852;}	
+		.pendientesContent .verde1 .pendienteBotones	{background-color: #88d852;}
 		
-		.pendientesContent .verde2 .solapita{background-color:#009999;}
-		.pendientesContent .verde2 .pendienteDato {border:solid 1px #009999;}	
+		.pendientesContent .verde2 {background-color:#FFFFFF;}
+		.pendientesContent .verde2 .pendienteDato,
 		.pendientesContent .verde2 .pendienteBotones	{background-color: #009999;}
 		
-		.pendientesContent .cyan .solapita{background-color:#33ccff;}
-		.pendientesContent .cyan .pendienteDato {border:solid 1px #33ccff;}	
+		.pendientesContent .cyan {background-color:#FFFFFF;}
+		.pendientesContent .cyan .pendienteDato,	
 		.pendientesContent .cyan .pendienteBotones	{background-color: #33ccff;}
 		
-		.pendientesContent .rojo .solapita{background-color:#ff3333;}
-		.pendientesContent .rojo .pendienteDato {border:solid 1px #ff3333;}	
+		.pendientesContent .rojo {background-color:#FFFFFF;}
+		.pendientesContent .rojo .pendienteDato,
 		.pendientesContent .rojo .pendienteBotones	{background-color: #ff3333;}
 		
-		.pendientesContent .naranja .solapita{background-color:#ff9933;}
-		.pendientesContent .naranja .pendienteDato {border:solid 1px #ff9933;}	
+		.pendientesContent .naranja {background-color:#FFFFFF;}
+		.pendientesContent .naranja .pendienteDato,
 		.pendientesContent .naranja .pendienteBotones	{background-color: #ff9933;}	
 		
-		.pendientesContent .naranja .solapita{background-color:#CCC;}
-		.pendientesContent .naranja .pendienteDato {border:solid 1px #CCC;}	
-		.pendientesContent .naranja .pendienteBotones	{background-color: #CCC;}			
+		.pendientesContent .gris {background-color:#FFFFFF;}
+		.pendientesContent .gris .pendienteDato,
+		.pendientesContent .gris .pendienteBotones	{background-color: #CCC;}			
 
 
 			
@@ -873,9 +890,26 @@
 
 /*   FORM PARA NEW EVENT & EDIT EVENT  */
 
-#newEvent, #editEvent {padding:0px; color:#FFFFFF;}
+#newEvent h1, #editEvent h1 {padding:0px; text-transform:uppercase; font-weight:bold; color: #FFFFFF; border-bottom:solid 1px #FFFFFF;}
+
 
 #newEvent .arrangeButtons,
 #editEvent .arrangeButtons {padding-left:150px;}
 
 
+#newEvent, #editEvent {
+	padding: 15px !Important;
+}
+#fancybox-outer, #fancybox-content {
+background-color: #333 !Important;
+border: none !Important;
+}
+#newEvent *, #editEvent * {
+	margin-top: 0.3em !Important;
+}
+#newEvent fieldset, #editEvent fieldset {
+	border:0 !Important;
+}
+#newEvent fieldset label, #editEvent fieldset label{
+	color:#fff !Important;
+}

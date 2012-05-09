@@ -22,24 +22,7 @@
 <script language="JavaScript" type="text/JavaScript">
 	var url="|-$systemUrl-|";
 </script>
-<style type="text/css">
-<!--
-#newEvent, #editEvent {
-	padding: 15px !Important;
 
-}
-#fancybox-outer, #fancybox-content {
-background-color: #333 !Important;
-border: none !Important;
-}
-#newEvent *, #editEvent * {
-	margin-top: 0.3em !Important;
-}
-#newEvent fieldset, #editEvent fieldset {
-	border:0 !Important;
-}
--->
-</style>
 |-block name=jsIncludes-|
 	|-include file='TemplateJsIncludes.jquery.tpl'-|
 |-/block-|
@@ -94,7 +77,9 @@ border: none !Important;
 				<span class="slogan"></span>
 
 			</div><!-- /grid_16 header1 -->
-            <div class="boxNav1"><!-- boxNav1 --><form action='Main.php' method='get' style="display:inline;" name="filters">
+            <div class="boxNav1"><!-- boxNav1 -->
+						<a href="Main.php?do=calendarShow" class="resetFilter" alt="Quitar filtros"></a>
+					<form action='Main.php' method='get' style="display:inline;" name="filters">
 					<input type="hidden" name="do" value="calendarShow" />
                 <ul>
                     <!-- <li class="botSmall"><a href="#" class="menuIcon_01"></a></li>
@@ -103,7 +88,6 @@ border: none !Important;
                     <li class="botSmall"><a href="#" class="menuIcon_04"></a></li>
                     <li class="botSmall"><a href="#" class="menuIcon_05"></a></li>
                     <li class="botSmall"><a href="#" class="menuIcon_06"></a></li>
-                    <li class="botSmall"><a href="Main.php?do=calendarShow" class="menuIcon_06">Quitar</a></li>
                     <li><span>Tipo de evento:</span><br />
                         <select name="filters[kind]" id="kind" style="width: 70px" onChange="this.form.submit();">
                           <option value="">Todos</option>

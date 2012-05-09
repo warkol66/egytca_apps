@@ -7,6 +7,8 @@
 </script>
 <fieldset>
 <form action="|-$action-|" method="|-$method-|" onsubmit="|-$onsubmit|escape-|">
+	<h1>Editar evento</h1>
+
 		<p>
 			<label for="calendarEvent_title">Título</label>
 			<input name="calendarEvent[title]" type="text" id="calendarEvent_title" title="title" value="" size="60" maxlength="255" />
@@ -118,7 +120,7 @@
 			<input name="calendarEvent[campaignCommitment]" type="hidden" value="0">
 			<input name="calendarEvent[campaignCommitment]" type="checkbox" value="1">
 		</p>
-		<p>
+<!--		<p>
 			<label for="calendarEvent_userId">Usuario</label>
 			<select id="calendarEvent_userId" name="calendarEvent[userId]" title="userId">
 				<option value="">Seleccione un Usuario</option>
@@ -126,7 +128,7 @@
 					<option value="|-$object->getid()-|">|-$object->getusername()-|</option>
 				|-/foreach-|
 			</select>
-		</p>
+		</p> -->
 		<input type="hidden" id="calendarEvent_id" name="id" value="" />
 		<p class="arrangeButtons">
 			<input type="button" id="acceptButton" value="Aceptar" onclick="|-$onaccept|escape-|" />
