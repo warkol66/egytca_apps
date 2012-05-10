@@ -52,6 +52,17 @@
 			<td>|-$entity->getName()-|</td>
 			<td>|-$entity->getDate()|date_format:"%d / %m"-|</td>
 			<td nowrap>
+				|-if "calendarHolidayEventEdit"|security_has_access-|
+				<form action="Main.php" method="get">
+					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+					|-if isset($pager) && ($pager->getPage() gt 1)-|
+						<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />
+					|-/if-|
+					<input type="hidden" name="do" value="calendarHolidayEventEdit" />
+					<input type="hidden" name="id" value="|-$entity->getId()-|" />
+					<input type="submit" value="Crear Evento" title="Crear Evento" class="icon iconAdd" onclick="alert('crear evento!'); return false;" />
+				</form>
+				|-/if-|
 				|-if "calendarRegularEventEdit"|security_has_access-|
 				<form action="Main.php" method="get">
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|

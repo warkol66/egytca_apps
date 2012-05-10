@@ -52,9 +52,6 @@ class CalendarEventsEditAction extends BaseAction {
 		
 		if ($calendarEventsConfig['useCategories']['value'] == "YES")
 			$smarty->assign("categories", CategoryQuery::create()->find());
-		
-		$smarty->assign("kinds",CalendarEventQuery::getEventKinds());
-		$smarty->assign("agendas", CalendarEventQuery::getAgendas());
 
 		$smarty->assign("users", UserQuery::create()->find());
 		$smarty->assign('actors', ActorQuery::create()->find());
