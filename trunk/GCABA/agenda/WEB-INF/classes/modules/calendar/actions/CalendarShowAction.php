@@ -26,6 +26,8 @@ class CalendarShowAction extends BaseAction {
 
 		$events = BaseQuery::create('CalendarEvent')->addFilters($filters)->find();
 		$smarty->assign('events', $events);
+		$smarty->assign('holydayEvents', BaseQuery::create('CalendarHolidayEvent')->addFilters($filters)->find());
+		$smarty->assign('contextEvents', BaseQuery::create('CalendarContextEvent')->addFilters($filters)->find());
 
 
 		$moduleConfig = Common::getModuleConfiguration($module);
@@ -33,8 +35,8 @@ class CalendarShowAction extends BaseAction {
 		$calendarEventsConfig = $moduleConfig["calendarEvents"];
 		$smarty->assign("calendarEventsConfig",$calendarEventsConfig);
 
-		$smarty->assign("kinds", CalendarEventQuery::getEventKinds());
-		$smarty->assign("agendas", CalendarEventQuery::getAgendas());
+		$smarty->assign("kinds", CalendarEvent::getEventKinds());
+		$smarty->assign("agendas", CalendarEvent::getAgendas());
 		
 		if ($calendarEventsConfig['useCategories']['value'] == "YES")
 			$smarty->assign("categories", CategoryQuery::create()->find());

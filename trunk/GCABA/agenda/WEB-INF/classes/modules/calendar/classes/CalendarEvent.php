@@ -215,4 +215,38 @@ class CalendarEvent extends BaseCalendarEvent {
 	return $days; 
   }
 
+
+// Constantes
+
+	/**
+	 * Devuelve array con tipos (kinds) de evento
+	 *  id => Tipo de agenda
+	 *
+	 * @return array tipos de agenda
+	 */
+	public static function getEventKinds() {
+		$agendaType = array(
+			1 => 'AAA',
+			2 => 'Otros eventos',
+			3 => 'Agenda Cultural',
+		);
+		return $agendaType;
+	}
+
+	/**
+	 * Devuelve array con tipos (kinds) de evento
+	 *  id => Tipo de agenda
+	 *
+	 * @return array tipos de agenda
+	 */
+	public static function getAgendas() {
+		$agendas = array(
+			1 => 'Jefe de Gobierno',
+			2 => 'Ministros',
+			3 => 'Otros funcionarios',
+		);
+		return $agendas;
+	}
+
+
 } // CalendarEvent

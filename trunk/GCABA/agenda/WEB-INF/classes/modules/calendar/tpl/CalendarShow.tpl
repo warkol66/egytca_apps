@@ -76,10 +76,13 @@
 	
 	loadEvents = function() {
 		return [
-			|-assign var="first" value=true-|
 			|-foreach from=$events item="event"-|
 				|-if !$event@first-|,|-/if-|
 				|-include file="CalendarPhpEventToJson.tpl" event=$event-|
+			|-/foreach-|
+			|-foreach from=$holydayEvents item="holiday"-|
+				|-if $events|@count gt 0-|,|-/if-|
+				|-include file="CalendarPhpEventHolidayToJson.tpl" holiday=$holiday-|
 			|-/foreach-|
 		]
 	}
@@ -285,4 +288,18 @@
   	</div>   
 </div>
 <!--Para cuando no hay permisos de edicion!!!!!            <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>-->
+
+<!--template para eventos de todo el día-->
+<div id="calendarAlldayTemplates" style="display: none;">
+    <div class="fc-event fc-event-skin fc-event-hori fc-event-draggable fc-corner-left fc-corner-right">
+		<div class="fc-event-inner fc-event-skin eventoContainer">
+			<div class="eventoContent">
+					<span class="fc-event-title">%title</span>
+					<span class="fc-event-text">%body</span>
+			</div>
+			<div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
+    	</div>
+  	</div>   
+</div>
+
 
