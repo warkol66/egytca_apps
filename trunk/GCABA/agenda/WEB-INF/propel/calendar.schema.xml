@@ -22,6 +22,12 @@
 		<column name="campaignCommitment" type="BOOLEAN" sqlType="BOOL" default="false" />
 		<column name="kind" type="INTEGER" description="Tipo de evento" />
 		<column name="agenda" type="INTEGER" description="Agenda" />
+		
+		<column name="class_key" type="INTEGER" inheritance="single">
+			<inheritance key="1" class="CalendarEvent"/>
+			<inheritance key="2" class="CalendarHolidayEvent" extends="CalendarEvent"/>
+			<inheritance key="3" class="CalendarContextEvent" extends="CalendarEvent"/>
+		</column>
 
 		<foreign-key foreignTable="users_user" >
 			<reference local="userId" foreign="id" />
@@ -171,6 +177,20 @@
 		<column name="description" type="LONGVARCHAR" description="descripcion del eje" />
 		<column name="color" type="VARCHAR" size="7" description="Color del eje" />
 		<column name="cssClass" type="VARCHAR" size="15" description="Clase del eje" />
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+	
+	<table phpName="CalendarRegularEvent" name="calendar_regularEvent" description="Eventos repetidos anio a anio">
+
+		<column name="id" type="INTEGER"  required="true" description="Id evento" primaryKey="true" autoIncrement="true"  />
+		<column name="name" type="VARCHAR" size="255" description="Nombre" primaryString="true" />
+		<column name="description" type="LONGVARCHAR" description="Descripcion"/>
+		<column name="date" type="TIMESTAMP" description="Fecha" />
 		
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>

@@ -63,5 +63,29 @@ class CalendarEventQuery extends BaseCalendarEventQuery {
 							->endUse();
 		}
 	}
+	
+	/**
+	 * Filters the query to target only CalendarHolidayEvent objects.
+	 */
+	public function preSelect(PropelPDO $con)
+	{
+		$this->addUsingAlias(CalendarEventPeer::CLASS_KEY, CalendarEventPeer::CLASSKEY_1);
+	}
+
+	/**
+	 * Filters the query to target only CalendarHolidayEvent objects.
+	 */
+	public function preUpdate(&$values, PropelPDO $con, $forceIndividualSaves = false)
+	{
+		$this->addUsingAlias(CalendarEventPeer::CLASS_KEY, CalendarEventPeer::CLASSKEY_1);
+	}
+
+	/**
+	 * Filters the query to target only CalendarHolidayEvent objects.
+	 */
+	public function preDelete(PropelPDO $con)
+	{
+		$this->addUsingAlias(CalendarEventPeer::CLASS_KEY, CalendarEventPeer::CLASSKEY_1);
+	}
 
 } // CalendarEventQuery
