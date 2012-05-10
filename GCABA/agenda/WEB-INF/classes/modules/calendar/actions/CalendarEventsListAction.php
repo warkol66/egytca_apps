@@ -63,8 +63,9 @@ class CalendarEventsListAction extends BaseAction {
 		$smarty->assign("url",$url);		
 
 		$user = Common::getAdminLogged();
-		$categories = $user->getCategoriesByModule('news');
-		$smarty->assign("categories",$categories);
+		if ($user)
+			$smarty->assign("categories",$user->getCategoriesByModule('calendar'));
+
 		$smarty->assign("calendarEventStatus",CalendarEventPeer::getStatus());   
 		$smarty->assign("message",$_GET["message"]);
 

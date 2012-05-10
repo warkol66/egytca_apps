@@ -19,9 +19,10 @@
 		<column name="street" type="VARCHAR" size="100" description="Nombre de la calle" />
 		<column name="number" type="INTEGER" description="numero de la calle" />
 		<column name="axisId" type="INTEGER"  required="true" description="Id del eje" />
-		<column name="campaignCommitment" type="BOOLEAN" sqlType="BOOL" default="false" />
+		<column name="campaignCommitment" type="BOOLEAN" sqlType="BOOL" default="false" description="Compromiso de campania" />
 		<column name="kind" type="INTEGER" description="Tipo de evento" />
 		<column name="agenda" type="INTEGER" description="Agenda" />
+		<column name="allDay" type="BOOLEAN" sqlType="BOOL" default="false" description="Evento de todo el dia" />
 		
 		<column name="class_key" type="INTEGER" inheritance="single">
 			<inheritance key="1" class="CalendarEvent"/>
