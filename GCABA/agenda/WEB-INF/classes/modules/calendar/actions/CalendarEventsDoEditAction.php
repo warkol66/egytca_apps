@@ -45,6 +45,9 @@ class CalendarEventsDoEditAction extends BaseAction {
 			return $this->addFiltersToForwards($_POST['filters'],$mapping,'failure');
 		}
 		
+		/*
+		 * Elijo la vista basado en si es o no un pedido por AJAX 
+		 */
 		if ($this->isAjax()) {
 			$smarty->assign('event', $calendarEvent);
 			$smarty->display('CalendarEventsDoEditX.tpl'); // no need for return

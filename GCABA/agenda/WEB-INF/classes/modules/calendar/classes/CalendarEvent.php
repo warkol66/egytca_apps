@@ -14,6 +14,15 @@
 class CalendarEvent extends BaseCalendarEvent {
 	
 	/**
+	 * Constructs a new CalendarEvent class, setting the class_key column to CalendarEventPeer::CLASSKEY_1.
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->setClassKey(CalendarEventPeer::CLASSKEY_1);
+	}
+	
+	/**
 	 * Devuelve true si el CalendarEvent tiene asociado el eje,
 	 * y false caso contrario.
 	 * 
