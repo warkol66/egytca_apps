@@ -35,7 +35,7 @@ class CalendarEventQuery extends BaseCalendarEventQuery {
 	}
 	
 	/**
-	 * Filters the query to target only CalendarHolidayEvent objects.
+	 * Filters the query to target only CalendarEvent objects.
 	 */
 	public function preSelect(PropelPDO $con)
 	{
@@ -43,7 +43,7 @@ class CalendarEventQuery extends BaseCalendarEventQuery {
 	}
 
 	/**
-	 * Filters the query to target only CalendarHolidayEvent objects.
+	 * Filters the query to target only CalendarEvent objects.
 	 */
 	public function preUpdate(&$values, PropelPDO $con, $forceIndividualSaves = false)
 	{
@@ -51,7 +51,7 @@ class CalendarEventQuery extends BaseCalendarEventQuery {
 	}
 
 	/**
-	 * Filters the query to target only CalendarHolidayEvent objects.
+	 * Filters the query to target only CalendarEvent objects.
 	 */
 	public function preDelete(PropelPDO $con)
 	{
