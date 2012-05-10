@@ -1,5 +1,7 @@
 /* Fisheye Menu Styles */
+
 #fisheye_menu {
+position:absolute;
 	list-style: none;
 	padding: 0;
 	margin: 10px auto 0 30px;
