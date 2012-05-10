@@ -16,7 +16,7 @@ Calendar = {
      */
     eventAfterRender: function(event, element, view) {
         var elem = $(element);
-        var template = $("#calendarTemplates .fc-event").html();
+        var template = event.allDay ? $("#calendarAllDayTemplates .fc-event").html() : $("#calendarTemplates .fc-event").html();
         elem.addClass(event.className);
         var startDate = new Date(event.start);
         var start = startDate.toString().replace(/.* ([0-9][0-9]:[0-9][0-9]):00 .*/, "$1");
