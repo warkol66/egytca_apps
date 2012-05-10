@@ -33,6 +33,7 @@
 	padding:0;}
 	
 	.eyefishContainer{
+	position:relative;
 	width:210px;
 	height:65px;
 	background-image:url(../images/header1_eyefish.png);
@@ -57,15 +58,17 @@
 
 /* Navegacion Menu 1
 ---------------------------------------------------------------*/
-	.resetFilter{
+	.boxNav1 ul li.resetFilter{
+	border-left: double 5px #999999;
+	padding-left:10px;
+	}
+	.boxNav1 ul li.resetFilter a{
 	width:32px;
 	height:32px;
 	display:block;
-	float:right;
-	right:10px;
+	float:left;
 	background-image:url(../images/bot_resetFilter.png);
-	margin:5px 10px 0 0;
-	}
+	margin:5px 10px 0 0;	}
 	
 	.boxNav1{
 	width:100%;

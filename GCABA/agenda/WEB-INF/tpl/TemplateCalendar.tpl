@@ -78,7 +78,6 @@
 
 			</div><!-- /grid_16 header1 -->
             <div class="boxNav1"><!-- boxNav1 -->
-						<a href="Main.php?do=calendarShow" class="resetFilter" alt="Quitar filtros"></a>
 					<form action='Main.php' method='get' style="display:inline;" name="filters">
 					<input type="hidden" name="do" value="calendarShow" />
                 <ul>
@@ -133,8 +132,7 @@
 
                     <li class="buttonCC"><input name="filters[campaigncommitment]" type="checkbox" value="1"  onClick="this.form.submit();" |-$filters.campaigncommitment|checked_bool-|/><a href="#"></a></li>
                     <li class="pickDate"><span>Fecha:</span><br /><input type="text" name="filters[selectedDate]" id="datepicker" size="10" maxlength="10" style="position:relative;z-index: 100000;" ><a href="javascript:document.filters.submit();" class="dateGo">Ir</a>
-                    
-                </ul> </form>                                                           
+<li class="resetFilter" ><a href="Main.php?do=calendarShow"alt="Quitar filtros"></a></li>                </ul> </form>                                                           
      	</div><!-- /boxNav1 -->
 			
         <div class="clear"></div>
