@@ -916,3 +916,6 @@ border: none !Important;
 #newEvent fieldset label, #editEvent fieldset label{
 	color:#fff !Important;
 }
+.fc-view-month .foto, .fc-view-month .fc-event-text {
+	display: none !Important;
+}
