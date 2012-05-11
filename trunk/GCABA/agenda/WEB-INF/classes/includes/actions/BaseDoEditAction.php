@@ -3,6 +3,7 @@
 class BaseDoEditAction extends BaseAction {
 	
 	private $entityClassName;
+	protected $smarty;
 	protected $entity;
 	protected $entityParams;
 	protected $ajaxTemplate;
@@ -23,6 +24,7 @@ class BaseDoEditAction extends BaseAction {
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
+		$this->smarty =& $smarty;
 		
 		if ($_POST["page"] > 0)
 			$params["page"] = $_POST["page"];
@@ -62,7 +64,7 @@ class BaseDoEditAction extends BaseAction {
 		 * Elijo la vista basado en si es o no un pedido por AJAX 
 		 */
 		if ($this->isAjax()) {
-			return new ForwardConfig($this->ajaxTemplate, true);
+			$smarty->display($this->ajaxTemplate);
 		} else {
 			return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'success-edit');
 		}

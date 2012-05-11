@@ -2,10 +2,10 @@
 
 require_once 'WEB-INF/classes/includes/actions/BaseEditAction.php';
 
-class CalendarRegularEventEditAction extends BaseEditAction {
+class CalendarHolidayEventEditAction extends BaseEditAction {
 	
 	function __construct() {
-		parent::__construct('CalendarRegularEvent');
+		parent::__construct('CalendarHolidayEvent');
 	}
 	
 	protected function post() {
