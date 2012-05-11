@@ -23,6 +23,7 @@
 		<column name="kind" type="INTEGER" description="Tipo de evento" />
 		<column name="agenda" type="INTEGER" description="Agenda" />
 		<column name="allDay" type="BOOLEAN" sqlType="BOOL" default="false" description="Evento de todo el dia" />
+		<column name="contextType" type="INTEGER" description="Tipo de contexto" />
 		
 		<column name="class_key" type="INTEGER" inheritance="single">
 			<inheritance key="1" class="CalendarEvent"/>

@@ -24,4 +24,30 @@ class CalendarContextEvent extends CalendarEvent {
 		$this->setClassKey(CalendarEventPeer::CLASSKEY_3);
 	}
 
+	/**
+	 * Devuelve el nobre del tipo de contexto
+	 * 
+	 * @return string nombre del tipo de contexto
+	 */
+	public function getContextTypeName() {
+		$contextTypes = CalendarContextEvent::getContextType();
+		return $contextTypes[$this->getContextType()];
+	}
+
+	/**
+	 * Devuelve array con tipos de contexto
+	 *  id => Tipo de contexto
+	 *
+	 * @return array tipos de contexto
+	 */
+	public static function getContextTypes() {
+		$contextTypes = array(
+			1 => 'Nacional',
+			2 => 'Campaña',
+			3 => 'Crisis',
+			4 => 'Coyuntura'
+		);
+		return $contextTypes;
+	}
+
 } // CalendarContextEvent
