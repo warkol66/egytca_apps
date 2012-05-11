@@ -8,8 +8,8 @@ class CalendarRegularEventDoEditAction extends BaseDoEditAction {
 		parent::__construct('CalendarRegularEvent');
 	}
 	
-	protected function preSave() {
-		parent::preSave();
+	protected function preUpdate() {
+		parent::preUpdate();
 		$this->entityParams['date'] = Datetime::createFromFormat('d/m', $this->entityParams['date'])->format('m/d');
 	}
 }
