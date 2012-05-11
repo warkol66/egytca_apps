@@ -131,7 +131,7 @@
                     </li>
 
                     <li class="buttonCC"><input name="filters[campaigncommitment]" type="checkbox" value="1"  onClick="this.form.submit();" |-$filters.campaigncommitment|checked_bool-|/><a href="#"></a></li>
-                    <li class="pickDate"><span>Fecha:</span><br /><input type="text" name="filters[selectedDate]" id="datepicker" size="10" maxlength="10" style="position:relative;z-index: 100000;" ><a href="javascript:document.filters.submit();" class="dateGo">Ir</a>
+                    <li class="pickDate"><span>Fecha:</span><br /><input type="text" name="filters[selectedDate]" id="datepicker" value="|-$filters.selectedDate-|" size="10" maxlength="10" style="position:relative;z-index: 100000;" ><a href="javascript:document.filters.submit();" class="dateGo">Ir</a>
 <li class="resetFilter" ><a href="Main.php?do=calendarShow"alt="Quitar filtros"></a></li>                </ul> </form>                                                           
      	</div><!-- /boxNav1 -->
 			
