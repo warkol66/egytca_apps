@@ -59,7 +59,7 @@
 				<td>|-$calendarEvent->gettitle()-|</td>
 				<td>|-$calendarEvent->getstartDate()|dateTime_format-|</td>
 <!--								<td>|-$calendarEvent->getuserId()-|</td> -->
-				<td>|-$calendarEvent->getContextTypeName()-|</td>								
+				<td>|-*$calendarEvent->getContextTypeName()*-|</td>								
 				<td nowrap>|-if "calendarEventsChangeStatusX"|security_user_has_access || "calendarEventsChangeStatuses"|security_user_has_access || $calendarStatus eq 1-|
 					<form action="Main.php" method="get">
 						<!--pasaje de parametros de filtros -->
