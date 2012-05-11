@@ -17,6 +17,10 @@
 		var events = loadEvents();
 		calendar = createCalendar(events);
 		Calendar.initialize({ axisMap: |-json_encode($axisMap)-| });
+		|-if isset($filters.selectedDate) && $filters.selectedDate neq ''-|
+			var date = '|-$filters.selectedDate-|'.split('-');
+			calendar.fullCalendar( 'gotoDate', date[2], (date[1]-1), date[0]);
+		|-/if-|
 		$('#newEventFancyboxDummy').fancybox();
 	});
 	
