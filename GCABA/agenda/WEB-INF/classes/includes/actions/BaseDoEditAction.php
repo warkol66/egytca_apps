@@ -41,13 +41,13 @@ class BaseDoEditAction extends BaseAction {
 		}
 		
 		try {
-			$this->preSave();
+			$this->preUpdate();
 			$this->entity = Common::setObjectFromParams($this->entity, $this->entityParams);
+			$this->preSave();
 			$this->entity->save();
+			$this->postSave();
 		} catch (Exception $e) {
-			/*
-			 * Elijo la vista basado en si es o no un pedido por AJAX
-			 */
+			//Elijo la vista basado en si es o no un pedido por AJAX
 			if ($this->isAjax())
 				throw new Exception(); // Buscar una mejor forma de que falle AJAX
 			else
@@ -56,7 +56,7 @@ class BaseDoEditAction extends BaseAction {
 		
 		$params["id"] = $this->entity->getId();
 		
-		$this->postSave();
+		$this->postUpdate();
 		
 		/*
 		 * Elijo la vista basado en si es o no un pedido por AJAX 
@@ -73,6 +73,14 @@ class BaseDoEditAction extends BaseAction {
 	}
 	
 	protected function postSave() {
+		// default: do nothing
+	}
+	
+	protected function preUpdate() {
+		// default: do nothing
+	}
+	
+	protected function postUpdate() {
 		// default: do nothing
 	}
 }
