@@ -1,4 +1,4 @@
-<h2>Boletines</h2>
+<h2>Efemérides</h2>
 |-if $notValidId eq "true"-|
 <div class="errorMessage">El identificador de la efeméride ingresado no es válido. Seleccione un item del listado.</div>
 <input type='button' onClick='location.href="Main.php?do=calendarRegularEventList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Efemérides"/>
@@ -15,16 +15,16 @@
 	<fieldset title="Formulario de edición de datos de una Efeméride">
 		<legend>Formulario de Administración de Efemérides</legend>
 		<p>
-			<label for="params[name]">Nombre</label>
-			<input type="text" id="params[name]" name="params[name]" size="10" value="|-$entity->getName()|escape-|" title="Nombre" />
+			<label for="params_name">Nombre</label>
+			<input type="text" id="params_name" name="params[name]" size="10" value="|-$entity->getName()|escape-|" title="Nombre" />
 		</p>
 		<p>     
-			<label for="params[description]">Descripción</label>
-			<textarea id="params[description]" name="params[description]" title="Descripción">|-$entity->getDescription()|escape-|</textarea>
+			<label for="params_description">Descripción</label>
+			<textarea id="params_description" name="params[description]" title="Descripción">|-$entity->getDescription()|escape-|</textarea>
 		</p>
 		<p>     
-			<label for="params[date]">Fecha</label>
-			<input id="params[date]" name="params[date]" type="text" size="12" value="|-$entity->getDate()|date_format:'%d/%m'-|" />
+			<label for="params_date">Fecha</label>
+			<input id="params_date" name="params[date]" type="text" size="12" value="|-$entity->getDate()|date_format:'%d/%m'-|" />
 		</p>
 		<p>
 			|-if $action eq 'edit'-|
