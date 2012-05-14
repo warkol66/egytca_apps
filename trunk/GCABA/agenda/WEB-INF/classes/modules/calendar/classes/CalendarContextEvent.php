@@ -30,7 +30,7 @@ class CalendarContextEvent extends CalendarEvent {
 	 * @return string nombre del tipo de contexto
 	 */
 	public function getContextTypeName() {
-		$contextTypes = CalendarContextEvent::getContextType();
+		$contextTypes = CalendarContextEvent::getContextTypes();
 		return $contextTypes[$this->getContextType()];
 	}
 
@@ -43,7 +43,7 @@ class CalendarContextEvent extends CalendarEvent {
 	public static function getContextTypes() {
 		$contextTypes = array(
 			1 => 'Nacional',
-			2 => 'Campaña',
+			2 => 'CampaÃ±a',
 			3 => 'Crisis',
 			4 => 'Coyuntura'
 		);
