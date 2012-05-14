@@ -152,8 +152,9 @@
 /*   AGENDA     --------------------------*/
 	.boxAgendaContainer{
 	width:100%;
-	border:solid 1px #666666;}
-	
+		border:none !Important}
+/*border:solid 1px #666666;}
+*/	
 		#calendar {
 		width: 857px;
 		margin: 0 auto;
@@ -200,6 +201,14 @@
 	
 	.fc-header-left,
 	.fc-header-center{
+	background-color:#fdbc08;
+	background-image:url(../images/bkg_month.gif);
+	background-repeat: repeat-x;
+	background-position: top left;
+	-moz-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
+	}
+	.fc-header .fc-header-right{
 	background-color:#fdbc08;
 	background-image:url(../images/bkg_month.gif);
 	background-repeat: repeat-x;
@@ -350,6 +359,12 @@
 			background-position:-248px 0;}
 			.amarillo ul.botoneraSmallEvento li.eventoBot02 a{
 			background-position:-232px 0;}
+			.amarillo {
+			border:1px solid #FFCC00;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+
+			}
 						
 			.verde1 .fc-event-time {
 			background-position:0 -18px;}
@@ -361,6 +376,12 @@
 			background-position:-248px -17px;}
 			.verde1 ul.botoneraSmallEvento li.eventoBot02 a{
 			background-position:-232px -17px;}
+			.verde1 {
+			border:1px solid #88d852;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+
+			}
 
 			.verde2 .fc-event-time {
 			background-position:0 -34px;}
@@ -372,6 +393,12 @@
 			background-position:-248px -34px;}
 			.verde2 ul.botoneraSmallEvento li.eventoBot02 a{
 			background-position:-232px -34px;}
+			.verde2 {
+			border:1px solid #359e7d;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+
+			}
 						
 			.cyan .fc-event-time {
 			background-position:0 -52px;}
@@ -383,6 +410,12 @@
 			background-position:-248px -51px;}
 			.cyan ul.botoneraSmallEvento li.eventoBot02 a{
 			background-position:-232px -51px;}
+			.cyan {
+			border:1px solid #3dbeff;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+
+			}
 						
 			.rojo .fc-event-time {
 			background-position:0 -68px;}
@@ -394,6 +427,12 @@
 			background-position:-248px -68px;}
 			.rojo ul.botoneraSmallEvento li.eventoBot02 a{
 			background-position:-232px -68px;}
+			.rojo {
+			border:1px solid #ff3929;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+
+			}
 						
 			.naranja .fc-event-time {
 			background-position:0 -86px;}
@@ -405,6 +444,11 @@
 			background-position:-248px -85px;}
 			.naranja ul.botoneraSmallEvento li.eventoBot02 a{
 			background-position:-232px -85px;}
+			.naranja {
+			border:1px solid #ff9c0d;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			}
 						
 			.gris .fc-event-time {
 			background-position:0 -103px;}
@@ -416,6 +460,11 @@
 			background-position:-248px -102px;}
 			.gris ul.botoneraSmallEvento li.eventoBot02 a{
 			background-position:-232px -102px;}
+			.gris {
+			border:1px solid #c0c0c0;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			}
 			
 			amarillo:active, verde1:active, verde2:active, cyan:active, rojo:active, 
 			naranja:active, gris:active {
@@ -919,3 +968,4 @@ border: none !Important;
 .fc-view-month .foto, .fc-view-month .fc-event-text {
 	display: none !Important;
 }
+

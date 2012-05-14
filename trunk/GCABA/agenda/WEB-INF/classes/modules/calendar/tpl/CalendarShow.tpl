@@ -60,7 +60,7 @@
 			},
 			titleFormat:{
 					month: 'MMMM yyyy',                             // September 2009
-					week: "MMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}", // Sep 7 - 13 2009
+					week: "'Semana:' d MMM[ yyyy]{ 'al' d[ MMM] yyyy}", // Sep 7 - 13 2009
 					day: "dddd, dd 'de' MMMM 'de' yyyy"                  // Tuesday, Sep 8, 2009
 			},
 			selectable: true,
