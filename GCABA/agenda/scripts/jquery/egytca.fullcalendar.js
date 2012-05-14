@@ -32,7 +32,9 @@ Calendar = {
 	
 	$('.eventoBot01', elem).click(function(e){
 		e.preventDefault();
-		doDeleteEvent(event);
+		if (confirm('¿Desea borrar el evento?')) {
+			doDeleteEvent(event);
+		}
 	});
 	$('.eventoBot02', elem).click(function(e){
 		e.preventDefault();
