@@ -85,7 +85,7 @@
 				|-include file="CalendarPhpEventToJson.tpl" event=$event-|
 			|-/foreach-|
 			|-foreach from=$holydayEvents item="holiday"-|
-				|-if $events|@count gt 0-|,|-/if-|
+				|-if ($holiday@first && $events|@count gt 0) || !$holiday@first-|,|-/if-|
 				|-include file="CalendarPhpEventHolidayToJson.tpl" holiday=$holiday-|
 			|-/foreach-|
 		]
