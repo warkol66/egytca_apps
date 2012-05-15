@@ -92,8 +92,8 @@
 		<p>
 			<label for="calendarEvent_actors">Actores</label>
 			<select class="chzn-select markets-chz-select" data-placeholder="Seleccione uno o varios actores..." multiple="multiple" id="calendarEvent_actors" name="calendarEvent[actorsIds][]" size="5" title="actores">
-				|-foreach from=$categories item=object-|
-					<option value="|-$object->getid()-|">|-$object->getname()-|</option>
+				|-foreach from=$actors item=object-|
+					<option value="|-$object->getid()-|">|-$object-|</option>
 				|-/foreach-|
 			</select>
 		</p>
