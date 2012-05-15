@@ -7,6 +7,7 @@
 		<column name="module" size="255" type="VARCHAR" description="Module name if it is for a module" default="" />
 		<column name="active" type="BOOLEAN" required="true" description="Is category active?" />
 		<column name="isPublic" type="BOOLEAN" required="true" description="Is category public?" default="0" />
+		<column name="responsible" size="255" type="VARCHAR" required="true" description="Responsable de la dependendencia" />
 
 		<behavior name="soft_delete" />
 
