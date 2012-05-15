@@ -259,14 +259,6 @@
 			<label for="calendarEvent_title">Título</label>
 			<input name="calendarEvent[title]" type="text" id="calendarEvent_title" title="title" value="" size="60" maxlength="255" />
 		</p>
-		<p><label for="calendarEvent_kind">Tipo de evento</label>
-				<select name="calendarEvent[kind]" id="calendarEvent_kind">
-					<option value="0">Seleccione Tipo de evento</option>
-				|-foreach from=$kinds item=kind name=foreach_kinds-|
-					<option value="|-$kind@key-|">|-$kind-|</option>
-				|-/foreach-|
-				</select>
-		</p>
 		<p>
 			<label for="calendarEvent_axisId">Eje de gestión</label>
 			<select id="calendarEvent_axis" name="calendarEvent[axisId]" title="Eje de gestión">
@@ -276,14 +268,14 @@
 				|-/foreach-|
 			</select>
 		</p>
+			<input type="hidden" id="calendarEvent_agenda" name="calendarEvent[agenda]" value="1">
 		<p>
-			<label for="calendarEvent_agenda">Agenda</label>
-			<select id="calendarEvent_agenda" name="calendarEvent[agenda]" title="Agenda">
-				<option value="0" selected="selected">Seleccione la agenda</option>
-				|-foreach from=$agendas item=agenda name=foreach_agendas-|
-					<option value="|-$agenda@key-|">|-$agenda-|</option>
-				|-/foreach-|
-				</select>
+			<label for="calendarEvent_street">Calle</label>
+			<input name="calendarEvent[street]" type="text" id="calendarEvent_street" title="calle" value="" size="30" />
+		</p>
+		<p>
+			<label for="calendarEvent_number">Número</label>
+			<input name="calendarEvent[number]" type="text" id="calendarEvent_number" title="número" value="" size="8" />
 		</p>
 		<p class="arrangeButtons">
 			<input name="calendarEvent[creationDate]" type="hidden" id="calendarEvent_creationDate" title="creationDate" value="|-$smarty.now|dateTime_format|change_timezone|date_format:"%d-%m-%Y"-|" size="18" />

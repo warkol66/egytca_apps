@@ -88,7 +88,7 @@
                     <li class="botSmall"><a href="#" class="menuIcon_05"></a></li>
                     <li class="botSmall"><a href="#" class="menuIcon_06"></a></li>
                     <li><span>Tipo de evento:</span><br />
-                        <select name="filters[kind]" id="kind" style="width: 70px" onChange="this.form.submit();">
+                        <select name="filters[kind]" id="kind" style="width: 90px" onChange="this.form.submit();">
                           <option value="">Todos</option>
 												|-foreach from=$kinds item=kind name=foreach_kinds-|
 	                        <option value="|-$kind@key-|" |-$filters.kind|selected:$kind@key-|>|-$kind-|</option>
@@ -96,7 +96,7 @@
                         </select>
                     </li>
                     <li><span>Agenda:</span><br />
-                        <select name="filters[agenda]" id="agenda" style="width: 80px" onChange="this.form.submit();">
+                        <select name="filters[agenda]" id="agenda" style="width: 100px" onChange="this.form.submit();">
                             <option value="" selected="selected">Todas</option>
 												|-foreach from=$agendas item=agenda name=foreach_agendas-|
 	                        <option value="|-$agenda@key-|" |-$filters.agenda|selected:$agenda@key-|>|-$agenda-|</option>
@@ -104,7 +104,7 @@
                         </select>
                     </li>
                      <li><span>Funcionarios:</span><br />
-                        <select name="filters[searchActor]" id="searchActor" style="width: 80px" onChange="this.form.submit();">
+                        <select name="filters[searchActor]" id="searchActor" style="width: 100px" onChange="this.form.submit();">
                             <option value="" selected="selected">Todos</option>
                             <option value="1">Mauricio Macri</option>
                             <option value="2">Ma. Eugenia Vidal</option>
@@ -114,7 +114,7 @@
                     </li>
                      <li>
                        <span>Dependencias:</span><br />
-                        <select name="filters[searchCategory]" id="searchCategory" style="width: 80px" onChange="this.form.submit();">
+                        <select name="filters[searchCategory]" id="searchCategory" style="width: 100px" onChange="this.form.submit();">
                             <option value="" selected="selected">Todas</option>
                             <option value="1">Jefatura de Gabinete</option>
                             <option value="2">Ministerio de Ambiente y Espacio Público</option>
@@ -122,7 +122,7 @@
                         </select>
                     </li>
                      <li><span>Comunas:</span><br />
-                        <select name="filters[searchRegionId]" id="searchRegion" style="width: 80px" onChange="this.form.submit();">
+                        <select name="filters[searchRegionId]" id="searchRegion" style="width: 100px" onChange="this.form.submit();">
                             <option value="" selected="selected">Todas</option>
 												|-foreach from=$comunes item=comune name=foreach_comunes-|
                             <option value="|-$comune->getId()-|" |-$filters.searchRegionId|selected:$comune->getId()-|>|-$comune->getName()-||-assign var=subregions value=$comune->getChildren()-| (|-foreach from=$subregions item=subregion name=foreach_subregion-||-$subregion->getName()-||-if !$subregion@last-|, |-/if-||-/foreach-|)</option>
@@ -214,39 +214,27 @@
 	</div>
 	<h3><a href="#">Crisis</a></h3>
     <div>
-    	<ul>
-	    	<li><a href="#">Dengue</a></li>
-	    	<li><a href="#">Inundaciones</a></li>
-	    	<li><a href="#">Subte</a></li>
-	    	<li><a href="#">Roger Waters</a></li>                                    
-        </ul>
+    	<ul>|-foreach from=$contextCrisis item=context name=foreach_crisis-|
+	    	<li><a href="#" onclick="javascript:$('context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li  id="context|-$context->getId()-|">|-$context->getBody()-| ___ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
+      |-/foreach-|</ul>
 	</div>
 	<h3><a href="#">Coyuntura</a></h3>
     <div>
-    	<ul>
-	    	<li><a href="#">Lanzamiento control de autos oficiales</a></li>
-	    	<li><a href="#">Link</a></li>
-	    	<li><a href="#">Link</a></li>
-	    	<li><a href="#">Link</a></li>                                    
-        </ul>    
+    	<ul>|-foreach from=$contextJuncture item=context name=foreach_juncture-|
+	    	<li><a href="#" onclick="javascript:$('context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li  id="context|-$context->getId()-|">|-$context->getBody()-| ___ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
+      |-/foreach-|</ul>
 	</div>
 	<h3><a href="#">Campaña Nacional</a></h3>
     <div>
-    	<ul>
-	    	<li><a href="#">Link</a></li>
-	    	<li><a href="#">Link</a></li>
-	    	<li><a href="#">Link</a></li>
-	    	<li><a href="#">Link</a></li>                                    
-        </ul>    
+    	<ul>|-foreach from=$contextNational item=context name=foreach_national-|
+	    	<li><a href="#" onclick="javascript:$('context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li  id="context|-$context->getId()-|">|-$context->getBody()-| ___ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
+      |-/foreach-|</ul>
 	</div>
 	<h3><a href="#">Campaña Publicitaria</a></h3>
     <div>
-    	<ul>
-	    	<li><a href="#">Link</a></li>
-	    	<li><a href="#">Link</a></li>
-	    	<li><a href="#">Link</a></li>
-	    	<li><a href="#">Link</a></li>                                    
-        </ul>    
+    	<ul>|-foreach from=$contextCampaign item=context name=foreach_campaign-|
+	    	<li><a href="#" onclick="javascript:$('context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li  id="context|-$context->getId()-|">|-$context->getBody()-| ___ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
+      |-/foreach-|</ul>
 	</div>
                     
 	

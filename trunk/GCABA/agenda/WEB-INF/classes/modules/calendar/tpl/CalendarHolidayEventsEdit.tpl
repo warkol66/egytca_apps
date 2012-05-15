@@ -13,7 +13,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		
-		$(".chzn-select").chosen();
 		initializeDatePickers();
 		
 		$('#calendarEvent_street').change(updateLocateButton);
@@ -66,18 +65,11 @@
 					<label for="calendarEvent_title">Título</label>
 					<input name="calendarEvent[title]" type="text" id="calendarEvent_title" title="title" value="|-$calendarEvent->getTitle()|escape-|" class="emptyValidation" size="60" maxlength="255" |-js_char_counter object=$calendarEvent columnName="title" fieldName="calendarEvent_title" idRemaining="remaining" sizeRemaining="3" classRemaining="charCount" counterTitle="Cantidad de caracteres restantes" showHide=1 useSpan=0-||-$Counter.pre-| /> |-$Counter.pos-| |-validation_msg_box idField="calendarEvent_title"-|
 				</p>
-|-if $calendarEventsConfig.useSummary.value eq "YES"-|<p>
-					<label for="calendarEvent_summary">Resumen</label>
-					<textarea name="calendarEvent[summary]" cols="60" rows="4" wrap="VIRTUAL" id="calendarEvent_summary">|-$calendarEvent->getsummary()|escape-|</textarea>
-				</p>|-/if-|
 				<p>
 					<label for="calendarEvent_body">Texto del Evento</label>
-					<textarea name="calendarEvent[body]" cols="60" rows="15" wrap="VIRTUAL"  id="calendarEvent_body">|-$calendarEvent->getbody()|escape-|</textarea>
+					<textarea name="calendarEvent[body]" cols="60" rows="5" wrap="VIRTUAL"  id="calendarEvent_body">|-$calendarEvent->getbody()|escape-|</textarea>
 			</p>
 				<p>
-|-if $calendarEventsConfig.useSource.value eq "YES"-|<label for="calendarEvent_sourceContact">Más información</label>
-					<input name="calendarEvent[sourceContact]" type="text" id="calendarEvent_sourceContact" title="sourceContact" value="|-$calendarEvent->getsourceContact()|escape-|" size="60" maxlength="150" />
-				</p>|-/if-|
 				<p>
 					<label for="calendarEvent_creationDate">Fecha de Creación</label>
 					<input name="calendarEvent[creationDate]" type="text" id="calendarEvent_creationDate" title="creationDate" value="|-if $calendarEvent->isNew()-||-$smarty.now|dateTime_format|change_timezone|date_format:"%d-%m-%Y"-||-else-||-$calendarEvent->getcreationDate()|dateTime_format-||-/if-|" size="18" />
@@ -93,6 +85,11 @@
 					<input name="calendarEvent[endDate]" type="text" id="calendarEvent_endDate" title="endDate" value="|-$calendarEvent->getendDate()|dateTime_format-|" size="18" /> 
 					<a href="#" |-popup sticky=true caption="Fechas de la agenda" trigger="onMouseOver" text="Las fechas deben completarse para que el evento se registre correctamente.<br />La fecha de creación ubicará el evento por orden descendente en la página principal, las fechas de inicio y fin de la actividad le indican al sistema la vigencia del mismo." snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a>
 				</p>							
+				<p>
+					<label for="calendarEvent_allDay">Evento de todo el día</label>
+					<input name="calendarEvent_allDay" id="calendarEvent_allDay" type="checkbox" checked="checked" value="1" disabled="disabled">
+					<input name="calendarEvent[allDay]" type="hidden" value="1">
+				</p>
 				<p>
 					<label for="calendarEvent_street">Calle</label>
 					<input name="calendarEvent[street]" type="text" id="calendarEvent_street" title="calle" value="|-$calendarEvent->getStreet()-|" size="30" />
@@ -118,96 +115,12 @@
 					<label for="calendarEvent_longitude">Longitud</label>
 					<input name="calendarEvent[longitude]" type="text" id="calendarEvent_longitude" title="longitud" value="|-$calendarEvent->getLongitude()-|" size="20" readonly="readonly"/>
 				</p>
-				|-assign var=eventid value=$calendarEvent->getId()-|
-				|-if not empty($eventid)-|
 				<p>
 					<label for="calendarEvent_status">Estado</label>
 					<select name="calendarEvent[status]" id="calendarEvent_status">
 						|-foreach from=$calendarEventStatus key=key item=name-|
 							<option value="|-$key-|" |-$calendarEvent->getStatus()|selected:$key-|>|-$name-|</option>
 						|-/foreach-|
-					</select>
-				</p>|-/if-|
-				<p>
-					<label for="calendarEvent_agendaType">Agenda</label>
-					<select name="calendarEvent[agendaType]" id="calendarEvent_agendaType">
-							<option>Seleccione una Agenda</option>
-						|-foreach from=$agendaTypes key=key item=name-|
-							<option value="|-$key-|" |-$calendarEvent->getAgendaType()|selected:$key-|>|-$name-|</option>
-						|-/foreach-|
-					</select>
-				</p>
-			<p><label for="calendarEvent_kind">Tipo de evento</label>
-				<select name="calendarEvent[kind]" id="calendarEvent_kind">
-					<option value="0">Seleccione Tipo de evento</option>
-				|-foreach from=$kinds item=kind name=foreach_kinds-|
-					<option value="|-$kind@key-|" |-$calendarEvent->getKind()|selected:$kind@key-|>|-$kind-|</option>
-				|-/foreach-|
-				</select>
-		</p>
-|-if $calendarEventsConfig.useRegions.value eq "YES"-|<p>
-					<label for="calendarEvent_regions">Comunas</label>
-					<select class="chzn-select markets-chz-select" data-placeholder="Seleccione una o varias comunas..." multiple="multiple" id="calendarEvent_regions" name="calendarEvent[regionsIds][]" size="5" title="comunas">
-					|-foreach from=$regions item=object-|
-						<option value="|-$object->getid()-|" |-$calendarEvent->hasRegion($object)|selected:true-|>|-$object->getname()-|</option>
-					|-/foreach-|
-					</select>
-				</p>|-/if-|
-|-if $calendarEventsConfig.useCategories.value eq "YES"-|<p>
-					<label for="calendarEvent_categories">Dependencias</label>
-					<select class="chzn-select markets-chz-select" data-placeholder="Seleccione una o varias dependencias..." multiple="multiple" id="calendarEvent_categories" name="calendarEvent[categoriesIds][]" size="5" title="dependencias">
-					|-foreach from=$categories item=object-|
-						<option value="|-$object->getid()-|" |-$calendarEvent->hasCategory($object)|selected:true-|>|-$object->getname()-|</option>
-					|-/foreach-|
-					</select>
-				</p>|-/if-|
-				<p>
-					<label for="calendarEvent_actors">Actores</label>
-					<select class="chzn-select markets-chz-select" data-placeholder="Seleccione uno o varios actores..." multiple="multiple" id="calendarEvent_actors" name="calendarEvent[actorsIds][]" size="5" title="actores">
-					|-foreach from=$categories item=object-|
-						<option value="|-$object->getid()-|" |-$calendarEvent->hasActor($object)|selected:true-|>|-$object->getname()-|</option>
-					|-/foreach-|
-					</select>
-				</p>
-				<p>
-					<label for="calendarEvent_axisId">Eje de gestión</label>
-					<select id="calendarEvent_axis" name="calendarEvent[axisId]" title="Eje de gestión">
-						<option value="">Seleccione el eje</option>
-					|-foreach from=$axes item=object-|
-						<option value="|-$object->getId()-|" |-$calendarEvent->getAxisId()|selected:$object->getId()-|>|-$object->getName()-|</option>
-					|-/foreach-|
-					</select>
-				</p>
-		<p>
-			<label for="calendarEvent_agenda">Agenda</label>
-			<select id="calendarEvent_agenda" name="calendarEvent[agenda]" title="Agenda">
-				<option value="0" selected="selected">Todas</option>
-				|-foreach from=$agendas item=agenda name=foreach_agendas-|
-					<option value="|-$agenda@key-|" |-$calendarEvent->getAgenda()|selected:$agenda@key-|>|-$agenda-|</option>
-				|-/foreach-|
-				</select>
-		</p>
-				<p>
-					<label for="calendarEvent_typeId">Formato</label>
-					<select id="calendarEvent_typeId" name="calendarEvent[typeId]" title="tipo de evento">
-						<option value="">Seleccione un formato</option>
-					|-foreach from=$eventTypes item=object-|
-						<option value="|-$object->getid()-|" |-$calendarEvent->getTypeId()|selected:$object->getId()-|>|-$object->getName()-|</option>
-					|-/foreach-|
-					</select>
-				</p>
-				<p>
-					<label for="calendarEvent_campaignCommitment">Compromiso de campaña</label>
-					<input name="calendarEvent[campaignCommitment]" type="hidden" value="0">
-					<input name="calendarEvent[campaignCommitment]" type="checkbox" |-$calendarEvent->getCampaignCommitment()|checked_bool-| value="1">
-				</p>
-				<p>
-					<label for="calendarEvent_userId">Usuario</label>
-					<select id="calendarEvent_userId" name="calendarEvent[userId]" title="userId">
-						<option value="">Seleccione un Usuario</option>
-					|-foreach from=$users item=object-|
-						<option value="|-$object->getid()-|" |-$calendarEvent->getuserId()|selected:$object->getid()-|>|-$object->getusername()-|</option>
-					|-/foreach-|
 					</select>
 				</p>
 				<p>

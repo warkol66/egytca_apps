@@ -20,12 +20,12 @@ class CalendarContextEventsDoEditAction extends BaseAction {
 		$smarty->assign("module",$module);
 				
 		$id = $request->getParameter("id");
-		$calendarEvent = CalendarHolidayEventQuery::create()->findOneById($id);
+		$calendarEvent = CalendarContextEventQuery::create()->findOneById($id);
 		if (!empty($calendarEvent))
 			$calendarEvent = Common::setObjectFromParams($calendarEvent, $_POST['calendarEvent']);
 		else {
 			//estoy creando un nuevo evento
-			$calendarEvent = new CalendarHolidayEvent();
+			$calendarEvent = new CalendarContextEvent();
 			$calendarEvent = Common::setObjectFromParams($calendarEvent, $_POST['calendarEvent']);
 		}
 

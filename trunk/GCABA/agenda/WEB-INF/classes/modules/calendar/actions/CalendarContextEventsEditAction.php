@@ -29,22 +29,12 @@ class CalendarContextEventsEditAction extends BaseAction {
 			//voy a editar un evento
 			$calendarEvent = CalendarContextEventQuery::create()->findOneById($_GET["id"]);
 			$smarty->assign("calendarEvent",$calendarEvent);
-/*
-			//buscamos las medias de articulo para listarlas
-			$smarty->assign("calendarMedias",CalendarMediaQuery::create()->find($_GET['id']));
-*/			
-			$smarty->assign("images",$calendarEvent->getImages());
-/*			$smarty->assign("sounds",$newsarticle->getSounds());
-			$smarty->assign("videos",$newsarticle->getVideos());
-*/
-			$smarty->assign("action","edit");
 		}
 		else {
 			//voy a crear un calendarevent nuevo
 			$calendarEvent = new CalendarContextEvent();
 			$smarty->assign("calendarEvent",$calendarEvent);
 
-			$smarty->assign("action","create");
 		}
 		
 		if ($calendarEventsConfig['useRegions']['value'] == "YES")
@@ -59,24 +49,13 @@ class CalendarContextEventsEditAction extends BaseAction {
 		$smarty->assign('eventTypes', EventTypeQuery::create()->find());
 		$smarty->assign('agendaTypes', CalendarEventPeer::getAgendas());
 		$smarty->assign("calendarEventStatus",CalendarEventPeer::getStatus());
+		$smarty->assign("contextTypes",CalendarContextEvent::getContextTypes());
 		
-		$calendarMediasTypes = CalendarMediaPeer::getMediaTypes();
-		
-		$types = array();
-		if ($moduleConfig["image"]["useImages"]["value"] == "NO")
-			$types[CalendarMediaPeer::CALENDARMEDIA_IMAGE] = 'Imagen';
-/*		if ($moduleConfig["video"]["useVideo"]["value"] == "NO")
-			$types[CalendarMediaPeer::CALENDARMEDIA_VIDEO] = 'Video';
-		if ($moduleConfig["audio"]["useAudio"]["value"] == "NO")
-			$types[CalendarMediaPeer::CALENDARMEDIA_SOUND] = 'Sonido';
-*/
-		$smarty->assign("calendarMediasTypes",array_diff_assoc($calendarMediasTypes, $types));
 
 		$smarty->assign("message",$_GET["message"]);
 
-		if (!empty($_GET['filters'])) {
+		if (!empty($_GET['filters']))
 			$smarty->assign('filters',$_GET['filters']);
-		}
 		
 		$this->template->template = 'TemplateJQuery.tpl';
 
