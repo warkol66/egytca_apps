@@ -38,8 +38,7 @@ class CalendarShowAction extends BaseAction {
 		$smarty->assign("kinds", CalendarEvent::getEventKinds());
 		$smarty->assign("agendas", CalendarEvent::getAgendas());
 		
-		if ($calendarEventsConfig['useCategories']['value'] == "YES")
-			$smarty->assign("categories", CategoryQuery::create()->find());
+		$smarty->assign("categories", CategoryQuery::create()->find());
 
 		$smarty->assign("comunes", RegionQuery::create()->filterByType('11')->find());
 		$smarty->assign("regions", RegionQuery::create()->filterByType(array(min =>'11'))->find());
