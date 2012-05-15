@@ -24,11 +24,11 @@
 		|-/if-|
 		$('#newEventFancyboxDummy').fancybox();
 		$('#uninstantiatedRegEventsFancyboxDummy').fancybox();
-		$('#uninstantiatedRegEvents tbody').load(
-			'Main.php?do=calendarRegularEventGetUninstantiatedX',
-			{ year: 2012 }
-		);
-		$('#uninstantiatedRegEventsFancyboxDummy').click();
+		//$('#uninstantiatedRegEvents tbody').load(
+		//	'Main.php?do=calendarRegularEventGetUninstantiatedX',
+		//	{ year: 2012 }
+		//);
+		//$('#uninstantiatedRegEventsFancyboxDummy').click();
 	});
 	
 	createCalendar = function(events) {
