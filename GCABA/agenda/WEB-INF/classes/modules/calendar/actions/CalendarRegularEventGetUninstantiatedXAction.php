@@ -19,7 +19,7 @@ class CalendarRegularEventGetUninstantiatedXAction extends BaseAction {
 		$module = "Calendar";
 		$smarty->assign("module",$module);
 		
-		$uninstantiatedRegEvents = CalendarRegularEvent::getUninstantiated($_POST['year']);
+		$uninstantiatedRegEvents = array(); //CalendarRegularEvent::getUninstantiated($_POST['year']);
 		$smarty->assign('uninstantiatedRegEvents', $uninstantiatedRegEvents);
 		$smarty->assign('year', $_POST['year']);
 		
