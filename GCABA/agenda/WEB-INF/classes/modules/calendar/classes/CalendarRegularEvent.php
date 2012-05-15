@@ -14,5 +14,27 @@
  * @package    propel.generator.calendar.classes
  */
 class CalendarRegularEvent extends BaseCalendarRegularEvent {
+	
+	public static function getUninstantiated($year) {
+		
+		$regularEvents = CalendarRegularEventQuery::create()->find();
+		$uninstantiated = array();
+		foreach ($regularEvents as $regularEvent) {
+			$holidays = CalendarHolidayEventQuery::create()->filterByRegulareventid(null, Criteria::NOT_EQUAL)->find();
+			$instantiated = false;
+			foreach ($holidays as $holiday) {
+				if ($regularEvent->getDate('%d-%m').'-'.$year == $holiday->getStartDate('%d-%m-%Y')) {
+					$instantiated = true;
+					break;
+				}
+			}
+			
+			if (!$instantiated) {
+				$uninstantiated[] = $regularEvent;
+			}
+		}
+		
+		return $uninstantiated;
+	}
 
 } // CalendarRegularEvent

@@ -8,6 +8,7 @@
 <script type="text/javascript" src="scripts/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 <div id="calendar"></div>
 <a id="newEventFancyboxDummy" style="display:none" href="#newEvent"></a>
+<a id="uninstantiatedRegEventsFancyboxDummy" style="display:none" href="#uninstantiatedRegEvents"></a>
 
 <script type="text/javascript">
 	
@@ -22,6 +23,12 @@
 			calendar.fullCalendar( 'gotoDate', date[2], (date[1]-1), date[0]);
 		|-/if-|
 		$('#newEventFancyboxDummy').fancybox();
+		$('#uninstantiatedRegEventsFancyboxDummy').fancybox();
+		$('#uninstantiatedRegEvents tbody').load(
+			'Main.php?do=calendarRegularEventGetUninstantiatedX',
+			{ year: 2012 }
+		);
+		$('#uninstantiatedRegEventsFancyboxDummy').click();
 	});
 	
 	createCalendar = function(events) {
@@ -211,7 +218,39 @@
 	getFormattedDatetime = function(date) {
 		return date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
 	}
+	
+	createHolidayFromRegEvent = function(regEventId, year) {
+		$.ajax({
+			url: 'Main.php?do=calendarHolidayEventCreateFromRegularEventX',
+			type: 'post',
+			data: { regularEventId: regEventId, year: year },
+			dataType: 'json',
+			success: function(event) {
+				$('#uninstantiatedRegEvents #createHolidayButton_'+regEventId).remove();
+				calendar.fullCalendar(
+					'renderEvent',
+					event,
+					true // make the event "stick"
+				);
+			}
+		});
+	}
 </script>
+
+<div style="display:none;"><div id="uninstantiatedRegEvents">
+	<table style="color:white">
+		<thead>
+			<th>Name</th>
+			<th>Date</th>
+			<th>&nbsp;</th>
+		</thead>
+		<tbody>
+			<tr colspan="3">
+				<td>Todas las efemérides del año $year fueron agregadas al calendario</td>
+			</tr>
+		</tbody>
+	</table>
+</div></div>
 
 <div style="display:none;"><div id="newEvent">
 	<fieldset><form>

@@ -23,5 +23,22 @@ class CalendarHolidayEvent extends CalendarEvent {
 		parent::__construct();
 		$this->setClassKey(CalendarEventPeer::CLASSKEY_2);
 	}
+	
+	/**
+	 * Constructs a new CalendarHolidayEvent from a RegularEvent
+	 * 
+	 * @param int $regularEventId 
+	 * @return CalendarHolidayEvent the newly created CalendarHolidayEvent
+	 */
+	public static function createFromRegularEvent($regularEventId, $year) {
+		$regEvent = CalendarRegularEventQuery::create()->findOneById($regularEventId);
+		if (is_null($regEvent))
+			throw new Exception('invalid ID');
+		$holiday = new CalendarHolidayEvent();
+		$holiday->setTitle($regEvent->getName());
+		$holiday->setStartdate($year.'-'.$regEvent->getDate('%m-%d'));
+		$holiday->setRegulareventid($regularEventId);
+		return $holiday;
+	}
 
 } // CalendarHolidayEvent
