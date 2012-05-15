@@ -7,3 +7,9 @@
 		</td>
 	</tr>
 |-/foreach-|
+
+<script>
+|-if $uninstantiatedRegEvents|count gt 0-|
+	$('#uninstantiatedRegEventsFancyboxDummy').click();
+|-/if-|
+</script>
