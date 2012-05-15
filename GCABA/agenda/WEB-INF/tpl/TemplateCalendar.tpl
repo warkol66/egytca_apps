@@ -32,7 +32,15 @@
 			$(function(){
 
 				// Accordion
-				$("#accordion").accordion({ header: "h3" });
+				$("#accordion").accordion({ 		
+						active: false,
+						header: 'h3',
+						alwaysOpen: false,
+						animated: true,
+						showSpeed: 400,
+						hideSpeed: 800,
+						autoHeight: false
+				});
 
 				// Datepicker
 				$('#datepicker').datepicker({
@@ -204,11 +212,11 @@
                     <div class="clear"></div>
    					<div class="box">
                     <div id="accordion">
-	<h3 class="color1"><a href="#">% Ejes</a></h3>
+	<h3><a href="#">% Ejes</a></h3>
 	<div>
 		<img src="images/grafico.png" alt="" width="115" height="123" />
 	</div>
-	<h3 class="color2"><a href="#">% Ministerios</a></h3>
+	<h3><a href="#">% Ministerios</a></h3>
 	<div>
 		<img src="images/grafico02.png" alt="" width="115" height="123" />
 	</div>
