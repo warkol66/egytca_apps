@@ -94,6 +94,11 @@
 					<a href="#" |-popup sticky=true caption="Fechas de la agenda" trigger="onMouseOver" text="Las fechas deben completarse para que el evento se registre correctamente.<br />La fecha de creación ubicará el evento por orden descendente en la página principal, las fechas de inicio y fin de la actividad le indican al sistema la vigencia del mismo." snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a>
 				</p>							
 				<p>
+					<label for="calendarEvent_allDay">Evento de todo el día</label>
+					<input name="calendarEvent[allDay]" type="hidden" value="0">
+					<input name="calendarEvent[allDay]" type="checkbox" |-$calendarEvent->getAllDay()|checked_bool-| value="1">
+				</p>
+				<p>
 					<label for="calendarEvent_street">Calle</label>
 					<input name="calendarEvent[street]" type="text" id="calendarEvent_street" title="calle" value="|-$calendarEvent->getStreet()-|" size="30" />
 				</p>

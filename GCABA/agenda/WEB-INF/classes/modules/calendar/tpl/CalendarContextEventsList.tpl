@@ -56,7 +56,7 @@
 			<tr>
 				<td><input type="checkbox" name="selected[]" value="|-$calendarEvent->getId()-|"></td>
 				<td>|-$calendarEvent->gettitle()-|</td>
-				<td>|-$calendarEvent->getstartDate()|dateTime_format-|</td>
+				<td>|-$calendarEvent->getstartDate()|date_format-|</td>
 <!--								<td>|-$calendarEvent->getuserId()-|</td> -->
 				<td>|-$calendarEvent->getContextTypeName()-|</td>								
 				<td nowrap>|-if "calendarEventsChangeStatusX"|security_user_has_access || "calendarEventsChangeStatuses"|security_user_has_access || $calendarStatus eq 1-|
@@ -107,7 +107,7 @@
 		</tr>
 		|-/if-|
 			<tr>
-				<th colspan="|-$colSpan-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=calendarContextEventsEdit" class="addLink">Agregar Evento</a></div></th>
+				<th colspan="|-$colSpan-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=calendarContextEventsEdit" class="addLink">Agregar Evento de Contexto</a></div></th>
 			</tr>
 		</tbody>
 	</table>

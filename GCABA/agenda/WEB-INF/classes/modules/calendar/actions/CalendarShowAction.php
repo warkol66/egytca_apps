@@ -52,9 +52,17 @@ class CalendarShowAction extends BaseAction {
 		$smarty->assign('eventTypes', EventTypeQuery::create()->find());
 		$smarty->assign('agendaTypes', CalendarEventPeer::getAgendas());
 		$smarty->assign("calendarEventStatus",CalendarEventPeer::getStatus());
+
+		//Eventos de Contexto
+		$smarty->assign('contextNational', CalendarContextEventQuery::create()->filterByContexttype('1')->find());
+		$smarty->assign('contextCampaign', CalendarContextEventQuery::create()->filterByContexttype('2')->find());
+		$smarty->assign('contextCrisis', CalendarContextEventQuery::create()->filterByContexttype('3')->find());
+		$smarty->assign('contextJuncture', CalendarContextEventQuery::create()->filterByContexttype('4')->find());
 		
+
 		$this->template->template = 'TemplateCalendar.tpl';
 		return $mapping->findForwardConfig('success');
 	}
 
 }
+
