@@ -22,7 +22,7 @@ class CalendarHolidayEventCreateFromRegularEventXAction extends BaseAction {
 		if (!empty($_POST['regularEventId']) && !empty($_POST['year'])) {
 			try {
 				$holiday = CalendarHolidayEvent::createFromRegularEvent($_POST['regularEventId'], $_POST['year']);
-				$holiday->save();
+				//$holiday->save();
 			} catch (Exception $e) {
 				throw $e; // buscar una mejor forma de hacer fallar el pedido por AJAX
 			}
