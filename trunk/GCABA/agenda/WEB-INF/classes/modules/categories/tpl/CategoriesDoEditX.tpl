@@ -1,5 +1,5 @@
 |-if $newCategory neq ''-|
-	<li>|-$newCategory-|</li>		
+	<li>|-$newCategory-| ___ |-$newCategory->getResponsible()-|</li>		
 	<script type="text/javascript">
 		if ($('selectAddCategory') != null) {
 			var optionAdd = document.createElement('option');
@@ -23,10 +23,10 @@
 				$('selectModifyCategory').add(optionEdit);		
 			}
 		}
-		$('categoryMsgField').innerHTML = '<span class="resultSuccess">Categoría agregada</span>';
+		$('categoryMsgField').innerHTML = '<span class="resultSuccess">Dependencia agregada</span>';
 	</script>
 |-else-|
 	<script type="text/javascript">
-		$('categoryMsgField').innerHTML = '<span class="resultFailure">Se ha producido un error al agregar la categoría</span>';
+		$('categoryMsgField').innerHTML = '<span class="resultFailure">Se ha producido un error al agregar la dependencia</span>';
 	</script>
 |-/if-|
