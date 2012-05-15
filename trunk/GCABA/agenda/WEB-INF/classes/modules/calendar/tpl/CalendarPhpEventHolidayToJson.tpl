@@ -8,5 +8,5 @@
 	
 	|-* estos no los usa el fullCalendar pero según la documentación se pueden agregar que no los toca *-|
 	"body": "|-$holiday->getBody()-|",
-	"creationDate": "|-$holiday->getCreationDate("%Y/%m/%d %H:%M")-|",
+	"creationDate": "|-$holiday->getCreationDate("%Y/%m/%d %H:%M")-|"
 }
