@@ -39,9 +39,9 @@ function actorsDeleteCategoryFromActor(form){
 <h2>##actors,1,Actores##</h2>
 <h1>|-if $actor->isNew()-|Crear|-else-|Editar|-/if-| ##actors,2,Actor##</h1>
 <div id="div_actor">
-	<p>Ingrese los datos del ##actors,2,Actor##</p>
+	<p>Ingrese los datos del ##actors,5,actor##</p>
 		|-if $message eq "error"-|
-			<div class="errorMessage">Ha ocurrido un error al intentar guardar el ##actors,2,Actor##</div>
+			<div class="errorMessage">Ha ocurrido un error al intentar guardar el ##actors,5,actor##</div>
 		|-/if-|
 	
 	<form name="form_edit_actor" id="form_edit_actor" action="Main.php" method="post">

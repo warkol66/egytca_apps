@@ -1,6 +1,6 @@
-<h2>Tablero de Gestión</h2>
+<h2>##common,18,Configuración del Sistema##</h2>
 <h1>Administración de ##actors,1,Actores##</h1>
-<p>A continuación se muestra la lista de ##actors,1,Actores## cargados en el sistema.</p>
+<p>A continuación se muestra la lista de ##actors,4,actores## cargados en el sistema.</p>
 <div id="div_actors"> 
 	|-if $message eq "ok"-|
 		<div class="successMessage">##actors,2,Actor## guardado correctamente</div>
@@ -34,7 +34,7 @@
 		</thead> 
 	<tbody>|-if $actors|@count eq 0-|
 		<tr>
-			 <td colspan="3">|-if isset($filter)-|No hay ##actors,1,Actores## que concuerden con la búsqueda|-else-|No hay ##actors,1,Actores## disponibles|-/if-|</td>
+			 <td colspan="3">|-if isset($filter)-|No hay ##actors,4,actores## que concuerden con la búsqueda|-else-|No hay ##actors,4,actores## disponibles|-/if-|</td>
 		</tr>
 	|-else-|
 		|-foreach from=$actors item=actor name=for_actors-|
