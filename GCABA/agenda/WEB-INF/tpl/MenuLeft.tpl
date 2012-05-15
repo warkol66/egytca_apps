@@ -2,16 +2,22 @@
 	<ul>
 		<li class="menuLink"><a href="Main.php?do=usersWelcome">Ir al Inicio</a></li>
 		<li class="menuLink"><a href="Main.php?do=calendarShow" target="_blank">Ver Agenda</a></li>
-		<li class="titleMenu" onclick="switch_vis('sectionCatalog')">Agenda</li>
-		<div id="sectionCatalog" style="display:|-if $module|upper eq "CALENDAR"-|block|-else-|none|-/if-|">
+		<li class="titleMenu" onclick="switch_vis('sectionAgenda')">Agenda</li>
+		<div id="sectionAgenda" style="display:|-if $module|upper eq "CALENDAR"-|block|-else-|none|-/if-|">
 			<li><a href="Main.php?do=calendarEventsList">Administrar Agenda</a></li>
+			<li><a href="Main.php?do=calendarContextEventsList">Administrar Contexto</a></li>
+			<li><a href="Main.php?do=calendarHolidayEventsList">Administrar Feriados</a></li>
+			<li><a href="Main.php?do=calendarRegularEventsList">Administrar Eventos repetitivos</a></li>
+		</div>
+		<li class="titleMenu" onclick="switch_vis('sectionConfig')">Configuración</li>
+		<div id="sectionConfig" style="display:|-if $module|upper eq 'CALENDAR' || $module|upper eq 'CATEGORIES' || $module|upper eq 'MODULES' 
+		|| $module|upper eq 'ACTORS'-|block|-else-|none|-/if-|">
+			<li><a href="Main.php?do=actorsList">Funcionarios</a></li>
+			<li><a href="Main.php?do=categoriesList">Dependencias</a></li>
 		</div>
 		<li class="titleMenu" onclick="switch_vis('sectionAdmin')">Administración</li>
 		<div id="sectionAdmin" style="display:|-if $module|upper eq 'USERS' || $module|upper eq 'AFFILIATES' || $module|upper eq 'MODULES' 
 		|| $module|upper eq 'COMMON' || $module|upper eq 'SURVEYS' || $module|upper eq 'SECURITY'-|block|-else-|none|-/if-|">
-			<li><a href="Main.php?do=affiliatesList">##affiliates,1,Afiliados##</a></li>
-			<li><a href="Main.php?do=affiliatesBranchsList">##affiliates,5,Sucursales##</a></li>
-			<li><a href="Main.php?do=affiliatesUsersList">##affiliates,2,Usuarios del afiliado##</a></li>
 			<li><a href="Main.php?do=commonConfigSet">Cambiar Configuración</a></li>
 			<li><a href="Main.php?do=commonConfigEdit">Editar Configuración</a></li>
 			<li><a href="Main.php?do=commonConfigView">Ver Configuración</a></li>

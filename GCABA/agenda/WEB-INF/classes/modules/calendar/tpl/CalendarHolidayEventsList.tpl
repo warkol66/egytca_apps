@@ -56,8 +56,8 @@
 		|-foreach from=$events item=calendarEvent name=for_calendaEvents-|
 			<tr>
 				<td><input type="checkbox" name="selected[]" value="|-$calendarEvent->getId()-|"></td>
-				<td>|-$calendarEvent->gettitle()-|</td>
-				<td>|-$calendarEvent->getstartDate()|dateTime_format-|</td>
+				<td>|-$calendarEvent->getTitle()-|</td>
+				<td>|-$calendarEvent->getstartDate()|date_format-|</td>
 <!--								<td>|-$calendarEvent->getuserId()-|</td> -->
 				<td>|-*$calendarEvent->getContextTypeName()*-|</td>								
 				<td nowrap>|-if "calendarEventsChangeStatusX"|security_user_has_access || "calendarEventsChangeStatuses"|security_user_has_access || $calendarStatus eq 1-|

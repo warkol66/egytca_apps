@@ -106,9 +106,9 @@
                      <li><span>Funcionarios:</span><br />
                         <select name="filters[searchActor]" id="searchActor" style="width: 100px" onChange="this.form.submit();">
                             <option value="" selected="selected">Todos</option>
-                            <option value="1">Mauricio Macri</option>
-                            <option value="2">Ma. Eugenia Vidal</option>
-                            <option value="3">Horacio Rodriguez Larreta</option>
+														|-foreach from=$actors item=actor name=from_actor-|
+															<option value="|-$actor->getId()-|" |-$filters.searchActor|selected:$actor->getId()-|>|-$actor-|</option>
+														|-/foreach-|
                         </select>
                         </label>
                     </li>
@@ -116,9 +116,9 @@
                        <span>Dependencias:</span><br />
                         <select name="filters[searchCategory]" id="searchCategory" style="width: 100px" onChange="this.form.submit();">
                             <option value="" selected="selected">Todas</option>
-                            <option value="1">Jefatura de Gabinete</option>
-                            <option value="2">Ministerio de Ambiente y Espacio Público</option>
-                            <option value="3">Ministerio de Cultura</option>
+														|-foreach from=$categories item=category name=from_categories-|
+															<option value="|-$category->getId()-|" |-$filters.searchCategory|selected:$category->getId()-|>|-$category->getName()-|</option>
+														|-/foreach-|
                         </select>
                     </li>
                      <li><span>Comunas:</span><br />
