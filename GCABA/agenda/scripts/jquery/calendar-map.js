@@ -1,13 +1,13 @@
-CalendarMap = function(disableId, streetId, numberId, longitudeId, latitudeId) {
+CalendarMap = function(options) { // {disableId, streetId, numberId, latitudeId, longitudeId}
 	this.parent = new BaseMap;
 	this.inheritance = BaseMap;
 	this.inheritance();
 	
-	this.disableButton = $('#'+disableId);
-	this.street = $('#'+streetId);
-	this.number = $('#'+numberId);
-	this.latitude = $('#'+latitudeId);
-	this.longitude = $('#'+longitudeId);
+	this.disableButton = $('#'+options.disableId);
+	this.street = $('#'+options.streetId);
+	this.number = $('#'+options.numberId);
+	this.latitude = $('#'+options.latitudeId);
+	this.longitude = $('#'+options.longitudeId);
 	
 	this.markerBeingDragIndex;
 	

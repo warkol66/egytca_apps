@@ -72,7 +72,7 @@ BaseMap = function() {
 	    		_this.mapOnClick(this, ev);
 	  	});
 	  	
-	  	_this.drawCircuits();
+	  	_this.drawRegions();
 	}
 	
 	/**
@@ -327,10 +327,10 @@ BaseMap = function() {
 	
 	/**
 	 * Este callback es vacío por defecto.
-	 * Si se quiere dibujar los circuitos, se debe redefinir por ej. utilizando el
-	 * contenido del LausiCircuitsDraw.tpl
+	 * Si se quiere dibujar las regiones, se debe redefinir por ej. utilizando el
+	 * contenido del RegionsDrawInclude.tpl
 	 */
-	this.drawCircuits = function() {}
+	this.drawRegions = function() {}
 	
 	/**
 	 * Shortcut para que todos los markers existentes pasen a ser draggables o no draggables.

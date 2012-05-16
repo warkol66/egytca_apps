@@ -13,6 +13,7 @@ var theMap = this;
 			strokeOpacity: 0.25
 		});
 		var pathForPolygon = polygonDrawing.getPath();
+		polygonDrawing.setOptions({fillColor: '#ff0000',strokeColor: '#ff0000'}); // $region->getColor()?
 		|-foreach from=$regionPoints item=regionPoint-|
 			pathForPolygon.push(new google.maps.LatLng('|-$regionPoint->getLatitude()-|', '|-$regionPoint->getLongitude()-|'));
 		|-/foreach-|
