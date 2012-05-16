@@ -228,7 +228,7 @@ class CalendarEvent extends BaseCalendarEvent {
 		$agendaType = array(
 			1 => 'AAA',
 			2 => 'Otros eventos',
-			3 => 'Agenda Cultural',
+			3 => 'Agenda Cultural'
 		);
 		return $agendaType;
 	}
@@ -242,8 +242,9 @@ class CalendarEvent extends BaseCalendarEvent {
 	public static function getAgendas() {
 		$agendas = array(
 			1 => 'Jefe de Gobierno',
-			2 => 'Ministros',
-			3 => 'Otros funcionarios',
+			2 => 'Vicejefe de Gobierno',
+			3 => 'Ministros',
+			4 => 'Otros funcionarios'
 		);
 		return $agendas;
 	}
