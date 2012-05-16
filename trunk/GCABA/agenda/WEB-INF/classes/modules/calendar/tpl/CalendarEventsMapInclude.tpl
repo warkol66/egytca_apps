@@ -20,13 +20,19 @@
 	var calendarMap;
 
 	$(document).ready(function() {
-		calendarMap = new CalendarMap('|-$disableId-|', '|-$streetId-|', '|-$numberId-|', '|-$latitudeId-|', '|-$longitudeId-|');
+		calendarMap = new CalendarMap({
+			disableId: '|-$disableId-|',
+			streetId: '|-$streetId-|',
+			numberId: '|-$numberId-|',
+			latitudeId: '|-$latitudeId-|',
+			longitudeId: '|-$longitudeId-|'
+		});
 		var latlng = new google.maps.LatLng('-34.649', '-58.456');
 		calendarMap.mapOptions.zoom = 12;
 		calendarMap.mapOptions.center = latlng;
 		
-		calendarMap.drawCircuits = function() {
-			console.log('drawCircuits');
+		calendarMap.drawRegions = function() {
+			|-include file="RegionsDrawInclude.tpl" mapJsVarName="calendarMap"-|
 		}
 		
 		$('#|-$locateButtonId-|').on('click', calendarMap, function(event) { event.data.locate() } );
