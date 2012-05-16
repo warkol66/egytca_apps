@@ -69,10 +69,10 @@
 					week: "'Semana:' d MMM[ yyyy]{ 'al' d[ MMM] yyyy}", // Sep 7 - 13 2009
 					day: "dddd, dd 'de' MMMM 'de' yyyy"                  // Tuesday, Sep 8, 2009
 			},
-			selectable: true,
+			selectable: |-if "calendarEventsDoEditX"|security_has_access-|true|-else-|false|-/if-|,
 			selectHelper: true,
 			select: newEvent,
-			editable: true, // esto se modifica segun el permiso del usuario, si tien permiso para modificar se pone true
+			editable: |-if "calendarEventsDoEditX"|security_has_access-|true|-else-|false|-/if-|, // esto se modifica segun el permiso del usuario, si tien permiso para modificar se pone true
 			events: events,
 			eventAfterRender: Calendar.eventAfterRender,
 			eventResize: function(event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view) {
@@ -306,10 +306,10 @@
     <div class="fc-event fc-event-skin fc-event-hori fc-event-draggable fc-corner-left fc-corner-right">
 		<div class="fc-event-inner fc-event-skin eventoContainer">
             <span class="fc-event-time">
-                <ul class="botoneraSmallEvento">
+                |-if "calendarEventsDoEditX"|security_has_access-|<ul class="botoneraSmallEvento">
                     <li class="eventoBot01"><a href="#"></a></li> 
                     <li class="eventoBot02"><a href="#editEvent"></a></li> 
-                </ul>
+                </ul>|-/if-|
                 %start-%end
             </span>
             <div class="eventoContent">
@@ -317,11 +317,10 @@
                 <span class="fc-event-text">%body</span>
             </div>
             <div class="eventoFooter"></div>
-						<div class="ui-resizable-handle ui-resizable-s">=</div> 
+						|-if "calendarEventsDoEditX"|security_has_access-|<div class="ui-resizable-handle ui-resizable-s">=</div>|-else-|<div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>|-/if-| 
     	</div>
   	</div>   
 </div>
-<!--Para cuando no hay permisos de edicion!!!!!            <div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>-->
 
 <!--template para eventos de todo el día-->
 <div id="calendarAllDayTemplates" style="display: none;">
