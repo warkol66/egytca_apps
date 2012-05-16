@@ -223,25 +223,25 @@
 	<h3><a href="#">Crisis</a></h3>
     <div>
     	<ul>|-foreach from=$contextCrisis item=context name=foreach_crisis-|
-	    	<li><a href="#" onclick="javascript:$('context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li  id="context|-$context->getId()-|">|-$context->getBody()-| ___ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
+	    	<li><a href="#" onclick="javascript:$('#context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li  id="context_|-$context->getId()-|">|-$context->getBody()-| ___ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
       |-/foreach-|</ul>
 	</div>
 	<h3><a href="#">Coyuntura</a></h3>
     <div>
     	<ul>|-foreach from=$contextJuncture item=context name=foreach_juncture-|
-	    	<li><a href="#" onclick="javascript:$('context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li  id="context|-$context->getId()-|">|-$context->getBody()-| ___ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
+	    	<li><a href="#" onclick="javascript:$('#context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li  id="context_|-$context->getId()-|">|-$context->getBody()-| ___ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
       |-/foreach-|</ul>
 	</div>
 	<h3><a href="#">Campaña Nacional</a></h3>
     <div>
     	<ul>|-foreach from=$contextNational item=context name=foreach_national-|
-	    	<li><a href="#" onclick="javascript:$('context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li  id="context|-$context->getId()-|">|-$context->getBody()-| ___ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
+	    	<li><a href="#" onclick="javascript:$('#context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li  id="context_|-$context->getId()-|">|-$context->getBody()-| ___ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
       |-/foreach-|</ul>
 	</div>
 	<h3><a href="#">Campaña Publicitaria</a></h3>
     <div>
     	<ul>|-foreach from=$contextCampaign item=context name=foreach_campaign-|
-	    	<li><a href="#" onclick="javascript:$('context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li  id="context|-$context->getId()-|">|-$context->getBody()-| ___ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
+	    	<li><a href="#" onclick="javascript:$('#context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li  id="context_|-$context->getId()-|">|-$context->getBody()-| ___ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
       |-/foreach-|</ul>
 	</div>
                     
