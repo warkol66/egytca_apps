@@ -211,7 +211,15 @@
 		data += '&calendarEvent[startDate]='+getFormattedDatetime(event.start);
 		data += '&calendarEvent[endDate]='+getFormattedDatetime(event.end);
 		
-		editRequest(data);
+		editRequest(data, function(event) {
+			// bug fix resize deja de andar
+			calendar.fullCalendar('removeEvents', event.id);
+			calendar.fullCalendar(
+				'renderEvent',
+				event,
+				true // make the event "stick"
+			);
+		});
 	}
 	
 	getFormattedDatetime = function(date) {
