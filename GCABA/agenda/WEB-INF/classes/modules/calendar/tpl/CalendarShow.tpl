@@ -343,17 +343,3 @@
     	</div>
   	</div>   
 </div>
-
-
-<div id="calendarAllDayTemplates" style="display: none;">
-    <div class="fc-event fc-event-skin fc-event-hori fc-event-draggable fc-corner-left fc-corner-right">
-		<div class="fc-event-inner fc-event-skin eventoContainer">
-            <div class="eventoContent">
-                <span class="fc-event-title"><img src="images/imagen_foto.png" class="foto" />%title</span>
-                <span class="fc-event-text">%body</span>
-            </div>
-            <div class="eventoFooter"></div>
-				<div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
-    	</div>
-  	</div>   
-</div>
