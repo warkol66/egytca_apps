@@ -522,13 +522,13 @@
 		
 		.fc-view-agendaDay  .fc-agenda-slots  .fc-agenda-axis /* agenda diaria*/ {
 			color:#FFF;
-			font-size:11px;
+/*			font-size:11px; */
 			font-weight:bold;
 			background-image: url(../images/backgroundsH.png);
 			background-repeat:repeat-x;
 			background-position:0 -239px;
 			background-color:#eeab03;
-			padding:8px 4px 2px 2px;
+			padding: 0 4px 0 2px;
 			}
 /*			fc-view-agendaDay .fc-agenda-axis{
 			width: 50px;}
