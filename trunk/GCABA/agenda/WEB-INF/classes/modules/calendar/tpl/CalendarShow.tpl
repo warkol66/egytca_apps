@@ -98,12 +98,6 @@
 	}
 	
 	newEvent = function(start, end, allDay) {
-
-		$('#newEvent #calendarEvent_title').val('');
-		$('#newEvent #calendarEvent_street').val('');
-		$('#newEvent #calendarEvent_number').val('');
-		$('#newEvent #calendarEvent_agenda').val('1');
-		$('#newEvent #calendarEvent_axisId option:selected').removeAttr("selected");
 	
 		$('#newEvent #calendarEvent_creationDate').val(getFormattedDatetime(new Date()));
 		$('#newEvent #calendarEvent_startDate').val(getFormattedDatetime(start));
@@ -169,6 +163,7 @@
 				event,
 				true // make the event "stick"
 			);
+			form.reset()
 		});
 		
 		calendar.fullCalendar('unselect');
