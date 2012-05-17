@@ -89,6 +89,7 @@ class BaseDoEditAction extends BaseAction {
 	}
 	
 	protected function onFailure($e) {
+		$this->entity = Common::setObjectFromParams($this->entity, $this->entityParams);
 		$this->smarty->assign('entity', $this->entity);
 		$this->smarty->assign('action', empty($_POST["id"]) ? 'create' : 'edit');
 		$this->smarty->assign('errorMessage', $e->getMessage());
