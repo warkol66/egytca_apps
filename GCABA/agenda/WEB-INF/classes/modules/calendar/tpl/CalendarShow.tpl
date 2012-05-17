@@ -15,19 +15,25 @@
 	var calendar;
 	
 	$(document).ready(function() {
+		var day, month, year;
 		var events = loadEvents();
 		calendar = createCalendar(events);
 		Calendar.initialize({ axisMap: |-json_encode($axisMap)-| });
 		|-if isset($filters.selectedDate) && $filters.selectedDate neq ''-|
 			var date = '|-$filters.selectedDate-|'.split('-');
-			calendar.fullCalendar( 'gotoDate', date[2], (date[1]-1), date[0]);
+			year = date[2];
+			month = date[1];
+			day = date[0];
+			calendar.fullCalendar( 'gotoDate', year, (month-1), day);
+		|-else-|
+			year = (new Date()).getFullYear();
 		|-/if-|
 		$('#newEventFancyboxDummy').fancybox();
 		$('#uninstantiatedRegEventsFancyboxDummy').fancybox();
-		//$('#uninstantiatedRegEvents tbody').load(
-		//	'Main.php?do=calendarRegularEventGetUninstantiatedX',
-		//	{ year: 2012 }
-		//);
+		$('#uninstantiatedRegEvents tbody').load(
+			'Main.php?do=calendarRegularEventGetUninstantiatedX',
+			{ years:  [year, parseInt(year)+1] }
+		);
 	});
 	
 	createCalendar = function(events) {
@@ -235,7 +241,7 @@
 			data: { regularEventId: regEventId, year: year },
 			dataType: 'json',
 			success: function(event) {
-				$('#uninstantiatedRegEvents #createHolidayButton_'+regEventId).remove();
+				$('#uninstantiatedRegEvents #createHolidayButton_'+regEventId+'_'+year).remove();
 				calendar.fullCalendar(
 					'renderEvent',
 					event,
