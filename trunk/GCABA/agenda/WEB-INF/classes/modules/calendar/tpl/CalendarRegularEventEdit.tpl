@@ -7,7 +7,7 @@
 <div id="div_bulletin">
 	<p>Ingrese los datos de la Efeméride</p>
 	|-if $message eq "error"-|
-		<div class="failureMessage">Ha ocurrido un error al intentar guardar la Efeméride</div>
+		<div class="errorMessage">Ha ocurrido un error al intentar guardar la Efeméride</div>
 	|-elseif $message eq "ok"-|
 		<div class="successMessage">Cambios guardados correctamente</div>
 	|-/if-|

@@ -50,10 +50,12 @@ class BaseDoEditAction extends BaseAction {
 			$this->postSave();
 		} catch (Exception $e) {
 			//Elijo la vista basado en si es o no un pedido por AJAX
-			if ($this->isAjax())
+			if ($this->isAjax()) {
 				throw new Exception(); // Buscar una mejor forma de que falle AJAX
-			else
-				return $this->returnFailure($mapping, $smarty, $this->entity,'failure');
+			} else {
+				$this->onFailure($e);
+				return $this->returnFailure($mapping, $smarty, $this->entity,'failure-edit');
+			}
 		}
 		
 		$params["id"] = $this->entity->getId();
@@ -84,5 +86,11 @@ class BaseDoEditAction extends BaseAction {
 	
 	protected function postUpdate() {
 		// default: do nothing
+	}
+	
+	protected function onFailure($e) {
+		$this->smarty->assign('entity', $this->entity);
+		$this->smarty->assign('action', empty($_POST["id"]) ? 'create' : 'edit');
+		$this->smarty->assign('errorMessage', $e->getMessage());
 	}
 }
