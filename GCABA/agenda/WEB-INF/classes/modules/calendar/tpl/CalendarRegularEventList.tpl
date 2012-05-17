@@ -50,7 +50,7 @@
 		|-foreach from=$entities item=entity name=for_entities-|
 		<tr> 
 			<td>|-$entity->getName()-|</td>
-			<td>|-$entity->getDate()|date_format:"%d / %m"-|</td>
+			<td>|-$entity->getDate()|date_format:"%d - %m"-|</td>
 			<td nowrap>
 				|-if "calendarHolidayEventEdit"|security_has_access-|
 				<form action="Main.php" method="get">

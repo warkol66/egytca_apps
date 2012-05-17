@@ -29,11 +29,12 @@
 			year = (new Date()).getFullYear();
 		|-/if-|
 		$('#newEventFancyboxDummy').fancybox();
+		|-if !empty($loginUser) && $loginUser->isSupervisor()-|
 		$('#uninstantiatedRegEventsFancyboxDummy').fancybox();
 		$('#uninstantiatedRegEvents tbody').load(
 			'Main.php?do=calendarRegularEventGetUninstantiatedX',
 			{ years:  [year, parseInt(year)+1] }
-		);
+		);|-/if-|
 	});
 	
 	createCalendar = function(events) {
@@ -252,19 +253,23 @@
 	}
 </script>
 
-<div style="display:none;"><div id="uninstantiatedRegEvents">
-	<table style="color:white">
+<div style="display:none;">
+<div id="uninstantiatedRegEvents">
+<fieldset><form>
+<h1>Crear Efemérides</h1>
+<p>Agregue las efemérides al calendario</p>
+	<table>
 		<thead>
-			<th>Name</th>
-			<th>Date</th>
-			<th>&nbsp;</th>
+			<th width="80%">Feriado</th>
+			<th width="15%">Fecha</th>
+			<th width="5%">&nbsp;</th>
 		</thead>
 		<tbody>
 			<tr colspan="3">
 				<td>Todas las efemérides del año $year fueron agregadas al calendario</td>
 			</tr>
 		</tbody>
-	</table>
+	</table></form></fieldset>
 </div></div>
 
 <div style="display:none;"><div id="newEvent">

@@ -7,13 +7,14 @@
 			<li><a href="Main.php?do=calendarEventsList">Administrar Agenda</a></li>
 			<li><a href="Main.php?do=calendarContextEventsList">Administrar Contexto</a></li>
 			<li><a href="Main.php?do=calendarHolidayEventsList">Administrar Feriados</a></li>
-			<li><a href="Main.php?do=calendarRegularEventsList">Administrar Eventos repetitivos</a></li>
+			<li><a href="Main.php?do=calendarRegularEventList">Administrar Efemérides</a></li>
 		</div>
 		<li class="titleMenu" onclick="switch_vis('sectionConfig')">Configuración</li>
 		<div id="sectionConfig" style="display:|-if $module|upper eq 'CALENDAR' || $module|upper eq 'CATEGORIES' || $module|upper eq 'MODULES' 
 		|| $module|upper eq 'ACTORS'-|block|-else-|none|-/if-|">
 			<li><a href="Main.php?do=actorsList">Funcionarios</a></li>
 			<li><a href="Main.php?do=categoriesList">Dependencias</a></li>
+			<li><a href="Main.php?do=calendarAxisList">Ejes de Gestión</a></li>
 		</div>
 		<li class="titleMenu" onclick="switch_vis('sectionAdmin')">Administración</li>
 		<div id="sectionAdmin" style="display:|-if $module|upper eq 'USERS' || $module|upper eq 'AFFILIATES' || $module|upper eq 'MODULES' 

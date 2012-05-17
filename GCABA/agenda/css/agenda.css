@@ -942,29 +942,37 @@
 		}		
 
 /*   FORM PARA NEW EVENT & EDIT EVENT  */
+#fancybox-outer, #fancybox-content {
+background-color: #333 !Important;
+border: none !Important;
+}
 
-#newEvent h1, #editEvent h1 {padding:0px; text-transform:uppercase; font-weight:bold; color: #FFFFFF; border-bottom:solid 1px #FFFFFF;}
+#newEvent h1, #editEvent h1, #uninstantiatedRegEvents h1 {padding:0px; text-transform:uppercase; font-weight:bold; color: #FFFFFF; border-bottom:solid 1px #FFFFFF;}
 
 
 #newEvent .arrangeButtons,
 #editEvent .arrangeButtons {padding-left:150px;}
 
-
-#newEvent, #editEvent {
+#newEvent, #editEvent, #uninstantiatedRegEvents {
 	padding: 15px !Important;
 }
-#fancybox-outer, #fancybox-content {
-background-color: #333 !Important;
-border: none !Important;
-}
-#newEvent *, #editEvent * {
+#newEvent *, #editEvent *, #uninstantiatedRegEvents *{
 	margin-top: 0.3em !Important;
 }
-#newEvent fieldset, #editEvent fieldset {
+#newEvent fieldset, #editEvent fieldset, #uninstantiatedRegEvents fieldset {
 	border:0 !Important;
 }
-#newEvent fieldset label, #editEvent fieldset label{
+#newEvent fieldset label, #editEvent fieldset label, #uninstantiatedRegEvents fieldset label{
 	color:#fff !Important;
+}
+#uninstantiatedRegEvents table{
+	width: 90%;
+}
+#uninstantiatedRegEvents th, #uninstantiatedRegEvents td {
+	text-align: left;
+	padding: 4px;
+	color: #ffffff;
+	vertical-align: bottom !Important;
 }
 .fc-view-month .foto, .fc-view-month .fc-event-text {
 	display: none !Important;
