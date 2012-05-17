@@ -36,6 +36,12 @@ class CalendarRegularEventListAction extends BaseAction {
 
 		$smarty->assign("message",$_GET["message"]);
 		
+		$today = new DateTime();
+		$uninstantiatedThisYear = CalendarRegularEvent::getUninstantiated($today->format('Y'));
+		$holidayCreationYear = !empty($uninstantiatedThisYear) ? $today->format('Y') : $today->format('Y')+1;
+		$smarty->assign('holidayCreationYear', $holidayCreationYear);
+		
+		$this->template->template = 'TemplateJQuery.tpl';
 		return $mapping->findForwardConfig('success');
 	}
 

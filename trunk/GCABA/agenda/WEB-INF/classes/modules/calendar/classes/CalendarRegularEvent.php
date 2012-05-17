@@ -20,21 +20,27 @@ class CalendarRegularEvent extends BaseCalendarRegularEvent {
 		$regularEvents = CalendarRegularEventQuery::create()->find();
 		$uninstantiated = array();
 		foreach ($regularEvents as $regularEvent) {
-			$holidays = CalendarHolidayEventQuery::create()->filterByRegulareventid(null, Criteria::NOT_EQUAL)->find();
-			$instantiated = false;
-			foreach ($holidays as $holiday) {
-				if ($regularEvent->getDate('%d-%m').'-'.$year == $holiday->getStartDate('%d-%m-%Y')) {
-					$instantiated = true;
-					break;
-				}
-			}
-			
-			if (!$instantiated) {
+			if (!$regularEvent->isInstantiated($year)) {
 				$uninstantiated[] = $regularEvent;
 			}
 		}
-		
 		return $uninstantiated;
+	}
+	
+	/**
+	 * Devuelve true si existe un CalendarHolidayEvent con la fecha del RegularEvent para el año $year
+	 * 
+	 * @param int $year 
+	 * @return boolean
+	 */
+	public function isInstantiated($year) {
+		$holidays = CalendarHolidayEventQuery::create()->filterByRegulareventid(null, Criteria::NOT_EQUAL)->find();
+		foreach ($holidays as $holiday) {
+			if ($this->getDate('%d-%m').'-'.$year == $holiday->getStartDate('%d-%m-%Y')) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 } // CalendarRegularEvent
