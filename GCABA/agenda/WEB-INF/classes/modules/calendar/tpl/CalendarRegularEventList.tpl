@@ -10,7 +10,7 @@
 	<table id="table_entities" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead> 
 		<tr>
-			<td colspan="3" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Búsqueda de Efemérides</a>
+			<td colspan="4" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Búsqueda de Efemérides</a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;">
 				<form action='Main.php' method='get' style="display:inline;">
 				<p>
@@ -32,37 +32,32 @@
 		
 		|-if "calendarRegularEventList"|security_has_access-|
 		<tr>
-			<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=calendarRegularEventEdit" class="addLink">Agregar Efeméride</a></div></th>
+			<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=calendarRegularEventEdit" class="addLink">Agregar Efeméride</a></div></th>
 		</tr>
 		|-/if-|
 		<tr class="thFillTitle">
 			<th width="50%">Nombre</th>
-			<th width="45%">Fecha</th>
+			<th width="40%">Fecha</th>
+			<th width="5%">|-$holidayCreationYear-|</th>
 			<th width="5%">&nbsp;</th>
 		</tr>
 		</thead>
 		<tbody>
 		|-if $entities|@count eq 0-|
 		<tr>
-			<td colspan="3">|-if isset($filters)-|No hay Efemérides que concuerden con la búsqueda|-else-|No hay Efemérides disponibles|-/if-|</td>
+			<td colspan="4">|-if isset($filters)-|No hay Efemérides que concuerden con la búsqueda|-else-|No hay Efemérides disponibles|-/if-|</td>
 		</tr>
 		|-else-|
 		|-foreach from=$entities item=entity name=for_entities-|
 		<tr> 
 			<td>|-$entity->getName()-|</td>
 			<td>|-$entity->getDate()|date_format:"%d - %m"-|</td>
-			<td nowrap>
-				|-if "calendarHolidayEventEdit"|security_has_access-|
-				<form action="Main.php" method="get">
-					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-					|-if isset($pager) && ($pager->getPage() gt 1)-|
-						<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />
-					|-/if-|
-					<input type="hidden" name="do" value="calendarHolidayEventEdit" />
-					<input type="hidden" name="id" value="|-$entity->getId()-|" />
-					<input type="submit" value="Crear Evento" title="Crear Evento" class="icon iconAdd" onclick="alert('crear evento!'); return false;" />
-				</form>
+			<td nowrap align="center">
+				|-if "calendarHolidayEventEdit"|security_has_access && !$entity->isInstantiated($holidayCreationYear)-|
+					<input id="createHolidayButton_|-$entity->getId()-|_|-$holidayCreationYear-|" type="button" title="Crear Evento" class="icon iconAdd" onclick="createHolidayFromRegEvent('|-$entity->getId()-|', '|-$holidayCreationYear-|');" />
 				|-/if-|
+			</td>
+			<td nowrap>
 				|-if "calendarRegularEventEdit"|security_has_access-|
 				<form action="Main.php" method="get">
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
@@ -91,14 +86,28 @@
 		|-/if-|
 		|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
-			<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+			<td colspan="4" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 		|-if "calendarRegularEventEdit"|security_has_access-|
 		<tr>
-			<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=calendarRegularEventEdit" class="addLink">Agregar Efeméride</a></div></th>
+			<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=calendarRegularEventEdit" class="addLink">Agregar Efeméride</a></div></th>
 		</tr>
 		|-/if-|
 		</tbody>
 	</table>
 </div>
+
+<script type="text/javascript">
+	createHolidayFromRegEvent = function(regEventId, year) {
+		$.ajax({
+			url: 'Main.php?do=calendarHolidayEventCreateFromRegularEventX',
+			type: 'post',
+			data: { regularEventId: regEventId, year: year },
+			dataType: 'json',
+			success: function(event) {
+				$('#createHolidayButton_'+regEventId+'_'+year).remove();
+			}
+		});
+	}
+</script>
