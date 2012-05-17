@@ -98,6 +98,13 @@
 	}
 	
 	newEvent = function(start, end, allDay) {
+
+		$('#newEvent #calendarEvent_title').val('');
+		$('#newEvent #calendarEvent_street').val('');
+		$('#newEvent #calendarEvent_number').val('');
+		$('#newEvent #calendarEvent_agenda').val('1');
+		$('#newEvent #calendarEvent_axisId option:selected').removeAttr("selected");
+	
 		$('#newEvent #calendarEvent_creationDate').val(getFormattedDatetime(new Date()));
 		$('#newEvent #calendarEvent_startDate').val(getFormattedDatetime(start));
 		$('#newEvent #calendarEvent_endDate').val(getFormattedDatetime(end));
@@ -268,7 +275,7 @@
 		</p>
 		<p>
 			<label for="calendarEvent_axisId">Eje de gestión</label>
-			<select id="calendarEvent_axis" name="calendarEvent[axisId]" title="Eje de gestión">
+			<select id="calendarEvent_axisId" name="calendarEvent[axisId]" title="Eje de gestión">
 				<option value="">Seleccione el eje</option>
 				|-foreach from=$axes item=object-|
 					<option value="|-$object->getId()-|">|-$object->getName()-|</option>
