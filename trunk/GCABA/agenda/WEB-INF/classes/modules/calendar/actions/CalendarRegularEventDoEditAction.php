@@ -10,6 +10,9 @@ class CalendarRegularEventDoEditAction extends BaseDoEditAction {
 	
 	protected function preUpdate() {
 		parent::preUpdate();
-		$this->entityParams['date'] = Datetime::createFromFormat('d/m', $this->entityParams['date'])->format('m/d');
+		$datetime = Datetime::createFromFormat('d-m', $this->entityParams['date']);
+		if ($datetime === false)
+			throw new Exception('error reading date');
+		$this->entityParams['date'] = $datetime->format('Y-m-d');
 	}
 }

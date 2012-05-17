@@ -1,3 +1,16 @@
+<link type="text/css" href="css/smoothness/jquery-ui-1.8.19.custom.css" rel="Stylesheet" />
+<script type="text/javascript" src="scripts/jquery/jquery-ui-1.8.19.custom.min.js"></script>
+<script type="text/javascript" src="scripts/jquery/jquery.ui.datepicker-es.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.datepicker.setDefaults({
+			dateFormat: 'dd-mm',
+			numberOfMonths: 3
+		});
+		$('#params_date').datepicker();
+	});
+</script>
+
 <h2>Efemérides</h2>
 |-if $notValidId eq "true"-|
 <div class="errorMessage">El identificador de la efeméride ingresado no es válido. Seleccione un item del listado.</div>
@@ -24,7 +37,7 @@
 		</p>
 		<p>     
 			<label for="params_date">Fecha</label>
-			<input id="params_date" name="params[date]" type="text" size="12" class="emptyValidation"  value="|-$entity->getDate()|date_format:'%d/%m'-|" title="Ingrese la fecha en formato dd/mm"/> (dd//mm)
+			<input id="params_date" name="params[date]" type="text" readonly="readonly" size="12" class="emptyValidation"  value="|-$entity->getDate()|date_format:'%d-%m'-|" title="Ingrese la fecha en formato dd-mm"/> (dd-mm)
 		</p>
 		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 		<p>
