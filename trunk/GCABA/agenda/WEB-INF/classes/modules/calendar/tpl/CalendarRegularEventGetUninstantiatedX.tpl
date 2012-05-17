@@ -12,7 +12,9 @@
 |-/foreach-|
 
 <script>
-|-if $uninstantiatedRegEvents|count gt 0-|
-	$('#uninstantiatedRegEventsFancyboxDummy').click();
-|-/if-|
+|-foreach $years as $year-|
+	|-if $uninstantiatedRegEvents.$year|count gt 0-|
+		$('#uninstantiatedRegEventsFancyboxDummy').click();
+	|-/if-|
+|-/foreach-|
 </script>
