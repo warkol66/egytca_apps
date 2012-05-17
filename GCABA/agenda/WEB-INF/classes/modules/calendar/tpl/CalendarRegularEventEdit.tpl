@@ -11,29 +11,33 @@
 	|-elseif $message eq "ok"-|
 		<div class="successMessage">Cambios guardados correctamente</div>
 	|-/if-|
-	<form action="Main.php?do=calendarRegularEventDoEdit" method="post">
+	<form action="Main.php" method="post">
 	<fieldset title="Formulario de edición de datos de una Efeméride">
 		<legend>Formulario de Administración de Efemérides</legend>
 		<p>
 			<label for="params_name">Nombre</label>
-			<input type="text" id="params_name" name="params[name]" size="10" value="|-$entity->getName()|escape-|" title="Nombre" />
+			<input type="text" id="params_name" name="params[name]" size="40" value="|-$entity->getName()|escape-|" title="Nombre" class="emptyValidation" />
 		</p>
 		<p>     
 			<label for="params_description">Descripción</label>
-			<textarea id="params_description" name="params[description]" title="Descripción">|-$entity->getDescription()|escape-|</textarea>
+			<textarea name="params[description]" cols="45" rows="3" wrap="VIRTUAL" id="params_description" title="Descripción">|-$entity->getDescription()|escape-|</textarea>
 		</p>
 		<p>     
 			<label for="params_date">Fecha</label>
-			<input id="params_date" name="params[date]" type="text" size="12" value="|-$entity->getDate()|date_format:'%d/%m'-|" />
+			<input id="params_date" name="params[date]" type="text" size="12" class="emptyValidation"  value="|-$entity->getDate()|date_format:'%d/%m'-|" title="Ingrese la fecha en formato dd/mm"/> (dd//mm)
 		</p>
+		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 		<p>
 			|-if $action eq 'edit'-|
 				<input type="hidden" name="id" id="id" value="|-$entity->getId()-|" />
 			|-/if-|
-			<input type="hidden" name="action" id="action" value="|-$action-|" />
-			<input type="submit" title="Guardar" value="Guardar" />
-			<input type="button" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=calendarRegularEventList'"/>
-		</p>
+
+					<!--pasaje de parametros de filtros -->
+					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+					<input type="hidden" name="do" id="doEdit" value="calendarRegularEventDoEdit" />
+					|-javascript_form_validation_button id="button_edit_calendarEvent" value='Guardar' title='Guardar'-|
+	<input type='button' onClick='location.href="Main.php?do=calendarRegularEventList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Eventos"/>
+			</p>
 	</fieldset>
 	</form>
 </div>
