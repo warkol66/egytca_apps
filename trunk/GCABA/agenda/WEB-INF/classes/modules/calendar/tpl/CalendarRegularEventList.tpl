@@ -15,7 +15,7 @@
 				<form action='Main.php' method='get' style="display:inline;">
 				<p>
 					<label for="filters[name]">Nombre</label>
-					<input name="filters[name]" type="text" value="|-if isset($filters.name)-||-$filters.name-||-/if-|" size="5" title="Ingrese el nombre a buscar" />
+					<input name="filters[name]" type="text" value="|-if isset($filters.name)-||-$filters.name-||-/if-|" size="25" title="Ingrese el nombre a buscar" />
 				</p>
 				<p>
 					<input type="submit" value="Buscar" title="Buscar con los par&aacute;metros ingresados" />
