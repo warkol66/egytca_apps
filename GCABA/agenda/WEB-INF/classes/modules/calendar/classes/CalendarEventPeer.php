@@ -167,6 +167,8 @@ class CalendarEventPeer extends BaseCalendarEventPeer {
 
 	$criteria->setIgnoreCase(true);
 
+	$criteria->add(CalendarEventPeer::CLASS_KEY,1);
+
 	if ($this->orderById)
 		$criteria->addDescendingOrderByColumn(CalendarEventPeer::ID);
 
