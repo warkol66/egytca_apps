@@ -14,6 +14,7 @@
 	var url="|-$systemUrl-|";
 </script>
 <script src="scripts/jquery.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/catalog.js" language="JavaScript" type="text/javascript"></script>
 </head>
 <body>
 <!-- Begin Wrapper -->
