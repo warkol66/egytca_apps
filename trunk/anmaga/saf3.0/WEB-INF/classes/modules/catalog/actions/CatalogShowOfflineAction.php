@@ -1,11 +1,11 @@
 <?php
 
-class CatalogDownloadAction extends BaseAction {
+class CatalogShowOfflineAction extends BaseAction {
 
 
 	// ----- Constructor ---------------------------------------------------- //
 
-	function CatalogDownloadAction() {
+	function CatalogShowOfflineAction() {
 		;
 	}
 
@@ -30,7 +30,7 @@ class CatalogDownloadAction extends BaseAction {
 
     BaseAction::execute($mapping, $form, $request, $response);
 
-    $this->template->template = "TemplateAjax.tpl";
+    $this->template->template = "TemplateJquery.tpl";
     
 		//////////
 		// Access the Smarty PlugIn instance
@@ -42,13 +42,7 @@ class CatalogDownloadAction extends BaseAction {
 		}
 
 		$module = "catalog";
-    $smarty->assign("module",$module);    
-
-		$productPeer = new ProductPeer;
-    
-    $products = $productPeer->getAll();
-			
-    $smarty->assign("products",$products);    
+    $smarty->assign("module",$module);
     
 		return $mapping->findForwardConfig('success');
 		
