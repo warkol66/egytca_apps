@@ -37,8 +37,8 @@
 		|-/if-|
 		<tr class="thFillTitle">
 			<th width="50%">Nombre</th>
-			<th width="40%">Fecha</th>
-			<th width="5%">|-$holidayCreationYear-|</th>
+			<th width="35%">Fecha</th>
+			<th nowrap width="10%">Crear en |-$holidayCreationYear-|</th>
 			<th width="5%">&nbsp;</th>
 		</tr>
 		</thead>
