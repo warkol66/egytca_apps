@@ -24,10 +24,13 @@ class CalendarShowAction extends BaseAction {
 			$smarty->assign('filters', $filters);
 		}
 
-		$events = BaseQuery::create('CalendarEvent')->addFilters($filters)->find();
+		$events = BaseQuery::create('CalendarEvent')->addFilters($filters)
+			->filterByStatus(3, Criteria::GREATER_THAN)->find();
 		$smarty->assign('events', $events);
 		$smarty->assign('holydayEvents', BaseQuery::create('CalendarHolidayEvent')->addFilters($filters)->find());
 		$smarty->assign('contextEvents', BaseQuery::create('CalendarContextEvent')->addFilters($filters)->find());
+		$smarty->assign('pendingEvents', BaseQuery::create('CalendarEvent')->addFilters($filters)
+			->filterByStatus(3, Criteria::LESS_EQUAL)->find());
 
 
 		$moduleConfig = Common::getModuleConfiguration($module);
@@ -46,11 +49,11 @@ class CalendarShowAction extends BaseAction {
 		$smarty->assign("users", UserQuery::create()->find());
 		$smarty->assign('actors', ActorQuery::create()->find());
 		$smarty->assign('axes', CalendarAxisQuery::create()->find());
-    $smarty->assign('axisMap', CalendarAxisQuery::create()->findAxisMap());
+		$smarty->assign('axisMap', CalendarAxisQuery::create()->findAxisMap());
 
 		$smarty->assign('eventTypes', EventTypeQuery::create()->find());
 		$smarty->assign('agendaTypes', CalendarEventPeer::getAgendas());
-		$smarty->assign("calendarEventStatus",CalendarEventPeer::getStatus());
+		$smarty->assign("calendarEventStatus",CalendarEvent::getStatuses());
 
 		//Eventos de Contexto
 		$smarty->assign('contextNational', CalendarContextEventQuery::create()->filterByContexttype('1')->find());
