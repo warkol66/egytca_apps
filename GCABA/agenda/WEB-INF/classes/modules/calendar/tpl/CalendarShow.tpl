@@ -17,6 +17,7 @@
 	$(document).ready(function() {
 		var day, month, year;
 		var events = loadEvents();
+		var pendingEvents = loadPendingEvents();
 		calendar = createCalendar(events);
 		Calendar.initialize({ axisMap: |-json_encode($axisMap)-| });
 		|-if isset($filters.selectedDate) && $filters.selectedDate neq ''-|
@@ -87,8 +88,34 @@
 			},
 			eventDrop: function( event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view ) {
 				updateEventDatetime(event);
+			},
+			droppable: true,
+			drop: function(date, allDay, jsEvent, ui) {
+				var originalEventObject = $(this).data('eventObject');
+				var copiedEventObject = $.extend({}, originalEventObject);
+				copiedEventObject.start = date;
+				copiedEventObject.allDay = allDay;
+				createEventFromJs(copiedEventObject, function(event) {
+					calendar.fullCalendar('renderEvent', event, true);
+					$(this).remove();
+				});
 			}
 		});
+	}
+	
+	createEventFromJs = function(event, onSuccess) {
+		console.log(event);
+		if (confirm('Esto no está terminado de implementar!\n¿Querés probarlo?\nSe va a crear un evento incompleto con título arbitrario\ncon la fecha inicial correcta')) {
+		
+		var data = {
+			'calendarEvent[title]': event.title,
+			'calendarEvent[startDate]': event.start.toString(),
+			'calendarEvent[allDay]': event.allDay
+		}
+		console.log('falta agregar los demas campos');
+		editRequest(data, onSuccess);
+		
+		} // confirm box
 	}
 	
 	loadEvents = function() {
@@ -102,6 +129,21 @@
 				|-include file="CalendarPhpEventHolidayToJson.tpl" holiday=$holiday-|
 			|-/foreach-|
 		]
+	}
+	
+	loadPendingEvents = function() {
+		// agregar los eventos pendientes
+		
+		// hacerlos estas cosas cuando se va agregando cada uno.
+		// esto es para probar
+		$('.pendientesContainer .pendientesContent li').draggable({
+			revert: true,      // immediately snap back to original position
+			revertDuration: 0  //
+		});
+		var eventObject = {
+			title: 'UnTitulo'
+		}
+		$('.pendientesContainer .pendientesContent li').data('eventObject', eventObject);
 	}
 	
 	newEvent = function(start, end, allDay) {
