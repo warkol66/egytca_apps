@@ -91,29 +91,38 @@
 			},
 			droppable: true,
 			drop: function(date, allDay, jsEvent, ui) {
+				
+				var defaultDuration = 1; // in hours
+				var end = new Date(date.getTime());
+				end.setTime(end.getTime() + (defaultDuration*60*60*1000));
 				var originalEventObject = $(this).data('eventObject');
 				var copiedEventObject = $.extend({}, originalEventObject);
+				
 				copiedEventObject.start = date;
+				copiedEventObject.end = end;
 				copiedEventObject.allDay = allDay;
+				copiedEventObject.status = 4;
 				createEventFromJs(copiedEventObject, function(event) {
+					console.log('asdasd');
 					calendar.fullCalendar('renderEvent', event, true);
-					$(this).remove();
+					removePendingEvent(event.id);
 				});
 			}
 		});
 	}
 	
+	removePendingEvent = function(eventId) {
+		$('.pendientesContainer .pendientesContent li').each(function(i, e) {
+			if ($(e).data('eventObject').id == eventId)
+				$(e).remove();
+		});
+	}
+	
 	createEventFromJs = function(event, onSuccess) {
-		console.log(event);
 		if (confirm('Esto no está terminado de implementar!\n¿Querés probarlo?\nSe va a crear un evento incompleto con título arbitrario\ncon la fecha inicial correcta')) {
 		
-		var data = {
-			'calendarEvent[title]': event.title,
-			'calendarEvent[startDate]': event.start.toString(),
-			'calendarEvent[allDay]': event.allDay
-		}
-		console.log('falta agregar los demas campos');
-		editRequest(data, onSuccess);
+		editEvent(event);
+		editRequest($('#editEvent form').serialize(), onSuccess);
 		
 		} // confirm box
 	}
@@ -132,18 +141,23 @@
 	}
 	
 	loadPendingEvents = function() {
-		// agregar los eventos pendientes
-		
-		// hacerlos estas cosas cuando se va agregando cada uno.
-		// esto es para probar
-		$('.pendientesContainer .pendientesContent li').draggable({
-			revert: true,      // immediately snap back to original position
-			revertDuration: 0  //
-		});
-		var eventObject = {
-			title: 'UnTitulo'
-		}
-		$('.pendientesContainer .pendientesContent li').data('eventObject', eventObject);
+		var pendingEventsList = $('.pendientesContainer .pendientesContent ul');
+		|-foreach $pendingEvents as $pending-|
+			var eventObject = |-include file="CalendarPhpEventToJson.tpl" event=$pending-|;
+			var newPending = newPendingEventHtml(eventObject);
+			newPending.appendTo(pendingEventsList);
+			newPending.draggable({ revert: true, revertDuration: 0 });
+			newPending.data('eventObject', eventObject);
+		|-/foreach-|
+	}
+	
+	newPendingEventHtml = function(event) {
+		var pending = $('<li></li>');
+		pending.addClass(event.className);
+		$('<div class="solapita"></div>').appendTo(pending);
+		$('<div class="pendienteDato"><span>'+event.title+'</span>'+event.body+'</div>').appendTo(pending);
+		$('<div class="pendienteBotones"><a href="#" class="pendienteEditar"></a><a href="#" class="pendienteBorrar"></a></div>').appendTo(pending);
+		return pending;
 	}
 	
 	newEvent = function(start, end, allDay) {

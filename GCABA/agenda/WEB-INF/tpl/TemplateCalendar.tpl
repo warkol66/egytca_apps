@@ -170,32 +170,6 @@
                                     
 		                        	<div class="pendientesContent">
                                     	<ul>
-	                                        <li class="verde1">
-                                                <div class="solapita"></div>
-                                                <div class="pendienteDato"><span>1Rock en Parque Roca</span> Villa Saavedra</div>
-                                                <div class="pendienteBotones"><a href="#" class="pendienteEditar"></a><a href="#" class="pendienteBorrar"></a></div>
-                                            </li>
-											<li class="verde2">
-                                                <div class="solapita"></div>
-                                                <div class="pendienteDato"><span>1Rock en Parque Roca</span> Villa Saavedra</div>
-                                                <div class="pendienteBotones"><a href="#" class="pendienteEditar"></a><a href="#" class="pendienteBorrar"></a></div>
-                                            </li> 
-											<li class="amarillo">
-                                                <div class="solapita"></div>
-                                                <div class="pendienteDato"><span>1Rock en Parque Roca</span> Villa Saavedra</div>
-                                                <div class="pendienteBotones"><a href="#" class="pendienteEditar"></a><a href="#" class="pendienteBorrar"></a></div>
-                                            </li> 
-											<li class="cyan">
-                                                <div class="solapita"></div>
-                                                <div class="pendienteDato"><span>1Rock en Parque Roca</span> Villa Saavedra</div>
-                                                <div class="pendienteBotones"><a href="#" class="pendienteEditar"></a><a href="#" class="pendienteBorrar"></a></div>
-                                            </li> 
-
-											<li class="rojo">
-                                                <div class="solapita"></div>
-                                                <div class="pendienteDato"><span>1Rock en Parque Roca</span> Villa Saavedra</div>
-                                                <div class="pendienteBotones"><a href="#" class="pendienteEditar"></a><a href="#" class="pendienteBorrar"></a></div>
-                                            </li>                                                                                                                                    
                                        </ul>                                                                                        
         		                    </div>
            		           <div class="pendientesArrowRight"><a href="#">></a></div>
