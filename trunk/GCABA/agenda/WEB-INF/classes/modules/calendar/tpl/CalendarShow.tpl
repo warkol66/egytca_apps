@@ -119,12 +119,8 @@
 	}
 	
 	createEventFromJs = function(event, onSuccess) {
-		if (confirm('Esto no está terminado de implementar!\n¿Querés probarlo?\nSe va a crear un evento incompleto con título arbitrario\ncon la fecha inicial correcta')) {
-		
 		editEvent(event);
 		editRequest($('#editEvent form').serialize(), onSuccess);
-		
-		} // confirm box
 	}
 	
 	loadEvents = function() {
