@@ -25,6 +25,8 @@
 		<column name="allDay" type="BOOLEAN" sqlType="BOOL" default="false" description="Evento de todo el dia" />
 		<column name="contextType" type="INTEGER" description="Tipo de contexto" />
 		<column name="regularEventId" type="INTEGER" description="Id del RegularEvent a partir del cual se creo el evento" />
+		<column name="nonpublic" type="BOOLEAN" sqlType="BOOL" default="false" description="Indica si se oculta a lso usuariso comunes" />
+		<column name="comments" type="LONGVARCHAR" description="Comentarios"/>
 		
 		<column name="class_key" type="INTEGER" inheritance="single">
 			<inheritance key="1" class="CalendarEvent"/>

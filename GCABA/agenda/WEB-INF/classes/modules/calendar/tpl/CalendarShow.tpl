@@ -175,6 +175,7 @@
 		$('#editEvent #calendarEvent_endDate').val(getFormattedDatetime(event.end));
 		$('#editEvent #calendarEvent_street').val(event.street);
 		$('#editEvent #calendarEvent_number').val(event.number);
+		$('#editEvent #calendarEvent_comments').val(event.comments);
 		
 		// deseleccionar todos los selects multiples
 		$('#editEvent #calendarEvent_regions').attr('selectedIndex', '-1').children("option:selected").removeAttr("selected");
@@ -341,6 +342,7 @@
 			</select>
 		</p>
 			<input type="hidden" id="calendarEvent_agenda" name="calendarEvent[agenda]" value="1">
+			<input type="hidden" id="calendarEvent_status" name="calendarEvent[status]" value="4">
 		<p>
 			<label for="calendarEvent_street">Calle</label>
 			<input name="calendarEvent[street]" type="text" id="calendarEvent_street" title="calle" value="" size="30" />
@@ -348,6 +350,10 @@
 		<p>
 			<label for="calendarEvent_number">Número</label>
 			<input name="calendarEvent[number]" type="text" id="calendarEvent_number" title="número" value="" size="8" />
+		</p>
+		<p>
+			<label for="calendarEvent_nonpublic">Privado</label>
+			<input name="calendarEvent[nonpublic]" type="checkbox" value="1">
 		</p>
 		<p class="arrangeButtons">
 			<input name="calendarEvent[creationDate]" type="hidden" id="calendarEvent_creationDate" title="creationDate" value="|-$smarty.now|dateTime_format|change_timezone|date_format:"%d-%m-%Y"-|" size="18" />

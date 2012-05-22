@@ -123,16 +123,14 @@
 					<label for="calendarEvent_longitude">Longitud</label>
 					<input name="calendarEvent[longitude]" type="text" id="calendarEvent_longitude" title="longitud" value="|-$calendarEvent->getLongitude()-|" size="20" readonly="readonly"/>
 				</p>
-				|-assign var=eventid value=$calendarEvent->getId()-|
-				|-if not empty($eventid)-|
 				<p>
 					<label for="calendarEvent_status">Estado</label>
 					<select name="calendarEvent[status]" id="calendarEvent_status">
-						|-foreach from=$calendarEventStatus key=key item=name-|
+						|-foreach from=$eventStatuses key=key item=name-|
 							<option value="|-$key-|" |-$calendarEvent->getStatus()|selected:$key-|>|-$name-|</option>
 						|-/foreach-|
 					</select>
-				</p>|-/if-|
+				</p>
 				<p>
 					<label for="calendarEvent_agendaType">Agenda</label>
 					<select name="calendarEvent[agendaType]" id="calendarEvent_agendaType">
@@ -202,11 +200,20 @@
 					</select>
 				</p>
 				<p>
-					<label for="calendarEvent_campaignCommitment">Compromiso de campaña</label>
+					<label for="calendarEvent_campaignCommitment">C. Campaña</label>
 					<input name="calendarEvent[campaignCommitment]" type="hidden" value="0">
 					<input name="calendarEvent[campaignCommitment]" type="checkbox" |-$calendarEvent->getCampaignCommitment()|checked_bool-| value="1">
 				</p>
 				<p>
+					<label for="calendarEvent_comments">Comentarios</label>
+					<textarea name="calendarEvent[comments]" cols="60" rows="3" wrap="VIRTUAL" id="calendarEvent_comments">|-$calendarEvent->getComments()-|</textarea>
+				</p>
+				<p>
+					<label for="calendarEvent_nonpublic">Privado</label>
+					<input name="calendarEvent[nonpublic]" type="hidden" value="0">
+					<input name="calendarEvent[nonpublic]" type="checkbox" |-$calendarEvent->getNonpublic()|checked_bool-| value="1">
+				</p>
+<!--				<p>
 					<label for="calendarEvent_userId">Usuario</label>
 					<select id="calendarEvent_userId" name="calendarEvent[userId]" title="userId">
 						<option value="">Seleccione un Usuario</option>
@@ -214,7 +221,7 @@
 						<option value="|-$object->getid()-|" |-$calendarEvent->getuserId()|selected:$object->getid()-|>|-$object->getusername()-|</option>
 					|-/foreach-|
 					</select>
-				</p>
+				</p>-->
 				<p>
 					|-if !$calendarEvent->isNew()-|
 					<input type="hidden" name="id" id="calendarEvent_id" value="|-$calendarEvent->getid()-|" />

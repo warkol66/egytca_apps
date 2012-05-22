@@ -50,7 +50,7 @@
 		<p>
 			<label for="calendarEvent_status">Estado</label>
 			<select name="calendarEvent[status]" id="calendarEvent_status">
-				|-foreach from=$calendarEventStatus key=key item=name-|
+				|-foreach from=$eventStatuses key=key item=name-|
 					<option value="|-$key-|">|-$name-|</option>
 				|-/foreach-|
 			</select>
@@ -116,9 +116,18 @@
 			</select>
 		</p>
 		<p>
-			<label for="calendarEvent_campaignCommitment">Compromiso de campaña</label>
+			<label for="calendarEvent_campaignCommitment">C. Campaña</label>
 			<input name="calendarEvent[campaignCommitment]" type="hidden" value="0">
 			<input name="calendarEvent[campaignCommitment]" type="checkbox" value="1">
+		</p>
+		<p>
+			<label for="calendarEvent_comments">Comentarios</label>
+			<textarea name="calendarEvent[comments]" cols="60" rows="3" wrap="VIRTUAL" id="calendarEvent_comments"></textarea>
+		</p>
+		<p>
+			<label for="calendarEvent_nonpublic">Privado</label>
+			<input name="calendarEvent[nonpublic]" type="hidden" value="0">
+			<input name="calendarEvent[nonpublic]" type="checkbox" value="1">
 		</p>
 <!--		<p>
 			<label for="calendarEvent_userId">Usuario</label>
