@@ -27,6 +27,7 @@
 		<column name="regularEventId" type="INTEGER" description="Id del RegularEvent a partir del cual se creo el evento" />
 		<column name="nonpublic" type="BOOLEAN" sqlType="BOOL" default="false" description="Indica si se oculta a lso usuariso comunes" />
 		<column name="comments" type="LONGVARCHAR" description="Comentarios"/>
+		<column name="scheduleStatus" type="INTEGER" description="Estado de fiecha y horario" />
 		
 		<column name="class_key" type="INTEGER" inheritance="single">
 			<inheritance key="1" class="CalendarEvent"/>

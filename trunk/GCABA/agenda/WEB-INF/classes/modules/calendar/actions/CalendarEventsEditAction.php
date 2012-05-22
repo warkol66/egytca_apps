@@ -43,12 +43,13 @@ class CalendarEventsEditAction extends BaseAction {
 			$smarty->assign("categories", CategoryQuery::create()->find());
 
 		$smarty->assign('eventStatuses', CalendarEvent::getStatuses());
-		$smarty->assign("users", UserQuery::create()->find());
+		$smarty->assign('scheduleStatuses', CalendarEvent::getScheduleStatuses());
+		$smarty->assign('users', UserQuery::create()->find());
 		$smarty->assign('actors', ActorQuery::create()->find());
 		$smarty->assign('axes', CalendarAxisQuery::create()->find());
 		$smarty->assign('eventTypes', EventTypeQuery::create()->find());
 		$smarty->assign('agendaTypes', CalendarEventPeer::getAgendas());
-		$smarty->assign("calendarEventStatus",CalendarEventPeer::getStatus());
+		$smarty->assign('calendarEventStatus',CalendarEventPeer::getStatus());
 		
 		$calendarMediasTypes = CalendarMediaPeer::getMediaTypes();
 		

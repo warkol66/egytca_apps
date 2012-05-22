@@ -253,7 +253,7 @@ class CalendarEvent extends BaseCalendarEvent {
 	 * Devuelve array con estados (statuses) de evento
 	 *  id => Estados posibles
 	 *
-	 * @return array tipos de agenda
+	 * @return array tipos de estado de evento
 	 */
 	public static function getStatuses() {
 		$agendas = array(
@@ -267,5 +267,21 @@ class CalendarEvent extends BaseCalendarEvent {
 		);
 		return $agendas;
 	}
+
+	/**
+	 * Devuelve array con posibles estados (statuses) de dia y hora de evento
+	 *  id => Estados posibles
+	 *
+	 * @return array tipos de estado de dia y hora
+	 */
+	public static function getScheduleStatuses() {
+		$agendas = array(
+			1 => 'Confirmado fecha y hora',
+			2 => 'Confirmada hora',
+			3 => 'Confirmado fecha'
+		);
+		return $agendas;
+	}
+
 
 } // CalendarEvent
