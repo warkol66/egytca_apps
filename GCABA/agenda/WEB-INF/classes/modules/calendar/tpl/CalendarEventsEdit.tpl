@@ -98,6 +98,15 @@
 					<input name="calendarEvent[allDay]" type="hidden" value="0">
 					<input name="calendarEvent[allDay]" type="checkbox" |-$calendarEvent->getAllDay()|checked_bool-| value="1">
 				</p>
+		<p>
+			<label for="calendarEvent_scheduleStatus">Estado</label>
+			<select id="calendarEvent_scheduleStatus" name="calendarEvent[scheduleStatus]" title="Estado de fecha y hora">
+				<option value="">Seleccione estado</option>
+				|-foreach from=$scheduleStatuses key=key item=name-|
+					<option value="|-$key-|">|-$name-|</option>
+				|-/foreach-|
+			</select>
+		</p>
 				<p>
 					<label for="calendarEvent_street">Calle</label>
 					<input name="calendarEvent[street]" type="text" id="calendarEvent_street" title="calle" value="|-$calendarEvent->getStreet()-|" size="30" />
