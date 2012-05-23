@@ -32,7 +32,7 @@
 		$('#newEventFancyboxDummy').fancybox();
 		|-if !empty($loginUser) && $loginUser->isSupervisor()-|
 		$('#uninstantiatedRegEventsFancyboxDummy').fancybox();
-		$('#uninstantiatedRegEvents tbody').load(
+		$('#uninstantiatedRegEvents').load(
 			'Main.php?do=calendarRegularEventGetUninstantiatedX',
 			{ years:  [year, parseInt(year)+1] }
 		);|-/if-|
@@ -112,7 +112,6 @@
 	}
 	
 	removePendingEvent = function(eventId) {
-	console.log('revisame: removePendingEvent');
 		$('.pendientesContainer .pendientesContent li').each(function(i, e) {
 			if ($(e).data('eventObject').id == eventId)
 				$(e).remove();
@@ -327,24 +326,7 @@
 	}
 </script>
 
-<div style="display:none;">
-<div id="uninstantiatedRegEvents">
-<fieldset><form>
-<h1>Crear Efemérides</h1>
-<p>Agregue las efemérides al calendario</p>
-	<table>
-		<thead>
-			<th width="80%">Feriado</th>
-			<th width="15%">Fecha</th>
-			<th width="5%">&nbsp;</th>
-		</thead>
-		<tbody>
-			<tr colspan="3">
-				<td>Todas las efemérides del año $year fueron agregadas al calendario</td>
-			</tr>
-		</tbody>
-	</table></form></fieldset>
-</div></div>
+<div style="display:none;"><div id="uninstantiatedRegEvents"></div></div>
 
 <div style="display:none;"><div id="newEvent">
 	<fieldset><form>
