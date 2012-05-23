@@ -48,9 +48,9 @@
 			<input name="calendarEvent[longitude]" type="text" id="calendarEvent_longitude" title="longitud" value="" size="20" readonly="readonly"/>
 		</p>
 		<p>
-			<label for="calendarEvent_scheduleStatus">Estado</label>
+			<label for="calendarEvent_scheduleStatus">Confirmación</label>
 			<select name="calendarEvent[scheduleStatus]" id="calendarEvent_scheduleStatus" title="Estado de fecha y hora">
-				<option value="0">Seleccione estado</option>
+				<option value="0">Seleccione confirmación</option>
 				|-foreach from=$scheduleStatuses key=key item=name-|
 					<option value="|-$key-|">|-$name-|</option>
 				|-/foreach-|
