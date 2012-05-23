@@ -1,6 +1,6 @@
 {
 	"id": "|-$event->getId()-|",
-	"title": "|-$event->getTitle()-|",
+	"title": '|-$event->getTitle()|escape:'quotes'-|',
 	"start": "|-$event->getStartDate("%Y/%m/%d %H:%M")-|",
 	"end": "|-$event->getEndDate("%Y/%m/%d %H:%M")-|",
 	"allDay": false,
@@ -8,9 +8,9 @@
 	"editable": true, |-* esto se modifica segun el permiso del usuario, si tien permiso para modificar se pone true *-|
 	
 	|-* estos no los usa el fullCalendar pero según la documentación se pueden agregar que no los toca *-|
-	"body": "|-$event->getBody()-|",
+	"body": '|-$event->getBody()|escape:'quotes'-|',
 	"creationDate": "|-$event->getCreationDate("%Y/%m/%d %H:%M")-|",
-	"street": "|-$event->getStreet()-|",
+	"street": '|-$event->getStreet()|escape:'quotes'-|',
 	"number": "|-$event->getNumber()-|",
 	"axisId": "|-$event->getAxisId()-|",
 	"status": "|-$event->getStatus()-|",
