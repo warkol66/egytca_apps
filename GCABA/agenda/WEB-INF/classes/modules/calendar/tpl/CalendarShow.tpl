@@ -393,6 +393,7 @@
                     <li class="eventoBot02"><a href="#editEvent"></a></li> 
                 </ul>|-/if-|
                 %start-%end
+		%CC_image
             </span>
             <div class="eventoContent">
                 <span class="fc-event-title"><img src="images/imagen_foto.png" class="foto" align="right" />%title</span>

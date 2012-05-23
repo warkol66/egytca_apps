@@ -26,6 +26,7 @@ Calendar = {
         template = template.replace("%end", end);
         template = template.replace("%title", event.title);
         template = template.replace("%body", event.body);
+	template = template.replace("%CC_image", event.campaignCommitment ? '<img src="images/icon_CC.gif" />' : '');
         elem.html(template);
 	
 	$(".eventoBot02 a").fancybox();

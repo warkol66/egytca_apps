@@ -18,6 +18,7 @@
 	"typeId": "|-$event->getTypeId()-|",
 	"userId": "|-$event->getUserId()-|",
 	"scheduleStatus": "|-$event->getScheduleStatus()-|",
+	"campaignCommitment": |-if $event->getCampaignCommitment()-|true|-else-|false|-/if-|,
 	"regionsIds":
 		[
 			|-foreach from=$event->getRegions() item=region-|
