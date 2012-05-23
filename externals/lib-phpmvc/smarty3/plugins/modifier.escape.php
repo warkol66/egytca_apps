@@ -51,6 +51,10 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = null, $
         case 'quotes':
             // escape unescaped single quotes
             return preg_replace("%(?<!\\\\)'%", "\\'", $string);
+		
+	case 'double_quotes':
+		// escape unescaped double quotes
+		return preg_replace('%(?<!\\\\)"%', '\\"', $string);
 
         case 'hex':
             // escape every byte into hex
