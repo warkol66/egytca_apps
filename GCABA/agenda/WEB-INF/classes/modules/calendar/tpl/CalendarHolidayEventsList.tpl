@@ -4,28 +4,6 @@
 <h1>Lista de Feriados y Efemérides</h1>
 <p>A continuación se muestra el listado de feriados y Efemérides disponibles en el sistema, ud. podrá agregar nuevos o los existentes, así como publicar o archivar evento.</p>
 <div id="divMsgBox"></div>
-|-if $calendarEventsConfig.useCategories.value eq "YES"-|
-<div id="calendarEventFilters">
-<form action="Main.php" method="get">
-	<fieldset>
-		<legend>Opciones de Búsqueda</legend>
-		<p>
-			<label for="categoryId">Categoría</label>
-			<select name='filters[categoryId]'>
-					<option value=''>Seleccione una categoría</option>
-				|-foreach from=$categories item=category name=from_categories-|
-					<option value="|-$category->getId()-|" |-if $filters neq '' and $filters.categoryId eq $category->getId()-|selected="selected"|-/if-|>|-$category->getName()-|</option>
-				|-/foreach-|
-			</select>
-		</p>
-		<p>
-			<input type="hidden" name="do" value="calendarHolidayEventsList" />
-			<input type="submit" value="Buscar">
-		</p>
-	</fieldset>
-</form>
-</div>
-|-/if-|
 	<div id="div_calendarEvent">
 	|-if $message eq "ok"-|
 		<div class="successMessage">Evento guardado correctamente</div>
@@ -71,7 +49,7 @@
 					<form action="Main.php" method="post">
 						<!--pasaje de parametros de filtros -->
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-						<input type="hidden" name="do" value="calendarEventsDoDelete" />
+						<input type="hidden" name="do" value="calendarHolidayEventsDoDelete" />
 						<input type="hidden" name="id" value="|-$calendarEvent->getid()-|" />
 						<input type="submit" name="submit_go_delete_calendarEvent" value="Borrar" onclick="return confirm('Seguro que desea eliminar el calendarEvent?')" class="icon iconDelete" />
 					</form>
