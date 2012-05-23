@@ -256,7 +256,11 @@ class CalendarEventPeer extends BaseCalendarEventPeer {
 	* @return int Cantidad de filas por pagina
 	*/
 	function getRowsPerPage() {
-		return $this->moduleConfig["rowsPerPage"];
+		if (!isset($this->moduleConfig["rowsPerPage"]))
+			$rowsPerPage = Common::getRowsPerPage();
+		else
+			$rowsPerPage = $this->moduleConfig["rowsPerPage"];
+		return $rowsPerPage;
 	}
 
 	/**

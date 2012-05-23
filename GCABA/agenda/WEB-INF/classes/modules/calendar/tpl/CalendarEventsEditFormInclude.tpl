@@ -49,8 +49,8 @@
 		</p>
 		<p>
 			<label for="calendarEvent_scheduleStatus">Estado</label>
-			<select id="calendarEvent_scheduleStatus" name="calendarEvent[scheduleStatus]" title="Estado de fecha y hora">
-				<option value="">Seleccione estado</option>
+			<select name="calendarEvent[scheduleStatus]" id="calendarEvent_scheduleStatus" title="Estado de fecha y hora">
+				<option value="0">Seleccione estado</option>
 				|-foreach from=$scheduleStatuses key=key item=name-|
 					<option value="|-$key-|">|-$name-|</option>
 				|-/foreach-|

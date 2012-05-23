@@ -188,6 +188,7 @@
 		$('#editEvent #calendarEvent_axisId option:selected').removeAttr("selected");
 		$('#editEvent #calendarEvent_typeId option:selected').removeAttr("selected");
 		$('#editEvent #calendarEvent_userId option:selected').removeAttr("selected");
+		$('#editEvent #calendarEvent_scheduleStatus option:selected').removeAttr("selected");
 
 		
 		// seleccionar options de selects simples
@@ -196,6 +197,7 @@
 		$('#editEvent #calendarEvent_axisId option[value="'+event.axisId+'"]').attr('selected', 'selected');
 		$('#editEvent #calendarEvent_typeId option[value="'+event.typeId+'"]').attr('selected', 'selected');
 		$('#editEvent #calendarEvent_userId option[value="'+event.userId+'"]').attr('selected', 'selected');
+		$('#editEvent #calendarEvent_scheduleStatus option[value="'+event.scheduleStatus+'"]').attr('selected', 'selected');
 		
 		// seleccionar options de selects multiples
 		for (var i = 0; i < event.regionsIds.length; i++) {
@@ -342,7 +344,8 @@
 			</select>
 		</p>
 			<input type="hidden" id="calendarEvent_agenda" name="calendarEvent[agenda]" value="1">
-			<input type="hidden" id="calendarEvent_status" name="calendarEvent[status]" value="4">
+			<input type="hidden" id="calendarEvent_status" name="calendarEvent[status]" value="1">
+			<input type="hidden" id="calendarEvent_scheduleStatus" name="calendarEvent[scheduleStatus]" value="2">
 		<p>
 			<label for="calendarEvent_street">Calle</label>
 			<input name="calendarEvent[street]" type="text" id="calendarEvent_street" title="calle" value="" size="30" />

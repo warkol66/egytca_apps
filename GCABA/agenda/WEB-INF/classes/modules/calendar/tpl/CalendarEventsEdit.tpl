@@ -103,7 +103,7 @@
 			<select id="calendarEvent_scheduleStatus" name="calendarEvent[scheduleStatus]" title="Estado de fecha y hora">
 				<option value="">Seleccione estado</option>
 				|-foreach from=$scheduleStatuses key=key item=name-|
-					<option value="|-$key-|">|-$name-|</option>
+							<option value="|-$key-|" |-$calendarEvent->getScheduleStatus()|selected:$key-|>|-$name-|</option>
 				|-/foreach-|
 			</select>
 		</p>

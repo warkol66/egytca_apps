@@ -65,6 +65,10 @@ class CalendarEventsListAction extends BaseAction {
 		$smarty->assign("categories",CategoryQuery::create()->find());
 
 		$smarty->assign("calendarEventStatus",CalendarEventPeer::getStatus());   
+
+		$smarty->assign('eventStatuses', CalendarEvent::getStatuses());
+		$smarty->assign('scheduleStatuses', CalendarEvent::getScheduleStatuses());
+
 		$smarty->assign("message",$_GET["message"]);
 
 		return $mapping->findForwardConfig('success');
