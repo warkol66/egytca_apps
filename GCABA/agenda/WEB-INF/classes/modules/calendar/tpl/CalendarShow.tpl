@@ -9,6 +9,8 @@
 <div id="calendar"></div>
 <a id="newEventFancyboxDummy" style="display:none" href="#newEvent"></a>
 <a id="uninstantiatedRegEventsFancyboxDummy" style="display:none" href="#uninstantiatedRegEvents"></a>
+<a id="fancyboxDummy" style="display:none" href="#fancyboxDiv"></a>
+<div style="display:none;"><div id="fancyboxDiv"></div></div>
 
 <script type="text/javascript">
 	
@@ -32,6 +34,7 @@
 		$('#newEventFancyboxDummy').fancybox();
 		|-if !empty($loginUser) && $loginUser->isSupervisor()-|
 		$('#uninstantiatedRegEventsFancyboxDummy').fancybox();
+		$('#fancyboxDummy').fancybox();
 		$('#uninstantiatedRegEvents').load(
 			'Main.php?do=calendarRegularEventGetUninstantiatedX',
 			{ years:  [year, parseInt(year)+1] }
