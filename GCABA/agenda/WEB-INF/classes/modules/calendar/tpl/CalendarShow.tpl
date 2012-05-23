@@ -392,7 +392,7 @@
                     <li class="eventoBot01"><a href="#"></a></li> 
                     <li class="eventoBot02"><a href="#editEvent"></a></li> 
                 </ul>|-/if-|
-                %start-%end
+                %start-%end&nbsp;%timeConfirmed
 		%CC_image
             </span>
             <div class="eventoContent">

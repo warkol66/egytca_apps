@@ -24,6 +24,7 @@ Calendar = {
         var end = endDate.toString().replace(/.* ([0-9][0-9]:[0-9][0-9]):00 .*/, "$1");
         template = template.replace("%start", start);
         template = template.replace("%end", end);
+	template = template.replace("%timeConfirmed", event.scheduleStatus == 2 ? '¿?' : '');
         template = template.replace("%title", event.title);
         template = template.replace("%body", event.body);
 	template = template.replace("%CC_image", event.campaignCommitment ? '<img src="images/icon_CC.gif" />' : '');
