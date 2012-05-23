@@ -10,9 +10,9 @@
 	<fieldset>
 		<legend>Opciones de Búsqueda</legend>
 		<p>
-			<label for="categoryId">Categoría</label>
+			<label for="categoryId">Dependencia</label>
 			<select name='filters[categoryId]'>
-					<option value=''>Seleccione una categoría</option>
+					<option value=''>Seleccione una dependencia</option>
 				|-foreach from=$categories item=category name=from_categories-|
 					<option value="|-$category->getId()-|" |-if $filters neq '' and $filters.categoryId eq $category->getId()-|selected="selected"|-/if-|>|-$category->getName()-|</option>
 				|-/foreach-|
@@ -35,7 +35,7 @@
 	<div class="successMessage">Estados modificados correctamente</div>
 	|-/if-|
 
-|-assign var="colSpan" value=6-|
+|-assign var="colSpan" value=5-|
 |-if $calendarEventsConfig.useRegions.value eq "YES"-||-assign var="colSpan" value=$colSpan+1-||-/if-|
 |-if $calendarEventsConfig.useCategories.value eq "YES"-||-assign var="colSpan" value=$colSpan+1-||-/if-|
 	<table cellpadding="4" cellspacing="0" class="tableTdBorders" id="tabla-newsarticles">
@@ -44,7 +44,6 @@
 				<th colspan="|-$colSpan-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=calendarEventsEdit" class="addLink">Agregar Evento</a></div></th>
 			</tr>
 			<tr>
-				<th width="2%"></th>
 				<th width="40%">Título</th>
 				<th width="8%">Fecha</th>
 <!--								<th>Usuario</th> -->
@@ -55,14 +54,13 @@
 		<tbody>
 		|-foreach from=$calendarEvents item=calendarEvent name=for_calendaEvents-|
 			<tr>
-				<td><input type="checkbox" name="selected[]" value="|-$calendarEvent->getId()-|"></td>
 				<td>|-$calendarEvent->gettitle()-|</td>
 				<td>|-$calendarEvent->getstartDate()|dateTime_format-|</td>
 <!--								<td>|-$calendarEvent->getuserId()-|</td> -->
 				<td>|-if "calendarEventsChangeStatusX"|security_user_has_access-|	
 						<form action="Main.php" method="post" id="formStatuscalendarEvent|-$calendarEvent->getId()-|">
 							<select name="calendarEvent[status]" id="selectStatusEvent|-$calendarEvent->getId()-|" onChange="javascript:submitEventsChangeFormX('formStatuscalendarEvent|-$calendarEvent->getId()-|')">
-								|-foreach from=$calendarEventStatus key=key item=name-|
+								|-foreach from=$eventStatuses key=key item=name-|
 									<option value="|-$key-|" |-if ($calendarEvent->getStatus()) eq $key-|selected="selected"|-/if-|>|-$name-|</option>
 								|-/foreach-|
 							</select>											
@@ -70,8 +68,7 @@
 							<input type="hidden" name="do" value="calendarEventsChangeStatusX" id="do">
 						</form>
 				|-else-|
-					|-assign var=calendarStatus value=$calendarEvent->getStatus()-|
-					|-$calendarEventStatus[$calendarStatus]-|
+					|-$eventStatuses[$calendarEvent->getStatus()]-|
 				|-/if-|
 				</td>								
 				<td nowrap>|-if "calendarEventsChangeStatusX"|security_user_has_access || "calendarEventsChangeStatuses"|security_user_has_access || $calendarStatus eq 1-|
@@ -95,27 +92,6 @@
 				</td>
 			</tr>
 		|-/foreach-|
-		|-if $calendarEvents|@count neq 0 && "calendarEventsChangeStatuses"|security_user_has_access-|
-			<tr>
-				<td colspan="|-$colSpan-|">
-					<p><input type="button" name="selectAll" value="Seleccionar Todos" id="selectAll" onClick="javascript:selectAllCheckboxes()" class="smallButton" /></p>
-					<form action="Main.php" method="post" id='multipleEventsChangeForm'>
-						<p>Cambiar los Artículos seleccionados al estado 
-							<select name="status" id="selectStatusEvent|-$calendarEvent->getId()-|">
-							|-foreach from=$calendarEventStatus key=key item=name-|
-								<option value="|-$key-|" |-if ($calendarEvent->getStatus()) eq $key-|selected="selected"|-/if-|>|-$name-|</option>
-							|-/foreach-|
-							</select>
-							|-if isset($pager)-|
-								<input type="hidden" name="page" value="|-$pager->getPage()-|" id="page">
-							|-/if-|
-							<input type="hidden" name="do" value="calendarEventsChangeStatuses" id="do">
-							<input type="button" onClick="javascript:submitMultipleEventsChangeFormX('multipleEventsChangeForm')" value="Cambiar Estado" class="smallButton">
-						</p>
-					</form>
-				</td>
-			</tr>
-		|-/if-|
 		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
 			<tr> 
 				<td colspan="|-$colSpan-|" class="pages">|-include file="PaginateInclude.tpl"-|</td> 

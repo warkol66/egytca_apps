@@ -17,6 +17,7 @@
 	"agendaType": "|-$event->getAgendaType()-|",
 	"typeId": "|-$event->getTypeId()-|",
 	"userId": "|-$event->getUserId()-|",
+	"scheduleStatus": "|-$event->getScheduleStatus()-|",
 	"regionsIds":
 		[
 			|-foreach from=$event->getRegions() item=region-|

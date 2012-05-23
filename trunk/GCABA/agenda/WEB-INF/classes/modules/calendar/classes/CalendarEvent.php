@@ -258,12 +258,10 @@ class CalendarEvent extends BaseCalendarEvent {
 	public static function getStatuses() {
 		$agendas = array(
 			1 => 'Propuesto',
-			2 => 'Fecha a confirmar',
-			3 => 'Horario a confirmar',
-			4 => 'Aprobado',
-			5 => 'Confirmado',
-			6 => 'Realizado',
-			7 => 'No realizado'
+			2 => 'Aprobado',
+			3 => 'Confirmado',
+			4 => 'Realizado',
+			5 => 'No realizado'
 		);
 		return $agendas;
 	}
@@ -277,8 +275,8 @@ class CalendarEvent extends BaseCalendarEvent {
 	public static function getScheduleStatuses() {
 		$agendas = array(
 			1 => 'Confirmado fecha y hora',
-			2 => 'Confirmada hora',
-			3 => 'Confirmado fecha'
+			2 => 'Hora a confirmar',
+			3 => 'Fecha a confirmar'
 		);
 		return $agendas;
 	}

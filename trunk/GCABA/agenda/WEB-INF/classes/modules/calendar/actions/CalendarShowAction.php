@@ -24,14 +24,10 @@ class CalendarShowAction extends BaseAction {
 			$smarty->assign('filters', $filters);
 		}
 
-		$events = BaseQuery::create('CalendarEvent')->addFilters($filters)
-			->filterByStatus(3, Criteria::GREATER_THAN)->find();
-		$smarty->assign('events', $events);
+		$smarty->assign('events', BaseQuery::create('CalendarEvent')->addFilters($filters)->filterBySchedulestatus('3', Criteria::NOT_EQUAL)->find());
 		$smarty->assign('holydayEvents', BaseQuery::create('CalendarHolidayEvent')->addFilters($filters)->find());
 		$smarty->assign('contextEvents', BaseQuery::create('CalendarContextEvent')->addFilters($filters)->find());
-		$smarty->assign('pendingEvents', BaseQuery::create('CalendarEvent')->addFilters($filters)
-			->filterByStatus(3, Criteria::LESS_EQUAL)->find());
-
+		$smarty->assign('pendingEvents', BaseQuery::create('CalendarEvent')->addFilters($filters)->filterBySchedulestatus('3', Criteria::EQUAL)->find());
 
 		$moduleConfig = Common::getModuleConfiguration($module);
 		$smarty->assign("moduleConfig",$moduleConfig);

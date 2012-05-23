@@ -166,13 +166,13 @@
 	                        <div id="solapaPendientes">
                             <a href="javascript:void(0);" onclick="MM_showHideLayers('paragraphs','','show')">Pendientes</a></div>
                        	<div class="pendientesContainer" id="paragraphs">
-			                        <div class="pendientesArrowLeft"><a href="#"><</a></div>
+			                        
                                     
 		                        	<div class="pendientesContent">
                                     	<ul>
                                        </ul>                                                                                        
         		                    </div>
-           		           <div class="pendientesArrowRight"><a href="#">></a></div>
+           		           
 		                        </div> <!-- end of PENDIENTESCONTAINER -->
                         </div> <!-- end of PENDIENTES -->
 		</div>
