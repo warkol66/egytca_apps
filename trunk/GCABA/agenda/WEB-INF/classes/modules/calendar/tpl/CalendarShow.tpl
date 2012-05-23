@@ -101,9 +101,8 @@
 				copiedEventObject.start = date;
 				copiedEventObject.end = end;
 				copiedEventObject.allDay = allDay;
-				copiedEventObject.status = 4;
+				copiedEventObject.scheduleStatus = 2;
 				createEventFromJs(copiedEventObject, function(event) {
-					console.log('asdasd');
 					calendar.fullCalendar('renderEvent', event, true);
 					removePendingEvent(event.id);
 				});
