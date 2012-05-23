@@ -50,9 +50,9 @@
 //			aspectRatio: 0.5,
 			defaultView: 'agendaWeek',
 			allDayText: 'T/día',
-			firstHour: 9,
-			minTime: 8,
-			maxTime: 22,
+			firstHour: Calendar.options.firstHour,
+			minTime: Calendar.options.minTime,
+			maxTime: Calendar.options.maxTime,
 			monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
 			monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
 			dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
@@ -92,14 +92,14 @@
 			},
 			droppable: true,
 			drop: function(date, allDay, jsEvent, ui) {
-				
-				var defaultDuration = 1; // in hours
-				var end = new Date(date.getTime());
+				var defaultDuration = Calendar.options.eventDefaultDuration; // in hours
+				var start = ensureMinHour(date);
+				var end = new Date(start.getTime());
 				end.setTime(end.getTime() + (defaultDuration*60*60*1000));
 				var originalEventObject = $(this).data('eventObject');
 				var copiedEventObject = $.extend({}, originalEventObject);
 				
-				copiedEventObject.start = date;
+				copiedEventObject.start = start;
 				copiedEventObject.end = end;
 				copiedEventObject.allDay = allDay;
 				copiedEventObject.scheduleStatus = 2;
@@ -112,6 +112,7 @@
 	}
 	
 	removePendingEvent = function(eventId) {
+	console.log('revisame: removePendingEvent');
 		$('.pendientesContainer .pendientesContent li').each(function(i, e) {
 			if ($(e).data('eventObject').id == eventId)
 				$(e).remove();
@@ -157,7 +158,13 @@
 	}
 	
 	newEvent = function(start, end, allDay) {
-	
+		
+		start = ensureMinHour(start);
+		if (end.getHours() == 0) {
+			var end = new Date(start.getTime());
+			end.setTime(end.getTime() + (Calendar.options.eventDefaultDuration*60*60*1000));
+		}
+		
 		$('#newEvent #calendarEvent_creationDate').val(getFormattedDatetime(new Date()));
 		$('#newEvent #calendarEvent_startDate').val(getFormattedDatetime(start));
 		$('#newEvent #calendarEvent_endDate').val(getFormattedDatetime(end));
@@ -305,6 +312,18 @@
 				);
 			}
 		});
+	}
+	
+	ensureMinHour = function(date) {
+		if (date.getHours() < Calendar.options.minTime) {
+			var newDate = new Date(date.getTime());
+			newDate.setHours(parseInt(Calendar.options.minTime));
+			newDate.setMinutes(0);
+			newDate.setSeconds(0);
+			return newDate;
+		} else {
+			return date;
+		}
 	}
 </script>
 
