@@ -75,8 +75,8 @@
 				<h1 id="branding"></h1>
                 <span class="eyefishContainer">
                     <ul id="fisheye_menu">
-                            <li><a href="#1" class="fisheye"><img src="images/icon_calendar.png" alt="" /><span>Calendar +</span></a></li> 
-                            <li><a href="#2" class="fisheye"><img src="images/icon_calendarDay.png" alt="" /><span>Calendar Day</span></a></li> 
+                            <li><a href="#1" class="fisheye"><img src="images/icon_calendar.png" alt="" /><span>Calendario +</span></a></li> 
+                            <li><a href="#2" class="fisheye"><img src="images/icon_calendarDay.png" alt="" /><span>Calendario día</span></a></li> 
                             <li><a href="#3" class="fisheye"><img src="images/icon_print.png" alt="" /><span>Imprimir</span></a></li> 
                             <li><a href="#4" class="fisheye"><img src="images/icon_logout.png" alt="" /><span>Salir</span></a></li> 
                     </ul>                

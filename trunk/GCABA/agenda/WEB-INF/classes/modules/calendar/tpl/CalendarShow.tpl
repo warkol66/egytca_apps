@@ -62,6 +62,7 @@
 				week: 'ddd dd/MM', // Monday 9/7
 				day: ''  // Monday 9/7
 			},
+			axisFormat: 'h(:mm) tt',
 			buttonText:{
 					prev:     '&nbsp;&#9668;&nbsp;',  // left triangle
 					next:     '&nbsp;&#9658;&nbsp;',  // right triangle
