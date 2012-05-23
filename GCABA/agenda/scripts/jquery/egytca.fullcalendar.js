@@ -1,7 +1,11 @@
 Calendar = {
     options: {
         /* name => cssClass */
-        axisMap: {}
+        axisMap: {},
+	minTime: 8,
+	maxTime: 22,
+	firstHour: 9,
+	eventDefaultDuration: 1 // in hours
     },
     initialize: function(opts) {
         this.options = $.extend({}, this.options, opts);
