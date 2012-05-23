@@ -219,6 +219,9 @@
 			$('#editEvent #calendarEvent_actors option[value="'+event.actorsIds[i]+'"]').attr('selected', 'selected');
 		}
 		
+		$('#editEvent #calendarEvent_campaignCommitment').attr('checked', event.campaignCommitment ? true : false);
+		$('#editEvent #calendarEvent_nonpublic').attr('checked', event.nonpublic ? true : false);
+		
 		$(".chzn-select").chosen(); // chosen/fancybox hack
 		
 		console.log('falta cargar datos del checkbox!!');

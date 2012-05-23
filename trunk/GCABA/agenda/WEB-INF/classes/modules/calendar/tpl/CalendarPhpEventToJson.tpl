@@ -19,6 +19,7 @@
 	"userId": "|-$event->getUserId()-|",
 	"scheduleStatus": "|-$event->getScheduleStatus()-|",
 	"campaignCommitment": |-if $event->getCampaignCommitment()-|true|-else-|false|-/if-|,
+	"nonpublic": |-json_encode($event->getNonPublic())-|,
 	"regionsIds":
 		[
 			|-foreach from=$event->getRegions() item=region-|
