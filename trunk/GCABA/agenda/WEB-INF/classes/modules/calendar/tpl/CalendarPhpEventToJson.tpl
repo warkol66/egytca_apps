@@ -20,6 +20,7 @@
 	"scheduleStatus": "|-$event->getScheduleStatus()-|",
 	"campaignCommitment": |-if $event->getCampaignCommitment()-|true|-else-|false|-/if-|,
 	"nonpublic": |-json_encode($event->getNonPublic())-|,
+	"comments": "|-$event->getComments()|escape:'double_quotes'-|",
 	"regionsIds":
 		[
 			|-foreach from=$event->getRegions() item=region-|
