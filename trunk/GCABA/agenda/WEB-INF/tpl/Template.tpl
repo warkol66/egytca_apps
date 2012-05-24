@@ -23,7 +23,7 @@
 	<b class="rounded"><b class="rtop"><b class="r7"></b><b class="r6"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r1"></b></b></b>
 	<!-- Begin Header -->
 	<div id="header">
-		<a href="Main.php"><strong>|-$parameters.siteName-|</strong></a>
+		<a href="Main.php"><strong>|-$parameters.siteName-|</strong></a><img src="images/header1_slogan.png" style="float:right;"/>
 	</div>
 	<!-- End Header -->
 	<!-- Begin contentWrapper -->
