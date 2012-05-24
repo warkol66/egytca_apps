@@ -41,7 +41,16 @@
 						hideSpeed: 800,
 						autoHeight: false
 				});
-
+				// Accordion
+				$("#accordion2").accordion({ 		
+						active: false,
+						header: 'h3',
+						alwaysOpen: false,
+						animated: true,
+						showSpeed: 400,
+						hideSpeed: 800,
+						autoHeight: false
+				});
 				// Datepicker
 				$('#datepicker').datepicker({
 						dateFormat: 'dd-mm-yy',
@@ -184,51 +193,61 @@
                     </label>
           </div>
                     <div class="clear"></div>
-   					<div class="box">
-                    <div id="accordion">
-	<h3><a href="#">% Ejes</a></h3>
-	<div>
-		<img src="images/grafico.png" alt="" width="115" height="123" />
-	</div>
-	<h3><a href="#">% Ministerios</a></h3>
-	<div>
-		<img src="images/grafico02.png" alt="" width="115" height="123" />
-	</div>
-	<h3><a href="#">Crisis</a></h3>
-    <div>
-    	<ul>|-foreach from=$contextCrisis item=context name=foreach_crisis-|
-	    	<li><a href="#" onclick="javascript:$('#context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li style="display:none;" id="context_|-$context->getId()-|">|-$context->getBody()-| ___ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
-      |-/foreach-|</ul>
-	</div>
-	<h3><a href="#">Coyuntura</a></h3>
-    <div>
-    	<ul>|-foreach from=$contextJuncture item=context name=foreach_juncture-|
-	    	<li><a href="#" onclick="javascript:$('#context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li style="display:none;" id="context_|-$context->getId()-|">|-$context->getBody()-| ___ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
-      |-/foreach-|</ul>
-	</div>
-	<h3><a href="#">Campaña Nacional</a></h3>
-    <div>
-    	<ul>|-foreach from=$contextNational item=context name=foreach_national-|
-	    	<li><a href="#" onclick="javascript:$('#context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li style="display:none;" id="context_|-$context->getId()-|">|-$context->getBody()-| ___ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
-      |-/foreach-|</ul>
-	</div>
-	<h3><a href="#">Campaña Publicitaria</a></h3>
-    <div>
-    	<ul>|-foreach from=$contextCampaign item=context name=foreach_campaign-|
-	    	<li><a href="#" onclick="javascript:$('#context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li style="display:none;" id="context_|-$context->getId()-|">|-$context->getBody()-| ___ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
-      |-/foreach-|</ul>
-	</div>
-                    
-	
+ 
+ <div class="box solapas1">
+<div role="tablist" class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons" id="accordion">
+
+<h3 tabindex="0" aria-selected="true" aria-expanded="true" role="tab" class="color1 ui-accordion-header ui-helper-reset ui-state-default ui-state-active ui-corner-top"><a tabindex="-1" href="#">% Ejes</a></h3>
+
+<div role="tabpanel" style="height: 129px;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active"> <img src="images/grafico.png" alt="" height="123" width="115"> </div>
+<h3 tabindex="-1" aria-selected="false" aria-expanded="false" role="tab" class="color2 ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"><a tabindex="-1" href="#">% Ministerios</a></h3>
+<div role="tabpanel" style="height: 129px; display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom"> <img src="images/grafico02.png" alt="" height="123" width="115"> </div>
 </div>
-                    
-                    
-                    
-                    
-					</div>
+</div>
+
+<div class="box solapas2">
+
+<div role="tablist" class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons" id="accordion2">
+	<h3 tabindex="-1" aria-selected="false" aria-expanded="false" role="tab" class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"><a tabindex="-1" href="#">Crisis</a></h3>
+		<div role="tabpanel" style="height: 129px; display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+			<ul>|-foreach from=$contextCrisis item=context name=foreach_crisis-|
+							<li><a href="#" onclick="javascript:$('#context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li style="display:none;" id="context_|-$context->getId()-|">|-$context->getBody()-| __ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
+						|-/foreach-|</ul>
+			</div>
+<h3 tabindex="-1" aria-selected="false" aria-expanded="false" role="tab" class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"><a tabindex="-1" href="#">Coyuntura</a></h3>
+	<div role="tabpanel" style="height: 129px; display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+		<ul>|-foreach from=$contextJuncture item=context name=foreach_juncture-|
+						<li><a href="#" onclick="javascript:$('#context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li style="display:none;" id="context_|-$context->getId()-|">|-$context->getBody()-| __ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
+					|-/foreach-|</ul>
+	</div>
+<h3 tabindex="-1" aria-selected="false" aria-expanded="false" role="tab" class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"><a tabindex="-1" href="#">Campaña Nacional</a></h3>
+	<div role="tabpanel" style="height: 129px; display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+		<ul>
+				|-foreach from=$contextNational item=context name=foreach_national-|
+				<li><a href="#" onclick="javascript:$('#context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a> 
+											<ul> 
+												<li style="display:none;" id="context_|-$context->getId()-|">|-$context->getBody()-| __ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li> 
+											</ul> 
+										</li>
+				|-/foreach-|
+		</ul>
+	</div>
+<h3 tabindex="-1" aria-selected="false" aria-expanded="false" role="tab" class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"><a tabindex="-1" href="#">Campaña Publicitaria</a></h3>
+<div role="tabpanel" style="height: 129px; display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom"> 
+          <ul>
+             |-foreach from=$contextCampaign item=context name=foreach_campaign-|
+            <li><a href="#" onclick="javascript:$('#context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a> 
+              <ul> 
+                <li style="display:none;" id="context_|-$context->getId()-|">|-$context->getBody()-| __ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li> 
+                </ul> 
+              </li> 
+            |-/foreach-| 
+          </ul>
+				</div>
+			</div>
 		</div>
-				<div class="clear"></div>  
 		</div>
-  
+		<div class="clear"></div>  
+</div>  
 </body>
 </html>

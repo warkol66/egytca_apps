@@ -24,7 +24,7 @@
 <script language="JavaScript" type="text/javascript" src="scripts/prototype.js"></script>
 <script language="JavaScript" type="text/javascript" src="scripts/functions.js"></script>
 </head>
-<body><div align="center"><img src="images/topImage.png" /></div>
+<body><div align="center"></div>
 |-$centerHTML-|
 <p>&nbsp;</p>
 <p>&nbsp;</p>
