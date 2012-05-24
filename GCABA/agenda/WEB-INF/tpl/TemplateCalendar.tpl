@@ -33,7 +33,7 @@
 
 				// Accordion
 				$("#accordion").accordion({ 		
-						active: false,
+						/*active: false,*/
 						header: 'h3',
 						alwaysOpen: false,
 						animated: true,

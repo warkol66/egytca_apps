@@ -521,7 +521,7 @@ input[type="submit"], input[type="button"], input[type="reset"], input[disabled=
 	background: -moz-linear-gradient(top,  #ffffff,  #cccccc);
 	background: -o-linear-gradient(top,  #ffffff,  #cccccc);
 }
-input[readonly="readonly"] {
+input[readonly="readonly"], textarea[readonly="readonly"], select[readonly="readonly"] {
 	background-color: #dcdcdc;
 }
 input[disabled="disabled"] {

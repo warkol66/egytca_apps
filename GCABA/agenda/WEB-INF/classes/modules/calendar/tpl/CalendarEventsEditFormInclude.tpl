@@ -125,7 +125,7 @@
 			</select>
 		</p>
 		<p>
-			<label for="calendarEvent_campaignCommitment">C. Campaña</label>
+			<label for="calendarEvent_campaignCommitment">CC</label>
 			<input name="calendarEvent[campaignCommitment]" type="hidden" value="0">
 			<input name="calendarEvent[campaignCommitment]" id="calendarEvent_campaignCommitment" type="checkbox" value="1">
 		</p>
