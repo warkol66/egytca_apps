@@ -14,7 +14,7 @@
 			<input name="calendarEvent[title]" type="text" id="calendarEvent_title" title="title" value="" size="60" maxlength="255" />
 		</p>
 		<p>
-			<label for="calendarEvent_body">Texto del Evento</label>
+			<label for="calendarEvent_body">Descripción</label>
 			<textarea name="calendarEvent[body]" cols="60" rows="3" wrap="VIRTUAL" id="calendarEvent_body"></textarea>
 		</p>
 		<input name="calendarEvent[creationDate]" type="hidden" id="calendarEvent_creationDate" title="creationDate" value="" size="18" />
@@ -82,32 +82,32 @@
 				</select>
 		</p>
 
-|-if $calendarEventsConfig.useRegions.value eq "YES"-|<p>
-			<label for="calendarEvent_regions">Comunas</label>
-			<select class="chzn-select markets-chz-select" data-placeholder="Seleccione una o varias comunas..." multiple="multiple" id="calendarEvent_regions" name="calendarEvent[regionsIds][]" size="5" title="comunas">
+		<p>
+			<label for="calendarEvent_regions">Comunas/Barrios</label>
+			<select class="chzn-select markets-chz-select" data-placeholder="Seleccione una o varias comunas/barrios..." multiple="multiple" id="calendarEvent_regions" name="calendarEvent[regionsIds][]" size="5" title="comunas">
 				|-foreach from=$regions item=object-|
 					<option value="|-$object->getid()-|">|-$object->getname()-|</option>
 				|-/foreach-|
 			</select>
-		</p>|-/if-|
-|-if $calendarEventsConfig.useCategories.value eq "YES"-|<p>
+		</p>
+			<p>
 			<label for="calendarEvent_categories">Dependencias</label>
 			<select class="chzn-select markets-chz-select" data-placeholder="Seleccione una o varias dependencias..." multiple="multiple" id="calendarEvent_categories" name="calendarEvent[categoriesIds][]" size="5" title="dependencias">
 				|-foreach from=$categories item=object-|
 					<option value="|-$object->getid()-|">|-$object->getname()-|</option>
 				|-/foreach-|
 			</select>
-		</p>|-/if-|
+		</p>
 		<p>
-			<label for="calendarEvent_actors">Actores</label>
-			<select class="chzn-select markets-chz-select" data-placeholder="Seleccione uno o varios actores..." multiple="multiple" id="calendarEvent_actors" name="calendarEvent[actorsIds][]" size="5" title="actores">
+			<label for="calendarEvent_actors">Funcionarios</label>
+			<select class="chzn-select markets-chz-select" data-placeholder="Seleccione uno o varios funcionarios..." multiple="multiple" id="calendarEvent_actors" name="calendarEvent[actorsIds][]" size="5" title="actores">
 				|-foreach from=$actors item=object-|
 					<option value="|-$object->getid()-|">|-$object-|</option>
 				|-/foreach-|
 			</select>
 		</p>
 		<p>
-			<label for="calendarEvent_axisId">Eje de gestión</label>
+			<label for="calendarEvent_axisId">Eje</label>
 			<select id="calendarEvent_axisId" name="calendarEvent[axisId]" title="Eje de gestión">
 				<option value="">Seleccione el eje</option>
 				|-foreach from=$axes item=object-|
