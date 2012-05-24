@@ -184,8 +184,10 @@
 		$('#editEvent #calendarEvent_endDate').val(getFormattedDatetime(event.end));
 		$('#editEvent #calendarEvent_street').val(event.street);
 		$('#editEvent #calendarEvent_number').val(event.number);
-		$('#editEvent #calendarEvent_comments').val(event.comments);
 		
+		// asignar texto a textareas
+		$('#editEvent #calendarEvent_comments').html(event.comments);
+
 		// deseleccionar todos los selects multiples
 		$('#editEvent #calendarEvent_regions').attr('selectedIndex', '-1').children("option:selected").removeAttr("selected");
 		$('#editEvent #calendarEvent_categories').attr('selectedIndex', '-1').children("option:selected").removeAttr("selected");
