@@ -958,26 +958,32 @@
 
 /*   FORM PARA NEW EVENT & EDIT EVENT  */
 #fancybox-outer, #fancybox-content {
-background-color: #333 !Important;
-border: none !Important;
+	background-color: #333 !Important;
+	border: none !Important;
 }
-
-#newEvent h1, #editEvent h1, #uninstantiatedRegEvents h1 {padding:0px; text-transform:uppercase; font-weight:bold; color: #FFFFFF; border-bottom:solid 1px #FFFFFF;}
-
-
+#newEvent h1, #editEvent h1, #showEvent h1, #uninstantiatedRegEvents h1 {
+	padding:0px;
+	text-transform:uppercase;
+	font-weight:bold;
+	color: #FFFFFF;
+	border-bottom:solid 1px #FFFFFF;
+}
 #newEvent .arrangeButtons,
-#editEvent .arrangeButtons {padding-left:150px;}
-
-#newEvent, #editEvent, #uninstantiatedRegEvents {
+#editEvent .arrangeButtons,
+#showEvent .arrangeButtons {
+	padding-left:150px;
+}
+#newEvent, #editEvent, #showEvent ,#uninstantiatedRegEvents {
 	padding: 15px !Important;
 }
-#newEvent *, #editEvent *, #uninstantiatedRegEvents *{
+#newEvent *, #editEvent *, #showEvent *, #uninstantiatedRegEvents *{
 	margin-top: 0.3em !Important;
 }
-#newEvent fieldset, #editEvent fieldset, #uninstantiatedRegEvents fieldset {
+#newEvent fieldset, #editEvent fieldset, #showEvent fieldset, #uninstantiatedRegEvents fieldset {
 	border:0 !Important;
 }
-#newEvent fieldset label, #editEvent fieldset label, #uninstantiatedRegEvents fieldset label{
+#newEvent fieldset label, #editEvent fieldset label,
+#showEvent fieldset label, #uninstantiatedRegEvents fieldset label {
 	color:#fff !Important;
 }
 #uninstantiatedRegEvents table{
