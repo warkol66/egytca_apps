@@ -45,6 +45,7 @@ Calendar = {
 	$(".eventoBot02 a").fancybox();
 	
 	$('.eventoBot01', elem).click(function(e){
+		e.stopPropagation(),
 		e.preventDefault();
 		if (confirm('¿Desea borrar el evento?')) {
 			doDeleteEvent(event);
