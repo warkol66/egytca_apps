@@ -151,7 +151,7 @@
 	}
 	
 	newPendingEventHtml = function(event) {
-		var pending = $('<li></li>');
+		var pending = $('<li class="fc-event"></li>');
 		pending.addClass(event.className);
 		$('<div class="solapita"></div>').appendTo(pending);
 		$('<div class="pendienteDato"><span>'+event.title+'</span>'+event.body+'</div>').appendTo(pending);
