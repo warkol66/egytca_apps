@@ -846,33 +846,51 @@
 		#accordion div ul li a:hover{text-decoration: underline;}
 		#accordion li ul li{	list-style: none; margin:0; padding:0; list-style-position:inside}
 			
+		
+		.colummSidebar	ul li ul { margin:0; padding:0;}
+		.colummSidebar	ul li ul li { padding:0 0 0 4px; list-style:none;}
+		.colummSidebar	ul li ul li a:hover{ text-decoration:underline;}
+		
 		.colummSidebar	.solapas1 .ui-state-default,  {
-		border: 1px solid #cccccc;
-		background: #999999 /*url(images/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x*/;
+/*		border: 1px solid #cccccc;
+		background: #999999;
 		font-weight: bold;
-		color: #FFFFFF;
-		-moz-border-radius: 6px 6px 0 0;
-			border-radius: 6px 6px 0 0;
-			behavior: url(css/ie-pie/PIE.htc); 
+		color: #FFFFFF;*/
+		 -moz-border-radius: 8px 8px 0 0;	
+		border-radius: 8px 8px 0 0;	
+		behavior: url(css/ie-pie/PIE.htc);
 		}
 		
 		/* COLORES SOLAPAS GRAFICOS */
 		.colummSidebar .ui-accordion .ui-accordion-header a {padding-left:5px;}
+		
 		.colummSidebar .solapas1 .ui-state-default a,
 		.colummSidebar .solapas1 .ui-state-default a:link,
-		.colummSidebar .solapas1 .ui-state-default a:visited { color: #000000; text-decoration: none; background:#ffcc66;
-		-moz-border-radius: 10px 10px 0 0;	border-radius: 10px 10px 0 0;	behavior: url(css/ie-pie/PIE.htc); }
+		.colummSidebar .solapas1 .ui-state-default a:visited { 
+		color: #000000; text-decoration: none; background:#ffcc66;
+		 -moz-border-radius: 8px 8px 0 0;	
+		border-radius: 8px 8px 0 0;	
+		behavior: url(css/ie-pie/PIE.htc);}
 		 
 		.colummSidebar .solapas1  .ui-state-hover, 
 		.colummSidebar .solapas1 .ui-state-focus{ 
-		border: 1px solid #fbcb09; background: #ffcc66; font-weight: bold; 
-		color: #333333; }
+/*		border: 1px solid #fbcb09; */
+		background: #e8c148; font-weight: bold; 
+		color: #000000; 
+		 -moz-border-radius: 8px 8px 0 0;	
+		border-radius: 8px 8px 0 0;	
+		behavior: url(css/ie-pie/PIE.htc);}
 
 		.colummSidebar .solapas1 .ui-state-hover a, 
-		.colummSidebar .solapas1 .ui-state-hover a:hover { color:#c77405; text-decoration: none; }
+		.colummSidebar .solapas1 .ui-state-hover a:hover { color:#000000; text-decoration: none; }
 
-		.colummSidebar .solapas1 .ui-state-active
-		{ border: 1px solid #fbd850; background:#e8c148 repeat-x; font-weight: bold; color: #000000; }
+		.colummSidebar .solapas1 .ui-state-active{ 	
+		/*border: 1px solid #fbd850;*/ 
+		background:#e8c148 repeat-x; font-weight: bold; 
+		color: #000000; 
+		  -moz-border-radius: 8px 8px 0 0;	
+		border-radius: 8px 8px 0 0;	
+		behavior: url(css/ie-pie/PIE.htc);}
 
 		.colummSidebar .solapas1 .ui-state-active a, 
 		.colummSidebar .solapas1 .ui-state-active a:link,
@@ -883,19 +901,29 @@
 		/* COLORES SOLAPAS LINKS */
 		.colummSidebar .solapas2 .ui-state-default a,
 		.colummSidebar .solapas2 .ui-state-default a:link,
-		 .ui-state-default a:visited { color: #FFFFFF; text-decoration: none; background-color:#999999;
-		-moz-border-radius:10px 10px 0 0;	border-radius: 10px 10px 0 0;	behavior: url(css/ie-pie/PIE.htc); }		 
+		.colummSidebar .solapas2 .ui-state-default a:visited {
+		color: #FFFFFF; text-decoration: none; background-color:#999999;
+		 -moz-border-radius: 8px 8px 0 0;	
+		border-radius: 8px 8px 0 0;	
+		behavior: url(css/ie-pie/PIE.htc);}
 		 
 		.colummSidebar .solapas2  .ui-state-hover, 
 		.colummSidebar .solapas2 .ui-state-focus{ 
-		border: 1px solid #fbcb09; background: #CCCC00; font-weight: bold; 
-		color: #c77405; }
+		/*border: 1px solid #fbcb09;*/ background: #666666; font-weight: bold; 
+		color: #FFFFFF; 
+		 -moz-border-radius: 8px 8px 0 0;	
+		border-radius: 8px 8px 0 0;	
+		behavior: url(css/ie-pie/PIE.htc);}
 
 		.colummSidebar .solapas2 .ui-state-hover a, 
-		.colummSidebar .solapas2 .ui-state-hover a:hover { color: #c77405; text-decoration: none; }
+		.colummSidebar .solapas2 .ui-state-hover a:hover { color: #FFFFFF; text-decoration: none; }
 
 		.colummSidebar .solapas2 .ui-state-active
-		{ border: 1px solid #fbd850; background:#666666 repeat-x; font-weight: bold; color: #eb8f00; }
+		{ /*border: 1px solid #fbd850;*/
+		background:#666666 repeat-x; font-weight: bold; color: #eb8f00; 
+		 -moz-border-radius: 8px 8px 0 0;	
+		border-radius: 8px 8px 0 0;	
+		behavior: url(css/ie-pie/PIE.htc);}
 
 		.colummSidebar .solapas2 .ui-state-active a, 
 		.colummSidebar .solapas2 .ui-state-active a:link,
@@ -1053,4 +1081,6 @@
 .fc-view-month .foto, .fc-view-month .fc-event-text {
 	display: none !Important;
 }
-
+span.ui-icon-triangle-1-e, span.ui-icon-triangle-1-s {
+	display: none !Important;
+}
