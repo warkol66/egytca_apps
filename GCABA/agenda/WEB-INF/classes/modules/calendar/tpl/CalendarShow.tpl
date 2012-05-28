@@ -225,8 +225,6 @@
 		$('#editEvent #calendarEvent_nonpublic').attr('checked', event.nonpublic ? true : false);
 		
 		$(".chzn-select").chosen(); // chosen/fancybox hack
-		
-		console.log('falta cargar datos del checkbox!!');
 	}
 	
 	doCreateEvent = function(form) {
