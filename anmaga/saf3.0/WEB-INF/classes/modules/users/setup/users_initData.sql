@@ -10,9 +10,9 @@
 -- Init data for table `users_user`
 -- 
 
-INSERT INTO `users_user` (`id`, `username`, `password`, `active`, `created`, `updated`, `levelId`, `lastLogin`) VALUES 
-(1, 'supervisor', 'd40a4afe38b91cf04bdecc71bf4db659', 1, '2001-01-01 00:00:00', '2001-01-01 00:00:00', 1, '2001-01-01 00:00:00'),
-(2, 'admin', '45c48d97153f26e17d101be744368331', 1, '2001-01-01 00:00:00', '2001-01-01 00:00:00', 2, '2001-01-01 00:00:00');
+INSERT INTO `users_user` (`id`, `username`, `name`, `surname`, `password`, `active`, `created`, `updated`, `levelId`, `lastLogin`) VALUES 
+(1, 'supervisor', 'Supervisor', 'Supervisor', 'd40a4afe38b91cf04bdecc71bf4db659', 1, '2001-01-01 00:00:00', '2001-01-01 00:00:00', 1, '2001-01-01 00:00:00'),
+(2, 'admin', 'Admin', 'Admin', '45c48d97153f26e17d101be744368331', 1, '2001-01-01 00:00:00', '2001-01-01 00:00:00', 2, '2001-01-01 00:00:00');
 
 -- 
 -- Init data for table `users_userInfo`
@@ -49,6 +49,8 @@ INSERT INTO `users_userGroup` (`userId`, `groupId`) VALUES
 (2, 2);
 
 
+INSERT INTO `users_user` (`id`, `username`, `password`, `active`, `levelId`, `lastLogin`, `timezone`, `passwordUpdated`, `recoveryHash`, `recoveryHashCreatedOn`, `name`, `surname`, `mailAddress`, `mailAddressAlt`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(-1, 'system', '45c48g97153f26e17d101be744368331', 1, 1, NOW(), '', NOW(), NULL, NULL, 'System', 'System', '', NULL, NULL, NOW(), NOW());
 
 
 
