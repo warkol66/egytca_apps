@@ -12,6 +12,7 @@
 	"creationDate": "|-$event->getCreationDate("%Y/%m/%d %H:%M")-|",
 	"street": "|-$event->getStreet()|escape:'double_quotes'-|",
 	"number": "|-$event->getNumber()-|",
+	"address": "|-$event->getAddress()|escape:'double_quotes'-|",
 	"axisId": "|-$event->getAxisId()-|",
 	"status": "|-$event->getStatus()-|",
 	"agendaType": "|-$event->getAgendaType()-|",

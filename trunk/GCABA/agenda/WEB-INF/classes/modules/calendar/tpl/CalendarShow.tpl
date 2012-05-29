@@ -52,7 +52,7 @@
 			firstDay: 1,
 //			aspectRatio: 0.5,
 			defaultView: 'agendaWeek',
-			allDayText: 'T/día',
+			allDayText: 'Efemérides / feriados',
 			firstHour: Calendar.options.firstHour,
 			minTime: Calendar.options.minTime,
 			maxTime: Calendar.options.maxTime,
@@ -404,7 +404,7 @@
             </span>
             <div class="eventoContent">
                 <span class="fc-event-title"><img src="images/imagen_foto.png" class="foto" align="right" />%title</span>
-                <span class="fc-event-text">%body</span>
+                <span class="fc-event-text">%address</span>
             </div>
             <div class="eventoFooter"></div>
 						|-if "calendarEventsDoEditX"|security_has_access-|<div class="ui-resizable-handle ui-resizable-s">=</div>|-else-|<div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>|-/if-| 
