@@ -10,9 +10,6 @@ class ActorsEditAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -26,35 +23,33 @@ class ActorsEditAction extends BaseAction {
 		$smarty->assign("moduleConfig",$moduleConfig);
 
 		if (!empty($_GET["id"])) {
-			//voy a editar un objeto
 
-			$actor = ActorPeer::get($_GET["id"]);
+			$actor = ActorQuery::create()->findOneById($_GET["id"]);
 
 			if (!is_null($actor)) {
-				$actualCategories = $actor->getActorCategorys();
-				$smarty->assign("actualCategories",$actualCategories);
-
-				if (!$actualCategories->isEmpty())
-					$excludeCategoriesIds = $actor->getAssignedCategoriesArray($_GET["id"]);
-
-				$criteria = new Criteria();
-				$criteria->add(ActorCategoryPeer::ID, $excludeCategoriesIds, Criteria::NOT_IN);
-				$categoryCandidates = ActorCategoryPeer::doSelect($criteria);
-				$smarty->assign("categoryCandidates",$categoryCandidates);
+				if (class_exists("ActorCategory")) {
+					$actualCategories = $actor->getActorCategorys();
+					$smarty->assign("actualCategories",$actualCategories);
+					if (!$actualCategories->isEmpty())
+						$excludeCategoriesIds = $actor->getAssignedCategoriesArray($_GET["id"]);
+	
+					$criteria = new Criteria();
+					$criteria->add(ActorCategoryPeer::ID, $excludeCategoriesIds, Criteria::NOT_IN);
+					$categoryCandidates = ActorCategoryPeer::doSelect($criteria);
+					$smarty->assign("categoryCandidates",$categoryCandidates);
+				}
 
 			}
 			else
 				$actor = new Actor();
 
 			$smarty->assign("actor",$actor);
-			$smarty->assign("action","edit");
 
 		}
 		else {
 			//voy a crear un objeto nuevo
 			$actor = new Actor();
 			$smarty->assign("actor",$actor);
-			$smarty->assign("action","create");
 		}
 
 		$smarty->assign("filters",$_GET["filters"]);

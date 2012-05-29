@@ -25,16 +25,18 @@ class ActorsDoEditAction extends BaseAction {
 		$userParams = Common::userInfoToDoLog();
 		$actorParams = array_merge_recursive($_POST["params"],$userParams);
 
-		if ($_POST["action"] == "edit") { // Existing actor
+		$id = $request->getParameter("id");
+		if ($id != 0) { // Existing actor
 
-			$actor = ActorPeer::get($_POST["id"]);
-			$actor = Common::setObjectFromParams($actor,$actorParams);
+			$actor = ActorQuery::create()->findOneById($id);
+			if (!empty($actor)) {
+				$actor = Common::setObjectFromParams($actor,$actorParams);
 			
-			if ($actor->isModified() && !$actor->save()) 
-				return $this->returnFailure($mapping,$smarty,$actor,'failure-edit');
+				if ($actor->isModified() && !$actor->save()) 
+					return $this->returnFailure($mapping,$smarty,$actor,'failure-edit');
 
-			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
-
+				return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
+			}
 		}
 		else { // New actor
 
