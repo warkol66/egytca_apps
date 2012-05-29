@@ -1,41 +1,5 @@
 |-include file='ValidationJavascriptInclude.tpl'-|
-<script language="JavaScript" type="text/javascript">
-function actorsAddCategoryToActor(form) {
-	
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'categoryList'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true,
-					insertion: Insertion.Bottom
-				});
-				
-	$('categoryMsgField').innerHTML = '<span class="inProgress"> agregando ##actors,2,Actor## a la categoría... </span>';
-	
-	return true;
-}
 
-function actorsDeleteCategoryFromActor(form){
-
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'categoryMsgField'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				});
-				
-	$('categoryMsgField').innerHTML = '<span class="inProgress"> eliminando ##actors,2,Actor## de la categoría... </span>';
-	
-	return true;
-
-}
-</script>
 <h2>##actors,1,Actores##</h2>
 <h1>|-if $actor->isNew()-|Crear|-else-|Editar|-/if-| ##actors,2,Actor##</h1>
 <div id="div_actor">
@@ -77,6 +41,6 @@ function actorsDeleteCategoryFromActor(form){
 		</fieldset>
 	</form>
 </div>
-|-if !$actor->isNew()-|
+|-if !$actor->isNew() && class_exists("ActorCategory")-|
 |-include file="ActorsEditCategoriesInclude.tpl"-|
 |-/if-|
