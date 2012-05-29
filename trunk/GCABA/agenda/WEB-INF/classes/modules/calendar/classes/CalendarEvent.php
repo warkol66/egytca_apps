@@ -68,7 +68,8 @@ class CalendarEvent extends BaseCalendarEvent {
 	
 	/**
 	 * Devuelve el nombre del estado actual en que se encuentra la noticia
-	 *
+	 * 
+	 * @return string Nombre del estado del evento
 	 */
 	public function getStatusName() {
 		$status = CalendarEventPeer::getStatus();
@@ -76,13 +77,63 @@ class CalendarEvent extends BaseCalendarEvent {
 	}
 
 	/**
+	 * Devuelve la direccion con nombre de calle y numero
+	 * 
+	 * @return string Nombre de la calle y numero
+	 */
+	public function getAddress() {
+		$address = $this->getStreet() . " " . $this->getNumber();
+		return $address;
+	}
+
+	/**
+	 * Devuelve el id del actor que aparecera en el evento
+	 * 
+	 * @return integer		Id del actor del evento
+	 */
+	public function getActorImageId() {
+		$actors = $this->getActors();
+		$id = 0;
+		$rank = 0;
+		foreach ($actors as $actor) {
+			if ($actor->hasImage()) {
+				if (($actor->getRank() != 0) &&  ($actor->getRank() < $rank)) {
+					$id = $actor->getId();
+					$rank = $actor->getRank();
+				}
+			}
+		}
+		if (($id =! 0) && ($rank =! 0))
+			return $id;
+		else
+			return;
+	}
+
+	/**
+	 * Devuelve la imagen del actor que aparecera en el evento
+	 * 
+	 * @return image
+	 */
+	public function getActorImage() {
+		$actor = ActorQuery::create()->findOneById($this->getActorImageId());
+		if (!empty($actor))
+			return $actor->getImge();
+		else
+			return;
+	}
+
+
+
+
+
+
+
+	/**
 	 * Obtains the medias from the article
 	 * @param integer value of the media constant
 	 * @return array array of instances of CalendarMedia.
 	 */
 	private function getMedias($mediaType) {
-		
-		require_once("CalendarMediaPeer.php");
 		
 		$criteria = new Criteria();	
 
@@ -112,13 +163,11 @@ class CalendarEvent extends BaseCalendarEvent {
 	}
 	
 	public function hasImages() {
-		require_once("CalendarMediaPeer.php");
 		return $this->hasMedias(CalendarMediaPeer::CALENDARMEDIA_IMAGE);
 	}	
 	
 	
 	public function getFirstImage() {
-		require_once("CalendarMediaPeer.php");
 		$criteria = new Criteria();	
 		$criteria->add(CalendarMediaPeer::CALENDAREVENTID,$this->getId());		
 		$criteria->add(CalendarMediaPeer::MEDIATYPE,CalendarMediaPeer::CALENDARMEDIA_IMAGE);
@@ -145,7 +194,6 @@ class CalendarEvent extends BaseCalendarEvent {
 	}
 	
 	public function delete(PropelPDO $con = null) {
-		require_once('CalendarMediaPeer.php');
 		
 		$medias = $this->getCalendarMedias();
 		foreach ($medias as $media) {
