@@ -31,6 +31,7 @@ Calendar = {
 				template = template.replace("%timeConfirmed", event.scheduleStatus == 2 ? '¿?' : '');
         template = template.replace("%title", event.title);
         template = template.replace("%body", event.body);
+        template = template.replace("%address", event.address);
 				template = template.replace("%CC_image", event.campaignCommitment ? '<img src="images/icon_CC.png" />' : '');
         elem.html(template);
 	
