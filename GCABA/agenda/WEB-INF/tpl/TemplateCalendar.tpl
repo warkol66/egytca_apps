@@ -101,9 +101,9 @@
                     <!-- <li class="botSmall"><a href="#" class="menuIcon_01"></a></li>
                     <li class="botSmall"><a href="#" class="menuIcon_02"></a></li>
                     <li class="botSmall"><a href="#" class="menuIcon_03"></a></li> -->
-                    <li class="botSmall"><a href="#" class="menuIcon_04"></a></li>
-                    <li class="botSmall"><a href="#" class="menuIcon_05"></a></li>
-                    <li class="botSmall"><a href="#" class="menuIcon_06"></a></li>
+                    <li class="botSmall"><a href="#" class="menuIcon_04" title="Seguimiento de obras"></a></li>
+                    <li class="botSmall"><a href="#" class="menuIcon_05" title="Reuniones de gabinete"></a></li>
+                    <li class="botSmall"><a href="#" class="menuIcon_06" title="Georreferenciación de eventos"></a></li>
                     <li><span>Tipo de evento:</span><br />
                         <select name="filters[kind]" id="kind" style="width: 90px" onChange="this.form.submit();">
                           <option value="">Todos</option>
