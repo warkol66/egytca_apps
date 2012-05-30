@@ -50,7 +50,7 @@
 			firstDay: 1,
 //			aspectRatio: 0.5,
 			defaultView: 'agendaWeek',
-			allDayText: 'Efemérides / feriados',
+			allDayText: 'Efemér/<br />feriados',
 			firstHour: Calendar.options.firstHour,
 			minTime: Calendar.options.minTime,
 			maxTime: Calendar.options.maxTime,

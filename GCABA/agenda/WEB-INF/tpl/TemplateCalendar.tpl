@@ -51,6 +51,7 @@
 						hideSpeed: 800,
 						autoHeight: false
 				});
+				$("#accordion2").accordion({ collapsible: true });
 				// Datepicker
 				$('#datepicker').datepicker({
 						dateFormat: 'dd-mm-yy',
@@ -201,8 +202,8 @@
 
 <div role="tabpanel" style="height: 129px;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active"> <img src="images/grafico.png" alt="" height="123" width="115"> </div>
 <!--<h3 tabindex="-1" aria-selected="false" aria-expanded="false" role="tab" class="color2 ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"><a tabindex="-1" href="#">% Ministerios</a></h3>
-<div role="tabpanel" style="height: 129px; display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom"> <img src="images/grafico02.png" alt="" height="123" width="115"> </div>
-</div>-->
+<div role="tabpanel" style="height: 129px; display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom"> <img src="images/grafico02.png" alt="" height="123" width="115"> </div>-->
+</div>
 </div>
 
 <div class="box solapas2">
