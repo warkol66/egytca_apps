@@ -28,12 +28,12 @@ Calendar = {
         var end = endDate.toString().replace(/.* ([0-9][0-9]:[0-9][0-9]):00 .*/, "$1");
         template = template.replace("%start", start);
         template = template.replace("%end", end);
-				template = template.replace("%timeConfirmed", event.scheduleStatus == 2 ? '¿?' : '');
+	template = template.replace("%timeConfirmed", event.scheduleStatus == 2 ? '¿?' : '');
         template = template.replace("%title", event.title);
         template = template.replace("%body", event.body);
         template = template.replace("%address", event.address);
-				template = template.replace("%CC_image", event.campaignCommitment ? '<img src="images/icon_CC.png" />' : '');
-        elem.html(template);
+	template = template.replace("%CC_image", event.campaignCommitment ? '<img src="images/icon_CC.png" />' : '');
+	elem.html(template);
 	
 	elem.click(function(e) {
 		$('#fancyboxDiv').load(
@@ -42,8 +42,6 @@ Calendar = {
 			function() {$('#fancyboxDummy').click()}
 		);
 	})
-	
-	$(".eventoBot02 a").fancybox();
 	
 	$('.eventoBot01', elem).click(function(e){
 		e.stopPropagation(),

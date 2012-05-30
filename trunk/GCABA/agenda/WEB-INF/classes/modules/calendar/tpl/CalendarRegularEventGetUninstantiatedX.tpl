@@ -1,4 +1,4 @@
-<fieldset><form>
+<div id="uninstantiatedRegEvents"><fieldset><form>
 <h1>Crear Efemérides</h1>
 <p>Agregue las efemérides al calendario</p>
 <table>
@@ -20,12 +20,12 @@
 		|-/foreach-|
 	|-/foreach-|
 	</tbody>
-</table></form></fieldset>
+</table></form></fieldset></div>
 
 <script>
 |-foreach $years as $year-|
 	|-if $uninstantiatedRegEvents.$year|count gt 0-|
-		$('#uninstantiatedRegEventsFancyboxDummy').click();
+		$('#fancyboxDummy').click();
 	|-/if-|
 |-/foreach-|
 </script>

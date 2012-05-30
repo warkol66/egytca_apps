@@ -164,7 +164,7 @@
 						<option value="|-$object->getid()-|" |-$calendarEvent->hasRegion($object)|selected:true-|>|-$object->getname()-|</option>
 					|-/foreach-|
 					</select>
-				</p>|-/if-|
+				</p>
 				<p>
 					<label for="calendarEvent_categories">Dependencias</label>
 					<select class="chzn-select markets-chz-select" data-placeholder="Seleccione una o varias dependencias..." multiple="multiple" id="calendarEvent_categories" name="calendarEvent[categoriesIds][]" size="5" title="dependencias">
@@ -176,7 +176,7 @@
 				<p>
 					<label for="calendarEvent_actors">Funcinarios</label>
 					<select class="chzn-select markets-chz-select" data-placeholder="Seleccione uno o varios funcionarios..." multiple="multiple" id="calendarEvent_actors" name="calendarEvent[actorsIds][]" size="5" title="actores">
-					|-foreach from=$categories item=object-|
+					|-foreach from=$actors item=object-|
 						<option value="|-$object->getid()-|" |-$calendarEvent->hasActor($object)|selected:true-|>|-$object->getname()-|</option>
 					|-/foreach-|
 					</select>
