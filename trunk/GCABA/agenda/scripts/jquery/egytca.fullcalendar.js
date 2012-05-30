@@ -35,13 +35,15 @@ Calendar = {
 	template = template.replace("%CC_image", event.campaignCommitment ? '<img src="images/icon_CC.png" />' : '');
 	elem.html(template);
 	
-	elem.click(function(e) {
-		$('#fancyboxDiv').load(
-			'Main.php?do=calendarEventsShowX&id='+event.id,
-			{  },
-			function() {$('#fancyboxDummy').click()}
-		);
-	})
+	if (!event.allDay) {
+		elem.click(function(e) {
+			$('#fancyboxDiv').load(
+				'Main.php?do=calendarEventsShowX&id='+event.id,
+				{  },
+				function() {$('#fancyboxDummy').click()}
+			);
+		})
+	}
 	
 	$('.eventoBot01', elem).click(function(e){
 		e.stopPropagation(),
