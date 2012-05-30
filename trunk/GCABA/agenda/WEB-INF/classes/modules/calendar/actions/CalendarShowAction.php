@@ -37,6 +37,7 @@ class CalendarShowAction extends BaseAction {
 		$smarty->assign("kinds", CalendarEvent::getEventKinds());
 		$smarty->assign("agendas", CalendarEvent::getAgendas());
 		$smarty->assign("comunes", RegionQuery::create()->filterByType('11')->find());
+		$smarty->assign('axes', CalendarAxisQuery::create()->find());
 		$smarty->assign('axisMap', CalendarAxisQuery::create()->findAxisMap());
 		$smarty->assign('eventStatuses', CalendarEvent::getStatuses());
 
