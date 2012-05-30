@@ -49,7 +49,6 @@ class CalendarEventsEditAction extends BaseAction {
 		$smarty->assign('axes', CalendarAxisQuery::create()->find());
 		$smarty->assign('eventTypes', EventTypeQuery::create()->find());
 		$smarty->assign('agendaTypes', CalendarEventPeer::getAgendas());
-		$smarty->assign('calendarEventStatus',CalendarEventPeer::getStatus());
 		
 		$calendarMediasTypes = CalendarMediaPeer::getMediaTypes();
 		
@@ -61,9 +60,13 @@ class CalendarEventsEditAction extends BaseAction {
 			$smarty->assign('filters',$_GET['filters']);
 		}
 		
-		$this->template->template = 'TemplateJQuery.tpl';
-
-		return $mapping->findForwardConfig('success');
+		//Elijo la vista basado en si es o no un pedido por AJAX
+		if ($this->isAjax()) {
+			$smarty->display('CalendarEventsEditX.tpl');
+		} else {
+			$this->template->template = 'TemplateJQuery.tpl';
+			return $mapping->findForwardConfig('success');
+		}
 	}
 
 }
