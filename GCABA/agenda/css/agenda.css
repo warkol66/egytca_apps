@@ -806,9 +806,9 @@
 			background-image:url(../images/evento_sprite.png);
 			background-repeat:no-repeat;
 			}
-			.pendienteBotones a.pendienteEditar{
-			background-position:-248px -102px;}
 			.pendienteBotones a.pendienteBorrar{
+			background-position:-248px -102px;}
+			.pendienteBotones a.pendienteEditar{
 			background-position:-232px -102px;}	
 	
 /*  COLUMNA DERECHA  */
