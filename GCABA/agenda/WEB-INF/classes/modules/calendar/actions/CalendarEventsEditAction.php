@@ -43,6 +43,7 @@ class CalendarEventsEditAction extends BaseAction {
 			$smarty->assign("categories", CategoryQuery::create()->find());
 
 		$smarty->assign('eventStatuses', CalendarEvent::getStatuses());
+		$smarty->assign('kinds', CalendarEvent::getEventKinds());
 		$smarty->assign('scheduleStatuses', CalendarEvent::getScheduleStatuses());
 		$smarty->assign('users', UserQuery::create()->find());
 		$smarty->assign('actors', ActorQuery::create()->find());

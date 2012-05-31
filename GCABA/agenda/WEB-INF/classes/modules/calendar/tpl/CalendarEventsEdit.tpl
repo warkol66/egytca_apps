@@ -174,7 +174,7 @@
 					</select>
 				</p>
 				<p>
-					<label for="calendarEvent_actors">Funcinarios</label>
+					<label for="calendarEvent_actors">Funcionarios</label>
 					<select class="chzn-select markets-chz-select" data-placeholder="Seleccione uno o varios funcionarios..." multiple="multiple" id="calendarEvent_actors" name="calendarEvent[actorsIds][]" size="5" title="actores">
 					|-foreach from=$actors item=object-|
 						<option value="|-$object->getid()-|" |-$calendarEvent->hasActor($object)|selected:true-|>|-$object->getname()-|</option>
