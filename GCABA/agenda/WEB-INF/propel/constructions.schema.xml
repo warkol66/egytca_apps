@@ -12,6 +12,7 @@
 		<column name="number" type="INTEGER" description="Numero de la calle" />
 		<column name="regionId" type="INTEGER" description="Region" />
 		<column name="endDate" type="DATE" description="Fecha fin" />
+		<column name="inaugurated" type="BOOLEAN" sqlType="BOOL" default="false" description="Inaugurada" />
 
 		<foreign-key foreignTable="categories_category" onDelete="CASCADE" >
 			<reference local="categoryId" foreign="id" />
@@ -31,7 +32,7 @@
 	<table phpName="Inspector" name="constructions_inspector" description="Media del calendario">
 
 		<column name="id" type="INTEGER"  required="true" description="Id del relevador" primaryKey="true" autoIncrement="true" />
-		<column name="name" type="VARCHAR" size="100" required="true" description="Nombre del relevador" />
+		<column name="name" type="VARCHAR" size="100" required="true" primaryString="true" description="Nombre del relevador" />
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>

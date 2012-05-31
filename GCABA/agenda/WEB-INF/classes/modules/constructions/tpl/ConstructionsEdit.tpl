@@ -57,7 +57,7 @@
 				</p>
 				<p>
 					<label for="construction_description">Descripción</label>
-					<textarea name="params[description]" cols="60" rows="15" wrap="VIRTUAL"  id="construction_description">|-$construction->getDescription()|escape-|</textarea>
+					<textarea name="params[description]" cols="60" rows="6" wrap="VIRTUAL"  id="construction_description">|-$construction->getDescription()|escape-|</textarea>
 			</p>
 				<p>
 					<label for="construction_endDate">Fin de Obra</label>
@@ -107,6 +107,11 @@
 					</select>
 				</p>
 				<p>
+					<label for="params_inaugurated">Inaugurada</label>
+					<input name="params[inaugurated]" id="params_inaugurated" type="hidden" value="0">
+					<input name="params[inaugurated]" type="checkbox" |-$construction->getInaugurated()|checked_bool-| value="1">
+				</p>
+				<p>
 					|-if !$construction->isNew()-|
 					<input type="hidden" name="id" id="construction_id" value="|-$construction->getid()-|" />
 					|-/if-|
@@ -119,3 +124,6 @@
 			</fieldset>
 		</form>
 	</div>
+|-if !$construction->isNew()-|
+	|-include file="ConstructionsInspectionsListInclude.tpl" inspections=$construction->getInspections() constructionId=$construction->getId()-|
+|-/if-|
