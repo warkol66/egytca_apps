@@ -69,5 +69,72 @@ Calendar = {
     },
     showAllEvents: function() {
         $(".fc-event").show();
-    }
+    },
+	updateEvent: function(event) {
+		
+		var pendingExists = false;
+		
+		if (event.scheduleStatus == 3) { // evento pendiente
+			
+			// si ya existe como pendiente quiero reemplazarlo en el lugar
+			$('.pendientesContainer .pendientesContent li').each(function(i, e) {
+				if ($(e).data('eventObject').id == event.id) {
+					var newPending = Calendar.newPendingEvent(event);
+					$(e).replaceWith(newPending);
+					pendingExists = true;
+				}
+			});
+		}
+		if (event.scheduleStatus != 3 || !pendingExists) {
+			Calendar.removeEvent(event);
+			Calendar.renderEvent(event);
+		}
+	},
+	renderEvent: function(event) {
+		if (event.scheduleStatus == 3) { // evento pendiente
+			var pendingEventsList = $('.pendientesContainer .pendientesContent ul');
+			var newPending = Calendar.newPendingEvent(event);
+			newPending.appendTo(pendingEventsList);
+		} else {
+			calendar.fullCalendar('renderEvent', event, true);
+		}
+	},
+	removeEvent: function(event) {
+		Calendar.removePendingEvent(event.id);
+		calendar.fullCalendar('removeEvents', event.id);
+	},
+	removePendingEvent: function(eventId) {
+		$('.pendientesContainer .pendientesContent li').each(function(i, e) {
+			if ($(e).data('eventObject').id == eventId)
+				$(e).remove();
+		});
+	},
+	newPendingEvent: function(event) {
+		
+		event.start = new Date(event.start);
+		event.end = new Date(event.end);
+		
+		var template = $('#calendarPendingEventTemplate').html();
+		template = template.replace("%title", event.title);
+		template = template.replace("%body", event.body);
+		var newPending = $(template);
+		newPending.addClass(event.className);
+		newPending.draggable({revert: true, revertDuration: 0});
+		newPending.data('eventObject', event);
+		
+		$('.pendienteBorrar', newPending).click(function(e){
+			e.stopPropagation(),
+			e.preventDefault();
+			if (confirm('¿Desea borrar el evento?')) {
+				doDeleteEvent(event);
+			}
+		});
+		$('.pendienteEditar', newPending).click(function(e) {
+			e.stopPropagation(),
+			e.preventDefault();
+			editEvent(event);
+		});
+		
+		return newPending;
+	}
 }
