@@ -12,11 +12,12 @@
 	<table cellpadding="4" cellspacing="0" class="tableTdBorders" id="tabla-newsarticles">
 		<thead>
 			<tr>
-				<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=constructionsEdit" class="addLink">Agregar Obra</a></div></th>
+				<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=constructionsEdit" class="addLink">Agregar Obra</a></div></th>
 			</tr>
 			<tr>
 				<th width="40%">Obra</th>
 				<th width="8%">Fecha</th>
+				<th width="40%">Dependencia</th>
 				<th width="2%">&nbsp;</th>
 			</tr>
 		</thead>
@@ -25,6 +26,7 @@
 			<tr>
 				<td>|-$construction->getName()-|</td>
 				<td>|-$construction->getEndDate()|date_format-|</td>
+				<td>|-assign var=category value=$construction->getCategory()-||-$category-|</td>
 				<td nowrap>|-if "constructionsEdit"|security_user_has_access-|
 					<form action="Main.php" method="get">
 						<!--pasaje de parametros de filtros -->
@@ -48,11 +50,11 @@
 		|-/foreach-|
 		|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
-			<td colspan="3" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
+			<td colspan="4" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 			<tr>
-				<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=constructionsEdit" class="addLink">Agregar Obra</a></div></th>
+				<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=constructionsEdit" class="addLink">Agregar Obra</a></div></th>
 			</tr>
 		</tbody>
 	</table>

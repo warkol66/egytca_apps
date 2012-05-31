@@ -1,5 +1,3 @@
-|-if $configModule->get('calendar','useHTML')-||-include file='CalendarEventsEditTinyMceInclude.tpl' elements="calendarEvent_body" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"-||-/if-|
-|-popup_init src="scripts/overlib.js"-|
 <link type="text/css" href="css/chosen.css" rel="stylesheet" />
 <script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
 <link type="text/css" href="css/smoothness/jquery-ui-1.8.19.custom.css" rel="Stylesheet" />
@@ -12,9 +10,9 @@
 <script type="text/javascript" src="scripts/jquery/jquery.ui.touch-punch.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		
-		initializeDatePickers();
+
 		$(".chzn-select").chosen();
+		initializeDatePickers();
 
 		$('#calendarEvent_street').change(updateLocateButton);
 		$('#calendarEvent_number').change(updateLocateButton);
@@ -41,15 +39,8 @@
 			numberOfMonths: 3
 //			minDate: 0	
 		});
-		$.timepicker.setDefaults({
-			hourGrid: 3,
-			minuteGrid: 5,
-			addSliderAccess: true,
-			sliderAccessArgs: { touchonly: false }
-		});
-		$('#calendarEvent_creationDate').datetimepicker();
-		$('#calendarEvent_startDate').datetimepicker();
-		$('#calendarEvent_endDate').datetimepicker();
+		$('#calendarEvent_startDate').datepicker();
+		$('#calendarEvent_endDate').datepicker();
 	}
 </script>
 <h2>Administración de Eventos de Contexto </h2>
@@ -79,18 +70,18 @@
 						|-/foreach-|
 					</select>
 				</p>
-				<p>
+				<p style="display: none">
 					<label for="calendarEvent_creationDate">Fecha de Creación</label>
 					<input name="calendarEvent[creationDate]" type="text" id="calendarEvent_creationDate" title="creationDate" value="|-if $calendarEvent->isNew()-||-$smarty.now|dateTime_format|change_timezone|date_format:"%d-%m-%Y"-||-else-||-$calendarEvent->getcreationDate()|dateTime_format-||-/if-|" size="18" />
 					<a href="#" |-popup sticky=true caption="Fechas de la agenda" trigger="onMouseOver" text="Las fechas deben completarse para que el evento se registre correctamente.<br />La fecha de creación ubicará el evento por orden descendente en la página principal, las fechas de inicio y fin de la actividad le indican al sistema la vigencia del mismo." snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a>
 				</p>
 				<p>
-					<label for="calendarEvent_startDate">Fecha de Inicio Actividad</label>
+					<label for="calendarEvent_startDate">Fecha de Inicio </label>
 					<input name="calendarEvent[startDate]" type="text" id="calendarEvent_startDate" title="creationDate" value="|-$calendarEvent->getstartDate()|dateTime_format-|" size="18" /> 
 					<a href="#" |-popup sticky=true caption="Fechas de la agenda" trigger="onMouseOver" text="Las fechas deben completarse para que el evento se registre correctamente.<br />La fecha de creación ubicará el evento por orden descendente en la página principal, las fechas de inicio y fin de la actividad le indican al sistema la vigencia del mismo." snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a>
 				</p>
 				<p>
-					<label for="calendarEvent_endDate">Fecha de Fin Actividad</label>
+					<label for="calendarEvent_endDate">Fecha de Fin </label>
 					<input name="calendarEvent[endDate]" type="text" id="calendarEvent_endDate" title="endDate" value="|-$calendarEvent->getendDate()|dateTime_format-|" size="18" /> 
 					<a href="#" |-popup sticky=true caption="Fechas de la agenda" trigger="onMouseOver" text="Las fechas deben completarse para que el evento se registre correctamente.<br />La fecha de creación ubicará el evento por orden descendente en la página principal, las fechas de inicio y fin de la actividad le indican al sistema la vigencia del mismo." snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a>
 				</p>							

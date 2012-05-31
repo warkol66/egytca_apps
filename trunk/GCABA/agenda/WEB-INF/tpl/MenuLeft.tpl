@@ -9,6 +9,10 @@
 			<li><a href="Main.php?do=calendarHolidayEventsList">Administrar Feriados</a></li>
 			<li><a href="Main.php?do=calendarRegularEventList">Administrar Efemérides</a></li>
 		</div>
+		<li class="titleMenu" onclick="switch_vis('sectionConstructions')">Obras</li>
+		<div id="sectionConstructions" style="display:|-if $module|upper eq 'CONSTRUCTIONS'-|block|-else-|none|-/if-|">
+			<li><a href="Main.php?do=constructionsList">Obras</a></li>
+		</div>
 		<li class="titleMenu" onclick="switch_vis('sectionConfig')">Configuración</li>
 		<div id="sectionConfig" style="display:|-if $module|upper eq 'CALENDAR' || $module|upper eq 'CATEGORIES' || $module|upper eq 'MODULES' 
 		|| $module|upper eq 'ACTORS'-|block|-else-|none|-/if-|">
