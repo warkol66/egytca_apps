@@ -78,7 +78,7 @@
 |-if $calendarEventsConfig.useSource.value eq "YES"-|<label for="calendarEvent_sourceContact">Más información</label>
 					<input name="calendarEvent[sourceContact]" type="text" id="calendarEvent_sourceContact" title="sourceContact" value="|-$calendarEvent->getsourceContact()|escape-|" size="60" maxlength="150" />
 				</p>|-/if-|
-				<p>
+				<p style="display: none">
 					<label for="calendarEvent_creationDate">Fecha de Creación</label>
 					<input name="calendarEvent[creationDate]" type="text" id="calendarEvent_creationDate" title="creationDate" value="|-if $calendarEvent->isNew()-||-$smarty.now|dateTime_format|change_timezone|date_format:"%d-%m-%Y"-||-else-||-$calendarEvent->getcreationDate()|dateTime_format-||-/if-|" size="18" />
 					<a href="#" |-popup sticky=true caption="Fechas de la agenda" trigger="onMouseOver" text="Las fechas deben completarse para que el evento se registre correctamente.<br />La fecha de creación ubicará el evento por orden descendente en la página principal, las fechas de inicio y fin de la actividad le indican al sistema la vigencia del mismo." snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a>
