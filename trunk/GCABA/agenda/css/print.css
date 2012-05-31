@@ -58,4 +58,6 @@ table tr {
 	border-right: 3px #cdcdcd double;
 }
 
-
+.header1, .boxNav1, .colummSidebar, .boxNavSolapas, #pendientes {
+	display: none !Important;
+}

@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="css/960.css" media="screen" />
 <link rel="stylesheet" type="text/css" href="css/agenda.css" media="screen" />
 <link rel="stylesheet" type="text/css" href="css/fisheye.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <!-- Condicionales para todos los ie-->
 		<!--[if IE 6]><link rel="stylesheet" type="text/css" href="css/ie6.css" media="screen" /><![endif]-->
 		<!--[if IE 7]><link rel="stylesheet" type="text/css" href="css/ie7.css" media="screen" /><![endif]-->
