@@ -18,7 +18,7 @@
 	$(document).ready(function() {
 		var day, month, year;
 		var events = loadEvents();
-		var pendingEvents = loadPendingEvents();
+		loadPendingEvents();
 		calendar = createCalendar(events);
 		Calendar.initialize({ axisMap: |-json_encode($axisMap)-| });
 		|-if isset($filters.selectedDate) && $filters.selectedDate neq ''-|
@@ -104,24 +104,23 @@
 				copiedEventObject.end = end;
 				copiedEventObject.allDay = allDay;
 				copiedEventObject.scheduleStatus = 2;
-				createEventFromJs(copiedEventObject, function(event) {
+				
+				var data = {
+					id: copiedEventObject.id,
+					calendarEvent: {
+						startDate: getFormattedDatetime(copiedEventObject.start),
+						endDate: getFormattedDatetime(copiedEventObject.end),
+						allDay: copiedEventObject.allDay,
+						scheduleStatus: 2
+					}
+				}
+				
+				editRequest(data, function(event) {
+					Calendar.removePendingEvent(event.id);
 					calendar.fullCalendar('renderEvent', event, true);
-					removePendingEvent(event.id);
 				});
 			}
 		});
-	}
-	
-	removePendingEvent = function(eventId) {
-		$('.pendientesContainer .pendientesContent li').each(function(i, e) {
-			if ($(e).data('eventObject').id == eventId)
-				$(e).remove();
-		});
-	}
-	
-	createEventFromJs = function(event, onSuccess) {
-		editEvent(event);
-		editRequest($('#editEvent form').serialize(), onSuccess);
 	}
 	
 	loadEvents = function() {
@@ -138,23 +137,10 @@
 	}
 	
 	loadPendingEvents = function() {
-		var pendingEventsList = $('.pendientesContainer .pendientesContent ul');
 		|-foreach $pendingEvents as $pending-|
 			var eventObject = |-include file="CalendarPhpEventToJson.tpl" event=$pending-|;
-			var newPending = newPendingEventHtml(eventObject);
-			newPending.appendTo(pendingEventsList);
-			newPending.draggable({ revert: true, revertDuration: 0 });
-			newPending.data('eventObject', eventObject);
+			Calendar.renderEvent(eventObject);
 		|-/foreach-|
-	}
-	
-	newPendingEventHtml = function(event) {
-		var pending = $('<li class="fc-event"></li>');
-		pending.addClass(event.className);
-		$('<div class="solapita"></div>').appendTo(pending);
-		$('<div class="pendienteDato"><span>'+event.title+'</span>'+event.body+'</div>').appendTo(pending);
-		$('<div class="pendienteBotones"><a href="#" class="pendienteEditar"></a><a href="#" class="pendienteBorrar"></a></div>').appendTo(pending);
-		return pending;
 	}
 	
 	newEvent = function(start, end, allDay) {
@@ -216,14 +202,7 @@
 		var data = $(form).serialize();
 		
 		editRequest(data, function(event) {
-			/* updateEvent no sirve porque el evento no es el original
-			sino uno nuevo con los mismos datos */
-			calendar.fullCalendar('removeEvents', event.id);
-			calendar.fullCalendar(
-				'renderEvent',
-				event,
-				true // make the event "stick"
-			);
+			Calendar.updateEvent(event);
 		});
 	}
 	
@@ -234,7 +213,7 @@
 			type: 'post',
 			data: { id: event.id },
 			success: function() {
-				calendar.fullCalendar('removeEvents', event.id);
+				Calendar.removeEvent(event);
 			}
 		});
 	}
@@ -335,4 +314,13 @@
 				<div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
     	</div>
   	</div>   
+</div>
+
+<!--template para eventos pendientes-->
+<div id="calendarPendingEventTemplate" style="display: none;">
+	<li class="fc-event">
+		<div class="solapita"></div>
+		<div class="pendienteDato"><span>%title</span>%body</div>
+		<div class="pendienteBotones"><a href="#" class="pendienteEditar"></a><a href="#" class="pendienteBorrar"></a></div>
+	</li>
 </div>
