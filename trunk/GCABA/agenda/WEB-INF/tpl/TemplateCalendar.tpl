@@ -86,10 +86,12 @@
 				<h1 id="branding"></h1>
                 <span class="eyefishContainer">
                     <ul id="fisheye_menu">
-                            <li><a href="#1" class="fisheye"><img src="images/icon_calendar.png" alt="" /><span>Calendario +</span></a></li> 
-                            <li><a href="#2" class="fisheye"><img src="images/icon_calendarDay.png" alt="" /><span>Calendario día</span></a></li> 
-                            <li><a href="#3" class="fisheye"><img src="images/icon_print.png" alt="" /><span>Imprimir</span></a></li> 
-                            <li><a href="#4" class="fisheye"><img src="images/icon_logout.png" alt="" /><span>Salir</span></a></li> 
+                            <li><a href="#1" class="fisheye"><img src="images/icon_reunion.png" alt="" /><span>Reunion de Gabinete</span></a></li> 
+                            <li><a href="#2" class="fisheye"><img src="images/icon_georef.png" alt="" /><span>Georeferenciación</span></a></li> 
+                            <li><a href="#3" class="fisheye"><img src="images/icon_exportar.png" alt="" /><span>Exportar</span></a></li> 
+                            <li><a href="#4" class="fisheye"><img src="images/icon_print.png" alt="" /><span>Imprimir</span></a></li> 
+                            <li><a href="#5" class="fisheye"><img src="images/icon_logout.png" alt="" /><span>Salir</span></a></li> 
+
                     </ul>                
                 
                 </span><!-- end fisheye Container -->
@@ -158,13 +160,9 @@
 			<div class="grid_13 colummAgenda">
 				<div class="boxNavSolapas">
 					<ul>
-						<li class="solTurismo" hide="Turismo"><a href="#">Turismo</a></li>
-						<li class="solVida" hide="Vida Sana / Plan Verde"><a href="#">Vida Sana / Plan Verde</a></li>
-						<li class="solTransformando" hide="Transformando la ciudad"><a href="#">Transformando la ciudad</a></li>
-						<li class="solCiudad" hide="Ciudad Segura"><a href="#">Ciudad Segura</a></li>
-						<li class="solAgenda" hide="Agenda Cultural"><a href="#">Agenda Cultural</a></li>
-						<li class="solSocial" hide="R.Social/Crec. Personal"><a href="#">R.Social/Crec. Personal</a></li>
-						<li class="solOtros" hide="Otros"><a href="#">Otros</a></li>                  
+						|-foreach from=$axes item=axis-|
+							<li class="|-$axis->getColor()-|" hide="|-$axis->getName()-|"><a href="#">|-$axis->getName()-|</a></li> 
+						|-/foreach-|
 				 </ul>                                                                                    
 				</div>
 		<div class="clear"></div>
