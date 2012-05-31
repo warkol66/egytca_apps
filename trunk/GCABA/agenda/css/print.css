@@ -8,8 +8,8 @@ body {
 		display: none !Important;
 }
 * {
-	background-color: transparent !Important;
-	background-image: none !Important;
+/*	background-color: transparent !Important;*/
+/*	background-image: none !Important;*/
 }
 #header, #mainMenuH {
 	display: none !Important;
@@ -58,6 +58,17 @@ table tr {
 	border-right: 3px #cdcdcd double;
 }
 
-.header1, .boxNav1, .colummSidebar, .boxNavSolapas, #pendientes {
+
+.eyefishContainer, .boxNav1, .colummSidebar, .boxNavSolapas, #pendientes {
 	display: none !Important;
 }
+
+body{ background-color:none !Important; 	
+		  background-image:none !Important;
+		}
+		.boxAgendaContainer{
+		width:857px;
+		border:none !Important;
+/*		background-color:#FFFFFF !Important;*/
+		color:#000000 !Important;}
+

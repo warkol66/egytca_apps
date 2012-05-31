@@ -16,7 +16,7 @@
 		/* branding
 	----------------------------------------------- */
 	h1#branding {
-	width:559px;
+	width:500px;
 	height:64px;
 	background-repeat:no-repeat;
 	float:left;
@@ -24,7 +24,9 @@
 	padding:0;
 	}
 	.slogan{
-	width:146px;
+	display:none;
+/*	width:146px;*/
+	width:120px;
 	height:64px;
 	background-image:url(../images/header1_slogan.png);
 	background-repeat:no-repeat;
@@ -34,7 +36,7 @@
 	
 	.eyefishContainer{
 	position:relative;
-	width:210px;
+	width:280px;
 	height:64px;
 	background-image:url(../images/header1_eyefish.png);
 	background-repeat:no-repeat;
@@ -94,7 +96,7 @@
 	border-left: solid 2px #FFFFFF;}	
 	.boxNav1 ul li span{clear:both;}	
 
-	.boxNav1 ul li.botSmall { padding:5px 0;}
+	.boxNav1 ul li.botSmall { padding:5px 0; display:none;}
 	.boxNav1 ul li.botSmall a {
 	width:26px;
 	height:26px;
@@ -817,10 +819,11 @@
 			.container_16 .colummSidebar .boxBuscador{
 			height:20px;
 			padding:7px 7px 10px 7px; 
-			border-bottom:solid 1px #666666;}
+			border-bottom:solid 1px #666666;
+			position:relative;}
 	
 				.textBuscador{
-				width:55px;
+				width:70%;
 				height:15px;
 				border:solid 1px #999;
 				float:left;
@@ -828,8 +831,10 @@
 				
 				.botBuscador{
 				display:block;
-				width:35px;
-				height:18px;
+				position:absolute;
+				right:5px;
+				width:29px;
+				height:15px;
 				float:left;
 				background-image:url(../images/icon_buscador.gif);
 				background-position:center;
@@ -980,10 +985,12 @@
 		height:35px;
 		display:inline;
 		float:left;
-		margin:0 3px 0 0;}
+		margin:0 3px 0 0;
+		text-align:center;
+		}
 		
 		.boxNavSolapas ul li a{
-		min-width:55px;
+		min-width:70px;
 		display:block;
 		height:27px;
 		cursor:pointer;
@@ -991,7 +998,7 @@
 		color:#000000;
 		font-size:10px;
 		line-height:25px;
-		padding:0 5px 0 20px;
+		padding:0 8px 0 8px;
 		 -webkit-border-radius: 0 0 5px 5px;
 		    -moz-border-radius: 0 0 5px 5px;
     		border-radius: 0 0 5px 5px;
@@ -999,10 +1006,12 @@
 				
 				.boxNavSolapas ul li.solTurismo a{ background-color:#FFCC00;}
 				.boxNavSolapas ul li.solVida a{background-color:#88d852;}
+				.boxNavSolapas ul li.solPlan a{background-color:#88d852;}
 				.boxNavSolapas ul li.solTransformando a{background-color:#359e7d;}
 				.boxNavSolapas ul li.solCiudad a{ background-color:#3dbeff;}
 				.boxNavSolapas ul li.solAgenda a{background-color:#ff3929;}
 				.boxNavSolapas ul li.solSocial a{background-color:#ff9c0d;}	
+				.boxNavSolapas ul li.solCrec a{background-color:#ff9c0d;}	
 				.boxNavSolapas ul li.solOtros a{	background-color:#c0c0c0;}	
 			
 	/*	.boxNavSolapasLink{

@@ -135,8 +135,8 @@ text-align:left;
 	}
 	
 .fc-state-highlight { /* <td> today cell */ /* TODO: add .fc-today to <th> */
-	background: #666;
-	opacity: .2;
+	background: #fff;
+	opacity: .75;
 	filter: alpha(opacity=20); /* for IE */	
 	}
 	
