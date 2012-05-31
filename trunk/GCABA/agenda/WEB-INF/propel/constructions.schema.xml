@@ -1,0 +1,75 @@
+<database defaultIdMethod="native" package="constructions.classes" name="application" >
+
+	<table phpName="Construction" name="constructions_construction" description="Seguimiento de obras">
+
+		<column name="id" type="INTEGER"  required="true" description="Id obra" primaryKey="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="255" description="Nombre de la obra" primaryString="true" />
+		<column name="description" type="LONGVARCHAR" description="Descripcion de la obra"/>
+		<column name="categoryId" type="INTEGER" description="Jurisdiccion" />
+		<column name="latitude" type="NUMERIC" size="12" scale="9" description="latitud" />
+		<column name="longitude" type="NUMERIC" size="12" scale="9" description="longitud" />
+		<column name="street" type="VARCHAR" size="100" description="Nombre de la calle" />
+		<column name="number" type="INTEGER" description="Numero de la calle" />
+		<column name="regionId" type="INTEGER" description="Region" />
+		<column name="endDate" type="DATE" description="Fecha fin" />
+
+		<foreign-key foreignTable="categories_category" onDelete="CASCADE" >
+			<reference local="categoryId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="regions_region" onDelete="CASCADE" >
+			<reference local="regionId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="Inspector" name="constructions_inspector" description="Media del calendario">
+
+		<column name="id" type="INTEGER"  required="true" description="Id del relevador" primaryKey="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="100" required="true" description="Nombre del relevador" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="Inspection" name="constructions_inspection" description="Inspecciones a la obra">
+
+		<column name="id" type="INTEGER" required="true" description="Id del relevador" primaryKey="true" autoIncrement="true"  />
+		<column name="constructionId" required="true" type="INTEGER" description="ID de construccion" />
+		<column name="inspectorId" required="true" type="INTEGER" description="ID de relevador" />
+		<column name="visitDate" type="DATE" description="Fecha fin segun visita" />
+		<column name="endDate" type="DATE" description="Fecha fin" />
+		<column name="endDateMinistry" type="DATE" description="Fecha fin segun Ministerio" />
+		<column name="workshop" type="BOOLEAN" sqlType="BOOL" default="false" description="Obrador presente" />
+		<column name="progressInspector" type="INTEGER" size="3" description="Progreso segun relevador" />
+		<column name="workingRate" type="INTEGER" size="6" description="Ritmo de trabajo" defaultValue="0" />
+		<column name="progress" type="LONGVARCHAR" description="Progreso"/>
+		<column name="conclusion" type="LONGVARCHAR" description="Conclusion"/>
+		<column name="workers" type="INTEGER" size="6" description="Trabajadores" />
+		<column name="status" type="INTEGER" size="1" description="Semaforo" defaultValue="0" />
+		<column name="otherComments" type="LONGVARCHAR" description="Otros comentarios"/>
+
+		<foreign-key foreignTable="constructions_construction" onDelete="CASCADE" >
+			<reference local="constructionId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="constructions_inspector" onDelete="CASCADE" >
+			<reference local="inspectorId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>
