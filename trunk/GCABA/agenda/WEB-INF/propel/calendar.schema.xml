@@ -185,6 +185,7 @@
 		<column name="id" type="INTEGER"  required="true" description="Id de Eje" primaryKey="true" autoIncrement="true"  />
 		<column name="name" type="VARCHAR" size="100" required="true" description="Nombre del eje" />
 		<column name="description" type="LONGVARCHAR" description="descripcion del eje" />
+		<column name="tabClass" type="VARCHAR" size="25" description="Clase de la solapa" />
 		<column name="color" type="VARCHAR" size="25" description="Color del eje" />
 		<column name="cssClass" type="VARCHAR" size="25" description="Clase del eje" />
 		<column name="order" type="INTEGER" description="Orden de la solapa" default="0" />

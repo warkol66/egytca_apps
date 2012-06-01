@@ -161,7 +161,7 @@
 				<div class="boxNavSolapas">
 					<ul>
 						|-foreach from=$axes item=axis-|
-							<li class="|-$axis->getColor()-|" hide="|-$axis->getName()-|"><a href="#">|-$axis->getName()-|</a></li> 
+							<li class="|-$axis->getTabClass()-|" hide="|-$axis->getName()-|"><a href="#">|-$axis->getName()-|</a></li> 
 						|-/foreach-|
 				 </ul>                                                                                    
 				</div>
