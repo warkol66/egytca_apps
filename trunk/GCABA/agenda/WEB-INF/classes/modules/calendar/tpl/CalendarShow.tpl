@@ -1,3 +1,9 @@
+<style>
+.CGpercents {
+	font-size: xx-small
+}
+</style>
+
 <link rel='stylesheet' type='text/css' href='scripts/fullcalendar/fullcalendar.css' />
 <script type="text/javascript" src="scripts/jquery/jquery-ui-1.8.19.custom.min.js"></script>
 <script type='text/javascript' src='scripts/fullcalendar/fullcalendar.min.js'></script>
@@ -41,7 +47,6 @@
 		
 		// grafico de porcentaje de eventos
 		var graphInfo = makeGraphInfo(events.concat(pendingEvents));
-		console.log(graphInfo.data);
 		eventsCakegraph = new CakeGraph({
 			selector: '.box.solapas1 .eventsGraph',
 			data: graphInfo.data,
