@@ -16,9 +16,9 @@
 			</tr>
 			<tr>
 			  <th width="40%">Obra</th>
-				<th width="8%">Fecha</th>
+				<th width="3%">Fecha</th>
 				<th width="20%">Relevador</th>
-				<th width="10%">Dependencia</th>
+				<th width="25%">Dependencia</th>
 				<th width="2%">&nbsp;</th>
 			</tr>
 		</thead>
@@ -26,7 +26,7 @@
 		|-foreach from=$inspections item=inspection name=for_inspections-|
 			<tr>
 			  <td>|-assign var=construction value=$inspection->getConstruction()-||-$construction-|</td>
-				<td>|-$inspection->getVisitDate()|date_format-|</td>
+				<td align="center" nowrap="nowrap">|-$inspection->getVisitDate()|date_format-|</td>
 				<td>|-$inspection->getInspector()-|</td>
 				<td>|-if !empty($construction)-||-assign var=category value=$construction->getCategory()-||-$category-||-/if-|</td>
 				<td nowrap>|-if "inspectionsInspectionsEdit"|security_user_has_access-|

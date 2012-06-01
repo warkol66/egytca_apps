@@ -6,10 +6,14 @@
 <script type="text/javascript" src="scripts/jquery/jquery.ui.timepicker-es.js"></script>
 <script type="text/javascript" src="scripts/jquery/jquery-ui-sliderAccess.js"></script>
 <script type="text/javascript" src="scripts/jquery/jquery.ui.touch-punch.min.js"></script>
+<link type="text/css" href="css/chosen.css" rel="stylesheet" />
+<script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		
+		$(".chzn-select").chosen();
 		initializeDatePickers();
+
 	});
 	
 	function initializeDatePickers() {
@@ -23,6 +27,12 @@
 		$('#params_endDateMinistry').datepicker();
 	}
 </script>
+
+					<script type="text/javascript">
+							$(document).ready(function() {})
+					</script>
+
+
 <h2>Administración de Obras</h2>
 <h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Relevamiento</h1>
 |-if $message eq "ok"-|
@@ -42,14 +52,12 @@
 
 
 				<p>
-					<label for="calendarEvent_actors">Obra</label>
+					<label for="params_constructionId">Obra</label>
 			|-if isset($constructions)-|
-					<script type="text/javascript">
-							$(".chzn-select").chosen();
-					</script>
-					<select class="chzn-select markets-chz-select" data-placeholder="Seleccione la obra..." id="calendarEvent_actors" name="params[constructionId]" size="5" title="Obras">
+					<select class="chzn-select medium-chz-select" data-placeholder="Seleccione la obra..." id="params_constructionId" name="params[constructionId]" title="Obras">
+					<option value=""></option>
 					|-foreach from=$constructions item=object-|
-						<option value="|-$object->getid()-|">|-$object->getname()-|</option>
+						<option value="|-$object->getId()-|" |-$inspection->getConstructionId()|selected:$object->getId()-|>|-$object->getName()-|</option>
 					|-/foreach-|
 					</select>
 			|-else-|
@@ -62,8 +70,8 @@
 				</p>
 				<p>
 					<label for="params_inspectorId">Relevador</label>
-					<select id="params_axis" name="params[inspectorId]" title="Relevador">
-						<option value="">Seleccione el Relevador</option>
+					<select id="params_axis" name="params[inspectorId]" class="chzn-select medium-chz-select" data-placeholder="Seleccione el relevador..."  title="Relevador">
+					<option value=""></option>
 					|-foreach from=$inspectors item=object-|
 						<option value="|-$object->getId()-|" |-$inspection->getInspectorId()|selected:$object->getId()-|>|-$object->getName()-|</option>
 					|-/foreach-|
