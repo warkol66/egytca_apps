@@ -32,15 +32,13 @@
 			<li><a href="Main.php?do=usersList">Usuarios</a></li>
 			<li><a href="Main.php?do=usersLevelsList">Administrar Niveles de Usuario</a></li>
 			<li><a href="Main.php?do=usersGroupsList">Administrar Grupos de Usuarios</a></li>
-			<li><a href="Main.php?do=modulesList">Administrar módulos</a></li>
 			<li><a href="Main.php?do=modulesInstallList">Instalar Modulos</a></li>
-			<li><a href="Main.php?do=surveysList">Administrar Encuestas</a></li>
 |-if $loginUser->isSupervisor()-|
 			<li><a href="Main.php?do=securityEditPermissions">Administrar Permisos</a></li>
 |-/if-|
 		</div>
 	</ul>
-	<a href="Main.php?do=|-if ($configModule->get("global","unifiedUsernames"))-|commonDoLogout|-else-|usersDoLogout|-/if-|" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")' id="logout"></a>
+	<a href="Main.php?do=|-if ($configModule->get("global","unifiedUsernames"))-|commonDoLogout|-else-|usersDoLogout|-/if-|" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")' id="logout">Salir</a>
 |-else if !empty($loginAffiliateUser)-|
 	<ul>
 		<li class="menuLink"><a href="Main.php?do=usersWelcome">Ir al Inicio</a></li>

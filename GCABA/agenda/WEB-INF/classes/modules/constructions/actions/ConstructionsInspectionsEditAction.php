@@ -36,9 +36,9 @@ class ConstructionsInspectionsEditAction extends BaseAction {
 			$construction = ConstructionQuery::create()->findOneById($constructionId);
 			if (!empty($construction))
 				$smarty->assign("construction", $construction);
-			else
-				$smarty->assign("constructions", ConstructionQuery::create()->find());
 		}
+		else
+			$smarty->assign("constructions", ConstructionQuery::create()->find());
 		
 		$smarty->assign("inspectors", InspectorQuery::create()->find());
 		$smarty->assign("statuses", Inspection::getStatuses());
