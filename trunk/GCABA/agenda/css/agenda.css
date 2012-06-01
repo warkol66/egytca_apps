@@ -1093,3 +1093,11 @@
 span.ui-icon-triangle-1-e, span.ui-icon-triangle-1-s {
 	display: none !Important;
 }
+.eventsGraph {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 90%;
+	height: 90%;
+	text-align: center;
+	vertical-align: middle;
+}
