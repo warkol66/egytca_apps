@@ -1,9 +1,3 @@
-<style>
-.CGpercents {
-	font-size: xx-small
-}
-</style>
-
 <link rel='stylesheet' type='text/css' href='scripts/fullcalendar/fullcalendar.css' />
 <script type="text/javascript" src="scripts/jquery/jquery-ui-1.8.19.custom.min.js"></script>
 <script type='text/javascript' src='scripts/fullcalendar/fullcalendar.min.js'></script>
