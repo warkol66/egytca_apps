@@ -1,6 +1,6 @@
 /**
  * params:
- *   containerId: id del container
+ *   selector: selector del contenedor
  *   data: array con los valores a graficar
  *   color: funcion que recibe el indice de un valor en el array data y devuelve un color
  */
@@ -15,6 +15,12 @@ CakeGraph = function(params) {
 	var w = $(selector).width();
 	var h = $(selector).height();
 	var r = Math.min(w, h) / 2;
+	
+	var percents = []
+	var total = eval(params.data.join('+'));
+	for (var i=0; i<params.data.length; i++) {
+		percents.push(params.data[i] * 100 / total);
+	}
 	
 	_this.color = color;
 	_this.cake = d3.layout.pie().sort(null);
@@ -32,6 +38,17 @@ CakeGraph = function(params) {
 		.attr("fill", function(d, i) { return _this.color(i) })
 		.attr("d", _this.arc)
 		.each(function(d) { this._current = d; });
+	
+	_this.percents = _this.svg.selectAll('text')
+		.data(_this.cake(percents))
+		.enter()
+		.append("text")
+		.attr("transform", function(d) { return "translate(" + _this.arc.centroid(d) + ")"; })
+		.attr("dy", ".35em")
+		.attr("text-anchor", "middle")
+		.attr("display", function(d) { return d.value > .15 ? null : "none"; })
+		.attr("class", "CGpercents")
+		.text(function(d, i) { return d.value.toFixed(1) + ' %'; });
 	
 	// Store the currently-displayed angles in this._current.
 	// Then, interpolate from this._current to the new angles.
