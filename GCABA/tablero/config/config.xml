@@ -48,14 +48,14 @@
 			<thousandsSeparator>.</thousandsSeparator>
 			<decimalSeparator>,</decimalSeparator>
 			<numberOfDecimals>2</numberOfDecimals>
-			<siteName>Gobierno de la Ciudad de Córdoba</siteName>
-			<siteDescription>Sistema de Gestión de Proyectos del Gobierno de la Ciudad de Córdoba</siteDescription>
-			<siteShortName>cordoba</siteShortName>
+			<siteName>Gobierno de la Ciudad Autónoma de Buenos Aires</siteName>
+			<siteDescription>Sistema de Gestión de Proyectos del Gobierno de la Ciudad Autónoma de Buenos Aires</siteDescription>
+			<siteShortName>tablero</siteShortName>
 			<webmasterMail>infocippec@cippec.org </webmasterMail>
 			<debugMail>dbugger.modulnet@gmail.com</debugMail>
 			<fromEmail>infocippec@cippec.org</fromEmail>
 			<tablePrefix></tablePrefix>
-			<news>Novedades: Bienvenido al Sistema de Gestión de Proyectos del Gobierno de la Ciudad de Córdoba</news>
+			<news>Novedades: Bienvenido al Sistema de Gestión de Planificación del Gobierno de la Ciudad Autónoma de Buenos Aires</news>
 		</parameters>
 		<errorReporting>
 			<value>E_ALL &amp; ~E_NOTICE ~E_WARNING</value>
