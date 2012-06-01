@@ -6,6 +6,12 @@
 <script type='text/javascript' src='scripts/fancybox/jquery.fancybox-1.3.4.pack.js'></script>
 <script type="text/javascript" src="scripts/fancybox/jquery.easing-1.3.pack.js"></script>
 <script type="text/javascript" src="scripts/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+
+<!-- CakeGraph -->
+<script type="text/javascript" src="scripts/jquery/d3.v2.min.js"></script>
+<script type="text/javascript" src="scripts/jquery/egytca.cakegraph.js"></script>
+<!-- end CakeGraph -->
+
 <div id="calendar"></div>
 <a id="newEventFancyboxDummy" style="display:none" href="#newEvent"></a>
 <a id="fancyboxDummy" style="display:none" href="#fancyboxDiv"></a>
@@ -14,11 +20,13 @@
 <script type="text/javascript">
 	
 	var calendar;
+	var eventsCakegraph;
 	
 	$(document).ready(function() {
 		var day, month, year;
 		var events = loadEvents();
-		loadPendingEvents();
+		var pendingEvents = loadPendingEvents();
+		renderPendingEvents(pendingEvents);
 		calendar = createCalendar(events);
 		Calendar.initialize({ axisMap: |-json_encode($axisMap)-| });
 		|-if isset($filters.selectedDate) && $filters.selectedDate neq ''-|
@@ -30,6 +38,16 @@
 		|-else-|
 			year = (new Date()).getFullYear();
 		|-/if-|
+		
+		// grafico de porcentaje de eventos
+		var graphInfo = makeGraphInfo(events.concat(pendingEvents));
+		console.log(graphInfo.data);
+		eventsCakegraph = new CakeGraph({
+			selector: '.box.solapas1 .eventsGraph',
+			data: graphInfo.data,
+			color: graphInfo.color
+		});
+		
 		$('#newEventFancyboxDummy').fancybox();
 		$('#fancyboxDummy').fancybox();
 		|-if !empty($loginUser) && $loginUser->isSupervisor()-|
@@ -123,6 +141,35 @@
 		});
 	}
 	
+	makeGraphInfo = function(events) {
+		
+		// harcodeado horrible
+		
+		var cant = {amarillo: 0, verde1: 0, verde2: 0,
+			cyan: 0, naranja: 0, rojo: 0, gris: 0}
+		
+		for (var i=0; i<events.length; i++) {
+			cant[events[i].className]++
+		}
+		var data = [cant.amarillo, cant.verde1, cant.verde2,
+			cant.cyan, cant.naranja, cant.rojo, cant.gris]
+		
+		var color = function(i) {
+			colors = [
+				'#FFCC00', // amarillo
+				'#88d852', // verde1
+				'#359e7d', // verde2
+				'#3dbeff', // cyan
+				'#ff9c0d', // naranja
+				'#ff3929', // rojo
+				'#c0c0c0'  // gris
+			]
+			return colors[i];
+		}
+		
+		return { data: data, color: color }
+	}
+	
 	loadEvents = function() {
 		return [
 			|-foreach from=$events item="event"-|
@@ -137,10 +184,17 @@
 	}
 	
 	loadPendingEvents = function() {
+		var eventObjects = [];
 		|-foreach $pendingEvents as $pending-|
-			var eventObject = |-include file="CalendarPhpEventToJson.tpl" event=$pending-|;
-			Calendar.renderEvent(eventObject);
+			eventObjects.push(|-include file="CalendarPhpEventToJson.tpl" event=$pending-|);
 		|-/foreach-|
+		return eventObjects;
+	}
+	
+	renderPendingEvents = function(events) {
+		for (var i=0; i < events.length; i++) {
+			Calendar.renderEvent(events[i]);
+		}
 	}
 	
 	newEvent = function(start, end, allDay) {

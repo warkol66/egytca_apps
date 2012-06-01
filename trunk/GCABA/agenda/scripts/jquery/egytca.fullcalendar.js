@@ -75,7 +75,6 @@ Calendar = {
 		var pendingExists = false;
 		
 		if (event.scheduleStatus == 3) { // evento pendiente
-			
 			// si ya existe como pendiente quiero reemplazarlo en el lugar
 			$('.pendientesContainer .pendientesContent li').each(function(i, e) {
 				if ($(e).data('eventObject').id == event.id) {
