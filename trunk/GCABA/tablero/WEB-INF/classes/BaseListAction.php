@@ -31,7 +31,7 @@ class BaseListAction extends BaseAction {
 
 		$pager = BaseQuery::create($this->entityClassName)->createPager($filters, $page, $perPage);
 
-		$smarty->assign( lcfirst($this->entityClassName) . "Coll" ,$pager->getResults());
+		$smarty->assign(lcfirst($this->entityClassName) . "Coll", $pager->getResults());
 		$smarty->assign("pager",$pager);
 		$smarty->assign("filters", $filters);
 
