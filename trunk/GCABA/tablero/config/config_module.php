@@ -23,6 +23,10 @@ class ConfigModule {
 			"useFilterByUserGroup" => true,
 			"passwordRecoveryExpirationTimeInHours" => 24
 		),
+		"planning" => array(
+			"startingYear" => 2013,
+			"endingYear" => 2013
+		),
 		"positions" => array(
 			"useFemale" => true,
 			"treeRootType" => 6,
