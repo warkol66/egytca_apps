@@ -46,11 +46,13 @@ class BaseDoDeleteAction extends BaseAction {
 			
 		}
 
-		$this->entity->delete();
-
-		$smarty->assign("filters", $_GET["filters"]);
-		$smarty->assign("page", $_GET["page"]);
-		$smarty->assign("message", $_GET["message"]);
+		try {
+			$this->entity->delete();
+		} catch (Exception $e) {
+			if (ConfigModule::get("global","showPropelExceptions")){
+				print_r($e->__toString());
+			}
+		}
 		
 		if ($this->entity->isDeleted())
 			return $mapping->findForwardConfig('success');
