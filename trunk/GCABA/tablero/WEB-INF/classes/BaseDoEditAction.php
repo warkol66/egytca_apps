@@ -32,8 +32,7 @@ class BaseDoEditAction extends BaseAction {
 		if (!empty($_POST["filters"]))
 			$filters = $_POST["filters"];
 
-		$userParams = Common::userInfoToDoLog();
-		$this->entityParams = array_merge_recursive($_POST["params"], $userParams);
+		$this->entityParams = Common::addUserInfoToParams($_POST["params"]);
 
 		$entityClassName = $this->entityClassName;
 		$id = $request->getParameter("id");

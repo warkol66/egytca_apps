@@ -85,6 +85,23 @@ class Common {
 	}
 
 	/**
+	* Agrega la informacion del user y id a lso params
+	* @return array $params array con la informacion recibida mas la del tipo de usuario y su id
+	*/
+	function addUserInfoToParams($params) {
+
+		$userInfo = array();
+		$loggedUser = Common::getLoggedUser();
+		$userInfo["userObjectType"] = get_class($loggedUser);
+		$userInfo["userObjectId"] = $loggedUser->getId();
+		$userInfo["userId"] = $loggedUser->getId();
+		
+		$params = array_merge_recursive($params, $userInfo);
+
+		return $params;
+	}
+
+	/**
 	* Guarda un registro de log.
 	*
 	* @param string $user datos del usuario
