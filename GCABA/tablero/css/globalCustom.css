@@ -6,6 +6,18 @@
 
 /* INPUTS, ICONS & LINKS ------------------------------*/
 input[type="submit"], input[type="button"], input[type="reset"] {
+	background-color: #e0e0e0 !Important;
+	border: 1px outset #D5D5D5 !Important;/*#F0F0F0;*/
+	outline: 0 none !Important;
+	cursor: pointer !Important;
+	-khtml-border-radius: 2px !Important;
+	-opera-border-radius: 2px !Important;
+	-moz-border-radius: 2px !Important;
+	-webkit-border-radius: 2px !Important;
+	margin: 0 5px 0 5px !Important;
+	padding: 2px 12px 2px 12px !Important;
+}
+.shadowedBox {
 	background-color: #e0e0e0;
 	border: 1px outset #D5D5D5;/*#F0F0F0;*/
 	outline: 0 none;
@@ -14,8 +26,6 @@ input[type="submit"], input[type="button"], input[type="reset"] {
 	-opera-border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
-	margin: 0 5px 0 5px;
-	padding: 2px 12px 2px 12px;
 }
 input#remaining{
 	border: none !Important;
