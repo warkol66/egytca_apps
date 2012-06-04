@@ -27,6 +27,11 @@
 |-block name=jsIncludes-|
 	|-include file='TemplateJsIncludes.jquery.tpl'-|
 |-/block-|
+<script type="text/javascript" src="scripts/jquery/jquery-ui-1.8.19.custom.min.js"></script>
+<!-- multiselect -->
+<link rel='stylesheet' type='text/css' href='css/jquery.multiselect.css' />
+<script type="text/javascript" src="scripts/jquery/jquery.multiselect.min.js"></script>
+<!-- end multiselect -->
 <script type="text/javascript" src="scripts/jquery/jquery.ui.datepicker-es.js"></script>
 	<script src="scripts/fisheye.js"></script>
 		<script type="text/javascript">
@@ -74,7 +79,11 @@
     obj.visibility=v; }
 }
 
-
+//			$(document).ready(function() {
+//				$('#kind').multiselect({
+//					noneSelectedText: 'kind'
+//				});
+//			});
 		</script>
 <link type="text/css" href="css/chosen.css" rel="stylesheet" />
 <script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
@@ -110,6 +119,7 @@
                     <li class="botSmall"><a href="#" class="menuIcon_06" title="Georreferenciación de eventos"></a></li>
                     <li><span>Tipo de evento:</span><br />
                         <select name="filters[kind]" id="kind" style="width: 90px" onChange="this.form.submit();">
+<!--                        <select name="filters[kind]" id="kind" multiple="multiple">-->
                           <option value="">Todos</option>
 												|-foreach from=$kinds item=kind name=foreach_kinds-|
 	                        <option value="|-$kind@key-|" |-$filters.kind|selected:$kind@key-|>|-$kind-|</option>
