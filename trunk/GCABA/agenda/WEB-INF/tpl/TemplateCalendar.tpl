@@ -118,14 +118,25 @@
                     <li class="botSmall"><a href="#" class="menuIcon_05" title="Reuniones de gabinete"></a></li>
                     <li class="botSmall"><a href="#" class="menuIcon_06" title="Georreferenciación de eventos"></a></li>
                     <li><span>Tipo de evento:</span><br />
-                        <select name="filters[kind]" id="kind" style="width: 90px" onChange="this.form.submit();">
+
+
+                        <select name="filters[kind]" id="kind"  multiple="multiple" style="width: 90px;display: none;">
 <!--                        <select name="filters[kind]" id="kind" multiple="multiple">-->
-                          <option value="">Todos</option>
 												|-foreach from=$kinds item=kind name=foreach_kinds-|
 	                        <option value="|-$kind@key-|" |-$filters.kind|selected:$kind@key-|>|-$kind-|</option>
 												|-/foreach-|
                         </select>
                     </li>
+<script language="JavaScript" type="text/JavaScript">
+$("#kind").multiselect({
+	noneSelectedText: "Seleccione",
+	selectedText: "# Seleccionados",
+	checkAllText: "Todos",
+	uncheckAllText: "Ninguno",
+	classes: "shadowedBox",
+	minWidth: 125
+});
+</script>
                     <li><span>Agenda:</span><br />
                         <select name="filters[agenda]" id="agenda" style="width: 100px" onChange="this.form.submit();">
                             <option value="" selected="selected">Todas</option>
