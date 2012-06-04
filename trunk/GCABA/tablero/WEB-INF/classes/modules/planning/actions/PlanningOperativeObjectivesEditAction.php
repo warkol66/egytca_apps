@@ -2,10 +2,10 @@
 
 require_once 'BaseEditAction.php';
 
-class PlanningImpactObjectivesEditAction extends BaseEditAction {
+class PlanningOperativeObjectivesEditAction extends BaseEditAction {
 	
 	function __construct() {
-		parent::__construct('ImpactObjective','Planning');
+		parent::__construct('OperativeObjective','Planning');
 	}
 	
 	protected function post() {
