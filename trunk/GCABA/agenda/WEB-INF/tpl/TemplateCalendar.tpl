@@ -139,30 +139,30 @@
                         </select>
                     </li>
                      <li><span>Funcionarios:</span><br />
-                        <select name="filters[searchActorId][]" id="searchActor" class="multiselect" multiple="multiple" style="width: 100px" onChange="this.form.submit();">
+                        <select name="filters[searchActorId][]" id="searchActor" class="multiselect" multiple="multiple" style="width: 100px">
                             |-foreach from=$actors item=actor name=from_actor-|
-				    <option value="|-$actor->getId()-|" |-if in_array($actor@key, $filters.searchActorId)-|selected="selected"|-/if-|>|-$actor-|</option>
+				    <option value="|-$actor->getId()-|" |-if in_array($actor->getId(), $filters.searchActorId)-|selected="selected"|-/if-|>|-$actor-|</option>
 			    |-/foreach-|
                         </select>
                         </label>
                     </li>
                      <li>
                        <span>Dependencias:</span><br />
-                        <select name="filters[searchCategoryId][]" id="searchCategory" class="multiselect" multiple="multiple" style="width: 100px" onChange="this.form.submit();">
+                        <select name="filters[searchCategoryId][]" id="searchCategory" class="multiselect" multiple="multiple" style="width: 100px">
                             |-foreach from=$categories item=category name=from_categories-|
-				    <option value="|-$category->getId()-|" |-if in_array($category@key, $filters.searchCategoryId)-|selected="selected"|-/if-|>|-$category->getName()-|</option>
+				    <option value="|-$category->getId()-|" |-if in_array($category->getId(), $filters.searchCategoryId)-|selected="selected"|-/if-|>|-$category->getName()-|</option>
 			    |-/foreach-|
                         </select>
                     </li>
                      <li><span>Comunas:</span><br />
-                        <select name="filters[searchRegionId][]" id="searchRegion" class="multiselect" multiple="multiple" style="width: 100px" onChange="this.form.submit();">
+                        <select name="filters[searchRegionId][]" id="searchRegion" class="multiselect" multiple="multiple" style="width: 100px">
                             |-foreach from=$comunes item=comune name=foreach_comunes-|
-				    <option value="|-$comune->getId()-|" |-if in_array($comune@key, $filters.searchRegionId)-|selected="selected"|-/if-|>|-$comune->getName()-||-assign var=subregions value=$comune->getChildren()-| (|-foreach from=$subregions item=subregion name=foreach_subregion-||-$subregion->getName()-||-if !$subregion@last-|, |-/if-||-/foreach-|)</option>
+				    <option value="|-$comune->getId()-|" |-if in_array($comune->getId(), $filters.searchRegionId)-|selected="selected"|-/if-|>|-$comune->getName()-||-assign var=subregions value=$comune->getChildren()-| (|-foreach from=$subregions item=subregion name=foreach_subregion-||-$subregion->getName()-||-if !$subregion@last-|, |-/if-||-/foreach-|)</option>
 			    |-/foreach-|
                         </select>
                     </li>
 
-                    <li class="buttonCC"><input name="filters[campaigncommitment]" type="checkbox" value="1"  onClick="this.form.submit();" |-$filters.campaigncommitment|checked_bool-|/><a href="#"></a></li>
+                    <li class="buttonCC"><input name="filters[campaigncommitment]" type="checkbox" value="1" |-$filters.campaigncommitment|checked_bool-|/><a href="#"></a></li>
                     <li class="pickDate"><span>Fecha:</span><br /><input type="text" name="filters[selectedDate]" id="datepicker" value="|-$filters.selectedDate-|" size="10" maxlength="10" style="position:relative;z-index: 1050;" ><a href="javascript:document.filters.submit();" class="dateGo">Ir</a>
 <li class="resetFilter" ><a href="Main.php?do=calendarShow"alt="Quitar filtros"></a></li>                </ul> </form>                                                           
      	</div><!-- /boxNav1 -->

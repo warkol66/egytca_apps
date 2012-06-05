@@ -123,7 +123,7 @@ class CalendarEventsDoEditAction extends BaseAction {
 		}
 		
 		foreach ($actorsIds as $actorId) {
-			$actor = RegionQuery::create()->findOneById($actorId);
+			$actor = ActorQuery::create()->findOneById($actorId);
 			if (!$calendarEvent->hasActor($actor)) {
 				$calendarEvent->addActor($actor);
 			}
