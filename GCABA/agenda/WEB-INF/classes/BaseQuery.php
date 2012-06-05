@@ -154,7 +154,10 @@ class BaseQuery {
 //            echo " invocando $method <br />";
             if (!is_array($arguments))
                 $arguments = array($arguments);
-            
+	    
+//	    echo "method: $method<br/>";
+//	    echo "args: ";print_r($arguments);echo "<br/>";
+	    
             return call_user_func_array(array($this->query, $method), $arguments);
         }
         return FALSE;

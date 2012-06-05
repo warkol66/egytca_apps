@@ -41,7 +41,7 @@ class CalendarEvent extends BaseCalendarEvent {
 	 * @return boolean
 	 */
 	public function hasActor($actor) {
-		return EventActorQuery::create()->filterByActorid($actor->getId())->count() > 0;
+		return EventActorQuery::create()->filterByCalendarEvent($this)->filterByActor($actor)->count() > 0;
 	}
 	
 	/**
@@ -52,7 +52,7 @@ class CalendarEvent extends BaseCalendarEvent {
 	 * @return boolean
 	 */
 	public function hasCategory($category) {
-		return EventCategoryQuery::create()->filterByCategoryid($category->getId())->count() > 0;
+		return EventCategoryQuery::create()->filterByCalendarEvent($this)->filterByCategory($category)->count() > 0;
 	}
 	
 	/**

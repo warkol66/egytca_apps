@@ -35,6 +35,31 @@ class CalendarEventQuery extends BaseCalendarEventQuery {
 	}
 	
 	/**
+	 * Filtra por id de actores
+	 *  $actorId int id del actor a buscar
+	 *
+	 * @return condicion de filtrado por actores afectados
+	 */
+	public function searchActorId($actorId) {
+//		echo "actorId: ";print_r($actorId);echo "<br/>";
+		return $this->useEventActorQuery()
+			->filterByActorid($actorId)
+			->endUse();
+	}
+	
+	/**
+	 * Filtra por categorias
+	 *  $categoryId int id de la categoria a buscar
+	 *
+	 * @return condicion de filtrado por categorias afectadas
+	 */
+	public function searchCategoryId($categoryId) {
+		return $this->useEventCategoryQuery()
+			->filterByCategoryid($categoryId)
+			->endUse();
+	}
+	
+	/**
 	 * Filters the query to target only CalendarEvent objects.
 	 */
 	public function preSelect(PropelPDO $con)
