@@ -79,11 +79,16 @@
     obj.visibility=v; }
 }
 
-//			$(document).ready(function() {
-//				$('#kind').multiselect({
-//					noneSelectedText: 'kind'
-//				});
-//			});
+			$(document).ready(function() {
+				$(".boxNav1 .multiselect").multiselect({
+					noneSelectedText: "Seleccione",
+					selectedText: "# Seleccionados",
+					checkAllText: "Todos",
+					uncheckAllText: "Ninguno",
+					classes: "shadowedBox",
+					minWidth: 125
+				});
+			});
 		</script>
 <link type="text/css" href="css/chosen.css" rel="stylesheet" />
 <script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
@@ -120,55 +125,40 @@
                     <li><span>Tipo de evento:</span><br />
 
 
-                        <select name="filters[kind]" id="kind"  multiple="multiple" style="width: 90px;display: none;">
-<!--                        <select name="filters[kind]" id="kind" multiple="multiple">-->
-												|-foreach from=$kinds item=kind name=foreach_kinds-|
-	                        <option value="|-$kind@key-|" |-$filters.kind|selected:$kind@key-|>|-$kind-|</option>
-												|-/foreach-|
+                        <select name="filters[kind][]" id="kind" class="multiselect" multiple="multiple" style="width: 90px;display: none;">
+				|-foreach from=$kinds item=kind name=foreach_kinds-|
+					<option value="|-$kind@key-|" |-if in_array($kind@key, $filters.kind)-|selected="selected"|-/if-|>|-$kind-|</option>
+				|-/foreach-|
                         </select>
                     </li>
-<script language="JavaScript" type="text/JavaScript">
-$("#kind").multiselect({
-	noneSelectedText: "Seleccione",
-	selectedText: "# Seleccionados",
-	checkAllText: "Todos",
-	uncheckAllText: "Ninguno",
-	classes: "shadowedBox",
-	minWidth: 125
-});
-</script>
                     <li><span>Agenda:</span><br />
-                        <select name="filters[agenda]" id="agenda" style="width: 100px" onChange="this.form.submit();">
-                            <option value="" selected="selected">Todas</option>
-												|-foreach from=$agendas item=agenda name=foreach_agendas-|
-	                        <option value="|-$agenda@key-|" |-$filters.agenda|selected:$agenda@key-|>|-$agenda-|</option>
-												|-/foreach-|
+                        <select name="filters[agenda][]" id="agenda" class="multiselect" multiple="multiple" style="width: 100px">
+				|-foreach from=$agendas item=agenda name=foreach_agendas-|
+					<option value="|-$agenda@key-|" |-if in_array($agenda@key, $filters.agenda)-|selected="selected"|-/if-|>|-$agenda-|</option>
+				|-/foreach-|
                         </select>
                     </li>
                      <li><span>Funcionarios:</span><br />
-                        <select name="filters[searchActor]" id="searchActor" style="width: 100px" onChange="this.form.submit();">
-                            <option value="" selected="selected">Todos</option>
-														|-foreach from=$actors item=actor name=from_actor-|
-															<option value="|-$actor->getId()-|" |-$filters.searchActor|selected:$actor->getId()-|>|-$actor-|</option>
-														|-/foreach-|
+                        <select name="filters[searchActorId][]" id="searchActor" class="multiselect" multiple="multiple" style="width: 100px" onChange="this.form.submit();">
+                            |-foreach from=$actors item=actor name=from_actor-|
+				    <option value="|-$actor->getId()-|" |-if in_array($actor@key, $filters.searchActorId)-|selected="selected"|-/if-|>|-$actor-|</option>
+			    |-/foreach-|
                         </select>
                         </label>
                     </li>
                      <li>
                        <span>Dependencias:</span><br />
-                        <select name="filters[searchCategory]" id="searchCategory" style="width: 100px" onChange="this.form.submit();">
-                            <option value="" selected="selected">Todas</option>
-														|-foreach from=$categories item=category name=from_categories-|
-															<option value="|-$category->getId()-|" |-$filters.searchCategory|selected:$category->getId()-|>|-$category->getName()-|</option>
-														|-/foreach-|
+                        <select name="filters[searchCategoryId][]" id="searchCategory" class="multiselect" multiple="multiple" style="width: 100px" onChange="this.form.submit();">
+                            |-foreach from=$categories item=category name=from_categories-|
+				    <option value="|-$category->getId()-|" |-if in_array($category@key, $filters.searchCategoryId)-|selected="selected"|-/if-|>|-$category->getName()-|</option>
+			    |-/foreach-|
                         </select>
                     </li>
                      <li><span>Comunas:</span><br />
-                        <select name="filters[searchRegionId]" id="searchRegion" style="width: 100px" onChange="this.form.submit();">
-                            <option value="" selected="selected">Todas</option>
-												|-foreach from=$comunes item=comune name=foreach_comunes-|
-                            <option value="|-$comune->getId()-|" |-$filters.searchRegionId|selected:$comune->getId()-|>|-$comune->getName()-||-assign var=subregions value=$comune->getChildren()-| (|-foreach from=$subregions item=subregion name=foreach_subregion-||-$subregion->getName()-||-if !$subregion@last-|, |-/if-||-/foreach-|)</option>
-												|-/foreach-|
+                        <select name="filters[searchRegionId][]" id="searchRegion" class="multiselect" multiple="multiple" style="width: 100px" onChange="this.form.submit();">
+                            |-foreach from=$comunes item=comune name=foreach_comunes-|
+				    <option value="|-$comune->getId()-|" |-if in_array($comune@key, $filters.searchRegionId)-|selected="selected"|-/if-|>|-$comune->getName()-||-assign var=subregions value=$comune->getChildren()-| (|-foreach from=$subregions item=subregion name=foreach_subregion-||-$subregion->getName()-||-if !$subregion@last-|, |-/if-||-/foreach-|)</option>
+			    |-/foreach-|
                         </select>
                     </li>
 
