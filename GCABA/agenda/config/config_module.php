@@ -14,6 +14,9 @@ class ConfigModule {
 			"unifiedUsernames" => true,
 			"backupTimeLimit" => 720
 		),
+	        "actors" => array(
+			"usePhoto" => true
+		),
 		"affiliates" => array(
 			"unifiedLogin" => false,
 			"useTimezones" => false,
