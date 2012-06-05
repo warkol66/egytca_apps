@@ -199,4 +199,14 @@
 			<element_type>YES/NO</element_type>
 		</displayEventsComments>
 	</calendar>
+	<actors>
+		<photoSize>
+			<width>50</width>
+			<height>50</height>
+		</photoSize>
+		<thumbnailSize>
+			<width>50</width>
+			<height>50</height>
+		</thumbnailSize>
+	</actors>
 </config>
