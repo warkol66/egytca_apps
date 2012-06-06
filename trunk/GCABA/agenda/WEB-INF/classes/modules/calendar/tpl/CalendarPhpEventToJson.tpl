@@ -7,6 +7,10 @@
 	"className": "|-assign var="axis" value=$event->getCalendarAxis()-||-if $axis-||-$axis->getCssClass()-||-else-|gris|-/if-|",
 	"editable": true, |-* esto se modifica segun el permiso del usuario, si tien permiso para modificar se pone true *-|
 	
+	|-* esto no es parte del evento php, no hay que borrarlo cuando se reemplace lo de abajo por el toJSON() *-|
+	"photo": |-json_encode($event->getActorImage())-|,
+	|-* --------------------------- *-|
+	
 	|-* estos no los usa el fullCalendar pero según la documentación se pueden agregar que no los toca *-|
 	"body": "|-$event->getBody()|escape:'double_quotes'-|",
 	"creationDate": "|-$event->getCreationDate("%Y/%m/%d %H:%M")-|",

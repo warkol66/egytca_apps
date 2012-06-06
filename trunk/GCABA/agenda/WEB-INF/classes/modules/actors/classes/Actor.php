@@ -14,6 +14,26 @@
  * @package    propel.generator.actors.classes
  */
 class Actor extends BaseActor {
+	
+	/**
+	 * returns path to actor's image file
+	 *
+	 * @return string path to image file
+	 */
+	function getImage() {
+		$photosDir = ConfigModule::get('actors', 'photosDir');
+		return $photosDir.'/'.$this->getId().'.png';
+	}
+	
+	/**
+	 * indicates whether the actor has an image
+	 * 
+	 * @return boolean true if actor has image. false otherwise
+	 */
+	function hasImage() {
+		$photosDir = ConfigModule::get('actors', 'photosDir');
+		return file_exists($photosDir.'/'.$this->getId().'.png');
+	}
 
 	/** the default item name for this class */
 	const ITEM_NAME = 'Actor';
@@ -48,7 +68,7 @@ class Actor extends BaseActor {
 	}
 
 	/**
-	* Obtiene el id de todas las categorías asignadas.
+	* Obtiene el id de todas las categorÃ­as asignadas.
 	*
 	*	@return array Id de todos los actor category asignados
 	*/
