@@ -1,6 +1,6 @@
 body {
 	background: #eee;
-	background-image:url(../images/bkg_body.gif);
+	background-image:url(../images/bkgnd.png);
 	background-repeat:repeat-x;
 	color: #333;
 	padding: 0;
@@ -72,31 +72,45 @@ body {
 	width: 955px;
 }
 #header {
-	background-image: url("../images/header1_bsas.png");
+	background-image:url(../images/header1.png);
 	background-position: left;
 	background-repeat: no-repeat;
 	background-color: #FFFFFF;
 	width: 955px;
 	height:64px;
-/*	border-bottom: 5px solid #0066cc;
 /*	border-left: solid 5px #0066cc;
 	border-right: solid 5px #0066cc; */
 	float: left;
 }
 #headerLogo {
 	float: right;
-	margin-right: 10px;
 }
-#separatorHeader {
-	background-color: #e7ecf2;
-	height: 8px;
+.headerCloser {
+	float: right;
+}
+#headerMenu {
+	background-image:url(../images/headerMenu.png);
+	background-repeat: no-repeat;
+	float: right;
+	width: 165px;
+	height: 64px;
+}
+#mainMenuH{
+	margin-left: -30px;
+}
+#headerMenu ul {
+	padding: 18px 3px 3px 12px;
+}
+#headerMenu ul li {
+	display: inline;
 }
 #contentWrapper {
-	width: 950px;
-	background-image: url(../images/bkg-2columns-d3dbe4.png);
-	background-repeat: repeat-y;
-	border-left: solid 5px #d3dbe4;
-/*	border-right: solid 5px #0066cc; */
+	width: 880px;
+	padding: 0 35px 0 30px;
+	background-image: url(../images/back_content.png);
+	background-repeat: repeat-x;
+	border-left: solid 5px #fcd407;
+	border-right: solid 5px #fcd407;
 	background-color: #FFFFFF;
 }
 #contentCloser {
@@ -107,12 +121,9 @@ body {
 #leftColumn{
 	color: #333;
 	width: 150px;
-/*	background-image:url(../images/leftcolumn_bottom.jpg);
-	background-position: left bottom;
-	background-repeat:no-repeat; */
-	border-top: solid 5px #d3dbe4;
 	padding-bottom: 150px;
 	vertical-align:top;
+	display: none;
 }
 #rightColumn {
 	width: 750px;   /* ie6*/ /*ie7*/
@@ -120,14 +131,14 @@ body {
 	color: #333;
 }
 #separatorFooter {
-	background-color: #e7ecf2;
+	background-color: #fcd407;
 	height: 10px;
 }
 #footer {
 	width: 955px; /* 955px - 5leftBorder - 5px rightBorder*/
 	height: 20px;
-	background-color: #d3dbe4; /*#9ccc66 */
-	border-top: solid 3px #0066cc;
+	background-color: #fff093; /*#9ccc66 */
+	border-top: solid 5px #fcd407;
 /*	border-bottom: solid 5px #0066cc;
 	border-left: solid 5px #0066cc;
 	border-right: solid 5px #0066cc; */
@@ -149,9 +160,9 @@ body {
 
 /* content -----------------------------------------------------------*/
 #rightColumn h1{
-	color:#0066CC;
+	color:#000000;
 	padding-bottom: 0px !Important;
-	border-bottom: solid 1px #0066cc;
+	border-bottom: solid 1px #cdcdcd;
 }
 #rightColumn h2{
 	color:#999;
@@ -173,6 +184,7 @@ body {
 	background-image:url(../images/icon_write.gif);
 	background-repeat:no-repeat;
 	background-position:left top;
+	padding-bottom: 12px;
 }
 /* /content -----------------------------------------------------------*/
 
@@ -304,7 +316,7 @@ table{
 	background: #D6DBE9; /* #D6DBE9 o #C6CBD9*/
 }
 table.tableTdBorders th {
-	color:#0066CC;
+	color:#000000;
 	border: 1px solid #A9A9A9;
 	padding: 5px;
 }
@@ -317,7 +329,7 @@ table.tableTdBorders td {
 }
 .thFillTitle {
 	background-color: #f4f6f3;
-	color: #0066CC;
+	color: #000000;
 }
 fieldset table.tableTdBorders td {
 	background: #FFFFFF; /* Fondo del rightColumn */
@@ -528,4 +540,39 @@ input[readonly="readonly"], textarea[readonly="readonly"], select[readonly="read
 input[disabled="disabled"] {
 	color: #4F4F4F;
 	background-color: #d0d0d0;
+}
+a.tdTitSearch:link, a.tdTitSearch:visited {
+	color: #000000 !Important;
+}
+a.tdTitSearch:hover, a.tdTitSearch:active {
+	color: #f3ca00 !Important;
+}
+a.addLink:link, a.addLink:visited {
+	color: #000000 !Important;
+}
+a.addLink:hover, a.addLink:active {
+	color: #f3ca00 !Important;
+}
+.pages {
+	background-color: #fff093 !Important;
+	color: #000000 !Important;
+}
+ul.menu li:hover li:hover a, ul.menu li.hover li.hover .protofish a {
+	background-color: #fff6cc !Important;	
+}
+ul.menu li ul.menu li ul.menu li a {
+	background-color: #fdf0b4 !Important;	
+}
+ul.menu li:hover li:hover li:hover a {
+	background-color: #fff9de !Important;	
+}
+
+.detail,
+a.detail:link,
+a.detail:visited{
+	color: #000 !Important;
+}
+a.detail:hover{
+	color: #A3A3A3 !Important;
+	background-color: transparent !Important;
 }

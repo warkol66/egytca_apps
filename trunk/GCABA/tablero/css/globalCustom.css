@@ -2,8 +2,6 @@
 * {
 	font-family: Arial, Helvetica, sans-serif, Geneva;
 }
-
-
 /* INPUTS, ICONS & LINKS ------------------------------*/
 input[type="submit"], input[type="button"], input[type="reset"] {
 	background-color: #e0e0e0 !Important;
@@ -65,8 +63,8 @@ input[type="submit"].icon, input[type="button"].icon,
 input.icon, button.icon, input.editor_ok_button, input.editor_cancel_button {
 	width: 22px !Important;
 	height: 22px !Important;
-	margin: 0;
-	padding: 0;
+	margin: 0 !Important;
+	padding: 0 !Important;
 }
 a.icon {
 	display: block;
