@@ -82,13 +82,35 @@
 			$(document).ready(function() {
 				$(".boxNav1 .multiselect").multiselect({
 					noneSelectedText: "Seleccione",
-					selectedText: "# Seleccionados",
+					selectedText: "# seleccionados",
 					checkAllText: "Todos",
 					uncheckAllText: "Ninguno",
-					classes: "shadowedBox",
-					minWidth: 125
+					minWidth: 125,
+					classes: "shadowedBox"
+				});
+				$("#kind").multiselect({
+					noneSelectedText: "Tipo de evento",
+					selectedText: "# tipos seleccionados"
+				});
+				$("#agenda").multiselect({
+					noneSelectedText: "Agenda",
+					selectedText: "# agendas seleccionadas"
+				});
+				$("#searchActor").multiselect({
+					noneSelectedText: "Funcionarios",
+					selectedText: "# funcionarios seleccionados"
+				});
+				$("#searchCategory").multiselect({
+					noneSelectedText: "Dependencias",
+					selectedText: "# dependencias seleccionadas"
+				});
+				$("#searchRegion").multiselect({
+					noneSelectedText: "Comunas",
+					selectedText: "# comunas seleccionadas"
 				});
 			});
+			
+			
 		</script>
 <link type="text/css" href="css/chosen.css" rel="stylesheet" />
 <script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
@@ -100,6 +122,7 @@
 				<h1 id="branding"></h1>
                 <span class="eyefishContainer">
                     <ul id="fisheye_menu">
+											<li><a href="javascript:void(null)" class="fisheye" onclick="$('#filters').toggle();"><img src="images/eyeIcon_00.png" alt=""><span style="display: none;">Filtrar</span></a></li> 
 											<li><a href="#1" class="fisheye"><img src="images/eyeIcon_01.png" alt=""><span style="display: none;">Reunion<br>de Gabinete</span></a></li> 
 											<li><a href="#2" class="fisheye"><img src="images/eyeIcon_02.png" alt=""><span style="display: none;">Seguimiento<br>de obras</span></a></li> 
 											<li><a href="#3" class="fisheye"><img src="images/eyeIcon_03.png" alt=""><span style="display: none;">Exportar</span></a></li> 
@@ -111,8 +134,9 @@
 				<span class="slogan"></span>
 
 			</div><!-- /grid_16 header1 -->
-            <div class="filters" style="background-color:#FFDE44; display:|-if $filters|@count ne 0-|block|-else-|none|-/if-|">Resultados filtrados - <a href="javascript:void()" onclick="$('.boxNav1').toggle()">Ver filtros</a> - <a href="Main.php?do=calendarShow">Quitar Filtros</a> <!-- filters -->
-            <div class="boxNav1"><!-- boxNav1 -->
+            <div id="filters" style="display:|-if $filters|@count ne 0-|block|-else-|none|-/if-|"><!-- filters -->
+						<div id="textFilters">|-if $filters|@count ne 0-|Resultados filtrados - |-/if-|<a href="javascript:void(null)" onclick="$('.boxNav1').toggle()">Ver/Ocultar filtros</a>|-if $filters|@count ne 0-| - <a href="Main.php?do=calendarShow">Quitar Filtros</a>|-/if-| </div>
+            <div class="boxNav1" style="display:|-if $filters|@count eq 0-|block|-else-|none|-/if-|"><!-- boxNav1 -->
 					<form action='Main.php' method='get' style="display:inline;" name="filters">
 					<input type="hidden" name="do" value="calendarShow" />
                 <ul>
@@ -122,24 +146,19 @@
                     <li class="botSmall"><a href="#" class="menuIcon_04" title="Seguimiento de obras"></a></li>
                     <li class="botSmall"><a href="#" class="menuIcon_05" title="Reuniones de gabinete"></a></li>
                     <li class="botSmall"><a href="#" class="menuIcon_06" title="Georreferenciación de eventos"></a></li>
-                    <li><span>Tipo de evento:</span><br />
-
-
-                        <select name="filters[kind][]" id="kind" class="multiselect" multiple="multiple" style="width: 90px;display: none;">
+                    <li><select name="filters[kind][]" id="kind" class="multiselect" multiple="multiple" style="display: none;">
 				|-foreach from=$kinds item=kind name=foreach_kinds-|
 					<option value="|-$kind@key-|" |-if in_array($kind@key, $filters.kind)-|selected="selected"|-/if-|>|-$kind-|</option>
 				|-/foreach-|
                         </select>
                     </li>
-                    <li><span>Agenda:</span><br />
-                        <select name="filters[agenda][]" id="agenda" class="multiselect" multiple="multiple" style="width: 100px">
+                    <li><select name="filters[agenda][]" id="agenda" class="multiselect" multiple="multiple" style="display: none;">
 				|-foreach from=$agendas item=agenda name=foreach_agendas-|
 					<option value="|-$agenda@key-|" |-if in_array($agenda@key, $filters.agenda)-|selected="selected"|-/if-|>|-$agenda-|</option>
 				|-/foreach-|
                         </select>
                     </li>
-                     <li><span>Funcionarios:</span><br />
-                        <select name="filters[searchActorId][]" id="searchActor" class="multiselect" multiple="multiple" style="width: 100px">
+                     <li><select name="filters[searchActorId][]" id="searchActor" class="multiselect" multiple="multiple" style="display: none;">
                             |-foreach from=$actors item=actor name=from_actor-|
 				    <option value="|-$actor->getId()-|" |-if in_array($actor->getId(), $filters.searchActorId)-|selected="selected"|-/if-|>|-$actor-|</option>
 			    |-/foreach-|
@@ -147,15 +166,13 @@
                         </label>
                     </li>
                      <li>
-                       <span>Dependencias:</span><br />
-                        <select name="filters[searchCategoryId][]" id="searchCategory" class="multiselect" multiple="multiple" style="width: 100px">
+                       <span><select name="filters[searchCategoryId][]" id="searchCategory" class="multiselect" multiple="multiple" style="display: none;">
                             |-foreach from=$categories item=category name=from_categories-|
 				    <option value="|-$category->getId()-|" |-if in_array($category->getId(), $filters.searchCategoryId)-|selected="selected"|-/if-|>|-$category->getName()-|</option>
 			    |-/foreach-|
                         </select>
                     </li>
-                     <li><span>Comunas:</span><br />
-                        <select name="filters[searchRegionId][]" id="searchRegion" class="multiselect" multiple="multiple" style="width: 100px">
+                     <li><select name="filters[searchRegionId][]" id="searchRegion" class="multiselect" multiple="multiple" style="display: none;">
                             |-foreach from=$comunes item=comune name=foreach_comunes-|
 				    <option value="|-$comune->getId()-|" |-if in_array($comune->getId(), $filters.searchRegionId)-|selected="selected"|-/if-|>|-$comune->getName()-||-assign var=subregions value=$comune->getChildren()-| (|-foreach from=$subregions item=subregion name=foreach_subregion-||-$subregion->getName()-||-if !$subregion@last-|, |-/if-||-/foreach-|)</option>
 			    |-/foreach-|
@@ -163,8 +180,12 @@
                     </li>
 
                     <li class="buttonCC"><input name="filters[campaigncommitment]" type="checkbox" value="1" |-$filters.campaigncommitment|checked_bool-|/><a href="#"></a></li>
-                    <li class="pickDate"><span>Fecha:</span><br /><input type="text" name="filters[selectedDate]" id="datepicker" value="|-$filters.selectedDate-|" size="10" maxlength="10" style="position:relative;z-index: 1050;" ><a href="javascript:document.filters.submit();" class="dateGo">Ir</a>
-<li class="resetFilter" ><a href="Main.php?do=calendarShow"alt="Quitar filtros"></a></li>                </ul> </form>                                                           
+                    <li class="pickDate"><input type="text" name="filters[selectedDate]" id="datepicker" value="|-$filters.selectedDate-|" size="10" maxlength="10" style="position:relative;z-index: 1050;" >
+										<a href="javascript:document.filters.submit();" class="dateGo">Ir</a>
+										<li><a href="javascript:document.filters.submit();" alt="Buscar"><img src="images/button_iconSearch.gif" /></a>&nbsp;&nbsp;              
+										<a href="Main.php?do=calendarShow"alt="Quitar filtros"><img src="images/button_iconDelete.gif" /></a></li>                
+										</ul>
+ </form>                                                           
      	</div><!-- /boxNav1 -->
      	</div><!-- /filters -->
 			
@@ -183,7 +204,38 @@
 					|-$centerHTML-|
 					<!--centerHTML end -->
         </div><!--end of boxAgendaContainer  -->
-                        <div id="pendientes">
+                        
+		</div>
+				<div class="grid_3 colummSidebar">
+					<div class="box boxBuscador">
+                    <label>
+                    <input name="textfield" type="text" class="textBuscador" id="textfield" value="Buscar"/>
+<a href="#" class="botBuscador"></a>
+                    </label>
+          </div>
+                    <div class="clear"></div>
+ 
+ <div id="subColumns">
+      <div class="subColumnsTriggerA"><a href="#" class="current" onClick="MM_showHideLayers('subColumnA','','show','subColumnB','','hide')">Pendientes</a></div>
+    <div class="subColumnsTriggerB"><a href="#" onClick="MM_showHideLayers('subColumnA','','hide','subColumnB','','show')">Contexto</a></div>
+    <div class="clear"></div>
+
+    <div id="subColumnA">
+ 
+ 
+ <div class="box solapas1">
+<div role="tablist" class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons" id="accordion">
+
+<h3 tabindex="0" aria-selected="true" aria-expanded="true" role="tab" class="color1 ui-accordion-header ui-helper-reset ui-state-default ui-state-active ui-corner-top"><a tabindex="-1" href="#">% Ejes</a></h3>
+
+<div role="tabpanel" style="height: 129px;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active"><div class="eventsGraph"></div></div>
+<!--<h3 tabindex="-1" aria-selected="false" aria-expanded="false" role="tab" class="color2 ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"><a tabindex="-1" href="#">% Ministerios</a></h3>
+<div role="tabpanel" style="height: 129px; display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom"> <img src="images/grafico02.png" alt="" height="123" width="115"> </div>-->
+</div>
+</div>
+
+
+ <div id="pendientes">
 	                        <div id="solapaPendientes">
                             <a href="javascript:void(0);" onclick="MM_showHideLayers('paragraphs','','show')">Pendientes</a></div>
                        	<div class="pendientesContainer" id="paragraphs">
@@ -196,26 +248,11 @@
            		           
 		                        </div> <!-- end of PENDIENTESCONTAINER -->
                         </div> <!-- end of PENDIENTES -->
-		</div>
-				<div class="grid_3 colummSidebar">
-					<div class="box boxBuscador">
-                    <label>
-                    <input name="textfield" type="text" class="textBuscador" id="textfield" value="Buscar"/>
-<a href="#" class="botBuscador"></a>
-                    </label>
-          </div>
-                    <div class="clear"></div>
- 
- <div class="box solapas1">
-<div role="tablist" class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons" id="accordion">
 
-<h3 tabindex="0" aria-selected="true" aria-expanded="true" role="tab" class="color1 ui-accordion-header ui-helper-reset ui-state-default ui-state-active ui-corner-top"><a tabindex="-1" href="#">% Ejes</a></h3>
+</div><!-- end id=subColumnA -->
 
-<div role="tabpanel" style="height: 129px;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active"><div class="eventsGraph"></div></div>
-<!--<h3 tabindex="-1" aria-selected="false" aria-expanded="false" role="tab" class="color2 ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"><a tabindex="-1" href="#">% Ministerios</a></h3>
-<div role="tabpanel" style="height: 129px; display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom"> <img src="images/grafico02.png" alt="" height="123" width="115"> </div>-->
-</div>
-</div>
+<div id="subColumnB" style="visibility:hidden;"> 
+
 
 <div class="box solapas2">
 
@@ -258,6 +295,10 @@
 				</div>
 			</div>
 		</div>
+
+           </div><!-- end id=subColumnB -->
+     </div><!-- id=subColumns-->
+	
 		</div>
 		<div class="clear"></div>  
 </div>  
