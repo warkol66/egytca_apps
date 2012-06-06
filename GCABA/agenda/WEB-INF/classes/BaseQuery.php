@@ -60,7 +60,7 @@ class BaseQuery {
          * Si el $filterName existe como metodo en el objeto query,
          * entonces lo invoca.
          */
-        $result = $this->callIfPossible($filterName, $filterValue);
+        $result = $this->callIfPossible($filterName, array($filterValue));
         if ($result instanceof ModelCriteria) {
             return $this;
         }
