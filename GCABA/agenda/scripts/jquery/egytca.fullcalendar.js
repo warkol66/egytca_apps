@@ -29,6 +29,7 @@ Calendar = {
 			if (event.scheduleStatus != 2) {
 				template = template.replace("%start", start);
 				template = template.replace("%end", end);
+				template = template.replace("%timeConfirmed", '');
 			}
 			else {
 				template = template.replace("%start", '');
