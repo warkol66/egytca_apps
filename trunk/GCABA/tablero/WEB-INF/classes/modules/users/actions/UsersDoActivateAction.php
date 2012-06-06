@@ -5,9 +5,6 @@
  * @package users 
  */
 
-require_once("BaseAction.php");
-require_once("UserPeer.php");
-
 class UsersDoActivateAction extends BaseAction {
 
 	function UsersDoActivateAction() {

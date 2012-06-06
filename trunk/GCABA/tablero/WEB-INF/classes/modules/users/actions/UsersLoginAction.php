@@ -5,8 +5,6 @@
  * @package users
  */
 
-require_once("BaseAction.php");
-
 class UsersLoginAction extends BaseAction {
 
 	function UsersLoginAction() {

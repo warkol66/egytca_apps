@@ -6,9 +6,6 @@
  * @subpackage levels 
  */
 
-require_once("BaseAction.php");
-require_once("LevelPeer.php");
-
 class UsersLevelsDoDeleteAction extends BaseAction {
 
 	function UsersLevelsDoDeleteAction() {

@@ -1,4 +1,10 @@
 <?php
+/** 
+ * UsersPasswordResetXAction
+ *
+ * @package users 
+ */
+
 require_once("EmailManagement.php");
 
 class UsersPasswordResetXAction extends BaseAction {

@@ -5,8 +5,6 @@
  * @package users 
  */
 
-require_once("BaseAction.php");
-
 class UsersDoLogoutAction extends BaseAction {
 
 	function UsersDoLogoutAction() {

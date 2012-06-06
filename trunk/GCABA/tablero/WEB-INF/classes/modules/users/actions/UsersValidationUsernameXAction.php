@@ -10,16 +10,11 @@ class UsersValidationUsernameXAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
-
-		$this->template->template = 'TemplateAjax.tpl';
 
 		$module = "Validation";
 		$smarty->assign('module',$module);
@@ -27,32 +22,33 @@ class UsersValidationUsernameXAction extends BaseAction {
 		$fieldname = 'userParams[username]';
 		$exist = 1;
 
-		if (strlen($_POST['userParams']['username']) >= 4) {
-			if (Common::hasUnifiedUsernames()) {
+		if ($_POST['userParams']['username'] == $_POST['actualuserParams']['username'])
+			$exist = 0;
+		else {
+			if (strlen($_POST['userParams']['username']) >= 4) {
 				$usernameExists = UserPeer::getByUsername($_POST['userParams']['username']);
-				if (class_exists(AffiliateUserPeer))
-					$AffiliateUsernameExists = AffiliateUserPeer::getByUsername($_POST['userParams']['username']);
+				if (!empty($usernameExists))
+					$exist = 1;
+				else if (Common::hasUnifiedUsernames()) {
+					if (class_exists(AffiliateUserPeer))
+						$affiliateUsernameExists = AffiliateUserPeer::getByUsername($_POST['userParams']['username']);
+					if (class_exists(ClientUserPeer))
+						$clientUsernameExists = ClientUserPeer::getByUsername($_POST['userParams']['username']);
+					if (empty($affiliateUsernameExists) && empty($clientUsernameExists))
+						$exist = 0;
+				}
 				else
-					$AffiliateUsernameExists = NULL;
-				if (empty($usernameExists) && empty($AffiliateUsernameExists))
 					$exist = 0;
 			}
 			else {
-				$usernameExists = UserPeer::getByUsername($_POST['userParams']['username']);
-				if (empty($usernameExists))
-					$exist = 0;
+				$minLength = 1;
+				$smarty->assign('minLength',$minLength);
 			}
 		}
-		else
-			$minLength = 1;
-		$smarty->assign('minLength',$minLength);
 
 		$smarty->assign('name',$fieldname);
 		$smarty->assign('value',$exist);
-		$smarty->assign('message',$message);
 
 		return $mapping->findForwardConfig('success');
-
 	}
-
 }

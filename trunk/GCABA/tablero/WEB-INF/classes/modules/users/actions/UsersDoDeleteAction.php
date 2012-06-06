@@ -5,9 +5,6 @@
  * @package users 
  */
 
-require_once("BaseAction.php");
-require_once("UserPeer.php");
-
 class UsersDoDeleteAction extends BaseAction {
 
 	function UsersDoDeleteAction() {
