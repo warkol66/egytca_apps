@@ -27,8 +27,7 @@
 		</p>
 		<p><input type="hidden" name="accion" value="edicion" />
 				<input type='submit' name='guardar' value='##97,Guardar##'  class='button' />
-				&nbsp;&nbsp;
-				<input type='button' onClick='javascript:history.go(-1)' value='##104,Regresar##' class='button'  />
+				<input type='button' onClick='location.href="Main.php?do=usersLevelsList"' value='##users,104,Regresar##'  />
 			</p>
 </form>
 </fieldset>
@@ -44,20 +43,20 @@
 	|-foreach from=$levels item=level name=for_levels-|
 	<tr>
 		<td>|-$level->getName()-|</td>
-		<td nowrap='nowrap'><a href='Main.php?do=usersLevelsList&level=|-$level->getId()-|' alt='##114,Editar##' title='##114,Editar##'><img src="images/clear.png" class="linkImageEdit"></a>
+		<td nowrap='nowrap'><a href='Main.php?do=usersLevelsList&level=|-$level->getId()-|' alt='##114,Editar##' title='##114,Editar##'><img src="images/clear.png" class="icon iconEdit"></a>
 			|-if $level->getId() gt 3-|
-			<a href='Main.php?do=usersLevelsDoDelete&level=|-$level->getId()-|' title='##115,Eliminar##' alt='##115,Eliminar##' onclick="return confirm('##256,Esta opción elimina permanentemente a este Nivel. ¿Está seguro que desea eliminarlo?##');"><img src="images/clear.png" class="linkImageDelete"></a>
+			<a href='Main.php?do=usersLevelsDoDelete&level=|-$level->getId()-|' title='##115,Eliminar##' alt='##115,Eliminar##' onclick="return confirm('##256,Esta opción elimina permanentemente a este Nivel. ¿Está seguro que desea eliminarlo?##');"><img src="images/clear.png" class="icon iconDelete"></a>
 			|-else-|
-			<img src="images/clear.png" class="linkImageDeleteDisabled" title="No se puede eliminar." alt="No se puede eliminar.">
+			<img src="images/clear.png" class="icon iconDelete disabled" title="No se puede eliminar." alt="No se puede eliminar.">
 			|-/if-|</td>
 	</tr>
 	|-/foreach-|
 	<tr>
-		<td colspan='2'><form action='Main.php' method='post'>
+		<td colspan="2" class="controlsTd"><form action='Main.php' method='post'>
 				##195,Agregar Nivel de Usuarios##&nbsp;&nbsp;
 				<input type="hidden" name="do" value="usersLevelsDoEdit" />
 				<input type="text" name="name" value="" />
-				<input type='submit' value='##123,Agregar##' class='button' />
+				<input type="submit" value='##123,Agregar##' class='button' />
 			</form></td>
 	</tr>
 </table>

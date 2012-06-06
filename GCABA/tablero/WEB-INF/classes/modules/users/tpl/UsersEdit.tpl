@@ -52,7 +52,7 @@ function usersDoDeleteFromGroup(form){
 				{
 					method: 'post',
 					postBody: fields,
-					evalScripts: true,
+					evalScripts: true
 				});
 	$('groupMsgField').innerHTML = '<span class="inProgress">eliminando usuario de grupo...</span>';
 	return true;
@@ -78,19 +78,21 @@ function usersDoEditInfo(form){
 	<input type='hidden' name='id' value='|-if $action eq "edit"-||-$currentUser->getId()-||-/if-|' />
 |-if $action eq 'edit' and $currentUser->getId() lt 3-|
 	<p><label for="userParams[usernameDisabled]">##users,162,Identificación de Usuario##</label>
+	|-if $action eq 'edit' and $currentUser->getUsername() ne ''-|<input id='actualuserParams[username]' type='hidden' value='|-$currentUser->getUsername()-|' />|-/if-|
 		<input id='userParams[usernameDisabled]' name='userParams[usernameDisabled]' type='text' value='|-$currentUser->getUsername()-|' size="30" disabled="disabled" />
 |-else-|
 	<p><label for="userParams[username]">##users,162,Identificación de Usuario##</label>
-			<input id='userParams[username]' name='userParams[username]' type='text' value='|-$currentUser->getUsername()-|'  size="30" |-ajax_onchange_validation_attribute actionName=usersValidationUsernameX-| />|-validation_msg_box idField=userParams[username]-|
+			|-if $action eq 'edit' and $currentUser->getUsername() ne ''-|<input id='actualuserParams[username]' type='hidden' value='|-$currentUser->getUsername()-|' />|-/if-|
+			<input id='userParams[username]' name='userParams[username]' type='text' value='|-$currentUser->getUsername()-|'  size="30"  class="emptyValidation" |-ajax_onchange_validation_attribute actionName="usersValidationUsernameX"-| /> |-validation_msg_box idField="userParams[username]"-|
 |-/if-|</p>
 		<p><label for="userParams[name]">##users,163,Nombre##</label>
-			<input id='userParams[name]' name='userParams[name]' type='text' value='|-$currentUser->getName()|escape-|' size="50" />|-validation_msg_box idField=userParams[name]-|
+			<input id='userParams[name]' name='userParams[name]' type='text' value='|-$currentUser->getName()|escape-|' size="50" /> |-validation_msg_box idField="userParams[name]"-|
 		</p>
 		<p><label for="userParams[surname]">##users,164,Apellido##</label>
-			<input id='userParams[surname]' name='userParams[surname]' type='text' value='|-$currentUser->getSurname()|escape-|' size="50" />|-validation_msg_box idField=userParams[surname]-|
+			<input id='userParams[surname]' name='userParams[surname]' type='text' value='|-$currentUser->getSurname()|escape-|' size="50" /> |-validation_msg_box idField="userParams[surname]"-|
 		</p>
 		<p><label for="userParams[mailAddress]">E-mail</label>
-			<input id='userParams[mailAddress]' name='userParams[mailAddress]' type='text' value='|-$currentUser->getMailAddress()-|' size="40" class="mailValidation" onchange="javascript:validationValidateFieldClienSide('userParams[mailAddress]');" /> |-validation_msg_box idField=userParams[mailAddress]-|
+			<input id='userParams[mailAddress]' name='userParams[mailAddress]' type='text' value='|-$currentUser->getMailAddress()-|' size="40" class="mailValidation emptyValidation" onchange="javascript:validationValidateFieldClienSide('userParams[mailAddress]');" /> |-validation_msg_box idField="userParams[mailAddress]"-|
 		</p>
 		<p><label for="pass">##users,165,Contraseña##</label>
 			<input id='pass' name='pass' type='password' value='' size="20" class="" onchange="javascript:setElementClass('pass','emptyValidation');setElementClass('pass2','passwordMatch');validationValidateFieldClienSide('pass');" /> |-validation_msg_box idField=pass-|
@@ -116,6 +118,7 @@ function usersDoEditInfo(form){
 				|-/if-|
 				|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 				|-if $page gt 1-| <input type="hidden" name="page" id="page" value="|-$page-|" />|-/if-|
+		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 						|-javascript_form_validation_button value='Guardar' title='Guardar'-|
 				<input type='button' onClick='location.href="Main.php?do=usersList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de usuarios"/>
 			</p>
@@ -141,22 +144,22 @@ function usersDoEditInfo(form){
 				<input type="button" value="Agregar Usuario al grupo" onClick="javascript:usersDoAddFromGroup(this.form)"/> 
 			</p> 
 		</form> 
-		<ul id="groupList">
+		<ul id="groupList" class="iconOptionsList">
 			 |-foreach from=$currentUser->getGroups() item=groupRelation name=for_group-|			 
 			 |-assign var="group" value=$groupRelation->getGroup()-|
-			<li id="groupListItem|-$group->getId()-|">|-$group->getName()-|
+			<li id="groupListItem|-$group->getId()-|">
 				<form  method="post"> 
 					<input type="hidden" name="do" id="do" value="usersDoDeleteFromGroupX" /> 
 					<input type="hidden" name="userId"  value="|-$currentUser->getId()-|" /> 
 					<input type="hidden" name="groupId"  value="|-$group->getId()-|" /> 
-					<input type="button" value="Eliminar" onClick="javascript:usersDoDeleteFromGroup(this.form)" class="icon iconDelete" /> 
-				</form> 
+					<input type="button" value="Eliminar" onClick="javascript:usersDoDeleteFromGroup(this.form)" class="icon iconDelete" title="Eliminar el usuario del grupo"/> 
+				</form> |-$group->getName()-|
 			</li> 
 			|-/foreach-|
 		</ul> 
 	</div>
 	</fieldset>
-
+|-if $configModule->get('users','aditionalInfo')-|
 <fieldset title="Formulario de Información adicional">
 <legend>Información adicional del Usuario</legend>
 	<div id="AdditionalInfo"> <span id="userInfoMsgField"></span> 
@@ -197,6 +200,7 @@ function usersDoEditInfo(form){
 		</form> 
 		</div>
 	</fieldset>
+|-/if-|
 |-/if-|
 
 

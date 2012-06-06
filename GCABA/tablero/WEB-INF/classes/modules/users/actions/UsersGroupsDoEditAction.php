@@ -6,9 +6,6 @@
  * @subpackage groups 
  */
 
-require_once("BaseAction.php");
-require_once("GroupPeer.php");
-
 class UsersGroupsDoEditAction extends BaseAction {
 
 	function UsersGroupsDoEditAction() {

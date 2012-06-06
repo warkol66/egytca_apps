@@ -1,8 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("UserPeer.php");
-
 class UsersDoLinkToSupplierAction extends BaseAction {
 
 
@@ -59,4 +56,3 @@ class UsersDoLinkToSupplierAction extends BaseAction {
 	}
 
 }
-?>

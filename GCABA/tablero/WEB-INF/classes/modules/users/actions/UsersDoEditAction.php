@@ -38,14 +38,14 @@ class UsersDoEditAction extends BaseAction {
 
 			if ($_POST["pass"] == $_POST["pass2"]) {
 
-				$user = UserPeer::get($_POST["id"]);
-				$user = Common::setObjectFromParams($user,$_POST["userParams"]);
+				$userObj = UserPeer::get($_POST["id"]);
+				$userObj = Common::setObjectFromParams($userObj,$_POST["userParams"]);
 
 				if(!empty($_POST["pass"])) {
-					$user->setPasswordString($_POST["pass"]);
-					$user->setPasswordUpdatedTime();
+					$userObj->setPasswordString($_POST["pass"]);
+					$userObj->setPasswordUpdatedTime();
 				}
-				if ($user->save()) {
+				if ($userObj->save()) {
 					$logSufix = ', ' . Common::getTranslation("action: edit","common");
 					Common::doLog('success','username: ' . $_POST["userParams"]["username"] . $logSufix);
 					return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');
@@ -63,23 +63,24 @@ class UsersDoEditAction extends BaseAction {
 
 			if (!empty($_POST["pass"]) && $_POST["pass"] == $_POST["pass2"]) {
 
-				$user = new User();
+				$userObj = new User();
 
-				$user = Common::setObjectFromParams($user,$_POST["userParams"]);
+				$userObj = Common::setObjectFromParams($userObj,$_POST["userParams"]);
 
-				$user->setPasswordString($_POST["pass"]);
-				$user->setActiveUser();
+				$userObj->setPasswordString($_POST["pass"]);
+				$userObj->setPasswordUpdatedTime();
+				$userObj->setActiveUser();
 
 				if (empty($_POST["userParams"]["levelId"]))
-					$user->setLevelId('3');
+					$userObj->setLevelId('3');
 
-				if(!$user->save()) {
-					$smarty->assign("user",$user);
+				if(!$userObj->save()) {
+					$smarty->assign("user",$userObj);
 					$smarty->assign("message","error");
 					return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'failure');
 				}
-				else {
-					$params["id"] = $user->getId();
+				else{
+					$params["id"] = $userObj->getId();
 					$logSufix = ', ' . Common::getTranslation("action: create","common");
 					Common::doLog('success-add',$_POST["userParams"]["username"]. $logSufix);
 					return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-add');

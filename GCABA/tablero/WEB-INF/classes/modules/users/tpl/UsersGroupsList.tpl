@@ -31,7 +31,7 @@
 	</p>
 	<p><input type="hidden" name="accion" value="edicion" />
 		 <input type='submit' name='guardar' value='##users,97,Guardar##'  />
-			<input type='button' onClick='javascript:history.go(-1)' value='##users,104,Regresar##'  />
+			<input type='button' onClick='location.href="Main.php?do=usersGroupsList"' value='##users,104,Regresar##'  />
 	</p>
 </form>
 </fieldset>
@@ -52,15 +52,14 @@
 			<th width="2%">&nbsp;</th>
 		</tr>
 		|-foreach from=$currentGroupCategories item=groupCategory name=for_group_category-|
-			|-assign var="category" value=$groupCategory->getCategory()-|
 			<tr>
-				<td>|-$category->getName()-|</td>
-				<td nowrap><a href="Main.php?do=usersGroupsDoRemoveCatFromGroup&category=|-$category->getId()-|&group=|-$currentGroup->getId()-|" title='Eliminar acceso del grupo esta categoría' alt='Eliminar acceso del grupo esta categoría' onclick="return confirm('##users,257,Esta opción remueve el acceso del grupo a la categoría. ¿Está seguro que desea eliminarlo?##');"><img src="images/clear.png" class="linkImageDelete"></a></td>
+				<td>|-$groupCategory->getName()-|</td>
+				<td nowrap><a href="Main.php?do=usersGroupsDoRemoveCatFromGroup&category=|-$groupCategory->getId()-|&group=|-$currentGroup->getId()-|" title='Eliminar acceso del grupo esta categoría' alt='Eliminar acceso del grupo esta categoría' onclick="return confirm('##users,257,Esta opción remueve el acceso del grupo a la categoría. ¿Está seguro que desea eliminarlo?##');"><img src="images/clear.png" class="icon iconDelete"></a></td>
 			</tr>
 		|-/foreach-|
 	|-/if-|
 	<tr>
-		<td colspan='2'>|-if $categories|@count eq 0 && $currentGroupCategories|@count neq 0-|
+		<td colspan="2" class="controlsTd">|-if $categories|@count eq 0 && $currentGroupCategories|@count neq 0-|
 		El grupo ya tiene acceso a todas las cetegorías
 		|-else-|
 		<form action='Main.php' method='post'>
@@ -70,7 +69,7 @@
 					<option value="" selected="selected"></option>
 					<option value="" selected="selected">##users,103,Seleccione una categoría##</option>
 						|-foreach from=$categories item=category name=for_categories-|
-					<option value="|-$category->getId()-|">|-$category->getName()-|</option>
+					<option value="|-$category->getId()-|">|-section name=spacesCategories start=0 loop=$category->getLevel()-|&nbsp; &nbsp; |-/section-||-$category->getName()-|</option>
 						|-/foreach-|
 				</select>
 				<input type="hidden" name="group" value="|-$currentGroup->getId()-|" />
@@ -91,11 +90,11 @@
 	|-foreach from=$groups item=group name=for_groups-|
 	<tr>
 		<td>|-$group->getName()-|</td>
-		<td nowrap><a href='Main.php?do=usersGroupsList&group=|-$group->getId()-|' alt='##users,114,Editar##' title='##users,114,Editar##'><img src="images/clear.png" class="linkImageEdit"></a>
+		<td nowrap><a href='Main.php?do=usersGroupsList&group=|-$group->getId()-|' alt='##users,114,Editar##' title='##users,114,Editar##'><img src="images/clear.png" class="icon iconEdit"></a>
 		|-if $group->getId() lt 4-|
-			<img src="images/clear.png" class="linkImageDeleteDisabled" title="Este grupo no se puede eliminar" alt="Este grupo no se puede eliminar">
+			<img src="images/clear.png" class="icon iconDelete disabled" title="Este grupo no se puede eliminar" alt="Este grupo no se puede eliminar">
 		|-else-|
-			<a href='Main.php?do=usersGroupsDoDelete&group=|-$group->getId()-|' title='##users,115,Eliminar##' alt='##users,115,Eliminar##' onclick="return confirm('##users,256,Esta opción eliminará permanentemente a este Grupo. ¿Está seguro que desea eliminarlo?##');"><img src="images/clear.png" class="linkImageDelete"></a>
+			<a href='Main.php?do=usersGroupsDoDelete&group=|-$group->getId()-|' title='##users,115,Eliminar##' alt='##users,115,Eliminar##' onclick="return confirm('##users,256,Esta opción eliminará permanentemente a este Grupo. ¿Está seguro que desea eliminarlo?##');"><img src="images/clear.png" class="icon iconDelete"></a>
 		|-/if-|</td>
 	</tr>
 	|-/foreach-|

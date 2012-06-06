@@ -44,7 +44,6 @@ class User extends BaseUser {
 
  /**
 	 * Especifica la fecha de actualizacion de la clave
-	 * @param passwordUpdatedTime string con fecha de actualizacion de clave.
 	 */
 	function setPasswordUpdatedTime(){
 		$this->setPasswordUpdated(time());
@@ -107,11 +106,11 @@ class User extends BaseUser {
 	 * @returns true si pertenece al grupo, de lo contrario, false.
 	 */
 	function isSupervisor() {
-		if ($this->getLevelId() == 1)
+		if ( $this->getLevelId() == 1 )
 			return true;
 		$groups = $this->getGroups();
 		foreach ($groups as $group){
-			if ($group->getGroupId() == 1)
+			if ( $group->getGroupId() == 1 )
 				return true;
 		}
 		return false;
@@ -122,11 +121,12 @@ class User extends BaseUser {
 	 * @returns true si pertenece al grupo, de lo contrario, false.
 	 */
 	function isAdmin() {
-		if ($this->getLevelId() == 2)
+		if ( $this->getLevelId() == 2 )
 			return true;
+
 		$groups = $this->getGroups();
 		foreach ($groups as $group) {
-			if ($group->getGroupId() == 2)
+			if ( $group->getGroupId() == 2 )
 				return true;
 		}
 		return false;
@@ -138,9 +138,12 @@ class User extends BaseUser {
 	 * @returns true si es un supplier, false sino.
 	 */
 	function isSupplier(){
+
 		$result = false;
+
 		if ($this->getLevelId() == 4)
 			$result = true;
+
 		return $result;
 	}
 
@@ -195,7 +198,7 @@ class User extends BaseUser {
 		if (!empty($recoveryCreatedOn)) {
 			$recoveryCreatedOnTimestamp = $recoveryCreatedOn->format('U');
 			$elapsedHours = (time() - $recoveryCreatedOnTimestamp) / 3600;
-			if( $elapsedHours <= ConfigModule::get('users','passwordRecoveryExpirationTimeInHours'))
+			if( $elapsedHours <= ConfigModule::get('users','passwordHashExpirationTime'))
 				return true;
 			else
 				return false;
@@ -204,6 +207,7 @@ class User extends BaseUser {
 			return false;
 	}
 
+
 	/**
 	 * Cambia la contraseña del usuario por la pasada por parametro (encriptada).
 	 *
@@ -211,7 +215,7 @@ class User extends BaseUser {
 	 */
 	function changePassword($password) {
 		$this->setPasswordString($password);
-		$this->setPasswordUpdatedTime(time());
+		$this->setPasswordUpdatedTime();
 		$this->save();
 	}
 
@@ -224,7 +228,7 @@ class User extends BaseUser {
 	function resetPassword($length = 8){
 		$password = Common::generateRandomPassword();
 		$this->setPasswordString($password);
-		$this->setPasswordUpdatedTime(time());
+		$this->setPasswordUpdatedTime();
 		try {
 			$this->save();
 			return $password;
@@ -256,7 +260,6 @@ class User extends BaseUser {
 	public function getLevel() {
 		return LevelQuery::create()->findOneById($this->getLevelId());
 	}
-
 
 /* Categories
  *
@@ -457,12 +460,35 @@ class User extends BaseUser {
 
 	}
 
+	/**
+	 * Informo a que modulo pertenece el usuario
+	 * @return string module Nombre de modulo
+	 */
+	function getModule() {
+		return "Users";
+	}
+
  /**
 	 * Especifica la fecha de actualizacion de la clave
 	 * @param passwordUpdatedTime string con fecha de actualizacion de clave.
 	 */
 	function setActiveUser(){
 		$this->setActive('1');
+	}
+
+ /**
+	 * Verifica que la sesion sea la correspondiente
+	 * @return bool true si la sesion se corresponde con el usuario o si no se verifica
+	 */
+	function verifySession() {
+		$this->reload();
+		if ($this->getSession() == session_id())
+			return true;
+		else {
+			if($_SESSION["loginUser"])
+				unset($_SESSION["loginUser"]);
+			return false;
+		}
 	}
 
 } // User

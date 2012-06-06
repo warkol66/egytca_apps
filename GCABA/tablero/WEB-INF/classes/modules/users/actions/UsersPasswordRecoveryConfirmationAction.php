@@ -5,7 +5,6 @@
  * @package users
  */
 
-require_once("BaseAction.php");
 require_once("EmailManagement.php");
 
 class UsersPasswordRecoveryConfirmationAction extends BaseAction {

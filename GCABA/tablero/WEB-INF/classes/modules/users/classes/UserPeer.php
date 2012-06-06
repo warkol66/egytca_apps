@@ -316,7 +316,7 @@ class UserPeer extends BaseUserPeer {
 	function updatePass($id,$pass,$mailAddress,$timezone) {
 		try {
 			$user = UserPeer::retrieveByPK($id);
-			$user->setUpdated(time());
+			$user->setUpdatedAt(time());
 			$user->setPasswordUpdated(time());
 			$user->setPassword(Common::md5($pass));
 			$user->setTimezone($timezone);
@@ -458,6 +458,7 @@ class UserPeer extends BaseUserPeer {
 			if ($user->getPassword() == Common::md5($password)) {
 				$_SESSION['lastLogin'] = $user->getLastLogin();
 				$user->setLastLogin(time());
+				$user->setSession(session_id());
 				$user->save();
 				if (is_null($user->getPasswordUpdated()) && ConfigModule::get("users","forceFirstPasswordChange"))
 					$_SESSION['firstLogin'] = User::FIRST_LOGIN;
@@ -536,18 +537,14 @@ class UserPeer extends BaseUserPeer {
 		* @return user usuario correspondiente si existe, false si no.
 		*
 		*/
-	 function getByRecoveryHash($recoveryHash) {
-			if (!empty($recoveryHash)){
-				$user = UserQuery::create()->findOneByRecoveryHash($recoveryHash);
-				if (!empty($user)) {
-					return $user;
-				} else {
-					return false;
-				}
-		} else {
-			return false;
+	function getByRecoveryHash($recoveryHash) {
+		if (!empty($recoveryHash)) {
+			$user = UserQuery::create()->findOneByRecoveryHash($recoveryHash);
+			if (!empty($user))
+				return $user;
 		}
-	 }
+		return false;
+	}
 
  /**
 	* Obtiene todos los grupos posibles a elegir

@@ -26,8 +26,7 @@ function usersDoDeleteFromGroup(form){
 				{
 					method: 'post',
 					postBody: fields,
-					evalScripts: true,
-				
+					evalScripts: true
 				});
 				
 	$('groupMsgField').innerHTML = '<span class="inProgress">eliminando usuario de grupo...</span>';
@@ -150,9 +149,9 @@ function usersDoDeleteFromGroup(form){
 				|-assign var="group" value=$userGroup->getGroup()-|
 					<li class="liOptions"><span class="textOptionMove" style="float:left;width:40%;">|-$group->getName()-|</span>			
 					<span style="float:left;width:15%;text-align:right;">|-if $currentUser->isSupplier()-|
-						<span class='deactivated' title="No se puede eliminar de este grupo"><img src="images/clear.png" class="linkImageDeleteDisabled"></span>
+						<span class='deactivated' title="No se puede eliminar de este grupo"><img src="images/clear.png" class="icon iconDeleteDisabled"></span>
 					|-else-|
-						<a href='Main.php?do=usersDoRemoveFromGroup&user=|-$currentUser->getId()-|&group=|-$group->getId()-|' title="Eliminar de este grupo"><img src="images/clear.png" class="linkImageDelete"></a>
+						<a href='Main.php?do=usersDoRemoveFromGroup&user=|-$currentUser->getId()-|&group=|-$group->getId()-|' title="Eliminar de este grupo"><img src="images/clear.png" class="icon iconDelete"></a>
 					|-/if-|</span><br style="clear: all" />
 </li>
 			|-/foreach-|

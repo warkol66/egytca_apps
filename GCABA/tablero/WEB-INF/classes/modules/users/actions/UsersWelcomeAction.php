@@ -30,12 +30,6 @@ class UsersWelcomeAction extends BaseAction {
 
 		$module = "Users";
 		
-		$projectsCountByColors = ProjectPeer::getProjectsByStatusColorCountAssoc();
-		$smarty->assign('projectsCountByColors', $projectsCountByColors);		
-		
-		$projectsSpeed = ProjectPeer::getSpeed();
-		$smarty->assign('projectsSpeed', $projectsSpeed);
-		
 		return $mapping->findForwardConfig('success');
 	}
 
