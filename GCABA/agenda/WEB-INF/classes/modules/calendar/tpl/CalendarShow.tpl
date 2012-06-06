@@ -338,10 +338,10 @@
     <div class="fc-event fc-event-skin fc-event-hori fc-event-draggable fc-corner-left fc-corner-right">
 		<div class="fc-event-inner fc-event-skin eventoContainer">
             <span class="fc-event-time">
-                |-if "calendarEventsDoEditX"|security_has_access-|<ul class="botoneraSmallEvento">
+               <!-- |-if "calendarEventsDoEditX"|security_has_access-|<ul class="botoneraSmallEvento">
                     <li class="eventoBot01"><a href="#"></a></li> 
                     <li class="eventoBot02"><a href="#"></a></li> 
-                </ul>|-/if-|
+                </ul>|-/if-| -->
                 %start-%end&nbsp;%timeConfirmed
 		%CC_image
             </span>

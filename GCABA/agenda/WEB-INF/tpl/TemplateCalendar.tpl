@@ -100,12 +100,11 @@
 				<h1 id="branding"></h1>
                 <span class="eyefishContainer">
                     <ul id="fisheye_menu">
-                            <li><a href="#1" class="fisheye"><img src="images/icon_reunion.png" alt="" /><span>Reunion de Gabinete</span></a></li> 
-                            <li><a href="#2" class="fisheye"><img src="images/icon_georef.png" alt="" /><span>Georeferenciación</span></a></li> 
-                            <li><a href="#3" class="fisheye"><img src="images/icon_exportar.png" alt="" /><span>Exportar</span></a></li> 
-                            <li><a href="#4" class="fisheye"><img src="images/icon_print.png" alt="" /><span>Imprimir</span></a></li> 
-                            <li><a href="#5" class="fisheye"><img src="images/icon_logout.png" alt="" /><span>Salir</span></a></li> 
-
+											<li><a href="#1" class="fisheye"><img src="images/eyeIcon_01.png" alt=""><span style="display: none;">Reunion<br>de Gabinete</span></a></li> 
+											<li><a href="#2" class="fisheye"><img src="images/eyeIcon_02.png" alt=""><span style="display: none;">Seguimiento<br>de obras</span></a></li> 
+											<li><a href="#3" class="fisheye"><img src="images/eyeIcon_03.png" alt=""><span style="display: none;">Exportar</span></a></li> 
+											<li><a href="#4" class="fisheye"><img src="images/eyeIcon_04.png" alt=""><span style="display: none;">Imprimir</span></a></li> 
+											<li><a href="#5" class="fisheye"><img src="images/eyeIcon_05.png" alt=""><span style="display: none;">Salir</span></a></li>
                     </ul>                
                 
                 </span><!-- end fisheye Container -->
