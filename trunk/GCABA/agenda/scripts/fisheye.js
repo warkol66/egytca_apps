@@ -5,8 +5,8 @@
  * Under the MIT License */
 
 var fisheyemenu = {
-	startSize : 32,
-	endSize : 48,
+	startSize : 24,
+	endSize : 32,
 	imgType : ".png",
 	init : function () {
 		var animElements = document.getElementById("fisheye_menu").getElementsByTagName("img");
