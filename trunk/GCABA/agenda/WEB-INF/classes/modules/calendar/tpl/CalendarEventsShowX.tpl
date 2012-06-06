@@ -27,7 +27,10 @@
 			<label for="calendarEvent_scheduleStatus">Estado</label>
 			<input id="calendarEvent_scheduleStatus" type="text" name="calendarEvent[scheduleStatus]" title="Estado de fecha y hora" size="25" value="|-$scheduleStatuses[$event->getScheduleStatus()]-|" readonly="readonly">
 		</p>
-<p>		<input type='button' id="cancelButton" onClick="$.fancybox.close();" value="Cerrar" /></p>
+<p><br>
+<input type='button' id="cancelButton" onClick="$.fancybox.close();" value="Cerrar" />
+<input type='button' id="editButton" onClick="" value="Editar" />
+<input type='button' id="deleteButton" onClick="" value="Eliminar" /></p>
 
 </fieldset>
 </div>
