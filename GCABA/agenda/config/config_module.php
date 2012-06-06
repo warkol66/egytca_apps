@@ -15,7 +15,8 @@ class ConfigModule {
 			"backupTimeLimit" => 720
 		),
 	        "actors" => array(
-			"usePhoto" => true
+			"usePhoto" => true,
+			"photosDir" => "images/actors/resizes"
 		),
 		"affiliates" => array(
 			"unifiedLogin" => false,

@@ -60,14 +60,37 @@ class ActorsDoUploadPhotoAction extends BaseAction {
 			if (is_null($actor))
 				return $this->failure('invalid id');
 			
-			$photosDir = 'WEB-INF/classes/modules/actors/files/photos';
-			preg_match('/[^\.]\w+$/', $_FILES['file']['name'], $matches);
-			$extension = $matches[0];
-			$filename = $actor->getId() . '.' . $extension;
-			move_uploaded_file($_FILES['file']['tmp_name'], $photosDir.'/'.$filename);
-			if (!file_exists($photosDir.'/'.$filename))
-//				return $this->failure("cannot create file $filename in dir $photosDir. check dir existance and permissions");
-				echo "cannot create file $filename in dir $photosDir. check dir existance and permissions";
+			$photosDir = ConfigModule::get('actors', 'photosDir');
+			
+			$newWidth = $config['photoSize']['width'];
+			$newHeight = $config['photoSize']['height'];
+			$extension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+			$newFilename = $actor->getId() . '.' . $extension;
+			
+			switch ($extension) {
+				case 'jpeg':
+				case 'jpg' :
+					$readImgFn = 'imagecreatefromjpeg';
+					$saveImgFn = 'imagejpeg';
+					break;
+				case 'gif':
+					$readImgFn = 'imagecreatefromgif';
+					$saveImgFn = 'imagegif';
+					break;
+				case 'png':
+					$readImgFn = 'imagecreatefrompng';
+					$saveImgFn = 'imagepng';
+					break;
+			}
+			$tmpImage = $readImgFn($_FILES['file']['tmp_name']);
+			list($tmpWidth, $tmpHeight) = getimagesize($_FILES['file']['tmp_name']);
+			$resized = imagecreatetruecolor($newWidth, $newHeight);
+			imagecopyresampled($resized, $tmpImage, 0, 0, 0, 0, $newWidth, $newHeight, $tmpWidth, $tmpHeight);
+			$saveImgFn($resized, $photosDir.'/'.$newFilename);
+			
+			if (!file_exists($photosDir.'/'.$newFilename))
+//				return $this->failure("cannot create file $newFilename in dir $photosDir. check dir existance and permissions");
+				echo "cannot create file $newFilename in dir $photosDir. check dir existance and permissions";
 			
 			return $this->success();
 		}

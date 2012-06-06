@@ -33,6 +33,7 @@ Calendar = {
         template = template.replace("%body", event.body);
         template = template.replace("%address", event.address);
 	template = template.replace("%CC_image", event.campaignCommitment ? '<img src="images/icon_CC.png" />' : '');
+	template = template.replace("%photo", event.photo);
 	elem.html(template);
 	
 	if (!event.allDay) {
