@@ -111,6 +111,7 @@
 				<span class="slogan"></span>
 
 			</div><!-- /grid_16 header1 -->
+            <div class="filters" style="background-color:#FFDE44; display:|-if $filters|@count ne 0-|block|-else-|none|-/if-|">Resultados filtrados - <a href="javascript:void()" onclick="$('.boxNav1').toggle()">Ver filtros</a> - <a href="Main.php?do=calendarShow">Quitar Filtros</a> <!-- filters -->
             <div class="boxNav1"><!-- boxNav1 -->
 					<form action='Main.php' method='get' style="display:inline;" name="filters">
 					<input type="hidden" name="do" value="calendarShow" />
@@ -165,6 +166,7 @@
                     <li class="pickDate"><span>Fecha:</span><br /><input type="text" name="filters[selectedDate]" id="datepicker" value="|-$filters.selectedDate-|" size="10" maxlength="10" style="position:relative;z-index: 1050;" ><a href="javascript:document.filters.submit();" class="dateGo">Ir</a>
 <li class="resetFilter" ><a href="Main.php?do=calendarShow"alt="Quitar filtros"></a></li>                </ul> </form>                                                           
      	</div><!-- /boxNav1 -->
+     	</div><!-- /filters -->
 			
         <div class="clear"></div>
 			<div class="grid_13 colummAgenda">
