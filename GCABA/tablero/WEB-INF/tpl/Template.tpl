@@ -22,27 +22,18 @@
 	<!-- Begin Header -->
 	<div id="header">
 		<a href="Main.php" class="systemLogo"><strong>|-$parameters.siteName-|</strong></a>
-|-if !empty($loginUser)-|
+		
+		<div id="headerMenu">
 			<ul>
-	|-if !$SESSION.firstLogin-|
-				<li><a href="Main.php?do=usersWelcome" class="home" title='Inicio'> </a></li>
-				<li><a href="javascript:window.print();" class="print" title='Imprimir'></a></li>
-				<li><a href="Main.php?do=usersPasswordChange" class="password" title='Cambiar Contraseña'></a></li>
-				<li><a href="javascript:void(null)" class="help" title="Ayuda" onClick="window.open('help.html','Ayuda','scrollbars=0, menubar=0,resizable=0, height=400, width=700'); return false;"></a></li>
-				|-if $loginUser->isAdmin() || $loginUser->isSupervisor()-|<li><a href="Main.php?do=usersList" class="admin" title="Administrar Usuarios"></a></li>|-/if-|
-	|-/if-|
-			|-if $parameters.hasUnifiedUsernames.value neq "YES"-|
-				|-if !empty($loginUser)-|
-					<li><a href="Main.php?do=usersDoLogout" class="logout" title="Salir" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'></a></li>
-				|-else-|
-					<li><a href="Main.php?do=affiliatesUsersDoLogout" class="logout" title="Salir" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'></a></li>	
-				|-/if-|				
-			|-else-|
-				<li><a href="Main.php?do=commonDoLogout" class="logout" title="Salir" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'></a></li>
-			|-/if-|
+				<li><img src="images/home.png" title="Inicio" /></li>
+				<li><img src="images/user.png" title="Editar información de usuario" /></li>
+				<li><img src="images/print.png" title="mprimir" /></li>
+				<li><img src="images/logout.png" title="Salir" /></li>
 			</ul>
-|-/if-|
-	</div>
+		</div>
+
+<img src="images/header2.png" class="headerCloser" />
+</div>
 	<!-- End Header -->
 	<!-- Begin contentWrapper -->
 		<div id="contentWrapper">
@@ -50,8 +41,8 @@
         <!-- 	Begin MenuHorizontal-->
 				|-include file="MenuHorizontal.tpl"-|
         <!-- 	End MenuHorizontal-->
-        <!-- Begin Left Column -->
-        <!-- End Left Column -->
+		<div id="separatorHeader">
+</div>
         <!-- Begin Right Column -->
 <div id="rightColumn">
 					<!--centerHTML start-->

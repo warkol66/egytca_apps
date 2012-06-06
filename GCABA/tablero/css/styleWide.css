@@ -1,20 +1,18 @@
 #rightColumn { 
-	width: 1048px;
+	width: 1150px;
 }
 #wrapper { 
-	width: 1280px;
+	width: 1275px;
+}
+#contentWrapper { 
+	width: 1210px;
+}
+#header, #footer {
+	width: 1285px;
 }
 #rightColumn p {
-	width: 920px;
+	width: 780px;
 }
 #rightColumn fieldset p {
 	width: 780px;
-}
-div#dependenciesHome{
-	width:430px;
-	padding-right: 20px;
-}
-div#map {
-	width: 740px;
-	height: 480px;	
 }

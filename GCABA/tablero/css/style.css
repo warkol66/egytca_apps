@@ -101,10 +101,10 @@ body {
 }
 
 #rightColumn {
-	float: right;
-	display: inline;
+/*	float: right;*/
+	display: block;
 	border: none;
-	margin: 0 5px 5px 0;
+	margin: 6px 5px 5px 0;
 	padding: 15px;
 }
 #separatorFooter {
