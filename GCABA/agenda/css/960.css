@@ -11,8 +11,8 @@
 .container_12,
 .container_16
 {
-	margin-left: auto;
-	margin-right: auto;
+	margin-left: auto !important;
+	margin-right: auto !important;
 	width: 1010px;
 }
 

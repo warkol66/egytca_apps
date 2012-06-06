@@ -1,13 +1,34 @@
 @charset "UTF-8";
 /* CSS Document */
 
+.container_16
+{
+	margin-left: auto;
+	margin-right: auto;
+	width: 1010px;
+	text-align:center;
+}
+
+	.eyefishContainer ul{
+			position:absolute;
+			left:0;}
+
 		
 			.fc-event-title	img{
 			border-radius: 3px;
 				behavior: url(css/ie-pie/PIE.htc); /*  Para que RADIUS CORNER funcione en ie6, IE7, IE8*/
 			}
-			
+			/*
 		.boxNavSolapas ul li a{width:55px; padding: 0 5px 0 5px;}
-						.boxNavSolapas ul li.solTurismo a{ background-color:#FF0000;}
+						.boxNavSolapas ul li.solTurismo a{ background-color:#FF0000;}*/
 
+				.boxNavSolapas ul li.solTurismo a{ width: 96px;padding-left:14px; /*background-color:#FFCC00;*/}
+				.boxNavSolapas ul li.solVida a{width:99px; padding-left:-4px; /*background-color:#88d852;*/}
+				.boxNavSolapas ul li.solTransformando a{/*background-color:#359e7d;*/}
+				.boxNavSolapas ul li.solCiudad a{ width:96px;/*background-color:#3dbeff;*/}
+				.boxNavSolapas ul li.solSocial a{ width:91px; padding-left:4px;/*background-color:#ff9c0d;*/}	
+				.boxNavSolapas ul li.solPlan a{ width:92px; padding-left:-3px;/*background-color:#88d852;*/}	
+				.boxNavSolapas ul li.solAgenda a{ width:105px;/*background-color:#ff3929;*/}
+				.boxNavSolapas ul li.solCrec a{/*background-color:#ff9c0d;*/}	
+				.boxNavSolapas ul li.solOtros a{	width:75px;/*background-color:#c0c0c0;*/}	
 

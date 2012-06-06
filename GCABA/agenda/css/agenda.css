@@ -4,42 +4,43 @@
 
 /*  HEADER 1*/
 	.container_16 .header1{
-		width:1010px;
-	background-image:url(../images/header1_bsas.png);
-/*		background-image:url(../images/header1_bkg.png);*/
-		background-repeat:repeat-x;
-		background-position:top left;
-		margin:0;
-		padding:0;
+	width:1010px;
+	height:64px;
+	background-color:#ffde44;
+	margin:0;
+	padding:0;
 	}
 	
 		/* branding
 	----------------------------------------------- */
 	h1#branding {
-	width:500px;
+	width:270px;
 	height:64px;
 	background-repeat:no-repeat;
+	background-image:url(../images/header_AgendaDeGobierno.png);
 	float:left;
-	margin:0;
+	margin:-5px 0 0 15px;
 	padding:0;
 	}
 	.slogan{
 	display:none;
 /*	width:146px;*/
 	width:120px;
-	height:64px;
+	height:54px;
 	background-image:url(../images/header1_slogan.png);
 	background-repeat:no-repeat;
 	float:right;
-	margin:0;
+	margin:10px 0 0 0;
 	padding:0;}
 	
 	.eyefishContainer{
+	display:block;
 	position:relative;
-	width:280px;
+	width:230px;
 	height:64px;
-	background-image:url(../images/header1_eyefish.png);
-	background-repeat:no-repeat;
+	background-color:#CCCCCC;
+/*	background-image:url(../images/header1_eyefish.png);
+	background-repeat:no-repeat;*/
 	float:right;}
 
 
@@ -76,10 +77,11 @@
 	width:100%;
 	height:46px; 
 	background-color:#ccc;
-	-moz-background-color:#ff0000;
-	display:block;
+/*	-moz-background-color:#ff0000;*/
+/*	display:block;*/
+	display:none;
 	float:left;
-	margin:0 0 8px 0;
+	margin:0;
 	z-index:1000;}
 	
 	.boxNav1 select,
@@ -662,6 +664,8 @@
 			
 /*  PENDIENTES  */
 
+#pendientes {display:none;}
+
 	#solapaPendientes{
 	width:100%;
 	height:20px;
@@ -823,7 +827,7 @@
 			position:relative;}
 	
 				.textBuscador{
-				width:70%;
+				width:80%;
 				height:15px;
 				border:solid 1px #999;
 				float:left;
@@ -976,43 +980,44 @@
 /*  Navegacion menu 2 (solapas colores)
 ---------------------------------------------------------------*/
 	.boxNavSolapas{
-	height:40px;
-	background-repeat:no-repeat;}
+	height:27px;
+	background-repeat:no-repeat;
+	background-image:url(../images/bkg_solapas.png);
+}
 	
 		.boxNavSolapas ul{
-		margin:0 auto 0 auto;}
+		margin:0;
+		left:0;}
 		.boxNavSolapas ul li{
-		height:35px;
+		height:27px;
 		display:inline;
 		float:left;
-		margin:0 3px 0 0;
+		margin:0;
 		text-align:center;
 		}
 		
 		.boxNavSolapas ul li a{
-		min-width:70px;
+/*		min-width:70px;*/
+		width:100px;
 		display:block;
 		height:27px;
 		cursor:pointer;
 		white-space:nowrap;
-		color:#000000;
+		color:#FFFFFF;
 		font-size:10px;
-		line-height:25px;
-		padding:0 8px 0 8px;
-		 -webkit-border-radius: 0 0 5px 5px;
-		    -moz-border-radius: 0 0 5px 5px;
-    		border-radius: 0 0 5px 5px;
-			behavior: url(css/ie-pie/PIE.htc) !important;}			
+		line-height:15px;
+		}
+		.boxNavSolapas ul li a:hover{ color:#000000;}
 				
-				.boxNavSolapas ul li.solTurismo a{ background-color:#FFCC00;}
-				.boxNavSolapas ul li.solVida a{background-color:#88d852;}
-				.boxNavSolapas ul li.solPlan a{background-color:#88d852;}
-				.boxNavSolapas ul li.solTransformando a{background-color:#359e7d;}
-				.boxNavSolapas ul li.solCiudad a{ background-color:#3dbeff;}
-				.boxNavSolapas ul li.solAgenda a{background-color:#ff3929;}
-				.boxNavSolapas ul li.solSocial a{background-color:#ff9c0d;}	
-				.boxNavSolapas ul li.solCrec a{background-color:#ff9c0d;}	
-				.boxNavSolapas ul li.solOtros a{	background-color:#c0c0c0;}	
+				.boxNavSolapas ul li.solTurismo a{ padding-left:10px;/*background-color:#FFCC00;*/ border-botttom:solid 1px #000000;}
+				.boxNavSolapas ul li.solVida a{width:86px; padding-left:-4px; /*background-color:#88d852;*/}
+				.boxNavSolapas ul li.solTransformando a{/*background-color:#359e7d;*/border-botttom:solid 1px #000000;}
+				.boxNavSolapas ul li.solCiudad a{ width:96px;/*background-color:#3dbeff;*/}
+				.boxNavSolapas ul li.solSocial a{ width:91px;/*background-color:#ff9c0d;*/border-botttom:solid 1px #000000;}	
+				.boxNavSolapas ul li.solPlan a{ width:105px; /*background-color:#88d852;*/}	
+				.boxNavSolapas ul li.solAgenda a{ width:88px;/*background-color:#ff3929;*/border-botttom:solid 1px #000000;}
+				.boxNavSolapas ul li.solCrec a{/*background-color:#ff9c0d;*/}	
+				.boxNavSolapas ul li.solOtros a{	width:75px;/*background-color:#c0c0c0;*/border-botttom:solid 1px #000000;}	
 			
 	/*	.boxNavSolapasLink{
 		min-width:55px;
@@ -1037,8 +1042,8 @@
 				.boxNavSolapas ul li.solAgenda a{background-color:#ff3929;}
 				.boxNavSolapas ul li.solSocial a{background-color:#ff9c0d;}	
 				.boxNavSolapas ul li.solOtros a{	background-color:#c0c0c0;}		*/
-		.boxNavSolapas ul li a:hover{
-		height:35px;
+/*		.boxNavSolapas ul li a:hover{
+	height:35px;
 		line-height:33px;
 		}
 		.boxNavSolapas ul li a:active{
@@ -1047,6 +1052,7 @@
 		height:35px;
 		line-height:33px;
 		}		
+*/
 
 /*   FORM PARA NEW EVENT & EDIT EVENT  */
 #fancybox-outer, #fancybox-content {
@@ -1092,15 +1098,4 @@
 }
 span.ui-icon-triangle-1-e, span.ui-icon-triangle-1-s {
 	display: none !Important;
-}
-.eventsGraph {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	width: 90%;
-	height: 90%;
-	text-align: center;
-	vertical-align: middle;
-}
-.CGpercents {
-	font-size: xx-small
 }
