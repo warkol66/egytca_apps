@@ -8,7 +8,7 @@ class CommonMenuItemsActionsAutocompleteListXAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		//////////
 		// Access the Smarty PlugIn instance
@@ -20,17 +20,15 @@ class CommonMenuItemsActionsAutocompleteListXAction extends BaseAction {
 		}
 
 		$module = "Common";
-		
+
 		$smarty->assign("module",$module);
-		
-		$this->template->template = "TemplateAjax.tpl";
 
 		$searchString = $_REQUEST['value'];
 		$smarty->assign("searchString",$searchString);
 
 		$actions = SecurityActionQuery::create()->Where('SecurityAction.Action LIKE ?', "%" . $searchString . "%")
 									->limit($_REQUEST['limit'])->find();
-		
+
 		$smarty->assign("actions",$actions);
 		$smarty->assign("limit",$_REQUEST['limit']);
 

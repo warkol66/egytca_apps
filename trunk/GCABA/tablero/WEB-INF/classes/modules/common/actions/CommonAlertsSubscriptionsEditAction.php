@@ -23,10 +23,12 @@ class CommonAlertsSubscriptionsEditAction extends BaseAction {
 			//voy a editar un alertSubscription
 			$alertSubscription = AlertSubscriptionPeer::get($_GET["id"]);
 			$moduleEntity = $alertSubscription->getModuleEntity();
-			$moduleEntityFields = $alertSubscription->getPosibleTemporalFields();
+			$moduleEntityDateFields = $alertSubscription->getPosibleTemporalFields();
 			$moduleEntityPosibleNameFields = $alertSubscription->getPosibleNameFields();
-			$smarty->assign('entityFields', $moduleEntityFields);
-			$smarty->assign('entityNameFields', $moduleEntityPosibleNameFields);													  
+			$moduleEntityPosibleBooleanFields = $alertSubscription->getPosibleBooleanFields();
+			$smarty->assign('entityDateFields', $moduleEntityDateFields);
+			$smarty->assign('entityNameFields', $moduleEntityPosibleNameFields);
+			$smarty->assign('entityBooleanFields', $moduleEntityPosibleBooleanFields);														  
 			$smarty->assign("action","edit");
 		}
 		else {

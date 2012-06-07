@@ -1,8 +1,8 @@
 <?php
 /**
- * UsersDoLogoutAction
+ * CommonDoLogoutAction
  *
- * @package users
+ * @package common
  */
 
 class CommonDoLogoutAction extends BaseAction {
@@ -23,22 +23,30 @@ class CommonDoLogoutAction extends BaseAction {
 
 		$user = Common::getLoggedUser();
 
-		if (!empty($user) && is_object($user)) {
-			$username = $user->getUsername();
-			$classname = get_class($user);
-
-			if($_SESSION["loginUser"])
-				unset($_SESSION["loginUser"]);
-
-			if($_SESSION["loginAffiliateUser"])
-				unset($_SESSION["loginAffiliateUser"]);
-
-			Common::doLog('success', $classname . 'name: ' . $username);
-
+		if (is_object($user)) {
+			if(method_exists($user,"getUsername"))
+				$username = $user->getUsername();
+			else
+				$username ="";
+			$classname = lcfirst(get_class($username));
+			Common::doLog('success', $classname . 'username: ' . $username);
 		}
 
 		if($_SESSION["lastLogin"])
 			unset($_SESSION["lastLogin"]);
+
+		if($_SESSION["loginUser"])
+			unset($_SESSION["loginUser"]);
+
+		if($_SESSION["loginAffiliateUser"]) {
+			unset($_SESSION["loginAffiliateUser"]);
+			unset($_SESSION["affiliate"]);
+		}
+		if($_SESSION["loginUserByRegistration"])
+			unset($_SESSION["loginUserByRegistration"]);
+
+		if($_SESSION["loginClientUser"])
+			unset($_SESSION["loginClientUser"]);
 
 		return $mapping->findForwardConfig('success');
 

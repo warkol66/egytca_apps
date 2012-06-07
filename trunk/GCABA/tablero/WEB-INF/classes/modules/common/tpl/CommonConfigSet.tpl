@@ -27,7 +27,7 @@
 	</ul>
 	<input type="hidden" name="do" value="commonConfigDoSet" />
 	<input type="hidden" name="module" value="|-$selectedModule-|" />
-	<input type="submit" value="Guardar" class="button" />
+	<input type="submit" value="Guardar" />
 </form>
 </div>
 |-/if-|

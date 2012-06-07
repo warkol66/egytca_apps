@@ -1,13 +1,11 @@
 <?php
 /**
 * CommonMenuItemsGetActionInfoXAction
-* 
+*
 * Permite mediante Ajax la recuperacion de la informacion de lenguaje de un menuItem con accion interna
 * A partir de la informacion contenida en el modulo security.
-* 
+*
 */
-
-require_once("BaseAction.php");
 
 class CommonMenuItemsGetActionInfoXAction extends BaseAction {
 
@@ -17,12 +15,7 @@ class CommonMenuItemsGetActionInfoXAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
-
-    /**
-    * Use a different template
-    */
-		$this->template->template = "TemplateAjax.tpl";
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		//////////
 		// Access the Smarty PlugIn instance
@@ -34,20 +27,20 @@ class CommonMenuItemsGetActionInfoXAction extends BaseAction {
 		}
 
 		$module = "Common";
-		
+
 		$languages = Common::getAllLanguages();
 		$smarty->assign("languages",$languages);
-		
+
 		$action = SecurityActionQuery::create()->findOneByAction($_GET['action']);
 		$smarty->assign("action", $action);
-		
-		if (!empty($_GET['menuItemId'])) {
+
+		if (!empty($_GET['menuItemId']))
 			$menuItem = MenuItemQuery::create()->findPK($_GET['menuItemId']);
-		} else {
+		else
 			$menuItem = new MenuItem();
-		}
+
 		$smarty->assign('menuItem', $menuItem);
-		
+
 		return $mapping->findForwardConfig("success");
 	}
 

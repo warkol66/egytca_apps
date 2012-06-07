@@ -5,10 +5,9 @@
 	<div class='successMessage'>Registros históricos eliminados correctamente</div>
 |-/if-|
 <fieldset>
-	<legend>Filtrar histórico</legend>
-	<a href="javascript:void(null);" onClick='switch_vis("searchOptions");' class="tdTitSearch">Opciones de búsqueda</a>
-		<div id="searchOptions" style="display:|-if !isset($logs) || ($filters|@count gt 0)-|inline|-else-|none|-/if-|">
+	<legend><a href="javascript:void(null);" onClick='switch_vis("searchOptions");' class="tdTitSearch">Opciones de búsqueda</a></legend>
 		<form name="form1" method="get" action="Main.php">
+		<div id="searchOptions" style="display:|-if !isset($logs) || ($filters|@count gt 0)-|inline|-else-|none|-/if-|">
 		<input type='hidden' name='do' value='commonActionLogsList' />
 				<p><label for="filters[userId]">Usuario</label>
 					<select name="filters[userId]" id="filters[userId]">
@@ -20,12 +19,12 @@
 				  </p>
 				<p> 
 					<label for="filters[dateFrom]">Fecha Desde</label>
-						<input name="filters[dateFrom]" id="filters[dateFrom]" type="text" value="|-$filters.dateFrom-|" size="10">
+						<input name="filters[dateFrom]" id="filters[dateFrom]" type="text" value="|-$filters.dateFrom|date_format-|" size="10">
 						&nbsp;&nbsp;<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateFrom]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">  <span class="size4">(dd-mm-aaaa)</span>
 					</p>
 				<p> 
 					<label for="filters[dateTo]">Fecha Hasta</label>
-						<input name="filters[dateTo]" id="filters[dateTo]"type="text" value="|-$filters.dateTo-|" size="10">
+						<input name="filters[dateTo]" id="filters[dateTo]"type="text" value="|-$filters.dateTo|date_format-|" size="10">
 						&nbsp;&nbsp;<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateTo]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">  <span class="size4">(dd-mm-aaaa)</span>
 					</p>
 					<p>
@@ -41,18 +40,18 @@
 				<p> 
 					<label for="filters[affiliateId]">Afiliado</label>
 						<select name="filters[affiliateId]" id="filters[affiliateId]">
-						  <option value="-1">Todos</option>
+						  <option value="">Todos</option>
 						  |-foreach from=$affiliates item=affiliateItem name=foreachaff-|
 						  <option value="|-$affiliateItem->getId()-|" |-$affiliateItem->getId()|selected:$filters.affiliateId-|>|-$affiliateItem->getName()|truncate:95:"..."-|</option>
 						  |-/foreach-|
 						</select>
 					</p>
 				|-/if-|
+			 </div>
 				<p>
 					<input name="listButton" type="submit" id="listButton" value="Listar">
 					<input name="listLogs" type="hidden" id="listLogs" value="listLogs">
 			 </p>
-			 </div>
 			</form>
 			 </fieldset>
 |-if !isset($logs) && $loginUser->isSupervisor()-| 
@@ -77,22 +76,9 @@
 			 |-foreach from=$logs item=log name=eachlog-|
 			<tr> 
 			  <td nowrap scope="col">|-$log->getDatetime()|change_timezone-|</td>
-			  <td nowrap scope="col">|-assign var="user" value=$log->getUser()-|
-				|-if $user ne ''-|
-					|-if $user->getId() lt 3-|
-						|-$user->getUsername()-|
-					|-else-|
-						|-$user->getSurname()-|, |-$user->getName()-| (|-$user->getUsername()-|)
-					|-/if-|
-				|-else-|
-					|-assign var="affiliate" value=$log->getAffiliateUser()-|
-						|-if $affiliate ne ''-|
-							|-$affiliate->getUsername()-| (affiliate)
-						|-/if-|
-				|-/if-|
-				</td>
+			  <td nowrap scope="col">|-assign var="user" value=$log->getUserObject()-||-if $user ne ''-||-$user->getUsername()-||-/if-|</td>
 			  <td scope="col" >|-assign var="actionLabel" value=$log->getActionLabel()-||-if $actionLabel ne ''-||-$actionLabel->getLabel()-||-else-||-$log->getAction()-||-/if-|</td>
-			  <td scope="col" >|-assign var="label" value=$log->getLabel()-||-if $label ne ''-||-$label->getLabel()-||-/if-||-if $log->getObject() ne ''-|: |-$log->getObject()-||-/if-|</td>
+			  <td scope="col" >|-assign var="label" value=$log->getLabel()-||-if $label ne ''-||-$label->getLabel()-|: |-/if-||-if $log->getMessage() ne ''-||-$log->getMessage()-||-/if-|</td>
 			</tr>
 			|-/foreach-|
 			<tr>
