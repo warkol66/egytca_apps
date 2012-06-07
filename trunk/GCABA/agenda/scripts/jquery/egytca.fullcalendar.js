@@ -53,6 +53,7 @@ Calendar = {
 			})
 		}
 
+		/* al eliminar la botonera esto hay que volarlo tambien */
 		$('.eventoBot01', elem).click(function(e){
 			e.stopPropagation(),
 			e.preventDefault();
@@ -65,14 +66,7 @@ Calendar = {
 			e.preventDefault();
 			editEvent(event);
 		});
-		$('#deleteButton').click(function(e){
-			if (confirm('¿Desea borrar el evento?')) {
-				doDeleteEvent(event);
-			}
-		});
-		$('#editButton').click(function(e){
-			editEvent(event);
-		});
+		/* ------------------- */
 
 		},
 		registerNavbarClick: function() {
@@ -116,8 +110,11 @@ Calendar = {
 		}
 	},
 	removeEvent: function(event) {
-		Calendar.removePendingEvent(event.id);
-		calendar.fullCalendar('removeEvents', event.id);
+		Calendar.removeEventById(event.id);
+	},
+	removeEventById: function(id) {
+		Calendar.removePendingEvent(id);
+		calendar.fullCalendar('removeEvents', id);
 	},
 	removePendingEvent: function(eventId) {
 		$('.pendientesContainer .pendientesContent li').each(function(i, e) {

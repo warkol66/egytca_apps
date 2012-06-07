@@ -29,8 +29,22 @@
 		</p>
 <p><br>
 <input type='button' id="cancelButton" onClick="$.fancybox.close();" value="Cerrar" />
-<input type='button' id="editButton" onClick="" value="Editar" />
-<input type='button' id="deleteButton" onClick="" value="Eliminar" /></p>
+<input type='button' id="editButton" onClick="callEditEvent();" value="Editar" />
+<input type='button' id="deleteButton" onClick="callDeleteEvent();" value="Eliminar" /></p>
 
 </fieldset>
 </div>
+
+<script>
+	var callEditEvent = function() {
+		var event = |-include file="CalendarPhpEventToJson.tpl" event=$event-|;
+		editEvent(event);
+	}
+	
+	var callDeleteEvent = function() {
+		if (confirm('¿Desea borrar el evento?')) {
+			doDeleteEventById(|-$event->getId()-|);
+			$.fancybox.close();
+		}
+	}
+</script>
