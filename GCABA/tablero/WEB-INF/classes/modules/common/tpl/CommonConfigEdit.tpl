@@ -2,7 +2,6 @@
 <h1>Variables de Configuración del Sistema</h1>
 <p>A continuación podrá editar las variables de configuración del sistema.</p>
 <!-- BOX VARIABLES ------------------------------->
-<script src="Main.php?do=js&name=js&module=common&code=esp" type="text/javascript"></script>
 <div id="boxVariables">
 <form method="post" action="Main.php">
 	<ul>

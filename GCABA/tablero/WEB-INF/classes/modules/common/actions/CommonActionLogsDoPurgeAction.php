@@ -9,8 +9,6 @@
 * @package actionlogs
 */
 
-require_once("BaseAction.php");
-
 class CommonActionLogsDoPurgeAction extends BaseAction {
 
 	function CommonActionLogsDoPurgeAction() {
@@ -21,9 +19,6 @@ class CommonActionLogsDoPurgeAction extends BaseAction {
 
     BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -33,9 +28,7 @@ class CommonActionLogsDoPurgeAction extends BaseAction {
 		$dateFrom = Common::convertToMysqlDateFormat($_GET["dateFrom"]);
 		$dateTo = Common::convertToMysqlDateFormat($_GET["dateTo"]);
 
-		$logs = new ActionLogPeer();
-
-		$deleteLogs = $logs->deleteLogs($dateFrom,$dateTo);
+		ActionLogPeer::deleteLogs($dateFrom,$dateTo);
 
 		Common::doLog('success',$_GET["dateFrom"] . "_" . $_GET["dateTo"]);
 		return $mapping->findForwardConfig('success');

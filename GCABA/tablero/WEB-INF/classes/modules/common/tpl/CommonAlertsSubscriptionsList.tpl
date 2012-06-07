@@ -23,7 +23,7 @@
 		</form>|-/if-|</div></td>
 		</tr>
 			<tr>
-				 <th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=commonAlertsSubscriptionsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Suscripción a Alerta</a></div></th>
+				 <th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=commonAlertsSubscriptionsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addNew">Agregar Suscripción a Alerta</a></div></th>
 			</tr>
 			<tr class="thFillTitle"> 
 				<th width="55%">Nombre</th> 
@@ -48,7 +48,7 @@
 					<input type="hidden" name="id" value="|-$alertSubscription->getid()-|" /> 
 					<input type="submit" name="submit_go_edit_alertSubscription" value="Editar" class="icon iconEdit" /> 
 				</form>
-				|-if $loginUser->isAdmin() || $loginUser->isSupervisor()-|
+				|-if $loginUser ne '' && ($loginUser->isAdmin() || $loginUser->isSupervisor())-|
 				<form action="Main.php" method="post" style="display:inline;"> 
 					<input type="hidden" name="do" value="commonAlertsSubscriptionsDoDelete" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
@@ -66,7 +66,7 @@
 		</tr>
 		|-/if-|
 			<tr>
-				 <th colspan="7" class="thFillTitle">|-if $alertsSubscriptions|@count gt 5-|<div class="rightLink"><a href="Main.php?do=commonAlertsSubscriptionsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Suscripción a Alerta</a></div>|-/if-|</th>
+				 <th colspan="7" class="thFillTitle">|-if $alertsSubscriptions|@count gt 5-|<div class="rightLink"><a href="Main.php?do=commonAlertsSubscriptionsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addNew">Agregar Suscripción a Alerta</a></div>|-/if-|</th>
 			</tr>
 		|-/if-|
 		</tbody> 

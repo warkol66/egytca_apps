@@ -3,4 +3,4 @@
 	$('entityFieldSelector').show();
 	$('button_edit_alertSubscription').enable();
 </script>
-|-include file="CommonAlertsSubscriptionsEntityFieldSelectorInclude.tpl" -|
+|-include file="CommonAlertsSubscriptionsEntityFieldSelectorInclude.tpl"-|

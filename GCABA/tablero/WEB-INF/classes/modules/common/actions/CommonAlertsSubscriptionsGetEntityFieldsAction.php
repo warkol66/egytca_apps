@@ -10,8 +10,6 @@ class CommonAlertsSubscriptionsGetEntityFieldsAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//por ser una action ajax.
-		$this->template->template = "TemplateAjax.tpl";
 
 		//////////
 		// Access the Smarty PlugIn instance
@@ -27,11 +25,13 @@ class CommonAlertsSubscriptionsGetEntityFieldsAction extends BaseAction {
 			$alertSubscription = new AlertSubscription;
 
 		$entityName = $_GET['entityName'];
-		$moduleEntityFields = AlertSubscriptionPeer::getPosibleTemporalFieldsByEntityName($entityName);
+		$moduleEntityDateFields = AlertSubscriptionPeer::getPosibleTemporalFieldsByEntityName($entityName);
+		$moduleEntityBooleanFields = AlertSubscriptionPeer::getPosibleBooleanFieldsByEntityName($entityName);
 		$moduleEntityPosibleNameFields = AlertSubscriptionPeer::getPosibleNameFieldsByEntityName($entityName);
 		
-		$smarty->assign('entityFields', $moduleEntityFields);
+		$smarty->assign('entityDateFields', $moduleEntityDateFields);
 		$smarty->assign('entityNameFields', $moduleEntityPosibleNameFields);
+		$smarty->assign('entityBooleanFields', $moduleEntityBooleanFields);
 		$smarty->assign('alertSubscription', $alertSubscription);
 		return $mapping->findForwardConfig('success');
 	}

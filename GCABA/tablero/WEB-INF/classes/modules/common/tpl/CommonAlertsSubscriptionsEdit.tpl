@@ -1,4 +1,4 @@
-|-include file="CommonAutocompleterInclude.tpl" -|
+|-include file="CommonAutocompleterInclude.tpl"-|
 
 <script type="text/javascript" language="javascript" charset="utf-8">
 function addUserToAlertSubscription(form) {
@@ -64,7 +64,7 @@ function showEntityFieldSelector(entityName) {
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| Suscripción a Alerta</h1>
 <div id="div_alertSubscription">
 	<p>Ingrese los datos del Suscripción a Alerta</p>
-		<p><a href="#" onClick="location.href='Main.php?do=commonAlertsSubscriptionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'">Volver atras</a>
+		<p><a href="#" onClick="location.href='Main.php?do=commonAlertsSubscriptionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'">Volver atras</a>
 		</p>
 	|-if $message eq "ok"-|
 		<div class="successMessage">Suscripción a Alerta guardado correctamente</div>
@@ -99,7 +99,7 @@ function showEntityFieldSelector(entityName) {
 			<p>
 				<input type="hidden" name="do" id="do" value="commonAlertsSubscriptionsDoEdit" />
 				<input type="submit" id="button_edit_alertSubscription" name="button_edit_alertSubscription" title="Aceptar" value="Guardar" />
-				<input type="button" id="cancel" name="cancel" title="Volver al listado" value="Volver al listado" onClick="location.href='Main.php?do=commonAlertsSubscriptionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'"/>
+				<input type="button" id="cancel" name="cancel" title="Volver al listado" value="Volver al listado" onClick="location.href='Main.php?do=commonAlertsSubscriptionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"/>
 			</p>
 		</fieldset>
 	</form>
