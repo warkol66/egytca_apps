@@ -10,8 +10,7 @@ class ConfigModule {
 			"developmentMode" => true,
 			"showPropelExceptions" => true,
 			"doLog" => true,
-			"unifiedUsernames" => true,
-			"applicationName" => "wb"
+			"unifiedUsernames" => true
 		),
 		"affiliates" => array(
 			"unifiedLogin" => false
@@ -44,30 +43,6 @@ class ConfigModule {
 				16 => 'Coordinator'
 			)
 		),
-		"reportSections" => array(
-			"useDocuments" => true,
-			"treeRootType" => 1,
-			"lowestType" => 1,
-			"highestType" => 4,
-			"activeReportSectionsTypes" => array(
-				1 => 'Report',
-				2 => 'Sub Report',
-				3 => 'Section',
-				4 => 'Sub Section',
-				5 => 'Sub Sub Section'
-			)
-		),
-		"resultFrameIndicators" => array(
-			"treeRootType" => 1,
-			"lowestType" => 1,
-			"highestType" => 4,
-			"activeResultFrameIndicatorsTypes" => array(
-				1 => 'Result Frame',
-				2 => 'Credit',
-				3 => 'Component',
-				4 => 'Sub Component',
-			)
-		),
 		"notifications" => array(
 			"activeNotificationTypes" => array(
 				1 => 'Alert',
@@ -75,14 +50,12 @@ class ConfigModule {
 			)
 		),
 		"regions" => array(
-			"treeRootType" => 3,
-			"lowestType" => 4,
-			"highestType" => 9,
+			"treeRootType" => 9,
+			"lowestType" => 11,
+			"highestType" => 12,
 			"activeRegionTypes" => array(
-				5 => 'State',
-				7 => 'District',
-				8 => 'Municipality',
-				9 => 'City'
+				11 => 'Comune',
+				12 => 'Neighborhood'
 			)
 		),
 		"projects" => array(

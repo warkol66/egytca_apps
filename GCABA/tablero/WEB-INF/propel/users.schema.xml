@@ -22,37 +22,18 @@
 		<column name="birthdate" type="DATE" description="Fecha de nacimiento" />
 		<column name="mailAddress" type="VARCHAR" size="90" description="Direccion electronica"/>
 		<column name="mailAddressAlt" type="VARCHAR" size="90" description="Direccion electronica alternativa"/>
+		<column name="session" type="VARCHAR" size="90" description="Nombre de la sesion" />
 
 		<behavior name="soft_delete" />
 		<behavior name="timestampable" />
 
 		<unique>
-		  <unique-column name="username" />
+			<unique-column name="username" />
 		</unique>
 
 		<foreign-key foreignTable="users_level" >
-		  <reference local="levelId" foreign="id" />
+			<reference local="levelId" foreign="id" />
 		</foreign-key>
-
-		<vendor type="mysql">
-			<parameter name="Charset" value="utf8"/>
-			<parameter name="Collate" value="utf8_general_ci"/>
-		</vendor>
-
- </table>
-
-	<table name="users_userGroup" phpName='UserGroup' isCrossRef="true" description="Users / Groups">
-
-	  <column name="userId" required="true" primaryKey='true' type="INTEGER"  description="User ID"/>
-	  <column name="groupId" required="true" primaryKey='true' type="INTEGER"  description="Group ID"/>
-
-	  <foreign-key foreignTable="users_user">
-	     <reference local="userId" foreign="id"/>
-	  </foreign-key>
-
-	  <foreign-key foreignTable="users_group">
-	     <reference local="groupId" foreign="id"/>
-	  </foreign-key>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
@@ -69,9 +50,9 @@
 		<column name="updated" required="true"  type="TIMESTAMP"  description="Last update date"/>
 		<column name="bitLevel"   type="INTEGER"  description="Nivel"/>
 
-    <unique>
-      <unique-column name="name" />
-    </unique>
+		<unique>
+			<unique-column name="name" />
+		</unique>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
@@ -79,7 +60,27 @@
 		</vendor>
 
  </table>
- 
+
+	<table name="users_userGroup" phpName='UserGroup' isCrossRef="true" description="Users / Groups">
+
+		<column name="userId" required="true" primaryKey='true' type="INTEGER"  description="User ID"/>
+		<column name="groupId" required="true" primaryKey='true' type="INTEGER"  description="Group ID"/>
+
+		<foreign-key foreignTable="users_user">
+			 <reference local="userId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="users_group">
+			 <reference local="groupId" foreign="id"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+ </table>
+
  <table name="users_groupCategory" phpName="GroupCategory" description="Groups_Categories" isCrossRef="true">
 
 	<column name="groupId" required="true" primaryKey="true" type="INTEGER" description="Group ID"/>
@@ -106,9 +107,9 @@
 		<column name="name" required="true"  type="VARCHAR" size="255" primaryString="true" description="Level Name"/>
 		<column name="bitLevel" type="INTEGER"  description="Bit del nivel"/>
 
-	  <unique>
-	    <unique-column name="name" />
-	  </unique>
+		<unique>
+			<unique-column name="name" />
+		</unique>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
