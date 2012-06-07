@@ -5,7 +5,6 @@
 <title>|-if isset($module)-||-$module|multilang_get_translation:"common"-| - |-/if-||-$parameters.siteName-|</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="css/main.css" type="text/css" />
-<link rel="stylesheet" href="css/globalCustom.css" type="text/css" />
 <!--[if !IE]>--> <link href="css/style_ns6+.css" rel="stylesheet" type="text/css"> <!--<![endif]-->
 <!--[if lte IE 6]> <link href="css/styles-ie6.css" rel="stylesheet" type="text/css"> <![endif]-->
 <!--[if IE 7]> <link href="css/styles-ie7.css" rel="stylesheet" type="text/css"> <![endif]-->
@@ -22,13 +21,22 @@
 	<!-- Begin Header -->
 	<div id="header">
 		<a href="Main.php" class="systemLogo"><strong>|-$parameters.siteName-|</strong></a>
-		
+<script type="text/javascript" src="scripts/fisheye.js"></script>
+<link type="text/css" href="css/fisheye.css" rel="stylesheet" />
 		<div id="headerMenu">
-			<ul>
-				<li><img src="images/home.png" title="Inicio" /></li>
-				<li><img src="images/user.png" title="Editar información de usuario" /></li>
-				<li><img src="images/print.png" title="mprimir" /></li>
-				<li><img src="images/logout.png" title="Salir" /></li>
+			<ul id="fisheye_menu">
+				<li class="fisheye"><img src="images/home.png" title="Inicio" /><span style="display: none;">Inicio</span></li>
+				<li class="fisheye"><img src="images/user.png" title="Editar información de usuario" /><span style="display: none;">Usuario</span></li>
+				<li class="fisheye"><img src="images/print.png" title="Imprimir" onClick="window.print()"/><span style="display: none;">Imprimir</span></li>
+			|-if $parameters.hasUnifiedUsernames.value neq "YES"-|
+				|-if !empty($loginUser)-|
+					<li><a href="Main.php?do=usersDoLogout" class="logout" title="Salir" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'></a></li>
+				|-else-|
+					<li><a href="Main.php?do=affiliatesUsersDoLogout" class="logout" title="Salir" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'></a></li>	
+				|-/if-|				
+			|-else-|
+				<li class="fisheye"><a href="Main.php?do=commonDoLogout" title="Salir" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'><img src="images/logout.png" title="Salir" /><span style="display: none;">Salir</span></a></li>
+			|-/if-|
 			</ul>
 		</div>
 
@@ -41,10 +49,9 @@
         <!-- 	Begin MenuHorizontal-->
 				|-include file="MenuHorizontal.tpl"-|
         <!-- 	End MenuHorizontal-->
-		<div id="separatorHeader">
-</div>
+			<div id="separatorHeader"></div>
         <!-- Begin Right Column -->
-<div id="rightColumn">
+				<div id="rightColumn">
 					<!--centerHTML start-->
 					|-$centerHTML-|
 					<!--centerHTML end -->
@@ -56,7 +63,8 @@
 	</div>
 	<!-- End contentWrapper -->
 	<!-- Begin Footer -->
-	<div id="footer">		       
+	<div id="footer">
+			<p>Gobierno de la Ciudad Autónoma de Buenos Aires / DG Planificación Estratégica - Planificación 2013</p>       
 	</div>
 	<!-- End Footer -->
 </div>
