@@ -260,13 +260,17 @@
 	}
 	
 	doDeleteEvent = function(event) {
+		doDeleteEventById(event.id);
+	}
+	
+	doDeleteEventById = function(id) {
 		
 		$.ajax({
 			url: 'Main.php?do=calendarEventsDoDeleteX',
 			type: 'post',
-			data: { id: event.id },
+			data: { id: id },
 			success: function() {
-				Calendar.removeEvent(event);
+				Calendar.removeEventById(id);
 			}
 		});
 	}
