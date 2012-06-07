@@ -1,6 +1,42 @@
 /* CSS Document */
 
 fishcontainer {
-                background-color: transparent;
-                border: none;
-            }
+	background-color: transparent;
+	border: none;
+}
+#fisheye_menu {
+	position:absolute;
+	list-style: none;
+	padding: 0;
+	margin: 8px 0 0 8px;
+	height: 64px;
+}
+#fisheye_menu li {
+	position: relative;
+	display: block;
+	float: left;
+	margin: 0 8px 0 0;
+	padding: 0;
+}
+#fisheye_menu span {
+	position: absolute;
+	top: 100%;
+	left: -25px;
+	text-align: center;
+	width: 79px;
+	padding: 1px;
+	margin: 0;
+	border: solid 1px #bbb;	
+	color: #333;
+	background: #eee;
+}
+#fisheye_menu a {
+	text-decoration: none;
+	margin: 0;
+	padding: 0;
+	width: 24px;
+}
+#fisheye_menu img {
+	border: 0;
+	vertical-align: top;
+}

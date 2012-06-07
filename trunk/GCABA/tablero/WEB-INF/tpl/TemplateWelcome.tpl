@@ -9,43 +9,27 @@
 <!--[if lte IE 6]> <link href="css/styles-ie6.css" rel="stylesheet" type="text/css"> <![endif]-->
 <!--[if IE 7]> <link href="css/styles-ie7.css" rel="stylesheet" type="text/css"> <![endif]-->
 <!--[if IE 8]> <link href="css/styles-ie8.css" rel="stylesheet" type="text/css"> <![endif]-->
+<link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
 <link rel="shortcut icon" href="images/favicon.ico">
-<script src="scripts/prototype.js" language="JavaScript" type="text/javascript"></script>
-<script src="scripts/datePicker.js" language="JavaScript" type="text/javascript"></script>
-<script src="scripts/scriptaculous.js" language="JavaScript" type="text/javascript"></script>
-<script src="Main.php?do=js&name=js&module=common&code=|-$currentLanguageCode-|" type="text/javascript"></script>
-<script src="Main.php?do=js&name=js&module=categories&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 |-include file='TemplateJsIncludes.tpl'-|
 <script language="JavaScript" type="text/JavaScript">
 	var url="|-$systemUrl-|";
-<!-- Variable width styles-->
- if (navigator.appName.indexOf("Microsoft")>=0) {
-  if (document.documentElement.clientWidth < 1000) // Use window.innerWidth or screen.width
-		document.write('<link href="css/styleNarrow.css" rel="stylesheet" type="text/css">');
-	else if (document.documentElement.clientWidth > 1300)
-		document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css">');
-}else{
-  if (window.innerWidth < 1000) // Use window.innerWidth or screen.width
-		document.write('<link href="css/styleNarrow.css" rel="stylesheet" type="text/css">');
-	else if (window.innerWidth > 1300)
-		document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css">');
-}
 </script>
 </head>
-<body><!--onLoad="runLoad()"-->
+<body>
 <!-- Begin Wrapper -->
 <div id="wrapper">
 	<b class="rounded"><b class="rtop"><b class="r7"></b><b class="r6"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r1"></b></b></b>
 	<!-- Begin Header -->
 	<div id="header">
 		<a href="Main.php" class="systemLogo"><strong>|-$parameters.siteName-|</strong></a>
-			<ul>
-				<li><a href="Main.php?do=usersWelcome" class="home" title='Inicio'> </a></li>
-				<li><a href="javascript:window.print();" class="print" title='Imprimir'></a></li>
-				<li><a href="Main.php?do=usersPasswordChange" class="password" title='Cambiar Contraseña'></a></li>
-<!--				<li><a href="#" class="agenda" title="Agenda"></a></li> -->
-				<li><a href="javascript:void(null)" class="help" title="Ayuda" onClick="window.open('help.html','Ayuda','scrollbars=0, menubar=0,resizable=0, height=400, width=700'); return false;"></a></li>
-			|-if (!empty($loginUser) && is_object($loginUser)) && ($loginUser->isAdmin() || $loginUser->isSupervisor())-|<li><a href="Main.php?do=usersList" class="admin" title="Administrar Usuarios"></a></li>|-/if-|
+<script type="text/javascript" src="scripts/fisheye.js"></script>
+<link type="text/css" href="css/fisheye.css" rel="stylesheet" />
+		<div id="headerMenu">
+			<ul id="fisheye_menu">
+				<li class="fisheye"><img src="images/home.png" title="Inicio" /><span style="display: none;">Inicio</span></li>
+				<li class="fisheye"><img src="images/user.png" title="Editar información de usuario" /><span style="display: none;">Usuario</span></li>
+				<li class="fisheye"><img src="images/print.png" title="Imprimir" onClick="window.print()"/><span style="display: none;">Imprimir</span></li>
 			|-if $parameters.hasUnifiedUsernames.value neq "YES"-|
 				|-if !empty($loginUser)-|
 					<li><a href="Main.php?do=usersDoLogout" class="logout" title="Salir" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'></a></li>
@@ -53,11 +37,13 @@
 					<li><a href="Main.php?do=affiliatesUsersDoLogout" class="logout" title="Salir" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'></a></li>	
 				|-/if-|				
 			|-else-|
-				<li><a href="Main.php?do=commonDoLogout" class="logout" title="Salir" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'></a></li>
+				<li class="fisheye"><a href="Main.php?do=commonDoLogout" title="Salir" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'><img src="images/logout.png" title="Salir" /><span style="display: none;">Salir</span></a></li>
 			|-/if-|
 			</ul>
+		</div>
 
-	</div>
+<img src="images/header2.png" class="headerCloser" />
+</div>
 	<!-- End Header -->
 	<!-- Begin contentWrapper -->
 		<div id="contentWrapper">
@@ -65,11 +51,8 @@
         <!-- 	Begin MenuHorizontal-->
 				|-include file="MenuHorizontal.tpl"-|
         <!-- 	End MenuHorizontal-->
-    
-			<!-- Begin Left Column -->
-			<!-- End Left Column -->
-
-			<!-- Begin Right Column -->
+			<div id="separatorHeader"></div>
+    		<!-- Begin Right Column -->
 				<div id="rightColumn">
 					<!--centerHTML start-->
 					|-$centerHTML-|
@@ -84,6 +67,7 @@
 	<!-- End contentWrapper -->
 	<!-- Begin Footer -->
 	<div id="footer">		       
+			<p>Gobierno de la Ciudad Autónoma de Buenos Aires / DG Planificación Estratégica - Planificación 2013</p>       
 	</div>
 	<!-- End Footer -->
 </div>
