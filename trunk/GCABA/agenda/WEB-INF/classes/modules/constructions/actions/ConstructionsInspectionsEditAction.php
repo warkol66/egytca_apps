@@ -40,6 +40,8 @@ class ConstructionsInspectionsEditAction extends BaseAction {
 		else
 			$smarty->assign("constructions", ConstructionQuery::create()->find());
 		
+		$smarty->assign('photos', $inspection->getPhotos());
+		
 		$smarty->assign("inspectors", InspectorQuery::create()->find());
 		$smarty->assign("statuses", Inspection::getStatuses());
 		$smarty->assign("workingRates", Inspection::getWorkingRates());
