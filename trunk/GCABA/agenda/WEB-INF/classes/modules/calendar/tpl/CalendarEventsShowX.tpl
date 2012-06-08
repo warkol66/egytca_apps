@@ -37,8 +37,11 @@
 
 <script>
 	var callEditEvent = function() {
+		$.fancybox.close();
 		var event = |-include file="CalendarPhpEventToJson.tpl" event=$event-|;
-		editEvent(event);
+		event.start = new Date(event.start);
+		event.end = new Date(event.end);
+		setTimeout(function() {editEvent(event)}, 300); // hack feo para fancybox
 	}
 	
 	var callDeleteEvent = function() {
