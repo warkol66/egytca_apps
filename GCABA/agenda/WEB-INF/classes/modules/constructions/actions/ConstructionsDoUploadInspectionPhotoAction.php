@@ -2,12 +2,12 @@
 
 require_once 'FileResampler.php';
 
-class ActorsDoUploadPhotoAction extends BaseAction {
+class ConstructionsDoUploadInspectionPhotoAction extends BaseAction {
 	
 	protected $smarty;
 	protected $mapping;
 
-	function ActorsDoUploadPhotoAction() {
+	function ConstructionsDoUploadInspectionPhotoAction() {
 		;
 	}
 	
@@ -42,7 +42,7 @@ class ActorsDoUploadPhotoAction extends BaseAction {
 		$this->smarty = $smarty;
 		$this->mapping = $mapping;
 
-		$module = 'Actors';
+		$module = 'Constructions';
 		$smarty->assign('module', $module);
 		
 		if (!empty($_GET['filters'])) {
@@ -50,29 +50,22 @@ class ActorsDoUploadPhotoAction extends BaseAction {
 			$smarty->assign('filters', $filters);
 		}
 		
-		$config = Common::getConfiguration('Actors');
+		$config = Common::getConfiguration($module);
 		
 		if ($_FILES['file']['error'] > 0) {
 			return $this->failure($_FILES['file']['error']);
 		} elseif (empty($_REQUEST['id'])) {
 			return $this->failure('missing param: id');
 		} else {
-			$actor = ActorQuery::create()->findOneById($_REQUEST['id']);
-			if (is_null($actor))
+			$inspection = InspectionQuery::create()->findOneById($_REQUEST['id']);
+			if (is_null($inspection))
 				return $this->failure('invalid id');
 			
-			$newFilename = $actor->getId().'.png';
+			$newFilename = uniqid().'.png';
 			
 			try {
-				$newWidth = $config['photoSize']['width'];
-				$newHeight = $config['photoSize']['height'];
-				$photosDir = ConfigModule::get('actors', 'photosDir');
-				FileResampler::resampleTmp($_FILES['file'], $photosDir.'/'.$newFilename, $newWidth, $newHeight);
-								
-				$newWidth = $config['thumbnailSize']['width'];
-				$newHeight = $config['thumbnailSize']['height'];
-				$thumbnailsDir = ConfigModule::get('actors', 'thumbnailsDir');
-				FileResampler::resampleTmp($_FILES['file'], $thumbnailsDir.'/'.$newFilename, $newWidth, $newHeight);
+				$photosDir = ConfigModule::get('constructions', 'inspectionPhotosDir').'/'.$inspection->getId();
+				FileResampler::resampleTmp($_FILES['file'], $photosDir.'/'.$newFilename);
 			} catch (Exception $e) {
 				echo $e->getMessage();
 //				return $this->failure($e->getMessage());

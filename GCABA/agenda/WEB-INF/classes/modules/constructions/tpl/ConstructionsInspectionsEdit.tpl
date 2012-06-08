@@ -8,11 +8,18 @@
 <script type="text/javascript" src="scripts/jquery/jquery.ui.touch-punch.min.js"></script>
 <link type="text/css" href="css/chosen.css" rel="stylesheet" />
 <script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
+<link rel="stylesheet" href="scripts/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
+<script type='text/javascript' src='scripts/fancybox/jquery.fancybox-1.3.4.pack.js'></script>
+<script type="text/javascript" src="scripts/fancybox/jquery.easing-1.3.pack.js"></script>
+<script type="text/javascript" src="scripts/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		
 		$(".chzn-select").chosen();
 		initializeDatePickers();
+		$('a.galleryPhoto').fancybox();
+		$('a#photoAdd').fancybox();
 
 	});
 	
@@ -28,11 +35,6 @@
 	}
 </script>
 
-					<script type="text/javascript">
-							$(document).ready(function() {})
-					</script>
-
-
 <h2>Administración de Obras</h2>
 <h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Relevamiento</h1>
 |-if $message eq "ok"-|
@@ -45,6 +47,12 @@
 			<p>Ingrese los datos de la obra</p>
 			<fieldset title="Formulario de edición de datos de una obra">
 			<legend>Formulario de Relevamientos</legend>
+				|-if !$inspection->isNew()-|
+				<p>
+					<a href="#" onclick="$('a.galleryPhoto').first().click();">Ver fotos</a>
+					<a id="photoAdd" href="#uploader">Agregar foto</a>
+				</p>
+				|-/if-|
 				<p>
 					<label for="params_visitDate">Relevamiento</label>
 					<input name="params[visitDate]" type="text" id="params_visitDate" title="Día del relevamiento" value="|-$inspection->getVisitDate()|date_format-|" size="12" /> 
@@ -145,3 +153,12 @@
 			</fieldset>
 		</form>
 	</div>
+
+<div id="photos" style="display:none">
+|-foreach $photos as $photo-|
+	<a class="galleryPhoto" rel="gallery1" href="|-$photo-|"><img src="|-$photo-|" alt=""/></a>
+|-/foreach-|
+</div>
+<div style="display:none"><div id="uploader">
+	<iframe src="Main.php?do=constructionsUploadInspectionPhoto&id=|-$inspection->getId()-|" style="width: 500px; height: 50px;">iframes not supported</iframe>
+</div></div>

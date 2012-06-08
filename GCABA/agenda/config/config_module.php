@@ -53,7 +53,7 @@ class ConfigModule {
 			"useHTML"  => false
 		),
 		"constructions" => array(
-			"inspectionPhotosDir" => 'images/inspections/photos'
+			"inspectionPhotosDir" => 'images/constructionInspection'
 		)	
 	);
 
