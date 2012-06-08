@@ -49,7 +49,7 @@ class CalendarEventsEditAction extends BaseAction {
 		$smarty->assign('actors', ActorQuery::create()->find());
 		$smarty->assign('axes', CalendarAxisQuery::create()->find());
 		$smarty->assign('eventTypes', EventTypeQuery::create()->find());
-		$smarty->assign('agendaTypes', CalendarEventPeer::getAgendas());
+		$smarty->assign('agendas', CalendarEvent::getAgendas());
 		
 		$calendarMediasTypes = CalendarMediaPeer::getMediaTypes();
 		

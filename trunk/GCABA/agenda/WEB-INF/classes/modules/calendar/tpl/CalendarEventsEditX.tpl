@@ -60,11 +60,11 @@
 		</select>
 	</p>
 	<p>
-		<label for="calendarEvent_agendaType">Agenda</label>
-		<select name="calendarEvent[agendaType]" id="calendarEvent_agendaType">
+		<label for="calendarEvent_agenda">Agenda</label>
+		<select name="calendarEvent[agenda]" id="calendarEvent_agendaType">
 			<option>Seleccione una Agenda</option>
-			|-foreach from=$agendaTypes key=key item=name-|
-				<option value="|-$key-|" |-$calendarEvent->getAgendaType()|selected:$key-|>|-$name-|</option>
+			|-foreach from=$agendas key=key item=name-|
+				<option value="|-$key-|" |-$calendarEvent->getAgenda()|selected:$key-|>|-$name-|</option>
 			|-/foreach-|
 		</select>
 	</p>
