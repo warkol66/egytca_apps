@@ -126,4 +126,33 @@
 
 	</table>
 
+<!--
+Seccion de tablas de log
+-->
+
+	<table name="planning_impactObjectiveLog" phpName="ImpactObjectiveLog" description="Objetivos de Impacto - Log">
+		<column name="id" primaryKey="true" type="INTEGER" description="Id del log de objetivo de impacto" autoIncrement="true" />
+		<column name="impactObjectiveId" type="INTEGER" description="Id del objetivo de Impacto"/>
+		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del objetivo" primaryString="true" />
+		<column name="description" type="LONGVARCHAR" description="Descripcion del objetivo"/>
+		<column name="startingYear" type="INTEGER" description="A#o de inicio" />
+		<column name="endingYear" type="INTEGER" description="A#o de finalizacion" />
+		<column name="contextualFactors" type="VARCHAR" size="255" description="Factores contextuales" />
+		<column name="version" type="INTEGER" description="Numero de version" />
+	  <column name="userObjectType" type="VARCHAR" size="100" description="tipo de objeto usuario realizo la accion"/>
+	  <column name="userObjectId" type="INTEGER" description="id de objeto usuario realizo la accion"/>
+
+  	<behavior name="timestampable" />
+
+		<foreign-key foreignTable="planning_impactObjective" >
+			<reference local="impactObjectiveId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
 </database>
