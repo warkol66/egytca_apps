@@ -16,7 +16,8 @@ class ConfigModule {
 		),
 	        "actors" => array(
 			"usePhoto" => true,
-			"photosDir" => "images/actors/resizes"
+			"photosDir" => "images/actors/resizes",
+			"thumbnailsDir" => "images/actors/thumbnails"
 		),
 		"affiliates" => array(
 			"unifiedLogin" => false,
@@ -50,7 +51,10 @@ class ConfigModule {
 		),
 		"calendar" => array(
 			"useHTML"  => false
-		)
+		),
+		"constructions" => array(
+			"inspectionPhotosDir" => 'images/inspections/photos'
+		)	
 	);
 
 	public static function get($module,$key) {

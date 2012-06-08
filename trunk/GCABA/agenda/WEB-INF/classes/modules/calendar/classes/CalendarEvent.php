@@ -112,7 +112,7 @@ class CalendarEvent extends BaseCalendarEvent {
 	/**
 	 * Devuelve la imagen del actor que aparecera en el evento
 	 * 
-	 * @return image
+	 * @return path to image
 	 */
 	public function getActorImage() {
 		$actor = ActorQuery::create()->findOneById($this->getActorImageId());
@@ -121,12 +121,42 @@ class CalendarEvent extends BaseCalendarEvent {
 		else
 			return;
 	}
+	
+	/**
+	 * Devuelve el id del actor que aparecera en el evento
+	 * 
+	 * @return integer		Id del actor del evento
+	 */
+	public function getActorThumbnailId() {
+		$actors = $this->getActors();
+		$id = 0;
+		$rank = 0;
+		foreach ($actors as $actor) {
+			if ($actor->hasThumbnail()) {
+				if (($actor->getRank() != 0) &&  ($actor->getRank() < $rank || $rank == 0)) {
+					$id = $actor->getId();
+					$rank = $actor->getRank();
+				}
+			}
+		}
+		if (($id != 0) && ($rank != 0))
+			return $id;
+		else
+			return;
+	}
 
-
-
-
-
-
+	/**
+	 * Devuelve el thumbnail del actor que aparecera en el evento
+	 * 
+	 * @return path to thumbnail
+	 */
+	public function getActorThumbnail() {
+		$actor = ActorQuery::create()->findOneById($this->getActorThumbnailId());
+		if (!empty($actor))
+			return $actor->getThumbnail();
+		else
+			return;
+	}
 
 	/**
 	 * Obtains the medias from the article

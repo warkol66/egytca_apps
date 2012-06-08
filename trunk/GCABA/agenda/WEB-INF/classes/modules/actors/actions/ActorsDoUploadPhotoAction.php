@@ -4,6 +4,7 @@ class ActorsDoUploadPhotoAction extends BaseAction {
 	
 	protected $smarty;
 	protected $mapping;
+	protected $saveImgFn;
 
 	function ActorsDoUploadPhotoAction() {
 		;
@@ -60,8 +61,6 @@ class ActorsDoUploadPhotoAction extends BaseAction {
 			if (is_null($actor))
 				return $this->failure('invalid id');
 			
-			$photosDir = ConfigModule::get('actors', 'photosDir');
-			
 			$newWidth = $config['photoSize']['width'];
 			$newHeight = $config['photoSize']['height'];
 			$extension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
@@ -71,29 +70,48 @@ class ActorsDoUploadPhotoAction extends BaseAction {
 				case 'jpeg':
 				case 'jpg' :
 					$readImgFn = 'imagecreatefromjpeg';
-					$saveImgFn = 'imagejpeg';
+					$this->saveImgFn = 'imagejpeg';
 					break;
 				case 'gif':
 					$readImgFn = 'imagecreatefromgif';
-					$saveImgFn = 'imagegif';
+					$this->saveImgFn = 'imagegif';
 					break;
 				case 'png':
 					$readImgFn = 'imagecreatefrompng';
-					$saveImgFn = 'imagepng';
+					$this->saveImgFn = 'imagepng';
 					break;
 			}
 			$tmpImage = $readImgFn($_FILES['file']['tmp_name']);
 			list($tmpWidth, $tmpHeight) = getimagesize($_FILES['file']['tmp_name']);
-			$resized = imagecreatetruecolor($newWidth, $newHeight);
-			imagecopyresampled($resized, $tmpImage, 0, 0, 0, 0, $newWidth, $newHeight, $tmpWidth, $tmpHeight);
-			$saveImgFn($resized, $photosDir.'/'.$newFilename);
-			
-			if (!file_exists($photosDir.'/'.$newFilename))
-//				return $this->failure("cannot create file $newFilename in dir $photosDir. check dir existance and permissions");
-				echo "cannot create file $newFilename in dir $photosDir. check dir existance and permissions";
+			try {
+				$newWidth = $config['photoSize']['width'];
+				$newHeight = $config['photoSize']['height'];
+				$photosDir = ConfigModule::get('actors', 'photosDir');
+				saveImage($tmpImage, $newWidth, $newHeight, $tmpWidth, $tmpHeight, $photosDir.'/'.$newFilename);
+				if (!file_exists($photosDir.'/'.$newFilename))
+//					throw new Exception("cannot create file $newFilename in dir $photosDir. check dir existance and permissions");
+					echo "cannot create file $newFilename in dir $photosDir. check dir existance and permissions";
+				
+				$newWidth = $config['thumbnailSize']['width'];
+				$newHeight = $config['thumbnailSize']['height'];
+				$thumbnailsDir = ConfigModule::get('actors', 'thumbnailsDir');
+				saveImage($tmpImage, $newWidth, $newHeight, $tmpWidth, $tmpHeight, $thumbnailsDir.'/'.$newFilename);
+				if (!file_exists($thumbnailsDir.'/'.$newFilename))
+//					throw new Exception("cannot create file $newFilename in dir $thumbnailsDir. check dir existance and permissions");
+					echo "cannot create file $newFilename in dir $thumbnailsDir. check dir existance and permissions";
+			} catch (Exception $e) {
+				return $this->failure($e->getMessage());
+			}
 			
 			return $this->success();
 		}
+	}
+	
+	function saveImage($tmpImage, $newWidth, $newHeight, $tmpWidth, $tmpHeight, $filename) {
+		$resized = imagecreatetruecolor($newWidth, $newHeight);
+		imagecopyresampled($resized, $tmpImage, 0, 0, 0, 0, $newWidth, $newHeight, $tmpWidth, $tmpHeight);
+		$fn = $this->saveImgFn;
+		$fn($resized, $filename);
 	}
 }
 
