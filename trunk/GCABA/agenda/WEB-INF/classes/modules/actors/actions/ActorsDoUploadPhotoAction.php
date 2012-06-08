@@ -87,7 +87,7 @@ class ActorsDoUploadPhotoAction extends BaseAction {
 				$newWidth = $config['photoSize']['width'];
 				$newHeight = $config['photoSize']['height'];
 				$photosDir = ConfigModule::get('actors', 'photosDir');
-				saveImage($tmpImage, $newWidth, $newHeight, $tmpWidth, $tmpHeight, $photosDir.'/'.$newFilename);
+				$this->saveImage($tmpImage, $newWidth, $newHeight, $tmpWidth, $tmpHeight, $photosDir.'/'.$newFilename);
 				if (!file_exists($photosDir.'/'.$newFilename))
 //					throw new Exception("cannot create file $newFilename in dir $photosDir. check dir existance and permissions");
 					echo "cannot create file $newFilename in dir $photosDir. check dir existance and permissions";
@@ -95,7 +95,7 @@ class ActorsDoUploadPhotoAction extends BaseAction {
 				$newWidth = $config['thumbnailSize']['width'];
 				$newHeight = $config['thumbnailSize']['height'];
 				$thumbnailsDir = ConfigModule::get('actors', 'thumbnailsDir');
-				saveImage($tmpImage, $newWidth, $newHeight, $tmpWidth, $tmpHeight, $thumbnailsDir.'/'.$newFilename);
+				$this->saveImage($tmpImage, $newWidth, $newHeight, $tmpWidth, $tmpHeight, $thumbnailsDir.'/'.$newFilename);
 				if (!file_exists($thumbnailsDir.'/'.$newFilename))
 //					throw new Exception("cannot create file $newFilename in dir $thumbnailsDir. check dir existance and permissions");
 					echo "cannot create file $newFilename in dir $thumbnailsDir. check dir existance and permissions";
