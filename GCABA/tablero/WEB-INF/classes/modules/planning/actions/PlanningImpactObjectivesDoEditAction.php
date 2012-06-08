@@ -33,7 +33,7 @@ class PlanningImpactObjectivesDoEditAction extends BaseAction {
 			$filters = $_POST["filters"];
 
 		$id = $request->getParameter("id");
-		$params = $_POST["params"];
+		$params = Common::addUserInfoToParams($_POST["params"]);
 
 		if (!empty($id)) {
 			$impactObjective = BaseQuery::create("ImpactObjective")->findOneByID($id);
@@ -45,13 +45,14 @@ class PlanningImpactObjectivesDoEditAction extends BaseAction {
 			$impactObjective = new ImpactObjective();
 		}
 
-		$impactObjective->fromArray($params, BasePeer::TYPE_FIELDNAME);
-
 		if (!$impactObjective->isNew()) {
-			$impactObjectiveLog->fromJSON($impactObjective->toJSON(), BasePeer::TYPE_FIELDNAME);
+			$impactObjectiveLog->fromJSON($impactObjective->toJSON());
 			$impactObjectiveLog->setId(NULL);
 			$impactObjectiveLog->setImpactObjectiveId($id);
 		}
+
+		$impactObjective->fromArray($params, BasePeer::TYPE_FIELDNAME);
+		$impactObjective->setVersion($impactObjective->getVersion() + 1);
 
 		try {
 			$impactObjective->save();
@@ -77,7 +78,7 @@ class PlanningImpactObjectivesDoEditAction extends BaseAction {
 			$logSufix = ', ' . Common::getTranslation('action: edit','common');
 
 		Common::doLog('success', $impactObjective->getName() . $logSufix);
-		return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
+		return $this->addFiltersToForwards($filters,$mapping,'success');
 
 	}
 }

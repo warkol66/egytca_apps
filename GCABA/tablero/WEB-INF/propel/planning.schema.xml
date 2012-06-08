@@ -46,10 +46,6 @@
 
   	<behavior name="timestampable" />
 
-  	<behavior name="versionable">
-	    <parameter name="version_column" value="version" />
-		</behavior>
-
 		<behavior name="archivable">
 		  <parameter name="log_archived_at" value="true" />
 		</behavior>
