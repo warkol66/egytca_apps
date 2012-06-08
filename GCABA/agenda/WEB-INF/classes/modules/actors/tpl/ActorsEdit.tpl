@@ -41,6 +41,13 @@
 		</fieldset>
 	</form>
 </div>
+|-* el upload lo hace un form, no se si puede traer problemas meter el iframe dentro del form del edit *-|
+|-if !$actor->isNew()-|
+<a href="#" onclick="switch_vis('fotoUploader'); return false;">Foto</a>
+<div id="fotoUploader" style="display:none">
+<iframe src="Main.php?do=actorsUploadPhoto&id=|-$actor->getId()-|" style="width: 500px; height: 50px; ">iframes not supported</iframe>
+</div>
+|-/if-|
 |-if !$actor->isNew() && class_exists("ActorCategory")-|
 |-include file="ActorsEditCategoriesInclude.tpl"-|
 |-/if-|
