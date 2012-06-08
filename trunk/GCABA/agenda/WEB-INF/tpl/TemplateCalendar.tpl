@@ -135,7 +135,7 @@
 
 			</div><!-- /grid_16 header1 -->
             <div id="filters" style="display:|-if $filters|@count ne 0-|block|-else-|none|-/if-|"><!-- filters -->
-						<div id="textFilters">|-if $filters|@count ne 0-|Resultados filtrados - |-/if-|<a href="javascript:void(null)" onclick="$('.boxNav1').toggle()">Ver/Ocultar filtros</a>|-if $filters|@count ne 0-| - <a href="Main.php?do=calendarShow">Quitar Filtros</a>|-/if-| </div>
+						<div id="textFilters">|-if $filters|@count ne 0-|Resultados filtrados - |-/if-|<a href="javascript:void(null)" class="butShowHideFilter" onclick="$('.boxNav1').toggle()">Ver/Ocultar filtros</a>|-if $filters|@count ne 0-| - <a href="Main.php?do=calendarShow">Quitar Filtros</a>|-/if-| </div>
             <div class="boxNav1" style="display:|-if $filters|@count eq 0-|block|-else-|none|-/if-|"><!-- boxNav1 -->
 					<form action='Main.php' method='get' style="display:inline;" name="filters">
 					<input type="hidden" name="do" value="calendarShow" />

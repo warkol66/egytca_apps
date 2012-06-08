@@ -41,7 +41,7 @@
 /*  HEADER 1*/
 	.container_16 .header1{ width:1300px;	}
 	
-	h1#branding { width:270px;	}
+	h1#branding {}
 	
 	/*.pendientesContent ul li .pendienteDato {width:79%; } */
 	
@@ -83,8 +83,45 @@
 		#accordion2 ul{
 		width:135px;}	
 					
+.subColumnsTriggerA a, .subColumnsTriggerA a:visited,
+.subColumnsTriggerB a, .subColumnsTriggerB a:visited {width:75px;}
+
 
 .boxPendiente {width:145px;}
+
+
+/*    MENU SOLAPAS DE COLORES    */
+	
+		.boxNavSolapas ul li{width:137px;}
+		
+		.boxNavSolapas ul li a{	width:137px; }
+				
+				.boxNavSolapas ul li.solTurismo{ left:0; top:0; z-index:1000;}
+				.boxNavSolapas ul li.solTurismo a{background-position:-110px 0;}
+
+				.boxNavSolapas ul li.solVida {left:127px; z-index:950;}
+				.boxNavSolapas ul li.solVida a{background-position:-110px -20px;}
+	
+				.boxNavSolapas ul li.solTransformando { left:254px; z-index:900;}
+				.boxNavSolapas ul li.solTransformando a{background-position:-110px -40px;}
+
+				.boxNavSolapas ul li.solCiudad { left:381px; z-index:850;}
+				.boxNavSolapas ul li.solCiudad a{background-position:-110px -60px;}
+
+				.boxNavSolapas ul li.solSocial { left:508px; z-index:800;}
+				.boxNavSolapas ul li.solSocial a{background-position:-110px -80px;}								
+				
+				.boxNavSolapas ul li.solPlan { left:635px; z-index:750;}
+				.boxNavSolapas ul li.solPlan a{background-position:-110px -20px;}
+				
+				.boxNavSolapas ul li.solAgenda { left:762px; z-index:700;}
+				.boxNavSolapas ul li.solAgenda a{background-position:-110px -100px;}	
+
+				.boxNavSolapas ul li.solCrec { left:889px; z-index:650;}
+				.boxNavSolapas ul li.solCrec a{background-position:-110px -80px;}	
+				
+				.boxNavSolapas ul li.solOtros { left:1006px; z-index:600; width:110px;}
+				.boxNavSolapas ul li.solOtros a{background-position:0 -120px;width:110px;}		
 
 	
 	
