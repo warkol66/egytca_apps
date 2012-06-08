@@ -54,20 +54,35 @@
 		.fc-header .fc-header-left{	width:135px;	}		 
 		
 		
-	.colummSidebar .solapas1 .ui-state-default,
-	.colummSidebar .solapas2 .ui-state-default,
-	.colummSidebar .solapas1 .ui-state-active,
-	.colummSidebar .solapas2 .ui-state-active{	
-		background-image: url(../images/solapa_gris_wide.gif) !important;
-		background-position:-2px 0 !important;}
+	.colummSidebar .solapas2 .ui-state-default{
+		width:157px;
+		background-image: url(../images/solapa_gris_wide.gif) !important;}
 		
-.colummSidebar .solapas1 .ui-state-default a,
 .colummSidebar .solapas2 .ui-state-default a{	width:157px;}
-
-.colummSidebar .solapas1 .ui-state-active a,
 .colummSidebar .solapas2 .ui-state-active a{ width:157px;}
 
+		.colummSidebar .solapas2  .ui-state-hover, 
+		.colummSidebar .solapas2 .ui-state-focus,
+		.colummSidebar .solapas2  .ui-state-active{
+		width:157px;
+		background-image: url(../images/solapa_gris_wide.gif) !important;}
 
+	.colummSidebar .solapas2 .ui-state-default a,
+		.colummSidebar .solapas2 .ui-state-hover a,
+		.colummSidebar .solapas2 .ui-state-focus a,
+		.colummSidebar .solapas2 .ui-state-active a	{width:157px;}
+
+	
+		.colummSidebar .solapas2 .ui-state-active a{width:157px;}
+
+		.colummSidebar .solapas2 .ui-state-active a, 
+		.colummSidebar .solapas2 .ui-state-active a:link,
+		.colummSidebar .solapas2 .ui-state-active a:visited { 
+				background-image: url(../images/solapa_gris_wide.gif); }	
+		
+		#accordion2 ul{
+		width:135px;}	
+					
 
 .boxPendiente {width:145px;}
 

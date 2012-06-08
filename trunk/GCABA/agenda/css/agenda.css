@@ -5,17 +5,18 @@
 /*  HEADER 1*/
 	.container_16 .header1{
 	width:1010px;
-	height:64px;
+	height:54px;
 	background-color:#ffde44;
 	margin:0;
 	padding:0;
+	border-bottom:solid 2px #333333;
 	}
 	
 		/* branding
 	----------------------------------------------- */
 	h1#branding {
-	width:270px;
-	height:64px;
+	width:310px;
+	height:54px;
 	background-repeat:no-repeat;
 	background-image:url(../images/header_AgendaDeGobierno.png);
 	float:left;
@@ -36,7 +37,7 @@
 	    .eyefishContainer{
     display:block;
     position:relative;
-    width:280px;
+    width:300px;
     height:64px;
 	background:none;
 /*    background-image:url(../images/header1_eyefish.png);
@@ -83,15 +84,15 @@
 	margin:5px 10px 0 0;	}
 	
 	.boxNav1{
-	width:100%;
+	width:96%;
 	height:46px; 
 	background-color:#ccc;
-/*	-moz-background-color:#ff0000;*/
-/*	display:block;*/
 	display:block;
 	float:left;
-	margin:0;
-	z-index:1000;}
+	margin:0 2% 10px 2%;
+	z-index:1000;
+	-moz-border-radius: 0 0 4px 4px;
+	border-radius: 0 0 4px 4px;	}
 	
 	.boxNav1 select,
 	.boxNav1 #kind{-moz-border:none;}
@@ -104,7 +105,7 @@
 	display:block;
 	padding: 3px 4px;
 	margin:0 3px 0 0;
-	border-left: solid 2px #FFFFFF;}	
+}	
 	.boxNav1 ul li span{clear:both;}	
 
 	.boxNav1 ul li.botSmall { padding:5px 0; display:none;}
@@ -214,7 +215,7 @@
 	
 	.fc-header-left,
 	.fc-header-center{
-	background-color:#fdbc08;
+	background-color:#999999;
 	background-image:url(../images/bkg_month.gif);
 	background-repeat: repeat-x;
 	background-position: top left;
@@ -222,7 +223,7 @@
 	border-radius: 4px 4px 0 0;
 	}
 	.fc-header .fc-header-right{
-	background-color:#fdbc08;
+	background-color:#999999;
 	background-image:url(../images/bkg_month.gif);
 	background-repeat: repeat-x;
 	background-position: top left;
@@ -534,14 +535,12 @@
 		.fc-view-agendaWeek .fc-agenda-allday .fc-agenda-axis, 	/* agenda semanal*/
 		
 		.fc-view-agendaDay  .fc-agenda-slots  .fc-agenda-axis /* agenda diaria*/ {
-			color:#FFF;
-/*			font-size:11px; */
+	color:#FFF;
+	/*			font-size:11px; */
 			font-weight:bold;
-			background-image: url(../images/backgroundsH.png);
-			background-repeat:repeat-x;
-			background-position:0 -239px;
-			background-color:#eeab03;
-			padding: 0 4px 0 2px;
+	background-position:0 -239px;
+	background-color:#999999;
+	padding: 0 4px 0 2px;
 			}
 /*			fc-view-agendaDay .fc-agenda-axis{
 			width: 50px;}
@@ -674,6 +673,9 @@
 /*  PENDIENTES  */
 
 #pendientes {display:block;}
+.boxPendiente { width:109px; margin:0 2px 5px 2px;
+		 			-moz-border-radius: 4px;
+					border-radius: 4px;}
 
 fdsol.boxPendiente span{font-weight:bold; clear:both;}
 #pendientes .rojo {background-color: #FF3333;}
@@ -684,7 +686,7 @@ fdsol.boxPendiente span{font-weight:bold; clear:both;}
 #pendientes .naranja {background-color: #ff9933;}
 #pendientes .gris {background-color: #CCCCCC;}
 	
-	.boxPendienteBotones {float:left; height:20px; margin-top:5px;}
+	.boxPendienteBotones {display:block; height:20px; margin-top:5px;}
 	
 			.boxPendienteBotones a.pendienteEditar,
 			.boxPendienteBotones a.pendienteBorrar{
@@ -874,7 +876,7 @@ fdsol.boxPendiente span{font-weight:bold; clear:both;}
 				display:block;
 				position:absolute;
 				right:5px;
-				width:29px;
+				width:32px;
 				height:20px;
 				float:left;
 				background-image:url(../images/icon_buscador.gif);
@@ -882,84 +884,31 @@ fdsol.boxPendiente span{font-weight:bold; clear:both;}
 				background-repeat:no-repeat;
 				background-color:#9d9d9d;}
 						
-		#accordion div,
-		.colDerToggleContent{ width:100%; padding:0; overflow:hidden;}
-		.colDerToggleContent img{ padding:0; margin:0;}
 		
-		#accordion div ul{margin:10px; padding:0;}
-		#accordion li{	list-style: circle; margin:0 0 5px 0; padding:0; list-style-position:inside}
-		#accordion div ul li a{color:#000000;}
-		#accordion div ul li a:hover{text-decoration: underline;}
-		#accordion li ul li{	list-style: none; margin:0; padding:0; list-style-position:inside}
-			
-		
-		.colummSidebar	ul li ul { margin:0; padding:0;}
-		.colummSidebar	ul li ul li { padding:0 0 0 4px; list-style:none;}
-		.colummSidebar	ul li ul li a:hover{ text-decoration:underline;}
-		
-		.colummSidebar	.solapas1 .ui-state-default,  {
-/*		border: 1px solid #cccccc;
-		background: #999999;
-		font-weight: bold;
-		color: #FFFFFF;*/
-		 -moz-border-radius: 8px 8px 0 0;	
-		border-radius: 8px 8px 0 0;	
-		behavior: url(css/ie-pie/PIE.htc);
-		}
-		
-		/* COLORES SOLAPAS GRAFICOS */
-		.colummSidebar .ui-accordion .ui-accordion-header a {padding-left:5px;}
-		
-		.colummSidebar .solapas1 .ui-state-default a,
-		.colummSidebar .solapas1 .ui-state-default a:link,
-		.colummSidebar .solapas1 .ui-state-default a:visited { 
-		color: #FFFFFF; text-decoration: none; 
-		background-image: url(../images/solapa_gris.gif) !important;
-		background-position:-2px 0 !important;}
-		
-		.colummSidebar .solapas1 .ui-state-default a{
-		width:113px;overflow:hidden; 
-		text-align:center;
-		line-height:15px !important;
-		border-bottom: solid 1px #666666;
-		padding:5px 0 0 0 !important;
-		font-size:10px !important;
-		background:none;}		
-		 
-		.colummSidebar .solapas1  .ui-state-hover, 
-		.colummSidebar .solapas1 .ui-state-focus{ 
-		 font-weight: bold; 
-		color: #000000; 		
-		background-image: url(../images/solapa_gris.gif) !important;
-		background-position:-2px 0 !important;}
-
-		.colummSidebar .solapas1 .ui-state-hover a, 
-		.colummSidebar .solapas1 .ui-state-hover a:hover { color:#000000; text-decoration: none; }
-
-		.colummSidebar .solapas1 .ui-state-active{ 	
-		font-weight: bold; 
-		color: #000000; 		
-		background-image: url(../images/solapa_gris.gif) !important;
-		background-position:-2px 0 !important;}
-
-		.colummSidebar .solapas1 .ui-state-active a, 
-		.colummSidebar .solapas1 .ui-state-active a:link,
-		.colummSidebar .solapas1 .ui-state-active a:visited { color: #000000; text-decoration: none; }
-
-
-		
-		/* COLORES SOLAPAS LINKS */
+		/* sidebar SOLAPAS */
 		
 		.colummSidebar .solapas2 .ui-state-default{
+		width:113px; height:21px;
 		background-image: url(../images/solapa_gris.gif) !important;
-		background-position:-2px 0 !important;}
+		background-position:-2px 0 !important;}		
+		
+		.colummSidebar .solapas2  .ui-state-hover, 
+		.colummSidebar .solapas2 .ui-state-focus,
+		.colummSidebar .solapas2  .ui-state-active{
+		width:113px; height:21px;
+		background-image: url(../images/solapa_gris.gif) !important;
+		background-position:-2px -21px !important;
+		color:#FFFFFF;}
 
-		.colummSidebar .solapas2 .ui-state-default a{
-		width:113px;overflow:hidden; 
+		.colummSidebar .solapas2 .ui-state-default a,
+		.colummSidebar .solapas2 .ui-state-hover a,
+		.colummSidebar .solapas2 .ui-state-focus a,
+		.colummSidebar .solapas2 .ui-state-active a	{
+		width:113px; height:21px; overflow:hidden;
 		text-align:center;
-		line-height:15px !important;
+		line-height:21px !important;
 		border-bottom: solid 1px #666666;
-		padding:5px 0 0 0 !important;
+		padding:0 0 0 0 !important;
 		font-size:10px !important;
 		background:none;}
 		
@@ -970,30 +919,11 @@ fdsol.boxPendiente span{font-weight:bold; clear:both;}
 	text-decoration: none;
 	
 }
-		 
-		.colummSidebar .solapas2  .ui-state-hover, 
-		.colummSidebar .solapas2 .ui-state-focus{ 
-		/*border: 1px solid #fbcb09;*/ font-weight: bold; 
-		color: #FFFFFF; }
-
-		.colummSidebar .solapas2 .ui-state-hover a, 
-		.colummSidebar .solapas2 .ui-state-hover a:hover { color: #FFFFFF; text-decoration: none;
+		 .colummSidebar .solapas2 .ui-state-hover a, 
+		.colummSidebar .solapas2 .ui-state-hover a:hover { 
+		color: #FFFFFF; text-decoration: none;
 		background:none;
  }
-
-		.colummSidebar .solapas2 .ui-state-active
-		{ /*border: 1px solid #fbd850;*/
-		background:none; font-weight: bold; color: #eb8f00 !important; }
-	
-		.colummSidebar .solapas2 .ui-state-active a{
-		width:113px;overflow:hidden; 
-		text-align:center;
-		line-height:15px !important;
-		border-bottom: solid 1px #666666;
-		padding:5px 0 0 0 !important;
-		font-size:10px !important;
-		background:none;}
-
 		.colummSidebar .solapas2 .ui-state-active a, 
 		.colummSidebar .solapas2 .ui-state-active a:link,
 		.colummSidebar .solapas2 .ui-state-active a:visited { 
@@ -1033,8 +963,7 @@ fdsol.boxPendiente span{font-weight:bold; clear:both;}
 		background-position: 0 3px;
 		background-repeat:no-repeat;}
 		
-		#accordion2 ul li a{		text-align:left;
-}
+		#accordion2 ul li a{ text-align:left;}
 		#accordion2 ul li a:hover{ color: #003399; text-decoration:underline;}
 
 
@@ -1187,10 +1116,11 @@ fdsol.boxPendiente span{font-weight:bold; clear:both;}
 span.ui-icon-triangle-1-e, span.ui-icon-triangle-1-s {
 	display: none !Important;
 }
+
 #textFilters {
-	position: relative;
-	display: block;
-	margin-top: -1.25em;
-	margin-left: 180px;
-	float: left;
+    position: relative;
+    display: block;
+    margin-top: -1.25em;
+    margin-left: 180px;
+    float: left;
 }
