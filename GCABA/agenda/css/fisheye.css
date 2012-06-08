@@ -1,11 +1,12 @@
 /* Fisheye Menu Styles */
 
 #fisheye_menu {
-position:absolute;
+	position:absolute;
 	list-style: none;
 	padding: 0;
 	margin: 3px 0 0 10px;
 	height: 81px;
+	right: 0px;
 }
 #fisheye_menu li {
 	position: relative;
