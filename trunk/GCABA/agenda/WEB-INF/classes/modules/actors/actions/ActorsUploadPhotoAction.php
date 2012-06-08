@@ -31,6 +31,7 @@ class ActorsUploadPhotoAction extends BaseAction {
 			return $mapping->findForwardConfig('failure');
 		} else {
 			$smarty->assign('id', $_REQUEST['id']);
+			$this->template->template = 'TemplateAjax.tpl';
 			return $mapping->findForwardConfig('success');
 		}
 	}
