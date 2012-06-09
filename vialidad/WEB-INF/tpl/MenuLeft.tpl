@@ -11,11 +11,12 @@
 		<li class="titleMenu" onclick="$('sectionApplications').toggle()">Aplicaciones</li>
 		<div id="sectionApplications" style="display:|-if $module|upper eq 'VIALIDAD' || $module|upper eq 'AFFILIATES'-|block|-else-|none|-/if-|">
 
-			<li><a href="Main.php?do=affiliatesContractorsList">Contratistas</a></li>
-			<li><a href="Main.php?do=affiliatesVerifiersList">Fiscalizadoras</a></li>
+			<li><a href="Main.php?do=affiliatesList">Proveedores</a></li>
+			<!--<li><a href="Main.php?do=affiliatesContractorsList">Contratistas</a></li>
+			<li><a href="Main.php?do=affiliatesVerifiersList">Fiscalizadoras</a></li> -->
 			<li><a href="Main.php?do=vialidadContractsList">Contratos</a></li>
 			<li><a href="Main.php?do=vialidadConstructionsList">Obras</a></li>
-			<li><a href="Main.php?do=vialidadSuppliersList">Proveedores</a></li>
+			<li><a href="Main.php?do=vialidadSuppliersList">Proveedores de Insumos</a></li>
 
 			<li><a href="Main.php?do=vialidadSupplyList">Insumos</a></li>
 

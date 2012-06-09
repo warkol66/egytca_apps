@@ -31,7 +31,7 @@
 				<input name="params[code]" type="text" value="|-$contract->getCode()|escape-|" size="15"> 
 		</p>
 			<div id="contractor" style="position: relative;z-index:11000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_contractorId" label="Contratista" url="Main.php?do=affiliatesContractorsAutocompleteListX" hiddenName="params[contractorId]" defaultHiddenValue=$contract->getContractorId() defaultValue=$contract->getAffiliate()-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_contractorId" label="Contratista" url="Main.php?do=affiliatesAutocompleteListX" hiddenName="params[contractorId]" defaultHiddenValue=$contract->getContractorId() defaultValue=$contract->getAffiliate()-|
 			</div>
 			<p>     
 				<label for="params[startDate]">Fecha de firma</label>
@@ -167,8 +167,8 @@
 	<tbody id="constructions_table_body">
 	|-foreach from=$constructions item=construction name=for_constructions-|
 	<tr id="construction|-$construction->getId()-|">
-		<td nowrap="nowrap">|-$construction->getName()-|</td>
-		<td nowrap="nowrap">|-$construction->getDescription()-|</td>
+		<td>|-$construction->getName()-|</td>
+		<td>|-$construction->getDescription()-|</td>
 		<td nowrap="nowrap">
 			|-if "vialidadConstructionsEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="vialidadConstructionsEdit" /> 
