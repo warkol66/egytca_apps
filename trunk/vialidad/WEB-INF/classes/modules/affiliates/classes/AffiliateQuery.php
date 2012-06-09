@@ -29,7 +29,9 @@ class AffiliateQuery extends BaseAffiliateQuery {
         
         switch ($filterName) {
             case 'SearchString':
-                $this->filterByName("%$filterValue%", Criteria::LIKE);
+                $this->filterByName("%$filterValue%", Criteria::LIKE)
+									->_or()
+                		->filterByInternalnumber("%$filterValue%", Criteria::LIKE);
                 break;
 
             default:
