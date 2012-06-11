@@ -1141,18 +1141,17 @@ fdsol.boxPendiente span{font-weight:bold; clear:both;}
 span.ui-icon-triangle-1-e, span.ui-icon-triangle-1-s {
 	display: none !Important;
 }
-
-#textFilters {
-    position: relative;
-    display: block;
-    margin-top:-15px;
-    margin-left: 350px;
-    float: left;
+.eventsGraph {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 90%;
+	height: 90%;
+	text-align: center;
+	vertical-align: middle;
 }
-
-.butShowHideFilter{
-color:#000000;
-width:320px;
+.CGpercents {
+	font-size: xx-small !Important;
+}
 height:35px;
 padding:2px 10px 0 30px;
 margin:-15px 0 0 0;

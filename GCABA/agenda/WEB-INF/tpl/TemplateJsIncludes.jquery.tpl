@@ -7,12 +7,12 @@
  if (navigator.appName.indexOf("Microsoft")>=0) {
   if (document.documentElement.clientWidth < 1000) // Use window.innerWidth or screen.width
 		document.write('<link href="css/styleNarrow.css" rel="stylesheet" type="text/css">');
-	else if (document.documentElement.clientWidth > 1300)
+	else if (document.documentElement.clientWidth >= 1300)
 		document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css">');
 }else{
   if (window.innerWidth < 1000) // Use window.innerWidth or screen.width
 		document.write('<link href="css/styleNarrow.css" rel="stylesheet" type="text/css">');
-	else if (window.innerWidth > 1300)
+	else if (window.innerWidth >= 1300)
 		document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css">');
 }
 </script>

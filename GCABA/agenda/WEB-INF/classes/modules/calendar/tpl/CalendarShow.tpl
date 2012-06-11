@@ -93,7 +93,7 @@
 			},
 			titleFormat:{
 					month: 'MMMM yyyy',                             // September 2009
-					week: "'Semana:' d MMM[ yyyy]{ 'al' d[ MMM] yyyy}", // Sep 7 - 13 2009
+					week: "MMMM yyyy ': Semana del ' d/MM { 'al' d/MM}", // Sep 7 - 13 2009
 					day: "dddd, dd 'de' MMMM 'de' yyyy"                  // Tuesday, Sep 8, 2009
 			},
 			selectable: |-if "calendarEventsDoEditX"|security_has_access-|true|-else-|false|-/if-|,
