@@ -45,7 +45,8 @@
 |-if !$actor->isNew()-|
 <a href="#" onclick="switch_vis('fotoUploader'); return false;">Foto</a>
 <div id="fotoUploader" style="display:none">
-<iframe src="Main.php?do=actorsUploadPhoto&id=|-$actor->getId()-|" style="width: 500px; height: 50px; ">iframes not supported</iframe>
+	<iframe src="Main.php?do=actorsUploadPhoto&id=|-$actor->getId()-|" style="width: 500px; height: 50px; ">iframes not supported</iframe>
+	|-*|-include file="SWFUploadInclude.tpl" url="Main.php?do=actorsDoUploadPhoto&id="|cat:$actor->getId()-|*-|
 </div>
 |-/if-|
 |-if !$actor->isNew() && class_exists("ActorCategory")-|

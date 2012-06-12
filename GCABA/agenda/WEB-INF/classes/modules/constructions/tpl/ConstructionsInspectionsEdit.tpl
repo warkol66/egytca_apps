@@ -19,8 +19,14 @@
 		$(".chzn-select").chosen();
 		initializeDatePickers();
 		$('a.galleryPhoto').fancybox();
-		$('a#photoAdd').fancybox();
-
+		|-if !$inspection->isNew()-|
+			$('a#photoAdd').fancybox(/*{
+				onComplete: function() {
+					swfuInit();
+				}
+			}*/);
+			console.log('con el swfupload hay que activar esto!!');
+		|-/if-|
 	});
 	
 	function initializeDatePickers() {
@@ -154,6 +160,7 @@
 		</form>
 	</div>
 
+|-if !$inspection->isNew()-|
 <div id="photos" style="display:none">
 |-foreach $photos as $photo-|
 	<a class="galleryPhoto" rel="gallery1" href="|-$photo-|"><img src="|-$photo-|" alt=""/></a>
@@ -161,4 +168,6 @@
 </div>
 <div style="display:none"><div id="uploader">
 	<iframe src="Main.php?do=constructionsUploadInspectionPhoto&id=|-$inspection->getId()-|" style="width: 500px; height: 50px;">iframes not supported</iframe>
+	|-*|-include file="SWFUploadInclude.tpl" url="Main.php?do=constructionsDoUploadInspectionPhoto&id="|cat:$inspection->getId() preventInit=true-|*-|
 </div></div>
+|-/if-|

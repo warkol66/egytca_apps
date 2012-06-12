@@ -31,7 +31,15 @@ class ConstructionsDoUploadInspectionPhotoAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 		
-		parent::execute($mapping, $form, $request, $response);
+		if ($_POST['isSWFU']) {
+			if (isset($_POST["PHPSESSID"])) {
+				session_id($_POST["PHPSESSID"]);
+				session_start();
+			}
+		} else {
+			// TODO: revisar por que deja de andar el swfupload con esto
+			parent::execute($mapping, $form, $request, $response);
+		}
 		
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
@@ -65,6 +73,7 @@ class ConstructionsDoUploadInspectionPhotoAction extends BaseAction {
 			
 			try {
 				$photosDir = ConfigModule::get('constructions', 'inspectionPhotosDir').'/'.$inspection->getId();
+				Common::ensureWritable($photosDir);
 				FileResampler::resampleTmp($_FILES['file'], $photosDir.'/'.$newFilename);
 			} catch (Exception $e) {
 				echo $e->getMessage();

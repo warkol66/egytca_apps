@@ -1327,6 +1327,40 @@ class Common {
 		else
 			return false;
 	}
-
+	
+	/**
+	 * Returns true if $path has write permissions or false otherwise
+	 *
+	 * @param string $path
+	 * @return boolean 
+	 */
+	public static function isWritable($path) {
+		$testfile = $path.'/'.uniqid().'.test';
+		file_put_contents($testfile, 'asd');
+		$return = file_exists($testfile);
+		unlink($testfile);
+		return $return;
+	}
+	
+	public static function ensureWritable($path) {
+		$parts = split('/', $path);
+		$dirBefore = '';
+		foreach ($parts as $part) {
+			$dirAfter = $dirBefore.$part.'/';
+			if (!file_exists($dirAfter)) {
+				mkdir($dirAfter);
+				if (!file_exists($dirAfter)) {
+					$msg = "el directorio $path no existe. creacion automatica fallo: no se puede escribir en $dirBefore, verifique permisos";
+					throw new Exception($msg);
+				}
+			}
+			$dirBefore = $dirAfter;
+		}
+		if (!Common::isWritable($dirBefore)) {
+			throw new Exception("no se puede escribir en $dirBefore, verifique permisos");
+		}
+		
+		return;
+	}
 
 } // end of class
