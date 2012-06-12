@@ -50,6 +50,8 @@ class ConstructionsInspectionsEditAction extends BaseAction {
 
 		if (!empty($_GET['filters']))
 			$smarty->assign('filters',$_GET['filters']);
+		
+		$smarty->assign("phpSessId", session_id()); // para el SWFUpload
 
 		$this->template->template = 'TemplateJQuery.tpl';
 		return $mapping->findForwardConfig('success');

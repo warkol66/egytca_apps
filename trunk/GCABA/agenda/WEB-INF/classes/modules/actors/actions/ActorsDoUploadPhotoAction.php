@@ -31,7 +31,15 @@ class ActorsDoUploadPhotoAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 		
-		parent::execute($mapping, $form, $request, $response);
+		if ($_POST['isSWFU']) {
+			if (isset($_POST["PHPSESSID"])) {
+				session_id($_POST["PHPSESSID"]);
+				session_start();
+			}
+		} else {
+			// TODO: revisar por que deja de andar el swfupload con esto
+			parent::execute($mapping, $form, $request, $response);
+		}
 		
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
@@ -64,14 +72,17 @@ class ActorsDoUploadPhotoAction extends BaseAction {
 			$newFilename = $actor->getId().'.png';
 			
 			try {
+				$photosDir = ConfigModule::get('actors', 'photosDir');
+				Common::ensureWritable($photosDir);
+				$thumbnailsDir = ConfigModule::get('actors', 'thumbnailsDir');
+				Common::ensureWritable($thumbnailsDir);
+				
 				$newWidth = $config['photoSize']['width'];
 				$newHeight = $config['photoSize']['height'];
-				$photosDir = ConfigModule::get('actors', 'photosDir');
 				FileResampler::resampleTmp($_FILES['file'], $photosDir.'/'.$newFilename, $newWidth, $newHeight);
 								
 				$newWidth = $config['thumbnailSize']['width'];
 				$newHeight = $config['thumbnailSize']['height'];
-				$thumbnailsDir = ConfigModule::get('actors', 'thumbnailsDir');
 				FileResampler::resampleTmp($_FILES['file'], $thumbnailsDir.'/'.$newFilename, $newWidth, $newHeight);
 			} catch (Exception $e) {
 				echo $e->getMessage();

@@ -1,0 +1,333 @@
+/* -----------------------------------------------
+	www.swfupload.org
+	Description: Common Screen Stylesheet for SWFUpload Demos
+	Updated on:  May 1, 2008
+----------------------------------------------- */
+
+
+/* ----------------------------------------------- 
+	GLOBAL RESET 
+   ----------------------------------------------- */
+
+.swfpload div, .swfpload span, .swfpload applet, .swfpload object, .swfpload iframe,
+.swfpload h1, .swfpload h2, .swfpload h3, .swfpload h4, .swfpload h5, .swfpload h6, .swfpload p, .swfpload blockquote, .swfpload pre,
+.swfpload a, .swfpload abbr, .swfpload acronym, .swfpload address, .swfpload big, .swfpload cite, .swfpload code,
+.swfpload del, .swfpload dfn, .swfpload font, .swfpload img, .swfpload ins, .swfpload kbd, .swfpload q, .swfpload s, .swfpload samp,
+.swfpload small, .swfpload strike, .swfpload strong, .swfpload sub, .swfpload sup, .swfpload tt, .swfpload var,
+.swfpload dl, .swfpload dt, .swfpload dd, .swfpload ol, .swfpload ul, .swfpload li,
+.swfpload fieldset, .swfpload form, .swfpload label, .swfpload legend,
+.swfpload table, .swfpload caption, .swfpload tbody, .swfpload tfoot, .swfpload thead, .swfpload tr, .swfpload th, .swfpload td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+/* remember to define focus styles! */
+:focus { outline: 0; }
+.swfpload {
+	line-height: 1;
+	color: black;
+	background: white;
+}
+.swfpload ol, .swfpload ul { 
+	list-style: none; 
+}
+/* tables still need 'cellspacing="0"' in the markup */
+.swfpload table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+.swfpload caption, .swfpload th, .swfpload td {
+	text-align: left;
+	font-weight: normal;
+}
+.swfpload blockquote:before, .swfpload blockquote:after,
+.swfpload q:before, .swfpload q:after { 
+	content: "";
+}
+.swfpload blockquote, .swfpload q {
+	quotes: "" "";
+}
+
+
+/* ----------------------------------------------- 
+	BASIC ELEMENTS
+   ----------------------------------------------- */
+   
+   
+/* -- Text Styles ------------------------------- */
+.swfpload {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	font: 12px/1.4em Helvetica, Arial, sans-serif;
+}
+
+.swfpload a { 
+	color: #385ea2; 
+	text-decoration: none; 
+}
+.swfpload a:hover { text-decoration: underline; }
+
+.swfpload strong { font-weight: 700; }
+
+.swfpload h1 {
+	font: 28px/1em  Arial, Helvetica, sans-serif;
+	padding: 60px 20px 20px;
+	margin-bottom: 15px;
+	color: #333;
+	text-decoration: none;
+}
+
+.swfpload h1 a{
+	color: #fff;
+	text-decoration: none;
+}
+
+.swfpload h2 { 
+	font-size: 22px; 
+	font-weight: 300;
+	padding-top: 1em;
+	padding-bottom: .25em;
+}
+
+
+.swfpload p { 
+	margin-top: .25em;
+	margin-bottom: .5em;
+}
+
+.swfpload ul { padding: 4px 5px; }
+.swfpload ul li { 
+	padding: 4px 5px; 
+	margin: 0 20px;
+	list-style:square; 
+}
+
+.swfpload code {
+	display: block;
+	background:#edffb8 none repeat scroll 0%;
+	border-color:#b2da3a;
+	border-style:solid;
+	border-width:1px 0;
+	font-size: 1em;
+	margin: 1em 0pt;
+	overflow:auto;
+	padding: 0.3em 0.4em;
+	white-space:pre;
+}
+
+/* -- Layout ------------------------------- */
+
+
+.swfpload #header {
+	background: #313131 url(../images/header-bg.jpg) repeat-x top left;
+	height: 125px;
+	position: relative;
+}
+	.swfpload #logo { 
+		padding: 0;
+		margin: 0;
+		background: url(../images/logo.gif) no-repeat 20px 20px;
+		height: 106px;
+		width: 272px;
+		text-indent: -5000px;
+		overflow: hidden;
+	}
+	/* hide link text */
+	.swfpload #logo a {
+		display: block;
+		color: #fff;
+		text-indent: -5000px;
+		overflow: hidden;
+		height: 106px;
+		width: 272px;
+	}
+	
+	.swfpload #version {
+		color: #fff;
+		position: absolute;
+		right: 20px;
+		top: 85px;
+	}
+
+
+.swfpload #content { width: 680px;}
+.swfpload #content { margin: 20px 90px; }
+
+
+
+
+/* -- Form Styles ------------------------------- */
+.swfpload form {	
+	margin: 0;
+	padding: 0;
+}
+
+
+
+.swfpload div.fieldset {
+	border:  1px solid #afe14c;
+	margin: 10px 0;
+	padding: 20px 10px;
+}
+.swfpload div.fieldset span.legend {
+	position: relative;
+	background-color: #FFF;
+	padding: 3px;
+	top: -30px;
+	font: 700 14px Arial, Helvetica, sans-serif;
+	color: #73b304;
+}
+
+.swfpload div.flash {
+	width: 375px;
+	margin: 10px 5px;
+	border-color: #D9E4FF;
+
+	-moz-border-radius-topleft : 5px;
+	-webkit-border-top-left-radius : 5px;
+    -moz-border-radius-topright : 5px;
+    -webkit-border-top-right-radius : 5px;
+    -moz-border-radius-bottomleft : 5px;
+    -webkit-border-bottom-left-radius : 5px;
+    -moz-border-radius-bottomright : 5px;
+    -webkit-border-bottom-right-radius : 5px;
+
+}
+
+.swfpload button,
+.swfpload input,
+.swfpload select,
+.swfpload textarea { 
+	border-width: 1px; 
+	margin-bottom: 10px;
+	padding: 2px 3px;
+}
+
+
+
+.swfpload input[disabled]{ border: 1px solid #ccc } /* FF 2 Fix */
+
+
+.swfpload label { 
+	width: 150px; 
+	text-align: right; 
+	display:block;
+	margin-right: 5px;
+}
+
+.swfpload #btnSubmit { margin: 0 0 0 155px ; }
+
+/* -- Table Styles ------------------------------- */
+.swfpload td {
+	font: 10pt Helvetica, Arial, sans-serif;
+	vertical-align: top;
+}
+
+.swfpload .progressWrapper {
+	width: 357px;
+	overflow: hidden;
+}
+
+.swfpload .progressContainer {
+	margin: 5px;
+	padding: 4px;
+	border: solid 1px #E8E8E8;
+	background-color: #F7F7F7;
+	overflow: hidden;
+}
+/* Message */
+.swfpload .message {
+	margin: 1em 0;
+	padding: 10px 20px;
+	border: solid 1px #FFDD99;
+	background-color: #FFFFCC;
+	overflow: hidden;
+}
+/* Error */
+.swfpload .red {
+	border: solid 1px #B50000;
+	background-color: #FFEBEB;
+}
+
+/* Current */
+.swfpload .green {
+	border: solid 1px #DDF0DD;
+	background-color: #EBFFEB;
+}
+
+/* Complete */
+.swfpload .blue {
+	border: solid 1px #CEE2F2;
+	background-color: #F0F5FF;
+}
+
+.swfpload .progressName {
+	font-size: 8pt;
+	font-weight: 700;
+	color: #555;
+	width: 323px;
+	height: 14px;
+	text-align: left;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.swfpload .progressBarInProgress,
+.swfpload .progressBarComplete,
+.swfpload .progressBarError {
+	font-size: 0;
+	width: 0%;
+	height: 2px;
+	background-color: blue;
+	margin-top: 2px;
+}
+
+.swfpload .progressBarComplete {
+	width: 100%;
+	background-color: green;
+	visibility: hidden;
+}
+
+.swfpload .progressBarError {
+	width: 100%;
+	background-color: red;
+	visibility: hidden;
+}
+
+.swfpload .progressBarStatus {
+	margin-top: 2px;
+	width: 337px;
+	font-size: 7pt;
+	font-family: Arial;
+	text-align: left;
+	white-space: nowrap;
+}
+
+.swfpload a.progressCancel {
+	font-size: 0;
+	display: block;
+	height: 14px;
+	width: 14px;
+	background-image: url(../images/cancelbutton.gif);
+	background-repeat: no-repeat;
+	background-position: -14px 0px;
+	float: right;
+}
+
+.swfpload a.progressCancel:hover {
+	background-position: 0px 0px;
+}
+
+
+/* -- SWFUpload Object Styles ------------------------------- */
+.swfupload {
+	vertical-align: top;
+}

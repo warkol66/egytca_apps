@@ -55,6 +55,8 @@ class ActorsEditAction extends BaseAction {
 		$smarty->assign("filters",$_GET["filters"]);
 		$smarty->assign("page",$_GET["page"]);
 		$smarty->assign("message",$_GET["message"]);
+		
+		$smarty->assign("phpSessId", session_id()); // para el SWFUpload
 
 		return $mapping->findForwardConfig('success');
 	}
