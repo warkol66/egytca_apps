@@ -350,7 +350,7 @@
 		%CC_image
             </span>
             <div class="eventoContent">
-                <span class="fc-event-title"><!--<img src="images/imagen_foto.png" class="foto" align="right" />--><img src="%photo" class="foto" align="right" />%title</span>
+                <span class="fc-event-title"><!--<img src="images/imagen_foto.png" class="foto" align="right" /><img src="%photo" class="foto" align="right" />-->%title</span>
                 <span class="fc-event-text">%address</span>
             </div>
             <div class="eventoFooter"></div>
