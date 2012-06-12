@@ -37,9 +37,11 @@
     display:block;
     position:relative;
     width:300px;
-    height:64px;
+    height:54px;
 	background:none;
-    float:right;}
+    float:right;
+	margin:10px 0 0  0;
+	z-index: 1500; }
 	
 	
 /*.eyefishContainer{
@@ -212,15 +214,15 @@
 	
 	.fc-header-left,
 	.fc-header-center{
-	background-color:#999999;
+	background-color:#C0C0C0;
 	background-image:url(../images/bkg_month.gif);
 	background-repeat: repeat-x;
-	background-position: top left;
+	background-position: left top;
 	-moz-border-radius: 4px 4px 0 0;
 	border-radius: 4px 4px 0 0;
 	}
 	.fc-header .fc-header-right{
-	background-color:#999999;
+	background-color:#C0C0C0;
 	background-image:url(../images/bkg_month.gif);
 	background-repeat: repeat-x;
 	background-position: top left;
@@ -532,11 +534,11 @@
 		.fc-view-agendaWeek .fc-agenda-allday .fc-agenda-axis, 	/* agenda semanal*/
 		
 		.fc-view-agendaDay  .fc-agenda-slots  .fc-agenda-axis /* agenda diaria*/ {
-	color:#FFF;
+	color:#000000;
 	/*			font-size:11px; */
 			font-weight:bold;
 	background-position:0 -239px;
-	background-color:#999999;
+	background-color:#C0C0C0;
 	padding: 0 4px 0 2px;
 			}
 /*			fc-view-agendaDay .fc-agenda-axis{
@@ -662,7 +664,7 @@
 		
 
 	/*   FERIADO      */			
-	.boxFeriadoÂ {
+	.boxFeriado {
 	background-color:#999999;
 	/* transparencia */
 	}
@@ -774,11 +776,13 @@ fdsol.boxPendiente span{font-weight:bold; clear:both;}
 		height:250px; margin:5px 0 0 0;
 		}
 			.pendientesContent ul li{
-			width:110px;
+			width:140px;
 			height:60px;
 			display: inline;
 			float:left !Important;
-			margin:0 3px;}
+			margin: 0 3px;
+	box-shadow:0 1px 3px #808080 !Important;
+			}
 			
 		.pendientesContent .solapita{ 
 		display:none;
@@ -792,7 +796,7 @@ fdsol.boxPendiente span{font-weight:bold; clear:both;}
 				border-radius:10px 0 0 10px;
 				behavior: url(css/ie-pie/PIE.htc);*/}
 		.pendientesContent ul li .pendienteDato {
-		width:140px; margin:0; height:60px; float:left; display:block;
+		width:90px; margin:0; height:60px; float:left; display:block;
 		padding:5px;
 		  -webkit-border-radius: 10px 0 0 10px;
 				-moz-border-radius: 10px 0 0 10px;
@@ -863,7 +867,7 @@ fdsol.boxPendiente span{font-weight:bold; clear:both;}
 			position:relative;}
 	
 				.textBuscador{
-				width:80%;
+				width:72%;
 				height:15px;
 				border:solid 1px #999;
 				float:left;
@@ -874,7 +878,7 @@ fdsol.boxPendiente span{font-weight:bold; clear:both;}
 				position:absolute;
 				right:5px;
 				width:32px;
-				height:20px;
+				height:23px;
 				float:left;
 				background-image:url(../images/icon_buscador.gif);
 				background-position:center;
@@ -1152,6 +1156,17 @@ span.ui-icon-triangle-1-e, span.ui-icon-triangle-1-s {
 .CGpercents {
 	font-size: xx-small !Important;
 }
+#textFilters {
+  position: relative;
+	display: block;
+  margin-top:-15px;
+  margin-left: 350px;
+  float: left;
+}
+
+.butShowHideFilter{
+color:#000000;
+width:320px;
 height:35px;
 padding:2px 10px 0 30px;
 margin:-15px 0 0 0;
