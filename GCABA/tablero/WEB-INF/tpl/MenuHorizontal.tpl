@@ -15,8 +15,8 @@
 			  <ul class="menu">
 				<li><a href="Main.php?do=planningImpactObjectivesList">Objetivos de Impacto</a></li>
 				<li><a href="Main.php?do=planningMinistryObjectivesList">Objetivos Ministeriales</a></li>
-				<li><a href="Main.php?do=planningOperativeObjectivesList">Objetivos Operativos</a></li>
-				<li class="last"><a href="javascript:void(null)">Indicadores</a></li>
+				<li class="last"><a href="Main.php?do=planningOperativeObjectivesList">Objetivos Operativos</a></li>
+				<!--<li class="last"><a href="javascript:void(null)">Indicadores</a></li>-->
 			</ul>
 		</li>
 			<li><a href="javascript:void(null)" class="sub">Proyectos</a>

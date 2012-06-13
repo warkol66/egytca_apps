@@ -56,7 +56,6 @@
 				<div id="rightColumn">
 					<!--centerHTML start-->
 					|-$centerHTML-|
-				|-include file="LegalHomeInclude.tpl"-|
 					<!--centerHTML end -->
 				</div>
 			<!-- End Right Column -->
