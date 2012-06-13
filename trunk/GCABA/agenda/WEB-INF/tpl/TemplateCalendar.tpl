@@ -182,9 +182,9 @@
                     <li class="buttonCC"><input name="filters[campaigncommitment]" type="checkbox" value="1" |-$filters.campaigncommitment|checked_bool-|/><a href="#"></a></li>
                     <li class="pickDate"><input type="text" name="filters[selectedDate]" id="datepicker" value="|-$filters.selectedDate-|" size="10" maxlength="10" style="position:relative;z-index: 1050;" >
 										<a href="javascript:document.filters.submit();" class="dateGo">Ir</a>
-										<li><a href="javascript:document.filters.submit();" alt="Buscar"><img src="images/button_iconSearch.gif" /></a>&nbsp;&nbsp;              
-										<a href="Main.php?do=calendarShow"alt="Quitar filtros"><img src="images/button_iconDelete.gif" /></a></li>                
-										</ul>
+											<li><a href="javascript:document.filters.submit();" alt="Buscar" class="botFiltrar">Filtrar</a>            
+														<a href="Main.php?do=calendarShow" alt="Quitar filtros" class="botResetFiltros">Quitar filtros</a></li>  
+														</ul>
  </form>                                                           
      	</div><!-- /boxNav1 -->
      	</div><!-- /filters -->
@@ -215,40 +215,29 @@
                     </label>
           </div>
         <div class="clear"></div>
- 
+
+<div class="titleGraph"><span>% Ejes</span></div>
+<div class="eventsGraph"></div><!-- // GRAFICO -->
+<div class="clear"></div>
+
+
  <div id="subColumns">
-      <div class="subColumnsTriggerA"><a href="#" class="current" onClick="MM_showHideLayers('subColumnA','','show','subColumnB','','hide')">Pendientes</a></div>
+    <div class="subColumnsTriggerA"><a href="#" class="current" onClick="MM_showHideLayers('subColumnA','','show','subColumnB','','hide')">Pendientes</a></div>
     <div class="subColumnsTriggerB"><a href="#" onClick="MM_showHideLayers('subColumnA','','hide','subColumnB','','show')">Contexto</a></div>
     <div class="clear"></div>
 
     <div id="subColumnA">
- 
- 
- <div class="box solapas1">
-<div role="tablist" class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons" id="accordion">
+		 <div class="box solapas1">
+			<div role="tablist" class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons" id="accordion">
+			</div>
+		</div>
 
-<h3 tabindex="0" aria-selected="true" aria-expanded="true" role="tab" class="color1 ui-accordion-header ui-helper-reset ui-state-default ui-state-active ui-corner-top"><a tabindex="-1" href="#">% Ejes</a></h3>
-
-<div role="tabpanel" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active"><div class="eventsGraph"></div></div>
-<!--<h3 tabindex="-1" aria-selected="false" aria-expanded="false" role="tab" class="color2 ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"><a tabindex="-1" href="#">% Ministerios</a></h3>
-<div role="tabpanel" style="height: 129px; display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom"> <img src="images/grafico02.png" alt="" height="123" width="115"> </div>-->
-</div>
-</div>
-
-
- <div id="pendientes">
-	                        <div id="solapaPendientes">
-                            <a href="javascript:void(0);" onclick="MM_showHideLayers('paragraphs','','show')">Pendientes</a></div>
-                       	<div class="pendientesContainer" id="paragraphs">
-			                        
-                                    
-		                        	<div class="pendientesContent">
-                                    	<ul>
-                                       </ul>                                                                                        
-        		                    </div>
-           		           
-		                        </div> <!-- end of PENDIENTESCONTAINER -->
-                        </div> <!-- end of PENDIENTES -->
+	<div class="pendientesContainer" id="paragraphs">
+		<div class="pendientesContent">
+				<ul>
+				 </ul>                                                                                        
+		</div>	 
+	</div> <!-- end of PENDIENTESCONTAINER -->
 
 </div><!-- end id=subColumnA -->
 

@@ -91,14 +91,18 @@
 .subColumnsTriggerB a, .subColumnsTriggerB a:visited {width:75px;}
 
 #subColumns #subColumnA, #subColumns #subColumnB,
-#pendientes, .pendientesContainer{
-width:160px !Important;
-}
 
-.boxPendiente { width:130px; margin:0 2px 5px 2px;
-		 			-moz-border-radius: 4px;
-					border-radius: 4px;}
-
+#pendientes, .pendientesContent{ width:160px !Important;}
+		.pendientesContent ul li{	width:130px;}
+			
+		.pendientesContent ul li .pendienteDato {
+		width:90px; margin:0; height:60px; float:left; display:block;
+		padding:5px;
+		  -webkit-border-radius: 10px 0 0 10px;
+				-moz-border-radius: 10px 0 0 10px;
+				border-radius:10px 0 0 10px;
+				behavior: url(css/ie-pie/PIE.htc);
+				overflow:hidden;}
 
 
 /*    MENU SOLAPAS DE COLORES    */
@@ -132,18 +136,9 @@ width:160px !Important;
 				.boxNavSolapas ul li.solCrec a{background-position:-110px -80px;}	
 				
 				.boxNavSolapas ul li.solOtros { left:1006px; z-index:600; width:110px;}
-				.boxNavSolapas ul li.solOtros a{background-position:0 -120px;width:110px;}		
+				.boxNavSolapas ul li.solOtros a{background-position:0 -120px;width:110px;}
 
 .eventsGraph {
 	width: 130px;
 	height: 130px;
 }
-	
-.pendientesContent ul li .pendienteDato {
-	width:100px;
-}
-.pendientesContent ul li{
-	width:140px;
-}
-
-		
