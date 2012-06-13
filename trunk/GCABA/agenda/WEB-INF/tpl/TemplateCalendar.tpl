@@ -207,13 +207,14 @@
                         
 		</div>
 				<div class="grid_3 colummSidebar">
+
+
 					<div class="box boxBuscador">
                     <label>
-                    <input name="textfield" type="text" class="textBuscador" id="textfield" value="Buscar"/>
-<a href="#" class="botBuscador"></a>
+                    <input name="textfield" type="text" class="textBuscador" id="textfield" value="Buscar"/><a href="#" class="botBuscador"></a>
                     </label>
           </div>
-                    <div class="clear"></div>
+        <div class="clear"></div>
  
  <div id="subColumns">
       <div class="subColumnsTriggerA"><a href="#" class="current" onClick="MM_showHideLayers('subColumnA','','show','subColumnB','','hide')">Pendientes</a></div>
@@ -228,7 +229,7 @@
 
 <h3 tabindex="0" aria-selected="true" aria-expanded="true" role="tab" class="color1 ui-accordion-header ui-helper-reset ui-state-default ui-state-active ui-corner-top"><a tabindex="-1" href="#">% Ejes</a></h3>
 
-<div role="tabpanel" style="height: 129px;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active"><div class="eventsGraph" style="height: 123px; width: 115px;"></div></div>
+<div role="tabpanel" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active"><div class="eventsGraph"></div></div>
 <!--<h3 tabindex="-1" aria-selected="false" aria-expanded="false" role="tab" class="color2 ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"><a tabindex="-1" href="#">% Ministerios</a></h3>
 <div role="tabpanel" style="height: 129px; display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom"> <img src="images/grafico02.png" alt="" height="123" width="115"> </div>-->
 </div>

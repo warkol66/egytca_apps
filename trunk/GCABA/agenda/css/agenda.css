@@ -82,6 +82,11 @@
 	background-image:url(../images/bot_resetFilter.png);
 	margin:5px 10px 0 0;	}
 	
+	a.botFiltrar{ width:120px; padding:0 0 0 20px; background-image:url(../images/button_iconSearch.gif); background-repeat: no-repeat;
+	background-position:0 0; border:solid 1px #666666; background-color:#CCCCCC;}
+	a.botResetFiltros { width:120px; padding:0 0 0 20px; background-image:url(../images/button_iconDelete.gif); background-repeat: no-repeat;
+	background-position:0 0; border:solid 1px #666666; background-color:#CCCCCC;}
+	
 	.boxNav1{
 	width:96%;
 	height:46px; 
@@ -201,11 +206,11 @@
 /* ----------------------------------------*/ 
 	.fc-header .fc-header-left{
 	width:125px;
-	padding:8px 0 0 8px;
+	padding:4px 0 0 8px;
 	}
 	.fc-header .fc-header-center{
-/*	width:250px;*/
-	padding:8px 0 8px 0;
+	/*	width:250px;*/
+	padding:4px 0 4px 0;
 	text-align:left;
 	}
 	.fc-header .fc-header-right{
@@ -258,9 +263,9 @@
 /*		width:115px;*/
 		width:100%;
 		height:auto;
-		display:block; /* newnew*/
+		display:block; 
 		line-height:1em;
-		padding:0 0 5px 0;
+		padding:0 0 5px 0; 
 		
 		zoom: 1;
 		filter: alpha(opacity=90);
@@ -317,6 +322,8 @@
 			zoom: 1;
 		filter: alpha(opacity=100);
 		opacity: 1;}
+		
+	.fc-view-agendaWeek .eventoContent span{font-size:9px; text-transform:uppercase; color: #000000; line-height:10px; margin-top:-4px;}
 			
 			.fc-event-title	img{
 			text-align:right;
@@ -329,8 +336,9 @@
 			
 			/*  TEXTO  */
 			.fc-event-text{
-			font-weight:normal;
-			display:block;}
+	font-weight:normal;
+	display:none;
+}
 			
 			/*  BOTONERA --------*/
 			 ul.botoneraSmallEvento{
@@ -671,8 +679,13 @@
 			
 /*  PENDIENTES  */
 
-#pendientes {display:block;}
-.boxPendiente { width:109px; margin:0 2px 5px 2px;
+#pendientes {
+display:block;
+/*overflow-x:hidden;
+overflow-y:scroll;*/
+}
+
+.boxPendiente { width:89px; margin:0 2px 5px 2px;
 		 			-moz-border-radius: 4px;
 					border-radius: 4px;}
 
@@ -776,13 +789,11 @@ fdsol.boxPendiente span{font-weight:bold; clear:both;}
 		height:250px; margin:5px 0 0 0;
 		}
 			.pendientesContent ul li{
-			width:140px;
+			width:90px;
 			height:60px;
 			display: inline;
 			float:left !Important;
-			margin: 0 3px;
-	box-shadow:0 1px 3px #808080 !Important;
-			}
+			margin:0 3px;}
 			
 		.pendientesContent .solapita{ 
 		display:none;
@@ -796,7 +807,7 @@ fdsol.boxPendiente span{font-weight:bold; clear:both;}
 				border-radius:10px 0 0 10px;
 				behavior: url(css/ie-pie/PIE.htc);*/}
 		.pendientesContent ul li .pendienteDato {
-		width:90px; margin:0; height:60px; float:left; display:block;
+		width:50px; margin:0; height:60px; float:left; display:block;
 		padding:5px;
 		  -webkit-border-radius: 10px 0 0 10px;
 				-moz-border-radius: 10px 0 0 10px;
@@ -1142,20 +1153,19 @@ fdsol.boxPendiente span{font-weight:bold; clear:both;}
 .fc-view-month .foto, .fc-view-month .fc-event-text {
 	display: none !Important;
 }
+fc-view-week  .fc-event-text {display:none;}
+
+/*fc-view-week*/.fc-agenda-days  .fc-event-title
+.fc-event-title { }
+.fc-agenda-days thead th{ text-tranform:uppercase;/*background-color: #009933; height:20px; padding-top:5px;*/}
+
+.fc-agenda-allday .fc-agenda-axis{font-size:9px; font-family: "Arial Narrow";}
+
+
 span.ui-icon-triangle-1-e, span.ui-icon-triangle-1-s {
 	display: none !Important;
 }
-.eventsGraph {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	width: 90%;
-	height: 90%;
-	text-align: center;
-	vertical-align: middle;
-}
-.CGpercents {
-	font-size: xx-small !Important;
-}
+
 #textFilters {
   position: relative;
 	display: block;
@@ -1163,7 +1173,16 @@ span.ui-icon-triangle-1-e, span.ui-icon-triangle-1-s {
   margin-left: 350px;
   float: left;
 }
-
+.eventsGraph {
+	padding: 0 !Important;
+	margin: 0 !Important;
+	margin-left: -15px !Important;
+	width: 90px;
+	height: 90px;
+}
+.CGpercents {
+	font-size: xx-small !Important;
+}
 .butShowHideFilter{
 color:#000000;
 width:320px;

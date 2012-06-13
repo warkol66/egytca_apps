@@ -67,7 +67,7 @@
 			firstDay: 1,
 //			aspectRatio: 0.5,
 			defaultView: 'agendaWeek',
-			allDayText: 'Efem./<br />feri.',
+			allDayText: 'Feriados<br />Efemér.',
 			firstHour: Calendar.options.firstHour,
 			minTime: Calendar.options.minTime,
 			maxTime: Calendar.options.maxTime,
@@ -77,7 +77,7 @@
 			dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
 			columnFormat: {
 				month: 'dddd',    // Monday, Wednesday, etc
-				week: 'ddd dd/MM', // Monday 9/7
+				week: 'dddd dd/MM', // Monday 9/7
 				day: ''  // Monday 9/7
 			},
 			axisFormat: 'h(:mm) tt',
@@ -93,7 +93,7 @@
 			},
 			titleFormat:{
 					month: 'MMMM yyyy',                             // September 2009
-					week: "MMMM yyyy ': Semana del ' d/MM { 'al' d/MM}", // Sep 7 - 13 2009
+					week: "MMMM yyyy': Semana del ' d/MM { 'al' d/MM}", // Sep 7 - 13 2009
 					day: "dddd, dd 'de' MMMM 'de' yyyy"                  // Tuesday, Sep 8, 2009
 			},
 			selectable: |-if "calendarEventsDoEditX"|security_has_access-|true|-else-|false|-/if-|,

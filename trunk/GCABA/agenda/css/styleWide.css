@@ -53,6 +53,10 @@
 		 
 		.fc-header .fc-header-left{ width:125px;	}
 		
+		.fc-agenda-allday .fc-agenda-axis{font-size:10px; font-family: "Arial Narrow";}
+			
+	  .fc-view-agendaWeek .eventoContent span{font-size:11px; text-transform: none; color: #000000; line-height:11px; margin-top:-4px;}
+
 		
 	.colummSidebar .solapas2 .ui-state-default{
 		width:157px;
@@ -78,7 +82,7 @@
 		.colummSidebar .solapas2 .ui-state-active a, 
 		.colummSidebar .solapas2 .ui-state-active a:link,
 		.colummSidebar .solapas2 .ui-state-active a:visited { 
-				background-image: url(../images/solapa_gris_wide.gif); }	
+				background-image: url(../images/solapa_gris_wide.gif) !Important; }	
 		
 		#accordion2 ul{
 		width:135px;}	
@@ -90,6 +94,11 @@
 #pendientes, .pendientesContainer{
 width:160px !Important;
 }
+
+.boxPendiente { width:130px; margin:0 2px 5px 2px;
+		 			-moz-border-radius: 4px;
+					border-radius: 4px;}
+
 
 
 /*    MENU SOLAPAS DE COLORES    */
@@ -125,8 +134,16 @@ width:160px !Important;
 				.boxNavSolapas ul li.solOtros { left:1006px; z-index:600; width:110px;}
 				.boxNavSolapas ul li.solOtros a{background-position:0 -120px;width:110px;}		
 
+.eventsGraph {
+	width: 130px;
+	height: 130px;
+}
 	
-	
-
+.pendientesContent ul li .pendienteDato {
+	width:100px;
+}
+.pendientesContent ul li{
+	width:140px;
+}
 
 		
