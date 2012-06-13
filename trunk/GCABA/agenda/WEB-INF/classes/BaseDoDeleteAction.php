@@ -20,7 +20,7 @@ class BaseDoDeleteAction extends BaseAction {
 		BaseAction::execute($mapping, $form, $request, $response);
 
 		try {
-			$this->pre();
+			$this->preDelete();
 		} catch (Exception $e) {
 			//Elijo la vista basado en si es o no un pedido por AJAX
 			if ($this->isAjax()) {
@@ -53,7 +53,9 @@ class BaseDoDeleteAction extends BaseAction {
 				print_r($e->__toString());
 			}
 		}
-		
+
+		$this->postDelete();
+
 		if ($this->entity->isDeleted())
 			return $mapping->findForwardConfig('success');
 		else
@@ -61,11 +63,11 @@ class BaseDoDeleteAction extends BaseAction {
 
 	}
 	
-	protected function pre() {
+	protected function preDelete() {
 		// default: do nothing
 	}
 	
-	protected function post() {
+	protected function postDelete() {
 		// default: do nothing
 	}
 }

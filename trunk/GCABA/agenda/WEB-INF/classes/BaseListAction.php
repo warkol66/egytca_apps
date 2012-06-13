@@ -29,13 +29,13 @@ class BaseListAction extends BaseAction {
 
 		$smarty->assign("module", $this->module);
 
+		$this->preBase();
+
 		$pager = BaseQuery::create($this->entityClassName)->createPager($filters, $page, $perPage);
 
 		$smarty->assign(lcfirst($this->entityClassName) . "Coll", $pager->getResults());
 		$smarty->assign("pager",$pager);
 		$smarty->assign("filters", $filters);
-
-		$this->post();
 
 		$url = "Main.php?" . "do=" . lcfirst(str_replace('Action', '', get_class($this)));
 		if (isset($_GET['page']))
@@ -48,15 +48,17 @@ class BaseListAction extends BaseAction {
 		$smarty->assign("page", $_GET["page"]);
 		$smarty->assign("message", $_GET["message"]);
 		
+		$this->postBase();
+
 		return $mapping->findForwardConfig('success');
 
 	}
 	
-	protected function pre() {
+	protected function preBase() {
 		// default: do nothing
 	}
 	
-	protected function post() {
+	protected function postBase() {
 		// default: do nothing
 	}
 }

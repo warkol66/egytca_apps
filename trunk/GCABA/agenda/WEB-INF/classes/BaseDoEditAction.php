@@ -91,7 +91,7 @@ class BaseDoEditAction extends BaseAction {
 	}
 
 	protected function onFailure($e) {
-		$this->entity = Common::setObjectFromParams($this->entity, $this->entityParams);
+		$this->entity->fromArray($this->entityParams,BasePeer::TYPE_FIELDNAME);
 		$this->smarty->assign('entity', $this->entity);
 		$this->smarty->assign('errorMessage', $e->getMessage());
 	}

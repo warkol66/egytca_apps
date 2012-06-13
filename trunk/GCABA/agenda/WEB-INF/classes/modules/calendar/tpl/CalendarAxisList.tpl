@@ -15,8 +15,7 @@
 					<input type="hidden" name="do" value="calendarAxisList" />
 					Texto: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
 					Resultados por página
-				|-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$filters.perPage-|	
-				|-if $loginUser->isSupervisor()-|Incluir eliminados<input name="filters[includeDeleted]" type="checkbox" value="true" |-$filters.includeDeleted|checked:"true"-|>|-/if-|
+				|-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$filters.perPage-|
 					<input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
 				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=calendarAxisList'"/>|-/if-|
 			</form>
@@ -31,12 +30,12 @@
 				<th width="5%">&nbsp;</th> 
 			</tr> 
 		</thead> 
-	<tbody id="calendarAxisList">|-if $calendarAxes|@count eq 0-|
+	<tbody id="calendarAxisList">|-if $calendarAxisColl|@count eq 0-|
 		<tr>
 			 <td colspan="3">|-if isset($filter)-|No hay tipos que concuerden con la búsqueda|-else-|No hay tipos disponibles|-/if-|</td>
 		</tr>
 	|-else-|
-		|-foreach from=$calendarAxes item=calendarAxis name=for_axes-|
+		|-foreach from=$calendarAxisColl item=calendarAxis name=for_axes-|
 		<tr> 
 			<td>
 			|-if "calendarAxisEdit"|security_has_access-|<span id="media_type_|-$calendarAxis->getid()-|" class="in_place_editable">|-$calendarAxis->getName()-|</span>|-else-||-$calendarAxis->getName()-||-/if-|

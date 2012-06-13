@@ -30,7 +30,7 @@ class BaseEditAction extends BaseAction {
 		$smarty->assign("module", $this->module);
 
 		try {
-			$this->pre();
+			$this->preEdit();
 		} catch (Exception $e) {
 			//Elijo la vista basado en si es o no un pedido por AJAX
 			if ($this->isAjax()) {
@@ -60,7 +60,7 @@ class BaseEditAction extends BaseAction {
 			$this->entity = new $entityClassName();
 		}
 		
-		$this->post();
+		$this->postEdit();
 		$smarty->assign(lcfirst(get_class($this->entity)), $this->entity);
 		$smarty->assign("filters", $_GET["filters"]);
 		$smarty->assign("page", $_GET["page"]);
@@ -76,11 +76,11 @@ class BaseEditAction extends BaseAction {
 		}
 	}
 	
-	protected function pre() {
+	protected function preEdit() {
 		// default: do nothing
 	}
 	
-	protected function post() {
+	protected function postEdit() {
 		// default: do nothing
 	}
 }
