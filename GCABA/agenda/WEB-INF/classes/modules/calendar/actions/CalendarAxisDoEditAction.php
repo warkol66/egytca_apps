@@ -1,36 +1,23 @@
 <?php
+/**
+ * CalendarAxisDoEditAction
+ *
+ * Guardar cambios en Ejes de Gestion basado en BaseDoEditAction
+ */
+require_once 'BaseDoEditAction.php';
 
-class CalendarAxisDoEditAction extends BaseAction {
-
-	function CalendarAxisDoEditAction() {
-		;
+class CalendarAxisDoEditAction extends BaseDoEditAction {
+	
+	function __construct() {
+		parent::__construct('CalendarAxis');
 	}
 
-	function execute($mapping, $form, &$request, &$response) {
-
-		BaseAction::execute($mapping, $form, $request, $response);
-
-		$id = $request->getParameter("id");
-		$filters = $request->getParameterValues("filters");
-
-		if (!empty($id)) {
-			$axis = BaseQuery::create('CalendarAxis')->findOneById($id);
-			if (!empty($axis)) {
-				$params = $request->getParameterValues("params");
-				$axis = Common::setObjectFromParams($axis,$params);
-				if ($axis->isModified() && !$axis->save())
-					return $this->addFiltersToForwards($filters,$mapping,'failure');
-				else
-					return $this->addFiltersToForwards($filters,$mapping,'success');
-			}			
-		}
-		else {
-			$axis = new CalendarAxis();
-			$params = $request->getParameterValues("params");
-			$axis = Common::setObjectFromParams($axis,$params);
-			if (!$axis->save())
-				return $this->addFiltersToForwards($filters,$mapping,'failure');
-		}
-		return $this->addFiltersToForwards($filters,$mapping,'success');
+	protected function postUpdate() {
+		parent::postUpdate();
+		if (mb_strlen($this->entity->getName()) > 120)
+			$cont = " ... ";
+		$logSufix = "$cont, " . Common::getTranslation('action: edit','common');
+		Common::doLog('success', substr($this->entity->getName(), 0, 120) . $logSufix);
 	}
+
 }
