@@ -82,10 +82,14 @@
 	background-image:url(../images/bot_resetFilter.png);
 	margin:5px 10px 0 0;	}
 	
-	a.botFiltrar{ width:120px; padding:0 0 0 20px; background-image:url(../images/button_iconSearch.gif); background-repeat: no-repeat;
-	background-position:0 0; border:solid 1px #666666; background-color:#CCCCCC;}
-	a.botResetFiltros { width:120px; padding:0 0 0 20px; background-image:url(../images/button_iconDelete.gif); background-repeat: no-repeat;
-	background-position:0 0; border:solid 1px #666666; background-color:#CCCCCC;}
+	.boxNav1 ul li a.botFiltrar,
+	.boxNav1 ul li a.botResetFiltros { width:85px; display: block; padding:2px 4px 2px 25px; background-repeat: no-repeat;	background-position:5px 0; border:solid 1px #666666; background-color:#CCCCCC; -moz-border-radius: 5px;	border-radius: 5px; margin:0; color:#000000;}
+	
+		.boxNav1 ul li a.botFiltrar {background-image:url(../images/button_iconSearch.gif); }
+		.boxNav1 ul li a.botResetFiltros { background-image:url(../images/button_iconDelete.gif); }
+		
+	.boxNav1 ul li a.botFiltrar:hover,
+	.boxNav1 ul li a.botResetFiltros:hover { background-color:#EAEAEA;} 		
 	
 	.boxNav1{
 	width:96%;
@@ -133,20 +137,20 @@
 	.boxNav1 ul li.botSmall {border-left:none;}
 	/*   cc   */
 	.boxNav1 ul li.buttonCC input{
-	float:left;margin:12px 4px 0 0;}
+	float:left;margin:2px 4px 0 0;}
 	.boxNav1 ul li.buttonCC a{
 	width:19px;
 	height:13px;
 	display:block;
 	float:left;
 	background-image:url(../images/icon_CC.gif);
-	margin:13px 0 0 2px;}
+	margin:2p 0 0 2px;}
 	
 	/* Calendario  */
 	.boxNav1 ul li.pickDate{}
 	.boxNav1 ul li.pickDate input{ font-size:11px; color:#000000; float:left;display:block;}
 	.boxNav1 ul li.pickDate .dateCalendar{width:15px; height:15px; float:left; display:block; background-image: url(../images/icon_calendarHeader.gif); background-repeat:no-repeat; margin:0 2px 0 2px;}
-	.boxNav1 ul li.pickDate a.dateGo{ width:15px; height:15px;  float:left; display:block; background-image:url(../images/bkg_headerButtonBkg.gif); background-repeat:repeat-x; background-position:bottom; background-color:#FFFFFF; border:solid 1px #999999; padding:0 0 0 3px; margin:4px 0 0 5px;}
+	.boxNav1 ul li.pickDate a.dateGo{ width:15px; height:15px;  float:left; display:block; background-image:url(../images/bkg_headerButtonBkg.gif); background-repeat:repeat-x; background-position:bottom; background-color:#FFFFFF; border:solid 1px #999999; padding:0 0 0 3px; margin:2px 0 0 5px;}
 
 
 /*  MENU 2 , DE SOLAPAS, ABAJO DE TODO */
@@ -672,142 +676,48 @@
 		
 
 	/*   FERIADO      */			
-	.boxFeriado {
+	.boxFeriadoï¿½{
 	background-color:#999999;
 	/* transparencia */
 	}
 			
 /*  PENDIENTES  */
 
+.titleGraph{ color:#000000; margin-bottom:5px; width:100%; height:20px; }
+.titleGraph span{width:110px; height:20px; display: block; background-image:url(../images/bkg_solapas.png);
+	background-repeat:no-repeat;
+	background-position: 0 0; text-align:center; margin:0 auto 0 auto;
+	font-weight:bold; line-height:12px;}
+
 #pendientes {
 display:block;
-/*overflow-x:hidden;
-overflow-y:scroll;*/
 }
 
-.boxPendiente { width:89px; margin:0 2px 5px 2px;
-		 			-moz-border-radius: 4px;
-					border-radius: 4px;}
 
-fdsol.boxPendiente span{font-weight:bold; clear:both;}
-#pendientes .rojo {background-color: #FF3333;}
-#pendientes .cyan {background-color: #33ccff;}
-#pendientes .amarillo {background-color: #FFCC00;}
-#pendientes .verde1 {background-color: #88d852;}
-#pendientes .verde2 {background-color: #009999;}
-#pendientes .naranja {background-color: #ff9933;}
-#pendientes .gris {background-color: #CCCCCC;}
-	
-	.boxPendienteBotones {display:block; height:20px; margin-top:5px;}
-	
-			.boxPendienteBotones a.pendienteEditar,
-			.boxPendienteBotones a.pendienteBorrar{
-			width:14px;
-			height:14px;
-			display:block;
-			float:right;
-			padding:0;
-			margin:0 5px 0 0;
-			background-repeat:no-repeat;
-			background-color:#FFFFFF;
-			border: solid 1px #999999;
-			}
-			.boxPendienteBotones a.pendienteBorrar{
-			 background-image: url(../images/botSM_delete.png);		
-}
-			.boxPendienteBotones a.pendienteEditar{
-			background-image: url(../images/botSM_edit.png);		
-}	
-
-/*	#solapaPendientes{
-	width:100%;
-	height:20px;
-	margin-top:-25px;
-	border-top:solid 4px #333333;
-	position:relative}
-	
-		#solapaPendientes a{
-		position:absolute;
-		top:0px;
-		left:35px;
-		width:100px;
-		color:#FFFFFF;
-		padding:0 10px;
-		height:25px;
-		margin:0;
-		display:block;
-		background-color:#333333;
-		text-decoration:none;
-		text-align:center;
-		text-transform:uppercase;
-		line-height:25px;
-		   -webkit-border-radius: 0 0 5px 5px;
-		    -moz-border-radius: 0 0 5px 5px;
-    		border-radius: 0 0 5px 5px;
-			behavior: url(css/ie-pie/PIE.htc);}
-		#solapaPendientes a:hover{
-		background-color:#333;
-		height:29px;
-		line-height:29px;}
-		#solapaPendientes a:hover.pendientesContainer,
-		#solapaPendientes a:active.pendientesContainer {
-		visibility:visible;}*/
-		
-
-	.pendientesContainer{
-	width:113px;
-	height:250px;
-	display:block;
-/*	visibility: hidden;*/
-	padding-bottom:5px;
+	.pendientesContent {
+	width:113px; 
+	float:left;
+	height:350px;
+	display:block;	
 	background-color:#ffffff;
-	border-top:solid 1px #999999;
-	border-left:solid 1px #999999;	
-	margin:15px 0 10px 0;
+	margin:5px 0 10px 0;
 	
 	overflow-y: scroll;
-	overflow-x:none; }
-	
-	.pendientesArrowLeft, .pendientesArrowRight{width:2.5%; float:left; }
-	.pendientesArrowLeft a, .pendientesArrowRight a{line-height:55px;
-	width:100%; height:55px; display:block; padding:0; text-align:center; 
-	font-weight:bold; font-family:"Arial Ultra", "Arial Black", "Arial Bold", Helvetica, sans-serif; 
-	font-size:15px;}
-	.pendientesArrowLeft a:hover, .pendientesArrowRight a:hover{
-	color:#ccc}
-	.pendientesArrowLeft a:active, .pendientesArrowRight a:active{
-	color:#666666;	}	
-	
-	.pendientesContent {
-	width:100%; 
-	float:left;
-	height:250px;
-	display:block; }
+	overflow-x:none; 
+ }
 	
 		.pendientesContent ul{
-/*		width:5000%;*/
-		height:250px; margin:5px 0 0 0;
+		height:250px; margin:0;
 		}
 			.pendientesContent ul li{
 			width:90px;
-			height:60px;
+			height:66px;
 			display: inline;
 			float:left !Important;
-			margin:0 3px;}
+			margin:0 3px 0 0 !Important;}
 			
-		.pendientesContent .solapita{ 
-		display:none;
-/*		width:15px;
-		height:55px; 
-		float:left; 
-		margin:0;
-		display:block;
-		   -webkit-border-radius: 10px 0 0 10px;
-				-moz-border-radius: 10px 0 0 10px;
-				border-radius:10px 0 0 10px;
-				behavior: url(css/ie-pie/PIE.htc);*/}
 		.pendientesContent ul li .pendienteDato {
-		width:50px; margin:0; height:60px; float:left; display:block;
+		width:50px; margin:0 0 5px 0; height:60px; float:left; display:block;
 		padding:5px;
 		  -webkit-border-radius: 10px 0 0 10px;
 				-moz-border-radius: 10px 0 0 10px;
@@ -817,7 +727,7 @@ fdsol.boxPendiente span{font-weight:bold; clear:both;}
 				
 		.pendientesContent 	.pendienteDato span {font-weight:bold;display: block;}	
 		.pendientesContent 	.pendienteBotones{
-			float:right !Important; width:20px; margin:0;	height:60px; padding:5px;
+			float:right !Important; width:20px; margin:0 0 5px 0;	height:60px; padding:5px;
 		   -webkit-border-radius: 0 10px 10px 0;
 				-moz-border-radius:  0 10px 10px 0;
 				border-radius: 0 10px 10px 0;
@@ -1174,9 +1084,8 @@ span.ui-icon-triangle-1-e, span.ui-icon-triangle-1-s {
   float: left;
 }
 .eventsGraph {
-	padding: 0 !Important;
-	margin: 0 !Important;
-	margin-left: -15px !Important;
+margin-left:auto;
+margin-right:auto;
 	width: 90px;
 	height: 90px;
 }

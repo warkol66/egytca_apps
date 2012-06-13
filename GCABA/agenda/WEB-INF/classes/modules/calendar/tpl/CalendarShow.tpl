@@ -42,7 +42,7 @@
 		// grafico de porcentaje de eventos
 		var graphInfo = makeGraphInfo(events.concat(pendingEvents));
 		eventsCakegraph = new CakeGraph({
-			selector: '.box.solapas1 .eventsGraph',
+			selector: '.eventsGraph',
 			data: graphInfo.data,
 			color: graphInfo.color
 		});
