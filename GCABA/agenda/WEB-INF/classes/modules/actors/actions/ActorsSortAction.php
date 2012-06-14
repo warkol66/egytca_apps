@@ -28,11 +28,6 @@ class ActorsSortAction extends BaseAction {
 		$smarty->assign("filters",$filters);
 		$smarty->assign('actors',$actors);
 
-		$url = "Main.php?do=calendarRegularEventList";
-		foreach ($filters as $key => $value)
-			$url .= "&filters[$key]=$value";
-		$smarty->assign("url",$url);
-
 		$smarty->assign("message",$_GET["message"]);
 		
 		$this->template->template = 'TemplateJQuery.tpl';
