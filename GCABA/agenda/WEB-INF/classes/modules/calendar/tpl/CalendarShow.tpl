@@ -49,7 +49,7 @@
 		
 		$('#newEventFancyboxDummy').fancybox();
 		$('#fancyboxDummy').fancybox();
-		|-if !empty($loginUser) && $loginUser->isSupervisor()-|
+		|-if !empty($loginUser) && $loginUser->isSupervisor() && $firstView-|
 		$('#fancyboxDiv').load(
 			'Main.php?do=calendarRegularEventGetUninstantiatedX',
 			{ years:  [year, parseInt(year)+1] }
