@@ -20,12 +20,11 @@
 		initializeDatePickers();
 		$('a.galleryPhoto').fancybox();
 		|-if !$inspection->isNew()-|
-			$('a#photoAdd').fancybox(/*{
+			$('a#photoAdd').fancybox({
 				onComplete: function() {
 					swfuInit();
 				}
-			}*/);
-			console.log('con el swfupload hay que activar esto!!');
+			});
 		|-/if-|
 	});
 	
@@ -39,6 +38,30 @@
 		$('#params_endDate').datepicker();
 		$('#params_endDateMinistry').datepicker();
 	}
+	
+	inspectionPhotoUploadSuccess = function (file, serverData) {
+	try {
+		var parsedData = JSON.parse(serverData);
+		var progress = new FileProgress(file, this.customSettings.progressTarget);
+		
+		if (parsedData.error == 1) {
+			progress.setError();
+			progress.setStatus(parsedData.message);
+		} else {
+			progress.setComplete();
+			progress.setStatus('Complete.');
+			var photo = JSON.parse(parsedData.data).photo;
+			$('<a class="galleryPhoto" rel="gallery1" href="'+photo+'"><img src="'+photo+'" alt=""/></a>')
+				.appendTo($('#photos'));
+			$('a.galleryPhoto').fancybox();
+		}
+		
+		progress.toggleCancel(false);
+
+	} catch (ex) {
+		this.debug(ex);
+	}
+}
 </script>
 
 <h2>Administración de Obras</h2>
@@ -167,7 +190,11 @@
 |-/foreach-|
 </div>
 <div style="display:none"><div id="uploader">
-	<iframe src="Main.php?do=constructionsUploadInspectionPhoto&id=|-$inspection->getId()-|" style="width: 500px; height: 50px;">iframes not supported</iframe>
-	|-*|-include file="SWFUploadInclude.tpl" url="Main.php?do=constructionsDoUploadInspectionPhoto&id="|cat:$inspection->getId() preventInit=true-|*-|
+	|-include
+		file="SWFUploadInclude.tpl"
+		url="Main.php?do=constructionsDoUploadInspectionPhoto&id="|cat:$inspection->getId()
+		preventInit=true
+		uploadSuccessHandler="inspectionPhotoUploadSuccess"
+	-|
 </div></div>
 |-/if-|

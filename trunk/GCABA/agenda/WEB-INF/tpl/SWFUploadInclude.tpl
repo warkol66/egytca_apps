@@ -41,12 +41,12 @@
 			file_queued_handler : fileQueued,
 			file_queue_error_handler : fileQueueError,
 			file_dialog_complete_handler : fileDialogComplete,
-			upload_start_handler : uploadStart,
-			upload_progress_handler : uploadProgress,
-			upload_error_handler : uploadError,
-			upload_success_handler : uploadSuccess,
-			upload_complete_handler : uploadComplete,
-			queue_complete_handler : queueComplete	// Queue plugin event
+			upload_start_handler : |-$uploadStartHandler|default:'uploadStart'-|,
+			upload_progress_handler : |-$uploadProgressHandler|default:'uploadProgress'-|,
+			upload_error_handler : |-$uploadErrorHandler|default:'uploadError'-|,
+			upload_success_handler : |-$uploadSuccessHandler|default:'uploadSuccess'-|,
+			upload_complete_handler : |-$uploadCompleteHandler|default:'uploadComplete'-|,
+			queue_complete_handler : |-$queueCompleteHandler|default:'queueComplete'-|
 		};
 		
 		|-if !$preventInit-|

@@ -6,32 +6,48 @@ class ActorsDoUploadPhotoAction extends BaseAction {
 	
 	protected $smarty;
 	protected $mapping;
+	
+	private $actor;
 
 	function ActorsDoUploadPhotoAction() {
 		;
 	}
 	
 	function success() {
-		if ($this->isAjax()) {
-			$this->smarty->display('ActorsDoUploadPhotoX.tpl');
+		if (!empty($_POST['isSWFU'])) {
+			$this->smarty->assign('error', 0);
+			$this->smarty->assign('data', json_encode(array(
+				'actor' => $this->actor->toJSON()
+			)));
+			$this->smarty->display('EntityDoUploadResourceSWF.tpl');
 		} else {
-			return $this->mapping->findForwardConfig('success');
+			if ($this->isAjax()) {
+				$this->smarty->display('ActorsDoUploadPhotoX.tpl');
+			} else {
+				return $this->mapping->findForwardConfig('success');
+			}
 		}
 	}
 	
 	function failure($msg = '') {
-		if ($this->isAjax()) {
-			throw new Exception($msg);
+		if (!empty($_POST['isSWFU'])) {
+			$this->smarty->assign('error', 1);
+			$this->smarty->assign('message', $msg);
+			$this->smarty->display('EntityDoUploadResourceSWF.tpl');
 		} else {
-			if (!empty($msg))
-				$this->smarty->assign('message', $msg);
-			return $this->mapping->findForwardConfig('failure');
+			if ($this->isAjax()) {
+				throw new Exception($msg);
+			} else {
+				if (!empty($msg))
+					$this->smarty->assign('message', $msg);
+				return $this->mapping->findForwardConfig('failure');
+			}
 		}
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
 		
-		if ($_POST['isSWFU']) {
+		if (!empty($_POST['isSWFU'])) {
 			if (isset($_POST["PHPSESSID"])) {
 				session_id($_POST["PHPSESSID"]);
 				session_start();
@@ -65,11 +81,11 @@ class ActorsDoUploadPhotoAction extends BaseAction {
 		} elseif (empty($_REQUEST['id'])) {
 			return $this->failure('missing param: id');
 		} else {
-			$actor = ActorQuery::create()->findOneById($_REQUEST['id']);
-			if (is_null($actor))
+			$this->actor = ActorQuery::create()->findOneById($_REQUEST['id']);
+			if (is_null($this->actor))
 				return $this->failure('invalid id');
 			
-			$newFilename = $actor->getId().'.png';
+			$newFilename = $this->actor->getId().'.png';
 			
 			try {
 				$photosDir = ConfigModule::get('actors', 'photosDir');
@@ -85,12 +101,10 @@ class ActorsDoUploadPhotoAction extends BaseAction {
 				$newHeight = $config['thumbnailSize']['height'];
 				FileResampler::resampleTmp($_FILES['file'], $thumbnailsDir.'/'.$newFilename, $newWidth, $newHeight);
 			} catch (Exception $e) {
-				echo $e->getMessage();
-//				return $this->failure($e->getMessage());
+				return $this->failure($e->getMessage());
 			}
 			
-//			return $this->success();
-			return;
+			return $this->success();
 		}
 	}
 }

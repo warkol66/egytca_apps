@@ -6,32 +6,50 @@ class ConstructionsDoUploadInspectionPhotoAction extends BaseAction {
 	
 	protected $smarty;
 	protected $mapping;
+	
+	private $inspection;
+	private $photoName;
 
 	function ConstructionsDoUploadInspectionPhotoAction() {
 		;
 	}
 	
 	function success() {
-		if ($this->isAjax()) {
-			$this->smarty->display('ActorsDoUploadPhotoX.tpl');
+		if (!empty($_POST['isSWFU'])) {
+			$this->smarty->assign('error', 0);
+			$this->smarty->assign('data', json_encode(array(
+				'inspection' => $this->inspection->toJSON(),
+				'photo' => $this->photoName
+			)));
+			$this->smarty->display('EntityDoUploadResourceSWF.tpl');
 		} else {
-			return $this->mapping->findForwardConfig('success');
+			if ($this->isAjax()) {
+				$this->smarty->display('ConstructionsDoUploadInspectionPhotoX.tpl');
+			} else {
+				return $this->mapping->findForwardConfig('success');
+			}
 		}
 	}
 	
 	function failure($msg = '') {
-		if ($this->isAjax()) {
-			throw new Exception($msg);
+		if (!empty($_POST['isSWFU'])) {
+			$this->smarty->assign('error', 1);
+			$this->smarty->assign('message', $msg);
+			$this->smarty->display('EntityDoUploadResourceSWF.tpl');
 		} else {
-			if (!empty($msg))
-				$this->smarty->assign('message', $msg);
-			return $this->mapping->findForwardConfig('failure');
+			if ($this->isAjax()) {
+				throw new Exception($msg);
+			} else {
+				if (!empty($msg))
+					$this->smarty->assign('message', $msg);
+				return $this->mapping->findForwardConfig('failure');
+			}
 		}
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
 		
-		if ($_POST['isSWFU']) {
+		if (!empty($_POST['isSWFU'])) {
 			if (isset($_POST["PHPSESSID"])) {
 				session_id($_POST["PHPSESSID"]);
 				session_start();
@@ -65,23 +83,22 @@ class ConstructionsDoUploadInspectionPhotoAction extends BaseAction {
 		} elseif (empty($_REQUEST['id'])) {
 			return $this->failure('missing param: id');
 		} else {
-			$inspection = InspectionQuery::create()->findOneById($_REQUEST['id']);
-			if (is_null($inspection))
+			$this->inspection = InspectionQuery::create()->findOneById($_REQUEST['id']);
+			if (is_null($this->inspection))
 				return $this->failure('invalid id');
 			
 			$newFilename = uniqid().'.png';
 			
 			try {
-				$photosDir = ConfigModule::get('constructions', 'inspectionPhotosDir').'/'.$inspection->getId();
+				$photosDir = ConfigModule::get('constructions', 'inspectionPhotosDir').'/'.$this->inspection->getId();
 				Common::ensureWritable($photosDir);
 				FileResampler::resampleTmp($_FILES['file'], $photosDir.'/'.$newFilename);
+				$this->photoName = $photosDir.'/'.$newFilename;
 			} catch (Exception $e) {
-				echo $e->getMessage();
-//				return $this->failure($e->getMessage());
+				return $this->failure($e->getMessage());
 			}
 			
-//			return $this->success();
-			return;
+			return $this->success();
 		}
 	}
 }
