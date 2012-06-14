@@ -1,6 +1,6 @@
 <div id="showEvent">
 <fieldset>
-	<h1>Ver datos del evento</h1>
+	<!--<h1>Ver datos del evento</h1>
 		<p>
 			<label for="calendarEvent_title">Título</label>
 			<input name="calendarEvent[title]" type="text" id="calendarEvent_title" title="title" value="|-$event->getTitle()|escape:"double_quotes"-|" size="55" readonly="readonly" />
@@ -27,10 +27,12 @@
 			<label for="calendarEvent_scheduleStatus">Estado</label>
 			<input id="calendarEvent_scheduleStatus" type="text" name="calendarEvent[scheduleStatus]" title="Estado de fecha y hora" size="25" value="|-$scheduleStatuses[$event->getScheduleStatus()]-|" readonly="readonly">
 		</p>
+		-->
+		<p>|-if $event->getId() is odd-|<img src="images/fichaEvento.jpg" width="900" height="437">|-else-|<img src="images/fichaObra.jpg" width="800" height="566">|-/if-|</p>
 <p><br>
 <input type='button' id="cancelButton" onClick="$.fancybox.close();" value="Cerrar" />
-<input type='button' id="editButton" onClick="callEditEvent();" value="Editar" />
-<input type='button' id="deleteButton" onClick="callDeleteEvent();" value="Eliminar" /></p>
+|-if "calendarEventsDoEditX"|security_has_access-|<input type='button' id="editButton" onClick="callEditEvent();" value="Editar" />|-/if-|
+|-if "calendarEventsDoDelete"|security_has_access-|<input type='button' id="deleteButton" onClick="callDeleteEvent();" value="Eliminar" />|-/if-|</p>
 
 </fieldset>
 </div>
