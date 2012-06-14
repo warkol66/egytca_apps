@@ -45,10 +45,31 @@
 |-if !$actor->isNew()-|
 <a href="#" onclick="switch_vis('fotoUploader'); return false;">Foto</a>
 <div id="fotoUploader" style="display:none">
-	<iframe src="Main.php?do=actorsUploadPhoto&id=|-$actor->getId()-|" style="width: 500px; height: 50px; ">iframes not supported</iframe>
-	|-*|-include file="SWFUploadInclude.tpl" url="Main.php?do=actorsDoUploadPhoto&id="|cat:$actor->getId()-|*-|
+	|-include file="SWFUploadInclude.tpl" url="Main.php?do=actorsDoUploadPhoto&id="|cat:$actor->getId() uploadSuccessHandler='actorPhotoUploadSuccess'-|
 </div>
 |-/if-|
 |-if !$actor->isNew() && class_exists("ActorCategory")-|
 |-include file="ActorsEditCategoriesInclude.tpl"-|
 |-/if-|
+
+<script>
+	actorPhotoUploadSuccess = function (file, serverData) {
+	try {
+		var parsedData = JSON.parse(serverData);
+		var progress = new FileProgress(file, this.customSettings.progressTarget);
+		
+		if (parsedData.error == 1) {
+			progress.setError();
+			progress.setStatus(parsedData.message);
+		} else {
+			progress.setComplete();
+			progress.setStatus('Complete.');
+		}
+		
+		progress.toggleCancel(false);
+
+	} catch (ex) {
+		this.debug(ex);
+	}
+}
+</script>
