@@ -8,9 +8,11 @@ class PlanningImpactObjectivesEditAction extends BaseEditAction {
 		parent::__construct('ImpactObjective','Planning');
 	}
 	
-	protected function post() {
-		parent::post();
+	protected function postEdit() {
+		parent::postEdit();
 		$this->smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
 		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
+		$this->smarty->assign("policyGuidelines", ImpactObjective::getPolicyGuidelines());
+		$this->smarty->assign("expectedResults", ImpactObjective::getExpectedResults());
 	}
 }

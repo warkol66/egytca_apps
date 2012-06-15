@@ -15,4 +15,37 @@
  */
 class ImpactObjective extends BaseImpactObjective {
 
+	/**
+	 * Devuelve array con posibles ejes de gestion (PolicyGuidelines)
+	 *  id => ejes de gestion
+	 *
+	 * @return array ejes de gestion
+	 */
+	public static function getPolicyGuidelines() {
+		$agendas = array(
+			1 => 'Fortalecimiento de las políticas de promoción social, salud y educación',
+			2 => 'Seguridad',
+			3 => 'Movilidad sustentable'
+		);
+		return $agendas;
+	}
+	
+	/**
+	 * Devuelve array con posibles ejes de gestion (ExpectedResult)
+	 *  id => resultado esperado
+	 *
+	 * @return array resultados esperados
+	 */
+	public static function getExpectedResults() {
+		$agendas = array(
+			1 => 'Incremento',
+			2 => 'Descenso',
+			3 => 'Aceleración',
+			4 => 'Desaceleración'
+		);
+		return $agendas;
+	}
+
+	
+
 } // ImpactObjective
