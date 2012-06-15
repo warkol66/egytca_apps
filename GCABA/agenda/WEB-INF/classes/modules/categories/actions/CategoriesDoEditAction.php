@@ -22,23 +22,25 @@ class CategoriesDoEditAction extends BaseAction {
 		$smarty->assign("module",$module);
 		$smarty->assign("section",$section);
 
+		$params = $_POST['params'];
+		$id = $request->getParameter("id");
+
 		$categoryPeer = new CategoryPeer();
-		$categoryParams = $_POST['category'];
 
-		if ($_POST["action"] == "edit") {
+		if (!empty($id)) {
 
-			if ($categoryPeer->update($_POST['id'], $categoryParams))
+			if ($categoryPeer->update($id, $params))
 				$myRedirectConfig = $mapping->findForwardConfig('success');
 			else
 				$myRedirectConfig = $mapping->findForwardConfig('failure');
 
 			$myRedirectPath = $myRedirectConfig->getpath();
-			$myRedirectPath .= '&filters[searchModule]=' . $categoryParams['module'];
+			$myRedirectPath .= '&filters[searchModule]=' . $params['module'];
 			$fc = new ForwardConfig($myRedirectPath, True);
 			return $fc;
 		}
 		else {
-			$categoryId = $categoryPeer->create($categoryParams);
+			$categoryId = $categoryPeer->create($params);
 			return $mapping->findForwardConfig('success');
 		}
 

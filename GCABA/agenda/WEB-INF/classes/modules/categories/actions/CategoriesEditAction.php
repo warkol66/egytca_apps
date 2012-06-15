@@ -8,7 +8,7 @@ class CategoriesEditAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
@@ -18,31 +18,34 @@ class CategoriesEditAction extends BaseAction {
 
 		$module = "Categories";
 		$section = "Configure";
-		
-    $smarty->assign("module",$module);
-    $smarty->assign("section",$section);
 
-    $category = CategoryPeer::get($_GET["id"]);
+		$smarty->assign("module",$module);
+		$smarty->assign("section",$section);
 
-    if (!empty($category)) {
+		$id = $request->getParameter("id");
+
+		if (!empty($id))
+			$category = BaseQuery::create('Category')->findOneById($id);
+
+		if (!empty($category)) {
 			$user = Common::getLoggedUser();
 
 			$parentCategories = CategoryPeer::getAllParentsByUserAndModule($user,$category->getModule());
 			$smarty->assign("parentUserCategories",$parentCategories);
 
 			//categorias para select de categorias padre
-			$categories = $user->getCategoriesByModule($category->getModule());
+			if (!empty($user))
+				$categories = $user->getCategoriesByModule($category->getModule());
 			$smarty->assign("categories",$categories);
-	    $smarty->assign("action","edit");
+			$smarty->assign("action","edit");
 		}
 		else {
-	    $category = new Category();											
+			$category = new Category();
 			$smarty->assign("action","create");
 		}
 
-		$modules = ModulePeer::getAll();
-		$smarty->assign("modules",$modules);
-		$smarty->assign("category",$category);
+		$smarty->assign("modules", BaseQuery::create('Module')->find());
+		$smarty->assign("category", $category);
 
 		return $mapping->findForwardConfig('success');
 	}
