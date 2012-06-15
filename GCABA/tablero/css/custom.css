@@ -11,6 +11,7 @@ body {
 #loginWrapper {
 	width: 100%;
 	text-align: center !Important;
+	padding-top: 60px;
 }
 #login {
 	width: 330px;
