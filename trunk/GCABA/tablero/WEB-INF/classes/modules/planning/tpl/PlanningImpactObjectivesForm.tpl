@@ -11,17 +11,49 @@
      <legend>Ingrese los datos del Objetivo de Impacto</legend>
       <p>
         <label for="params_name">Nombre</label>
-      <input name="params[name]" type="text" id="params_name" size="80" value="|-$impactObjective->getName()-|" title="Nombre del Objetivo de Impacto" maxlength="255" /> 
+      <input name="params[name]" type="text" id="params_name" size="80" value="|-$impactObjective->getName()-|" title="Nombre del Objetivo de Impacto" maxlength="255" |-js_char_counter assign="js_counter" object=$impactObjective columnName="name" fieldName="params[name]" idRemaining="remaining" sizeRemaining="3" classRemaining="charCount" counterTitle="Cantidad de caracteres restantes" showHide="1" useSpan="0"-||-$Counter.pre-| /> |-$Counter.pos-| 
       </p>
     <p> 
-      <label for="params_description">Descripción</label>
-      <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Objetivo de Impacto" >|-$impactObjective->getDescription()|escape-|</textarea> 
+      <label for="params_description">Resumen narrativo </label>
+      <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Resumen narrativo" >|-$impactObjective->getDescription()|escape-|</textarea> 
+    </p> 
+		<p>
+			<label for="params_policyGuideline">Correspondencia con ejes de gestión</label>
+			<select id="params_policyGuideline" name="params[policyGuideline]" title="Correspondencia con ejes de gestión">
+				<option value="">Seleccione el Eje de gestión</option>
+				|-foreach from=$policyGuidelines key=key item=name-|
+							<option value="|-$key-|" |-$impactObjective->getPolicyGuideline()|selected:$key-|>|-$name-|</option>
+				|-/foreach-|
+			</select>
+		</p>
+    <p> 
+      <label for="params_indicators">Indicadores</label>
+      <input name="params[indicators]" type="text" id="params_indicators" title="Indicadores" value="TO DO" size="7"> 
     </p> 
       <p>
-        <label for="params_contextualFactors">Factores contextuales</label>
-      <input name="params[contextualFactors]" type="text" id="params_contextualFactors" size="80" value="|-$impactObjective->getContextualFactors()-|" title="Nombre del Objetivo de Impacto" maxlength="255" /> 
+        <label for="params_baseline">Línea de base</label>
+      <input name="params[baseline]" type="text" id="params_name" size="15" value="|-$impactObjective->getName()-|" title="Nombre del Objetivo de Impacto" maxlength="10" class="emptyValidation" /> 
       </p>
-    <p>|-if !$impactObjective->isNew()-|
+		<p>
+			<label for="params_expectedResult">Resultado esperado</label>
+			<select id="params_expectedResult" name="params[expectedResult]" title="Resultado esperado">
+				<option value="">Seleccione el resultado esperado</option>
+				|-foreach from=$expectedResults key=key item=name-|
+							<option value="|-$key-|" |-$impactObjective->getExpectedResult()|selected:$key-|>|-$name-|</option>
+				|-/foreach-|
+			</select>
+		</p>
+      <p>
+        <label for="params_contextualFactors">Factores contextuales</label>
+        <textarea name="params[contextualFactors]" cols="80" rows="3" wrap="VIRTUAL" id="params_contextualFactors" title="Factores contextuales">|-$impactObjective->getContextualFactors()-|</textarea> 
+      </p>
+      <p>
+        <label for="params_contextualFactorsEvolution">Evolucion de Factores contextuales</label>
+        <textarea name="params[contextualFactorsEvolution]" cols="80" rows="5" wrap="VIRTUAL" id="params_contextualFactorsEvolution" title="Evolucion de Factores contextuales">|-$impactObjective->getContextualFactorsEvolution()-|</textarea> 
+      </p>
+			<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
+    <p>
+		|-if !$impactObjective->isNew()-|
     <input type="hidden" name="id" id="id" value="|-$impactObjective->getId()-|" /> 
     |-/if-|
 		|-include file="FiltersRedirectInclude.tpl" filters=$filters-|

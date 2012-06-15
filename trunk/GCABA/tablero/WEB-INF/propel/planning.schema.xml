@@ -37,10 +37,14 @@
 		<column name="id" primaryKey="true" type="INTEGER" description="Id del objetivo" autoIncrement="true" />
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del objetivo" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del objetivo"/>
+		<column name="policyGuideline" type="INTEGER" description="Eje de gestion" />
+		<column name="baseline" type="INTEGER" description="Linea de base" />
+		<column name="expectedResult" type="INTEGER" description="Resultados esperados" />
+		<column name="contextualFactors" type="VARCHAR" size="255" description="Factores contextuales" />
+		<column name="contextualFactorsEvolution" type="LONGVARCHAR" description="Evolucion de Factores contextuales" />
+		<column name="version" type="INTEGER" description="Numero de version" />
 		<column name="startingYear" type="INTEGER" description="A#o de inicio" />
 		<column name="endingYear" type="INTEGER" description="A#o de finalizacion" />
-		<column name="contextualFactors" type="VARCHAR" size="255" description="Factores contextuales" />
-		<column name="version" type="INTEGER" description="Numero de version" />
 	  <column name="userObjectType" type="VARCHAR" size="100" description="tipo de objeto usuario realizo la accion"/>
 	  <column name="userObjectId" type="INTEGER" description="id de objeto usuario realizo la accion"/>
 
@@ -56,6 +60,26 @@
 		</vendor>
 
 	</table>
+
+	<table name="planning_impactObjectiveIndicator" phpName="ImpactObjectiveIndicator" description="Indicadores de Objetivos de Impacto" >
+
+		<column name="impactObjectiveId" required="true" primaryKey="true" type="INTEGER"  description="Objetivo de Impacto ID"/>
+		<column name="indicatorId" required="true" primaryKey="true" type="INTEGER"  description="Indicador ID"/>
+
+		<foreign-key foreignTable="planning_impactObjective">
+			 <reference local="impactObjectiveId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="indicators_indicator">
+			 <reference local="indicatorId" foreign="id"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+ </table>
 
 
 	<table name="planning_ministryObjective" phpName="MinistryObjective" description="Objetivos ministeriales">
@@ -89,6 +113,26 @@
 		</vendor>
 
 	</table>
+
+	<table name="planning_impactMinistryIndicator" phpName="MinistryObjectiveIndicator" description="Indicadores de Objetivos Ministeriales" >
+
+		<column name="ministryObjectiveId" required="true" primaryKey="true" type="INTEGER"  description="Objetivo Ministerial ID"/>
+		<column name="indicatorId" required="true" primaryKey="true" type="INTEGER"  description="Indicador ID"/>
+
+		<foreign-key foreignTable="planning_ministryObjective">
+			 <reference local="ministryObjectiveId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="indicators_indicator">
+			 <reference local="indicatorId" foreign="id"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+ </table>
 
 	<table name="planning_operativeObjective" phpName="OperativeObjective" description="Objetivos operativos">
 		<column name="id" primaryKey="true" type="INTEGER" description="Id del objetivo" autoIncrement="true" />
@@ -131,10 +175,14 @@ Seccion de tablas de log
 		<column name="impactObjectiveId" type="INTEGER" description="Id del objetivo de Impacto"/>
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del objetivo" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del objetivo"/>
+		<column name="policyGuideline" type="INTEGER" description="Eje de gestion" />
+		<column name="baseline" type="INTEGER" description="Linea de base" />
+		<column name="expectedResult" type="INTEGER" description="Resultados esperados" />
+		<column name="contextualFactors" type="VARCHAR" size="255" description="Factores contextuales" />
+		<column name="contextualFactorsEvolution" type="LONGVARCHAR" description="Evolucion de Factores contextuales" />
+		<column name="version" type="INTEGER" description="Numero de version" />
 		<column name="startingYear" type="INTEGER" description="A#o de inicio" />
 		<column name="endingYear" type="INTEGER" description="A#o de finalizacion" />
-		<column name="contextualFactors" type="VARCHAR" size="255" description="Factores contextuales" />
-		<column name="version" type="INTEGER" description="Numero de version" />
 	  <column name="userObjectType" type="VARCHAR" size="100" description="tipo de objeto usuario realizo la accion"/>
 	  <column name="userObjectId" type="INTEGER" description="id de objeto usuario realizo la accion"/>
 
