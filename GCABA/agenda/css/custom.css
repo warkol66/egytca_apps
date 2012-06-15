@@ -18,10 +18,10 @@ body {
 	margin-right: auto !Important;
 }
 #loginTop {
-	background-image:url(../images/mdp.jpg);
-	background-position: top center;
+	background-image:url(../images/loginTop.png);
+	background-position: center;
 	background-repeat:no-repeat;
-	background-color: #C5C5C5;
+	background-color: #fdd406;
 	height: 120px;
 }
 #loginContent, #passRecovery {
@@ -62,8 +62,8 @@ body {
 }
 #loginContentWrapper {
 	background-color: #FFFFFF;
-	border-left: solid 5px #0066cc;
-	border-right: solid 5px #0066cc;
+	border-left: solid 5px #fdd406;
+	border-right: solid 5px #fdd406;
 }
 /*  /LOGIN  -----------------------------------------------*/
 
@@ -135,14 +135,14 @@ body {
 #footer p{
 	color: #ffffff;
 }
-.rounded .r1, .rounded .r2, .rounded .r3, .rounded .r4, .rounded .r5, .rounded .r6, .rounded .r7 { border-color: #0066cc; }
-.rounded .r3, .rounded .r4, .rounded .r5, .rounded .r6, .rounded .r7 { background-color: #0066cc; }
+.rounded .r1, .rounded .r2, .rounded .r3, .rounded .r4, .rounded .r5, .rounded .r6, .rounded .r7 { border-color: #fdd406; }
+.rounded .r3, .rounded .r4, .rounded .r5, .rounded .r6, .rounded .r7 { background-color: #fdd406; }
 .rounded .r1, .rounded .r2 { background-color: #FFFFFF;  /* Mismo color de fondo del header*/ }
 #loginTopBorder .rounded .r1, #loginTopBorder .rounded .r2 {
 	background-image:url(../images/mdp.jpg);
 	background-position: top center;
 	background-repeat:no-repeat;
-	background-color: #C5C5C5;  /* Mismo color de fondo #loginTop */
+	background-color: #fdd406;  /* Mismo color de fondo #loginTop */
 }
 #wrapper .rounded {display: none}
 /* /wrapper -----------------------------------------------------------*/
