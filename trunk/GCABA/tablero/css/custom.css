@@ -18,10 +18,10 @@ body {
 	margin-right: auto !Important;
 }
 #loginTop {
-	background-image:url(../images/mdp.jpg);
-	background-position: top center;
-	background-repeat:no-repeat;
-	background-color: #C5C5C5;
+	background-image:url(../images/loginTop.png);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: #fcd407;
 	height: 120px;
 }
 #loginContent, #passRecovery {
@@ -153,7 +153,7 @@ body {
 	background-image:url(../images/mdp.jpg);
 	background-position: top center;
 	background-repeat:no-repeat;
-	background-color: #C5C5C5;  /* Mismo color de fondo #loginTop */
+	background-color: #fcd407;  /* Mismo color de fondo #loginTop */
 }
 #wrapper .rounded {display: none}
 /* /wrapper -----------------------------------------------------------*/
