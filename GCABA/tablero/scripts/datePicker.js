@@ -21,8 +21,8 @@ var datePickerDivID = "datepicker";
 var iFrameDivID = "datepickeriframe";
 
 var dayArrayShort = new Array('D', 'L', 'M', 'M', 'J', 'V', 'S');
-var dayArrayMed = new Array('Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb');
-var dayArrayLong = new Array('Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado');
+var dayArrayMed = new Array('Dom', 'Lun', 'Mar', 'MiÃ©', 'Jue', 'Vie', 'SÃ¡b');
+var dayArrayLong = new Array('Domingo', 'Lunes', 'Martes', 'MiÃ©rcoles', 'Jueves', 'Viernes', 'SÃ¡bado');
 var monthArrayShort = new Array('En', 'Fe', 'Mr', 'Ab', 'My', 'Jn', 'Jl', 'Ag', 'Se', 'Oc', 'No', 'Di');
 var monthArrayMed = new Array('Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic');
 var monthArrayLong = new Array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre');
@@ -66,7 +66,7 @@ This would display the datepicker beneath the StartDate field (because the
 displayBelowThisObject parameter was false), and update the StartDate field with
 the chosen value of the datepicker using a date format of dd.mm.yyyy
 */
-function displayDatePicker(dateFieldName, displayBelowThisObject, dtFormat, dtSep)
+function displayDatePicker(dateFieldName, displayBelowThisObject, dtFormat, dtSep, positionValue)
 {
   var targetDateField = document.getElementsByName (dateFieldName).item(0);
  
@@ -98,7 +98,7 @@ function displayDatePicker(dateFieldName, displayBelowThisObject, dtFormat, dtSe
     y += parent.offsetTop ;
   }
  
-  drawDatePicker(targetDateField, x, y);
+  drawDatePicker(targetDateField, x, y, positionValue);
 }
 
 
@@ -109,7 +109,7 @@ that will ultimately be populated with a date.
 
 This function will normally be called by the displayDatePicker function.
 */
-function drawDatePicker(targetDateField, x, y)
+function drawDatePicker(targetDateField, x, y, positionValue)
 {
   var dt = getFieldDate(targetDateField.value );
  
@@ -129,7 +129,10 @@ function drawDatePicker(targetDateField, x, y)
  
   // move the datepicker div to the proper x,y coordinate and toggle the visiblity
   var pickerDiv = document.getElementById(datePickerDivID);
-  pickerDiv.style.position = "absolute";
+	if (positionValue != null)
+	  pickerDiv.style.position = positionValue;
+	 else
+	  pickerDiv.style.position = "absolute";
   pickerDiv.style.left = x + "px";
   pickerDiv.style.top = y + "px";
   pickerDiv.style.visibility = (pickerDiv.style.visibility == "visible" ? "hidden" : "visible");
