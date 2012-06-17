@@ -24,7 +24,7 @@ function smarty_function_validation_msg_box($params, &$smarty)
 {
     
 	$idField = $params['idField'];
-	$output = "<span id='". $idField ."_box'></span>";
+	$output = "<span class='validation_msg_box' id='". $idField ."_box'></span>";
 	
 	return $output;
 
