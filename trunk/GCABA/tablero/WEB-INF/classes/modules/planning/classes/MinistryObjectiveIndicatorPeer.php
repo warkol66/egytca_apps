@@ -3,7 +3,7 @@
 
 
 /**
- * Skeleton subclass for performing query and update operations on the 'planning_impactMinistryIndicator' table.
+ * Skeleton subclass for performing query and update operations on the 'planning_ministryObjectiveIndicator' table.
  *
  * Indicadores de Objetivos Ministeriales
  *

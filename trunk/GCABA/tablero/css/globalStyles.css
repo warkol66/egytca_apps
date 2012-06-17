@@ -707,3 +707,9 @@ a.return, a.report, a.importHeadlines {
 .inlineTable, a.inlineTable {
 	display: inline-table !Important;
 }
+
+.validation_msg_box {
+	display: block;
+	padding-top: 0.30em;
+	margin-left: 150px;
+}

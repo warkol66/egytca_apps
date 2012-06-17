@@ -11,11 +11,11 @@
      <legend>Ingrese los datos del Objetivo de Impacto</legend>
       <p>
         <label for="params_name">Nombre</label>
-      <input name="params[name]" type="text" id="params_name" size="80" value="|-$impactObjective->getName()-|" title="Nombre del Objetivo de Impacto" maxlength="255" |-js_char_counter assign="js_counter" object=$impactObjective columnName="name" fieldName="params[name]" idRemaining="remaining" sizeRemaining="3" classRemaining="charCount" counterTitle="Cantidad de caracteres restantes" showHide="1" useSpan="0"-||-$Counter.pre-| /> |-$Counter.pos-| 
+      <input name="params[name]" type="text" id="params_name" size="80" value="|-$impactObjective->getName()-|" title="Nombre del Objetivo de Impacto" maxlength="255" class="emptyValidation" |-js_char_counter assign="js_counter" object=$impactObjective columnName="name" fieldName="params[name]" idRemaining="remaining" sizeRemaining="3" classRemaining="charCount" counterTitle="Cantidad de caracteres restantes" showHide="1" useSpan="0"-||-$Counter.pre-| /> |-$Counter.pos-| |-validation_msg_box idField="params_name"-|
       </p>
     <p> 
       <label for="params_description">Resumen narrativo </label>
-      <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Resumen narrativo" >|-$impactObjective->getDescription()|escape-|</textarea> 
+      <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Resumen narrativo" >|-$impactObjective->getDescription()|escape-|</textarea>  |-validation_msg_box idField="params_description"-|
     </p> 
 		<p>
 			<label for="params_policyGuideline">Correspondencia con ejes de gestión</label>
@@ -32,7 +32,7 @@
     </p> 
       <p>
         <label for="params_baseline">Línea de base</label>
-      <input name="params[baseline]" type="text" id="params_name" size="15" value="|-$impactObjective->getName()-|" title="Nombre del Objetivo de Impacto" maxlength="10" class="emptyValidation" /> 
+      <input name="params[baseline]" type="text" id="params_name" size="15" value="|-$impactObjective->getName()-|" title="Nombre del Objetivo de Impacto" maxlength="10" class="emptyValidation" /> |-validation_msg_box idField="params_baseline"-|
       </p>
 		<p>
 			<label for="params_expectedResult">Resultado esperado</label>
@@ -45,14 +45,14 @@
 		</p>
       <p>
         <label for="params_contextualFactors">Factores contextuales</label>
-        <textarea name="params[contextualFactors]" cols="80" rows="3" wrap="VIRTUAL" id="params_contextualFactors" title="Factores contextuales">|-$impactObjective->getContextualFactors()-|</textarea> 
+        <textarea name="params[contextualFactors]" cols="80" rows="3" wrap="VIRTUAL" id="params_contextualFactors" title="Factores contextuales">|-$impactObjective->getContextualFactors()-|</textarea> |-validation_msg_box idField="params_contextualFactors"-|
       </p>
       <p>
         <label for="params_contextualFactorsEvolution">Evolucion de Factores contextuales</label>
-        <textarea name="params[contextualFactorsEvolution]" cols="80" rows="5" wrap="VIRTUAL" id="params_contextualFactorsEvolution" title="Evolucion de Factores contextuales">|-$impactObjective->getContextualFactorsEvolution()-|</textarea> 
+        <textarea name="params[contextualFactorsEvolution]" cols="80" rows="5" wrap="VIRTUAL" id="params_contextualFactorsEvolution" title="Evolucion de Factores contextuales">|-$impactObjective->getContextualFactorsEvolution()-|</textarea> |-validation_msg_box idField="params_contextualFactorsEvolution"-|
       </p>
 			<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
-    <p>
+    
 		|-if !$impactObjective->isNew()-|
     <input type="hidden" name="id" id="id" value="|-$impactObjective->getId()-|" /> 
     |-/if-|
@@ -61,7 +61,7 @@
     <input type="hidden" name="params[endingYear]" id="params_endingYear" value="|-$endingYear-|" /> 
     <input type="hidden" name="currentPage" id="currentPage" value="|-$currentPage-|" /> 
     <input type="hidden" name="do" id="do" value="planningImpactObjectivesDoEdit" /> 
-		|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
+		<p>|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
 	<input type='button' onClick='location.href="Main.php?do=planningImpactObjectivesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Objetivos de Impacto"/>
 		</p>
     </fieldset> 

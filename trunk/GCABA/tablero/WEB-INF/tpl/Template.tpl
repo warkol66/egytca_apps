@@ -12,7 +12,9 @@
 <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
 <link rel="stylesheet" href="css/ECOTree.css" type="text/css" />
 <link rel="shortcut icon" href="images/favicon.ico">
-|-include file='TemplateJsIncludes.tpl'-|
+|-block name=jsIncludes-|
+	|-include file='TemplateJsIncludes.tpl'-|
+|-/block-|
 </head>
 <body><!--onLoad="runLoad()"-->
 <!-- Begin Wrapper -->

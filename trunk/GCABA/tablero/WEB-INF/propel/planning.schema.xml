@@ -42,11 +42,16 @@
 		<column name="expectedResult" type="INTEGER" description="Resultados esperados" />
 		<column name="contextualFactors" type="VARCHAR" size="255" description="Factores contextuales" />
 		<column name="contextualFactorsEvolution" type="LONGVARCHAR" description="Evolucion de Factores contextuales" />
+		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
 		<column name="version" type="INTEGER" description="Numero de version" />
 		<column name="startingYear" type="INTEGER" description="A#o de inicio" />
 		<column name="endingYear" type="INTEGER" description="A#o de finalizacion" />
 	  <column name="userObjectType" type="VARCHAR" size="100" description="tipo de objeto usuario realizo la accion"/>
 	  <column name="userObjectId" type="INTEGER" description="id de objeto usuario realizo la accion"/>
+
+		<foreign-key foreignTable="positions_position" >
+			<reference local="responsibleCode" foreign="code" />
+		</foreign-key>
 
   	<behavior name="timestampable" />
 
@@ -86,17 +91,28 @@
 		<column name="id" primaryKey="true" type="INTEGER" description="Id del objetivo" autoIncrement="true" />
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del objetivo" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del objetivo"/>
-		<column name="userId" type="INTEGER" description="User Id " />
+		<column name="baseline" type="INTEGER" description="Linea de base" />
 		<column name="startingYear" type="INTEGER" description="A#o de inicio" />
 		<column name="endingYear" type="INTEGER" description="A#o de finalizacion" />
+		<column name="goalType" type="INTEGER" description="Tipo de meta" />
+		<column name="goalQuantity" type="INTEGER" description="Cantidad" />
+		<column name="goalMeasureUnit" type="VARCHAR" size="25" description="Unidad de medida de la meta" />
+		<column name="goalTrend" type="INTEGER" description="Tendencia de la meta" />
+
 		<column name="objectivePopulationAge" type="INTEGER" description="Id de edad de poblacion objetivo" />
 		<column name="objectivePopulationGender" type="INTEGER" description="Id de genero de poblacion objetivo" />
 		<column name="objectivePopulationGroup" type="INTEGER" description="Id de grupo de poblacion objetivo" />
-		<column name="version" type="INTEGER" description="Numero de version" />
 
-		<foreign-key foreignTable="users_user" >
-			<reference local="userId" foreign="id" />
+		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
+		<column name="version" type="INTEGER" description="Numero de version" />
+	  <column name="userObjectType" type="VARCHAR" size="100" description="tipo de objeto usuario realizo la accion"/>
+	  <column name="userObjectId" type="INTEGER" description="id de objeto usuario realizo la accion"/>
+
+		<foreign-key foreignTable="positions_position" >
+			<reference local="responsibleCode" foreign="code" />
 		</foreign-key>
+
+  	<behavior name="timestampable" />
 
 		<behavior name="versionable">
 	    <parameter name="version_column" value="version" />
@@ -114,9 +130,9 @@
 
 	</table>
 
-	<table name="planning_impactMinistryIndicator" phpName="MinistryObjectiveIndicator" description="Indicadores de Objetivos Ministeriales" >
+	<table name="planning_ministryObjectiveIndicator" phpName="MinistryObjectiveIndicator" description="Indicadores de Objetivos Ministeriales" >
 
-		<column name="ministryObjectiveId" required="true" primaryKey="true" type="INTEGER"  description="Objetivo Ministerial ID"/>
+		<column name="ministryObjectiveId" required="true" primaryKey="true" type="INTEGER"  description="Objetivo de Impacto ID"/>
 		<column name="indicatorId" required="true" primaryKey="true" type="INTEGER"  description="Indicador ID"/>
 
 		<foreign-key foreignTable="planning_ministryObjective">
@@ -133,6 +149,25 @@
 		</vendor>
 
  </table>
+
+	<table name="planning_ministryObjectiveRegion" phpName="MinistryObjectiveRegion" isCrossRef="true" description="Asociacion entre Regiones y Objetivos">
+		<column name="regionId" required="true" primaryKey="true" type="INTEGER" />
+		<column name="ministryObjectiveId" required="true" primaryKey="true" type="INTEGER" />
+
+		<foreign-key foreignTable="regions_region" >
+			<reference local="regionId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="planning_ministryObjective" >
+			<reference local="ministryObjectiveId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
 
 	<table name="planning_operativeObjective" phpName="OperativeObjective" description="Objetivos operativos">
 		<column name="id" primaryKey="true" type="INTEGER" description="Id del objetivo" autoIncrement="true" />
@@ -180,11 +215,16 @@ Seccion de tablas de log
 		<column name="expectedResult" type="INTEGER" description="Resultados esperados" />
 		<column name="contextualFactors" type="VARCHAR" size="255" description="Factores contextuales" />
 		<column name="contextualFactorsEvolution" type="LONGVARCHAR" description="Evolucion de Factores contextuales" />
+		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
 		<column name="version" type="INTEGER" description="Numero de version" />
 		<column name="startingYear" type="INTEGER" description="A#o de inicio" />
 		<column name="endingYear" type="INTEGER" description="A#o de finalizacion" />
 	  <column name="userObjectType" type="VARCHAR" size="100" description="tipo de objeto usuario realizo la accion"/>
 	  <column name="userObjectId" type="INTEGER" description="id de objeto usuario realizo la accion"/>
+
+		<foreign-key foreignTable="positions_position" >
+			<reference local="responsibleCode" foreign="code" />
+		</foreign-key>
 
   	<behavior name="timestampable" />
 

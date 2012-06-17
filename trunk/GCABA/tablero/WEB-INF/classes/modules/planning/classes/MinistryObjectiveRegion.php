@@ -3,9 +3,9 @@
 
 
 /**
- * Skeleton subclass for representing a row from the 'planning_ministryObjectiveIndicator' table.
+ * Skeleton subclass for representing a row from the 'planning_ministryObjectiveRegion' table.
  *
- * Indicadores de Objetivos Ministeriales
+ * Asociacion entre Regiones y Objetivos
  *
  * You should add additional methods to this class to meet the
  * application requirements.  This class will only be generated as
@@ -13,6 +13,6 @@
  *
  * @package    propel.generator.planning.classes
  */
-class MinistryObjectiveIndicator extends BaseMinistryObjectiveIndicator {
+class MinistryObjectiveRegion extends BaseMinistryObjectiveRegion {
 
-} // MinistryObjectiveIndicator
+} // MinistryObjectiveRegion

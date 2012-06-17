@@ -728,3 +728,8 @@ a.report:hover,
 a.importHeadlines:hover{
 	text-decoration: underline !Important;
 }
+
+.validation_msg_box {
+	font-style: italic;
+	color: #ff0000;
+}

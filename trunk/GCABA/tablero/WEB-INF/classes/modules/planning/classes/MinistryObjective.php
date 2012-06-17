@@ -15,4 +15,15 @@
  */
 class MinistryObjective extends BaseMinistryObjective {
 
+	/**
+	 * Devuelve true si el MinistryObjective tiene asociada la region,
+	 * y false caso contrario.
+	 * 
+	 * @param Region $region
+	 * @return boolean
+	 */
+	public function hasRegion($region) {
+		return MinistryObjectiveRegionQuery::create()->filterByMinistryObjective($this)->filterByRegion($region)->count() > 0;
+	}
+
 } // MinistryObjective
