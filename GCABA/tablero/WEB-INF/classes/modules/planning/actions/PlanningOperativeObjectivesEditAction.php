@@ -8,8 +8,8 @@ class PlanningOperativeObjectivesEditAction extends BaseEditAction {
 		parent::__construct('OperativeObjective','Planning');
 	}
 	
-	protected function post() {
-		parent::post();
+	protected function postEdit() {
+		parent::postEdit();
 		$this->smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
 		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
 	}
