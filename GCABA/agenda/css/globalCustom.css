@@ -522,7 +522,7 @@ div.autocomplete ul b {
 	border: 1px solid #007D62;
 	text-align: center;
 }
-.errorMessage {
+.errorMessage, .failureMessage {
 	color: #B22222;
 	font-weight: bold;
 	padding: 8px;
