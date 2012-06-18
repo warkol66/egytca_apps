@@ -22,9 +22,9 @@
 					<input type="hidden" name="id" value="|-$department->getid()-|" />
 					<input type="submit" id="department_edit_|-$department->getId()-|" name="submit_go_edit_vialidad_department" value="Editar" title="Editar" class="icon iconEdit" />
 				|-/if-|
-				|-if "vialidadSourcesDoDelete"|security_has_access-|
+				|-if "vialidadDepartmentsDoDelete"|security_has_access-|
 				<form action="Main.php" method="post" style="display:inline;">
-					<input type="hidden" name="do" value="vialidadSourcesDoDelete" />
+					<input type="hidden" name="do" value="vialidadDepartmentsDoDelete" />
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 					|-if isset($pager) && ($pager->getPage() gt 1)-|
 					<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />

@@ -56,7 +56,7 @@
 			<input name="params[length]" type="text" value="|-$construction->getLength()|escape-|" size="6"> Kms.
 		 </p>
 			<p>     
-				<label for="params[startDate]">Fecha de inicio</label>
+				<label for="params[startDate]">Orden de Inicio</label>
 				<input id="params[startDate]" name="params[startDate]" type='text' value='|-$construction->getStartDate()|date_format-|' size="12" title="Ingrese la fecha de inicio" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 		 |-if $returnContractId neq ""-|

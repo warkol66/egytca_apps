@@ -24,11 +24,11 @@
 			<input type="hidden" value="|-$action-|" name="action">
 			<input type="hidden" value="|-$contract->getId()-|" name="id">
 		 <p><label for="params[name]">Nombre</label>
-			<input name="params[name]" type="text" value="|-$contract->getName()|escape-|" size="60">
+			<input name="params[name]" type="text" value="|-$contract->getName()|escape-|" size="60" title="Nombre del contrato">
 		 </p>
 		 <p>
-		   <label for="params[code]">Número</label>
-				<input name="params[code]" type="text" value="|-$contract->getCode()|escape-|" size="15"> 
+		   <label for="params[code]">Nro MEU</label>
+				<input name="params[code]" type="text" value="|-$contract->getCode()|escape-|" size="15" title="Nro MEU"> 
 		</p>
 			<div id="contractor" style="position: relative;z-index:11000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_contractorId" label="Contratista" url="Main.php?do=affiliatesAutocompleteListX" hiddenName="params[contractorId]" defaultHiddenValue=$contract->getContractorId() defaultValue=$contract->getAffiliate()-|
