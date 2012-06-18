@@ -72,5 +72,25 @@
 		</vendor>
 
 	</table>
+	
+	<table name="constructions_inspectionPhoto" phpName="InspectionPhoto" description="Relacion de inspecciones y fotos" isCrossRef="true">
+
+		<column name="inspectionId" required="true" primaryKey="true" type="INTEGER" description="Inspection ID"/>
+		<column name="photoId" required="true" primaryKey="true" type="INTEGER" description="Photo ID"/>
+
+		<foreign-key foreignTable="constructions_inspection" onDelete="CASCADE" >
+			<reference local="inspectionId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="resources_resource" onDelete="CASCADE" >
+			<reference local="photoId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
 
 </database>

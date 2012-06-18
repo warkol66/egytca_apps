@@ -14,25 +14,6 @@
  * @package    propel.generator.constructions.classes
  */
 class Inspection extends BaseInspection {
-	
-	function getPhotos() {
-		
-		if (is_null($this->getId()))
-			return array();
-		
-		$photos = array();
-		$photosRootDir = ConfigModule::get('constructions', 'inspectionPhotosDir');
-		$thisPhotosDir = $photosRootDir.'/'.$this->getId();
-		if (is_dir($photosRootDir) && is_dir($thisPhotosDir)) {
-			$dir_handle = opendir($thisPhotosDir);
-			while (($file = readdir($dir_handle)) !== false) {
-				if (!is_dir($file))
-					$photos[] = $thisPhotosDir.'/'.$file;
-			}
-			closedir($dir_handle);
-		}
-		return $photos;
-	}
 
 	/**
 	 * Devuelve array con estados (statuses) de una obra

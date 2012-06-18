@@ -186,13 +186,17 @@
 |-if !$inspection->isNew()-|
 <div id="photos" style="display:none">
 |-foreach $photos as $photo-|
-	<a class="galleryPhoto" rel="gallery1" href="|-$photo-|"><img src="|-$photo-|" alt=""/></a>
+	<a class="galleryPhoto" rel="gallery1" href="#divPhoto|-$photo@key-|"></a>
+	<div id="divPhoto|-$photo@key-|">
+		<p>|-$photo->getDescription()|default:'soy un texto de prueba, borrame! (foto '|cat:|-$photo@key-||cat:')'-|</p>
+		<img src="|-$photo->getPath()-|" alt=""/>
+	</div>
 |-/foreach-|
 </div>
 <div style="display:none"><div id="uploader">
 	|-include
 		file="SWFUploadInclude.tpl"
-		url="Main.php?do=constructionsDoUploadInspectionPhoto&id="|cat:$inspection->getId()
+		url="Main.php?do=constructionsDoUploadInspectionPhoto&inspectionId="|cat:$inspection->getId()
 		preventInit=true
 		uploadSuccessHandler="inspectionPhotoUploadSuccess"
 	-|
