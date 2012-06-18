@@ -40,7 +40,7 @@ class ConstructionsInspectionsEditAction extends BaseAction {
 		else
 			$smarty->assign("constructions", ConstructionQuery::create()->find());
 		
-		$smarty->assign('photos', $inspection->getPhotos());
+		$smarty->assign('photos', $inspection->getResources());
 		
 		$smarty->assign("inspectors", InspectorQuery::create()->find());
 		$smarty->assign("statuses", Inspection::getStatuses());
@@ -52,7 +52,7 @@ class ConstructionsInspectionsEditAction extends BaseAction {
 			$smarty->assign('filters',$_GET['filters']);
 		
 		$smarty->assign("phpSessId", session_id()); // para el SWFUpload
-
+		
 		$this->template->template = 'TemplateJQuery.tpl';
 		return $mapping->findForwardConfig('success');
 

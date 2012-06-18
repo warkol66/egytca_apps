@@ -80,12 +80,15 @@ class ConstructionsDoUploadInspectionPhotoAction extends BaseAction {
 		
 		if ($_FILES['file']['error'] > 0) {
 			return $this->failure($_FILES['file']['error']);
-		} elseif (empty($_REQUEST['id'])) {
-			return $this->failure('missing param: id');
+		} elseif (empty($_REQUEST['inspectionId'])) {
+			return $this->failure('missing param: inspectionId');
 		} else {
-			$this->inspection = InspectionQuery::create()->findOneById($_REQUEST['id']);
+			$this->inspection = InspectionQuery::create()->findOneById($_REQUEST['inspectionId']);
 			if (is_null($this->inspection))
-				return $this->failure('invalid id');
+				return $this->failure('invalid inspectionId');
+			
+			$photoResource = new Resource();
+			$photoResource->fromArray($_POST['params'], BasePeer::TYPE_FIELDNAME);
 			
 			$newFilename = uniqid().'.png';
 			
@@ -94,6 +97,9 @@ class ConstructionsDoUploadInspectionPhotoAction extends BaseAction {
 				Common::ensureWritable($photosDir);
 				FileResampler::resampleTmp($_FILES['file'], $photosDir.'/'.$newFilename);
 				$this->photoName = $photosDir.'/'.$newFilename;
+				$photoResource->setPath($this->photoName);
+				$this->inspection->addResource($photoResource);
+				$this->inspection->save();
 			} catch (Exception $e) {
 				return $this->failure($e->getMessage());
 			}
