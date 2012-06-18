@@ -13,6 +13,14 @@ class PlanningMinistryObjectivesDoEditAction extends BaseDoEditAction {
 		$this->updateRegions();
 	}
 
+	protected function onFailure() {
+		parent::onFailure();
+		$this->template->template = 'TemplateJQuery.tpl';
+		$this->smarty->assign("regions", RegionQuery::create()->filterByType('11')->find());
+		$this->smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
+		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
+	}
+
 	private function updateRegions($calendarEvent) {
 		$regionsIds = $_POST['params']['regionsIds'];
 		if (empty($regionsIds))
