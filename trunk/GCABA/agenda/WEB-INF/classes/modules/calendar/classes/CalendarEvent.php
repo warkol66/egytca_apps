@@ -97,7 +97,7 @@ class CalendarEvent extends BaseCalendarEvent {
 		$rank = 0;
 		foreach ($actors as $actor) {
 			if ($actor->hasImage()) {
-				if (($actor->getRank() != 0) &&  ($actor->getRank() < $rank || $rank == 0)) {
+				if (($actor->getRank() != 0) &&  ($actor->getRank() > $rank || $rank == 0)) {
 					$id = $actor->getId();
 					$rank = $actor->getRank();
 				}
@@ -117,7 +117,7 @@ class CalendarEvent extends BaseCalendarEvent {
 	public function getActorImage() {
 		$actor = ActorQuery::create()->findOneById($this->getActorImageId());
 		if (!empty($actor))
-			return $actor->getImage();
+			return $actor->getResourceRelatedByPhotoid()->getPath();
 		else
 			return;
 	}
@@ -133,7 +133,7 @@ class CalendarEvent extends BaseCalendarEvent {
 		$rank = 0;
 		foreach ($actors as $actor) {
 			if ($actor->hasThumbnail()) {
-				if (($actor->getRank() != 0) &&  ($actor->getRank() < $rank || $rank == 0)) {
+				if (($actor->getRank() != 0) &&  ($actor->getRank() > $rank || $rank == 0)) {
 					$id = $actor->getId();
 					$rank = $actor->getRank();
 				}
@@ -153,7 +153,7 @@ class CalendarEvent extends BaseCalendarEvent {
 	public function getActorThumbnail() {
 		$actor = ActorQuery::create()->findOneById($this->getActorThumbnailId());
 		if (!empty($actor))
-			return $actor->getThumbnail();
+			return $actor->getResourceRelatedByThumbnailid()->getPath();
 		else
 			return;
 	}

@@ -7,7 +7,17 @@
 		<column name="name" description="Nombre" type="CHAR" size="90" />
 		<column name="surname" description="Apellido" type="CHAR" size="90" />
 		<column name="institution" description="Institucion" type="CHAR" size="200" />
-		<column name="rank" type="INTEGER" description="Rango contra otros funcionarios" />
+		<column name="rank" type="INTEGER" defaultValue="0" description="Rango contra otros funcionarios" />
+		<column name="photoId" type="INTEGER" description="Photo ID"/>
+		<column name="thumbnailId" type="INTEGER" description="Photo ID"/>
+		
+		<foreign-key foreignTable="resources_resource" onDelete="CASCADE" >
+			<reference local="photoId" foreign="id" />
+		</foreign-key>
+		
+		<foreign-key foreignTable="resources_resource" onDelete="CASCADE" >
+			<reference local="thumbnailId" foreign="id" />
+		</foreign-key>
 
 		<behavior name="soft_delete" />
 

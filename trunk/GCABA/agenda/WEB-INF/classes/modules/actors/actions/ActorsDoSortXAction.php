@@ -24,10 +24,10 @@ class ActorsDoSortXAction extends BaseAction {
 		
 		if (!empty($_POST['actorsIds'])) {
 			$actorsIds = $_POST['actorsIds'];
-			$i = 1;
+			$i = count($actorsIds);
 			foreach ($actorsIds as $actorId) {
 				$actor = ActorQuery::create()->findOneById($actorId);
-				$actor->setRank($i++);
+				$actor->setRank($i--);
 				$actor->save(); // on exception -> ajax call triggers failure
 			}
 		} else {

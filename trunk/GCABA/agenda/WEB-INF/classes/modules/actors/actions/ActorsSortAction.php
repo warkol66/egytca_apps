@@ -23,7 +23,7 @@ class ActorsSortAction extends BaseAction {
 		$smarty->assign("moduleConfig",$moduleConfig);
 		
 		$filters = $_GET["filters"];
-		$actors = BaseQuery::create('Actor')->orderByRank(Criteria::ASC)->find();
+		$actors = BaseQuery::create('Actor')->orderByRank(Criteria::DESC)->find();
 		
 		$smarty->assign("filters",$filters);
 		$smarty->assign('actors',$actors);
