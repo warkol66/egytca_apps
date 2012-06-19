@@ -96,10 +96,20 @@ class ActorsDoUploadPhotoAction extends BaseAction {
 				$newWidth = $config['photoSize']['width'];
 				$newHeight = $config['photoSize']['height'];
 				FileResampler::resampleTmp($_FILES['file'], $photosDir.'/'.$newFilename, $newWidth, $newHeight);
+				$photoResource = new Resource();
+				$photoResource->setPath($photosDir.'/'.$newFilename);
+				$photoResource->save();
+				$this->actor->setPhotoid($photoResource->getId());
 								
 				$newWidth = $config['thumbnailSize']['width'];
 				$newHeight = $config['thumbnailSize']['height'];
 				FileResampler::resampleTmp($_FILES['file'], $thumbnailsDir.'/'.$newFilename, $newWidth, $newHeight);
+				$thumbnailResource = new Resource();
+				$thumbnailResource->setPath($thumbnailsDir.'/'.$newFilename);
+				$thumbnailResource->save();
+				$this->actor->setThumbnailid($thumbnailResource->getId());
+				
+				$this->actor->save();
 			} catch (Exception $e) {
 				return $this->failure($e->getMessage());
 			}

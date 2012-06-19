@@ -16,33 +16,12 @@
 class Actor extends BaseActor {
 	
 	/**
-	 * returns path to actor's image file
-	 *
-	 * @return string path to image file
-	 */
-	function getImage() {
-		$photosDir = ConfigModule::get('actors', 'photosDir');
-		return $photosDir.'/'.$this->getId().'.png';
-	}
-	
-	/**
 	 * indicates whether the actor has an image
 	 * 
 	 * @return boolean true if actor has image. false otherwise
 	 */
 	function hasImage() {
-		$photosDir = ConfigModule::get('actors', 'photosDir');
-		return file_exists($photosDir.'/'.$this->getId().'.png');
-	}
-	
-	/**
-	 * returns path to actor's thumbnail file
-	 *
-	 * @return string path to thumbnail file
-	 */
-	function getThumbnail() {
-		$thumbnailsDir = ConfigModule::get('actors', 'thumbnailsDir');
-		return $thumbnailsDir.'/'.$this->getId().'.png';
+		return $this->getPhotoid() != '';
 	}
 	
 	/**
@@ -51,8 +30,7 @@ class Actor extends BaseActor {
 	 * @return boolean true if actor has thumbnail. false otherwise
 	 */
 	function hasThumbnail() {
-		$thumbnailsDir = ConfigModule::get('actors', 'thumbnailsDir');
-		return file_exists($thumbnailsDir.'/'.$this->getId().'.png');
+		return $this->getThumbnailid() != '';
 	}
 
 	/** the default item name for this class */
