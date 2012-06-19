@@ -12,6 +12,7 @@
 <script type='text/javascript' src='scripts/fancybox/jquery.fancybox-1.3.4.pack.js'></script>
 <script type="text/javascript" src="scripts/fancybox/jquery.easing-1.3.pack.js"></script>
 <script type="text/javascript" src="scripts/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+<script type="text/javascript" src="scripts/jquery/jquery.jeditable.mini.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -50,9 +51,16 @@
 		} else {
 			progress.setComplete();
 			progress.setStatus('Complete.');
-			var photo = JSON.parse(parsedData.data).photo;
-			$('<a class="galleryPhoto" rel="gallery1" href="'+photo+'"><img src="'+photo+'" alt=""/></a>')
-				.appendTo($('#photos'));
+			var data = JSON.parse(parsedData.data);
+			var photo = JSON.parse(data.photo);
+			$.ajax({
+				url: 'Main.php?do=constructionsInspectionsLoadGalleryPhotoX',
+				type: 'post',
+				data: { photoId: photo.id },
+				success: function(data) {
+					$(data).appendTo($('#photos'));
+				}
+			});
 			$('a.galleryPhoto').fancybox();
 		}
 		
@@ -85,9 +93,7 @@
 				<p>
 					<label for="params_visitDate">Relevamiento</label>
 					<input name="params[visitDate]" type="text" id="params_visitDate" title="Día del relevamiento" value="|-$inspection->getVisitDate()|date_format-|" size="12" /> 
-				</p>							
-
-
+				</p>
 				<p>
 					<label for="params_constructionId">Obra</label>
 			|-if isset($constructions)-|
@@ -186,11 +192,7 @@
 |-if !$inspection->isNew()-|
 <div id="photos" style="display:none">
 |-foreach $photos as $photo-|
-	<a class="galleryPhoto" rel="gallery1" href="#divPhoto|-$photo@key-|"></a>
-	<div id="divPhoto|-$photo@key-|">
-		<p>|-$photo->getDescription()|default:'soy un texto de prueba, borrame! (foto '|cat:|-$photo@key-||cat:')'-|</p>
-		<img src="|-$photo->getPath()-|" alt=""/>
-	</div>
+	|-include file="ConstructionsInspectionsGalleryPhotoInclude.tpl" photo=$photo-|
 |-/foreach-|
 </div>
 <div style="display:none"><div id="uploader">

@@ -9,6 +9,7 @@ class ConstructionsDoUploadInspectionPhotoAction extends BaseAction {
 	
 	private $inspection;
 	private $photoName;
+	private $photoResource;
 
 	function ConstructionsDoUploadInspectionPhotoAction() {
 		;
@@ -19,7 +20,7 @@ class ConstructionsDoUploadInspectionPhotoAction extends BaseAction {
 			$this->smarty->assign('error', 0);
 			$this->smarty->assign('data', json_encode(array(
 				'inspection' => $this->inspection->toJSON(),
-				'photo' => $this->photoName
+				'photo' => $this->photoResource->toJSON()
 			)));
 			$this->smarty->display('EntityDoUploadResourceSWF.tpl');
 		} else {
@@ -100,6 +101,7 @@ class ConstructionsDoUploadInspectionPhotoAction extends BaseAction {
 				$photoResource->setPath($this->photoName);
 				$this->inspection->addResource($photoResource);
 				$this->inspection->save();
+				$this->photoResource = $photoResource;
 			} catch (Exception $e) {
 				return $this->failure($e->getMessage());
 			}
