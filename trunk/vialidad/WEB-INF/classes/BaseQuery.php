@@ -47,8 +47,8 @@ class BaseQuery {
     }
     
 	/**
-	 * Permite agregar un filtro personalizado a la Query, que puede ser
-	 * traducido al campo correspondiente.
+	 * Permite agregar un filtro a la Query, este filtro puede ser 
+     * o bien un campo del modelo o bien un filtro personalizado.
 	 *
 	 * @param   string $filterName
 	 * @param   mixed $filterValue
@@ -60,11 +60,11 @@ class BaseQuery {
          * Si el $filterName existe como metodo en el objeto query,
          * entonces lo invoca.
          */
-        $result = $this->callIfPossible($filterName, $filterValue);
+        $result = $this->callIfPossible($filterName, array($filterValue));
         if ($result instanceof ModelCriteria) {
             return $this;
         }
-        
+	
 		switch ($filterName) {
 
 			case 'searchString':
@@ -78,9 +78,11 @@ class BaseQuery {
 			default:
 				$peer = $this->query->getModelPeerName();
 				$filterName = ucfirst($filterName);
-				if (in_array($filterName, $peer::getFieldNames(BasePeer::TYPE_PHPNAME)))
-					$this->query->filterBy($filterName, $filterValue);
-				else if (is_array($filterValue))
+				if (in_array($filterName, $peer::getFieldNames(BasePeer::TYPE_PHPNAME))) {
+					// filterByXxx acepta arrays. filterBy('Xxx', $v) no
+					$filterMethod = 'filterBy'.$filterName;
+					$this->query->$filterMethod($filterValue);
+				} else if (is_array($filterValue))
 					$this->addFilters($filterValue); // Revisar
 
 				break;
@@ -152,7 +154,10 @@ class BaseQuery {
 //            echo " invocando $method <br />";
             if (!is_array($arguments))
                 $arguments = array($arguments);
-            
+	    
+//	    echo "method: $method<br/>";
+//	    echo "args: ";print_r($arguments);echo "<br/>";
+	    
             return call_user_func_array(array($this->query, $method), $arguments);
         }
         return FALSE;

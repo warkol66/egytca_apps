@@ -39,17 +39,16 @@ class VialidadConstructionsEditAction extends BaseAction {
 			else
 				$smarty->assign("action","edit");
 			
-			$items = $construction->getConstructionItems();
-			$smarty->assign("items",$items);
+			$smarty->assign("items",$construction->getConstructionItems());
 			
-			$fines = FineQuery::create()->filterByConstruction($construction)->find();
-			$smarty->assign("fines", $fines);
+			$smarty->assign("fines", FineQuery::create()->filterByConstruction($construction)->find());
 			
-			$dailyWorks = DailyWorkQuery::create()->filterByConstruction($construction)->find();
-			$smarty->assign('dailyWorks', $dailyWorks);
+			$smarty->assign("dailyWorks", DailyWorkQuery::create()->filterByConstruction($construction)->find());
 			
-			$adjustments = AdjustmentQuery::create()->filterByConstruction($construction)->find();
-			$smarty->assign('adjustments', $adjustments);
+			$smarty->assign("adjustments", AdjustmentQuery::create()->filterByConstruction($construction)->find());
+
+			$smarty->assign("others", OtherQuery::create()->filterByConstruction($construction)->find());
+
 		}
 		else {
 			$construction = new Construction();
@@ -59,6 +58,8 @@ class VialidadConstructionsEditAction extends BaseAction {
 		if (!empty($_GET['returnToContract']))
 			$smarty->assign('returnContractId', $_GET['returnToContract']);
 		
+		$smarty->assign("currencies",CurrencyQuery::create()->find());
+		$smarty->assign("measureUnits",MeasureUnitQuery::create()->find());
 		$smarty->assign("departments",DepartmentQuery::create()->find());
 		$smarty->assign("types",ConstructionTypeQuery::create()->find());
 

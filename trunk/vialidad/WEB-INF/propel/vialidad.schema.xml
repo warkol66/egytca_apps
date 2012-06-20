@@ -131,11 +131,25 @@
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="code" type="VARCHAR" size="50" required="true" description="Codigo del contrato" />
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" description="Nombre del contrato" />
+		<column name="type" type="INTEGER" size="2" description="Tipo de contrato" />
 		<column name="contractorId" type="INTEGER"  description="Id del contratista" />
 		<column name="startDate" type="DATE" description="Fecha de firma" />
 		<column name="ammount" type="DECIMAL" size="15" scale="2"  description="Monto del Contrato" />
 		<column name="ammountModified" type="DECIMAL" size="15" scale="2"  description="Monto modificado" />
-		<column name="contractLength" type="INTEGER" size="5" description="Longitud del contrato en dias" />
+		<column name="contractLength" type="INTEGER" size="5" description="Longitud del contrato" />
+		<column name="termType" type="INTEGER" size="2" description="Tipo de plazo de longitud del contrato" />
+
+		<column name="adjudication" type="VARCHAR" size="50" description="Resolucion y/o Decreto de Adjudicacion" />
+		<column name="adjudicationDate" type="DATE" description="Fecha de adjudicacion" />
+		<column name="pacNumber" type="VARCHAR" size="10" description="Numero de contrato PAC" />
+
+		<column name="tprano" type="VARCHAR" size="4" description="Anio del contrato" />
+		<column name="tprcod" type="VARCHAR" size="1" description="Tipo de presupuesto" />
+		<column name="prgcod" type="VARCHAR" size="3" description="Programa" />
+		<column name="subprgcod" type="VARCHAR" size="3" description="subprograma" />
+		<column name="prycod" type="VARCHAR" size="2" description="Proyecto" />
+		<column name="prydes" type="VARCHAR" size="100" description="Descripcion" />
+
 
 		<foreign-key foreignTable="affiliates_affiliate" >
 			<reference local="contractorId" foreign="id" />
@@ -188,7 +202,15 @@
 		<column name="region" type="VARCHAR" size="255" description="Departamentos" />
 		<column name="typeId" type="INTEGER" size="5" description="Tipo de Obra" />
 		<column name="length" type="VARCHAR" size="5" description="Longitud" />
+		<column name="lengthUnit" type="INTEGER" size="5" description="Unidad de la obra" />
 		<column name="startDate" type="DATE" description="Fecha de inicio" />
+
+		<column name="proceedDate" type="DATE" description="Orden de proceder" />
+
+
+		<foreign-key foreignTable="vialidad_measureUnit" onDelete="cascade" >
+			<reference local="lengthUnit" foreign="id" />
+		</foreign-key>
 
 		<foreign-key foreignTable="vialidad_contract" onDelete="cascade" >
 			<reference local="contractId" foreign="id" />
@@ -248,7 +270,7 @@
 
 	</table>
 
-	<table phpName="ConstructionItem" name="vialidad_constructionItem">
+	<table phpName="ConstructionItem" name="vialidad_constructionItem" description="Construction / Items de contruccion">
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
@@ -264,6 +286,7 @@
 			<inheritance key="2" class="Fine" extends="ConstructionItem"/>
 			<inheritance key="3" class="DailyWork" extends="ConstructionItem"/>
 			<inheritance key="4" class="Adjustment" extends="ConstructionItem"/>
+			<inheritance key="5" class="Other" extends="ConstructionItem"/>
 		</column>
 
 		<foreign-key foreignTable="vialidad_construction" onDelete="cascade" >
@@ -277,7 +300,7 @@
 
 	</table>
 
-	<table phpName="ConstructionItemRelation" name="vialidad_constructionItemRelation" isCrossRef="true">
+	<table phpName="ConstructionItemRelation" name="vialidad_constructionItemRelation" isCrossRef="true" description="Proporcion de Items de contruccion">
 
 		<column name="itemId" type="INTEGER" required="true" primaryKey="true" />
 		<column name="supplyId" type="INTEGER" required="true" primaryKey="true" />
@@ -293,7 +316,7 @@
 
 	</table>
     
-	<table phpName="MeasurementRecord" name="vialidad_measurementRecord">
+	<table phpName="MeasurementRecord" name="vialidad_measurementRecord" description="Actas de medicion">
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="measurementDate" type="DATE" description="Fecha del acta de medicion" />
@@ -311,7 +334,7 @@
 
 	</table>
 
-	<table phpName="MeasurementRecordRelation" name="vialidad_measurementRecordRelation">
+	<table phpName="MeasurementRecordRelation" name="vialidad_measurementRecordRelation" description="Relacion de actas de medicion con sus items">
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="itemId" type="INTEGER" required="true" />
@@ -336,7 +359,7 @@
 
 	</table>
     
-	<table phpName="MeasurementRecordComment" name="vialidad_measurementRecordComment">
+	<table phpName="MeasurementRecordComment" name="vialidad_measurementRecordComment" description="Comentarios a las actas de medicion">
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="measurementRecordId" type="INTEGER" required="true" />
@@ -357,7 +380,7 @@
 
 	</table>
     
-	<table phpName="Certificate" name="vialidad_certificate">
+	<table phpName="Certificate" name="vialidad_certificate" description="Certificados de obra">
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="measurementRecordId" type="INTEGER" required="true" />
@@ -370,6 +393,32 @@
 			<reference local="measurementRecordId" foreign="id" />
 		</foreign-key>
 		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="Currency" name="vialidad_currency" description="Base de datos de monedas">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="code" type="VARCHAR" size="50" description="Codigo de la moneda" primaryString="true" />
+		<column name="name" type="VARCHAR" size="255" required="true" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="MeasureUnit" name="vialidad_measureUnit" description="Base de datos de unidades de medida">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="code" type="VARCHAR" size="50" description="Codigo de la unidad" primaryString="true" />
+		<column name="name" type="VARCHAR" size="255" required="true" />
+
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>

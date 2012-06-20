@@ -52,7 +52,7 @@
 		|-/if-|
 		
 		<tr class="thFillTitle"> 
-			<th width="60%">Nombre</th>
+			<th width="60%">Insumo</th>
 			<th width="35%">Unidad</th>
 			<th width="5%">&nbsp;</th>
 		</tr>
