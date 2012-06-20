@@ -26,13 +26,36 @@
 		 <p><label for="params[name]">Nombre</label>
 			<input name="params[name]" type="text" value="|-$contract->getName()|escape-|" size="60" title="Nombre del contrato">
 		 </p>
+		 <p><label for="params_type">Tipo</label>
+			<select id="params_type" name="params[type]" title="Tipo de contrato">
+				<option value="">Seleccione el tipo de contrato</option>
+				|-foreach from=$types key=key item=name-|
+							<option value="|-$key-|" |-$contract->getType()|selected:$key-|>|-$name-|</option>
+				|-/foreach-|
+			</select>
+		 </p>
 		 <p>
 		   <label for="params[code]">Nro MEU</label>
 				<input name="params[code]" type="text" value="|-$contract->getCode()|escape-|" size="15" title="Nro MEU"> 
 		</p>
 			<div id="contractor" style="position: relative;z-index:11000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_contractorId" label="Contratista" url="Main.php?do=affiliatesAutocompleteListX" hiddenName="params[contractorId]" defaultHiddenValue=$contract->getContractorId() defaultValue=$contract->getAffiliate()-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_contractorId" label="Proveedor" url="Main.php?do=affiliatesAutocompleteListX" hiddenName="params[contractorId]" defaultHiddenValue=$contract->getContractorId() defaultValue=$contract->getAffiliate()-|
 			</div>
+		 <p><label for="params_tprano">Línea presupuestaria</label>
+			<input name="params[tprano]"  id="params_tprano" type="text" value="|-$contract->getTprano()|escape-|" size="4" title="Año del contrato (aaaa)">
+			<input name="params[tprcod]"  id="params_tprcod" type="text" value="|-$contract->getTprcod()|escape-|" size="1" title="Tipo de presupuesto (t)">
+			<input name="params[prgcod]"  id="params_prgcod" type="text" value="|-$contract->getPrgcod()|escape-|" size="3" title="Programa (ttt)">
+			<input name="params[subprgcod]"  id="params_subprgcod" type="text" value="|-$contract->getSubprgcod()|escape-|" size="3" title="Subprograma (ttt)">
+			<input name="params[prycod]"  id="params_prycod" type="text" value="|-$contract->getPrycod()|escape-|" size="2" title="Proyecto (tt)">
+			<input name="params[prydes]"  id="params_prydes" type="text" value="|-$contract->getPrydes()|escape-|" size="40" title="Descripción">
+		 </p>
+		 <p><label for="params_adjudication">Resolución y/o Decreto de Adjudicación</label>
+			<input name="params[adjudication]"  id="params_adjudication" type="text" value="|-$contract->getAdjudication()|escape-|" size="60">
+		 </p>
+			<p>     
+				<label for="params_adjudicationDate">Fecha de adjudicación</label>
+				<input id="params_adjudicationDate" name="params[adjudicationDate]" type='text' value='|-$contract->getAdjudicationDate()|date_format-|' size="12" title="Ingrese la fecha de adjudicación" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[adjudicationDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de adjudicación">
+			</p>
 			<p>     
 				<label for="params[startDate]">Fecha de firma</label>
 				<input id="params[startDate]" name="params[startDate]" type='text' value='|-$contract->getStartDate()|date_format-|' size="12" title="Ingrese la fecha de inicio" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
@@ -44,7 +67,15 @@
 			<input name="params[ammountModified]" type="text" value="|-$contract->getAmmountModified()|escape|system_numeric_format:0-|" size="15">
 		 </p>
 		 <p><label for="params[contractLength]">Plazo contractual</label>
-			<input name="params[contractLength]" type="text" value="|-$contract->getContractLength()|system_numeric_format:0-|" size="6"> días
+			<input name="params[contractLength]" type="text" value="|-$contract->getContractLength()|system_numeric_format:0-|" size="6"> 
+			<select id="params_termType" name="params[termType]" title="Tipo de plazo">
+				|-foreach from=$termTypes key=key item=name-|
+							<option value="|-$key-|" |-$contract->getTermType()|selected:$key-|>|-$name-|</option>
+				|-/foreach-|
+			</select>
+		 </p>
+		 <p><label for="params[pacNumber]">Id de contrato (N° PAC)</label>
+			<input name="params[pacNumber]" type="text" value="|-$contract->getPacNumber()|escape-|" size="8" title="Id de contrato (N° PAC)"> |-if $contract->getPacNumber() ne ''-|<a href="https://www.contrataciones.gov.py/sicp/llamado/llamadosPorID.seam?nroPacParam=|-$contract->getPacNumber()-|" target="_blank" title="Ir a Contrato" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a>|-/if-| 
 		 </p>
 
 	 <p><input name="save" type="submit" value="Guardar Cambios"> 

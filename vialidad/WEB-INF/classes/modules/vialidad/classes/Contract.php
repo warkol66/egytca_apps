@@ -24,4 +24,33 @@ class Contract extends BaseContract {
 		return $this->getAffiliate();
 	}
 
+	/**
+	 * Devuelve array con tipos de contrato (types)
+	 *  id => Tipo tipos de contrato
+	 *
+	 * @return array tipos de contrato
+	 */
+	public static function getTypes() {
+		$types = array(
+			1 => 'Obra',
+			2 => 'Adquisiciones de Bienes y Servicios'
+		);
+		return $types;
+	}
+
+	/**
+	 * Devuelve array con tipos de plazo (termTypes)
+	 *  id => Tipo tipos de plazo
+	 *
+	 * @return array tipos de plazo
+	 */
+	public static function getTermTypes() {
+		$termTypes = array(
+			1 => 'días',
+			2 => 'meses',
+			3 => 'años'
+		);
+		return $termTypes;
+	}
+
 } // Contract

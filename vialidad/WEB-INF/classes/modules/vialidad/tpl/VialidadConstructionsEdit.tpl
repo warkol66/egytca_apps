@@ -32,7 +32,6 @@
         		<option id="option|-$contract->getId()-|" value="|-$contract->getId()-|" |-$construction->getContractId()|selected:$contract->getId()-|>|-$contract-|</option>
 				|-/foreach-|
 				</select>
-			</p>
 		 </p>
 		 <p><label for="params[name]">Nombre</label>
 			<input name="params[name]" type="text" value="|-$construction->getName()|escape-|" size="60">
@@ -53,11 +52,21 @@
 				</select>
 			</p>
 			 <p><label for="params[length]">Longitud</label>
-			<input name="params[length]" type="text" value="|-$construction->getLength()|escape-|" size="6"> Kms.
+			<input name="params[length]" type="text" value="|-$construction->getLength()|escape-|" size="6"> 
+			<select id="params_lengthUnit" name="params[lengthUnit]" title="Unidad de medida">
+        		<option value="">Seleccione unidad de medida</option>
+				|-foreach from=$measureUnits item=object-|
+							<option value="|-$object->getId()-|" |-$construction->getLengthUnit()|selected:$object->getId()-|>(|-$object-|) |-$object->getName()-|</option>
+				|-/foreach-|
+			</select>
 		 </p>
 			<p>     
 				<label for="params[startDate]">Orden de Inicio</label>
 				<input id="params[startDate]" name="params[startDate]" type='text' value='|-$construction->getStartDate()|date_format-|' size="12" title="Ingrese la fecha de inicio" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+			</p>
+			<p>     
+				<label for="params_proceedDate">Orden de proceder</label>
+				<input id="params_proceedDate" name="params[proceedDate]" type='text' value='|-$construction->getProceedDate()|date_format-|' size="12" title="Ingrese la fecha de orden de proceder. Esta representa la fecha en que la Fiscalizadora tiene el visto bueno del MOPC para iniciar sus servicios." /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[proceedDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 		 |-if $returnContractId neq ""-|
 		 <input type="hidden" name="returnToContract" value="|-$returnContractId-|" />
@@ -192,6 +201,17 @@
 	createAction="vialidadAdjustmentDoEditX"
 	editAction="vialidadAdjustmentDoEditFieldX"
 	deleteAction="vialidadAdjustmentDoDeleteX"
+-|
+
+|-include
+	file="VialidadConstructionExtraTableInclude.tpl"
+	extras=$others
+	extraType="other"
+	extraName="Otros bienes y servicios"
+	deleteText="Seguro que desea eliminar el el bien o servicio?"
+	createAction="vialidadOtherDoEditX"
+	editAction="vialidadOtherDoEditFieldX"
+	deleteAction="vialidadOtherDoDeleteX"
 -|
 
 |-/if-|

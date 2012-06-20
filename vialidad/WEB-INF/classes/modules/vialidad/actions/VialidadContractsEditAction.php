@@ -27,6 +27,10 @@ class VialidadContractsEditAction extends BaseAction {
 		$message = $_GET["message"];
 		$smarty->assign("message",$message);
 
+		$smarty->assign("types",Contract::getTypes());
+		$smarty->assign("termTypes",Contract::getTermTypes());
+
+
 		if ($_GET['id']) {
 			$contract =  ContractPeer::get($_GET['id']);
 			if (empty($contract)) {
