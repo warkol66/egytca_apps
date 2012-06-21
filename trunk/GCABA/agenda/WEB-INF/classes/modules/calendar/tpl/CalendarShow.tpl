@@ -162,8 +162,9 @@
 				'naranja', 'rojo', 'gris'
 			];
 			for (var i=0; i<colors.length; i++) {
+				console.log('matching', colors[i], 'against', classes);
 				if ($.inArray(colors[i], classes) != -1)
-					return colors[i];
+					{console.log('matched');return colors[i];}
 			}
 			throw 'no color match';
 		}
