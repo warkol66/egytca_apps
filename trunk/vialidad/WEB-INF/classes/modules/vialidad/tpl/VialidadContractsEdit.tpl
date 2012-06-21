@@ -35,8 +35,8 @@
 			</select>
 		 </p>
 		 <p>
-		   <label for="params[code]">Nro MEU</label>
-				<input name="params[code]" type="text" value="|-$contract->getCode()|escape-|" size="15" title="Nro MEU"> 
+		   <label for="params[code]">Nro Expediente</label>
+				<input name="params[code]" type="text" value="|-$contract->getCode()|escape-|" size="15" title="Nro Expediente"> 
 		</p>
 			<div id="contractor" style="position: relative;z-index:11000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_contractorId" label="Proveedor" url="Main.php?do=affiliatesAutocompleteListX" hiddenName="params[contractorId]" defaultHiddenValue=$contract->getContractorId() defaultValue=$contract->getAffiliate()-|

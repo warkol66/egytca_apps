@@ -37,7 +37,7 @@ class VialidadContractsListAction extends BaseAction {
 		$smarty->assign("filters", $filters);
 		$smarty->assign("contracts",$pager->getResults());
 		$smarty->assign("pager",$pager);
-
+		$smarty->assign("contractTypes",Contract::getTypes());
 		return $mapping->findForwardConfig('success');
 	}
 

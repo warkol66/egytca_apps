@@ -31,7 +31,7 @@
 |-/if-|
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 	<tr>
-		<td colspan="4" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Buscar contrato</a><div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get'>
+		<td colspan="5" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Buscar contrato</a><div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get'>
 			<input type="hidden" name="do" value="vialidadContractsList" />
 			<p>
 				<label for="filters[searchString]">Nombre</label>
@@ -39,7 +39,7 @@
 			</p>
 			<p>
 				<div style="position: relative;z-index:10000;">
-				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=affiliatesContractorsAutocompleteListX" hiddenName="filters[contractorid]" disableSubmit="button_filtersSubmit" label="Contratista" defaultValue=$defaultContractorValue-|
+				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=affiliatesContractorsAutocompleteListX" hiddenName="filters[contractorid]" disableSubmit="button_filtersSubmit" label="Proveedor" defaultValue=$defaultContractorValue-|
 				</div>
 			</p>
 			&nbsp;&nbsp;<input id="button_filtersSubmit" type='submit' value='Buscar' />
@@ -47,12 +47,13 @@
 			</form></div></td>
 	</tr>
 	|-if "vialidadContractsEdit"|security_has_access-|<tr>
-		<th colspan="4"><div class="rightLink"><a href="Main.php?do=vialidadContractsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Contrato</a></div></th>
+		<th colspan="5"><div class="rightLink"><a href="Main.php?do=vialidadContractsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Contrato</a></div></th>
 	</tr>|-/if-|
 	<tr>
 		<th width="5%">Nº</th>
-		<th width="40%">Contrato</th>
-		<th width="35%">Contratista</th>
+		<th width="20%">Contrato</th>
+		<th width="35%">Proveedor</th>
+		<th width="20%">Tipo</th>
 		<th width="5%">&nbsp;</th>
 	</tr>
 	|-foreach from=$contracts item=contract name=for_contract-|
@@ -60,6 +61,7 @@
 		<td align="right">|-$contract->getCode()-|</td>
 		<td>|-$contract->getName()-|</td>
 		<td>|-$contract->getContractor()-|</td>
+		<td>|-$contractTypes[$contract->getType()]-|</td>
 		<td nowrap>|-if "vialidadContractsViewX"|security_has_access-|
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="vialidadContractsViewX" />
@@ -86,10 +88,10 @@
 	|-/foreach-|
 		|-if isset($pager) && $pager->haveToPaginate()-|
 	<tr>
-		<td colspan="4" class="pages">|-include file="PaginateInclude.tpl"-|</td>
+		<td colspan="5" class="pages">|-include file="PaginateInclude.tpl"-|</td>
 	</tr>
 	|-/if-|
 	|-if "vialidadContractsEdit"|security_has_access && $vialidadContracts|@count gt 5-|<tr>
-		<th colspan="4"><div class="rightLink"><a href="Main.php?do=vialidadContractsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Contrato</a></div></th>
+		<th colspan="5"><div class="rightLink"><a href="Main.php?do=vialidadContractsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Contrato</a></div></th>
 	</tr>|-/if-|
 </table>
