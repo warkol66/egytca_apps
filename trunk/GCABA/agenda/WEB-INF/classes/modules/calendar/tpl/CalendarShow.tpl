@@ -162,9 +162,13 @@
 				'naranja', 'rojo', 'gris'
 			];
 			for (var i=0; i<colors.length; i++) {
-				console.log('matching', colors[i], 'against', classes);
-				if ($.inArray(colors[i], classes) != -1)
-					{console.log('matched');return colors[i];}
+				if (classes instanceof Array) {
+					if ($.inArray(colors[i], classes) != -1)
+						return colors[i];
+				} else {
+					if (classes.search(colors[i]) != -1)
+						return colors[i];
+				}
 			}
 			throw 'no color match';
 		}
@@ -206,9 +210,9 @@
 	
 	loadPendingEvents = function() {
 		var eventObjects = [];
-		|-foreach $pendingEvents as $pending-|
+			|-foreach $pendingEvents as $pending-|
 			eventObjects.push(|-include file="CalendarPhpEventToJson.tpl" event=$pending-|);
-		|-/foreach-|
+			|-/foreach-|
 		return eventObjects;
 	}
 	
