@@ -21,6 +21,7 @@
 	
 	var calendar;
 	var eventsCakegraph;
+	var graphInfo;
 	
 	$(document).ready(function() {
 		var day, month, year;
@@ -40,11 +41,22 @@
 		|-/if-|
 		
 		// grafico de porcentaje de eventos
-		var graphInfo = makeGraphInfo(events.concat(pendingEvents));
+		graphInfo = makeGraphInfo(events.concat(pendingEvents));
 		eventsCakegraph = new CakeGraph({
 			selector: '.eventsGraph',
 			data: graphInfo.data,
-			color: graphInfo.color
+			colors: graphInfo.colors
+		});
+		$('.eventsGraph').click(function() {
+			$('#fancyboxDiv').html('<div id="fancyboxCakeGraph" style="width: 400px; height: 400px"></div>')
+			new CakeGraph({
+				selector: '#fancyboxCakeGraph',
+				data: graphInfo.data,
+				colors: graphInfo.colors,
+//				legends: graphInfo.axes,
+				showPercents: true
+			});
+			$('#fancyboxDummy').click();
 		});
 		
 		$('#newEventFancyboxDummy').fancybox();
@@ -144,29 +156,38 @@
 		
 		// harcodeado horrible
 		
+		var colorClassName = function(classes) {
+			var colors = [
+				'amarillo', 'verde1', 'verde2', 'cyan',
+				'naranja', 'rojo', 'gris'
+			];
+			for (var i=0; i<colors.length; i++) {
+				if ($.inArray(colors[i], classes) != -1)
+					return colors[i];
+			}
+			throw 'no color match';
+		}
+		
 		var cant = {amarillo: 0, verde1: 0, verde2: 0,
 			cyan: 0, naranja: 0, rojo: 0, gris: 0}
 		
 		for (var i=0; i<events.length; i++) {
-			cant[events[i].className]++
+			cant[colorClassName(events[i].className)]++
 		}
 		var data = [cant.amarillo, cant.verde1, cant.verde2,
 			cant.cyan, cant.naranja, cant.rojo, cant.gris]
 		
-		var color = function(i) {
-			colors = [
-				'#FFCC00', // amarillo
-				'#88d852', // verde1
-				'#359e7d', // verde2
-				'#3dbeff', // cyan
-				'#ff9c0d', // naranja
-				'#ff3929', // rojo
-				'#c0c0c0'  // gris
-			]
-			return colors[i];
-		}
+		var colors = [
+			'#FFCC00', // amarillo
+			'#88d852', // verde1
+			'#359e7d', // verde2
+			'#3dbeff', // cyan
+			'#ff9c0d', // naranja
+			'#ff3929', // rojo
+			'#c0c0c0'  // gris
+		]
 		
-		return { data: data, color: color }
+		return { data: data, colors: colors }
 	}
 	
 	loadEvents = function() {
