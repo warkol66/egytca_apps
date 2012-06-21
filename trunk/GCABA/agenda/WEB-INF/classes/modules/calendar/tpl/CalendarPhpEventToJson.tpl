@@ -4,7 +4,7 @@
 	"start": "|-$event->getStartDate("%Y/%m/%d %H:%M")-|",
 	"end": "|-$event->getEndDate("%Y/%m/%d %H:%M")-|",
 	"allDay": false,
-	"className": "|-assign var="axis" value=$event->getCalendarAxis()-||-if $axis-||-$axis->getCssClass()-||-else-|gris|-/if-|",
+	"className": "|-assign var="axis" value=$event->getCalendarAxis()-||-if $axis-||-$axis->getCssClass()-||-else-|gris|-/if-||-if $event->getEndDate() lte $smarty.now|date_format:'%Y-%m-%d'-| evAnterior|-else-| evReflex|-/if-|",
 	"editable": true, |-* esto se modifica segun el permiso del usuario, si tien permiso para modificar se pone true *-|
 	
 	|-* esto no es parte del evento php, no hay que borrarlo cuando se reemplace lo de abajo por el toJSON() *-|
