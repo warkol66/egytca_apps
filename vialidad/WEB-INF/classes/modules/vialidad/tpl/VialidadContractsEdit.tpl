@@ -34,10 +34,25 @@
 				|-/foreach-|
 			</select>
 		 </p>
+		 <p><label for="params[pacNumber]">Id de contrato (N° PAC)</label>
+			<input name="params[pacNumber]" type="text" value="|-$contract->getPacNumber()|escape-|" size="8" title="Id de contrato (N° PAC)"> |-if $contract->getPacNumber() ne ''-|<a href="https://www.contrataciones.gov.py/sicp/llamado/llamadosPorID.seam?nroPacParam=|-$contract->getPacNumber()-|" target="_blank" title="Ir a Contrato" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a>|-/if-| 
+		 </p>
 		 <p>
 		   <label for="params[code]">Nro Expediente</label>
 				<input name="params[code]" type="text" value="|-$contract->getCode()|escape-|" size="15" title="Nro Expediente"> 
 		</p>
+		 <p>
+		   <label for="NroContrato">Nro de Contrato</label>
+				<input name="NroContrato" type="text" value="" size="15" title="Nro de Contrato"> 
+		</p>
+		 <p>
+		   <label for="NroLlamado">Nro de Llamado</label>
+				<input name="NroLlamado" type="text" value="" size="15" title="Nro de Llamado"> 
+		</p>
+			<p>     
+				<label for="FechaInicio">Fecha de Inicio</label>
+				<input id="FechaInicio" name="FechaInicio" type='text' value='' size="12" title="Ingrese la fecha de Inicio" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('FechaInicio', false, '', '-');" title="Seleccione la fecha de Inicio">
+			</p>
 			<div id="contractor" style="position: relative;z-index:11000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_contractorId" label="Proveedor" url="Main.php?do=affiliatesAutocompleteListX" hiddenName="params[contractorId]" defaultHiddenValue=$contract->getContractorId() defaultValue=$contract->getAffiliate()-|
 			</div>
@@ -73,9 +88,6 @@
 							<option value="|-$key-|" |-$contract->getTermType()|selected:$key-|>|-$name-|</option>
 				|-/foreach-|
 			</select>
-		 </p>
-		 <p><label for="params[pacNumber]">Id de contrato (N° PAC)</label>
-			<input name="params[pacNumber]" type="text" value="|-$contract->getPacNumber()|escape-|" size="8" title="Id de contrato (N° PAC)"> |-if $contract->getPacNumber() ne ''-|<a href="https://www.contrataciones.gov.py/sicp/llamado/llamadosPorID.seam?nroPacParam=|-$contract->getPacNumber()-|" target="_blank" title="Ir a Contrato" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a>|-/if-| 
 		 </p>
 
 	 <p><input name="save" type="submit" value="Guardar Cambios"> 
