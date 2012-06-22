@@ -6,52 +6,48 @@ font-family: Arial,Helvetica,sans-serif,Geneva;
 }
 
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, a, center, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
-margin-top: 0pt;
-margin-right: 0pt;
-margin-bottom: 0pt;
-margin-left: 0pt;
-
-padding-top: 0pt;
-padding-right: 0pt;
-padding-bottom: 0pt;
-padding-left: 0pt;
-
-border-top-width: 0pt;
-border-right-width-value: 0pt;
-border-right-width-ltr-source: physical;
-border-right-width-rtl-source: physical;
-border-bottom-width: 0pt;
-border-left-width-value: 0pt;
-border-left-width-ltr-source: physical;
-border-left-width-rtl-source: physical;
-border-top-style: none;
-border-right-style-value: none;
-border-right-style-ltr-source: physical;
-border-right-style-rtl-source: physical;
-border-bottom-style: none;
-border-left-style-value: none;
-border-left-style-ltr-source: physical;
-border-left-style-rtl-source: physical;
-border-top-color: -moz-use-text-color;
-border-right-color-value: -moz-use-text-color;
-border-right-color-ltr-source: physical;
-border-right-color-rtl-source: physical;
-border-bottom-color: -moz-use-text-color;
-border-left-color-value: -moz-use-text-color;
-border-left-color-ltr-source: physical;
-border-left-color-rtl-source: physical;
-
-outline-width: 0pt;
-outline-style: none;
-outline-color: -moz-use-text-color;
-
-font-size: 100%;
-vertical-align: baseline;
-background-color: transparent;
-background-image: none;
-background-repeat: repeat;
-background-attachment: scroll;
-background-position: 0% 0%;
+	margin-top: 0pt;
+	margin-right: 0pt;
+	margin-bottom: 0pt;
+	margin-left: 0pt;
+	padding-top: 0pt;
+	padding-right: 0pt;
+	padding-bottom: 0pt;
+	padding-left: 0pt;
+	border-top-width: 0pt;
+	border-right-width-value: 0pt;
+	border-right-width-ltr-source: physical;
+	border-right-width-rtl-source: physical;
+	border-bottom-width: 0pt;
+	border-left-width-value: 0pt;
+	border-left-width-ltr-source: physical;
+	border-left-width-rtl-source: physical;
+	border-top-style: none;
+	border-right-style-value: none;
+	border-right-style-ltr-source: physical;
+	border-right-style-rtl-source: physical;
+	border-bottom-style: none;
+	border-left-style-value: none;
+	border-left-style-ltr-source: physical;
+	border-left-style-rtl-source: physical;
+	border-top-color: -moz-use-text-color;
+	border-right-color-value: -moz-use-text-color;
+	border-right-color-ltr-source: physical;
+	border-right-color-rtl-source: physical;
+	border-bottom-color: -moz-use-text-color;
+	border-left-color-value: -moz-use-text-color;
+	border-left-color-ltr-source: physical;
+	border-left-color-rtl-source: physical;
+	outline-width: 0pt;
+	outline-style: none;
+	outline-color: -moz-use-text-color;
+	font-size: 100%;
+	vertical-align: baseline;
+	background-color: transparent;
+	background-image: none;
+	background-repeat: repeat;
+	background-attachment: scroll;
+	background-position: 0% 0%;
 }
 
 a {
@@ -254,7 +250,3 @@ body {
 .container_16 {
 	background:#fff;
 }
-
-
-
-
