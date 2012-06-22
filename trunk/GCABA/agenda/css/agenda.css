@@ -1027,8 +1027,18 @@ margin-right:auto;
 	height: 90px;
 }
 .CGpercents {
-	font-size: xx-small !Important;
+	/*font-size: xx-small !Important;*/
+	font-size: 1.2em;
 }
+#fancyboxCakeGraph {
+	background-color: White;
+	padding: 50px;
+}
+#fancybox-outer.fancyboxCakeGraph, #fancybox-content.fancyboxCakeGraph {
+	background-color: White !Important;
+	border: none !Important;
+}
+
 
 /* Botones SOLAPAS filtros */
 #textFilters {

@@ -48,19 +48,27 @@
 			colors: graphInfo.colors
 		});
 		$('.eventsGraph').click(function() {
+			$('#fancybox-outer').addClass("fancyboxCakeGraph");
 			$('#fancyboxDiv').html('<div id="fancyboxCakeGraph" style="width: 400px; height: 400px"></div>')
 			new CakeGraph({
 				selector: '#fancyboxCakeGraph',
 				data: graphInfo.data,
 				colors: graphInfo.colors,
-//				legends: graphInfo.axes,
+				legends: graphInfo.axes,
 				showPercents: true
 			});
 			$('#fancyboxDummy').click();
 		});
+
+
+		
 		
 		$('#newEventFancyboxDummy').fancybox();
-		$('#fancyboxDummy').fancybox();
+		$('#fancyboxDummy').fancybox({
+   onClosed: function() {
+			$('#fancybox-outer').removeClass("fancyboxCakeGraph");
+   }
+});
 		|-if !empty($loginUser) && $loginUser->isSupervisor() && $firstView-|
 		$('#fancyboxDiv').load(
 			'Main.php?do=calendarRegularEventGetUninstantiatedX',
@@ -240,6 +248,7 @@
 	}
 	
 	editEvent = function(event) {
+//		$('#fancybox-outer').removeClass("fancyboxCakeGraph");
 		$('#fancyboxDiv').load(
 			'Main.php?do=calendarEventsEdit&id='+event.id,
 			{  },
