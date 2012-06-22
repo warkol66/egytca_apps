@@ -45,22 +45,33 @@ class BaseDoDeleteAction extends BaseAction {
 			}
 			
 		}
-
+        
 		try {
 			$this->entity->delete();
+            $this->postDelete();
+            return $mapping->findForwardConfig('success');
 		} catch (Exception $e) {
 			if (ConfigModule::get("global","showPropelExceptions")){
 				print_r($e->__toString());
 			}
 		}
 
-		$this->postDelete();
+        return $mapping->findForwardConfig('failure');
 
-		if ($this->entity->isDeleted())
-			return $mapping->findForwardConfig('success');
-		else
-			return $mapping->findForwardConfig('failure');
-
+//		try {
+//			$this->entity->delete();
+//		} catch (Exception $e) {
+//			if (ConfigModule::get("global","showPropelExceptions")){
+//				print_r($e->__toString());
+//            }
+//		}
+//	
+//		$this->postDelete();
+//
+//		if ($this->entity->isDeleted())
+//			return $mapping->findForwardConfig('success');
+//		else
+//			return $mapping->findForwardConfig('failure');
 	}
 	
 	protected function preDelete() {

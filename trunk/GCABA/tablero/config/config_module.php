@@ -7,6 +7,7 @@ class ConfigModule {
 			"debugMode" => true,
 			"noSecurity" => true,
 			"noCheckLogin" => false,
+			"concurrentSession" => true,
 			"developmentMode" => true,
 			"showPropelExceptions" => true,
 			"doLog" => true,
@@ -35,7 +36,8 @@ class ConfigModule {
 				6 => 'Mayor',
 				7 => 'Vice Mayor',
 				8 => 'Chief of Staff',
-				11 => 'Secretary',
+				9 => 'Minister',
+				10 => 'Vice Minister',
 				12 => 'Sub secretary',
 				13 => 'General Director',
 				14 => 'Director',
@@ -70,23 +72,17 @@ class ConfigModule {
 				"Neighborhood" => 12
 				),
 			"positionsTypes" => array(
-				11 => 'Secretary',
+				8 => 'Chief of Staff',
+				9 => 'Minister',
+				10 => 'Vice Minister',
 				12 => 'Sub secretary',
 				13 => 'General Director',
 				14 => 'Director',
 				15 => 'Sub Director'
 				),
-			"useContractors" => true,
-			"activeContractorTypes" => array(
-				1 => 'Candidate',
-				2 => 'Preclasified'
-				),
 			"useDocuments" => true,
 			"useDisbursements" => true,
 			"useCodeAux" => true,
-			"useContractorsList" => true,
-			"useExchangeRate" => true,
-			"useFinancingSources" => true,
 			"showActivitiesDates" => true
 		),
 		"projectsActivities" => array(
