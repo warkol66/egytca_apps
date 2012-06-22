@@ -19,4 +19,7 @@
 			border-radius: 3px;
 				behavior: url(css/ie-pie/PIE.htc); /*  Para que RADIUS CORNER funcione en ie6, IE7, IE8*/
 			}
-			/*
+			
+	.boxNav1 ul li a.botFiltrar,
+	.boxNav1 ul li a.botResetFiltros { width:16px; height:16px; 
+	background-position:0 0;}

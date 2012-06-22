@@ -269,8 +269,7 @@ text-align:left;
 	 
 .fc-event {
 	border-style: solid;
-	border-width: 0;
-/*	font-size: .85em;*/
+	/*	font-size: .85em;*/
 	font-size:9px;
 	cursor: default;
 	}
@@ -574,7 +573,7 @@ table.fc-border-separate {
 ------------------------------------------------------------------------*/
 
 .fc-event-vert {
-	border-width: 0 1px;
+	border-width: 0;
 	}
 	
 .fc-event-vert .fc-event-head,

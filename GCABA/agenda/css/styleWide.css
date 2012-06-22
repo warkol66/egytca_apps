@@ -94,16 +94,9 @@
 
 #pendientes, .pendientesContent{ width:160px !Important;}
 		.pendientesContent ul li{	width:130px;}
-			
-		.pendientesContent ul li .pendienteDato {
-		width:90px; margin:0; height:60px; float:left; display:block;
-		padding:5px;
-		  -webkit-border-radius: 10px 0 0 10px;
-				-moz-border-radius: 10px 0 0 10px;
-				border-radius:10px 0 0 10px;
-				behavior: url(css/ie-pie/PIE.htc);
-				overflow:hidden;}
-
+		.pendientesContent .solapita{ width:130px;}
+		.pendientesContent ul li .pendienteDato {width:97px;}
+		
 
 /*    MENU SOLAPAS DE COLORES    */
 	
@@ -136,9 +129,4 @@
 				.boxNavSolapas ul li.solCrec a{background-position:-110px -80px;}	
 				
 				.boxNavSolapas ul li.solOtros { left:1006px; z-index:600; width:110px;}
-				.boxNavSolapas ul li.solOtros a{background-position:0 -120px;width:110px;}
-
-.eventsGraph {
-	width: 130px;
-	height: 130px;
-}
+				.boxNavSolapas ul li.solOtros a{background-position:0 -120px;width:110px;}	
