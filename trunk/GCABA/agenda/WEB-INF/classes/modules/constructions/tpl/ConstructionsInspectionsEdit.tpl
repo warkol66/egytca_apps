@@ -19,7 +19,31 @@
 		
 		$(".chzn-select").chosen();
 		initializeDatePickers();
-		$('a.galleryPhoto').fancybox();
+		$('a.galleryPhoto').fancybox({
+			titleShow: true,
+			titlePosition: 'inside',
+			titleFormat: function(title, currentArray, currentIndex, currentOpts) {
+				var a = currentArray[currentIndex];
+				var photoDiv = $('<div></div>');
+				$('<p><span id="title" class="jeditable_'+$(a).attr('photoId')+'">'+$(a).attr('photoTitle')+'</span></p>').appendTo(photoDiv);
+				$('<p><span id="description" class="jeditable_'+$(a).attr('photoId')+'">'+$(a).attr('photoDescription')+'</span></p>').appendTo(photoDiv);
+				return photoDiv;
+			},
+			onComplete: function(currentArray, currentIndex) {
+				var a = currentArray[currentIndex];
+				$('.jeditable_'+$(a).attr('photoId')).editable('Main.php?do=resourcesDoEditParam', {
+					id: 'paramName',
+					name: 'paramValue',
+					submitdata: { id: $(a).attr('photoId') },
+					submit: 'OK',
+					cancel: 'Cancel',
+					indicator : 'Saving...',
+					callback: function(value, settings) {
+						$(a).attr('photo'+$(this).attr('id'), value);
+					}
+				});
+			}
+		});
 		|-if !$inspection->isNew()-|
 			$('a#photoAdd').fancybox({
 				onComplete: function() {
