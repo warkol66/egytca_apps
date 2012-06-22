@@ -254,6 +254,10 @@ fieldset label {
 	padding-bottom: 5px;
 	display: block;
 }
+.inlineLabel {
+	display: inline;
+	float: none;
+}
 fieldset p {
 	display: block;
 	height: auto;

@@ -39,14 +39,14 @@ function positionsGetAllParentsByPositionX(form){
 	|-/if-|
 |-else-|<select id="positionDataX[type]" name="positionDataX[type]" title="type" onChange="positionsGetAllParentsByPositionX(this.form);">
 			<option value="0">Seleccione el tipo</option>
-			<optgroup label="Hierarchical">
+			<optgroup label="|-"Hierarchical"|multilang_get_translation:"positions"-|">
 			|-foreach from=$positionTypes key=typeKey item=type name=for_type-|
 				|-if $typeKey gt $configModule->get('positions','treeRootType')-|
         		<option value="|-$typeKey-|">|-section name=space loop=$typeKey start=$configModule->get('positions','treeRootType')-|&nbsp;&nbsp;|-/section-||-$type-|</option>
 				|-/if-|
 			|-/foreach-|
 			</optgroup>
-			<optgroup label="Staff">
+			<optgroup label="|-"Staff"|multilang_get_translation:"positions"-|">
 			<option value="|-$staffKind-|">&nbsp;&nbsp;|-$positionKinds[$staffKind]-|</option>
 			</optgroup>
       </select>|-/if-|</p>
