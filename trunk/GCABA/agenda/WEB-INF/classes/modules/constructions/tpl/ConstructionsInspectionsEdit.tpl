@@ -15,11 +15,12 @@
 <script type="text/javascript" src="scripts/jquery/jquery.jeditable.mini.js"></script>
 
 <script type="text/javascript">
+	
+	var galleryOptions; 
+	
 	$(document).ready(function() {
 		
-		$(".chzn-select").chosen();
-		initializeDatePickers();
-		$('a.galleryPhoto').fancybox({
+		galleryOptions = {
 			titleShow: true,
 			titlePosition: 'inside',
 			titleFormat: function(title, currentArray, currentIndex, currentOpts) {
@@ -43,7 +44,11 @@
 					}
 				});
 			}
-		});
+		}
+		
+		$(".chzn-select").chosen();
+		initializeDatePickers();
+		$('a.galleryPhoto').fancybox(galleryOptions);
 		|-if !$inspection->isNew()-|
 			$('a#photoAdd').fancybox({
 				onComplete: function() {
@@ -80,12 +85,12 @@
 			$.ajax({
 				url: 'Main.php?do=constructionsInspectionsLoadGalleryPhotoX',
 				type: 'post',
-				data: { photoId: photo.id },
+				data: { photoId: photo.Id },
 				success: function(data) {
 					$(data).appendTo($('#photos'));
+					$('a.galleryPhoto').fancybox(galleryOptions);
 				}
 			});
-			$('a.galleryPhoto').fancybox();
 		}
 		
 		progress.toggleCancel(false);
