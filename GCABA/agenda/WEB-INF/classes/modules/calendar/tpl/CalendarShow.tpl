@@ -170,11 +170,11 @@
 						return colors[i];
 				}
 			}
-			throw 'no color match';
+			//throw 'no color match';
 		}
 		
 		var cant = {amarillo: 0, verde1: 0, verde1bis: 0, verde2: 0,
-			cyan: 0, naranja: 0, naranjabis: 0,rojo: 0, gris: 0}
+			cyan: 0, naranja: 0, naranjabis: 0, rojo: 0, gris: 0}
 		
 		for (var i=0; i<events.length; i++) {
 			cant[colorClassName(events[i].className)]++
@@ -185,11 +185,11 @@
 		var colors = [
 			'#FFCC00', // amarillo
 			'#88d852', // verde1
-			'#88d852', // verde1
+			'#88d853', // verde1
 			'#359e7d', // verde2
 			'#3dbeff', // cyan
 			'#ff9c0d', // naranja
-			'#ff9c0d', // naranja
+			'#ff9c0e', // naranja
 			'#ff3929', // rojo
 			'#c0c0c0'  // gris
 		]
