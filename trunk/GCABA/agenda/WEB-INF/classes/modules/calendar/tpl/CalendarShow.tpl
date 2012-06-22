@@ -89,7 +89,7 @@
 			dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
 			columnFormat: {
 				month: 'dddd',    // Monday, Wednesday, etc
-				week: 'dddd dd/MM', // Monday 9/7
+				week: 'dddd dd', // Monday 9/7
 				day: ''  // Monday 9/7
 			},
 			axisFormat: 'h(:mm) tt',
@@ -158,8 +158,8 @@
 		
 		var colorClassName = function(classes) {
 			var colors = [
-				'amarillo', 'verde1', 'verde2', 'cyan',
-				'naranja', 'rojo', 'gris'
+				'amarillo', 'verde1', 'verde1bis', 'verde2', 'cyan',
+				'naranja', 'naranjabis', 'rojo', 'gris'
 			];
 			for (var i=0; i<colors.length; i++) {
 				if (classes instanceof Array) {
@@ -173,20 +173,22 @@
 			throw 'no color match';
 		}
 		
-		var cant = {amarillo: 0, verde1: 0, verde2: 0,
-			cyan: 0, naranja: 0, rojo: 0, gris: 0}
+		var cant = {amarillo: 0, verde1: 0, verde1bis: 0, verde2: 0,
+			cyan: 0, naranja: 0, naranjabis: 0,rojo: 0, gris: 0}
 		
 		for (var i=0; i<events.length; i++) {
 			cant[colorClassName(events[i].className)]++
 		}
-		var data = [cant.amarillo, cant.verde1, cant.verde2,
-			cant.cyan, cant.naranja, cant.rojo, cant.gris]
+		var data = [cant.amarillo, cant.verde1, cant.verde1bis, cant.verde2,
+			cant.cyan, cant.naranja, cant.naranjabis, cant.rojo, cant.gris]
 		
 		var colors = [
 			'#FFCC00', // amarillo
 			'#88d852', // verde1
+			'#88d852', // verde1
 			'#359e7d', // verde2
 			'#3dbeff', // cyan
+			'#ff9c0d', // naranja
 			'#ff9c0d', // naranja
 			'#ff3929', // rojo
 			'#c0c0c0'  // gris

@@ -61,6 +61,8 @@
 				// Datepicker
 				$('#datepicker').datepicker({
 						dateFormat: 'dd-mm-yy',
+						changeYear: true,
+						changeMonth: true,
 						inline: true
 				});
 
@@ -134,8 +136,16 @@
 				<span class="slogan"></span>
 
 			</div><!-- /grid_16 header1 -->
+
+
+ 
             <div id="filters" style="display:|-if $filters|@count ne 0-|block|-else-|none|-/if-|"><!-- filters -->
-						<div id="textFilters">|-if $filters|@count ne 0-|Resultados filtrados - |-/if-|<a href="javascript:void(null)" class="butShowHideFilter" onclick="$('.boxNav1').toggle()">Ver/Ocultar filtros</a>|-if $filters|@count ne 0-| - <a href="Main.php?do=calendarShow">Quitar Filtros</a>|-/if-| </div>
+						<div id="textFilters">|-if $filters|@count ne 0-|
+						<a href="javascript:void(null)" class="butResultsFilter" onClick="$('.boxNav1').toggle()">Resultados filtrados</a>|-/if-|
+						<a href="javascript:void(null)" class="butShowHideFilter" onclick="$('.boxNav1').toggle()">Ver/Ocultar filtros</a>
+						|-if $filters|@count ne 0-|
+						<a href="Main.php?do=calendarShow" class="butDeleteFilter">Quitar Filtros</a>|-/if-|
+					</div>
             <div class="boxNav1" style="display:|-if $filters|@count eq 0-|block|-else-|none|-/if-|"><!-- boxNav1 -->
 					<form action='Main.php' method='get' style="display:inline;" name="filters">
 					<input type="hidden" name="do" value="calendarShow" />
@@ -182,9 +192,9 @@
                     <li class="buttonCC"><input name="filters[campaigncommitment]" type="checkbox" value="1" |-$filters.campaigncommitment|checked_bool-|/><a href="#"></a></li>
                     <li class="pickDate"><input type="text" name="filters[selectedDate]" id="datepicker" value="|-$filters.selectedDate-|" size="10" maxlength="10" style="position:relative;z-index: 1050;" >
 										<a href="javascript:document.filters.submit();" class="dateGo">Ir</a>
-											<li><a href="javascript:document.filters.submit();" alt="Buscar" class="botFiltrar">Filtrar</a>            
-														<a href="Main.php?do=calendarShow" alt="Quitar filtros" class="botResetFiltros">Quitar filtros</a></li>  
-														</ul>
+										<li><a href="javascript:document.filters.submit();" alt="Buscar" class="botFiltrar"> </a></li>
+										<li> <a href="Main.php?do=calendarShow" alt="Quitar filtros" class="botResetFiltros"> </a></li>  
+									</ul>
  </form>                                                           
      	</div><!-- /boxNav1 -->
      	</div><!-- /filters -->
