@@ -202,7 +202,19 @@
 			'#c0c0c0'  // gris
 		]
 		
-		return { data: data, colors: colors }
+		var axes = [
+			'Turismo',
+			'Vida Sana',
+			'Plan Verde',
+			'Transf. la ciudad',
+			'Ciudad Segura',
+			'R. Social',
+			'Crec. Personal',
+			'Agenda Cultural',
+			'Otros'
+		]
+		
+		return { data: data, colors: colors, axes: axes }
 	}
 	
 	loadEvents = function() {
