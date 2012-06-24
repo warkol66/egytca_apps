@@ -81,6 +81,18 @@ CakeGraph = function(params) {
 			return text;
 		});
 	
+	var legends = $(selector + ' text[display!="none"]');
+	legends.hover(
+		function() {
+			legends.hide();
+			$(this).show();
+		},
+		function() {
+			legends.show();
+		}
+	);
+	
+	
 	// Store the currently-displayed angles in this._current.
 	// Then, interpolate from this._current to the new angles.
 	_this.arcTween = function(a) {
