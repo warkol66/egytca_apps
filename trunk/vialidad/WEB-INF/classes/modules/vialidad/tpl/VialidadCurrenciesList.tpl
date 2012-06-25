@@ -1,13 +1,13 @@
 <h2>Monedas</h2>
 <h1>Administración de Monedas</h1>
 <p>A continuación se muestra la lista de Monedas cargadas en el sistema.</p>
-<div id="div_supplies"> 
+<div id="div_currencies"> 
 	|-if $message eq "deleted_ok"-|
 		<div class="successMessage">Moneda eliminada correctamente</div>
 	|-/if-|
 	<div name="working_status_message" style="display:none;" class="inProgress">Trabajando...</div>
 	<div name="done_status_message" style="display:none;" class="successMessage">Moneda agregada</div>
-	<table id="table_supplies" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
+	<table id="table_currencies" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead> 
 		<!--<tr>
 			<td colspan="3" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Búsqueda de Monedas </a>
@@ -53,7 +53,7 @@
 		</tr>
 		</thead>
 	
-		<tbody id="suppliesList">
+		<tbody id="currenciesList">
 		|-if $currencyColl|@count eq 0-|
 		<tr>
 			<td colspan="3">|-if isset($filter)-|No hay Monedas que concuerden con la búsqueda|-else-|No hay Monedas disponibles|-/if-|</td>

@@ -421,6 +421,7 @@
 	<table phpName="ContractAmount" name="vialidad_contractAmount" description="Montos Originales y Modificatorios de Contratos">
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="contractId" type="INTEGER" required="true" />
 		<column name="currencyId" type="INTEGER" required="true" />
 		<column name="amount" type="DECIMAL" size="15" scale="2" description="Monto" />
 		<column name="paripassu" type="DECIMAL" size="15" scale="2" description="Pari Pasu" />
@@ -431,6 +432,10 @@
 			<reference local="currencyId" foreign="id" />
 		</foreign-key>
 		
+		<foreign-key foreignTable="vialidad_contract" onDelete="cascade" >
+			<reference local="contractId" foreign="id" />
+		</foreign-key>
+
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>

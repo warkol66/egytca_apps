@@ -84,8 +84,8 @@
 			</select>
 		 </p>
 
-		 
-		 |-include file="VialidadContractAmountInclude.tpl"-|
+		 <h3>Montos del Contrato</h3>
+		 |-if !$contract->isNew()-||-include file="VialidadContractsAmountInclude.tpl"-||-/if-|
 		 
 		 
 	 <p><input name="save" type="submit" value="Guardar Cambios"> 

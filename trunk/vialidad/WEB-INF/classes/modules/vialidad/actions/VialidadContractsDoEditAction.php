@@ -27,6 +27,51 @@ class VialidadContractsDoEditAction extends BaseAction {
 		if (!empty($_POST["filters"]))
 			$filters = $_POST["filters"];
 
+
+		$totalValues = 6;
+
+		foreach ($_POST["amount"] as $item) {
+
+				foreach ($item as $itemValue => $value) {
+					if ($itemValue == "amount" || $itemValue == "paripassu" ) 
+						$value = Common::convertToMysqlNumericFormat($value);
+					$amountValues[$itemValue] = $value;
+				}
+				$j++;
+				//Cuando complete todos los valores asociados a un monto, lo guardo en $amountParams
+				if ($j == $totalValues) {
+					$amountParams[] = $amountValues;
+					$amountValues = array();
+					$j = 0;
+				}
+		}
+
+		//Guardo los datos de montos asociados al contrato
+		foreach ($amountParams as $amount) {
+		
+			$id = $amount["id"];
+		
+			if (!empty($id))
+				$contractAmount = ContractAmountQuery::create()->findOneById($id);
+			else
+				$contractAmount = new ContractAmount();
+		
+			$contractAmount->fromArray($amount,BasePeer::TYPE_FIELDNAME);
+			if ($contractAmount->isNew())
+				$contractAmount->setId(null);
+						
+		
+			$contractAmount->setContractid($_POST["id"]);
+			try {
+				$contractAmount->save();
+			} catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->__toString());
+			}
+		
+		}
+
+
 		$userParams = Common::userInfoToDoLog();
 		$contractParams = array_merge_recursive($_POST["params"],$userParams);
 
