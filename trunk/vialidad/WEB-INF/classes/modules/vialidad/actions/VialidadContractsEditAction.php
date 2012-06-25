@@ -49,6 +49,7 @@ class VialidadContractsEditAction extends BaseAction {
 			$smarty->assign("action","create");
 		}
 		$smarty->assign("contract",$contract);
+		$smarty->assign("currencies",CurrencyQuery::create()->find());
 		return $mapping->findForwardConfig('success');
 	}
 }
