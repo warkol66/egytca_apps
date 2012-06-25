@@ -34,12 +34,12 @@
 				</select>
 		 </p>
 		 <p>
-		   <label for="Nroid">Nro de id</label>
-				<input name="Nroid" type="text" value="" size="15" title="Nro de ID"> 
+		   <label for="params[numberId]">Nro de id</label>
+				<input name="params[numberId]" type="text" value="|-$construction->getNumberId()|escape-|" size="15" title="Nro de ID"> 
 		</p>
 		 <p>
-		   <label for="CodigoContratacion">Código de Contratación</label>
-				<input name="CodigoContratacion" type="text" value="" size="15" title="Código de Contratación"> 
+		   <label for="params[engagementCode]">Código de Contratación</label>
+				<input name="params[engagementCode]" type="text" value="|-$construction->getEngagementCode()|escape-|" size="15" title="Código de Contratación"> 
 		</p>
 		 <p><label for="params[name]">Nombre</label>
 			<input name="params[name]" type="text" value="|-$construction->getName()|escape-|" size="60">
