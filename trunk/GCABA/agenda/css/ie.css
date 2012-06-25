@@ -23,3 +23,16 @@
 	.boxNav1 ul li a.botFiltrar,
 	.boxNav1 ul li a.botResetFiltros { width:16px; height:16px; 
 	background-position:0 0;}
+	
+			.pendientesContent ul li .pendienteDato {
+			width:57px;
+			margin:0;
+			height:55px;
+			float:left;
+			display:block;
+			padding:0 0 5px 5px;
+			text-align: left!Important;
+			}
+				
+		.pendientesContent 	.pendienteDato span {font-weight:bold;display: block; margin-bottom:5px; /*height:50px;*/ overflow:hidden;		
+}	

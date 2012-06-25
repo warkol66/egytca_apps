@@ -18,11 +18,11 @@
 <div style="display:none;"><div id="fancyboxDiv"></div></div>
 
 <script type="text/javascript">
-	
+
 	var calendar;
 	var eventsCakegraph;
 	var graphInfo;
-	
+
 	$(document).ready(function() {
 		var day, month, year;
 		var events = loadEvents();
@@ -39,7 +39,7 @@
 		|-else-|
 			year = (new Date()).getFullYear();
 		|-/if-|
-		
+
 		// grafico de porcentaje de eventos
 		graphInfo = makeGraphInfo(events.concat(pendingEvents));
 		eventsCakegraph = new CakeGraph({
@@ -61,8 +61,8 @@
 		});
 
 
-		
-		
+
+
 		$('#newEventFancyboxDummy').fancybox();
 		$('#fancyboxDummy').fancybox({
    onClosed: function() {
@@ -75,9 +75,9 @@
 			{ years:  [year, parseInt(year)+1] }
 		);|-/if-|
 	});
-	
+
 	createCalendar = function(events) {
-		
+
 		return $('#calendar').fullCalendar({
 			header: {
 				left: 'prev,next today',
@@ -136,12 +136,12 @@
 				end.setTime(end.getTime() + (defaultDuration*60*60*1000));
 				var originalEventObject = $(this).data('eventObject');
 				var copiedEventObject = $.extend({}, originalEventObject);
-				
+
 				copiedEventObject.start = start;
 				copiedEventObject.end = end;
 				copiedEventObject.allDay = allDay;
 				copiedEventObject.scheduleStatus = 2;
-				
+
 				var data = {
 					id: copiedEventObject.id,
 					calendarEvent: {
@@ -151,7 +151,7 @@
 						scheduleStatus: 2
 					}
 				}
-				
+
 				editRequest(data, function(event) {
 					Calendar.removePendingEvent(event.id);
 					calendar.fullCalendar('renderEvent', event, true);
@@ -159,15 +159,12 @@
 			}
 		});
 	}
-	
+
 	makeGraphInfo = function(events) {
-		
-		// harcodeado horrible
-		
+
 		var colorClassName = function(classes) {
 			var colors = [
-				'amarillo', 'verde1', 'verde1bis', 'verde2', 'cyan',
-				'naranja', 'naranjabis', 'rojo', 'gris'
+			|-foreach from=$axes item="axis"-|'|-$axis->getCssClass()-|'|-if !$axis@last-|, |-/if-||-/foreach-|
 			];
 			for (var i=0; i<colors.length; i++) {
 				if (classes instanceof Array) {
@@ -178,45 +175,33 @@
 						return colors[i];
 				}
 			}
-			//throw 'no color match';
 		}
-		
-		var cant = {amarillo: 0, verde1: 0, verde1bis: 0, verde2: 0,
-			cyan: 0, naranja: 0, naranjabis: 0, rojo: 0, gris: 0}
-		
+
+		var cant = {
+			|-foreach from=$axes item="axis"-||-$axis->getCssClass()-|: 0|-if !$axis@last-|, |-/if-||-/foreach-|}
+
 		for (var i=0; i<events.length; i++) {
 			cant[colorClassName(events[i].className)]++
 		}
-		var data = [cant.amarillo, cant.verde1, cant.verde1bis, cant.verde2,
-			cant.cyan, cant.naranja, cant.naranjabis, cant.rojo, cant.gris]
-		
+		var data = [
+			|-foreach from=$axes item="axis"-|cant.|-$axis->getCssClass()-||-if !$axis@last-|, |-/if-||-/foreach-|
+			]
+
 		var colors = [
-			'#FFCC00', // amarillo
-			'#88d852', // verde1
-			'#88d853', // verde1
-			'#359e7d', // verde2
-			'#3dbeff', // cyan
-			'#ff9c0d', // naranja
-			'#ff9c0e', // naranja
-			'#ff3929', // rojo
-			'#c0c0c0'  // gris
+			|-foreach from=$axes item="axis"-|
+				'|-$axis->getColor()-|'|-if !$axis@last-|, |-/if-| // |-$axis->getCssClass()-|
+			|-/foreach-|
 		]
-		
+
 		var axes = [
-			'Turismo',
-			'Vida Sana',
-			'Plan Verde',
-			'Transf. la ciudad',
-			'Ciudad Segura',
-			'R. Social',
-			'Crec. Personal',
-			'Agenda Cultural',
-			'Otros'
+			|-foreach from=$axes item="axis"-|
+			'|-$axis->getName()-|'|-if !$axis@last-|, |-/if-|
+			|-/foreach-|
 		]
-		
+
 		return { data: data, colors: colors, axes: axes }
 	}
-	
+
 	loadEvents = function() {
 		return [
 			|-foreach from=$events item="event"-|
@@ -229,7 +214,7 @@
 			|-/foreach-|
 		]
 	}
-	
+
 	loadPendingEvents = function() {
 		var eventObjects = [];
 			|-foreach $pendingEvents as $pending-|
@@ -237,28 +222,28 @@
 			|-/foreach-|
 		return eventObjects;
 	}
-	
+
 	renderPendingEvents = function(events) {
 		for (var i=0; i < events.length; i++) {
 			Calendar.renderEvent(events[i]);
 		}
 	}
-	
+
 	newEvent = function(start, end, allDay) {
-		
+
 		start = ensureMinHour(start);
 		if (end.getHours() == 0) {
 			var end = new Date(start.getTime());
 			end.setTime(end.getTime() + (Calendar.options.eventDefaultDuration*60*60*1000));
 		}
-		
+
 		$('#newEvent #calendarEvent_creationDate').val(getFormattedDatetime(new Date()));
 		$('#newEvent #calendarEvent_startDate').val(getFormattedDatetime(start));
 		$('#newEvent #calendarEvent_endDate').val(getFormattedDatetime(end));
-		
+
 		$('#newEventFancyboxDummy').click();
 	}
-	
+
 	editEvent = function(event) {
 //		$('#fancybox-outer').removeClass("fancyboxCakeGraph");
 		$('#fancyboxDiv').load(
@@ -272,21 +257,21 @@
 				$('#calendarEventsEditX_cancelButton').click(function(e) {
 					$.fancybox.close();
 				});
-				
+
 				$('#calendarEventsEditX_form #calendarEvent_creationDate').val(getFormattedDatetime(new Date(event.creationDate)));
 				$('#calendarEventsEditX_form #calendarEvent_startDate').val(getFormattedDatetime(event.start));
 				$('#calendarEventsEditX_form #calendarEvent_endDate').val(getFormattedDatetime(event.end));
-				
+
 				$('#fancyboxDummy').click()
 				$(".chzn-select").chosen(); // chosen/fancybox hack
 			}
 		);
 	}
-	
+
 	doCreateEvent = function(form) {
-		
+
 		var data = $(form).serialize();
-		
+
 		editRequest(data, function(event) {
 			calendar.fullCalendar(
 				'renderEvent',
@@ -295,25 +280,25 @@
 			);
 			form.reset()
 		});
-		
+
 		calendar.fullCalendar('unselect');
 	}
-	
+
 	doEditEvent = function(form) {
-		
+
 		var data = $(form).serialize();
-		
+
 		editRequest(data, function(event) {
 			Calendar.updateEvent(event);
 		});
 	}
-	
+
 	doDeleteEvent = function(event) {
 		doDeleteEventById(event.id);
 	}
-	
+
 	doDeleteEventById = function(id) {
-		
+
 		$.ajax({
 			url: 'Main.php?do=calendarEventsDoDeleteX',
 			type: 'post',
@@ -323,9 +308,9 @@
 			}
 		});
 	}
-	
+
 	editRequest = function(data, onSuccess) {
-		
+
 		$.ajax({
 			url: 'Main.php?do=calendarEventsDoEdit',
 			type: 'post',
@@ -334,12 +319,12 @@
 			success: onSuccess
 		});
 	}
-	
+
 	updateEventDatetime = function(event) {
 		var data = 'id='+event.id;
 		data += '&calendarEvent[startDate]='+getFormattedDatetime(event.start);
 		data += '&calendarEvent[endDate]='+getFormattedDatetime(event.end);
-		
+
 		editRequest(data, function(event) {
 			// bug fix resize deja de andar
 			calendar.fullCalendar('removeEvents', event.id);
@@ -350,11 +335,11 @@
 			);
 		});
 	}
-	
+
 	getFormattedDatetime = function(date) {
 		return date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
 	}
-	
+
 	createHolidayFromRegEvent = function(regEventId, year) {
 		$.ajax({
 			url: 'Main.php?do=calendarHolidayEventCreateFromRegularEventX',
@@ -371,7 +356,7 @@
 			}
 		});
 	}
-	
+
 	ensureMinHour = function(date) {
 		if (date.getHours() < Calendar.options.minTime) {
 			var newDate = new Date(date.getTime());
@@ -392,8 +377,8 @@
 		<div class="fc-event-inner fc-event-skin eventoContainer">
             <span class="fc-event-time">
               <!--|-if "calendarEventsDoEditX"|security_has_access-|<ul class="botoneraSmallEvento">
-                    <li class="eventoBot01"><a href="#"></a></li> 
-                    <li class="eventoBot02"><a href="#"></a></li> 
+                    <li class="eventoBot01"><a href="#"></a></li>
+                    <li class="eventoBot02"><a href="#"></a></li>
                 </ul>|-/if-|-->
                 %start-%end&nbsp;%timeConfirmed
 		%CC_image
@@ -403,9 +388,9 @@
                 <span class="fc-event-text">%address</span>
             </div>
             <div class="eventoFooter"></div>
-						|-if "calendarEventsDoEditX"|security_has_access-|<div class="ui-resizable-handle ui-resizable-s">=</div>|-else-|<div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>|-/if-| 
+						|-if "calendarEventsDoEditX"|security_has_access-|<div class="ui-resizable-handle ui-resizable-s">=</div>|-else-|<div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>|-/if-|
     	</div>
-  	</div>   
+  	</div>
 </div>
 
 <!--template para eventos de todo el día-->
@@ -419,7 +404,7 @@
             <div class="eventoFooter"></div>
 				<div class="ui-resizable-handle ui-resizable-e">&nbsp;&nbsp;&nbsp;</div>
     	</div>
-  	</div>   
+  	</div>
 </div>
 
 <!--template para eventos pendientes-->
