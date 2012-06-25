@@ -130,17 +130,21 @@
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="code" type="VARCHAR" size="50" required="true" description="Codigo del contrato" />
+		<column name="contractNumber" type="VARCHAR" size="20" description="Codigo del Contrato"/>
+		
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" description="Nombre del contrato" />
 		<column name="type" type="INTEGER" size="2" description="Tipo de contrato" />
 		<column name="contractorId" type="INTEGER"  description="Id del contratista" />
-		<column name="startDate" type="DATE" description="Fecha de firma" />
+		<column name="startDate" type="DATE" description="Fecha de inicio" />
 		<column name="ammount" type="DECIMAL" size="15" scale="2"  description="Monto del Contrato" />
 		<column name="ammountModified" type="DECIMAL" size="15" scale="2"  description="Monto modificado" />
 		<column name="contractLength" type="INTEGER" size="5" description="Longitud del contrato" />
 		<column name="termType" type="INTEGER" size="2" description="Tipo de plazo de longitud del contrato" />
 
 		<column name="adjudication" type="VARCHAR" size="50" description="Resolucion y/o Decreto de Adjudicacion" />
+		<column name="tenderNumber" type="VARCHAR" size="20" description="Numero de Llamado a Licitacion"/>
 		<column name="adjudicationDate" type="DATE" description="Fecha de adjudicacion" />
+		<column name="signDate" type="DATE" description="Fecha de firma" />
 		<column name="pacNumber" type="VARCHAR" size="10" description="Numero de contrato PAC" />
 
 		<column name="tprano" type="VARCHAR" size="4" description="Anio del contrato" />
