@@ -412,11 +412,29 @@
 		<column name="code" type="VARCHAR" size="50" description="Codigo de la moneda" primaryString="true" />
 		<column name="name" type="VARCHAR" size="255" required="true" />
 
+		
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
 		</vendor>
+	</table>
+	<table phpName="ContractAmount" name="vialidad_contractAmount" description="Montos Originales y Modificatorios de Contratos">
 
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="currencyId" type="INTEGER" required="true" />
+		<column name="amount" type="DECIMAL" size="15" scale="2" description="Monto" />
+		<column name="paripassu" type="DECIMAL" size="15" scale="2" description="Pari Pasu" />
+		<column name="date" type="DATE" description="Fecha" />
+		<column name="amountType" type="BOOLEAN" description="Monto Original o Modificatorio" />
+
+		<foreign-key foreignTable="vialidad_currency" onDelete="cascade" >
+			<reference local="currencyId" foreign="id" />
+		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
 	</table>
 
 	<table phpName="MeasureUnit" name="vialidad_measureUnit" description="Base de datos de unidades de medida">

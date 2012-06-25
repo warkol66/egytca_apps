@@ -75,12 +75,6 @@
 				<label for="params[signDate]">Fecha de firma</label>
 				<input id="params[signDate]" name="params[signDate]" type='text' value='|-$contract->getSignDate()|date_format-|' size="12" title="Ingrese la fecha de firma" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[signDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
-		 <p><label for="params[ammount]">Monto del Contrato</label>
-			<input name="params[ammount]" type="text" value="|-$contract->getAmmount()|escape|system_numeric_format:0-|" size="15">
-		 </p>
-		 <p><label for="params[ammountModified]">Monto Modificado</label>
-			<input name="params[ammountModified]" type="text" value="|-$contract->getAmmountModified()|escape|system_numeric_format:0-|" size="15">
-		 </p>
 		 <p><label for="params[contractLength]">Plazo contractual</label>
 			<input name="params[contractLength]" type="text" value="|-$contract->getContractLength()|system_numeric_format:0-|" size="6"> 
 			<select id="params_termType" name="params[termType]" title="Tipo de plazo">
@@ -90,6 +84,10 @@
 			</select>
 		 </p>
 
+		 
+		 |-include file="VialidadContractAmountInclude.tpl"-|
+		 
+		 
 	 <p><input name="save" type="submit" value="Guardar Cambios"> 
 				<input type='button' onClick='location.href="Main.php?do=vialidadContractsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Contratos"/>
 			 </p>
