@@ -266,9 +266,9 @@
 	zoom: 1;
 	filter: alpha(opacity=90);
 	opacity: 0.9;
-	-webkit-border-radius: 0 0 5px 5px;
-	-moz-border-radius: 0 0 5px 5px;
-	border-radius: 0 0 5px 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 	behavior: url(css/ie-pie/PIE.htc);
 	}
 		/*
@@ -287,8 +287,8 @@
 	/*	}*/
 	 
 			 /* HORARIO*/
-			 .fc-event-time{width:115px;
-			/*width:100%;*/
+			 .fc-event-time{/*width:115px;*/
+			width:100%;
 				height:15px;
 				line-height:15px;
 				padding:0;
@@ -300,9 +300,9 @@
 				font-weight:bold;
 				clear:both;
 				
-		    -webkit-border-radius: 7px 0 0 0;
-		    -moz-border-radius: 7px 0 0 0;
-    		border-radius: 7px 0 0 0;
+		    -webkit-border-radius:  5px 0 0px 5px;
+		    -moz-border-radius: 5px 0 0px 5px;
+    		border-radius:5px 0 0px 5px;
 			behavior: url(css/ie-pie/PIE.htc);	
 				/*  PIE BEHAVIOR en ie7.css, para que RADIUS CORNER funcione en ie6, IE7, IE8*/				
 				}
@@ -687,7 +687,7 @@ display:block;
 			padding:0 0 5px 5px;
 			}
 				
-		.pendientesContent 	.pendienteDato span {font-weight:bold;display: block; margin-bottom:5px; height:55px; overflow:hidden;		
+		.pendientesContent 	.pendienteDato span {font-weight:bold;display: block; margin-bottom:5px; /*height:55px;*/ overflow:hidden;		
 }	
 		.pendientesContent 	.pendienteBotones{
 			float:right !Important; 
@@ -1008,8 +1008,7 @@ display:block;
 }
 fc-view-week  .fc-event-text {display:none;}
 
-/*fc-view-week*/.fc-agenda-days  .fc-event-title
-.fc-event-title { }
+/*fc-view-week*/.fc-agenda-days  .fc-event-title{ }
 .fc-agenda-days thead th{ text-tranform:uppercase;/*background-color: #009933; height:20px; padding-top:5px;*/}
 
 .fc-agenda-allday .fc-agenda-axis{font-size:9px; font-family: "Arial Narrow";}
@@ -1103,3 +1102,9 @@ span.fc-header-title h2 {
     margin-top: 0.30em !Important;
     margin-bottom: 0.30em !Important;
 }
+
+.fc-event {
+border-right: solid 1px #666666 !important;
+border-left: solid 1px #666666 !important;
+border-bottom: none !important;
+border-top:none !important;}
