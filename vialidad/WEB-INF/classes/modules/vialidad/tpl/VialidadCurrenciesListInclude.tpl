@@ -32,12 +32,13 @@
 					<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />
 					|-/if-|
 					<input type="hidden" name="id" value="|-$currency->getid()-|" />
-					<input type="submit" name="submit_go_delete_vialidad_currency" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar el Unidad de Medida?')" class="icon iconDelete" />
+					<input type="submit" name="submit_go_delete_vialidad_currency" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar la Moneda?')" class="icon iconDelete" />
 				</form>
 				|-/if-|
 			</td>
 		</tr> 
 		|-/foreach-|
+
 <script type="text/javascript">
 function updateCode(id, value) {
 	new Ajax.Updater(
