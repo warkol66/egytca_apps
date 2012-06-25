@@ -38,20 +38,20 @@
 			<input name="params[pacNumber]" type="text" value="|-$contract->getPacNumber()|escape-|" size="8" title="Id de contrato (N° PAC)"> |-if $contract->getPacNumber() ne ''-|<a href="https://www.contrataciones.gov.py/sicp/llamado/llamadosPorID.seam?nroPacParam=|-$contract->getPacNumber()-|" target="_blank" title="Ir a Contrato" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a>|-/if-| 
 		 </p>
 		 <p>
-		   <label for="params[code]">Nro Expediente</label>
-				<input name="params[code]" type="text" value="|-$contract->getCode()|escape-|" size="15" title="Nro Expediente"> 
+		   <label for="params[code]">Número</label>
+				<input name="params[code]" type="text" value="|-$contract->getCode()|escape-|" size="15" title="Número"> 
 		</p>
 		 <p>
-		   <label for="NroContrato">Nro de Contrato</label>
-				<input name="NroContrato" type="text" value="" size="15" title="Nro de Contrato"> 
+		   <label for="params[contractNumber]">Nro de Contrato</label>
+				<input name="params[contractNumber]" type="text" value="|-$contract->getContractNumber()|escape-|" size="15" title="Nro de Contrato"> 
 		</p>
 		 <p>
-		   <label for="NroLlamado">Nro de Llamado</label>
-				<input name="NroLlamado" type="text" value="" size="15" title="Nro de Llamado"> 
+		   <label for="params[tenderNumber]">Nro de Llamado</label>
+				<input name="params[tenderNumber]" type="text" value="|-$contract->getTenderNumber()|escape-|" size="15" title="Nro de Llamado"> 
 		</p>
 			<p>     
-				<label for="FechaInicio">Fecha de Inicio</label>
-				<input id="FechaInicio" name="FechaInicio" type='text' value='' size="12" title="Ingrese la fecha de Inicio" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('FechaInicio', false, '', '-');" title="Seleccione la fecha de Inicio">
+				<label for="params[startDate]">Fecha de inicio</label>
+				<input id="params[startDate]" name="params[startDate]" type='text' value='|-$contract->getStartDate()|date_format-|' size="12" title="Ingrese la fecha de inicio" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<div id="contractor" style="position: relative;z-index:11000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_contractorId" label="Proveedor" url="Main.php?do=affiliatesAutocompleteListX" hiddenName="params[contractorId]" defaultHiddenValue=$contract->getContractorId() defaultValue=$contract->getAffiliate()-|
@@ -72,8 +72,8 @@
 				<input id="params_adjudicationDate" name="params[adjudicationDate]" type='text' value='|-$contract->getAdjudicationDate()|date_format-|' size="12" title="Ingrese la fecha de adjudicación" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[adjudicationDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de adjudicación">
 			</p>
 			<p>     
-				<label for="params[startDate]">Fecha de firma</label>
-				<input id="params[startDate]" name="params[startDate]" type='text' value='|-$contract->getStartDate()|date_format-|' size="12" title="Ingrese la fecha de inicio" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<label for="params[signDate]">Fecha de firma</label>
+				<input id="params[signDate]" name="params[signDate]" type='text' value='|-$contract->getSignDate()|date_format-|' size="12" title="Ingrese la fecha de firma" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[signDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 		 <p><label for="params[ammount]">Monto del Contrato</label>
 			<input name="params[ammount]" type="text" value="|-$contract->getAmmount()|escape|system_numeric_format:0-|" size="15">
