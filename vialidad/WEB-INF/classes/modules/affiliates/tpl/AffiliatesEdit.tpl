@@ -91,7 +91,7 @@
 			<input type="button" id="addAffiliateToConsortiumSubmitButton" disabled="disabled" name="addAffiliateToConsortiumSubmitButton" value="Agregar Proveedores al consorcio" title="Agregar Proveedores al consorcio" onClick="javascript:addAffiliateToConsortium(this.form)"/> </p>
 			</form>
 			<div id="consortiumAffiliatesList">
-				<ul id="affiliateList" class="iconOptionsList">
+				<ul id="consortiumList" class="iconOptionsList">
 					|-foreach from=$affiliate->getAffiliateConsortiumsRelatedByAffiliate1() item=eachAffiliate-|
 					<li id="consortiumListItem|-$eachAffiliate->getAffiliate2()-|" title="Proveedor asociado al consorcio">
 						<form action="Main.php" method="post" style="display:inline;"> 
