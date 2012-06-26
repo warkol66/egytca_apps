@@ -74,6 +74,10 @@
 			'Main.php?do=calendarRegularEventGetUninstantiatedX',
 			{ years:  [year, parseInt(year)+1] }
 		);|-/if-|
+			
+		$('.pendientesContent').droppable({
+                        drop: Calendar.dropOut
+                });
 	});
 
 	createCalendar = function(events) {
@@ -127,6 +131,9 @@
 			},
 			eventDrop: function( event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view ) {
 				updateEventDatetime(event);
+			},
+			eventDragStart: function(event) {
+				Calendar.draggedEvent = event;
 			},
 			droppable: true,
 			drop: function(date, allDay, jsEvent, ui) {
