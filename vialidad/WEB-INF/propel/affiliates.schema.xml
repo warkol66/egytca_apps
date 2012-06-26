@@ -12,7 +12,8 @@
 		<column name="contactEmail" type="VARCHAR" size="100" description="Email de persona de contacto"/>
 		<column name="web" type="VARCHAR" size="255" description="Direccion web del afiliado"/>
 		<column name="memo" type="LONGVARCHAR" description="Informacion adicional del afiliado"/>
-
+		<column name="consortium" type="BOOLEAN" description="Consorcio" />
+		
 		<column name="contact1" type="VARCHAR" size="100" description="Nombre de persona de contacto 1"/>
 		<column name="position1" type="VARCHAR" size="75" description="Cargo de persona de contacto 1"/>
 		<column name="phone1" type="VARCHAR" size="75" description="Telefono de persona de contacto 1"/>
@@ -179,4 +180,29 @@
 
 	</table>
 
+ <!--<table name="affiliates_consortium" phpName="AffiliateConsortium" description="Affiliates que componen el Consorcio" isCrossRef="true">
+	 <column name="consortiumId" required="true" primaryKey="true" type="INTEGER" description="ID del Consorcio"/>
+	 <column name="affiliateId" required="true" primaryKey="true" type="INTEGER" description="ID del Proveedor que compone el consorcio"/>
+
+	 <foreign-key foreignTable="affiliates_affiliate">
+		 <reference local="consortiumId" foreign="consortium"/>
+	 </foreign-key>
+
+	 <foreign-key foreignTable="affiliates_affiliate" onDelete="cascade">
+		 <reference local="affiliateId" foreign="id"/>
+	 </foreign-key>
+
+ </table>-->
+
+
+<table name="affiliates_consortium" phpName="AffiliateConsortium" description="Affiliates que componen el Consorcio">
+  <behavior name="equal_nest">
+    <parameter name="parent_table" value="affiliates_affiliate"/>
+  </behavior>
+
+  
+</table>
+ 
+ 
+ 
 </database>
