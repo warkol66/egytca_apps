@@ -1,47 +1,48 @@
 Calendar = {
-		options: {
-				/* name => cssClass */
-				axisMap: {},
-	minTime: 8,
-	maxTime: 22,
-	firstHour: 9,
-	eventDefaultDuration: 1 // in hours
-		},
-		initialize: function(opts) {
-			this.options = $.extend({}, this.options, opts);
-			this.registerNavbarClick();
-		},
-		/**
-		 * TODO: Usar
-		 *
-		 *  $.fullCalendar.formatDate( date, formatString [, options ] ) -> String
-		 *  http://arshaw.com/fullcalendar/docs/utilities/formatDate/
-		 *
-		 */
-		eventAfterRender: function(event, element, view) {
-			var elem = $(element);
-			var template = event.allDay ? $("#calendarAllDayTemplates .fc-event").html() : $("#calendarTemplates .fc-event").html();
-			elem.addClass(event.className);
-			var startDate = new Date(event.start);
-			var start = startDate.toString().replace(/.* ([0-9][0-9]:[0-9][0-9]):00 .*/, "$1");
-			var endDate = new Date(event.end);
-			var end = endDate.toString().replace(/.* ([0-9][0-9]:[0-9][0-9]):00 .*/, "$1");
-			if (event.scheduleStatus != 2) {
-				template = template.replace("%start", start);
-				template = template.replace("%end", end);
-				template = template.replace("%timeConfirmed", '');
-			}
-			else {
-				template = template.replace("%start", '');
-				template = template.replace("%end", '');
-				template = template.replace("%timeConfirmed", 'A confirmar');
-			}
-			template = template.replace("%title", event.title);
-			template = template.replace("%body", event.body);
-			template = template.replace("%address", event.address);
-			template = template.replace("%CC_image", event.campaignCommitment ? '<img src="images/icon_CC.png" />' : '');
-			template = template.replace("%photo", event.photo);
-			elem.html(template);
+	options: {
+		/* name => cssClass */
+		axisMap: {},
+		minTime: 8,
+		maxTime: 22,
+		firstHour: 9,
+		eventDefaultDuration: 1 // in hours
+	},
+	draggedEvent: null,
+	initialize: function(opts) {
+		this.options = $.extend({}, this.options, opts);
+		this.registerNavbarClick();
+	},
+	/**
+	 * TODO: Usar
+	 *
+	 *  $.fullCalendar.formatDate( date, formatString [, options ] ) -> String
+	 *  http://arshaw.com/fullcalendar/docs/utilities/formatDate/
+	 *
+	 */
+	eventAfterRender: function(event, element, view) {
+		var elem = $(element);
+		var template = event.allDay ? $("#calendarAllDayTemplates .fc-event").html() : $("#calendarTemplates .fc-event").html();
+		elem.addClass(event.className);
+		var startDate = new Date(event.start);
+		var start = startDate.toString().replace(/.* ([0-9][0-9]:[0-9][0-9]):00 .*/, "$1");
+		var endDate = new Date(event.end);
+		var end = endDate.toString().replace(/.* ([0-9][0-9]:[0-9][0-9]):00 .*/, "$1");
+		if (event.scheduleStatus != 2) {
+			template = template.replace("%start", start);
+			template = template.replace("%end", end);
+			template = template.replace("%timeConfirmed", '');
+		}
+		else {
+			template = template.replace("%start", '');
+			template = template.replace("%end", '');
+			template = template.replace("%timeConfirmed", 'A confirmar');
+		}
+		template = template.replace("%title", event.title);
+		template = template.replace("%body", event.body);
+		template = template.replace("%address", event.address);
+		template = template.replace("%CC_image", event.campaignCommitment ? '<img src="images/icon_CC.png" />' : '');
+		template = template.replace("%photo", event.photo);
+		elem.html(template);
 
 		if (!event.allDay) {
 			elem.click(function(e) {
@@ -68,19 +69,19 @@ Calendar = {
 		});
 		/* ------------------- */
 
-		},
-		registerNavbarClick: function() {
-				$(".boxNavSolapas li").click(function(e) {
-						e.preventDefault();
-						var $this = $(this);
-						var selector = Calendar.options.axisMap[$this.attr('hide')];
-						$(".fc-event").hide();
-						$("." + selector).show();
-				});
-		},
-		showAllEvents: function() {
-				$(".fc-event").show();
-		},
+	},
+	registerNavbarClick: function() {
+		$(".boxNavSolapas li").click(function(e) {
+			e.preventDefault();
+			var $this = $(this);
+			var selector = Calendar.options.axisMap[$this.attr('hide')];
+			$(".fc-event").hide();
+			$("." + selector).show();
+		});
+	},
+	showAllEvents: function() {
+		$(".fc-event").show();
+	},
 	updateEvent: function(event) {
 
 		var pendingExists = false;
@@ -131,7 +132,13 @@ Calendar = {
 		template = template.replace("%title", event.title);
 		template = template.replace("%body", event.body);
 		var newPending = $(template);
-		newPending.addClass(event.className);
+		if (event.className instanceof Array) {
+			for (var i=0; i<event.className.length; i++) {
+				newPending.addClass(event.className[i]);
+			}
+		} else {
+			newPending.addClass(event.className);
+		}
 		newPending.draggable({revert: true, revertDuration: 0});
 		newPending.data('eventObject', event);
 
@@ -149,5 +156,22 @@ Calendar = {
 		});
 
 		return newPending;
+	},
+	
+	dropOut: function(jsEvent, ui, q) {
+		if (Calendar.draggedEvent == null)
+			return;
+		
+		var event = Calendar.draggedEvent;
+		Calendar.draggedEvent = null;
+		var data = {
+			id: event.id,
+			calendarEvent: {
+				scheduleStatus: 3
+			}
+		}
+		editRequest(data, function(event) {
+			Calendar.updateEvent(event);
+		});
 	}
 }
