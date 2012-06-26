@@ -6,6 +6,7 @@
 	<p>A continuación podrá editar los datos del ##affiliates,3,Afiliado##.</p>
 |-/if-|
 |-if !$notValidId-|	
+|-include file="CommonAutocompleterInclude.tpl"-|
 	<fieldset title="Formulario de edición de nombre del Afiliado">
 		<legend>##affiliates,1,Afiliados##</legend>
 		<p>Realice los cambios y para guardar haga click en "Guardar Cambios"</p>
@@ -38,7 +39,10 @@
 			</p>
 		 <p><label for="params[memo]">Información</label>
 				<textarea name="params[memo]" cols="45" rows="6" wrap="VIRTUAL">|-$affiliate->getMemo()|escape-|</textarea>
-			</p>
+		 </p>
+		 
+		 
+		 
 <h3>Contactos</h3>
 <table class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 <tr>
@@ -73,7 +77,74 @@
 			 </p>
 		</form>
 	</fieldset>
+		 
+		 
+		 <fieldset title="Formulario de Proveedores asociados al Consorcio">
+			<legend>Proveedores Asociados al Consorcio</legend>
+			<div id="consortiumMsgField"></div>
+			<form method="post" style="display:inline;">
+				<div id="consortium" style="position: relative;z-index:10000;">
+					|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_affiliates" label="Agregar Proveedor" url="Main.php?do=commonAutocompleteListX&object=affiliate&getCandidates=1&consortiumId="|cat:$affiliate->getId() hiddenName="affiliateId" disableSubmit="addAffiliateToConsortiumSubmitButton"-|
+				</div>
+			<p>	<input type="hidden" name="do" id="do" value="affiliatesConsortiumsDoAddAffiliateX" />
+				<input type="hidden" name="consortiumId" id="consortiumId" value="|-$affiliate->getId()-|" /> 
+			<input type="button" id="addAffiliateToConsortiumSubmitButton" disabled="disabled" name="addAffiliateToConsortiumSubmitButton" value="Agregar Proveedores al consorcio" title="Agregar Proveedores al consorcio" onClick="javascript:addAffiliateToConsortium(this.form)"/> </p>
+			</form>
+			<div id="consortiumAffiliatesList">
+				<ul id="affiliateList" class="iconOptionsList">
+					|-foreach from=$affiliate->getAffiliateConsortiumsRelatedByAffiliate1() item=eachAffiliate-|
+					<li id="consortiumListItem|-$eachAffiliate->getAffiliate2()-|" title="Proveedor asociado al consorcio">
+						<form action="Main.php" method="post" style="display:inline;"> 
+						<input type="hidden" name="do" id="do" value="affiliatesConsortiumsDoRemoveAffiliateX" />
+						<input type="hidden" name="affiliate1"  value="|-$eachAffiliate->getAffiliate1()-|" />		
+						<input type="hidden" name="affiliate2"  value="|-$eachAffiliate->getAffiliate2()-|" />	
+							<input type="button" name="submit_go_remove_affiliate" value="Borrar" title="Eliminar proveedor del consorcio" onclick="if (confirm('Seguro que desea eliminar el proveedor del consorcio?')) removeAffiliateFromConsortium(this.form);" class="icon iconDelete" /> 
+						</form> |-assign var=aff value=$eachAffiliate->getAffiliateRelatedByAffiliate2()-||-$aff->getName()-|  &nbsp; &nbsp;
+					</li>
+					|-/foreach-|
+				</ul>    
+			</div> 
+		</fieldset>
+		 
+
+
+	<script type="text/javascript" language="javascript" charset="utf-8">
+		function addAffiliateToConsortium(form) {
+			var fields = Form.serialize(form);
+			var myAjax = new Ajax.Updater(
+						{success: 'consortiumList'},
+						'Main.php?do=affiliatesConsortiumsDoAddAffiliateX',
+						{
+							method: 'post',
+							postBody: fields,
+							evalScripts: true,
+							insertion: Insertion.Bottom
+						});
+			$('consortiumMsgField').innerHTML = '<span class="inProgress">Agregando proveedor al consorcio...</span>';
+				$('autocomplete_affiliates').value = '';
+				$('addAffiliateToConsortiumSubmitButton').disable();
+			return true;
+		}
+		
+		function removeAffiliateFromConsortium(form){
+			var fields = Form.serialize(form);
+			var myAjax = new Ajax.Updater(
+						{success: 'consortiumMsgField'},
+						'Main.php?do=affiliatesConsortiumsDoRemoveAffiliateXAction',
+						{
+							method: 'post',
+							postBody: fields,
+							evalScripts: true
+						});
+			$('consortiumMsgField').innerHTML = '<span class="inProgress">Eliminando proveedor...</span>';
+			return true;
+		}
+
+	</script>
+	
+	
 |-else-|
 <div class="errorMessage">El identificador del afiliado ingresado no es válido. Seleccione un afiliado de la lista.</div>
 				<input type='button' onClick='location.href="Main.php?do=affiliatesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de ##affiliates,1,Afiliados##"/>
 |-/if-|
+

@@ -18,9 +18,9 @@
 			<li><a href="Main.php?do=vialidadConstructionsList">Obras</a></li>
 			<li><a href="Main.php?do=vialidadSuppliersList">Proveedores de Insumos</a></li>
 
-			<li><a href="Main.php?do=vialidadSupplyList">Insumos</a></li>
+			<li><a href="Main.php?do=vialidadSupplyList">Listado de Insumos</a></li>
 
-			<li><a href="Main.php?do=vialidadBulletinList">Boletines de Precios</a></li>
+			<li><a href="Main.php?do=vialidadBulletinList">Base de Datos de Insumos</a></li>
 			<li><a href="Main.php?do=vialidadConstructionItemList">Paramétricas de Obra</a></li>
 			<li><a href="Main.php?do=vialidadMeasurementRecordsList">Actas de Medición</a></li>
 			<li><a href="Main.php?do=vialidadCertificatesList">Certificados de Obra</a></li>
@@ -29,6 +29,8 @@
 			<li><a href="Main.php?do=vialidadSourcesList">Fuentes de Finaciamiento</a></li>
 			<li><a href="Main.php?do=vialidadDepartmentsList">Departamentos</a></li>
 			<li><a href="Main.php?do=vialidadConstructionTypesList">Tipos de Obra</a></li>
+			<li><a href="Main.php?do=vialidadCurrenciesList">Monedas</a></li>
+			<li><a href="Main.php?do=vialidadMeasureUnitsList">Unidades de Medida</a></li>
 
 		</div>
 
