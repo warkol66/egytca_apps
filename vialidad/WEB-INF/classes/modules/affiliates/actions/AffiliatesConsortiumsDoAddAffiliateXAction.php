@@ -21,17 +21,21 @@ class AffiliatesConsortiumsDoAddAffiliateXAction extends BaseAction {
 
 		$consortiumId = $request->getParameter('consortiumId');
 		$affiliateId = $request->getParameter('affiliateId');
+		
+		
+		
 		if (!empty($consortiumId) && !empty($affiliateId)) {
 
 			$consortium = AffiliateQuery::create()->findOneById($consortiumId);
 			$affiliate = AffiliateQuery::create()->findOneById($affiliateId);
+			if (!empty($consortium) && !empty($affiliate)) {
+				$exist = AffiliateConsortiumQuery::create()->filterByAffiliateRelatedByAffiliate1($consortium)->filterByAffiliateRelatedByAffiliate2($affiliate)->count();
 
-			if ($consortium && $affiliateId) {
-				$exist = AffiliateConsortiumQuery::create()->filterByConsortium($consortium)->filterByAffiliate($affiliate)->count();
 				if (empty($exist)) {
 					$affiliateConsortium = new AffiliateConsortium();
-					$affiliateConsortium->setAffiliate1($consortium);
-					$affiliateConsortium->setAffiliate2($affiliate);
+					$affiliateConsortium->setAffiliateRelatedByAffiliate1($consortium);
+					$affiliateConsortium->setAffiliateRelatedByAffiliate2($affiliate);
+					
 						if (!$affiliateConsortium->save())
 							return $mapping->findForwardConfig('error');
 
