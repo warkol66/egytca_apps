@@ -33,6 +33,7 @@ class CommonAutocompleteListXAction extends BaseAction {
 
 		$smarty->assign("objects",$objects);
 		$smarty->assign("limit",$_REQUEST['limit']);
+		$smarty->assign("objectParam",$_REQUEST['objectParam']);
 
 		return $mapping->findForwardConfig('success');
 	}

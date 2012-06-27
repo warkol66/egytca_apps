@@ -1,5 +1,5 @@
 <h2>Planificación
-|-if isset($show)-|
+|-if isset($show) && is_object($dependency)-|
  - <a href="Main.php?do=tableroPolicyGuidelinesShow">|-$dependency->getName()-|</a></h2> 
 |-/if-|
 <h1>Administración de Objetivos Ministeriales - |-if !$ministryObjective->isNew()-|Editar|-else-|Crear|-/if-| Objetivo Ministerial</h1>

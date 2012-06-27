@@ -10,7 +10,7 @@ class PlanningMinistryObjectivesEditAction extends BaseEditAction {
 	
 	protected function postEdit() {
 		parent::postEdit();
-		$this->template->template = 'TemplateJQuery.tpl';
+//		$this->template->template = 'TemplateJQuery.tpl';
 		$this->smarty->assign("regions", RegionQuery::create()->filterByType('11')->find());
 		$this->smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
 		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));

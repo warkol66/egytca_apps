@@ -16,6 +16,22 @@
 class MinistryObjective extends BaseMinistryObjective {
 
 	/**
+	 * Devuelve un string con quien modifico el Objetivo Ministerial (MinistryObjective)
+	 *
+	 * @return string nombre del usuario que modifico el Objetivo Ministerial
+	 */
+	public function updatedBy() {
+		if ($this->getUserobjecttype() != "") {
+			$objectQueryName = $this->getUserobjecttype() . 'Query';
+			if (class_exists($objectQueryName)) {
+				$query = BaseQuery::create($this->getUserobjecttype());
+				return $query->findPK($this->getUserobjectid());
+			}
+		}
+		return;
+	}
+
+	/**
 	 * Devuelve true si el MinistryObjective tiene asociada la region,
 	 * y false caso contrario.
 	 * 
@@ -24,6 +40,21 @@ class MinistryObjective extends BaseMinistryObjective {
 	 */
 	public function hasRegion($region) {
 		return MinistryObjectiveRegionQuery::create()->filterByMinistryObjective($this)->filterByRegion($region)->count() > 0;
+	}
+
+	/**
+	 * Devuelve array con posibles ejes de gestion (PolicyGuidelines)
+	 *  id => ejes de gestion
+	 *
+	 * @return array ejes de gestion
+	 */
+	public static function getPolicyGuidelines() {
+		$policyGuidelines = array(
+			1 => 'Fortalecimiento de las políticas de promoción social, salud y educación',
+			2 => 'Seguridad',
+			3 => 'Movilidad sustentable'
+		);
+		return $policyGuidelines;
 	}
 
 } // MinistryObjective

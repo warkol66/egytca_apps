@@ -80,22 +80,6 @@
 
 	</table>
 	
-	<table name="regions_regions" phpName='Region2' description="Provincias">
-
-		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
-		<column name="name" required="true" type="VARCHAR" size="100" description="Name"/>
-
-		<unique>
-			<unique-column name="name" />
-		</unique>
-
-		<vendor type="mysql">
-			<parameter name="Charset" value="utf8"/>
-			<parameter name="Collate" value="utf8_general_ci"/>
-		</vendor>
-
-	</table>
-	
 	<table name="common_alertSubscription" phpName='AlertSubscription' description="Suscripciones de alerta">
 		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
 		<column name="name" type="VARCHAR" size="100" description="Nombre de la suscripción"/>

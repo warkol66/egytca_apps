@@ -1,3 +1,4 @@
+|-include file='ValidationJavascriptInclude.tpl'-|
 <script language="JavaScript" type="text/javascript">
 function actorsAddCategoryToActor(form) {
 	
@@ -12,7 +13,7 @@ function actorsAddCategoryToActor(form) {
 					insertion: Insertion.Bottom
 				});
 				
-	$('categoryMsgField').innerHTML = '<span class="inProgress">agregando ##actors,2,Actor## a la categoría...</span>';
+	$('categoryMsgField').innerHTML = '<span class="inProgress"> agregando ##actors,2,Actor## a la categoría... </span>';
 	
 	return true;
 }
@@ -26,23 +27,23 @@ function actorsDeleteCategoryFromActor(form){
 				{
 					method: 'post',
 					postBody: fields,
-					evalScripts: true,
-				
+					evalScripts: true
 				});
 				
-	$('categoryMsgField').innerHTML = '<span class="inProgress">eliminando ##actors,2,Actor## de la categoría...</span>';
+	$('categoryMsgField').innerHTML = '<span class="inProgress"> eliminando ##actors,2,Actor## de la categoría... </span>';
 	
 	return true;
 
 }
 </script>
-<h2>Tablero de Gestión</h2>
-<h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| ##actors,2,Actor##</h1>
+<h2>##actors,1,Actores##</h2>
+<h1>|-if $actor->isNew()-|Crear|-else-|Editar|-/if-| ##actors,2,Actor##</h1>
 <div id="div_actor">
 	<p>Ingrese los datos del ##actors,2,Actor##</p>
-		<p><a href="#" onClick="location.href='Main.php?do=actorsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'">Volver atras</a>
-		</p>
-		|-if $message eq "error"-|<span class="message_error">Ha ocurrido un error al intentar guardar el ##actors,2,Actor##</span>|-/if-|
+		|-if $message eq "error"-|
+			<div class="errorMessage">Ha ocurrido un error al intentar guardar el ##actors,2,Actor##</div>
+		|-/if-|
+	
 	<form name="form_edit_actor" id="form_edit_actor" action="Main.php" method="post">
 		<fieldset title="Formulario de edición de datos de un actor">
 			<legend>Formulario de Administración de ##actors,1,Actores##</legend>
@@ -52,25 +53,30 @@ function actorsDeleteCategoryFromActor(form){
 			</p>
 			<p>
 				<label for="params[name]">Nombre</label>
-				<input type="text" id="params[name]" name="params[name]" size="50" value="|-$actor->getname()|escape-|" title="Nombre" /><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
+				<input type="text" id="params[name]" name="params[name]" size="50" value="|-$actor->getname()|escape-|" title="Nombre" class="emptyValidation" /> |-validation_msg_box idField="params[name]"-|
 			</p>
 			<p>
 				<label for="params[surname]">Apellido</label>
-				<input type="text" id="params[surname]" name="params[surname]" size="50" value="|-$actor->getsurname()|escape-|" title="Apellido" /><img src="images/clear.png" class="mandatoryField" title="Campo obligatorio" />
+				<input type="text" id="params[surname]" name="params[surname]" size="50" value="|-$actor->getsurname()|escape-|" title="Apellido" class="emptyValidation" /> |-validation_msg_box idField="params[surname]"-|
 			</p>
 			<p>
 				<label for="params[institution]">##actors,3,Institución##</label>
 				<input type="text" id="params[institution]" name="params[institution]" size="70" value="|-$actor->getinstitution()|escape-|" title="##actors,3,Institución##" />
 			</p>
 			<p>
-				|-if $action eq 'edit'-|
+		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
+				|-if !$actor->isNew()-|
 				<input type="hidden" name="id" id="id" value="|-$actor->getid()-|" />
 				|-/if-|
-				<input type="hidden" name="action" id="action" value="|-$action-|" />
+				|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+				|-if $page gt 1-| <input type="hidden" name="page" id="page" value="|-$page-|" />|-/if-|
 				<input type="hidden" name="do" id="do" value="actorsDoEdit" />
-				<input type="submit" id="button_edit_actor" name="button_edit_actor" title="Aceptar" value="Guardar" />
-				<input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=actorsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'"/>
+				|-javascript_form_validation_button value='Guardar' title='Guardar'-|
+				<input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=actorsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"/>
 			</p>
 		</fieldset>
 	</form>
 </div>
+|-if !$actor->isNew()-|
+|-include file="ActorsEditCategoriesInclude.tpl"-|
+|-/if-|

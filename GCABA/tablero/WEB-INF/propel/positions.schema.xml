@@ -1,13 +1,12 @@
 <database defaultIdMethod="native" package="positions.classes" name="application" >
- 	<!--Tablas de modulo objetivos-->
 
-	<table name="positions_position" phpName='Position' description="Cargos">
+	<table name="positions_position" phpName="Position" description="Cargos">
 		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
+		<column name="name" required="true" type="VARCHAR" size="255" description="Position Name" primaryString="true"/>
 		<column name="code" required="true" type="INTEGER" description="Codigo del cargo, usado para poder generar nuevas versiones del mismo cargo, el cual mantiene el code pero genera una nueva version"/>
 		<column name="userGroupId" type="INTEGER" description="Id del grupo de usuarios con acceso a los datos de la position"/>
 		<column name="versionId" required="true" type="INTEGER" description="Version"/>
 		<column name="internalCode" type="VARCHAR" size="255" description="Codigo del cargo"/>
-		<column name="name" required="true" type="VARCHAR" size="255" description="Position Name"/>
 		<column name="ownerName" type="VARCHAR" size="150" description="Titulo de la persona que ocupa el cargo (Presidente)"/>
 		<column name="ownerNameFemale" type="VARCHAR" size="150" description="Titulo de la persona que ocupa el cargo en femenino"/>
 		<column name="type" required="true" type="INTEGER" />
@@ -34,8 +33,6 @@
 	    <parameter name="scope_column" value="versionId" />
 	  </behavior>
 
-		<behavior name="soft_delete" />
-
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
@@ -43,14 +40,12 @@
 
 	</table>
 
-	<table name="positions_version" phpName='PositionVersion' description="Versiones de organigramas">
+	<table name="positions_version" phpName="PositionVersion" description="Versiones de organigramas">
 		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
 		<column name="dateFrom" type="TIMESTAMP" description="Fecha de inicio de validez del organigrama" />
 		<column name="dateTo" type="TIMESTAMP"  description="Fecha de fin de validez del organigrama" />
 		<column name="description" required="false" type="LONGVARCHAR" description="Descripcion de la version" />
 
-		<behavior name="soft_delete" />
-
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
@@ -58,7 +53,7 @@
 
 	</table>
 
-	<table name="positions_positionTenure" phpName='PositionTenure' description="Ejercicio del cargo">
+	<table name="positions_positionTenure" phpName="PositionTenure" description="Ejercicio del cargo">
 		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
 		<column name="userId" type="INTEGER" description="Id de la persona que ejerce el cargo"/>
 		<column name="name" type="VARCHAR" size="150" description="Nombre de la persona que ejerce el cargo"/>

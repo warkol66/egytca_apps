@@ -27,8 +27,8 @@
 <link type="text/css" href="css/fisheye.css" rel="stylesheet" />
 		<div id="headerMenu">
 			<ul id="fisheye_menu">
-				<li class="fisheye"><img src="images/home.png" title="Inicio" /><span style="display: none;">Inicio</span></li>
-				<li class="fisheye"><img src="images/user.png" title="Editar información de usuario" /><span style="display: none;">Usuario</span></li>
+				<li class="fisheye"><a href="Main.php?do=usersWelcome"><img src="images/home.png" title="Inicio" /></a><span style="display: none;">Inicio</span></li>
+				<li class="fisheye"><a href="Main.php?do=usersList"><img src="images/user.png" title="Editar información de usuario" /></a><span style="display: none;">Usuario</span></li>
 				<li class="fisheye"><img src="images/print.png" title="Imprimir" onClick="window.print()"/><span style="display: none;">Imprimir</span></li>
 			|-if $parameters.hasUnifiedUsernames.value neq "YES"-|
 				|-if !empty($loginUser)-|

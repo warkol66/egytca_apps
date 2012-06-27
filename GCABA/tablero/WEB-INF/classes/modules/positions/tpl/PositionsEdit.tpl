@@ -16,6 +16,45 @@ function positionsGetAllParentsByPositionX(form){
 	$('positionsMsgField').innerHTML = '<p><span class="inProgress">buscando padres...</span></p>';
 	return true;
 }
+function addTenureToPosition(form) {
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'participantsList'},
+				url,
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true
+				});
+	$('partieMsgField').innerHTML = '<span class="inProgress">agregando participante al acto...</span>';
+	return true;
+}
+
+function deleteTenureToPosition(form){
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'participantsList'},
+				url,
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true,
+					insertion: Insertion.Bottom
+				});
+	$('partieMsgField').innerHTML = '<span class="inProgress">eliminando participante...</span>';
+	return true;
+}
+
+function showTenureType(type) {
+	if (type == "Actor") {
+		$('tenureActor').show();
+		$('tenureUser').hide();
+	}
+	if (type == "User") {
+		$('tenureActor').hide();
+		$('tenureUser').show();
+	}	
+}
 </script>
 <p>A continuación podrá |-if $action eq "edit"-|editar|-else-|crear|-/if-| una posición.</p>
 <div id="div_region">

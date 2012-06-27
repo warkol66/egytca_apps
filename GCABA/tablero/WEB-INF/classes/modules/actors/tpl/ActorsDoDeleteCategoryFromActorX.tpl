@@ -1,5 +1,4 @@
 <script type="text/javascript" language="javascript">
-
 	Element.remove('categoryListItem|-$category->getId()-|');
 
 	var option = document.createElement('option');

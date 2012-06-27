@@ -1,0 +1,10 @@
+DELETE FROM `security_actionLabel` WHERE `action` LIKE 'Services%' AND `language` = 'esp';
+OPTIMIZE TABLE `security_actionLabel`;
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('ServicesMultilangLanguagesEdit', 'Modificar idiomas', 'Modificar idiomas', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('ServicesMultilangTextsDump', 'Exportar archivos de idiomas', 'Exportar archivos de idiomas', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('ServicesMultilangTextsEdit', 'Editar texto en idiomas disponibles', 'Editar texto en idiomas disponibles', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('ServicesMultilangTextsEditBulk', 'Editar múltiples textos', 'Editar múltiples textos', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('ServicesMultilangLanguagesDoDelete', 'Eliminar idioma', 'Eliminar idioma', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('ServicesMultilangLanguagesList', 'Lista de idiomas disponibles', 'Lista de idiomas disponibles', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('ServicesMultilangTextsDoDelete', 'Editar texto', 'Editar texto', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('ServicesMultilangTextsList', 'Lista de mensajes en idiomas disponibles', 'Lista de mensajes en idiomas disponibles', 'esp');

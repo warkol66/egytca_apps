@@ -1,3 +1,13 @@
+<script type="text/javascript" src="scripts/lightbox.js"></script> 			
+<div id="lightbox1" class="leightbox">
+	<p align="right">				
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a> 
+	</p> 
+	<div id="planningMinistryObjectivesShowWorking"></div>
+	<div class="innerLighbox">
+		<div id="planningMinistryObjectivesShowDiv"></div>
+	</div>
+</div> 
 <h2>Planificación</h2>
 <h1>Administración de Objetivos Ministeriales</h1>
 <!-- Link VOLVER -->
@@ -46,22 +56,21 @@
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="objectivesViewX" />
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
-						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("objectivesShowDiv", "Main.php?do=objectivesViewX&id=|-$objective->getid()-|", { method: "post", parameters: { id: "|-$objective->getId()-|"}, evalScripts: true})};$("objectivesShowWorking").innerHTML = "<span class=\"inProgress\">buscando Objetivo Ministerial...</span>";' value="Ver detalle" name="submit_go_show_objective" title="Ver detalle" /></a>
+						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("planningMinistryObjectivesShowDiv", "Main.php?do=planningMinistryObjectivesViewX&id=|-$objective->getid()-|", { method: "post", parameters: { id: "|-$objective->getId()-|"}, evalScripts: true})};$("planningMinistryObjectivesShowWorking").innerHTML = "<span class=\"inProgress\">buscando Objetivo Ministerial...</span>";' value="Ver detalle" name="submit_go_show_objective" title="Ver detalle" /></a>
 					</form>
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="planningMinistryObjectivesEdit" />
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
 						<input type="submit" name="submit_go_edit_objective" value="Editar" class="icon iconEdit" title="Editar Objetivo Ministerial"/>
 					</form>
-					
 					<form action="Main.php" method="post" style="display:inline;">
 						<input type="hidden" name="do" value="planningMinistryObjectivesDoDelete" />
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
 						<input type="submit" name="submit_go_delete_objective" value="Borrar" onclick="return confirm('Seguro que desea eliminar el objetivo?')" class="icon iconDelete" title="Eliminar Objetivo Ministerial" />
 					</form>
 					<form action="Main.php" method="get" style="display:inline;">
-						<input type="hidden" name="do" value="projectsEdit" />
-						<input type="hidden" name="fromObjectiveId" value="|-$objective->getid()-|" />
+						<input type="hidden" name="do" value="planningProjectsEdit" />
+						<input type="hidden" name="fromMinistryObjectiveId" value="|-$objective->getid()-|" />
 						<input type="submit" name="submit_go_edit_project" value="Agregar Proyectos" class="icon iconAdd" title="Agregar proyectos al Objetivo Ministerial" />
 					</form>			
 					</td>

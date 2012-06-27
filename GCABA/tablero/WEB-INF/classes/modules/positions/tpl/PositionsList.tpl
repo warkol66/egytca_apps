@@ -5,7 +5,12 @@
 <div id="positionsVersionEdit" style="display:none;">
 |-include file="PositionsIncludeVersionEdit.tpl"-|
 </div>
-<p>A continuación podrá editar el organigrama. |-if ($browser->getBrowser() == 'Firefox' && $browser->getVersion() >= 3) || ($browser->getBrowser() == 'Internet Explorer' && $browser->getVersion() >= 7)-|Puede ver la versión gráfica haciendo click <a href="Main.php?do=positionsChartView" target="_blank">aquí</a> <span class="detail">(Sólo disponible para IExplorer 7 o mas reciente y Firefox 3.0 o mas reciente)</span>|-else-|<span class="detail">(Una versión gráfica del organigrama está disponible utilizando un navegador IExplorer 7 o mas reciente y Firefox 3.0 o mas reciente)</span>|-/if-|</p>
+<p>A continuación podrá editar el organigrama. |-if ($browser->getBrowser() == 'Firefox' && $browser->getVersion() >= 3) || ($browser->getBrowser() == 'Internet Explorer' && $browser->getVersion() >= 7)-|
+Puede ver la versión gráfica haciendo click <a href="Main.php?do=positionsChartView" target="_blank">aquí</a>
+<a href="javascript:void(null);" class="tooltipWide"><span>(Sólo disponible para IExplorer 7 o mas reciente y Firefox 3.0 o mas reciente)</span><img src="images/clear.png" class="icon iconInfo"></a>
+|-else-|
+<a href="javascript:void(null);" class="tooltipWide"><span>(Una versión gráfica del organigrama está disponible utilizando un navegador IExplorer 7 o mas reciente y Firefox 3.0 o mas reciente)</span><img src="images/clear.png" class="icon iconInfo"></a>
+|-/if-|</p>
 <div id="div_positions">
 	|-if $message eq "ok"-|
 		<div class="successMessage">Posición guardada correctamente</div>
@@ -15,7 +20,7 @@
 	<table border="0" cellpadding="5" cellspacing="0"  class='tableTdBorders' id="tabla-positions">
 		<thead>
 		<tr>
-			<td colspan="5" class="tdSearch"><div><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Buscar</a></div>
+			<td colspan="5" class="tdSearch"><div><a href="javascript:void(null);" onClick='("divSearch");' class="tdTitSearch">Buscar</a></div>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="positionsList" />
 					Por tipo<select id="filters_type" name="filters[type]" title="type">
@@ -43,8 +48,7 @@
 			<tr class="thFillTitle">
 				<th width="5%">Código</th>
 				<th width="40%">Dependencia</th>
-				<th width="50%">Funcionario &#8212; Cargo</th>
-<!--				|-if ($configModule->get("positions","useFemale") eq true) -|<th width="10%">Nombre del cargo en femenino</th>|-/if-|	-->
+				<th width="50%">Cargo &#8212; Funcionario</th>
 				<th width="5%">&nbsp;</th>
 			</tr>
 		</thead>
