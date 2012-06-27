@@ -14,16 +14,17 @@
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="actorsList" />
 					Texto: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
-					&nbsp;&nbsp;<input type='submit' value='Buscar' class='tdSearchButton' />
+					Resultados por página
+				|-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getRowsPerPage()-|	
+				|-if $loginUser->isSupervisor()-|Incluir eliminados<input name="filters[includeDeleted]" type="checkbox" value="true" |-$filters.includeDeleted|checked:"true"-|>|-/if-|
+					<input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
+				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=actorsList'"/>|-/if-|
 			</form>
-					|-if $filters|@count gt 0-|<form  method="get">
-				<input type="hidden" name="do" value="actorsList" />
-				<input type="submit" value="Quitar Filtros" />
-		</form>|-/if-|</div></td>
+			</div></td>
 		</tr>
-			<tr>
+			|-if "actorsEdit"|security_has_access-|<tr>
 				 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=actorsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##actors,2,Actor##</a></div></th>
-			</tr>
+			</tr>|-/if-|
 			<tr class="thFillTitle"> 
 	<!--			<th width="5%">Id</th> -->
 				<th width="50%">##actors,2,Actor##</th> 
@@ -41,28 +42,21 @@
 	<!--		<td>|-$actor->getid()-|</td> -->
 			<td>|-if $actor->getTitle() ne ''-||-$actor->getTitle()-| |-/if-||-$actor->getName()-| |-$actor->getSurname()-|</td> 
 			<td>|-$actor->getInstitution()-|</td>
-			<td nowrap> <form action="Main.php" method="get" style="display:inline;"> 
+			<td nowrap>|-if "actorsEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="actorsEdit" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$actor->getid()-|" /> 
-					<input type="submit" name="submit_go_edit_actor" value="Editar" class="icon iconEdit" /> 
-				</form> 
-				<form action="Main.php" method="post" style="display:inline;"> 
+					<input type="submit" name="submit_go_edit_actor" value="Editar" title="Editar" class="icon iconEdit" /> 
+				</form> |-/if-|
+				|-if "actorsDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;"> 
 					<input type="hidden" name="do" value="actorsDoDelete" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$actor->getid()-|" /> 
-					<input type="submit" name="submit_go_delete_actor" value="Borrar" onclick="return confirm('Seguro que desea eliminar el ##actors,2,Actor##?')" class="icon iconDelete" /> 
+					<input type="submit" name="submit_go_delete_actor" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar el ##actors,2,Actor##?')" class="icon iconDelete" /> 
 			</form>
-			|-if $loginUser->isSupervisor()-|				<form action="Main.php" method="post" style="display:inline;"> 
-					<input type="hidden" name="do" value="actorsDoDelete" /> 
-						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-					<input type="hidden" name="id" value="|-$actor->getid()-|" /> 
-					<input type="hidden" name="doHardDelete" value="true" /> 
-					<input type="submit" name="submit_go_delete_actor" value="Borrar" onclick="return confirm('Seguro que desea eliminar el ##actors,2,Actor## definitivamente?')" class="icon iconDelete" /> 
-			</form>|-/if-|</td> 
+			|-/if-|</td> 
 		</tr> 
 		|-/foreach-|
 		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
@@ -70,10 +64,11 @@
 			<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
-			<tr>
-				 <th colspan="3" class="thFillTitle">|-if $actors|@count gt 5-|<div class="rightLink"><a href="Main.php?do=actorsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##actors,2,Actor##</a></div>|-/if-|</th>
-			</tr>
+			|-if "actorsEdit"|security_has_access-|<tr>
+				 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=actorsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##actors,2,Actor##</a></div></th>
+			</tr>|-/if-|
 		|-/if-|
 		</tbody> 
 		 </table> 
 </div>
+	

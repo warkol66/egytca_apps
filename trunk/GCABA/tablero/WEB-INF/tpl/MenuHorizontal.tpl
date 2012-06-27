@@ -28,6 +28,7 @@
 		|-if $loginUser->isAdmin() || $loginUser->isSupervisor()-|		
 			<li><a href="javascript:void(null)" class="sub">Organización</a>
 			  <ul class="menu">
+				<li><a href="Main.php?do=actorsList">Funcionarios</a></li>
 				<li><a href="Main.php?do=positionsList">Cargos y Dependencias</a></li>
 				<li class="last"><a href="Main.php?do=regionsList">Comunas y Barrios</a></li>
 			</ul>

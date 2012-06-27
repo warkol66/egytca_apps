@@ -50,7 +50,7 @@
 			<numberOfDecimals>2</numberOfDecimals>
 			<siteName>Gobierno de la Ciudad Autónoma de Buenos Aires</siteName>
 			<siteDescription>Sistema de Gestión de Proyectos del Gobierno de la Ciudad Autónoma de Buenos Aires</siteDescription>
-			<siteShortName>tablero</siteShortName>
+			<siteShortName>planificacion</siteShortName>
 			<webmasterMail>infocippec@cippec.org </webmasterMail>
 			<debugMail>dbugger.modulnet@gmail.com</debugMail>
 			<fromEmail>infocippec@cippec.org</fromEmail>

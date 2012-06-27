@@ -7,7 +7,7 @@
 	|-elseif $message eq "deleted_ok"-|
 	<div class="successMessage">Categoría eliminada correctamente</div>
 	|-/if-|
-	<table border="0" cellpadding="5" cellspacing="0"  class='tableTdBorders' id="tabla-indicators">
+	<table border="0" cellpadding="5" cellspacing="0" class='tableTdBorders' id="tabla-indicators" width="100%">
 		<thead>
 			<tr>
 				<td colspan="3" class="tdSearch"><div><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Buscar</a></div>
@@ -21,15 +21,14 @@
 						</form>
 						<form  method="get">
 							<input type="hidden" name="do" value="actorsCategoryList" />
-							<input type="submit" value="Quitar Filtros" />
+							|-if isset($filters.searchString)-|<input type="submit" value="Quitar Filtros" onClick="location.href='Main.php?do=actorsCategoryList'" />|-/if-|
 						</form>
 					</div></td>
 			</tr>
 			<tr>
-				<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=actorsCategoryEdit" class="addLink">Agregar Categoría</a></div></th>
+				<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=actorsCategoryEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Categoría</a></div></th>
 			</tr>
 			<tr>
-	<!--			<th width="5%" class="thFillTitle">Id</th> -->
 				<th width="60%" class="thFillTitle">Nombre</th>
 				<th width="30%" class="thFillTitle">Dentro de </th>
 				<th width="5%" class="thFillTitle">&nbsp;</th>
@@ -65,7 +64,7 @@
 		</tr>
 		|-/if-|
 		<tr>
-			<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=actorsCategoryEdit" class="addLink">Agregar Categoría</a></div></th>
+			<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=actorsCategoryEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Categoría</a></div></th>
 		</tr>
 		|-/if-|
 		</tbody>

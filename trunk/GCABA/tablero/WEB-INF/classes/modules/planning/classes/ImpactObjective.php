@@ -16,34 +16,50 @@
 class ImpactObjective extends BaseImpactObjective {
 
 	/**
+	 * Devuelve un string con quien modifico el Objetivo de Impacto (ImpactObjective)
+	 *
+	 * @return string nombre del usuario que modifico el Objetivo de Impacto
+	 */
+	public function updatedBy() {
+		if ($this->getUserobjecttype() != "") {
+			$objectQueryName = $this->getUserobjecttype() . 'Query';
+			if (class_exists($objectQueryName)) {
+				$query = BaseQuery::create($this->getUserobjecttype());
+				return $query->findPK($this->getUserobjectid());
+			}
+		}
+		return;
+	}
+
+	/**
 	 * Devuelve array con posibles ejes de gestion (PolicyGuidelines)
 	 *  id => ejes de gestion
 	 *
 	 * @return array ejes de gestion
 	 */
 	public static function getPolicyGuidelines() {
-		$agendas = array(
+		$policyGuidelines = array(
 			1 => 'Fortalecimiento de las políticas de promoción social, salud y educación',
 			2 => 'Seguridad',
 			3 => 'Movilidad sustentable'
 		);
-		return $agendas;
+		return $policyGuidelines;
 	}
 	
 	/**
-	 * Devuelve array con posibles ejes de gestion (ExpectedResult)
+	 * Devuelve array con posibles resultados esperados (ExpectedResult)
 	 *  id => resultado esperado
 	 *
 	 * @return array resultados esperados
 	 */
 	public static function getExpectedResults() {
-		$agendas = array(
+		$expectedResults = array(
 			1 => 'Incremento',
 			2 => 'Descenso',
 			3 => 'Aceleración',
 			4 => 'Desaceleración'
 		);
-		return $agendas;
+		return $expectedResults;
 	}
 
 	

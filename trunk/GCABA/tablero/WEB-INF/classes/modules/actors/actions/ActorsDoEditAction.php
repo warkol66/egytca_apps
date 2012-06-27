@@ -10,9 +10,6 @@ class ActorsDoEditAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -25,13 +22,16 @@ class ActorsDoEditAction extends BaseAction {
 		if (!empty($_POST["filters"]))
 			$filters = $_POST["filters"];
 
+		$userParams = Common::userInfoToDoLog();
+		$actorParams = array_merge_recursive($_POST["params"],$userParams);
+
 		if ($_POST["action"] == "edit") { // Existing actor
 
 			$actor = ActorPeer::get($_POST["id"]);
-			$actor = Common::setObjectFromParams($actor,$_POST["params"]);
+			$actor = Common::setObjectFromParams($actor,$actorParams);
 			
-			if (!$actor->save()) 
-				return $this->returnFailure($mapping,$smarty,$actor);
+			if ($actor->isModified() && !$actor->save()) 
+				return $this->returnFailure($mapping,$smarty,$actor,'failure-edit');
 
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
 
@@ -39,12 +39,12 @@ class ActorsDoEditAction extends BaseAction {
 		else { // New actor
 
 			$actor = new Actor();
-			$actor = Common::setObjectFromParams($actor,$_POST["params"]);
+			$actor = Common::setObjectFromParams($actor,$actorParams);
 			if (!$actor->save())
 				return $this->returnFailure($mapping,$smarty,$actor);
 
 			$logSufix = ', ' . Common::getTranslation('action: create','common');
-			Common::doLog('success', $_POST["params"]["name"] . ", " . $_POST["params"]["name"] . $logSufix);
+			Common::doLog('success', $_POST["params"]["surname"] . ", " . $_POST["params"]["name"] . $logSufix);
 
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
 		}

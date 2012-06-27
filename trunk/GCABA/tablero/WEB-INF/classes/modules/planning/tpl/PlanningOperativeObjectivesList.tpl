@@ -1,3 +1,13 @@
+<script type="text/javascript" src="scripts/lightbox.js"></script> 			
+<div id="lightbox1" class="leightbox">
+	<p align="right">				
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a> 
+	</p> 
+	<div id="planningOperativeObjectivesShowWorking"></div>
+	<div class="innerLighbox">
+		<div id="planningOperativeObjectivesShowDiv"></div>
+	</div>
+</div> 
 <h2>Planificación</h2>
 <h1>Administración de Objetivos Operativos</h1>
 <!-- Link VOLVER -->
@@ -16,7 +26,7 @@
 	<table id="tabla-objectives" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 		<thead>
 		<tr>
-			<td colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda por nombre</a>
+			<td colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="tdSearch"><a href="javascript:void(null);" onClick='$("divSearch").toggle();' class="tdTitSearch">Busqueda por nombre</a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0 && !($filters.fromStrategicObjectives)-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="planningOperativeObjectivesList" />
 					Nombre: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" />
@@ -44,9 +54,9 @@
 				<td>|-$objective->getName()-|</td>
 				<td nowrap>
 					<form action="Main.php" method="get" style="display:inline;">
-						<input type="hidden" name="do" value="objectivesViewX" />
+						<input type="hidden" name="do" value="planningOperativeObjectivesViewX" />
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
-						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("objectivesShowDiv", "Main.php?do=objectivesViewX&id=|-$objective->getid()-|", { method: "post", parameters: { id: "|-$objective->getId()-|"}, evalScripts: true})};$("objectivesShowWorking").innerHTML = "<span class=\"inProgress\">buscando Objetivo Operativo...</span>";' value="Ver detalle" name="submit_go_show_objective" title="Ver detalle" /></a>
+						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("planningOperativeObjectivesShowDiv", "Main.php?do=planningOperativeObjectivesViewX&id=|-$objective->getid()-|", { method: "post", parameters: { id: "|-$objective->getId()-|"}, evalScripts: true})};$("planningOperativeObjectivesShowWorking").innerHTML = "<span class=\"inProgress\">buscando Objetivo Operativo...</span>";' value="Ver detalle" name="submit_go_show_objective" title="Ver detalle" /></a>
 					</form>
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="planningOperativeObjectivesEdit" />
@@ -60,7 +70,7 @@
 						<input type="submit" name="submit_go_delete_objective" value="Borrar" onclick="return confirm('Seguro que desea eliminar el objetivo?')" class="icon iconDelete" title="Eliminar Objetivo Operativo" />
 					</form>
 					<form action="Main.php" method="get" style="display:inline;">
-						<input type="hidden" name="do" value="projectsEdit" />
+						<input type="hidden" name="do" value="planningProjectsEdit" />
 						<input type="hidden" name="fromObjectiveId" value="|-$objective->getid()-|" />
 						<input type="submit" name="submit_go_edit_project" value="Agregar Proyectos" class="icon iconAdd" title="Agregar proyectos al Objetivo Operativo" />
 					</form>			

@@ -20,13 +20,33 @@ class ActorPeer extends BaseActorPeer {
 
 	private $searchString;
 	private $limit;
+	private $orderByName;
+	private $orderBySurname;
+	private $orderByInstitution;
+
+	private $includeDeleted;
+
 	private $adminActId;
+	private $issueId;
+	private $headlineId;
+
+	private $relatedObject;
+	private $candidates;
 
 	//mapea las condiciones del filtro
 	var $filterConditions = array(
 					"searchString"=>"setSearchString",
 					"limit" => "setLimit",
-					'adminActId' => 'setAdminActId'
+					"orderByName"=>"setOrderByName",
+					"orderBySurname"=>"setOrderBySurname",
+					"orderByInstitution"=>"setOrderByInstitution",
+					"includeDeleted" => "setIncludeDeleted",
+					"perPage"=>"setPerPage",
+					"relatedObject" => "setRelatedObject",
+					"adminActId" => "setAdminActId",
+					"issueId" => "setIssueId",
+					"headlineId" => "setHeadlineId",
+					"getCandidates" => "setCandidates"
 				);
 
  /**
@@ -37,6 +57,14 @@ class ActorPeer extends BaseActorPeer {
 		$this->searchString = $searchString;
 	}
 	
+ /**
+	 * Especifica cantidad de resultados por pagina.
+	 * @param perPage integer cantidad de resultados por pagina.
+	 */
+	function setPerPage($perPage){
+		$this->perPage = $perPage;
+	}
+
  	/**
 	 * Especifica una cantidad maxima de registros.
 	 * @param limit cantidad maxima de registros.
@@ -44,7 +72,31 @@ class ActorPeer extends BaseActorPeer {
 	function setLimit($limit){
 		$this->limit = $limit;
 	}
-	
+
+ /**
+	 * Especifica si ordena los resultados por nombre
+	 * @param orderByName tipo de orden "asc" o "desc"
+	 */
+	function setOrderByName($orderByName){
+		$this->orderByName = $orderByName;
+	}
+
+ /**
+	 * Especifica si ordena los resultados por Surname
+	 * @param orderByName tipo de orden "asc" o "desc"
+	 */
+	function setOrderBySurname($orderBySurname){
+		$this->orderBySurname = $orderBySurname;
+	}
+
+ /**
+	 * Especifica si ordena los resultados por Institution
+	 * @param orderByName tipo de orden "asc" o "desc"
+	 */
+	function setOrderByInstitution($orderByInstitution){
+		$this->orderByInstitution = $orderByInstitution;
+	}
+
 	/**
 	 * Especifica un acto administrativo cuyos actores no deben aparecer en la busqueda.
 	 * @param int adminActId, id del acto administrativo.
@@ -54,14 +106,53 @@ class ActorPeer extends BaseActorPeer {
 	}
 
 	/**
+	 * Especifica un asunto cuyos actores no deben aparecer en la busqueda.
+	 * @param int issueId, id del issue.
+	 */
+	function setIssueId($issueId){
+		$this->issueId = $issueId;
+	}
+
+	/**
+	 * Especifica un objeto cuyos con actores relacionados
+	 * @param object relatedObject, Objeto relacionado
+	 */
+	function setRelatedObject($relatedObject){
+		$this->relatedObject = $relatedObject;
+	}
+
+	/**
+	 * Especifica un headline cuyos actores no deben aparecer en la busqueda.
+	 * @param int headlineId, id del headline.
+	 */
+	function setHeadlineId($headlineId){
+		$this->headlineId = $headlineId;
+	}
+
+	/**
+	 * Especifica un headline cuyos actores no deben aparecer en la busqueda.
+	 * @param int headlineId, id del headline.
+	 */
+	function setCandidates($candidates){
+		$this->candidates = $candidates;
+	}
+
+	/**
+	 * Especifica si se incluyen los eliminados
+	 * @param bool includeDeleted, indica si se incluyen los elimindos
+	 */
+	function setIncludeDeleted($includeDeleted){
+		$this->includeDeleted = $includeDeleted;
+	}
+
+	/**
 	* Obtiene un actor.
 	*
 	* @param int $id id del actor
 	* @return boolean true si se actualizo la informacion correctamente, false sino
 	*/
 	function get($id){
-		$actor = ActorQuery::create()->findPk($id);
-		return $actor;
+		return ActorQuery::create()->findPk($id);
 	}
 
  /**
@@ -150,10 +241,8 @@ class ActorPeer extends BaseActorPeer {
 	*	@return array Informacion sobre los actor
 	*/
 	function getSoftDeleted() {
-		$criteria = new Criteria();
-		$criteria->add(ActorPeer::DELETED_AT, null, Criteria::ISNOTNULL);
-		ActorPeer::disableSoftDelete();
-		$actors = ActorPeer::doSelect($criteria);
+		ActorQuery::disableSoftDelete();
+		$actors = ActorQuery::create()->filterByDeletedAt(NULL, Criteria::NOT_EQUAL)->find();
 		return $actors;
   }
 
@@ -178,16 +267,50 @@ class ActorPeer extends BaseActorPeer {
 	}
 
  /**
-	 * Retorna el criteria generado a partir de los par�metros de b�squeda
+	 * Retorna el criteria generado a partir de los parametros de busqueda
 	 *
-	 * @return criteria $criteria Criteria con par�metros de b�squeda
+	 * @return criteria $criteria Criteria con parametros de busqueda
 	 */
-	private function getSearchCriteria(){
-		$criteria = new Criteria();
+	private function getSearchCriteria() {
+		$criteria = ActorQuery::create();
+
 		$criteria->setIgnoreCase(true);
 		$criteria->setLimit($this->limit);
-		$criteria->addAscendingOrderByColumn(ActorPeer::ID);
+
+		if (isset($this->orderByName) && $this->orderByName == "asc")
+			$criteria->orderByName();
+		else if (isset($this->orderByName) && $this->orderByName == "desc")
+			$criteria->orderByName(Criteria::DESC);
+		if (isset($this->orderBySurname) && $this->orderBySurname == "asc")
+			$criteria->orderBySurname();
+		else if (isset($this->orderBySurname) && $this->orderBySurname == "desc")
+			$criteria->orderBySurname(Criteria::DESC);
+		if (isset($this->orderByInstitution) && $this->orderByInstitution == "asc")
+			$criteria->orderByInstitution();
+		else if (isset($this->orderByInstitution) && $this->orderByInstitution == "desc")
+			$criteria->orderByInstitution(Criteria::DESC);
+		else
+			$criteria->orderById();
 		
+		if ($this->includeDeleted)
+			ActorPeer::disableSoftDelete();
+
+		if (!empty($this->relatedObject)) {
+			if (empty($this->candidates))
+				$criteria->filterBy($this->relatedObject);
+			else
+				$criteria->add(ActorPeer::ID, $this->relatedObject->getAssignedActorsArray(), Criteria::NOT_IN);
+		}
+
+		if ($this->searchString) {
+			$criteria->add(ActorPeer::NAME,"%" . $this->searchString . "%",Criteria::LIKE);
+			$criterionSurname = $criteria->getNewCriterion(ActorPeer::SURNAME,"%" . $this->searchString . "%",Criteria::LIKE);
+			$criteria->addOr($criterionSurname);
+			$criterionInstitution = $criteria->getNewCriterion(ActorPeer::INSTITUTION,"%" . $this->searchString . "%",Criteria::LIKE);
+			$criteria->addOr($criterionInstitution);
+		}
+
+//A eliminar con relatedObject
 		if (!empty($this->adminActId)) {
 			$actorsParticipatingIds = AdminActParticipantQuery::create()
 									->filterByAdminActId($this->adminActId)
@@ -197,16 +320,19 @@ class ActorPeer extends BaseActorPeer {
 			$criteria->add(ActorPeer::ID, $actorsParticipatingIds,Criteria::NOT_IN);
 		}
 
-		if ($this->searchString){
-			$criteria->add(ActorPeer::NAME,"%" . $this->searchString . "%",Criteria::LIKE);
-			$criterionSurname = $criteria->getNewCriterion(ActorPeer::SURNAME,"%" . $this->searchString . "%",Criteria::LIKE);
-			$criteria->addOr($criterionSurname);
-			$criterionInstitution = $criteria->getNewCriterion(ActorPeer::INSTITUTION,"%" . $this->searchString . "%",Criteria::LIKE);
-			$criteria->addOr($criterionInstitution);
-		}
-
 		return $criteria;
 
+	}
+
+	/**
+	* Obtiene la cantidad de filas por pagina por defecto en los listado paginados.
+	*
+	* @return int Cantidad de filas por pagina
+	*/
+	function getRowsPerPage() {
+		if (!isset($this->perPage))
+			$this->perPage = Common::getRowsPerPage();
+		return $this->perPage;
 	}
 
  /**
@@ -218,7 +344,7 @@ class ActorPeer extends BaseActorPeer {
 	*/
 	function getAllPaginatedFiltered($page=1,$perPage=-1)	{
 		if ($perPage == -1)
-			$perPage = Common::getRowsPerPage();
+			$perPage = $this->getRowsPerPage();
 		if (empty($page))
 			$page = 1;
 		$criteria = $this->getSearchCriteria();
@@ -227,14 +353,12 @@ class ActorPeer extends BaseActorPeer {
 	}
 
  /**
-	* Obtiene todos los actor paginados segun la condicion de busqueda ingresada.
-	*
-	* @return array Informacion sobre todos los actores
+	* Obtiene todos los actor existentes filtrados por la condicion $criteria
+	* @return PropelObjectCollection Todos los actores
 	*/
-	function getAll()	{
-		$criteria = $this->getSearchCriteria();
-		$allObjects = ActorPeer::doSelect($criteria);
-		return $allObjects;
+	function getAll() {
+    $criteria = $this->getSearchCriteria();    
+		return ActorPeer::doSelect($criteria);
 	}
 
 } // ActorPeer
