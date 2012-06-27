@@ -29,11 +29,11 @@ class CalendarEventsDoEditAction extends BaseAction {
 			$calendarEvent = Common::setObjectFromParams($calendarEvent, $_POST['calendarEvent']);
 		}
 		
-		if (isset($_POST['calendarEvent']['regionsIds']))
+		if (isset($_POST['calendarEvent']['regionsIds']) || !empty($_POST['setRegions']))
 			$this->updateRegions($calendarEvent);
-		if (isset($_POST['calendarEvent']['categoriesIds']))
+		if (isset($_POST['calendarEvent']['categoriesIds']) || !empty($_POST['setCategories']))
 			$this->updateCategories($calendarEvent);
-		if (isset($_POST['calendarEvent']['actorsIds']))
+		if (isset($_POST['calendarEvent']['actorsIds']) || !empty($_POST['setActors']))
 			$this->updateActors($calendarEvent);
 		
 		try {

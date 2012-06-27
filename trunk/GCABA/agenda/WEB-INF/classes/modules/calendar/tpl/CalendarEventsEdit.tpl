@@ -157,7 +157,8 @@
 				|-/foreach-|
 				</select>
 		</p>
-	<p>
+				<p>
+					<input type="hidden" name="setRegions" value="1" />
 					<label for="calendarEvent_regions">Comunas/Barrios</label>
 					<select class="chzn-select markets-chz-select" data-placeholder="Seleccione una o varias comunas/barrios..." multiple="multiple" id="calendarEvent_regions" name="calendarEvent[regionsIds][]" size="5" title="comunas">
 					|-foreach from=$regions item=object-|
@@ -166,6 +167,7 @@
 					</select>
 				</p>
 				<p>
+					<input type="hidden" name="setCategories" value="1" />
 					<label for="calendarEvent_categories">Dependencias</label>
 					<select class="chzn-select markets-chz-select" data-placeholder="Seleccione una o varias dependencias..." multiple="multiple" id="calendarEvent_categories" name="calendarEvent[categoriesIds][]" size="5" title="dependencias">
 					|-foreach from=$categories item=object-|
@@ -174,6 +176,7 @@
 					</select>
 				</p>
 				<p>
+					<input type="hidden" name="setActors" value="1" />
 					<label for="calendarEvent_actors">Funcionarios</label>
 					<select class="chzn-select markets-chz-select" data-placeholder="Seleccione uno o varios funcionarios..." multiple="multiple" id="calendarEvent_actors" name="calendarEvent[actorsIds][]" size="5" title="actores">
 					|-foreach from=$actors item=object-|
