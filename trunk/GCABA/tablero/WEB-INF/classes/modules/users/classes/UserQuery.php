@@ -14,4 +14,26 @@
  */
 class UserQuery extends BaseUserQuery {
 
+	/**
+	 * Aplica filtro para busqueda de usuario pro usuario, direccion de corro o
+	 * direccion de correo alternativa
+	 *
+	 * @param string $username Nombre de usuario.
+	 * @param string $mailAddress Email.
+	 * @return Query aplicando filtros correspondientes.
+	 */
+
+	public function searchByUsernameAndMail($username, $mailAddress) {
+
+		$this->setIgnoreCase('true')
+			->filterByActive(1)									//Solo usuarios activos
+			->filterById(0,Criteria::GREATER_THAN)	// Para no buscar al usuario system, id=-1
+			->filterByUsername($username)
+			->filterByMailaddress($mailAddress)			//Busco por direccion
+				->_or()
+			->filterByMailaddressalt($mailAddress);	//o direccion alternativa
+
+		return $this;
+	}
+
 } // UserQuery

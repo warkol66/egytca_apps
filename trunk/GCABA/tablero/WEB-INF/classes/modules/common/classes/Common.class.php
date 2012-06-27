@@ -11,7 +11,7 @@ class Common {
 	*
 	* @return true si el sistema esta en mantenimiento
 	**/
-	function inMaintenance() {
+	public static function inMaintenance() {
 		global $system;
 		$maintenance = $system["config"]["system"]["parameters"]["underMaintenance"]["value"];
 
@@ -48,7 +48,7 @@ class Common {
 	* @param string $usDate Fecha en formato mm-dd-yyyy
 	* @return string Fecha en formate yyyy-mm-dd
 	*/
-	function usDateToDbDate($usDate) {
+	public static function usDateToDbDate($usDate) {
 		$dateExplode = explode("-", $usDate);
 		$dbDate = date("Y-m-d",mktime(0,0,0,$dateExplode[1],$dateExplode[0],$dateExplode[2]));
 		return $dbDate;
@@ -58,7 +58,7 @@ class Common {
 	* obtiene el id de usuario y de afiliado
 	* @return array $userInfo informacion encontrada
 	*/
-	function userInfoToDoLog() {
+	public static function userInfoToDoLog() {
 		$userInfo = array();
 		if (!empty($_SESSION['loginUser'])) {
 			$user = $_SESSION['loginUser'];
@@ -94,20 +94,18 @@ class Common {
 	* Agrega la informacion del user y id a lso params
 	* @return array $params array con la informacion recibida mas la del tipo de usuario y su id
 	*/
-	function addUserInfoToParams($params) {
+	public static function addUserInfoToParams($params) {
 
 		$userInfo = array();
 		$loggedUser = Common::getLoggedUser();
 		$userInfo["userObjectType"] = get_class($loggedUser);
 		$userInfo["userObjectId"] = $loggedUser->getId();
 		$userInfo["userId"] = $loggedUser->getId();
-		
+
 		$params = array_merge_recursive($params, $userInfo);
 
 		return $params;
 	}
-
-
 
 	/**
 	* Guarda un registro de log.
@@ -118,7 +116,7 @@ class Common {
 	* @param string $message mensaje resultado de la accion
 	* @return void
 	*/
-	function doLog($forward,$message=null) {
+	public static function doLog($forward,$message=null) {
 		if (ConfigModule::get("global","doLog")){
 
 			$action = ucfirst($_REQUEST['do']);
@@ -126,11 +124,9 @@ class Common {
 
 			try{
 				$logs = new ActionLog();
-				$logs->setUserId($userInfo["userId"]);
-				$logs->setAffiliateId($userInfo["affiliateId"]);
 				$logs->setDatetime(time());
 				$logs->setAction($action);
-				$logs->setObject($object);
+				$logs->setMessage($message);
 				$logs->setForward($forward);
 				$logs->setUserObjectType($userInfo["objectType"]);
 				$logs->setUserObjectId($userInfo["objectId"]);
@@ -238,7 +234,7 @@ class Common {
 	* obtiene objeto user si esta logueado algun tipo de usuario
 	* @return obj $user con el objeto logueado de la session
 	*/
-	function getLoggedUser() {
+	public static function getLoggedUser() {
 		$user = NULL;
 		if (!empty($_SESSION['loginUser']) && is_object($_SESSION['loginUser']) && get_class($_SESSION["loginUser"]) == "User")
 			$user = $_SESSION['loginUser'];
@@ -252,25 +248,25 @@ class Common {
 		if (ConfigModule::get("global","concurrentSession"))
 			return $user;
 		else if (is_object($user) && $user->verifySession())
-			return $user;		
+			return $user;
 	}
 
 	/**
 	* obtiene usuario de los otros tipos disponibles
 	* @return obj $user si encuentra el usuario en otros tipos disponibles
 	*/
-	function getByUsername($username) {
+	public static function getByUsername($username) {
 		$user = NULL;
-		$user = UserPeer::getByUsername($username);
+		$user = BaseQuery::create('User')->findOneByUsername($username);
 		if (!empty($user))
 			return $user;
-		if (class_exists(AffiliateUserPeer)){
-			$user = AffiliateUserPeer::getByUsername($username);
+		if (class_exists(AffiliateUserQuery)){
+			$user = BaseQuery::create('AffiliateUser')->findOneByUsername($username);
 			if (!empty($user))
 				return $user;
 		}
-		if (class_exists(ClientUserPeer)){
-			$user = ClientUserPeer::getByUsername($username);
+		if (class_exists(ClientUserQuery)){
+			$user = BaseQuery::create('ClientUser')->findOneByUsername($username);
 			if (!empty($user))
 				return $user;
 		}
@@ -281,19 +277,19 @@ class Common {
 	* obtiene objeto user si esta logueado algun tipo de usuario
 	* @return obj $user con el objeto logueado de la session
 	*/
-	function authenticateByUserAndMail($username,$email) {
-		if (class_exists(UserPeer)){
-			$user = UserPeer::authenticateByUserAndMail($username,$email);
+	public static function authenticateByUserAndMail($username,$email) {
+		if (class_exists('UserQuery')){
+			$user = BaseQuery::create('User')->searchByUsernameAndMail($username,$email)->findOne();
 			if (!empty($user))
 				return $user;
 		}
-		if (class_exists(AffiliateUserPeer)){
-			$user = AffiliateUserPeer::authenticateByUserAndMail($username,$email);
+		if (class_exists('AffiliateUserQuery')){
+			$user = BaseQuery::create('AffiliateUser')->searchByUsernameAndMail($username,$email)->findOne();
 			if (!empty($user))
 				return $user;
 		}
-		if (class_exists(ClientUserPeer)){
-			$user = ClientUserPeer::authenticateByUserAndMail($username,$email);
+		if (class_exists('ClientUserQuery')){
+			$user = BaseQuery::create('ClientUser')->searchByUsernameAndMail($username,$email)->findOne();
 			if (!empty($user))
 				return $user;
 		}
@@ -304,19 +300,19 @@ class Common {
 	* obtiene objeto user si esta logueado algun tipo de usuario
 	* @return obj $user con el objeto logueado de la session
 	*/
-	function getByRecoveryHash($hash) {
-		if (class_exists(UserPeer)){
-			$user = UserPeer::getByRecoveryHash($hash);
+	public static function getByRecoveryHash($hash) {
+		if (class_exists('UserQuery')){
+			$user = BaseQuery::create('User')->findOneByRecoveryhash($hash);
 			if (!empty($user))
 				return $user;
 		}
-		if (class_exists(AffiliateUserPeer)){
-			$user = AffiliateUserPeer::getByRecoveryHash($hash);
+		if (class_exists('AffiliateUserQuery')){
+			$user = BaseQuery::create('AffiliateUser')->findOneByRecoveryhash($hash);
 			if (!empty($user))
 				return $user;
 		}
-		if (class_exists(ClientUserPeer)){
-			$user = ClientUserPeer::getByRecoveryHash($hash);
+		if (class_exists('ClientUserQuery')){
+			$user = BaseQuery::create('ClientUser')->findOneByRecoveryhash($hash);
 			if (!empty($user))
 				return $user;
 		}
@@ -327,8 +323,20 @@ class Common {
 	 * Indica si hay login unificado en la configuracion del sistema
 	 * @return boolean
 	 */
-	function hasUnifiedLogin() {
+	public static function hasUnifiedLogin() {
 		if (ConfigModule::get("global","unifiedLogin"))
+			return true;
+		else
+			return false;
+	}
+
+	/**
+	* unifiedUsernames
+	* Informa si se utilizan usuarios unificados con afiliados
+	* @return boolean si usas los nombres unificados con afiliados
+	*/
+	public static function hasUnifiedUsernames(){
+		if (ConfigModule::get("global","unifiedUsernames"))
 			return true;
 		else
 			return false;
@@ -353,7 +361,7 @@ class Common {
 	 * @param string numero con separador de miles y decimal segun la configuracion del sistema
 	 * @return string con el formato
 	 */
-	function convertToMysqlNumericFormat($number) {
+	public static function convertToMysqlNumericFormat($number) {
 		global $system;
 
 		$thousandsSeparator = $system['config']['system']['parameters']['thousandsSeparator'];
@@ -373,7 +381,7 @@ class Common {
 	 * @param string fecha
 	 * @return string con el formato
 	 */
-	function convertToMysqlDateFormat($date,$dateFormat='') {
+	public static function convertToMysqlDateFormat($date,$dateFormat='') {
 		global $system;
 
 		if (empty($dateFormat))
@@ -397,7 +405,7 @@ class Common {
 	 * @param string fecha y hora
 	 * @return string con el formato
 	 */
-	function convertToMysqlDatetimeFormat($date,$dateFormat='') {
+	public static function convertToMysqlDatetimeFormat($date,$dateFormat='') {
 		global $system;
 
 		if (empty($dateFormat))
@@ -421,7 +429,7 @@ class Common {
 	 * @param string datetime
 	 * @return string datetime en la zona horaria correspondiente al usuario
 	 */
-	function getDatetimeOnTimezone($datetime) {
+	public static function getDatetimeOnTimezone($datetime) {
 		require_once('TimezonePeer.php');
 
 		$user = Common::getLoggedUser();
@@ -447,7 +455,7 @@ class Common {
 	 * @param string datetime
 	 * @return string datetime en la zona horaria GMT
 	 */
-	function getDatetimeOnGMT($datetime) {
+	public static function getDatetimeOnGMT($datetime) {
 		require_once('TimezonePeer.php');
 
 		$user = Common::getLoggedUser();
@@ -472,7 +480,7 @@ class Common {
 	 * Valida el captcha
 	 * @return boolean
 	 */
-	function validateCaptcha($field) {
+	public static function validateCaptcha($field) {
 		if (empty($_SESSION['security_code']))
 			return false;
 		if ($field == $_SESSION['security_code']) {
@@ -486,7 +494,7 @@ class Common {
 	 * Valida si una direccion de email tiene estructura valida
 	 * @param string email a validar
 	 */
-	function validateEmail($email) {
+	public static function validateEmail($email) {
 		return preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/i", $email);
 	}
 
@@ -497,7 +505,7 @@ class Common {
 	 * @param string $mailAddress Email origen
 	 * @return boolean false si no existe, true si puede llegar a existir
 	 */
-	function verifyMailbox($email,$mailAddress="no-reply@no-mail.com") {
+	public static function verifyMailbox($email,$mailAddress="no-reply@no-mail.com") {
 		$before = microtime();
 		$err = false;
 		if (!preg_match('/([^\@]+)\@(.+)$/', $email, $matches)) {
@@ -568,7 +576,7 @@ class Common {
 	 * Devuelve el nombre corto del sistema
 	 * @return string nombre corto del sistema
 	 */
-	function getSiteShortName() {
+	public static function getSiteShortName() {
 		global $system;
 		return $system['config']['system']['parameters']['siteShortName'];
 	}
@@ -578,7 +586,7 @@ class Common {
 	*
 	* @return int Cantidad de filas por pagina
 	*/
-	function getRowsPerPage() {
+	public static function getRowsPerPage() {
 		global $system;
 		return $system['config']['system']['rowsPerPage'];
 	}
@@ -589,7 +597,7 @@ class Common {
 	 * @param string modulo con separador de miles y decimal segun la configuracion del sistema
 	 * @return array asociativo con los valores de configuracion del modulo
 	 */
-	function getModuleConfiguration($module) {
+	public static function getModuleConfiguration($module) {
 		global $system;
 		$moduleConfig = $system['config'][strtolower($module)];
 		return $moduleConfig;
@@ -601,7 +609,7 @@ class Common {
 	 * @param string modulo con separador de miles y decimal segun la configuracion del sistema
 	 * @return array asociativo con los valores de configuracion del modulo
 	 */
-	function getConfiguration($section) {
+	public static function getConfiguration($section) {
 		global $system;
 		$config = $system['config'][strtolower($section)];
 		return $config;
@@ -611,7 +619,7 @@ class Common {
 	 * Obtiene el valor de la opcion de login de la cookie
 	 * @return string El valor correspondiente o vacio si no esta seteada la cookie
 	 */
-	function getValueUnifiedLoginCookie() {
+	public static function getValueUnifiedLoginCookie() {
 		global $system;
 		$cookieName = $system["config"]["system"]["parameters"]['siteShortName'] . 'LoginOption';
 		return $_COOKIE[$cookieName];
@@ -620,7 +628,7 @@ class Common {
 	/**
 	 * Define el valor de la opcion de login de la cookie
 	 */
-	function setValueUnifiedLoginCookie($value) {
+	public static function setValueUnifiedLoginCookie($value) {
 		global $system;
 		$cookieName = $system["config"]["system"]["parameters"]['siteShortName'] . 'LoginOption';
 		setcookie($cookieName,$value);
@@ -630,8 +638,8 @@ class Common {
 	* Obtiene los idiomas disponibles en el sistema.
 	* @return Idiomas del sistema
 	*/
-	function getAllLanguages() {
-		$languages = MultilangLanguagePeer::getAll();
+	public static function getAllLanguages() {
+		$languages = MultilangLanguageQuery::create()->find();
 		return $languages;
 	}
 
@@ -641,7 +649,7 @@ class Common {
 	 * @param string $moduleName  Nombre del modulo al que pertenece el texto
 	 * @return translation
 	 */
-	function getTranslation($text,$moduleName) {
+	public static function getTranslation($text,$moduleName) {
 		$languageCode = Common::getCurrentLanguageCode();
 		$translationObject = MultilangTextPeer::getByTextAndModuleNameAndCode($text,$moduleName,$languageCode);
 		if (empty($translationObject))
@@ -658,7 +666,7 @@ class Common {
 	 * @param string $languagecode	Codigo del idioma en el que se quiere el la traduccion
 	 * @return translation
 	 */
-	function getTranslationByLanguageCode($text,$moduleName,$languageCode) {
+	public static function getTranslationByLanguageCode($text,$moduleName,$languageCode) {
 		$translationObject = MultilangTextPeer::getByTextAndModuleNameAndCode($text,$moduleName,$languageCode);
 		if (empty($translationObject))
 			$translation = $text;
@@ -673,7 +681,7 @@ class Common {
 	 * @param string $moduleName  Nombre del modulo al que pertenece el texto
 	 * @return translation
 	 */
-	function getTranslatedArray($inputArray,$moduleName) {
+	public static function getTranslatedArray($inputArray,$moduleName) {
 		foreach(array_keys($inputArray) as $key)
 			$translated[$key] = Common::getTranslation($inputArray[$key],$moduleName);
 		return $translated;
@@ -683,7 +691,7 @@ class Common {
 	 * Entrega el codigo de idioma a utilizar por el sistema
 	 * @return languageCode
 	 */
-	function getCurrentLanguageCode() {
+	public static function getCurrentLanguageCode() {
 		global $system;
 
 		$cookieName = $system["config"]["system"]["parameters"]['siteShortName'] . 'languageCode';
@@ -703,7 +711,7 @@ class Common {
 	 * Entrega el codigo de idioma por defecto del sistema
 	 * @return languageCode
 	 */
-	function getSystemDefaultLanguageCode() {
+	public static function getSystemDefaultLanguageCode() {
 		global $system;
 		return $system["config"]["system"]["language"];
 	}
@@ -712,7 +720,7 @@ class Common {
 	 * Entrega el locale
 	 * @return locale
 	 */
-	function getCurrentLocale() {
+	public static function getCurrentLocale() {
 		$currentLanguageCode = Common::getCurrentLanguageCode();
 		$language = MultilangLanguageQuery::create()->findOneByCode($currentLanguageCode);
 		if (is_object($language))
@@ -725,7 +733,7 @@ class Common {
 	 * Indica si el los pedidos de cotizaciones manejan cantidades en el modulo import
 	 * @return boolean
 	 */
-	function setCurrentLanguageCode($languageCode) {
+	public static function setCurrentLanguageCode($languageCode) {
 		global $system;
 		$cookieName = $system["config"]["system"]["parameters"]['siteShortName'] . 'languageCode';
 		setcookie($cookieName,$languageCode);
@@ -737,7 +745,7 @@ class Common {
 	 * Indica si un request proviene de un robot de google.
 	 * @return boolean
 	 */
-	function isAGoogleBotRequest() {
+	public static function isAGoogleBotRequest() {
 		if(stripos($_SERVER['HTTP_REFERER'], '.google.') !== false && preg_match('{^[a-z]+://[^.]*\.google\.}i', $_SERVER['HTTP_USER_AGENT']))
 			return true;
 		if(stripos($_SERVER['HTTP_USER_AGENT'], 'Googlebot') !== false) {
@@ -753,7 +761,7 @@ class Common {
 	 * Indica si un request proviene de un robot.
 	 * @return boolean
 	 */
-	function isBot() {
+	public static function isBot() {
 		//if no	user agent is	supplied then	assume it's	a	bot
 		if($_SERVER['HTTP_USER_AGENT'] ==	"")
 			return true;
@@ -788,18 +796,6 @@ class Common {
 
 		$browser = new Browser();
 		return $browser;
-	}
-
-	/**
-	* unifiedUsernames
-	* Informa si se utilizan usuarios unificados con afiliados
-	* @return boolean si usas los nombres unificados con afiliados
-	*/
-	public static function hasUnifiedUsernames(){
-		if (ConfigModule::get("global","unifiedUsernames"))
-			return true;
-		else
-			return false;
 	}
 
 	/**
@@ -1028,7 +1024,7 @@ class Common {
 	* @param int $length [optional] Longitud de la contrasena
 	* @return string Contrasena
 	*/
-	function generateRandomPassword($length = 8){
+	public static function generateRandomPassword($length = 8){
 		$password = "";
 		$possible = "23456789@bcdefghijkmnopqrstuvwxyz";
 		$i = 0;
@@ -1046,7 +1042,7 @@ class Common {
 	* Determina el tamano maximo de archivo a subir
 	* @return int tamano del archivo en MB
 	*/
-	function maxUploadSize() {
+	public static function maxUploadSize() {
 		$max_upload_size = min(Common::let_to_num(ini_get('post_max_size')),
 		 Common::let_to_num(ini_get('upload_max_filesize')),
 		 Common::let_to_num(ConfigModule::get("documents","maxUploadSize")));
@@ -1057,7 +1053,7 @@ class Common {
 	* Encripta md5
 	* @return string encriptado
 	*/
-	function md5($pass) {
+	public static function md5($pass) {
 		$crypt = md5($pass."ASD");
 		return $crypt;
 	}
@@ -1069,7 +1065,7 @@ class Common {
 	* @return int longitud del parametro
 	*/
 
-	function let_to_num($v){ //
+	public static function let_to_num($v){ //
 			$l = substr($v, -1);
 			$ret = substr($v, 0, -1);
 			switch(strtoupper($l)){
@@ -1098,7 +1094,7 @@ class Common {
 	 * @param $glue2 separador entre elementos.
 	 * @param $input string con la cadena para hacer el explode
 	 */
-	function explode_assoc($glue1, $glue2, $input) {
+	public static function explode_assoc($glue1, $glue2, $input) {
 		$array2 = explode($glue2, $input);
 		foreach($array2 as  $val) {
 			$pos=strpos($val,$glue1);
@@ -1212,7 +1208,7 @@ class Common {
 	 * @param $filters array de filtros
 	 * @return smarty con filtros y params asignados
 	 */
-	function assignParamsAndFiltersToSmarty($smarty,$params,$filters) {
+	public static function assignParamsAndFiltersToSmarty($smarty,$params,$filters) {
 
 		foreach ($params as $key => $value)
 			$smarty->assign("$key",$value);
@@ -1242,11 +1238,11 @@ class Common {
 
 	/**
 	 * Evalua dos numeros a bit level para comprobar permisos
-	 * @param $level int 
-	 * @param $bitlevel int 
-	 * @return true o false 
+	 * @param $level int
+	 * @param $bitlevel int
+	 * @return true o false
 	 */
-	function evaluateBitlevel($level,$bitlevel) {
+	public static function evaluateBitlevel($level,$bitlevel) {
 		if ($level == SecurityModulePeer::LEVEL_ALL)
 			return ($bitlevel == $level);
 		return ((intval($level) & intval($bitlevel)) > 0);
@@ -1257,7 +1253,7 @@ class Common {
 	*
 	* @return array dechas max y min
 	*/
-	function getPeriodArray($fromDate = null, $toDate = null) {
+	public static function getPeriodArray($fromDate = null, $toDate = null) {
 		if (!empty($fromDate))
 			$fromDate = Common::convertToMysqlDatetimeFormat($fromDate);
 		if (!empty($toDate))
@@ -1295,7 +1291,7 @@ class Common {
 	 * Indica si el sistema tiene activo el modulo de newsletter.
 	 * @return boolean
 	 */
-	function systemHasNewsletter() {
+	public static function systemHasNewsletter() {
 		if ((ConfigModule::get("registration","newsletterSubscription")) && (ModulePeer::hasNewslettersModule()))
 			return true;
 		else
@@ -1306,7 +1302,7 @@ class Common {
 	 * Devuelve el modo de registracion habilitado en el Modulo de Registracion por
 	 * la configuracion.
 	 */
-	function getRegistrationMode() {
+	public static function getRegistrationMode() {
 		global $system;
 		return $system["config"]["registration"]["mode"]["value"];
 	}
@@ -1325,7 +1321,7 @@ class Common {
 	 * del modulo de registracion
 	 * @return boolean
 	 */
-	function getRegistrationCaptchaUse() {
+	public static function getRegistrationCaptchaUse() {
 		global $system;
 		return ($system["config"]["registration"]["useCaptcha"]["value"] == 'YES');
 
@@ -1336,7 +1332,7 @@ class Common {
 	 * del modulo de encuestas
 	 * @return boolean
 	 */
-	function getSurveysCaptchaUse() {
+	public static function getSurveysCaptchaUse() {
 		global $system;
 		return ($system["config"]["surveys"]["useCaptcha"]["value"] == 'YES');
 	}
@@ -1345,12 +1341,52 @@ class Common {
 	 * Indica si el los pedidos de cotizaciones manejan cantidades en el modulo import
 	 * @return boolean
 	 */
-	function importQuotesUseQuantities() {
+	public static function importQuotesUseQuantities() {
 		if (ConfigModule::get("import","quotesUseQuantities"))
 			return true;
 		else
 			return false;
 	}
 
+	/**
+	 * Returns true if $path has write permissions or false otherwise
+	 *
+	 * @param string $path
+	 * @return boolean
+	 */
+	public static function isWritable($path) {
+		$testfile = $path.'/'.uniqid().'.test';
+		file_put_contents($testfile, 'asd');
+		$return = file_exists($testfile);
+		unlink($testfile);
+		return $return;
+	}
+
+	/**
+	 * Returns true if $path has write permissions or false otherwise
+	 *
+	 * @param string $path
+	 * @return boolean
+	 */
+	public static function ensureWritable($path) {
+		$parts = split('/', $path);
+		$dirBefore = '';
+		foreach ($parts as $part) {
+			$dirAfter = $dirBefore.$part.'/';
+			if (!file_exists($dirAfter)) {
+				mkdir($dirAfter);
+				if (!file_exists($dirAfter)) {
+					$msg = "el directorio $path no existe. creacion automatica fallo: no se puede escribir en $dirBefore, verifique permisos";
+					throw new Exception($msg);
+				}
+			}
+			$dirBefore = $dirAfter;
+		}
+		if (!Common::isWritable($dirBefore)) {
+			throw new Exception("no se puede escribir en $dirBefore, verifique permisos");
+		}
+
+		return;
+	}
 
 } // end of class

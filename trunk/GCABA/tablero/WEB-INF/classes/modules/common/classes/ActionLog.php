@@ -15,6 +15,22 @@
 class ActionLog extends BaseActionLog {
 
 	/**
+	 * Devuelve un string con quien modifico el Objetivo de Impacto (ImpactObjective)
+	 *
+	 * @return string nombre del usuario que modifico el Objetivo de Impacto
+	 */
+	public function getUser() {
+		if ($this->getUserobjecttype() != "") {
+			$objectQueryName = $this->getUserobjecttype() . 'Query';
+			if (class_exists($objectQueryName)) {
+				$query = BaseQuery::create($this->getUserobjecttype());
+				return $query->findPK($this->getUserobjectid());
+			}
+		}
+		return;
+	}
+
+	/**
 	*
 	* Obtiene la etiqueta de ese modulo
 	*
@@ -75,5 +91,8 @@ class ActionLog extends BaseActionLog {
 			$user = "";
 		return $user;
 	}
+
+
+
 
 } // ActionLog
