@@ -1037,6 +1037,14 @@ margin-right:auto;
 	background-color: White !Important;
 	border: none !Important;
 }
+#fancybox-content h5 {
+	padding: .5em;
+	background-color: White;
+	font-size: 1.5em;
+	border-bottom: 1px solid black;
+	color: Black;
+
+}
 
 
 /* Botones SOLAPAS filtros */
