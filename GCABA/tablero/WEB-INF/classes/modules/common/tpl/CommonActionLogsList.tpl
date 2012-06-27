@@ -76,7 +76,7 @@
 			 |-foreach from=$logs item=log name=eachlog-|
 			<tr> 
 			  <td nowrap scope="col">|-$log->getDatetime()|change_timezone-|</td>
-			  <td nowrap scope="col">|-assign var="user" value=$log->getUserObject()-||-if $user ne ''-||-$user->getUsername()-||-/if-|</td>
+			  <td nowrap scope="col">|-$log->getUser()-|</td>
 			  <td scope="col" >|-assign var="actionLabel" value=$log->getActionLabel()-||-if $actionLabel ne ''-||-$actionLabel->getLabel()-||-else-||-$log->getAction()-||-/if-|</td>
 			  <td scope="col" >|-assign var="label" value=$log->getLabel()-||-if $label ne ''-||-$label->getLabel()-|: |-/if-||-if $log->getMessage() ne ''-||-$log->getMessage()-||-/if-|</td>
 			</tr>

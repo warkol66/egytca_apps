@@ -2,22 +2,6 @@
 
 	<action-mappings module="Documents">
 
-		<action    path = "documentsList"
-							 type = "DocumentsListAction"
-							 name = "documentsList"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="DocumentsList.tpl"/>
-		</action>
-
-		<action    path = "documentsShow"
-							 type = "DocumentsShowAction"
-							 name = "documentsShow"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="DocumentsShow.tpl"/>
-		</action>
-
 		<action    path = "documentsEdit"
 							 type = "DocumentsEditAction"
 							 name = "documentsEdit"
@@ -95,46 +79,6 @@
 			<forward name="failure" path="DocumentsDoDeleteXFailure.tpl" />
 		</action>
 
-<!-- Section Key words -->
-
-		<action    path = "documentsKeyWordList"
-							 type = "DocumentsKeyWordListAction"
-							 name = "documentsKeyWordList"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="DocumentsKeyWordList.tpl"/>
-			<forward name="include" path="DocumentsKeyWordListInclude.tpl"/>
-		</action>
-
-		<action    path = "documentsKeyWordEdit"
-							 type = "DocumentsKeyWordEditAction"
-							 name = "documentsKeyWordEdit"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="DocumentsKeyWordEdit.tpl"/>
-			<forward name="failure" path="/Main.php?do=documentsList" redirect="true"/>
-		</action>
-
-		<action    path = "documentsKeyWordDoEdit"
-							 type = "DocumentsKeyWordDoEditAction"
-							 name = "documentsKeyWordDoEdit"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="/Main.php?do=documentsKeyWordList" redirect="true"/>
-			<forward name="failure" path="DocumentsKeyWordEdit.tpl"/>
-		</action>
-
-		<action    path = "documentsKeyWordDoDelete"
-							 type = "DocumentsKeyWordDoDeleteAction"
-							 name = "documentsKeyWordDoDeleteAction"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="/Main.php?do=documentsKeyWordList" redirect="true"/>
-			<forward name="failure" path="/Main.php?do=documentsKeyWordList" redirect="true" />
-		</action>
-
 	</action-mappings>
-
-<!-- End Section Key words -->
 
 <!-- End Module Documents -->

@@ -26,10 +26,18 @@ class UsersPasswordRecoveryDoRequestAction extends BaseAction {
 		$module = "Users";
 		$section = "Users";
 
-		if ( !empty($_POST["username"]) && !empty($_POST["mailAddress"]) ) {
+		$username = $request->getParameter('username');
+		$mailAddress = $request->getParameter('mailAddress');
+		$securityCode = $request->getParameter('securityCode');
+
+		if (!empty($username) && !empty($mailAddress)) {
+
 			if (Common::validateCaptcha($_POST['securityCode'])) {
-				$user = UserPeer::authenticateByUserAndMail($_POST["username"],$_POST["mailAddress"]);
-				if ( !empty($user)) {
+				$user = BaseQuery::create('User')
+										->searchByUsernameAndMail($username,$mailAddress)
+										->findOne();
+
+				if (!empty($user)) {
 					if (!$user->recoveryRequestAlredyMade()) {
 						$subject = Common::getTranslation('New password','users');
 						$smarty->assign("user",$user);
@@ -49,13 +57,15 @@ class UsersPasswordRecoveryDoRequestAction extends BaseAction {
 						
 						Common::doLog('success','username: ' . $_POST["username"] . ' Mail Address: ' . $_POST["mailAddress"]);
 						return $mapping->findForwardConfig('success');
-					} else {
+					}
+					else {
 						$this->template->template = "TemplateLogin.tpl";
 						$smarty->assign("message","requestAlredyMade");
 						return $mapping->findForwardConfig('failure');
 					}
 				}
-			} else {
+			}
+			else {
 				$this->template->template = "TemplateLogin.tpl";
 				$smarty->assign("message","wrongCaptcha");
 				return $mapping->findForwardConfig('failure');
