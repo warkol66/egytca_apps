@@ -1,6 +1,6 @@
 <h2>Agenda</h2>
-<h1>Administración de tipos ejes</h1>
-<p>A continuación se muestra la lista de ejes cargados en el sistema.</p>
+<h1>Administración de Ejes de Gestión</h1>
+<p>A continuación se muestra la lista de ejes de gestión cargados en el sistema.</p>
 <div id="div_axes"> 
 	|-if $message eq "ok"-|
 		<div class="successMessage">Eje guardado correctamente</div>
@@ -9,8 +9,8 @@
 	|-/if-|
 	<table id="tabla-tipos" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead> 
-		<tr>
-			<td colspan="3" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda de ejes </a>
+		<!--<tr>
+			<td colspan="3" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda de ejes</a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="calendarAxisList" />
 					Texto: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
@@ -20,26 +20,26 @@
 				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=calendarAxisList'"/>|-/if-|
 			</form>
 			</div></td>
-		</tr>
+		</tr>-->
 			|-if "calendarAxisEdit"|security_has_access-|<tr>
-				 <th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=calendarAxisEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar eje</a></div></th>
+				 <th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=calendarAxisEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Eje de Gestión</a></div></th>
 			</tr>|-/if-|
-			<tr class="thFillTitle"> 
+			<tr class="thFillTitle">
+			  <th width="3%">Color</th> 
 	<!--			<th width="5%">Id</th> -->
-				<th width="50%">Tipo</th> 
+				<th width="92%">Eje de Gestión</th> 
 				<th width="5%">&nbsp;</th> 
 			</tr> 
-		</thead> 
+	  </thead> 
 	<tbody id="calendarAxisList">|-if $calendarAxisColl|@count eq 0-|
 		<tr>
-			 <td colspan="3">|-if isset($filter)-|No hay tipos que concuerden con la búsqueda|-else-|No hay tipos disponibles|-/if-|</td>
+			 <td colspan="4">|-if isset($filter)-|No hay tipos que concuerden con la búsqueda|-else-|No hay tipos disponibles|-/if-|</td>
 		</tr>
 	|-else-|
 		|-foreach from=$calendarAxisColl item=calendarAxis name=for_axes-|
-		<tr> 
-			<td>
-			|-if "calendarAxisEdit"|security_has_access-|<span id="media_type_|-$calendarAxis->getid()-|" class="in_place_editable">|-$calendarAxis->getName()-|</span>|-else-||-$calendarAxis->getName()-||-/if-|
-			</td>
+		<tr>
+		  <td bgcolor="|-$calendarAxis->getColor()-|">&nbsp;</td> 
+			<td>|-if "calendarAxisEdit"|security_has_access-|<span id="media_type_|-$calendarAxis->getid()-|" class="in_place_editable">|-$calendarAxis->getName()-|</span>|-else-||-$calendarAxis->getName()-||-/if-|</td>
 			<td nowrap>|-if "calendarAxisEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="calendarAxisEdit" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
@@ -57,15 +57,16 @@
 			|-/if-|</td> 
 		</tr> 
 		|-/foreach-|
-		</tbody> 
+		<tr>
+	  </tbody> 
         <tfoot>
 		|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
-			<td colspan="3" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
+			<td colspan="4" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 			|-if "calendarAxisEdit"|security_has_access-|<tr>
-				 <th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=calendarAxisEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar eje</a></div></th>
+				 <th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=calendarAxisEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Eje de Gestión</a></div></th>
 			</tr>|-/if-|
 		|-/if-|
         </tfoot>
