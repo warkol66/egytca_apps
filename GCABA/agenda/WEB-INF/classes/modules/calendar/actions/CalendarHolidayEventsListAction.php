@@ -58,7 +58,7 @@ class CalendarHolidayEventsListAction extends BaseAction {
 		$smarty->assign("pager",$pager);
 		$smarty->assign("filters", $filters);
 
-		$url = "Main.php?do=calendarEventsHolidayList";
+		$url = "Main.php?do=calendarHolidayEventsList";
 		if (isset($_GET['page']))
 			$url .= '&page=' . $_GET['page'];
 		foreach ($filters as $key => $value)

@@ -34,7 +34,7 @@ class CalendarEventsListAction extends BaseAction {
 		$calendarEventsConfig = $moduleConfig["calendarEvents"];
 		$smarty->assign("calendarEventsConfig",$calendarEventsConfig);
 
-		$pager = BaseQuery::create('CalendarEvent')->orderById(Criteria::DESC)->orderByCreationdate(Criteria::ASC)->createPager($filters, $page, Common::getRowsPerPage());
+		$pager = BaseQuery::create('CalendarEvent')->orderById(Criteria::DESC)->orderByStartdate(Criteria::ASC)->createPager($filters, $page, Common::getRowsPerPage());
 		$smarty->assign('pager', $pager);
 		$smarty->assign('events', $pager->getResults());
 		$url = "Main.php?do=calendarEventsList";
