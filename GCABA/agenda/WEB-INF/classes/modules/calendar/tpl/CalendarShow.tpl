@@ -59,16 +59,13 @@
 			});
 			$('#fancyboxDummy').click();
 		});
-
-
-
-
+		
 		$('#newEventFancyboxDummy').fancybox();
 		$('#fancyboxDummy').fancybox({
-   onClosed: function() {
-			$('#fancybox-outer').removeClass("fancyboxCakeGraph");
-   }
-});
+			onClosed: function() {
+				$('#fancybox-outer').removeClass("fancyboxCakeGraph");
+			}
+		});
 		|-if !empty($loginUser) && $loginUser->isSupervisor() && $firstView-|
 		$('#fancyboxDiv').load(
 			'Main.php?do=calendarRegularEventGetUninstantiatedX',
@@ -78,6 +75,11 @@
 		$('.pendientesContent').droppable({
                         drop: Calendar.dropOut
                 });
+		
+		filterPendingEvents();
+		$('.fc-button-prev').click(function() {filterPendingEvents()});
+		$('.fc-button-next').click(function() {filterPendingEvents()});
+		$('.fc-button-today').click(function() {filterPendingEvents()});
 	});
 
 	createCalendar = function(events) {
@@ -228,6 +230,26 @@
 			eventObjects.push(|-include file="CalendarPhpEventToJson.tpl" event=$pending-|);
 			|-/foreach-|
 		return eventObjects;
+	}
+	
+	filterPendingEvents = function() {
+		
+		var mustHide = function(date) {
+			
+			if (date == undefined)
+				return false;
+			
+			var timeDiff = calendar.fullCalendar('getDate').getTime() - date.getTime();
+			var acceptedTimeDiff = 7 * 24 * 60 * 60 * 1000 // in msecs
+			return !(Math.abs(timeDiff) < acceptedTimeDiff);
+		}
+		
+		$('.pendientesContainer .pendientesContent li').each(function(i, e) {
+			if (mustHide($(e).data('eventObject').start))
+				$(e).hide();
+			else
+				$(e).show();
+		});
 	}
 
 	renderPendingEvents = function(events) {
