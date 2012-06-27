@@ -49,7 +49,7 @@
 		});
 		$('.eventsGraph').click(function() {
 			$('#fancybox-outer').addClass("fancyboxCakeGraph");
-			$('#fancyboxDiv').html('<div id="fancyboxCakeGraph" style="width: 400px; height: 400px"></div>')
+			$('#fancyboxDiv').html('<h5>Cantidad de eventos distribuidos por ejes</h5><div id="fancyboxCakeGraph" style="width: 400px; height: 400px"></div>')
 			new CakeGraph({
 				selector: '#fancyboxCakeGraph',
 				data: graphInfo.data,
