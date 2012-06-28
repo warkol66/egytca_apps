@@ -41,6 +41,9 @@ class CalendarShowAction extends BaseAction {
 			$contextEventDateFilter['max'] = strtotime('first day of this month +3 month', $dt->getTimestamp());
 			$holidayDateFilter = $eventDateFilter;
 		}
+		
+		$smarty->assign('minTimestamp', strtotime('-1 month', $dt->getTimestamp()));
+		$smarty->assign('maxTimestamp', strtotime('+1 month', $dt->getTimestamp()));
 
 		$smarty->assign('events', BaseQuery::create('CalendarEvent')->addFilters($filters)->filterBySchedulestatus('3', Criteria::NOT_EQUAL)->filterByStartDate($eventDateFilter)->find());
 		$smarty->assign('holydayEvents', BaseQuery::create('CalendarHolidayEvent')->addFilters($filters)->filterByStartDate($holidayDateFilter)->find());
