@@ -23,10 +23,28 @@ class CalendarShowAction extends BaseAction {
 			$filters = $_GET['filters'];
 			$smarty->assign('filters', $filters);
 		}
+		
+		$eventDateFilter = array();
+		$contextEventDateFilter = array();
+		$holidayDateFilter = array();
+		if (!empty($_GET['filters']['selectedDate'])) {
+			$dt = new DateTime($_GET['filters']['selectedDate']);
+			$eventDateFilter['min'] = strtotime('-2 month', $dt->getTimestamp());
+			$eventDateFilter['max'] = strtotime('+3 month', $dt->getTimestamp());
+			$contextEventDateFilter = $eventDateFilter;
+			$holidayDateFilter = $eventDateFilter;
+		} else {
+			$dt = new DateTime();
+			$eventDateFilter['min'] = strtotime('-2 month', $dt->getTimestamp());
+			$eventDateFilter['max'] = strtotime('+5 month', $dt->getTimestamp());
+			$contextEventDateFilter['min'] = strtotime('first day of this month', $dt->getTimestamp());
+			$contextEventDateFilter['max'] = strtotime('first day of this month +3 month', $dt->getTimestamp());
+			$holidayDateFilter = $eventDateFilter;
+		}
 
-		$smarty->assign('events', BaseQuery::create('CalendarEvent')->addFilters($filters)->filterBySchedulestatus('3', Criteria::NOT_EQUAL)->find());
-		$smarty->assign('holydayEvents', BaseQuery::create('CalendarHolidayEvent')->addFilters($filters)->find());
-		$smarty->assign('contextEvents', BaseQuery::create('CalendarContextEvent')->addFilters($filters)->find());
+		$smarty->assign('events', BaseQuery::create('CalendarEvent')->addFilters($filters)->filterBySchedulestatus('3', Criteria::NOT_EQUAL)->filterByStartDate($eventDateFilter)->find());
+		$smarty->assign('holydayEvents', BaseQuery::create('CalendarHolidayEvent')->addFilters($filters)->filterByStartDate($holidayDateFilter)->find());
+		$smarty->assign('contextEvents', BaseQuery::create('CalendarContextEvent')->addFilters($filters)->filterByStartDate($contextEventDateFilter)->find());
 		$smarty->assign('pendingEvents', BaseQuery::create('CalendarEvent')->addFilters($filters)->filterBySchedulestatus('3', Criteria::EQUAL)->find());
 
 		$moduleConfig = Common::getModuleConfiguration($module);
