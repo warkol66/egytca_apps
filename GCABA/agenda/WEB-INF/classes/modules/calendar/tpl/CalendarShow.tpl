@@ -16,6 +16,10 @@
 <a id="newEventFancyboxDummy" style="display:none" href="#newEvent"></a>
 <a id="fancyboxDummy" style="display:none" href="#fancyboxDiv"></a>
 <div style="display:none;"><div id="fancyboxDiv"></div></div>
+<a id="mapFancyboxDummy" style="display:none" href="#mapFancybox"></a>
+<div style="display:none;"><div id="mapFancybox">
+	
+</div></div>
 
 <script type="text/javascript">
 
@@ -77,9 +81,9 @@
                 });
 		
 		filterPendingEvents();
-		$('.fc-button-prev').click(function() {filterPendingEvents()});
-		$('.fc-button-next').click(function() {filterPendingEvents()});
-		$('.fc-button-today').click(function() {filterPendingEvents()});
+		$('.fc-button-prev').click(function() { checkCalendarDateRange(); filterPendingEvents(); });
+		$('.fc-button-next').click(function() { checkCalendarDateRange(); filterPendingEvents(); });
+		$('.fc-button-today').click(function() { checkCalendarDateRange(); filterPendingEvents(); });
 	});
 
 	createCalendar = function(events) {
@@ -395,6 +399,22 @@
 			return newDate;
 		} else {
 			return date;
+		}
+	}
+	
+	checkCalendarDateRange = function() {
+		var minDate = new Date(|-$minTimestamp-| * 1000);
+		var maxDate = new Date(|-$maxTimestamp-| * 1000);
+		
+		var calendarDate = calendar.fullCalendar('getDate');
+		if (calendarDate.getTime() < minDate.getTime() || calendarDate.getTime() > maxDate.getTime()) {
+			var params = '|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-|';
+			params = params.replace(/\&filters\[selectedDate\]=(\d{2}-\d{2}-\d{4})?/, '');
+			params += '&filters[selectedDate]=';
+			params += calendarDate.getDate() < 10 ? '0'+calendarDate.getDate() : calendarDate.getDate();
+			params += '-' + ( calendarDate.getMonth()+1 < 10 ? '0'+(calendarDate.getMonth()+1) : calendarDate.getMonth()+1 );
+			params += '-' + calendarDate.getFullYear();
+			window.location='Main.php?do=calendarShow'+params;
 		}
 	}
 </script>
