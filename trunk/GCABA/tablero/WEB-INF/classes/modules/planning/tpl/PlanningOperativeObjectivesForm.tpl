@@ -8,10 +8,16 @@
 		<!--pasaje de parametros de filtros -->
     <fieldset title="Formulario de datos de Objetivo Operativo">
      <legend>Objetivo Operativo|-if $startingYear eq $endingYear-| - |-$startingYear-||-else-| (|-$startingYear-| - |-$endingYear-|)|-/if-|</legend>
-		<div id="responsible" style="position: relative;z-index:11000;">
+		|-if !$show && !$showLog-|<div id="responsible" style="position: relative;z-index:11000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_responsibleCode" label="Dependencia" url="Main.php?do=commonAutocompleteListX&object=position&objectParam=code" hiddenName="params[responsibleCode]" defaultHiddenValue=$operativeObjective->getResponsibleCode() defaultValue=$operativeObjective->getPosition()-|
-			|-*include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_responsibleCode" label="Dependencia" url="Main.php?do=positionsAutocompleteListX" hiddenName="params[responsibleCode]" defaultHiddenValue=$operativeObjective->getResponsibleCode() defaultValue=$operativeObjective->getResponsibleCode()*-|
-		</div>      <p>
+		</div>
+		|-else-|
+      <p>
+        <label for="params_responsibleCode">Dependencia</label>
+      <input name="params_responsibleCode" type="text" id="params_responsibleCode" size="80" value="|-$operativeObjective->getPosition()-|" readonly="readonly" />
+      </p>
+		|-/if-|
+		<p>
         <label for="params_name">Nombre</label>
       <input name="params[name]" type="text" id="params_name" size="80" value="|-$operativeObjective->getName()-|" title="Nombre del Objetivo Operativo" maxlength="255" class="emptyValidation"  /> |-validation_msg_box idField="params_name"-|
       </p>
@@ -57,7 +63,7 @@
     |-if !$operativeObjective->isNew()-|
     <input type="hidden" name="id" id="id" value="|-$operativeObjective->getId()-|" /> 
     |-/if-|
-		|-if !$show-|<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
+		|-if !$show && !$showLog-|<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 		|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
     <input type="hidden" name="params[startingYear]" id="params_startingYear" value="|-$startingYear-|" /> 
     <input type="hidden" name="params[endingYear]" id="params_endingYear" value="|-$endingYear-|" /> 

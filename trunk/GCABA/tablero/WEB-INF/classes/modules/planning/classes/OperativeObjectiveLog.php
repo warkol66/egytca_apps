@@ -15,4 +15,20 @@
  */
 class OperativeObjectiveLog extends BaseOperativeObjectiveLog {
 
+	/**
+	 * Devuelve un string con quien modifico el Proyecto (PlanningProject)
+	 *
+	 * @return string nombre del usuario que modifico el proyecto
+	 */
+	public function updatedBy() {
+		if ($this->getUserobjecttype() != "") {
+			$objectQueryName = $this->getUserobjecttype() . 'Query';
+			if (class_exists($objectQueryName)) {
+				$query = BaseQuery::create($this->getUserobjecttype());
+				return $query->findPK($this->getUserobjectid());
+			}
+		}
+		return;
+	}
+
 } // OperativeObjectiveLog

@@ -9,4 +9,6 @@
 <div id="div_project"> 
   |-include file="PlanningProjectsForm.tpl"-|
 </div> 
-
+|-if !$planningProject->isNew()-|
+	<input type="button" title="Ver Historial de cambios" value="Ver Historia" onClick="location.href='Main.php?do=planningProjectsLogTabs&id=|-$planningProject->getId()-|'" />
+|-/if-|
