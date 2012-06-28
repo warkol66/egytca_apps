@@ -15,4 +15,16 @@
  */
 class OperativeObjectiveLogQuery extends BaseOperativeObjectiveLogQuery {
 
+	/**
+	 * Obtiene todas las versiones de un objetivo operativo a partir de su operativeObjectiveId ordenados por instante de creación.
+	 *
+	 * @param int $operativeObjectiveId id del objetivo de operativo.
+	 * @param string $orderType forma en que se ordena, 'asc' = ascendente 'desc' = descendente.
+	 * @return array versions correspondientes al objetivo operativo ordenados por instante de creación.
+	 */
+	public function getAllByOperativeObjective($operativeObjectiveId, $orderType = Criteria::ASC) {
+		return $this->filterByOperativeobjectiveid($operativeObjectiveId)->orderByUpdatedAt($orderType);
+	}
+
+
 } // OperativeObjectiveLogQuery

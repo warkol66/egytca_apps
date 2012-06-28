@@ -78,7 +78,7 @@ class PlanningImpactObjectivesDoEditAction extends BaseAction {
 			$logSufix = ', ' . Common::getTranslation('action: edit','common');
 
 		Common::doLog('success', $impactObjective->getName() . $logSufix);
-		return $this->addFiltersToForwards($filters,$mapping,'success');
+		return $this->addFiltersToForwards($filters,$mapping,'success-edit');
 
 	}
 }

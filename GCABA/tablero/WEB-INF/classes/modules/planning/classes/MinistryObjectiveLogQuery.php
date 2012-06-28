@@ -15,4 +15,15 @@
  */
 class MinistryObjectiveLogQuery extends BaseMinistryObjectiveLogQuery {
 
+	/**
+	 * Obtiene todas las versiones de un objetivo de impacto a partir de su ministryObjectiveId ordenados por instante de creación.
+	 *
+	 * @param int $impactObjectiveId id del objetivo ministerial.
+	 * @param string $orderType forma en que se ordena, 'asc' = ascendente 'desc' = descendente.
+	 * @return array versions correspondientes al objetivo ministerial ordenados por instante de creación.
+	 */
+	public function getAllByMinistryObjective($ministryObjectiveId, $orderType = Criteria::ASC) {
+		return $this->filterByMinistryobjectiveid($ministryObjectiveId)->orderByUpdatedAt($orderType);
+	}
+
 } // MinistryObjectiveLogQuery

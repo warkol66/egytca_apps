@@ -15,4 +15,31 @@
  */
 class MinistryObjectiveLog extends BaseMinistryObjectiveLog {
 
+	/**
+	 * Devuelve un string con quien modifico el Objetivo Ministerial (MinistryObjective)
+	 *
+	 * @return string nombre del usuario que modifico el Objetivo Ministerial
+	 */
+	public function updatedBy() {
+		if ($this->getUserobjecttype() != "") {
+			$objectQueryName = $this->getUserobjecttype() . 'Query';
+			if (class_exists($objectQueryName)) {
+				$query = BaseQuery::create($this->getUserobjecttype());
+				return $query->findPK($this->getUserobjectid());
+			}
+		}
+		return;
+	}
+
+	/**
+	 * Obtiene todas las versiones de un asunto a partir de su ministryObjectiveId ordenados por instante de creación y paginados.
+	 *
+	 * @param int $ministryObjectiveId id del objetivo ministerial.
+	 * @param string $orderType forma en que se ordena, 'asc' = ascendente 'desc' = descendente.
+	 * @return array versions correspondientes al asunto ordenados por instante de creación.
+	 */
+	public function getAllByMinistryObjective($ministryObjectiveId, $orderType = Criteria::ASC) {
+		return $this->filterByMinistryobjectiveid($ministryObjectiveId)->orderByUpdatedAt($orderType);
+	}
+
 } // MinistryObjectiveLog

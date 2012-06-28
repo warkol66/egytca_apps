@@ -31,4 +31,16 @@ class PlanningProject extends BasePlanningProject {
 		return;
 	}
 
+	/**
+	 * Devuelve las versiones para el asunto ordenadas en por fecha de creación y paginadas.
+	 * @param string $orderType forma en que se ordena, Criteria::ASC = ascendente Criteria::DESC = descendente.
+	 * @param int $page numero de pagina.
+	 * @param int $maxPerPage cantidad maxima de elementos por pagina.
+	 * @return array Versions para el proyecto ordenados en forma decreciente por fecha de creación.
+	 */
+	public function getVersionsOrderedByUpdatedPaginated($orderType = Criteria::ASC, $page=1, $maxPerPage=5) {
+		$filters = array();		
+		return BaseQuery::create('PlanningProjectLog')->getAllByPlanningProject($this->getId(), $orderType)->createPager($filters, $page, $maxPerPage);
+	}
+
 } // PlanningProject
