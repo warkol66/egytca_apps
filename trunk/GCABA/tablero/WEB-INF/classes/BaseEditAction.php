@@ -3,7 +3,6 @@
 class BaseEditAction extends BaseAction {
 	
 	private $entityClassName;
-	private $module;
 	protected $smarty;
 	protected $entity;
 	protected $ajaxTemplate;

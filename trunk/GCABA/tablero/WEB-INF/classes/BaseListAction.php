@@ -3,7 +3,6 @@
 class BaseListAction extends BaseAction {
 	
 	private $entityClassName;
-	private $module;
 	protected $smarty;
 	protected $entity;
 	protected $ajaxTemplate;
@@ -34,9 +33,8 @@ class BaseListAction extends BaseAction {
 			$smarty->assign("moduleConfig", Common::getModuleConfiguration($this->module));
 
 			$perPage = Common::getRowsPerPage($this->module);
-			$page = $request->getParameter("page");
 
-			$pager = BaseQuery::create($this->entityClassName)->createPager($filters, $page, $perPage);
+			$pager = BaseQuery::create($this->entityClassName)->createPager($filters, $_GET["page"], $perPage);
 	
 			$smarty->assign(lcfirst($this->entityClassName) . "Coll", $pager->getResults());
 			$smarty->assign("pager",$pager);
@@ -47,7 +45,7 @@ class BaseListAction extends BaseAction {
 			$smarty->assign("url",$url);
 	
 			$smarty->assign("filters", $_GET["filters"]);
-			$smarty->assign("page", $page);
+			$smarty->assign("page", $_GET["page"]);
 			$smarty->assign("message", $_GET["message"]);
 			
 			$this->postList();

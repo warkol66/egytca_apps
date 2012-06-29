@@ -94,7 +94,6 @@ class BaseDoEditAction extends BaseAction {
 	protected function onFailure($e) {
 		$this->entity->fromArray($this->entityParams,BasePeer::TYPE_FIELDNAME);
 		$this->smarty->assign('entity', $this->entity);
-		if (is_object($e))
-			$this->smarty->assign('errorMessage', $e->getMessage());
+		$this->smarty->assign('errorMessage', $e->getMessage());
 	}
 }
