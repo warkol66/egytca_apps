@@ -1,4 +1,4 @@
-<script type="text/javascript" src="Main.php?do=js&name=js&module=modulesInstall&code=|-$currentLanguageCode-|"></script>
+<script type="text/javascript" src="Main.php?do=js&name=js&module=modules&code=|-$currentLanguageCode-|"></script>
 
 <h2>Configuración</h2>
 <h1>Instalación de Módulos del Sistema</h1>
@@ -12,15 +12,49 @@
 |-elseif $message eq "phpmvc-xml-error"-|
 	<div class='failureMessage'>El XML de phpmvc no es un xml válido.</div>
 |-/if-|
+|-if $modulesToInstall|@count gt 0-|
 	<h4>Módulos disponibles para instalar</h4>
 	<p>
+
+<!-- new form is inserted here (for firefox compatibility) -->
+<div id="dummy" style="display:none;"></div>
+
+<script language="JavaScript" type="text/JavaScript">
+function checkAll(elementName) {
+	allbox = document.getElementById("allBoxes");
+  var elements = document.getElementsByName(elementName);
+  for (var i = 0; i < elements.length; i++) {
+  	elements[i].checked = allbox.checked;
+  }
+}
+
+function uncheckedInstall() {
+	
+	var modules = document.getElementsByName('modules[]');
+	
+	var form = document.createElement('form');
+	form.action = 'Main.php?do=modulesInstallUnchecked';
+	form.method = 'post';
+	for (var i = 0; i < modules.length; i++) {
+		form.appendChild(modules[i].clone());
+	}
+	
+	$('dummy').appendChild(form); // firefox compatibility
+	
+	form.submit();
+}
+</script>
 <table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders"> 
 	<tr> 
-		<th width="20%" scope="col" class="thFillTitle">Nombre del  Módulo</th> 
-		<th width="80%" scope="col" class="thFillTitle">Pasos Específicos del proceso de instalación</th> 
+		<th width="2%" scope="col">&nbsp;</th> 
+		<th width="18%" scope="col">Nombre del Módulo</th> 
+		<th width="80%" scope="col">Pasos Específicos del proceso de instalación</th> 
 	</tr> 
 	|-foreach from=$modulesToInstall item=eachModule name=modulef-|
 	<tr> 
+		<th>
+			<input type="checkbox" name="modules[]" value="|-$eachModule-|">
+		</th>
 		<td>|-$eachModule|multilang_get_translation:"common"-|</td> 
 		<td nowrap>
 			<form method="get">
@@ -56,12 +90,21 @@
 		</td> 
 	</tr> 
 	|-/foreach-|
+	|-if $modulesToInstall|count gt 0-|
+	<tr>
+	  <th width="2%" scope="col">
+		<input id="allBoxes" onclick="javascript:checkAll('modules[]')" type="checkbox" title="Seleccionar todo"></th>
+		<td colspan="2"><input name="installChecked" type="button" value="Instalar módulos seleccionados" onclick="uncheckedInstall();"></td>
+		</tr>
+	|-/if-|
 </table>
+|-/if-|
+|-if $modulesInstalled|@count gt 0-|
 <h4>Módulos Instalados</h4> 
 <table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders"> 
 	<tr> 
-		<th width="20%" class="thFillTitle" scope="col">Nombre del Módulo</th> 
-		<th width="80%" class="thFillTitle" scope="col">Pasos Específicos del proceso de instalación</th>		 
+		<th width="20%" scope="col">Nombre del Módulo</th> 
+		<th width="80%" scope="col">Pasos Específicos del proceso de instalación</th>		 
 	</tr> 
 	|-foreach from=$modulesInstalled item=eachModule name=modulef-|
 	<tr> 
@@ -106,3 +149,4 @@
 	</tr> 
 	|-/foreach-|
 </table>
+|-/if-|
