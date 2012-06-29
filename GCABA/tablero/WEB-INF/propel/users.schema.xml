@@ -1,16 +1,16 @@
 <database defaultIdMethod="native" package="users.classes" name="application" >
 
-	<table name="users_user" phpName='User' description="Users">
+	<table name="users_user" phpName="User" description="Tabla de usuarios">
 
 		<column name="id" required="true" primaryKey="true" type="INTEGER" description="User Id" autoIncrement="true"/>
-		<column name="username" required="true" type="VARCHAR" size="255" description="username"/>
-		<column name="password" required="true" type="VARCHAR" size="255" description="password"/>
+		<column name="username" required="true" type="VARCHAR" size="255" description="Identificacion de usuarios"/>
+		<column name="password" required="true" type="VARCHAR" size="255" description="Clave de acceso"/>
 		<column name="passwordUpdated" type="DATE" description="Fecha de actualizacion de la clave" />
-		<column name="active" required="true" type="BOOLEAN" sqlType="BOOL" description="Is user active?"/>
-		<column name="created" required="true" type="TIMESTAMP" description="Creation date for"/>
-		<column name="updated" required="true" type="TIMESTAMP" description="Last update date"/>
-		<column name="levelId" type="INTEGER" size="4" description="User Level" />
-		<column name="lastLogin" type="TIMESTAMP" description="Fecha del ultimo login del usuario" />
+		<column name="active" required="true" type="BOOLEAN" sqlType="BOOL" description="Indica si esta activo"/>
+		<column name="created" required="true" type="TIMESTAMP" description="Fecha de creacion"/>
+		<column name="updated" required="true" type="TIMESTAMP" description="Fecha de actualizacion"/>
+		<column name="levelId" type="INTEGER" size="4" description="Id del nivel de usuario" />
+		<column name="lastLogin" type="TIMESTAMP" description="Fecha del ultimo ingreso al sistema" />
 		<column name="timezone" type="VARCHAR" size="25" description="Timezone GMT del usuario" />
 		<column name="recoveryHash" type="VARCHAR" size="255" description="Hash enviado para la recuperacion de clave" />
 		<column name="recoveryHashCreatedOn" type="TIMESTAMP" description="Momento de la solicitud para la recuperacion de clave" />
@@ -42,13 +42,12 @@
 
  </table>
 
-	<table name="users_group" phpName='Group' description="Groups">
-
-		<column name="id" required="true"  primaryKey='true' type="INTEGER"  description="Group ID" autoIncrement="true"/>
-		<column name="name" required="true"  type="VARCHAR" size="255"  description="Group Name"/>
-		<column name="created" required="true"  type="TIMESTAMP"  description="Creation date for"/>
-		<column name="updated" required="true"  type="TIMESTAMP"  description="Last update date"/>
-		<column name="bitLevel"   type="INTEGER"  description="Nivel"/>
+	<table name="users_group" phpName="Group" description="Groups">
+		<column name="id" type="INTEGER" required="true" primaryKey="true" autoIncrement="true" description="ID del grupo"/>
+		<column name="name" required="true" type="VARCHAR" size="255" primaryString="true" description="Nombre del grupo"/>
+		<column name="created" required="true" type="TIMESTAMP" description="Fecha de creacion"/>
+		<column name="updated" required="true" type="TIMESTAMP" description="Fecha de actualizacion"/>
+		<column name="bitLevel" type="INTEGER" description="Bit level del grupo" />
 
 		<unique>
 			<unique-column name="name" />
@@ -61,43 +60,23 @@
 
  </table>
 
-	<table name="users_userGroup" phpName='UserGroup' isCrossRef="true" description="Users / Groups">
+	<table name="users_userGroup" phpName="UserGroup" isCrossRef="true" description="Relacion de USuarios y Grupos">
 
-		<column name="userId" required="true" primaryKey='true' type="INTEGER"  description="User ID"/>
-		<column name="groupId" required="true" primaryKey='true' type="INTEGER"  description="Group ID"/>
+		<column name="userId" required="true" primaryKey="true" type="INTEGER" description="Id de usuario"/>
+		<column name="groupId" required="true" primaryKey="true" type="INTEGER" description="Id de grupo"/>
 
-		<foreign-key foreignTable="users_user">
-			 <reference local="userId" foreign="id"/>
+		<foreign-key foreignTable="users_user" onDelete="cascade">
+			<reference local="userId" foreign="id"/>
 		</foreign-key>
 
-		<foreign-key foreignTable="users_group">
-			 <reference local="groupId" foreign="id"/>
+		<foreign-key foreignTable="users_group" onDelete="cascade">
+			<reference local="groupId" foreign="id"/>
 		</foreign-key>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
 		</vendor>
-
- </table>
-
- <table name="users_groupCategory" phpName="GroupCategory" description="Groups_Categories" isCrossRef="true">
-
-	<column name="groupId" required="true" primaryKey="true" type="INTEGER" description="Group ID"/>
-	<column name="categoryId" required="true" primaryKey="true" type="INTEGER" description="Category ID"/>
-
-	<foreign-key foreignTable="users_group" onDelete="CASCADE" >
-		<reference local="groupId" foreign="id" />
-	</foreign-key>
-
-	<foreign-key foreignTable="categories_category" onDelete="CASCADE" >
-		<reference local="categoryId" foreign="id" />
-	</foreign-key>
-
-	<vendor type="mysql">
-		<parameter name="Charset" value="utf8"/>
-		<parameter name="Collate" value="utf8_general_ci"/>
-	</vendor>
 
  </table>
 
