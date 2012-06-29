@@ -17,21 +17,22 @@ class JsAction extends BaseAction {
 		}
 
 		//Cambio el template externo
-		$this->template->template = "TemplatePlain.tpl";
+		$this->template->template = "TemplateAjax.tpl";
 
 		global $moduleRootDir;
 
 		if (!empty($_GET["module"])) {
-			$path = $moduleRootDir . "/WEB-INF/classes/modules/" . $_GET["module"] . "/tpl/" . ucfirst($_GET["module"]) . ucfirst($_GET["name"]) . ".js";
+			$filename = realpath($moduleRootDir . "/WEB-INF/classes/modules/" . $_GET["module"] . "/tpl/" . ucfirst($_GET["module"]) . ucfirst($_GET["name"]) . ".js");
+
 			if (!file_exists($filename))
 				die;
 		}
 		else
-			$path = "Common" . ucfirst($_GET["name"]) . ".js";
+			$filename = "Common" . ucfirst($_GET["name"]) . ".js";
 
 		header("Expires: " . gmdate('D, d M Y H:i:s', time()+24*60*60*365) . " GMT");
 		header("Content-Type: application/javascript;");
 
-		$text = $smarty->display($path);
+		$smarty->display($filename);
 	}
 }
