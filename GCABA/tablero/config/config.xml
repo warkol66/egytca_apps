@@ -6,10 +6,6 @@
 				<value>YES</value>
 				<element_type>YES/NO</element_type>
 			</debugMode>
-			<developmentMode>
-				<value>NO</value>
-				<element_type>YES/NO</element_type>
-			</developmentMode>
 			<mailCapture>
 				<value>NO</value>
 				<element_type>YES/NO</element_type>
@@ -19,10 +15,6 @@
 				<element_type>YES/NO</element_type>
 			</underMaintenance>
 			<maintenanceMessage>El sistema permanecerá en mantenimiento por 2 horas, por favor regrese mas tarde.</maintenanceMessage>
-			<affiliateUserLoginUnified>
-				<value>NO</value>
-				<element_type>YES/NO</element_type>
-			</affiliateUserLoginUnified>
 			<hasUnifiedUsernames>
 				<value>YES</value>
 				<element_type>YES/NO</element_type>
@@ -71,22 +63,6 @@
 		</errorReporting>
 		<rowsPerPage>15</rowsPerPage>
 		<language>esp</language>
-		<fileBrowser>
-			<directories>
-				<dir_1>
-					<title>Documentos</title>
-					<path>files/documents</path>
-				</dir_1>
-				<dir_2>
-					<title>Imágenes</title>
-					<path>files/images</path>
-				</dir_2>
-				<dir_3>
-					<title>Archivos multimedia</title>
-					<path>files/media</path>
-				</dir_3>
-			</directories>
-		</fileBrowser>
 	</system>
 	<documents>
 		<rowsPerPage>10</rowsPerPage>
@@ -103,10 +79,8 @@
 			<value>NO</value>
 			<element_type>YES/NO</element_type>
 		</usePasswords>
-		<newestLimit>6</newestLimit>
 	</documents>
 	<users>
-		<licenses>5</licenses>
 		<documentTypes>
 			<dni>1</dni>
 			<cuil>2</cuil>
@@ -133,162 +107,4 @@
 			</smtpSsl>
 		</smtpOptions>
 	</email>
-	<panel>
-		<schedule>
-			<timePeriod>
-				<type>
-					<value>MONTHS_COUNT</value>
-					<element_options>
-						<option_1>DAYS_COUNT</option_1>
-						<option_2>MONTHS_COUNT</option_2>
-					</element_options>
-				</type>
-				<count>1</count>
-			</timePeriod>
-		</schedule>
-		<alert>
-			<timePeriod>
-				<type>
-					<value>DAYS_COUNT</value>
-					<element_options>
-						<option_1>DAYS_COUNT</option_1>
-					</element_options>
-				</type>
-				<count>10</count>
-			</timePeriod>
-		</alert>
-	</panel>
-	<projects>
-		<financingSources>
-			<value></value>
-			<element_type>Options</element_type>
-			<element_options>
-				<option_1>Municipal</option_1>
-				<option_2>Provincial</option_2>
-				<option_3>Nacional</option_3>
-				<option_4>Internacional</option_4>
-			</element_options>
-		</financingSources>
-	</projects>
-	<tablero>
-		<useDependencies>
-			<value>YES</value>
-			<element_type>YES/NO</element_type>
-		</useDependencies>
-		<useRegions>
-			<value>YES</value>
-			<element_type>YES/NO</element_type>
-		</useRegions>
-		<useCommunes>
-			<value>YES</value>
-			<element_type>YES/NO</element_type>
-		</useCommunes>
-		<objectives>
-			<parameterControl>
-				<value>0</value>
-				<element_type>Options</element_type>
-				<element_options>
-					<option_1>PERCENTAGE</option_1>
-					<option_2>DAYS</option_2>
-					<option_3>BOTH</option_3>
-				</element_options>
-			</parameterControl>
-			<delayed>10</delayed>
-			<delayedPercentage>15</delayedPercentage>
-			<late>30</late>
-			<latePercentage>25</latePercentage>
-		</objectives>
-		<projects>
-			<parameterControl>
-				<value>0</value>
-				<element_type>Options</element_type>
-				<element_options>
-					<option_1>PERCENTAGE</option_1>
-					<option_2>DAYS</option_2>
-					<option_3>BOTH</option_3>
-				</element_options>
-			</parameterControl>
-			<delayed>5</delayed>
-			<delayedPercentage>10</delayedPercentage>
-			<late>10</late>
-			<latePercentage>15</latePercentage>
-			<useCoordinates>
-				<value>YES</value>
-				<element_type>YES/NO</element_type>
-			</useCoordinates>
-		</projects>
-		<processes>
-			<parameterControl>
-				<value>0</value>
-				<element_type>Options</element_type>
-				<element_options>
-					<option_1>PERCENTAGE</option_1>
-					<option_2>DAYS</option_2>
-					<option_3>BOTH</option_3>
-				</element_options>
-			</parameterControl>
-			<delayed>5</delayed>
-			<delayedPercentage>10</delayedPercentage>
-			<late>10</late>
-			<latePercentage>15</latePercentage>
-			<useCoordinates>
-				<value>YES</value>
-				<element_type>YES/NO</element_type>
-			</useCoordinates>
-		</processes>
-		<activities>
-			<parameterControl>
-				<value>0</value>
-				<element_type>Options</element_type>
-				<element_options>
-					<option_1>PERCENTAGE</option_1>
-					<option_2>DAYS</option_2>
-					<option_3>BOTH</option_3>
-				</element_options>
-			</parameterControl>
-			<delayed>3</delayed>
-			<delayedPercentage>5</delayedPercentage>
-			<late>10</late>
-			<latePercentage>10</latePercentage>
-		</activities>
-		<milestones>
-			<parameterControl>
-				<value>0</value>
-				<element_type>Options</element_type>
-				<element_options>
-					<option_1>PERCENTAGE</option_1>
-					<option_2>DAYS</option_2>
-					<option_3>BOTH</option_3>
-				</element_options>
-			</parameterControl>
-			<delayed>3</delayed>
-			<delayedPercentage>5</delayedPercentage>
-			<late>10</late>
-			<latePercentage>10</latePercentage>
-		</milestones>
-		<indicators>
-			<parameterControl>
-				<value>0</value>
-				<element_type>Options</element_type>
-				<element_options>
-					<option_1>PERCENTAGE</option_1>
-					<option_2>DAYS</option_2>
-					<option_3>BOTH</option_3>
-				</element_options>
-			</parameterControl>
-			<delayed>10</delayed>
-			<delayedPercentage>15</delayedPercentage>
-			<late>15</late>
-			<latePercentage>20</latePercentage>
-		</indicators>
-		<colors>
-			<onTime>green</onTime>
-			<delayed>yellow</delayed>
-			<late>red</late>
-			<finished>blue</finished>
-			<cancelled>black</cancelled>
-			<planned>white</planned>
-			<notDefined>yellow</notDefined>
-		</colors>
-	</tablero>
 </config>
