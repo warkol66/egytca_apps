@@ -586,7 +586,18 @@ class Common {
 	*
 	* @return int Cantidad de filas por pagina
 	*/
-	public static function getRowsPerPage() {
+	public static function getRowsPerPage($module) {
+		if (!empty($module)) {
+			$perPage = ConfigModule::get($module,"rowsPerPage");
+			if (!empty($perPage))
+				return $perPage;
+			else {
+				$moduleConfiguration = Common::getModuleConfiguration($module);
+				$perPage = $moduleConfiguration['rowsPerPage'];
+				if (!empty($perPage))
+					return $perPage;
+			}
+		}
 		global $system;
 		return $system['config']['system']['rowsPerPage'];
 	}
