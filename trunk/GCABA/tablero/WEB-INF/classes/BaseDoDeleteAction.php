@@ -12,7 +12,8 @@ class BaseDoDeleteAction extends BaseAction {
 			throw new Exception('$entityClassName must be set');
 		$this->entityClassName = $entityClassName;
 		$this->module = $module;
-		$this->ajaxTemplate = str_replace('Action', '', get_class($this)).'X.tpl';
+		if (substr(get_class($this), -7, 1) != "X")
+			$this->ajaxTemplate = str_replace('Action', '', get_class($this)).'X.tpl';
 	}
 
 	function execute($mapping, $form, &$request, &$response) {

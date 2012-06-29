@@ -5,10 +5,17 @@ require_once 'BaseListAction.php';
 class PlanningProjectsListAction extends BaseListAction {
 	
 	function __construct() {
-		parent::__construct('PlanningProject','Planning');
+		parent::__construct('PlanningProject');
 	}
-	
-	protected function post() {
-		parent::post();
+
+	protected function preList() {
+		parent::preList();
+		$this->module = "Planning";
+	}
+
+	protected function postList() {
+		parent::postList();
+		$this->smarty->assign("module", $this->module);
+		$this->smarty->assign("section", "Projects");
 	}
 }
