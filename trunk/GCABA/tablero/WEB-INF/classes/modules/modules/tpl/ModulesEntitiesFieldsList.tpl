@@ -24,7 +24,7 @@
 				<input type="submit" value="Quitar Filtros" />
 		</form></div></td>
 		</tr>		<tr class="thFillTitle">
-			<th colspan="5"><div class="rightLink"><a href="Main.php?do=modulesEntitiesFieldsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Campo</a></div></th>
+			<th colspan="5"><div class="rightLink"><a href="Main.php?do=modulesEntitiesFieldsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addNew">Agregar Campo</a></div></th>
 		</tr>
 	<tr class="thFillTitle"> 
 		<th width="5%" scope="col">Id</th> 
@@ -38,7 +38,7 @@
 		<td>|-$entityField->getId()-|</td> 
 		<td>|-$entityField->getModuleName()|multilang_get_translation:"common"-|</td> 
 		<td>|-$entityField->getEntityName()-|</td> 
-		<td><a href="Main.php?do=modulesEntitiesFieldsEdit&id=|-$entityField->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|">|-$entityField->getName()-|</a></td> 
+		<td><a href="Main.php?do=modulesEntitiesFieldsEdit&id=|-$entityField->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|">|-$entityField->getName()-|</a></td> 
 		<td>|-$entityField->getDescription()-| </td> 
 	</tr> 
 	|-/foreach-|
@@ -48,7 +48,7 @@
 			</tr>
 		|-/if-|
 		<tr class="thFillTitle">
-			<th colspan="5"><div class="rightLink"><a href="Main.php?do=modulesEntitiesFieldsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Campo</a></div></th>
+			<th colspan="5"><div class="rightLink"><a href="Main.php?do=modulesEntitiesFieldsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addNew">Agregar Campo</a></div></th>
 		</tr>
 </table> 
 

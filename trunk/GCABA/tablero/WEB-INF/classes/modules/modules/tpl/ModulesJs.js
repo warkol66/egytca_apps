@@ -14,7 +14,6 @@ function modulesDoActivateX(form) {
 		$('messageResult').innerHTML = "";
 		$('messageMod').innerHTML = "<div class='inProgress'>Actualizando módulo...</div>";
 }
-
 function createHidden(name,value) {
 
 	var input = document.createElement('input');

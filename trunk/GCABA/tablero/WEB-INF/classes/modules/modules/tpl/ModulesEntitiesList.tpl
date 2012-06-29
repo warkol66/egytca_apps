@@ -26,7 +26,7 @@
 		</form></div></td>
 		</tr>
 				<tr class="thFillTitle">
-			<th colspan="6"><div class="rightLink"><a href="Main.php?do=modulesEntitiesCreate|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Entidad</a></div></th>
+			<th colspan="6"><div class="rightLink"><a href="Main.php?do=modulesEntitiesCreate|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addNew">Agregar Entidad</a></div></th>
 		</tr>
 	<tr class="thFillTitle"> 
 		<th width="10%" scope="col">Módulo</th> 
@@ -42,7 +42,7 @@
 			<a href="javascript:void(null);" onClick='switch_vis("entity_|-$entity->getId()-|");'>Ver campos</a>
 			<a href="Main.php?do=modulesEntitiesFieldsEdit&entityId=|-$entity->getId()-|">Agregar Campo</a>
 		</td> 
-		<td><a href="Main.php?do=modulesEntitiesEdit&id=|-$entity->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|">|-$entity->getName()-|</a></td> 
+		<td><a href="Main.php?do=modulesEntitiesEdit&id=|-$entity->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|">|-$entity->getName()-|</a></td> 
 		<td>|-$entity->getDescription()-|</td> 
 		<td><a href="Main.php?do=modulesEntitiesSchemaGet&id=|-$entity->getId()-|">Schema</a></td>
 		<td><a href="Main.php?do=modulesEntitiesSqlGet&id=|-$entity->getId()-|">Sql</a></td>
@@ -62,6 +62,6 @@
 			</tr>
 		|-/if-|
 		<tr class="thFillTitle">
-			<th colspan="6"><div class="rightLink"><a href="Main.php?do=modulesEntitiesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Entidad</a></div></th>
+			<th colspan="6"><div class="rightLink"><a href="Main.php?do=modulesEntitiesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addNew">Agregar Entidad</a></div></th>
 		</tr>
 </table> 

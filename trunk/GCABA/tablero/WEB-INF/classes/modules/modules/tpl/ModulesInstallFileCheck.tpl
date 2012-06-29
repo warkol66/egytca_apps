@@ -1,5 +1,4 @@
 <script type="text/javascript" src="Main.php?do=js&name=js&module=modules&code=|-$currentLanguageCode-|"></script>
-
 <h2>Configuración del Sistema</h2>
 <h1>Instalación de Módulos del Sistema: Módulo <strong>|-$moduleName-|</strong>.</h1>
 <fieldset>
@@ -26,9 +25,9 @@
 	<h4>Permisos</h4>
 		<pre>|-$permissions-|</pre>
 	<h4>Mensajes de log</h4>
-		|-foreach from=$messages item=messages key=languageCode-|		
+		|-foreach from=$messages item=message key=languageCode-|		
 		<h5>|-$languageCode-|</h5>		
-		<pre>|-$messages-|</pre>
+		<pre>|-$message-|</pre>
 		|-/foreach-|
 	<h4>Traducciones</h4>
 		|-foreach from=$multilangTexts item=multilangText key=languageCode-|		

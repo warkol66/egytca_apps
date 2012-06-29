@@ -5,19 +5,6 @@
  * @package install
  */
 
-if(false === function_exists('lcfirst')){
-	/**
-	 * Make a string's first character lowercase
-	 *
-	 * @param string $str
-	 * @return string the resulting string.
-	 */
-	function lcfirst( $str ) {
-		$str[0] = strtolower($str[0]);
-		return (string)$str;
-	}
-}
-
 class ModulesInstallSetupPermissionsAction extends BaseAction {
 
 	function ModulesInstallSetupPermissionsAction() {
@@ -28,7 +15,7 @@ class ModulesInstallSetupPermissionsAction extends BaseAction {
 		//si el valor que queda al restarle el nivel a evaluar es mayor o igual a cero, ese
 		//nivel esta seteado
 
-		if ($level == 1073741823)
+		if ($level == SecurityModulePeer::LEVEL_ALL)
 			return ($bitlevel == $level);
 
 		return ((intval($level) & intval($bitlevel)) > 0);
@@ -43,29 +30,35 @@ class ModulesInstallSetupPermissionsAction extends BaseAction {
 			$lcAction = lcfirst($action);
 
 			$securityAction = SecurityActionPeer::getByNameOrPair($lcAction);
-		if (!empty($securityAction)) {
-
-			$access[$action] = array();
-
-			$bitLevel = $securityAction->getAccess();
-			if ($bitLevel == 1073741823) {
-				$access[$action]['bitLevel'] = 0;
-				$access[$action]['all'] = 1;
+			if (!empty($securityAction)) {
+	
+				$access[$action] = array();
+	
+				$bitLevel = $securityAction->getAccess();
+				if ($bitLevel == SecurityModulePeer::LEVEL_ALL) {
+					$access[$action]['bitLevel'] = 0;
+					$access[$action]['all'] = 1;
+				}
+				else
+					$access[$action]['bitLevel'] = $bitLevel;
+	
+	
+				if (class_exists("AffiliateLevelPeer")) {
+	
+					$bitLevelAffiliate = $securityAction->getAccessAffiliateUser();
+					if ($bitLevelAffiliate == SecurityModulePeer::LEVEL_ALL) {
+						$access[$action]['bitLevelAffiliate'] = 0;
+						$access[$action]['affiliateAll'] = 1;
+					}
+					else
+						$access[$action]['bitLevelAffiliate'] = $bitLevelAffiliate;
+	
+				}
+	
+	
+				$access[$action]['permissionRegistration'] = $securityAction->getAccessRegistrationUser();
+				$access[$action]['noCheckLogin'] = $securityAction->getNoCheckLogin();
 			}
-			else
-				$access[$action]['bitLevel'] = $bitLevel;
-
-			$bitLevelAffiliate = $securityAction->getAccessAffiliateUser();
-			if ($bitLevelAffiliate == 1073741823) {
-				$access[$action]['bitLevelAffiliate'] = 0;
-				$access[$action]['affiliateAll'] = 1;
-			}
-			else
-				$access[$action]['bitLevelAffiliate'] = $bitLevelAffiliate;
-
-			$access[$action]['permissionRegistration'] = $securityAction->getAccessRegistrationUser();
-			$access[$action]['noCheckLogin'] = $securityAction->getNoCheckLogin();
-		}
 
 		}
 
@@ -75,35 +68,32 @@ class ModulesInstallSetupPermissionsAction extends BaseAction {
 	function getAccessToModule($module) {
 
 		$access = array();
-
 		$securityModule = SecurityModulePeer::getAccess($module);
 
 		if (!empty($securityModule)) {
 
 			$bitlevel = $securityModule->getAccess();
 
-			$access['bitLevel'] = array();
-			$access['permissionGeneral'][1] = $this->evaluateBitlevel(1,$bitlevel);
-			$access['permissionGeneral'][2] = $this->evaluateBitlevel(2,$bitlevel);
-			$access['permissionGeneral'][4] = $this->evaluateBitlevel(4,$bitlevel);
-			$access['permissionGeneral'][8] = $this->evaluateBitlevel(8,$bitlevel);
-			$access['permissionGeneral'][16] = $this->evaluateBitlevel(16,$bitlevel);
-			$access['permissionGeneral'][all] = $this->evaluateBitlevel(1073741823,$bitlevel);
+			//Permisos para usuarios
+			$userLevels = LevelPeer::getAll();
+			foreach ($userLevels as $level)
+				$access['permissionGeneral'][$level->getBitLevel()] = $this->evaluateBitlevel($level->getBitLevel(),$bitlevel);
+			$access['permissionGeneral'][all] = $this->evaluateBitlevel(SecurityModulePeer::LEVEL_ALL,$bitlevel);
 
-			$bitLevelAffiliate = $securityModule->getAccessAffiliateUser();
-
-			$access['permissionAffiliateGeneral'] = array();
-			$access['permissionAffiliateGeneral'][1] = $this->evaluateBitlevel(1,$bitLevelAffiliate);
-			$access['permissionAffiliateGeneral'][2] = $this->evaluateBitlevel(2,$bitLevelAffiliate);
-			$access['permissionAffiliateGeneral'][4] = $this->evaluateBitlevel(4,$bitLevelAffiliate);
-			$access['permissionAffiliateGeneral'][all] = $this->evaluateBitlevel(1073741823,$bitLevelAffiliate);
-
-			//evaluacion de permisos booleanos
-			$access['permissionRegistrationGeneral'] = $securityModule->getAccessRegistrationUser();
+			//Permisos para usuarios por afiliado
+			if (class_exists("AffiliateLevelPeer")) {
+				$bitLevelAffiliate = $securityModule->getAccessAffiliateUser();
+				$affiliateUserLevels = AffiliateLevelPeer::getAll();
+				foreach ($affiliateUserLevels as $level)
+					$access['permissionAffiliateGeneral'][$level->getBitLevel()] = $this->evaluateBitlevel($level->getBitLevel(),$bitLevelAffiliate);
+				$access['permissionAffiliateGeneral'][all] = $this->evaluateBitlevel(SecurityModulePeer::LEVEL_ALL,$bitLevelAffiliate);
+			}
+			//Permisos para usauarios por registro
+			if (class_exists("RegistrationUser")) {
+				$access['permissionRegistrationGeneral'] = $securityModule->getAccessRegistrationUser();
+			}
 		}
-
 		return $access;
-
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
@@ -122,8 +112,10 @@ class ModulesInstallSetupPermissionsAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$module = "Install";
+		$module = "Modules";
 		$smarty->assign("module",$module);
+		$section = "Installation";
+		$smarty->assign("section",$section);
 
 		$modulePeer = new ModulePeer();
 
@@ -150,7 +142,6 @@ class ModulesInstallSetupPermissionsAction extends BaseAction {
 		closedir($directoryHandler);
 
 		//separacion entre accions con par y acciones sin par
-
 		foreach ($actions as $action) {
 
 			//separamos los pares de aquellos que no tienen pares
@@ -182,34 +173,32 @@ class ModulesInstallSetupPermissionsAction extends BaseAction {
 
 		if (isset($_GET['mode']) && $_GET['mode'] == 'reinstall') {
 
-			//obtenemos los permisos ya creados anteriormente.
-			// TODO
 			$smarty->assign('mode',$_GET['mode']);
+
+			$moduleSelected = SecurityModulePeer::getAccess($_GET['moduleName']);
+			if (empty($moduleSelected))
+				$moduleSelected = new SecurityModule();
 
 			$generalAccess = $this->getAccessToModule($_GET['moduleName']);
 
 			$withoutPairAccess = $this->getAccessToActions($withoutPair);
 			$withPairAccess = $this->getAccessToActions($withPair);
 
-			$moduleSelected = SecurityModulePeer::getAccess($_GET['moduleName']);
-
 			$smarty->assign('moduleSelected',$moduleSelected);
-
 			$smarty->assign('withoutPairAccess',$withoutPairAccess);
 			$smarty->assign('withPairAccess',$withPairAccess);
 			$smarty->assign('generalAccess',$generalAccess);
-
 		}
 
 		$levels = LevelPeer::getAllWithBitLevelGreaterThan(1);
 		$smarty->assign('levels',$levels);
 
-		if (class_exists("AffiliateLevel")){
+		if (class_exists("AffiliateLevelPeer")) {
 			$affiliateLevels = AffiliateLevelPeer::getAll();
 			$smarty->assign('affiliateLevels',$affiliateLevels);
 		}
 
-		$levelSave = 1073741823;
+		$levelSave = SecurityModulePeer::LEVEL_ALL;
 		$smarty->assign("levelsave",$levelSave);
 
 		$smarty->assign('withoutPair',$withoutPair);
