@@ -30,6 +30,8 @@ class PlanningMinistryObjectivesUpdateTabsXAction extends BaseAction {
 		$smarty->assign("ministryObjectiveVersionsPager", $ministryObjectiveVersionsPager);
 		$smarty->assign("showLog", true);
 
+		$this->smarty->assign("regions", RegionQuery::create()->filterByType('11')->find());
+
 		return $mapping->findForwardConfig('success');
 
 	}

@@ -1,8 +1,8 @@
 <?php
 
-class PlanningImpactObjectivesUpdateTabsXAction extends BaseAction {
+class PlanningOperativeObjectivesUpdateTabsXAction extends BaseAction {
 
-		function PlanningImpactObjectivesUpdateTabsXAction() {
+		function PlanningOperativeObjectivesUpdateTabsXAction() {
 		;
 	}
 
@@ -22,7 +22,7 @@ class PlanningImpactObjectivesUpdateTabsXAction extends BaseAction {
 		$maxPerPage = ConfigModule::get("planning","logsPerPage");
 
 		$id = $request->getParameter("id");
-		$impactObjective = ImpactObjectiveQuery::create()->findOneByID($id);
+		$impactObjective = OperativeObjectiveQuery::create()->findOneByID($id);
 
 		$impactObjectiveVersionsPager = $impactObjective->getVersionsOrderedByUpdatedPaginated(Criteria::DESC, $_GET['page'], $maxPerPage);
 

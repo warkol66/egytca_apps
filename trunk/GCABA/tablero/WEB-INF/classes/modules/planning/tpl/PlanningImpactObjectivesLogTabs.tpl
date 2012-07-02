@@ -15,7 +15,7 @@
         |-else-|
         <li class="unactiveTab">
         |-/if-|
-            <a href="#" id='version_|-$impactObjectiveVersion->getVersion()-|_tab' onClick='selectTab(this);$("status_info").show(); new Ajax.Updater("div_issue", "Main.php?do=planningImpactObjectivesShowHistoryX", { method: "get", parameters: { id: "|-$impactObjectiveVersion->getId()-|", version: "|-$impactObjectiveVersion->getVersion()-|"}, evalScripts: true});'>|-$impactObjectiveVersion->getUpdatedAt()-|</a>
+            <a href="#" id='version_|-$impactObjectiveVersion->getVersion()-|_tab' onClick='selectTab(this);$("status_info").show(); new Ajax.Updater("div_impactObjective", "Main.php?do=planningImpactObjectivesShowHistoryX", { method: "get", parameters: { id: "|-$impactObjectiveVersion->getId()-|", version: "|-$impactObjectiveVersion->getVersion()-|"}, evalScripts: true});'>|-$impactObjectiveVersion->getUpdatedAt()-|</a>
         </li>
     |-/foreach-|
     |-if !$impactObjectiveVersionsPager->isLastPage()-|
@@ -32,6 +32,6 @@
         </li>
     </ul>
 </div>
-<div id='div_issue'>
-    |-include file='PlanningImpactObjectivesForm.tpl'-|
+<div id='div_impactObjective'>
+|-include file="PlanningImpactObjectivesForm.tpl" readonly="readonly"-|
 </div>

@@ -9,6 +9,6 @@
 <div id="div_objective"> 
   |-include file="PlanningOperativeObjectivesForm.tpl"-|
 </div> 
-|-if !$operativeObjective->isNew()-|
+|-if !$operativeObjective->isNew() && $readonly ne "readonly"-|
 	<input type="button" title="Ver Historial de cambios" value="Ver Historia" onClick="location.href='Main.php?do=planningOperativeObjectivesLogTabs&id=|-$operativeObjective->getId()-|'" />
 |-/if-|

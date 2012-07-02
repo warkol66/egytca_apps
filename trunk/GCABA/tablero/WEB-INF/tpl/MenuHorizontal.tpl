@@ -22,6 +22,7 @@
 			<li><a href="javascript:void(null)" class="sub">Proyectos</a>
 			  <ul class="menu">
 				<li><a href="Main.php?do=planningProjectsList">Proyectos</a></li>
+				<li><a href="Main.php?do=planningConstructionsList">Obras</a></li>
 				<li class="last"><a href="Main.php?do=planningActvitiesList">Actividades e Hitos</a></li>
 			</ul></li>
 		</li>

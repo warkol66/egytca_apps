@@ -15,7 +15,7 @@
         |-else-|
         <li class="unactiveTab">
         |-/if-|
-            <a href="#" id='version_|-$ministryObjectiveVersion->getVersion()-|_tab' onClick='selectTab(this);$("status_info").show(); new Ajax.Updater("div_issue", "Main.php?do=planningMinistryObjectivesShowHistoryX", { method: "get", parameters: { id: "|-$ministryObjectiveVersion->getId()-|", version: "|-$ministryObjectiveVersion->getVersion()-|"}, evalScripts: true});'>|-$ministryObjectiveVersion->getUpdatedAt()-|</a>
+            <a href="#" id='version_|-$ministryObjectiveVersion->getVersion()-|_tab' onClick='selectTab(this);$("status_info").show(); new Ajax.Updater("div_ministryObjective", "Main.php?do=planningMinistryObjectivesShowHistoryX", { method: "get", parameters: { id: "|-$ministryObjectiveVersion->getId()-|", version: "|-$ministryObjectiveVersion->getVersion()-|"}, evalScripts: true});'>|-$ministryObjectiveVersion->getUpdatedAt()-|</a>
         </li>
     |-/foreach-|
     |-if !$ministryObjectiveVersionsPager->isLastPage()-|
@@ -32,6 +32,6 @@
         </li>
     </ul>
 </div>
-<div id='div_issue'>
-    |-include file='PlanningMinistryObjectivesForm.tpl'-|
+<div id='div_ministryObjective'>
+|-include file="PlanningMinistryObjectivesForm.tpl" readonly="readonly"-|
 </div>

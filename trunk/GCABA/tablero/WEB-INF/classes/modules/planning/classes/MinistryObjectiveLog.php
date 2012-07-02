@@ -32,6 +32,17 @@ class MinistryObjectiveLog extends BaseMinistryObjectiveLog {
 	}
 
 	/**
+	 * Devuelve true si el MinistryObjective tiene asociada la region,
+	 * y false caso contrario.
+	 * 
+	 * @param Region $region
+	 * @return boolean
+	 */
+	public function hasRegion($region) {
+		return MinistryObjectiveRegionQuery::create()->filterByMinistryobjectiveid($this->getMinistryobjectiveid())->filterByRegion($region)->count() > 0;
+	}
+
+	/**
 	 * Obtiene todas las versiones de un asunto a partir de su ministryObjectiveId ordenados por instante de creación y paginados.
 	 *
 	 * @param int $ministryObjectiveId id del objetivo ministerial.
