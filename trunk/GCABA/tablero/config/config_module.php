@@ -25,7 +25,23 @@ class ConfigModule {
 		),
 		"planning" => array(
 			"startingYear" => 2013,
-			"endingYear" => 2013
+			"endingYear" => 2013,
+			"verifyGroupWriteAccess" => false,
+			"useLogs" => true,
+			"logsPerPage" => 5,
+			"useMinorChanges" => true,
+			"useRegions" => true,
+			"regionsTypes" => array(
+				"Commune" => 11,
+				"Neighborhood" => 12
+				),
+			"positionsTypes" => array(
+				11 => 'Secretary',
+				12 => 'Sub secretary',
+				13 => 'General Director',
+				14 => 'Director',
+				15 => 'Sub Director'
+				)
 		),
 		"positions" => array(
 			"useFemale" => true,

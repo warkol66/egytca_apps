@@ -536,7 +536,8 @@ input[type="submit"], input[type="button"], input[type="reset"], input[disabled=
 	background: -o-linear-gradient(top,  #ffffff,  #cccccc);
 }
 input[readonly="readonly"], textarea[readonly="readonly"], select[readonly="readonly"] {
-	background-color: #dcdcdc;
+	background-color: #E7E7E7;
+	border: 1px outset #cdcdcd !Important;/*#F0F0F0;*/
 }
 input[disabled="disabled"] {
 	color: #4F4F4F;
