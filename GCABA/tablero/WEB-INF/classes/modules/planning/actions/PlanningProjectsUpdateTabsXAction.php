@@ -30,6 +30,9 @@ class PlanningProjectsUpdateTabsXAction extends BaseAction {
 		$smarty->assign("planningProjectVersionsPager", $planningProjectVersionsPager);
 		$smarty->assign("showLog", true);
 
+		$smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
+		$smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
+
 		return $mapping->findForwardConfig('success');
 
 	}

@@ -1,4 +1,4 @@
 <script type='text/javascript'>
     $('status_info').hide();
 </script>
-|-include file='PlanningProjectsForm.tpl'-|
+|-include file="PlanningProjectsForm.tpl" readonly="readonly"-|

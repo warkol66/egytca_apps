@@ -15,12 +15,12 @@
         |-else-|
         <li class="unactiveTab">
         |-/if-|
-            <a href="#" id='version_|-$projectVersion->getVersion()-|_tab' onClick='selectTab(this);$("status_info").show(); new Ajax.Updater("div_issue", "Main.php?do=planningProjectsShowHistoryX", { method: "get", parameters: { id: "|-$projectVersion->getId()-|", version: "|-$projectVersion->getVersion()-|"}, evalScripts: true});'>|-$projectVersion->getUpdatedAt()-|</a>
+            <a href="#" id='version_|-$projectVersion->getVersion()-|_tab' onClick='selectTab(this);$("status_info").show(); new Ajax.Updater("div_project", "Main.php?do=planningProjectsShowHistoryX", { method: "get", parameters: { id: "|-$projectVersion->getId()-|", version: "|-$projectVersion->getVersion()-|"}, evalScripts: true});'>|-$projectVersion->getUpdatedAt()-|</a>
         </li>
     |-/foreach-|
     |-if !$planningProjectVersionsPager->isLastPage()-|
         <li class="unactiveTab">
-            <a href="#" onClick='new Ajax.Updater("tabsLogs", "Main.php?do=planningProjectsUpdateTabsX", { method: "get", parameters: { id: "|-$project->getId()-|", page: "|-$planningProjectVersionsPager->getNextPage()-|"}});'>Siguientes</a>
+            <a href="#" onClick='new Ajax.Updater("tabsLogs", "Main.php?do=planningProjectsUpdateTabsX", { method: "get", parameters: { id: "|-$planningProject->getId()-|", page: "|-$planningProjectVersionsPager->getNextPage()-|"}});'>Siguientes</a>
         </li>
     |-/if-|
 
@@ -32,6 +32,6 @@
         </li>
     </ul>
 </div>
-<div id='div_issue'>
-    |-include file='PlanningProjectsForm.tpl'-|
+<div id='div_project'>
+	|-include file="PlanningProjectsForm.tpl" readonly="readonly"-|
 </div>
