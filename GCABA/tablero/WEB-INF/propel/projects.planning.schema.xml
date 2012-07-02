@@ -107,4 +107,60 @@
 
 	</table>
 
+<!-- Obras -->
+	<table name="planning_construction" phpName="PlanningConstruction" description="Obras">
+		<column name="id" primaryKey="true" type="INTEGER" description="Id del proyecto" autoIncrement="true" />
+		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del proyecto" primaryString="true" />
+		<column name="description" type="LONGVARCHAR" description="Descripcion del proyecto"/>
+		<column name="planningProjectId" type="INTEGER" description="Id del Proyecto"/>
+		<column name="version" type="INTEGER" description="Numero de version" />
+		<column name="userObjectType" type="VARCHAR" size="100" description="tipo de objeto usuario realizo la accion"/>
+		<column name="userObjectId" type="INTEGER" description="id de objeto usuario realizo la accion"/>
+
+		<foreign-key foreignTable="planning_project" >
+			<reference local="planningProjectId" foreign="id" />
+		</foreign-key>
+
+  	<behavior name="timestampable" />
+
+		<behavior name="archivable">
+		  <parameter name="log_archived_at" value="true" />
+		</behavior>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="planning_constructionLog" phpName="PlanningConstructionLog" description="Obras - Log">
+		<column name="id" primaryKey="true" type="INTEGER" description="Id del proyecto" autoIncrement="true" />
+		<column name="constructionId" type="INTEGER" description="Id de de la obra"/>
+		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del proyecto" primaryString="true" />
+		<column name="description" type="LONGVARCHAR" description="Descripcion del proyecto"/>
+		<column name="planningProjectId" type="INTEGER" description="Id del Proyecto"/>
+		<column name="version" type="INTEGER" description="Numero de version" />
+		<column name="userObjectType" type="VARCHAR" size="100" description="tipo de objeto usuario realizo la accion"/>
+		<column name="userObjectId" type="INTEGER" description="id de objeto usuario realizo la accion"/>
+
+		<foreign-key foreignTable="planning_project" >
+			<reference local="planningProjectId" foreign="id" />
+		</foreign-key>
+
+		<behavior name="timestampable" />
+
+		<foreign-key foreignTable="planning_construction" >
+			<reference local="constructionId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+<!-- /Obras -->
+
 </database>

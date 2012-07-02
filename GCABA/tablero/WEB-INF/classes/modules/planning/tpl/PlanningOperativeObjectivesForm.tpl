@@ -3,11 +3,20 @@
 |-elseif $message eq "error"-|
 	<div class="failureMessage">Ha ocurrido un error al intentar Objetivo Operativo</div>
 |-/if-|
-|-include file="CommonAutocompleterInclude.tpl"-|
+|-if !$show && !$showLog-||-include file="CommonAutocompleterInclude.tpl"-||-/if-|
   <form name="form_edit_objective" id="form_edit_objective" action="Main.php" method="post">
 		<!--pasaje de parametros de filtros -->
     <fieldset title="Formulario de datos de Objetivo Operativo">
      <legend>Objetivo Operativo|-if $startingYear eq $endingYear-| - |-$startingYear-||-else-| (|-$startingYear-| - |-$endingYear-|)|-/if-|</legend>
+		|-if $readonly neq "readonly"-|<div id="MinistryObjective" style="position: relative;z-index:11100;">
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_ministryObjectiveId" label="Objetivo Ministerial" url="Main.php?do=commonAutocompleteListX&object=MinistryObjective&objectParam=id" hiddenName="params[ministryObjectiveId]" defaultHiddenValue=$operativeObjective->getministryObjectiveId() defaultValue=$operativeObjective->getMinistryObjective()-|
+		</div>
+		|-else-|
+      <p>
+        <label for="params_ministryObjectiveId">Objetivo Ministerial</label>
+      <input name="params_ministryObjectiveId" type="text" id="params_ministryObjectiveId" size="80" value="|-$operativeObjective->getMinistryObjective()-|" readonly="readonly" />
+      </p>
+		|-/if-|
 		|-if !$show && !$showLog-|<div id="responsible" style="position: relative;z-index:11000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_responsibleCode" label="Dependencia" url="Main.php?do=commonAutocompleteListX&object=position&objectParam=code" hiddenName="params[responsibleCode]" defaultHiddenValue=$operativeObjective->getResponsibleCode() defaultValue=$operativeObjective->getPosition()-|
 		</div>
@@ -19,19 +28,19 @@
 		|-/if-|
 		<p>
         <label for="params_name">Nombre</label>
-      <input name="params[name]" type="text" id="params_name" size="80" value="|-$operativeObjective->getName()-|" title="Nombre del Objetivo Operativo" maxlength="255" class="emptyValidation"  /> |-validation_msg_box idField="params_name"-|
+      <input name="params[name]" type="text" id="params_name" size="80" value="|-$operativeObjective->getName()-|" title="Nombre del Objetivo Operativo" maxlength="255" class="emptyValidation"  |-$readonly|readonly-|/> |-validation_msg_box idField="params_name"-|
       </p>
     <p> 
       <label for="params_description">Descripción / Resumen Narrativo</label>
-      <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Objetivo Operativo" >|-$operativeObjective->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
+      <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Objetivo Operativo" |-$readonly|readonly-|>|-$operativeObjective->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
     </p> 
     <p> 
       <label for="params_indicators">Indicadores</label>
-      <input name="params[indicators]" type="text" id="params_indicators" title="Indicadores" value="TO DO" size="7"> 
+      <input name="params[indicators]" type="text" id="params_indicators" title="Indicadores" value="TO DO" size="7" |-$readonly|readonly-|> 
     </p> 
 		<p>
 			<label for="params_productKind">Tipo de producción</label>
-			<select id="params_productKind" name="params[productKind]" title="Tipo de producción organizacional">
+			<select id="params_productKind" name="params[productKind]" title="Tipo de producción organizacional" |-$readonly|readonly-|>
 				<option value="">Seleccione el tipo de producción</option>
 				|-foreach from=$productKinds key=key item=name-|
 							<option value="|-$key-|" |-$operativeObjective->getProductKind()|selected:$key-|>|-$name-|</option>
@@ -40,7 +49,7 @@
 		</p>
 		<p>
 			<label for="params_populationGender">Género de población objetivo</label>
-			<select id="params_populationGender" name="params[populationGender]" title="Género de población objetivo">
+			<select id="params_populationGender" name="params[populationGender]" title="Género de población objetivo" |-$readonly|readonly-|>
 				<option value="">Seleccione el género</option>
 				|-foreach from=$populationGenders key=key item=name-|
 							<option value="|-$key-|" |-$operativeObjective->getObjectivePopulationGender()|selected:$key-|>|-$name-|</option>
@@ -49,11 +58,11 @@
 		</p>
     <p> 
       <label for="params_indicators">Grupos etáreos población objetivo</label>
-      <input name="params[indicators]" type="text" id="params_indicators" title="Grupos etáreos población objetivo" value="|-$operativeObjective->getObjectivePopulationAge()|selected:$key-|" size="50"> 
+      <input name="params[indicators]" type="text" id="params_indicators" title="Grupos etáreos población objetivo" value="|-$operativeObjective->getObjectivePopulationAge()|selected:$key-|" size="50" |-$readonly|readonly-|> 
     </p> 
     <p> 
       <label for="params_indicators">Población objetivo grupos vulnerables</label>
-      <input name="params[indicators]" type="text" id="params_indicators" title="Población objetivo grupos vulnerables" value="|-$operativeObjective->getObjectivePopulationGroup()|selected:$key-|" size="50"> 
+      <input name="params[indicators]" type="text" id="params_indicators" title="Población objetivo grupos vulnerables" value="|-$operativeObjective->getObjectivePopulationGroup()|selected:$key-|" size="50" |-$readonly|readonly-|> 
     </p> 
 			|-if isset($loginUser) && $loginUser->isSupervisor() && !$operativeObjective->isNew()-|
 				<p>

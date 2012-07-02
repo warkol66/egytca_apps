@@ -38,7 +38,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 |-elseif $message eq "error"-|
 	<div class="failureMessage">Ha ocurrido un error al intentar Objetivo Ministerial</div>
 |-/if-|
-|-include file="CommonAutocompleterInclude.tpl"-|
+|-if !$show && !$showLog-||-include file="CommonAutocompleterInclude.tpl"-||-/if-|
   <form name="form_edit_objective" id="form_edit_objective" action="Main.php" method="post">
 		<!--pasaje de parametros de filtros -->
 
@@ -55,23 +55,23 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 		|-/if-|
 		      <p>
         <label for="params_name">Nombre</label>
-      <input name="params[name]" type="text" id="params_name" size="80" value="|-$ministryObjective->getName()-|" title="Nombre del Objetivo Ministerial" maxlength="255"  class="emptyValidation" /> |-validation_msg_box idField="params_name"-|
+      <input name="params[name]" type="text" id="params_name" size="80" value="|-$ministryObjective->getName()-|" title="Nombre del Objetivo Ministerial" maxlength="255"  class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
       </p>
     <p> 
       <label for="params_description">Resumen Narrativo </label>
-      <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Objetivo Ministerial" >|-$ministryObjective->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
+      <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Objetivo Ministerial" |-$readonly|readonly-|>|-$ministryObjective->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
     </p> 
      <p> 
       <label for="params_indicators">Indicadores</label>
-      <input name="params[indicators]" type="text" id="params_indicators" title="Indicadores" value="TO DO" size="7"> 
+      <input name="params[indicators]" type="text" id="params_indicators" title="Indicadores" value="TO DO" size="7" |-$readonly|readonly-|> 
     </p> 
      <p>
         <label for="params_baseline">Línea de base</label>
-      <input name="params[baseline]" type="text" id="params_baseline" size="15" value="|-$ministryObjective->getBaseline()-|" title="Nombre del Objetivo Ministerial" maxlength="10" class="emptyValidation" /> |-validation_msg_box idField="params_baseline"-|
+      <input name="params[baseline]" type="text" id="params_baseline" size="15" value="|-$ministryObjective->getBaseline()-|" title="Nombre del Objetivo Ministerial" maxlength="10" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_baseline"-|
       </p> 
      <p>
         <label for="params_goalType">Tipo de Meta</label>
-      <select id="params_goalType" name="params[goalType]" title="Tipo de Meta">
+      <select id="params_goalType" name="params[goalType]" title="Tipo de Meta" |-$readonly|readonly-|>
 				<option value="">Seleccione el tipo</option>
 				|-foreach from=$goalTypes key=key item=name-|
 							<option value="|-$key-|" |-$ministryObjective->getGoalType()|selected:$key-|>|-$name-|</option>
@@ -81,15 +81,15 @@ $("#autocomplete_responsibleCode").ajaxChosen({
       </p>
      <p>
         <label for="params_goalQuantity">Cantidad</label>
-      <input name="params[goalQuantity]" type="text" id="params_goalQuantity" size="15" value="|-$ministryObjective->getGoalQuantity()-|" title="Cantidad" maxlength="10" />
+      <input name="params[goalQuantity]" type="text" id="params_goalQuantity" size="15" value="|-$ministryObjective->getGoalQuantity()-|" title="Cantidad" maxlength="10" |-$readonly|readonly-| />
       </p> 
      <p>
         <label for="params_goalMeasureUnit">Un. de medida de la meta</label>
-      <input name="params[goalMeasureUnit]" type="text" id="params_goalMeasureUnit" size="15" value="|-$ministryObjective->getGoalMeasureUnit()-|" title="Un. de Medida" maxlength="10" />
+      <input name="params[goalMeasureUnit]" type="text" id="params_goalMeasureUnit" size="15" value="|-$ministryObjective->getGoalMeasureUnit()-|" title="Un. de Medida" maxlength="10" |-$readonly|readonly-| />
       </p>  
      <p>
         <label for="params_goalTrend">Tendencia esperada</label>
-      <select id="params_goalTrend" name="params[goalTrend]" title="Tendencia esperada de la Meta">
+      <select id="params_goalTrend" name="params[goalTrend]" title="Tendencia esperada de la Meta" |-$readonly|readonly-|>
 				<option value="">Seleccione el tipo</option>
 				|-foreach from=$goalTrends key=key item=name-|
 							<option value="|-$key-|" |-$ministryObjective->getGoalTrend()|selected:$key-|>|-$name-|</option>
@@ -99,7 +99,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
       </p>
 	<p>
 		<label for="params_regions">Comunas</label>
-		<select class="chzn-select wide-chz-select" data-placeholder="Seleccione una o varias comunas..." multiple="multiple" id="params_regions" name="params[regionsIds][]" size="5" title="comunas">
+		<select class="chzn-select wide-chz-select" data-placeholder="Seleccione una o varias comunas..." multiple="multiple" id="params_regions" name="params[regionsIds][]" size="5" title="comunas" |-$readonly|readonly-|>
 		|-foreach from=$regions item=object-|
 			<option value="|-$object->getid()-|" |-$ministryObjective->hasRegion($object)|selected:true-|>|-$object->getname()-|</option>
 		|-/foreach-|

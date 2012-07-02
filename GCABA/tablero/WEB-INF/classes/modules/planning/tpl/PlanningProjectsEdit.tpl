@@ -9,6 +9,6 @@
 <div id="div_project"> 
   |-include file="PlanningProjectsForm.tpl"-|
 </div> 
-|-if !$planningProject->isNew()-|
+|-if !$planningProject->isNew() && $readonly ne "readonly"-|
 	<input type="button" title="Ver Historial de cambios" value="Ver Historia" onClick="location.href='Main.php?do=planningProjectsLogTabs&id=|-$planningProject->getId()-|'" />
 |-/if-|

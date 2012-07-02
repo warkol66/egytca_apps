@@ -3,7 +3,7 @@
 |-elseif $message eq "error"-|
 	<div class="failureMessage">Ha ocurrido un error al intentar Proyecto</div>
 |-/if-|
-|-include file="CommonAutocompleterInclude.tpl"-|
+|-if !$show && !$showLog-||-include file="CommonAutocompleterInclude.tpl"-||-/if-|
   <form name="form_edit_project" id="form_edit_project" action="Main.php" method="post">
 		<!--pasaje de parametros de filtros -->
 

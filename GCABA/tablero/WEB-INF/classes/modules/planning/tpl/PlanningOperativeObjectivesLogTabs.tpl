@@ -15,7 +15,7 @@
         |-else-|
         <li class="unactiveTab">
         |-/if-|
-            <a href="#" id='version_|-$operativeObjectiveVersion->getVersion()-|_tab' onClick='selectTab(this);$("status_info").show(); new Ajax.Updater("div_issue", "Main.php?do=planningOperativeObjectivesShowHistoryX", { method: "get", parameters: { id: "|-$operativeObjectiveVersion->getId()-|", version: "|-$operativeObjectiveVersion->getVersion()-|"}, evalScripts: true});'>|-$operativeObjectiveVersion->getUpdatedAt()-|</a>
+            <a href="#" id='version_|-$operativeObjectiveVersion->getVersion()-|_tab' onClick='selectTab(this);$("status_info").show(); new Ajax.Updater("div_operativeObjective", "Main.php?do=planningOperativeObjectivesShowHistoryX", { method: "get", parameters: { id: "|-$operativeObjectiveVersion->getId()-|", version: "|-$operativeObjectiveVersion->getVersion()-|"}, evalScripts: true});'>|-$operativeObjectiveVersion->getUpdatedAt()-|</a>
         </li>
     |-/foreach-|
     |-if !$operativeObjectiveVersionsPager->isLastPage()-|
@@ -32,6 +32,6 @@
         </li>
     </ul>
 </div>
-<div id='div_issue'>
-    |-include file='PlanningOperativeObjectivesForm.tpl'-|
+<div id='div_operativeObjective'>
+|-include file="PlanningOperativeObjectivesForm.tpl" readonly="readonly"-|
 </div>
