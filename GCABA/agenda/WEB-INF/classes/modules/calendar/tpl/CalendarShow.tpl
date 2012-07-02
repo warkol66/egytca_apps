@@ -12,13 +12,27 @@
 <script type="text/javascript" src="scripts/jquery/egytca.cakegraph.js"></script>
 <!-- end CakeGraph -->
 
+<!-- Map -->
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="scripts/keydragzoom_packed.js"></script>
+<script type="text/javascript" src="scripts/jquery/map-base.js"></script>
+<script type="text/javascript" src="scripts/jquery/calendar-map.js"></script>
+<!-- end Map -->
+
 <div id="calendar"></div>
 <a id="newEventFancyboxDummy" style="display:none" href="#newEvent"></a>
 <a id="fancyboxDummy" style="display:none" href="#fancyboxDiv"></a>
 <div style="display:none;"><div id="fancyboxDiv"></div></div>
 <a id="mapFancyboxDummy" style="display:none" href="#mapFancybox"></a>
 <div style="display:none;"><div id="mapFancybox">
-	
+	<div id="map-outer" style="width:700px; height: 400px;"><div id="map_container" style="display:none;">
+		<div><ul id="directions_results" style="display:none"></ul></div>
+		<div id="map_canvas"></div>
+		<br />
+		<p>
+			<input id="hide_map" type="button" value="Ocultar mapa" title="Ocultar mapa" onClick="$('#map_container').hide();"/>
+		</p>
+	</div></div>
 </div></div>
 
 <script type="text/javascript">
@@ -26,6 +40,7 @@
 	var calendar;
 	var eventsCakegraph;
 	var graphInfo;
+	var calendarMap;
 
 	$(document).ready(function() {
 		var day, month, year;

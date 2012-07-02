@@ -40,6 +40,9 @@
 			<input type="button" id="button_locate" value="|-$locateButtonText-|" title="|-$locateButtonText-|" />
 		</p>
 *-|
+	<p>
+		<input type="button" value="Mapa" onclick="showMap()" />
+	</p>
 	<input name="calendarEvent[latitude]" type="hidden" id="calendarEvent_latitude" title="latitud" value="|-$calendarEvent->getLatitude()-|" size="20" readonly="readonly" />
 	<input name="calendarEvent[longitude]" type="hidden" id="calendarEvent_longitude" title="longitud" value="|-$calendarEvent->getLongitude()-|" size="20" readonly="readonly"/>
 	<p>
@@ -155,3 +158,34 @@
 </form>
 </fieldset>
 </div>
+
+<script>
+	var showMap = function() {
+		$('#mapFancyboxDummy').fancybox({
+			onComplete: function() {
+				calendarMap = new CalendarMap({
+					disableId: 'button_edit_calendarEvent',
+					streetId: 'calendarEvent_street',
+					numberId: 'calendarEvent_number',
+					latitudeId: 'calendarEvent_latitude',
+					longitudeId: 'calendarEvent_longitude'
+				});
+				var latlng = new google.maps.LatLng('-34.649', '-58.456');
+				calendarMap.mapOptions.zoom = 12;
+				calendarMap.mapOptions.center = latlng;
+
+				calendarMap.drawRegions = function() {
+					|-include file="RegionsDrawInclude.tpl" mapJsVarName="calendarMap"-|
+				}
+
+				calendarMap.locate();
+			},
+			
+			onClosed: function() {
+				setTimeout(function(){$('#fancyboxDummy').click();}, 1000); // por que no abre sin el timeout?
+			}
+		});
+		
+		$('#mapFancyboxDummy').click();
+	}
+</script>
