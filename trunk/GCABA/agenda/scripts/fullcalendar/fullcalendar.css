@@ -268,7 +268,7 @@ text-align:left;
 ------------------------------------------------------------------------*/
 	 
 .fc-event {
-	border-style: solid;
+	/*border-style: solid;*/
 	/*	font-size: .85em;*/
 	font-size:9px;
 	cursor: default;
@@ -333,7 +333,7 @@ a.fc-event {
 .fc-event-hori .ui-resizable-e {
 	top: 0           !important; /* importants override pre jquery ui 1.7 styles */
 	right: -3px      !important;
-	width: 7px       !important;
+	width: 100% /*7px*/       !important;
 	height: 100%     !important;
 	cursor: e-resize;
 	}
