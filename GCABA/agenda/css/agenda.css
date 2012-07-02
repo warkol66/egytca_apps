@@ -318,6 +318,26 @@
 				background-position:top center;
 				background-repeat:repeat;}
 				
+				.evAnterior  .fc-event-time,
+				.evAnterior  .fc-event-title,
+				.evAnterior  .fc-event-text,{
+				color: #999999;
+				font-weight:normal;}
+				
+				.evAnterior  .fc-event-time, 
+				.evAnterior  amarillo .fc-event-time,
+				.evAnterior  verde1 .fc-event-time,
+				.evAnterior  verde1bis .fc-event-time,
+				.evAnterior  verde2 .fc-event-time,
+				.evAnterior  naranja .fc-event-time,
+				.evAnterior  naranjabis .fc-event-time,
+				.evAnterior  rojo .fc-event-time,
+				.evAnterior  cyan .fc-event-time,
+				.evAnterior  gris .fc-event-time{
+				background-position:-195px 0;
+				background-repeat:repeat-x;}
+				
+				
 		 .fc-view-agendaDay .fc-event-time {width:100%;} 
 				
 			/* TITULO    */
@@ -332,7 +352,8 @@
 		opacity: 1;}
 		
 	/* Eventos anteriores sin BOLD */
-	.evAnterior .fc-event-time, .evAnterior .fc-event-title{ font-weight:normal;}
+	.evAnterior .fc-event-time,
+	.evAnterior .fc-event-title{ font-weight:normal;}
 		
 	.fc-view-agendaWeek .eventoContent span{font-size:9px; text-transform:uppercase; color: #000000; line-height:10px; margin-top:-4px;}
 			
@@ -420,7 +441,7 @@
 			.gris .title-evAnterior .fc-event-time{	background-position:0 -195px;}
 			.gris {background-color:#c0c0c0;}
 			
-			amarillo:active, verde1:active, verde1bis:active, cyan:active, rojo:active, 
+			amarillo:active, verde1:active, verde1bis:active, verde2:active, cyan:active, rojo:active, 
 			naranja:active, naranjabis:active, gris:active {
 			zoom: 1;
 			filter: alpha(opacity=40);
@@ -428,6 +449,7 @@
 			
 			/*  BORDE INFERIOR Evento   */
 			.ui-resizable-handle { 
+			width:100%;
 			height:10px;
 			background-image:url(../images/bkg_evFooter.png);
 			background-position:bottom;
@@ -615,16 +637,22 @@
 	background-color:#999999;
 	/* transparencia */
 	}
-	.evFeriado{
-	background-color:#999999;
+	.evFeriado, .evEfemeride{
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 	color:#FFFFFF;
-	background-image:url(../images/bkg_evFeriado.png);
-	background-position:top left;
-	background-repeat:repeat-x;
+	background-image:url(../images/bkg_evFeriado.png) !important;
+	background-position:top left !important;
+	background-repeat:repeat-x !important;
 	}
-	.evFeriado .fc-event-title{color:#FFFFFF; !important}
+	.evFeriado{ 	background-color:#1e8ab2;}	
+	.evEfemeride{ 	background-color:#999999;}		
+	
+	.fc-view-agendaWeek .evFeriado .eventoContent span.fc-event-title,
+	.fc-view-agendaWeek .evEfemeride .eventoContent span.fc-event-title
+	{color:#FFFFFF; !important}	
+	
+	
 			
 /*  PENDIENTES  */
 
@@ -1029,6 +1057,7 @@ margin-right:auto;
 	/*font-size: xx-small !Important;*/
 	font-size: 1.2em;
 }
+
 #fancyboxCakeGraph {
 	background-color: White;
 	padding: 50px;
@@ -1045,6 +1074,7 @@ margin-right:auto;
 	color: Black;
 
 }
+
 
 
 /* Botones SOLAPAS filtros */
@@ -1111,8 +1141,9 @@ span.fc-header-title h2 {
     margin-bottom: 0.30em !Important;
 }
 
+.fc-view-month .fc-event,
 .fc-event {
 border-right: solid 1px #666666 !important;
 border-left: solid 1px #666666 !important;
-border-bottom: none !important;
-border-top:none !important;}
+border-top:none !important;
+border-bottom: solid 1px #666666 !important;}
