@@ -67,7 +67,35 @@ $("#autocomplete_responsibleCode").ajaxChosen({
     </p> 
      <p>
         <label for="params_baseline">Línea de base</label>
-      <input name="params[baseline]" type="text" id="params_name" size="15" value="|-$ministryObjective->getBaseline()-|" title="Nombre del Objetivo Ministerial" maxlength="10" class="emptyValidation" /> |-validation_msg_box idField="params_baseline"-|
+      <input name="params[baseline]" type="text" id="params_baseline" size="15" value="|-$ministryObjective->getBaseline()-|" title="Nombre del Objetivo Ministerial" maxlength="10" class="emptyValidation" /> |-validation_msg_box idField="params_baseline"-|
+      </p> 
+     <p>
+        <label for="params_goalType">Tipo de Meta</label>
+      <select id="params_goalType" name="params[goalType]" title="Tipo de Meta">
+				<option value="">Seleccione el tipo</option>
+				|-foreach from=$goalTypes key=key item=name-|
+							<option value="|-$key-|" |-$ministryObjective->getGoalType()|selected:$key-|>|-$name-|</option>
+				|-/foreach-|
+			</select>
+	  
+      </p>
+     <p>
+        <label for="params_goalQuantity">Cantidad</label>
+      <input name="params[goalQuantity]" type="text" id="params_goalQuantity" size="15" value="|-$ministryObjective->getGoalQuantity()-|" title="Cantidad" maxlength="10" />
+      </p> 
+     <p>
+        <label for="params_goalMeasureUnit">Un. de medida de la meta</label>
+      <input name="params[goalMeasureUnit]" type="text" id="params_goalMeasureUnit" size="15" value="|-$ministryObjective->getGoalMeasureUnit()-|" title="Un. de Medida" maxlength="10" />
+      </p>  
+     <p>
+        <label for="params_goalTrend">Tendencia esperada</label>
+      <select id="params_goalTrend" name="params[goalTrend]" title="Tendencia esperada de la Meta">
+				<option value="">Seleccione el tipo</option>
+				|-foreach from=$goalTrends key=key item=name-|
+							<option value="|-$key-|" |-$ministryObjective->getGoalTrend()|selected:$key-|>|-$name-|</option>
+				|-/foreach-|
+			</select>
+	  
       </p>
 	<p>
 		<label for="params_regions">Comunas</label>
