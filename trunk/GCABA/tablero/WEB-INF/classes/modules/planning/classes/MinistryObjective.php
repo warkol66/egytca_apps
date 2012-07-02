@@ -68,5 +68,19 @@ class MinistryObjective extends BaseMinistryObjective {
 		);
 		return $policyGuidelines;
 	}
+	public static function getGoalTypes() {
+		$goalTypes = array(
+			1 => 'Cualitativa',
+			2 => 'Cuantitativa'
+		);
+		return $goalTypes;
+	}
+	public static function getGoalTrends() {
+		$goalTrends = array(
+			1 => 'Ascendente',
+			2 => 'Descendente'
+		);
+		return $goalTrends;
+	}
 
 } // MinistryObjective

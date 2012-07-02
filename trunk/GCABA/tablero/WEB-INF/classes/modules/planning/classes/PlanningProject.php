@@ -42,5 +42,37 @@ class PlanningProject extends BasePlanningProject {
 		$filters = array();		
 		return BaseQuery::create('PlanningProjectLog')->getAllByPlanningProject($this->getId(), $orderType)->createPager($filters, $page, $maxPerPage);
 	}
+	
+	
+	/**
+	 * Devuelve array con posibles prioridades ministeriales
+	 *  id => prioridad
+	 *
+	 * @return array Prioridades Ministeriales
+	 */
+	public static function getMinistryPriorities() {
+		$ministryPriorities = array(
+			1 => 'Alta',
+			2 => 'Media',
+			3 => 'Baja'
+		);
+		return $ministryPriorities;
+	}
+	/**
+	 * Devuelve array con posibles prioridades de Jefatura
+	 *  id => prioridad
+	 *
+	 * @return array Prioridades  de Jefatura
+	 */
+	
+	public static function getPriorities() {
+		$priorities = array(
+			1 => 'A+',
+			2 => 'A',
+			3 => 'B',
+			4 => 'C'
+		);
+		return $priorities;
+	}
 
 } // PlanningProject

@@ -6,13 +6,31 @@
 		<column name="description" type="LONGVARCHAR" description="Descripcion del proyecto"/>
 
 		<column name="operativeObjectiveId" type="INTEGER" description="Objetivo de Impacto"/>
+		<column name="goalProduct" type="VARCHAR" size="50" description="Meta Producto" />
+		<column name="goalQuantification" type="VARCHAR" size="50" description="Meta Cuantificacion" />
+		<column name="investment" type="BOOLEAN" description="Proyecto de inversion si/no" />
+		<column name="preexisting" type="BOOLEAN" description="Proyecto preexistente si/no" />
+		<column name="preexistingCode" type="VARCHAR" description="Codigo de proyecto Preexistente" />
+		<column name="preexistingSigafCode" type="VARCHAR" description="Apertura programatica de proyecto preexistente" />
+		<column name="ministryPriority" type="INTEGER" description="Prioridad Ministerial" />
+		<column name="priority" type="INTEGER" description="Prioridad Jefatura" />
+		<column name="communicable" type="BOOLEAN" description="Comunicable Si/No" />
+		
+		<column name="appliedAmount" type="DECIMAL" size="12" scale="2"  description="Monto Solicitado"/>
+		<column name="managementAmount" type="DECIMAL" size="12" scale="2"  description="Monto Gestion"/>
+		<column name="raisedAmount" type="DECIMAL" size="12" scale="2"  description="Monto Elevado"/>
+		<column name="sanctionAmount" type="DECIMAL" size="12" scale="2"  description="Monto Sancionado"/>
+		
+		<column name="startingDate" type="DATE" description="Fecha de inicio" />
+		<column name="endingDate" type="DATE" description="Fecha de finalizacion" />
+
 
 		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
 		<column name="version" type="INTEGER" description="Numero de version" />
 		<column name="startingYear" type="INTEGER" description="A#o de inicio" />
 		<column name="endingYear" type="INTEGER" description="A#o de finalizacion" />
-	  <column name="userObjectType" type="VARCHAR" size="100" description="tipo de objeto usuario realizo la accion"/>
-	  <column name="userObjectId" type="INTEGER" description="id de objeto usuario realizo la accion"/>
+		<column name="userObjectType" type="VARCHAR" size="100" description="tipo de objeto usuario realizo la accion"/>
+		<column name="userObjectId" type="INTEGER" description="id de objeto usuario realizo la accion"/>
 
 		<foreign-key foreignTable="positions_position" >
 			<reference local="responsibleCode" foreign="code" />

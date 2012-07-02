@@ -91,14 +91,16 @@
 		<column name="baseline" type="INTEGER" description="Linea de base" />
 		<column name="startingYear" type="INTEGER" description="A#o de inicio" />
 		<column name="endingYear" type="INTEGER" description="A#o de finalizacion" />
+		
 		<column name="goalType" type="INTEGER" description="Tipo de meta" />
 		<column name="goalQuantity" type="INTEGER" description="Cantidad" />
 		<column name="goalMeasureUnit" type="VARCHAR" size="25" description="Unidad de medida de la meta" />
 		<column name="goalTrend" type="INTEGER" description="Tendencia de la meta" />
-
+<!--Verificar con Formulario-->
 		<column name="objectivePopulationAge" type="INTEGER" description="Id de edad de poblacion objetivo" />
 		<column name="objectivePopulationGender" type="INTEGER" description="Id de genero de poblacion objetivo" />
 		<column name="objectivePopulationGroup" type="INTEGER" description="Id de grupo de poblacion objetivo" />
+<!--/Verificar con Formulario-->
 
 		<column name="impactObjectiveId" type="INTEGER" description="Objetivo de Impacto"/>
 
