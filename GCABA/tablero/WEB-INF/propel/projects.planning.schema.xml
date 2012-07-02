@@ -4,6 +4,9 @@
 		<column name="id" primaryKey="true" type="INTEGER" description="Id del proyecto" autoIncrement="true" />
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del proyecto" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del proyecto"/>
+
+		<column name="operativeObjectiveId" type="INTEGER" description="Objetivo de Impacto"/>
+
 		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
 		<column name="version" type="INTEGER" description="Numero de version" />
 		<column name="startingYear" type="INTEGER" description="A#o de inicio" />
@@ -13,6 +16,10 @@
 
 		<foreign-key foreignTable="positions_position" >
 			<reference local="responsibleCode" foreign="code" />
+		</foreign-key>
+
+		<foreign-key foreignTable="planning_operativeObjective" >
+			<reference local="operativeObjectiveId" foreign="id" />
 		</foreign-key>
 
   	<behavior name="timestampable" />
@@ -33,6 +40,9 @@
 		<column name="projectId" type="INTEGER" description="Id del objetivo de Impacto"/>
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del proyecto" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del proyecto"/>
+
+		<column name="operativeObjectiveId" type="INTEGER" description="Objetivo de Impacto"/>
+
 		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
 		<column name="version" type="INTEGER" description="Numero de version" />
 		<column name="startingYear" type="INTEGER" description="A#o de inicio" />
@@ -42,6 +52,10 @@
 
 		<foreign-key foreignTable="positions_position" >
 			<reference local="responsibleCode" foreign="code" />
+		</foreign-key>
+
+		<foreign-key foreignTable="planning_operativeObjective" >
+			<reference local="operativeObjectiveId" foreign="id" />
 		</foreign-key>
 
   	<behavior name="timestampable" />

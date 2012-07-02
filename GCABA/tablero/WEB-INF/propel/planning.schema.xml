@@ -5,14 +5,11 @@
 		<column name="id" primaryKey="true" type="INTEGER" description="Id del objetivo" autoIncrement="true" />
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del objetivo" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del objetivo"/>
-		<column name="userId" type="INTEGER" description="User Id " />
 		<column name="startingYear" type="INTEGER" description="A#o de inicio" />
 		<column name="endingYear" type="INTEGER" description="A#o de finalizacion" />
 		<column name="version" type="INTEGER" description="Numero de version" />
-
-		<foreign-key foreignTable="users_user" >
-			<reference local="userId" foreign="id" />
-		</foreign-key>
+	  <column name="userObjectType" type="VARCHAR" size="100" description="tipo de objeto usuario realizo la accion"/>
+	  <column name="userObjectId" type="INTEGER" description="id de objeto usuario realizo la accion"/>
 
  		<behavior name="timestampable" />
 
@@ -103,6 +100,8 @@
 		<column name="objectivePopulationGender" type="INTEGER" description="Id de genero de poblacion objetivo" />
 		<column name="objectivePopulationGroup" type="INTEGER" description="Id de grupo de poblacion objetivo" />
 
+		<column name="impactObjectiveId" type="INTEGER" description="Objetivo de Impacto"/>
+
 		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
 		<column name="version" type="INTEGER" description="Numero de version" />
 	  <column name="userObjectType" type="VARCHAR" size="100" description="tipo de objeto usuario realizo la accion"/>
@@ -110,6 +109,10 @@
 
 		<foreign-key foreignTable="positions_position" >
 			<reference local="responsibleCode" foreign="code" />
+		</foreign-key>
+
+		<foreign-key foreignTable="planning_impactObjective" >
+			<reference local="impactObjectiveId" foreign="id" />
 		</foreign-key>
 
   	<behavior name="timestampable" />
@@ -173,9 +176,11 @@
 		<column name="id" primaryKey="true" type="INTEGER" description="Id del objetivo" autoIncrement="true" />
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del objetivo" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del objetivo"/>
-		<column name="userId" type="INTEGER" description="User Id " />
 		<column name="startingYear" type="INTEGER" description="A#o de inicio" />
 		<column name="endingYear" type="INTEGER" description="A#o de finalizacion" />
+
+		<column name="ministryObjectiveId" type="INTEGER" description="Objetivo Ministerial"/>
+
 		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
 		<column name="objectivePopulationAge" type="VARCHAR" size="50" description="Edad de poblacion objetivo" />
 		<column name="objectivePopulationGender" type="INTEGER" description="Id de genero de poblacion objetivo" />
@@ -189,8 +194,8 @@
 			<reference local="responsibleCode" foreign="code" />
 		</foreign-key>
 
-		<foreign-key foreignTable="users_user" >
-			<reference local="userId" foreign="id" />
+		<foreign-key foreignTable="planning_ministryObjective" >
+			<reference local="ministryObjectiveId" foreign="id" />
 		</foreign-key>
 
   	<behavior name="timestampable" />
@@ -266,6 +271,8 @@ Seccion de tablas de log
 		<column name="objectivePopulationGender" type="INTEGER" description="Id de genero de poblacion objetivo" />
 		<column name="objectivePopulationGroup" type="INTEGER" description="Id de grupo de poblacion objetivo" />
 
+		<column name="impactObjectiveId" type="INTEGER" description="Objetivo Ministerial"/>
+
 		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
 		<column name="version" type="INTEGER" description="Numero de version" />
 	  <column name="userObjectType" type="VARCHAR" size="100" description="tipo de objeto usuario realizo la accion"/>
@@ -273,6 +280,10 @@ Seccion de tablas de log
 
 		<foreign-key foreignTable="positions_position" >
 			<reference local="responsibleCode" foreign="code" />
+		</foreign-key>
+
+		<foreign-key foreignTable="planning_impactObjective" >
+			<reference local="impactObjectiveId" foreign="id" />
 		</foreign-key>
 
   	<behavior name="timestampable" />
@@ -293,9 +304,11 @@ Seccion de tablas de log
 		<column name="operativeObjectiveId" type="INTEGER" description="Id del objetivo de Impacto"/>
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del objetivo" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del objetivo"/>
-		<column name="userId" type="INTEGER" description="User Id " />
 		<column name="startingYear" type="INTEGER" description="A#o de inicio" />
 		<column name="endingYear" type="INTEGER" description="A#o de finalizacion" />
+
+		<column name="ministryObjectiveId" type="INTEGER" description="Objetivo Ministerial"/>
+
 		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
 		<column name="objectivePopulationAge" type="VARCHAR" size="50" description="Edad de poblacion objetivo" />
 		<column name="objectivePopulationGender" type="INTEGER" description="Id de genero de poblacion objetivo" />
@@ -309,8 +322,8 @@ Seccion de tablas de log
 			<reference local="responsibleCode" foreign="code" />
 		</foreign-key>
 
-		<foreign-key foreignTable="users_user" >
-			<reference local="userId" foreign="id" />
+		<foreign-key foreignTable="planning_ministryObjective" >
+			<reference local="ministryObjectiveId" foreign="id" />
 		</foreign-key>
 
   	<behavior name="timestampable" />
