@@ -159,6 +159,18 @@ class CalendarEvent extends BaseCalendarEvent {
 	}
 
 	/**
+	 * Devuelve true si el CalendarEvent tiene asociado una obra (Construction)
+	 * y false caso contrario.
+	 * 
+	 * @return boolean
+	 */
+	public function hasConstruction() {
+		return ConstructionQuery::create()->filterByCalendarevent($this)->count() > 0;
+	}
+
+
+
+	/**
 	 * Obtains the medias from the article
 	 * @param integer value of the media constant
 	 * @return array array of instances of CalendarMedia.

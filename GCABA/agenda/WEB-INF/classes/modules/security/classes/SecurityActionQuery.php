@@ -14,4 +14,16 @@
  */
 class SecurityActionQuery extends BaseSecurityActionQuery {
 
+	/**
+	* Filtro para obtener un action a partir de su nombre o el del par
+	* @param string $action nombre del action
+	*/
+	function filterByNameOrPair($action) {
+		$this->filterByAction($action)
+			->_or()
+				 ->filterByPair($action)
+			->setIgnoreCase('true');
+		return $this;
+	}
+
 } // SecurityActionQuery
