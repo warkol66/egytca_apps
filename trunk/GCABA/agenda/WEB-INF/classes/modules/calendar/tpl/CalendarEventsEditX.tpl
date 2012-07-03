@@ -19,8 +19,17 @@
 		<textarea name="calendarEvent[body]" cols="60" rows="3" wrap="VIRTUAL" id="calendarEvent_body">|-$calendarEvent->getBody()|escape-|</textarea>
 	</p>
 	<input name="calendarEvent[creationDate]" type="hidden" id="calendarEvent_creationDate" title="creationDate" value="|-if $calendarEvent->isNew()-||-$smarty.now|dateTime_format|change_timezone|date_format:"%d-%m-%Y"-||-else-||-$calendarEvent->getcreationDate()|dateTime_format-||-/if-|" size="18" />
-	<input name="calendarEvent[startDate]" type="hidden" id="calendarEvent_startDate" title="startDate" value="|-$calendarEvent->getstartDate()|dateTime_format-|" size="18" /> 
-	<input name="calendarEvent[endDate]" type="hidden" id="calendarEvent_endDate" title="endDate" value="|-$calendarEvent->getendDate()|dateTime_format-|" size="18" /> 
+	|-if $calendarEvent->getScheduleStatus() gt 2-|			<p>
+					<label for="calendarEvent_startDateX">Fecha de Inicio Actividad</label>
+					<input name="calendarEvent[startDate]" type="text" id="calendarEvent_startDateX" title="creationDate" value="|-$calendarEvent->getstartDate()|dateTime_format-|" size="18" />
+				</p>
+				<p>
+					<label for="calendarEvent_endDateX">Fecha de Fin Actividad</label>
+					<input name="calendarEvent[endDate]" type="text" id="calendarEvent_endDateX" title="endDate" value="|-$calendarEvent->getendDate()|dateTime_format-|" size="18" /> 
+				</p>|-else-|
+				<input name="calendarEvent[startDate]" type="hidden" id="calendarEvent_startDate" title="startDate" value="|-$calendarEvent->getstartDate()|dateTime_format-|" size="18" /> 
+				<input name="calendarEvent[endDate]" type="hidden" id="calendarEvent_endDate" title="endDate" value="|-$calendarEvent->getendDate()|dateTime_format-|" size="18" /> 
+				|-/if-|
 	<p>
 		<label for="calendarEvent_street">Calle</label>
 		<input name="calendarEvent[street]" type="text" id="calendarEvent_street" title="calle" value="|-$calendarEvent->getStreet()-|" size="30" />
