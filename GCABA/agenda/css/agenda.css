@@ -318,23 +318,14 @@
 				background-position:top center;
 				background-repeat:repeat;}
 				
-				.evAnterior  .fc-event-time,
-				.evAnterior  .fc-event-title,
-				.evAnterior  .fc-event-text,{
+				.fc-view-agendaWeek .evAnterior .eventoContent span.fc-event-time,
+				.fc-view-agendaWeek .evAnterior .eventoContent span.fc-event-title,
+				.fc-view-agendaWeek .evAnterior .eventoContent span.fc-event-text{
 				color: #999999;
 				font-weight:normal;}
 				
-				.evAnterior  .fc-event-time, 
-				.evAnterior  amarillo .fc-event-time,
-				.evAnterior  verde1 .fc-event-time,
-				.evAnterior  verde1bis .fc-event-time,
-				.evAnterior  verde2 .fc-event-time,
-				.evAnterior  naranja .fc-event-time,
-				.evAnterior  naranjabis .fc-event-time,
-				.evAnterior  rojo .fc-event-time,
-				.evAnterior  cyan .fc-event-time,
-				.evAnterior  gris .fc-event-time{
-				background-position:-195px 0;
+				.fc-view-agendaWeek .evAnterior .eventoContent span.fc-event-time{
+				background-position:-210px 0;
 				background-repeat:repeat-x;}
 				
 				
@@ -1074,6 +1065,207 @@ margin-right:auto;
 	color: Black;
 
 }
+
+
+/* ******************************************** */
+
+/*  FANCYBOX FICHAS */
+
+/* ******************************************** */
+
+@font-face {
+	font-family: 'Gotham Medium';
+	src: url('fonts/Gotham-Medium.otf');
+}
+
+@font-face {
+	font-family: 'Gotham Bold';
+	font-weight: bold;
+	src: url('fonts/Gotham-Bold.otf');
+}
+
+.fichaObra{
+	width:100%;
+	height:100%;
+	background-color:#FFFFFF;
+	font-family: 'Gotham Medium';
+	font-size:13px;
+}
+
+/*  HEADER*/
+	.fichaHeader{
+	width:100%;
+	height:38px;
+	display:block;
+	position:relative;
+	background-image:url(../images/backgroundsH.png);
+	background-position:0 -505px;
+	background-repeat:repeat-x;
+	text-align:center;}
+
+		.fichaHeaderTitle{
+		width:180px;
+		height:20px;
+		display:block;
+		background-image:url(../images/fichaHeaderTitle.png);
+		background-position:0 0;
+		background-repeat:no-repeat;
+		margin: 0 auto 3px auto;}
+		
+		.fichaHeaderLogo{
+		width:35px;
+		height:20px;
+		float:right;
+		position:absolute;
+		display:block;
+		right:0;
+		top:0;
+		background-image:url(../images/fichaHeaderTitle.png);
+		background-position:0 -20px;
+		background-repeat:no-repeat;
+		margin: 0 15px 0 0;}	
+
+.fichaMainTitle{
+	width:100%;
+	height:18px;
+	display:block;
+	position:relative;
+	margin:0; padding:0;}
+	.fichaMainTitle ul.amarillo,
+	.fichaMainTitle ul.verde1,	.fichaMainTitle ul.verde1bis, 
+	.fichaMainTitle ul.verde2,	.fichaMainTitle ul.rojo,
+	.fichaMainTitle ul.naranja,	.fichaMainTitle ul.naranjabis,
+	.fichaMainTitle ul.cyan, 	.fichaMainTitle ul.gris	{ background-color: #FFFFFF;}
+
+	
+	ul.fichaTitle {width:100%; float:left; display:inline;}
+	ul.fichaTitle li {float:left; display:block; height:18px; padding:0; margin:0;}
+
+	
+		li.fichaTitleDate	{width:23%; text-align:center; background-color:#FFFFFF;}
+					li.fichaTitleDate	span {font-weight:bold;}
+		li.fichaTitlePerson {width:23%; float:left; text-align:center; background-color:#FFFFFF;}
+					li.fichaTitlePerson span {font-weight:bold;}	
+				
+			li.fichaTitleLeft, 
+			li.fichaTitleRight{
+			width:20px;
+			background-image:url(../images/backgroundsH.png);
+			background-repeat:no-repeat; white-space:nowrap;}
+			
+				li.fichaTitleLeft{margin:0 50px 0 0; background-color:#FFFFFF;}
+				li.fichaTitleRight{ margin:0; background-color:#FFFFFF;}
+				
+				.amarillo li.fichaTitleLeft{background-position: 0 -225px;}
+				.amarillo li.fichaTitleCenter{background-color:#ffcc00; color:#333333;}
+				.amarillo li.fichaTitleRight{ background-position: 0 -365px;}
+				
+				.verde1 li.fichaTitleLeft, .verde1bis li.fichaTitleLeft{background-position: 0 -245px;}
+				.verde1 li.fichaTitleCenter, .verde1bis li.fichaTitleCenter{background-color:#8dbd2e;}
+				.verde1 	li.fichaTitleRight, .verde1bis li.fichaTitleRight{ background-position: 0 -385px;}			
+				
+				.verde2 li.fichaTitleLeft{background-position: 0 -265px;}
+				.verde2 li.fichaTitleCenter{background-color:#058888;}
+				.verde2 	li.fichaTitleRight{ background-position: 0 -405px;}			
+				
+				.cyan li.fichaTitleLeft{background-position: 0 -285px;}
+				.cyan li.fichaTitleCenter{background-color:#33ccff;}
+				.cyan	li.fichaTitleRight{ background-position: 0 -425px;}			
+				
+				.naranja li.fichaTitleLeft, .naranjabis li.fichaTitleLeft {background-position: 0 -305px;}
+				.naranja li.fichaTitleCenter, .naranjabis li.fichaTitleCenter{background-color:#ff9000;}
+				.naranja	li.fichaTitleRight, .naranjabis li.fichaTitleRight { background-position: 0 -445px;}			
+				
+				.rojo li.fichaTitleLeft{background-position: 0 -325px;}
+				.rojo li.fichaTitleCenter{background-color:#ff0000;}
+				.rojo 	li.fichaTitleRight{ background-position: 0 -465px;}			
+				
+				.gris li.fichaTitleLeft{background-position: 0 -345px;}
+				.gris li.fichaTitleCenter{background-color:#92969d;}
+				.gris li.fichaTitleRight{ background-position: 0 -485px;}			
+		
+			li.fichaTitleCenter{
+			width:45%;
+			font-size:14px;
+			font-weight:bold;
+			text-align:left;
+			color:#FFFFFF;
+			text-transform:uppercase;
+			white-space:nowrap;
+}
+	
+	.fichaTable{width:100%; border-spacing:4px; border-collapse:separate;}
+	.fichaTable th,  .fichaTable td{	padding:3px 6px;	margin:2px;}
+
+		.fichaTable th{width:25%; background-color:#CCCCCC; text-align:left; vertical-align:top;
+		-moz-border-radius: 8px;	border-radius:8px;
+		border-bottom: solid 1px #666666;
+		border-top:none; border-left:none; border-right:none; font-weight:bold;}
+
+		.fichaTable td{ background-color:#FFFFFF; text-align:left; vertical-align:top;
+		background-image:url(../images/bkg_fichaTD.png);
+		background-position:bottom left; background-repeat:repeat-x;
+		-moz-border-radius: 8px;	border-radius:8px;
+		border: solid 1px #999999;}
+		
+		.fichaTd50{ width:50%;}
+		.fichaTd75{ width:75%;}
+		.fichaTd100{ width:100%;}
+		
+		/* TD con MapaGoogle*/
+		.fichaMap{text-align:center;}
+		.fichaGoogleMap{width:130px; height:130px; display:block; background-color: #FFCC66; border:solid 2px #999999; margin:auto;  padding:2px;}
+
+		/* TD con Descripcion de OBRA  + Conclusion de obra  */
+		.fichaDescription {height:130px;}
+		.fichaConclusion {height:160px;}
+		
+		.fichaDescription h2,
+		.fichaConclusion h2 { font-size:13px; text-transform:uppercase; text-align:center; font-weight:bold; border-bottom:solid 1px #999999; margin: 0 0 8px 0;}	
+		
+		.fichaDescription p,
+		.fichaConclusion p {margin:0 10px 5px 10px;}				
+				
+				.fichaDescription .fichaDescriptionText{width:100%; height:130px; overflow-y:scroll; overflow-x:hidden; margin:0;}	
+				.fichaConclusion .fichaConclusionText{width:100%; height:160px; overflow-y:scroll; overflow-x:hidden; margin:0;}	
+		
+		
+		/* TD mapaCABA */
+		.fichaMap  {text-align:center;}
+		.fichaMapaCaba {margin: auto; border:solid 2px #999999; width:130px; height:130px; padding:2px;}
+		
+		/*SUB TABLE de DETALLES 	+  TD  fichaEstadoTable*/
+		.fichaTable .tableDetallesTable th,
+		.fichaTable .fichaEstadoTable th
+		{width:75%; border-bottom: solid 1px #999999;  border-right: solid 1px #999999; font-weight:bold; background-color:#FFFFFF;background-image:url(../images/bkg_fichaTD.png);font-size:90%; line-height:13px;
+		background-position:bottom left; background-repeat:repeat-x; -moz-border-radius: 0px;	border-radius:0px;}
+		
+		.fichaTable .tableDetallesTable td,
+		.fichaTable .fichaEstadoTable td
+		{ width:25%; border-bottom: solid 1px #999999; border-top:none; border-left:none; border-right:none;-moz-border-radius: 0px;	border-radius:0px;}		
+		.fichaTable .tableDetallesTable td span,
+		.fichaTable .fichaEstadoTable td span{ clear:both;}
+		
+		/*  Colores INDICADORES  */
+		.fichaEstadoTable .indicadorRojo, .fichaEstadoTable .indicadorAmarillo,
+		.fichaEstadoTable .indicadorVerde, .fichaEstadoTable .indicadorAzul,
+		.fichaEstadoTable .indicadorBlanco, .fichaEstadoTable .indicadorNegro{
+		background-image:url(../images/fichaIndicador.png);
+		width:25px; height:24px; margin:0 auto;}
+		
+		.fichaEstadoTable .indicadorRojo{ background-position:0 0;}
+		.fichaEstadoTable .indicadorAmarillo{ background-position:-25px 0;}
+		.fichaEstadoTable .indicadorVerde{ background-position:-49px 0;}
+		.fichaEstadoTable .indicadorAzul{ background-position:-75px 0;}
+		.fichaEstadoTable .indicadorBlanco{ background-position:-98px 0;}
+		.fichaEstadoTable .indicadorNegro{ background-position:-122px 0;}
+		
+		/* GALLERY */
+		.fichaTable td.fichaGallery{
+		background-color:#CCCCCC; background-image:none;
+		height:105px;  border-bottom: solid 1px #999999;  border-right: solid 1px #999999; }
+
+/*  end of FANCYBOX FICHAS */
 
 
 
