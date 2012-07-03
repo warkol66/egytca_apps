@@ -30,7 +30,7 @@
 		<div id="map_canvas"></div>
 		<br />
 		<p>
-			<input id="hide_map" type="button" value="Ocultar mapa" title="Ocultar mapa" onClick="$('#map_container').hide();"/>
+			<input id="hide_map" type="button" value="Ocultar mapa" title="Ocultar mapa" onClick="$('#fancyboxDummy').click();"/>
 		</p>
 	</div></div>
 </div></div>

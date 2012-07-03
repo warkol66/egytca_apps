@@ -29,19 +29,13 @@
 		<label for="calendarEvent_number">Número</label>
 		<input name="calendarEvent[number]" type="text" id="calendarEvent_number" title="número" value="|-$calendarEvent->getNumber()-|" size="8" />
 	</p>
-|-*
-|-include file="CalendarEventsMapInclude.tpl" locateButtonId="button_locate" disableId="button_edit_calendarEvent" streetId="calendarEvent_street" numberId="calendarEvent_number" latitudeId="calendarEvent_latitude" longitudeId="calendarEvent_longitude"-|
-		<p>
-			|-if !($calendarEvent->getLatitude() eq '') && !($calendarEvent->getStreet() eq '')-|
-				|-assign var=locateButtonText value="Ver en mapa"-|
-			|-else-|
-				|-assign var=locateButtonText value="Buscar en mapa"-|
-			|-/if-|
-			<input type="button" id="button_locate" value="|-$locateButtonText-|" title="|-$locateButtonText-|" />
-		</p>
-*-|
 	<p>
-		<input type="button" value="Mapa" onclick="showMap()" />
+		|-if !($calendarEvent->getLatitude() eq '') && !($calendarEvent->getStreet() eq '')-|
+			|-assign var=locateButtonText value="Ver en mapa"-|
+		|-else-|
+			|-assign var=locateButtonText value="Buscar en mapa"-|
+		|-/if-|
+		<input type="button" id="button_locate" onclick="showMap();" value="|-$locateButtonText-|" title="|-$locateButtonText-|" />
 	</p>
 	<input name="calendarEvent[latitude]" type="hidden" id="calendarEvent_latitude" title="latitud" value="|-$calendarEvent->getLatitude()-|" size="20" readonly="readonly" />
 	<input name="calendarEvent[longitude]" type="hidden" id="calendarEvent_longitude" title="longitud" value="|-$calendarEvent->getLongitude()-|" size="20" readonly="readonly"/>
@@ -179,10 +173,6 @@
 				}
 
 				calendarMap.locate();
-			},
-			
-			onClosed: function() {
-				setTimeout(function(){$('#fancyboxDummy').click();}, 1000); // por que no abre sin el timeout?
 			}
 		});
 		
