@@ -3,6 +3,7 @@
 	<table phpName="Construction" name="constructions_construction" description="Seguimiento de obras">
 
 		<column name="id" type="INTEGER"  required="true" description="Id obra" primaryKey="true" autoIncrement="true" />
+		<column name="eventId" type="INTEGER" description="ID del evento" />
 		<column name="name" type="VARCHAR" size="255" description="Nombre de la obra" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion de la obra"/>
 		<column name="categoryId" type="INTEGER" description="Jurisdiccion" />
@@ -13,6 +14,10 @@
 		<column name="regionId" type="INTEGER" description="Region" />
 		<column name="endDate" type="DATE" description="Fecha fin" />
 		<column name="inaugurated" type="BOOLEAN" sqlType="BOOL" default="false" description="Inaugurada" />
+
+		<foreign-key foreignTable="calendar_event" onDelete="CASCADE" >
+			<reference local="eventId" foreign="id" />
+		</foreign-key>
 
 		<foreign-key foreignTable="categories_category" onDelete="CASCADE" >
 			<reference local="categoryId" foreign="id" />

@@ -76,6 +76,10 @@
 					<input name="calendarEvent[endDate]" type="text" id="calendarEvent_endDate" title="endDate" value="|-$calendarEvent->getendDate()|date_format-|" size="18" /> 
 					<a href="#" |-popup sticky=true caption="Fechas de la agenda" trigger="onMouseOver" text="Las fechas deben completarse para que el evento se registre correctamente.<br />La fecha de creación ubicará el evento por orden descendente en la página principal, las fechas de inicio y fin de la actividad le indican al sistema la vigencia del mismo." snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a>
 				</p>							
+				<p>
+					<label for="calendarEvent_holiday">Feriado</label>
+					<input name="calendarEvent[holiday]" type="hidden" value="0">
+					<input name="calendarEvent[holiday]" type="checkbox" value="1" |-$calendarEvent->getHoliday()|checked_bool-|>			</p>
 				<p style="display: none">
 					<label for="calendarEvent_allDay">Evento de todo el día</label>
 					<input name="calendarEvent[allDay]" type="hidden" value="1">

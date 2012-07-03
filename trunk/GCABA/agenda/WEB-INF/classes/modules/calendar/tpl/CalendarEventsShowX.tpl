@@ -1,22 +1,25 @@
-<link rel="stylesheet"  type="text/css "href="css/amazon_scroller.css" />
-<script type="text/javascript" src="scripts/amazon_scroller.js"></script>
-        <script language="javascript" type="text/javascript">
+<script type="text/javascript" language="javascript" src="scripts/jquery/jquery.carouFredSel-5.6.1.js"></script>
+<script language="javascript" type="text/javascript">
+ $('#fancyboxDiv').ajaxComplete(function() {
+				//	Scrolled by user interaction
+$("#foo2").carouFredSel({
+	circular: false,
+	infinite: false,
+	auto 	: false,
+	scroll	: {
+		items	: "page"
+	},
+	prev	: {	
+		button	: "#foo2_prev",
+		key		: "left"
+	},
+	next	: { 
+		button	: "#foo2_next",
+		key		: "right"
+	},
+	pagination	: "#foo2_pag"
+});
 
-           $('#fancybox').ajaxComplete(function() {
-                $("#amazon_scroller2").amazon_scroller({
-                    scroller_title_show: 'disable',
-                    scroller_time_interval: '3000',
-                    scroller_window_background_color: "none",
-                    scroller_window_padding: '10',
-                    scroller_border_size: '0',
-                    scroller_border_color: '#CCC',
-                    scroller_images_width: '100',
-                    scroller_images_height: '80',
-                    scroller_title_size: '12',
-                    scroller_title_color: 'black',
-                    scroller_show_count: '6',
-                    directory: 'images'
-                });
             });
         </script>
 <div class="fichaObra">
@@ -127,26 +130,26 @@
 </tr>
 <tr>
 <td colspan="4" class="fichaTd100 fichaGallery">
-<div id="amazon_scroller2" class="amazon_scroller">
-                   <div class="amazon_scroller_mask">
-                       <ul>
-                           <li><a href="link1" title="title1"><img src="images/scroller_large_1.jpg" width="60" height="60" alt="title"/></a></li>
-                           <li><a href="link2" title="title2"><img src="images/scroller_large_2.jpg" width="60" height="60" alt="title"/></a></li>
-                           <li><a href="link3" title="title3"><img src="images/scroller_large_3.jpg" width="60" height="60" alt="title"/></a></li>
-                           <li><a href="link4" title="title4"><img src="images/scroller_large_4.jpg" width="60" height="60" alt="title"/></a></li>
-                           <li><a href="link1" title="title5"><img src="images/scroller_large_1.jpg" width="60" height="60" alt="title"/></a></li>
-                           <li><a href="link2" title="title6"><img src="images/scroller_large_2.jpg" width="60" height="60" alt="title"/></a></li>
-                           <li><a href="link3" title="title7"><img src="images/scroller_large_3.jpg" width="60" height="60" alt="title"/></a></li>
-                           <li><a href="link4" title="title8"><img src="images/scroller_large_4.jpg" width="60" height="60" alt="title"/></a></li>
-                       </ul>
-                   </div>
-                   <ul class="amazon_scroller_nav">
-                       <li></li>
-                       <li></li>
-                   </ul>
-                   <div style="clear: both"></div>
-    </div>
-
+<div class="image_carousel">
+	<div id="foo2">
+		<a href="http://www.google.com" target="_blank"><img src="/examples/images/small/basketball.jpg" alt="basketball" width="140" height="140" /></a>
+		<a href="http://www.google.com" target="_blank"><img src="/examples/images/small/beachtree.jpg" alt="beachtree" width="140" height="140" /></a>
+		<a href="http://www.google.com" target="_blank"><img src="/examples/images/small/cupcackes.jpg" alt="cupcackes" width="140" height="140" /></a>
+		<a href="http://www.google.com" target="_blank"><img src="/examples/images/small/hangmat.jpg" alt="hangmat" width="140" height="140" /></a>
+		<a href="http://www.google.com" target="_blank"><img src="/examples/images/small/new_york.jpg" alt="new york" width="140" height="140" /></a>
+		<img src="/examples/images/small/laundry.jpg" alt="laundry" width="140" height="140" />
+		<img src="/examples/images/small/mom_son.jpg" alt="mom son" width="140" height="140" />
+		<img src="/examples/images/small/picknick.jpg" alt="picknick" width="140" height="140" />
+		<img src="/examples/images/small/shoes.jpg" alt="shoes" width="140" height="140" />
+		<img src="/examples/images/small/paris.jpg" alt="paris" width="140" height="140" />
+		<img src="/examples/images/small/sunbading.jpg" alt="sunbading" width="140" height="140" />
+		<img src="/examples/images/small/yellow_couple.jpg" alt="yellow couple" width="140" height="140" />
+	</div>
+	<div class="clearfix"></div>
+	<a class="prev" id="foo2_prev" href="#"><span>prev</span></a>
+	<a class="next" id="foo2_next" href="#"><span>next</span></a>
+	<div class="pagination" id="foo2_pag"></div>
+</div>
 </td>
 </tr>
 </table>

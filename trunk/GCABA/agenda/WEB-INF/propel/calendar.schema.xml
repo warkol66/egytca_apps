@@ -28,6 +28,7 @@
 		<column name="nonpublic" type="BOOLEAN" sqlType="BOOL" default="false" description="Indica si se oculta a lso usuariso comunes" />
 		<column name="comments" type="LONGVARCHAR" description="Comentarios"/>
 		<column name="scheduleStatus" type="INTEGER" description="Estado de fiecha y horario" />
+		<column name="holiday" type="BOOLEAN" sqlType="BOOL" default="false" description="Indica si es feriado" />
 		
 		<column name="class_key" type="INTEGER" inheritance="single">
 			<inheritance key="1" class="CalendarEvent"/>
@@ -203,6 +204,7 @@
 		<column name="name" type="VARCHAR" size="255" description="Nombre" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion"/>
 		<column name="date" type="TIMESTAMP" description="Fecha" />
+		<column name="holiday" type="BOOLEAN" sqlType="BOOL" default="false" description="Indica si es feriado" />
 		
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>

@@ -38,6 +38,7 @@ class CalendarHolidayEvent extends CalendarEvent {
 		$holiday->setTitle($regEvent->getName());
 		$holiday->setStartdate($year.'-'.$regEvent->getDate('%m-%d'));
 		$holiday->setRegulareventid($regularEventId);
+		$holiday->setHoliday($regEvent->getHoliday());
 		return $holiday;
 	}
 	

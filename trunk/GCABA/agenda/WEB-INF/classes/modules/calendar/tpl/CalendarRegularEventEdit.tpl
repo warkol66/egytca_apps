@@ -39,6 +39,10 @@
 			<label for="params_date">Fecha</label>
 			<input id="params_date" name="params[date]" type="text" readonly="readonly" size="12" class="emptyValidation"  value="|-$entity->getDate()|date_format:'%d-%m'-|" title="Ingrese la fecha en formato dd-mm"/> (dd-mm)
 		</p>
+				<p>
+					<label for="params_holiday">Feriado</label>
+					<input name="params[holiday]" type="hidden" value="0">
+					<input name="params[holiday]" type="checkbox" value="1" |-$entity->getHoliday()|checked_bool-|>			</p>
 		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 		<p>
 			|-if $action eq 'edit'-|
