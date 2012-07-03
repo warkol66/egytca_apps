@@ -24,9 +24,9 @@ class CalendarShowAction extends BaseAction {
 			$smarty->assign('filters', $filters);
 		}
 		
-		$eventDateFilter = array();
-		$contextEventDateFilter = array();
-		$holidayDateFilter = array();
+		$eventDateFilter = array(); // filtro por fecha de eventos normales
+		$contextEventDateFilter = array(); // filtro por fecha de eventos de contexto
+		$holidayDateFilter = array(); // filtro por fecha de feriados
 		if (!empty($_GET['filters']['selectedDate'])) {
 			$dt = new DateTime($_GET['filters']['selectedDate']);
 			$eventDateFilter['min'] = strtotime('-2 month', $dt->getTimestamp());
@@ -42,6 +42,7 @@ class CalendarShowAction extends BaseAction {
 			$holidayDateFilter = $eventDateFilter;
 		}
 		
+		// fechas limite en las que tiene validez la navegacion del calendario
 		$smarty->assign('minTimestamp', strtotime('-1 month', $dt->getTimestamp()));
 		$smarty->assign('maxTimestamp', strtotime('+1 month', $dt->getTimestamp()));
 

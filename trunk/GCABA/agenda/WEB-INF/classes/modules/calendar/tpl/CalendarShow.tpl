@@ -96,6 +96,7 @@
                 });
 		
 		filterPendingEvents();
+		// cada vez que cambio la fecha desde el calendario chequeo filtros de fechas
 		$('.fc-button-prev').click(function() { checkCalendarDateRange(); filterPendingEvents(); });
 		$('.fc-button-next').click(function() { checkCalendarDateRange(); filterPendingEvents(); });
 		$('.fc-button-today').click(function() { checkCalendarDateRange(); filterPendingEvents(); });
@@ -258,12 +259,19 @@
 			if (date == undefined)
 				return false;
 			
+			// calculo cuán lejos estoy del tiempo actual
 			var timeDiff = calendar.fullCalendar('getDate').getTime() - date.getTime();
+			
+			// quiero dejar los eventos que entren en este margen y ocultar los demás
 			var acceptedTimeDiff = 7 * 24 * 60 * 60 * 1000 // in msecs
+			
+			// si estoy dentro del margen -> mustHide == true, sino -> mustHide = false;
 			return !(Math.abs(timeDiff) < acceptedTimeDiff);
 		}
 		
+		// e: elemento de la lista / $(e).data('eventObject'): evento asociado al elemento e
 		$('.pendientesContainer .pendientesContent li').each(function(i, e) {
+			// muestro/oculto eventos usando como criterio la funcion mustHide
 			if (mustHide($(e).data('eventObject').start))
 				$(e).hide();
 			else
@@ -417,14 +425,24 @@
 		}
 	}
 	
+	/*
+	 * Chequea si se está dentro del rango válido de fechas indicado por $minTimestamp y $maxTimestamp.
+	 * En caso de estar por fuera del rango, recarga el calendario con los eventos correspondientes.
+	 */
 	checkCalendarDateRange = function() {
+		
+		// convierto el timestamp de PHP a JavaScript (secs -> msecs)
 		var minDate = new Date(|-$minTimestamp-| * 1000);
 		var maxDate = new Date(|-$maxTimestamp-| * 1000);
 		
 		var calendarDate = calendar.fullCalendar('getDate');
 		if (calendarDate.getTime() < minDate.getTime() || calendarDate.getTime() > maxDate.getTime()) {
 			var params = '|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-|';
+			
+			// elimino el filtro de fecha anterios en caso de que exista
 			params = params.replace(/\&filters\[selectedDate\]=(\d{2}-\d{2}-\d{4})?/, '');
+			
+			// agrego nuevo filtro de fecha con formato dd-mm-yyyy (hay que anteponer un 0 a los números de 1 cifra)
 			params += '&filters[selectedDate]=';
 			params += calendarDate.getDate() < 10 ? '0'+calendarDate.getDate() : calendarDate.getDate();
 			params += '-' + ( calendarDate.getMonth()+1 < 10 ? '0'+(calendarDate.getMonth()+1) : calendarDate.getMonth()+1 );
