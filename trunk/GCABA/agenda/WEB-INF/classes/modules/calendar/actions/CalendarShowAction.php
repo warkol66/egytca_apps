@@ -43,6 +43,7 @@ class CalendarShowAction extends BaseAction {
 		}
 		
 		// fechas limite en las que tiene validez la navegacion del calendario
+		// $dt tiene la fecha indicada en filters['selectedDate']. Si no existe tiene la actual
 		$smarty->assign('minTimestamp', strtotime('-1 month', $dt->getTimestamp()));
 		$smarty->assign('maxTimestamp', strtotime('+1 month', $dt->getTimestamp()));
 

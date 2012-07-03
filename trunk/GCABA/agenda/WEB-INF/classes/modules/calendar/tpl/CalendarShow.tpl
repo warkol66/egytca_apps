@@ -256,6 +256,11 @@
 		
 		var mustHide = function(date) {
 			
+			var toMsecs = function(days) {
+				return days * 24 * 60 * 60 * 1000;
+			}
+				
+			
 			if (date == undefined)
 				return false;
 			
@@ -263,9 +268,10 @@
 			var timeDiff = calendar.fullCalendar('getDate').getTime() - date.getTime();
 			
 			// quiero dejar los eventos que entren en este margen y ocultar los demás
-			var acceptedTimeDiff = 7 * 24 * 60 * 60 * 1000 // in msecs
+			var acceptedTimeDiff = toMsecs(7); //toMsecs(days)
 			
 			// si estoy dentro del margen -> mustHide == true, sino -> mustHide = false;
+			// margen = fecha del calendario +/- acceptedTimeDiff
 			return !(Math.abs(timeDiff) < acceptedTimeDiff);
 		}
 		
