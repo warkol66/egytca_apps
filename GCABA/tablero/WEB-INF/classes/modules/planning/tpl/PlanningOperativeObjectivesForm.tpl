@@ -44,13 +44,9 @@
       <label for="params_description">Descripción / Resumen Narrativo</label>
       <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Objetivo Operativo" |-$readonly|readonly-|>|-$operativeObjective->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
     </p> 
-    <p> 
-      <label for="params_indicators">Indicadores</label>
-      <input name="params[indicators]" type="text" id="params_indicators" title="Indicadores" value="TO DO" size="7" |-$readonly|readonly-|> 
-    </p> 
 		<p>
 			<label for="params_productKind">Tipo de producción</label>
-			<select id="params_productKind" name="params[productKind]" title="Tipo de producción organizacional" |-$readonly|readonly-|>
+			<select id="params_productKind" name="params[productKind]" title="Tipo de producción organizacional" |-$readonly|readonly-| |-if $show || $showLog-|disabled="disabled"|-/if-|>
 				<option value="">Seleccione el tipo de producción</option>
 				|-foreach from=$productKinds key=key item=name-|
 							<option value="|-$key-|" |-$operativeObjective->getProductKind()|selected:$key-|>|-$name-|</option>
@@ -59,7 +55,7 @@
 		</p>
 		<p>
 			<label for="params_populationGender">Género de población objetivo</label>
-			<select id="params_populationGender" name="params[populationGender]" title="Género de población objetivo" |-$readonly|readonly-|>
+			<select id="params_populationGender" name="params[populationGender]" title="Género de población objetivo" |-$readonly|readonly-| |-if $show || $showLog-|disabled="disabled"|-/if-|>
 				<option value="">Seleccione el género</option>
 				|-foreach from=$populationGenders key=key item=name-|
 							<option value="|-$key-|" |-$operativeObjective->getObjectivePopulationGender()|selected:$key-|>|-$name-|</option>
@@ -77,7 +73,8 @@
 			|-if isset($loginUser) && $loginUser->isSupervisor() && !$operativeObjective->isNew()-|
 				<p>
 					<label for="changedBy">|-if $operativeObjective->getVersion() gt 1-|Modificado|-else-|Creado|-/if-| por:</label>
-					|-$operativeObjective->updatedBy()-| - |-$operativeObjective->getUpdatedAt()|change_timezone|dateTime_format-| </p>
+				<input type="text" id="changedBy" size="80" value="|-$operativeObjective->updatedBy()-| - |-$operativeObjective->getUpdatedAt()|change_timezone|dateTime_format-|" title="|-if $operativeObjective->getVersion() gt 1-|Modificado|-else-|Creado|-/if-| por:"  readonly="readonly"/>
+					 </p>
 			|-/if-|
     |-if !$operativeObjective->isNew()-|
     <input type="hidden" name="id" id="id" value="|-$operativeObjective->getId()-|" /> 

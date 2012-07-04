@@ -50,8 +50,8 @@
 			|-else-|
 		|-foreach from=$ministryObjectiveColl item=objective name=for_objectives-|
 			<tr>
-				<td>|-$objective->getName()-|</td>
 				<td>|-$objective->getImpactObjective()-|</td>
+				<td>|-$objective-|</td>
 				<td nowrap>
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="objectivesViewX" />

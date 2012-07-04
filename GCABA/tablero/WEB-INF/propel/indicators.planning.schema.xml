@@ -2,7 +2,7 @@
 
 	<table name="planning_indicator" phpName="PlanningIndicator" description="Indicators">
 		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
-		<column name="name" required="true" type="VARCHAR" size="180" description="Name"/>
+		<column name="name" required="true" type="VARCHAR" size="180" description="Name" primaryString="true" />
 
 		<column name="type" required="true" type="INTEGER" size="2" description="Tipo de Indicador"/>
 <!-- Indicadores Planeamiento -->
@@ -117,6 +117,23 @@
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="code" type="VARCHAR" size="50" description="Codigo de la unidad" primaryString="true" />
 		<column name="name" type="VARCHAR" size="255" required="true" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="planning_indicatorRelation" phpName="PlanningIndicatorRelation" description="Base de relaciones de entidades e indicadores">
+
+		<column name="indicatorId" required="true" primaryKey="true" type="INTEGER" />
+	  <column name="planningObjectType" type="VARCHAR" size="100" description="tipo de objeto asociado" primaryKey="true" />
+	  <column name="planningObjectId" type="INTEGER" description="id de objeto asociado" primaryKey="true"/>
+
+		<foreign-key foreignTable="planning_indicator" >
+			<reference local="indicatorId" foreign="id" />
+		</foreign-key>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>

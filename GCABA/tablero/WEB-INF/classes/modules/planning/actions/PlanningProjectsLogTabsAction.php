@@ -17,6 +17,9 @@ class PlanningProjectsLogTabsAction extends BaseEditAction {
 		$this->smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
 		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
 
+		$this->smarty->assign("ministryPriorities", PlanningProject::getMinistryPriorities());
+		$this->smarty->assign("priorities", PlanningProject::getPriorities());
+
 		$maxPerPage = ConfigModule::get("planning","logsPerPage");
 
 		if (!$this->entity->isNew())

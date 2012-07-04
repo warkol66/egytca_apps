@@ -76,7 +76,7 @@
     </p>
 	<p>
 		<label for="params_ministryPriority">Prioridad Ministerial</label>
-		<select id="params_ministryPriority" name="params[ministryPriority]" title="Prioridad Ministerial" |-$readonly|readonly-|>
+		<select id="params_ministryPriority" name="params[ministryPriority]" title="Prioridad Ministerial" |-$readonly|readonly-| |-if $show || $showLog-|disabled="disabled"|-/if-|>
 			<option value="">Seleccione prioridad</option>
 			|-foreach from=$ministryPriorities key=key item=name-|
 						<option value="|-$key-|" |-$planningProject->getMinistrypriority()|selected:$key-|>|-$name-|</option>
@@ -85,40 +85,41 @@
 	</p>
 	<p>
 		<label for="params_priority">Prioridad Jefatura</label>
-		<select id="params_priority" name="params[priority]" title="Prioridad Jefatura" |-$readonly|readonly-|>
+		<select id="params_priority" name="params[priority]" title="Prioridad Jefatura" |-$readonly|readonly-||-if $show || $showLog-|disabled="disabled"|-/if-| >
 			<option value="">Seleccione prioridad</option>
 			|-foreach from=$priorities key=key item=name-|
-						<option value="|-$key-|" |-$planningProject->getPriorities()|selected:$key-|>|-$name-|</option>
+						<option value="|-$key-|" |-$planningProject->getPriority()|selected:$key-|>|-$name-|</option>
 			|-/foreach-|
 		</select>
 	</p>
 	<p>
         <label for="params_communicable">Proyecto comunicable?</label>
       <input name="params[communicable]" type="checkbox" id="params_communicable" value="|-$planningProject->getCommunicable()-|" title="Proyecto comunicable" |-$readonly|readonly-|/>
+      <input name="params[communicable]" type="hidden" value="0"/>
     </p>
 	<p>
         <label for="params_appliedAmount">Presupuesto Solicitado</label>
-      <input name="params[appliedAmount]" type="text" id="params_appliedAmount" size="20" value="|-$planningProject->getAppliedAmount()-|" title="Presupuesto Solicitado " |-$readonly|readonly-|/>
+      <input name="params[appliedAmount]" type="text" id="params_appliedAmount" size="20" value="|-$planningProject->getAppliedAmount()|system_numeric_format:0-|" title="Presupuesto Solicitado " |-$readonly|readonly-|/>
     </p>
 	<p>
         <label for="params_managementAmount">Presupuesto Gestión</label>
-      <input name="params[managementAmount]" type="text" id="params_managementAmount" size="20" value="|-$planningProject->getManagementAmount()-|" title="Presupuesto Gestion " |-$readonly|readonly-|/>
+      <input name="params[managementAmount]" type="text" id="params_managementAmount" size="20" value="|-$planningProject->getManagementAmount()|system_numeric_format:0-|" title="Presupuesto Gestion " |-$readonly|readonly-|/>
     </p>
 	<p>
         <label for="params_raisedAmount">Presupuesto Elevado</label>
-      <input name="params[raisedAmount]" type="text" id="params_raisedAmount" size="20" value="|-$planningProject->getRaisedAmount()-|" title="Presupuesto Elevado " |-$readonly|readonly-|/>
+      <input name="params[raisedAmount]" type="text" id="params_raisedAmount" size="20" value="|-$planningProject->getRaisedAmount()|system_numeric_format:0-|" title="Presupuesto Elevado " |-$readonly|readonly-|/>
     </p>
 	<p>
         <label for="params_sanctionAmount">Presupuesto Sanción</label>
-      <input name="params[sanctionAmount]" type="text" id="params_sanctionAmount" size="20" value="|-$planningProject->getSanctionAmount()-|" title="Presupuesto Sancionado " |-$readonly|readonly-|/>
+      <input name="params[sanctionAmount]" type="text" id="params_sanctionAmount" size="20" value="|-$planningProject->getSanctionAmount()|system_numeric_format:0-|" title="Presupuesto Sancionado " |-$readonly|readonly-|/>
     </p>
 	<p>     
 		<label for="params_startingDate">Fecha de Inicio</label>
-		<input id="params_startingDate" name="params[startingDate]" type='text' value='|-$planningProject->getStartingDate()|date_format-|' size="12" title="Ingrese la fecha de Inicio"  |-$readonly|readonly-|/> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de inicio">
+		<input id="params_startingDate" name="params[startingDate]" type='text' value='|-$planningProject->getStartingDate()|date_format-|' size="12" title="Ingrese la fecha de Inicio"  |-$readonly|readonly-|/>|-if !$show && !$showLog-| <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de inicio">|-/if-|
 	</p>
 	<p>     
 		<label for="params_endingDate">Fecha de Finalización</label>
-		<input id="params_endingDate" name="params[endingDate]" type='text' value='|-$planningProject->getEndingDate()|date_format-|' size="12" title="Ingrese la fecha de Finalizacion"  |-$readonly|readonly-|/> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[endingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de finalizacion">
+		<input id="params_endingDate" name="params[endingDate]" type='text' value='|-$planningProject->getEndingDate()|date_format-|' size="12" title="Ingrese la fecha de Finalizacion"  |-$readonly|readonly-|/> |-if !$show && !$showLog-|<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[endingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de finalizacion">|-/if-|
 	</p>
 	  
 	  
@@ -131,7 +132,8 @@
 			|-if isset($loginUser) && $loginUser->isSupervisor() && !$planningProject->isNew()-|
 				<p>
 					<label for="changedBy">|-if $planningProject->getVersion() gt 1-|Modificado|-else-|Creado|-/if-| por:</label>
-					|-$planningProject->updatedBy()-| - |-$planningProject->getUpdatedAt()|change_timezone|dateTime_format-| </p>
+				<input type="text" id="changedBy" size="80" value="|-$planningProject->updatedBy()-| - |-$planningProject->getUpdatedAt()|change_timezone|dateTime_format-|" title="|-if $planningProject->getVersion() gt 1-|Modificado|-else-|Creado|-/if-| por:"  readonly="readonly"/>
+					 </p>
 			|-/if-|
     |-if !$planningProject->isNew()-|
     <input type="hidden" name="id" id="id" value="|-$planningProject->getId()-|" /> 

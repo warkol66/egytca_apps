@@ -32,6 +32,15 @@ class ImpactObjectiveLog extends BaseImpactObjectiveLog {
 	}
 
 	/**
+	 * Devuelve los indicadores asociados (PlanningIndicators)
+	 *
+	 * @return Coll indicadores asociados
+	 */
+	public function getPlanningIndicators() {
+		return BaseQuery::create("PlanningIndicatorRelation")->filterByPlanningobjecttype('ImpactObjective')->filterByPlanningobjectid($this->getImpactobjectiveid())->find();
+	}
+
+	/**
 	 * Obtiene todas las versiones de un asunto a partir de su objectiveId ordenados por instante de creación y paginados.
 	 *
 	 * @param int $issueId id del asunto.

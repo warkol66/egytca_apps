@@ -61,17 +61,13 @@ $("#autocomplete_responsibleCode").ajaxChosen({
       <label for="params_description">Resumen Narrativo </label>
       <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Objetivo Ministerial" |-$readonly|readonly-|>|-$ministryObjective->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
     </p> 
-     <p> 
-      <label for="params_indicators">Indicadores</label>
-      <input name="params[indicators]" type="text" id="params_indicators" title="Indicadores" value="TO DO" size="7" |-$readonly|readonly-|> 
-    </p> 
      <p>
         <label for="params_baseline">Línea de base</label>
       <input name="params[baseline]" type="text" id="params_baseline" size="15" value="|-$ministryObjective->getBaseline()-|" title="Nombre del Objetivo Ministerial" maxlength="10" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_baseline"-|
       </p> 
      <p>
         <label for="params_goalType">Tipo de Meta</label>
-      <select id="params_goalType" name="params[goalType]" title="Tipo de Meta" |-$readonly|readonly-|>
+      <select id="params_goalType" name="params[goalType]" title="Tipo de Meta" |-$readonly|readonly-| |-if $show || $showLog-|disabled="disabled"|-/if-|>
 				<option value="">Seleccione el tipo</option>
 				|-foreach from=$goalTypes key=key item=name-|
 							<option value="|-$key-|" |-$ministryObjective->getGoalType()|selected:$key-|>|-$name-|</option>
@@ -89,7 +85,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
       </p>  
      <p>
         <label for="params_goalTrend">Tendencia esperada</label>
-      <select id="params_goalTrend" name="params[goalTrend]" title="Tendencia esperada de la Meta" |-$readonly|readonly-|>
+      <select id="params_goalTrend" name="params[goalTrend]" title="Tendencia esperada de la Meta" |-$readonly|readonly-| |-if $show || $showLog-|disabled="disabled"|-/if-|>
 				<option value="">Seleccione el tipo</option>
 				|-foreach from=$goalTrends key=key item=name-|
 							<option value="|-$key-|" |-$ministryObjective->getGoalTrend()|selected:$key-|>|-$name-|</option>
@@ -108,7 +104,8 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 			|-if isset($loginUser) && $loginUser->isSupervisor() && !$ministryObjective->isNew()-|
 				<p>
 					<label for="changedBy">|-if $ministryObjective->getVersion() gt 1-|Modificado|-else-|Creado|-/if-| por:</label>
-					|-$ministryObjective->updatedBy()-| - |-$ministryObjective->getUpdatedAt()|change_timezone|dateTime_format-| </p>
+				<input type="text" id="changedBy" size="80" value="|-$ministryObjective->updatedBy()-| - |-$ministryObjective->getUpdatedAt()|change_timezone|dateTime_format-|" title="|-if $ministryObjective->getVersion() gt 1-|Modificado|-else-|Creado|-/if-| por:"  readonly="readonly"/>
+					 </p>
 			|-/if-|
     |-if !$ministryObjective->isNew()-|
     <input type="hidden" name="id" id="id" value="|-$ministryObjective->getId()-|" /> 
