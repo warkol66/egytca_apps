@@ -43,4 +43,28 @@ class PlanningConstruction extends BasePlanningConstruction {
 		return BaseQuery::create('MinistryObjectiveLog')->getAllByMinistryObjective($this->getId(), $orderType)->createPager($filters, $page, $maxPerPage);
 	}
 
+	/**
+	 * Devuelve true si el MinistryObjective tiene asociada la region,
+	 * y false caso contrario.
+	 * 
+	 * @param Region $region
+	 * @return boolean
+	 */
+	public function hasRegion($region) {
+		return PlanningConstructionRegionQuery::create()->filterByPlanningConstruction($this)->filterByRegion($region)->count() > 0;
+	}
+	/**
+	 * Devuelve array con posibles tipos de licitacion (tenderId)
+	 *  id => resultado esperado
+	 *
+	 * @return array resultados esperados
+	 */
+	public static function getTenderTypes() {
+		$tenderTypes = array(
+			1 => 'Licitacion Publica',
+			2 => 'Licitacion Privada',
+			3 => 'Otros'
+		);
+		return $tenderTypes;
+	}
 } // PlanningConstruction

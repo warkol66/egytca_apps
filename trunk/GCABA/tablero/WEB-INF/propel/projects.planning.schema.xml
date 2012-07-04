@@ -113,6 +113,34 @@
 	<table name="planning_construction" phpName="PlanningConstruction" description="Obras">
 		<column name="id" primaryKey="true" type="INTEGER" description="Id del proyecto" autoIncrement="true" />
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del proyecto" primaryString="true" />
+		
+		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
+		<column name="tenderId" type="INTEGER" description="Tipo de Licitacion"/>
+		<column name="tenderDescription" type="VARCHAR" description="Descripcion, Nro de licitacion, etc."/>
+		<column name="surface" type="DECIMAL" size="12" scale="2"  description="Superficie en Mtrs cuadrados"/>
+		<column name="priority" type="BOOLEAN" description="Es una obra Prioritaria?"/>
+		<column name="communicable" type="BOOLEAN" description="Es una obra Comunicable?"/>
+		
+		<column name="amount" type="DECIMAL" size="12" scale="2"  description="Presupuesto Total de la Obra"/>
+		<column name="appliedAmount" type="DECIMAL" size="12" scale="2"  description="Presupuesto Solicitado"/>
+		
+		<column name="managementAmount" type="DECIMAL" size="12" scale="2"  description="Presupuesto Gestion"/>
+		<column name="raisedAmount" type="DECIMAL" size="12" scale="2"  description="Presupuesto Elevado"/>
+		<column name="sanctionAmount" type="DECIMAL" size="12" scale="2"  description="Presupuesto Sancionado"/>
+		
+		<!--Partida presupuestaria-->
+		<column name="budgetJurisdiction" type="INTEGER" description="Jurisdiccion-OGESE"/>
+		<column name="budgetUnit" type="INTEGER" description="Unidad Ejecutora"/>
+		<column name="budgetProgram" type="INTEGER" description="Programa-Subprograma"/>
+		<column name="budgetProyect" type="INTEGER" description="Proyecto"/>
+		<column name="budgetActivity" type="INTEGER" description="Actividad"/>
+		<column name="budgetConstruction" type="INTEGER" description="Obra"/>
+		<!--Fin Partida presupuestaria-->
+		
+		<column name="fundingSource" required="true" type="VARCHAR" size="255" description="Fuente de Financiamiento"/>
+		<column name="address" required="true" type="VARCHAR" size="255" description="Fuente de Financiamiento"/>
+		
+		
 		<column name="description" type="LONGVARCHAR" description="Descripcion del proyecto"/>
 		<column name="planningProjectId" type="INTEGER" description="Id del Proyecto"/>
 		<column name="version" type="INTEGER" description="Numero de version" />
@@ -121,6 +149,9 @@
 
 		<foreign-key foreignTable="planning_project" >
 			<reference local="planningProjectId" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="positions_position" >
+			<reference local="responsibleCode" foreign="code" />
 		</foreign-key>
 
   	<behavior name="timestampable" />
@@ -136,10 +167,56 @@
 
 	</table>
 
+	<table name="planning_constructionRegion" phpName="ConstructionRegion" isCrossRef="true" description="Asociacion entre Regiones y Obras">
+		<column name="regionId" required="true" primaryKey="true" type="INTEGER" />
+		<column name="constructionId" required="true" primaryKey="true" type="INTEGER" />
+
+		<foreign-key foreignTable="regions_region" >
+			<reference local="regionId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="planning_construction" >
+			<reference local="constructionId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
 	<table name="planning_constructionLog" phpName="PlanningConstructionLog" description="Obras - Log">
 		<column name="id" primaryKey="true" type="INTEGER" description="Id del proyecto" autoIncrement="true" />
 		<column name="constructionId" type="INTEGER" description="Id de de la obra"/>
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del proyecto" primaryString="true" />
+		
+		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
+		<column name="tenderId" type="INTEGER" description="Tipo de Licitacion"/>
+		<column name="tenderDescription" type="VARCHAR" description="Descripcion, Nro de licitacion, etc."/>
+		<column name="surface" type="DECIMAL" size="12" scale="2"  description="Superficie en Mtrs cuadrados"/>
+		<column name="priority" type="BOOLEAN" description="Es una obra Prioritaria?"/>
+		<column name="communicable" type="BOOLEAN" description="Es una obra Comunicable?"/>
+		
+		<column name="amount" type="DECIMAL" size="12" scale="2"  description="Presupuesto Total de la Obra"/>
+		<column name="appliedAmount" type="DECIMAL" size="12" scale="2"  description="Presupuesto Solicitado"/>
+		
+		<column name="managementAmount" type="DECIMAL" size="12" scale="2"  description="Presupuesto Gestion"/>
+		<column name="raisedAmount" type="DECIMAL" size="12" scale="2"  description="Presupuesto Elevado"/>
+		<column name="sanctionAmount" type="DECIMAL" size="12" scale="2"  description="Presupuesto Sancionado"/>
+		
+		<!--Partida presupuestaria-->
+		<column name="budgetJurisdiction" type="INTEGER" description="Jurisdiccion-OGESE"/>
+		<column name="budgetUnit" type="INTEGER" description="Unidad Ejecutora"/>
+		<column name="budgetProgram" type="INTEGER" description="Programa-Subprograma"/>
+		<column name="budgetProyect" type="INTEGER" description="Proyecto"/>
+		<column name="budgetActivity" type="INTEGER" description="Actividad"/>
+		<column name="budgetConstruction" type="INTEGER" description="Obra"/>
+		<!--Fin Partida presupuestaria-->
+		
+		<column name="fundingSource" required="true" type="VARCHAR" size="255" description="Fuente de Financiamiento"/>
+		<column name="address" required="true" type="VARCHAR" size="255" description="Fuente de Financiamiento"/>
+		
+		
 		<column name="description" type="LONGVARCHAR" description="Descripcion del proyecto"/>
 		<column name="planningProjectId" type="INTEGER" description="Id del Proyecto"/>
 		<column name="version" type="INTEGER" description="Numero de version" />
@@ -148,6 +225,9 @@
 
 		<foreign-key foreignTable="planning_project" >
 			<reference local="planningProjectId" foreign="id" />
+		</foreign-key>
+		<foreign-key foreignTable="positions_position" >
+			<reference local="responsibleCode" foreign="code" />
 		</foreign-key>
 
 		<behavior name="timestampable" />

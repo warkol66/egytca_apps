@@ -1,3 +1,38 @@
+<link type="text/css" href="css/chosen.css" rel="stylesheet" />
+<script language="JavaScript" type="text/javascript" src="scripts/chosen.proto.js"></script>
+<!--<script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>-->
+<!--<script language="JavaScript" type="text/javascript" src="scripts/jquery/ajax-chosen.min.js"></script>-->
+<script type="text/javascript">
+document.observe("dom:loaded", function() {
+	new Chosen($("params_regions"));
+});
+
+/*	$(document).ready(function() {
+
+
+		$(".chzn-select").chosen();
+
+$("#autocomplete_responsibleCode").ajaxChosen({
+    method: 'GET',
+    url: 'Main.php?do=commonAutocompleteJQueryListX&object=position&objectParam=code',
+    dataType: 'json'
+}, function (data) {
+    var terms = {};
+
+    $.each(data, function (i, val) {
+        terms[i] = val;
+    });
+
+    return terms;
+});
+
+	})*/
+
+
+
+
+
+</script>
 |-if $message eq "ok"-|
 	<div class="successMessage">Obra guardado correctamente</div>
 |-elseif $message eq "error"-|
@@ -18,16 +53,96 @@
       <input name="params_planningProjectId" type="text" id="params_planningProjectId" size="80" value="|-$planningConstruction->getPlanningProject()-|" readonly="readonly" />
       </p>
 		|-/if-|
+		|-if !$show && !$showLog-|<div id="responsible" style="position: relative;z-index:11000;">
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_responsibleCode" label="Dependencia" url="Main.php?do=commonAutocompleteListX&object=position&objectParam=code" hiddenName="params[responsibleCode]" defaultHiddenValue=$planningConstruction->getResponsibleCode() defaultValue=$planningConstruction->getPosition()-|
+		</div>
+		|-else-|
+      <p>
+        <label for="params_responsibleCode">Dependencia</label>
+      <input name="params_responsibleCode" type="text" id="params_responsibleCode" size="80" value="|-$planningConstruction->getPosition()-|" readonly="readonly" />
+      </p>
+		|-/if-|
 		<p>
         <label for="params_name">Nombre</label>
       <input name="params[name]" type="text" id="params_name" size="80" value="|-$planningConstruction->getName()-|" title="Nombre del Obra" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
       </p>
     <p> 
-      <label for="params_description">Descripción</label>
+      <label for="params_description">Breve Descripción</label>
       <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Obra" |-$readonly|readonly-| >|-$planningConstruction->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
     </p> 
 
-	  
+	<p>
+		<label for="params_tenderId">Procedimiento de Contratación</label>
+		<select id="params_tenderId" name="params[tenderId]" title="Procedimiento de Contratación" |-$readonly|readonly-|>
+			<option value="">Seleccione tipo de licitación</option>
+			|-foreach from=$tenderTypes key=key item=name-|
+						<option value="|-$key-|" |-$planningConstruction->getTenderTypes()|selected:$key-|>|-$name-|</option>
+			|-/foreach-|
+		</select>
+	</p>
+	<p>
+        <label for="params_tenderDescription">Detalles de la licitación</label>
+      <input name="params[tenderDescription]" type="text" id="params_tenderDescription" size="80" value="|-$planningConstruction->getTenderDescription()-|" title="Detalles de la licitación" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
+    </p>
+	<p>
+        <label for="params_surface">Superfice (mts2)</label>
+      <input name="params[surface]" type="text" id="params_surface" size="20" value="|-$planningConstruction->getSurface()-|" title="Superficie" maxlength="20" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
+    </p>
+	<p>
+        <label for="params_priority">Prioridad?</label>
+      <input name="params[priority]" type="checkbox" id="params_priority" |-$planningConstruction->getPriority()|checked_bool-|  value="|-$planningConstruction->getPriority()-|" title="Prioridad" |-$readonly|readonly-|/>
+      <input name="params[priority]" type="hidden" value="0"/>
+    </p>
+	<p>
+        <label for="params_communicable">Comunicable?</label>
+      <input name="params[communicable]" type="checkbox" id="params_communicable" |-$planningConstruction->getCommunicable()|checked_bool-|  value="|-$planningConstruction->getCommunicable()-|" title="Comunicable" |-$readonly|readonly-|/>
+      <input name="params[communicable]" type="hidden" value="0"/>
+    </p>
+	<p>
+        <label for="params_amount">Presupuesto Total de la Obra</label>
+      <input name="params[amount]" type="text" id="params_amount" size="20" value="|-$planningConstruction->getAmount()-|" title="Presupuesto total de la Obra" maxlength="20" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
+    </p>
+	<p>
+        <label for="params_appliedAmount">Presupuesto Solicitado</label>
+      <input name="params[appliedAmount]" type="text" id="params_appliedAmount" size="20" value="|-$planningConstruction->getAppliedAmount()-|" title="Presupuesto Solicitado" maxlength="20" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
+    </p>
+	<p>
+        <label for="params_managementAmount">Presupuesto Gestión</label>
+      <input name="params[managementAmount]" type="text" id="params_managementAmount" size="20" value="|-$planningConstruction->getManagementAmount()-|" title="Presupuesto Gestion " |-$readonly|readonly-|/>
+    </p>
+	<p>
+        <label for="params_raisedAmount">Presupuesto Elevado</label>
+      <input name="params[raisedAmount]" type="text" id="params_raisedAmount" size="20" value="|-$planningConstruction->getRaisedAmount()-|" title="Presupuesto Elevado " |-$readonly|readonly-|/>
+    </p>
+	<p>
+        <label for="params_sanctionAmount">Presupuesto Sanción</label>
+      <input name="params[sanctionAmount]" type="text" id="params_sanctionAmount" size="20" value="|-$planningConstruction->getSanctionAmount()-|" title="Presupuesto Sancionado " |-$readonly|readonly-|/>
+    </p>
+	
+	 <p><label for="params_tprano">Partida presupuestaria</label>
+		<input name="params[budgetJurisdiction]"  id="params_budgetJurisdiction" type="text" value="|-$planningConstruction->getBudgetJurisdiction()|escape-|" size="4" title="Jurisdicción-OGESE">
+		<input name="params[budgetUnit]"  id="params_budgetUnit" type="text" value="|-$planningConstruction->getBudgetUnit()|escape-|" size="1" title="Unidad Ejecutora">
+		<input name="params[budgetProgram]"  id="params_budgetProgram" type="text" value="|-$planningConstruction->getBudgetProgram()|escape-|" size="3" title="Programa -Subprograma">
+		<input name="params[budgetProyect]"  id="params_budgetProyect" type="text" value="|-$planningConstruction->getBudgetProyect()|escape-|" size="3" title="Proyecto">
+		<input name="params[budgetActivity]"  id="params_budgetActivity" type="text" value="|-$planningConstruction->getBudgetActivity()|escape-|" size="2" title="Actividad">
+		<input name="params[budgetConstruction]"  id="params_budgetConstruction" type="text" value="|-$planningConstruction->getBudgetConstruction()|escape-|" size="2" title="Obra">
+	 </p>  
+	<p>
+        <label for="params_fundingSource">Fuente de Financiamiento</label>
+      <input name="params[fundingSource]" type="text" id="params_fundingSource" size="80" value="|-$planningConstruction->getFundingSource()-|" title="Fuente de Financiamiento" |-$readonly|readonly-|/>
+    </p>
+	<p>
+        <label for="params_address">Dirección</label>
+      <input name="params[address]" type="text" id="params_address" size="80" value="|-$planningConstruction->getAddress()-|" title="Dirección" |-$readonly|readonly-|/>
+    </p>
+	<p>
+		<label for="params_regions">Comunas</label>
+		<select class="chzn-select wide-chz-select" data-placeholder="Seleccione una o varias comunas..." multiple="multiple" id="params_regions" name="params[regionsIds][]" size="5" title="comunas" |-$readonly|readonly-|>
+		|-foreach from=$regions item=object-|
+			<option value="|-$object->getid()-|" |-$planningConstruction->hasRegion($object)|selected:true-|>|-$object->getname()-|</option>
+		|-/foreach-|
+		</select>
+	</p>
 			|-if isset($loginUser) && $loginUser->isSupervisor() && !$planningConstruction->isNew()-|
 				<p>
 					<label for="changedBy">|-if $planningConstruction->getVersion() gt 1-|Modificado|-else-|Creado|-/if-| por:</label>
