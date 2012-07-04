@@ -49,7 +49,13 @@ class ImpactObjective extends BaseImpactObjective {
 	 * @return Coll indicadores asociados
 	 */
 	public function getPlanningIndicators() {
-		return BaseQuery::create("PlanningIndicatorRelation")->filterByPlanningobjecttype('ImpactObjective')->filterByPlanningobjectid($this->getId())->find();
+		return PlanningIndicatorQuery::create()
+									->usePlanningIndicatorRelationQuery()
+										->filterByPlanningobjecttype('ImpactObjective')
+//										->filterByPlanningobjectid(7)
+										->filterByPlanningobjectid($this->getId())
+									->endUse()
+									->find();
 	}
 
 	/**

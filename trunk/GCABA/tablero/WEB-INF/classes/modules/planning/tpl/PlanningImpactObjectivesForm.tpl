@@ -1,14 +1,12 @@
 <script type="text/javascript" src="scripts/lightbox.js"></script>
-
+|-if !$show && !$showLog -|
 <div id="lightbox1" class="leightbox"> 
 	<p align="right">				
 		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a> 
 	</p> 
-	|-*include file="PlanningIndicatorsForm.tpl" do=planningIndicatorsDoEditX*-|
+	|-include file="PlanningIndicatorsEditInclude.tpl"-|
 </div>
-
-
-
+|-/if-|
 |-if $message eq "ok"-|
 	<div class="successMessage">Objetivo de Impacto guardado correctamente</div>
 |-elseif $message eq "error"-|
@@ -92,20 +90,21 @@
   </form> 
 	
 
-<!--
 
+|-if !$showLog && !$impactObjective->isNew()-|
 <fieldset title="Formulario de indicadores asociados al objetivo de impacto">
 	<legend>Indicadores asociados al Objetivo de Impacto</legend>
-    |-if $action neq 'showLog'-|
+|-if !$show && !$showLog -|
 	<p>Para asociar un indicador al objetivo de impacto, ingrese el nombre en la casilla. Si no está en el sistema puede <a href="#lightbox1" rel="lightbox1" class="lbOn addLink">Crear indicador</a></p>
 	<div id="indicatorMsgField"></div>
 	<form method="post" style="display:inline;">
 		<div id="contractSource" style="position: relative;z-index:10000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_indicators" label="Agregar indicador" url="Main.php?do=commonAutocompleteListX&object=planningIndicator&getCandidates=1&impactObjectiveId="|cat:$impactObjective->getId() hiddenName="indicatorId" disableSubmit="addIndicatorSubmit"-|
 		</div>
-	<p>	<input type="hidden" name="do" id="do" value="planningImpactObjectivesDoAddIndicatorX" />
-		<input type="hidden" name="contractId" id="contractId" value="|-$impactObjective->getId()-|" /> 
-    <input type="button" id="addIndicatorSubmit" disabled="disabled" name="addIndicatorSubmit" value="Agregar indicator al objetivo de impacto" title="Agregar indicator al objetivo de impacto" onClick="javascript:addIndicatorToImpactObjective(this.form)"/> </p>
+	<p>	<input type="hidden" name="do" id="do" value="planningObjectsDoAddIndicatorX" />
+			<input type="hidden" name="planningObjectType" value="ImpactObjective" /> 
+			<input type="hidden" name="planningObjectId" value="|-$impactObjective->getId()-|" /> 
+    <input type="button" id="addIndicatorSubmit" disabled="disabled" value="Agregar indicator al objetivo de impacto" title="Agregar indicator al objetivo de impacto" onClick="javascript:addIndicatorToImpactObjective(this.form)"/> </p>
 	</form>
     |-/if-|
   <div id="impactObjetivesIndicatorsList">
@@ -113,30 +112,30 @@
 			|-foreach from=$impactObjective->getPlanningIndicators() item=indicator-|
 			<li id="indicatorListItem|-$indicator->getId()-|" title="Indicador asociado al objetivo de impacto">
 						<form action="Main.php" method="post" style="display:inline;"> 
-							<input type="hidden" name="do" value="planningImpactObjectivesDoRemoveIndicatorX" /> 
+							<input type="hidden" name="do" value="planningObjectsDoRemoveIndicatorX" /> 
 							<input type="hidden" name="planningObjectType" value="ImpactObjective" /> 
 							<input type="hidden" name="planningObjectId" value="|-$impactObjective->getId()-|" /> 
 							<input type="hidden" name="indicatorId" value="|-$indicator->getId()-|" />
-							<input type="button" name="submit_go_remove_indicator" value="Borrar" title="Eliminar indicador de objetivo de impacto" onclick="if (confirm('Seguro que desea eliminar el indicator del objetivo de impacto?')) removeSourceFromContract(this.form);" class="icon iconDelete" /> 
+							<input type="button" name="submit_go_remove_indicator" value="Borrar" title="Eliminar indicador de objetivo de impacto" onclick="if (confirm('Seguro que desea eliminar el indicator del objetivo de impacto?')) removeIndicatorFromImpactObjective(this.form);" class="icon iconDelete" /> 
 						</form> |-$indicator-|
 			</li>
 			|-/foreach-|
 			</ul>    
 		</div> 
-</fieldset>-->
+</fieldset>
 <script type="text/javascript" language="javascript" charset="utf-8">
 	function addIndicatorToImpactObjective(form) {
 		var fields = Form.serialize(form);
 		var myAjax = new Ajax.Updater(
 					{success: 'indicatorList'},
-					'Main.php?do=planningImpactObjectivesDoAddIndicatorX',
+					'Main.php?do=planningObjectsDoAddIndicatorX',
 					{
 						method: 'post',
 						postBody: fields,
 						evalScripts: true,
 						insertion: Insertion.Bottom
 					});
-		$('indicatorMsgField').innerHTML = '<span class="inProgress">Agregando indicador al objetivo...</span>';
+			$('indicatorMsgField').innerHTML = '<span class="inProgress">Agregando indicador al objetivo...</span>';
 			$('autocomplete_indicators').value = '';
 			$('addIndicatorSubmit').disable();
 		return true;
@@ -146,14 +145,15 @@
 		var fields = Form.serialize(form);
 		var myAjax = new Ajax.Updater(
 					{success: 'indicatorMsgField'},
-					'Main.php?do=planningImpactObjectivesDoRemoveIndicatorX',
+					'Main.php?do=planningObjectsDoRemoveIndicatorX',
 					{
 						method: 'post',
 						postBody: fields,
 						evalScripts: true
 					});
-		$('sourceMsgField').innerHTML = '<span class="inProgress">Eliminando indicador...</span>';
+		$('indicatorMsgField').innerHTML = '<span class="inProgress">Eliminando indicador...</span>';
 		return true;
 	}
 
 </script>
+|-/if-|
