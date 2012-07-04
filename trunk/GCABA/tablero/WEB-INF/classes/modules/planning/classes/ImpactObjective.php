@@ -44,6 +44,15 @@ class ImpactObjective extends BaseImpactObjective {
 	}
 
 	/**
+	 * Devuelve los indicadores asociados (PlanningIndicators)
+	 *
+	 * @return Coll indicadores asociados
+	 */
+	public function getPlanningIndicators() {
+		return BaseQuery::create("PlanningIndicatorRelation")->filterByPlanningobjecttype('ImpactObjective')->filterByPlanningobjectid($this->getId())->find();
+	}
+
+	/**
 	 * Devuelve array con posibles ejes de gestion (PolicyGuidelines)
 	 *  id => ejes de gestion
 	 *

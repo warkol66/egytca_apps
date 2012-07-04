@@ -4,7 +4,7 @@
 	<div class="failureMessage">Ha ocurrido un error al intentar Indicador</div>
 |-/if-|
 |-if !$show && !$showLog-||-include file="CommonAutocompleterInclude.tpl"-||-/if-|
-  <form name="form_edit_project" id="form_edit_project" action="Main.php" method="post">
+  <form name="form_edit_project" id="form_edit_indicator" action="Main.php" method="post">
 		<!--pasaje de parametros de filtros -->
 
     <fieldset title="Formulario de datos de Indicador">
@@ -33,9 +33,10 @@
 		|-if !$show && !$showLog-|<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 		|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
     <input type="hidden" name="currentPage" id="currentPage" value="|-$currentPage-|" /> 
-    <input type="hidden" name="do" id="do" value="planningIndicatorsDoEdit" /> 
+    |-if $do-|<input type="hidden" name="do" id="do" value="|-$do-|" /> |-else-|<input type="hidden" name="do" id="do" value="planningIndicatorsDoEdit" />|-/if-| 
 		<p>|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
 	<input type='button' onClick='location.href="Main.php?do=planningIndicatorsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Indicadores"/>
 		</p>|-/if-|
     </fieldset> 
   </form> 
+	
