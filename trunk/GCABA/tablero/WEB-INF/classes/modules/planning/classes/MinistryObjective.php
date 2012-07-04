@@ -68,6 +68,12 @@ class MinistryObjective extends BaseMinistryObjective {
 		);
 		return $policyGuidelines;
 	}
+	/**
+	 * Devuelve array con posibles tipos de Meta
+	 *  id => tipo de meta
+	 *
+	 * @return array tipos de Meta
+	 */
 	public static function getGoalTypes() {
 		$goalTypes = array(
 			1 => 'Cualitativa',
@@ -75,6 +81,12 @@ class MinistryObjective extends BaseMinistryObjective {
 		);
 		return $goalTypes;
 	}
+	/**
+	 * Devuelve array con posibles tendencias de Meta
+	 *  id => tendencias de meta
+	 *
+	 * @return array Tendencias de Meta
+	 */
 	public static function getGoalTrends() {
 		$goalTrends = array(
 			1 => 'Ascendente',

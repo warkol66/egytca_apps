@@ -35,6 +35,10 @@
       <label for="params_description">Descripción</label>
       <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Proyecto" |-$readonly|readonly-| >|-$planningProject->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
     </p> 
+      <p>
+        <label for="params_code">Código de identificación</label>
+      <input name="params_code" type="text" id="params_code" size="20" value="|-$planningProject->getCode()-|" |-$readonly|readonly-|  title="Codigo de Identificación: 00.00.00.00"/>
+      </p>
 	<p>
         <label for="params_goalProduct">Meta Producto</label>
       <input name="params[goalProduct]" type="text" id="params_goalProduct" size="80" value="|-$planningProject->getGoalProduct()-|" title="Meta producto" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
@@ -45,23 +49,25 @@
     </p>
 	<p>
         <label for="params_investment">Proyecto de inversión?</label>
-      <input name="params[investment]" type="checkbox" id="params_investment" value="|-$planningProject->getInvestment()-|" title="Proyecto de Inversion"/>
+      <input name="params[investment]" type="checkbox" id="params_investment" |-$planningProject->getInvestment()|checked_bool-|  value="|-$planningProject->getInvestment()-|" title="Proyecto de Inversion" |-$readonly|readonly-|/>
+      <input name="params[investment]" type="hidden" value="0"/>
     </p>
 	<p>
         <label for="params_preexisting">Proyecto preexistente?</label>
-      <input name="params[preexisting]" type="checkbox" id="params_preexisting" value="|-$planningProject->getPreexisting()-|" title="Proyecto preexistente"/>
+      <input name="params[preexisting]" type="checkbox" id="params_preexisting" |-$planningProject->getPreexisting()|checked_bool-|  value="|-$planningProject->getPreexisting()-|" title="Proyecto preexistente" |-$readonly|readonly-|/>
+      <input name="params[preexisting]" type="hidden" value="0"/>
     </p>
 	<p>
         <label for="params_preexistingCode">Codigo de Proyecto preexistente</label>
-      <input name="params[preexistingCode]" type="text" id="params_preexistingCode" size="80" value="|-$planningProject->getPreexistingCode()-|" title="Codigo preexistente" maxlength="255"/>
+      <input name="params[preexistingCode]" type="text" id="params_preexistingCode" size="20" value="|-$planningProject->getPreexistingCode()-|" title="Codigo preexistente" maxlength="255" |-$readonly|readonly-|/>
     </p>
 	<p>
         <label for="params_preexistingSigafCode">Apertura prog. Proyecto preexistente</label>
-      <input name="params[preexistingSigafCode]" type="text" id="params_preexistingSigafCode" size="80" value="|-$planningProject->getPreexistingSigafCode()-|" title="Apertura Programatica y Objeto del gasto Proyecto Preexistente" maxlength="255"/>
+      <input name="params[preexistingSigafCode]" type="text" id="params_preexistingSigafCode" size="20" value="|-$planningProject->getPreexistingSigafCode()-|" title="Apertura Programatica y Objeto del gasto Proyecto Preexistente" maxlength="255" |-$readonly|readonly-|/>
     </p>
 	<p>
 		<label for="params_ministryPriority">Prioridad Ministerial</label>
-		<select id="params_ministryPriority" name="params[ministryPriority]" title="Prioridad Ministerial">
+		<select id="params_ministryPriority" name="params[ministryPriority]" title="Prioridad Ministerial" |-$readonly|readonly-|>
 			<option value="">Seleccione prioridad</option>
 			|-foreach from=$ministryPriorities key=key item=name-|
 						<option value="|-$key-|" |-$planningProject->getMinistrypriority()|selected:$key-|>|-$name-|</option>
@@ -70,7 +76,7 @@
 	</p>
 	<p>
 		<label for="params_priority">Prioridad Jefatura</label>
-		<select id="params_priority" name="params[priority]" title="Prioridad Jefatura">
+		<select id="params_priority" name="params[priority]" title="Prioridad Jefatura" |-$readonly|readonly-|>
 			<option value="">Seleccione prioridad</option>
 			|-foreach from=$priorities key=key item=name-|
 						<option value="|-$key-|" |-$planningProject->getPriorities()|selected:$key-|>|-$name-|</option>
@@ -79,31 +85,31 @@
 	</p>
 	<p>
         <label for="params_communicable">Proyecto comunicable?</label>
-      <input name="params[communicable]" type="checkbox" id="params_communicable" value="|-$planningProject->getCommunicable()-|" title="Proyecto comunicable"/>
+      <input name="params[communicable]" type="checkbox" id="params_communicable" value="|-$planningProject->getCommunicable()-|" title="Proyecto comunicable" |-$readonly|readonly-|/>
     </p>
 	<p>
         <label for="params_appliedAmount">Presupuesto Solicitado</label>
-      <input name="params[appliedAmount]" type="text" id="params_appliedAmount" size="80" value="|-$planningProject->getAppliedAmount()-|" title="Presupuesto Solicitado "/>
+      <input name="params[appliedAmount]" type="text" id="params_appliedAmount" size="20" value="|-$planningProject->getAppliedAmount()-|" title="Presupuesto Solicitado " |-$readonly|readonly-|/>
     </p>
 	<p>
         <label for="params_managementAmount">Presupuesto Gestión</label>
-      <input name="params[managementAmount]" type="text" id="params_managementAmount" size="80" value="|-$planningProject->getManagementAmount()-|" title="Presupuesto Gestion "/>
+      <input name="params[managementAmount]" type="text" id="params_managementAmount" size="20" value="|-$planningProject->getManagementAmount()-|" title="Presupuesto Gestion " |-$readonly|readonly-|/>
     </p>
 	<p>
         <label for="params_raisedAmount">Presupuesto Elevado</label>
-      <input name="params[raisedAmount]" type="text" id="params_raisedAmount" size="80" value="|-$planningProject->getRaisedAmount()-|" title="Presupuesto Elevado "/>
+      <input name="params[raisedAmount]" type="text" id="params_raisedAmount" size="20" value="|-$planningProject->getRaisedAmount()-|" title="Presupuesto Elevado " |-$readonly|readonly-|/>
     </p>
 	<p>
         <label for="params_sanctionAmount">Presupuesto Sanción</label>
-      <input name="params[sanctionAmount]" type="text" id="params_sanctionAmount" size="80" value="|-$planningProject->getSanctionAmount()-|" title="Presupuesto Sancionado "/>
+      <input name="params[sanctionAmount]" type="text" id="params_sanctionAmount" size="20" value="|-$planningProject->getSanctionAmount()-|" title="Presupuesto Sancionado " |-$readonly|readonly-|/>
     </p>
 	<p>     
 		<label for="params_startingDate">Fecha de Inicio</label>
-		<input id="params_startingDate" name="params[startingDate]" type='text' value='|-$planningProject->getStartingDate()|date_format-|' size="12" title="Ingrese la fecha de Inicio" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de inicio">
+		<input id="params_startingDate" name="params[startingDate]" type='text' value='|-$planningProject->getStartingDate()|date_format-|' size="12" title="Ingrese la fecha de Inicio"  |-$readonly|readonly-|/> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de inicio">
 	</p>
 	<p>     
 		<label for="params_endingDate">Fecha de Finalización</label>
-		<input id="params_endingDate" name="params[endingDate]" type='text' value='|-$planningProject->getEndingDate()|date_format-|' size="12" title="Ingrese la fecha de Finalizacion" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[endingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de finalizacion">
+		<input id="params_endingDate" name="params[endingDate]" type='text' value='|-$planningProject->getEndingDate()|date_format-|' size="12" title="Ingrese la fecha de Finalizacion"  |-$readonly|readonly-|/> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[endingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de finalizacion">
 	</p>
 	  
 	  

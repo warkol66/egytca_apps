@@ -66,10 +66,13 @@ class ImpactObjective extends BaseImpactObjective {
 	 */
 	public static function getExpectedResults() {
 		$expectedResults = array(
-			1 => 'Incremento',
-			2 => 'Descenso',
-			3 => 'Aceleración',
-			4 => 'Desaceleración'
+			1 => 'Incrementar',
+			2 => 'Descender',
+			3 => 'Acelerar',
+			4 => 'Desacelerar',
+			5 => 'Sostener',
+			6 => 'Conservar',
+			7 => 'Mantener'
 		);
 		return $expectedResults;
 	}
