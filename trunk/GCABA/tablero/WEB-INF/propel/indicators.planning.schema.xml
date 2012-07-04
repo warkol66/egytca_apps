@@ -1,21 +1,49 @@
 <database defaultIdMethod="native" package="planning.classes" name="application">
 
-	<table name="planning_indicator" phpName='Indicator' description="Indicators">
+	<table name="planning_indicator" phpName="PlanningIndicator" description="Indicators">
 		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
 		<column name="name" required="true" type="VARCHAR" size="180" description="Name"/>
+
 		<column name="type" required="true" type="INTEGER" size="2" description="Tipo de Indicador"/>
+<!-- Indicadores Planeamiento -->
+		<column name="description" type="LONGVARCHAR" description="Descripcion del indicador"/>
+		<column name="formula" type="LONGVARCHAR" description="Formula del indicador"/>
+		<column name="dataSources" type="LONGVARCHAR" description="Fuente de datos del indicador"/>
+		<column name="measureFrecuency" required="true" type="VARCHAR" size="100" description="Frecuencia de medicion"/>
+		<column name="dataResponsible" required="true" type="VARCHAR" size="180" description="Responsable de los datos"/>
+
+		<column name="expectedResults" type="INTEGER" size="1" description="Resultados esperados: 1)incremento, 2)descenso, 3)aceleracion, 4)desaceleracion."/>
+
+		<column name="realValue" type="FLOAT" description="Valor real"/>
+		<column name="measureTaken" type="BOOLEAN" sqlType="BOOL" default="false" description="Se debera consignar si se ha realizado o no la medicion" />
+		<column name="updated" type="DATE" description="Fecha de actualizacion" />
+
+<!-- Indicadores Efecto Directo y Producto -->
+		<column name="goal2013" type="FLOAT" description="Es la magnitud del resultado esperado para 2013"/>
+		<column name="goalType" type="INTEGER" size="1" description="Tipo de meta. 1)cualitativa y 2)cuantitativa"/>
+		<column name="value" type="FLOAT" description="Cantidad"/>
+		<column name="measureUnitId" type="INTEGER" size="3" description="Unidad de medida"/>
+		<column name="trend" type="INTEGER" size="1" description="Tendencia esperada de la meta. 1)ascendente y 2)descendente"/>
+<!-- /Indicadores Efecto Directo y Producto -->
+
+<!-- /Indicadores Planeamiento -->
+
 		<column name="graphType" required="true" type="INTEGER" size="2" description="Tipo de Grafico"/>
 		<column name="decimals" type="INTEGER" size="2" description="Numero de decimales"/>
 		<column name="valueType" type="INTEGER" size="2" description="Tipo de valor"/>
 		<column name="showValue" type="INTEGER" size="2" description="Tipo de valor"/>
 		<column name="labelX" type="VARCHAR" size="100" description="Etiqueta eje X"/>
-		<column name="labelY" type="VARCHAR" size="100" description="Etiqueta eje X"/>	
+		<column name="labelY" type="VARCHAR" size="100" description="Etiqueta eje X"/>
 		<column name="minX" type="INTEGER" size="2" description="Menor valor X"/>
 		<column name="maxX" type="INTEGER" size="2" description="Maximo valor X"/>
 		<column name="minY" type="INTEGER" size="2" description="Menor valor Y"/>
 		<column name="maxY" type="INTEGER" size="2" description="Maximo valor Y"/>
 		<column name="source" type="LONGVARCHAR" description="Fuente"/>
 
+		<foreign-key foreignTable="planning_measureUnit" >
+			<reference local="measureUnitId" foreign="id" />
+		</foreign-key>
+
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
@@ -23,16 +51,16 @@
 
 	</table>
 
-	<table name="planning_indicatorSerie" phpName='IndicatorSerie' description="Series">
+	<table name="planning_indicatorSerie" phpName="PlanningIndicatorSerie" description="Series">
 		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
 		<column name="indicatorId" type="INTEGER" size="4" description="Id Indicador"/>
 		<column name="name" required="true" type="VARCHAR" size="100" description="Name"/>
 		<column name="order" type="INTEGER" size="4" description="Orden"/>
 		<column name="color" type="VARCHAR" size="100" description="Name"/>
 
-	  <foreign-key foreignTable="planning_indicator" >
-	    <reference local="indicatorId" foreign="id" />
-	  </foreign-key>
+		<foreign-key foreignTable="planning_indicator" >
+			<reference local="indicatorId" foreign="id" />
+		</foreign-key>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
@@ -41,7 +69,7 @@
 
 	</table>
 
-	<table name="planning_indicatorX" phpName='IndicatorX' description="Valores del eje x">
+	<table name="planning_indicatorX" phpName="PlanningIndicatorX" description="Valores del eje x">
 		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
 		<column name="indicatorId" type="INTEGER" size="4" description="Id Indicador"/>
 		<column name="name" required="true" type="VARCHAR" size="100" description="Name"/>
@@ -49,9 +77,9 @@
 		<column name="color" type="VARCHAR" size="100" description="Name"/>
 		<column name="oldId" required="true" type="INTEGER" size="5" description="Old Id"/>
 
-	  <foreign-key foreignTable="planning_indicator" >
-	    <reference local="indicatorId" foreign="id" />
-	  </foreign-key>
+		<foreign-key foreignTable="planning_indicator" >
+			<reference local="indicatorId" foreign="id" />
+		</foreign-key>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
@@ -60,7 +88,7 @@
 
 	</table>
 
-	<table name="planning_indicatorY" phpName='IndicatorY' description="Valores del eje Y">
+	<table name="planning_indicatorY" phpName="PlanningIndicatorY" description="Valores del eje Y">
 		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
 		<column name="serieId" type="INTEGER" size="4" description="Id Serie"/>
 		<column name="xId" type="INTEGER" size="4" description="Id de coordenada x"/>
@@ -69,13 +97,26 @@
 		<column name="color" type="VARCHAR" size="100" description="Name"/>
 		<column name="oldId" required="true" type="INTEGER" size="5" description="Old Id"/>
 
-	  <foreign-key foreignTable="planning_indicatorSerie" >
-	    <reference local="serieId" foreign="id" />
-	  </foreign-key>
+		<foreign-key foreignTable="planning_indicatorSerie" >
+			<reference local="serieId" foreign="id" />
+		</foreign-key>
 
-	  <foreign-key foreignTable="planning_indicatorX" >
-	    <reference local="xId" foreign="id" />
-	  </foreign-key>
+		<foreign-key foreignTable="planning_indicatorX" >
+			<reference local="xId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="planning_measureUnit" phpName="PlanningMeasureUnit" description="Base de datos de unidades de medida">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="code" type="VARCHAR" size="50" description="Codigo de la unidad" primaryString="true" />
+		<column name="name" type="VARCHAR" size="255" required="true" />
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
