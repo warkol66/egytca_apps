@@ -24,8 +24,10 @@
 				<li><a href="Main.php?do=planningProjectsList">Proyectos</a></li>
 				<li><a href="Main.php?do=planningConstructionsList">Obras</a></li>
 				<li class="last"><a href="Main.php?do=planningActvitiesList">Actividades e Hitos</a></li>
-			</ul></li>
+			</ul>
 		</li>
+			<li><a href="Main.php?do=planningIndicatorsList">Indicadores</a>
+			</li>
 		|-if $loginUser->isAdmin() || $loginUser->isSupervisor()-|		
 			<li><a href="javascript:void(null)" class="sub">Organización</a>
 			  <ul class="menu">
@@ -48,6 +50,7 @@
 		<li><a href="javascript:void(null)" class="sub">Configuración</a>
 			<ul>
 				<li><a href="Main.php?do=commonConfigSet">Configurar Sistema</a></li>
+				<li><a href="Main.php?do=planningMeasureUnitsList">Unidades de Medida</a></li>
 				<li class="last"><a href="Main.php?do=commonConfigEdit">Editar Configuración</a></li>
 			</ul></li>
 |-/if-|		
