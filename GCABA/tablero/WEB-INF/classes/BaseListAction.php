@@ -30,15 +30,21 @@ class BaseListAction extends BaseAction {
 
 		if (class_exists($this->entityClassName)) {
 
-			$smarty->assign("moduleConfig", Common::getModuleConfiguration($this->module));
-
-			$perPage = Common::getRowsPerPage($this->module);
-			$page = $request->getParameter("page");
-
-			$pager = BaseQuery::create($this->entityClassName)->createPager($filters, $page, $perPage);
+			if (!$this->notPaginated) {
 	
-			$smarty->assign(lcfirst($this->entityClassName) . "Coll", $pager->getResults());
-			$smarty->assign("pager",$pager);
+				$smarty->assign("moduleConfig", Common::getModuleConfiguration($this->module));
+	
+				$perPage = Common::getRowsPerPage($this->module);
+				$page = $request->getParameter("page");
+	
+				$pager = BaseQuery::create($this->entityClassName)->createPager($filters, $page, $perPage);
+		
+				$smarty->assign(lcfirst($this->entityClassName) . "Coll", $pager->getResults());
+				$smarty->assign("pager",$pager);
+			}
+			else
+				$smarty->assign(lcfirst($this->entityClassName) . "Coll", BaseQuery::create($this->entityClassName)->addFilters($filters)->find());
+
 			$smarty->assign("filters", $filters);
 			$url = "Main.php?" . "do=" . lcfirst(substr_replace(get_class($this),'', strrpos(get_class($this), 'Action'), 6));
 			foreach ($filters as $key => $value)
