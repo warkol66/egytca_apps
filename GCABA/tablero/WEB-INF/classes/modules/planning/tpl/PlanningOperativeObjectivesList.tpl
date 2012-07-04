@@ -38,9 +38,9 @@
 				 <th colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningOperativeObjectivesEdit" class="addLink">Agregar Objetivo Operativo</a></div></th>
 			</tr>
 			<tr class="thFillTitle">
-			<th width="5%" class="thFillTitle">Id</th>
-				<th width="25%">Objetivo Operativo</th>
-				<th width="4%">&nbsp;</th>
+				<th width="45%">Objetivo Ministerial</th>
+				<th width="50%">Objetivo Operativo</th>
+				<th width="5%">&nbsp;</th>
 			</tr>
 		</thead>
 		<tbody>|-if $operativeObjectiveColl|@count eq 0-|
@@ -50,7 +50,7 @@
 			|-else-|
 		|-foreach from=$operativeObjectiveColl item=objective name=for_objectives-|
 			<tr>
-				<td>|-$objective->getId()-|</td>
+				<td>|-$objective->getMinistryObjective()-|</td>
 				<td>|-$objective->getName()-|</td>
 				<td nowrap>
 					<form action="Main.php" method="get" style="display:inline;">
@@ -71,7 +71,7 @@
 					</form>
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="planningProjectsEdit" />
-						<input type="hidden" name="fromObjectiveId" value="|-$objective->getid()-|" />
+						<input type="hidden" name="fromOperativeObjectiveId" value="|-$objective->getid()-|" />
 						<input type="submit" name="submit_go_edit_project" value="Agregar Proyectos" class="icon iconAdd" title="Agregar proyectos al Objetivo Operativo" />
 					</form>			
 					</td>
@@ -80,7 +80,7 @@
 		|-/if-|					
 		|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
-			<td colspan="5" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
+			<td colspan="3" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 			<tr>

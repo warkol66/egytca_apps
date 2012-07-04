@@ -8,6 +8,7 @@
 		<!--pasaje de parametros de filtros -->
     <fieldset title="Formulario de datos de Objetivo Operativo">
      <legend>Objetivo Operativo|-if $startingYear eq $endingYear-| - |-$startingYear-||-else-| (|-$startingYear-| - |-$endingYear-|)|-/if-|</legend>
+		|-if !$fromMinistryObjectiveId-|
 		|-if $readonly neq "readonly"-|<div id="MinistryObjective" style="position: relative;z-index:11100;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_ministryObjectiveId" label="Objetivo Ministerial" url="Main.php?do=commonAutocompleteListX&object=MinistryObjective&objectParam=id" hiddenName="params[ministryObjectiveId]" defaultHiddenValue=$operativeObjective->getministryObjectiveId() defaultValue=$operativeObjective->getMinistryObjective()-|
 		</div>
@@ -17,6 +18,15 @@
       <input name="params_ministryObjectiveId" type="text" id="params_ministryObjectiveId" size="80" value="|-$operativeObjective->getMinistryObjective()-|" readonly="readonly" />
       </p>
 		|-/if-|
+		|-else-|
+      <p>
+        <label for="params_ministryObjectiveId">Objetivo Operativo</label>
+      <input name="params_ministryObjectiveId" type="text" size="80" value="|-$ministryObjective-|" readonly="readonly" />
+      <input name="params[ministryObjectiveId]" type="hidden" value="|-$fromMinistryObjectiveId-|" />
+      <input name="fromMinistryObjectiveId" type="hidden" value="|-$fromMinistryObjectiveId-|" />
+      </p>
+		|-/if-|
+
 		|-if !$show && !$showLog-|<div id="responsible" style="position: relative;z-index:11000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_responsibleCode" label="Dependencia" url="Main.php?do=commonAutocompleteListX&object=position&objectParam=code" hiddenName="params[responsibleCode]" defaultHiddenValue=$operativeObjective->getResponsibleCode() defaultValue=$operativeObjective->getPosition()-|
 		</div>
@@ -79,6 +89,7 @@
     <input type="hidden" name="currentPage" id="currentPage" value="|-$currentPage-|" /> 
     <input type="hidden" name="do" id="do" value="planningOperativeObjectivesDoEdit" /> 
 		<p>|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
+		|-if $fromMinistryObjectiveId-|	<input type='button' onClick='location.href="Main.php?do=planningOperativeObjectivesEdit&fromMinistryObjectiveId=|-$fromMinistryObjectiveId-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Agregar otro objetivo operativo' title="Agregar otro objetivo operativo al objetivo ministerial"/>|-/if-|
 	<input type='button' onClick='location.href="Main.php?do=planningOperativeObjectivesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Objetivos Operativos"/>
 		</p>|-/if-|
     </fieldset> 

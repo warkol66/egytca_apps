@@ -14,5 +14,14 @@ class PlanningOperativeObjectivesEditAction extends BaseEditAction {
 		$this->smarty->assign("populationGenders", OperativeObjective::getPopulationGender());
 		$this->smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
 		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
+
+		if (isset($_GET["fromMinistryObjectiveId"])) {
+			$ministryObjective = BaseQuery::create("MinistryObjective")->findOneById($_GET["fromMinistryObjectiveId"]);
+			if (!empty($ministryObjective)) {
+				$this->smarty->assign("ministryObjective", $ministryObjective);
+				$this->smarty->assign("fromMinistryObjectiveId", $_GET["fromMinistryObjectiveId"]);
+			}
+		}
+
 	}
 }
