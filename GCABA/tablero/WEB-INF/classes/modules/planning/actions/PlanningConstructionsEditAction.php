@@ -12,5 +12,6 @@ class PlanningConstructionsEditAction extends BaseEditAction {
 		parent::postEdit();
 		$this->smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
 		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
+		$this->smarty->assign("tenderTypes", PlanningConstruction::getTenderTypes());
 	}
 }
