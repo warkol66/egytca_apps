@@ -6,9 +6,9 @@
 |-if !$show && !$showLog-||-include file="CommonAutocompleterInclude.tpl"-||-/if-|
   <form name="form_edit_project" id="form_edit_project" action="Main.php" method="post">
 		<!--pasaje de parametros de filtros -->
-
     <fieldset title="Formulario de datos de Proyecto">
      <legend>Proyecto|-if $startingYear eq $endingYear-| - |-$startingYear-||-else-| (|-$startingYear-| - |-$endingYear-|)|-/if-|</legend>
+		|-if !$fromOperativeObjectiveId-|
 		|-if $readonly neq "readonly"-|<div id="operativeObjective" style="position: relative;z-index:11100;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_operativeObjectiveId" label="Objetivo Operativo" url="Main.php?do=commonAutocompleteListX&object=OperativeObjective&objectParam=id" hiddenName="params[operativeObjectiveId]" defaultHiddenValue=$planningProject->getOperativeObjectiveId() defaultValue=$planningProject->getOperativeObjective()-|
 		</div>
@@ -18,6 +18,15 @@
       <input name="params_operativeObjectiveId" type="text" id="params_operativeObjectiveId" size="80" value="|-$planningProject->getOperativeObjective()-|" readonly="readonly" />
       </p>
 		|-/if-|
+		|-else-|
+      <p>
+        <label for="params_operativeObjectiveId">Objetivo Operativo</label>
+      <input name="params_operativeObjectiveId" type="text" size="80" value="|-$operativeObjective-|" readonly="readonly" />
+      <input name="params[operativeObjectiveId]" type="hidden" value="|-$fromOperativeObjectiveId-|" />
+      <input name="fromOperativeObjectiveId" type="hidden" value="|-$fromOperativeObjectiveId-|" />
+      </p>
+		|-/if-|
+
 		|-if !$show && !$showLog-|<div id="responsible" style="position: relative;z-index:11000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_responsibleCode" label="Dependencia" url="Main.php?do=commonAutocompleteListX&object=position&objectParam=code" hiddenName="params[responsibleCode]" defaultHiddenValue=$planningProject->getResponsibleCode() defaultValue=$planningProject->getPosition()-|
 		</div>
@@ -134,6 +143,8 @@
     <input type="hidden" name="currentPage" id="currentPage" value="|-$currentPage-|" /> 
     <input type="hidden" name="do" id="do" value="planningProjectsDoEdit" /> 
 		<p>|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
+		|-if $fromOperativeObjectiveId-|	<input type='button' onClick='location.href="Main.php?do=planningProjectsEdit&fromOperativeObjectiveId=|-$fromOperativeObjectiveId-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Agregar otro proyecto' title="Agregar otro proyecto al objetivo operativo"/>|-/if-|
+
 	<input type='button' onClick='location.href="Main.php?do=planningProjectsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Proyectos"/>
 		</p>|-/if-|
     </fieldset> 
