@@ -1,21 +1,21 @@
 <?php
 /**
- * PlanningMeasureUnitsListAction
+ * CommonMeasureUnitsListAction
  *
  * Listado de Unidades de Medida basado en BaseListAction
  */
 require_once 'BaseListAction.php';
 
-class PlanningMeasureUnitsListAction extends BaseListAction {
+class CommonMeasureUnitsListAction extends BaseListAction {
 
 	function __construct() {
-		parent::__construct('PlanningMeasureUnit');
+		parent::__construct('MeasureUnit');
 	}
 	protected function preList() {
 		parent::preList();
 
 		$this->notPaginated = true;
-		$this->module = "Planning";
+		$this->module = "Common";
 	}
 
 	protected function postList() {

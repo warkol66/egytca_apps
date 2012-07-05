@@ -41,7 +41,8 @@
     <p> 
       <label for="params_description">Descripción</label>
       <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Indicador" |-$readonly|readonly-| >|-$planningIndicator->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
-    </p>			<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
+    </p>			
+		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 			<p>
 				<input type="hidden" name="do" id="do" value="planningIndicatorsDoEditX" />
 				<input type="button" id="button_edit_indicator" name="button_edit_indicator" title="Aceptar" value="Agregar nuevo" onClick="javascript:createIndicatorAfterValidateFormClienSide(this.form)"/>

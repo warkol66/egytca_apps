@@ -52,7 +52,6 @@ class ImpactObjective extends BaseImpactObjective {
 		return PlanningIndicatorQuery::create()
 									->usePlanningIndicatorRelationQuery()
 										->filterByPlanningobjecttype('ImpactObjective')
-//										->filterByPlanningobjectid(7)
 										->filterByPlanningobjectid($this->getId())
 									->endUse()
 									->find();

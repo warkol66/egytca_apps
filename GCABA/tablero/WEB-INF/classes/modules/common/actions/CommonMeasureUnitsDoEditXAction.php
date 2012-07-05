@@ -1,15 +1,15 @@
 <?php
 /**
- * PlanningMeasureUnitsDoEditXAction
+ * CommonMeasureUnitsDoEditXAction
  *
  * Guarda Unidades de Medida basado en BaseDoEditAction
  */
 /* require_once 'BaseDoEditAction.php';
 
-class PlanningMeasureUnitsDoEditXAction extends BaseDoEditAction {
+class CommonMeasureUnitsDoEditXAction extends BaseDoEditAction {
 	
 	function __construct() {
-		parent::__construct('PlanningMeasureUnit');
+		parent::__construct('MeasureUnit');
 	}
 
 	protected function postUpdate() {
@@ -21,9 +21,9 @@ class PlanningMeasureUnitsDoEditXAction extends BaseDoEditAction {
 
 }
 */
-class PlanningMeasureUnitsDoEditXAction extends BaseAction {
+class CommonMeasureUnitsDoEditXAction extends BaseAction {
 
-	function PlanningMeasureUnitsDoEditXAction() {
+	function CommonMeasureUnitsDoEditXAction() {
 		;
 	}
 
@@ -41,9 +41,9 @@ class PlanningMeasureUnitsDoEditXAction extends BaseAction {
 		$params = $request->getParameterValues("params");
 		
 		if (!empty($id))
-			$measureUnit = BaseQuery::create('PlanningMeasureUnit')->findOneById($id);
+			$measureUnit = BaseQuery::create('MeasureUnit')->findOneById($id);
 		else
-			$measureUnit = new PlanningMeasureUnit();
+			$measureUnit = new MeasureUnit();
 
 		$measureUnit->fromArray($params, BasePeer::TYPE_FIELDNAME);
 
