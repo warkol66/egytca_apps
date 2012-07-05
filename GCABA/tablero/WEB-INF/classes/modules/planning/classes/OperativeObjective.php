@@ -16,9 +16,9 @@
 class OperativeObjective extends BaseOperativeObjective {
 
 	/**
-	 * Devuelve un string con quien modifico el Proyecto (PlanningProject)
+	 * Devuelve un string con quien modifico el Objetivo Operativo (OperativeObjective)
 	 *
-	 * @return string nombre del usuario que modifico el proyecto
+	 * @return string nombre del usuario que modifico el Objetivo Operativo
 	 */
 	public function updatedBy() {
 		if ($this->getUserobjecttype() != "") {
@@ -32,6 +32,20 @@ class OperativeObjective extends BaseOperativeObjective {
 	}
 
 	/**
+	 * Devuelve los indicadores asociados (OperativeObjective)
+	 *
+	 * @return PropelObjectCollection|PlanningIndicator[] Objetos indicadores asociados
+	 */
+	public function getPlanningIndicators() {
+		return PlanningIndicatorQuery::create()
+									->usePlanningIndicatorRelationQuery()
+										->filterByPlanningobjecttype('OperativeObjective')
+										->filterByPlanningobjectid($this->getId())
+									->endUse()
+									->find();
+	}
+
+	/**
 	 * Devuelve las versiones para el asunto ordenadas en por fecha de creación y paginadas.
 	 * @param string $orderType forma en que se ordena, Criteria::ASC = ascendente Criteria::DESC = descendente.
 	 * @param int $page numero de pagina.
@@ -39,7 +53,7 @@ class OperativeObjective extends BaseOperativeObjective {
 	 * @return array Versions para el proyecto ordenados en forma decreciente por fecha de creación.
 	 */
 	public function getVersionsOrderedByUpdatedPaginated($orderType = Criteria::ASC, $page=1, $maxPerPage=5) {
-		$filters = array();		
+		$filters = array();
 		return BaseQuery::create('OperativeObjectiveLog')->getAllByOperativeObjective($this->getId(), $orderType)->createPager($filters, $page, $maxPerPage);
 	}
 

@@ -39,14 +39,28 @@ class MinistryObjective extends BaseMinistryObjective {
 	 * @return array Versions para el proyecto ordenados en forma decreciente por fecha de creación.
 	 */
 	public function getVersionsOrderedByUpdatedPaginated($orderType = Criteria::ASC, $page=1, $maxPerPage=5) {
-		$filters = array();		
+		$filters = array();
 		return BaseQuery::create('MinistryObjectiveLog')->getAllByMinistryObjective($this->getId(), $orderType)->createPager($filters, $page, $maxPerPage);
+	}
+
+	/**
+	 * Devuelve los indicadores asociados (MinistryObjective)
+	 *
+	 * @return PropelObjectCollection|PlanningIndicator[] Objetos indicadores asociados
+	 */
+	public function getPlanningIndicators() {
+		return PlanningIndicatorQuery::create()
+									->usePlanningIndicatorRelationQuery()
+										->filterByPlanningobjecttype('MinistryObjective')
+										->filterByPlanningobjectid($this->getId())
+									->endUse()
+									->find();
 	}
 
 	/**
 	 * Devuelve true si el MinistryObjective tiene asociada la region,
 	 * y false caso contrario.
-	 * 
+	 *
 	 * @param Region $region
 	 * @return boolean
 	 */
