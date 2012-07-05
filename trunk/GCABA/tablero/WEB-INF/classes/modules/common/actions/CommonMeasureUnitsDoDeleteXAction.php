@@ -1,15 +1,15 @@
 <?php
 /**
- * PlanningMeasureUnitsDoDeleteAction
+ * CommonMeasureUnitsDoDeleteXAction
  *
  * Eliminar Unidades de Medida basado en BaseDoDeleteAction
  */
 require_once 'BaseDoDeleteAction.php';
 
-class PlanningMeasureUnitsDoDeleteAction extends BaseDoDeleteAction {
+class CommonMeasureUnitsDoDeleteXAction extends BaseDoDeleteAction {
 	
 	function __construct() {
-		parent::__construct('PlanningMeasureUnit');
+		parent::__construct('MeasureUnit');
 	}
 
 	protected function postDelete() {

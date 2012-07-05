@@ -40,7 +40,7 @@
 		<column name="maxY" type="INTEGER" size="2" description="Maximo valor Y"/>
 		<column name="source" type="LONGVARCHAR" description="Fuente"/>
 
-		<foreign-key foreignTable="planning_measureUnit" >
+		<foreign-key foreignTable="common_measureUnit" >
 			<reference local="measureUnitId" foreign="id" />
 		</foreign-key>
 
@@ -104,19 +104,6 @@
 		<foreign-key foreignTable="planning_indicatorX" >
 			<reference local="xId" foreign="id" />
 		</foreign-key>
-
-		<vendor type="mysql">
-			<parameter name="Charset" value="utf8"/>
-			<parameter name="Collate" value="utf8_general_ci"/>
-		</vendor>
-
-	</table>
-
-	<table name="planning_measureUnit" phpName="PlanningMeasureUnit" description="Base de datos de unidades de medida">
-
-		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
-		<column name="code" type="VARCHAR" size="50" description="Codigo de la unidad" primaryString="true" />
-		<column name="name" type="VARCHAR" size="255" required="true" />
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>

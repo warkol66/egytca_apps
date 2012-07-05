@@ -1,6 +1,7 @@
-|-foreach from=$planningMeasureUnitColl item=measureUnit name=for_measureUnits-|
-	|-include file="PlanningMeasureUnitsListRowInclude.tpl"-|
+|-foreach from=$measureUnitColl item=measureUnit name=for_measureUnits-|
+	|-include file="CommonMeasureUnitsListRowInclude.tpl"-|
 |-/foreach-|
+|-if "commonMeasureUnitsDoEditX"|security_has_access-|
 <script type="text/javascript">
 function updateCode(id, value) {
 	new Ajax.Updater(
@@ -40,7 +41,7 @@ Object.extend(Ajax.InPlaceEditor.prototype, {
 });
 
 function attachNameInPlaceEditors() {
-	|-foreach from=$planningMeasureUnitColl item=measureUnit name=for_measureUnits_ajax-|
+|-foreach from=$measureUnitColl item=measureUnit name=for_measureUnits_ajax-|
 	new Ajax.InPlaceEditor(
 		'name_|-$measureUnit->getId()-|',
 		'Main.php?do=commonDoEditFieldX',
@@ -56,7 +57,7 @@ function attachNameInPlaceEditors() {
 			externalControl: 'name_edit_|-$measureUnit->getId()-|',
 			clickToEditText: 'Haga click para editar',
 			callback: function(form, value) {
-				return 'objectType=planningMeasureUnit&objectId=|-$measureUnit->getId()-|&paramName=name&paramValue='
+				return 'objectType=measureUnit&objectId=|-$measureUnit->getId()-|&paramName=name&paramValue='
 						+ encodeURIComponent(value);
 			},
 			onComplete: function(transport, element) {
@@ -72,7 +73,7 @@ function attachNameInPlaceEditors() {
 }
 
 function attachCodeInPlaceEditors() {
-	|-foreach from=$planningMeasureUnitColl item=measureUnit-|
+	|-foreach from=$measureUnitColl item=measureUnit-|
 	new Ajax.InPlaceEditor(
 		'code_|-$measureUnit->getId()-|',
 		'Main.php?do=commonDoEditFieldX',
@@ -86,8 +87,12 @@ function attachCodeInPlaceEditors() {
 			cancelControl: 'button',
 			savingClassName: 'inProgress',
 			callback: function(form, value) {
-				return 'objectType=planningMeasureUnit&objectId=|-$measureUnit->getId()-|&paramName=code&paramValue='
+				return 'objectType=measureUnit&objectId=|-$measureUnit->getId()-|&paramName=code&paramValue='
 					+ encodeURIComponent(clean(value));
+			},
+			onComplete: function(transport, element) {
+				clean_text_content_from(element);
+				new Effect.Highlight(element, { startcolor: this.options.highlightColor });
 			},
 			onFormReady: function(obj,form) {
 				form.insert({ top: new Element('label').update('Código: ') });
@@ -101,3 +106,4 @@ window.onload = function() {
 	attachNameInPlaceEditors();
 }
 </script>
+|-/if-|
