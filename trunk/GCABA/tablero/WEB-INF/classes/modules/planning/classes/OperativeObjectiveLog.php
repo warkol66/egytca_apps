@@ -16,7 +16,7 @@
 class OperativeObjectiveLog extends BaseOperativeObjectiveLog {
 
 	/**
-	 * Devuelve un string con quien modifico el Proyecto (PlanningProject)
+	 * Devuelve un string con quien modifico el Objetivo Operativo (OperativeObjective)
 	 *
 	 * @return string nombre del usuario que modifico el proyecto
 	 */
@@ -29,6 +29,20 @@ class OperativeObjectiveLog extends BaseOperativeObjectiveLog {
 			}
 		}
 		return;
+	}
+
+	/**
+	 * Devuelve los indicadores asociados (OperativeObjective)
+	 *
+	 * @return PropelObjectCollection|PlanningIndicator[] Objetos indicadores asociados
+	 */
+	public function getPlanningIndicators() {
+		return PlanningIndicatorQuery::create()
+									->usePlanningIndicatorRelationQuery()
+										->filterByPlanningobjecttype('OperativeObjective')
+										->filterByPlanningobjectid($this->getOperativeobjectiveid())
+									->endUse()
+									->find();
 	}
 
 } // OperativeObjectiveLog

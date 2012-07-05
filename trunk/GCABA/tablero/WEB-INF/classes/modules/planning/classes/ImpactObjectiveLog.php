@@ -34,7 +34,7 @@ class ImpactObjectiveLog extends BaseImpactObjectiveLog {
 	/**
 	 * Devuelve los indicadores asociados (PlanningIndicators)
 	 *
-	 * @return Coll indicadores asociados
+	 * @return PropelObjectCollection|PlanningIndicator[] Objetos indicadores asociados
 	 */
 	public function getPlanningIndicators() {
 		return PlanningIndicatorQuery::create()

@@ -39,14 +39,14 @@ class ImpactObjective extends BaseImpactObjective {
 	 * @return array Versions para el proyecto ordenados en forma decreciente por fecha de creación.
 	 */
 	public function getVersionsOrderedByUpdatedPaginated($orderType = Criteria::ASC, $page=1, $maxPerPage=5) {
-		$filters = array();		
+		$filters = array();
 		return BaseQuery::create('ImpactObjectiveLog')->getAllByImpactObjective($this->getId(), $orderType)->createPager($filters, $page, $maxPerPage);
 	}
 
 	/**
 	 * Devuelve los indicadores asociados (PlanningIndicators)
 	 *
-	 * @return Coll indicadores asociados
+	 * @return PropelObjectCollection|PlanningIndicator[] Objetos indicadores asociados
 	 */
 	public function getPlanningIndicators() {
 		return PlanningIndicatorQuery::create()
@@ -71,7 +71,7 @@ class ImpactObjective extends BaseImpactObjective {
 		);
 		return $policyGuidelines;
 	}
-	
+
 	/**
 	 * Devuelve array con posibles resultados esperados (ExpectedResult)
 	 *  id => resultado esperado
@@ -91,6 +91,6 @@ class ImpactObjective extends BaseImpactObjective {
 		return $expectedResults;
 	}
 
-	
+
 
 } // ImpactObjective

@@ -32,6 +32,20 @@ class MinistryObjectiveLog extends BaseMinistryObjectiveLog {
 	}
 
 	/**
+	 * Devuelve los indicadores asociados (MinistryObjective)
+	 *
+	 * @return Coll indicadores asociados
+	 */
+	public function getPlanningIndicators() {
+		return PlanningIndicatorQuery::create()
+									->usePlanningIndicatorRelationQuery()
+										->filterByPlanningobjecttype('MinistryObjective')
+										->filterByPlanningobjectid($this->getMinistryobjectiveid())
+									->endUse()
+									->find();
+	}
+
+	/**
 	 * Devuelve true si el MinistryObjective tiene asociada la region,
 	 * y false caso contrario.
 	 * 

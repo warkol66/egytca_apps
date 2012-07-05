@@ -16,9 +16,9 @@
 class PlanningProjectLog extends BasePlanningProjectLog {
 
 	/**
-	 * Devuelve un string con quien modifico el Objetivo Ministerial (MinistryObjective)
+	 * Devuelve un string con quien modifico el Proyecto (PlanningProject)
 	 *
-	 * @return string nombre del usuario que modifico el Objetivo Ministerial
+	 * @return string nombre del usuario que modifico el Proyecto
 	 */
 	public function updatedBy() {
 		if ($this->getUserobjecttype() != "") {
@@ -29,6 +29,20 @@ class PlanningProjectLog extends BasePlanningProjectLog {
 			}
 		}
 		return;
+	}
+
+	/**
+	 * Devuelve los indicadores asociados (PlanningProject)
+	 *
+	 * @return PropelObjectCollection|PlanningIndicator[] Objetos indicadores asociados
+	 */
+	public function getPlanningIndicators() {
+		return PlanningIndicatorQuery::create()
+									->usePlanningIndicatorRelationQuery()
+										->filterByPlanningobjecttype('PlanningProject')
+										->filterByPlanningobjectid($this->getPlanningprojectid())
+									->endUse()
+									->find();
 	}
 
 	/**
