@@ -7,11 +7,10 @@ class BaseEditAction extends BaseAction {
 	protected $entity;
 	protected $ajaxTemplate;
 	
-	function __construct($entityClassName,$module) {
+	function __construct($entityClassName) {
 		if (empty($entityClassName))
 			throw new Exception('$entityClassName must be set');
 		$this->entityClassName = $entityClassName;
-		$this->module = $module;
 		if (substr(get_class($this), -7, 1) != "X")
 			$this->ajaxTemplate = str_replace('Action', '', get_class($this)).'X.tpl';
 	}
@@ -26,8 +25,6 @@ class BaseEditAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 		$this->smarty =& $smarty;
-
-		$smarty->assign("module", $this->module);
 
 		try {
 			$this->preEdit();
