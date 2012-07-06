@@ -5,7 +5,7 @@ include_once 'BaseEditAction.php';
 class PlanningOperativeObjectivesShowHistoryXAction extends BaseEditAction {
     
 	function __construct() {
-		parent::__construct('OperativeObjectiveLog','Planning');
+		parent::__construct('OperativeObjectiveLog');
 	}
 
 	protected function postEdit() {

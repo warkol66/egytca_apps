@@ -1,4 +1,13 @@
 <?php
+/**
+ * PlanningConstructionsDoEditAction
+ *
+ * Crea o guarda cambios de Proyectos (PlanningProject)
+ *
+ * @package    planning
+ * @subpackage    planningPlanningProjects
+ */
+
 /*
 require_once 'BaseDoEditAction.php';
 
@@ -10,6 +19,7 @@ class PlanningProjectsDoEditAction extends BaseDoEditAction {
 
 }
 */
+
 class PlanningProjectsDoEditAction extends BaseAction {
 
 	function PlanningProjectsDoEditAction() {
@@ -79,6 +89,7 @@ class PlanningProjectsDoEditAction extends BaseAction {
 
 		Common::doLog('success', $planningProject->getName() . $logSufix);
 
+		$params = array();
 		$params["id"] = $planningProject->getId();
 		return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'success-edit');
 

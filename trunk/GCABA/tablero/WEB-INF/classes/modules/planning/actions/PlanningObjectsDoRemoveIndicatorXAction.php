@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * PlanningObjectsDoRemoveIndicatorXAction
+ *
+ * Elimina relaciones entre indicadores y objetos de planeamiento (PlanningIndicatorRelation)
+ *
+ * @package    planning
+ * @subpackage    planningIndicatorRelations
+ */
 class PlanningObjectsDoRemoveIndicatorXAction extends BaseAction {
 
 	function PlanningObjectsDoRemoveIndicatorXAction() {

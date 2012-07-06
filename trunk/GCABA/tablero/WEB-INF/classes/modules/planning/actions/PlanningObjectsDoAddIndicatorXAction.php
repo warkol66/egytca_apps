@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * PlanningObjectsDoAddIndicatorXAction
+ *
+ * Agrega relaciones entre indicadores y objetos de planeamiento (PlanningIndicatorRelation)
+ *
+ * @package    planning
+ * @subpackage    planningIndicatorRelations
+ */
 class PlanningObjectsDoAddIndicatorXAction extends BaseAction {
 
 	function PlanningObjectsDoAddIndicatorXAction() {

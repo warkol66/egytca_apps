@@ -104,7 +104,7 @@
 	<p>	<input type="hidden" name="do" id="do" value="planningObjectsDoAddIndicatorX" />
 			<input type="hidden" name="planningObjectType" value="ImpactObjective" /> 
 			<input type="hidden" name="planningObjectId" value="|-$impactObjective->getId()-|" /> 
-    <input type="button" id="addIndicatorSubmit" disabled="disabled" value="Agregar indicator al objetivo de impacto" title="Agregar indicator al objetivo de impacto" onClick="javascript:addIndicatorToImpactObjective(this.form)"/> </p>
+    <input type="button" id="addIndicatorSubmit" disabled="disabled" value="Agregar indicator al objetivo de impacto" title="Agregar indicator al objetivo de impacto" onClick="javascript:addIndicatorToPlanningObject(this.form)"/> </p>
 	</form>
     |-/if-|
   <div id="impactObjetivesIndicatorsList">
@@ -116,7 +116,7 @@
 							<input type="hidden" name="planningObjectType" value="ImpactObjective" /> 
 							<input type="hidden" name="planningObjectId" value="|-$impactObjective->getId()-|" /> 
 							<input type="hidden" name="indicatorId" value="|-$indicator->getId()-|" />
-							<input type="button" name="submit_go_remove_indicator" value="Borrar" title="Eliminar indicador de objetivo de impacto" onclick="if (confirm('Seguro que desea eliminar el indicator del objetivo de impacto?')) removeIndicatorFromImpactObjective(this.form);" class="icon iconDelete" /> 
+							<input type="button" name="submit_go_remove_indicator" value="Borrar" title="Eliminar indicador de objetivo de impacto" onclick="if (confirm('Seguro que desea eliminar el indicator del objetivo de impacto?')) removeIndicatorFromPlanningObject(this.form);" class="icon iconDelete" /> 
 						</form> |-$indicator-|
 			</li>
 			|-/foreach-|
@@ -124,7 +124,7 @@
 		</div> 
 </fieldset>
 <script type="text/javascript" language="javascript" charset="utf-8">
-	function addIndicatorToImpactObjective(form) {
+	function addIndicatorToPlanningObject(form) {
 		var fields = Form.serialize(form);
 		var myAjax = new Ajax.Updater(
 					{success: 'indicatorList'},
@@ -141,7 +141,7 @@
 		return true;
 	}
 	
-	function removeIndicatorFromImpactObjective(form){
+	function removeIndicatorFromPlanningObject(form){
 		var fields = Form.serialize(form);
 		var myAjax = new Ajax.Updater(
 					{success: 'indicatorMsgField'},

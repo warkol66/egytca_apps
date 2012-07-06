@@ -54,8 +54,8 @@
 			</select>
 		</p>
 		<p>
-			<label for="params_populationGender">Género de población objetivo</label>
-			<select id="params_populationGender" name="params[populationGender]" title="Género de población objetivo" |-$readonly|readonly-| |-if $show || $showLog-|disabled="disabled"|-/if-|>
+			<label for="params_objectivePopulationGender">Género de población objetivo</label>
+			<select id="params_objectivePopulationGender" name="params[objectivePopulationGender]" title="Género de población objetivo" |-$readonly|readonly-| |-if $show || $showLog-|disabled="disabled"|-/if-|>
 				<option value="">Seleccione el género</option>
 				|-foreach from=$populationGenders key=key item=name-|
 							<option value="|-$key-|" |-$operativeObjective->getObjectivePopulationGender()|selected:$key-|>|-$name-|</option>
@@ -63,12 +63,12 @@
 			</select>
 		</p>
     <p> 
-      <label for="params_indicators">Grupos etáreos población objetivo</label>
-      <input name="params[indicators]" type="text" id="params_indicators" title="Grupos etáreos población objetivo" value="|-$operativeObjective->getObjectivePopulationAge()|selected:$key-|" size="50" |-$readonly|readonly-|> 
+      <label for="params_objectivePopulationAge">Grupos etáreos población objetivo</label>
+      <input name="params[objectivePopulationAge]" type="text" id="params_objectivePopulationAge" title="Grupos etáreos población objetivo" value="|-$operativeObjective->getObjectivePopulationAge()-|" size="50" |-$readonly|readonly-|> 
     </p> 
     <p> 
-      <label for="params_indicators">Población objetivo grupos vulnerables</label>
-      <input name="params[indicators]" type="text" id="params_indicators" title="Población objetivo grupos vulnerables" value="|-$operativeObjective->getObjectivePopulationGroup()|selected:$key-|" size="50" |-$readonly|readonly-|> 
+      <label for="params_objectivePopulationGroup">Población objetivo grupos vulnerables</label>
+      <input name="params[objectivePopulationGroup]" type="text" id="params_objectivePopulationGroup" title="Población objetivo grupos vulnerables" value="|-$operativeObjective->getObjectivePopulationGroup()-|" size="50" |-$readonly|readonly-|> 
     </p> 
 			|-if isset($loginUser) && $loginUser->isSupervisor() && !$operativeObjective->isNew()-|
 				<p>

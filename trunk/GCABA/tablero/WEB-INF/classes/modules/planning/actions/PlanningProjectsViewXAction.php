@@ -1,11 +1,18 @@
 <?php
-
+/**
+ * PlanningProjectsViewXAction
+ *
+ * Vista via AJAX de Proyectos (PlanningProject)
+ *
+ * @package    planning
+ * @subpackage    planningProjects
+ */
 require_once 'BaseEditAction.php';
 
 class PlanningProjectsViewXAction extends BaseEditAction {
 	
 	function __construct() {
-		parent::__construct('PlanningProject','Planning');
+		parent::__construct('PlanningProject');
 	}
 	
 	protected function postEdit() {

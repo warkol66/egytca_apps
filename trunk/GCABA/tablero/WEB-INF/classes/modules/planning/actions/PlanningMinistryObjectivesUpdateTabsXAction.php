@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * PlanningMinistryObjectivesUpdateTabsXAction
+ *
+ * Vista via AJAX de versiones de Objetivos Ministeriales (MinistryObjective)
+ *
+ * @package    planning
+ * @subpackage    planningMinistryObjectives
+ */
 class PlanningMinistryObjectivesUpdateTabsXAction extends BaseAction {
 
 		function PlanningMinistryObjectivesUpdateTabsXAction() {
@@ -22,7 +29,7 @@ class PlanningMinistryObjectivesUpdateTabsXAction extends BaseAction {
 		$maxPerPage = ConfigModule::get("planning","logsPerPage");
 
 		$id = $request->getParameter("id");
-		$ministryObjective = MinistryObjectiveQuery::create()->findOneByID($id);
+		$ministryObjective = BaseQuery::create('MinistryObjective')->findOneByID($id);
 
 		$ministryObjectiveVersionsPager = $ministryObjective->getVersionsOrderedByUpdatedPaginated(Criteria::DESC, $_GET['page'], $maxPerPage);
 
@@ -30,7 +37,7 @@ class PlanningMinistryObjectivesUpdateTabsXAction extends BaseAction {
 		$smarty->assign("ministryObjectiveVersionsPager", $ministryObjectiveVersionsPager);
 		$smarty->assign("showLog", true);
 
-		$this->smarty->assign("regions", RegionQuery::create()->filterByType('11')->find());
+		$smarty->assign("regions", RegionQuery::create()->filterByType('11')->find());
 
 		return $mapping->findForwardConfig('success');
 

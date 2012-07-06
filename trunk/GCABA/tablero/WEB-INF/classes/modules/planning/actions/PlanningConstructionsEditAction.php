@@ -5,7 +5,7 @@ require_once 'BaseEditAction.php';
 class PlanningConstructionsEditAction extends BaseEditAction {
 	
 	function __construct() {
-		parent::__construct('PlanningConstruction','Planning');
+		parent::__construct('PlanningConstruction');
 	}
 	
 	protected function postEdit() {

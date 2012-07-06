@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * PlanningIndicatorsListAction
+ *
+ * Listado de Indicadores de planeamiento extendiendo BaseListAction
+ *
+ * @package    planning
+ * @subpackage    planningIndicators
+ */
 require_once 'BaseListAction.php';
 
 class PlanningIndicatorsListAction extends BaseListAction {

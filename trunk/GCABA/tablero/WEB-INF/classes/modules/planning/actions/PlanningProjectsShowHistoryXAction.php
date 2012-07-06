@@ -1,11 +1,18 @@
 <?php
-
+/**
+ * PlanningProjectsShowHistoryXAction
+ *
+ * Acceso a versiones de Proyectos (PlanningProject) extendiendo BaseEditAction
+ *
+ * @package    planning
+ * @subpackage    planningProjects
+ */
 include_once 'BaseEditAction.php';
 
 class PlanningProjectsShowHistoryXAction extends BaseEditAction {
     
 	function __construct() {
-		parent::__construct('PlanningProjectLog','Planning');
+		parent::__construct('PlanningProjectLog');
 	}
 
 	protected function postEdit() {

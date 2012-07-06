@@ -1,4 +1,13 @@
 <?php
+/**
+ * PlanningMinistryObjectivesDoEditAction
+ *
+ * Crea o guarda cambios de Objetivos Operativos (MinistryObjective)
+ *
+ * @package    planning
+ * @subpackage    planningMinistryObjectives
+ */
+
 /*
 require_once 'BaseDoEditAction.php';
 
@@ -43,6 +52,7 @@ class PlanningMinistryObjectivesDoEditAction extends BaseDoEditAction {
 
 }
 */
+
 class PlanningMinistryObjectivesDoEditAction extends BaseAction {
 
 	function PlanningMinistryObjectivesDoEditAction() {
@@ -113,7 +123,10 @@ class PlanningMinistryObjectivesDoEditAction extends BaseAction {
 		$this->updateRegions($ministryObjective);
 
 		Common::doLog('success', $ministryObjective->getName() . $logSufix);
-		return $this->addFiltersToForwards($filters,$mapping,'success-edit');
+
+		$params = array();
+		$params["id"] = $ministryObjective->getId();
+		return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'success-edit');
 
 	}
 

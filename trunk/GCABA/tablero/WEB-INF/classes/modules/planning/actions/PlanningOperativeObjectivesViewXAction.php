@@ -1,11 +1,19 @@
 <?php
+/**
+ * PlanningOperativeObjectivesViewXAction
+ *
+ * Vista via AJAX de Objetivos Operativos (OperativeObjective)
+ *
+ * @package    planning
+ * @subpackage    planningOperativeObjectives
+ */
 
 require_once 'BaseEditAction.php';
 
 class PlanningOperativeObjectivesViewXAction extends BaseEditAction {
 
 	function __construct() {
-		parent::__construct('OperativeObjective','Planning');
+		parent::__construct('OperativeObjective');
 	}
 
 	protected function postEdit() {

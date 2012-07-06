@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * PlanningConstructionsUpdateTabsXAction
+ *
+ * Vista via AJAX de versiones de Proyectos (PlanningConstruction)
+ *
+ * @package    planning
+ * @subpackage    planningConstructions
+ */
 class PlanningConstructionsUpdateTabsXAction extends BaseAction {
 
 		function PlanningConstructionsUpdateTabsXAction() {
@@ -22,7 +29,7 @@ class PlanningConstructionsUpdateTabsXAction extends BaseAction {
 		$maxPerPage = ConfigModule::get("planning","logsPerPage");
 
 		$id = $request->getParameter("id");
-		$planningConstruction = PlanningConstructionQuery::create()->findOneByID($id);
+		$planningConstruction = BaseQuery::create('PlanningConstruction')->findOneByID($id);
 
 		$planningConstructionVersionsPager = $planningConstruction->getVersionsOrderedByUpdatedPaginated(Criteria::DESC, $_GET['page'], $maxPerPage);
 

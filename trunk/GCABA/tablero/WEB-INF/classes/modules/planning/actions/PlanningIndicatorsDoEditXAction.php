@@ -2,8 +2,12 @@
 /**
  * PlanningIndicatorsDoEditXAction
  *
- * Guarda Unidades de Medida basado en BaseDoEditAction
+ * Crea o guarda cambios via AJAX de Indicadores de Planeamiento (PlanningIndicator)
+ *
+ * @package    planning
+ * @subpackage    planningIndicators
  */
+
 /* require_once 'BaseDoEditAction.php';
 
 class PlanningIndicatorsDoEditXAction extends BaseDoEditAction {
@@ -21,6 +25,7 @@ class PlanningIndicatorsDoEditXAction extends BaseDoEditAction {
 
 }
 */
+
 class PlanningIndicatorsDoEditXAction extends BaseAction {
 
 	function PlanningIndicatorsDoEditXAction() {

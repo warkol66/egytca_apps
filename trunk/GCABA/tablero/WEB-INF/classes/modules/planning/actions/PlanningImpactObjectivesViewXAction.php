@@ -1,11 +1,18 @@
 <?php
-
+/**
+ * PlanningImpactObjectivesViewXAction
+ *
+ * Vista via AJAX de Objetivos de Impacto (ImpactObjective)
+ *
+ * @package    planning
+ * @subpackage    planningImpactObjectives
+ */
 require_once 'BaseEditAction.php';
 
 class PlanningImpactObjectivesViewXAction extends BaseEditAction {
 	
 	function __construct() {
-		parent::__construct('ImpactObjective','Planning');
+		parent::__construct('ImpactObjective');
 	}
 	
 	protected function postEdit() {
