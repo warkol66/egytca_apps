@@ -50,7 +50,7 @@
 		<li><a href="javascript:void(null)" class="sub">Configuración</a>
 			<ul>
 				<li><a href="Main.php?do=commonConfigSet">Configurar Sistema</a></li>
-				<li><a href="Main.php?do=planningMeasureUnitsList">Unidades de Medida</a></li>
+				<li><a href="Main.php?do=commonMeasureUnitsList">Unidades de Medida</a></li>
 				<li class="last"><a href="Main.php?do=commonConfigEdit">Editar Configuración</a></li>
 			</ul></li>
 |-/if-|		
