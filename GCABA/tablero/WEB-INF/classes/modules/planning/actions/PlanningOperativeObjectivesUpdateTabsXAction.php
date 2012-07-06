@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * PlanningOperativeObjectivesUpdateTabsXAction
+ *
+ * Vista via AJAX de versiones de Proyectos (OperativeObjective)
+ *
+ * @package    planning
+ * @subpackage    planningOperativeObjectives
+ */
 class PlanningOperativeObjectivesUpdateTabsXAction extends BaseAction {
 
 		function PlanningOperativeObjectivesUpdateTabsXAction() {
@@ -22,12 +29,12 @@ class PlanningOperativeObjectivesUpdateTabsXAction extends BaseAction {
 		$maxPerPage = ConfigModule::get("planning","logsPerPage");
 
 		$id = $request->getParameter("id");
-		$impactObjective = OperativeObjectiveQuery::create()->findOneByID($id);
+		$operativeObjective = OperativeObjectiveQuery::create()->findOneByID($id);
 
-		$impactObjectiveVersionsPager = $impactObjective->getVersionsOrderedByUpdatedPaginated(Criteria::DESC, $_GET['page'], $maxPerPage);
+		$operativeObjectiveVersionsPager = $operativeObjective->getVersionsOrderedByUpdatedPaginated(Criteria::DESC, $_GET['page'], $maxPerPage);
 
-		$smarty->assign("impactObjective", $impactObjective);
-		$smarty->assign("impactObjectiveVersionsPager", $impactObjectiveVersionsPager);
+		$smarty->assign("operativeObjective", $operativeObjective);
+		$smarty->assign("operativeObjectiveVersionsPager", $operativeObjectiveVersionsPager);
 		$smarty->assign("showLog", true);
 
 		return $mapping->findForwardConfig('success');

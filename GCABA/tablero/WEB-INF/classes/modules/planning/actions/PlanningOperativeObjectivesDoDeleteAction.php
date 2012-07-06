@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * PlanningOperativeObjectivesDoDeleteAction
+ *
+ * Elimina Objetivos Operativos (OperativeObjective)
+ *
+ * @package    planning
+ * @subpackage    planningOperativeObjectives
+ */
 require_once 'BaseDoDeleteAction.php';
 
 class PlanningOperativeObjectivesDoDeleteAction extends BaseDoDeleteAction {

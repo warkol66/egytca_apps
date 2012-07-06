@@ -1,4 +1,13 @@
 <?php
+/**
+ * PlanningOperativeObjectivesDoEditAction
+ *
+ * Crea o guarda cambios de Objetivos Operativos (OperativeObjective)
+ *
+ * @package    planning
+ * @subpackage    planningOperativeObjectives
+ */
+
 /*
 require_once 'BaseDoEditAction.php';
 
@@ -10,6 +19,7 @@ class PlanningOperativeObjectivesDoEditAction extends BaseDoEditAction {
 
 }
 */
+
 class PlanningOperativeObjectivesDoEditAction extends BaseAction {
 
 	function PlanningOperativeObjectivesDoEditAction() {
@@ -78,7 +88,10 @@ class PlanningOperativeObjectivesDoEditAction extends BaseAction {
 			$logSufix = ', ' . Common::getTranslation('action: edit','common');
 
 		Common::doLog('success', $operativeObjective->getName() . $logSufix);
-		return $this->addFiltersToForwards($filters,$mapping,'success-edit');
+
+		$params = array();
+		$params["id"] = $operativeObjective->getId();
+		return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'success-edit');
 
 	}
 

@@ -19,6 +19,6 @@
         <span>|-$planningConstructionVersionsPager->getFirstIndex()-| - |-$planningConstructionVersionsPager->getLastIndex()-| de |-$planningConstruction->countPlanningProjectLogs()-| versiones</span>
     </li>
     <li>
-        <span id="status_info" style="display: none">Cargando...</span>
+      <span id="status_info" style="display: none" class="inProgress">Cargando...</span>
     </li>
 </ul>

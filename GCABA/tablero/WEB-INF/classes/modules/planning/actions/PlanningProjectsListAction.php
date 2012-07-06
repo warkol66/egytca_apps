@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * PlanningProjectsListAction
+ *
+ * Listado de Proyectos (PlanningProject)
+ *
+ * @package    planning
+ * @subpackage    planningProjects
+ */
 require_once 'BaseListAction.php';
 
 class PlanningProjectsListAction extends BaseListAction {

@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * PlanningIndicatorsEditAction
+ *
+ * Formulario de modificacion de Indicadores de Planeamiento (PlanningIndicator) extendiendo BaseEditAction
+ *
+ * @package    planning
+ * @subpackage    planningIndicators
+ */
 require_once 'BaseEditAction.php';
 
 class PlanningIndicatorsEditAction extends BaseEditAction {

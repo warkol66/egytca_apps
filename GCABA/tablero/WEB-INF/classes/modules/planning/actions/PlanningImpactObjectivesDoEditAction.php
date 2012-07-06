@@ -1,4 +1,13 @@
 <?php
+/**
+ * PlanningImpactObjectivesDoEditAction
+ *
+ * Crea o guarda cambios de Objetivos de Impacto (ImpactObjective)
+ *
+ * @package    planning
+ * @subpackage    planningImpactObjectives
+ */
+
 /*
 require_once 'BaseDoEditAction.php';
 
@@ -8,8 +17,8 @@ class PlanningImpactObjectivesDoEditAction extends BaseDoEditAction {
 		parent::__construct('ImpactObjective');
 	}
 }
-<?php
 */
+
 class PlanningImpactObjectivesDoEditAction extends BaseAction {
 
 	function PlanningImpactObjectivesDoEditAction() {
@@ -78,7 +87,10 @@ class PlanningImpactObjectivesDoEditAction extends BaseAction {
 			$logSufix = ', ' . Common::getTranslation('action: edit','common');
 
 		Common::doLog('success', $impactObjective->getName() . $logSufix);
-		return $this->addFiltersToForwards($filters,$mapping,'success-edit');
+
+		$params = array();
+		$params["id"] = $impactObjective->getId();
+		return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'success-edit');
 
 	}
 }

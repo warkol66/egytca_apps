@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * PlanningImpactObjectivesUpdateTabsXAction
+ *
+ * Vista via AJAX de versiones de Proyectos (ImpactObjective)
+ *
+ * @package    planning
+ * @subpackage    planningImpactObjectives
+ */
 class PlanningImpactObjectivesUpdateTabsXAction extends BaseAction {
 
 		function PlanningImpactObjectivesUpdateTabsXAction() {
@@ -22,7 +29,7 @@ class PlanningImpactObjectivesUpdateTabsXAction extends BaseAction {
 		$maxPerPage = ConfigModule::get("planning","logsPerPage");
 
 		$id = $request->getParameter("id");
-		$impactObjective = ImpactObjectiveQuery::create()->findOneByID($id);
+		$impactObjective = BaseQuery::create('ImpactObjective')->findOneByID($id);
 
 		$impactObjectiveVersionsPager = $impactObjective->getVersionsOrderedByUpdatedPaginated(Criteria::DESC, $_GET['page'], $maxPerPage);
 

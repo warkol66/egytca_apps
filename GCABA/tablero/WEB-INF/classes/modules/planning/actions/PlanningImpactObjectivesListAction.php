@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * PlanningImpactObjectivesListAction
+ *
+ * Listado de Obras (ImpactObjective)
+ *
+ * @package    planning
+ * @subpackage    planningImpactObjectives
+ */
 require_once 'BaseListAction.php';
 
 class PlanningImpactObjectivesListAction extends BaseListAction {

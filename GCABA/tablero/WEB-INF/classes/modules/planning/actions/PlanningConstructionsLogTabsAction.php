@@ -1,16 +1,30 @@
 <?php
-
+/**
+ * PlanningProjectsLogTabsAction
+ *
+ * Acceso a vista de versiones de Proyectos (PlanningProject)
+ *
+ * @package    planning
+ * @subpackage    planningProjects
+ */
 require_once 'BaseEditAction.php';
 
 class PlanningConstructionsLogTabsAction extends BaseEditAction {
 
-
 	function __construct() {
-		parent::__construct('PlanningConstruction','Planning');
+		parent::__construct('PlanningConstruction');
 	}
 	
+	protected function preEdit() {
+		parent::preEdit();
+		$this->module = "Planning";
+	}
+
 	protected function postEdit() {
 		parent::postEdit();
+
+		$this->smarty->assign("module", $this->module);
+		$this->smarty->assign("section", "PlanningConstruction");
 
 		$this->smarty->assign("showLog", true);
 

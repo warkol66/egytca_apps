@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * PlanningMinistryObjectivesListAction
+ *
+ * Listado de Obras (PlanningConstruction)
+ *
+ * @package    planning
+ * @subpackage    planningMinistryObjectives
+ */
 require_once 'BaseListAction.php';
 
 class PlanningMinistryObjectivesListAction extends BaseListAction {

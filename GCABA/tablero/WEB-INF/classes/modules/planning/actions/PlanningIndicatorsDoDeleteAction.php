@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * PlanningIndicatorsDoDeleteAction
+ *
+ * Elimina Indicadores de Planeamiento (PlanningIndicator) extendiendo BaseDoDeleteAction
+ *
+ * @package    planning
+ * @subpackage    planningIndicators
+ */
 require_once 'BaseDoDeleteAction.php';
 
 class PlanningIndicatorsDoDeleteAction extends BaseDoDeleteAction {
@@ -8,3 +15,6 @@ class PlanningIndicatorsDoDeleteAction extends BaseDoDeleteAction {
 		parent::__construct('PlanningIndicator');
 	}
 }
+
+
+ 
