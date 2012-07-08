@@ -71,6 +71,7 @@ class ActorsAutocompleteListXAction extends BaseAction {
 		
 		$smarty->assign("actors",$actors);
 		$smarty->assign("limit",$_REQUEST['limit']);
+		$smarty->assign('type', $_REQUEST['type']);
 
 		return $mapping->findForwardConfig('success');
 	}
