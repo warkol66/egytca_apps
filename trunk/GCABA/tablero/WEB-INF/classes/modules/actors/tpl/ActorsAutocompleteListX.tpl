@@ -1,3 +1,11 @@
+|-if $type eq 'json'-|
+	{
+		|-foreach $actors as $actor-|
+			"|-json_encode($actor->getId())-|": |-json_encode($actor->getName()|cat:' '|cat:$actor->getSurname())-|
+			|-if !$actor@last-|,|-/if-|
+		|-/foreach-|
+	}
+|-else-|
 <ul>
 	|-if count($actors) == 0-|
 		<b>No hay resultados que coincidan</b>
@@ -10,3 +18,4 @@
 		|-/if-|
 	|-/if-|
 </ul>
+|-/if-|
