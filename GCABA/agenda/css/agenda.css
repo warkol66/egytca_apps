@@ -318,15 +318,21 @@
 				background-position:top center;
 				background-repeat:repeat;}
 				
-				.fc-view-agendaWeek .evAnterior .eventoContent span.fc-event-time,
-				.fc-view-agendaWeek .evAnterior .eventoContent span.fc-event-title,
-				.fc-view-agendaWeek .evAnterior .eventoContent span.fc-event-text{
-				color: #999999;
-				font-weight:normal;}
+				.fc-view-month .evAnterior .eventoContainer span.fc-event-time,
+				.fc-view-month .evAnterior .eventoContainer span.fc-event-title,
+				.fc-view-month .evAnterior .eventoContainer span.fc-event-text,
+				.fc-view-agendaWeek .evAnterior .eventoContainer span.fc-event-time,
+				.fc-view-agendaWeek .evAnterior .eventoContainer span.fc-event-title,
+				.fc-view-agendaWeek .evAnterior .eventoContainer span.fc-event-text{
+				color: #999999 !important;
+				font-weight:normal; !important;}
 				
-				.fc-view-agendaWeek .evAnterior .eventoContent span.fc-event-time{
-				background-position:-210px 0;
-				background-repeat:repeat-x;}
+				.fc-view-month .evAnterior .eventoContainer span.fc-event-time,
+				.fc-view-agendaWeek .evAnterior .eventoContainer span.fc-event-time{
+				background-position:0 -210px !important;
+				background-repeat:repeat-x;
+				background-image: url(../images/backgroundsH.png);
+}
 				
 				
 		 .fc-view-agendaDay .fc-event-time {width:100%;} 
