@@ -46,24 +46,39 @@ class AlertSubscription extends BaseAlertSubscription {
 		foreach($users as $user) {
 			$recipients[] = $user->getMailAddress();
 		}
+
 		$extraRecipients = $this->getExtraRecipients();
-		$extraRecipients = explode(',', $extraRecipients);
-		$recipients = array_merge($recipients, $extraRecipients);
+		if (!empty($extraRecipients)) {
+			$extraRecipients = explode(',', $extraRecipients);
+			$recipients = array_merge($recipients, $extraRecipients);
+		}
 		return $recipients;
 	}
 	
 	public function getEntitiesFiltered() {
 		$entityName = $this->getModuleEntity()->getPhpName();
-		$fieldName = $this->getModuleEntityFieldRelatedByEntityfielduniquename()->getName();
+		$dateFieldName = $this->getModuleEntityFieldRelatedByEntityDateFieldUniqueName()->getName();
+		$booleanEntityField = $this->getModuleEntityFieldRelatedByEntityBooleanFieldUniqueName();
+		if (!empty($booleanEntityField))
+			$booleanFieldName = $booleanEntityField->getName();
 		$max = new DateTime('today');
 		$min = new DateTime('today');
 		$alertPeriodCount = $this->getAnticipationdays();
 		$max->modify("+$alertPeriodCount days");
 		$queryClassName = $entityName . 'Query';
-		$filterMethodName = 'filterBy' . $fieldName;
-		if (class_exists($queryClassName) && method_exists($queryClassName, $filterMethodName)) {
+		$filterByDateMethodName = 'filterBy' . $dateFieldName;
+		$filterByBooleanMethodName = 'filterBy' . $booleanFieldName;
+		if (class_exists($queryClassName) && method_exists($queryClassName, $filterByDateMethodName)) {
 			$query = new $queryClassName;
-			call_user_func(array($query, $filterMethodName), array('min' => $min, 'max' => $max ));
+			call_user_func(array($query, $filterByDateMethodName), array('min' => $min, 'max' => $max ));
+			if (!empty($booleanFieldName) && method_exists($queryClassName, $filterByBooleanMethodName)) {
+				//Evaluamos contra NULL
+				$query->$filterByBooleanMethodName(null, Criteria::ISNULL);
+				//Evaluamos contra 0
+				$query->orWhere($entityName . '.' . ucfirst(strtolower($booleanFieldName)) . ' = ?', 0);
+				//Evaluamos contra ''
+				$query->orWhere($entityName . '.' . ucfirst(strtolower($booleanFieldName)) . ' = ?', '');
+			}
 			$entities = call_user_func(array($query, 'find'));
 		}
 		return $entities;
@@ -75,5 +90,9 @@ class AlertSubscription extends BaseAlertSubscription {
 	
 	public function getPosibleTemporalFields() {
 		return AlertSubscriptionPeer::getPosibleTemporalFieldsByEntityName($this->getEntityName());
+	}
+	
+	public function getPosibleBooleanFields() {
+		return AlertSubscriptionPeer::getPosibleBooleanFieldsByEntityName($this->getEntityName());
 	}
 } // AlertSubscription
