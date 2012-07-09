@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * JsAction
+ *
+ * Obtiene el template que contiene codigo de JS y lo muestra su respectivo encabezado
+ *
+ * @package    common
+ */
 class JsAction extends BaseAction {
 
 	function JsAction() {
@@ -22,10 +28,13 @@ class JsAction extends BaseAction {
 		global $moduleRootDir;
 
 		if (!empty($_GET["module"])) {
-			$filename = realpath($moduleRootDir . "/WEB-INF/classes/modules/" . $_GET["module"] . "/tpl/" . ucfirst($_GET["module"]) . ucfirst($_GET["name"]) . ".js");
+			$requested = $moduleRootDir . "/WEB-INF/classes/modules/" . $_GET["module"] . "/tpl/" . ucfirst($_GET["module"]) . ucfirst($_GET["name"]) . ".js";
+			$filename = realpath($requested);
 
-			if (!file_exists($filename))
-				die;
+			if (!file_exists($filename)) {
+				$smarty->assign("errorMsg", $requested);
+				$filename = "Error.tpl";
+			}
 		}
 		else
 			$filename = "Common" . ucfirst($_GET["name"]) . ".js";
@@ -34,5 +43,6 @@ class JsAction extends BaseAction {
 		header("Content-Type: application/javascript;");
 
 		$smarty->display($filename);
+		die();
 	}
 }
