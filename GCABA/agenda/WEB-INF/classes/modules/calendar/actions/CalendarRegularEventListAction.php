@@ -23,7 +23,11 @@ class CalendarRegularEventListAction extends BaseAction {
 		$smarty->assign("moduleConfig",$moduleConfig);
 		
 		$filters = $_GET["filters"];
-		$pager = BaseQuery::create('CalendarRegularEvent')->createPager($filters, $_GET["page"], $filters["perPage"]);
+		if (isset($filters["perPage"]) && $filters["perPage"] > 0)
+			$perPage = $filters["perPage"];
+		else
+			$perPage = Common::getRowsPerPage();
+		$pager = BaseQuery::create('CalendarRegularEvent')->createPager($filters, $_GET["page"], $perPage);
 		
 		$smarty->assign("filters",$filters);
 		$smarty->assign('entities',$pager->getResults());

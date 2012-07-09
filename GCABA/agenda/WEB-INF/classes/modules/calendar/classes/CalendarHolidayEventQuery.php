@@ -15,4 +15,24 @@
  */
 class CalendarHolidayEventQuery extends BaseCalendarHolidayEventQuery {
 
+	/**
+	 * Constructor
+	 *
+	 * @return condicion por defecto al construir la instancia
+	 */
+	public function __construct($dbName = 'application', $modelName = 'CalendarEvent', $modelAlias = null) {
+		parent::__construct($dbName, $modelName, $modelAlias);
+			$this->orderByStartdate(Criteria::ASC);
+	}
+
+	/**
+	 * Filtra searchString por title
+	 *
+	 * @param texto a buscar
+	 * @return condicion de filtrado con texto
+	 */
+	public function searchString($filterValue) {
+		return $this->filterByTitle("%$filterValue%", Criteria::LIKE);
+	}
+
 } // CalendarHolidayEventQuery

@@ -15,4 +15,14 @@
  */
 class CalendarContextEventQuery extends BaseCalendarContextEventQuery {
 
+	/**
+	 * Filtra searchString por title
+	 *
+	 * @param texto a buscar
+	 * @return condicion de filtrado con texto
+	 */
+	public function searchString($filterValue) {
+		return $this->filterByTitle("%$filterValue%", Criteria::LIKE);
+	}
+
 } // CalendarContextEventQuery

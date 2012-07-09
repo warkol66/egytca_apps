@@ -44,8 +44,8 @@ class CalendarShowAction extends BaseAction {
 		
 		// fechas limite en las que tiene validez la navegacion del calendario
 		// $dt tiene la fecha indicada en filters['selectedDate']. Si no existe tiene la actual
-		$smarty->assign('minTimestamp', strtotime('-1 month', $dt->getTimestamp()));
-		$smarty->assign('maxTimestamp', strtotime('+1 month', $dt->getTimestamp()));
+		$smarty->assign('minTimestamp', strtotime('-2 month', $dt->getTimestamp()));
+		$smarty->assign('maxTimestamp', strtotime('+3 month', $dt->getTimestamp()));
 
 		$smarty->assign('events', BaseQuery::create('CalendarEvent')->addFilters($filters)->filterBySchedulestatus('3', Criteria::NOT_EQUAL)->filterByStartDate($eventDateFilter)->find());
 		$smarty->assign('holydayEvents', BaseQuery::create('CalendarHolidayEvent')->addFilters($filters)->filterByStartDate($holidayDateFilter)->find());

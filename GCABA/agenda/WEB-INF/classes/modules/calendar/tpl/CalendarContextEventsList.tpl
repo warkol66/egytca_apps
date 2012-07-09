@@ -13,6 +13,26 @@
 
 	<table cellpadding="4" cellspacing="0" class="tableTdBorders" id="tabla-newsarticles">
 		<thead>
+		<tr>
+			<td colspan="4" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Búsqueda de Eventos de Contexto</a>
+				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;">
+				<form action='Main.php' method='get' style="display:inline;">
+				<p>
+					<label for="filters[searchString]">Nombre</label>
+					<input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="25" title="Ingrese el nombre a buscar" />
+				</p>
+				<p>
+					<input type="submit" value="Buscar" title="Buscar con los par&aacute;metros ingresados" />
+					<input type="hidden" name="do" value="calendarContextEventsList" />
+					&nbsp;&nbsp;
+					|-if $filters|@count gt 0-|
+						<input type="button" value="Quitar Filtros" onclick="location.href='Main.php?do=calendarContextEventsList'"/>
+					|-/if-|
+				</p>
+				</form>
+				</div>
+			</td>
+		</tr>	
 			<tr>
 				<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=calendarContextEventsEdit" class="addLink">Agregar Evento de Contexto</a></div></th>
 			</tr>
