@@ -52,13 +52,13 @@ class CalendarContextEventsListAction extends BaseAction {
 		else
 			$perPage = Common::getRowsPerPage();
 
-		$pager = BaseQuery::create('CalendarContextEvent')->createPager($filters, $page, $perPage);
+		$pager = BaseQuery::create('CalendarContextEvent')->createPager($filters, $_GET['page'], $perPage);
 
 		$smarty->assign("events",$pager->getResults());
 		$smarty->assign("pager",$pager);
 		$smarty->assign("filters", $filters);
 
-		$url = "Main.php?do=calendarEventsContextList";
+		$url = "Main.php?do=calendarContextEventsList";
 		if (isset($_GET['page']))
 			$url .= '&page=' . $_GET['page'];
 		foreach ($filters as $key => $value)

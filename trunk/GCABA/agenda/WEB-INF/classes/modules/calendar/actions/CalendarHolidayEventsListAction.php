@@ -43,7 +43,7 @@ class CalendarHolidayEventsListAction extends BaseAction {
 			$smarty->assign('filters',$_GET['filters']);
 		}
 
-		$events = BaseQuery::create('CalendarHolidayEvent')->addFilters($filters);
+//		$events = BaseQuery::create('CalendarHolidayEvent')->addFilters($filters);
 
 		$filters = $request->getParameterValues("filters");
 
@@ -52,7 +52,7 @@ class CalendarHolidayEventsListAction extends BaseAction {
 		else
 			$perPage = Common::getRowsPerPage();
 
-		$pager = BaseQuery::create('CalendarHolidayEvent')->createPager($filters, $page, $perPage);
+		$pager = BaseQuery::create('CalendarHolidayEvent')->createPager($filters, $_GET['page'], $perPage);
 
 		$smarty->assign("events",$pager->getResults());
 		$smarty->assign("pager",$pager);

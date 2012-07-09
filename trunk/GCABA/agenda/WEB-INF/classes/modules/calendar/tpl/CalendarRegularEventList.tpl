@@ -14,8 +14,8 @@
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;">
 				<form action='Main.php' method='get' style="display:inline;">
 				<p>
-					<label for="filters[name]">Nombre</label>
-					<input name="filters[name]" type="text" value="|-if isset($filters.name)-||-$filters.name-||-/if-|" size="25" title="Ingrese el nombre a buscar" />
+					<label for="filters[searchString]">Nombre</label>
+					<input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="25" title="Ingrese el nombre a buscar" />
 				</p>
 				<p>
 					<input type="submit" value="Buscar" title="Buscar con los par&aacute;metros ingresados" />
@@ -86,7 +86,7 @@
 		|-/if-|
 		|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
-			<td colspan="4" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+			<td colspan="4" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 		|-if "calendarRegularEventEdit"|security_has_access-|

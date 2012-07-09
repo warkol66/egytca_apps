@@ -15,4 +15,14 @@
  */
 class CalendarRegularEventQuery extends BaseCalendarRegularEventQuery {
 
+	/**
+	 * Constructor
+	 *
+	 * @return condicion por defecto al construir la instancia
+	 */
+	public function __construct($dbName = 'application', $modelName = 'CalendarRegularEvent', $modelAlias = null) {
+		parent::__construct($dbName, $modelName, $modelAlias);
+			$this->orderByDate(Criteria::ASC);
+	}
+
 } // CalendarRegularEventQuery
