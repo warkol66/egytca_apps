@@ -52,7 +52,7 @@
 		|-foreach from=$planningConstructionColl item=construction name=for_constructions-|
 			<tr>
 				<td>|-assign var=planningProject value=$construction->getPlanningProject()-||-$planningProject-|</td>
-				<td> |-$planningProject->getPosition()-|</td>
+				<td>|-if is_object($planningProject)-||-$planningProject->getPosition()-||-/if-|</td>
 				<td>|-$construction->getName()-|</td>
 				<td nowrap>
 					<form action="Main.php" method="get" style="display:inline;">
