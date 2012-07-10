@@ -24,7 +24,7 @@
 		</p>
     <p> 
       <label for="params_description">Descripción</label>
-      <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Indicador" |-$readonly|readonly-| >|-$planningIndicator->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
+      <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Indicador" class="emptyValidation" |-$readonly|readonly-| >|-$planningIndicator->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
     </p>
 
     |-if !$planningIndicator->isNew()-|

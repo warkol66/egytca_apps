@@ -68,7 +68,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
       </p>
     <p> 
       <label for="params_description">Breve Descripción</label>
-      <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Obra" |-$readonly|readonly-| >|-$planningConstruction->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
+      <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Obra" class="emptyValidation" |-$readonly|readonly-| >|-$planningConstruction->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
     </p> 
 
 	<p>

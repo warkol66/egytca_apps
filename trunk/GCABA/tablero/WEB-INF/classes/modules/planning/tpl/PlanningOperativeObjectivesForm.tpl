@@ -63,8 +63,8 @@
 			</select>
 		</p>
     <p> 
-      <label for="params_objectivePopulationAge">Grupos etáreos población objetivo</label>
-      <input name="params[objectivePopulationAge]" type="text" id="params_objectivePopulationAge" title="Grupos etáreos población objetivo" value="|-$operativeObjective->getObjectivePopulationAge()-|" size="50" |-$readonly|readonly-|> 
+      <label for="params_objectivePopulationAge">Grupos etareos población objetivo</label>
+      <input name="params[objectivePopulationAge]" type="text" id="params_objectivePopulationAge" title="Grupos etareos población objetivo" value="|-$operativeObjective->getObjectivePopulationAge()-|" size="50" |-$readonly|readonly-|> 
     </p> 
     <p> 
       <label for="params_objectivePopulationGroup">Población objetivo grupos vulnerables</label>
