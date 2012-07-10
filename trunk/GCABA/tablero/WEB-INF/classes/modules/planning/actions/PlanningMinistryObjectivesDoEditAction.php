@@ -8,7 +8,7 @@
  * @subpackage    planningMinistryObjectives
  */
 
-/*
+
 require_once 'BaseDoEditAction.php';
 
 class PlanningMinistryObjectivesDoEditAction extends BaseDoEditAction {
@@ -22,8 +22,9 @@ class PlanningMinistryObjectivesDoEditAction extends BaseDoEditAction {
 		$this->updateRegions();
 	}
 
-	protected function onFailure() {
-		parent::onFailure();
+	protected function onFailure($e) {
+		parent::onFailure($e);
+		throw $e;
 		$this->smarty->assign("regions", RegionQuery::create()->filterByType('11')->find());
 		$this->smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
 		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
@@ -51,8 +52,8 @@ class PlanningMinistryObjectivesDoEditAction extends BaseDoEditAction {
 	}
 
 }
-*/
 
+/*
 class PlanningMinistryObjectivesDoEditAction extends BaseAction {
 
 	function PlanningMinistryObjectivesDoEditAction() {
@@ -152,3 +153,4 @@ class PlanningMinistryObjectivesDoEditAction extends BaseAction {
 	}
 
 }
+*/
