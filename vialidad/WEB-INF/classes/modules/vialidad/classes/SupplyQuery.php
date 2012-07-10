@@ -70,25 +70,25 @@ class SupplyQuery extends BaseSupplyQuery {
 		return $this;
 	}
     
-    public function EntityFilter($entityType, $entityId, $getCandidates) {
+    public function EntityFilter($filterValue) {
 
-        $entityQuery = ucfirst($entityType).'Query';
-        if (!class_exists(ucfirst($entityType)) || !class_exists($entityQuery))
+      $entityQuery = $filterValue['entityType'] . 'Query';
+      if (!class_exists($filterValue['entityType']) || !class_exists($entityQuery))
         return $this;
-//            break; // nothing to filter
 
-        $entity = $entityQuery::create()->findOneById($entityId);
+      $entity = $entityQuery::create()->findOneById($filterValue['entityId']);
 
-        $filterByEntity = 'filterBy'.ucfirst($entityType);
+      $filterByEntity = 'filterBy'.ucfirst($filterValue['entityType']);
 
-        if ($getCandidates)
-            $comparison = Criteria::NOT_IN;
-        else
-            $comparison = Criteria::IN;
+      if ($filterValue['getCandidates'])
+        $comparison = Criteria::NOT_IN;
+      else
+        $comparison = Criteria::IN;
 
-        $alreadyRelated = SupplyQuery::create()->select("Id")->$filterByEntity($entity)->find()->toArray();
-        $this->filterById($alreadyRelated, $comparison);
-        return $this;
+      $alreadyRelated = SupplyQuery::create()->select("Id")->$filterByEntity($entity)->find()->toArray();
+      $this->filterById($alreadyRelated, $comparison);
+
+      return $this;
     }
 
 	/**
