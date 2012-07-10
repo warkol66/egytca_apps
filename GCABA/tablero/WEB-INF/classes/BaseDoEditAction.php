@@ -46,13 +46,23 @@ class BaseDoEditAction extends BaseAction {
 		else
 			$this->entity = new $entityClassName();
 
+		$afterSave = false; // debug. borrame
 		try {
 			$this->preUpdate();
 			$this->entity->fromArray($this->entityParams,BasePeer::TYPE_FIELDNAME);
 			$this->preSave();
 			$this->entity->save();
+			$afterSave = true; // debug. borrame
 			$this->postSave();
 		} catch (Exception $e) {
+			
+			// debug. borrame ----------------------------
+			if (!$afterSave)
+				throw new Exception('beforeSave: '.$e->getMessage ());
+			else
+				throw new Exception('afterSave: '.$e->getMessage ());
+			//--------------------------------------------
+			
 			//Elijo la vista basado en si es o no un pedido por AJAX
 			if ($this->isAjax()) {
 				throw new Exception(); // Buscar una mejor forma de que falle AJAX
