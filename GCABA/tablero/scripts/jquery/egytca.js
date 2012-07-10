@@ -114,17 +114,45 @@ Egytca = {
 			});
 		},
 		
+		/**
+		 * @example
+		 * 
+		 *	<select id="mySelect1" class="chzn-select markets-chz-select" data-placeholder="Elija una opcion..."></select>
+		 *	<select id="mySelect2" class="chzn-select markets-chz-select" data-placeholder="Elija una opcion..."></select>
+		 *	<input id="mySubmit" type="button" value="submit!!" onclick="console.log('submitted')" />
+		 *	
+		 *	$('#mySelect1').egytca('autocomplete', 'Main.php?do=actorsAutocompleteListX', {
+		 *		disable: '#mySubmit', // any jQuery selector
+		 *		method: POST, // defaults to GET
+		 *		jsonTermKey: 'myPersonalizedParamName', // defaults to 'searchString'
+		 *		data: { /+ additional parmas sent to request +/ }
+		 *	}).change(function() { console.log($(this).val()) });
+		 *	
+		 *	$('#mySelect2').egytca('autocomplete', 'Main.php?do=actorsAutocompleteListX');
+		 */
 		autocomplete: function(url, options) {
 			
-			var settings = $.extend(true, { url: url }, {
+			var settings = $.extend(true, {url: url}, {
 				method: 'GET',
 				dataType: 'json',
 				data: { type: 'json' },
-				jsonTermKey: 'searchString'
+				jsonTermKey: 'searchString',
+				complete: function() { // no parece necesario, pero si se sobreescribiera esta option tendríamos un bug menor
+					if (settings.disable != undefined)
+						$(settings.disable).attr('disabled', 'disabled');
+				}
 			}, options);
 			
 			return this.each(function() {
-				$(this).ajaxChosen(settings, function(data) { return data; });
+				$(this).ajaxChosen(settings, function(data) {
+					for (var key in data) { return data; } // if (!empty)
+					return {'Egytca.autocompleter.NOVALUE': 'No hay resultados'}; //else
+				}).change(function() {
+					if ($(this).val() == 'Egytca.autocompleter.NOVALUE' && settings.disable != undefined)
+						$(settings.disable).attr('disabled', 'disabled');
+					else
+						$(settings.disable).removeAttr('disabled');
+				});
 			});
 		}
 	};
