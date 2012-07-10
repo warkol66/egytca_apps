@@ -74,7 +74,8 @@ class SupplyQuery extends BaseSupplyQuery {
 
         $entityQuery = ucfirst($entityType).'Query';
         if (!class_exists(ucfirst($entityType)) || !class_exists($entityQuery))
-            break; // nothing to filter
+        return $this;
+//            break; // nothing to filter
 
         $entity = $entityQuery::create()->findOneById($entityId);
 
