@@ -25,13 +25,16 @@
 			<form id="form_construction" method="post" action="Main.php?do=vialidadConstructionsDoEdit">
 			<input type="hidden" value="|-$action-|" name="action">
 			<input type="hidden" value="|-$construction->getId()-|" name="id">
+
 		 <p><label for="params[contractId]">Contrato</label>
-				<select id="params[contractId]" name="params[contractId]" |-$action|disabled-| >
-					<option value="">Seleccione el contrato</option>
-				|-foreach from=$contracts item=contract name=for_contract-|
-        		<option id="option|-$contract->getId()-|" value="|-$contract->getId()-|" |-$construction->getContractId()|selected:$contract->getId()-|>|-$contract-|</option>
-				|-/foreach-|
-				</select>
+			|-if $returnContractId neq ""-|
+				<input type="hidden" value="|-$returnContractId-|" name="params[contractId]">
+				<input type="text" value="|-$contract-|" readonly="readOnly">
+			|-else-|
+				<input type="hidden" value="|-$construction->getContractId()-|" name="params[contractId]">
+				<input type="text" value="|-$construction->getContract()-|" readonly="readOnly">
+			|-/if-|
+
 		 </p>
 		 <p>
 		   <label for="params[numberId]">Nro de id</label>
@@ -91,7 +94,7 @@
 
 
 |-if $action eq 'edit'-|
-|-if !$contract->isNew()-|
+|-if !$construction->isNew()-|
 <script type="text/javascript">
 
 	function updateSelected(options, action) {

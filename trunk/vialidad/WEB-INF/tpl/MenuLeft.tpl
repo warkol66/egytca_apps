@@ -15,8 +15,8 @@
 			<!--<li><a href="Main.php?do=affiliatesContractorsList">Contratistas</a></li>
 			<li><a href="Main.php?do=affiliatesVerifiersList">Fiscalizadoras</a></li> -->
 			<li><a href="Main.php?do=vialidadContractsList">Contratos</a></li>
-			<li><a href="Main.php?do=vialidadConstructionsList">Obras</a></li>
-			<li><a href="Main.php?do=vialidadSuppliersList">Proveedores de Insumos</a></li>
+			<!--<li><a href="Main.php?do=vialidadConstructionsList">Obras</a></li>
+			<li><a href="Main.php?do=vialidadSuppliersList">Proveedores de Insumos</a></li>-->
 
 			<li><a href="Main.php?do=vialidadSupplyList">Listado de Insumos</a></li>
 

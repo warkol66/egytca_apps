@@ -141,6 +141,15 @@
 		<column name="contractLength" type="INTEGER" size="5" description="Longitud del contrato" />
 		<column name="termType" type="INTEGER" size="2" description="Tipo de plazo de longitud del contrato" />
 
+		<column name="validationLength" type="INTEGER" size="5" description="Vigencia del contrato Modificado" />
+		<column name="validationType" type="INTEGER" size="2" description="Tipo de plazo de longitud del contrato Modificado" />
+
+		<column name="contractLengthModified" type="INTEGER" size="5" description="Longitud del contrato Modificado" />
+		<column name="termTypeModified" type="INTEGER" size="2" description="Tipo de plazo de longitud del contrato Modificado" />
+
+		<column name="validationLengthModified" type="INTEGER" size="5" description="Vigencia del contrato" />
+		<column name="validationTypeModified" type="INTEGER" size="2" description="Tipo de plazo de longitud del contrato" />
+
 		<column name="adjudication" type="VARCHAR" size="50" description="Resolucion y/o Decreto de Adjudicacion" />
 		<column name="tenderNumber" type="VARCHAR" size="20" description="Numero de Llamado a Licitacion"/>
 		<column name="adjudicationDate" type="DATE" description="Fecha de adjudicacion" />
@@ -425,6 +434,7 @@
 		<column name="currencyId" type="INTEGER" required="true" />
 		<column name="amount" type="DECIMAL" size="15" scale="2" description="Monto" />
 		<column name="paripassu" type="DECIMAL" size="15" scale="2" description="Pari Pasu" />
+		<column name="exchangeRate" type="DECIMAL" size="15" scale="2" description="Tasa de Cambio" />
 		<column name="date" type="DATE" description="Fecha" />
 		<column name="amountType" type="BOOLEAN" description="Monto Original o Modificatorio" />
 
