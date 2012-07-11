@@ -129,9 +129,12 @@
 		<column name="sanctionAmount" type="DECIMAL" size="12" scale="2"  description="Presupuesto Sancionado"/>
 		
 		<!--Partida presupuestaria-->
-		<column name="budgetJurisdiction" type="INTEGER" description="Jurisdiccion-OGESE"/>
+		<column name="budgetYear" type="INTEGER" description="Ano"/>
+		<column name="budgetJurisdiction" type="INTEGER" description="Jurisdiccion"/>
+		<column name="budgetOgese" type="INTEGER" description="OGESE"/>
 		<column name="budgetUnit" type="INTEGER" description="Unidad Ejecutora"/>
-		<column name="budgetProgram" type="INTEGER" description="Programa-Subprograma"/>
+		<column name="budgetProgram" type="INTEGER" description="Programa"/>
+		<column name="budgetSubProgram" type="INTEGER" description="Subprograma"/>
 		<column name="budgetProyect" type="INTEGER" description="Proyecto"/>
 		<column name="budgetActivity" type="INTEGER" description="Actividad"/>
 		<column name="budgetConstruction" type="INTEGER" description="Obra"/>
@@ -205,9 +208,12 @@
 		<column name="sanctionAmount" type="DECIMAL" size="12" scale="2"  description="Presupuesto Sancionado"/>
 		
 		<!--Partida presupuestaria-->
-		<column name="budgetJurisdiction" type="INTEGER" description="Jurisdiccion-OGESE"/>
+		<column name="budgetYear" type="INTEGER" description="Ano"/>
+		<column name="budgetJurisdiction" type="INTEGER" description="Jurisdiccion"/>
+		<column name="budgetOgese" type="INTEGER" description="OGESE"/>
 		<column name="budgetUnit" type="INTEGER" description="Unidad Ejecutora"/>
-		<column name="budgetProgram" type="INTEGER" description="Programa-Subprograma"/>
+		<column name="budgetProgram" type="INTEGER" description="Programa"/>
+		<column name="budgetSubProgram" type="INTEGER" description="Subprograma"/>
 		<column name="budgetProyect" type="INTEGER" description="Proyecto"/>
 		<column name="budgetActivity" type="INTEGER" description="Actividad"/>
 		<column name="budgetConstruction" type="INTEGER" description="Obra"/>
