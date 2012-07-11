@@ -55,13 +55,6 @@
 					|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 			  <input type="submit" name="submit_go_edit_affiliate" value="Editar" class="icon iconEdit" /> 
 			</form>|-/if-|
-			|-if "affiliatesDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;"> 
-			  <input type="hidden" name="do" value="affiliatesDoDelete" /> 
-			  <input type="hidden" name="id" value="|-$affiliate->getId()-|" /> 
-					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-					|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
-			  <input type="submit" name="submit_go_delete_affiliate" value="Borrar" onclick="return confirm('Seguro que desea eliminar el ##affiliates,3,Afiliado##?')" class="icon iconDelete" /> 
-			</form>|-/if-|
     </td>
 	</tr>
 	|-/foreach-|

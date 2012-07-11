@@ -27,8 +27,17 @@ class VialidadConstructionsEditAction extends BaseAction {
 		$message = $_GET["message"];
 		$smarty->assign("message",$message);
 
-		$contracts = ContractQuery::create()->find();
-		$smarty->assign("contracts",$contracts);
+		if (!empty($_GET['returnToContract']))
+			{$smarty->assign('returnContractId', $_GET['returnToContract']);
+			$contract = ContractQuery::create()->findOneById($_GET["returnToContract"]);
+			 if (!empty($contract))
+	  			 $smarty->assign('contract', $contract);}
+		else
+			{
+			$contracts = ContractQuery::create()->find();
+			$smarty->assign("contracts",$contracts);
+			}
+
 
 		if ($_GET['id']) {
 			$construction =  ConstructionPeer::get($_GET['id']);
@@ -54,9 +63,6 @@ class VialidadConstructionsEditAction extends BaseAction {
 			$construction = new Construction();
 			$smarty->assign("action","create");
 		}
-		
-		if (!empty($_GET['returnToContract']))
-			$smarty->assign('returnContractId', $_GET['returnToContract']);
 		
 		$smarty->assign("currencies",CurrencyQuery::create()->find());
 		$smarty->assign("measureUnits",MeasureUnitQuery::create()->find());

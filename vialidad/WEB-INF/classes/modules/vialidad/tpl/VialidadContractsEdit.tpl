@@ -75,11 +75,38 @@
 				<label for="params[signDate]">Fecha de firma</label>
 				<input id="params[signDate]" name="params[signDate]" type='text' value='|-$contract->getSignDate()|date_format-|' size="12" title="Ingrese la fecha de firma" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[signDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
-		 <p><label for="params[contractLength]">Plazo contractual</label>
+		 <p><label for="params[validationLength]">Plazo contractual</label>
+			<input name="params[validationLength]" type="text" value="|-$contract->getValidationLength()|system_numeric_format:0-|" size="6"> 
+			<select id="params_validationType" name="params[validationType]" title="Tipo de plazo">
+				|-foreach from=$termTypes key=key item=name-|
+							<option value="|-$key-|" |-$contract->getValidationType()|selected:$key-|>|-$name-|</option>
+				|-/foreach-|
+			</select>
+		 </p>
+
+		 <p><label for="params[contractLength]">Vigencia del Contrato</label>
 			<input name="params[contractLength]" type="text" value="|-$contract->getContractLength()|system_numeric_format:0-|" size="6"> 
 			<select id="params_termType" name="params[termType]" title="Tipo de plazo">
 				|-foreach from=$termTypes key=key item=name-|
 							<option value="|-$key-|" |-$contract->getTermType()|selected:$key-|>|-$name-|</option>
+				|-/foreach-|
+			</select>
+		 </p>
+
+		 <p><label for="params[validationLengthModified]">Plazo contractual Modificado</label>
+			<input name="params[validationLengthModified]" type="text" value="|-$contract->getValidationLengthModified()|system_numeric_format:0-|" size="6"> 
+			<select id="params_validationTypeModified" name="params[validationTypeModified]" title="Tipo de plazo Modificado">
+				|-foreach from=$termTypes key=key item=name-|
+							<option value="|-$key-|" |-$contract->getValidationTypeModified()|selected:$key-|>|-$name-|</option>
+				|-/foreach-|
+			</select>
+		 </p>
+
+		 <p><label for="params[contractLengthModified]">Vigencia del Contrato</label>
+			<input name="params[contractLengthModified]" type="text" value="|-$contract->getContractLengthModified()|system_numeric_format:0-|" size="6"> 
+			<select id="params_termTypeModified" name="params[termTypeModified]" title="Tipo de plazo">
+				|-foreach from=$termTypes key=key item=name-|
+							<option value="|-$key-|" |-$contract->getTermTypeModified()|selected:$key-|>|-$name-|</option>
 				|-/foreach-|
 			</select>
 		 </p>
@@ -196,7 +223,7 @@
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 	<thead>
 	|-if "vialidadConstructionsEdit"|security_has_access-|<tr>
-		<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadConstructionsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Obra</a></div></th>
+		<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadConstructionsEdit&returnToContract=|-$contract->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Obra</a></div></th>
 	</tr>|-/if-|
 	<tr>
 		<th width="30%">Nombre</th>
@@ -233,7 +260,7 @@
 	</tr>
 	|-/if-|
 	|-if "vialidadConstructionItemEdit"|security_has_access && $items|@count gt 5-|<tr>
-		<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadConstructionItemEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Obra</a></div></th>
+		<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadConstructionItemEdit&returnToContract=|-$contract->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Obra</a></div></th>
 	</tr>|-/if-|
 	</tfoot>
 </table>
