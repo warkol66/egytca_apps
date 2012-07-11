@@ -44,7 +44,9 @@ class BaseEditAction extends BaseAction {
 			if (is_null($this->entity)) {
 				//Elijo la vista basado en si es o no un pedido por AJAX
 				if ($this->isAjax()) {
-					throw new Exception(); // Buscar una mejor forma de que falle AJAX
+					$smarty->assign('notValidId', 'true');
+					return $mapping->findForwardConfig('success');
+//					throw new Exception(); // Buscar una mejor forma de que falle AJAX
 				} else {
 					$smarty->assign('notValidId', 'true');
 					return $mapping->findForwardConfig('success');

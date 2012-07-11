@@ -40,11 +40,13 @@ class PlanningConstruction extends BasePlanningConstruction {
 	 */
 	public function getVersionsOrderedByUpdatedPaginated($orderType = Criteria::ASC, $page=1, $maxPerPage=5) {
 		$filters = array();		
-		return BaseQuery::create('MinistryObjectiveLog')->getAllByMinistryObjective($this->getId(), $orderType)->createPager($filters, $page, $maxPerPage);
+		return BaseQuery::create('PlanningConstructionLog')->getAllByPlanningConstruction($this->getId(), $orderType)->createPager($filters, $page, $maxPerPage);
+		//return BaseQuery::create('PlanningConstructionLog')->getAllByPlanningConstruction($this->getId(), $orderType)->createPager($filters, $page, $maxPerPage);
+		//return BaseQuery::create('OperativeObjectiveLog')->getAllByOperativeObjective($this->getId(), $orderType)->createPager($filters, $page, $maxPerPage);
 	}
 
 	/**
-	 * Devuelve true si el MinistryObjective tiene asociada la region,
+	 * Devuelve true si el PlanningConstruction tiene asociada la region,
 	 * y false caso contrario.
 	 * 
 	 * @param Region $region

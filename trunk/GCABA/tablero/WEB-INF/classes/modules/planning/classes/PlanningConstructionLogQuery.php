@@ -15,4 +15,15 @@
  */
 class PlanningConstructionLogQuery extends BasePlanningConstructionLogQuery {
 
+	/**
+	 * Obtiene todas las versiones de un objetivo de impacto a partir de su planningConstructionId ordenados por instante de creación.
+	 *
+	 * @param int $impactObjectiveId id del objetivo ministerial.
+	 * @param string $orderType forma en que se ordena, 'asc' = ascendente 'desc' = descendente.
+	 * @return array versions correspondientes al objetivo ministerial ordenados por instante de creación.
+	 */
+	public function getAllByPlanningConstruction($planningConstructionId, $orderType = Criteria::ASC) {
+		return $this->filterByConstructionid($planningConstructionId)->orderByUpdatedAt($orderType);
+	}
+
 } // PlanningConstructionLogQuery

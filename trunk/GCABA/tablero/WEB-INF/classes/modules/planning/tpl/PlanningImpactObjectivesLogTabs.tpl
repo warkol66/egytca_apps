@@ -6,7 +6,7 @@
 		anchorElement.parentNode.className = 'activeTab';
 	}      
 </script>
-<div id='tabsLogs' >
+<div id='tabsLogs'>
 	|-include file="PlanningImpactObjectivesUpdateTabsX.tpl"-|
 </div>
 <div id='div_impactObjective'>

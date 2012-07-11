@@ -20,7 +20,7 @@
 		|-/if-|
 		|-else-|
       <p>
-        <label for="params_ministryObjectiveId">Objetivo Operativo</label>
+        <label for="params_ministryObjectiveId">Objetivo Ministerial</label>
       <input name="params_ministryObjectiveId" type="text" size="80" value="|-$ministryObjective-|" readonly="readonly" />
       <input name="params[ministryObjectiveId]" type="hidden" value="|-$fromMinistryObjectiveId-|" />
       <input name="fromMinistryObjectiveId" type="hidden" value="|-$fromMinistryObjectiveId-|" />
