@@ -137,7 +137,7 @@ function drawDatePicker(targetDateField, x, y, positionValue)
   pickerDiv.style.top = y + "px";
   pickerDiv.style.visibility = (pickerDiv.style.visibility == "visible" ? "hidden" : "visible");
   pickerDiv.style.display = (pickerDiv.style.display == "block" ? "none" : "block");
-  pickerDiv.style.zIndex = 10000;
+  pickerDiv.style.zIndex = 210000;
  
   // draw the datepicker table
   refreshDatePicker(targetDateField.name, dt.getFullYear(), dt.getMonth(), dt.getDate());

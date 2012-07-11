@@ -40,7 +40,8 @@
 		</p>
     <p> 
       <label for="params_description">Descripción</label>
-      <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Indicador" |-$readonly|readonly-| >|-$planningIndicator->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
+      <textarea name="params[description]" cols="70" rows="3" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Indicador" |-$readonly|readonly-| >|-$planningIndicator->getDescription()|escape-|</textarea> 
+      |-validation_msg_box idField="params_description"-|
     </p>		
 		<p>
         <label for="params_formula">Fórmula</label>
@@ -85,7 +86,7 @@
 		<label for="params_updated">Fecha de Actualización</label>
 		<input id="params_updated" name="params[updated]" type='text' value='|-$planningIndicator->getUpdated()|date_format-|' size="12" title="Ingrese la fecha de Actualización"  |-$readonly|readonly-|/>|-if !$show && !$showLog-| <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[updated]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de Actualización">|-/if-|
 	</p>
-	<p> 
+	<p id="projectAndDirect" style="display:none;"> 
 		<label for="params_goal2013">Meta 2013</label>
 		<input name="params[goal2013]"  id="params_goal2013" type="text" value="|-$planningIndicator->getGoal2013()|escape-|" size="4" title="Magnitud del resultado esperado para 2013">
 			<select id="params_goaltype" name="params[expectedResults]" title="Resultados Esperados" |-$readonly|readonly-|>
@@ -113,3 +114,21 @@
 			</p>
 		</fieldset>
 	</form>
+<script type="text/javascript">
+	var selectType = document.getElementById("params_type");
+	selectType.onchange = function() {
+		var chosenOption = this.options[this.selectedIndex];
+		switch(chosenOption.value) {
+			case '1':
+			case '3':
+				$('projectAndDirect').show();
+				break;
+			case '2':
+				$('projectAndDirect').hide();
+				break;
+			default:
+				$('projectAndDirect').hide();
+				alert('default');
+			}
+	}
+</script>
