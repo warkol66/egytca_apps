@@ -25,7 +25,7 @@
 	|-/if-|
 	<table id="tabla-objectives" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 		<thead>
-		<tr>
+		|-if !$nav-|<tr>
 			<td colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="tdSearch"><a href="javascript:void(null);" onClick='$("divSearch").toggle();' class="tdTitSearch">Busqueda por nombre</a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0 && !($filters.fromStrategicObjectives)-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="planningOperativeObjectivesList" />
@@ -36,11 +36,12 @@
 		</tr>
 			<tr>
 				 <th colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningOperativeObjectivesEdit" class="addLink">Agregar Objetivo Operativo</a></div></th>
-			</tr>
+			</tr>|-/if-|
 			<tr class="thFillTitle">
 				<th width="45%">Objetivo Ministerial</th>
 				<th width="50%">Objetivo Operativo</th>
-				<th width="5%">&nbsp;</th>
+				<th width="1%">&nbsp;</th>
+				<th width="4%">&nbsp;</th>
 			</tr>
 		</thead>
 		<tbody>|-if $operativeObjectiveColl|@count eq 0-|
@@ -52,6 +53,7 @@
 			<tr>
 				<td>|-$objective->getMinistryObjective()-|</td>
 				<td>|-$objective->getName()-|</td>
+				<td nowrap><a href="Main.php?do=planningProjectsList&nav=true&&filters[operativeObjectiveid]=|-$objective->getid()-|" class="icon iconFollow" title="Ver Proyectos del Objetivo Operativo"></a></td>
 				<td nowrap>
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="planningOperativeObjectivesViewX" />
@@ -80,7 +82,7 @@
 		|-/if-|					
 		|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
-			<td colspan="3" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
+			<td colspan="4" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 			<tr>
