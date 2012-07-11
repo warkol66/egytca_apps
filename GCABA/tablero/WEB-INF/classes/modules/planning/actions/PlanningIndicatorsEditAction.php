@@ -25,5 +25,9 @@ class PlanningIndicatorsEditAction extends BaseEditAction {
 		$this->smarty->assign("module", $this->module);
 		$this->smarty->assign("section", "Indicators");
 		$this->smarty->assign("indicatorTypes", PlanningIndicator::getIndicatorTypes());
+		$this->smarty->assign("measureFrecuencyTypes", PlanningIndicator::getMeasureFrecuencyTypes());
+		$this->smarty->assign("expectedResultsTypes", PlanningIndicator::getExpectedResultsTypes());
+		$this->smarty->assign("goalTypes", PlanningIndicator::getGoalTypes());
+		$this->smarty->assign("trendTypes", PlanningIndicator::getTrendTypes());
 	}
 }

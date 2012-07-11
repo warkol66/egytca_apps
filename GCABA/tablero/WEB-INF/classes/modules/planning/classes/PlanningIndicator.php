@@ -40,6 +40,72 @@ class PlanningIndicator extends BasePlanningIndicator {
 		);
 		return $productTypes;
 	}
+	/**
+	 * Devuelve array con los meses para determinar la frecuencia de medicion (measureFrecuency)
+	 *  id => tipo de indicador
+	 *
+	 * @return array tipos de indicador
+	 */
+	public static function getMeasureFrecuencyTypes() {
+		$measureFrecuencyTypes = array(
+			1 => 'Enero',
+			2 => 'Febrero',
+			3 => 'Marzo',
+			4 => 'Abril',
+			5 => 'Mayo',
+			6 => 'Junio',
+			7 => 'Julio',
+			8 => 'Agosto',
+			9 => 'Septiembre',
+		    10=> 'Octubre',
+			11=> 'Noviembre',
+			12=> 'Diciembre'
+		);
+		return $measureFrecuencyTypes;
+	}
 
+	/**
+	 * Devuelve array con posibles resultados Esperados (expectedResults)
+	 *  id => resultado esperado
+	 *
+	 * @return array resultados esperados
+	 */
+	public static function getExpectedResultsTypes() {
+		$expectedResultsTypes = array(
+			1 => 'Incremento',
+			2 => 'Descenso',
+			3 => 'Aceleracion',
+			4 => 'Desaceleracion'
+		);
+		return $expectedResultsTypes;
+	}
+
+	/**
+	 * Devuelve array con posibles tipos de meta (goalType)
+	 *  id => resultado esperado
+	 *
+	 * @return array resultados esperados
+	 */
+	public static function getGoalTypes() {
+		$goalTypes = array(
+			1 => 'Cualitativa',
+			2 => 'Cuantitativa'
+		);
+		return $goalTypes;
+	}
+
+	/**
+	 * Devuelve array con posibles tendendicas esperadas (trend)
+	 *  id => resultado esperado
+	 *
+	 * @return array resultados esperados
+	 */
+	public static function getTrendTypes() {
+		$trendTypes = array(
+			1 => 'Ascendente',
+			2 => 'Descendente'
+		);
+		return $trendTypes;
+	}
 
 } // PlanningIndicator
