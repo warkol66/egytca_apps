@@ -120,12 +120,44 @@ $("#autocomplete_responsibleCode").ajaxChosen({
     </p>
 	
 	 <p><label for="params_tprano">Partida presupuestaria</label>
-		<input name="params[budgetJurisdiction]"  id="params_budgetJurisdiction" type="text" value="|-$planningConstruction->getBudgetJurisdiction()|escape-|" size="4" title="Jurisdicción-OGESE">
-		<input name="params[budgetUnit]"  id="params_budgetUnit" type="text" value="|-$planningConstruction->getBudgetUnit()|escape-|" size="1" title="Unidad Ejecutora">
-		<input name="params[budgetProgram]"  id="params_budgetProgram" type="text" value="|-$planningConstruction->getBudgetProgram()|escape-|" size="3" title="Programa -Subprograma">
-		<input name="params[budgetProyect]"  id="params_budgetProyect" type="text" value="|-$planningConstruction->getBudgetProyect()|escape-|" size="3" title="Proyecto">
-		<input name="params[budgetActivity]"  id="params_budgetActivity" type="text" value="|-$planningConstruction->getBudgetActivity()|escape-|" size="2" title="Actividad">
-		<input name="params[budgetConstruction]"  id="params_budgetConstruction" type="text" value="|-$planningConstruction->getBudgetConstruction()|escape-|" size="2" title="Obra">
+
+  <div style="margin-left:130px;"> 
+     <table class="tableTdBorders"> 
+      <thead>
+         <tr> 
+          <th>Año</th> 
+          <th>Jur</th> 
+          <th>Ogese</th> 
+          <th>UE</th> 
+          <th>Pr</th> 
+          <th>Spr</th> 
+          <th>Proy</th>
+          <th>Act</th>
+          <th>Obra</th> 
+        </tr> 
+       </thead> 
+        <tr>
+            <td><input name="params[budgetYear]"  id="params_budgetYear" type="text" value="|-$planningConstruction->getBudgetYear()|escape-|" size="4" title="Año"></td>
+            <td><input name="params[budgetJurisdiction]"  id="params_budgetJurisdiction" type="text" value="|-$planningConstruction->getBudgetJurisdiction()|escape-|" size="4" title="Jurisdicción"></td>
+            <td><input name="params[budgetOgese]"  id="params_budgetOgese" type="text" value="|-$planningConstruction->getBudgetOgese()|escape-|" size="4" title="OGESE"></td>
+            <td><input name="params[budgetUnit]"  id="params_budgetUnit" type="text" value="|-$planningConstruction->getBudgetUnit()|escape-|" size="1" title="Unidad Ejecutora"></td>
+            <td><input name="params[budgetProgram]"  id="params_budgetProgram" type="text" value="|-$planningConstruction->getBudgetProgram()|escape-|" size="3" title="Programa"></td>
+            <td><input name="params[budgetSubProgram]"  id="params_budgetSubProgram" type="text" value="|-$planningConstruction->getBudgetSubProgram()|escape-|" size="3" title="Subprograma"></td>
+            <td><input name="params[budgetProyect]"  id="params_budgetProyect" type="text" value="|-$planningConstruction->getBudgetProyect()|escape-|" size="3" title="Proyecto"></td>
+            <td><input name="params[budgetActivity]"  id="params_budgetActivity" type="text" value="|-$planningConstruction->getBudgetActivity()|escape-|" size="2" title="Actividad"></td>
+            <td><input name="params[budgetConstruction]"  id="params_budgetConstruction" type="text" value="|-$planningConstruction->getBudgetConstruction()|escape-|" size="2" title="Obra"></td>
+
+        </tr>  
+      </table>
+    </div>  
+    
+    
+		
+    
+    
+		
+		
+		
 	 </p>  
 	<p>
         <label for="params_fundingSource">Fuente de Financiamiento</label>
