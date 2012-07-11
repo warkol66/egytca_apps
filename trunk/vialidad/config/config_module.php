@@ -7,6 +7,7 @@ class ConfigModule {
 			"debugMode" => true,
 			"noSecurity" => true,
 			"noCheckLogin" => true,
+			"concurrentSession" => true,
 			"developmentMode" => true,
 			"showPropelExceptions" => true,
 			"showSwiftExceptions" => true,
