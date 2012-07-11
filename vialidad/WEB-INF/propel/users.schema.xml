@@ -3,19 +3,26 @@
 	<table name="users_user" phpName="User" description="Users">
 
 		<column name="id" required="true" primaryKey="true" type="INTEGER" description="User Id" autoIncrement="true"/>
-		<column name="username" required="true" type="VARCHAR" size="255" primaryString="true" description="username"/>
-		<column name="password" required="true" type="VARCHAR" size="255" description="password"/>
+		<column name="username" required="true" type="VARCHAR" size="255" description="Identificacion de usuarios"/>
+		<column name="password" required="true" type="VARCHAR" size="255" description="Clave de acceso"/>
 		<column name="passwordUpdated" type="DATE" description="Fecha de actualizacion de la clave" />
-		<column name="name" type="VARCHAR" size="90" description="Nombre"/>
-		<column name="surname" type="VARCHAR" size="90" description="Apellido"/>
-		<column name="active" required="true" type="BOOLEAN" description="Is user active?"/>
-		<column name="levelId" type="INTEGER" description="User Level" />
-		<column name="lastLogin" type="TIMESTAMP" description="Fecha del ultimo login del usuario" />
+		<column name="active" required="true" type="BOOLEAN" sqlType="BOOL" description="Indica si esta activo"/>
+		<column name="created" required="true" type="TIMESTAMP" description="Fecha de creacion"/>
+		<column name="updated" required="true" type="TIMESTAMP" description="Fecha de actualizacion"/>
+		<column name="levelId" type="INTEGER" size="4" description="Id del nivel de usuario" />
+		<column name="lastLogin" type="TIMESTAMP" description="Fecha del ultimo ingreso al sistema" />
 		<column name="timezone" type="VARCHAR" size="25" description="Timezone GMT del usuario" />
 		<column name="recoveryHash" type="VARCHAR" size="255" description="Hash enviado para la recuperacion de clave" />
 		<column name="recoveryHashCreatedOn" type="TIMESTAMP" description="Momento de la solicitud para la recuperacion de clave" />
+		<column name="name" type="VARCHAR" size="90" description="Nombre"/>
+		<column name="surname" type="VARCHAR" size="90" description="Apellido"/>
+		<column name="documentType" type="INTEGER" size="2" description="Tipo de documento" />
+		<column name="document" type="VARCHAR" size="15" description="Numero de documento" />
+		<column name="gender" type="INTEGER" size="1" description="Genero" />
+		<column name="birthdate" type="DATE" description="Fecha de nacimiento" />
 		<column name="mailAddress" type="VARCHAR" size="90" description="Direccion electronica"/>
 		<column name="mailAddressAlt" type="VARCHAR" size="90" description="Direccion electronica alternativa"/>
+		<column name="session" type="VARCHAR" size="90" description="Nombre de la sesion" />
 
 		<behavior name="soft_delete" />
 		<behavior name="timestampable" />
