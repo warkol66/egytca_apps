@@ -69,7 +69,7 @@
 		<label for="params_updated">Fecha de Actualización</label>
 		<input id="params_updated" name="params[updated]" type='text' value='|-$planningIndicator->getUpdated()|date_format-|' size="12" title="Ingrese la fecha de Actualización"  |-$readonly|readonly-|/>|-if !$show && !$showLog-| <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[updated]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de Actualización">|-/if-|
 	</p>
-	<p> 
+	<p id="projectAndDirect" style="display:none;"> 
 		<label for="params_goal2013">Meta 2013</label>
 		<input name="params[goal2013]"  id="params_goal2013" type="text" value="|-$planningIndicator->getGoal2013()|escape-|" size="4" title="Magnitud del resultado esperado para 2013">
 			<select id="params_goaltype" name="params[expectedResults]" title="Resultados Esperados" |-$readonly|readonly-|>
@@ -80,7 +80,6 @@
 			</select>
 		<input name="params[value]"  id="params_value" type="text" value="|-$planningIndicator->getValue()|escape-|" size="3" title="Cantidad">
 		<input name="params[measureUnitId]"  id="params_measureUnitId" type="text" value="|-$planningIndicator->getMeasureUnitId()|escape-|" size="3" title="Unidad de medida">
-		
 			<select id="params_trend" name="params[trend]" title="Tendencia Esperada" |-$readonly|readonly-|>
 				<option value="">Tendencia</option>
 				|-foreach from=$trendTypes key=key item=name-|
@@ -88,8 +87,6 @@
 				|-/foreach-|
 			</select>
 	</p>
-	
-
     |-if !$planningIndicator->isNew()-|
     <input type="hidden" name="id" id="id" value="|-$planningIndicator->getId()-|" /> 
     |-/if-|
@@ -102,4 +99,21 @@
 		</p>|-/if-|
     </fieldset> 
   </form> 
-	
+<script type="text/javascript">
+	var selectType = document.getElementById("params_type");
+	selectType.onchange = function() {
+		var chosenOption = this.options[this.selectedIndex];
+		switch(chosenOption.value) {
+			case '1':
+			case '3':
+				$('projectAndDirect').show();
+				break;
+			case '2':
+				$('projectAndDirect').hide();
+				break;
+			default:
+				$('projectAndDirect').hide();
+				alert('default');
+			}
+	}
+</script>
