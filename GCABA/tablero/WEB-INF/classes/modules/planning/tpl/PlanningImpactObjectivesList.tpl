@@ -68,7 +68,7 @@
 						<input type="submit" name="submit_go_delete_objective" value="Borrar" onclick="return confirm('Seguro que desea eliminar el objetivo?')" class="icon iconDelete" title="Eliminar Objetivo de Impacto" />
 					</form>
 					<form action="Main.php" method="get" style="display:inline;">
-						<input type="hidden" name="do" value="planningProjectsEdit" />
+						<input type="hidden" name="do" value="planningMinistryObjectivesEdit" />
 						<input type="hidden" name="fromImpactObjectiveId" value="|-$objective->getid()-|" />
 						<input type="submit" name="submit_go_edit" value="Agregar Objetivos Ministeriales" class="icon iconAdd" title="Agregar Objetivos Ministeriales al Objetivo de Impacto" />
 					</form>			

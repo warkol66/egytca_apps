@@ -31,4 +31,15 @@ class PlanningConstructionLog extends BasePlanningConstructionLog {
 		return;
 	}
 
+	/**
+	 * Obtiene todas las versiones de un asunto a partir de su planningConstructionId ordenados por instante de creación y paginados.
+	 *
+	 * @param int $planningConstructionId id del objetivo ministerial.
+	 * @param string $orderType forma en que se ordena, 'asc' = ascendente 'desc' = descendente.
+	 * @return array versions correspondientes al asunto ordenados por instante de creación.
+	 */
+	public function getAllByPlanningConstruction($planningConstructionId, $orderType = Criteria::ASC) {
+		return $this->filterByPlanningconstructionid($planningConstructionId)->orderByUpdatedAt($orderType);
+	}
+
 } // PlanningConstructionLog

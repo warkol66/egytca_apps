@@ -40,6 +40,24 @@
 	<form name="form_edit_objective" id="form_edit_objective" action="Main.php" method="post">
 		<fieldset title="Formulario de datos de Objetivo Ministerial">
 		 <legend>Objetivo Ministerial|-if $startingYear eq $endingYear-| - |-$startingYear-||-else-| (|-$startingYear-| - |-$endingYear-|)|-/if-|</legend>
+		|-if !$fromImpactObjectiveId-|
+		|-if $readonly neq "readonly"-|<div id="ImpactObjective" style="position: relative;z-index:11100;">
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_impactObjectiveId" label="Objetivo de Impacto" url="Main.php?do=commonAutocompleteListX&object=ImpactObjective&objectParam=id" hiddenName="params[impactObjectiveId]" defaultHiddenValue=$ministryObjective->getimpactObjectiveId() defaultValue=$ministryObjective->getImpactObjective()-|
+		</div>
+		|-else-|
+      <p>
+        <label for="params_impactObjectiveId">Objetivo de Impacto</label>
+      <input name="params_impactObjectiveId" type="text" id="params_impactObjectiveId" size="80" value="|-$ministryObjective->getImpactObjective()-|" readonly="readonly" />
+      </p>
+		|-/if-|
+		|-else-|
+      <p>
+        <label for="params_impactObjectiveId">Objetivo de Impacto</label>
+      <input name="params_impactObjectiveId" type="text" size="80" value="|-$impactObjective-|" readonly="readonly" />
+      <input name="params[impactObjectiveId]" type="hidden" value="|-$fromImpactObjectiveId-|" />
+      <input name="fromImpactObjectiveId" type="hidden" value="|-$fromImpactObjectiveId-|" />
+      </p>
+		|-/if-|
 		|-if !$show && !$showLog-|<div id="responsible" style="position: relative;z-index:11000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_responsibleCode" label="Dependencia" url="Main.php?do=commonAutocompleteListX&object=position&objectParam=code" hiddenName="params[responsibleCode]" defaultHiddenValue=$ministryObjective->getResponsibleCode() defaultValue=$ministryObjective->getPosition()-|
 		</div>

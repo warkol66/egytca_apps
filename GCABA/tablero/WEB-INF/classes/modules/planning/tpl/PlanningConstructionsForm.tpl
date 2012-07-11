@@ -146,7 +146,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 			|-if isset($loginUser) && $loginUser->isSupervisor() && !$planningConstruction->isNew()-|
 				<p>
 					<label for="changedBy">|-if $planningConstruction->getVersion() gt 1-|Modificado|-else-|Creado|-/if-| por:</label>
-					|-$planningConstruction->updatedBy()-| - |-$planningConstruction->getUpdatedAt()|change_timezone|dateTime_format-| </p>
+				<input type="text" id="changedBy" size="80" value="|-$planningConstruction->updatedBy()-| - |-$planningConstruction->getUpdatedAt()|change_timezone|dateTime_format-|" title="|-if $planningConstruction->getVersion() gt 1-|Modificado|-else-|Creado|-/if-| por"  readonly="readonly"/></p>
 			|-/if-|
     |-if !$planningConstruction->isNew()-|
     <input type="hidden" name="id" id="id" value="|-$planningConstruction->getId()-|" /> 
