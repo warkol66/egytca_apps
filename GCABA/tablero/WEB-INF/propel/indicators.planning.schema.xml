@@ -9,7 +9,7 @@
 		<column name="description" type="LONGVARCHAR" description="Descripcion del indicador"/>
 		<column name="formula" type="LONGVARCHAR" description="Formula del indicador"/>
 		<column name="dataSources" type="LONGVARCHAR" description="Fuente de datos del indicador"/>
-		<column name="measureFrecuency" required="true" type="VARCHAR" size="100" description="Frecuencia de medicion"/>
+		<column name="measureFrecuency" required="true" type="INTEGER" description="Frecuencia de medicion"/>
 		<column name="dataResponsible" required="true" type="VARCHAR" size="180" description="Responsable de los datos"/>
 
 		<column name="expectedResults" type="INTEGER" size="1" description="Resultados esperados: 1)incremento, 2)descenso, 3)aceleracion, 4)desaceleracion."/>
