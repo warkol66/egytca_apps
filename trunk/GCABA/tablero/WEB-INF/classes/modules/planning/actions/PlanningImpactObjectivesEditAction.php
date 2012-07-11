@@ -20,6 +20,10 @@ class PlanningImpactObjectivesEditAction extends BaseEditAction {
 		//Constantes y opciones posibles para la creación de indicadores
 		$this->smarty->assign("planningIndicator", new PlanningIndicator());
 		$this->smarty->assign("indicatorTypes", PlanningIndicator::getIndicatorTypes());
+		$this->smarty->assign("measureFrecuencyTypes", PlanningIndicator::getMeasureFrecuencyTypes());
+		$this->smarty->assign("expectedResultsTypes", PlanningIndicator::getExpectedResultsTypes());
+		$this->smarty->assign("goalTypes", PlanningIndicator::getGoalTypes());
+		$this->smarty->assign("trendTypes", PlanningIndicator::getTrendTypes());
 
 	}
 }
