@@ -230,7 +230,8 @@ input[type="submit"].icon, input[type="button"].icon {
 	color: #cf0000 !Important;
 	margin-left: 150px;
 }
-input[type="text"].emptyValidation, input[type="password"].emptyValidation, textarea.emptyValidation, select.emptyValidation {
+input[type="text"].emptyValidation, input[type="password"].emptyValidation, textarea.emptyValidation,
+select.emptyValidation, .in_place_editable form input  {
 	border: 1px solid #ff0000;
 }
 /* ADD   ----------------------------------------------*/
