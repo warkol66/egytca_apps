@@ -70,6 +70,8 @@ class VialidadConstructionsEditAction extends BaseAction {
 		$smarty->assign("types",ConstructionTypeQuery::create()->find());
 
 		$smarty->assign("construction",$construction);
+
+		$smarty->assign("termTypes",Contract::getTermTypes());
 		return $mapping->findForwardConfig('success');
 	}
 }

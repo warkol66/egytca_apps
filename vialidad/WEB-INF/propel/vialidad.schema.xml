@@ -220,6 +220,9 @@
 		<column name="startDate" type="DATE" description="Fecha de inicio" />
 
 		<column name="proceedDate" type="DATE" description="Orden de proceder" />
+		<column name="validationLength" type="INTEGER" size="5" description="Plazo de la Obra" />
+		<column name="validationType" type="INTEGER" size="2" description="Tipo de longitud de la Obra" />
+
 
 
 		<foreign-key foreignTable="vialidad_measureUnit" onDelete="cascade" >

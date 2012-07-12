@@ -79,6 +79,15 @@
 				<label for="params_proceedDate">Orden de proceder</label>
 				<input id="params_proceedDate" name="params[proceedDate]" type='text' value='|-$construction->getProceedDate()|date_format-|' size="12" title="Ingrese la fecha de orden de proceder. Esta representa la fecha en que la Fiscalizadora tiene el visto bueno del MOPC para iniciar sus servicios." /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[proceedDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
+
+		 <p><label for="params[validationLength]">Plazo de la Obra</label>
+			<input name="params[validationLength]" type="text" value="|-$construction->getValidationLength()|system_numeric_format:0-|" size="6"> 
+			<select id="params_validationType" name="params[validationType]" title="Tipo de plazo">
+				|-foreach from=$termTypes key=key item=name-|
+							<option value="|-$key-|" |-$construction->getValidationType()|selected:$key-|>|-$name-|</option>
+				|-/foreach-|
+			</select>
+		 </p>
 		 |-if $returnContractId neq ""-|
 		 <input type="hidden" name="returnToContract" value="|-$returnContractId-|" />
 		 |-/if-|
