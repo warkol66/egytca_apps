@@ -122,8 +122,8 @@
 		</form>
 
 	</fieldset>
-	|-include file="DocumentsListInclude.tpl" entity="Contract" entityId=$contract->getId()-|
-	|-include file="DocumentsEditInclude.tpl" entity="Contract" entityId=$contract->getId()-|
+	|-if !$contract->isNew()-||-include file="DocumentsListInclude.tpl" entity="Contract" entityId=$contract->getId()-|
+	|-include file="DocumentsEditInclude.tpl" entity="Contract" entityId=$contract->getId()-||-/if-|
 
 |-else-|
 <div class="errorMessage">El identificador del contrato ingresado no es válido. Seleccione un contrato de la lista.</div>
