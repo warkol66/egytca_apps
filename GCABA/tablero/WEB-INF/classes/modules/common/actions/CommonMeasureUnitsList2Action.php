@@ -6,7 +6,7 @@
  */
 require_once 'BaseListAction.php';
 
-class CommonMeasureUnitsListAction extends BaseListAction {
+class CommonMeasureUnitsList2Action extends BaseListAction {
 
 	function __construct() {
 		parent::__construct('MeasureUnit');
