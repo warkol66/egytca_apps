@@ -69,14 +69,14 @@ function showTenureType(type) {
 	<form action="Main.php" method="post" >
 				<input type="hidden" name="do" value="positionsGetAllParentsByPositionX" />
 <p>
-      <label for="positionDataX[type]">Tipo</label>
+      <label for="positionData_type">Tipo</label>
 |-if $action eq "edit"-|
 	|-if $position->getKind() eq $staffKind -|
 		|-$positionKinds[$staffKind]-|
 	|-else-|
 		|-$position->getPositionTypeTranslated()-|
 	|-/if-|
-|-else-|<select id="positionDataX[type]" name="positionDataX[type]" title="type" onChange="positionsGetAllParentsByPositionX(this.form);">
+|-else-|<select id="positionDataX[type]" name="positionDataX[type]" title="type" onChange="positionsGetAllParentsByPositionX(this.form);" class="emptyValidation">
 			<option value="0">Seleccione el tipo</option>
 			<optgroup label="|-"Hierarchical"|multilang_get_translation:"positions"-|">
 			|-foreach from=$positionTypes key=typeKey item=type name=for_type-|
@@ -88,7 +88,9 @@ function showTenureType(type) {
 			<optgroup label="|-"Staff"|multilang_get_translation:"positions"-|">
 			<option value="|-$staffKind-|">&nbsp;&nbsp;|-$positionKinds[$staffKind]-|</option>
 			</optgroup>
-      </select>|-/if-|</p>
+      </select>
+			|-validation_msg_box idField="positionData_type"-|
+			|-/if-|</p>
 		</form>
 	<form name="form_edit_position" id="form_edit_position" action="Main.php" method="post">
 <span id="positionsMsgField"></span>
@@ -98,7 +100,7 @@ function showTenureType(type) {
   <p><label for="positionData[parentId]">Reporta a</label>
   <select id="postionData[parentId]" name="positionData[parentId]" title="parentId"> 
 	|-foreach from=$positions item=parent name=for_parent-|
-   |-assign var=level value=$parent->getLevel()-|<option value="|-$parent->getId()-|" |-if $position->getParentId() eq $parent->getId()-|selected="selected" |-/if-|>|-section name=space loop=$level-|&nbsp;&nbsp;|-/section-||-$parent->getName()-|</option> 
+   |-assign var=level value=$parent->getLevel()-|<option value="|-$parent->getId()-|" |-if $position->getParentId() eq $parent->getId()-|selected="selected" |-/if-|>|-section name=space loop=$level-|&nbsp; |-/section-||-$parent->getName()-|</option> 
 	|-/foreach-|
   </select></p>	|-/if-|
 
@@ -161,7 +163,7 @@ function showTenureType(type) {
 		<br />
 		|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
 		<input type="button" id="button_return_position" name="button_return_position" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=positionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
-		<input type="hidden" name="positionData[type]" id="positionData[type]" value="|-$position->getType()-|" />
+		<input type="hidden" name="positionData[type]" id="positionData_type" value="|-$position->getType()-|" class="emptyValidation" />
 	</p>
 		|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 		|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
