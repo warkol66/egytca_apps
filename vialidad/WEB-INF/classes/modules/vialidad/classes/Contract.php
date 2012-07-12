@@ -30,7 +30,7 @@ class Contract extends BaseContract {
 	 * @return  propel Coll de documentos
 	 */
 	public function getDocuments() {
-		return BaseQuery::create('DocumentRelatedEntity')->filterByEntity('Contract')->filterByEntityid($this->getId())->find();;
+		return BaseQuery::create('DocumentRelated')->filterByEntity('Contract')->filterByEntityid($this->getId())->find();;
 	}
 
 	/**
