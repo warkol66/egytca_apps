@@ -37,21 +37,20 @@ class BaseListAction extends BaseAction {
 				$perPage = Common::getRowsPerPage($this->module);
 				$page = $request->getParameter("page");
 	
-				$pager = BaseQuery::create($this->entityClassName)->createPager($filters, $page, $perPage);
+				$pager = BaseQuery::create($this->entityClassName)->createPager($this->filters, $page, $perPage);
 		
 				$smarty->assign(lcfirst($this->entityClassName) . "Coll", $pager->getResults());
 				$smarty->assign("pager",$pager);
 			}
 			else
-				$smarty->assign(lcfirst($this->entityClassName) . "Coll", BaseQuery::create($this->entityClassName)->addFilters($filters)->find());
+				$smarty->assign(lcfirst($this->entityClassName) . "Coll", BaseQuery::create($this->entityClassName)->addFilters($this->filters)->find());
 
-			$smarty->assign("filters", $filters);
 			$url = "Main.php?" . "do=" . lcfirst(substr_replace(get_class($this),'', strrpos(get_class($this), 'Action'), 6));
-			foreach ($filters as $key => $value)
+			foreach ($this->filters as $key => $value)
 				$url .= "&filters[$key]=$value";
 			$smarty->assign("url",$url);
 	
-			$smarty->assign("filters", $_GET["filters"]);
+			$smarty->assign("filters", $this->filters);
 			$smarty->assign("page", $page);
 			$smarty->assign("message", $_GET["message"]);
 			
@@ -63,7 +62,7 @@ class BaseListAction extends BaseAction {
 	}
 	
 	protected function preList() {
-		// default: do nothing
+		$this->filters = $_GET['filters'];
 	}
 	
 	protected function postList() {
