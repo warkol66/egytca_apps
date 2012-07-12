@@ -501,7 +501,7 @@ fieldset legend {
 	-webkit-box-shadow:2px 2px 3px #a0a0a0;
 	box-shadow:2px 2px 3px #a0a0a0;
 }
-input[type="text"], input[type="file"], input[type="password"], textarea {
+input[type="text"], input[type="file"], input[type="password"], textarea, .in_place_editable form input {
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -510,6 +510,10 @@ input[type="text"], input[type="file"], input[type="password"], textarea {
 	-webkit-box-shadow: 0 1px 2px #cdcdcd;
 	border: 1px solid #a0a0a0;
 	padding:3px;
+}
+.in_place_editable form input {
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
