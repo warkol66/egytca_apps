@@ -115,14 +115,16 @@
 		 |-if !$contract->isNew()-||-include file="VialidadContractsAmountInclude.tpl"-||-/if-|
 		 
 
-	|-include file="DocumentsListInclude.tpl" entity="Contract" entityId=$contract->getId()-|
-	|-include file="DocumentsEditInclude.tpl" entity="Contract" entityId=$contract->getId()-|
 
 	 <p><input name="save" type="submit" value="Guardar Cambios"> 
 				<input type='button' onClick='location.href="Main.php?do=vialidadContractsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Contratos"/>
 			 </p>
 		</form>
+
 	</fieldset>
+	|-include file="DocumentsListInclude.tpl" entity="Contract" entityId=$contract->getId()-|
+	|-include file="DocumentsEditInclude.tpl" entity="Contract" entityId=$contract->getId()-|
+
 |-else-|
 <div class="errorMessage">El identificador del contrato ingresado no es válido. Seleccione un contrato de la lista.</div>
 <input type='button' onClick='location.href="Main.php?do=vialidadContractsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Contratos"/>
