@@ -84,7 +84,7 @@
     </p>
 	<p>     
 		<label for="params_updated">Fecha de Actualización</label>
-		<input id="params_updated" name="params[updated]" type='text' value='|-$planningIndicator->getUpdated()|date_format-|' size="12" title="Ingrese la fecha de Actualización"  |-$readonly|readonly-|/>|-if !$show && !$showLog-| <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[updated]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de Actualización">|-/if-|
+		<input id="params_updated" name="params[updated]" type='text' value='|-$planningIndicator->getUpdated()|date_format-|' size="12" title="Ingrese la fecha de Actualización en el formato dd-mm-aaaa"  |-$readonly|readonly-|/><!--|-if !$show && !$showLog-| <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[updated]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de Actualización">|-/if-|-->
 	</p>
 	<p id="projectAndDirect" style="display:none;"> 
 		<label for="params_goal2013">Meta 2013</label>

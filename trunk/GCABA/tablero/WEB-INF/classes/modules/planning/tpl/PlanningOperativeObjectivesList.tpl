@@ -53,7 +53,7 @@
 			<tr>
 				<td>|-$objective->getMinistryObjective()-|</td>
 				<td>|-$objective->getName()-|</td>
-				<td nowrap><a href="Main.php?do=planningProjectsList&nav=true&&filters[operativeObjectiveid]=|-$objective->getid()-|" class="icon iconFollow" title="Ver Proyectos del Objetivo Operativo"></a></td>
+				<td nowrap>|-if $objective->countPlanningProjects() gt 0-|<a href="Main.php?do=planningProjectsList&nav=true&&filters[operativeobjectiveid]=|-$objective->getid()-|" class="icon iconFollow" title="Ver Proyectos del Objetivo Operativo">Ver Proyectos</a>|-/if-|</td>
 				<td nowrap>
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="planningOperativeObjectivesViewX" />
