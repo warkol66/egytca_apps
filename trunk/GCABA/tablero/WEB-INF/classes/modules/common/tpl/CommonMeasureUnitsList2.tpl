@@ -57,7 +57,7 @@
 			<td colspan="3">|-if isset($filter)-|No hay Unidades de Medida que concuerden con la búsqueda|-else-|No hay Unidades de Medida disponibles|-/if-|</td>
 		</tr>
 	|-else-|
-		|-include file="CommonMeasureUnitsListInclude.tpl"-|
+		|-include file="CommonMeasureUnitsListInclude2.tpl"-|
 	|-/if-|
 	</tbody>
 	<tfoot>
