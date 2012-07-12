@@ -24,10 +24,12 @@ class ActorsDoEditAction extends BaseAction {
 
 		$userParams = Common::userInfoToDoLog();
 		$actorParams = array_merge_recursive($_POST["params"],$userParams);
+	
+		$id = $request->getParameter('id');
 
-		if ($_POST["action"] == "edit") { // Existing actor
+		if (!empty($id)) { // Existing actor
 
-			$actor = ActorPeer::get($_POST["id"]);
+			$actor = ActorPeer::get($id);
 			$actor = Common::setObjectFromParams($actor,$actorParams);
 			
 			if ($actor->isModified() && !$actor->save()) 

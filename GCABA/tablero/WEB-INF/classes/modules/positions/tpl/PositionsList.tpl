@@ -20,7 +20,7 @@ Puede ver la versión gráfica haciendo click <a href="Main.php?do=positionsChar
 	<table border="0" cellpadding="5" cellspacing="0"  class='tableTdBorders' id="tabla-positions">
 		<thead>
 		<tr>
-			<td colspan="5" class="tdSearch"><div><a href="javascript:void(null);" onClick='("divSearch");' class="tdTitSearch">Buscar</a></div>
+			<td colspan="5" class="tdSearch"><div><a href="javascript:void(null);" onClick='$("divSearch").toggle();' class="tdTitSearch">Buscar</a></div>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="positionsList" />
 					Por tipo<select id="filters_type" name="filters[type]" title="type">

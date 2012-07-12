@@ -93,16 +93,15 @@ function showTenureType(type) {
 	<form name="form_edit_position" id="form_edit_position" action="Main.php" method="post">
 <span id="positionsMsgField"></span>
 |-if $action eq "edit"-|
+	|-if $position->getType() eq $configModule->get('positions','treeRootType') || $positions|@count eq 0-|
+	|-else-|
   <p><label for="positionData[parentId]">Reporta a</label>
   <select id="postionData[parentId]" name="positionData[parentId]" title="parentId"> 
-	|-if $position->getType() eq $configModule->get('positions','treeRootType') or empty($positions)-|
-    <option value="0" selected="selected">Ninguna</option> 
-	|-else-|
 	|-foreach from=$positions item=parent name=for_parent-|
    |-assign var=level value=$parent->getLevel()-|<option value="|-$parent->getId()-|" |-if $position->getParentId() eq $parent->getId()-|selected="selected" |-/if-|>|-section name=space loop=$level-|&nbsp;&nbsp;|-/section-||-$parent->getName()-|</option> 
 	|-/foreach-|
-	|-/if-|
-  </select></p>
+  </select></p>	|-/if-|
+
 |-else-|
 <!--<p>
   <select id="postionDataZ[parentId]" name="positionDataZ[parentId]" title="parentId"> 
@@ -117,18 +116,18 @@ function showTenureType(type) {
 -->
 |-/if-|
 	<p>
-	  <label for="positionData[name]">Dependencia</label>
-				<input name="positionData[name]" type="text" id="positionData[name]" title="name" value="|-$position->getName()|escape-|" size="60" maxlength="150" />
+	  <label for="positionData_name">Dependencia</label>
+				<input name="positionData[name]" type="text" id="positionData_name" title="name" value="|-$position->getName()|escape-|" size="60" maxlength="150" class="emptyValidation"  /> |-validation_msg_box idField="positionData_name"-|
 	</p>			
-	<p><label for="positionData[internalCode]">Código de Dependencia/Cargo</label>
-				<input name="positionData[internalCode]" type="text" id="positionData[internalCode]" title="Código de Dependencia" value="|-$position->getInternalCode()-|" size="15" maxlength="15" />
+	<p><label for="positionData_internalCode">Código de Dependencia/Cargo</label>
+				<input name="positionData[internalCode]" type="text" id="positionData_internalCode" title="Código de Dependencia" value="|-$position->getInternalCode()-|" size="15" maxlength="15" class="emptyValidation" /> |-validation_msg_box idField="positionData_internalCode"-|
 	</p>
-	<p><label for="positionData[ownerName]">Nombre del Cargo</label>
-				<input name="positionData[ownerName]" type="text" id="positionData[ownerName]" title="Nombre del Cargo" value="|-$position->getOwnerName()-|" size="60" maxlength="150" />
+	<p><label for="positionData_ownerName">Nombre del Cargo</label>
+				<input name="positionData[ownerName]" type="text" id="positionData_ownerName" title="Nombre del Cargo" value="|-$position->getOwnerName()-|" size="60" maxlength="150" class="emptyValidation" /> |-validation_msg_box idField="positionData_ownerName"-|
 	</p>
 |-if $configModule->get("positions","useFemale") eq "true"-|					
-	<p><label for="positionData[ownerNameFemale]">Nombre del Cargo (fem.)</label>
-				<input name="positionData[ownerNameFemale]" type="text" id="positionData[ownerNameFemale]" title="Nombre del Cargo" value="|-$position->getOwnerNameFemale()-|" size="60" maxlength="150" />
+	<p><label for="positionData_ownerNameFemale">Nombre del Cargo (fem.)</label>
+				<input name="positionData[ownerNameFemale]" type="text" id="positionData_ownerNameFemale" title="Nombre del Cargo" value="|-$position->getOwnerNameFemale()-|" size="60" maxlength="150" class="emptyValidation" />  |-validation_msg_box idField="positionData_ownerNameFemale"-|
 	</p>
 |-/if-|						
 	<p><label for="positionData[address]">Dirección</label>
@@ -141,18 +140,18 @@ function showTenureType(type) {
 				<input name="positionData[email]" type="text" id="positionData[email]" title="Correo electrónico" value="|-$position->getEmail()-|" size="60" maxlength="150" />
 	</p>
 	
-	<div id="userGroupInfo"|-if $position->getType() ne 11 -| style="display:none;"|-/if-|>
+	<div id="userGroupInfo"|-if $position->getType() ne 9-| style="display:none;"|-/if-|>
 		<p>
-			<label for="positionData[userGroupId]">Grupo de usuarios</label>
-			<select id="positionData[userGroupId]" name="positionData[userGroupId]" title="Grupo de usuarios" >
-				<option class="noneSelected" value="0">Seleccione el tipo</option>
+			<label for="positionData_userGroupId">Grupo de usuarios</label>
+			<select id="positionData_userGroupId" name="positionData[userGroupId]" title="Seleccione el grupo de usuarios del ministerio" >
+				<option class="noneSelected" value="0">Seleccione</option>
 				|-foreach from=$userGroups item=userGroup-|
         			<option value="|-$userGroup->getId()-|" |-if $userGroup->getId() eq $position->getUserGroupId()-|selected|-/if-|>|-$userGroup->getName()-|</option>
 				|-/foreach-|
       		</select>
 		</p>
 	</div>
-
+		|-if !$show && !$showLog -|<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>|-/if-|
 	<p>	
 	|-if $action eq "edit"-|
 		<input type="hidden" name="id" id="id" value="|-$position->getId()-|" />
@@ -160,7 +159,7 @@ function showTenureType(type) {
 		<input type="hidden" name="action" id="action" value="|-$action-|" />
 		<input type="hidden" name="do" id="do" value="positionsDoEdit" />
 		<br />
-		<input type="submit" id="button_edit_position" name="button_edit_position" title="Aceptar" value="Aceptar" />
+		|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
 		<input type="button" id="button_return_position" name="button_return_position" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=positionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
 		<input type="hidden" name="positionData[type]" id="positionData[type]" value="|-$position->getType()-|" />
 	</p>

@@ -193,9 +193,9 @@ class PositionPeer extends BasePositionPeer {
 	}
 
 	private static function getNextCode() {
-		PositionQuery::disableSoftDelete();
+//		PositionQuery::disableSoftDelete();
 		$position = PositionQuery::create()->addDescendingOrderByColumn(PositionPeer::CODE)->findOne();
-		PositionQuery::enableSoftDelete();
+//		PositionQuery::enableSoftDelete();
 		if (empty($position))
 			return 0;
 		else
