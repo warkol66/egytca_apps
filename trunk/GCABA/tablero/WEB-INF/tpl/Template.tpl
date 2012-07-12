@@ -2,7 +2,7 @@
 |-/if-|
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>|-if isset($module)-||-$module|multilang_get_translation:"common"-| - |-/if-||-$parameters.siteName-|</title>
+|-block name="title"-|<title>|-if isset($module)-||-$module|multilang_get_translation:"common"-| - |-/if-||-$parameters.siteName-|</title>|-/block-|
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="css/main.css" type="text/css" />
 <!--[if !IE]>--> <link href="css/style_ns6+.css" rel="stylesheet" type="text/css"> <!--<![endif]-->
@@ -27,14 +27,14 @@
 <link type="text/css" href="css/fisheye.css" rel="stylesheet" />
 		<div id="headerMenu">
 			<ul id="fisheye_menu">
-				<li class="fisheye"><a href="Main.php?do=usersWelcome"><img src="images/home.png" title="Inicio" /></a><span style="display: none;">Inicio</span></li>
-				<li class="fisheye"><a href="Main.php?do=usersList"><img src="images/user.png" title="Editar información de usuario" /></a><span style="display: none;">Usuario</span></li>
+				<li class="fisheye"><a href="Main.php?do=usersWelcome"><img src="images/home.png" title="Inicio" /><span style="display: none;">Inicio</span></a></li>
+				<li class="fisheye"><a href="Main.php?do=usersList"><img src="images/user.png" title="Editar información de usuario" /><span style="display: none;">Usuario</span></a></li>
 				<li class="fisheye"><img src="images/print.png" title="Imprimir" onClick="window.print()"/><span style="display: none;">Imprimir</span></li>
 			|-if $parameters.hasUnifiedUsernames.value neq "YES"-|
 				|-if !empty($loginUser)-|
-					<li><a href="Main.php?do=usersDoLogout" class="logout" title="Salir" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'></a></li>
+					<li><a href="Main.php?do=usersDoLogout" class="logout" title="Salir" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'></a><span style="display: none;">Salir</span></li>
 				|-else-|
-					<li><a href="Main.php?do=affiliatesUsersDoLogout" class="logout" title="Salir" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'></a></li>	
+					<li><a href="Main.php?do=affiliatesUsersDoLogout" class="logout" title="Salir" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'></a><span style="display: none;">Salir</span></li>	
 				|-/if-|				
 			|-else-|
 				<li class="fisheye"><a href="Main.php?do=commonDoLogout" title="Salir" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'><img src="images/logout.png" title="Salir" /><span style="display: none;">Salir</span></a></li>
