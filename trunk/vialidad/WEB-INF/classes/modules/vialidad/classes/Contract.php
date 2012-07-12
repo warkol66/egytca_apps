@@ -25,6 +25,15 @@ class Contract extends BaseContract {
 	}
 
 	/**
+	 * Obtiene los documentos asociados al contrato
+	 *
+	 * @return  propel Coll de documentos
+	 */
+	public function getDocuments() {
+		return BaseQuery::create('DocumentRelatedEntity')->filterByEntity('Contract')->filterByEntityid($this->getId())->find();;
+	}
+
+	/**
 	 * Devuelve array con tipos de contrato (types)
 	 *  id => Tipo tipos de contrato
 	 *
