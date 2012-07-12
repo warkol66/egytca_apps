@@ -21,7 +21,9 @@
 	<script>
 		$(document).ready(function() {
 			$('#test1').egytca('autocomplete', 'Main.php?do=planningDummy', {
-				disable: '#test1submit'
+				disable: '#test1submit',
+				noResultsText: 'texto ridiculo de prueba',
+				noResultsButton: '<button class="icon iconAdd" onclick="alert(\'clicked!!\')"></button>'
 			}).change(function() { $('#test1valuespan').html($(this).val()) });
 		});
 	</script>

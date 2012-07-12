@@ -140,15 +140,20 @@ Egytca = {
 				complete: function() { // no parece necesario, pero si se sobreescribiera esta option tendríamos un bug menor
 					if (settings.disable != undefined)
 						$(settings.disable).attr('disabled', 'disabled');
-				}
+				},
+				noResultsText: 'No hay resultados',
+				noResultsButton: ''
 			}, options);
 			
 			return this.each(function() {
 				$(this).ajaxChosen(settings, function(data) {
 					for (var key in data) { return data; } // if (!empty)
-					return {'Egytca.autocompleter.NOVALUE': 'No hay resultados'}; //else
+					return { //else
+						'Egytca.autocomplete.NOVALUE': settings.noResultsText
+							+ (settings.noResultsButton != '' ? ' '+settings.noResultsButton : '')
+					};
 				}).change(function() {
-					if ($(this).val() == 'Egytca.autocompleter.NOVALUE' && settings.disable != undefined)
+					if ($(this).val() == 'Egytca.autocomplete.NOVALUE' && settings.disable != undefined)
 						$(settings.disable).attr('disabled', 'disabled');
 					else
 						$(settings.disable).removeAttr('disabled');
