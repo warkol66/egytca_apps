@@ -102,7 +102,7 @@
 			</select>
 		 </p>
 
-		 <p><label for="params[contractLengthModified]">Vigencia del Contrato</label>
+		 <p><label for="params[contractLengthModified]">Vigencia del Contrato Modificado</label>
 			<input name="params[contractLengthModified]" type="text" value="|-$contract->getContractLengthModified()|system_numeric_format:0-|" size="6"> 
 			<select id="params_termTypeModified" name="params[termTypeModified]" title="Tipo de plazo">
 				|-foreach from=$termTypes key=key item=name-|
@@ -227,7 +227,7 @@
 	</tr>|-/if-|
 	<tr>
 		<th width="30%">Nombre</th>
-		<th width="65%">Description</th>
+		<th width="65%">Descripción</th>
 		<th width="5%">&nbsp;
 		</th>
 	</tr>

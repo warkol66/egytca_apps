@@ -211,7 +211,6 @@
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
 		<column name="numberId" type="INTEGER" description="Numero de id" />
 		<column name="contractId" type="INTEGER" description="Id del contrato" />
-		<column name="engagementCode" type="VARCHAR" description="Codigo de Contratacion" />
 		<column name="description" type="LONGVARCHAR" />
 		<column name="verifierId" type="INTEGER" size="5" description="Id del verificador" />
 		<column name="region" type="VARCHAR" size="255" description="Departamentos" />
