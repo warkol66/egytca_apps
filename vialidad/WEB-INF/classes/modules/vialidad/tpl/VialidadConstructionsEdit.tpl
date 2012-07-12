@@ -37,12 +37,12 @@
 
 		 </p>
 		 <p>
-		   <label for="params[numberId]">Nro de id</label>
-				<input name="params[numberId]" type="text" value="|-$construction->getNumberId()|escape-|" size="15" title="Nro de ID"> 
+		   <label>N° de Contrato</label>
+				|-$contract->getContractNumber()|escape-|
 		</p>
 		 <p>
-		   <label for="params[engagementCode]">Código de Contratación</label>
-				<input name="params[engagementCode]" type="text" value="|-$construction->getEngagementCode()|escape-|" size="15" title="Código de Contratación"> 
+		   <label for="params[numberId]">Nro de id</label>
+				<input name="params[numberId]" type="text" value="|-$construction->getNumberId()|escape-|" size="15" title="Nro de ID"> 
 		</p>
 		 <p><label for="params[name]">Nombre</label>
 			<input name="params[name]" type="text" value="|-$construction->getName()|escape-|" size="60">
@@ -51,7 +51,7 @@
 			 <textarea name="params[description]" rows="4" cols="58">|-$construction->getDescription()-|</textarea>
 		 </p>
 		 <div id="verifier" style="position: relative;z-index:10000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_verifierId" label="Fiscalizadora" url="Main.php?do=affiliatesAutocompleteListX" hiddenName="params[verifierId]" defaultHiddenValue=$construction->getVerifierId() defaultValue=$construction->getAffiliate()-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_verifierId" label="Fiscal" url="Main.php?do=affiliatesAutocompleteListX" hiddenName="params[verifierId]" defaultHiddenValue=$construction->getVerifierId() defaultValue=$construction->getAffiliate()-|
 		 </div>
 			<p>
 				<label for="params[typeId]">Tipo del Obra</label>
