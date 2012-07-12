@@ -48,6 +48,26 @@ class VialidadContractsEditAction extends BaseAction {
 			$contract = new Contract();
 			$smarty->assign("action","create");
 		}
+
+
+			//Adjuntar documentos
+			$smarty->assign("documentsUpload", true); //en el template se realizan subidas de documentos
+			$documentTypes = DocumentPeer::getDocumentsTypesConfig();
+			$smarty->assign("documentTypes",$documentTypes);
+
+			$maxUploadSize =  Common::maxUploadSize();
+			$smarty->assign("maxUploadSize",$maxUploadSize);
+
+			$moduleConfig = Common::getModuleConfiguration($module);
+			if ($moduleConfig["usePasswords"]["value"] == "YES")
+				$usePasswords = true;
+			$smarty->assign("usePasswords",$usePasswords);
+
+			// Busco todos los documentos asociados al contract
+			$documents = $contract->getDocuments();
+			$smarty->assign("documents",$documents);
+
+
 		$smarty->assign("contract",$contract);
 		$smarty->assign("currencies",CurrencyQuery::create()->find());
 		return $mapping->findForwardConfig('success');
