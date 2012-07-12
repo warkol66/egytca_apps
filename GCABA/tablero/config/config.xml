@@ -61,7 +61,7 @@
 				<option_6>E_ALL &amp; ~E_NOTICE ~E_WARNING</option_6>
 			</element_options>
 		</errorReporting>
-		<rowsPerPage>15</rowsPerPage>
+		<rowsPerPage>25</rowsPerPage>
 		<language>esp</language>
 	</system>
 	<documents>

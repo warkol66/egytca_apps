@@ -36,6 +36,7 @@ class ConfigModule {
 				"Neighborhood" => 12
 				),
 			"positionsTypes" => array(
+				9 => 'Minister',
 				11 => 'Secretary',
 				12 => 'Sub secretary',
 				13 => 'General Director',
@@ -53,7 +54,7 @@ class ConfigModule {
 				7 => 'Vice Mayor',
 				8 => 'Chief of Staff',
 				9 => 'Minister',
-				10 => 'Vice Minister',
+				11 => 'Secretary',
 				12 => 'Sub secretary',
 				13 => 'General Director',
 				14 => 'Director',
@@ -90,7 +91,7 @@ class ConfigModule {
 			"positionsTypes" => array(
 				8 => 'Chief of Staff',
 				9 => 'Minister',
-				10 => 'Vice Minister',
+				11 => 'Secretary',
 				12 => 'Sub secretary',
 				13 => 'General Director',
 				14 => 'Director',
@@ -115,11 +116,11 @@ class ConfigModule {
 				"Neighborhood" => 12
 				),
 			"positionsTypes" => array(
+				8 => 'Chief of Staff',
+				9 => 'Minister',
 				11 => 'Secretary',
 				12 => 'Sub secretary',
-				13 => 'General Director',
-				14 => 'Director',
-				15 => 'Sub Director'
+				13 => 'General Director'
 				),
 			"useExchangeRate" => true
 		),
