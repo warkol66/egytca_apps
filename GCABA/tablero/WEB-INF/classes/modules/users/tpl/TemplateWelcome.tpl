@@ -1,2 +1,4 @@
-|-* Al ser igual que el global se incluye*-|
-|-include file='Template.tpl'-|
+|-extends file="Template.tpl"-|
+|-block name="title"-|
+	<title>|-$parameters.siteName-|</title>
+|-/block-|
