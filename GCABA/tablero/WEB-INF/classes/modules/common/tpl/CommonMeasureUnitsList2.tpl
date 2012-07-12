@@ -85,27 +85,17 @@
 |-if "commonMeasureUnitsDoEditX"|security_has_access-|
 <script language="JavaScript" type="text/JavaScript">
 function showInput(to_show, to_hide) {
-		$(to_show).show();
-		$(to_hide).hide();
+	$('#'+to_show).show();
+	$('#'+to_hide).hide();
 }
 function setStatus(status) {
 	switch (status) {
 		case 'working':
-			msgs = document.getElementsByName('done_status_message');
-			for (var i=0; i<msgs.length; i++)
-				msgs[i].hide();
-			msgs = document.getElementsByName('working_status_message');
-			for (var i=0; i<msgs.length; i++)
-				msgs[i].show();
-			break;
+			$('[name=done_status_message]').hide();
+			$('[name=working_status_message]').show();
 		case 'done':
-			msgs = document.getElementsByName('working_status_message');
-			for (var i=0; i<msgs.length; i++)
-				msgs[i].hide();
-			msgs = document.getElementsByName('done_status_message');
-			for (var i=0; i<msgs.length; i++)
-				msgs[i].show();
-			break;
+			$('[name=done_status_message]').show();
+			$('[name=working_status_message]').hide();
 		default:
 			// unimplemented status
 			break;
@@ -123,17 +113,14 @@ function clean(value) {
 	return aux.replace(/\s---$/, '');
 }
 function prepareAndSubmit(form) {
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-		{ success: 'measureUnitsTbody' },
-		'Main.php',
-		{
-			method: 'post',
-			postBody: fields,
-			evalScripts: true,
-		insertion: Insertion.Bottom
+	$.ajax({
+		url: 'Main.php',
+		type: 'post',
+		data: $(form).serialize(),
+		success: function(data) {
+			$(data).appendTo($('#measureUnitsTbody'));
 		}
-	);
+	});
 	form.reset();
 }
 </script>

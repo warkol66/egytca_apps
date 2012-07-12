@@ -22,5 +22,6 @@ class CommonMeasureUnitsListAction extends BaseListAction {
 		parent::postList();
 		$this->smarty->assign("module", $this->module);
 		$this->smarty->assign("section", "Constructions");
+		$this->template->template = 'TemplateJQuery.tpl';
 	}
 }
