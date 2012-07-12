@@ -132,25 +132,60 @@ Egytca = {
 		 */
 		autocomplete: function(url, options) {
 			
+			var haveResults = function(data) {
+				for (var key in data) { return true; };
+				return false;
+			}
+			
+			var _this = $(this);
+			
 			var settings = $.extend(true, {url: url}, {
 				method: 'GET',
 				dataType: 'json',
 				data: { type: 'json' },
 				jsonTermKey: 'searchString',
-				complete: function() { // no parece necesario, pero si se sobreescribiera esta option tendríamos un bug menor
+				success: function(data) { // no parece necesario, pero si se sobreescribiera esta option tendríamos un bug menor
 					if (settings.disable != undefined)
 						$(settings.disable).attr('disabled', 'disabled');
+					
+					// TODO: revisar comportamiento extrano del boton al ocultar y volver a mostrar resultados
+					$('.autocompNoResultButton').click(function(e){
+						var data = _this.data('noResultsCallback')();
+						_this.data('setElem')(data);
+					});
 				},
 				noResultsText: 'No hay resultados',
-				noResultsButton: ''
+				noResultsCallback: undefined
 			}, options);
 			
+			
+			
 			return this.each(function() {
-				$(this).ajaxChosen(settings, function(data) {
-					for (var key in data) { return data; } // if (!empty)
-					return { //else
+				
+				var _this = $(this);
+				
+				_this.data('noResultsCallback', settings.noResultsCallback);
+				_this.data('setElem', function(data) {
+					var value;
+					var text;
+					for (var key in data) {
+						value = key;
+						text = data[key]
+						break;
+					}
+					_this.find('option').remove();
+					if (value != undefined && text != undefined) {
+						var option = $('<option></option>').val(value).html(text);
+						_this.append(option);
+					}
+					_this.trigger("liszt:updated");
+				})
+			
+				_this.ajaxChosen(settings, function(data) {
+					return haveResults(data) ? data : {
 						'Egytca.autocomplete.NOVALUE': settings.noResultsText
-							+ (settings.noResultsButton != '' ? ' '+settings.noResultsButton : '')
+						+ (settings.noResultsCallback == undefined ? '' :
+						' <button class="autocompNoResultButton icon iconAdd"></button>')
 					};
 				}).change(function() {
 					if ($(this).val() == 'Egytca.autocomplete.NOVALUE' && settings.disable != undefined)
