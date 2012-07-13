@@ -31,6 +31,9 @@ class UsersListAction extends BaseAction {
 			$filters = $_GET['filters'];
 			$this->applyFilters($userPeer,$filters,$smarty);
 		}
+        
+//        $filters = !empty($_GET['filters']) ? $_GET['filters'] : array();
+//        $pager = BaseQuery::create("User#special")->createPager($filters);
 
 		$pager = $userPeer->getAllPaginatedFiltered($page);
 		$smarty->assign("users",$pager->getResult());
