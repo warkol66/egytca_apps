@@ -14,9 +14,8 @@
  */
 class PositionQuery extends BasePositionQuery {
 
-	public function __construct($dbName = 'application', $modelName = 'Position', $modelAlias = null) {
-		parent::__construct($dbName, $modelName, $modelAlias);
-			$this->orderByVersionid(Criteria::DESC);
-	}
+    public static function createOrderedByVersion() {
+        return self::create()->orderByVersionid(Criteria::DESC);
+    }
 
 } // PositionQuery
