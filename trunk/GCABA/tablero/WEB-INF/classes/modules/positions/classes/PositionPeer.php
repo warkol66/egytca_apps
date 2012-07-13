@@ -642,5 +642,10 @@ class PositionPeer extends BasePositionPeer {
 		
 		return $projects;
 	}
-	
+
+
+	function getIncludeHome() {
+
+		return BaseQuery::create('Position')->filterByType(9)->find();
+	}	
 } // PositionPeer
