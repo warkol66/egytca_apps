@@ -65,6 +65,84 @@
 	<p><input id="test1submit" type="submit" value="submit" /></p>
 </form></div>
 
+
+<hr>
+
+<link href='http://mbostock.github.com/d3/ex/cluster.css' rel='stylesheet' type='text/css' />
+<script type="text/javascript" src="scripts/jquery/d3.v2.min.js"></script>
+<script>
+$(document).ready(function() {
+	var width = 800;
+	var height = 600;
+	
+	var cluster = d3.layout.cluster()
+		.size([height, width - 160]);
+		
+	var diagonal = d3.svg.diagonal()
+		.projection(function(d) { return [d.y, d.x]; });
+		
+	var vis = d3.select("#myDiv").append("svg")
+		.attr("width", width)
+		.attr("height", height)
+		.append("g")
+		.attr("transform", "translate(40, 0)");
+
+//	d3.json("../data/flare.json", function(json) {
+	var myObj = {
+		"name": "flare",
+		"children": [
+			{
+				"name": "analytics",
+				"children": [
+					{
+						"name": "cluster",
+						"children": [
+							{"name": "AgglomerativeCluster", "size": 3938},
+							{"name": "CommunityStructure", "size": 3812},
+							{"name": "HierarchicalCluster", "size": 6714},
+							{"name": "MergeEdge", "size": 743}
+						]
+					}
+				]
+			}
+		]
+	}
+	
+	var json = myObj;
+	
+	console.log(json);
+	
+	var nodes = cluster.nodes(json);
+	
+	var link = vis.selectAll("path.link")
+		.data(cluster.links(nodes))
+		.enter().append("path")
+		.attr("class", "link")
+		.attr("d", diagonal);
+	
+	var node = vis.selectAll("g.node")
+		.data(nodes)
+		.enter().append("g")
+		.attr("class", "node")
+		.attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+		
+	node.append("circle")
+		.attr("r", 4.5);
+		
+	node.append("text")
+		.attr("dx", function(d) { return d.children ? -8 : 8; })
+		.attr("dy", 3)
+		.attr("text-anchor", function(d) { return d.children ? "end" : "start"; })
+		.text(function(d) { return d.name; });
+		
+//	});
+});
+</script>
+
+<div id="myDiv" style="width:800px; height:600px;"></div>
+
+
+
 |-else-|
 	{
 		|-if !$empty-|
