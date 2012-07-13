@@ -1,48 +1,58 @@
-<script type="text/javascript" src="scripts/lightbox.js"></script>
+<link rel="stylesheet" href="scripts/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
+<script type='text/javascript' src='scripts/fancybox/jquery.fancybox-1.3.4.pack.js'></script>
 |-if !$show && !$showLog -|
-<div id="lightbox1" class="leightbox">
-	<p align="right">
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a>
-	</p>
-	|-include file="PlanningIndicatorsEditInclude.tpl"-|
-</div>
+<div style="display:none"><div id="newIndicatorDiv">
+	|-include file="PlanningIndicatorsEdit2Include.tpl"-|
+</div></div>
+<a id="newIndicatorDummy" href="#newIndicatorDiv" style="display:none"></a>
 |-/if-|
 <link type="text/css" href="css/chosen.css" rel="stylesheet" />
-<script language="JavaScript" type="text/javascript" src="scripts/chosen.proto.js"></script>
-<!--<script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>-->
-<!--<script language="JavaScript" type="text/javascript" src="scripts/jquery/ajax-chosen.min.js"></script>-->
+<script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
+<script language="JavaScript" type="text/javascript" src="scripts/jquery/ajax-chosen.min.js"></script>
+<script type="text/javascript" src="scripts/jquery/egytca.js"></script>
 <script type="text/javascript">
-/*document.observe("dom:loaded", function() {
-	new Chosen($("params_regions"));
-});
-*/
-/*	$(document).ready(function() {
-			$(".chzn-select").chosen();
-			$("#autocomplete_responsibleCode").ajaxChosen({
-					method: 'GET',
-					url: 'Main.php?do=commonAutocompleteJQueryListX&object=position&objectParam=code',
-					dataType: 'json'
-			}, function (data) {
-					var terms = {};
-					$.each(data, function (i, val) {
-						terms[i] = val;
-			});
-			return terms;
+	$(function() {
+		
+		// puedo pasar los parametros por separado en la opcion data en vez de en la url
+		$('#autocomplete_impactObjectiveId').egytca('autocomplete',
+			'Main.php?do=commonAutocompleteListX&object=ImpactObjective&objectParam=id'
+		);
+			
+		$('#autocomplete_responsibleCode').egytca('autocomplete',
+			'Main.php?do=commonAutocompleteListX&object=position&objectParam=code'
+		);
+		
+		$('#autocomplete_indicators').egytca('autocomplete', 'Main.php?do=commonAutocompleteListX', {
+			data: {
+				object: 'planningIndicator',
+				getCandidates: '1',
+				impactObjectiveId: '|-$ministryObjective->getId()-|'
+			},
+			disable: '#addIndicatorSubmit',
+			noResultsCallback: function() { $('#newIndicatorDummy').click(); }
 		});
-	})*/
+		
+		$('#params_regions').chosen();
+		
+		$('#newIndicatorDummy').fancybox();
+	});
 </script>
 |-if $message eq "ok"-|
 	<div class="successMessage">Objetivo Ministerial guardado correctamente</div>
 |-elseif $message eq "error"-|
 	<div class="failureMessage">Ha ocurrido un error al intentar Objetivo Ministerial</div>
 |-/if-|
-|-if !$show && !$showLog-||-include file="CommonAutocompleterInclude.tpl"-||-/if-|
 	<form name="form_edit_objective" id="form_edit_objective" action="Main.php" method="post">
 		<fieldset title="Formulario de datos de Objetivo Ministerial">
 		 <legend>Objetivo Ministerial|-if $startingYear eq $endingYear-| - |-$startingYear-||-else-| (|-$startingYear-| - |-$endingYear-|)|-/if-|</legend>
 		|-if !$fromImpactObjectiveId-|
-		|-if $readonly neq "readonly"-|<div id="ImpactObjective" style="position: relative;z-index:11100;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_impactObjectiveId" label="Objetivo de Impacto" url="Main.php?do=commonAutocompleteListX&object=ImpactObjective&objectParam=id" hiddenName="params[impactObjectiveId]" defaultHiddenValue=$ministryObjective->getimpactObjectiveId() defaultValue=$ministryObjective->getImpactObjective()-|
+		|-if $readonly neq "readonly"-|<div id="ImpactObjective" style="position: relative;">
+			<label for="autocomplete_impactObjectiveId">Objetivo de Impacto</label>
+			<select id="autocomplete_impactObjectiveId" name="params[impactObjectiveId]" class="chzn-select markets-chz-select" data-placeholder="Seleccione un Objetivo de Impacto...">
+				|-if $ministryObjective->getimpactObjectiveId()-|
+					<option value="|-$ministryObjective->getimpactObjectiveId()-|" selected="selected">|-$ministryObjective->getImpactObjective()-|</option>
+				|-/if-|
+			</select>
 		</div>
 		|-else-|
       <p>
@@ -58,8 +68,13 @@
       <input name="fromImpactObjectiveId" type="hidden" value="|-$fromImpactObjectiveId-|" />
       </p>
 		|-/if-|
-		|-if !$show && !$showLog-|<div id="responsible" style="position: relative;z-index:11000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_responsibleCode" label="Dependencia" url="Main.php?do=commonAutocompleteListX&object=position&objectParam=code" hiddenName="params[responsibleCode]" defaultHiddenValue=$ministryObjective->getResponsibleCode() defaultValue=$ministryObjective->getPosition()-|
+		|-if !$show && !$showLog-|<div id="responsible" style="position: relative;">
+			<label for="autocomplete_responsibleCode">Dependencia</label>
+			<select id="autocomplete_responsibleCode" name="params[responsibleCode]" class="chzn-select markets-chz-select" data-placeholder="Seleccione una Dependencia...">
+				|-if $ministryObjective->getResponsibleCode()-|
+					<option value="|-$ministryObjective->getResponsibleCode()-|" selected="selected">|-$ministryObjective->getPosition()-|</option>
+				|-/if-|
+			</select>
 		</div>
 		|-else-|
 			<p>
@@ -114,7 +129,6 @@
 				<option value="|-$object->getid()-|" |-$ministryObjective->hasRegion($object)|selected:true-|>|-$object->getname()-|</option>
 			|-/foreach-|
 			</select>
-			<script type="text/javascript">new Chosen($("params_regions"));</script>
 		</p>
 		|-if isset($loginUser) && $loginUser->isSupervisor() && !$ministryObjective->isNew()-|
 			<p>
@@ -140,11 +154,15 @@
 <fieldset title="Formulario de indicadores asociados al objetivo ministerial">
 	<legend>Indicadores asociados al Objetivo Ministerial</legend>
 |-if !$show && !$showLog -|
-	<p>Para asociar un indicador al objetivo ministerial, ingrese el nombre en la casilla. Si no está en el sistema puede <a href="#lightbox1" rel="lightbox1" class="lbOn addLink">Crear indicador</a></p>
+	<div style="background-color: red;">
+		<p style="background-color: yellow;">Puedo ser borrado porque el boton del autocomplete me reemplazó :(</p>
+		<p>Para asociar un indicador al objetivo ministerial, ingrese el nombre en la casilla. Si no está en el sistema puede <a onclick="$('#newIndicatorDummy').click(); return false;" href="#lightbox1" rel="lightbox1" class="lbOn addLink">Crear indicador</a></p>
+	</div>
 	<div id="indicatorMsgField"></div>
 	<form method="post" style="display:inline;">
-		<div id="contractSource" style="position: relative;z-index:10000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_indicators" label="Agregar indicador" url="Main.php?do=commonAutocompleteListX&object=planningIndicator&getCandidates=1&impactObjectiveId="|cat:$ministryObjective->getId() hiddenName="indicatorId" disableSubmit="addIndicatorSubmit"-|
+		<div id="contractSource" style="position: relative;">
+			<label for="autocomplete_indicators">Agregar indicador</label>
+			<select id="autocomplete_indicators" name="indicatorId" class="chzn-select markets-chz-select" data-placeholder="Seleccione un Indicador..."></select>
 		</div>
 	<p>	<input type="hidden" name="do" id="do" value="planningObjectsDoAddIndicatorX" />
 			<input type="hidden" name="planningObjectType" value="MinistryObjective" />
@@ -170,33 +188,33 @@
 </fieldset>
 <script type="text/javascript" language="javascript" charset="utf-8">
 	function addIndicatorToPlanningObject(form) {
-		var fields = Form.serialize(form);
-		var myAjax = new Ajax.Updater(
-					{success: 'indicatorList'},
-					'Main.php?do=planningObjectsDoAddIndicatorX',
-					{
-						method: 'post',
-						postBody: fields,
-						evalScripts: true,
-						insertion: Insertion.Bottom
-					});
-			$('indicatorMsgField').innerHTML = '<span class="inProgress">Agregando indicador al objetivo...</span>';
-			$('autocomplete_indicators').value = '';
-			$('addIndicatorSubmit').disable();
+		var fields = $(form).serialize();
+		$.ajax({
+			url: 'Main.php?do=planningObjectsDoAddIndicatorX',
+			type: 'post',
+			data: fields,
+			success: function(data) {
+				$('#indicatorList').append(data);
+				$('#indicatorMsgField').html('');
+			}
+		});
+		$('#indicatorMsgField').html('<span class="inProgress">Agregando indicador al objetivo...</span>');
+		$('#autocomplete_indicators').val('');
+		$('#addIndicatorSubmit').attr('disabled', 'disabled');
 		return true;
 	}
 
 	function removeIndicatorFromPlanningObject(form){
-		var fields = Form.serialize(form);
-		var myAjax = new Ajax.Updater(
-					{success: 'indicatorMsgField'},
-					'Main.php?do=planningObjectsDoRemoveIndicatorX',
-					{
-						method: 'post',
-						postBody: fields,
-						evalScripts: true
-					});
-		$('indicatorMsgField').innerHTML = '<span class="inProgress">Eliminando indicador...</span>';
+		var fields = $(form).serialize();
+		$.ajax({
+			url: 'Main.php?do=planningObjectsDoRemoveIndicatorX',
+			type: 'post',
+			data: fields,
+			success: function(data) {
+				$('#indicatorMsgField').html(data);
+			}
+		});
+		$('#indicatorMsgField').html('<span class="inProgress">Eliminando indicador...</span>');
 		return true;
 	}
 

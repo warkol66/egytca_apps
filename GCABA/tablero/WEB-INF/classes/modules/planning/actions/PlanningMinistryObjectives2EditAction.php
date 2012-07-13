@@ -18,7 +18,7 @@ class PlanningMinistryObjectives2EditAction extends BaseEditAction {
 		$this->smarty->assign("goalTypes", MinistryObjective::getGoalTypes());
 		$this->smarty->assign("goalTrends", MinistryObjective::getGoalTrends());
 
-		//Constantes y opciones posibles para la creación de indicadores
+		//Constantes y opciones posibles para la creacion de indicadores
 		$this->smarty->assign("planningIndicator", new PlanningIndicator());
 		$this->smarty->assign("indicatorTypes", PlanningIndicator::getIndicatorTypes());
 		$this->smarty->assign("measureFrecuencyTypes", PlanningIndicator::getMeasureFrecuencyTypes());
@@ -34,6 +34,8 @@ class PlanningMinistryObjectives2EditAction extends BaseEditAction {
 				$this->smarty->assign("fromImpactObjectiveId", $_GET["fromImpactObjectiveId"]);
 			}
 		}
+		
+		$this->template->template = 'TemplateJQuery.tpl';
 
 	}
 }

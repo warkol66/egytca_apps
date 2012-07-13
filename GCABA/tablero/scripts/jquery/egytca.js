@@ -179,7 +179,8 @@ Egytca = {
 						_this.append(option);
 					}
 					_this.trigger("liszt:updated");
-				})
+					$(settings.disable).removeAttr('disabled');
+				});
 			
 				_this.ajaxChosen(settings, function(data) {
 					return haveResults(data) ? data : {
