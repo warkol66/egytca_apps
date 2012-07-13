@@ -8,3 +8,4 @@ Bienvenido al Sistema |-$parameters.siteName-|</h2>
 </p>
 |-if $configModule->get("users","internalMail")-||-module_include entity="InternalMail" action="IncludeHome" options="template=CommonInternalMailsList.tpl"-||-/if-|
 
+|-module_include entity="Position" action="IncludeHome" options="template=PositionsHomeInclude.tpl"-|
