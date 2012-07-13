@@ -35,5 +35,9 @@ class UserQuery extends BaseUserQuery {
 
 		return $this;
 	}
+    
+    public static function createSpecial() {
+        return self::create();
+    }
 
 } // UserQuery

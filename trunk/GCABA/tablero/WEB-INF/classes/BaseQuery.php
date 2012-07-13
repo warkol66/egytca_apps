@@ -26,14 +26,20 @@ class BaseQuery {
     private $queryClass;
     
     public function BaseQuery($modelNameOrModelCriteria) {
-        if ($modelNameOrModelCriteria instanceof ModelCriteria) {
-            $this->query = $modelNameOrModelCriteria;
-        }
-        else {
-            $queryClass  = $modelNameOrModelCriteria . "Query";
-            $this->query = $queryClass::create();
-        }
+        $this->query = $this->createQuery($modelNameOrModelCriteria);
         $this->queryClass = get_class($this->query);
+    }
+    
+    private function createQuery($modelNameOrModelCriteria) {
+        if ($modelNameOrModelCriteria instanceof ModelCriteria) {
+            return $modelNameOrModelCriteria;
+        }
+        
+        $pieces = preg_split("/#/", $modelNameOrModelCriteria);
+        $factoryMethod = !empty($pieces[1]) ? "create" . ucfirst($pieces[1]) : "create";
+        $q = call_user_func(array($pieces[0] . "Query", $factoryMethod));
+        
+        return $q;
     }
     
     /**
