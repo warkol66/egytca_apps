@@ -65,6 +65,13 @@ class PlanningIndicatorsDoEditXAction extends BaseAction {
 
 		$logSufix = ', ' . Common::getTranslation("action: create","common");
 		Common::doLog('success',$indicator->getName(). $logSufix);
+		
+		if (isset($_REQUEST['type'])) {
+			$smarty->assign('type', $_REQUEST['type']);
+			if ($_REQUEST['type'] == 'json')
+				$smarty->assign('jsonIndicator', $indicator->toJSON ());
+		}
+		
 		return $mapping->findForwardConfig('success');
 
 	}
