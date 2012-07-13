@@ -37,6 +37,13 @@
            validate = "true">
     <forward name="success" path="Welcome.tpl" />
     </action>
+		<action    path = "js"
+							 type = "JsAction"
+							 name = "js"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="Js.tpl" />
+		</action>
     
 	</action-mappings>
 
