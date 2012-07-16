@@ -129,7 +129,6 @@
 	<table phpName="Contract" name="vialidad_contract">
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
-		<column name="code" type="VARCHAR" size="50" required="true" description="Codigo del contrato" />
 		<column name="contractNumber" type="VARCHAR" size="20" description="Codigo del Contrato"/>
 		
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" description="Nombre del contrato" />
@@ -209,7 +208,6 @@
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
-		<column name="numberId" type="INTEGER" description="Numero de id" />
 		<column name="contractId" type="INTEGER" description="Id del contrato" />
 		<column name="description" type="LONGVARCHAR" />
 		<column name="verifierId" type="INTEGER" size="5" description="Id del verificador" />
@@ -219,7 +217,6 @@
 		<column name="lengthUnit" type="INTEGER" size="5" description="Unidad de la obra" />
 		<column name="startDate" type="DATE" description="Fecha de inicio" />
 
-		<column name="proceedDate" type="DATE" description="Orden de proceder" />
 		<column name="validationLength" type="INTEGER" size="5" description="Plazo de la Obra" />
 		<column name="validationType" type="INTEGER" size="2" description="Tipo de longitud de la Obra" />
 
