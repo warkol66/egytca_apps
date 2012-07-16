@@ -25,7 +25,6 @@
 		<column name="startingDate" type="DATE" description="Fecha de inicio" />
 		<column name="endingDate" type="DATE" description="Fecha de finalizacion" />
 
-
 		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
 		<column name="version" type="INTEGER" description="Numero de version" />
 		<column name="startingYear" type="INTEGER" description="A#o de inicio" />
@@ -188,6 +187,35 @@
 		</vendor>
 
 	</table>
+
+	<table name="planning_budgetRelation" phpName="BudgetRelation" description="Asociacion patridas presupuestarias y proyectos u obras">
+	
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="objectType" type="VARCHAR" size="100" description="Tipo de objeto relacionado"/>
+		<column name="objectId" type="INTEGER" description="Id del proyecto u obra"/>
+
+		<!--Partida presupuestaria-->
+		<column name="budgetYear" type="INTEGER" description="Ano"/>
+		<column name="budgetJurisdiction" type="INTEGER" description="Jurisdiccion"/>
+		<column name="budgetOgese" type="INTEGER" description="OGESE"/>
+		<column name="budgetUnit" type="INTEGER" description="Unidad Ejecutora"/>
+		<column name="budgetProgram" type="INTEGER" description="Programa"/>
+		<column name="budgetSubProgram" type="INTEGER" description="Subprograma"/>
+		<column name="budgetProyect" type="INTEGER" description="Proyecto"/>
+		<column name="budgetActivity" type="INTEGER" description="Actividad"/>
+		<column name="budgetConstruction" type="INTEGER" description="Obra"/>
+		<!--Fin Partida presupuestaria-->
+
+		<column name="totalItem" type="BOOLEAN" sqlType="BOOL" default="0" description="Utiliza toda la partida?"/>
+		<column name="amount" type="DECIMAL" size="12" scale="2" description="Presupuesto Total de la Obra"/>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
 	<table name="planning_constructionLog" phpName="PlanningConstructionLog" description="Obras - Log">
 		<column name="id" primaryKey="true" type="INTEGER" description="Id del proyecto" autoIncrement="true" />
 		<column name="constructionId" type="INTEGER" description="Id de de la obra"/>

@@ -41,8 +41,6 @@ class PlanningConstruction extends BasePlanningConstruction {
 	public function getVersionsOrderedByUpdatedPaginated($orderType = Criteria::ASC, $page=1, $maxPerPage=5) {
 		$filters = array();		
 		return BaseQuery::create('PlanningConstructionLog')->getAllByPlanningConstruction($this->getId(), $orderType)->createPager($filters, $page, $maxPerPage);
-		//return BaseQuery::create('PlanningConstructionLog')->getAllByPlanningConstruction($this->getId(), $orderType)->createPager($filters, $page, $maxPerPage);
-		//return BaseQuery::create('OperativeObjectiveLog')->getAllByOperativeObjective($this->getId(), $orderType)->createPager($filters, $page, $maxPerPage);
 	}
 
 	/**
@@ -55,6 +53,15 @@ class PlanningConstruction extends BasePlanningConstruction {
 	public function hasRegion($region) {
 		return PlanningConstructionRegionQuery::create()->filterByPlanningConstruction($this)->filterByRegion($region)->count() > 0;
 	}
+
+	/**
+	 * Devuelve las partidas presupuestarias
+	 * @return array Relacion con partidas presupuestarias
+	 */
+	public function getBudgetItems() {
+		return BaseQuery::create('BudgetRelation')->filterByObjecttype('Construction')->filterByObjectid($this->getId())->find();
+	}
+
 	/**
 	 * Devuelve array con posibles tipos de licitacion (tenderId)
 	 *  id => resultado esperado
