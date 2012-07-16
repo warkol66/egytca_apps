@@ -58,7 +58,7 @@
 	</tr>
 	|-foreach from=$contracts item=contract name=for_contract-|
 	<tr>
-		<td align="right">|-$contract->getCode()-|</td>
+		<td align="right">|-$contract->getcontractNumber()-|</td>
 		<td>|-$contract->getName()-|</td>
 		<td>|-$contract->getContractor()-|</td>
 		<td>|-$contractTypes[$contract->getType()]-|</td>
