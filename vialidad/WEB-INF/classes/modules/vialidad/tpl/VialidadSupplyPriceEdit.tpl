@@ -29,7 +29,7 @@ El precio anterior se muestra como referencia y no puede ser modificado.
 	<tr>
 		<td>1</td>
 		<td>
-			|-assign var='supplier1' value=$priceBulletin->getSupplierRelatedBySupplierid1()-|
+			|-assign var='supplier1' value=$priceBulletin->getAffiliateRelatedBySupplierid1()-|
 			<span id="supplier1_name">|-if $supplier1 neq ''-||-$supplier1->getName()-||-else-|&nbsp;-&nbsp;|-/if-|</span>
 			<div id="autocomplete_choices1" class="autocomplete" style="position: relative;z-index:12000;display: none;" ></div>
 		</td>
@@ -53,7 +53,7 @@ El precio anterior se muestra como referencia y no puede ser modificado.
 	<tr>
 		<td>2</td>
 		<td>
-			|-assign var='supplier2' value=$priceBulletin->getSupplierRelatedBySupplierid2()-|
+			|-assign var='supplier2' value=$priceBulletin->getAffiliateRelatedBySupplierid2()-|
 			<span id="supplier2_name">|-if $supplier2 neq ''-||-$supplier2->getName()-||-else-|&nbsp;-&nbsp;|-/if-|</span>
 			<div id="autocomplete_choices2" class="autocomplete" style="position: relative;z-index:11000;display:none;" ></div>
 		</td>
@@ -77,7 +77,7 @@ El precio anterior se muestra como referencia y no puede ser modificado.
 	<tr>
 		<td>3</td>
 		<td>
-			|-assign var='supplier3' value=$priceBulletin->getSupplierRelatedBySupplierid3()-|
+			|-assign var='supplier3' value=$priceBulletin->getAffiliateRelatedBySupplierid3()-|
 			<span id="supplier3_name">|-if $supplier3 neq ''-||-$supplier3->getName()-||-else-|&nbsp;-&nbsp;|-/if-|</span>
 			<div id="autocomplete_choices3" class="autocomplete" style="position: relative;z-index:10000;display:none;" ></div>
 		</td>
@@ -166,7 +166,7 @@ function attachSupplierAutocompleter(elementName, number) {
 	new Ajax.Autocompleter(
 		elementName,
 		"autocomplete_choices"+number,
-		"Main.php?do=vialidadSuppliersAutocompleteListX",
+		"Main.php?do=affiliatesAutocompleteListX",
 		{
 			minChars: 3,
 			afterUpdateElement: function(text, li) {

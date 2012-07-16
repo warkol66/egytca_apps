@@ -37,7 +37,7 @@ class VialidadSupplyPriceEditFieldXAction extends BaseAction {
 		if (!empty($_POST['paramName'])) {
 			if (stripos($_POST['paramName'], 'supplierId') !== false) {
 				$supplierId = $priceBulletin->getByName($_POST['paramName'], BasePeer::TYPE_FIELDNAME);
-				$smarty->assign("paramValue", SupplierQuery::create()->findPk($supplierId));
+				$smarty->assign("paramValue", AffiliateQuery::create()->findPk($supplierId));
 			} else {
 				$priceBulletin->reload();
 				$smarty->assign("paramValue", $priceBulletin->getByName($_POST['paramName'], BasePeer::TYPE_FIELDNAME));
