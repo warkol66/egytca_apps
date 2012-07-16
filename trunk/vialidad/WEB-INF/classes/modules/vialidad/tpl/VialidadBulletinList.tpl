@@ -61,8 +61,8 @@
 		</tr>
 		|-/if-|
 		<tr class="thFillTitle"> 
-			<th width="30%">Número de Boletín</th> 
-			<th width="45%">Fecha</th> 
+			<th width="30%">N°</th> 
+			<th width="45%">Mes</th> 
 			<th width="20%">Publicado</th> 
 			<th width="5%">&nbsp;</th> 
 		</tr> 
