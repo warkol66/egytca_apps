@@ -66,15 +66,15 @@
 			<reference local="supplyId" foreign="id" />
 		</foreign-key>
 
-		<foreign-key foreignTable="vialidad_supplier" >
+		<foreign-key foreignTable="affiliates_affiliate" >
 			<reference local="supplierId1" foreign="id" />
 		</foreign-key>
 
-		<foreign-key foreignTable="vialidad_supplier" >
+		<foreign-key foreignTable="affiliates_affiliate" >
 			<reference local="supplierId2" foreign="id" />
 		</foreign-key>
 
-		<foreign-key foreignTable="vialidad_supplier" >
+		<foreign-key foreignTable="affiliates_affiliate" >
 			<reference local="supplierId3" foreign="id" />
 		</foreign-key>
 
