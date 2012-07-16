@@ -38,10 +38,6 @@
 			<input name="params[pacNumber]" type="text" value="|-$contract->getPacNumber()|escape-|" size="8" title="Id de contrato (N° PAC)"> |-if $contract->getPacNumber() ne ''-|<a href="https://www.contrataciones.gov.py/sicp/llamado/llamadosPorID.seam?nroPacParam=|-$contract->getPacNumber()-|" target="_blank" title="Ir a Contrato" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a>|-/if-| 
 		 </p>
 		 <p>
-		   <label for="params[code]">Número</label>
-				<input name="params[code]" type="text" value="|-$contract->getCode()|escape-|" size="15" title="Número"> 
-		</p>
-		 <p>
 		   <label for="params[contractNumber]">Nro de Contrato</label>
 				<input name="params[contractNumber]" type="text" value="|-$contract->getContractNumber()|escape-|" size="15" title="Nro de Contrato"> 
 		</p>

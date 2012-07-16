@@ -40,10 +40,6 @@
 		   <label>N° de Contrato</label>
 				|-$contract->getContractNumber()|escape-|
 		</p>
-		 <p>
-		   <label for="params[numberId]">Nro de id</label>
-				<input name="params[numberId]" type="text" value="|-$construction->getNumberId()|escape-|" size="15" title="Nro de ID"> 
-		</p>
 		 <p><label for="params[name]">Nombre</label>
 			<input name="params[name]" type="text" value="|-$construction->getName()|escape-|" size="60">
 		 </p>
@@ -51,7 +47,7 @@
 			 <textarea name="params[description]" rows="4" cols="58">|-$construction->getDescription()-|</textarea>
 		 </p>
 		 <div id="verifier" style="position: relative;z-index:10000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_verifierId" label="Fiscal" url="Main.php?do=affiliatesAutocompleteListX" hiddenName="params[verifierId]" defaultHiddenValue=$construction->getVerifierId() defaultValue=$construction->getAffiliate()-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_verifierId" label="Fiscalizadora" url="Main.php?do=affiliatesAutocompleteListX" hiddenName="params[verifierId]" defaultHiddenValue=$construction->getVerifierId() defaultValue=$construction->getAffiliate()-|
 		 </div>
 			<p>
 				<label for="params[typeId]">Tipo del Obra</label>
@@ -74,10 +70,6 @@
 			<p>     
 				<label for="params[startDate]">Orden de Inicio</label>
 				<input id="params[startDate]" name="params[startDate]" type='text' value='|-$construction->getStartDate()|date_format-|' size="12" title="Ingrese la fecha de inicio" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
-			</p>
-			<p>     
-				<label for="params_proceedDate">Orden de proceder</label>
-				<input id="params_proceedDate" name="params[proceedDate]" type='text' value='|-$construction->getProceedDate()|date_format-|' size="12" title="Ingrese la fecha de orden de proceder. Esta representa la fecha en que la Fiscalizadora tiene el visto bueno del MOPC para iniciar sus servicios." /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[proceedDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 
 		 <p><label for="params[validationLength]">Plazo de la Obra</label>
