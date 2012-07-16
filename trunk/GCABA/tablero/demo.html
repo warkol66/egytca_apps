@@ -1,0 +1,500 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Gobierno de la Ciudad Autónoma de Buenos Aires</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="css/main.css" type="text/css">
+<!--[if !IE]>--> <link href="css/style_ns6+.css" rel="stylesheet" type="text/css"> <!--<![endif]-->
+<!--[if lte IE 6]> <link href="css/styles-ie6.css" rel="stylesheet" type="text/css"> <![endif]-->
+<!--[if IE 7]> <link href="css/styles-ie7.css" rel="stylesheet" type="text/css"> <![endif]-->
+<!--[if IE 8]> <link href="css/styles-ie8.css" rel="stylesheet" type="text/css"> <![endif]-->
+<link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+<link rel="shortcut icon" href="images/favicon.ico">
+<script src="scripts/prototype.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/datePicker.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/scriptaculous.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/effects.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/dragdrop.js" language="JavaScript" type="text/javascript"></script>
+<script src="Main.php?do=js&name=js&module=common&code=esp" type="text/javascript"></script>
+<script src="Main.php?do=js&name=js&module=categories&code=esp" type="text/javascript"></script>
+<script language="JavaScript" type="text/JavaScript">
+	var url="http://planificacion.sistemas.biz/Main.php";
+<!-- Swampy browser-->
+	var sb_browser_url = '/scripts/swampy_browser';
+	var sb_site_url = 'http://planificacion.sistemas.biz';
+<!-- Variable width styles-->
+ if (navigator.appName.indexOf("Microsoft")>=0) {
+  if (document.documentElement.clientWidth < 1000) // Use window.innerWidth or screen.width
+		document.write('<link href="css/styleNarrow.css" rel="stylesheet" type="text/css">');
+	else if (document.documentElement.clientWidth  >= 1280 && document.documentElement.clientWidth < 1600)
+		document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css">');
+	else
+		document.write('<link href="css/styleWide+.css" rel="stylesheet" type="text/css">');
+}else{
+  if (window.innerWidth < 1000) // Use window.innerWidth or screen.width
+		document.write('<link href="css/styleNarrow.css" rel="stylesheet" type="text/css">');
+	else if (window.innerWidth  >= 1280 && window.innerWidth  < 1600)
+		document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css">');
+	else
+		document.write('<link href="css/styleWide+.css" rel="stylesheet" type="text/css">');
+}
+</script>
+<script src="scripts/overlib.js" type="text/javascript"></script>
+
+
+<!-- libreria de validación client-side externa -->
+<script language="JavaScript" type="text/javascript" src="scripts/js_validation_library.js"></script>
+<!-- libreria de validación del framework-->
+<script language="JavaScript" type="text/javascript" src="scripts/validation.js"></script>
+<script type="text/javascript">
+	var validation_messageEmpty = 'El campo &quot;%field%&quot; no puede estar vacío';
+	var validation_messageText = 'El campo &quot;%field%&quot; debe contener un texto válido';
+	var validation_messageMail = 'El campo &quot;%field%&quot; debe contener un mail válido';
+	var validation_messageNumeric = 'El campo &quot;%field%&quot; es un número inválido';
+	var validation_messageDate = 'El campo &quot;%field%&quot; tiene una fecha/formato inválido (d-m-Y)';
+	var validation_messagePasswordMatch = 'Las contraseñas no coinciden';
+</script>
+
+<script type="text/javascript" >
+	/**
+	 * Muestra los errores de validación
+	 */
+	function showValidationFailureMessage(form) {
+		var validationMessage = $('validationMessage');
+		var actionMessage = $('actionMessage');
+		if (Object.isElement(actionMessage))
+			actionMessage.remove();
+		if (!Object.isElement(validationMessage)) {
+			form.insert({
+				top: new Element('div', {id: 'validationMessage', 'class': 'errorMessage'}).update('Tiene errores en el formulario, revíselo y vuelva a enviarlo.')
+			});
+		}
+		else
+			validationMessage.toggleClassName('errorMessage').update('Tiene errores en el formulario, revíselo y vuelva a enviarlo.').show();
+	}
+
+	/**
+	 * Oculta los errores de validación
+	 */
+	function hideValidationFailureMessage(form) {
+		var actionMessage = $('actionMessage');
+		if (Object.isElement(actionMessage)) {
+			actionMessage.hide();
+		}
+	}
+
+	/**
+	 * Valida número según segun formato del sistema
+	 */
+	function validationCustomNumericValidator(element) {
+		var regExp = '/^[\\d]*([\\.]?[\\d]{3,3})*([\\,][\\d]+)?$/';
+		return validateField(element, regExp);
+	}
+
+	/**
+	 * Valida la fecha segun formato del sistema
+	 */
+	function validationCustomDateValidator(element) {
+		if (element.value == '')
+			return true;
+
+		var dateFormat = 'd-m-Y';
+		var regExp = '/^(()|(' + dateFormat + '))$/';
+		regExp = regExp.gsub('d', '(0[1-9]|[12][0-9]|3[01])');
+		regExp = regExp.gsub('m', '(0[1-9]|1[012])');
+		regExp = regExp.gsub('y', '\\d{2,2}');
+		regExp = regExp.gsub('Y', '\\d{4,4}');
+
+		if (validateField(element, regExp)) { // si está bien formada...
+
+			// filtramos el día.
+			var dayRegExp = dateFormat.gsub(/[myY]/, '');
+			dayRegExp = dayRegExp.gsub(/^(.)*-d$/, '-\\d{2,2}$');
+			dayRegExp = dayRegExp.gsub(/^d(.)*$/, '^\\d{2,2}-');
+			dayRegExp = dayRegExp.gsub(/^(.)*-d-(.)*$/, '-\\d{2,2}-');
+			dayRegExp = new RegExp(dayRegExp);
+			var day = dayRegExp.exec(element.value)[0].gsub('-', '');
+
+			// filtramos el mes.
+			var monthRegExp = dateFormat.gsub(/[dyY]/, '');
+			monthRegExp = monthRegExp.gsub(/^(.)*-m$/, '-\\d{2,2}$');
+			monthRegExp = monthRegExp.gsub(/^m(.)*$/, '^\\d{2,2}-');
+			monthRegExp = monthRegExp.gsub(/^(.)*-m-(.)*$/, '-\\d{2,2}-');
+			monthRegExp = new RegExp(monthRegExp);
+			var month = monthRegExp.exec(element.value)[0].gsub('-', '');
+
+			// filtramos el año.
+			var yearRegExp = dateFormat.gsub(/[dm]/, '');
+			yearRegExp = yearRegExp.gsub(/^(.)*-y$/, '-\\d{2,2}$');
+			yearRegExp = yearRegExp.gsub(/^(.)*-Y$/, '-\\d{4,4}$');
+			yearRegExp = yearRegExp.gsub(/^y(.)*$/, '\\^d{2,2}-');
+			yearRegExp = yearRegExp.gsub(/^Y(.)*$/, '\\^d{4,4}-');
+			yearRegExp = yearRegExp.gsub(/^(.)*-y-(.)*$/, '-\\d{2,2}-');
+			yearRegExp = yearRegExp.gsub(/^(.)*-Y-(.)*$/, '-\\d{4,4}-');
+			yearRegExp = new RegExp(yearRegExp);
+			var year = yearRegExp.exec(element.value)[0].gsub('-', '');
+
+			year = convertToFourDigits(year);
+
+			return validateDate(parseInt(day, 10), parseInt(month, 10), parseInt(year, 10));
+		}
+		return false;
+	}
+
+	/**
+	 * Valida la fecha
+	 */
+	function validateDate(day, month, year) {
+
+		if ((month > 0) && (month <= 12)) {
+			if ((day > 0) && (day <= daysOfMonth(month, year)))
+				return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Determina la cantidad de días que contiene un determinado mes
+	 * dependiendo también de si el año es bisiesto o no.
+	 */
+	function daysOfMonth(month, year) {
+
+		// se utiliza hashing para obtener la cantidad de días en lugar de un switch.
+		var daysMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+		var days = daysMonths[month - 1];
+
+		// corrección por año bisiesto.
+		if ((month == 2) && isLeapYear(year))
+			days++;
+
+		return days;
+	}
+
+	/**
+	 * Convierte un año de 2 digitos en uno de 4 que se corresponda con
+	 * el siglo corriente.
+	 */
+	function convertToFourDigits(year) {
+		if (year.lenght == 2) {
+			currentYear = new Date();
+			currentYear = currentYear.getFullYear();
+			return currentYear.truncate(2) + year;
+		}
+		return year;
+	}
+
+	/**
+	 * Determina si un año es bisiesto
+	 */
+	function isLeapYear(year) {
+		if ((year % 400) == 0)
+			return true;
+		else if ((year % 100) == 0)
+			return false;
+		else if ((year % 4) == 0)
+			return true;
+		else
+			return false;
+	}
+
+	/**
+	 * Escribe mensaje si hay campos obligatorios
+	 */
+	function showMandatoryFieldsMessage(form) {
+		var emptyArray = document.getElementsByClassName('emptyValidation',form);
+		if (emptyArray.length > 0)
+			document.write('<p class="mandatoryMessage">* Los campos indicados con borde rojo son obligatorios.</p>');
+	}
+
+</script>
+
+<script language="JavaScript" type="text/JavaScript">
+	var url="http://planificacion.sistemas.biz/Main.php";
+</script>
+<style type="text/css">
+	.node rect {
+		display: block;
+		width: 100px !Important;
+		cursor: pointer;
+	  fill: #fff;
+		fill-opacity: .95;
+		stroke: #fcd407;
+		stroke-width: 1.5px;
+	}	
+	.node text {
+		overflow: visible !Important;
+		display: block;
+		width: 100px !Important;
+		text-align: justify;
+		font: 10px sans-serif;
+		font-size: 1em;
+		pointer-events: none;
+	}
+	path.link {
+		fill: none;
+		stroke: #9ecae1;
+		stroke: yellow;
+		stroke-width: 2.5px;
+	}
+</style>
+    <script type="text/javascript" src="scripts/jquery/d3.v2.min.js"></script>
+</head>
+<body>
+<!-- Begin Wrapper -->
+<div id="wrapper">
+	<b class="rounded"><b class="rtop"><b class="r7"></b><b class="r6"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r1"></b></b></b>
+	<!-- Begin Header -->
+	<div id="header">
+		<a href="Main.php" class="systemLogo"><strong>Gobierno de la Ciudad Autónoma de Buenos Aires</strong></a>
+<script type="text/javascript" src="scripts/fisheye.js"></script>
+<link type="text/css" href="css/fisheye.css" rel="stylesheet" />
+		<div id="headerMenu">
+			<ul id="fisheye_menu">
+				<li class="fisheye"><a href="Main.php?do=usersWelcome"><img src="images/home.png" title="Inicio" /></a><span style="display: none;">Inicio</span></li>
+				<li class="fisheye"><a href="Main.php?do=usersList"><img src="images/user.png" title="Editar información de usuario" /></a><span style="display: none;">Usuario</span></li>
+				<li class="fisheye"><img src="images/print.png" title="Imprimir" onClick="window.print()"/><span style="display: none;">Imprimir</span></li>
+							<li class="fisheye"><a href="Main.php?do=commonDoLogout" title="Salir" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'><img src="images/logout.png" title="Salir" /><span style="display: none;">Salir</span></a></li>
+						</ul>
+		</div>
+
+<img src="images/header2.png" class="headerCloser" />
+</div>
+	<!-- End Header -->
+	<!-- Begin contentWrapper -->
+		<div id="contentWrapper">
+
+        <!-- 	Begin MenuHorizontal-->
+				<div id="mainMenuH">
+	<nav>
+		<ul class="menu">
+				<li><a href="Main.php?do=usersWelcome">Ir al Inicio</a></li>
+			<li><a href="#" class="sub">Objetivos</a>
+			  <ul class="menu">
+				<li><a href="Main.php?do=planningImpactObjectivesList">Objetivos de Impacto</a></li>
+				<li><a href="Main.php?do=planningMinistryObjectivesList">Objetivos Ministeriales</a></li>
+				<li class="last"><a href="Main.php?do=planningOperativeObjectivesList">Objetivos Operativos</a></li>
+				<!--<li class="last"><a href="javascript:void(null)">Indicadores</a></li>-->
+			</ul>
+		</li>
+			<li><a href="javascript:void(null)" class="sub">Proyectos</a>
+			  <ul class="menu">
+				<li><a href="Main.php?do=planningProjectsList">Proyectos</a></li>
+				<li><a href="Main.php?do=planningConstructionsList">Obras</a></li>
+				<li class="last"><a href="Main.php?do=planningActvitiesList">Actividades e Hitos</a></li>
+			</ul>
+		</li>
+			<li><a href="Main.php?do=planningIndicatorsList">Indicadores</a>
+			</li>
+				
+			<li><a href="javascript:void(null)" class="sub">Organización</a>
+			  <ul class="menu">
+				<li><a href="Main.php?do=actorsList">Funcionarios</a></li>
+				<li><a href="Main.php?do=positionsList">Cargos y Dependencias</a></li>
+				<li class="last"><a href="Main.php?do=regionsList">Comunas y Barrios</a></li>
+			</ul>
+			</li>
+		
+		<li><a href="javascript:void(null)" class="sub">Administración</a>
+			<ul>
+				<li><a href="Main.php?do=usersList">Usuarios</a></li>
+				<li><a href="Main.php?do=usersGroupsList">Grupos de Usuarios</a></li>
+				<li><a href="Main.php?do=usersLevelsList">Niveles Usuarios</a></li>
+				<li><a href="Main.php?do=categoriesList">Categorías</a></li>
+				<li><a href="Main.php?do=commonActionLogsList">Histórico de Operaciones</a></li>
+				<li class="last"><a href="Main.php?do=backupList">Respaldos</a></li>
+			</ul></li>
+				
+		<li><a href="javascript:void(null)" class="sub">Configuración</a>
+			<ul>
+				<li><a href="Main.php?do=commonConfigSet">Configurar Sistema</a></li>
+				<li><a href="Main.php?do=commonMeasureUnitsList">Unidades de Medida</a></li>
+				<li class="last"><a href="Main.php?do=commonConfigEdit">Editar Configuración</a></li>
+			</ul></li>
+		
+		</ul>
+	</nav>
+</div>
+        <!-- 	End MenuHorizontal-->
+			<div id="separatorHeader"></div>
+    		<!-- Begin Right Column -->
+				<div id="rightColumn">
+					<!--centerHTML start-->
+					<h2>Objetivos y proyectos 2013</h2>
+					<h1>Planificación 2013 - Ministerio de Educación</h1>
+					
+    <div id="chart"></div>
+<script type="text/javascript">
+var w = 960,
+    h = 700,
+    i = 0,
+    barHeight = 30,
+    barWidth = w * .8,
+    duration = 400,
+    root;
+
+var tree = d3.layout.tree()
+    .size([h, 65]);
+
+var diagonal = d3.svg.diagonal()
+    .projection(function(d) { return [d.y, d.x]; });
+
+var vis = d3.select("#chart").append("svg:svg")
+    .attr("width", w)
+    .attr("height", h)
+  .append("svg:g")
+    .attr("transform", "translate(20,30)");
+
+d3.json("caba.json", function(json) {
+  json.x0 = 0;
+  json.y0 = 0;
+  update(root = json);
+function toggleAll(d) {
+    if (d.children) {
+      d.children.forEach(toggleAll);
+      toggle(d);
+    }
+  }
+
+  // Initialize the display to show a few nodes.
+  root.children.forEach(toggleAll);
+  toggle(root);
+  update(root);
+});
+// Toggle children.
+function toggle(d) {
+  if (d.children) {
+    d._children = d.children;
+    d.children = null;
+  } else {
+    d.children = d._children;
+    d._children = null;
+  }
+}
+function update(source) {
+
+  // Compute the flattened node list. TODO use d3.layout.hierarchy.
+  var nodes = tree.nodes(root);
+  
+  // Compute the "layout".
+  nodes.forEach(function(n, i) {
+    n.x = i * barHeight;
+  });
+  
+  // Update the nodes…
+  var node = vis.selectAll("g.node")
+      .data(nodes, function(d) { return d.id || (d.id = ++i); });
+  
+  var nodeEnter = node.enter().append("svg:g")
+      .attr("class", "node")
+      .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+      .style("opacity", 1e-6);
+
+  // Enter any new nodes at the parent's previous position.
+  nodeEnter.append("svg:rect")
+      .attr("y", -barHeight / 2)
+      .attr("height", barHeight)
+      .attr("width", barWidth)
+      .style("fill", color)
+      .on("click", click);
+  
+  nodeEnter.append("svg:text")
+      .attr("dy", 3.5)
+      .attr("dx", 5.5)
+      .text(function(d) { return d.name; });
+  
+  // Transition nodes to their new position.
+  nodeEnter.transition()
+      .duration(duration)
+      .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+      .style("opacity", 1);
+  
+  node.transition()
+      .duration(duration)
+      .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
+      .style("opacity", 1)
+    .select("rect")
+      .style("fill", color);
+  
+  // Transition exiting nodes to the parent's new position.
+  node.exit().transition()
+      .duration(duration)
+      .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+      .style("opacity", 1e-6)
+      .remove();
+  
+  // Update the links…
+  var link = vis.selectAll("path.link")
+      .data(tree.links(nodes), function(d) { return d.target.id; });
+  
+  // Enter any new links at the parent's previous position.
+  link.enter().insert("svg:path", "g")
+      .attr("class", "link")
+      .attr("d", function(d) {
+        var o = {x: source.x0, y: source.y0};
+        return diagonal({source: o, target: o});
+      })
+    .transition()
+      .duration(duration)
+      .attr("d", diagonal);
+  
+  // Transition links to their new position.
+  link.transition()
+      .duration(duration)
+      .attr("d", diagonal);
+  
+  // Transition exiting nodes to the parent's new position.
+  link.exit().transition()
+      .duration(duration)
+      .attr("d", function(d) {
+        var o = {x: source.x, y: source.y};
+        return diagonal({source: o, target: o});
+      })
+      .remove();
+  
+  // Stash the old positions for transition.
+  nodes.forEach(function(d) {
+    d.x0 = d.x;
+    d.y0 = d.y;
+  });
+}
+
+// Toggle children on click.
+function click(d) {
+  if (d.children) {
+    d._children = d.children;
+    d.children = null;
+  } else {
+    d.children = d._children;
+    d._children = null;
+  }
+  update(d);
+}
+
+function color(d) {
+  return d._children ? "#ffd500" : d.children ? "#fddf48" : "#fff6c7";
+}
+
+    </script>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+					<!--centerHTML end -->
+				</div>
+			<!-- End Right Column -->
+	<!-- Begin contentCloser -->
+	<div id="contentCloser"></div>
+	<!-- End contentCloser -->
+	</div>
+	<!-- End contentWrapper -->
+	<!-- Begin Footer -->
+	<div id="footer">		       
+			<p>Gobierno de la Ciudad Autónoma de Buenos Aires / DG Planificación Estratégica - Planificación 2013</p>       
+	</div>
+	<!-- End Footer -->
+</div>
+<!-- End Wrapper -->
+<p>&nbsp;</p>
+</body>
+</html>

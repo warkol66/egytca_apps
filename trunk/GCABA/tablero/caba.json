@@ -1,0 +1,76 @@
+{
+ "name": "Ministerio de Educación",
+ "children": [
+  {
+   "name": "Mejorar la Calidad Educativa",
+   "children": [
+    {
+     "name": "Cumplir con los 180 días de clases",
+     "children": [
+      {"name": "Reducir la deserción escolar"},
+      {"name": "Mejorar el menu de los comedores escolares"}
+     ]
+    },
+    {
+     "name": "graph",
+     "children": [
+      {"name": "BetweennessCentrality"},
+      {"name": "LinkDistance"},
+      {"name": "MaxFlowMinCut"},
+      {"name": "ShortestPaths"},
+      {"name": "SpanningTree"}
+     ]
+    },
+    {
+     "name": "optimization",
+     "children": [
+      {"name": "AspectRatioBanker"}
+     ]
+    }
+   ],
+   "name": "Mejorar la Calidad Educativa",
+   "children": [
+    {
+     "name": "Cumplir con los 180 días de clases",
+     "children": [
+      {"name": "Reducir la deserción escolar"},
+      {"name": "Mejorar el menu de los comedores escolares"}
+     ]
+    },
+    {
+     "name": "Aumentar la calidad de los recuros",
+     "children": [
+      {"name": "Mejorar la capacitación de los docentes"},
+      {"name": "Mejorar la dotación tecnológica"},
+      {"name": "Maximizar el uso de tecnologías de información"},
+      {"name": "Actualización de programas de capacitación"},
+      {"name": "Evaluación docente"}
+     ]
+    },
+    {
+     "name": "Acercar la escuela a la comunidad",
+     "children": [
+      {"name": "Mejorar la relación escuela comunidad"}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Mejorar la infraestructura educativa",
+   "children": [
+    {"name": "Mantenimiento preventivo"},
+    {"name": "Mejoras edilicias"},
+    {
+     "name": "Refacciones",
+     "children": [
+      {"name": "Instlaciones de Gas"},
+      {"name": "Instalaciones Eléctricas"},
+      {"name": "Instalaciones de Agua"},
+      {"name": "Mampostería"}
+     ]
+    },
+    {"name": "Nuevas escuelas"}
+   ]
+  }
+ ]
+}
