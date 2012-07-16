@@ -58,6 +58,14 @@ class PlanningProject extends BasePlanningProject {
 	}
 
 	/**
+	 * Devuelve las partidas presupuestarias
+	 * @return array Relacion con partidas presupuestarias
+	 */
+	public function getBudgetItems() {
+		return BaseQuery::create('BudgetRelation')->filterByObjecttype('Project')->filterByObjectid($this->getId())->find();
+	}
+
+	/**
 	 * Devuelve array con posibles prioridades ministeriales
 	 *  id => prioridad
 	 *
