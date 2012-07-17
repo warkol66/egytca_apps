@@ -27,23 +27,18 @@ class VialidadContractsDoEditAction extends BaseAction {
 		if (!empty($_POST["filters"]))
 			$filters = $_POST["filters"];
 
-
-		$totalValues = 6;
-
 		foreach ($_POST["amount"] as $item) {
 
-				foreach ($item as $itemValue => $value) {
-					if ($itemValue == "amount" || $itemValue == "paripassu" ) 
-						$value = Common::convertToMysqlNumericFormat($value);
-					$amountValues[$itemValue] = $value;
-				}
-				$j++;
-				//Cuando complete todos los valores asociados a un monto, lo guardo en $amountParams
-				if ($j == $totalValues) {
-					$amountParams[] = $amountValues;
-					$amountValues = array();
-					$j = 0;
-				}
+			foreach ($item as $itemValue => $value) {
+				if ($itemValue == "amount" || $itemValue == "paripassu" ) 
+					$value = Common::convertToMysqlNumericFormat($value);
+				$amountValues[$itemValue] = $value;
+			}
+			//Cuando complete todos los valores asociados a un monto, lo guardo en $amountParams
+			if ($itemValue == "eol") {
+				$amountParams[] = $amountValues;
+				$amountValues = array();
+			}
 		}
 
 		//Guardo los datos de montos asociados al contrato

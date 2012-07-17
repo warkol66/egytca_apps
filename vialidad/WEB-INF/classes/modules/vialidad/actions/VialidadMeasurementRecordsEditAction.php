@@ -54,6 +54,9 @@ class VialidadMeasurementRecordsEditAction extends BaseAction {
 				$adjustments = $record->getAdjustments();
 				$smarty->assign('adjustments', $adjustments);
 				
+				$others = $record->getOthers();
+				$smarty->assign('others', $others);
+
 				$comments = MeasurementRecordCommentQuery::create()->filterByMeasurementrecordid($_GET['id'])
 					->orderByCreatedAt(Criteria::DESC)->find();
 				

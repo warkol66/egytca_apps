@@ -25,16 +25,33 @@ function addAmountRow() {
   + '             <option value="0">Modificatorio</option> ' 
   + '             <option value="1">Original</option> ' 
   + '           </select>' 
-  + '         <td><input type="button" class="icon iconDelete" title="Eliminar monto del contrato"  /></td>'
+  + '         <td><input name="amount[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar monto del contrato" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" /></td>'
   + ' </tr>';
 	row.innerHTML= html;
 	document.getElementById("amountsTbody").appendChild(row);
 	return false;
 }
+	function removeContractAmount(id) {
+		var params = '&id='+id;
+		var myAjax = new Ajax.Updater(
+				{success: 'amountMsgField'},
+					'Main.php?do=vialidadRemoveContractAmountX',
+					{
+						method: 'post',
+						parameters: params,
+						evalScripts: true
+					});
+		var tr = document.getElementById('amountId_'+id);
+		tr.remove();
+		$('amountMsgField').innerHTML = '<span class="inProgress">Eliminando Monto del Contrato</span>';
+		return true;
+	}
 </script>
+	<div id="amountMsgField"></div>
+
   |-assign var=contractAmounts value=$contract->getContractAmounts()-|
   <div style="margin-left:130px;"> 
-     <table class="tableTdBorders"> 
+     <table class="tableTdBorders" id="amountsTable"> 
       <thead> 
          <tr> 
           <th colspan="7"><div class="rightLink"><a href="#" onclick="return addAmountRow()" class="addLink" title="Agregar nuevo Monto">Agregar nuevo Monto</a></div></th> 
@@ -50,7 +67,7 @@ function addAmountRow() {
         </tr> 
        </thead> 
       <tbody id="amountsTbody">  |-foreach from=$contractAmounts item=contractAmount name=for_contractAmounts-|
-      <tr> 
+      <tr id="amountId_|-$contractAmount->getId()-|"> 
          <td><input type="hidden" name="amount[][id]" value="|-$contractAmount->getId()-|" /> 
           <select id="amount[][currencyId]" name="amount[][currencyId]" title="Seleccione la moneda correspondiente al monto" > 
              <option value="">Moneda</option> 
@@ -68,7 +85,8 @@ function addAmountRow() {
              <option value="1" |-$contractAmount->getAmountType()|selected:"1"-|>Original</option> 
            </select>
          <td> 
-          <input type="button" class="icon iconDelete" title="Eliminar monto del contrato" /> 
+				<input name="amount[][eol]" type="hidden" value="1">
+				<input type="button" class="icon iconDelete" title="Eliminar monto del contrato" onClick="removeContractAmount('|-$contractAmount->getId()-|')"  /> 
         </td> 
        </tr> 
       |-/foreach-|
@@ -76,3 +94,8 @@ function addAmountRow() {
      </table> 
    </div> 
 <p>&nbsp;</p>
+<script type="text/javascript">
+function deleteRow(i){
+	document.getElementById('amountsTable').deleteRow(i)
+}
+</script>
