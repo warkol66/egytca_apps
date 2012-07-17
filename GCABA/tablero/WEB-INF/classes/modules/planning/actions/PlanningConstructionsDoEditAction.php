@@ -82,22 +82,18 @@ class PlanningConstructionsDoEditAction extends BaseAction {
 			return $this->returnFailure($mapping, $smarty, $this->entity, 'failure-edit');
 		}
 
-		$totalValues = 15;
-
 		foreach ($_POST["budgetItem"] as $item) {
 
-				foreach ($item as $itemValue => $value) {
-					if ($itemValue == "amount") 
-						$value = Common::convertToMysqlNumericFormat($value);
-					$itemValues[$itemValue] = $value;
-				}
-				$j++;
-				//Cuando complete todos los valores asociados a un monto, lo guardo en $itemParams
-				if ($itemValue == "eol") {
-					$itemParams[] = $itemValues;
-					$itemValues = array();
-					$j = 0;
-				}
+			foreach ($item as $itemValue => $value) {
+				if ($itemValue == "amount") 
+					$value = Common::convertToMysqlNumericFormat($value);
+				$itemValues[$itemValue] = $value;
+			}
+			//Cuando complete todos los valores asociados a un monto, lo guardo en $itemParams
+			if ($itemValue == "eol") {
+				$itemParams[] = $itemValues;
+				$itemValues = array();
+			}
 		}
 		//Guardo los datos de montos asociados a la obra
 		foreach ($itemParams as $budgetItem) {
