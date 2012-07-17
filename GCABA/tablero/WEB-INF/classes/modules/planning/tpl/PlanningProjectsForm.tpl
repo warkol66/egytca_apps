@@ -66,15 +66,15 @@
       <input name="params[preexisting]" type="checkbox" id="params_preexisting" |-$planningProject->getPreexisting()|checked_bool-|  value="|-$planningProject->getPreexisting()-|" title="Proyecto preexistente" |-$readonly|readonly-|/>
       <input name="params[preexisting]" type="hidden" value="0"/>
     </p>
-
-		 <h3>Partida presupuestaria</h3>
-		 |-if !$planningProject->isNew()-||-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningProject->getBudgetItems()-||-/if-|
-
-
 	<p>
-        <label for="params_preexistingSigafCode">Apertura prog. Proyecto preexistente</label>
-      <input name="params[preexistingSigafCode]" type="text" id="params_preexistingSigafCode" size="20" value="|-$planningProject->getPreexistingSigafCode()-|" title="Apertura Programatica y Objeto del gasto Proyecto Preexistente" maxlength="255" |-$readonly|readonly-|/>
+        <label for="params_preexistingCode ">Código preexistente</label>
+      <input name="params[preexistingCode]" type="text" id="params_preexistingCode " size="20" value="|-$planningProject->getPreexistingCode()-|" title="Código Preexistente" maxlength="255" |-$readonly|readonly-|/>
     </p>
+		 |-if !$planningProject->isNew()-|
+
+		 <h3>Partida presupuestaria</h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningProject->getBudgetItems()-||-/if-|
+
+
 	<p>
 		<label for="params_ministryPriority">Prioridad Ministerial</label>
 		<select id="params_ministryPriority" name="params[ministryPriority]" title="Prioridad Ministerial" |-$readonly|readonly-| |-if $show || $showLog-|disabled="disabled"|-/if-|>
