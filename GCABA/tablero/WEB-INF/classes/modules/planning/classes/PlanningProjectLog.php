@@ -58,5 +58,12 @@ class PlanningProjectLog extends BasePlanningProjectLog {
 		 return $this->filterByProjectid($planningProjectId)->orderByUpdatedAt($orderType);
 	}
 
+	/**
+	 * Devuelve las partidas presupuestarias
+	 * @return array Relacion con partidas presupuestarias
+	 */
+	public function getBudgetItems() {
+		return BaseQuery::create('BudgetRelation')->filterByObjecttype('Project')->filterByObjectid($this->getProjectid())->find();
+	}
 
 } // PlanningProjectLog

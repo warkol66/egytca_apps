@@ -33,10 +33,10 @@
 					&nbsp;&nbsp;<input type='submit' value='Buscar' class='tdSearchButton' />|-if $filters|@count gt 0-|
 				<input type='button' onClick='location.href="Main.php?do=planningOperativeObjectivesList"' value="Quitar Filtros" title="Quitar Filtros"/>
 |-/if-|</form></div></td>
-		</tr>
+		</tr>|-/if-|
 			<tr>
 				 <th colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningOperativeObjectivesEdit" class="addLink">Agregar Objetivo Operativo</a></div></th>
-			</tr>|-/if-|
+			</tr>
 			<tr class="thFillTitle">
 				<th width="45%">Objetivo Ministerial</th>
 				<th width="50%">Objetivo Operativo</th>

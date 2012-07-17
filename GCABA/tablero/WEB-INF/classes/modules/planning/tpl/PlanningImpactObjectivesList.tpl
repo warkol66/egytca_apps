@@ -33,10 +33,10 @@
 					&nbsp;&nbsp;<input type='submit' value='Buscar' class='tdSearchButton' />|-if $filters|@count gt 0-|
 				<input type='button' onClick='location.href="Main.php?do=planningImpactObjectivesList"' value="Quitar Filtros" title="Quitar Filtros"/>
 |-/if-|</form></div></td>
-		</tr>
+		</tr>|-/if-|
 			<tr>
 				 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningImpactObjectivesEdit" class="addLink">Agregar Objetivo de Impacto</a></div></th>
-			</tr>|-/if-|
+			</tr>
 			<tr class="thFillTitle">
 				<th width="95%">Objetivo de Impacto</th>
 				<th width="1%">&nbsp;</th>

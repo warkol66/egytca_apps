@@ -32,6 +32,14 @@ class PlanningConstructionLog extends BasePlanningConstructionLog {
 	}
 
 	/**
+	 * Devuelve las partidas presupuestarias
+	 * @return array Relacion con partidas presupuestarias
+	 */
+	public function getBudgetItems() {
+		return BaseQuery::create('BudgetRelation')->filterByObjecttype('Construction')->filterByObjectid($this->getConstructionid())->find();
+	}
+
+	/**
 	 * Obtiene todas las versiones de un asunto a partir de su planningConstructionId ordenados por instante de creación y paginados.
 	 *
 	 * @param int $planningConstructionId id del objetivo ministerial.
