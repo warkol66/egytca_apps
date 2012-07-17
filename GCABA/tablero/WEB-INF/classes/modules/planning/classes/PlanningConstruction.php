@@ -59,7 +59,16 @@ class PlanningConstruction extends BasePlanningConstruction {
 	 * @return array Relacion con partidas presupuestarias
 	 */
 	public function getBudgetItems() {
-		return BaseQuery::create('BudgetRelation')->filterByObjecttype('Construction')->filterByObjectid($this->getId())->find();
+		$planningProject = $this->getPlanningProject();
+		return BaseQuery::create('BudgetRelation')->filterByObjecttype('Project')->filterByObjectid($planningProject->getId())->find();
+	}
+
+	/**
+	 * Devuelve las actividades
+	 * @return array Relacion las actividades
+	 */
+	public function getActivities() {
+		return BaseQuery::create('PlanningActivity')->filterByObjecttype('Construction')->filterByObjectid($this->getId())->find();
 	}
 
 	/**

@@ -82,8 +82,10 @@ class PlanningConstructionsDoEditAction extends BaseAction {
 			return $this->returnFailure($mapping, $smarty, $this->entity, 'failure-edit');
 		}
 
+		/***
+		 * Partidas presupuestarias
+		 */
 		foreach ($_POST["budgetItem"] as $item) {
-
 			foreach ($item as $itemValue => $value) {
 				if ($itemValue == "amount") 
 					$value = Common::convertToMysqlNumericFormat($value);
@@ -97,29 +99,55 @@ class PlanningConstructionsDoEditAction extends BaseAction {
 		}
 		//Guardo los datos de montos asociados a la obra
 		foreach ($itemParams as $budgetItem) {
-		
-			$id = $budgetItem["id"];
-		
-			if (!empty($id))
-				$budgetRelation = BudgetRelationQuery::create()->findOneById($id);
-			else
+			$budgetRelation = BudgetRelationQuery::create()->findOneById($budgetItem["id"]);	
+			if (empty($budgetRelation))
 				$budgetRelation = new BudgetRelation();
-		
 			$budgetRelation->fromArray($budgetItem,BasePeer::TYPE_FIELDNAME);
 			if ($budgetRelation->isNew())
 				$budgetRelation->setId(null);
-		
 			$budgetRelation->setObjectType('Construction');
 			$budgetRelation->setObjectid($_POST["id"]);
-
 			try {
 				$budgetRelation->save();
 			} catch (PropelException $exp) {
 				if (ConfigModule::get("global","showPropelExceptions"))
 					print_r($exp->__toString());
 			}
-		
 		}
+		//Fin partidas
+
+		/***
+		 * Actividades
+		 */
+		foreach ($_POST["activity"] as $item) {
+			foreach ($item as $itemValue => $value) {
+				$itemValues[$itemValue] = $value;
+			}
+			//Cuando complete todos los valores asociados a una actividad y lo guardo en $activityParams
+			if ($itemValue == "eol") {
+				$activityParams[] = $itemValues;
+				$itemValues = array();
+			}
+		}
+		//Guardo los datos de montos asociados a la obra
+		foreach ($activityParams as $activity) {
+			$id = $activity["id"];		
+				$activityObj = PlanningActivityQuery::create()->findOneById($id);
+			if (empty($activityObj))
+				$activityObj = new PlanningActivity();
+			$activityObj->fromArray($activity,BasePeer::TYPE_FIELDNAME);
+			if ($activityObj->isNew())
+				$activityObj->setId(null);
+			$activityObj->setObjectType('Construction');
+			$activityObj->setObjectid($_POST["id"]);
+			try {
+				$activityObj->save();
+			} catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->__toString());
+			}
+		}
+		//Fin actividades
 
 		if (isset($id))
 			$logSufix = ', ' . Common::getTranslation('action: create','common');
