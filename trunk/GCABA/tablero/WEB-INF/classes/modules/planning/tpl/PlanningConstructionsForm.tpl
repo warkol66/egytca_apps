@@ -119,7 +119,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
       <input name="params[sanctionAmount]" type="text" id="params_sanctionAmount" size="20" value="|-$planningConstruction->getSanctionAmount()-|" title="Presupuesto Sancionado " |-$readonly|readonly-|/>
     </p>
 		 <h3>Partida presupuestaria</h3>
-		 |-if !$planningConstruction->isNew()-||-include file="PlanningBudgetRelationsInclude.tpl"-||-/if-|
+		 |-if !$planningConstruction->isNew()-||-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningConstruction->getBudgetItems()-||-/if-|
 
 	<p>
         <label for="params_fundingSource">Fuente de Financiamiento</label>

@@ -70,6 +70,11 @@
         <label for="params_preexistingCode">Codigo de Proyecto preexistente</label>
       <input name="params[preexistingCode]" type="text" id="params_preexistingCode" size="20" value="|-$planningProject->getPreexistingCode()-|" title="Codigo preexistente" maxlength="255" |-$readonly|readonly-|/>
     </p>
+
+		 <h3>Partida presupuestaria</h3>
+		 |-if !$planningProject->isNew()-||-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningProject->getBudgetItems()-||-/if-|
+
+
 	<p>
         <label for="params_preexistingSigafCode">Apertura prog. Proyecto preexistente</label>
       <input name="params[preexistingSigafCode]" type="text" id="params_preexistingSigafCode" size="20" value="|-$planningProject->getPreexistingSigafCode()-|" title="Apertura Programatica y Objeto del gasto Proyecto Preexistente" maxlength="255" |-$readonly|readonly-|/>

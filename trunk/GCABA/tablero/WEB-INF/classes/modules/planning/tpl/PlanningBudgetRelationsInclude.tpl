@@ -19,7 +19,7 @@ html =   '      <tr> '
  + '            <td><input name="budgetItem[][budgetProyect]"  id="params_budgetProyect[]" type="text" value="" size="3" title="Proyecto"></td>'
  + '            <td><input name="budgetItem[][budgetActivity]"  id="params_budgetActivity[]" type="text" value="" size="2" title="Actividad"></td>'
  + '            <td><input name="budgetItem[][budgetConstruction]"  id="params_budgetConstruction[]" type="text" value="" size="2" title="Obra"></td>'
- + '            <td align="center"><input name="budgetItem[][total]" id="params_total[]" type="checkbox" value="1" title="Indique si se utiliza toda la partida"><input name="budgetItem[][total]" type="hidden" value="0"></td>'
+ + '            <td align="center"><input name="budgetItem[][total]" type="hidden" value="0"><input name="budgetItem[][total]" id="params_total[]" type="checkbox" value="1" title="Indique si se utiliza toda la partida"></td>'
  + '            <td><input name="budgetItem[][amount]"  id="params_amount[]" type="text" value="" size="12" title="Monto"></td>'
  + '         		<td><input name="budgetItem[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar partida" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" /></td> '
  + '       </tr>';
@@ -43,7 +43,6 @@ html =   '      <tr> '
 		return true;
 	}
 </script>
-  |-assign var=budgetItems value=$planningConstruction->getBudgetItems()-|
   <div style="margin-left:130px;"> 
      <table class="tableTdBorders" id="budgetItemsTable"> 
       <thead> 
@@ -78,8 +77,8 @@ html =   '      <tr> '
             <td><input name="budgetItem[][budgetProyect]"  id="params_budgetProyect[]" type="text" value="|-$budgetItem->getBudgetProyect()|escape-|" size="3" title="Proyecto"></td>
             <td><input name="budgetItem[][budgetActivity]"  id="params_budgetActivity[]" type="text" value="|-$budgetItem->getBudgetActivity()|escape-|" size="2" title="Actividad"></td>
             <td><input name="budgetItem[][budgetConstruction]"  id="params_budgetConstruction[]" type="text" value="|-$budgetItem->getBudgetConstruction()|escape-|" size="2" title="Obra"></td>
-            <td align="center"><input name="budgetItem[][totalItem]" id="params_total[]" type="checkbox" value="1" |-$budgetItem->getTotalItem()|checked_bool-| title="Indique si se utiliza toda la partida">
-        <input name="budgetItem[][totalItem]" type="hidden" value="0"></td>
+            <td align="center"><input name="budgetItem[][totalItem]" type="hidden" value="0"><input name="budgetItem[][totalItem]" id="params_total[]" type="checkbox" value="1" |-$budgetItem->getTotalItem()|checked_bool-| title="Indique si se utiliza toda la partida">
+        </td>
             <td><input name="budgetItem[][amount]"  id="params_amount[]" type="text" value="|-$budgetItem->getAmount()|system_numeric_format-|" size="12" title="Monto"></td>
          		<td><input name="budgetItem[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar partida" value="Eliminar partida" onClick="removeItemFromConstruction('|-$budgetItem->getId()-|')" /></td> 
        </tr> 
