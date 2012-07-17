@@ -2,43 +2,27 @@
  "name": "Ministerio de Educación",
  "children": [
   {
-   "name": "Mejorar la Calidad Educativa",
+   "name": "OI-> Mejorar la Calidad Educativa",
    "children": [
     {
-     "name": "Cumplir con los 180 días de clases",
+     "name": "OM -> Cumplir con los 180 días de clases",
      "children": [
       {"name": "Reducir la deserción escolar"},
       {"name": "Mejorar el menu de los comedores escolares"}
-     ]
-    },
-    {
-     "name": "graph",
-     "children": [
-      {"name": "BetweennessCentrality"},
-      {"name": "LinkDistance"},
-      {"name": "MaxFlowMinCut"},
-      {"name": "ShortestPaths"},
-      {"name": "SpanningTree"}
-     ]
-    },
-    {
-     "name": "optimization",
-     "children": [
-      {"name": "AspectRatioBanker"}
      ]
     }
    ],
-   "name": "Mejorar la Calidad Educativa",
+   "name": "OM -> Mejorar la Calidad Educativa",
    "children": [
     {
-     "name": "Cumplir con los 180 días de clases",
+     "name": "OO -> Cumplir con los 180 días de clases",
      "children": [
       {"name": "Reducir la deserción escolar"},
       {"name": "Mejorar el menu de los comedores escolares"}
      ]
     },
     {
-     "name": "Aumentar la calidad de los recuros",
+     "name": "OO -> Aumentar la calidad de los recuros",
      "children": [
       {"name": "Mejorar la capacitación de los docentes"},
       {"name": "Mejorar la dotación tecnológica"},
@@ -48,7 +32,7 @@
      ]
     },
     {
-     "name": "Acercar la escuela a la comunidad",
+     "name": "OO -> Acercar la escuela a la comunidad",
      "children": [
       {"name": "Mejorar la relación escuela comunidad"}
      ]
@@ -56,12 +40,12 @@
    ]
   },
   {
-   "name": "Mejorar la infraestructura educativa",
+   "name": "OM -> Mejorar la infraestructura educativa",
    "children": [
-    {"name": "Mantenimiento preventivo"},
-    {"name": "Mejoras edilicias"},
+    {"name": "OO -> Mantenimiento preventivo"},
+    {"name": "OO -> Mejoras edilicias"},
     {
-     "name": "Refacciones",
+     "name": "OO -> Refacciones",
      "children": [
       {"name": "Instlaciones de Gas"},
       {"name": "Instalaciones Eléctricas"},
@@ -69,7 +53,7 @@
       {"name": "Mampostería"}
      ]
     },
-    {"name": "Nuevas escuelas"}
+    {"name": "OO -> Nuevas escuelas"}
    ]
   }
  ]

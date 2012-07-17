@@ -24,5 +24,7 @@ class PlanningImpactObjectivesListAction extends BaseListAction {
 		parent::postList();
 		$this->smarty->assign("module", $this->module);
 		$this->smarty->assign("section", "ImpactObjectives");
+		if ($_GET["nav"])
+			$this->smarty->assign("nav", true);
 	}
 }

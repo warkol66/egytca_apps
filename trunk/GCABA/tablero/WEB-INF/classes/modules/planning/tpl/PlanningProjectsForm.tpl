@@ -57,14 +57,12 @@
       <input name="params[goalQuantification]" type="text" id="params_goalQuantification" size="80" value="|-$planningProject->getGoalQuantification()-|" title="Meta Cuantificacion" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
     </p>
 	<p>
-        <label for="params_investment">Proyecto de inversión?</label>
-      <input name="params[investment]" type="checkbox" id="params_investment" |-$planningProject->getInvestment()|checked_bool-|  value="|-$planningProject->getInvestment()-|" title="Proyecto de Inversion" |-$readonly|readonly-|/>
-      <input name="params[investment]" type="hidden" value="0"/>
+        <label for="params_investment">Proyecto de inversión?</label><input name="params[investment]" type="hidden" value="0"/>
+      <input name="params[investment]" type="checkbox" id="params_investment" value="1" |-$planningProject->getInvestment()|checked_bool-|  title="Proyecto de Inversion" |-$readonly|readonly-|/>
     </p>
 	<p>
-        <label for="params_preexisting">Proyecto preexistente?</label>
-      <input name="params[preexisting]" type="checkbox" id="params_preexisting" |-$planningProject->getPreexisting()|checked_bool-|  value="|-$planningProject->getPreexisting()-|" title="Proyecto preexistente" |-$readonly|readonly-|/>
-      <input name="params[preexisting]" type="hidden" value="0"/>
+        <label for="params_preexisting">Proyecto preexistente?</label><input name="params[preexisting]" type="hidden" value="0"/>
+      <input name="params[preexisting]" type="checkbox" id="params_preexisting" value="1" |-$planningProject->getPreexisting()|checked_bool-| title="Proyecto preexistente" |-$readonly|readonly-|/>
     </p>
 	<p>
         <label for="params_preexistingCode ">Código preexistente</label>
@@ -94,25 +92,24 @@
 		</select>
 	</p>
 	<p>
-        <label for="params_communicable">Proyecto comunicable?</label>
-      <input name="params[communicable]" type="checkbox" id="params_communicable" value="|-$planningProject->getCommunicable()-|" title="Proyecto comunicable" |-$readonly|readonly-|/>
-      <input name="params[communicable]" type="hidden" value="0"/>
+        <label for="params_communicable">Proyecto comunicable?</label><input name="params[communicable]" type="hidden" value="0"/>
+      <input name="params[communicable]" type="checkbox" id="params_communicable" value="1" title="Proyecto comunicable" |-$planningProject->getCommunicable()|checked_bool-| |-$readonly|readonly-|/>
     </p>
 	<p>
         <label for="params_appliedAmount">Presupuesto Solicitado</label>
-      <input name="params[appliedAmount]" type="text" id="params_appliedAmount" size="20" value="|-$planningProject->getAppliedAmount()|system_numeric_format:0-|" title="Presupuesto Solicitado " |-$readonly|readonly-|/>
+      <input name="params[appliedAmount]" type="text" id="params_appliedAmount" size="20" value="|-$planningProject->getAppliedAmount()|system_numeric_format-|" title="Presupuesto Solicitado" class="right" |-$readonly|readonly-|/>
     </p>
 	<p>
         <label for="params_managementAmount">Presupuesto Gestión</label>
-      <input name="params[managementAmount]" type="text" id="params_managementAmount" size="20" value="|-$planningProject->getManagementAmount()|system_numeric_format:0-|" title="Presupuesto Gestion " |-$readonly|readonly-|/>
+      <input name="params[managementAmount]" type="text" id="params_managementAmount" size="20" value="|-$planningProject->getManagementAmount()|system_numeric_format-|" title="Presupuesto Gestion" class="right"|-$readonly|readonly-|/>
     </p>
 	<p>
         <label for="params_raisedAmount">Presupuesto Elevado</label>
-      <input name="params[raisedAmount]" type="text" id="params_raisedAmount" size="20" value="|-$planningProject->getRaisedAmount()|system_numeric_format:0-|" title="Presupuesto Elevado " |-$readonly|readonly-|/>
+      <input name="params[raisedAmount]" type="text" id="params_raisedAmount" size="20" value="|-$planningProject->getRaisedAmount()|system_numeric_format-|" title="Presupuesto Elevado" class="right"|-$readonly|readonly-|/>
     </p>
 	<p>
         <label for="params_sanctionAmount">Presupuesto Sanción</label>
-      <input name="params[sanctionAmount]" type="text" id="params_sanctionAmount" size="20" value="|-$planningProject->getSanctionAmount()|system_numeric_format:0-|" title="Presupuesto Sancionado " |-$readonly|readonly-|/>
+      <input name="params[sanctionAmount]" type="text" id="params_sanctionAmount" size="20" value="|-$planningProject->getSanctionAmount()|system_numeric_format-|" title="Presupuesto Sancionado" class="right"|-$readonly|readonly-|/>
     </p>
 	<p>     
 		<label for="params_startingDate">Fecha de Inicio</label>

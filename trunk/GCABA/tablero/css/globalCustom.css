@@ -77,7 +77,7 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-color: #f0f0f0 !Important;
 	background-position: 0 0;
 }
-.disabled, input[disabled].icon {
+.disabled, input[disabled].icon, input[type="button"].disabled {
 	background: url(../images/icons_all_dis.png) no-repeat #f0f0f0 !Important;
 	border: solid 1px #ababab !Important;
 	-khtml-border-radius: .2em;
@@ -184,7 +184,7 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-position: -0px -120px !Important; }
 .iconUndelete {
 	background-position: -20px -120px !Important; }
-.iconDelete {
+.iconDelete, input[type="button"].iconDelete {
 	background-position: -80px -120px !Important; }
 .iconCancel, input.editor_cancel_button {
 	background-position: -100px -120px !Important; }

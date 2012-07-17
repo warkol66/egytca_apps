@@ -45,6 +45,11 @@ class PlanningProjectsDoEditAction extends BaseAction {
 		$id = $request->getParameter("id");
 		$params = Common::addUserInfoToParams($_POST["params"]);
 
+		$params["appliedAmount"] = Common::convertToMysqlNumericFormat($params["appliedAmount"]);
+		$params["managementAmount"] = Common::convertToMysqlNumericFormat($params["managementAmount"]);
+		$params["raisedAmount"] = Common::convertToMysqlNumericFormat($params["raisedAmount"]);
+		$params["sanctionAmount"] = Common::convertToMysqlNumericFormat($params["sanctionAmount"]);
+
 		if (!empty($id)) {
 			$planningProject = BaseQuery::create("PlanningProject")->findOneByID($id);
 			if (!empty($planningProject)) {
