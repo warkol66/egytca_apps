@@ -76,9 +76,9 @@ function addAmountRow() {
 						|-/foreach-|
            </select> 
         </td> 
-         <td><input name="amount[][amount]" type="Text" title="Ingrese el monto" value="|-$contractAmount->getAmount()|system_numeric_format-|" size="10" /></td> 
-         <td><input name="amount[][exchangeRate]" type="Text" title="Ingrese la tasa de cambio" value="|-$contractAmount->getExchangeRate()|system_numeric_format-|" size="10" /></td> 
-         <td><input name="amount[][paripassu]" type="Text" title="Ingrese el monto del Pari Passu" value="|-$contractAmount->getParipassu()|system_numeric_format-|" size="10" /></td> 
+         <td><input name="amount[][amount]" type="Text" title="Ingrese el monto" value="|-$contractAmount->getAmount()|system_numeric_format-|" class="right" size="10" /></td> 
+         <td><input name="amount[][exchangeRate]" type="Text" title="Ingrese la tasa de cambio" value="|-$contractAmount->getExchangeRate()|system_numeric_format-|" class="right" size="10" /></td> 
+         <td><input name="amount[][paripassu]" type="Text" title="Ingrese el monto del Pari Passu" value="|-$contractAmount->getParipassu()|system_numeric_format-|" class="right" size="10" /></td> 
          <td><input name="amount[][date]" type="Text" title="Ingrese la fecha de la modificación (mm-dd-aaaa)"  value="|-$contractAmount->getDate()|date_format-|" size="12" /></td> 
          <td><select name="amount[][amountType]" title="Seleccione si es monto original o modificatorio" > 
              <option value="0" |-$contractAmount->getAmountType()|selected:"0"-|>Modificatorio</option> 

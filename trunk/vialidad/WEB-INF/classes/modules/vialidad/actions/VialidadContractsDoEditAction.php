@@ -30,7 +30,7 @@ class VialidadContractsDoEditAction extends BaseAction {
 		foreach ($_POST["amount"] as $item) {
 
 			foreach ($item as $itemValue => $value) {
-				if ($itemValue == "amount" || $itemValue == "paripassu" ) 
+				if ($itemValue == "amount" || $itemValue == "exchangeRate" || $itemValue == "paripassu") 
 					$value = Common::convertToMysqlNumericFormat($value);
 				$amountValues[$itemValue] = $value;
 			}
