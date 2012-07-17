@@ -66,4 +66,13 @@ class PlanningProjectLog extends BasePlanningProjectLog {
 		return BaseQuery::create('BudgetRelation')->filterByObjecttype('Project')->filterByObjectid($this->getProjectid())->find();
 	}
 
+	/**
+	 * Devuelve las actividades
+	 * @return array Relacion las actividades
+	 */
+	public function getActivities() {
+		return BaseQuery::create('PlanningActivity')->filterByObjecttype('Project')->filterByObjectid($this->getProjectid())->find();
+	}
+
+
 } // PlanningProjectLog

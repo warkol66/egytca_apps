@@ -121,7 +121,7 @@
 	</p>
 	  
 	  
-	  
+		 |-if !$planningProject->isNew()-|<h3>Actividades</h3>|-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities()-||-/if-|
 	  
 	  
 	  

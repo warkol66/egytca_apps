@@ -279,4 +279,21 @@
 
 <!-- /Obras -->
 
+	<table name="planning_activity" phpName="PlanningActivity" description="Actividades de las obras y proyectos">
+	
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado de la actividad" primaryString="true" />
+		<column name="objectType" type="VARCHAR" size="100" description="Tipo de objeto relacionado"/>
+		<column name="objectId" type="INTEGER" description="Id del proyecto u obra"/>
+		<column name="startingDate" type="DATE" description="Fecha de inicio" />
+		<column name="endingDate" type="DATE" description="Fecha de finalizacion" />
+		<column name="acomplished" type="BOOLEAN" sqlType="BOOL" default="0" description="Cumplido"/>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
 </database>

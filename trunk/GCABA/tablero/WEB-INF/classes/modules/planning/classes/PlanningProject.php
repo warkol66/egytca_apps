@@ -66,6 +66,14 @@ class PlanningProject extends BasePlanningProject {
 	}
 
 	/**
+	 * Devuelve las actividades
+	 * @return array Relacion las actividades
+	 */
+	public function getActivities() {
+		return BaseQuery::create('PlanningActivity')->filterByObjecttype('Project')->filterByObjectid($this->getId())->find();
+	}
+
+	/**
 	 * Devuelve array con posibles prioridades ministeriales
 	 *  id => prioridad
 	 *
