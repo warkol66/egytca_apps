@@ -66,10 +66,6 @@
       <input name="params[preexisting]" type="checkbox" id="params_preexisting" |-$planningProject->getPreexisting()|checked_bool-|  value="|-$planningProject->getPreexisting()-|" title="Proyecto preexistente" |-$readonly|readonly-|/>
       <input name="params[preexisting]" type="hidden" value="0"/>
     </p>
-	<p>
-        <label for="params_preexistingCode">Codigo de Proyecto preexistente</label>
-      <input name="params[preexistingCode]" type="text" id="params_preexistingCode" size="20" value="|-$planningProject->getPreexistingCode()-|" title="Codigo preexistente" maxlength="255" |-$readonly|readonly-|/>
-    </p>
 
 		 <h3>Partida presupuestaria</h3>
 		 |-if !$planningProject->isNew()-||-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningProject->getBudgetItems()-||-/if-|
