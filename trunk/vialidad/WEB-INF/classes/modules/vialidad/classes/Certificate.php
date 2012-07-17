@@ -21,6 +21,7 @@ class Certificate extends BaseCertificate {
 		$fines = $this->getMeasurementRecord()->getFines();
 		$dailyWorks = $this->getMeasurementRecord()->getDailyWorks();
 		$adjustments = $this->getMeasurementRecord()->getAdjustments();
+		$others = $this->getMeasurementRecord()->getOthers();
 		
 		foreach ($fines as $fine)
 			$price += $fine->getPrice();
@@ -30,6 +31,9 @@ class Certificate extends BaseCertificate {
 		
 		foreach ($adjustments as $adjustment)
 			$price += $adjustment->getPrice();
+		
+		foreach ($others as $other)
+			$price += $others->getPrice();
 		
 		return $price;
 	}

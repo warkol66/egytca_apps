@@ -155,7 +155,28 @@
 	</table>
 	</div>
 	|-/if-|
-	
+|-if $others->count() gt 0-|
+	<h3>Otros bienes y servicios</h3>
+	<div id=div_others>
+	<table id="table_others" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
+		<thead>
+		<tr class="thFillTitle"> 
+			<th width="85%">Descripción</th> 
+			<th width="15%">Precio</th>
+		</tr>
+		</thead>
+		<tbody>
+		|-foreach from=$others item=other-|
+		<tr>
+			<td>|-$other->getDescription()-|</td>
+			<td align="right">|-$other->getPrice()|system_numeric_format-|</td>
+		</tr>
+		|-/foreach-|
+		</tbody>
+	</table>
+	</div>
+	|-/if-|
+		
 	|-/if-|
 </div>
 

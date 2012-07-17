@@ -64,6 +64,14 @@ class MeasurementRecord extends BaseMeasurementRecord {
 				$this->addItem($adjustment);
 			}
 		}
+
+		$others = $this->getOthers();
+		foreach ($others as $other) {
+			if (!$this->hasItem($other)) {
+				$this->addItem($other);
+			}
+		}
+
 		$this->save();
 	}
 	
@@ -146,7 +154,18 @@ class MeasurementRecord extends BaseMeasurementRecord {
 			->filterByDate($this->getPeriod()->getLimits('Y-m-d'))
 			->find();
 	}
-	
+
+	/**
+	 * Obtiene los items de tipo Others
+	 * @return type 
+	 */
+	function getOthers() {
+		return OtherQuery::create()
+			->filterByConstructionid($this->getConstructionid())
+			->filterByDate($this->getPeriod()->getLimits('Y-m-d'))
+			->find();
+	}
+
 	/**
 	 * Obtiene el periodo
 	 * 
