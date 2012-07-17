@@ -7,6 +7,7 @@
 	|-/if-|
 	<div name="working_status_message" style="display:none;" class="inProgress">Trabajando...</div>
 	<div name="done_status_message" style="display:none;" class="successMessage">Unidad de Medida agregada</div>
+	<div name="error_status_message" style="display:none;" class="errorMessage">Ocurrió un error al intentar agregar la Unidad de Medida</div>
 	<table id="table_measureUnits" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 		<thead>
 <!--		<tr>
@@ -32,7 +33,7 @@
 			<th colspan="3" class="thFillTitle">
 				<div class="rightLink">
 					<a href="#" onclick="showInput('addInput1', 'addLink1'); return false;" id="addLink1" class="addLink">Agregar Unidad de Medida</a>
-					<form id="addInput1" action="Main.php" method="POST" onsubmit="setStatus('working'); prepareAndSubmit(this); showInput('addLink1', 'addInput1'); setStatus('done'); return false;" style="display: none;">
+					<form id="addInput1" action="Main.php" method="POST" onsubmit="prepareAndSubmit(this); showInput('addLink1', 'addInput1'); return false;" style="display: none;">
 						<label>Nombre de la unidad</label>
 						<input type="text" name="params[name]" />
 						<label for="name[code]">Código</label>
@@ -66,7 +67,7 @@
 			<th colspan="3" class="thFillTitle">
 				<div class="rightLink">
 					<a href="#" onclick="showInput('addInput2', 'addLink2'); return false;" id="addLink2" class="addLink">Agregar Unidad de Medida</a>
-					<form id="addInput2" action="Main.php" method="POST" onsubmit="setStatus('working'); prepareAndSubmit(this); showInput('addLink2', 'addInput2'); setStatus('done'); return false;" style="display: none;">
+					<form id="addInput2" action="Main.php" method="POST" onsubmit="prepareAndSubmit(this); showInput('addLink2', 'addInput2'); return false;" style="display: none;">
 						<label>Nombre de la unidad</label>
 						<input type="text" name="params[name]" />
 						<label for="name[code]">Código</label>
@@ -88,14 +89,29 @@ function showInput(to_show, to_hide) {
 	$('#'+to_show).show();
 	$('#'+to_hide).hide();
 }
-function setStatus(status) {
+function setStatus(status, message) {
 	switch (status) {
 		case 'working':
+			if (message != undefined)
+				$('[name=working_status_message]').html(message);
 			$('[name=done_status_message]').hide();
 			$('[name=working_status_message]').show();
+			$('[name=error_status_message]').hide();
+			break;
 		case 'done':
+			if (message != undefined)
+				$('[name=done_status_message]').html(message);
 			$('[name=done_status_message]').show();
 			$('[name=working_status_message]').hide();
+			$('[name=error_status_message]').hide();
+			break;
+		case 'error':
+			if (message != undefined)
+				$('[name=error_status_message]').html(message);
+			$('[name=done_status_message]').hide();
+			$('[name=working_status_message]').hide();
+			$('[name=error_status_message]').show();
+			break;
 		default:
 			// unimplemented status
 			break;
@@ -113,12 +129,20 @@ function clean(value) {
 	return aux.replace(/\s---$/, '');
 }
 function prepareAndSubmit(form) {
+	setStatus('working');
 	$.ajax({
 		url: 'Main.php',
 		type: 'post',
 		data: $(form).serialize(),
 		success: function(data) {
 			$(data).appendTo($('#measureUnitsTbody'));
+			setStatus('done');
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			var errorMsg = 'Ocurrió un error al intentar agregar la Unidad de Medida';
+			if (errorThrown != undefined)
+				errorMsg += ': ' + errorThrown;
+			setStatus('error', errorMsg);
 		}
 	});
 	form.reset();

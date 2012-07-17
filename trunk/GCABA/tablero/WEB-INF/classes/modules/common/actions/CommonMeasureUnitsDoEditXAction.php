@@ -44,16 +44,17 @@ class CommonMeasureUnitsDoEditXAction extends BaseAction {
 			$measureUnit = BaseQuery::create('MeasureUnit')->findOneById($id);
 		else
 			$measureUnit = new MeasureUnit();
+		
+		if (isset($params['code']) && $params['code'] != $measureUnit->getCode() &&
+				BaseQuery::create('MeasureUnit')->filterByCode($params['code'])->count() > 0)
+			return $this->returnAjaxFailure('ya existe una unidad de medida con ese c&oacute;digo');
 
 		$measureUnit->fromArray($params, BasePeer::TYPE_FIELDNAME);
 
 		try {
 			$measureUnit->save();
 		} catch (Exception $e) {
-			return $mapping->findForwardConfig('failure');
-			if (ConfigModule::get("global","showPropelExceptions")){
-				print_r($e->__toString());
-			}
+			return $this->returnAjaxFailure();
 		}
 
 		$smarty->assign('measureUnit', $measureUnit);

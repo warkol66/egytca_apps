@@ -345,6 +345,13 @@ class BaseAction extends Action {
 		$smarty->assign("message","error");
 		return $mapping->findForwardConfig($forward);
 	}
+	
+	/**
+	 * Makes an ajax request fail
+	 */
+	function returnAjaxFailure($msg = 'Internal Server Error') {
+		header('HTTP/1.1 500 '.$msg);
+	}
 
 	/**
 	 * Indica si una accion fu invocadamediante ajax
