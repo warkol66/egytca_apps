@@ -15,4 +15,12 @@
  */
 class PlanningActivity extends BasePlanningActivity {
 
+	/**
+	 * Devuelve las actividades
+	 * @return array Relacion las actividades
+	 */
+	public function getPlanningProject() {
+		return BaseQuery::create('Planning'.$this->getObjecttype())->findOneById($this->getObjectid());
+	}
+
 } // PlanningActivity
