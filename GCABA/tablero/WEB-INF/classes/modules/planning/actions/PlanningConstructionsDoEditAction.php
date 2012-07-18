@@ -45,6 +45,13 @@ class PlanningConstructionsDoEditAction extends BaseAction {
 		$id = $request->getParameter("id");
 		$params = Common::addUserInfoToParams($_POST["params"]);
 
+		$params["surface"] = Common::convertToMysqlNumericFormat($params["surface"]);
+		$params["amount"] = Common::convertToMysqlNumericFormat($params["amount"]);
+		$params["appliedAmount"] = Common::convertToMysqlNumericFormat($params["appliedAmount"]);
+		$params["managementAmount"] = Common::convertToMysqlNumericFormat($params["managementAmount"]);
+		$params["raisedAmount"] = Common::convertToMysqlNumericFormat($params["raisedAmount"]);
+		$params["sanctionAmount"] = Common::convertToMysqlNumericFormat($params["sanctionAmount"]);
+
 		if (!empty($id)) {
 			$planningConstruction = BaseQuery::create("PlanningConstruction")->findOneByID($id);
 			if (!empty($planningConstruction)) {
@@ -115,7 +122,7 @@ class PlanningConstructionsDoEditAction extends BaseAction {
 			}
 		}
 		//Fin partidas
-
+		
 		/***
 		 * Actividades
 		 */
@@ -139,7 +146,7 @@ class PlanningConstructionsDoEditAction extends BaseAction {
 			if ($activityObj->isNew())
 				$activityObj->setId(null);
 			$activityObj->setObjectType('Construction');
-			$activityObj->setObjectid($_POST["id"]);
+			$activityObj->setObjectid($planningConstruction->getId());
 			try {
 				$activityObj->save();
 			} catch (PropelException $exp) {
