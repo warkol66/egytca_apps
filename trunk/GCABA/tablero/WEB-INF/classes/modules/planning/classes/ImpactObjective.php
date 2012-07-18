@@ -65,9 +65,13 @@ class ImpactObjective extends BaseImpactObjective {
 	 */
 	public static function getPolicyGuidelines() {
 		$policyGuidelines = array(
-			1 => 'Fortalecimiento de las políticas de promoción social, salud y educación',
-			2 => 'Seguridad',
-			3 => 'Movilidad sustentable'
+			1 => 'Ciudad Verde',
+			2 => 'Ciudad Moderna / Participación Ciudadana / Futuro',
+			3 => 'Buenos Aires Ciudad de Todos los Argentinos',
+			4 => 'Jóvenes / Educación',
+			5 => 'Vida Sana /Salud',
+			6 => 'Realización Personal / Vulnerables'
+
 		);
 		return $policyGuidelines;
 	}
