@@ -60,6 +60,8 @@ class PlanningConstruction extends BasePlanningConstruction {
 	 */
 	public function getBudgetItems() {
 		$planningProject = $this->getPlanningProject();
+		if (empty($planningProject))
+			$planningProject = new PlanningProject();
 		return BaseQuery::create('BudgetRelation')->filterByObjecttype('Project')->filterByObjectid($planningProject->getId())->find();
 	}
 
