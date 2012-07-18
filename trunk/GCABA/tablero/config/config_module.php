@@ -7,11 +7,16 @@ class ConfigModule {
 			"debugMode" => true,
 			"noSecurity" => true,
 			"noCheckLogin" => false,
-			"concurrentSession" => true,
+			"nonConcurrentSession" => false,
 			"developmentMode" => true,
+			"showSwiftExceptions" => true,
 			"showPropelExceptions" => true,
 			"doLog" => true,
-			"unifiedUsernames" => true
+			"unifiedLogin" => true,
+			"unifiedUsernames" => true,
+			"backupTimeLimit" => 720,
+			"tmpwatch" => "/usr/sbin/tmpwatch",
+			"internalMailUseAffiliates" => false 
 		),
 		"affiliates" => array(
 			"unifiedLogin" => false

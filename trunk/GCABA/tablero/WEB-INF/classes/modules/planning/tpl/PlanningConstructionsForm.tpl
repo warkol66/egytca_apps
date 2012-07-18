@@ -71,13 +71,16 @@ $("#autocomplete_responsibleCode").ajaxChosen({
       <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Obra" class="emptyValidation" |-$readonly|readonly-| >|-$planningConstruction->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
     </p> 
   <p>
-    <label for="params_constructionType">Tipo de obra</label>
+    <label for="params_constructionType">Tipo de obra</label>|-if $planningConstruction->isNew()-|
     <select id="params_constructionType" name="params[constructionType]" title="Tipo de Obra" |-$readonly|readonly-|>
       <option value="">Seleccione tipo de Obra</option>
       |-foreach from=$constructionTypes key=key item=name-|
-            <option value="|-$key-|" |-$planningConstruction->getConstructionTypes()|selected:$key-|>|-$name-|</option>
+					<option value="|-$key-|" |-$planningConstruction->getConstructionType()|selected:$key-|>|-$name-|</option>
       |-/foreach-|
     </select>
+		|-else-|
+		<input type="text" size="25" readonly="readonly" value="|-$constructionTypes[$planningConstruction->getConstructionType()]-|"
+		|-/if-|
   </p>
 
 	<p>
@@ -95,7 +98,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
     </p>
 	<p>
         <label for="params_surface">Superfice (mts2)</label>
-      <input name="params[surface]" type="text" id="params_surface" size="20" value="|-$planningConstruction->getSurface()-|" title="Superficie" maxlength="20" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
+      <input name="params[surface]" type="text" id="params_surface" size="20" value="|-$planningConstruction->getSurface()|system_numeric_format-|" title="Superficie" maxlength="20" class="emptyValidation right" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
     </p>
 	<p>
         <label for="params_priority">Prioridad?</label>
@@ -109,28 +112,27 @@ $("#autocomplete_responsibleCode").ajaxChosen({
     </p>
 	<p>
         <label for="params_amount">Presupuesto Total de la Obra</label>
-      <input name="params[amount]" type="text" id="params_amount" size="20" value="|-$planningConstruction->getAmount()-|" title="Presupuesto total de la Obra" maxlength="20" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
+      <input name="params[amount]" type="text" id="params_amount" size="20" value="|-$planningConstruction->getAmount()|system_numeric_format-|" title="Presupuesto total de la Obra" maxlength="20" class="emptyValidation right" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
     </p>
 	<p>
         <label for="params_appliedAmount">Presupuesto Solicitado</label>
-      <input name="params[appliedAmount]" type="text" id="params_appliedAmount" size="20" value="|-$planningConstruction->getAppliedAmount()-|" title="Presupuesto Solicitado" maxlength="20" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
+      <input name="params[appliedAmount]" type="text" id="params_appliedAmount" size="20" value="|-$planningConstruction->getAppliedAmount()|system_numeric_format-|" title="Presupuesto Solicitado" maxlength="20" class="emptyValidation right" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
     </p>
 	<p>
         <label for="params_managementAmount">Presupuesto Gestión</label>
-      <input name="params[managementAmount]" type="text" id="params_managementAmount" size="20" value="|-$planningConstruction->getManagementAmount()-|" title="Presupuesto Gestion " |-$readonly|readonly-|/>
+      <input name="params[managementAmount]" type="text" id="params_managementAmount" size="20" value="|-$planningConstruction->getManagementAmount()|system_numeric_format-|" title="Presupuesto Gestion " class="right" |-$readonly|readonly-|/>
     </p>
 	<p>
         <label for="params_raisedAmount">Presupuesto Elevado</label>
-      <input name="params[raisedAmount]" type="text" id="params_raisedAmount" size="20" value="|-$planningConstruction->getRaisedAmount()-|" title="Presupuesto Elevado " |-$readonly|readonly-|/>
+      <input name="params[raisedAmount]" type="text" id="params_raisedAmount" size="20" value="|-$planningConstruction->getRaisedAmount()|system_numeric_format-|" title="Presupuesto Elevado " class="right" |-$readonly|readonly-|/>
     </p>
 	<p>
         <label for="params_sanctionAmount">Presupuesto Sanción</label>
-      <input name="params[sanctionAmount]" type="text" id="params_sanctionAmount" size="20" value="|-$planningConstruction->getSanctionAmount()-|" title="Presupuesto Sancionado " |-$readonly|readonly-|/>
+      <input name="params[sanctionAmount]" type="text" id="params_sanctionAmount" size="20" value="|-$planningConstruction->getSanctionAmount()|system_numeric_format-|" title="Presupuesto Sancionado " class="right" |-$readonly|readonly-|/>
     </p>
-		 <h3>Partida presupuestaria</h3>
-		 |-if !$planningConstruction->isNew()-||-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningConstruction->getBudgetItems() readonly="readonly" showLog="true"-||-/if-|
-
-		 |-if !$planningConstruction->isNew()-|<h3>Actividades</h3>|-include file="PlanningActivitiesInclude.tpl" activities=$planningConstruction->getActivities() construction="true"-||-/if-|
+		 |-if !$planningConstruction->isNew()-|<h3>Partida presupuestaria</h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningConstruction->getBudgetItems() readonly="readonly" showLog="true"-||-/if-|
+		 <h3>Actividades</h3>|-if !$planningConstruction->isNew()-||-include file="PlanningActivitiesInclude.tpl" activities=$planningConstruction->getActivities() construction="true"-||-else-|
+		 |-include file="PlanningContractsTemplateInclude.tpl" construction="true"-||-/if-|
 	<p>
         <label for="params_fundingSource">Fuente de Financiamiento</label>
       <input name="params[fundingSource]" type="text" id="params_fundingSource" size="80" value="|-$planningConstruction->getFundingSource()-|" title="Fuente de Financiamiento" |-$readonly|readonly-|/>
@@ -173,14 +175,36 @@ $("#autocomplete_responsibleCode").ajaxChosen({
     var chosenOption = this.options[this.selectedIndex];
     switch(chosenOption.value) {
       case '1':
-        $('constructionMayor').hide();
+        $('activitiesMayorTable').hide();
+        $('activitiesMinorTable').show();
+				disableInputs('mayorActivity');
+				enableInputs('minorActivity');
         break;
       case '2':
-        $('constructionMayor').show();
+        $('activitiesMayorTable').show();
+        $('activitiesMinorTable').hide();
+				enableInputs('mayorActivity');
+				disableInputs('minorActivity');
         break;
       default:
-        $('constructionMayor').hide();
+        $('activitiesMayorTable').hide();
+        $('activitiesMinorTable').hide();
+				disableInputs('mayorActivity');
+				disableInputs('minorActivity');
         alert('default');
       }
   }
+function disableInputs(className) {
+	elems = document.getElementsByClassName(className); // May need to repeat this for "select" and "textarea"
+	for (var i=0; i<elems.length; i++) {
+	 $(elems[i]).disable();
+	}
+}
+
+function enableInputs(className) {
+	elems = document.getElementsByClassName(className); // May need to repeat this for "select" and "textarea"
+	for (var i=0; i<elems.length; i++) {
+	 $(elems[i]).enable();
+	}
+}
 </script>
