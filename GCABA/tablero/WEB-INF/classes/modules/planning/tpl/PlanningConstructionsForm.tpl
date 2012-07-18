@@ -70,6 +70,15 @@ $("#autocomplete_responsibleCode").ajaxChosen({
       <label for="params_description">Breve Descripción</label>
       <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Obra" class="emptyValidation" |-$readonly|readonly-| >|-$planningConstruction->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
     </p> 
+  <p>
+    <label for="params_constructionType">Tipo de obra</label>
+    <select id="params_constructionType" name="params[constructionType]" title="Tipo de Obra" |-$readonly|readonly-|>
+      <option value="">Seleccione tipo de Obra</option>
+      |-foreach from=$constructionTypes key=key item=name-|
+            <option value="|-$key-|" |-$planningConstruction->getConstructionTypes()|selected:$key-|>|-$name-|</option>
+      |-/foreach-|
+    </select>
+  </p>
 
 	<p>
 		<label for="params_tenderId">Procedimiento de Contratación</label>
@@ -157,3 +166,21 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 		</p>|-/if-|
     </fieldset> 
   </form> 
+
+<script type="text/javascript">
+  var selectType = document.getElementById("params_constructionType");
+  selectType.onchange = function() {
+    var chosenOption = this.options[this.selectedIndex];
+    switch(chosenOption.value) {
+      case '1':
+        $('constructionMayor').hide();
+        break;
+      case '2':
+        $('constructionMayor').show();
+        break;
+      default:
+        $('constructionMayor').hide();
+        alert('default');
+      }
+  }
+</script>

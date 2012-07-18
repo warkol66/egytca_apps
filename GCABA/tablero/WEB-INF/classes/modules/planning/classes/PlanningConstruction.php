@@ -87,4 +87,17 @@ class PlanningConstruction extends BasePlanningConstruction {
 		);
 		return $tenderTypes;
 	}
+	/**
+	 * Devuelve array con posibles tipos de Obra (constructionType)
+	 *  id => resultado esperado
+	 *
+	 * @return array resultados esperados
+	 */
+	public static function getConstructionTypes() {
+		$constructionTypes = array(
+			1 => 'Obras Menores',
+			2 => 'Obras Mayores'
+		);
+		return $constructionTypes;
+	}
 } // PlanningConstruction
