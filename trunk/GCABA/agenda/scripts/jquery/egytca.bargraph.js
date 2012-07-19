@@ -11,7 +11,8 @@ BarGraph = function(options) {
 	var _this = this;
 	
 	_this.settings = $.extend(true, {
-		data: []
+		data: [],
+		xRelStart: 0.3
 	}, options);
 
 	if (_this.settings.selector != undefined)
@@ -41,7 +42,7 @@ BarGraph = function(options) {
 		var marginY = barH * 2;
 		var marginX = 10;
 		var cantContainerW = 40;
-		var xStart = _this.w * 0.3;
+		var xStart = _this.w * _this.settings.xRelStart;
 		
 		_this.x = d3.scale.linear().domain([0, maxX]).range([0, (_this.w - xStart) - (cantContainerW + 10) - marginX]);
 		_this.y = d3.scale.linear().domain([0, data.length - 1]).range([0 + marginY, _this.h - marginY]);
