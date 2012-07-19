@@ -67,7 +67,8 @@
 	$(function() {
 		categoriesGraph = new BarGraph({
 			selector: "#categoriesGraph",
-			data: JSON.parse('|-$categoryData-|')
+			data: JSON.parse('|-$categoryData-|'),
+			xRelStart: 0.3
 		});
 		
 		comunesGraph = new BarGraph({
