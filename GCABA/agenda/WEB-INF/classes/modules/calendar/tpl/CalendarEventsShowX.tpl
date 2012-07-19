@@ -22,6 +22,7 @@ $("#foo2").carouFredSel({
 
             });
         </script>
+
 <div class="fichaObra">
        <div class="fichaHeader">
 		    <div class="fichaHeaderTitle"></div>
@@ -41,39 +42,43 @@ $("#foo2").carouFredSel({
 <table width="100%" border="0" cellspacing="8" cellpadding="0" class="fichaTable">
 <tr>
 <th>Dependencia</th>
-<td colspan="3" class="fichaTd75">Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem</td>
+<td colspan="2" class="fichaTd75">Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem</td>
 </tr>
 <tr>
 <th>Localización</th>
-<td colspan="3" class="fichaTd75">Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem</td>
+<td colspan="2" class="fichaTd75">Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem</td>
 </tr>
 <tr>
 <th>Ficha estimada del evento</th>
-<td colspan="3" class="fichaTd75">Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem</td>
+<td colspan="2" class="fichaTd75">Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem</td>
 </tr>
 <tr>
 <th>Descripción</th>
-<td colspan="3" class="fichaTd75">Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. </td>
+<td colspan="2" class="fichaTd75">250 caracteres con espacios, consectetur adipiscing elit. Etiam eget nisl nec ipsum elementum porta sed vitae est. Duis ac mauris ac ligula vestibulum fringilla a vitae elit. Phasellus interdum commodo dui a pulvinar. Fusce vel elit arcu, ut tincidunt.</td>
 </tr>
 <tr>
-<td class="fichaMap"><div class="fichaGoogleMap"></div></td>
-<td colspan="2" class="fichaTd50 fichaDescription"><h2>Avance de obra</h2>
-<div class="fichaDescriptionText">
-<p>Agenda de Gonbierno  ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. </p>
-<p>Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. </p>
-<p>Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. </p>
-<p>Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. </p></div></td>
-<td class="fichaMap"><div class="fichaMapaCaba"><img src="images/ficha_mapaCABA.png"/></div></td>
+<td rowspan="2" class="fichaMap"><div class="fichaGoogleMap"></div></td>
+<th >&nbsp;
+
+Avance de la obra </th>
+<td rowspan="2" class="fichaMap"><div class="fichaMapaCaba">
+<img src="images/ficha_mapaCABA.png" alt=""/></div></td>
 </tr>
 <tr>
-<td>
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableDetallesTable">
+<td class="fichaTd50 fichaDescription"><div class="fichaDescriptionText">
+<p>250 caracteres con espacios, consectetur adipiscing elit. Etiam eget nisl nec ipsum elementum porta sed vitae est. Duis ac mauris ac ligula vestibulum fringilla a vitae elit. Phasellus interdum commodo dui a pulvinar. Fusce vel elit arcu, ut tincidunt.</p>
+</div></td>
+</tr>
 <tr>
-<th>FF Estim. sobre Relev.<br /><span>(al día de la visita)</span></th>
+<td rowspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tableDetallesTable">
+<tr>
+<th>FF Estim. sobre Relev.<br />
+<span>(al día de la visita)</span></th>
 <td>21/06/2018</td>
 </tr>
 <tr>
-<th>FF s/ Ministerio<br /><span>(al día de la visita)</span></th>
+<th>FF s/ Ministerio<br />
+<span>(al día de la visita)</span></th>
 <td>14/01/2012</td>
 </tr>
 <tr>
@@ -93,15 +98,10 @@ $("#foo2").carouFredSel({
 <td>1000</td>
 </tr>
 </table></td>
-<td colspan="2" class="fichaTd50 fichaConclusion"><h2>Conclusiones</h2>
-<div class="fichaConclusionText">
-<p>Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. </p>
-<p>Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. </p>
-<p>Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. </p>
-<p>Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. </p>
-</div></td>
-<td class="fichaEstadoTable">
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<th>Conclusiones
+
+</th>
+<td rowspan="2" class="fichaEstadoTable"><table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
 <th>Estado</th>
 <td><div class="indicadorRojo"></div></td>
@@ -129,7 +129,13 @@ $("#foo2").carouFredSel({
 </table></td>
 </tr>
 <tr>
-<td colspan="4" class="fichaTd100 fichaGallery">
+<td class="fichaTd50 fichaConclusion"><div class="fichaConclusionText">
+<p>250 caracteres con espacios, consectetur adipiscing elit. Etiam eget nisl nec ipsum elementum porta sed vitae est. Duis ac mauris ac ligula vestibulum fringilla a vitae elit. Phasellus interdum commodo dui a pulvinar. Fusce vel elit arcu, ut tincidunt.</p>
+</div></td>
+</tr>
+
+<tr>
+<td colspan="3" class="fichaTd100 fichaGallery">
 <div class="image_carousel">
 	<div id="foo2">
 		<a href="http://www.google.com" target="_blank"><img src="/examples/images/small/basketball.jpg" alt="basketball" width="140" height="140" /></a>
@@ -143,19 +149,16 @@ $("#foo2").carouFredSel({
 		<img src="/examples/images/small/shoes.jpg" alt="shoes" width="140" height="140" />
 		<img src="/examples/images/small/paris.jpg" alt="paris" width="140" height="140" />
 		<img src="/examples/images/small/sunbading.jpg" alt="sunbading" width="140" height="140" />
-		<img src="/examples/images/small/yellow_couple.jpg" alt="yellow couple" width="140" height="140" />
-	</div>
+		<img src="/examples/images/small/yellow_couple.jpg" alt="yellow couple" width="140" height="140" />	</div>
 	<div class="clearfix"></div>
 	<a class="prev" id="foo2_prev" href="#"><span>prev</span></a>
 	<a class="next" id="foo2_next" href="#"><span>next</span></a>
 	<div class="pagination" id="foo2_pag"></div>
-</div>
-</td>
+</div></td>
 </tr>
 </table>
 </div>
-
-
+<!-- // fichaObra-->
 
 
 
