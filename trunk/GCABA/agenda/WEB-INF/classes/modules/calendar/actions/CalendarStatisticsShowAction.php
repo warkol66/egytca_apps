@@ -55,11 +55,20 @@ class CalendarStatisticsShowAction extends BaseAction {
 		
 		$events = BaseQuery::create('CalendarEvent')
 			->addFilters($filters)
-			->filterBySchedulestatus('3', Criteria::NOT_EQUAL)
+//			->filterBySchedulestatus('3', Criteria::NOT_EQUAL)
 			->find();
 		$smarty->assign('events', $events);
 		$smarty->assign('axes', CalendarAxisQuery::create()->orderByOrder()->find());
 		
+		$smarty->assign("kinds", CalendarEvent::getEventKinds());
+		$smarty->assign("agendas", CalendarEvent::getAgendas());
+		$smarty->assign("actors", ActorQuery::create()->find());
+		$smarty->assign("categories", CategoryQuery::create()->find());
+		$smarty->assign("comunes", RegionQuery::create()->filterByType('11')->find());
+		$smarty->assign('axes', CalendarAxisQuery::create()->orderByOrder()->find());
+		$smarty->assign('axisMap', CalendarAxisQuery::create()->findAxisMap());
+		$smarty->assign('eventStatuses', CalendarEvent::getStatuses());
+
 		$this->template->template = 'TemplateCalendarStatistics.tpl';
 		return $mapping->findForwardConfig('success');
 	}
