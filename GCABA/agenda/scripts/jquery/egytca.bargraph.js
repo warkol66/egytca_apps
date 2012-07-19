@@ -55,22 +55,23 @@ BarGraph = function(options) {
 			.attr("height", _this.h)
 			.attr("class", "egytca bargraph");
 			
-		_this.svg.append("svg:line")
-			.attr('y1', 0)
-			.attr('y2', _this.h)
-			.attr('x1', xStart)
-			.attr('x2', xStart)
-			.attr('class', "xstart-separator");
-			
 		_this.rows = _this.svg.selectAll("g")
 			.data(_this.y.ticks(data.length - 1))
 		.enter().append("svg:g")
 			.attr("transform", function(d) {return "translate(0, "+ (_this.y(d)) +")"})
 		
+		var colors = [
+			["#00c000", "#c00000"],
+			["#0000c0", "#0000c0"], // 2 colores iguales y el gradiente no se nota
+			["#c00000", "#00c000"],
+			["#0000c0", "#00c000"]
+		]
+		var grad = new GradientSupplier(_this.svg, colors);
+			
 		_this.bars = _this.rows.append("rect")
 			.attr("x", xStart)
 			.attr("y", -(barH / 2))
-			.attr("width", function(d, i) { return _this.x(data[i][1]) })
+			.attr("width", function(d, i) { return _this.x(data[i][1]) > 0 ? _this.x(data[i][1]) : 1 })
 			.attr("height", barH)
 			
 		_this.bars = _this.rows.append("rect")
@@ -78,6 +79,7 @@ BarGraph = function(options) {
 			.attr("y", -(barH / 2))
 			.attr("width", function(d, i) { return _this.x(data[i][1]) })
 			.attr("height", barH)
+			.style("fill", function() { return "url("+grad.getNext()+")" })
 			
 		_this.legends = _this.rows.append("svg:text")
 			.attr("text-anchor", "end")
@@ -100,6 +102,44 @@ BarGraph = function(options) {
 			.attr("text-anchor", "middle")
 			.attr("dy", 4)
 			.text(function(i) { return data[i][1] });
+			
+		_this.svg.append("svg:line")
+			.attr('y1', 0)
+			.attr('y2', _this.h)
+			.attr('x1', xStart)
+			.attr('x2', xStart)
+			.attr('class', "xstart-separator");
+	}
+	
+	var GradientSupplier = function(svg, colors) {
+		
+		var gradients = svg.append("svg:defs").selectAll("linearGradient")
+			.data(colors)
+		.enter().append("svg:linearGradient")
+			.attr("id", function(d,i) { return "gradient"+i })
+			.attr("x1", "0%")
+			.attr("y1", "0%")
+			.attr("x2", "100%")
+			.attr("y2", "100%")
+			.attr("spreadMethod", "pad");
+
+		gradients.append("svg:stop")
+			.attr("offset", "0%")
+			.attr("stop-color", function(d) { return d[0] })
+			.attr("stop-opacity", 1);
+
+		gradients.append("svg:stop")
+			.attr("offset", "100%")
+			.attr("stop-color", function(d) { return d[1] })
+			.attr("stop-opacity", 1);
+
+		this.length = colors.length;
+		this.count = 0;
+		this.getNext = function() {
+			if (this.count == this.length)
+				this.count = 0;
+			return "#gradient"+(this.count++);
+		}
 	}
 	
 	_this.draw(_this.settings.data);
