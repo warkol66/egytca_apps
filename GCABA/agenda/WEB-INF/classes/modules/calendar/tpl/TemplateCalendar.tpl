@@ -58,13 +58,6 @@
 						autoHeight: false
 				});
 				$("#accordion2").accordion({ collapsible: true });
-				// Datepicker
-				$('#datepicker').datepicker({
-						dateFormat: 'dd-mm-yy',
-						changeYear: true,
-						changeMonth: true,
-						inline: true
-				});
 
 			//hover states on the static widgets
 				$('#dialog_link, ul#icons li').hover(
@@ -119,107 +112,129 @@
 		
 		</head>
 <body>
-		<div class="container_16">
-			<div class="grid_16 header1">
-				<h1 id="branding"></h1>
-                <span class="eyefishContainer">
-                    <ul id="fisheye_menu">
-											<li><a href="javascript:void(null)" class="fisheye" onclick="$('#filters').toggle();"><img src="images/eyeIcon_00.png" alt=""><span style="display: none;">Filtrar</span></a></li> 
-											<li><a href="#1" class="fisheye"><img src="images/eyeIcon_01.png" alt=""><span style="display: none;">Reunion<br>de Gabinete</span></a></li> 
-											<li><a href="#2" class="fisheye"><img src="images/eyeIcon_02.png" alt=""><span style="display: none;">Seguimiento<br>de obras</span></a></li> 
-											<li><a href="#3" class="fisheye"><img src="images/eyeIcon_03.png" alt=""><span style="display: none;">Exportar</span></a></li> 
-											<li><a href="#4" class="fisheye"><img src="images/eyeIcon_04.png" alt=""><span style="display: none;">Imprimir</span></a></li> 
-											<li><a href="#5" class="fisheye"><img src="images/eyeIcon_05.png" alt=""><span style="display: none;">Salir</span></a></li>
-                    </ul>                
-                
-                </span><!-- end fisheye Container -->
-				<span class="slogan"></span>
-
-			</div><!-- /grid_16 header1 -->
-
-
- 
-            <div id="filters" style="display:|-if $filters|@count ne 0-|block|-else-|none|-/if-|"><!-- filters -->
-						<div id="textFilters">|-if $filters|@count ne 0-|
-						<a href="javascript:void(null)" class="butResultsFilter" onClick="$('.boxNav1').toggle()">Resultados filtrados</a>|-/if-|
-						<a href="javascript:void(null)" class="butShowHideFilter" onclick="$('.boxNav1').toggle()">Ver/Ocultar filtros</a>
-						|-if $filters|@count ne 0-|
-						<a href="Main.php?do=calendarShow" class="butDeleteFilter">Quitar Filtros</a>|-/if-|
-					</div>
-            <div class="boxNav1" style="display:|-if $filters|@count eq 0-|block|-else-|none|-/if-|"><!-- boxNav1 -->
-					<form action='Main.php' method='get' style="display:inline;" name="filters">
-					<input type="hidden" name="do" value="calendarShow" />
-                <ul>
-                    <!-- <li class="botSmall"><a href="#" class="menuIcon_01"></a></li>
-                    <li class="botSmall"><a href="#" class="menuIcon_02"></a></li>
-                    <li class="botSmall"><a href="#" class="menuIcon_03"></a></li> -->
-                    <li class="botSmall"><a href="#" class="menuIcon_04" title="Seguimiento de obras"></a></li>
-                    <li class="botSmall"><a href="#" class="menuIcon_05" title="Reuniones de gabinete"></a></li>
-                    <li class="botSmall"><a href="#" class="menuIcon_06" title="Georreferenciación de eventos"></a></li>
-                    <li><select name="filters[kind][]" id="kind" class="multiselect" multiple="multiple" style="display: none;">
+	<div class="container_16">
+		<div class="grid_16 header1">
+			<h1 id="branding"></h1>
+			<span class="eyefishContainer">
+				<ul id="fisheye_menu">
+					<li><a href="javascript:void(null)" class="fisheye" onclick="$('#filters').toggle();"><img src="images/eyeIcon_00.png" alt=""><span style="display: none;">Filtrar</span></a></li>
+					<li><a href="#1" class="fisheye"><img src="images/eyeIcon_01.png" alt=""><span style="display: none;">Reunion<br>de Gabinete</span></a></li>
+					<li><a href="#2" class="fisheye"><img src="images/eyeIcon_02.png" alt=""><span style="display: none;">Seguimiento<br>de obras</span></a></li>
+					<li><a href="#3" class="fisheye"><img src="images/eyeIcon_03.png" alt=""><span style="display: none;">Exportar</span></a></li>
+					<li><a href="#4" class="fisheye"><img src="images/eyeIcon_04.png" alt=""><span style="display: none;">Imprimir</span></a></li>
+					<li><a href="#5" class="fisheye"><img src="images/eyeIcon_05.png" alt=""><span style="display: none;">Salir</span></a></li>
+				</ul>
+				
+			</span><!-- end fisheye Container -->
+			<span class="slogan"></span>
+			
+		</div><!-- /grid_16 header1 -->
+		
+		
+		
+		<div id="filters" style="display:|-if $filters|@count ne 0-|block|-else-|none|-/if-|"><!-- filters -->
+			<div id="textFilters">|-if $filters|@count ne 0-|
+				<a href="javascript:void(null)" class="butResultsFilter" onClick="$('.boxNav1').toggle()">Resultados filtrados</a>|-/if-|
+				<a href="javascript:void(null)" class="butShowHideFilter" onclick="$('.boxNav1').toggle()">Ver/Ocultar filtros</a>
+				|-if $filters|@count ne 0-|
+					<a href="Main.php?do=calendarShow" class="butDeleteFilter">Quitar Filtros</a>|-/if-|
+			</div>
+			<div class="boxNav1" style="display:|-if $filters|@count eq 0-|block|-else-|none|-/if-|"><!-- boxNav1 -->
+				<form action='Main.php' method='get' style="display:inline;" name="filters">
+					<input id="input_do" type="hidden" name="do" value="calendarShow" />
+		<ul>
+			<!-- <li class="botSmall"><a href="#" class="menuIcon_01"></a></li>
+			<li class="botSmall"><a href="#" class="menuIcon_02"></a></li>
+			<li class="botSmall"><a href="#" class="menuIcon_03"></a></li> -->
+			<li class="botSmall"><a href="#" class="menuIcon_04" title="Seguimiento de obras"></a></li>
+			<li class="botSmall"><a href="#" class="menuIcon_05" title="Reuniones de gabinete"></a></li>
+			<li class="botSmall"><a href="#" class="menuIcon_06" title="Georreferenciación de eventos"></a></li>
+			<li><select name="filters[kind][]" id="kind" class="multiselect" multiple="multiple" style="display: none;">
 				|-foreach from=$kinds item=kind name=foreach_kinds-|
 					<option value="|-$kind@key-|" |-if in_array($kind@key, $filters.kind)-|selected="selected"|-/if-|>|-$kind-|</option>
 				|-/foreach-|
-                        </select>
-                    </li>
-                    <li><select name="filters[agenda][]" id="agenda" class="multiselect" multiple="multiple" style="display: none;">
+                            </select>
+			</li>
+			<li><select name="filters[agenda][]" id="agenda" class="multiselect" multiple="multiple" style="display: none;">
 				|-foreach from=$agendas item=agenda name=foreach_agendas-|
 					<option value="|-$agenda@key-|" |-if in_array($agenda@key, $filters.agenda)-|selected="selected"|-/if-|>|-$agenda-|</option>
 				|-/foreach-|
-                        </select>
-                    </li>
-                     <li><select name="filters[searchActorId][]" id="searchActor" class="multiselect" multiple="multiple" style="display: none;">
-                            |-foreach from=$actors item=actor name=from_actor-|
-				    <option value="|-$actor->getId()-|" |-if in_array($actor->getId(), $filters.searchActorId)-|selected="selected"|-/if-|>|-$actor-|</option>
-			    |-/foreach-|
-                        </select>
-                        </label>
-                    </li>
-                     <li>
-                       <span><select name="filters[searchCategoryId][]" id="searchCategory" class="multiselect" multiple="multiple" style="display: none;">
-                            |-foreach from=$categories item=category name=from_categories-|
-				    <option value="|-$category->getId()-|" |-if in_array($category->getId(), $filters.searchCategoryId)-|selected="selected"|-/if-|>|-$category->getName()-|</option>
-			    |-/foreach-|
-                        </select>
-                    </li>
-                     <li><select name="filters[searchRegionId][]" id="searchRegion" class="multiselect" multiple="multiple" style="display: none;">
-                            |-foreach from=$comunes item=comune name=foreach_comunes-|
-				    <option value="|-$comune->getId()-|" |-if in_array($comune->getId(), $filters.searchRegionId)-|selected="selected"|-/if-|>|-$comune->getName()-||-assign var=subregions value=$comune->getChildren()-| (|-foreach from=$subregions item=subregion name=foreach_subregion-||-$subregion->getName()-||-if !$subregion@last-|, |-/if-||-/foreach-|)</option>
-			    |-/foreach-|
-                        </select>
-                    </li>
-
-                    <li class="buttonCC"><input name="filters[campaigncommitment]" type="checkbox" value="1" |-$filters.campaigncommitment|checked_bool-|/><a href="#"></a></li>
-                    <li class="pickDate"><input type="text" name="filters[selectedDate]" id="datepicker" value="|-$filters.selectedDate-|" size="10" maxlength="10" style="position:relative;z-index: 1050;" >
-										<a href="javascript:document.filters.submit();" class="dateGo">Ir</a>
-										<li><a href="javascript:document.filters.submit();" alt="Buscar" class="botFiltrar"> </a></li>
-										<li> <a href="Main.php?do=calendarShow" alt="Quitar filtros" class="botResetFiltros"> </a></li>  
-									</ul>
- </form>                                                           
+                            </select>
+			</li>
+			<li><select name="filters[searchActorId][]" id="searchActor" class="multiselect" multiple="multiple" style="display: none;">
+				|-foreach from=$actors item=actor name=from_actor-|
+					<option value="|-$actor->getId()-|" |-if in_array($actor->getId(), $filters.searchActorId)-|selected="selected"|-/if-|>|-$actor-|</option>
+				|-/foreach-|
+			    </select>
+			</li>
+			<li><select name="filters[searchCategoryId][]" id="searchCategory" class="multiselect" multiple="multiple" style="display: none;">
+				|-foreach from=$categories item=category name=from_categories-|
+					<option value="|-$category->getId()-|" |-if in_array($category->getId(), $filters.searchCategoryId)-|selected="selected"|-/if-|>|-$category->getName()-|</option>
+				|-/foreach-|
+			    </select>
+			</li>
+			<li><select name="filters[searchRegionId][]" id="searchRegion" class="multiselect" multiple="multiple" style="display: none;">
+				|-foreach from=$comunes item=comune name=foreach_comunes-|
+					<option value="|-$comune->getId()-|" |-if in_array($comune->getId(), $filters.searchRegionId)-|selected="selected"|-/if-|>|-$comune->getName()-||-assign var=subregions value=$comune->getChildren()-| (|-foreach from=$subregions item=subregion name=foreach_subregion-||-$subregion->getName()-||-if !$subregion@last-|, |-/if-||-/foreach-|)</option>
+				|-/foreach-|
+			    </select>
+			</li>
+			
+			<li class="buttonCC"><input name="filters[campaigncommitment]" type="checkbox" value="1" |-$filters.campaigncommitment|checked_bool-|/><a href="#"></a></li>
+			
+			|-block name="dateFilter"-|
+				<li class="pickDate">
+					<input type="text" name="filters[selectedDate]" id="datepicker" value="|-$filters.selectedDate-|" size="10" maxlength="10" style="position:relative;z-index: 1050;" />
+					<a href="javascript:document.filters.submit();" class="dateGo">Ir</a>
+				</li>
+				<script type="text/javascript">
+					$(function() {
+						// Datepicker
+						$('#datepicker').datepicker({
+							dateFormat: 'dd-mm-yy',
+							changeYear: true,
+							changeMonth: true,
+							inline: true
+						});
+					});
+				</script>
+			|-/block-| |-* dateFilter *-|
+			
+			<li><a href="javascript:document.filters.submit();" alt="Buscar" class="botFiltrar"> </a></li>
+			<li> <a href="Main.php?do=calendarShow" alt="Quitar filtros" class="botResetFiltros"> </a></li>
+		</ul>
+	</form>                                                           
      	</div><!-- /boxNav1 -->
      	</div><!-- /filters -->
-			
-        <div class="clear"></div>
-			<div class="grid_13 colummAgenda">
-				<div class="boxNavSolapas">
-					<ul>
-						|-foreach from=$axes item=axis-|
-							<li class="|-$axis->getTabClass()-|" hide="|-$axis->getName()-|"><a href="#">|-$axis->getName()-|</a></li> 
-						|-/foreach-|
-				 </ul>                                                                                    
-				</div>
+	
+	<div class="clear"></div>
+	
+	|-block name="centralContent"-|
+	<div class="grid_13 colummAgenda">
+		|-block name="solapas"-|
+			<div class="boxNavSolapas">
+				<ul>
+					|-foreach from=$axes item=axis-|
+						<li class="|-$axis->getTabClass()-|" hide="|-$axis->getName()-|"><a href="#">|-$axis->getName()-|</a></li> 
+					|-/foreach-|
+				</ul>                                                                                    
+			</div>
+		|-/block-| |-* solapas *-|
 		<div class="clear"></div>
-      <div class="boxAgendaContainer">
-					<!--centerHTML start-->
-					|-$centerHTML-|
-					<!--centerHTML end -->
-        </div><!--end of boxAgendaContainer  -->
-                        
-		</div>
-				<div class="grid_3 colummSidebar">
-
-
-					<div class="box boxBuscador">
+		<div class="boxAgendaContainer">
+			<!--centerHTML start-->
+			|-$centerHTML-|
+			<!--centerHTML end -->
+		</div><!--end of boxAgendaContainer  -->
+		
+	</div>
+	|-/block-| |-* centralContent *-|
+	
+	|-block name="sidebar"-|
+		<div class="grid_3 colummSidebar">
+			
+			
+			<div class="box boxBuscador">
                     <label>
                     <input name="textfield" type="text" class="textBuscador" id="textfield" value="Buscar"/><a href="#" class="botBuscador"></a>
                     </label>
@@ -300,7 +315,8 @@
      </div><!-- id=subColumns-->
 	
 		</div>
-		<div class="clear"></div>  
+	|-/block-| |-* sidebar *-|
+	<div class="clear"></div>  
 </div>  
 </body>
 </html>
