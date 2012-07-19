@@ -58,7 +58,6 @@ class CalendarStatisticsShowAction extends BaseAction {
 //			->filterBySchedulestatus('3', Criteria::NOT_EQUAL)
 			->find();
 		$smarty->assign('events', $events);
-		$smarty->assign('axes', CalendarAxisQuery::create()->orderByOrder()->find());
 		
 		$smarty->assign("kinds", CalendarEvent::getEventKinds());
 		$smarty->assign("agendas", CalendarEvent::getAgendas());
