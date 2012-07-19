@@ -7,12 +7,15 @@ class ConfigModule {
 			"debugMode" => true,
 			"noSecurity" => true,
 			"noCheckLogin" => true,
-			"concurrentSession" => true,
+			"nonConcurrentSession" => false,
 			"developmentMode" => true,
 			"showPropelExceptions" => true,
+			"showSwiftExceptions" => true,
 			"doLog" => true,
 			"unifiedUsernames" => true,
-			"backupTimeLimit" => 720
+			"backupTimeLimit" => 720,
+			"tmpwatch" => "/usr/sbin/tmpwatch",
+			"internalMailUseAffiliates" => false 
 		),
 	        "actors" => array(
 			"usePhoto" => true,

@@ -3,7 +3,7 @@
 	<li class="pickDate">
 		<input type="text" name="filters[minDate]" id="minDate" class="dateFilter" value="|-$filters.minDate-|" size="10" maxlength="10" style="position:relative;z-index: 1050;" />
 		<input type="text" name="filters[maxDate]" id="maxDate" class="dateFilter" value="|-$filters.maxDate-|" size="10" maxlength="10" style="position:relative;z-index: 1050;" />
-		<a href="javascript:document.filters.submit();" class="dateGo">Ir</a>
+		<!-- <a href="javascript:document.filters.submit();" class="dateGo">Ir</a> -->
 	</li>
 	<script type="text/javascript">
 		$(function() {
