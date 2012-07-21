@@ -21,11 +21,12 @@ class CalendarAxisQuery extends BaseCalendarAxisQuery {
      * 
      * @return array
      */
-    public function findAxisMap() {
-        $results = $this->find();
+    public function findAxisMap($key = 'name', $value = 'cssClass') {
+        $getKey = 'get' . ucfirst($key);
+	$getValue = 'get' . ucfirst($value);
         $map = array();
         foreach ($this->find() as $axis)
-            $map[$axis->getName()] = $axis->getCssClass();
+            $map[$axis->$getKey()] = $axis->$getValue();
         
         return $map;
     }
