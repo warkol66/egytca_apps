@@ -19,6 +19,16 @@
 	</script>
 |-/block-|
 |-block name="centralContent"-|
+	|-if $useSolapas-|
+		<div class="boxNavSolapas">
+			<ul>
+				|-foreach from=$axes item=axis-|
+					<li class="|-$axis->getTabClass()-|" hide="|-$axis->getName()-|"><a href="#">|-$axis->getName()-|</a></li> 
+				|-/foreach-|
+			</ul>                                                                                    
+		</div>
+	|-/if-|
+	<div class="clear"></div>
 	<div>|-$centerHTML-|</div>
 |-/block-|
 |-block name="sidebar"-||-/block-| |-* no quiero la barra *-|

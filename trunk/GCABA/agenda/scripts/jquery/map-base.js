@@ -157,9 +157,9 @@ BaseMap = function() {
 	
 	this.removeAllMarkers = function() {
 		var _this = this;
-		_this.markers.each(function(marker, id) {
+		for (var id in _this.markers) {
 			_this.removeMarker(id);
-		});
+		};
 	}
 	
 	/**
@@ -194,16 +194,16 @@ BaseMap = function() {
 	
 	this.hideAllMarkers = function() {
 		var _this = this;
-		_this.markers.each(function(marker, id) {
+		for (var id in _this.markers) {
 			_this.hideMarker(id);
-		});
+		};
 	}
 	
 	this.showAllMarkers = function() {
 		var _this = this;
-		_this.markers.each(function(marker, id) {
+		for (var id in _this.markers) {
 			_this.showMarker(id);
-		});
+		};
 	}
 	
 	/**
@@ -344,6 +344,7 @@ BaseMap = function() {
 			
 		_this.markersDraggables = draggable;
 		_this.markers.each(function(marker) {
+			console.log("no functiono con jquery, arreglame");
 			marker.setDraggable(draggable);
 		})
 	}
