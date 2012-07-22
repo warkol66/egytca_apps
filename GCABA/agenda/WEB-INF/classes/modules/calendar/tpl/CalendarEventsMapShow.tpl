@@ -18,7 +18,7 @@
 	var map;
 	
 	$(function() {
-		var events = JSON.parse('|-$events-|');
+		var events = JSON.parse(|-json_encode($events)-|);
 		var icons = {
 			"|-$axisCssClassToIdMap.amarillo-|": "images/marker_amarillo.png",
 			"|-$axisCssClassToIdMap.cyan-|": "images/marker_cyan.png",
