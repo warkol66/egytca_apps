@@ -47,7 +47,7 @@
 		</p>
       <p>
         <label for="params_baseline">Línea de base</label>
-      <input name="params[baseline]" type="text" id="params_name" size="15" value="|-$impactObjective->getBaseline()-|" title="Nombre del Objetivo de Impacto" maxlength="10" class="emptyValidation" |-$readonly|readonly-|/> |-validation_msg_box idField="params_baseline"-|
+      <input name="params[baseline]" type="text" id="params_baseline" size="15" value="|-$impactObjective->getBaseline()-|" title="Nombre del Objetivo de Impacto" maxlength="10" class="emptyValidation" |-$readonly|readonly-|/> |-validation_msg_box idField="params_baseline"-|
       </p>
 		<p>
 			<label for="params_expectedResult">Resultado esperado</label>
