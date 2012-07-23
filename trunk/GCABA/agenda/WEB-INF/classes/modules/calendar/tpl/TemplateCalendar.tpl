@@ -33,84 +33,77 @@
 <script type="text/javascript" src="scripts/jquery/jquery.multiselect.min.js"></script>
 <!-- end multiselect -->
 <script type="text/javascript" src="scripts/jquery/jquery.ui.datepicker-es.js"></script>
-	<script src="scripts/fisheye.js"></script>
-		<script type="text/javascript">
-			$(function(){
-
-				// Accordion
-				$("#accordion").accordion({ 		
-						/*active: false,*/
-						header: 'h3',
-						alwaysOpen: false,
-						animated: true,
-						showSpeed: 400,
-						hideSpeed: 800,
-						autoHeight: false
-				});
-				// Accordion
-				$("#accordion2").accordion({ 		
-						active: false,
-						header: 'h3',
-						alwaysOpen: false,
-						animated: true,
-						showSpeed: 400,
-						hideSpeed: 800,
-						autoHeight: false
-				});
-				$("#accordion2").accordion({ collapsible: true });
-
-			//hover states on the static widgets
-				$('#dialog_link, ul#icons li').hover(
-					function() { $(this).addClass('ui-state-hover'); },
-					function() { $(this).removeClass('ui-state-hover'); }
-				);
-
-			});
-			function MM_showHideLayers() { //v9.0
+<script src="scripts/fisheye.js"></script>
+<script type="text/javascript">
+	$(function(){
+		// Accordion
+		$("#accordion").accordion({ 		
+				/*active: false,*/
+				header: 'h3',
+				alwaysOpen: false,
+				animated: true,
+				showSpeed: 400,
+				hideSpeed: 800,
+				autoHeight: false
+		});
+		// Accordion
+		$("#accordion2").accordion({ 		
+				active: false,
+				header: 'h3',
+				alwaysOpen: false,
+				animated: true,
+				showSpeed: 400,
+				hideSpeed: 800,
+				autoHeight: false
+		});
+		$("#accordion2").accordion({ collapsible: true });
+	//hover states on the static widgets
+		$('#dialog_link, ul#icons li').hover(
+			function() { $(this).addClass('ui-state-hover'); },
+			function() { $(this).removeClass('ui-state-hover'); }
+		);
+	});
+	function MM_showHideLayers() { //v9.0
   var i,p,v,obj,args=MM_showHideLayers.arguments;
   for (i=0; i<(args.length-2); i+=3) 
   with (document) if (getElementById && ((obj=getElementById(args[i]))!=null)) { v=args[i+2];
     if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v=='hide')?'hidden':v; }
     obj.visibility=v; }
-}
-
-			$(document).ready(function() {
-				$(".boxNav1 .multiselect").multiselect({
-					noneSelectedText: "Seleccione",
-					selectedText: "# seleccionados",
-					checkAllText: "Todos",
-					uncheckAllText: "Ninguno",
-					minWidth: 125,
-					classes: "shadowedBox"
-				});
-				$("#kind").multiselect({
-					noneSelectedText: "Tipo de evento",
-					selectedText: "# tipos seleccionados"
-				});
-				$("#agenda").multiselect({
-					noneSelectedText: "Agenda",
-					selectedText: "# agendas seleccionadas"
-				});
-				$("#searchActor").multiselect({
-					noneSelectedText: "Funcionarios",
-					selectedText: "# funcionarios seleccionados"
-				});
-				$("#searchCategory").multiselect({
-					noneSelectedText: "Dependencias",
-					selectedText: "# dependencias seleccionadas"
-				});
-				$("#searchRegion").multiselect({
-					noneSelectedText: "Comunas",
-					selectedText: "# comunas seleccionadas"
-				});
-			});
-			
-			
-		</script>
-<link type="text/css" href="css/chosen.css" rel="stylesheet" />
-<script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
-		
-		</head>
+	}
+	$(document).ready(function() {
+		$(".boxNav1 .multiselect").multiselect({
+			noneSelectedText: "Seleccione",
+			selectedText: "# seleccionados",
+			checkAllText: "Todos",
+			uncheckAllText: "Ninguno",
+			minWidth: 125,
+			classes: "shadowedBox"
+		});
+		$("#kind").multiselect({
+			noneSelectedText: "Tipo de evento",
+			selectedText: "# tipos seleccionados"
+		});
+		$("#agenda").multiselect({
+			noneSelectedText: "Agenda",
+			selectedText: "# agendas seleccionadas"
+		});
+		$("#searchActor").multiselect({
+			noneSelectedText: "Funcionarios",
+			selectedText: "# funcionarios seleccionados"
+		});
+		$("#searchCategory").multiselect({
+			noneSelectedText: "Dependencias",
+			selectedText: "# dependencias seleccionadas"
+		});
+		$("#searchRegion").multiselect({
+			noneSelectedText: "Comunas",
+			selectedText: "# comunas seleccionadas"
+		});
+	});
+</script>
+	<link type="text/css" href="css/chosen.css" rel="stylesheet" />
+	<script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
+</head>
 <body>
 	<div class="container_16">
 		<div class="grid_16 header1">
@@ -124,10 +117,8 @@
 					<li><a href="#4" class="fisheye"><img src="images/eyeIcon_04.png" alt=""><span style="display: none;">Imprimir</span></a></li>
 					<li><a href="#5" class="fisheye"><img src="images/eyeIcon_05.png" alt=""><span style="display: none;">Salir</span></a></li>
 				</ul>
-				
 			</span><!-- end fisheye Container -->
 			<span class="slogan"></span>
-			
 		</div><!-- /grid_16 header1 -->
 		
 		
@@ -136,8 +127,7 @@
 			<div id="textFilters">|-if $filters|@count ne 0-|
 				<a href="javascript:void(null)" class="butResultsFilter" onClick="$('.boxNav1').toggle()">Resultados filtrados</a>|-/if-|
 				<a href="javascript:void(null)" class="butShowHideFilter" onclick="$('.boxNav1').toggle()">Ver/Ocultar filtros</a>
-				|-if $filters|@count ne 0-|
-					<a href="Main.php?do=calendarShow" class="butDeleteFilter">Quitar Filtros</a>|-/if-|
+				|-if $filters|@count ne 0-||-block name="removefiltersLink"-|<a href="Main.php?do=calendarShow" class="butDeleteFilter">Quitar Filtros</a>|-/block-||-/if-|
 			</div>
 			<div class="boxNav1" style="display:|-if $filters|@count eq 0-|block|-else-|none|-/if-|"><!-- boxNav1 -->
 				<form action='Main.php' method='get' style="display:inline;" name="filters">
@@ -199,17 +189,14 @@
 					});
 				</script>
 			|-/block-| |-* dateFilter *-|
-			
 			<li><a href="javascript:document.filters.submit();" alt="Buscar" class="botFiltrar"> </a></li>
-			|-block name="quitarFiltros"-|<li> <a href="Main.php?do=calendarShow" alt="Quitar filtros" class="botResetFiltros"> </a></li>|-/block-| |-* quitarFiltros *-|
+			|-block name="removefiltersButton"-|<li> <a href="Main.php?do=calendarShow" alt="Quitar filtros" class="botResetFiltros"> </a></li>|-/block-| |-* quitarFiltros *-|
 		</ul>
 	</form>                                                           
-     	</div><!-- /boxNav1 -->
-     	</div><!-- /filters -->
-	
-	<div class="clear"></div>
-	
-	|-block name="centralContent"-|
+	</div><!-- /boxNav1 -->
+</div><!-- /filters -->
+<div class="clear"></div>
+|-block name="centralContent"-|
 	<div class="grid_13 colummAgenda">
 		|-block name="solapas"-|
 			<div class="boxNavSolapas">
@@ -226,27 +213,24 @@
 			|-$centerHTML-|
 			<!--centerHTML end -->
 		</div><!--end of boxAgendaContainer  -->
-		
-	</div>
+	</div><!--end of grid_13 colummAgenda  -->
 	|-/block-| |-* centralContent *-|
-	
 	|-block name="sidebar"-|
+
 		<div class="grid_3 colummSidebar">
-			
-			
 			<div class="box boxBuscador">
-                    <label>
-                    <input name="textfield" type="text" class="textBuscador" id="textfield" value="Buscar"/><a href="#" class="botBuscador"></a>
-                    </label>
-          </div>
-        <div class="clear"></div>
+				<label>
+				<input name="textfield" type="text" class="textBuscador" id="textfield" value="Buscar"/><a href="#" class="botBuscador"></a>
+				</label>
+			</div>
+		<div class="clear"></div>
 
-<div class="titleGraph"><span>% Ejes</span></div>
-<div class="eventsGraph"></div><!-- // GRAFICO -->
-<div class="clear"></div>
+		<div class="titleGraph"><span>% Ejes</span></div>
+		<div class="eventsGraph"></div><!-- // GRAFICO -->
+		<div class="clear"></div>
 
 
- <div id="subColumns">
+	 <div id="subColumns">
     <div class="subColumnsTriggerA"><a href="#" class="current" onClick="MM_showHideLayers('subColumnA','','show','subColumnB','','hide')">Pendientes</a></div>
     <div class="subColumnsTriggerB"><a href="#" onClick="MM_showHideLayers('subColumnA','','hide','subColumnB','','show')">Contexto</a></div>
     <div class="clear"></div>
@@ -267,37 +251,34 @@
 </div><!-- end id=subColumnA -->
 
 <div id="subColumnB" style="visibility:hidden;"> 
-
-
-<div class="box solapas2">
-
-<div role="tablist" class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons" id="accordion2">
-	<h3 tabindex="-1" aria-selected="false" aria-expanded="false" role="tab" class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"><a tabindex="-1" href="#">Crisis</a></h3>
+	<div class="box solapas2">
+	<div role="tablist" class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons" id="accordion2">
+		<h3 tabindex="-1" aria-selected="false" aria-expanded="false" role="tab" class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"><a tabindex="-1" href="#">Crisis</a></h3>
+			<div role="tabpanel" style="height: 129px; display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+				<ul>|-foreach from=$contextCrisis item=context name=foreach_crisis-|
+								<li><a href="#" onclick="javascript:$('#context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li style="display:none;" id="context_|-$context->getId()-|">|-$context->getBody()-| __ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
+							|-/foreach-|</ul>
+			</div>
+	<h3 tabindex="-1" aria-selected="false" aria-expanded="false" role="tab" class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"><a tabindex="-1" href="#">Coyuntura</a></h3>
 		<div role="tabpanel" style="height: 129px; display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
-			<ul>|-foreach from=$contextCrisis item=context name=foreach_crisis-|
+			<ul>|-foreach from=$contextJuncture item=context name=foreach_juncture-|
 							<li><a href="#" onclick="javascript:$('#context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li style="display:none;" id="context_|-$context->getId()-|">|-$context->getBody()-| __ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
 						|-/foreach-|</ul>
-			</div>
-<h3 tabindex="-1" aria-selected="false" aria-expanded="false" role="tab" class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"><a tabindex="-1" href="#">Coyuntura</a></h3>
-	<div role="tabpanel" style="height: 129px; display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
-		<ul>|-foreach from=$contextJuncture item=context name=foreach_juncture-|
-						<li><a href="#" onclick="javascript:$('#context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a><ul><li style="display:none;" id="context_|-$context->getId()-|">|-$context->getBody()-| __ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li></ul></li>
-					|-/foreach-|</ul>
-	</div>
-<h3 tabindex="-1" aria-selected="false" aria-expanded="false" role="tab" class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"><a tabindex="-1" href="#">Campaña Nacional</a></h3>
-	<div role="tabpanel" style="height: 129px; display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
-		<ul>
-				|-foreach from=$contextNational item=context name=foreach_national-|
-				<li><a href="#" onclick="javascript:$('#context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a> 
-											<ul> 
-												<li style="display:none;" id="context_|-$context->getId()-|">|-$context->getBody()-| __ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li> 
-											</ul> 
-										</li>
-				|-/foreach-|
-		</ul>
-	</div>
-<h3 tabindex="-1" aria-selected="false" aria-expanded="false" role="tab" class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"><a tabindex="-1" href="#">Campaña Publicitaria</a></h3>
-<div role="tabpanel" style="height: 129px; display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom"> 
+		</div>
+	<h3 tabindex="-1" aria-selected="false" aria-expanded="false" role="tab" class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"><a tabindex="-1" href="#">Campaña Nacional</a></h3>
+		<div role="tabpanel" style="height: 129px; display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom">
+			<ul>
+					|-foreach from=$contextNational item=context name=foreach_national-|
+					<li><a href="#" onclick="javascript:$('#context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a> 
+												<ul> 
+													<li style="display:none;" id="context_|-$context->getId()-|">|-$context->getBody()-| __ |-$context->getStartDate()|date_format-| - |-$context->getEndDate()|date_format-|</li> 
+												</ul> 
+											</li>
+					|-/foreach-|
+			</ul>
+		</div>
+		<h3 tabindex="-1" aria-selected="false" aria-expanded="false" role="tab" class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all"><a tabindex="-1" href="#">Campaña Publicitaria</a></h3>
+		<div role="tabpanel" style="height: 129px; display: none;" class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom"> 
           <ul>
              |-foreach from=$contextCampaign item=context name=foreach_campaign-|
             <li><a href="#" onclick="javascript:$('#context_|-$context->getId()-|').toggle()">|-$context->getTitle()-|</a> 
@@ -311,8 +292,9 @@
 			</div>
 		</div>
 
-           </div><!-- end id=subColumnB -->
-     </div><!-- id=subColumns-->
+
+		 </div><!-- end id=subColumnB -->
+	 </div><!-- id=subColumns-->
 	
 		</div>
 	|-/block-| |-* sidebar *-|

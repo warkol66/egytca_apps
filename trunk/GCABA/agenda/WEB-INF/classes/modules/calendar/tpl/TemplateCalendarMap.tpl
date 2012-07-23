@@ -7,7 +7,7 @@
 	</li>
 	<script type="text/javascript">
 		$(function() {
-			$('#filters #input_do').val('calendarStatisticsShow');
+			$('#filters #input_do').val('calendarEventsMapShow');
 			// Datepicker
 			$('.dateFilter').datepicker({
 				dateFormat: 'dd-mm-yy',
@@ -18,7 +18,8 @@
 		});
 	</script>
 |-/block-|
-|-block name="quitarFiltros"-|<li> <a href="Main.php?do=calendarEventsMapShow" alt="Quitar filtros" class="botResetFiltros"> </a></li>|-/block-| |-* quitarFiltros *-|
+|-block name="removefiltersLink"-|<a href="Main.php?do=calendarEventsMapShow" class="butDeleteFilter">Quitar Filtros</a>|-/block-| |-* removefiltersLink *-|
+|-block name="removefiltersButton"-|<li> <a href="Main.php?do=calendarEventsMapShow" alt="Quitar filtros" class="botResetFiltros"> </a></li>|-/block-| |-* removefiltersButton *-|
 |-block name="centralContent"-|
 	|-if $useSolapas-|
 		<div class="boxNavSolapas">
