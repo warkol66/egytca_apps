@@ -14,6 +14,10 @@
  * @package    propel.generator.planning.classes
  */
 class MinistryObjective extends BaseMinistryObjective {
+	
+	public function getChildren() {
+		return $this->getOperativeObjectives();
+	}
 
 	/**
 	 * Devuelve un string con quien modifico el Objetivo Ministerial (MinistryObjective)
@@ -32,11 +36,11 @@ class MinistryObjective extends BaseMinistryObjective {
 	}
 
 	/**
-	 * Devuelve las versiones para el asunto ordenadas en por fecha de creación y paginadas.
+	 * Devuelve las versiones para el asunto ordenadas en por fecha de creacion y paginadas.
 	 * @param string $orderType forma en que se ordena, Criteria::ASC = ascendente Criteria::DESC = descendente.
 	 * @param int $page numero de pagina.
 	 * @param int $maxPerPage cantidad maxima de elementos por pagina.
-	 * @return array Versions para el proyecto ordenados en forma decreciente por fecha de creación.
+	 * @return array Versions para el proyecto ordenados en forma decreciente por fecha de creacion.
 	 */
 	public function getVersionsOrderedByUpdatedPaginated($orderType = Criteria::ASC, $page=1, $maxPerPage=5) {
 		$filters = array();
@@ -76,7 +80,7 @@ class MinistryObjective extends BaseMinistryObjective {
 	 */
 	public static function getPolicyGuidelines() {
 		$policyGuidelines = array(
-			1 => 'Fortalecimiento de las políticas de promoción social, salud y educación',
+			1 => 'Fortalecimiento de las polï¿½ticas de promociï¿½n social, salud y educaciï¿½n',
 			2 => 'Seguridad',
 			3 => 'Movilidad sustentable'
 		);
