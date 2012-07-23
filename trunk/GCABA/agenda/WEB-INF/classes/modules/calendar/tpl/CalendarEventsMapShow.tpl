@@ -1,5 +1,10 @@
 |-assign var="useSolapas" value=true-|
-
+<style>
+#map_canvas {
+	height: 580px !Important;
+	width: 900px !Important;
+/*	margin-left: 150px; */
+}</style>
 <div>
 	<!-- mapa google -->
 	<div id="map_container">

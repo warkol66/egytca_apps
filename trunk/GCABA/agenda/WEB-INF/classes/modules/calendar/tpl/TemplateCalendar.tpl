@@ -118,8 +118,8 @@
 			<span class="eyefishContainer">
 				<ul id="fisheye_menu">
 					<li><a href="javascript:void(null)" class="fisheye" onclick="$('#filters').toggle();"><img src="images/eyeIcon_00.png" alt=""><span style="display: none;">Filtrar</span></a></li>
-					<li><a href="#1" class="fisheye"><img src="images/eyeIcon_01.png" alt=""><span style="display: none;">Reunion<br>de Gabinete</span></a></li>
-					<li><a href="#2" class="fisheye"><img src="images/eyeIcon_02.png" alt=""><span style="display: none;">Seguimiento<br>de obras</span></a></li>
+					<li><a href="Main.php?do=calendarStatisticsShow" class="fisheye"><img src="images/eyeIcon_01.png" alt=""><span style="display: none;">Reunion<br>de Gabinete</span></a></li>
+					<li><a href="Main.php?do=calendarEventsMapShow" class="fisheye"><img src="images/eyeIcon_02.png" alt=""><span style="display: none;">Seguimiento<br>de obras</span></a></li>
 					<li><a href="#3" class="fisheye"><img src="images/eyeIcon_03.png" alt=""><span style="display: none;">Exportar</span></a></li>
 					<li><a href="#4" class="fisheye"><img src="images/eyeIcon_04.png" alt=""><span style="display: none;">Imprimir</span></a></li>
 					<li><a href="#5" class="fisheye"><img src="images/eyeIcon_05.png" alt=""><span style="display: none;">Salir</span></a></li>
@@ -201,7 +201,7 @@
 			|-/block-| |-* dateFilter *-|
 			
 			<li><a href="javascript:document.filters.submit();" alt="Buscar" class="botFiltrar"> </a></li>
-			<li> <a href="Main.php?do=calendarShow" alt="Quitar filtros" class="botResetFiltros"> </a></li>
+			|-block name="quitarFiltros"-|<li> <a href="Main.php?do=calendarShow" alt="Quitar filtros" class="botResetFiltros"> </a></li>|-/block-| |-* quitarFiltros *-|
 		</ul>
 	</form>                                                           
      	</div><!-- /boxNav1 -->

@@ -1109,6 +1109,7 @@ margin-right:auto;
 
 .fichaObra{
 	width:100%;
+	min-width: 800px;
 	height:100%;
 	background-color:#FFFFFF;
 	font-family: 'Gotham Medium';
@@ -1204,7 +1205,7 @@ margin-right:auto;
 				.rojo 	li.fichaTitleRight{ background-position: 0 -465px;}			
 				
 				.gris li.fichaTitleLeft{background-position: 0 -345px;}
-				.gris li.fichaTitleCenter{background-color:#92969d;}
+				.gris li.fichaTitleCenter{background-color:#a4a8b1;} /*92969d*/
 				.gris li.fichaTitleRight{ background-position: 0 -485px;}			
 		
 			li.fichaTitleCenter{
@@ -1288,6 +1289,7 @@ margin-right:auto;
 		.fichaTable td.fichaGallery{
 		background-color:#CCCCCC; background-image:none;
 		height:105px;  border-bottom: solid 1px #999999;  border-right: solid 1px #999999; }
+}
 
 /*  end of FANCYBOX FICHAS */
 
@@ -1504,3 +1506,51 @@ a.prev span, a.next span {
 	float: none;
 	clear: both;
 }	
+
+
+/* Statistics */
+#graphsContainer {
+	background: Black;
+	width: 1010px;
+	height: 555px;
+}
+#graphsContainer h1 {
+	margin: 10px 15px 15px 15px;
+	color: #fff;
+	border-bottom: 1px solid #fff;
+	font-weight: bold;
+	font-size: 1.3em;
+}
+.panelLeft {
+	float: left;
+	width: 340px;
+	height: 560px;
+	background: Black;
+}
+#categoriesGraph {
+	width: 320px;
+	height: 500px;
+}
+.panelCenter {
+	float: left;
+	width: 320px;
+	height: 560px;
+	border-left: 2px solid #fff;
+	background: Black;
+}
+#axesGraph {
+	width: 320px;
+	height: 480px;
+	padding: 20px;
+}
+.panelRight {
+	float: right;
+	width: 280px;
+	height: 560px;
+	border-left: 2px solid #fff;
+	background: Black;
+}
+#comunesGraph {
+	width: 270px;
+	height: 500px;
+}

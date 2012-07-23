@@ -130,3 +130,39 @@
 				
 				.boxNavSolapas ul li.solOtros { left:1006px; z-index:600; width:110px;}
 				.boxNavSolapas ul li.solOtros a{background-position:0 -120px;width:110px;}	
+
+
+.fichaObra{
+	width:100%;
+}
+
+			
+/* Statistics */
+#graphsContainer{
+	height: 650px;
+	width: 1300px;
+}				
+.panelLeft {
+	width: 480px;
+	height: 650px;
+}
+#categoriesGraph { /* Bar */
+	width: 440px;
+	height: 550px;
+}
+.panelCenter {
+	width: 380px;
+	height: 650px;
+}
+#axesGraph { /* Pie */
+	width: 380px;
+	height: 520px;
+}
+.panelRight {
+	width: 340px;
+	height: 650px;
+}
+#comunesGraph { /* Bar */
+	width: 320px;
+	height: 550px;
+}
