@@ -47,7 +47,7 @@ class CalendarEventsMapShowAction extends BaseAction {
 		$smarty->assign('axisNameToIdMap', CalendarAxisQuery::create()->findAxisMap('name', 'id'));
 		$smarty->assign('eventStatuses', CalendarEvent::getStatuses());
 
-		$this->template->template = 'TemplateCalendarStatistics.tpl';
+		$this->template->template = 'TemplateCalendarMap.tpl';
 		return $mapping->findForwardConfig('success');
 	}
 

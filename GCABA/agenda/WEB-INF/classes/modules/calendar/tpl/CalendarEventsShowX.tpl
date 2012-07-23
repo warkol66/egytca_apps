@@ -1,28 +1,27 @@
+|-if $event->getId() is even-|
 <script type="text/javascript" language="javascript" src="scripts/jquery/jquery.carouFredSel-5.6.1.js"></script>
 <script language="javascript" type="text/javascript">
  $('#fancyboxDiv').ajaxComplete(function() {
 				//	Scrolled by user interaction
-$("#foo2").carouFredSel({
-	circular: false,
-	infinite: false,
-	auto 	: false,
-	scroll	: {
-		items	: "page"
-	},
-	prev	: {	
-		button	: "#foo2_prev",
-		key		: "left"
-	},
-	next	: { 
-		button	: "#foo2_next",
-		key		: "right"
-	},
-	pagination	: "#foo2_pag"
+	$("#foo2").carouFredSel({
+		circular: false,
+		infinite: false,
+		auto 	: false,
+		scroll	: {
+			items	: "page"
+		},
+		prev	: {	
+			button	: "#foo2_prev",
+			key		: "left"
+		},
+		next	: { 
+			button	: "#foo2_next",
+			key		: "right"
+		},
+		pagination	: "#foo2_pag"
+	});
 });
-
-            });
-        </script>
-
+</script>
 <div class="fichaObra">
        <div class="fichaHeader">
 		    <div class="fichaHeaderTitle"></div>
@@ -31,7 +30,7 @@ $("#foo2").carouFredSel({
 <div class="fichaMainTitle">
         	<ul class="fichaTitle gris">
                    <li class="fichaTitleLeft"></li>
-            <li class="fichaTitleCenter">Ejemplo de titulaEjemplo de Agenda de Gobierno</li>
+            <li class="fichaTitleCenter">|-$event->getTitle()-|</li>
                    <li class="fichaTitleRight"></li>
 		           <li class="fichaTitleDate"><span>Fecha de visita: </span> 16/06/2012</li>
 		           <li class="fichaTitlePerson"><span>Relevador: </span> 16/06/2012</li>
@@ -42,19 +41,19 @@ $("#foo2").carouFredSel({
 <table width="100%" border="0" cellspacing="8" cellpadding="0" class="fichaTable">
 <tr>
 <th>Dependencia</th>
-<td colspan="2" class="fichaTd75">Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem</td>
+		<td colspan="2" class="fichaTd75">|-assign var=categories value=$event->getCategorys()-||-foreach from=$categories item=object-||-if $categories|@count gt 1-||-if !$object@first-|,|-/if-| |-/if-||-$object-||-/foreach-|</td>
 </tr>
 <tr>
 <th>Localización</th>
-<td colspan="2" class="fichaTd75">Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem</td>
+<td colspan="2" class="fichaTd75">|-$event->getAddress()-|</td>
 </tr>
 <tr>
 <th>Ficha estimada del evento</th>
-<td colspan="2" class="fichaTd75">Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem</td>
+<td colspan="2" class="fichaTd75">|-$event->getStartDate()|date_format-|</td>
 </tr>
 <tr>
 <th>Descripción</th>
-<td colspan="2" class="fichaTd75">250 caracteres con espacios, consectetur adipiscing elit. Etiam eget nisl nec ipsum elementum porta sed vitae est. Duis ac mauris ac ligula vestibulum fringilla a vitae elit. Phasellus interdum commodo dui a pulvinar. Fusce vel elit arcu, ut tincidunt.</td>
+<td colspan="2" class="fichaTd75">|-$event->getBody()-|</td>
 </tr>
 <tr>
 <td rowspan="2" class="fichaMap"><div class="fichaGoogleMap"></div></td>
@@ -162,37 +161,54 @@ Avance de la obra </th>
 
 
 
+|-else-|
+<div class="fichaObra">
+	 <div class="fichaHeader">
+		<div class="fichaHeaderTitle"></div>
+			<div class="fichaHeaderLogo"></div>
+	 </div><!-- // fichaHeader-->
+<div class="fichaMainTitle">
+<ul class="fichaTitle gris">
+ <li class="fichaTitleLeft"></li>
+	<li class="fichaTitleCenter">|-$event->getTitle()-|</li>
+ <li class="fichaTitleRight"></li>
+</ul>
+</div>
+<!-- // fichaMainTitle-->
 
+<table width="100%" border="0" cellspacing="8" cellpadding="0" class="fichaTable">
+	<tr>
+		<th>Dependencia</th>
+		<td colspan="2" class="fichaTd75">|-assign var=categories value=$event->getCategorys()-||-foreach from=$categories item=object-||-if $categories|@count gt 1-||-if !$object@first-|,|-/if-| |-/if-||-$object-||-/foreach-|</td>
+	</tr>
+	<tr>
+		<th>Localización</th>
+		<td colspan="2" class="fichaTd75">|-$event->getAddress()-|</td>
+	</tr>
+	<tr>
+		<th>Fecha estimada del evento</th>
+		<td colspan="2" class="fichaTd75">|-$event->getStartDate()|date_format-|</td>
+	</tr>
+	<tr>
+		<th>Descripción</th>
+		<td colspan="2" class="fichaTd75">|-$event->getBody()-|</td>
+	</tr>
+	<tr>
+		<td rowspan="2" class="fichaMap"><div class="fichaGoogleMap"></div></td>
+		<th>&nbsp;</th>
+		<td rowspan="2" class="fichaMap"><div class="fichaMapaCaba"><img src="images/ficha_mapaCABA.png" alt=""/></div></td>
+	</tr>
+	<tr>
+		<td class="fichaTd50 fichaDescription">&nbsp;</td>
+	</tr>
+</table>
+</div>
+<!-- // fichaObra-->
+
+
+|-/if-|
 <div id="showEvent">
 <fieldset>
-	<!--<h1>Ver datos del evento</h1>
-		<p>
-			<label for="calendarEvent_title">Título</label>
-			<input name="calendarEvent[title]" type="text" id="calendarEvent_title" title="title" value="|-$event->getTitle()|escape:"double_quotes"-|" size="55" readonly="readonly" />
-		</p>
-		<p>
-			<label for="calendarEvent_body">Texto del Evento</label>
-			<textarea name="calendarEvent[body]" cols="60" rows="3" wrap="VIRTUAL" id="calendarEvent_body" readonly="readonly">|-$event->getBody()|escape:"double_quotes"-|</textarea>
-		</p>
-					<label for="calendarEvent_startDate">Fecha de Inicio Actividad</label>
-					<input name="calendarEvent[startDate]" type="text" id="calendarEvent_startDate" title="creationDate" value="|-$event->getstartDate()|dateTime_format-|" size="18"  readonly="readonly"/> 
-				</p>
-				<p>
-					<label for="calendarEvent_endDate">Fecha de Fin Actividad</label>
-					<input name="calendarEvent[endDate]" type="text" id="calendarEvent_endDate" title="endDate" value="|-$event->getendDate()|dateTime_format-|" size="18"  readonly="readonly"/> 
-		<p>
-			<label for="calendarEvent_street">Dirección</label>
-			<input name="calendarEvent[street]" type="text" id="calendarEvent_street" title="calle" value="|-$event->getAddress()-|" size="40"  readonly="readonly"/>
-		</p>
-		<p>
-			<label for="calendarEvent_allDay">Evento de todo el día</label>
-			<input name="calendarEvent[allDay]" type="checkbox" |-$event->getAllDay()|checked_bool-| value="1"  readonly="readonly" onclick="return false" onkeydown="return false">
-		</p>
-		<p>
-			<label for="calendarEvent_scheduleStatus">Estado</label>
-			<input id="calendarEvent_scheduleStatus" type="text" name="calendarEvent[scheduleStatus]" title="Estado de fecha y hora" size="25" value="|-$scheduleStatuses[$event->getScheduleStatus()]-|" readonly="readonly">
-		</p>
-		-->
 <p><br>
 <input type='button' id="cancelButton" onClick="$.fancybox.close();" value="Cerrar" />
 |-if "calendarEventsDoEditX"|security_has_access-|<input type='button' id="editButton" onClick="callEditEvent();" value="Editar" />|-/if-|

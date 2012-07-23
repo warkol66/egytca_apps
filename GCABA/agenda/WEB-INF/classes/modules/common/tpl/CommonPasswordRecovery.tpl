@@ -28,7 +28,7 @@
 							<!--Captcha -->
 							<p>
 								<label for="newsletterSubscribe">Código de Seguridad</label>
-								<img src="Main.php?do=commonCaptchaGeneration" />
+								<img src="Main.php?do=commonImage" />
 							</p>
 							<p>
 								Ingrese el código de seguridad de la imagen <br />

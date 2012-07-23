@@ -1,60 +1,18 @@
-<style type="text/css">
-	|-* ------------------ borrame -------------- *-|
-	.claseBorrame1 {
-		float: left;
-		width: 33%;
-		height: 500px;
-		background-color: #D5D5D5;
-	}
-	
-	.claseBorrame2 {
-		float: left;
-		width: 33%;
-		height: 500px;
-		background-color: #ffffff;
-	}
-	
-	.claseBorrame3 {
-		float: left;
-		width: 33%;
-		height: 500px;
-		background-color: #D5D5D5;
-	}
-	|-* -------------- fin borrame -------------- *-|
-	
-	|-* ------------------ moveme -------------- *-|
-	#categoriesGraph {
-		width: 400px;
-		height: 200px;
-	}
-	
-	#comunesGraph {
-		width: 400px;
-		height: 400px;
-	}
-	
-	#axesGraph {
-		width: 300px;
-		height: 300px;
-		background-color: black;
-	}
-	|-* -------------- fin moveme -------------- *-|
-</style>
-
 <link rel="stylesheet" type="text/css" href="css/egytca.bargraph.css" />
-
-<div class="claseBorrame1">
+<div id="graphsContainer">
+<div class="panelLeft">
+<h1>Distribución por dependencias</h1>
 	<div id="categoriesGraph"></div>
 </div>
-
-<div class="claseBorrame2">
+<div class="panelCenter">
+<h1>Distribución por ejes</h1>
 	<div id="axesGraph"></div>
 </div>
-
-<div class="claseBorrame3">
+<div class="panelRight">
+<h1>Distribución por comunas</h1>
 	<div id="comunesGraph"></div>
 </div>
-
+</div>
 <script type="text/javascript" src="scripts/jquery/d3.v2.min.js"></script>
 <script type="text/javascript" src="scripts/jquery/egytca.bargraph.js"></script>
 <script type="text/javascript" src="scripts/jquery/egytca.cakegraph.js"></script>
@@ -68,7 +26,7 @@
 		categoriesGraph = new BarGraph({
 			selector: "#categoriesGraph",
 			data: JSON.parse('|-$categoryData-|'),
-			xRelStart: 0.3
+			xRelStart: 0.65
 		});
 		
 		comunesGraph = new BarGraph({

@@ -18,7 +18,7 @@
 		});
 	</script>
 |-/block-|
-|-block name="quitarFiltros"-|<li> <a href="Main.php?do=calendarStatisticsShow" alt="Quitar filtros" class="botResetFiltros"> </a></li>|-/block-| |-* quitarFiltros *-|
+|-block name="quitarFiltros"-|<li> <a href="Main.php?do=calendarEventsMapShow" alt="Quitar filtros" class="botResetFiltros"> </a></li>|-/block-| |-* quitarFiltros *-|
 |-block name="centralContent"-|
 	|-if $useSolapas-|
 		<div class="boxNavSolapas">
