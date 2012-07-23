@@ -23,7 +23,7 @@ class Position extends BasePosition {
 		$this->colors = $system["config"]["tablero"]["colors"];
 	}
 	
-	public function getChildren() {
+	public function getChildren1() {
 		return $this->getImpactObjectives();
 	}
 	
