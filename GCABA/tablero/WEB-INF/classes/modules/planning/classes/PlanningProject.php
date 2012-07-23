@@ -14,6 +14,10 @@
  * @package    propel.generator.planning.classes
  */
 class PlanningProject extends BasePlanningProject {
+	
+	public function getChildren() {
+		return $this->getActivities();
+	}
 
 	/**
 	 * Devuelve un string con quien modifico el Proyecto (PlanningProject)
@@ -46,7 +50,7 @@ class PlanningProject extends BasePlanningProject {
 	}
 
 	/**
-	 * Devuelve las versiones para el proyecto ordenadas en por fecha de creación y paginadas.
+	 * Devuelve las versiones para el proyecto ordenadas en por fecha de creacion y paginadas.
 	 * @param string $orderType forma en que se ordena, Criteria::ASC = ascendente Criteria::DESC = descendente.
 	 * @param int $page numero de pagina.
 	 * @param int $maxPerPage cantidad maxima de elementos por pagina.

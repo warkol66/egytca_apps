@@ -14,6 +14,10 @@
  * @package    propel.generator.planning.classes
  */
 class ImpactObjective extends BaseImpactObjective {
+	
+	public function getChildren() {
+		return $this->getMinistryObjectives();
+	}
 
 	/**
 	 * Devuelve un string con quien modifico el Objetivo de Impacto (ImpactObjective)

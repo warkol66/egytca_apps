@@ -14,6 +14,10 @@
  * @package    propel.generator.planning.classes
  */
 class OperativeObjective extends BaseOperativeObjective {
+	
+	public function getChildren() {
+		return $this->getPlanningProjects();
+	}
 
 	/**
 	 * Devuelve un string con quien modifico el Objetivo Operativo (OperativeObjective)
