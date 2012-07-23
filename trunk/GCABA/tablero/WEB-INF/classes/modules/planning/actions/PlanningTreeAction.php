@@ -16,7 +16,9 @@ class PlanningTreeAction extends BaseAction {
 		}
 		
 		$root = PositionQuery::create()->findOneByType(9);
-		$data = $this->populate($root);
+		$root = PositionQuery::create()->findOneById($_GET["id"]);
+		$data = $this->populate1($root);
+		$smarty->assign('root', $root);
 		$smarty->assign('data', json_encode($data));
 		
 		$this->template->template = "TemplateJQuery.tpl";
@@ -35,4 +37,17 @@ class PlanningTreeAction extends BaseAction {
 		}
 		return $data;
 	}
+
+	private function populate1($node) {
+		$data = array('name' => $node->getName());
+		if (method_exists($node, 'getChildren1')) {
+			foreach ($node->getChildren1() as $child) {
+				if (!$data['children'])
+					$data['children'] = array();
+				$data['children'] []= $this->populate($child);
+			}
+		}
+		return $data;
+	}
+
 }

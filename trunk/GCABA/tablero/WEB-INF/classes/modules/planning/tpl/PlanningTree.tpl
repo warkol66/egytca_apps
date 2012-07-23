@@ -26,9 +26,9 @@
 </style>
 
 <h2>Objetivos y proyectos 2013</h2>
-<h1>Planificación 2013 - Ministerio de Educación</h1>
+<h1>Planificación 2013 - |-$root-|</h1>
 					
-<div id="chart"></div>
+<div id="chart" style="height: 600px; overflow: scroll" ></div>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
@@ -37,15 +37,15 @@
 <script type="text/javascript">
 
 var w = 960,
-    h = 700,
+    h = 2900,
     i = 0,
     barHeight = 30,
-    barWidth = w * .8,
+    barWidth = w * .7,
     duration = 400,
     root;
 
 var tree = d3.layout.tree()
-	.size([h, 65]);
+	.size([h, 85]);
 
 var diagonal = d3.svg.diagonal()
 	.projection(function(d) { return [d.y, d.x]; });
