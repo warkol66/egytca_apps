@@ -18,7 +18,8 @@
 		});
 	</script>
 |-/block-|
-|-block name="quitarFiltros"-|<li> <a href="Main.php?do=calendarStatisticsShow" alt="Quitar filtros" class="botResetFiltros"> </a></li>|-/block-| |-* quitarFiltros *-|
+|-block name="removefiltersLink"-|<a href="Main.php?do=calendarStatisticsShow" class="butDeleteFilter">Quitar Filtros</a>|-/block-| |-* removefiltersLink *-|
+|-block name="removefiltersButton"-|<li> <a href="Main.php?do=calendarStatisticsShow" alt="Quitar filtros" class="botResetFiltros"> </a></li>|-/block-| |-* removefiltersButton *-|
 |-block name="centralContent"-|
 	|-if $useSolapas-|
 		<div class="boxNavSolapas">

@@ -41,8 +41,7 @@
 	background:none;
     float:right;
 	margin:10px 0 0  0;
-	z-index: 1099; }
-	
+    z-index: 1099; }	
 	
 /*.eyefishContainer{
 	display:block;
@@ -660,10 +659,18 @@
 	}			
 	
 	.fc-view-agendaWeek .evFeriado .eventoContent span.fc-event-title,
-	.fc-view-agendaWeek .evEfemeride .eventoContent span.fc-event-title
+	.fc-view-agendaWeek .evEfemeride .eventoContent span.fc-event-title,
+	.fc-view-agendaDay .evFeriado .eventoContent span.fc-event-title,
+	.fc-view-agendaDay .evEfemeride .eventoContent span.fc-event-title,
+	.evFeriado,
+	.evEfemeride
 	{color:#FFFFFF; !important}	
 	.fc-view-agendaWeek .evFeriadoPast .eventoContent span.fc-event-title,
-	.fc-view-agendaWeek .evEfemeridePast .eventoContent span.fc-event-title
+	.fc-view-agendaWeek .evEfemeridePast .eventoContent span.fc-event-title,
+	.fc-view-agendaDay .evFeriadoPast .eventoContent span.fc-event-title,
+	.fc-view-agendaDay .evEfemeridePast .eventoContent span.fc-event-title,
+	.evEfemeridePast,
+	.evFeriadoPast
 	{color: #CCCCCC; !important}	
 	
 	
@@ -1289,7 +1296,6 @@ margin-right:auto;
 		.fichaTable td.fichaGallery{
 		background-color:#CCCCCC; background-image:none;
 		height:105px;  border-bottom: solid 1px #999999;  border-right: solid 1px #999999; }
-}
 
 /*  end of FANCYBOX FICHAS */
 
@@ -1297,12 +1303,13 @@ margin-right:auto;
 
 /* Botones SOLAPAS filtros */
 #textFilters {
-  position: relative;
+	position: relative;
 	display: block;
-  margin-top:-20px;
-  margin-right:200px;
-  float: right;
-}
+	margin-top:-20px !important; /* 23/07/2012*/
+	margin-right:300px !important; /* 23/07/2012*/
+	float: right !important; /* 23/07/2012*/
+	}
+	
 .butResultsFilter,
 .butShowHideFilter,
 .butDeleteFilter{
@@ -1319,7 +1326,7 @@ text-align:left;
 			border-bottom:none;
 			-moz-border-radius: 8px 8px 0 0;
     		border-radius:8px 8px 0 0;
-			float:right;}
+			float:left;}  /* 23/07/2012*/
 	
 		.butResultsFilter{background-image:url(../images/icon_resultsFilter.png);}
 		.butResultsFilter:hover{ background-color: #999999; color:#FFFFFF;}
