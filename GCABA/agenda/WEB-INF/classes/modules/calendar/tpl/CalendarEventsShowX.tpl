@@ -211,8 +211,8 @@ Avance de la obra </th>
 <fieldset>
 <p><br>
 <input type='button' id="cancelButton" onClick="$.fancybox.close();" value="Cerrar" />
-|-if "calendarEventsDoEditX"|security_has_access-|<input type='button' id="editButton" onClick="callEditEvent();" value="Editar" />|-/if-|
-|-if "calendarEventsDoDelete"|security_has_access-|<input type='button' id="deleteButton" onClick="callDeleteEvent();" value="Eliminar" />|-/if-|</p>
+|-if "calendarEventsDoEditX"|security_has_access && !$noEdit-|<input type='button' id="editButton" onClick="callEditEvent();" value="Editar" />|-/if-|
+|-if "calendarEventsDoDelete"|security_has_access && !$noDelete-|<input type='button' id="deleteButton" onClick="callDeleteEvent();" value="Eliminar" />|-/if-|</p>
 </fieldset>
 </div>
 
