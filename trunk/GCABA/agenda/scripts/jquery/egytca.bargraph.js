@@ -41,7 +41,7 @@ BarGraph = function(options) {
 		var barH = ( _this.h / data.length ) * 0.50;
 		var marginY = barH * 2;
 		var marginX = 10;
-		var cantContainerW = 40;
+		var cantContainerW = 10;
 		var xStart = _this.w * _this.settings.xRelStart;
 		
 		_this.x = d3.scale.linear().domain([0, maxX]).range([0, (_this.w - xStart) - (cantContainerW + 10) - marginX]);
@@ -62,10 +62,21 @@ BarGraph = function(options) {
 			.attr("transform", function(d) {return "translate(0, "+ (_this.y(d)) +")"})
 		
 		var colors = [
-			["#00c000", "#c00000"],
-			["#0000c0", "#0000c0"], // 2 colores iguales y el gradiente no se nota
-			["#c00000", "#00c000"],
-			["#0000c0", "#00c000"]
+			["#4682B4", "#4682B4"] /*, // 2 colores iguales y el gradiente no se nota
+			["#fdd406", "#fdd406"], // 2 colores iguales y el gradiente no se nota
+			["#B8860B", "#B8860B"],
+			["#00008B", "#00008B"],
+			["#8B0000", "#8B0000"],
+			["#F5F5F5", "#F5F5F5"],
+			["#B22222", "#B22222"],
+			["#008080", "#008080"],
+			["#FF8C00", "#FF8C00"],
+			["#7B68EE", "#7B68EE"],
+			["#1E90FF", "#1E90FF"],
+			["#40E0D0", "#40E0D0"],
+			["#00FF00", "#00FF00"],
+			["#BDB76B", "#BDB76B"],
+			["#FFDEAD", "#FFDEAD"]*/
 		]
 		var grad = new GradientSupplier(_this.svg, colors);
 			
@@ -93,12 +104,12 @@ BarGraph = function(options) {
 				return "translate("+ (xStart + _this.x(data[i][1]) + 10 + cantContainerW / 2) +", 0)";
 			})
 		
-		_this.counts.append("rect")
+/*		_this.counts.append("rect")
 			.attr("x", -(cantContainerW / 2))
 			.attr("y", -(barH / 2))
 			.attr("width", cantContainerW)
 			.attr("height", barH)
-			
+*/			
 		_this.counts.append("svg:text")
 			.attr("text-anchor", "middle")
 			.attr("dy", 4)
