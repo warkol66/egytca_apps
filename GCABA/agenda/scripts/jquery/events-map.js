@@ -24,6 +24,7 @@ EventsMap = function(canvasId, events, icons) {
 	this.displayMarker = function(id, position, type) {
 		var marker = this.parentDisplayMarker(id, position, type);
 		marker.type = type;
+		marker.eventId = id;
 	}
 
 	this.filterEventsByAxisId = function(axisId) {
@@ -44,8 +45,9 @@ EventsMap = function(canvasId, events, icons) {
 
 		if (event.Latitude != null && event.Longitude != null) {
 			var position = new google.maps.LatLng(event.Latitude, event.Longitude);
-			this.displayMarker(event.Id, position, event.Axisid);
-			this.setMarkerInfo(event.Id, '<u>Título</u>: '+event.Title);
+			var markerType = event.Axisid ? event.Axisid : "default";
+			this.displayMarker(event.Id, position, markerType);
+//			this.setMarkerInfo(event.Id, '<u>Título</u>: '+event.Title);
 		}
 	}
 };
