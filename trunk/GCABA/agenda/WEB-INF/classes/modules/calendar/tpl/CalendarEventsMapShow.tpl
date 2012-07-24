@@ -63,7 +63,7 @@
 		map.markerOnClick = function(marker) {
 			$('#fancyboxDiv').load(
 				'Main.php?do=calendarEventsShowX&id='+marker.eventId,
-				{},
+				{ noEdit: '1', noDelete: '1' },
 				function() {$('#fancyboxDummy').click()}
 			);
 		}

@@ -55,6 +55,9 @@ class CalendarEventsShowXAction extends BaseAction {
 			$smarty->assign('eventTypes', EventTypeQuery::create()->find());
 			$smarty->assign('agendaTypes', CalendarEventPeer::getAgendas());
 			$smarty->assign("calendarEventStatus",CalendarEvent::getStatuses());
+			
+			$smarty->assign('noEdit', $_REQUEST['noEdit']);
+			$smarty->assign('noDelete', $_REQUEST['noDelete']);
 
 			
 			return $mapping->findForwardConfig('success');
