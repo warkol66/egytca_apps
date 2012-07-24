@@ -1,0 +1,100 @@
+<database defaultIdMethod="native" package="campaigns.classes" name="application" >
+
+	<table name="campaigns_campaign" phpName="Campaign" description="Base de Campaigns">
+
+		<column name="id" description="Identificacion de la Campaign" type="INTEGER" required="true" primaryKey="true" autoIncrement="true" />
+		<column name="name" description="Nombre de la Campaign" type="VARCHAR" size="255" primaryString="true" />
+		<column name="type" description="Tipo de Campaign" type="INTEGER" />
+		<column name="startDate" description="Fecha inicio de la campaign" type="DATE" />
+		<column name="finishDate" description="Fecha final de la campaign" type="DATE" />
+		<column name="clientId" description="Cliente asociado" type="INTEGER" />
+		<column name="description" description="Descripcion de la Campaign" type="LONGVARCHAR" />
+		<column name="defaultKeywords" description="Palabras clave por defecto para prensa" type="CHAR" size="255" />
+		<column name="responsible" description="Persona Responsable de la campaign" type="CHAR" size="120" />
+
+		<behavior name="soft_delete" />
+
+		<foreign-key foreignTable="affiliates_affiliate">
+			<reference local="clientId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="campaigns_campaignParticipant" phpName="CampaignParticipant" description="Base de participantes en campaignes">
+
+		<column name="id" description="Identificacion del Participante de la Campaign" type="INTEGER" required="true" primaryKey="true" autoIncrement="true" />
+		<column name="campaignId" description="Id de la campaign" type="INTEGER" required="true" />
+		<column name="objectType" description="Tipo de participante" type="VARCHAR" size="50" required="true" />
+		<column name="objectId" description="Id del participante" type="INTEGER" required="true" />
+
+	  <unique>
+	    <unique-column name="campaignId" />
+	    <unique-column name="objectType" />
+	    <unique-column name="objectId" />
+	  </unique>
+
+		<foreign-key foreignTable="campaigns_campaign" onDelete="CASCADE">
+			<reference local="campaignId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="campaigns_campaignCommitment" phpName="CampaignCommitment" description="Base de Compromisos de Campaigns">
+
+		<column name="id" description="Identificacion de Compromiso de la Campaign" type="INTEGER" required="true" primaryKey="true" autoIncrement="true" />
+		<column name="campaignId" description="Id de la Campaign" type="INTEGER" />
+		<column name="participantId" description="Id del participante" type="INTEGER" />
+		<column name="responsible" description="Responsables" type="CHAR" size="255" />
+		<column name="commitment" description="Descripcion del Compromiso" type="LONGVARCHAR" />
+		<column name="achieved" description="Logrado" type="BOOLEAN" sqlType="BOOL" />
+		<column name="date" description="Fecha del compromiso" type="DATE" required="true" />
+
+		<behavior name="soft_delete" />
+
+		<foreign-key foreignTable="campaigns_campaign" onDelete="CASCADE">
+			<reference local="campaignId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="campaigns_campaignParticipant">
+			<reference local="participantId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<!-- Relacion many-to-many de campaign con documents -->	
+	<table name="campaigns_campaignDocument" phpName="CampaignDocument" isCrossRef="true">
+
+		<column name="campaignId" type="INTEGER" primaryKey="true"/>
+		<column name="documentId" type="INTEGER" primaryKey="true"/>
+
+		<foreign-key foreignTable="campaigns_campaign" onDelete="CASCADE">
+  		<reference local="campaignId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="documents_document" onDelete="CASCADE">
+  		<reference local="documentId" foreign="id"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>

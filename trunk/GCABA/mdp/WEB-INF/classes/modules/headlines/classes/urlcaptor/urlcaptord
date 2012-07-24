@@ -1,0 +1,66 @@
+#! /bin/sh
+
+# use urlcaptor to control this daemon
+
+configFile="config.ini"
+
+app=`grep "application" $configFile | sed -e "s/application=//"`
+queue=`grep "queue" $configFile | sed -e "s/queue=//"`
+failuresLog=`grep "failuresLog" $configFile | sed -e "s/failuresLog=//"`
+failuresDir=`grep "failuresDir" $configFile | sed -e "s/failuresDir=//"`
+
+# $1: file
+capture() {
+	queuedFile="$1"
+
+	quality=`grep "quality" $queuedFile | sed -e "s/quality=//"`
+	width=`grep "width" $queuedFile | sed -e "s/width=//"`
+	height=`grep "height" $queuedFile | sed -e "s/height=//"`
+	url=`grep "url" $queuedFile | sed -e "s/url=//"`
+	image=`grep "image" $queuedFile | sed -e "s/image=//"`
+
+	$app --quality $quality --width $width --height $height $url $image > /dev/null 2>/dev/null
+	
+	if [ -f "$image" ] ; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+logFailure() {
+	failedFile=$1
+	url=`grep "url" $failedFile | sed -e "s/url=//"`
+	image=`grep "image" $failedFile | sed -e "s/image=//"`
+
+	logText="error capturing $url to "`readlink -f $image`" - "`date`" - data file moved to "`readlink -f $failedFile`
+
+	if [ -r "$failuresLog" ] ; then
+		echo "$logText" | cat $failuresLog - > $failuresLog.tmp
+		mv $failuresLog.tmp $failuresLog
+	else
+		echo "$logText" > $failuresLog
+	fi
+}
+
+while true; do
+	files=`ls -1 $queue`
+	for file in $files ; do
+		echo `date`
+		echo "  processing $file..."
+		capture $queue/$file
+		# a veces captura la imagen pero devuelve error. ojo!
+		if [ $? = 0 ] ; then
+			echo "    capture result: OK"
+			rm -f $queue/$file
+		else
+			echo "    capture result: FAILURE"
+			if [ ! -d "$failuresDir" ] ; then
+				mkdir $failuresDir
+			fi
+			mv $queue/$file $failuresDir/$file
+			logFailure $failuresDir/$file
+		fi
+	done
+	sleep 5s
+done

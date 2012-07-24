@@ -1,0 +1,100 @@
+<database defaultIdMethod="native" package="users.classes" name="application" >
+
+	<table name="users_user" phpName="User" description="Tabla de usuarios">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="User Id" autoIncrement="true"/>
+		<column name="username" required="true" type="VARCHAR" size="255" description="Identificacion de usuarios"/>
+		<column name="password" required="true" type="VARCHAR" size="255" description="Clave de acceso"/>
+		<column name="passwordUpdated" type="DATE" description="Fecha de actualizacion de la clave" />
+		<column name="active" required="true" type="BOOLEAN" sqlType="BOOL" description="Indica si esta activo"/>
+		<column name="created" required="true" type="TIMESTAMP" description="Fecha de creacion"/>
+		<column name="updated" required="true" type="TIMESTAMP" description="Fecha de actualizacion"/>
+		<column name="levelId" type="INTEGER" size="4" description="Id del nivel de usuario" />
+		<column name="lastLogin" type="TIMESTAMP" description="Fecha del ultimo ingreso al sistema" />
+		<column name="timezone" type="VARCHAR" size="25" description="Timezone GMT del usuario" />
+		<column name="recoveryHash" type="VARCHAR" size="255" description="Hash enviado para la recuperacion de clave" />
+		<column name="recoveryHashCreatedOn" type="TIMESTAMP" description="Momento de la solicitud para la recuperacion de clave" />
+		<column name="name" type="VARCHAR" size="90" description="Nombre"/>
+		<column name="surname" type="VARCHAR" size="90" description="Apellido"/>
+		<column name="documentType" type="INTEGER" size="2" description="Tipo de documento" />
+		<column name="document" type="VARCHAR" size="15" description="Numero de documento" />
+		<column name="gender" type="INTEGER" size="1" description="Genero" />
+		<column name="birthdate" type="DATE" description="Fecha de nacimiento" />
+		<column name="mailAddress" type="VARCHAR" size="90" description="Direccion electronica"/>
+		<column name="mailAddressAlt" type="VARCHAR" size="90" description="Direccion electronica alternativa"/>
+		<column name="session" type="VARCHAR" size="90" description="Nombre de la sesion" />
+
+		<behavior name="soft_delete" />
+		<behavior name="timestampable" />
+
+		<unique>
+			<unique-column name="username" />
+		</unique>
+
+		<foreign-key foreignTable="users_level" >
+			<reference local="levelId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="users_group" phpName="Group" description="Groups">
+		<column name="id" type="INTEGER" required="true" primaryKey="true" autoIncrement="true" description="ID del grupo"/>
+		<column name="name" required="true" type="VARCHAR" size="255" primaryString="true" description="Nombre del grupo"/>
+		<column name="created" required="true" type="TIMESTAMP" description="Fecha de creacion"/>
+		<column name="updated" required="true" type="TIMESTAMP" description="Fecha de actualizacion"/>
+		<column name="bitLevel" type="INTEGER" description="Bit level del grupo" />
+
+		<unique>
+			<unique-column name="name" />
+		</unique>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	 </table>
+
+	<table name="users_userGroup" phpName="UserGroup" isCrossRef="true" description="Relacion de USuarios y Grupos">
+
+		<column name="userId" required="true" primaryKey="true" type="INTEGER" description="Id de usuario"/>
+		<column name="groupId" required="true" primaryKey="true" type="INTEGER" description="Id de grupo"/>
+
+		<foreign-key foreignTable="users_user" onDelete="cascade">
+			<reference local="userId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="users_group" onDelete="cascade">
+			<reference local="groupId" foreign="id"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	 <table name="users_level" phpName="Level" description="Niveles de usuarios">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true" description="Ide del nivel" />
+		<column name="name" required="true" type="VARCHAR" size="255" primaryString="true" description="Nombre del nivel" />
+		<column name="bitLevel" type="INTEGER" description="Bit del nivel" />
+
+		<unique>
+			<unique-column name="name" />
+		</unique>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>

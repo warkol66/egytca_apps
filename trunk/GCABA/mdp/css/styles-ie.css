@@ -1,0 +1,14 @@
+/* CSS Document */
+fieldset {
+	margin-bottom: 3.5em; /*    2em ORIGINAL */
+}
+#myTreeContainer li {
+	background-position:11px;
+	margin-left:-10px;
+}
+div.autocomplete {
+	top: 1.5em !Important; /*Altura del campo */
+	left:145px !Important; /* Ancho del label */
+	width:350px  !Important;
+	z-index:9999 !Important;
+}
