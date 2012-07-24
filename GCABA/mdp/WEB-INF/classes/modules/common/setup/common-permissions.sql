@@ -1,0 +1,13 @@
+DELETE FROM `security_module` WHERE `module` = 'common';
+OPTIMIZE TABLE `security_module`;
+INSERT INTO `security_module` ( `module` , `noCheckLogin` , `access` , `accessAffiliateUser` , `accessRegistrationUser` ) VALUES ('common', '1', '0', '0','0');
+DELETE FROM `security_action` WHERE `module` = 'common';
+OPTIMIZE TABLE `security_action`;
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('commonMenuItemsGetActionInfoX','common','','3','0','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('commonMenuItemsDoEditOrderX','common','','3','0','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('commonMenuItemsActionsAutocompleteListX','common','','3','0','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('commonMenuItemsDoDeleteX','common','','3','0','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('commonConfigView','common','','3','0','1','','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('commonConfigEdit','common','','3','0','1','commonConfigDoEdit','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('commonConfigSet','common','','3','0','1','commonConfigDoSet','','0' );
+INSERT INTO `security_action` (`action`,`module`,`section`,`access`,`accessAffiliateUser`, `active` , `pair` , `noCheckLogin`, `accessRegistrationUser` ) VALUES ('commonMenuItemsEdit','common','','3','0','1','commonMenuItemsDoEdit','','0' );
