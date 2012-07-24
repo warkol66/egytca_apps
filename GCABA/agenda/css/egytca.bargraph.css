@@ -9,9 +9,9 @@ svg.egytca.bargraph text {
 	fill: white;
 }
 svg.egytca.bargraph rect {
-	stroke: blue;
-	stroke-width: 2px;
-	fill: steelblue;
+	stroke: #fff;
+	stroke-width: 1px;
+	fill: #fdd406;
 }
 svg.egytca.bargraph line.xstart-separator {
 	stroke: grey;

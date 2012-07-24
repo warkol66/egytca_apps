@@ -41,7 +41,7 @@
 		
 		var events = JSON.parse(|-json_encode($events)-|);
 		var icons = {
-			"default": "images/marker_amarillo.png",
+			"default": "images/marker_blanco.png",
 			"|-$axisCssClassToIdMap.amarillo-|": "images/marker_amarillo.png",
 			"|-$axisCssClassToIdMap.cyan-|": "images/marker_cyan.png",
 			"|-$axisCssClassToIdMap.gris-|": "images/marker_gris.png",
