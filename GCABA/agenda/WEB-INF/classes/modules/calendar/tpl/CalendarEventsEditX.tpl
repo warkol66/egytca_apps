@@ -84,6 +84,22 @@
 		</select>
 	</p>
 	<p>
+		<label for="calendarEvent_isConstruction">Obra</label>
+		<input name="calendarEvent[isConstruction]" type="hidden" value="0">
+		<input name="calendarEvent[isConstruction]" id="calendarEvent_isConstruction" type="checkbox" title="Indica si el evento corresponde a una obra" |-$calendarEvent->getIsConstruction()|checked_bool-| value="1" >
+	</p>
+	<p style="display:|-if $calendarEvent->getIsConstruction()-|block|-else-|none|-/if-|;" id="constructionId">
+		<label for="calendarEvent_constructionId">Identificación de la obra</label>
+		<input name="calendarEvent[constructionId]" type="text" id="calendarEvent_constructionId" title="Identificación de la obra" value="|-$calendarEvent->getConstructionId()-|" size="30" />
+	</p>
+<script language="JavaScript" type="text/JavaScript">
+$(function () {
+  $('#calendarEvent_isConstruction').change(function () {                
+     $('#constructionId').toggle(this.checked);
+  }).change(); //ensure visible state matches initially
+});
+</script>
+	<p>
 		<input type="hidden" name="setRegions" value="1" />
 		<label for="calendarEvent_regions">Comunas/Barrios</label>
 		<select class="chzn-select markets-chz-select" data-placeholder="Seleccione una o varias comunas/barrios..." multiple="multiple" id="calendarEvent_regions" name="calendarEvent[regionsIds][]" size="5" title="comunas">
