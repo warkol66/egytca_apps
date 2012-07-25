@@ -14,5 +14,15 @@ class PlanningConstructionsEditAction extends BaseEditAction {
 		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
 		$this->smarty->assign("tenderTypes", PlanningConstruction::getTenderTypes());
 		$this->smarty->assign("constructionTypes", PlanningConstruction::getConstructionTypes());
+
+		//Para asignar directamente el Objetivo Operativo navegando desde ese objetivo
+		if (isset($_GET["fromPlanningProjectId"])) {
+			$planningProject = BaseQuery::create("PlanningProject")->findOneById($_GET["fromPlanningProjectId"]);
+			if (!empty($planningProject)) {
+				$this->smarty->assign("planningProject", $planningProject);
+				$this->smarty->assign("fromPlanningProjectId", $_GET["fromPlanningProjectId"]);
+			}
+		}
+
 	}
 }

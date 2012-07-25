@@ -144,7 +144,8 @@ function validationClearInvalidField(element) {
 
 	element.style.border = '';
 	element.style.background = '';
-	element.style.background = '#C5F1C7 url(images/valid.png) no-repeat right';
+	element.style.background = '#C5F1C7 url(images/valid.png) no-repeat right 3px';
+	element.style.paddingRight = '20px';
 	if ($(element.id + '_box') != null)
 		$(element.id + '_box').innerHTML = '';
 
@@ -185,7 +186,8 @@ function validationSetInvalidFields(elements,message) {
  */
 function validationSetInvalidField(element,message) {
 
-	element.style.background = '#F4D3D3 url(images/invalid.png) no-repeat right';
+	element.style.background = '#F4D3D3 url(images/invalid.png) no-repeat right 3px';
+	element.style.paddingRight = '20px';
 
 	if ($(element.id + '_box') != null) {
 
@@ -349,10 +351,10 @@ function validationValidateFieldThruAjax(element,doAction) {
 		onSuccess: function(transport) {
 			var response = transport.responseText.evalJSON();
 
-			$(response.name).style.background = '#C5F1C7 url(images/valid.png) no-repeat right';
+			$(response.name).style.background = '#C5F1C7 url(images/valid.png) no-repeat right 3px';
 
 			if (response.value == 1)
-				$(response.name).style.background = '#F4D3D3 url(images/invalid.png) no-repeat right';
+				$(response.name).style.background = '#F4D3D3 url(images/invalid.png) no-repeat right 3px';
 
 			var element = $(response.name + '_box');
 			if (element != null)

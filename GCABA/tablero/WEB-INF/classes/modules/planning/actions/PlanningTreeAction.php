@@ -17,7 +17,7 @@ class PlanningTreeAction extends BaseAction {
 		
 		$root = PositionQuery::create()->findOneByType(9);
 		$root = PositionQuery::create()->findOneById($_GET["id"]);
-		$data = $this->populate1($root);
+		$data = $this->populate($root);
 		$smarty->assign('root', $root);
 		$smarty->assign('data', json_encode($data));
 		
@@ -28,20 +28,8 @@ class PlanningTreeAction extends BaseAction {
 	
 	private function populate($node) {
 		$data = array('name' => $node->getName());
-		if (method_exists($node, 'getChildren')) {
-			foreach ($node->getChildren() as $child) {
-				if (!$data['children'])
-					$data['children'] = array();
-				$data['children'] []= $this->populate($child);
-			}
-		}
-		return $data;
-	}
-
-	private function populate1($node) {
-		$data = array('name' => $node->getName());
-		if (method_exists($node, 'getChildren1')) {
-			foreach ($node->getChildren1() as $child) {
+		if (method_exists($node, 'getBrood')) {
+			foreach ($node->getBrood() as $child) {
 				if (!$data['children'])
 					$data['children'] = array();
 				$data['children'] []= $this->populate($child);

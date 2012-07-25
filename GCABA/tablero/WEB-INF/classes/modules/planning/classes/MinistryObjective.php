@@ -15,7 +15,7 @@
  */
 class MinistryObjective extends BaseMinistryObjective {
 	
-	public function getChildren() {
+	public function getBrood() {
 		return $this->getOperativeObjectives();
 	}
 

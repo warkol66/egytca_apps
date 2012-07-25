@@ -23,10 +23,14 @@ class Position extends BasePosition {
 		$this->colors = $system["config"]["tablero"]["colors"];
 	}
 	
-	public function getChildren1() {
+	public function getBrood() {
 		return $this->getImpactObjectives();
 	}
 	
+	public function countBrood() {
+		return $this->countImpactObjectives();
+	}
+
 	/**
 	* Obtiene el nombre del padre de un position.
 	*

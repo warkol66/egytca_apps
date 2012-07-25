@@ -15,7 +15,7 @@
  */
 class ImpactObjective extends BaseImpactObjective {
 	
-	public function getChildren() {
+	public function getBrood() {
 		return $this->getMinistryObjectives();
 	}
 

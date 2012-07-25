@@ -15,7 +15,7 @@
  */
 class OperativeObjective extends BaseOperativeObjective {
 	
-	public function getChildren() {
+	public function getBrood() {
 		return $this->getPlanningProjects();
 	}
 

@@ -165,6 +165,8 @@ class PlanningConstructionsDoEditAction extends BaseAction {
 
 		$params = array();
 		$params["id"] = $planningConstruction->getId();
+		if (!empty($_POST["fromPlanningProjectId"]))
+			$params["fromPlanningProjectId"] = $_POST["fromPlanningProjectId"];
 		return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'success-edit');
 
 	}
