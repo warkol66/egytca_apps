@@ -44,6 +44,9 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 
     <fieldset title="Formulario de datos de Obra">
      <legend>Obra|-if $startingYear eq $endingYear-| - |-$startingYear-||-else-| (|-$startingYear-| - |-$endingYear-|)|-/if-|</legend>
+
+
+		|-if !$fromPlanningProjectId-|
 		|-if $readonly neq "readonly"-|<div id="planningProject" style="position: relative;z-index:11100;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_planningProjectId" label="Proyecto" url="Main.php?do=commonAutocompleteListX&object=planningProject&objectParam=id" hiddenName="params[planningProjectId]" defaultHiddenValue=$planningConstruction->getplanningProjectId() defaultValue=$planningConstruction->getPlanningProject()-|
 		</div>
@@ -53,6 +56,18 @@ $("#autocomplete_responsibleCode").ajaxChosen({
       <input name="params_planningProjectId" type="text" id="params_planningProjectId" size="80" value="|-$planningConstruction->getPlanningProject()-|" readonly="readonly" />
       </p>
 		|-/if-|
+		|-else-|
+      <p>
+        <label for="params_planningProjectId">Proyecto</label>
+      <input name="params_operativeObjectiveId" type="text" size="80" value="|-$planningProject-|" readonly="readonly" />
+      <input name="params[planningProjectId]" type="hidden" value="|-$fromPlanningProjectId-|" />
+      <input name="fromPlanningProjectId" type="hidden" value="|-$fromPlanningProjectId-|" />
+      </p>
+		|-/if-|
+
+
+
+
 		|-if !$show && !$showLog-|<div id="responsible" style="position: relative;z-index:11000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_responsibleCode" label="Dependencia" url="Main.php?do=commonAutocompleteListX&object=position&objectParam=code" hiddenName="params[responsibleCode]" defaultHiddenValue=$planningConstruction->getResponsibleCode() defaultValue=$planningConstruction->getPosition()-|
 		</div>
@@ -72,7 +87,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
     </p> 
   <p>
     <label for="params_constructionType">Tipo de obra</label>|-if $planningConstruction->isNew()-|
-    <select id="params_constructionType" name="params[constructionType]" title="Tipo de Obra" |-$readonly|readonly-|>
+    <select id="params_constructionType" name="params[constructionType]" title="Tipo de Obra" class="emptyValidation" |-$readonly|readonly-|>
       <option value="">Seleccione tipo de Obra</option>
       |-foreach from=$constructionTypes key=key item=name-|
 					<option value="|-$key-|" |-$planningConstruction->getConstructionType()|selected:$key-|>|-$name-|</option>
@@ -164,6 +179,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
     <input type="hidden" name="currentPage" id="currentPage" value="|-$currentPage-|" /> 
     <input type="hidden" name="do" id="do" value="planningConstructionsDoEdit" /> 
 		<p>|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
+		|-if !$planningConstruction->isNew() && $fromPlanningProjectId-|	<input type='button' onClick='location.href="Main.php?do=planningConstructionsEdit&fromPlanningProjectId=|-$fromPlanningProjectId-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Agregar otra obra al proyecto' title="Agregar otra obra al proyecto"/>|-/if-|
 	<input type='button' onClick='location.href="Main.php?do=planningConstructionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Obras"/>
 		</p>|-/if-|
     </fieldset> 
