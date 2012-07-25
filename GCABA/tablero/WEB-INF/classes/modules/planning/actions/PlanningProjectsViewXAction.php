@@ -24,5 +24,9 @@ class PlanningProjectsViewXAction extends BaseEditAction {
 
 		$this->smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
 		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
+		if ($_GET["showGantt"]) {
+			$this->smarty->assign("showGantt",true);
+			$this->template->template = "TemplateAjax.tpl";
+		}
 	}
 }
