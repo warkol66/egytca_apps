@@ -14,6 +14,11 @@
  */
 class CategoryQuery extends BaseCategoryQuery {
 
+	public function __construct($dbName = 'application', $modelName = 'Category', $modelAlias = null) {
+		parent::__construct($dbName, $modelName, $modelAlias);
+			$this->orderByRank(Criteria::DESC);
+	}
+
 	/**
 	 * Devuelve aquellas categorias a las que tiene acceso el usuario más
 	 * aquellas que no tienen grupo asignado.

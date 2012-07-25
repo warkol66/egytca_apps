@@ -669,6 +669,8 @@
 	.fc-view-agendaWeek .evEfemeridePast .eventoContent span.fc-event-title,
 	.fc-view-agendaDay .evFeriadoPast .eventoContent span.fc-event-title,
 	.fc-view-agendaDay .evEfemeridePast .eventoContent span.fc-event-title,
+	.fc-view-month .evFeriadoPast .eventoContent span.fc-event-title,
+	.fc-view-month .evEfemeridePast .eventoContent span.fc-event-title,
 	.evEfemeridePast,
 	.evFeriadoPast
 	{color: #CCCCCC; !important}	

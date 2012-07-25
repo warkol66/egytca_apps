@@ -1,4 +1,4 @@
-|-if $event->getId() is even-|
+|-if $event->getIsConstruction()-|
 <script type="text/javascript" language="javascript" src="scripts/jquery/jquery.carouFredSel-5.6.1.js"></script>
 <script language="javascript" type="text/javascript">
  $('#fancyboxDiv').ajaxComplete(function() {

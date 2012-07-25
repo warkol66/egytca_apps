@@ -8,6 +8,7 @@
 		<column name="active" type="BOOLEAN" required="true" description="Is category active?" />
 		<column name="isPublic" type="BOOLEAN" required="true" description="Is category public?" default="0" />
 		<column name="responsible" size="255" type="VARCHAR" required="true" description="Responsable de la dependendencia" />
+		<column name="rank" type="INTEGER" defaultValue="0" description="Rango contra otros categorias" />
 
 		<behavior name="soft_delete" />
 

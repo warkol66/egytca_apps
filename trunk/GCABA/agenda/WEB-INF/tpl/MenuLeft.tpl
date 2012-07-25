@@ -20,6 +20,7 @@
 		|| $module|upper eq 'ACTORS'-|block|-else-|none|-/if-|">
 			<li><a href="Main.php?do=actorsList">Funcionarios</a></li>
 			<li><a href="Main.php?do=categoriesList">Dependencias</a></li>
+			<li><a href="Main.php?do=categoriesSort">Ordenar Dependencias</a></li>
 			<li><a href="Main.php?do=calendarAxisList">Ejes de Gestión</a></li>
 		</div>
 		<li class="titleMenu" onclick="switch_vis('sectionAdmin')">Administración</li>
