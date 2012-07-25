@@ -24,5 +24,8 @@ class PlanningConstructionsListAction extends BaseListAction {
 		parent::postList();
 		$this->smarty->assign("module", $this->module);
 		$this->smarty->assign("section", "Constructions");
+
+		if ($_GET["nav"])
+			$this->smarty->assign("nav", true);
 	}
 }

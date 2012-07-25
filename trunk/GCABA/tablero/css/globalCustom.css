@@ -206,6 +206,8 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-position: -80px -140px !Important; }
 .iconNewsClipping {
 	background-position: -100px -140px !Important; }
+.iconNodes {
+	background-position: -120px -140px !Important; }
 .icon:hover,input[type="submit"].icon:hover, input[type="button"].icon:hover  {
 	background-color: #b9b9b9 !Important;
 	border: 1px solid #a3a3a3 !Important;

@@ -15,7 +15,7 @@
  */
 class PlanningProject extends BasePlanningProject {
 	
-	public function getChildren() {
+	public function getBrood() {
 		return $this->getActivities();
 	}
 
