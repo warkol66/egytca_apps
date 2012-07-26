@@ -1,3 +1,14 @@
+<script type="text/javascript" src="scripts/lightbox.js"></script> 			
+<div id="lightbox1" class="leightbox">
+	<p align="right">				
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
+	</p> 
+	<div id="planningProjectsShowWorking"></div>
+	<div class="innerLighbox">
+		<div id="planningProjectsShowDiv"></div>
+	</div>
+</div>
+
 |-if $message eq "ok"-|
 	<div class="successMessage">Proyecto guardado correctamente</div>
 |-elseif $message eq "error"-|
@@ -121,7 +132,8 @@
 	</p>
 	  
 	  
-		 |-if !$planningProject->isNew()-|<h3>Actividades</h3>|-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities()-||-/if-|
+		 |-if !$planningProject->isNew()-|<h3>Actividades |-if $planningProject->getActivities()|count gt 0-|
+					<input type="button" class="icon iconViewGantt" onClick='window.open("Main.php?do=planningProjectsViewX&showGantt=true&id=|-$planningProject->getid()-|","Gantt","width=800,height=600");' value="Ver Gantt" title="Ver Gantt (abre en ventana nueva)" />|-else-|<img src="images/clear.png" class="icon iconClear disabled" />|-/if-|</h3>|-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() showGantt="true"-||-/if-|
 	  
 	  
 	  
