@@ -27,8 +27,9 @@
 <script src="Main.php?do=js&name=js&module=common&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 </head>
 <body>
+<div id="basicContent">
 |-$centerHTML-|
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-</body>
+</div></body>
 </html>

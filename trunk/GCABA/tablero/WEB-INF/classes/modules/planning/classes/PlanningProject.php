@@ -15,9 +15,31 @@
  */
 class PlanningProject extends BasePlanningProject {
 	
+	/**
+	 * Devuelve coleccion de objetos asociados (PlanningActivity)
+	 *
+	 * @return coll objetos asociados al proyecto
+	 */
 	public function getBrood() {
-		return $this->getActivities();
+		$constructionQuery = PlanningConstructionQuery::create()->filterByPlanningProject($this);
+		$activitiesQuery = BaseQuery::create('PlanningActivity')->filterByObjecttype('Project')->filterByObjectid($this->getId());
+		if ($constructionQuery->count() > 0)
+	    $brood = $constructionQuery->find();
+	   else
+	    $brood = $activitiesQuery->find();
+		return $brood;
 	}
+
+	/**
+	 * Devuelve el nombre mas la particula identificatoria
+	 *
+	 * @return string
+	 */
+	public function getTreeName() {
+		$pre = ConfigModule::get("planning","preTreeName");
+		return $pre[get_class($this)].$this->getName();
+	}
+
 
 	/**
 	 * Devuelve un string con quien modifico el Proyecto (PlanningProject)

@@ -15,8 +15,23 @@
  */
 class MinistryObjective extends BaseMinistryObjective {
 	
+	/**
+	 * Devuelve coleccion de objetos asociados (OperativeObjective)
+	 *
+	 * @return coll objetos asociados al objetivo
+	 */
 	public function getBrood() {
 		return $this->getOperativeObjectives();
+	}
+
+	/**
+	 * Devuelve el nombre mas la particula identificatoria
+	 *
+	 * @return string
+	 */
+	public function getTreeName() {
+		$pre = ConfigModule::get("planning","preTreeName");
+		return $pre[get_class($this)].$this->getName();
 	}
 
 	/**

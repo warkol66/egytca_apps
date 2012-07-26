@@ -90,13 +90,16 @@ Puede ver la versión gráfica haciendo click <a href="Main.php?do=positionsChar
 						<input type="submit" name="submit_go_edit_position" value="Modificar persona a cargo" title="Modificar persona a cargo" class="icon iconEditUser" />
 						|-assign var=tenureId value=""-|
 					</form>|-/if-|
-					<form action="Main.php" method="post" style="display:inline;">
+					|-if $position->getTreeLevel() neq 0-|<form action="Main.php" method="post" style="display:inline;">
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="positionsDoDelete" />
 						<input type="hidden" name="id" value="|-$position->getid()-|" />
 						<input type="submit" name="submit_go_delete_position" value="Borrar" onclick="return confirm('Seguro que desea eliminar la posición?')" class="icon iconDelete" />
-					</form>|-/if-|
+					</form>|-else-|
+					<input type="button" name="submit_go_delete_position" value="Borrar" class="icon iconDelete disabled" title="Esta dependencia no se puede eliminar, si desea hacerlo solicitelo al administrador del sistema" />
+					|-/if-|
+					|-/if-|
 				</td>
 			</tr>
 			|-/foreach-|						

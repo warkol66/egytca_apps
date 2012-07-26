@@ -180,6 +180,9 @@ a.pageLink:hover, a.pageLink:active {
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 }
+.secondLayer {
+	z-index:11201 !Important;	
+}
 .innerLighbox {
 	overflow: auto;
 	max-height: 500px;

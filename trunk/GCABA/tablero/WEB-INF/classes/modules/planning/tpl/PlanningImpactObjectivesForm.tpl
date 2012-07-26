@@ -111,13 +111,13 @@
 		<ul id="indicatorList" class="iconOptionsList">
 			|-foreach from=$impactObjective->getPlanningIndicators() item=indicator-|
 			<li id="indicatorListItem|-$indicator->getId()-|" title="Indicador asociado al objetivo de impacto">
-						<form action="Main.php" method="post" style="display:inline;"> 
+						|-if !$show && !$showLog -|<form action="Main.php" method="post" style="display:inline;"> 
 							<input type="hidden" name="do" value="planningObjectsDoRemoveIndicatorX" /> 
 							<input type="hidden" name="planningObjectType" value="ImpactObjective" /> 
 							<input type="hidden" name="planningObjectId" value="|-$impactObjective->getId()-|" /> 
 							<input type="hidden" name="indicatorId" value="|-$indicator->getId()-|" />
 							<input type="button" name="submit_go_remove_indicator" value="Borrar" title="Eliminar indicador de objetivo de impacto" onclick="if (confirm('Seguro que desea eliminar el indicator del objetivo de impacto?')) removeIndicatorFromPlanningObject(this.form);" class="icon iconDelete" /> 
-						</form> |-$indicator-|
+						</form>|-/if-|<input type="button" class="icon iconView" onClick='window.open("Main.php?do=planningIndicatorsViewX&id=|-$indicator->getid()-|","indicator","width=800,height=600");' value="Ver indicador" title="Ver indicador (abre en ventana nueva)" />&nbsp; &nbsp; |-$indicator-|
 			</li>
 			|-/foreach-|
 			</ul>    

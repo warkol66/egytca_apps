@@ -1,7 +1,7 @@
 <script type="text/javascript" src="scripts/lightbox.js"></script> 			
 <div id="lightbox1" class="leightbox">
 	<p align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a> 
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
 	</p> 
 	<div id="planningIndicatorsShowWorking"></div>
 	<div class="innerLighbox">
@@ -52,12 +52,12 @@
 			<tr>
 				<td>|-$indicator->getName()-|</td>
 				<td>|-$indicator->getIndicatorType()-|</td>
-				<td nowrap><!--
+				<td nowrap>
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="planningIndicatorsViewX" />
 						<input type="hidden" name="id" value="|-$indicator->getid()-|" />
 						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("planningIndicatorsShowDiv", "Main.php?do=planningIndicatorsViewX&id=|-$indicator->getid()-|", { method: "post", parameters: { id: "|-$indicator->getId()-|"}, evalScripts: true})};$("planningIndicatorsShowWorking").innerHTML = "<span class=\"inProgress\">buscando Indicador...</span>";' value="Ver detalle" name="submit_go_show_indicator" title="Ver detalle" /></a>
-					</form>-->
+					</form>
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="planningIndicatorsEdit" />
 						<input type="hidden" name="id" value="|-$indicator->getid()-|" />

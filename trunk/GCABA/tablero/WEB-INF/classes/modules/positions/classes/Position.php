@@ -23,12 +23,32 @@ class Position extends BasePosition {
 		$this->colors = $system["config"]["tablero"]["colors"];
 	}
 	
+	/**
+	 * Devuelve coleccion de objetos asociados (ImpactObjectives)
+	 *
+	 * @return coll objetos asociados al cargo
+	 */
 	public function getBrood() {
 		return $this->getImpactObjectives();
 	}
 	
+	/**
+	 * Devuelve cantidad de objetos asociados (ImpactObjectives)
+	 *
+	 * @return int  cantidad de objetos asociados al cargo
+	 */
 	public function countBrood() {
 		return $this->countImpactObjectives();
+	}
+
+	/**
+	 * Devuelve el nombre mas la particula identificatoria
+	 *
+	 * @return string
+	 */
+	public function getTreeName() {
+		$pre = ConfigModule::get("planning","preTreeName");
+		return $pre[get_class($this)].$this->getName();
 	}
 
 	/**
