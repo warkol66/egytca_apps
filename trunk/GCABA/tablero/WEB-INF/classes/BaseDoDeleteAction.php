@@ -26,7 +26,7 @@ class BaseDoDeleteAction extends BaseAction {
 			if ($this->isAjax()) {
 				throw $e; // Buscar una mejor forma de que falle AJAX
 			} else {
-				$smarty->assign('message', $e->getMessage());
+				$this->smarty->assign('message', $e->getMessage());
 				return $mapping->findForwardConfig('failure');
 			}
 		}
@@ -39,7 +39,7 @@ class BaseDoDeleteAction extends BaseAction {
 				if ($this->isAjax()) {
 					throw new Exception(); // Buscar una mejor forma de que falle AJAX
 				} else {
-					$smarty->assign('notValidId', 'true');
+					$this->smarty->assign('notValidId', 'true');
 					return $mapping->findForwardConfig('success');
 				}
 			}
