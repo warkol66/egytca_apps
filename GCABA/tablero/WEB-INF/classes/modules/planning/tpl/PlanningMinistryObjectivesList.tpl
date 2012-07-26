@@ -1,7 +1,7 @@
 <script type="text/javascript" src="scripts/lightbox.js"></script> 			
 <div id="lightbox1" class="leightbox">
 	<p align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a> 
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
 	</p> 
 	<div id="planningMinistryObjectivesShowWorking"></div>
 	<div class="innerLighbox">
@@ -58,7 +58,7 @@
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="objectivesViewX" />
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
-						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("planningMinistryObjectivesShowDiv", "Main.php?do=planningMinistryObjectivesViewX&id=|-$objective->getid()-|", { method: "post", parameters: { id: "|-$objective->getId()-|"}, evalScripts: true})};$("planningMinistryObjectivesShowWorking").innerHTML = "<span class=\"inProgress\">buscando Objetivo Ministerial...</span>";' value="Ver detalle" name="submit_go_show_objective" title="Ver detalle" /></a>
+						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("planningMinistryObjectivesShowDiv", "Main.php?do=planningMinistryObjectivesViewX&id=|-$objective->getid()-|", { method: "post", parameters: { id: "|-$objective->getId()-|"}, evalScripts: true, onComplete: function() {new Chosen($("params_regions"));}})};$("planningMinistryObjectivesShowWorking").innerHTML = "<span class=\"inProgress\">buscando Objetivo Ministerial...</span>";' value="Ver detalle" name="submit_go_show_objective" title="Ver detalle" /></a>
 					</form>
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="planningMinistryObjectivesEdit" />

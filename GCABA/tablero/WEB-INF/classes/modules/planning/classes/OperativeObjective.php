@@ -15,8 +15,23 @@
  */
 class OperativeObjective extends BaseOperativeObjective {
 	
+	/**
+	 * Devuelve coleccion de objetos asociados (PlanningProjects)
+	 *
+	 * @return coll objetos asociados al obejtivo
+	 */
 	public function getBrood() {
 		return $this->getPlanningProjects();
+	}
+
+	/**
+	 * Devuelve el nombre mas la particula identificatoria
+	 *
+	 * @return string
+	 */
+	public function getTreeName() {
+		$pre = ConfigModule::get("planning","preTreeName");
+		return $pre[get_class($this)].$this->getName();
 	}
 
 	/**

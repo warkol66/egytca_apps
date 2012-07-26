@@ -16,6 +16,16 @@
 class PlanningActivity extends BasePlanningActivity {
 
 	/**
+	 * Devuelve el nombre mas la particula identificatoria
+	 *
+	 * @return string
+	 */
+	public function getTreeName() {
+		$pre = ConfigModule::get("planning","preTreeName");
+		return $pre[get_class($this)].$this->getName();
+	}
+
+	/**
 	 * Devuelve las actividades
 	 * @return array Relacion las actividades
 	 */

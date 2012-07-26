@@ -27,7 +27,7 @@ class PlanningTreeAction extends BaseAction {
 	}
 	
 	private function populate($node) {
-		$data = array('name' => $node->getName());
+		$data = array('name' => $node->getTreeName());
 		if (method_exists($node, 'getBrood')) {
 			foreach ($node->getBrood() as $child) {
 				if (!$data['children'])

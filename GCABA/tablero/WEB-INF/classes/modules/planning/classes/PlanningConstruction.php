@@ -16,6 +16,25 @@
 class PlanningConstruction extends BasePlanningConstruction {
 
 	/**
+	 * Devuelve coleccion de objetos asociados (PlanningActivity)
+	 *
+	 * @return coll objetos asociados a la obra
+	 */
+	public function getBrood() {
+		return $this->getActivities();
+	}
+
+	/**
+	 * Devuelve el nombre mas la particula identificatoria
+	 *
+	 * @return string
+	 */
+	public function getTreeName() {
+		$pre = ConfigModule::get("planning","preTreeName");
+		return $pre[get_class($this)].$this->getName();
+	}
+
+	/**
 	 * Devuelve un string con quien modifico la obra (PlanningConstruction)
 	 *
 	 * @return string nombre del usuario que modifico la obra

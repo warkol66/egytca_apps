@@ -2,7 +2,7 @@
 |-if !$show && !$showLog -|
 <div id="lightbox1" class="leightbox">
 	<p align="right">
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a>
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a>
 	</p>
 	|-include file="PlanningIndicatorsEditInclude.tpl"-|
 </div>
@@ -114,7 +114,6 @@
 				<option value="|-$object->getid()-|" |-$ministryObjective->hasRegion($object)|selected:true-|>|-$object->getname()-|</option>
 			|-/foreach-|
 			</select>
-			<script type="text/javascript">new Chosen($("params_regions"));</script>
 		</p>
 		|-if isset($loginUser) && $loginUser->isSupervisor() && !$ministryObjective->isNew()-|
 			<p>
@@ -156,13 +155,13 @@
 		<ul id="indicatorList" class="iconOptionsList">
 			|-foreach from=$ministryObjective->getPlanningIndicators() item=indicator-|
 			<li id="indicatorListItem|-$indicator->getId()-|" title="Indicador asociado al objetivo ministerial">
-						<form action="Main.php" method="post" style="display:inline;">
+						|-if !$show && !$showLog -|<form action="Main.php" method="post" style="display:inline;">
 							<input type="hidden" name="do" value="planningObjectsDoRemoveIndicatorX" />
 							<input type="hidden" name="planningObjectType" value="MinistryObjective" />
 							<input type="hidden" name="planningObjectId" value="|-$ministryObjective->getId()-|" />
 							<input type="hidden" name="indicatorId" value="|-$indicator->getId()-|" />
 							<input type="button" name="submit_go_remove_indicator" value="Borrar" title="Eliminar indicador de objetivo ministerial" onclick="if (confirm('Seguro que desea eliminar el indicator del objetivo ministerial?')) removeIndicatorFromPlanningObject(this.form);" class="icon iconDelete" />
-						</form> |-$indicator-|
+						</form>|-/if-|<input type="button" class="icon iconView" onClick='window.open("Main.php?do=planningIndicatorsViewX&id=|-$indicator->getid()-|","indicator","width=800,height=600");' value="Ver indicador" title="Ver indicador (abre en ventana nueva)" />&nbsp; &nbsp; |-$indicator-|
 			</li>
 			|-/foreach-|
 			</ul>
@@ -199,6 +198,6 @@
 		$('indicatorMsgField').innerHTML = '<span class="inProgress">Eliminando indicador...</span>';
 		return true;
 	}
-
+	new Chosen($("params_regions"));
 </script>
 |-/if-|

@@ -15,8 +15,23 @@
  */
 class ImpactObjective extends BaseImpactObjective {
 	
+	/**
+	 * Devuelve coleccion de objetos asociados (MinistryObjective)
+	 *
+	 * @return coll objetos asociados al objetivo
+	 */
 	public function getBrood() {
 		return $this->getMinistryObjectives();
+	}
+
+	/**
+	 * Devuelve el nombre mas la particula identificatoria
+	 *
+	 * @return string
+	 */
+	public function getTreeName() {
+		$pre = ConfigModule::get("planning","preTreeName");
+		return $pre[get_class($this)].$this->getName();
 	}
 
 	/**

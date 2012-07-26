@@ -47,6 +47,14 @@ class ConfigModule {
 				13 => 'General Director',
 				14 => 'Director',
 				15 => 'Sub Director'
+				),
+			"preTreeName" => array(
+				"ImpactObjective" => "OI => ",
+				"MinistryObjective" => "OM => ",
+				"OperativeObjective" => "OO => ",
+				"PlanningProject" => "Pr => ",
+				"PlanningConstruction" => "Ob => ",
+				"PlanningActivity" => "Ac => "
 				)
 		),
 		"positions" => array(
