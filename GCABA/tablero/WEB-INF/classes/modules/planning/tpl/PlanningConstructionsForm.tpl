@@ -80,7 +80,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 		<p>
         <label for="params_name">Nombre</label>
       <input name="params[name]" type="text" id="params_name" size="80" value="|-$planningConstruction->getName()-|" title="Nombre del Obra" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
-      </p>
+    </p>
     <p> 
       <label for="params_description">Breve Descripción</label>
       <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Obra" class="emptyValidation" |-$readonly|readonly-| >|-$planningConstruction->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
@@ -145,8 +145,8 @@ $("#autocomplete_responsibleCode").ajaxChosen({
         <label for="params_sanctionAmount">Presupuesto Sanción</label>
       <input name="params[sanctionAmount]" type="text" id="params_sanctionAmount" size="20" value="|-$planningConstruction->getSanctionAmount()|system_numeric_format-|" title="Presupuesto Sancionado " class="right" |-$readonly|readonly-|/>
     </p>
-		 |-if !$planningConstruction->isNew()-|<h3>Partida presupuestaria</h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningConstruction->getBudgetItems() readonly="readonly" showLog="true"-||-/if-|
-		 <h3>Actividades</h3>|-if !$planningConstruction->isNew()-||-include file="PlanningActivitiesInclude.tpl" activities=$planningConstruction->getActivities() construction=$planningConstruction-||-else-|
+		 |-if !$planningConstruction->isNew()-|<h3>Partida presupuestaria <a href="javascript:void(null)" onClick="$('budgetItemsTable').toggle();" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningConstruction->getBudgetItems() readonly="readonly" showLog="true"-||-/if-|
+		 <h3>Actividades <a href="javascript:void(null)" onClick="$('activitiesTable').toggle();" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-if !$planningConstruction->isNew()-||-include file="PlanningActivitiesInclude.tpl" activities=$planningConstruction->getActivities() construction=$planningConstruction-||-else-|
 		 |-include file="PlanningConstructionsTemplateInclude.tpl" construction="true"-||-/if-|
 	<p>
         <label for="params_fundingSource">Fuente de Financiamiento</label>
@@ -156,6 +156,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
         <label for="params_address">Dirección</label>
       <input name="params[address]" type="text" id="params_address" size="80" value="|-$planningConstruction->getAddress()-|" title="Dirección" |-$readonly|readonly-|/>
     </p>
+|-if !$planningConstruction->isNew()-|<h3>Ejecución Físico/Financiera <a href="javascript:void(null)" onClick="$('progressRecordsTable').toggle();" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningConstructionProgressInclude.tpl" progressRecords=$planningConstruction->getConstructionProgresss()-||-/if-|
 	<p>
 		<label for="params_regions">Comunas</label>
 		<select class="chzn-select wide-chz-select" data-placeholder="Seleccione una o varias comunas..." multiple="multiple" id="params_regions" name="params[regionsIds][]" size="5" title="comunas" |-$readonly|readonly-|>

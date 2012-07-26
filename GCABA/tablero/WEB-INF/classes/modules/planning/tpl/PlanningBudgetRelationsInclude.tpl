@@ -22,7 +22,7 @@ html =   '      <tr> '
  + '            <td><input name="budgetItem[][budgetConstruction]"  id="params_budgetConstruction[]" type="text" value="" size="2" title="Obra"></td>'
  + '            <td align="center"><input name="budgetItem[][total]" type="hidden" value="0"><input name="budgetItem[][total]" id="params_total[]" type="checkbox" value="1" title="Indique si se utiliza toda la partida"></td>'
  + '            <td><input name="budgetItem[][amount]"  id="params_amount[]" type="text" value="" size="12" title="Monto"></td>'
- + '         		<td><input name="budgetItem[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar partida" onclick="deleteRow(this.parentNode.parentNode.rowIndex)" /></td> '
+ + '         		<td><input name="budgetItem[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar partida" onclick="deleteBudgetItemRow(this.parentNode.parentNode.rowIndex)" /></td> '
  + '       </tr>';
 	row.innerHTML= html;
 	document.getElementById("budgetItemsTbody").appendChild(row);
@@ -44,8 +44,8 @@ html =   '      <tr> '
 		return true;
 	}
 </script>|-/if-|
-  <div style="margin-left:130px;"> 
-     <table class="tableTdBorders" id="budgetItemsTable"> 
+  <div style="margin-left:150px;"> 
+     <table class="tableTdBorders" id="budgetItemsTable" style="display:none; margin-bottom:15px;"> 
       <thead> 
         |-if !$show && !$showLog-| <tr> 
           <th colspan="12"><div class="rightLink"><a href="#" onclick="return addBudgetItemRow()" class="addLink" title="Agregar nuevo Monto">Agregar Nueva Partida</a></div></th> 
@@ -92,9 +92,8 @@ html =   '      <tr> '
 			|-/if-|
      </table> 
    </div> 
-<p>&nbsp;</p>
 <script type="text/javascript">
-function deleteRow(i){
+function deleteBudgetItemRow(i){
 	document.getElementById('budgetItemsTable').deleteRow(i)
 }
 </script>

@@ -156,6 +156,39 @@ class PlanningConstructionsDoEditAction extends BaseAction {
 		}
 		//Fin actividades
 
+		/***
+		 * Registros de ejcucion
+		 */
+		foreach ($_POST["progressRecord"] as $item) {
+			foreach ($item as $itemValue => $value) {
+				if ($itemValue == "physicalProgress" || $itemValue == "financialProgress") 
+					$value = Common::convertToMysqlNumericFormat($value);
+				$itemValues[$itemValue] = $value;
+			}
+			//Cuando complete todos los valores asociados a un monto, lo guardo en $itemParams
+			if ($itemValue == "eol") {
+				$itemParams[] = $itemValues;
+				$itemValues = array();
+			}
+		}
+		//Guardo los datos de montos asociados a la obra
+		foreach ($itemParams as $progressRecord) {
+			$record = ConstructionProgressQuery::create()->findOneById($progressRecord["id"]);	
+			if (empty($record))
+				$record = new ConstructionProgress();
+			$record->fromArray($progressRecord,BasePeer::TYPE_FIELDNAME);
+			$record->setConstructionid($planningConstruction->getId());
+			if ($record->isNew())
+				$record->setId(null);
+			try {
+				$record->save();
+			} catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->__toString());
+			}
+		}
+		//Fin Registros de ejcucion
+
 		if (isset($id))
 			$logSufix = ', ' . Common::getTranslation('action: create','common');
 		else
