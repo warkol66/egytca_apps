@@ -56,7 +56,7 @@ class BaseDoEditAction extends BaseAction {
 			
 			//Elijo la vista basado en si es o no un pedido por AJAX
 			if ($this->isAjax()) {
-				throw new Exception(); // Buscar una mejor forma de que falle AJAX
+				return $this->returnAjaxFailure($e->getMessage());
 			} else {
 				$this->onFailure($e);
 				return $this->returnFailure($mapping, $smarty, $this->entity, 'failure-edit');
@@ -76,18 +76,37 @@ class BaseDoEditAction extends BaseAction {
 		}
 	}
 
+	/**
+	 * Acciones a tomar despues de updatear el objeto pero antes de guardarlo
+	 * 
+	 * $this->entity->updateRegions()
+	 * // si updateRegions() lanza una excepcion se cancela el DoEdit con su mensaje de error
+	 */
 	protected function preSave() {
 		// default: do nothing
 	}
 
+	/**
+	 * Acciones a tomar despues de guardar el objeto
+	 */
 	protected function postSave() {
 		// default: do nothing
 	}
 
+	/**
+	 * Chequeos previos al update del objeto (update de datos sin guardarlos)
+	 * Example:
+	 * 
+	 * if (!checkOk())
+	 *	throw new Exception('error XXX');
+	 */
 	protected function preUpdate() {
 		// default: do nothing
 	}
 
+	/**
+	 * Acciones a tomar despues de guardar el objeto
+	 */
 	protected function postUpdate() {
 		// default: do nothing
 	}
