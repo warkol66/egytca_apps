@@ -1,7 +1,7 @@
 <script type="text/javascript" src="scripts/lightbox.js"></script> 			
 <div id="lightbox1" class="leightbox">
 	<p align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a> 
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
 	</p> 
 	<div id="planningProjectsShowWorking"></div>
 	<div class="innerLighbox">
@@ -55,6 +55,8 @@
 				<td>|-$project->getPosition()-|</td>
 				<td>|-$project->getName()-|</td>
 				<td nowrap>
+					|-if $project->getActivities()|count gt 0-|
+					<input type="button" class="icon iconViewGantt" onClick='window.open("Main.php?do=planningProjectsViewX&showGantt=true&id=|-$project->getid()-|","Gantt","width=800,height=600");' value="Ver Gantt" title="Ver Gantt (abre en ventana nueva)" />|-else-|<img src="images/clear.png" class="icon iconClear disabled" />|-/if-|
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="planningProjectsViewX" />
 						<input type="hidden" name="id" value="|-$project->getid()-|" />
