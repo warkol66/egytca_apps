@@ -145,3 +145,42 @@
 </table>
 <p>&nbsp;</p>
 </div>
+<script type="text/javascript">
+  var selectType = document.getElementById("params_constructionType");
+  selectType.onchange = function() {
+    var chosenOption = this.options[this.selectedIndex];
+    switch(chosenOption.value) {
+      case '1':
+        $('activitiesMayorTable').hide();
+        $('activitiesMinorTable').show();
+				disableInputs('mayorActivity');
+				enableInputs('minorActivity');
+        break;
+      case '2':
+        $('activitiesMayorTable').show();
+        $('activitiesMinorTable').hide();
+				enableInputs('mayorActivity');
+				disableInputs('minorActivity');
+        break;
+      default:
+        $('activitiesMayorTable').hide();
+        $('activitiesMinorTable').hide();
+				disableInputs('mayorActivity');
+				disableInputs('minorActivity');
+      }
+  }
+	function disableInputs(className) {
+		elems = document.getElementsByClassName(className); // May need to repeat this for "select" and "textarea"
+		for (var i=0; i<elems.length; i++) {
+		 $(elems[i]).disable();
+		}
+	}
+	function enableInputs(className) {
+		elems = document.getElementsByClassName(className); // May need to repeat this for "select" and "textarea"
+		for (var i=0; i<elems.length; i++) {
+		 $(elems[i]).enable();
+		}
+	}
+	disableInputs('minorActivity');
+	disableInputs('minorActivity');
+</script>

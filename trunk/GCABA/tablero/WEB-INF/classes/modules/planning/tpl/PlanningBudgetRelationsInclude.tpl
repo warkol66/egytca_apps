@@ -50,7 +50,11 @@ html =   '      <tr> '
         |-if !$show && !$showLog-| <tr> 
           <th colspan="12"><div class="rightLink"><a href="#" onclick="return addBudgetItemRow()" class="addLink" title="Agregar nuevo Monto">Agregar Nueva Partida</a></div></th> 
         </tr> |-/if-|
-				|-*if ($show || $showLog) && $budgetItems|@count gt 0*-|
+				|-if $budgetItems|count eq 0 && ($show || $showLog)-|
+			 <tr> 
+          <td colspan="12">No hay partidas presupuestarias asociadas</td> 
+        </tr>
+			|-else-|
          <tr> 
           <th>Año</th> 
           <th>Jur</th> 
@@ -81,15 +85,11 @@ html =   '      <tr> '
             <td align="center"><input name="budgetItem[][totalItem]" type="hidden" value="0"><input name="budgetItem[][totalItem]" id="params_total[]" type="checkbox" value="1" |-$budgetItem->getTotalItem()|checked_bool-| title="Indique si se utiliza toda la partida" |-$readonly|readonly-|>
         </td>
             <td><input name="budgetItem[][amount]"  id="params_amount[]" type="text" value="|-$budgetItem->getAmount()|system_numeric_format-|" class="right" size="12" title="Monto" |-$readonly|readonly-|></td>
-         		<td>|-if !$show && !$showLog-|<input name="budgetItem[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar partida" value="Eliminar partida" onClick="removeItemFromConstruction('|-$budgetItem->getId()-|')" />|-/if-|</td> 
+         		<td>|-if !$show && !$showLog-|<input name="budgetItem[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar partida" value="Eliminar partida" onClick="removeItemFromConstruction('|-$budgetItem->getId()-|')" />|-else-|<img src="images/clear.png" class="disabled icon iconClear" />|-/if-|</td> 
        </tr> 
       |-/foreach-|
-			|-*else*-|
-			 <!--<tr> 
-          <td colspan="12">No hay partidas presupuestarias asociadas</td> 
-        </tr> -->
-			|-*/if*-|
       </tbody> 
+			|-/if-|
      </table> 
    </div> 
 <p>&nbsp;</p>

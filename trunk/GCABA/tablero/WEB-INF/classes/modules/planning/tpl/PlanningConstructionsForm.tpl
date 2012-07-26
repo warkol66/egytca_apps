@@ -146,8 +146,8 @@ $("#autocomplete_responsibleCode").ajaxChosen({
       <input name="params[sanctionAmount]" type="text" id="params_sanctionAmount" size="20" value="|-$planningConstruction->getSanctionAmount()|system_numeric_format-|" title="Presupuesto Sancionado " class="right" |-$readonly|readonly-|/>
     </p>
 		 |-if !$planningConstruction->isNew()-|<h3>Partida presupuestaria</h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningConstruction->getBudgetItems() readonly="readonly" showLog="true"-||-/if-|
-		 <h3>Actividades</h3>|-if !$planningConstruction->isNew()-||-include file="PlanningActivitiesInclude.tpl" activities=$planningConstruction->getActivities() construction="true"-||-else-|
-		 |-include file="PlanningContractsTemplateInclude.tpl" construction="true"-||-/if-|
+		 <h3>Actividades</h3>|-if !$planningConstruction->isNew()-||-include file="PlanningActivitiesInclude.tpl" activities=$planningConstruction->getActivities() construction=$planningConstruction-||-else-|
+		 |-include file="PlanningConstructionsTemplateInclude.tpl" construction="true"-||-/if-|
 	<p>
         <label for="params_fundingSource">Fuente de Financiamiento</label>
       <input name="params[fundingSource]" type="text" id="params_fundingSource" size="80" value="|-$planningConstruction->getFundingSource()-|" title="Fuente de Financiamiento" |-$readonly|readonly-|/>
@@ -185,42 +185,3 @@ $("#autocomplete_responsibleCode").ajaxChosen({
     </fieldset> 
   </form> 
 
-<script type="text/javascript">
-  var selectType = document.getElementById("params_constructionType");
-  selectType.onchange = function() {
-    var chosenOption = this.options[this.selectedIndex];
-    switch(chosenOption.value) {
-      case '1':
-        $('activitiesMayorTable').hide();
-        $('activitiesMinorTable').show();
-				disableInputs('mayorActivity');
-				enableInputs('minorActivity');
-        break;
-      case '2':
-        $('activitiesMayorTable').show();
-        $('activitiesMinorTable').hide();
-				enableInputs('mayorActivity');
-				disableInputs('minorActivity');
-        break;
-      default:
-        $('activitiesMayorTable').hide();
-        $('activitiesMinorTable').hide();
-				disableInputs('mayorActivity');
-				disableInputs('minorActivity');
-        alert('default');
-      }
-  }
-function disableInputs(className) {
-	elems = document.getElementsByClassName(className); // May need to repeat this for "select" and "textarea"
-	for (var i=0; i<elems.length; i++) {
-	 $(elems[i]).disable();
-	}
-}
-
-function enableInputs(className) {
-	elems = document.getElementsByClassName(className); // May need to repeat this for "select" and "textarea"
-	for (var i=0; i<elems.length; i++) {
-	 $(elems[i]).enable();
-	}
-}
-</script>
