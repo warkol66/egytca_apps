@@ -37,8 +37,8 @@ html =   '      <tr> '
 		return true;
 	}
 </script>|-/if-|
-  <div style="margin-left:130px;"> 
-     <table class="tableTdBorders" id="activitiesTable"> 
+  <div style="margin-left:150px;"> 
+     <table class="tableTdBorders" id="activitiesTable" style="display:none; margin-bottom:15px;"> 
       <thead> 
         |-if !$show && !$showLog-||-if !isset($construction) || (isset($construction) && $construction->getConstructionType() eq 1)-| <tr> 
           <th colspan="6"><div class="rightLink"><a href="#" onclick="return addActivityRow()" class="addLink" title="Agregar nueva actividad">Agregar Actividad</a></div></th> 
@@ -101,7 +101,6 @@ html =   '      <tr> '
       </tbody> 
      </table> 
    </div> 
-<p>&nbsp;</p>
 <script type="text/javascript">
 function deleteActivityRow(i){
 	document.getElementById('activitiesTable').deleteRow(i)

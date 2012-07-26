@@ -218,6 +218,27 @@
 
 	</table>
 
+	<table name="planning_constructionProgress" phpName="ConstructionProgress" description="Ejecucion fisico/financiera">
+	
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="constructionId" type="INTEGER" description="Id de obra"/>
+
+		<column name="year" type="INTEGER" description="Ano" />
+		<column name="month" type="INTEGER" description="Mes" />
+		<column name="physicalProgress" type="DECIMAL" size="12" scale="2" description="Avance fisico de la Obra"/>
+		<column name="financialProgress" type="DECIMAL" size="12" scale="2" description="Avance financiero de la Obra"/>
+
+		<foreign-key foreignTable="planning_construction" >
+			<reference local="constructionId" foreign="id" />
+		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
 	<table name="planning_constructionLog" phpName="PlanningConstructionLog" description="Obras - Log">
 		<column name="id" primaryKey="true" type="INTEGER" description="Id del proyecto" autoIncrement="true" />
 		<column name="constructionId" type="INTEGER" description="Id de de la obra"/>
@@ -252,8 +273,7 @@
 		
 		<column name="fundingSource" required="true" type="VARCHAR" size="255" description="Fuente de Financiamiento"/>
 		<column name="address" required="true" type="VARCHAR" size="255" description="Fuente de Financiamiento"/>
-		
-		
+	
 		<column name="description" type="LONGVARCHAR" description="Descripcion del proyecto"/>
 		<column name="planningProjectId" type="INTEGER" description="Id del Proyecto"/>
 		<column name="version" type="INTEGER" description="Numero de version" />
