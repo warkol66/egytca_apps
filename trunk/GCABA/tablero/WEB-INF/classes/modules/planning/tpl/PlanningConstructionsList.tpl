@@ -61,12 +61,15 @@
 						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("planningConstructionsShowDiv", "Main.php?do=planningConstructionsViewX&id=|-$construction->getid()-|", { method: "post", parameters: { id: "|-$construction->getId()-|"}, evalScripts: true})};$("planningConstructionsShowWorking").innerHTML = "<span class=\"inProgress\">buscando Obra...</span>";' value="Ver detalle" name="submit_go_show_construction" title="Ver detalle" /></a>
 					</form>
 					<form action="Main.php" method="get" style="display:inline;">
+						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="planningConstructionsEdit" />
 						<input type="hidden" name="id" value="|-$construction->getid()-|" />
 						<input type="submit" name="submit_go_edit_construction" value="Editar" class="icon iconEdit" title="Editar Obra"/>
 					</form>
-					
 					<form action="Main.php" method="post" style="display:inline;">
+						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="planningConstructionsDoDelete" />
 						<input type="hidden" name="id" value="|-$construction->getid()-|" />
 						<input type="submit" name="submit_go_delete_construction" value="Borrar" onclick="return confirm('Seguro que desea eliminar el objetivo?')" class="icon iconDelete" title="Eliminar Obra" />
