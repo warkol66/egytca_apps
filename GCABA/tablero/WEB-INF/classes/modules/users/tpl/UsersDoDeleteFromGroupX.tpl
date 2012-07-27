@@ -1,6 +1,6 @@
 <script type="text/javascript" language="javascript">
 
-	Element.remove('groupListItem|-$group->getId()-|');
+	$('#groupListItem|-$group->getId()-|').remove();
 
 	var option = document.createElement('option');
 	option.text = '|-$group->getName()-|';
@@ -8,10 +8,10 @@
 	option.id = 'groupOption|-$group->getId()-|';
 	
 	try {
-		$('groupId').add(option,null);
+		document.getElementById('groupId').add(option,null);
 	}
 	catch (exp) {
-		$('groupId').add(option);		
+		document.getElementById('groupId').add(option);		
 	}
 
 
