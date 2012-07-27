@@ -1,8 +1,8 @@
 <script type="text/javascript" language="javascript" >
-	$('groupMsgField').innerHTML = '<span class="resultSuccess">Usuario agregado a Grupo</span>';
-	option = $('groupOption|-$group->getId()-|');
+	$('#groupMsgField').html('<span class="resultSuccess">Usuario agregado a Grupo</span>');
+	option = $('#groupOption|-$group->getId()-|');
 	if (option != null) {
-		Element.remove('groupOption|-$group->getId()-|');
+		$('#groupOption|-$group->getId()-|').remove();
 	}
 	
 </script>

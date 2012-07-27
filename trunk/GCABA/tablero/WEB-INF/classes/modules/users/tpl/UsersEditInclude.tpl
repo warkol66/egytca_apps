@@ -1,42 +1,32 @@
 <script language="JavaScript" type="text/javascript">
 function usersDoAddFromGroup(form) {
-	
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'groupList'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true,
-					insertion: Insertion.Bottom
-				});
-				
-	$('groupMsgField').innerHTML = '<span class="inProgress">agregando usuario a grupo...</span>';
-	
+	var fields = $(form).serialize();
+	$.ajax({
+		url: url,
+		type: 'post',
+		data: fields,
+		success: function(data) {
+			$('#groupList').append($(data));
+		}
+	});
+	$('#groupMsgField').html('<span class="inProgress">agregando usuario a grupo...</span>');
 	return true;
 }
 
 function usersDoDeleteFromGroup(form){
-
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'groupMsgField'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				});
-				
-	$('groupMsgField').innerHTML = '<span class="inProgress">eliminando usuario de grupo...</span>';
-	
+	var fields = $(form).serialize();
+	$.ajax({
+		url: url,
+		type: 'post',
+		data: fields,
+		success: function(data) {
+			$('#groupMsgField').html($(data));
+		}
+	});
+	$('#groupMsgField').html('<span class="inProgress">eliminando usuario de grupo...</span>');
 	return true;
-
 }
 </script>
-<!-- inclusion de validación de javascript -->
-|-include file='ValidationJavascriptInclude.tpl'-|
 
 <form method='post' action='Main.php?do=usersDoEdit'>
 <fieldset title="Formulario de edición de usuarios">

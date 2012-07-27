@@ -1,15 +1,14 @@
 <script language="JavaScript" type="text/javascript">
 function usersDoEditInfo(form){
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'userInfoMsgField'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				});
-	$('userInfoMsgField').innerHTML = '<span class="inProgress">Actualizando información del usuario...</span>';
+	var fields = $(form).serialize();
+	$.ajax({
+		url: url,
+		type: 'post',
+		success: function(data) {
+			$('#userInfoMsgField').html($(data));
+		}
+	});
+	$('#userInfoMsgField').html('<span class="inProgress">Actualizando información del usuario...</span>');
 	return true;
 }
 </script>

@@ -81,6 +81,7 @@ class UsersEditAction extends BaseAction {
 		$smarty->assign("filters",$_GET["filters"]);
 		$smarty->assign("page",$_GET["page"]);
 
+		$this->template->template = 'TemplateJQuery.tpl';
 		return $mapping->findForwardConfig('success');
 
 	}
