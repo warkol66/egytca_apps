@@ -9,7 +9,11 @@
 		<unique>
 			<unique-column name="code" />
 		</unique>
-
+		
+		<validator column="code">
+			<rule name="unique" message="el codigo ya existe!" />
+		</validator>
+		
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
