@@ -72,18 +72,15 @@
       <input name="params[investment]" type="checkbox" id="params_investment" value="1" |-$planningProject->getInvestment()|checked_bool-|  title="Proyecto de Inversion" |-$readonly|readonly-|/>
     </p>
 	<p>
-        <label for="params_preexisting">Proyecto preexistente?</label><input name="params[preexisting]" type="hidden" value="0"/>
+			<label for="params_preexisting">Proyecto preexistente?</label><input name="params[preexisting]" type="hidden" value="0"/>
       <input name="params[preexisting]" type="checkbox" id="params_preexisting" value="1" |-$planningProject->getPreexisting()|checked_bool-| title="Proyecto preexistente" |-$readonly|readonly-|/>
     </p>
 	<p>
-        <label for="params_preexistingCode ">Código preexistente</label>
-      <input name="params[preexistingCode]" type="text" id="params_preexistingCode " size="20" value="|-$planningProject->getPreexistingCode()-|" title="Código Preexistente" maxlength="255" |-$readonly|readonly-|/>
-    </p>
+		<label for="params_preexistingCode ">Código preexistente</label>
+		<input name="params[preexistingCode]" type="text" id="params_preexistingCode " size="20" value="|-$planningProject->getPreexistingCode()-|" title="Código Preexistente" maxlength="255" |-$readonly|readonly-|/>
+	</p>
 		 |-if !$planningProject->isNew()-|
-
-		 <h3>Partida presupuestaria</h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningProject->getBudgetItems()-||-/if-|
-
-
+		 <h3>Partida presupuestaria &nbsp; <a href="javascript:void(null)" id="showHideBudgetRelations" onClick="$('budgetItemsTable').toggle(); $('showHideBudgetRelations').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningProject->getBudgetItems()-||-/if-|
 	<p>
 		<label for="params_ministryPriority">Prioridad Ministerial</label>
 		<select id="params_ministryPriority" name="params[ministryPriority]" title="Prioridad Ministerial" |-$readonly|readonly-| |-if $show || $showLog-|disabled="disabled"|-/if-|>
@@ -132,8 +129,7 @@
 	</p>
 	  
 	  
-		 |-if !$planningProject->isNew()-|<h3>Actividades |-if $planningProject->getActivities()|count gt 0-|
-					<input type="button" class="icon iconViewGantt" onClick='window.open("Main.php?do=planningProjectsViewX&showGantt=true&id=|-$planningProject->getid()-|","Gantt","width=800,height=600");' value="Ver Gantt" title="Ver Gantt (abre en ventana nueva)" />|-else-|<img src="images/clear.png" class="icon iconClear disabled" />|-/if-|</h3>|-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() showGantt="true"-||-/if-|
+		 |-if !$planningProject->isNew()-|<h3>Actividades &nbsp; <a href="javascript:void(null)" id="showHidePlanningActivities" onClick="$('activitiesTable').toggle(); $('showHidePlanningActivities').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a> </h3>|-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() showGantt="true"-||-/if-|
 	  
 	  
 	  
