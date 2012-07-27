@@ -15,14 +15,17 @@
 		
 		// puedo pasar los parametros por separado en la opcion data en vez de en la url
 		$('#autocomplete_impactObjectiveId').egytca('autocomplete',
-			'Main.php?do=commonAutocompleteListX&object=ImpactObjective&objectParam=id'
+			'Main.php?do=commonAutocompleteListX&object=ImpactObjective&objectParam=id',
+			{ jsonTermKey: 'value' }
 		);
 			
 		$('#autocomplete_responsibleCode').egytca('autocomplete',
-			'Main.php?do=commonAutocompleteListX&object=position&objectParam=code'
+			'Main.php?do=commonAutocompleteListX&object=position&objectParam=code',
+			{ jsonTermKey: 'value' }
 		);
 		
 		$('#autocomplete_indicators').egytca('autocomplete', 'Main.php?do=commonAutocompleteListX', {
+			jsonTermKey: 'value',
 			data: {
 				object: 'planningIndicator',
 				getCandidates: '1',
