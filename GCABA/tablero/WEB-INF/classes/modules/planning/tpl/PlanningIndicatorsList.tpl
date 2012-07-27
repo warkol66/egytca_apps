@@ -59,12 +59,15 @@
 						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("planningIndicatorsShowDiv", "Main.php?do=planningIndicatorsViewX&id=|-$indicator->getid()-|", { method: "post", parameters: { id: "|-$indicator->getId()-|"}, evalScripts: true})};$("planningIndicatorsShowWorking").innerHTML = "<span class=\"inProgress\">buscando Indicador...</span>";' value="Ver detalle" name="submit_go_show_indicator" title="Ver detalle" /></a>
 					</form>
 					<form action="Main.php" method="get" style="display:inline;">
+						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="planningIndicatorsEdit" />
 						<input type="hidden" name="id" value="|-$indicator->getid()-|" />
 						<input type="submit" name="submit_go_edit_indicator" value="Editar" class="icon iconEdit" title="Editar Indicador"/>
 					</form>
-					
 					<form action="Main.php" method="post" style="display:inline;">
+						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="planningIndicatorsDoDelete" />
 						<input type="hidden" name="id" value="|-$indicator->getid()-|" />
 						<input type="submit" name="submit_go_delete_indicator" value="Borrar" onclick="return confirm('Seguro que desea eliminar el objetivo?')" class="icon iconDelete" title="Eliminar Indicador" />

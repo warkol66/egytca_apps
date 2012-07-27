@@ -61,16 +61,22 @@
 						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("planningMinistryObjectivesShowDiv", "Main.php?do=planningMinistryObjectivesViewX&id=|-$objective->getid()-|", { method: "post", parameters: { id: "|-$objective->getId()-|"}, evalScripts: true, onComplete: function() {new Chosen($("params_regions"));}})};$("planningMinistryObjectivesShowWorking").innerHTML = "<span class=\"inProgress\">buscando Objetivo Ministerial...</span>";' value="Ver detalle" name="submit_go_show_objective" title="Ver detalle" /></a>
 					</form>
 					<form action="Main.php" method="get" style="display:inline;">
+						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="planningMinistryObjectivesEdit" />
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
 						<input type="submit" name="submit_go_edit_objective" value="Editar" class="icon iconEdit" title="Editar Objetivo Ministerial"/>
 					</form>
 					<form action="Main.php" method="post" style="display:inline;">
+						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="planningMinistryObjectivesDoDelete" />
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
 						<input type="submit" name="submit_go_delete_objective" value="Borrar" onclick="return confirm('Seguro que desea eliminar el objetivo?')" class="icon iconDelete" title="Eliminar Objetivo Ministerial" />
 					</form>
 					<form action="Main.php" method="get" style="display:inline;">
+						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="planningOperativeObjectivesEdit" />
 						<input type="hidden" name="fromMinistryObjectiveId" value="|-$objective->getid()-|" />
 						<input type="submit" name="submit_go_edit" value="Agregar Objetivos Operativos" class="icon iconAdd" title="Agregar Objetivos Operativos al Objetivo Ministerial" />

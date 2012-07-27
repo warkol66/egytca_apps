@@ -63,17 +63,22 @@
 						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("planningProjectsShowDiv", "Main.php?do=planningProjectsViewX&id=|-$project->getid()-|", { method: "post", parameters: { id: "|-$project->getId()-|"}, evalScripts: true})};$("planningProjectsShowWorking").innerHTML = "<span class=\"inProgress\">buscando Proyecto...</span>";' value="Ver detalle" name="submit_go_show_project" title="Ver detalle" /></a>
 					</form>
 					<form action="Main.php" method="get" style="display:inline;">
+						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="planningProjectsEdit" />
 						<input type="hidden" name="id" value="|-$project->getid()-|" />
 						<input type="submit" name="submit_go_edit_project" value="Editar" class="icon iconEdit" title="Editar Proyecto"/>
 					</form>
-					
 					<form action="Main.php" method="post" style="display:inline;">
+						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="planningProjectsDoDelete" />
 						<input type="hidden" name="id" value="|-$project->getid()-|" />
 						<input type="submit" name="submit_go_delete_project" value="Borrar" onclick="return confirm('Seguro que desea eliminar el objetivo?')" class="icon iconDelete" title="Eliminar Proyecto" />
 					</form>
 					<form action="Main.php" method="get" style="display:inline;">
+						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="planningConstructionsEdit" />
 						<input type="hidden" name="fromPlanningProjectId" value="|-$project->getid()-|" />
 						<input type="submit" name="submit_go_edit_construction" value="Agregar Obras" class="icon iconAdd" title="Agregar Obras" />
