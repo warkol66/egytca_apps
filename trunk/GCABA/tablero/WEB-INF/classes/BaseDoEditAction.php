@@ -52,7 +52,6 @@ class BaseDoEditAction extends BaseAction {
 			$this->preSave();
 			$this->entity->save();
 			$action = empty($id) ? 'create' : 'edit';
-			$a = new PlanningActivity();
 			$logSufix = ', ' . Common::getTranslation('action: '.$action, 'common');
 			Common::doLog('success', $this->entity . $logSufix); // use primary string
 			$this->postSave();
