@@ -4,8 +4,10 @@ class BaseListAction extends BaseAction {
 	
 	private $entityClassName;
 	protected $smarty;
-	protected $entity;
 	protected $ajaxTemplate;
+	protected $query;
+	protected $results;
+	protected $pager;
 	
 	function __construct($entityClassName) {
 		if (empty($entityClassName))
@@ -17,7 +19,7 @@ class BaseListAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-		BaseAction::execute($mapping, $form, $request, $response);
+		parent::execute($mapping, $form, $request, $response);
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
@@ -25,7 +27,8 @@ class BaseListAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 		$this->smarty =& $smarty;
-
+		
+		$this->query = BaseQuery::create($this->entityClassName);
 		$this->preList();
 
 		if (class_exists($this->entityClassName)) {
@@ -36,14 +39,15 @@ class BaseListAction extends BaseAction {
 	
 				$perPage = Common::getRowsPerPage($this->module);
 				$page = $request->getParameter("page");
-	
-				$pager = BaseQuery::create($this->entityClassName)->createPager($this->filters, $page, $perPage);
-		
-				$smarty->assign(lcfirst($this->entityClassName) . "Coll", $pager->getResults());
-				$smarty->assign("pager",$pager);
+				
+				$this->pager = $this->query->createPager($this->filters, $page, $perPage);
+				$this->results = $this->pager->getResults();
+				
+				$smarty->assign("pager",$this->pager);
 			}
-			else
-				$smarty->assign(lcfirst($this->entityClassName) . "Coll", BaseQuery::create($this->entityClassName)->addFilters($this->filters)->find());
+			else {
+				$this->results = $this->query->addFilters($this->filters)->find();
+			}
 
 			$url = "Main.php?" . "do=" . lcfirst(substr_replace(get_class($this),'', strrpos(get_class($this), 'Action'), 6));
 			foreach ($this->filters as $key => $value)
@@ -55,6 +59,8 @@ class BaseListAction extends BaseAction {
 			$smarty->assign("message", $_GET["message"]);
 			
 			$this->postList();
+			
+			$smarty->assign(lcfirst($this->entityClassName) . "Coll", $this->results);
 	
 			return $mapping->findForwardConfig('success');
 		}
