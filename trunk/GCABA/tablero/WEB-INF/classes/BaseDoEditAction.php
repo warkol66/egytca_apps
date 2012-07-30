@@ -51,6 +51,10 @@ class BaseDoEditAction extends BaseAction {
 			$this->entity->fromArray($this->entityParams,BasePeer::TYPE_FIELDNAME);
 			$this->preSave();
 			$this->entity->save();
+			$action = empty($id) ? 'create' : 'edit';
+			$a = new PlanningActivity();
+			$logSufix = ', ' . Common::getTranslation('action: '.$action, 'common');
+			Common::doLog('success', $this->entity . $logSufix); // use primary string
 			$this->postSave();
 		} catch (Exception $e) {
 			
