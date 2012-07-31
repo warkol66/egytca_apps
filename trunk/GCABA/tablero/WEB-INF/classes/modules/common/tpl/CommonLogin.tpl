@@ -4,9 +4,10 @@
 		<div id="loginTopBorder"><b class="rounded"><b class="rtop"><b class="r7"></b><b class="r6"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r1"></b></b></b></div>
 		 <!-- Begin loginContentWrapper --> 
 		<div id="loginContentWrapper">
-		<form method='post' action="Main.php"> 
 		 <!-- Begin LoginTop --> 
 		 <div id="loginTop"></div><!-- End LoginTop --> 
+|-block name="contentLogin"-|
+		<form method='post' action="Main.php"> 
 		 <!-- Begin LoginContent --> 
 		 <div id="loginContent"><br />
  			<noscript><div align='center' class='errorMessage'>Su navegador tiene desabilitada la ejecución de Javascript.
@@ -44,6 +45,7 @@
 			<div id="lostPassword"><a href="Main.php?do=commonPasswordRecovery">¿Olvidó su contraseña?</a></div>
 		</div><!-- End LoginBottom --> 
 		</form> 
+|-/block-|
 	 </div><!-- End LoginContentWrapper --> 
 	 <div id="loginBottomBorder"><b class="rounded"><b class="rbottom "><b class="r1"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b><b class="r5"></b><b class="r6"></b><b class="r7"></b></b></b></div>
 	</div><!-- End Login --> 
