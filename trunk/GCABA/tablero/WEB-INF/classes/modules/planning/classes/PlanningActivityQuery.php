@@ -15,4 +15,9 @@
  */
 class PlanningActivityQuery extends BasePlanningActivityQuery {
 
+	public function __construct($dbName = 'application', $modelName = 'PlanningActivity', $modelAlias = null) {
+		parent::__construct($dbName, $modelName, $modelAlias);
+			$this->orderById();
+	}
+
 } // PlanningActivityQuery
