@@ -106,14 +106,16 @@ class PlanningConstructionsDoEditAction extends BaseAction {
 		}
 		//Guardo los datos de montos asociados a la obra
 		foreach ($itemParams as $budgetItem) {
-			$budgetRelation = BudgetRelationQuery::create()->findOneById($budgetItem["id"]);	
-			if (empty($budgetRelation))
+			if (!empty($budgetItem["id"])) {
+				$budgetRelation = BudgetRelationQuery::create()->findOneById($budgetItem["id"]);
+				if (empty($budgetRelation))
+					$budgetRelation = new BudgetRelation();
+			}
+			else
 				$budgetRelation = new BudgetRelation();
 			$budgetRelation->fromArray($budgetItem,BasePeer::TYPE_FIELDNAME);
-			if ($budgetRelation->isNew())
-				$budgetRelation->setId(null);
 			$budgetRelation->setObjectType('Construction');
-			$budgetRelation->setObjectid($_POST["id"]);
+			$budgetRelation->setObjectid($planningConstruction->getId());
 			try {
 				$budgetRelation->save();
 			} catch (PropelException $exp) {
@@ -138,13 +140,14 @@ class PlanningConstructionsDoEditAction extends BaseAction {
 		}
 		//Guardo los datos de montos asociados a la obra
 		foreach ($activityParams as $activity) {
-			$id = $activity["id"];		
-				$activityObj = PlanningActivityQuery::create()->findOneById($id);
-			if (empty($activityObj))
+			if (!empty($activity["id"])) {
+				$activityObj = PlanningActivityQuery::create()->findOneById($activity["id"]);
+				if (empty($activityObj))
+					$activityObj = new PlanningActivity();
+			}
+			else
 				$activityObj = new PlanningActivity();
 			$activityObj->fromArray($activity,BasePeer::TYPE_FIELDNAME);
-			if ($activityObj->isNew())
-				$activityObj->setId(null);
 			$activityObj->setObjectType('Construction');
 			$activityObj->setObjectid($planningConstruction->getId());
 			try {
@@ -173,13 +176,15 @@ class PlanningConstructionsDoEditAction extends BaseAction {
 		}
 		//Guardo los datos de montos asociados a la obra
 		foreach ($itemParams as $progressRecord) {
-			$record = ConstructionProgressQuery::create()->findOneById($progressRecord["id"]);	
-			if (empty($record))
+			if (!empty($progressRecord["id"])) {
+				$record = ConstructionProgressQuery::create()->findOneById($progressRecord["id"]);	
+				if (empty($record))
+					$record = new ConstructionProgress();
+			}
+			else
 				$record = new ConstructionProgress();
 			$record->fromArray($progressRecord,BasePeer::TYPE_FIELDNAME);
 			$record->setConstructionid($planningConstruction->getId());
-			if ($record->isNew())
-				$record->setId(null);
 			try {
 				$record->save();
 			} catch (PropelException $exp) {

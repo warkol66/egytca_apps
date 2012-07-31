@@ -104,14 +104,16 @@ class PlanningProjectsDoEditAction extends BaseAction {
 		}
 		//Guardo los datos de montos asociados a la obra
 		foreach ($itemParams as $budgetItem) {
-			$budgetRelation = BudgetRelationQuery::create()->findOneById($budgetItem["id"]);
-			if (empty($budgetRelation))
+			if (!empty($budgetItem["id"])) {
+				$budgetRelation = BudgetRelationQuery::create()->findOneById($budgetItem["id"]);
+				if (empty($budgetRelation))
+					$budgetRelation = new BudgetRelation();
+			}
+			else
 				$budgetRelation = new BudgetRelation();
 			$budgetRelation->fromArray($budgetItem,BasePeer::TYPE_FIELDNAME);
-			if ($budgetRelation->isNew())
-				$budgetRelation->setId(null);
 			$budgetRelation->setObjectType('Project');
-			$budgetRelation->setObjectid($_POST["id"]);
+			$budgetRelation->setObjectid($planningProject->getId());
 			try {
 				$budgetRelation->save();
 			} catch (PropelException $exp) {
@@ -136,14 +138,16 @@ class PlanningProjectsDoEditAction extends BaseAction {
 		}
 		//Guardo los datos de montos asociados a la obra
 		foreach ($activityParams as $activity) {
-			$activityObj = PlanningActivityQuery::create()->findOneById($activity["id"]);
-			if (empty($activityObj))
+			if (!empty($activity["id"])) {
+				$activityObj = PlanningActivityQuery::create()->findOneById($activity["id"]);
+				if (empty($activityObj))
+					$activityObj = new PlanningActivity();
+			}
+			else
 				$activityObj = new PlanningActivity();
 			$activityObj->fromArray($activity,BasePeer::TYPE_FIELDNAME);
-			if ($activityObj->isNew())
-				$activityObj->setId(null);
 			$activityObj->setObjectType('Project');
-			$activityObj->setObjectid($_POST["id"]);
+			$activityObj->setObjectid($planningProject->getId());
 			try {
 				$activityObj->save();
 			} catch (PropelException $exp) {
@@ -162,6 +166,8 @@ class PlanningProjectsDoEditAction extends BaseAction {
 
 		$params = array();
 		$params["id"] = $planningProject->getId();
+		if (!empty($_POST["fromOperativeObjectiveId"]))
+			$params["fromOperativeObjectiveId"] = $_POST["fromOperativeObjectiveId"];
 		return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'success-edit');
 
 	}
