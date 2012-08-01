@@ -30,6 +30,28 @@ class PlanningDummyAction extends BaseAction {
 			$this->template->template = "TemplateJQuery.tpl";
 		}
 		
+		
+		//BaseQueryDebug
+		$filters = array(
+			'name' => 'myName',
+			'description' => 'myDescription',
+			'entityFilter' => 'asd'
+		);
+		$q = BaseQuery::create('ImpactObjective')
+			->addFilters($filters)
+			->filterByName('qwe', Criteria::LIKE)
+			->filterById(array('min' => 1, 'max' => 10))
+			->orderByName(Criteria::ASC)
+			->filterByName();
+		
+		$debugInfo = $q->debug();
+		$pager = $q->createPager($filters, 1, 10);
+		$results = $pager->getResults();
+		$smarty->assign('debugInfo', $debugInfo);
+		$smarty->assign('pager', $pager);
+		$smarty->assign('results', $results);
+		// end BaseQueryDebug
+		
 		return $mapping->findForwardConfig('success');
 	}
 }

@@ -1,4 +1,7 @@
 |-if !$isAjax-|
+	
+|-include file="BaseQueryDebug.tpl" debugInfo=$debugInfo-|
+
 <script type="text/javascript" src="scripts/jquery/egytca.js"></script>
 <!--<script type="text/javascript" src="scripts/jquery/jquery.jeditable.mini.js"></script>-->
 <link type="text/css" rel="stylesheet" href="css/chosen.css" />
