@@ -50,10 +50,11 @@ class BaseDoEditAction extends BaseAction {
 			$this->preUpdate();
 			$this->entity->fromArray($this->entityParams,BasePeer::TYPE_FIELDNAME);
 			$this->preSave();
+			$action = $this->entity->isNew() ? 'create' : 'edit';
 			$this->entity->save();
-			$action = empty($id) ? 'create' : 'edit';
 			$logSufix = ', ' . Common::getTranslation('action: '.$action, 'common');
-			Common::doLog('success', $this->entity . $logSufix); // use primary string
+			if (method_exists($this->entity, 'getLogData'))
+				Common::doLog('success', $this->entity->getLogData() . $logSufix);
 			$this->postSave();
 		} catch (Exception $e) {
 			
