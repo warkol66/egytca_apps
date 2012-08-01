@@ -35,16 +35,18 @@ class PlanningDummyAction extends BaseAction {
 		$filters = array(
 			'name' => 'myName',
 			'description' => 'myDescription',
-			'entityFilter' => 'asd'
+			'entityFilter' => 'asd',
+			'entityFilTer' => 'qwe',
+			'naMe' => 'someName'
 		);
-		$q = BaseQuery::create('ImpactObjective')
+		$q = BaseQuery::create('ImpactObjective')->startDebug()
 			->addFilters($filters)
 			->filterByName('qwe', Criteria::LIKE)
 			->filterById(array('min' => 1, 'max' => 10))
 			->orderByName(Criteria::ASC)
 			->filterByName();
 		
-		$debugInfo = $q->debug();
+		$debugInfo = $q->printDebugInfo(); // param == true to store info in variable
 		$pager = $q->createPager($filters, 1, 10);
 		$results = $pager->getResults();
 		$smarty->assign('debugInfo', $debugInfo);

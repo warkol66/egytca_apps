@@ -25,11 +25,14 @@ class BaseQuery {
      */
     private $queryClass;
     
+    private $debugging;
     private $debugInfo;
     
     public function BaseQuery($modelNameOrModelCriteria) {
         $this->query = $this->createQuery($modelNameOrModelCriteria);
         $this->queryClass = get_class($this->query);
+	$this->debugging = false;
+	$this->debugInfo = array();
     }
     
     private function createQuery($modelNameOrModelCriteria) {
@@ -73,8 +76,7 @@ class BaseQuery {
             return $this;
         }
 	
-	$this->debugInfo['filters'] []= array('name' => $filterName, 'params' => $filterValue);
-	
+	$found = true;
 	switch ($filterName) {
 
 		case 'searchString':
@@ -92,8 +94,18 @@ class BaseQuery {
 				$this->query->filterBy($filterName, $filterValue);
 			else if (is_array($filterValue))
 				$this->addFilters($filterValue); // Revisar
+			else
+				$found = false;
 
 			break;
+	}
+	
+	if ($this->debugging) {
+		$this->debugInfo['filters'] []= array(
+			'name' => $filterName,
+			'params' => $filterValue,
+			'found' => $found
+		);
 	}
 
 	return $this;
@@ -160,7 +172,13 @@ class BaseQuery {
     private function callIfPossible($method, $arguments) {
         if (method_exists($this->queryClass, $method) || ($this->isMagicMethod($method))) {
 //            echo " invocando $method <br />";
-	    $this->debugInfo['filters'] []= array('name' => $method, 'params' => $arguments);
+	    if ($this->debugging) {
+	        $this->debugInfo['filters'] []= array(
+			'name' => $method,
+			'params' => $arguments,
+			'found' => true
+		);
+	    }
 	    
             if (!is_array($arguments))
                 $arguments = array($arguments);
@@ -204,9 +222,22 @@ class BaseQuery {
         
     }
     
-    public function debug() {
+    public function startDebug() {
+	    $this->debugging = true;
+	    return $this;
+    }
+    
+    public function printDebugInfo($return = false) {
+	    
+	    if (!$this->debugging)
+		    throw new Exception('must start debug first!! ($query->startDebug())');
+	    
 	    $this->debugInfo['sql'] = $this->query->toString();
-	    return $this->debugInfo;
+	    
+	    if ($return)
+		    return $this->debugInfo;
+	    else
+		    echo "<pre>";print_r($this->debugInfo);echo "</pre>";die;
     }
     
 } // Query
