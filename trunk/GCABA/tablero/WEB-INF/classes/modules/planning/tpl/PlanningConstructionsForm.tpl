@@ -145,6 +145,17 @@ $("#autocomplete_responsibleCode").ajaxChosen({
         <label for="params_sanctionAmount">Presupuesto Sanción</label>
       <input name="params[sanctionAmount]" type="text" id="params_sanctionAmount" size="20" value="|-$planningConstruction->getSanctionAmount()|system_numeric_format-|" title="Presupuesto Sancionado " class="right" |-$readonly|readonly-|/>
     </p>
+
+
+  <p>     
+    <label for="params_startingDate">Fecha de Inicio</label>
+    <input id="params_startingDate" name="params[startingDate]" type='text' value='|-$planningConstruction->getStartingDate()|date_format-|' size="12" title="Ingrese la fecha de Inicio"  |-$readonly|readonly-|/>|-if !$show && !$showLog-| <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de inicio">|-/if-|
+  </p>
+  <p>     
+    <label for="params_endingDate">Fecha de Finalización</label>
+    <input id="params_endingDate" name="params[endingDate]" type='text' value='|-$planningConstruction->getEndingDate()|date_format-|' size="12" title="Ingrese la fecha de Finalizacion"  |-$readonly|readonly-|/> |-if !$show && !$showLog-|<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[endingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de finalizacion">|-/if-|
+  </p>
+      
 		 |-if !$planningConstruction->isNew()-|<h3>Partida presupuestaria &nbsp; <a href="javascript:void(null)" id="showHideBudgetRelations" onClick="$('budgetItemsTable').toggle(); $('showHideBudgetRelations').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningConstruction->getBudgetItems() readonly="readonly" showLog="true"-||-/if-|
 		 <h3>Actividades <a href="javascript:void(null)" id="showHidePlanningConstruction" onClick="$('activitiesTable').toggle(); $('showHidePlanningConstruction').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-if !$planningConstruction->isNew()-||-include file="PlanningActivitiesInclude.tpl" activities=$planningConstruction->getActivities() construction=$planningConstruction-||-else-|
 		 |-include file="PlanningConstructionsTemplateInclude.tpl" construction="true"-||-/if-|
