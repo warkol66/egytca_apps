@@ -585,3 +585,22 @@ a.detail:hover{
 legend, fieldset legend, fieldset fieldset legend {
 	color: #696969 !Important;
 }
+
+#navBar {
+	border-radius:2px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border:1px solid #a0a0a0;
+	background-color: #dde5eb;
+	-moz-box-shadow:2px 2px 3px #a0a0a0;
+	-webkit-box-shadow:2px 2px 3px #a0a0a0;
+	box-shadow:2px 2px 3px #a0a0a0;
+	font-size: 125% !Important;
+}
+#navBar a {
+}
+#navBar a:hover {
+}
+#navBar a:visited, #navBar a:link, #navBar a:active {
+	color: #555555;
+}

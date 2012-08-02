@@ -14,8 +14,8 @@
 |-/if-|
 |-if !$show && !$showLog-||-include file="CommonAutocompleterInclude.tpl"-||-/if-|
   <form name="form_edit_objective" id="form_edit_objective" action="Main.php" method="post">
-		<!--pasaje de parametros de filtros -->
 
+		<div id="navBar">|-include file="PlanningNavigationInclude.tpl" object=$impactObjective->getAntecessor()-|</div>
     <fieldset title="Formulario de datos de Objetivo de Impacto">
      <legend>Objetivo de Impacto|-if $startingYear eq $endingYear-| - |-$startingYear-||-else-| (|-$startingYear-| - |-$endingYear-|)|-/if-|</legend>
 

@@ -38,6 +38,9 @@
 |-/if-|
 |-if !$show && !$showLog-||-include file="CommonAutocompleterInclude.tpl"-||-/if-|
 	<form name="form_edit_objective" id="form_edit_objective" action="Main.php" method="post">
+
+		|-if $ministryObjective->isNew() && $impactObjective-|<div id="navBar">|-include file="PlanningNavigationInclude.tpl" object=$impactObjective-|</div>|-else-|<div id="navBar">|-include file="PlanningNavigationInclude.tpl" object=$ministryObjective->getAntecessor()-|</div>|-/if-|
+
 		<fieldset title="Formulario de datos de Objetivo Ministerial">
 		 <legend>Objetivo Ministerial|-if $startingYear eq $endingYear-| - |-$startingYear-||-else-| (|-$startingYear-| - |-$endingYear-|)|-/if-|</legend>
 		|-if !$fromImpactObjectiveId-|

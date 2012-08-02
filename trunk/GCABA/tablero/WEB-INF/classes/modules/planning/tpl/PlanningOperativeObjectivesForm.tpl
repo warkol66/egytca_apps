@@ -5,7 +5,9 @@
 |-/if-|
 |-if !$show && !$showLog-||-include file="CommonAutocompleterInclude.tpl"-||-/if-|
   <form name="form_edit_objective" id="form_edit_objective" action="Main.php" method="post">
-		<!--pasaje de parametros de filtros -->
+	
+		|-if $operativeObjective->isNew() && $ministryObjective-|<div id="navBar">|-include file="PlanningNavigationInclude.tpl" object=$ministryObjective-|</div>|-else-|<div id="navBar">|-include file="PlanningNavigationInclude.tpl" object=$operativeObjective->getAntecessor()-|</div>|-/if-|
+
     <fieldset title="Formulario de datos de Objetivo Operativo">
      <legend>Objetivo Operativo|-if $startingYear eq $endingYear-| - |-$startingYear-||-else-| (|-$startingYear-| - |-$endingYear-|)|-/if-|</legend>
 		|-if !$fromMinistryObjectiveId-|

@@ -11,10 +11,13 @@ body {
 #loginContent, #passRecovery {
 	text-align:left;
 }
-#loginContent h1, #passRecovery h1, #passRecovery h2 {
+#loginContent h1, #loginContentMaintenance h1, #passRecovery h1, #passRecovery h2 {
 	font-weight: bold;
 	font-size: 138.5%;
 	padding-left: 25px;
+}
+#loginContentMaintenance h1 {
+	padding: 15px;
 }
 #loginContent p, #passRecovery p {
 	font-weight: bold;
@@ -264,3 +267,23 @@ body {
 	z-index:12000;
 }
 
+#navBar {
+	font-weight: bold;
+	padding-top:6px;
+	padding-bottom: 6px;
+	margin-left: 15px;
+	padding: 8px;
+	margin: 8px 8px 8px 0;
+	-khtml-border-radius: 5px;
+	-opera-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+#navBar a {
+	text-decoration: none;
+}
+#navBar a:hover {
+	text-decoration: underline;
+}
+#navBar a:visited, #navBar a:link, #navBar a:active {
+}
