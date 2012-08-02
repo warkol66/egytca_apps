@@ -25,6 +25,15 @@ class PlanningConstruction extends BasePlanningConstruction {
 	}
 
 	/**
+	 * Devuelve el objeto (PlanningProject) del que se desprende la obra
+	 *
+	 * @return PlanningProject del que se desprende la obra
+	 */
+	public function getAntecessor() {
+		return $this->getPlanningProject();
+	}
+
+	/**
 	 * Devuelve el nombre mas la particula identificatoria
 	 *
 	 * @return string

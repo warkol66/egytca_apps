@@ -40,12 +40,11 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 |-/if-|
 |-if !$show && !$showLog-||-include file="CommonAutocompleterInclude.tpl"-||-/if-|
   <form name="form_edit_project" id="form_edit_project" action="Main.php" method="post">
-		<!--pasaje de parametros de filtros -->
+
+		|-if $planningConstruction->isNew() && $planningProject-|<div id="navBar">|-include file="PlanningNavigationInclude.tpl" object=$planningProject-|</div>|-else-|<div id="navBar">|-include file="PlanningNavigationInclude.tpl" object=$planningConstruction->getAntecessor()-|</div>|-/if-|
 
     <fieldset title="Formulario de datos de Obra">
      <legend>Obra|-if $startingYear eq $endingYear-| - |-$startingYear-||-else-| (|-$startingYear-| - |-$endingYear-|)|-/if-|</legend>
-
-
 		|-if !$fromPlanningProjectId-|
 		|-if $readonly neq "readonly"-|<div id="planningProject" style="position: relative;z-index:11100;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_planningProjectId" label="Proyecto" url="Main.php?do=commonAutocompleteListX&object=planningProject&objectParam=id" hiddenName="params[planningProjectId]" defaultHiddenValue=$planningConstruction->getplanningProjectId() defaultValue=$planningConstruction->getPlanningProject()-|
@@ -192,8 +191,11 @@ $("#autocomplete_responsibleCode").ajaxChosen({
     <input type="hidden" name="do" id="do" value="planningConstructionsDoEdit" /> 
 		<p>|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
 		|-if !$planningConstruction->isNew() && $fromPlanningProjectId-|	<input type='button' onClick='location.href="Main.php?do=planningConstructionsEdit&fromPlanningProjectId=|-$fromPlanningProjectId-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Agregar otra obra al proyecto' title="Agregar otra obra al proyecto"/>|-/if-|
+		|-if $fromPlanningProjectId-|
+		<input type='button' onClick='location.href="Main.php?do=planningProjectsEdit&id=|-$fromPlanningProjectId-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Regresar al Proyecto' title='Regresar al Proyecto' />
+		|-else-|
 	<input type='button' onClick='location.href="Main.php?do=planningConstructionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Obras"/>
-		</p>|-/if-|
+		|-/if-|		</p>|-/if-|
     </fieldset> 
   </form> 
 

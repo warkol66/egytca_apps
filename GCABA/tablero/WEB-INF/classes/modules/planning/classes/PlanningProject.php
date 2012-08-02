@@ -31,6 +31,15 @@ class PlanningProject extends BasePlanningProject {
 	}
 
 	/**
+	 * Devuelve el objeto (OperativeObjective) del que se desprende el proyecto
+	 *
+	 * @return OperativeObjective del que se desprende el proyecto 
+	 */
+	public function getAntecessor() {
+		return $this->getOperativeObjective();
+	}
+
+	/**
 	 * Devuelve el nombre mas la particula identificatoria
 	 *
 	 * @return string

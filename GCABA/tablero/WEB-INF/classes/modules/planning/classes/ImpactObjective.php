@@ -25,6 +25,15 @@ class ImpactObjective extends BaseImpactObjective {
 	}
 
 	/**
+	 * Devuelve el objeto (Position) del que se desprende el objetivo de impacto
+	 *
+	 * @return Position del que se desprende el objetivo de impacto
+	 */
+	public function getAntecessor() {
+		return $this->getPosition();
+	}
+
+	/**
 	 * Devuelve el nombre mas la particula identificatoria
 	 *
 	 * @return string

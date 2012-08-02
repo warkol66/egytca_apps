@@ -25,6 +25,15 @@ class OperativeObjective extends BaseOperativeObjective {
 	}
 
 	/**
+	 * Devuelve el objeto (MinistryObjective) del que se desprende el objetivo operativo
+	 *
+	 * @return MinistryObjective del que se desprende el objetivo operativo 
+	 */
+	public function getAntecessor() {
+		return $this->getMinistryObjective();
+	}
+
+	/**
 	 * Devuelve el nombre mas la particula identificatoria
 	 *
 	 * @return string

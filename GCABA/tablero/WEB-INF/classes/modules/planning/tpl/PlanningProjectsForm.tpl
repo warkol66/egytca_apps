@@ -16,7 +16,9 @@
 |-/if-|
 |-if !$show && !$showLog-||-include file="CommonAutocompleterInclude.tpl"-||-/if-|
   <form name="form_edit_project" id="form_edit_project" action="Main.php" method="post">
-		<!--pasaje de parametros de filtros -->
+
+		|-if $planningProject->isNew() && $operativeObjective-|<div id="navBar">|-include file="PlanningNavigationInclude.tpl" object=$operativeObjective-|</div>|-else-|<div id="navBar">|-include file="PlanningNavigationInclude.tpl" object=$planningProject->getAntecessor()-|</div>|-/if-|
+
     <fieldset title="Formulario de datos de Proyecto">
      <legend>Proyecto|-if $startingYear eq $endingYear-| - |-$startingYear-||-else-| (|-$startingYear-| - |-$endingYear-|)|-/if-|</legend>
 		|-if !$fromOperativeObjectiveId-|
@@ -151,9 +153,14 @@
     <input type="hidden" name="currentPage" id="currentPage" value="|-$currentPage-|" /> 
     <input type="hidden" name="do" id="do" value="planningProjectsDoEdit" /> 
 		<p>|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
+|-if $planningProject->getInvestment()-|
+<input type='button' onClick='location.href="Main.php?do=planningConstructionsEdit&fromPlanningProjectId=|-$planningProject->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Agregar Obra' title='Agregar Obra' />|-/if-|
 		|-if $fromOperativeObjectiveId-|	<input type='button' onClick='location.href="Main.php?do=planningProjectsEdit&fromOperativeObjectiveId=|-$fromOperativeObjectiveId-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Agregar otro proyecto' title="Agregar otro proyecto al objetivo operativo"/>|-/if-|
-
+		|-if $fromOperativeObjectiveId-|
+		<input type='button' onClick='location.href="Main.php?do=planningOperativeObjective&id=|-$fromOperativeObjectiveId-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Regresar al Objetivo Operativo' title='Regresar al Objetivo Operativo' />
+		|-else-|
 	<input type='button' onClick='location.href="Main.php?do=planningProjectsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Proyectos"/>
-		</p>|-/if-|
+		|-/if-|</p>
+	|-/if-|
     </fieldset> 
   </form> 

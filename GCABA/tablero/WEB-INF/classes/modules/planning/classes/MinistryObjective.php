@@ -25,6 +25,15 @@ class MinistryObjective extends BaseMinistryObjective {
 	}
 
 	/**
+	 * Devuelve el objeto (ImpactObjective) del que se desprende el objetivo ministerial
+	 *
+	 * @return ImpactObjective del que se desprende el objetivo ministerial 
+	 */
+	public function getAntecessor() {
+		return $this->getImpactObjective();
+	}
+
+	/**
 	 * Devuelve el nombre mas la particula identificatoria
 	 *
 	 * @return string
