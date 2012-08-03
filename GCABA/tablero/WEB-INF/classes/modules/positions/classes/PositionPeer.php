@@ -202,7 +202,7 @@ class PositionPeer extends BasePositionPeer {
 			return $position->getCode()+1;
 	}
 
-	private static function getNewerVersion() {
+	public static function getNewerVersion() {
 		$position = PositionQuery::create()->addDescendingOrderByColumn(PositionPeer::VERSIONID)->findOne();
 		if (empty($position))
 			return 1;
@@ -343,6 +343,15 @@ class PositionPeer extends BasePositionPeer {
 		$root = PositionQuery::create()->findRoot($version);
 
 		return $root;
+	}
+	
+	public static function hasMultipleRoots($version=1) {
+		$count = PositionQuery::create()
+			->addUsingAlias(PositionPeer::LEFT_COL, 1, Criteria::EQUAL)
+			->inTree($version)
+			->count();
+		
+		return $count > 1;
 	}
 
 	protected static function getNewVersionNode($node) {

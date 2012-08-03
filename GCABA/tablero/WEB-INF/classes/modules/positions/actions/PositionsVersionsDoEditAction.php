@@ -43,9 +43,20 @@ class PositionsVersionsDoEditAction extends BaseAction {
 			return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
 		}
 		else { // New project
-
+			
 			$version = new PositionVersion();
 			$version = Common::setObjectFromParams($version,$_POST["positionVersionData"]);
+			
+			$lastVersion = PositionPeer::getNewerVersion();
+			if (PositionPeer::hasMultipleRoots($lastVersion)) {
+				
+				$smarty->assign('message', 'corruptTree');
+				$smarty->assign('positionVersion', $version);
+				$smarty->display('PositionsVersionsEdit.tpl');
+				return;
+//				return $this->returnFailure($mapping, $smarty, $version, 'failure');
+			}
+			
 			if (!$version->save())
 				return $this->returnFailure($mapping,$smarty,$project);
 
