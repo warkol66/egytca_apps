@@ -569,15 +569,15 @@ ul.menu {
 ul.menu li {
 	position: relative;
 	float: left;
-	width: 160px;
+	width: 14em;
 	text-align: center;
 /*	border-right:solid 1px #ffe049; */
 }
 ul.menu li.narrow {
-	width: 120px;
+	width: 9em;
 }
 ul.menu li.wide {
-	width: 200px;
+	width: 18em;
 }
 ul.menu li a {
 	display: block;
@@ -591,11 +591,11 @@ ul.menu li.last a {
 	background: transparent;
 }
 ul.menu li a.sub {
-	padding-right: 15px;
+	padding-right: 1em;
 	background: transparent url(../images/bg-nav-sep.png) no-repeat right -30px;
 }
 ul.menu li a {
-	padding-right: 15px;
+	padding-right: 1em;
 	background: transparent;
 }
 ul.menu li:hover,
@@ -616,7 +616,7 @@ ul.menu ul {
 	margin: 0;
 	list-style: none;
 	top: 28px;
-	width: 220px;
+	width: 22em;
 	border-top: 1px solid #d7d7d7;
 }
 /* resetting first level */
@@ -652,7 +652,7 @@ ul.menu li.hover .protofish li.active a {
 	color: #f15c30;
 }
 ul.menu li li a.sub {
-	padding-right: 15px;
+	padding-right: 1em;
 	background: url(../images/arrow_r.png) no-repeat 95% 50%;
 }
 ul.menu li:hover li:hover a.sub,
@@ -663,7 +663,7 @@ ul.menu li.hover li.hover .protofish a.sub {
 /* resetting second level */
 ul.menu ul ul{
 	top: -1px;
-	margin-left: 221px;
+	margin-left: 14em;
 	background: #fff;
 }
 ul.menu li:hover li:hover li,
