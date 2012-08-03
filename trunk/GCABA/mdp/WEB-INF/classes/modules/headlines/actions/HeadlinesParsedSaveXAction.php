@@ -23,8 +23,13 @@ class HeadlinesParsedSaveXAction extends BaseAction {
 			$headline = HeadlineParsedQuery::create()->findOneById($_GET["id"]);
 			if (!is_null($headline)) {
 				$newHeadline = new Headline();
-				$newHeadline = Common::morphObjectValues($headline,$newHeadline);
-				
+
+
+			$newHeadline->fromJSON($headline->toJSON());
+			$newHeadline->setId(NULL);
+
+
+
 				$newHeadline->buildInternalId();
 				$headlineExist = HeadlineQuery::create()->findOneByInternalid($newHeadline->getInternalId());
 				if(!$headlineExist && $newHeadline->isModified() && $newHeadline->save()) {

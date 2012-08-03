@@ -254,6 +254,10 @@ fieldset label {
 	padding-bottom: 5px;
 	display: block;
 }
+.inlineLabel {
+	display: inline;
+	float: none;
+}
 fieldset p {
 	display: block;
 	height: auto;
@@ -483,6 +487,15 @@ ul.iconList li ul li {
 }
 .markets-chz-select {
 	min-width: 500px;
+}
+.wide-chz-select {
+	min-width: 500px;
+}
+.medium-chz-select {
+	min-width: 250px;
+}
+.narrow-chz-select {
+	min-width: 100px;
 }
 .in_place_editable {
 	padding: 4px;
