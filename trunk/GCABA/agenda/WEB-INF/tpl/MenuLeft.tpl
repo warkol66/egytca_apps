@@ -22,6 +22,7 @@
 			<li><a href="Main.php?do=categoriesList">Dependencias</a></li>
 			<li><a href="Main.php?do=categoriesSort">Ordenar Dependencias</a></li>
 			<li><a href="Main.php?do=calendarAxisList">Ejes de Gestión</a></li>
+			<li><a href="Main.php?do=calendarEventTypesList">Formatos</a></li>
 		</div>
 		<li class="titleMenu" onclick="switch_vis('sectionAdmin')">Administración</li>
 		<div id="sectionAdmin" style="display:|-if $module|upper eq 'USERS' || $module|upper eq 'AFFILIATES' || $module|upper eq 'MODULES' 
