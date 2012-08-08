@@ -1,5 +1,7 @@
 <?php
 
+require 'HeadlineFeedParser.php';
+
 class HeadlinesXMLParseAction extends BaseAction {
 	
 	function HeadlinesXMLParseAction() {
@@ -9,77 +11,41 @@ class HeadlinesXMLParseAction extends BaseAction {
 	function execute($mapping, $form, &$request, &$response) {
 		parent::execute($mapping, $form, $request, $response);
 		
-		$xmlData = file_get_contents('feed.xml');
-		$parsedData = new SimpleXMLElement($xmlData);
+		$tvHeadlinesFeed = 'http://prensa/rss1.xml';
+		$radioHeadlinesFeed = 'http://prensa/rss2.xml';
+		$pressHeadlinesFeed = 'http://prensa/rss3.xml';
 		
-		$fieldsMap = array(
-			'title' => 'name',
-			'description' => 'content',
-			'link' => 'url',
-			'pubDate' => 'datePublished'
-		);
+		$debug = true;
 		
-		$headlines = array();
-		$fields = array(); // DELETEME
-		foreach ($parsedData->channel->item as $item) {
-			$headline = new Headline();
-			foreach ($item as $key => $value) {
-				if ($fieldsMap[$key]) {
-					$setMethod = 'set'.ucfirst(strtolower($fieldsMap[$key]));
-					$headline->$setMethod($value);
-					$fileds[$key] = 'found'; // DELETEME
-				} else {
-					$fileds[$key] = 'not found ***************'; // DELETEME
-				}
-			}
-			
-			// TODO: if $headline is valid
-			$headlines []= $headline;
+		$tvHeadlineParser = new HeadlineFeedParser('TVHeadline');
+		$tvHeadlines = $tvHeadlineParser->debugMode($debug)->parse($tvHeadlinesFeed);
+		
+		$radioHeadlineParser = new HeadlineFeedParser('RadioHeadline');
+		$radioHeadlines = $radioHeadlineParser->debugMode($debug)->parse($radioHeadlinesFeed);
+		
+		$pressHeadlineParser = new HeadlineFeedParser('PressHeadline');
+		$pressHeadlines = $pressHeadlineParser->debugMode($debug)->parse($pressHeadlinesFeed);
+		
+		if ($debug) {
+			echo '<hr/>';
+				echo 'class: '.get_class($tvHeadlines[0]);
+				echo '<br/>';
+				echo 'count: '.count($tvHeadlines);
+				echo '<br/>';
+				$tvHeadlineParser->printDebugInfo();
+			echo '<hr/>';
+				echo 'class: '.get_class($radioHeadlines[0]);
+				echo '<br/>';
+				echo 'count: '.count($radioHeadlines);
+				echo '<br/>';
+				$radioHeadlineParser->printDebugInfo();
+			echo '<hr/>';
+				echo 'class: '.get_class($pressHeadlines[0]);
+				echo '<br/>';
+				echo 'count: '.count($pressHeadlines);
+				echo '<br/>';
+				$pressHeadlineParser->printDebugInfo();
+			echo '<hr/>';
 		}
-		echo '<hr/>';
-		
-		echo '<a name="top">top</a>';
-		echo '<ul>';
-		echo '<li><a href="#fields">fields</a></li>';
-		echo '<li><a href="#first_printr">first headline print_r</a></li>';
-		echo '<li><a href="#all_parsed">all headlines parsed</a></li>';
-		echo '<li><a href="#xml_data">xml data</a></li>';
-		echo '</ul>';
-		
-		echo '<hr/>';
-		
-		echo '<h2><a name="fields">fields</a></h2>';
-		echo '<a href="#top">top</a>';
-		echo '<pre>';print_r($fileds);echo '</pre><br/>';
-		
-		echo '<hr/>';
-		
-		echo '<h2><a name="first_printr">first headline print_r</a></h2>';
-		echo '<a href="#top">top</a>';
-		foreach ($headlines as $headline) {
-			echo '<pre>';print_r($headline);echo '</pre><br/>';
-			
-			break;
-		}
-		
-		echo '<hr/>';
-		
-		echo '<h2><a name="all_parsed">all parsed headlines</a></h2>';
-		echo '<a href="#top">top</a>';
-		echo '<ul>';
-		foreach ($headlines as $headline) {
-			echo '<li>'.$headline.'</li>';
-		}
-		echo '</ul>';
-		
-		echo '<hr/>';
-		
-		echo '<h2><a name="xml_data">xml data</a></h2>';
-		echo '<a href="#top">top</a>';
-		echo '<pre>';print_r($parsedData);echo '</pre><br/>';
-
-		echo '<hr/>';
-		echo '<a href="#top">top</a>';
-
 	}
 }

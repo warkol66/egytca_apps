@@ -17,7 +17,19 @@
 		<column name="mediaId" type="INTEGER" description="Media ID"/>
 		<column name="value" type="TINYINT" description="Valoracion de la noticia"/>
 		<column name="relevance" type="TINYINT" description="Valoracion del medio"/>
-        <column name="internalId" required="true" type="VARCHAR" size="255" description="Headline internal Id" />
+		<column name="internalId" required="true" type="VARCHAR" size="255" description="Headline internal Id" />
+		<column name="page" type="INTEGER" description="Pagina" />
+		<column name="section" type="VARCHAR" description="Seccion" />
+		<column name="author" type="VARCHAR" description="Autor" />
+		<column name="source" type="VARCHAR" description="Fuente" />
+		<column name="summary" type="VARCHAR" description="Resumen" />
+		<column name="caption" type="VARCHAR" />
+		<column name="class_key" type="INTEGER" inheritance="single">
+			<inheritance key="1" class="Headline" />
+			<inheritance key="2" class="PressHeadline" extends="Headline"/>
+			<inheritance key="3" class="TVHeadline" extends="Headline"/>
+			<inheritance key="4" class="RadioHeadline" extends="Headline"/>
+		</column>
 
 		<behavior name="timestampable" />
 
