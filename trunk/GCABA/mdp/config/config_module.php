@@ -32,7 +32,12 @@ class ConfigModule {
 			"toStringFormat" => "Name Surname (Institution)" // "Surname, Name (Institution)"
 		),
 		"issues" => array(
-			"logsPerPage" => 5
+			"logsPerPage" => 5,
+			"basic" => true
+		),
+		"medias" => array(
+			"useAudiences" => true,
+			"useMarkets" => false
 		),
 		"clients" => array(
 			"useTimezones" => false,
@@ -67,6 +72,8 @@ class ConfigModule {
 				)
 		),
 		"headlines" => array(
+			"useClients" => false,
+			"uniqueByCampaigns" => false,
 			"searchEngineUrl" => "http://news.google.com",
 			"clippingsPath" => "./WEB-INF/classes/modules/headlines/files/clipping/",
 			"clippingsTmpPath" => "./WEB-INF/classes/modules/headlines/files/clipping/tmp/",
