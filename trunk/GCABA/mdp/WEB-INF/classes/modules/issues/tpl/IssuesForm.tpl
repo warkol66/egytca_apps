@@ -2,20 +2,20 @@
 	|-if $action neq 'showLog'-|<p>Ingrese los datos del ##issues,2,Asunto##</p>|-/if-|
 		|-if $message eq "error"-|<span class="message_error">Ha ocurrido un error al intentar guardar el ##issues,4,asunto##</span>|-/if-|
 	<form name="form_edit_issue" id="form_edit_issue" action="Main.php" method="post">
-		<fieldset title="Formulario de edición de datos de un issue">
+		<fieldset title="Formulario de edición de datos de un ##issues,4,asunto##">
 			<legend>Formulario de Administración de ##issues,1,Asuntos##</legend>
 			<p>
 				<label for="params[name]">##issues,2,Asunto##</label>
 				<input type="text" id="params[name]" name="params[name]" size="70" value="|-$issue->getName()|escape-|" title="##issues,2,Asunto##" |-$action|disabled-| |-if $action neq "showLog"-||-js_char_counter assign="js_counter" object=$issue columnName="name" fieldName="params[name]" idRemaining="remaining" sizeRemaining="3" classRemaining="charCount" counterTitle="Cantidad de caracteres restantes" showHide=1 useSpan=0-||-/if-||-$Counter.pre-| /> |-$Counter.pos-| 
 			</p>
 			<div id="issueParent" style="position: relative;z-index:10000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_parentId" label="Sub asunto de" url="Main.php?do=issuesAutocompleteListX" hiddenName="params[parentId]" defaultHiddenValue=$issue->getParentId() disableSubmit="button_edit_sub_issue" defaultValue=$issue->getParentIssue()-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_parentId" label="##issues,19,Sub asunto de##" url="Main.php?do=issuesAutocompleteListX" hiddenName="params[parentId]" defaultHiddenValue=$issue->getParentId() disableSubmit="button_edit_sub_issue" defaultValue=$issue->getParentIssue()-|
 			</div>
 			<p>
 				<label for="params[description]">Descripción</label>
 				<textarea name="params[description]" cols="65" rows="6" wrap="VIRTUAL" id="params[description]" title="Descripción" |-$action|disabled-|>|-$issue->getDescription()|escape-|</textarea>
 			</p>
-			<p>
+|-if !$configModule->get('issues','basic')-|			<p>
 				<label for="params[impact]">Impacto</label>
 				<select id="params[impact]" name="params[impact]" |-$action|disabled-| >
 				|-foreach from=$issueImpactTypes key=impactKey item=impact name=for_impact-|
@@ -39,8 +39,11 @@
 				|-/foreach-|
 				</select>
 			</p>
+			|-/if-|
 			|-if isset($loginUser) && $loginUser->isSupervisor() && $action neq 'create'-|
-				<p><label for="changedBy">|-if $issue->getVersion() gt 1-|Modificado|-else-|Creado|-/if-| por:</label> |-$issue->changedBy()-| - |-$issue->getUpdatedAt()|change_timezone|dateTime_format-| </p>
+				<p>
+					<label for="changedBy">|-if $issue->getVersion() gt 1-|Modificado|-else-|Creado|-/if-| por</label>
+					<input for="id" type="text" value="|-$issue->changedBy()-| - |-$issue->getUpdatedAt()|change_timezone|dateTime_format-|" size="80" readonly="readonly" /> </p>
 			|-/if-|
 			<p>
 				|-if $action eq 'edit'-|
@@ -50,7 +53,7 @@
 				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="issuesDoEdit" />
 				<input type="submit" id="button_edit_issue" name="button_edit_issue" title="Guardar cambios" value="Guardar" />
-				<input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=issuesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"/>
+				<input type="button" id="cancel" name="cancel" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=issuesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"/>
         |-/if-|
 			</p>
 		</fieldset>

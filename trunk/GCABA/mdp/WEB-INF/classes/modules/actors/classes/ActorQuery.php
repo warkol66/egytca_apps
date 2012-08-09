@@ -16,6 +16,22 @@
 class ActorQuery extends BaseActorQuery {
 	
 	/**
+	 * Agrega filtros por nombre, apellido, institucion o sobrenombre
+	 *
+	 * @param   type string $filterValue texto a buscar
+	 * @return condicion de filtrado por texto a buscar
+	 */
+	public function searchString($filterValue) {
+		return $this->filterByName("%$filterValue%", Criteria::LIKE)
+				->_or()
+					->filterBySurname("%$filterValue%", Criteria::LIKE)
+				->_or()
+					->filterByInstitution("%$filterValue%", Criteria::LIKE)
+				->_or()
+					->filterByNickname("%$filterValue%", Criteria::LIKE);
+	}
+
+	/**
 	 * Permite agregar un filtro personalizado a la Query, que puede ser
 	 * traducido al campo correspondiente.
 	 *
@@ -45,7 +61,9 @@ class ActorQuery extends BaseActorQuery {
 				->_or()
 					->filterBySurname("%$filterValue%", Criteria::LIKE)
 				->_or()
-					->filterByInstitution("%$filterValue%", Criteria::LIKE);
+					->filterByInstitution("%$filterValue%", Criteria::LIKE)
+				->_or()
+					->filterByNickname("%$filterValue%", Criteria::LIKE);
 				break;
 			
 			case 'CampaignId':

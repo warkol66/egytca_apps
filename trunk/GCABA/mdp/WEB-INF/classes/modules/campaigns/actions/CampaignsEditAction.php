@@ -68,6 +68,7 @@ class CampaignsEditAction extends BaseAction {
 		$smarty->assign("page",$_GET["page"]);
 		$smarty->assign("message",$_GET["message"]);
 
+		$smarty->assign("actor",new Actor());
 
 		return $mapping->findForwardConfig('success');
 	}

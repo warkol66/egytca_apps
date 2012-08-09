@@ -44,6 +44,8 @@ class IssuesEditAction extends IssuesEditBaseAction {
 			$smarty->assign("action","create");
 		}
 
+		$smarty->assign("actor",new Actor());
+
 		return $mapping->findForwardConfig('success');
 	}
 
