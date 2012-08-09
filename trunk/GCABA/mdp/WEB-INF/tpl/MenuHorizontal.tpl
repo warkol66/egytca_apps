@@ -14,7 +14,7 @@
 			<li class="wide"><a href="#" class="sub">Repercusiones de Prensa</a>
 			  <ul class="menu">
 				<li><a href="Main.php?do=headlinesList">Administrar Titulares</a></li>
-				<li><a href="Main.php?do=issuesList">Administrar Asuntos</a></li>
+				<li><a href="Main.php?do=issuesList">Administrar ##issues,1,Asuntos##</a></li>
 				<li><a href="Main.php?do=campaignsList">Administrar Campañas</a></li>
 				<li class="last"><a href="#">Reportes</a></li>
 			</ul>
@@ -27,11 +27,8 @@
 
 				<li><a href="Main.php?do=mediasList">Medios</a></li>
 				<li><a href="Main.php?do=mediasTypeList">Tipo de medios</a></li>
-				<li><a href="Main.php?do=mediasAudienceList">Audiencias</a></li>
+				<li class="last"><a href="Main.php?do=mediasAudienceList">Audiencias</a></li>
 <!--				<li><a href="Main.php?do=mediasMarketList">Mercados</a></li> -->
-
-				<li><a href="Main.php?do=actorsCategoryList">Categorías de actores</a></li>
-				<li class="last"><a href="Main.php?do=issuesCategoryList">Categorías de asuntos</a></li>
 			</ul>
 			</li>
 		</li>
