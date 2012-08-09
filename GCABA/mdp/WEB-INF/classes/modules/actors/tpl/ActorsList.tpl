@@ -13,10 +13,10 @@
 			<td colspan="3" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda de ##actors,1,Actores## </a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="actorsList" />
-					Texto: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
-					Resultados por página
-				|-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getRowsPerPage()-|	
-				|-if $loginUser->isSupervisor()-|Incluir eliminados<input name="filters[includeDeleted]" type="checkbox" value="true" |-$filters.includeDeleted|checked:"true"-|>|-/if-|
+					<label for="filters[searchString]" class="inlineLabel">Texto</label> <input name="filters[searchString]" id="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
+					<label for="filters[perPage]" class="inlineLabel">Resultados por página</label>
+				|-html_options id="filters[perPage]" name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getMaxPerPage()-|	
+				|-if $loginUser->isSupervisor()-|<!--Incluir eliminados<input name="filters[includeDeleted]" type="checkbox" value="true" |-$filters.includeDeleted|checked:"true"-|>-->|-/if-|
 					<input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
 				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=actorsList'"/>|-/if-|
 			</form>
@@ -32,15 +32,15 @@
 				<th width="5%">&nbsp;</th> 
 			</tr> 
 		</thead> 
-	<tbody>|-if $actors|@count eq 0-|
+	<tbody>|-if $actorColl|@count eq 0-|
 		<tr>
 			 <td colspan="3">|-if isset($filter)-|No hay ##actors,1,Actores## que concuerden con la búsqueda|-else-|No hay ##actors,1,Actores## disponibles|-/if-|</td>
 		</tr>
 	|-else-|
-		|-foreach from=$actors item=actor name=for_actors-|
+		|-foreach from=$actorColl item=actor name=for_actors-|
 		<tr> 
 	<!--		<td>|-$actor->getid()-|</td> -->
-			<td>|-if $actor->getTitle() ne ''-||-$actor->getTitle()-| |-/if-||-$actor->getName()-| |-$actor->getSurname()-|</td> 
+			<td>|-if $actor->getTitle() ne ''-||-$actor->getTitle()-| |-/if-||-$actor->getName()-| |-$actor->getNickname()-| |-$actor->getSurname()-|</td> 
 			<td>|-$actor->getInstitution()-|</td>
 			<td nowrap>|-if "actorsEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="actorsEdit" /> 
@@ -59,9 +59,9 @@
 			|-/if-|</td> 
 		</tr> 
 		|-/foreach-|
-		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
+		|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
-			<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+			<td colspan="3" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 			|-if "actorsEdit"|security_has_access-|<tr>

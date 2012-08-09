@@ -25,22 +25,7 @@
 		<fieldset title="Formulario de edición de datos de un ##actors,2,Actor##">
 			<legend>Formulario de Creación de ##actors,1,Actores##</legend>
 			<div id="operationInfo"></div>
-			<p>
-				<label for="params[title]">Título</label>
-				<input type="text" id="params[title]" name="params[title]" size="20" value="" title="title" />
-			</p>
-			<p>
-				<label for="params[aname]">Nombre</label>
-				<input type="text" id="params[aname]" name="params[name]" size="50" value="" title="Nombre" class="emptyValidation" /> |-validation_msg_box idField="params[aname]"-|
-			</p>
-			<p>
-				<label for="params[surname]">Apellido</label>
-				<input type="text" id="params[surname]" name="params[surname]" size="50" value="" title="Apellido" class="emptyValidation" /> |-validation_msg_box idField="params[surname]"-|
-			</p>
-			<p>
-				<label for="params[institution]">##actors,3,Institución##</label>
-				<input type="text" id="params[institution]" name="params[institution]" size="70" value="" title="##actors,3,Institución##" />
-			</p>
+			|-include file='ActorsForm.tpl'-|
 			<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 			<p>
 				<input type="hidden" name="do" id="do" value="actorsDoEditX" />

@@ -6,6 +6,7 @@
 		<column name="title" description="Titulo" type="CHAR" size="15" />
 		<column name="name" description="Nombre" type="CHAR" size="90" />
 		<column name="surname" description="Apellido" type="CHAR" size="90" />
+		<column name="nickname" description="Sobrenombre" type="CHAR" size="90" />
 		<column name="institution" description="Institucion" type="CHAR" size="200" />
 
 		<behavior name="soft_delete" />
