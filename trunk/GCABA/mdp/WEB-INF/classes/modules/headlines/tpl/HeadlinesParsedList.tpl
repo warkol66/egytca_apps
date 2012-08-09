@@ -1,5 +1,6 @@
 <h2>Titulares</h2>
 |-if !$notValidId-|
+|-if !$campaign->isNew()-|
 <h1>Importar Titulares - |-$campaign-|</h1>
 <div id="lightbox1" class="leightbox">
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a></p> 
@@ -31,6 +32,21 @@
 	 </select></p>
     </form>
 </fieldset>
+|-else-|
+<h1>Importar Titulares</h1>
+<fieldset>
+<form method="get" action="Main.php">
+	<input name="do" value="headlinesParsedList" type="hidden" />
+	Aca van: <br>
+	Filtros de fecha<br>
+	Filtros de medio y tipo de medio<br>
+	
+	 <input type="submit" id="search_button" value="Filtrar" />
+	 <input type="submit" id="search_button" value="Disparador manual de parser" />
+</form>
+</fieldset>
+|-/if-|
+
 <div id="resultDiv"></div>
 <fieldset>
 <legend>Titulares &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -41,6 +57,7 @@
 |-include file="HeadlinesParsedListInclude.tpl" included=true-|
 </ul>
 </fieldset>
+
 <script type="text/javascript">
 function headlinesSearch() {
     new Ajax.Updater('list', "Main.php?do=headlinesDoParseX", {
