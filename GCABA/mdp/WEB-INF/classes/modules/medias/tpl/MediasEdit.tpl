@@ -150,9 +150,18 @@ function mediasDeleteCategoryFromActor(form){
 	}
 	
 </script>
+|-if $configModule->get('medias','useAudiences') || $configModule->get('medias','useMarkets')-|
+
+
 <fieldset title="Formulario de mercados y audiencias asociados al medio">
-	<legend>Mercados y Audiencias</legend>
-	<p>
+	<legend>|-if $configModule->get('medias','useAudiences') && !$configModule->get('medias','useMarkets')-|
+Audiencias
+|-else if !$configModule->get('medias','useAudiences') && $configModule->get('medias','useMarkets')-|
+Mercados
+|-else-|
+Mercados y Audiencias
+|-/if-|</legend>
+	|-if $configModule->get('medias','useMarkets')-|<p>
 	<form method="post" id="form_markets">
 		<label for="markets">Mercados</label>
 		<select class="chzn-select markets-chz-select" data-placeholder="Seleccione uno o varios mercados..." id="marketsIds" name="marketsIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=mediasUpdateMarketsX')" >
@@ -161,8 +170,8 @@ function mediasDeleteCategoryFromActor(form){
 			|-/foreach-|
 		</select>
 	</form>
-	</p>
-	<p>
+	</p>|-/if-|
+|-if $configModule->get('medias','useAudiences')-|	<p>
 	<form method="post" id="form_audiences">
 		<label for="audiences">Audiencias</label>
 		<select class="chzn-select markets-chz-select" data-placeholder="Seleccione una o varias audiencias..." id="audiencesIds" name="audiencesIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=mediasUpdateAudiencesX')" >
@@ -171,9 +180,9 @@ function mediasDeleteCategoryFromActor(form){
 			|-/foreach-|
 		</select>
 	</form>
-	</p>
+	</p>|-/if-|
 </fieldset>
-
+|-/if-|
 <fieldset title="Formulario de alias de este medio">
 	<legend>Alias</legend>
 	<p>
