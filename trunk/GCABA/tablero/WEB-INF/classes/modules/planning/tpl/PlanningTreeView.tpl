@@ -34,6 +34,6 @@
 				myTree.UpdateTree();
 			}		
 			CreateTree();
-			//myTree.collapseAll();
-			//myTree.selectNode('1','true');
+			myTree.collapseAll();
+			myTree.selectNode('1','true');
 		</script>
