@@ -42,6 +42,15 @@ class Position extends BasePosition {
 	}
 
 	/**
+	 * Devuelve el objeto (null) del que se desprende la dependencia
+	 *
+	 * @return null del que se desprende la dependencia
+	 */
+	public function getAntecessor() {
+		return null;
+	}
+
+	/**
 	 * Devuelve el nombre mas la particula identificatoria
 	 *
 	 * @return string
