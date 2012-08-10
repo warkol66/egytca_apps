@@ -9,6 +9,14 @@
 	text-align:center;
 }
 
+ .fc-view-agendaWeek .eventoContent span{font-size:11px; text-transform: none; color: #000000; line-height:14px; margin-top:-4px;}
+
+	.evFeriado,
+	.evEfemeride,
+	.evEfemeridePast,
+	.evFeriadoPast {
+		margin-bottom:-8px;
+	}
 	.eyefishContainer ul{
 			position:absolute;
 			right:0;
