@@ -1,6 +1,6 @@
 <?php
 
-require 'HeadlineFeedParser.php';
+require 'contentProvider/HeadlineFeedParser.php';
 
 class HeadlinesXMLParseAction extends BaseAction {
 	

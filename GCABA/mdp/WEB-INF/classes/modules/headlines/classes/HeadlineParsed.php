@@ -26,4 +26,13 @@ class HeadlineParsed extends BaseHeadlineParsed {
         return true;
     }
     
+    /**
+     * sets internalid to a hash made from $string
+     * @param string $string 
+     */
+    public function setInternalIdFromString($string) {
+	    $hash = md5($string);
+	    $this->setInternalid($hash);
+    }
+    
 } // HeadlineParsed

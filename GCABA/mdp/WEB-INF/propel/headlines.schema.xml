@@ -161,6 +161,14 @@
         <column name="status" type="INTEGER" description="Estado del headline importado"/>
         <column name="moreSourcesUrl" type="VARCHAR" size="255" description="Url para obtener mas titulares de distintas fuentes"/>
         <column name="strategy" type="VARCHAR" size="50" description="Estrategia que parseo el titular" />
+	
+		<column name="page" type="INTEGER" description="Pagina" />
+		<column name="section" type="VARCHAR" description="Seccion" />
+		<column name="author" type="VARCHAR" description="Autor" />
+		<column name="source" type="VARCHAR" description="Fuente" />
+		<column name="summary" type="VARCHAR" description="Resumen" />
+		<column name="caption" type="VARCHAR" />
+		<column name="class_key" type="INTEGER" description="Clase de headline a crear" />
         
 		<behavior name="timestampable" />
 
