@@ -1,8 +1,12 @@
 	|-if $isTreeRoot-|
-		<h4><a href="javascript:void(null);" onClick="$('#|-get_class($root)-||-$root->getId()-|').toggle();" style="display:block; text-decoration: none; ">|-$root-|</a></h4>
+		<h1><a href="javascript:void(null);" onClick="$('#|-get_class($root)-||-$root->getId()-|').toggle();">|-$root-|</a></h1>
 			|-assign var=isTreeRoot value=false-|
 	|-else-|
-		<a href="javascript:void(null);" onClick="$('#|-get_class($root)-||-$root->getId()-|').toggle();" style="display:block; text-decoration: none; ">|-$root-|</a>
+		|-if method_exists($root, 'getBrood') && $root->getBrood()|count gt 0-|
+			<p><a href="javascript:void(null);" onClick="$('#|-get_class($root)-||-$root->getId()-|').toggle();">|-$root-|</a></p>
+			|-else-|
+			<p>|-$root-|</p>
+		|-/if-|
 	|-/if-|
 	|-if method_exists($root, 'getBrood') && $root->getBrood()|count gt 0-|
 		<div id="|-get_class($root)-||-$root->getId()-|" class="|-get_class($root)-|" style="display:none">
