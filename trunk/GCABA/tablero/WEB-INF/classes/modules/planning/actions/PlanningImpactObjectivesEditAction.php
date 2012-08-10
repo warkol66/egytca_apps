@@ -16,7 +16,12 @@ class PlanningImpactObjectivesEditAction extends BaseEditAction {
 		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
 		$this->smarty->assign("policyGuidelines", ImpactObjective::getPolicyGuidelines());
 		$this->smarty->assign("expectedResults", ImpactObjective::getExpectedResults());
-		
+		// TODO
+		// if ($this->entity->isNew())
+		// {
+		// 	$this->entity->setResponsibleCode()=$positionCode;
+
+		// }
 		//Constantes y opciones posibles para la creación de indicadores
 		$this->smarty->assign("planningIndicator", new PlanningIndicator());
 		$this->smarty->assign("indicatorTypes", PlanningIndicator::getIndicatorTypes());

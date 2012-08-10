@@ -42,7 +42,7 @@ html =   '      <tr> '
       <thead> 
          <tr> 
           <th colspan="6">|-if $showGantt && $activities|count gt 0-|
-					<input type="button" class="icon iconViewGantt" onClick='window.open("Main.php?do=planningProjectsViewX&showGantt=true&id=|-$planningProject->getid()-|","Gantt","width=800,height=600");' value="Ver Gantt" title="Ver Gantt (abre en ventana nueva)" /> Ver Gantt |-else-|<img src="images/clear.png" class="icon iconClear disabled" />|-/if-||-if !$show && !$showLog-||-if !isset($construction) || (isset($construction) && $construction->getConstructionType() eq 1)-|<div class="rightLink"><a href="#" onclick="return addActivityRow()" class="addLink" title="Agregar nueva actividad">Agregar Actividad</a></div>|-/if-|
+					<input type="button" class="icon iconViewGantt" onClick='window.open("Main.php?do=planningProjectsViewX&showGantt=true&id=|-$planningProject->getid()-|","Gantt","width=800,height=600");' value="Ver Gantt" title="Ver Gantt (abre en ventana nueva)" /> Ver Gantt |-else-|<img src="images/clear.png" class="icon iconClear disabled" />|-/if-||-if !$show && !$showLog-||-if !isset($construction) || (isset($construction) && $construction->getConstructionType() eq 1)-|<div class="rightLink"><a href="#" onclick="return addActivityRow()" class="addLink" title="Agregar nueva actividad">Agregar Hitos</a></div>|-/if-|
 				|-/if-|</th> 
         </tr> 
 				|-*if ($show || $showLog) && $activities|@count gt 0*-|

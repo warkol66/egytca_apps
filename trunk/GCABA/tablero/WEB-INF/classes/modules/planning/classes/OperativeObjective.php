@@ -110,7 +110,7 @@ class OperativeObjective extends BaseOperativeObjective {
 		$populationGender = array(
 			0 => 'No aplica',
 			1 => 'Mujer',
-			2 => 'Hombre'
+			2 => 'Varón'
 		);
 		return $populationGender;
 	}

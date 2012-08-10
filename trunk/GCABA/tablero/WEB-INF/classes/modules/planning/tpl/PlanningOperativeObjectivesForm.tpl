@@ -39,7 +39,7 @@
       </p>
 		|-/if-|
 		<p>
-        <label for="params_name">Nombre</label>
+        <label for="params_name">Objetivo Operativo</label>
       <input name="params[name]" type="text" id="params_name" size="80" value="|-$operativeObjective->getName()-|" title="Nombre del Objetivo Operativo" maxlength="255" class="emptyValidation"  |-$readonly|readonly-|/> |-validation_msg_box idField="params_name"-|
       </p>
     <p> 

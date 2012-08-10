@@ -35,8 +35,7 @@ class PlanningIndicator extends BasePlanningIndicator {
 	public static function getIndicatorTypes() {
 		$productTypes = array(
 			1 => 'Impacto',
-			2 => 'Proyecto',
-			3 => 'Otro'
+			2 => 'Gestión'
 		);
 		return $productTypes;
 	}
@@ -48,18 +47,10 @@ class PlanningIndicator extends BasePlanningIndicator {
 	 */
 	public static function getMeasureFrecuencyTypes() {
 		$measureFrecuencyTypes = array(
-			1 => 'Enero',
-			2 => 'Febrero',
-			3 => 'Marzo',
-			4 => 'Abril',
-			5 => 'Mayo',
-			6 => 'Junio',
-			7 => 'Julio',
-			8 => 'Agosto',
-			9 => 'Septiembre',
-		    10=> 'Octubre',
-			11=> 'Noviembre',
-			12=> 'Diciembre'
+			1 => 'Mensual',
+			2 => 'Bimestral',
+			3 => 'Cuatrimestral',
+			4 => 'Anual'
 		);
 		return $measureFrecuencyTypes;
 	}
