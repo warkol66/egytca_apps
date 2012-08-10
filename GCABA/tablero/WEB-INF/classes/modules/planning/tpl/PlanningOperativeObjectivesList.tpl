@@ -38,8 +38,9 @@
 				 <th colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningOperativeObjectivesEdit" class="addLink">Agregar Objetivo Operativo</a></div></th>
 			</tr>
 			<tr class="thFillTitle">
-				<th width="45%">Objetivo Ministerial</th>
-				<th width="50%">Objetivo Operativo</th>
+				<th width="25%">Objetivo Impacto</th>
+				<th width="35%">Objetivo Ministerial</th>
+				<th width="40%">Objetivo Operativo</th>
 				<th width="1%">&nbsp;</th>
 				<th width="4%">&nbsp;</th>
 			</tr>
@@ -51,6 +52,7 @@
 			|-else-|
 		|-foreach from=$operativeObjectiveColl item=objective name=for_objectives-|
 			<tr>
+				<td></td>
 				<td>|-$objective->getMinistryObjective()-|</td>
 				<td>|-$objective->getName()-|</td>
 				<td nowrap>|-if $objective->countPlanningProjects() gt 0-|<a href="Main.php?do=planningProjectsList&nav=true&&filters[operativeobjectiveid]=|-$objective->getid()-|" class="icon iconFollow" title="Ver Proyectos del Objetivo Operativo">Ver Proyectos</a>|-/if-|</td>

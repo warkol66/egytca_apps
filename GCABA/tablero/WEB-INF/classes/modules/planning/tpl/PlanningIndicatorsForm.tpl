@@ -25,7 +25,7 @@
     <p> 
       <label for="params_description">Descripción</label>
       <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Indicador" |-$readonly|readonly-| >|-$planningIndicator->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
-    </p>		
+    </p>
 		<p>
         <label for="params_formula">Fórmula</label>
       <input name="params[formula]" type="text" id="params_formula" size="80" value="|-$planningIndicator->getFormula()-|" title="Fórmula del Indicador" maxlength="100" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_formula"-|
@@ -57,8 +57,8 @@
 			</select>
 		</p>	
 		<p>
-        <label for="params_realValue">Valor real</label>
-      <input name="params[realValue]" type="text" id="params_realValue" size="80" value="|-$planningIndicator->getRealValue()-|" title="Valor Real" maxlength="100" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_realValue"-|
+        <label for="params_realValue">Línea de Base</label>
+      <input name="params[realValue]" type="text" id="params_realValue" size="80" value="|-$planningIndicator->getRealValue()-|" title="Linea de Base" maxlength="100" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_realValue"-|
       </p>	
 	<p>
         <label for="params_measureTaken">Se realizó la medición?</label>

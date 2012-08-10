@@ -29,7 +29,7 @@
       </p>
 		|-/if-|
       <p>
-        <label for="params_name">Nombre</label>
+        <label for="params_name">Objetivo de Impacto</label>
       <input name="params[name]" type="text" id="params_name" size="80" value="|-$impactObjective->getName()-|" title="Nombre del Objetivo de Impacto" maxlength="255" class="emptyValidation" |-$readonly|readonly-| |-js_char_counter assign="js_counter" object=$impactObjective columnName="name" fieldName="params[name]" idRemaining="remaining" sizeRemaining="3" classRemaining="charCount" counterTitle="Cantidad de caracteres restantes"  showHide="1" useSpan="0"-||-$Counter.pre-| /> |-$Counter.pos-| |-validation_msg_box idField="params_name"-|
       </p>
     <p> 
@@ -42,19 +42,6 @@
 				<option value="">Seleccione el Eje de gestión</option>
 				|-foreach from=$policyGuidelines key=key item=name-|
 							<option value="|-$key-|" |-$impactObjective->getPolicyGuideline()|selected:$key-|>|-$name-|</option>
-				|-/foreach-|
-			</select>
-		</p>
-      <p>
-        <label for="params_baseline">Línea de base</label>
-      <input name="params[baseline]" type="text" id="params_baseline" size="15" value="|-$impactObjective->getBaseline()-|" title="Nombre del Objetivo de Impacto" maxlength="10" class="emptyValidation" |-$readonly|readonly-|/> |-validation_msg_box idField="params_baseline"-|
-      </p>
-		<p>
-			<label for="params_expectedResult">Resultado esperado</label>
-			<select id="params_expectedResult" name="params[expectedResult]" title="Resultado esperado" |-$readonly|readonly-| |-if $show || $showLog-|disabled="disabled"|-/if-|>
-				<option value="">Seleccione el resultado esperado</option>
-				|-foreach from=$expectedResults key=key item=name-|
-							<option value="|-$key-|" |-$impactObjective->getExpectedResult()|selected:$key-|>|-$name-|</option>
 				|-/foreach-|
 			</select>
 		</p>

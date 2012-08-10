@@ -50,17 +50,13 @@
       </p>
 		|-/if-|
 		<p>
-        <label for="params_name">Nombre</label>
+        <label for="params_name">Proyecto</label>
       <input name="params[name]" type="text" id="params_name" size="80" value="|-$planningProject->getName()-|" title="Nombre del Proyecto" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
       </p>
     <p> 
       <label for="params_description">Descripción</label>
       <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Proyecto" class="emptyValidation" |-$readonly|readonly-| >|-$planningProject->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
     </p> 
-      <p>
-        <label for="params_code">Código de identificación</label>
-      <input name="params_code" type="text" id="params_code" size="20" value="|-$planningProject->getCode()-|" |-$readonly|readonly-|  title="Codigo de Identificación: 00.00.00.00"/>
-      </p>
 	<p>
         <label for="params_goalProduct">Meta Producto</label>
       <input name="params[goalProduct]" type="text" id="params_goalProduct" size="80" value="|-$planningProject->getGoalProduct()-|" title="Meta producto" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
@@ -131,7 +127,7 @@
 	</p>
 	  
 	  
-		 |-if !$planningProject->isNew()-|<h3>Actividades &nbsp; <a href="javascript:void(null)" id="showHidePlanningActivities" onClick="$('activitiesTable').toggle(); $('showHidePlanningActivities').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a> </h3>|-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() showGantt="true"-||-/if-|
+		 |-if !$planningProject->isNew()-|<h3>Gantt (Hitos) &nbsp; <a href="javascript:void(null)" id="showHidePlanningActivities" onClick="$('activitiesTable').toggle(); $('showHidePlanningActivities').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a> </h3>|-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() showGantt="true"-||-/if-|
 	  
 	  
 	  

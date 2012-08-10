@@ -14,7 +14,7 @@
 
 		<column name="expectedResults" type="INTEGER" size="1" description="Resultados esperados: 1)incremento, 2)descenso, 3)aceleracion, 4)desaceleracion."/>
 
-		<column name="realValue" type="FLOAT" description="Valor real"/>
+		<column name="baseline" type="FLOAT" description="Linea de base"/>
 		<column name="measureTaken" type="BOOLEAN" sqlType="BOOL" default="false" description="Se debera consignar si se ha realizado o no la medicion" />
 		<column name="updated" type="DATE" description="Fecha de actualizacion" />
 
