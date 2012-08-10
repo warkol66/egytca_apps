@@ -27,21 +27,25 @@ class HeadlineFeedParser {
 			'section' => 'setSection',
 			'abstract' => 'setSummary',
 			'caption' => 'setCaption',
-//			'lastChangeDate' => 'setContent',
-//			'category' => 'setMedia by name??? or create?',
+//			'lastChangeDate' => '????',
+			'category' => 'setMediaName',
 //			'comments' => ????
 //			'enclosure' => ????
-//			'guid' => ???
+			'guid' => 'setInternalIdFromString',
 			'author' => 'setAuthor',
 			'source' => 'setSource'
 		);
 		
-		$headlines = array();
 		if ($this->debugging) {
 			$this->debugInfo['fields'] = array();
 		}
+		
+		$headlines = array();
 		foreach ($parsedData->channel->item as $item) {
-			$headline = new $this->class();
+			
+			$headline = new HeadlineParsed();
+			$headline->setClassKey(constant('HeadlinePeer::CLASSKEY_'.strtoupper($this->class)));
+			
 			foreach ($item as $key => $value) {
 				if ($fieldsMap[$key]) {
 					$setMethod = $fieldsMap[$key];
@@ -69,6 +73,17 @@ class HeadlineFeedParser {
 					}
 				}
 			}
+			
+			$media = MediaQuery::create()->findOneByName($headline->getMedianame());
+			if (!empty($media)) {
+				$media = $media->resolveAliases();
+				$headline->setMediaId($media->getId());
+			}
+			
+//                    ->setCampaignid($this->campaignId)
+//                    ->setHeadlinedate($parsedNews['timestamp'])
+//                    ->setKeywords($this->getSanitizedKeywords())
+//                    ->setStrategy($parsedNews['strategy'])
 			
 			// TODO: if $headline is valid
 			$headlines []= $headline;
