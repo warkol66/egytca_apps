@@ -351,7 +351,7 @@
 	.evAnterior .fc-event-time,
 	.evAnterior .fc-event-title{ font-weight:normal;}
 		
-	.fc-view-agendaWeek .eventoContent span{font-size:9px; text-transform:uppercase; color: #000000; line-height:10px; margin-top:-4px;}
+	.fc-view-agendaWeek .eventoContent span{font-size:9px; text-transform:none; color: #000000; line-height:10px; margin-top:-4px;}
 			
 			.fc-event-title	img{
 			text-align:right;
@@ -629,7 +629,7 @@
 		
 
 	/*   FERIADO      */			
-	.boxFeriado�{
+	.boxFeriado {
 	background-color:#999999;
 	/* transparencia */
 	}
@@ -675,7 +675,12 @@
 	.evFeriadoPast
 	{color: #CCCCCC; !important}	
 	
-	
+	.evFeriado,
+	.evEfemeride,
+	.evEfemeridePast,
+	.evFeriadoPast {
+		display: block !Important;
+	}
 			
 /*  PENDIENTES  */
 
