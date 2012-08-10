@@ -74,8 +74,8 @@
 			</select>
 		</p>	
 		<p>
-        <label for="params_baseline">Línea de Base</label>
-      <input name="params[baseline]" type="text" id="params_baseline" size="80" value="|-$planningIndicator->getBaseline()-|" title="Línea de Base" maxlength="100" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_baseline"-|
+        <label for="params_realValue">Línea de Base</label>
+      <input name="params[realValue]" type="text" id="params_realValue" size="80" value="|-$planningIndicator->getRealValue()-|" title="Línea de Base" maxlength="100" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_realValue"-|
       </p>	
 	<p>
         <label for="params_measureTaken">Se realizó la medición?</label>
