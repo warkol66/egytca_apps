@@ -26,7 +26,34 @@ class HeadlinesXMLParseAction extends BaseAction {
 		$pressHeadlineParser = new HeadlineFeedParser('PressHeadline');
 		$pressHeadlines = $pressHeadlineParser->debugMode($debug)->parse($pressHeadlinesFeed);
 		
+		$saved = array();
+		$notSaved = array();
+		if ($_POST['save']) {
+			foreach ($tvHeadlines as $h) {
+				try {
+					$h->save();
+					if ($debug) {
+						$saved []= $h;
+					}
+				} catch (Exception $e) {
+					if ($debug) {
+						$notSaved []= $h;
+					}
+				}
+			}
+		}
+		
 		if ($debug) {
+			?><hr/>
+				<form action="Main.php?do=headlinesXMLParse" method="post">
+					<input type="hidden" name="save" value="1" />
+					<input type="submit" value="guardar parseados a DB" />
+				</form>
+			<?php
+			echo '<hr/>';
+				echo 'guardados: '.count($saved);
+				echo '<br/>';
+				echo 'no guardados (por repetidos supuestamente): '.count($notSaved);
 			echo '<hr/>';
 				echo 'class: '.get_class($tvHeadlines[0]);
 				echo '<br/>';

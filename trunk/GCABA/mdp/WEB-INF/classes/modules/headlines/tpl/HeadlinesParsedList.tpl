@@ -54,7 +54,7 @@
 <input type="button" class="icon iconDelete" title="Descartar todos" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=headlinesParsedDiscardAllX&id=|-$campaign->getId()-|", { method: "post", parameters: { id: "|-$campaign->getId()-|"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando titulares...</span>";' value="Guardar todos" />
 </legend>
 <ul id="list" class="iconList">
-|-include file="HeadlinesParsedListInclude.tpl" included=true-|
+|-include file="HeadlinesParsedListInclude.tpl" included=true headlinesParsed=$headlineParsedColl-|
 </ul>
 </fieldset>
 
