@@ -3,7 +3,7 @@
 			|-assign var=isTreeRoot value=false-|
 	|-else-|
 		|-if method_exists($root, 'getBrood') && $root->getBrood()|count gt 0-|
-			<p>|-if get_class($root) eq "PlanningProject"-|
+			<p>|-if get_class($root) eq "PlanningProject" || get_class($root) eq "PlanningConstruction"-|
 			|-if $root->getActivities()|count gt 0-|
 					<input type="button" class="icon iconViewGantt" onClick='window.open("Main.php?do=planningProjectsViewX&showGantt=true&id=|-$root->getid()-|","Gantt","width=800,height=600");' value="Ver Gantt" title="Ver Gantt (abre en ventana nueva)" /> &nbsp; &nbsp; |-else-|<img src="images/clear.png" class="icon iconClear disabled" /> &nbsp; &nbsp; |-/if-||-/if-|<a href="javascript:void(null);" onClick="$('#|-get_class($root)-||-$root->getId()-|').toggle();">|-$root-|</a></p>
 			|-else-|
