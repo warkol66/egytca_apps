@@ -713,6 +713,19 @@ a.follow:hover{
 	background-image: url(../images/icon_follow.png);
 	background-repeat: no-repeat;
 }
+a.followLink {
+	color: #000066;
+	padding: 2px 5px 2px 5px;
+}
+a.followLink:link,a.followLink:visited {
+	color: #000066;
+	text-decoration: none;
+}
+a.followLink:hover{
+	color: #000066;
+	background-image: none !Important;
+	text-decoration: underline;
+}
 
 
 a.return {

@@ -21,7 +21,7 @@
 #treeRoot a, #treeRoot a:link, #treeRoot a:visited {
 	text-decoration: none !Important;
 	margin-left: .5em !Important;
-	background-image: url(../images/icon_follow.png) !Important;
+/*	background-image: url(../images/icon_follow.png) !Important; */
 	background-repeat: no-repeat;
 	color: black !Important;
 }
