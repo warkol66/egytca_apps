@@ -29,7 +29,7 @@ class HeadlinesXMLParseAction extends BaseAction {
 		$saved = array();
 		$notSaved = array();
 		if ($_POST['save']) {
-			foreach ($tvHeadlines as $h) {
+			foreach (array_merge($tvHeadlines, $radioHeadlines, $pressHeadlines) as $h) {
 				try {
 					$h->save();
 					if ($debug) {
