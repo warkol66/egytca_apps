@@ -6,14 +6,11 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 	
 	protected $debug;
 	
-	private $typeMap = array(
-		'tv' => array('class' => 'TVHeadline', 'url' => 'http://prensa/rss1.xml'),
-		'radio' => array('class' => 'RadioHeadline', 'url' => 'http://prensa/rss2.xml'),
-		'press' => array('class' => 'PressHeadline', 'url' => 'http://prensa/rss3.xml')
-	);
+	private $typeMap;
 	
 	function HeadlinesXMLDoParseXAction() {
 		$this->debug = false;
+		$this->typeMap = ConfigModule::get('headlines', 'typeMap');
 	}
 
 	function execute($mapping, $form, &$request, &$response) {

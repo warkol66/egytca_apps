@@ -98,6 +98,11 @@ class ConfigModule {
 					"empty_response"      => "No hubo respuesta",
 					"invalid_headline"    => "Hay algunos resultados con errores"
 				)
+			),
+			"typeMap" => array(
+				'tv' => array('class' => 'TVHeadline', 'url' => 'http://prensa/rss1.xml'),
+				'radio' => array('class' => 'RadioHeadline', 'url' => 'http://prensa/rss2.xml'),
+				'press' => array('class' => 'PressHeadline', 'url' => 'http://prensa/rss3.xml')
 			)
 		)
 	);
