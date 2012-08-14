@@ -41,8 +41,15 @@
 	Filtros de fecha<br>
 	Filtros de medio y tipo de medio<br>
 	
-	 <input type="submit" id="search_button" value="Filtrar" />
-	 <input type="submit" id="search_button" value="Disparador manual de parser" />
+	<input type="submit" id="search_button" value="Filtrar" />
+</form>
+<form method="post" action="Main.php" onsubmit="parseFeed(this); return false;">
+	<ul>
+		<li><input name="type[]" value="tv" type="checkbox" />&nbsp;TV</li>
+		<li><input name="type[]" value="radio" type="checkbox" />&nbsp;Radio</li>
+		<li><input name="type[]" value="press" type="checkbox" />&nbsp;Prensa</li>
+	</ul>
+	<input type="submit" id="search_button" value="Disparador manual de parser" />
 </form>
 </fieldset>
 |-/if-|
@@ -68,6 +75,17 @@ function headlinesSearch() {
 		$("resultDiv").innerHTML = "<span class=\"inProgress\">Buscando titulares...</span>";
 		if (document.getElementById("noHeadlines"))
 			$("noHeadlines").innerHTML = "";
+}
+
+function parseFeed(form) {
+	new Ajax.Updater('list', "Main.php?do=headlinesXMLDoParseX", {
+		parameters: $(form).serialize(),
+		insertion: 'top',
+		evalScripts: true
+	});
+	$("resultDiv").innerHTML = "<span class=\"inProgress\">Buscando titulares...</span>";
+	if (document.getElementById("noHeadlines"))
+		$("noHeadlines").innerHTML = "";
 }
 </script>
 |-else-|
