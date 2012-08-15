@@ -2,9 +2,6 @@
 
 class PositionsDoEditAction extends BaseAction {
 
-
-	// ----- Constructor ---------------------------------------------------- //
-
 	function PositionsDoEditAction() {
 		;
 	}
@@ -13,9 +10,6 @@ class PositionsDoEditAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -51,10 +45,8 @@ class PositionsDoEditAction extends BaseAction {
 
 			$redirectParams = $redirectParams + array("id" => $_POST["id"]);
 
-			//TODO: completar
 			if (PositionPeer::update($_POST["id"],$_POST["positionData"]))
-				return $this->addParamsToForwards($redirectParams,$mapping,'success');
-//				return $mapping->findForwardConfig('success');
+				return $this->addParamsToForwards(array("id" => $_POST["id"]),$mapping,'successCreate');
 
 		}
 		else {
@@ -63,10 +55,6 @@ class PositionsDoEditAction extends BaseAction {
 				$_POST['positionData']['kind'] = PositionPeer::STAFF;
 			}
 			$position = PositionPeer::create($_POST["positionData"]);
-
-			/*if (!empty($position)) {	
-				$positionTenure = $position->createTenure($_POST["positionTenureData"]);			
-			}*/
 
 			if (empty($position)) {
 				$position = PositionPeer::getObjectFromParams($_POST["positionData"]);
