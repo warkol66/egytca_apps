@@ -74,7 +74,7 @@ function showTenureType(type) {
 	|-if $position->getKind() eq $staffKind -|
 		|-$positionKinds[$staffKind]-|
 	|-else-|
-		|-$position->getPositionTypeTranslated()-|
+		<input type="text" value="|-$position->getPositionTypeTranslated()-|" readonly="readonly" size="45">
 	|-/if-|
 |-else-|<select id="positionDataX[type]" name="positionDataX[type]" title="type" onChange="positionsGetAllParentsByPositionX(this.form);" class="emptyValidation">
 			<option value="0">Seleccione el tipo</option>
@@ -141,7 +141,22 @@ function showTenureType(type) {
 	<p><label for="positionData[email]">Correo electrónico</label>
 				<input name="positionData[email]" type="text" id="positionData[email]" title="Correo electrónico" value="|-$position->getEmail()-|" size="60" maxlength="150" />
 	</p>
-	
+|-if (method_exists($position, 'getPlanning'))-|
+	<p>
+		<label for="positionData_planning">Planifica</label>
+		<input name="positionData[planning]" type="hidden" value="0"/>
+		<input name="positionData[planning]" type="checkbox" id="positionData_planning" |-$position->getPlanning()|checked_bool-|  value="1" title="Dependencia planifica" |-$readonly|readonly-|/>
+	</p>
+		<p |-if !$position->getPlanning()-| style="display:none;"|-/if-|>
+		<label for="positionData_userGroupId">Grupo de usuarios</label>
+		<select id="positionData_userGroupId" name="positionData[userGroupId]" title="Seleccione el grupo de usuarios del ministerio" >
+			<option class="noneSelected" value="0">Seleccione</option>
+			|-foreach from=$userGroups item=userGroup-|
+						<option value="|-$userGroup->getId()-|" |-if $userGroup->getId() eq $position->getUserGroupId()-|selected|-/if-|>|-$userGroup->getName()-|</option>
+			|-/foreach-|
+				</select>
+	</p>
+	|-else-|
 	<div id="userGroupInfo"|-if $position->getType() ne 9-| style="display:none;"|-/if-|>
 		<p>
 			<label for="positionData_userGroupId">Grupo de usuarios</label>
@@ -153,6 +168,7 @@ function showTenureType(type) {
       		</select>
 		</p>
 	</div>
+	|-/if-|
 		|-if !$show && !$showLog -|<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>|-/if-|
 	<p>	
 	|-if $action eq "edit"-|
@@ -161,9 +177,10 @@ function showTenureType(type) {
 		<input type="hidden" name="action" id="action" value="|-$action-|" />
 		<input type="hidden" name="do" id="do" value="positionsDoEdit" />
 		<br />
-		|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
-		<input type="button" id="button_return_position" name="button_return_position" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=positionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
+		|-javascript_form_validation_button id="button_edit" value='Guardar' title='Guardar'-|
 		<input type="hidden" name="positionData[type]" id="positionData_type" value="|-$position->getType()-|" class="emptyValidation" />
+		<input type="button" id="button_edit_new" name="button_edit_new" title="Crear otra Posición" value="Crear otra Posición" onClick="location.href='Main.php?do=positionsEditList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
+		<input type="button" id="button_return_position" name="button_return_position" title="Regresar al listado" value="Regresar al listado" onClick="location.href='Main.php?do=positionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
 	</p>
 		|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 		|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|

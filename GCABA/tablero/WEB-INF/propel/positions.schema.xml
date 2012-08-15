@@ -15,6 +15,10 @@
 		<column name="telephone" type="VARCHAR" size="150" description="Telephone"/>
 		<column name="email" type="VARCHAR" size="150" description="e-mail"/>
 
+		<!-- Version 1.a se incluye parametros para incluir en planifiacion a discrecion -->
+		<column name="planning" type="BOOLEAN" description="Indica si va a inicio de planificacion" />
+		<column name="order" type="INTEGER" default="0" description="Orden de aparicion en home" />
+
 		<unique>
 			<unique-column name="code" />
 			<unique-column name="versionId" />
