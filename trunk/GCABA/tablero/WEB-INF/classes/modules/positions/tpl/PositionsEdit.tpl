@@ -179,7 +179,7 @@ function showTenureType(type) {
 		<br />
 		|-javascript_form_validation_button id="button_edit" value='Guardar' title='Guardar'-|
 		<input type="hidden" name="positionData[type]" id="positionData_type" value="|-$position->getType()-|" class="emptyValidation" />
-		<input type="button" id="button_edit_new" name="button_edit_new" title="Crear otra Posición" value="Crear otra Posición" onClick="location.href='Main.php?do=positionsEditList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
+		<input type="button" id="button_edit_new" name="button_edit_new" title="Crear otra Posición" value="Crear otra Posición" onClick="location.href='Main.php?do=positionsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
 		<input type="button" id="button_return_position" name="button_return_position" title="Regresar al listado" value="Regresar al listado" onClick="location.href='Main.php?do=positionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
 	</p>
 		|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
