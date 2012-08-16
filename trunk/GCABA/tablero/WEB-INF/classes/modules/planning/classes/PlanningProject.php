@@ -109,6 +109,14 @@ class PlanningProject extends BasePlanningProject {
 	}
 
 	/**
+	 * Devuelve la cantidad de actividades
+	 * @return integer Cantidad de actividades
+	 */
+	public function countActivities() {
+		return BaseQuery::create('PlanningActivity')->filterByObjecttype('Project')->filterByObjectid($this->getId())->count();
+	}
+
+	/**
 	 * Devuelve array con posibles prioridades ministeriales
 	 *  id => prioridad
 	 *
