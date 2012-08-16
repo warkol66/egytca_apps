@@ -70,6 +70,10 @@
 			<input name="params_responsibleCode" type="text" id="params_responsibleCode" size="80" value="|-$ministryObjective->getPosition()-|" readonly="readonly" />
 			</p>
 		|-/if-|
+      <p>
+        <label for="params_code">Código de Identificación</label>
+      <input name="params_code" type="text" id="params_code" size="5" title="Código de Identificación" value="|-$ministryObjective->getCode()-|" |-$readonly|readonly-| />
+      </p>
 					<p>
 				<label for="params_name">Objetivo Ministerial</label>
 			<input name="params[name]" type="text" id="params_name" size="80" value="|-$ministryObjective->getName()-|" title="Nombre del Objetivo Ministerial" maxlength="255"  class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|

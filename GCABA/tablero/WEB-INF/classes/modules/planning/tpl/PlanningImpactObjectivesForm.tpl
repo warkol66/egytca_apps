@@ -29,6 +29,10 @@
       </p>
 		|-/if-|
       <p>
+        <label for="params_code">Código de Identificación</label>
+      <input name="params_code" type="text" id="params_code" size="5" title="Código de Identificación" value="|-$impactObjective->getCode()-|" |-$readonly|readonly-| />
+      </p>
+      <p>
         <label for="params_name">Objetivo de Impacto</label>
       <input name="params[name]" type="text" id="params_name" size="80" value="|-$impactObjective->getName()-|" title="Nombre del Objetivo de Impacto" maxlength="255" class="emptyValidation" |-$readonly|readonly-| |-js_char_counter assign="js_counter" object=$impactObjective columnName="name" fieldName="params[name]" idRemaining="remaining" sizeRemaining="3" classRemaining="charCount" counterTitle="Cantidad de caracteres restantes"  showHide="1" useSpan="0"-||-$Counter.pre-| /> |-$Counter.pos-| |-validation_msg_box idField="params_name"-|
       </p>
