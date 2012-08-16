@@ -15,16 +15,45 @@ class HeadlinesParsedListAction extends BaseListAction {
 	}
 
 	protected function preList() {
-		//Reviso si se solicito desde campaing
+		parent::preList();
+
+		//Obtencion de filtros
+		if (!empty($_GET["page"])) {
+			$page = $_GET["page"];
+			$smarty->assign("page",$page);
+		}
+		if (!empty($_GET['filters']))
+			$filters = $_GET['filters'];
+			
+		if (!empty($_GET['filters']['fromDate']))
+			$fromDate = $_GET['filters']['fromDate'];
+
+		if (!empty($_GET['filters']['toDate']))
+			$toDate = $_GET['filters']['toDate'];
+
+		if (!empty($_GET['filters']['mediaId']))
+			$filters = array_merge_recursive($filters, array('Media' => array('entityFilter' => array(
+				'entityType' => "Media",
+				'entityId' => $_GET['filters']['mediaId']
+			))));
+
+		if (isset($fromDate) || isset($toDate))
+			$filters['rangePublished'] = array('range' => Common::getPeriodArray($fromDate,$toDate));
 		
-		$params["campaignId"] = $campaignId;
+		if (!isset($filters["perPage"]))
+			$perPage = Common::getRowsPerPage();
+		else
+			$perPage = $filters["perPage"];
+
+		//Reviso si se solicito desde campaing		
 		$campaignId = $_GET['campaignId'];
 		//$campaignId = $request->getParameter('campaignId');
 		$campaign = CampaignQuery::create()->findOneById($campaignId);
 		if ($campaign) {
+			$params["campaignId"] = $campaignId;
 			$headlinesParsed = HeadlineParsedQuery::create()
 					->filterByCampaign($campaign)
-					->filterByStatus(array('max' => HeadlineParsedQuery::STATUS_PROCESSING))
+					->filterByStatus(array('max' => HeadlineParsed::STATUS_PROCESSING))
 					->orderByStatus()
 					->find();
 
@@ -37,14 +66,20 @@ class HeadlinesParsedListAction extends BaseListAction {
 			$smarty->assign('parseStategies', $parseStategies);
 
 			$params["campaignId"] = $campaignId;
-			$params["status"] = array('max' => HeadlineParsedQuery::STATUS_PROCESSING);
+			$params["status"] = array('max' => HeadlineParsed::STATUS_PROCESSING);
 		}
 		else {
+
+			$this->perPage = $perPage;
+//			$params["status"] = array('max' => HeadlineParsed::STATUS_PROCESSING);
+			$filters["status"] = HeadlineParsed::STATUS_IDLE;
+
+			$this->filters = $filters;
 			$this->smarty->assign('campaign', new Campaign());
 			$_GET['filters']['dateTo'] = date();
 			$_GET['filters']['dateFrom'] = date();
 		}
-		parent::preList();
+
 		$this->module = "Headlines";
 	}
 

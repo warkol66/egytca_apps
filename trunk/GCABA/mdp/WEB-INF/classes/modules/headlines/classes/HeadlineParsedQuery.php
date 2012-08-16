@@ -20,4 +20,16 @@ class HeadlineParsedQuery extends BaseHeadlineParsedQuery {
     const STATUS_PROCESSED  = 3;
     const STATUS_DISCARDED  = 4;
 
+    public function searchString($nameOrContent) {
+        $this->where("HeadlineParsed.Name LIKE ?", "%$nameOrContent%")
+            ->_or()
+        ->where("HeadlineParsed.Content LIKE ?", "%$nameOrContent%");
+        
+        return $this;
+    }
+    
+    public function rangePublished($range) {
+        return $this->filterByDatepublished($range);
+    }
+
 } // HeadlineParsedQuery
