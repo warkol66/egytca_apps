@@ -33,6 +33,12 @@
     </form>
 </fieldset>
 |-else-|
+<div id="lightbox1" class="leightbox">
+	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a></p> 
+<div id="viewWorking"></div>
+	<div class="innerLighbox">
+		<div id="viewDiv"></div>
+</div></div>
 <h1>Importar Titulares</h1>
 <fieldset>
 <form method="get" action="Main.php">
