@@ -37,46 +37,45 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 		if (!empty($_POST['type'])) {
 			
 			$savedHeadlines = array();
-			foreach ($_POST['type'] as $type) {
+			$type = $_POST['type'];
 			
-				$headlinesFeed = $this->typeMap[$type]['url'];
-		
-				$headlineParser = new HeadlineFeedParser($this->typeMap[$type]['class']);
-				$headlines = $headlineParser->debugMode($this->debug)->parse($headlinesFeed);
-				
-				if ($this->debug) {
-					$notSavedHeadlines = array();
-				}
-				
-				foreach ($headlines as $h) {
-					try {
-						$h->save();
-						$savedHeadlines []= $h;
-					} catch (Exception $e) {
-						if ($this->debug) {
-							$notSavedHeadlines []= $h;
-						}
+			$headlinesFeed = $this->typeMap[$type]['url'];
+
+			$headlineParser = new HeadlineFeedParser($this->typeMap[$type]['class']);
+			$headlines = $headlineParser->debugMode($this->debug)->parse($headlinesFeed);
+
+			if ($this->debug) {
+				$notSavedHeadlines = array();
+			}
+
+			foreach ($headlines as $h) {
+				try {
+					$h->save();
+					$savedHeadlines []= $h;
+				} catch (Exception $e) {
+					if ($this->debug) {
+						$notSavedHeadlines []= $h;
 					}
 				}
-				
-				/* ********************* debug ******************** */
-				if ($this->debug) {
-					echo '<hr/>';
-						echo 'guardados: '.count($savedHeadlines);
-						echo '<br/>';
-						echo 'no guardados (por repetidos supuestamente): '.count($notSavedHeadlines);
-					echo '<hr/>';
-						echo 'class: '.get_class($headlines[0]);
-						echo '<br/>';
-						echo 'count: '.count($headlines);
-						echo '<br/>';
-						$headlineParser->printDebugInfo();
-					echo '<hr/>';
-					
-					die;
-				}
-				/* ******************* end debug ****************** */
 			}
+
+			/* ********************* debug ******************** */
+			if ($this->debug) {
+				echo '<hr/>';
+					echo 'guardados: '.count($savedHeadlines);
+					echo '<br/>';
+					echo 'no guardados (por repetidos supuestamente): '.count($notSavedHeadlines);
+				echo '<hr/>';
+					echo 'class: '.get_class($headlines[0]);
+					echo '<br/>';
+					echo 'count: '.count($headlines);
+					echo '<br/>';
+					$headlineParser->printDebugInfo();
+				echo '<hr/>';
+
+				die;
+			}
+			/* ******************* end debug ****************** */
 			
 			$smarty->assign('headlinesParsed', $savedHeadlines);
 		}
