@@ -8,8 +8,8 @@
 	|-capture name=task-|<tasks>|-foreach from=$activities item=activity name=for_contractActivitys-|<task start='|-$activity->getStartingDate()|date_format:"%d-%m-%Y"-|' end='|-$activity->getEndingDate()|date_format:"%d-%m-%Y"-|' label='|-$activity|escape:"javascript"-|' showLabel='1' id='|-$activity->getid()-|' showborder='0'/>|-/foreach-|</tasks><milestones>|-foreach from=$activities item=activity name=for_contractActivitys-||-if ($activity->getStartingDate() eq $activity->getEndingDate()) || ($activity->getStartingDate() neq "" && $activity->getEndingDate() eq "")-|<milestone date='|-if $activity->getStartingDate() neq ""-||-$activity->getStartingDate()|date_format:"%d-%m-%Y"-||-else-||-$activity->getEndingDate()|date_format:"%d-%m-%Y"-||-/if-|' taskId='|-$activity->getid()-|' radius='10' color='333333' shape='Star' numSides='5' borderThickness='1' tooltext='|-$activity|escape:"javascript"-|, |-if $activity->getStartingDate() neq ""-||-$activity->getStartingDate()|date_format:"%d-%m-%Y"-||-else-||-$activity->getEndingDate()|date_format:"%d-%m-%Y"-||-/if-|'/>|-/if-||-/foreach-|</milestones></chart>|-/capture-| 
 
 <div id="chartdiv" align="center">Diagrama de Gantt</div>
-<script type="text/javascript">
-	var myChart = new FusionCharts("scripts/FusionCharts/Gantt.swf", "myChartId", "700", "450", "0", "0");
+<script type="text/javascript">|-assign var=height value="450"-||-math equation="q * y" q=$planningProject->countActivities() y="35" assign=calculatedHeight-|
+	var myChart = new FusionCharts("scripts/FusionCharts/Gantt.swf", "myChartId", "700", "|-if $calculatedHeight gt $height-||-$calculatedHeight-||-else-||-$height-||-/if-|", "0", "0");
 	myChart.setDataXML("|-$smarty.capture.xml-||-$smarty.capture.process-||-$smarty.capture.task-|");
 	myChart.render("chartdiv");
  </script>

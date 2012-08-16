@@ -18,7 +18,7 @@ class PlanningTreeDivsAction extends BaseAction {
 		$root = PositionQuery::create()->findOneById($_GET["id"]);
 		$smarty->assign('root', $root);
 		
-		$this->template->template = "TemplateJQuery.tpl";
+//		$this->template->template = "TemplateJQuery.tpl";
 		
 		return $mapping->findForwardConfig('success');
 	}

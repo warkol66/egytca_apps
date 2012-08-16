@@ -1,3 +1,4 @@
+|-if is_object($planningProject)-|
 <script type="text/javascript" src="scripts/lightbox.js"></script> 			
 <div id="lightbox1" class="leightbox">
 	<p align="right">				
@@ -159,4 +160,5 @@
 		|-/if-|</p>
 	|-/if-|
     </fieldset> 
-  </form> 
+  </form>
+|-/if-|

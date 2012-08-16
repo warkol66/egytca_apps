@@ -102,6 +102,14 @@ class PlanningConstruction extends BasePlanningConstruction {
 	}
 
 	/**
+	 * Devuelve la cantidad de actividades
+	 * @return integer Cantidad de actividades
+	 */
+	public function countActivities() {
+		return BaseQuery::create('PlanningActivity')->filterByObjecttype('Construction')->filterByObjectid($this->getId())->count();
+	}
+
+	/**
 	 * Devuelve array con posibles tipos de licitacion (tenderId)
 	 *  id => resultado esperado
 	 *

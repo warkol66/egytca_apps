@@ -1,3 +1,13 @@
+<script type="text/javascript" src="scripts/lightbox.js"></script> 			
+<div id="lightbox1" class="leightbox">
+	<p align="right">				
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
+	</p> 
+	<div id="planningProjectsShowWorking"></div>
+	<div class="innerLighbox">
+		<div id="planningProjectsShowDiv"></div>
+	</div>
+</div>
 <style type="text/css">
 <!--
 #treeRoot { background-color: #CCCCCC;border: 1px solid #CDCDCD; padding: 15px 4px 4px 4px; }
@@ -27,6 +37,9 @@
 }
 #treeRoot a.followLink:hover, #treeRoot a:hover {
 	text-decoration: underline !Important;
+}
+#treeRoot a.lbOn:hover {
+	text-decoration: none !Important;
 }
 #treeRoot h4 {
 	margin-top: 0 !Important;
