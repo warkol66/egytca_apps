@@ -23,7 +23,7 @@
 			<strong>|-if $headline->getMediaId() eq 0-||-$headline->getMediaName()-||-else-||-$headline->getMedia()-||-/if-| -- </strong>
 			|-if $headline->getContent()|mb_count_characters gt 500-|
 			|-$headline->getContent()|mb_truncate:500:"...":'UTF-8':true-|
-				<img src="images/clear.png" onClick="$('more|-$headline->getId()-|').toggle()" class="inlineLink readMore" /><span id="more|-$headline->getId()-|" style="display: none ">|-$headline->getContent()|mb_substr:500:5000-|</span>	
+				<img id="imgMore|-$headline->getId()-|" src="images/clear.png" onClick="$('more|-$headline->getId()-|').toggle();$('imgMore|-$headline->getId()-|').toggleClassName('inlineLink readLess')" class="inlineLink readMore" title="Ver/Ocultar texto" /><span id="more|-$headline->getId()-|" style="display: none ">|-$headline->getContent()|mb_substr:500:5000-|</span>	
 			|-else-|
 				|-$headline->getContent()-|
 			|-/if-|
@@ -54,5 +54,5 @@
 	}
 </script>
 |-else-|
-<li id="noHeadlines">|-if $included-|No hay Titulares por procesar|-else-|No hay más Titulares disponibles|-/if-|</li>
+<li id="noHeadlines">|-if $included-|No hay Titulares por procesar|-else-|<span class="resultSuccess">No se obtuvieron titulares nuevos</span>|-/if-|</li>
 |-/if-|

@@ -328,10 +328,12 @@ a.linkMailDelete {
 /* PAGINADO    ----------------------------*/
 .pages{
 	background-color: #FFF;
+}
+.pages, .divPages {
 	color:#0066CC;
 }
 a.pageLink:link, a.pageLink:visited {
-	color:#666;
+	color: #191970;
 }
 a.pageLink:hover, a.pageLink:active {
 	color:#0066CC;
@@ -729,4 +731,33 @@ a.report:hover,
 a.report:hover,
 a.importHeadlines:hover{
 	text-decoration: underline !Important;
+}
+
+.expandLink, .collapseLink {
+	color: #404040;
+	padding: 2px 5px 2px 22px;
+}
+.expandLink:link, .collapseLink:link {
+	text-decoration: none;
+}
+.expandLink {
+	background-image: url(../images/icon_expand.png);
+	background-repeat: no-repeat;
+}
+.collapseLink {
+	background-image: url(../images/icon_collapse.png);
+	background-repeat: no-repeat;
+}
+a.expandLink:link,a.expandLink:visited, a.collapseLink:link,a.collapseLink:visited{
+	color: #404040;
+	text-decoration: none;
+}
+.expandLink span, .collapseLink span {
+	font-size: 100% !Important;
+	font-weight: normal !Important;
+	display: none;
+}
+.expandLink:hover span, .collapseLink:hover span {
+	font-size: 100% !Important;
+	display: inline;
 }
