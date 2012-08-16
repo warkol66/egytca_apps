@@ -21,7 +21,12 @@
     <strong>&nbsp; &nbsp; |-$headline->getName()-|</strong>|-if $headline->getMoreSourcesUrl() ne ''-|<span id="parseMore_|-$headline->getId()-|" style="float: right; margin-right: 100px;"><img src="images/clear.png" class="icon iconAdd" onClick='parseMore("|-$headline->getId()-|;"); $("parseMore_|-$headline->getId()-|").parentNode.removeChild($("parseMore_|-$headline->getId()-|"));' value="Mas similares" /> <strong>Buscar similares</strong></span>|-/if-|
 		<ul><li>
 			<strong>|-if $headline->getMediaId() eq 0-||-$headline->getMediaName()-||-else-||-$headline->getMedia()-||-/if-| -- </strong>
-			|-$headline->getContent()-|
+			|-if $headline->getContent()|mb_count_characters gt 500-|
+			|-$headline->getContent()|mb_truncate:500:"...":'UTF-8':true-|
+				<img src="images/clear.png" onClick="$('more|-$headline->getId()-|').toggle()" class="inlineLink readMore" /><span id="more|-$headline->getId()-|" style="display: none ">|-$headline->getContent()|mb_substr:500:5000-|</span>	
+			|-else-|
+				|-$headline->getContent()-|
+			|-/if-|
 		</li></ul>
     </li>
     |-/foreach-|

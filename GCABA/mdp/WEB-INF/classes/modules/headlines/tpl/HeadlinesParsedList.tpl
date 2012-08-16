@@ -1,3 +1,4 @@
+|-include file="CommonAutocompleterInclude.tpl"-|
 <h2>Titulares</h2>
 |-if !$notValidId-|
 |-if !$campaign->isNew()-|
@@ -6,7 +7,7 @@
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a></p> 
 <div id="viewWorking"></div>
 	<div class="innerLighbox">
-		<div id="viewDiv">|-include file="CommonAutocompleterInclude.tpl"-|
+		<div id="viewDiv">
 		<div id="mediaAlias" style="display:none">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_mediaId" label="Guardar como alias de otro medio" url="Main.php?do=mediasAutocompleteListX" hiddenName="params[aliasOf]"  defaultHiddenValue="" defaultValue="" disableSubmit="saveAlias"-|
 		</div>
@@ -44,8 +45,17 @@
 <form method="get" action="Main.php">
 	<input name="do" value="headlinesParsedList" type="hidden" />
 	Aca van: <br>
-	Filtros de fecha<br>
-	Filtros de medio y tipo de medio<br>
+			<p>
+					<label for="filters[fromDate]">Fecha desde</label>
+					<input id="filters[fromDate]" name="filters[fromDate]" type="text" value="|-$filters.fromDate-|" size="12" title="Fecha desde" />
+					<label for="filters[toDate]">Fecha hasta</label>
+					<input id="filters[toDate]" name="filters[toDate]" type="text" value="|-$filters.toDate-|" size="12" title="Fecha hasta" />
+				</p>
+			<p>
+				<div div="div_filters[mediaId]" style="position: relative;z-index:10000;">
+				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_medias" url="Main.php?do=mediasAutocompleteListX" hiddenName="filters[mediaId]" label="Medio" defaultValue=$filters.mediaName defaultHiddenValue=$filters.mediaId name="filters[meadiaName]"-|
+				</div>
+			</p>
 	
 	<input type="submit" id="search_button" value="Filtrar" />
 </form>
@@ -55,7 +65,7 @@
 		<li><input name="type[]" value="radio" type="checkbox" />&nbsp;Radio</li>
 		<li><input name="type[]" value="press" type="checkbox" />&nbsp;Prensa</li>
 	</ul>
-	<input type="submit" id="search_button" value="Disparador manual de parser" />
+	<input type="submit" id="search_button" value="Obtener titulares" />
 </form>
 </fieldset>
 |-/if-|

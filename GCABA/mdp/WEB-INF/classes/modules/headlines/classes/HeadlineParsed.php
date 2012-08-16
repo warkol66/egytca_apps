@@ -15,6 +15,11 @@
  */
 class HeadlineParsed extends BaseHeadlineParsed {
     
+    const STATUS_IDLE       = 1;
+    const STATUS_PROCESSING = 2;
+    const STATUS_PROCESSED  = 3;
+    const STATUS_DISCARDED  = 4;
+
     /**
      * Antes de guardar un objeto HeadlineParsed nuevo lo dejamos en estado IDLE.
      * 
