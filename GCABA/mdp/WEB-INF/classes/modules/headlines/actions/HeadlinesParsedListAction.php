@@ -20,7 +20,7 @@ class HeadlinesParsedListAction extends BaseListAction {
 		//Obtencion de filtros
 		if (!empty($_GET["page"])) {
 			$page = $_GET["page"];
-			$smarty->assign("page",$page);
+			$this->smarty->assign("page",$page);
 		}
 		if (!empty($_GET['filters']))
 			$filters = $_GET['filters'];
@@ -57,13 +57,13 @@ class HeadlinesParsedListAction extends BaseListAction {
 					->orderByStatus()
 					->find();
 
-			$smarty->assign('campaign', $campaign);
-			$smarty->assign('campaignId', $campaignId);
-			$smarty->assign('headlinesParsed', $headlinesParsed);
+			$this->smarty->assign('campaign', $campaign);
+			$this->smarty->assign('campaignId', $campaignId);
+			$this->smarty->assign('headlinesParsed', $headlinesParsed);
 
 			$contentProviders = ConfigModule::get("headlines","contentProvider");
 			$parseStategies = $contentProviders["strategies_options"];
-			$smarty->assign('parseStategies', $parseStategies);
+			$this->smarty->assign('parseStategies', $parseStategies);
 
 			$params["campaignId"] = $campaignId;
 			$params["status"] = array('max' => HeadlineParsed::STATUS_PROCESSING);

@@ -40,34 +40,36 @@
 	<div class="innerLighbox">
 		<div id="viewDiv"></div>
 </div></div>
-<h1>Importar Titulares</h1>
+<h1>Administrar Titulares Importados</h1>
 <fieldset>
-<form method="get" action="Main.php">
+<legend>Titulares Importados &nbsp; 
+<a href="javascript:void(null)" id="showHideFilterHeadlines" onClick="$('filterHeadlines').toggle(); $('showHideFilterHeadlines').toggleClassName('|-if $filters|@count gt 1-|expandLink|-else-|collapseLink|-/if-|');" class="|-if $filters|@count gt 1-|collapseLink|-else-|expandLink|-/if-|"></a></legend>
+<form method="get" action="Main.php" id="filterHeadlines" style="display:|-if $filters|@count gt 1-|block|-else-|none|-/if-|;">
 	<input name="do" value="headlinesParsedList" type="hidden" />
-	Aca van: <br>
 			<p>
 					<label for="filters[fromDate]">Fecha desde</label>
 					<input id="filters[fromDate]" name="filters[fromDate]" type="text" value="|-$filters.fromDate-|" size="12" title="Fecha desde" />
-					<label for="filters[toDate]">Fecha hasta</label>
+					<label for="filters[toDate]" class="inlineLabel">Fecha hasta</label>
 					<input id="filters[toDate]" name="filters[toDate]" type="text" value="|-$filters.toDate-|" size="12" title="Fecha hasta" />
-				</p>
+	</p>
 			<p>
-				<div div="div_filters[mediaId]" style="position: relative;z-index:10000;">
-				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_medias" url="Main.php?do=mediasAutocompleteListX" hiddenName="filters[mediaId]" label="Medio" defaultValue=$filters.mediaName defaultHiddenValue=$filters.mediaId name="filters[meadiaName]"-|
-				</div>
+	<div div="div_filters[mediaId]" style="position: relative;z-index:10000;">
+				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_medias" url="Main.php?do=mediasAutocompleteListX" hiddenName="filters[mediaId]" label="Medio" defaultValue=$filters.mediaName defaultHiddenValue=$filters.mediaId name="filters[mediaName]"-|
+	</div>
 			</p>
-	
 	<input type="submit" id="search_button" value="Filtrar" />
-</form>
-<form method="post" action="Main.php" onsubmit="parseFeed(this); return false;">
-	<ul>
-		<li><input name="type[]" value="tv" type="checkbox" />&nbsp;TV</li>
-		<li><input name="type[]" value="radio" type="checkbox" />&nbsp;Radio</li>
-		<li><input name="type[]" value="press" type="checkbox" />&nbsp;Prensa</li>
-	</ul>
-	<input type="submit" id="search_button" value="Obtener titulares" />
+	|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=headlinesParsedList'"/>|-/if-|</p>
 </form>
 </fieldset>
+	<fieldset>
+	<legend>Obtener Titulares &nbsp; <a href="javascript:void(null)" id="showHideManualParse" onClick="$('manualParse').toggle(); $('showHideManualParse').toggleClassName('collapseLink');" class="expandLink"></a></legend>
+	<form method="post" action="Main.php" onsubmit="parseFeed(this); return false;" id="manualParse" style="display:none;">
+	 <p><label for="type[]">Fuente de titulares</label> <input name="type[]" value="tv" type="radio" />&nbsp; Prensa
+		<input name="type[]" value="radio" type="radio" />&nbsp; Radio y TV
+		<input name="type[]" value="press" type="radio" />&nbsp; Internet</p>
+	<p><input type="submit" id="search_button" value="Obtener titulares" title="Obtener manualmente titulares" /></p>
+	</form>
+	</fieldset>
 |-/if-|
 
 <div id="resultDiv"></div>
@@ -79,6 +81,9 @@
 <ul id="list" class="iconList">
 |-include file="HeadlinesParsedListInclude.tpl" included=true headlinesParsed=$headlineParsedColl-|
 </ul>
+|-if isset($pager) && $pager->haveToPaginate()-|
+	<div class="divPages">|-include file="ModelPagerInclude.tpl"-|</div>
+|-/if-|
 </fieldset>
 
 <script type="text/javascript">

@@ -98,21 +98,23 @@ a.linkMailDelete,a.linkMailDelete:link {
 	clear:left;
 }
 /* PAGINADO    ----------------------------*/
-.pages{
+.pages, .divPages {
 	height: 37px;
-	text-align:center;
-	vertical-align:middle;
-	font-weight:bold;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+}
+.divPages {
+	padding: 5px;
+}
+a.pageLink{
+	text-decoration: none;
 }
 a.pageLink:link, a.pageLink:visited {
-	font-weight:normal;
-	text-decoration:underline;
-	margin: 0 2px;
+	text-decoration: none;
 }
 a.pageLink:hover, a.pageLink:active {
-	font-weight:normal;
 	text-decoration:underline;
-	margin: 0 2px;
 }
 .tdFooter{
 	padding: 5px;
@@ -714,6 +716,11 @@ a.return, a.report, a.importHeadlines {
 
 .readMore {
 	background-image: url(../images/icon_readMore.png);
+}
+.readLess {
+	background-image: url(../images/icon_readLess.png);
+}
+.readMore, .readLess {
 	width: 16px;
 	height: 13px;
 }
