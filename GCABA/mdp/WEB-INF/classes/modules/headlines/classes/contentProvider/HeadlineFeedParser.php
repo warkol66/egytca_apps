@@ -18,24 +18,6 @@ class HeadlineFeedParser {
 			throw new Exception("no se pudo leer $uri");
 		$parsedData = new SimpleXMLElement($xmlData);
 		
-		$fieldsMap = array(
-			'title' => 'setName',
-			'description' => 'setContent',
-			'link' => 'setUrl',
-			'pubDate' => 'setDatePublished',
-			'page' => 'setPage',
-			'section' => 'setSection',
-			'abstract' => 'setSummary',
-			'caption' => 'setCaption',
-//			'lastChangeDate' => '????',
-			'category' => 'setMediaName',
-//			'comments' => ????
-//			'enclosure' => ????
-			'guid' => 'setInternalIdFromString',
-			'author' => 'setAuthor',
-			'source' => 'setSource'
-		);
-		
 		if ($this->debugging) {
 			$this->debugInfo['fields'] = array();
 		}
@@ -44,12 +26,14 @@ class HeadlineFeedParser {
 		foreach ($parsedData->channel->item as $item) {
 			
 			$headline = new HeadlineParsed();
-			$headline->setClassKey(constant('HeadlinePeer::CLASSKEY_'.strtoupper($this->class)));
+			$classKey = constant('HeadlinePeer::CLASSKEY_'.strtoupper($this->class));
+			if (!is_null($classKey))
+				$headline->setClassKey($classKey);
+			else
+				throw new Exception('classKey for '.$this->class.' doesn\'t exist');
 			
 			foreach ($item as $key => $value) {
-				if ($fieldsMap[$key]) {
-					$setMethod = $fieldsMap[$key];
-					$headline->$setMethod($value);
+				if ($this->addInfoToHeadline($headline, $key, $value)) {
 					if ($this->debugging) {
 						$this->debugInfo['fields'][$key] = 'found';
 					}
@@ -58,22 +42,9 @@ class HeadlineFeedParser {
 						$this->debugInfo['fields'][$key] = 'not found ***************';
 					}
 					// TODO: avisar que hay datos en desuso
-					
-					// DELETEME
-					if (false && $key == 'comments') {
-						echo '<hr/>';
-						echo $key."<br/>";
-						foreach ($value as $q) {
-							echo "- ".$q."<br/>";
-						}
-						echo $value."<br/>";
-						echo "class: ".get_class($value)."<br/>";
-						print_r($value);
-						echo '<hr/>';
-					}
 				}
 			}
-			
+
 			$media = MediaQuery::create()->findOneByName($headline->getMedianame());
 			if (!empty($media)) {
 				$media = $media->resolveAliases();
@@ -90,6 +61,36 @@ class HeadlineFeedParser {
 		}
 		
 		return $headlines;
+	}
+	
+	private function addInfoToHeadline($headline, $name, $value) {
+		switch ($name) {
+			case ('title'): $headline->setName($value); return true;
+			case ('description'): $headline->setContent($value); return true;
+			case ('link'): $headline->setUrl($value); return true;
+			case ('pubDate'): $headline->setDatePublished($value); return true;
+			case ('page'): $headline->setPage($value); return true;
+			case ('section'): $headline->setSection($value); return true;
+			case ('abstract'): $headline->setSummary($value); return true;
+			case ('caption'): $headline->setCaption($value); return true;
+			case ('category'): $headline->setMediaName($value); return true;
+			case ('guid'): $headline->setInternalIdFromString($value); return true;
+			case ('author'): $headline->setAuthor($value); return true;
+			case ('source'): $headline->setSource($value); return true;
+			case ('lastChangeDate'): return false;//$headline->???($value); return true;
+			case ('comments'): return false;//$headline->???($value); return true;
+			case ('enclosure'): $this->addEnclosureToHeadline($headline, $value); return true;
+			default: break;
+		}
+		return false;
+	}
+	
+	private function addEnclosureToHeadline($headline, $value) {
+		$attributes = $value->attributes();
+		
+		$headline->setAttachmentLength($attributes->length);
+		$headline->setAttachmentType($attributes->type);
+		$headline->setAttachmentUri($attributes->url);
 	}
 	
 	public function debugMode($status = true) {

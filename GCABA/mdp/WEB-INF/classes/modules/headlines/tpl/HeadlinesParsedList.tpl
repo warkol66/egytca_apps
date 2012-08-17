@@ -64,9 +64,9 @@
 	<fieldset>
 	<legend>Obtener Titulares &nbsp; <a href="javascript:void(null)" id="showHideManualParse" onClick="$('manualParse').toggle(); $('showHideManualParse').toggleClassName('collapseLink');" class="expandLink"></a></legend>
 	<form method="post" action="Main.php" onsubmit="parseFeed(this); return false;" id="manualParse" style="display:none;">
-	 <p><label for="type">Fuente de titulares</label> <input name="type" value="tv" type="radio" />&nbsp; Prensa
-		<input name="type" value="radio" type="radio" />&nbsp; Radio y TV
-		<input name="type" value="press" type="radio" />&nbsp; Internet</p>
+	 <p><label for="type">Fuente de titulares</label> <input name="type" value="press" type="radio" />&nbsp; Prensa
+		<input name="type" value="multimedia" type="radio" />&nbsp; Radio y TV
+		<input name="type" value="web" type="radio" />&nbsp; Internet</p>
 	<p><input type="submit" id="search_button" value="Obtener titulares" title="Obtener manualmente titulares" /></p>
 	</form>
 	</fieldset>

@@ -27,7 +27,7 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 		if ($this->debug) {
 			echo '<hr/>';
 			echo '<form action="Main.php?do=headlinesXMLDoParseX" method="post">';
-				echo '<input type="hidden" name="type[]" value="press" />';
+				echo '<input type="hidden" name="type" value="press" />';
 				echo '<input type="hidden" name="url" value="'.urlencode('http://prensa/rss3.xml').'" />';
 				echo '<input type="submit" value="guardar PressHeadlines parseados a DB" />';
 			echo '</form>';
@@ -38,6 +38,12 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 			
 			$savedHeadlines = array();
 			$type = $_POST['type'];
+			
+			if (!in_array($type, array_keys($this->typeMap))) {
+				if ($type == "")
+					$type = "(empty string)";
+				return $this->returnAjaxFailure("$type is not a valid type");
+			}
 			
 			$headlinesFeed = $this->typeMap[$type]['url'];
 
@@ -66,11 +72,19 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 					echo '<br/>';
 					echo 'no guardados (por repetidos supuestamente): '.count($notSavedHeadlines);
 				echo '<hr/>';
-					echo 'class: '.get_class($headlines[0]);
-					echo '<br/>';
 					echo 'count: '.count($headlines);
 					echo '<br/>';
 					$headlineParser->printDebugInfo();
+				echo '<hr/>';
+					echo '<pre>';
+					$toBePrinted = null;
+					foreach($headlines as $h){
+						$toBePrinted = $h;
+						if ($h->getAttachmentLength())
+							break;
+					}
+					print_r($toBePrinted);
+					echo "</pre>";
 				echo '<hr/>';
 
 				die;

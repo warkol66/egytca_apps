@@ -13,6 +13,6 @@
  *
  * @package    propel.generator.headlines.classes
  */
-class TVHeadlineQuery extends BaseTVHeadlineQuery {
+class WebHeadlineQuery extends BaseWebHeadlineQuery {
 
-} // TVHeadlineQuery
+} // WebHeadlineQuery

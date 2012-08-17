@@ -13,15 +13,15 @@
  *
  * @package    propel.generator.headlines.classes
  */
-class RadioHeadline extends Headline {
+class MultimediaHeadline extends Headline {
 
 	/**
-	 * Constructs a new RadioHeadline class, setting the class_key column to HeadlinePeer::CLASSKEY_4.
+	 * Constructs a new MultimediaHeadline class, setting the class_key column to HeadlinePeer::CLASSKEY_3.
 	 */
 	public function __construct()
 	{
 		parent::__construct();
-		$this->setClassKey(HeadlinePeer::CLASSKEY_4);
+		$this->setClassKey(HeadlinePeer::CLASSKEY_3);
 	}
 
-} // RadioHeadline
+} // MultimediaHeadline

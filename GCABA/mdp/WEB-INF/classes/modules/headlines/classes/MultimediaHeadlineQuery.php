@@ -13,6 +13,6 @@
  *
  * @package    propel.generator.headlines.classes
  */
-class RadioHeadlineQuery extends BaseRadioHeadlineQuery {
+class MultimediaHeadlineQuery extends BaseMultimediaHeadlineQuery {
 
-} // RadioHeadlineQuery
+} // MultimediaHeadlineQuery

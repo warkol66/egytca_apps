@@ -13,15 +13,15 @@
  *
  * @package    propel.generator.headlines.classes
  */
-class TVHeadline extends Headline {
+class WebHeadline extends Headline {
 
 	/**
-	 * Constructs a new TVHeadline class, setting the class_key column to HeadlinePeer::CLASSKEY_3.
+	 * Constructs a new WebHeadline class, setting the class_key column to HeadlinePeer::CLASSKEY_4.
 	 */
 	public function __construct()
 	{
 		parent::__construct();
-		$this->setClassKey(HeadlinePeer::CLASSKEY_3);
+		$this->setClassKey(HeadlinePeer::CLASSKEY_4);
 	}
 
-} // TVHeadline
+} // WebHeadline

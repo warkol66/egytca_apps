@@ -24,11 +24,14 @@
 		<column name="source" type="VARCHAR" description="Fuente" />
 		<column name="summary" type="VARCHAR" description="Resumen" />
 		<column name="caption" type="VARCHAR" />
+		<column name="attachmentLength" type="INTEGER" />
+		<column name="attachmentType" type="VARCHAR" />
+		<column name="attachmentId" type="INTEGER" />
 		<column name="class_key" type="INTEGER" inheritance="single">
 			<inheritance key="1" class="Headline" />
 			<inheritance key="2" class="PressHeadline" extends="Headline"/>
-			<inheritance key="3" class="TVHeadline" extends="Headline"/>
-			<inheritance key="4" class="RadioHeadline" extends="Headline"/>
+			<inheritance key="3" class="MultimediaHeadline" extends="Headline"/>
+			<inheritance key="4" class="WebHeadline" extends="Headline"/>
 		</column>
 
 		<behavior name="timestampable" />
@@ -168,6 +171,9 @@
 		<column name="source" type="VARCHAR" description="Fuente" />
 		<column name="summary" type="VARCHAR" description="Resumen" />
 		<column name="caption" type="VARCHAR" />
+		<column name="attachmentLength" type="INTEGER" />
+		<column name="attachmentType" type="VARCHAR" />
+		<column name="attachmentUri" type="VARCHAR" />
 		<column name="class_key" type="INTEGER" description="Clase de headline a crear" />
         
 		<behavior name="timestampable" />
