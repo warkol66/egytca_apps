@@ -25,15 +25,26 @@ class BaseQuery {
      */
     private $queryClass;
     
+    private $debugging;
+    private $debugInfo;
+    
     public function BaseQuery($modelNameOrModelCriteria) {
-        if ($modelNameOrModelCriteria instanceof ModelCriteria) {
-            $this->query = $modelNameOrModelCriteria;
-        }
-        else {
-            $queryClass  = $modelNameOrModelCriteria . "Query";
-            $this->query = $queryClass::create();
-        }
+        $this->query = $this->createQuery($modelNameOrModelCriteria);
         $this->queryClass = get_class($this->query);
+	$this->debugging = false;
+	$this->debugInfo = array();
+    }
+    
+    private function createQuery($modelNameOrModelCriteria) {
+        if ($modelNameOrModelCriteria instanceof ModelCriteria) {
+            return $modelNameOrModelCriteria;
+        }
+        
+        $pieces = preg_split("/#/", $modelNameOrModelCriteria);
+        $factoryMethod = !empty($pieces[1]) ? "create" . ucfirst($pieces[1]) : "create";
+        $q = call_user_func(array($pieces[0] . "Query", $factoryMethod));
+        
+        return $q;
     }
     
     /**
@@ -55,40 +66,49 @@ class BaseQuery {
 	 * @return  BaseQuery
 	 */
     public function addFilter($filterName, $filterValue) {
-        
+	    
         /**
          * Si el $filterName existe como metodo en el objeto query,
          * entonces lo invoca.
          */
-        $result = $this->callIfPossible($filterName, array($filterValue));
+        $result = $this->callIfPossible($filterName, $filterValue);
         if ($result instanceof ModelCriteria) {
             return $this;
         }
 	
-		switch ($filterName) {
+	$found = true;
+	switch ($filterName) {
 
-			case 'searchString':
-				$this->query->filterByName("%$filterValue%", Criteria::LIKE);
-				break;
-            
-            case 'entityFilter':
-                $this->entityFilter($filterValue);
-                break;
+		case 'searchString':
+			$this->query->filterByName("%$filterValue%", Criteria::LIKE);
+		break;
+	
+		case 'entityFilter':
+			$this->entityFilter($filterValue);
+			break;
+		
+		default:
+			$peer = $this->query->getModelPeerName();
+			$filterName = ucfirst($filterName);
+			if (in_array($filterName, $peer::getFieldNames(BasePeer::TYPE_PHPNAME)))
+				$this->query->filterBy($filterName, $filterValue);
+			else if (is_array($filterValue))
+				$this->addFilters($filterValue); // Revisar
+			else
+				$found = false;
 
-			default:
-				$peer = $this->query->getModelPeerName();
-				$filterName = ucfirst($filterName);
-				if (in_array($filterName, $peer::getFieldNames(BasePeer::TYPE_PHPNAME))) {
-					// filterByXxx acepta arrays. filterBy('Xxx', $v) no
-					$filterMethod = 'filterBy'.$filterName;
-					$this->query->$filterMethod($filterValue);
-				} else if (is_array($filterValue))
-					$this->addFilters($filterValue); // Revisar
+			break;
+	}
+	
+	if ($this->debugging) {
+		$this->debugInfo['filters'] []= array(
+			'name' => $filterName,
+			'params' => $filterValue,
+			'found' => $found
+		);
+	}
 
-				break;
-		}
-
-		return $this;
+	return $this;
     }
     
 	/**
@@ -103,7 +123,7 @@ class BaseQuery {
 //            echo " existe filtro $name ? ". method_exists($this->queryClass, $name) . "<br />";
 			if ((isset($value) && $value != null) && $name != "perPage")
 				$this->addFilter($name, $value);
-        }
+			}
 		return $this;
 	}
     
@@ -152,12 +172,17 @@ class BaseQuery {
     private function callIfPossible($method, $arguments) {
         if (method_exists($this->queryClass, $method) || ($this->isMagicMethod($method))) {
 //            echo " invocando $method <br />";
+	    if ($this->debugging) {
+	        $this->debugInfo['filters'] []= array(
+			'name' => $method,
+			'params' => $arguments,
+			'found' => true
+		);
+	    }
+	    
             if (!is_array($arguments))
                 $arguments = array($arguments);
-	    
-//	    echo "method: $method<br/>";
-//	    echo "args: ";print_r($arguments);echo "<br/>";
-	    
+            
             return call_user_func_array(array($this->query, $method), $arguments);
         }
         return FALSE;
@@ -181,7 +206,7 @@ class BaseQuery {
 
         $entityQueryClass = ucfirst($filterValue['entityType']) . "Query";
         if (!class_exists(ucfirst($filterValue['entityType'])) || !class_exists($entityQueryClass))
-            break; // nothing to filter
+            return; // nothing to filter
 
         $entity = $entityQueryClass::create()->findOneById($filterValue['entityId']);
         $filterByEntity = 'filterBy'.ucfirst($filterValue['entityType']);
@@ -195,6 +220,24 @@ class BaseQuery {
         else
             $this->query->$filterByEntity($entity);
         
+    }
+    
+    public function startDebug() {
+	    $this->debugging = true;
+	    return $this;
+    }
+    
+    public function printDebugInfo($return = false) {
+	    
+	    if (!$this->debugging)
+		    throw new Exception('must start debug first!! ($query->startDebug())');
+	    
+	    $this->debugInfo['sql'] = $this->query->toString();
+	    
+	    if ($return)
+		    return $this->debugInfo;
+	    else
+		    echo "<pre>";print_r($this->debugInfo);echo "</pre>";die;
     }
     
 } // Query
