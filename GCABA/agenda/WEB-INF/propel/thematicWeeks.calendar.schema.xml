@@ -1,0 +1,23 @@
+<database defaultIdMethod="native" package="calendar.classes" name="application" >
+
+	<table phpName="ThematicWeek" name="calendar_thematicWeek" description="Semanas tematicas">
+
+		<column name="id" type="INTEGER"  required="true" description="Id evento" primaryKey="true" autoIncrement="true"  />
+		<column name="weekNumber" type="INTEGER" description="Numero de semana" />
+		<column name="year" type="INTEGER" description="Anio" />
+		<column name="monday" type="DATE" description="Lunes" />
+		<column name="sunday" type="DATE" description="Domingo" />
+		<column name="axisId" type="INTEGER"  required="true" description="Id del eje" />
+
+		<foreign-key foreignTable="calendar_axis" >
+			<reference local="axisId" foreign="id" />
+		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>
