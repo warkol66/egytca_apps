@@ -80,7 +80,7 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 					$toBePrinted = null;
 					foreach($headlines as $h){
 						$toBePrinted = $h;
-						if ($h->getAttachmentLength())
+						if ($h->getHeadlineParsedAttachments()->count() > 0)
 							break;
 					}
 					print_r($toBePrinted);

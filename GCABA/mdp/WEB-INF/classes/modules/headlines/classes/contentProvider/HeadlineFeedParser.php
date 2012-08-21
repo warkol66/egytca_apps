@@ -88,9 +88,13 @@ class HeadlineFeedParser {
 	private function addEnclosureToHeadline($headline, $value) {
 		$attributes = $value->attributes();
 		
-		$headline->setAttachmentLength($attributes->length);
-		$headline->setAttachmentType($attributes->type);
-		$headline->setAttachmentUri($attributes->url);
+		$attachment = new HeadlineParsedAttachment();
+		
+		$attachment->setLength($attributes->length);
+		$attachment->setType($attributes->type);
+		$attachment->setPath($attributes->url);
+		
+		$headline->addHeadlineParsedAttachment($attachment);
 	}
 	
 	public function debugMode($status = true) {
