@@ -24,9 +24,6 @@
 		<column name="source" type="VARCHAR" description="Fuente" />
 		<column name="summary" type="VARCHAR" description="Resumen" />
 		<column name="caption" type="VARCHAR" />
-		<column name="attachmentLength" type="INTEGER" />
-		<column name="attachmentType" type="VARCHAR" />
-		<column name="attachmentId" type="INTEGER" />
 		<column name="class_key" type="INTEGER" inheritance="single">
 			<inheritance key="1" class="Headline" />
 			<inheritance key="2" class="PressHeadline" extends="Headline"/>
@@ -171,9 +168,6 @@
 		<column name="source" type="VARCHAR" description="Fuente" />
 		<column name="summary" type="VARCHAR" description="Resumen" />
 		<column name="caption" type="VARCHAR" />
-		<column name="attachmentLength" type="INTEGER" />
-		<column name="attachmentType" type="VARCHAR" />
-		<column name="attachmentUri" type="VARCHAR" />
 		<column name="class_key" type="INTEGER" description="Clase de headline a crear" />
         
 		<behavior name="timestampable" />
@@ -195,6 +189,44 @@
         </unique>
         
         <vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+	
+	<table name="headlines_attachment" phpName="HeadlineAttachment">
+		
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id" autoIncrement="true"/>
+		<column name="length" type="INTEGER" />
+		<column name="type" type="VARCHAR" />
+		<column name="path" type="VARCHAR" />
+		<column name="headlineId" type="INTEGER" primaryKey="true"/>
+		
+		<foreign-key foreignTable="headlines_headline" onDelete="CASCADE">
+			<reference local="headlineId" foreign="id"/>
+		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+	
+	<table name="headlines_parsedAttachment" phpName="HeadlineParsedAttachment">
+		
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id" autoIncrement="true"/>
+		<column name="length" type="INTEGER" />
+		<column name="type" type="VARCHAR" />
+		<column name="path" type="VARCHAR" />
+		<column name="headlineParsedId" type="INTEGER" primaryKey="true"/>
+		
+		<foreign-key foreignTable="headlines_parsed" onDelete="CASCADE">
+			<reference local="headlineParsedId" foreign="id"/>
+		</foreign-key>
+		
+		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
 		</vendor>
