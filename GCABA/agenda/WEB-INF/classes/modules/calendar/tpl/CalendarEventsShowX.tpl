@@ -187,7 +187,7 @@ Avance de la obra </th>
 	</tr>
 	<tr>
 		<th>Fecha estimada del evento</th>
-		<td colspan="2" class="fichaTd75">|-$event->getStartDate()|date_format-|</td>
+		<td colspan="2" class="fichaTd75">|-$event->getStartDate()|dateTime_format-| - |-$event->getEndDate()|dateTime_format-|</td>
 	</tr>
 	<tr>
 		<th>Descripción</th>
@@ -195,11 +195,11 @@ Avance de la obra </th>
 	</tr>
 	<tr>
 		<td rowspan="2" class="fichaMap"><div class="fichaGoogleMap"></div></td>
-		<th>&nbsp;</th>
+		<th>Comentarios</th>
 		<td rowspan="2" class="fichaMap"><div class="fichaMapaCaba"><img src="images/ficha_mapaCABA.png" alt=""/></div></td>
 	</tr>
 	<tr>
-		<td class="fichaTd50 fichaDescription">&nbsp;</td>
+		<td class="fichaTd50 fichaDescription">|-$event->getComments()-|</td>
 	</tr>
 </table>
 </div>
