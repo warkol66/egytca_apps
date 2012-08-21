@@ -61,7 +61,7 @@
 
 Avance de la obra </th>
 <td rowspan="2" class="fichaMap"><div class="fichaMapaCaba">
-<img src="images/ficha_mapaCABA.png" alt=""/></div></td>
+|-assign var=comuna value=$event->getComuna()-|<img src="images/Comuna_|-$comuna-|.png" alt="|-if $comuna gt 0-|Comuna |-$comuna-||-else-||-/if-|"/></div></td>
 </tr>
 <tr>
 <td class="fichaTd50 fichaDescription"><div class="fichaDescriptionText">
@@ -196,7 +196,9 @@ Avance de la obra </th>
 	<tr>
 		<td rowspan="2" class="fichaMap"><div class="fichaGoogleMap"></div></td>
 		<th>Comentarios</th>
-		<td rowspan="2" class="fichaMap"><div class="fichaMapaCaba"><img src="images/ficha_mapaCABA.png" alt=""/></div></td>
+		<td rowspan="2" class="fichaMap"><div class="fichaMapaCaba">|-assign var=comuna value=$event->getComuna()-|<img src="images/Comuna_|-$comuna-|.png" alt="|-if $comuna gt 0-|Comuna |-$comuna-||-else-||-/if-|"/></div></td>
+
+
 	</tr>
 	<tr>
 		<td class="fichaTd50 fichaDescription">|-$event->getComments()-|</td>

@@ -37,7 +37,7 @@ class CalendarEventsEditAction extends BaseAction {
 		}
 		
 		if ($calendarEventsConfig['useRegions']['value'] == "YES")
-			$smarty->assign("regions", RegionQuery::create()->find());
+			$smarty->assign("regions", RegionQuery::create()->filterByType(RegionPeer::COMMUNE)->find());
 		
 		if ($calendarEventsConfig['useCategories']['value'] == "YES")
 			$smarty->assign("categories", CategoryQuery::create()->find());

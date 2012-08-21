@@ -67,6 +67,24 @@ class CalendarEvent extends BaseCalendarEvent {
 	}
 	
 	/**
+	 * Devuelve el numero de la comuna asociada al evento
+	 * 
+	 * @return integer numero de comuna
+	 */
+	public function getComuna() {
+		$comune = RegionQuery::create()->filterByType(RegionPeer::COMMUNE)
+			->useEventRegionQuery()
+				->filterByCalendarEvent($this)
+			->endUse()
+			->findOne();
+		if (empty($comune))
+			return 0;
+		else
+			return substr($comune->getName(),7,2);
+			
+	}
+
+	/**
 	 * Devuelve el nombre del estado actual en que se encuentra la noticia
 	 * 
 	 * @return string Nombre del estado del evento

@@ -104,7 +104,7 @@ $(function () {
 		<label for="calendarEvent_regions">Comunas/Barrios</label>
 		<select class="chzn-select markets-chz-select" data-placeholder="Seleccione una o varias comunas/barrios..." multiple="multiple" id="calendarEvent_regions" name="calendarEvent[regionsIds][]" size="5" title="comunas">
 			|-foreach from=$regions item=object-|
-				<option value="|-$object->getid()-|" |-$calendarEvent->hasRegion($object)|selected:true-|>|-$object->getname()-|</option>
+				<option value="|-$object->getid()-|" |-$calendarEvent->hasRegion($object)|selected:true-|>|-$object->getName()-|<!--|-assign var=subregions value=$object->getChildren()-| (|-foreach from=$subregions item=subregion name=foreach_subregion-||-$subregion->getName()-||-if !$subregion@last-|, |-/if-||-/foreach-|)--></option>
 			|-/foreach-|
 		</select>
 	</p>
