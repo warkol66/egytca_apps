@@ -43,12 +43,14 @@
 							 name = "commonDoLogin"
 							scope = "request"
 					 validate = "true">
-			<forward name="successUser" path="/Main.php?do=usersWelcome" redirect="true" />
-			<forward name="successUserFirstLogin" path="/Main.php?do=usersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
+			<forward name="successUsers" path="/Main.php?do=usersWelcome" redirect="true" />
+			<forward name="successUsersFirstLogin" path="/Main.php?do=usersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
 			<forward name="failure" path="CommonLogin.tpl"/>
 			<forward name="failureMissingData" path="/Main.php?do=commonLogin&amp;message=missingData" redirect="true" />
 			<forward name="successAffiliateUsers" path="AffiliatesUsersWelcome.tpl"/>
+			<forward name="successAffiliateUsersFirstLogin" path="/Main.php?do=affiliateUsersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
 			<forward name="failureRedirectUserLogin" path="/Main.php?do=usersLogin" redirect="true" />
+			<forward name="failureRedirectAffiliateUserLogin" path="/Main.php?do=affiliateUsersLogin" redirect="true" />
 			<forward name="failure" path="CommonLogin.tpl"/>
 		</action>
 
