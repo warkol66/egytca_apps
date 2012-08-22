@@ -34,6 +34,16 @@ class ImpactObjective extends BaseImpactObjective {
 	}
 
 	/**
+	 * Devuelve el InternalCode 
+	 *
+	 * @return Codigo
+	 */
+	public function getStringCode() {
+
+		return str_pad($this->getInternalCode(),2,"00",STR_PAD_LEFT);
+
+	}
+	/**
 	 * Devuelve el nombre mas la particula identificatoria
 	 *
 	 * @return string

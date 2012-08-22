@@ -50,10 +50,10 @@
 			</tr>
 			|-else-|
 		|-foreach from=$planningProjectColl item=project name=for_projects-|
-			<tr>
-				<td>|-$project->getOperativeobjective()-|</td>
+			<tr>|-assign var=operativeObjective value=$project->getOperativeObjective()-|
+				<td>|-$operativeObjective->getStringCode()-|&nbsp;|-$project->getOperativeobjective()-|</td>
 				<td>|-$project->getPosition()-|</td>
-				<td>|-$project->getName()-|</td>
+				<td>|-$project->getStringCode()-|&nbsp;|-$project->getName()-|</td>
 				<td nowrap>
 					|-if $project->getActivities()|count gt 0-|
 					<input type="button" class="icon iconViewGantt" onClick='window.open("Main.php?do=planningProjectsViewX&showGantt=true&id=|-$project->getid()-|","Gantt","scrollbars=1,width=800,height=600");' value="Ver Gantt" title="Ver Gantt (abre en ventana nueva)" />|-else-|<img src="images/clear.png" class="icon iconClear disabled" />|-/if-|
