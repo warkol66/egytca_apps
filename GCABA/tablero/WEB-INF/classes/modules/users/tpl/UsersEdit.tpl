@@ -143,8 +143,7 @@ function usersDoEditInfo(form){
 			</p> 
 		</form> 
 		<ul id="groupList" class="iconOptionsList">
-			 |-foreach from=$currentUser->getGroups() item=groupRelation name=for_group-|			 
-			 |-assign var="group" value=$groupRelation->getGroup()-|
+			 |-foreach from=$currentUser->getGroups() item=group name=for_group-|			 
 			<li id="groupListItem|-$group->getId()-|">
 				<form  method="post"> 
 					<input type="hidden" name="do" id="do" value="usersDoDeleteFromGroupX" /> 

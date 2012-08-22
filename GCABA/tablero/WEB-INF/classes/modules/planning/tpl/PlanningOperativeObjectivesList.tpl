@@ -53,7 +53,7 @@
 		|-foreach from=$operativeObjectiveColl item=objective name=for_objectives-|
 			<tr>|-assign var=ministryObjective value=$objective->getMinistryObjective()-|
 				<td>|-if is_object($ministryObjective) && !empty($ministryObjective)-||-$ministryObjective->getImpactObjective()->getStringCode()-|&nbsp;|-$ministryObjective->getImpactObjective()-||-/if-|</td>
-				<td>|-$ministryObjective->getStringCode()-|&nbsp;|-$ministryObjective-|</td>
+				<td>|-if is_object($ministryObjective)-||-$ministryObjective->getStringCode()-|&nbsp;|-/if-||-$ministryObjective-|</td>
 				<td>|-$objective->getStringCode()-|&nbsp;|-$objective->getName()-|</td>
 				<td nowrap>|-if $objective->countPlanningProjects() gt 0-|<a href="Main.php?do=planningProjectsList&nav=true&&filters[operativeobjectiveid]=|-$objective->getid()-|" class="icon iconFollow" title="Ver Proyectos del Objetivo Operativo">Ver Proyectos</a>|-/if-|</td>
 				<td nowrap>

@@ -72,7 +72,7 @@ class User extends BaseUser {
 	 * Obtiene los grupos a los que pertenece un usuario
 	 * @returns todos los grupos.
 	 */
-	function getGroups() {
+/*	function getGroups() {
 
 		$criteria = UserGroupQuery::create()
 													->useGroupQuery()
@@ -81,6 +81,18 @@ class User extends BaseUser {
 		$allObjs = $this->getUserGroups($criteria);
 		return $allObjs;
 
+	}
+*/
+
+ /*
+	* Obtiene un array con el Id de los grupos a los que pertenece un usuario
+	* @returns array todos los grupos.
+	*/
+	public function getUserGroupIds() {
+		return $groups = GroupQuery::create()
+				->select(ID)
+				->filterByUser($this)
+				->find()->toArray();
 	}
 
 	/*
@@ -110,7 +122,7 @@ class User extends BaseUser {
 			return true;
 		$groups = $this->getGroups();
 		foreach ($groups as $group){
-			if ( $group->getGroupId() == 1 )
+			if ( $group->getId() == 1 )
 				return true;
 		}
 		return false;
@@ -126,7 +138,7 @@ class User extends BaseUser {
 
 		$groups = $this->getGroups();
 		foreach ($groups as $group) {
-			if ( $group->getGroupId() == 2 )
+			if ( $group->getId() == 2 )
 				return true;
 		}
 		return false;

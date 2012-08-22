@@ -14,7 +14,7 @@
  * @package    propel.generator.planning.classes
  */
 class PlanningProject extends BasePlanningProject {
-	
+
 	/**
 	 * Devuelve coleccion de objetos asociados (PlanningActivity)
 	 *
@@ -24,33 +24,34 @@ class PlanningProject extends BasePlanningProject {
 		$constructionQuery = PlanningConstructionQuery::create()->filterByPlanningProject($this);
 		$activitiesQuery = BaseQuery::create('PlanningActivity')->filterByObjecttype('Project')->filterByObjectid($this->getId());
 		if ($constructionQuery->count() > 0)
-	    $brood = $constructionQuery->find();
-	   else
-	    $brood = $activitiesQuery->find();
+			$brood = $constructionQuery->find();
+		 else
+			$brood = $activitiesQuery->find();
 		return $brood;
 	}
 
 	/**
 	 * Devuelve el objeto (OperativeObjective) del que se desprende el proyecto
 	 *
-	 * @return OperativeObjective del que se desprende el proyecto 
+	 * @return OperativeObjective del que se desprende el proyecto
 	 */
 	public function getAntecessor() {
 		return $this->getOperativeObjective();
 	}
 
 	/**
-	 * Devuelve el InternalCode del objetivo Operativo
+	 * Devuelve el InternalCode del proyecto
 	 *
-	 * @return Codigo
+	 * @return string codigo de proyecto
 	 */
 	public function getStringCode() {
-
-		$antecessor= $this->getAntecessor();
-		$code=str_pad($antecessor->getStringCode(),2,"00",STR_PAD_LEFT);
-		return $code.".".str_pad($this->getInternalCode(),2,"00",STR_PAD_LEFT);
-
+		if (is_object($antecessor)) {
+			return str_pad($antecessor->getInternalCode(), 2, "00", STR_PAD_LEFT) . "." . str_pad($this->getInternalCode(), 2, "00", STR_PAD_LEFT);
+		}
+		else
+			return "00.00.00." . str_pad($this->getInternalCode(), 2, "00", STR_PAD_LEFT);
 	}
+
 	/**
 	 * Devuelve el nombre mas la particula identificatoria
 	 *

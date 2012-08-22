@@ -20,7 +20,7 @@
      <legend>Objetivo de Impacto|-if $startingYear eq $endingYear-| - |-$startingYear-||-else-| (|-$startingYear-| - |-$endingYear-|)|-/if-|</legend>
 
 		|-if !$show && !$showLog-|<div id="responsible" style="position: relative;z-index:11000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_responsibleCode" label="Dependencia" url="Main.php?do=commonAutocompleteListX&object=position&objectParam=code" hiddenName="params[responsibleCode]" defaultHiddenValue=$impactObjective->getResponsibleCode() defaultValue=$impactObjective->getPosition()-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_responsibleCode" label="Dependencia" url="Main.php?do=commonAutocompleteListX&object=position&objectParam=code&filters[filterByDoPlanning]=true" hiddenName="params[responsibleCode]" defaultHiddenValue=$impactObjective->getResponsibleCode() defaultValue=$impactObjective->getPosition()-|
 		</div>
 		|-else-|
       <p>

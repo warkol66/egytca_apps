@@ -26,6 +26,9 @@ class CommonAutocompleteListXAction extends BaseAction {
 
 		$filters = array("searchString" => $searchString, "limit" => $_REQUEST['limit']);
 
+		if (isset($_REQUEST['filters']))
+			$filters = array_merge($filters, $request->getParameterValues("filters"));
+
 		$objects = BaseQuery::create($object)
 				->addFilters($filters)
 				->limit($_REQUEST['limit'])

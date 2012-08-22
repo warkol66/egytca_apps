@@ -14,7 +14,7 @@
  * @package    propel.generator.planning.classes
  */
 class ImpactObjective extends BaseImpactObjective {
-	
+
 	/**
 	 * Devuelve coleccion de objetos asociados (MinistryObjective)
 	 *
@@ -34,15 +34,14 @@ class ImpactObjective extends BaseImpactObjective {
 	}
 
 	/**
-	 * Devuelve el InternalCode 
+	 * Devuelve el codigo del Obejtivo de impacto formateado
 	 *
-	 * @return Codigo
+	 * @return string con codigo de objetivo de impacto
 	 */
 	public function getStringCode() {
-
-		return str_pad($this->getInternalCode(),2,"00",STR_PAD_LEFT);
-
+		return str_pad($this->getInternalCode(), 2, "00", STR_PAD_LEFT);
 	}
+
 	/**
 	 * Devuelve el nombre mas la particula identificatoria
 	 *

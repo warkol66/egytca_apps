@@ -58,11 +58,12 @@ function resetPassword(form){
 				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=usersList'"/>|-/if-|
 		</form></div></td>
 	</tr>
-	|-if "usersEdit"|security_has_access-||-if !isset($licensesLeft) || (isset($licensesLeft) && $licensesLeft gt 0)-|
+	|-if "usersEdit"|security_has_access-|
+	|-*if !isset($licensesLeft) || (isset($licensesLeft) && $licensesLeft gt 0)*-|
 	<tr>
 		<th colspan="6"><div class="rightLink"><a href="Main.php?do=usersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Usuario</a></div></th>
 	</tr>
-	|-/if-||-/if-|
+	|-/if-||-*/if*-|
 	<tr>
 		<th width="25%" nowrap >##162,Identificación de Usuario##</th>
 		<th width="20%">##163,Nombre##</th>
@@ -102,7 +103,7 @@ function resetPassword(form){
 		|-/if-|</td>
 	</tr>
 	|-/foreach-|
-	|-if "usersEdit"|security_has_access-||-if !isset($licensesLeft) || (isset($licensesLeft) && $licensesLeft gt 0)-|
+	|-if "usersEdit"|security_has_access-||-*if !isset($licensesLeft) || (isset($licensesLeft) && $licensesLeft gt 0)*-|
 	<tr>
 		<th colspan="6"><div class="rightLink"><a href="Main.php?do=usersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Usuario</a></div></th>
 	</tr>
@@ -110,7 +111,7 @@ function resetPassword(form){
 	<tr>
 		<td class='buttonCell' colspan='5'><input type='submit' value='##173,Nuevo Usuario##' class='button' onClick="return alert('Todas las licencias se encuentran en uso. Si desea dar de alta un nuevo usuario debe eliminar alguno de los existentes.');"/></td>
 	</tr>
-	|-/if-||-/if-|
+	|-/if-||-*/if*-|
 		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
 			<tr> 
 				<td colspan="6" class="pages">|-include file="PaginateInclude.tpl"-|</td> 

@@ -51,8 +51,8 @@
 			|-else-|
 		|-foreach from=$ministryObjectiveColl item=objective name=for_objectives-|
 			<tr>|-assign var=impactObjective value=$objective->getImpactObjective()-|
-				<td>|-$impactObjective->getStringCode()-|&nbsp;|-$objective->getImpactObjective()-|</td>
-				<td>|-$objective->getStringCode()-|&nbsp;|-$objective-|</td>
+				<td>|-if is_object($impactObjective)-||-$impactObjective->getStringCode()-|&nbsp;|-/if-||-$objective->getImpactObjective()-|</td>
+				<td>|-if is_object($objective)-||-$objective->getStringCode()-|&nbsp;|-/if-||-$objective-|</td>
 				<td nowrap>|-if $objective->countOperativeObjectives() gt 0-|<a href="Main.php?do=planningOperativeObjectivesList&nav=true&filters[ministryobjectiveid]=|-$objective->getid()-|" class="icon iconFollow" title="Ver objetivos operativos del Objetivo Ministerial">Ver objetivos operativos</a>|-/if-|</td>
 				<td nowrap>
 					<form action="Main.php" method="get" style="display:inline;">

@@ -31,13 +31,14 @@ class PositionsDoEditAction extends BaseAction {
 			$redirectParams = $filterRedirect;
 
 		//si no hay userGroup seleccionado, lo ponemos en null.
-		if ( isset($_POST['positionData']['userGroupId']) && (($_POST['positionData']['userGroupId'] == 0) || ($_POST['positionData']['type'] != 11)))
+		if (isset($_POST['positionData']['userGroupId']) && (($_POST['positionData']['userGroupId'] == 0)))
 			$_POST['positionData']['userGroupId'] = NULL;
 		
-		// Me aseguro que las positions tengan el UserGroupId de sus padres.
-		$parentPosition = PositionQuery::create()->findPK($_POST['positionData']['parentId']);
-		if (!empty($parentPosition) && ($_POST['positionData']['type'] != 11)) {
-			$_POST['positionData']['userGroupId'] = $parentPosition->getUserGroupId();
+		// Si no planifica, me aseguro que las positions tengan el UserGroupId de sus padres.
+		if ($_POST['positionData']['planning'] == 0) {
+			$parentPosition = PositionQuery::create()->findPK($_POST['positionData']['parentId']);
+			if (!empty($parentPosition))
+				$_POST['positionData']['userGroupId'] = $parentPosition->getUserGroupId();
 		}
 
 		if ($_POST["action"] == "edit") {

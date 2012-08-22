@@ -29,6 +29,9 @@ class PlanningOperativeObjectivesEditAction extends BaseEditAction {
 		if (isset($_GET["fromMinistryObjectiveId"])) {
 			$ministryObjective = BaseQuery::create("MinistryObjective")->findOneById($_GET["fromMinistryObjectiveId"]);
 			if (!empty($ministryObjective)) {
+				$this->entity->setMinistryObjectiveId($_GET["fromMinistryObjectiveId"]);
+				$this->smarty->assign("ministryObjective", $this->entity);
+
 				$this->smarty->assign("ministryObjective", $ministryObjective);
 				$this->smarty->assign("fromMinistryObjectiveId", $_GET["fromMinistryObjectiveId"]);
 			}

@@ -14,7 +14,7 @@
  * @package    propel.generator.planning.classes
  */
 class OperativeObjective extends BaseOperativeObjective {
-	
+
 	/**
 	 * Devuelve coleccion de objetos asociados (PlanningProjects)
 	 *
@@ -27,7 +27,7 @@ class OperativeObjective extends BaseOperativeObjective {
 	/**
 	 * Devuelve el objeto (MinistryObjective) del que se desprende el objetivo operativo
 	 *
-	 * @return MinistryObjective del que se desprende el objetivo operativo 
+	 * @return MinistryObjective del que se desprende el objetivo operativo
 	 */
 	public function getAntecessor() {
 		return $this->getMinistryObjective();
@@ -36,15 +36,16 @@ class OperativeObjective extends BaseOperativeObjective {
 	/**
 	 * Devuelve el InternalCode del objetivo Operativo
 	 *
-	 * @return Codigo
+	 * @return string Codigo del Objetivo Operativo
 	 */
 	public function getStringCode() {
-
-		$antecessor= $this->getAntecessor();
-		$code=str_pad($antecessor->getStringCode(),2,"00",STR_PAD_LEFT);
-		return $code.".".str_pad($this->getInternalCode(),2,"00",STR_PAD_LEFT);
-
+		if (is_object($antecessor)) {
+			return str_pad($antecessor->getInternalCode(), 2, "00", STR_PAD_LEFT) . "." . str_pad($this->getInternalCode(), 2, "00", STR_PAD_LEFT);
+		}
+		else
+			return "00.00." . str_pad($this->getInternalCode(), 2, "00", STR_PAD_LEFT);
 	}
+
 	/**
 	 * Devuelve el nombre mas la particula identificatoria
 	 *
