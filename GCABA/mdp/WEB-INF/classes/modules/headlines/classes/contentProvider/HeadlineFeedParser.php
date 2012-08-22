@@ -73,7 +73,7 @@ class HeadlineFeedParser {
 			case ('section'): $headline->setSection($value); return true;
 			case ('abstract'): $headline->setSummary($value); return true;
 			case ('caption'): $headline->setCaption($value); return true;
-			case ('category'): $headline->setMediaName($value); return true;
+			case ('category'): $this->parseMedianameAndProgram($headline, $value); return true;
 			case ('guid'): $headline->setInternalIdFromString($value); return true;
 			case ('author'): $headline->setAuthor($value); return true;
 			case ('source'): $headline->setSource($value); return true;
@@ -95,6 +95,13 @@ class HeadlineFeedParser {
 		$attachment->setPath($attributes->url);
 		
 		$headline->addHeadlineParsedAttachment($attachment);
+	}
+	
+	private function parseMedianameAndProgram($headline, $value) {
+		$data = preg_split('/ - /', $value);
+		$headline->setMedianame($data[0]);
+		if (count($data) > 1)
+			$headline->setProgram($data[1]);
 	}
 	
 	public function debugMode($status = true) {
