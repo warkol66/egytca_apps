@@ -51,7 +51,7 @@
 			|-else-|
 		|-foreach from=$planningProjectColl item=project name=for_projects-|
 			<tr>|-assign var=operativeObjective value=$project->getOperativeObjective()-|
-				<td>|-$operativeObjective->getStringCode()-|&nbsp;|-$project->getOperativeobjective()-|</td>
+				<td>|-if is_object($operativeObjective)-||-$operativeObjective->getStringCode()-|&nbsp;|-/if-||-$project->getOperativeobjective()-|</td>
 				<td>|-$project->getPosition()-|</td>
 				<td>|-$project->getStringCode()-|&nbsp;|-$project->getName()-|</td>
 				<td nowrap>

@@ -68,7 +68,18 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 
 
 		|-if !$show && !$showLog-|<div id="responsible" style="position: relative;z-index:11000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_responsibleCode" label="Dependencia" url="Main.php?do=commonAutocompleteListX&object=position&objectParam=code" hiddenName="params[responsibleCode]" defaultHiddenValue=$planningConstruction->getResponsibleCode() defaultValue=$planningConstruction->getPosition()-|
+
+		|-if isset($planningProject)-|
+			|-assign var=ancestorCode value=$planningProject->getResponsibleCode()-|
+		|-else-|
+			|-assign var=planningProject value=$planningConstruction->getPlanningProject()-|
+			|-if is_object($planningProject)-|
+				|-assign var=ancestorCode value=$planningProject->getResponsibleCode()-|
+			|-/if-|		
+		|-/if-|
+
+
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_responsibleCode" label="Dependencia" url="Main.php?do=commonAutocompleteListX&object=position&objectParam=code&filters[filterByGroupCode]=$ancestorCode" hiddenName="params[responsibleCode]" defaultHiddenValue=$planningConstruction->getResponsibleCode() defaultValue=$planningConstruction->getPosition()-|
 		</div>
 		|-else-|
       <p>

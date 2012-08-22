@@ -30,7 +30,13 @@
 		|-/if-|
 
 		|-if !$show && !$showLog-|<div id="responsible" style="position: relative;z-index:11000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_responsibleCode" label="Dependencia" url="Main.php?do=commonAutocompleteListX&object=position&objectParam=code" hiddenName="params[responsibleCode]" defaultHiddenValue=$operativeObjective->getResponsibleCode() defaultValue=$operativeObjective->getPosition()-|
+		
+		|-if isset($ministryObjective)-|
+			|-assign var=ancestorCode value=$ministryObjective->getResponsibleCode()-|
+		|-else-|
+			|-assign var=ancestorCode value=$operativeObjective->getMinistryObjective()->getResponsibleCode()-|
+		|-/if-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_responsibleCode" label="Dependencia" url="Main.php?do=commonAutocompleteListX&object=position&objectParam=code&filters[filterByGroupCode]=$ancestorCode" hiddenName="params[responsibleCode]" defaultHiddenValue=$operativeObjective->getResponsibleCode() defaultValue=$operativeObjective->getPosition()-|
 		</div>
 		|-else-|
       <p>

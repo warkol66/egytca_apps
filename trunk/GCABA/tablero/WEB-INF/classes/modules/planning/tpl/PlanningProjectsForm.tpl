@@ -42,7 +42,16 @@
 		|-/if-|
 
 		|-if !$show && !$showLog-|<div id="responsible" style="position: relative;z-index:11000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_responsibleCode" label="Dependencia" url="Main.php?do=commonAutocompleteListX&object=position&objectParam=code" hiddenName="params[responsibleCode]" defaultHiddenValue=$planningProject->getResponsibleCode() defaultValue=$planningProject->getPosition()-|
+
+		|-if isset($operativeObjective)-|
+			|-assign var=ancestorCode value=$operativeObjective->getResponsibleCode()-|
+		|-else-|
+			|-assign var=operativeObjective value=$planningProject->getOperativeObjective()-|
+			|-if is_object($operativeObjective)-|
+				|-assign var=ancestorCode value=$operativeObjective->getResponsibleCode()-|
+			|-/if-|		
+		|-/if-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_responsibleCode" label="Dependencia" url="Main.php?do=commonAutocompleteListX&object=position&objectParam=code&filters[filterByGroupCode]=$ancestorCode" hiddenName="params[responsibleCode]" defaultHiddenValue=$planningProject->getResponsibleCode() defaultValue=$planningProject->getPosition()-|
 		</div>
 		|-else-|
       <p>
