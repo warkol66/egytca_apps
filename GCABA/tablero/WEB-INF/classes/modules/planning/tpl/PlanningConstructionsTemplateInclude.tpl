@@ -16,17 +16,17 @@
     </tr> 
     <tr> 
       <td><input class="mayorActivity" name="activity[][name]" id="params_name[]" type="text" value="Llamado a Concurso" size="60" title="Actividad"></td> 
-      <td><input class="mayorActivity" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="mayorActivity dateValidation" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="mayorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="mayorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="mayorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
     <tr> 
       <td><input class="mayorActivity" name="activity[][name]" id="params_name[]" type="text" value="Cierre de Concurso" size="60" title="Actividad"></td> 
-      <td><input class="mayorActivity" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="mayorActivity dateValidation" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="mayorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="mayorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="mayorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
     <tr> 
       <td><input class="mayorActivity" name="activity[][name]" id="params_name[]" type="text" value="Fallo Jurado" size="60" title="Actividad"></td> 
-      <td><input class="mayorActivity" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="mayorActivity dateValidation" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="mayorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="mayorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="mayorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
     <tr> 
@@ -34,7 +34,7 @@
     </tr> 
     <tr> 
       <td><input class="mayorActivity" name="activity[][name]" id="params_name[]" type="text" value="Diseño del Proyecto" size="60" title="Actividad"></td> 
-      <td><input class="mayorActivity" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="mayorActivity dateValidation" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="mayorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="mayorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="mayorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
     <tr> 
@@ -42,17 +42,17 @@
     </tr> 
     <tr> 
       <td><input class="mayorActivity" name="activity[][name]" id="params_name[]" type="text" value="Presentación EIA en APRA" size="60" title="Actividad"></td> 
-      <td><input class="mayorActivity" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="mayorActivity dateValidation" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="mayorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="mayorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="mayorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
     <tr> 
       <td><input class="mayorActivity" name="activity[][name]" id="params_name[]" type="text" value="Audiencia Pública" size="60" title="Actividad"></td> 
-      <td><input class="mayorActivity" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="mayorActivity dateValidation" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="mayorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="mayorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="mayorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
     <tr> 
       <td><input class="mayorActivity" name="activity[][name]" id="params_name[]" type="text" value="Emisión de Certificado" size="60" title="Actividad"></td> 
-      <td><input class="mayorActivity" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="mayorActivity dateValidation" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="mayorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="mayorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="mayorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
     <tr> 
@@ -60,32 +60,32 @@
     </tr> 
     <tr> 
       <td><input class="mayorActivity" name="activity[][name]" id="params_name[]" type="text" value="Aprobación de Pliegos" size="60" title="Actividad"></td> 
-      <td><input class="mayorActivity" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="mayorActivity dateValidation" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="mayorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="mayorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="mayorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
     <tr> 
       <td><input class="mayorActivity" name="activity[][name]" id="params_name[]" type="text" value="Llamado" size="60" title="Actividad"></td> 
-      <td><input class="mayorActivity" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="mayorActivity dateValidation" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="mayorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="mayorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="mayorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
     <tr> 
       <td><input class="mayorActivity" name="activity[][name]" id="params_name[]" type="text" value="Apertura de Sobres" size="60" title="Actividad"></td> 
-      <td><input class="mayorActivity" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="mayorActivity dateValidation" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="mayorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="mayorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="mayorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
     <tr> 
       <td><input class="mayorActivity" name="activity[][name]" id="params_name[]" type="text" value="Pre-Adjudicación" size="60" title="Actividad"></td> 
-      <td><input class="mayorActivity" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="mayorActivity dateValidation" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="mayorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="mayorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="mayorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
     <tr> 
       <td><input class="mayorActivity" name="activity[][name]" id="params_name[]" type="text" value="Adjudicación" size="60" title="Actividad"></td> 
-      <td><input class="mayorActivity" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="mayorActivity dateValidation" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="mayorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="mayorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="mayorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
     <tr> 
       <td><input class="mayorActivity" name="activity[][name]" id="params_name[]" type="text" value="Firma Contrata" size="60" title="Actividad"></td> 
-      <td><input class="mayorActivity" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="mayorActivity dateValidation" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="mayorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="mayorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="mayorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
   </tbody> 
@@ -105,7 +105,7 @@
     </tr> 
     <tr> 
       <td><input class="minorActivity" name="activity[][name]" id="params_name[]" type="text" value="Diseño del Proyecto" size="60" title="Actividad"></td> 
-      <td><input class="minorActivity" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="minorActivity dateValidation" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="minorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="minorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="minorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
     <tr> 
@@ -113,32 +113,32 @@
     </tr> 
     <tr> 
       <td><input class="minorActivity" name="activity[][name]" id="params_name[]" type="text" value="Aprobación de Pliegos" size="60" title="Actividad"></td> 
-      <td><input class="minorActivity" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="minorActivity dateValidation" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="minorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="minorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="minorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
     <tr> 
       <td><input class="minorActivity" name="activity[][name]" id="params_name[]" type="text" value="Llamado" size="60" title="Actividad"></td> 
-      <td><input class="minorActivity" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="minorActivity dateValidation" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="minorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="minorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="minorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
     <tr> 
       <td><input class="minorActivity" name="activity[][name]" id="params_name[]" type="text" value="Apertura de Sobres" size="60" title="Actividad"></td> 
-      <td><input class="minorActivity" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="minorActivity dateValidation" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="minorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="minorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="minorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
     <tr> 
       <td><input class="minorActivity" name="activity[][name]" id="params_name[]" type="text" value="Pre-Adjudicación" size="60" title="Actividad"></td> 
-      <td><input class="minorActivity" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="minorActivity dateValidation" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="minorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="minorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="minorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
     <tr> 
       <td><input class="minorActivity" name="activity[][name]" id="params_name[]" type="text" value="Adjudicación" size="60" title="Actividad"></td> 
-      <td><input class="minorActivity" name="activity[][endingDate]" id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="minorActivity dateValidation" name="activity[][endingDate]" id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="minorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="minorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="minorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
     <tr> 
       <td><input class="minorActivity" name="activity[][name]" id="params_name[]" type="text" value="Firma Contrata" size="60" title="Actividad"></td> 
-      <td><input class="minorActivity" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
+      <td><input class="minorActivity dateValidation" name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización (dd-mm-yyyy)"></td> 
       <td align="center"><input class="minorActivity" name="activity[][acomplished]" type="hidden" value="0"><input class="minorActivity" name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1"  title="Indique si se completó la actividad"><input class="minorActivity" name="activity[][eol]" type="hidden" value="1"></td> 
     </tr> 
   </tbody> 

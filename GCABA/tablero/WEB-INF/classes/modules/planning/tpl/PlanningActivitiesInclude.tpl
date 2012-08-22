@@ -12,8 +12,8 @@ function addActivityRow() {
 	var row = document.createElement('tr');
 html =   '      <tr> '
  + '            <td><input name="activity[][name]"  id="params_name[]" type="text" value="" size="60" title="Actividad"></td>'
-|-if !$construction-| + '            <td><input name="activity[][startingDate]"  id="params_startingDate[]" type="text" value="" size="12" title="Fecha de inicio"></td>'|-/if-|
- + '            <td><input name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización"></td>'
+|-if !$construction-| + '            <td><input name="activity[][startingDate]"  id="params_startingDate[]" type="text" value="" size="12" title="Fecha de inicio en formato dd-mm-aaaa" class="dateValidation"></td>'|-/if-|
+ + '            <td><input name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" size="12" title="Fecha de finalización en formato dd-mm-aaaa" class="dateValidation"></td>'
  + '            <td align="center"><input name="activity[][acomplished]" type="hidden" value="0"><input name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1" title="Indique si se completó la actividad"></td>'
  + '         		<td><input name="activity[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar partida" onclick="deleteActivityRow(this.parentNode.parentNode.rowIndex)" /></td> '
  + '       </tr>';
@@ -90,8 +90,8 @@ html =   '      <tr> '
             <td><input type="hidden" name="activity[][id]" value="|-$activity->getId()-|"/>
             |-if isset($construction) && $construction->getConstructionType() eq 2-|<input name="activity[][name]" id="params_name[]" type="text" value="|-$activity->getName()|escape-|" size="60" title="Actividad" readonly="readonly"></td>
             |-else-|<input name="activity[][name]" id="params_name[]" type="text" value="|-$activity->getName()|escape-|" size="60" title="Actividad" |-$readonly|readonly-|>|-/if-|</td>
-|-if !$construction-|            <td><input name="activity[][startingDate]"  id="params_startingDate[]" type="text" value="|-$activity->getStartingDate()|date_format-|" size="12" title="Fecha de inicio (dd-mm-yyyy)" |-$readonly|readonly-|></td>|-/if-|  
-            <td><input name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="|-$activity->getEndingDate()|date_format-|" size="12" title="Fecha de finalización (dd-mm-yyyy)" |-$readonly|readonly-|></td>
+|-if !$construction-|            <td><input name="activity[][startingDate]"  id="params_startingDate[]" type="text" value="|-$activity->getStartingDate()|date_format-|" size="12" title="Fecha de inicio en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation"></td>|-/if-|  
+            <td><input name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="|-$activity->getEndingDate()|date_format-|" size="12" title="Fecha de finalización en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation"></td>
             <td align="center"><input name="activity[][acomplished]" type="hidden" value="0"><input name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1" |-$activity->getAcomplished()|checked_bool-| title="Indique si se completó la actividad" |-$readonly|readonly-|>
         </td>
          		|-if !$show && !$showLog-|<td>|-if !isset($construction) || (isset($construction) && !$construction->getConstructionType() eq 2)-|<input name="activity[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar" value="Eliminar" onClick="removeActivity('|-$activity->getId()-|')" />|-else-|<img src="images/clear.png" class="disabled icon iconClear" />|-/if-|</td>|-/if-| 
