@@ -118,10 +118,6 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 		</select>
 	</p>
 	<p>
-        <label for="params_tenderDescription">Detalles de la licitación</label>
-      <input name="params[tenderDescription]" type="text" id="params_tenderDescription" size="80" value="|-$planningConstruction->getTenderDescription()-|" title="Detalles de la licitación" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
-    </p>
-	<p>
         <label for="params_surface">Superfice (mts2)</label>
       <input name="params[surface]" type="text" id="params_surface" size="20" value="|-$planningConstruction->getSurface()|system_numeric_format-|" title="Superficie" maxlength="20" class="emptyValidation right" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
     </p>
@@ -155,6 +151,10 @@ $("#autocomplete_responsibleCode").ajaxChosen({
         <label for="params_sanctionAmount">Presupuesto Sanción</label>
       <input name="params[sanctionAmount]" type="text" id="params_sanctionAmount" size="20" value="|-$planningConstruction->getSanctionAmount()|system_numeric_format-|" title="Presupuesto Sancionado " class="right" |-$readonly|readonly-|/>
     </p>
+  <p>
+        <label for="params_fundingSource">Fuente de Financiamiento</label>
+      <input name="params[fundingSource]" type="text" id="params_fundingSource" size="80" value="|-$planningConstruction->getFundingSource()-|" title="Fuente de Financiamiento" |-$readonly|readonly-|/>
+    </p>
 
 
   <p>     
@@ -169,10 +169,6 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 		 |-if !$planningConstruction->isNew()-|<h3>Partida presupuestaria &nbsp; <a href="javascript:void(null)" id="showHideBudgetRelations" onClick="$('budgetItemsTable').toggle(); $('showHideBudgetRelations').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningConstruction->getBudgetItems() readonly="readonly" showLog="true"-||-/if-|
 		 <h3>Gantt (Hitos) <a href="javascript:void(null)" id="showHidePlanningConstruction" onClick="$('activitiesTable').toggle(); $('showHidePlanningConstruction').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-if !$planningConstruction->isNew()-||-include file="PlanningActivitiesInclude.tpl" activities=$planningConstruction->getActivities() construction=$planningConstruction showGantt="true"-||-else-|
 		 |-include file="PlanningConstructionsTemplateInclude.tpl" construction="true"-||-/if-|
-	<p>
-        <label for="params_fundingSource">Fuente de Financiamiento</label>
-      <input name="params[fundingSource]" type="text" id="params_fundingSource" size="80" value="|-$planningConstruction->getFundingSource()-|" title="Fuente de Financiamiento" |-$readonly|readonly-|/>
-    </p>
 	<p>
         <label for="params_address">Dirección</label>
       <input name="params[address]" type="text" id="params_address" size="80" value="|-$planningConstruction->getAddress()-|" title="Dirección" |-$readonly|readonly-|/>
