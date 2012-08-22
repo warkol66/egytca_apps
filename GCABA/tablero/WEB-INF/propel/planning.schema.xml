@@ -32,7 +32,7 @@
 
 	<table name="planning_impactObjective" phpName="ImpactObjective" description="Objetivos de Impacto">
 		<column name="id" primaryKey="true" type="INTEGER" description="Id del objetivo" autoIncrement="true" />
-		<column name="code" type="INTEGER" description="Codigo de Identificacion" />
+		<column name="internalCode" type="INTEGER" description="Codigo de Identificacion" />
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del objetivo" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del objetivo"/>
 		<column name="policyGuideline" type="INTEGER" description="Eje de gestion" />
@@ -87,7 +87,7 @@
 
 	<table name="planning_ministryObjective" phpName="MinistryObjective" description="Objetivos ministeriales">
 		<column name="id" primaryKey="true" type="INTEGER" description="Id del objetivo" autoIncrement="true" />
-		<column name="code" type="INTEGER" description="Codigo de Identificacion" />
+		<column name="internalCode" type="INTEGER" description="Codigo de Identificacion" />
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del objetivo" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del objetivo"/>
 		<column name="baseline" type="INTEGER" description="Linea de base" />
@@ -178,7 +178,7 @@
 
 	<table name="planning_operativeObjective" phpName="OperativeObjective" description="Objetivos operativos">
 		<column name="id" primaryKey="true" type="INTEGER" description="Id del objetivo" autoIncrement="true" />
-		<column name="code" type="INTEGER" description="Codigo de Identificacion" />
+		<column name="internalCode" type="INTEGER" description="Codigo de Identificacion" />
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del objetivo" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del objetivo"/>
 		<column name="startingYear" type="INTEGER" description="A#o de inicio" />
@@ -227,7 +227,7 @@ Seccion de tablas de log
 
 	<table name="planning_impactObjectiveLog" phpName="ImpactObjectiveLog" description="Objetivos de Impacto - Log">
 		<column name="id" primaryKey="true" type="INTEGER" description="Id del log de objetivo de impacto" autoIncrement="true" />
-		<column name="code" type="INTEGER" description="Codigo de Identificacion" />
+		<column name="internalCode" type="INTEGER" description="Codigo de Identificacion" />
 		<column name="impactObjectiveId" type="INTEGER" description="Id del objetivo de Impacto"/>
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del objetivo" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del objetivo"/>
@@ -262,7 +262,7 @@ Seccion de tablas de log
 
 	<table name="planning_ministryObjectiveLog" phpName="MinistryObjectiveLog" description="Objetivos ministeriales - Log">
 		<column name="id" primaryKey="true" type="INTEGER" description="Id del objetivo" autoIncrement="true" />
-		<column name="code" type="INTEGER" description="Codigo de Identificacion" />
+		<column name="internalCode" type="INTEGER" description="Codigo de Identificacion" />
 		<column name="ministryObjectiveId" type="INTEGER" description="Id del objetivo Ministerial"/>
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del objetivo" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del objetivo"/>
@@ -310,7 +310,7 @@ Seccion de tablas de log
 
 	<table name="planning_operativeObjectiveLog" phpName="OperativeObjectiveLog" description="Objetivos operativos - Log">
 		<column name="id" primaryKey="true" type="INTEGER" description="Id del objetivo" autoIncrement="true" />
-		<column name="code" type="INTEGER" description="Codigo de Identificacion" />
+		<column name="internalCode" type="INTEGER" description="Codigo de Identificacion" />
 		<column name="operativeObjectiveId" type="INTEGER" description="Id del objetivo de Impacto"/>
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del objetivo" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del objetivo"/>

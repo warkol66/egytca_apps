@@ -32,6 +32,18 @@ class MinistryObjective extends BaseMinistryObjective {
 	public function getAntecessor() {
 		return $this->getImpactObjective();
 	}
+	/**
+	 * Devuelve el InternalCode del objetivo ministerial
+	 *
+	 * @return ImpactObjective del que se desprende el objetivo ministerial 
+	 */
+	public function getStringCode() {
+
+		$antecessor= $this->getAntecessor();
+		$code=str_pad($antecessor->getInternalCode(),2,"00",STR_PAD_LEFT);
+		return $code.".".str_pad($this->getInternalCode(),2,"00",STR_PAD_LEFT);//->str_pad(getInternalCode(), 2).".";
+
+	}
 
 	/**
 	 * Devuelve el nombre mas la particula identificatoria

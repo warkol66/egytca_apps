@@ -27,4 +27,5 @@ class PlanningMinistryObjectivesListAction extends BaseListAction {
 		if ($_GET["nav"])
 			$this->smarty->assign("nav", true);
 	}
+
 }

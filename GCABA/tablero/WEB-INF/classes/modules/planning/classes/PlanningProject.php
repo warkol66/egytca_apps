@@ -40,6 +40,18 @@ class PlanningProject extends BasePlanningProject {
 	}
 
 	/**
+	 * Devuelve el InternalCode del objetivo Operativo
+	 *
+	 * @return Codigo
+	 */
+	public function getStringCode() {
+
+		$antecessor= $this->getAntecessor();
+		$code=str_pad($antecessor->getStringCode(),2,"00",STR_PAD_LEFT);
+		return $code.".".str_pad($this->getInternalCode(),2,"00",STR_PAD_LEFT);
+
+	}
+	/**
 	 * Devuelve el nombre mas la particula identificatoria
 	 *
 	 * @return string

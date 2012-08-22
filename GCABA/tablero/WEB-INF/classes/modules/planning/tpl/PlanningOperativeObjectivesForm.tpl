@@ -39,8 +39,8 @@
       </p>
 		|-/if-|
       <p>
-        <label for="params_code">Código de Identificación</label>
-      <input name="params_code" type="text" id="params_code" size="5" title="Código de Identificación" value="|-$operativeObjective->getCode()-|" |-$readonly|readonly-| />
+        <label for="params_internalCode">Código de Identificación</label>
+      <input name="params[internalCode]" type="text" id="params_internalCode" size="5" title="Código de Identificación" value="|-$operativeObjective->getInternalCode()-|" |-$readonly|readonly-|  class="emptyValidation numericValidation"/>
       </p>
 		<p>
         <label for="params_name">Objetivo Operativo</label>

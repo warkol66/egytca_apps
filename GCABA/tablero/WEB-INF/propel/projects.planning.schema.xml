@@ -2,7 +2,7 @@
 
 	<table name="planning_project" phpName="PlanningProject" description="Proyectos">
 		<column name="id" primaryKey="true" type="INTEGER" description="Id del proyecto" autoIncrement="true" />
-		<column name="code" type="INTEGER" description="Codigo de Identificacion" />
+		<column name="internalCode" type="INTEGER" description="Codigo de Identificacion" />
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del proyecto" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del proyecto"/>
 
@@ -55,7 +55,7 @@
 
 	<table name="planning_projectLog" phpName="PlanningProjectLog" description="Proyectos - Log">
 		<column name="id" primaryKey="true" type="INTEGER" description="Id del proyecto" autoIncrement="true" />
-		<column name="code" type="INTEGER" description="Codigo de Identificacion" />
+		<column name="internalCode" type="INTEGER" description="Codigo de Identificacion" />
 		<column name="projectId" type="INTEGER" description="Id del objetivo de Impacto"/>
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del proyecto" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del proyecto"/>

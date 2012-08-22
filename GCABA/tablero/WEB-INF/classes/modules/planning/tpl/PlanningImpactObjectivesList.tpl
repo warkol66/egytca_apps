@@ -50,7 +50,7 @@
 			|-else-|
 		|-foreach from=$impactObjectiveColl item=objective name=for_planningImpactObjectives-|
 			<tr>
-				<td>|-$objective->getName()-|</td>
+				<td>|-$objective->getStringCode()-|&nbsp;|-$objective->getName()-|</td>
 				<td nowrap>|-if $objective->countMinistryObjectives() gt 0-|<a href="Main.php?do=planningMinistryObjectivesList&nav=true&filters[impactobjectiveid]=|-$objective->getid()-|" class="icon iconFollow" title="Ver Objetivos Ministeriales del Objetivo de Impacto">Ver Objetivos Ministeriales</a>|-/if-|</td>
 				<td nowrap>
 					<form action="Main.php" method="get" style="display:inline;">
