@@ -133,7 +133,7 @@ class User extends BaseUser {
 	 * @returns true si pertenece al grupo, de lo contrario, false.
 	 */
 	function isAdmin() {
-		if ( $this->getLevelId() == 2 )
+		if ( $this->getLevelId() == 2 || $this->isSupervisor() )
 			return true;
 
 		$groups = $this->getGroups();
