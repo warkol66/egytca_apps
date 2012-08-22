@@ -1,0 +1,63 @@
+#! /bin/sh
+
+# use autodwnlder to control this daemon
+
+configFile="config.ini"
+
+cmd=`grep "command" $configFile | sed -e "s/command=//"`
+queue=`grep "queue" $configFile | sed -e "s/queue=//"`
+failuresLog=`grep "failuresLog" $configFile | sed -e "s/failuresLog=//"`
+failuresDir=`grep "failuresDir" $configFile | sed -e "s/failuresDir=//"`
+
+# $1: file
+download() {
+	queuedFile="$1"
+
+	url=`grep "url" $queuedFile | sed -e "s/url=//"`
+	of=`grep "output" $queuedFile | sed -e "s/output=//"`
+
+	$cmd $url -O $of > /dev/null 2>/dev/null
+	
+	if [ -f "$of" ] ; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+logFailure() {
+	failedFile=$1
+	url=`grep "url" $failedFile | sed -e "s/url=//"`
+	of=`grep "output" $failedFile | sed -e "s/output=//"`
+
+	logText="error saving $url to "`readlink -f $of`" - "`date`" - data file moved to "`readlink -f $failedFile`
+
+	echo "$logText" >> $failuresLog
+#	if [ -r "$failuresLog" ] ; then
+#		echo "$logText" | cat $failuresLog - > $failuresLog.tmp
+#		mv $failuresLog.tmp $failuresLog
+#	else
+#		echo "$logText" > $failuresLog
+#	fi
+}
+
+while true; do
+	files=`ls -1 $queue`
+	for file in $files ; do
+		echo `date`
+		echo "  processing $file..."
+		download $queue/$file
+		if [ $? = 0 ] ; then
+			echo "    download result: OK"
+			rm -f $queue/$file
+		else
+			echo "    download result: FAILURE"
+			if [ ! -d "$failuresDir" ] ; then
+				mkdir $failuresDir
+			fi
+			mv $queue/$file $failuresDir/$file
+			logFailure $failuresDir/$file
+		fi
+	done
+	sleep 5s
+done
