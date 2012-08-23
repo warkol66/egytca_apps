@@ -75,18 +75,56 @@
 <div id="resultDiv"></div>
 <fieldset>
 <legend>Titulares &nbsp; &nbsp; &nbsp; &nbsp; 
-<input type="button" class="icon iconActivate" title="Aceptar todos" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=headlinesParsedSaveAllX&id=|-$campaign->getId()-|", { method: "post", parameters: { id: "|-$campaign->getId()-|"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">guardando titulares...</span>";' value="Descartar todos" />
-<input type="button" class="icon iconDelete" title="Descartar todos" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=headlinesParsedDiscardAllX&id=|-$campaign->getId()-|", { method: "post", parameters: { id: "|-$campaign->getId()-|"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando titulares...</span>";' value="Guardar todos" />
+<form id="selectedHeadlinesForm" onsubmit="return false;">
+<input type="button" class="icon iconActivate" title="Aceptar todos" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|acceptAll('|-$campaign->getId()-|');|-/if-|" />
+<input type="button" class="icon iconDelete" title="Descartar todos" onClick="|-if $campaign->isNew()-|discardSelected(this.form);|-else-|discardAll('|-$campaign->getId()-|');|-/if-|" />
+<input type="checkbox" onchange="var globalCheckbox=this; $$('input.headlinesIds').each(function(e, i) { e.checked = globalCheckbox.checked })" />
 </legend>
 <ul id="list" class="iconList">
-|-include file="HeadlinesParsedListInclude.tpl" included=true headlinesParsed=$headlineParsedColl-|
+|-include file="HeadlinesParsedListInclude.tpl" included=true headlinesParsed=$headlineParsedColl useCheckbox=$campaign->isNew()-|
 </ul>
+</form>
 |-if isset($pager) && $pager->haveToPaginate()-|
 	<div class="divPages">|-include file="ModelPagerInclude.tpl"-|</div>
 |-/if-|
 </fieldset>
 
 <script type="text/javascript">
+	
+function acceptSelected(form) {
+	new Ajax.Updater(
+		"resultDiv",
+		"Main.php?do=headlinesParsedSaveAllX",
+		{
+			method: "post",
+			parameters: Form.serialize(form),
+			evalScripts: true
+		}
+	);
+	$("resultDiv").innerHTML = "<span class=\"inProgress\">guardando titulares...</span>";
+}
+
+function discardSelected(form) {
+	new Ajax.Updater(
+		"resultDiv",
+		"Main.php?do=headlinesParsedDiscardAllX",
+		{
+			method: "post",
+			parameters: Form.serialize(form),
+			evalScripts: true
+		}
+	);
+	$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando titulares...</span>";
+}
+	
+function acceptAll(campaignId) {
+	{new Ajax.Updater("resultDiv", "Main.php?do=headlinesParsedSaveAllX&id="+campaignId, { method: "post", parameters: { id: campaignId}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">guardando titulares...</span>";
+}
+
+function discardAll(campaignId) {
+	{new Ajax.Updater("resultDiv", "Main.php?do=headlinesParsedDiscardAllX&id="+campaignId, { method: "post", parameters: { id: campaignId }, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando titulares...</span>";
+}
+
 function headlinesSearch() {
     new Ajax.Updater('list', "Main.php?do=headlinesDoParseX", {
         parameters: $('form').serialize(),
