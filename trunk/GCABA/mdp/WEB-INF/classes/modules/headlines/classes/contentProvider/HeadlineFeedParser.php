@@ -77,7 +77,7 @@ class HeadlineFeedParser {
 			case ('guid'): $headline->setInternalIdFromString($value); return true;
 			case ('author'): $headline->setAuthor($value); return true;
 			case ('source'): $headline->setSource($value); return true;
-			case ('lastChangeDate'): return false;//$headline->???($value); return true;
+			case ('lastChangeDate'): $headline->setLastChangeDate($value); return true;
 			case ('comments'): return false;//$headline->???($value); return true;
 			case ('enclosure'): $this->addEnclosureToHeadline($headline, $value); return true;
 			default: break;
