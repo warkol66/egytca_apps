@@ -19,6 +19,65 @@ class HeadlineParsed extends BaseHeadlineParsed {
     const STATUS_PROCESSING = 2;
     const STATUS_PROCESSED  = 3;
     const STATUS_DISCARDED  = 4;
+    
+	/**
+	 * Crea un nuevo Headline a partir del HeadlineParsed y cambia el estado del HeadlineParsed a procesado.
+	 * 
+	 * @return \Headline 
+	 */
+	function accept() {
+		
+		$newHeadline = new Headline();
+		$newHeadline->fromJSON($this->toJSON());
+		$newHeadline->setId(NULL);
+		$newHeadline->buildInternalId();
+		$newHeadline->save();
+		
+		$headlineExist = HeadlineQuery::create()->findOneByInternalid($newHeadline->getInternalId());
+		if ($headlineExist)
+			throw new Exception('headline already exists!');
+
+		if ($this->getCampaignid()) {
+			//Creo el clipping
+			require_once('WebkitHtmlRenderer.php');
+			$url = $newHeadline->getUrl();
+			$imagePath = ConfigModule::get('headlines', 'clippingsPath');
+			if (!file_exists($imagePath))
+				mkdir ($imagePath, 0777, true);
+
+			$imageFullname = realpath($imagePath) . "/" . $newHeadline->getId() . ".jpg";
+
+			$renderer = new WebkitHtmlRenderer();
+			$renderer->render($url, $imageFullname, true, true);
+			//Fin clipping
+		} else {
+			require_once('AutoDownloader.php');
+			$attachmentsPath = ConfigModule::get('headlines', 'clippingsPath');
+			if (!file_exists($attachmentsPath))
+				mkdir ($attachmentsPath, 0777, true);
+			if (!file_exists($attachmentsPath))
+				throw new Exception("No se pudo crear el directorio $attachmentsPath. Verifique la configuración de permisos.");
+
+			$downloader = new AutoDownloader();
+			foreach ($this->getHeadlineParsedAttachments() as $attachment) {
+				$newAttachmentFullname = realpath($attachmentsPath)."/".$newHeadline->getId().'-'.uniqid();
+				$newAttachment = new HeadlineAttachment();
+				$newAttachment->setPath($newAttachmentFullname);
+				$newAttachment->setLength($attachment->getLength());
+				$newAttachment->setType($attachment->getType());
+
+				$downloader->putInQueue($attachment->getPath(), $newAttachmentFullname);
+				
+				$newHeadline->addHeadlineAttachment($newAttachment);
+				$newHeadline->save();
+			}
+		}
+
+		$this->setStatus(HeadlineParsedQuery::STATUS_PROCESSED);
+		$this->save();
+
+		return $newHeadline;
+	}
 
     /**
      * Antes de guardar un objeto HeadlineParsed nuevo lo dejamos en estado IDLE.
