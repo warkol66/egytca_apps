@@ -27,42 +27,24 @@ class HeadlinesParsedSaveAllXAction extends BaseAction {
 								->filterByCampaign($campaign)
 								->filterByStatus(array('max' => HeadlineParsedQuery::STATUS_PROCESSING))
 								->find();
-				if (!empty($headlinesParsed)) {
-					foreach($headlinesParsed as $headline) {
-						$newHeadline = new Headline();
-						$newHeadline = Common::morphObjectValues($headline,$newHeadline);
-		
-						$newHeadline->buildInternalId();
-						$headlineExist = HeadlineQuery::create()->findOneByInternalid($newHeadline->getInternalId());
-						if(!$headlineExist && $newHeadline->isModified() && $newHeadline->save()) {
-		
-							//Creo el clipping
-							require_once('WebkitHtmlRenderer.php');
-							$url = $newHeadline->getUrl();
-							$imagePath = ConfigModule::get('headlines', 'clippingsPath');
-							if (!file_exists($imagePath))
-								mkdir ($imagePath, 0777, true);
-		
-							$imageFullname = realpath($imagePath) . "/" . $newHeadline->getId() . ".jpg";
-		
-							$renderer = new WebkitHtmlRenderer();
-							try {
-								$renderer->putInQueue($url, $imageFullname, true);
-							} catch (Exception $e) {
-								$smarty->assign('errorMessage', $e->getMessage());
-								return $mapping->findForwardConfig('success');
-							}
-							//Fin clipping
-
-							$headline->setStatus(HeadlineParsedQuery::STATUS_PROCESSED);
-							if($headline->isModified() && $headline->save()){
-							}
-						}
-					}
-				}
-				return $mapping->findForwardConfig('success');
 			}
+		} else if (!empty($_POST['headlinesIds'])) {
+			$headlinesParsed = HeadlineParsedQuery::create()
+				->filterById($_POST['headlinesIds'])
+				->filterByStatus(array('max' => HeadlineParsedQuery::STATUS_PROCESSING))
+				->find();
+		} else {
+			return $mapping->findForwardConfig('failure');
 		}
-		return $mapping->findForwardConfig('failure');
+		
+		try {
+			foreach($headlinesParsed as $headlineParsed) {
+				$headlineParsed->accept();
+			}
+		} catch (Exception $e) {
+			return $mapping->findForwardConfig('failure');
+		}
+		
+		return $mapping->findForwardConfig('success');
 	}
 }

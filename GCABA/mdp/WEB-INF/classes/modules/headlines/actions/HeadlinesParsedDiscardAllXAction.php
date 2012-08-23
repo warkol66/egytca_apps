@@ -18,7 +18,7 @@ class HeadlinesParsedDiscardAllXAction extends BaseAction {
 
 		$module = "Headlines";
 		$smarty->assign("module",$module);
-
+		
 		if (!empty($_GET["id"])) {
 			$campaign = CampaignQuery::create()->findOneById($_GET["id"]);
 			if (!is_null($campaign)) {
@@ -26,9 +26,16 @@ class HeadlinesParsedDiscardAllXAction extends BaseAction {
 								->filterByCampaign($campaign)
 								->filterByStatus(array('max' => HeadlineParsedQuery::STATUS_PROCESSING))
 								->update(array('Status' => HeadlineParsedQuery::STATUS_DISCARDED));
-				return $mapping->findForwardConfig('success');
 			}
+		} else if (!empty($_POST['headlinesIds'])) {
+			$headlinesParsed = HeadlineParsedQuery::create()
+				->filterById($_POST['headlinesIds'])
+				->filterByStatus(array('max' => HeadlineParsedQuery::STATUS_PROCESSING))
+				->update(array('Status' => HeadlineParsedQuery::STATUS_DISCARDED));
+		} else {
+			return $mapping->findForwardConfig('failure');
 		}
-		return $mapping->findForwardConfig('failure');
+		
+		return $mapping->findForwardConfig('success');
 	}
 }

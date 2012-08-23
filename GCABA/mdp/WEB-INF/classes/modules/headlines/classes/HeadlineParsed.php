@@ -31,11 +31,12 @@ class HeadlineParsed extends BaseHeadlineParsed {
 		$newHeadline->fromJSON($this->toJSON());
 		$newHeadline->setId(NULL);
 		$newHeadline->buildInternalId();
-		$newHeadline->save();
 		
 		$headlineExist = HeadlineQuery::create()->findOneByInternalid($newHeadline->getInternalId());
 		if ($headlineExist)
 			throw new Exception('headline already exists!');
+		else
+			$newHeadline->save();
 
 		if ($this->getCampaignid()) {
 			//Creo el clipping
