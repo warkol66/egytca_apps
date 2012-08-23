@@ -32,6 +32,9 @@ class HeadlinesParsedDiscardAllXAction extends BaseAction {
 				->filterById($_POST['headlinesIds'])
 				->filterByStatus(array('max' => HeadlineParsedQuery::STATUS_PROCESSING))
 				->update(array('Status' => HeadlineParsedQuery::STATUS_DISCARDED));
+
+			$smarty->assign('selectiveDiscard', '1');
+			$smarty->assign('headlinesIds', $_POST['headlinesIds']);
 		} else {
 			return $mapping->findForwardConfig('failure');
 		}
