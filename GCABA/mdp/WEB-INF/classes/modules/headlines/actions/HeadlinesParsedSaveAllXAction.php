@@ -33,8 +33,12 @@ class HeadlinesParsedSaveAllXAction extends BaseAction {
 				->filterById($_POST['headlinesIds'])
 				->filterByStatus(array('max' => HeadlineParsedQuery::STATUS_PROCESSING))
 				->find();
+			
+			$smarty->assign('selectiveSave', '1');
+			$smarty->assign('headlinesIds', $_POST['headlinesIds']);
 		} else {
-			return $mapping->findForwardConfig('failure');
+			$smarty->assign('errorMessage', 'invalid params');
+			return $mapping->findForwardConfig('success');
 		}
 		
 		try {
@@ -42,7 +46,8 @@ class HeadlinesParsedSaveAllXAction extends BaseAction {
 				$headlineParsed->accept();
 			}
 		} catch (Exception $e) {
-			return $mapping->findForwardConfig('failure');
+			$smarty->assign('errorMessage', "error: ".$e->getMessage());
+			return $mapping->findForwardConfig('success');
 		}
 		
 		return $mapping->findForwardConfig('success');
