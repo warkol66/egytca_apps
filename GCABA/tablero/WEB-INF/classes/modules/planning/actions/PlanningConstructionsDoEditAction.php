@@ -194,6 +194,26 @@ class PlanningConstructionsDoEditAction extends BaseAction {
 		}
 		//Fin Registros de ejcucion
 
+
+		$regionsIds = $_POST['params']['regionsIds'];
+		if (empty($regionsIds))
+			$regionsIds = array();
+
+		$query = ConstructionRegionQuery::create()->filterByPlanningConstruction($planningConstruction);
+		$query->delete();
+
+		foreach ($regionsIds as $regionId) {
+			$region = RegionQuery::create()->findOneById($regionId);
+			$assigned = $query->findOneByRegionid($regionId);
+			if (empty($assigned))
+				try {
+					$planningConstruction->addRegion($region);
+				} catch (Exception $e) {
+				}
+		}
+		$planningConstruction->save();
+
+
 		if (isset($id))
 			$logSufix = ', ' . Common::getTranslation('action: create','common');
 		else

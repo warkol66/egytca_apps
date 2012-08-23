@@ -102,7 +102,7 @@
 			|-/foreach-|
 		</select>
 	</p>
-	<p>
+	|-if $loginUser->isAdmin() || $loginUser->isSupervisor()-|<p>
 		<label for="params_priority">Prioridad Jefatura</label>
 		<select id="params_priority" name="params[priority]" title="Prioridad Jefatura" |-$readonly|readonly-||-if $show || $showLog-|disabled="disabled"|-/if-| >
 			<option value="">Seleccione prioridad</option>
@@ -130,7 +130,7 @@
 	<p>
         <label for="params_sanctionAmount">Presupuesto Sanción</label>
       <input name="params[sanctionAmount]" type="text" id="params_sanctionAmount" size="20" value="|-$planningProject->getSanctionAmount()|system_numeric_format-|" title="Presupuesto Sancionado" class="right"|-$readonly|readonly-|/>
-    </p>
+    </p>|-/if-|
 	<p>     
 		<label for="params_startingDate">Fecha de Inicio</label>
 		<input id="params_startingDate" name="params[startingDate]" type='text' value='|-$planningProject->getStartingDate()|date_format-|' size="12" title="Ingrese la fecha de Inicio en formato dd-mm-aaaa"  |-$readonly|readonly-| class="dateValidation"/>|-if !$show && !$showLog-| <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de inicio">|-/if-|

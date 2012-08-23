@@ -34,7 +34,10 @@
 		|-if isset($ministryObjective)-|
 			|-assign var=ancestorCode value=$ministryObjective->getResponsibleCode()-|
 		|-else-|
-			|-assign var=ancestorCode value=$operativeObjective->getMinistryObjective()->getResponsibleCode()-|
+			|-assign var=ministryObjective value=$operativeObjective->getMinistryObjective()-|
+			|-if is_object($ministryObjective)-|
+				|-assign var=ancestorCode value=$ministryObjective->getResponsibleCode()-|
+			|-/if-|
 		|-/if-|
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_responsibleCode" label="Dependencia" url="Main.php?do=commonAutocompleteListX&object=position&objectParam=code&filters[filterByGroupCode]=$ancestorCode" hiddenName="params[responsibleCode]" defaultHiddenValue=$operativeObjective->getResponsibleCode() defaultValue=$operativeObjective->getPosition()-|
 		</div>
