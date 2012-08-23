@@ -79,7 +79,7 @@ class PlanningConstruction extends BasePlanningConstruction {
 	 * @return boolean
 	 */
 	public function hasRegion($region) {
-		return PlanningConstructionRegionQuery::create()->filterByPlanningConstruction($this)->filterByRegion($region)->count() > 0;
+		return ConstructionRegionQuery::create()->filterByPlanningConstruction($this)->filterByRegion($region)->count() > 0;
 	}
 
 	/**
