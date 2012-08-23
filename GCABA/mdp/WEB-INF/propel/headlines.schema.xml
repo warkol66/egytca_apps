@@ -170,6 +170,7 @@
 		<column name="summary" type="VARCHAR" description="Resumen" />
 		<column name="caption" type="VARCHAR" />
 		<column name="program" type="VARCHAR" />
+		<column name="lastChangeDate" type="TIMESTAMP" />
 		<column name="class_key" type="INTEGER" description="Clase de headline a crear" />
         
 		<behavior name="timestampable" />
