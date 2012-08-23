@@ -73,9 +73,9 @@
 |-/if-|
 
 <div id="resultDiv"></div>
+<form id="selectedHeadlinesForm" onsubmit="return false;">
 <fieldset>
 <legend>Titulares &nbsp; &nbsp; &nbsp; &nbsp; 
-<form id="selectedHeadlinesForm" onsubmit="return false;">
 <input type="button" class="icon iconActivate" title="Aceptar todos" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|acceptAll('|-$campaign->getId()-|');|-/if-|" />
 <input type="button" class="icon iconDelete" title="Descartar todos" onClick="|-if $campaign->isNew()-|discardSelected(this.form);|-else-|discardAll('|-$campaign->getId()-|');|-/if-|" />
 <input type="checkbox" onchange="var globalCheckbox=this; $$('input.headlinesIds').each(function(e, i) { e.checked = globalCheckbox.checked })" />
@@ -83,11 +83,11 @@
 <ul id="list" class="iconList">
 |-include file="HeadlinesParsedListInclude.tpl" included=true headlinesParsed=$headlineParsedColl useCheckbox=$campaign->isNew()-|
 </ul>
-</form>
 |-if isset($pager) && $pager->haveToPaginate()-|
 	<div class="divPages">|-include file="ModelPagerInclude.tpl"-|</div>
 |-/if-|
 </fieldset>
+</form>
 
 <script type="text/javascript">
 	
