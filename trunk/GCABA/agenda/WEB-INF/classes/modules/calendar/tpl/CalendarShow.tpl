@@ -129,12 +129,16 @@
 					
 					var found = false;
 					for (i in thematicWeeks) {
+
+						$('.fc-week'+weekNumber).removeClass('weekamarillo weekverde1 weekverde1bis weekverde2 weekcyan weekrojo weeknaranja weeknaranjabis weeknaranjabis');
+
 						twStart = new Date(thematicWeeks[i].Monday);
 						if (date.getTime() == twStart.getTime()) {
 							//$('.fc-week'+weekNumber).css('background-color', thematicWeeks[i]['AxisColor']);
 //							$('.fc-week'+weekNumber+' td.fc-mon').css("border-left-style", "solid");
 //							$('.fc-week'+weekNumber+' td.fc-mon').css("border-left-width", "18px !Important");
 							$('.fc-week'+weekNumber+' td.fc-mon').css("border-left-color", thematicWeeks[i]['AxisColor']);
+							$('.fc-week'+weekNumber).addClass('week'+thematicWeeks[i]['className']);
 							found = true;
 							break;
 						}
@@ -144,7 +148,7 @@
 //						$('.fc-week'+weekNumber).css('background-color', '');
 						$('.fc-week'+weekNumber+' td.fc-mon').css("border-left-color", '');
 					}
-					
+
 					weekNumber++;
 				}
 				

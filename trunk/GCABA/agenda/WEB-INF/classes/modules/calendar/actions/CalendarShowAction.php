@@ -78,6 +78,7 @@ class CalendarShowAction extends BaseAction {
 			$axis = ThematicWeekQuery::create()->findOneById($thematicWeeks[$key]['Id'])->getCalendarAxis();
 			$thematicWeeks[$key]['AxisColor'] = $axis->getColor();
 			$thematicWeeks[$key]['AxisName'] = $axis->getName();
+			$thematicWeeks[$key]['className'] = $axis->getCssClass();
 		}
 		$smarty->assign('thematicWeeks', json_encode($thematicWeeks));
 
