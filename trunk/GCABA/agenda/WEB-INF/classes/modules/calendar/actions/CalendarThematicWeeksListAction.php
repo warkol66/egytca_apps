@@ -24,6 +24,8 @@ class CalendarThematicWeeksListAction extends BaseListAction {
 	}
 
 	protected function postList() {
+		$this->smarty->assign('calendarAxes', CalendarAxisQuery::create()->find());
+		$this->smarty->assign('axisIdToNameMap', json_encode(CalendarAxis::getIdToNameMap()));
 		parent::postList();
 	}
 }

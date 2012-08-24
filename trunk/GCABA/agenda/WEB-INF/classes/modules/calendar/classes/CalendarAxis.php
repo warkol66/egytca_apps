@@ -14,5 +14,17 @@
  * @package    propel.generator.calendar.classes
  */
 class CalendarAxis extends BaseCalendarAxis {
+	
+	public function __toString() {
+		return $this->getName();
+	}
+	
+	public static function getIdToNameMap() {
+		$map = array();
+		foreach (CalendarAxisQuery::create()->find() as $axis) {
+			$map[$axis->getId()] = $axis->getName();
+		}
+		return $map;
+	}
 
 } // CalendarAxis

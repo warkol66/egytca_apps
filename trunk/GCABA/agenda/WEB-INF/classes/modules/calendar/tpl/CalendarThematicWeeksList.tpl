@@ -31,7 +31,15 @@
 		<tr>
 		  <td>|-$thematicWeek->getWeekNumber()-| _ |-$thematicWeek->getYear()-|</td> 
 		  <td>|-$thematicWeek->getMonday()|date_format-| a |-$thematicWeek->getSunday()|date_format-| </td> 
-			<td>|-if "calendarThematicWeeksEdit"|security_has_access-|<span id="media_type_|-$thematicWeek->getid()-|" class="in_place_editable">|-$thematicWeek->getSelectedAxis()-|</span>|-else-||-$thematicWeek->getSelectedAxis()-||-/if-|</td>
+			<td>|-if "calendarThematicWeeksEdit"|security_has_access-|
+				<span id="media_type_|-$thematicWeek->getid()-|" class="in_place_editable">|-$thematicWeek->getSelectedAxis()-|</span>
+				<select id="media_type_|-$thematicWeek->getid()-|_chosen" style="display:none" class="markets-chz-select">
+					|-foreach $calendarAxes as $axis-|
+						<option value="|-$axis->getId()-| |-$thematicWeek->getAxisId()|selected:$axis->getId()-|">|-$axis->getName()-|</option>
+					|-/foreach-|
+				</select>
+				|-else-||-$thematicWeek->getSelectedAxis()-|
+			|-/if-|</td>
 			<td nowrap>|-if "calendarThematicWeeksEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="calendarThematicWeeksEdit" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
@@ -63,35 +71,56 @@ Object.extend(Ajax.InPlaceEditor.prototype, {
   }
 });
 
+var axisIdToNameMap;
+
 window.onload = function() {
-|-foreach from=$calendarAxes item=thematicWeek name=for_weeks-|
-    new Ajax.InPlaceEditor(
-        'media_type_|-$thematicWeek->getId()-|',
-        'Main.php?do=commonDoEditFieldX',
-        {
-            rows: 1,
-            okText: 'Guardar',
-            cancelText: 'Cancelar',
-            savingText: 'Guardando...',
-						hoverClassName: 'in_place_hover',
-				    highlightColor: '#b7e0ff',
-            cancelControl: 'button',
-            savingClassName: 'inProgress',
-            externalControl: 'week_edit_|-$thematicWeek->getid()-|',
-            clickToEditText: 'Haga click para editar',
-						callback: function(form, value) {
-							return 'objectType=thematicWeek&objectId=|-$thematicWeek->getId()-|&paramName=name&paramValue=' + encodeURIComponent(value);
-						},
-						onComplete: function(transport, element) {
-							clean_text_content_from(element);
-							new Effect.Highlight(element, { startcolor: this.options.highlightColor });
-						},
-						onFormReady: function(obj,form) {
-							form.insert({ top: new Element('label').update('Departamento: ') });
-						}
-        }
-    );
+
+axisIdToNameMap = |-$axisIdToNameMap-|;
+	
+|-foreach from=$thematicWeekColl item=thematicWeek name=for_weeks-|
+	Event.observe(
+		$('media_type_|-$thematicWeek->getId()-|'),
+		'mouseover',
+		function() { this.addClassName('in_place_hover') }
+	);
+	Event.observe(
+		$('media_type_|-$thematicWeek->getId()-|'),
+		'mouseout',
+		function() { this.removeClassName('in_place_hover') }
+	);
+	Event.observe(
+		$('media_type_|-$thematicWeek->getId()-|'),
+		'click',
+		function() { this.hide(); $('media_type_|-$thematicWeek->getId()-|_chosen').show().focus(); }
+	);
+	Event.observe(
+		$('media_type_|-$thematicWeek->getId()-|_chosen'),
+		'blur',
+		function() {
+			updateAxis(this, |-$thematicWeek->getId()-|);
+		}
+	);
 |-/foreach-|
+}
+
+function updateAxis(select, thematicWeekId) {
+	new Ajax.Request(
+		'Main.php?do=commonDoEditFieldX',
+		{
+			method: 'post',
+			parameters: {
+				objectType: 'thematicWeek',
+				objectId: thematicWeekId,
+				paramName: 'axisId',
+				paramValue: encodeURIComponent(select.value)
+			},
+			onSuccess: function(transport) {
+				$('media_type_'+thematicWeekId).innerHTML = axisIdToNameMap[parseInt(transport.responseText)];
+			}
+		}
+	);
+	select.hide();
+	$('media_type_'+thematicWeekId).show();
 }
 
 function showInput(to_show, to_hide) {
