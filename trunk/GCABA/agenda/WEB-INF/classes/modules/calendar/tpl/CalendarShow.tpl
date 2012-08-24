@@ -43,6 +43,7 @@
 	var graphInfo;
 	var calendarMap;
 	var thematicWeeks;
+	var firstTimeEvent = true; // hack para mapa del CalendarEventsShowX
 
 	$(document).ready(function() {
 		var day, month, year;

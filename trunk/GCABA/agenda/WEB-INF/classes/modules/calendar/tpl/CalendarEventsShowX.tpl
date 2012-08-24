@@ -219,8 +219,6 @@ Avance de la obra </th>
 </div>
 
 <script>
-	var eventMap;
-	
 	var callEditEvent = function() {
 		$.fancybox.close();
 		var event = |-include file="CalendarPhpEventToJson.tpl" event=$event-|;
@@ -249,8 +247,15 @@ Avance de la obra </th>
 			"|-$axisCssClassToIdMap.verde1bis-|": "images/marker_verde1bis.png",
 			"|-$axisCssClassToIdMap.verde2-|": "images/marker_verde2.png"
 		};
-		eventMap = new EventsMap("fichaGoogleMap", {1:  event}, icons);
-		var latlng = new google.maps.LatLng(event.Latitude, event.Longitude);
+		
+		if (firstTimeEvent) {
+			var latlng = new google.maps.LatLng(parseFloat(event.Latitude), parseFloat(event.Longitude));
+			firstTimeEvent = false;
+		} else {
+			var latlng = new google.maps.LatLng(parseFloat(event.Latitude) + 0.025, parseFloat(event.Longitude) - 0.025);
+		}
+		
+		var eventMap = new EventsMap("fichaGoogleMap", {1:  event}, icons);
 		eventMap.map.setCenter(latlng);
 		eventMap.map.setZoom(12);
 	}
