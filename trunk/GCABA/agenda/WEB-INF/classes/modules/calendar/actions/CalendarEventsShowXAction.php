@@ -58,8 +58,9 @@ class CalendarEventsShowXAction extends BaseAction {
 			
 			$smarty->assign('noEdit', $_REQUEST['noEdit']);
 			$smarty->assign('noDelete', $_REQUEST['noDelete']);
-
 			
+			$smarty->assign('axisCssClassToIdMap', CalendarAxisQuery::create()->findAxisMap('cssClass', 'id'));
+
 			return $mapping->findForwardConfig('success');
 		}
 		else {
