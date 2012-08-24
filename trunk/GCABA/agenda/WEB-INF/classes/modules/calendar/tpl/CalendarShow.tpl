@@ -140,8 +140,10 @@
 						}
 					}
 					
-					if (!found)
-						$('.fc-week'+weekNumber).css('background-color', '');
+					if (!found) {
+//						$('.fc-week'+weekNumber).css('background-color', '');
+						$('.fc-week'+weekNumber+' td.fc-mon').css("border-left-color", '');
+					}
 					
 					weekNumber++;
 				}
@@ -168,7 +170,10 @@
 				if (!found) {
 					$('#calendarTitle').css('color', '');
 					$('#inTitleAxis').html('');
-					$('.fc-agenda-slots').css('background-color', '');
+//					$('.fc-agenda-slots').css('background-color', '');
+					$('.fc-agenda-slots').css('border-style', "");
+					$('.fc-agenda-slots').css('border-width', "");
+					$('.fc-agenda-slots').css('border-color', "");
 				}
 				
 				break;
