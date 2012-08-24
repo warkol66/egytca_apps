@@ -189,8 +189,6 @@
 				for (i in thematicWeeks) {
 					twStart = new Date(thematicWeeks[i].Monday);
 					twEnd = new Date(thematicWeeks[i].Monday); incOneWeek(twEnd);
-					console.log(twStart);
-					console.log(twEnd);
 					if (view.visStart.getTime() >= twStart.getTime() && view.visEnd.getTime() <= twEnd.getTime()) {
 						$('.fc-agenda-slots').css('border-style', "solid");
 						$('.fc-agenda-slots').css('border-width', "0 0 0 8px");
