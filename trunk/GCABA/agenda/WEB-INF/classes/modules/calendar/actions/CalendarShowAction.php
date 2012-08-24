@@ -74,7 +74,10 @@ class CalendarShowAction extends BaseAction {
 		
 		$thematicWeeks = ThematicWeekQuery::create()->filterByAxisid(0, Criteria::GREATER_THAN)->find()->toArray();
 		foreach ($thematicWeeks as $key => $value) {
-			$thematicWeeks[$key]['AxisColor'] = ThematicWeekQuery::create()->findOneById($thematicWeeks[$key]['Id'])->getCalendarAxis()->getColor();
+			// uso $array[$key] porque quiero modificar el array original
+			$axis = ThematicWeekQuery::create()->findOneById($thematicWeeks[$key]['Id'])->getCalendarAxis();
+			$thematicWeeks[$key]['AxisColor'] = $axis->getColor();
+			$thematicWeeks[$key]['AxisName'] = $axis->getName();
 		}
 		$smarty->assign('thematicWeeks', json_encode($thematicWeeks));
 
