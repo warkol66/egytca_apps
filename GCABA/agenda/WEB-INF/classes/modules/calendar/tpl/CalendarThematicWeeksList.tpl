@@ -29,11 +29,15 @@
 		  <td>|-$thematicWeek->getMonday()|date_format-| a |-$thematicWeek->getSunday()|date_format-| </td> 
 			<td>|-if "calendarThematicWeeksEdit"|security_has_access-|
 				<span id="media_type_|-$thematicWeek->getid()-|" class="in_place_editable">|-$thematicWeek->getSelectedAxis()-|</span>
-				<select id="media_type_|-$thematicWeek->getid()-|_chosen" style="display:none" class="markets-chz-select">
-					|-foreach $calendarAxes as $axis-|
-						<option value="|-$axis->getId()-| |-$thematicWeek->getAxisId()|selected:$axis->getId()-|">|-$axis->getName()-|</option>
-					|-/foreach-|
-				</select>
+				<span id="media_type_|-$thematicWeek->getid()-|_edit" style="display:none">
+					<select id="axisSelect|-$thematicWeek->getId()-|" class="markets-chz-select">
+						|-foreach $calendarAxes as $axis-|
+							<option value="|-$axis->getId()-| |-$thematicWeek->getAxisId()|selected:$axis->getId()-|">|-$axis->getName()-|</option>
+						|-/foreach-|
+					</select>
+					<button class="icon iconActivate" onclick="updateAxis($('axisSelect|-$thematicWeek->getId()-|'), |-$thematicWeek->getId()-|);"></button>
+					<button class="icon iconCancel" onclick="$('media_type_|-$thematicWeek->getid()-|_edit').hide(); $('media_type_|-$thematicWeek->getid()-|').show();"></button>
+				</span>
 				|-else-||-$thematicWeek->getSelectedAxis()-|
 			|-/if-|</td>
 			<!--<td nowrap>|-if "calendarThematicWeeksEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
@@ -87,14 +91,7 @@ axisIdToNameMap = |-$axisIdToNameMap-|;
 	Event.observe(
 		$('media_type_|-$thematicWeek->getId()-|'),
 		'click',
-		function() { this.hide(); $('media_type_|-$thematicWeek->getId()-|_chosen').show().focus(); }
-	);
-	Event.observe(
-		$('media_type_|-$thematicWeek->getId()-|_chosen'),
-		'blur',
-		function() {
-			updateAxis(this, |-$thematicWeek->getId()-|);
-		}
+		function() { this.hide(); $('media_type_|-$thematicWeek->getId()-|_edit').show(); }
 	);
 |-/foreach-|
 }
@@ -115,7 +112,7 @@ function updateAxis(select, thematicWeekId) {
 			}
 		}
 	);
-	select.hide();
+	$('media_type_'+thematicWeekId+'_edit').hide();
 	$('media_type_'+thematicWeekId).show();
 }
 
