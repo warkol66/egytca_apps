@@ -8,6 +8,7 @@
 			<li><a href="Main.php?do=calendarContextEventsList">Administrar Contexto</a></li>
 			<li><a href="Main.php?do=calendarHolidayEventsList">Administrar Feriados</a></li>
 			<li><a href="Main.php?do=calendarRegularEventList">Administrar Efemérides</a></li>
+			<li><a href="Main.php?do=calendarThematicWeeksList">Semanas temáticas</a></li>
 		</div>
 		<li class="titleMenu" onclick="switch_vis('sectionConstructions')">Obras</li>
 		<div id="sectionConstructions" style="display:|-if $module|upper eq 'CONSTRUCTIONS'-|block|-else-|none|-/if-|">

@@ -130,7 +130,10 @@
 					for (i in thematicWeeks) {
 						twStart = new Date(thematicWeeks[i].Monday);
 						if (date.getTime() == twStart.getTime()) {
-							$('.fc-week'+weekNumber).css('background-color', thematicWeeks[i]['AxisColor']);
+							//$('.fc-week'+weekNumber).css('background-color', thematicWeeks[i]['AxisColor']);
+//							$('.fc-week'+weekNumber+' td.fc-mon').css("border-left-style", "solid");
+//							$('.fc-week'+weekNumber+' td.fc-mon').css("border-left-width", "18px !Important");
+							$('.fc-week'+weekNumber+' td.fc-mon').css("border-left-color", thematicWeeks[i]['AxisColor']);
 							found = true;
 							break;
 						}
@@ -150,9 +153,12 @@
 				for (i in thematicWeeks) {
 					twStart = new Date(thematicWeeks[i].Monday);
 					if (view.visStart.getTime() == twStart.getTime()) {
-						$('#calendarTitle').css('color', thematicWeeks[i]['AxisColor']);
-						$('#inTitleAxis').html(thematicWeeks[i]['AxisName']);
-						$('.fc-agenda-slots').css('background-color', thematicWeeks[i]['AxisColor']);
+//						$('#calendarTitle').css('color', thematicWeeks[i]['AxisColor']);
+//						$('#inTitleAxis').html(thematicWeeks[i]['AxisName']);
+//						$('.fc-agenda-slots').css('background-color', thematicWeeks[i]['AxisColor']);
+						$('.fc-agenda-slots').css('border-style', "solid");
+						$('.fc-agenda-slots').css('border-width', "0 0 0 8px");
+						$('.fc-agenda-slots').css('border-color', thematicWeeks[i]['AxisColor']);
 						found = true;
 						break;
 					}
@@ -209,7 +215,8 @@
 			},
 			titleFormat:{
 					month: 'MMMM yyyy',                             // September 2009
-					week: "'<span id=\"calendarTitle\"><span id=\"inTitleAxis\"></span>&nbsp;'MMMM yyyy': Semana del ' d/MM { 'al' d/MM}'</span>'", // Sep 7 - 13 2009
+					//week: "'<span id=\"calendarTitle\"><span id=\"inTitleAxis\"></span>&nbsp;'MMMM yyyy': Semana del ' d/MM { 'al' d/MM}'</span>'", // Sep 7 - 13 2009
+					week: "MMMM yyyy': Semana del ' d/MM { 'al' d/MM}", // Sep 7 - 13 2009
 					day: "dddd, dd 'de' MMMM 'de' yyyy"                  // Tuesday, Sep 8, 2009
 			},
 			selectable: |-if "calendarEventsDoEditX"|security_has_access-|true|-else-|false|-/if-|,
