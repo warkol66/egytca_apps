@@ -18,6 +18,31 @@
 			</select>
 		</p>
 		<p>
+			<label for="searchPeriod">Período</label>
+				|-$months = [
+				1 =>'Enero',
+				2 =>'Febrero',
+				3 =>'Marzo',
+				4 =>'Abril',
+				5 =>'Mayo',
+				6 =>'Junio',
+				7 =>'Julio',
+				8 =>'Agosto',
+				9 =>'Septiembre',
+				10 =>'Octubre',
+				11 =>'Noviembre',
+				12 =>'Diciembre']-|
+
+			<select name='filters[searchPeriodMonth]' id="searchPeriodMonth">
+					<option value=''>Seleccione mes</option>
+				|-html_options options=[ 1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril', 5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto', 9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre', 12 => 'Diciembre'] selected=$filters.searchPeriodMonth-|
+			</select>
+			<select name='filters[searchPeriodYear]' id="searchPeriodYear">
+					<option value=''>Seleccione año</option>
+				|-html_options options=[ 2011 => '2011', 2012 => '2012', 2013 => '2013', 2014 => '2014'] selected=$filters.searchPeriodYear-|
+			</select>
+		</p>
+		<p>
 			<input type="hidden" name="do" value="calendarEventsList" />
 			<input type="submit" value="Buscar">
 		</p>
