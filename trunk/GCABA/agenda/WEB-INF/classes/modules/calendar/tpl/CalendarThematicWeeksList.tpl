@@ -1,6 +1,6 @@
 <h2>Agenda</h2>
-<h1>Administración de Semanas Temácticas</h1>
-<p>A continuación se muestra la lista de ejes de gestión cargados en el sistema.</p>
+<h1>Administración de Semanas Temáticas</h1>
+<p>A continuación se muestra la lista de semásnas temáticas según los ejes de gestión cargados en el sistema.</p>
 <div id="div_weeks"> 
 	|-if $message eq "ok"-|
 		<div class="successMessage">Semana guardada correctamente</div>
@@ -13,17 +13,13 @@
 			  <th width="10%">Semana</th> 
 				<th width="20%">Desde - Hasta</th>
 				<th width="55%">Eje de Gestión</th> 
-				<th width="2%">&nbsp;</th> 
+				<!--<th width="2%">&nbsp;</th> -->
 			</tr> 
 	  </thead> 
 	<tbody id="thematicWeekList">|-if $thematicWeekColl|@count eq 0-|
 		<tr>
-			 <td colspan="4">|-if isset($filter)-|No hay semanas que concuerden con la búsqueda|-else-|No hay semanas disponibles - 
-			 
+			 <td colspan="3">|-if isset($filter)-|No hay semanas que concuerden con la búsqueda|-else-|No hay semanas disponibles - 
 			 	<input type='button' onClick='location.href="Main.php?do=calendarThematicWeeksList&createYearWeeks=2012"' value='Crear semanas 2012' title="Crear semanas 2012"/>
-
-			 
-			 
 			 |-/if-|</td>
 		</tr>
 	|-else-|
@@ -40,14 +36,14 @@
 				</select>
 				|-else-||-$thematicWeek->getSelectedAxis()-|
 			|-/if-|</td>
-			<td nowrap>|-if "calendarThematicWeeksEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
+			<!--<td nowrap>|-if "calendarThematicWeeksEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="calendarThematicWeeksEdit" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$thematicWeek->getid()-|" /> 
 					<input type="submit" name="submit_go_edit_type" value="Editar" title="Editar" class="icon iconEdit" /> 
 				</form> |-/if-|
-			</td> 
+			</td> -->
 		</tr> 
 		|-/foreach-|
 		<tr>
@@ -55,7 +51,7 @@
         <tfoot>
 		|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
-			<td colspan="4" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
+			<td colspan="3" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
        </tfoot>

@@ -1568,3 +1568,15 @@ a.prev span, a.next span {
 	width: 270px;
 	height: 500px;
 }
+
+tr.fc-week0 td.fc-mon,
+tr.fc-week1 td.fc-mon,
+tr.fc-week2 td.fc-mon,
+tr.fc-week3 td.fc-mon,
+tr.fc-week4 td.fc-mon,
+tr.fc-week5 td.fc-mon,
+tr.fc-week6 td.fc-mon,
+.fc-agenda-slots {
+	/*border: none;*/
+	border-left: transparent solid 8px;
+}
