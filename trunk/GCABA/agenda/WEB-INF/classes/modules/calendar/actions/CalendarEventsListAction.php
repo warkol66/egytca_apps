@@ -29,12 +29,31 @@ class CalendarEventsListAction extends BaseAction {
 			$smarty->assign('filters', $filters);
 		}
 
+		if (!empty($_GET['filters']['searchPeriodYear']) || !empty($_GET['filters']['searchPeriodMonth'])) {
+
+			if (!empty($_GET['filters']['searchPeriodMonth'])) {
+				$month0 = $_GET['filters']['searchPeriodMonth'];
+				$month1 = $month0;
+			}
+			else {
+				$month0 = 1;
+				$month1 = 12;
+			}
+			
+			
+			$eventDateFilter['min'] = mktime(0, 0, 0, $month0, 1, $_GET['filters']['searchPeriodYear']);
+			$eventDateFilter['max'] = mktime(0, 0, 0, $month1, 31, $_GET['filters']['searchPeriodYear']);
+
+		}
+
+		$filters['filterByStartDate'] = $eventDateFilter;
+
 		$moduleConfig = Common::getModuleConfiguration($module);
 		$smarty->assign("moduleConfig",$moduleConfig);
 		$calendarEventsConfig = $moduleConfig["calendarEvents"];
 		$smarty->assign("calendarEventsConfig",$calendarEventsConfig);
 
-		$pager = BaseQuery::create('CalendarEvent')->orderById(Criteria::DESC)->orderByStartdate(Criteria::ASC)->createPager($filters, $page, Common::getRowsPerPage());
+		$pager = BaseQuery::create('CalendarEvent')->orderByStartdate(Criteria::DESC)->orderById(Criteria::DESC)->createPager($filters, $page, Common::getRowsPerPage());
 		$smarty->assign('pager', $pager);
 		$smarty->assign('events', $pager->getResults());
 		$url = "Main.php?do=calendarEventsList";
