@@ -56,7 +56,7 @@
 <td colspan="2" class="fichaTd75">|-$event->getBody()-|</td>
 </tr>
 <tr>
-<td rowspan="2" class="fichaMap"><div class="fichaGoogleMap"></div></td>
+<td rowspan="2" class="fichaMap"><div id="fichaGoogleMap" class="fichaGoogleMap"></div></td>
 <th >&nbsp;
 
 Avance de la obra </th>
@@ -194,7 +194,7 @@ Avance de la obra </th>
 		<td colspan="2" class="fichaTd75">|-$event->getBody()-|</td>
 	</tr>
 	<tr>
-		<td rowspan="2" class="fichaMap"><div class="fichaGoogleMap"></div></td>
+		<td rowspan="2" class="fichaMap"><div id="fichaGoogleMap" class="fichaGoogleMap"></div></td>
 		<th>Comentarios</th>
 		<td rowspan="2" class="fichaMap"><div class="fichaMapaCaba">|-assign var=comuna value=$event->getComuna()-|<img src="images/Comuna_|-$comuna-|.png" alt="|-if $comuna gt 0-|Comuna |-$comuna-||-else-||-/if-|"/></div></td>
 
@@ -219,6 +219,8 @@ Avance de la obra </th>
 </div>
 
 <script>
+	var eventMap;
+	
 	var callEditEvent = function() {
 		$.fancybox.close();
 		var event = |-include file="CalendarPhpEventToJson.tpl" event=$event-|;
@@ -233,4 +235,34 @@ Avance de la obra </th>
 			$.fancybox.close();
 		}
 	}
+	
+	var displayEventMap = function(event) {
+		var icons = {
+			"default": "images/marker_blanco.png",
+			"|-$axisCssClassToIdMap.amarillo-|": "images/marker_amarillo.png",
+			"|-$axisCssClassToIdMap.cyan-|": "images/marker_cyan.png",
+			"|-$axisCssClassToIdMap.gris-|": "images/marker_gris.png",
+			"|-$axisCssClassToIdMap.naranja-|": "images/marker_naranja.png",
+			"|-$axisCssClassToIdMap.naranjabis-|": "images/marker_naranjabis.png",
+			"|-$axisCssClassToIdMap.rojo-|": "images/marker_rojo.png",
+			"|-$axisCssClassToIdMap.verde1-|": "images/marker_verde1.png",
+			"|-$axisCssClassToIdMap.verde1bis-|": "images/marker_verde1bis.png",
+			"|-$axisCssClassToIdMap.verde2-|": "images/marker_verde2.png"
+		};
+		eventMap = new EventsMap("fichaGoogleMap", {1:  event}, icons);
+		var latlng = new google.maps.LatLng(event.Latitude, event.Longitude);
+		eventMap.map.setCenter(latlng);
+		eventMap.map.setZoom(12);
+	}
+	
+	var displayMapNotAvailable = function() {
+		$("#fichaGoogleMap").html("No se indic&oacute; la ubicaci&oacute;n del evento");
+	}
+	
+	var event = |-$event->toJSON()-|;
+	if (event.Latitude != null && event.Longitude != null)
+		displayEventMap(event);
+	else
+		displayMapNotAvailable();
+	
 </script>

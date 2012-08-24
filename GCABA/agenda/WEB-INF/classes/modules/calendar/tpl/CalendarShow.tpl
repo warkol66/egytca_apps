@@ -18,6 +18,7 @@
 <script type="text/javascript" src="scripts/jquery/map-base.js"></script>
 <script type="text/javascript" src="scripts/jquery/calendar-map.js"></script>
 <!-- end Map -->
+<script type="text/javascript" src="scripts/jquery/events-map.js"></script>
 
 <div id="calendar"></div>
 <a id="newEventFancyboxDummy" style="display:none" href="#newEvent"></a>
