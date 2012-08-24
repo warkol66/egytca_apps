@@ -41,6 +41,7 @@
 	var eventsCakegraph;
 	var graphInfo;
 	var calendarMap;
+	var thematicWeeks;
 
 	$(document).ready(function() {
 		var day, month, year;
@@ -95,12 +96,75 @@
                         drop: Calendar.dropOut
                 });
 		
+		thematicWeeks = JSON.parse(|-json_encode($thematicWeeks)-|);
+		updateThematicWeeks(thematicWeeks);
 		filterPendingEvents();
 		// cada vez que cambio la fecha desde el calendario chequeo filtros de fechas
-		$('.fc-button-prev').click(function() { checkCalendarDateRange(); filterPendingEvents(); });
-		$('.fc-button-next').click(function() { checkCalendarDateRange(); filterPendingEvents(); });
-		$('.fc-button-today').click(function() { checkCalendarDateRange(); filterPendingEvents(); });
+		$('.fc-button-prev').click(function() { checkCalendarDateRange(); filterPendingEvents(); updateThematicWeeks(thematicWeeks); });
+		$('.fc-button-next').click(function() { checkCalendarDateRange(); filterPendingEvents(); updateThematicWeeks(thematicWeeks); });
+		$('.fc-button-today').click(function() { checkCalendarDateRange(); filterPendingEvents(); updateThematicWeeks(thematicWeeks); });
+		
+		$('.fc-button-month').click(function() { updateThematicWeeks(thematicWeeks); });
+		$('.fc-button-agendaWeek').click(function() { updateThematicWeeks(thematicWeeks); });
+		$('.fc-button-agendaDay').click(function() { updateThematicWeeks(thematicWeeks); });
 	});
+	
+	updateThematicWeeks = function(thematicWeeks) {
+		var view = calendar.fullCalendar('getView');
+		switch(view.name) {
+			
+			case 'month':
+				
+				var monthStartDate = view.visStart;
+				var nextMonthStartDate = view.visEnd;
+				var incOneWeek = function(date) {
+					var oneWeekMsecs = 7 * 24 * 60 * 60 * 1000;
+					date.setTime(date.getTime()+oneWeekMsecs);
+				}
+				
+				var weekNumber = 0;
+				for (var date = monthStartDate; date.getTime() < nextMonthStartDate.getTime(); incOneWeek(date)) {
+					
+					var found = false;
+					for (i in thematicWeeks) {
+						twStart = new Date(thematicWeeks[i].Monday);
+						if (date.getTime() == twStart.getTime()) {
+							$('.fc-week'+weekNumber).css('background-color', thematicWeeks[i]['AxisColor']);
+							found = true;
+							break;
+						}
+					}
+					
+					if (!found)
+						$('.fc-week'+weekNumber).css('background-color', '');
+					
+					weekNumber++;
+				}
+				
+				break;
+				
+			case 'agendaWeek':
+				
+				var found = false;
+				for (i in thematicWeeks) {
+					twStart = new Date(thematicWeeks[i].Monday);
+					if (view.visStart.getTime() == twStart.getTime()) {
+						$('.fc-agenda-slots').css('background-color', thematicWeeks[i]['AxisColor']);
+						found = true;
+						break;
+					}
+				}
+				
+				if (!found)
+					$('.fc-agenda-slots').css('background-color', '');
+				
+				break;
+				
+			default:
+				$('.fc-agenda-slots').css('background-color', '');
+				break;
+		}
+	}
 
 	createCalendar = function(events) {
 

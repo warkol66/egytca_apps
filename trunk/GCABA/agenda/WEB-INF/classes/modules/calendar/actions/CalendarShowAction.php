@@ -72,6 +72,11 @@ class CalendarShowAction extends BaseAction {
 		$smarty->assign('contextCrisis', CalendarContextEventQuery::create()->filterByContexttype('3')->find());
 		$smarty->assign('contextJuncture', CalendarContextEventQuery::create()->filterByContexttype('4')->find());
 		
+		$thematicWeeks = ThematicWeekQuery::create()->filterByAxisid(0, Criteria::GREATER_THAN)->find()->toArray();
+		foreach ($thematicWeeks as $key => $value) {
+			$thematicWeeks[$key]['AxisColor'] = ThematicWeekQuery::create()->findOneById($thematicWeeks[$key]['Id'])->getCalendarAxis()->getColor();
+		}
+		$smarty->assign('thematicWeeks', json_encode($thematicWeeks));
 
 		$this->template->template = 'TemplateCalendar.tpl';
 		return $mapping->findForwardConfig('success');
