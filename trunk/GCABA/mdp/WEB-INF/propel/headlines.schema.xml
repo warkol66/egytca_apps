@@ -25,6 +25,7 @@
 		<column name="summary" type="VARCHAR" description="Resumen" />
 		<column name="caption" type="VARCHAR" />
 		<column name="program" type="VARCHAR" />
+		<column name="strategy" type="VARCHAR" size="50" description="Estrategia que parseo el titular" />
 		<column name="class_key" type="INTEGER" inheritance="single">
 			<inheritance key="1" class="Headline" />
 			<inheritance key="2" class="PressHeadline" extends="Headline"/>
@@ -203,7 +204,8 @@
 		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id" autoIncrement="true"/>
 		<column name="length" type="INTEGER" />
 		<column name="type" type="VARCHAR" />
-		<column name="path" type="VARCHAR" />
+		<column name="name" type="VARCHAR" />
+		<column name="url" type="VARCHAR" />
 		<column name="headlineId" type="INTEGER" primaryKey="true"/>
 		
 		<foreign-key foreignTable="headlines_headline" onDelete="CASCADE">
@@ -222,7 +224,7 @@
 		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id" autoIncrement="true"/>
 		<column name="length" type="INTEGER" />
 		<column name="type" type="VARCHAR" />
-		<column name="path" type="VARCHAR" />
+		<column name="url" type="VARCHAR" />
 		<column name="headlineParsedId" type="INTEGER" primaryKey="true"/>
 		
 		<foreign-key foreignTable="headlines_parsed" onDelete="CASCADE">

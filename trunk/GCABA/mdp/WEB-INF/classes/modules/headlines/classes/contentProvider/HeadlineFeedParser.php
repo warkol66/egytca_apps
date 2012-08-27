@@ -51,10 +51,11 @@ class HeadlineFeedParser {
 				$headline->setMediaId($media->getId());
 			}
 			
+			$headline->setStrategy('feed');
+			
 //                    ->setCampaignid($this->campaignId)
 //                    ->setHeadlinedate($parsedNews['timestamp'])
 //                    ->setKeywords($this->getSanitizedKeywords())
-//                    ->setStrategy($parsedNews['strategy'])
 			
 			// TODO: if $headline is valid
 			$headlines []= $headline;
@@ -65,21 +66,21 @@ class HeadlineFeedParser {
 	
 	private function addInfoToHeadline($headline, $name, $value) {
 		switch ($name) {
-			case ('title'): $headline->setName($value); return true;
-			case ('description'): $headline->setContent($value); return true;
-			case ('link'): $headline->setUrl($value); return true;
-			case ('pubDate'): $headline->setDatePublished($value); return true;
-			case ('page'): $headline->setPage($value); return true;
-			case ('section'): $headline->setSection($value); return true;
-			case ('abstract'): $headline->setSummary($value); return true;
-			case ('caption'): $headline->setCaption($value); return true;
-			case ('category'): $this->parseMedianameAndProgram($headline, $value); return true;
-			case ('guid'): $headline->setInternalIdFromString($value); return true;
-			case ('author'): $headline->setAuthor($value); return true;
-			case ('source'): $headline->setSource($value); return true;
-			case ('lastChangeDate'): $headline->setLastChangeDate($value); return true;
-			case ('comments'): return false;//$headline->???($value); return true;
-			case ('enclosure'): $this->addEnclosureToHeadline($headline, $value); return true;
+			case 'title': $headline->setName($value); return true;
+			case 'description': $headline->setContent($value); return true;
+			case 'link': $headline->setUrl($value); return true;
+			case 'pubDate': $headline->setDatePublished($value); return true;
+			case 'page': $headline->setPage($value); return true;
+			case 'section': $headline->setSection($value); return true;
+			case 'abstract': $headline->setSummary($value); return true;
+			case 'caption': $headline->setCaption($value); return true;
+			case 'category': $this->parseMedianameAndProgram($headline, $value); return true;
+			case 'guid': $headline->setInternalIdFromString($value); return true;
+			case 'author': $headline->setAuthor($value); return true;
+			case 'source': $headline->setSource($value); return true;
+			case 'lastChangeDate': $headline->setLastChangeDate($value); return true;
+			case 'comments': return false;//$headline->???($value); return true;
+			case 'enclosure': $this->addEnclosureToHeadline($headline, $value); return true;
 			default: break;
 		}
 		return false;
@@ -92,7 +93,7 @@ class HeadlineFeedParser {
 		
 		$attachment->setLength($attributes->length);
 		$attachment->setType($attributes->type);
-		$attachment->setPath($attributes->url);
+		$attachment->setUrl($attributes->url);
 		
 		$headline->addHeadlineParsedAttachment($attachment);
 	}
