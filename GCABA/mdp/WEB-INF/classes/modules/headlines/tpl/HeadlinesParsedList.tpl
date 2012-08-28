@@ -57,6 +57,10 @@
 				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_medias" url="Main.php?do=mediasAutocompleteListX" hiddenName="filters[mediaId]" label="Medio" defaultValue=$filters.mediaName defaultHiddenValue=$filters.mediaId name="filters[mediaName]"-|
 	</div>
 			</p>
+			<p>
+				<span><input type="radio" name="filters[discarded]" value="0" |-$filters.discarded|checked:0-| />A procesar</span>
+				<span><input type="radio" name="filters[discarded]" value="1" |-$filters.discarded|checked:1-|/>Descartados</span>
+			</p>
 	<input type="submit" id="search_button" value="Filtrar" />
 	|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=headlinesParsedList'"/>|-/if-|</p>
 </form>

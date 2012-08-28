@@ -13,7 +13,7 @@ class HeadlinesParsedListAction extends BaseListAction {
 	function __construct() {
 		parent::__construct('HeadlineParsed');
 	}
-
+	
 	protected function preList() {
 		parent::preList();
 
@@ -51,11 +51,14 @@ class HeadlinesParsedListAction extends BaseListAction {
 		$campaign = CampaignQuery::create()->findOneById($campaignId);
 		if ($campaign) {
 			$params["campaignId"] = $campaignId;
-			$headlinesParsed = HeadlineParsedQuery::create()
+			$headlinesParsedQuery = HeadlineParsedQuery::create()
 					->filterByCampaign($campaign)
-					->filterByStatus(array('max' => HeadlineParsed::STATUS_PROCESSING))
-					->orderByStatus()
-					->find();
+					->orderByStatus();
+			if (!empty($filters['discarded']))
+				$headlinesParsedQuery->filterByStatus(HeadlineParsed::STATUS_DISCARDED);
+			else
+				$headlinesParsedQuery->filterByStatus(array('max' => HeadlineParsed::STATUS_PROCESSING));
+			$headlinesParsed = $headlinesParsedQuery->find();
 
 			$this->smarty->assign('campaign', $campaign);
 			$this->smarty->assign('campaignId', $campaignId);
@@ -71,13 +74,15 @@ class HeadlinesParsedListAction extends BaseListAction {
 		else {
 
 			$this->perPage = $perPage;
-//			$params["status"] = array('max' => HeadlineParsed::STATUS_PROCESSING);
-			$filters["status"] = HeadlineParsed::STATUS_IDLE;
+//			$filters["status"] = array('max' => HeadlineParsed::STATUS_PROCESSING);
+			if (!empty($filters['discarded']))
+				$this->query->filterByStatus(HeadlineParsed::STATUS_DISCARDED);
+			else
+				$this->query->filterByStatus(array('max' => HeadlineParsed::STATUS_PROCESSING));
+//			$filters["status"] = HeadlineParsed::STATUS_IDLE;
 
 			$this->filters = $filters;
 			$this->smarty->assign('campaign', new Campaign());
-			$_GET['filters']['dateTo'] = date();
-			$_GET['filters']['dateFrom'] = date();
 		}
 
 		$this->module = "Headlines";
