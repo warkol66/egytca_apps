@@ -111,7 +111,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 
 	<p>
 		<label for="params_tenderId">Procedimiento de Contratación</label>
-		<select id="params_tenderId" name="params[tenderId]" title="Procedimiento de Contratación" onChange="checkTender('params_tenderId');" |-$readonly|readonly-|>
+		<select id="params_tenderId" name="params[tenderId]" title="Procedimiento de Contratación"  onChange="checkTender('params_tenderId');" |-$readonly|readonly-|>
 			<option value="">Seleccione tipo de Contratación</option>
 			|-foreach from=$tenderTypes key=key item=name-|
 						<option value="|-$key-|" |-$planningConstruction->getTenderId()|selected:$key-|>|-$name-|</option>
@@ -213,19 +213,17 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 
 <script type="text/javascript">
 	function checkTender(elementId) {
-  var selectType = document.getElementById(elementId);
-  selectType.onchange = function() {
-    var chosenOption = this.options[this.selectedIndex];
-    switch(chosenOption.value) {
-      case '3':
-        $('tenderDescription').show();
-				enableInputId('params_tenderDescription');
-        break;
-      default:
-        $('tenderDescription').hide();
-				disableInputId('params_tenderDescription');
-      }
-  }
+			var selectType = document.getElementById(elementId);
+			var chosenOption = selectType.options[selectType.selectedIndex];
+			switch(chosenOption.value) {
+					case '3':
+							$('tenderDescription').show();
+							enableInputId('params_tenderDescription');
+							break;
+					default:
+							$('tenderDescription').hide();
+							disableInputId('params_tenderDescription');
+			}
 	}
 	function disableInputId(elementId) {
 		document.getElementById(elementId).disable();
