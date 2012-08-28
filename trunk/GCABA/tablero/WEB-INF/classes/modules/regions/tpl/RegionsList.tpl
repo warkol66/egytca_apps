@@ -68,7 +68,7 @@
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="regionsDoDelete" />
 						<input type="hidden" name="id" value="|-$region->getid()-|" />
-						<input type="submit" name="submit_go_delete_region" value="Borrar" onclick="return confirm('Seguro que desea eliminar el barrio?')" class="icon iconDelete" />
+						<input type="submit" name="submit_go_delete_region" value="Borrar" onclick="return confirm('¿Seguro que desea eliminar el barrio?')" class="icon iconDelete" />
 					</form>
 				</td>
 			</tr>

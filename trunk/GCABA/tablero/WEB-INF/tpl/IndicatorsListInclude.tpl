@@ -32,7 +32,7 @@
 				<form action="Main.php" method="post" style="display:inline;">
 					<input type="hidden" name="do" value="indicatorsDoDelete" />
 					<input type="hidden" name="id" value="|-$indicator->getid()-|" />
-					<input type="submit" name="submit_go_delete_indicator" value="Borrar" title="Borrar" onclick="return confirm('Seguro que desea eliminar el indicador?')" class="iconDelete" />
+					<input type="submit" name="submit_go_delete_indicator" value="Borrar" title="Borrar" onclick="return confirm('¿Seguro que desea eliminar el indicador?')" class="iconDelete" />
 				</form>
 			</td>
 		</tr>

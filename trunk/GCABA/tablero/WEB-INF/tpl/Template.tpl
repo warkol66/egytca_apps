@@ -32,12 +32,12 @@
 				<li class="fisheye"><img src="images/print.png" title="Imprimir" onClick="window.print()"/><span style="display: none;">Imprimir</span></li>
 			|-if $parameters.hasUnifiedUsernames.value neq "YES"-|
 				|-if !empty($loginUser)-|
-					<li><a href="Main.php?do=usersDoLogout" class="logout" title="Salir" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'></a><span style="display: none;">Salir</span></li>
+					<li><a href="Main.php?do=usersDoLogout" class="logout" title="Salir" onClick='return window.confirm("¿Está seguro que quiere salir del sistema?")'></a><span style="display: none;">Salir</span></li>
 				|-else-|
-					<li><a href="Main.php?do=affiliatesUsersDoLogout" class="logout" title="Salir" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'></a><span style="display: none;">Salir</span></li>	
+					<li><a href="Main.php?do=affiliatesUsersDoLogout" class="logout" title="Salir" onClick='return window.confirm("¿Está seguro que quiere salir del sistema?")'></a><span style="display: none;">Salir</span></li>	
 				|-/if-|				
 			|-else-|
-				<li class="fisheye"><a href="Main.php?do=commonDoLogout" title="Salir" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'><img src="images/logout.png" title="Salir" /><span style="display: none;">Salir</span></a></li>
+				<li class="fisheye"><a href="Main.php?do=commonDoLogout" title="Salir" onClick='return window.confirm("¿Está seguro que quiere salir del sistema?")'><img src="images/logout.png" title="Salir" /><span style="display: none;">Salir</span></a></li>
 			|-/if-|
 			</ul>
 		</div>

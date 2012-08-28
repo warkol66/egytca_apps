@@ -5,9 +5,9 @@
 	|-if $SESSION.firstLogin-|
 			<li><a href="Main.php?do=usersPasswordChange&firstLogin=firstLogin">Actualice su clave</a></li>
 			|-if !empty($loginUser)-|
-				<li><a href="Main.php?do=usersDoLogout" onClick='return window.confirm("Si ya actualizó su clave, puede proceder a salir del sistema. ¿Esta seguro que quiere salir del sistema?")'>Salir</a></li>
+				<li><a href="Main.php?do=usersDoLogout" onClick='return window.confirm("Si ya actualizó su clave, puede proceder a salir del sistema. ¿Está seguro que quiere salir del sistema?")'>Salir</a></li>
 			|-else-|
-				<li><a href="Main.php?do=affiliatesUsersDoLogout" onClick='return window.confirm("Si ya actualizó su clave, puede proceder a salir del sistema. ¿Esta seguro que quiere salir del sistema?")'>Salir</a></li>
+				<li><a href="Main.php?do=affiliatesUsersDoLogout" onClick='return window.confirm("Si ya actualizó su clave, puede proceder a salir del sistema. ¿Está seguro que quiere salir del sistema?")'>Salir</a></li>
 			|-/if-|				
 	|-else-|
 			<li><a href="Main.php?do=usersWelcome">Ir al Inicio</a></li>
@@ -46,25 +46,31 @@
 				<li><a href="Main.php?do=commonActionLogsList">Histórico de Operaciones</a></li>
 				<li class="last"><a href="Main.php?do=backupList">Respaldos</a></li>
 			</ul></li>
-		|-if $loginUser->isSupervisor()-|		
+			|-if $loginUser->isSupervisor()-|		
+			<li><a href="javascript:void(null)" class="sub">Configuración</a>
+				<ul>
+					<li><a href="Main.php?do=usersPasswordChange">Actualice su contraseña</a></li>
+					<li><a href="Main.php?do=commonConfigSet">Configurar Sistema</a></li>
+					<li><a href="Main.php?do=commonMeasureUnitsList">Unidades de Medida</a></li>
+					<li class="last"><a href="Main.php?do=commonConfigEdit">Editar Configuración</a></li>
+				</ul></li>
+			|-/if-|		
+		|-else-|
 		<li><a href="javascript:void(null)" class="sub">Configuración</a>
 			<ul>
-				<li><a href="Main.php?do=commonConfigSet">Configurar Sistema</a></li>
-				<li><a href="Main.php?do=commonMeasureUnitsList">Unidades de Medida</a></li>
-				<li class="last"><a href="Main.php?do=commonConfigEdit">Editar Configuración</a></li>
+				<li><a href="Main.php?do=usersPasswordChange">Actualice su contraseña</a></li>
 			</ul></li>
-|-/if-|		
-|-/if-|
-|-/if-|
+		|-/if-|
+	|-/if-|
 |-/if-|
 |-if !empty($loginAffiliateUser)-|
   	<ul>
 		<li class="menuLink"><a href="Main.php?do=affiliatesUsersWelcome">Ir al Inicio</a></li>
 	</ul>
 	|-if $parameters.hasUnifiedUsernames.value neq "YES"-|
-		<li><a href="Main.php?do=affiliatesUsersDoLogout" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'>Salir</a></li>
+		<li><a href="Main.php?do=affiliatesUsersDoLogout" onClick='return window.confirm("¿Está eguro que quiere salir del sistema?")'>Salir</a></li>
 	|-else-|
-		<li><a href="Main.php?do=commonDoLogout" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'>Salir</a></li>
+		<li><a href="Main.php?do=commonDoLogout" onClick='return window.confirm("¿Está seguro que quiere salir del sistema?")'>Salir</a></li>
 	|-/if-|
 |-/if-|
 		</ul>

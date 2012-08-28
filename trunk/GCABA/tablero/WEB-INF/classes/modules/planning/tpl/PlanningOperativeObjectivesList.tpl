@@ -73,7 +73,7 @@
 					<form action="Main.php" method="post" style="display:inline;">
 						<input type="hidden" name="do" value="planningOperativeObjectivesDoDelete" />
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
-						<input type="submit" name="submit_go_delete_objective" value="Borrar" onclick="return confirm('Seguro que desea eliminar el objetivo?')" class="icon iconDelete" title="Eliminar Objetivo Operativo" />
+						<input type="submit" name="submit_go_delete_objective" value="Borrar" onclick="return confirm('¿Seguro que desea eliminar el objetivo?')" class="icon iconDelete" title="Eliminar Objetivo Operativo" />
 					</form>
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="planningProjectsEdit" />

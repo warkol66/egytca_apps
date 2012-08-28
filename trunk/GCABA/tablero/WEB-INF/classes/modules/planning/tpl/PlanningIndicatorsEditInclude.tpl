@@ -79,7 +79,7 @@
       </p>	
 	<p>
         <label for="params_measureTaken">Se realizó la medición?</label>
-      <input name="params[measureTaken]" type="checkbox" id="params_measureTaken" |-$planningIndicator->getMeasureTaken()|checked_bool-|  value="|-$planningIndicator->getMeasureTaken()-|" title="Se realizó la medición?" |-$readonly|readonly-|/>
+      <input name="params[measureTaken]" type="checkbox" id="params_measureTaken" |-$planningIndicator->getMeasureTaken()|checked_bool-|  value="|-$planningIndicator->getMeasureTaken()-|" title="¿Se realizó la medición?" |-$readonly|readonly-|/>
       <input name="params[measureTaken]" type="hidden" value="0"/>
     </p>
 	<p>     
