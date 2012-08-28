@@ -23,10 +23,12 @@
 	|-elseif $message eq "notsaved"-|
 		<div class="successMessage">No se guardaron los cambios</div>
 	|-/if-|
+
+
 	<table id="tabla-planningImpactObjectives" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 		<thead>
 		|-if !$nav-|		<tr>
-			<td colspan="3" class="tdSearch"><a href="javascript:void(null);" onClick='$("divSearch").toggle();' class="tdTitSearch">Busqueda por nombre</a>
+			<td colspan="4" class="tdSearch"><a href="javascript:void(null);" onClick='$("divSearch").toggle();' class="tdTitSearch">Busqueda por nombre</a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0 && !($filters.fromStrategicObjectives)-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="planningImpactObjectivesList" />
 					Nombre: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" />
@@ -35,21 +37,23 @@
 |-/if-|</form></div></td>
 		</tr>|-/if-|
 			<tr>
-				 <th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningImpactObjectivesEdit" class="addLink">Agregar Objetivo de Impacto</a></div></th>
+				 <th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningImpactObjectivesEdit" class="addLink">Agregar Objetivo de Impacto</a></div></th>
 			</tr>
 			<tr class="thFillTitle">
-				<th width="95%">Objetivo de Impacto</th>
+				<th width="35%">Dependencia</th>
+				<th width="60%">Objetivo de Impacto</th>
 				<th width="1%">&nbsp;</th>
 				<th width="4%">&nbsp;</th>
 			</tr>
 		</thead>
 		<tbody>|-if $impactObjectiveColl|@count eq 0-|
 			<tr>
-				 <td colspan="3">|-if isset($filters)-|No hay Objetivo de Impacto que concuerden con la búsqueda|-else-|No hay Objetivo de Impacto disponibles|-/if-|</td>
+				 <td colspan="4">|-if isset($filters)-|No hay Objetivo de Impacto que concuerden con la búsqueda|-else-|No hay Objetivo de Impacto disponibles|-/if-|</td>
 			</tr>
 			|-else-|
 		|-foreach from=$impactObjectiveColl item=objective name=for_planningImpactObjectives-|
 			<tr>
+				<td>|-$objective->getPosition()-|</td>
 				<td>|-$objective->getStringCode()-|&nbsp;|-$objective->getName()-|</td>
 				<td nowrap>|-if $objective->countMinistryObjectives() gt 0-|<a href="Main.php?do=planningMinistryObjectivesList&nav=true&filters[impactobjectiveid]=|-$objective->getid()-|" class="icon iconFollow" title="Ver Objetivos Ministeriales del Objetivo de Impacto">Ver Objetivos Ministeriales</a>|-/if-|</td>
 				<td nowrap>
@@ -83,11 +87,11 @@
 		|-/if-|					
 		|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
-			<td colspan="3" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
+			<td colspan="4" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 			<tr>
-				<th colspan="3" class="thFillTitle">|-if $impactObjectiveColl|@count gt 5-|<div class="rightLink"><a href="Main.php?do=planningImpactObjectivesEdit" class="addLink">Agregar Objetivo de Impacto</a></div>|-/if-|</th>
+				<th colspan="4" class="thFillTitle">|-if $impactObjectiveColl|@count gt 5-|<div class="rightLink"><a href="Main.php?do=planningImpactObjectivesEdit" class="addLink">Agregar Objetivo de Impacto</a></div>|-/if-|</th>
 			</tr>
 		</tbody>
 	</table>

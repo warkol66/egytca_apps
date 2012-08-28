@@ -117,6 +117,10 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 			|-/foreach-|
 		</select>
 	</p>
+  <p>
+        <label for="params_tenderDescription">Detalle de Contratación</label>
+      <textarea name="params[tenderDescription]" cols="70" rows="2" wrap="VIRTUAL" id="params_tenderDescription" type="text" title="Detalle de Contratación"  |-$readonly|readonly-| >|-$planningConstruction->getTenderDescription()|escape-|</textarea>
+    </p>
 	<p>
         <label for="params_surface">Superfice (mts2)</label>
       <input name="params[surface]" type="text" id="params_surface" size="20" value="|-$planningConstruction->getSurface()|system_numeric_format-|" title="Superficie" maxlength="20" class="emptyValidation right" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|

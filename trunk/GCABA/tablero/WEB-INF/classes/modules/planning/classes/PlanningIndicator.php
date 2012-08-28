@@ -49,7 +49,9 @@ class PlanningIndicator extends BasePlanningIndicator {
 		$measureFrecuencyTypes = array(
 			1 => 'Mensual',
 			2 => 'Bimestral',
+			5 => 'Trimestral',
 			3 => 'Cuatrimestral',
+			6 => 'Semestral',
 			4 => 'Anual'
 		);
 		return $measureFrecuencyTypes;
