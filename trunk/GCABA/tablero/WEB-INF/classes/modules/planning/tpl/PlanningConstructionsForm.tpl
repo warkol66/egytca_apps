@@ -33,6 +33,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 
 
 </script>
+
 |-if $message eq "ok"-|
 	<div class="successMessage">Obra guardado correctamente</div>
 |-elseif $message eq "error"-|
@@ -104,20 +105,20 @@ $("#autocomplete_responsibleCode").ajaxChosen({
       |-/foreach-|
     </select>
 		|-else-|
-		<input type="text" size="25" readonly="readonly" value="|-$constructionTypes[$planningConstruction->getConstructionType()]-|"
+		<input type="text" size="25" readonly="readonly" value="|-$constructionTypes[$planningConstruction->getConstructionType()]-|">
 		|-/if-|
   </p>
 
 	<p>
 		<label for="params_tenderId">Procedimiento de Contratación</label>
-		<select id="params_tenderId" name="params[tenderId]" title="Procedimiento de Contratación" |-$readonly|readonly-|>
-			<option value="">Seleccione tipo de licitación</option>
+		<select id="params_tenderId" name="params[tenderId]" title="Procedimiento de Contratación" onChange="checkTender('params_tenderId');" |-$readonly|readonly-|>
+			<option value="">Seleccione tipo de Contratación</option>
 			|-foreach from=$tenderTypes key=key item=name-|
-						<option value="|-$key-|" |-$planningConstruction->getTenderTypes()|selected:$key-|>|-$name-|</option>
+						<option value="|-$key-|" |-$planningConstruction->getTenderId()|selected:$key-|>|-$name-|</option>
 			|-/foreach-|
 		</select>
 	</p>
-  <p>
+  <p id="tenderDescription" style="display: |-if $planningConstruction->getTenderId() eq 3-|block|-else-|none|-/if-|">
         <label for="params_tenderDescription">Detalle de Contratación</label>
       <textarea name="params[tenderDescription]" cols="70" rows="2" wrap="VIRTUAL" id="params_tenderDescription" type="text" title="Detalle de Contratación"  |-$readonly|readonly-| >|-$planningConstruction->getTenderDescription()|escape-|</textarea>
     </p>
@@ -210,3 +211,26 @@ $("#autocomplete_responsibleCode").ajaxChosen({
     </fieldset> 
   </form> 
 
+<script type="text/javascript">
+	function checkTender(elementId) {
+  var selectType = document.getElementById(elementId);
+  selectType.onchange = function() {
+    var chosenOption = this.options[this.selectedIndex];
+    switch(chosenOption.value) {
+      case '3':
+        $('tenderDescription').show();
+				enableInputId('params_tenderDescription');
+        break;
+      default:
+        $('tenderDescription').hide();
+				disableInputId('params_tenderDescription');
+      }
+  }
+	}
+	function disableInputId(elementId) {
+		document.getElementById(elementId).disable();
+	}
+	function enableInputId(elementId) {
+		document.getElementById(elementId).enable();
+	}
+</script>
