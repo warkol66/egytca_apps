@@ -27,6 +27,10 @@ class PlanningProjectsListAction extends BaseListAction {
 
 		if ($_GET["nav"])
 			$this->smarty->assign("nav", true);
+	    if (!empty($_GET["filters"]["operativeobjectiveid"]))
+	    {
+	    	   $this->smarty->assign("operativeObjective", BaseQuery::create('OperativeObjective')->findOneById($_GET["filters"]["operativeobjectiveid"]));
+	    }
 
 	}
 }

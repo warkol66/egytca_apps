@@ -11,6 +11,9 @@
 <h2>Planificación</h2>
 <h1>Administración de Objetivos Ministeriales</h1>
 <!-- Link VOLVER -->
+	|-if !is_null($impactObjective) && is_object($impactObjective)-|
+		<div id="navBar">|-include file="PlanningNavigationIncludeList.tpl" object=$impactObjective-|</div>
+	|-/if-|
 <!-- /Link VOLVER -->
 <p class='paragraphEdit'>A continuación se muestra la lista de Objetivos Ministeriales</p>
 <div id="div_objectives">

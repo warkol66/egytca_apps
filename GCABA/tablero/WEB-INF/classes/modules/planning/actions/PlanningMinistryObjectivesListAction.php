@@ -26,6 +26,10 @@ class PlanningMinistryObjectivesListAction extends BaseListAction {
 		$this->smarty->assign("section", "MinistryObjectives");
 		if ($_GET["nav"])
 			$this->smarty->assign("nav", true);
+	    if (!empty($_GET["filters"]["impactobjectiveid"]))
+	    {
+	    	   $this->smarty->assign("impactObjective", BaseQuery::create('ImpactObjective')->findOneById($_GET["filters"]["impactobjectiveid"]));
+	    }
 	}
 
 }

@@ -11,6 +11,9 @@
 <h2>Planificación</h2>
 <h1>Administración de Objetivos Operativos</h1>
 <!-- Link VOLVER -->
+	|-if !is_null($ministryObjective) && is_object($ministryObjective)-|
+		<div id="navBar">|-include file="PlanningNavigationIncludeList.tpl" object=$ministryObjective-|</div>
+	|-/if-|
 <!-- /Link VOLVER -->
 <p class='paragraphEdit'>A continuación se muestra la lista de Objetivos Operativos</p>
 <div id="div_objectives">
@@ -23,6 +26,8 @@
 	|-elseif $message eq "notsaved"-|
 		<div class="successMessage">No se guardaron los cambios</div>
 	|-/if-|
+
+	
 	<table id="tabla-objectives" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 		<thead>
 		|-if !$nav-|<tr>

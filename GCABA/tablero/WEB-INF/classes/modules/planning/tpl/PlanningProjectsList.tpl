@@ -11,6 +11,9 @@
 <h2>Planificación</h2>
 <h1>Administración de Proyectos</h1>
 <!-- Link VOLVER -->
+	|-if !is_null($operativeObjective) && is_object($operativeObjective)-|
+		<div id="navBar">|-include file="PlanningNavigationIncludeList.tpl" object=$operativeObjective-|</div>
+	|-/if-|
 <!-- /Link VOLVER -->
 <p class='paragraphEdit'>A continuación se muestra la lista de Proyectos</p>
 <div id="div_projects">

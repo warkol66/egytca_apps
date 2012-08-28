@@ -115,6 +115,7 @@
 		
 		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
 		<column name="tenderId" type="INTEGER" description="Tipo de Licitacion"/>
+		<column name="tenderDescription" type="VARCHAR" description="Procedimiento de Contratacion"/>
 		<column name="constructionType" type="INTEGER" description="Tipo de Obra"/>
 
 		<column name="surface" type="DECIMAL" size="12" scale="2"  description="Superficie en Mtrs cuadrados"/>
@@ -247,6 +248,7 @@
 		
 		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
 		<column name="tenderId" type="INTEGER" description="Tipo de Licitacion"/>
+		<column name="tenderDescription" type="VARCHAR" description="Procedimiento de Contratacion"/>
 		<column name="constructionType" type="INTEGER" description="Tipo de Obra"/>
 		<column name="surface" type="DECIMAL" size="12" scale="2"  description="Superficie en Mtrs cuadrados"/>
 		<column name="priority" type="BOOLEAN" description="Es una obra Prioritaria?"/>
