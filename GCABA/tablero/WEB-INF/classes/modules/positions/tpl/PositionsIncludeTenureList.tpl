@@ -33,7 +33,7 @@
 						<input type="hidden" name="do" value="positionsTenuresDoDelete" />
 						<input type="hidden" name="positionId" value="|-$position->getId()-|" />
 						<input type="hidden" name="id" value="|-$tenure->getId()-|" />
-						<input type="submit" name="submit_go_delete_position" value="Borrar" onclick="return confirm('Seguro que desea eliminar el cargo?')" class="icon iconDelete" />
+						<input type="submit" name="submit_go_delete_position" value="Borrar" onclick="return confirm('¿Seguro que desea eliminar el cargo?')" class="icon iconDelete" />
 					</form>
 				</td>
 			</tr>

@@ -75,7 +75,7 @@
 					<form action="Main.php" method="post" style="display:inline;">
 						<input type="hidden" name="do" value="planningActivitiesDoDelete" />
 						<input type="hidden" name="id" value="|-$construction->getid()-|" />
-						<input type="submit" name="submit_go_delete_construction" value="Borrar" onclick="return confirm('Seguro que desea eliminar el objetivo?')" class="icon iconDelete" title="Eliminar Actividad" />
+						<input type="submit" name="submit_go_delete_construction" value="Borrar" onclick="return confirm('¿Seguro que desea eliminar el objetivo?')" class="icon iconDelete" title="Eliminar Actividad" />
 					</form>
 					</td>
 			</tr>

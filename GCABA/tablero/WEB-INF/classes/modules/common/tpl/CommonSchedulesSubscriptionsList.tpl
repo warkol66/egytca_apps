@@ -54,7 +54,7 @@
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$scheduleSubscription->getid()-|" /> 
-					<input type="submit" name="submit_go_delete_scheduleSubscription" value="Borrar" onclick="return confirm('Seguro que desea eliminar este acto?')" class="icon iconDelete" /> 
+					<input type="submit" name="submit_go_delete_scheduleSubscription" value="Borrar" onclick="return confirm('¿Seguro que desea eliminar este acto?')" class="icon iconDelete" /> 
 				</form>
 				|-/if-|
 			</td> 

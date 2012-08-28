@@ -85,7 +85,7 @@
       <input name="params[realValue]" type="text" id="params_realValue" size="80" value="|-$planningIndicator->getRealValue()-|" title="Valor Real" maxlength="100" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_realValue"-|
       </p>	
 	<p>
-        <label for="params_measureTaken">Se realizó la medición?</label>
+        <label for="params_measureTaken">¿Se realizó la medición?</label>
       <input name="params[measureTaken]" type="checkbox" id="params_measureTaken" |-$planningIndicator->getMeasureTaken()|checked_bool-|  value="|-$planningIndicator->getMeasureTaken()-|" title="Se realizó la medición?" |-$readonly|readonly-|/>
       <input name="params[measureTaken]" type="hidden" value="0"/>
     </p>

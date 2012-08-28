@@ -15,7 +15,7 @@ function checkPass(form){
 
 <script>
 function checkPassDelete(form){
-	deleting=window.confirm("Esta seguro que desea eliminar este archivo?");		
+	deleting=window.confirm("¿Está seguro que desea eliminar este archivo?");		
 	if (!deleting) 
 		return false;
 

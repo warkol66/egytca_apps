@@ -74,7 +74,7 @@
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="planningProjectsDoDelete" />
 						<input type="hidden" name="id" value="|-$project->getid()-|" />
-						<input type="submit" name="submit_go_delete_project" value="Borrar" onclick="return confirm('Seguro que desea eliminar el objetivo?')" class="icon iconDelete" title="Eliminar Proyecto" />
+						<input type="submit" name="submit_go_delete_project" value="Borrar" onclick="return confirm('¿Seguro que desea eliminar el objetivo?')" class="icon iconDelete" title="Eliminar Proyecto" />
 					</form>
 					<form action="Main.php" method="get" style="display:inline;">
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|

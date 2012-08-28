@@ -89,7 +89,7 @@ function resetPassword(form){
 			|-elseif $user->getLevelId() lt 3-|
 				<img src="images/clear.png" class="icon iconDelete disabled" title="No se puede eliminar. Para eliminar este usuario, debe tener nivel inferior a administrador" alt="No se puede eliminar. Para eliminar este usuario, debe tener nivel inferior a administrador">
 			|-else-|
-				<a href='Main.php?do=usersDoDelete&user=|-$user->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|' title="##115,Eliminar##" onClick='return window.confirm("¿Esta seguro que quiere eliminar este usuario?")'><img src="images/clear.png" class="icon iconDelete"></a>
+				<a href='Main.php?do=usersDoDelete&user=|-$user->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|' title="##115,Eliminar##" onClick='return window.confirm("¿Está seguro que quiere eliminar este usuario?")'><img src="images/clear.png" class="icon iconDelete"></a>
 			|-/if-|
 		|-/if-|
 		|-if ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() ne '')-|<form method="post">

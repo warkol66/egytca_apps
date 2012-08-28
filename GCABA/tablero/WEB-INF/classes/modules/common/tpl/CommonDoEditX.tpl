@@ -31,7 +31,7 @@
 			<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />
 			|-/if-|
 			<input type="hidden" name="id" value="|-$source->getid()-|" />
-			<input type="submit" name="submit_go_delete_vialidad_source" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar el Insumo?')" class="icon iconDelete" />
+			<input type="submit" name="submit_go_delete_vialidad_source" value="Borrar" title="Eliminar" onclick="return confirm('¿Seguro que desea eliminar el Insumo?')" class="icon iconDelete" />
 		</form>
 			
 		|-/if-|

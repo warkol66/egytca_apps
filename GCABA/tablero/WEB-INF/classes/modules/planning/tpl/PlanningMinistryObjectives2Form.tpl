@@ -182,7 +182,7 @@
 							<input type="hidden" name="planningObjectType" value="MinistryObjective" />
 							<input type="hidden" name="planningObjectId" value="|-$ministryObjective->getId()-|" />
 							<input type="hidden" name="indicatorId" value="|-$indicator->getId()-|" />
-							<input type="button" name="submit_go_remove_indicator" value="Borrar" title="Eliminar indicador de objetivo ministerial" onclick="if (confirm('Seguro que desea eliminar el indicator del objetivo ministerial?')) removeIndicatorFromPlanningObject(this.form);" class="icon iconDelete" />
+							<input type="button" name="submit_go_remove_indicator" value="Borrar" title="Eliminar indicador de objetivo ministerial" onclick="if (confirm('¿Seguro que desea eliminar el indicator del objetivo ministerial?')) removeIndicatorFromPlanningObject(this.form);" class="icon iconDelete" />
 						</form> |-$indicator-|
 			</li>
 			|-/foreach-|

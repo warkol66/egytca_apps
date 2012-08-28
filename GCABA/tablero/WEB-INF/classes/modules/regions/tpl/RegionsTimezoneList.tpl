@@ -59,7 +59,7 @@
 					<form action="Main.php" method="post" style="display:inline;">
 						<input type="hidden" name="do" value="regionsTimezoneDoDelete" />
 						<input type="hidden" name="id" value="|-$region->getid()-|" />
-						<input type="submit" name="submit_go_delete_region" value="Borrar" onclick="return confirm('Seguro que desea eliminar el barrio?')" class="icon iconDelete" />
+						<input type="submit" name="submit_go_delete_region" value="Borrar" onclick="return confirm('¿Seguro que desea eliminar el barrio?')" class="icon iconDelete" />
 					</form>
 				</td>
 			</tr>

@@ -29,13 +29,13 @@
 	<input type='hidden' name='firstLogin' value='|-$firstLogin-|' />
 	<input type='hidden' name='message' value='|-$message-|' />
 	<p><label for="username">##162,Identificación de Usuario##</label>
-		<input id='usernameDisabled' name='usernameDisabled' type='text' value='|-$currentUser->getUsername()-|' size="30" disabled="disabled" />
+		<input id='usernameDisabled' name='usernameDisabled' type='text' value='|-$currentUser->getUsername()-|' size="30" readonly="readonly" />
 	</p>
 		<p><label for="name">##163,Nombre##</label>
-			<input id='name' name='name' type='text' value='|-$currentUser->getName()|escape-|' size="50"  disabled="disabled"/>
+			<input id='name' name='nameDisabled' type='text' value='|-$currentUser->getName()|escape-|' size="50"  readonly="readonly" />
 		</p>
 		<p><label for="surname">##164,Apellido##</label>
-			<input id='surname' name='surname' type='text' value='|-$currentUser->getSurname()|escape-|' size="50"  disabled="disabled" />
+			<input id='surname' name='surnameDisabled' type='text' value='|-$currentUser->getSurname()|escape-|' size="50" readonly="readonly" />
 		</p>
 	<p><label for="mailAddress">E-mail</label>
 	 	<input id='mailAddress' name='mailAddress' type='text' value='|-$currentUser->getMailAddress()-|' size="40" class="mailValidation" onchange="javascript:validationValidateFieldClienSide('mailAddress');" />	

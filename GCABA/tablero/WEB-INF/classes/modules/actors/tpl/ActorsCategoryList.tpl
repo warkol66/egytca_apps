@@ -53,7 +53,7 @@
 				<form action="Main.php" method="post" style="display:inline;">
 					<input type="hidden" name="do" value="actorsCategoryDoDelete" />
 					<input type="hidden" name="id" value="|-$category->getid()-|" />
-					<input type="submit" name="submit_go_delete_indicator" value="Borrar" title="Borrar" onclick="return confirm('|-if $category->hasChildren() ne 0-|Atención: Al eliminar una categoría que contiene otras categorías asociadas, se eliminarán las mismas, al igual que la categoría seleccionada. |-/if-|Confirme que desea eliminar la categoría?')" class="icon iconDelete" />
+					<input type="submit" name="submit_go_delete_indicator" value="Borrar" title="Borrar" onclick="return confirm('|-if $category->hasChildren() ne 0-|Atención: Al eliminar una categoría que contiene otras categorías asociadas, se eliminarán las mismas, al igual que la categoría seleccionada. |-/if-|¿Está seguro que desea eliminar la categoría?')" class="icon iconDelete" />
 				</form>
 			</td>
 		</tr>
