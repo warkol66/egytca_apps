@@ -83,9 +83,9 @@
 	<form name="form_edit_headline" id="form_edit_headline" action="Main.php" method="post">
 		<fieldset title="Formulario de edición de datos de un titular">
 			<legend>Formulario de Administración de ##headlines,1,Titulares##</legend>
-		<div id="campaign" style="position: relative;z-index:11000;">
+		|-if $configModule->get('headlines','uniqueByCampaigns')-|<div id="campaign" style="position: relative;z-index:11000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_campaignId" label="Campaña" url="Main.php?do=campaignsAutocompleteListX" hiddenName="params[campaignId]" defaultHiddenValue=$headline->getCampaignId() defaultValue=$headline->getCampaign()-|
-		</div>
+		</div>|-/if-|
 		<div id="media" style="position: relative;z-index:10000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" onChange="initialize();" id="autocomplete_mediaId" label="Medio" url="Main.php?do=mediasAutocompleteListX&lightboxId=lightbox_medias" hiddenName="params[mediaId]" defaultHiddenValue=$headline->getMediaId() defaultValue=$headline->getMedia() class="emptyValidation"-|
 		</div>
@@ -99,11 +99,11 @@
 			</p>
 			<p>     
 				<label for="params[datePublished]">Fecha de Publicación</label>
-				<input id="params[datePublished]" name="params[datePublished]" type='text' value='|-$headline->getDatePublished()-|' size="12" title="Ingrese la fecha de publicación" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[datePublished]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input id="params[datePublished]" name="params[datePublished]" type='text' value='|-$headline->getDatePublished()|dateTime_format-|' size="20" title="Ingrese la fecha de publicación" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[datePublished]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<p>     
 				<label for="params[headlineDate]">Fecha del Titular</label>
-				<input id="params[headlineDate]" name="params[headlineDate]" type='text' value='|-$headline->getHeadlineDate()-|' size="12" title="Ingrese la fecha de titular" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[headlineDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input id="params[headlineDate]" name="params[headlineDate]" type='text' value='|-$headline->getHeadlineDate()|dateTime_format-|' size="20" title="Ingrese la fecha de titular" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[headlineDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 		<p>
 			<label for="params[url]">Url</label>
@@ -299,15 +299,15 @@ function removeIssueFromHeadline(form){
 </script>
 
 <fieldset title="Formulario de asuntos asociados al ##headlines,4,titular##">
-	<legend>Relación con Asuntos</legend>
+	<legend>Relación con ##issues,1,Asuntos##</legend>
 	<div id="issueMsgField"></div>
 	<form method="post" style="display:inline;">
 		<div id="headlineIssue" style="position: relative;z-index:10000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_issues" label="Relacionar con asunto" url="Main.php?do=issuesAutocompleteListX&getCandidates=1&headlineId="|cat:$headline->getId() hiddenName="issue[id]" disableSubmit="addIssueSubmit"-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_issues" label="Relacionar con ##issues,4,asunto##" url="Main.php?do=issuesAutocompleteListX&getCandidates=1&headlineId="|cat:$headline->getId() hiddenName="issue[id]" disableSubmit="addIssueSubmit"-|
 		</div>
 	<p>	<input type="hidden" name="do" id="do" value="headlinesDoAddIssueX" />
 		<input type="hidden" name="headlineId" id="headlineId" value="|-$headline->getId()-|" /> 
-    <input type="button" id="addIssueSubmit" disabled="disabled" name="addIssueSubmit" value="Agregar asunto al ##headlines,4,titular##" title="Agregar asunto al ##headlines,4,titular##" onClick="javascript:addIssueToHeadline(this.form)"/> </p>
+    <input type="button" id="addIssueSubmit" disabled="disabled" name="addIssueSubmit" value="Agregar ##issues,4,asunto## al ##headlines,4,titular##" title="Agregar ##issues,4,asunto## al ##headlines,4,titular##" onClick="javascript:addIssueToHeadline(this.form)"/> </p>
 	</form>
   <div id="headlinesIssuesList">
 		<ul id="issueList" class="iconOptionsList">
@@ -317,7 +317,7 @@ function removeIssueFromHeadline(form){
 							<input type="hidden" name="do" value="headlinesDoRemoveIssueX" /> 
 							<input type="hidden" name="headlineId" value="|-$headline->getid()-|" /> 
 							<input type="hidden" name="issueId" value="|-$issue->getid()-|" /> 
-							<input type="button" name="submit_go_remove_issue" value="Borrar" onclick="if (confirm('Seguro que desea quitar el asunto del titular?')) removeIssueFromHeadline(this.form);" class="icon iconDelete" /> 
+							<input type="button" name="submit_go_remove_issue" value="Eliminar" onclick="if (confirm('Seguro que desea quitar el ##issues,4,asunto## del ##headlines,4,titular##?')) removeIssueFromHeadline(this.form);" class="icon iconDelete" /> 
 						</form> |-$issue->getName()-|
 					</li>
 			|-/foreach-|

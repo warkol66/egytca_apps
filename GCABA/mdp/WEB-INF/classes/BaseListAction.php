@@ -37,8 +37,9 @@ class BaseListAction extends BaseAction {
 			if (!$this->notPaginated) {
 				$smarty->assign("moduleConfig", Common::getModuleConfiguration($this->module));
 
-				if (!isset($this->perPage) && $this->perPage > 0)
+				if (!isset($this->perPage) || $this->perPage < 1)
 					$this->perPage = Common::getRowsPerPage($this->module);
+
 				$page = $request->getParameter("page");
 
 				$this->pager = $this->query->createPager($this->filters, $page, $this->perPage);
