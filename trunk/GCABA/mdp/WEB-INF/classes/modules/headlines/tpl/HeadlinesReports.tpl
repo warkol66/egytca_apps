@@ -13,7 +13,7 @@
 		<tr>
 			<td colspan="6" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda de ##headlines,1,Titulares## </a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
-					<input type="hidden" name="do" value="headlinesList" />
+					<input type="hidden" name="do" value="headlinesReports" />
 					<label for="filters[searchString]">Buscar</label>
 					<input id="filters[searchString]" name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
 					<label for="filters[perPage]" class="labelWide">Resultados por página</label> &nbsp;
@@ -35,24 +35,20 @@
 			</p>
 			<p>
 					<label for="filters[fromDate]">Fecha desde</label>
-					<input id="filters[fromDate]" name="filters[fromDate]" type="text" value="|-$filters.fromDate-|" size="12" title="Fecha desde" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[toDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha desde ">
+					<input id="filters[fromDate]" name="filters[fromDate]" type="text" value="|-$filters.fromDate-|" size="12" title="Fecha desde" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[fromDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha desde ">
 
 					<label for="filters[toDate]">Fecha hasta</label>
 					<input id="filters[toDate]" name="filters[toDate]" type="text" value="|-$filters.toDate-|" size="12" title="Fecha hasta" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[toDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha hasta">
-
 					<!--<label for="filters[datePublished]">de publicación</label>
 					<input id="filters[datePublished]" name="filters[datePublished]" type="checkbox" value="1" title="Fecha de inicio" |-$filters.datePublished|checked_bool-| />
 					<label for="filters[headlineDate]">del titular</label>
 					<input id="filters[headlineDate]" name="filters[headlineDate]" type="checkbox" value="1" title="Fecha de inicio" |-$filters.headlineDate|checked_bool-| />-->
 </p>
 					<p><input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
-				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=headlinesList'"/>|-/if-|</p>
+				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=headlinesReports'"/>|-/if-|</p>
 			</form>
 		</div></td>
 		</tr>
-			|-if "headlinesEdit"|security_has_access-|<tr>
-				 <th colspan="6" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=headlinesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##headlines,2,Titular##</a></div></th>
-			</tr>|-/if-|
 			<tr class="thFillTitle"> 
 				<th width="1%">&nbsp;</th> 
 				<th width="30%">##headlines,2,Titulares##</th> 
@@ -62,12 +58,12 @@
 				<th width="1%">&nbsp;</th> 
 			</tr> 
 		</thead> 
-	<tbody>|-if $headlines|@count eq 0-|
+	<tbody>|-if $headlineColl|@count eq 0-|
 		<tr>
 			 <td colspan="6">|-if isset($filter)-|No hay ##headlines,1,Titulares## que concuerden con la búsqueda|-else-|No hay ##headlines,1,Titulares## disponibles|-/if-|</td>
 		</tr>
 	|-else-|
-		|-foreach from=$headlines item=headline name=for_headlines-|
+		|-foreach from=$headlineColl item=headline name=for_headlines-|
 		<tr> 
 				<td nowrap="nowrap">|-if $headline->getUrl() ne ''-| <a href="|-$headline->getUrl()-|" target="_blank" title="Ir a nota original" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a> |-/if-||-if $headline->hasClipping()-|<a href="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" title="Ver recorte" target="_blank"><img src="images/clear.png" class="icon iconNewsClipping" /></a>|-/if-|</td>
 				<td>|-$headline->getName()-|</td> 
@@ -96,9 +92,6 @@
 			<td colspan="6" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
-			<tr>
-				 <th colspan="6" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=headlinesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##headlines,2,Titular##</a></div></th>
-			</tr>
 		|-/if-|
 		</tbody> 
 		 </table> 
