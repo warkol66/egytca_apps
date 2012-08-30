@@ -74,6 +74,7 @@ class ConfigModule {
 		"headlines" => array(
 			"useClients" => false,
 			"uniqueByCampaigns" => false,
+			"parserTimeLimit" => 720,
 			"searchEngineUrl" => "http://news.google.com",
 			"clippingsPath" => "./WEB-INF/classes/modules/headlines/files/clipping/",
 			"clippingsTmpPath" => "./WEB-INF/classes/modules/headlines/files/clipping/tmp/",
