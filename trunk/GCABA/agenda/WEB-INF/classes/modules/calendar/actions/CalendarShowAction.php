@@ -76,6 +76,8 @@ class CalendarShowAction extends BaseAction {
 		foreach ($thematicWeeks as $key => $value) {
 			// uso $array[$key] porque quiero modificar el array original
 			$axis = ThematicWeekQuery::create()->findOneById($thematicWeeks[$key]['Id'])->getCalendarAxis();
+			if (!is_object($axis))
+				$axis = new CalendarAxis();
 			$thematicWeeks[$key]['AxisColor'] = $axis->getColor();
 			$thematicWeeks[$key]['AxisName'] = $axis->getName();
 			$thematicWeeks[$key]['className'] = $axis->getCssClass();
