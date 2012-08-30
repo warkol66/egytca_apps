@@ -41,30 +41,6 @@
 		<div id="viewDiv"></div>
 </div></div>
 <h1>Administrar Titulares Importados</h1>
-<fieldset>
-<legend>Titulares Importados &nbsp; 
-<a href="javascript:void(null)" id="showHideFilterHeadlines" onClick="$('filterHeadlines').toggle(); $('showHideFilterHeadlines').toggleClassName('|-if $filters|@count gt 1-|expandLink|-else-|collapseLink|-/if-|');" class="|-if $filters|@count gt 1-|collapseLink|-else-|expandLink|-/if-|"></a></legend>
-<form method="get" action="Main.php" id="filterHeadlines" style="display:|-if $filters|@count gt 1-|block|-else-|none|-/if-|;">
-	<input name="do" value="headlinesParsedList" type="hidden" />
-			<p>
-					<label for="filters[fromDate]">Fecha desde</label>
-					<input id="filters[fromDate]" name="filters[fromDate]" type="text" value="|-$filters.fromDate-|" size="12" title="Fecha desde" />
-					<label for="filters[toDate]" class="inlineLabel">Fecha hasta</label>
-					<input id="filters[toDate]" name="filters[toDate]" type="text" value="|-$filters.toDate-|" size="12" title="Fecha hasta" />
-	</p>
-			<p>
-	<div div="div_filters[mediaId]" style="position: relative;z-index:10000;">
-				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_medias" url="Main.php?do=mediasAutocompleteListX" hiddenName="filters[mediaId]" label="Medio" defaultValue=$filters.mediaName defaultHiddenValue=$filters.mediaId name="filters[mediaName]"-|
-	</div>
-			</p>
-			<p>
-				<span><input type="radio" name="filters[discarded]" value="0" |-$filters.discarded|checked:0-| />A procesar</span>
-				<span><input type="radio" name="filters[discarded]" value="1" |-$filters.discarded|checked:1-|/>Descartados</span>
-			</p>
-	<input type="submit" id="search_button" value="Filtrar" />
-	|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=headlinesParsedList'"/>|-/if-|</p>
-</form>
-</fieldset>
 	<fieldset>
 	<legend>Obtener Titulares &nbsp; <a href="javascript:void(null)" id="showHideManualParse" onClick="$('manualParse').toggle(); $('showHideManualParse').toggleClassName('collapseLink');" class="expandLink"></a></legend>
 	<form method="post" action="Main.php" onsubmit="parseFeed(this); return false;" id="manualParse" style="display:none;">
@@ -74,6 +50,34 @@
 	<p><input type="submit" id="search_button" value="Obtener titulares" title="Obtener manualmente titulares" /></p>
 	</form>
 	</fieldset>
+
+<fieldset>
+<legend>Filtrar Titulares Importados &nbsp; 
+
+<a href="javascript:void(null)" id="showHideFilterHeadlines" onClick="$('filterHeadlines').toggle(); $('showHideFilterHeadlines').toggleClassName('|-if $filters|@count gt 1-|expandLink|-else-|collapseLink|-/if-|');" class="|-if $filters|@count gt 1-|collapseLink|-else-|expandLink|-/if-|">
+</a>
+
+</legend>
+<form method="get" action="Main.php" id="filterHeadlines" style="display:|-if $filters|@count gt 1-|block|-else-|none|-/if-|;">
+	<input name="do" value="headlinesParsedList" type="hidden" />
+			<p>
+					<label for="filters[fromDate]">Fecha desde</label>
+					<input id="filters[fromDate]" name="filters[fromDate]" type="text" value="|-$filters.fromDate-|" size="12" title="Fecha desde" />
+					&nbsp; &nbsp; <label for="filters[toDate]" class="inlineLabel">Fecha hasta</label>
+					<input id="filters[toDate]" name="filters[toDate]" type="text" value="|-$filters.toDate-|" size="12" title="Fecha hasta" />
+					&nbsp; &nbsp; <label for="filters[discarded]"  class="inlineLabel">Incluir descartados</label>
+					<input id="filters[discarded]" name="filters[discarded]" type="checkbox" value="1" |-$filters.discarded|checked_bool-| title="Incluir descartados" />
+	</p>
+			<p>
+	<div div="div_filters[mediaId]" style="position: relative;z-index:10000;">
+				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_medias" url="Main.php?do=mediasAutocompleteListX" hiddenName="filters[mediaId]" label="Medio" defaultValue=$filters.mediaName defaultHiddenValue=$filters.mediaId name="filters[mediaName]"-|
+	</div>
+			</p>
+			<p>	<input type="submit" id="search_button" value="Filtrar" />
+	|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=headlinesParsedList'"/>|-/if-|</p>
+</form>
+</fieldset>
+
 |-/if-|
 
 <div id="resultDiv"></div>

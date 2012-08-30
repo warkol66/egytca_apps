@@ -15,6 +15,9 @@ class HeadlinesDoParseXAction extends BaseAction {
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
+
+		set_time_limit(ConfigModule::get("headlines","parserTimeLimit"));
+
 		
 		require 'contentProvider/HeadlineContentProvider.php';
 //        devuelve solo la 1er estrategia y no el array =(

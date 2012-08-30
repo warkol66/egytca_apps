@@ -21,10 +21,10 @@
 		<input type="checkbox" class="headlinesIds" name="headlinesIds[]" value="|-$headline->getId()-|" />
     <strong>&nbsp; &nbsp; |-$headline->getName()-|</strong>|-if $headline->getMoreSourcesUrl() ne ''-|<span id="parseMore_|-$headline->getId()-|" style="float: right; margin-right: 100px;"><img src="images/clear.png" class="icon iconAdd" onClick='parseMore("|-$headline->getId()-|;"); $("parseMore_|-$headline->getId()-|").parentNode.removeChild($("parseMore_|-$headline->getId()-|"));' value="Mas similares" /> <strong>Buscar similares</strong></span>|-/if-|
 		<ul><li>
-			<strong>|-if $headline->getMediaId() eq 0-||-$headline->getMediaName()-||-else-||-$headline->getMedia()-||-/if-| -- </strong>
+			<strong>|-if $headline->getMediaId() eq 0-||-$headline->getMediaName()-||-else-||-$headline->getMedia()-||-/if-| || |-$headline->getdatePublished()|date_format-| _ </strong>
 			|-if $headline->getContent()|mb_count_characters gt 500-|
-			|-$headline->getContent()|mb_truncate:500:"...":'UTF-8':true-|
-				<img id="imgMore|-$headline->getId()-|" src="images/clear.png" onClick="$('more|-$headline->getId()-|').toggle();$('imgMore|-$headline->getId()-|').toggleClassName('inlineLink readLess')" class="inlineLink readMore" title="Ver/Ocultar texto" /><span id="more|-$headline->getId()-|" style="display: none ">|-$headline->getContent()|mb_substr:500:5000-|</span>	
+			|-$headline->getContent()|mb_truncate:495:" ... ":'UTF-8':true-|
+				<img id="imgMore|-$headline->getId()-|" src="images/clear.png" onClick="$('more|-$headline->getId()-|').toggle();$('imgMore|-$headline->getId()-|').toggleClassName('inlineLink readLess')" class="inlineLink readMore" title="Ver/Ocultar texto" /><span id="more|-$headline->getId()-|" style="display: none ">|-$headline->getContent()|mb_substr:490:3000:'UTF-8'-|</span>
 			|-else-|
 				|-$headline->getContent()-|
 			|-/if-|

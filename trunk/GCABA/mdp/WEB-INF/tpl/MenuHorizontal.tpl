@@ -17,7 +17,7 @@
 				<li><a href="Main.php?do=headlinesParsedList">Obtener Titulares</a></li>
 				<li><a href="Main.php?do=issuesList">Administrar ##issues,1,Asuntos##</a></li>
 				<li><a href="Main.php?do=campaignsList">Administrar Campañas</a></li>
-				<li class="last"><a href="#">Reportes</a></li>
+				<li class="last"><a href="Main.php?do=headlinesReports">Reportes</a></li>
 			</ul>
 		</li>
 		|-if $loginUser->isAdmin() || $loginUser->isSupervisor()-|		
