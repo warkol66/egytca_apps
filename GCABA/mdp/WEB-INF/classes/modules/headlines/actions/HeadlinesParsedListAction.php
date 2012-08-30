@@ -54,9 +54,7 @@ class HeadlinesParsedListAction extends BaseListAction {
 			$headlinesParsedQuery = HeadlineParsedQuery::create()
 					->filterByCampaign($campaign)
 					->orderByStatus();
-			if (!empty($filters['discarded']))
-				$headlinesParsedQuery->filterByStatus(HeadlineParsed::STATUS_DISCARDED);
-			else
+			if (empty($filters['discarded']))
 				$headlinesParsedQuery->filterByStatus(array('max' => HeadlineParsed::STATUS_PROCESSING));
 			$headlinesParsed = $headlinesParsedQuery->find();
 

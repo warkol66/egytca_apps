@@ -177,10 +177,11 @@ a.pageLink:hover, a.pageLink:active {
 	top: 10%;
 	z-index:11001;
 	max-height: 80%;
-	-khtml-border-radius: 10px;
-	-opera-border-radius: 10px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
+	-khtml-border-radius: 0.75em;
+	-opera-border-radius: 0.75em;
+	-moz-border-radius: 0.75em;
+	-webkit-border-radius: 0.75em;
+	border-radius: 0.75em;
 }
 .innerLighbox {
 	overflow: auto;
@@ -230,15 +231,21 @@ div.autocomplete ul b {
 /* fieldset    ----------------------------*/
 fieldset {
 	padding: 8px;
-	margin-bottom: 2em; /* IE 3.5em */
+	margin-top: .5em; /* IE 3.5em */
+	margin-bottom: 1em; /* IE 3.5em */
 	position: relative;
+	-khtml-border-radius: 0.75em;
+	-opera-border-radius: 0.75em;
+	-moz-border-radius: 0.75em;
+	-webkit-border-radius: 0.75em;
+	border-radius: 0.75em;
 }
 fieldset legend {
 	font-weight: bold;
 	font-size: 123.1%;
 	margin-bottom: 0.5em;
 	position: relative;
-	margin-left: -.3em;
+	margin-left: .8em;
 	padding: .2em;
 }
 fieldset label {
@@ -461,7 +468,9 @@ ul.iconList li ul li {
 	line-height: normal;
 	padding-bottom: 0.50em;
 }
-
+#selectedHeadlinesForm ul.iconList li ul li {
+	margin-left: 115px;
+}
 .noDecoration {
 	text-decoration: none !Important;
 }
@@ -508,6 +517,7 @@ ul.iconList li ul li {
 	-opera-border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
+	border-radius: 2px;
 }
 .in_place_hover {
 	background-color: #b0e9ff !Important; /*  b7e0ff*/
@@ -519,6 +529,7 @@ ul.iconList li ul li {
 	-opera-border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
+	border-radius: 2px;
 	padding-right: 25px !Important;
 	background-image: url(../images/icon_iconEdit.png) !Important;
 	background-repeat: no-repeat !Important;
@@ -534,6 +545,7 @@ form.inplaceeditor-form {
 	-opera-border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
+	border-radius: 2px;
 }
 .edit {
 	text-decoration: underline;
