@@ -26,6 +26,10 @@
 		<column name="caption" type="VARCHAR" />
 		<column name="program" type="VARCHAR" />
 		<column name="strategy" type="VARCHAR" size="50" description="Estrategia que parseo el titular" />
+
+		<column name="length" type="INTEGER" description="Duracion en segs o superficie en mm2"/>
+		<column name="processed" type="BOOLEAN" sqlType="BOOL" default="false" description="Indica si esta procesado" />
+
 		<column name="class_key" type="INTEGER" inheritance="single">
 			<inheritance key="1" class="Headline" />
 			<inheritance key="2" class="PressHeadline" extends="Headline"/>
@@ -160,10 +164,9 @@
 		<column name="mediaName" type="VARCHAR" size="255" description="Media Name"/>
 		<column name="mediaId" type="INTEGER" description="Media ID"/>
 		<column name="keywords" type="VARCHAR" size="255" description="Palabras clave de la busqueda"/>
-        <column name="status" type="INTEGER" description="Estado del headline importado"/>
-        <column name="moreSourcesUrl" type="VARCHAR" size="255" description="Url para obtener mas titulares de distintas fuentes"/>
-        <column name="strategy" type="VARCHAR" size="50" description="Estrategia que parseo el titular" />
-	
+    <column name="status" type="INTEGER" description="Estado del headline importado"/>
+    <column name="moreSourcesUrl" type="VARCHAR" size="255" description="Url para obtener mas titulares de distintas fuentes"/>
+    <column name="strategy" type="VARCHAR" size="50" description="Estrategia que parseo el titular" />	
 		<column name="page" type="INTEGER" description="Pagina" />
 		<column name="section" type="VARCHAR" description="Seccion" />
 		<column name="author" type="VARCHAR" description="Autor" />
@@ -172,6 +175,9 @@
 		<column name="caption" type="VARCHAR" />
 		<column name="program" type="VARCHAR" />
 		<column name="lastChangeDate" type="TIMESTAMP" />
+
+		<column name="length" type="INTEGER" description="Duracion en segs o superficie en mm2"/>
+
 		<column name="class_key" type="INTEGER" description="Clase de headline a crear" />
         
 		<behavior name="timestampable" />

@@ -114,9 +114,55 @@
 				|-if $headline->getHeadlineAttachments()|count gt 0-|<a href="Main.php?do=headlinesViewAttachments&id=|-$headline->getId()-|" title="Ver archivos adjuntos"><img src="images/clear.png" class="icon iconNewsClipping" /></a>|-else-||-/if-|
 			|-/if-|
 			</p>
+	<p>
+		<label for="params_classKey">Tipo de titular</label>
+		|-if $headline->getStrategy() ne 'feed'-|<select id="params_classKey" name="params[classKey]" title="Tipo de titular"  onChange="classKeyForm('params_classKey');" >
+			<option value="">Seleccione tipo de titular</option>
+			|-foreach from=$headlineTypes key=key item=name-|
+						<option value="|-$key-|" |-$headline->getClassKey()|selected:$key-|>|-$name-|</option>
+			|-/foreach-|
+		</select>
+		|-else-|
+		<input type="text" value="|-$headlineTypes[$headline->getClassKey()]-|" disabled="disabled">
+		|-/if-|
+	</p>
+
+			<div id="pressHeadline" style="display:|-if $headline->getClassKey() eq 2-|block|-else-|none|-/if-|">
 			<p>     
-				<label for="params[picture]">Foto</label>
-				<select id="params[picture]" name="params[picture]" title="Indique si incluye foto">
+				<label for="params_picture_press">Foto</label>
+				<select id="params_picture_press" name="params[picture]" title="Indique si incluye foto">
+					<option value="0" |-$headline->getPicture()|selected:0-|>No</option>
+					<option value="1" |-$headline->getPicture()|selected:1-|>Sí</option>
+				</select>
+			</p>
+			<p>     
+				<label for="params[section]">Sección</label>
+				<input id="params[section]" name="params[section]" type='text' value='|-$headline->getSection()-|' size="40" title="Sección" />
+			</p>
+			<p>     
+				<label for="params[page]">Página</label>
+				<input id="params[page]" name="params[page]" type='text' value='|-$headline->getPage()-|' size="5" title="Página" />
+			</p>
+			<p>     
+				<label for="params_length_press">Superficie</label>
+				<input id="params_length_press" name="params[length]" type='text' value='|-$headline->getLength()-|' size="5" title="Superficie" /> mm2
+			</p>
+			</div><!--end pressHeadline-->
+
+			<div id="multimediaHeadline" style="display:|-if $headline->getClassKey() eq 3-|block|-else-|none|-/if-|">
+			<p>     
+				<label for="params[program]">Programa</label>
+				<input id="params[program]" name="params[program]" type='text' value='|-$headline->getProgram()-|' size="40" title="Programa" />
+			</p>
+			<p>     
+				<label for="params_program_length">Duración</label>
+				<input id="params_length_multimedia" name="params[length]" type='text' value='|-$headline->getLength()-|' size="5" title="Duración"/> segs
+			</p>
+			</div><!--end multimediaHeadline-->
+
+			<div id="webHeadline" style="display:|-if $headline->getClassKey() eq 4-|block|-else-|none|-/if-|"><p>     
+				<label for="params_picture_web">Foto</label>
+				<select id="params_picture_web" name="params[picture]" title="Indique si incluye foto">
 					<option value="0" |-$headline->getPicture()|selected:0-|>No</option>
 					<option value="1" |-$headline->getPicture()|selected:1-|>Sí</option>
 				</select>
@@ -137,6 +183,8 @@
 				<label for="params[comment]">Comentarios</label>
 				<input id="params[comment]" name="params[comment]" type='text' value='|-$headline->getComment()-|' size="5" title="Commments" />
 			</p>
+			</div><!--end webHeadline-->
+
 			<p>
 				<label for="params[value]">Valoración</label>
 				<input name="params[value]" type="hidden" value="0" />
@@ -155,6 +203,14 @@
 				&nbsp; 4 <input name="params[relevance]" type="radio" value="4" |-$headline->getRelevance()|checked:4-|/>
 				&nbsp; 5 <input name="params[relevance]" type="radio" value="5" |-$headline->getRelevance()|checked:5-|/>
 			</p>
+
+			<p>
+				<label for="params[processed]">Procesado</label>
+				<input name="params[processed]" type="hidden" value="0" />
+				<input name="params[processed]" type="checkbox" value="1" |-$headline->getProcessed()|checked_bool:1-| />
+		</p>
+
+
 			<p>
 			<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 				|-include file="HiddenInputsInclude.tpl" filters="$filters" page="$page"-|
@@ -169,6 +225,47 @@
 	</form>
 </div>
 
+<script type="text/javascript">
+	function classKeyForm(elementId) {
+			var selectType = document.getElementById(elementId);
+			var chosenOption = selectType.options[selectType.selectedIndex];
+			switch(chosenOption.value) {
+					case '2':
+							$('pressHeadline').show();
+							$('multimediaHeadline').hide();
+							$('webHeadline').hide();
+							disableInputId('params_picture_web');
+							disableInputId('params_length_multimedia');
+							enableInputId('params_picture_press');
+							enableInputId('params_length_press');
+							break;
+					case '3':
+							$('multimediaHeadline').show();
+							$('pressHeadline').hide();
+							$('webHeadline').hide();
+							disableInputId('params_length_press');
+							enableInputId('params_length_multimedia');
+							break;
+					case '4':
+							$('webHeadline').show();
+							$('pressHeadline').hide();
+							$('multimediaHeadline').hide();
+							disableInputId('params_picture_press');
+							enableInputId('params_picture_web');
+							break;
+					default:
+							$('pressHeadline').hide();
+							$('multimediaHeadline').hide();
+							$('webHeadline').hide();
+			}
+	}
+	function disableInputId(elementId) {
+		document.getElementById(elementId).disable();
+	}
+	function enableInputId(elementId) {
+		document.getElementById(elementId).enable();
+	}
+</script>
 
 |-if !$headline->isNew()-|
 

@@ -1,3 +1,4 @@
+|-if !$report-|
 |-include file="CommonAutocompleterInclude.tpl"-|
 <h2>##headlines,1,Titulares##</h2>
 <h1>Reportes de ##headlines,1,Titulares##</h1>
@@ -43,7 +44,9 @@
 					<input id="filters[headlineDate]" name="filters[headlineDate]" type="checkbox" value="1" title="Fecha de inicio" |-$filters.headlineDate|checked_bool-| />-->
 </p>
 					<p><input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
-				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=headlinesReports'"/>|-/if-|</p>
+				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=headlinesReports'"/>
+				<input name="toPrint" type="button" value="Generar Reporte" onclick="location.href='Main.php?do=headlinesReports&report=true'"/>
+				|-/if-|</p>
 			</form>
 	</fieldset>
 	<table id="tabla-headlines" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
@@ -81,16 +84,60 @@
 </div>
 
 
-|-if $configModule->get('headlines','showSearchInList')-|<div id="cse" style="width: 100%;">Loading</div>
-<script src="http://www.google.com/jsapi" type="text/javascript"></script>
-<script type="text/javascript"> 
-  google.load('search', '1', {language : 'es', style : google.loader.themes.MINIMALIST});
-  google.setOnLoadCallback(function() {
-    var customSearchOptions = {};
-    var customSearchControl = new google.search.CustomSearchControl(
-      '009024455053332553964:hryiyyehnjm', customSearchOptions);
-    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-    customSearchControl.draw('cse');
-  }, true);
-</script>
+|-else-|
+|-*Si es reporte*-|
+|-if $headlineColl|count gt 0-|
+<h2>Resumen</h2>
+		<p>Período: |-$filters.fromDate-| al |-$filters.toDate-|</p> 
+<table border="1">
+	<tr>
+			<th>Medio</th>
+			<th>Fecha</th>
+			<th>Publicación</th>
+			<th>Tipo</th>
+			<th>Foto</th>
+			<th>Twitts</th>
+			<th>Fcb</th>
+			<th>G+</th>
+			<th>Coment.</th>
+			<th>Importancia</th>
+			<th>Valoración</th>
+			<th>Relevancia</th>
+			<th>Actores</th>
+	</tr>
+	|-foreach from=$headlineColl item=headline name=for_headlines-|
+	<tr>
+			<td>|-$headline->getMedia()-|</td>
+			<td>|-$headline->getHeadlineDate()|date_format-|</td>
+			<td>|-$headline->getDatePublished()|date_format-|</td>
+			<td>|-*$media->getType()*-|</td>
+			<td>|-$headline->getPicture()|si_no-|</td>
+			<td>|-$headline->getTwitts()-|</td>
+			<td>|-$headline->getFcb()-|</td>
+			<td>|-$headline->getGplus()-|</td>
+			<td>|-$headline->getComment()-|</td>
+			<td>|-$headline->getImportance()-|</td>
+			<td>|-$headline->getValue()-|</td>
+			<td>|-$headline->getRelevance()-|</td>
+		<td>|-if $headline->getActors()|count gt 0-|<ul>|-foreach from=$headline->getActors() item=actor-|
+						<ul>|-$actor-|</ul>
+				|-/foreach-|</ul>|-/if-|
+</td>
+	</tr>
+	|-/foreach-|
+</table>		
+	
+<h2>Clipping de repercusiones de prensa</h2>
+<br style="page-break-after:auto">
+<div id="div_headlines"> 
+<h4>Clipping</h4>
+	|-foreach from=$headlineColl item=headline name=for_headlines-|
+			<p><strong>Medio: </strong>|-$headline->getMedia()-|</p>
+			<p><strong>Titulo: </strong> <a href="|-$headline->getUrl()-|" target="_blank"> |-$headline->getName()-|</a></p>
+			<p><strong>Fecha Publicación: </strong> |-$headline->getDatePublished()|date_format-|</p>
+			<p>|-if $headline->hasClipping()-|<img src="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" />|-/if-|</p>
+	|-/foreach-|
+	<br style="page-break-after:auto">
+</div>
+|-/if-|
 |-/if-|

@@ -175,4 +175,33 @@ class Headline extends BaseHeadline {
 		return true;
 	}
 
+	/**
+	 * Devuelve array con posibles tipo de titulares (Headline)
+	 *  id => tipo de titular
+	 *
+	 * @return array tipo de titulares
+	 */
+	public static function getHeadlineTypes() {
+		$headlineTypes = array(
+			2 => 'PressHeadline',
+			3 => 'MultimediaHeadline',
+			4 => 'WebHeadline'
+		);
+		return $headlineTypes;
+	}
+
+	/**
+	 * Devuelve los nombres de los tipo de titulares traducidos
+	 */
+	public function getPositionKindsTranslated(){
+		$headlineTypes = PositionPeer::getPositionKinds();
+
+		foreach(array_keys($headlineTypes) as $key)
+			$headlineTypesTranslated[$key] = Common::getTranslation($headlineTypes[$key],'headlines');
+
+		return $headlineTypesTranslated;
+	}
+
 } // Headline
+
+
