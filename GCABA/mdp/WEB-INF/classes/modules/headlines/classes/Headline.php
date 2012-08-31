@@ -193,13 +193,40 @@ class Headline extends BaseHeadline {
 	/**
 	 * Devuelve los nombres de los tipo de titulares traducidos
 	 */
-	public function getPositionKindsTranslated(){
-		$headlineTypes = PositionPeer::getPositionKinds();
+	public function getHeadlineTypesTranslated(){
+		$headlineTypes = Headline::getHeadlineTypes();
 
 		foreach(array_keys($headlineTypes) as $key)
 			$headlineTypesTranslated[$key] = Common::getTranslation($headlineTypes[$key],'headlines');
 
 		return $headlineTypesTranslated;
+	}
+
+	/**
+	 * Devuelve array con posibles tipo de titulares (Headline)
+	 *  id => tipo de titular
+	 *
+	 * @return array tipo de titulares
+	 */
+	public static function getHeadlineAgendas() {
+		$agendas = array(
+			1 => 'Propuesta',
+			2 => 'Impuesta',
+			3 => 'Sin agenda'
+		);
+		return $agendas;
+	}
+
+	/**
+	 * Devuelve los nombres de los tipo de titulares traducidos
+	 */
+	public function getAgendasTranslated(){
+		$agendas = Headline::getHeadlineAgendas();
+
+		foreach(array_keys($agendas) as $key)
+			$agendasTranslated[$key] = Common::getTranslation($agendas[$key],'headlines');
+
+		return $agendasTranslated;
 	}
 
 } // Headline

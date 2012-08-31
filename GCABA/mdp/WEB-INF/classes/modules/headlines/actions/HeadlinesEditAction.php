@@ -58,6 +58,7 @@ class HeadlinesEditAction extends BaseAction {
 
 		$smarty->assign("mediaTypes", MediaTypeQuery::create()->find());
 		$smarty->assign("headlineTypes", Headline::getHeadlineTypes());
+		$smarty->assign("headlineAgendas", Headline::getHeadlineAgendas());
 
 		$smarty->assign("headline",$headline);
 		$smarty->assign("filters",$_GET["filters"]);

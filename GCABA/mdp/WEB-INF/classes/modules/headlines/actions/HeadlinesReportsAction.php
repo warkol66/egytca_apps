@@ -21,6 +21,8 @@ class HeadlinesReportsAction extends BaseListAction {
 			$this->notPaginated = true;
 			$this->smarty->assign("report", true);
 			$this->template->template = "TemplatePlain.tpl";
+			if($_GET["includeContent"])
+				$this->smarty->assign("includeContent", true);
 
 		}
 

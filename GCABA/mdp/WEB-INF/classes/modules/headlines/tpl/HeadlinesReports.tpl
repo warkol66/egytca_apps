@@ -135,6 +135,9 @@
 			<p><strong>Medio: </strong>|-$headline->getMedia()-|</p>
 			<p><strong>Titulo: </strong> <a href="|-$headline->getUrl()-|" target="_blank"> |-$headline->getName()-|</a></p>
 			<p><strong>Fecha Publicación: </strong> |-$headline->getDatePublished()|date_format-|</p>
+			|-if $includeContent-|
+			|-$headline->getContent()|nl2htmlBreak:li:inlineLabel|highlight:"Algunos Macri "-| 
+			|-/if-|
 			<p>|-if $headline->hasClipping()-|<img src="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" />|-/if-|</p>
 	|-/foreach-|
 	<br style="page-break-after:auto">
