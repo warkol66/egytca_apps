@@ -30,7 +30,7 @@ class HeadlinesReportsAction extends BaseListAction {
 				'entityId' => $_GET['filters']['mediaId']
 			);
 		
-		if (isset($_GET['filters']['fromDate']) || isset($_GET['filters']['toDate']))
+		if (!empty($_GET['filters']['fromDate']) || !empty($_GET['filters']['toDate']))
 			$this->filters['rangePublished'] = array('range' => Common::getPeriodArray(
 				$_GET['filters']['fromDate'], $_GET['filters']['toDate']
 			));
