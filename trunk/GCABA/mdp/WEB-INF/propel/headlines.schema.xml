@@ -28,6 +28,7 @@
 		<column name="strategy" type="VARCHAR" size="50" description="Estrategia que parseo el titular" />
 
 		<column name="length" type="INTEGER" description="Duracion en segs o superficie en mm2"/>
+		<column name="agenda" type="TINYINT" description="Tipo de agenda"/>
 		<column name="processed" type="BOOLEAN" sqlType="BOOL" default="false" description="Indica si esta procesado" />
 
 		<column name="class_key" type="INTEGER" inheritance="single">

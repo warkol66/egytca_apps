@@ -95,7 +95,8 @@
 			</p>
 			<p>
 				<label for="params[content]">Contenido</label>
-					<textarea id="params[content]" name="params[content]" cols="42" rows="6" wrap="VIRTUAL" title="Contenido" class="emptyValidation">|-$headline->getContent()|escape-|</textarea> |-validation_msg_box idField="params[content]"-|
+					<textarea id="params[content]" name="params[content]" cols="75" rows="8" wrap="VIRTUAL" title="Contenido" class="emptyValidation">|-$headline->getContent()|escape-|</textarea> 
+					|-validation_msg_box idField="params[content]"-|
 			</p>
 			<p>     
 				<label for="params[datePublished]">Fecha de Publicación</label>
@@ -114,6 +115,10 @@
 				|-if $headline->getHeadlineAttachments()|count gt 0-|<a href="Main.php?do=headlinesViewAttachments&id=|-$headline->getId()-|" title="Ver archivos adjuntos"><img src="images/clear.png" class="icon iconNewsClipping" /></a>|-else-||-/if-|
 			|-/if-|
 			</p>
+			<p>     
+				<label for="params[author]">Participante</label>
+				<input id="params[author]" name="params[author]" type='text' value='|-$headline->getAuthor()-|' size="80" title="Participante" />
+			</p>
 	<p>
 		<label for="params_classKey">Tipo de titular</label>
 		|-if $headline->getStrategy() ne 'feed'-|<select id="params_classKey" name="params[classKey]" title="Tipo de titular"  onChange="classKeyForm('params_classKey');" >
@@ -123,7 +128,7 @@
 			|-/foreach-|
 		</select>
 		|-else-|
-		<input type="text" value="|-$headlineTypes[$headline->getClassKey()]-|" disabled="disabled">
+		<input type="text" value="|-$headlineTypes[$headline->getClassKey()]-|" readonly="readonly">
 		|-/if-|
 	</p>
 
@@ -147,6 +152,10 @@
 				<label for="params_length_press">Superficie</label>
 				<input id="params_length_press" name="params[length]" type='text' value='|-$headline->getLength()-|' size="5" title="Superficie" /> mm2
 			</p>
+			<p>     
+				<label for="params_author_press">Participante</label>
+				<input id="params_author_press" name="params[author]" type='text' value='|-$headline->getAuthor()-|' size="80" title="Participante" />
+			</p>
 			</div><!--end pressHeadline-->
 
 			<div id="multimediaHeadline" style="display:|-if $headline->getClassKey() eq 3-|block|-else-|none|-/if-|">
@@ -157,6 +166,10 @@
 			<p>     
 				<label for="params_program_length">Duración</label>
 				<input id="params_length_multimedia" name="params[length]" type='text' value='|-$headline->getLength()-|' size="5" title="Duración"/> segs
+			</p>
+			<p>     
+				<label for="params_author_multimedia">Participante</label>
+				<input id="params_author_multimedia" name="params[author]" type='text' value='|-$headline->getAuthor()-|' size="80" title="Participante" />
 			</p>
 			</div><!--end multimediaHeadline-->
 
@@ -186,31 +199,39 @@
 			</div><!--end webHeadline-->
 
 			<p>
-				<label for="params[value]">Valoración</label>
+				<label for="params[value]">Valoración</label><div class="optionEncolsure">
 				<input name="params[value]" type="hidden" value="0" />
-				&nbsp; 1 <input name="params[value]" type="radio" value="1" |-$headline->getValue()|checked:1-| title="Seleccione el valor de la noticia" />
-				&nbsp; 2 <input name="params[value]" type="radio" value="2" |-$headline->getValue()|checked:2-| title="Seleccione el valor de la noticia" />
-				&nbsp; 3 <input name="params[value]" type="radio" value="3" |-$headline->getValue()|checked:3-| title="Seleccione el valor de la noticia" />
-				&nbsp; 4 <input name="params[value]" type="radio" value="4" |-$headline->getValue()|checked:4-| title="Seleccione el valor de la noticia" />
-				&nbsp; 5 <input name="params[value]" type="radio" value="5" |-$headline->getValue()|checked:5-| title="Seleccione el valor de la noticia" />
+				<span class="radioOption"> Muy positivo <input name="params[value]" type="radio" value="1" |-$headline->getValue()|checked:1-| title="Seleccione el valor de la noticia" /></span>
+				<span class="radioOption"> Positivo <input name="params[value]" type="radio" value="2" |-$headline->getValue()|checked:2-| title="Seleccione el valor de la noticia" /></span>
+				<span class="radioOption"> Neutro <input name="params[value]" type="radio" value="3" |-$headline->getValue()|checked:3-| title="Seleccione el valor de la noticia" /></span>
+				<span class="radioOption"> Negativo <input name="params[value]" type="radio" value="4" |-$headline->getValue()|checked:4-| title="Seleccione el valor de la noticia" /></span>
+				<span class="radioOption"> Muy negativo <input name="params[value]" type="radio" value="5" |-$headline->getValue()|checked:5-| title="Seleccione el valor de la noticia" /></span>
+				</div>
 			</p>
 			<p>
-				<label for="params[relevance]">Relevancia</label>
+				<label for="params[relevance]">Relevancia</label><div class="optionEnclosure">
 				<input name="params[relevance]" type="hidden" value="0" />
-				&nbsp; 1 <input name="params[relevance]" type="radio" value="1" |-$headline->getRelevance()|checked:1-|/>
-				&nbsp; 2 <input name="params[relevance]" type="radio" value="2" |-$headline->getRelevance()|checked:2-|/>
-				&nbsp; 3 <input name="params[relevance]" type="radio" value="3" |-$headline->getRelevance()|checked:3-|/>
-				&nbsp; 4 <input name="params[relevance]" type="radio" value="4" |-$headline->getRelevance()|checked:4-|/>
-				&nbsp; 5 <input name="params[relevance]" type="radio" value="5" |-$headline->getRelevance()|checked:5-|/>
+				<span class="radioOption"> Muy relevante <input name="params[relevance]" type="radio" value="1" |-$headline->getRelevance()|checked:1-|/></span>
+				<span class="radioOption"> Relevante <input name="params[relevance]" type="radio" value="2" |-$headline->getRelevance()|checked:2-|/></span>
+				<span class="radioOption"> Poco relevante <input name="params[relevance]" type="radio" value="3" |-$headline->getRelevance()|checked:3-|/></span>
+				<span class="radioOption"> Muy poco relevante <input name="params[relevance]" type="radio" value="4" |-$headline->getRelevance()|checked:4-|/></span>
+				</div>
 			</p>
+	<p>
+		<label for="params_agenda">Agenda</label>
+		<select id="params_agenda" name="params[agenda]" title="Agenda">
+			<option value="">Seleccione agenda</option>
+			|-foreach from=$headlineAgendas key=key item=name-|
+						<option value="|-$key-|" |-$headline->getAgenda()|selected:$key-|>|-$name-|</option>
+			|-/foreach-|
+		</select>
+	</p>
 
 			<p>
 				<label for="params[processed]">Procesado</label>
 				<input name="params[processed]" type="hidden" value="0" />
 				<input name="params[processed]" type="checkbox" value="1" |-$headline->getProcessed()|checked_bool:1-| />
 		</p>
-
-
 			<p>
 			<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 				|-include file="HiddenInputsInclude.tpl" filters="$filters" page="$page"-|
@@ -235,8 +256,8 @@
 							$('multimediaHeadline').hide();
 							$('webHeadline').hide();
 							disableInputId('params_picture_web');
-							disableInputId('params_length_multimedia');
 							enableInputId('params_picture_press');
+							disableInputId('params_length_multimedia');
 							enableInputId('params_length_press');
 							break;
 					case '3':
