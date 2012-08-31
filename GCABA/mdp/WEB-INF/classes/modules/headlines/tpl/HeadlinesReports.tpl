@@ -44,8 +44,8 @@
 					<input id="filters[headlineDate]" name="filters[headlineDate]" type="checkbox" value="1" title="Fecha de inicio" |-$filters.headlineDate|checked_bool-| />-->
 </p>
 					<p><input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
-				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=headlinesReports'"/>
-				<input name="toPrint" type="button" value="Generar Reporte" onclick="location.href='Main.php?do=headlinesReports&report=true'"/>
+				|-if $filters|@count gt 0-|<input type="button" value="Quitar filtros" onclick="location.href='Main.php?do=headlinesReports'"/>
+					<input type="button" value="Generar Reporte" onclick="window.open(('Main.php?'+Form.serialize(this.form)+'&report=true'));"/>
 				|-/if-|</p>
 			</form>
 	</fieldset>
