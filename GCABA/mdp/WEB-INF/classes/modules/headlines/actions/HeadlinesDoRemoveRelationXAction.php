@@ -8,7 +8,7 @@ class HeadlinesDoRemoveRelationXAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-    BaseAction::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
@@ -19,17 +19,18 @@ class HeadlinesDoRemoveRelationXAction extends BaseAction {
 		$module = "Headlines";
 
 		if (!empty($_POST["headlineId"]) && !(empty($_POST["relationId"]))) {
-		
+
 			$headline = HeadlineQuery::create()->findPk($_POST["headlineId"]);
 			$related = HeadlineQuery::create()->findPk($_POST["relationId"]);
 
 			if (!empty($headline) && !empty($related)) {
 
-				$filtered = HeadlineRelationQuery::create()->filterByHeadlineRelatedByHeadlinefromid($headline)
-                                        ->filterByHeadlineRelatedByHeadlinetoid($relation)->findOne();
-				if (!empty($filtered))
+				$relation = HeadlineRelationQuery::create()->filterByHeadline1($headline)
+																									 ->filterByHeadline2($related)
+																									 ->findOne();
+				if (!empty($relation))
 					try {
-						$filtered->delete();
+						$relation->delete();
 						$smarty->assign('related',$related);
 						return $mapping->findForwardConfig('success');
 					}

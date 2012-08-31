@@ -16,6 +16,13 @@ class HeadlinesReportsAction extends BaseListAction {
 	protected function preList() {
 		parent::preList();
 		$this->module = "Headlines";
+		
+		if($_GET["report"]) {
+			$this->notPaginated = true;
+			$this->smarty->assign("report", true);
+			$this->template->template = "TemplatePlain.tpl";
+
+		}
 
 		if (!empty($_GET['filters']['mediaId']))
 			$this->filters['entityFilter'] = array(

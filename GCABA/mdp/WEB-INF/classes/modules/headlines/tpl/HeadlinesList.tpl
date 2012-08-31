@@ -40,6 +40,13 @@
 					<label for="filters[toDate]">Fecha hasta</label>
 					<input id="filters[toDate]" name="filters[toDate]" type="text" value="|-$filters.toDate-|" size="12" title="Fecha hasta" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[toDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha hasta">
 
+			<p>
+				<label for="filters[filterProcessed]">Procesados</label>
+				Todos <input name="filters[filterProcessed]" type="radio" value="-1" |-if isset($filters.filterProcessed)-||-$filters.filterProcessed|checked:-1-||-else-|checked="checked"|-/if-| />
+				Sin procesar <input name="filters[filterProcessed]" type="radio" value="0" |-if isset($filters.filterProcessed)-||-$filters.filterProcessed|checked:0-||-/if-| />
+				Procesados <input name="filters[filterProcessed]" type="radio" value="1" |-if isset($filters.filterProcessed)-||-$filters.filterProcessed|checked:1-||-/if-| />
+		</p>
+
 					<!--<label for="filters[datePublished]">de publicación</label>
 					<input id="filters[datePublished]" name="filters[datePublished]" type="checkbox" value="1" title="Fecha de inicio" |-$filters.datePublished|checked_bool-| />
 					<label for="filters[headlineDate]">del titular</label>
@@ -55,10 +62,10 @@
 			</tr>|-/if-|
 			<tr class="thFillTitle"> 
 				<th width="1%">&nbsp;</th> 
-				<th width="30%">##headlines,2,Titulares##</th> 
+				<th width="20%">##headlines,2,Titulares##</th> 
 				<th width="10%">Fecha</th> 
 				<th width="10%">Medio</th> 
-				<th width="48%">##headlines,3,Contenido##</th> 
+				<th width="58%">##headlines,3,Contenido##</th> 
 				<th width="1%">&nbsp;</th> 
 			</tr> 
 		</thead> 
