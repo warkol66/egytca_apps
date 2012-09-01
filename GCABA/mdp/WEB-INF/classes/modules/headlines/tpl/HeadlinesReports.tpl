@@ -138,7 +138,12 @@
 			|-if $includeContent-|
 			|-$headline->getContent()|nl2htmlBreak:li:inlineLabel|highlight:"Algunos Macri "-| 
 			|-/if-|
-			<p>|-if $headline->hasClipping()-|<img src="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" />|-/if-|</p>
+			<p>
+				|-if $headline->hasClipping()-|<img src="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" />|-/if-|
+				|-foreach $headline->getHeadlineImages() as $image-|
+					|-if $image->dataExists()-|<img src="Main.php?do=headlinesAttachmentGetData&id=|-$image->getId()-|" />|-/if-|
+				|-/foreach-|
+			</p>
 	|-/foreach-|
 	<br style="page-break-after:auto">
 </div>

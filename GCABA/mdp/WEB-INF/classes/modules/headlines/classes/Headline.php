@@ -17,9 +17,13 @@ class Headline extends BaseHeadline {
 
 	/** the default item name for this class */
 	const ITEM_NAME = 'Headline';
+	
+	function getHeadlineImages() {
+		return HeadlineAttachmentQuery::create()->filterByHeadline($this)->filterByType('image/jpg')->find();
+	}
 
 	/**
-	* Obtiene el id de todas las categor�as asignadas.
+	* Obtiene el id de todas las categorias asignadas.
 	*
 	*	@return array Id de todos los actor category asignados
 	*/
