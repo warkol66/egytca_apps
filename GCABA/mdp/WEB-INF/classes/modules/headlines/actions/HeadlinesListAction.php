@@ -75,6 +75,10 @@ class HeadlinesListAction extends BaseAction {
 			$url .= "&filters[$key]=$value";
 		$smarty->assign("url",$url);
 
+		$smarty->assign("headlineScopes", Headline::getHeadlineScopes());
+		$smarty->assign("headlineValues", Headline::getHeadlineValues());
+		$smarty->assign("headlineRelevances", Headline::getHeadlineRelevances());
+
 		$smarty->assign("message",$_GET["message"]);
 		return $mapping->findForwardConfig('success');
 	}

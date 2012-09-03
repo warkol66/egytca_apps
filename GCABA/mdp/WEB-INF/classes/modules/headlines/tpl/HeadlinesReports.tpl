@@ -43,7 +43,12 @@
 					<label for="filters[headlineDate]">del titular</label>
 					<input id="filters[headlineDate]" name="filters[headlineDate]" type="checkbox" value="1" title="Fecha de inicio" |-$filters.headlineDate|checked_bool-| />-->
 </p>
-					<p><input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
+					<label for="filters[includeContent]">Mostrar contenido</label>
+					<input id="filters[includeContent]" name="filters[includeContent]" type="checkbox" value="1" |-$filters.includeContent|checked_bool-| title="Mostrar contenido" />
+					&nbsp; &nbsp; <label for="filters[includeClipping]" class="inlineLabel">Mostrar clipping</label>
+					<input id="filters[includeClipping]" name="filters[includeClipping]" type="checkbox" value="1" |-$filters.includeClipping|checked_bool-| title="Mostrar clipping" />
+					<p>
+					<input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
 				|-if $filters|@count gt 0-|<input type="button" value="Quitar filtros" onclick="location.href='Main.php?do=headlinesReports'"/>
 					<input type="button" value="Generar Reporte" onclick="window.open(('Main.php?'+Form.serialize(this.form)+'&report=true'));"/>
 				|-/if-|</p>
@@ -92,15 +97,8 @@
 <table border="1">
 	<tr>
 			<th>Medio</th>
-			<th>Fecha</th>
 			<th>Publicación</th>
-			<th>Tipo</th>
 			<th>Foto</th>
-			<th>Twitts</th>
-			<th>Fcb</th>
-			<th>G+</th>
-			<th>Coment.</th>
-			<th>Importancia</th>
 			<th>Valoración</th>
 			<th>Relevancia</th>
 			<th>Actores</th>
@@ -108,19 +106,12 @@
 	|-foreach from=$headlineColl item=headline name=for_headlines-|
 	<tr>
 			<td>|-$headline->getMedia()-|</td>
-			<td>|-$headline->getHeadlineDate()|date_format-|</td>
 			<td>|-$headline->getDatePublished()|date_format-|</td>
-			<td>|-*$media->getType()*-|</td>
 			<td>|-$headline->getPicture()|si_no-|</td>
-			<td>|-$headline->getTwitts()-|</td>
-			<td>|-$headline->getFcb()-|</td>
-			<td>|-$headline->getGplus()-|</td>
-			<td>|-$headline->getComment()-|</td>
-			<td>|-$headline->getImportance()-|</td>
-			<td>|-$headline->getValue()-|</td>
-			<td>|-$headline->getRelevance()-|</td>
+			<td>|-$headlineValues[$headline->getValue()]-|</td>
+			<td>|-$headlineRelevances[$headline->getRelevance()]-|</td>
 		<td>|-if $headline->getActors()|count gt 0-|<ul>|-foreach from=$headline->getActors() item=actor-|
-						<ul>|-$actor-|</ul>
+						<li>|-$actor-|</li>
 				|-/foreach-|</ul>|-/if-|
 </td>
 	</tr>
@@ -135,15 +126,15 @@
 			<p><strong>Medio: </strong>|-$headline->getMedia()-|</p>
 			<p><strong>Titulo: </strong> <a href="|-$headline->getUrl()-|" target="_blank"> |-$headline->getName()-|</a></p>
 			<p><strong>Fecha Publicación: </strong> |-$headline->getDatePublished()|date_format-|</p>
-			|-if $includeContent-|
-			|-$headline->getContent()|nl2htmlBreak:li:inlineLabel|highlight:"Algunos Macri "-| 
+			|-if $filters.includeContent-|
+			<ul>|-$headline->getContent()|nl2htmlBreak:li:none|highlight:"Macri Larreta "-| </ul>
 			|-/if-|
-			<p>
+			|-if $filters.includeClipping-|<p>
 				|-if $headline->hasClipping()-|<img src="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" />|-/if-|
 				|-foreach $headline->getHeadlineImages() as $image-|
 					|-if $image->dataExists()-|<img src="Main.php?do=headlinesAttachmentGetData&id=|-$image->getId()-|" />|-/if-|
 				|-/foreach-|
-			</p>
+			</p>|-/if-|
 	|-/foreach-|
 	<br style="page-break-after:auto">
 </div>

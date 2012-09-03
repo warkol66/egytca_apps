@@ -60,6 +60,10 @@ class HeadlinesEditAction extends BaseAction {
 		$smarty->assign("headlineTypes", Headline::getHeadlineTypes());
 		$smarty->assign("headlineAgendas", Headline::getHeadlineAgendas());
 
+		$smarty->assign("headlineScopes", Headline::getHeadlineScopes());
+		$smarty->assign("headlineValues", Headline::getHeadlineValues());
+		$smarty->assign("headlineRelevances", Headline::getHeadlineRelevances());
+
 		$smarty->assign("headline",$headline);
 		$smarty->assign("filters",$_GET["filters"]);
 		$smarty->assign("page",$_GET["page"]);

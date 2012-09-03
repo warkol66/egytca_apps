@@ -20,7 +20,7 @@ class HeadlinesReportsAction extends BaseListAction {
 		if($_GET["report"]) {
 			$this->notPaginated = true;
 			$this->smarty->assign("report", true);
-			$this->template->template = "TemplatePlain.tpl";
+			$this->template->template = "TemplatePrint.tpl";
 			if($_GET["includeContent"])
 				$this->smarty->assign("includeContent", true);
 
@@ -45,5 +45,11 @@ class HeadlinesReportsAction extends BaseListAction {
 		parent::postList();
 		$this->smarty->assign("module", $this->module);
 		$this->smarty->assign("section", "Reports");
+
+		$this->smarty->assign("headlineScopes", Headline::getHeadlineScopes());
+		$this->smarty->assign("headlineValues", Headline::getHeadlineValues());
+		$this->smarty->assign("headlineRelevances", Headline::getHeadlineRelevances());
+
+
 	}
 }
