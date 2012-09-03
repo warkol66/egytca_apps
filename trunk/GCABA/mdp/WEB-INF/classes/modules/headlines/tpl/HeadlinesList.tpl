@@ -11,7 +11,7 @@
 	<table id="tabla-headlines" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead> 
 		<tr>
-			<td colspan="6" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda de ##headlines,1,Titulares## </a>
+			<td colspan="7" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda de ##headlines,1,Titulares## </a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="headlinesList" />
 					<label for="filters[searchString]">Buscar</label>
@@ -58,29 +58,31 @@
 		</div></td>
 		</tr>
 			|-if "headlinesEdit"|security_has_access-|<tr>
-				 <th colspan="6" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=headlinesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##headlines,2,Titular##</a></div></th>
+				 <th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=headlinesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##headlines,2,Titular##</a></div></th>
 			</tr>|-/if-|
 			<tr class="thFillTitle"> 
 				<th width="1%">&nbsp;</th> 
 				<th width="20%">##headlines,2,Titulares##</th> 
-				<th width="10%">Fecha</th> 
+				<th width="8%">Fecha</th> 
 				<th width="10%">Medio</th> 
-				<th width="58%">##headlines,3,Contenido##</th> 
+				<th width="8%">Rel./Val.</th> 
+				<th width="48%">##headlines,3,Contenido##</th> 
 				<th width="1%">&nbsp;</th> 
 			</tr> 
 		</thead> 
 	<tbody>|-if $headlines|@count eq 0-|
 		<tr>
-			 <td colspan="6">|-if isset($filter)-|No hay ##headlines,1,Titulares## que concuerden con la búsqueda|-else-|No hay ##headlines,1,Titulares## disponibles|-/if-|</td>
+			 <td colspan="7" >|-if isset($filter)-|No hay ##headlines,1,Titulares## que concuerden con la búsqueda|-else-|No hay ##headlines,1,Titulares## disponibles|-/if-|</td>
 		</tr>
 	|-else-|
 		|-foreach from=$headlines item=headline name=for_headlines-|
 		<tr> 
-				<td nowrap="nowrap">|-if $headline->getUrl() ne ''-| <a href="|-$headline->getUrl()-|" target="_blank" title="Ir a nota original" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a> |-/if-||-if $headline->hasClipping()-|<a href="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" title="Ver recorte" target="_blank"><img src="images/clear.png" class="icon iconNewsClipping" /></a>|-/if-|</td>
+				<td nowrap="nowrap"|-if $headline->getProcessed()-| class="processed"|-/if-|>|-if $headline->getUrl() ne ''-| <a href="|-$headline->getUrl()-|" target="_blank" title="Ir a nota original" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a> |-/if-||-if $headline->hasClipping()-|<a href="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" title="Ver recorte" target="_blank"><img src="images/clear.png" class="icon iconNewsClipping" /></a>|-/if-|</td>
 				<td>|-$headline->getName()-|</td> 
-				<td>|-$headline->getdatePublished()|dateTime_format-|</td> 
+				<td  align="center">|-$headline->getdatePublished()|dateTime_format-|</td> 
 				<td>|-$headline->getMedia()-|</td> 
-				<td>|-$headline->getContent()|truncate:300:"..."-|</td>
+				<td align="center">|-$headlineRelevances[$headline->getRelevance()]-| / |-$headlineValues[$headline->getValue()]-|</td> 
+				<td>|-$headline->getContent()|truncate:200:"..."-|</td>
 			<td nowrap>|-if "headlinesEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="headlinesEdit" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
@@ -100,11 +102,11 @@
 		|-/foreach-|
 		|-if isset($pager) && $pager->haveToPaginate()-| 
 		<tr> 
-			<td colspan="6" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
+			<td colspan="7" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 			<tr>
-				 <th colspan="6" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=headlinesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##headlines,2,Titular##</a></div></th>
+				 <th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=headlinesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##headlines,2,Titular##</a></div></th>
 			</tr>
 		|-/if-|
 		</tbody> 

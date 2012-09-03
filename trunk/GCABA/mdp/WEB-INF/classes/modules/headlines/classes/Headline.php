@@ -222,6 +222,54 @@ class Headline extends BaseHeadline {
 	}
 
 	/**
+	 * Devuelve array con posibles tipo de titulares (Headline)
+	 *  id => tipo de titular
+	 *
+	 * @return array tipo de titulares
+	 */
+	public static function getHeadlineScopes() {
+		$scopes = array(
+			1 => 'Ciudad',
+			2 => 'Nacional',
+			3 => 'Provincial'
+		);
+		return $scopes;
+	}
+
+	/**
+	 * Devuelve array con posibles tipo de titulares (Headline)
+	 *  id => tipo de titular
+	 *
+	 * @return array tipo de titulares
+	 */
+	public static function getHeadlineValues() {
+		$values = array(
+			1 => 'Muy positivo',
+			2 => 'Positivo',
+			3 => 'Neutro',
+			4 => 'Negativo',
+			5 => 'Muy negativo'
+		);
+		return $values;
+	}
+
+	/**
+	 * Devuelve array con posibles tipo de titulares (Headline)
+	 *  id => tipo de titular
+	 *
+	 * @return array tipo de titulares
+	 */
+	public static function getHeadlineRelevances() {
+		$relevances = array(
+			1 => 'Muy relevante',
+			2 => 'Relevante',
+			3 => 'Poco relevante',
+			4 => 'Muy poco relevante'
+		);
+		return $relevances;
+	}
+
+	/**
 	 * Devuelve los nombres de los tipo de titulares traducidos
 	 */
 	public function getAgendasTranslated(){

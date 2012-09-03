@@ -794,3 +794,6 @@ ul.menu {
 	z-index: 50001;
 }
 
+.processed {
+	background: #ffde1e;
+}

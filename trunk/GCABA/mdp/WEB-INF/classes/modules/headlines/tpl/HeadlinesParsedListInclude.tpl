@@ -23,10 +23,10 @@
 		<ul><li>
 			<strong>|-if $headline->getMediaId() eq 0-||-$headline->getMediaName()-||-else-||-$headline->getMedia()-||-/if-| || |-$headline->getdatePublished()|date_format-| _ </strong>
 			|-if $headline->getContent()|mb_count_characters gt 500-|
-			|-$headline->getContent()|mb_truncate:495:" ... ":'UTF-8':true-|
-				<img id="imgMore|-$headline->getId()-|" src="images/clear.png" onClick="$('more|-$headline->getId()-|').toggle();$('imgMore|-$headline->getId()-|').toggleClassName('inlineLink readLess')" class="inlineLink readMore" title="Ver/Ocultar texto" /><span id="more|-$headline->getId()-|" style="display: none ">|-$headline->getContent()|mb_substr:490:3000:'UTF-8'-|</span>
+			|-$headline->getContent()|mb_truncate:495:" ... ":'UTF-8':true|highlight:"Macri Larreta "-|
+				<img id="imgMore|-$headline->getId()-|" src="images/clear.png" onClick="$('more|-$headline->getId()-|').toggle();$('imgMore|-$headline->getId()-|').toggleClassName('inlineLink readLess')" class="inlineLink readMore" title="Ver/Ocultar texto" /><span id="more|-$headline->getId()-|" style="display: none ">|-$headline->getContent()|mb_substr:490:3000:'UTF-8'|highlight:"Macri Larreta "-|</span>
 			|-else-|
-				|-$headline->getContent()-|
+				|-$headline->getContent()|highlight:"Macri Larreta "-|
 			|-/if-|
 		</li></ul>
     </li>

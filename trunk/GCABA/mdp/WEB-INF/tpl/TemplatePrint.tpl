@@ -4,12 +4,7 @@
 <head>
 <title>|-$parameters.siteName-|</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="css/previewPrint.css" type="text/css">
 <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
-|-if $smarty.request.do eq 'lausiReportsSheetsLocation'-|
-<link rel="stylesheet" href="css/printRoute.css" type="text/css">
-<!--[if IE]><link rel="stylesheet" href="css/printRoute-ie.css" type="text/css"><![endif]-->
-|-/if-|
 </head>
 <body>
 <!-- Begin Wrapper -->

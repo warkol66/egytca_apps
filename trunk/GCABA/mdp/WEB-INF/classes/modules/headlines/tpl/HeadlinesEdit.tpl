@@ -226,6 +226,15 @@
 			|-/foreach-|
 		</select>
 	</p>
+	<p>
+		<label for="params_scope">Ámbito</label>
+		<select id="params_scope" name="params[scope]" title="Ámbito">
+			<option value="">Seleccione ámbito</option>
+			|-foreach from=$headlineScopes key=key item=name-|
+						<option value="|-$key-|" |-$headline->getHeadlineScope()|selected:$key-|>|-$name-|</option>
+			|-/foreach-|
+		</select>
+	</p>
 
 			<p>
 				<label for="params[processed]">Procesado</label>
