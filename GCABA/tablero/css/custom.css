@@ -116,7 +116,7 @@ body {
 }
 #contentCloser {
 	width: 955px;
-	background-image: url(../images/bkg-2columns-d3dbe4.png);
+/*	background-image: url(../images/bkg-2columns-d3dbe4.png);*/
 	background-repeat: repeat-y;
 }
 #leftColumn{
@@ -151,7 +151,7 @@ body {
 .rounded .r3, .rounded .r4, .rounded .r5, .rounded .r6, .rounded .r7 { background-color: #fcd407; }
 .rounded .r1, .rounded .r2 { background-color: #FFFFFF;  /* Mismo color de fondo del header*/ }
 #loginTopBorder .rounded .r1, #loginTopBorder .rounded .r2 {
-	background-image:url(../images/mdp.jpg);
+/*	background-image:url(../images/mdp.jpg);*/
 	background-position: top center;
 	background-repeat:no-repeat;
 	background-color: #fcd407;  /* Mismo color de fondo #loginTop */
