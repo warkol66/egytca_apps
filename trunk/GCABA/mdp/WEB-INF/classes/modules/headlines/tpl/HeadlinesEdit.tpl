@@ -152,10 +152,6 @@
 				<label for="params_length_press">Superficie</label>
 				<input id="params_length_press" name="params[length]" type='text' value='|-$headline->getLength()-|' size="5" title="Superficie" /> mm2
 			</p>
-			<p>     
-				<label for="params_author_press">Participante</label>
-				<input id="params_author_press" name="params[author]" type='text' value='|-$headline->getAuthor()-|' size="80" title="Participante" />
-			</p>
 			</div><!--end pressHeadline-->
 
 			<div id="multimediaHeadline" style="display:|-if $headline->getClassKey() eq 3-|block|-else-|none|-/if-|">
@@ -166,10 +162,6 @@
 			<p>     
 				<label for="params_program_length">Duración</label>
 				<input id="params_length_multimedia" name="params[length]" type='text' value='|-$headline->getLength()-|' size="5" title="Duración"/> segs
-			</p>
-			<p>     
-				<label for="params_author_multimedia">Participante</label>
-				<input id="params_author_multimedia" name="params[author]" type='text' value='|-$headline->getAuthor()-|' size="80" title="Participante" />
 			</p>
 			</div><!--end multimediaHeadline-->
 
@@ -227,8 +219,8 @@
 		</select>
 	</p>
 	<p>
-		<label for="params_scope">Ámbito</label>
-		<select id="params_scope" name="params[scope]" title="Ámbito">
+		<label for="params_headlineScope">Ámbito</label>
+		<select id="params_headlineScope" name="params[headlineScope]" title="Ámbito">
 			<option value="">Seleccione ámbito</option>
 			|-foreach from=$headlineScopes key=key item=name-|
 						<option value="|-$key-|" |-$headline->getHeadlineScope()|selected:$key-|>|-$name-|</option>

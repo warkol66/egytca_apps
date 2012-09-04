@@ -29,7 +29,7 @@ class HeadlinesDoEditAction extends BaseAction {
 
 			$headline = HeadlineQuery::create()->findPK($request->getParameter("id"));
 			if (!empty($headline)) {
-				$headline = Common::setObjectFromParams($headline,$headlineParams);
+				$headline->fromArray($headlineParams,BasePeer::TYPE_FIELDNAME);
 
 				$params["id"] = $_POST["id"];
 
@@ -42,7 +42,7 @@ class HeadlinesDoEditAction extends BaseAction {
 		else { // New headline
 
 			$headline = new Headline();
-			$headline = Common::setObjectFromParams($headline,$headlineParams);
+			$headline->fromArray($headlineParams,BasePeer::TYPE_FIELDNAME);
 			if (!$headline->save())
 				return $this->returnFailure($mapping,$smarty,$headline);
 
