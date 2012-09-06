@@ -797,3 +797,39 @@ ul.menu {
 .processed {
 	background: #ffde1e;
 }
+
+table.tableTdBorders td, table.tableTdBorders th {
+	border-radius:3px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-spacing: 3px;
+}
+table.tableTdBorders th {
+	background: -moz-linear-gradient(left,  rgba(255,222,30,1) 0%, rgba(255,222,30,0.79) 71%, rgba(255,222,30,0.79) 89%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,222,30,1)), color-stop(71%,rgba(255,222,30,0.79)), color-stop(89%,rgba(255,222,30,0.79))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  rgba(255,222,30,1) 0%,rgba(255,222,30,0.79) 71%,rgba(255,222,30,0.79) 89%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  rgba(255,222,30,1) 0%,rgba(255,222,30,0.79) 71%,rgba(255,222,30,0.79) 89%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  rgba(255,222,30,1) 0%,rgba(255,222,30,0.79) 71%,rgba(255,222,30,0.79) 89%); /* IE10+ */
+	background: linear-gradient(to right,  rgba(255,222,30,1) 0%,rgba(255,222,30,0.79) 71%,rgba(255,222,30,0.79) 89%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffde1e', endColorstr='#c9ffde1e',GradientType=1 ); /* IE6-9 */
+}
+table.tableTdBorders th.thFillTitle {
+	background: -moz-linear-gradient(left,  rgba(19,22,22,0.28) 0%, rgba(207,205,191,0.79) 71%, rgba(255,251,234,0.79) 89%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(19,22,22,0.28)), color-stop(71%,rgba(207,205,191,0.79)), color-stop(89%,rgba(255,251,234,0.79))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  rgba(19,22,22,0.28) 0%,rgba(207,205,191,0.79) 71%,rgba(255,251,234,0.79) 89%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  rgba(19,22,22,0.28) 0%,rgba(207,205,191,0.79) 71%,rgba(255,251,234,0.79) 89%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  rgba(19,22,22,0.28) 0%,rgba(207,205,191,0.79) 71%,rgba(255,251,234,0.79) 89%); /* IE10+ */
+	background: linear-gradient(to right,  rgba(19,22,22,0.28) 0%,rgba(207,205,191,0.79) 71%,rgba(255,251,234,0.79) 89%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#47131616', endColorstr='#c9fffbea',GradientType=1 ); /* IE6-9 */
+}
+table.tableTdBorders tr.thfillTitle th {
+}
+table.tableTdBorders {
+	border:none !Important;
+  border-collapse: inherit !Important;
+	border-spacing: 2px;
+}
+.highlight {
+	font-weight: bolder !Important;
+	color: red !Important;
+}

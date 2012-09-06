@@ -43,6 +43,12 @@ class HeadlinesListAction extends BaseAction {
 				'entityId' => $_GET['filters']['actorId']
 			))));
 
+		if (!empty($_GET['filters']['mediaId']))
+			$filters = array_merge_recursive($filters, array('Media' => array('entityFilter' => array(
+				'entityType' => "Media",
+				'entityId' => $_GET['filters']['mediaId']
+			))));
+
 		if (!empty($_GET['filters']['issueId']))
 			$filters = array_merge_recursive($filters, array('Issue' => array('entityFilter' => array(
 				'entityType' => "Issue",
