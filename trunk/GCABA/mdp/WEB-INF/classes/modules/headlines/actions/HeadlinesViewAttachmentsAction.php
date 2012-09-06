@@ -30,29 +30,22 @@ class HeadlinesViewAttachmentsAction extends BaseAction {
 				$videos = array();
 				$missing = array();
 				foreach ($headline->getHeadlineAttachments() as $attachment) {
-					if (file_exists(ConfigModule::get('headlines', 'clippingsPath').'/'.$attachment->getName())) {
+					if ($attachment->dataExists()) {
 						switch ($attachment->getType()) {
 							
 							case 'image/jpg':
-								$image = array('name' => $attachment->getName());
-								list($displayedWidth, $displayedHeight) = Headline::getClippingDisplaySize($attachment->getName());
-								$image['displayedWidth'] = $displayedWidth;
-								$image['displayedHeight'] = $displayedHeight;
-								$images []= $image;
+								$images []= $attachment;
 								break;
 							
 							case 'audio/mpeg':
-								echo "audio<br/>";
 								$audios []= $attachment;
 								break;
 							
 							case 'video/x-ms-wmv':
-								echo "video<br/>";
 								$videos []= $attachment;
 								break;
 							
 							default:
-								echo "default<br/>";
 								break;
 						}
 					} else {

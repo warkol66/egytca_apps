@@ -23,7 +23,20 @@ class HeadlinesAttachmentGetDataAction extends BaseAction {
 			
 			// por algun motivo extranio los videos dicen wmv pero son 3gp
 			$type = $attachment->getType() == 'video/x-ms-wmv' ? 'video/3gpp' : $attachment->getType();
+			switch ($type) {
+				case 'video/3gpp':
+					$extension = '3gp';
+					break;
+				case 'audio/mpeg':
+					$extension = 'mp3';
+					break;
+				case 'image/jpeg':
+					$extension = 'jpg';
+					break;
+			}
 			header('Content-Type: '.$type);
+			header("Content-length: ".filesize($attachment->getRealpath()));
+			header('Content-Disposition: attachment; filename="'.$attachment->getId().'.'.$extension.'"');
 			readfile($attachment->getRealpath());
 		}
 		else
