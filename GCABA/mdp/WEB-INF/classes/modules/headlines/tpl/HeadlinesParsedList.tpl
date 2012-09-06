@@ -46,7 +46,7 @@
 	<form method="post" action="Main.php" onsubmit="parseFeed(this); return false;" id="manualParse" style="display:none;">
 	 <p><label for="type">Fuente de titulares</label> <input name="type" value="press" type="radio" />&nbsp; Prensa
 		<input name="type" value="multimedia" type="radio" />&nbsp; Radio y TV
-		<input name="type" value="web" type="radio" />&nbsp; Internet</p>
+		<input name="type" value="web" type="radio" />&nbsp; Gráfica Interior, Internet y Cables</p>
 	<p><input type="submit" id="search_button" value="Obtener titulares" title="Obtener manualmente titulares" /></p>
 	</form>
 	</fieldset>
@@ -62,9 +62,9 @@
 	<input name="do" value="headlinesParsedList" type="hidden" />
 			<p>
 					<label for="filters[fromDate]">Fecha desde</label>
-					<input id="filters[fromDate]" name="filters[fromDate]" type="text" value="|-$filters.fromDate-|" size="12" title="Fecha desde" />
+					<input id="filters[fromDate]" name="filters[fromDate]" type="text" value="|-$filters.fromDate-|" size="12" title="Fecha desde mm-dd-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[fromDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha desde mm-dd-aaaa">
 					&nbsp; &nbsp; <label for="filters[toDate]" class="inlineLabel">Fecha hasta</label>
-					<input id="filters[toDate]" name="filters[toDate]" type="text" value="|-$filters.toDate-|" size="12" title="Fecha hasta" />
+					<input id="filters[toDate]" name="filters[toDate]" type="text" value="|-$filters.toDate-|" size="12" title="Fecha hasta mm-dd-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[toDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha hasta mm-dd-aaaa">
 					&nbsp; &nbsp; <label for="filters[discarded]"  class="inlineLabel">Incluir descartados</label>
 					<input id="filters[discarded]" name="filters[discarded]" type="checkbox" value="1" |-$filters.discarded|checked_bool-| title="Incluir descartados" />
 	</p>

@@ -29,7 +29,7 @@
 			</p>|-/if-|
 			<p>
 		<div div="div_filters[issueId]" style="position: relative;z-index:10000;">
-				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_issues" url="Main.php?do=issuesAutocompleteListX" hiddenName="filters[issueId]" label="Asunto" defaultValue=$filters.issueName defaultHiddenValue=$filters.issueId name="filters[issueName]"-|
+				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_issues" url="Main.php?do=issuesAutocompleteListX" hiddenName="filters[issueId]" label="##issues,2,Asunto##" defaultValue=$filters.issueName defaultHiddenValue=$filters.issueId name="filters[issueName]"-|
 		</div>
 			</p>
 			<p>

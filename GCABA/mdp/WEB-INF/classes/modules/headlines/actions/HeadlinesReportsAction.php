@@ -26,10 +26,22 @@ class HeadlinesReportsAction extends BaseListAction {
 
 		}
 
+		if (!empty($_GET['filters']['issueId']))
+			$this->filters['Issue']['entityFilter'] = array(
+				'entityType' => "Issue",
+				'entityId' => $_GET['filters']['issueId']
+			);
+
 		if (!empty($_GET['filters']['mediaId']))
-			$this->filters['entityFilter'] = array(
+			$this->filters['Media']['entityFilter'] = array(
 				'entityType' => "Media",
 				'entityId' => $_GET['filters']['mediaId']
+			);
+
+		if (!empty($_GET['filters']['actorId']))
+			$this->filters['Actor']['entityFilter'] = array(
+				'entityType' => "Actor",
+				'entityId' => $_GET['filters']['actorId']
 			);
 		
 		if (!empty($_GET['filters']['fromDate']) || !empty($_GET['filters']['toDate']))
