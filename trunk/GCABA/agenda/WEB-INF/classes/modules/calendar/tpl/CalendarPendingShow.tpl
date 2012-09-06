@@ -51,6 +51,7 @@
 		var pendingEvents = loadPendingEvents();
 		renderPendingEvents(pendingEvents);
 
+		Calendar.initialize({ axisMap: |-json_encode($axisMap)-| });
 
 		// grafico de porcentaje de eventos
 		graphInfo = makeGraphInfo(events.concat(pendingEvents));
@@ -101,198 +102,7 @@
 		$('.fc-button-agendaDay').click(function() { updateThematicWeeks(thematicWeeks); });
 	});
 	
-	updateThematicWeeks = function(thematicWeeks) {
-		var view = calendar.fullCalendar('getView');
-		switch(view.name) {
-			
-			case 'month':
-				
-				var monthStartDate = view.visStart;
-				var nextMonthStartDate = view.visEnd;
-				var incOneWeek = function(date) {
-					var oneWeekMsecs = 7 * 24 * 60 * 60 * 1000;
-					date.setTime(date.getTime()+oneWeekMsecs);
-				}
-				
-				var weekNumber = 0;
-				for (var date = monthStartDate; date.getTime() < nextMonthStartDate.getTime(); incOneWeek(date)) {
-					
-					var found = false;
-					for (i in thematicWeeks) {
-
-						$('.fc-week'+weekNumber).removeClass('weekamarillo weekverde1 weekverde1bis weekverde2 weekcyan weekrojo weeknaranja weeknaranjabis weeknaranjabis');
-
-						twStart = new Date(thematicWeeks[i].Monday);
-						if (date.getTime() == twStart.getTime()) {
-							//$('.fc-week'+weekNumber).css('background-color', thematicWeeks[i]['AxisColor']);
-//							$('.fc-week'+weekNumber+' td.fc-mon').css("border-left-style", "solid");
-//							$('.fc-week'+weekNumber+' td.fc-mon').css("border-left-width", "18px !Important");
-							$('.fc-week'+weekNumber+' td.fc-mon').css("border-left-color", thematicWeeks[i]['AxisColor']);
-							$('.fc-week'+weekNumber).addClass('week'+thematicWeeks[i]['className']);
-							found = true;
-							break;
-						}
-					}
-					
-					if (!found) {
-//						$('.fc-week'+weekNumber).css('background-color', '');
-						$('.fc-week'+weekNumber+' td.fc-mon').css("border-left-color", '');
-					}
-
-					weekNumber++;
-				}
-				
-				break;
-				
-			case 'agendaWeek':
-				
-				var found = false;
-				for (i in thematicWeeks) {
-					twStart = new Date(thematicWeeks[i].Monday);
-					if (view.visStart.getTime() == twStart.getTime()) {
-//						$('#calendarTitle').css('color', thematicWeeks[i]['AxisColor']);
-//						$('#inTitleAxis').html(thematicWeeks[i]['AxisName']);
-//						$('.fc-agenda-slots').css('background-color', thematicWeeks[i]['AxisColor']);
-						$('.fc-agenda-slots').css('border-style', "solid");
-						$('.fc-agenda-slots').css('border-width', "0 0 0 8px");
-						$('.fc-agenda-slots').css('border-color', thematicWeeks[i]['AxisColor']);
-						found = true;
-						break;
-					}
-				}
-				
-				if (!found) {
-//					$('#calendarTitle').css('color', '');
-//					$('#inTitleAxis').html('');
-//					$('.fc-agenda-slots').css('background-color', '');
-					$('.fc-agenda-slots').css('border-style', "");
-					$('.fc-agenda-slots').css('border-width', "");
-					$('.fc-agenda-slots').css('border-color', "");
-				}
-				
-				break;
-				
-			case 'agendaDay':
-				
-				var incOneWeek = function(date) {
-					var oneWeekMsecs = 7 * 24 * 60 * 60 * 1000;
-					date.setTime(date.getTime()+oneWeekMsecs);
-				}
-				
-				var found = false;
-				for (i in thematicWeeks) {
-					twStart = new Date(thematicWeeks[i].Monday);
-					twEnd = new Date(thematicWeeks[i].Monday); incOneWeek(twEnd);
-					if (view.visStart.getTime() >= twStart.getTime() && view.visEnd.getTime() <= twEnd.getTime()) {
-						$('.fc-agenda-slots').css('border-style', "solid");
-						$('.fc-agenda-slots').css('border-width', "0 0 0 8px");
-						$('.fc-agenda-slots').css('border-color', thematicWeeks[i]['AxisColor']);
-						found = true;
-						break;
-					}
-				}
-				
-				if (!found) {
-					$('.fc-agenda-slots').css('border-style', "");
-					$('.fc-agenda-slots').css('border-width', "");
-					$('.fc-agenda-slots').css('border-color', "");
-				}
-				
-				break;
-				
-			default:
-				$('.fc-agenda-slots').css('background-color', '');
-				break;
-		}
-	}
-
-	createCalendar = function(events) {
-
-		return $('#calendar').fullCalendar({
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'month,agendaWeek,agendaDay'
-			},
-			firstDay: 1,
-//			aspectRatio: 0.5,
-			defaultView: 'agendaWeek',
-			allDayText: 'Feriados<br />Efemér.',
-			firstHour: Calendar.options.firstHour,
-			minTime: Calendar.options.minTime,
-			maxTime: Calendar.options.maxTime,
-			monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-			monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-			dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-			dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
-			columnFormat: {
-				month: 'dddd',    // Monday, Wednesday, etc
-				week: 'dddd dd', // Monday 9/7
-				day: ''  // Monday 9/7
-			},
-			axisFormat: 'h(:mm) tt',
-			buttonText:{
-					prev:     '&nbsp;&#9668;&nbsp;',  // left triangle
-					next:     '&nbsp;&#9658;&nbsp;',  // right triangle
-					prevYear: '&nbsp;&lt;&lt;&nbsp;', // <<
-					nextYear: '&nbsp;&gt;&gt;&nbsp;', // >>
-					today:    'hoy',
-					month:    'mes',
-					week:     'semana',
-					day:      'día'
-			},
-			titleFormat:{
-					month: 'MMMM yyyy',                             // September 2009
-					//week: "'<span id=\"calendarTitle\"><span id=\"inTitleAxis\"></span>&nbsp;'MMMM yyyy': Semana del ' d/MM { 'al' d/MM}'</span>'", // Sep 7 - 13 2009
-					week: "MMMM yyyy': Semana del ' d/MM { 'al' d/MM}", // Sep 7 - 13 2009
-					day: "dddd, dd 'de' MMMM 'de' yyyy"                  // Tuesday, Sep 8, 2009
-			},
-			selectable: |-if "calendarEventsDoEditX"|security_has_access-|true|-else-|false|-/if-|,
-			selectHelper: true,
-			select: newEvent,
-			editable: |-if "calendarEventsDoEditX"|security_has_access-|true|-else-|false|-/if-|, // esto se modifica segun el permiso del usuario, si tien permiso para modificar se pone true
-			events: events,
-			eventAfterRender: Calendar.eventAfterRender,
-			eventResize: function(event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view) {
-				updateEventDatetime(event);
-			},
-			eventDrop: function( event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view ) {
-				updateEventDatetime(event);
-			},
-			eventDragStart: function(event) {
-				Calendar.draggedEvent = event;
-			},
-			droppable: true,
-			drop: function(date, allDay, jsEvent, ui) {
-				var defaultDuration = Calendar.options.eventDefaultDuration; // in hours
-				var start = ensureMinHour(date);
-				var end = new Date(start.getTime());
-				end.setTime(end.getTime() + (defaultDuration*60*60*1000));
-				var originalEventObject = $(this).data('eventObject');
-				var copiedEventObject = $.extend({}, originalEventObject);
-
-				copiedEventObject.start = start;
-				copiedEventObject.end = end;
-				copiedEventObject.allDay = allDay;
-				copiedEventObject.scheduleStatus = 2;
-
-				var data = {
-					id: copiedEventObject.id,
-					calendarEvent: {
-						startDate: getFormattedDatetime(copiedEventObject.start),
-						endDate: getFormattedDatetime(copiedEventObject.end),
-						allDay: copiedEventObject.allDay,
-						scheduleStatus: 2
-					}
-				}
-
-				editRequest(data, function(event) {
-					Calendar.removePendingEvent(event.id);
-					calendar.fullCalendar('renderEvent', event, true);
-				});
-			}
-		});
-	}
+	updateThematicWeeks = function(thematicWeeks) {}
 
 	makeGraphInfo = function(events) {
 
@@ -370,10 +180,10 @@
 			if (date == undefined)
 				return false;
 			
-			// calculo cuán lejos estoy del tiempo actual
+			// calculo cuan lejos estoy del tiempo actual
 			var timeDiff = calendar.fullCalendar('getDate').getTime() - date.getTime();
 			
-			// quiero dejar los eventos que entren en este margen y ocultar los demás
+			// quiero dejar los eventos que entren en este margen y ocultar los demas
 			var acceptedTimeDiff = toMsecs(7); //toMsecs(days)
 			
 			// si estoy dentro del margen -> mustHide == true, sino -> mustHide = false;
@@ -537,33 +347,6 @@
 			return date;
 		}
 	}
-	
-	/*
-	 * Chequea si se está dentro del rango válido de fechas indicado por $minTimestamp y $maxTimestamp.
-	 * En caso de estar por fuera del rango, recarga el calendario con los eventos correspondientes.
-	 */
-	checkCalendarDateRange = function() {
-		|-if $minTimestamp && $maxTimestamp-|
-		// convierto el timestamp de PHP a JavaScript (secs -> msecs)
-		var minDate = new Date(|-$minTimestamp-| * 1000);
-		var maxDate = new Date(|-$maxTimestamp-| * 1000);
-		
-		var calendarDate = calendar.fullCalendar('getDate');
-		if (calendarDate.getTime() < minDate.getTime() || calendarDate.getTime() > maxDate.getTime()) {
-			var params = '|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-|';
-			
-			// elimino el filtro de fecha anterios en caso de que exista
-			params = params.replace(/\&filters\[selectedDate\]=(\d{2}-\d{2}-\d{4})?/, '');
-			
-			// agrego nuevo filtro de fecha con formato dd-mm-yyyy (hay que anteponer un 0 a los números de 1 cifra)
-			params += '&filters[selectedDate]=';
-			params += calendarDate.getDate() < 10 ? '0'+calendarDate.getDate() : calendarDate.getDate();
-			params += '-' + ( calendarDate.getMonth()+1 < 10 ? '0'+(calendarDate.getMonth()+1) : calendarDate.getMonth()+1 );
-			params += '-' + calendarDate.getFullYear();
-			window.location='Main.php?do=|-$actionName-|'+params;
-		}
-		|-/if-|
-	}
 </script>
 
 <div style="display:none;">|-include file="CalendarEventsNewInclude.tpl" axes=$axes-|</div>
@@ -589,7 +372,7 @@
   	</div>
 </div>
 
-<!--template para eventos de todo el día-->
+<!--template para eventos de todo el dia-->
 <div id="calendarAllDayTemplates" style="display: none;">
     <div class="fc-event fc-event-skin fc-event-hori fc-event-draggable fc-corner-left fc-corner-right">
 		<div class="fc-event-inner fc-event-skin eventoContainer">
