@@ -4,17 +4,21 @@
 <div>
 	|-foreach $images as $image-|
 		<div>
-			<img src="Main.php?do=headlinesGetClipping&image=|-$image.name-|" width="|-$image.displayedWidth-|" height="|-$image.displayedHeight-|" />
+			<img src="Main.php?do=headlinesAttachmentGetData&id=|-$image->getId()-|" />
 		</div>
 	|-/foreach-|
 	|-foreach $audios as $audio-|
 		<div>
-			|-$video-|
+			<a href="Main.php?do=headlinesAttachmentGetData&id=|-$audio->getId()-|" id="player|-$audio->getId()-|" style="display:block;width:648px;height:30px;">
+				Audio |-counter name="audios_counter"-|
+			</a>
 		</div>
 	|-/foreach-|
 	|-foreach $videos as $video-|
 		<div>
-			|-$audio-|
+			<a href="Main.php?do=headlinesAttachmentGetData&id=|-$video->getId()-|" id="player|-$video->getId()-|">
+				Video |-counter name="videos_counter"-|
+			</a>
 		</div>
 	|-/foreach-|
 	|-foreach $missingAttachments as $missingAttachment-|
@@ -27,7 +31,28 @@
 	|-/foreach-|
 </div>
 
+<!--<script src="scripts/flowplayer/flowplayer-3.2.11.min.js"></script>-->
 <script>
+	Event.observe(
+		window,
+		"load",
+		function() {
+			|-*|-foreach $audios as $audio-|
+				flowplayer("player|-$audio->getId()-|", "scripts/flowplayer/flowplayer-3.2.14.swf", {
+					plugins: {
+						audio: {
+							url: "scripts/flowplayer/flowplayer.audio-3.2.10.swf"
+						}
+					},
+					clip: {
+						url: "Main.php?do=headlinesAttachmentGetData&id=|-$audio->getId()-|",
+						provider: "audio"
+					}
+				});
+			|-/foreach-|*-|
+		}
+	);
+	
 	function downloadAttachment(id) {
 		new Ajax.Updater(
 			'missing'+id,
