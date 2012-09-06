@@ -369,6 +369,7 @@
 	
 	filterPendingEvents = function() {
 		
+		|-if $filterPendingEvents-|
 		var mustHide = function(date) {
 			
 			var toMsecs = function(days) {
@@ -398,6 +399,7 @@
 			else
 				$(e).show();
 		});
+		|-/if-|
 	}
 
 	renderPendingEvents = function(events) {
@@ -551,7 +553,7 @@
 	 * En caso de estar por fuera del rango, recarga el calendario con los eventos correspondientes.
 	 */
 	checkCalendarDateRange = function() {
-		
+		|-if $minTimestamp && $maxTimestamp-|
 		// convierto el timestamp de PHP a JavaScript (secs -> msecs)
 		var minDate = new Date(|-$minTimestamp-| * 1000);
 		var maxDate = new Date(|-$maxTimestamp-| * 1000);
@@ -568,8 +570,9 @@
 			params += calendarDate.getDate() < 10 ? '0'+calendarDate.getDate() : calendarDate.getDate();
 			params += '-' + ( calendarDate.getMonth()+1 < 10 ? '0'+(calendarDate.getMonth()+1) : calendarDate.getMonth()+1 );
 			params += '-' + calendarDate.getFullYear();
-			window.location='Main.php?do=calendarShow'+params;
+			window.location='Main.php?do=|-$actionName-|'+params;
 		}
+		|-/if-|
 	}
 </script>
 

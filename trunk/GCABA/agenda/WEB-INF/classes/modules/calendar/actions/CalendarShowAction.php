@@ -1,6 +1,8 @@
 <?php
 
 class CalendarShowAction extends BaseAction {
+	
+	protected $smarty;
 
 	function CalendarShowAction() {
 		;
@@ -15,6 +17,8 @@ class CalendarShowAction extends BaseAction {
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
+		
+		$this->smarty = $smarty;
 
 		$module = "Calendar";
 		$smarty->assign("module",$module);
@@ -24,28 +28,11 @@ class CalendarShowAction extends BaseAction {
 			$smarty->assign('filters', $filters);
 		}
 		
-		$eventDateFilter = array(); // filtro por fecha de eventos normales
-		$contextEventDateFilter = array(); // filtro por fecha de eventos de contexto
-		$holidayDateFilter = array(); // filtro por fecha de feriados
-		if (!empty($_GET['filters']['selectedDate'])) {
-			$dt = new DateTime($_GET['filters']['selectedDate']);
-			$eventDateFilter['min'] = strtotime('-2 month', $dt->getTimestamp());
-			$eventDateFilter['max'] = strtotime('+3 month', $dt->getTimestamp());
-			$contextEventDateFilter = $eventDateFilter;
-			$holidayDateFilter = $eventDateFilter;
-		} else {
-			$dt = new DateTime();
-			$eventDateFilter['min'] = strtotime('-2 month', $dt->getTimestamp());
-			$eventDateFilter['max'] = strtotime('+5 month', $dt->getTimestamp());
-			$contextEventDateFilter['min'] = strtotime('first day of this month', $dt->getTimestamp());
-			$contextEventDateFilter['max'] = strtotime('first day of this month +3 month', $dt->getTimestamp());
-			$holidayDateFilter = $eventDateFilter;
-		}
-		
-		// fechas limite en las que tiene validez la navegacion del calendario
-		// $dt tiene la fecha indicada en filters['selectedDate']. Si no existe tiene la actual
-		$smarty->assign('minTimestamp', strtotime('-2 month', $dt->getTimestamp()));
-		$smarty->assign('maxTimestamp', strtotime('+3 month', $dt->getTimestamp()));
+		list(
+			$eventDateFilter,
+			$contextEventDateFilter,
+			$holidayDateFilter
+		) = $this->setAutomaticDateFilters();
 
 		$smarty->assign('events', BaseQuery::create('CalendarEvent')->addFilters($filters)->filterBySchedulestatus('3', Criteria::NOT_EQUAL)->filterByStartDate($eventDateFilter)->find());
 		$smarty->assign('holydayEvents', BaseQuery::create('CalendarHolidayEvent')->addFilters($filters)->filterByStartDate($holidayDateFilter)->find());
@@ -84,9 +71,38 @@ class CalendarShowAction extends BaseAction {
 		}
 		$smarty->assign('thematicWeeks', json_encode($thematicWeeks));
 
+		$smarty->assign('filterPendingEvents', true);
+		$smarty->assign('actionName', 'calendarShow');
+		
 		$this->template->template = 'TemplateCalendar.tpl';
 		return $mapping->findForwardConfig('success');
 	}
-
+	
+	protected function setAutomaticDateFilters() {
+		$eventDateFilter = array(); // filtro por fecha de eventos normales
+		$contextEventDateFilter = array(); // filtro por fecha de eventos de contexto
+		$holidayDateFilter = array(); // filtro por fecha de feriados
+		if (!empty($_GET['filters']['selectedDate'])) {
+			$dt = new DateTime($_GET['filters']['selectedDate']);
+			$eventDateFilter['min'] = strtotime('-2 month', $dt->getTimestamp());
+			$eventDateFilter['max'] = strtotime('+3 month', $dt->getTimestamp());
+			$contextEventDateFilter = $eventDateFilter;
+			$holidayDateFilter = $eventDateFilter;
+		} else {
+			$dt = new DateTime();
+			$eventDateFilter['min'] = strtotime('-2 month', $dt->getTimestamp());
+			$eventDateFilter['max'] = strtotime('+5 month', $dt->getTimestamp());
+			$contextEventDateFilter['min'] = strtotime('first day of this month', $dt->getTimestamp());
+			$contextEventDateFilter['max'] = strtotime('first day of this month +3 month', $dt->getTimestamp());
+			$holidayDateFilter = $eventDateFilter;
+		}
+		
+		// fechas limite en las que tiene validez la navegacion del calendario
+		// $dt tiene la fecha indicada en filters['selectedDate']. Si no existe tiene la actual
+		$this->smarty->assign('minTimestamp', strtotime('-2 month', $dt->getTimestamp()));
+		$this->smarty->assign('maxTimestamp', strtotime('+3 month', $dt->getTimestamp()));
+		
+		return array($eventDateFilter, $contextEventDateFilter, $holidayDateFilter);
+	}
 }
 
