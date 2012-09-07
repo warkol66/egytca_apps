@@ -18,7 +18,7 @@
 
 <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="scripts/fullcalendar/fullcalendar.css" />
-<link rel="stylesheet" type="text/css" href="scripts/fullcalendar/fullcalendar.print.css" media="print" />
+<!--<link rel="stylesheet" type="text/css" href="scripts/fullcalendar/fullcalendar.print.css" media="print" /> -->
 <link rel="shortcut icon" href="images/favicon.ico" />
 <script language="JavaScript" type="text/JavaScript">
 	var url="|-$systemUrl-|";
@@ -103,6 +103,15 @@
 </script>
 	<link type="text/css" href="css/chosen.css" rel="stylesheet" />
 	<script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
+<style type="text/css">
+<!--
+/* PENDING*/
+.printTodayDate {
+	display: none;
+}
+
+-->
+</style>
 </head>
 <body>
 	<div class="container_16">
@@ -300,5 +309,6 @@
 	|-/block-| |-* sidebar *-|
 	<div class="clear"></div>  
 </div>  
+<div class="printTodayDate">Al día de |-$smarty.now|date_format:"%A %e de %B de %Y"-|</div>
 </body>
 </html>

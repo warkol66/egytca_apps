@@ -23,6 +23,12 @@
 <script language="JavaScript" type="text/JavaScript">
 	var url="|-$systemUrl-|";
 </script>
+<style type="text/css">
+<!--
+.unnamed1 {
+}
+-->
+</style>
 
 |-block name=jsIncludes-|
 	|-include file='TemplateJsIncludes.jquery.tpl'-|
@@ -35,7 +41,8 @@
 <script type="text/javascript" src="scripts/jquery/jquery.ui.datepicker-es.js"></script>
 <script src="scripts/fisheye.js"></script>
 <script type="text/javascript">
-	$(function(){
+<!--
+$(function(){
 		// Accordion
 		$("#accordion").accordion({ 		
 				/*active: false,*/
@@ -63,14 +70,8 @@
 			function() { $(this).removeClass('ui-state-hover'); }
 		);
 	});
-	function MM_showHideLayers() { //v9.0
-  var i,p,v,obj,args=MM_showHideLayers.arguments;
-  for (i=0; i<(args.length-2); i+=3) 
-  with (document) if (getElementById && ((obj=getElementById(args[i]))!=null)) { v=args[i+2];
-    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v=='hide')?'hidden':v; }
-    obj.visibility=v; }
-	}
-	$(document).ready(function() {
+
+$(document).ready(function() {
 		$(".boxNav1 .multiselect").multiselect({
 			noneSelectedText: "Seleccione",
 			selectedText: "# seleccionados",
@@ -99,10 +100,27 @@
 			noneSelectedText: "Comunas",
 			selectedText: "# comunas seleccionadas"
 		});
-	});
+	});//-->
 </script>
 	<link type="text/css" href="css/chosen.css" rel="stylesheet" />
 	<script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>
+<style type="text/css">
+<!--
+/* PENDING*/
+#pendientesContentPending {
+	width: 900px !Important;
+	height: 700px !Important;
+}
+.sidebarPending .pendientesContainer, .pendientesContent .pending {
+	width: 100% !Important;
+}
+#pendientesContentPending {
+	width: 1280px !Important;
+	height: 700px !Important;
+	overflow: auto !Important;
+}
+-->
+</style>
 </head>
 <body>
 	<div class="container_16">
@@ -131,7 +149,7 @@
 			</div>
 			<div class="boxNav1" style="display:|-if $filters|@count eq 0-|block|-else-|none|-/if-|"><!-- boxNav1 -->
 				<form action='Main.php' method='get' style="display:inline;" name="filters">
-					<input id="input_do" type="hidden" name="do" value="calendarShow" />
+					<input id="input_do" type="hidden" name="do" value="calendarPendingShow" />
 		<ul>
 			<!-- <li class="botSmall"><a href="#" class="menuIcon_01"></a></li>
 			<li class="botSmall"><a href="#" class="menuIcon_02"></a></li>
@@ -227,7 +245,7 @@
 	<div class="pendientesContainer" id="paragraphs">
 		  <div class="pendientesContent" id="pendientesContentPending">
 				  <ul>
-				   </ul>                                                                                        
+			    </ul>                                                                                        
 		  </div>	 
 	  </div> <!-- end of PENDIENTESCONTAINER -->
   

@@ -228,15 +228,21 @@ div.autocomplete ul b {
 /* fieldset    ----------------------------*/
 fieldset {
 	padding: 8px;
-	margin-bottom: 2em; /* IE 3.5em */
+	margin-top: .5em; /* IE 3.5em */
+	margin-bottom: 1em; /* IE 3.5em */
 	position: relative;
+	-khtml-border-radius: 0.75em;
+	-opera-border-radius: 0.75em;
+	-moz-border-radius: 0.75em;
+	-webkit-border-radius: 0.75em;
+	border-radius: 0.75em;
 }
 fieldset legend {
 	font-weight: bold;
 	font-size: 123.1%;
 	margin-bottom: 0.5em;
 	position: relative;
-	margin-left: -.3em;
+	margin-left: .8em;
 	padding: .2em;
 }
 fieldset label {
