@@ -169,6 +169,24 @@ class Headline extends BaseHeadline {
 		else
 			$this->setInternalid(md5($this->getCampaignid() . $this->getName() .  $this->getUrl()));
 	}
+	
+	public function processed() {
+		
+		$mandatoryFields = array(
+			'Headlinescope', 'Relevance', 'Agenda', 'Value'
+		);
+		
+		foreach ($mandatoryFields as $fieldName) {
+			$fieldValue = $this->getByName($fieldName, BasePeer::TYPE_PHPNAME);
+			if (empty($fieldValue))
+				return false;
+		}
+		
+		if ($this->countIssues() < 1)
+			return false;
+		
+		return true;
+	}
 
  /**
 	* Antes de guardar el registro
