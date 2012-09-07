@@ -205,8 +205,9 @@
 				<input name="params[relevance]" type="hidden" value="0" />
 				<span class="radioOption"> Muy relevante <input name="params[relevance]" type="radio" value="1" |-$headline->getRelevance()|checked:1-|/></span>
 				<span class="radioOption"> Relevante <input name="params[relevance]" type="radio" value="2" |-$headline->getRelevance()|checked:2-|/></span>
-				<span class="radioOption"> Poco relevante <input name="params[relevance]" type="radio" value="3" |-$headline->getRelevance()|checked:3-|/></span>
-				<span class="radioOption"> Muy poco relevante <input name="params[relevance]" type="radio" value="4" |-$headline->getRelevance()|checked:4-|/></span>
+				<span class="radioOption"> Mediamente relevante <input name="params[relevance]" type="radio" value="3" |-$headline->getRelevance()|checked:3-|/></span>
+				<span class="radioOption"> Poco relevante <input name="params[relevance]" type="radio" value="4" |-$headline->getRelevance()|checked:3-|/></span>
+				<span class="radioOption"> Muy poco relevante <input name="params[relevance]" type="radio" value="5" |-$headline->getRelevance()|checked:4-|/></span>
 				</div>
 			</p>
 	<p>
@@ -445,6 +446,7 @@ function removeIssueFromHeadline(form){
 		</div> 
 </fieldset>
 
+|-if $configModule->get('headlines','relationToHeadlines')-|
 <script type="text/javascript" language="javascript" charset="utf-8">
 function addRelationToHeadline(form) {
 	var fields = Form.serialize(form);
@@ -504,7 +506,7 @@ function removeRelationFromHeadline(form){
 			</ul>    
 		</div> 
 </fieldset>
-
+|-/if-||-* end if $configModule->get('headlines','relationToHeadlines') *-|
 	|-include file="DocumentsListInclude.tpl" entity="Headline" entityId=$headline->getId() label="Clipping"-|
 	|-include file="DocumentsEditInclude.tpl" entity="Headline" entityId=$headline->getId() label="Clipping"-|
 
