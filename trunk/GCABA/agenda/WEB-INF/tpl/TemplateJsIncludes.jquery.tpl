@@ -8,12 +8,12 @@
   if (document.documentElement.clientWidth < 1000) // Use window.innerWidth or screen.width
 		document.write('<link href="css/styleNarrow.css" rel="stylesheet" type="text/css">');
 	else if (document.documentElement.clientWidth >= 1300)
-		document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css">');
+		document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css"><link href="css/printWide.css" rel="stylesheet" type="text/css" media="print">');
 }else{
   if (window.innerWidth < 1000) // Use window.innerWidth or screen.width
 		document.write('<link href="css/styleNarrow.css" rel="stylesheet" type="text/css">');
 	else if (window.innerWidth >= 1300)
-		document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css">');
+		document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css"><link href="css/printWide.css" rel="stylesheet" type="text/css" media="print">');
 }
 </script>
 

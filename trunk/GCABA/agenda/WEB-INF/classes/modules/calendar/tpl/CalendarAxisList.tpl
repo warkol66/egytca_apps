@@ -7,6 +7,9 @@
 	|-elseif $message eq "deleted_ok"-|
 		<div class="successMessage">Eje eliminado correctamente</div>
 	|-/if-|
+	<div class="errorMessage">Los Ejes de Gestión están ligados al diseño gráfico y todos los eventos del sistema y semanas temáticas!!!!.<br>
+Si un evento o semana temática está vinculado con un Eje, no puede eliminarlo!!!!. El eliminar un eje vinculado, genera incompatibilidades insubsanables.<br>
+La disposición de las pestañas en la vista de la agenda requieren del correcto uso de los ejes de gestión, si no está seguro que lo que está haciendo, por favor no modifique nada de esta pantalla.</div>
 	<table id="tabla-tipos" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead> 
 		<!--<tr>
@@ -47,14 +50,14 @@
 					<input type="hidden" name="id" value="|-$calendarAxis->getid()-|" /> 
 					<input type="submit" name="submit_go_edit_type" value="Editar" title="Editar" class="icon iconEdit" /> 
 				</form> |-/if-|
-				|-if "calendarAxisDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;"> 
+				|-if is_object($loginUser) && $loginUser->isSupervisor()-||-if "calendarAxisDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;"> 
 					<input type="hidden" name="do" value="calendarAxisDoDelete" /> 
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$calendarAxis->getid()-|" /> 
 					<input type="submit" name="submit_go_delete_type" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar el Tipo?')" class="icon iconDelete" /> 
 			</form>
-			|-/if-|</td> 
+			|-/if-||-/if-|</td> 
 		</tr> 
 		|-/foreach-|
 		<tr>
