@@ -60,7 +60,7 @@ body {
 
 /* wrapper -----------------------------------------------------------*/
 #wrapper {
-	margin: 0 auto;
+	margin: 0 0;
 	padding: 0 0 0 0; /*  1px necesary to show margin-bottom of footer n FF*/
 }
 #header {
@@ -101,10 +101,10 @@ body {
 }
 
 #rightColumn {
-	float: right;
+	float: left;
 	display: inline;
 	border: none;
-	margin: 0 5px 5px 0;
+	margin: 0 5px 5px 30px;
 	padding: 15px;
 }
 #separatorFooter {

@@ -46,13 +46,13 @@
 	</div>
 	<!-- End contentWrapper -->
 	<!-- Begin Footer -->
+
+</div>
+<!-- End Wrapper -->
 	<div id="footer">		       
 		<p>Desarrollado por Módulos Empresarios.</p>
 	</div>
-	<!-- End Footer -->
-</div>
-<!-- End Wrapper -->
-<p>&nbsp;</p>
+	<!-- End Footer --><p>&nbsp;</p>
 <p>&nbsp;</p>
 </body>
 </html>
