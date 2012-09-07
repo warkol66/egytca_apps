@@ -41,7 +41,8 @@
 |-/if-|
 		</div>
 	</ul>
-	<a href="Main.php?do=|-if ($configModule->get("global","unifiedUsernames"))-|commonDoLogout|-else-|usersDoLogout|-/if-|" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")' id="logout">Salir</a>
+	<ul><li class="titleMenu"><a href="Main.php?do=|-if ($configModule->get("global","unifiedUsernames"))-|commonDoLogout|-else-|usersDoLogout|-/if-|" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")' class="linkPlain"><img src="images/logout_small.png" />&nbsp; Salir</a></li></ul>
+	
 |-else if !empty($loginAffiliateUser)-|
 	<ul>
 		<li class="menuLink"><a href="Main.php?do=usersWelcome">Ir al Inicio</a></li>

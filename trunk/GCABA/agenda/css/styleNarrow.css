@@ -1,8 +1,11 @@
+#contentWrapper { 
+	width: 100% !Important;
+}
 #rightColumn { 
 	width: 500px;
 }
 #wrapper { 
-	width: 770px;
+	width: 100% !Important;
 }
 #rightColumn fieldset p{
 	width: 480px;

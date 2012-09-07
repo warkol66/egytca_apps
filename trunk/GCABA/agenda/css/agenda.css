@@ -737,13 +737,14 @@ display:block;
 		.pendientesContent ul li .pendienteDato {
 			width:57px;
 			margin:0;
-			height:60px;
+			height:45px;
 			float:left;
 			display:block;
 			padding:0 0 5px 5px;
 			}
 				
-		.pendientesContent 	.pendienteDato span {font-weight:bold;display: block; margin-bottom:5px; /*height:55px;*/ overflow:hidden;		
+		.pendientesContent 	.pendienteDato span {font-weight:bold;display: block; margin-bottom:5px; /*height:55px;*/ overflow:hidden; height:45px;
+	
 }	
 		.pendientesContent 	.pendienteBotones{
 			float:right !Important; 
@@ -1580,3 +1581,6 @@ tr.fc-week6 td.fc-mon,
 	/*border: none;*/
 	border-left: transparent solid 8px;
 }
+
+.printTodayDate{display:none;}
+.fc-border-separate th, .fc-border-separate td {border:solid 1px #ffffff !Important; }

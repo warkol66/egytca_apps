@@ -1,14 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
 /* STYLEWIDE.CSS  */
 
 
@@ -18,11 +8,11 @@
 .container_16{
 	margin-left: 0 !important;
 	margin-right: 0 !important;
-	width: 1010px !Important;}
+	width: 1300px !Important;}
 
 /* =Grid >> Global
 --------------------------------------------------------------------------------*/
-.container_16 .grid_16 {	width: 1010px !Important;}
+.container_16 .grid_16 {	width: 1300px !Important;}
 
 /* =Grid >> 16 Columns
 --------------------------------------------------------------------------------*/
@@ -243,54 +233,48 @@ table tr {
 body{ background-image:none !Important;
 			background-color:#FFFFFF !Important; 
 		}
-		.container_12, .container_16{width:100% !Important; background-color:#FFFFFF !Important;}
-		.container_16 .grid_16, .container_16 .grid_13 {background-color:#FFFFFF !Important;}
-		.container_16 .header1{width:140px !Important; 	height:70px !Important;
-		top:0 !Important; display:block !Important; 
-		left: 875px !Important;
+		.container_12,
+		.container_16{width:100% !Important; background-color:#FFFFFF !Important;}
+		.container_16 .grid_16, 
+		.container_16 .grid_13 {background-color:#FFFFFF !Important;}
+		.container_16 .header1{width:1300px !Important; 
+		top:18px !Important; display:block !Important; 
 		background-color: #FFCC00 !Important; 
-		position: absolute !Important; 
-		background-image:url(../images/ba_lateral.jpg) !Important; 
+		position: absolute !Important; 	height:26px !Important;
+		background-image:url(../images/print_fichaHeaderTitle_wide.jpg) !Important; 
 		background-repeat:no-repeat !Important; background-position: 0 0 !Important; 
 		z-index:1100 !Important;
-		border-top: 4px #666666 solid !Important;
-	   -moz-border-radius: 8px !Important; border-radius: 8px !Important; 
+		border-top: 4px #666666 solid !Important; left:0 !Important;
 }
 		
 		h1.branding {/*background-image:url(../images/header_AgendaDeGobierno.png) !Important; background-repeat:no-repeat !Important; background-position: 10px 0 !Important;*/
 		background:none !Important;}
-		.fc-header-title {width:140px !Important;  height:70px  !Important; 
-								float:left !Important;  display: block !Important; 
-								position:absolute !Important;
-								/*top:80px !Important; left:875px !Important; */
-								top:0 !Important; left:0 !Important;
-								background-image:none !Important;
-								background-color:#666666 !Important;
-							   -moz-border-radius: 8px 8px 0 0 !Important; border-radius: 8px 8px 0 0!Important; 
-  								color:#FFFFFF !Important; text-align:left !Important; 
-								border: none !Important;
-								font-size:12px !Important; padding:3px 0 0 15px !Important; 
-								z-index:1300 !Important;
+		.fc-header-title {width:1300px !Important;  height:18px  !Important; float:right !Important;  display: block !Important; 				position:absolute !Important;
+								top:-52px !Important; left: 0px !Important; 
+								background-image:url(../images/solapa_headerPrint.png) !Important; 
+								background-repeat:no-repeat  !Important; 
+								background-position:left top  !Important;  
 								
-								display: none !Important;
-					}
+								color:#FFFFFF !Important; text-align:left !Important; 
+								border: none !Important;
+								font-size:12px !Important; padding-left:3px 0 0 15px !Important; 
+								z-index:1300 !Important;}
 								
 		.fc-header-title h2{}		
 		span.fc-header-title h2	{ font-size:12px !Important; padding:-1px 0 2px 8px !Important; margin-top:0 !Important;}
-			.printTodayDate {width:140px !Important;  height:auto !Important; float:left !Important;  
+		
+			.printTodayDate {width:350px !Important;  height:18px  !Important; float:left !Important;  
 								display: block !Important; position:absolute !Important;
-/*								top:160px !Important; left: 875px !Important; */
-								top:0 !Important; left:0 !Important;
-								background-image: none !Important;
-								background-color:#00CCCC;
+								top:-1px !Important; left: 950px !Important; 
+								background-image:url(../images/solapa_headerPrint_date.png) !Important; 
+								background-repeat:no-repeat  !Important; 
+								background-position:left top  !Important;  
+								
 								color:#FFFFFF !Important; text-align:left !Important; 
-							   -moz-border-radius: 8px 8px 0 0 !Important; border-radius: 8px 8px 0 0!Important; 
 								border: none !Important;
 								font-size:12px !Important; padding:3px 0 0 15px !Important; 
-								z-index:1400 !Important;
-								
-								display: none !Important;
-								}
+								z-index:1400 !Important;}
+		
 		
 		#calendar {
 		width: 100% !Important;
@@ -304,27 +288,27 @@ body{ background-image:none !Important;
 		background-color:#FFFFFF !Important;
 		color:#000000 !Important;}
 		
-		.container_16 .colummAgenda{width:850px !Important; margin-left:0px !Important; background-color:#FFFFFF !Important; position:absolute !Important; top: 0 /*52px*/ !Important; display:block !Important;}
+		.container_16 .colummAgenda{width:1100px !Important; margin-left:0px !Important; background-color:#FFFFFF !Important; position:absolute !Important; top:52px !Important; display:block !Important;}
 		
 		
 		
 /*		COLUMNA PENDIENTES */
 		.container_16 .colummSidebar {
-		 width:140px !Important;
+		 width:140px !Important; height:500px !Important; min-height:480px  !Important;
 		 z-index:1000 !Important; margin-top:0 !Important; border:none !Important;
-		  display:block !Important;  position:absolute !Important;  top:350px !Important;
-		  left:875px !Important; background-color: #666666 !Important;
+		  display:block !Important;  position:absolute !Important;  top:240px !Important;
+		  left:1125px !Important; background-color: #666666 !Important;
 		   -moz-border-radius: 8px !Important; border-radius: 8px !Important; 
-		   height:350px !Important; min-height:350px  !Important;}
+		   }
 		   
 		.subColumnsTriggerB {display: none !Important;}
 		.pendienteBotones, .solapita{display:none !Important;}
 	
 		.pendientesContent{overflow: hidden !Important; width:140px !Important;
-		height:280px !Important; background-color:#f1f1f1 !Important; 
+		height:480px !Important; background-color:#f1f1f1 !Important; 
 		margin:10px 0 0 0 !Important;}
 		
-		.pendientesContent ul {width:140px !Important; height:345px !Important;}
+		.pendientesContent ul {width:140px !Important; height:500px !Important;}
 	
 		.pendientesContent ul li {width:140px !Important; float: none !Important; height: auto !Important; 
 		border-bottom: 1px solid #CCCCCC !Important;}
@@ -386,16 +370,16 @@ body{ background-image:none !Important;
 .fc-view-month .fc-border-separate, table.fc-agenda-days { background-image:none !Important;}
 
 /*th fc-mon, th fc-tue, th fc-wed, th fc-thu, th fc-fri, th fc-sat, th fc-sun*/ 
-.fc-view-month .fc-widget-header   { background-color:#999999 !Important; color:#FFFFFF !Important; -moz-border-radius: 0 0 8px 8px !Important; border-radius:  0 0 8px 8px !Important; font-size:8px !Important;
-text-align:center !Important; padding:0 !Important; line-height:8px !Important; text-transform:uppercase !Important;}
+.fc-view-month .fc-widget-header   { background-color:#999999 !Important; color:#FFFFFF !Important; -moz-border-radius: 0 0 5px 5px !Important; border-radius:  0 0 5px 5px !Important; font-size:9px !Important;
+text-align:center !Important; text-transform:uppercase !Important;}
 .fc-view-month .fc-widget-header, 
 .fc-view-month .fc-widget-content{width:14%;}
 
-.fc-view-month .fc-event-time{/*display: none !Important;*/ background:none !Important; width:110px !Important;}
+.fc-view-month .fc-event-time{/*display: none !Important;*/ background:none !Important; width:133px !Important;}
 
-.fc-view-month .fc-event, 
-.fc-view-agendaWeek .fc-event {
-border: none  !Important; width:110px !Important;}
+.fc-view-month .fc-event,
+.fc-view-agendaWeek .fc-event{
+border: none  !Important; width:133px !Important;}
 
 .rojo, .naranja, .naranjabis, .verde1, .verde1bis, .verde2, .verde2bis, .cyan { background:none !Important; background-color:none !Important;}
 .fc-event-title {padding:0  !Important; /*	margin-top:-10px !Important;*/}
@@ -498,9 +482,6 @@ a.fc-event, .fc-event-draggable, .eventoContainer, .boxAgendaContainer {border: 
 * {border:none !Important;}
 
 
-
-
-
 /*
 .fc-state-highlight { 
 	background: none !Important;
@@ -508,15 +489,14 @@ a.fc-event, .fc-event-draggable, .eventoContainer, .boxAgendaContainer {border: 
     opacity: 0 !Important;
     filter: alpha(opacity=0) !Important; /* for IE   }  
 */	
-
 h1#branding {	display:none !Important;	}
 
 /*   DEFINICIONES DE COLOR  (EX-MENU HORIZONTAL)*/
 .boxNavSolapas {
 	width:140px !Important;
     height: 200px !Important;
-	top:170px !Important;
-	left:875px !Important;
+	top:10px !Important;
+	left:1125px !Important;
     margin: 0px !Important;
     position: absolute !Important;
     display: block !Important;
@@ -571,14 +551,15 @@ h1#branding {	display:none !Important;	}
 /* AGENDA DAY   */
 
 /* ***************************************** */
+
 .fc.view-agendaDay  .fc-agenda-slots td  {border-left: none !Important; border-right: none !Important; border-color:#CCCCCC !Important;}
-.fc-agenda-slots td div {width: 815px !Important;}
+.fc-agenda-slots td div {width: 1050px !Important;}
 
 .fc.view-agendaDay . .eventoContainer {font-size:75% !Important;}
 
-		.fc-agenda-allday .fc-agenda-axis,
+.fc-agenda-allday .fc-agenda-axis,
 		.fc-agenda .fc-agenda-axis,
-		.fc-view-agendaDay .fc-agenda-slots .fc-widget-header,
+		.fc.view-agendaDay .fc-agenda-slots .fc-widget-header,
 		.fc-view-agendaDay  .fc-agenda-slots  .fc-agenda-axis /* agenda diaria*/ {
 	color:#000000 !Important;
 	font-weight:bold;
@@ -589,10 +570,7 @@ h1#branding {	display:none !Important;	}
 	font-size:9px !Important;
 			}
 			
-			
-
-			
-table.fc-border-separate { border-collapse: collapse !Important;}
+table.fc-border-separate { border-collapse:collapse !Important;}
 
 tr.fc-week0 td.fc-widget-content {margin-top:-2px; border: solid 1px #FFFFFF !Important;}
 tr.fc-week1 td.fc-widget-content {margin-top:-4px; border: solid 1px #FFFFFF !Important;}

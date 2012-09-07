@@ -1,14 +1,17 @@
 #rightColumn { 
-	width: 1070px;
+	width: 1010px;
 }
 #wrapper { 
-	width: 1275px;
+	width: 100% !Important;
 }
 #contentWrapper { 
-	width: 1280px;
+	width: 100% !Important;
 }
 #header, #footer {
-	width: 1285px;
+	width: 100% !Important;
+}
+#footer {
+	width: 100% !Important;
 }
 #rightColumn p {
 	width: 920px;
@@ -166,3 +169,8 @@
 	width: 320px;
 	height: 550px;
 }
+
+
+
+
+
