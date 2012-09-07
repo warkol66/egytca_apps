@@ -83,7 +83,7 @@
 	|-else-|
 		|-foreach from=$headlines item=headline name=for_headlines-|
 		<tr> 
-				<td nowrap="nowrap"|-if $headline->getProcessed()-| class="processed"|-/if-|>|-if $headline->getUrl() ne ''-| <a href="|-$headline->getUrl()-|" target="_blank" title="Ir a nota original" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a> |-/if-||-if $headline->hasClipping()-|<a href="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" title="Ver recorte" target="_blank"><img src="images/clear.png" class="icon iconNewsClipping" /></a>|-/if-|</td>
+				<td nowrap="nowrap"|-if $headline->processed()-| class="processed"|-/if-|>|-if $headline->getUrl() ne ''-| <a href="|-$headline->getUrl()-|" target="_blank" title="Ir a nota original" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a> |-/if-||-if $headline->hasClipping()-|<a href="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" title="Ver recorte" target="_blank"><img src="images/clear.png" class="icon iconNewsClipping" /></a>|-/if-|</td>
 				<td>|-$headline->getName()-|</td> 
 				<td  align="center">|-$headline->getdatePublished()|dateTime_format-|</td> 
 				<td>|-assign var=media value=$headline->getMedia()-||-$media-||-if is_object($media)-| _ |-$media->getMediaType()-||-/if-|</td> 
