@@ -230,8 +230,8 @@
 
 			<p>
 				<label for="params[processed]">Procesado</label>
-				<input name="params[processed]" type="hidden" value="0" />
-				<input name="params[processed]" type="checkbox" value="1" |-$headline->getProcessed()|checked_bool:1-| />
+<!--				<input name="params[processed]" type="hidden" value="0" />-->
+				<input name="params[processed]" type="checkbox" value="1" |-$headline->processed()|checked_bool:1-| disabled="disabled" />
 		</p>
 			<p>
 			<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
