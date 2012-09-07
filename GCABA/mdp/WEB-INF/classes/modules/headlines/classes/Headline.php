@@ -281,8 +281,9 @@ class Headline extends BaseHeadline {
 		$relevances = array(
 			1 => 'Muy relevante',
 			2 => 'Relevante',
-			3 => 'Poco relevante',
-			4 => 'Muy poco relevante'
+			3 => 'Mediamente relevante',
+			4 => 'Poco relevante',
+			5 => 'Muy poco relevante'
 		);
 		return $relevances;
 	}
