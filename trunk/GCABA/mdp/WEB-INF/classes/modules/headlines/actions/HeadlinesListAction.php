@@ -58,11 +58,9 @@ class HeadlinesListAction extends BaseAction {
 		if (isset($fromDate) || isset($toDate))
 			$filters['rangePublished'] = array('range' => Common::getPeriodArray($fromDate,$toDate));
 		
-		if (!empty($filters['filterProcessed']))
-			if ($filters['filterProcessed'] == -1)
+		if (!empty($filters['processed']))
+			if ($filters['processed'] == -1)
 				unset($filters['processed']);
-			else
-				$filters['processed'] = $filters['filterProcessed'];
 
 		if (!isset($filters["perPage"]))
 			$perPage = Common::getRowsPerPage();

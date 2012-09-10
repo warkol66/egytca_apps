@@ -54,10 +54,10 @@
 					<input id="filters[toDate]" name="filters[toDate]" type="text" value="|-$filters.toDate-|" size="12" title="Fecha hasta dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[toDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha hasta dd-mm-aaaa">
 
 			<p>
-				<label for="filters[filterProcessed]">Procesados</label>
-				Todos <input name="filters[filterProcessed]" type="radio" value="-1" |-if isset($filters.filterProcessed)-||-$filters.filterProcessed|checked:-1-||-else-|checked="checked"|-/if-| />
-				Sin procesar <input name="filters[filterProcessed]" type="radio" value="0" |-if isset($filters.filterProcessed)-||-$filters.filterProcessed|checked:0-||-/if-| />
-				Procesados <input name="filters[filterProcessed]" type="radio" value="1" |-if isset($filters.filterProcessed)-||-$filters.filterProcessed|checked:1-||-/if-| />
+				<label for="filters[processed]">Procesados</label>
+				Todos <input name="filters[processed]" type="radio" value="-1" |-if isset($filters.processed)-||-$filters.processed|checked:-1-||-else-|checked="checked"|-/if-| />
+				Sin procesar <input name="filters[processed]" type="radio" value="0" |-if isset($filters.processed)-||-$filters.processed|checked:0-||-/if-| />
+				Procesados <input name="filters[processed]" type="radio" value="1" |-if isset($filters.processed)-||-$filters.processed|checked:1-||-/if-| />
 		</p>
 
 					<!--<label for="filters[datePublished]">de publicación</label>
