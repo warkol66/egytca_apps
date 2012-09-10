@@ -23,6 +23,15 @@ class HeadlineQuery extends BaseHeadlineQuery {
         return $this;
     }
     
+    public function processed($value) {
+	    $headlines = $this->find();
+	    foreach ($headlines as $headline) {
+		    if ($headline->processed() != $value)
+			    $this->filterById($headline->getId(), Criteria::NOT_EQUAL);
+	    }
+	    return $this;
+    }
+    
     public function rangePublished($range) {
         return $this->filterByDatepublished($range);
     }
