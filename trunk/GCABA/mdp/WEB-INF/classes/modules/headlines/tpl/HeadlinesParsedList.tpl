@@ -60,6 +60,9 @@
 </legend>
 <form method="get" action="Main.php" id="filterHeadlines" style="display:|-if $filters|@count gt 1-|block|-else-|none|-/if-|;">
 	<input name="do" value="headlinesParsedList" type="hidden" />
+<p>					<label for="filters[searchString]">Buscar</label>
+					<input id="filters[searchString]" name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
+					<p>
 			<p>
 					<label for="filters[fromDate]">Fecha desde</label>
 					<input id="filters[fromDate]" name="filters[fromDate]" type="text" value="|-$filters.fromDate-|" size="12" title="Fecha desde mm-dd-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[fromDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha desde mm-dd-aaaa">
