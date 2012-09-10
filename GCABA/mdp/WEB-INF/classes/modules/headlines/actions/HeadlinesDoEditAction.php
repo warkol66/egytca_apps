@@ -24,6 +24,19 @@ class HeadlinesDoEditAction extends BaseAction {
 
 		$userParams = Common::userInfoToDoLog();
 		$headlineParams = array_merge_recursive($_POST["params"],$userParams);
+		
+		global $system;
+		$timezoneCode = $system["config"]["system"]["parameters"]["applicationTimeZoneGMT"]["value"];
+		
+		if (!empty($headlineParams['datePublished'])) {
+			$timezonePeer = new TimezonePeer();
+			$headlineParams['datePublished'] = $timezonePeer->getGMT0DatetimeFromTimezone($headlineParams['datePublished'], $timezoneCode);
+		}
+
+		if (!empty($headlineParams['headlineDate'])) {
+			$timezonePeer = new TimezonePeer();
+			$headlineParams['headlineDate'] = $timezonePeer->getGMT0DatetimeFromTimezone($headlineParams['headlineDate'], $timezoneCode);
+		}
 
 		if (isset($_POST["id"])) { // Existing headline
 
