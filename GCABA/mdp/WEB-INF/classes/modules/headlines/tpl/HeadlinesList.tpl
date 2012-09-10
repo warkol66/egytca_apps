@@ -93,7 +93,7 @@
 		<tr> 
 				<td nowrap="nowrap"|-if $headline->processed()-| class="processed"|-/if-|>|-if $headline->getUrl() ne ''-| <a href="|-$headline->getUrl()-|" target="_blank" title="Ir a nota original" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a> |-/if-||-if $headline->hasClipping()-|<a href="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" title="Ver recorte" target="_blank"><img src="images/clear.png" class="icon iconNewsClipping" /></a>|-/if-|</td>
 				<td>|-$headline->getName()-|</td> 
-				<td  align="center">|-$headline->getdatePublished()|dateTime_format-|</td> 
+				<td  align="center">|-$headline->getdatePublished()|change_timezone|dateTime_format-|</td> 
 				<td>|-assign var=media value=$headline->getMedia()-||-$media-||-if is_object($media)-| _ |-$media->getMediaType()-||-/if-|</td> 
 				<td align="center">|-$headlineRelevances[$headline->getRelevance()]-| / |-$headlineValues[$headline->getValue()]-|</td> 
 				<td>|-assign var=issues value=$headline->getIssues()-|<ul>|-foreach from=$issues item=issue name=for_issues-|<li>|-$issue-|</li>|-/foreach-|</ul></td>
