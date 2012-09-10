@@ -100,7 +100,7 @@
 			</p>
 			<p>     
 				<label for="params[datePublished]">Fecha de Publicación</label>
-				<input id="params[datePublished]" name="params[datePublished]" type='text' value='|-$headline->getDatePublished()|dateTime_format-|' size="20" title="Ingrese la fecha de publicación" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[datePublished]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input id="params[datePublished]" name="params[datePublished]" type='text' value='|-$headline->getDatePublished()|change_timezone|dateTime_format-|' size="20" title="Ingrese la fecha de publicación" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[datePublished]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<p>     
 				<label for="params[headlineDate]">Fecha del Titular</label>
