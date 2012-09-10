@@ -69,10 +69,15 @@
 					<input id="filters[discarded]" name="filters[discarded]" type="checkbox" value="1" |-$filters.discarded|checked_bool-| title="Incluir descartados" />
 	</p>
 			<p>
-	<div div="div_filters[mediaId]" style="position: relative;z-index:10000;">
+	<div div="div_filters[mediaId]" style="position: relative;z-index:10500;">
 				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_medias" url="Main.php?do=mediasAutocompleteListX" hiddenName="filters[mediaId]" label="Medio" defaultValue=$filters.mediaName defaultHiddenValue=$filters.mediaId name="filters[mediaName]"-|
 	</div>
 			</p>
+		<p>
+			<div div="div_filters[mediaTypeId]" style="position: relative;z-index:10000;">
+					|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_mediasType" url="Main.php?do=commonAutocompleteListX&object=mediaType&objectParam=id" hiddenName="filters[mediaTypeId]" label="Tipo de Medio" defaultValue=$filters.mediaType defaultHiddenValue=$filters.mediaTypeId name="filters[mediaType]"-|
+			</div>
+					</p>
 			<p>	<input type="submit" id="search_button" value="Filtrar" />
 	|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=headlinesParsedList'"/>|-/if-|</p>
 </form>
