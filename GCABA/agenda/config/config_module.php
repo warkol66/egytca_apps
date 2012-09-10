@@ -15,9 +15,9 @@ class ConfigModule {
 			"unifiedUsernames" => true,
 			"backupTimeLimit" => 720,
 			"tmpwatch" => "/usr/sbin/tmpwatch",
-			"internalMailUseAffiliates" => false 
+			"internalMailUseAffiliates" => false
 		),
-	        "actors" => array(
+		"actors" => array(
 			"usePhoto" => true,
 			"photosDir" => "images/actors/resizes",
 			"thumbnailsDir" => "images/actors/thumbnails"
@@ -57,7 +57,7 @@ class ConfigModule {
 		),
 		"constructions" => array(
 			"inspectionPhotosDir" => 'images/constructionInspection'
-		)	
+		)
 	);
 
 	public static function get($module,$key) {

@@ -266,7 +266,7 @@ $(function () {
 	<div id="mediasListHolder">
 		|-include file='CalendarMediasListInclude.tpl'-|
 	</div>
-	|-if $action eq 'edit'-|
+	|-if !$calendarEvent->isNew()-|
 		|-include file='CalendarMediasAddInclude.tpl' calendarEvent=$calendarEvent-|
 	|-/if-|
 	|-/if-|

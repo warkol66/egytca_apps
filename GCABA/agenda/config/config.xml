@@ -164,7 +164,7 @@
 				<element_type>YES/NO</element_type>
 			</useCategories>
 			<useImages>
-				<value>NO</value>
+				<value>YES</value>
 				<element_type>YES/NO</element_type>
 			</useImages>
 			<useVideo>
