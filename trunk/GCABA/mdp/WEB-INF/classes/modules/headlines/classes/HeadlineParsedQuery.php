@@ -32,4 +32,12 @@ class HeadlineParsedQuery extends BaseHeadlineParsedQuery {
         return $this->filterByDatepublished($range);
     }
 
+    public function mediaTypeId($mediaTypeId) {
+        $this->useMediaQuery()
+            ->filterByTypeid($mediaTypeId)
+        ->endUse();
+        
+        return $this;
+    }
+
 } // HeadlineParsedQuery
