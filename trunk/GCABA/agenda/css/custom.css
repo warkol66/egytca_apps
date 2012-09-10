@@ -107,7 +107,7 @@ body {
 }
 #leftColumn{
 	color: #333;
-	width: 200px;
+	width: 185px;
 /*	background-image:url(../images/leftcolumn_bottom.jpg);
 	background-position: left bottom;
 	background-repeat:no-repeat; */
@@ -180,7 +180,7 @@ body {
 
 /* MENU NAVEGACION   */
 #leftColumn ul {
-	width: 210px;
+	width: 185px;
 	background-color: #e7ebf0;
 }
 
