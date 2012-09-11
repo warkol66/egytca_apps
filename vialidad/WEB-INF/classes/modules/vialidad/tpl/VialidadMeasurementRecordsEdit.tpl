@@ -102,7 +102,60 @@
 		</tbody>
 	</table>
 	</div>
+
+
+
+<p>&nbsp;</p>
+<h1>Agregar items al acta de medición &nbsp; <img src="image/clear.png" height="16" width="16" class="expandLink" id="iconViewAddItems" onClick="$('addItems').toggle(); $('iconViewAddItems').toggleClassName('collapseLink');" /></h1>	
+<div id="addItems" style="display:none;">
+|-include
+	file="VialidadConstructionExtraTableInclude.tpl"
+	extras=$fines
+	extraType="fine"
+	extraName="Multas"
+	deleteText="Seguro que desea eliminar la Multa?"
+	createAction="vialidadFineDoEditX"
+	editAction="vialidadFineDoEditFieldX"
+	deleteAction="vialidadFineDoDeleteX"
+-|
+
+|-include
+	file="VialidadConstructionExtraTableInclude.tpl"
+	extras=$dailyWorks
+	extraType="dailyWork"
+	extraName="Trabajos por Día"
+	deleteText="Seguro que desea eliminar el Trabajo por Día?"
+	createAction="vialidadDailyWorkDoEditX"
+	editAction="vialidadDailyWorkDoEditFieldX"
+	deleteAction="vialidadDailyWorkDoDeleteX"
+-|
+
+|-include
+	file="VialidadConstructionExtraTableInclude.tpl"
+	extras=$adjustments
+	extraType="adjustment"
+	extraName="Ajustes"
+	deleteText="Seguro que desea eliminar el Ajuste?"
+	createAction="vialidadAdjustmentDoEditX"
+	editAction="vialidadAdjustmentDoEditFieldX"
+	deleteAction="vialidadAdjustmentDoDeleteX"
+-|
+
+|-include
+	file="VialidadConstructionExtraTableInclude.tpl"
+	extras=$others
+	extraType="other"
+	extraName="Otros bienes y servicios"
+	deleteText="Seguro que desea eliminar el el bien o servicio?"
+	createAction="vialidadOtherDoEditX"
+	editAction="vialidadOtherDoEditFieldX"
+	deleteAction="vialidadOtherDoDeleteX"
+-|	
+</div>	
 	
+<p>&nbsp;</p>
+<h1>Verificar y documentar &nbsp; <img src="image/clear.png" height="16" width="16" class="expandLink" id="iconViewVerifyItems" onClick="$('verifyItems').toggle(); $('iconViewVerifyItems').toggleClassName('collapseLink');" /></h1>	
+<div id="verifyItems" style="display:none;">
 		|-if $fines->count() gt 0-|
 	<h3>Multas</h3>
 	<div id=div_fines>
@@ -210,7 +263,7 @@
 	</table>
 	</div>
 		|-/if-|
-	
+	</div>
 	|-/if-|
 </div>
 

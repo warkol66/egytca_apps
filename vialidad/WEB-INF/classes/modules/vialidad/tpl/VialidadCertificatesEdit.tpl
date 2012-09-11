@@ -90,6 +90,9 @@
 	</table>
 	</div>
 	
+	
+
+	
 |-if $fines->count() gt 0-|
 	<h3>Multas</h3>
 	<div id=div_fines>

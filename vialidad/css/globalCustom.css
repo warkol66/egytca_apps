@@ -769,3 +769,38 @@ a.report:hover,
 a.download:hover{
 	text-decoration: underline !Important;
 }
+
+
+
+.expandLink, .collapseLink {
+	color: #404040;
+	padding: 0 0 0 16px;
+}
+.expandLink:link, .collapseLink:link {
+	text-decoration: none;
+}
+.expandLink, img.collapseLink.expandLink {
+	background-image: url(../images/icon_expand.png) !Important;
+	background-repeat: no-repeat;
+}
+.collapseLink, img.expandLink.collapseLink  {
+	background-image: url(../images/icon_collapse.png) !Important;
+	background-repeat: no-repeat;
+}
+a.expandLink:link,a.expandLink:visited, a.collapseLink:link,a.collapseLink:visited{
+	color: #404040;
+	text-decoration: none;
+}
+.expandLink span, .collapseLink span {
+	font-size: 100% !Important;
+	font-weight: normal !Important;
+	display: none;
+}
+.expandLink:hover span, .collapseLink:hover span {
+	font-size: 100% !Important;
+	display: inline;
+}
+.overrideExpand {
+	background-image: url(../images/icon_expand.png) !Important;
+	background-repeat: no-repeat;
+}

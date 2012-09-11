@@ -2,9 +2,9 @@
 
 // TODO: Filtros no andan.
 
-class VialidadSupplyListAction extends BaseAction {
+class VialidadSupplyOtherListAction extends BaseAction {
 
-	function VialidadSupplyListAction() {
+	function VialidadSupplyOtherListAction() {
 		;
 	}
 
@@ -22,13 +22,13 @@ class VialidadSupplyListAction extends BaseAction {
 		$smarty->assign('module',$module);
 
 		$filters = $_GET["filters"];
-		$pager = SupplyQuery::create()->filterByType(1)->createPager($filters, $_GET["page"], $filters["perPage"]);
+		$pager = SupplyQuery::create()->filterByType(2)->createPager($filters, $_GET["page"], $filters["perPage"]);
 		
 		$smarty->assign('filters', $filters);
 		$smarty->assign('supplies',$pager->getResults());
 		$smarty->assign("pager",$pager);
 
-		$url = "Main.php?do=vialidadSupplyList";
+		$url = "Main.php?do=vialidadSupplyOtherList";
 		foreach ($filters as $key => $value)
 			$url .= "&filters[$key]=$value";
 		$smarty->assign("url",$url);

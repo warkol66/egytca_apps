@@ -9,9 +9,9 @@
 				<input type="hidden" name="params[constructionId]" value="|-$construction->getId()-|" />
 				<label>Descripción</label>
 				<input type="text" size="60" name="params[description]" />
-				<label>Período</label>
-				<input type="text" size="12" name="params[date]" />
-				<label>Precio</label>
+				<label>Fecha</label>
+				<input type="text" size="12" name="params[date]" title="Fecha de |-$extraName-| en formato dd-mm-yyyy" />
+				<label>Importe</label>
 				<input type="text" size="12" name="params[price]" />
 				<input type="submit" class="icon iconActivate" />
 				<input type="button" class="icon iconCancel" onclick="this.form.hide(); $('link_add_|-$extraType-|').show();" />

@@ -24,7 +24,8 @@ class VialidadSupplyAutocompleteListXAction extends BaseAction {
 		$searchString = $_REQUEST['value'];
 		$smarty->assign("searchString",$searchString);
 		
-		$filters = array("searchString" => $searchString); 
+		$filters = $_REQUEST['filters']; 
+		$filters = array_merge_recursive($filters,array("searchString" => $searchString)); 
 		
 		if ($_REQUEST['getCandidates']) {
 			$filters = array_merge_recursive($filters, array('EntityFilter' => array(

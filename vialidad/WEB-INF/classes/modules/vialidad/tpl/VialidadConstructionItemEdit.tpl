@@ -25,6 +25,16 @@
 		<input type="text" id="params[name]" name="params[name]" size="50" value="|-$item->getName()|escape-|" title="Nombre" class="emptyValidation" /> |-validation_msg_box idField="params[name]"-|
 	</p>
 	<p>
+		<label for="params[type]">Tipo</label>
+|-if $item->isNew()-|		<select id="params[type]" name="params[type]" title="Seleccione el tipo de item">
+			<option value="1" |-$item->getType()|selected:1-|>Item de construcción</option>
+			<option value="2" |-$item->getType()|selected:2-|>Otros Items</option>
+		</select>
+|-else-|
+		<input type="text" sise="25" value="|-if $item->getType() eq 1-|Item de construcción|-else-|Otros Items|-/if-|" disabled="disabled" />
+|-/if-|
+	</p>
+	<p>
 		<label for="params[code]">Código</label>
 		<input id="params[code]" name="params[code]" type="text" value="|-$item->getCode()-|" size="15" title="C&oacute;digo" />
 	</p>
@@ -204,7 +214,7 @@ function attachSupplyAutocompleter(element, autocompleteDiv) {
 	new Ajax.Autocompleter(
 		element,
 		autocompleteDiv,
-		"Main.php?do=vialidadSupplyAutocompleteListX&getCandidates=true&entityType=ConstructionItem&entityId=|-$item->getId()-|",
+		"Main.php?do=vialidadSupplyAutocompleteListX&getCandidates=true&entityType=ConstructionItem&entityId=|-$item->getId()-|&filters[type]=|-$item->getType()-|",
 		{
 			minChars: 3,
 			afterUpdateElement: function(text, li) {
