@@ -36,7 +36,11 @@ class VialidadSupplyDoEditXAction extends BaseAction {
 			$smarty->assign('newSupply', $supply);
 		}
 		
-		$supplies = SupplyQuery::create()->find();
+		if($supplyParams["type"] == 2)
+			$supplies = SupplyQuery::create()->filterByType(2)->find();
+		else
+			$supplies = SupplyQuery::create()->filterByType(1)->find();
+
 		$smarty->assign('supplies', $supplies);
 		return $mapping->findForwardConfig('success');
 	}

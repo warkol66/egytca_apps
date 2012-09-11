@@ -21,6 +21,8 @@
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
 		<column name="unit" type="VARCHAR" size="12" description="Unidad" />
 
+		<column name="type" type="TINYINT" defaultValue="1" description="Tipo" />
+
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
@@ -295,6 +297,9 @@
 		<column name="constructionId" type="INTEGER" description="Id del construction" />
 		<column name="description" type="LONGVARCHAR" />
 		<column name="date" type="DATE" />
+
+		<column name="type" type="TINYINT" defaultValue="1" description="Tipo" />
+
 		<column name="class_key" type="INTEGER" inheritance="single">
 			<inheritance key="1" class="ConstructionItem"/>
 			<inheritance key="2" class="Fine" extends="ConstructionItem"/>

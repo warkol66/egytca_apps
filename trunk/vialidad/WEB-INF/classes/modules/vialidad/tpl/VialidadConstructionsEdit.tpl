@@ -182,7 +182,7 @@
 	</tfoot>
 </table>
 
-|-include
+|-*include
 	file="VialidadConstructionExtraTableInclude.tpl"
 	extras=$fines
 	extraType="fine"
@@ -191,9 +191,9 @@
 	createAction="vialidadFineDoEditX"
 	editAction="vialidadFineDoEditFieldX"
 	deleteAction="vialidadFineDoDeleteX"
--|
+*-|
 
-|-include
+|-*include
 	file="VialidadConstructionExtraTableInclude.tpl"
 	extras=$dailyWorks
 	extraType="dailyWork"
@@ -202,9 +202,9 @@
 	createAction="vialidadDailyWorkDoEditX"
 	editAction="vialidadDailyWorkDoEditFieldX"
 	deleteAction="vialidadDailyWorkDoDeleteX"
--|
+*-|
 
-|-include
+|-*include
 	file="VialidadConstructionExtraTableInclude.tpl"
 	extras=$adjustments
 	extraType="adjustment"
@@ -213,9 +213,9 @@
 	createAction="vialidadAdjustmentDoEditX"
 	editAction="vialidadAdjustmentDoEditFieldX"
 	deleteAction="vialidadAdjustmentDoDeleteX"
--|
+*-|
 
-|-include
+|-*include
 	file="VialidadConstructionExtraTableInclude.tpl"
 	extras=$others
 	extraType="other"
@@ -224,7 +224,7 @@
 	createAction="vialidadOtherDoEditX"
 	editAction="vialidadOtherDoEditFieldX"
 	deleteAction="vialidadOtherDoDeleteX"
--|
+*-|
 
 |-/if-|
 

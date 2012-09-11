@@ -15,4 +15,19 @@
  */
 class Supply extends BaseSupply {
 
+	/**
+	 * Devuelve array con posibles tipos de suministro (supply)
+	 *  id => Estados posibles
+	 *
+	 * @return array tipos de suministro
+	 */
+	public static function getSupplytypes() {
+		$supplyTypes = array(
+			1 => 'Insumos de construcción',
+			2 => 'Otro insumos'
+		);
+		return $supplyTypes;
+	}
+
+
 } // Supply

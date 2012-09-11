@@ -18,7 +18,8 @@
 			<!--<li><a href="Main.php?do=vialidadConstructionsList">Obras</a></li>
 			<li><a href="Main.php?do=vialidadSuppliersList">Proveedores de Insumos</a></li>-->
 
-			<li><a href="Main.php?do=vialidadSupplyList">Listado de Insumos</a></li>
+			<li><a href="Main.php?do=vialidadSupplyList">Insumos de Obra</a></li>
+			<li><a href="Main.php?do=vialidadSupplyOtherList">Otros Insumos</a></li>
 
 			<li><a href="Main.php?do=vialidadBulletinList">Base de Datos de Insumos</a></li>
 			<li><a href="Main.php?do=vialidadConstructionItemList">Paramétricas de Obra</a></li>
