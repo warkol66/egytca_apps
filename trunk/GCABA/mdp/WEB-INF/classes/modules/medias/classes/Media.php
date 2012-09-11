@@ -40,7 +40,7 @@ class Media extends BaseMedia {
 			$headline->setMediaid($this->resolveAliases()->getId());
 			$headline->save();
 		}
-		
+
 		$headlinesParsed = HeadlineParsedQuery::create()->find();
 		foreach ($headlinesParsed as $headlineParsed) {
 			
@@ -62,6 +62,26 @@ class Media extends BaseMedia {
 			
 			$headlineParsed->save();
 		}
+
+
+/*
+
+
+$headlines = HeadlineQuery::create()
+	->filterByMedia($this)
+  ->update(array('Mediaid' => $this->resolveAliases()->getId()));
+
+$headlinesParsed = HeadlineParsedQuery::create()
+		->filterByMediaid($this->getId())
+	->_or()
+		->filterByMedianame($this->getName())		
+  ->update(array('Mediaid' => $this->resolveAliases()->getId(), 'Medianame' => $this->resolveAliases()->getName));
+
+
+*/		
+
+
+
 	}
 	
 	/**
