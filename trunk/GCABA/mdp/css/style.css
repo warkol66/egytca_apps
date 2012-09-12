@@ -264,3 +264,6 @@ body {
 	z-index:12000;
 }
 
+fieldset fieldset.noMargin {
+	margin-left: 10px !Important;
+}
