@@ -71,9 +71,6 @@ class SecurityDoEditPermissionsAction extends BaseAction {
 			if (array_key_exists('pair',$pairs[$action])) //vemos si la accion tiene definido un pair
 				$pairedAction = lcfirst($pairs[$action]['pair']);
 
-			//TODO FALTA SECCION
-			$section = '';
-
 			$securityAction = new SecurityAction();
 			$securityAction->setAction(lcfirst($action));
 			$securityAction->setModule($module);
@@ -85,10 +82,7 @@ class SecurityDoEditPermissionsAction extends BaseAction {
 			$securityAction->setActive(1);
 			$securityAction->setPair($pairedAction);
 
-			$sql = $securityAction->getSQLInsert();
-
-			if (!empty($sql))
-				$db->query($sql);
+			$securityAction->save();
 
 		}
 
@@ -164,13 +158,7 @@ class SecurityDoEditPermissionsAction extends BaseAction {
 	function execute($mapping, $form, &$request, &$response) {
 
 		BaseAction::execute($mapping, $form, $request, $response);
-		global $PHP_SELF;
-		//////////
-		// Call our business logic from here
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -187,13 +175,19 @@ class SecurityDoEditPermissionsAction extends BaseAction {
 		if (!isset($_POST['permission']) && (!isset($_POST['moduleName'])))
 			return $mapping->findForwardConfig('failure');
 
-		$permission = $_POST['permission'];
-		$permissionAffiliate = $_POST['permissionAffiliate'];
+		//Permisos a nivel modulo
 		$permissionGeneral = $_POST['permissionGeneral'];
+		//No verificacion de login
+		$noCheckLogin = $_POST['noCheckLogin'];
+		//Permisos a nivel acciones y pares
+		$permission = $_POST['permission'];
+		$pair = $_POST['pair'];
+		//Permisos de afiliados
 		$permissionAffiliateGeneral = $_POST['permissionAffiliateGeneral'];
+		$permissionAffiliate = $_POST['permissionAffiliate'];
+		//Permisos de usuariso pro registro
 		$permissionRegistrationGeneral = $_POST['permissionRegistrationGeneral'];
 		$permissionRegistration = $_POST['permissionRegistration'];
-		$noCheckLogin = $_POST['noCheckLogin'];
 
 		foreach (array_keys($noCheckLogin) as $action)
 			if (!array_key_exists($action,$permission))
@@ -208,7 +202,7 @@ class SecurityDoEditPermissionsAction extends BaseAction {
 			die();
 		}
 		$this->updateGeneralPermissionsToOutput($moduleName,$permissionGeneral,$permissionAffiliateGeneral,$permissionRegistrationGeneral,$db);
-		$this->updateActionsPermissionsToOutput($moduleName,$pairs,$permission,$permissionAffiliate,$permissionRegistration,$noCheckLogin,$db);
+		$this->updateActionsPermissionsToOutput($moduleName,$pair,$permission,$permissionAffiliate,$permissionRegistration,$noCheckLogin,$db);
 
 		$params["moduleName"] = $moduleName;
 		$logSufix = ', ' . Common::getTranslation("action: edit permissions","common");

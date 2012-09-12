@@ -287,3 +287,8 @@ body {
 }
 #navBar a:visited, #navBar a:link, #navBar a:active {
 }
+
+
+fieldset fieldset.noMargin {
+	margin-left: 10px !Important;
+}
