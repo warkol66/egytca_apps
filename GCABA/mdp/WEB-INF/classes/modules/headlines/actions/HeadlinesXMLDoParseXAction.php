@@ -46,9 +46,19 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 			}
 			
 			$headlinesFeed = $this->typeMap[$type]['url'];
+			
+			$logEntry = new HeadlineParseLogEntry();
+			$logEntry->setUser(Common::getLoggedUser());
+			$logEntry->setUrl($headlinesFeed);
 
 			$headlineParser = new HeadlineFeedParser($this->typeMap[$type]['class']);
-			$headlines = $headlineParser->debugMode($this->debug)->parse($headlinesFeed);
+			try {
+				$headlines = $headlineParser->debugMode($this->debug)->parse($headlinesFeed);
+				$logEntry->setStatus('success');
+			} catch (Exception $e) {
+				$logEntry->setStatus('failure');
+				$logEntry->setErrormessage($e->getMessage());
+			}
 
 			if ($this->debug) {
 				$notSavedHeadlines = array();
@@ -59,11 +69,14 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 					$h->save();
 					$savedHeadlines []= $h;
 				} catch (Exception $e) {
-					if ($this->debug) {
-						$notSavedHeadlines []= $h;
-					}
+					$notSavedHeadlines []= $h;
 				}
 			}
+			
+			$logEntry->setParsedcount(count($headlines));
+			$logEntry->setAcceptedcount(count($savedHeadlines));
+			$logEntry->setInvalidcount(count($notSavedHeadlines));
+			$logEntry->save();
 
 			/* ********************* debug ******************** */
 			if ($this->debug) {
