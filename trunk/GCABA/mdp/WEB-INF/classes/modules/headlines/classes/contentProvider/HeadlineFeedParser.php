@@ -3,16 +3,20 @@
 class HeadlineFeedParser {
 
 	protected $class;
+	protected $classKey;
 	private $debugging;
 	private $debugInfo;
 
 	public function __construct($class = 'Headline') {
 		$this->class = $class;
+		$this->classKey = constant('HeadlinePeer::CLASSKEY_'.strtoupper($this->class));
+		if (is_null($this->classKey))
+			throw new Exception('classKey for '.$this->class.' doesn\'t exist');
 		$this->debugging = false;
 	}
 
 	function parse($uri) {
-
+		
 		$xmlData = file_get_contents($uri);
 		if (!$xmlData)
 			throw new Exception("no se pudo leer $uri");
@@ -26,11 +30,7 @@ class HeadlineFeedParser {
 		foreach ($parsedData->channel->item as $item) {
 
 			$headline = new HeadlineParsed();
-			$classKey = constant('HeadlinePeer::CLASSKEY_'.strtoupper($this->class));
-			if (!is_null($classKey))
-				$headline->setClassKey($classKey);
-			else
-				throw new Exception('classKey for '.$this->class.' doesn\'t exist');
+			$headline->setClassKey($classKey);
 
 			foreach ($item as $key => $value) {
 				if ($this->addInfoToHeadline($headline, $key, $value)) {
