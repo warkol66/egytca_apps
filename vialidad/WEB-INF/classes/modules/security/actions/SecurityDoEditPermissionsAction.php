@@ -27,6 +27,7 @@ class SecurityDoEditPermissionsAction extends BaseAction {
 	function updateActionsPermissionsToOutput($module,$pairs,$permission,$permissionAffiliate,$permissionRegistration,$noCheckLoginArray,$db) {
 
 		$sql = SecurityActionPeer::getSQLCleanup($module);
+
 		$queries = explode(";",$sql);
 
 		foreach ($queries as $query) {
@@ -46,6 +47,7 @@ class SecurityDoEditPermissionsAction extends BaseAction {
 
 				if ($bitLevel > 0)
 					$bitLevel += 1;	//El supervisor siempre tiene acceso
+
 			}
 
 			if (isset($permissionAffiliate[$action]['all'])) //para ese action todos los permisos
@@ -64,6 +66,7 @@ class SecurityDoEditPermissionsAction extends BaseAction {
 			if ($noCheckLoginArray[$action] == '1')
 				$noCheckLogin = 1;
 
+
 			$pairedAction = "";
 			if (array_key_exists('pair',$pairs[$action])) //vemos si la accion tiene definido un pair
 				$pairedAction = lcfirst($pairs[$action]['pair']);
@@ -79,11 +82,10 @@ class SecurityDoEditPermissionsAction extends BaseAction {
 			$securityAction->setActive(1);
 			$securityAction->setPair($pairedAction);
 
-			$sql = $securityAction->getSQLInsert();
+			$securityAction->save();
 
-			if (!empty($sql))
-				$db->query($sql);
 		}
+
 	}
 
 	/**
@@ -114,7 +116,9 @@ class SecurityDoEditPermissionsAction extends BaseAction {
 
 			foreach ($permissionAffiliate['access'] as $access) {
 				$bitLevelAffiliate += $access;
+
 			}
+
 		}
 
 		$accessRegistrationUser = 0;
@@ -148,6 +152,7 @@ class SecurityDoEditPermissionsAction extends BaseAction {
 			if (!empty($query))
 				$db->query($query);
 		}
+
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
@@ -170,13 +175,19 @@ class SecurityDoEditPermissionsAction extends BaseAction {
 		if (!isset($_POST['permission']) && (!isset($_POST['moduleName'])))
 			return $mapping->findForwardConfig('failure');
 
-		$permission = $_POST['permission'];
-		$permissionAffiliate = $_POST['permissionAffiliate'];
+		//Permisos a nivel modulo
 		$permissionGeneral = $_POST['permissionGeneral'];
+		//No verificacion de login
+		$noCheckLogin = $_POST['noCheckLogin'];
+		//Permisos a nivel acciones y pares
+		$permission = $_POST['permission'];
+		$pair = $_POST['pair'];
+		//Permisos de afiliados
 		$permissionAffiliateGeneral = $_POST['permissionAffiliateGeneral'];
+		$permissionAffiliate = $_POST['permissionAffiliate'];
+		//Permisos de usuariso pro registro
 		$permissionRegistrationGeneral = $_POST['permissionRegistrationGeneral'];
 		$permissionRegistration = $_POST['permissionRegistration'];
-		$noCheckLogin = $_POST['noCheckLogin'];
 
 		foreach (array_keys($noCheckLogin) as $action)
 			if (!array_key_exists($action,$permission))
@@ -191,7 +202,7 @@ class SecurityDoEditPermissionsAction extends BaseAction {
 			die();
 		}
 		$this->updateGeneralPermissionsToOutput($moduleName,$permissionGeneral,$permissionAffiliateGeneral,$permissionRegistrationGeneral,$db);
-		$this->updateActionsPermissionsToOutput($moduleName,$pairs,$permission,$permissionAffiliate,$permissionRegistration,$noCheckLogin,$db);
+		$this->updateActionsPermissionsToOutput($moduleName,$pair,$permission,$permissionAffiliate,$permissionRegistration,$noCheckLogin,$db);
 
 		$params["moduleName"] = $moduleName;
 		$logSufix = ', ' . Common::getTranslation("action: edit permissions","common");

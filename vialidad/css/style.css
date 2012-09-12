@@ -273,3 +273,7 @@
 .wide-chz-select {
 	min-width: 370px;
 }
+
+fieldset fieldset.noMargin {
+	margin-left: 10px !Important;
+}
