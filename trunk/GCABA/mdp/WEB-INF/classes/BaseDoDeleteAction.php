@@ -19,6 +19,9 @@ class BaseDoDeleteAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
+		if (!empty($_POST["filters"]))
+			$filters = $_POST["filters"];
+
 		try {
 			$this->preDelete();
 		} catch (Exception $e) {
@@ -27,7 +30,7 @@ class BaseDoDeleteAction extends BaseAction {
 				throw $e; // Buscar una mejor forma de que falle AJAX
 			} else {
 				$this->smarty->assign('message', $e->getMessage());
-				return $mapping->findForwardConfig('failure');
+				return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'failure');
 			}
 		}
 		
@@ -40,7 +43,7 @@ class BaseDoDeleteAction extends BaseAction {
 					throw new Exception(); // Buscar una mejor forma de que falle AJAX
 				} else {
 					$this->smarty->assign('notValidId', 'true');
-					return $mapping->findForwardConfig('success');
+					return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'success');
 				}
 			}
 			
@@ -49,14 +52,14 @@ class BaseDoDeleteAction extends BaseAction {
 		try {
 			$this->entity->delete();
             $this->postDelete();
-            return $mapping->findForwardConfig('success');
+						return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'success');
 		} catch (Exception $e) {
 			if (ConfigModule::get("global","showPropelExceptions")){
 				print_r($e->__toString());
 			}
 		}
 
-        return $mapping->findForwardConfig('failure');
+		return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'failure');
 
 //		try {
 //			$this->entity->delete();
