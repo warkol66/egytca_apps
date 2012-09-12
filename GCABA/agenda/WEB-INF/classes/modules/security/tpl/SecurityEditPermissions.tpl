@@ -1,6 +1,9 @@
 <h2>Configuración del Sistema</h2>
 <h1>Administracion de Permisos</h1>
 <p>A contuinuación podrá modificar los permisos de acceso a las diferentes funcionalidades del sistema. Para modificar los permisos, debe seleccionar un módulo y marcar los niveles de usuario que pueden acceder a cada acción del sistema.</p>
+<fieldset>
+	<legend>Seleccionar Módulo</legend>
+	<p>Seleccione el módulo que desea administrar, el sistema lo redireccionará atomáticamente.</p>
 <form method="get" style="display:inline;"><p>Seleccione un módulo
 		<input type="hidden" name="do" value="securityEditPermissions" />
 	<select name="moduleName" onchange="this.form.submit();">
@@ -10,6 +13,7 @@
 	|-/foreach-|
 	</select>
 	</p></form>
+</fieldset>
 |-if $message eq "ok"-|
 	<div class="successMessage">Modificación de permisos existosa</div>
 |-elseif $message eq "failure"-|
@@ -18,18 +22,13 @@
  
 |-if $moduleName neq ""-|
   <fieldset>
-	<legend>Configuración de Permisos</legend>
-	<h3>Administracion de Permisos: Módulo |-$moduleName|multilang_get_translation:"common"-|.</h3>
-	<p>Asigne los permisos correspondientes</p> 
+	<legend>Administracion de Permisos: Módulo |-$moduleName|multilang_get_translation:"common"-|</legend>
+	<p>Asigne los permisos correspondientes y haga click en "Guardar Permisos" para guardar los cambios.</p> 
 	<form method="post">
-		<p><input type="submit" value="Guardar Permisos" /></p>
-		<h4>Permisos Generales del Módulo</h4>
-		<p>El permiso general del módulo maneja el acceso a las acciones del mismo, siempre que no tengan permisos definidos en forma individual en la parte inferior.</p>
-	<input type="hidden" name="moduleName" value="|-$moduleName-|" />
+		<input type="hidden" name="do" value="securityDoEditPermissions" />
+		<input type="hidden" name="moduleName" value="|-$moduleName-|" />
 |-include file="SecurityEditPermissionsFormInclude.tpl"-|
 <p>&nbsp;</p>
-<p><input type="hidden" name="do" value="securityDoEditPermissions" />
-	<input type="submit" value="Guardar Permisos" />	</p>
 </form>
 </fieldset>
 |-/if-|
