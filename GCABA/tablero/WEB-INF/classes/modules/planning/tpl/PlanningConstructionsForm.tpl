@@ -127,14 +127,14 @@ $("#autocomplete_responsibleCode").ajaxChosen({
       <input name="params[surface]" type="text" id="params_surface" size="20" value="|-$planningConstruction->getSurface()|system_numeric_format-|" title="Superficie" maxlength="20" class="emptyValidation right" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
     </p>
 	<p>
-        <label for="params_priority">Prioridad?</label>
-      <input name="params[priority]" type="checkbox" id="params_priority" |-$planningConstruction->getPriority()|checked_bool-|  value="|-$planningConstruction->getPriority()-|" title="Prioridad" |-$readonly|readonly-|/>
+        <label for="params_priority">¿Prioridad?</label>
       <input name="params[priority]" type="hidden" value="0"/>
+      <input name="params[priority]" type="checkbox" id="params_priority" |-$planningConstruction->getPriority()|checked_bool-|  value="1" title="Prioridad" |-$readonly|readonly-|/>
     </p>
 	<p>
-        <label for="params_communicable">Comunicable?</label>
-      <input name="params[communicable]" type="checkbox" id="params_communicable" |-$planningConstruction->getCommunicable()|checked_bool-|  value="|-$planningConstruction->getCommunicable()-|" title="Comunicable" |-$readonly|readonly-|/>
+        <label for="params_communicable">¿Comunicable?</label>
       <input name="params[communicable]" type="hidden" value="0"/>
+      <input name="params[communicable]" type="checkbox" id="params_communicable" |-$planningConstruction->getCommunicable()|checked_bool-|  value="1" title="Comunicable" |-$readonly|readonly-|/>
     </p>
 	<p>
         <label for="params_amount">Presupuesto Total de la Obra</label>

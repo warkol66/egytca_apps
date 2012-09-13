@@ -94,7 +94,7 @@ html =   '      <tr> '
             <td><input name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="|-$activity->getEndingDate()|date_format-|" size="12" title="Fecha de finalización en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation"></td>
             <td align="center"><input name="activity[][acomplished]" type="hidden" value="0"><input name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1" |-$activity->getAcomplished()|checked_bool-| title="Indique si se completó la actividad" |-$readonly|readonly-|>
         </td>
-         		|-if !$show && !$showLog-|<td>|-if !isset($construction) || (isset($construction) && !$construction->getConstructionType() eq 2)-|<input name="activity[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar" value="Eliminar" onClick="removeActivity('|-$activity->getId()-|')" />|-else-|<img src="images/clear.png" class="disabled icon iconClear" />|-/if-|</td>|-/if-| 
+         		|-if !$show && !$showLog-|<td><input name="activity[][eol]" type="hidden" value="1">|-if !isset($construction) || (isset($construction) && !$construction->getConstructionType() eq 2)-|<input type="button" class="icon iconDelete" title="Eliminar" value="Eliminar" onClick="removeActivity('|-$activity->getId()-|')" />|-else-|<img src="images/clear.png" class="disabled icon iconClear" />|-/if-|</td>|-/if-| 
        </tr> 
       |-/foreach-|
 			|-*else*-|
