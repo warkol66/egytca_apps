@@ -145,11 +145,11 @@ $(document).ready(function() {
 			<div id="textFilters">|-if $filters|@count ne 0-|
 				<a href="javascript:void(null)" class="butResultsFilter" onClick="$('.boxNav1').toggle()">Resultados filtrados</a>|-/if-|
 				<a href="javascript:void(null)" class="butShowHideFilter" onclick="$('.boxNav1').toggle()">Ver/Ocultar filtros</a>
-				|-if $filters|@count ne 0-||-block name="removefiltersLink"-|<a href="Main.php?do=calendarPendingShow" class="butDeleteFilter">Quitar Filtros</a>|-/block-||-/if-|
+				|-if $filters|@count ne 0-||-block name="removefiltersLink"-|<a href="Main.php?do=calendarToBeConfirmedShow" class="butDeleteFilter">Quitar Filtros</a>|-/block-||-/if-|
 			</div>
 			<div class="boxNav1" style="display:|-if $filters|@count eq 0-|block|-else-|none|-/if-|"><!-- boxNav1 -->
 				<form action='Main.php' method='get' style="display:inline;" name="filters">
-					<input id="input_do" type="hidden" name="do" value="calendarPendingShow" />
+					<input id="input_do" type="hidden" name="do" value="calendarToBeConfirmedShow" />
 		<ul>
 			<!-- <li class="botSmall"><a href="#" class="menuIcon_01"></a></li>
 			<li class="botSmall"><a href="#" class="menuIcon_02"></a></li>
@@ -192,7 +192,7 @@ $(document).ready(function() {
 			
 			
 			<li><a href="javascript:document.filters.submit();" alt="Buscar" class="botFiltrar"> </a></li>
-			|-block name="removefiltersButton"-|<li> <a href="Main.php?do=calendarPendingShow" alt="Quitar filtros" class="botResetFiltros"> </a></li>|-/block-| |-* quitarFiltros *-|
+			|-block name="removefiltersButton"-|<li> <a href="Main.php?do=calendarToBeConfirmedShow" alt="Quitar filtros" class="botResetFiltros"> </a></li>|-/block-| |-* quitarFiltros *-|
 		</ul>
 	</form>                                                           
 	</div><!-- /boxNav1 -->
