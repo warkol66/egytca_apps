@@ -38,6 +38,7 @@ class CalendarShowAction extends BaseAction {
 		$smarty->assign('holydayEvents', BaseQuery::create('CalendarHolidayEvent')->addFilters($filters)->filterByStartDate($holidayDateFilter)->find());
 		$smarty->assign('contextEvents', BaseQuery::create('CalendarContextEvent')->addFilters($filters)->filterByStartDate($contextEventDateFilter)->find());
 		$smarty->assign('pendingEvents', BaseQuery::create('CalendarEvent')->addFilters($filters)->filterBySchedulestatus('3', Criteria::EQUAL)->find());
+		$smarty->assign('toBeConfirmedEvents', BaseQuery::create('CalendarEvent')->addFilters($filters)->filterBySchedulestatus('2', Criteria::EQUAL)->find());
 
 		$moduleConfig = Common::getModuleConfiguration($module);
 		$smarty->assign("moduleConfig",$moduleConfig);
