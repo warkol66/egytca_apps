@@ -7,10 +7,16 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 	protected $debug;
 	
 	private $typeMap;
+	private $maxAllowedTimeStrings;
 	
 	function HeadlinesXMLDoParseXAction() {
 		$this->debug = false;
 		$this->typeMap = ConfigModule::get('headlines', 'typeMap');
+		$this->maxAllowedTimeStrings = array(
+			'web' => 'now -30 minutes',
+			'multimedia' => 'now -30 minutes',
+			'press' => 'now -30 minutes'
+		);
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
@@ -45,9 +51,29 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 				return $this->returnAjaxFailure("$type is not a valid type");
 			}
 			
+			$lastParsedEntry = HeadlineParseLogEntryQuery::create()
+				->filterByHeadlinetype($type)
+				->orderByCreatedAt(Criteria::DESC)
+				->findOne();
+			
+			if (!is_null($lastParsedEntry)) {
+				$lastParsedTime = strtotime($lastParsedEntry->getCreatedAt());
+				$maxAllowedTimeString = $this->maxAllowedTimeStrings[$type];
+				$maxAllowedTime = strtotime($maxAllowedTimeString);
+				if ($lastParsedTime > $maxAllowedTime) {
+					// se parseo hace muy poco -> impedir
+					$smarty->assign('parseErrors', array(
+						array('strategy' => 'feed', 'message' => 'El feed se parseo hace poco. Espere para volver a parsear')
+					));
+					$smarty->display('HeadlinesParsedListInclude.tpl');
+					return;
+				}
+			}
+			
 			$headlinesFeed = $this->typeMap[$type]['url'];
 			
 			$logEntry = new HeadlineParseLogEntry();
+			$logEntry->setHeadlinetype($type);
 			$logEntry->setUser(Common::getLoggedUser());
 			$logEntry->setUrl($headlinesFeed);
 
