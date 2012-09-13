@@ -1,7 +1,7 @@
 <link rel='stylesheet' type='text/css' href='scripts/fullcalendar/fullcalendar.css' />
 <script type="text/javascript" src="scripts/jquery/jquery-ui-1.8.19.custom.min.js"></script>
 <script type='text/javascript' src='scripts/fullcalendar/fullcalendar.min.js'></script>
-<script type='text/javascript' src='scripts/jquery/egytca.fullcalendar.js'></script>
+<script type='text/javascript' src='scripts/jquery/egytca.fullcalendar2.js'></script>
 <link rel="stylesheet" href="scripts/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
 <script type='text/javascript' src='scripts/fancybox/jquery.fancybox-1.3.4.pack.js'></script>
 <script type="text/javascript" src="scripts/fancybox/jquery.easing-1.3.pack.js"></script>
