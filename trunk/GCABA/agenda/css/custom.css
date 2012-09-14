@@ -592,3 +592,22 @@ input[type="checkbox"] {
 	padding: 0px !Important;
 	margin: 0px !Important;
 }
+
+.largeTab_cdd4de, .largeTab_f5ffa9  {
+	background-repeat: no-repeat; 
+	height: 28px;	
+}
+.largeTab_cdd4de {
+	background-image: url(../images/largeTab_cdd4de.png);
+}
+.largeTab_f5ffa9 {
+	background-image: url(../images/largeTab_f5ffa9.png);
+}
+
+#pendientesTitle, #toBeConfirmedTitle {
+	padding-top: 5px;
+	font-size: 1.4em;
+	font-weight: bolder;
+	text-align: center;
+	width: 300px;
+}

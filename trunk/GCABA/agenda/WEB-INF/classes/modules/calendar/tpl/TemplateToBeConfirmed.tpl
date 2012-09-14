@@ -23,13 +23,6 @@
 <script language="JavaScript" type="text/JavaScript">
 	var url="|-$systemUrl-|";
 </script>
-<style type="text/css">
-<!--
-.unnamed1 {
-}
--->
-</style>
-
 |-block name=jsIncludes-|
 	|-include file='TemplateJsIncludes.jquery.tpl'-|
 |-/block-|
@@ -118,6 +111,10 @@ $(document).ready(function() {
 	width: 1280px !Important;
 	height: 700px !Important;
 	overflow: auto !Important;
+}
+.pendientesContent {
+	margin-top: 0 !Important;
+	background-color: #cdd4de;
 }
 -->
 </style>
@@ -226,7 +223,7 @@ $(document).ready(function() {
 	   <div id="subColumns">
       <div class="clear"></div>
   
-	<div class="pendientesContainer" id="paragraphs">
+	<div class="pendientesContainer" id="paragraphs"><div class="largeTab_cdd4de"><div id="pendientesTitle">Administrar eventos a confirmar</div></div>
 		  <div class="pendientesContent" id="pendientesContentPending">
 				  <ul>
 			    </ul>                                                                                        
