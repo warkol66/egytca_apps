@@ -57,3 +57,6 @@ table tr {
 .tableTdBorders thead tr:last-child th:last-child {
 	border-right: 3px #cdcdcd double;
 }
+.expandLink, .collapseLink {
+	background-image: none !Important;
+}
