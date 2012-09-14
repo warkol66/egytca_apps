@@ -9,7 +9,15 @@
 <script type="text/javascript" src="scripts/jquery/jquery.ui.timepicker-es.js"></script>
 <script type="text/javascript" src="scripts/jquery/jquery-ui-sliderAccess.js"></script>
 <script type="text/javascript" src="scripts/jquery/jquery.ui.touch-punch.min.js"></script>
+<link rel="stylesheet" href="scripts/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
+<script type='text/javascript' src='scripts/fancybox/jquery.fancybox-1.3.4.pack.js'></script>
+<script type="text/javascript" src="scripts/fancybox/jquery.easing-1.3.pack.js"></script>
+<script type="text/javascript" src="scripts/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+<script type="text/javascript" src="scripts/jquery/jquery.jeditable.mini.js"></script>
 <script type="text/javascript">
+	
+	var galleryOptions; 
+	
 	$(document).ready(function() {
 		
 		$(".chzn-select").chosen();
@@ -19,6 +27,41 @@
 		$('#calendarEvent_number').change(updateLocateButton);
 		$('#calendarEvent_latitude').change(updateLocateButton);
 		$('#calendarEvent_longitude').change(updateLocateButton);
+		
+		galleryOptions = {
+			titleShow: true,
+			titlePosition: 'inside',
+			titleFormat: function(title, currentArray, currentIndex, currentOpts) {
+				var a = currentArray[currentIndex];
+				var photoDiv = $('<div></div>');
+				$('<p><span id="title" class="jeditable_'+$(a).attr('photoId')+'">'+$(a).attr('photoTitle')+'</span></p>').appendTo(photoDiv);
+				$('<p><span id="description" class="jeditable_'+$(a).attr('photoId')+'">'+$(a).attr('photoDescription')+'</span></p>').appendTo(photoDiv);
+				return photoDiv;
+			},
+			onComplete: function(currentArray, currentIndex) {
+				var a = currentArray[currentIndex];
+				$('.jeditable_'+$(a).attr('photoId')).editable('Main.php?do=resourcesDoEditParam', {
+					id: 'paramName',
+					name: 'paramValue',
+					submitdata: { id: $(a).attr('photoId') },
+					submit: 'OK',
+					cancel: 'Cancel',
+					indicator : 'Saving...',
+					callback: function(value, settings) {
+						$(a).attr('photo'+$(this).attr('id'), value);
+					}
+				});
+			}
+		}
+		
+		$('a.galleryPhoto').fancybox(galleryOptions);
+		|-if !$calendarEvent->isNew()-|
+			$('a#photoAdd').fancybox({
+				onComplete: function() {
+					swfuInit();
+				}
+			});
+		|-/if-|
 	});
 	
 	function updateLocateButton() {
@@ -50,6 +93,37 @@
 		$('#calendarEvent_startDate').datetimepicker();
 		$('#calendarEvent_endDate').datetimepicker();
 	}
+	
+	eventPhotoUploadSuccess = function (file, serverData) {
+		try {
+			var parsedData = JSON.parse(serverData);
+			var progress = new FileProgress(file, this.customSettings.progressTarget);
+
+			if (parsedData.error == 1) {
+				progress.setError();
+				progress.setStatus(parsedData.message);
+			} else {
+				progress.setComplete();
+				progress.setStatus('Complete.');
+				var data = JSON.parse(parsedData.data);
+				var photo = JSON.parse(data.photo);
+				$.ajax({
+					url: 'Main.php?do=calendarEventsLoadGalleryPhotoX',
+					type: 'post',
+					data: { photoId: photo.Id },
+					success: function(data) {
+						$(data).appendTo($('#photos'));
+						$('a.galleryPhoto').fancybox(galleryOptions);
+					}
+				});
+			}
+
+			progress.toggleCancel(false);
+
+		} catch (ex) {
+			this.debug(ex);
+		}
+	}
 </script>
 <h2>Administración de Eventos</h2>
 <h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Evento</h1>
@@ -61,6 +135,12 @@
 			<p>Ingrese los datos del evento</p>
 			<fieldset title="Formulario de edición de datos de un evento">
 			<legend>Formulario de Calendario de Eventos</legend>
+				|-if !$calendarEvent->isNew()-|
+				<p>
+					<a href="#" onclick="$('a.galleryPhoto').first().click();">Ver fotos</a>
+					<a id="photoAdd" href="#uploader">Agregar foto</a>
+				</p>
+				|-/if-|
 				<p>
 					<label for="calendarEvent_title">Título</label>
 					<input name="calendarEvent[title]" type="text" id="calendarEvent_title" title="title" value="|-$calendarEvent->getTitle()|escape-|" class="emptyValidation" size="60" maxlength="255" |-js_char_counter object=$calendarEvent columnName="title" fieldName="calendarEvent_title" idRemaining="remaining" sizeRemaining="3" classRemaining="charCount" counterTitle="Cantidad de caracteres restantes" showHide=1 useSpan=0-||-$Counter.pre-| /> |-$Counter.pos-| |-validation_msg_box idField="calendarEvent_title"-|
@@ -262,11 +342,27 @@ $(function () {
 			</fieldset>
 		</form>
 	</div>
-|-if $calendarEventsConfig.useImages.value eq "YES" || $calendarEventsConfig.useAudio.value eq "YES" || $calendarEventsConfig.useVideo.value eq "YES"-|
+|-*|-if $calendarEventsConfig.useImages.value eq "YES" || $calendarEventsConfig.useAudio.value eq "YES" || $calendarEventsConfig.useVideo.value eq "YES"-|
 	<div id="mediasListHolder">
 		|-include file='CalendarMediasListInclude.tpl'-|
 	</div>
 	|-if !$calendarEvent->isNew()-|
 		|-include file='CalendarMediasAddInclude.tpl' calendarEvent=$calendarEvent-|
 	|-/if-|
-	|-/if-|
+	|-/if-|*-|
+
+|-if !$calendarEvent->isNew()-|
+<div id="photos" style="display:none">
+|-foreach $photos as $photo-|
+	|-include file="ConstructionsInspectionsGalleryPhotoInclude.tpl" photo=$photo-|
+|-/foreach-|
+</div>
+<div style="display:none"><div id="uploader">
+	|-include
+		file="SWFUploadInclude.tpl"
+		url="Main.php?do=calendarEventsDoUploadPhoto&eventId="|cat:$calendarEvent->getId()
+		preventInit=true
+		uploadSuccessHandler="eventPhotoUploadSuccess"
+	-|
+</div></div>
+|-/if-|
