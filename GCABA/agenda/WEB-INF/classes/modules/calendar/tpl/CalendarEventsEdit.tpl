@@ -135,12 +135,6 @@
 			<p>Ingrese los datos del evento</p>
 			<fieldset title="Formulario de edición de datos de un evento">
 			<legend>Formulario de Calendario de Eventos</legend>
-				|-if !$calendarEvent->isNew()-|
-				<p>
-					<a href="#" onclick="$('a.galleryPhoto').first().click();">Ver fotos</a>
-					<a id="photoAdd" href="#uploader">Agregar foto</a>
-				</p>
-				|-/if-|
 				<p>
 					<label for="calendarEvent_title">Título</label>
 					<input name="calendarEvent[title]" type="text" id="calendarEvent_title" title="title" value="|-$calendarEvent->getTitle()|escape-|" class="emptyValidation" size="60" maxlength="255" |-js_char_counter object=$calendarEvent columnName="title" fieldName="calendarEvent_title" idRemaining="remaining" sizeRemaining="3" classRemaining="charCount" counterTitle="Cantidad de caracteres restantes" showHide=1 useSpan=0-||-$Counter.pre-| /> |-$Counter.pos-| |-validation_msg_box idField="calendarEvent_title"-|
@@ -330,7 +324,11 @@ $(function () {
 					</select>
 				</p>-->
 				<p>
-					|-if !$calendarEvent->isNew()-|
+				|-if !$calendarEvent->isNew()-|
+				<p><label for="photoAdd">Imágenes</label><span class="floatLeft marginTop" style="margin-top: 4px; "> &nbsp;Agregar foto&nbsp; </span><a id="photoAdd" href="#uploader" class="icon iconUpload inline floatLeft">Agregar foto</a> &nbsp; &nbsp; &nbsp;
+					<span class="floatLeft" style="margin-top: 4px; "> &nbsp; Ver fotos &nbsp; </span><a href="#" onclick="$('a.galleryPhoto').first().click();" class="icon iconPhoto inline floatLeft">Ver fotos</a>
+				</p>
+				<p>&nbsp;</p>
 					<input type="hidden" name="id" id="calendarEvent_id" value="|-$calendarEvent->getid()-|" />
 					|-/if-|
 					<!--pasaje de parametros de filtros -->

@@ -267,3 +267,25 @@ body {
 fieldset fieldset.noMargin {
 	margin-left: 10px !Important;
 }
+
+.inline {
+	display: inline !Important;
+}
+.bock {
+	display: block !Important;
+}
+.floatLeft {
+	float: left !Important;
+}
+.floatRight {
+	float: rigth !Important;
+}
+.baseline {
+	vertical-align: baseline !Important;
+}
+.textBottom {
+	vertical-align: text-bottom !Important;
+}
+.bottom {
+	vertical-align: bottom !Important;
+}

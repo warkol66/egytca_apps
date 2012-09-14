@@ -25,10 +25,13 @@ class CalendarEventsEditAction extends BaseAction {
 		$calendarEventsConfig = $moduleConfig["calendarEvents"];
 		$smarty->assign("calendarEventsConfig",$calendarEventsConfig);
 		
-		if ( !empty($_GET["id"]) ) {
+		if (!empty($_GET["id"])) {
 			//voy a editar un evento
 			$calendarEvent = CalendarEventQuery::create()->findOneById($_GET["id"]);
-			$smarty->assign("calendarEvent",$calendarEvent);
+			if (!empty($calendarEvent)) {
+				$smarty->assign("calendarEvent",$calendarEvent);
+				$smarty->assign('photos', $calendarEvent->getResources());
+			}
 		}
 		else {
 			//voy a crear un calendarevent nuevo
@@ -61,7 +64,6 @@ class CalendarEventsEditAction extends BaseAction {
 			$smarty->assign('filters',$_GET['filters']);
 		}
 		
-		$smarty->assign('photos', $calendarEvent->getResources());
 		$smarty->assign("phpSessId", session_id()); // para el SWFUpload
 		
 		//Elijo la vista basado en si es o no un pedido por AJAX
