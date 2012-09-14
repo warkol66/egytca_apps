@@ -1,10 +1,12 @@
 |-if !empty($loginUser)-|
 	<ul>
-		<li class="menuLink"><a href="Main.php?do=usersWelcome">Ir al Inicio</a></li>
-		<li class="menuLink"><a href="Main.php?do=calendarShow" target="_blank">Ver Agenda</a></li>
+		<li><a href="Main.php?do=usersWelcome">Ir al Inicio</a></li>
+		<li><a href="Main.php?do=calendarShow" target="_blank">Ver Agenda</a></li>
 		<li class="titleMenu" onclick="switch_vis('sectionAgenda')">Agenda</li>
 		<div id="sectionAgenda" style="display:|-if $module|upper eq "CALENDAR"-|block|-else-|none|-/if-|">
 			<li><a href="Main.php?do=calendarEventsList">Administrar Agenda</a></li>
+			<li><a href="Main.php?do=calendarPendingShow" target="_blank">Pendientes</a></li>
+			<li><a href="Main.php?do=calendarToBeConfirmedShow" target="_blank">A confirmar</a></li>
 			<li><a href="Main.php?do=calendarContextEventsList">Administrar Contexto</a></li>
 			<li><a href="Main.php?do=calendarHolidayEventsList">Administrar Feriados</a></li>
 			<li><a href="Main.php?do=calendarRegularEventList">Administrar Efemérides</a></li>
