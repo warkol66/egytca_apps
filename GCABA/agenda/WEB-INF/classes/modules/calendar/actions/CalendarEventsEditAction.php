@@ -61,6 +61,9 @@ class CalendarEventsEditAction extends BaseAction {
 			$smarty->assign('filters',$_GET['filters']);
 		}
 		
+		$smarty->assign('photos', $calendarEvent->getResources());
+		$smarty->assign("phpSessId", session_id()); // para el SWFUpload
+		
 		//Elijo la vista basado en si es o no un pedido por AJAX
 		if ($this->isAjax()) {
 			$smarty->display('CalendarEventsEditX.tpl');

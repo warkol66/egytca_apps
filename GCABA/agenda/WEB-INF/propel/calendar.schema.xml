@@ -214,5 +214,25 @@
 		</vendor>
 
 	</table>
+	
+	<table name="calendar_eventPhoto" phpName="CalendarEventPhoto" description="Relacion de eventos y fotos" isCrossRef="true">
+
+		<column name="calendarEventId" required="true" primaryKey="true" type="INTEGER" description="CalendarEvent ID"/>
+		<column name="photoId" required="true" primaryKey="true" type="INTEGER" description="Photo ID"/>
+
+		<foreign-key foreignTable="calendar_event" onDelete="CASCADE" >
+			<reference local="calendarEventId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="resources_resource" onDelete="CASCADE" >
+			<reference local="photoId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
 
 </database>

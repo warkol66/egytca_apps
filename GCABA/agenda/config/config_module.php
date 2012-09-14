@@ -53,7 +53,8 @@ class ConfigModule {
 			)
 		),
 		"calendar" => array(
-			"useHTML"  => false
+			"useHTML"  => false,
+			"eventPhotosDir" => 'images/calendarEvent'
 		),
 		"constructions" => array(
 			"inspectionPhotosDir" => 'images/constructionInspection'
