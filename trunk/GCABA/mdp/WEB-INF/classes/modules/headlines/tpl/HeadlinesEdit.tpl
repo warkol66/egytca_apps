@@ -135,7 +135,7 @@
 			<div id="pressHeadline" style="display:|-if $headline->getClassKey() eq 2-|block|-else-|none|-/if-|">
 			<p>     
 				<label for="params_picture_press">Foto</label>
-				<select id="params_picture_press" name="params[picture]" title="Indique si incluye foto">
+				<select id="params_picture_press" name="params[picture]" |-if $headline->getClassKey() neq 2-|disable="disable"|-/if-| title="Indique si incluye foto">
 					<option value="0" |-$headline->getPicture()|selected:0-|>No</option>
 					<option value="1" |-$headline->getPicture()|selected:1-|>Sí</option>
 				</select>
@@ -167,7 +167,7 @@
 
 			<div id="webHeadline" style="display:|-if $headline->getClassKey() eq 4-|block|-else-|none|-/if-|"><p>     
 				<label for="params_picture_web">Foto</label>
-				<select id="params_picture_web" name="params[picture]" title="Indique si incluye foto">
+				<select id="params_picture_web" name="params[picture]" |-if $headline->getClassKey() neq 4-|disabled="disabled"|-/if-| title="Indique si incluye foto">
 					<option value="0" |-$headline->getPicture()|selected:0-|>No</option>
 					<option value="1" |-$headline->getPicture()|selected:1-|>Sí</option>
 				</select>
@@ -206,8 +206,8 @@
 				<span class="radioOption"> Muy relevante <input name="params[relevance]" type="radio" value="1" |-$headline->getRelevance()|checked:1-|/></span>
 				<span class="radioOption"> Relevante <input name="params[relevance]" type="radio" value="2" |-$headline->getRelevance()|checked:2-|/></span>
 				<span class="radioOption"> Mediamente relevante <input name="params[relevance]" type="radio" value="3" |-$headline->getRelevance()|checked:3-|/></span>
-				<span class="radioOption"> Poco relevante <input name="params[relevance]" type="radio" value="4" |-$headline->getRelevance()|checked:3-|/></span>
-				<span class="radioOption"> Muy poco relevante <input name="params[relevance]" type="radio" value="5" |-$headline->getRelevance()|checked:4-|/></span>
+				<span class="radioOption"> Poco relevante <input name="params[relevance]" type="radio" value="4" |-$headline->getRelevance()|checked:4-|/></span>
+				<span class="radioOption"> Muy poco relevante <input name="params[relevance]" type="radio" value="5" |-$headline->getRelevance()|checked:5-|/></span>
 				</div>
 			</p>
 	<p>
