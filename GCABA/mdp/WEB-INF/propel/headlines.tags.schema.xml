@@ -3,7 +3,7 @@
 	<table name="headlines_tag" phpName="HeadlineTag" description="Etiquetas de titulares">
 
 		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Tag Id" autoIncrement="true"/>
-		<column name="name" required="true"  type="VARCHAR" size="120" description="Headline" primaryString="true" />
+		<column name="name" required="true"  type="VARCHAR" size="120" description="Etiquetas de Headline" primaryString="true" />
 
 		<behavior name="timestampable" />
 
@@ -18,7 +18,7 @@
 
 	</table>
 
-	<table name="headlines_headlinTags" phpName="HeadlineTagRelation" isCrossRef="true" description="Headlines / Etiquetas">
+	<table name="headlines_headlineTags" phpName="HeadlineTagRelation" isCrossRef="true" description="Headlines / Etiquetas">
 
 		<column name="headlineId" required="true" primaryKey="true" type="INTEGER"  description="Headline ID"/>
 		<column name="tagId" required="true" primaryKey="true" type="INTEGER"  description="Etiqueta ID"/>

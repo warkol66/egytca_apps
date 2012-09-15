@@ -28,8 +28,8 @@
 
 				<li><a href="Main.php?do=mediasList">Medios</a></li>
 				<li><a href="Main.php?do=mediasTypeList">Tipo de medios</a></li>
+				<li><a href="Main.php?do=headlinesTagsList">Etiquetas</a></li>
 				<li class="last"><a href="Main.php?do=mediasAudienceList">Audiencias</a></li>
-<!--				<li><a href="Main.php?do=mediasMarketList">Mercados</a></li> -->
 			</ul>
 			</li>
 		</li>

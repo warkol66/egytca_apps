@@ -15,4 +15,14 @@
  */
 class HeadlineTagQuery extends BaseHeadlineTagQuery
 {
+
+	/**
+	 * Agrega parametro de busqueda para el BaseQuery
+	 *
+	 * @return query
+	 */
+	public function searchString($searchString) {
+		return $this->where("HeadlineTag.Name LIKE ?", "%$searchString%");
+	}
+
 }
