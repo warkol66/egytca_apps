@@ -17,6 +17,8 @@ class HeadlinesParsedListAction extends BaseListAction {
 	protected function preList() {
 		parent::preList();
 
+		$this->module = "Headlines";
+
 		//Obtencion de filtros
 		if (!empty($_GET["page"])) {
 			$page = $_GET["page"];
@@ -37,6 +39,12 @@ class HeadlinesParsedListAction extends BaseListAction {
 				'entityId' => $_GET['filters']['mediaId']
 			))));
 
+		if (!empty($_GET['filters']['campaignId']))
+			$filters = array_merge_recursive($filters, array('Campaign' => array('entityFilter' => array(
+				'entityType' => "Campaign",
+				'entityId' => $_GET['filters']['campaignId']
+			))));
+
 		if (isset($fromDate) || isset($toDate))
 			$filters['rangePublished'] = array('range' => Common::getPeriodArray($fromDate,$toDate));
 		
@@ -45,45 +53,31 @@ class HeadlinesParsedListAction extends BaseListAction {
 		else
 			$perPage = $filters["perPage"];
 
-		//Reviso si se solicito desde campaing		
-		$campaignId = $_GET['campaignId'];
-		//$campaignId = $request->getParameter('campaignId');
+		$this->perPage = $perPage;
+
+		//Reviso si se solicito desde campaing valida
+		$campaignId = $_GET['filters']['campaignId'];
 		$campaign = CampaignQuery::create()->findOneById($campaignId);
+
 		if ($campaign) {
-			$params["campaignId"] = $campaignId;
-			$headlinesParsedQuery = HeadlineParsedQuery::create()
-					->filterByCampaign($campaign)
-					->orderByStatus();
-			if (empty($filters['discarded']))
-				$headlinesParsedQuery->filterByStatus(array('max' => HeadlineParsed::STATUS_PROCESSING));
-			$headlinesParsed = $headlinesParsedQuery->find();
-
-			$this->smarty->assign('campaign', $campaign);
-			$this->smarty->assign('campaignId', $campaignId);
-			$this->smarty->assign('headlinesParsed', $headlinesParsed);
-
 			$contentProviders = ConfigModule::get("headlines","contentProvider");
 			$parseStategies = $contentProviders["strategies_options"];
 			$this->smarty->assign('parseStategies', $parseStategies);
-
-			$params["campaignId"] = $campaignId;
-			$params["status"] = array('max' => HeadlineParsed::STATUS_PROCESSING);
 		}
 		else {
-
-			$this->perPage = $perPage;
-//			$filters["status"] = array('max' => HeadlineParsed::STATUS_PROCESSING);
-			if (!empty($filters['discarded']))
-				$this->query->filterByStatus(HeadlineParsed::STATUS_DISCARDED);
-			else
-				$this->query->filterByStatus(array('max' => HeadlineParsed::STATUS_PROCESSING));
-//			$filters["status"] = HeadlineParsed::STATUS_IDLE;
-
-			$this->filters = $filters;
-			$this->smarty->assign('campaign', new Campaign());
+			unset($filters['Campaign']);
+			$campaign = new Campaign();
 		}
 
-		$this->module = "Headlines";
+		$this->smarty->assign('campaign', $campaign);
+		if (!empty($filters['discarded']))
+			$this->query->filterByStatus(HeadlineParsed::STATUS_DISCARDED);
+		else
+			$this->query->filterByStatus(array('max' => HeadlineParsed::STATUS_PROCESSING));
+
+		$this->filters = $filters;
+		$this->smarty->assign('tags', HeadlineTagQuery::create()->select('Name')->find()->toArray());
+
 	}
 
 	protected function postList() {

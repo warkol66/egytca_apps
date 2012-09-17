@@ -164,7 +164,7 @@ Mercados y Audiencias
 	|-if $configModule->get('medias','useMarkets')-|<p>
 	<form method="post" id="form_markets">
 		<label for="markets">Mercados</label>
-		<select class="chzn-select markets-chz-select" data-placeholder="Seleccione uno o varios mercados..." id="marketsIds" name="marketsIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=mediasUpdateMarketsX')" >
+		<select class="chzn-select wide-chz-select" data-placeholder="Seleccione uno o varios mercados..." id="marketsIds" name="marketsIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=mediasUpdateMarketsX')" >
 			|-foreach from=$mediaMarkets item=mediaMarket name=for_mediaMarket-|
         		<option value="|-$mediaMarket->getId()-|" |-if $media->hasMediaMarket($mediaMarket)-|selected="selected"|-/if-| >|-$mediaMarket->getName()-|</option>
 			|-/foreach-|
@@ -174,7 +174,7 @@ Mercados y Audiencias
 |-if $configModule->get('medias','useAudiences')-|	<p>
 	<form method="post" id="form_audiences">
 		<label for="audiences">Audiencias</label>
-		<select class="chzn-select markets-chz-select" data-placeholder="Seleccione una o varias audiencias..." id="audiencesIds" name="audiencesIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=mediasUpdateAudiencesX')" >
+		<select class="chzn-select wide-chz-select" data-placeholder="Seleccione una o varias audiencias..." id="audiencesIds" name="audiencesIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=mediasUpdateAudiencesX')" >
 			|-foreach from=$mediaAudiences item=mediaAudience name=for_mediaAudience-|
         		<option value="|-$mediaAudience->getId()-|" |-if $media->hasMediaAudience($mediaAudience)-|selected="selected"|-/if-| >|-$mediaAudience->getName()-|</option>
 			|-/foreach-|
@@ -189,7 +189,7 @@ Mercados y Audiencias
 	<form method="post" id="form_alias">
 		<div style="position: relative;z-index:9500;">
 			<label for="aliasIds">Alias</label>
-			<select class="chzn-select markets-chz-select" data-placeholder="Seleccione uno o varios alias..." id="aliasIds" name="aliasIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=mediasUpdateAliasX');" >
+			<select class="chzn-select wide-chz-select" data-placeholder="Seleccione uno o varios alias..." id="aliasIds" name="aliasIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=mediasUpdateAliasX');" >
 				|-foreach from=$allAlias item=alias-|
 				<option value="|-$alias->getId()-|" selected="selected">|-$alias->getName()-|</option>
 				|-/foreach-|
