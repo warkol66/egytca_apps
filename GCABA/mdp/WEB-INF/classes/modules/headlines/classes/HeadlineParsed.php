@@ -69,7 +69,7 @@ class HeadlineParsed extends BaseHeadlineParsed {
 				$newAttachment->setLength($attachment->getLength());
 				$newAttachment->setType($attachment->getType());
 
-				$downloader->putInQueue($attachment->getUrl(), $newAttachmentFullname);
+				$downloader->putInQueue($attachment->getUrl(), $newAttachmentFullname, $attachment->getType(), $attachment->getId());
 				
 				$newHeadline->addHeadlineAttachment($newAttachment);
 				$newHeadline->save();

@@ -127,5 +127,9 @@
 	</clippings>
 	<headlines>
 		<maxParsedResults>10</maxParsedResults>
+		<clippingSize>
+			<width>800</width>
+			<height>600</height>
+		</clippingSize>
 	</headlines>
 </config>

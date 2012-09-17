@@ -30,6 +30,13 @@ class HeadlineAttachment extends BaseHeadlineAttachment {
 		shell_exec($command);
 		if (!file_exists($filename))
 			throw new Exception('failed to download '.$filename.' from '.$this->getUrl());
+		
+		if ($this->getType() == 'image/jpg') {
+			require_once 'HeadlineImageResampler.php';
+			HeadlineImageResampler::resample($filename);
+			if (!file_exists($filename))
+				throw new Exception('failed to resample '.$filename);
+		}
 	}
 	
 	function getRealpath() {

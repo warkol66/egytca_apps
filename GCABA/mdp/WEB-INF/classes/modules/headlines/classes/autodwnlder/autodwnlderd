@@ -4,7 +4,8 @@
 
 configFile="config.ini"
 
-cmd=`grep "command" $configFile | sed -e "s/command=//"`
+downloadCmd=`grep "downloadCommand" $configFile | sed -e "s/downloadCommand=//"`
+resampleCmd=`grep "resampleCommand" $configFile | sed -e "s/resampleCommand=//"`
 queue=`grep "queue" $configFile | sed -e "s/queue=//"`
 failuresLog=`grep "failuresLog" $configFile | sed -e "s/failuresLog=//"`
 failuresDir=`grep "failuresDir" $configFile | sed -e "s/failuresDir=//"`
@@ -15,8 +16,14 @@ download() {
 
 	url=`grep "url" $queuedFile | sed -e "s/url=//"`
 	of=`grep "output" $queuedFile | sed -e "s/output=//"`
+	mustResample=`grep "mustResample" $queuedFile | sed -e "s/mustResample=//"`
+	id=`grep "id" $queuedFile | sed -e "s/id=//"`
 
-	$cmd $url -O $of > /dev/null 2>/dev/null
+	$downloadCmd $url -O $of > /dev/null 2>/dev/null
+
+#	if [ $mustResample = "1" ] ; then
+#		$resampleCmd $id > /dev/null 2>/dev/null
+#	fi
 	
 	if [ -f "$of" ] ; then
 		return 0
@@ -33,12 +40,6 @@ logFailure() {
 	logText="error saving $url to "`readlink -f $of`" - "`date`" - data file moved to "`readlink -f $failedFile`
 
 	echo "$logText" >> $failuresLog
-#	if [ -r "$failuresLog" ] ; then
-#		echo "$logText" | cat $failuresLog - > $failuresLog.tmp
-#		mv $failuresLog.tmp $failuresLog
-#	else
-#		echo "$logText" > $failuresLog
-#	fi
 }
 
 while true; do
