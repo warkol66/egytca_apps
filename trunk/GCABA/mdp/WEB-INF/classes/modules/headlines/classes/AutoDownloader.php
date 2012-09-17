@@ -2,13 +2,15 @@
 
 class AutoDownloader {
 	
-	public function putInQueue($url, $outputFile = null) {
+	public function putInQueue($url, $outputFile = null, $fileType = null, $id = null) {
 		
 		if (is_null($outputFile))
 			$outputFile = 'autonamed-'.uniqid();
 		
-		$content = "quality=$quality\n"."width=$width\n"."height=$height\n";
 		$content = "url=$url\n"."output=$outputFile\n";
+		if (!is_null($fileType) && $fileType == 'image/jpg') {
+			$content .= "mustResample=1\nid=$id";
+		}
 		
 		$queueParentDir = './WEB-INF/classes/modules/headlines/classes/autodwnlder';
 		
