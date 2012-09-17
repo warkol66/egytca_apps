@@ -209,6 +209,7 @@ class BaseQuery {
             return; // nothing to filter
 
         $entity = $entityQueryClass::create()->findOneById($filterValue['entityId']);
+        if ($entity) {
         $filterByEntity = 'filterBy'.ucfirst($filterValue['entityType']);
 
         $queryClass = get_class($this);
@@ -219,6 +220,7 @@ class BaseQuery {
         }
         else
             $this->query->$filterByEntity($entity);
+       }
         
     }
     
