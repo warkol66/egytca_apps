@@ -1,3 +1,7 @@
+<link type="text/css" href="css/chosen.css" rel="stylesheet">
+<script language="JavaScript" type="text/javascript" src="scripts/event.simulate.js"></script>
+<script language="JavaScript" type="text/javascript" src="scripts/chosen.js"></script>
+
 <h2>##headlines,1,Titulares##</h2>
 |-if !$notValidId-|
 <h1>|-if !$headline->isNew()-|Editar|-else-|Crear|-/if-| ##headlines,2,Titular##</h1>
@@ -235,7 +239,8 @@
 				<input name="params[processed]" type="checkbox" value="1" |-$headline->processed()|checked_bool:1-| disabled="disabled" />
 		</p>
 *-|
-			<p>
+
+				<p>
 			<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 				|-include file="HiddenInputsInclude.tpl" filters="$filters" page="$page"-|
 				<input type="hidden" name="do" id="do" value="headlinesDoEdit" />
@@ -292,7 +297,43 @@
 </script>
 
 |-if !$headline->isNew()-|
+<fieldset>
+	<legend>Etiquetas</legend>
+<p>
+<script type="text/javascript">
 
+	function updateSelected(options, action) {
+		
+		var postParams = "";
+		postParams += "headlineId=|-$headline->getId()-|";
+		
+		// Cargar selecionados
+		for (var i=0; i < options.length; i++) {
+			if (options[i].selected)
+				postParams += "&selectedIds[]="+options[i].value;
+		}
+		
+		new Ajax.Updater(
+			"",
+			action,
+			{
+				method: 'post',
+				postBody: postParams,
+				evalScripts: true
+			});
+		return true;
+	}
+	
+</script>	<form method="post" id="form_tags">
+		<label for="tags">Etiquetas</label>
+		<select class="chzn-select wide-chz-select" data-placeholder="Seleccione una o varias etiquetas..." id="tagsIds" name="tagsIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=headlinesUpdateTagsX')">
+			|-foreach from=$headlineTags item=headlineTag name=for_headlineTags-|
+        		<option value="|-$headlineTag->getId()-|" |-if $headline->hasHeadlineTag($headlineTag)-|selected="selected"|-/if-| >|-$headlineTag->getName()-|</option>
+			|-/foreach-|
+		</select>
+	</form>
+	</p>
+	</fieldset>
 <script type="text/javascript" language="javascript" charset="utf-8">
 	function addActorToHeadline(form) {
 		var fields = Form.serialize(form);
