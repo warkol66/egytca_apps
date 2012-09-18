@@ -1,0 +1,59 @@
+@page { 
+	margin: .4in;
+}
+body {
+	font-size: 77%;
+}
+.printHidden {
+		display: none !Important;
+}
+* {
+	background-color: transparent !Important;
+	background-image: none !Important;
+}
+#header, #mainMenuH {
+	display: none !Important;
+}
+div#wrapper, div#contentWrapper, div#rightColumn, div#rightColumnHome, div#footer {
+	border: none !Important;
+}
+b.rounded, #rightColumn object {
+	display: none !Important;	
+}
+.tdSearch, a.addLink {
+	display: none !Important;
+}
+.icon {
+	display: none !Important;
+}
+table thead {
+	display: table-header-group !Important;
+}
+table tfoot {
+	display: table-footer-group !Important;
+}
+table tr {
+	page-break-inside: avoid !Important;
+	page-break-after: auto !Important;
+}
+.tableTdBorders tbody tr td, .tableTdBorders tbody tr th {
+	border-bottom: 1px solid #cdcdcd;
+	padding: 2px 0 1px 0;
+	border-collapse: separate;
+}
+.tableTdBorders thead tr th {
+	border-bottom: 1px #cdcdcd solid;
+}
+.tableTdBorders tbody tr td,
+.tableTdBorders tbody tr th{
+	border-right: 1px #cdcdcd solid;
+}
+/* Igual al anterior, separada por el IE */
+.tableTdBorders thead tr:last-child th {
+	border-right: 1px #cdcdcd solid;
+}
+.tableTdBorders tbody tr td:last-child,
+.tableTdBorders tbody tr th:last-child,
+.tableTdBorders thead tr:last-child th:last-child {
+	border-right: 3px #cdcdcd double;
+}

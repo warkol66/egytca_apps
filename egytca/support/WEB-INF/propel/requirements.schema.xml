@@ -1,0 +1,77 @@
+<database defaultIdMethod="native" package="requirements.classes" name="application" >
+
+	<table name="requirements_requirement" phpName="Requirement" description="Requerimientos">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Headline Id" autoIncrement="true"/>
+		<column name="name" required="true" type="VARCHAR" size="255" description="Headline" primaryString="true" />
+		<column name="description" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Descripcion del proceso"/>
+		<column name="output" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Descripcion del resultado"/>
+		<column name="input" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Descripcion del ingreso de datos"/>
+		<column name="process" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Descripcion del ingreso de datos"/>
+		<column name="other" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Otras informaciones"/>
+
+		<column name="estimatedDelivery" type="TIMESTAMP" description="Fecha estimada de entrega" />
+		<column name="realDelivery" type="TIMESTAMP" description="Fecha de Entrega" />
+		<column name="delivered" type="BOOLEAN" sqlType="BOOL" default="false" description="entregada" />
+
+		<column name="developmentId" type="INTEGER" description="Id del desarrollo" />
+		<column name="clientId" type="INTEGER" description="Id del cliente" />
+
+		<column name="estimatedHours" type="FLOAT" scale="2" description="Estimacion de horas" />
+		<column name="estimatedCost" type="FLOAT" scale="2" description="Estimacion de costos" />
+		<column name="realHours" type="FLOAT" scale="2" description="Horas insumidas realmente" />
+		<column name="realCost" type="FLOAT" scale="2" description="Costos reales" />
+
+		<behavior name="timestampable" />
+
+		<foreign-key foreignTable="requirements_development" onDelete="cascade">
+			<reference local="developmentId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="affiliates_affiliate" onDelete="cascade">
+			<reference local="clientId" foreign="id"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="requirements_development" phpName="Development" description="Desarrollo">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Development Id" autoIncrement="true"/>
+		<column name="name" required="true" type="VARCHAR" size="255" description="Headline" primaryString="true" />
+		<column name="description" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Descripcion del proceso"/>
+		<column name="output" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Descripcion del resultado"/>
+		<column name="input" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Descripcion del ingreso de datos"/>
+		<column name="other" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Otras informaciones"/>
+
+		<column name="estimatedDelivery" type="TIMESTAMP" description="Fecha estimada de entrega" />
+		<column name="realDelivery" type="TIMESTAMP" description="Fecha de Entrega" />
+		<column name="delivered" type="BOOLEAN" sqlType="BOOL" default="false" description="entregada" />
+
+		<column name="clientId" type="INTEGER" description="Id del cliente" />
+
+		<column name="estimatedHours" type="FLOAT" scale="2" description="Estimacion de horas" />
+		<column name="estimatedCost" type="FLOAT" scale="2" description="Estimacion de costos" />
+		<column name="realHours" type="FLOAT" scale="2" description="Horas insumidas realmente" />
+		<column name="realCost" type="FLOAT" scale="2" description="Costos reales" />
+
+		<column name="quotation" type="FLOAT" scale="2" description="Cotizacion" />
+
+		<behavior name="timestampable" />
+
+		<foreign-key foreignTable="affiliates_affiliate" onDelete="cascade">
+			<reference local="clientId" foreign="id"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>

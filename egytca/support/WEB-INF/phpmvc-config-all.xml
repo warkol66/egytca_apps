@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?php
+/**
+* Define Actions del phpMVC
+*
+* $author Modulos Empresarios / Egytca
+* @package phpMVCconfig
+*/
+?>
+
+<!DOCTYPE phpmvc-config PUBLIC "-//PHPMVC//DTD PHPMVC Configuration 1.0//EN"
+					"./phpmvc-config_1_1.dtd">
+
+<phpmvc-config>
+
+<!-- ========== Form Bean Definitions =================================== -->
+
+	<form-beans>
+<!-- Smarty type form handling bean -->
+		<form-bean name="demoPage" 
+							 type="DemoPageForm"/>
+	</form-beans>
+
+<!-- ========== Action Mapping Definitions ============================== -->
+
+  <action-mappings>
+    <action    path = "index"
+               type = "IndexAction"
+               name = "index"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="/Main.php?do=usersLogin" redirect="true" />
+    </action>
+    <action    path = "maintenance"
+               type = "MaintenanceAction"
+               name = "maintenance"
+              scope = "request"
+           validate = "true">
+    	<forward name="success" path="Maintenance.tpl" />
+    </action>
+    <action    path = "welcome"
+               type = "WelcomeAction"
+               name = "welcome"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="Welcome.tpl" />
+    </action>
+    
+	</action-mappings>
+
+<!-- instalation tag-->
+<!-- Do not remove these lines-->
+
+<!-- ========== PlugIns ================================================= -->
+
+	<!-- Load our PlugIn class here (case sensetive class name)					     -->
+	<!-- Note: The attribute names must match the class methods					     -->
+	<!-- Eg: 'key' maps to 'setKey(..)'															         -->
+	<plug-in className="SmartyMLPlugInDriver"
+								 key="SMARTY_PLUGIN">
+		<!-- And set some custom propertied on the PlugIn class					       -->
+		<!-- Note: The property name must match the class variable name exactly -->
+		<set-property property="caching"       value="0"/>
+		<set-property property="force_compile" value="true"/>
+		<set-property property="template_dir"  value="WEB-INF/tpl/"/>
+		<set-property property="compile_dir"   value="WEB-INF/smarty_tpl/templates_c/"/>
+		<set-property property="config_dir"    value="WEB-INF/smarty_tpl/configs/"/>
+		<set-property property="cache_dir"     value="WEB-INF/smarty_tpl/cache/"/>
+		<set-property property="left_delimiter"    value="|-"/>
+		<set-property property="right_delimiter"     value="-|"/>
+	</plug-in>
+
+
+<!-- Module Affiliates -->
+	<action-mappings module="Affiliates">
+		
+		<action      path = "affiliatesDoEdit"
+								 type = "AffiliatesDoEditAction"
+								 name = "affiliatesDoEdit"
+								scope = "request"
+						 validate = "true">
+				<forward name="success" path="/Main.php?do=affiliatesList" redirect="true" />
+				<forward name="success-create" path="/Main.php?do=affiliatesUsersEdit" redirect="true" />
+				<forward name="failure" path="/Main.php?do=affiliatesEdit" redirect="true" />
+		</action>
+		
+		<action      path = "affiliatesClientsDoEdit"
+								 type = "AffiliatesClientsDoEditAction"
+								 name = "affiliatesClientsDoEdit"
+								scope = "request"
+						 validate = "true">
+				<forward name="success" path="/Main.php?do=affiliatesClientsList" redirect="true" />
+				<forward name="success-create" path="/Main.php?do=affiliatesUsersEdit" redirect="true" />
+				<forward name="failure" path="/Main.php?do=affiliatesClientsEdit" redirect="true" />
+		</action>
+
+		<action      path = "affiliatesUsersLogin"
+								 type = "AffiliatesUsersLoginAction"
+								 name = "affiliatesUsersLogin"
+								scope = "request"
+						 validate = "true">
+			<forward name="success" path="AffiliatesUsersLogin.tpl"/>
+			<forward name="success-unified" path="/Main.php?do=usersLogin" redirect="true" />
+			<forward name="maintenance" path="Maintenance.tpl"/>
+			<forward name="welcome" path="/Main.php?do=affiliatesUsersWelcome" redirect="true" />
+		</action>
+		
+		<action      path = "affiliatesUsersDoLogin"
+								 type = "AffiliatesUsersDoLoginAction"
+								 name = "affiliatesUsersDoLogin"
+								scope = "request"
+						 validate = "true">
+				<forward name="success" path="AffiliatesUsersWelcome.tpl"/>
+				<forward name="failure-unified" path="UsersLogin.tpl"/>
+				<forward name="failure" path="AffiliatesUsersLogin.tpl"/>
+				<forward name="successFirstLogin" path="/Main.php?do=affiliatesUsersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
+		</action>
+
+		<action      path = "affiliatesUsersDoLogout"
+								 type = "AffiliatesUsersDoLogoutAction"
+								 name = "affiliatesUsersDoLogout"
+								scope = "request"
+						 validate = "true">
+				<forward name="success-unified" path="/Main.php?do=usersLogin" redirect="true" />
+				<forward name="success" path="/Main.php?do=affiliatesUsersLogin" redirect="true" />
+		</action>
+		
+		<action      path = "affiliatesUsersDoEdit"
+								 type = "AffiliatesUsersDoEditAction"
+								 name = "affiliatesUsersDoEdit"
+								scope = "request"
+						 validate = "true">
+				<forward name="success" path="/Main.php?do=affiliatesUsersList" redirect="true" />
+				<forward name="success-owner" path="/Main.php?do=affiliatesList" redirect="true" />
+				<forward name="success-owner-client" path="/Main.php?do=affiliatesClientsList" redirect="true" />
+				<forward name="failure" path="AffiliatesUsersEdit.tpl" />
+		</action>
+
+		<action      path = "affiliatesDoSetOwner"
+								 type = "AffiliatesDoSetOwnerAction"
+								 name = "affiliatesDoSetOwnerEdit"
+								scope = "request"
+						 validate = "true">
+				<forward name="success" path="/Main.php?do=affiliatesUsersList" redirect="true" />
+		</action>
+
+		<action    path = "affiliatesUsersDoAddToGroup"
+							 type = "AffiliatesUsersDoAddToGroupAction"
+							 name = "affiliatesUsersDoAddToGroup"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersEdit" redirect="true" />
+			<forward name="failure" path="/Main.php?do=affiliatesUsersEdit&amp;message=notAddedToGroup" redirect="true" />
+		</action>
+
+		<action    path = "affiliatesUsersDoActivate"
+							 type = "AffiliatesUsersDoActivateAction"
+							 name = "affiliatesUsersDoActivate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersList&amp;message=activated" redirect="true" />
+			<forward name="failure" path="/Main.php?do=affiliatesUsersList&amp;message=notactivated" redirect="true" />
+		</action>
+
+		<action    path = "affiliatesUsersDoRemoveFromGroup"
+							 type = "AffiliatesUsersDoRemoveFromGroupAction"
+							 name = "affiliatesUsersDoRemoveFromGroup"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersEdit" redirect="true" />
+			<forward name="failure" path="/Main.php?do=affiliatesUsersEdit&amp;message=notRemovedFromGroup" redirect="true" />
+		</action>
+
+		<action    path = "affiliatesUsersPasswordRecovery"
+							 type = "AffiliatesUsersPasswordRecoveryAction"
+							 name = "affiliatesUsersPasswordRecovery"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="AffiliatesUsersPasswordRecovery.tpl"/>
+		</action>
+
+		<action    path = "affiliatesUsersPasswordDoChange"
+							 type = "AffiliatesUsersPasswordDoChangeAction"
+							 name = "affiliatesUsersPasswordDoChange"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersPasswordChange&amp;message=changed" redirect="true"/>
+			<forward name="changePassword" path="/Main.php?do=affiliatesUsersPasswordChange" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=affiliatesUsersPasswordChange&amp;message=message" redirect="true"/>
+		</action>
+		
+		<action    path = "affiliatesUsersPasswordRecoveryDoRequest"
+							 type = "AffiliatesUsersPasswordRecoveryDoRequestAction"
+							 name = "affiliatesUsersPasswordRecoveryDoRequest"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersLogin&amp;message=confirmationMailSent" redirect="true" />
+			<forward name="failure" path="AffiliatesUsersPasswordRecovery.tpl"/>
+		</action>
+		
+		<action    path = "affiliatesUsersPasswordDoSetFromRecovery"
+							 type = "AffiliatesUsersPasswordDoSetFromRecoveryAction"
+							 name = "affiliatesUsersPasswordDoSetFromRecovery"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersLogin&amp;message=passwordChanged" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=affiliatesUsersLogin" redirect="true"/>
+		</action>
+
+		<action    path = "affiliatesUsersPasswordDoRecover"
+							 type = "AffiliatesUsersPasswordDoRecoverAction"
+							 name = "affiliatesUsersPasswordDoRecover"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersLogin&amp;message=passwordSent" redirect="true" />
+			<forward name="failure" path="AffiliatesUsersLogin.tpl"/>
+		</action>
+
+<!-- Module AffiliatesUsers - Section Levels -->
+
+		<action    path = "affiliatesUsersLevelsDoEdit"
+							 type = "AffiliatesUsersLevelsDoEditAction"
+							 name = "affiliatesUsersLevelsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersLevelsList&amp;message=saved" redirect="true"/>
+			<forward name="failure" path="AffiliatesUsersLevelsEdit.tpl" />
+		</action>
+
+		<action    path = "affiliatesUsersLevelsDoDelete"
+							 type = "AffiliatesUsersLevelsDoDeleteAction"
+							 name = "affiliatesUsersLevelsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersLevelsList&amp;message=deleted" redirect="true" />
+			<forward name="failure" path="/Main.php?do=affiliatesUsersLevelsList&amp;message=notdeleted" redirect="true" />
+		</action>
+
+<!-- End Section - Levels -->
+
+<!-- Module AffiliatesUsers - Section Groups -->
+
+		<action    path = "affiliatesUsersGroupsDoEdit"
+							 type = "AffiliatesUsersGroupsDoEditAction"
+							 name = "affiliatesUsersGroupsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersGroupsList&amp;message=saved" redirect="true"/>
+			<forward name="failure" path="AffiliatesUsersGroupsEdit.tpl" />
+		</action>
+
+		<action    path = "affiliatesUsersGroupsDoDelete"
+							 type = "AffiliatesUsersGroupsDoDeleteAction"
+							 name = "affiliatesUsersGroupsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersGroupsList&amp;message=deleted" redirect="true" />
+			<forward name="failure" path="/Main.php?do=affiliatesUsersGroupsList&amp;message=notdeleted" redirect="true" />
+		</action>
+
+		<action    path = "affiliatesUsersGroupsDoAddCategory"
+							 type = "AffiliatesUsersGroupsDoAddCategoryAction"
+							 name = "affiliatesUsersGroupsDoAddCategory"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersGroupsEdit" redirect="true" />
+			<forward name="failure" path="/Main.php?do=affiliatesUsersGroupsEdit&amp;message=notAddedToGroup" redirect="true" />
+		</action>
+
+		<action    path = "affiliatesUsersGroupsDoRemCategory"
+							 type = "AffiliatesUsersGroupsDoRemCategoryAction"
+							 name = "affiliatesUsersGroupsDoRemCategory"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=affiliatesUsersGroupsEdit" redirect="true" />
+			<forward name="failure" path="/Main.php?do=affiliatesUsersGroupsEdit&amp;message=notRemovedFromGroup" redirect="true" />
+		</action>
+
+	</action-mappings>
+<!-- End Section - Groups -->
+
+<!-- End Module Affiliates -->
+<!-- Module Backup -->
+	<action-mappings>
+
+		<action    path = "backupCreate"
+							 type = "BackupCreateAction"
+							 name = "backupCreate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=backupList&amp;message=created" redirect="true" />
+			<forward name="failure" path="/Main.php?do=backupList&amp;message=create_error" redirect="true" />
+		</action>
+
+		<action    path = "backupRestore"
+							 type = "BackupRestoreAction"
+							 name = "backupRestore"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=backupList&amp;message=restored" redirect="true" />
+			<forward name="failure" path="/Main.php?do=backupList&amp;message=restore_error" redirect="true" />
+		</action>
+
+		<action    path = "backupDoDelete"
+							 type = "BackupDoDeleteAction"
+							 name = "backupDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=backupList&amp;message=deleted" redirect="true" />
+			<forward name="failure" path="/Main.php?do=backupList&amp;message=delete_error" redirect="true" />
+		</action>
+		
+		<action    path = "backupSendByEmail"
+							 type = "BackupSendByEmailAction"
+							 name = "backupSendByEmail"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=backupList&amp;message=email_sent" redirect="true" />
+			<forward name="failure" path="/Main.php?do=backupList&amp;message=email_error" redirect="true" />
+		</action>
+
+		<action    path = "backupDownload"
+							 type = "BackupDownloadAction"
+							 name = "backupDownload"
+							scope = "request"
+					 validate = "true">
+			<forward name="failure" path="/Main.php?do=backupList&amp;message=not_exists" redirect="true" />
+		</action>
+
+	</action-mappings>
+<!-- End Module Backup--><!-- Module Common -->
+	<action-mappings>
+
+		<action    path = "js"
+							 type = "JsAction"
+							 name = "jsConfig"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="Js.tpl" />
+		</action>
+
+		<action    path = "commonTemplatePublic"
+							 type = "CommonTemplatePublicAction"
+							 name = "commonTemplatePublic"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="TemplatePublicCenterMarker.tpl" />
+		</action>
+
+		<action    path = "commonLogin"
+							 type = "CommonLoginAction"
+							 name = "commonLogin"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="CommonLogin.tpl"/>
+			<forward name="failureRedirect" path="/Main.php?do=usersLogin" redirect="true" />
+			<forward name="maintenance" path="Maintenance.tpl"/>
+			<forward name="welcome" path="/Main.php?do=commonWelcome" redirect="true" />
+			<forward name="usersWelcome" path="/Main.php?do=usersWelcome" redirect="true" />
+			<forward name="affiliateUsersWelcome" path="/Main.php?do=affiliatesUsersWelcome" redirect="true" />
+			<forward name="clientUsersWelcome" path="/Main.php?do=clientsUsersWelcome" redirect="true" />
+		</action>
+
+		<action    path = "commonDoLogin"
+							 type = "CommonDoLoginAction"
+							 name = "commonDoLogin"
+							scope = "request"
+					 validate = "true">
+			<forward name="failureDataMissmatch" path="/Main.php?do=commonLogin&amp;message=dataMissmatch" redirect="true" />
+			<forward name="failureMissingData" path="/Main.php?do=commonLogin&amp;message=missingData" redirect="true" />
+			<forward name="successUsers" path="/Main.php?do=usersWelcome" redirect="true" />
+			<forward name="successClientUsers" path="/Main.php?do=clientsUsersWelcome" redirect="true" />
+			<forward name="successAffiliateUsers" path="/Main.php?do=affiliatesUsersWelcome" redirect="true" />
+			<forward name="successUsersFirstLogin" path="/Main.php?do=usersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
+			<forward name="successClientUsersFirstLogin" path="/Main.php?do=clientsUsersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
+			<forward name="successAffiliateUsersFirstLogin" path="/Main.php?do=affiliatesUsersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
+			<forward name="failureRedirectUsersLogin" path="/Main.php?do=usersLogin" redirect="true" />
+			<forward name="failureRedirectClientUsersLogin" path="/Main.php?do=clientsUsersLogin" redirect="true" />
+			<forward name="failureRedirectAffiliateUsersLogin" path="/Main.php?do=affiliatesUsersLogin" redirect="true" />
+		</action>
+
+		<action    path = "commonPasswordRecoveryDoRequest"
+							 type = "CommonPasswordRecoveryDoRequestAction"
+							 name = "commonPasswordRecoveryDoRequest"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=commonLogin&amp;message=confirmationMailSent" redirect="true" />
+			<forward name="failure" path="CommonPasswordRecovery.tpl"/>
+		</action>
+		
+		<action    path = "commonPasswordRecoveryConfirmation"
+							 type = "CommonPasswordRecoveryConfirmationAction"
+							 name = "commonPasswordRecoveryConfirmation"
+							scope = "request"
+					 validate = "true">
+			<forward name="askNewPass" path="CommonNewPasswordForRecovery.tpl"/>
+			<forward name="sendNewPass" path="/Main.php?do=commonPasswordDoRecover" redirect="true"/>
+		</action>
+		
+		<action    path = "commonPasswordDoSetFromRecovery"
+							 type = "CommonPasswordDoSetFromRecoveryAction"
+							 name = "commonPasswordDoSetFromRecovery"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=commonLogin&amp;message=passwordChanged" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=commonLogin" redirect="true"/>
+		</action>
+
+		<action    path = "commonPasswordDoRecover"
+							 type = "CommonPasswordDoRecoverAction"
+							 name = "commonPasswordDoRecover"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=commonLogin&amp;message=passwordSent" redirect="true" />
+			<forward name="askNewPass" path="CommonPasswordSetFromRecovery.tpl"/>
+			<forward name="failure" path="CommonLogin.tpl"/>
+		</action>
+
+		<action    path = "commonLoginMaintenance"
+							 type = "CommonLoginMaintenanceAction"
+							 name = "commonLoginMaintenance"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="CommonLogin.tpl"/>
+		</action>
+
+		<action    path = "commonDoLogout"
+							 type = "CommonDoLogoutAction"
+							 name = "commonDoLogout"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=commonLogin" redirect="true"/>
+		</action>
+
+		<action    path = "commonMenuItemsDoDeleteX"
+							 type = "CommonMenuItemsDoDeleteXAction"
+							 name = "commonMenuItemsDoDeleteX"
+							scope = "request"
+					 validate = "true">
+			<forward  name="success" path="CommonMenuItemsDoDeleteXSuccess.tpl" />
+			<forward  name="failure" path="CommonMenuItemsDoDeleteXFailure.tpl" />
+		</action>
+
+		<action    path = "commonMenuItemsDoEditOrderX"
+							 type = "CommonMenuItemsDoEditOrderXAction"
+							 name = "commonMenuItemsDoEditOrderX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="CommonMenuItemsDoEditOrderXSuccess.tpl" />
+		</action>
+		
+<!-- Section InternalMails -->
+
+		<action    path = "commonInternalMailsDoDeleteX"
+							 type = "CommonInternalMailsDoDeleteXAction"
+							 name = "commonInternalMailsDoDeleteX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="CommonInternalMailsListTableBodyInclude.tpl" />
+		</action>
+		
+		<action    path = "commonInternalMailsDoMarkAsReadX"
+							 type = "CommonInternalMailsDoMarkAsReadXAction"
+							 name = "commonInternalMailsDoMarkAsReadX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="CommonInternalMailsListTableBodyInclude.tpl" />
+		</action>
+		
+<!-- End Section InternalMails -->
+
+<!-- Section ActionLogs -->
+
+		<action    path = "commonActionLogsDoPurge"
+							 type = "CommonActionLogsDoPurgeAction"
+							 name = "commonActionLogsDoPurge"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=commonActionLogsList&amp;message=purged" redirect="true" />
+		</action>
+
+<!-- End Section ActionLogs -->
+
+<!-- Section Config -->
+
+
+		<action    path = "commonConfigDoSet"
+							 type = "CommonConfigDoSetAction"
+							 name = "commonConfigDoSet"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=commonConfigSet&amp;message=ok" redirect="true" />
+		</action>
+
+		<action    path = "commonConfigDoEdit"
+							 type = "CommonConfigDoEditAction"
+							 name = "commonConfigDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=commonConfigView&amp;message=ok" redirect="true" />
+		</action>
+
+	</action-mappings>
+<!-- End Section Config -->
+
+<!-- End Common -->
+<!-- Module Modules -->
+	<action-mappings module="Modules">
+
+		<action    path = "modulesDoActivateX"
+							 type = "ModulesDoActivateXAction"
+							 name = "modulesDoActivateX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ModulesDoActivateXModuleSuccess.tpl"/>
+			<forward name="errorDependencyOff" path="ModulesDoActivateXModuleOff.tpl"/>
+			<forward name="errorDependencyOn" path="ModulesDoActivateXModuleOn.tpl"/>
+		</action>
+
+		<action    path = "modulesDoCreateXml"
+							 type = "ModulesDoCreateXml"
+							 name = "modulesDoCreateXml"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=modulesCreateXml&amp;message=ok" redirect="true" />
+		</action>
+
+		<action    path = "modulesEntitiesCreate"
+							 type = "ModulesEntitiesCreateAction"
+							 name = "modulesEntitiesCreate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="ModulesEntitiesCreate.tpl" />
+			<forward name="created"  path="/Main.php?do=modulesEntitiesList&amp;message=ok" redirect="true" />
+			<forward name="failure"  path="ModulesEntitiesCreate.tpl" />
+		</action>
+
+		<action    path = "modulesEntitiesFieldsDoEdit"
+							 type = "ModulesEntitiesFieldsDoEditAction"
+							 name = "modulesEntitiesFieldsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=modulesEntitiesList&amp;message=ok" redirect="true" />
+		</action>
+
+	</action-mappings>
+<!-- End Module Modules -->
+
+<!-- Section Install -->
+	<action-mappings>
+
+		<action    path = "modulesInstallDoSetupModuleInformation"
+							 type = "ModulesInstallDoSetupModuleInformationAction"
+							 name = "modulesInstallDoSetupModuleInformation"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="/Main.php?do=modulesInstallSetupActionsLabel" />
+			<forward name="success-step"  path="/Main.php?do=modulesInstallList&amp;message=step-success" redirect="true"/>
+		</action>
+
+		<action    path = "modulesInstallDoSetupActionsLabel"
+							 type = "ModulesInstallDoSetupActionsLabelAction"
+							 name = "modulesInstallDoSetupActionsLabel"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="/Main.php?do=modulesInstallSetupPermissions" redirect="true" />
+			<forward name="success-step"  path="/Main.php?do=modulesInstallList&amp;message=step-success" redirect="true"/>
+		</action>
+
+		<action    path = "modulesInstallDoSetupPermissions"
+							 type = "ModulesInstallDoSetupPermissionsAction"
+							 name = "modulesInstallDoSetupPermissions"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="/Main.php?do=modulesInstallSetupMessages" redirect="true" />
+			<forward name="success-step"  path="/Main.php?do=modulesInstallList&amp;message=step-success" redirect="true"/>
+		</action>
+
+		<action    path = "modulesInstallSetupMessages"
+							 type = "ModulesInstallSetupMessagesAction"
+							 name = "modulesInstallSetupMessages"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="ModulesInstallSetupMessages.tpl" />
+			<forward name="failure" path="/Main.php?do=modulesInstallList" redirect="true"/>
+			<forward name="failure-xml" path="/Main.php?do=modulesInstallList&amp;message=phpmvc-xml-error" redirect="true"/>
+		</action>
+
+		<action    path = "modulesInstallDoSetupMessages"
+							 type = "ModulesInstallDoSetupMessagesAction"
+							 name = "modulesInstallDoSetupMessages"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="/Main.php?do=modulesInstallFileCheck" />
+			<forward name="success-step"  path="/Main.php?do=modulesInstallList&amp;message=step-success" redirect="true"/>
+		</action>
+
+		<action    path = "modulesInstallDoFileCheck"
+							 type = "ModulesInstallDoFileCheckAction"
+							 name = "modulesInstallDoFileCheck"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="/Main.php?do=modulesInstallList" />
+		</action>
+
+	</action-mappings>
+<!-- End Section Install -->
+<!-- Module Security -->
+	<action-mappings module="Security">
+
+		<action    path = "securityDoEditPermissions"
+							 type = "SecurityDoEditPermissionsAction"
+							 name = "securityDoEditPermissions"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=securityEditPermissions&amp;message=ok" redirect='true'/>
+			<forward name="failure" path="/Main.php?do=securityEditPermissions&amp;message=failure" redirect='true'/>
+		</action>
+
+	</action-mappings>
+<!-- End Module Security --><!-- Modulo Services -->
+	<action-mappings>
+
+<!-- Section InternalMails -->
+
+		<action    path = "servicesInternalMailsDoDeleteX"
+							 type = "ServicesInternalMailsDoDeleteXAction"
+							 name = "servicesInternalMailsDoDeleteX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ServicesInternalMailsListTableBodyInclude.tpl" />
+		</action>
+		
+		<action    path = "servicesInternalMailsDoMarkAsReadX"
+							 type = "ServicesInternalMailsDoMarkAsReadXAction"
+							 name = "servicesInternalMailsDoMarkAsReadX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ServicesInternalMailsListTableBodyInclude.tpl" />
+		</action>
+		
+<!-- End Section InternalMails -->
+
+	</action-mappings>
+<!-- End Module Services -->
+<!-- Module Users-->
+	<action-mappings module="Users">
+
+		<action    path = "usersLogin"
+							 type = "UsersLoginAction"
+							 name = "usersLogin"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="UsersLogin.tpl"/>
+			<forward name="maintenance" path="Maintenance.tpl"/>
+			<forward name="welcome" path="/Main.php?do=usersWelcome" redirect="true" />
+		</action>
+
+		<action    path = "usersDoLogin"
+							 type = "UsersDoLoginAction"
+							 name = "usersDoLogin"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="UsersWelcome.tpl"/>
+			<forward name="failure" path="UsersLogin.tpl"/>
+			<forward name="successFirstLogin" path="/Main.php?do=usersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
+		</action>
+
+		<action    path = "usersPasswordRecoveryDoRequest"
+							 type = "UsersPasswordRecoveryDoRequestAction"
+							 name = "usersPasswordRecoveryDoRequest"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersLogin&amp;message=confirmationMailSent" redirect="true" />
+			<forward name="failure" path="UsersPasswordRecovery.tpl"/>
+		</action>
+
+		<action    path = "usersPasswordRecoveryConfirmation"
+							 type = "UsersPasswordRecoveryConfirmationAction"
+							 name = "usersPasswordRecoveryConfirmation"
+							scope = "request"
+					 validate = "true">
+			<forward name="askNewPass" path="UsersNewPasswordForRecovery.tpl"/>
+			<forward name="sendNewPass" path="/Main.php?do=usersPasswordDoRecover" redirect="true"/>
+		</action>
+
+		<action    path = "usersPasswordDoSetFromRecovery"
+							 type = "UsersPasswordDoSetFromRecoveryAction"
+							 name = "usersPasswordDoSetFromRecovery"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersLogin&amp;message=passwordChanged" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=usersLogin" redirect="true"/>
+		</action>
+
+		<action    path = "usersPasswordDoRecover"
+							 type = "UsersPasswordDoRecoverAction"
+							 name = "usersPasswordDoRecover"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersLogin&amp;message=passwordSent" redirect="true" />
+			<forward name="failure" path="UsersLogin.tpl"/>
+		</action>
+
+		<action    path = "usersLoginMaintenance"
+							 type = "UsersLoginMaintenanceAction"
+							 name = "usersLoginMaintenance"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="UsersLogin.tpl"/>
+		</action>
+
+		<action    path = "usersDoLogout"
+							 type = "UsersDoLogoutAction"
+							 name = "usersDoLogout"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersLogin" redirect="true"/>
+		</action>
+
+		<action    path = "usersDoEditInfo"
+							 type = "UsersDoEditInfoAction"
+							 name = "usersDoEditInfo"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersList&amp;message=saved" redirect="true"/>
+		</action>
+
+		<action    path = "usersPasswordDoChange"
+							 type = "UsersPasswordDoChangeAction"
+							 name = "usersPasswordDoChange"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersPasswordChange&amp;message=changed" redirect="true"/>
+			<forward name="changePassword" path="/Main.php?do=usersPasswordChange" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=usersPasswordChange&amp;message=message" redirect="true"/>
+		</action>
+
+		<action    path = "usersDoDelete"
+							 type = "UsersDoDeleteAction"
+							 name = "usersDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersList&amp;message=deleted" redirect="true" />
+			<forward name="failure" path="/Main.php?do=usersList&amp;message=notdeleted" redirect="true" />
+		</action>
+
+		<action    path = "usersDoLinkToSupplier"
+							 type = "UsersDoLinkToSupplierAction"
+							 name = "usersDoLinkToSupplier"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersList" redirect="true" />
+		</action>
+
+		<action    path = "usersDoActivate"
+							 type = "UsersDoActivateAction"
+							 name = "usersDoActivate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersList&amp;message=activated" redirect="true" />
+			<forward name="failure" path="/Main.php?do=usersList&amp;message=notactivated" redirect="true" />
+		</action>
+
+<!-- Section Groups -->
+
+		<action    path = "usersGroupsDoEdit"
+							 type = "UsersGroupsDoEditAction"
+							 name = "usersGroupsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersGroupsList&amp;message=saved" redirect="true"/>
+			<forward name="blankName" path="/Main.php?do=usersGroupsList&amp;message=blankName" redirect="true"/>
+		</action>
+
+		<action    path = "usersGroupsDoAddCategoryToGroup"
+							 type = "UsersGroupsDoAddCategoryToGroupAction"
+							 name = "usersGroupsDoAddCategoryToGroup"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersGroupsList" redirect="true" />
+		</action>
+
+		<action    path = "usersGroupsDoRemoveCatFromGroup"
+							 type = "UsersGroupsDoRemoveCatFromGroupAction"
+							 name = "usersGroupsDoRemoveCatFromGroup"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersGroupsList" redirect="true" />
+		</action>
+
+		<action    path = "usersGroupsDoDelete"
+							 type = "UsersGroupsDoDeleteAction"
+							 name = "usersGroupsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersGroupsList&amp;message=deleted" redirect="true" />
+			<forward name="failure" path="/Main.php?do=usersGroupsList&amp;message=notdeleted" redirect="true" />
+		</action>
+
+<!-- End Section Groups -->
+
+<!-- Section Levels -->
+
+		<action    path = "usersLevelsDoEdit"
+							 type = "UsersLevelsDoEditAction"
+							 name = "usersLevelsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersLevelsList&amp;message=saved" redirect="true"/>
+			<forward name="blankName" path="/Main.php?do=usersLevelsList&amp;message=blankName" redirect="true"/>
+		</action>
+
+		<action    path = "usersLevelsDoDelete"
+							 type = "UsersLevelsDoDeleteAction"
+							 name = "usersLevelsDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=usersLevelsList&amp;message=deleted" redirect="true" />
+			<forward name="failure" path="/Main.php?do=usersLevelsList&amp;message=notdeleted" redirect="true" />
+		</action>
+
+	</action-mappings>
+<!-- End Section Levels -->
+
+<!-- End Module Users -->
+</phpmvc-config>

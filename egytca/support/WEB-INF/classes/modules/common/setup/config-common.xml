@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<system>
+		<parameters>
+			<debugMode>
+				<value>YES</value>
+				<element_type>YES/NO</element_type>
+			</debugMode>
+			<developmentMode>
+				<value>NO</value>
+				<element_type>YES/NO</element_type>
+			</developmentMode>
+			<mailCapture>
+				<value>NO</value>
+				<element_type>YES/NO</element_type>
+			</mailCapture>
+			<underMaintenance>
+				<value>NO</value>
+				<element_type>YES/NO</element_type>
+			</underMaintenance>
+			<maintenanceMessage>El sistema permanecerá en mantenimiento por 2 horas, por favor regrese mas tarde.</maintenanceMessage>
+			<affiliateUserLoginUnified>
+				<value>NO</value>
+				<element_type>YES/NO</element_type>
+			</affiliateUserLoginUnified>
+			<hasUnifiedUsernames>
+				<value>YES</value>
+				<element_type>YES/NO</element_type>
+			</hasUnifiedUsernames>
+			<doLog>
+				<value>NO</value>
+				<element_type>YES/NO</element_type>
+			</doLog>
+			<applicationTimeZoneGMT>
+				<value>-3</value>
+				<element_type>TIMEZONE</element_type>
+			</applicationTimeZoneGMT>
+			<dateFormat>
+				<value>d-m-Y</value>
+				<element_type>Options</element_type>
+				<element_options>
+					<option_1>d-m-Y</option_1>
+					<option_2>m-d-Y</option_2>
+					<option_3>d-m-y</option_3>
+					<option_4>m-d-y</option_4>
+				</element_options>
+			</dateFormat>
+			<thousandsSeparator>.</thousandsSeparator>
+			<decimalSeparator>,</decimalSeparator>
+			<numberOfDecimals>2</numberOfDecimals>
+			<siteName>Cippec - Centro de Implementación de Políticas Públicas para la Equidad y el Crecimiento</siteName>
+			<siteDescription>Sistema de Administración del Site del Centro de Implementación de Políticas Públicas para la Equidad y el Crecimiento</siteDescription>
+			<siteShortName>cippec</siteShortName>
+			<webmasterMail>infocippec@cippec.org </webmasterMail>
+			<debugMail>dbugger.modulnet@gmail.com</debugMail>
+			<fromEmail>infocippec@cippec.org</fromEmail>
+			<tablePrefix></tablePrefix>
+			<news>Novedades: Bienvenido al sistema de administración del site de Cippec.</news>
+		</parameters>
+		<errorReporting>
+			<value>E_ALL &amp; ~E_NOTICE ~E_WARNING</value>
+			<element_type>Options</element_type>
+			<element_options>
+				<option_1>NONE</option_1>
+				<option_2>E_ALL &amp; ~E_NOTICE</option_2>
+				<option_3>E_ALL</option_3>
+				<option_4>E_STRICT</option_4>
+				<option_5>E_ALL &amp; E_STRICT</option_5>
+				<option_6>E_ALL &amp; ~E_NOTICE ~E_WARNING</option_6>
+			</element_options>
+		</errorReporting>
+		<rowsPerPage>15</rowsPerPage>
+		<language>esp</language>
+		<fileBrowser>
+			<directories>
+				<dir_1>
+					<title>Documentos</title>
+					<path>files/documents</path>
+				</dir_1>
+				<dir_2>
+					<title>Imágenes</title>
+					<path>files/images</path>
+				</dir_2>
+				<dir_3>
+					<title>Archivos multimedia</title>
+					<path>files/media</path>
+				</dir_3>
+			</directories>
+		</fileBrowser>
+	</system>
+	<email>
+		<mode>
+			<value>SMTP</value>
+			<element_type>Options</element_type>
+			<element_options>
+				<option_1>PHP</option_1>
+				<option_2>SMTP</option_2>
+			</element_options>
+		</mode>
+		<smtpOptions>
+			<smtpHost>mail.anmagaexport.modulserver.com.ar</smtpHost>
+			<smtpPort>587</smtpPort>
+			<smtpUsername>anmagaex</smtpUsername>
+			<smtpPassword>Anmaga</smtpPassword>
+			<smtpSsl>
+				<value>NO</value>
+				<element_type>YES/NO</element_type>
+			</smtpSsl>
+		</smtpOptions>
+	</email>
+</config>

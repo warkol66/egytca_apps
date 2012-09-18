@@ -1,0 +1,18 @@
+#rightColumn { 
+	width: 1150px;
+}
+#wrapper { 
+	width: 1275px;
+}
+#contentWrapper { 
+	width: 1210px;
+}
+#header, #footer {
+	width: 1285px;
+}
+#rightColumn p {
+	width: 780px;
+}
+#rightColumn fieldset p {
+	width: 780px;
+}

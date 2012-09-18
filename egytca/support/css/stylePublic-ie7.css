@@ -1,0 +1,12 @@
+/* CSS Document */
+
+.menuTop {
+	margin-left:0px; 
+}
+#content #contentBody #containerPublicaciones ul.solapas {
+	padding-bottom: 30px;
+}
+fieldset input {
+	position:relative;
+	top:-0.35em;
+}

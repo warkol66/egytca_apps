@@ -1,0 +1,10 @@
+v\:roundrect {
+	background-color: White;
+	border: 1px solid navy;
+	padding: 3px;
+	margin: 15px;
+	-khtml-border-radius: 5px;
+	-opera-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}

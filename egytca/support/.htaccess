@@ -1,0 +1,12 @@
+DirectoryIndex  Main.php index.php index.shtml index.html index.cgi
+
+Options +FollowSymlinks
+
+RewriteEngine on
+RewriteBase /
+
+#rewrite para el lang para los bots
+RewriteRule ^([a-z][a-z][a-z])/Main.php /Main.php?lang=$1 [QSA]
+RewriteRule ^([a-z][a-z][a-z])/([^/]+)/(.*)	/$2/$3 
+
+

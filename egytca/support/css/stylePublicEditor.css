@@ -1,0 +1,70 @@
+h1, h4, h5 {
+	color: #ff6600;
+}
+h2, h3, h6 {
+	color: #006699;
+}
+.titulo{
+	font-size: 1.2em;
+	font-weight: bold;
+}
+.InfoCol {
+	margin: 10px 0px 20px 0px;
+	width: 520px;
+	clear: both;
+	display: block;
+	color: #333333;
+}
+.InfoCol .cargo{
+	font-style: italic;
+	font-weight: bold;
+}
+.InfoCol h2{
+	margin-bottom: 0px;
+	clear: both;
+}
+.InfoCol h3{
+	margin-top: 19px;
+	margin-left: 130px;
+	padding-left: 0;
+	color: #006699;
+	width: 390px;
+	clear: both;
+}
+.InfoCol p{
+	margin: 0px 0px 0px 130px;
+	width: 390px;
+	clear: both;
+	text-align: justify;
+}
+.InfoCol img{
+	float: left;
+	margin: 19px 0px 0px 10px;
+	border: solid #006699 1px;
+	padding: 1px;
+	position: absolute;
+}
+.InfoCol h3 img{
+	float: left;
+	margin: 0px 0px 0px -119px;
+	border: solid #006699 1px;
+	padding: 1px;
+	position: absolute;
+}
+.cargo{
+	font-style: italic;
+	font-weight: bold;
+	margin-bottom: 2px;
+}
+.cita{
+	padding-left: 20px;
+	padding-right: 20px;
+	font-style: italic;
+	font-weight: bold;
+}
+p,h1,h2,h3,h4,h5,ul,li{
+	text-align: justify;
+}
+#content #contentBody p img .imgLeft{
+	padding: 0 10px 5px 0;
+}
