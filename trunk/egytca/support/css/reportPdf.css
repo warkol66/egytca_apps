@@ -1,0 +1,10 @@
+body{
+	background-color: #ffffff;
+	background-image: none;
+}
+#pdfCenter {
+	padding:70pt 30pt 30pt 30pt;
+}
+/*.tableTdBorders td{
+	border: 1px solid #000000;
+}*/

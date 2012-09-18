@@ -1,0 +1,21 @@
+/* CSS para IE */
+#footerInfo{
+	font-size:0.95em;
+}
+/* cuadro Acciones */
+
+#menu {
+	width: 178px;
+	font-size:1.5em;
+	}
+
+.eventsDay {
+	width: 1.6em;
+}
+#content fieldset {
+	margin-top: 20px;
+}
+#content #contentBody hr {
+	background-color: transparent;
+	margin-left: 0px;
+}

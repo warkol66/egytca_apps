@@ -1,0 +1,17 @@
+<database defaultIdMethod="native" package="resources.classes" name="application" >
+	
+	<table name="resources_resource" phpName="Resource" description="Recursos">
+		
+		<column name="id" description="Identificacion del recurso" type="INTEGER" required="true" primaryKey="true" autoIncrement="true" />
+		<column name="title" description="Titulo" type="VARCHAR" size="255" />
+		<column name="description" description="Descripcion" type="VARCHAR" size="255" />
+		<column name="path" description="URI del recurso" type="VARCHAR" size="255" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>

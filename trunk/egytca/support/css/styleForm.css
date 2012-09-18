@@ -1,0 +1,18 @@
+*{
+	font-family: Arial, Helvetica, sans-serif, Verdana;
+}
+h1, h4, h5 {
+	color: #ff6600;
+}
+h2, h3, h6 {
+	color: #006699;
+}
+label{
+	font-size: 1.2em;
+	padding:0 2px 0 2px;
+	font-weight: bold;
+}
+.formAnswer {
+	font-size: 1.2em;
+	padding:0 2px 0 2px;
+}

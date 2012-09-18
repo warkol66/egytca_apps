@@ -1,0 +1,25 @@
+<!-- Modulo Services -->
+	<action-mappings>
+
+<!-- Section InternalMails -->
+
+		<action    path = "servicesInternalMailsDoDeleteX"
+							 type = "ServicesInternalMailsDoDeleteXAction"
+							 name = "servicesInternalMailsDoDeleteX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ServicesInternalMailsListTableBodyInclude.tpl" />
+		</action>
+		
+		<action    path = "servicesInternalMailsDoMarkAsReadX"
+							 type = "ServicesInternalMailsDoMarkAsReadXAction"
+							 name = "servicesInternalMailsDoMarkAsReadX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ServicesInternalMailsListTableBodyInclude.tpl" />
+		</action>
+		
+<!-- End Section InternalMails -->
+
+	</action-mappings>
+<!-- End Module Services -->
