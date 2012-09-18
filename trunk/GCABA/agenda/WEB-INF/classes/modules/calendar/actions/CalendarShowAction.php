@@ -85,8 +85,8 @@ class CalendarShowAction extends BaseAction {
 		$holidayDateFilter = array(); // filtro por fecha de feriados
 		if (!empty($_GET['filters']['selectedDate'])) {
 			$dt = new DateTime($_GET['filters']['selectedDate']);
-			$eventDateFilter['min'] = strtotime('-2 month', $dt->getTimestamp());
-			$eventDateFilter['max'] = strtotime('+3 month', $dt->getTimestamp());
+			$eventDateFilter['min'] = strtotime('-4 month', $dt->getTimestamp());
+			$eventDateFilter['max'] = strtotime('+5 month', $dt->getTimestamp());
 			$contextEventDateFilter = $eventDateFilter;
 			$holidayDateFilter = $eventDateFilter;
 		} else {
@@ -100,8 +100,10 @@ class CalendarShowAction extends BaseAction {
 		
 		// fechas limite en las que tiene validez la navegacion del calendario
 		// $dt tiene la fecha indicada en filters['selectedDate']. Si no existe tiene la actual
-		$this->smarty->assign('minTimestamp', strtotime('-2 month', $dt->getTimestamp()));
-		$this->smarty->assign('maxTimestamp', strtotime('+3 month', $dt->getTimestamp()));
+		$this->smarty->assign('minTimestamp', $eventDateFilter['min']);
+		$this->smarty->assign('maxTimestamp', $eventDateFilter['max']);
+//		$this->smarty->assign('minTimestamp', strtotime('-2 month', $dt->getTimestamp()));
+//		$this->smarty->assign('maxTimestamp', strtotime('+3 month', $dt->getTimestamp()));
 		
 		return array($eventDateFilter, $contextEventDateFilter, $holidayDateFilter);
 	}

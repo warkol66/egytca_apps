@@ -214,6 +214,7 @@ Avance de la obra </th>
 <p><br>
 <input type='button' id="cancelButton" onClick="$.fancybox.close();" value="Cerrar" />
 |-if "calendarEventsDoEditX"|security_has_access && !$noEdit-|<input type='button' id="editButton" onClick="callEditEvent();" value="Editar" />|-/if-|
+|-assign var=photos value=$event->getResources()-||-if $photos|count gt 0-|<input type='button' id="editButton" onClick="$('a.galleryPhoto').first().click();" value="Ver fotos" />|-/if-|
 |-if "calendarEventsDoDelete"|security_has_access && !$noDelete-|<input type='button' id="deleteButton" onClick="callDeleteEvent();" value="Eliminar" />|-/if-|</p>
 </fieldset>
 </div>
@@ -269,5 +270,29 @@ Avance de la obra </th>
 		displayEventMap(event);
 	else
 		displayMapNotAvailable();
-	
 </script>
+|-if !$event->isNew() && $photos|count gt 0-|
+<script type="text/javascript">
+	var galleryOptions; 
+	$(document).ready(function() {
+			galleryOptions = {
+			titleShow: true,
+			titlePosition: 'inside',
+			titleFormat: function(title, currentArray, currentIndex, currentOpts) {
+				var a = currentArray[currentIndex];
+				var photoDiv = $('<div></div>');
+				$('<p><span id="title" class="jeditable_'+$(a).attr('photoId')+'">'+$(a).attr('photoTitle')+'</span></p>').appendTo(photoDiv);
+				$('<p><span id="description" class="jeditable_'+$(a).attr('photoId')+'">'+$(a).attr('photoDescription')+'</span></p>').appendTo(photoDiv);
+				return photoDiv;
+			}
+		}
+		$('a.galleryPhoto').fancybox(galleryOptions);
+	});
+</script>
+<div id="photos" style="display:none">
+|-foreach $photos as $photo-|
+	|-include file="ConstructionsInspectionsGalleryPhotoInclude.tpl" photo=$photo-|
+|-/foreach-|
+</div>
+</div>
+|-/if-|

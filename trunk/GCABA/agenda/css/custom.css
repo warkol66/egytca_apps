@@ -601,7 +601,8 @@ input[type="checkbox"] {
 	background-image: url(../images/largeTab_cdd4de.png);
 }
 .largeTab_f5ffa9 {
-	background-image: url(../images/largeTab_f5ffa9.png);
+/*	background-image: url(../images/largeTab_f5ffa9.png); */
+	background-image: url(../images/largeTab_cdd4de.png);
 }
 
 #pendientesTitle, #toBeConfirmedTitle {

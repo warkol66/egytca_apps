@@ -114,7 +114,7 @@ $(document).ready(function() {
 }
 .pendientesContent {
 	margin-top: 0 !Important;
-	background-color: #f5ffa9;
+	background-color: #cdd4de;
 	}
 -->
 </style>
@@ -126,10 +126,13 @@ $(document).ready(function() {
 			<span class="eyefishContainer">
 				<ul id="fisheye_menu">
 					<li><a href="javascript:void(null)" class="fisheye" onclick="$('#filters').toggle();"><img src="images/eyeIcon_00.png" alt=""><span style="display: none;">Filtrar</span></a></li>
-					<li><a href="Main.php?do=calendarStatisticsShow" class="fisheye"><img src="images/eyeIcon_01.png" alt=""><span style="display: none;">Reunion<br>de Gabinete</span></a></li>
-					<li><a href="Main.php?do=calendarEventsMapShow&filters[minDate]=|-$smarty.now|date_format:'%Y-%m-01'-|&filters[maxDate]=|-date("Y-m-t")-|" class="fisheye"><img src="images/eyeIcon_02.png" alt=""><span style="display: none;">Seguimiento<br>de obras</span></a></li>
-					<li><a href="#3" class="fisheye"><img src="images/eyeIcon_03.png" alt=""><span style="display: none;">Exportar</span></a></li>
-					<li><a href="#4" class="fisheye"><img src="images/eyeIcon_04.png" alt=""><span style="display: none;">Imprimir</span></a></li>
+					<li><a href="Main.php?do=calendarShow" class="fisheye"><img src="images/eyeIcon_01.png" alt=""><span style="display: none;">Agenda</span></a></li>
+					<li><a href="Main.php?do=calendarPendingShow" class="fisheye"><img src="images/eyeIcon_03.png" alt=""><span style="display: none;">Pendientes</span></a></li>
+					<li><a href="Main.php?do=calendarToBeConfirmedShow" class="fisheye"><img src="images/eyeIcon_01.png" alt=""><span style="display: none;">A Confirmar</span></a></li>
+					<li><a href="Main.php?do=calendarStatisticsShow" class="fisheye"><img src="images/eyeIcon_01.png" alt=""><span style="display: none;">Estadísticas</span></a></li>
+					<li><a href="Main.php?do=calendarEventsMapShow&filters[minDate]=|-$smarty.now|date_format:'%Y-%m-01'-|&filters[maxDate]=|-date("Y-m-t")-|" class="fisheye"><img src="images/eyeIcon_02.png" alt=""><span style="display: none;">Filtrar</span></a></li>
+	<!--				<li><a href="#3" class="fisheye"><img src="images/eyeIcon_03.png" alt=""><span style="display: none;">Exportar</span></a></li> -->
+					<li><a href="javascript:window.print()" class="fisheye"><img src="images/eyeIcon_04.png" alt=""><span style="display: none;">Imprimir</span></a></li>
 					<li><a href="#5" class="fisheye"><img src="images/eyeIcon_05.png" alt=""><span style="display: none;">Salir</span></a></li>
 				</ul>
 			</span><!-- end fisheye Container -->
