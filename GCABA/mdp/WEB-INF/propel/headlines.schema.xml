@@ -250,12 +250,13 @@
 
 		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Log entry Id" autoIncrement="true" />
 		<column name="headlineType" type="VARCHAR" description="Tipo de Headlines a parsear" />
-		<column name="status" type="ENUM" valueSet="success, failure" description="Resultado del parseo" />
+		<column name="status" type="ENUM" valueSet="success, failure, ongoing" description="Resultado del parseo" />
 		<column name="errorMessage" type="LONGVARCHAR" description="Texto del error" />
 		<column name="userId" type="INTEGER" description="Id el usuario que corrio el parser" />
 		<column name="url" type="VARCHAR" description="URL parseada" />
 		<column name="parsedCount" type="INTEGER" description="Cantidad de headlines parseados" />
-		<column name="acceptedCount" type="INTEGER" description="Cantidad de headlinesParsed agregados" />
+		<column name="createdCount" type="INTEGER" description="Cantidad de headlinesParsed agregados" />
+		<column name="existentCount" type="INTEGER" description="Cantidad de headlinesParsed repetidos" />
 		<column name="invalidCount" type="INTEGER" description="Cantidad de headlines parseados invalidos" />
 
 		<behavior name="timestampable" />
