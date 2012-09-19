@@ -1,16 +1,17 @@
 <?php
 /**
- * RequirementsListAction
+ * RequirementsDevelopmentsListAction
  *
- * Listado de Reqeurimientos (Requirement)
+ * Listado de Desarrollos (Development)
  *
- * @package    requirement
+ * @package    requirements
+ * @subpackage    development
  */
 
-class RequirementsListAction extends BaseListAction {
-
+class RequirementsDevelopmentsListAction extends BaseListAction {
+	
 	function __construct() {
-		parent::__construct('Requirement');
+		parent::__construct('Development');
 	}
 
 	protected function preList() {

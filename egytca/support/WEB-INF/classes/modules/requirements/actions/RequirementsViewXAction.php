@@ -7,8 +7,6 @@
  * @package    requirement
  */
 
-require_once 'BaseEditAction.php';
-
 class RequirementsViewXAction extends BaseEditAction {
 
 	function __construct() {

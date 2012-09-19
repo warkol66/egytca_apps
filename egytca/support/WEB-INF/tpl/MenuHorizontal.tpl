@@ -17,6 +17,12 @@
 				<li class="last"><a href="Main.php?do=affiliatesUsersList">Usuarios de Clientes</a></li>
 			</ul>
 		</li>
+			<li><a href="#" class="sub">Desarrollos</a>
+			  <ul class="menu">
+				<li><a href="Main.php?do=requirementsDevelopmentsList">Desarrollos</a></li>
+				<li class="last"><a href="Main.php?do=requirementsList">Requerimientos</a></li>
+			</ul>
+		</li>
 		|-if $loginUser->isAdmin() || $loginUser->isSupervisor()-|		
 		<li><a href="javascript:void(null)" class="sub">Administración</a>
 			<ul>
