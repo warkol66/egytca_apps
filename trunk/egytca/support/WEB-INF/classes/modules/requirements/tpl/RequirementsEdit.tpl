@@ -23,15 +23,19 @@
     </p> 
     <p> 
       <label for="params_input">¿Qué información se ingresa? (en caso se ser una carga de datos, incluir los campos, que variables utiliza, opciones a elegir, campos obligatorios, etc.)</label>
-      <textarea name="params[input]" cols="74" rows="8" wrap="VIRTUAL" id="params_input" type="text" title="Descripción del Requerimiento" |-$readonly|readonly-|>|-$requirement->getInput()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
+      <textarea name="params[input]" cols="74" rows="8" wrap="VIRTUAL" id="params_input" type="text" title="Descripción del Requerimiento" |-$readonly|readonly-|>|-$requirement->getInput()|escape-|</textarea> |-validation_msg_box idField="params_input"-|
     </p> 
      <p> 
       <label for="params_output">¿Qué información obtiene? (explicar brevemente que visualiza como resultado de la consulta o del ingreso de información)</label>
-      <textarea name="params[output]" cols="74" rows="8" wrap="VIRTUAL" id="params_output" type="text" title="Descripción del Requerimiento" |-$readonly|readonly-|>|-$requirement->getOutput()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
+      <textarea name="params[output]" cols="74" rows="8" wrap="VIRTUAL" id="params_output" type="text" title="Descripción del Requerimiento" |-$readonly|readonly-|>|-$requirement->getOutput()|escape-|</textarea> |-validation_msg_box idField="params_output"-|
     </p> 
     <p> 
       <label for="params_process">Defina el proceso de la la información: (Explique brevemente como es el ciclo de vida de un registro, que puede ocurrir, que cambios de estado y quienes estarían autorizados a cambiarlo)</label>
-      <textarea name="params[process]" cols="74" rows="8" wrap="VIRTUAL" id="params_process" type="text" title="Descripción del Requerimiento" |-$readonly|readonly-|>|-$requirement->getProcess()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
+      <textarea name="params[process]" cols="74" rows="8" wrap="VIRTUAL" id="params_process" type="text" title="Descripción del Requerimiento" |-$readonly|readonly-|>|-$requirement->getProcess()|escape-|</textarea> |-validation_msg_box idField="params_process"-|
+    </p> 
+    <p> 
+      <label for="params_other">Otras informaciones importantes: (Agregue a continuación otra información que considere importante para el proceso.)</label>
+      <textarea name="params[other]" cols="74" rows="8" wrap="VIRTUAL" id="params_other" type="text" title="Descripción del Requerimiento" |-$readonly|readonly-|>|-$requirement->getOther()|escape-|</textarea> |-validation_msg_box idField="params_other"-|
     </p> 
    |-if !$requirement->isNew()-|
     <input type="hidden" name="id" id="id" value="|-$requirement->getId()-|" /> 

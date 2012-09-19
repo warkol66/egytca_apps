@@ -46,6 +46,7 @@
 		<column name="description" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Descripcion del proceso"/>
 		<column name="output" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Descripcion del resultado"/>
 		<column name="input" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Descripcion del ingreso de datos"/>
+		<column name="process" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Descripcion del ingreso de datos"/>
 		<column name="other" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Otras informaciones"/>
 
 		<column name="estimatedDelivery" type="TIMESTAMP" description="Fecha estimada de entrega" />

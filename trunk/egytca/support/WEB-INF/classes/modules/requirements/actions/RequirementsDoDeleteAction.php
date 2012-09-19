@@ -2,16 +2,15 @@
 /**
  * RequirementsDoDeleteAction
  *
- * Elimina Objetivos Operativos (Requirement)
+ * Elimina Requerimientos (Requirement)
  *
- * @package    planning
- * @subpackage    planningOperativeObjectives
+ * @package    requirement
  */
-require_once 'BaseDoDeleteAction.php';
 
 class RequirementsDoDeleteAction extends BaseDoDeleteAction {
-	
+
 	function __construct() {
 		parent::__construct('Requirement');
 	}
+
 }
