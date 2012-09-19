@@ -91,7 +91,8 @@ class CalendarEventsDoUploadPhotoAction extends BaseAction {
 			$photoResource = new Resource();
 			$photoResource->fromArray($_POST['params'], BasePeer::TYPE_FIELDNAME);
 			
-			$newFilename = uniqid().'.png';
+			$fileExtension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+			$newFilename = uniqid().'.'.$fileExtension;
 			
 			try {
 				$photosDir = ConfigModule::get('calendar', 'eventPhotosDir').'/'.$this->event->getId();
