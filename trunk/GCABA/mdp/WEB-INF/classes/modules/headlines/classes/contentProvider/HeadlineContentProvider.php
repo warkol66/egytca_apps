@@ -303,30 +303,33 @@ class HeadlineContentProvider {
                 $media = $media->resolveAliases();
                 $parsedNews['mediaId'] = $media->getId();
             }
-
-            try {
-                $h = $this->buildObject()
-                    ->setInternalid($internalId)
-                    ->setCampaignid($this->campaignId)
-                    ->setMediaid($parsedNews['mediaId'])
-                    ->setMedianame($parsedNews['source'])
-                    ->setName($parsedNews['title'])
-                    ->setContent($parsedNews['snippet'])
-                    ->setDatepublished($parsedNews['timestamp'])
-                    ->setHeadlinedate($parsedNews['timestamp'])
-                    ->setUrl($parsedNews['url'])
-                    ->setMoresourcesurl($parsedNews['more_sources_url'])
-                    ->setKeywords($this->getSanitizedKeywords())
-                    ->setStrategy($parsedNews['strategy'])
-                ;
-                $h->save();
-                $headlinesParsed[] = $h;
-            }
-            catch (PropelException $e) {
+	    
+	    if (HeadlineParsedQuery::create()->filterByInternalid($h->getInternalId())->count() > 0) {
 		    $ignored++;
-//                echo "headline $internalId existente <br />";
-//                echo $e->getTraceAsString();
-            }
+//		    echo "headline $internalId existente <br />";
+//		    echo $e->getTraceAsString();
+	    } else {
+		try {
+		    $h = $this->buildObject()
+			->setInternalid($internalId)
+			->setCampaignid($this->campaignId)
+			->setMediaid($parsedNews['mediaId'])
+			->setMedianame($parsedNews['source'])
+			->setName($parsedNews['title'])
+			->setContent($parsedNews['snippet'])
+			->setDatepublished($parsedNews['timestamp'])
+			->setHeadlinedate($parsedNews['timestamp'])
+			->setUrl($parsedNews['url'])
+			->setMoresourcesurl($parsedNews['more_sources_url'])
+			->setKeywords($this->getSanitizedKeywords())
+			->setStrategy($parsedNews['strategy'])
+		    ;
+		    $h->save();
+		    $headlinesParsed[] = $h;
+		}
+		catch (PropelException $e) {
+		}
+	    }
         }
         return $headlinesParsed;
     }

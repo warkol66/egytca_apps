@@ -43,6 +43,9 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 		if (!empty($_POST['type'])) {
 			
 			$savedHeadlines = array();
+			$existentHeadlines = array();
+			$invalidHeadlines = array();
+			
 			$type = $_POST['type'];
 			
 			if (!in_array($type, array_keys($this->typeMap))) {
@@ -76,6 +79,8 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 			$logEntry->setHeadlinetype($type);
 			$logEntry->setUser(Common::getLoggedUser());
 			$logEntry->setUrl($headlinesFeed);
+			$logEntry->setStatus('ongoing');
+			$logEntry->save();
 
 			$headlineParser = new HeadlineFeedParser($this->typeMap[$type]['class']);
 			try {
@@ -86,22 +91,23 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 				$logEntry->setErrormessage($e->getMessage());
 			}
 
-			if ($this->debug) {
-				$notSavedHeadlines = array();
-			}
-
 			foreach ($headlines as $h) {
-				try {
-					$h->save();
-					$savedHeadlines []= $h;
-				} catch (Exception $e) {
-					$notSavedHeadlines []= $h;
+				if (HeadlineParsedQuery::create()->filterByInternalid($h->getInternalId())->count() > 0) {
+					$existentHeadlines []= $h;
+				} else {
+					try {
+						$h->save();
+						$savedHeadlines []= $h;
+					} catch (Exception $e) {
+						$invalidHeadlines []= $h;
+					}
 				}
 			}
 			
 			$logEntry->setParsedcount(count($headlines));
-			$logEntry->setAcceptedcount(count($savedHeadlines));
-			$logEntry->setInvalidcount(count($notSavedHeadlines));
+			$logEntry->setCreatedcount(count($savedHeadlines));
+			$logEntry->setExistentcount(count($existentHeadlines));
+			$logEntry->setInvalidcount(count($invalidHeadlines));
 			$logEntry->save();
 
 			/* ********************* debug ******************** */
@@ -109,9 +115,11 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 				echo '<hr/>';
 					echo 'guardados: '.count($savedHeadlines);
 					echo '<br/>';
-					echo 'no guardados (por repetidos supuestamente): '.count($notSavedHeadlines);
+					echo 'existentes: '.count($existentHeadlines);
+					echo '<br/>';
+					echo 'invalidos: '.count($invalidHeadlines);
 				echo '<hr/>';
-					echo 'count: '.count($headlines);
+					echo 'total: '.count($headlines);
 					echo '<br/>';
 					$headlineParser->printDebugInfo();
 				echo '<hr/>';
