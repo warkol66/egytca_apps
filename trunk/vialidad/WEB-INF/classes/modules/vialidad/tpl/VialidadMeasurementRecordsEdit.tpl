@@ -265,6 +265,44 @@
 		|-/if-|
 	</div>
 	|-/if-|
+
+		|-if $others->count() gt 0-|
+	<h3>Otros bienes y servicios</h3>
+	<div id=div_others>
+	<table id="table_others" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
+		<thead>
+		<tr class="thFillTitle"> 
+			<th width="65%">Descripción</th> 
+			<th width="15%">Precio</th>
+			<th width="10%">Verificado</th>
+			<th width="10%">Documento</th>
+		</tr>
+		</thead>
+		<tbody>
+		|-foreach from=$others item=other-|
+		<tr>
+			<td>|-$other->getDescription()-|</td>
+			<td align="right">|-$other->getPrice()|system_numeric_format-|</td>
+			|-assign var=itemRecord value=$other->getMeasurementRecordRelation()-|
+			<td align="center">
+				<input type="checkbox" |-$itemRecord->getVerified()|checked_bool-| onchange="updateVerified('|-$itemRecord->getId()-|', this.checked)" />
+			</td>
+			<td align="center">
+				<a |-if $itemRecord->getDocumentid() neq ''-|style="display:none"|-/if-| href="#lightbox|-$itemRecord->getId()-|" rel="lightbox|-$itemRecord->getId()-|" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>
+				<input |-if $itemRecord->getDocumentid() eq ''-|style="display:none"|-/if-| onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$itemRecord->getDocumentid()-|')" type="button" class="icon iconView" />
+				<form action="Main.php?do=vialidadMeasurementRecordRelationsDoDeleteDocument" method="post">
+					<input type="hidden" name="id" value="|-$itemRecord->getId()-|" />
+					<input type="submit" |-if $itemRecord->getDocumentid() eq ''-|style="display:none"|-/if-| onclick="return confirm('Seguro que desea eliminar el documento definitivamente?')" class="icon iconDelete" />
+				</form>
+			</td>
+		</tr>
+		|-/foreach-|
+		</tbody>
+	</table>
+	</div>
+		|-/if-|
+
+
 </div>
 
 <script type="text/javascript" src="scripts/lightbox.js"></script>
