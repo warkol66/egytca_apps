@@ -15,8 +15,8 @@
 		<column name="picture" type="BOOLEAN" description="Foto del titular" />
 		<column name="campaignId" type="INTEGER" description="Campaign ID"/>
 		<column name="mediaId" type="INTEGER" description="Media ID"/>
-		<column name="value" type="TINYINT" description="Valoracion de la noticia"/>
-		<column name="relevance" type="TINYINT" description="Valoracion del medio"/>
+		<column name="value" type="TINYINT" default="0" description="Valoracion de la noticia"/>
+		<column name="relevance" type="TINYINT" default="0" description="Valoracion del medio"/>
 		<column name="internalId" required="true" type="VARCHAR" size="255" description="Headline internal Id" />
 		<column name="page" type="INTEGER" description="Pagina" />
 		<column name="section" type="VARCHAR" description="Seccion" />
@@ -28,9 +28,9 @@
 		<column name="strategy" type="VARCHAR" size="50" description="Estrategia que parseo el titular" />
 
 		<column name="length" type="INTEGER" description="Duracion en segs o superficie en mm2"/>
-		<column name="agenda" type="TINYINT" description="Tipo de agenda"/>
+		<column name="agenda" type="TINYINT" default="0" description="Tipo de agenda"/>
+		<column name="headlineScope" type="TINYINT" default="0" description="Ambito"/>
 		<column name="processed" type="BOOLEAN" sqlType="BOOL" default="false" description="Indica si esta procesado" />
-		<column name="headlineScope" type="TINYINT" description="Ambito"/>
 
 		<column name="class_key" type="INTEGER" inheritance="single">
 			<inheritance key="1" class="Headline" />
@@ -40,6 +40,12 @@
 		</column>
 
 		<behavior name="timestampable" />
+
+	  <behavior name="aggregate_column">
+	    <parameter name="name" value="issuesCount" />
+	    <parameter name="foreign_table" value="headlines_issue" />
+	    <parameter name="expression" value="COUNT(headlineId)" />
+	  </behavior>
 
 		<foreign-key foreignTable="campaigns_campaign" onDelete="cascade">
 			<reference local="campaignId" foreign="id"/>
