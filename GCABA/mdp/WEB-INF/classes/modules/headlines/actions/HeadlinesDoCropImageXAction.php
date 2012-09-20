@@ -52,6 +52,6 @@ class HeadlinesDoCropImageXAction extends BaseAction {
 			unlink($newImageFilename);
 		rename($tempName, $newImageFilename);
 
-		return $mapping->findForwardConfig('success');
+		return;
 	}
 }
