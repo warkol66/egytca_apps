@@ -1,3 +1,22 @@
+<style type="text/css">
+.fancybox-title-inside {
+	background-color: #333333 !Important;
+	padding-top: 12px;
+	padding-bottom: 12px;
+}
+.fancyPhotoGallery * {
+	color: #ffffff !Important;
+}
+div.fancyPhotoGallery p.title {
+	color: #ffffff !Important;
+	font-size: 1.3em !Important;
+}
+div.fancyPhotoGallery p.description {
+	color: #ffffff !Important;
+	font-size: 1.1em !Important;
+}
+</style>
+
 |-if $event->getIsConstruction()-|
 <script type="text/javascript" language="javascript" src="scripts/jquery/jquery.carouFredSel-5.6.1.js"></script>
 <script language="javascript" type="text/javascript">
@@ -280,9 +299,9 @@ Avance de la obra </th>
 			titlePosition: 'inside',
 			titleFormat: function(title, currentArray, currentIndex, currentOpts) {
 				var a = currentArray[currentIndex];
-				var photoDiv = $('<div></div>');
-				$('<p><span id="title" class="jeditable_'+$(a).attr('photoId')+'">'+$(a).attr('photoTitle')+'</span></p>').appendTo(photoDiv);
-				$('<p><span id="description" class="jeditable_'+$(a).attr('photoId')+'">'+$(a).attr('photoDescription')+'</span></p>').appendTo(photoDiv);
+				var photoDiv = $('<div class="fancyPhotoGallery"></div>');
+				$('<p class="title">'+$(a).attr('photoTitle')+'</p>').appendTo(photoDiv);
+				$('<p class="description">'+$(a).attr('photoDescription')+'</p>').appendTo(photoDiv);
 				return photoDiv;
 			}
 		}
@@ -291,7 +310,7 @@ Avance de la obra </th>
 </script>
 <div id="photos" style="display:none">
 |-foreach $photos as $photo-|
-	|-include file="ConstructionsInspectionsGalleryPhotoInclude.tpl" photo=$photo-|
+	|-include file="CalendarEventsGalleryPhotoInclude.tpl" photo=$photo defaultTitle="" defaultDescription=""-|
 |-/foreach-|
 </div>
 </div>
