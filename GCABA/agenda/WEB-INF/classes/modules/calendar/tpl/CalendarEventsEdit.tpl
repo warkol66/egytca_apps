@@ -36,6 +36,7 @@
 				var photoDiv = $('<div></div>');
 				$('<p><span id="title" class="jeditable_'+$(a).attr('photoId')+'">'+$(a).attr('photoTitle')+'</span></p>').appendTo(photoDiv);
 				$('<p><span id="description" class="jeditable_'+$(a).attr('photoId')+'">'+$(a).attr('photoDescription')+'</span></p>').appendTo(photoDiv);
+				$('<p><button onclick="deletePhoto('+$(a).attr('photoId')+')">Eliminar</button></p>').appendTo(photoDiv);
 				return photoDiv;
 			},
 			onComplete: function(currentArray, currentIndex) {
@@ -63,6 +64,22 @@
 			});
 		|-/if-|
 	});
+	
+	function deletePhoto(id) {
+		$.ajax({
+			url: 'Main.php?do=calendarEventsDoDeletePhoto',
+			type: 'post',
+			data: {
+				id: id
+			},
+			success: function() {
+				$.fancybox.close();
+				$('a[photoid="'+id+'"]').remove();
+				$('#divPhoto'+id).remove();
+				$('a.galleryPhoto').fancybox(galleryOptions);
+			}
+		});
+	}
 	
 	function updateLocateButton() {
 		

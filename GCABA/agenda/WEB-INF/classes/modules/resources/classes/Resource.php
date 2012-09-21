@@ -14,5 +14,10 @@
  * @package    propel.generator.resources.classes
  */
 class Resource extends BaseResource {
-
+	
+	public function delete(\PropelPDO $con = null) {
+		if (file_exists($this->getPath()))
+			unlink($this->getPath());
+		parent::delete($con);
+	}
 } // Resource
