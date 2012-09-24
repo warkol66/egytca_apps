@@ -46,5 +46,13 @@ class HeadlineAttachment extends BaseHeadlineAttachment {
 	function dataExists() {
 		return file_exists($this->getRealpath());
 	}
+	
+	function getSecondaryDataRealpath() {
+		return realpath(ConfigModule::get('headlines', 'clippingsPath')).'/'.$this->getSecondaryDataName();
+	}
+	
+	function secondaryDataExists() {
+		return file_exists($this->getSecondaryDataRealpath());
+	}
 
 } // HeadlineAttachment

@@ -221,6 +221,7 @@
 		<column name="name" type="VARCHAR" />
 		<column name="url" type="VARCHAR" />
 		<column name="headlineId" type="INTEGER" primaryKey="true"/>
+		<column name="secondaryDataName" type="VARCHAR" />
 		
 		<foreign-key foreignTable="headlines_headline" onDelete="CASCADE">
 			<reference local="headlineId" foreign="id"/>
