@@ -39,18 +39,34 @@ class HeadlineAttachment extends BaseHeadlineAttachment {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return string absolute path to resource
+	 */
 	function getRealpath() {
 		return realpath(ConfigModule::get('headlines', 'clippingsPath')).'/'.$this->getName();
 	}
 	
+	/**
+	 * 
+	 * @return boolean true if resource exists, false otherwise
+	 */
 	function dataExists() {
 		return file_exists($this->getRealpath());
 	}
 	
+	/**
+	 * 
+	 * @return string absolute path to resource
+	 */
 	function getSecondaryDataRealpath() {
 		return realpath(ConfigModule::get('headlines', 'clippingsPath')).'/'.$this->getSecondaryDataName();
 	}
 	
+	/**
+	 * 
+	 * @return boolean true if resource exists, false otherwise
+	 */
 	function secondaryDataExists() {
 		return file_exists($this->getSecondaryDataRealpath());
 	}
