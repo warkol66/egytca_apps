@@ -141,7 +141,7 @@
 			|-if $filters.includeClipping-|<p>
 				|-if $headline->hasClipping()-|<img src="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" />|-/if-|
 				|-foreach $headline->getHeadlineImages() as $image-|
-					|-if $image->dataExists()-|<img src="Main.php?do=headlinesAttachmentGetData&id=|-$image->getId()-|" />|-/if-|
+					|-if $image->secondaryDataExists()-|<img src="Main.php?do=headlinesAttachmentGetData&id=|-$image->getId()-|&secondary=1" />|-/if-|
 				|-/foreach-|
 			</p>|-/if-|
 	|-/foreach-|

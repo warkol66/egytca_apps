@@ -2,16 +2,24 @@
 
 class HeadlineImageResampler {
 	
-	static function resample($filename) {
+	/**
+	 * Crea una nueva imagen resampleada a partir de otra imagen imagen para
+	 * que el tamanio no exceda los valores maximos establecidos en la 
+	 * configuracion del sistema manteniendo las proporciones.
+	 *  
+	 * @param string $inputFilename nombre de la imagen original a resamplear
+	 * @param string $outputFilename nombre de la imagen copia resampleada
+	 */
+	private static function doResample($inputFilename, $outputFilename) {
 		
-		if (!file_exists($filename))
-			throw new Exception("$filename doesn't exist");
+		if (!file_exists($inputFilename))
+			throw new Exception("$inputFilename doesn't exist");
 		
 		global $system;
 		
 		$resampledWidth = $system['config']['headlines']['clippingSize']['width'];
 		$resampledHeight = $system['config']['headlines']['clippingSize']['height'];
-		list($originalWidth, $originalHeight) = getimagesize($filename);
+		list($originalWidth, $originalHeight) = getimagesize($inputFilename);
 		
 		// quiero mantener la proporcion de la imagen
 		if ( ($originalWidth / $resampledWidth) > ($originalHeight / $resampledHeight) ) {
@@ -22,8 +30,33 @@ class HeadlineImageResampler {
 		// ------------------------------------------
 		
 		$canvas = imagecreatetruecolor($resampledWidth, $resampledHeight);
-		$originalImage = imagecreatefromjpeg($filename);
+		$originalImage = imagecreatefromjpeg($inputFilename);
 		imagecopyresampled ($canvas, $originalImage, 0, 0, 0, 0, $resampledWidth, $resampledHeight, $originalWidth, $originalHeight);
-		imagejpeg($canvas, $filename, 100);
+		imagejpeg($canvas, $outputFilename, 100);
+		
+		if (!file_exists($outputFilename))
+			throw new Exception("error creating $outputFilename. please verify write permissions");
+	}
+	
+	/**
+	 * Crea una nueva imagen resampleada a partir de otra imagen imagen para
+	 * que el tamanio no exceda los valores maximos establecidos en la 
+	 * configuracion del sistema manteniendo las proporciones.
+	 *  
+	 * @param string $inputFilename nombre de la imagen original a resamplear
+	 * @param string $outputFilename nombre de la imagen copia resampleada
+	 */
+	public static function copyResampled($inputFilename, $outputFilename) {
+		self::doResample($inputFilename, $outputFilename);
+	}
+
+	/**
+	 * Hace el resample de una imagen para que el tamanio no exceda los valores maximos establecidos
+	 * en la configuracion del sistema manteniendo las proporciones.
+	 * 
+	 * @param string $filename nombre de la imagen a resamplear
+	 */
+	public static function resample($filename) {
+		self::doResample($filename, $filename);
 	}
 }

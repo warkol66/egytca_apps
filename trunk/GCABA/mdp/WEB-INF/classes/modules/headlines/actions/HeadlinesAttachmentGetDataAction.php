@@ -35,9 +35,10 @@ class HeadlinesAttachmentGetDataAction extends BaseAction {
 					break;
 			}
 			header('Content-Type: '.$type);
-			header("Content-length: ".filesize($attachment->getRealpath()));
+			$path = empty($_REQUEST['secondary']) ? $attachment->getRealpath() : $attachment->getSecondaryDataRealpath();
+			header("Content-length: ".filesize($path));
 			header('Content-Disposition: attachment; filename="'.$attachment->getId().'.'.$extension.'"');
-			readfile($attachment->getRealpath());
+			readfile($path);
 		}
 		else
 			throw new Exception('missing ID');

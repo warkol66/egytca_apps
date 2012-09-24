@@ -4,11 +4,16 @@
 
 configFile="config.ini"
 
-downloadCmd=`grep "downloadCommand" $configFile | sed -e "s/downloadCommand=//"`
-resampleCmd=`grep "resampleCommand" $configFile | sed -e "s/resampleCommand=//"`
-queue=`grep "queue" $configFile | sed -e "s/queue=//"`
-failuresLog=`grep "failuresLog" $configFile | sed -e "s/failuresLog=//"`
-failuresDir=`grep "failuresDir" $configFile | sed -e "s/failuresDir=//"`
+downloadCmd=`grep "^downloadCommand" $configFile | sed -e "s/downloadCommand=//"`
+resampleQueue=`grep "^resampleQueue" $configFile | sed -e "s/resampleQueue=//"`
+queue=`grep "^queue" $configFile | sed -e "s/queue=//"`
+failuresLog=`grep "^failuresLog" $configFile | sed -e "s/failuresLog=//"`
+failuresDir=`grep "^failuresDir" $configFile | sed -e "s/failuresDir=//"`
+
+# $1: id
+resample() {
+	echo "id=$1" > $resampleQueue/$1	# filename is not important, but must be unique
+}
 
 # $1: file
 download() {
@@ -21,9 +26,10 @@ download() {
 
 	$downloadCmd $url -O $of > /dev/null 2>/dev/null
 
-#	if [ $mustResample = "1" ] ; then
-#		$resampleCmd $id > /dev/null 2>/dev/null
-#	fi
+	if [ $mustResample = 1 ] ; then
+		resample $id
+		echo "    attachment with id $id added to autoresampler queue"
+	fi
 	
 	if [ -f "$of" ] ; then
 		return 0
@@ -44,6 +50,7 @@ logFailure() {
 
 while true; do
 	files=`ls -1 $queue`
+echo "queue: $queue"
 	for file in $files ; do
 		echo `date`
 		echo "  processing $file..."

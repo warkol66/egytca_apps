@@ -1,0 +1,36 @@
+#! /bin/sh
+
+USAGE_HELP="
+Usage: autoresampler <command>
+Commands:
+	start	Starts the daemon
+	stop	Stops the daemon
+	status	Shows the status of the daemon
+"
+
+configFile="config.ini"
+
+out=`grep "stdout" $configFile | sed -e "s/stdout=//"`
+err=`grep "stderr" $configFile | sed -e "s/stderr=//"`
+
+case "$1" in
+	"start")
+		./autoresamplerd > $out 2> $err &
+		echo "PID=$!" > autoresampler.pid
+		;;
+	"stop")
+		PID=`grep "PID" "autoresampler.pid" | sed -e "s/PID=//"`
+		kill $PID
+		rm autoresampler.pid
+		;;
+	"status")
+		if [ -f "autoresampler.pid" ] ; then
+			echo "running"
+		else
+			echo "stopped"
+		fi
+		;;
+	*)
+		echo "$USAGE_HELP"
+		;;
+esac

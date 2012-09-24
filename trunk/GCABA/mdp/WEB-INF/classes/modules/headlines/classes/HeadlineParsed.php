@@ -63,16 +63,19 @@ class HeadlineParsed extends BaseHeadlineParsed {
 			foreach ($this->getHeadlineParsedAttachments() as $attachment) {
 				$newAttachmentName = $newHeadline->getId().'-'.uniqid();
 				$newAttachmentFullname = realpath($attachmentsPath)."/".$newAttachmentName;
+				$newAttachmentSecondaryDataName = "r-".$newAttachmentName;
 				$newAttachment = new HeadlineAttachment();
 				$newAttachment->setName($newAttachmentName);
 				$newAttachment->setUrl($attachment->getUrl());
 				$newAttachment->setLength($attachment->getLength());
 				$newAttachment->setType($attachment->getType());
-
-				$downloader->putInQueue($attachment->getUrl(), $newAttachmentFullname, $attachment->getType(), $attachment->getId());
+				$newAttachment->setSecondaryDataName($newAttachmentSecondaryDataName);
 				
 				$newHeadline->addHeadlineAttachment($newAttachment);
 				$newHeadline->save();
+				
+				$mustResample = $newAttachment->getType() == 'image/jpg' ? true : false;
+				$downloader->putInQueue($newAttachment, $mustResample);
 			}
 		}
 

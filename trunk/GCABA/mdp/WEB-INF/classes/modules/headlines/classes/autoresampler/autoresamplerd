@@ -1,0 +1,59 @@
+#! /bin/sh
+
+# use autoresampler to control this daemon
+
+configFile="config.ini"
+
+autoresamplerDir=$PWD
+mainphpDir=`grep "mainphpDir" $configFile | sed -e "s/mainphpDir=//"`
+queue=`grep "queue" $configFile | sed -e "s/queue=//"`
+failuresLog=`grep "failuresLog" $configFile | sed -e "s/failuresLog=//"`
+failuresDir=`grep "failuresDir" $configFile | sed -e "s/failuresDir=//"`
+
+# $1: queued file
+resample() {
+	queuedFile="$1"
+
+	id=`grep "id" $queuedFile | sed -e "s/id=//"`
+
+	cd $mainphpDir
+	php Main.php do=headlinesImageDoCreateResampledCopy id=$id
+	cd $autoresamplerDir
+
+	return 0
+#	if [ -f "$of" ] ; then
+#		return 0
+#	else
+#		return 1
+#	fi
+}
+
+logFailure() {
+	failedFile=$1
+	id=`grep "id" $failedFile | sed -e "s/id=//"`
+	
+	logText="error resampling image with id: $id - "`date`" - data file moved to "`readlink -f $failedFile`
+
+	echo "$logText" >> $failuresLog
+}
+
+while true; do
+	files=`ls -1 $queue`
+	for file in $files ; do
+		echo `date`
+		echo "  processing $file..."
+		resample $queue/$file
+		if [ $? = 0 ] ; then
+			echo "    resample result: OK"
+			rm -f $queue/$file
+		else
+			echo "    resample result: FAILURE"
+			if [ ! -d "$failuresDir" ] ; then
+				mkdir $failuresDir
+			fi
+			mv $queue/$file $failuresDir/$file
+			logFailure $failuresDir/$file
+		fi
+	done
+	sleep 5s
+done
