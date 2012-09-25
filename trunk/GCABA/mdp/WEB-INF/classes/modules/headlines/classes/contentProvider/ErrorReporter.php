@@ -19,7 +19,9 @@ class ErrorReporter {
 		$mailBody = '';
 		
 		foreach ($errors as $error) {
-			$mailBody .= "error: ".$error["code"]."\n";
+			$mailBody .= "[user: " . Common::getLoggedUser() . "] "
+				. "error parsing headlines using strategy "
+				. $error['strategy'].": ".$error["code"]."\n";
 		}
 		
 		$message = $emailMgr->createTextMessage($subject, $mailBody);
