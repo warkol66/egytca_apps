@@ -54,6 +54,8 @@ class HeadlinesDoParseXAction extends BaseAction {
 			}
 		}
 		
+		$smarty->assign('tags', HeadlineTagQuery::create()->select('Name')->find()->toArray());
+
 		$smarty->assign('headlinesParsed', $headlinesParsed);
 		$smarty->assign('strategiesParams', $strategiesParams);
 		$smarty->assign('parseErrors', $parseErrors);
