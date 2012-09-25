@@ -18,17 +18,38 @@ class Campaign extends BaseCampaign {
 	/** the default item name for this class */
 	const ITEM_NAME = 'Campaign';
 
+	const RELEASE            = 1;
+	const PUBLIC_APPEREANCE  = 2;
+	const INTERVIEW          = 3;
+	const SPONSOR            = 4; 
+	const JUDGE              = 5;
+	const EARNED             = 6;
+
+	//nombre de los tipos de garantia
+	protected static $campaignTypes = array(
+						Campaign::RELEASE            => 'Release',
+						Campaign::PUBLIC_APPEREANCE  => 'Public Appereance',
+						Campaign::INTERVIEW          => 'Interview',
+						Campaign::SPONSOR            => 'Sponsor',
+						Campaign::JUDGE              => 'Judge',
+						Campaign::EARNED             => 'Earned'
+					);
+
 	/**
-	* Obtiene el nombre traducido del tipo de acto.
+	 * Devuelve los tipos de campaign
+	 */
+	public static function getCampaignTypes() {
+		return Campaign::$campaignTypes;
+	}
+
+	/**
+	* Obtiene el nombre traducido del tipo de campaign.
 	*
 	* @return string nombre del tipo
 	*/
 	function getTypeTranslated() {
-		$type = $this->getType();
-		$types = CampaignPeer::getCampaignTypes();
-		$typeName = $types[$type];
-		$typeNameTranslated = Common::getTranslation($typeName,'campaign');
-		return $typeNameTranslated;
+		$types = Campaign::getCampaignTypes();
+		return Common::getTranslation($types[$this->getType()],'campaigns');
 	}
 
 	/**
