@@ -1,15 +1,4 @@
-
-
-
-
-
-
-
-
-
-
-
-/* STYLEWIDE.CSS  */
+/* print.css  */
 
 
 /* =Containers
@@ -22,45 +11,16 @@
 
 /* =Grid >> Global
 --------------------------------------------------------------------------------*/
-.container_16 .grid_16 {	width: 1010px !Important;}
-
-/* =Grid >> 16 Columns
---------------------------------------------------------------------------------*/
-
-/*   -------------------------------------- */
-
-/*  AGENDA.CSS                   */
-
-/*   -------------------------------------- */
-
-/*  HEADER 1*/
+.container_16 .grid_16 {
+	width: 1010px !Important;
+}
 	
-/*		#calendar { width: 1100px;	}*/
-			
-/*		 .fc-event-time{width:139px;}*/
-		 
-/*		.fc-header .fc-header-left{ width:125px;	}/**/
-		
-	.colummSidebar .solapas2 {display:none !Important;}		
-		#accordion2 ul{display:none !Important;}		
+.colummSidebar .solapas2 {display:none !Important;}		
+#accordion2 ul{display:none !Important;}		
 		
 		
-
-/*    MENU SOLAPAS DE COLORES    */
-
-
-
-
-
-
-
 /*-----------------------------------------------------*/
-
-
-
 /*  FULLCALENDAR_PRINT.CSS          */
-
-
 /* -----------------------------------------------------*/
 
 /*
@@ -240,21 +200,31 @@ table tr {
 
 
 
-body{ background-image:none !Important;
-			background-color:#FFFFFF !Important; 
-		}
-		.container_12, .container_16{width:100% !Important; background-color:#FFFFFF !Important;}
-		.container_16 .grid_16, .container_16 .grid_13 {background-color:#FFFFFF !Important;}
-		.container_16 .header1{width:140px !Important; 	height:70px !Important;
-		top:0 !Important; display:block !Important; 
-		left: 875px !Important;
-		background-color: #FFCC00 !Important; 
-		position: absolute !Important; 
-		background-image:url(../images/ba_lateral.jpg) !Important; 
-		background-repeat:no-repeat !Important; background-position: 0 0 !Important; 
-		z-index:1100 !Important;
-		border-top: 4px #666666 solid !Important;
-	   -moz-border-radius: 8px !Important; border-radius: 8px !Important; 
+body { 
+	background-image:none !Important;
+	background-color:#FFFFFF !Important; 
+}
+
+.container_12, .container_16 {
+	width:100% !Important;
+	background-color:#FFFFFF !Important;
+}
+.container_16 .grid_16, .container_16 .grid_13 {
+	background-color:#FFFFFF !Important;
+}
+.container_16 .header1{
+	width:140px !Important; 	height:70px !Important;
+	top:0 !Important; display:block !Important; 
+	left: 875px !Important;
+	background-color: #FFCC00 !Important; 
+	position: absolute !Important; 
+	background-image:url(../images/ba_lateral.jpg) !Important; 
+	background-repeat:no-repeat !Important;
+	background-position: 0 0 !Important; 
+	z-index:1100 !Important;
+	border-top: 4px #666666 solid !Important;
+	-moz-border-radius: 8px !Important;
+	border-radius: 8px !Important; 
 }
 		
 		h1.branding {/*background-image:url(../images/header_AgendaDeGobierno.png) !Important; background-repeat:no-repeat !Important; background-position: 10px 0 !Important;*/
@@ -292,30 +262,45 @@ body{ background-image:none !Important;
 								display: none !Important;
 								}
 		
-		#calendar {
-		width: 100% !Important;
-		margin: 0 auto !Important;
-		background-color:#FFFFFF !Important;
-		}
-		.boxAgendaContainer{
+#calendar {
+	width: 100% !Important;
+	margin: 0 auto !Important;
+	background-color:#FFFFFF !Important;
+}
+.boxAgendaContainer{
 /*		width:857px;*/
-		width:100%;
-		border:none !Important;
-		background-color:#FFFFFF !Important;
-		color:#000000 !Important;}
+	width:100%;
+	border:none !Important;
+	background-color:#FFFFFF !Important;
+	color:#000000 !Important;
+}
+.container_16 .colummAgenda{
+	width:850px !Important;
+	margin-left:0px !Important;
+	background-color:#FFFFFF !Important;
+	position:absolute !Important;
+	top: 0 /*52px*/ !Important;
+	display:block !Important;
+}
 		
-		.container_16 .colummAgenda{width:850px !Important; margin-left:0px !Important; background-color:#FFFFFF !Important; position:absolute !Important; top: 0 /*52px*/ !Important; display:block !Important;}
-		
-		
+	
 		
 /*		COLUMNA PENDIENTES */
-		.container_16 .colummSidebar {
-		 width:140px !Important;
-		 z-index:1000 !Important; margin-top:0 !Important; border:none !Important;
-		  display:block !Important;  position:absolute !Important;  top:350px !Important;
-		  left:875px !Important; background-color: #666666 !Important;
-		   -moz-border-radius: 8px !Important; border-radius: 8px !Important; 
-		   height:350px !Important; min-height:350px  !Important;}
+.container_16 .colummSidebar {
+	width:140px !Important;
+	z-index:1000 !Important;
+	margin-top:0 !Important;
+	border:none !Important;
+	display:block !Important;
+	position:absolute !Important;
+	top:270px !Important;
+	left:875px !Important;
+	background-color: #666666 !Important;
+	-moz-border-radius: 8px !Important;
+	border-radius: 8px !Important; 
+	height:350px !Important;
+	min-height:350px !Important;
+}
 		   
 		.subColumnsTriggerB {display: none !Important;}
 		.pendienteBotones, .solapita{display:none !Important;}
@@ -370,7 +355,7 @@ body{ background-image:none !Important;
 		.verde1bis .pendienteDato {color:#000000 !Important;}    
 		.verde2 .pendienteDato {color:#000000 !Important;}       
 		.cyan .pendienteDato {color:#000000 !Important;}
-		.rojo .pendienteDato {color: #CC0000 !Important;}
+		.rojo .pendienteDato {color: #000000 !Important;}
 		.naranja .pendienteDato {color:#000000 !Important;}
 		.naranjabis .pendienteDato {color:#000000 !Important;}
 		.gris .pendienteDato {color:#000000 !Important;}
@@ -389,7 +374,7 @@ body{ background-image:none !Important;
 .fc-view-month .fc-widget-header   { background-color:#999999 !Important; color:#FFFFFF !Important; -moz-border-radius: 0 0 8px 8px !Important; border-radius:  0 0 8px 8px !Important; font-size:8px !Important;
 text-align:center !Important; padding:0 !Important; line-height:8px !Important; text-transform:uppercase !Important;}
 .fc-view-month .fc-widget-header, 
-.fc-view-month .fc-widget-content{width:14%;}
+.fc-view-month .fc-widget-content{width:13%;}
 
 .fc-view-month .fc-event-time{/*display: none !Important;*/ background:none !Important; width:110px !Important;}
 
@@ -403,7 +388,7 @@ border: none  !Important; width:110px !Important;}
 /* COLORES DE LOS EVENTOS */
 	.rojo  .fc-event-time,
 	.rojo  .fc-event-title,
-	.rojo  .fc-event-text{color: #CC0000 !Important;}
+	.rojo  .fc-event-text,
 
 	.naranja  .fc-event-time, .naranjabis  .fc-event-time,
 	.verde1  .fc-event-time, .verde1bis .fc-event-time,
@@ -426,7 +411,7 @@ border: none  !Important; width:110px !Important;}
 	margin-top:0 !Important;}
 
 	.evFeriadoPast, .evEfemeridePast, 
-	.evFeriadoPast .fc-event-title, .evEfemeridePast .fc-event-title  { background:none !Important; -moz-border-radius: 0 !Important; border-radius: 0 0 0 0  !Important; color: #CCCCCC !Important;}
+	.evFeriadoPast .fc-event-title, .evEfemeridePast .fc-event-title  { background:none !Important; -moz-border-radius: 0 !Important; border-radius: 0 0 0 0  !Important; color: #6F6F6F;}
 	
 	
 	
@@ -454,16 +439,16 @@ table.fc-agenda-days { background-color:#FFFFFF;}
 .weekNoClass {background-color:#ffffff;}
 */
 /*SEMANAS FONDO COLOR PLENO   (TD)*/
-.weekamarillo .fc-widget-content{background-color:#FFCC00 !Important; }
-.weekverde1 .fc-widget-content{background-color:#88d852 !Important; }
-.weekverde1bis .fc-widget-content{background-color:#88d852 !Important; }       
-.weekverde2 .fc-widget-content{background-color:#359e7d !Important; }     
-.weekcyan .fc-widget-content{background-color:#3dbeff !Important; }
-.weekrojo .fc-widget-content{background: #ff6666 !Important; }
-.weeknaranja .fc-widget-content{background: #ff9c0d !Important; }
-.weeknaranjabis .fc-widget-content{    background-color:#ff9c0d !Important; }
-.weekgris .fc-widget-content{background-color:#c0c0c0 !Important; }
-.weekNoClass .fc-widget-content{background-color:#ffffff !Important; }
+.weekMamarillo .fc-widget-content{background-color:#FFCC00 !Important; }
+.weekMverde1 .fc-widget-content{background-color:#88d852 !Important; }
+.weekMverde1bis .fc-widget-content{background-color:#88d852 !Important; }
+.weekMverde2 .fc-widget-content{background-color:#359e7d !Important; }     
+.weekMcyan .fc-widget-content{background-color:#3dbeff !Important; }
+.weekMrojo .fc-widget-content{background: #ff0000 !Important; }
+.weekMnaranja .fc-widget-content{background: #ff9c0d !Important; }
+.weekMnaranjabis .fc-widget-content{    background-color:#ff9c0d !Important; }
+.weekMgris .fc-widget-content{background-color:#c0c0c0 !Important; }
+.weekMNoClass .fc-widget-content{background-color:#ffffff !Important; }
 
 
 
@@ -514,72 +499,58 @@ h1#branding {	display:none !Important;	}
 /*   DEFINICIONES DE COLOR  (EX-MENU HORIZONTAL)*/
 .boxNavSolapas {
 	width:140px !Important;
-    height: 200px !Important;
-	top:170px !Important;
+  height: 250px !Important;
+	top: 5px !Important;
 	left:875px !Important;
-    margin: 0px !Important;
-    position: absolute !Important;
-    display: block !Important;
+  margin: 0px !Important;
+  position: absolute !Important;
+  display: block !Important;
 	background-color:#ffffff !Important;
 	list-style:none !Important;
+	margin-bottom: 15px !Important;
 }
 
 .boxNavSolapas ul li {
 	width:140px !Important;
-	height:13px !Important;
+	height:16px !Important;
 	float:none !Important;
 	position: static !Important;
 	text-align:center !Important;
-	height: 10px !Important;
-	margin:0 0 3px 0 !Important;
-	padding: 3px 0 3px 0 !Important;
-	-moz-border-radius: 0 5px 5px 0 !Important; border-radius:  0 5px 5px 0 !Important;
+	margin: 3px 0 0px 0 !Important;
+	padding-bottom: 3px !Important;
+	-moz-border-radius: 0 5px 5px 0 !Important;
+	border-radius:  0 5px 5px 0 !Important;
 	list-style:none !Important;
 }
-		.boxNavSolapas ul li a{
-		width:140px !Important;
-		height:13px !Important;		
-		color:#000000 !Important;
-		font-size:10px !Important;
-		line-height:13px !Important;
-		background-image:none !Important;
-		font-weight:normal !Important;
-		text-decoration:none !Important;
-		}
+.boxNavSolapas ul li a{
+	width:140px !Important;
+	color:#000000 !Important;
+	font-size:10px !Important;
+	background-image:none !Important;
+	font-weight:normal !Important;
+	text-decoration:none !Important;
+}
 		
-				.boxNavSolapas ul li.solTurismo{background-color: #FFCC00 !Important; left:0 !Important;}
-
-				.boxNavSolapas ul li.solVida {background-color:#88d852 !Important; left:0 !Important;}
-	
-				.boxNavSolapas ul li.solTransformando {background-color: #359e7d; left:0 !Important;}
-				
-				.boxNavSolapas ul li.solCiudad {background-color: #3dbeff; left:0 !Important;}
-
-				.boxNavSolapas ul li.solSocial {background-color: #ff9c0d; left:0 !Important;}					
-				
-				.boxNavSolapas ul li.solPlan {background-color: #88d852; left:0 !Important;}
-				
-				.boxNavSolapas ul li.solAgenda {background-color:#FF6666 ; left:0 !Important;}
-
-				.boxNavSolapas ul li.solCrec {background-color: #ff9c0d; left:0 !Important;}
-				
-				.boxNavSolapas ul li.solOtros {background-color: #c0c0c0; left:0 !Important;}
-				
+.boxNavSolapas ul li.solTurismo{background-color: #FFCC00 !Important; left:0 !Important;}
+.boxNavSolapas ul li.solVida {background-color:#88d852 !Important; left:0 !Important;}
+.boxNavSolapas ul li.solTransformando {background-color: #359e7d; left:0 !Important;}
+.boxNavSolapas ul li.solCiudad {background-color: #3dbeff; left:0 !Important;}
+.boxNavSolapas ul li.solSocial {background-color: #ff9c0d; left:0 !Important;}					
+.boxNavSolapas ul li.solPlan {background-color: #88d852; left:0 !Important;}
+.boxNavSolapas ul li.solAgenda {background-color:#ff0000 ; left:0 !Important;}
+.boxNavSolapas ul li.solCrec {background-color: #ff9c0d; left:0 !Important;}
+.boxNavSolapas ul li.solOtros {background-color: #c0c0c0; left:0 !Important;}
 
 /* ***************************************** */
-
 /* AGENDA DAY   */
-
 /* ***************************************** */
 .fc.view-agendaDay  .fc-agenda-slots td  {border-left: none !Important; border-right: none !Important; border-color:#CCCCCC !Important;}
 .fc-agenda-slots td div {width: 815px !Important;}
-
 .fc.view-agendaDay . .eventoContainer {font-size:75% !Important;}
-
-		.fc-agenda-allday .fc-agenda-axis,
-		.fc-agenda .fc-agenda-axis,
-		.fc-view-agendaDay .fc-agenda-slots .fc-widget-header,
-		.fc-view-agendaDay  .fc-agenda-slots  .fc-agenda-axis /* agenda diaria*/ {
+.fc-agenda-allday .fc-agenda-axis,
+.fc-agenda .fc-agenda-axis,
+.fc-view-agendaDay .fc-agenda-slots .fc-widget-header,
+.fc-view-agendaDay  .fc-agenda-slots  .fc-agenda-axis /* agenda diaria*/ {
 	color:#000000 !Important;
 	font-weight:bold;
 	background-position:none !Important;
@@ -587,10 +558,7 @@ h1#branding {	display:none !Important;	}
 	padding: 0 4px 0 2px;
 	width: 32px !Important;
 	font-size:9px !Important;
-			}
-			
-			
-
+}
 			
 table.fc-border-separate { border-collapse: collapse !Important;}
 
@@ -603,4 +571,71 @@ tr.fc-week5 td.fc-widget-content {margin-top:-22px; border: solid 1px #FFFFFF !I
 tr.fc-week6 td.fc-widget-content {margin-top:-14px; border: solid 1px #FFFFFF !Important;}
 tr.fc-week7 td.fc-widget-content {margin-top:-16px; border: solid 1px #FFFFFF !Important;}
 
-tr.fc-week5 { display:none !Important;}
+/*tr.fc-week5 { display:none !Important;}*/
+
+.evAnterior {color: #6F6F6F; !Important}
+
+/* ***************************************** */
+/* BORDES LATERALES: AGENDA MONTH, WEEK, DAY */
+/* ***************************************** */
+.weekWamarillo, .weekDamarillo, .weekMamarillo { border-left: #FFCC00 solid 8px !Important; }
+.weekWverde1, .weekDverde1, .weekMverde1  { border-left: #88d852 solid 8px !Important; }
+.weekWverde1bis, .weekDverde1bis, .weekMverde1bis {border-left: #88d852 solid 8px !Important; }       
+.weekWverde2, .weekDverde2, .weekMverde2  { border-left: #359e7d solid 8px !Important; }     
+.weekWcyan, .weekDcyan, .weekMcyan  { border-left: #3dbeff solid 8px !Important; }
+.weekWrojo, .weekDrojo, .weekMrojo { border-left: #ff0000 solid 8px !Important; }
+.weekWnaranja, .weekDnaranja, .weekMnaranja { border-left: #ff9c0d solid 8px !Important; }
+.weekWnaranjabis, .weekDnaranjabis, .weekMnaranjabis  { border-left: #ff9c0d solid 8px !Important; }
+.weekWgris, .weekDgris, .weekMgris { border-left: #c0c0c0 solid 8px !Important; }
+.weekWNoClass, .weekDNoClass, .weekMNoClass {border-left: transparent solid 8px !Important; }
+
+/*
+.fc-view-agendaWeek .amarillo.eventoContainer { border: #FFCC00 solid 2px !Important; border-radius: 4px !Important; }
+.fc-view-agendaWeek .verde1bis .eventoContainer { border: #88d852 solid 2px !Important; border-radius: 4px !Important; }
+.fc-view-agendaWeek .verde2 .eventoContainer { border: #359e7d solid 2px !Important; border-radius: 4px !Important; }     
+.fc-view-agendaWeek .cyan .eventoContainer { border: #3dbeff solid 2px !Important; border-radius: 4px !Important; }
+.fc-view-agendaWeek .rojo .eventoContainer { border: #ff0000 solid 2px !Important; border-radius: 4px !Important; }
+.fc-view-agendaWeek .naranja .eventoContainer { border: #ff9c0d solid 2px !Important; border-radius: 4px !Important; }
+.fc-view-agendaWeek .naranjabis .eventoContainer { border: #ff9c0d solid 2px !Important; border-radius: 4px !Important; }
+.fc-view-agendaWeek .gris .eventoContainer { border: #c0c0c0 solid 2px !Important; border-radius: 4px !Important; }
+.fc-view-agendaWeek .NoClass {border: transparent solid 2px !Important; border-radius: 4px !Important; }
+*/
+
+
+.fc-view-agendaWeek .fc-agenda-slots .fc-agenda-axis,
+.fc-agenda-axis .fc-widget-header .fc-first, .fc-first  {
+	width: 5.5% !Important;	
+}
+/*fc-minor*/
+.fc-widget-content, .fc-agenda-days .fc-border-separate fc-widget-content {
+	border: 1px solid #cdcdcd !Important;
+	border-radius: 2px;
+	z-index: 10000 !Important;
+}
+.fc-minor .fc-widget-content, {
+	border: 1px solid #ff0000 !Important;	
+}
+
+.fc-view-agendaWeek .fc-border-separate th, .fc-view-agendaWeek .fc-border-separate td {border:solid 1px #cdcdcd !Important; }
+
+#pendientesContentPending {
+	width:810px !Important;	
+}
+div#pendientesContentPending.pendientesContent ul {
+	width:810px !Important;
+	height:700px !Important;
+}
+
+div#pendientesContentPending.pendientesContent ul li.fc-event {
+	width: 130px !important;
+	display: inline !important;
+	float: left !important;
+	margin: 5px 1px 2px 5px !important;
+	overflow: hidden !Important;
+	height: 42px !Important;
+	border: 1px solid black !Important;
+	border-radius: 2px;
+}
+#pendientesTitle, #toBeConfirmedTitle {
+	font-size: 14px !Important;
+}

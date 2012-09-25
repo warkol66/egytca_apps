@@ -1584,3 +1584,18 @@ tr.fc-week6 td.fc-mon,
 
 .printTodayDate{display:none;}
 .fc-border-separate th, .fc-border-separate td {border:solid 1px #ffffff !Important; }
+
+
+/* ***************************************** */
+/* BORDES LATERALES: AGENDA MONTH, WEEK, DAY */
+/* ***************************************** */
+.weekMamarillo td.fc-mon, .weekDamarillo, .weekWamarillo { border-left: #FFCC00 solid 8px !Important; }
+.weekMverde1 td.fc-mon, .weekDverde1, .weekWverde1 { border-left: #88d852 solid 8px !Important; }
+.weekMverde1bis td.fc-mon, .weekDverde1bis, .weekWverde1bis { border-left: #88d852 solid 8px !Important; }       
+.weekMverde2 td.fc-mon, .weekDverde2, .weekWverde2 { border-left: #359e7d solid 8px !Important; }
+.weekMcyan td.fc-mon, .weekDcyan,.weekWcyan { border-left: #3dbeff solid 8px !Important; }
+.weekMrojo td.fc-mon, .weekDrojo, .weekWrojo { border-left: #ff6666 solid 8px !Important; }
+.weekMnaranja td.fc-mon, .weekDnaranja, .weekWnaranja { border-left: #ff9c0d solid 8px !Important; }
+.weekMnaranjabis td.fc-mon, .weekDnaranjabis, .weekWnaranjabis { border-left: #ff9c0d solid 8px !Important; }
+.weekMgris td.fc-mon, .weekDgris, .weekWgris { border-left: #c0c0c0 solid 8px !Important; }
+.weekMNoClass td.fc-mon, .weekDNoClass, .weekWNoClass { border-left: transparent solid 8px !Important; }
