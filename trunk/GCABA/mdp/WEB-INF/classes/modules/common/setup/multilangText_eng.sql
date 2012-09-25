@@ -59,6 +59,8 @@ INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) V
 INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('56', 'common', 'eng','Issues');
 INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('57', 'common', 'eng','Headlines');
 INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('58', 'common', 'eng','Actors');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('59', 'common', 'eng','Campaigns');
+INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('60', 'common', 'eng','Media');
 INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('1', 'system', 'eng','System');
 INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('2', 'system', 'eng','Parameters');
 INSERT INTO `multilang_text` ( `id` , `moduleName` , `languageCode` , `text` ) VALUES ('3', 'system', 'eng','Debug mode');
