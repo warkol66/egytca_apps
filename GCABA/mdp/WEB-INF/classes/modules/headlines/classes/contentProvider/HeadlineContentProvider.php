@@ -304,7 +304,7 @@ class HeadlineContentProvider {
                 $parsedNews['mediaId'] = $media->getId();
             }
 	    
-	    if (HeadlineParsedQuery::create()->filterByInternalid($h->getInternalId())->count() > 0) {
+	    if (HeadlineParsedQuery::create()->filterByInternalid($internalId)->count() > 0) {
 		    $ignored++;
 //		    echo "headline $internalId existente <br />";
 //		    echo $e->getTraceAsString();
