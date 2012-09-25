@@ -116,6 +116,17 @@ $(document).ready(function() {
 	margin-top: 0 !Important;
 	background-color: #cdd4de;
 }
+@media print{
+	.pendientesContainer {
+		position:absolute;
+		top: 59px !Important;
+		left: 0;
+	}
+	#pendientesContentPending {
+		width: 1135px !Important;
+		height: 700px !Important;
+	}
+}
 -->
 </style>
 </head>

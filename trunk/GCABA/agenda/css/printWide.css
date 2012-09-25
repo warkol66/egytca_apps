@@ -1,255 +1,114 @@
-
-/* STYLEWIDE.CSS  */
-
+/* printWide.css  */
+/* Modificador del print.css
 
 /* =Containers
 --------------------------------------------------------------------------------*/
 
 .container_16{
-	margin-left: 0 !important;
-	margin-right: 0 !important;
 	width: 1300px !Important;}
 
 /* =Grid >> Global
 --------------------------------------------------------------------------------*/
-.container_16 .grid_16 {	width: 1300px !Important;}
+.container_16 .grid_16 {
+	width: 1300px !Important;
+}
 
-/* =Grid >> 16 Columns
---------------------------------------------------------------------------------*/
 
-/*   -------------------------------------- */
 
-/*  AGENDA.CSS                   */
 
-/*   -------------------------------------- */
 
-/*  HEADER 1*/
-	
-/*		#calendar { width: 1100px;	}*/
-			
-/*		 .fc-event-time{width:139px;}*/
-		 
-/*		.fc-header .fc-header-left{ width:125px;	}/**/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		
-	.colummSidebar .solapas2 {display:none !Important;}		
-		#accordion2 ul{display:none !Important;}		
-		
-		
-
-/*    MENU SOLAPAS DE COLORES    */
-
-
-
-
-
-
-
-/*-----------------------------------------------------*/
-
-
-
-/*  FULLCALENDAR_PRINT.CSS          */
-
-
-/* -----------------------------------------------------*/
-
-/*
- * FullCalendar v1.5.3 Print Stylesheet
- *
- * Include this stylesheet on your page to get a more printer-friendly calendar.
- * When including this stylesheet, use the media='print' attribute of the <link> tag.
- * Make sure to include this stylesheet IN ADDITION to the regular fullcalendar.css.
- *
- * Copyright (c) 2011 Adam Shaw
- * Dual licensed under the MIT and GPL licenses, located in
- * MIT-LICENSE.txt and GPL-LICENSE.txt respectively.
- *
- * Date: Mon Feb 6 22:40:40 2012 -0800
- *
- */
- 
- 
- /* Events
------------------------------------------------------*/
- 
-.fc-event-skin {
-	/*background: none !important;*/
-/*	color: #000 !important;*/
-	}
-	
-/* horizontal events */
-	
-.fc-event-hori {
-/*	border-width: 0 0 1px 0 !important;*/
-/*	border-width: 1px !important;
-	border-bottom-style: dotted !important;
-	border-bottom-color: #000 !important;*/
-	padding: 1px 0 0 0 !important;
-	border: none !important;
-	}
-	
-.fc-event-hori .fc-event-inner {
-	/*border-width: 0 !important;*/
-/*	border: solid 1px #000000 !important;*/
-	border:none !Important;	
-	padding: 0 1px !important;
-	}
-	
-/* vertical events */
-.fc-event-vert {
-/*	border-width: 0 0 0 1px !important;
-	border-width: 1px !important;
-	border-left-style: dotted !important;
-	border-left-color: #000 !important;*/
-	padding: 0 1px 0 0 !important;
-/*	border: solid 1px #000000 !important;*/
-	border:none !Important;
-	}
-	
-.fc-event-vert .fc-event-inner {
-/*	border-width: 0 !important;*/
-/*	border: solid 1px #000000 !important;*/
-	border:none !Important;
-	padding: 1px 0 !important;
-	}
-	
-.fc-event-bg {
-/*	display: none !important;*/
-	}
-	
-.fc-event .ui-resizable-handle {
-	display: none !important;
-	}
-/*	
-	.amarillo {	background-color:#FFCC00;}
-	.verde1{background-color:#33CC66;}
-	.cyan{background-color:#33CCFF;}
-	.gris{ background-color:#CCCCCC;}
-	.rojo{background-color:#FF0033;}
-	.naranja {background-color:#FF9933:}
-	*/
-	
-	
-/*  ajustes no-fullcalendar */	
-/*   NO DISPLAY   */
-
-.fc-view-month  .fc-border-separate, /*  vista MENSUAL */
-	table.fc-agenda-days /* vistas dSEMANAL y DIARIAS */
-	/*table.agendaBkgGris*/{
-/*	border: solid 1px #CCCCCC;*/
-	border:none !Important;}
-
-	
-.fc-agenda-slots td div, .fc-agenda-slots th { /*border: solid 1px #CCCCCC;*/ 	border:none !Important;}
-
-
-
-
-
-
-
-
-/* ---------------------------------------------------*/
-
-
-/*PRINT.CSS*/
-
-
-/* ---------------------------------------------------*/
-
-@page { 
-	margin: .4in;
-}
-body {
-	/*font-size: 77%;*/
-	font-size: 100%;
-}
-element {width:100%;}
-.printHidden {
-		display: none !Important;
-}
-* {   /*font-family: 'Gotham Medium' !Important;*/
-/*	background-color: transparent !Important;*/
-/*	background-image: none !Important;*/
-}
-/*#header,*/ #mainMenuH {
-	display: none !Important;
-}
-div#wrapper, div#contentWrapper, div#rightColumn, div#rightColumnHome, div#footer {
-	border: none !Important;
-}
-b.rounded {
-	display: none !Important;	
-}
-.tdSearch, a.addLink {
-	display: none !Important;
-}
-.icon {
-	display: none !Important;
-}
-table thead {
-	display: table-header-group !Important;
-}
-table tfoot {
-	display: table-footer-group !Important;
-}
-table tr {
-	page-break-inside: avoid !Important;
-	page-break-after: auto !Important;
-}
-.tableTdBorders tbody tr td, .tableTdBorders tbody tr th {
-	border-bottom: 1px solid #cdcdcd;
-	padding: 2px 0 1px 0;
-	border-collapse: separate;
-	/**/ border: none !Important;
-
-}
-.tableTdBorders thead tr th {
-	border-bottom: 1px #cdcdcd solid;
-	/**/ border: none !Important;	
-}
-.tableTdBorders tbody tr td,
-.tableTdBorders tbody tr th{
-	border-right: 1px #cdcdcd solid;
-	/**/ border: none !Important;	
-}
-/* Igual al anterior, separada por el IE */
-.tableTdBorders thead tr:last-child th {
-	border-right: 1px #cdcdcd solid;
-	/**/ border: none !Important;	
-}
-.tableTdBorders tbody tr td:last-child,
-.tableTdBorders tbody tr th:last-child,
-.tableTdBorders thead tr:last-child th:last-child {
-	border-right: 3px #cdcdcd double;
-	/**/ border: none !Important;	
-}
-
-
-.eyefishContainer, .boxNav1, .boxBuscador, .titleGraph, .eventsGraph, /* .subColumnsTriggerB,*/ .solapas1,  .boxNavSolapas, #pendientes {	display: none !Important;}
-
-
-
-body{ background-image:none !Important;
-			background-color:#FFFFFF !Important; 
-		}
-		.container_12,
-		.container_16{width:100% !Important; background-color:#FFFFFF !Important;}
-		.container_16 .grid_16, 
-		.container_16 .grid_13 {background-color:#FFFFFF !Important;}
-		.container_16 .header1{width:1300px !Important; 
-		top:18px !Important; display:block !Important; 
-		background-color: #FFCC00 !Important; 
-		position: absolute !Important; 	height:26px !Important;
-		background-image:url(../images/print_fichaHeaderTitle_wide.jpg) !Important; 
-		background-repeat:no-repeat !Important; background-position: 0 0 !Important; 
-		z-index:1100 !Important;
-		border-top: 4px #666666 solid !Important; left:0 !Important;
+.container_12,
+.container_16 {width:100% !Important; background-color:#FFFFFF !Important;}
+.container_16 .grid_16, 
+.container_16 .grid_13 {background-color:#FFFFFF !Important;}
+.container_16 .header1{
+	width:1300px !Important; 
+	top:18px !Important;
+	display:block !Important; 
+	background-color: #FFCC00 !Important; 
+	position: absolute !Important;
+	height:26px !Important;
+	background-image:url(../images/print_fichaHeaderTitle_wide.jpg) !Important; 
+	background-repeat:no-repeat !Important;
+	background-position: 0 0 !Important; 
+	z-index:1100 !Important;
+	border-top: 4px #666666 solid !Important;
+	left:0 !Important;
 }
 		
 		h1.branding {/*background-image:url(../images/header_AgendaDeGobierno.png) !Important; background-repeat:no-repeat !Important; background-position: 10px 0 !Important;*/
 		background:none !Important;}
-		.fc-header-title {width:1300px !Important;  height:18px  !Important; float:right !Important;  display: block !Important; 				position:absolute !Important;
+		.fc-header-title {width:1285px !Important;  height:18px  !Important; float:right !Important;  display: block !Important; 				position:absolute !Important;
 								top:-52px !Important; left: 0px !Important; 
 								background-image:url(../images/solapa_headerPrint.png) !Important; 
 								background-repeat:no-repeat  !Important; 
@@ -263,7 +122,7 @@ body{ background-image:none !Important;
 		.fc-header-title h2{}		
 		span.fc-header-title h2	{ font-size:12px !Important; padding:-1px 0 2px 8px !Important; margin-top:0 !Important;}
 		
-			.printTodayDate {width:350px !Important;  height:18px  !Important; float:left !Important;  
+			.printTodayDate {width:335px !Important;  height:18px  !Important; float:left !Important;  
 								display: block !Important; position:absolute !Important;
 								top:-1px !Important; left: 950px !Important; 
 								background-image:url(../images/solapa_headerPrint_date.png) !Important; 
@@ -276,31 +135,23 @@ body{ background-image:none !Important;
 								z-index:1400 !Important;}
 		
 		
-		#calendar {
-		width: 100% !Important;
-		margin: 0 auto !Important;
-		background-color:#FFFFFF !Important;
-		}
-		.boxAgendaContainer{
-/*		width:857px;*/
-		width:100%;
-		border:none !Important;
-		background-color:#FFFFFF !Important;
-		color:#000000 !Important;}
-		
-		.container_16 .colummAgenda{width:1100px !Important; margin-left:0px !Important; background-color:#FFFFFF !Important; position:absolute !Important; top:52px !Important; display:block !Important;}
-		
+
+.container_16 .colummAgenda{
+	width:1100px !Important;
+	top:52px !Important;
+}
+	
 		
 		
 /*		COLUMNA PENDIENTES */
-		.container_16 .colummSidebar {
-		 width:140px !Important; height:500px !Important; min-height:480px  !Important;
-		 z-index:1000 !Important; margin-top:0 !Important; border:none !Important;
-		  display:block !Important;  position:absolute !Important;  top:240px !Important;
-		  left:1125px !Important; background-color: #666666 !Important;
-		   -moz-border-radius: 8px !Important; border-radius: 8px !Important; 
-		   }
-		   
+.container_16 .colummSidebar {
+	width:140px !Important;
+	left:1155px !Important;
+	height:500px !Important;
+	min-height:480px  !Important;
+}
+
+	   
 		.subColumnsTriggerB {display: none !Important;}
 		.pendienteBotones, .solapita{display:none !Important;}
 	
@@ -354,7 +205,7 @@ body{ background-image:none !Important;
 		.verde1bis .pendienteDato {color:#000000 !Important;}    
 		.verde2 .pendienteDato {color:#000000 !Important;}       
 		.cyan .pendienteDato {color:#000000 !Important;}
-		.rojo .pendienteDato {color: #CC0000 !Important;}
+		.rojo .pendienteDato {color: #000000 !Important;}
 		.naranja .pendienteDato {color:#000000 !Important;}
 		.naranjabis .pendienteDato {color:#000000 !Important;}
 		.gris .pendienteDato {color:#000000 !Important;}
@@ -381,13 +232,21 @@ text-align:center !Important; text-transform:uppercase !Important;}
 .fc-view-agendaWeek .fc-event{
 border: none  !Important; width:133px !Important;}
 
+
+.fc-view-agendaWeek .fc-widget-header, 
+.fc-view-agendaWeek .fc-widget-content{width:14%; !Important;}
+
+.fc-view-month .fc-event-time{/*display: none !Important;*/ background:none !Important; width:133px !Important;}
+
+
+
 .rojo, .naranja, .naranjabis, .verde1, .verde1bis, .verde2, .verde2bis, .cyan { background:none !Important; background-color:none !Important;}
 .fc-event-title {padding:0  !Important; /*	margin-top:-10px !Important;*/}
 
 /* COLORES DE LOS EVENTOS */
 	.rojo  .fc-event-time,
 	.rojo  .fc-event-title,
-	.rojo  .fc-event-text{color: #CC0000 !Important;}
+	.rojo  .fc-event-text,
 
 	.naranja  .fc-event-time, .naranjabis  .fc-event-time,
 	.verde1  .fc-event-time, .verde1bis .fc-event-time,
@@ -410,7 +269,7 @@ border: none  !Important; width:133px !Important;}
 	margin-top:0 !Important;}
 
 	.evFeriadoPast, .evEfemeridePast, 
-	.evFeriadoPast .fc-event-title, .evEfemeridePast .fc-event-title  { background:none !Important; -moz-border-radius: 0 !Important; border-radius: 0 0 0 0  !Important; color: #CCCCCC !Important;}
+	.evFeriadoPast .fc-event-title, .evEfemeridePast .fc-event-title  { background:none !Important; -moz-border-radius: 0 !Important; border-radius: 0 0 0 0  !Important; color: #6F6F6F !Important;}
 	
 	
 	
@@ -425,33 +284,12 @@ border: none  !Important; width:133px !Important;}
 /*.fc-view-month .fc-border-separate,*/ 
 table.fc-agenda-days { background-color:#FFFFFF;}
 
-/*SEMANAS FONDO COLOR  (TR)*/
-/*.weekamarillo {background-color:#FFCC00;}
-.weekverde1 {background-color:#88d852;}
-.weekverde1bis {background-color:#88d852;    }            
-.weekverde2{background-color:#359e7d;}        
-.weekcyan{background-color:#3dbeff;}
-.weekrojo {background-color:#ff3929;}
-.weeknaranja {background-color:#ff9c0d;    }
-.weeknaranjabis {    background-color:#ff9c0d;}
-.weeknaranjabis {background-color:#c0c0c0;}
-.weekNoClass {background-color:#ffffff;}
-*/
-/*SEMANAS FONDO COLOR PLENO   (TD)*/
-.weekamarillo .fc-widget-content{background-color:#FFCC00 !Important; }
-.weekverde1 .fc-widget-content{background-color:#88d852 !Important; }
-.weekverde1bis .fc-widget-content{background-color:#88d852 !Important; }       
-.weekverde2 .fc-widget-content{background-color:#359e7d !Important; }     
-.weekcyan .fc-widget-content{background-color:#3dbeff !Important; }
-.weekrojo .fc-widget-content{background: #ff6666 !Important; }
-.weeknaranja .fc-widget-content{background: #ff9c0d !Important; }
-.weeknaranjabis .fc-widget-content{    background-color:#ff9c0d !Important; }
-.weekgris .fc-widget-content{background-color:#c0c0c0 !Important; }
-.weekNoClass .fc-widget-content{background-color:#ffffff !Important; }
-
-
 
 .fc-border-separate th, .fc-border-separate td {border:solid 1px #ffffff !Important; }
+
+fc-border-separate td, {
+	border: 1px solid #ff0000 !Important;	
+}
 
 .fc-grid .fc-day-number{color:#FFFFFF !Important;  font-weight:bold !Important;  font-size:20px !Important; }
 
@@ -462,123 +300,22 @@ table.fc-agenda-days { background-color:#FFFFFF;}
 
 element{left:2px !Important;}
 
-.eventoContainer {margin-top:0 !Important;}
-.eventoContent { padding:0 0 2px 0 !Important;}
-
-
-
-
-
-.container_16 .colummAgenda 
-.grid_1, .grid_2, .grid_3, .grid_4, .grid_5, .grid_6, .grid_7, .grid_8, .grid_9, .grid_10, .grid_11, .grid_12, .grid_13, .grid_14, .grid_15, .grid_16 {margin-left:0px !Important;}
-
-.fc-event-title, .eventoContent, div, .fc-corner-right .fc-button-inner, .fc-corner-right .fc-event-inner, 
-.fc-corner-left .fc-button-inner, .fc-corner-left .fc-event-inner, 
-a.fc-event, .fc-event-draggable, .eventoContainer, .boxAgendaContainer {border: none !Important; background-color: none !Important;}
-
-
-
-
-* {border:none !Important;}
-
-
-/*
-.fc-state-highlight { 
-	background: none !Important;
-	background-color: none !Important;
-    opacity: 0 !Important;
-    filter: alpha(opacity=0) !Important; /* for IE   }  
-*/	
-h1#branding {	display:none !Important;	}
-
 /*   DEFINICIONES DE COLOR  (EX-MENU HORIZONTAL)*/
 .boxNavSolapas {
-	width:140px !Important;
-    height: 200px !Important;
-	top:10px !Important;
-	left:1125px !Important;
-    margin: 0px !Important;
-    position: absolute !Important;
-    display: block !Important;
-	background-color:#ffffff !Important;
-	list-style:none !Important;
+	left:1155px !Important;
 }
 
-.boxNavSolapas ul li {
-	width:140px !Important;
-	height:13px !Important;
-	float:none !Important;
-	position: static !Important;
-	text-align:center !Important;
-	height: 10px !Important;
-	margin:0 0 3px 0 !Important;
-	padding: 3px 0 3px 0 !Important;
-	-moz-border-radius: 0 5px 5px 0 !Important; border-radius:  0 5px 5px 0 !Important;
-	list-style:none !Important;
-}
-		.boxNavSolapas ul li a{
-		width:140px !Important;
-		height:13px !Important;		
-		color:#000000 !Important;
-		font-size:10px !Important;
-		line-height:13px !Important;
-		background-image:none !Important;
-		font-weight:normal !Important;
-		text-decoration:none !Important;
-		}
-		
-				.boxNavSolapas ul li.solTurismo{background-color: #FFCC00 !Important; left:0 !Important;}
-
-				.boxNavSolapas ul li.solVida {background-color:#88d852 !Important; left:0 !Important;}
-	
-				.boxNavSolapas ul li.solTransformando {background-color: #359e7d; left:0 !Important;}
-				
-				.boxNavSolapas ul li.solCiudad {background-color: #3dbeff; left:0 !Important;}
-
-				.boxNavSolapas ul li.solSocial {background-color: #ff9c0d; left:0 !Important;}					
-				
-				.boxNavSolapas ul li.solPlan {background-color: #88d852; left:0 !Important;}
-				
-				.boxNavSolapas ul li.solAgenda {background-color:#FF6666 ; left:0 !Important;}
-
-				.boxNavSolapas ul li.solCrec {background-color: #ff9c0d; left:0 !Important;}
-				
-				.boxNavSolapas ul li.solOtros {background-color: #c0c0c0; left:0 !Important;}
-				
-
-/* ***************************************** */
-
-/* AGENDA DAY   */
-
-/* ***************************************** */
-
-.fc.view-agendaDay  .fc-agenda-slots td  {border-left: none !Important; border-right: none !Important; border-color:#CCCCCC !Important;}
 .fc-agenda-slots td div {width: 1050px !Important;}
 
-.fc.view-agendaDay . .eventoContainer {font-size:75% !Important;}
 
-.fc-agenda-allday .fc-agenda-axis,
-		.fc-agenda .fc-agenda-axis,
-		.fc.view-agendaDay .fc-agenda-slots .fc-widget-header,
-		.fc-view-agendaDay  .fc-agenda-slots  .fc-agenda-axis /* agenda diaria*/ {
-	color:#000000 !Important;
-	font-weight:bold;
-	background-position:none !Important;
-	background-color:#C0C0C0 !Important;
-	padding: 0 4px 0 2px;
-	width: 32px !Important;
-	font-size:9px !Important;
-			}
-			
-table.fc-border-separate { border-collapse:collapse !Important;}
 
-tr.fc-week0 td.fc-widget-content {margin-top:-2px; border: solid 1px #FFFFFF !Important;}
-tr.fc-week1 td.fc-widget-content {margin-top:-4px; border: solid 1px #FFFFFF !Important;}
-tr.fc-week2 td.fc-widget-content {margin-top:-6px; border: solid 1px #FFFFFF !Important;}
-tr.fc-week3 td.fc-widget-content {margin-top:-8px; border: solid 1px #FFFFFF !Important;}
-tr.fc-week4 td.fc-widget-content {margin-top:-20px; border: solid 1px #FFFFFF !Important;}
-tr.fc-week5 td.fc-widget-content {margin-top:-22px; border: solid 1px #FFFFFF !Important;}
-tr.fc-week6 td.fc-widget-content {margin-top:-14px; border: solid 1px #FFFFFF !Important;}
-tr.fc-week7 td.fc-widget-content {margin-top:-16px; border: solid 1px #FFFFFF !Important;}
-
-tr.fc-week5 { display:none !Important;}
+#pendientesContentPending {
+	width:1130px !Important;	
+}
+div#pendientesContentPending.pendientesContent ul {
+	width:1130px !Important;
+	height:900px !Important;
+}
+div#pendientesContentPending.pendientesContent ul li.fc-event {
+	width: 150px !important;
+}

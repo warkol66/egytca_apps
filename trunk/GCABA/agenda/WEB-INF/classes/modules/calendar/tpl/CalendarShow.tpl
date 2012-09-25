@@ -112,6 +112,7 @@
 	});
 	
 	updateThematicWeeks = function(thematicWeeks) {
+		var axisMapTW = |-json_encode($axisMap)-|;
 		var view = calendar.fullCalendar('getView');
 		switch(view.name) {
 			
@@ -130,7 +131,7 @@
 					var found = false;
 					for (i in thematicWeeks) {
 
-						$('.fc-week'+weekNumber).removeClass('weekamarillo weekverde1 weekverde1bis weekverde2 weekcyan weekrojo weeknaranja weeknaranjabis weeknaranjabis');
+						$('.fc-week'+weekNumber).removeClass('weekMamarillo weekMverde1 weekMverde1bis weekMverde2 weekMcyan weekMrojo weekMnaranja weekMnaranjabis weekMnaranjabis');
 
 						twStart = new Date(thematicWeeks[i].Monday);
 						if (date.getTime() == twStart.getTime()) {
@@ -138,7 +139,7 @@
 //							$('.fc-week'+weekNumber+' td.fc-mon').css("border-left-style", "solid");
 //							$('.fc-week'+weekNumber+' td.fc-mon').css("border-left-width", "18px !Important");
 							$('.fc-week'+weekNumber+' td.fc-mon').css("border-left-color", thematicWeeks[i]['AxisColor']);
-							$('.fc-week'+weekNumber).addClass('week'+thematicWeeks[i]['className']);
+							$('.fc-week'+weekNumber).addClass('weekM'+thematicWeeks[i]['className']);
 							found = true;
 							break;
 						}
@@ -147,6 +148,9 @@
 					if (!found) {
 //						$('.fc-week'+weekNumber).css('background-color', '');
 						$('.fc-week'+weekNumber+' td.fc-mon').css("border-left-color", '');
+						for (j=0; j<axisMapTW.length; j++) {
+							$('.fc-week'+weekNumber+' td.fc-mon').removeClass('weekM' + axisMapTW[j]);
+						}
 					}
 
 					weekNumber++;
@@ -163,21 +167,31 @@
 //						$('#calendarTitle').css('color', thematicWeeks[i]['AxisColor']);
 //						$('#inTitleAxis').html(thematicWeeks[i]['AxisName']);
 //						$('.fc-agenda-slots').css('background-color', thematicWeeks[i]['AxisColor']);
-						$('.fc-agenda-slots').css('border-style', "solid");
-						$('.fc-agenda-slots').css('border-width', "0 0 0 8px");
-						$('.fc-agenda-slots').css('border-color', thematicWeeks[i]['AxisColor']);
+						//$('.fc-agenda-slots').css('border-style', "solid");
+						//$('.fc-agenda-slots').css('border-width', "0 0 0 8px");
+						//$('.fc-agenda-slots').css('border-color', thematicWeeks[i]['AxisColor']);
+
+
+						$('.fc-agenda-slots').removeClass('weekWamarillo weekwverde1 weekWverde1bis weekWverde2 weekWcyan weekWrojo weekWnaranja weekWnaranjabis weekWnaranjabis');
+
+						for (j=0; j<axisMapTW.length; j++) {
+							$('.fc-agenda-slots').removeClass('weekD' + axisMapTW[j]);
+							$('.fc-agenda-slots').removeClass('weekM' + axisMapTW[j]);
+							$('.fc-agenda-slots').removeClass('weekW' + axisMapTW[j]);
+						}
+						$('.fc-agenda-slots').addClass('weekW' + thematicWeeks[i]['className']);
+
 						found = true;
 						break;
 					}
 				}
 				
 				if (!found) {
-//					$('#calendarTitle').css('color', '');
-//					$('#inTitleAxis').html('');
-//					$('.fc-agenda-slots').css('background-color', '');
-					$('.fc-agenda-slots').css('border-style', "");
-					$('.fc-agenda-slots').css('border-width', "");
-					$('.fc-agenda-slots').css('border-color', "");
+						for (j=0; j<axisMapTW.length; j++) {
+							$('.fc-agenda-slots').removeClass('weekD' + axisMapTW[j]);
+							$('.fc-agenda-slots').removeClass('weekM' + axisMapTW[j]);
+							$('.fc-agenda-slots').removeClass('weekW' + axisMapTW[j]);
+						}
 				}
 				
 				break;
@@ -194,18 +208,23 @@
 					twStart = new Date(thematicWeeks[i].Monday);
 					twEnd = new Date(thematicWeeks[i].Monday); incOneWeek(twEnd);
 					if (view.visStart.getTime() >= twStart.getTime() && view.visEnd.getTime() <= twEnd.getTime()) {
-						$('.fc-agenda-slots').css('border-style', "solid");
-						$('.fc-agenda-slots').css('border-width', "0 0 0 8px");
-						$('.fc-agenda-slots').css('border-color', thematicWeeks[i]['AxisColor']);
+						for (j=0; j<axisMapTW.length; j++) {
+							$('.fc-agenda-slots').removeClass('weekD' + axisMapTW[j]);
+							$('.fc-agenda-slots').removeClass('weekM' + axisMapTW[j]);
+							$('.fc-agenda-slots').removeClass('weekW' + axisMapTW[j]);
+						}
+						$('.fc-agenda-slots').addClass('weekD' + thematicWeeks[i]['className']);
 						found = true;
 						break;
 					}
 				}
 				
 				if (!found) {
-					$('.fc-agenda-slots').css('border-style', "");
-					$('.fc-agenda-slots').css('border-width', "");
-					$('.fc-agenda-slots').css('border-color', "");
+						for (j=0; j<axisMapTW.length; j++) {
+							$('.fc-agenda-slots').removeClass('weekD' + axisMapTW[j]);
+							$('.fc-agenda-slots').removeClass('weekM' + axisMapTW[j]);
+							$('.fc-agenda-slots').removeClass('weekW' + axisMapTW[j]);
+						}
 				}
 				
 				break;
