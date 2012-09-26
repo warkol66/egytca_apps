@@ -20,8 +20,14 @@ class HeadlineFeedParser {
 		$xmlData = file_get_contents($uri);
 		if (!$xmlData)
 			throw new Exception("no se pudo leer $uri");
-		$parsedData = new SimpleXMLElement($xmlData);
-
+		
+		try {
+			$parsedData = new SimpleXMLElement($xmlData);
+		} catch (Exception $e) {
+			$xmlData = preg_replace("/[\x01]/", '', $xmlData);
+			$parsedData = new SimpleXMLElement($xmlData);
+		}
+		
 		if ($this->debugging) {
 			$this->debugInfo['fields'] = array();
 		}
