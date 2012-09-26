@@ -34,12 +34,7 @@
     </form>
 </fieldset>
 <fieldset>
-<legend>Filtrar Titulares Importados &nbsp; 
-
-<a href="javascript:void(null)" id="showHideFilterHeadlines" onClick="$('filterHeadlines').toggle(); $('showHideFilterHeadlines').toggleClassName('|-if $filters|@count gt 2-|expandLink|-else-|collapseLink|-/if-|');" class="|-if $filters|@count gt 2-|collapseLink|-else-|expandLink|-/if-|">
-</a>
-
-</legend>
+<legend>Filtrar Titulares Importados&nbsp;&nbsp;<a href="javascript:void(null)" id="showHideFilterHeadlines" onClick="$('filterHeadlines').toggle(); $('showHideFilterHeadlines').toggleClassName('|-if $filters|@count gt 2-|expandLink|-else-|collapseLink|-/if-|');" class="|-if $filters|@count gt 2-|collapseLink|-else-|expandLink|-/if-|"></a></legend>
 <form method="get" action="Main.php" id="filterHeadlines" style="display:|-if $filters|@count gt 2-|block|-else-|none|-/if-|;">
 	<input name="filters[campaignId]" value="|-$campaign->getId()-|" type="hidden" />
 	<input name="do" value="headlinesParsedList" type="hidden" />
@@ -77,7 +72,7 @@
 </div></div>
 <h1>Administrar Titulares Importados</h1>
 	<fieldset>
-	<legend>Obtener Titulares &nbsp; <a href="javascript:void(null)" id="showHideManualParse" onClick="$('manualParse').toggle(); $('showHideManualParse').toggleClassName('collapseLink');" class="expandLink"></a></legend>
+	<legend>Obtener Titulares&nbsp;&nbsp;<a href="javascript:void(null)" id="showHideManualParse" onClick="$('manualParse').toggle(); $('showHideManualParse').toggleClassName('collapseLink');" class="expandLink"></a></legend>
 	<form method="post" action="Main.php" onsubmit="parseFeed(this); return false;" id="manualParse" style="display:none;">
 	 <p><label for="type">Fuente de titulares</label> <input name="type" value="press" type="radio" />&nbsp; Prensa
 		<input name="type" value="multimedia" type="radio" />&nbsp; Radio y TV
@@ -87,12 +82,7 @@
 	</fieldset>
 
 <fieldset>
-<legend>Filtrar Titulares Importados &nbsp; 
-
-<a href="javascript:void(null)" id="showHideFilterHeadlines" onClick="$('filterHeadlines').toggle(); $('showHideFilterHeadlines').toggleClassName('|-if $filters|@count gt 1-|expandLink|-else-|collapseLink|-/if-|');" class="|-if $filters|@count gt 1-|collapseLink|-else-|expandLink|-/if-|">
-</a>
-
-</legend>
+<legend>Filtrar Titulares Importados&nbsp;&nbsp;<a href="javascript:void(null)" id="showHideFilterHeadlines" onClick="$('filterHeadlines').toggle(); $('showHideFilterHeadlines').toggleClassName('|-if $filters|@count gt 1-|expandLink|-else-|collapseLink|-/if-|');" class="|-if $filters|@count gt 1-|collapseLink|-else-|expandLink|-/if-|"></a></legend>
 <form method="get" action="Main.php" id="filterHeadlines" style="display:|-if $filters|@count gt 1-|block|-else-|none|-/if-|;">
 	<input name="do" value="headlinesParsedList" type="hidden" />
 <p>					<label for="filters[searchString]">Buscar</label>

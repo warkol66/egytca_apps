@@ -9,12 +9,11 @@ class ErrorReporter {
 		require_once 'EmailManagement.php';
 		
 		$emailMgr = new EmailManagement();
-		$emailMgr->setTestMode(true);
 		
 		global $system;
 		
-		$recipients = $system['config']['system']['parameters']['debugMail']; // will be overriden
-		$subject = 'errors parsing headlines';
+		$recipients = explode(',', $system['config']['system']['parameters']['debugMail']);
+		$subject = $system['config']['system']['parameters']['siteShortName'] . " / errors parsing headlines " . Common::getLoggedUser();
 		$mailFrom = $system['config']['system']['parameters']['fromEmail'];
 		$mailBody = '';
 		
@@ -29,4 +28,5 @@ class ErrorReporter {
 		if ($result == 0)
 			throw new Exception('an error ocurred while sending the mail');
 	}
+
 }
