@@ -22,9 +22,9 @@
     <strong>&nbsp; &nbsp; |-$headline->getName()-|</strong>|-if $headline->getMoreSourcesUrl() ne ''-|<span id="parseMore_|-$headline->getId()-|" style="float: right; margin-right: 100px;"><img src="images/clear.png" class="icon iconAdd" onClick='parseMore("|-$headline->getId()-|;"); $("parseMore_|-$headline->getId()-|").parentNode.removeChild($("parseMore_|-$headline->getId()-|"));' value="Mas similares" /> <strong>Buscar similares</strong></span>|-/if-|
 		<ul><li>
 			<strong>|-if $headline->getMediaId() eq 0-||-$headline->getMediaName()-||-else-||-$headline->getMedia()-||-/if-| || |-$headline->getdatePublished()|date_format-||-if $headline->getSection() ne ' '-| || |-$headline->getSection()-||-/if-| _ </strong>
-			|-if $headline->getContent()|mb_count_characters gt 500-|
-			|-$headline->getContent()|mb_truncate:495:" ... ":'UTF-8':true|highlight:$tags:highlight-|
-				<img id="imgMore|-$headline->getId()-|" src="images/clear.png" onClick="$('more|-$headline->getId()-|').toggle();$('imgMore|-$headline->getId()-|').toggleClassName('inlineLink readLess')" class="inlineLink readMore" title="Ver/Ocultar texto" /><span id="more|-$headline->getId()-|" style="display: none ">|-$headline->getContent()|mb_substr:490:5000:'UTF-8'|highlight:$tags:highlight-|</span>
+			|-if $headline->getContent()|mb_count_characters gt 300-|
+			|-$headline->getContent()|mb_truncate:295:" ... ":'UTF-8':true|highlight:$tags:highlight-|
+				<img id="imgMore|-$headline->getId()-|" src="images/clear.png" onClick="$('more|-$headline->getId()-|').toggle();$('imgMore|-$headline->getId()-|').toggleClassName('inlineLink readLess')" class="inlineLink readMore" title="Ver/Ocultar texto" /><span id="more|-$headline->getId()-|" style="display: none ">|-$headline->getContent()|mb_substr:290:5000:'UTF-8'|highlight:$tags:highlight-|</span>
 			|-else-|
 				|-$headline->getContent()|highlight:$tags:highlight-|
 			|-/if-|
