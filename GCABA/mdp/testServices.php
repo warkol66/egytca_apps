@@ -6,7 +6,7 @@ if ($_REQUEST["autoresamplerStart"]) {
 	echo "<br>autoresampler: " . $autoresampler;
 }
 if ($_REQUEST["autoresamplerStop"]) {
-	echo "<br>Reiniciar Autoresampler";
+	echo "<br>Detener Autoresampler";
 	$autoresampler = shell_exec(dirname(__FILE__).'/WEB-INF/classes/modules/headlines/classes/autoresampler/autoresampler stop');
 	echo "<br>autoresampler: " . $autoresampler;
 }
