@@ -43,8 +43,8 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 		if (!empty($_POST['type'])) {
 			
 			$savedHeadlines = array();
-			$existentHeadlines = array();
-			$invalidHeadlines = array();
+			$existentHeadlinesCount = 0;
+			$invalidHeadlinesCount = 0;
 			
 			$type = $_POST['type'];
 			
@@ -93,21 +93,21 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 
 			foreach ($headlines as $h) {
 				if (HeadlineParsedQuery::create()->filterByInternalid($h->getInternalId())->count() > 0) {
-					$existentHeadlines []= $h;
+					$existentHeadlinesCount++;
 				} else {
 					try {
 						$h->save();
 						$savedHeadlines []= $h;
 					} catch (Exception $e) {
-						$invalidHeadlines []= $h;
+						$invalidHeadlinesCount++;
 					}
 				}
 			}
 			
 			$logEntry->setParsedcount(count($headlines));
 			$logEntry->setCreatedcount(count($savedHeadlines));
-			$logEntry->setExistentcount(count($existentHeadlines));
-			$logEntry->setInvalidcount(count($invalidHeadlines));
+			$logEntry->setExistentcount($existentHeadlinesCount);
+			$logEntry->setInvalidcount($invalidHeadlinesCount);
 			$logEntry->save();
 
 			/* ********************* debug ******************** */
@@ -115,9 +115,9 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 				echo '<hr/>';
 					echo 'guardados: '.count($savedHeadlines);
 					echo '<br/>';
-					echo 'existentes: '.count($existentHeadlines);
+					echo 'existentes: '.$existentHeadlinesCount;
 					echo '<br/>';
-					echo 'invalidos: '.count($invalidHeadlines);
+					echo 'invalidos: '.$invalidHeadlinesCount;
 				echo '<hr/>';
 					echo 'total: '.count($headlines);
 					echo '<br/>';
