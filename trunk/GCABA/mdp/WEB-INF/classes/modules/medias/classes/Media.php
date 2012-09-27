@@ -89,25 +89,19 @@ $headlinesParsed = HeadlineParsedQuery::create()
 	 * 
 	 * @return Media Ultimo media referenciado por la cadena de aliases
 	 */
-	function resolveAliases($alreadyResolved = null) {
+	function resolveAliases() {
 		
-		if (is_null($this->getAliasof()))
-			return $this;
+		$referenced = $this;
+		$alreadyResolved = array();
+		while (!is_null($referenced->getAliasof())) {
+			if (in_array($referenced->getId(), $alreadyResolved))
+				throw new Exception("circular reference found in aliases");
+			$alreadyResolved []= $referenced->getId();
+			$media = MediaQuery::create()->findOneById($referenced->getAliasof());
+			$referenced = $media;
+		}
 		
-		if (is_null($alreadyResolved))
-			$alreadyResolved = array();
-		
-		if (in_array($this->getId(), $alreadyResolved))
-			throw new Exception("circular reference found in aliases");
-		
-		$alreadyResolved[] = $this->getId();
-		
-		$aliasedMedia = MediaQuery::create()->findOneById($this->getAliasof());
-		if (is_null($aliasedMedia))
-			throw new Exception("aliasOf is not a valid ID");
-		
-		return $aliasedMedia->resolveAliases($alreadyResolved);
-		
+		return $referenced;
 	}
 
  /**
