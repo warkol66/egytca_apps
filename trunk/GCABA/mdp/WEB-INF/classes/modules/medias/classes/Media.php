@@ -29,17 +29,14 @@ class Media extends BaseMedia {
 	function postSave(PropelPDO $con = null) {
 		parent::postSave($con);
 		
-		$medias = MediaQuery::create()->filterByMediaRelatedByAliasof($this)->find();
-		foreach ($medias as $media) {
-			$media->setAliasof($this->resolveAliases()->getId());
-			$media->save();
-		}
+		$resolvedId = $this->resolveAliases()->getId();
 		
-		$headlines = HeadlineQuery::create()->filterByMedia($this)->find();
-		foreach ($headlines as $headline) {
-			$headline->setMediaid($this->resolveAliases()->getId());
-			$headline->save();
-		}
+		MediaQuery::create()->filterByMediaRelatedByAliasof($this)
+			->update(array('Aliasof' => $resolvedId));
+		
+		HeadlineQuery::create()->filterByMedia($this)
+			->update(array('Mediaid' => $resolvedId));
+		
 
 		$headlinesParsed = HeadlineParsedQuery::create()->find();
 		foreach ($headlinesParsed as $headlineParsed) {
@@ -63,14 +60,7 @@ class Media extends BaseMedia {
 			$headlineParsed->save();
 		}
 
-
 /*
-
-
-$headlines = HeadlineQuery::create()
-	->filterByMedia($this)
-  ->update(array('Mediaid' => $this->resolveAliases()->getId()));
-
 $headlinesParsed = HeadlineParsedQuery::create()
 		->filterByMediaid($this->getId())
 	->_or()
