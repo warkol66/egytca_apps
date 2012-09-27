@@ -36,7 +36,7 @@ class HeadlineFeedParser {
 		foreach ($parsedData->channel->item as $item) {
 
 			$headline = new HeadlineParsed();
-			$headline->setClassKey($classKey);
+			$headline->setClassKey($this->classKey);
 
 			foreach ($item as $key => $value) {
 				if ($this->addInfoToHeadline($headline, $key, $value)) {
