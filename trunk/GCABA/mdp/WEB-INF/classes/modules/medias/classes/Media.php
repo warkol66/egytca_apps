@@ -29,7 +29,9 @@ class Media extends BaseMedia {
 	function postSave(PropelPDO $con = null) {
 		parent::postSave($con);
 		
-		$resolvedId = $this->resolveAliases()->getId();
+		$resolvedMedia = $this->resolveAliases();
+		$resolvedId = $resolvedMedia->getId();
+		$resolvedName = $resolvedMedia->getName();
 		
 		MediaQuery::create()->filterByMediaRelatedByAliasof($this)
 			->update(array('Aliasof' => $resolvedId));
@@ -37,41 +39,18 @@ class Media extends BaseMedia {
 		HeadlineQuery::create()->filterByMedia($this)
 			->update(array('Mediaid' => $resolvedId));
 		
-
-		$headlinesParsed = HeadlineParsedQuery::create()->find();
-		foreach ($headlinesParsed as $headlineParsed) {
-			
+		HeadlineParsedQuery::create()
+			->filterByMediaid($this->getId())
+		->_or()
 			/*
-			 * Si tiene mediaName pero no mediaId, y el mediaName corresponde a un media
-			 * existente, seteo como mediaId el id de ese media.
+			 * Si tiene mediaName pero no mediaId, y el mediaName corresponde a este media,
+			 * seteo como mediaId el id de este media.
 			 */
-			if (is_null($headlineParsed->getMediaid())) {
-				$mediaByName = MediaQuery::create()->findOneByName($headlineParsed->getMedianame());
-				if (!is_null($mediaByName))
-					$headlineParsed->setMediaid($mediaByName->getId());
-			}
-			
-			if (!is_null($headlineParsed->getMediaid())) {
-				$finalMedia = $headlineParsed->getMedia()->resolveAliases();
-				$headlineParsed->setMediaid($finalMedia->getId());
-				$headlineParsed->setMediaName($finalMedia->getName());
-			}
-			
-			$headlineParsed->save();
-		}
-
-/*
-$headlinesParsed = HeadlineParsedQuery::create()
-		->filterByMediaid($this->getId())
-	->_or()
-		->filterByMedianame($this->getName())		
-  ->update(array('Mediaid' => $this->resolveAliases()->getId(), 'Medianame' => $this->resolveAliases()->getName));
-
-
-*/		
-
-
-
+			->filterByMedianame($this->getName())
+		->update(array(
+			'Mediaid' => $resolvedId,
+			'Medianame' => $resolvedName
+		));
 	}
 	
 	/**
