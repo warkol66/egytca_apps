@@ -16,7 +16,7 @@
 		window.location='Main.php?do=headlinesViewClipping&id=|-$id-|';
 	}
 	
-	function saveUnmodified() {
+	function saveUnmodified(onsuccess) {
 		new Ajax.Request(
 			'Main.php?do=headlinesDoCropImageX',
 			{
@@ -32,7 +32,8 @@
 					relativeHeight: '|-$displayedHeight-|',
 					displayedWidth: '|-$displayedWidth-|',
 					displayedHeight: '|-$displayedHeight-|'
-				}
+				},
+				onSuccess: onsuccess
 			}
 		);
 	}
@@ -58,8 +59,8 @@
 
 <p><br>
 
-<input type='button' id='button_save_crop' value='Guardar' onClick='applyCrop();gotoViewCrop()' style="display:none" />
-<input type='button' id='button_save_unmodified' value='Guardar' onClick='saveUnmodified();gotoViewCrop()' />
+<input type='button' id='button_save_crop' value='Guardar' onClick='applyCrop(gotoViewCrop);' style="display:none" />
+<input type='button' id='button_save_unmodified' value='Guardar' onClick='saveUnmodified(gotoViewCrop);' />
 <input type='button' id='button_start_crop' value='Recortar' onClick='enableEdit()' />
 <input type='button' id='button_cancel_crop' value='Cancelar' onClick='disableEdit()' style="display:none" />
 <input type='button' id='button_render' value='Capturar nuevamente' onClick='location.href="Main.php?do=headlinesRenderUrl&id=|-$id-|"' />
