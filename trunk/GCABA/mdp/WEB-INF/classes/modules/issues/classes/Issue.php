@@ -137,4 +137,31 @@ class Issue extends BaseIssue {
 		}
 	}
 
+	/**
+	* Obtiene los hijos de un issue.
+	* 
+	*	@return Coleccion de Issues hijos
+	*/
+	function getBrood() {
+		return BaseQuery::create('Issue')->filterByParentId($this->getId())->find();
+	}
+
+	/**
+	* Obtiene los hijos de un issue.
+	* 
+	*	@return Coleccion de Issues hijos
+	*/
+	function getThisAndBrood() {
+		return BaseQuery::create('Issue')->filterByParentId($this->getId())->_or()->filterById($this->getId())->find();
+	}
+
+	/**
+	* Obtiene los hijos de un issue.
+	* 
+	*	@return Coleccion de Issues hijos
+	*/
+	function getBroodIds() {
+		return BaseQuery::create('Issue')->select('Id')->filterByParentId($this->getId())->toArray();
+	}
+
 } // Issue

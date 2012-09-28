@@ -38,22 +38,25 @@ class HeadlinesListAction extends BaseAction {
 			$toDate = $_GET['filters']['toDate'];
 
 		if (!empty($_GET['filters']['actorId']))
-			$filters = array_merge_recursive($filters, array('Actor' => array('entityFilter' => array(
+			$filters['Actor']['entityFilter'] = array(
 				'entityType' => "Actor",
 				'entityId' => $_GET['filters']['actorId']
-			))));
+			);
 
 		if (!empty($_GET['filters']['mediaId']))
-			$filters = array_merge_recursive($filters, array('Media' => array('entityFilter' => array(
+			$filters['Media']['entityFilter'] = array(
 				'entityType' => "Media",
 				'entityId' => $_GET['filters']['mediaId']
-			))));
+			);
 
 		if (!empty($_GET['filters']['issueId']))
-			$filters = array_merge_recursive($filters, array('Issue' => array('entityFilter' => array(
-				'entityType' => "Issue",
-				'entityId' => $_GET['filters']['issueId']
-			))));
+			if (empty($_GET['filters']['getIssueBrood']))
+				$filters['Issue']['entityFilter'] = array(
+					'entityType' => "Issue",
+					'entityId' => $_GET['filters']['issueId']
+				);
+			else
+				$filters["broodIssues"] = $_GET['filters']['issueId'];
 
 		if (isset($fromDate) || isset($toDate))
 			$filters['rangePublished'] = array('range' => Common::getPeriodArray($fromDate,$toDate));

@@ -15,33 +15,66 @@
  */
 class HeadlineQuery extends BaseHeadlineQuery {
 
-    public function searchString($searchString) {
-        $this->where("Headline.Name LIKE ?", "%$searchString%")
-            ->_or()
-        ->where("Headline.Content LIKE ?", "%$searchString%");
-        
-        return $this;
-    }
-    
-    public function processed($value) {
-	    $headlines = $this->find();
-	    foreach ($headlines as $headline) {
-		    if ($headline->processed() != $value)
-			    $this->filterById($headline->getId(), Criteria::NOT_EQUAL);
-	    }
-	    return $this;
-    }
-    
-    public function rangePublished($range) {
-        return $this->filterByDatepublished($range);
-    }
+ /**
+	* Agrega filtros por nombre o contenido del Headline
+	*
+	* @param   type string $searchString texto a buscar
+	* @return condicion de filtrado por texto a buscar
+	*/
+	public function searchString($searchString) {
+		return $this->where("Headline.Name LIKE ?", "%$searchString%")
+							->_or()
+								->where("Headline.Content LIKE ?", "%$searchString%");
+	}
 
-    public function mediaTypeId($mediaTypeId) {
-        $this->useMediaQuery()
-            ->filterByTypeid($mediaTypeId)
-        ->endUse();
-        
-        return $this;
-    }
+ /**
+	* Agrega filtros por ocndicion de procesado Headline
+	*
+	* @param   type string $value condicion de procesado
+	* @return condicion de filtrado por condicion de procesado
+	*/
+	public function processed($value) {
+		$headlines = $this->find();
+		foreach ($headlines as $headline) {
+			if ($headline->processed() != $value)
+				$this->filterById($headline->getId(), Criteria::NOT_EQUAL);
+		}
+		return $this;
+	}
+
+ /**
+	* Agrega filtros por fecha de publicacion del  Headline
+	*
+	* @param   type array $range array con rango de fechas
+	* @return condicion de filtrado por rango de fecha de publicacion
+	*/
+	public function rangePublished($range) {
+			return $this->filterByDatepublished($range);
+	}
+
+ /**
+	* Agrega filtros por tipo de medio
+	*
+	* @param   type integer $mediaTypeId id del tipo de medio
+	* @return condicion de filtrado por tipo de medio
+	*/
+	public function mediaTypeId($mediaTypeId) {
+			return $this->useMediaQuery()
+										->filterByTypeid($mediaTypeId)
+									->endUse();
+	}
+
+ /**
+	* Agrega filtros por issue y sus descendientes
+	*
+	* @param   type integer $issueId id del Issue
+	* @return condicion de filtrado por issue y descendientes
+	*/
+	public function broodIssues($issueId) {
+		$issue = IssueQuery::create()->findOneById($issueId);
+		return $this->useHeadlineIssueQuery()
+									->filterByIssue($issue->getThisAndBrood())
+								->endUse();
+	}
 
 } // HeadlineQuery
