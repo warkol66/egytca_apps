@@ -603,8 +603,8 @@ tr.fc-week7 td.fc-widget-content {margin-top:-16px; border: solid 1px #FFFFFF !I
 
 
 .fc-view-agendaWeek .fc-agenda-slots .fc-agenda-axis,
-.fc-agenda-axis .fc-widget-header .fc-first, .fc-first  {
-	width: 5.5% !Important;	
+.fc-agenda-axis .fc-widget-header .fc-first, .fc-view-agendaWeek .fc-first  {
+	width: 3% !Important;	
 }
 /*fc-minor*/
 .fc-widget-content, .fc-agenda-days .fc-border-separate fc-widget-content {
