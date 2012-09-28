@@ -14,7 +14,17 @@ class CalendarToBeConfirmedShowAction extends CalendarShowAction {
 		$this->smarty->assign('holydayEvents', NULL);
 		$this->smarty->assign('contextEvents', NULL);
 
-		$this->smarty->assign('pendingEvents', BaseQuery::create('CalendarEvent')->addFilters($filters)->filterBySchedulestatus('2', Criteria::EQUAL)->find());
+		list(
+			$eventDateFilter,
+			$contextEventDateFilter,
+			$holidayDateFilter
+		) = $this->setAutomaticDateFilters();
+		
+		$this->smarty->assign('pendingEvents', BaseQuery::create('CalendarEvent')
+			->addFilters($filters)
+			->filterBySchedulestatus('2', Criteria::EQUAL)
+			->filterByStartDate($eventDateFilter)
+			->find());
 
 		$this->smarty->assign('filterPendingEvents', false);
 		$this->smarty->assign('actionName', 'calendarToBeConfirmedShow');
