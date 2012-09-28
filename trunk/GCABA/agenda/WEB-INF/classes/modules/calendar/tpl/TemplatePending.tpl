@@ -126,6 +126,29 @@ $(document).ready(function() {
 		width: 1135px !Important;
 		height: 700px !Important;
 	}
+		.fc-event-time{/*width:115px;*/
+	background-image: url(../images/backgroundsH.png) !Important;
+	background-repeat:repeat-x !Important;
+}
+.amarillo .fc-event-time {	background-position:0 0!Important;}
+.amarillo {background-color:#FFCC00 !Important;}
+.verde1 .fc-event-time { background-position:0 -15px!Important;}
+.verde1 {background-color:#88d852 !Important;}
+.verde1bis .fc-event-time { background-position:0 -15px!Important;}
+.verde1bis {background-color:#88d852 !Important;	}			
+.verde2 .fc-event-time { background-position:0 -30px!Important;}
+.verde2{background-color:#359e7d !Important;}		
+.cyan .fc-event-time {	background-position:0 -45px!Important;}
+.cyan{background-color:#3dbeff !Important;}
+.rojo .fc-event-time { background-position:0 -60px!Important;}
+.rojo {background-color:#ff3929 !Important;}
+.naranja .fc-event-time {	background-position:0 -75px!Important;}
+.naranja {background-color:#ff9c0d;	}
+.naranjabis .fc-event-time {	background-position:0 -75px!Important;}
+.naranjabis {	background-color:#ff9c0d !Important;}
+.gris .fc-event-time {	background-position:0 -90px!Important;}
+.gris {background-color:#c0c0c0 !Important;}
+
 }
 -->
 </style>
@@ -136,12 +159,12 @@ $(document).ready(function() {
 			<a href="Main.php?do=calendarShow"><h1 id="branding"></h1></a>
 			<span class="eyefishContainer">
 				<ul id="fisheye_menu">
+					<li><a href="Main.php?do=calendarShow" class="fisheye"><img src="images/agenda.png" alt=""><span style="display: none;">Agenda</span></a></li>
 					<li><a href="javascript:void(null)" class="fisheye" onclick="$('#filters').toggle();"><img src="images/eyeIcon_00.png" alt=""><span style="display: none;">Filtrar</span></a></li>
-					<li><a href="Main.php?do=calendarShow" class="fisheye"><img src="images/eyeIcon_01.png" alt=""><span style="display: none;">Agenda</span></a></li>
-					<li><a href="Main.php?do=calendarPendingShow" class="fisheye"><img src="images/eyeIcon_03.png" alt=""><span style="display: none;">Pendientes</span></a></li>
-					<li><a href="Main.php?do=calendarToBeConfirmedShow" class="fisheye"><img src="images/eyeIcon_01.png" alt=""><span style="display: none;">A Confirmar</span></a></li>
+					<li><a href="Main.php?do=calendarPendingShow" class="fisheye"><img src="images/pendientes.png" alt=""><span style="display: none;">Pendientes</span></a></li>
+					<li><a href="Main.php?do=calendarToBeConfirmedShow" class="fisheye"><img src="images/aconfirmar.png" alt=""><span style="display: none;">A Confirmar</span></a></li>
 					<li><a href="Main.php?do=calendarStatisticsShow" class="fisheye"><img src="images/eyeIcon_01.png" alt=""><span style="display: none;">Estadísticas</span></a></li>
-					<li><a href="Main.php?do=calendarEventsMapShow&filters[minDate]=|-$smarty.now|date_format:'%Y-%m-01'-|&filters[maxDate]=|-date("Y-m-t")-|" class="fisheye"><img src="images/eyeIcon_02.png" alt=""><span style="display: none;">Filtrar</span></a></li>
+					<li><a href="Main.php?do=calendarEventsMapShow&filters[minDate]=|-$smarty.now|date_format:'%Y-%m-01'-|&filters[maxDate]=|-date("Y-m-t")-|" class="fisheye"><img src="images/eyeIcon_02.png" alt=""><span style="display: none;">Ver en mapa</span></a></li>
 	<!--				<li><a href="#3" class="fisheye"><img src="images/eyeIcon_03.png" alt=""><span style="display: none;">Exportar</span></a></li> -->
 					<li><a href="javascript:window.print()" class="fisheye"><img src="images/eyeIcon_04.png" alt=""><span style="display: none;">Imprimir</span></a></li>
 					<li><a href="#5" class="fisheye"><img src="images/eyeIcon_05.png" alt=""><span style="display: none;">Salir</span></a></li>
