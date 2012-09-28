@@ -36,12 +36,12 @@ class CalendarToBeConfirmedShowAction extends CalendarShowAction {
 		$eventDateFilter = array(); // filtro por fecha de eventos normales
 		if (!empty($_GET['filters']['selectedDate'])) {
 			$dt = new DateTime($_GET['filters']['selectedDate']);
-			$eventDateFilter['min'] = strtotime('-2 month', $dt->getTimestamp());
-			$eventDateFilter['max'] = strtotime('+3 month', $dt->getTimestamp());
+			$eventDateFilter['min'] = strtotime('-1 month', $dt->getTimestamp());
+			$eventDateFilter['max'] = strtotime('+2 month', $dt->getTimestamp());
 		} else {
 			$dt = new DateTime();
-			$eventDateFilter['min'] = strtotime('-2 month', $dt->getTimestamp());
-			$eventDateFilter['max'] = strtotime('+5 month', $dt->getTimestamp());
+			$eventDateFilter['min'] = strtotime('-1 month', $dt->getTimestamp());
+			$eventDateFilter['max'] = strtotime('+2 month', $dt->getTimestamp());
 		}		
 		return array($eventDateFilter, $contextEventDateFilter, $holidayDateFilter);
 	}

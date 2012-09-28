@@ -13,6 +13,18 @@ class CalendarPendingShowAction extends CalendarShowAction {
 		$this->smarty->assign('holydayEvents', NULL);
 		$this->smarty->assign('contextEvents', NULL);
 
+		list(
+			$eventDateFilter,
+			$contextEventDateFilter,
+			$holidayDateFilter
+		) = $this->setAutomaticDateFilters();
+		
+		$this->smarty->assign('pendingEvents', BaseQuery::create('CalendarEvent')
+			->addFilters($filters)
+			->filterBySchedulestatus('3', Criteria::EQUAL)
+			->filterByStartDate($eventDateFilter)
+			->find());
+
 		$this->smarty->assign('filterPendingEvents', false);
 		$this->smarty->assign('actionName', 'calendarPendingShow');
 		return $return;
@@ -23,15 +35,13 @@ class CalendarPendingShowAction extends CalendarShowAction {
 		$eventDateFilter = array(); // filtro por fecha de eventos normales
 		if (!empty($_GET['filters']['selectedDate'])) {
 			$dt = new DateTime($_GET['filters']['selectedDate']);
-			$eventDateFilter['min'] = strtotime('-2 month', $dt->getTimestamp());
-			$eventDateFilter['max'] = strtotime('+3 month', $dt->getTimestamp());
+			$eventDateFilter['min'] = strtotime('-1 month', $dt->getTimestamp());
+			$eventDateFilter['max'] = strtotime('+2 month', $dt->getTimestamp());
 		} else {
 			$dt = new DateTime();
-			$eventDateFilter['min'] = strtotime('-2 month', $dt->getTimestamp());
-			$eventDateFilter['max'] = strtotime('+5 month', $dt->getTimestamp());
+			$eventDateFilter['min'] = strtotime('-1 month', $dt->getTimestamp());
+			$eventDateFilter['max'] = strtotime('+2 month', $dt->getTimestamp());
 		}		
 		return array($eventDateFilter, $contextEventDateFilter, $holidayDateFilter);
 	}
-
 }
-
