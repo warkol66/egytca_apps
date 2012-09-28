@@ -19,7 +19,7 @@
 		$('div_cropable').hide();
 	}
 	
-	function applyCrop() {
+	function applyCrop(onsuccess) {
 		new Ajax.Request(
 			'Main.php?do=headlinesDoCropImageX',
 			{
@@ -34,7 +34,8 @@
 					relativeHeight: height,
 					displayedWidth: '|-$displayedWidth-|',
 					displayedHeight: '|-$displayedHeight-|'
-				}
+				},
+				onSuccess: onsuccess
 			}
 		);
 	}

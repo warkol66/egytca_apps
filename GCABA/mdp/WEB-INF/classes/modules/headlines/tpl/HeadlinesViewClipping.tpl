@@ -32,7 +32,7 @@
 
 <p><br>
 
-<input type='button' id='button_save_crop' value='Guardar' onClick='applyCrop();setTimeout("reload()", 500)' style="display:none" />
+<input type='button' id='button_save_crop' value='Guardar' onClick='applyCrop(function() { setTimeout("reload()", 500); });' style="display:none" />
 <input type='button' id='button_start_crop' value='Recortar' onClick='enableEdit()' />
 <input type='button' id='button_cancel_crop' value='Cancelar' onClick='disableEdit()' style="display:none" />
 <input type='button' id='button_render' value='Capturar nuevamente' onClick='location.href="Main.php?do=headlinesRenderUrl&id=|-$id-|"' />
