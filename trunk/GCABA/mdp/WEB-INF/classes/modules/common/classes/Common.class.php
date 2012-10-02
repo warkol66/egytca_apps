@@ -406,22 +406,27 @@ class Common {
 	 * @return string con el formato
 	 */
 	public static function convertToMysqlDatetimeFormat($date,$dateFormat='') {
-		global $system;
-
-		if (empty($dateFormat))
-			$dateFormat = $system['config']['system']['parameters']['dateFormat']['value'];
-
-		$dateFormat = str_replace('y','Y',$dateFormat);
-		$formatArray = explode('-',$dateFormat);
-		$dateArray = explode('-',$date);
-		$orderedDate = array();
-
-		for ($i=0; $i < count($formatArray); $i++)
-			$orderedDate[$formatArray[$i]] = $dateArray[$i];
-
-		$mysqlDate =  $orderedDate['Y'] . '-' . $orderedDate['m'] . '-' . $orderedDate['d'];
+		
+		$mysqlDate = date('Y-m-d H:i:s', strtotime($date));
 		$mysqlDate = Common::getDatetimeOnGMT($mysqlDate);
 		return $mysqlDate;
+		
+//		global $system;
+//
+//		if (empty($dateFormat))
+//			$dateFormat = $system['config']['system']['parameters']['dateFormat']['value'];
+//		
+//		$dateFormat = str_replace('y','Y',$dateFormat);
+//		$formatArray = explode('-',$dateFormat);
+//		$dateArray = explode('-',$date);
+//		$orderedDate = array();
+//
+//		for ($i=0; $i < count($formatArray); $i++)
+//			$orderedDate[$formatArray[$i]] = $dateArray[$i];
+//
+//		$mysqlDate =  $orderedDate['Y'] . '-' . $orderedDate['m'] . '-' . $orderedDate['d'];
+//		$mysqlDate = Common::getDatetimeOnGMT($mysqlDate);
+//		return $mysqlDate;
 	}
 
 	/**
@@ -1260,7 +1265,7 @@ class Common {
 			$hasHour = !preg_match("/\d{2}-\d{2}-\d{4}\s*$/", $toDate);
 			$toDate = Common::convertToMysqlDatetimeFormat($toDate);
 			if (!$hasHour)
-				$toDate = date('Y-m-d h:i:s', strtotime($toDate.' + 1 day - 1 second'));
+				$toDate = date('Y-m-d H:i:s', strtotime($toDate.' + 1 day - 1 second'));
 		}
 
 		if (!is_null($fromDate) && !is_null($toDate))
