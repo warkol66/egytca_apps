@@ -77,4 +77,21 @@ class HeadlineQuery extends BaseHeadlineQuery {
 								->endUse();
 	}
 
+ /**
+	* Agrega orden especifico para reportes
+	*
+	* @return condicion de ordenamiento de los datos para reporte
+	*/
+	public function setReportOrder() {
+		return $this->orderByDatepublished('asc')
+									->useHeadlineIssueQuery()
+										->useIssueQuery()
+											->orderByName()
+										->endUse()
+									->endUse()
+									->useMediaQuery()
+										->orderByName()
+									->endUse();
+	}
+
 } // HeadlineQuery

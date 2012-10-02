@@ -51,7 +51,9 @@ class HeadlinesReportsAction extends BaseListAction {
 			$this->filters['rangePublished'] = array('range' => Common::getPeriodArray(
 				$_GET['filters']['fromDate'], $_GET['filters']['toDate']
 			));
-		
+
+		$this->filters["setReportOrder"] = true;
+
 		if (!empty($_GET['filters']["perPage"]))
 			$this->perPage = $filters["perPage"];
 	}
