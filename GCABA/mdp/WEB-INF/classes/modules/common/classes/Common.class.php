@@ -1256,8 +1256,12 @@ class Common {
 	public static function getPeriodArray($fromDate = null, $toDate = null) {
 		if (!empty($fromDate))
 			$fromDate = Common::convertToMysqlDatetimeFormat($fromDate);
-		if (!empty($toDate))
+		if (!empty($toDate)) {
+			$hasHour = !preg_match("/\d{2}-\d{2}-\d{4}\s*$/", $toDate);
 			$toDate = Common::convertToMysqlDatetimeFormat($toDate);
+			if (!$hasHour)
+				$toDate = date('Y-m-d h:i:s', strtotime($toDate.' + 1 day - 1 second'));
+		}
 
 		if (!is_null($fromDate) && !is_null($toDate))
 			$periodArray = array("min" => $fromDate, "max" => $toDate);
