@@ -103,8 +103,9 @@
 
 |-else-|
 |-*Si es reporte*-|
+<link href="css/printReport.css" rel="stylesheet" type="text/css">
 |-if $headlineColl|count gt 0-|
-<h2>Resumen</h2>
+|-* <h2>Resumen</h2>
 		<p>Período: |-$filters.fromDate-| al |-$filters.toDate-|</p> 
 <table border="1">
 	<tr>
@@ -129,26 +130,39 @@
 	</tr>
 	|-/foreach-|
 </table>		
-	
+*-|	
 <h2>Clipping de repercusiones de prensa</h2>
 <br style="page-break-after:auto">
 <div id="div_headlines"> 
 <h4>Clipping</h4>
+	<br  style="page-break-after: always"/>
 	|-foreach from=$headlineColl item=headline name=for_headlines-|
-			<p><strong>Medio: </strong>|-$headline->getMedia()-|</p>
-			<p><strong>Titulo: </strong> <a href="|-$headline->getUrl()-|" target="_blank"> |-$headline->getName()-|</a></p>
-			<p><strong>Fecha Publicación: </strong> |-$headline->getDatePublished()|date_format-|</p>
+	<div id="|-$headline->getId()-|">
+		<div style="border: 1px solid black">
+			<p><strong>Fecha: </strong> |-$headline->getDatePublished()|date_format-|
+			<br /><strong>Medio: </strong>|-$headline->getMedia()-|
+			<br /><strong>Página: </strong> |-$headline->getSection()-|
+			<br /><strong>Página: </strong> |-$headline->getPage()-|
+			<br /><strong>Periodista: </strong> </p>
+		</div>
+			<p><strong>Tema: </strong> |-assign var=issues value=$headline->getIssues()-||-foreach from=$issues item=issue name=for_issues-||-if !$issue@first-|, |-/if-||-$issue-||-/foreach-|
+			<br /><strong>Título: </strong>|-$headline->getName()-|
+			<br /><strong>Valor: </strong> |-$headlineValues[$headline->getValue()]-|
+			<br /><strong>Agenda: </strong> |-$headline->getAgendaTranslated()-|
+			<br /><strong>Vocero: </strong> </p>
+
 			|-if $filters.includeContent-|
 			<ul>|-$headline->getContent()|nl2htmlBreak:li:none|highlight:"Macri Larreta "-| </ul>
 			|-/if-|
 			|-if $filters.includeClipping-|<p>
 				|-if $headline->hasClipping()-|<img src="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" />|-/if-|
 				|-foreach $headline->getHeadlineImages() as $image-|
-					|-if $image->secondaryDataExists()-|<img src="Main.php?do=headlinesAttachmentGetData&id=|-$image->getId()-|&secondary=1" />|-/if-|
+					<img src="Main.php?do=headlinesAttachmentGetData&id=|-$image->getId()-||-if $image->secondaryDataExists()-|&secondary=1|-/if-|" />
 				|-/foreach-|
 			</p>|-/if-|
+	<br  style="page-break-after: always"/>
+	</div>
 	|-/foreach-|
-	<br style="page-break-after:auto">
 </div>
 |-/if-|
 |-/if-|

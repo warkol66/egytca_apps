@@ -299,7 +299,7 @@ class Headline extends BaseHeadline {
 	}
 
 	/**
-	 * Devuelve los nombres de los tipo de titulares traducidos
+	 * Devuelve los nombres de los tipo de agenda traducidos
 	 */
 	public function getAgendasTranslated(){
 		$agendas = Headline::getHeadlineAgendas();
@@ -308,6 +308,15 @@ class Headline extends BaseHeadline {
 			$agendasTranslated[$key] = Common::getTranslation($agendas[$key],'headlines');
 
 		return $agendasTranslated;
+	}
+
+	/**
+	 * Devuelve el nombre de la agenda
+	 */
+	public function getAgendaTranslated(){
+		$agendas = Headline::getHeadlineAgendas();
+		$agendasTranslated[$this->getAgenda()] = Common::getTranslation($agendas[$this->getAgenda()],'headlines');
+		return $agendasTranslated[$this->getAgenda()];
 	}
 
 } // Headline
