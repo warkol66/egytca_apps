@@ -33,14 +33,32 @@ class HeadlineQuery extends BaseHeadlineQuery {
 	* @param   type string $value condicion de procesado
 	* @return condicion de filtrado por condicion de procesado
 	*/
-	public function processed($value) {
-		$headlines = $this->find();
-		foreach ($headlines as $headline) {
-			if ($headline->processed() != $value)
-				$this->filterById($headline->getId(), Criteria::NOT_EQUAL);
-		}
-		return $this;
-	}
+	public function processed($value = true) {
+		
+		if ($value) {
+			$this->filterByHeadlinescope(0, Criteria::NOT_EQUAL) // se inicializa en 0. sino: filterByXxx(null, Criteria::ISNOTNULL)
+				->filterByRelevance(0, Criteria::NOT_EQUAL)
+				->filterByAgenda(0, Criteria::NOT_EQUAL)
+				->filterByValue(0, Criteria::NOT_EQUAL)
+				->join('HeadlineIssue')
+				->groupBy('Headline.Id')
+			;
+		} else {
+			$this
+				->filterByHeadlinescope(0) // se inicializa en 0. sino: filterByXxx(null, Criteria::ISNULL)
+			->_or()
+				->filterByValue(0)
+			->_or()
+				->filterByRelevance(0)
+			->_or()
+				->filterByAgenda(0)
+			->_or()
+				->where("Headline.Id NOT IN (SELECT `Headlineid` FROM `headlines_issue`)")
+			->groupBy('Headline.Id')
+			;
+	    }
+	    return $this;
+    }
 
  /**
 	* Agrega filtros por fecha de publicacion del  Headline
