@@ -18,6 +18,24 @@ class Headline extends BaseHeadline {
 	/** the default item name for this class */
 	const ITEM_NAME = 'Headline';
 	
+	/**
+	 * elimina el clipping del headline si es que existe
+	 */
+	public function deleteClipping() {
+		if ($this->hasClipping()) {
+			unlink($this->getClippingFullname());
+		}
+	}
+	
+	/**
+	 * 
+	 * @return string nombre con path completo del clipping del headline
+	 */
+	public function getClippingFullname() {
+		$clippingsPath = ConfigModule::get('headlines', 'clippingsPath');
+		return $clippingsPath.'/'.$this->getId().'.jpg';
+	}
+
 	function getHeadlineImages() {
 		return HeadlineAttachmentQuery::create()->filterByHeadline($this)->filterByType('image/jpg')->find();
 	}
