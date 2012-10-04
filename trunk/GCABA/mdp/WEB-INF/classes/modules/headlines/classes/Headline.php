@@ -19,6 +19,42 @@ class Headline extends BaseHeadline {
 	const ITEM_NAME = 'Headline';
 	
 	/**
+	 * 
+	 * @return mixed array of arrays ('source' => X, 'id' => Y) for every image the headline has
+	 */
+	function getImagesIdData() {
+		$imagesData = array();
+		
+		if ($this->hasClipping()) {
+			$imagesData []= array('source' => 'clipping', 'id' => $this->getId());
+		}
+		foreach ($this->getHeadlineAttachments() as $attachment) {
+			$imagesData []= array('source' => 'attachment', 'id' => $attachment->getId());
+		}
+		
+		return $imagesData;
+	}
+	
+	/**
+	 * 
+	 * @return boolean true if headline has any images of any source, false otherwise
+	 */
+	function hasImages() {
+		return $this->hasClipping() || $this->hasHeadlineImages();
+	}
+	
+	/**
+	 * 
+	 * @return boolean true if headline has any image attachments, false otherwise
+	 */
+	function hasHeadlineImages() {
+		return HeadlineAttachmentQuery::create()
+			->filterByHeadline($this)
+			->filterByType('image/jpg')
+			->count() > 0;
+	}
+	
+	/**
 	 * elimina el clipping del headline si es que existe
 	 */
 	public function deleteClipping() {
