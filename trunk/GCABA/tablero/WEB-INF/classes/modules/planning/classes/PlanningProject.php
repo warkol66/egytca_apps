@@ -45,6 +45,7 @@ class PlanningProject extends BasePlanningProject {
 	 * @return string codigo de proyecto
 	 */
 	public function getStringCode() {
+		$antecessor = $this->getAntecessor();
 		if (is_object($antecessor)) {
 			return str_pad($antecessor->getInternalCode(), 2, "00", STR_PAD_LEFT) . "." . str_pad($this->getInternalCode(), 2, "00", STR_PAD_LEFT);
 		}

@@ -15,4 +15,17 @@
  */
 class ImpactObjectiveQuery extends BaseImpactObjectiveQuery {
 
+ /**
+	* Constructor con parametros de busqueda iniciales
+	*
+	*/
+	public function __construct($dbName = 'application', $modelName = 'ImpactObjective', $modelAlias = null) {
+		parent::__construct($dbName, $modelName, $modelAlias);
+			$this->usePositionQuery()
+							->filterByLastVersion()
+							->orderByName()
+						->endUse()
+						->orderByInternalCode();
+	}
+
 } // ImpactObjectiveQuery

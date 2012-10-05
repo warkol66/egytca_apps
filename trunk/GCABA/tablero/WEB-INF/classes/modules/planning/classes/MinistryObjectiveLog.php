@@ -46,6 +46,29 @@ class MinistryObjectiveLog extends BaseMinistryObjectiveLog {
 	}
 
 	/**
+	 * Devuelve el objeto (ImpactObjective) del que se desprende el objetivo ministerial
+	 *
+	 * @return ImpactObjective del que se desprende el objetivo ministerial
+	 */
+	public function getAntecessor() {
+		return $this->getImpactObjective();
+	}
+
+	/**
+	 * Devuelve el InternalCode del objetivo ministerial
+	 *
+	 * @return string con codigo del objetivo ministerial
+	 */
+	public function getStringCode() {
+		$antecessor = $this->getAntecessor();
+		if (is_object($antecessor)) {
+			return str_pad($antecessor->getInternalCode(), 2, "00", STR_PAD_LEFT) . "." . str_pad($this->getInternalCode(), 2, "00", STR_PAD_LEFT);
+		}
+		else
+			return "00." . str_pad($this->getInternalCode(), 2, "00", STR_PAD_LEFT);
+	}
+
+	/**
 	 * Devuelve true si el MinistryObjective tiene asociada la region,
 	 * y false caso contrario.
 	 * 

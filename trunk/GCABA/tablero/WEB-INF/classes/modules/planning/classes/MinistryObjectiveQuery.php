@@ -15,4 +15,20 @@
  */
 class MinistryObjectiveQuery extends BaseMinistryObjectiveQuery {
 
+ /**
+	* Constructor con parametros de busqueda iniciales
+	*
+	*/
+	public function __construct($dbName = 'application', $modelName = 'MinistryObjective', $modelAlias = null) {
+		parent::__construct($dbName, $modelName, $modelAlias);
+			$this->useImpactObjectiveQuery()
+								->usePositionQuery()
+									->filterByLastVersion()
+									->orderByName()
+								->endUse()
+							->orderByInternalCode()
+						->endUse()
+						->orderByInternalCode();
+	}
+
 } // MinistryObjectiveQuery

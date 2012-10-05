@@ -15,4 +15,12 @@
  */
 class PositionVersionQuery extends BasePositionVersionQuery {
 
+ /**
+	* Busca version vigente
+	* @return version vigente
+	*/
+  public function getLastVersion() {
+    return PositionVersionQuery::create()->orderById(Criteria::DESC)->findOne();
+  }
+
 } // PositionVersionQuery
