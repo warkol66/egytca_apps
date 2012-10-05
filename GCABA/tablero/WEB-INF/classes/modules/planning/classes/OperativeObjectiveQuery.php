@@ -15,4 +15,20 @@
  */
 class OperativeObjectiveQuery extends BaseOperativeObjectiveQuery {
 
+ /**
+	* Constructor con parametros de busqueda iniciales
+	*
+	*/
+	public function __construct($dbName = 'application', $modelName = 'OperativeObjective', $modelAlias = null) {
+		parent::__construct($dbName, $modelName, $modelAlias);
+			$this->useMinistryObjectiveQuery()
+							->usePositionQuery()
+								->filterByLastVersion()
+								->orderByName()
+							->endUse()
+							->orderByInternalCode()
+						->endUse()
+						->orderByInternalCode();
+	}
+
 } // OperativeObjectiveQuery

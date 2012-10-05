@@ -39,6 +39,7 @@ class OperativeObjective extends BaseOperativeObjective {
 	 * @return string Codigo del Objetivo Operativo
 	 */
 	public function getStringCode() {
+		$antecessor = $this->getAntecessor();
 		if (is_object($antecessor)) {
 			return str_pad($antecessor->getInternalCode(), 2, "00", STR_PAD_LEFT) . "." . str_pad($this->getInternalCode(), 2, "00", STR_PAD_LEFT);
 		}

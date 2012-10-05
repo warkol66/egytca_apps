@@ -74,5 +74,27 @@ class PlanningProjectLog extends BasePlanningProjectLog {
 		return BaseQuery::create('PlanningActivity')->filterByObjecttype('Project')->filterByObjectid($this->getProjectid())->find();
 	}
 
+	/**
+	 * Devuelve el objeto (OperativeObjective) del que se desprende el proyecto
+	 *
+	 * @return OperativeObjective del que se desprende el proyecto
+	 */
+	public function getAntecessor() {
+		return $this->getOperativeObjective();
+	}
+
+	/**
+	 * Devuelve el InternalCode del proyecto
+	 *
+	 * @return string codigo de proyecto
+	 */
+	public function getStringCode() {
+		$antecessor = $this->getAntecessor();
+		if (is_object($antecessor)) {
+			return str_pad($antecessor->getInternalCode(), 2, "00", STR_PAD_LEFT) . "." . str_pad($this->getInternalCode(), 2, "00", STR_PAD_LEFT);
+		}
+		else
+			return "00.00.00." . str_pad($this->getInternalCode(), 2, "00", STR_PAD_LEFT);
+	}
 
 } // PlanningProjectLog

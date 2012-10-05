@@ -15,6 +15,18 @@
  */
 class PlanningIndicator extends BasePlanningIndicator {
 
+	const COLUMN        = 1;
+	const LINE          = 2;
+	const PIE           = 3;
+	const STACKEDCOLUMN = 4;
+
+	//nombre de los tipos de graficos de indicadores
+	protected static $graphTypes = array(
+		PlanningIndicator::COLUMN        => 'Column',
+		PlanningIndicator::LINE          => 'Line',
+		PlanningIndicator::PIE           => 'Pie',
+		PlanningIndicator::STACKEDCOLUMN => 'Stacked Column'
+	);
 
 	/**
 	 * Devuelve el nombre del tipo de indicador (IndicatorType)
@@ -99,6 +111,59 @@ class PlanningIndicator extends BasePlanningIndicator {
 			2 => 'Descendente'
 		);
 		return $trendTypes;
+	}
+
+
+	/**
+	 * Devuelve los tipos de graficos de indicador
+	 */
+	public static function getGraphTypes() {
+		return PlanningIndicator::$graphTypes;
+	}
+
+
+	/**
+	* Obtiene el nombre traducido del tipo de grafico de indicador.
+	*
+	* @return array tipos de grafico de indicador
+	*/
+	function getGraphTypeTranslated() {
+		$type = $this->getGraphType();
+		$indicatorTypes = PlanningIndicator::getGraphTypes();
+		return $indicatorTypes[$this->getGraphType()];
+	}
+
+	/**
+	* Obtiene las series del indicador.
+	*
+	* @return array de series del indicador
+	*/
+	function getSeries() {	
+		// No podemos hacer una consulta a la DB porque puede tratarse
+		// de un indicador no persistido.
+		$indicatorSeries = $this->getPlanningIndicatorSeries();
+		uasort($indicatorSeries, array('Indicator', 'compareByOrder'));
+		return $indicatorSeries;
+	}
+
+	/**
+	* Obtiene las series del indicador.
+	*
+	* @return array de series del indicador
+	*/
+	function getXs() {
+		// No podemos hacer una consulta a la DB porque puede tratarse
+		// de un indicador no persistido.
+		$indicatorXs = $this->getPlanningIndicatorXs();
+		uasort($indicatorXs, array('Indicator', 'compareByOrder'));
+		return $indicatorXs;
+	}
+	
+	private function compareByOrder($a, $b) {
+	    if ($a->getOrder() == $b->getOrder()) {
+	        return 0;
+	    }
+	    return ($a->getOrder() < $b->getOrder()) ? -1 : 1;
 	}
 
 } // PlanningIndicator

@@ -58,5 +58,22 @@ class ImpactObjectiveLog extends BaseImpactObjectiveLog {
 		return $this->filterByImpactobjectiveid($impactObjectiveId)->orderByUpdatedAt($orderType);
 	}
 
+	/**
+	 * Devuelve el objeto (Position) del que se desprende el objetivo de impacto
+	 *
+	 * @return Position del que se desprende el objetivo de impacto
+	 */
+	public function getAntecessor() {
+		return $this->getPosition();
+	}
+
+	/**
+	 * Devuelve el codigo del Obejtivo de impacto formateado
+	 *
+	 * @return string con codigo de objetivo de impacto
+	 */
+	public function getStringCode() {
+		return str_pad($this->getInternalCode(), 2, "00", STR_PAD_LEFT);
+	}
 
 } // ImpactObjectiveLog
