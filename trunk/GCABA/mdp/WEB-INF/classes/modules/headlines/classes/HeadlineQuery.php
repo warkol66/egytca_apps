@@ -24,7 +24,9 @@ class HeadlineQuery extends BaseHeadlineQuery {
 	public function searchString($searchString) {
 		return $this->where("Headline.Name LIKE ?", "%$searchString%")
 							->_or()
-								->where("Headline.Content LIKE ?", "%$searchString%");
+								->where("Headline.Content LIKE ?", "%$searchString%")
+							->_or()
+								->where("Headline.Author LIKE ?", "%$searchString%");
 	}
 
  /**
