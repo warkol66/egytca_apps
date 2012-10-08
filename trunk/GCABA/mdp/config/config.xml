@@ -123,13 +123,13 @@
 		<width>1024</width>
 		<height>800</height>
 		<maxDisplayableWidth>800</maxDisplayableWidth>
-		<maxDisplayableHeight>600</maxDisplayableHeight>
+		<maxDisplayableHeight>900</maxDisplayableHeight>
 	</clippings>
 	<headlines>
 		<maxParsedResults>10</maxParsedResults>
 		<clippingSize>
 			<width>800</width>
-			<height>600</height>
+			<height>900</height>
 		</clippingSize>
 	</headlines>
 </config>
