@@ -17,16 +17,23 @@ class HeadlineImageResampler {
 		
 		global $system;
 		
-		$resampledWidth = $system['config']['headlines']['clippingSize']['width'];
-		$resampledHeight = $system['config']['headlines']['clippingSize']['height'];
+		$maxWidth = $system['config']['headlines']['clippingSize']['width'];
+		$maxHeight = $system['config']['headlines']['clippingSize']['height'];
+		
+		if (empty($maxWidth))
+			$maxWidth = 640;
+		if (empty($maxHeight))
+			$maxHeight = 480;
+
 		list($originalWidth, $originalHeight) = getimagesize($inputFilename);
 		
-		// quiero mantener la proporcion de la imagen
-		if ( ($originalWidth / $resampledWidth) > ($originalHeight / $resampledHeight) ) {
-			$resampledHeight = intval($originalHeight / $originalWidth * $resampledWidth);
-		} else {
-			$resampledWidth = intval($originalWidth / $originalHeight * $resampledHeight);
+		if (($originalWidth <= $maxWidth) && ($originalHeight <= $maxHeight)) {
+			return; //No hago resample
 		}
+		// quiero mantener la proporcion de la imagen
+		$porportion = max(($originalWidth / $maxWidth),($originalHeight / $maxHeight));
+		$resampledWidth = intval($originalWidth / $porportion);
+		$resampledHeight =  intval($originalHeight / $porportion);
 		// ------------------------------------------
 		
 		$canvas = imagecreatetruecolor($resampledWidth, $resampledHeight);
