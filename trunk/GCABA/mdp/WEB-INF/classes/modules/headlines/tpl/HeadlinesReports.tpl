@@ -154,12 +154,13 @@
 			|-if $filters.includeContent-|
 			<ul>|-$headline->getContent()|nl2htmlBreak:li:none|highlight:"Macri Larreta "-| </ul>
 			|-/if-|
-			|-if $filters.includeClipping-|<p>
-				|-if $headline->hasClipping()-|<img src="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" />|-/if-|
+			<p>&nbsp;</p>
+			|-if $filters.includeClipping-|<center>
+				|-if $headline->hasClipping()-|<img src="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" align="center" />|-/if-|
 				|-foreach $headline->getHeadlineImages() as $image-|
 					<img src="Main.php?do=headlinesAttachmentGetData&id=|-$image->getId()-||-if $image->secondaryDataExists()-|&secondary=1|-/if-|" />
 				|-/foreach-|
-			</p>|-/if-|
+			</center>|-/if-|
 	<br  style="page-break-after: always"/>
 	</div>
 	|-/foreach-|
