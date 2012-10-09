@@ -27,9 +27,9 @@ class HeadlineImageResampler {
 
 		list($originalWidth, $originalHeight) = getimagesize($inputFilename);
 		
-		if (($originalWidth <= $maxWidth) && ($originalHeight <= $maxHeight)) {
-			return; //No hago resample
-		}
+		if (($originalWidth <= $maxWidth) && ($originalHeight <= $maxHeight))
+			return true; //No hago resample
+
 		// quiero mantener la proporcion de la imagen
 		$porportion = max(($originalWidth / $maxWidth),($originalHeight / $maxHeight));
 		$resampledWidth = intval($originalWidth / $porportion);
@@ -43,6 +43,8 @@ class HeadlineImageResampler {
 		
 		if (!file_exists($outputFilename))
 			throw new Exception("error creating $outputFilename. please verify write permissions");
+		else
+			return true;
 	}
 	
 	/**
