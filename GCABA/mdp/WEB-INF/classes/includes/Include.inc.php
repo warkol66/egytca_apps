@@ -111,7 +111,8 @@
 		$err .= "</errorentry>\n";
 		if (isset($_SERVER['HTTP_REFERER']))
 			$err .= "<referrer>" . $_SERVER['HTTP_REFERER'] . "</referrer>\n";
-		$err .= "<request>"  . $_SERVER['REQUEST_URI']  . "</request>\n\n";
+		if (isset($_SERVER['REQUEST_URI']))
+			$err .= "<request>"  . $_SERVER['REQUEST_URI']  . "</request>\n\n";
 
 		if (!empty($errstr) && preg_match('/^(sql)$/', $errstr)) {
 			$MYSQL_ERRNO = mysql_errno();
