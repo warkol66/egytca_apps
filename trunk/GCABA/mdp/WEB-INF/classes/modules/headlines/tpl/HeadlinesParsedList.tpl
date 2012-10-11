@@ -72,12 +72,32 @@
 </div></div>
 <h1>Administrar Titulares Importados</h1>
 	<fieldset>
-	<legend>Obtener Titulares&nbsp;&nbsp;<a href="javascript:void(null)" id="showHideManualParse" onClick="$('manualParse').toggle(); $('showHideManualParse').toggleClassName('collapseLink');" class="expandLink"></a></legend>
-	<form method="post" action="Main.php" onsubmit="parseFeed(this); return false;" id="manualParse" style="display:none;">
+	<legend>Obtener Titulares&nbsp;&nbsp;<a href="javascript:void(null)" id="showHideManualParse" onClick="$$('form.manualParse').each(function(e, i){e.toggle()}); $('showHideManualParse').toggleClassName('collapseLink');" class="expandLink"></a></legend>
+	<form method="post" action="Main.php" onsubmit="parseFeed(this); return false;" class="manualParse" style="display:none;">
 	 <p><label for="type">Fuente de titulares</label> <input name="type" value="press" type="radio" />&nbsp; Prensa
 		<input name="type" value="multimedia" type="radio" />&nbsp; Radio y TV
 		<input name="type" value="web" type="radio" />&nbsp; Gráfica Interior, Internet y Cables</p>
 	<p><input type="submit" id="search_button" value="Obtener titulares" title="Obtener manualmente titulares" /></p>
+	</form>
+	
+	<form id="form" action="Main.php?do=headlinesDoParseX" onsubmit="headlinesSearch(); return false;" method="POST" class="manualParse" style="display:none;">
+		<input name="campaignId" value="|-$campaign->getId()-|" type="hidden" />
+		<p>
+			<label for="q">Palabras clave</label>
+			<input name="q" value="|-$campaign->getDefaultKeywords()|escape-|" size="60" />
+			<input type="submit" id="search_button" value="Buscar" />
+		</p> 
+		<p><label for="strategies[]">Búscar en</label> |-foreach from=$parseStategies item=strategy key=strategyName-|&nbsp; &nbsp; |-$strategy-| <input name="strategies[]" type="checkbox" value="|-$strategyName-|" checked="checked">|-/foreach-|</p>
+		<p>
+			<label for="dateFilter" onclick="$('dateFilter').toggle();">Rango de fechas</label>
+			<select id="dateFilter" style="display:none" name="dateFilter">
+				<option value="day">Último día</option>
+				<option value="week" selected="selected">Última semana</option>
+				<option value="month">Último mes</option>
+				<option value="year">Último año</option>
+				<option value="">Todo</option>
+			</select>
+		</p>
 	</form>
 	</fieldset>
 

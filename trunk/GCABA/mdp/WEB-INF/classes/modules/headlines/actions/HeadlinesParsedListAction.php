@@ -58,16 +58,15 @@ class HeadlinesParsedListAction extends BaseListAction {
 		//Reviso si se solicito desde campaing valida
 		$campaignId = $_GET['filters']['campaignId'];
 		$campaign = CampaignQuery::create()->findOneById($campaignId);
-
-		if ($campaign) {
-			$contentProviders = ConfigModule::get("headlines","contentProvider");
-			$parseStategies = $contentProviders["strategies_options"];
-			$this->smarty->assign('parseStategies', $parseStategies);
-		}
-		else {
+		
+		if (!$campaign) {
 			unset($filters['Campaign']);
 			$campaign = new Campaign();
 		}
+
+		$contentProviders = ConfigModule::get("headlines","contentProvider");
+		$parseStategies = $contentProviders["strategies_options"];
+		$this->smarty->assign('parseStategies', $parseStategies);
 
 		$this->smarty->assign('campaign', $campaign);
 		if (!empty($filters['discarded']))

@@ -86,7 +86,7 @@ class HeadlineContentProvider {
      * @param mixed $keywords 
      * @param int $campaignId
      */
-    public function HeadlineContentProvider($keywords, $campaignId) {
+    public function HeadlineContentProvider($keywords, $campaignId = null) {
         $this->keywords = $keywords;
         $this->campaignId = $campaignId;
         $this->config = ConfigModule::get("headlines", "contentProvider");
@@ -100,7 +100,7 @@ class HeadlineContentProvider {
      * @param int $campaignId
      * @return Scrapper 
      */
-    public static function create($keywords, $campaignId) {
+    public static function create($keywords, $campaignId = null) {
         return new HeadlineContentProvider($keywords, $campaignId);
     }
     
@@ -289,7 +289,6 @@ class HeadlineContentProvider {
      * @return array
      */
     private function buildHeadlinesParsed($news, &$ignored = null, &$total = null) {
-        $campaign = CampaignQuery::create()->findPk($this->campaignId);
         $headlinesParsed = array();
 	$ignored = 0;
 	$total = 0;
@@ -311,8 +310,8 @@ class HeadlineContentProvider {
 	    } else {
 		try {
 		    $h = $this->buildObject()
+			->setClassKey(HeadlinePeer::CLASSKEY_WEBHEADLINE)
 			->setInternalid($internalId)
-			->setCampaignid($this->campaignId)
 			->setMediaid($parsedNews['mediaId'])
 			->setMedianame($parsedNews['source'])
 			->setName($parsedNews['title'])
@@ -324,6 +323,8 @@ class HeadlineContentProvider {
 			->setKeywords($this->getSanitizedKeywords())
 			->setStrategy($parsedNews['strategy'])
 		    ;
+		    if (!is_null($this->campaignId))
+			    $h->setCampaignid($this->campaignId);
 		    $h->save();
 		    $headlinesParsed[] = $h;
 		}
