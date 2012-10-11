@@ -89,6 +89,9 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 			} catch (Exception $e) {
 				$logEntry->setStatus('failure');
 				$logEntry->setErrormessage($e->getMessage());
+				$smarty->assign('parseErrors', array(
+					array('strategy' => 'feed', 'message' => $e->getMessage())
+				));
 			}
 
 			foreach ($headlines as $h) {
