@@ -84,7 +84,9 @@ function usersDoEditInfo(form){
 	<p><label for="userParams[username]">##users,162,Identificación de Usuario##</label>
 			|-if $action eq 'edit' and $currentUser->getUsername() ne ''-|<input id='actualuserParams[username]' type='hidden' value='|-$currentUser->getUsername()-|' />|-/if-|
 			<input id='userParams[username]' name='userParams[username]' type='text' value='|-$currentUser->getUsername()-|'  size="30"  class="emptyValidation" |-ajax_onchange_validation_attribute actionName="usersValidationUsernameX"-| /> |-validation_msg_box idField="userParams[username]"-|
-|-/if-|</p>
+|-/if-|
+	<input id='actualuserParams[username]' type='hidden' value='|-$currentUser->getUsername()-|' />
+</p>
 		<p><label for="userParams[name]">##users,163,Nombre##</label>
 			<input id='userParams[name]' name='userParams[name]' type='text' value='|-$currentUser->getName()|escape-|' size="50" /> |-validation_msg_box idField="userParams[name]"-|
 		</p>
