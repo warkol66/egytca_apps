@@ -33,8 +33,8 @@ class HeadlineAttachment extends BaseHeadlineAttachment {
 		
 		if ($this->getType() == 'image/jpg') {
 			require_once 'HeadlineImageResampler.php';
-			HeadlineImageResampler::copyResampled($filename, $this->getSecondaryDataRealpath());
-			if (!file_exists($filename))
+			$result = HeadlineImageResampler::copyResampled($filename, $this->getSecondaryDataRealpath());
+			if (!$result)
 				throw new Exception('failed to resample '.$filename);
 		}
 	}
@@ -60,7 +60,11 @@ class HeadlineAttachment extends BaseHeadlineAttachment {
 	 * @return string absolute path to resource
 	 */
 	function getSecondaryDataRealpath() {
-		return realpath(ConfigModule::get('headlines', 'clippingsPath')).'/'.$this->getSecondaryDataName();
+		$secondaryDataName = $this->getSecondaryDataName();
+		if (!empty($secondaryDataName))
+			return realpath(ConfigModule::get('headlines', 'clippingsPath')).'/'.$secondaryDataName;
+		else
+			return false;
 	}
 	
 	/**

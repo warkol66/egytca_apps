@@ -141,16 +141,15 @@
 		<div style="border: 1px solid black">
 			<p><strong>Fecha: </strong> |-$headline->getDatePublished()|date_format-|
 			<br /><strong>Medio: </strong>|-$headline->getMedia()-|
-			<br /><strong>Página: </strong> |-$headline->getSection()-|
+			<br /><strong>Sección: </strong> |-$headline->getSection()-|
 			<br /><strong>Página: </strong> |-$headline->getPage()-|
-			<br /><strong>Periodista: </strong> </p>
+			<br /><strong>Periodista: </strong> |-counter name=journalist start=1 assign=journalist-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::JOURNALIST'))-||-if $journalist gt 1-|, |-/if-||-counter name=journalist assign=journalist-||-$actor-||-/if-||-/foreach-||-/foreach-| </p>
 		</div>
 			<p><strong>Tema: </strong> |-assign var=issues value=$headline->getIssues()-||-foreach from=$issues item=issue name=for_issues-||-if !$issue@first-|, |-/if-||-$issue-||-/foreach-|
 			<br /><strong>Título: </strong>|-$headline->getName()-|
 			<br /><strong>Valor: </strong> |-$headlineValues[$headline->getValue()]-|
 			<br /><strong>Agenda: </strong> |-$headline->getAgendaTranslated()-|
-			<br /><strong>Vocero: </strong> </p>
-
+			<br /><strong>Vocero: </strong> |-counter name=spokesman start=1 assign=spokesman-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::SPOKESMAN'))-||-if $spokesman gt 1-|, |-/if-||-counter name=spokesman assign=spokesman-||-$actor-||-/if-||-/foreach-||-/foreach-|</p>
 			|-if $filters.includeContent-|
 			<ul>|-$headline->getContent()|nl2htmlBreak:li:none|highlight:"Macri Larreta "-| </ul>
 			|-/if-|

@@ -15,8 +15,8 @@ class HeadlinesOneTimeFixAction extends BaseAction {
 		
 		foreach ($imagesAttachments as $attachment) {
 			$filename = $attachment->getRealpath();
-			HeadlineImageResampler::resample($filename);
-			if (!file_exists($filename))
+			$result = HeadlineImageResampler::resample($filename);
+			if (!$result)
 				throw new Exception('failed to resample '.$filename);
 		}
 ?>
