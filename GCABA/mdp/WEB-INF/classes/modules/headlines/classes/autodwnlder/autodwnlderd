@@ -43,17 +43,22 @@ logFailure() {
 	url=`grep "url" $failedFile | sed -e "s/url=//"`
 	of=`grep "output" $failedFile | sed -e "s/output=//"`
 
-	logText="error saving $url to "`readlink -f $of`" - "`date`" - data file moved to "`readlink -f $failedFile`
+	logText="`date +%Y-%m-%d\ %H:%M:%S` - error saving $url to `readlink -f $of` - data file moved to `readlink -f $failedFile`"
 
 	echo "$logText" >> $failuresLog
 }
 
 while true; do
+	echo "`date +%Y-%m-%d\ %H:%M:%S` - reading queue..."
+	count=`ls -1 $queue | wc -l`
+	if [ $count = 0 ] ; then
+		echo "  queue is empty"
+	else
+		echo "  $count files found"
+	fi
 	files=`ls -1 $queue`
-echo "queue: $queue"
 	for file in $files ; do
-		echo `date`
-		echo "  processing $file..."
+		echo "  `date +%Y-%m-%d\ %H:%M:%S` - processing $file..."
 		download $queue/$file
 		if [ $? = 0 ] ; then
 			echo "    download result: OK"
@@ -67,5 +72,6 @@ echo "queue: $queue"
 			logFailure $failuresDir/$file
 		fi
 	done
+	echo "`date +%Y-%m-%d\ %H:%M:%S` - done processing queue"
 	sleep 5s
 done
