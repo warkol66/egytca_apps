@@ -56,7 +56,7 @@ class HeadlineImageResampler {
 	 * @param string $outputFilename nombre de la imagen copia resampleada
 	 */
 	public static function copyResampled($inputFilename, $outputFilename) {
-		self::doResample($inputFilename, $outputFilename);
+		return self::doResample($inputFilename, $outputFilename);
 	}
 
 	/**
@@ -66,6 +66,6 @@ class HeadlineImageResampler {
 	 * @param string $filename nombre de la imagen a resamplear
 	 */
 	public static function resample($filename) {
-		self::doResample($filename, $filename);
+		return self::doResample($filename, $filename);
 	}
 }

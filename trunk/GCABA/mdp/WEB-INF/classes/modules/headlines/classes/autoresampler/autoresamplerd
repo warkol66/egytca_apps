@@ -17,31 +17,33 @@ resample() {
 	id=`grep "id" $queuedFile | sed -e "s/id=//"`
 
 	cd $mainphpDir
-	php Main.php do=headlinesImageDoCreateResampledCopy id=$id
+	php Main.php do=headlinesImageDoCreateResampledCopy id=$id >/dev/null
+	result=$?
 	cd $autoresamplerDir
 
-	return 0
-#	if [ -f "$of" ] ; then
-#		return 0
-#	else
-#		return 1
-#	fi
+	return $result
 }
 
 logFailure() {
 	failedFile=$1
 	id=`grep "id" $failedFile | sed -e "s/id=//"`
 	
-	logText="error resampling image with id: $id - "`date`" - data file moved to "`readlink -f $failedFile`
+	logText="`date +%Y-%m-%d\ %H:%M:%S` - error resampling image with id: $id - data file moved to `readlink -f $failedFile`"
 
 	echo "$logText" >> $failuresLog
 }
 
 while true; do
+	echo "`date +%Y-%m-%d\ %H:%M:%S` - reading queue..."
+	count=`ls -1 $queue | wc -l`
+	if [ $count = 0 ] ; then
+		echo "  queue is empty"
+	else
+		echo "  $count files found"
+	fi
 	files=`ls -1 $queue`
 	for file in $files ; do
-		echo `date`
-		echo "  processing $file..."
+		echo "  `date +%Y-%m-%d\ %H:%M:%S` - processing $file..."
 		resample $queue/$file
 		if [ $? = 0 ] ; then
 			echo "    resample result: OK"
@@ -55,5 +57,6 @@ while true; do
 			logFailure $failuresDir/$file
 		fi
 	done
+	echo "`date +%Y-%m-%d\ %H:%M:%S` - done processing queue"
 	sleep 5s
 done
