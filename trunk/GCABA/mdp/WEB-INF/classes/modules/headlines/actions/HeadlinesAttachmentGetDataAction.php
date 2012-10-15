@@ -35,7 +35,12 @@ class HeadlinesAttachmentGetDataAction extends BaseAction {
 					break;
 			}
 			header('Content-Type: '.$type);
-			$path = empty($_REQUEST['secondary']) ? $attachment->getRealpath() : $attachment->getSecondaryDataRealpath();
+			
+			if (!empty($_REQUEST['secondary']) && $attachment->secondaryDataExists())
+				$path = $attachment->getSecondaryDataRealpath();
+			else
+				$path = $attachment->getRealpath();
+
 //			header("Content-length: ".filesize($path));
 //			header('Content-Disposition: filename="'.$attachment->getId().'.'.$extension.'"');
 			readfile($path);
