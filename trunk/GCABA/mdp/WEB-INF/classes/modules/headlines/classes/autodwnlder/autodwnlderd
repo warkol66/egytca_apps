@@ -73,5 +73,5 @@ while true; do
 		fi
 	done
 	echo "`date +%Y-%m-%d\ %H:%M:%S` - done processing queue"
-	sleep 5s
+	sleep 60s
 done
