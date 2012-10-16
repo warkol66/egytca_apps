@@ -12,9 +12,7 @@ class HeadlinesImageDoCreateResampledCopyAction extends BaseAction {
 			$attachment = HeadlineAttachmentQuery::create()->findOneById($_REQUEST['id']);
 			$input = $attachment->getRealpath();
 			$output = $attachment->getSecondaryDataRealpath();
-			$result = HeadlineImageResampler::copyResampled($input, $output);
-			if (!$result)
-				throw new Exception("failed to create $output - please check write permissions");
+			HeadlineImageResampler::copyResampled($input, $output);
 		}
 	}
 }

@@ -12,6 +12,12 @@ class HeadlineImageResampler {
 	 */
 	private static function doResample($inputFilename, $outputFilename) {
 		
+		if (empty($inputFilename))
+			throw new Exception('$inputFilename cannot be an empty string');
+		
+		if (empty($outputFilename))
+			throw new Exception('$outputFilename cannot be an empty string');
+		
 		if (!file_exists($inputFilename))
 			throw new Exception("$inputFilename doesn't exist");
 		
@@ -28,7 +34,7 @@ class HeadlineImageResampler {
 		list($originalWidth, $originalHeight) = getimagesize($inputFilename);
 		
 		if (($originalWidth <= $maxWidth) && ($originalHeight <= $maxHeight))
-			return true; //No hago resample
+			return; //No hago resample
 
 		// quiero mantener la proporcion de la imagen
 		$porportion = max(($originalWidth / $maxWidth),($originalHeight / $maxHeight));
@@ -42,9 +48,7 @@ class HeadlineImageResampler {
 		imagejpeg($canvas, $outputFilename, 100);
 		
 		if (!file_exists($outputFilename))
-			throw new Exception("error creating $outputFilename. please verify write permissions");
-		else
-			return true;
+			throw new Exception("failed to create $outputFilename - please check write permissions");
 	}
 	
 	/**
@@ -56,7 +60,7 @@ class HeadlineImageResampler {
 	 * @param string $outputFilename nombre de la imagen copia resampleada
 	 */
 	public static function copyResampled($inputFilename, $outputFilename) {
-		return self::doResample($inputFilename, $outputFilename);
+		self::doResample($inputFilename, $outputFilename);
 	}
 
 	/**
@@ -66,6 +70,6 @@ class HeadlineImageResampler {
 	 * @param string $filename nombre de la imagen a resamplear
 	 */
 	public static function resample($filename) {
-		return self::doResample($filename, $filename);
+		self::doResample($filename, $filename);
 	}
 }
