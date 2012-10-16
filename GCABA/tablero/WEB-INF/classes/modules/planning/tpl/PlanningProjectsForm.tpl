@@ -73,11 +73,11 @@
     </p> 
 	<p>
         <label for="params_goalProduct">Meta Producto</label>
-      <input name="params[goalProduct]" type="text" id="params_goalProduct" size="80" value="|-$planningProject->getGoalProduct()-|" title="Meta producto" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
+      <input name="params[goalProduct]" type="text" id="params_goalProduct" size="80" value="|-$planningProject->getGoalProduct()-|" title="Meta producto" maxlength="300" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
     </p>
 	<p>
         <label for="params_goalQuantification">Meta Cuantificación</label>
-      <input name="params[goalQuantification]" type="text" id="params_goalQuantification" size="80" value="|-$planningProject->getGoalQuantification()-|" title="Meta Cuantificacion" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
+      <input name="params[goalQuantification]" type="text" id="params_goalQuantification" size="80" value="|-$planningProject->getGoalQuantification()-|" title="Meta Cuantificacion" maxlength="100" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
     </p>
 	<p>
         <label for="params_investment">Proyecto de inversión?</label><input name="params[investment]" type="hidden" value="0"/>

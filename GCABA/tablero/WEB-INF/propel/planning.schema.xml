@@ -38,7 +38,7 @@
 		<column name="policyGuideline" type="INTEGER" description="Eje de gestion" />
 		<column name="baseline" type="INTEGER" description="Linea de base" />
 		<column name="expectedResult" type="INTEGER" description="Resultados esperados" />
-		<column name="contextualFactors" type="VARCHAR" size="255" description="Factores contextuales" />
+		<column name="contextualFactors" type="VARCHAR" size="400" description="Factores contextuales" />
 		<column name="contextualFactorsEvolution" type="LONGVARCHAR" description="Evolucion de Factores contextuales" />
 		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
 		<column name="version" type="INTEGER" description="Numero de version" />
@@ -187,9 +187,9 @@
 		<column name="ministryObjectiveId" type="INTEGER" description="Objetivo Ministerial"/>
 
 		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
-		<column name="objectivePopulationAge" type="VARCHAR" size="50" description="Edad de poblacion objetivo" />
+		<column name="objectivePopulationAge" type="VARCHAR" size="200" description="Edad de poblacion objetivo" />
 		<column name="objectivePopulationGender" type="INTEGER" description="Id de genero de poblacion objetivo" />
-		<column name="objectivePopulationGroup" type="VARCHAR" size="50" description="Grupo de poblacion objetivo" />
+		<column name="objectivePopulationGroup" type="VARCHAR" size="500" description="Grupo de poblacion objetivo" />
 		<column name="productKind" type="INTEGER" description="Tipo de produccion organizacional"/>
 		<column name="version" type="INTEGER" description="Numero de version" />
 	  <column name="userObjectType" type="VARCHAR" size="100" description="tipo de objeto usuario realizo la accion"/>

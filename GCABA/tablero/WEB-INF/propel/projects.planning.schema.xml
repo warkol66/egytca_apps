@@ -7,8 +7,8 @@
 		<column name="description" type="LONGVARCHAR" description="Descripcion del proyecto"/>
 
 		<column name="operativeObjectiveId" type="INTEGER" description="Objetivo de Impacto"/>
-		<column name="goalProduct" type="VARCHAR" size="50" description="Meta Producto" />
-		<column name="goalQuantification" type="VARCHAR" size="50" description="Meta Cuantificacion" />
+		<column name="goalProduct" type="VARCHAR" size="300" description="Meta Producto" />
+		<column name="goalQuantification" type="VARCHAR" size="100" description="Meta Cuantificacion" />
 		<column name="investment" type="BOOLEAN" description="Proyecto de inversion si/no" />
 		<column name="preexisting" type="BOOLEAN" description="Proyecto preexistente si/no" />
 		<column name="preexistingCode" type="VARCHAR" description="Codigo de proyecto Preexistente" />
