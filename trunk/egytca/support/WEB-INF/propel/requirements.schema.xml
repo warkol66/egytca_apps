@@ -38,6 +38,27 @@
 		</vendor>
 
 	</table>
+	
+	<table  name="requirements_requirement_resource" phpName="ResourceRequirement" description="Recurso de Requerimiento">
+	
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Headline Id" autoIncrement="true"/>
+		<column name="requirementId" required="true" type="INTEGER" description="Id del requerimiento" />
+		<column name="resourceId" required="true" type="INTEGER" description="Id del recurso" />
+		
+		<foreign-key foreignTable="requirements_requirement" onDelete="cascade">
+			<reference local="requirementId" foreign="id"/>
+		</foreign-key>
+		
+		<foreign-key foreignTable="resources_resource" >
+			<reference local="resourceId" foreign="id"/>
+		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+		
+	</table>
 
 	<table name="requirements_development" phpName="Development" description="Desarrollo">
 
@@ -73,6 +94,27 @@
 			<parameter name="Collate" value="utf8_general_ci"/>
 		</vendor>
 
+	</table>
+	
+	<table  name="requirements_development_resource" phpName="DevelopmentResource" description="Recursos de Desarrollo">
+	
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Headline Id" autoIncrement="true"/>
+		<column name="developmentId" required="true" type="INTEGER" description="Id del desarrollo" />
+		<column name="resourceId" required="true" type="INTEGER" description="Id del recurso" />
+		
+		<foreign-key foreignTable="requirements_development" onDelete="cascade">
+			<reference local="requirementId" foreign="id"/>
+		</foreign-key>
+		
+		<foreign-key foreignTable="resources_resource" >
+			<reference local="resourceId" foreign="id"/>
+		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+		
 	</table>
 
 </database>
