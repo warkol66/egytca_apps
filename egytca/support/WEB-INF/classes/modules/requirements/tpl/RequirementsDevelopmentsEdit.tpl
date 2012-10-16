@@ -9,6 +9,7 @@
 	<div class="failureMessage">Ha ocurrido un error al intentar Desarrollo</div>
 |-/if-|
 |-include file="CommonAutocompleterInclude.tpl"-|
+	|-$affiliate|@print_r-| 
   <form name="form_edit_requirement" id="form_edit_requirement" action="Main.php" method="post">
 	
     <fieldset title="Formulario de datos de Desarrollo">
@@ -19,15 +20,15 @@
       </p>
     <p>
 		<label for="params_input">Input</label>
-		<textarea name="params[input]" cols="74" rows="1" id="params_input" type="text" title="Descripción del ingreso de los datos" |-$readonly|readonly-|>|-$development->getInput()|escape-|</textarea>
+		<textarea name="params[input]" cols="74" rows="1" id="params_input" type="text" title="Descripción del ingreso de los datos" class="emptyValidation" |-$readonly|readonly-|>|-$development->getInput()|escape-|</textarea> |-validation_msg_box idField="params_input"-|
     </p>
     <p>
 		<label for="params_process">Proceso</label>
-		<textarea name="params[process]" cols="74" rows="1" id="params_process" type="text" title="Descripción del ingreso de los datos" |-$readonly|readonly-|>|-$development->getProcess()|escape-|</textarea> 
+		<textarea name="params[process]" cols="74" rows="1" id="params_process" type="text" title="Descripción del ingreso de los datos" class="emptyValidation" |-$readonly|readonly-|>|-$development->getProcess()|escape-|</textarea> |-validation_msg_box idField="params_process"-|
     </p>
     <p>
 		<label for="params_output">Output</label>
-		<textarea name="params[output]" cols="74" rows="1" id="params_output" type="text" title="Descripción del resultado" |-$readonly|readonly-|>|-$development->getOutput()|escape-|</textarea> 
+		<textarea name="params[output]" cols="74" rows="1" id="params_output" type="text" title="Descripción del resultado" class="emptyValidation" |-$readonly|readonly-|>|-$development->getOutput()|escape-|</textarea> |-validation_msg_box idField="params_output"-|
     </p>
     <p>
 		<label for="params_other">Otros</label>
@@ -39,41 +40,42 @@
     </p> 
     <p>
 		<label for="params_estimatedDelivery">Fecha estimada de entrega</label>
-		<input name="params[estimatedDelivery]" id="params_estimatedDelivery" value="|-$development->getEstimatedDelivery()-|" size="10" title="Fecha estimada de entrega"></input>
+		<input name="params[estimatedDelivery]" id="params_estimatedDelivery" value="|-$development->getEstimatedDelivery()|date_format:'%d-%m-%Y'-|" size="10" title="Fecha estimada de entrega" class="dateValidation"></input> |-validation_msg_box idField="params_estimatedDelivery"-|
     </p>
     <p>
 		<label for="params_realDelivery">Fecha de entrega</label>
-		<input name="params[realDelivery]" id="params_other" value="|-$development->getrealDelivery()-|" size="10" title="Fecha de entrega"></input>
+		<input name="params[realDelivery]" id="params_other" value="|-$development->getrealDelivery()|date_format:'%d-%m-%Y'-|" size="10" title="Fecha de entrega" class="dateValidation"></input> |-validation_msg_box idField="params_realDelivery"-|
     </p>
     
     <p>
 		<label for="params_delivered">Entregado</label>
-		<input name="params[delivered]" id="params_delivered" type="checkbox" value="|-$development->getDelivered()-|" title="Entregado"></input>
+		<input name="params[delivered]" id="params_delivered" type="checkbox" title="Entregado" checked="|-$development->getDelivered()|checked:1-|" ></input>
     </p>
     
     <p>
 		<label for="params_estimatedHours">Estimación de horas</label>
-		<input name="params[estimatedHours]" id="params_estimatedHours" size="5" value="|-$development->getEstimatedHours()-|" title="Estimación de horas"></input>
+		<input name="params[estimatedHours]" id="params_estimatedHours" size="5" value="|-$development->getEstimatedHours()-|" title="Estimación de horas" class="numericValidation"></input> |-validation_msg_box idField="params_estimatedHours"-|
     </p>
     <p>
 		<label for="params_realHours">Horas Insumidas</label>
-		<input name="params[realHours]" id="params_realHours" size="5" value="|-$development->getRealHours()-|" title="Horas insumidas"></input>
+		<input name="params[realHours]" id="params_realHours" size="5" value="|-$development->getRealHours()-|" title="Horas insumidas" class="numericValidation"></input> |-validation_msg_box idField="params_realHours"-|
     </p>
     <p>
 		<label for="params_estimatedCost">Costo estimado</label>
-		<input name="params[estimatedCost]" id="params_estimatedCost" value="|-$development->getEstimatedCost()-|" title="Costo estimado"></input>
+		<input name="params[estimatedCost]" id="params_estimatedCost" value="|-$development->getEstimatedCost()-|" title="Costo estimado" class="numericValidation"></input> |-validation_msg_box idField="params_estimatedCost"-|
     </p>
     <p>
 		<label for="params_realCost">Costo real</label>
-		<input name="params[realCost]" id="params_realCost" value="|-$development->getRealCost()-|" title="Costo real"></input>
+		<input name="params[realCost]" id="params_realCost" value="|-$development->getRealCost()-|" title="Costo real" class="numericValidation"></input> |-validation_msg_box idField="params_realCost"-|
     </p>
     <p>
 		<label for="params_quotation">Cotización</label>
-		<input name="params[quotation]" id="params_delivered" value="|-$development->getQuotation()-|" title="Cotización"></input>
+		<input name="params[quotation]" id="params_quotation" value="|-$development->getQuotation()-|" title="Cotización" class="numericValidation"></input> |-validation_msg_box idField="params_quotation"-|
     </p>
-    
-   |-if !$development->isNew()-|
-    <input type="hidden" name="id" id="id" value="|-$development->getId()-|" /> 
+     
+	<input type="hidden" name="clientId" id="clientId" value="|-$development->getClientId()-|" /> 
+	|-if !$development->isNew()-|
+	<input type="hidden" name="id" id="id" value="|-$development->getId()-|" /> 
     |-/if-|
 		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 		|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
