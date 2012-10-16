@@ -44,7 +44,11 @@ class HeadlineAttachment extends BaseHeadlineAttachment {
 	 * @return string absolute path to resource
 	 */
 	function getRealpath() {
-		return realpath(ConfigModule::get('headlines', 'clippingsPath')).'/'.$this->getName();
+		$name = $this->getName();
+		if (empty($name))
+			return false;
+		else
+			return realpath(ConfigModule::get('headlines', 'clippingsPath')).'/'.$name;
 	}
 	
 	/**
