@@ -9,7 +9,6 @@
 	<div class="failureMessage">Ha ocurrido un error al intentar Desarrollo</div>
 |-/if-|
 |-include file="CommonAutocompleterInclude.tpl"-|
-	|-$affiliate|@print_r-| 
   <form name="form_edit_requirement" id="form_edit_requirement" action="Main.php" method="post">
 	
     <fieldset title="Formulario de datos de Desarrollo">
