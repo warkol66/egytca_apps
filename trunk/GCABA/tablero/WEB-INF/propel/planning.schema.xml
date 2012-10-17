@@ -234,7 +234,7 @@ Seccion de tablas de log
 		<column name="policyGuideline" type="INTEGER" description="Eje de gestion" />
 		<column name="baseline" type="INTEGER" description="Linea de base" />
 		<column name="expectedResult" type="INTEGER" description="Resultados esperados" />
-		<column name="contextualFactors" type="VARCHAR" size="255" description="Factores contextuales" />
+		<column name="contextualFactors" type="VARCHAR" size="400" description="Factores contextuales" />
 		<column name="contextualFactorsEvolution" type="LONGVARCHAR" description="Evolucion de Factores contextuales" />
 		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
 		<column name="version" type="INTEGER" description="Numero de version" />
