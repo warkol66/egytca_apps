@@ -43,28 +43,39 @@ class RequirementsDevelopmentsEditAction extends BaseEditAction {
 		$id = $request->getParameter("id");
 		$smarty->assign("id",$id);
 		
+		//caso: editar development
 		if (!empty($id)) {
+			
 			$development = DevelopmentQuery::create()->findOneById($id);
-				if (empty($development))
-					$smarty->assign("notValidId","true");
-			$action = "edit";
-			//$attendants = array();
+			
+			//caso: no existe development con ese id
+			if (empty($development)){
+				
+				$smarty->assign("notValidId","true");
+				$smarty->assign("action","create");
+			
+			}
+			//caso: existe el development
+			else{
+				
+				$smarty->assign("action","edit");
+				//$attendants = array();
+			}
 		}
+		//caso: crear nuevo development
 		else{
+			
 			$development = new Development();
-			$action = "create";
+			$smarty->assign("action","create");
 			
 		}
 		
-		/*$attendants = UserQuery::create()
-				->getName()
-				->find();*/
-
-		//$users = UserQuery::create()->getAll();
+		$attendants = UserQuery::create()
+			->orderByName()
+			->findByActive(1);
 
 		$smarty->assign("development",$development);
-		$smarty->assign("action",$action);
-		//$smarty->assign("attendants",$attendants);
+		$smarty->assign("attendants",$attendants);
 		return $mapping->findForwardConfig('success');
 	}
 

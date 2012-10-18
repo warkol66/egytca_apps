@@ -467,6 +467,7 @@ class User extends BaseUser {
 	function getModule() {
 		return "Users";
 	}
+	
 
  /**
 	 * Especifica la fecha de actualizacion de la clave
