@@ -9,11 +9,12 @@
 	<div class="failureMessage">Ha ocurrido un error al intentar Desarrollo</div>
 |-/if-|
 |-include file="CommonAutocompleterInclude.tpl"-|
+|-$users|@print_r-|
   <form name="form_edit_requirement" id="form_edit_requirement" action="Main.php" method="post">
 	
     <fieldset title="Formulario de datos de Desarrollo">
      <legend>Desarrollo</legend>
-			<p>Instrucciones: Compete un formulario por cada tipo de tarea que quiera que realice el sistema</p>
+			<p>Instrucciones: Complete un formulario por cada tipo de tarea que quiera que realice el sistema</p>
         <label for="params_name">Desarrollo</label>
       <input name="params[name]" type="text" id="params_name" size="80" value="|-$development->getName()-|" title="Nombre del Desarrollo" maxlength="255" class="emptyValidation"  |-$readonly|readonly-|/> |-validation_msg_box idField="params_name"-|
       </p>
@@ -85,6 +86,20 @@
 		</p>
     </fieldset> 
   </form> 
+|-if $action eq "edit"-|
+	<form method="post">
+		<fieldset title="Asignación de Recursos">
+			<legend>Asignación de Recursos</legend>
+			<p>Seleccione los recursos para el desarrollo</p>
+			<p>
+				<select>
+					<option value="">Seleccione un recurso</option>
+					
+				</select>
+			</p>	
+		</fieldset>
+	</form>
+|-/if-|
 </div> 
 |-else-|
 	<h1>Administración de Desarrollos</h1>
