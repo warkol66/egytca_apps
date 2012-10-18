@@ -155,9 +155,9 @@
 			|-/if-|
 			<p>&nbsp;</p>
 			|-if $filters.includeClipping-|<center>
-				|-if $headline->hasClipping()-|<img src="Main.php?do=headlinesGetClipping&image=|-$headline->getId()-|.jpg" align="center" />|-/if-|
+				|-if $headline->hasClipping()-|<img src="attachments/c-|-$headline->getId()-|.jpg" align="center" />|-/if-|
 				|-foreach $headline->getHeadlineImages() as $image-|
-					<img src="Main.php?do=headlinesAttachmentGetData&id=|-$image->getId()-||-if $image->secondaryDataExists()-|&secondary=1|-/if-|" />
+					<img src="attachments/|-if $image->secondaryDataExists()-|1|-else-|0|-/if-|/a-|-$image->getId()-|.jpg" />
 				|-/foreach-|
 			</center>|-/if-|
 	<br  style="page-break-after: always"/>
