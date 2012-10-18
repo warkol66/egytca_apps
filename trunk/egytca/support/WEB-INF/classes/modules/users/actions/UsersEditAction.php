@@ -19,19 +19,12 @@ class UsersEditAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$module = "Users";
-		$section = "Users";
+		$module = "Requirements";
+		$section = "Developments";
 		$smarty->assign("module",$module);
 		$smarty->assign("section",$section);
 
-		//timezone
-		require_once('TimezonePeer.php');
-		$timezonePeer = new TimezonePeer();
-		$timezones = $timezonePeer->getAll();
-		
-		$smarty->assign("timezones",$timezones);
-
-		$smarty->assign("message",$_GET["message"]);
+/*		$smarty->assign("message",$_GET["message"]);
 
 		if (!empty($_GET["id"])) {
 			//voy a editar un usuario
@@ -83,6 +76,6 @@ class UsersEditAction extends BaseAction {
 
 		return $mapping->findForwardConfig('success');
 
-	}
+	}*/
 
 }

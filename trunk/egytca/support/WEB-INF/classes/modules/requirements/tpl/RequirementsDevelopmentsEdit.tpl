@@ -1,6 +1,36 @@
 <h2>Desarrollo</h2> 
 |-if !$notValidId || is_object($requirement)-|
 <h1>Administración de Desarrollos - |-if !$development->isNew()-|Editar|-else-|Crear|-/if-| Desarrollos</h1>
+<script language="JavaScript" type="text/javascript">
+function requirementsDoAddToDevelopment(form) {
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'attendantsList'},
+				url,
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true,
+					insertion: Insertion.Bottom
+				});
+	$('attendantsMsgField').innerHTML = '<span class="inProgress">agregando recurso...</span>';
+	return true;
+}
+
+function usersDoDeleteFromDevelopment(form){
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'attendantsMsgField'},
+				url,
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true
+				});
+	$('attendantsMsgField').innerHTML = '<span class="inProgress">eliminando recurso...</span>';
+	return true;
+}
+</script>
 <p class='paragraphEdit'>A continuación se puede modificar los datos que definen el Desarrollo.</p>
 <div id="div_requirement"> 
   |-if $message eq "ok"-|
@@ -9,7 +39,6 @@
 	<div class="failureMessage">Ha ocurrido un error al intentar Desarrollo</div>
 |-/if-|
 |-include file="CommonAutocompleterInclude.tpl"-|
-|-$users|@print_r-|
   <form name="form_edit_requirement" id="form_edit_requirement" action="Main.php" method="post">
 	
     <fieldset title="Formulario de datos de Desarrollo">
@@ -86,7 +115,7 @@
 		</p>
     </fieldset> 
   </form> 
-|-if $action eq "edit"-|
+	|-if $action eq "edit"-|
 	<form method="post">
 		<fieldset title="Asignación de Recursos">
 			<legend>Asignación de Recursos</legend>
@@ -94,12 +123,20 @@
 			<p>
 				<select>
 					<option value="">Seleccione un recurso</option>
-					
+					|-foreach from=$attendants item=attendant name=for_attendant-|
+					<option id="attendantOption|-$attendant->getId()-|" value="|-$attendant->getId()-|">|-$attendant->getName()-|</option>
+					|-/foreach-|
 				</select>
 			</p>	
+			<input type="hidden" name="do" id="do" value="requirementsDoAddToDevelopmentX" /> 
+			<input type="hidden" name="entityId" id="entityId" value="|-$development->getId()-|" />
+			<input type="hidden" name="entityType" id="entityType" value="development" />
+			<input type="button" value="Agregar recurso" onClick="javascript:requirementsDoAddToDevelopment(this.form)"/> 
 		</fieldset>
-	</form>
-|-/if-|
+	</form> 
+	<ul id="groupList" class="iconOptionsList">
+	</ul> 
+	|-/if-|
 </div> 
 |-else-|
 	<h1>Administración de Desarrollos</h1>
