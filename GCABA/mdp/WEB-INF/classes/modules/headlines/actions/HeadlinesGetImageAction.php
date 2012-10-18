@@ -32,7 +32,7 @@ class HeadlinesGetImageAction extends BaseAction {
 				
 				case 'attachment':
 					$attachment = HeadlineAttachmentQuery::create()->findOneById($_GET['id']);
-					if (is_null($attachment))
+					if (is_null($attachment)) 
 						throw new Exception('invalid ID');
 					
 					$type = $attachment->getType();
@@ -48,7 +48,7 @@ class HeadlinesGetImageAction extends BaseAction {
 			
 			header('Content-Type: '.$type);
 			header("Content-length: ".filesize($path));
-			header('Content-Disposition: attachment; filename="'.$filename.'"');
+			header('Content-Disposition: inline; filename="'.$filename.'"');
 			readfile($path);
 		}
 		else

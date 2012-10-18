@@ -33,9 +33,11 @@ class HeadlineAttachment extends BaseHeadlineAttachment {
 		
 		if ($this->getType() == 'image/jpg') {
 			require_once 'HeadlineImageResampler.php';
-			$result = HeadlineImageResampler::copyResampled($filename, $this->getSecondaryDataRealpath());
-			if (!$result)
-				throw new Exception('failed to resample '.$filename);
+			try {
+				HeadlineImageResampler::copyResampled($filename, $this->getSecondaryDataRealpath());
+			} catch (Exception $e) {
+				throw new Exception('failed to resample '.$filename." - error text: ".$e->getMessage());
+			}
 		}
 	}
 	
