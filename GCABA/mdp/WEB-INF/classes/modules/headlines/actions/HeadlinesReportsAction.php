@@ -67,6 +67,13 @@ class HeadlinesReportsAction extends BaseListAction {
 		$this->smarty->assign("headlineValues", Headline::getHeadlineValues());
 		$this->smarty->assign("headlineRelevances", Headline::getHeadlineRelevances());
 
-
+		$query = clone $this->query;
+		$byIssue = BaseQuery::create("Issue")->filterByHeadline($query->find(), Criteria::IN)
+			->join("HeadlineIssue")
+			->withColumn("COUNT(HeadlineIssue.Issueid)", "HeadlinesCount")
+			->groupBy("Issue.Id")
+			->orderByHeadlinesCount(Criteria::DESC)
+		;
+		$this->smarty->assign("byIssue", $byIssue->find());
 	}
 }
