@@ -61,6 +61,8 @@
 					<input id="filters[includeClipping]" name="filters[includeClipping]" type="checkbox" value="1" |-$filters.includeClipping|checked_bool-| title="Mostrar clipping" />
 					&nbsp; &nbsp; <label for="filters[includeClipping]" class="inlineLabel">Tabla Resumen</label>
 					<input id="filters[summaryTable]" name="filters[summaryTable]" type="checkbox" value="1" |-$filters.summaryTable|checked_bool-| title="Tabla Resumen" />
+					&nbsp; &nbsp; <label for="filters[includeClipping]" class="inlineLabel">Resumen Ejecutivo</label>
+					<input id="filters[executiveSummary]" name="filters[executiveSummary]" type="checkbox" value="1" |-$filters.executiveSummary|checked_bool-| title="Resumen Ejecutivo" />
 					</p>
 					<p>
 					<input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
@@ -104,113 +106,131 @@
 </div>
 
 
-|-else-|
-|-*Si es reporte*-|
+|-else-||-*Si es reporte*-|
+
 <link href="css/printReport.css" rel="stylesheet" type="text/css">
-|-if $headlineColl|count gt 0-|
-|-* <h2>Resumen</h2>
-		<p>Período: |-$filters.fromDate-| al |-$filters.toDate-|</p> 
-<table border="1">
-	<tr>
-			<th>Medio</th>
-			<th>Publicación</th>
-			<th>Foto</th>
-			<th>Valoración</th>
-			<th>Relevancia</th>
-			<th>Actores</th>
-	</tr>
-	|-foreach from=$headlineColl item=headline name=for_headlines-|
-	<tr>
-			<td>|-$headline->getMedia()-|</td>
-			<td>|-$headline->getDatePublished()|date_format-|</td>
-			<td>|-$headline->getPicture()|si_no-|</td>
-			<td>|-$headlineValues[$headline->getValue()]-|</td>
-			<td>|-$headlineRelevances[$headline->getRelevance()]-|</td>
-		<td>|-if $headline->getActors()|count gt 0-|<ul>|-foreach from=$headline->getActors() item=actor-|
-						<li>|-$actor-|</li>
-				|-/foreach-|</ul>|-/if-|
-</td>
-	</tr>
-	|-/foreach-|
-</table>		
-*-|
-|-/if-|
-
-|-if $filters.summaryTable-|
-
-|-if $headlineColl|count gt 0-|
-<h2>Resumen</h2>
-<table border="1">
-	<tr>
-	  <th>Fecha</th>
-			<th>Tema</th>
-			<th>Medio</th>
-			<th>Nombre</th>
-			<th>Seccion</th>
-			<th>Pagina</th>
-			<th>Periodista</th>
-			<th>Titulo</th>
-			<th>Valor</th>
-			<th>Vocero</th>
-			<th>Relevancia</th>
-			<th>Foto</th>
-			<th>Otros_politicos</th>
-	</tr>
-	|-foreach from=$headlineColl item=headline name=for_headlines-|
-	<tr>
-			<td>|-$headline->getDatePublished()|date_format-|</td>
-			<td>|-assign var=issues value=$headline->getIssues()-||-foreach from=$issues item=issue name=for_issues-||-if !$issue@first-|, |-/if-||-$issue-||-/foreach-|</td>
-			<td>|-assign var=media value=$headline->getMEdia()-||-$media->getType()-|</td>
-			<td>|-$headline->getMedia()-|</td>
-			<td>|-$headline->getSection()-|</td>
-			<td>|-$headline->getPage()-|</td>
-			<td>|-counter name=journalist start=1 assign=journalist-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::JOURNALIST'))-||-if $journalist gt 1-|, |-/if-||-counter name=journalist assign=journalist-||-$actor-||-/if-||-/foreach-||-/foreach-|</td>
-			<td>|-$headline->getName()-|</td>
-			<td>|-$headlineValues[$headline->getValue()]-|</td>
-			<td>|-counter name=spokesman start=1 assign=spokesman-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::SPOKESMAN'))-||-if $spokesman gt 1-|, |-/if-||-counter name=spokesman assign=spokesman-||-$actor-||-/if-||-/foreach-||-/foreach-|</td>
-			<td>|-$headlineRelevances[$headline->getRelevance()]-|</td>
-			<td>|-$headline->getPicture()|si_no-|</td>
-			<td>|-if $headline->getActors()|count gt 0-||-foreach from=$headline->getActors() item=actor-|
-						|-if !$actor@first-|, |-/if-||-$actor-|
-				|-/foreach-|</ul>|-/if-|
-</td>
-	</tr>
-	|-/foreach-|
-</table>
+	|-if $headlineColl|count gt 0-|
+	|-* <h2>Resumen</h2>
+			<p>Período: |-$filters.fromDate-| al |-$filters.toDate-|</p> 
+	<table border="1">
+		<tr>
+				<th>Medio</th>
+				<th>Publicación</th>
+				<th>Foto</th>
+				<th>Valoración</th>
+				<th>Relevancia</th>
+				<th>Actores</th>
+		</tr>
+		|-foreach from=$headlineColl item=headline name=for_headlines-|
+		<tr>
+				<td>|-$headline->getMedia()-|</td>
+				<td>|-$headline->getDatePublished()|date_format-|</td>
+				<td>|-$headline->getPicture()|si_no-|</td>
+				<td>|-$headlineValues[$headline->getValue()]-|</td>
+				<td>|-$headlineRelevances[$headline->getRelevance()]-|</td>
+			<td>|-if $headline->getActors()|count gt 0-|<ul>|-foreach from=$headline->getActors() item=actor-|<li>|-$actor-|</li>|-/foreach-|</ul>|-/if-|
+			</td>
+		</tr>
+		|-/foreach-|
+	</table>		
+	*-|
 	|-/if-|
-|-else-|
-<h2>Clipping de repercusiones de prensa</h2>
-<br style="page-break-after:auto">
-<div id="div_headlines"> 
-<h4>Clipping</h4>
-	<br  style="page-break-after: always"/>
-	|-foreach from=$headlineColl item=headline name=for_headlines-|
-	<div id="|-$headline->getId()-|">
-		<div style="border: 1px solid black">
-			<p><strong>Fecha: </strong> |-$headline->getDatePublished()|date_format-|
-			<br /><strong>Medio: </strong>|-$headline->getMedia()-|
-			<br /><strong>Sección: </strong> |-$headline->getSection()-|
-			<br /><strong>Página: </strong> |-$headline->getPage()-|
-			<br /><strong>Periodista: </strong> |-counter name=journalist start=1 assign=journalist-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::JOURNALIST'))-||-if $journalist gt 1-|, |-/if-||-counter name=journalist assign=journalist-||-$actor-||-/if-||-/foreach-||-/foreach-| </p>
-		</div>
-			<p><strong>Tema: </strong> |-assign var=issues value=$headline->getIssues()-||-foreach from=$issues item=issue name=for_issues-||-if !$issue@first-|, |-/if-||-$issue-||-/foreach-|
-			<br /><strong>Título: </strong>|-$headline->getName()-|
-			<br /><strong>Valor: </strong> |-$headlineValues[$headline->getValue()]-|
-			<br /><strong>Agenda: </strong> |-$headline->getAgendaTranslated()-|
-			<br /><strong>Vocero: </strong> |-counter name=spokesman start=1 assign=spokesman-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::SPOKESMAN'))-||-if $spokesman gt 1-|, |-/if-||-counter name=spokesman assign=spokesman-||-$actor-||-/if-||-/foreach-||-/foreach-|</p>
-			|-if $filters.includeContent-|
-			<ul>|-$headline->getContent()|nl2htmlBreak:li:none|highlight:"Macri Larreta "-| </ul>
+
+|-if $filters.summaryTable || $filters.executiveSummary-||-* Reporte Tablas Resumen Varios *-|
+
+	|-if $filters.summaryTable-||-* Reporte Tabla Resumen *-|
+		|-if $headlineColl|count gt 0-|
+		<h2>Resumen</h2>
+		<table border="1">
+			<tr>
+				<th>Fecha</th>
+					<th>Tema</th>
+					<th>Medio</th>
+					<th>Nombre</th>
+					<th>Seccion</th>
+					<th>Pagina</th>
+					<th>Periodista</th>
+					<th>Titulo</th>
+					<th>Valor</th>
+					<th>Vocero</th>
+					<th>Relevancia</th>
+					<th>Foto</th>
+					<th>Otros_politicos</th>
+			</tr>
+			|-foreach from=$headlineColl item=headline name=for_headlines-|
+			<tr>
+					<td>|-$headline->getDatePublished()|date_format-|</td>
+					<td>|-assign var=issues value=$headline->getIssues()-||-foreach from=$issues item=issue name=for_issues-||-if !$issue@first-|, |-/if-||-$issue-||-/foreach-|</td>
+					<td>|-assign var=media value=$headline->getMEdia()-||-$media->getType()-|</td>
+					<td>|-$headline->getMedia()-|</td>
+					<td>|-$headline->getSection()-|</td>
+					<td>|-$headline->getPage()-|</td>
+					<td>|-counter name=journalist start=1 assign=journalist-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::JOURNALIST'))-||-if $journalist gt 1-|, |-/if-||-counter name=journalist assign=journalist-||-$actor-||-/if-||-/foreach-||-/foreach-|</td>
+					<td>|-$headline->getName()-|</td>
+					<td>|-$headlineValues[$headline->getValue()]-|</td>
+					<td>|-counter name=spokesman start=1 assign=spokesman-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::SPOKESMAN'))-||-if $spokesman gt 1-|, |-/if-||-counter name=spokesman assign=spokesman-||-$actor-||-/if-||-/foreach-||-/foreach-|</td>
+					<td>|-$headlineRelevances[$headline->getRelevance()]-|</td>
+					<td>|-$headline->getPicture()|si_no-|</td>
+					<td>|-if $headline->getActors()|count gt 0-||-foreach from=$headline->getActors() item=actor-|
+								|-if !$actor@first-|, |-/if-||-$actor-|
+						|-/foreach-|</ul>|-/if-|
+		</td>
+			</tr>
+			|-/foreach-|
+		</table>
 			|-/if-|
-			<p>&nbsp;</p>
-			|-if $filters.includeClipping-|<center>
-				|-if $headline->hasClipping()-|<img src="attachments/c-|-$headline->getId()-|.jpg" align="center" />|-/if-|
-				|-foreach $headline->getHeadlineImages() as $image-|
-					<img src="attachments/|-if $image->secondaryDataExists()-|1|-else-|0|-/if-|/a-|-$image->getId()-|.jpg" />
-				|-/foreach-|
-			</center>|-/if-|
-	<br  style="page-break-after: always"/>
-	</div>
-	|-/foreach-|
-</div>
-|-/if-|
+		|-/if-||-* /Reporte Tabla Resumen *-|
+
+		|-if $filters.executiveSummary-||-* Reporte Resumen Ejecutivo *-|
+		
+		<table border="1">
+			<tr>
+				<th>Tema</th>
+				<th>Repercusiones</th>
+			</tr>
+		 |-foreach $byIssue as $row-|
+		 <tr>
+			<td>|-$row->getName()-|</td>
+			<td>|-$row->getHeadlinesCount()-|</td>
+			</tr>|-/foreach-|
+		</table>
+		
+		|-/if-||-* /Reporte Resumen Ejecutivo *-|
+
+
+	|-else-||-* Reporte completo de clipping *-|
+		<h2>Clipping de repercusiones de prensa</h2>
+		<br style="page-break-after:auto">
+		<div id="div_headlines"> 
+		<h4>Clipping</h4>
+			<br  style="page-break-after: always"/>
+			|-foreach from=$headlineColl item=headline name=for_headlines-|
+			<div id="|-$headline->getId()-|">
+				<div style="border: 1px solid black">
+					<p><strong>Fecha: </strong> |-$headline->getDatePublished()|date_format-|
+					<br /><strong>Medio: </strong>|-$headline->getMedia()-|
+					<br /><strong>Sección: </strong> |-$headline->getSection()-|
+					<br /><strong>Página: </strong> |-$headline->getPage()-|
+					<br /><strong>Periodista: </strong> |-counter name=journalist start=1 assign=journalist-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::JOURNALIST'))-||-if $journalist gt 1-|, |-/if-||-counter name=journalist assign=journalist-||-$actor-||-/if-||-/foreach-||-/foreach-| </p>
+				</div>
+					<p><strong>Tema: </strong> |-assign var=issues value=$headline->getIssues()-||-foreach from=$issues item=issue name=for_issues-||-if !$issue@first-|, |-/if-||-$issue-||-/foreach-|
+					<br /><strong>Título: </strong>|-$headline->getName()-|
+					<br /><strong>Valor: </strong> |-$headlineValues[$headline->getValue()]-|
+					<br /><strong>Agenda: </strong> |-$headline->getAgendaTranslated()-|
+					<br /><strong>Vocero: </strong> |-counter name=spokesman start=1 assign=spokesman-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::SPOKESMAN'))-||-if $spokesman gt 1-|, |-/if-||-counter name=spokesman assign=spokesman-||-$actor-||-/if-||-/foreach-||-/foreach-|</p>
+					|-if $filters.includeContent-|
+					<ul>|-$headline->getContent()|nl2htmlBreak:li:none|highlight:"Macri Larreta "-| </ul>
+					|-/if-|
+					<p>&nbsp;</p>
+					|-if $filters.includeClipping-|<center>
+						|-if $headline->hasClipping()-|<img src="attachments/c-|-$headline->getId()-|.jpg" align="center" />|-/if-|
+						|-foreach $headline->getHeadlineImages() as $image-|
+							<img src="attachments/|-if $image->secondaryDataExists()-|1|-else-|0|-/if-|/a-|-$image->getId()-|.jpg" />
+						|-/foreach-|
+					</center>|-/if-|
+			<br  style="page-break-after: always"/>
+			</div>
+			|-/foreach-|
+		</div>
+	|-/if-||-* /Reporte completo de clipping *-|
 |-/if-|
