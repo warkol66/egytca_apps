@@ -55,10 +55,13 @@
 					<label for="filters[headlineDate]">del titular</label>
 					<input id="filters[headlineDate]" name="filters[headlineDate]" type="checkbox" value="1" title="Fecha de inicio" |-$filters.headlineDate|checked_bool-| />-->
 </p>
-					<label for="filters[includeContent]">Mostrar contenido</label>
+<p>					<label for="filters[includeContent]">Mostrar contenido</label>
 					<input id="filters[includeContent]" name="filters[includeContent]" type="checkbox" value="1" |-$filters.includeContent|checked_bool-| title="Mostrar contenido" />
 					&nbsp; &nbsp; <label for="filters[includeClipping]" class="inlineLabel">Mostrar clipping</label>
 					<input id="filters[includeClipping]" name="filters[includeClipping]" type="checkbox" value="1" |-$filters.includeClipping|checked_bool-| title="Mostrar clipping" />
+					&nbsp; &nbsp; <label for="filters[includeClipping]" class="inlineLabel">Tabla Resumen</label>
+					<input id="filters[summaryTable]" name="filters[summaryTable]" type="checkbox" value="1" |-$filters.summaryTable|checked_bool-| title="Tabla Resumen" />
+					</p>
 					<p>
 					<input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
 				|-if $filters|@count gt 0-|<input type="button" value="Quitar filtros" onclick="location.href='Main.php?do=headlinesReports'"/>
@@ -130,7 +133,52 @@
 	</tr>
 	|-/foreach-|
 </table>		
-*-|	
+*-|
+|-/if-|
+
+|-if $filters.summaryTable-|
+
+|-if $headlineColl|count gt 0-|
+<h2>Resumen</h2>
+<table border="1">
+	<tr>
+	  <th>Fecha</th>
+			<th>Tema</th>
+			<th>Medio</th>
+			<th>Nombre</th>
+			<th>Seccion</th>
+			<th>Pagina</th>
+			<th>Periodista</th>
+			<th>Titulo</th>
+			<th>Valor</th>
+			<th>Vocero</th>
+			<th>Relevancia</th>
+			<th>Foto</th>
+			<th>Otros_politicos</th>
+	</tr>
+	|-foreach from=$headlineColl item=headline name=for_headlines-|
+	<tr>
+			<td>|-$headline->getDatePublished()|date_format-|</td>
+			<td>|-assign var=issues value=$headline->getIssues()-||-foreach from=$issues item=issue name=for_issues-||-if !$issue@first-|, |-/if-||-$issue-||-/foreach-|</td>
+			<td>|-assign var=media value=$headline->getMEdia()-||-$media->getType()-|</td>
+			<td>|-$headline->getMedia()-|</td>
+			<td>|-$headline->getSection()-|</td>
+			<td>|-$headline->getPage()-|</td>
+			<td>|-counter name=journalist start=1 assign=journalist-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::JOURNALIST'))-||-if $journalist gt 1-|, |-/if-||-counter name=journalist assign=journalist-||-$actor-||-/if-||-/foreach-||-/foreach-|</td>
+			<td>|-$headline->getName()-|</td>
+			<td>|-$headlineValues[$headline->getValue()]-|</td>
+			<td>|-counter name=spokesman start=1 assign=spokesman-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::SPOKESMAN'))-||-if $spokesman gt 1-|, |-/if-||-counter name=spokesman assign=spokesman-||-$actor-||-/if-||-/foreach-||-/foreach-|</td>
+			<td>|-$headlineRelevances[$headline->getRelevance()]-|</td>
+			<td>|-$headline->getPicture()|si_no-|</td>
+			<td>|-if $headline->getActors()|count gt 0-||-foreach from=$headline->getActors() item=actor-|
+						|-if !$actor@first-|, |-/if-||-$actor-|
+				|-/foreach-|</ul>|-/if-|
+</td>
+	</tr>
+	|-/foreach-|
+</table>
+	|-/if-|
+|-else-|
 <h2>Clipping de repercusiones de prensa</h2>
 <br style="page-break-after:auto">
 <div id="div_headlines"> 
