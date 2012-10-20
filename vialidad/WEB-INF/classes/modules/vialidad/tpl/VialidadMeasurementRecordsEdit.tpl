@@ -263,8 +263,6 @@
 	</table>
 	</div>
 		|-/if-|
-	</div>
-	|-/if-|
 
 		|-if $others->count() gt 0-|
 	<h3>Otros bienes y servicios</h3>
@@ -303,6 +301,13 @@
 		|-/if-|
 
 
+
+
+	</div>
+	|-/if-|
+
+
+
 </div>
 
 <script type="text/javascript" src="scripts/lightbox.js"></script>
@@ -320,6 +325,9 @@
 |-/foreach-|
 |-foreach from=$adjustments item=adjustment-|
 	|-include file="VialidadMeasurementRecordRelationAttachDocumentInclude.tpl" id=$adjustment->getMeasurementRecordRelation()->getId()-|
+|-/foreach-|
+|-foreach from=$others item=other-|
+	|-include file="VialidadMeasurementRecordRelationAttachDocumentInclude.tpl" id=$other->getMeasurementRecordRelation()->getId()-|
 |-/foreach-|
 
 <div id="lightbox_comments" class="leightbox">
