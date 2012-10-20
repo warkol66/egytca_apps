@@ -59,7 +59,12 @@ class RequirementsDevelopmentsEditAction extends BaseEditAction {
 			else{
 				
 				$smarty->assign("action","edit");
-				//$attendants = array();
+				
+				$attendants = UserQuery::create()
+					->orderByName()
+					->findByActive(1);
+					
+				$smarty->assign("attendants",$attendants);					
 			}
 		}
 		//caso: crear nuevo development
@@ -69,13 +74,9 @@ class RequirementsDevelopmentsEditAction extends BaseEditAction {
 			$smarty->assign("action","create");
 			
 		}
-		
-		$attendants = UserQuery::create()
-			->orderByName()
-			->findByActive(1);
 
 		$smarty->assign("development",$development);
-		$smarty->assign("attendants",$attendants);
+
 		return $mapping->findForwardConfig('success');
 	}
 

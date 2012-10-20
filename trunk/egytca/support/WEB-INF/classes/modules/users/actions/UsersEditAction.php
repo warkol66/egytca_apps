@@ -24,7 +24,7 @@ class UsersEditAction extends BaseAction {
 		$smarty->assign("module",$module);
 		$smarty->assign("section",$section);
 
-/*		$smarty->assign("message",$_GET["message"]);
+		$smarty->assign("message",$_GET["message"]);
 
 		if (!empty($_GET["id"])) {
 			//voy a editar un usuario
@@ -76,6 +76,6 @@ class UsersEditAction extends BaseAction {
 
 		return $mapping->findForwardConfig('success');
 
-	}*/
+	}
 
 }

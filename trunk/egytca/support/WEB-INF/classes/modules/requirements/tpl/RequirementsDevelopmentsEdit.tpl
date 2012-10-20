@@ -36,7 +36,7 @@ function usersDoDeleteFromDevelopment(form){
   |-if $message eq "ok"-|
 	<div class="successMessage">Desarrollo guardado correctamente</div>
 |-elseif $message eq "error"-|
-	<div class="failureMessage">Ha ocurrido un error al intentar Desarrollo</div>
+	<div class="failureMessage">Ha ocurrido un error al intentar guardar el Desarrollo</div>
 |-/if-|
 |-include file="CommonAutocompleterInclude.tpl"-|
   <form name="form_edit_requirement" id="form_edit_requirement" action="Main.php" method="post">
@@ -119,16 +119,17 @@ function usersDoDeleteFromDevelopment(form){
 	<form method="post">
 		<fieldset title="Asignación de Recursos">
 			<legend>Asignación de Recursos</legend>
+			<div id="attendantsMsgField"> <span id="attendantsMsgField"></span> 
 			<p>Seleccione los recursos para el desarrollo</p>
 			<p>
-				<select>
+				<select id="attendantId" name="attendantId" title="attendantId">
 					<option value="">Seleccione un recurso</option>
 					|-foreach from=$attendants item=attendant name=for_attendant-|
-					<option id="attendantOption|-$attendant->getId()-|" value="|-$attendant->getId()-|">|-$attendant->getName()-|</option>
+					<option id="attendantOption|-$attendant->getId()-|" name="attendantId" value="|-$attendant->getId()-|">|-$attendant->getName()-|</option>
 					|-/foreach-|
 				</select>
 			</p>	
-			<input type="hidden" name="do" id="do" value="requirementsDoAddToDevelopmentX" /> 
+			<input type="hidden" name="do" id="do" value="requirementsDevelopmentsDoAddAttendantXAction" /> 
 			<input type="hidden" name="entityId" id="entityId" value="|-$development->getId()-|" />
 			<input type="hidden" name="entityType" id="entityType" value="development" />
 			<input type="button" value="Agregar recurso" onClick="javascript:requirementsDoAddToDevelopment(this.form)"/> 
