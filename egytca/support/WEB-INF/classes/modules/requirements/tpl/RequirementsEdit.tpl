@@ -1,6 +1,22 @@
 <h2>Desarrollo</h2> 
 |-if !$notValidId || is_object($requirement)-|
 <h1>Administración de Requerimientos - |-if !$requirement->isNew()-|Editar|-else-|Crear|-/if-| Requerimientos</h1>
+<script language="JavaScript" type="text/javascript">
+function requirementsDoAddDevelopment(form) {
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'developmentsList'},
+				url,
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true,
+					insertion: Insertion.Bottom
+				});
+	$('developmentMsgField').innerHTML = '<span class="inProgress">asociando desarrollo...</span>';
+	return true;
+}
+</script>
 <p class='paragraphEdit'>A continuación se puede modificar los datos que definen el Requerimiento.</p>
 <div id="div_requirement"> 
   |-if $message eq "ok"-|
@@ -49,6 +65,51 @@
 		</p>
     </fieldset> 
   </form> 
+  |-if $action eq "edit"-|
+	<form method="post">
+		<fieldset title="Asociar Desarrollo">
+			<legend>Asociar Desarrollo</legend>
+			<div id="developmentMsgField"> <span id="developmentMsgField"></span> 
+			<p>Seleccione un desarrollo para asociar</p>
+			<p>
+				<select id="developmentId" name="developmentId" title="developmentId">
+					<option value="">Seleccione un desarrollo</option>
+					|-foreach from=$developments item=development name=for_development-|
+					<option id="developmentOption|-$development->getId()-|" name="developmentId" value="|-$development->getId()-|">|-$development->getName()-|</option>
+					|-/foreach-|
+				</select>
+			</p>
+			<input type="hidden" name="do" id="do" value="requirementsDoAddDevelopmentXAction" /> 
+			<input type="hidden" name="developmentId" id="developmentId" value="|-$development->getId()-|" />
+			<input type="hidden" name="requirementId" id="requirementId" value="|-$requirement->getId()-|" />
+			<input type="button" value="Asociar desarrollo" onClick="javascript:requirementsDoAddDevelopment(this.form)"/> 
+		</fieldset>
+	</form> 
+  
+	<form method="post">
+		<fieldset title="Asignación de Recursos">
+			<legend>Asignación de Recursos</legend>
+			<div id="attendantsMsgField"> <span id="attendantsMsgField"></span> 
+			<p>Seleccione los recursos para el requerimiento</p>
+			<p>
+				<select id="attendantId" name="attendantId" title="attendantId">
+					<option value="">Seleccione un recurso</option>
+					|-foreach from=$attendants item=attendant name=for_attendant-|
+					<option id="attendantOption|-$attendant->getId()-|" name="attendantId" value="|-$attendant->getId()-|">|-$attendant->getName()-|</option>
+					|-/foreach-|
+				</select>
+			</p>
+			<input type="hidden" name="do" id="do" value="requirementsDoAddAttendantXAction" /> 
+			<input type="hidden" name="entityId" id="entityId" value="|-$requirement->getId()-|" />
+			<input type="hidden" name="entityType" id="entityType" value="requirement" />
+			<input type="button" value="Agregar recurso" onClick="javascript:requirementsDoAddToRequirement(this.form)"/> 
+		</fieldset>
+	</form> 
+	
+	<ul id="groupList" class="iconOptionsList">
+	</ul> 
+	
+	|-/if-|
 </div> 
 |-else-|
 	<h1>Administración de Objetivos Operativos</h1>

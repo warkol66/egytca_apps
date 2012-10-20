@@ -13,6 +13,32 @@
  *
  * @package    propel.generator.requirements.classes
  */
-class Development extends BaseDevelopment
-{
+class Development extends BaseDevelopment{
+	
+	/**
+	 * Agrega un recurso a un desarrollo
+	 * 
+	 * @param User $attendant: usuario que vamos a agregar como recurso
+	 * @param int $entityId: id del desarrollo 
+	 * @param varchar $entityType: desarrollo
+	 * @return bool: true si lo agrego, false si no
+	 */
+	public function addAttendant($attendant, $entityId, $entityType){
+		
+		try{
+			$userId = $attendant->getId();
+			
+			$Attendant = new Attendant();
+			$Attendant->setAttendantid($userId);
+			$Attendant->setEntityid($entityId);
+			$Attendant->setEntitytype($entityType);
+			$Attendant->save();
+			return true;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
+	}
 }

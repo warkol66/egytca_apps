@@ -13,6 +13,7 @@
  *
  * @package    propel.generator.requirements.classes
  */
-class Requirement extends BaseRequirement
-{
+class Requirement extends BaseRequirement{
+	
+	
 }
