@@ -87,6 +87,9 @@
 				|-/foreach-|
 			</select>
 	</p>
+
+
+
     |-if !$planningIndicator->isNew()-|
     <input type="hidden" name="id" id="id" value="|-$planningIndicator->getId()-|" /> 
     |-/if-|
@@ -95,10 +98,21 @@
     <input type="hidden" name="currentPage" id="currentPage" value="|-$currentPage-|" /> 
     |-if $do-|<input type="hidden" name="do" id="do" value="|-$do-|" /> |-else-|<input type="hidden" name="do" id="do" value="planningIndicatorsDoEdit" />|-/if-| 
 		<p>|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
+
+			|-if !$planningIndicator->isNew()-|
+
+			<input type="button" id="button_edit_series" name="button_edit_series" title="Editar Series" value="Editar Series" onClick="location.href='Main.php?do=planningIndicatorsSeriesEdit&id=|-$planningIndicator->getId()-|'" />
+
+			<input type="button" id="button_edit_xs" name="button_edit_xs" title="Editar Variables" value="Editar Variables" onClick="location.href='Main.php?do=planningIndicatorsXsEdit&id=|-$planningIndicator->getId()-|'" />
+
+			<input type="button" id="button_edit_ys" name="button_edit_ys" title="Editar Valores" value="Editar Valores" onClick="location.href='Main.php?do=planningIndicatorsYsEdit&id=|-$planningIndicator->getId()-|'" />
+
+			|-/if-|
 	<input type='button' onClick='location.href="Main.php?do=planningIndicatorsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Indicadores"/>
 		</p>|-/if-|
     </fieldset> 
-  </form> 
+  </form>
+
 <script type="text/javascript">
 	var selectType = document.getElementById("params_type");
 	selectType.onchange = function() {

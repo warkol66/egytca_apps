@@ -14,5 +14,24 @@
  * @package    propel.generator.planning.classes
  */
 class PlanningIndicatorXPeer extends BasePlanningIndicatorXPeer {
+    /**
+     * Actualiza el orden de una X.
+     *
+     * @param int $xId ID de la X
+     * @param int $order nueva posicion de la X en el ordenamiento
+     * @return boolean true si pudo actualizar sino false
+     */
+    function updateOrder($xId, $order) {
+        try {
+            $x = PlanningIndicatorXQuery::create()->findPK($xId);
+            $x->setOrder($order);
+            $x->save();
+            return true;
+        } catch (PropelException $exp) {
+            if (ConfigModule::get("global","showPropelExceptions"))
+                print_r($exp->getMessage());
+            return false;
+        }
+    }
 
 } // PlanningIndicatorXPeer

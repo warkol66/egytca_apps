@@ -141,8 +141,9 @@ class PlanningIndicator extends BasePlanningIndicator {
 	function getSeries() {	
 		// No podemos hacer una consulta a la DB porque puede tratarse
 		// de un indicador no persistido.
-		$indicatorSeries = $this->getPlanningIndicatorSeries();
-		uasort($indicatorSeries, array('Indicator', 'compareByOrder'));
+        if($this->isNew()) return array();
+        else
+		$indicatorSeries = PlanningIndicatorSerieQuery::create()->filterByIndicatorid($this->getId())->orderByOrder()->find();
 		return $indicatorSeries;
 	}
 
@@ -154,16 +155,20 @@ class PlanningIndicator extends BasePlanningIndicator {
 	function getXs() {
 		// No podemos hacer una consulta a la DB porque puede tratarse
 		// de un indicador no persistido.
-		$indicatorXs = $this->getPlanningIndicatorXs();
-		uasort($indicatorXs, array('Indicator', 'compareByOrder'));
+
+        if($this->isNew()){
+            $indicatorXs=array();
+        }
+        else $indicatorXs=PlanningIndicatorXQuery::create()->filterByIndicatorid($this->getId())->orderByOrder()->find();
 		return $indicatorXs;
 	}
 	
-	private function compareByOrder($a, $b) {
+	public static function compareByOrder($a, $b) {
+        var_dump($a);
 	    if ($a->getOrder() == $b->getOrder()) {
 	        return 0;
 	    }
-	    return ($a->getOrder() < $b->getOrder()) ? -1 : 1;
+	    return ($a->getOrder() < $b->getOrder()) ? 1 : -1;
 	}
 
 } // PlanningIndicator

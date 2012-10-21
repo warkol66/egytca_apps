@@ -114,6 +114,16 @@
 	</p>
 	
 		|-*<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>*-|
+		<p>
+			|-if $action eq "edit" or true-|
+			<input type="hidden" name="id" id="id" value="|-$indicator->getId()-|" />
+			<input type="button" id="button_edit_series" name="button_edit_series" title="Editar Series" value="Editar Series" onClick="location.href='Main.php?do=indicatorsSeriesEdit&id=|-$indicator->getId()-|'" />
+			<input type="hidden" name="id" id="id" value="|-$indicator->getId()-|" />
+			<input type="button" id="button_edit_xs" name="button_edit_xs" title="Editar Variables" value="Editar Variables" onClick="location.href='Main.php?do=indicatorsXsEdit&id=|-$indicator->getId()-|'" />
+			<input type="hidden" name="id" id="id" value="|-$indicator->getId()-|" />
+			<input type="button" id="button_edit_ys" name="button_edit_ys" title="Editar Valores" value="Editar Valores" onClick="location.href='Main.php?do=indicatorsYsEdit&id=|-$indicator->getId()-|'" />
+			|-/if-|
+		</p>
 			<p>
 				<input type="hidden" name="do" id="do" value="planningIndicatorsDoEditX" />
 				<input type="button" id="button_edit_indicator" name="button_edit_indicator" title="Aceptar" value="Agregar nuevo" onClick="javascript:createIndicatorAfterValidateFormClienSide(this.form)"/>
