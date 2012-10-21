@@ -54,6 +54,11 @@
 				<td>|-$indicator->getIndicatorType()-|</td>
 				<td nowrap>
 					<form action="Main.php" method="get" style="display:inline;">
+						<input type="hidden" name="do" value="planningIndicatorsView" />
+						<input type="hidden" name="id" value="|-$indicator->getid()-|" />
+						<input type="submit" name="submit_go_edit_indicator" value="Ver Gráfico" class="icon iconGraph" title="Ver Gráfico" />
+					</form>
+					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="planningIndicatorsViewX" />
 						<input type="hidden" name="id" value="|-$indicator->getid()-|" />
 						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("planningIndicatorsShowDiv", "Main.php?do=planningIndicatorsViewX&id=|-$indicator->getid()-|", { method: "post", parameters: { id: "|-$indicator->getId()-|"}, evalScripts: true})};$("planningIndicatorsShowWorking").innerHTML = "<span class=\"inProgress\">buscando Indicador...</span>";' value="Ver detalle" name="submit_go_show_indicator" title="Ver detalle" /></a>
