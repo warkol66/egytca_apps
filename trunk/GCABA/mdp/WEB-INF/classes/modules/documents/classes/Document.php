@@ -30,6 +30,22 @@ class Document extends BaseDocument {
 	}
 	
 	/**
+	 * Realiza la verificacion de password
+	 * @param string password
+	 * @return boolean
+	 */
+	public function checkPasswordValidation($password) {
+		$docPassword = $this->getPassword();
+		if (!empty($docPassword)) {
+			if ($docPassword == Common::md5($password) )
+				return true;
+			else
+				return false;
+		}
+		return true;
+	}
+
+	/**
 	 * Obtencion de contenidos y los escribe en la salida estandart
 	 *
 	 */

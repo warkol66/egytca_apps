@@ -75,47 +75,26 @@ class HeadlinesReportsAction extends BaseListAction {
 			$this->smarty->assign("totalHeadlines", $totalHeadlines);
 
 			//Resumen por temas
-			$byIssueTop = IssueQuery::create()->filterByHeadline($query->find(), Criteria::IN)
-				->joinHeadlineIssue()
-				->groupById()
+			$byIssue = BaseQuery::create("Issue")->filterByHeadline($query->find(), Criteria::IN)
+				->join("HeadlineIssue")
 				->withColumn("COUNT(HeadlineIssue.Issueid)", "HeadlinesCount")
-				->orderByHeadlinesCount(Criteria::DESC)
-				->limit(10)
-				->find();
-
-			//Resumen por temas otros
-			foreach ($byIssueTop as $issue)
-				$already[] = $issue->getId();
-			$byIssueRest = IssueQuery::create()
-				->filterById($already, Criteria::NOT_IN)
-				->filterByHeadline($query->find(), Criteria::IN)
-				->orderByName()
-				->groupById()
-				->joinHeadlineIssue()
-				->find();
+				->groupBy("Issue.Id")
+				->orderByHeadlinesCount(Criteria::DESC);
 
 			//Resumen por vocero
-			//HRL Actor 278
-			$headlinesByActor = clone $this->query;
-			$headlinesByActor
-				->joinHeadlineActor()
-//				->filterBy("HeadlineActor.ActorId",278)
-				->count()
+			$bySpokesmanTop = BaseQuery::create("Issue")->filterByHeadline($query->find(), Criteria::IN)
+				->join("HeadlineIssue")
+				->withColumn("COUNT(HeadlineIssue.Issueid)", "HeadlinesCount")
+				->groupBy("Issue.Id")
+				->orderByHeadlinesCount(Criteria::DESC)
 				;
 
-			$headlinesBySpokesman = clone $this->query;
-			$headlinesBySpokesman
-				->joinHeadlineActor()
-//				->filterBy("HeadlineActor.ActorId",278)
-//				->filterBy("HeadlineActor.Role",HeadlinePeer::SPOKESMAN)
-				->count()
-				;
 
-			$this->smarty->assign("byIssueTop", $byIssueTop);
-			$this->smarty->assign("byIssueRest", $byIssueRest);
+			$this->smarty->assign("byIssueTop", $byIssue->limit(10)->find());
+			$this->smarty->assign("byIssueRest", $byIssue->offset(10)->limit(0)->orderByName()->find());
 
-			$this->smarty->assign("headlinesByActor", $headlinesByActor);
-			$this->smarty->assign("headlinesBySpokesman", $headlinesBySpokesman);
+			$this->smarty->assign("bySpokesmanTop", $bySpokesmanTop->limit(10)->find());
+			$this->smarty->assign("bySpokesmanRest", $bySpokesmanTop->offset(10)->limit(0)->orderByName()->find());
 
 		}
 	}
