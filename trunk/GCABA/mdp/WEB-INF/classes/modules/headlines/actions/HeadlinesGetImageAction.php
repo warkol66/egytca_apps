@@ -28,6 +28,12 @@ class HeadlinesGetImageAction extends BaseAction {
 					$type = 'image/jpg';
 					$filename = 'c-'.$headline->getId().'.jpg';
 					$path = $headline->getClippingFullname();
+					
+					header('Content-Type: '.$type);
+					header("Content-length: ".filesize($path));
+					header('Content-Disposition: inline; filename="'.$filename.'"');
+					readfile($path);
+			
 					break;
 				
 				case 'attachment':
@@ -40,16 +46,47 @@ class HeadlinesGetImageAction extends BaseAction {
 						throw new Exception('attachment is not a jpeg image');
 					$filename = 'a-'.$attachment->getId().'.jpg';
 					$path = empty($_GET['secondary']) ? $attachment->getRealpath() : $attachment->getSecondaryDataRealpath();
+					
+					// sobreescribe $_GET['secondary']
+					if (!empty($_GET['tryresampled'])) {
+						$secDataRealpath = $attachment->getSecondaryDataRealpath();
+						$path = file_exists($secDataRealpath) ? $secDataRealpath : $attachment->getRealpath();
+					}
+					
+					header('Content-Type: '.$type);
+					header("Content-length: ".filesize($path));
+					header('Content-Disposition: inline; filename="'.$filename.'"');
+					readfile($path);
+			
+					break;
+					
+				case 'document':
+					$document = DocumentQuery::create()->findOneById($_GET['id']);
+					if (is_null($document))
+						throw new Exception('invalid ID');
+					
+					$extension = strrchr(strtolower($document->getRealfilename()),'.');
+
+					switch ($extension) {
+						case ".gif":
+							header('Content-Type: image/gif');
+							break;
+						case ".jpg":
+							header('Content-Type: image/jpeg');
+							break;
+						case ".png":
+							header('Content-Type: image/png');
+							break;
+						default:
+							throw new Exception('invalid file type');
+					}
+
+					$document->getContents();
 					break;
 					
 				default:
 					throw new Exception('unknown image source');
 			}
-			
-			header('Content-Type: '.$type);
-			header("Content-length: ".filesize($path));
-			header('Content-Disposition: inline; filename="'.$filename.'"');
-			readfile($path);
 		}
 		else
 			throw new Exception('faltan parametros');
