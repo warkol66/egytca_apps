@@ -28,8 +28,13 @@ class Headline extends BaseHeadline {
 		if ($this->hasClipping()) {
 			$imagesData []= array('source' => 'clipping', 'id' => $this->getId());
 		}
-		foreach ($this->getHeadlineAttachments() as $attachment) {
+		
+		foreach ($this->getHeadlineImages() as $attachment) {
 			$imagesData []= array('source' => 'attachment', 'id' => $attachment->getId());
+		}
+		
+		foreach ($this->getDocumentImages() as $document) {
+			$imagesData []= array('source' => 'document', 'id' => $document->getId());
 		}
 		
 		return $imagesData;
@@ -40,19 +45,96 @@ class Headline extends BaseHeadline {
 	 * @return boolean true if headline has any images of any source, false otherwise
 	 */
 	function hasImages() {
-		return $this->hasClipping() || $this->hasHeadlineImages();
+		return $this->hasClipping() || $this->hasHeadlineImages() || $this->hasDocumentImages();
 	}
+	
+	
+	
+/* ************************************************************************** */
+/*                   Imagenes asociadas como Documents                        */
+/* ************************************************************************** */
+	
+	/**
+	 * 
+	 * @return PropelCollection Documents con imagenes asociados al Headline
+	 */
+	public function getDocumentImages() {
+		return $this->queryDocumentImages()->find();
+	}
+	
+	/**
+	 * 
+	 * @return boolean true if headline has any image documents attached, false otherwise
+	 */
+	public function hasDocumentImages() {
+		return $this->queryDocumentImages()->count() > 0;
+	}
+	
+	/**
+	 * 
+	 * @return DocumentQuery query de Documents con imagenes asociados al Headline
+	 */
+	private function queryDocumentImages() {
+		return DocumentQuery::create()
+			->useHeadlineDocumentQuery()
+				->filterByHeadlineid($this->getId())
+			->endUse()
+			->filterByRealfilename('%.jpg', Criteria::LIKE)
+				->_or()
+			->filterByRealfilename('%.png', Criteria::LIKE)
+				->_or()
+			->filterByRealfilename('%.gif', Criteria::LIKE)
+		;
+	}
+	
+/* ************************************************************************** */
+/*                    Fin imagenes asociadas como Documents                   */
+/* ************************************************************************** */
+
+
+
+
+/* ************************************************************************** */
+/*                    Imagenes asociadas como Attachments                     */
+/* ************************************************************************** */
 	
 	/**
 	 * 
 	 * @return boolean true if headline has any image attachments, false otherwise
 	 */
-	function hasHeadlineImages() {
+	public function hasHeadlineImages() {
+		return $this->queryHeadlineImages()->count() > 0;
+	}
+	
+	/**
+	 * 
+	 * @return PropelCollection HeadlineAttachments con imagenes asociados al Headline
+	 */
+	public function getHeadlineImages() {
+		return $this->queryHeadlineImages()->find();
+	}
+	
+	/**
+	 * 
+	 * @return HeadlineAttachmentQuery query de attachments con imagenes asociados al Headline
+	 */
+	private function queryHeadlineImages() {
 		return HeadlineAttachmentQuery::create()
 			->filterByHeadline($this)
 			->filterByType('image/jpg')
-			->count() > 0;
+		;
 	}
+	
+/* ************************************************************************** */
+/*                   Fin imagenes asociadas como Attachments                  */
+/* ************************************************************************** */
+
+
+
+
+/* ************************************************************************** */
+/*                    Imagenes asociadas como Clippings                       */
+/* ************************************************************************** */
 	
 	/**
 	 * elimina el clipping del headline si es que existe
@@ -71,10 +153,53 @@ class Headline extends BaseHeadline {
 		$clippingsPath = ConfigModule::get('headlines', 'clippingsPath');
 		return $clippingsPath.'/'.$this->getId().'.jpg';
 	}
+	
+	/**
+	 * Obtiene el ancho y alto a mostrar de un clipping basado
+	 * en el maximo ancho permitido por la configuracion.
+	 */
+	public function getClippingDisplaySize($imageFullname) {
+		list($width, $height) = getimagesize($imageFullname);
+		global $system;
+		$maxWidth = $system['config']['clippings']['maxDisplayableWidth'];
+		$maxHeight = $system['config']['clippings']['maxDisplayableHeight'];
 
-	function getHeadlineImages() {
-		return HeadlineAttachmentQuery::create()->filterByHeadline($this)->filterByType('image/jpg')->find();
+		if ($width <= $maxWidth && $height <= $maxHeight) {
+			$displayedWidth = $width;
+			$displayedHeight = $height;
+		}
+		else if ($width > $maxWidth && $height <= $maxHeight) {
+			$displayedWidth = $maxWidth;
+			$displayedHeight = intval(($displayedWidth / $width) * $height);
+		}
+		else {
+			$displayedHeight = $maxHeight;
+			$displayedWidth = intval(($displayedHeight / $height) * $width);
+		}
+		return array($displayedWidth, $displayedHeight);
 	}
+	
+	/**
+	 * Indica si el headline titne clipping o no
+	 *	@return bool si tiene o no clipping
+	 */
+	public function hasClipping() {
+
+		$clippingsPath = ConfigModule::get("headlines","clippingsPath");
+		$imageFullname = $clippingsPath . $this->getId() . '.jpg';
+
+		if (file_exists($imageFullname))
+			return true;
+		else
+			return false;
+	}
+	
+/* ************************************************************************** */
+/*                   Fin Imagenes asociadas como Clippings                    */
+/* ************************************************************************** */
+
+
+
 
 	/**
 	* Obtiene el id de todas las categorias asignadas.
@@ -154,47 +279,6 @@ class Headline extends BaseHeadline {
 	*/
 	function getAssignedHeadlinesArray(){
 		return HeadlineRelationQuery::create()->filterByHeadlineRelatedByHeadlinefromid($this)->select('Headlinetoid')->find()->toArray();
-	}
-	
-	
-	/**
-	 * Obtiene el ancho y alto a mostrar de un clipping basado
-	 * en el maximo ancho permitido por la configuracion.
-	 */
-	public function getClippingDisplaySize($imageFullname) {
-		list($width, $height) = getimagesize($imageFullname);
-		global $system;
-		$maxWidth = $system['config']['clippings']['maxDisplayableWidth'];
-		$maxHeight = $system['config']['clippings']['maxDisplayableHeight'];
-
-		if ($width <= $maxWidth && $height <= $maxHeight) {
-			$displayedWidth = $width;
-			$displayedHeight = $height;
-		}
-		else if ($width > $maxWidth && $height <= $maxHeight) {
-			$displayedWidth = $maxWidth;
-			$displayedHeight = intval(($displayedWidth / $width) * $height);
-		}
-		else {
-			$displayedHeight = $maxHeight;
-			$displayedWidth = intval(($displayedHeight / $height) * $width);
-		}
-		return array($displayedWidth, $displayedHeight);
-	}
-
- /**
-	* Indica si el headline titne clipping o no
-	*	@return bool si tiene o no clipping
-	*/
-	public function hasClipping() {
-
-		$clippingsPath = ConfigModule::get("headlines","clippingsPath");
-		$imageFullname = $clippingsPath . $this->getId() . '.jpg';
-
-		if (file_exists($imageFullname))
-			return true;
-		else
-			return false;
 	}
 
  /**

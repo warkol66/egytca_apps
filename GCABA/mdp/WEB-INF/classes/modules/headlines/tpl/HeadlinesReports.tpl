@@ -265,9 +265,8 @@
 					|-/if-|
 					<p>&nbsp;</p>
 					|-if $filters.includeClipping-|<center>
-						|-if $headline->hasClipping()-|<img src="attachments/c-|-$headline->getId()-|.jpg" align="center" />|-/if-|
-						|-foreach $headline->getHeadlineImages() as $image-|
-							<img src="attachments/|-if $image->secondaryDataExists()-|1|-else-|0|-/if-|/a-|-$image->getId()-|.jpg" />
+						|-foreach $headline->getImagesIdData() as $imageData-|
+							<img src="attachments/|-$imageData.source-|-|-$imageData.id-|.jpg" align="center" />
 						|-/foreach-|
 					</center>|-/if-|
 			<br  style="page-break-after: always"/>
