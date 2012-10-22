@@ -1,0 +1,10 @@
+# Sqlfile -> Database map
+affiliates.classes.schema.sql=application
+categories.classes.schema.sql=application
+users.classes.schema.sql=application
+common.classes.schema.sql=application
+modules.classes.schema.sql=application
+requirements.classes.schema.sql=application
+resources.classes.schema.sql=application
+security.classes.schema.sql=application
+services.classes.schema.sql=application
