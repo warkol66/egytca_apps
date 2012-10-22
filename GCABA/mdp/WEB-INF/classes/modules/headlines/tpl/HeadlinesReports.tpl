@@ -61,8 +61,8 @@
 					<input id="filters[includeClipping]" name="filters[includeClipping]" type="checkbox" value="1" |-$filters.includeClipping|checked_bool-| title="Mostrar clipping" />
 					&nbsp; &nbsp; <label for="filters[includeClipping]" class="inlineLabel">Tabla Resumen</label>
 					<input id="filters[summaryTable]" name="filters[summaryTable]" type="checkbox" value="1" |-$filters.summaryTable|checked_bool-| title="Tabla Resumen" />
-					&nbsp; &nbsp; <label for="filters[includeClipping]" class="inlineLabel">Resumen Ejecutivo</label>
-					<input id="filters[executiveSummary]" name="filters[executiveSummary]" type="checkbox" value="1" |-$filters.executiveSummary|checked_bool-| title="Resumen Ejecutivo" />
+					|-*&nbsp; &nbsp; <label for="filters[includeClipping]" class="inlineLabel">Resumen Ejecutivo</label>
+					<input id="filters[executiveSummary]" name="filters[executiveSummary]" type="checkbox" value="1" |-$filters.executiveSummary|checked_bool-| title="Resumen Ejecutivo" /> *-|
 					</p>
 					<p>
 					<input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
@@ -149,6 +149,7 @@
 					<th>Nombre</th>
 					<th>Seccion</th>
 					<th>Pagina</th>
+					<th>Programa</th>
 					<th>Periodista</th>
 					<th>Titulo</th>
 					<th>Valor</th>
@@ -156,6 +157,8 @@
 					<th>Relevancia</th>
 					<th>Foto</th>
 					<th>Otros_politicos</th>
+					<th>Vocero (HRL)</th>
+					<th>Otros politicos (HRL)</th>
 			</tr>
 			|-foreach from=$headlineColl item=headline name=for_headlines-|
 			<tr>
@@ -165,16 +168,22 @@
 					<td>|-$headline->getMedia()-|</td>
 					<td>|-$headline->getSection()-|</td>
 					<td>|-$headline->getPage()-|</td>
+					<td>|-$headline->getProgram()-|</td>
 					<td>|-counter name=journalist start=1 assign=journalist-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::JOURNALIST'))-||-if $journalist gt 1-|, |-/if-||-counter name=journalist assign=journalist-||-$actor-||-/if-||-/foreach-||-/foreach-|</td>
 					<td>|-$headline->getName()-|</td>
 					<td>|-$headlineValues[$headline->getValue()]-|</td>
-					<td>|-counter name=spokesman start=1 assign=spokesman-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::SPOKESMAN'))-||-if $spokesman gt 1-|, |-/if-||-counter name=spokesman assign=spokesman-||-$actor-||-/if-||-/foreach-||-/foreach-|</td>
+					<td>|-counter name=spokesman start=1 assign=spokesman-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::SPOKESMAN'))-||-if $spokesman gt 1-|, |-/if-||-counter name=spokesman assign=spokesman-||-$actor-||-if $actor->getId() eq 278-||-assign var=spokesmanHRL value=$actor-||-/if-||-/if-||-/foreach-||-/foreach-|</td>
 					<td>|-$headlineRelevances[$headline->getRelevance()]-|</td>
 					<td>|-$headline->getPicture()|si_no-|</td>
 					<td>|-if $headline->getActors()|count gt 0-||-foreach from=$headline->getActors() item=actor-|
-								|-if !$actor@first-|, |-/if-||-$actor-|
+								|-if !$actor@first-|, |-/if-||-$actor-||-if $actor->getId() eq 278-||-assign var=otherHRL value=$actor-||-/if-|
 						|-/foreach-|</ul>|-/if-|
 		</td>
+		
+					<td>|-$spokesmanHRL-||-assign var=spokesmanHRL value=""-|</td>
+					<td>|-$otherHRL-||-assign var=otherHRL value=""-|</td>
+		
+		
 			</tr>
 			|-/foreach-|
 		</table>
