@@ -274,6 +274,9 @@
 		<h4>Clipping</h4>
 			<br  style="page-break-after: always"/>
 			|-foreach from=$headlineColl item=headline name=for_headlines-|
+			|-if $headline->getImagesIdData()|count gt 0-|
+			
+			
 			<div id="|-$headline->getId()-|">
 				<div style="border: 1px solid black">
 					<p><strong>Fecha:  |-$headline->getDatePublished()|date_format-|
@@ -297,7 +300,7 @@
 						|-/foreach-|
 					</center>|-/if-|
 			<br  style="page-break-after: always"/>
-			</div>
+			</div>|-/if-|
 			|-/foreach-|
 		</div>
 	|-/if-||-* /Reporte completo de clipping *-|
