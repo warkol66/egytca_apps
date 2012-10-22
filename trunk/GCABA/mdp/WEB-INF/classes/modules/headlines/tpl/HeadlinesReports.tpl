@@ -157,8 +157,8 @@
 					<th>Relevancia</th>
 					<th>Foto</th>
 					<th>Otros_politicos</th>
-					<th>Vocero (HRL)</th>
-					<th>Otros politicos (HRL)</th>
+					|-if $filters.actorName ne '' || $filters.actorName ne ''-|<th>Vocero (|-$filters.actorName-|)</th>
+					<th>Otros politicos (|-$filters.actorName-|)</th>|-/if-|
 			</tr>
 			|-foreach from=$headlineColl item=headline name=for_headlines-|
 			<tr>
@@ -172,16 +172,16 @@
 					<td>|-counter name=journalist start=1 assign=journalist-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::JOURNALIST'))-||-if $journalist gt 1-|, |-/if-||-counter name=journalist assign=journalist-||-$actor-||-/if-||-/foreach-||-/foreach-|</td>
 					<td>|-$headline->getName()-|</td>
 					<td>|-$headlineValues[$headline->getValue()]-|</td>
-					<td>|-counter name=spokesman start=1 assign=spokesman-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::SPOKESMAN'))-||-if $spokesman gt 1-|, |-/if-||-counter name=spokesman assign=spokesman-||-$actor-||-if $actor->getId() eq 278-||-assign var=spokesmanHRL value=$actor-||-/if-||-/if-||-/foreach-||-/foreach-|</td>
+					<td>|-counter name=spokesman start=1 assign=spokesman-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::SPOKESMAN'))-||-if $spokesman gt 1-|, |-/if-||-counter name=spokesman assign=spokesman-||-$actor-||-if $actor->getId() eq $filters.actorId-||-assign var=spokesmanSelectedActor value=$actor-||-/if-||-/if-||-/foreach-||-/foreach-|</td>
 					<td>|-$headlineRelevances[$headline->getRelevance()]-|</td>
 					<td>|-$headline->getPicture()|si_no-|</td>
 					<td>|-if $headline->getActors()|count gt 0-||-foreach from=$headline->getActors() item=actor-|
-								|-if !$actor@first-|, |-/if-||-$actor-||-if $actor->getId() eq 278-||-assign var=otherHRL value=$actor-||-/if-|
+								|-if !$actor@first-|, |-/if-||-$actor-||-if $actor->getId() eq $filters.actorId-||-assign var=otherSelectedActor value=$actor-||-/if-|
 						|-/foreach-|</ul>|-/if-|
 		</td>
 		
-					<td>|-$spokesmanHRL-||-assign var=spokesmanHRL value=""-|</td>
-					<td>|-$otherHRL-||-assign var=otherHRL value=""-|</td>
+					|-if $filters.actorName ne '' || $filters.actorName ne ''-|<td>|-$spokesmanSelectedActor-||-assign var=spokesmanSelectedActor value=""-|</td>
+					<td>|-$otherSelectedActor-||-assign var=otherSelectedActor value=""-|</td>|-/if-|
 		
 		
 			</tr>
