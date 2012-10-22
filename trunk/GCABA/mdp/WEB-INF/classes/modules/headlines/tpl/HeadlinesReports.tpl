@@ -187,13 +187,55 @@
 			<tr>
 				<th>Tema</th>
 				<th>Repercusiones</th>
-			</tr>
-		 |-foreach $byIssue as $row-|
-		 <tr>
+			</tr>|-assign var=adding value=0-|
+		 |-foreach $byIssueTop as $row-|
+		 <tr>|-math equation="x + y" x=$adding y=$row->getHeadlinesCount() assign=adding-|
 			<td>|-$row->getName()-|</td>
 			<td>|-$row->getHeadlinesCount()-|</td>
 			</tr>|-/foreach-|
+		 <tr>
+			<td>Otros</td>
+			<td>|-math equation="x - y" x=$totalHeadlines y=$adding -|</td>
+			</tr>
 		</table>
+
+		<table border="1">
+			<tr>
+				<th>Tema</th>
+			</tr>
+		 |-foreach $byIssueRest as $row-|
+		 <tr>
+			<td>|-$row->getName()-|</td>
+			</tr>|-/foreach-|
+		</table>
+
+
+		<table border="1">
+			<tr>
+				<th>Tema</th>
+				<th>Repercusiones</th>
+			</tr>|-assign var=adding value=0-|
+		 |-foreach $bySpokesmanTop as $row-|
+		 <tr>|-math equation="x + y" x=$adding y=$row->getHeadlinesCount() assign=adding-|
+			<td>|-$row->getName()-|</td>
+			<td>|-$row->getHeadlinesCount()-|</td>
+			</tr>|-/foreach-|
+		 <tr>
+			<td>Otros</td>
+			<td>|-math equation="x - y" x=$totalHeadlines y=$adding -|</td>
+			</tr>
+		</table>
+
+		<table border="1">
+			<tr>
+				<th>Tema</th>
+			</tr>
+		 |-foreach $bySpokesmanRest as $row-|
+		 <tr>
+			<td>|-$row->getName()-|</td>
+			</tr>|-/foreach-|
+		</table>
+
 		
 		|-/if-||-* /Reporte Resumen Ejecutivo *-|
 
