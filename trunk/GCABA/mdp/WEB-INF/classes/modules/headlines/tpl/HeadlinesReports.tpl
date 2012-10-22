@@ -182,34 +182,52 @@
 		|-/if-||-* /Reporte Tabla Resumen *-|
 
 		|-if $filters.executiveSummary-||-* Reporte Resumen Ejecutivo *-|
-		
+		<h2>LOS 10 TEMAS CON MAYOR CANTIDAD DE REPERCUSIONES</h2>
 		<table border="1">
-			<tr>
-				<th>Tema</th>
-				<th>Repercusiones</th>
-			</tr>|-assign var=adding value=0-|
+		|-assign var=adding value=0-|
 		 |-foreach $byIssueTop as $row-|
 		 <tr>|-math equation="x + y" x=$adding y=$row->getHeadlinesCount() assign=adding-|
 			<td>|-$row->getName()-|</td>
 			<td>|-$row->getHeadlinesCount()-|</td>
 			</tr>|-/foreach-|
 		 <tr>
-			<td>Otros</td>
-			<td>|-math equation="x - y" x=$totalHeadlines y=$adding -|</td>
+			<td>Otros (*)</td>
+			<td>|-math equation="x - y" x=$totalHeadlines y=$adding-|</td>
 			</tr>
 		</table>
-
-		<table border="1">
-			<tr>
-				<th>Tema</th>
-			</tr>
+		<p>(*)  LOS OTROS TEMAS EN LOS FUE MENCIONADO (ORDENADOS ALFABÉTICAMENTE):</p>
+		<table border="0">
+	|-assign var=byIssueRestCount value=count($byIssueRest)-||-math equation="ceil(x/2)" x=$byIssueRestCount assign=byIssueRestPerCol-|
 		 |-foreach $byIssueRest as $row-|
+		 |-if $row@first-|<tr><td><ul>|-/if-|
+		 |-if (!$row@first) && ($row@index is div by $byIssueRestPerCol)-|</ul></td><td><ul>|-/if-|
+			<li>|-$row->getName()-|</li>
+			|-if $row@last-|</ul></td>|-/if-|
+			|-/foreach-|</tr>
+		</table>
+
+		<h2>TIPO DE REPERCUSIONES</h2>
+		<table border="1">
+		<tr>
+			<th>HRL Vocero</th>
+			<th>Total</th>
+			<th>%</th>
+		</tr>
+		 <tr>|-*math equation="x + y" x=$headlinesBySpokesman y=$headlinesByActor*-|
+			<td>Si</td>
+			<td>|-*$headlinesBySpokesman*-|</td>
+			<td>|-*math equation="x / y" x=$headlinesBySpokesman y=$totalActor*-|</td>
+			</tr>
 		 <tr>
-			<td>|-$row->getName()-|</td>
-			</tr>|-/foreach-|
+			<td>No</td>
+			<td>|-*$headlinesByActor*-|</td>
+			<td>|-*math equation="x / y" x=$headlinesByActor y=$totalActor*-|</td>
+			</tr>
 		</table>
 
 
+
+|-*
 		<table border="1">
 			<tr>
 				<th>Tema</th>
@@ -235,7 +253,7 @@
 			<td>|-$row->getName()-|</td>
 			</tr>|-/foreach-|
 		</table>
-
+*-|
 		
 		|-/if-||-* /Reporte Resumen Ejecutivo *-|
 
@@ -249,17 +267,17 @@
 			|-foreach from=$headlineColl item=headline name=for_headlines-|
 			<div id="|-$headline->getId()-|">
 				<div style="border: 1px solid black">
-					<p><strong>Fecha: </strong> |-$headline->getDatePublished()|date_format-|
-					<br /><strong>Medio: </strong>|-$headline->getMedia()-|
-					<br /><strong>Sección: </strong> |-$headline->getSection()-|
-					<br /><strong>Página: </strong> |-$headline->getPage()-|
-					<br /><strong>Periodista: </strong> |-counter name=journalist start=1 assign=journalist-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::JOURNALIST'))-||-if $journalist gt 1-|, |-/if-||-counter name=journalist assign=journalist-||-$actor-||-/if-||-/foreach-||-/foreach-| </p>
+					<p><strong>Fecha:  |-$headline->getDatePublished()|date_format-|
+					<br />Medio: |-$headline->getMedia()-|
+					<br />Sección:  |-$headline->getSection()-|
+					<br />Página:  |-$headline->getPage()-|
+					<br />Periodista:  |-counter name=journalist start=1 assign=journalist-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::JOURNALIST'))-||-if $journalist gt 1-|, |-/if-||-counter name=journalist assign=journalist-||-$actor-||-/if-||-/foreach-||-/foreach-| </strong></p>
 				</div>
-					<p><strong>Tema: </strong> |-assign var=issues value=$headline->getIssues()-||-foreach from=$issues item=issue name=for_issues-||-if !$issue@first-|, |-/if-||-$issue-||-/foreach-|
-					<br /><strong>Título: </strong>|-$headline->getName()-|
-					<br /><strong>Valor: </strong> |-$headlineValues[$headline->getValue()]-|
-					<br /><strong>Agenda: </strong> |-$headline->getAgendaTranslated()-|
-					<br /><strong>Vocero: </strong> |-counter name=spokesman start=1 assign=spokesman-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::SPOKESMAN'))-||-if $spokesman gt 1-|, |-/if-||-counter name=spokesman assign=spokesman-||-$actor-||-/if-||-/foreach-||-/foreach-|</p>
+					<p><strong>Tema:  |-assign var=issues value=$headline->getIssues()-||-foreach from=$issues item=issue name=for_issues-||-if !$issue@first-|, |-/if-||-$issue-||-/foreach-|
+					<br />Título: |-$headline->getName()-|
+					<br />Valor:  |-$headlineValues[$headline->getValue()]-|
+					<br />Agenda:  |-$headline->getAgendaTranslated()-|
+					<br />Vocero:  |-counter name=spokesman start=1 assign=spokesman-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::SPOKESMAN'))-||-if $spokesman gt 1-|, |-/if-||-counter name=spokesman assign=spokesman-||-$actor-||-/if-||-/foreach-||-/foreach-|</strong></p>
 					|-if $filters.includeContent-|
 					<ul>|-$headline->getContent()|nl2htmlBreak:li:none|highlight:"Macri Larreta "-| </ul>
 					|-/if-|

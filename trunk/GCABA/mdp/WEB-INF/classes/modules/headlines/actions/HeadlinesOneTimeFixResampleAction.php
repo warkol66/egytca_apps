@@ -22,6 +22,10 @@ class HeadlinesOneTimeFixResampleAction extends BaseAction {
 				->find();
 
 			foreach ($images as $image) {
+				$secondaryDataName = $image->getSecondaryDataName();
+				if (empty($secondaryDataName))
+					$image->setSecondaryDataName("r-" .$image->getName())->save();
+
 				if ($image->dataExists() && !$image->secondaryDataExists()) {
 					$this->queueImage($image->getId());
 					$queuedImagesCount++;
