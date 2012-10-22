@@ -4,6 +4,7 @@
 <script language="JavaScript" type="text/javascript">
 function requirementsDoAddDevelopment(form) {
 	var fields = Form.serialize(form);
+	var pars = 'RequirementsDoAddToDevelopmentX';
 	var myAjax = new Ajax.Updater(
 				{success: 'developmentsList'},
 				url,
@@ -25,6 +26,7 @@ function requirementsDoAddDevelopment(form) {
 	<div class="failureMessage">Ha ocurrido un error al intentar Requerimiento</div>
 |-/if-|
 |-include file="CommonAutocompleterInclude.tpl"-|
+|-$algo-|
   <form name="form_edit_requirement" id="form_edit_requirement" action="Main.php" method="post">
 	
     <fieldset title="Formulario de datos de Requerimiento">
@@ -66,8 +68,9 @@ function requirementsDoAddDevelopment(form) {
     </fieldset> 
   </form> 
   |-if $action eq "edit"-|
-	<form method="post">
-		<fieldset title="Asociar Desarrollo">
+	
+	<fieldset title="Asociar Desarrollo">
+		<form method="post">
 			<legend>Asociar Desarrollo</legend>
 			<div id="developmentMsgField"> <span id="developmentMsgField"></span> 
 			<p>Seleccione un desarrollo para asociar</p>
@@ -75,16 +78,18 @@ function requirementsDoAddDevelopment(form) {
 				<select id="developmentId" name="developmentId" title="developmentId">
 					<option value="">Seleccione un desarrollo</option>
 					|-foreach from=$developments item=development name=for_development-|
-					<option id="developmentOption|-$development->getId()-|" name="developmentId" value="|-$development->getId()-|">|-$development->getName()-|</option>
+					<option id="developmentOption|-$development->getId()-|" name="development" value="|-$development->getId()-|">|-$development->getName()-|</option>
 					|-/foreach-|
 				</select>
 			</p>
-			<input type="hidden" name="do" id="do" value="requirementsDoAddDevelopmentXAction" /> 
 			<input type="hidden" name="developmentId" id="developmentId" value="|-$development->getId()-|" />
 			<input type="hidden" name="requirementId" id="requirementId" value="|-$requirement->getId()-|" />
 			<input type="button" value="Asociar desarrollo" onClick="javascript:requirementsDoAddDevelopment(this.form)"/> 
-		</fieldset>
-	</form> 
+		</form> 
+			<ul id="developmentsList" class="iconOptionsList">
+				<li id="developmentsListItem|-$requirement->getDevelopmentid()-|">|-$requirement->getDevelopmentid()-|</li> 
+		</ul> 
+	</fieldset>
   
 	<form method="post">
 		<fieldset title="Asignación de Recursos">

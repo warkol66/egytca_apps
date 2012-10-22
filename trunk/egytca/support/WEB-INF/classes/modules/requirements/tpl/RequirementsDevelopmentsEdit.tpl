@@ -2,13 +2,15 @@
 |-if !$notValidId || is_object($requirement)-|
 <h1>Administración de Desarrollos - |-if !$development->isNew()-|Editar|-else-|Crear|-/if-| Desarrollos</h1>
 <script language="JavaScript" type="text/javascript">
-function requirementsDoAddToDevelopment(form) {
+function attendantsDoAddToDevelopment(form) {
 	var fields = Form.serialize(form);
+	var pars = 'do=requirementsDevelopmentsDoAddAttendantX';
 	var myAjax = new Ajax.Updater(
 				{success: 'attendantsList'},
 				url,
 				{
 					method: 'post',
+					parameters: pars,
 					postBody: fields,
 					evalScripts: true,
 					insertion: Insertion.Bottom
@@ -17,7 +19,7 @@ function requirementsDoAddToDevelopment(form) {
 	return true;
 }
 
-function usersDoDeleteFromDevelopment(form){
+function attendantsDoDeleteFromDevelopment(form){
 	var fields = Form.serialize(form);
 	var myAjax = new Ajax.Updater(
 				{success: 'attendantsMsgField'},
@@ -129,10 +131,12 @@ function usersDoDeleteFromDevelopment(form){
 					|-/foreach-|
 				</select>
 			</p>	
-			<input type="hidden" name="do" id="do" value="requirementsDevelopmentsDoAddAttendantXAction" /> 
 			<input type="hidden" name="entityId" id="entityId" value="|-$development->getId()-|" />
 			<input type="hidden" name="entityType" id="entityType" value="development" />
-			<input type="button" value="Agregar recurso" onClick="javascript:requirementsDoAddToDevelopment(this.form)"/> 
+			<input type="button" value="Agregar recurso" onClick="javascript:attendantsDoAddToDevelopment(this.form)"/> 
+			
+			<!--ul id="attendantsList" class="iconOptionsList">
+			</ul-->
 		</fieldset>
 	</form> 
 	<ul id="groupList" class="iconOptionsList">
