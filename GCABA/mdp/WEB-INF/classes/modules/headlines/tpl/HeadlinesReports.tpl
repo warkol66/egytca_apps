@@ -222,15 +222,15 @@
 			<th>Total</th>
 			<th>%</th>
 		</tr>
-		 <tr>|-*math equation="x + y" x=$headlinesBySpokesman y=$headlinesByActor*-|
+		 <tr>|-math equation="x - y" x=$totalHeadlines y=$bySpokesman assign=headlinesRest-|
 			<td>Si</td>
-			<td>|-*$headlinesBySpokesman*-|</td>
-			<td>|-*math equation="x / y" x=$headlinesBySpokesman y=$totalActor*-|</td>
+			<td>|-$bySpokesman-|</td>
+			<td>|-math equation="x / y" x=$bySpokesman y=$totalHeadlines format="%.2f"-|</td>
 			</tr>
 		 <tr>
 			<td>No</td>
-			<td>|-*$headlinesByActor*-|</td>
-			<td>|-*math equation="x / y" x=$headlinesByActor y=$totalActor*-|</td>
+			<td>|-$headlinesRest-|</td>
+			<td>|-math equation="x / y" x=$headlinesRest y=$totalHeadlines format="%.2f"-|</td>
 			</tr>
 		</table>
 
