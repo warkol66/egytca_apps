@@ -30,7 +30,7 @@
 			|-assign var=supply value=$price->getSupply()-|
 			<td>|-$supply->getId()-|</td>
 			<td>|-$supply->getName()-| |-if !$price->getDefinitive()-|(P)|-/if-|</td>
-			<td align="center">|-$supply->getUnit()-|</td>
+			<td align="center">|-$supply->getMeasureUnit()-|</td>
 			<td align="center">Gs</td>
 			<td align="right">
 				|-if $price->getAveragePrice() neq ''-|

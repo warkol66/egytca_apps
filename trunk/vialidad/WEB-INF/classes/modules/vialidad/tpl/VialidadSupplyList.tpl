@@ -35,11 +35,11 @@
 					<form id="addInput1" action="Main.php" method="POST" onsubmit="setStatus('working'); prepareAndSubmit(this); showInput('addLink1', 'addInput1'); setStatus('done'); return false;" style="display: none;">
 						<label>Ingrese nombre del insumo:</label>
 						<input type="text"   name="params[name]" />
-						<label for="name[unit]">Unidad</label>
-						<select name="params[unit]">
+						<label for="name[unitId]">Unidad</label>
+						<select name="params[unitId]">
 							<option value="">-</option>
-							|-foreach from=$allUnits item=unit-|
-							<option value="|-$unit-|">|-$unit-|</option>
+							|-foreach from=$units item=unit-|
+							<option value="|-$unit->getId()-|">|-$unit->getCode()-|</option>
 							|-/foreach-|
 						</select>
 						<input type="hidden" name="do" value="vialidadSupplyDoEditX" />
@@ -75,14 +75,14 @@
 			</td>
 			<td>
 				|-if "vialidadSupplyEdit"|security_has_access-|
-					<span id="unit_|-$supply->getId()-|" class="in_place_editable">|-$supply->getUnit()-|</span>
+					<span id="unit_|-$supply->getId()-|" class="in_place_editable">|-$supply->getMeasureUnit()-|</span>
 				<!--<select id="select_unit_|-$supply->getId()-|" style="display:none" onchange="updateUnit('|-$supply->getId()-|', this.value);this.hide();$('span_unit_|-$supply->getId()-|').show();" onblur="this.hide();$('span_unit_|-$supply->getId()-|').show();">
-					|-foreach from=$allUnits item=unit-|
-					<option value="|-$unit-|" |-$unit|selected:$supply->getUnit()-|>|-$unit-|</option>
+					|-foreach from=$units item=unit-|
+					<option value="|-$unit->getId()-|" |-$unit|selected:$supply->getUnitid()-|>|-$unit->getCode()-|</option>
 					|-/foreach-|
 				</select>-->
 				|-else-|
-				|-$supply->getUnit()-|
+				|-$supply->getMeasureUnit()-|
 				|-/if-|
 			</td>
 			<td nowrap>
@@ -126,11 +126,11 @@
 					<form id="addInput2" action="Main.php" method="POST" onsubmit="setStatus('working'); prepareAndSubmit(this); showInput('addLink2', 'addInput2'); setStatus('done'); return false;" style="display: none;">
 						<label>Ingrese nombre del insumo:</label>
 						<input type="text"   name="params[name]" />
-						<label for="name[unit]">Unidad</label>
-						<select name="params[unit]">
+						<label for="name[unitId]">Unidad</label>
+						<select name="params[unitId]">
 							<option value="">-</option>
-							|-foreach from=$allUnits item=unit-|
-							<option value="|-$unit-|">|-$unit-|</option>
+							|-foreach from=$units item=unit-|
+							<option value="|-$unit->getId()-|">|-$unit->getCode()-|</option>
 							|-/foreach-|
 						</select>
 						<input type="hidden" name="do" value="vialidadSupplyDoEditX" />
@@ -230,9 +230,10 @@ function attachNameInPlaceEditors() {
 function attachUnitInPlaceEditors() {
 	var allUnits = new Array();
 	allUnits.push("-");
-	|-foreach from=$allUnits item=unit-|
-	allUnits.push("--- |-$unit-| ---");
+	|-foreach from=$units item=unit-|
+	allUnits.push([|-$unit->getId()-|,"--- |-$unit-| ---"]);
 	|-/foreach-|
+	console.log(allUnits);
 	
 	|-foreach from=$supplies item=supply-|
 	new Ajax.InPlaceCollectionEditor(
@@ -249,7 +250,7 @@ function attachUnitInPlaceEditors() {
 			cancelControl: 'button',
 			savingClassName: 'inProgress',
 			callback: function(form, value) {
-				return 'id=|-$supply->getId()-|&paramName=unit&paramValue='
+				return 'id=|-$supply->getId()-|&paramName=unitId&paramValue='
 					+ encodeURIComponent(clean(value));
 			},
 			onFormReady: function(obj,form) {

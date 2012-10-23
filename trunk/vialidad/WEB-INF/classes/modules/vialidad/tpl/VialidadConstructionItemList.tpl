@@ -65,7 +65,7 @@
 	<tr>
 		<td nowrap="nowrap">|-$item->getCode()-|</td>
 		<td>|-$item->getName()-|</td>
-		<td nowrap="nowrap" align="center">|-$item->getUnit()-|</td>
+		<td nowrap="nowrap" align="center">|-$item->getMeasureUnit()-|</td>
 		<td nowrap="nowrap">
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="vialidadConstructionItemViewX" />

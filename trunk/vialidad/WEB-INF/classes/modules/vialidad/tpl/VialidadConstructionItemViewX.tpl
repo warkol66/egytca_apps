@@ -28,7 +28,7 @@
     </tr> 
      <tr> 
       <td width="20%" nowrap class="tdTitle">Unidad</td> 
-      <td>|-$item->getUnit()-|</td> 
+      <td>|-$item->getMeasureUnit()-|</td> 
     </tr> 
    </table> 
 <h3>Componentes</h3>

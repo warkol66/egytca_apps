@@ -43,10 +43,10 @@
 		<input id="params[quantity]" name="params[quantity]" type="text" value="|-$item->getQuantity()|system_numeric_format-|" size="15" title="Cantidad" />
 	</p>
 	<p>
-		<label for="params[unit]">Unidad</label>
-		<select id="params[unit]" name="params[unit]">
+		<label for="params[unitId]">Unidad</label>
+		<select id="params[unitId]" name="params[unitId]">
 			|-foreach from=$units item=unit-|
-			<option value="|-$unit-|" |-$item->getUnit()|selected:$unit-|>|-$unit-|</option>
+			<option value="|-$unit->getId()-|" |-$item->getUnitid()|selected:$unit->getId()-|>|-$unit->getCode()-|</option>
 			|-/foreach-|
 		</select>
 	</p>
