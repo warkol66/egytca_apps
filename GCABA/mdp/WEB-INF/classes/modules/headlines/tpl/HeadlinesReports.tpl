@@ -164,7 +164,7 @@
 			<tr>
 					<td>|-$headline->getDatePublished()|date_format-|</td>
 					<td>|-assign var=issues value=$headline->getIssues()-||-foreach from=$issues item=issue name=for_issues-||-if !$issue@first-|, |-/if-||-$issue-||-/foreach-|</td>
-					<td>|-assign var=media value=$headline->getMEdia()-||-$media->getType()-|</td>
+					<td>|-assign var=media value=$headline->getMedia()-||-if is_object($media)-||-$media->getType()-||-/if-|</td>
 					<td>|-$headline->getMedia()-|</td>
 					<td>|-$headline->getSection()-|</td>
 					<td>|-$headline->getPage()-|</td>
