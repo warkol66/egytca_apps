@@ -136,12 +136,17 @@ class Headline extends BaseHeadline {
 /*                    Imagenes asociadas como Clippings                       */
 /* ************************************************************************** */
 	
+	const CLIPPING_NORMAL = 0;
+	const CLIPPING_RESIZED = 1;
+
 	/**
 	 * elimina el clipping del headline si es que existe
 	 */
 	public function deleteClipping() {
-		if ($this->hasClipping()) {
-			unlink($this->getClippingFullname());
+		if ($this->hasClipping(Headline::CLIPPING_NORMAL)) {
+			unlink($this->getClippingFullname(Headline::CLIPPING_NORMAL));
+			if ($this->hasClipping(Headline::CLIPPING_RESIZED))
+				unlink($this->getClippingFullname(Headline::CLIPPING_RESIZED));
 		}
 	}
 	
@@ -149,9 +154,13 @@ class Headline extends BaseHeadline {
 	 * 
 	 * @return string nombre con path completo del clipping del headline
 	 */
-	public function getClippingFullname() {
+	public function getClippingFullname($clippingType = Headline::CLIPPING_NORMAL) {
 		$clippingsPath = ConfigModule::get('headlines', 'clippingsPath');
-		return $clippingsPath.'/'.$this->getId().'.jpg';
+		$fullName = $clippingsPath.'/';
+		if ($clippingType == Headline::CLIPPING_RESIZED)
+			$fullName .= CLIPPING_RESIZE_PREFIX;
+		$fullName .= $this->getId().'.jpg';
+		return $fullName;
 	}
 	
 	/**
@@ -183,15 +192,8 @@ class Headline extends BaseHeadline {
 	 * Indica si el headline titne clipping o no
 	 *	@return bool si tiene o no clipping
 	 */
-	public function hasClipping() {
-
-		$clippingsPath = ConfigModule::get("headlines","clippingsPath");
-		$imageFullname = $clippingsPath . $this->getId() . '.jpg';
-
-		if (file_exists($imageFullname))
-			return true;
-		else
-			return false;
+	public function hasClipping($clippingType = Headline::CLIPPING_NORMAL) {
+		return file_exists($this->getClippingFullname($clippingType));
 	}
 	
 /* ************************************************************************** */

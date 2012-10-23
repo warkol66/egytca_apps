@@ -118,7 +118,7 @@ class HeadlineQuery extends BaseHeadlineQuery {
 	 * Agrega filtro por actor y tipo de actor
 	 *
 	 * @param   int $actorId Id del actor
-	 * @param   int $role Rol que desempeña el actor asociado
+	 * @param   int $role Rol que desempenia el actor asociado
 	 * @return  ModelCriteria
 	 */
 	public function filterByActorAndType($actorId,$role) {
