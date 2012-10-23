@@ -23,11 +23,20 @@ class HeadlinesGetImageAction extends BaseAction {
 					$headline = HeadlineQuery::create()->findOneById($_GET['id']);
 					if (is_null($headline))
 						throw new Exception('invalid ID');
+					
+					$clippingType = Headline::CLIPPING_NORMAL;
+					if ($_GET['tryresampled']) {
+						if ($headline->hasClipping(Headline::CLIPPING_RESIZED))
+							$clippingType = Headline::CLIPPING_RESIZED;
+						
+					}
+					
 					if (!$headline->hasClipping())
 						throw new Exception("headline with id ".$headline->getId()." doesn't have a clipping");
+					
 					$type = 'image/jpg';
 					$filename = 'c-'.$headline->getId().'.jpg';
-					$path = $headline->getClippingFullname();
+					$path = $headline->getClippingFullname($clippingType);
 					
 					header('Content-Type: '.$type);
 					header("Content-length: ".filesize($path));
@@ -45,12 +54,13 @@ class HeadlinesGetImageAction extends BaseAction {
 					if ($type != 'image/jpg')
 						throw new Exception('attachment is not a jpeg image');
 					$filename = 'a-'.$attachment->getId().'.jpg';
-					$path = empty($_GET['secondary']) ? $attachment->getRealpath() : $attachment->getSecondaryDataRealpath();
 					
-					// sobreescribe $_GET['secondary']
+					// $_GET['tryresampled'] tiene prioridad sobre $_GET['secondary']
 					if (!empty($_GET['tryresampled'])) {
 						$secDataRealpath = $attachment->getSecondaryDataRealpath();
 						$path = file_exists($secDataRealpath) ? $secDataRealpath : $attachment->getRealpath();
+					} else {
+						$path = empty($_GET['secondary']) ? $attachment->getRealpath() : $attachment->getSecondaryDataRealpath();
 					}
 					
 					header('Content-Type: '.$type);
