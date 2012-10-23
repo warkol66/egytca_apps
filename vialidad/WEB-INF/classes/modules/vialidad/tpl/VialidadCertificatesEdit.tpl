@@ -79,7 +79,7 @@
 			|-assign var=item value=$relation->getConstructionItem()-|
 			<td>|-$item->getName()-|</td>
 			<td align="right">|-$relation->getQuantity()|system_numeric_format-|</td>
-			<td align="center">|-$item->getUnit()-|</td>
+			<td align="center">|-$item->getMeasureUnit()-|</td>
 			<td align="right"><span id="price|-$relation->getId()-|">|-$relation->getPrice()|system_numeric_format-|</span></td>
 			<td align="right"><span id="totalPrice|-$relation->getId()-|">|-$relation->getTotalPrice()|system_numeric_format-|</span></td>
 			<td align="center"><input id="button_priceEdit|-$relation->getId()-|" type="button" class="icon iconEdit"/></td>

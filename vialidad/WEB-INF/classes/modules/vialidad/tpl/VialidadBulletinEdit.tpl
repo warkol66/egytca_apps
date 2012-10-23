@@ -78,7 +78,7 @@
 			|-assign var=priceInformation value=$price->getPrice()-|
 			|-assign var=supply value=$price->getSupply()-|
 			<td>|-$supply->getName()-|</td>
-			<td align="center">|-$supply->getUnit()-|</td>
+			<td align="center">|-$supply->getMeasureUnit()-|</td>
 			<td align="right">
 				|-if $price->getAveragePrice() neq ''-|
 				|-$price->getAveragePrice()|system_numeric_format-|

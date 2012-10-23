@@ -51,7 +51,7 @@
 			|-assign var=item value=$itemRecord->getConstructionItem()-|
 			<td>|-$item->getName()-|</td>
 			<td align="right"><span id="quantity|-$itemRecord->getId()-|" class="inPlaceEditable">|-$itemRecord->getQuantity()|system_numeric_format-|</span></td>
-			<td align="center">|-$item->getUnit()-|</td>
+			<td align="center">|-$item->getMeasureUnit()-|</td>
 			<td align="center">|-$itemRecord->getVerified()|si_no-|</td>
 			<td align="center">
 				<input |-if $itemRecord->getDocumentid() eq ''-|style="display:none"|-/if-| onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$itemRecord->getDocumentid()-|')" type="button" class="icon iconView" />

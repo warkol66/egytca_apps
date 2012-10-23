@@ -56,7 +56,7 @@
 			|-assign var=item value=$relation->getConstructionItem()-|
 			<td>|-$item->getName()-|</td>
 			<td align="right">|-$relation->getQuantity()|system_numeric_format-|</td>
-			<td align="center">|-$item->getUnit()-|</td>
+			<td align="center">|-$item->getMeasureUnit()-|</td>
 			<td align="right">|-$relation->getPrice()|system_numeric_format-|</td>
 			<td align="right">|-$relation->getTotalPrice()|system_numeric_format-|</td>
 		</tr>

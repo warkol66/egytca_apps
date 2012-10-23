@@ -85,7 +85,7 @@
 			|-assign var=item value=$itemRecord->getConstructionItem()-|
 			<td>|-$item->getName()-|</td>
 			<td align="right"><span id="quantity|-$itemRecord->getId()-|" class="inPlaceEditable">|-$itemRecord->getQuantity()|system_numeric_format-|</span></td>
-			<td align="center">|-$item->getUnit()-|</td>
+			<td align="center">|-$item->getMeasureUnit()-|</td>
 			<td align="center">
 			  <input type="checkbox" |-$itemRecord->getVerified()|checked_bool-| onchange="updateVerified('|-$itemRecord->getId()-|', this.checked)" /></td>
 			<td align="center">

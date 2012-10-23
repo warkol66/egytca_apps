@@ -10,7 +10,7 @@
 <h1>Administración de Precios - |-$bulletin->getBulletindate()|date_format:"%B / %Y"|@ucfirst-|</h1>
 	
 <p>A continuación podrá administrar los precios del insumo: |-$supply->getName()-|. <br />
-El precio es por "<strong>|-$supply->getUnit()-|</strong>" expresado en Guaraníes (sin separador de miles).<br />
+El precio es por "<strong>|-$supply->getMeasureUnit()-|</strong>" expresado en Guaraníes (sin separador de miles).<br />
 El precio anterior se muestra como referencia y no puede ser modificado.
 </p>
 

@@ -21,7 +21,7 @@
 			|-/foreach-|
 		</select>-->
 		|-else-|
-		|-$supply->getUnit()-|
+		|-$supply->getMeasureUnit()-|
 		|-/if-|
 	</td>
 	<td nowrap>

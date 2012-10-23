@@ -35,11 +35,15 @@ class VialidadSupplyOtherListAction extends BaseAction {
 
 		$smarty->assign("message",$_GET["message"]);
 		
+		$units = MeasureUnitQuery::create()->find();
+		/*
 		$allUnits = array();
 		foreach (ConfigModule::get('vialidad', 'units') as $unit => $desc) {
 			array_push($allUnits, $unit);
 		}
-		$smarty->assign('allUnits', $allUnits);
+		$smarty->assign('allUnits', $allUnits);*/
+		
+		$smarty->assign('units', $units);
 		
 		return $mapping->findForwardConfig('success');
 	}
