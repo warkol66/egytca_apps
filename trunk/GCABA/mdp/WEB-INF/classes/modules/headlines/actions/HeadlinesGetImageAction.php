@@ -18,6 +18,9 @@ class HeadlinesGetImageAction extends BaseAction {
 		
 		if (!empty($_GET['id']) && !empty($_GET['source'])) {
 			
+			header_remove('Cache-Control');
+			header_remove('Pragma');
+			
 			switch ($_GET['source']) {
 				case 'clipping':
 					$headline = HeadlineQuery::create()->findOneById($_GET['id']);
