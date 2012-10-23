@@ -76,26 +76,39 @@ class HeadlinesReportsAction extends BaseListAction {
 			$this->smarty->assign("totalHeadlines", $totalHeadlines);
 
 			//Resumen por temas
-			$byIssue = BaseQuery::create("Issue")->filterByHeadline($query->find(), Criteria::IN)
-				->join("HeadlineIssue")
+			$issueQuery = IssueQuery::create()->filterByHeadline($query->find(), Criteria::IN)
+				->joinHeadlineIssue();
+			
+			//Resumen por temas
+			$byIssueTop = clone $issueQuery;
+			$byIssueTop = $byIssueTop
+				->groupById()
 				->withColumn("COUNT(HeadlineIssue.Issueid)", "HeadlinesCount")
-				->groupBy("Issue.Id")
-				->orderByHeadlinesCount(Criteria::DESC);
+				->orderByHeadlinesCount(Criteria::DESC)
+				->limit(10)
+				->find();
+
+			//Resumen por temas otros
+			foreach ($byIssueTop as $issue)
+				$already[] = $issue->getId();
+
+			$byIssueRest = clone $issueQuery;
+			$byIssueRest = $byIssueRest
+				->filterById($already, Criteria::NOT_IN)
+				->orderByName()
+				->groupById()
+				->find();
+
+			$this->smarty->assign("byIssueTop", $byIssueTop);
+			$this->smarty->assign("byIssueRest", $byIssueRest);
+
 
 			//Resumen por vocero
-			$bySpokesmanTop = BaseQuery::create("Issue")->filterByHeadline($query->find(), Criteria::IN)
-				->join("HeadlineIssue")
-				->withColumn("COUNT(HeadlineIssue.Issueid)", "HeadlinesCount")
-				->groupBy("Issue.Id")
-				->orderByHeadlinesCount(Criteria::DESC)
-				;
-
-
-			$this->smarty->assign("byIssueTop", $byIssue->limit(10)->find());
-			$this->smarty->assign("byIssueRest", $byIssue->offset(10)->limit(0)->orderByName()->find());
-
-			$this->smarty->assign("bySpokesmanTop", $bySpokesmanTop->limit(10)->find());
-			$this->smarty->assign("bySpokesmanRest", $bySpokesmanTop->offset(10)->limit(0)->orderByName()->find());
+			$bySpokesman = clone $this->query;
+			$bySpokesman = $bySpokesman
+				->filterByActorAndType($this->filters['Actor']['entityFilter']['entityId'],HeadlinePeer::SPOKESMAN)
+			;
+			$this->smarty->assign("bySpokesman", $bySpokesman->count());
 
 		}
 	}
