@@ -158,7 +158,7 @@ class Headline extends BaseHeadline {
 		$clippingsPath = ConfigModule::get('headlines', 'clippingsPath');
 		$fullName = $clippingsPath.'/';
 		if ($clippingType == Headline::CLIPPING_RESIZED)
-			$fullName .= CLIPPING_RESIZE_PREFIX;
+			$fullName .= 'r-';
 		$fullName .= $this->getId().'.jpg';
 		return $fullName;
 	}

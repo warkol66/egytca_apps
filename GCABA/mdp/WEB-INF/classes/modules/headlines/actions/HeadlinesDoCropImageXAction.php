@@ -52,7 +52,7 @@ class HeadlinesDoCropImageXAction extends BaseAction {
 			unlink($newImageFilename);
 		rename($tempName, $newImageFilename);
 		
-		$headline = HeadlineQuery::create()->findOneBy($_POST['headlineId']);
+		$headline = HeadlineQuery::create()->findOneById($_POST['headlineId']);
 		$resampledImageRealpath = $headline->getClippingFullname(Headline::CLIPPING_RESIZED);
 		require_once 'HeadlineImageResampler.php';
 		HeadlineImageResampler::copyResampled($newImageFilename, $resampledImageRealpath);
