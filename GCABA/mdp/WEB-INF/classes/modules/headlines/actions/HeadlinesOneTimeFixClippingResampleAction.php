@@ -11,7 +11,7 @@ class HeadlinesOneTimeFixClippingResampleAction extends BaseAction {
 			$headlines = HeadlineQuery::create()->find();
 
 			foreach ($headlines as $headline) {
-				$headline = new Headline();
+				
 				if ($headline->hasClipping(Headline::CLIPPING_NORMAL)
 					&& !$headline->hasClipping(Headline::CLIPPING_RESIZED)) {
 					
