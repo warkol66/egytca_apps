@@ -23,9 +23,9 @@
 			</div>
 			</p>
 		<p>
-			<div div="div_filters[mediaTypeId]" style="position: relative;z-index:12500;">
+		<div div="div_filters[mediaTypeId]" style="position: relative;z-index:12500;">
 					|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_mediasType" url="Main.php?do=commonAutocompleteListX&object=mediaType&objectParam=id" hiddenName="filters[mediaTypeId]" label="Tipo de Medio" defaultValue=$filters.mediaType defaultHiddenValue=$filters.mediaTypeId name="filters[mediaType]"-|
-			</div>
+		</div>
 					</p>
 		<div div="div_filters[actorId]" style="position: relative;z-index:12000;">
 				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_actors" url="Main.php?do=actorsAutocompleteListX" hiddenName="filters[actorId]" label="Actor" defaultValue=$filters.actorName defaultHiddenValue=$filters.actorId name="filters[actorName]"-|
@@ -63,7 +63,7 @@
 					<input id="filters[summaryTable]" name="filters[summaryTable]" type="checkbox" value="1" |-$filters.summaryTable|checked_bool-| title="Tabla Resumen" />
 					|-*&nbsp; &nbsp; <label for="filters[includeClipping]" class="inlineLabel">Resumen Ejecutivo</label>
 					<input id="filters[executiveSummary]" name="filters[executiveSummary]" type="checkbox" value="1" |-$filters.executiveSummary|checked_bool-| title="Resumen Ejecutivo" /> *-|
-					</p>
+		</p>
 					<p>
 					<input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
 				|-if $filters|@count gt 0-|<input type="button" value="Quitar filtros" onclick="location.href='Main.php?do=headlinesReports'"/>
@@ -102,7 +102,7 @@
 		|-/if-|
 		|-/if-|
 		</tbody> 
-		 </table> 
+  </table> 
 </div>
 
 
@@ -147,6 +147,7 @@
 					<th>Tema</th>
 					<th>Medio</th>
 					<th>Nombre</th>
+					<th>Contenido</th>
 					<th>Seccion</th>
 					<th>Pagina</th>
 					<th>Programa</th>
@@ -166,6 +167,7 @@
 					<td>|-assign var=issues value=$headline->getIssues()-||-foreach from=$issues item=issue name=for_issues-||-if !$issue@first-|, |-/if-||-$issue-||-/foreach-|</td>
 					<td>|-assign var=media value=$headline->getMedia()-||-if is_object($media)-||-$media->getType()-||-/if-|</td>
 					<td>|-$headline->getMedia()-|</td>
+					<td>|-$headline->getContent()|mb_truncate:295:" ... ":'UTF-8':true-|</td>
 					<td>|-$headline->getSection()-|</td>
 					<td>|-$headline->getPage()-|</td>
 					<td>|-$headline->getProgram()-|</td>
@@ -180,8 +182,8 @@
 						|-/foreach-|</ul>|-/if-|
 		</td>
 		
-					|-if $filters.actorName ne '' || $filters.actorName ne ''-|<td>|-$spokesmanSelectedActor-||-assign var=spokesmanSelectedActor value=""-|</td>
-					<td>|-$otherSelectedActor-||-assign var=otherSelectedActor value=""-|</td>|-/if-|
+					|-if $filters.actorName ne '' || $filters.actorName ne ''-|<td>|-$spokesmanSelectedActor-|</td>
+					<td>|-if $spokesmanSelectedActor eq ''-||-$otherSelectedActor-||-/if-|</td>|-assign var=spokesmanSelectedActor value=""-||-assign var=otherSelectedActor value=""-||-/if-|
 		
 		
 			</tr>
@@ -278,13 +280,11 @@
 			
 			
 			<div id="|-$headline->getId()-|">
-				<div style="border: 1px solid black">
-					<p><strong>Fecha:  |-$headline->getDatePublished()|date_format-|
+					<p style="border: 1px solid black"><strong>Fecha:  |-$headline->getDatePublished()|date_format-|
 					<br />Medio: |-$headline->getMedia()-|
 					<br />Sección:  |-$headline->getSection()-|
 					<br />Página:  |-$headline->getPage()-|
 					<br />Periodista:  |-counter name=journalist start=1 assign=journalist-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::JOURNALIST'))-||-if $journalist gt 1-|, |-/if-||-counter name=journalist assign=journalist-||-$actor-||-/if-||-/foreach-||-/foreach-| </strong></p>
-				</div>
 					<p><strong>Tema:  |-assign var=issues value=$headline->getIssues()-||-foreach from=$issues item=issue name=for_issues-||-if !$issue@first-|, |-/if-||-$issue-||-/foreach-|
 					<br />Título: |-$headline->getName()-|
 					<br />Valor:  |-$headlineValues[$headline->getValue()]-|
@@ -294,11 +294,11 @@
 					<ul>|-$headline->getContent()|nl2htmlBreak:li:none|highlight:"Macri Larreta "-| </ul>
 					|-/if-|
 					<p>&nbsp;</p>
-					|-if $filters.includeClipping-|<center>
+					|-if $filters.includeClipping-|
 						|-foreach $headline->getImagesIdData() as $imageData-|
-							<img src="attachments/|-$imageData.source-|-|-$imageData.id-|.jpg" align="center" />
+						<table cellspacing="1" cellpadding="0" border="0" align="center"><tr><td style="border:2px solid black; "><img src="attachments/|-$imageData.source-|-|-$imageData.id-|.jpg" /></td></tr></table>
 						|-/foreach-|
-					</center>|-/if-|
+					|-/if-|
 			<br  style="page-break-after: always"/>
 			</div>|-/if-|
 			|-/foreach-|
