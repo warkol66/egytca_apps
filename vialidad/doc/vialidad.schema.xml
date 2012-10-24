@@ -1,0 +1,480 @@
+<database defaultIdMethod="native" package="vialidad.classes" name="application" >
+
+	<table phpName="Bulletin" name="vialidad_bulletin">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="number" type="VARCHAR" size="10" required="true" primaryString="true" />
+		<column name="bulletinDate" type="DATE" description="Fecha del Boletin" />
+		<column name="comments" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Observaciones" />
+		<column name="published" type="BOOLEAN" description="Indica si esta publicado" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="Supply" name="vialidad_supply">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
+		<column name="unitId" type="INTEGER" description="Id de Unidad" />
+
+		<column name="type" type="TINYINT" defaultValue="1" description="Tipo" />
+		
+		<foreign-key foreignTable="vialidad_measureUnit" onDelete="cascade" >
+			<reference local="unitId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="PriceBulletin" name="vialidad_priceBulletin">
+
+		<column name="id"         type="INTEGER" required="true" primaryKey="true" autoIncrement="true" />
+		<column name="bulletinId" type="INTEGER" required="true" />
+		<column name="supplyId"   type="INTEGER" required="true" />
+		<column name="averagePrice" type="DECIMAL" size="12" scale="2" description="Precio provisorio" />
+		<column name="publish" type="BOOLEAN" defaultValue="1" description="Indica si el precio se publica o no" />
+		<column name="definitive" type="BOOLEAN" description="Indica si el precio es definitivo o no" />
+		<column name="definitiveOn" type="DATE" description="Fecha que se marco definitivo" />
+		<column name="modifiedPrice" type="DECIMAL" size="12" scale="2" description="Precio modificado" />
+		<column name="modifiedOn"    type="DATE" description="Fecha que se marco modificado" />
+
+		<column name="supplierId1" type="INTEGER" required="true" />
+		<column name="lastPrice1"  type="DECIMAL" size="12" scale="2" description="Precio anterior proveedor 1" />
+		<column name="price1"      type="DECIMAL" size="12" scale="2" description="Precio proveedor 1" />
+		<column name="definitive1" type="BOOLEAN" description="Indica si el precio es definitivo o no, proveedor 1" />
+		<column name="supplierDocument1" type="INTEGER" description="Documento respaldatorio, proveedor 1" />
+
+		<column name="supplierId2" type="INTEGER" required="true" />
+		<column name="lastPrice2"  type="DECIMAL" size="12" scale="2" description="Precio anterior proveedor 2" />
+		<column name="price2"      type="DECIMAL" size="12" scale="2" description="Precio proveedor 2" />
+		<column name="definitive2" type="BOOLEAN" description="Indica si el precio es definitivo o no, proveedor 2" />
+		<column name="supplierDocument2" type="INTEGER" description="Documento respaldatorio, proveedor 2" />
+
+		<column name="supplierId3" type="INTEGER" required="true" />
+		<column name="lastPrice3"  type="DECIMAL" size="12" scale="2" description="Precio anterior proveedor 3" />
+		<column name="price3"      type="DECIMAL" size="12" scale="2" description="Precio proveedor 3" />
+		<column name="definitive3" type="BOOLEAN" description="Indica si el precio es definitivo o no, proveedor 3" />
+		<column name="supplierDocument3" type="INTEGER" description="Documento respaldatorio, proveedor 3" />
+
+		<foreign-key foreignTable="vialidad_bulletin" onDelete="cascade" >
+			<reference local="bulletinId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="vialidad_supply" onDelete="cascade" >
+			<reference local="supplyId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="vialidad_supplier" >
+			<reference local="supplierId1" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="vialidad_supplier" >
+			<reference local="supplierId2" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="vialidad_supplier" >
+			<reference local="supplierId3" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="documents_document">
+			<reference local="supplierDocument1" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="documents_document">
+			<reference local="supplierDocument2" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="documents_document">
+			<reference local="supplierDocument3" foreign="id" />
+		</foreign-key>
+
+	</table>
+
+	<table phpName="Supplier" name="vialidad_supplier" description="Proveedores">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id proveedor" autoIncrement="true" />
+		<column name="name" required="true" type="VARCHAR" size="255" description="nombre proveedor" primaryString="true" />
+		<column name="ruc" type="VARCHAR" size="50" description="RUC"/>
+		<column name="address" type="VARCHAR" size="255" description="Direccion proveedor"/>
+		<column name="phone" type="VARCHAR" size="50" description="Telefono proveedor"/>
+		<column name="email" type="VARCHAR" size="50" description="Email proveedor"/>
+		<column name="contact" type="VARCHAR" size="50" description="Nombre de persona de contacto"/>
+		<column name="contactEmail" type="VARCHAR" size="100" description="Email de persona de contacto"/>
+		<column name="web" type="VARCHAR" size="255" description="Direccion web del proveedor"/>
+		<column name="memo" type="LONGVARCHAR" description="Informacion adicional del proveedor"/>
+
+		<column name="contact1" type="VARCHAR" size="100" description="Nombre de persona de contacto 1"/>
+		<column name="position1" type="VARCHAR" size="75" description="Cargo de persona de contacto 1"/>
+		<column name="phone1" type="VARCHAR" size="75" description="Telefono de persona de contacto 1"/>
+		<column name="contactEmail1" type="VARCHAR" size="100" description="Email de persona de contacto 1"/>
+
+		<column name="contact2" type="VARCHAR" size="100" description="Nombre de persona de contacto 2"/>
+		<column name="position2" type="VARCHAR" size="75" description="Cargo de persona de contacto 2"/>
+		<column name="phone2" type="VARCHAR" size="75" description="Telefono de persona de contacto 2"/>
+		<column name="contactEmail2" type="VARCHAR" size="100" description="Email de persona de contacto 2"/>
+
+		<column name="contact3" type="VARCHAR" size="100" description="Nombre de persona de contacto 3"/>
+		<column name="position3" type="VARCHAR" size="75" description="Cargo de persona de contacto 3"/>
+		<column name="phone3" type="VARCHAR" size="75" description="Telefono de persona de contacto 3"/>
+		<column name="contactEmail3" type="VARCHAR" size="100" description="Email de persona de contacto 3"/>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="Contract" name="vialidad_contract">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="contractNumber" type="VARCHAR" size="20" description="Codigo del Contrato"/>
+		
+		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" description="Nombre del contrato" />
+		<column name="type" type="INTEGER" size="2" description="Tipo de contrato" />
+		<column name="contractorId" type="INTEGER"  description="Id del contratista" />
+		<column name="startDate" type="DATE" description="Fecha de inicio" />
+		<column name="ammount" type="DECIMAL" size="15" scale="2"  description="Monto del Contrato" />
+		<column name="ammountModified" type="DECIMAL" size="15" scale="2"  description="Monto modificado" />
+		<column name="contractLength" type="INTEGER" size="5" description="Longitud del contrato" />
+		<column name="termType" type="INTEGER" size="2" description="Tipo de plazo de longitud del contrato" />
+
+		<column name="validationLength" type="INTEGER" size="5" description="Vigencia del contrato Modificado" />
+		<column name="validationType" type="INTEGER" size="2" description="Tipo de plazo de longitud del contrato Modificado" />
+
+		<column name="contractLengthModified" type="INTEGER" size="5" description="Longitud del contrato Modificado" />
+		<column name="termTypeModified" type="INTEGER" size="2" description="Tipo de plazo de longitud del contrato Modificado" />
+
+		<column name="validationLengthModified" type="INTEGER" size="5" description="Vigencia del contrato" />
+		<column name="validationTypeModified" type="INTEGER" size="2" description="Tipo de plazo de longitud del contrato" />
+
+		<column name="adjudication" type="VARCHAR" size="50" description="Resolucion y/o Decreto de Adjudicacion" />
+		<column name="tenderNumber" type="VARCHAR" size="20" description="Numero de Llamado a Licitacion"/>
+		<column name="adjudicationDate" type="DATE" description="Fecha de adjudicacion" />
+		<column name="signDate" type="DATE" description="Fecha de firma" />
+		<column name="pacNumber" type="VARCHAR" size="10" description="Numero de contrato PAC" />
+
+		<column name="tprano" type="VARCHAR" size="4" description="Anio del contrato" />
+		<column name="tprcod" type="VARCHAR" size="1" description="Tipo de presupuesto" />
+		<column name="prgcod" type="VARCHAR" size="3" description="Programa" />
+		<column name="subprgcod" type="VARCHAR" size="3" description="subprograma" />
+		<column name="prycod" type="VARCHAR" size="2" description="Proyecto" />
+		<column name="prydes" type="VARCHAR" size="100" description="Descripcion" />
+
+
+		<foreign-key foreignTable="affiliates_affiliate" >
+			<reference local="contractorId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="Source" name="vialidad_source">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="code" type="VARCHAR" size="50" description="Codigo de la fuente" />
+		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="vialidad_contractSource" phpName="ContractSource" isCrossRef="true" description="Contract / Source">
+
+		<column name="contractId" required="true" primaryKey="true" type="INTEGER" description="Contract ID"/>
+		<column name="sourceId" required="true" primaryKey="true" type="INTEGER" description="Source ID"/>
+		<column name="ammount" required="true" type="DECIMAL" size="15" scale="2" description="Ammount"/>
+
+		<foreign-key foreignTable="vialidad_contract" onDelete="cascade">
+			<reference local="contractId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="vialidad_source" onDelete="cascade">
+			<reference local="sourceId" foreign="id"/>
+		</foreign-key>
+
+	</table>
+
+
+	<table phpName="Construction" name="vialidad_construction">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
+		<column name="contractId" type="INTEGER" description="Id del contrato" />
+		<column name="description" type="LONGVARCHAR" />
+		<column name="verifierId" type="INTEGER" size="5" description="Id del verificador" />
+		<column name="region" type="VARCHAR" size="255" description="Departamentos" />
+		<column name="typeId" type="INTEGER" size="5" description="Tipo de Obra" />
+		<column name="length" type="VARCHAR" size="5" description="Longitud" />
+		<column name="lengthUnit" type="INTEGER" size="5" description="Unidad de la obra" />
+		<column name="startDate" type="DATE" description="Fecha de inicio" />
+
+		<column name="validationLength" type="INTEGER" size="5" description="Plazo de la Obra" />
+		<column name="validationType" type="INTEGER" size="2" description="Tipo de longitud de la Obra" />
+
+
+
+		<foreign-key foreignTable="vialidad_measureUnit" onDelete="cascade" >
+			<reference local="lengthUnit" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="vialidad_contract" onDelete="cascade" >
+			<reference local="contractId" foreign="id" />
+		</foreign-key>
+		
+		<foreign-key foreignTable="affiliates_affiliate" >
+			<reference local="verifierId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="vialidad_constructionType" onDelete="cascade" >
+			<reference local="typeId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="ConstructionType" name="vialidad_constructionType">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" description="Tipo de Obra" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="Department" name="vialidad_department">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" description="Departamentos" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="vialidad_constructionDepartment" phpName="ConstructionDepartment" isCrossRef="true" description="Construction / Deparment">
+
+		<column name="constructionId" required="true" primaryKey="true" type="INTEGER" description="Construction ID"/>
+		<column name="departmentId" required="true" primaryKey="true" type="INTEGER" description="Department ID"/>
+
+		<foreign-key foreignTable="vialidad_construction" onDelete="cascade">
+			<reference local="constructionId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="vialidad_department" onDelete="cascade">
+			<reference local="departmentId" foreign="id"/>
+		</foreign-key>
+
+	</table>
+
+	<table phpName="ConstructionItem" name="vialidad_constructionItem" description="Construction / Items de contruccion">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
+		<column name="code" type="VARCHAR" size="50" description="Codigo" />
+		<column name="price" type="DECIMAL" size="12" scale="2" description="Precio " />
+		<column name="quantity" type="DECIMAL" size="12" scale="2" description="Cantidad " />
+		<column name="unitId" type="INTEGER" description="Id de Unidad" />
+		<column name="constructionId" type="INTEGER" description="Id del construction" />
+		<column name="description" type="LONGVARCHAR" />
+		<column name="date" type="DATE" />
+
+		<column name="type" type="TINYINT" defaultValue="1" description="Tipo" />
+
+		<column name="class_key" type="INTEGER" inheritance="single">
+			<inheritance key="1" class="ConstructionItem"/>
+			<inheritance key="2" class="Fine" extends="ConstructionItem"/>
+			<inheritance key="3" class="DailyWork" extends="ConstructionItem"/>
+			<inheritance key="4" class="Adjustment" extends="ConstructionItem"/>
+			<inheritance key="5" class="Other" extends="ConstructionItem"/>
+		</column>
+
+		<foreign-key foreignTable="vialidad_construction" onDelete="cascade" >
+			<reference local="constructionId" foreign="id" />
+		</foreign-key>
+		
+		<foreign-key foreignTable="vialidad_measureUnit" onDelete="cascade" >
+			<reference local="unitId" foreign="id" />
+		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="ConstructionItemRelation" name="vialidad_constructionItemRelation" isCrossRef="true" description="Proporcion de Items de contruccion">
+
+		<column name="itemId" type="INTEGER" required="true" primaryKey="true" />
+		<column name="supplyId" type="INTEGER" required="true" primaryKey="true" />
+		<column name="proportion" type="DECIMAL" size="12" scale="2" description="Precio definitivo" />
+
+		<foreign-key foreignTable="vialidad_constructionItem" onDelete="cascade" >
+			<reference local="itemId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="vialidad_supply" onDelete="cascade" >
+			<reference local="supplyId" foreign="id" />
+		</foreign-key>
+
+	</table>
+    
+	<table phpName="MeasurementRecord" name="vialidad_measurementRecord" description="Actas de medicion">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="measurementDate" type="DATE" description="Fecha del acta de medicion" />
+		<column name="constructionId" type="INTEGER" description="Id del construction" />
+		<column name="code" type="VARCHAR" size="10" required="true" description="Numero de Medicion" />
+
+		<foreign-key foreignTable="vialidad_construction" onDelete="cascade" >
+			<reference local="constructionId" foreign="id" />
+		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="MeasurementRecordRelation" name="vialidad_measurementRecordRelation" description="Relacion de actas de medicion con sus items">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="itemId" type="INTEGER" required="true" />
+		<column name="measurementRecordId" type="INTEGER" required="true" />
+		<column name="quantity" type="DECIMAL" size="12" scale="2" description="Cantidad " />
+		<column name="price" type="DECIMAL" size="12" scale="2" description="Precio" />
+		<column name="verified" type="BOOLEAN" description="Indica si esta publicado" />
+		<column name="documentId" type="INTEGER" description="Documento respaldatorio" />
+		<column name="comments" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Observaciones" />
+
+		<foreign-key foreignTable="vialidad_constructionItem" onDelete="cascade" >
+			<reference local="itemId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="vialidad_measurementRecord" onDelete="cascade" >
+			<reference local="measurementRecordId" foreign="id" />
+		</foreign-key>
+        
+		<foreign-key foreignTable="documents_document">
+			<reference local="documentId" foreign="id" />
+		</foreign-key>
+
+	</table>
+    
+	<table phpName="MeasurementRecordComment" name="vialidad_measurementRecordComment" description="Comentarios a las actas de medicion">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="measurementRecordId" type="INTEGER" required="true" />
+        <column name="userId"  type="INTEGER" required="true" description="Usuario" />
+        <column name="userType" type="VARCHAR" size="50" required="true" description="Usuario" />
+        <column name="content" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Contenido del comentario" />
+
+		<behavior name="timestampable" />
+
+		<foreign-key foreignTable="vialidad_measurementRecord" onDelete="cascade" >
+			<reference local="measurementRecordId" foreign="id" />
+		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+    
+	<table phpName="Certificate" name="vialidad_certificate" description="Certificados de obra">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="measurementRecordId" type="INTEGER" required="true" />
+		<column name="totalPrice" type="DECIMAL" size="12" scale="2" description="Precio" />
+		<column name="status" type="INTEGER"  description="Estado del certificado" />
+
+		<behavior name="timestampable" />
+
+		<foreign-key foreignTable="vialidad_measurementRecord" onDelete="cascade" >
+			<reference local="measurementRecordId" foreign="id" />
+		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="Currency" name="vialidad_currency" description="Base de datos de monedas">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="code" type="VARCHAR" size="50" description="Codigo de la moneda" primaryString="true" />
+		<column name="name" type="VARCHAR" size="255" required="true" />
+
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+	</table>
+	<table phpName="ContractAmount" name="vialidad_contractAmount" description="Montos Originales y Modificatorios de Contratos">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="contractId" type="INTEGER" required="true" />
+		<column name="currencyId" type="INTEGER" required="true" />
+		<column name="amount" type="DECIMAL" size="15" scale="2" description="Monto" />
+		<column name="paripassu" type="DECIMAL" size="15" scale="2" description="Pari Pasu" />
+		<column name="exchangeRate" type="DECIMAL" size="15" scale="2" description="Tasa de Cambio" />
+		<column name="date" type="DATE" description="Fecha" />
+		<column name="amountType" type="BOOLEAN" description="Monto Original o Modificatorio" />
+
+		<foreign-key foreignTable="vialidad_currency" onDelete="cascade" >
+			<reference local="currencyId" foreign="id" />
+		</foreign-key>
+		
+		<foreign-key foreignTable="vialidad_contract" onDelete="cascade" >
+			<reference local="contractId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+	</table>
+
+	<table phpName="MeasureUnit" name="vialidad_measureUnit" description="Base de datos de unidades de medida">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="code" type="VARCHAR" size="50" description="Codigo de la unidad" primaryString="true" />
+		<column name="name" type="VARCHAR" size="255" required="true" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>

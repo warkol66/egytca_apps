@@ -157,7 +157,7 @@ function updateUnit(id, value) {
 			method: 'post',
 			parameters: {
 				id: id,
-				paramName: 'unit',
+				paramName: 'unitId',
 				paramValue: value
 			}
 		}

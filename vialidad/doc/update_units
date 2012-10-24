@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+
+<?php
+
+	//completar con los datos de la base que correspondan
+	$con = mysql_connect("localhost","user","pass");
+	
+	if (!$con){
+	  die('Could not connect: ' . mysql_error());
+	}
+
+	//seleccionar la base de datos (por defecto vialidad)
+	mysql_select_db("vialidad", $con);
+	
+	mysql_query("UPDATE vialidad_supply, vialidad_measureUnit SET vialidad_supply.unitId=vialidad_measureUnit.id WHERE vialidad_supply.unit=vialidad_measureUnit.code;");
+	mysql_query("UPDATE vialidad_constructionItem, vialidad_measureUnit SET vialidad_constructionItem.unitId=vialidad_measureUnit.id WHERE vialidad_constructionItem.unit=vialidad_measureUnit.code;");
+
+	mysql_close($con);
+
+?>
