@@ -159,7 +159,7 @@ function updateUnit(id, value) {
 			method: 'post',
 			parameters: {
 				id: id,
-				paramName: 'unit',
+				paramName: 'unitId',
 				paramValue: value
 			}
 		}
@@ -251,7 +251,7 @@ function attachUnitInPlaceEditors() {
 			cancelControl: 'button',
 			savingClassName: 'inProgress',
 			callback: function(form, value) {
-				return 'id=|-$supply->getId()-|&mUnit=|-$supply->getMeasureUnit()-|&paramName=unitId&paramValue='
+				return 'id=|-$supply->getId()-|&paramName=unitId&paramValue='
 					+ encodeURIComponent(clean(value));
 			},
 			onFormReady: function(obj,form) {

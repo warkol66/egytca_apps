@@ -33,7 +33,14 @@ class VialidadSupplyEditFieldXAction extends BaseAction {
 		}
 		
 		if (!empty($_POST['paramName'])) {
-			$smarty->assign("paramValue", $supply->getByName($_POST['paramName'], BasePeer::TYPE_FIELDNAME));
+			
+			if($_POST['paramName'] == 'unitId'){
+				$smarty->assign("paramValue", $supply->getMeasureUnit());
+			}else{
+				$smarty->assign("paramValue", $supply->getByName($_POST['paramName'], BasePeer::TYPE_FIELDNAME));
+			}
+			
+			
 		}
 		
 		return $mapping->findForwardConfig('success');
