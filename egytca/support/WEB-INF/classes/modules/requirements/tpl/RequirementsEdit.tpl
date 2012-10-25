@@ -4,7 +4,7 @@
 <script language="JavaScript" type="text/javascript">
 function requirementsDoAddDevelopment(form) {
 	var fields = Form.serialize(form);
-	var pars = 'RequirementsDoAddToDevelopmentX';
+	//var pars = 'RequirementsDoAddToDevelopmentX';
 	var myAjax = new Ajax.Updater(
 				{success: 'developmentsList'},
 				url,
@@ -67,28 +67,38 @@ function requirementsDoAddDevelopment(form) {
 		</p>
     </fieldset> 
   </form> 
-  |-if $action eq "edit"-|
-	
+  |-if !$requirement->isNew()-|
+  
 	<fieldset title="Asociar Desarrollo">
-		<form method="post">
-			<legend>Asociar Desarrollo</legend>
+		<legend>Asociar Desarrollo</legend>
+		<form method="post" action="Main.php">	
 			<div id="developmentMsgField"> <span id="developmentMsgField"></span> 
 			<p>Seleccione un desarrollo para asociar</p>
 			<p>
 				<select id="developmentId" name="developmentId" title="developmentId">
 					<option value="">Seleccione un desarrollo</option>
 					|-foreach from=$developments item=development name=for_development-|
-					<option id="developmentOption|-$development->getId()-|" name="development" value="|-$development->getId()-|">|-$development->getName()-|</option>
+						|-if $development->getId() != $requirement->getDevelopmentid()-|
+						<option id="developmentOption|-$development->getId()-|" name="development" value="|-$development->getId()-|">|-$development->getName()-|</option>
+						|-/if-|
 					|-/foreach-|
 				</select>
 			</p>
+			<input type="hidden" name="do" id="do" value="RequirementsDoAddToDevelopmentX" />
 			<input type="hidden" name="developmentId" id="developmentId" value="|-$development->getId()-|" />
 			<input type="hidden" name="requirementId" id="requirementId" value="|-$requirement->getId()-|" />
 			<input type="button" value="Asociar desarrollo" onClick="javascript:requirementsDoAddDevelopment(this.form)"/> 
-		</form> 
-			<ul id="developmentsList" class="iconOptionsList">
-				<li id="developmentsListItem|-$requirement->getDevelopmentid()-|">|-$requirement->getDevelopmentid()-|</li> 
-		</ul> 
+		</form>
+		<br /><br />
+		<!--ul id="developmentsList" class="iconOptionsList">
+			<li id="developmentsListItem|-$requirement->getDevelopmentid()-|">|-$requirement->getDevelopment()-|
+				<form  method="post">
+					<input type="hidden" name="do" id="do" value="requirementsDoRemoveDevelopmentX" />
+					<input type="hidden" name="developmentId"  value="|-$development->getId()-|" />			
+					<input type="button" value="Eliminar" onClick="javascript:requirementsDoRemoveDevelopment(this.form)" class="icon iconDelete" />
+				</form>
+			</li> 
+		</ul--> 
 	</fieldset>
   
 	<form method="post">
