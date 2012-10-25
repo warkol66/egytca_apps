@@ -2,7 +2,7 @@
 |-if !$notValidId || is_object($requirement)-|
 <h1>Administración de Desarrollos - |-if !$development->isNew()-|Editar|-else-|Crear|-/if-| Desarrollos</h1>
 <script language="JavaScript" type="text/javascript">
-function attendantsDoAddToDevelopment(form) {
+function RequirementsDevelopmentsDoAddAttendant(form) {
 	var fields = Form.serialize(form);
 	var pars = 'do=requirementsDevelopmentsDoAddAttendantX';
 	var myAjax = new Ajax.Updater(
@@ -115,12 +115,12 @@ function attendantsDoDeleteFromDevelopment(form){
 		<p>|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
 			<input type='button' onClick='location.href="Main.php?do=requirementsDevelopmentsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Desarrollos"/>
 		</p>
-    </fieldset> 
-  </form> 
-	|-if $action eq "edit"-|
-	<form method="post">
-		<fieldset title="Asignación de Recursos">
-			<legend>Asignación de Recursos</legend>
+		</fieldset> 
+	</form> 
+	|-if !$development->isNew()-|
+	<fieldset title="Asignación de Recursos">
+		<legend>Asignación de Recursos</legend>
+			<form method="post">
 			<div id="attendantsMsgField"> <span id="attendantsMsgField"></span> 
 			<p>Seleccione los recursos para el desarrollo</p>
 			<p>
@@ -133,12 +133,12 @@ function attendantsDoDeleteFromDevelopment(form){
 			</p>	
 			<input type="hidden" name="entityId" id="entityId" value="|-$development->getId()-|" />
 			<input type="hidden" name="entityType" id="entityType" value="development" />
-			<input type="button" value="Agregar recurso" onClick="javascript:attendantsDoAddToDevelopment(this.form)"/> 
+			<input type="button" value="Agregar recurso" onClick="javascript:RequirementsDevelopmentsDoAddAttendant(this.form)"/> 
 			
 			<!--ul id="attendantsList" class="iconOptionsList">
 			</ul-->
-		</fieldset>
-	</form> 
+		</form> 	
+	</fieldset>
 	<ul id="groupList" class="iconOptionsList">
 	</ul> 
 	|-/if-|
