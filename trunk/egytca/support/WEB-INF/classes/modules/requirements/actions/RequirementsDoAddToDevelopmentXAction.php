@@ -30,8 +30,6 @@ class RequirementsDoAddToDevelopmentXAction extends BaseAction {
 				if($this->entity->setDevelopmentid($_POST["developmentId"])->save() ){
 				
 					$this->smarty->assign('development',$assoc_dev);
-					//echo "Saved";
-					//$this->smarty->assign()
 				}	
 			}	
 		}

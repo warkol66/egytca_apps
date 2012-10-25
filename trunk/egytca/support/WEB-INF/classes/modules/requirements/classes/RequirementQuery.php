@@ -13,6 +13,24 @@
  *
  * @package    propel.generator.requirements.classes
  */
-class RequirementQuery extends BaseRequirementQuery
-{
+class RequirementQuery extends BaseRequirementQuery{
+	
+	function addDevelopmentToRequirement($requirementId,$developmentId) {
+		try {
+			$dev = DevelopmentQuery::create()->findOneById($developmentId);
+			
+			if(!empty($dev)){
+				$req = RequirementQuery::create()->findOneById($requirementId);
+				$req->setDevelopmentId($developmentId);
+				$req->save();
+				return true;
+			}
+			return false;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
+	}
 }

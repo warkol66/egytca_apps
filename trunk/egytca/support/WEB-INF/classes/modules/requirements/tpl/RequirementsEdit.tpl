@@ -17,6 +17,34 @@ function requirementsDoAddDevelopment(form) {
 	$('developmentMsgField').innerHTML = '<span class="inProgress">asociando desarrollo...</span>';
 	return true;
 }
+function requirementsDoDeleteDevelopment(form){
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'developmentMsgField'},
+				url,
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true
+				});
+	$('developmentMsgField').innerHTML = '<span class="inProgress">eliminando usuario de grupo...</span>';
+	return true;
+}
+function requirementsDoAddAffiliate(form){
+	var fields = Form.serialize(form);
+	//var pars = 'RequirementsDoAddToDevelopmentX';
+	var myAjax = new Ajax.Updater(
+				{success: 'developmentsList'},
+				url,
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true,
+					insertion: Insertion.Bottom
+				});
+	$('developmentMsgField').innerHTML = '<span class="inProgress">asociando desarrollo...</span>';
+	return true;
+}
 </script>
 <p class='paragraphEdit'>A continuación se puede modificar los datos que definen el Requerimiento.</p>
 <div id="div_requirement"> 
@@ -69,6 +97,33 @@ function requirementsDoAddDevelopment(form) {
   </form> 
   |-if !$requirement->isNew()-|
   
+	<fieldset title="Asociar Cliente">
+		<legend>Asociar Cliente</legend>
+		|-assign var="client" value=$requirement->getClientid()-|
+		|-if empty($client)-|
+		<form method="post" action="Main.php">	
+			<div id="affiliateMsgField"> <span id="affiliateMsgField"></span> 
+			<p>Seleccione un cliente</p>
+			<p>
+				<select id="affiliateId" name="affiliateId" title="affiliateId">
+					<option value="">Seleccione un cliente</option>
+					|-foreach from=$affiliates item=affiliate name=for_affiliate-|
+						|-if $affiliate->getId() != $requirement->getClientid()-|
+						<option id="affiliateOption|-$affiliate->getId()-|" name="affiliate" value="|-$affiliate->getId()-|">|-$affiliate->getName()-|</option>
+						|-/if-|
+					|-/foreach-|
+				</select>
+			</p>
+			<input type="hidden" name="do" id="do" value="RequirementsDoAddAffiliateX" />
+			<input type="hidden" name="affiliateId" id="affiliateId" value="|-$affiliate->getId()-|" />
+			<input type="hidden" name="requirementId" id="requirementId" value="|-$requirement->getId()-|" />
+			<input type="button" value="Asociar cliente" onClick="javascript:requirementsDoAddAffiliate(this.form)"/> 
+		</form>
+		|-/if-|
+		<!--else mostrar el nombre del cliente con las opciones para eliminarlo-->
+		<br /><br />
+	</fieldset>
+  
 	<fieldset title="Asociar Desarrollo">
 		<legend>Asociar Desarrollo</legend>
 		<form method="post" action="Main.php">	
@@ -90,19 +145,19 @@ function requirementsDoAddDevelopment(form) {
 			<input type="button" value="Asociar desarrollo" onClick="javascript:requirementsDoAddDevelopment(this.form)"/> 
 		</form>
 		<br /><br />
-		<!--ul id="developmentsList" class="iconOptionsList">
+		<ul id="developmentsList" class="iconOptionsList">
 			<li id="developmentsListItem|-$requirement->getDevelopmentid()-|">|-$requirement->getDevelopment()-|
 				<form  method="post">
-					<input type="hidden" name="do" id="do" value="requirementsDoRemoveDevelopmentX" />
+					<input type="hidden" name="do" id="do" value="requirementsDoDeleteDevelopmentX" />
 					<input type="hidden" name="developmentId"  value="|-$development->getId()-|" />			
-					<input type="button" value="Eliminar" onClick="javascript:requirementsDoRemoveDevelopment(this.form)" class="icon iconDelete" />
+					<input type="button" value="Eliminar" onClick="javascript:requirementsDoDeleteDevelopment(this.form)" class="icon iconDelete" />
 				</form>
 			</li> 
-		</ul--> 
+		</ul>
 	</fieldset>
   
-	<form method="post">
-		<fieldset title="Asignación de Recursos">
+	<!--fieldset title="Asignación de Recursos">
+		<form method="post">
 			<legend>Asignación de Recursos</legend>
 			<div id="attendantsMsgField"> <span id="attendantsMsgField"></span> 
 			<p>Seleccione los recursos para el requerimiento</p>
@@ -118,11 +173,12 @@ function requirementsDoAddDevelopment(form) {
 			<input type="hidden" name="entityId" id="entityId" value="|-$requirement->getId()-|" />
 			<input type="hidden" name="entityType" id="entityType" value="requirement" />
 			<input type="button" value="Agregar recurso" onClick="javascript:requirementsDoAddToRequirement(this.form)"/> 
-		</fieldset>
-	</form> 
+		</form>
+	</fieldset>
+	 
 	
 	<ul id="groupList" class="iconOptionsList">
-	</ul> 
+	</ul--> 
 	
 	|-/if-|
 </div> 
