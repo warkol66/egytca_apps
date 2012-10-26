@@ -34,7 +34,7 @@ function requirementsDoAddAffiliate(form){
 	var fields = Form.serialize(form);
 	//var pars = 'RequirementsDoAddToDevelopmentX';
 	var myAjax = new Ajax.Updater(
-				{success: 'developmentsList'},
+				{success: 'affiliatesList'},
 				url,
 				{
 					method: 'post',
@@ -42,7 +42,7 @@ function requirementsDoAddAffiliate(form){
 					evalScripts: true,
 					insertion: Insertion.Bottom
 				});
-	$('developmentMsgField').innerHTML = '<span class="inProgress">asociando desarrollo...</span>';
+	$('affiliateMsgField').innerHTML = '<span class="inProgress">asociando cliente...</span>';
 	return true;
 }
 </script>
@@ -114,8 +114,7 @@ function requirementsDoAddAffiliate(form){
 					|-/foreach-|
 				</select>
 			</p>
-			<input type="hidden" name="do" id="do" value="RequirementsDoAddAffiliateX" />
-			<input type="hidden" name="affiliateId" id="affiliateId" value="|-$affiliate->getId()-|" />
+			<input type="hidden" name="do" id="do" value="requirementsDoAddAffiliateX" />
 			<input type="hidden" name="requirementId" id="requirementId" value="|-$requirement->getId()-|" />
 			<input type="button" value="Asociar cliente" onClick="javascript:requirementsDoAddAffiliate(this.form)"/> 
 		</form>
@@ -139,7 +138,7 @@ function requirementsDoAddAffiliate(form){
 					|-/foreach-|
 				</select>
 			</p>
-			<input type="hidden" name="do" id="do" value="RequirementsDoAddToDevelopmentX" />
+			<input type="hidden" name="do" id="do" value="requirementsDoAddToDevelopmentX" />
 			<input type="hidden" name="developmentId" id="developmentId" value="|-$development->getId()-|" />
 			<input type="hidden" name="requirementId" id="requirementId" value="|-$requirement->getId()-|" />
 			<input type="button" value="Asociar desarrollo" onClick="javascript:requirementsDoAddDevelopment(this.form)"/> 
