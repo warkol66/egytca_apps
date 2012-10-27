@@ -7,15 +7,18 @@
  */
 require_once 'BaseDoDeleteAction.php';
 
-class requirementsDoDeleteDevelopmentXAction extends BaseDoDeleteAction {
+class requirementsDoDeleteDevelopmentXAction extends BaseDoEditAction {
 	
 	function __construct() {
 		parent::__construct('Requirement');
 	}
 	
-	function postDelete(){
-		parent::postDelete();
+	function postEdit(){
+		parent::postEdit();
+	
+		/*$requirement = RequirementQuery::create()->findOneById($_POST["requirementId"]);
+		$requirement->setDevelopmentid("NULL")->save();
 		
-		}
+		$this->smarty->assign("requirement",$requirement);*/
 	}
 }
