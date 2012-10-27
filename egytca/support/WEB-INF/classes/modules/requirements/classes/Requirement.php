@@ -15,5 +15,6 @@
  */
 class Requirement extends BaseRequirement{
 	
+	//metodo parecido al add
 	
 }

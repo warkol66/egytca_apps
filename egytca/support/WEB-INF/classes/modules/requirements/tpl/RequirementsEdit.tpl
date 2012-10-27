@@ -115,12 +115,20 @@ function requirementsDoAddAffiliate(form){
 				</select>
 			</p>
 			<input type="hidden" name="do" id="do" value="requirementsDoAddAffiliateX" />
-			<input type="hidden" name="requirementId" id="requirementId" value="|-$requirement->getId()-|" />
+			<input type="hidden" name="id" id="id" value="|-$requirement->getId()-|" />
 			<input type="button" value="Asociar cliente" onClick="javascript:requirementsDoAddAffiliate(this.form)"/> 
 		</form>
+		|-else-|
+		<ul id="affiliatesList" class="iconOptionsList">
+			<li id="affiliatesListItem|-$requirement->getClientid()-|">|-$requirement->getAffiliate()-|
+				<form  method="post">
+					<input type="hidden" name="do" id="do" value="requirementsDoDeleteAffiliateX" />
+					<input type="hidden" name="requirementId" id="requirementId" value="|-$requirement->getId()-|" />		
+					<input type="button" value="Eliminar" onClick="javascript:requirementsDoDeleteAffiliate(this.form)" class="icon iconDelete" />
+				</form>
+			</li>
+		</ul>
 		|-/if-|
-		<!--else mostrar el nombre del cliente con las opciones para eliminarlo-->
-		<br /><br />
 	</fieldset>
   
 	<fieldset title="Asociar Desarrollo">
@@ -143,12 +151,14 @@ function requirementsDoAddAffiliate(form){
 			<input type="hidden" name="requirementId" id="requirementId" value="|-$requirement->getId()-|" />
 			<input type="button" value="Asociar desarrollo" onClick="javascript:requirementsDoAddDevelopment(this.form)"/> 
 		</form>
+		|-assign var="dev" value=$requirement->getDevelopmentid()-|
 		<br /><br />
 		<ul id="developmentsList" class="iconOptionsList">
 			<li id="developmentsListItem|-$requirement->getDevelopmentid()-|">|-$requirement->getDevelopment()-|
 				<form  method="post">
 					<input type="hidden" name="do" id="do" value="requirementsDoDeleteDevelopmentX" />
-					<input type="hidden" name="developmentId"  value="|-$development->getId()-|" />			
+					<input type="hidden" name="developmentId"  value="|-$development->getId()-|" />
+					<input type="hidden" name="requirementId" id="requirementId" value="|-$requirement->getId()-|" />		
 					<input type="button" value="Eliminar" onClick="javascript:requirementsDoDeleteDevelopment(this.form)" class="icon iconDelete" />
 				</form>
 			</li> 
