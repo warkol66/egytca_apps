@@ -2,7 +2,7 @@
 |-if !$notValidId || is_object($requirement)-|
 <h1>Administración de Desarrollos - |-if !$development->isNew()-|Editar|-else-|Crear|-/if-| Desarrollos</h1>
 <script language="JavaScript" type="text/javascript">
-function requirementsDevelopmentsDoAddAttendant(form) {
+function developmentsDoAddAttendant(form) {
 	var fields = Form.serialize(form);
 	var myAjax = new Ajax.Updater(
 				{success: 'attendantsList'},
@@ -174,12 +174,20 @@ function developmentsDoAddAffiliate(form) {
 						<option id="attendantOption|-$attendant->getId()-|" name="attendantId" value="|-$attendant->getId()-|">|-$attendant->getName()-|</option>
 						|-/foreach-|
 					</select>
-				</p>	
-				<input type="hidden" name="entityId" id="entityId" value="|-$development->getId()-|" />
+				</p>
+				<input type="hidden" name="do" id="do" value="requirementsDevelopmentsDoAddAttendantX" />	
+				<input type="hidden" name="id" id="id" value="|-$development->getId()-|" />
 				<input type="hidden" name="entityType" id="entityType" value="development" />
-				<input type="button" value="Agregar recurso" onClick="javascript:RequirementsDevelopmentsDoAddAttendant(this.form)"/> 
+				<input type="button" value="Agregar recurso" onClick="javascript:developmentsDoAddAttendant(this.form)"/> 
 			</form>
 			<ul id="attendantsList" class="iconOptionsList">
+				<!--li id="attendantsListItem|-$development->getClientid()-|">|-$development->getAffiliate()-|
+					<form  method="post">
+						<input type="hidden" name="do" id="do" value="requirementsDevelopmentsDoDeleteAffiliateX" />
+						<input type="hidden" name="id" id="id" value="|-$development->getId()-|" />		
+						<input type="button" value="Eliminar" onClick="javascript:developmentsDoDeleteAffiliate(this.form)" class="icon iconDelete" />
+					</form>
+				</li-->
 			</ul>
 		</div>  	
 	</fieldset>

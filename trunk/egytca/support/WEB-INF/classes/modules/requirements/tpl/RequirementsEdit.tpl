@@ -4,7 +4,6 @@
 <script language="JavaScript" type="text/javascript">
 function requirementsDoAddDevelopment(form) {
 	var fields = Form.serialize(form);
-	//var pars = 'RequirementsDoAddToDevelopmentX';
 	var myAjax = new Ajax.Updater(
 				{success: 'developmentsList'},
 				url,
@@ -32,7 +31,6 @@ function requirementsDoDeleteDevelopment(form){
 }
 function requirementsDoAddAffiliate(form){
 	var fields = Form.serialize(form);
-	//var pars = 'RequirementsDoAddToDevelopmentX';
 	var myAjax = new Ajax.Updater(
 				{success: 'affiliatesList'},
 				url,
@@ -154,7 +152,7 @@ function requirementsDoAddAffiliate(form){
 				<li id="developmentsListItem|-$requirement->getDevelopmentid()-|">|-$requirement->getDevelopment()-|
 					<form  method="post">
 						<input type="hidden" name="do" id="do" value="requirementsDoDeleteDevelopmentX" />
-						<input type="hidden" name="developmentId"  value="|-$development->getId()-|" />
+						<input type="hidden" name="developmentId"  value="|-$requirement->getDevelopmentid()-|" />
 						<input type="hidden" name="requirementId" id="requirementId" value="|-$requirement->getId()-|" />		
 						<input type="button" value="Eliminar" onClick="javascript:requirementsDoDeleteDevelopment(this.form)" class="icon iconDelete" />
 					</form>
@@ -183,10 +181,10 @@ function requirementsDoAddAffiliate(form){
 			<input type="button" value="Agregar recurso" onClick="javascript:requirementsDoAddToRequirement(this.form)"/> 
 		</form>
 		<ul id="groupList" class="iconOptionsList">
-		</ul--> 
-	</fieldset>
+		</ul> 
+	</fieldset-->
 	|-/if-|
-</div> 
+</div>
 |-else-|
 	<h1>Administración de Objetivos Operativos</h1>
 	<div class="errorMessage">El identificador del objetivo ingresado no es válido. Seleccione un objetivo de la lista.</div>

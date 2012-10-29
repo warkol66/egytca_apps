@@ -1,9 +1,9 @@
 <?php
 /** 
- * UsersDoAddToGroupXAction
+ * RequirementsDevelopmentsDoAddAffiliateXAction
  *
- * @package users 
- * @subpackage groups 
+ * @package requirements
+ * @subpackage developments
  */
 
 class RequirementsDevelopmentsDoAddAffiliateXAction extends BaseDoEditAction {
