@@ -12,7 +12,7 @@
 	|-* --------------------------- *-|
 	
 	|-* estos no los usa el fullCalendar pero según la documentación se pueden agregar que no los toca *-|
-	"body": "|-$event->getBody()|escape:'double_quotes'-|",
+	"body": "|-$event->getBody()|escape:'double_quotes'|nl2br|strip-|",
 	"creationDate": "|-$event->getCreationDate("%Y/%m/%d %H:%M")-|",
 	"street": "|-$event->getStreet()|escape:'double_quotes'-|",
 	"number": "|-$event->getNumber()-|",
@@ -25,7 +25,7 @@
 	"scheduleStatus": "|-$event->getScheduleStatus()-|",
 	"campaignCommitment": |-if $event->getCampaignCommitment()-|true|-else-|false|-/if-|,
 	"nonpublic": |-json_encode($event->getNonPublic())-|,
-	"comments": "|-$event->getComments()|escape:'double_quotes'-|",
+	"comments": "|-$event->getComments()|escape:'double_quotes'|nl2br|strip-|",
 	"regionsIds":
 		[
 			|-foreach from=$event->getRegions() item=region-|

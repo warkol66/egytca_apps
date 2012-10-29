@@ -9,6 +9,6 @@
 	"editable": false, |-* esto se modifica segun el permiso del usuario, si tien permiso para modificar se pone true *-|
 	
 	|-* estos no los usa el fullCalendar pero según la documentación se pueden agregar que no los toca *-|
-	"body": "|-$holiday->getBody()-|",
+	"body": "|-$holiday->getBody()|nl2br|strip-|",
 	"creationDate": "|-$holiday->getCreationDate("%Y/%m/%d %H:%M")-|"
 }
