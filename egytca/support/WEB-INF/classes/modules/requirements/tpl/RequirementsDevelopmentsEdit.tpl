@@ -114,6 +114,16 @@ function developmentsDoAddAffiliate(form) {
 		<label for="params_quotation">Cotización</label>
 		<input name="params[quotation]" id="params_quotation" value="|-$development->getQuotation()-|" title="Cotización" class="numericValidation"></input> |-validation_msg_box idField="params_quotation"-|
     </p>
+    
+    <p>Seleccione un cliente</p>
+	<p>
+		<select name='params[clientId]'>
+			<option value="">Seleccione un cliente</option>
+			|-foreach from=$affiliates item=affiliate name=for_affiliate-|
+			<option value="|-$affiliate->getId()-|" |-if $affiliate->getId() eq $development->getClientid()-| selected="selected"|-/if-|>|-$affiliate->getName()-|</option>
+			|-/foreach-|
+		</select>
+	</p>
      
 	<input type="hidden" name="clientId" id="clientId" value="|-$development->getClientId()-|" /> 
 	|-if !$development->isNew()-|
@@ -129,38 +139,6 @@ function developmentsDoAddAffiliate(form) {
 		</fieldset> 
 	</form> 
 	|-if !$development->isNew()-|
-	<fieldset title="Asignación de Cliente">
-		<legend>Asignación de Cliente</legend>
-		<div id="affiliatesMsgField"> <span id="affiliatesMsgField"></span> 
-			|-assign var="client" value=$development->getClientid()-|
-			|-if empty($client)-|
-			<form method="post">
-				<p>Seleccione un cliente</p>
-				<p>
-					<select id="affiliateId" name="affiliateId" title="affiliateId">
-						<option value="">Seleccione un cliente</option>
-						|-foreach from=$affiliates item=affiliate name=for_affiliate-|
-						<option id="affiliateOption|-$affiliate->getId()-|" name="affiliateId" value="|-$affiliate->getId()-|">|-$affiliate->getName()-|</option>
-						|-/foreach-|
-					</select>
-				</p>
-				<input type="hidden" name="do" id="do" value="requirementsDevelopmentsDoAddAffiliateX" />
-				<input type="hidden" name="id" id="id" value="|-$development->getId()-|" />
-				<input type="button" value="Asociar cliente" onClick="javascript:developmentsDoAddAffiliate(this.form)"/> 
-			</form>
-			|-else-|
-			<ul id="affiliatesList" class="iconOptionsList">
-				<li id="affiliatesListItem|-$development->getClientid()-|">|-$development->getAffiliate()-|
-					<form  method="post">
-						<input type="hidden" name="do" id="do" value="requirementsDevelopmentsDoDeleteAffiliateX" />
-						<input type="hidden" name="id" id="id" value="|-$development->getId()-|" />		
-						<input type="button" value="Eliminar" onClick="javascript:developmentsDoDeleteAffiliate(this.form)" class="icon iconDelete" />
-					</form>
-				</li>
-			</ul>
-			|-/if-|
-		</div>	
-	</fieldset>
 	
 	<fieldset title="Asignación de Recursos">
 		<legend>Asignación de Recursos</legend>

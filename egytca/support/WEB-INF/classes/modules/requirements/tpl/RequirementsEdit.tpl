@@ -81,6 +81,32 @@ function requirementsDoAddAffiliate(form){
       <label for="params_other">Otras informaciones importantes: (Agregue a continuación otra información que considere importante para el proceso.)</label>
       <textarea name="params[other]" cols="74" rows="8" wrap="VIRTUAL" id="params_other" type="text" title="Descripción del Requerimiento" |-$readonly|readonly-|>|-$requirement->getOther()|escape-|</textarea> |-validation_msg_box idField="params_other"-|
     </p> 
+    
+	<p>Seleccione un desarrollo para asociar</p>
+	<p>
+		<select name='params[developmentId]'>
+			<option value="">Seleccione un desarrollo</option>
+			|-foreach from=$developments item=development name=for_development-|
+			<option value="|-$development->getId()-|" |-if $development->getId() eq $requirement->getDevelopmentid()-| selected="selected"|-/if-|>|-$development->getName()-|</option>
+			|-/foreach-|
+		</select>
+	</p>
+	|-assign var="dev" value=$requirement->getDevelopment()-|
+	|-if empty($dev)-|
+	<p>Seleccione un cliente</p>
+	<p>
+		<select name='params[clientId]'>
+			<option value="">Seleccione un cliente</option>
+			|-foreach from=$affiliates item=affiliate name=for_affiliate-|
+			<option value="|-$affiliate->getId()-|" |-if $affiliate->getId() eq $requirement->getClientid()-| selected="selected"|-/if-|>|-$affiliate->getName()-|</option>
+			|-/foreach-|
+		</select>
+	</p>
+	|-else-|
+	|-assign var="cli" value=$requirement->getAffiliate()-|
+	<p>Cliente Asociado: |-$cli-|</p>
+	|-/if-|
+		
    |-if !$requirement->isNew()-|
     <input type="hidden" name="id" id="id" value="|-$requirement->getId()-|" /> 
     |-/if-|
@@ -94,73 +120,6 @@ function requirementsDoAddAffiliate(form){
     </fieldset> 
   </form> 
   |-if !$requirement->isNew()-|
-	<fieldset title="Asociar Cliente">
-		<legend>Asociar Cliente</legend>
-		<div id="affiliateMsgField"> <span id="affiliateMsgField"></span> 
-			|-assign var="client" value=$requirement->getClientid()-|
-			|-if empty($client)-|
-			<form method="post" action="Main.php">
-				<p>Seleccione un cliente</p>
-				<p>
-					<select id="affiliateId" name="affiliateId" title="affiliateId">
-						<option value="">Seleccione un cliente</option>
-						|-foreach from=$affiliates item=affiliate name=for_affiliate-|
-						<option id="affiliateOption|-$affiliate->getId()-|" name="affiliate" value="|-$affiliate->getId()-|">|-$affiliate->getName()-|</option>
-						|-/foreach-|
-					</select>
-				</p>
-				<input type="hidden" name="do" id="do" value="requirementsDoAddAffiliateX" />
-				<input type="hidden" name="id" id="id" value="|-$requirement->getId()-|" />
-				<input type="button" value="Asociar cliente" onClick="javascript:requirementsDoAddAffiliate(this.form)"/> 
-			</form>
-			|-else-|
-			<ul id="affiliatesList" class="iconOptionsList">
-				<li id="affiliatesListItem|-$requirement->getClientid()-|">|-$requirement->getAffiliate()-|
-					<form  method="post">
-						<input type="hidden" name="do" id="do" value="requirementsDoDeleteAffiliateX" />
-						<input type="hidden" name="requirementId" id="requirementId" value="|-$requirement->getId()-|" />		
-						<input type="button" value="Eliminar" onClick="javascript:requirementsDoDeleteAffiliate(this.form)" class="icon iconDelete" />
-					</form>
-				</li>
-			</ul>
-		</div>
-		|-/if-|
-	</fieldset>
-  
-	<fieldset title="Asociar Desarrollo">
-		<legend>Asociar Desarrollo</legend>
-		<div id="developmentMsgField"> <span id="developmentMsgField"></span>
-		|-assign var="dev" value=$requirement->getDevelopmentid()-|
-		|-if empty($dev)-|
-			<form method="post" action="Main.php">	 
-				<p>Seleccione un desarrollo para asociar</p>
-				<p>
-					<select id="developmentId" name="developmentId" title="developmentId">
-						<option value="">Seleccione un desarrollo</option>
-						|-foreach from=$developments item=development name=for_development-|
-						<option id="developmentOption|-$development->getId()-|" name="development" value="|-$development->getId()-|">|-$development->getName()-|</option>
-						|-/foreach-|
-					</select>
-				</p>
-				<input type="hidden" name="do" id="do" value="requirementsDoAddToDevelopmentX" />
-				<input type="hidden" name="developmentId" id="developmentId" value="|-$development->getId()-|" />
-				<input type="hidden" name="id" id="id" value="|-$requirement->getId()-|" />
-				<input type="button" value="Asociar desarrollo" onClick="javascript:requirementsDoAddDevelopment(this.form)"/> 
-			</form>
-		|-else-|
-			<ul id="developmentsList" class="iconOptionsList">
-				<li id="developmentsListItem|-$requirement->getDevelopmentid()-|">|-$requirement->getDevelopment()-|
-					<form  method="post">
-						<input type="hidden" name="do" id="do" value="requirementsDoDeleteDevelopmentX" />
-						<input type="hidden" name="developmentId"  value="|-$requirement->getDevelopmentid()-|" />
-						<input type="hidden" name="requirementId" id="requirementId" value="|-$requirement->getId()-|" />		
-						<input type="button" value="Eliminar" onClick="javascript:requirementsDoDeleteDevelopment(this.form)" class="icon iconDelete" />
-					</form>
-				</li> 
-			</ul>
-		|-/if-|
-		</div>
-	</fieldset>
   
 	<!--fieldset title="Asignación de Recursos">
 		<form method="post">
