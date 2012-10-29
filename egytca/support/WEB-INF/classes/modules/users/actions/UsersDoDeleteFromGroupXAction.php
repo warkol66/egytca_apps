@@ -39,7 +39,7 @@ class UsersDoDeleteFromGroupXAction extends BaseAction {
 		if ( !empty($_POST["groupId"]) && !empty($_POST["userId"]) ) {
 			if ( $userPeer->removeUserFromGroup($_POST["userId"],$_POST["groupId"]) ) {
 				return $mapping->findForwardConfig('success');
-		 }
+			}
 		}
 		
 		$smarty->assign('errorTagId','groupMsgField');

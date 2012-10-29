@@ -8,7 +8,31 @@
 
 class RequirementsDevelopmentsDoAddAttendantXAction extends BaseAction {
 
-	function RequirementsDevelopmentsDoAddAttendantXAction() {
+	public function __construct() {
+		parent::__construct('Development');
+	}
+	
+	protected function preUpdate() {
+		parent::preUpdate();
+		
+	}
+	
+	protected function postUpdate() {
+		parent::postUpdate();
+		
+		if(!empty($_POST["attendantId"]) && !empty($_POST["id"]) && !empty($_POST["entityType"])){
+			
+			$attendant = new Attendant;
+			$attendant->setAttendantid($_POST["attendantId"]);
+			$attendant->setEntityid($_POST["id"]);
+			$attendant->setEntitytype($_POST["entityType"]);
+			$attendant->save();
+		}
+		
+		$this->smarty->assign("attendant", $attendant);
+	}
+
+	/*function RequirementsDevelopmentsDoAddAttendantXAction() {
 		;
 	}
 
@@ -50,6 +74,6 @@ class RequirementsDevelopmentsDoAddAttendantXAction extends BaseAction {
 		//return $mapping->findForwardConfig('success');
 		return $mapping->findForwardConfig('failure');
 
-	}
+	}*/
 
 }
