@@ -1,15 +1,15 @@
 <?php
 /** 
- * RequirementsDoAddAffiliateXAction
+ * UsersDoAddToGroupXAction
  *
- * @package requirements 
- * @subpackage requirements/affiliates
+ * @package users 
+ * @subpackage groups 
  */
 
-class RequirementsDoAddAffiliateXAction extends BaseDoEditAction {
-		
+class RequirementsDevelopmentsDoAddAffiliateXAction extends BaseDoEditAction {
+	
 	public function __construct() {
-		parent::__construct('Requirement');
+		parent::__construct('Development');
 	}
 	
 	protected function preUpdate() {
@@ -20,14 +20,15 @@ class RequirementsDoAddAffiliateXAction extends BaseDoEditAction {
 	protected function postUpdate() {
 		parent::postUpdate();
 		
-		//$requirement = RequirementQuery::create()->findOneById($_POST["id"]);
+		//$development = DevelopmentQuery::create()->findOneById($_POST["id"]);
 		$affiliate = AffiliateQuery::create()->findOneById($_POST["affiliateId"]);
 		
 		if(!empty($_POST["affiliateId"]) && !empty($_POST["id"])){
 			$this->entity->setAffiliate($affiliate)->save();
 		}
 		
-		//$this->smarty->assign("requirement", $requirement);
+		//$this->smarty->assign("development", $development);
 		$this->smarty->assign("affiliate", $affiliate);
 	}
+
 }

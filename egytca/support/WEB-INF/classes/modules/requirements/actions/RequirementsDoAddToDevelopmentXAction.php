@@ -6,35 +6,28 @@
  * @subpackage groups 
  */
 
-class RequirementsDoAddToDevelopmentXAction extends BaseAction {
-	
+class RequirementsDoAddToDevelopmentXAction extends BaseDoEditAction {
+		
 	public function __construct() {
 		parent::__construct('Requirement');
 	}
 	
-	protected function preEdit() {
-		parent::preEdit();
+	protected function preUpdate() {
+		parent::preUpdate();
 		
-		$this->module = "Requirements";
 	}
 	
-	protected function postEdit() {
-		parent::postEdit();
+	protected function postUpdate() {
+		parent::postUpdate();
 		
-		if ( !empty($_POST["developmentId"]) && !empty($_POST["requirementId"]) ) {
-			
-			$assoc_dev = DevelopmentQuery::create()->findOneById($_POST["developmentId"]);
-			
-			if(!empty($assoc_dev)){
-				
-				if($this->entity->setDevelopmentid($_POST["developmentId"])->save() ){
-				
-					$this->smarty->assign('development',$assoc_dev);
-				}	
-			}	
+		//$requirement = RequirementQuery::create()->findOneById($_POST["id"]);
+		$development = DevelopmentQuery::create()->findOneById($_POST["developmentId"]);
+		
+		if(!empty($_POST["developmentId"]) && !empty($_POST["id"])){
+			$this->entity->setDevelopment($development)->save();
 		}
 		
-		$this->smarty->assign("module", $this->module);
+		//$this->smarty->assign("requirement", $requirement);
+		$this->smarty->assign("development", $development);
 	}
-	
 }

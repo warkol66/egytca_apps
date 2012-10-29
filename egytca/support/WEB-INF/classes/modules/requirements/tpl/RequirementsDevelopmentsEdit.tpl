@@ -2,15 +2,13 @@
 |-if !$notValidId || is_object($requirement)-|
 <h1>Administración de Desarrollos - |-if !$development->isNew()-|Editar|-else-|Crear|-/if-| Desarrollos</h1>
 <script language="JavaScript" type="text/javascript">
-function RequirementsDevelopmentsDoAddAttendant(form) {
+function requirementsDevelopmentsDoAddAttendant(form) {
 	var fields = Form.serialize(form);
-	var pars = 'do=requirementsDevelopmentsDoAddAttendantX';
 	var myAjax = new Ajax.Updater(
 				{success: 'attendantsList'},
 				url,
 				{
 					method: 'post',
-					parameters: pars,
 					postBody: fields,
 					evalScripts: true,
 					insertion: Insertion.Bottom
@@ -18,7 +16,6 @@ function RequirementsDevelopmentsDoAddAttendant(form) {
 	$('attendantsMsgField').innerHTML = '<span class="inProgress">agregando recurso...</span>';
 	return true;
 }
-
 function attendantsDoDeleteFromDevelopment(form){
 	var fields = Form.serialize(form);
 	var myAjax = new Ajax.Updater(
@@ -30,6 +27,20 @@ function attendantsDoDeleteFromDevelopment(form){
 					evalScripts: true
 				});
 	$('attendantsMsgField').innerHTML = '<span class="inProgress">eliminando recurso...</span>';
+	return true;
+}
+function developmentsDoAddAffiliate(form) {
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'affiliatesList'},
+				url,
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true,
+					insertion: Insertion.Bottom
+				});
+	$('affiliatesMsgField').innerHTML = '<span class="inProgress">agregando cliente...</span>';
 	return true;
 }
 </script>
@@ -118,29 +129,60 @@ function attendantsDoDeleteFromDevelopment(form){
 		</fieldset> 
 	</form> 
 	|-if !$development->isNew()-|
+	<fieldset title="Asignación de Cliente">
+		<legend>Asignación de Cliente</legend>
+		<div id="affiliatesMsgField"> <span id="affiliatesMsgField"></span> 
+			|-assign var="client" value=$development->getClientid()-|
+			|-if empty($client)-|
+			<form method="post">
+				<p>Seleccione un cliente</p>
+				<p>
+					<select id="affiliateId" name="affiliateId" title="affiliateId">
+						<option value="">Seleccione un cliente</option>
+						|-foreach from=$affiliates item=affiliate name=for_affiliate-|
+						<option id="affiliateOption|-$affiliate->getId()-|" name="affiliateId" value="|-$affiliate->getId()-|">|-$affiliate->getName()-|</option>
+						|-/foreach-|
+					</select>
+				</p>
+				<input type="hidden" name="do" id="do" value="requirementsDevelopmentsDoAddAffiliateX" />
+				<input type="hidden" name="id" id="id" value="|-$development->getId()-|" />
+				<input type="button" value="Asociar cliente" onClick="javascript:developmentsDoAddAffiliate(this.form)"/> 
+			</form>
+			|-else-|
+			<ul id="affiliatesList" class="iconOptionsList">
+				<li id="affiliatesListItem|-$development->getClientid()-|">|-$development->getAffiliate()-|
+					<form  method="post">
+						<input type="hidden" name="do" id="do" value="requirementsDevelopmentsDoDeleteAffiliateX" />
+						<input type="hidden" name="id" id="id" value="|-$development->getId()-|" />		
+						<input type="button" value="Eliminar" onClick="javascript:developmentsDoDeleteAffiliate(this.form)" class="icon iconDelete" />
+					</form>
+				</li>
+			</ul>
+			|-/if-|
+		</div>	
+	</fieldset>
+	
 	<fieldset title="Asignación de Recursos">
 		<legend>Asignación de Recursos</legend>
+		<div id="attendantsMsgField"> <span id="attendantsMsgField"></span>
 			<form method="post">
-			<div id="attendantsMsgField"> <span id="attendantsMsgField"></span> 
-			<p>Seleccione los recursos para el desarrollo</p>
-			<p>
-				<select id="attendantId" name="attendantId" title="attendantId">
-					<option value="">Seleccione un recurso</option>
-					|-foreach from=$attendants item=attendant name=for_attendant-|
-					<option id="attendantOption|-$attendant->getId()-|" name="attendantId" value="|-$attendant->getId()-|">|-$attendant->getName()-|</option>
-					|-/foreach-|
-				</select>
-			</p>	
-			<input type="hidden" name="entityId" id="entityId" value="|-$development->getId()-|" />
-			<input type="hidden" name="entityType" id="entityType" value="development" />
-			<input type="button" value="Agregar recurso" onClick="javascript:RequirementsDevelopmentsDoAddAttendant(this.form)"/> 
-			
-			<!--ul id="attendantsList" class="iconOptionsList">
-			</ul-->
-		</form> 	
+				<p>Seleccione los recursos para el desarrollo</p>
+				<p>
+					<select id="attendantId" name="attendantId" title="attendantId">
+						<option value="">Seleccione un recurso</option>
+						|-foreach from=$attendants item=attendant name=for_attendant-|
+						<option id="attendantOption|-$attendant->getId()-|" name="attendantId" value="|-$attendant->getId()-|">|-$attendant->getName()-|</option>
+						|-/foreach-|
+					</select>
+				</p>	
+				<input type="hidden" name="entityId" id="entityId" value="|-$development->getId()-|" />
+				<input type="hidden" name="entityType" id="entityType" value="development" />
+				<input type="button" value="Agregar recurso" onClick="javascript:RequirementsDevelopmentsDoAddAttendant(this.form)"/> 
+			</form>
+			<ul id="attendantsList" class="iconOptionsList">
+			</ul>
+		</div>  	
 	</fieldset>
-	<ul id="groupList" class="iconOptionsList">
-	</ul> 
 	|-/if-|
 </div> 
 |-else-|
