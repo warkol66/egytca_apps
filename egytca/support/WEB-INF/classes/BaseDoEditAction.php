@@ -13,7 +13,9 @@ class BaseDoEditAction extends BaseAction {
 			throw new Exception('$entityClassName must be set');
 		$this->entityClassName = $entityClassName;
 		if (substr(get_class($this), -7, 1) != "X")
-			$this->ajaxTemplate = str_replace('Action', '', get_class($this)).'X.tpl';
+			$this->ajaxTemplate = str_replace('Action', '', get_class($this)) . 'X.tpl';
+		else
+			$this->ajaxTemplate = str_replace('Action', '', get_class($this)) . '.tpl';
 	}
 
 	public function execute($mapping, $form, &$request, &$response) {
