@@ -1,5 +1,6 @@
 <h2>Desarrollo</h2> 
 |-if !$notValidId || is_object($requirement)-|
+<h1>Administración de Desarrollos - |-if !$development->isNew()-|Editar|-else-|Crear|-/if-| Desarrollos</h1>
 <script language="JavaScript" type="text/javascript">
 function developmentsDoAddAttendant(form) {
 	var fields = Form.serialize(form);
@@ -157,6 +158,7 @@ function developmentsDoAddAffiliate(form) {
 				<input type="hidden" name="entityType" id="entityType" value="development" />
 				<input type="button" value="Agregar recurso" onClick="javascript:developmentsDoAddAttendant(this.form)"/> 
 			</form>
+			
 		</div>  	
 	</fieldset>
 	|-/if-|
