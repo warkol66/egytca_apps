@@ -104,7 +104,8 @@ class ConfigModule {
 				'web' => array('class' => 'WebHeadline', 'url' => 'http://prensa/rss1.xml'),
 				'multimedia' => array('class' => 'MultimediaHeadline', 'url' => 'http://prensa/rss2.xml'),
 				'press' => array('class' => 'PressHeadline', 'url' => 'http://prensa/rss3.xml')
-			)
+			),
+			"feedBackupsPath" => "./WEB-INF/classes/modules/headlines/files/feeds"
 		)
 	);
 

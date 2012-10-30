@@ -29,17 +29,6 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 		
-		/* ********************* debug ******************** */
-		if ($this->debug) {
-			echo '<hr/>';
-			echo '<form action="Main.php?do=headlinesXMLDoParseX" method="post">';
-				echo '<input type="hidden" name="type" value="press" />';
-				echo '<input type="hidden" name="url" value="'.urlencode('http://prensa/rss3.xml').'" />';
-				echo '<input type="submit" value="guardar PressHeadlines parseados a DB" />';
-			echo '</form>';
-		}
-		/* ******************* end debug ****************** */
-		
 		if (!empty($_POST['type'])) {
 			
 			$savedHeadlines = array();
@@ -73,7 +62,10 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 				}
 			}
 			
-			$headlinesFeed = $this->typeMap[$type]['url'];
+			$this->feedsPath = ConfigModule::get("headlines", "feedBackupsPath");
+			$this->feed = $this->feedsPath.'/temp-feed.xml';
+			$headlinesFeed = $this->feed;
+			file_put_contents($this->feed, file_get_contents($this->typeMap[$type]['url']));
 			
 			$logEntry = new HeadlineParseLogEntry();
 			$logEntry->setHeadlinetype($type);
@@ -84,14 +76,18 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 
 			$headlineParser = new HeadlineFeedParser($this->typeMap[$type]['class']);
 			try {
+				$this->zipData($logEntry->getId(), $headlinesFeed);
 				$headlines = $headlineParser->debugMode($this->debug)->parse($headlinesFeed);
 				$logEntry->setStatus('success');
 			} catch (Exception $e) {
 				$logEntry->setStatus('failure');
 				$logEntry->setErrormessage($e->getMessage());
-				$smarty->assign('parseErrors', array(
+				$parseErrors = array(
 					array('strategy' => 'feed', 'message' => $e->getMessage())
-				));
+				);
+				$smarty->assign('parseErrors', $parseErrors);
+				require_once 'contentProvider/ErrorReporter.php';
+				ErrorReporter::report($parseErrors);
 			}
 
 			foreach ($headlines as $h) {
@@ -112,38 +108,25 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 			$logEntry->setExistentcount($existentHeadlinesCount);
 			$logEntry->setInvalidcount($invalidHeadlinesCount);
 			$logEntry->save();
-
-			/* ********************* debug ******************** */
-			if ($this->debug) {
-				echo '<hr/>';
-					echo 'guardados: '.count($savedHeadlines);
-					echo '<br/>';
-					echo 'existentes: '.$existentHeadlinesCount;
-					echo '<br/>';
-					echo 'invalidos: '.$invalidHeadlinesCount;
-				echo '<hr/>';
-					echo 'total: '.count($headlines);
-					echo '<br/>';
-					$headlineParser->printDebugInfo();
-				echo '<hr/>';
-					echo '<pre>';
-					$toBePrinted = null;
-					foreach($headlines as $h){
-						$toBePrinted = $h;
-						if ($h->getHeadlineParsedAttachments()->count() > 0)
-							break;
-					}
-					print_r($toBePrinted);
-					echo "</pre>";
-				echo '<hr/>';
-
-				die;
-			}
-			/* ******************* end debug ****************** */
+			
+			unlink($this->feed);
 			
 			$smarty->assign('headlinesParsed', $savedHeadlines);
 		}
 		
 		$smarty->display('HeadlinesParsedListInclude.tpl');
+	}
+	
+	private function zipData($logEntryId, $feed) {
+		$destination = "$this->feedsPath/$logEntryId.zip";
+		$zip = new ZipArchive();
+		if ($zip->open($destination, ZIPARCHIVE::CREATE) !== true)
+			throw new Exception("unable to open $destination");
+		
+		$zip->addFile($this->feed, "$logEntryId.xml");
+		$zip->close();
+		
+		if (!file_exists($destination))
+			throw new Exception("unable to create $destination");
 	}
 }
