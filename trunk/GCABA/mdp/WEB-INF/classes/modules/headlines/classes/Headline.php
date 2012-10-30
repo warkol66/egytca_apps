@@ -26,15 +26,17 @@ class Headline extends BaseHeadline {
 		$imagesData = array();
 		
 		if ($this->hasClipping()) {
-			$imagesData []= array('source' => 'clipping', 'id' => $this->getId());
+			$imagesData []= array('source' => 'clipping', 'id' => $this->getId(), 'extension' => 'jpg');
 		}
 		
 		foreach ($this->getHeadlineImages() as $attachment) {
-			$imagesData []= array('source' => 'attachment', 'id' => $attachment->getId());
+			$imagesData []= array('source' => 'attachment', 'id' => $attachment->getId(), 'extension' => 'jpg');
 		}
 		
 		foreach ($this->getDocumentImages() as $document) {
-			$imagesData []= array('source' => 'document', 'id' => $document->getId());
+			preg_match("/\.(\w+)/", $document->getRealfilename(), $matches);
+			$extension = $matches[1];
+			$imagesData []= array('source' => 'document', 'id' => $document->getId(), 'extension' => $extension);
 		}
 		
 		return $imagesData;

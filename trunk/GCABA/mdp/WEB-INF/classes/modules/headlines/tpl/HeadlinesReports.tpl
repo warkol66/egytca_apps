@@ -296,7 +296,7 @@
 					<p>&nbsp;</p>
 					|-if $filters.includeClipping-|
 						|-foreach $headline->getImagesIdData() as $imageData-|
-						<table cellspacing="1" cellpadding="0" border="0" align="center"><tr><td style="border:2px solid black; "><img src="attachments/|-$imageData.source-|-|-$imageData.id-|.jpg" /></td></tr></table>
+						<table cellspacing="1" cellpadding="0" border="0" align="center"><tr><td style="border:2px solid black; "><img src="attachments/|-$imageData.source-|-|-$imageData.id-|.|-$imageData.extension-|" /></td></tr></table>
 						|-/foreach-|
 					|-/if-|
 			<br  style="page-break-after: always"/>
