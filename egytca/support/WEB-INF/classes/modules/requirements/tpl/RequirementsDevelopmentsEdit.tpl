@@ -1,7 +1,5 @@
 <h2>Desarrollo</h2> 
 |-if !$notValidId || is_object($requirement)-|
-<h1>Administración de Desarrollos - |-if !$development->isNew()-|Editar|-else-|Crear|-/if-| Desarrollos</h1>
-|-$asocAttendants-|
 <script language="JavaScript" type="text/javascript">
 function developmentsDoAddAttendant(form) {
 	var fields = Form.serialize(form);
