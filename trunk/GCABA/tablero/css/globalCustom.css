@@ -757,7 +757,7 @@ a.importHeadlines:hover{
 
 .expandLink, .collapseLink {
 	color: #404040;
-	padding: 0 0 0 16px;
+	padding: 2px 5px 2px 22px;
 }
 .expandLink:link, .collapseLink:link {
 	text-decoration: none;
