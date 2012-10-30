@@ -112,7 +112,10 @@
 		 
 
 
-	 <p><input name="save" type="submit" value="Guardar Cambios"> 
+	 <p><input name="save" type="submit" value="Guardar Cambios">
+		 		|-if $action eq 'edit'-|
+		 		<input type='button' onClick='location.href="Main.php?do=indicatorsList&contractId=|-$contract->getId()-|"' value='##104,Ver Gráficos de Desembolso##' title="Ver Gráficos de Desembolso"/>
+				 |-/if-|
 				<input type='button' onClick='location.href="Main.php?do=vialidadContractsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Contratos"/>
 			 </p>
 		</form>
