@@ -18,7 +18,7 @@ class Development extends BaseDevelopment{
 	/**
 	 * Agrega un recurso a un desarrollo
 	 * 
-	 * @param User $attendant: usuario que vamos a agregar como recurso
+	 * @param int $attendant: usuario que vamos a agregar como recurso
 	 * @param int $entityId: id del desarrollo 
 	 * @param varchar $entityType: desarrollo
 	 * @return bool: true si lo agrego, false si no
@@ -26,10 +26,9 @@ class Development extends BaseDevelopment{
 	public function addAttendant($attendant, $entityId, $entityType){
 		
 		try{
-			$userId = $attendant->getId();
 			
 			$Attendant = new Attendant();
-			$Attendant->setAttendantid($userId);
+			$Attendant->setAttendantid($attendant);
 			$Attendant->setEntityid($entityId);
 			$Attendant->setEntitytype($entityType);
 			$Attendant->save();

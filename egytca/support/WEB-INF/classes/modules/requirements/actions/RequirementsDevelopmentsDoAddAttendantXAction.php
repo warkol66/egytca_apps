@@ -6,7 +6,7 @@
  * @subpackage groups 
  */
 
-class RequirementsDevelopmentsDoAddAttendantXAction extends BaseAction {
+class RequirementsDevelopmentsDoAddAttendantXAction extends BaseDoEditAction {
 
 	public function __construct() {
 		parent::__construct('Development');
@@ -22,14 +22,20 @@ class RequirementsDevelopmentsDoAddAttendantXAction extends BaseAction {
 		
 		if(!empty($_POST["attendantId"]) && !empty($_POST["id"]) && !empty($_POST["entityType"])){
 			
-			$attendant = new Attendant;
-			$attendant->setAttendantid($_POST["attendantId"]);
-			$attendant->setEntityid($_POST["id"]);
-			$attendant->setEntitytype($_POST["entityType"]);
-			$attendant->save();
+			$user = UserQuery::create()->findOneById($_POST["attendantId"]);
+			
+			if(!empty($user)){
+				//$attendant = DevelopmentQuery::create()->addAttendant($_POST["attendantId"],$_POST["id"],$_POST["entityType"]);
+				$attendant = new Attendant();
+				$attendant->setAttendantid($_POST["attendantId"]);
+				$attendant->setEntityid($_POST["id"]);
+				$attendant->setEntitytype($_POST["entityType"]);
+				$attendant->save();
+				$this->smarty->assign("attendant", $attendant);
+			}
 		}
 		
-		$this->smarty->assign("attendant", $attendant);
+		
 	}
 
 	/*function RequirementsDevelopmentsDoAddAttendantXAction() {
