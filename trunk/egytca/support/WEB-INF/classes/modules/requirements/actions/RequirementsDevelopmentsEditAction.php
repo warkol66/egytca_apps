@@ -24,7 +24,20 @@ class RequirementsDevelopmentsEditAction extends BaseEditAction {
 		
 		//clientes, desarrollos y recursos
 		$this->smarty->assign("affiliates", AffiliateQuery::create()->find());
-		$this->smarty->assign("attendants",UserQuery::create()->orderByName()->findByActive(1));	
+		$this->smarty->assign("attendants",UserQuery::create()->orderByName()->findByActive(1));
+		
+		$id = $this->entity->getId();
+		$this->smarty->assign("asocAttendants",AttendantQuery::create()->filterByEntitytype('development')->filterByEntityid($id)->find());
+		
+		/*$asocAttendants2 = AttendantQuery::create()
+			->join('User')
+			->where('User.id =', 'Attendant.Attendantid')
+			->filterByEntitytype('development')
+			->filterByEntityid($id)
+			->find();
+			
+		$this->smarty->assign("asocAttendants2",AttendantQuery::create()->join('Users.User')->wherefilterByEntitytype('development')->filterByEntityid($id)->find());
+		*/
 	}
 
 }
