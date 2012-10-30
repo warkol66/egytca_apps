@@ -23,15 +23,15 @@ class Development extends BaseDevelopment{
 	 * @param varchar $entityType: desarrollo
 	 * @return bool: true si lo agrego, false si no
 	 */
-	public function addAttendant($attendant, $entityId, $entityType){
+	public function addAttendant($attendantId, $entityId, $entityType){
 		
 		try{
 			
-			$Attendant = new Attendant();
-			$Attendant->setAttendantid($attendant);
-			$Attendant->setEntityid($entityId);
-			$Attendant->setEntitytype($entityType);
-			$Attendant->save();
+			$attendant = new Attendant();
+			$attendant->setAttendantid($attendant);
+			$attendant->setEntityid($entityId);
+			$attendant->setEntitytype($entityType);
+			$attendant->save();
 			return true;
 		}
 		catch (PropelException $exp) {
