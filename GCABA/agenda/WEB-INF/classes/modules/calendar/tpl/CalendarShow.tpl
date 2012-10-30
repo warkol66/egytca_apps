@@ -118,8 +118,8 @@
 			
 			case 'month':
 				
-				var monthStartDate = view.visStart;
-				var nextMonthStartDate = view.visEnd;
+				var monthStartDate = new Date(view.visStart);
+				var nextMonthStartDate = new Date(view.visEnd);
 				var incOneWeek = function(date) {
 					var oneWeekMsecs = 7 * 24 * 60 * 60 * 1000;
 					date.setTime(date.getTime()+oneWeekMsecs);
