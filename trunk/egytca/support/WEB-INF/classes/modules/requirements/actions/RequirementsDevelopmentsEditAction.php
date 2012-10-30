@@ -29,19 +29,19 @@ class RequirementsDevelopmentsEditAction extends BaseEditAction {
 		$id = $this->entity->getId();
 		$this->smarty->assign("asocAttendants",AttendantQuery::create()->filterByEntitytype('development')->filterByEntityid($id)->find());
 		
-		$arrayIds = AttendantQuery::create()->filterByEntitytype('development')->filterByEntityid($id)->select('Attendantid')->find();
+		/*$arrayIds = AttendantQuery::create()->filterByEntitytype('development')->filterByEntityid($id)->select('Attendantid')->find();
 		$this->smarty->assign("arrayIds", $arrayIds);
 		
 		$asocAttendants2 = UserQuery::create()->filterById($arrayIds, Criteria::IN);
-		$this->smarty->assign("asocAttendants2", $asocAttendants2);
+		$this->smarty->assign("asocAttendants2", $asocAttendants2);*/
 		
-		/*$asocAttendants2 = AttendantQuery::create()
-			->join('Attendant.entityid','User.id')
+		$asocAttendants = AttendantQuery::create()
+			->addJoin('requirements_attendant.entityid','users_user.id')
 			->filterByEntitytype('development')
 			->filterByEntityid($id)
 			->find();
 			
-		$this->smarty->assign("asocAttendants2",$asocAttendants2);*/
+		$this->smarty->assign("asocAttendants",$asocAttendants);
 		
 	}
 
