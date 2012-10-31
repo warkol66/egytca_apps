@@ -158,7 +158,19 @@ function developmentsDoAddAffiliate(form) {
 				<input type="hidden" name="entityType" id="entityType" value="development" />
 				<input type="button" value="Agregar recurso" onClick="javascript:developmentsDoAddAttendant(this.form)"/> 
 			</form>
-			
+			<br /><br />
+			<ul id="asocAttendantsList" class="iconOptionsList">
+			|-foreach from=$asocAttendants item=asocAttendant name=for_asocAttendant-|
+			|-assign var="resource" value=$asocAttendant->getUser()-|
+			<li id="asocAttendantsListItem|-$resource->getId()-|">
+				<form  method="post"> 
+					<input type="hidden" name="do" id="do" value="" /> 
+					<input type="hidden" name="attendantId"  value="|-$resource->getId()-|" /> 
+					<input type="button" value="Eliminar" onClick="javascript:(this.form)" class="icon iconDelete" title="Eliminar el usuario del grupo"/> 
+				</form> |-$resource->getName()-|
+			</li> 
+			|-/foreach-|
+		</ul> 
 		</div>  	
 	</fieldset>
 	|-/if-|
