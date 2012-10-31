@@ -15,6 +15,30 @@
  */
 class Requirement extends BaseRequirement{
 	
-	//metodo parecido al add
+	/**
+	 * Agrega un recurso a un requerimiento
+	 * 
+	 * @param int $attendantId: id del usuario que vamos a agregar como recurso
+	 * @param int $entityId: id del desarrollo 
+	 * @param varchar $entityType: desarrollo
+	 * @return bool: true si lo agrego, false si no
+	 */
+	public function addAttendant($attendantId, $entityId, $entityType){
+		
+		try{
+			
+			$attendant = new Attendant();
+			$attendant->setAttendantid($attendant);
+			$attendant->setEntityid($entityId);
+			$attendant->setEntitytype($entityType);
+			$attendant->save();
+			return true;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
+	}
 	
 }
