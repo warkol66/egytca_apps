@@ -5,7 +5,7 @@
 function developmentsDoAddAttendant(form) {
 	var fields = Form.serialize(form);
 	var myAjax = new Ajax.Updater(
-				{success: 'attendantsList'},
+				{success: 'asocAttendantsList'},
 				url,
 				{
 					method: 'post',
@@ -128,7 +128,7 @@ function developmentsDoDeleteAttendant(form){
 	|-if !$development->isNew()-|
 	<fieldset title="Asignación de Recursos">
 		<legend>Asignación de Recursos</legend>
-		<div id="attendantsMsgField">
+		<div id="attendantsMsgField"></div>
 			<form method="post">
 				<p>Seleccione los recursos para el desarrollo</p>
 				<p>
@@ -157,7 +157,6 @@ function developmentsDoDeleteAttendant(form){
 				</li> 
 				|-/foreach-|
 			</ul> 
-		</div>  	
 	</fieldset>
 	|-/if-|
 </div> 
