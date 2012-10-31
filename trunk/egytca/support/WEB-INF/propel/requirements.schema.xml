@@ -82,7 +82,7 @@
 		<column name="entityId" required="true" type="INTEGER" description="Id del desarrollo" />
 		<column name="attendantId" required="true" type="INTEGER" description="Id del recurso" />
 		
-		<foreign-key foreignTable="resources_resource" >
+		<foreign-key foreignTable="users_user" >
 			<reference local="attendantId" foreign="id"/>
 		</foreign-key>
 		

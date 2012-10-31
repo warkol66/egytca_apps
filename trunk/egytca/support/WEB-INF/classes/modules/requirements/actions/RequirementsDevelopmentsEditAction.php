@@ -22,7 +22,7 @@ class RequirementsDevelopmentsEditAction extends BaseEditAction {
 		$section = "Developments";
 		$this->smarty->assign("section",$section);
 		
-		//clientes, desarrollos y recursos
+		//clientes, recursos y recursos asociados
 		$this->smarty->assign("affiliates", AffiliateQuery::create()->find());
 		$this->smarty->assign("attendants",UserQuery::create()->orderByName()->findByActive(1));
 		
@@ -34,14 +34,7 @@ class RequirementsDevelopmentsEditAction extends BaseEditAction {
 		
 		$asocAttendants2 = UserQuery::create()->filterById($arrayIds, Criteria::IN);
 		$this->smarty->assign("asocAttendants2", $asocAttendants2);*/
-		
-		$asocAttendants = AttendantQuery::create()
-			->addJoin('requirements_attendant.entityid','users_user.id')
-			->filterByEntitytype('development')
-			->filterByEntityid($id)
-			->find();
-			
-		$this->smarty->assign("asocAttendants",$asocAttendants);
+
 		
 	}
 
