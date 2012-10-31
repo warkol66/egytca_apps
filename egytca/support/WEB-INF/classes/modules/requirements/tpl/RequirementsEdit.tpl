@@ -43,6 +43,34 @@ function requirementsDoAddAffiliate(form){
 	$('affiliateMsgField').innerHTML = '<span class="inProgress">asociando cliente...</span>';
 	return true;
 }
+function requirementsDoAddAttendant(form) {
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'attendantsList'},
+				url,
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true,
+					insertion: Insertion.Bottom
+				});
+	$('attendantsMsgField').innerHTML = '<span class="inProgress">agregando recurso...</span>';
+	return true;
+}
+function requirementsDoDeleteAttendant(form) {
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'attendantsList'},
+				url,
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true,
+					insertion: Insertion.Bottom
+				});
+	$('attendantsMsgField').innerHTML = '<span class="inProgress">desasociando recurso...</span>';
+	return true;
+}
 </script>
 <p class='paragraphEdit'>A continuación se puede modificar los datos que definen el Requerimiento.</p>
 <div id="div_requirement"> 
@@ -107,23 +135,22 @@ function requirementsDoAddAffiliate(form){
 	<p>Cliente Asociado: |-$cli-|</p>
 	|-/if-|
 		
-   |-if !$requirement->isNew()-|
-    <input type="hidden" name="id" id="id" value="|-$requirement->getId()-|" /> 
-    |-/if-|
+		|-if !$requirement->isNew()-|
+		<input type="hidden" name="id" id="id" value="|-$requirement->getId()-|" /> 
+		|-/if-|
 		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 		|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-    <input type="hidden" name="currentPage" id="currentPage" value="|-$currentPage-|" /> 
-    <input type="hidden" name="do" id="do" value="requirementsDoEdit" /> 
-		<p>|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
-			<input type='button' onClick='location.href="Main.php?do=requirementsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Objetivos Operativos"/>
-		</p>
-    </fieldset> 
-  </form> 
-  |-if !$requirement->isNew()-|
-  
-	<!--fieldset title="Asignación de Recursos">
+		<input type="hidden" name="currentPage" id="currentPage" value="|-$currentPage-|" /> 
+		<input type="hidden" name="do" id="do" value="requirementsDoEdit" /> 
+			<p>|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
+				<input type='button' onClick='location.href="Main.php?do=requirementsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Objetivos Operativos"/>
+			</p>
+		</fieldset> 
+	</form> 
+	|-if !$requirement->isNew()-|
+	<fieldset title="Asignación de Recursos">
+		<legend>Asignación de Recursos</legend>
 		<form method="post">
-			<legend>Asignación de Recursos</legend>
 			<div id="attendantsMsgField"> <span id="attendantsMsgField"></span> 
 			<p>Seleccione los recursos para el requerimiento</p>
 			<p>
@@ -134,14 +161,24 @@ function requirementsDoAddAffiliate(form){
 					|-/foreach-|
 				</select>
 			</p>
-			<input type="hidden" name="do" id="do" value="requirementsDoAddAttendantXAction" /> 
-			<input type="hidden" name="entityId" id="entityId" value="|-$requirement->getId()-|" />
+			<input type="hidden" name="do" id="do" value="requirementsDoAddAttendantX" /> 
+			<input type="hidden" name="id" id="id" value="|-$requirement->getId()-|" />
 			<input type="hidden" name="entityType" id="entityType" value="requirement" />
-			<input type="button" value="Agregar recurso" onClick="javascript:requirementsDoAddToRequirement(this.form)"/> 
+			<input type="button" value="Agregar recurso" onClick="javascript:requirementsDoAddAttendant(this.form)"/> 
 		</form>
-		<ul id="groupList" class="iconOptionsList">
-		</ul> 
-	</fieldset-->
+		<ul id="asocAttendantsList" class="iconOptionsList">
+			|-foreach from=$asocAttendants item=asocAttendant name=for_asocAttendant-|
+			|-assign var="resource" value=$asocAttendant->getUser()-|
+			<li id="asocAttendantsListItem|-$resource->getId()-|">
+				<form  method="post"> 
+					<input type="hidden" name="do" id="do" value="requirementsDoDeleteAttendantX" /> 
+					<input type="hidden" name="attendantId"  value="|-$resource->getId()-|" /> 
+					<input type="button" value="Eliminar" onClick="javascript:requirementsDoDeleteAttendant(this.form)" class="icon iconDelete" title="Desasociar el recurso del desarrollo"/> 
+				</form> |-$resource->getName()-|
+			</li>
+			|-/foreach-|
+		</ul>  
+	</fieldset>
 	|-/if-|
 </div>
 |-else-|
