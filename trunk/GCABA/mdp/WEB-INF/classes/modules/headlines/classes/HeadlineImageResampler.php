@@ -10,7 +10,16 @@ class HeadlineImageResampler {
 	 * @param string $inputFilename nombre de la imagen original a resamplear
 	 * @param string $outputFilename nombre de la imagen copia resampleada
 	 */
-	private static function doResample($inputFilename, $outputFilename) {
+	private static function doResample($inputFilename, $outputFilename, $type = 'jpeg') {
+		
+		if ($type == 'jpg')
+			$type = 'jpeg';
+		
+		// image manipulation functions
+		$imageCreateFromType = "imagecreatefrom$type";
+		$imageType = "image$type";
+		if (!function_exists($imageCreateFromType) || !function_exists($imageType))
+			throw new Exception("$type is not a valid type");
 		
 		if (empty($inputFilename))
 			throw new Exception('$inputFilename cannot be an empty string');
@@ -43,9 +52,9 @@ class HeadlineImageResampler {
 		// ------------------------------------------
 		
 		$canvas = imagecreatetruecolor($resampledWidth, $resampledHeight);
-		$originalImage = imagecreatefromjpeg($inputFilename);
+		$originalImage = $imageCreateFromType($inputFilename);
 		imagecopyresampled ($canvas, $originalImage, 0, 0, 0, 0, $resampledWidth, $resampledHeight, $originalWidth, $originalHeight);
-		imagejpeg($canvas, $outputFilename, 100);
+		$imageType($canvas, $outputFilename, 100);
 		
 		if (!file_exists($outputFilename))
 			throw new Exception("failed to create $outputFilename - please check write permissions");
@@ -59,8 +68,8 @@ class HeadlineImageResampler {
 	 * @param string $inputFilename nombre de la imagen original a resamplear
 	 * @param string $outputFilename nombre de la imagen copia resampleada
 	 */
-	public static function copyResampled($inputFilename, $outputFilename) {
-		self::doResample($inputFilename, $outputFilename);
+	public static function copyResampled($inputFilename, $outputFilename, $type = 'jpeg') {
+		self::doResample($inputFilename, $outputFilename, $type);
 	}
 
 	/**
@@ -69,7 +78,7 @@ class HeadlineImageResampler {
 	 * 
 	 * @param string $filename nombre de la imagen a resamplear
 	 */
-	public static function resample($filename) {
-		self::doResample($filename, $filename);
+	public static function resample($filename, $type = 'jpeg') {
+		self::doResample($filename, $filename, $type);
 	}
 }
