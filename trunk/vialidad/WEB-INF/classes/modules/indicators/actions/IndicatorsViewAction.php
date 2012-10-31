@@ -41,7 +41,8 @@ class IndicatorsViewAction extends BaseAction {
 			$smarty->assign("indicator",$indicator);
 		}
 		
-		$categories = $indicator->getIndicatorCategorys();
+		if (method_exists($indicator,'getIndicatorCategorys'))
+			$categories = $indicator->getIndicatorCategorys();
 
 		foreach ($categories as $category)
 			if ($category->getId() == -1)
