@@ -146,13 +146,13 @@ function usersDoEditInfo(form){
 		<ul id="groupList" class="iconOptionsList">
 			 |-foreach from=$currentUser->getGroups() item=groupRelation name=for_group-|			 
 			 |-assign var="group" value=$groupRelation->getGroup()-|
-			<li id="groupListItem|-$group->getId()-|">
+			<li id="groupListItem|-$group->getId()-|"> |-$group->getName()-|
 				<form  method="post"> 
 					<input type="hidden" name="do" id="do" value="usersDoDeleteFromGroupX" /> 
 					<input type="hidden" name="userId"  value="|-$currentUser->getId()-|" /> 
 					<input type="hidden" name="groupId"  value="|-$group->getId()-|" /> 
 					<input type="button" value="Eliminar" onClick="javascript:usersDoDeleteFromGroup(this.form)" class="icon iconDelete" title="Eliminar el usuario del grupo"/> 
-				</form> |-$group->getName()-|
+				</form> 
 			</li> 
 			|-/foreach-|
 		</ul> 
