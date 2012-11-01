@@ -2,6 +2,17 @@
 
 class HeadlineImageCropper {
 	
+	/**
+	 * 
+	 * @param string $input path to the image to be cropped
+	 * @param string $output path to the cropped image
+	 * @param float $rx [0..1] contained value representing the x starting position of the crop relative to the total image width
+	 * @param float $ry [0..1] contained value representing the y staring position of the crop relative to the total image height
+	 * @param float $rw [0..1] contained value representing the width of the crop relative to the total image width
+	 * @param float $rh [0..1] contained value representing the height of the crop relative to the total image height
+	 * @param string $type image type (jpeg, png, ...)
+	 * @throws Exception
+	 */
 	public static function relativeCrop($input, $output, $rx, $ry, $rw, $rh, $type = 'jpeg') {
 		
 		if ($type == 'jpg')

@@ -25,9 +25,14 @@
 			{
 				method: 'post',
 				parameters: {
-					headlineId: '|-$id-|',
-					imageFile: '|-$image-|',
-					|-if $temp neq ''-|temp: '1',|-/if-|
+					|-if $isAttachment-|
+						id: |-$id-|,
+						source: "attachment",
+					|-else-|
+						headlineId: '|-$id-|',
+						imageFile: '|-$image-|',
+						|-if $temp neq ''-|temp: '1',|-/if-|
+					|-/if-|
 					relativeX: x1,
 					relativeY: y1,
 					relativeWidth: width,
@@ -71,10 +76,16 @@
 	Event.observe(window, 'load', disableCrop);
 </script>
 
+|-if $isAttachment-|
+	|-assign var="src" value="Main.php?do=headlinesAttachmentGetData&id="|cat:$id-|
+|-else-|
+	|-assign var="src" value="Main.php?do=headlinesGetClipping&image="|cat:$image-|
+	|-if $temp neq ''-||-assign var="src" value=$src|cat:"&temp=1"-||-/if-|
+|-/if-|
 <div id="div_cropable" style="display:none">
-	<img src="Main.php?do=headlinesGetClipping&image=|-$image-||-if $temp neq ''-|&temp=1|-/if-|" id="cropableImage" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />
+	<img src="|-$src-|" id="cropableImage" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />
 </div>
 
 <div id="div_non_cropable">
-	<img src="Main.php?do=headlinesGetClipping&image=|-$image-||-if $temp neq ''-|&temp=1|-/if-|" id="nonCropableImage" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />
+	<img src="|-$src-|" id="nonCropableImage" width="|-$displayedWidth-|" height="|-$displayedHeight-|" />
 </div>
