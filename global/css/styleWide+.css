@@ -1,0 +1,21 @@
+#rightColumn { 
+	width: 1275px;
+}
+#wrapper { 
+	width: 1480px;
+}
+#contentWrapper { 
+	width: 1470px;
+}
+#header { 
+	width: 1470px;
+}
+#footer {
+	width: 1470px;
+}
+#rightColumn p {
+	width: 1020px;
+}
+#rightColumn fieldset p {
+	width: 980px;
+}
