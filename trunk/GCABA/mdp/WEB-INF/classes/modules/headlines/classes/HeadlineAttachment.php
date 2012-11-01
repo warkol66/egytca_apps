@@ -15,6 +15,22 @@
  */
 class HeadlineAttachment extends BaseHeadlineAttachment {
 	
+	private $imageTypes = array(
+		'image/jpg',
+		'image/jpeg',
+		'image/png',
+		'image/gif'
+	);
+	
+	
+	/**
+	 * 
+	 * @return boolean true if attachment is an image, false otherwise
+	 */
+	public function isImage() {
+		return in_array($this->getType(), $this->imageTypes);
+	}
+	
 	/**
 	 * Downloads attachment file.
 	 */
