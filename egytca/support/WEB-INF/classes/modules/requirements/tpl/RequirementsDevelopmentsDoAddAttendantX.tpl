@@ -6,7 +6,7 @@
 	}
 </script>
 		|-assign var="resource" value=$attendant->getUser()-|
-				<li id="asocAttendantsListItem|-$attendant->getId()-|">
+				<li id="asocAttendantsListItem|-$resource->getId()-|">
 					<form  method="post"> 
 						<input type="hidden" name="do" id="do" value="requirementsDevelopmentsDoDeleteAttendantX" />
 						<input type="hidden" name="id" id="id" value="|-*$asocAttendant->getId()*-|" />

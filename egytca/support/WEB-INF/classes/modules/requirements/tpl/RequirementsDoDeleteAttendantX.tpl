@@ -1,10 +1,11 @@
 <script type="text/javascript" language="javascript">
 
-	Element.remove('#asocAttendantsListItem|-$attendant->getId()-|');
+	Element.remove('asocAttendantsListItem|-$attendant->getId()-|');
 
 	var option = document.createElement('option');
 	option.text = '|-$attendant->getName()-|';
 	option.value = '|-$attendant->getId()-|';
+	option.name = 'attendantId';
 	option.id = 'attendantOption|-$attendant->getId()-|';
 	
 	try {
@@ -16,4 +17,4 @@
 
 
 </script>
-<span class="resultSuccess">Recurso desasociado</span>
+<span class="attendantsMsgField">Recurso desasociado</span>
