@@ -1,0 +1,100 @@
+<!-- Module Content -->
+	<action-mappings module="Content">
+
+		<action    path = "contentList"
+							 type = "ContentListAction"
+							 name = "contentList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="ContentList.tpl" />
+		</action>
+
+		<action    path = "contentLanguagesList"
+							 type = "ContentLanguagesListAction"
+							 name = "contentLanguagesList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="ContentLanguagesList.tpl" />
+		</action>
+
+		<action    path = "contentLanguageDoDelete"
+							 type = "ContentLanguageDoDeleteAction"
+							 name = "contentLanguageDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=contentLanguagesList&amp;message=deleted" redirect="true" />
+			<forward name="failure" path="/Main.php?do=contentLanguagesList&amp;message=notdeleted" redirect="true" />
+		</action>
+
+		<action    path = "contentLanguageActivate"
+							 type = "ContentLanguageActivateAction"
+							 name = "contentLanguageActivate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=contentLanguagesList&amp;message=edited" redirect="true" />
+			<forward name="failure" path="/Main.php?do=contentLanguagesList&amp;message=notedited" redirect="true" />
+		</action>
+
+		<action    path = "contentMenu"
+							 type = "ContentMenuAction"
+							 name = "contentMenu"
+							scope = "request"
+					 validate = "true">
+			<forward name="include"  path="ContentMenuInclude.tpl" />
+		</action>
+
+		<action    path = "contentTitle"
+							 type = "ContentTitleAction"
+							 name = "contentTitle"
+							scope = "request"
+					 validate = "true">
+			<forward name="include"  path="ContentTitleInclude.tpl" />
+		</action>
+
+		<action    path = "contentEdit"
+							 type = "ContentEditAction"
+							 name = "contentEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success"  path="ContentEdit.tpl" />
+		</action>
+
+		<action    path = "contentDoEdit"
+							 type = "ContentDoEditAction"
+							 name = "contentDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=contentList&amp;message=edited" redirect="true" />
+			<forward name="failure" path="/Main.php?do=contentList&amp;message=notedited" redirect="true" />
+		</action>
+
+		<action    path = "contentDoDelete"
+							 type = "ContentDoDeleteAction"
+							 name = "contentDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=contentList&amp;message=deleted" redirect="true" />
+			<forward name="failure" path="/Main.php?do=contentList&amp;message=notdeleted" redirect="true" />
+		</action>
+
+		<action    path = "contentShow"
+							 type = "ContentShowAction"
+							 name = "contentShow"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ContentShow.tpl" />
+			<forward name="home"    path="ContentShowHome.tpl" />
+			<forward name="include" path="ContentShowInclude.tpl"/>
+		</action>
+
+		<action    path = "contentDoEditOrderX"
+							 type = "ContentDoEditOrderXAction"
+							 name = "contentDoEditOrderX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="ContentDoEditOrderX.tpl" />
+		</action>
+
+	</action-mappings>
+
+<!-- End Module Content -->

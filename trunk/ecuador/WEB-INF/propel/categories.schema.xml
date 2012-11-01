@@ -1,0 +1,41 @@
+<database defaultIdMethod="native" package="categories.classes" name="application">
+
+	<table name="categories_category" phpName="Category" description="Categorias">
+
+		<column name="id" type="INTEGER" autoIncrement="true" required="true" description="Id de la categoria" primaryKey="true" />
+		<column name="parentId" type="INTEGER" required="true" description="Parent Category if it has" default='0' />
+		<column name="name" size="255" type="VARCHAR" required="true" description="Category name"/>
+		<column name="module" size="255" type="VARCHAR" description="Module name if it is for a module" default="" />
+		<column name="active" type="BOOLEAN" required="true" description="Is category active?" />
+		<column name="isPublic" type="BOOLEAN" required="true" description="Is category public?" default="0" />
+
+		<behavior name="soft_delete" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="users_groupCategory" phpName="GroupCategory" description="Groups_Categories">
+
+		<column name="groupId" required="true" primaryKey="true" type="INTEGER" description="Group ID"/>
+		<column name="categoryId" required="true" primaryKey="true" type="INTEGER" description="Category ID"/>
+
+		<foreign-key foreignTable="users_group" onDelete="CASCADE" >
+			<reference local="groupId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="categories_category" onDelete="CASCADE" >
+			<reference local="categoryId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>

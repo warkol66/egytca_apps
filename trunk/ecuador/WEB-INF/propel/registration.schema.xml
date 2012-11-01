@@ -1,0 +1,57 @@
+<database defaultIdMethod="native" package="registration.classes" name="application" >
+
+	<table name="registration_user" phpName='RegistrationUser' description="Users by registration">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="User Id" autoIncrement="true"/>
+		<column name="username" required="true"  type="VARCHAR" size="255" description="username"/>
+		<column name="password" required="true"  type="VARCHAR" size="255" description="password"/>
+		<column name="active" required="true"  type="BOOLEAN"  description="Is user active?"/>
+		<column name="verified" required="true"  type="BOOLEAN"  default='0' description="Is user verified?"/>
+		<column name="created" required="true"  type="TIMESTAMP"  description="Creation date for"/>
+		<column name="updated" required="true"  type="TIMESTAMP"  description="Last update date"/>
+		<column name="ip" required="true"  type="VARCHAR" size="255" description="Registration IP" />
+		<column name="lastLogin" type="TIMESTAMP" description="Fecha del ultimo login del usuario" />
+		<column name="imported" required="true"  type="BOOLEAN"  default='0' description="Is user imported to the system?"/>
+		<column name="verificationHash" type="VARCHAR" size="255" description="Hash de Verificacion de Creacion" />
+
+		<behavior name="soft_delete" />
+
+		<unique>
+			<unique-column name="username" />
+		</unique>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="registration_userInfo" phpName='RegistrationUserInfo' description="Information about users by registration">
+
+		<column name="userId" required="true" primaryKey="true" type="INTEGER" description="UserByRegistration Id" />
+		<column name="name" type="VARCHAR" size="255" description="name" required="true"/>
+		<column name="surname" type="VARCHAR" size="255" description="surname" required="true"/>
+		<column name="mailAddress" type="VARCHAR" size="255" description="Email" required="true"/>
+		<column name="alternateMailAddress" type="VARCHAR" size="255" description="Email Alternativo" />
+		<column name="newsletterSubscribe" type="BOOLEAN" default="0" description="Indicador de subscripcion al newsletter" />
+		<column name="occupation" type="VARCHAR" size="255" description="Profesion" />
+		<column name="organization" type="VARCHAR" size="255" description="Organizacion" />
+		<column name="telephone" type="VARCHAR" size="255" description="Telefono" />
+		<column name="alternateTelephone" type="VARCHAR" size="255" description="Telefono Alternativo" />
+		<column name="group" required="true" type="INTEGER" description="group" />
+		<column name="country" type="VARCHAR" size="255" description="Pais" />
+		<column name="state" type="VARCHAR" size="255" description="Provincia" />
+
+		<foreign-key foreignTable="registration_user" >
+			<reference local="userId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>
