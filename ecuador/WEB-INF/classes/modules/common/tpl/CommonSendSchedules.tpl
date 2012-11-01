@@ -1,0 +1,1 @@
+[|-$timestamp->format('Y-m-d H:i:s')-|] |-if $recipientsCount > 1-|Se enviaron |-$recipientsCount-| mensajes.|-elseif $recipientsCount eq 1-|Se envió 1 mensaje.|-else-|No habían mensajes que enviar.|-/if-|
