@@ -5,7 +5,7 @@
 function requirementsDoAddAttendant(form) {
 	var fields = Form.serialize(form);
 	var myAjax = new Ajax.Updater(
-				{success: 'attendantsList'},
+				{success: 'asocAttendantsList'},
 				url,
 				{
 					method: 'post',
@@ -19,7 +19,7 @@ function requirementsDoAddAttendant(form) {
 function requirementsDoDeleteAttendant(form) {
 	var fields = Form.serialize(form);
 	var myAjax = new Ajax.Updater(
-				{success: 'attendantsList'},
+				{success: 'attendantsMsgField'},
 				url,
 				{
 					method: 'post',
@@ -110,7 +110,7 @@ function requirementsDoDeleteAttendant(form) {
 	<fieldset title="Asignación de Recursos">
 		<legend>Asignación de Recursos</legend>
 		<form method="post">
-			<div id="attendantsMsgField"> <span id="attendantsMsgField"></span> 
+			<div id="attendantsMsgField"></div>
 			<p>Seleccione los recursos para el requerimiento</p>
 			<p>
 				<select id="attendantId" name="attendantId" title="attendantId">
@@ -122,16 +122,17 @@ function requirementsDoDeleteAttendant(form) {
 			</p>
 			<input type="hidden" name="do" id="do" value="requirementsDoAddAttendantX" /> 
 			<input type="hidden" name="id" id="id" value="|-$requirement->getId()-|" />
-			<input type="hidden" name="entityType" id="entityType" value="requirement" />
+				<input type="hidden" name="entityType" id="entityType" value="requirement" />
 			<input type="button" value="Agregar recurso" onClick="javascript:requirementsDoAddAttendant(this.form)"/> 
 		</form>
+		<br /><br />
 		<ul id="asocAttendantsList" class="iconOptionsList">
 			|-foreach from=$asocAttendants item=asocAttendant name=for_asocAttendant-|
 			|-assign var="resource" value=$asocAttendant->getUser()-|
-			<li id="asocAttendantsListItem|-$resource->getId()-|">
+			<li id="asocAttendantsListItem|-$asocAttendant->getId()-|">
 				<form  method="post"> 
 					<input type="hidden" name="do" id="do" value="requirementsDoDeleteAttendantX" /> 
-					<input type="hidden" name="attendantId"  value="|-$resource->getId()-|" /> 
+					<input type="hidden" name="id" id="id" value="|-$asocAttendant->getId()-|" /> 
 					<input type="button" value="Eliminar" onClick="javascript:requirementsDoDeleteAttendant(this.form)" class="icon iconDelete" title="Desasociar el recurso del desarrollo"/> 
 				</form> |-$resource->getName()-|
 			</li>
