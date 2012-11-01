@@ -1,6 +1,6 @@
 <script type="text/javascript" language="javascript">
 
-	Element.remove('#asocAttendantsListItem|-$attendant->getId()-|');
+	Element.remove('asocAttendantsListItem|-$attendant->getId()-|');
 
 	var option = document.createElement('option');
 	option.text = '|-$attendant->getName()-|';
