@@ -26,13 +26,16 @@ class ContentLanguageDoDeleteAction extends BaseAction {
 
 		$module = "Content";
 		$content = new Content();
-		$result = false; //resultado de la operacion
 
-		if (isset($_POST['languageCode']))
-			$result = $content->disableLanguage($_POST['languageCode']);
+        $id=$_POST["id"];
 
-		if ($result)
-			return $mapping->findForwardConfig('success');
+        $idioma=ContentActiveLanguageQuery::create()->findPk($id);
+
+		if ($idioma){
+            $idioma->setActive(0);
+            $idioma->save();
+            return $mapping->findForwardConfig('success');
+        }
 
 		return $mapping->findForwardConfig('failure');
 

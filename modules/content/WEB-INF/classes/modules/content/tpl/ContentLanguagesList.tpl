@@ -22,9 +22,9 @@
 			Todos los idiomas disponibles se encuentran activos
 			|-else-|
 				<label>Activación de idioma: </label>
-				<select name="languageCode">
+				<select name="id">
 					|-foreach from=$inactiveLanguages item=item-|
-						<option value="|-$item.code-|">|-$item.name-|</option>
+						<option value="|-$item->getId()-|">|-$item->getName()-|</option>
 					|-/foreach-|
 				</select>
 				<input type="submit" value="Activar">
@@ -32,6 +32,8 @@
 			|-/if-|</p>
 		</form>
 	</div>
+
+		<div class="rightLink"><a href="Main.php?do=contentLanguageEdit" class="addLink">Agregar Idioma</a></div></th>
 
 
 	<div id="content-languages">
@@ -42,13 +44,19 @@
 			|-foreach from=$languages item=item-|
 				<li> 
 					<span class="textOptionMove" style="float:left;width:65%;">
-						|-$item.name-|
+						|-$item->getName()-|
 					</span>
 					<span style="float:left;width:35%;text-align:right;">
-						<form action="Main.php?do=contentLanguageDoDelete" method="post" style="display: inline;"><input
-						 type="hidden" name="languageCode" value="|-$item.languageCode-|"/><a href="#" 
-						 onclick="if (confirm('¿Esta seguro que quiere desactivar este elemento?')) this.parentNode.submit();" alt="Desactivar" title="Desactivar"><img src="images/clear.png" class="linkImageDelete"></a>
+						<form action="Main.php" method="get" style="display: inline;">
+							<input type="hidden"  value="contentLanguageEdit" name="do" />
+							<input type="hidden"  value="|-$item->getId()-|" name="id" />
+							<input type="submit"  value="Editar" class="icon iconEdit" title="Editar" />
 						</form>
+						<form action="Main.php?do=contentLanguageDoDelete" method="post" style="display: inline;"><input
+						 type="hidden" name="id" value="|-$item->getId()-|"/><a href="#"
+						 onclick="if (confirm('¿Esta seguro que quiere desactivar este elemento?')) this.parentNode.submit();" alt="Desactivar" title="Desactivar"><img src="images/clear.png" class="icon iconDelete"></a>
+						</form>
+
 					</span>
 					<br style="clear: left" />
 				</li>

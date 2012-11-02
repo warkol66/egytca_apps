@@ -26,6 +26,15 @@
 			<forward name="failure" path="/Main.php?do=contentLanguagesList&amp;message=notdeleted" redirect="true" />
 		</action>
 
+        <action    path = "contentLanguageDoEdit"
+                   type = "ContentLanguageDoEditAction"
+                   name = "contentLanguageDoEdit"
+                   scope = "request"
+                   validate = "true">
+            <forward name="success" path="/Main.php?do=contentLanguagesList&amp;message=edited" redirect="true" />
+            <forward name="failure" path="/Main.php?do=contentLanguagesList&amp;message=notedited" redirect="true" />
+        </action>
+
 		<action    path = "contentLanguageActivate"
 							 type = "ContentLanguageActivateAction"
 							 name = "contentLanguageActivate"
