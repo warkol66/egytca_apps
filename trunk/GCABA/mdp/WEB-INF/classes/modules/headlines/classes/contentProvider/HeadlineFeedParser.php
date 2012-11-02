@@ -124,3 +124,135 @@ class HeadlineFeedParser {
 			echo "<pre>";print_r($this->debugInfo);echo "</pre>";
 	}
 }
+
+class HeadlineParsedParser {
+	
+	private $type;
+	private $typeMap;
+	private $feed;
+	private $feedsPath;
+	private $makeFeedBackup;
+	private $headlines;
+	private $savedHeadlines;
+	private $existentHeadlinesCount;
+	private $invalidHeadlinesCount;
+	private $logEntryId;
+	
+	public function __construct($type, $makeFeedBackup = true) {
+		$this->type = $type;
+		$this->makeFeedBackup = $makeFeedBackup;
+		$this->typeMap = ConfigModule::get('headlines', 'typeMap');
+	}
+	
+	/**
+	 * parses a feed and saves the HeadlineParsed objects
+	 * 
+	 * @param string $feedUri feed uri. if null, the default uri for the feed type is used.
+	 * @throws Exception
+	 */
+	public function parse($feedUri = null) {
+		
+		if (is_null($feedUri))
+			$feedUri = $this->typeMap[$this->type]['url'];
+		
+		$this->feedsPath = ConfigModule::get("headlines", "feedBackupsPath");
+		$this->feed = $this->feedsPath.'/temp-feed.xml';
+		file_put_contents($this->feed, file_get_contents($feedUri));
+		
+		$logEntry = new HeadlineParseLogEntry();
+		$logEntry->setHeadlinetype($this->type);
+		$logEntry->setUser(Common::getLoggedUser());
+		$logEntry->setUrl($this->feed);
+		$logEntry->setStatus('ongoing');
+		$logEntry->save();
+		
+		$this->logEntryId = $logEntry->getId();
+		
+		$this->savedHeadlines = array();
+		$this->existentHeadlinesCount = 0;
+		$this->invalidHeadlinesCount = 0;
+		
+		$headlineParser = new HeadlineFeedParser($this->typeMap[$this->type]['class']);
+		try {
+			if ($this->makeFeedBackup)
+				$this->zipData();
+			$this->headlines = $headlineParser->debugMode($this->debug)->parse($this->feed);
+			$logEntry->setStatus('success');
+		} catch (Exception $e) {
+			$logEntry->setStatus('failure');
+			$logEntry->setErrormessage($e->getMessage());
+			throw $e;
+		}
+		
+		foreach ($this->headlines as $h) {
+			if (HeadlineParsedQuery::create()->filterByInternalid($h->getInternalId())->count() > 0) {
+				$this->existentHeadlinesCount++;
+			} else {
+				try {
+					$h->save();
+					$this->savedHeadlines []= $h;
+				} catch (Exception $e) {
+					$this->invalidHeadlinesCount++;
+				}
+			}
+		}
+
+		$logEntry->setParsedcount(count($this->headlines));
+		$logEntry->setCreatedcount(count($this->savedHeadlines));
+		$logEntry->setExistentcount($this->existentHeadlinesCount);
+		$logEntry->setInvalidcount($this->invalidHeadlinesCount);
+		$logEntry->save();
+
+		unlink($this->feed);
+	}
+	
+	/**
+	 * 
+	 * @return array HeadlineParsed objects parsed, including those already
+	 * existent or that couldn't be saved
+	 */
+	public function getHeadlines() {
+		return $this->headlines;
+	}
+	
+	/**
+	 * 
+	 * @return array new HeadlineParsed objects created
+	 */
+	public function getSavedHeadlines() {
+		return $this->savedHeadlines;
+	}
+	
+	/**
+	 * 
+	 * @return int already existent HeadlineParsed objects count
+	 */
+	public function getExistentHeadlinesCount() {
+		return $this->existentHeadlinesCount;
+	}
+	
+	/**
+	 * 
+	 * @return int invalid HeadlineParsed objects count
+	 */
+	public function getInvalidHeadlinesCount() {
+		return $this->invalidHeadlinesCount;
+	}
+	
+	/**
+	 * makes a zipped backup of the feed
+	 * @throws Exception
+	 */
+	private function zipData() {
+		$destination = "$this->feedsPath/$this->logEntryId.zip";
+		$zip = new ZipArchive();
+		if ($zip->open($destination, ZIPARCHIVE::CREATE) !== true)
+			throw new Exception("unable to open $destination");
+		
+		$zip->addFile($this->feed, "$this->logEntryId.xml");
+		$zip->close();
+		
+		if (!file_exists($destination))
+			throw new Exception("unable to create $destination");
+	}
+}
