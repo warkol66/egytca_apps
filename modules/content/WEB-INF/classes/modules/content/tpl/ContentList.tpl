@@ -39,19 +39,20 @@ Para eliminar haga click en "Eliminar". Para cambiar el orden de la información
 	|-else-|
 	<ul id="contentList">
 	|-foreach from=$elements item=value-|
-		<li id="contentList_|-$value.id-|" class="contentLi"> 
-			<span class="textOptionMove" style="float:left;width:65%;" title="Mover este contenido">|-$value.title-|
-				|-if $value.type eq 2-|&nbsp;[&nbsp;<span class="desac"><strong>Link</strong></span>&nbsp;]
-				|-elseif $value.type eq 0-|&nbsp;[&nbsp;<span class="desac"><strong>Contenido</strong></span>&nbsp;]
-				|-elseif $value.type eq 1-|&nbsp;[&nbsp;<span class="desac"><strong>Sección</strong></span>&nbsp;]|-/if-|
+		|-$temp=$value->setLocale($defaultLanguage->getlanguagecode())-|
+		<li id="contentList_|-$value->getId()-|" class="contentLi">
+			<span class="textOptionMove" style="float:left;width:65%;" title="Mover este contenido">|-$value->getTitle()-|
+				|-if $value->getType() eq 2-|&nbsp;[&nbsp;<span class="desac"><strong>Link</strong></span>&nbsp;]
+				|-elseif $value->getType() eq 0-|&nbsp;[&nbsp;<span class="desac"><strong>Contenido</strong></span>&nbsp;]
+				|-elseif $value->getType() eq 1-|&nbsp;[&nbsp;<span class="desac"><strong>Sección</strong></span>&nbsp;]|-/if-|
 			</span>
 			<span style="float:left;width:35%;text-align:right;">
-				|-if $value.type eq 0-|<a href="Main.php?do=contentShow&id=|-$value.id-|" alt="Ver" title="Ver" target="_blank"><img src="images/clear.png" class="icon iconView"></a>
-				|-elseif $value.type eq 1-|<a href="Main.php?do=contentShow&id=|-$value.id-|" alt="Ver" title="Ver" target="_blank"><img src="images/clear.png" class="icon iconView"></a>
-				|-elseif $value.type eq 2-|<a href="|-$value.link-|" alt="Ver" title="Ver" target="_blank"><img src="images/clear.png" class="icon iconView"></a>|-/if-|
-				|-if $value.type eq 1-|<a href="Main.php?do=contentList&sectionId=|-$value.id-|" alt="ir a Sección" title="ir a Sección"><img src="images/clear.png" class="icon iconGoTo"></a>|-/if-|
-				<a href="Main.php?do=contentEdit&id=|-$value.id-|" alt="Editar" title="Editar"><img src="images/clear.png" class="icon iconEdit"></a>
-				<form action="Main.php?do=contentDoDelete" method="post" name="content|-$value.id-|" style="display: inline;"><input type="hidden" name="id" value="|-$value.id-|"/><a href="#" onclick="if (confirm('¿Esta seguro que quiere eliminar este elemento?')) this.parentNode.submit();" alt="Eliminar" title="Eliminar"><img src="images/clear.png" class="icon iconDelete"></a>
+				|-if $value->getType() eq 0-|<a href="Main.php?do=contentShow&id=|-$value->getId()-|" alt="Ver" title="Ver" target="_blank"><img src="images/clear.png" class="icon iconView"></a>
+				|-elseif $value->getType() eq 1-|<a href="Main.php?do=contentShow&id=|-$value->getId()-|" alt="Ver" title="Ver" target="_blank"><img src="images/clear.png" class="icon iconView"></a>
+				|-elseif $value->getType() eq 2-|<a href="|-$value->getLink()-|" alt="Ver" title="Ver" target="_blank"><img src="images/clear.png" class="icon iconView"></a>|-/if-|
+				|-if $value->getType() eq 1-|<a href="Main.php?do=contentList&sectionId=|-$value->getId()-|" alt="ir a Sección" title="ir a Sección"><img src="images/clear.png" class="icon iconGoTo"></a>|-/if-|
+				<a href="Main.php?do=contentEdit&id=|-$value->getId()-|" alt="Editar" title="Editar"><img src="images/clear.png" class="icon iconEdit"></a>
+				<form action="Main.php?do=contentDoDelete" method="post" name="content|-$value->getId()-|" style="display: inline;"><input type="hidden" name="id" value="|-$value->getId()-|"/><a href="#" onclick="if (confirm('¿Esta seguro que quiere eliminar este elemento?')) this.parentNode.submit();" alt="Eliminar" title="Eliminar"><img src="images/clear.png" class="icon iconDelete"></a>
 				</form>
 			</span>
 			<br style="clear: all" />

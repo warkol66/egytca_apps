@@ -16,11 +16,6 @@ tinymce.create('tinymce.plugins.FormInsertionPlugin', {
 
                 c.onRenderMenu.add(function(c, m) {
                     m.add({title : 'Seleccione un formulario a insertar', 'class' : 'mceMenuItemTitle'}).setDisabled(1);
-						|-foreach from=$forms item=form name=for_form-|
-                    m.add({title : '|-$form->getName()-|', onclick : function() {
-						tinyMCE.activeEditor.selection.setContent(' {setFormId_|-$form->getId()-|} ');
-                    }});
-						|-/foreach-|
 
                 });
 
@@ -39,7 +34,7 @@ tinymce.PluginManager.add('formInsertionPlugin', tinymce.plugins.FormInsertionPl
 		// General options
 		mode : "exact",
 		editor_selector : "mceEditor",
-		elements : 	"|-foreach from=$languages item=langItem name=for_lang-|content[|-$langItem.languageCode-|][|-$element-|]|-if not $smarty.foreach.for_lang.last-|, |-/if-||-/foreach-|",
+		elements : 	"|-foreach from=$languages item=langItem name=for_lang-|content[|-$langItem->getLanguagecode()-|][|-$element-|]|-if not $smarty.foreach.for_lang.last-|, |-/if-||-/foreach-|",
 		theme : "advanced",
 		plugins : "-formInsertionPlugin,|-$plugins-|",
 		|-if ($plugins|stristr:"table") ne FALSE-|theme_advanced_buttons3_add : "table",|-/if-|

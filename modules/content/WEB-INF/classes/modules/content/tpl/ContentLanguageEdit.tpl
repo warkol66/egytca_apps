@@ -7,7 +7,7 @@
 <p>A continuación podrá |-if $action eq "edit"-|editar|-else-|crear|-/if-| un Idioma.</p>
 <div id="div_idioma">
 	|-if $message eq "error"-|
-		<div class="errorMessage">Ha ocurrido un error al intentar guardar el Curva de Desembolso</div>
+		<div class="errorMessage">Ha ocurrido un error al intentar guardar el Idioma</div>
 	|-/if-|
 	<fieldset title="Formulario de edición de datos de un Curva de Desembolso">
 		<legend>Idioma</legend>
