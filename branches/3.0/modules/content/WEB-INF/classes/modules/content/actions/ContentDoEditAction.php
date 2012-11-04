@@ -1,113 +1,126 @@
 <?php
 /**
-* ContentDoEditAction
-* Guarda los cambios realizados a un contenido
-* @package  content
-*/
+ * ContentDoEditAction
+ * Guarda los cambios realizados a un contenido
+ * @package  content
+ */
 
-class ContentDoEditAction extends BaseAction {
+class ContentDoEditAction extends BaseAction
+{
 
-	function ContentDoEditAction() {
-		;
-	}
+    function ContentDoEditAction()
+    {
+        ;
+    }
 
-	function getForward($forward,$sectionId,$mapping) {
+    function getForward($forward, $sectionId, $mapping)
+    {
 
-		$myRedirectConfig = $mapping->findForwardConfig($forward);
-		$myRedirectPath = $myRedirectConfig->getpath();
-		$queryData = '&sectionId='.$sectionId;
-		$myRedirectPath .= $queryData;
-		$fc = new ForwardConfig($myRedirectPath, True);
-		return $fc;
+        $myRedirectConfig = $mapping->findForwardConfig($forward);
+        $myRedirectPath = $myRedirectConfig->getpath();
+        $queryData = '&sectionId=' . $sectionId;
+        $myRedirectPath .= $queryData;
+        $fc = new ForwardConfig($myRedirectPath, True);
+        return $fc;
 
-	}
+    }
 
-	function addSlasshesToContent($content) {
+    function addSlasshesToContent()
+    {
 
-		$languages = $content->getActiveLanguageCodes();
-		foreach ($languages as $eachLanguage) {
-			$languageCode = $eachLanguage['languageCode'];
-			$_POST['content'][$languageCode]['title'] = addslashes($_POST['content'][$languageCode]['title']);
-			$_POST['content'][$languageCode]['titleInMenu'] = addslashes($_POST['content'][$languageCode]['titleInMenu']);
-			$_POST['content'][$languageCode]['content'] = addslashes($_POST['content'][$languageCode]['content']);
-		}
+        $languages = ContentActiveLanguageQuery::create()->filterByActive(1)->find();
+        foreach ($languages as $eachLanguage) {
+            $languageCode = $eachLanguage->getLanguagecode();
+            $_POST['locale'][$languageCode]['title'] = addslashes($_POST['locale'][$languageCode]['title']);
+            $_POST['locale'][$languageCode]['titleInMenu'] = addslashes($_POST['locale'][$languageCode]['titleInMenu']);
+            $_POST['locale'][$languageCode]['content_value'] = addslashes($_POST['locale'][$languageCode]['content_value']);
+        }
 
-	}
+    }
 
-	function execute($mapping, $form, &$request, &$response) {
+    function execute($mapping, $form, &$request, &$response)
+    {
 
-		BaseAction::execute($mapping, $form, $request, $response);
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
+        BaseAction::execute($mapping, $form, $request, $response);
+        //////////
+        // Access the Smarty PlugIn instance
+        // Note the reference "=&"
+        $plugInKey = 'SMARTY_PLUGIN';
+        $smarty =& $this->actionServer->getPlugIn($plugInKey);
+        if ($smarty == NULL) {
+            echo 'No PlugIn found matching key: ' . $plugInKey . "<br>\n";
+        }
 
-		$module = "Content";
-		$content = new Content();
+        $module = "Content";
 
-		if (!get_magic_quotes_gpc() || !get_magic_quotes_runtime())
-			$this->addSlasshesToContent($content);
 
-		//	casos de edición de contenidos y secciones existentes
-		if (isset($_POST['content']['id']) && isset($_POST['content']['type'])) {
+        if (!get_magic_quotes_gpc() || !get_magic_quotes_runtime())
+            $this->addSlasshesToContent();
 
-			$res = $_POST['content'];
+        // En el caso de la edicion.
+        if (isset($_REQUEST["id"]) && $_REQUEST["id"] != "") {
+            $content=ContentQuery::create()->findPk($_REQUEST["id"]);
 
-			if ($_POST['content']['type'] == "section") {
-				if ($content->updateSection($_POST['content']))
-					return $this->getForward("success",$res['parent'],$mapping);
-				return $this->getForward("failure",$res['parent'],$mapping);
-			}
+            $params = $_POST["params"];
+            $content->fromArray($params, BasePeer::TYPE_FIELDNAME);
 
-			if (($_POST['content']['type'] == "content") || ($_POST['content']['type'] == "link")) {
-				if ($_POST['content']['type'] == 'content')
-					if ($content->updateContent($_POST['content']))
-						return $this->getForward("success",$res['parent'],$mapping);
-					else
-						return $this->getForward("failure",$res['parent'],$mapping);
+            $parentId=$content->getParent()->getId();
 
-				if ($_POST['content']['type'] == 'link')
-					if ($content->updateLink($_POST['content']))
-						return $this->getForward("success",$res['parent'],$mapping);
+            if($content->getType()!=1){
+                // Para Contenidos y Links
+                if($content->getParent()->getId()!=$_REQUEST["parentId"]){
+                    $parent = ContentQuery::create()->findPk($_REQUEST["parentId"]);
+                    $content->moveToLastChildOf($parent);
+                    $parentId=$parent->getId();
+                }
+            }
 
-				return $this->getForward("failure",$res['parent'],$mapping);
+            $languages = ContentActiveLanguageQuery::create()->filterByActive(1)->find();
+            foreach ($languages as $eachLanguage) {
+                $languageCode = $eachLanguage->getLanguagecode();
 
-			}
-		}
+                $contentLocale=ContentI18nQuery::create()->filterByLocale($languageCode)->filterById($content->getId())->findOne();
+                if(!$contentLocale) $contentLocale=new ContentI18n();
+                $contentLocale->setLocale($languageCode);
+                $contentLocale->setTitle($_POST['locale'][$languageCode]['title']);
+                $contentLocale->setTitleinmenu($_POST['locale'][$languageCode]['titleInMenu']);
+                $contentLocale->setContentValue($_POST['locale'][$languageCode]['content_value']);
+                $content->addContentI18n($contentLocale);
+            }
 
-		// casos de creación de nuevos contenidos y secciones
-		elseif (isset($_POST['content']['type']) && isset($_POST['content']['parent'])) {
+            $content->save();
+            return $this->addParamsToForwards(array("sectionId"=>$parentId),$mapping,"success");
 
-			if ($_POST['content']['type'] == "section") {
-				if ($content->createSection($_POST['content']));
-					return $this->getForward("success",$_POST['content']['parent'],$mapping);
+        } else {
+            // El caso de estar creando.
+            $parentId = $_REQUEST["parentId"];
+            $parent = ContentQuery::create()->findPk($parentId);
 
-				return $this->getForward("failure",$_POST['content']['parent'],$mapping);
-			}
+            $params = $_POST["params"];
 
-			if (($_POST['content']['type'] == "content") || ($_POST['content']['type'] == "link")) {
-				if (($_POST['content']['type'] == 'content'))
-					if ($content->createContent($_POST['content']))
-						return $this->getForward("success",$_POST['content']['parent'],$mapping);
+            $content = new Content();
+            $content->fromArray($params, BasePeer::TYPE_FIELDNAME);
 
-				if (($_POST['content']['type'] == 'link'))
-					if ($content->createLink($_POST['content']))
-						return $this->getForward("success",$_POST['content']['parent'],$mapping);
+            $content->insertAsLastChildOf($parent);
 
-				return $this->getForward("failure",$_POST['content']['parent'],$mapping);
 
-			}
+            $languages = ContentActiveLanguageQuery::create()->filterByActive(1)->find();
+            foreach ($languages as $eachLanguage) {
+                $languageCode = $eachLanguage->getLanguagecode();
 
-			return $this->getForward("failure",$_POST['content']['parent'],$mapping);
+                $contentLocale=new ContentI18n();
+                $contentLocale->setLocale($languageCode);
+                $contentLocale->setTitle($_POST['locale'][$languageCode]['title']);
+                $contentLocale->setTitleinmenu($_POST['locale'][$languageCode]['titleInMenu']);
+                $contentLocale->setContentValue($_POST['locale'][$languageCode]['content_value']);
+                $content->addContentI18n($contentLocale);
+            }
 
-		}
+            $content->save();
 
-		//En caso que no haya entrado en editar o crear
-		return $this->getForward("failure",$_POST['content']['parent'],$mapping);
+            return $this->addParamsToForwards(array("sectionId"=>$parentId),$mapping,"success");
 
-	}
+        }
+
+    }
 }
