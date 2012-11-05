@@ -15,8 +15,9 @@
 	var url="|-$systemUrl-|";
 </script>
 <!--TemplateJsIncludes.tpl-->
-|-include file='TemplateJsIncludes.tpl'-|
-|-include file='TemplateJsIncludes.jquery.tpl'-|
+|-block name=jsIncludes-|
+	|-include file='TemplateJsIncludes.tpl'-|
+|-/block-|
 <script language="JavaScript" type="text/JavaScript">
 	jQuery.noConflict();
 </script>
