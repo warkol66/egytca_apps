@@ -6,7 +6,7 @@ class ConfigModule {
 		"global" => array(
 			"debugMode" => true,
 			"noSecurity" => true,
-			"noCheckLogin" => true,
+			"noCheckLogin" => false,
 			"developmentMode" => true,
 			"showPropelExceptions" => true,
 			"showSwiftExceptions" => true,

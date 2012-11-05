@@ -44,7 +44,7 @@ $welcomePath = "usersWelcome";
 $loginPath = "usersLogin";
 
 //Codigo del idioma actual
-$mluse = "esp";
+$mluse = "";
 
 //Cantidad de licencias de usuarios
 $licenses = "";

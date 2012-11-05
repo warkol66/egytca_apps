@@ -1,4 +1,20 @@
 <script src="Main.php?do=js&name=js&module=blog&code=|-$currentLanguageCode-|" type="text/javascript"></script>
+<script>
+    jQuery(function() {
+        jQuery( ".datepickerFrom" ).datepicker({
+			dateFormat:"dd-mm-yy",
+			onClose: function(selectedDate) {
+                jQuery(".datepickerTo").datepicker("option", "minDate", selectedDate);
+            }
+		});
+		jQuery(".datepickerTo").datepicker({
+			dateFormat:"dd-mm-yy",
+			onClose: function(selectedDate) {
+                jQuery(".datepickerFrom").datepicker("option", "maxDate", selectedDate);
+            }
+		});
+    });
+</script>
 <h2>##blog,1,Blog##</h2>
 <h1>##blog,2,Lista de Entradas##</h1>
 <p>##blog,3,A continuación se muestra el listado de entradas disponibles en el sistema, ud. podrá agregar nuevas o eliminar las existente, así como publicar o archivar una entrada.##</p>
@@ -8,13 +24,13 @@
 		<legend>##blog,4,Opciones de Búsqueda##</legend>
 		<p>
 			<label for="fromDate">##blog,5,Fecha Desde##</label>
-			<input name="filters[fromDate]" type="text" id="fromDate" title="fromDate" value="|-$filters.fromDate|date_format:"%d-%m-%Y"-|" size="12" /> 
-			<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[fromDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+			<input name="filters[fromDate]" type="text" id="fromDate" class="datepickerFrom" title="fromDate" value="|-$filters.fromDate|date_format:"%d-%m-%Y"-|" size="12" /> 
+			<img src="images/calendar.png" width="16" height="15" border="0"  title="Seleccione la fecha">
 		</p>
 		<p>
 			<label for="toDate">##blog,6,Fecha Hasta##</label>
-			<input name="filters[toDate]" type="text" id="toDate" title="toDate" value="|-$filters.toDate|date_format:"%d-%m-%Y"-|" size="12" /> 
-			<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[toDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+			<input name="filters[toDate]" type="text" id="toDate" class="datepickerTo" title="toDate" value="|-$filters.toDate|date_format:"%d-%m-%Y"-|" size="12" /> 
+			<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 		</p>
 |-if $blogConfig.useCategories.value eq "YES"-|		<p>
 			<label for="categoryId">##blog,14,Categoría##</label>

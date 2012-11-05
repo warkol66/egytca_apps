@@ -14,7 +14,12 @@
 <script language="JavaScript" type="text/JavaScript">
 	var url="|-$systemUrl-|";
 </script>
+<!--TemplateJsIncludes.tpl-->
 |-include file='TemplateJsIncludes.tpl'-|
+|-include file='TemplateJsIncludes.jquery.tpl'-|
+<script language="JavaScript" type="text/JavaScript">
+	jQuery.noConflict();
+</script>
 </head>
 <body>
 <!-- Begin Wrapper -->
