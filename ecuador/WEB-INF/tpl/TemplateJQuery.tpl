@@ -1,4 +1,4 @@
 |-extends file="Template.tpl"-|
-|-block name=jsIncludes-|
+|-block name=jqueryIncludes-|
 	|-include file="TemplateJsIncludes.jquery.tpl"-|
 |-/block-|
