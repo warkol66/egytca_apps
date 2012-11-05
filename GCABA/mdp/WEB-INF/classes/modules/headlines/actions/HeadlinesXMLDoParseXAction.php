@@ -6,7 +6,6 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 	
 	protected $debug;
 	
-	private $type;
 	private $typeMap;
 	private $maxAllowedTimeStrings;
 	
@@ -30,41 +29,102 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 		
+		$this->smarty = $smarty;
+		
 		if (!empty($_POST['type'])) {
 			
-			$this->type = $_POST['type'];
+			$type = $_POST['type'];
+			$makeFeedBackup = true;
 			
-			if (!in_array($this->type, array_keys($this->typeMap))) {
-				if ($this->type == "")
-					$this->type = "(empty string)";
-				return $this->returnAjaxFailure("$this->type is not a valid type");
+			if (empty($_FILES['file'])) {
+				
+				$uri = null; // parser will figure it out based on the feed type
+
+				if (!in_array($this->type, array_keys($this->typeMap))) {
+					if ($this->type == "")
+						$this->type = "(empty string)";
+					return $this->returnAjaxFailure("$this->type is not a valid type");
+				}
+
+				if (!$this->timeIsOk()) {
+					// se parseo hace muy poco -> impedir
+					$smarty->assign('parseErrors', array(
+						array('strategy' => 'feed', 'message' => 'El feed se parseo hace poco. Espere para volver a parsear')
+					));
+					$smarty->display('HeadlinesParsedListInclude.tpl');
+					return;
+				}
+				
+			} else {
+
+				$displayHeadlinesFeedList = true; // hack para el uploader
+
+				if ($_FILES['file']['error'] > 0) {
+//					return $this->returnAjaxFailure ($_FILES['file']['error']);
+					echo 'file upload error: '.$_FILES['file']['error'];
+					return;
+				}
+
+				$uri = $_FILES['file']['tmp_name'];
 			}
 			
-			if (!$this->timeIsOk()) {
-				// se parseo hace muy poco -> impedir
-				$smarty->assign('parseErrors', array(
-					array('strategy' => 'feed', 'message' => 'El feed se parseo hace poco. Espere para volver a parsear')
-				));
-				$smarty->display('HeadlinesParsedListInclude.tpl');
-				return;
-			}
+			$this->parse($type, $makeFeedBackup, $uri);
 			
-			$parser = new HeadlineParsedParser($this->type, true);
-			try {
-				$parser->parse();
-			} catch (Exception $e) {
-				$parseErrors = array(
-					array('strategy' => 'feed', 'message' => $e->getMessage())
-				);
-				$smarty->assign('parseErrors', $parseErrors);
-				require_once 'contentProvider/ErrorReporter.php';
-				ErrorReporter::report($parseErrors);
-			}
+		} elseif (!empty($_POST['logentryid'])) {
 			
-			$smarty->assign('headlinesParsed', $parser->getSavedHeadlines());
+			$makeFeedBackup = false;
+			$logEntry = HeadlineParseLogEntryQuery::create()->findOneById($_POST['logentryid']);
+			if (is_null($logEntry))
+				return $this->returnAjaxFailure('invalid logentryid');
+			
+			$type = $logEntry->getHeadlinetype();
+			
+			$feedsPath = ConfigModule::get('headlines', 'feedBackupsPath');
+			$extractedDir = $feedsPath.'/'.'temp-'.$logEntry->getId().'-'.uniqid();
+			$uri = $extractedDir.'/'.$logEntry->getId().'.xml';
+			
+			$zippedFeed = $feedsPath.'/'.$logEntry->getId().'.zip';
+			$zip = new ZipArchive() ;
+			if ($zip->open($zippedFeed) !== true)
+				return $this->returnAjaxFailure("unable to open $zippedFeed");
+			
+			$zip->extractTo($extractedDir);
+			$zip->close();
+			
+			if (!file_exists($uri))
+				return $this->returnAjaxFailure("$uri not found");
+			
+			$this->parse($type, $makeFeedBackup, $uri);
+			
+			unlink($uri);
+			rmdir($extractedDir);
+			
+		} else {
+			return $this->returnAjaxFailure('invalid parameters');
 		}
-		
-		$smarty->display('HeadlinesParsedListInclude.tpl');
+
+		// hack para el uploader
+		if ($displayHeadlinesFeedList) {
+			$smarty->assign('headlineParsedColl', $this->parser->getSavedHeadlines());
+			$smarty->display('HeadlinesFeedList.tpl');
+		} else {
+			$smarty->assign('headlinesParsed', $this->parser->getSavedHeadlines());
+			$smarty->display('HeadlinesParsedListInclude.tpl');
+		}
+	}
+	
+	private function parse($type, $makeFeedBackup, $uri) {
+		$this->parser = new HeadlineParsedParser($type, $makeFeedBackup);
+		try {
+			$this->parser->parse($uri);
+		} catch (Exception $e) {
+			$parseErrors = array(
+				array('strategy' => 'feed', 'message' => $e->getMessage())
+			);
+			$this->smarty->assign('parseErrors', $parseErrors);
+			require_once 'contentProvider/ErrorReporter.php';
+			ErrorReporter::report($parseErrors);
+		}
 	}
 	
 	private function timeIsOk() {
