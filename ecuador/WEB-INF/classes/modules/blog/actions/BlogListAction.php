@@ -53,7 +53,7 @@ class BlogListAction extends BaseAction {
 			$smarty->assign("blogEntries",$blogEntries);
 			$forwardConfig = $mapping->findForwardConfig('xml');
 
-			$this->template->template = "TemplatePlain.tpl";
+			$this->template->template = "TemplateJQuery.tpl";
 
 			$xml = $smarty->fetch($forwardConfig->getPath());
 

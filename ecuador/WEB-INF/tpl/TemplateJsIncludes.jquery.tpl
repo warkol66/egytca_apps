@@ -17,7 +17,9 @@
 }
 </script>
 
-<script src="scripts/jquery.min.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/jquery/jquery.min.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/jquery/jquery-ui-1.9.1.custom.min.js" language="JavaScript" type="text/javascript"></script>
+<link rel="stylesheet" href="css/jquery-ui-1.9.1.custom.min.css" type="text/css">
 <script src="scripts/jquery/functions.js" language="JavaScript" type="text/javascript"></script>
 <script src="scripts/overlib.js" type="text/javascript"></script>
 
