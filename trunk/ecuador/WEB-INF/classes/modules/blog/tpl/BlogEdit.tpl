@@ -1,4 +1,9 @@
 <script type="text/javascript" src="scripts/lightbox.js"></script>
+<script type="text/javascript">
+	jQuery(function() {
+        jQuery( ".datepicker" ).datepicker();
+    });
+</script>
 <div id="lightbox1" class="leightbox"> 
 	<p align="right">				
 		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconDelete" /></a> 
@@ -27,8 +32,8 @@
 		</p>
 			<p>
 				<label for="blogEntry_creationDate">##blog,35,Fecha de Creación##</label>
-				<input name="blogEntry[creationDate]" type="text" id="blogEntry_creationDate" title="creationDate" value="|-$blogEntry->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
-				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('blogEntry[creationDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input name="blogEntry[creationDate]" type="text" id="blogEntry_creationDate" class="datepicker" title="creationDate" value="|-$blogEntry->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 			</p>
 			|-assign var=entryId value=$blogEntry->getId()-|
 			|-if not empty($entryId)-|
