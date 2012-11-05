@@ -603,7 +603,7 @@ class UserPeer extends BaseUserPeer {
 	* @return PropelObjectCollection Todos los actores
 	*/
 	function getAll() {
-    $criteria = UserPeer::getSearchCriteria();    
+    $criteria = UserPeer::getSearchCriteria();  
 		return UserPeer::doSelect($criteria);
 	}
 
