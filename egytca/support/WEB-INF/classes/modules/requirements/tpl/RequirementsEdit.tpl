@@ -68,20 +68,16 @@ function requirementsDoDeleteAttendant(form) {
 		  <textarea name="params[other]" cols="74" rows="8" wrap="VIRTUAL" id="params_other" type="text" title="Descripción del Requerimiento" |-$readonly|readonly-|>|-$requirement->getOther()|escape-|</textarea> |-validation_msg_box idField="params_other"-|
 		</p> 
 		
-		<p>Seleccione un desarrollo para asociar</p>
-		<p>
-			<select name='params[developmentId]'>
+		<p><label for="params_developmentId">Seleccione un desarrollo para asociar</label><select name='params[developmentId]' id="params_developmentId">
 				<option value="">Seleccione un desarrollo</option>
 				|-foreach from=$developments item=development name=for_development-|
 				<option value="|-$development->getId()-|" |-if $development->getId() eq $requirement->getDevelopmentid()-| selected="selected"|-/if-|>|-$development->getName()-|</option>
 				|-/foreach-|
 			</select>
 		</p>
-		|-assign var="dev" value=$requirement->getDevelopment()-|
-		|-if empty($dev)-|
-		<p>Seleccione un cliente</p>
-		<p>
-			<select name='params[clientId]'>
+		|-if $requirement->getDevelopment() eq ''-|
+		<p><label for="params_clientId">Seleccione un cliente</label>
+			<select name='params[clientId]'  id="params_clientId">
 				<option value="">Seleccione un cliente</option>
 				|-foreach from=$affiliates item=affiliate name=for_affiliate-|
 				<option value="|-$affiliate->getId()-|" |-if $affiliate->getId() eq $requirement->getClientid()-| selected="selected"|-/if-|>|-$affiliate->getName()-|</option>
@@ -89,8 +85,7 @@ function requirementsDoDeleteAttendant(form) {
 			</select>
 		</p>
 		|-else-|
-		|-assign var="cli" value=$requirement->getAffiliate()-|
-		<p>Cliente Asociado: |-$cli-|</p>
+		<p><label for="params_clientId">Cliente Asociado</label><input type="text" value="|-$requirement->getAffiliate()-|" size="80" readonly="reaonly" /></p>
 		|-/if-|
 		
 		|-if !$requirement->isNew()-|
