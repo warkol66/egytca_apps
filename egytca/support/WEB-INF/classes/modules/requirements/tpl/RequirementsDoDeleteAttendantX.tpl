@@ -5,7 +5,6 @@
 	var option = document.createElement('option');
 	option.text = '|-$attendant->getName()-|';
 	option.value = '|-$attendant->getId()-|';
-	option.name = 'attendantId';
 	option.id = 'attendantOption|-$attendant->getId()-|';
 	
 	try {
@@ -17,4 +16,4 @@
 
 
 </script>
-<span class="attendantsMsgField">Recurso desasociado</span>
+<span class="resultSuccess">Recurso desasociado</span>

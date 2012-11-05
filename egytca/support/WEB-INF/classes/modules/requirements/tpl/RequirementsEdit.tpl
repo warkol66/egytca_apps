@@ -24,8 +24,7 @@ function requirementsDoDeleteAttendant(form) {
 				{
 					method: 'post',
 					postBody: fields,
-					evalScripts: true,
-					insertion: Insertion.Bottom
+					evalScripts: true
 				});
 	$('attendantsMsgField').innerHTML = '<span class="inProgress">desasociando recurso...</span>';
 	return true;
