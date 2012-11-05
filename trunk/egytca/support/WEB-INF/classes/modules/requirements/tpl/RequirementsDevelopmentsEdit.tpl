@@ -77,9 +77,9 @@ function developmentsDoDeleteAttendant(form){
     
     <p>
 		<label for="params_delivered">Entregado</label>
-		<input name="params[delivered]" id="params_delivered" type="checkbox" title="Entregado" checked="|-$development->getDelivered()|checked:1-|" ></input>
+		<input name="params[delivered]" id="params_delivered0" type="hidden" value="0" />
+		<input name="params[delivered]" id="params_delivered" type="checkbox" title="Entregado" value="1" |-$development->getDelivered()|checked_bool-| />
     </p>
-    
     <p>
 		<label for="params_estimatedHours">Estimación de horas</label>
 		<input name="params[estimatedHours]" id="params_estimatedHours" size="5" value="|-$development->getEstimatedHours()-|" title="Estimación de horas" class="numericValidation"></input> |-validation_msg_box idField="params_estimatedHours"-|
@@ -101,9 +101,7 @@ function developmentsDoDeleteAttendant(form){
 		<input name="params[quotation]" id="params_quotation" value="|-$development->getQuotation()-|" title="Cotización" class="numericValidation"></input> |-validation_msg_box idField="params_quotation"-|
     </p>
     
-    <p>Seleccione un cliente</p>
-	<p>
-		<select name='params[clientId]'>
+    <p><label for="params_clientId">Seleccione un cliente</label><select name='params[clientId]' id="params_clientId">
 			<option value="">Seleccione un cliente</option>
 			|-foreach from=$affiliates item=affiliate name=for_affiliate-|
 			<option value="|-$affiliate->getId()-|" |-if $affiliate->getId() eq $development->getClientid()-| selected="selected"|-/if-|>|-$affiliate->getName()-|</option>

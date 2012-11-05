@@ -27,13 +27,14 @@ class RequirementsEditAction extends BaseEditAction {
 		
 		$arrayAsocIds = AttendantQuery::create()->filterByEntitytype('requirement')->filterByEntityid($this->entity->getId())->select('AttendantId')->find();
 		$developmentId = $this->entity->getDevelopmentid();
-		if(empty($developmentId)){
-			$this->smarty->assign("attendants",UserQuery::create()->filterById($arrayAsocIds, Criteria::NOT_IN)->orderByName()->findByActive(1));	
-		}else{
+		if(empty($developmentId))
+			$this->smarty->assign("attendants", UserQuery::create()->filterById($arrayAsocIds, Criteria::NOT_IN)->orderByName()->findByActive(1));	
+		else {
 			$arrayIds = AttendantQuery::create()->filterByEntitytype('development')->filterByEntityid($this->entity->getDevelopmentid())->select('Attendantid')->find();
-			$this->smarty->assign("attendants",UserQuery::create()->filterById($arrayIds, Criteria::IN)->filterById($arrayAsocIds, Criteria::NOT_IN)->find());
+			$this->smarty->assign("attendants", UserQuery::create()->filterById($arrayIds, Criteria::IN)->filterById($arrayAsocIds, Criteria::NOT_IN)->find());
 		}
-		$this->smarty->assign("asocAttendants",AttendantQuery::create()->filterByEntitytype('requirement')->filterByEntityid($this->entity->getId())->find());
+		$this->smarty->assign("asocAttendants", AttendantQuery::create()->filterByEntitytype('requirement')->filterByEntityid($this->entity->getId())->find());
+
 	}
 	
 }
