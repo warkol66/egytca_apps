@@ -1,8 +1,8 @@
 <h2>Curvas de Desembolso</h2>
-<h1>Administración de Curvas de Desembolso de |-$contract->getName()-|
+<h1>Administración de Curvas de Desembolso de |-if is_object($contract)-||-$contract->getName()-||-/if-|
 	<!-- /Link VOLVER -->
 </h1>
-<p>A continuación podrá editar la lista de Curvas de Desembolso de  |-$contract->getName()-|.</p>
+<p>A continuación podrá editar la lista de Curvas de Desembolso de  |-if is_object($contract)-||-$contract->getName()-||-/if-|.</p>
 <div id="div_indicators"> |-if $message eq "ok"-|
 	<div class="successMessage">Curva de Desembolso guardado correctamente</div>
 	|-elseif $message eq "deleted_ok"-|
@@ -37,7 +37,7 @@
 		<tbody>
 		|-if $indicators|@count eq 0-|
 		<tr>
-			<td colspan="3">|-if isset($filters)-|No hay Cursvas de Desembolso que concuerden con la búsqueda|-else-|No hay Cursvas de Desembolso disponibles|-/if-|</td>
+			<td colspan="3">|-if isset($filters)-|No hay Curvas de Desembolso que concuerden con la búsqueda|-else-|No hay Curvas de Desembolso disponibles|-/if-|</td>
 		</tr>
 		|-else-|
 		|-foreach from=$indicators item=indicator name=for_indicators-|
