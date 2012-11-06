@@ -8,7 +8,7 @@
 	<ul>
 		<li><a href="Main.php?do=usersWelcome">Ir al Inicio</a></li>
 
-		<li class="titleMenu" onclick="$('sectionApplications').toggle()">Aplicaciones</li>
+		<li class="titleMenu" onclick="$('#sectionApplications').toggle()">Aplicaciones</li>
 		<div id="sectionApplications" style="display:|-if $module|upper eq 'CONTENT' || $module|upper eq 'BLOG' || $module|upper eq 'REGISTRATION' || $module|upper eq 'DOCUMENTS'-|block|-else-|none|-/if-|">
 			<li><a href="Main.php?do=blogList">Blog</a></li>
 			<li><a href="Main.php?do=contentList">Contenidos</a></li>
@@ -16,7 +16,7 @@
 			<li><a href="Main.php?do=documentsList">Documentos</a></li>
 		</div>
 
-		<li class="titleMenu" onclick="$('sectionConfigurations').toggle()">Configuración</li>
+		<li class="titleMenu" onclick="$('#sectionConfigurations').toggle()">Configuración</li>
 		<div id="sectionConfigurations" style="display:|-if $module|upper eq 'CLIENTS' || $module|upper eq 'MEDIAS'-|block|-else-|none|-/if-|">
 			<li><a href="Main.php?do=mediasTypeList">Tipo de medios</a></li>
 			<li><a href="Main.php?do=mediasAudienceList">Audiencias</a></li>
@@ -30,7 +30,7 @@
 			<li><a href="Main.php?do=clientsUsersList">Usuarios de Clientes</a></li>
 		</div>
 
-		<li class="titleMenu" onclick="$('sectionAdmin').toggle()">Administración</li>
+		<li class="titleMenu" onclick="$('#sectionAdmin').toggle()">Administración</li>
 		<div id="sectionAdmin" style="display:|-if $module|upper eq 'USERS' || $module|upper eq 'AFFILIATES' || $module|upper eq 'MODULES' 
 		|| $module|upper eq 'COMMON' || $module|upper eq 'SURVEYS' || $module|upper eq 'SECURITY'-|block|-else-|none|-/if-|">
 			<li><a href="Main.php?do=affiliatesList">##affiliates,1,Afiliados##</a></li>

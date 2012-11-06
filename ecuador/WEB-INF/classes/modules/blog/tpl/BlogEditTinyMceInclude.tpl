@@ -1,4 +1,4 @@
-<!-- TinyMCE -->
+<!-- TinyMCE 
 <script type="text/javascript" src="scripts/swampy_browser/sb.js"></script>
 <script type="text/javascript" src="scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
 

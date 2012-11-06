@@ -1,16 +1,17 @@
 <script src="Main.php?do=js&name=js&module=blog&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 <script>
     jQuery(function() {
-        jQuery( ".datepickerFrom" ).datepicker({
+		$.datepicker.setDefaults($.datepicker.regional['es']);
+        $( ".datepickerFrom" ).datepicker({
 			dateFormat:"dd-mm-yy",
 			onClose: function(selectedDate) {
-                jQuery(".datepickerTo").datepicker("option", "minDate", selectedDate);
+                $(".datepickerTo").datepicker("option", "minDate", selectedDate);
             }
 		});
-		jQuery(".datepickerTo").datepicker({
+		$(".datepickerTo").datepicker({
 			dateFormat:"dd-mm-yy",
 			onClose: function(selectedDate) {
-                jQuery(".datepickerFrom").datepicker("option", "maxDate", selectedDate);
+                $(".datepickerFrom").datepicker("option", "maxDate", selectedDate);
             }
 		});
     });
