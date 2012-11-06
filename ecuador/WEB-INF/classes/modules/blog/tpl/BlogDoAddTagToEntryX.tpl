@@ -1,5 +1,5 @@
 <script type="text/javascript" language="javascript" >
-	$('tagMsgField').innerHTML = '<span class="resultSuccess">Etiqueta Agregada</span>';
+	$('#tagMsgField').html('<span class="resultSuccess">Etiqueta Agregada</span>');
 	option = $('tagOption|-$tag->getId()-|');
 	if (option != null) {
 		Element.remove('tagOption|-$tag->getId()-|');

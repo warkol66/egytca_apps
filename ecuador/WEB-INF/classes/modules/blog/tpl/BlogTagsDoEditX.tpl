@@ -1,9 +1,7 @@
 <div class="successMessage">Etiqueta guardada correctamente</div>
 <script type="text/javascript">
-	$('form_edit_tag').reset();
+	$('#form_edit_tag')[0].reset();
 </script>
-
-
 
 <script type="text/javascript" language="javascript" charset="utf-8">
 	var option = document.createElement('option');

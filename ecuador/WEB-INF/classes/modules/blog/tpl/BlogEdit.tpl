@@ -4,12 +4,16 @@
 		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
         $( ".datepicker" ).datepicker();
         
-        $("a#inline").fancybox();
-    });
+        $("a#inline").fancybox();	
+
+	});//fin docready
+ 
 </script>
 <div style="display:none;">
 	<div id="data">
-		<p align="right"> 
+		<p align="right">			
+			<a href="javascript:$.fancybox.close();" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconDelete" /></a> 
+		</p> 
 		|-include file="BlogTagsEditX.tpl"-|
 		</p> 
 	</div>
