@@ -19,7 +19,6 @@
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
-		<column name="unit" type="VARCHAR" size="12" description="Unidad" />
 		<column name="unitId" type="INTEGER" description="Id de Unidad" />
 
 		<column name="type" type="TINYINT" defaultValue="1" description="Tipo" />
@@ -298,7 +297,6 @@
 		<column name="code" type="VARCHAR" size="50" description="Codigo" />
 		<column name="price" type="DECIMAL" size="12" scale="2" description="Precio " />
 		<column name="quantity" type="DECIMAL" size="12" scale="2" description="Cantidad " />
-		<column name="unit" type="VARCHAR" size="12" description="Unidad" />
 		<column name="unitId" type="INTEGER" description="Id de Unidad" />
 		<column name="constructionId" type="INTEGER" description="Id del construction" />
 		<column name="description" type="LONGVARCHAR" />

@@ -22,8 +22,10 @@ class IndicatorSerie extends BaseIndicatorSerie {
 	function getYs() {
 		// No podemos hacer una consulta a la DB porque puede tratarse
 		// de un indicador no persistido.
-		$serieYs = $this->getIndicatorYs();
-		uasort($serieYs, array('IndicatorSerie', 'compareByOrder'));
+		
+		$serieYs = IndicatorYQuery::create()->filterByIndicatorSerie($this)->orderByXid()->find();
+//		$serieYs = $this->getIndicatorYs(orderByOrder);
+//		uasort($serieYs, array('IndicatorSerie', 'compareByOrder'));
 		return $serieYs;
 	}
 	

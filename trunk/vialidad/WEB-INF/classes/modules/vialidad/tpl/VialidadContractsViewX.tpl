@@ -10,8 +10,8 @@
 		<td>|-$contract->getName()-|</td> 
 	</tr> 
 	<tr> 
-		<td width="20%" nowrap class="tdTitle">Código</td> 
-		<td> |-$contract->getCode()-| </td> 
+		<td width="20%" nowrap class="tdTitle">Id de contrato (N° PAC)</td> 
+		<td> |-$contract->getPacNumber()|escape-| |-if $contract->getPacNumber() ne ''-|<a href="https://www.contrataciones.gov.py/sicp/llamado/llamadosPorID.seam?nroPacParam=|-$contract->getPacNumber()-|" target="_blank" title="Ir a Contrato" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a>|-/if-|  </td> 
 	</tr> 
 	<tr> 
 		<td width="20%" nowrap class="tdTitle">Contratista</td> 

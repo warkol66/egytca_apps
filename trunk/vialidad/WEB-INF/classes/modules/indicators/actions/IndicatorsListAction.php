@@ -10,9 +10,6 @@ class IndicatorsListAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -22,19 +19,16 @@ class IndicatorsListAction extends BaseAction {
 		$module = "Vialidad";
 		$smarty->assign("module",$module);
 
-
-
 		$url = "Main.php?do=indicatorsList&contractId=".$_REQUEST["contractId"];
 
-        $filters = $_GET["filters"];
+    $filters = $_GET["filters"];
 
-        $pager = IndicatorQuery::create()->filterByContractid($_REQUEST["contractId"])->createPager($filters, $_GET["page"], $filters["perPage"]);
+    $pager = IndicatorQuery::create()->filterByContractid($_REQUEST["contractId"])->createPager($filters, $_GET["page"], $filters["perPage"]);
 
-        $contract=ContractQuery::create()->findPk($_REQUEST["contractId"]);
-        $smarty->assign("contract",$contract);
+    $smarty->assign("contract",ContractQuery::create()->findPk($_REQUEST["contractId"]));
 
-        $indicators=$pager->getResults();
-        $smarty->assign("indicators",$indicators);
+    $indicators=$pager->getResults();
+    $smarty->assign("indicators",$indicators);
 
 		//aplicacion de filtro a url
 		foreach ($_GET['filters'] as $key => $value)
@@ -43,9 +37,9 @@ class IndicatorsListAction extends BaseAction {
 		$smarty->assign("url",$url);
 
 		$smarty->assign("message",$_GET["message"]);
-        $smarty->assign("filters", $filters);
-        $smarty->assign("contracts",$pager->getResults());
-        $smarty->assign("pager",$pager);
+    $smarty->assign("filters", $filters);
+    $smarty->assign("contracts",$pager->getResults());
+    $smarty->assign("pager",$pager);
 
 		return $mapping->findForwardConfig('success');
 	}
