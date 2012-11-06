@@ -1,17 +1,21 @@
-<script type="text/javascript" src="scripts/lightbox.js"></script>
+<script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 <script type="text/javascript">
-	jQuery(function() {
-        jQuery( ".datepicker" ).datepicker();
+	$(document).ready(function() {
+		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
+        $( ".datepicker" ).datepicker();
+        
+        $("a#inline").fancybox();
     });
 </script>
-<div id="lightbox1" class="leightbox"> 
-	<p align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconDelete" /></a> 
-	</p> 
-	|-include file="BlogTagsEditX.tpl"-|
-</div> 
+<div style="display:none;">
+	<div id="data">
+		<p align="right"> 
+		|-include file="BlogTagsEditX.tpl"-|
+		</p> 
+	</div>
+</div>
 <script src="Main.php?do=js&name=js&module=blog&code=|-$currentLanguageCode-|" type="text/javascript"></script>
-|-include file='BlogEditTinyMceInclude.tpl' elements="blogEntry_body" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"-|
+|-include file='BlogEditTinyMceInclude.tpl' elements="blogEntry_body" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"-| 
 <h2>##blog,1,Entradas##</h2>
 <h1>|-if $action eq "edit"-|##blog,23,Editar entrada##|-else-|##blog,24,Crear entrada##|-/if-| </h1>
 |-if $message eq "error"-|
@@ -114,7 +118,7 @@
       <input type="hidden" name="do" id="do" value="blogDoAddTagToEntryX" /> 
       <input type="hidden" name="entryId" id="entryId" value="|-$blogEntry->getId()-|" /> 
       <input type="button" value="Asignar etiqueta" onClick="javascript:addTagToEntry(this.form)"/> 
-			<a href="#lightbox1" rel="lightbox1" class="lbOn addNew">Agregar nueva etiqueta</a>
+			<a href="#data" id="inline" rel="inline" class="lbOn addNew">Agregar nueva etiqueta</a>
     </p> 
   </form> 
   <ul id="tagList" class="optionDelete">|-assign var=actualTags value=$blogEntry->getBlogTags()-|

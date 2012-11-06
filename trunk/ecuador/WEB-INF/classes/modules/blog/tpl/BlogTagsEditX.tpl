@@ -1,15 +1,16 @@
 <script type="text/javascript" >
 	function createTag(form) {
-		var fields = Form.serialize(form);
-		var myAjax = new Ajax.Updater('operationInfo',
-					"Main.php?do=blogTagsDoEditX",
-					{
-						method: 'post',
-						parameters: { action: "blogTagsDoEditX"},
-						postBody: fields,
-						evalScripts: true
-					});
-		$('operationInfo').innerHTML = '<span class="inProgress">Procesando información</span><img src="images/spinner.gif" />'
+		var fields = $(form).serialize();
+		//hacer la llamada con jquery
+		//var myAjax = new Ajax.Updater('operationInfo',
+		//			"Main.php?do=blogTagsDoEditX",
+			//		{
+				//		method: 'post',
+					//	parameters: { action: "blogTagsDoEditX"},
+						//postBody: fields,
+						//evalScripts: true
+			//		});
+		$('#operationInfo').html('<span class="inProgress">Procesando información</span>');
 		return false;
 	}
 </script>
