@@ -1,128 +1,149 @@
-//migrada
 function submitFormX(formId) {
 
-	$.ajax({
-		url: url,
-		data: $('#' + formId).serialize(),
-		type: 'post',
-		success: function(data){
-			$('#divMsgBox').html(data);
-		}	
-	});
+	var form = $(formId);
+	var fields = Form.serialize(form);
+
+	var myAjax = new Ajax.Updater(
+				{success: 'divMsgBox'},
+				url,
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true
+				});
+
+
 }
 
-//migrada
 function submitEntriesChangeFormX(formId) {
 	
 	submitFormX(formId);
-	$('#divMsgBox').html('<span class="inProgress">... Actualizando Estado de Entrada ...</span>');
+	$('divMsgBox').innerHTML = '<span class="inProgress">... Actualizando Estado de Entrada ...</span>';
 	
 }
 
-//migrada
 function submitCommentsChangeFormX(formId) {
 	
 	submitFormX(formId);
-	$('divMsgBox').html('<span class="inProgress">... Actualizando Estado de Comentario...</span>');
+	$('divMsgBox').innerHTML = '<span class="inProgress">... Actualizando Estado de Comentario...</span>';
 	
 }
-/*
+
 function submitForm(formId) {
 	var form = $(formId);
 	if (form != null)
 		form.submit();
-}*/
+}
 
-//migrada
 function buildMultipleItemsForm(formId) {
 	
-	var form = $('#' + formId);
+	var form = $(formId);
+	
 	//elimino elementos que puedan existir en el form anteriormente
-	$('#' + formId + " input[name='selected[]']").remove();
+	toDelete = form.childElements();
+	
+	var i;
+	for (i=0;i<toDelete.length; i++) {
+		if (toDelete[i].name == 'selected[]')
+			toDelete[i].remove();
+	}
 	
 	//armo el formulario con los elementos seleccionados
-	$('input[name="selected[]"]').each(function(){
-		if($(this).attr('checked')){
-			var hidden = $('<input>').attr('type','hidden').attr('name',$(this).attr('name')).attr('value',$(this).attr('value'));
-			$('#' + formId).append(hidden);
-			console.log(hidden);
+	var checkboxes = document.getElementsByName('selected[]');
+	
+	for (i=0;i<checkboxes.length; i++) {
+		
+		if (checkboxes[i].checked == true) {
+			
+			var hidden = document.createElement('input');
+			hidden.setAttribute('type','hidden');
+			hidden.setAttribute('name',checkboxes[i].name);
+			hidden.setAttribute('value',checkboxes[i].value);
+			form.appendChild(hidden);
 		}
-	});
+	
+	}
 	
 	return true;
 	
 }
 
-//migrada
 function submitMultipleEntriesChangeFormX(formId) {
 
 	buildMultipleItemsForm(formId);
-	$('#' + formId).submit();
-	$('#divMsgBox').html('<span class="inProgress">... Actualizando Estado de Entradas...</span>');
+	submitForm(formId);
+	$('divMsgBox').innerHTML = '<span class="inProgress">... Actualizando Estado de Entradas...</span>';
 	
 	return true;
 	
 }
 
-//migrada
 function submitMultipleCommentsChangeFormX(formId) {
 
 	buildMultipleItemsForm(formId);
-	$('#' + formId).submit();
-	$('#divMsgBox').html('<span class="inProgress">... Actualizando Estado de Comentarios...</span>');
+	submitForm(formId);
+	$('divMsgBox').innerHTML = '<span class="inProgress">... Actualizando Estado de Comentarios...</span>';
+	
 	
 }
 
-//migrada
 function selectAllCheckboxes() {
 	
-	var checkboxes = $('[name="selected[]"]');
-	var allbox = $('#allBoxes').is(':checked');
-	checkboxes.attr('checked',allbox);
+	var checkboxes = document.getElementsByName('selected[]');
+	var allbox = document.getElementById('allBoxes');
+	for (i=0;i<checkboxes.length;i++) {
+		checkboxes[i].checked = allbox.checked;
+	}
+	
 }
 
-//migrada
 function submitPreview(form) {
-	$(form).attr('target','_blank').submit();
+	form.setAttribute('target','_blank');
+	form.submit();
 }
 
-//migrada
 function submitPreviewOnHome(form) {
-	
-	$('#doEdit').attr('value','blogPreview');
-	var mode = $('<input>').attr('type','hidden').attr('name','mode').attr('value','home');
-	$(form).append(mode);
+	$('doEdit').setAttribute('value','blogPreview');
+	mode = document.createElement('input');
+	mode.setAttribute('type','hidden');
+	mode.setAttribute('name','mode');
+	mode.setAttribute('value','home');
+	form.appendChild(mode);
 	submitPreview(form);
 }
 
-//migrada
 function submitPreviewDetailed(form) {
-	$('#doEdit').attr('value','blogPreview');
-	mode = $('<input>').attr('type','hidden').attr('name','mode').attr('value','detailed');
-	$(form).append(mode);
+	$('doEdit').setAttribute('value','blogPreview');
+	mode = document.createElement('input');
+	mode.setAttribute('type','hidden');
+	mode.setAttribute('name','mode');
+	mode.setAttribute('value','detailed');
+	form.appendChild(mode);
 	submitPreview(form);
 }
 
-//migrada
 function submitEntryCreation(form) {
-	
-	$('#doEdit').attr('value','blogDoEdit');
-	$('<input>');
-	$(form).attr('target','').submit();
+	$('doEdit').setAttribute('value','blogDoEdit');
+	mode = document.createElement('input');
+	form.setAttribute('target','');
+	form.submit();
 }
 
-//migrada?
 function sendBlogEntryByEmailX(id,form) {
+		
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'sendEntryMsgBox'+id},
+				url,
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true
+				}
+			);		
 	
-	$.ajax({
-		url: url,
-		data: $(form).serialize(),
-		type: 'post',
-		success: function(data){
-			$('#sendEntryMsgBox' + id).html(data);
-		}	
-	});
-	$('#sendEntryMsgBox'+id).html('<span class="inProgress>... enviando entrada a destinatario ...</span>');
+	$('sendEntryMsgBox'+id).innerHTML = '<span class="inProgress>... enviando entrada a destinatario ...</span>';
+	
 }
 
 function showSendEmailFormX(entryId,divId) {
@@ -155,23 +176,8 @@ function hideSendEmailForm(id) {
 	$(id).innerHTML = '';
 }
 
-//migrada?
 function refreshCaptchaX(id) {
-	
-	divId = '#captcha' + id;
-	
-	$.ajax({
-		url: 'Main.php?do=commonCaptchaRefresh',
-		type: 'post',
-		success: function(data){
-			$('#divId').html(data);
-		}	
-	});
-	
-	$(id).html('<span class="inProgress>...regenerando captcha...</span>');
-	$(divId)html("");
-	
-	/*var divId = 'captcha' + id;
+	var divId = 'captcha' + id;
 
 	var url = 'Main.php?do=commonCaptchaRefresh';
 		
@@ -186,7 +192,7 @@ function refreshCaptchaX(id) {
 			);
 	
 	$(id).innerHTML = '<span class="inProgress>...regenerando captcha...</span>';
-	$(divId).innerHTML = "";*/
+	$(divId).innerHTML = "";
 	return false;
 }
 
@@ -210,10 +216,9 @@ function blogCommentsShow(form,id) {
 	
 }
 
-//migrada?
 function blogCommentsHide(divId) {
 	
-	$('#' + divId).html('');
+	$(divId).innerHTML = '';
 	
 }
 
