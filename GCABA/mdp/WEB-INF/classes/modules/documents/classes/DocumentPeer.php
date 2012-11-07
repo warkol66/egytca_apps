@@ -42,7 +42,7 @@ class DocumentPeer extends BaseDocumentPeer {
 	 * @param searchString cadena de busqueda.
 	 */
 	function setSearchString($searchString){
-		$this->searchString = $searchString;
+		$this->searchString = $searchString . "*";
 	}
 	
 	/**
@@ -397,7 +397,7 @@ class DocumentPeer extends BaseDocumentPeer {
 						DocumentPeer::AUTHOR . ' , ' .
 						DocumentPeer::KEYWORDS . ' , ' .
 						DocumentPeer::FULLTEXTCONTENT;
-			$criteria->add(DocumentPeer::DESCRIPTION, "MATCH (" . $fields . ") AGAINST('" . $this->textSearch . "')", Criteria::CUSTOM);
+			$criteria->add(DocumentPeer::DESCRIPTION, "MATCH (" . $fields . ") AGAINST('" . $this->textSearch . "' IN BOOLEAN MODE)", Criteria::CUSTOM);
 			if (!empty($this->startDate) && !empty($this->endDate)) {
 				$criterion = $criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->startDate, Criteria::GREATER_EQUAL);
 				$criterion->addAnd($criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->endDate, Criteria::LESS_EQUAL));
@@ -413,8 +413,7 @@ class DocumentPeer extends BaseDocumentPeer {
 				}
 
 				if (!empty($this->category)) {
-					$category = $this->category;
-					$childrenCategories = CategoryPeer::getByParent($category->getId());
+					$childrenCategories = CategoryPeer::getByParent($this->category);
 					if (count($childrenCategories) > 0) {
 						$criterion = $criteria->getNewCriterion(DocumentPeer::CATEGORYID, $category->getId());
 						foreach ($childrenCategories as $child)
@@ -463,10 +462,9 @@ class DocumentPeer extends BaseDocumentPeer {
 				//				$criteria->add($criterion);
 
 			if (!empty($this->category)) {
-				$category = $this->category;
-				$childrenCategories = CategoryPeer::getByParent($category->getId());
+				$childrenCategories = CategoryPeer::getByParent($this->category);
 				if (count($childrenCategories) > 0) {
-					$criterion = $criteria->getNewCriterion(DocumentPeer::CATEGORYID, $category->getId());
+					$criterion = $criteria->getNewCriterion(DocumentPeer::CATEGORYID, $this->category);
 					foreach ($childrenCategories as $child)
 						$criterion->addOr($criteria->getNewCriterion(DocumentPeer::CATEGORYID, $child->getId()));
 
@@ -514,7 +512,7 @@ class DocumentPeer extends BaseDocumentPeer {
 		if ($this->searchString) {
 			$fields = DocumentPeer::DESCRIPTION . ', ' . DocumentPeer::TITLE . ', ' . DocumentPeer::REALFILENAME . ', ' . DocumentPeer::AUTHOR . ', ' .
 						DocumentPeer::KEYWORDS . ', ' . DocumentPeer::FULLTEXTCONTENT;
-			$criteria->add(DocumentPeer::DESCRIPTION, "MATCH (" . $fields . ") AGAINST('" . $this->searchString . "')", Criteria::CUSTOM);
+			$criteria->add(DocumentPeer::DESCRIPTION, "MATCH (" . $fields . ") AGAINST('" . $this->searchString . "' IN BOOLEAN MODE)", Criteria::CUSTOM);
 		}
 
 		if (!empty($this->textSearch)) { //Busqueda por texto
@@ -525,7 +523,7 @@ class DocumentPeer extends BaseDocumentPeer {
 						DocumentPeer::AUTHOR . ' , ' .
 						DocumentPeer::KEYWORDS . ' , ' .
 						DocumentPeer::FULLTEXTCONTENT;
-			$criteria->add(DocumentPeer::DESCRIPTION, "MATCH (" . $fields . ") AGAINST('" . $this->textSearch . "')", Criteria::CUSTOM);
+			$criteria->add(DocumentPeer::DESCRIPTION, "MATCH (" . $fields . ") AGAINST('" . $this->textSearch . "' IN BOOLEAN MODE)", Criteria::CUSTOM);
 			if (!empty($this->startDate) && !empty($this->endDate)) {
 				$criterion = $criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->startDate, Criteria::GREATER_EQUAL);
 				$criterion->addAnd($criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->endDate, Criteria::LESS_EQUAL));
@@ -592,9 +590,9 @@ class DocumentPeer extends BaseDocumentPeer {
 
 			if (!empty($this->category)) {
 				$category = $this->category;
-				$childrenCategories = CategoryPeer::getByParent($category->getId());
+				$childrenCategories = CategoryPeer::getByParent($this->category);
 				if (count($childrenCategories) > 0) {
-					$criterion = $criteria->getNewCriterion(DocumentPeer::CATEGORYID, $category->getId());
+					$criterion = $criteria->getNewCriterion(DocumentPeer::CATEGORYID, $this->category);
 					foreach ($childrenCategories as $child)
 						$criterion->addOr($criteria->getNewCriterion(DocumentPeer::CATEGORYID, $child->getId()));
 

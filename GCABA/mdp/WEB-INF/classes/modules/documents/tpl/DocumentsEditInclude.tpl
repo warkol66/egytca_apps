@@ -61,7 +61,6 @@
 					<input type="file" id="document_file" name="document_file" title="Seleccione el archivo" size="45"/> (|-$maxUploadSize-| MB max)
 				</p>
 			</div>
-			
 			<p><label for="date">Fecha</label>
 				 <input name="date" type="text" value="|-if $document neq ''-||-$document->getDocumentDate()|date_format:'%d-%m-%Y'-||-else-||-$smarty.now|date_format:'%d-%m-%Y'-||-/if-|" size="10" title="Fecha del documento (Formato: dd-mm-yyyy)"/>
       <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('date', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
@@ -73,45 +72,17 @@
 			<p>
 				<label for="description">Descripción</label>
 			 	<textarea name="description" cols="55" rows="6" wrap="VIRTUAL" title="Descripción">|-if $document neq ''-||-$document->getDescription()|escape-||-/if-|</textarea>
-  			</p> 
-  			|-if $module eq "Documents" && $entity eq ''-|
+  			</p>
+				|-if isset($categoryId)-|
+				<input type="hidden" name="category" value="|-$categoryId-|">
+  			|-else if $module eq "Documents" && $entity eq ''-|
 				<p><label for="category">Categoría</label>
 					<select name="category">
 						<option value=''>Sin Categoría</option>
 					|-include file="DocumentsCategoriesInclude.tpl" categories=$parentCategories user=$user selectedCategoryId=$filters.categoryId count='0'-|
 						</select>
 				</p>
-				<p><label for="extra[author]">Autor(es)</label>
-					 <input name="extra[author]" type="text" value="|-if $document neq ''-||-$document->getAuthor()|escape-||-/if-|" size="50" />
-				</p>
-				<p><label for="extra[keyWords]">Palabras clave<img src="images/icon_search.png" onClick="switch_vis('keyWordSearch','block');" title="Buscar palabaras clave"/></label>
-					 <input name="extra[keyWords]" id="keyWords" type="text" value="|-if $document neq ''-||-$document->getKeyWords()|escape-||-/if-|" size="50" />
-				<script language="JavaScript" type="text/javascript">
-				function sendText(element, text, sep) {
-					if (element.value != '')
-						element.value += sep + text;
-					else
-						element.value = text;					
-				}
-				</script>
-				|-include_module module=Documents action=KeyWordList-|</p>
-				<p><label for="extra[number]">Número</label>
-					 <input name="extra[number]" type="text" value="|-if $document neq ''-||-$document->getNumber()|escape-||-/if-|" size="10" />
-				</p>
 			|-/if-|
-|-if $document neq '' && $document->getPassword() neq ''-|
-			<p><label for="old_password">Contraseña actual</label>
-			 	<input name="old_password" type="password" size="15" />
-			</p>
-|-/if-|
-|-if $usePasswords-|
-			<p><label for="password">Contraseña nueva</label>
-			  <input name="password" type="password" size="15" />
-			</p>
-			<p><label for="password_compare">Repita contraseña</label>
-			  <input name="password_compare" type="password" size="15" />
-	</p>
-|-/if-|
 			 <div id="upload_info"></div>
 			 <p> 
 			 	|-if $entity neq ""-|

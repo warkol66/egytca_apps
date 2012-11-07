@@ -92,6 +92,10 @@ class DocumentsEditAction extends BaseAction {
 		$smarty->assign("docscategory",$categoryId);
 		$smarty->assign("date",date("d/m/y"));
 
+
+		$categoryId = $request->getParameter("categoryId");
+		$smarty->assign("categoryId", $categoryId);
+
 		return $mapping->findForwardConfig('success-upload');
 
 	}
