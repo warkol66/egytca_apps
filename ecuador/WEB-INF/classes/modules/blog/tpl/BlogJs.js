@@ -73,14 +73,12 @@ function submitMultipleCommentsChangeFormX(formId) {
 	
 }
 
+//migrada
 function selectAllCheckboxes() {
 	
-	var checkboxes = document.getElementsByName('selected[]');
-	var allbox = document.getElementById('allBoxes');
-	for (i=0;i<checkboxes.length;i++) {
-		checkboxes[i].checked = allbox.checked;
-	}
-	
+	var checkboxes = $('[name="selected[]"]');
+	var allbox = $('#allBoxes').is(':checked');
+	checkboxes.attr('checked',allbox);
 }
 
 //migrada
