@@ -26,6 +26,7 @@ class ContentLanguageDoEditAction extends BaseAction
         if ($smarty == NULL) {
             echo 'No PlugIn found matching key: ' . $plugInKey . "<br>\n";
         }
+        $this->template->template = 'TemplateJQuery.tpl';
 
         $smarty->assign("message", $_GET['message']);
         $module = "Content";

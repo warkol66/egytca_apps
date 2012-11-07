@@ -30,11 +30,27 @@ class ContentDoEditOrderXAction extends BaseAction {
 		}
 
 		$module = "Content";
-		$content = new Content();
-		parse_str($_POST['data']);
 
-		for ($i = 0; $i < count($contentList); $i++)
-			$content->updateOrder($contentList[$i],$i);
+        $orden=$_POST["orden"];
+        $parentId=$_POST["parentId"];
+
+        $parent=ContentQuery::create()->findPk($parentId);
+
+        $anterior=null;
+
+        for($i=0;$i<count($orden);$i++){
+            $content=ContentQuery::create()->findPk($orden[$i]);
+
+            if($i==0){
+                $content->moveToFirstChildOf($parent);
+            }
+            else{
+                $content->moveToNextSiblingOf($anterior);
+            }
+            $content->save();
+            $anterior=null;
+            $anterior=$content;
+        }
 
 		return $mapping->findForwardConfig('success');
 

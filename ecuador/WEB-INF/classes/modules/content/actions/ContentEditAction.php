@@ -26,6 +26,7 @@ class ContentEditAction extends BaseAction
         if ($smarty == NULL) {
             echo 'No PlugIn found matching key: ' . $plugInKey . "<br>\n";
         }
+        $this->template->template = 'TemplateJQuery.tpl';
 
         $module = "Content";
         $smarty->assign("module", $module);

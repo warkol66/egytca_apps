@@ -33,7 +33,7 @@ class ContentDoEditAction extends BaseAction
             $languageCode = $eachLanguage->getLanguagecode();
             $_POST['locale'][$languageCode]['title'] = addslashes($_POST['locale'][$languageCode]['title']);
             $_POST['locale'][$languageCode]['titleInMenu'] = addslashes($_POST['locale'][$languageCode]['titleInMenu']);
-            $_POST['locale'][$languageCode]['content_value'] = addslashes($_POST['locale'][$languageCode]['content_value']);
+            $_POST['locale'][$languageCode]['body'] = addslashes($_POST['locale'][$languageCode]['body']);
         }
 
     }
@@ -84,7 +84,7 @@ class ContentDoEditAction extends BaseAction
                 $contentLocale->setLocale($languageCode);
                 $contentLocale->setTitle($_POST['locale'][$languageCode]['title']);
                 $contentLocale->setTitleinmenu($_POST['locale'][$languageCode]['titleInMenu']);
-                $contentLocale->setContentValue($_POST['locale'][$languageCode]['content_value']);
+                $contentLocale->setBody($_POST['locale'][$languageCode]['body']);
                 $content->addContentI18n($contentLocale);
             }
 
@@ -112,7 +112,7 @@ class ContentDoEditAction extends BaseAction
                 $contentLocale->setLocale($languageCode);
                 $contentLocale->setTitle($_POST['locale'][$languageCode]['title']);
                 $contentLocale->setTitleinmenu($_POST['locale'][$languageCode]['titleInMenu']);
-                $contentLocale->setContentValue($_POST['locale'][$languageCode]['content_value']);
+                $contentLocale->setBody($_POST['locale'][$languageCode]['body']);
                 $content->addContentI18n($contentLocale);
             }
 

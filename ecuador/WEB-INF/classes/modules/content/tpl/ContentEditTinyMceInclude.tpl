@@ -1,5 +1,5 @@
 <!-- TinyMCE -->
-<script type="text/javascript" src="scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript" src="scripts/tinymce/tiny_mce.js"></script>
 <script type="text/javascript" src="scripts/swampy_browser/sb.js"></script>
 <script type="text/javascript">
 
@@ -34,7 +34,7 @@ tinymce.PluginManager.add('formInsertionPlugin', tinymce.plugins.FormInsertionPl
 		// General options
 		mode : "exact",
 		editor_selector : "mceEditor",
-		elements : 	"|-foreach from=$languages item=langItem name=for_lang-|content[|-$langItem->getLanguagecode()-|][|-$element-|]|-if not $smarty.foreach.for_lang.last-|, |-/if-||-/foreach-|",
+		elements : 	"|-foreach from=$languages item=langItem name=for_lang-|params[|-$langItem->getLanguagecode()-|][body]|-if not $smarty.foreach.for_lang.last-|, |-/if-||-/foreach-|",
 		theme : "advanced",
 		plugins : "-formInsertionPlugin,|-$plugins-|",
 		|-if ($plugins|stristr:"table") ne FALSE-|theme_advanced_buttons3_add : "table",|-/if-|

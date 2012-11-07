@@ -14,5 +14,23 @@
  * @package    propel.generator.content.classes
  */
 class ContentQuery extends BaseContentQuery {
+    /**
+     * Returns the root node for the tree
+     *
+     * @param      PropelPDO $con	Connection to use.
+     *
+     * @return     Content The tree root object
+     */
+    public function findRoot($con = null){
+        $root=parent::findRoot($con);
+        if(!$root){
+            $root=new Content();
+            $root->setType(1);
+            $root->makeRoot();
+            $root->save();
+        }
+        return $root;
+    }
+
 
 } // ContentQuery

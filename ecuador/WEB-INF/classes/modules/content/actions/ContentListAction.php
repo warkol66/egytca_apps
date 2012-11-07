@@ -24,7 +24,9 @@ class ContentListAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$smarty->assign("message",$_GET['message']);
+        $this->template->template = 'TemplateJQuery.tpl';
+
+        $smarty->assign("message",$_GET['message']);
 		$module = "Content";
 		$smarty->assign("module",$module);
 
@@ -32,14 +34,10 @@ class ContentListAction extends BaseAction {
 		$parentId = 0;
         $defaultLanguage=ContentActiveLanguageQuery::getDefaultLanguage();
 
+
+
 		if (!isset($_GET['sectionId']) || (isset($_GET['sectionId']) && ($_GET['sectionId'] == 0 ))) {
             $root=ContentQuery::create()->findRoot();
-            if(!$root){
-                $root=new Content();
-                $root->setType(1);
-                $root->makeRoot();
-                $root->save();
-            }
             $parentId=$root->getId();
             $elements=$root->getChildren();
 
@@ -60,7 +58,7 @@ class ContentListAction extends BaseAction {
 			$smarty->assign("navigationChain",$navigationChain);
 
             $parent->setLocale($defaultLanguage->getLanguagecode());
-			$smarty->assign("sectionDescription",$parent->getContentValue());
+			$smarty->assign("sectionDescription",$parent->getBody());
 			$smarty->assign("sectionTitle",$parent->getTitle());
 		}
 

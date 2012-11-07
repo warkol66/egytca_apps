@@ -43,9 +43,17 @@ class ContentActiveLanguageQuery extends BaseContentActiveLanguageQuery {
     public static function getDefaultLanguage(){
         global $useLocale;
         $locale=preg_replace("/\..+/","",$useLocale);
-        $lang=self::create()->filterByLanguagecode($locale)->findOne();
-        if($lang) return $lang;
-        return self::create()->orderById()->findOne();
+        $defaultLanguage=self::create()->filterByLanguagecode($locale)->findOne();
+        if($defaultLanguage) return $defaultLanguage;
+        $defaultLanguage= self::create()->orderById()->findOne();
+        if(!$defaultLanguage){
+            $defaultLanguage=new ContentActiveLanguage();
+            $defaultLanguage->setActive(1);
+            $defaultLanguage->setName("Español");
+            $defaultLanguage->setLanguagecode("es_ES");
+            $defaultLanguage->save();
+        }
+        return $defaultLanguage;
     }
 
 } // ContentActiveLanguageQuery
