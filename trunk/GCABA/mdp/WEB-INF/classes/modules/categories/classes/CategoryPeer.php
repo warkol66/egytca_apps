@@ -321,6 +321,22 @@ class CategoryPeer extends BaseCategoryPeer {
 	/**
 	 * Obtiene todas las categoria hijas de un padre
 	 * @param integer id de padre
+	 * @return array instancias de category
+	 */
+	public function getByParent($parent) {
+		if (is_object($parent))
+			$parent = CategoryQuery::create()->findPK($parent->getId());
+		else
+			$cond = CategoryQuery::create()->orderByBranch()
+																	 ->filterByScope(array('min' => 0))
+																	 ->filterByActive(1);
+		$todosObj = $cond->find();
+		return $todosObj;
+	}
+
+	/**
+	 * Obtiene todas las categoria hijas de un padre
+	 * @param integer id de padre
 	 * @param User user
 	 * @return array instancias de category
 	 */

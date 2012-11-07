@@ -43,8 +43,8 @@ function checkPassDelete(form){
 	<div class="successMessage">El documento fue editado satisfactoriamente</div> 
 |-/if-|
 </div>
-<p style="text-align:right;"><a href="javascript:void(null);" onClick="switch_vis('searchOptions','block');" class="searchLink">##documents,9,Buscar Documentos##</a></p>
-|-include file='DocumentsSearchDialogInclude.tpl' do="documentsList"-|
+|-*<p style="text-align:right;"><a href="javascript:void(null);" onClick="switch_vis('searchOptions','block');" class="searchLink">##documents,9,Buscar Documentos##</a></p>*-|
+|-*include file='DocumentsSearchDialogInclude.tpl' do="documentsList"*-|
 
 |-if $filters eq ''-|
 	|-if (isset($selectedModule))-|
@@ -72,7 +72,7 @@ function checkPassDelete(form){
 	<fieldset name="Listado de documentos disponibles">
 		<legend>|-if $selectedCategory neq ''-|
 			##documents,29,Documentos disponibles en la categoría## |-$selectedCategory->getName()-|
-		|-elseif $filters neq ''-|
+		|-else if ($filters neq '' && ($filters@count eq 1 && $filters.categoryId ne -1) )-|
 			##documents,27,Documentos obtenidos de la búsqueda##
 		|-else-|
 			##documents,28,Documentos disponibles##
