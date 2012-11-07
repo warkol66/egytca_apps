@@ -9,14 +9,14 @@
 		<column name="image"  type="VARCHAR" size="255" description="Image Related to Content" />
 		<column name="imageOnOver"  type="VARCHAR" size="255" description="Image Related to Content" />
 		<column name="alt"  type="VARCHAR" size="255" description="Alternative Content Information" />
-		<column name="content_value" type="LONGVARCHAR" description="Content" sqlType="MEDIUMTEXT" />
+		<column name="body" type="LONGVARCHAR" description="Content" sqlType="MEDIUMTEXT" />
 		<column name="link"  type="VARCHAR" size="255" description="Content Link" />
 		<column name="target" type="INTEGER" description="Content Target" />
 
         <behavior name="archivable" />
         <behavior name="nested_set" />
         <behavior name="i18n">
-            <parameter name="i18n_columns" value="title, titleInMenu, content_value" />
+            <parameter name="i18n_columns" value="title, titleInMenu, body" />
         </behavior>
 
 		<vendor type="mysql">
