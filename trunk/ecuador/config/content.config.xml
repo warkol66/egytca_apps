@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf8"?>
+<config>
+	<content>
+		<home>3</home>
+		<useDifferentHomeTemplate>
+			<value>NO</value>
+			<element_type>YES/NO</element_type>
+		</useDifferentHomeTemplate>
+	</content>
+</config>

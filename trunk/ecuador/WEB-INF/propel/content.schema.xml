@@ -2,21 +2,22 @@
 
 	<table name="content_content" phpName='Content' description="Contents">
 
-		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Content Id" />
-		<column name="languageCode" primaryKey="true" required="true"  type="VARCHAR" size="30" description="Language code of the content"/>
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Content Id" autoIncrement="true" />
 		<column name="type" required="true" type="INTEGER" description="Content Type" />
-		<column name="parent" type="INTEGER" description="Parent Content Id" />
 		<column name="title"  type="VARCHAR" size="255" description="Content Title" />
 		<column name="titleInMenu"  type="VARCHAR" size="120" description="Content Title in Menu" />
 		<column name="image"  type="VARCHAR" size="255" description="Image Related to Content" />
 		<column name="imageOnOver"  type="VARCHAR" size="255" description="Image Related to Content" />
 		<column name="alt"  type="VARCHAR" size="255" description="Alternative Content Information" />
-		<column name="content" type="LONGVARCHAR" description="Content" sqlType="MEDIUMTEXT" />
+		<column name="content_value" type="LONGVARCHAR" description="Content" sqlType="MEDIUMTEXT" />
 		<column name="link"  type="VARCHAR" size="255" description="Content Link" />
-		<column name="order" type="INTEGER" description="Content Order" />
 		<column name="target" type="INTEGER" description="Content Target" />
 
-		<behavior name="soft_delete" />
+        <behavior name="archivable" />
+        <behavior name="nested_set" />
+        <behavior name="i18n">
+            <parameter name="i18n_columns" value="title, titleInMenu, content_value" />
+        </behavior>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
@@ -27,7 +28,10 @@
 
 	<table name="content_activeLanguages" phpName='ContentActiveLanguage' description="ContentActiveLanguages">
 
-		<column name="languageCode" primaryKey="true" required="true"  type="VARCHAR" size="30" description="Language code of the content"/>
+        <column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true" />
+		<column name="languageCode"  required="true"  type="VARCHAR" size="30" description="Language code of the content"/>
+        <column name="active" type="Boolean" description="If the language is active or not"/>
+        <column name="name" type="Varchar" size="100" description="Language Name" />
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>

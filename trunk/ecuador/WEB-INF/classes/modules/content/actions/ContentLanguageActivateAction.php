@@ -26,13 +26,15 @@ class ContentLanguageActivateAction extends BaseAction {
 
 		$module = "Content";
 		$content = new Content();
-		$result = false; //resultado de la operacion
+		$id=$_POST["id"];
 
-		if (isset($_POST['languageCode']))
-			$result = $content->activateLanguage($_POST['languageCode']);
+        $idioma=ContentActiveLanguageQuery::create()->findPk($id);
 
-		if ($result)
-			return $mapping->findForwardConfig('success');
+        if ($idioma){
+            $idioma->setActive(1);
+            $idioma->save();
+            return $mapping->findForwardConfig('success');
+        }
 
 		return $mapping->findForwardConfig('failure');
 
