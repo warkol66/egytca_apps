@@ -8,7 +8,10 @@
 <p>El generador automático de imágenes no pudo obtener una imagen de la dirección asociada al titular. Puede capturarla manualmente y asignarla en el formulario inferior.</p>
 |-if $headline->getUrl() ne ''-|<p>Para verificar la dirección asociada al titular, puede ir a la url  <a href="|-$headline->getUrl()-|" target="_blank" title="Ir a nota original" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a> </p>|-/if-|
 |-else-|
-<h1>Clipping - |-$headline-|</h1>	
+<h1>Clipping - |-$headline-|</h1>
+
+|-if $type eq 'clipping'-|
+
 |-include file='HeadlinesCropImageInclude.tpl'-|
 
 <script type='text/javascript'>
@@ -67,6 +70,15 @@
 <input type='button' id='button_manual_upload' value='Subir imagen' onClick="$('manualUpload').show();" />
 <input type='button' id='button_return_edit' value='Volver a edición' onClick='location.href="Main.php?do=headlinesEdit&id=|-$id-|"' />
 </p>
+
+
+|-else-|
+	<img src="Main.php?do=headlinesAttachmentGetData&id=|-$attachment->getId()-|" />
+	<p>
+		<br>
+		<input type="button" value="Volver a edición" onclick="window.location='Main.php?do=headlinesEdit&id=|-$headline->getId()-|'" />
+	</p>
+|-/if-|
 
 |-/if-|
 
