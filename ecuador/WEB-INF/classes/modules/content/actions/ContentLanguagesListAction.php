@@ -28,10 +28,10 @@ class ContentLanguagesListAction extends BaseAction {
 		$module = "Content";
 		$smarty->assign("module",$module);
 
-		$content = new Content();
 
-		$languages = $content->getActiveLanguages();
-		$inactiveLanguages = $content->getInactiveLanguageCodes();
+
+		$languages = ContentActiveLanguageQuery::create()->filterByActive(1)->find();
+		$inactiveLanguages = ContentActiveLanguageQuery::create()->filterByActive(0)->find();
 
 		$smarty->assign('languages',$languages);
 		$smarty->assign('inactiveLanguages',$inactiveLanguages);

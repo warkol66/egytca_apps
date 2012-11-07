@@ -34,4 +34,18 @@ class ContentActiveLanguageQuery extends BaseContentActiveLanguageQuery {
 		return $query;
 	}
 
+    /**
+     * Retorna el idioma por defecto, seteado en config/config.php
+     * Si no existe el idioma configurado, se utiliza el primero como Default.
+     * @static
+     * @return ContentActiveLanguage
+     */
+    public static function getDefaultLanguage(){
+        global $useLocale;
+        $locale=preg_replace("/\..+/","",$useLocale);
+        $lang=self::create()->filterByLanguagecode($locale)->findOne();
+        if($lang) return $lang;
+        return self::create()->orderById()->findOne();
+    }
+
 } // ContentActiveLanguageQuery

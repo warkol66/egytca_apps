@@ -28,32 +28,46 @@ class ContentListAction extends BaseAction {
 		$module = "Content";
 		$smarty->assign("module",$module);
 
-		$content = new Content();
+
 		$parentId = 0;
+        $defaultLanguage=ContentActiveLanguageQuery::getDefaultLanguage();
 
 		if (!isset($_GET['sectionId']) || (isset($_GET['sectionId']) && ($_GET['sectionId'] == 0 ))) {
-			//estoy en la raiz
-			$elements = $content->getRootElements();
-			$smarty->assign("navigationChain",$content->getNavigationChain());
+            $root=ContentQuery::create()->findRoot();
+            if(!$root){
+                $root=new Content();
+                $root->setType(1);
+                $root->makeRoot();
+                $root->save();
+            }
+            $parentId=$root->getId();
+            $elements=$root->getChildren();
+
 		}
 		else {
+            $parent=ContentQuery::create()->findPk($_GET['sectionId']);
+            if(!$parent){
+                $parent=ContentQuery::create()->findRoot();
+            }
 			//estoy en una rama del arbol
-			$elements = $content->getChildrenElements($_GET['sectionId']);
-			$parentId = $_GET['sectionId'];
+			$elements = $parent->getChildren();
+			$parentId = $parent->getId();
 
 			//obtengo la descripcion de la seccion y su titulo
-			$currentSection = $content->getSection($parentId);
-			$smarty->assign("navigationChain",$content->getNavigationChain($content->get($parentId)));
-			$smarty->assign("sectionDescription",$currentSection['content']);
-			$smarty->assign("sectionTitle",$currentSection['title']);
-		}
+            $navigationChain=$parent->getAncestors();
+            if($navigationChain instanceof PropelCollection) $navigationChain=$navigationChain->getArrayCopy();
+            array_push($navigationChain,$parent);
+			$smarty->assign("navigationChain",$navigationChain);
 
-		for ($i=0; $i<count($elements); $i++)
-			$elements[$i]["typeName"] = $content->getTypeName($elements[$i]["type"]);
+            $parent->setLocale($defaultLanguage->getLanguagecode());
+			$smarty->assign("sectionDescription",$parent->getContentValue());
+			$smarty->assign("sectionTitle",$parent->getTitle());
+		}
 
 		$smarty->assign("parentId",$parentId); //asignamos el id del padre
 		$smarty->assign("elements",$elements);
-		$fwd = $mapping->findForwardConfig('success');
+        $smarty->assign("defaultLanguage",$defaultLanguage);
+
 		return $mapping->findForwardConfig('success');
 
 	}
