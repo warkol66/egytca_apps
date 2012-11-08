@@ -277,3 +277,8 @@
 fieldset fieldset.noMargin {
 	margin-left: 10px !Important;
 }
+.contentLi {
+	clear: both;
+	padding-bottom: .95em;
+	list-style: none;
+}

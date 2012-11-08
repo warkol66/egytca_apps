@@ -1,13 +1,11 @@
-<h2>Indicadores</h2>
-<h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Series</h1>
-<p>A contunuación encontrará las series que componen el indicador. Si quiere agregar una serie mas, haga click en "Agregar Serie". Puede modificar el nombre de las series existentes en el campo junto al nombre de la misma.<br />
-Para cambiar el orden en que aparecen las series, arrastre el nombre de la misma a la posición deseada; el sistema le indicará si la operación resultó exitosa.</p>
-<p><strong>Indicador:</strong> |-$indicator->getName()-|</p>
-<p><strong>Tipo de Gráfico:</strong> |-$indicator->getIndicatorTypeTranslated()-|</p>
+<h2>Contratos - Desembolsos</h2>
+<h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Curvas</h1>
+<p>A contunuación encontrará las curvas de desembolso. Si quiere agregar una nueva curva, haga click en "Agregar Curva ". Puede modificar el nombre de las curvas existentes en el campo junto al nombre de la misma.<br />
+Para cambiar el orden en que aparecen las curvas, arrastre el nombre de la misma a la posición deseada; el sistema le indicará si la operación resultó exitosa.</p>
+<p><strong>Contratos:</strong> |-$indicator->getName()-|</p>
 <form method="post">
-<div id="operationInfo"></div>
-<fieldset>
-<legend>Series</legend>
+  <fieldset>
+<legend>Curvas</legend>
 <div id="seriesValues">
 	<ul id="seriesList">
 		<li class="contentLi" style="display:none;">
@@ -28,7 +26,7 @@ Para cambiar el orden en que aparecen las series, arrastre el nombre de la misma
 	</ul>
 </div>
 |-if $indicator->getType() neq constant("IndicatorPeer::PIE")-|
- <p><a href="#" onclick="return addSerie('seriesList')" class="addLink" title="Agregar serie">Agregar Serie</a></p>
+ <p><a href="#" onclick="return addSerie('seriesList')" class="addLink" title="Agregar serie">Agregar Curva</a></p>
 <script language="JavaScript" type="text/javascript">
 function addSerie(a) {
 	var li = $$("#seriesList li")[0];
