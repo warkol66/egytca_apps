@@ -13,36 +13,73 @@
  *
  * @package    propel.generator.content.classes
  */
-class Content extends BaseContent
-{
+class Content extends BaseContent {
 
-    /**
-     * Se redefine el Title in Menu para que el root puede retornar la palabra "Base"
-     * @return string
-     */
-    public function getTitleinmenu()
-    {
-        if ($this->isRoot()) return "Base";
-        else return parent::getTitleinmenu();
-    }
+	const TYPE_CONTENT = 0;
+	const TYPE_SECTION = 1;
+	const TYPE_LINK    = 2;
 
-    /**
-     * Retorna el texto para mostrar en el select de escoger la seccion en el Crear/Editar Contenido.
-     * @param string $locale El idioma a mostrar
-     * @return string
-     */
-    public function getNameForSelect($locale = "")
-    {
-        if($this->isRoot()) return "Base";
-        if ($locale == "") {
-            $defaultLanguage=ContentActiveLanguageQuery::getDefaultLanguage();
-            $locale=$defaultLanguage->getLanguagecode();
-        }
-        $this->setLocale($locale);
-        $pad_string="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        $pad = str_pad("",  $this->getLevel()*strlen($pad_string) , $pad_string, STR_PAD_LEFT);
-        return $pad . $this->getTitle();
-    }
+	//nombre de los tipos de contenido
+	protected static $contentTypes = array(
+			Content::TYPE_CONTENT    => 'content',
+			Content::TYPE_SECTION    => 'section',
+			Content::TYPE_LINK       => 'link'
+	);
+
+	/**
+	 * Devuelve los tipos de contenido
+	 */
+	public static function getContentTypes() {
+		$contentTypes = Content::$contentTypes;
+		return $contentTypes;
+	}
+
+	/**
+	 * Devuelve el Type de un Contenido en forma de string.
+	 * @static
+	 * @param $type
+	 * @return mixed
+	 */
+	public function getTypeTranslated(){
+		$contentTypes = Content::getContentTypes();
+		return Common::getTranslation($contentTypes[$this->getType()],'content');
+	}
+
+	/**
+	 * Devuelve los nombres de los tipo contenido traducidas
+	 */
+	public static function getContentTypesTranslated() {
+		$contentTypes = Content::getContentTypes();
+		foreach(array_keys($contentTypes) as $key)
+			$contentTypesTranslated[$key] = Common::getTranslation($contentTypes[$key],'content');
+		return $contentTypesTranslated;
+	}
+
+		/**
+		 * Se redefine el Title in Menu para que el root puede retornar la palabra "Base"
+		 * @return string
+		 */
+		public function getTitleinmenu() {
+				if ($this->isRoot()) return "Base";
+				else return parent::getTitleinmenu();
+		}
+
+		/**
+		 * Retorna el texto para mostrar en el select de escoger la seccion en el Crear/Editar Contenido.
+		 * @param string $locale El idioma a mostrar
+		 * @return string
+		 */
+		public function getNameForSelect($locale = "") {
+				if($this->isRoot()) return "Base";
+				if ($locale == "") {
+						$defaultLanguage=ContentActiveLanguageQuery::getDefaultLanguage();
+						$locale=$defaultLanguage->getLanguagecode();
+				}
+				$this->setLocale($locale);
+//				$pad_string="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+//				$pad = str_pad("",  $this->getLevel()*strlen($pad_string) , $pad_string, STR_PAD_LEFT);
+				return $this->getTitle();
+		}
 
 
 }

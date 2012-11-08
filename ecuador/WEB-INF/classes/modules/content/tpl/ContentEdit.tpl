@@ -32,7 +32,7 @@
 					|-foreach from=$root->getBranch($iteratorCriteria) item=section-|
 						<option value="|-$section->getId()-|"
 								|-if $section->isAncestorOf($content)-|selected="selected"|-/if-|>
-							|-$section->getNameForSelect()-|
+							|-section name=space loop=$section->getLevel()-|&nbsp;&nbsp;&nbsp; |-/section-||-$section->getNameForSelect()-|
 						</option>
 					|-/foreach-|
 				</select>

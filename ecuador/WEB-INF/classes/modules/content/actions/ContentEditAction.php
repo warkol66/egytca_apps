@@ -48,7 +48,7 @@ class ContentEditAction extends BaseAction
         if (isset($_GET['id'])) {
             $content = ContentQuery::create()->findPK($_GET['id']);
             $smarty->assign("content", $content);
-            $smarty->assign("type", ContentPeer::getTypeTranslated($content->getType()));
+            $smarty->assign("type", $content->getTypeTranslated());
 
             $smarty->assign("action", "edit");
             $smarty->assign("parentId", $content->getParent()->getId());

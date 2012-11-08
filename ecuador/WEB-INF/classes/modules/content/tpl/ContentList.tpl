@@ -24,9 +24,9 @@ Para eliminar haga click en "Eliminar". Para cambiar el orden de la información
 </p>
 <p>Si desea editar los contenidos de una sección, haga click en "ir a Sección".</p>
 |-include file='ContentNavigationChainInclude.tpl' navigationChain=$navigationChain-|
-	<div style="text-align: right"><strong>Agregar</strong>&nbsp;
-	<a href="Main.php?do=contentEdit&parentId=|-$parentId-|" class="addLink" title="Agregar nuevo contenido en este nivel">Nuevo Contenido</a>
-</div>
+	<div style="text-align: right">
+		<a href="Main.php?do=contentEdit&parentId=|-$parentId-|" class="addLink" title="Agregar nuevo contenido en este nivel">Agregar nuevo contenido</a>
+	</div>
 |-if $message eq "edited"-|
 	<div class='successMessage'>Cambios guardados con éxito</div>
 |-elseif $message eq "notedited"-|
@@ -46,17 +46,14 @@ Para eliminar haga click en "Eliminar". Para cambiar el orden de la información
 	<ul id="contentList">
 	|-foreach from=$elements item=value-|
 		|-$temp=$value->setLocale($defaultLanguage->getlanguagecode())-|
-		<li id="contentList_|-$value->getId()-|" class="contentLi">
-			<span class="textOptionMove" style="float:left;width:65%;" title="Mover este contenido">|-$value->getTitle()-|
-				|-if $value->getType() eq 2-|&nbsp;[&nbsp;<span class="desac"><strong>Link</strong></span>&nbsp;]
-				|-elseif $value->getType() eq 0-|&nbsp;[&nbsp;<span class="desac"><strong>Contenido</strong></span>&nbsp;]
-				|-elseif $value->getType() eq 1-|&nbsp;[&nbsp;<span class="desac"><strong>Sección</strong></span>&nbsp;]|-/if-|
-			</span>
+		<li id="contentList_|-$value->getId()-|" class="optionsList">
+			<span class="textOptionMove" style="float:left;width:65%;" title="Mover este contenido">|-$value->getTitle()-| 
+				&nbsp;[&nbsp;<span class="desac"><strong>|-$value->getTypeTranslated()-|</strong></span>&nbsp;]</span>
 			<span style="float:left;width:35%;text-align:right;">
 				|-if $value->getType() eq 0-|<a href="Main.php?do=contentShow&id=|-$value->getId()-|" alt="Ver" title="Ver" target="_blank"><img src="images/clear.png" class="icon iconView"></a>
 				|-elseif $value->getType() eq 1-|
-					<a href="Main.php?do=contentEdit&parentId=|-$value->getId()-|" class="addLink" title="Agregar nuevo contenido en este nivel">Nuevo Contenido</a>
 					<a href="Main.php?do=contentShow&id=|-$value->getId()-|" alt="Ver" title="Ver" target="_blank"><img src="images/clear.png" class="icon iconView"></a>
+					<a href="Main.php?do=contentEdit&parentId=|-$value->getId()-|" title="Agregar nuevo contenido en este nivel"><img src="images/clear.png" class="icon iconAdd"></a>
 				|-elseif $value->getType() eq 2-|<a href="|-$value->getLink()-|" alt="Ver" title="Ver" target="_blank"><img src="images/clear.png" class="icon iconView"></a>|-/if-|
 				|-if $value->getType() eq 1-|<a href="Main.php?do=contentList&sectionId=|-$value->getId()-|" alt="ir a Sección" title="ir a Sección"><img src="images/clear.png" class="icon iconGoTo"></a>|-/if-|
 				<a href="Main.php?do=contentEdit&id=|-$value->getId()-|" alt="Editar" title="Editar"><img src="images/clear.png" class="icon iconEdit"></a>
@@ -68,9 +65,6 @@ Para eliminar haga click en "Eliminar". Para cambiar el orden de la información
 	|-/foreach-|
 	</ul>
 	|-/if-|
-
-	<br />
-	<br />
 	<br />
 	</fieldset>
 </div>
