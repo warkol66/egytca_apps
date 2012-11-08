@@ -85,7 +85,8 @@ function requirementsDoDeleteAttendant(form) {
 			</select>
 		</p>
 		|-else-|
-		<p><label for="params_clientId">Cliente Asociado</label><input type="text" value="|-$requirement->getAffiliate()-|" size="80" readonly="reaonly" /></p>
+		|-assign var="dev" value=$requirement->getDevelopment()-|
+		<p><label for="params_clientId">Cliente Asociado</label><input type="text" value="|-$dev->getAffiliate()-|" size="80" readonly="reaonly" /></p>
 		|-/if-|
 		
 		|-if !$requirement->isNew()-|

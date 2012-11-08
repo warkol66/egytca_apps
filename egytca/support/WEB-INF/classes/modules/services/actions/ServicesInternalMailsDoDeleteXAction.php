@@ -15,7 +15,7 @@ class ServicesInternalMailsDoDeleteXAction extends BaseAction {
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
-
+		//aca
 		$toDeleteIds = $_POST['selectedIds'];
 
 		InternalMailPeer::delete($toDeleteIds);
@@ -41,7 +41,7 @@ class ServicesInternalMailsDoDeleteXAction extends BaseAction {
 		foreach ($filters as $key => $value)
 			$url .= "&filters[$key]=$value";
 		$smarty->assign("url", $url);
-
+		//hasta aca
 		$smarty->assign("message",$_POST["message"]);
 		return $mapping->findForwardConfig('success');
 	}
