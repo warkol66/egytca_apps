@@ -58,7 +58,7 @@ class BaseDoDeleteAction extends BaseAction {
 				print_r($e->__toString());
 			}
 		}
-
+		
 		return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'failure');
 
 //		try {
