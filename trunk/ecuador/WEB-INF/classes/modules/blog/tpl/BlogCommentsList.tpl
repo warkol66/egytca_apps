@@ -1,10 +1,27 @@
-<script type="text/javascript" src="scripts/blog.js">
+<script type="text/javascript" src="scripts/blog.js"></script>
+<script>
+    $(function() {
+		$.datepicker.setDefaults($.datepicker.regional['es']);
+        $( ".datepickerFrom" ).datepicker({
+			dateFormat:"dd-mm-yy",
+			onClose: function(selectedDate) {
+                $(".datepickerTo").datepicker("option", "minDate", selectedDate);
+            }
+		});
+		$(".datepickerTo").datepicker({
+			dateFormat:"dd-mm-yy",
+			onClose: function(selectedDate) {
+                $(".datepickerFrom").datepicker("option", "maxDate", selectedDate);
+            }
+		});
+    });
 </script>
 <h2>Comentarios</h2>
 <h1>Administrar Comentarios</h1>
 <p>A continuación puede ver los comentarios creados por los visitantes al sitio, puede eliminar los comentarios que desee haciendo click en eliminar.</p>
-<div id="divMsgBox">
-</div>
+
+<!--div id="divMsgBox">
+</div-->
 				
 <div id="div_comments_messages">
 	|-if $message eq "ok"-|<div class="successMessage">Comentario guardado correctamente</div>|-/if-|
@@ -41,13 +58,13 @@
 				</p>
 				<p>
 					<label for="fromDate">Fecha Desde</label>
-					<input name="filters[fromDate]" type="text" id="fromDate" title="fromDate" value="|-$filters.fromDate-|" size="12" /> 
-					<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[fromDate]', false, 'ymd', '-');" title="Seleccione la fecha">
+					<input name="filters[fromDate]" type="text" id="fromDate" class="datepickerFrom" title="fromDate" value="|-$filters.fromDate-|" size="12" /> 
+					<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 				</p>
 				<p>
 					<label for="toDate">Fecha Hasta</label>
-					<input name="filters[toDate]" type="text" id="toDate" title="toDate" value="|-$filters.toDate-|" size="12" /> 
-					<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[toDate]', false, 'ymd', '-');" title="Seleccione la fecha">
+					<input name="filters[toDate]" type="text" id="toDate" class="datepickerTo" title="toDate" value="|-$filters.toDate-|" size="12" /> 
+					<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 				</p>
 				|-if not isset($entryId)-|
 				<p>
@@ -70,6 +87,8 @@
 	</fieldset>
 </div>
 
+<div id="divMsgBox">
+</div>
 <div id="div_blogComments">
 	<table cellpadding="4" cellspacing="0" class="tableTdBorders" id="tabla-blogComments">
 		<thead>

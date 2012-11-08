@@ -1,17 +1,5 @@
 <script type="text/javascript" language="javascript">
-
-	Element.remove('tagListItem|-$tag->getId()-|');
-
-	var option = document.createElement('option');
-	option.text = '|-$tag->getName()-|';
-	option.value = '|-$tag->getId()-|';
-	option.id = 'categoryOption|-$tag->getId()-|';
-	
-	try {
-		$('tagId').add(option,null);
-	}
-	catch (exp) {
-		$('tagId').add(option);		
-	}
+	$('#tagListItem|-$tag->getId()-|').remove();
+	$('#tagId').append($('<option></option>').attr('value','|-$tag->getId()-|').attr('id','categoryOption|-$tag->getId()-|').html('|-$tag->getName()-|'));
 </script>
 <span class="resultSuccess">Etiqueta Eliminada</span>

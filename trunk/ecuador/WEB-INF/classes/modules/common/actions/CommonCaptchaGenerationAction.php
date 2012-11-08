@@ -1,7 +1,7 @@
 <?php
 require_once('BaseAction.php');
 global $appServerRootDir;
-require_once($appServerRootDir . "/WEB-INF/lib/captcha/CaptchaSecurityImages.php");
+require_once($appServerRootDir . "/WEB-INF/lib-phpmvc/captcha/CaptchaSecurityImages.php");
 
 class CommonCaptchaGenerationAction extends BaseAction {
 
