@@ -148,14 +148,15 @@ function showSendEmailFormX(entryId,divId) {
 	
 }
 
+//migrada?
 function hideSendEmailForm(id) {
-	if ($(id))
-		$(id).hide();
+	//if ($(id))
+		$('#' + id).hide();
 		
-	$(id).innerHTML = '';
+	$(id).html('');
 }
 
-//migrada?
+//migrada? Falta ver lo de commonCaptchaGeneration
 function refreshCaptchaX(id) {
 	
 	divId = '#captcha' + id;
@@ -168,10 +169,10 @@ function refreshCaptchaX(id) {
 		}	
 	});
 	
-	$(id).html('<span class="inProgress>...regenerando captcha...</span>');
-	$(divId)html("");
-	
-	/*var divId = 'captcha' + id;
+	$('#' + id).html('<span class="inProgress>...regenerando captcha...</span>');
+	$(divId).html("");
+	/*
+	var divId = 'captcha' + id;
 
 	var url = 'Main.php?do=commonCaptchaRefresh';
 		
@@ -190,12 +191,21 @@ function refreshCaptchaX(id) {
 	return false;
 }
 
+//migrada?
 function blogCommentsShow(form,id) {
 	
-	var divId = 'comments_holder_' + id;
-	$(divId).innerHTML = '';
+	var divId = '#comments_holder_' + id;
+	$(divId).html('');
 	
-	var fields = Form.serialize(form);
+	$.ajax({
+		url: url,
+		data: $(form).serialize(),
+		type: 'post',
+		success: function(data){
+			$(divId).html(data);
+		}	
+	});
+	/*
 	var myAjax = new Ajax.Updater(
 				{success: divId},
 				url,
@@ -204,9 +214,9 @@ function blogCommentsShow(form,id) {
 					postBody: fields,
 					evalScripts: true
 				}
-			);
+			);*/
 			
-	$('mgsBoxCommentsShow'+id).innerHTML = '<span class="inProgress">... buscando comentarios ...</span>';
+	$('#mgsBoxCommentsShow'+id).html('<span class="inProgress">... buscando comentarios ...</span>');
 	
 }
 
@@ -217,11 +227,12 @@ function blogCommentsHide(divId) {
 	
 }
 
+//migrada?
 function showCommentAddForm(idDiv) {
 	
-	var toShow = $(idDiv);
-	if (toShow != null)
-	 	toShow.show();
+	/*var toShow = $(idDiv);
+	if (toShow != null)*/
+	 	$('#' + idDiv).show();
 	
 }
 
@@ -235,9 +246,19 @@ function hideCommentAddForm(id) {
 	
 }
 
+//migrada?
 function blogCommmentAdd(form,id) {
 	
-	var fields = Form.serialize(form);
+	$.ajax({
+		url: url,
+		data: $(form).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#mgsBoxCommentsShow' + id).html(data);
+		}	
+	});
+	$('msgBoxAdder'+id).html('<span class="inProgress">... agregando comentario ...</span>');
+	/*var fields = Form.serialize(form);
 	var divId = 'mgsBoxCommentsShow'+id;
 	var myAjax = new Ajax.Updater(
 				{success: divId},
@@ -248,36 +269,36 @@ function blogCommmentAdd(form,id) {
 					evalScripts: true,
 					insertion: Insertion.top
 				}
-			);
-	$('msgBoxAdder'+id).innerHTML = '<span class="inProgress">... agregando comentario ...</span>';
+			);*/
+	
 }
 
-
+//migrada
 function addTagToEntry(form) {
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'tagList'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true,
-					insertion: Insertion.Bottom
-				});
-	$('tagMsgField').innerHTML = '<span class="inProgress">agregando etiqueta a entrada</span>';
+	
+	$.ajax({
+		url: url,
+		data: $(form).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#tagList').html(data);
+		}
+	});
+	$('#tagMsgField').html('<span class="inProgress">agregando etiqueta a entrada</span>');
 	return true;
 }
 
+//migrada
 function deleteTagFromEntry(form){
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'tagMsgField'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				});
-	$('tagMsgField').innerHTML = '<span class="inProgress">eliminando etiqueta de entrada</span>';
+	
+	$.ajax({
+		url: url,
+		data: $(form).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#tagMsgField').html(data);
+		}	
+	});
+	$('tagMsgField').html('<span class="inProgress">eliminando etiqueta de entrada</span>');
 	return true;
 }

@@ -1,3 +1,9 @@
+<script>
+	 $(function() {
+		$.datepicker.setDefaults($.datepicker.regional['es']);
+        $( ".datepicker" ).datepicker();
+     });
+</script>
 <h2>Comentarios</h2>
 <h1>Administrar Comentarios</h1>
 <div id="div_blogComment">
@@ -35,8 +41,8 @@
 			</p>
 			<p>
 				<label for="blogComment_creationDate">Fecha</label>
-				<input name="blogComment[creationDate]" type="text" id="blogComment_creationDate" title="creationDate" value="|-$blogComment->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
-				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('blogComment[creationDate]', false, 'ymd', '-');" title="Seleccione la fecha">
+				<input name="blogComment[creationDate]" type="text" id="blogComment_creationDate" class="datepicker" title="creationDate" value="|-$blogComment->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 			</p>
 			<p>
 				<label for="blogComment_status">Estado</label>

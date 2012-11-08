@@ -1,5 +1,5 @@
 <script type="text/javascript" charset="utf-8">
-	$('mgsBoxCommentsShow'+ |-$entry->getId()-|).innerHTML = '';
+	$('#mgsBoxCommentsShow'+ |-$entry->getId()-|).html('');
 </script>
 	<div id="comentarios">
 	<!-- TITULO COMENTARIOS -->

@@ -1,8 +1,7 @@
 <script type="text/javascript" language="javascript" >
 	$('#tagMsgField').html('<span class="resultSuccess">Etiqueta Agregada</span>');
-	option = $('tagOption|-$tag->getId()-|');
-	if (option != null) {
-		Element.remove('tagOption|-$tag->getId()-|');
+	if ($('#tagOption|-$tag->getId()-|') != null) {
+		$('#tagOption|-$tag->getId()-|').remove();
 	}
 </script>
 <li id="tagListItem|-$tag->getId()-|">

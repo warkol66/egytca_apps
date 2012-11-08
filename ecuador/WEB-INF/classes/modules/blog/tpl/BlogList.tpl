@@ -1,6 +1,6 @@
 <script src="Main.php?do=js&name=js&module=blog&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 <script>
-    jQuery(function() {
+    $(function() {
 		$.datepicker.setDefaults($.datepicker.regional['es']);
         $( ".datepickerFrom" ).datepicker({
 			dateFormat:"dd-mm-yy",

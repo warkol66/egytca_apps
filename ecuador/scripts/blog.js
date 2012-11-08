@@ -148,3 +148,37 @@ function refreshCaptchaX(id) {
 	$(divId).innerHTML = "";*/
 	return false;
 }
+
+function submitMultipleCommentsChangeFormX(formId) {
+
+	buildMultipleItemsForm(formId);
+	$('#' + formId).submit();
+	$('#divMsgBox').html('<span class="inProgress">... Actualizando Estado de Comentarios...</span>');
+	
+}
+
+function buildMultipleItemsForm(formId) {
+	
+	var form = $('#' + formId);
+	//elimino elementos que puedan existir en el form anteriormente
+	$('#' + formId + " input[name='selected[]']").remove();
+	
+	//armo el formulario con los elementos seleccionados
+	$('input[name="selected[]"]').each(function(){
+		if($(this).attr('checked')){
+			var hidden = $('<input>').attr('type','hidden').attr('name',$(this).attr('name')).attr('value',$(this).attr('value'));
+			$('#' + formId).append(hidden);
+			console.log(hidden);
+		}
+	});
+	
+	return true;
+	
+}
+
+function selectAllCheckboxes() {
+	
+	var checkboxes = $('[name="selected[]"]');
+	var allbox = $('#allBoxes').is(':checked');
+	checkboxes.attr('checked',allbox);
+}
