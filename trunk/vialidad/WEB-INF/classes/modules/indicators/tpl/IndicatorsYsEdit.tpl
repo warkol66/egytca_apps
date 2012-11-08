@@ -12,7 +12,7 @@
 <legend>Valores</legend>
 |-if $indicator->getType() eq constant('IndicatorPeer::PIE')-|
 |-assign value=$indicator->getSeries() var=series-|
-<table>
+<table border="0" cellspacing="5">
 <tr>
 	|-assign value=$series.0 var=serie-|
 	<th>|-$serie->getName()|escape-|</th>
@@ -32,7 +32,7 @@
 |-else-|
 |-assign value=$indicator->getXs() var=xValues-|
 |-assign value=$indicator->getSeries() var=series-|
-<table>
+<table border="0" cellspacing="5">
 <tr>
 	<th></th>
 |-foreach from=$series item=serie name=for_serie-|
@@ -41,7 +41,7 @@
 </tr>
 |-foreach from=$xValues item=xValue name=for_xValue-|
 <tr>
-	<td>|-$xValue->getName()-|</td>
+	<th align="right">|-$xValue->getName()-|</th>
 	|-foreach from=$series item=serie name=for_serie-|
 	|-assign value=$serie->getYForX($xValue) var=yValue-|
 		<td>

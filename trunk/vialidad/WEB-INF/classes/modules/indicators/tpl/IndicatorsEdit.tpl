@@ -40,14 +40,15 @@
 				|-javascript_form_validation_button value=Aceptar-|
 	|-if $action eq "edit"-|
 				<input type="hidden" name="id" id="id" value="|-$indicator->getId()-|" />
-				<input type="button" id="button_edit_series" name="button_edit_series" title="Editar Series" value="Editar Series" onClick="location.href='Main.php?do=indicatorsSeriesEdit&id=|-$indicator->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
+				<input type="button" id="button_edit_series" name="button_edit_series" title="Editar Curvas" value="Editar Curvas" onClick="location.href='Main.php?do=indicatorsSeriesEdit&id=|-$indicator->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
 
-				<input type="button" id="button_edit_xs" name="button_edit_xs" title="Editar Variables" value="Editar Variables" onClick="location.href='Main.php?do=indicatorsXsEdit&id=|-$indicator->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
+				<input type="button" id="button_edit_xs" name="button_edit_xs" title="Editar Meses" value="Editar Meses" onClick="location.href='Main.php?do=indicatorsXsEdit&id=|-$indicator->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
 
 				<input type="button" id="button_edit_ys" name="button_edit_ys" title="Editar Valores" value="Editar Valores" onClick="location.href='Main.php?do=indicatorsYsEdit&id=|-$indicator->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
 	|-/if-|
-
-				<input type="button" id="button_return_indicator" name="button_return_indicator" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=indicatorsList&contractId=|-$contract->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
+	|-if !is_object($contract)-|
+|-assign var=contract value=$indicator->getContract()-||-/if-|
+	<input type="button" id="button_return_indicator" name="button_return_indicator" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=indicatorsList&contractId=|-$contract->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'" />
 
 	</form>
 		</fieldset>

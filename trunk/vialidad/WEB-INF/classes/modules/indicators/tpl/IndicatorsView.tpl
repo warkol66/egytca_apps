@@ -1,8 +1,4 @@
-|-if !$disbursement-|<h2>Indicadores</h2>
-<h1>Ver Indicador</h1>
-<input type="button" id="indicatorsList" name="indicatorsList" title="Ir a listado de Indicadores" value="Ir a listado de Indicadores" onClick="location.href='Main.php?do=indicatorsList'" />
-|-else-|
-<h2>|-if $entity eq "Objective"-|Subcomponentes|-elseif $entity eq "StrategicObjective"-|Componentes|-else-|Proyectos|-/if-|</h2>
+<h2>Contratos</h2>
 <h1>Curva de desembolso |-if $entityObj-| - |-$entityObj->getName()-||-/if-|</h1>
 |-if $message eq "graph_ok"-|
 	<div class="successMessage">Se ha creado la curva de desembolso correctamente.</div>
@@ -12,11 +8,12 @@
   <p><input type="button" id="button_edit_xs" name="button_edit_xs" title="Editar Curvas" value="Editar Curvas" onClick="location.href='Main.php?do=indicatorsSeriesEdit&id=|-$indicator->getId()-|&disbursement=1'" />
 	<input type="button" id="button_edit_xs" name="button_edit_xs" title="Editar Meses" value="Editar Meses" onClick="location.href='Main.php?do=indicatorsXsEdit&id=|-$indicator->getId()-|&disbursement=1'" />
 		<input type="button" id="button_edit_ys" name="button_edit_ys" title="Editar Importes" value="Editar Importes" onClick="location.href='Main.php?do=indicatorsYsEdit&id=|-$indicator->getId()-|&disbursement=1'" />
-		<input type="button" id="projectsList" name="projectsList" title="Ir a listado de Projectos" value="Ir a listado de Projectos" onClick="location.href='Main.php?do=projectsList'" /></p>
+		|-assign var=contract value=$indicator->getContract()-|
+		<input type="button" id="projectsList" name="projectsList" title="Ir a Contrato" value="Ir a Contrato" onClick="location.href='Main.php?do=vialidadContractsEdit&id=|-$contract->getId()-|'" /></p>
 |-else-|
 		<input type="button" id="button_edit_xs" name="button_edit_xs" title="Regresar" value="Regresar" onClick="javascript:history.back(1)" />
 |-/if-|
-|-/if-|
+
 <!-- Link VOLVER -->
 <!-- /Link VOLVER -->
 |-if $indicator->getType() eq constant("IndicatorPeer::COLUMN")-|
