@@ -2,9 +2,9 @@
 function blogCommentsShow(form,id) {
 	
 	var divId = '#comments_holder_' + id;
-	$(divId).html('');
+	$(divId).show();
 	
-	$.ajax({
+	/*$.ajax({
 		url: url,
 		data: $(form).serialize(),
 		type: 'post',
@@ -35,16 +35,14 @@ function blogCommentsShow(form,id) {
 //migrada
 function blogCommentsHide(divId) {
 	
-	$('#' + divId).html('');
+	$('#' + divId).hide();
 	
 }
 
 //migrada?
 function showCommentAddForm(idDiv) {
 	
-	/*var toShow = $(idDiv);
-	if (toShow != null)*/
-	 	$('#' + idDiv).show();
+	 $('#' + idDiv).show();
 	
 }
 
@@ -72,19 +70,6 @@ function blogCommmentAdd(form,id) {
 	});
 	$('msgBoxAdder'+id).html('<span class="inProgress">... agregando comentario ...</span>');
 	
-	/*var fields = Form.serialize(form);
-	var divId = 'mgsBoxCommentsShow'+id;
-	var myAjax = new Ajax.Updater(
-				{success: divId},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true,
-					insertion: Insertion.top
-				}
-			);
-	$('msgBoxAdder'+id).innerHTML = '<span class="inProgress">... agregando comentario ...</span>';*/
 }
 
 //migrada
@@ -123,12 +108,12 @@ function refreshCaptchaX(id) {
 		url: 'Main.php?do=commonCaptchaGeneration',
 		type: 'post',
 		success: function(data){
-			$('#divId').html(data);
+			$(divId).html(data);
 		}	
 	});
 	
 	$('#' + id).html('<span class="inProgress>...regenerando captcha...</span>');
-	$(divId).html("");
+	//$(divId).html("");
 	/*
 	var divId = 'captcha' + id;
 
