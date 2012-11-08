@@ -374,3 +374,27 @@ ul#directions_results {
 #categoriesListPlaceHolder ul.iconOptionsList li:hover {
 	color: #333; /* Color rightColumn */
 }
+
+.navChain {
+	background-color: #dde5eb;
+	border: 1px solid transparent;
+}
+.path_Base:link, .path_Base:visited, .path_Mark:link, a.path_Mark:visited {
+	color:#0054A4;
+	background-image:url(../images/path_Mark.png);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+.path_Base:link, .path_Base:visited {
+	background-image:none !Important;
+}
+.path_Mark:hover, .path_Mark:active {
+	background-image:url(../images/path_Mark_over.png);
+}
+.path_Mark_current {
+	color:#007c54;
+	background-image:url(../images/path_Mark_current.png);
+	background-position: left top;
+	background-repeat: no-repeat;
+	line-height: 50px;
+}
