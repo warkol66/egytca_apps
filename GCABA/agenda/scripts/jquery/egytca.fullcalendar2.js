@@ -37,7 +37,7 @@ Calendar = {
 		else {
 			template = template.replace("%start", '');
 			template = template.replace("%end", '');
-			template = template.replace("%timeConfirmed", 'A confirmar');
+			template = template.replace("%timeConfirmed", 'Horario a confirmar');
 		}
 		template = template.replace("%title", event.title);
 		template = template.replace("%body", event.body);
