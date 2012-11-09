@@ -45,19 +45,21 @@ class BaseQuery {
 	 * @var modelNameOrModelCriteria
 	 */
 	public function BaseQuery($modelNameOrModelCriteria) {
-
-		if ($modelNameOrModelCriteria instanceof ModelCriteria)
-			$this->query = $modelNameOrModelCriteria;
-		else {
-			$queryClass  = $modelNameOrModelCriteria . "Query";
-			$this->query = $queryClass::create();
-		}
-
+		$this->query = $this->createQuery($modelNameOrModelCriteria);
 		$this->queryClass = get_class($this->query);
-
 		$this->debugging = false;
 		$this->debugInfo = array();
-
+	}
+    
+	private function createQuery($modelNameOrModelCriteria) {
+		if ($modelNameOrModelCriteria instanceof ModelCriteria)
+			return $modelNameOrModelCriteria;
+		
+		$pieces = preg_split("/#/", $modelNameOrModelCriteria);
+		$factoryMethod = !empty($pieces[1]) ? "create" . ucfirst($pieces[1]) : "create";
+		$q = call_user_func(array($pieces[0] . "Query", $factoryMethod));
+		
+		return $q;
 	}
 
 	/**
@@ -68,17 +70,6 @@ class BaseQuery {
 	 */
 	public static function create($modelNameOrModelCriteria) {
 		return new BaseQuery($modelNameOrModelCriteria);
-
-
-//// TODO Revisar
-		if ($modelNameOrModelCriteria instanceof ModelCriteria)
-			return $modelNameOrModelCriteria;
-
-		$pieces = preg_split("/#/", $modelNameOrModelCriteria);
-		$factoryMethod = !empty($pieces[1]) ? "create" . ucfirst($pieces[1]) : "create";
-		$q = call_user_func(array($pieces[0] . "Query", $factoryMethod));
-
-		return $q;
 	}
 
 	/**
@@ -100,7 +91,7 @@ class BaseQuery {
 	
 		$found = true;
 		switch ($filterName) {
-	
+		
 			case 'searchString':
 				$this->query->filterByName("%$filterValue%", Criteria::LIKE);
 				break;
@@ -117,18 +108,19 @@ class BaseQuery {
 					$filterMethod = 'filterBy'.$filterName;
 					$this->query->$filterMethod($filterValue);
 				}
-				else if (is_array($filterValue))
-					$this->addFilters($filterValue); // Revisar
+				else
+					$found = false;
 	
 				break;
 		}
 	
 		if ($this->debugging)
-			$this->debugInfo['filters'] [] = array('name'   => $filterName,
-																						 'params' => $filterValue,
-																						 'found'  => $found
-																						);
-	
+			$this->debugInfo['filters'] [] = array(
+				'name'   => $filterName,
+				'params' => $filterValue,
+				'found'  => $found
+			);
+
 		return $this;
 	}
 
@@ -141,7 +133,6 @@ class BaseQuery {
 	 */
 	public function addFilters($filters = array()) {
 		foreach ($filters as $name => $value) {
-//			echo " existe filtro $name ? ". method_exists($this->queryClass, $name) . "<br />";
 			if ((isset($value) && $value != null) && $name != "perPage")
 				$this->addFilter($name, $value);
 		}
@@ -173,38 +164,36 @@ class BaseQuery {
 	 * @return  mixed
 	 */
 	public function __call($name, $arguments) {
-
+		
 		$result = $this->callIfPossible($name, $arguments);
-			if ($result instanceof ModelCriteria)
-				return $this;
+		if ($result instanceof ModelCriteria)
+			return $this;
 
 		return $result;
-
 	}
 
-		/**
-		 * De existir, invoca al $method de la $this->query.
-		 *
-		 * @param   string $method
-		 * @param   mixed $arguments
-		 * @return  mixed
-		 */
-		private function callIfPossible($method, $arguments) {
+	/**
+	 * De existir, invoca al $method de la $this->query.
+	 *
+	 * @param   string $method
+	 * @param   mixed $arguments
+	 * @return  mixed
+	 */
+	private function callIfPossible($method, $arguments) {
+		if (method_exists($this->queryClass, $method) || ($this->isMagicMethod($method))) {
+
+			if ($this->debugging)
+				$this->debugInfo['filters'] [] = array(
+					'name'   => $method,
+					'using call_user_func_array (params are put into an array)'  => true,
+					'params' => $arguments,
+					'found'  => true
+				);
 			
-			if (method_exists($this->queryClass, $method) || ($this->isMagicMethod($method))) {
-				if (!is_array($arguments))
-					$arguments = array($arguments);
-
-				if ($this->debugging)
-					$this->debugInfo['filters'] [] = array('name'   => $method,
-																								 'params' => $arguments,
-																								 'found'  => true
-																								);
-
-				return call_user_func_array(array($this->query, $method), $arguments);
-			}
-			return FALSE;
+			return call_user_func_array(array($this->query, $method), $arguments);
 		}
+		return FALSE;
+	}
 
 	/**
 	 * Se fija si $method es un metodo magico.
@@ -219,7 +208,6 @@ class BaseQuery {
 		}
 		return false;
 	}
-
 	
 	/**
 	 * Filtro por entidad asociada
@@ -230,19 +218,21 @@ class BaseQuery {
 
 		$entityQueryClass = ucfirst($filterValue['entityType']) . "Query";
 		if (!class_exists(ucfirst($filterValue['entityType'])) || !class_exists($entityQueryClass))
-				return; // nothing to filter
+			return; // nothing to filter
 
 		$entity = $entityQueryClass::create()->findOneById($filterValue['entityId']);
-		$filterByEntity = 'filterBy'.ucfirst($filterValue['entityType']);
+		if ($entity) {
+			$filterByEntity = 'filterBy'.ucfirst($filterValue['entityType']);
 
-		$queryClass = get_class($this);
+			$queryClass = get_class($this);
 
-		if ($filterValue['getCandidates']) {
-			$alreadyRelated = $queryClass::create()->select("Id")->$filterByEntity($entity)->find()->toArray();
-			$this->query->filterById($alreadyRelated, Criteria::NOT_IN);
+			if ($filterValue['getCandidates']) {
+				$alreadyRelated = $queryClass::create()->select("Id")->$filterByEntity($entity)->find()->toArray();
+				$this->query->filterById($alreadyRelated, Criteria::NOT_IN);
+			}
+			else
+				$this->query->$filterByEntity($entity);
 		}
-		else
-			$this->query->$filterByEntity($entity);
 
 	}
 
