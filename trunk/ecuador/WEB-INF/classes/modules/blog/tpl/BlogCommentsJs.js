@@ -2,40 +2,20 @@
 function blogCommentsShow(form,id) {
 	
 	var divId = '#comments_holder_' + id;
-	$(divId).show();
-	
-	/*$.ajax({
-		url: url,
-		data: $(form).serialize(),
-		type: 'post',
-		success: function(data){
-			$(divId).html(data);
-		}	
+	$(divId).slideToggle('slow',function(){
+		$('#commentsShow').hide();
+		$('#commentsHide').show();
 	});
-	$('#mgsBoxCommentsShow'+id).html('<span class="inProgress">... buscando comentarios ...</span>');
-	
-	/*var divId = 'comments_holder_' + id;
-	$(divId).innerHTML = '';
-	
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: divId},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				}
-			);
-			
-	$('mgsBoxCommentsShow'+id).innerHTML = '<span class="inProgress">... buscando comentarios ...</span>';*/
 	
 }
 
 //migrada
 function blogCommentsHide(divId) {
 	
-	$('#' + divId).hide();
+	$('#' + divId).slideToggle('slow',function(){
+		$('#commentsHide').hide();
+		$('#commentsShow').show();
+	});
 	
 }
 
@@ -46,14 +26,11 @@ function showCommentAddForm(idDiv) {
 	
 }
 
-//migrada?
+//migrada
 function hideCommentAddForm(id) {
 	
-	/*var toHide = $( "div_comments_adder_" + id);
-	if (toHide != null)*/
-	 	$("#div_comments_adder_" + id).hide();
-	
-	$("#formCommentAdder" + id).reset();
+	//$("#div_comments_adder_" + id).hide();
+	$("#formCommentAdder" + id)[0].reset();
 	
 }
 
@@ -88,7 +65,7 @@ function submitFormX(formId) {
 function submitCommentsChangeFormX(formId) {
 	
 	submitFormX(formId);
-	$('divMsgBox').html('<span class="inProgress">... Actualizando Estado de Comentario...</span>');
+	$('#divMsgBox').html('<span class="inProgress">... Actualizando Estado de Comentario...</span>');
 	
 }
 
@@ -101,11 +78,10 @@ function submitEntriesChangeFormX(formId) {
 }
 
 //migrada
-function refreshCaptchaX(id) {
+function refreshCodeX(id) {
 	
-	var divId = '#captcha' + id;
+	var divId = '#code' + id;
 	var time = new Date().getTime();
-	$(divId).html('');
-	$(divId).html("<img src='Main.php?do=commonCaptchaGeneration&t=" + time + "'/>");
+	$(divId).html("<img src='Main.php?do=commonImage&width=120&height=45&characters=5&t=" + time + "'/>");
 	return false;
 }
