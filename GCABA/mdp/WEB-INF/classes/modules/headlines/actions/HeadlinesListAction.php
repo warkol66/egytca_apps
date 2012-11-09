@@ -59,7 +59,7 @@ class HeadlinesListAction extends BaseAction {
 				$filters["broodIssues"] = $_GET['filters']['issueId'];
 
 		if (isset($fromDate) || isset($toDate))
-			$filters['rangePublished'] = array('range' => Common::getPeriodArray($fromDate,$toDate));
+			$filters['rangePublished'] = Common::getPeriodArray($fromDate,$toDate);
 		
 		if (!empty($filters['processed']))
 			if ($filters['processed'] == -1)

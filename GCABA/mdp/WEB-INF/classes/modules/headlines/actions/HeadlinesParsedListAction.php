@@ -46,7 +46,7 @@ class HeadlinesParsedListAction extends BaseListAction {
 			))));
 
 		if (isset($fromDate) || isset($toDate))
-			$filters['rangePublished'] = array('range' => Common::getPeriodArray($fromDate,$toDate));
+			$filters['rangePublished'] = Common::getPeriodArray($fromDate,$toDate);
 		
 		if (!isset($filters["perPage"]))
 			$perPage = Common::getRowsPerPage();

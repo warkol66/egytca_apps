@@ -48,9 +48,9 @@ class HeadlinesReportsAction extends BaseListAction {
 			);
 		
 		if (!empty($_GET['filters']['fromDate']) || !empty($_GET['filters']['toDate']))
-			$this->filters['rangePublished'] = array('range' => Common::getPeriodArray(
+			$this->filters['rangePublished'] = Common::getPeriodArray(
 				$_GET['filters']['fromDate'], $_GET['filters']['toDate']
-			));
+			);
 
 		$this->filters["setReportOrder"] = true;
 		$this->filters["processed"] = true;
