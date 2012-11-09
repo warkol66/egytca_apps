@@ -1,16 +1,15 @@
 <script type="text/javascript" >
 	function createTag(form) {
-		var fields = $(form).serialize();
-		var myAjax = $.ajax({
+		$.ajax({
 			url: 'Main.php?do=blogTagsDoEditX', 
 			data: $(form).serialize(),
 			type: 'post',
 			success: function(data){
-				 $('#operationInfo').html(data);
+				$('#operationInfo').html(data);
 				console.log(data);
 			}
 		});
-		$('#operationInfo').html('<span class="inProgress">Procesando información</span>');
+		$('#operationInfo').html('<span class="inProgress">Procesando información</span>');*/
 		return false;
 	}
 </script>

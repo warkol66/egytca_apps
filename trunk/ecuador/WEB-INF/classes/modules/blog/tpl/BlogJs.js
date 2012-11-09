@@ -156,74 +156,28 @@ function hideSendEmailForm(id) {
 	$(id).html('');
 }
 
-//migrada? Ver por qué no se muestra la imagen
+//migrada
 function refreshCaptchaX(id) {
 	
-	divId = '#captcha' + id;
-	
-	$.ajax({
-		url: 'Main.php?do=commonCaptchaRefresh',
-		type: 'post',
-		success: function(data){
-			$('#divId').html(data);
-		}	
-	});
-	
-	$('#captcha' + id).html('<span class="inProgress>...regenerando captcha...</span>');
-	$(divId).html("");
-	/*
-	var divId = 'captcha' + id;
-
-	var url = 'Main.php?do=commonCaptchaRefresh';
-		
-	var myAjax = new Ajax.Updater(
-				{success: divId},
-				url,
-				{
-					method: 'post',
-					postBody: '&id='+id,
-					evalScripts: true
-				}
-			);
-	
-	$(id).innerHTML = '<span class="inProgress>...regenerando captcha...</span>';
-	$(divId).innerHTML = "";*/
+	var divId = '#captcha' + id;
+	var time = new Date().getTime();
+	$(divId).html('');
+	$(divId).html("<img src='Main.php?do=commonCaptchaGeneration&t=" + time + "'/>");
 	return false;
 }
 
-//migrada?
+//migrada
 function blogCommentsShow(form,id) {
 	
 	var divId = '#comments_holder_' + id;
-	$(divId).html('');
-	
-	$.ajax({
-		url: url,
-		data: $(form).serialize(),
-		type: 'post',
-		success: function(data){
-			$(divId).html(data);
-		}	
-	});
-	/*
-	var myAjax = new Ajax.Updater(
-				{success: divId},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				}
-			);*/
-			
-	$('#mgsBoxCommentsShow'+id).html('<span class="inProgress">... buscando comentarios ...</span>');
-	
+	$(divId).show();
+
 }
 
 //migrada
 function blogCommentsHide(divId) {
 	
-	$('#' + divId).html('');
+	$('#' + divId).hide();
 	
 }
 

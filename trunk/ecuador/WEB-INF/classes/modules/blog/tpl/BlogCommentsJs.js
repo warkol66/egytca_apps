@@ -1,4 +1,4 @@
-//migrada?
+//migrada
 function blogCommentsShow(form,id) {
 	
 	var divId = '#comments_holder_' + id;
@@ -100,36 +100,12 @@ function submitEntriesChangeFormX(formId) {
 	
 }
 
+//migrada
 function refreshCaptchaX(id) {
 	
-	divId = '#captcha' + id;
-	
-	$.ajax({
-		url: 'Main.php?do=commonCaptchaGeneration',
-		type: 'post',
-		success: function(data){
-			$(divId).html(data);
-		}	
-	});
-	
-	$('#' + id).html('<span class="inProgress>...regenerando captcha...</span>');
-	//$(divId).html("");
-	/*
-	var divId = 'captcha' + id;
-
-	var url = 'Main.php?do=commonCaptchaRefresh';
-		
-	var myAjax = new Ajax.Updater(
-				{success: divId},
-				url,
-				{
-					method: 'post',
-					postBody: '&id='+id,
-					evalScripts: true
-				}
-			);
-	
-	$(id).innerHTML = '<span class="inProgress>...regenerando captcha...</span>';
-	$(divId).innerHTML = "";*/
+	var divId = '#captcha' + id;
+	var time = new Date().getTime();
+	$(divId).html('');
+	$(divId).html("<img src='Main.php?do=commonCaptchaGeneration&t=" + time + "'/>");
 	return false;
 }
