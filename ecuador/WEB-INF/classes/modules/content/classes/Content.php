@@ -76,8 +76,6 @@ class Content extends BaseContent {
 						$locale=$defaultLanguage->getLanguagecode();
 				}
 				$this->setLocale($locale);
-//				$pad_string="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-//				$pad = str_pad("",  $this->getLevel()*strlen($pad_string) , $pad_string, STR_PAD_LEFT);
 				return $this->getTitle();
 		}
 
