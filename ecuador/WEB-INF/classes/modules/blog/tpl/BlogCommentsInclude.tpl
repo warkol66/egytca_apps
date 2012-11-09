@@ -1,8 +1,8 @@
 <script src="Main.php?do=js&name=commentsJs&module=blog&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 <script type="text/javascript">
 	$(function(){
-		$('#captchaRefresher').click(function(event){
-			refreshCaptchaX('msgBoxAdder|-$entry->getId()-|',event.timeStamp);
+		$('#codeRefresher').click(function(event){
+			refreshCodeX('msgBoxAdder|-$entry->getId()-|');
 		});
 	});
 </script>
@@ -11,7 +11,7 @@
 	<input type="hidden" name="entryId" value="|-$entry->getId()-|" id="entryId">
 	|-if $entry->getApprovedCommentsCount() gt 0-|
 	Cantidad de Comentarios |-$entry->getApprovedCommentsCount()-|
-	<input type="button" name="commentsShow" value="Mostrar Comentarios" id="commentsShow" onClick="javascript:blogCommentsShow(this.form,|-$entry->getId()-|);"/>
+	<input type="button" style="display:none;" name="commentsShow" value="Mostrar Comentarios" id="commentsShow" onClick="javascript:blogCommentsShow(this.form,|-$entry->getId()-|);"/>
 	<input type="button" name="commentsHide" value="Ocultar Comentarios" id="commentsHide" onClick="javascript:blogCommentsHide('comments_holder_|-$entry->getId()-|')"/> 
 	|-/if-|
 	<span id="mgsBoxCommentsShow|-$entry->getId()-|"></span>
@@ -38,8 +38,8 @@
 		<p>
 			<label for="blogComment_text">Comentario</label><textarea id="blogComment_text" name="blogComment[text]" cols="65" rows="5" wrap="VIRTUAL" ></textarea>
 		</p>
-		<p><label>Código de seguridad</label><div id="captchamsgBoxAdder|-$entry->getId()-|">
-			<img src="Main.php?do=commonCaptchaGeneration" />
+		<p><label>Código de seguridad</label><div id="codemsgBoxAdder|-$entry->getId()-|">
+			<img src="Main.php?do=commonImage&width=120&height=45&characters=5" />
 			</div>
 		</p>
 		<p>
@@ -54,7 +54,7 @@
 			<input type="hidden" name="blogComment[entryId]" value="|-$entry->getId()-|" id="blogComment[entryId]" />
 			<input type="button" value="Agregar Comentario" onClick="javascript:blogCommmentAdd(this.form,|-$entry->getId()-|)" /> 
 			<input type="button" name="commentAdderHideButton|-$entry->getId()-|" value="Cancelar" id="commentAdderHideButton|-$entry->getId()-|" onClick="javascript:hideCommentAddForm(|-$entry->getId()-|)" />
-			<input type="button" name="captchaRefresher" id="captchaRefresher" value="Regenerar código de seguridad"> <span id="msgBoxAdder|-$entry->getId()-|"></span>
+			<input type="button" name="codeRefresher" id="codeRefresher" value="Regenerar código de seguridad"> <span id="msgBoxAdder|-$entry->getId()-|"></span>
 		</p>
 		</fieldset>
 	</form>
