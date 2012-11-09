@@ -1,4 +1,11 @@
 <script src="Main.php?do=js&name=commentsJs&module=blog&code=|-$currentLanguageCode-|" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#captchaRefresher').click(function(event){
+			refreshCaptchaX('msgBoxAdder|-$entry->getId()-|',event.timeStamp);
+		});
+	});
+</script>
 <form action="Main.php" method="post">
 	<input type="hidden" name="do" value="blogCommentsShow" id="do">
 	<input type="hidden" name="entryId" value="|-$entry->getId()-|" id="entryId">
@@ -47,7 +54,7 @@
 			<input type="hidden" name="blogComment[entryId]" value="|-$entry->getId()-|" id="blogComment[entryId]" />
 			<input type="button" value="Agregar Comentario" onClick="javascript:blogCommmentAdd(this.form,|-$entry->getId()-|)" /> 
 			<input type="button" name="commentAdderHideButton|-$entry->getId()-|" value="Cancelar" id="commentAdderHideButton|-$entry->getId()-|" onClick="javascript:hideCommentAddForm(|-$entry->getId()-|)" />
-			<input type="button" name="captchaRefresher" value="Regenerar código de seguridad" onClick="javascript:refreshCaptchaX('msgBoxAdder|-$entry->getId()-|')"> <span id="msgBoxAdder|-$entry->getId()-|"></span>
+			<input type="button" name="captchaRefresher" id="captchaRefresher" value="Regenerar código de seguridad"> <span id="msgBoxAdder|-$entry->getId()-|"></span>
 		</p>
 		</fieldset>
 	</form>
