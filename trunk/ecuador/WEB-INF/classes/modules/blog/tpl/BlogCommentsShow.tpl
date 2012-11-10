@@ -1,11 +1,11 @@
 <script type="text/javascript" charset="utf-8">
-	$('#mgsBoxCommentsShow|-$entry->getId()-|').html('');
+	//$('#mgsBoxCommentsShow|-$entry->getId()-|').html('');
 </script>
 	<div id="comentarios">
 	<!-- TITULO COMENTARIOS -->
 		<div id="titleComments"><div id="icoComments"></div>Comentarios</div>
 	|-if ($comments|@count eq 0)-|
-		<p id="no_comments_|-$entry-|">No hay comentarios actualmente, sea el primero en dejar uno.</p>
+		<p id="no_comments_|-$entry->getId()-|">No hay comentarios actualmente, sea el primero en dejar uno.</p>
 	|-/if-|
 		<div id="div_comments_container_|-$entry->getId()-|" >
 		|-foreach from=$comments item=comment name=for_comments-|
