@@ -44,7 +44,7 @@
 		<column name="url" type="VARCHAR" size="255" description="Url del usuario" />
 		<column name="ip" type="VARCHAR" size="50" description="IP del usuario" />
 		<column name="creationDate" type="TIMESTAMP" description="Fecha de creacion" />
-		<column name="status" type="INTEGER" description="Estado del comentario" />
+		<column name="status" type="INTEGER" default="1" description="Estado del comentario" />
 		<column name="userId" type="INTEGER"  required="true" description="Id del usuario por registracion" />
 		<column name="objectType" type="VARCHAR" size="50" description="Tipo de usuario" />
 		<column name="objectId" type="INTEGER" description="Id del usuario" />
