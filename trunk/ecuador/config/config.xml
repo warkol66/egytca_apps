@@ -74,10 +74,10 @@
 			</element_options>
 		</mode>
 		<smtpOptions>
-			<smtpHost></smtpHost>
-			<smtpPort></smtpPort>
-			<smtpUsername></smtpUsername>
-			<smtpPassword></smtpPassword>
+			<smtpHost>mail.anmagaexport.modulserver.com.ar</smtpHost>
+			<smtpPort>587</smtpPort>
+			<smtpUsername>anmagaex</smtpUsername>
+			<smtpPassword>Anmaga</smtpPassword>
 			<smtpSsl>
 				<value>NO</value>
 				<element_type>YES/NO</element_type>
