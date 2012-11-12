@@ -11,6 +11,11 @@
 
 		<behavior name="soft_delete" />
 
+		<behavior name="nested_set">
+			<parameter name="use_scope" value="true" />
+			<parameter name="scope_column" value="scope" />
+		</behavior>
+
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
