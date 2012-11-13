@@ -18,8 +18,12 @@
 |-else-|
 	|-assign var=aggregate value=0-|
 	|-foreach from=$yValues item=yValue name=for_yValue-|
+		|-if !is_null($yValue->getValue())-|
 		|-math equation="x+y" x=$aggregate y=$yValue->getValue() assign=aggregate-|
 		<set value='|-$aggregate|number_format:2:".":""-|' />
+		|-else-|
+		<set value='' />
+		|-/if-|
 	|-/foreach-|
 |-/if-|
 	</dataset> 
