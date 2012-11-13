@@ -12,7 +12,7 @@
 		onChange="|-$onChange-|" 
 		onBlur="|-$id-|_instance.unregister();" 
 		onfocus="this.select(); 
-			if (Object.isUndefined(|-$id-|_instance)) { 
+			if (Object.isUndefined(#|-$id-|_instance)) { 
 				|-$id-|_instance = new MiniAutocompleter(
 					'|-$id-|', 
 					'|-$id-|_choices', 
