@@ -16,12 +16,12 @@
 		<fieldset title="Formulario de edición de datos de un comentario">
 			<p>
 				<label for="blogComment_entryId">Entrada</label>
-				<select id="blogComment_entryId" name="blogComment[entryId]" title="entryId">
+				<select id="blogComment_entryId" name="blogComment[entryId]" title="entryId" class="emptyValidation">
 				<option value="">Seleccione una entrada</option>
 					|-foreach from=$entryIdValues item=object-|
 					<option value="|-$object->getid()-|" |-if $blogComment->getentryId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->gettitle()|truncate:45:"...":true-|</option>
 					|-/foreach-|
-				</select>
+				</select> |-validation_msg_box idField="blogComment_entryId"-|
 				</p>
 				<p>
 				<label for="blogComment_text">Comentario</label>
@@ -68,8 +68,9 @@
 				|-/if-|
 				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="blogCommentsDoEdit" />
-				<input type="submit" id="button_edit_blogComment" name="button_edit_blogComment" title="Aceptar" value="Aceptar" />
-				
+				<p>|-javascript_form_validation_button id="button_edit_blogComment" value='Aceptar' title='Aceptar'-|
+				<input type="button" onClick='location.href="Main.php?do=blogCommentsList"' title="Cancelar" value="Cancelar" />
+				</p>
 				|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 				|-if isset($entryId)-|
 				<input type="hidden" name="entryId" value="|-$entryId-|" id="entryId"/>
