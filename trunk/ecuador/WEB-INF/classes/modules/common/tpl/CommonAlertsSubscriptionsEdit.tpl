@@ -1,63 +1,66 @@
 |-include file="CommonAutocompleterInclude.tpl" -|
-
 <script type="text/javascript" language="javascript" charset="utf-8">
+//migrada
 function addUserToAlertSubscription(form) {
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'detinataryList'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				});
-	$('partieMsgField').innerHTML = '<span class="inProgress">agregando destinatario...</span>';
+	$.ajax({
+		url: url,
+		data: $(form).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#detinataryList').html(data);
+		}	
+	});
+	$('#partieMsgField').html('<span class="inProgress">agregando destinatario...</span>');
 	return true;
 }
-
+//migrada
 function deleteUserFromAlertSubscription(form){
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'detinataryList'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true,
-					insertion: Insertion.Bottom
-				});
-	$('partieMsgField').innerHTML = '<span class="inProgress">eliminando destinatario...</span>';
+	$.ajax({
+		url: url,
+		data: $(form).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#detinataryList').html(data);
+		}	
+	});
+	$('partieMsgField').html('<span class="inProgress">eliminando destinatario...</span>');
 	return true;
 }
-
+//migrada
 function moduleEntitiesAfterUpdateElement(text, li) {
-    $('autocomplete_modulesEntities_selected_id').value = li.id;
-    if (!li.hasClassName('informative_only')) {
-        var submit = $('button_edit_alertSubscription');
-        if (Object.isElement(submit))
-    		submit.enable();
+    $('autocomplete_modulesEntities_selected_id').attr('value', $(li).attr('id'));
+    //$('autocomplete_modulesEntities_selected_id').value = li.id;
+    if (!($(li).hasClass('informative_only'))) {
+        var submit = $('#button_edit_alertSubscription').attr('disabled', false);
+	showEntityFieldSelector($(li).attr('id'));
+	//showEntityFieldSelector(li.id);
 	}
-	showEntityFieldSelector(li.id);
 }
-
+//migrada?
 function moduleEntitiesOnChange() {
-	var submit = $('button_edit_alertSubscription'); 
-	if (Object.isElement(submit)) 
-		submit.disable();
-	$('entityFieldSelector').hide();
+	$('#button_edit_alertSubscription').attr('disabled', true);
+	$('#entityFieldSelector').hide();
 }
-
+//migrada?
 function showEntityFieldSelector(entityName) {
-	var myAjax = new Ajax.Updater(
-				{success: 'entityFieldSelector'},
-				'Main.php?do=commonAlertsSubscriptionsGetEntityFields',
-				{
-					method: 'get',
-					parameters: {|-if $alertSubscription->getid() ne ''-|alertSubscriptionId: |-$alertSubscription->getid()-|, |-/if-|entityName: entityName},
-					evalScripts: true
-				});
-	$('indicator2').innerHTML = '<span class="inProgress">agregando destinatario...</span>';
+	$.ajax({
+		url: url,
+		data: {|-if $alertSubscription->getid() ne ''-|alertSubscriptionId: |-$alertSubscription->getid()-|, |-/if-|entityName: entityName},
+		type: 'post',
+		success: function(data){
+			$('#entityFieldSelector').html(data);
+		}	
+	});
+	$('#indicator2').html('<span class="inProgress">agregando destinatario...</span>');
 	return true;
+	/*var myAjax = new Ajax.Updater(
+		{success: 'entityFieldSelector'},
+		'Main.php?do=commonAlertsSubscriptionsGetEntityFields',
+		{
+			method: 'get',
+			parameters: {|-if $alertSubscription->getid() ne ''-|alertSubscriptionId: |-$alertSubscription->getid()-|, |-/if-|entityName: entityName},
+			evalScripts: true
+		});*/
 }
 </script>
 <h2>Tablero de Gestión</h2>
