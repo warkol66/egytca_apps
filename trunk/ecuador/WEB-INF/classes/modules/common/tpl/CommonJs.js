@@ -1,16 +1,20 @@
+//migradas - las primeras 3 hacen lo mismo
 function setClass(elementId,className){
-	var element = document.getElementById(elementId);
-	element.className = className;
+	$('#' + elementId).addClass(className);
+	/*var element = document.getElementById(elementId);
+	element.className = className;*/
 }
 function setClassMultiple(elements,className){
-	var i=0;
+	$('#' + elements).addClass(className);
+	/*var i=0;
 	for(i=0; i<elements.length; i++){
 		setClass(elements[i],className);
-	}
+	}*/
 }
 function setElementClass(elementId,className) {
-	var element = document.getElementById(elementId);
-	element.className = className;
+	$('#' + elementId).addClass(className);
+	/*var element = document.getElementById(elementId);
+	element.className = className;*/
 }
 
 function switchDisplay(element,display){
@@ -101,12 +105,9 @@ function switch_class_mult(elements,className) {
 		setClass(elements[i],className);
 	}
 }
-
+//migrada
 function elementShow(element){
-	var e_ref="";
-	var display="block";
-	e_ref=document.getElementById(element);
-	e_ref.style.display=display;
+	$('#' + element).attr('display','block');
 }
 
 function switch_value(element,value){
@@ -142,8 +143,19 @@ var myGlobalHandlers = {
 
 Ajax.Responders.register(myGlobalHandlers);
 
+//migrada? probar
 function categoriesDoEditX() {
-	var pars = 'do=categoriesDoEditX';
+	$.ajax({
+		url: url,
+		data: 'do=categoriesDoEditX',
+		type: 'post',
+		success: function(data){
+			$('#table_categories_list').html(data);
+		}	
+	});
+	$('#name').val('');
+	
+	/*var pars = 'do=categoriesDoEditX';
 	var fields = Form.serialize('form_category_add');
 
 	var myAjax = new Ajax.Updater(
@@ -155,7 +167,7 @@ function categoriesDoEditX() {
 					postBody: fields,
 					insertion: Insertion.Bottom
 				});
-	$('name').value = "";
+	$('name').value = "";*/
 }
 
 function CheckAllBoxes(fmobj) {
