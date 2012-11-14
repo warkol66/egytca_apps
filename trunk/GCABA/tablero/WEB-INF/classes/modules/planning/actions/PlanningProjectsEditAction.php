@@ -24,7 +24,7 @@ class PlanningProjectsEditAction extends BaseEditAction {
 		$this->smarty->assign("ministryPriorities", PlanningProject::getMinistryPriorities());
 		$this->smarty->assign("priorities", PlanningProject::getPriorities());
 
-		//Constantes y opciones posibles para la creación de indicadores
+		//Constantes y opciones posibles para la creacion de indicadores
 		$this->smarty->assign("planningIndicator", new PlanningIndicator());
 		$this->smarty->assign("indicatorTypes", PlanningIndicator::getIndicatorTypes());
 		$this->smarty->assign("measureFrecuencyTypes", PlanningIndicator::getMeasureFrecuencyTypes());
