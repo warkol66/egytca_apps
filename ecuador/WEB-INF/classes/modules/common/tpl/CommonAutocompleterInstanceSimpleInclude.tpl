@@ -1,9 +1,9 @@
 <script type="text/javascript" language="javascript" charset="utf-8">
 function getSelection|-$id-|Id(text, li) {
     $('#|-$id-|_selected_id').val($(li).attr('id'));
-    if (!($(li).hasClass('informative_only'))) {
+    if (!($(li).hasClass('informative_only')))
         $('#|-$disableSubmit-|').attr('disabled',false);
-}
+
 </script>
 <!--
 |-assign var=onChange value="var submit = $('"|cat:$disableSubmit|cat:"'); if (Object.isElement(submit)) submit.disable();"-| -->

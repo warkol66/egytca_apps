@@ -21,7 +21,7 @@
 							<p>
 								<label for="filters[searchSentOnly]" >Enviados</label>
 								<input class="filter" type="checkbox" name="filters[searchSentOnly]" value="true" |-if isset($filters.searchSentOnly)-|checked |-/if-|/>
-							&nbsp;&nbsp;&nbsp;
+								<br /><br />
 								<label for="filters[searchUnreadOnly]" >No leidos</label>
 								<input class="filter" type="checkbox" name="filters[searchUnreadOnly]" value="true" |-if isset($filters.searchUnreadOnly)-|checked |-/if-|/>
 							</p>
@@ -189,7 +189,7 @@
 	
 </script>
 
-<script type="text/javascript" src="scripts/lightbox.js"></script>
+<script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 
 <style>
 /*debemos sobreescribir esta regla para permitir que el lighbox */
