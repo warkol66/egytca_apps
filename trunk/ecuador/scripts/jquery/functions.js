@@ -102,21 +102,19 @@ function checkBoxesByName(boxesName) {
   }
 } // End of checkBoxesByName
 
+//migrada
 function switch_vis(element,display) {
-	var e_ref="";
-	var ant="";
-	e_ref=document.getElementById(element);
-	if (display == undefined) {
-		display='block';
-	}
-	ant=e_ref.style.display;
-	if (e_ref.style.display !=  'none' && e_ref.style.display != "") {
+	var e_ref = $('#' + element);
+	var ant = e_ref.css('display');
+	if(display == undefined)
+		display = 'block';
+	if (ant !=  'none' && ant != "") {
 		display='none';
 	}
 	else {
 		display=display;
 	}
-	e_ref.style.display=display;
+	e_ref.css('display',display);
 } // End of switch_vis
 
 function switch_vis_mult(elements) {
@@ -161,17 +159,18 @@ function addConfigAttribute(li) {
 	ul = document.getElementById(li.id+"_ul");
 	newName=window.prompt("Nombre del nuevo atributo:",'');
 	ul.innerHTML += "<li>"+newName+": <input type='text' name='"+li.id+"["+newName+"]' value='' />"+
-		'<a class="configIcon" href="#" onclick="javascript:deleteConfigAttribute(this.parentNode)">'+
+		'<a class="configIcon" href="#" onclick="javascript:deleteConfigAttribute(this.parentNode); return false;">'+
 		'<img src="images/delete-comment-blue.gif" alt="Eliminar" /></a></li>';
+	return false;
 } // End of addConfigAttribute
 
 function addConfigSection(li) {
 	ul = document.getElementById(li.id+"_ul");
 	newName=window.prompt("Nombre de la nueva sección:",'');
 	ul.innerHTML += "<li id='"+li.id+"["+newName+"]'>"+newName+
-		' <a class="configIcon" href="#" onclick="javascript:addConfigAttribute(this.parentNode)"><img src="images/add-comment-blue.gif" alt="Agregar Atributo" title="Agregar Atributo" /></a>'+
-		' <a class="configIcon" href="#" onclick="javascript:addConfigSection(this.parentNode)"><img src="images/add-folder-green.gif" alt="Agregar Secci&oacute;n" title="Agregar Secci&oacute;n" /></a>'+
-		' <a class="configIcon" href="#" onclick="javascript:deleteConfigAttribute(this.parentNode)">'+
+		' <a class="configIcon" href="#" onclick="javascript:addConfigAttribute(this.parentNode); return false;"><img src="images/add-comment-blue.gif" alt="Agregar Atributo" title="Agregar Atributo" /></a>'+
+		' <a class="configIcon" href="#" onclick="javascript:addConfigSection(this.parentNode); return false;"><img src="images/add-folder-green.gif" alt="Agregar Secci&oacute;n" title="Agregar Secci&oacute;n" /></a>'+
+		' <a class="configIcon" href="#" onclick="javascript:deleteConfigAttribute(this.parentNode); return false;">'+
 		'<img src="images/delete-folder-green.gif" alt="Eliminar" /></a>'+
 		"<ul id='"+li.id+"["+newName+"]_ul'></ul></li>";
 } // End of addConfigSection
@@ -179,6 +178,7 @@ function addConfigSection(li) {
 function deleteConfigAttribute(li) {
 	ul = li.parentNode;
 	ul.removeChild(li);
+	return false;
 } // End of deleteConfigAttribute
 
 function printFunction() {

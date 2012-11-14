@@ -1,43 +1,59 @@
-|-include file="CommonAutocompleterInclude.tpl" -|
-|-include file="CommonEditTinyMceInclude.tpl" elements="internalMail[body]" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"-|
+|-include file="CommonAutocompleterInclude.tpl" -| 
+|-*include file="CommonEditTinyMceInclude.tpl" elements="internalMail[body]" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"*-|
+
 <script type="text/javascript" language="javascript" charset="utf-8">
-
+//migrada?
 function recipientsUsersAfterUpdateElement(text, li) {
-	$('autocomplete_users').value = '';
-	var idx = $$('#recipientsSelected > li').size();
-	$('recipientsSelected').insert('<li><input type="button" class="icon iconDelete" onClick="this.parentNode.remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+li.id+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="user" />'+li.innerHTML.stripTags()+'</li>')
-    if (!li.hasClassName('informative_only')) {
+	$('#autocomplete_users').val('');
+	var idx = $('#recipientsSelected > li').size();
+	var liId = $(li).attr('id');
+	if(!($(li).hasClass('informative_only')))
+		$('#button_edit_internalMail').attr('disabled', false);
+
+	$('recipientsSelected').after('<li><input type="button" class="icon iconDelete" onClick="this.parentNode.remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+liId+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="user" />'+li.innerHTML.stripTags()+'</li>');
+	//$('autocomplete_users').value = '';
+	//var idx = $$('#recipientsSelected > li').size();
+	//$('recipientsSelected').insert('<li><input type="button" class="icon iconDelete" onClick="this.parentNode.remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+li.id+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="user" />'+li.innerHTML.stripTags()+'</li>')
+    /*if (!li.hasClassName('informative_only')) {
         var submit = $('button_edit_internalMail');
         if (Object.isElement(submit))
     		submit.enable();
-	}
+	}*/
 }
-
+//migrada?
 function recipientsAffiliatesAfterUpdateElement(text, li) {
-	$('autocomplete_affiliates').value = '';
-	var idx = $$('#recipientsSelected > li').size();
-	$('recipientsSelected').insert('<li><input type="button" class="icon iconDelete" onClick="this.parentNode.remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+li.id+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+li.innerHTML.stripTags()+'</li>')
+	$('#autocomplete_affiliates').val('');
+	var idx = $('#recipientsSelected > li').size();
+	var liId = $(li).attr('id');
+	$('recipientsSelected').insert('<li><input type="button" class="icon iconDelete" onClick="this.parentNode.remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+liId+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+li.innerHTML.stripTags()+'</li>')
+    if (!($(li).hasClass('informative_only')))
+        $('button_edit_internalMail').attr('disabled',false);
+	
+	//$('autocomplete_affiliates').value = '';
+	//var idx = $$('#recipientsSelected > li').size();
+	/*$('recipientsSelected').insert('<li><input type="button" class="icon iconDelete" onClick="this.parentNode.remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+li.id+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+li.innerHTML.stripTags()+'</li>')
     if (!li.hasClassName('informative_only')) {
         var submit = $('button_edit_internalMail');
         if (Object.isElement(submit))
     		submit.enable();
-	}
+	}*/
 }
-
+//migrada
 function changeRecipientType(entityName) {
 	if (entityName == "affiliateUser") {
-		$('recipientsAffiliates').show();
-		$('recipientsUsers').hide();
+		$('#recipientsAffiliates').show();
+		$('#recipientsUsers').hide();
 	}
 	if (entityName == "user") {
-		$('recipientsAffiliates').hide();
-		$('recipientsUsers').show();
+		$('#recipientsAffiliates').hide();
+		$('#recipientsUsers').show();
 	}	
 }
-
+//migrada
 function updateSubmitButton() {
-	if (($("recipientsSelected").childNodes.length - 1) <= 0)
-		$("button_edit_internalMail").disable();
+	$("#recipientsSelected").children().each(function(){$("#button_edit_internalMail").attr('disabled',true)})
+	/*if (($("recipientsSelected").childNodes.length - 1) <= 0)
+		$("button_edit_internalMail").disable();*/
 }
 </script>
 <h2>Mensajería Interna</h2>
