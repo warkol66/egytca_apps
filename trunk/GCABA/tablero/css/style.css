@@ -287,3 +287,8 @@ body {
 }
 #navBar a:visited, #navBar a:link, #navBar a:active {
 }
+.contentLi {
+	clear: both;
+	padding-bottom: .95em;
+	list-style: none;
+}
