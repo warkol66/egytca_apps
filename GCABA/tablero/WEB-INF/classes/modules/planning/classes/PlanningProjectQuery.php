@@ -15,20 +15,17 @@
  */
 class PlanningProjectQuery extends BasePlanningProjectQuery {
 
- /**
-	* Constructor con parametros de busqueda iniciales
-	*
-	*/
-	public function __construct($dbName = 'application', $modelName = 'PlanningProject', $modelAlias = null) {
-		parent::__construct($dbName, $modelName, $modelAlias);
-			$this->useOperativeObjectiveQuery()
-							->usePositionQuery()
-								->filterByLastVersion()
-								->orderByName()
-							->endUse()
-							->orderByInternalCode()
-						->endUse()
-						->orderByInternalCode();
+	protected function preSelect(PropelPDO $con) {
+		parent::preSelect($con);
+		
+		$this->useOperativeObjectiveQuery()
+			->usePositionQuery()
+				->filterByLastVersion()
+				->orderByName()
+			->endUse()
+			->orderByInternalCode()
+		->endUse()
+		->orderByInternalCode();
 	}
 
 } // PlanningProjectQuery
