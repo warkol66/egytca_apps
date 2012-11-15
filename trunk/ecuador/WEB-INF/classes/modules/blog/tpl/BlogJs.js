@@ -1,6 +1,5 @@
 //migrada
 function submitFormX(formId) {
-
 	$.ajax({
 		url: url,
 		data: $('#' + formId).serialize(),

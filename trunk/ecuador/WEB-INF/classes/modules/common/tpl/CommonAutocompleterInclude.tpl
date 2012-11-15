@@ -5,7 +5,7 @@
 	 * @param: options, objeto javascript con las opciones para el Ajax.Autocompleter, ver documentacion del mismo. Se proveen ciertos valores por defecto.
 	 * @param: on_complete, funcion javascript a ejecutarse cada vez que se recarga el listado.
 	 */
-	/*var MiniAutocompleter = Class.create(Ajax.Autocompleter, {
+	var MiniAutocompleter = Class.create(Ajax.Autocompleter, {
 		initialize: function($super, id_of_text_field, id_of_div_to_populate, url, options, on_complete) {
 			if (Object.isUndefined(this.autocompleterInstance)) {
 				if (Object.isUndefined(options)) {
@@ -113,5 +113,5 @@
 		if (Object.isUndefined(instanceHolder)) {
 			instanceHolder = new MiniAutocompleter(id_of_text_field, id_of_div_to_populate, url, options, on_complete);	
 		}
-	};*/
+	};
 </script>
