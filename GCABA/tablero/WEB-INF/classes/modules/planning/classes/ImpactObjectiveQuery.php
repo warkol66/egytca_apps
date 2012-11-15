@@ -14,18 +14,14 @@
  * @package    propel.generator.planning.classes
  */
 class ImpactObjectiveQuery extends BaseImpactObjectiveQuery {
-
- /**
-	* Constructor con parametros de busqueda iniciales
-	*
-	*/
-	public function __construct($dbName = 'application', $modelName = 'ImpactObjective', $modelAlias = null) {
-		parent::__construct($dbName, $modelName, $modelAlias);
-			$this->usePositionQuery()
-							->filterByLastVersion()
-							->orderByName()
-						->endUse()
-						->orderByInternalCode();
+	
+	protected function preSelect(\PropelPDO $con) {
+		parent::preSelect($con);
+		$this->usePositionQuery()
+			->filterByLastVersion()
+			->orderByName()
+		->endUse()
+		->orderByInternalCode();
 	}
 
 } // ImpactObjectiveQuery
