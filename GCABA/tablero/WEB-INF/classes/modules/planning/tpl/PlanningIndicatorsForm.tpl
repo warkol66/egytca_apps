@@ -101,11 +101,13 @@
 
 			|-if !$planningIndicator->isNew()-|
 
-			<input type="button" id="button_edit_series" name="button_edit_series" title="Editar Series" value="Editar Series" onClick="location.href='Main.php?do=planningIndicatorsSeriesEdit&id=|-$planningIndicator->getId()-|'" />
+			<input type="button" id="button_edit_series"  title="Editar Series" value="Editar Series" onClick="location.href='Main.php?do=planningIndicatorsSeriesEdit&id=|-$planningIndicator->getId()-|'" />
 
-			<input type="button" id="button_edit_xs" name="button_edit_xs" title="Editar Variables" value="Editar Variables" onClick="location.href='Main.php?do=planningIndicatorsXsEdit&id=|-$planningIndicator->getId()-|'" />
+			<input type="button" id="button_edit_xs" title="Editar Variables" value="Editar Variables" onClick="location.href='Main.php?do=planningIndicatorsXsEdit&id=|-$planningIndicator->getId()-|'" />
 
-			<input type="button" id="button_edit_ys" name="button_edit_ys" title="Editar Valores" value="Editar Valores" onClick="location.href='Main.php?do=planningIndicatorsYsEdit&id=|-$planningIndicator->getId()-|'" />
+			<input type="button" id="button_edit_ys" title="Editar Valores" value="Editar Valores" onClick="location.href='Main.php?do=planningIndicatorsYsEdit&id=|-$planningIndicator->getId()-|'" />
+
+			<input type="button" id="button_view_graph" title="Ver Gráfico" value="Ver Gráfico" onClick="location.href='Main.php?do=planningIndicatorsView&id=|-$planningIndicator->getId()-|&fromEdit=1'" />
 
 			|-/if-|
 	<input type='button' onClick='location.href="Main.php?do=planningIndicatorsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Indicadores"/>

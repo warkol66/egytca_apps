@@ -10,9 +10,6 @@ class PlanningIndicatorsViewAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -22,25 +19,15 @@ class PlanningIndicatorsViewAction extends BaseAction {
 		$module = "Indicators";
 		$smarty->assign("module",$module);
 
-		if ( !empty($_GET["id"]) ) {
-			if (!empty($_GET["entity"])) {
-				$indicator = IndicatorPeer::getDisbursementIndicator($_GET["entity"], $_GET["id"]);
-				$smarty->assign("entity",$_GET["entity"]);
-				$smarty->assign("entityId",$_GET["id"]);
-
-				$entityPeer = $_GET["entity"] . "Peer";
-				$entityObj = EntityPeer::get($_GET["id"]);
-				$smarty->assign("entityObj",$entityObj);
-
-				$disbursement = true;
-			} 
+		if (!empty($_GET["id"])) {
+			$indicator = PlanningIndicatorQuery::create()->findPk($_GET["id"]);
+			if (!empty($indicator))
+				$smarty->assign("indicator",$indicator);
 			else
-				$indicator = PlanningIndicatorQuery::create()->findPk($_GET["id"]);
-
-			$smarty->assign("indicator",$indicator);
+				$smarty->assign("notValidId",true);
 		}
 
-
+		$smarty->assign("fromEdit",$_GET["fromEdit"]);
 		$smarty->assign("message",$_GET["message"]);
 		return $mapping->findForwardConfig('success');
 	}
