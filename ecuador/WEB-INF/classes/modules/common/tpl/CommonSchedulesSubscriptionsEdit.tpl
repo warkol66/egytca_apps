@@ -2,7 +2,17 @@
 
 <script type="text/javascript" language="javascript" charset="utf-8">
 function addUserToScheduleSubscription(form) {
-	var fields = Form.serialize(form);
+	$.ajax({
+		url: url,
+		data: $(form).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#detinataryList').html(data);
+		}	
+	});
+	$('#partieMsgField').html('<span class="inProgress">agregando destinatario...</span>');
+	
+	/*var fields = Form.serialize(form);
 	var myAjax = new Ajax.Updater(
 				{success: 'detinataryList'},
 				url,
@@ -11,12 +21,22 @@ function addUserToScheduleSubscription(form) {
 					postBody: fields,
 					evalScripts: true
 				});
-	$('partieMsgField').innerHTML = '<span class="inProgress">agregando destinatario...</span>';
+	$('partieMsgField').innerHTML = '<span class="inProgress">agregando destinatario...</span>';*/
 	return true;
 }
 
 function deleteUserFromScheduleSubscription(form){
-	var fields = Form.serialize(form);
+	$.ajax({
+		url: url,
+		data: $(form).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#detinataryList').html(data);
+		}	
+	});
+	$('#partieMsgField').html('<span class="inProgress">eliminando destinatario...</span>');
+	
+	/*var fields = Form.serialize(form);
 	var myAjax = new Ajax.Updater(
 				{success: 'detinataryList'},
 				url,
@@ -26,29 +46,46 @@ function deleteUserFromScheduleSubscription(form){
 					evalScripts: true,
 					insertion: Insertion.Bottom
 				});
-	$('partieMsgField').innerHTML = '<span class="inProgress">eliminando destinatario...</span>';
+	$('partieMsgField').innerHTML = '<span class="inProgress">eliminando destinatario...</span>';*/
 	return true;
 }
 
 function moduleEntitiesAfterUpdateElement(text, li) {
-    $('autocomplete_modulesEntities_selected_id').value = li.id;
-    if (!li.hasClassName('informative_only')) {
+	var liId = $(li).attr('id');
+    $('#autocomplete_modulesEntities_selected_id').val(liId);
+    if(!($(li).hasClass('informative_only')))
+		$('#button_edit_scheduleSubscription').attr('disable',false);
+	showEntityFieldSelector(liId);
+
+    /*if (!li.hasClassName('informative_only')) {
         var submit = $('button_edit_scheduleSubscription');
         if (Object.isElement(submit))
     		submit.enable();
 	}
-	showEntityFieldSelector(li.id);
+	showEntityFieldSelector(li.id);*/
 }
 
 function moduleEntitiesOnChange() {
-	var submit = $('button_edit_scheduleSubscription'); 
+	$('#button_edit_scheduleSubscription').attr('disable',true);
+	$('#entityFieldSelector').hide();
+	/*var submit = $('button_edit_scheduleSubscription'); 
 	if (Object.isElement(submit)) 
 		submit.disable();
-	$('entityFieldSelector').hide();
+	$('entityFieldSelector').hide();*/
 }
 
 function showEntityFieldSelector(entityName) {
-	var myAjax = new Ajax.Updater(
+	$.ajax({
+		url: 'Main.php?do=commonSchedulesSubscriptionsGetEntityFields',
+		data: {|-if $scheduleSubscription->getid() ne ''-|scheduleSubscriptionId: |-$scheduleSubscription->getid()-|, |-/if-|entityName: entityName},
+		type: 'get',
+		success: function(data){
+			$('#entityFieldSelector').html(data);
+		}	
+	});
+	$('#indicator2').html('<span class="inProgress">agregando destinatario...</span>');
+	
+	/*var myAjax = new Ajax.Updater(
 				{success: 'entityFieldSelector'},
 				'Main.php?do=commonSchedulesSubscriptionsGetEntityFields',
 				{
@@ -56,7 +93,7 @@ function showEntityFieldSelector(entityName) {
 					parameters: {|-if $scheduleSubscription->getid() ne ''-|scheduleSubscriptionId: |-$scheduleSubscription->getid()-|, |-/if-|entityName: entityName},
 					evalScripts: true
 				});
-	$('indicator2').innerHTML = '<span class="inProgress">agregando destinatario...</span>';
+	$('indicator2').innerHTML = '<span class="inProgress">agregando destinatario...</span>';*/
 	return true;
 }
 </script>

@@ -1,6 +1,6 @@
-<!-- TinyMCE 
-<script type="text/javascript" src="scripts/swampy_browser/sb.js"></script>
-<script type="text/javascript" src="scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+<!-- TinyMCE -->
+<!--script type="text/javascript" src="scripts/swampy_browser/sb.js"></script-->
+<script type="text/javascript" src="scripts/tinymce2/jscripts/tiny_mce/tiny_mce.js"></script>
 
 <script type="text/javascript">
 	tinyMCE.init({
@@ -26,7 +26,7 @@
 		content_css : "css/stylePublicEditor.css",
 		nonbreaking_force_tab : true,
 		
-		file_browser_callback : "openSwampyBrowser"
+		//file_browser_callback : "openSwampyBrowser"
 	
 
 	});

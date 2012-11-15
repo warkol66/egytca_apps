@@ -9,7 +9,7 @@
 				console.log(data);
 			}
 		});
-		$('#operationInfo').html('<span class="inProgress">Procesando información</span>');*/
+		$('#operationInfo').html('<span class="inProgress">Procesando información</span>');
 		return false;
 	}
 </script>
