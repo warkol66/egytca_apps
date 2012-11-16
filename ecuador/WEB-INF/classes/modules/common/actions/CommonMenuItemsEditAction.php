@@ -7,8 +7,8 @@
 */
 
 require_once("BaseAction.php");
-require_once("Content.class.php");
-require_once("FormPeer.php");
+//require_once("Content.class.php");
+//require_once("FormPeer.php");
 
 class CommonMenuItemsEditAction extends BaseAction {
 

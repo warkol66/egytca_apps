@@ -2,7 +2,8 @@
 <script type="text/javascript">
 
 	function getSelectionActionInfo(text, li) {
-		$('menuItem_action').value = li.innerHTML.stripTags();	
+		//probar
+		$('menuItem_action').val($(li).html().stripTags());	
 	}
 
 	function getDefaultInfo() {
@@ -19,8 +20,8 @@
 
 	var paramCount = "|-$params.count-|";
 	function useExternalUrlChanged() {
-		$("external_url_info").toggle();
-		$("action_info").toggle();		
+		$("#external_url_info").slideToggle();
+		$("#action_info").slideToggle();		
 	}
 	
 	function addParamToAction() {
@@ -33,7 +34,7 @@
 	function deleteParamFromAction(anchorElement) {
 		// no importa que los indices de los parametros sean consecutivos, solo que sean distintos. 
 		// Por eso no hace falta hacer nada especial con paramCount al borrar.
-		anchorElement.parentNode.remove();
+		$(anchorElement).parent().remove();
 	}
 </script>
 

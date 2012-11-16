@@ -53,7 +53,7 @@
 		|-assign var=childs value=$menuItem->getAllChilds()-|
 		<li id="menuItemsListItem_|-$menuItem->getId()-|" class="menuItemLi editableTree">	
 			<span class="textOptionMove" style="float:left;" title="Mover este contenido">
-			|-if !$childs->isEmpty()-|<a href="#" class="expandButton" onClick="expandContract('menu_|-$menuItem->getId()-|',this); return false;" style="text-decoration: none;">+</a>|-/if-|
+			|-if !$childs->isEmpty()-|<a href="#" class="expandButton" onClick="expandContract('menu_|-$menuItem->getId()-|',$(this)); return false;" style="text-decoration: none;">+</a>|-/if-|
 				|-assign var=menuInfo value=$menuItem->getMenuInfo()-|
 				|-if $menuInfo ne '' && $menuInfo->getName() ne ''-|
 					|-$menuInfo->getName()-|
@@ -79,7 +79,21 @@
 		|-/foreach-|
 	</ul>
 	<script type="text/javascript">
-   	Sortable.create("menuItemsList_|-$menuItem->getParentId()-|", {
+		$('#menuItemsList_|-$menuItem->getParentId()-|').sortable({
+			update: function(){
+				$('orderChanged').html("<span class='inProgress'>Cambiando orden...</span>");
+				$.ajax({
+					url: 'Main.php?do=commonMenuItemsDoEditOrderX',
+					//ver el serialize
+					data: { parentId: '|-$parentId-|' , data: Sortable.serialize("menuItemsList_|-$parentId-|", {name: 'menuItemsList'}) },
+					type: 'post',
+					success: function(data){
+						$('#orderChanged').html(data);
+					}	
+				});
+			}
+		});
+   	/*Sortable.create("menuItemsList_|-$menuItem->getParentId()-|", {
 		onUpdate: function() {  
 				$('orderChanged').innerHTML = "<span class='inProgress'>Cambiando orden...</span>";
 				new Ajax.Updater("orderChanged", "Main.php?do=commonMenuItemsDoEditOrderX",
@@ -88,6 +102,6 @@
 						parameters: { parentId: '|-$parentId-|' , data: Sortable.serialize("menuItemsList_|-$parentId-|", {name: 'menuItemsList'}) }
 					});
 				} 
-			});
+			});*/
  	</script>
 |-/if-|

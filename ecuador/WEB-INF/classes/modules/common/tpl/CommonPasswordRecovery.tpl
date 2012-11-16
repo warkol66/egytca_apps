@@ -25,16 +25,16 @@
 							<h1>E-Mail</h1>
 							<p><input type='text' name='mailAddress' size='35'  class="inputLogin" /></p>
 							
-							<!--Captcha -->
+							<!--Image -->
 							<p>
 								<label for="newsletterSubscribe">Código de Seguridad</label>
-								<img src="Main.php?do=commonCaptchaGeneration" />
+								<img src="Main.php?do=commonImage" />
 							</p>
 							<p>
 								Ingrese el código de seguridad de la imagen <br />
 								<input id="security_code" name="securityCode" type="text" size="10" />
 							</p>
-							<!-- End Captcha -->
+							<!-- End Image -->
 				|-/if-|
 		<!--[if lte IE 6]><p>Su versión actual de navegador es IExplorer 6.<br />Este sistema requiere que utilice una versión mas nueva de Interntet Explorer.<br />
 													Debe actualizarla para el correcto funcionamiento del sistema.</p><![endif]-->
