@@ -13,80 +13,6 @@
 	width: 1300px !Important;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
 .container_12,
 .container_16 {width:100% !Important; background-color:#FFFFFF !Important;}
 .container_16 .grid_16, 
@@ -98,7 +24,8 @@
 	background-color: #FFCC00 !Important; 
 	position: absolute !Important;
 	height:26px !Important;
-	background-image:url(../images/print_fichaHeaderTitle_wide.jpg) !Important; 
+/*	background-image:url(../images/print_fichaHeaderTitle_wide.jpg) !Important; */
+	background-image:url(../images/print_fichaHeaderTitle_wide.png) !Important; 
 	background-repeat:no-repeat !Important;
 	background-position: 0 0 !Important; 
 	z-index:1100 !Important;
@@ -106,33 +33,32 @@
 	left:0 !Important;
 }
 		
-		h1.branding {/*background-image:url(../images/header_AgendaDeGobierno.png) !Important; background-repeat:no-repeat !Important; background-position: 10px 0 !Important;*/
-		background:none !Important;}
-		.fc-header-title {width:1285px !Important;  height:18px  !Important; float:right !Important;  display: block !Important; 				position:absolute !Important;
-								top:-52px !Important; left: 0px !Important; 
-								background-image:url(../images/solapa_headerPrint.png) !Important; 
-								background-repeat:no-repeat  !Important; 
-								background-position:left top  !Important;  
-								
-								color:#FFFFFF !Important; text-align:left !Important; 
-								border: none !Important;
-								font-size:12px !Important; padding-left:3px 0 0 15px !Important; 
-								z-index:1300 !Important;}
-								
-		.fc-header-title h2{}		
-		span.fc-header-title h2	{ font-size:12px !Important; padding:-1px 0 2px 8px !Important; margin-top:0 !Important;}
-		
-			.printTodayDate {width:335px !Important;  height:18px  !Important; float:left !Important;  
-								display: block !Important; position:absolute !Important;
-								top:-1px !Important; left: 950px !Important; 
-								background-image:url(../images/solapa_headerPrint_date.png) !Important; 
-								background-repeat:no-repeat  !Important; 
-								background-position:left top  !Important;  
-								
-								color:#FFFFFF !Important; text-align:left !Important; 
-								border: none !Important;
-								font-size:12px !Important; padding:3px 0 0 15px !Important; 
-								z-index:1400 !Important;}
+h1.branding {
+	background:none !Important;
+}
+.fc-header-title {
+	float: right !Important;
+	display: block !Important;
+	position: absolute !Important;
+	top: -52px !Important;
+	left: 540px !Important;
+}						
+.fc-header-title h2{
+}		
+span.fc-header-title h2	{
+	font-size: 12px !Important;
+	padding: -1px 0 2px 8px !Important;
+	margin-top: 0 !Important;
+}
+.printTodayDate {
+	float: left !Important;
+	display: block !Important;
+	position: absolute !Important;
+	top:-1px !Important;
+	left: 850px !Important;
+	color: #FFFFFF !Important;
+	text-align: center !Important; 
+}
 		
 		
 
@@ -221,7 +147,12 @@
 .fc-view-month .fc-border-separate, table.fc-agenda-days { background-image:none !Important;}
 
 /*th fc-mon, th fc-tue, th fc-wed, th fc-thu, th fc-fri, th fc-sat, th fc-sun*/ 
-.fc-view-month .fc-widget-header   { background-color:#999999 !Important; color:#FFFFFF !Important; -moz-border-radius: 0 0 5px 5px !Important; border-radius:  0 0 5px 5px !Important; font-size:9px !Important;
+.fc-view-month .fc-widget-header   {
+	background-color:#999999 !Important;
+	color:#FFFFFF !Important;
+	-moz-border-radius: 0 0 5px 5px !Important;
+	border-radius:  0 0 5px 5px !Important;
+	font-size:14px !Important;
 text-align:center !Important; text-transform:uppercase !Important;}
 .fc-view-month .fc-widget-header, 
 .fc-view-month .fc-widget-content{width:14%;}
@@ -230,11 +161,16 @@ text-align:center !Important; text-transform:uppercase !Important;}
 
 .fc-view-month .fc-event,
 .fc-view-agendaWeek .fc-event{
-border: none  !Important; width:133px !Important;}
+	border: none  !Important;
+	width:133px !Important;
+	font-stretch: condensed !Important;
+}
 
 
 .fc-view-agendaWeek .fc-widget-header, 
-.fc-view-agendaWeek .fc-widget-content{width:14%; !Important;}
+.fc-view-agendaWeek .fc-widget-content {
+	width:13.54%; !Important;
+}
 
 .fc-view-month .fc-event-time{/*display: none !Important;*/ background:none !Important; width:133px !Important;}
 
@@ -278,24 +214,32 @@ border: none  !Important; width:133px !Important;}
 
 .pendientesContainer, #paragraphs {}
 
-.fc-view-month .fc-widget-content { -moz-border-radius: 8px !Important; border-radius:  8px 8px 8px 8px !Important; margin:5px 0px 0px 5px !Important; 
+.fc-view-month .fc-widget-content {
+	-moz-border-radius: 8px !Important;
+	border-radius:  8px 8px 8px 8px !Important;
+	margin: 0px !Important; 
 }
 
 /*.fc-view-month .fc-border-separate,*/ 
 table.fc-agenda-days { background-color:#FFFFFF;}
 
 
-.fc-border-separate th, .fc-border-separate td {border:solid 1px #ffffff !Important; }
-
+.fc-border-separate th, .fc-border-separate td {
+	border:solid 1px #ffffff !Important;
+}
 fc-border-separate td, {
 	border: 1px solid #ff0000 !Important;	
 }
-
-.fc-grid .fc-day-number{color:#FFFFFF !Important;  font-weight:bold !Important;  font-size:20px !Important; }
-
-.fc-event-title {border:none !Important;}
-.fc-event-text {display:none !Important;}
- .eventoContent {border:none !Important;}
+.fc-event-title {
+	border: none !Important;
+	font-stretch: narrower !Important;
+}
+.fc-event-text {
+	display: none !Important;
+}
+.eventoContent {border:none !Important;
+	font-stretch: narrower !Important;
+}
 .fc-corner-right .fc-event-inner, .fc-corner-left .fc-event-inner {border:none !Important;}
 
 element{left:2px !Important;}
@@ -304,11 +248,9 @@ element{left:2px !Important;}
 .boxNavSolapas {
 	left:1155px !Important;
 }
-
-.fc-agenda-slots td div {width: 1050px !Important;}
-
-
-
+.fc-agenda-slots td div {
+	width: 1050px !Important;
+}
 #pendientesContentPending {
 	width:1130px !Important;	
 }
@@ -318,4 +260,8 @@ div#pendientesContentPending.pendientesContent ul {
 }
 div#pendientesContentPending.pendientesContent ul li.fc-event {
 	width: 150px !important;
+}
+.eventoContainer {
+	margin-right: -55px !Important;
+	margin-left: -2px !Important
 }
