@@ -17,7 +17,7 @@
 		<!--[if IE]><link rel="stylesheet" type="text/css" href="css/ie.css" media="screen" /><![endif]-->   
 
 <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="scripts/fullcalendar/fullcalendar.css" />
+<link rel="stylesheet" type="text/css" href="scripts/fullcalendar/fullcalendar.css" media="screen" />
 <!--<link rel="stylesheet" type="text/css" href="scripts/fullcalendar/fullcalendar.print.css" media="print" /> -->
 <link rel="shortcut icon" href="images/favicon.ico" />
 <script language="JavaScript" type="text/JavaScript">

@@ -456,56 +456,58 @@
 /* ----------------------------------------*/ 
 
 	/* AGENDA MENSUAL - ancho de los dias de semana */
-		.fc-agenda .fc-mon, 
-		.fc-agenda .fc-tue, 
-		.fc-agenda .fc-wed, 
-		.fc-agenda	.fc-thu, 
-		.fc-agenda .fc-fri, 
-		.fc-agenda .fc-sat, 
-		.fc-agenda .fc-sun {
-		width:14.28%;
-		}
-		.fc-agenda .fc-agenda-axis {
-		width: 50px;}		
-		
-		/*agenda semanal */
-		.fc-view-agendaWeek .fc-agenda-axis	{width:5%}
-		.fc-view-agendaWeek .fc-agenda-allday .fc-agenda-axis {width:5%}
-		
-		.fc-view-agendaWeek .fc-mon, 
-		.fc-view-agendaWeek .fc-tue, 
-		.fc-view-agendaWeek .fc-wed, 
-		.fc-view-agendaWeek	.fc-thu, 
-		.fc-view-agendaWeek.fc-fri, 
-		.fc-view-agendaWeek .fc-sat, 
-		.fc-view-agendaWeek .fc-sun  {
-		width:13.3%;
-		}
-		.fc-view-agendaWeek  .fc-agenda-slots  .fc-agenda-axis{
-		width:5%;}
-		.fc-view-agendaWeek .fc-agenda-slots .fc-mon,
-		.fc-view-agendaWeek .fc-agenda-slots .fc-tue,
-		.fc-view-agendaWeek .fc-agenda-slots .fc-wed,
-		.fc-view-agendaWeek .fc-agenda-slots .fc-thu,
-		.fc-view-agendaWeek .fc-agenda-slots .fc-fri,
-		.fc-view-agendaWeek .fc-agenda-slots .fc-sat,
-		.fc-view-agendaWeek .fc-agenda-slots .fc-sun {
-		width:13.3%;
-		}
-			
-		.fc-agenda .fc-agenda-axis,
-		.fc-view-agendaWeek .fc-agenda-axis,	/* agenda semanal*/
-		.fc-view-agendaWeek .fc-agenda-slots .fc-agenda-axis,	/* agenda semanal*/
-		.fc-view-agendaWeek .fc-agenda-allday .fc-agenda-axis, 	/* agenda semanal*/
-		
-		.fc-view-agendaDay  .fc-agenda-slots  .fc-agenda-axis /* agenda diaria*/ {
+.fc-agenda .fc-mon, 
+.fc-agenda .fc-tue, 
+.fc-agenda .fc-wed, 
+.fc-agenda .fc-thu, 
+.fc-agenda .fc-fri, 
+.fc-agenda .fc-sat, 
+.fc-agenda .fc-sun {
+	width:14.20%;
+}
+.fc-agenda .fc-agenda-axis {
+	width: 30px !Important;
+}	
+/*agenda semanal */
+.fc-view-agendaWeek .fc-agenda-axis	{
+	width:40px !Important;
+}
+.fc-view-agendaWeek .fc-agenda-allday .fc-agenda-axis {
+	width:40px !Important;
+}		
+.fc-view-agendaWeek  .fc-agenda-slots  .fc-agenda-axis{
+	width: 40px !Important;
+}
+.fc-view-agendaWeek .fc-mon, 
+.fc-view-agendaWeek .fc-tue, 
+.fc-view-agendaWeek .fc-wed, 
+.fc-view-agendaWeek	.fc-thu, 
+.fc-view-agendaWeek.fc-fri, 
+.fc-view-agendaWeek .fc-sat, 
+.fc-view-agendaWeek .fc-sun {
+	width:13.3%;
+}
+.fc-view-agendaWeek .fc-agenda-slots .fc-mon,
+.fc-view-agendaWeek .fc-agenda-slots .fc-tue,
+.fc-view-agendaWeek .fc-agenda-slots .fc-wed,
+.fc-view-agendaWeek .fc-agenda-slots .fc-thu,
+.fc-view-agendaWeek .fc-agenda-slots .fc-fri,
+.fc-view-agendaWeek .fc-agenda-slots .fc-sat,
+.fc-view-agendaWeek .fc-agenda-slots .fc-sun {
+	width:13.3%;
+}
+.fc-agenda .fc-agenda-axis,
+.fc-view-agendaWeek .fc-agenda-axis,	/* agenda semanal*/
+.fc-view-agendaWeek .fc-agenda-slots .fc-agenda-axis,	/* agenda semanal*/
+.fc-view-agendaWeek .fc-agenda-allday .fc-agenda-axis, 	/* agenda semanal*/	
+.fc-view-agendaDay  .fc-agenda-slots  .fc-agenda-axis /* agenda diaria*/ {
 	color:#000000;
-	/*			font-size:11px; */
-			font-weight:bold;
+/*			font-size:11px; */
+	font-weight:bold;
 	background-position:0 -239px;
 	background-color:#C0C0C0;
 	padding: 0 4px 0 2px;
-			}
+}
 /*			fc-view-agendaDay .fc-agenda-axis{
 			width: 50px;}
 	*/	
