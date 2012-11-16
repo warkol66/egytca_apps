@@ -12,15 +12,30 @@
 	</ul>
 </fieldset>
  	<script type="text/javascript">
-   Sortable.create("childrenList", {
+		$('#childrenList').sortable({
+			update: function(){
+				$('orderChanged').html("<span class='inProgress'>Cambiando orden...</span>");
+				$.ajax({
+					url: 'Main.php?do=commonNestedSetDoOrderByParentX',
+					data: { parentId: "|-$parentId-|", entity: "|-$entity-|",data: $('#childrenList').serialize() },
+					type: 'post',
+					success: function(data){
+						$('#orderChanged').html(data);
+					}	
+				});
+			}
+		});
+   /*Sortable.create("childrenList", {
 		onUpdate: function() {  
-				$('orderChanged').innerHTML = "<span class='inProgress'>Cambiando orden...</span>";
-				new Ajax.Updater("orderChanged", "Main.php?do=commonNestedSetDoOrderByParentX",
+				$('orderChanged').html("<span class='inProgress'>Cambiando orden...</span>");
+				new Ajax.Updater(
+					"orderChanged", 
+					"Main.php?do=commonNestedSetDoOrderByParentX",
 					{
 						method: "post",  
 						parameters: { parentId: "|-$parentId-|", entity: "|-$entity-|",data: Sortable.serialize("childrenList") }
 					});
 				} 
-			});
+			});*/
  </script>
 <p><input type="button" onclick="history.go(-1);" value="Regresar" /></p>

@@ -7,5 +7,5 @@
 |-/foreach-|
 
 <script type="text/javascript">
-	$('indicator2').hide();
+	$('#indicator2').hide();
 </script>

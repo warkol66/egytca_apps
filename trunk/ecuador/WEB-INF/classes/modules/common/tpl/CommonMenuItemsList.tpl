@@ -33,17 +33,13 @@
 		 */
 	   	function expandContract(expandibleId, anchorElement) {
 		   	if (anchorElement !== undefined) {
-			   	if (anchorElement.hasClassName("expandButton")) {
-			   		anchorElement.removeClassName("expandButton");
-			   		anchorElement.addClassName("contractButton");
-			   		anchorElement.innerHTML = "-";
+			   	if (anchorElement.hasClass("expandButton")) {
+			   		anchorElement.removeClass("expandButton").addClass("contractButton").html("-");
 			   	} else if(anchorElement.hasClassName("contractButton")) {
-			   		anchorElement.addClassName("expandButton");
-			   		anchorElement.removeClassName("contractButton");
-			   		anchorElement.innerHTML = "+";
+			   		anchorElement.addClass("expandButton").removeClass("contractButton").html("+");
 			   	}
 	   		}
-		   	$(expandibleId).toggle();
+		   	$('#' + expandibleId).toggle();
 	 	}
  	</script>
 	<div id="contentCloser"></div>
