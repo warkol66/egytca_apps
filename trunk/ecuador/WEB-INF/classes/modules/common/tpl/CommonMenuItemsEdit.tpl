@@ -7,15 +7,23 @@
 	}
 
 	function getDefaultInfo() {
-		$('indicator2').show();
-		var myAjax = new Ajax.Updater(
+		$('#indicator2').show();
+		$.ajax({
+			url: 'Main.php?do=commonMenuItemsGetActionInfoX',
+			data: { |-if $menuItem->getId() ne ''-|menuItemId:|-$menuItem->getId()-|, |-/if-|action: $('menuItem_action').value},
+			type: 'get',
+			success: function(data){
+				$('#lang_info').html(data);
+			}	
+		});
+		/*var myAjax = new Ajax.Updater(
 				{success: 'lang_info'},
 				"Main.php?do=commonMenuItemsGetActionInfoX",
 				{
 					method: 'get',
 					parameters: { |-if $menuItem->getId() ne ''-|menuItemId:|-$menuItem->getId()-|, |-/if-|action: $('menuItem_action').value},
 					evalScripts: true
-				});	
+				});	*/
 	}
 
 	var paramCount = "|-$params.count-|";
@@ -26,9 +34,9 @@
 	
 	function addParamToAction() {
 		paramCount++;
-		var htmlContent = '<li>Nombre del argumento: <input type="text" name="param[name][%count%]" value=""> Valor: <input type="text" name="param[value][%count%]" value=""><a href"#" onClick="deleteParamFromAction(this); return false;" alt="Eliminar" title="Eliminar" ><img src="images/clear.png" class="linkImageDelete"></a></li>';
-		htmlContent = htmlContent.gsub("%count%", paramCount);
-		$("params_list").insert(htmlContent);	
+		var htmlContent = '<li>Nombre del argumento: <input type="text" name="param[name][' + paramCount +']" value=""> Valor: <input type="text" name="param[value][' + paramCount + ']" value=""><a href="#" onClick="deleteParamFromAction(this); return false;" alt="Eliminar" title="Eliminar" ><img src="images/clear.png" class="linkImageDelete"></a></li>';
+		//htmlContent.replace("%count%", paramCount);
+		$("#params_list").append(htmlContent);	
 	}
 
 	function deleteParamFromAction(anchorElement) {
@@ -72,8 +80,9 @@
 					<div style="clear: both;"></div>
 					<ul id="params_list">
 					|-foreach from=$params key=key item=value name=it_params-|
-						<li>Nombre del argumento: <input type="text" name="param[name][]" value="|-$key-|"> Valor: <input type="text" name="param[value][]" value="|-$value-|"><a href"#" onClick="deleteParamFromAction(this); return false;" alt="Eliminar" title="Eliminar" ><img src="images/clear.png" class="linkImageDelete"></a></li>
+						<li>Nombre del argumento: <input type="text" name="param[name][]" value="|-$key-|"> Valor: <input type="text" name="param[value][]" value="|-$value-|"><a href="#" onClick="deleteParamFromAction(this); return false;" alt="Eliminar" title="Eliminar" ><img src="images/clear.png" class="linkImageDelete"></a></li>
 					|-/foreach-|
+					<li>Nombre del argumento: <input type="text" name="param[name][]" value=""> Valor: <input type="text" name="param[value][]" value=""><a href="#" onClick="deleteParamFromAction(this); return false;" alt="Eliminar" title="Eliminar" >Eliminar</a></li>
 					</ul>
 				</div>
 				<p>
