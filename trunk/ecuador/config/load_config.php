@@ -4,6 +4,7 @@
 * @package phpMVCconfig
 *
 */
+global $appDir;
 
 $xmlFile					= NULL;	// XML config file
 $xmlData					= NULL;	// Serialized config file
