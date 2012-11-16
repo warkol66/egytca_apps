@@ -63,6 +63,27 @@
 		</errorReporting>
 		<rowsPerPage>25</rowsPerPage>
 		<language>esp</language>
+		<!-- Manejo de Configuracion de Swampy Browser para TinyMCE -->
+		<!-- para mas info ver scripts/swampy_browser/configs.php -->
+		<fileBrowser>
+			<!-- hostname donde se encuentra la aplicacion -->
+			<host>http://localhost/htdocs2/apps/trunk/ecuador</host>
+			<!-- path completo de la aplicacion en el servidor-->
+			<applicationPath>/htdocs2/apps/trunk/ecuador/</applicationPath>
+			<!-- Definicion de directorios -->
+			<directories>
+				<dir_1>
+					<title>Documentos</title>
+					<!-- El path del directorio es a partir del applicationPath -->
+					<path>files/documents</path>
+				</dir_1>
+				<dir_2>
+					<title>Imágenes</title>
+					<!-- El path del directorio es a partir del applicationPath -->
+					<path>files/images</path>
+				</dir_2>
+			</directories>
+		</fileBrowser>
 	</system>
 	<email>
 		<mode>

@@ -297,4 +297,6 @@
 	margin: 3px;
 	text-decoration: none;
 }
-
+.mceExternalToolbar {
+  margin-left: 145px !Important;
+}
