@@ -1,4 +1,5 @@
-|-include file='ValidationJavascriptInclude.tpl'-|
+<!-- ValidationJavascriptInclude -->
+|-include file='ValidationJavascriptInclude.jquery.tpl'-|
 <!-- inclusion de validación de javascript -->
 <div id="loginWrapper"> 
 	<!-- Begin Login --> 
