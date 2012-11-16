@@ -1,7 +1,7 @@
 <tr id="item|-$item->getId()-|">
 	<td nowrap="nowrap">|-$item->getCode()-|</td>
 	<td>|-$item->getName()-|</td>
-	<td nowrap="nowrap" align="center">|-$item->getQuantity()-|&nbsp;|-$item->getUnit()-|</td>
+	<td nowrap="nowrap" align="center">|-$item->getQuantity()-|&nbsp;|-$item->getMeasureUnit()-|</td>
 	<td nowrap="nowrap">
 		|-if "vialidadConstructionItemEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 		  <input type="hidden" name="do" value="vialidadConstructionItemEdit" /> 
