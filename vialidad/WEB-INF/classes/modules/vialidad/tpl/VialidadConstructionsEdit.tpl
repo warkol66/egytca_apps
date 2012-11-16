@@ -38,6 +38,7 @@
 		 </p>
 		 <p>
 		   <label>N° de Contrato</label>
+			 |-if !is_object($contract)-||-assign var=contract value=$construction->getContract()-||-/if-|
 				|-$contract->getContractNumber()|escape-|
 		</p>
 		 <p><label for="params[name]">Nombre</label>
