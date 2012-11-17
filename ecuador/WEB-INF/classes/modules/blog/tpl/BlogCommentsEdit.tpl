@@ -1,7 +1,9 @@
 <script>
 	 $(function() {
 		$.datepicker.setDefaults($.datepicker.regional['es']);
-        $( ".datepicker" ).datepicker();
+        $( ".datepicker" ).datepicker({
+			dateFormat:"dd-mm-yy"
+        });
      });
 </script>
 <h2>Comentarios</h2>

@@ -2,7 +2,9 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
-        $( ".datepicker" ).datepicker();
+        $( ".datepicker" ).datepicker({
+			dateFormat:"dd-mm-yy"
+		});
         
         $("a#inline").fancybox();	
 
@@ -40,7 +42,7 @@
 		</p>
 			<p>
 				<label for="blogEntry_creationDate">##blog,35,Fecha de Creación##</label>
-				<input name="blogEntry[creationDate]" type="text" id="blogEntry_creationDate" class="datepicker" title="creationDate" value="|-$blogEntry->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<input name="blogEntry[creationDate]" type="date" id="blogEntry_creationDate" class="datepicker" title="creationDate" value="|-$blogEntry->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 			</p>
 			|-assign var=entryId value=$blogEntry->getId()-|
