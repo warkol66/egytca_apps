@@ -6,7 +6,6 @@
 			type: 'post',
 			success: function(data){
 				$('#operationInfo').html(data);
-				console.log(data);
 			}
 		});
 		$('#operationInfo').html('<span class="inProgress">Procesando información</span>');
