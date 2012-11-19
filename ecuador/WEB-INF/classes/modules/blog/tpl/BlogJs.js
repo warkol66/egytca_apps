@@ -221,8 +221,9 @@ function addTagToEntry(form) {
 		url: url,
 		data: $(form).serialize(),
 		type: 'post',
+		dataType: 'html',
 		success: function(data){
-			$('#tagList').html(data);
+			$('#tagList').append(data);
 		}
 	});
 	$('#tagMsgField').html('<span class="inProgress">agregando etiqueta a entrada</span>');

@@ -28,16 +28,22 @@ class BlogChangeStatusXAction extends BaseAction {
 		//caso de actualizacion de una sola noticia
 		if (isset($_POST['blogEntry'])){
 			$blogEntry = BlogEntryQuery::create()->findOneById($_POST['blogEntry']['id']);
-			$blogEntry->setStatus($_POST['blogEntry']['status']); 
-			$blogEntry->save();			
+			if(is_object($blogEntry)){
+				$blogEntry->setStatus($_POST['blogEntry']['status']); 
+				$blogEntry->save();
+			}else
+				return $mapping->findForwardConfig('failure');
 		}
 
 		//cambio de status de varios elementos
 		if (isset($_POST['status']) && isset($_POST['selected'])) {
 			foreach ($_POST['selected'] as $id) {
 				$blogEntry = BlogEntryQuery::create()->findOneById($id);
-				$blogEntry->setStatus($_POST['status']); 
-				$blogEntry->save();
+				if(is_object($blogEntry)){
+					$blogEntry->setStatus($_POST['status']); 
+					$blogEntry->save();
+				}else
+					return $mapping->findForwardConfig('failure');
 			}
 		}
 		return $mapping->findForwardConfig('success');
