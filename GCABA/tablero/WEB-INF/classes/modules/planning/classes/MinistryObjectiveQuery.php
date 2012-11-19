@@ -21,7 +21,7 @@ class MinistryObjectiveQuery extends BaseMinistryObjectiveQuery {
 		$this->leftJoinImpactObjective()
 			->leftJoinPosition('Position')
 			->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
-			->orderBy(PlanningProjectPeer::INTERNALCODE)
+			->orderByInternalCode()
 		;
 	}
 

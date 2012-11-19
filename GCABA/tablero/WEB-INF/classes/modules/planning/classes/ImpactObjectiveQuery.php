@@ -20,7 +20,7 @@ class ImpactObjectiveQuery extends BaseImpactObjectiveQuery {
 		
 		$this->leftJoinPosition('Position')
 			->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
-			->orderBy(PlanningProjectPeer::INTERNALCODE)
+			->orderByInternalCode()
 		;
 	}
 

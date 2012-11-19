@@ -21,7 +21,7 @@ class PlanningProjectQuery extends BasePlanningProjectQuery {
 		$this->leftJoinOperativeObjective()
 			->leftJoinPosition('Position')
 			->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
-			->orderBy(PlanningProjectPeer::INTERNALCODE)
+			->orderByInternalCode()
 		;
 	}
 
