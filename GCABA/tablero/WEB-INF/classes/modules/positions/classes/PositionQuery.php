@@ -66,10 +66,7 @@ class PositionQuery extends BasePositionQuery {
 	* @return query filtro por versiones
 	*/
   public function filterByLastVersion() {
-  	$lastVersion = PositionVersionQuery::create()->getLastVersion();
-		if(empty($lastVersion))
-			$lastVersion = 0;
-    return $this->filterByVersionid($lastVersion);
+    return $this->filterByVersionid(PositionVersionQuery::getLastVersionId());
   }
 
 } // PositionQuery
