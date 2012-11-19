@@ -22,5 +22,14 @@ class PositionVersionQuery extends BasePositionVersionQuery {
   public function getLastVersion() {
     return PositionVersionQuery::create()->orderById(Criteria::DESC)->findOne();
   }
+  
+  /**
+   * Devuelve el id de la version vigente o 0 si no existe
+   * @return id de la version vigente
+   */
+  public static function getLastVersionId() {
+	  $lastVersion = PositionVersionQuery::create()->orderById(Criteria::DESC)->findOne();
+	  return $lastVersion ? $lastVersion->getId() : 0;
+  }
 
 } // PositionVersionQuery
