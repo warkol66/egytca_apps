@@ -19,6 +19,7 @@ class ImpactObjectiveQuery extends BaseImpactObjectiveQuery {
 		parent::preSelect($con);
 		
 		$this->leftJoinPosition('Position')
+			->orderByResponsiblecode()
 			->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
 			->orderByInternalCode()
 		;

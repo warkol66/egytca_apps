@@ -19,8 +19,10 @@ class OperativeObjectiveQuery extends BaseOperativeObjectiveQuery {
 		parent::preSelect($con);
 		
 		$this->leftJoinMinistryObjective()
+			->addAscendingOrderByColumn(MinistryObjectivePeer::RESPONSIBLECODE)
 			->leftJoinPosition('Position')
 			->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
+			->addAscendingOrderByColumn(MinistryObjectivePeer::INTERNALCODE)
 			->orderByInternalCode()
 		;
 	}
