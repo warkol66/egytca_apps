@@ -43,6 +43,10 @@ class BlogCommentsDoEditAction extends BaseAction {
 		}
 		else {
 			//estoy creando un nuevo blogComment
+			/*if(!BlogEntryPeer::create()->findById($_POST["blogComment"]["entryId"])->findBy)
+				return $mapping->findForwardConfig('failure');*/
+				
+			$smarty->assign('myentry', BlogEntryPeer::create()->findById($_POST["blogComment"]["entryId"]));
 
 			if ( !BlogCommentPeer::create($_POST["blogComment"]) ) {
 				$blogComment = new BlogCommentPeer();

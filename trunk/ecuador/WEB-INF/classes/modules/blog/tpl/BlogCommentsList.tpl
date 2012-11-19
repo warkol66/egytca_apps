@@ -111,9 +111,9 @@
 		</thead>
 		<tbody>
 		|-foreach from=$blogComments item=blogComment name=for_blogComments-|
-			<tr>
-	
-				|-assign var=entry value=$blogComment->getBlogEntry()-|
+			|-assign var=entry value=$blogComment->getBlogEntry()-|
+			|-if is_object($entry)-|
+			<tr>	
 				<td>
 					<input type="checkbox" name="selected[]" value="|-$blogComment->getId()-|" />
 				</td>
@@ -158,6 +158,7 @@
 					</form>
 				</td>
 			</tr>
+			|-/if-|
 		|-/foreach-|						
 
 		<tr>
