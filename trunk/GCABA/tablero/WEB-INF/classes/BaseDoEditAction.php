@@ -7,6 +7,8 @@ class BaseDoEditAction extends BaseAction {
 	protected $entity;
 	protected $entityParams;
 	protected $ajaxTemplate;
+	protected $log1;
+	protected $log2;
 
 	function __construct($entityClassName) {
 		if (empty($entityClassName))
@@ -14,6 +16,8 @@ class BaseDoEditAction extends BaseAction {
 		$this->entityClassName = $entityClassName;
 		if (substr(get_class($this), -7, 1) != "X")
 			$this->ajaxTemplate = str_replace('Action', '', get_class($this)).'X.tpl';
+		$this->log1 = true;
+		$this->log2 = true;
 	}
 
 	public function execute($mapping, $form, &$request, &$response) {
@@ -52,9 +56,23 @@ class BaseDoEditAction extends BaseAction {
 			$this->preSave();
 			$action = $this->entity->isNew() ? 'create' : 'edit';
 			$this->entity->save();
+			
 			$logSufix = ', ' . Common::getTranslation('action: '.$action, 'common');
-			if (method_exists($this->entity, 'getLogData'))
+			if ($this->log1 && method_exists($this->entity, 'getLogData'))
 				Common::doLog('success', $this->entity->getLogData() . $logSufix);
+			
+			$logClassName = $this->entityClassName.'Log';
+			$setEntityId = 'set'.$this->entityClassName.'id';
+			if ($this->log2 && class_exists($logClassName)) {
+				if (!$this->entity->isNew()) {
+					$entityLog = new $logClassName();
+					$entityLog->fromJSON($this->entity->toJSON());
+					$entityLog->setId(NULL);
+					$entityLog->$setEntityId($id);
+					$entityLog->save();
+				}
+			}
+			
 			$this->postSave();
 		} catch (Exception $e) {
 			
