@@ -9,22 +9,12 @@
 <!-- Swampy browser-->
 	var sb_browser_url = '|-$scriptPath-|scripts/swampy_browser';
 	var sb_site_url = '|-$systemUrl|substr:0:-9-|';
-<!-- Variable width styles-->
- if (navigator.appName.indexOf("Microsoft")>=0) {
-  if (document.documentElement.clientWidth < 1000) // Use window.innerWidth or screen.width
-		document.write('<link href="css/styleNarrow.css" rel="stylesheet" type="text/css">');
-	else if (document.documentElement.clientWidth  >= 1280 && document.documentElement.clientWidth < 1600)
-		document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css">');
-	else
-		document.write('<link href="css/styleWide+.css" rel="stylesheet" type="text/css">');
-}else{
-  if (window.innerWidth < 1000) // Use window.innerWidth or screen.width
-		document.write('<link href="css/styleNarrow.css" rel="stylesheet" type="text/css">');
-	else if (window.innerWidth  >= 1280 && window.innerWidth  < 1600)
-		document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css">');
-	else
-		document.write('<link href="css/styleWide+.css" rel="stylesheet" type="text/css">');
-}
+	<!-- Variable width styles-->
+	var browserWidth = window.innerWidth || document.documentElement.clientWidth;
+		if (browserWidth < 1000) document.write('<link href="css/styleNarrow.css" rel="stylesheet" type="text/css">');
+		else if (browserWidth > 1500) document.write('<link href="css/styleWide+.css" rel="stylesheet" type="text/css">');
+		else if (browserWidth >= 1260) document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css">');
+	<!-- /Variable width styles-->
 </script>
 <script src="scripts/overlib.js" type="text/javascript"></script>
 <script src="scripts/lightbox.js" language="JavaScript" type="text/javascript"></script>

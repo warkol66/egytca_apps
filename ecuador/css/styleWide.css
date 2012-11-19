@@ -1,21 +1,24 @@
 #rightColumn { 
-	width: 1075px;
+	width: 995px;
 }
 #wrapper { 
-	width: 1280px;
+	width: 1200px;
 }
 #contentWrapper { 
-	width: 1270px;
+	width: 1195px;
 }
 #header { 
-	width: 1270px;
+	width: 1190px;
 }
 #footer {
-	width: 1270px;
+	width: 1190px;
 }
 #rightColumn p {
-	width: 920px;
+	width: 900px;
 }
 #rightColumn fieldset p {
-	width: 780px;
+	width: 750px;
+}
+.wide-chz-select {
+	min-width: 640px;
 }
