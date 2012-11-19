@@ -21,7 +21,7 @@ class OperativeObjectiveQuery extends BaseOperativeObjectiveQuery {
 		$this->leftJoinMinistryObjective()
 			->leftJoinPosition('Position')
 			->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
-			->orderBy(PlanningProjectPeer::INTERNALCODE)
+			->orderByInternalCode()
 		;
 	}
 
