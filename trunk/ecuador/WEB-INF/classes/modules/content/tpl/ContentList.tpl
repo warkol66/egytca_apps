@@ -19,6 +19,8 @@
  </script>
 <h2>Módulo de Contenido</h2>
 <h1>Administrar Contenido</h1>
+
+|-if !isset($notValidId) or  $notValidId neq 1-|
 <p>A continuación podrá agregar un nuevo contenido o una nueva sección. Para editar contenidos existentes, haga click en "Editar". 
 Para eliminar haga click en "Eliminar". Para cambiar el orden de la información, coloque el cursor sobre el titulo y arrastrelo a la posición deseada.
 </p>
@@ -71,3 +73,6 @@ Para eliminar haga click en "Eliminar". Para cambiar el orden de la información
 <div id="contentCloser"></div>
 
 |-*include_module module="Content" action="Menu" options="noParent=0&depth=3&id=3"*-|
+|-else-|
+<div class="errorMessage">El identificador de contenido ingresado no es válido. Seleccione un contenido de la lista  haciendo <a href="Main.php?do=contentList">click aquí</a>.</div>
+|-/if-|

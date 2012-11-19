@@ -1,9 +1,9 @@
 <?php
 /**
-* ContentDoDeleteAction
-* Elimina un contenido
-* @package  content
-*/
+ * ContentDoDeleteAction
+ * Elimina un contenido
+ * @package  content
+ */
 
 class ContentDoDeleteAction extends BaseAction {
 
@@ -11,11 +11,11 @@ class ContentDoDeleteAction extends BaseAction {
 		;
 	}
 
-	function getForward($forward,$sectionId,$mapping) {
+	function getForward($forward, $sectionId, $mapping) {
 
 		$myRedirectConfig = $mapping->findForwardConfig($forward);
 		$myRedirectPath = $myRedirectConfig->getpath();
-		$queryData = '&id_section='.$sectionId;
+		$queryData = '&id_section=' . $sectionId;
 		$myRedirectPath .= $queryData;
 		$fc = new ForwardConfig($myRedirectPath, True);
 		return $fc;
@@ -31,10 +31,10 @@ class ContentDoDeleteAction extends BaseAction {
 		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
+		if ($smarty == NULL) {
+			echo 'No PlugIn found matching key: ' . $plugInKey . "<br>\n";
 		}
-        $this->template->template = 'TemplateJQuery.tpl';
+		$this->template->template = 'TemplateJQuery.tpl';
 
 		$module = "Content";
 		$content = new Content();
@@ -46,9 +46,9 @@ class ContentDoDeleteAction extends BaseAction {
 		}
 
 		if ($result)
-			return $this->getForward("success",$contentToDelete['parent'],$mapping);
+			return $this->getForward("success", $contentToDelete['parent'], $mapping);
 
-		return $this->getForward("failure",$contentToDelete['parent'],$mapping);
+		return $this->getForward("failure", $contentToDelete['parent'], $mapping);
 
 	}
 

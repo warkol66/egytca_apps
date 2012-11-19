@@ -34,12 +34,12 @@ class ContentEditAction extends BaseAction
         $languages = ContentActiveLanguageQuery::create()->filterByActive(1)->find();
         $smarty->assign('languages', $languages);
 
-        $defaultLanguage=ContentActiveLanguageQuery::getDefaultLanguage();
+        $defaultLanguage = ContentActiveLanguageQuery::getDefaultLanguage();
         $smarty->assign('defaultLanguage', $defaultLanguage);
 
         $root = ContentQuery::create()->findRoot();
 
-        $iteratorCriteria=ContentQuery::create()->filterByType(1);
+        $iteratorCriteria = ContentQuery::create()->filterByType(1);
 
         $smarty->assign('root', $root);
         $smarty->assign('iteratorCriteria', $iteratorCriteria);
@@ -47,19 +47,21 @@ class ContentEditAction extends BaseAction
         // Para el caso de editar.
         if (isset($_GET['id'])) {
             $content = ContentQuery::create()->findPK($_GET['id']);
-            $smarty->assign("content", $content);
-            $smarty->assign("type", $content->getTypeTranslated());
 
-            $smarty->assign("action", "edit");
-            $smarty->assign("parentId", $content->getParent()->getId());
+            if ($content) {
+                $smarty->assign("content", $content);
+                $smarty->assign("type", $content->getTypeTranslated());
 
-            $navigationChain=$content->getAncestors();
-            $navigationChain=array_reverse($navigationChain);
-            $smarty->assign("navigationChain", $content->getAncestors());
+                $smarty->assign("parentId", $content->getParent()->getId());
+                $smarty->assign("loadAreaedit", 1);
+
+                $navigationChain = $content->getAncestors();
+                $navigationChain = array_reverse($navigationChain);
+                $smarty->assign("navigationChain", $content->getAncestors());
+            }
+            else $smarty->assign("notValidId", 1);
             return $mapping->findForwardConfig('success');
         }
-
-        $smarty->assign("action", "create");
 
         // En el caso de crear
         $smarty->assign("content", new Content());
@@ -67,10 +69,10 @@ class ContentEditAction extends BaseAction
         $smarty->assign("parentId", $_GET['parentId']);
 
         $parent = ContentQuery::create()->findPk($_GET['parentId']);
-        $navigationChain=$parent->getAncestors();
-        array_unshift($navigationChain,$parent);
+        $navigationChain = $parent->getAncestors();
+        array_unshift($navigationChain, $parent);
 
-        $navigationChain=array_reverse($navigationChain);
+        $navigationChain = array_reverse($navigationChain);
         $smarty->assign("navigationChain", $navigationChain);
 
 

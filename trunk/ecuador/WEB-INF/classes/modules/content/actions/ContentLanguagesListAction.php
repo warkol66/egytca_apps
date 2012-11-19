@@ -36,6 +36,7 @@ class ContentLanguagesListAction extends BaseAction {
 
 		$smarty->assign('languages',$languages);
 		$smarty->assign('inactiveLanguages',$inactiveLanguages);
+        $smarty->assign('defaultLanguage',ContentActiveLanguageQuery::getDefaultLanguage());
 		return $mapping->findForwardConfig('success');
 
 	}
