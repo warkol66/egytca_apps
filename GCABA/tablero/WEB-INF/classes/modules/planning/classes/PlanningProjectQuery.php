@@ -19,23 +19,10 @@ class PlanningProjectQuery extends BasePlanningProjectQuery {
 		parent::preSelect($con);
 		
 		$this->leftJoinOperativeObjective()
+			->addAscendingOrderByColumn(OperativeObjectivePeer::RESPONSIBLECODE)
 			->leftJoinPosition('Position')
-				->addAscendingOrderByColumn('positions_position.CODE')
-				->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
-//				->orderBy(PositionPeer::NAME)
-//			->orderBy(OperativeObjectivePeer::INTERNALCODE)
-				->addAscendingOrderByColumn(OperativeObjectivePeer::INTERNALCODE)
-		->orderBy(PlanningProjectPeer::INTERNALCODE)
-		;
-		
-//		$this->useOperativeObjectiveQuery()
-//			->usePositionQuery()
-//				->filterByLastVersion()
-//				->orderByName()
-//			->endUse()
-//			->orderByInternalCode()
-//		->endUse()
-//		->orderByInternalCode();
+			->addAscendingOrderByColumn(OperativeObjectivePeer::INTERNALCODE)
+			->orderByInternalCode();
 	}
 
 } // PlanningProjectQuery
