@@ -123,9 +123,9 @@ Egytca = {
 		 *	
 		 *	$('#mySelect1').egytca('autocomplete', 'Main.php?do=actorsAutocompleteListX', {
 		 *		disable: '#mySubmit', // any jQuery selector
-		 *		method: POST, // defaults to GET
+		 *		method: "POST", // defaults to GET
 		 *		jsonTermKey: 'myPersonalizedParamName', // defaults to 'searchString'
-		 *		data: { /+ additional parmas sent to request +/ }
+		 *		data: { someParam: 'someValue' } // additional parmas sent to request
 		 *	}).change(function() { console.log($(this).val()) });
 		 *	
 		 *	$('#mySelect2').egytca('autocomplete', 'Main.php?do=actorsAutocompleteListX');
