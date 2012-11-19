@@ -19,8 +19,10 @@ class MinistryObjectiveQuery extends BaseMinistryObjectiveQuery {
 		parent::preSelect($con);
 		
 		$this->leftJoinImpactObjective()
+			->addAscendingOrderByColumn(ImpactObjectivePeer::RESPONSIBLECODE)
 			->leftJoinPosition('Position')
 			->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
+			->addAscendingOrderByColumn(ImpactObjectivePeer::INTERNALCODE)
 			->orderByInternalCode()
 		;
 	}
