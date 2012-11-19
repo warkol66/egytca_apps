@@ -1,3 +1,5 @@
+|-if is_array($navigationChain) and count($navigationChain) gt 1-|
+
 <div id="navigationChain">
 <p><span class="navChain">
 	|-foreach from=$navigationChain item=item name=navigation-|
@@ -6,3 +8,4 @@
 	|-/foreach-|
 </span></p>
 </div>
+|-/if-|

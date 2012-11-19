@@ -52,10 +52,12 @@
 							<input type="hidden"  value="|-$item->getId()-|" name="id" />
 							<input type="submit"  value="Editar" class="icon iconEdit" title="Editar" />
 						</form>
+                        |-if !is_object($defaultLanguage) or $defaultLanguage->getId() neq $item->getId()-|
 						<form action="Main.php?do=contentLanguageDoDelete" method="post" style="display: inline;"><input
 						 type="hidden" name="id" value="|-$item->getId()-|"/><a href="#"
 						 onclick="if (confirm('¿Esta seguro que quiere desactivar este elemento?')) this.parentNode.submit();" alt="Desactivar" title="Desactivar"><img src="images/clear.png" class="icon iconDelete"></a>
 						</form>
+                        |-/if-|
 
 					</span>
 					<br style="clear: left" />

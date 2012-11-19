@@ -43,12 +43,10 @@ class ContentLanguageEditAction extends BaseAction
             else {
                 $smarty->assign("notValidId", true);
             }
-            $smarty->assign("action", "edit");
         }
         else{
             $idioma=new ContentActiveLanguage();
             $smarty->assign("idioma", $idioma);
-            $smarty->assign("action", "create");
         }
         return $mapping->findForwardConfig('success');
 

@@ -1,9 +1,13 @@
 
+
+<h2>Módulo de Contenido</h2>
+<h1>Administrar Contenido</h1>
+
+|-if !isset($notValidId) or  $notValidId neq 1-|
+
 <script type="text/javascript">
 |-include file='ContentJs.tpl'-|
 </script>
-<h2>Módulo de Contenido</h2>
-<h1>Administrar Contenido</h1>
 
 |-include file='ContentNavigationChainInclude.tpl' navigationChain=$navigationChain-|
 
@@ -13,7 +17,7 @@
 	<legend>|-if $action=="create"-|Agregar |-else-|Editar|-/if-||-if $type eq 'content'-|
 		Contenido|-/if-||-if $type eq 'section'-|Sección|-/if-||-if $type eq 'link'-|Link|-/if-|</legend>
 	<form id="editors_here" action="Main.php?do=contentDoEdit" method="post">
-	|-if $action=="create"-|
+	|-if $content->isNew()-|
 		<p>
 			<label for="params[type]">Tipo de Contenido</label>
 			<select class="type" name="params[type]" id="params[type]">
@@ -23,7 +27,7 @@
 			</select>
 		</p>
 	|-/if-|
-	|-if $action=="edit"-|
+	|-if not $content->isNew()-|
 		<input name="id" type="hidden" id="id" value="|-$content->getId()-|"/>
 		|-if $action=="edit" && $content->getType()!=1-|
 			<p>
@@ -68,7 +72,7 @@
 		<div id='edit_content_|-$languageCode-|'>
 			<p>
 				<label for="locale[|-$languageCode-|][title]">Título</label>
-				<input name="locale[|-$languageCode-|][title]" type="text" id="locale[|-$languageCode-|][title]"
+				<input class="emptyValidation" name="locale[|-$languageCode-|][title]" type="text" id="locale[|-$languageCode-|][title]"
 					   size="55" maxlength="255" value="|-$content->getTitle()|escape-|"/>
 			</p>
 
@@ -88,7 +92,7 @@
 		</div>
 	|-/foreach-|
 		<p>
-			<input type="submit" value="Guardar" class="button"/>
+            |-javascript_form_validation_button value=Guardar-|
 			<input type="button" id="button_return_indicator" name="button_return_indicator" title="Regresar"
 				   value="Regresar" onClick="location.href='Main.php?do=contentList&sectionId=|-$parentId-|'"/>
 		</p>
@@ -96,4 +100,8 @@
 </fieldset>
 |-if $loadAreaedit neq 1-|
 |-include file='ContentEditTinyMceInclude.tpl' element=content languages=$languages plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"-|
+|-/if-|
+
+|-else-|
+<div class="errorMessage">El identificador de contenido ingresado no es válido. Seleccione un contenido de la lista  haciendo <a href="Main.php?do=contentList">click aquí</a>.</div>
 |-/if-|

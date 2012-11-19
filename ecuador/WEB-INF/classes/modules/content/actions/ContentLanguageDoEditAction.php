@@ -32,6 +32,7 @@ class ContentLanguageDoEditAction extends BaseAction
         $module = "Content";
         $smarty->assign("module", $module);
 
+        $smarty->assign('defaultLanguage',ContentActiveLanguageQuery::getDefaultLanguage());
 
         if (isset($_REQUEST["id"]) && $_REQUEST["id"]!="") {
 

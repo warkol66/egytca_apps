@@ -32,7 +32,9 @@ class ContentLanguageDoDeleteAction extends BaseAction {
 
         $idioma=ContentActiveLanguageQuery::create()->findPk($id);
 
-		if ($idioma){
+        $defaultLanguage=ContentActiveLanguageQuery::getDefaultLanguage();
+
+		if ($idioma && (!is_object($defaultLanguage) || $defaultLanguage->getId()!=$idioma->getId()  )){
             $idioma->setActive(0);
             $idioma->save();
             return $mapping->findForwardConfig('success');

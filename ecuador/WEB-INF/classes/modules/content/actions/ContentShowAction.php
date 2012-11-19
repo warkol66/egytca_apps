@@ -44,6 +44,12 @@ class ContentShowAction extends BaseAction {
 
 		$smarty->assign('contentId',$id);
         $content=ContentQuery::create()->findPk($id);
+
+        if(!$content){
+            $smarty->assign("notValidId", 1);
+            return $mapping->findForwardConfig('success');
+        }
+
         if(isset($_GET["lang"])){
             if(is_numeric($_GET["lang"])) $language=ContentActiveLanguageQuery::create()->findPk($_GET["lang"]);
             else $language=ContentActiveLanguageQuery::create()->filterByLanguagecode($_GET["lang"])->findOne();
