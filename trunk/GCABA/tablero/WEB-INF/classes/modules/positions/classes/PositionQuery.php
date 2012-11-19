@@ -14,12 +14,12 @@
  */
 class PositionQuery extends BasePositionQuery {
 
- /**
-	* Constructor con parametros de busqueda iniciales
-	*
-	*/
-	public function __construct($dbName = 'application', $modelName = 'Position', $modelAlias = null) {
-		parent::__construct($dbName, $modelName, $modelAlias);
+	/**
+	 * Aplica filtros automaticos por defecto
+	* @return query con filtrado de dependencias ordenado por versiones
+	 */
+	protected function preSelect(\PropelPDO $con) {
+		parent::preSelect($con);
 		$this->orderByVersionid(Criteria::DESC);
 		
 		$loginUser = Common::getLoggedUser();
@@ -30,7 +30,7 @@ class PositionQuery extends BasePositionQuery {
 	}
 
  /**
-	* Aplica orden de positions por ersiones
+	* Aplica orden de positions por versiones
 	* @return query orden de versiones
 	*/
   public static function createOrderedByVersion() {
