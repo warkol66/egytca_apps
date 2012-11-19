@@ -18,14 +18,22 @@ class PlanningProjectQuery extends BasePlanningProjectQuery {
 	protected function preSelect(PropelPDO $con) {
 		parent::preSelect($con);
 		
-		$this->useOperativeObjectiveQuery()
-			->usePositionQuery()
-				->filterByLastVersion()
-				->orderByName()
-			->endUse()
-			->orderByInternalCode()
-		->endUse()
-		->orderByInternalCode();
+		$this->leftJoinOperativeObjective()
+			->leftJoinPosition('Position')
+				->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
+//				->orderBy(PositionPeer::NAME)
+//			->orderBy(OperativeObjectivePeer::INTERNALCODE)
+		->orderBy(PlanningProjectPeer::INTERNALCODE)
+		;
+		
+//		$this->useOperativeObjectiveQuery()
+//			->usePositionQuery()
+//				->filterByLastVersion()
+//				->orderByName()
+//			->endUse()
+//			->orderByInternalCode()
+//		->endUse()
+//		->orderByInternalCode();
 	}
 
 } // PlanningProjectQuery
