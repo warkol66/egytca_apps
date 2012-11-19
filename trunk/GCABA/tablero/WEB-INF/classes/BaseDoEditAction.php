@@ -7,8 +7,8 @@ class BaseDoEditAction extends BaseAction {
 	protected $entity;
 	protected $entityParams;
 	protected $ajaxTemplate;
-	protected $log1;
-	protected $log2;
+	protected $actionLog;
+	protected $entityLog;
 
 	function __construct($entityClassName) {
 		if (empty($entityClassName))
@@ -16,8 +16,8 @@ class BaseDoEditAction extends BaseAction {
 		$this->entityClassName = $entityClassName;
 		if (substr(get_class($this), -7, 1) != "X")
 			$this->ajaxTemplate = str_replace('Action', '', get_class($this)).'X.tpl';
-		$this->log1 = true;
-		$this->log2 = true;
+		$this->actionLog = true;
+		$this->entityLog = true;
 	}
 
 	public function execute($mapping, $form, &$request, &$response) {
@@ -58,12 +58,12 @@ class BaseDoEditAction extends BaseAction {
 			$this->entity->save();
 			
 			$logSufix = ', ' . Common::getTranslation('action: '.$action, 'common');
-			if ($this->log1 && method_exists($this->entity, 'getLogData'))
+			if ($this->actionLog && method_exists($this->entity, 'getLogData'))
 				Common::doLog('success', $this->entity->getLogData() . $logSufix);
 			
 			$logClassName = $this->entityClassName.'Log';
 			$setEntityId = 'set'.$this->entityClassName.'id';
-			if ($this->log2 && class_exists($logClassName)) {
+			if ($this->entityLog && class_exists($logClassName)) {
 				if (!$this->entity->isNew()) {
 					$entityLog = new $logClassName();
 					$entityLog->fromJSON($this->entity->toJSON());
