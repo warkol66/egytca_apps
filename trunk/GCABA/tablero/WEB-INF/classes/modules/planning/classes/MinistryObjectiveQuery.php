@@ -17,14 +17,12 @@ class MinistryObjectiveQuery extends BaseMinistryObjectiveQuery {
 	
 	protected function preSelect(\PropelPDO $con) {
 		parent::preSelect($con);
-		$this->useImpactObjectiveQuery()
-			->usePositionQuery()
-				->filterByLastVersion()
-				->orderByName()
-			->endUse()
-			->orderByInternalCode()
-		->endUse()
-		->orderByInternalCode();
+		
+		$this->leftJoinImpactObjective()
+			->leftJoinPosition('Position')
+			->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
+			->orderBy(PlanningProjectPeer::INTERNALCODE)
+		;
 	}
 
 } // MinistryObjectiveQuery

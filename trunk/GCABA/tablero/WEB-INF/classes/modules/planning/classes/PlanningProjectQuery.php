@@ -20,20 +20,9 @@ class PlanningProjectQuery extends BasePlanningProjectQuery {
 		
 		$this->leftJoinOperativeObjective()
 			->leftJoinPosition('Position')
-				->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
-//				->orderBy(PositionPeer::NAME)
-//			->orderBy(OperativeObjectivePeer::INTERNALCODE)
-		->orderBy(PlanningProjectPeer::INTERNALCODE)
+			->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
+			->orderBy(PlanningProjectPeer::INTERNALCODE)
 		;
-		
-//		$this->useOperativeObjectiveQuery()
-//			->usePositionQuery()
-//				->filterByLastVersion()
-//				->orderByName()
-//			->endUse()
-//			->orderByInternalCode()
-//		->endUse()
-//		->orderByInternalCode();
 	}
 
 } // PlanningProjectQuery

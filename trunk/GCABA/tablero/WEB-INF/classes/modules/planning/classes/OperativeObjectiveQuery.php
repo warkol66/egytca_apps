@@ -17,14 +17,12 @@ class OperativeObjectiveQuery extends BaseOperativeObjectiveQuery {
 	
 	protected function preSelect(\PropelPDO $con) {
 		parent::preSelect($con);
-		$this->useMinistryObjectiveQuery()
-			->usePositionQuery()
-				->filterByLastVersion()
-				->orderByName()
-			->endUse()
-			->orderByInternalCode()
-		->endUse()
-		->orderByInternalCode();
+		
+		$this->leftJoinMinistryObjective()
+			->leftJoinPosition('Position')
+			->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
+			->orderBy(PlanningProjectPeer::INTERNALCODE)
+		;
 	}
 
 } // OperativeObjectiveQuery

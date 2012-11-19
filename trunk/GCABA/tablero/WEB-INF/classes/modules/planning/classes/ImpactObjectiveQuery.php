@@ -17,11 +17,11 @@ class ImpactObjectiveQuery extends BaseImpactObjectiveQuery {
 	
 	protected function preSelect(\PropelPDO $con) {
 		parent::preSelect($con);
-		$this->usePositionQuery()
-			->filterByLastVersion()
-			->orderByName()
-		->endUse()
-		->orderByInternalCode();
+		
+		$this->leftJoinPosition('Position')
+			->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
+			->orderBy(PlanningProjectPeer::INTERNALCODE)
+		;
 	}
 
 } // ImpactObjectiveQuery
