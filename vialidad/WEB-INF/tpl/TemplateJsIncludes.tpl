@@ -10,21 +10,25 @@
 	var sb_browser_url = '|-$scriptPath-|scripts/swampy_browser';
 	var sb_site_url = '|-$systemUrl|substr:0:-9-|';
 <!-- Variable width styles-->
- if (navigator.appName.indexOf("Microsoft")>=0) {
-  if (document.documentElement.clientWidth < 1000) // Use window.innerWidth or screen.width
-		document.write('<link href="css/styleNarrow.css" rel="stylesheet" type="text/css">');
-	else if (document.documentElement.clientWidth > 1300)
-		document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css">');
-}else{
-  if (window.innerWidth < 1000) // Use window.innerWidth or screen.width
-		document.write('<link href="css/styleNarrow.css" rel="stylesheet" type="text/css">');
-	else if (window.innerWidth > 1300)
-		document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css">');
-}
+	if (navigator.appName.indexOf("Microsoft")>=0) {
+		if (document.documentElement.clientWidth < 1000) // Use window.innerWidth or screen.width
+			document.write('<link href="css/styleNarrow.css" rel="stylesheet" type="text/css">');
+		else if (document.documentElement.clientWidth >= 1280 && document.documentElement.clientWidth < 1500)
+			document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css">');
+		else
+			document.write('<link href="css/styleWide+.css" rel="stylesheet" type="text/css">');
+	}
+	else{
+  	if (window.innerWidth < 1000) // Use window.innerWidth or screen.width
+			document.write('<link href="css/styleNarrow.css" rel="stylesheet" type="text/css">');
+		else if (window.innerWidth >= 1280 && window.innerWidth  < 1500)
+			document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css">');
+		else
+			document.write('<link href="css/styleWide+.css" rel="stylesheet" type="text/css">');
+	}
 </script>
 <script src="scripts/overlib.js" type="text/javascript"></script>
 <script src="scripts/lightbox.js" language="JavaScript" type="text/javascript"></script>
-
 |-if $module eq 'Content'-|
 	<script src="Main.php?do=js&name=js&module=content&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 |-elseif $module eq 'News'-|
