@@ -31,12 +31,15 @@ class BlogDoDeleteTagFromEntryXAction extends BaseAction {
 			$tag = BlogTagPeer::get($_POST["tagId"]);
 
 			if (!empty($entry) && !empty($tag)) {
-				BlogTagRelationPeer::delete($_POST["entryId"],$_POST["tagId"]);
-				$smarty->assign('tag',$tag);
+					BlogTagRelationPeer::delete($_POST["entryId"],$_POST["tagId"]);
+					$smarty->assign('tag',$tag);
+				}
 			}
-
-
-		}
+			else{
+				$smarty->assign("errorTagId", "tagMsgField");
+				$smarty->assign("message", "La etiqueta o la entrada son inválidas");
+				return $mapping->findForwardConfig('failure');	
+			}
 
 		return $mapping->findForwardConfig('success');
 	}

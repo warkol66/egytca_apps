@@ -32,9 +32,15 @@ class BlogEditAction extends BaseAction {
 			//voy a editar un blogEntry
 
 			$blogEntry = BlogEntryQuery::create()->findOneById($_GET["id"]);
-			$smarty->assign("blogEntry",$blogEntry);
-			$smarty->assign("userIdValues",UserPeer::getAll());
-			$smarty->assign("action","edit");
+			if(is_object($blogEntry)){
+				$smarty->assign("blogEntry",$blogEntry);
+				$smarty->assign("userIdValues",UserPeer::getAll());
+				$smarty->assign("action","edit");
+			}
+			else{
+				$smarty->assign("exists",false);
+				return $mapping->findForwardConfig('success');
+			}
 		}
 		else {
 			//voy a crear un blogEntry nuevo

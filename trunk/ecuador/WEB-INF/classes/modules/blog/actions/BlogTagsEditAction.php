@@ -26,7 +26,12 @@ class BlogTagsEditAction extends BaseAction {
 
 		if ( !empty($_GET["id"]) ) {
 			$tag = BlogTagPeer::get($_GET["id"]);
-			$smarty->assign("action","edit");
+			if(is_object($tag))
+				$smarty->assign("action","edit");
+			else{
+				$smarty->assign("exists",false);
+				return $mapping->findForwardConfig('success');
+			}
 		}
 		else {
 			$tag = new BlogTag();

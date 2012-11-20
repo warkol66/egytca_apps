@@ -1,3 +1,7 @@
+|-if isset($exists)-|
+<div>Entrada no encontrada, puede que haya sido eliminada o esté incorrectamente identificada.<br />
+Puede regresar a la página principal del blog haciendo click <a href="Main.php?do=blogList">aquí</a></div>
+|-else-|
 <script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -141,4 +145,5 @@
   </ul> 
 </div>
 </fieldset>
+|-/if-|
 |-/if-|

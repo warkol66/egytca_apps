@@ -26,27 +26,29 @@ class BlogTagsDoEditXAction extends BaseAction {
 
 		$blogTag = new BlogTag();
 		$blogTag = Common::setObjectFromParams($blogTag,$_POST["tagData"]);
-
-		$existent = BlogTagPeer::getByName($blogTag->getName());
 		
-		if (!$existent){
-			if ($blogTag->isModified() && !$blogTag->save()) {
-				$smarty->assign("blogTag",$blogTag);
-				$smarty->assign("action","create");
-				$smarty->assign("message","error");
-				return $mapping->findForwardConfig('failure');
+		if(is_object($blogTag)){
+
+			$existent = BlogTagPeer::getByName($blogTag->getName());
+			
+			if (!$existent){
+				if ($blogTag->isModified() && !$blogTag->save()) {
+					$smarty->assign("blogTag",$blogTag);
+					$smarty->assign("action","create");
+					$smarty->assign("message","error");
+					return $mapping->findForwardConfig('failure');
+				}
 			}
+
+			$smarty->assign("blogTag",$blogTag);
+
+			$logSufix = ', ' . Common::getTranslation('action: create','common');
+			Common::doLog('success', $_POST["tagData"]["name"] . $logSufix);
+
+			return $mapping->findForwardConfig('success');
 		}
 		else
 			return $mapping->findForwardConfig('failure');
-		
-
-		$smarty->assign("blogTag",$blogTag);
-
-		$logSufix = ', ' . Common::getTranslation('action: create','common');
-		Common::doLog('success', $_POST["tagData"]["name"] . $logSufix);
-
-		return $mapping->findForwardConfig('success');
 
 	}
 

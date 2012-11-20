@@ -31,8 +31,11 @@ class BlogChangeStatusXAction extends BaseAction {
 			if(is_object($blogEntry)){
 				$blogEntry->setStatus($_POST['blogEntry']['status']); 
 				$blogEntry->save();
-			}else
-				return $mapping->findForwardConfig('failure');
+			}
+			else{
+				$smarty->assign("exists",false);
+				return $mapping->findForwardConfig('success');
+			}
 		}
 
 		//cambio de status de varios elementos
@@ -42,8 +45,11 @@ class BlogChangeStatusXAction extends BaseAction {
 				if(is_object($blogEntry)){
 					$blogEntry->setStatus($_POST['status']); 
 					$blogEntry->save();
-				}else
-					return $mapping->findForwardConfig('failure');
+				}
+				else{
+					$smarty->assign("exists",false);
+					return $mapping->findForwardConfig('success');
+				}
 			}
 		}
 		return $mapping->findForwardConfig('success');

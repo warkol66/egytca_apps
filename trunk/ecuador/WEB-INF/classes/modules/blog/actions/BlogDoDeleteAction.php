@@ -22,7 +22,10 @@ class BlogDoDeleteAction extends BaseAction {
 		$module = "Blog";
 		$smarty->assign("module",$module);
 
-		BlogEntryPeer::delete($_POST["id"]);
+		if(is_object(BlogEntryQuery::create()->findOneById($_POST["id"])))
+			BlogEntryPeer::delete($_POST["id"]);
+		else
+			$smarty->assign("exists",false);
 
 		return $this->addFiltersToForwards($_POST['filters'],$mapping,'success');
 	}

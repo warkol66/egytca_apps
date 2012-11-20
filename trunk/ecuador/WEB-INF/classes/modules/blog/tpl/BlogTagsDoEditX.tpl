@@ -4,15 +4,16 @@
 </script>
 
 <script type="text/javascript" language="javascript" charset="utf-8">
-	var option = document.createElement('option');
+	$('#tagId').append($('<option></option>').val(|-$blogTag->getId()-|).attr('id','tagOption|-$blogTag->getId()-|').html('|-$blogTag->getName()-|'));
+	/*var option = document.createElement('option');
 	option.text = '|-$blogTag->getName()-|';
 	option.value = '|-$blogTag->getId()-|';
 	option.id = 'regionOption|-$blogTag->getId()-|';
 	
 	try {
-		$('tagId').add(option,null);
+		$('#tagId').add(option,null);
 	}
 	catch (exp) {
-		$('tagId').add(option);		
-	}
+		$('#tagId').add(option);		
+	}*/
 </script>
