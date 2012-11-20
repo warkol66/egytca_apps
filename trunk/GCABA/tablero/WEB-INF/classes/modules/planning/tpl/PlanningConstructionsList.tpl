@@ -28,17 +28,17 @@
 	|-/if-|
 	<table id="tabla-constructions" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 		<thead>
-		<tr>
+		|-if !$nav-|	<tr>
 			<td colspan="4" class="tdSearch"><a href="javascript:void(null);" onClick='$("divSearch").toggle();' class="tdTitSearch">Busqueda por nombre</a>
-				<div id="divSearch" style="display:|-if $filters|@count gt 0 && !($filters.fromStrategicObjectives)-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
+				<div id="divSearch" style="display:|-if $filters|@count gt 0 && !($filters.fromProjects)-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="planningConstructionsList" />
 					Nombre: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" />
 					&nbsp;&nbsp;<input type='submit' value='Buscar' class='tdSearchButton' />|-if $filters|@count gt 0-|
 				<input type='button' onClick='location.href="Main.php?do=planningConstructionsList"' value="Quitar Filtros" title="Quitar Filtros"/>
 |-/if-|</form></div></td>
 		</tr>
-			<tr>
-				 <th colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningConstructionsEdit" class="addLink">Agregar Obra</a></div></th>
+|-/if-|			<tr>
+				 <th colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningConstructionsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-||-if $nav-|&fromPlanningProjectId=|-$filters.planningprojectid-||-/if-|" class="addLink">Agregar Obra</a></div></th>
 			</tr>
 			<tr class="thFillTitle">
 				<th width="33%">Proyecto</th>

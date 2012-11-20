@@ -7,10 +7,9 @@
  * @package    planning
  * @subpackage    planningPlanningConstructions
  */
-require_once 'BaseListAction.php';
 
 class PlanningConstructionsListAction extends BaseListAction {
-	
+
 	function __construct() {
 		parent::__construct('PlanningConstruction');
 	}
@@ -27,9 +26,8 @@ class PlanningConstructionsListAction extends BaseListAction {
 
 		if ($_GET["nav"])
 			$this->smarty->assign("nav", true);
-	    if (!empty($_GET["filters"]["planningprojectid"]))
-	    {
-	    	   $this->smarty->assign("planningProject", BaseQuery::create('PlanningProject')->findOneById($_GET["filters"]["planningprojectid"]));
-	    }
+		if (!empty($_GET["filters"]["planningprojectid"]))
+			$this->smarty->assign("planningProject", BaseQuery::create('PlanningProject')->findOneById($_GET["filters"]["planningprojectid"]));
 	}
+
 }
