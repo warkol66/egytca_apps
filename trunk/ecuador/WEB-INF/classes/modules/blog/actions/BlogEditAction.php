@@ -1,8 +1,30 @@
 <?php
 
-class BlogEditAction extends BaseAction {
+class BlogEditAction extends BaseEditAction {
+	
+	function __construct() {
+		parent::__construct('BlogEntry');
+	}
 
-	function BlogEditAction() {
+	protected function postEdit() {
+		parent::postEdit();
+		
+		$module = "Blog";
+		$this->smarty->assign("module",$module);
+		$this->smarty->assign("actualAction", "blogEdit");
+		
+		if ($blogConfig['useCategories']['value'] == "YES"){
+			//$this->smarty->assign("categoryIdValues",BlogCategoryPeer::getAll());
+			$this->smarty->assign("categoryIdValues",BlogCategoryQuery::create()->find());
+		}
+
+		//buscarlos sin hacer referencia a peer
+		$this->smarty->assign("userIdValues",UserQuery::create()->find());
+		$this->smarty->assign("blogEntryStatus",BlogEntryPeer::getStatus());
+		$this->smarty->assign("tags", BlogTagQuery::create()->find());
+	}
+
+	/*function BlogEditAction() {
 		;
 	}
 
@@ -64,6 +86,6 @@ class BlogEditAction extends BaseAction {
 			$smarty->assign('filters',$_GET['filters']);
 
 		return $mapping->findForwardConfig('success');
-	}
+	}*/
 
 }
