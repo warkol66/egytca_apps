@@ -7,7 +7,6 @@
  * @package    planning
  * @subpackage    planningImpactObjectives
  */
-require_once 'BaseListAction.php';
 
 class PlanningOperativeObjectivesListAction extends BaseListAction {
 
@@ -25,11 +24,11 @@ class PlanningOperativeObjectivesListAction extends BaseListAction {
 		$this->smarty->assign("module", $this->module);
 		$this->smarty->assign("section", "OperativeObjectives");
 
-		if ($_GET["nav"]) {
+		if ($_GET["nav"])
 			$this->smarty->assign("nav", true);
-			if (!empty($_GET["filters"]["ministryobjectiveid"]))
-				$this->smarty->assign("ministryObjective", BaseQuery::create('MinistryObjective')->findOneById($_GET["filters"]["ministryobjectiveid"]));
-		}
+		if (!empty($_GET["filters"]["ministryobjectiveid"]))
+			$this->smarty->assign("ministryObjective", BaseQuery::create('MinistryObjective')->findOneById($_GET["filters"]["ministryobjectiveid"]));
+
 	}
 
 }
