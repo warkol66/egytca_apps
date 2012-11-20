@@ -1,4 +1,4 @@
-|-if isset($exists)-|
+|-if !is_object($blogEntry)-|
 <div>Entrada no encontrada, puede que haya sido eliminada o esté incorrectamente identificada.<br />
 Puede regresar a la página principal del blog haciendo click <a href="Main.php?do=blogList">aquí</a></div>
 |-else-|
@@ -113,7 +113,7 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 		</fieldset>
 	</div>
 |-/if-|
-|-if $action eq 'edit'-|
+|-if !$blogEntry->isNew()-|
 <fieldset title="Formulario de edición de etiquetas">
 	<legend>Etiquetas</legend>
 <div id="tagAdding"> <span id="tagMsgField"></span> 

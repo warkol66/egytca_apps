@@ -1,31 +1,19 @@
 <?php
 
-class BlogListAction extends BaseAction {
-
-	function BlogListAction() {
-		;
+class BlogListAction extends BaseListAction {
+	
+	function __construct() {
+		parent::__construct('BlogEntry');
 	}
 
-	function execute($mapping, $form, &$request, &$response) {
+	protected function preList() {
+		parent::preList();
+		$this->module = "BlogEntry";
+	}
 
-    BaseAction::execute($mapping, $form, $request, $response);
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
-
-		$module = "Blog";
-		$smarty->assign("module",$module);
-
-		$moduleConfig = Common::getModuleConfiguration($module);
-		$smarty->assign("moduleConfig",$moduleConfig);
-		$blogConfig = $moduleConfig["blogEntries"];
-		$smarty->assign("blogConfig",$blogConfig);
+	protected function postList() {
+		parent::postList();
+		$this->smarty->assign("module", $this->module);
 		
 		$blogEntryPeer = new BlogEntryPeer();
 		$blogEntryPeer->setReverseOrder();
@@ -43,19 +31,19 @@ class BlogListAction extends BaseAction {
 				$blogEntryPeer->setCategory($category);			
 			}
 			
-			$smarty->assign('filters',$_GET['filters']);
+			$this->smarty->assign('filters',$_GET['filters']);
 		}
 
 
 		if ($_GET["export"] == "xls") {
 			$blogEntries = $blogEntryPeer->getAllFiltered();
 
-			$smarty->assign("blogEntries",$blogEntries);
+			$this->smarty->assign("blogEntries",$blogEntries);
 			$forwardConfig = $mapping->findForwardConfig('xml');
 
 			$this->template->template = "TemplateJQuery.tpl";
 
-			$xml = $smarty->fetch($forwardConfig->getPath());
+			$xml = $this->smarty->fetch($forwardConfig->getPath());
 
 			require_once("ExcelManagement.php");
 			$excel = new ExcelManagement();			
@@ -64,8 +52,8 @@ class BlogListAction extends BaseAction {
 		}
 		
 		$pager = $blogEntryPeer->getAllPaginatedFiltered($_GET["page"]);
-		$smarty->assign("blogEntries",$pager->getResult());
-		$smarty->assign("pager",$pager);
+		$this->smarty->assign("blogEntries",$pager->getResult());
+		$this->smarty->assign("pager",$pager);
 		$url = "Main.php?do=blogList";
 		
 		if (isset($_GET['page']))
@@ -75,14 +63,13 @@ class BlogListAction extends BaseAction {
 		foreach ($_GET['filters'] as $key => $value)
 			$url .= "&filters[$key]=$value";
 		
-		$smarty->assign("url",$url);		
+		$this->smarty->assign("url",$url);		
 
 		$categories = BlogCategoryPeer::getAll();
-		$smarty->assign("categories",$categories);
-		$smarty->assign("blogEntryStatus",BlogEntryPeer::getStatus());   
-		$smarty->assign("message",$_GET["message"]);
+		$this->smarty->assign("categories",$categories);
+		$this->smarty->assign("blogEntryStatus",BlogEntryPeer::getStatus());   
+		$this->smarty->assign("message",$_GET["message"]);
 
-		return $mapping->findForwardConfig('success');
 	}
 
 }
