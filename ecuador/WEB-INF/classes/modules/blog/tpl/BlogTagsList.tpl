@@ -53,7 +53,7 @@
 				<form action="Main.php" method="post" style="display:inline;">
 					<input type="hidden" name="do" value="blogTagsDoDelete" />
 					<input type="hidden" name="id" value="|-$tag->getid()-|" />
-					<input type="submit" name="submit_go_delete_tag" value="Borrar" title="Borrar" onclick="return confirm('Confirme que desea eliminar la etiqueta?')" class="icon iconDelete" />
+					<input type="submit" name="submit_go_delete_tag" value="Borrar" title="Borrar" onclick="return confirm('Confirme que desea eliminar la etiqueta?');" class="icon iconDelete" />
 				</form>
 			</td>
 		</tr>

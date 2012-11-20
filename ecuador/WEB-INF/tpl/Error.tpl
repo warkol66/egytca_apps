@@ -1,6 +1,6 @@
 |-if $errorTagId-|
 <script type="text/javascript" language="javascript" >
-	$('|-$errorTagId-|').innerHTML = '<span class="resultFailure">Error|-if isset($message)-|- |-$message-||-/if-|</span>';
+	$('#|-$errorTagId-|').html('<span class="resultFailure">Error|-if isset($message)-|- |-$message-||-/if-|</span>');
 </script>
 |-else-|
 	<span class="resultFailure">|-$message|multilang_get_translation:$module-|</span>

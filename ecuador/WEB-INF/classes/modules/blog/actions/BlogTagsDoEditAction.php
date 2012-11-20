@@ -24,9 +24,14 @@ class BlogTagsDoEditAction extends BaseAction {
 
 		if ($_POST["action"] == "edit") {
 
-			if (BlogTagPeer::update($_POST["id"],$_POST["tagData"]))
-				return $mapping->findForwardConfig('success');
-
+			if(is_object(BlogTagPeer::get($_POST["id"]))){
+				if (BlogTagPeer::update($_POST["id"],$_POST["tagData"]))
+					return $mapping->findForwardConfig('success');
+			}
+			else{
+				$smarty->assign("exists",false);
+				return $mapping->findForwardConfig('failure');
+			}
 		}
 		else {
 

@@ -26,7 +26,17 @@ class BlogCommentsDoAddXAction extends BaseAction {
 
 		$this->template->template = "TemplateAjax.tpl";
 
-		$smarty->assign('entry',BlogEntryPeer::get($_POST['entryId']));
+		//me fijo si la entry es valida
+		$entry = BlogEntryPeer::get($_POST['entryId']);
+		if(!is_object($entry)){
+			return $mapping->findForwardConfig('failure');
+			$smarty->assign('exists',false);
+		}
+		else
+			$smarty->assign('exists',true);
+
+		$smarty->assign('entry',$entry);
+		
 
 		//estoy creando un nuevo blogComment
 		//validamos el captcha

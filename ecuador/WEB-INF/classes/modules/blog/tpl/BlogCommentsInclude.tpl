@@ -24,7 +24,8 @@
 <a name="commentsForm"></a>
 
 <!-- TITULO FORMULARIO / DEJAR COMENTARIOS -->
- <div id="titleComments"><div id="icoWriteComments"></div>Deja tu comentario</div>		   
+ <div id="titleComments"><div id="icoWriteComments"></div>Deja tu comentario</div>	
+	<div id="msgError"></div>
 	<div id="formComments">
 	<form action="Main.php" method="post" id="formCommentAdder|-$entry->getId()-|">
 <fieldset title="Formulario para agregar comentarios">

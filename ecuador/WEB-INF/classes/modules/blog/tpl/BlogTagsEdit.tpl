@@ -2,6 +2,10 @@
 <h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Etiqueta de Entradas</h1>
 <!-- Link VOLVER -->
 <!-- /Link VOLVER -->
+|-if isset($exists)-|
+<div>Etiqueta no encontrada, puede que haya sido eliminada o esté incorrectamente identificada.<br />
+Puede regresar a la página principal de las etiquetas haciendo click <a href="Main.php?do=blogTagsList">aquí</a></div>
+|-else-|
 <p>A continuación podrá |-if $action eq "edit"-|editar|-else-|crear|-/if-| una etiqueta de entradas del blog.</p>
 <div id="div_tag">
 	|-if $message eq "error"-|
@@ -23,3 +27,4 @@
 	</form>
 </fieldset>
 </div>
+|-/if-|

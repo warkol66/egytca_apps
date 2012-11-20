@@ -30,9 +30,10 @@ class BlogChangeStatusesAction extends BaseAction {
 
 			foreach ($_POST['selected'] as $id) {
 				$blogEntry = BlogEntryQuery::create()->findOneById($id);
-				$blogEntry->setStatus($_POST['status']); 
-				$blogEntry->save();
-
+				if(is_object($blogEntry)){
+					$blogEntry->setStatus($_POST['status']); 
+					$blogEntry->save();
+				}
 			}
 		}
 

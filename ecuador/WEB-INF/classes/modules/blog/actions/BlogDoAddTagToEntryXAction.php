@@ -48,6 +48,11 @@ class BlogDoAddTagToEntryXAction extends BaseAction {
 				}
 
 			}
+			else{
+				$smarty->assign('errorTagId','tagMsgField');
+				$smarty->assign('message','Puede que la entrada o la etiqueta hayan sido eliminadas. Refresque la página para asegurarse');
+				return $mapping->findForwardConfig('failure');
+			}
 
 		}
 
