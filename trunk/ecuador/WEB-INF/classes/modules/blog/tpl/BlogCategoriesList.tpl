@@ -5,6 +5,8 @@
 	<div class="successMessage">Categoría guardada correctamente</div>
 	|-elseif $message eq "deleted_ok"-|
 	<div class="successMessage">Categoría eliminada correctamente</div>
+	|-elseif $message eq "not_deleted"-|
+	<div class="failureMessage">La categoría no pudo ser eliminada correctamente</div>
 	|-/if-|
 	<table border="0" cellpadding="5" cellspacing="0"  class='tableTdBorders' id="tabla-categories">
 		<thead>
@@ -35,14 +37,14 @@
 			</tr>
 		</thead>
 		<tbody>
-		|-if $categories|@count eq 0-|
+		|-if $blogCategoryColl|@count eq 0-|
 		<tr>
 			<td colspan="3">|-if isset($filters)-|No hay categorías que concuerden con la búsqueda|-else-|No hay categorías disponibles|-/if-|</td>
 		</tr>
 		|-else-|
-		|-foreach from=$categories item=category name=for_categories-|
+		|-foreach from=$blogCategoryColl item=category name=for_categories-|
 		<tr>
-<!--			<td>|-$category->getId()-|</td> -->
+			<!--<td>|-$category->getId()-|</td> -->
 			<td>|-$category->getName()-|</td>
 			<td>|-if $category->getTreeLevel() > 0-||-$category->getParentName()-||-/if-|</td>
 			<td nowrap><form action="Main.php" method="get" style="display:inline;">
@@ -57,12 +59,7 @@
 				</form>
 			</td>
 		</tr>
-		|-/foreach-|						
-		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
-		<tr>
-			<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td>
-		</tr>
-		|-/if-|
+		|-/foreach-|
 		<tr>
 			<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=blogCategoriesEdit" class="addNew">Agregar Categoría</a></div></th>
 		</tr>

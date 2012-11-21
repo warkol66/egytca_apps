@@ -1,45 +1,17 @@
 <?php
 
-class BlogCategoriesListAction extends BaseAction {
+class BlogCategoriesListAction extends BaseListAction {
 
-	function BlogCategoriesListAction() {
-		;
+	function __construct() {
+		parent::__construct('BlogCategory');
 	}
 
-	function execute($mapping, $form, &$request, &$response) {
+	protected function preList() {
+		parent::preList();
+	}
 
-		BaseAction::execute($mapping, $form, $request, $response);
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
-
-		$module = "Blog";
-		$smarty->assign("module",$module);
-		$section = "Categories";
-		$smarty->assign("section",$section);
-
-		$blogCategoryPeer = new BlogCategoryPeer();
-
-		if (isset($_GET['filters']))
-			$this->applyFilters($actorCategoryPeer,$_GET['filters'],$smarty);
-
-		$pager = $blogCategoryPeer->getAllPaginatedFiltered($_GET["page"]);
-		$smarty->assign("categories",$pager->getResult());
-		$smarty->assign("pager",$pager);
-		$url = "Main.php?do=blogsCategoryList";
-
-		foreach ($_GET['filters'] as $key => $value)
-			$url .= "&filters[$key]=$value";
-
-		$smarty->assign("url",$url);
-		$smarty->assign("message",$_GET["message"]);
-		return $mapping->findForwardConfig('success');
+	protected function postList() {
+		parent::postList();
 	}
 
 }

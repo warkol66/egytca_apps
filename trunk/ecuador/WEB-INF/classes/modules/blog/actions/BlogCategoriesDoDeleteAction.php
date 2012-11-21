@@ -1,7 +1,10 @@
 <?php
 
-class BlogCategoriesDoDeleteAction extends BaseAction {
+class BlogCategoriesDoDeleteAction extends BaseDoDeleteAction {
 
+	/*function __construct() {
+		parent::__construct('BlogCategory');
+	}*/
 	function BlogCategoriesDoDeleteAction() {
 		;
 	}

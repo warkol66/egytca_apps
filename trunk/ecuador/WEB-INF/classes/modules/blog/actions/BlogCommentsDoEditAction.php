@@ -1,6 +1,11 @@
 <?php
 
-class BlogCommentsDoEditAction extends BaseAction {
+class BlogCommentsDoEditAction extends BaseDoEditAction {
+	
+	/*function __construct() {
+		parent::__construct('BlogComment');
+	}*/
+
 
 	function BlogCommentsDoEditAction() {
 		;

@@ -1,8 +1,22 @@
 <?php
 
-class BlogCommentsEditAction extends BaseAction {
+class BlogCommentsEditAction extends BaseEditAction {
 
-	function BlogCommentsEditAction() {
+	function __construct() {
+		parent::__construct('BlogComment');
+	}
+
+	protected function postEdit() {
+		parent::postEdit();
+		
+		$module = "Blog";
+		$this->smarty->assign("module",$module);
+		
+		//obtener estados
+		$this->smarty->assign("entryIdValues",BlogEntryQuery::create()->find());
+		$this->smarty->assign("userIdValues",UserQuery::create()->find());
+	}
+	/*function BlogCommentsEditAction() {
 		;
 	}
 
@@ -52,6 +66,6 @@ class BlogCommentsEditAction extends BaseAction {
 			$smarty->assign('articleId',$_GET['articleId']);
 
 		return $mapping->findForwardConfig('success');
-	}
+	}*/
 
 }
