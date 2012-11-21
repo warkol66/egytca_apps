@@ -14,7 +14,22 @@
  * @package    propel.generator.blog.classes
  */
 class BlogEntry extends BaseBlogEntry {
+	
+	/*Posibles estados de la entrada*/
+	const NOT_PUBLISHED = 1;
+	const PUBLISHED = 2;
+	const ARCHIVED = 3;
 
+	/**
+	 * Devuelve los estados posibles de la noticias y sus codigos 
+	 * para la generacion de selects
+	 */
+	public function getStatus() {
+		$status[BlogEntry::NOT_PUBLISHED] = 'No Publicada';
+		$status[BlogEntry::PUBLISHED] = 'Publicada';
+		$status[BlogEntry::ARCHIVED] = 'Archivada';
+		return $status;
+	}
 	/**
 	 * Incrementa la cantidad de vistas que tiene el articulo
 	 * y lo persiste

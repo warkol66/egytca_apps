@@ -1,6 +1,6 @@
 <?php
 
-class BlogCategoriesDoEditAction extends BaseEditAction {
+class BlogCategoriesDoEditAction extends BaseDoEditAction {
 	
 	/*function __construct() {
 		parent::__construct('BlogCategory');

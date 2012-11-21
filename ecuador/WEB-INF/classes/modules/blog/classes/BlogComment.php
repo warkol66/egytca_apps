@@ -14,6 +14,27 @@
  * @package    propel.generator.blog.classes
  */
 class BlogComment extends BaseBlogComment {
+	
+	/*Estados de los comments*/
+	const PENDING  = 1;
+	const APPROVED = 2;
+	const SPAM     = 3;
+	const DELETED  = 4;
+	
+	protected static $statusOptions = array(
+						BlogComment::PENDING    => 'Pendiente',
+						BlogComment::APPROVED   => 'Aprobado',
+						BlogComment::SPAM       => 'SPAM',
+						BlogComment::DELETED    => 'Eliminado'
+					);
+
+	/**
+	 * Devuelve los posibles estados
+	 */
+	public static function getStatusOptions() {
+		$statusOptions = BlogCommentPeer::$statusOptions;
+		return $statusOptions;
+	}
 
 	/**
 	 * Indica si un comentario se encuentra pendiente

@@ -13,14 +13,18 @@ class BlogEditAction extends BaseEditAction {
 		$this->smarty->assign("module",$module);
 		$this->smarty->assign("actualAction", "blogEdit");
 		
+		$moduleConfig = Common::getModuleConfiguration($module);
+		$this->smarty->assign("moduleConfig",$moduleConfig);
+		$blogConfig = $moduleConfig["blogEntries"];
+		$this->smarty->assign("blogConfig",$moduleConfig["blogEntries"]);
+		
 		if ($blogConfig['useCategories']['value'] == "YES"){
-			//$this->smarty->assign("categoryIdValues",BlogCategoryPeer::getAll());
 			$this->smarty->assign("categoryIdValues",BlogCategoryQuery::create()->find());
 		}
 
-		//buscarlos sin hacer referencia a peer
+		//users, statuses y tags
 		$this->smarty->assign("userIdValues",UserQuery::create()->find());
-		$this->smarty->assign("blogEntryStatus",BlogEntryPeer::getStatus());
+		$this->smarty->assign("blogEntryStatus",BlogEntry::getStatus());
 		$this->smarty->assign("tags", BlogTagQuery::create()->find());
 	}
 

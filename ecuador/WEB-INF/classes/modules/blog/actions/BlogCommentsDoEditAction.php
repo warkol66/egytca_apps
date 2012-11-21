@@ -26,7 +26,7 @@ class BlogCommentsDoEditAction extends BaseDoEditAction {
 
 		$module = "Blog";
 		$smarty->assign("module",$module);
-
+oy tendiendo problemas con el BaseDoEdit, especìficamente con la línea 36: cada vez que lo llamo obtengo el error: "Fatal error: Call to undefined method Common::addUserInfoToParams()"
 		if ( $_POST["action"] == "edit" ) {
 			//estoy editando un blogComment existente
 			BlogCommentPeer::update($_POST["blogComment"]["id"],$_POST["blogComment"]);
