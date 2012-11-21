@@ -91,7 +91,7 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 				<!--pasaje de parametros de filtros -->
 				|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 					
-				<input type="hidden" name="action" id="action" value="|-$action-|" />
+				<input type="hidden" name="action" id="action" value=|-if !$blogEntry->isNew()-|"edit" |-else-| "create" |-/if-| />
 				<input type="hidden" name="do" id="doEdit" value="blogDoEdit" />
 				<input type="button" id="button_edit_blogEntry" name="button_edit_blogEntry" title="##blog,40,Guardar##" value="##blog,40,Guardar##" onClick="javascript:submitEntryCreation(this.form)"  />			<input type="button" id="button_return_project" name="button_return_project" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=blogList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
 

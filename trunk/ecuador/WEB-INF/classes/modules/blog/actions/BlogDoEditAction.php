@@ -2,6 +2,10 @@
 
 class BlogDoEditAction extends BaseAction {
 
+	/*function __construct() {
+		parent::__construct('BlogEntry');
+	}*/
+	
 	function BlogDoEditAction() {
 		;
 	}

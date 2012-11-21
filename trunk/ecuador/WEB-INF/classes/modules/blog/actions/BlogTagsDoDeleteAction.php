@@ -1,8 +1,12 @@
 <?php
 
-class BlogTagsDoDeleteAction extends BaseAction {
+class BlogTagsDoDeleteAction extends BaseDoDeleteAction {
 
-	function BlogTagsDoDeleteAction() {
+	function __construct() {
+		parent::__construct('BlogTag');
+	}
+	
+	/*function BlogTagsDoDeleteAction() {
 		;
 	}
 
@@ -23,6 +27,6 @@ class BlogTagsDoDeleteAction extends BaseAction {
 		$tag = BlogTagQuery::create()->findPk($_POST["id"]);
 		BlogTagPeer::delete($_POST["id"]);
 		return $mapping->findForwardConfig('success');
-	}
+	}*/
 
 }
