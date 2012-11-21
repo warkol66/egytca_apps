@@ -57,8 +57,8 @@
 	|-elseif $message eq "changed"-|
 	<div class="successMessage">##blog,21,Estados modificados correctamente##</div>
 	|-/if-|
-	|-if isset($exists)-|
-	<div class="failureMessage">La entrada que intenta modificar no existe</div>
+	|-if $notValidId-|
+	<div class="messageFailure">|-$message-|</div>
 	|-/if-|
 |-assign var="colSpan" value=5-|
 |-if $blogConfig.useCategories.value eq "YES"-||-assign var="colSpan" value=$colSpan+1-||-/if-|
