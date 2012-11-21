@@ -1268,14 +1268,13 @@ class Common {
 				$toDate = date('Y-m-d H:i:s', strtotime($toDate.' + 1 day - 1 second'));
 		}
 
-		if (!empty($fromDate) && !empty($toDate))
-			$periodArray = array("min" => $fromDate, "max" => $toDate);
-		else if (!empty($fromDate))
-			$periodArray = array("min" => $fromDate);
-		else
-			$periodArray = array("max" => $toDate);
+		$periodArray = array();
+		if (!empty($fromDate))
+			$periodArray["min"] = $fromDate;
+		if (!empty($toDate))
+			$periodArray["max"] = $toDate;
 
-		return $periodArray;
+		return empty($periodArray) ? null : $periodArray;
 	}
 
 	/**

@@ -99,6 +99,17 @@ class BaseQuery {
 			case 'entityFilter':
 				$this->entityFilter($filterValue);
 				break;
+			
+			case 'dateRange':
+				foreach ($filterValue as $rangeName => $rangeValue) {
+					$rangeMinMax = Common::getPeriodArray(
+						$rangeValue['min']
+					,	$rangeValue['max']
+					);
+					if (!empty($rangeMinMax))
+						$this->addFilter($rangeName, $rangeMinMax);
+				}
+				break;
 	
 			default:
 				$peer = $this->query->getModelPeerName();
