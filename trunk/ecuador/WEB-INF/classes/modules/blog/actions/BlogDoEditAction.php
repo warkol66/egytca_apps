@@ -1,12 +1,17 @@
 <?php
 
-class BlogDoEditAction extends BaseAction {
+class BlogDoEditAction extends BaseDoEditAction {
 
-	/*function __construct() {
+	function __construct() {
 		parent::__construct('BlogEntry');
-	}*/
+	}
 	
-	function BlogDoEditAction() {
+	protected function postUpdate(){
+		parent::postUpdate();
+		
+	}
+	
+	/*function BlogDoEditAction() {
 		;
 	}
 
@@ -60,6 +65,6 @@ class BlogDoEditAction extends BaseAction {
 
 		return $this->addFiltersToForwards($_POST['filters'],$mapping,'success');
 
-	}
+	}*/
 
 }

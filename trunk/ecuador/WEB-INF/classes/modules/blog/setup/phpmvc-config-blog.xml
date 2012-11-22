@@ -9,15 +9,6 @@
 			<forward  name="success" path="BlogEdit.tpl" />
 		</action>
 
-		<action  path = "blogDoEdit"
-						 type = "BlogDoEditAction"
-						 name = "blogDoEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=blogList&amp;message=ok" redirect="true" />
-			<forward  name="failure" path="BlogEdit.tpl" />
-		</action>
-
 		<action  path = "blogList"
 						 type = "BlogListAction"
 						 name = "blogList"
@@ -161,15 +152,6 @@
 						scope = "request"
 				 validate = "true">
 			<forward  name="success" path="BlogCommentsEdit.tpl" />
-		</action>
-
-		<action  path = "blogCommentsDoEdit"
-						 type = "BlogCommentsDoEditAction"
-						 name = "blogCommentsDoEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=blogCommentsList&amp;message=ok" redirect="true" />
-			<forward  name="failure" path="BlogCommentsEdit.tpl" />
 		</action>
 
 		<action  path = "blogCommentsList"

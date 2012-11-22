@@ -110,7 +110,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		|-foreach from=$blogComments item=blogComment name=for_blogComments-|
+		|-foreach from=$blogCommentColl item=blogComment name=for_blogComments-|
 			|-assign var=entry value=$blogComment->getBlogEntry()-|
 			|-if is_object($entry)-|
 			<tr>	
@@ -180,11 +180,10 @@
 						</p>
 				</form>
 			</td>
-		</tr>							
-						
-	|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
+		</tr>
+	|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 		<tr> 
-			<td colspan="9" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+			<td colspan="9" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 		</tr>							
 	|-/if-|						
 	|-if not isset($articleId)-|

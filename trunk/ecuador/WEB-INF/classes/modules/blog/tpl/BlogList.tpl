@@ -84,10 +84,11 @@
 				<td><input type="checkbox" name="selected[]" value="|-$blogEntry->getId()-|"></td>
 				<td>|-$blogEntry->gettitle()-|</td>
 				<td>|-$blogEntry->getcreationDate()|date_format:"%d-%m-%Y"-|</td>
-|-if $blogConfig.useCategories.value eq "YES"-|<td>
+				|-if $blogConfig.useCategories.value eq "YES"-|<td>
 					|-assign var=category value=$blogEntry->getBlogCategory()-|
 					|-if empty($category)-|N/A|-else-||-$category->getName()-||-/if-|
-				</td>|-/if-|
+				</td>
+				|-/if-|
 			<td>|-if "blogChangeStatusX"|security_user_has_access-|	
 						<form action="Main.php" method="post" id="formStatusEntries|-$blogEntry->getId()-|">
 							<select name="blogEntry[status]" id="selectEntryStatus|-$blogEntry->getId()-|" onChange="javascript:submitEntriesChangeFormX('formStatusEntries|-$blogEntry->getId()-|')">

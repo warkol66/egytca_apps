@@ -1,8 +1,12 @@
 <?php
 
-class BlogCommentsListAction extends BaseAction {
+class BlogCommentsListAction extends BaseListAction {
+	
+	function __construct() {
+		parent::__construct('BlogComment');
+	}
 
-	function BlogCommentsListAction() {
+	/*function BlogCommentsListAction() {
 		;
 	}
 
@@ -67,6 +71,6 @@ class BlogCommentsListAction extends BaseAction {
 		$smarty->assign("url",$url);
 		$smarty->assign("message",$_GET["message"]);
 		return $mapping->findForwardConfig('success');
-	}
+	}*/
 
 }

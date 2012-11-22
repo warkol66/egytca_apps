@@ -24,7 +24,7 @@ class BlogEntry extends BaseBlogEntry {
 	 * Devuelve los estados posibles de la noticias y sus codigos 
 	 * para la generacion de selects
 	 */
-	public function getStatus() {
+	public function getStatuses() {
 		$status[BlogEntry::NOT_PUBLISHED] = 'No Publicada';
 		$status[BlogEntry::PUBLISHED] = 'Publicada';
 		$status[BlogEntry::ARCHIVED] = 'Archivada';
