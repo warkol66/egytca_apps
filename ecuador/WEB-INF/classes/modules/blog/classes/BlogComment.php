@@ -32,7 +32,7 @@ class BlogComment extends BaseBlogComment {
 	 * Devuelve los posibles estados
 	 */
 	public static function getStatusOptions() {
-		$statusOptions = BlogCommentPeer::$statusOptions;
+		$statusOptions = BlogComment::$statusOptions;
 		return $statusOptions;
 	}
 

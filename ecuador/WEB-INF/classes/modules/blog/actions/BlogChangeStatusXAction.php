@@ -1,6 +1,10 @@
 <?php
 
 class BlogChangeStatusXAction extends BaseAction {
+	
+	/*function __construct() {
+		parent::__construct('BlogEntry');
+	}*/
 
 	function BlogChangeStatusXAction() {
 		;

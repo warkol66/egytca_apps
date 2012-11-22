@@ -25,10 +25,12 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 	</div>
 </div>
 <script src="Main.php?do=js&name=js&module=blog&code=|-$currentLanguageCode-|" type="text/javascript"></script>
-|-include file='BlogEditTinyMceInclude.tpl' elements="blogEntry_body" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"-| 
+|-include file='BlogEditTinyMceInclude.tpl' elements="params_body" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"-| 
 <h2>##blog,1,Entradas##</h2>
-<h1>|-if $action eq "edit"-|##blog,23,Editar entrada##|-else-|##blog,24,Crear entrada##|-/if-| </h1>
-|-if $message eq "error"-|
+<h1>|-if !$blogEntry->isNew()-|##blog,23,Editar entrada##|-else-|##blog,24,Crear entrada##|-/if-| </h1>
+|-if $message eq "ok"-|
+	<div class="successMessage">Entrada guardada correctamente</div>
+|-elseif $message eq "error"-|
 	<div class="failureMessage">##blog,25,Ha ocurrido un error al intentar guardar la entrada##</div>
 |-/if-|
 <div id="div_blogEntry">
@@ -37,23 +39,23 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 		<fieldset title="##blog,27,Formulario de edición de datos de un noticia##">
 		<legend>##blog,28,Formulario de Entrada##</legend>
 			<p>
-				<label for="blogEntry_title">##blog,10,Título##</label>
-				<input name="blogEntry[title]" type="text" id="blogEntry_title" title="title" value="|-$blogEntry->gettitle()|escape-|" size="60" maxlength="255" />
+				<label for="params_title">##blog,10,Título##</label>
+				<input name="params[title]" type="text" id="params_title" title="title" value="|-$blogEntry->gettitle()|escape-|" size="60" maxlength="255" />
 			</p>
 			<p>
-				<label for="blogEntry_body">##blog,32,Texto de la entrada##</label>
-				<textarea name="blogEntry[body]" cols="60" rows="15" wrap="VIRTUAL"  id="blogEntry_body">|-$blogEntry->getbody()|htmlentities-|</textarea>
+				<label for="params_body">##blog,32,Texto de la entrada##</label>
+				<textarea name="params[body]" cols="60" rows="15" wrap="VIRTUAL"  id="params_body">|-$blogEntry->getbody()|htmlentities-|</textarea>
 		</p>
 			<p>
-				<label for="blogEntry_creationDate">##blog,35,Fecha de Creación##</label>
-				<input name="blogEntry[creationDate]" type="date" id="blogEntry_creationDate" class="datepicker" title="creationDate" value="|-$blogEntry->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<label for="params_creationDate">##blog,35,Fecha de Creación##</label>
+				<input name="params[creationDate]" type="date" id="params_creationDate" class="datepicker" title="creationDate" value="|-$blogEntry->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 			</p>
 			|-assign var=entryId value=$blogEntry->getId()-|
 			|-if not empty($entryId)-|
 			<p>
-				<label for="blogEntry_status">##blog,13,Estado##</label>
-				<select name="blogEntry[status]">
+				<label for="params_status">##blog,13,Estado##</label>
+				<select name="params[status]" id="params_status">
 					|-foreach from=$blogEntryStatus key=key item=name-|
 						<option value="|-$key-|" |-if ($blogEntry->getStatus()) eq $key-|selected="selected"|-/if-|>|-$name-|</option>
 					|-/foreach-|
@@ -61,8 +63,8 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 			</p>
 			|-/if-|
 |-if $blogConfig.useCategories.value eq "YES"-|<p>
-				<label for="blogEntry_categoryId">##blog,14,Categoría##</label>
-				<select id="blogEntry_categoryId" name="blogEntry[categoryId]" title="categoryId">
+				<label for="params_categoryId">##blog,14,Categoría##</label>
+				<select id="params_categoryId" name="params[categoryId]" title="categoryId">
 					<option value="">##blog,18,Seleccione una categoría##</option>
 									|-foreach from=$categoryIdValues item=object-|
 									<option value="|-$object->getid()-|" |-if $blogEntry->getcategoryId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>
@@ -70,8 +72,8 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 								</select>
 		</p>|-/if-|
 			<p>
-				<label for="blogEntry_userId">##blog,38,Usuario##</label>
-				<select id="blogEntry_userId" name="blogEntry[userId]" title="userId">
+				<label for="params_userId">##blog,38,Usuario##</label>
+				<select id="params_userId" name="params[userId]" title="userId">
 					<option value="">##blog,39,Seleccione un Usuario##</option>
 									|-foreach from=$userIdValues item=object-|
 									<option value="|-$object->getid()-|" |-if $blogEntry->getuserId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getusername()-|</option>
@@ -83,15 +85,15 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 				<label>Vistas</label> |-$blogEntry->getViews()-| veces
 			</p>|-/if-|
 				|-/if-|
-				|-if $action eq "edit"-|
-				<input type="hidden" name="id" id="blogEntry_id" value="|-$blogEntry->getid()-|" />
+				|-if !$blogEntry->isNew()-|
+				<input type="hidden" name="id" id="id" value="|-$blogEntry->getid()-|" />
 				|-/if-|
 				
 			<p>	
 				<!--pasaje de parametros de filtros -->
 				|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 					
-				<input type="hidden" name="action" id="action" value=|-if !$blogEntry->isNew()-|"edit" |-else-| "create" |-/if-| />
+				<input type="hidden" name="action" id="action" value=|-if !$blogEntry->isNew()-|"edit"|-else-|"create"|-/if-| />
 				<input type="hidden" name="do" id="doEdit" value="blogDoEdit" />
 				<input type="button" id="button_edit_blogEntry" name="button_edit_blogEntry" title="##blog,40,Guardar##" value="##blog,40,Guardar##" onClick="javascript:submitEntryCreation(this.form)"  />			<input type="button" id="button_return_project" name="button_return_project" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=blogList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
 
@@ -103,7 +105,7 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 		</fieldset>
 	</form>
 </div>
-|-if $blogConfig.useCommets.value eq "YES" && $action eq 'edit'-|	<div>
+|-if $blogConfig.useCommets.value eq "YES" && !$blogEntry->isNew()-|	<div>
 		<fieldset>
 			<form action="Main.php" method="get">
 				<input type="hidden" name="entryId" value="|-$blogEntry->getId()-|" id="entryId" />

@@ -11,8 +11,8 @@ class BlogCommentsEditAction extends BaseEditAction {
 		
 		$module = "Blog";
 		$this->smarty->assign("module",$module);
-		
-		//obtener estados
+
+		$this->smarty->assign("statusOptions",BlogComment::getStatusOptions());
 		$this->smarty->assign("entryIdValues",BlogEntryQuery::create()->find());
 		$this->smarty->assign("userIdValues",UserQuery::create()->find());
 	}
