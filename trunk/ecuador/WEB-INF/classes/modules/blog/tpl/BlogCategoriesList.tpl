@@ -6,7 +6,7 @@
 	|-elseif $message eq "deleted_ok"-|
 	<div class="successMessage">Categoría eliminada correctamente</div>
 	|-elseif $message eq "not_deleted"-|
-	<div class="failureMessage">La categoría no pudo ser eliminada correctamente</div>
+	<div class="errorMessage">La categoría no pudo ser eliminada correctamente</div>
 	|-/if-|
 	<table border="0" cellpadding="5" cellspacing="0"  class='tableTdBorders' id="tabla-categories">
 		<thead>

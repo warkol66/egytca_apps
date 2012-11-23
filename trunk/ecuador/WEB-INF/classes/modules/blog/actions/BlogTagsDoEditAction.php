@@ -1,8 +1,20 @@
 <?php
 
-class BlogTagsDoEditAction extends BaseAction {
+class BlogTagsDoEditAction extends BaseDoEditAction {
+	
+	function __construct() {
+		parent::__construct('BlogTag');
+	}
+	
+	protected function postUpdate(){
+		parent::postUpdate();
+		
+		$module = "Blog";
+		$section = "Tags";
+		
+	}
 
-	function BlogTagsDoEditAction() {
+	/*function BlogTagsDoEditAction() {
 		;
 	}
 
@@ -58,6 +70,6 @@ class BlogTagsDoEditAction extends BaseAction {
 			return $mapping->findForwardConfig('success');
 		}
 
-	}
+	}*/
 
 }

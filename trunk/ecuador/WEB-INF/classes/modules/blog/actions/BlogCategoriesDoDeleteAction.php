@@ -4,6 +4,18 @@ class BlogCategoriesDoDeleteAction extends BaseDoDeleteAction {
 
 	/*function __construct() {
 		parent::__construct('BlogCategory');
+	}
+	
+	protected function preDelete(){
+		parent::preDelete();
+		
+		$module = "Blog";
+		
+		$category = BlogCategoryQuery::create()->findPk($_POST["id"]);
+		if ($category->isRoot()){
+			//ver como borrar los hijos
+		}
+			
 	}*/
 	function BlogCategoriesDoDeleteAction() {
 		;
