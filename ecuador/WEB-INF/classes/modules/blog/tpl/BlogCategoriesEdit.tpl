@@ -4,17 +4,19 @@
 <!-- /Link VOLVER -->
 <p>A continuación podrá |-if !$blogCategory->isNew()-|editar|-else-|crear|-/if-| una categoría de entradas del blog.</p>
 <div id="div_category">
-	|-if $message eq "error"-|
+	|-if $message eq "ok"-|
+		<div class="successMessage">Categoría guardada con éxito</div>
+	|-elseif $message eq "error"-|
 		<div class="errorMessage">Ha ocurrido un error al intentar guardar la categoría</div>
 	|-/if-|
 <fieldset title="Formulario de edición de datos de una categoría">
  <legend>Ingrese los datos de la categoría</legend>
 	<form action="Main.php" method="post">
-	<p><label for="categoryData[name]">Nombre</label>
-		<input name="categoryData[name]" type="text" id="categoryData[name]" title="Nombre" value="|-$blogCategory->getName()-|" size="60" maxlength="100" />
+	<p><label for="params[name]">Nombre</label>
+		<input name="params[name]" type="text" id="params_name" title="Nombre" value="|-$blogCategory->getName()-|" size="60" maxlength="100" />
 	</p>
-	<p><label for="categoryData[parentId]">Dentro de</label>
-			<select id="categoryData[parentId]" name="categoryData[parentId]" title="Dentro de">
+	<p><label for="params[parentId]">Dentro de</label>
+			<select id="params_parentId" name="params[parentId]" title="Dentro de">
 				<option value="0">Ninguna</option>
 			|-foreach from=$categories item=categoryForEach name=for_categories-|
 				|-if $blogCategory->getId() neq $categoryForEach->getId()-|

@@ -196,23 +196,6 @@
 
 <!-- End Section BlogComments -->
 
-		<action  path = "blogTagsDoEdit"
-						 type = "BlogTagsDoEditAction"
-						 name = "blogTagsDoEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=blogTagsList&amp;message=ok" redirect="true" />
-			<forward  name="failure" path="BlogTagsEdit.tpl" />
-		</action>
-		<action  path = "blogCategoriesDoEdit"
-						 type = "BlogCategoriesDoEditAction"
-						 name = "blogCategoriesDoEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=blogCategoriesList&amp;message=ok" redirect="true" />
-			<forward  name="failure" path="BlogEdit.tpl" />
-		</action>
-
 	</action-mappings>
 
 <!-- End Module Blog-->

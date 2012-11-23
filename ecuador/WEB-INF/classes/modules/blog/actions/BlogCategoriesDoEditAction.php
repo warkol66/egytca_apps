@@ -1,9 +1,16 @@
 <?php
 
-class BlogCategoriesDoEditAction extends BaseDoEditAction {
+class BlogCategoriesDoEditAction extends BaseAction {
 	
 	/*function __construct() {
 		parent::__construct('BlogCategory');
+	}
+	
+	protected function postEdit(){
+		
+		$module = "Blog";
+		$section = "Categories";
+		
 	}*/
 
 	function BlogCategoriesDoEditAction() {
@@ -27,14 +34,15 @@ class BlogCategoriesDoEditAction extends BaseDoEditAction {
 		$section = "Categories";
 
 		if ($_POST["action"] == "edit") {
-
-			if (BlogCategoryPeer::update($_POST["id"],$_POST["categoryData"]))
+			
+			//categoryData
+			if (BlogCategoryPeer::update($_POST["id"],$_POST["params"]))
 				return $mapping->findForwardConfig('success');
 
 		}
 		else {
 
-			$result = BlogCategoryPeer::create($_POST["categoryData"]);
+			$result = BlogCategoryPeer::create($_POST["params"]);
 
 			if (!$result) {
 				$category = new BlogCategory();

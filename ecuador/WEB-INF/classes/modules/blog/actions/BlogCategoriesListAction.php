@@ -6,14 +6,6 @@ class BlogCategoriesListAction extends BaseListAction {
 		parent::__construct('BlogCategory');
 	}
 
-	protected function preList() {
-		parent::preList();
-	}
-
-	protected function postList() {
-		parent::postList();
-	}
-
 }
 
 
