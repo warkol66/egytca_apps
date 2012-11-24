@@ -17,16 +17,15 @@
 	<col width="10%">
 	<col width="5%">
 	<thead>
-	<tr>
-		<td colspan='7' class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch" style="display:inline;">Busqueda de usuario</a>
-			<div id="divSearch" style="display:|-if isset($searchString)-|block|-else-|none|-/if-|;">
-			<form action='Main.php' method='get' style="display:inline;">
-	  		<input type="hidden" name="do" value="registrationSearch" id="do" />
-				Texto a buscar: <input name="searchString" type="text" size="13" class="textbox" value="|-if isset($searchString)-||-$searchString-||-/if-|" /><br />
-				El texto ingresado se buscará en identificación de usuario, nombre, apellido y correo electrónico
-				<input type="submit" name="searchSubmit" value="Buscar" class="tdSearchButton"/>|-if isset($searchString)-|&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" name="searchSubmit" value="Ver todos" class="tdSearchButton" onclick="location.href='Main.php?do=registrationList'"/>|-/if-|
-		</form></div></td>
-	</tr>
+    <tr>
+        <td colspan="4" class="tdSearch"><a href="javascript:void(null);" onClick='$("divSearch").toggle();' class="tdTitSearch">Busqueda por nombre</a>
+            <div id="divSearch" ><form action='Main.php' method='get' style="display:inline;">
+                <input type="hidden" name="do" value="registrationList" />
+                Nombre: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" />
+                &nbsp;&nbsp;<input type='submit' value='Buscar' class='tdSearchButton' />|-if $filters|@count gt 0-|
+                <input type='button' onClick='location.href="Main.php?do=registrationList"' value="Quitar Filtros" title="Quitar Filtros"/>
+            |-/if-|</form></div></td>
+    </tr>
 	<tr>
 		<th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=registrationEdit" class="addLink">Crear Nuevo Usuario</a></div></th>
 	</tr>
@@ -39,7 +38,14 @@
 		<th>&nbsp;</th>
 	</tr>
 	</thead>
-	|-foreach from=$users item=user-|
+
+    |-if $registrationUserColl|@count eq 0-|
+    <tr>
+        <td colspan="6">|-if isset($filters)-|No hay usuarios que concuerden con la búsqueda|-else-|No hay usuarios disponibles|-/if-|</td>
+    </tr>
+    |-else-|
+
+	|-foreach from=$registrationUserColl item=user-|
 	<tr>	
 		|-assign var=userinfo value=$user->getUserInfo()-||-assign var=userInfoTelephone value=$userinfo->getTelephone()-||-assign var=userInfoOrganization value=$userinfo->getOrganization()-||-*assign var=userInfoGroup value=$userInfo->getGroup()*-||-*assign var=userInfoCountry value=$userInfo->getCountry()*-||-assign var=userCreated value=$user->getCreated()-||-assign var=userLastLogin value=$user->getLastLogin()-|
 		<td><a href="#" |-popup sticky=true caption="Información del Usuario" trigger="onMouseOver" text="Organización: $userInfoOrganization <br />Teléfono: $userInfoTelephone<br />Grupo: $userInfoGroup<br />País: $userInfoCountry<br />Fecha de registro: $userCreated<br />Último ingreso: $userLastLogin" snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a></td>
@@ -54,7 +60,8 @@
 		<tr> 
 			<td colspan="7" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 		</tr>							
-	|-/if-|						
+	|-/if-|
+    |-/if-|
 	<tr>
 		<th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=registrationEdit" class="addLink">Crear Nuevo Usuario</a></div></th>
 	</tr>
