@@ -1,5 +1,5 @@
 ﻿<div id="div_blogEntries">
-		|-foreach from=$blogEntries item=blogEntry name=for_blogEntries-|
+		|-foreach from=$blogEntryColl item=blogEntry name=for_blogEntries-|
 			<div id="article|-$blogEntry->getId()-|" class="blog01">
 				<h4>|-$blogEntry->getCreationDate()|date_format:"%A %e de %B de %Y"-|</h4>
 				<h1><a href="Main.php?do=blogView&id=|-$blogEntry->getId()-|">|-$blogEntry->gettitle()-|</a>
@@ -20,7 +20,7 @@
 		</div><div class="close"></div>
 			</div>
 		|-/foreach-|			
-		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
+		|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 		<div class="pages">|-if $smarty.get.page == ''-||-include file="BlogHomePaginateInclude.tpl"-||-else-||-include file="BlogShowPaginateInclude.tpl"-||-/if-|</div>
 		|-/if-|
 	</div>

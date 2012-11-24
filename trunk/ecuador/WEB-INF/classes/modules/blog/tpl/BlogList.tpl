@@ -145,7 +145,7 @@
 				</td>
 			</tr>
 		|-/if-|
-		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
+		|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 			<tr> 
 				<td colspan="|-$colSpan-|" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 			</tr>							

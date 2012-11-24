@@ -1,8 +1,35 @@
 <?php
 
-class BlogShowAction extends BaseAction {
+class BlogShowAction extends BaseListAction {
 
-	function BlogShowAction() {
+	function __construct() {
+		parent::__construct('BlogEntry');
+	}
+	
+	protected function postEdit() {
+		parent::postEdit();
+		
+		$module = "Blog";
+		$this->smarty->assign("module",$module);
+		 
+		$moduleConfig = Common::getModuleConfiguration($module);
+		$this->smarty->assign('moduleConfig',$moduleConfig);
+		
+		/*$url = "Main.php?do=blogShow";
+		if (isset($_GET['archive'])) 
+			$url .= "&archive=1";
+		$smarty->assign("url",$url);				
+		
+		if (isset($_REQUEST["rss"])) {
+			$this->template->template = "TemplatePlain.tpl";
+			header("content-Type:application/rss+xml; charset=utf-8"); 
+			return $mapping->findForwardConfig('rss');
+		}*/
+		
+
+	}
+
+	/*function BlogShowAction() {
 		;
 	}
 
@@ -56,7 +83,7 @@ class BlogShowAction extends BaseAction {
 		$totalPages = ceil(($pager->getTotalRecordCount() - $entriesInHome ) / $entriesPerPage);
 		$smarty->assign("totalPages",$totalPages);
 
-		$smarty->assign("blogEntries",$pager->getResult());
+		$smarty->assign("blogEntryColl",$pager->getResult());
 		$smarty->assign("pager",$pager);
 		$url = "Main.php?do=blogShow";
 		if (isset($_GET['archive'])) 
@@ -70,6 +97,6 @@ class BlogShowAction extends BaseAction {
 		}
    
 		return $mapping->findForwardConfig('success');
-	}
+	}*/
 
 }

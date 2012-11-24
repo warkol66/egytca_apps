@@ -1,23 +1,6 @@
 <!-- Module Blog -->
 	<action-mappings>
 
-		<action  path = "blogEdit"
-						 type = "BlogEditAction"
-						 name = "blogEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="BlogEdit.tpl" />
-		</action>
-
-		<action  path = "blogList"
-						 type = "BlogListAction"
-						 name = "blogList"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="BlogList.tpl" />
-			<forward  name="xml" path="BlogListXml.tpl" />
-		</action>
-
 		<action  path = "blogSendToEmailX"
 						 type = "BlogSendToEmailXAction"
 						 name = "blogSendToEmailX"
@@ -34,14 +17,6 @@
 				 validate = "true">
 			<forward  name="success" path="BlogSearch.tpl" />
 			<forward  name="rss" path="BlogShowRss.tpl" />
-		</action>
-
-		<action  path = "blogDoDelete"
-						 type = "BlogDoDeleteAction"
-						 name = "blogDoDelete"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=blogList&amp;message=deleted_ok" redirect="true" />
 		</action>
 
 		<action  path = "blogShow"

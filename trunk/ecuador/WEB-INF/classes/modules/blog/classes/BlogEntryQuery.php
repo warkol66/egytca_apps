@@ -14,12 +14,4 @@
  * @package    propel.generator.blog.classes
  */
 class BlogEntryQuery extends BaseBlogEntryQuery {
-
-	public function getComments($id){
-		
-		$comments = BlogCommentsQuery::create()->findByEntryid($id);
-		return $comments;
-		
-	}
-
 } // BlogEntryQuery
