@@ -2,7 +2,22 @@
 
 class BlogCommentsShowAction extends BaseAction {
 
-	function BlogCommentsShowAction() {
+	function __construct() {
+		parent::__construct('BlogEntry');
+	}
+	
+	protected function postEdit() {
+		parent::postEdit();
+		
+		$module = "Blog";
+		$this->smarty->assign("module",$module);
+		
+		$this->smarty->assign($comments, BlogEntryQuery::getComments($this->entity->getid()));
+
+		//obtener los comments de la entry
+	}
+
+	/*function BlogCommentsShowAction() {
 		;
 	}
 
@@ -31,6 +46,6 @@ class BlogCommentsShowAction extends BaseAction {
 		$smarty->assign("article",$article);
 
 		return $mapping->findForwardConfig('success');
-	}
+	}*/
 
 }
