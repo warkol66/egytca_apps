@@ -5,8 +5,18 @@ class BlogChangeStatusesAction extends BaseDoEditAction {
 	/*function __construct() {
 		parent::__construct('BlogEntry');
 	}
-	* Arreglar para que edite mas de una entidad
-	* */
+	//* Arreglar para que edite mas de una entidad
+
+	protected function preUpdate(){
+		parent::preUpdate();
+		
+		if (isset($_POST['status']) && isset($_POST['selected'])) {
+			BlogEntryQuery::create()
+				->filterById(($_POST['selected']), Criteria::IN)
+				->update(array('status' => $_POST['status']));
+		}
+		
+	}*/
 
 	function BlogChangeStatusesAction() {
 		;

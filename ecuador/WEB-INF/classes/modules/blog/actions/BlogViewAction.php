@@ -23,7 +23,7 @@ class BlogViewAction extends BaseAction {
 		$smarty->assign("module",$module);
 		$moduleConfig = Common::getModuleConfiguration($module);
 		$smarty->assign("moduleConfig",$moduleConfig);
-		$blogConfig = $moduleConfig["blogEntries"];
+		$blogConfig = $moduleConfig["params"];
 		$smarty->assign("blogConfig",$blogConfig);
 
 		/**
