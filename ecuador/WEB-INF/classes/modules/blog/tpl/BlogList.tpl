@@ -91,12 +91,12 @@
 				|-/if-|
 			<td>|-if "blogChangeStatusX"|security_user_has_access-|	
 						<form action="Main.php" method="post" id="formStatusEntries|-$blogEntry->getId()-|">
-							<select name="blogEntry[status]" id="selectEntryStatus|-$blogEntry->getId()-|" onChange="javascript:submitEntriesChangeFormX('formStatusEntries|-$blogEntry->getId()-|')">
+							<select name="params[status]" id="selectEntryStatus|-$blogEntry->getId()-|" onChange="javascript:submitEntriesChangeFormX('formStatusEntries|-$blogEntry->getId()-|')">
 								|-foreach from=$blogEntryStatus key=key item=name-|
 									<option value="|-$key-|" |-if ($blogEntry->getStatus()) eq $key-|selected="selected"|-/if-|>|-$name-|</option>
 								|-/foreach-|
 							</select>											
-							<input type="hidden" name="blogEntry[id]" id="blogEntry_id" value="|-$blogEntry->getid()-|" />
+							<input type="hidden" name="id" id="id" value="|-$blogEntry->getid()-|" />
 							<input type="hidden" name="do" value="blogChangeStatusX" id="do">
 						</form>
 				|-else-|

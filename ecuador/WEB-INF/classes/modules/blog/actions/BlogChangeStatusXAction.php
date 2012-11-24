@@ -1,12 +1,17 @@
 <?php
 
-class BlogChangeStatusXAction extends BaseAction {
+class BlogChangeStatusXAction extends BaseDoEditAction {
 	
-	/*function __construct() {
+	function __construct() {
 		parent::__construct('BlogEntry');
-	}*/
+	}
+	
+	protected function postUpdate(){
+		parent::postUpdate();
+		
+	}
 
-	function BlogChangeStatusXAction() {
+	/*function BlogChangeStatusXAction() {
 		;
 	}
 
@@ -57,6 +62,6 @@ class BlogChangeStatusXAction extends BaseAction {
 			}
 		}
 		return $mapping->findForwardConfig('success');
-	}
+	}*/
 
 }

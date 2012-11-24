@@ -1,8 +1,38 @@
 <?php
 
-class BlogCommentsDoAddXAction extends BaseAction {
+class BlogCommentsDoAddXAction extends BaseDoEditAction {
 
-	function BlogCommentsDoAddXAction() {
+	public function __construct() {
+		parent::__construct('BlogComment');
+	}
+	
+	protected function preUpdate() {
+		parent::preUpdate();
+		
+		$moduleConfig = Common::getModuleConfiguration($module);
+		
+		if ( (empty($_POST['formId'])) || !Common::validateCaptcha($_POST['formId']) || !empty($_POST['securityCode'])) {
+			$smarty->assign('captcha',true);
+			return $mapping->findForwardConfig('failure');
+		}
+		
+		$_POST["params"]["creationDate"] = date('Y-m-d H:m:s');
+		$_POST["params"]["ip"] = $_SERVER['REMOTE_ADDR'];
+		
+		
+		//Cambiar llamado a peer
+		if ($moduleConfig["comments"]["moderated"] == "YES") {
+			if ($params['blogComment']['userId'])
+				$_POST["params"]["status"] = BlogCommentPeer::APPROVED;
+			else
+				$_POST["params"]["status"] = BlogCommentPeer::PENDING;
+		}
+		else
+			$_POST["params"]["status"] = BlogCommentPeer::APPROVED;
+		
+	}
+
+	/*function BlogCommentsDoAddXAction() {
 		;
 	}
 
@@ -67,5 +97,5 @@ class BlogCommentsDoAddXAction extends BaseAction {
 
 		$smarty->assign('comment',$comment);
 		return $mapping->findForwardConfig('success');
-	}
+	}*/
 }

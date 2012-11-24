@@ -1,6 +1,12 @@
 <?php
 
-class BlogChangeStatusesAction extends BaseAction {
+class BlogChangeStatusesAction extends BaseDoEditAction {
+	
+	/*function __construct() {
+		parent::__construct('BlogEntry');
+	}
+	* Arreglar para que edite mas de una entidad
+	* */
 
 	function BlogChangeStatusesAction() {
 		;

@@ -69,14 +69,6 @@
 			<forward  name="include" path="BlogView.tpl" />
 		</action>
 
-		<action  path = "blogChangeStatusX"
-						 type = "BlogChangeStatusXAction"
-						 name = "blogChangeStatusX"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="BlogChangeStatusX.tpl" />
-		</action>
-
 		<action  path = "blogView"
 						 type = "BlogViewAction"
 						 name = "blogView"
@@ -186,13 +178,6 @@
 			<forward  name="success" path="/Main.php?do=blogCommentsList&amp;message=changed" redirect="true" />
 		</action>
 
-		<action  path = "blogChangeStatuses"
-						 type = "BlogChangeStatusesAction"
-						 name = "blogChangeStatuses"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=blogList&amp;message=changed" redirect="true" />
-		</action>
 
 <!-- End Section BlogComments -->
 
