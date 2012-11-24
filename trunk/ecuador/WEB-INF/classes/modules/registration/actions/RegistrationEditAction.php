@@ -1,83 +1,64 @@
 <?php
 
-class RegistrationEditAction extends BaseAction {
+require_once 'BaseEditAction.php';
+
+class RegistrationEditAction extends BaseEditAction {
+
+	/**
+	 * Esto para el intellisense del editor
+	 * @var RegistrationUser
+	 */
+	protected $entity;
 
 
-	function RegistrationEditAction() {
-		;
+	function __construct() {
+		parent::__construct('RegistrationUser');
+
 	}
 
+	protected function preEdit(){
+		$this->template->template = 'TemplateJQuery.tpl';
+	}
 
-	function execute($mapping, $form, &$request, &$response) {
+	protected function postEdit() {
+		parent::postEdit();
 
-		BaseAction::execute($mapping, $form, $request, $response);
+		$this->smarty->assign("countries", RegistrationUserInfoQuery::getCountries());
+		$this->smarty->assign("groups", RegistrationUserInfoQuery::getGroups());
 
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
+		$loggedUser=Common::getLoggedUser();
+
+		if ($loggedUser && get_class($loggedUser)=="User") {
+			$this->smarty->assign('admin',true);
 		}
-
-		$module = "Registration";
-		$smarty->assign("module",$module);
-
-		//opciones para construccion de la vista
-		$registrationUserInfoPeer = new RegistrationUserInfoPeer();
-		$groups = $registrationUserInfoPeer->getGroups();
-		$smarty->assign('groups',$groups);
-
-		$countries = $registrationUserInfoPeer->getCountries();
-		$smarty->assign('countries',$countries);
-
-		//indicador de que es usuario administrativo para opciones especiales de edicion
-		if (isset($_SESSION["login_user"])) {
-			$smarty->assign('admin',true);
-		}
-
 
 		//verifico que este activo el newsletter para que construir la vista.
 		if (Common::systemHasNewsletter()) {
-			$smarty->assign('newsletterActive',true);
+			$this->smarty->assign('newsletterActive',true);
 		}
 
 		//verifico la utilizacion de captcha para construir la opcion en la vista
-		if ((!isset($_SESSION["login_user"])) && Common::getRegistrationCaptchaUse()) {
-			$smarty->assign('useCaptcha',true);
+		if (!$loggedUser && Common::getRegistrationCaptchaUse()) {
+			$this->smarty->assign('useCaptcha',true);
 		}
 
-
-		//verifico si un User de Administracion quiere hacer una modificacion sobre un usuario por registracion
-		//TODO posible agregado de verificacion de permisos de los usuarios.
-		if (isset($_GET['id_registered_user']) && isset($_SESSION["login_user"])) {
-
-			$userByRegistrationPeer = new RegistrationUserPeer();
-			$result = $userByRegistrationPeer->get($_GET['id_registered_user']);
-			//devolvemos los datos del usuario creado.
-			$smarty->assign("userByRegistration",$result);
-			$smarty->assign("action","update");
-			return $mapping->findForwardConfig('success');
-
-		}
-
-			/**
-			* Use a different template si no es usuario administrativo
-			*/
-			if (!isset($_SESSION["login_user"])) {
+		/**
+		 * Use a different template si no es usuario administrativo
+		 */
+		if (!$loggedUser || get_class($loggedUser)!="User") {
 			$this->template->template = "TemplatePublic.tpl";
 		}
 
 		//verifico si el usuario registrado quiere efectuar cambios sobre los datos de su cuenta.
-		if (isset($_SESSION['loginRegistrationUser'])) {
-			$user = $_SESSION['loginRegistrationUser'];
-			$smarty->assign("userByRegistration",$user);
-			$smarty->assign("action","update");
-			return $mapping->findForwardConfig('success');
+		if ($loggedUser && get_class($loggedUser)=="RegistrationUser") {
+			$entity=RegistrationUserQuery::create()->findPk($loggedUser->getId());
+			if($entity) $this->entity=$entity;
 		}
 
-		//sera entonces un usuario nuevo.
+		$registrationUserInfo=$this->entity->getRegistrationUserInfo();
+		if($registrationUserInfo)
+			$this->smarty->assign("registrationUserInfo",$this->entity->getRegistrationUserInfo());
 
-		$smarty->assign("action","new");
-		return $mapping->findForwardConfig('success');
 	}
 
 }

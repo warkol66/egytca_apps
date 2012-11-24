@@ -24,6 +24,21 @@ class RegistrationUser extends BaseRegistrationUser {
 		// is where any default values for this object are set.
 		parent::__construct();
 	}
+
+	/**
+	 * Cuando el Usuario se esta creando se inicializan algunos campos
+	 * @param PropelPDO $conn
+	 * @return bloolean|bool
+	 */
+	public function preSave(PropelPDO $conn=null){
+		if($this->isNew()){
+			$now=strtotime("now");
+			$this->setCreated($now);
+			$this->setUpdated($now);
+			$this->setIp($_SERVER['REMOTE_ADDR']);
+		}
+		return true;
+	}
 	
 	public function canChangeToUsername($username) {
 		
@@ -36,45 +51,12 @@ class RegistrationUser extends BaseRegistrationUser {
 		
 	}
 	
-	public function getUserInfo() {
-		
-		require_once('RegistrationUserInfoPeer.php');
-		
-		return RegistrationUserInfoPeer::get($this);
-		
-	}
-	
 	public function getLevel() {
 		require_once("Level.php");
 		$level = new Level();
 		$level->setBitLevel(1);
 		return $level;
 	}
-	
-	/**
-	 * Indica si el usuario por registracion se encuentra activo
-	 * @return boolean
-	 */
-	public function isActive() {
-		return ($this->getActive() == 1);
-	}
-
-	/**
-	 * Indica si el usuario por registracion se encuentra verificado
-	 * @return boolean
-	 */	
-	public function isVerified() {
-		return ($this->getVerified() == 1);
-	}
-
-	/**
-	 * Indica si un usuario ha sido creado por un proceso de importacion
-	 * @return boolean
-	 */
-	public function isImported() {
-		return $this->getImported();
-	}
-
 
 	/**
 	 * Indica si un usuario quiere recibir un newsletter
@@ -88,6 +70,5 @@ class RegistrationUser extends BaseRegistrationUser {
 	public function cancel() {
 		parent::delete();
 	}
-
 
 } // RegistrationUser

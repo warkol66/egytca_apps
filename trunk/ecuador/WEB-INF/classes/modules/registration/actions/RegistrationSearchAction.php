@@ -1,6 +1,13 @@
 <?php
 
-class RegistrationSearchAction extends BaseAction {
+
+
+require_once 'BaseListAction.php';
+/**
+ * Listado de Usuarios Registrados
+ * @package registration
+ */
+class RegistrationSearchAction extends BaseListAction {
 
 	function RegistrationSearchAction() {
 		;
@@ -50,6 +57,8 @@ class RegistrationSearchAction extends BaseAction {
 				$toRecord = $pager->getTotalRecordCount();
 
 			$smarty->assign("fromRecord",$fromRecord);
+
+
 			$smarty->assign("toRecord",$toRecord);
 
 			$smarty->assign("url",$url);

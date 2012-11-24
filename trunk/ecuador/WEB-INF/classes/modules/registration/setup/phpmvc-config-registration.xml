@@ -57,6 +57,7 @@
 			<forward name="success-user-hash" path="RegistrationHashVerificationSent.tpl" />			
 			<forward name="success-update-user" path="/Main.php?do=registrationDoLogin" redirect="true"/>
 			<forward name="failure" path="RegistrationEdit.tpl" />
+            <forward name="failure-edit" path="RegistrationEdit.tpl" />
 		</action>
 
 		<action    path = "registrationDoHashVerification"
