@@ -12,9 +12,9 @@
 		<table id="tabla-objectives" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 		<thead>
 			<tr class="thFillTitle">
-				<th width="20%">##objectives,1,Eje de Gestión##</th>
-				<th width="20%">##objectives,2,Objetivo Etratégico##</th>
-				<th width="50%">##objectives,3,Objetivo##</th>
+				<th width="20%">Objetivo de Impacto </th>
+				<th width="20%">Objetivo Ministerial </th>
+				<th width="50%">Objetivo Operativo </th>
 				<th width="5%">Fecha</th>
 				<th width="5%">Fecha de Expiración</th>
 				<th width="5%">Logrado</th>
@@ -62,10 +62,10 @@
 		<table id="tabla-projectss" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 		<thead>
 			<tr class="thFillTitle">
-				<th width="20%">##objectives,1,Eje de Gestión##</th>
-				<th width="20%">##objectives,2,Objetivo Etratégico##</th>
-				<th width="20%">##objectives,3,Objetivo##</th>
-				<th width="50%">##projects,1,Proyecto##</th>
+				<th width="20%">Objetivo de Impacto </th>
+				<th width="20%">Objetivo Ministerial </th>
+				<th width="20%">Objetivo Operativo </th>
+				<th width="50%">Proyecto</th>
 				<th width="5%">Fecha</th>
 				<th width="5%">Fecha de Expiración</th>
 				<th width="5%">Logrado</th>
@@ -74,18 +74,21 @@
 		<tbody>
 		|-foreach from=$position->getAllProjectsWithDescendants() item=project name=for_projectss-|
 			<tr>
+				|-assign var=operativeObjective value=$project->getOperativeObjective()-|
+				|-if is_object($operativeObjective)-|
+					|-assign var=ministryObjective value=$operativeObjective->getMinistryObjective()-|
+				|-/if-|
+				|-if is_object($ministryObjective)-|
+				|-assign var=impactObjective value=$ministryObjective->getImpactObjective()-|
+				|-/if-|
+				<td>|-$impactObjective-|</td>
+				<td>|-$ministryObjective-|</td>
+				<td>|-$operativeObjective-|</td>
 				<td>|-$project->getName()-|</td>
-				<td>|-$project->statusColor()-|</td>
-				<td>asd</td>
-				<td>asd</td>
-				<td>asd</td>
-				<td>asd</td>
-				<td>asd</td>
-				
-				|-*<td>|-assign var="objective" value=$project->getObjective()-||-if is_object($objective)-||-$objective->getPolicyGuideline()-||-/if-|</td>
-				<td>|-if is_object($objective)-||-$objective->getStrategicObjective()-||-/if-|</td>
-				<td>|-if is_object($objective)-||-$objective->getName()-||-/if-|</td>
-				<td><a href="Main.php?do=projectsList&filters[objective]=|-$project->getObjectiveId()-|&filters[fromObjectives]=true" title="Ver proyectos" class="follow">|-$project->getname()-|</a></td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td style="background-color:|-$project->statusColor()-|">&nbsp;</td>
+				|-*<td><a href="Main.php?do=projectsList&filters[objective]=|-$project->getObjectiveId()-|&filters[fromObjectives]=true" title="Ver proyectos" class="follow">|-$project->getname()-|</a></td>
 				<td nowrap>|-$project->getdate()|date_format-|</td>
 				<td nowrap>|-$project->getgoalExpirationDate()|date_format-|</td>
 				<td align="center">|-$project->getFinished()|yes_no|multilang_get_translation:"common"-|</td>*-|
