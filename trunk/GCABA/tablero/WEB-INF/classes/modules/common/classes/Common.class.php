@@ -1400,4 +1400,38 @@ class Common {
 		return;
 	}
 
+	/**
+	 * Guarda en la sesion el modo planeamiento
+	 */
+	public static function setPlanningMode() {
+		$_SESSION["planningMode"] = true;
+		unset($_SESSION["panelMode"]);
+	}
+
+	/**
+	 * Guarda en la sesion el modo tablero
+	 */
+	public static function setPanelMode() {
+		$_SESSION["panelMode"] = true;
+		unset($_SESSION["planningMode"]);
+	}
+
+	/**
+	 * Indica si el sistema está en modo planeamiento
+	 * @return boolean
+	 */
+	public static function isPlanningMode() {
+		if (isset($_SESSION["planningMode"]) && $_SESSION["planningMode"])
+		return true;
+	}
+
+	/**
+	 * Indica si el sistema está en modo tablero
+	 * @return boolean
+	 */
+	public static function isPanelMode() {
+		if (isset($_SESSION["panelMode"]) && $_SESSION["planningMode"])
+		return true;
+	}
+
 } // end of class
