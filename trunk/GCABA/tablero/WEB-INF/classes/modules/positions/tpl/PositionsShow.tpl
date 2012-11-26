@@ -23,24 +23,33 @@
 		</thead>
 		<tbody>
 		|-foreach from=$objectives item=objective name=for_objectives-|
-		|-assign var=colorsCount value=$objective->getProjectsByStatusColorCountAssoc()-|
+			|-assign var=colorsCount value=$objective->getProjectsByStatusColorCountAssoc()-|
 			<tr>
-				<td>|-$objective->getPolicyGuideline()-|</td>
+				<!-- TODO: completar -->
+				|-*<td>|-$objective->getPolicyGuideline()-|</td>
 				<td>|-$objective->getStrategicObjective()-|</td>
 				<td><a href="Main.php?do=projectsList&filters[objective]=|-$objective->getid()-|&filters[fromObjectives]=true" title="Ver proyectos del Objetivo" class="follow">|-$objective->getname()-|</a></td>
 				<td nowrap>|-$objective->getdate()|date_format-|</td>
 				<td nowrap>|-$objective->getexpirationDate()|date_format-|</td>
-				<td align="center">|-if $objective->getachieved() eq 0-|No|-/if-||-if $objective->getachieved() eq 1-|Si|-/if-|</td>
+				<td align="center">|-if $objective->getachieved() eq 0-|No|-/if-||-if $objective->getachieved() eq 1-|Si|-/if-|</td>*-|
+				<td>|-$objective->getName()-|</td>
+				
+				<td>asd</td>
+				<td>asd</td>
+				<td>asd</td>
+				<td>asd</td>
+				<td>asd</td>
+				
 				<td width="2%" align="center" nowrap >
-					<a href="Main.php?do=projectsShow&objectiveId=|-$objective->getId()-|&color=white" class="flagWhite">
+					<a href="Main.php?do=planningProjectsShow&objectiveId=|-$objective->getId()-|&color=white" class="flagWhite">
 						|-$colorsCount.white-|
-					</a><a href="Main.php?do=projectsShow&objectiveId=|-$objective->getId()-|&color=green" class="flagGreen">
+					</a><a href="Main.php?do=planningProjectsShow&objectiveId=|-$objective->getId()-|&color=green" class="flagGreen">
 						|-$colorsCount.green-|
-					</a><a href="Main.php?do=projectsShow&objectiveId=|-$objective->getId()-|&color=yellow" class="flagYellow">					
+					</a><a href="Main.php?do=planningProjectsShow&objectiveId=|-$objective->getId()-|&color=yellow" class="flagYellow">					
 						|-$colorsCount.yellow-|
-					</a><a href="Main.php?do=projectsShow&objectiveId=|-$objective->getId()-|&color=red" class="flagRed">
+					</a><a href="Main.php?do=planningProjectsShow&objectiveId=|-$objective->getId()-|&color=red" class="flagRed">
 						|-$colorsCount.red-|
-					</a><a href="Main.php?do=projectsShow&objectiveId=|-$objective->getId()-|&color=blue" class="flagBlue">
+					</a><a href="Main.php?do=planningProjectsShow&objectiveId=|-$objective->getId()-|&color=blue" class="flagBlue">
 						|-$colorsCount.blue-|
 					</a>
 				</td>
@@ -63,15 +72,23 @@
 			</tr>
 		</thead>
 		<tbody>
-		|-foreach from=$projects item=project name=for_projectss-|
+		|-foreach from=$position->getAllProjectsWithDescendants() item=project name=for_projectss-|
 			<tr>
-				<td>|-assign var="objective" value=$project->getObjective()-||-if is_object($objective)-||-$objective->getPolicyGuideline()-||-/if-|</td>
+				<td>|-$project->getName()-|</td>
+				<td>|-$project->statusColor()-|</td>
+				<td>asd</td>
+				<td>asd</td>
+				<td>asd</td>
+				<td>asd</td>
+				<td>asd</td>
+				
+				|-*<td>|-assign var="objective" value=$project->getObjective()-||-if is_object($objective)-||-$objective->getPolicyGuideline()-||-/if-|</td>
 				<td>|-if is_object($objective)-||-$objective->getStrategicObjective()-||-/if-|</td>
 				<td>|-if is_object($objective)-||-$objective->getName()-||-/if-|</td>
 				<td><a href="Main.php?do=projectsList&filters[objective]=|-$project->getObjectiveId()-|&filters[fromObjectives]=true" title="Ver proyectos" class="follow">|-$project->getname()-|</a></td>
 				<td nowrap>|-$project->getdate()|date_format-|</td>
 				<td nowrap>|-$project->getgoalExpirationDate()|date_format-|</td>
-				<td align="center">|-$project->getFinished()|yes_no|multilang_get_translation:"common"-|</td>
+				<td align="center">|-$project->getFinished()|yes_no|multilang_get_translation:"common"-|</td>*-|
 			</tr>
 		|-/foreach-|						
 		</tbody>

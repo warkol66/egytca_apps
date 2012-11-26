@@ -1,6 +1,6 @@
 <?php
 
-
+require_once 'BaseProject.php';
 
 /**
  * Skeleton subclass for representing a row from the 'planning_project' table.
@@ -14,6 +14,24 @@
  * @package    propel.generator.planning.classes
  */
 class PlanningProject extends BasePlanningProject {
+	
+	private $baseProject;
+	
+	public function __construct() {
+		parent::__construct();
+		$this->baseProject = new BaseProject($this);
+	}
+	
+	public function __call($name, $params) {
+		try {
+			return parent::__call($name, $params);
+		} catch (Exception $e) {
+			if (method_exists($this->baseProject, $name))
+				return call_user_func_array(array($this->baseProject, $name), $params);
+			else
+				throw $e;
+		}
+	}
 
 	/**
 	 * Devuelve coleccion de objetos asociados (PlanningActivity)

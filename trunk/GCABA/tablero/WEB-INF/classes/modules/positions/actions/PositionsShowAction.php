@@ -25,15 +25,16 @@ class PositionsShowAction extends BaseAction {
 		$smarty->assign("module",$module);
 
 		if (!empty($_GET["id"]))
-			$position = PositionPeer::get($_GET["id"]);			
+			$position = PositionQuery::create()->findOneById($_GET["id"]);			
 		else
 			return $mapping->findForwardConfig('failure');
 
 		if (!empty($_GET["objectives"])){
-			$objectives = PositionPeer::getObjectives($_GET["id"]);			
+			//TODO: son estos o con descendants?
+			$objectives = $position->getAllObjectives();
 			$smarty->assign("objectives",$objectives);
 
-			$projects = PositionPeer::getProjects($_GET["id"]);			
+			$projects = $position->getAllProjects();
 			$smarty->assign("projects",$projects);
 		}
 

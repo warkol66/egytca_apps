@@ -1,5 +1,7 @@
 <?php
 
+require_once 'BaseProjectQuery.php';
+require_once 'BaseObjectiveQuery.php';
 
 /**
  * Skeleton subclass for representing a row from the 'positions_position' table.
@@ -13,6 +15,15 @@
  * @package    propel.generator.positions.classes
  */
 class Position extends BasePosition {
+	
+	private $colors;
+//	private $colorsCount;
+	
+	function __construct() {
+		parent::__construct();
+		global $system;
+		$this->colors = $system["config"]["tablero"]["colors"];
+	}
 
 	/**
 	 * Devuelve coleccion de objetos asociados (ImpactObjectives)
@@ -52,10 +63,10 @@ class Position extends BasePosition {
 	}
 
 	/**
-	* Obtiene el nombre del padre de un position.
-	*
-	* @return string Nombre del padre del position
-	*/
+	 * Obtiene el nombre del padre de un position.
+	 *
+	 * @return string Nombre del padre del position
+	 */
 	function getParentName() {
 		$parent = $this->getParent();
 		if (!empty($parent))
@@ -65,10 +76,10 @@ class Position extends BasePosition {
 	}
 
 	/**
-	* Obtiene el id del padre de un position.
-	*
-	* @return integer id del padre del position
-	*/
+	 * Obtiene el id del padre de un position.
+	 *
+	 * @return integer id del padre del position
+	 */
 	function getParentId() {
 		$parent = $this->getParent();
 		if (!empty($parent))
@@ -78,10 +89,10 @@ class Position extends BasePosition {
 	}
 
 	/**
-	* Obtiene el nombre traducido fel tipo de position.
-	*
-	* @return array tipos de position
-	*/
+	 * Obtiene el nombre traducido fel tipo de position.
+	 *
+	 * @return array tipos de position
+	 */
 	function getPositionTypeTranslated() {
 		$type = $this->getType();
 
@@ -93,10 +104,10 @@ class Position extends BasePosition {
 	}
 
 	/**
-	* Obtiene el tenure actual
-	*
-	* @return object tenure actual
-	*/
+	 * Obtiene el tenure actual
+	 *
+	 * @return object tenure actual
+	 */
 	public function getActiveTenure() {
 		$criteria = new Criteria();
 		$criteria->add(PositionTenurePeer::DATETO,null);
@@ -111,10 +122,10 @@ class Position extends BasePosition {
 	}
 
 	/**
-	* Obtiene el nombre del tenure actual
-	*
-	* @return object tenure actual
-	*/
+	 * Obtiene el nombre del tenure actual
+	 *
+	 * @return object tenure actual
+	 */
 	public function getActiveTenureName() {
 		$criteria = new Criteria();
 		$criteria->add(PositionTenurePeer::DATETO,null);
@@ -133,11 +144,11 @@ class Position extends BasePosition {
 	}
 
 	/**
-	* Obtiene el position a partir del tenure id
-	*
-	* @param integer $tenureId tenure id.
-	* @return object tenure actual
-	*/
+	 * Obtiene el position a partir del tenure id
+	 *
+	 * @param integer $tenureId tenure id.
+	 * @return object tenure actual
+	 */
 	public function getPositionTenure($tenureId) {
 		$criteria = new Criteria();
 		$criteria->add(PositionTenurePeer::ID,$tenureId);
@@ -151,23 +162,23 @@ class Position extends BasePosition {
 	}
 
 	/**
-	* Crea la tenure a partir de parametros
-	*
-	* @param params array 
-	* @return object tenure creado
-	*/
+	 * Crea la tenure a partir de parametros
+	 *
+	 * @param params array 
+	 * @return object tenure creado
+	 */
 	public function createTenure($params) {
 		//agrego la relacion con position
 		$params["positionCode"] = $this->getCode();
 		return PositionTenurePeer::create($params);
 	}
 
-	/*
-	* Obtiene todas los projects asociados a la instancia.
-	*
-	* @param Criteria $query, criteria para aplicar a los proyectos.
-	* @return PropelCollection $projects
-	*/
+	/**
+	 * Obtiene todas los projects asociados a la instancia.
+	 *
+	 * @param Criteria $query, criteria para aplicar a los proyectos.
+	 * @return PropelCollection $projects
+	 */
 	public function getAllProjectsWithDescendants($query = null) {
 		$positionCodes = array();
 		$positionCodes[] = $this->getCode();
@@ -176,18 +187,17 @@ class Position extends BasePosition {
 			foreach ($descendants as $descendant)
 				$positionCodes[] = $descendant->getCode();
 		}
-		$projects = ProjectQuery::create(null, $query)->findByResponsibleCode($positionCodes);
-
-		return $projects;
+		
+		return BaseProjectQuery::create(null, $query)->filterByResponsiblecode($positionCodes)->find();
 	}
 
-	/*
-	* Obtiene la cantidad total de projects asociados a la instancia.
-	*
-	* @param Criteria $query, criteria para aplicar a los proyectos.
-	* @return int $count
-	*/
-	public function getAllProjectsCountWithDescendants($query = null) {
+	/**
+	 * Obtiene la cantidad total de projects asociados a la instancia.
+	 *
+	 * @param Criteria $query, criteria para aplicar a los proyectos.
+	 * @return int $count
+	 */
+	public function countAllProjectsWithDescendants($query = null) {
 		$positionCodes = array();
 		$positionCodes[] = $this->getCode();
 		if ($this->hasChildren()){
@@ -195,17 +205,16 @@ class Position extends BasePosition {
 			foreach ($descendants as $descendant)
 				$positionCodes[] = $descendant->getCode();
 		}
-		$count = ProjectQuery::create(null, $query)->filterByResponsibleCode($positionCodes)->count();
-
-		return $count;
+		
+		return BaseProjectQuery::create(null, $query)->filterByResponsiblecode($positionCodes)->count();
 	}
 
-	/*
-	* Obtiene todas los objectives asociados a la instancia.
-	*
-	* @param Criteria $query, criteria para aplicar a los objetivos.
-	* @return PropelCollection $objectives
-	*/
+	/**
+	 * Obtiene todas los objectives asociados a la instancia.
+	 *
+	 * @param Criteria $query, criteria para aplicar a los objetivos.
+	 * @return PropelCollection $objectives
+	 */
 	public function getAllObjectivesWithDescendants($query = null) {
 		$positionCodes = array();
 		$positionCodes[] = $this->getCode();
@@ -214,18 +223,17 @@ class Position extends BasePosition {
 			foreach ($descendants as $descendant)
 				$positionCodes[] = $descendant->getCode();
 		}
-		$objectives = ObjectiveQuery::create(null, $query)->findByResponsibleCode($positionCodes);
-
-		return $objectives;
+		
+		return BaseObjectiveQuery::create(null, $query)->filterByResponsiblecode($positionCodes)->find();
 	}
 
-	/*
-	* Obtiene la cantidad total de objectives asociados a la instancia.
-	*
-	* @param Criteria $query, criteria para aplicar a los objetivos.
-	* @return int $count
-	*/
-	public function getAllObjectivesCountWithDescendants($query = null) {
+	/**
+	 * Obtiene la cantidad total de objectives asociados a la instancia.
+	 *
+	 * @param Criteria $query, criteria para aplicar a los objetivos.
+	 * @return int $count
+	 */
+	public function countAllObjectivesWithDescendants($query = null) {
 		$positionCodes = array();
 		$positionCodes[] = $this->getCode();
 		if ($this->hasChildren()){
@@ -233,45 +241,124 @@ class Position extends BasePosition {
 			foreach ($descendants as $descendant)
 				$positionCodes[] = $descendant->getCode();
 		}
-		$count = ObjectiveQuery::create(null, $query)->filterByResponsibleCode($positionCodes)->count();
-
-		return $count;
+		
+		return BaseObjectiveQuery::create(null, $query)->filterByResponsiblecode($positionCodes)->count();
 	}
 
-	/*
-	* Obtiene todas los projects asociados a la instancia.
-	*
-	* @return PropelCollection $projects
-	*/
+	/**
+	 * Obtiene todas los projects asociados a la instancia.
+	 *
+	 * @return PropelCollection $projects
+	 */
 	public function getAllProjects() {
-		return ProjectQuery::create()->findByResponsibleCode($this->getCode());
+		return BaseProjectQuery::create()->filterByResponsibleCode($this->getCode())->find();
 	}
 
-	/*
-	* Obtiene la cantidad total de projects asociados a la instancia.
-	*
-	* @return int $count
-	*/
-	public function getAllProjectsCount() {
-		return ProjectQuery::create()->filterByResponsibleCode($this->getCode())->count();
+	/**
+	 * Obtiene la cantidad total de projects asociados a la instancia.
+	 *
+	 * @return int $count
+	 */
+	public function countAllProjects() {
+		return BaseProjectQuery::create()->filterByResponsibleCode($this->getCode())->count();
 	}
 
-	/*
-	* Obtiene todas los objectives asociados a la instancia.
-	*
-	* @return PropelCollection $objectives
-	*/
+	/**
+	 * Obtiene todas los objectives asociados a la instancia.
+	 *
+	 * @return PropelCollection $objectives
+	 */
 	public function getAllObjectives() {
-		return ObjectiveQuery::create()->findByResponsibleCode($this->getCode());
+		return BaseObjectiveQuery::create()->filterByResponsibleCode($this->getCode())->find();
 	}
 
-	/*
-	* Obtiene la cantidad total de objectives asociados a la instancia.
-	*
-	* @return int $count
-	*/
-	public function getAllObjectivesCount() {
-		return ObjectiveQuery::create()->filterByResponsibleCode($this->getCode())->count();
+	/**
+	 * Obtiene la cantidad total de objectives asociados a la instancia.
+	 *
+	 * @return int $count
+	 */
+	public function countAllObjectives() {
+		return BaseObjectiveQuery::create()->filterByResponsibleCode($this->getCode())->count();
+	}
+	
+	/**
+	 * Obtiene la velocidad de la position
+	 * @return int $speed velocidad de la position
+	 */
+	public function getSpeed() {
+		$colorsWeight = $this->getProjectsByStatusColorWeightedByPriorityAssoc();
+		$totalWeight = array_sum($colorsWeight);
+		$speed = round((1 - (( $colorsWeight['red']*2 + $colorsWeight['yellow'] ) / ($totalWeight) ))*100);
+
+		return $speed < 0 ? 0 : $speed;
+	}
+	
+	/**
+	 * Obtiene un array asociativo con el total ponderado de projects asignados al position por cada color.
+	 *
+	 * @return array $colorsCount.
+	 */
+	public function getProjectsByStatusColorWeightedByPriorityAssoc() {
+		$projects = $this->getAllProjectsWithDescendants();
+		$colorsCount = array();
+		
+		foreach ($this->colors as $color) {
+			$colorsCount[$color] = 0;
+		}
+		
+		foreach ($projects as $project) {
+			$color = $project->statusColor();
+			$colorsCount[$color] += $project->getWeightBasedOnPriority(); 
+		}
+		
+		return $colorsCount;
+	}
+	
+	/**
+	 * Obtiene un array asociativo con la cantidad de projects asignados al position por cada color.
+	 *
+	 * @return array $colorsCount.
+	 */
+	public function getProjectsByStatusColorCountAssoc() {
+		$projects = $this->getAllProjectsWithDescendants();
+		$colorsCount = array();
+
+		foreach ($this->colors as $color) {
+			$colorsCount[$color] = 0;
+		}
+
+		foreach ($projects as $project) {
+			$color = $project->statusColor();
+			$colorsCount[$color]++;
+		}
+
+		return $colorsCount;
+	}
+	
+	/**
+	 * Obtiene los proyectos asignadas a la position con un determinado status color.
+	 *
+	 * @return array Projects
+	 */
+	public function getProjectsByStatusColor($color) {
+		$projects = $this->getAllProjectsWithDescendants();
+		$filteredProjects = array();
+		foreach ($projects as $project) {
+			if ($project->isOfStatusColor($color)) {
+				$filteredProjects[] = $project;
+			}
+		}
+		return $filteredProjects;
+	}
+	
+	/**
+	 * Obtiene la cantidad de projects asignados al position con un determinado status color.
+	 *
+	 * @return int $count
+	 */
+	public function countProjectsByStatusColor($color) {
+//		return getProjectsByStatusColor($color)->count();
+		return count($this->getProjectsByStatusColor());
 	}
 
 	/**
@@ -289,5 +376,173 @@ class Position extends BasePosition {
 		}
 		return $this;
 	}
+	
+//	/**
+//	 * Obtiene el color acorde al estado
+//	 * @return string $colors nombre del color que representa el estado
+//	 */
+//	function statusColor() {	
+//		
+//		if ($this->isLate())
+//			return $this->colors["late"];
+//		if ($this->isDelayed2())
+//			return $this->colors["delayed"];
+//		return $this->colors["onTime"];
+//
+//	}
+//	
+//
+// /**
+//	* Obtiene si la posicion tiene sus proyectos en tiempo
+//	* @return boolean si tiene proyectos en tiempo
+//	*/
+//	function isOnTime() {
+//		return (!$this->isDelayed2 && !$this->isLate());
+//	}
+//
+// /**
+//	* Obtiene si la posicion tiene sus proyectos retrasados
+//	* @return boolean si tiene proyectos retrasados
+//	*/
+//	function isDelayed2() {
+//		if (!isset($this->colorsCount))
+//			$this->colorsCount = $this->getProjectByStatusColorCountAssoc();
+//		return ($this->colorsCount[$this->colors["delayed"]] > 0);
+//	}
+//
+// /**
+//	* Obtiene si la posicion tiene sus proyectos fuera de término
+//	* @return boolean si tiene proyectos fuera de término
+//	*/
+//	function isLate() {
+//		if (!isset($this->colorsCount))
+//			$this->colorsCount = $this->getProjectByStatusColorCountAssoc();
+//		return ($this->colorsCount[$this->colors["late"]] > 0);
+//	}
+//
+// /**
+//	* @Deprecated
+//	* 
+//	* Obtiene si la posicion tiene sus objetivos cancelados
+//	* @return boolean si tiene objetivos cancelados
+//	*/
+//	function isCanceled() {
+//		return ($this->getCountObjectivesCanceled() != 0);
+//	}
+
+//	/**
+//	* Obtiene la cantidad de objetivos por estado
+//	* @params string $status estado que se va a contar
+//	* @return int $count cantidad de objetivos en el estado solicitado
+//	*/
+//	private function countNumberObjectives($status) {
+//
+//		//busco la llamada a hacer
+//		$method = $this->objectiveStatus[$status];
+//
+//		$count = 0;
+//
+//		foreach ($this->getObjectives() as $objective) {
+//			if ($objective->$method())
+//				$count++;
+//		}
+//
+//		return $count;
+//
+//	}
+//
+// /**
+//	* Obtiene los objetivos por estado
+//	* @params string $status tipo de estado que se va a obtener
+//	* @return int $count cantidad de objetivos en el estado solicitado
+//	*/
+//	private function getObjectivesByStatus($status) {
+//
+//		//busco la llamada a hacer
+//		$method = $this->objectiveStatus[$status];
+//
+//		$objectives = array(); //objetivos a devolver
+//
+//		foreach ($this->getObjectives() as $objective) {
+//			if ($objective->$method())
+//				$objectives[] = $objective;
+//		}
+//
+//		return $objectives;
+//
+//	}
+//
+//	/**
+//	* Obtiene la cantidad de objetivos en tiempo de la dependencia. Los objetivos en tiempo son los que poseen a todos sus proyectos en tiempo.
+//	*
+//	* @return int Cantidad de objetivos en tiempo.
+//	*/
+//	function getCountObjectivesOnTime() {
+//		return $this->countNumberObjectives('OnTime');
+//	}
+//
+//	/**
+//	* Obtiene la cantidad de objetivos retrazados de la dependencia. Los objetivos retrazados son los que poseen algunos de sus proyectos retrazados y ninguno demorado.
+//	*
+//	* @return int Cantidad de objetivos retrazados.
+//	*/
+//	function getCountObjectivesDelayed() {
+//		return $this->countNumberObjectives('Delayed');
+//	}
+//
+//	/**
+//	* Obtiene la cantidad de objetivos demorados de la dependencia. Los objetivos demorados son los que poseen algunos de sus proyectos demorados.
+//	*
+//	* @return int Cantidad de objetivos demorados.
+//	*/
+//	function getCountObjectivesLate() {
+//		return $this->countNumberObjectives('Late');
+//	}
+//
+//	/**
+//	* Obtiene la cantidad de objetivos cancelados de la dependencia. Los objetivos cancelados son los que poseen algunos de sus proyectos demorados.
+//	*
+//	* @return int Cantidad de objetivos demorados.
+//	*/
+//	function getCountObjectivesCanceled() {
+//		return $this->countNumberObjectives('Canceled');
+//	}
+//
+//	/**
+//	* Obtiene los objetivos en tiempo de la dependencia. Los objetivos en tiempo son los que poseen a todos sus proyectos en tiempo.
+//	*
+//	* @return array Objetivos en tiempo.
+//	*/
+//	function getObjectivesOnTime() {
+//		return $this->getObjectivesByStatus('OnTime');
+//	}
+//
+//	/**
+//	* Obtiene los objetivos retrazados de la dependencia. Los objetivos retrazados son los que poseen algunos de sus proyectos retrazados y ninguno demorado.
+//	*
+//	* @return array Objetivos retrazados.
+//	*/
+//	function getObjectivesDelayed() {
+//		return $this->getObjectivesByStatus('Delayed');
+//	}
+//
+//	/**
+//	* Obtiene los objetivos demorados de la dependencia. Los objetivos demorados son los que poseen algunos de sus proyectos demorados.
+//	*
+//	* @return array Objetivos demorados.
+//	*/
+//	function getObjectivesLate() {
+//		return $this->getObjectivesByStatus('Late');
+//	}
+//
+//	/**
+//	* Obtiene los objetivos cancelados de la dependencia. Los objetivos demorados son los que poseen algunos de sus proyectos cancelados.
+//	*
+//	* @return array Objetivos cancelados.
+//	*/
+//	function getObjectivesCanceled() {
+//		return $this->getObjectivesByStatus('Canceled');
+//	}
+
 
 } // Position

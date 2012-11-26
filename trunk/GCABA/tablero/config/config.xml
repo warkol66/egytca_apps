@@ -107,4 +107,15 @@
 			</smtpSsl>
 		</smtpOptions>
 	</email>
+	<tablero>
+		<colors>
+			<onTime>green</onTime>
+			<delayed>yellow</delayed>
+			<late>red</late>
+			<finished>blue</finished>
+			<cancelled>black</cancelled>
+			<planned>white</planned>
+			<notDefined>yellow</notDefined>
+		</colors>
+	</tablero>
 </config>

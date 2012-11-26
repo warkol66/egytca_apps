@@ -1,6 +1,6 @@
 <?php
 
-
+require_once 'BaseObjective.php';
 
 /**
  * Skeleton subclass for representing a row from the 'planning_ministryObjective' table.
@@ -14,6 +14,24 @@
  * @package    propel.generator.planning.classes
  */
 class MinistryObjective extends BaseMinistryObjective {
+	
+	private $baseObjective;
+	
+	public function __construct() {
+		parent::__construct();
+		$this->baseObjective = new BaseObjective($this);
+	}
+	
+	public function __call($name, $params) {
+		try {
+			return parent::__call($name, $params);
+		} catch (Exception $e) {
+			if (method_exists($this->baseObjective, $name))
+				return call_user_func_array(array($this->baseObjective, $name), $params);
+			else
+				throw $e;
+		}
+	}
 
 	/**
 	 * Devuelve coleccion de objetos asociados (OperativeObjective)

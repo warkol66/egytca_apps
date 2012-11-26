@@ -1,6 +1,6 @@
 <?php
 
-
+require_once 'BaseProject.php';
 
 /**
  * Skeleton subclass for representing a row from the 'planning_construction' table.
@@ -14,6 +14,24 @@
  * @package    propel.generator.planning.classes
  */
 class PlanningConstruction extends BasePlanningConstruction {
+	
+	private $baseProject;
+	
+	public function __construct() {
+		parent::__construct();
+		$this->baseProject = new BaseProject($this);
+	}
+	
+	public function __call($name, $params) {
+		try {
+			return parent::__call($name, $params);
+		} catch (Exception $e) {
+			if (method_exists($this->baseProject, $name))
+				return call_user_func_array(array($this->baseProject, $name), $params);
+			else
+				throw $e;
+		}
+	}
 
 	/**
 	 * Devuelve coleccion de objetos asociados (PlanningActivity)
@@ -60,11 +78,11 @@ class PlanningConstruction extends BasePlanningConstruction {
 	}
 
 	/**
-	 * Devuelve las versiones para el asunto ordenadas en por fecha de creación y paginadas.
+	 * Devuelve las versiones para el asunto ordenadas en por fecha de creacion y paginadas.
 	 * @param string $orderType forma en que se ordena, Criteria::ASC = ascendente Criteria::DESC = descendente.
 	 * @param int $page numero de pagina.
 	 * @param int $maxPerPage cantidad maxima de elementos por pagina.
-	 * @return array Versions para el proyecto ordenados en forma decreciente por fecha de creación.
+	 * @return array Versions para el proyecto ordenados en forma decreciente por fecha de creacion.
 	 */
 	public function getVersionsOrderedByUpdatedPaginated($orderType = Criteria::ASC, $page=1, $maxPerPage=5) {
 		$filters = array();		
