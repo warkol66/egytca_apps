@@ -57,6 +57,18 @@ class ConfigModule {
 				"PlanningActivity" => "Ac => "
 				)
 		),
+		"panel" => array(
+			"startingYear" => 2013,
+			"endingYear" => 2013,
+			"positionsTypes" => array(
+				9 => 'Minister',
+				11 => 'Secretary',
+				12 => 'Sub secretary',
+				13 => 'General Director',
+				14 => 'Director',
+				15 => 'Sub Director'
+				)
+		),
 		"positions" => array(
 			"useFemale" => true,
 			"treeRootType" => 6,
