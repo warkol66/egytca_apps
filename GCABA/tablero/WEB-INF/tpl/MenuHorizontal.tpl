@@ -58,10 +58,22 @@
 		|-else-|
 		<li><a href="javascript:void(null)" class="sub">Configuración</a>
 			<ul>
-				<li><a href="Main.php?do=usersPasswordChange">Actualice su contraseña</a></li>
+				<li class="last"><a href="Main.php?do=usersPasswordChange">Actualice su contraseña</a></li>
 			</ul></li>
 		|-/if-|
 	|-/if-|
+			<li><a href="javascript:void(null)" class="sub">Tutoriales</a>
+			<ul>
+				<li><a href="tutoriales/1_Bienvenida.avi" target="_blank">1 Bienvenida</a></li>
+				<li><a href="tutoriales/2_CrearObjetivoDeImpacto.avi" target="_blank">2 Crear Objetivo de Impacto</a></li>
+				<li><a href="tutoriales/3_CrearObjetivoMinisterial.avi" target="_blank">3 Crear Objetivo Ministerial</a></li>
+				<li><a href="tutoriales/4_CrearObjetivoOperativo.avi" target="_blank">4 Crear Objetivo Operativo</a></li>
+				<li><a href="tutoriales/5_CrearProyecto.avi" target="_blank">5 Crear Proyecto</a></li>
+				<li><a href="tutoriales/6_CargarHitos.avi" target="_blank">6 Cargar Hitos</a></li>
+				<li><a href="tutoriales/7_CargarObras.avi" target="_blank">7 Cargar Obras</a></li>
+				<li class="last"><a href="tutoriales/8_CargarIndicadoresDeImpacto.avi" target="_blank">8 Cargar Indicadores de Impacto</a></li>
+			</ul>
+		</li>
 |-/if-|
 |-if !empty($loginAffiliateUser)-|
   	<ul>
