@@ -58,7 +58,7 @@
 	<div class="successMessage">##blog,21,Estados modificados correctamente##</div>
 	|-/if-|
 	|-if $notValidId-|
-	<div class="messageFailure">|-$message-|</div>
+	<div class="errorMessage">|-$message-|</div>
 	|-/if-|
 |-assign var="colSpan" value=5-|
 |-if $blogConfig.useCategories.value eq "YES"-||-assign var="colSpan" value=$colSpan+1-||-/if-|

@@ -15,7 +15,7 @@ class BlogListAction extends BaseListAction {
 		parent::postList();
 		$this->smarty->assign("module", $this->module);
 		
-		$blogEntryPeer = new BlogEntryPeer();
+		$blogEntryPeer = new BlogEntry();
 		$blogEntryPeer->setReverseOrder();
 
  		if (!empty($_GET['filters'])) {
@@ -26,6 +26,7 @@ class BlogListAction extends BaseListAction {
 			if (!empty($_GET['filters']['toDate']))
 				$blogEntryPeer->setToDate(Common::convertToMysqlDateFormat($_GET['filters']['toDate']));
 			
+			//Arreglar filtro por categoria
 			if (!empty($_GET['filters']['categoryId'])) {
 				$category = CategoryPeer::get($_GET['filters']['categoryId']);
 				$blogEntryPeer->setCategory($category);			
@@ -33,7 +34,6 @@ class BlogListAction extends BaseListAction {
 			
 			$this->smarty->assign('filters',$_GET['filters']);
 		}
-
 
 		if ($_GET["export"] == "xls") {
 			$blogEntries = $blogEntryPeer->getAllFiltered();
@@ -67,8 +67,7 @@ class BlogListAction extends BaseListAction {
 
 		$categories = BlogCategoryPeer::getAll();
 		$this->smarty->assign("categories",$categories);
-		$this->smarty->assign("blogEntryStatus",BlogEntryPeer::getStatus());   
-		$this->smarty->assign("message",$_GET["message"]);
+		$this->smarty->assign("blogEntryStatus",BlogEntry::getStatuses());
 
 	}
 

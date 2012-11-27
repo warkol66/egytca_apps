@@ -6,8 +6,8 @@ class BlogShowAction extends BaseListAction {
 		parent::__construct('BlogEntry');
 	}
 	
-	protected function postEdit() {
-		parent::postEdit();
+	protected function postList() {
+		parent::postList();
 		
 		$module = "Blog";
 		$this->smarty->assign("module",$module);

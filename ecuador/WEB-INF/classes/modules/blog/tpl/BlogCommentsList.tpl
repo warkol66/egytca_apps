@@ -58,21 +58,21 @@
 				</p>
 				<p>
 					<label for="fromDate">Fecha Desde</label>
-					<input name="filters[fromDate]" type="text" id="fromDate" class="datepickerFrom" title="fromDate" value="|-$filters.fromDate-|" size="12" /> 
+					<input name="filters[fromDate]" type="text" id="fromDate" class="datepickerFrom" title="fromDate" value="|-$filters.fromDate|date_format:"%d-%m-%Y"-|" size="12" /> 
 					<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 				</p>
 				<p>
 					<label for="toDate">Fecha Hasta</label>
-					<input name="filters[toDate]" type="text" id="toDate" class="datepickerTo" title="toDate" value="|-$filters.toDate-|" size="12" /> 
+					<input name="filters[toDate]" type="text" id="toDate" class="datepickerTo" title="toDate" value="|-$filters.toDate|date_format:"%d-%m-%Y"-|" size="12" /> 
 					<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 				</p>
 				|-if not isset($entryId)-|
 				<p>
 					<label for="articleId">Entradas</label>
-					<select name='filters[entryId]' title="Seleccione una entrada de los últimas 50 publicadas">
+					<select name='filters[entryid]' title="Seleccione una entrada de los últimas 50 publicadas">
 							<option value=''>Seleccione una entrada</option>
 						|-foreach from=$entries item=entry name=from_entries-|
-							<option value="|-$entry->getId()-|" |-if $filters neq '' and $filters.entryId eq $entry->getId()-|selected="selected"|-/if-|>|-$entry->getTitle()|mb_truncate:60:"...":'UTF-8':true-|</option>
+							<option value="|-$entry->getId()-|" |-if $filters neq '' and $filters.entryid eq $entry->getId()-|selected="selected"|-/if-|>|-$entry->getTitle()|mb_truncate:60:"...":'UTF-8':true-|</option>
 						|-/foreach-|
 					</select>
 				</p>
@@ -121,8 +121,8 @@
 				<td>|-$blogComment->gettext()-|</td>
 				<td>|-$blogComment->getemail()-|</td>
 				<td>|-$blogComment->getusername()-|</td>
-				<td>|-$blogComment->getcreationDate()-|</td>
-	<!--																<td>|-$blogComment->getUserId()-|</td> -->
+				<td>|-$blogComment->getcreationDate()|date_format:"%d-%m-%Y"-|</td>
+				<!-- <td>|-$blogComment->getUserId()-|</td> -->
 				<td>
 					|-assign var=status value=$blogComment->getstatus()-|
 	
