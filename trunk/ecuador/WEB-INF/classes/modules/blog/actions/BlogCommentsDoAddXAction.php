@@ -9,26 +9,32 @@ class BlogCommentsDoAddXAction extends BaseDoEditAction {
 	protected function preUpdate() {
 		parent::preUpdate();
 		
+		if ( (empty($_POST['formId'])) || !Common::validateCaptcha($_POST['formId']) || !empty($_POST['securityCode'])) {
+			$this->smarty->assign('captcha',true);
+			//return $this->mapping->findForwardConfig('failure');
+		}
+	}
+	
+	protected function postUpdate() {
+		parent::postUpdate();
+		
+		$module = "Blog";
+		$this->smarty->assign("module",$module);
 		$moduleConfig = Common::getModuleConfiguration($module);
 		
-		if ( (empty($_POST['formId'])) || !Common::validateCaptcha($_POST['formId']) || !empty($_POST['securityCode'])) {
-			$smarty->assign('captcha',true);
-			return $mapping->findForwardConfig('failure');
-		}
+		$this->entity->setCreationdate(date('Y-m-d H:m:s'));
+		$this->entity->setIp($_SERVER['REMOTE_ADDR']);
 		
-		$_POST["params"]["creationDate"] = date('Y-m-d H:m:s');
-		$_POST["params"]["ip"] = $_SERVER['REMOTE_ADDR'];
-		
-		
-		//Cambiar llamado a peer
 		if ($moduleConfig["comments"]["moderated"] == "YES") {
 			if ($params['blogComment']['userId'])
-				$_POST["params"]["status"] = BlogCommentPeer::APPROVED;
+				$this->entity->setStatus(BlogComment::APPROVED);
 			else
-				$_POST["params"]["status"] = BlogCommentPeer::PENDING;
+				$this->entity->setStatus(BlogComment::PENDING);
 		}
 		else
-			$_POST["params"]["status"] = BlogCommentPeer::APPROVED;
+			$this->entity->setStatus(BlogComment::APPROVED);
+			
+		$this->entity->save();
 		
 	}
 

@@ -5,31 +5,16 @@ class BlogCommentsListAction extends BaseListAction {
 	function __construct() {
 		parent::__construct('BlogComment');
 	}
-
-	/*function BlogCommentsListAction() {
-		;
+	
+	protected function postList(){
+		parent::postList();
+		
+		$this->smarty->assign("module","Blog");
+		$this->smarty->assign("section","Comments");
+		
+		$this->smarty->assign("entries", BlogEntryQuery::create()->find());
 	}
-
-	function execute($mapping, $form, &$request, &$response) {
-
-		BaseAction::execute($mapping, $form, $request, $response);
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
-
-		$module = "Blog";
-		$smarty->assign("module",$module);
-		$section = "Comments";
-		$smarty->assign("section",$section);
-
-		$blogCommentPeer = new BlogCommentPeer();
-
+		/* Arreglar filtro de fechas
 		//filtros
 		if (isset($_GET['filters'])) {
 			$smarty->assign('filters',$_GET['filters']);
@@ -56,21 +41,6 @@ class BlogCommentsListAction extends BaseListAction {
 
 		$smarty->assign("blogComments",$pager->getResult());
 		$smarty->assign("pager",$pager);
-		$url = "Main.php?do=blogCommentsList";
-
-		if (isset($_GET['entryId']))
-			$url .= '&entryId=' . $_GET['entryId'];
-
-		if (isset($_GET['page']))
-			$url .= '&page=' . $_GET['page'];
-
-		//aplicacion de filtro a url
-		foreach ($_GET['filters'] as $key => $value)
-			$url .= "&filters[$key]=$value";
-
-		$smarty->assign("url",$url);
-		$smarty->assign("message",$_GET["message"]);
-		return $mapping->findForwardConfig('success');
 	}*/
 
 }

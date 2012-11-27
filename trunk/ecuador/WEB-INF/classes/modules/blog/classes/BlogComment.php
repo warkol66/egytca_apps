@@ -22,11 +22,11 @@ class BlogComment extends BaseBlogComment {
 	const DELETED  = 4;
 	
 	protected static $statusOptions = array(
-						BlogComment::PENDING    => 'Pendiente',
-						BlogComment::APPROVED   => 'Aprobado',
-						BlogComment::SPAM       => 'SPAM',
-						BlogComment::DELETED    => 'Eliminado'
-					);
+		BlogComment::PENDING    => 'Pendiente',
+		BlogComment::APPROVED   => 'Aprobado',
+		BlogComment::SPAM       => 'SPAM',
+		BlogComment::DELETED    => 'Eliminado'
+	);
 
 	/**
 	 * Devuelve los posibles estados
@@ -41,7 +41,7 @@ class BlogComment extends BaseBlogComment {
 	 * @return boolean
 	 */
 	public function isPending() {
-		return ($this->getStatus() == BlogCommentPeer::PENDING);
+		return ($this->getStatus() == BlogComment::PENDING);
 	}
 
 	/**
@@ -49,7 +49,7 @@ class BlogComment extends BaseBlogComment {
 	 * @return boolean
 	 */
 	public function isApproved() {
-		return ($this->getStatus() == BlogCommentPeer::APPROVED);
+		return ($this->getStatus() == BlogComment::APPROVED);
 	}
 
 	/**
@@ -57,7 +57,7 @@ class BlogComment extends BaseBlogComment {
 	 * @return boolean
 	 */
 	public function isSpam() {
-		return ($this->getStatus() == BlogCommentPeer::SPAM);
+		return ($this->getStatus() == BlogComment::SPAM);
 	}
 
 	/**
@@ -65,7 +65,7 @@ class BlogComment extends BaseBlogComment {
 	 * @return boolean
 	 */
 	public function isDeleted() {
-		return ($this->getStatus() == BlogCommentPeer::DELETED);
+		return ($this->getStatus() == BlogComment::DELETED);
 	}
 
 } // BlogComment

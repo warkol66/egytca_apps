@@ -25,15 +25,15 @@ class BlogPreviewAction extends BaseAction {
 		if (!empty($_POST['id']))
 			$_POST['blogEntry']['id'] = $_POST['id'];
 
-		$preview = BlogEntryPeer::createPreview($_POST['blogEntry']);
+		$preview = BlogEntry::createPreview($_POST['blogEntry']);
 
 		//caso de preview en Home
 		if ($_POST['mode'] == 'home') {
 
 			$this->template->template = "TemplateBlogHome.tpl";
-			$blogEntries = array();
-			array_push($blogEntries,$preview);
-			$smarty->assign("blogEntries",$blogEntries);
+			$blogEntryColl = array();
+			array_push($blogEntryColl,$preview);
+			$smarty->assign("blogEntryColl",$blogEntryColl);
 
 			return $mapping->findForwardConfig('success-home');
 		}

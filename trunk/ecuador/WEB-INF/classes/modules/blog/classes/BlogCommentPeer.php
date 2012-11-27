@@ -15,30 +15,10 @@
  */
 class BlogCommentPeer extends BaseBlogCommentPeer {
 
-	const PENDING  = 1;
-	const APPROVED = 2;
-	const SPAM     = 3;
-	const DELETED  = 4;
-
 	private $entryId;
 	private $status;
 	private $toDate;
 	private $fromDate;
-
-	protected static $statusOptions = array(
-						BlogCommentPeer::PENDING    => 'Pendiente',
-						BlogCommentPeer::APPROVED   => 'Aprobado',
-						BlogCommentPeer::SPAM       => 'SPAM',
-						BlogCommentPeer::DELETED    => 'Eliminado'
-					);
-
-	/**
-	 * Devuelve los posibles estados
-	 */
-	public static function getStatusOptions() {
-		$statusOptions = BlogCommentPeer::$statusOptions;
-		return $statusOptions;
-	}
 
   /**
   * Obtiene la informacion de un noticia.
@@ -108,7 +88,7 @@ class BlogCommentPeer extends BaseBlogCommentPeer {
 		$criteria->addAscendingOrderByColumn(BlogCommentPeer::ENTRYID);
 		$criteria->addAscendingOrderByColumn(BlogCommentPeer::CREATIONDATE);
 		$criteria->add(BlogCommentPeer::ENTRYID,$entryId);
-		$criteria->add(BlogCommentPeer::STATUS,BlogCommentPeer::APPROVED);
+		$criteria->add(BlogCommentPeer::STATUS,BlogComment::APPROVED);
 		return BlogCommentPeer::doSelect($criteria);
 
 	}

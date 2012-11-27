@@ -43,8 +43,8 @@
 				<input type="text" id="params_ip" name="params[ip]" value="|-$blogComment->getip()-|" title="ip" maxlength="50" />
 			</p>
 			<p>
-				<label for="blogComment_creationDate">Fecha</label>
-				<input name="blogComment[creationDate]" type="text" id="blogComment_creationDate" class="datepicker" title="creationDate" value="|-$blogComment->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<label for="params_creationDate">Fecha</label>
+				<input name="params[creationDate]" type="text" id="params_creationDate" class="datepicker" title="creationDate" value="|-$blogComment->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 			</p>
 			<p>
