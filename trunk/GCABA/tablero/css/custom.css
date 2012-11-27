@@ -251,29 +251,79 @@ body {
 }
 /*  AGREGADOS -----------------------------------------------*/
 .flagGreen {
-	background: Green;
+	color: #283900;
 	color: White;
-	font-weight: bold;
-	width: 40px;
-	min-width: 40px;
-	text-decoration: none;
 }
 .flagYellow {
-	background: Yellow;
+	color: #8a6500;
 	color: White;
-	font-weight: bold;
-	width: 40px;
-	min-width: 40px;
-	text-decoration: none;
 }
 .flagRed {
-	background: Red;
+	color: #5d1f00;
 	color: White;
-	font-weight: bold;
-	width: 40px;
-	min-width: 40px;
-	text-decoration: none;
 }
+.flagBlue {
+	color: #5d1f00;
+	color: White;
+}
+.flagBlack {
+	color: White;
+}
+.flagWhite {
+	color: Black;
+}
+.flagGreen, .flagYellow, .flagRed, .flagBlue, .flagBlack, .flagWhite {
+	outline: 0 none;
+	cursor: pointer;
+	text-decoration: none;
+	font-weight: bold;
+	width: 35px !Important;
+	height: 35px !Important;
+	/*background: url(../images/indicador-whiteBackGrnd.png) no-repeat;*/
+	/*background: url(../images/indicador.png) no-repeat;*/
+	background: url(../images/semaphoreButtons.png) no-repeat;
+	display: block;
+	float: left;
+	line-height: 36px;
+	vertical-align: middle;
+}
+.flagRed {
+	background-position: 0px 0px;
+}
+.flagYellow {
+	background-position: -35px 0px;
+}
+.flagGreen {
+	background-position: -70px 0px;
+}
+.flagBlue {
+	background-position: -105px 0px;
+}
+.flagWhite {
+	background-position: -140px 0px;
+}
+.flagBlack {
+	background-position: -175px 0px;
+}
+.flagRed:hover {
+	background-position: 0px -35px;
+}
+.flagYellow:hover {
+	background-position: -35px -35px;
+}
+.flagGreen:hover {
+	background-position: -70px -35px;
+}
+.flagBlue:hover {
+	background-position: -105px -35px;
+}
+.flagWhite:hover {
+	background-position: -140px -35px;
+}
+.flagBlack:hover {
+	background-position: -175px -35px;
+}
+
 .whiteNoDecoration {
 	color: White ;
 	text-decoration: none;
