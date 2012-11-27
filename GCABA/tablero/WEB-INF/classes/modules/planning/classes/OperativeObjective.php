@@ -32,6 +32,18 @@ class OperativeObjective extends BaseOperativeObjective {
 				throw $e;
 		}
 	}
+	
+	/**
+	 * Obtiene los proyectos asociados al objective
+	 */
+	public function getAllProjects() {
+		$projects = array();
+		foreach ($this->getPlanningProjects() as $planningProject) {
+			$projects []= $planningProject;
+			$projects = array_merge($projects, $planningProject->getAllProjects()->getArrayCopy());
+		}
+		return new PropelObjectCollection($projects);
+	}
 
 	/**
 	 * Devuelve coleccion de objetos asociados (PlanningProjects)

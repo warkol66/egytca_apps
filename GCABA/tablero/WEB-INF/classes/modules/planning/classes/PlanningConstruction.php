@@ -32,6 +32,13 @@ class PlanningConstruction extends BasePlanningConstruction {
 				throw $e;
 		}
 	}
+	
+	/**
+	 * Obtiene el objective asociado al project
+	 */
+	public function getObjective() {
+		return $this->getPlanningProject()->getOperativeObjective();
+	}
 
 	/**
 	 * Devuelve coleccion de objetos asociados (PlanningActivity)

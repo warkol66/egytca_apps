@@ -32,6 +32,13 @@ class BaseProjectQuery {
 		return $all;
 	}
 	
+	public function findOne() {
+		if ($this->planningProjectQuery->count())
+			return $this->impactObjectiveQuery->findOne();
+		else
+			return $this->planningConstructionQuery->findOne();
+	}
+	
 	public function count() {
 		return $this->planningProjectQuery->count()
 			+ $this->planningConstructionQuery->count();

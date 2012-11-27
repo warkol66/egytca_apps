@@ -32,6 +32,17 @@ class MinistryObjective extends BaseMinistryObjective {
 				throw $e;
 		}
 	}
+	
+	/**
+	 * Obtiene los proyectos asociados al objective
+	 */
+	public function getAllProjects() {
+		$projects = array();
+		foreach ($this->getOperativeObjectives() as $operativeObjective) {
+			$projects = array_merge($projects, $operativeObjective->getAllProjects()->getArrayCopy());
+		}
+		return new PropelObjectCollection($projects);
+	}
 
 	/**
 	 * Devuelve coleccion de objetos asociados (OperativeObjective)
