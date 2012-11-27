@@ -28,7 +28,7 @@
 		|-foreach from=$projects item=project name=for_projects-|
 			|-assign var=colorsCount value=$project->getActivitiesByStatusColorCountAssoc()-|
 			<tr>
-				<td>|-$project->getObjective()->getName()-|</td>
+				<td>|-$project->getOperativeObjective()-|</td>
 				<td><a href="javascript:void(null);" class="flag|-$project->statusColor()|capitalize-|"></a></td>
 				<td><a href="Main.php?do=projectsActivitiesList&filters[projectId]=|-$project->getid()-|&filters[fromProjects]=true" title="Ver actividades del proyecto" title="Ver actividades del proyecto" class="follow">|-$project->getname()-|</a></td>
 				<td>asd</td>|-*<td nowrap>|-$project->getdate()|date_format-|</td>*-|
