@@ -17,9 +17,7 @@ class BaseObjective {
 	 * @return array $colorsCount.
 	 */
 	public function getProjectsByStatusColorCountAssoc() {
-		//TODO: probablemente haya que agregar la relacion Project<->Objective
-//		$projects = $child->getAllProjects();
-		$projects = array();
+		$projects = $this->child->getAllProjects();
 		$colorsCount = array();
 		
 		foreach ($this->colors as $color) {
@@ -33,11 +31,33 @@ class BaseObjective {
 
 		return $colorsCount;
 	}
+	
+	/**
+	 * Obtiene los proyectos asignadas al objetivo con un determinado status color.
+	 *
+	 * @return array Projects
+	 */
+	public function getProjectsByStatusColor($color) {
+		$projects = $this->child->getAllProjects();
+		$filteredProjects = array();
+		foreach ($projects as $project) {
+			if ($project->isOfStatusColor($color)) {
+				$filteredProjects []= $project;
+			}
+		}
+		return $filteredProjects;
+	}
+	
+	/**
+	 * Obtiene la cantidad de projects asignados al objetivo con un determinado status color.
+	 *
+	 * @return int $count
+	 */
+	public function countProjectsByStatusColor($color) {
+		return count($this->child->getProjectsByStatusColor($color));
+	}
 }
 
-//<?php
-//
-//
 ///**
 // * Skeleton subclass for representing a row from the 'objectives_objective' table.
 // *
@@ -440,32 +460,6 @@ class BaseObjective {
 //		$objectiveLogPeer = new ObjectiveLogPeer();
 //		return $objectiveLogPeer->getAllByObjectiveIdOrderedByUpdatedPaginated($this->getId(), $orderType, $page, $maxPerPage);
 //	}
-//	/*
-//	* Obtiene los proyectos asignadas al objetivo con un determinado status color.
-//	*
-//	* @return array Projects
-//	*/
-//	public function getProjectsByStatusColor($color) {
-//		$projects = $this->getAllProjects();
-//		$filteredProjects = array();
-//		foreach ($projects as $project) {
-//			if ($project->isOfStatusColor($color)) {
-//				$filteredProjects[] = $project;
-//			}
-//		}
-//		return $filteredProjects;
-//	}
-//	
-//	/*
-//	* Obtiene la cantidad de projects asignados al objetivo con un determinado status color.
-//	*
-//	* @return int $count
-//	*/
-//	public function getProjectsByStatusColorCount($color) {
-//		return getProjectsByStatusColor($color)->count();
-//	}
-//	
-
 //	
 //	/*
 //	* Obtiene todas los projects asociados a la instancia.

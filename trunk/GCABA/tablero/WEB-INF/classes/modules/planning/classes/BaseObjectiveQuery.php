@@ -37,6 +37,15 @@ class BaseObjectiveQuery {
 		return $all;
 	}
 	
+	public function findOne() {
+		if ($this->impactObjectiveQuery->count())
+			return $this->impactObjectiveQuery->findOne();
+		elseif ($this->ministryObjectiveQuery->count())
+			return $this->ministryObjectiveQuery->findOne();
+		else
+			return $this->operativeObjectiveQuery->findOne();
+	}
+	
 	public function count() {
 		return $this->impactObjectiveQuery->count()
 			+ $this->ministryObjectiveQuery->count()

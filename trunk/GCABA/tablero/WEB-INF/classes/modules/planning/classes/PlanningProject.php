@@ -32,6 +32,20 @@ class PlanningProject extends BasePlanningProject {
 				throw $e;
 		}
 	}
+	
+	/**
+	 * Obtiene los proyectos (constructions) asociados al project
+	 */
+	public function getAllProjects() {
+		return $this->getPlanningConstructions();
+	}
+	
+	/**
+	 * Obtiene el objective asociado al project
+	 */
+	public function getObjective() {
+		return $this->getOperativeObjective();
+	}
 
 	/**
 	 * Devuelve coleccion de objetos asociados (PlanningActivity)

@@ -357,8 +357,7 @@ class Position extends BasePosition {
 	 * @return int $count
 	 */
 	public function countProjectsByStatusColor($color) {
-//		return getProjectsByStatusColor($color)->count();
-		return count($this->getProjectsByStatusColor());
+		return count($this->getProjectsByStatusColor($color));
 	}
 
 	/**

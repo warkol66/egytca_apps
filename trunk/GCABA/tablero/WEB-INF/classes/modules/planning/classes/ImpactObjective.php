@@ -32,6 +32,17 @@ class ImpactObjective extends BaseImpactObjective {
 				throw $e;
 		}
 	}
+	
+	/**
+	 * Obtiene los proyectos asociados al objective
+	 */
+	public function getAllProjects() {
+		$projects = array();
+		foreach ($this->getMinistryObjectives() as $ministryObjective) {
+			$projects = array_merge($projects, $ministryObjective->getAllProjects()->getArrayCopy());
+		}
+		return new PropelObjectCollection($projects);
+	}
 
 	/**
 	 * Devuelve coleccion de objetos asociados (MinistryObjective)
