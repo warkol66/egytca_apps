@@ -1,11 +1,11 @@
 <?php
 
 class BaseProject {
-	
+
 	private $child;
 	private $colors;
-//	private $colorsCount;
-	
+	private $colorsCount;
+
 	const CRITICAL    = 1;
 	const HIGH        = 2;
 	const MEDIUM_HIGH = 3;
@@ -26,50 +26,138 @@ class BaseProject {
 		$priorityTypes = ProjectPeer::$priorityTypes;
 		return $priorityTypes;
 	}
-	
+
 	public function __construct($child) {
 		$this->child = $child;
 		global $system;
 		$this->colors = $system["config"]["tablero"]["colors"];
 	}
-	
+
 	/**
 	 * Devuelve el color acorde al estado del proyecto
 	 *
 	 */
 	public function statusColor() {
-		if (!rand(0,6))
+		if ($this->child->isCancelled())
 			return $this->colors["cancelled"];
-		if (!rand(0,6))
+		if ($this->child->isEnded())
 			return $this->colors["finished"];
-		if (!rand(0,6))
+		if ($this->child->isUndefined())
 			return $this->colors["notDefined"];
-		if (!rand(0,6))
+		if ($this->child->isLate())
 			return $this->colors["late"];
-		if (!rand(0,6))
+		if ($this->child->isDelayed())
 			return $this->colors["delayed"];
-		if (!rand(0,6))
+		if (!$this->child->isStarted())
 			return $this->colors["planned"];
-		
-		return $this->colors["onTime"];	
-			
-		//TODO: averiguar
-//		if ($this->child->isCancelled())
-//			return $this->colors["cancelled"];
-//		if ($this->child->isEnded())
-//			return $this->colors["finished"];
-//		if ($this->child->isUndefined())
-//			return $this->colors["notDefined"];
-//		if ($this->child->isLate())
-//			return $this->colors["late"];
-//		if ($this->child->isDelayed2())
-//			return $this->colors["delayed"];
-//		if (!$this->child->isStarted())
-//			return $this->colors["planned"];
 
 		return $this->colors["onTime"];		
 	}
-	
+
+	/**
+	 * Devuelve verdadero si el proyecto esta seteado como finished o si tiene fecha real de finalizacion.
+	 *
+	 */
+	function isEnded() {
+		return ($this->child->getFinished() || !is_null($this->child->getRealEnd()));
+	}
+
+	/**
+	 * Devuelve verdadero si el proyecto esta en desarrollo
+	 *
+	 */
+	function isOnWork() {
+		return (!$this->child->getFinished() && is_null($this->child->getRealEnd()));
+	}
+
+	/**
+	 * Devuelve verdadero si el proyecto tiene fecha real de inicio.
+	 */
+	function isStarted() {
+		return !is_null($this->child->getRealStart());
+	}
+
+	/**
+	 * Devuelve verdadero si el proyecto esta seteado como cancelado.
+	 */
+	function isCancelled() {
+		return $this->child->getCancelled();
+	}
+
+	/**
+	 * Devuelve verdadero si el proyecto no tiene actividades asociadas no canceladas.
+	 */
+	function isUndefined() {
+		$activitiesCount = $this->child->countActivities();
+
+		if (!isset($this->colorsCount))
+			$this->colorsCount = $this->child->getActivitiesByStatusColorCountAssoc();
+
+		if ($activitiesCount === 0)
+			return true;
+
+		if ($activitiesCount === $this->colorsCount[$this->colors["cancelled"]])
+			return true;
+
+		return false;
+	}
+
+	/**
+	 * Devuelve verdadero si la fecha actual es posterior a la fecha planificada de inicio y aún no se comenzó el proyecto.
+	 * O bien alguna de las actividades del proyecto esta retrasada.
+	 */
+	function isDelayed() {
+		global $system;
+
+		if (!isset($this->colorsCount))
+			$this->colorsCount = $this->child->getActivitiesByStatusColorCountAssoc();
+
+		$currentTime = time();
+		$plannedStart = $this->child->getPlannedStart('U');
+
+		if (is_null($plannedStart))
+			return false;
+
+		// Si se usa tolerancia en dias
+		if ($system["config"]["tablero"]["projects"]["parameterControl"]["value"] == "DAYS") {
+			$days = $system["config"]["tablero"]["activities"]["delayed"];
+			$currentTime = time() - ($days * 24 * 60 * 60);
+		}
+		// TODO agregar otros tipos de tolerancias
+
+		if ($currentTime > $plannedStart && !$this->child->isStarted() || ($this->colorsCount[$this->colors["delayed"]] > 0))
+			return true;
+		return false;
+	}
+
+	/**
+	 * Devuelve verdadero si la fecha actual es posterior a la fecha planificada de finalizacion y aún no esta terminado el proyecto.
+	 * O bien alguna de las actividades del proyecto esta fuera de plazo.
+	 */
+	function isLate() {
+		global $system;
+
+		if (!isset($this->colorsCount))
+			$this->colorsCount = $this->child->getActivitiesByStatusColorCountAssoc();
+
+		$currentTime = time();
+		$plannedEnd = $this->child->getPlannedEnd('U');
+
+		if (is_null($plannedEnd))
+			return false;
+
+		// Si se usa tolerancia en dias
+		if ($system["config"]["tablero"]["projects"]["parameterControl"]["value"] == "DAYS") {
+			$days = $system["config"]["tablero"]["activities"]["late"];
+			$currentTime = time() - ($days * 24 * 60 * 60);
+		}
+		// TODO agregar otros tipos de tolerancias
+
+		if ((($currentTime > $plannedEnd) && !$this->child->isEnded()) || ($this->colorsCount[$this->colors["late"]] > 0))
+			return true;
+		return false;
+	}
+
 	/**
 	 * Devuelve verdadero o falso si el proyecto tiene un color determinado
 	 * @param $color color del proyecto
@@ -77,7 +165,7 @@ class BaseProject {
 	function isOfStatusColor($color) {
 		return ($this->child->statusColor() === $color);
 	}
-	
+
 	/**
 	 * Obtiene un array asociativo con la cantidad de activities asignadas al proyecto por cada color.
 	 *
@@ -86,19 +174,19 @@ class BaseProject {
 	public function getActivitiesByStatusColorCountAssoc() {
 		$activities = $this->child->getActivities();
 		$colorsCount = array();
-		
+
 		foreach ($this->colors as $color) {
 			$colorsCount[$color] = 0;
 		}
-		
+
 		foreach ($activities as $activitiy) {
 			$color = $activitiy->statusColor();
-			$colorsCount[$color]++; 
+			$colorsCount[$color]++;
 		}
-		
+
 		return $colorsCount;
 	}
-	
+
 	/**
 	 * Devuelve el peso del proyecto basado en la prioridad. Devuelve 0 si tiene una prioridad invalida.
 	 *
@@ -117,147 +205,11 @@ class BaseProject {
 				return 1;
 		}
 	}
-	
 
-//	
-//	/**
-//	 * Devuelve verdadero si el proyecto tiene fecha real de terminacion.
-//	 */
-//	function isEnded() {
-//		return false; //TODO: averiguar
-//		return !is_null( $this->getRealEnd() );
-//	}
-//	
-//	/**
-//	 * Devuelve verdadero si el proyecto tiene fecha real de inicio.
-//	 */
-//	function isStarted() {
-//		return true; //TODO: averiguar
-//		return !is_null( $this->getRealStart() );
-//	}
-//	
-//	/**
-//	 * Devuelve verdadero si el proyecto esta seteado como cancelado.
-//	 */		
-//	function isCancelled() {
-//		return false; //TODO: averiguar
-//		return $this->getCancelled();
-//	}
-//	
-//	/**
-//	 * Devuelve verdadero si el proyecto no tiene actividades asociadas no canceladas.
-//	 */	
-//	function isUndefined() {
-//		return false; //TODO: averiguar
-//		$totalActivities = $this->getAllActivitiesCount();
-//		
-//		if (!isset($this->colorsCount))
-//			$this->colorsCount = $this->getActivitiesByStatusColorCountAssoc();
-//		
-//		if ( $totalActivities === 0 )
-//			return true;
-//		
-//		if ($totalActivities === $this->colorsCount[$this->colors["cancelled"]])
-//			return true;
-//		
-//		return false;
-//	}
-//	
-//	/**
-//	 * Devuelve verdadero si la fecha actual es posterior a la fecha planificada de inicio y aún no se comenzó el proyecto.
-//	 * O bien alguna de las actividades del proyecto esta retrasada.
-//	 */
-//	function isDelayed2() {
-//		return false; //TODO: averiguar
-//		global $system;	
-//		
-//		if (!isset($this->colorsCount))
-//			$this->colorsCount = $this->getActivitiesByStatusColorCountAssoc();
-//		
-//		$currentTime = time();
-//		$plannedStart = $this->getPlannedStart('U');
-//		
-//		if (is_null($plannedStart)) 
-//			return false;
-//		
-//		// Si se usa tolerancia en dias
-//		if ($system["config"]["tablero"]["projects"]["parameterControl"]["value"] == "DAYS") {
-//			$days = $system["config"]["tablero"]["activities"]["delayed"]; 
-//			$currentTime = time() - ($days * 24 * 60 * 60);		
-//		}
-//		// TODO agregar otros tipos de tolerancias
-//		
-//		if ( $currentTime > $plannedStart && !$this->isStarted() || ($this->colorsCount[$this->colors["delayed"]] > 0))
-//			return true;
-//		return false;
-//	}	
-//	
-//	
-//	/*
-//	 * Devuelve verdadero si la fecha actual es posterior a la fecha planificada de finalizacion y aún no esta terminado el proyecto.
-//	 * O bien alguna de las actividades del proyecto esta fuera de plazo.
-//	 */
-//	function isLate() {
-//		return false; //TODO: averiguar
-//		global $system;
-//		
-//		if (!isset($this->colorsCount))
-//			$this->colorsCount = $this->getActivitiesByStatusColorCountAssoc();
-//			
-//		$currentTime = time();
-//		$plannedEnd = $this->getPlannedEnd('U');
-//		
-//		if (is_null($plannedEnd)) 
-//			return false;
-//		
-//		// Si se usa tolerancia en dias
-//		if ($system["config"]["tablero"]["projects"]["parameterControl"]["value"] == "DAYS") {
-//			$days = $system["config"]["tablero"]["activities"]["late"];
-//			$currentTime = time() - ($days * 24 * 60 * 60);			
-//		}
-//		// TODO agregar otros tipos de tolerancias
-//		
-//		if ( (($currentTime > $plannedEnd) && !$this->isEnded()) || ($this->colorsCount[$this->colors["late"]] > 0) )
-//			return true;
-//		return false;		
-//	}
-
-	
-	
-	
-	
-//<?php
-//
-//
-///**
-// * Skeleton subclass for representing a row from the 'projects_project' table.
-// *
-// * Project
-// *
-// * You should add additional methods to this class to meet the
-// * application requirements.  This class will only be generated as
-// * long as it does not already exist in the output directory.
-// *
-// * @package    propel.generator.projects.classes
-// */
-//class Project extends BaseProject {
-//
-//	/** the default item name for this class */
-//	const ITEM_NAME = 'Project';
-//		
-//	private $colors;
-//	private $colorsCount;
 //	private $toLog;
 //	private $minorChange;
 //
 //	public $errorMessages = array();
-//
-//	function __construct() {
-//		parent::__construct();
-//		
-//		global $system;
-//		$this->colors = $system["config"]["tablero"]["colors"];
-//	}
 //	
 //	/**
 //	 * Indica si un afiliado/dependencia es duenio de la instancia
@@ -272,152 +224,6 @@ class BaseProject {
 //		return false;
 //	}
 //		
-//	/**
-//	 * Devuelve verdadero si el proyecto esta en desarrollo y su fecha de expiracion está vencida.
-//	 *
-//	 */
-//	function isDelayed() {
-//		return ($this->isOnWork() && ($this->getPlannedEnd <= date('Y-m-d')." 00:00:00"));
-//	}
-//	
-//	/**
-//	 * Devuelve verdadero si el proyecto esta seteado como finished o si tiene fecha real de finalizacion.
-//	 *
-//	 */
-//	function isEnded() {
-//		return ( ($this->getFinished() == 1) || (!is_null($this->getRealEnd())) );
-//	}
-//	
-//	/**
-//	 * Devuelve verdadero si el proyecto esta en desarrollo
-//	 *
-//	 */
-//	function isOnWork() {
-//		return ( ($this->getFinished() == 0) && (is_null($this->getRealEnd())) );
-//	}
-//	
-//	/**
-//	 * Devuelve el color acorde al estado del proyecto
-//	 *
-//	 */
-//	function statusColor() {
-//		
-//		// el uso de este metodo nos asegura recorrer las activities del proyecto una unica vez por consulta.
-//		if (!isset($this->colorsCount))
-//			$this->colorsCount = $this->getActivitiesByStatusColorCountAssoc();
-//		
-//		if ($this->isCancelled())
-//			return $this->colors["cancelled"];
-//		if ($this->isEnded())
-//			return $this->colors["finished"];
-//		if ($this->isUndefined())
-//			return $this->colors["notDefined"];
-//		if ($this->isLate())
-//			return $this->colors["late"];
-//		if ($this->isDelayed2())
-//			return $this->colors["delayed"];
-//		if (!$this->isStarted())
-//			return $this->colors["planned"];
-//
-//		return $this->colors["onTime"];		
-//	}
-//	
-//	/**
-//	 * Devuelve verdadero o falso si el proyecto tiene un color determinado
-//	 * @param $color color del proyecto
-//	 */
-//	function isOfStatusColor($color) {
-//		return ($this->statusColor() === $color);
-//	}
-//	
-//	/**
-//	 * Devuelve verdadero si el proyecto tiene fecha real de inicio.
-//	 */
-//	function isStarted() {
-//		return !is_null( $this->getRealStart() );
-//	}
-//	
-//	/**
-//	 * Devuelve verdadero si el proyecto esta seteado como cancelado.
-//	 */		
-//	function isCancelled() {
-//		return $this->getCancelled();
-//	}
-//		
-//	/**
-//	 * Devuelve verdadero si el proyecto no tiene actividades asociadas no canceladas.
-//	 */	
-//	function isUndefined() {
-//		$totalActivities = $this->getAllActivitiesCount();
-//		
-//		if (!isset($this->colorsCount))
-//			$this->colorsCount = $this->getActivitiesByStatusColorCountAssoc();
-//		
-//		if ( $totalActivities === 0 )
-//			return true;
-//		
-//		if ($totalActivities === $this->colorsCount[$this->colors["cancelled"]])
-//			return true;
-//		
-//		return false;
-//	}
-//	
-//	/**
-//	 * Devuelve verdadero si la fecha actual es posterior a la fecha planificada de inicio y aún no se comenzó el proyecto.
-//	 * O bien alguna de las actividades del proyecto esta retrasada.
-//	 */
-//	function isDelayed2() {
-//		global $system;	
-//		
-//		if (!isset($this->colorsCount))
-//			$this->colorsCount = $this->getActivitiesByStatusColorCountAssoc();
-//		
-//		$currentTime = time();
-//		$plannedStart = $this->getPlannedStart('U');
-//		
-//		if (is_null($plannedStart)) 
-//			return false;
-//		
-//		// Si se usa tolerancia en dias
-//		if ($system["config"]["tablero"]["projects"]["parameterControl"]["value"] == "DAYS") {
-//			$days = $system["config"]["tablero"]["activities"]["delayed"]; 
-//			$currentTime = time() - ($days * 24 * 60 * 60);		
-//		}
-//		// TODO agregar otros tipos de tolerancias
-//		
-//		if ( $currentTime > $plannedStart && !$this->isStarted() || ($this->colorsCount[$this->colors["delayed"]] > 0))
-//			return true;
-//		return false;
-//	}	
-//	
-//	
-//	/*
-//	 * Devuelve verdadero si la fecha actual es posterior a la fecha planificada de finalizacion y aún no esta terminado el proyecto.
-//	 * O bien alguna de las actividades del proyecto esta fuera de plazo.
-//	 */
-//	function isLate() {
-//		global $system;
-//		
-//		if (!isset($this->colorsCount))
-//			$this->colorsCount = $this->getActivitiesByStatusColorCountAssoc();
-//			
-//		$currentTime = time();
-//		$plannedEnd = $this->getPlannedEnd('U');
-//		
-//		if (is_null($plannedEnd)) 
-//			return false;
-//		
-//		// Si se usa tolerancia en dias
-//		if ($system["config"]["tablero"]["projects"]["parameterControl"]["value"] == "DAYS") {
-//			$days = $system["config"]["tablero"]["activities"]["late"];
-//			$currentTime = time() - ($days * 24 * 60 * 60);			
-//		}
-//		// TODO agregar otros tipos de tolerancias
-//		
-//		if ( (($currentTime > $plannedEnd) && !$this->isEnded()) || ($this->colorsCount[$this->colors["late"]] > 0) )
-//			return true;
-//		return false;		
-//	}		
 //	
 //
 //	/*

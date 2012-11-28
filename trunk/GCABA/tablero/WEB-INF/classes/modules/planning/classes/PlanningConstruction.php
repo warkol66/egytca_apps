@@ -33,10 +33,15 @@ class PlanningConstruction extends BasePlanningConstruction {
 		}
 	}
 	
+	public function postSave(\PropelPDO $con = null) {
+		parent::postSave($con);
+		$this->getPlanningProject()->doUpdateRealDates();
+	}
+	
 	/**
 	 * Obtiene el objective asociado al project
 	 */
-	public function getObjective() {
+	public function getOperativeObjective() {
 		return $this->getPlanningProject()->getOperativeObjective();
 	}
 
@@ -133,6 +138,73 @@ class PlanningConstruction extends BasePlanningConstruction {
 	public function countActivities() {
 		return BaseQuery::create('PlanningActivity')->filterByObjecttype('Construction')->filterByObjectid($this->getId())->count();
 	}
+	
+	public function getFinished() {
+		//TODO: implementar y documentar;
+		return false;
+	}
+	
+	public function isCancelled() {
+		//TODO: implementar y documentar;
+		return false;
+	}
+	
+	public function isUndefined() {
+		//TODO: implementar y documentar;
+		return false;
+	}
+	
+	public function isDelayed() {
+		//TODO: implementar y documentar;
+		return false;
+	}
+	
+	public function isLate() {
+		//TODO: implementar y documentar;
+		return false;
+	}
+	
+	public function doUpdateRealDates() {
+		$this->updateRealEnd();
+		$this->updateRealStart();
+		$this->save();
+	}
+	
+	private function updateRealEnd() {
+		
+		$unfinishedActivitiesCount = BaseQuery::create('PlanningActivity')
+			->filterByObjecttype('Construction')
+			->filterByObjectid($this->getId())
+			->filterByRealEnd(null, Criteria::ISNULL)
+			->count()
+		;
+		if ($unfinishedActivitiesCount == 0) {
+			$this->setRealend(null);
+			return;
+		}
+		
+		$lastFinishedActivity = BaseQuery::create('PlanningActivity')
+			->filterByObjecttype('Construction')
+			->filterByObjectid($this->getId())
+			->filterByRealStart(null, Criteria::ISNOTNULL)
+			->orderByRealend(Criteria::DESC)
+			->findOne()
+		;
+		$this->setRealend($lastFinishedActivity ? $lastFinishedActivity->getRealStart() : null);
+	}
+	
+	private function updateRealStart() {
+		
+		$firstStartedActivity = BaseQuery::create('PlanningActivity')
+			->filterByObjecttype('Construction')
+			->filterByObjectid($this->getId())
+			->filterByRealStart(null, Criteria::ISNOTNULL)
+			->orderByRealstart(Criteria::ASC)
+			->findOne()
+		;
+		
+		$this->setRealstart($firstStartedActivity ? $firstStartedActivity->getRealStart() : null);
+	}
 
 	/**
 	 * Devuelve array con posibles tipos de licitacion (tenderId)
@@ -161,4 +233,5 @@ class PlanningConstruction extends BasePlanningConstruction {
 		);
 		return $constructionTypes;
 	}
+	
 } // PlanningConstruction

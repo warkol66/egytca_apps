@@ -39,13 +39,6 @@ class PlanningProject extends BasePlanningProject {
 	public function getAllProjects() {
 		return $this->getPlanningConstructions();
 	}
-	
-	/**
-	 * Obtiene el objective asociado al project
-	 */
-	public function getObjective() {
-		return $this->getOperativeObjective();
-	}
 
 	/**
 	 * Devuelve coleccion de objetos asociados (PlanningActivity)
@@ -160,6 +153,108 @@ class PlanningProject extends BasePlanningProject {
 	 */
 	public function countActivities() {
 		return BaseQuery::create('PlanningActivity')->filterByObjecttype('Project')->filterByObjectid($this->getId())->count();
+	}
+	
+	public function getFinished() {
+		//TODO: implementar y documentar;
+		return false;
+	}
+	
+	public function isCancelled() {
+		//TODO: implementar y documentar;
+		return false;
+	}
+	
+	public function isUndefined() {
+		//TODO: implementar y documentar;
+		return false;
+	}
+	
+	public function isDelayed() {
+		//TODO: implementar y documentar;
+		return false;
+	}
+	
+	public function isLate() {
+		//TODO: implementar y documentar;
+		return false;
+	}
+	
+	public function doUpdateRealDates() {
+		$this->updateRealEnd();
+		$this->updateRealStart();
+		$this->save();
+	}
+	
+	private function updateRealEnd() {
+		
+		if ($this->countPlanningConstructions() > 0) {
+			$unfinishedConstructionsCount = BaseQuery::create('PlanningConstruction')
+				->filterByPlanningProject($this)
+				->filterByRealEnd(null, Criteria::ISNULL)
+				->count()
+			;
+			if ($unfinishedConstructionsCount == 0) {
+				$this->setRealend(null);
+				return;
+			}
+
+			$lastFinishedConstruction = BaseQuery::create('PlanningConstruction')
+				->filterByPlanningProject($this)
+				->filterByRealStart(null, Criteria::ISNOTNULL)
+				->orderByRealend(Criteria::DESC)
+				->findOne()
+			;
+			$this->setRealend($lastFinishedConstruction ? $lastFinishedConstruction->getRealStart() : null);
+			return;
+			
+		} else {
+			$unfinishedActivitiesCount = BaseQuery::create('PlanningActivity')
+				->filterByObjecttype('Project')
+				->filterByObjectid($this->getId())
+				->filterByRealEnd(null, Criteria::ISNULL)
+				->count()
+			;
+			if ($unfinishedActivitiesCount == 0) {
+				$this->setRealend(null);
+				return;
+			}
+
+			$lastFinishedActivity = BaseQuery::create('PlanningActivity')
+				->filterByObjecttype('Project')
+				->filterByObjectid($this->getId())
+				->filterByRealStart(null, Criteria::ISNOTNULL)
+				->orderByRealend(Criteria::DESC)
+				->findOne()
+			;
+			$this->setRealend($lastFinishedActivity ? $lastFinishedActivity->getRealStart() : null);
+			return;
+		}
+	}
+	
+	private function updateRealStart() {
+		if ($this->countPlanningConstructions() > 0) {
+			$firstStartedConstruction = BaseQuery::create('PlanningConstruction')
+				->filterByPlanningProject($this)
+				->filterByRealStart(null, Criteria::ISNOTNULL)
+				->orderByRealstart(Criteria::ASC)
+				->findOne()
+			;
+
+			$this->setRealstart($firstStartedConstruction ? $firstStartedConstruction->getRealStart() : null);
+			return;
+		} else {
+			$firstStartedActivity = BaseQuery::create('PlanningActivity')
+				->filterByObjecttype('Project')
+				->filterByObjectid($this->getId())
+				->filterByRealStart(null, Criteria::ISNOTNULL)
+				->orderByRealstart(Criteria::ASC)
+				->findOne()
+			;
+
+			$this->setRealstart($firstStartedActivity ? $firstStartedActivity->getRealStart() : null);
+			return;
+		}
 	}
 
 	/**
