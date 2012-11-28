@@ -13,6 +13,17 @@ class BlogCommentsListAction extends BaseListAction {
 		$this->smarty->assign("section","Comments");
 		
 		$this->smarty->assign("entries", BlogEntryQuery::create()->find());
+		
+		$blogComment = new BlogComment();
+		
+		if (!empty($_GET['filters'])) {
+			
+			if (!empty($_GET['filters']['fromDate']))
+				$blogComment->setCommentFromDate($_GET['filters']['fromDate']);
+			if (!empty($_GET['filters']['toDate']))
+				$blogComment->setCommentToDate($_GET['filters']['toDate']);
+			$this->smarty->assign('filters',$_GET['filters']);
+		}
 	}
 		/* Arreglar filtro de fechas
 		//filtros

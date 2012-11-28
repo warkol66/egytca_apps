@@ -15,21 +15,20 @@ class BlogListAction extends BaseListAction {
 		parent::postList();
 		$this->smarty->assign("module", $this->module);
 		
-		$blogEntryPeer = new BlogEntry();
-		$blogEntryPeer->setReverseOrder();
+		$blogEntry = new BlogEntry();
+		$blogEntry->setReverseOrder();
 
  		if (!empty($_GET['filters'])) {
 			
 			if (!empty($_GET['filters']['fromDate']))
-				$blogEntryPeer->setFromDate(Common::convertToMysqlDateFormat($_GET['filters']['fromDate']));
-			
+				$blogEntry->setFromDate(Common::convertToMysqlDateFormat($_GET['filters']['fromDate']));
 			if (!empty($_GET['filters']['toDate']))
-				$blogEntryPeer->setToDate(Common::convertToMysqlDateFormat($_GET['filters']['toDate']));
+				$blogEntry->setToDate(Common::convertToMysqlDateFormat($_GET['filters']['toDate']));
 			
 			//Arreglar filtro por categoria
 			if (!empty($_GET['filters']['categoryId'])) {
 				$category = CategoryPeer::get($_GET['filters']['categoryId']);
-				$blogEntryPeer->setCategory($category);			
+				$blogEntry->setCategory($category);
 			}
 			
 			$this->smarty->assign('filters',$_GET['filters']);
@@ -51,7 +50,7 @@ class BlogListAction extends BaseListAction {
 			die;
 		}
 		
-		$pager = $blogEntryPeer->getAllPaginatedFiltered($_GET["page"]);
+		$pager = $blogEntry->getAllPaginatedFiltered($_GET["page"]);
 		$this->smarty->assign("blogEntries",$pager->getResult());
 		$this->smarty->assign("pager",$pager);
 		$url = "Main.php?do=blogList";
