@@ -48,6 +48,11 @@ class CommonDoLogoutAction extends BaseAction {
 		if($_SESSION["loginClientUser"])
 			unset($_SESSION["loginClientUser"]);
 
+		if($_SESSION["panelMode"])
+			unset($_SESSION["panelMode"]);
+		if($_SESSION["planningMode"])
+			unset($_SESSION["planningMode"]);
+
 		return $mapping->findForwardConfig('success');
 
 	}

@@ -1,15 +1,15 @@
 <?php
 /**
- * PanelSetPanelXAction
+ * PlanningSetPlanningAction
  *
  * Pone el sistema en modo planeamiento
  *
- * @package    Panel
+ * @package    planning
  */
 
-class PanelSetPanelXAction extends BaseAction {
+class PlanningSetPlanningAction extends BaseAction {
 	
-	function PanelSetPanelXAction() {
+	function PlanningSetPlanningAction() {
 		;
 	}
 	
@@ -22,8 +22,8 @@ class PanelSetPanelXAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 		
-		Common::setPanelMode($smarty);
-		$smarty->assign('panelMode', true);
+		Common::setPlanningMode($smarty);
+		$smarty->assign('planningMode', true);
 		return $mapping->findForwardConfig('success');
 	}
 }

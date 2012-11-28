@@ -33,7 +33,12 @@ class UsersDoLogoutAction extends BaseAction {
 
 		if($_SESSION["lastLogin"])
 		unset($_SESSION["lastLogin"]);
-		
+
+		if($_SESSION["panelMode"])
+			unset($_SESSION["panelMode"]);
+		if($_SESSION["planningMode"])
+			unset($_SESSION["planningMode"]);
+	
 		Common::doLog('success','username: ' . $username);
 		if($_SESSION["loginUser"])
 			unset($_SESSION["loginUser"]);

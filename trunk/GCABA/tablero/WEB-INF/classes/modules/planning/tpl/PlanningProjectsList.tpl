@@ -60,34 +60,34 @@
 				<td>|-$project->getStringCode()-|&nbsp;|-$project->getName()-|</td>
 				<td nowrap>|-if $project->countPlanningConstructions() gt 0-|<a href="Main.php?do=planningConstructionsList&nav=true&&filters[planningprojectid]=|-$project->getId()-|" class="icon iconFollow" title="Ver Obras del Proyecto">Ver Obras</a>|-/if-|</td>
 				<td nowrap>
-					|-if $project->getActivities()|count gt 0-|
+					|-if "planningProjectsViewX"|security_has_access-||-if $project->getActivities()|count gt 0-|
 					<input type="button" class="icon iconViewGantt" onClick='window.open("Main.php?do=planningProjectsViewX&showGantt=true&id=|-$project->getid()-|","Gantt","scrollbars=1,width=800,height=600");' value="Ver Gantt" title="Ver Gantt (abre en ventana nueva)" />|-else-|<img src="images/clear.png" class="icon iconClear disabled" />|-/if-|
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="planningProjectsViewX" />
 						<input type="hidden" name="id" value="|-$project->getid()-|" />
 						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("planningProjectsShowDiv", "Main.php?do=planningProjectsViewX&id=|-$project->getid()-|", { method: "post", parameters: { id: "|-$project->getId()-|"}, evalScripts: true})};$("planningProjectsShowWorking").innerHTML = "<span class=\"inProgress\">buscando Proyecto...</span>";' value="Ver detalle" name="submit_go_show_project" title="Ver detalle" /></a>
-					</form>
-					<form action="Main.php" method="get" style="display:inline;">
+					</form>|-/if-|
+					|-if "planningProjectsEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;">
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="planningProjectsEdit" />
 						<input type="hidden" name="id" value="|-$project->getid()-|" />
 						<input type="submit" name="submit_go_edit_project" value="Editar" class="icon iconEdit" title="Editar Proyecto"/>
-					</form>
-					<form action="Main.php" method="post" style="display:inline;">
+					</form>|-/if-|
+					|-if "planningProjectsDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;">
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="planningProjectsDoDelete" />
 						<input type="hidden" name="id" value="|-$project->getid()-|" />
 						<input type="submit" name="submit_go_delete_project" value="Borrar" onclick="return confirm('¿Seguro que desea eliminar el objetivo?')" class="icon iconDelete" title="Eliminar Proyecto" />
-					</form>
-					|-if $project->getInvestment()-|<form action="Main.php" method="get" style="display:inline;">
+					</form>|-/if-|
+					|-if $planningMode-||-if "planningConstructionsEdit"|security_has_access-||-if $project->getInvestment()-|<form action="Main.php" method="get" style="display:inline;">
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="planningConstructionsEdit" />
 						<input type="hidden" name="fromPlanningProjectId" value="|-$project->getid()-|" />
 						<input type="submit" name="submit_go_edit_construction" value="Agregar Obras" class="icon iconAdd" title="Agregar Obras" />
-					</form>|-/if-|
+					</form>|-/if-||-/if-||-/if-|
 					</td>
 			</tr>
 		|-/foreach-|

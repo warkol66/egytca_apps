@@ -752,6 +752,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fceabb', end
 	border-radius:5px;
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
+	
+	padding: .6em 1em .6em 1em !Important;
+}
+
+.tableTdBorders h3, .tableTdBorders h4, .tableTdBorders h5 {
+	background: transparent none !Important; /* Old browsers */
 }
 
 table td {	border-radius:5px;
@@ -766,4 +772,8 @@ table.tableTdBorders {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-spacing: 3px;
+}
+
+fieldset.noMargin {
+	margin-left: 0 !Important;
 }
