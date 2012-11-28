@@ -20,11 +20,11 @@ Si preferís recibir nuestras novedades de manera diaria, te recomendamos te sus
             |-/foreach-|
         |-/if-|
     |-elseif $error eq "error_passwd"-|
-        <div class="failureMessage errorMessage">Error. Los passwords proporcionados no concuerdan.</div>
+        <div class="failureMessage errorMessage">Los passwords proporcionados no concuerdan.</div>
     |-elseif $error eq "error_username_used"-|
         <div class="failureMessage errorMessage">El nombre de usuario se encuentra en uso, por favor ingrese uno distinto.</div>
     |-elseif $error eq "error_captcha"-|
-        <div class="failureMessage errorMessage">Error en código de validación.</div>
+        <div class="failureMessage errorMessage">Error en Código de Seguridad.</div>
     |-/if-|
 |-/if-|
 <form method="post" action="Main.php?do=registrationDoEdit"> 
@@ -38,7 +38,7 @@ Si preferís recibir nuestras novedades de manera diaria, te recomendamos te sus
         </legend>
 		<p>Ingrese sus datos</p> 
 
-		|-if not $registrationUser->isNew()-|
+		|-if not $registrationUser->isNew() and  ( !isset($loggedUser) or get_class($loggedUser) neq "User"  )-|
 		<p>
 		<label>Usuario</label>  |-$registrationUser->getUsername()-|
 		</p>
@@ -49,96 +49,88 @@ Si preferís recibir nuestras novedades de manera diaria, te recomendamos te sus
             </p>
 		|-/if-|
 		<p>
-		<label for="registrationUserInfo[mailAddress]">Dirección de Email</label>
-			<input type="text" class="emptyValidation" id="registrationUserInfo[mailAddress]" name="registrationUserInfo[mailAddress]" size="35" value="|-if isset($registrationUserInfo)-||-$registrationUserInfo->getMailAddress()-||-/if-||-if $failedRegistrationUserInfo neq ""-||-$failedRegistrationUserInfo.mailAddress-||-/if-|" />
+		<label for="params[mailAddress]">Dirección de Email</label>
+			<input type="text" class="emptyValidation" id="params[mailAddress]" name="params[mailAddress]" size="35" value="|-if isset($registrationUser)-||-$registrationUser->getMailAddress()-||-/if-|" />
 		</p>
 		<p>
 		<label for="params[password]">Contraseña</label>
-			<input type="password" class="emptyValidation" id="params[password]" name="params[password]" size="15" />
+			<input type="password" |-if $registrationUser->isNew()-|class="emptyValidation"|-/if-| id="params[password]" name="params[password]" size="15"  />
 		</p> 
 		<p>
 		<label for="params[check_password]">Reingrese Contraseña</label>
-			<input type="password" class="emptyValidation" id="params[check_password]" name="params[check_password]" size="15" />
+			<input type="password" |-if $registrationUser->isNew()-|class="emptyValidation"|-/if-| id="params[check_password]" name="params[check_password]" size="15" />
 		</p>
 		<p>
 		<label for="name">Nombre</label>
-			<input type="text" class="emptyValidation" name="registrationUserInfo[name]" size="35"value="|-if isset($registrationUserInfo)-||-$registrationUserInfo->getName()-||-/if-||-if $failedRegistrationUserInfo neq ""-||-$failedRegistrationUserInfo.name-||-/if-|" />
+			<input type="text" class="emptyValidation" name="params[name]" size="35"value="|-if isset($registrationUser)-||-$registrationUser->getName()-||-/if-|" />
 		</p>
         <p>
-            <label for="registrationUserInfo[surname]">Apellido</label>
-            <input type="text" class="emptyValidation" id="registrationUserInfo[surname]" name="registrationUserInfo[surname]" size="35" value="|-if isset($registrationUserInfo)-||-$registrationUserInfo->getSurname()-||-/if-||-if $failedRegistrationUserInfo neq ""-||-$failedRegistrationUserInfo.surname-||-/if-|" />
+            <label for="params[surname]">Apellido</label>
+            <input type="text" class="emptyValidation" id="params[surname]" name="params[surname]" size="35" value="|-if isset($registrationUser)-||-$registrationUser->getSurname()-||-/if-|" />
         </p>
 		<p>
-		<label for="registrationUserInfo[alternateMailAddress]">Dirección de Email Alternativa</label>
-			<input type="text" id="registrationUserInfo[alternateMailAddress]" name="registrationUserInfo[alternateMailAddress]" size="35" value="|-if isset($registrationUserInfo)-||-$registrationUserInfo->getAlternateMailAddress()-||-/if-||-if $failedRegistrationUserInfo neq ""-||-$failedRegistrationUserInfo.alternateMailAddress-||-/if-|" />
+		<label for="params[alternateMailAddress]">Dirección de Email Alternativa</label>
+			<input type="text" id="params[alternateMailAddress]" name="params[alternateMailAddress]" size="35" value="|-if isset($registrationUser)-||-$registrationUser->getAlternateMailAddress()-||-/if-|" />
 		</p>
 		<p>
-		<label for="registrationUserInfo[occupation]">Profesión</label>
+		<label for="params[occupation]">Profesión</label>
 
-			<input type="text" id="registrationUserInfo[occupation]" name="registrationUserInfo[occupation]" size="35" value="|-if isset($registrationUserInfo)-||-$registrationUserInfo->getOccupation()-||-/if-||-if $failedRegistrationUserInfo neq ""-||-$failedRegistrationUserInfo.occupation-||-/if-|" />
+			<input type="text" id="params[occupation]" name="params[occupation]" size="35" value="|-if isset($registrationUser)-||-$registrationUser->getOccupation()-||-/if-|" />
 		</p>
 		<p>
-		<label for="registrationUserInfo[organization]">Organización</label>
-			<input type="text" id="registrationUserInfo[organization]" name="registrationUserInfo[organization]" size="45" value="|-if isset($registrationUserInfo)-||-$registrationUserInfo->getOrganization()-||-/if-||-if $failedRegistrationUserInfo neq ""-||-$failedRegistrationUserInfo.organization-||-/if-|" />
+		<label for="params[organization]">Organización</label>
+			<input type="text" id="params[organization]" name="params[organization]" size="45" value="|-if isset($registrationUser)-||-$registrationUser->getOrganization()-||-/if-|" />
 		</p>
 		<p>
-		<label for="registrationUserInfo[telephone]">Teléfono</label>
-			<input type="text" id="registrationUserInfo[telephone]" name="registrationUserInfo[telephone]" size="35" value="|-if isset($registrationUserInfo)-||-$registrationUserInfo->getTelephone()-||-/if-||-if $failedRegistrationUserInfo neq ""-||-$failedRegistrationUserInfo.telephone-||-/if-|" />
+		<label for="params[telephone]">Teléfono</label>
+			<input type="text" id="params[telephone]" name="params[telephone]" size="35" value="|-if isset($registrationUser)-||-$registrationUser->getTelephone()-||-/if-|" />
 		</p>
 		<p>
-		<label for="registrationUserInfo[alternateTelephone]">Teléfono Alternativo</label>
+		<label for="params[alternateTelephone]">Teléfono Alternativo</label>
 
-			<input type="text" id="registrationUserInfo[alternateTelephone]" name="registrationUserInfo[alternateTelephone]" size="35" value="|-if isset($registrationUserInfo)-||-$registrationUserInfo->getAlternateTelephone()-||-/if-||-if $failedRegistrationUserInfo neq ""-||-$failedRegistrationUserInfo.alternateTelephone-||-/if-|" />
+			<input type="text" id="params[alternateTelephone]" name="params[alternateTelephone]" size="35" value="|-if isset($registrationUser)-||-$registrationUser->getAlternateTelephone()-||-/if-|" />
 		</p>
 		<p>
-			<label for="registrationUserInfo[group]">Grupo</label>
-			<select class="emptyValidation" id="registrationUserInfo[group]"	name="registrationUserInfo[group]">
-				|-foreach from=$groups item=group key=key name=for_groups-|
-				<option value="|-$key-|" |-if isset($registrationUserInfo) and $key eq $registrationUserInfo->getGroup()-|selected="selected"|-/if-| |-if $failedRegistrationUserInfo neq "" and $failedRegistrationUserInfo.group eq $key-|selected=selected|-/if-|>|-$group-|</option>
-				|-/foreach-|
-			</select>
-		</p>
-		<p>
-			<label for="registrationUserInfo[country]">Pais</label>
-			<select class="emptyValidation" id="registrationUserInfo[country]"	name="registrationUserInfo[country]">
+			<label for="params[country]">Pais</label>
+			<select class="emptyValidation" id="params[country]"	name="params[country]">
 				|-foreach from=$countries item=country name=for_groups-|
 				|-if $country eq "separator"-|
 					<optgroup label="----------"></optgroup>
 				|-else-|
-				<option value="|-$country-|" |-if isset($registrationUserInfo) and $country eq $registrationUserInfo->getCountry()-|selected="selected"|-/if-||-if $failedRegistrationUserInfo neq "" and $failedRegistrationUserInfo.country eq $country-|selected=selected|-/if-|>|-$country-|</option>
+				<option value="|-$country-|" |-if isset($registrationUser) and $country eq $registrationUser->getCountry()-|selected="selected"|-/if-|>|-$country-|</option>
 				|-/if-|
 				|-/foreach-|
 			</select>
 		</p>
 		<p>
-		<label for="registrationUserInfo[state]">Provincia</label>
-			<input type="text" class="emptyValidation" id="registrationUserInfo[state]" name="registrationUserInfo[state]" size="20" value="|-if isset($registrationUserInfo)-||-$registrationUserInfo->getState()-||-/if-||-if $failedRegistrationUserInfo neq ""-||-$failedRegistrationUserInfo.state-||-/if-|" />
+		<label for="params[state]">Provincia</label>
+			<input type="text" id="params[state]" name="params[state]" size="20" value="|-if isset($registrationUser)-||-$registrationUser->getState()-||-/if-|" />
 		</p>
 		|-if isset($admin) and $admin-|
 		<p>
 				<label for="params[active]">Estado</label>
-				<select name="params[active]" id="params[active]>
-					<option value="0" |-if isset($registrationUser) and $registrationUser->getActive() eq 0-|selected="selected"|-/if-|>Inactivo</option>
-					<option value="1" |-if isset($registrationUser) and $registrationUser->getActive() eq 1-|selected="selected"|-/if-|>Activo</option>
+				<select name="params[active]" id="params[active]">
+                    <option value="1" |-if isset($registrationUser) and $registrationUser->getActive() eq 1-|selected="selected"|-/if-|>Activo</option>
+					<option value="0" |-if isset($registrationUser) and $registrationUser->getActive() eq 0 and not is_null($registrationUser->getActive())-|selected="selected"|-/if-|>Inactivo</option>
 				</select>
 		</p>
 		|-/if-|
 		|-if isset($newsletterActive) and $newsletterActive-|
 		<p>
-		<label for="newsletterSubscribe">Subscripción a Newsletter</label> 
-			<input type="hidden" name="registrationUserInfo[newsletterSubscribe]" value="0" />
-			<input type="checkbox" name="registrationUserInfo[newsletterSubscribe]" value="1" |-if isset($registrationUserInfo) and $registrationUserInfo->getNewsletterSubscribe() eq 1-|checked="checked"|-/if-||-if $failedRegistrationUserInfo neq "" and $failedRegistrationUserInfo.newsletterSubscribe eq 1-|checked=checked|-/if-|/>
+		<label for="params[newsletterSubscribe]">Subscripción a Newsletter</label>
+			<input type="checkbox" id="params[newsletterSubscribe]" name="params[newsletterSubscribe]" value="1" |-if isset($registrationUser) and $registrationUser->getNewsletterSubscribe() eq 1-|checked="checked"|-/if-|/>
 		</p>
 		|-/if-|
 
 		|-if isset($useCaptcha) and $useCaptcha-|
 		<p>
-			<label for="newsletterSubscribe">Código de Seguridad</label>
-				<img src="Main.php?do=registrationCaptchaGeneration&width=120&height=45&characters=5" />
+			<label for="security_code">Código de Seguridad</label>
+            <img src="Main.php?do=commonImage&width=120&height=45&characters=5" />
 		</p>
 		<p>
+            <label></label>
 				Ingrese el código de seguridad de la imagen <br />
-				<input id="security_code" name="securityCode" type="text" size="10" />
+            <label></label><input class="emptyValidation" id="security_code" name="securityCode" type="text" size="10" />
 		</p>
 
 		|-/if-|
@@ -150,7 +142,7 @@ Si preferís recibir nuestras novedades de manera diaria, te recomendamos te sus
 		<p>
 		<label for="ip">IP de registro</label>  |-$registrationUser->getIp()-|
 		</p>
-		|-if $registrationUser->getUpdated() != $registrationUser->getCreated()-|
+		|-if $registrationUser->getUpdated() != $registrationUser->getCreatedAt()-|
 		<p>
 		<label for="created">Fecha última modificación</label>  |-$registrationUser->getUpdated()-|
 		</p>

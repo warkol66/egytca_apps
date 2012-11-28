@@ -14,6 +14,7 @@
 <script type="text/javascript" >
 
 	function showValidationFailureMessage(form) {
+        $(".failureMessage,.errorMessage").hide();
 		var validationMessage = $('#validationFailureMessage');
 		if (validationMessage.length == 0) {
 			$('<div id="validationFailureMessage" class="resultFailure">Tiene errores en el formulario, corrija los errores para volver a enviarlo.</div>').prependTo(form);
