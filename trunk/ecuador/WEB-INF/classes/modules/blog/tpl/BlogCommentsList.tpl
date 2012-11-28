@@ -127,13 +127,13 @@
 					|-assign var=status value=$blogComment->getstatus()-|
 	
 					<form action="Main.php" method="post" id="formStatusComment|-$blogComment->getId()-|">
-						<select name="blogComment[status]" onChange="javascript:submitCommentsChangeFormX('formStatusComment|-$blogComment->getId()-|')" id='blogCommentsStatusSelect|-$blogComment->getId()-|'>
+						<select name="params[status]" onChange="javascript:submitCommentsChangeFormX('formStatusComment|-$blogComment->getId()-|')" id='blogCommentsStatusSelect|-$blogComment->getId()-|'>
 							<option value="1" |-if isset($status) and ($status eq 1)-|selected="selected"|-/if-|>Pendiente</option>
 							<option value="2" |-if isset($status) and ($status eq 2)-|selected="selected"|-/if-|>Aprobado</option>
 							<option value="3" |-if isset($status) and ($status eq 3)-|selected="selected"|-/if-|>Spam</option>
 							<option value="4" |-if isset($status) and ($status eq 4)-|selected="selected"|-/if-|>Eliminado</option>
 						</select>
-						<input type="hidden" name="blogComment[id]" id="blogComment_id" value="|-$blogComment->getid()-|" />
+						<input type="hidden" name="id" id="id" value="|-$blogComment->getid()-|" />
 						<input type="hidden" name="do" value="blogCommentsChangeStatusX" id="do">
 					</form>
 				</td>

@@ -15,15 +15,11 @@ class BlogCommentsEditAction extends BaseEditAction {
 		$this->smarty->assign("statusOptions",BlogComment::getStatusOptions());
 		$this->smarty->assign("entryIdValues",BlogEntryQuery::create()->find());
 		$this->smarty->assign("userIdValues",UserQuery::create()->find());
-	}
-	/*
-		//redireccionamientos
+		
 		if (isset($_GET['filters']))
-			$smarty->assign('filters',$_GET['filters']);
+			$this->smarty->assign('filters',$_GET['filters']);
 		if (isset($_GET['articleId']))
-			$smarty->assign('articleId',$_GET['articleId']);
-
-		return $mapping->findForwardConfig('success');
-	}*/
+			$this->smarty->assign('articleId',$_GET['articleId']);
+	}
 
 }
