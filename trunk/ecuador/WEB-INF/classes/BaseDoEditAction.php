@@ -7,6 +7,16 @@ class BaseDoEditAction extends BaseAction {
 	protected $entity;
 	protected $entityParams;
 	protected $ajaxTemplate;
+	/*
+	 * Esta variable es el forward name cuando se ha salvado correctamente el formulario
+	 * @var string
+	 */
+	protected $forwardName="success";
+	/*
+	 * Esta variable es el forward name cuando se ja ocurrido un error en el formulario
+	 * @var string
+	 */
+	protected $forwardFailureName="failure-edit";
 
 	function __construct($entityClassName) {
 		if (empty($entityClassName))
@@ -65,7 +75,7 @@ class BaseDoEditAction extends BaseAction {
 				return $this->returnAjaxFailure($e->getMessage());
 			} else {
 				$this->onFailure($e);
-				return $this->returnFailure($mapping, $smarty, $this->entity, 'failure-edit');
+				return $this->returnFailure($mapping, $smarty, $this->entity, $this->forwardFailureName);
 			}
 		}
 
@@ -78,7 +88,7 @@ class BaseDoEditAction extends BaseAction {
 		if ($this->isAjax()) {
 			$smarty->display($this->ajaxTemplate);
 		} else {
-			return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'success-edit');
+			return $this->addParamsAndFiltersToForwards($params, $filters, $mapping, $this->forwardName);
 		}
 	}
 
