@@ -23,8 +23,7 @@ class RegistrationEditAction extends BaseEditAction {
 	protected function postEdit() {
 		parent::postEdit();
 
-		$this->smarty->assign("countries", RegistrationUserInfoQuery::getCountries());
-		$this->smarty->assign("groups", RegistrationUserInfoQuery::getGroups());
+		$this->smarty->assign("countries", RegistrationUserQuery::getCountries());
 
 		$loggedUser=Common::getLoggedUser();
 
@@ -54,11 +53,6 @@ class RegistrationEditAction extends BaseEditAction {
 			$entity=RegistrationUserQuery::create()->findPk($loggedUser->getId());
 			if($entity) $this->entity=$entity;
 		}
-
-		$registrationUserInfo=$this->entity->getRegistrationUserInfo();
-		if($registrationUserInfo)
-			$this->smarty->assign("registrationUserInfo",$this->entity->getRegistrationUserInfo());
-
 	}
 
 }

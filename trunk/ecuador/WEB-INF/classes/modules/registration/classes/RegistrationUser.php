@@ -24,21 +24,6 @@ class RegistrationUser extends BaseRegistrationUser {
 		// is where any default values for this object are set.
 		parent::__construct();
 	}
-
-	/**
-	 * Cuando el Usuario se esta creando se inicializan algunos campos
-	 * @param PropelPDO $conn
-	 * @return bloolean|bool
-	 */
-	public function preSave(PropelPDO $conn=null){
-		if($this->isNew()){
-			$now=strtotime("now");
-			$this->setCreated($now);
-			$this->setUpdated($now);
-			$this->setIp($_SERVER['REMOTE_ADDR']);
-		}
-		return true;
-	}
 	
 	public function canChangeToUsername($username) {
 		
