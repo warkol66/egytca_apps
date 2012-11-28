@@ -48,6 +48,14 @@
 			<fromEmail>infocippec@cippec.org</fromEmail>
 			<tablePrefix></tablePrefix>
 			<news>Novedades: Bienvenido al Sistema de Gestión de Planificación del Gobierno de la Ciudad Autónoma de Buenos Aires</news>
+			<defaultSystemMode>
+				<value>plannnigMode</value>
+				<element_type>Options</element_type>
+				<element_options>
+					<option_1>plannnigMode</option_1>
+					<option_2>panelMode</option_2>
+				</element_options>
+			</defaultSystemMode>
 		</parameters>
 		<errorReporting>
 			<value>E_ALL &amp; ~E_NOTICE ~E_WARNING</value>

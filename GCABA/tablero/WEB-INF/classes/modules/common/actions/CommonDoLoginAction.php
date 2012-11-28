@@ -79,6 +79,11 @@ class CommonDoLoginAction extends BaseAction {
 						else //si no autentifico
 							$forwardValue = 'failureDataMissmatch';
 					}
+					global $system;
+					$defaultSystemMode = $system["config"]["system"]["parameters"]["defaultSystemMode"]["value"];
+					$_SESSION[$defaultSystemMode] = true;
+					$smarty->assign("SESSION",$_SESSION);
+
 					//Si encontre usuario valido regreso con la informacion del $forwardValue
 					return $mapping->findForwardConfig($forwardValue);
 				}

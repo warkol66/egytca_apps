@@ -22,7 +22,7 @@ class PanelSetPanelAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 		
-		Common::setPanelMode();
+		Common::setPanelMode($smarty);
 		$smarty->assign('panelMode', true);
 		return $mapping->findForwardConfig('success');
 	}

@@ -10,13 +10,16 @@
 				<li><a href="Main.php?do=affiliatesUsersDoLogout" onClick='return window.confirm("Si ya actualizó su clave, puede proceder a salir del sistema. ¿Está seguro que quiere salir del sistema?")'>Salir</a></li>
 			|-/if-|				
 	|-else-|
-			<li><a href="Main.php?do=usersWelcome">Ir al Inicio</a></li>
+			<li><a href="Main.php?do=usersWelcome" class="sub">Ir al Inicio</a>
+			<ul class="menu">
+				<li class="last">|-if !$SESSION.panelMode-|<a href="Main.php?do=panelSetPanel">Cambiar a Modo Seguimiento</a>|-else-|<a href="Main.php?do=planningSetPlanning">Cambiar a Modo Planeamiento</a>|-/if-|</li>
+			</ul>
+		</li>
 			<li><a href="#" class="sub">Objetivos</a>
 			  <ul class="menu">
 				<li><a href="Main.php?do=planningImpactObjectivesList">Objetivos de Impacto</a></li>
 				<li><a href="Main.php?do=planningMinistryObjectivesList">Objetivos Ministeriales</a></li>
 				<li class="last"><a href="Main.php?do=planningOperativeObjectivesList">Objetivos Operativos</a></li>
-				<!--<li class="last"><a href="javascript:void(null)">Indicadores</a></li>-->
 			</ul>
 		</li>
 			<li><a href="javascript:void(null)" class="sub">Proyectos</a>
@@ -49,6 +52,7 @@
 			|-if $loginUser->isSupervisor()-|		
 			<li><a href="javascript:void(null)" class="sub">Configuración</a>
 				<ul>
+					<li class="last"><a href="Main.php?do=securityEditPermissions">Administrar permisos</a></li>
 					<li><a href="Main.php?do=usersPasswordChange">Actualice su contraseña</a></li>
 					<li><a href="Main.php?do=commonConfigSet">Configurar Sistema</a></li>
 					<li><a href="Main.php?do=commonMeasureUnitsList">Unidades de Medida</a></li>
