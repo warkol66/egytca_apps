@@ -24,6 +24,8 @@
 		
 		<column name="startingDate" type="DATE" description="Fecha de inicio" />
 		<column name="endingDate" type="DATE" description="Fecha de finalizacion" />
+		<column name="realStart" type="DATE" description="Fecha de inicio real" />
+		<column name="realEnd" type="DATE" description="Fecha de finalizacion real" />
 
 		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
 		<column name="version" type="INTEGER" description="Numero de version" />
@@ -131,6 +133,8 @@
 		
 		<column name="startingDate" type="DATE" description="Fecha de inicio" />
 		<column name="endingDate" type="DATE" description="Fecha de finalizacion" />
+		<column name="realStart" type="DATE" description="Fecha de inicio real" />
+		<column name="realEnd" type="DATE" description="Fecha de finalizacion real" />
 		<!--Partida presupuestaria-->
 		<column name="budgetYear" type="INTEGER" description="Ano"/>
 		<column name="budgetJurisdiction" type="INTEGER" description="Jurisdiccion"/>
@@ -314,7 +318,10 @@
 		<column name="objectId" type="INTEGER" description="Id del proyecto u obra"/>
 		<column name="startingDate" type="DATE" description="Fecha de inicio" />
 		<column name="endingDate" type="DATE" description="Fecha de finalizacion" />
+		<column name="realStart" type="DATE" description="Fecha de inicio real" />
+		<column name="realEnd" type="DATE" description="Fecha de finalizacion real" />
 		<column name="acomplished" type="BOOLEAN" sqlType="BOOL" default="0" description="Cumplido"/>
+		<column name="cancelled" type="BOOLEAN" sqlType="BOOL" default="0" description="Cancelado"/>
 		
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
