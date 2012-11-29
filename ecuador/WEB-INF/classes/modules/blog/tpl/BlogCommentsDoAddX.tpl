@@ -9,11 +9,11 @@
 	var container = $('<div></div>').addClass("commentContainer").attr('id', "comment|-$comment->getId()-|");
 	var individual = $('<div>',{
 		"class": "individual",
-		html: "<div class='image'><img src='images/individual.png' width='55' height='55' /><p class='nombre'>|-$blogComment->getUsername()-|</p></div>",
+		html: "<div class='image'><img src='images/individual.png' width='55' height='55' /><p class='nombre'>|-$comment->getUsername()-|</p></div>",
 	});
 	var comment = $('<div>',{
 		"class": "comment",
-		html: '<p><span class="fecha">|-$blogComment->getCreationDate()|date_format:"%A %e de %B de %Y"-|</span><br />|-$blogComment->getText()|escape|nl2br-|</p><div class="close"></div>'
+		html: '<p><span class="fecha">|-$comment->getCreationDate()|date_format:"%A %e de %B de %Y"-|</span><br />|-$comment->getText()|escape|nl2br-|</p><div class="close"></div>'
 	})
 	var closeDiv = $('<div>',{"class": "close"});
 	
@@ -26,7 +26,7 @@
 </script>
 |-/if-|
 
-|-if $blogComment->isPending()-|
+|-if $comment->isPending()-|
 <script type="text/javascript">
 		$('#msgBoxAdder'+|-$entry->getId()-|).html('<span class="resultSuccess">El comentario ha sido agregado. La publicación del mismo está sujeta a la aprobación por parte del administrador.</span>');
 		$('#formCommentAdder|-$entry->getId()-|')[0].reset();

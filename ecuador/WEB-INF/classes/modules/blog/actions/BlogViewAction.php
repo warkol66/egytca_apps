@@ -34,9 +34,9 @@ class BlogViewAction extends BaseAction {
 		if (!empty($_GET["id"]) || !empty($_GET["url"])) {
 
 			if (!empty($_GET["id"]))
-				$blogEntry = BlogEntryPeer::get($_GET["id"]);
+				$blogEntry = BlogEntry::get($_GET["id"]);
 			else
-				$blogEntry = BlogEntryPeer::getByUrl($_GET["url"]);
+				$blogEntry = BlogEntry::getByUrl($_GET["url"]);
 				
 			if (!empty($blogEntry)) {
 				$blogEntry->increaseViews();
@@ -46,7 +46,7 @@ class BlogViewAction extends BaseAction {
 				if ($moduleConfig['comments']['useComments']['value'] == "YES") {
 					//si se la configuracion pide que se muestren los comentarios de forma directa
 					if ($moduleConfig['comments']['displayComments']['value'] == 'YES') {
-						$blogCommentPeer = new BlogCommentPeer();
+						$blogCommentPeer = new BlogComment();
 						$comments = $blogCommentPeer->getAllApprovedByEntry($_GET["id"]);
 						$smarty->assign("comments",$comments);
 					}

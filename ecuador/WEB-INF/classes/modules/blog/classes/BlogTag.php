@@ -21,7 +21,7 @@ class BlogTag extends BaseBlogTag {
 	* @return array Informacion del BlogCategory
 	*/
 	function getPublishedEntries(){	
-		$crieria = BlogEntryQuery::create()->filterByStatus(BlogEntryPeer::PUBLISHED);
+		$crieria = BlogEntryQuery::create()->filterByStatus(BlogEntry::PUBLISHED);
 		$count = BlogTag::countBlogEntrys($crieria);
 		return $count;
 	}

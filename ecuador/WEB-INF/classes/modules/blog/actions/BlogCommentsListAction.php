@@ -17,27 +17,15 @@ class BlogCommentsListAction extends BaseListAction {
 		$blogComment = new BlogComment();
 		
 		if (!empty($_GET['filters'])) {
-			
+			//Arreglar
 			if (!empty($_GET['filters']['fromDate']))
-				$blogComment->setCommentFromDate($_GET['filters']['fromDate']);
+				$blogComment->setCommentFromDate(Common::convertToMysqlDateFormat($_GET['filters']['fromDate']));
 			if (!empty($_GET['filters']['toDate']))
-				$blogComment->setCommentToDate($_GET['filters']['toDate']);
+				$blogComment->setCommentToDate(Common::convertToMysqlDateFormat($_GET['filters']['toDate']));
 			$this->smarty->assign('filters',$_GET['filters']);
 		}
 	}
-		/* Arreglar filtro de fechas
-		//filtros
-		if (isset($_GET['filters'])) {
-			$smarty->assign('filters',$_GET['filters']);
-			if (isset($_GET['filters']['status']))
-				$blogCommentPeer->setStatus($_GET['filters']['status']);
-			if (!empty($_GET['filters']['fromDate']))
-				$blogCommentPeer->setFromDate($_GET['filters']['fromDate']);
-			if (!empty($_GET['filters']['toDate']))
-				$blogCommentPeer->setToDate($_GET['filters']['toDate']);
-			if (isset($_GET['filters']['entryId']))
-				$blogCommentPeer->setEntryId($_GET['filters']['entryId']);
-		}
+		/* 
 
 		if (isset($_GET['entryId'])) {
 			$blogCommentPeer->setEntryId($_GET['entryId']);

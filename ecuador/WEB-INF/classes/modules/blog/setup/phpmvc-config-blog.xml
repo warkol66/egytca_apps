@@ -121,28 +121,12 @@
 			<forward  name="success" path="BlogCommentsEdit.tpl" />
 		</action>
 
-		<action  path = "blogCommentsList"
-						 type = "BlogCommentsListAction"
-						 name = "blogCommentsList"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="BlogCommentsList.tpl" />
-		</action>
-
 		<action  path = "blogCommentsDoDelete"
 						 type = "BlogCommentsDoDeleteAction"
 						 name = "blogCommentsDoDelete"
 						scope = "request"
 				 validate = "true">
 			<forward  name="success" path="/Main.php?do=blogCommentsList&amp;message=deleted_ok" redirect="true" />
-		</action>
-
-		<action  path = "blogCommentsChangeStatusX"
-						 type = "BlogCommentsChangeStatusXAction"
-						 name = "blogCommentsChangeStatusX"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="BlogCommentsChangeStatusX.tpl" />
 		</action>
 
 		<action  path = "blogCommentsChangeStatuses"

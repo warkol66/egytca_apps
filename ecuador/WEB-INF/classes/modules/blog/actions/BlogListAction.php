@@ -8,12 +8,14 @@ class BlogListAction extends BaseListAction {
 
 	protected function preList() {
 		parent::preList();
-		$this->module = "BlogEntry";
+		
 	}
 
 	protected function postList() {
 		parent::postList();
-		$this->smarty->assign("module", $this->module);
+		
+		$module = "Blog";
+		$this->smarty->assign("module", $module);
 		
 		$blogEntry = new BlogEntry();
 		$blogEntry->setReverseOrder();
@@ -25,17 +27,16 @@ class BlogListAction extends BaseListAction {
 			if (!empty($_GET['filters']['toDate']))
 				$blogEntry->setToDate(Common::convertToMysqlDateFormat($_GET['filters']['toDate']));
 			
-			//Arreglar filtro por categoria
-			if (!empty($_GET['filters']['categoryId'])) {
-				$category = CategoryPeer::get($_GET['filters']['categoryId']);
-				$blogEntry->setCategory($category);
+			if (!empty($_GET['filters']['categoryid'])) {
+				$blogEntry->setCategory($_GET['filters']['categoryid']);
 			}
 			
 			$this->smarty->assign('filters',$_GET['filters']);
 		}
 
+		//como manejar esto ahora?
 		if ($_GET["export"] == "xls") {
-			$blogEntries = $blogEntryPeer->getAllFiltered();
+			$blogEntries = $blogEntry->getAllFiltered();
 
 			$this->smarty->assign("blogEntries",$blogEntries);
 			$forwardConfig = $mapping->findForwardConfig('xml');
@@ -53,19 +54,8 @@ class BlogListAction extends BaseListAction {
 		$pager = $blogEntry->getAllPaginatedFiltered($_GET["page"]);
 		$this->smarty->assign("blogEntries",$pager->getResult());
 		$this->smarty->assign("pager",$pager);
-		$url = "Main.php?do=blogList";
 		
-		if (isset($_GET['page']))
-			$url .= '&page=' . $_GET['page'];
-		
-		//aplicacion de filtro a url
-		foreach ($_GET['filters'] as $key => $value)
-			$url .= "&filters[$key]=$value";
-		
-		$this->smarty->assign("url",$url);		
-
-		$categories = BlogCategoryPeer::getAll();
-		$this->smarty->assign("categories",$categories);
+		$this->smarty->assign("categories",BlogCategory::getAll());
 		$this->smarty->assign("blogEntryStatus",BlogEntry::getStatuses());
 
 	}
