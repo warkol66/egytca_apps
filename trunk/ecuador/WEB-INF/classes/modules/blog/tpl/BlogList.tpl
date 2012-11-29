@@ -35,10 +35,10 @@
 		</p>
 |-if $blogConfig.useCategories.value eq "YES"-|		<p>
 			<label for="categoryId">##blog,14,Categoría##</label>
-			<select name='filters[categoryId]'>
+			<select name='filters[categoryid]'>
 					<option value=''>##blog,18,Seleccione una categoría##</option>
 				|-foreach from=$categories item=category name=from_categories-|
-					<option value="|-$category->getId()-|" |-if $filters neq '' and $filters.categoryId eq $category->getId()-|selected="selected"|-/if-|>|-$category->getName()-|</option>
+					<option value="|-$category->getId()-|" |-if $filters neq '' and $filters.categoryid eq $category->getId()-|selected="selected"|-/if-|>|-$category->getName()-|</option>
 				|-/foreach-|
 			</select>
 		</p>|-/if-|

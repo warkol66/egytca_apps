@@ -1,6 +1,17 @@
 <?php
 
 class BlogPreviewAction extends BaseAction {
+	
+	/*function __construct() {
+		parent::__construct('BlogEntry');
+	}
+	
+	protected function postPreview() {
+		parent::postPreview();
+		
+		$module = "Blog";
+		$this->smarty->assign("module",$module);
+	}*/
 
 	function BlogPreviewAction() {
 		;

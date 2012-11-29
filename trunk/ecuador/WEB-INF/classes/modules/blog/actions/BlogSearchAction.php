@@ -31,22 +31,22 @@ class BlogSearchAction extends BaseAction {
 		*/
 		$this->template->template = "TemplateBlogPublic.tpl";
 
-		$blogEntryPeer = new BlogEntryPeer();
-		$blogEntryPeer->setOrderByUpdateDate();
-		$blogEntryPeer->setPublishedMode();
+		$blogEntry = new BlogEntry();
+		$blogEntry->setOrderByUpdateDate();
+		$blogEntry->setPublishedMode();
 
 		if (!empty($_GET['searchString'])) {
 
 			$smarty->assign('searchString',$_GET['searchString']);
-			$blogEntryPeer->setSearchString($_GET['searchString']);
+			$blogEntry->setSearchString($_GET['searchString']);
 			$searchStringParams = "&searchString=".$_GET['searchString'];
 
-			$pager = $blogEntryPeer->getAllPaginatedFiltered($_GET["page"]);
-			$smarty->assign("blogEntries",$pager->getResult());
+			$pager = $blogEntry->getAllPaginatedFiltered($_GET["page"]);
+			$smarty->assign("blogEntriesColl",$pager->getResult());
 			$smarty->assign("pager",$pager);
 			$url = "Main.php?do=blogSearch".$searchStringParams;
 
-			$perPage = 	BlogEntryPeer::getRowsPerPage();
+			$perPage = 	BlogEntry::getRowsPerPage();
 			if ($_GET['page'] > 1 )
 				$pageCount = $_GET['page'] - 1;
 			else

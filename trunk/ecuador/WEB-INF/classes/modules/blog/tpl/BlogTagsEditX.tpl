@@ -17,8 +17,8 @@
  <legend>Ingrese los datos de la etiqueta</legend>
 			<div id="operationInfo"></div>
 	<form id="form_edit_tag" name="form_edit_tag" action="Main.php" method="post">
-	<p><label for="tagData[name]">Nombre</label>
-		<input name="tagData[name]" type="text" id="tagData[name]" title="Nombre" value="" size="60" maxlength="100" />
+	<p><label for="params[name]">Nombre</label>
+		<input name="params[name]" type="text" id="params_name" title="Nombre" value="" size="60" maxlength="100" />
 	</p>
 	<p>			
 		<input type="hidden" name="do" id="do" value="blogTagsDoEditX" />
