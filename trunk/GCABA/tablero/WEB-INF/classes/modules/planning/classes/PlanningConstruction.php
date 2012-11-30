@@ -35,7 +35,8 @@ class PlanningConstruction extends BasePlanningConstruction {
 	
 	public function postSave(\PropelPDO $con = null) {
 		parent::postSave($con);
-		$this->getPlanningProject()->doUpdateRealDates();
+		if ($this->getPlanningProject())
+			$this->getPlanningProject()->doUpdateRealDates();
 	}
 	
 	/**

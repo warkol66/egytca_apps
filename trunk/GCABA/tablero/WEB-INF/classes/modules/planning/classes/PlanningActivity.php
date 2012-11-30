@@ -26,7 +26,8 @@ class PlanningActivity extends BasePlanningActivity {
 	
 	public function postSave(\PropelPDO $con = null) {
 		parent::postSave($con);
-		$this->getProject()->doUpdateRealDates();
+		if ($this->getProject())
+			$this->getProject()->doUpdateRealDates();
 	}
 
 	/**
