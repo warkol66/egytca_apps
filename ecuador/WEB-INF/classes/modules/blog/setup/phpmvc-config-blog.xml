@@ -113,14 +113,6 @@
 			<forward  name="failure" path="BlogCommentsDoAddXFailure.tpl" />
 		</action>
 
-		<action  path = "blogCommentsEdit"
-						 type = "BlogCommentsEditAction"
-						 name = "blogCommentsEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="BlogCommentsEdit.tpl" />
-		</action>
-
 		<action  path = "blogCommentsDoDelete"
 						 type = "BlogCommentsDoDeleteAction"
 						 name = "blogCommentsDoDelete"

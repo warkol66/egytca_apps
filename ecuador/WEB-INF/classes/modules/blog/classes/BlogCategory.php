@@ -52,9 +52,9 @@ class BlogCategory extends BaseBlogCategory {
 	* @param Connection $con [optional] Conexion a la db
 	* @return boolean true si se creo el indicator correctamente, false sino
 	*/
-	function createCat($params){
-		$object = new BlogCategory();
-		foreach ($params as $key => $value) {
+	function createCat($id,$params){
+		$object = BlogCategoryQuery::create()->findOneById($id);
+		/*foreach ($params as $key => $value) {
 			$setMethod = "set".$key;
 			if ( method_exists($object,$setMethod) ) {          
 				if (!empty($value) || $value == "0")
@@ -62,9 +62,9 @@ class BlogCategory extends BaseBlogCategory {
 				else
 					$object->$setMethod(null);
 			}
-		}
+		}*/
 		if($params[parentId] != 0)
-			$parentNode = BlogCategoryQuery::create()->findPk($params[parentId]);
+			$parentNode = BlogCategoryQuery::create()->findOneById($params[parentId]);
 
 		if (empty($parentNode)){
 			$lastScope = BlogCategoryQuery::create()->treeRoots()->orderByScope(Criteria::DESC)->findOne();
@@ -97,8 +97,8 @@ class BlogCategory extends BaseBlogCategory {
 	* @return boolean true si se actualizo la informacion correctamente, false sino
 	*/
 	function updateCat($id,$params){
-		$object = BlogCategoryQuery::create()->findPk($id);
-		foreach ($params as $key => $value) {
+		$object = BlogCategoryQuery::create()->findOneById($id);
+		/*foreach ($params as $key => $value) {
 			$setMethod = "set".$key;
 			if ( method_exists($object,$setMethod) ) {          
 				if (!empty($value) || $value == "0")
@@ -106,18 +106,17 @@ class BlogCategory extends BaseBlogCategory {
 				else
 					$object->$setMethod(null);
 			}
-		}
+		}*/
 
 		try {
-
-			$object->save();
 
 			$parentNode = $object->getParent();
 
 			if ((!empty($parentNode))&& ($parentNode->getId() != $params[parentId])) {
-				$newParentNode = BlogCategoryQuery::create()->findPk($params[parentId]);
+				$newParentNode = BlogCategoryQuery::create()->findOneById($params[parentId]);
 				$object->moveToLastChildOf($newParentNode);
 			}
+			$object->save();
 
 			return true;
 		}
