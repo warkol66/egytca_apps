@@ -27,7 +27,7 @@
 	</p>
 	<p>			
 				<input type="hidden" name="id" id="id" value="|-$blogCategory->getId()-|" />
-				<!--input type="hidden" name="action" id="action" value="|-$action-|" /-->
+				<input type="hidden" name="action" id="action" value="|-if $blogCategory->isNew()-|create|-else-|edit|-/if-|"/>
 				<input type="hidden" name="do" id="do" value="blogCategoriesDoEdit" />
 				<input type="submit" id="button_edit_category" name="button_edit_category" title="Aceptar" value="Aceptar" />
 				<input type="button" id="button_return_category" name="button_return_category" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=blogCategoriesList'" />
