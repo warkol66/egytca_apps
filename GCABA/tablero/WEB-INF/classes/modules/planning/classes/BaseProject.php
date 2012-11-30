@@ -104,14 +104,14 @@ class BaseProject {
 	function isDelayed() {
 		global $system;
 
-		if (!isset($this->baseProject->colorsCount))
-			$this->baseProject->colorsCount = $this->getActivitiesByStatusColorCountAssoc();
+		if (!isset($this->colorsCount))
+			$this->colorsCount = $this->child->getActivitiesByStatusColorCountAssoc();
 		
-		if ($this->baseProject->colorsCount[$this->baseProject->colors["delayed"]] > 0)
+		if ($this->colorsCount[$this->colors["delayed"]] > 0)
 			return true;
 
 		$currentTime = time();
-		$plannedStart = $this->getStartingdate('U');
+		$plannedStart = $this->child->getStartingdate('U');
 
 		if (is_null($plannedStart))
 			return false;
@@ -123,7 +123,7 @@ class BaseProject {
 		}
 		// TODO agregar otros tipos de tolerancias
 
-		return $currentTime > $plannedStart && !$this->isStarted();
+		return $currentTime > $plannedStart && !$this->child->isStarted();
 	}
 	
 	/**
@@ -133,14 +133,14 @@ class BaseProject {
 	function isLate() {
 		global $system;
 
-		if (!isset($this->baseProject->colorsCount))
-			$this->baseProject->colorsCount = $this->getActivitiesByStatusColorCountAssoc();
+		if (!isset($this->colorsCount))
+			$this->colorsCount = $this->child->getActivitiesByStatusColorCountAssoc();
 		
-		if ($this->baseProject->colorsCount[$this->baseProject->colors["late"]] > 0)
+		if ($this->colorsCount[$this->colors["late"]] > 0)
 			return true;
 
 		$currentTime = time();
-		$plannedEnd = $this->getEndingdate('U');
+		$plannedEnd = $this->child->getEndingdate('U');
 
 		if (is_null($plannedEnd))
 			return false;
@@ -152,7 +152,7 @@ class BaseProject {
 		}
 		// TODO agregar otros tipos de tolerancias
 
-		return $currentTime > $plannedEnd && !$this->isEnded();
+		return $currentTime > $plannedEnd && !$this->child->isEnded();
 	}
 
 	/**
