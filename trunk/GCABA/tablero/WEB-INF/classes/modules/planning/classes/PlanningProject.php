@@ -155,6 +155,52 @@ class PlanningProject extends BasePlanningProject {
 		return BaseQuery::create('PlanningActivity')->filterByObjecttype('Project')->filterByObjectid($this->getId())->count();
 	}
 	
+	/**
+	 * Obtiene un array asociativo con la cantidad de constructions asignadas al proyecto por cada color.
+	 *
+	 * @return array $colorsCount.
+	 */
+	public function getConstructionsByStatusColorCountAssoc() {
+		$constructions = $this->getPlanningConstructions();
+		$colorsCount = array();
+
+		foreach ($this->baseProject->colors as $color) {
+			$colorsCount[$color] = 0;
+		}
+
+		foreach ($constructions as $construction) {
+			$color = $construction->statusColor();
+			$colorsCount[$color]++;
+		}
+
+		return $colorsCount;
+	}
+	
+	/**
+	 * Obtiene los constructions asignadas al proyecto con un determinado status color.
+	 *
+	 * @return PropelObjectCollection Constructions
+	 */
+	public function getConstructionsByStatusColor($color) {
+		$constructions = $this->getPlanningConstructions();
+		$filteredConstructions = new PropelObjectCollection();
+		foreach ($constructions as $construction) {
+			if ($construction->isOfStatusColor($color)) {
+				$filteredConstructions->append($construction);
+			}
+		}
+		return $filteredConstructions;
+	}
+
+	/**
+	 * Obtiene la cantidad de constructions asignadas al proyecto con un determinado status color.
+	 *
+	 * @return int $count
+	 */
+	public function countConstructionsByStatusColor($color) {
+		return count($this->getConstructionsByStatusColor($color));
+	}
+	
 	public function getFinished() {
 		//TODO: implementar y documentar;
 		return false;
@@ -170,14 +216,62 @@ class PlanningProject extends BasePlanningProject {
 		return false;
 	}
 	
-	public function isDelayed() {
-		//TODO: implementar y documentar;
-		return false;
+	/**
+	 * Devuelve verdadero si la fecha actual es posterior a la fecha planificada de inicio y aún no se comenzó el proyecto.
+	 * O bien alguna de las actividades del proyecto esta retrasada.
+	 */
+	function isDelayed() {
+		global $system;
+
+		if (!isset($this->baseProject->colorsCount))
+			$this->baseProject->colorsCount = $this->getConstructionsByStatusColorCountAssoc();
+		
+		if ($this->baseProject->colorsCount[$this->baseProject->colors["delayed"]] > 0)
+			return true;
+
+		$currentTime = time();
+		$plannedStart = $this->getStartingdate('U');
+
+		if (is_null($plannedStart))
+			return false;
+
+		// Si se usa tolerancia en dias
+		if ($system["config"]["tablero"]["projects"]["parameterControl"]["value"] == "DAYS") {
+			$days = $system["config"]["tablero"]["activities"]["delayed"];
+			$currentTime = time() - ($days * 24 * 60 * 60);
+		}
+		// TODO agregar otros tipos de tolerancias
+
+		return $currentTime > $plannedStart && !$this->isStarted();
 	}
 	
-	public function isLate() {
-		//TODO: implementar y documentar;
-		return false;
+	/**
+	 * Devuelve verdadero si la fecha actual es posterior a la fecha planificada de finalizacion y aún no esta terminado el proyecto.
+	 * O bien alguna de las construcciones del proyecto esta fuera de plazo.
+	 */
+	function isLate() {
+		global $system;
+
+		if (!isset($this->baseProject->colorsCount))
+			$this->baseProject->colorsCount = $this->getConstructionsByStatusColorCountAssoc();
+		
+		if ($this->baseProject->colorsCount[$this->baseProject->colors["late"]] > 0)
+			return true;
+
+		$currentTime = time();
+		$plannedEnd = $this->getEndingdate('U');
+
+		if (is_null($plannedEnd))
+			return false;
+
+		// Si se usa tolerancia en dias
+		if ($system["config"]["tablero"]["projects"]["parameterControl"]["value"] == "DAYS") {
+			$days = $system["config"]["tablero"]["activities"]["late"];
+			$currentTime = time() - ($days * 24 * 60 * 60);
+		}
+		// TODO agregar otros tipos de tolerancias
+
+		return $currentTime > $plannedEnd && !$this->isEnded();
 	}
 	
 	public function doUpdateRealDates() {

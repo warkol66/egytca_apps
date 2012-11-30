@@ -3,8 +3,8 @@
 class BaseProject {
 
 	private $child;
-	private $colors;
-	private $colorsCount;
+	public $colors;
+	public $colorsCount;
 
 	const CRITICAL    = 1;
 	const HIGH        = 2;
@@ -88,6 +88,7 @@ class BaseProject {
 	 * Devuelve verdadero si el proyecto no tiene actividades asociadas no canceladas.
 	 */
 	function isUndefined() {
+		//TODO: esto como se maneja? aca o en los descendientes?
 		$activitiesCount = $this->child->countActivities();
 
 		if (!isset($this->colorsCount))
@@ -99,62 +100,6 @@ class BaseProject {
 		if ($activitiesCount === $this->colorsCount[$this->colors["cancelled"]])
 			return true;
 
-		return false;
-	}
-
-	/**
-	 * Devuelve verdadero si la fecha actual es posterior a la fecha planificada de inicio y aún no se comenzó el proyecto.
-	 * O bien alguna de las actividades del proyecto esta retrasada.
-	 */
-	function isDelayed() {
-		global $system;
-
-		if (!isset($this->colorsCount))
-			$this->colorsCount = $this->child->getActivitiesByStatusColorCountAssoc();
-
-		$currentTime = time();
-		$plannedStart = $this->child->getPlannedStart('U');
-
-		if (is_null($plannedStart))
-			return false;
-
-		// Si se usa tolerancia en dias
-		if ($system["config"]["tablero"]["projects"]["parameterControl"]["value"] == "DAYS") {
-			$days = $system["config"]["tablero"]["activities"]["delayed"];
-			$currentTime = time() - ($days * 24 * 60 * 60);
-		}
-		// TODO agregar otros tipos de tolerancias
-
-		if ($currentTime > $plannedStart && !$this->child->isStarted() || ($this->colorsCount[$this->colors["delayed"]] > 0))
-			return true;
-		return false;
-	}
-
-	/**
-	 * Devuelve verdadero si la fecha actual es posterior a la fecha planificada de finalizacion y aún no esta terminado el proyecto.
-	 * O bien alguna de las actividades del proyecto esta fuera de plazo.
-	 */
-	function isLate() {
-		global $system;
-
-		if (!isset($this->colorsCount))
-			$this->colorsCount = $this->child->getActivitiesByStatusColorCountAssoc();
-
-		$currentTime = time();
-		$plannedEnd = $this->child->getPlannedEnd('U');
-
-		if (is_null($plannedEnd))
-			return false;
-
-		// Si se usa tolerancia en dias
-		if ($system["config"]["tablero"]["projects"]["parameterControl"]["value"] == "DAYS") {
-			$days = $system["config"]["tablero"]["activities"]["late"];
-			$currentTime = time() - ($days * 24 * 60 * 60);
-		}
-		// TODO agregar otros tipos de tolerancias
-
-		if ((($currentTime > $plannedEnd) && !$this->child->isEnded()) || ($this->colorsCount[$this->colors["late"]] > 0))
-			return true;
 		return false;
 	}
 
@@ -185,6 +130,31 @@ class BaseProject {
 		}
 
 		return $colorsCount;
+	}
+	
+	/**
+	 * Obtiene los activities asignadas al proyecto con un determinado status color.
+	 *
+	 * @return PropelObjectCollection Activities
+	 */
+	public function getActivitiesByStatusColor($color) {
+		$activities = $this->child->getActivities();
+		$filteredActivities = new PropelObjectCollection();
+		foreach ($activities as $activity) {
+			if ($activity->isOfStatusColor($color)) {
+				$filteredActivities->append($activity);
+			}
+		}
+		return $filteredActivities;
+	}
+
+	/**
+	 * Obtiene la cantidad de activities asignadas al proyecto con un determinado status color.
+	 *
+	 * @return int $count
+	 */
+	public function countActivitiesByStatusColor($color) {
+		return count($this->child->getActivitiesByStatusColor($color));
 	}
 
 	/**
@@ -491,26 +461,6 @@ class BaseProject {
 //	public function hasErrors() {
 //		return (count($this->getValidationFailures()) > 0);
 //	}
-//
-//	/**
-//	* Guardado del proyecto
-//	* @param $con conexión a la base de datos
-//	*/
-//	public function save(PropelPDO $con = null) {
-//		try {
-//			if ($this->validate()) { 
-//				parent::save($con);
-//				return true;
-//			} else {
-//				return false;
-//			}
-//		}
-//		catch (PropelException $exp) {
-//			if (ConfigModule::get("global","showPropelExceptions"))
-//				print_r($exp->getMessage());
-//			return false;
-//		}
-//	}
 //	
 //	/**
 //	* Define que la modificación a un proyecto es un cambio menor, no generando ProjectLog
@@ -582,71 +532,6 @@ class BaseProject {
 //		return true;
 //	}
 //
-//	/*
-//	* Obtiene los activities asignadas al proyecto con un determinado status color.
-//	*
-//	* @return array Activities
-//	*/
-//	public function getActivitiesByStatusColor($color) {
-//		$activities = $this->getAllActivities();
-//		$filteredActivities = array();
-//		foreach ($activities as $activity) {
-//			if ($activity->isOfStatusColor($color)) {
-//				$filteredActivities[] = $activity;
-//			}
-//		}
-//		return $filteredActivities;
-//	}
-//	
-//	/*
-//	* Obtiene la cantidad de activities asignadas al proyecto con un determinado status color.
-//	*
-//	* @return int $count
-//	*/
-//	public function getActivitiesByStatusColorCount($color) {
-//		return getActivitiesByStatusColor($color)->count();
-//	}
-//	
-//	/*
-//	* Obtiene un array asociativo con la cantidad de activities asignadas al proyecto por cada color.
-//	*
-//	* @return array $colorsCount.
-//	*/
-//	public function getActivitiesByStatusColorCountAssoc() {
-//		$activities = $this->getAllActivities();
-//		$colorsCount = array();
-//		foreach($activities as $activitiy) {
-//			$color = $activitiy->statusColor();
-//			if (!isset($colorsCount[$color]))
-//				$colorsCount[$color] = 1;
-//			else
-//				$colorsCount[$color] ++; 
-//		}
-//		// me aseguro de setear el resto de los colores disponibles que no hayan sido inicializados
-//		foreach($this->colors as $color) {
-//			if (!isset($colorsCount[$color]))
-//				$colorsCount[$color] = 0;
-//		}
-//		return $colorsCount;
-//	}
-//	
-//	/*
-//	* Obtiene todas las activities asociadas a la instancia.
-//	*
-//	* @return PropelCollection $activities
-//	*/
-//	public function getAllActivities() {
-//		return ProjectActivityQuery::create()->findByProjectId($this->getId());
-//	}
-//	
-//	/*
-//	* Obtiene la cantidad total de activities asociadas a la instancia.
-//	*
-//	* @return int $count
-//	*/
-//	public function getAllActivitiesCount() {
-//		return ProjectActivityQuery::create()->filterByProjectId($this->getId())->count();
-//	}
 //	
 //	
 //	/**

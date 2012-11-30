@@ -104,7 +104,7 @@ class PlanningActivity extends BasePlanningActivity {
 		global $system;
 
 		$currentTime = time();
-		$plannedEnd = $this->getStartingdate('U');
+		$plannedEnd = $this->getEndingdate('U');
 
 		if (is_null($plannedEnd))
 			return false;
