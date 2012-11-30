@@ -98,11 +98,16 @@
 		|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
     <input type="hidden" name="params[startingYear]" id="params_startingYear" value="|-$startingYear-|" /> 
     <input type="hidden" name="params[endingYear]" id="params_endingYear" value="|-$endingYear-|" /> 
-    <input type="hidden" name="currentPage" id="currentPage" value="|-$currentPage-|" /> 
+    <input type="hidden" name="currentPage" id="currentPage" value="|-$currentPage-|" />
+    <input type="hidden" name="fromMinistryObjectiveId" id="fromMinistryObjectiveId" value="|-$fromMinistryObjectiveId-|" />
     <input type="hidden" name="do" id="do" value="planningOperativeObjectivesDoEdit" /> 
 		<p>|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
-		|-if $fromMinistryObjectiveId-|	<input type='button' onClick='location.href="Main.php?do=planningOperativeObjectivesEdit&fromMinistryObjectiveId=|-$fromMinistryObjectiveId-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Agregar otro objetivo operativo' title="Agregar otro objetivo operativo al objetivo ministerial"/>|-/if-|
-	<input type='button' onClick='location.href="Main.php?do=planningOperativeObjectivesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Objetivos Operativos"/>
-		</p>|-/if-|
+		|-if !$operativeObjective->isNew() && $fromMinistryObjectiveId-|	<input type='button' onClick='location.href="Main.php?do=planningOperativeObjectivesEdit&fromMinistryObjectiveId=|-$fromMinistryObjectiveId-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Agregar otro objetivo operativo' title="Agregar otro objetivo operativo al objetivo ministerial"/>|-/if-|
+	|-if $fromMinistryObjectiveId-|
+		<input type='button' onClick='location.href="Main.php?do=planningOperativeObjectivesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|&filters[ministryobjectiveid]=|-$fromMinistryObjectiveId-|"' value='##104,Regresar##' title="Regresar al listado de Objetivos Operativos"/>
+	|-else-|
+		<input type='button' onClick='location.href="Main.php?do=planningOperativeObjectivesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Objetivos Operativos"/>
+	|-/if-|
+	</p>|-/if-|
     </fieldset> 
   </form> 

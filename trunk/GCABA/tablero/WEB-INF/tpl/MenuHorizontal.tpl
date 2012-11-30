@@ -2,7 +2,7 @@
 	<nav>
 		<ul class="menu">
 |-if !empty($loginUser)-|
-	|-if $SESSION.firstLogin-|
+	|-if $smarty.session.firstLogin-|
 			<li><a href="Main.php?do=usersPasswordChange&firstLogin=firstLogin">Actualice su clave</a></li>
 			|-if !empty($loginUser)-|
 				<li><a href="Main.php?do=usersDoLogout" onClick='return window.confirm("Si ya actualizó su clave, puede proceder a salir del sistema. ¿Está seguro que quiere salir del sistema?")'>Salir</a></li>
@@ -12,7 +12,7 @@
 	|-else-|
 			<li><a href="Main.php?do=usersWelcome" class="sub">Ir al Inicio</a>
 			<ul class="menu">
-				<li class="last">|-if !$SESSION.panelMode-|<a href="Main.php?do=panelSetPanel">Cambiar a Modo Seguimiento</a>|-else-|<a href="Main.php?do=planningSetPlanning">Cambiar a Modo Planeamiento</a>|-/if-|</li>
+				<li class="last">|-if !$smarty.session.panelMode-|<a href="Main.php?do=panelSetPanel">Cambiar a Modo Seguimiento</a>|-else-|<a href="Main.php?do=planningSetPlanning">Cambiar a Modo Planeamiento</a>|-/if-|</li>
 			</ul>
 		</li>
 			<li><a href="#" class="sub">Objetivos</a>

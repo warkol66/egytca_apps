@@ -142,7 +142,7 @@
 			}
 
 			die("<br /><strong>Error procesando su requerimiento, por favor reintente o comuniquese con el administrador.</strong>\n <br /><br />".
-					"Texto del error: ".$err );
+					"Texto del error: <pre>". htmlentities($err) ."</pre>");
 		}
 	}
 

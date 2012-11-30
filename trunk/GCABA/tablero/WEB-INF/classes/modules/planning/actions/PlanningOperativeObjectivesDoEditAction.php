@@ -8,18 +8,6 @@
  * @subpackage    planningOperativeObjectives
  */
 
-/*
-require_once 'BaseDoEditAction.php';
-
-class PlanningOperativeObjectivesDoEditAction extends BaseDoEditAction {
-	
-	function __construct() {
-		parent::__construct('OperativeObjective');
-	}
-
-}
-*/
-
 class PlanningOperativeObjectivesDoEditAction extends BaseAction {
 
 	function PlanningOperativeObjectivesDoEditAction() {
@@ -91,6 +79,8 @@ class PlanningOperativeObjectivesDoEditAction extends BaseAction {
 
 		$params = array();
 		$params["id"] = $operativeObjective->getId();
+		if (!empty($_POST["fromMinistryObjectiveId"]))
+			$params["fromMinistryObjectiveId"] = $_POST["fromMinistryObjectiveId"];
 		return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'success-edit');
 
 	}

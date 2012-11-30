@@ -44,8 +44,7 @@ class UsersDoLoginAction extends BaseAction {
 
 				global $system;
 				$defaultSystemMode = $system["config"]["system"]["parameters"]["defaultSystemMode"]["value"];
-				$_SESSION[$defaultSystemMode] = 1;
-				$smarty->assign("SESSION",$_SESSION);
+				$_SESSION[$defaultSystemMode] = true;
 
 				if (is_null($user->getPasswordUpdated()))
 					return $mapping->findForwardConfig('successFirstLogin');

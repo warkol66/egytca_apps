@@ -38,7 +38,7 @@
 |-/if-|</form></div></td>
 		</tr>|-/if-|
 			<tr>
-				 <th colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningProjectsEdit" class="addLink">Agregar Proyecto</a></div></th>
+				 <th colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningProjectsEdit|-if $filters.operativeobjectiveid-|&fromOperativeObjectiveId=|-$filters.operativeobjectiveid-||-/if-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|" class="addLink">Agregar Proyecto</a></div></th>
 			</tr>
 			<tr class="thFillTitle">
 				<th width="33%">Objetivo Operativo</th>
@@ -98,7 +98,7 @@
 		</tr>
 		|-/if-|
 			<tr>
-				<th colspan="5" class="thFillTitle">|-if $projectColl|@count gt 5-|<div class="rightLink"><a href="Main.php?do=planningProjectsEdit" class="addLink">Agregar Proyecto</a></div>|-/if-|</th>
+				<th colspan="5" class="thFillTitle">|-if $projectColl|@count gt 5-|<div class="rightLink"><a href="Main.php?do=planningProjectsEdit|-if $filters.operativeobjectiveid-|&fromOperativeObjectiveId=|-$filters.operativeobjectiveid-||-/if-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|" class="addLink">Agregar Proyecto</a></div>|-/if-|</th>
 			</tr>
 		</tbody>
 	</table>

@@ -106,10 +106,17 @@
 		<input type="hidden" name="currentPage" id="currentPage" value="|-$currentPage-|" />
 		<input type="hidden" name="do" id="do" value="planningMinistryObjectivesDoEdit" />
 		<p>|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
-	<input type='button' onClick='location.href="Main.php?do=planningMinistryObjectivesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Objetivos Ministeriales"/>
-		</p>|-/if-|
+		|-if !$ministryObjective->isNew() && $fromImpactObjectiveId-|	<input type='button' onClick='location.href="Main.php?do=planningMinistryObjectivesEdit&fromImpactObjectiveId=|-$fromImpactObjectiveId-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Agregar otro objetivo ministerial' title="Agregar otro objetivo ministerial al objetivo de impacto"/>|-/if-|
+	|-if $fromImpactObjectiveId-|
+		<input type='button' onClick='location.href="Main.php?do=planningMinistryObjectivesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|&filters[impactobjectiveid]=|-$fromImpactObjectiveId-|"' value='##104,Regresar##' title="Regresar al listado de Objetivos Ministeriales"/>
+	|-else-|
+		<input type='button' onClick='location.href="Main.php?do=planningMinistryObjectivesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Objetivos Ministeriales"/>
+	|-/if-|		</p>|-/if-|
 		</fieldset>
 	</form>
+<script type="text/javascript" language="javascript" charset="utf-8">
+	new Chosen($("params_regions"));
+</script>
 |-if !$showLog && !$ministryObjective->isNew()-|
 <fieldset title="Formulario de indicadores asociados al objetivo ministerial">
 	<legend>Indicadores asociados al Objetivo Ministerial</legend>
@@ -173,6 +180,5 @@
 		$('indicatorMsgField').innerHTML = '<span class="inProgress">Eliminando indicador...</span>';
 		return true;
 	}
-	new Chosen($("params_regions"));
 </script>
 |-/if-|

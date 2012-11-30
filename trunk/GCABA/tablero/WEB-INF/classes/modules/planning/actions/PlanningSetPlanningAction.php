@@ -22,7 +22,7 @@ class PlanningSetPlanningAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 		
-		Common::setPlanningMode($smarty);
+		Common::setPlanningMode();
 		$smarty->assign('planningMode', true);
 		return $mapping->findForwardConfig('success');
 	}

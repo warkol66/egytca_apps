@@ -38,7 +38,7 @@
 |-/if-|</form></div></td>
 		</tr>|-/if-|
 			<tr>
-				 <th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningMinistryObjectivesEdit" class="addLink">Agregar Objetivo Ministerial</a></div></th>
+				 <th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningMinistryObjectivesEdit|-if $filters.impactobjectiveid-|&fromImpactObjectiveId=|-$filters.impactobjectiveid-||-/if-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|" class="addLink">Agregar Objetivo Ministerial</a></div></th>
 			</tr>
 			<tr class="thFillTitle">
 				<th width="50%">Objetivo de Impacto</th>
@@ -94,7 +94,7 @@
 		</tr>
 		|-/if-|
 			<tr>
-				<th colspan="4" class="thFillTitle">|-if $ministryObjectiveColl|@count gt 5-|<div class="rightLink"><a href="Main.php?do=planningMinistryObjectivesEdit" class="addLink">Agregar Objetivo Ministerial</a></div>|-/if-|</th>
+				<th colspan="4" class="thFillTitle">|-if $ministryObjectiveColl|@count gt 5-|<div class="rightLink"><a href="Main.php?do=planningMinistryObjectivesEdit|-if $filters.impactobjectiveid-|&fromImpactObjectiveId=|-$filters.impactobjectiveid-||-/if-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|" class="addLink">Agregar Objetivo Ministerial</a></div>|-/if-|</th>
 			</tr>
 		</tbody>
 	</table>
