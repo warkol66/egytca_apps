@@ -8,7 +8,7 @@
  * @subpackage    planningMinistryObjectives
  */
 
-
+/*
 require_once 'BaseDoEditAction.php';
 
 class PlanningMinistryObjectivesDoEditAction extends BaseDoEditAction {
@@ -51,8 +51,8 @@ class PlanningMinistryObjectivesDoEditAction extends BaseDoEditAction {
 	}
 
 }
+*/
 
-/*
 class PlanningMinistryObjectivesDoEditAction extends BaseAction {
 
 	function PlanningMinistryObjectivesDoEditAction() {
@@ -126,6 +126,8 @@ class PlanningMinistryObjectivesDoEditAction extends BaseAction {
 
 		$params = array();
 		$params["id"] = $ministryObjective->getId();
+		if (!empty($_POST["fromImpactObjectiveId"]))
+			$params["fromImpactObjectiveId"] = $_POST["fromImpactObjectiveId"];
 		return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'success-edit');
 
 	}
@@ -152,4 +154,3 @@ class PlanningMinistryObjectivesDoEditAction extends BaseAction {
 	}
 
 }
-*/

@@ -1403,19 +1403,17 @@ class Common {
 	/**
 	 * Guarda en la sesion el modo planeamiento
 	 */
-	public static function setPlanningMode($smarty) {
+	public static function setPlanningMode() {
 		$_SESSION["planningMode"] = true;
 		unset($_SESSION["panelMode"]);
-		$smarty->assign('SESSION', $_SESSION);
 	}
 
 	/**
 	 * Guarda en la sesion el modo tablero
 	 */
-	public static function setPanelMode($smarty) {
+	public static function setPanelMode() {
 		$_SESSION["panelMode"] = true;
 		unset($_SESSION["planningMode"]);
-		$smarty->assign('SESSION', $_SESSION);
 	}
 
 	/**

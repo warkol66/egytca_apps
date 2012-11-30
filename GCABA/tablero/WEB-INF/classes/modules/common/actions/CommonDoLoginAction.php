@@ -82,7 +82,6 @@ class CommonDoLoginAction extends BaseAction {
 					global $system;
 					$defaultSystemMode = $system["config"]["system"]["parameters"]["defaultSystemMode"]["value"];
 					$_SESSION[$defaultSystemMode] = true;
-					$smarty->assign("SESSION",$_SESSION);
 
 					//Si encontre usuario valido regreso con la informacion del $forwardValue
 					return $mapping->findForwardConfig($forwardValue);

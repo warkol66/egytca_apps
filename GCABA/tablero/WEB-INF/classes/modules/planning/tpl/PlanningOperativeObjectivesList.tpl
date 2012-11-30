@@ -40,7 +40,7 @@
 |-/if-|</form></div></td>
 		</tr>|-/if-|
 			<tr>
-				 <th colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningOperativeObjectivesEdit" class="addLink">Agregar Objetivo Operativo</a></div></th>
+				 <th colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningOperativeObjectivesEdit|-if $filters.ministryobjectiveid-|&fromMinistryObjectiveId=|-$filters.ministryobjectiveid-||-/if-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|" class="addLink">Agregar Objetivo Operativo</a></div></th>
 			</tr>
 			<tr class="thFillTitle">
 				<th width="25%">Objetivo Impacto</th>
@@ -95,7 +95,7 @@
 		</tr>
 		|-/if-|
 			<tr>
-				<th colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="thFillTitle">|-if $operativeObjectiveColl|@count gt 5-|<div class="rightLink"><a href="Main.php?do=planningOperativeObjectivesEdit" class="addLink">Agregar Objetivo Operativo</a></div>|-/if-|</th>
+				<th colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="thFillTitle">|-if $operativeObjectiveColl|@count gt 5-|<div class="rightLink"><a href="Main.php?do=planningOperativeObjectivesEdit|-if $filters.ministryobjectiveid-|&fromMinistryObjectiveId=|-$filters.ministryobjectiveid-||-/if-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|" class="addLink">Agregar Objetivo Operativo</a></div>|-/if-|</th>
 			</tr>
 		</tbody>
 	</table>

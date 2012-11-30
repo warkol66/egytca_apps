@@ -8,18 +8,6 @@
  * @subpackage    planningPlanningProjects
  */
 
-/*
-require_once 'BaseDoEditAction.php';
-
-class PlanningProjectsDoEditAction extends BaseDoEditAction {
-	
-	function __construct() {
-		parent::__construct('PlanningProject');
-	}
-
-}
-*/
-
 class PlanningProjectsDoEditAction extends BaseAction {
 
 	function PlanningProjectsDoEditAction() {

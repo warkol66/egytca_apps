@@ -11,6 +11,7 @@
 		<column name="dataSources" type="LONGVARCHAR" description="Fuente de datos del indicador"/>
 		<column name="measureFrecuency" required="true" type="INTEGER" description="Frecuencia de medicion"/>
 		<column name="dataResponsible" required="true" type="VARCHAR" size="180" description="Responsable de los datos"/>
+		<column name="responsibleCode" type="INTEGER" description="Position Code"/>
 
 		<column name="expectedResults" type="INTEGER" size="1" description="Resultados esperados: 1)incremento, 2)descenso, 3)aceleracion, 4)desaceleracion."/>
 
@@ -42,6 +43,10 @@
 
 		<foreign-key foreignTable="common_measureUnit" >
 			<reference local="measureUnitId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="positions_position" >
+			<reference local="responsibleCode" foreign="code" />
 		</foreign-key>
 
 		<vendor type="mysql">
