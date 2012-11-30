@@ -16,6 +16,7 @@ require_once 'BaseProject.php';
 class PlanningProject extends BasePlanningProject {
 	
 	private $baseProject;
+	private $constructionsColorsCount;
 	
 	public function __construct() {
 		parent::__construct();
@@ -201,77 +202,50 @@ class PlanningProject extends BasePlanningProject {
 		return count($this->getConstructionsByStatusColor($color));
 	}
 	
-	public function getFinished() {
-		//TODO: implementar y documentar;
-		return false;
-	}
-	
-	public function isCancelled() {
-		//TODO: implementar y documentar;
-		return false;
-	}
-	
+	/**
+	 * Devuelve verdadero si el proyecto no tiene actividades ni obras asociadas no canceladas.
+	 */
 	public function isUndefined() {
-		//TODO: implementar y documentar;
-		return false;
+		
+		$constructionsCount = $this->countPlanningConstructions();
+
+		if (!isset($this->constructionsColorsCount))
+			$this->constructionsColorsCount = $this->getConstructionsByStatusColorCountAssoc();
+
+		if ($constructionsCount === 0 || $constructionsCount === $this->constructionsColorsCount[$this->colors["cancelled"]])
+			return true;
+		else
+			return $this->baseProject->isUndefined();
 	}
 	
 	/**
 	 * Devuelve verdadero si la fecha actual es posterior a la fecha planificada de inicio y aún no se comenzó el proyecto.
-	 * O bien alguna de las actividades del proyecto esta retrasada.
+	 * O bien alguna de las actividades u obras del proyecto esta retrasada.
 	 */
 	function isDelayed() {
-		global $system;
 
-		if (!isset($this->baseProject->colorsCount))
-			$this->baseProject->colorsCount = $this->getConstructionsByStatusColorCountAssoc();
+		if (!isset($this->constructionsColorsCount))
+			$this->constructionsColorsCount = $this->getConstructionsByStatusColorCountAssoc();
 		
-		if ($this->baseProject->colorsCount[$this->baseProject->colors["delayed"]] > 0)
+		if ($this->constructionsColorsCount[$this->baseProject->colors["delayed"]] > 0)
 			return true;
-
-		$currentTime = time();
-		$plannedStart = $this->getStartingdate('U');
-
-		if (is_null($plannedStart))
-			return false;
-
-		// Si se usa tolerancia en dias
-		if ($system["config"]["tablero"]["projects"]["parameterControl"]["value"] == "DAYS") {
-			$days = $system["config"]["tablero"]["activities"]["delayed"];
-			$currentTime = time() - ($days * 24 * 60 * 60);
-		}
-		// TODO agregar otros tipos de tolerancias
-
-		return $currentTime > $plannedStart && !$this->isStarted();
+		else
+			return $this->baseProject->isDelayed();
 	}
 	
 	/**
 	 * Devuelve verdadero si la fecha actual es posterior a la fecha planificada de finalizacion y aún no esta terminado el proyecto.
-	 * O bien alguna de las construcciones del proyecto esta fuera de plazo.
+	 * O bien alguna de las actividades o construcciones del proyecto esta fuera de plazo.
 	 */
 	function isLate() {
-		global $system;
-
-		if (!isset($this->baseProject->colorsCount))
-			$this->baseProject->colorsCount = $this->getConstructionsByStatusColorCountAssoc();
 		
-		if ($this->baseProject->colorsCount[$this->baseProject->colors["late"]] > 0)
+		if (!isset($this->constructionsColorsCount))
+			$this->constructionsColorsCount = $this->getConstructionsByStatusColorCountAssoc();
+		
+		if ($this->constructionsColorsCount[$this->baseProject->colors["late"]] > 0)
 			return true;
-
-		$currentTime = time();
-		$plannedEnd = $this->getEndingdate('U');
-
-		if (is_null($plannedEnd))
-			return false;
-
-		// Si se usa tolerancia en dias
-		if ($system["config"]["tablero"]["projects"]["parameterControl"]["value"] == "DAYS") {
-			$days = $system["config"]["tablero"]["activities"]["late"];
-			$currentTime = time() - ($days * 24 * 60 * 60);
-		}
-		// TODO agregar otros tipos de tolerancias
-
-		return $currentTime > $plannedEnd && !$this->isEnded();
+		else
+			return $this->baseProject->isLate();
 	}
 	
 	public function doUpdateRealDates() {
@@ -282,73 +256,80 @@ class PlanningProject extends BasePlanningProject {
 	
 	private function updateRealEnd() {
 		
-		if ($this->countPlanningConstructions() > 0) {
-			$unfinishedConstructionsCount = BaseQuery::create('PlanningConstruction')
-				->filterByPlanningProject($this)
-				->filterByRealEnd(null, Criteria::ISNULL)
-				->count()
-			;
-			if ($unfinishedConstructionsCount == 0) {
-				$this->setRealend(null);
-				return;
-			}
-
-			$lastFinishedConstruction = BaseQuery::create('PlanningConstruction')
-				->filterByPlanningProject($this)
-				->filterByRealStart(null, Criteria::ISNOTNULL)
-				->orderByRealend(Criteria::DESC)
-				->findOne()
-			;
-			$this->setRealend($lastFinishedConstruction ? $lastFinishedConstruction->getRealStart() : null);
-			return;
-			
-		} else {
-			$unfinishedActivitiesCount = BaseQuery::create('PlanningActivity')
-				->filterByObjecttype('Project')
-				->filterByObjectid($this->getId())
-				->filterByRealEnd(null, Criteria::ISNULL)
-				->count()
-			;
-			if ($unfinishedActivitiesCount == 0) {
-				$this->setRealend(null);
-				return;
-			}
-
-			$lastFinishedActivity = BaseQuery::create('PlanningActivity')
-				->filterByObjecttype('Project')
-				->filterByObjectid($this->getId())
-				->filterByRealStart(null, Criteria::ISNOTNULL)
-				->orderByRealend(Criteria::DESC)
-				->findOne()
-			;
-			$this->setRealend($lastFinishedActivity ? $lastFinishedActivity->getRealStart() : null);
+		// if any construction is unfinished, project is unfinished
+		$unfinishedConstructionsCount = BaseQuery::create('PlanningConstruction')
+			->filterByPlanningProject($this)
+			->filterByRealEnd(null, Criteria::ISNULL)
+			->count()
+		;
+		if ($unfinishedConstructionsCount == 0) {
+			$this->setRealend(null);
 			return;
 		}
+
+		// if any activity is unfinished, project is unfinished
+		$unfinishedActivitiesCount = BaseQuery::create('PlanningActivity')
+			->filterByObjecttype('Project')
+			->filterByObjectid($this->getId())
+			->filterByRealEnd(null, Criteria::ISNULL)
+			->count()
+		;
+		if ($unfinishedActivitiesCount == 0) {
+			$this->setRealend(null);
+			return;
+		}
+
+		$lastFinishedConstruction = BaseQuery::create('PlanningConstruction')
+			->filterByPlanningProject($this)
+			->filterByRealEnd(null, Criteria::ISNOTNULL)
+			->orderByRealend(Criteria::DESC)
+			->findOne()
+		;
+
+		$lastFinishedActivity = BaseQuery::create('PlanningActivity')
+			->filterByObjecttype('Project')
+			->filterByObjectid($this->getId())
+			->filterByRealEnd(null, Criteria::ISNOTNULL)
+			->orderByRealend(Criteria::DESC)
+			->findOne()
+		;
+		
+		if (!is_null($lastFinishedConstruction) && !is_null($lastFinishedActivity))
+			$this->setRealend(max($lastFinishedConstruction->getRealend(), $lastFinishedActivity->getRealend()));
+		elseif (!is_null($lastFinishedConstruction)) // && is_null($lastFinishedActivity)
+			$this->setRealend($lastFinishedConstruction->getRealend());
+		elseif (!is_null($lastFinishedActivity)) // && is_null($lastFinishedConstruction)
+			$this->setRealend($lastFinishedActivity->getRealend());
+		else // is_null($lastFinishedConstruction) && is_null($lastFinishedActivity)
+			$this->setRealend(null);
+		
 	}
 	
 	private function updateRealStart() {
-		if ($this->countPlanningConstructions() > 0) {
-			$firstStartedConstruction = BaseQuery::create('PlanningConstruction')
-				->filterByPlanningProject($this)
-				->filterByRealStart(null, Criteria::ISNOTNULL)
-				->orderByRealstart(Criteria::ASC)
-				->findOne()
-			;
-
-			$this->setRealstart($firstStartedConstruction ? $firstStartedConstruction->getRealStart() : null);
-			return;
-		} else {
-			$firstStartedActivity = BaseQuery::create('PlanningActivity')
-				->filterByObjecttype('Project')
-				->filterByObjectid($this->getId())
-				->filterByRealStart(null, Criteria::ISNOTNULL)
-				->orderByRealstart(Criteria::ASC)
-				->findOne()
-			;
-
-			$this->setRealstart($firstStartedActivity ? $firstStartedActivity->getRealStart() : null);
-			return;
-		}
+		
+		$firstStartedConstruction = BaseQuery::create('PlanningConstruction')
+			->filterByPlanningProject($this)
+			->filterByRealStart(null, Criteria::ISNOTNULL)
+			->orderByRealstart(Criteria::ASC)
+			->findOne()
+		;
+		
+		$firstStartedActivity = BaseQuery::create('PlanningActivity')
+			->filterByObjecttype('Project')
+			->filterByObjectid($this->getId())
+			->filterByRealStart(null, Criteria::ISNOTNULL)
+			->orderByRealstart(Criteria::ASC)
+			->findOne()
+		;
+		
+		if (!is_null($firstStartedConstruction) && !is_null($firstStartedActivity))
+			$this->setRealstart(min($firstStartedConstruction->getRealStart(), $firstStartedActivity->getRealStart()));
+		elseif (!is_null($firstStartedConstruction)) // && is_null($firstStartedActivity)
+			$this->setRealstart($firstStartedConstruction->getRealStart());
+		elseif (!is_null($firstStartedActivity)) // && is_null($firstStartedConstruction)
+			$this->setRealstart($firstStartedActivity->getRealStart());
+		else // is_null($firstStartedConstruction) && is_null($firstStartedActivity)
+			$this->setRealstart(null);
 	}
 
 	/**
