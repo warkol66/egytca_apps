@@ -154,14 +154,62 @@ class PlanningConstruction extends BasePlanningConstruction {
 		return false;
 	}
 	
-	public function isDelayed() {
-		//TODO: implementar y documentar;
-		return false;
+	/**
+	 * Devuelve verdadero si la fecha actual es posterior a la fecha planificada de inicio y aún no se comenzó el proyecto.
+	 * O bien alguna de las actividades del proyecto esta retrasada.
+	 */
+	function isDelayed() {
+		global $system;
+
+		if (!isset($this->baseProject->colorsCount))
+			$this->baseProject->colorsCount = $this->getActivitiesByStatusColorCountAssoc();
+		
+		if ($this->baseProject->colorsCount[$this->baseProject->colors["delayed"]] > 0)
+			return true;
+
+		$currentTime = time();
+		$plannedStart = $this->getStartingdate('U');
+
+		if (is_null($plannedStart))
+			return false;
+
+		// Si se usa tolerancia en dias
+		if ($system["config"]["tablero"]["projects"]["parameterControl"]["value"] == "DAYS") {
+			$days = $system["config"]["tablero"]["activities"]["delayed"];
+			$currentTime = time() - ($days * 24 * 60 * 60);
+		}
+		// TODO agregar otros tipos de tolerancias
+
+		return $currentTime > $plannedStart && !$this->isStarted();
 	}
 	
-	public function isLate() {
-		//TODO: implementar y documentar;
-		return false;
+	/**
+	 * Devuelve verdadero si la fecha actual es posterior a la fecha planificada de finalizacion y aún no esta terminado el proyecto.
+	 * O bien alguna de las actividades del proyecto esta fuera de plazo.
+	 */
+	function isLate() {
+		global $system;
+
+		if (!isset($this->baseProject->colorsCount))
+			$this->baseProject->colorsCount = $this->getActivitiesByStatusColorCountAssoc();
+		
+		if ($this->baseProject->colorsCount[$this->baseProject->colors["late"]] > 0)
+			return true;
+
+		$currentTime = time();
+		$plannedEnd = $this->getEndingdate('U');
+
+		if (is_null($plannedEnd))
+			return false;
+
+		// Si se usa tolerancia en dias
+		if ($system["config"]["tablero"]["projects"]["parameterControl"]["value"] == "DAYS") {
+			$days = $system["config"]["tablero"]["activities"]["late"];
+			$currentTime = time() - ($days * 24 * 60 * 60);
+		}
+		// TODO agregar otros tipos de tolerancias
+
+		return $currentTime > $plannedEnd && !$this->isEnded();
 	}
 	
 	public function doUpdateRealDates() {
