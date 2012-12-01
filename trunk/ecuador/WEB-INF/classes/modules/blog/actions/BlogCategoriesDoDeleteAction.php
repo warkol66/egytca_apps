@@ -1,23 +1,23 @@
 <?php
 
-class BlogCategoriesDoDeleteAction extends BaseAction {
+class BlogCategoriesDoDeleteAction extends BaseDoDeleteAction {
 
-	/*function __construct() {
+	function __construct() {
 		parent::__construct('BlogCategory');
 	}
 	
 	protected function preDelete(){
 		parent::preDelete();
 		
-		$module = "Blog";
+		$category = BlogCategoryQuery::create()->findOneById($_POST['id']);
 		
-		$category = BlogCategoryQuery::create()->findPk($_POST["id"]);
 		if ($category->isRoot()){
-			//ver como borrar los hijos
-		}
+			BlogCategoryPeer::deleteTree($category->getScope());
+			//return $mapping->findForwardConfig('success');
+		}		
 			
-	}*/
-	function BlogCategoriesDoDeleteAction() {
+	}
+	/*function BlogCategoriesDoDeleteAction() {
 		;
 	}
 
@@ -41,6 +41,6 @@ class BlogCategoriesDoDeleteAction extends BaseAction {
 		else		
 			BlogCategory::deleteCat($_POST["id"]);
 		return $mapping->findForwardConfig('success');
-	}
+	}*/
 
 }

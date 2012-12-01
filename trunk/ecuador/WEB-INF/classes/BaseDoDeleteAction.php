@@ -13,6 +13,8 @@ class BaseDoDeleteAction extends BaseAction {
 		$this->entityClassName = $entityClassName;
 		if (substr(get_class($this), -7, 1) != "X")
 			$this->ajaxTemplate = str_replace('Action', '', get_class($this)).'X.tpl';
+		else
+			$this->ajaxTemplate = str_replace('Action', '', get_class($this)) . '.tpl';
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
