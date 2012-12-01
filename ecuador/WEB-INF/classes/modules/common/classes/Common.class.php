@@ -98,9 +98,11 @@ class Common {
 
 		$userInfo = array();
 		$loggedUser = Common::getLoggedUser();
-		$userInfo["userObjectType"] = get_class($loggedUser);
-		$userInfo["userObjectId"] = $loggedUser->getId();
-		$userInfo["userId"] = $loggedUser->getId();
+		if($loggedUser){
+			$userInfo["userObjectType"] = get_class($loggedUser);
+			$userInfo["userObjectId"] = $loggedUser->getId();
+			$userInfo["userId"] = $loggedUser->getId();
+		}
 
 		$params = array_merge_recursive($params, $userInfo);
 
