@@ -1,20 +1,25 @@
 <?php
 
-class BlogCommentsDoAddXAction extends BaseAction {
+class BlogCommentsDoAddXAction extends BaseDoEditAction {
 	
-	/*public function __construct() {
+	public function __construct() {
 		parent::__construct('BlogComment');
 	}
 	
 	protected function preUpdate() {
 		parent::preUpdate();
 		
+		if(!is_object($this->entity)){
+			echo "No";
+			die();
+		}
+		
 		if ( (empty($_POST['formId'])) || !Common::validateCaptcha($_POST['formId']) || !empty($_POST['securityCode'])) {
 			$this->smarty->assign('captcha',true);
 			//probar
 			return $mapping->findForwardConfig('failure');
-		}
-		else{
+		}else{
+			
 			$this->entity->setCreationdate(date('Y-m-d H:m:s'));
 			$this->entity->setIp($_SERVER['REMOTE_ADDR']);
 			
@@ -28,7 +33,8 @@ class BlogCommentsDoAddXAction extends BaseAction {
 			}
 			else
 				$this->entity->setStatus(BlogComment::APPROVED);
-			}
+		}
+			
 	}
 	
 	protected function postUpdate() {
@@ -36,9 +42,12 @@ class BlogCommentsDoAddXAction extends BaseAction {
 		
 		$module = "Blog";
 		$this->smarty->assign("module",$module);
-	}*/
 
-	function BlogCommentsDoAddXAction() {
+		$this->smarty->assign("entry", BlogEntryQuery::create()->findOneById($this->entity->getEntryid()));
+		$this->smarty->assign('comment',$this->entity);
+	}
+
+	/*function BlogCommentsDoAddXAction() {
 		;
 	}
 
@@ -103,5 +112,5 @@ class BlogCommentsDoAddXAction extends BaseAction {
 
 		$smarty->assign('comment',$comment);
 		return $mapping->findForwardConfig('success');
-	}
+	}*/
 }

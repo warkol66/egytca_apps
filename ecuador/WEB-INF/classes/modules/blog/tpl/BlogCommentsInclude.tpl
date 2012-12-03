@@ -31,13 +31,13 @@
 <fieldset title="Formulario para agregar comentarios">
 	<p>
 	<label for="blogComment_username">Nombre</label>
-			<input type="text" id="blogComment_username" name="blogComment[username]" title="username" size="40"/>
+			<input type="text" id="params_username" name="params[username]" title="username" size="40"/>
 		</p>
 		<p>
-			<label for="blogComment_email">Email</label><input type="text" id="blogComment_email" name="blogComment[email]" size="40" />
+			<label for="params_email">Email</label><input type="text" id="params_email" name="params[email]" size="40" />
 		</p>
 		<p>
-			<label for="blogComment_text">Comentario</label><textarea id="blogComment_text" name="blogComment[text]" cols="65" rows="5" wrap="VIRTUAL" ></textarea>
+			<label for="params_text">Comentario</label><textarea id="params_text" name="params[text]" cols="65" rows="5" wrap="VIRTUAL" ></textarea>
 		</p>
 		<p><label>Código de seguridad</label><div id="codemsgBoxAdder|-$entry->getId()-|">
 			<img src="Main.php?do=commonImage&width=120&height=45&characters=5" />
@@ -50,9 +50,9 @@
 			<label for="security_code">No completar</label><input id="security_code" name="securityCode" type="text" size="10" />
 		</p></div>
 		<p>	
-			<input type="hidden" name="entryId" value="|-$entry->getId()-|" id="entryId" />
+			<input type="hidden" name="params[entryId]" value="|-$entry->getId()-|" id="params_entryId" />
 			<input type="hidden" name="do" value="blogCommentsDoAddX" id="do">
-			<input type="hidden" name="blogComment[entryId]" value="|-$entry->getId()-|" id="blogComment[entryId]" />
+			<input type="hidden" name="params[entryId]" value="|-$entry->getId()-|" id="params_entryId" />
 			<input type="button" value="Agregar Comentario" onClick="javascript:blogCommmentAdd(this.form,|-$entry->getId()-|)" /> 
 			<input type="button" name="commentAdderHideButton|-$entry->getId()-|" value="Cancelar" id="commentAdderHideButton|-$entry->getId()-|" onClick="javascript:hideCommentAddForm(|-$entry->getId()-|)" />
 			<input type="button" name="codeRefresher" id="codeRefresher" value="Regenerar código de seguridad"> <span id="msgBoxAdder|-$entry->getId()-|"></span>
