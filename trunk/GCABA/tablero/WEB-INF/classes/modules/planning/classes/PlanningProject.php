@@ -18,9 +18,91 @@ class PlanningProject extends BasePlanningProject {
 	private $baseProject;
 	private $constructionsColorsCount;
 	
+	/* ******** random values for testing ******** */
+	private $useRandomValues;
+	
+	private $randomAcomplished;
+	private $randomCancelled;
+	private $randomRealStart;
+	private $randomRealEnd;
+	private $randomStartingDate;
+	private $randomEndingDate;
+	
+	private function randomDate($format) {
+		$format = str_replace('%', '', $format);
+		if (rand(0, 1)) {
+			return null;
+		} else {
+			$sign = rand(0, 1) ? '+': '-';
+			return date($format, strtotime('today '.$sign.rand(0, 365).' days'));
+		}
+	}
+	
+	public function getAcomplished() {
+		if ($this->useRandomValues) {
+			if (!isset($this->randomAcomplished))
+				$this->randomAcomplished = rand(0, 1);
+			return $this->randomAcomplished;
+		} else {
+			return parent::getAcomplished();
+		}
+	}
+	
+	public function getCancelled() {
+		if ($this->useRandomValues) {
+			if (!isset($this->randomCancelled))
+				$this->randomCancelled = rand(0, 1);
+			return $this->randomCancelled;
+		} else {
+			return parent::getCancelled();
+		}
+	}
+	
+	public function getRealStart($format = '%Y/%m/%d') {
+		if ($this->useRandomValues) {
+			if (!isset($this->randomRealStart))
+				$this->randomRealStart = $this->randomDate($format);
+			return $this->randomRealStart;
+		} else {
+			return parent::getRealStart($format);
+		}
+	}
+	
+	public function getRealEnd($format = '%Y/%m/%d') {
+		if ($this->useRandomValues) {
+			if (!isset($this->randomRealEnd))
+				$this->randomRealEnd = $this->randomDate($format);
+			return $this->randomRealEnd;
+		} else {
+			return parent::getRealEnd($format);
+		}
+	}
+	
+	public function getStartingDate($format = '%Y/%m/%d') {
+		if ($this->useRandomValues) {
+			if (!isset($this->randomStartingDate))
+				$this->randomStartingDate = $this->randomDate($format);
+			return $this->randomStartingDate;
+		} else {
+			return parent::getStartingDate($format);
+		}
+	}
+	
+	public function getEndingDate($format = '%Y/%m/%d') {
+		if ($this->useRandomValues) {
+			if (!isset($this->randomEndingDate))
+				$this->randomEndingDate = $this->randomDate($format);
+			return $this->randomEndingDate;
+		} else {
+			return parent::getEndingDate($format);
+		}
+	}
+	/* ****** end random values for testing ****** */
+	
 	public function __construct() {
 		parent::__construct();
 		$this->baseProject = new BaseProject($this);
+		$this->useRandomValues = ConfigModule::get('planning', 'useDemoValues');
 	}
 	
 	public function __call($name, $params) {
@@ -207,15 +289,19 @@ class PlanningProject extends BasePlanningProject {
 	 */
 	public function isUndefined() {
 		
-		$constructionsCount = $this->countPlanningConstructions();
+		if ($this->getInvestment()) {
+			$constructionsCount = $this->countPlanningConstructions();
 
-		if (!isset($this->constructionsColorsCount))
-			$this->constructionsColorsCount = $this->getConstructionsByStatusColorCountAssoc();
+			if (!isset($this->constructionsColorsCount))
+				$this->constructionsColorsCount = $this->getConstructionsByStatusColorCountAssoc();
 
-		if ($constructionsCount === 0 || $constructionsCount === $this->constructionsColorsCount[$this->colors["cancelled"]])
-			return true;
-		else
+			if ($constructionsCount === 0 || $constructionsCount === $this->constructionsColorsCount[$this->colors["cancelled"]])
+				return true;
+			else
+				return $this->baseProject->isUndefined();
+		} else {
 			return $this->baseProject->isUndefined();
+		}
 	}
 	
 	/**
@@ -224,13 +310,17 @@ class PlanningProject extends BasePlanningProject {
 	 */
 	function isDelayed() {
 
-		if (!isset($this->constructionsColorsCount))
-			$this->constructionsColorsCount = $this->getConstructionsByStatusColorCountAssoc();
-		
-		if ($this->constructionsColorsCount[$this->baseProject->colors["delayed"]] > 0)
-			return true;
-		else
+		if ($this->getInvestment()) {
+			if (!isset($this->constructionsColorsCount))
+				$this->constructionsColorsCount = $this->getConstructionsByStatusColorCountAssoc();
+
+			if ($this->constructionsColorsCount[$this->baseProject->colors["delayed"]] > 0)
+				return true;
+			else
+				return $this->baseProject->isDelayed();
+		} else {
 			return $this->baseProject->isDelayed();
+		}
 	}
 	
 	/**
@@ -239,13 +329,17 @@ class PlanningProject extends BasePlanningProject {
 	 */
 	function isLate() {
 		
-		if (!isset($this->constructionsColorsCount))
-			$this->constructionsColorsCount = $this->getConstructionsByStatusColorCountAssoc();
-		
-		if ($this->constructionsColorsCount[$this->baseProject->colors["late"]] > 0)
-			return true;
-		else
+		if ($this->getInvestment()) {
+			if (!isset($this->constructionsColorsCount))
+				$this->constructionsColorsCount = $this->getConstructionsByStatusColorCountAssoc();
+
+			if ($this->constructionsColorsCount[$this->baseProject->colors["late"]] > 0)
+				return true;
+			else
+				return $this->baseProject->isLate();
+		} else {
 			return $this->baseProject->isLate();
+		}
 	}
 	
 	public function doUpdateRealDates() {
@@ -256,15 +350,17 @@ class PlanningProject extends BasePlanningProject {
 	
 	private function updateRealEnd() {
 		
-		// if any construction is unfinished, project is unfinished
-		$unfinishedConstructionsCount = BaseQuery::create('PlanningConstruction')
-			->filterByPlanningProject($this)
-			->filterByRealEnd(null, Criteria::ISNULL)
-			->count()
-		;
-		if ($unfinishedConstructionsCount == 0) {
-			$this->setRealend(null);
-			return;
+		if ($this->investment()) {
+			// if any construction is unfinished, project is unfinished
+			$unfinishedConstructionsCount = BaseQuery::create('PlanningConstruction')
+				->filterByPlanningProject($this)
+				->filterByRealEnd(null, Criteria::ISNULL)
+				->count()
+			;
+			if ($unfinishedConstructionsCount == 0) {
+				$this->setRealend(null);
+				return;
+			}
 		}
 
 		// if any activity is unfinished, project is unfinished
@@ -279,12 +375,15 @@ class PlanningProject extends BasePlanningProject {
 			return;
 		}
 
-		$lastFinishedConstruction = BaseQuery::create('PlanningConstruction')
-			->filterByPlanningProject($this)
-			->filterByRealEnd(null, Criteria::ISNOTNULL)
-			->orderByRealend(Criteria::DESC)
-			->findOne()
-		;
+		$lastFinishedConstruction = null;
+		if ($this->investment()) {
+			$lastFinishedConstruction = BaseQuery::create('PlanningConstruction')
+				->filterByPlanningProject($this)
+				->filterByRealEnd(null, Criteria::ISNOTNULL)
+				->orderByRealend(Criteria::DESC)
+				->findOne()
+			;
+		}
 
 		$lastFinishedActivity = BaseQuery::create('PlanningActivity')
 			->filterByObjecttype('Project')
@@ -307,12 +406,15 @@ class PlanningProject extends BasePlanningProject {
 	
 	private function updateRealStart() {
 		
-		$firstStartedConstruction = BaseQuery::create('PlanningConstruction')
-			->filterByPlanningProject($this)
-			->filterByRealStart(null, Criteria::ISNOTNULL)
-			->orderByRealstart(Criteria::ASC)
-			->findOne()
-		;
+		$firstStartedConstruction = null;
+		if ($this->investment()) {
+			$firstStartedConstruction = BaseQuery::create('PlanningConstruction')
+				->filterByPlanningProject($this)
+				->filterByRealStart(null, Criteria::ISNOTNULL)
+				->orderByRealstart(Criteria::ASC)
+				->findOne()
+			;
+		}
 		
 		$firstStartedActivity = BaseQuery::create('PlanningActivity')
 			->filterByObjecttype('Project')

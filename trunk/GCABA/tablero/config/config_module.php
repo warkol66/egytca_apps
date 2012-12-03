@@ -29,6 +29,7 @@ class ConfigModule {
 			"passwordRecoveryExpirationTimeInHours" => 24
 		),
 		"planning" => array(
+			"useDemoValues" => true,
 			"startingYear" => 2013,
 			"endingYear" => 2013,
 			"verifyGroupWriteAccess" => false,
