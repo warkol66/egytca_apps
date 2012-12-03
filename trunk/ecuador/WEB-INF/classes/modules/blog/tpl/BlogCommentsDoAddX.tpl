@@ -1,6 +1,6 @@
-|-if $comment->isApproved()-|
+|-if $comment->getStatus() eq 2-|
 <script type="text/javascript">
-	var noComments = $('#no_comments_|-$entry->getId()-|');
+	var noComments = $('#no_comments_' + |-$entry->getId()-|);
 	if (noComments != null)
 		noComments.remove();
 	$('#msgBoxAdder'+|-$entry->getId()-|).html('<span class="resultSuccess">El comentario ha sido agregado con exito</span>');

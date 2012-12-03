@@ -9,6 +9,13 @@ class BlogListAction extends BaseListAction {
 	protected function preList() {
 		parent::preList();
 		
+		if (!empty($_GET['filters'])) {
+			
+			if (!empty($_GET['filters']['fromdate']))
+				$_GET['filters']['fromdate'] = Common::convertToMysqlDateFormat($_GET['filters']['fromdate']);
+			if (!empty($_GET['filters']['todate']))
+				$_GET['filters']['todate'] = Common::convertToMysqlDateFormat($_GET['filters']['todate']);
+		}
 	}
 
 	protected function postList() {
@@ -19,20 +26,6 @@ class BlogListAction extends BaseListAction {
 		
 		$blogEntry = new BlogEntry();
 		$blogEntry->setReverseOrder();
-		//Ver filtro de fechas
- 		if (!empty($_GET['filters'])) {
-			
-			if (!empty($_GET['filters']['fromDate']))
-				$blogEntry->setFromDate(Common::convertToMysqlDateFormat($_GET['filters']['fromDate']));
-			if (!empty($_GET['filters']['toDate']))
-				$blogEntry->setToDate(Common::convertToMysqlDateFormat($_GET['filters']['toDate']));
-			
-			if (!empty($_GET['filters']['categoryid'])) {
-				$blogEntry->setCategory($_GET['filters']['categoryid']);
-			}
-			
-			$this->smarty->assign('filters',$_GET['filters']);
-		}
 
 		//como manejar esto ahora?
 		/*if ($_GET["export"] == "xls") {
@@ -50,10 +43,6 @@ class BlogListAction extends BaseListAction {
 			$excel->sendXlsFromXml($xml);
 			die;
 		}*/
-		
-		/*$pager = $blogEntry->getAllPaginatedFiltered($_GET["page"]);
-		$this->smarty->assign("blogEntries",$pager->getResult());
-		$this->smarty->assign("pager",$pager);*/
 		
 		$this->smarty->assign("categories",BlogCategory::getAll());
 		$this->smarty->assign("blogEntryStatus",BlogEntry::getStatuses());

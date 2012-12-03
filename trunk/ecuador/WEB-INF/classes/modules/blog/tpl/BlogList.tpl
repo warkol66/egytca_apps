@@ -25,12 +25,12 @@
 		<legend>##blog,4,Opciones de Búsqueda##</legend>
 		<p>
 			<label for="fromDate">##blog,5,Fecha Desde##</label>
-			<input name="filters[fromDate]" type="text" id="fromDate" class="datepickerFrom" title="fromDate" value="|-$filters.fromDate|date_format:"%d-%m-%Y"-|" size="12" /> 
+			<input name="filters[fromdate]" type="text" id="filters_fromDate" class="datepickerFrom" title="fromDate" value="|-$filters.fromDate|date_format:"%d-%m-%Y"-|" size="12" /> 
 			<img src="images/calendar.png" width="16" height="15" border="0"  title="Seleccione la fecha">
 		</p>
 		<p>
 			<label for="toDate">##blog,6,Fecha Hasta##</label>
-			<input name="filters[toDate]" type="text" id="toDate" class="datepickerTo" title="toDate" value="|-$filters.toDate|date_format:"%d-%m-%Y"-|" size="12" /> 
+			<input name="filters[todate]" type="text" id="filters_toDate" class="datepickerTo" title="toDate" value="|-$filters.toDate|date_format:"%d-%m-%Y"-|" size="12" /> 
 			<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 		</p>
 |-if $blogConfig.useCategories.value eq "YES"-|		<p>

@@ -16,10 +16,6 @@ class BlogCommentsEditAction extends BaseEditAction {
 		$this->smarty->assign("entryIdValues",BlogEntryQuery::create()->find());
 		$this->smarty->assign("userIdValues",UserQuery::create()->find());
 		
-		if (isset($_GET['filters']))
-			$this->smarty->assign('filters',$_GET['filters']);
-		if (isset($_GET['articleId']))
-			$this->smarty->assign('articleId',$_GET['articleId']);
 	}
 
 }
