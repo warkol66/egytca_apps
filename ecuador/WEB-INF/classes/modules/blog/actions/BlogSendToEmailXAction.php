@@ -50,7 +50,7 @@ class BlogSendToEmailXAction extends BaseAction {
 			return $mapping->findForwardConfig('failure');
 		}
 
-		$article = BlogEntryPeer::get($_POST['id']);
+		$article = BlogEntryQuery::create()->findOneById($_POST['id']);
 
 		if (empty($article))
 			return $mapping->findForwardConfig('failure');

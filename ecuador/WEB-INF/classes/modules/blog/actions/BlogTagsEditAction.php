@@ -9,10 +9,8 @@ class BlogTagsEditAction extends BaseEditAction {
 	protected function postEdit() {
 		parent::postEdit();
 		
-		$module = "Blog";
-		$this->smarty->assign("module",$module);
-		$section = "Tags";
-		$this->smarty->assign("section",$section);
+		$this->smarty->assign("module","Blog");
+		$this->smarty->assign("section","Tags");
 	}
 
 }

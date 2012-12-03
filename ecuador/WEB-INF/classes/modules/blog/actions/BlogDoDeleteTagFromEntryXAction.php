@@ -27,11 +27,12 @@ class BlogDoDeleteTagFromEntryXAction extends BaseAction {
 		//TODO VERIFICACION USUARIOS
 		if ( !empty($_POST["entryId"]) && !(empty($_POST["tagId"])) ) {
 
-			$entry = BlogEntryPeer::get($_POST["entryId"]);
-			$tag = BlogTagPeer::get($_POST["tagId"]);
-
+			$entry = BlogEntryQuery::create()->findOneById($_POST["entryId"]);
+			$tag = BlogTagQuery::create()->findOneById($_POST["tagId"]);
+			
+			
 			if (!empty($entry) && !empty($tag)) {
-					BlogTagRelationPeer::delete($_POST["entryId"],$_POST["tagId"]);
+					$relation = BlogTagRelationQuery::create()->findOneByEntryIdAndTagId($_POST["entryId"],$_POST["tagId"])->delete();
 					$smarty->assign('tag',$tag);
 				}
 			}

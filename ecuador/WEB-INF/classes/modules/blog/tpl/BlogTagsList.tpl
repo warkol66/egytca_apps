@@ -35,12 +35,12 @@
 			</tr>
 		</thead>
 		<tbody>
-		|-if $tags|@count eq 0-|
+		|-if $blogTagColl|@count eq 0-|
 		<tr>
 			<td colspan="3">|-if isset($filters)-|No hay etiquetas que concuerden con la búsqueda|-else-|No hay etiquetas disponibles|-/if-|</td>
 		</tr>
 		|-else-|
-		|-foreach from=$tags item=tag name=for_tags-|
+		|-foreach from=$blogTagColl item=tag name=for_blogTags-|
 		<tr>
 <!--			<td>|-$tag->getId()-|</td> -->
 			<td>|-$tag->getName()-|</td>
@@ -58,7 +58,7 @@
 			</td>
 		</tr>
 		|-/foreach-|						
-		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
+		|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 		<tr>
 			<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td>
 		</tr>

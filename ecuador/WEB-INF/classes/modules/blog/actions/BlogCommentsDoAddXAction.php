@@ -11,7 +11,8 @@ class BlogCommentsDoAddXAction extends BaseAction {
 		
 		if ( (empty($_POST['formId'])) || !Common::validateCaptcha($_POST['formId']) || !empty($_POST['securityCode'])) {
 			$this->smarty->assign('captcha',true);
-			//arreglar
+			//probar
+			return $mapping->findForwardConfig('failure');
 		}
 		else{
 			$this->entity->setCreationdate(date('Y-m-d H:m:s'));

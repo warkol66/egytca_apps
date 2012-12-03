@@ -79,7 +79,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		|-foreach from=$blogEntries item=blogEntry name=for_blogEntries-|
+		|-foreach from=$blogEntryColl item=blogEntry name=for_blogEntries-|
 			<tr>
 				<td><input type="checkbox" name="selected[]" value="|-$blogEntry->getId()-|"></td>
 				<td>|-$blogEntry->gettitle()-|</td>

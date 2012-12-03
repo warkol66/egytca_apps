@@ -19,7 +19,7 @@ class BlogListAction extends BaseListAction {
 		
 		$blogEntry = new BlogEntry();
 		$blogEntry->setReverseOrder();
-
+		//Ver filtro de fechas
  		if (!empty($_GET['filters'])) {
 			
 			if (!empty($_GET['filters']['fromDate']))
@@ -35,7 +35,7 @@ class BlogListAction extends BaseListAction {
 		}
 
 		//como manejar esto ahora?
-		if ($_GET["export"] == "xls") {
+		/*if ($_GET["export"] == "xls") {
 			$blogEntries = $blogEntry->getAllFiltered();
 
 			$this->smarty->assign("blogEntries",$blogEntries);
@@ -49,11 +49,11 @@ class BlogListAction extends BaseListAction {
 			$excel = new ExcelManagement();			
 			$excel->sendXlsFromXml($xml);
 			die;
-		}
+		}*/
 		
-		$pager = $blogEntry->getAllPaginatedFiltered($_GET["page"]);
+		/*$pager = $blogEntry->getAllPaginatedFiltered($_GET["page"]);
 		$this->smarty->assign("blogEntries",$pager->getResult());
-		$this->smarty->assign("pager",$pager);
+		$this->smarty->assign("pager",$pager);*/
 		
 		$this->smarty->assign("categories",BlogCategory::getAll());
 		$this->smarty->assign("blogEntryStatus",BlogEntry::getStatuses());

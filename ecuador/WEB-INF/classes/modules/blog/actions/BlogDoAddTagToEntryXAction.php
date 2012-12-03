@@ -26,19 +26,16 @@ class BlogDoAddTagToEntryXAction extends BaseAction {
 
 		if ( !empty($_POST["entryId"]) && !(empty($_POST["tagId"])) ) {
 
-			$entry = BlogEntryPeer::get($_POST["entryId"]);
-			$tag = BlogTagPeer::get($_POST["tagId"]);
+			$entry = BlogEntryQuery::create()->findOneById($_POST["entryId"]);
+			$tag = BlogTagQuery::create()->findOneById($_POST["tagId"]);
 
 			$smarty->assign('entry',$entry);
 			$smarty->assign('tag',$tag);
 
-			$relationParams["entryId"] = $_POST["entryId"];
-			$relationParams["tagId"] = $_POST["tagId"];
+			if (!empty($_POST["entryId"]) && !empty($_POST["tagId"])) {
 
-			if (!empty($entry) && !empty($tag)) {
-
-				$relation = new BlogTagRelationPeer();
-				$result = $relation->create($relationParams);
+				$relation = new BlogTagRelation();
+				$result = $relation->setEntryid($_POST["entryId"])->setTagid($_POST["tagId"])->save();
 
 				if ($result)
 					return $mapping->findForwardConfig('success');
@@ -51,7 +48,7 @@ class BlogDoAddTagToEntryXAction extends BaseAction {
 			else{
 				$smarty->assign('errorTagId','tagMsgField');
 				$smarty->assign('message','Puede que la entrada o la etiqueta hayan sido eliminadas. Refresque la página para asegurarse');
-				return $mapping->findForwardConfig('failure');
+				return $mapping->findForwardConfig('success');
 			}
 
 		}
