@@ -54,8 +54,8 @@
 			|-else-|
 		|-foreach from=$planningActivityColl item=construction name=for_constructions-|
 			<tr>
-				<td>|-assign var=planningProject value=$construction->getPlanningProject()-||-$planningProject-|</td>
-				<td>|-if is_object($planningProject)-||-$planningProject->getPosition()-||-/if-|</td>
+				<td>|-assign var=project value=$construction->getProject()-||-$project-|</td>
+				<td>|-if is_object($project)-||-$project->getPosition()-||-/if-|</td>
 				<td>|-$construction->getName()-|</td>
 				<td>|-$construction->getStartingDate()|date_format-|</td>
 				<td>|-$construction->getEndingDate()|date_format-|</td>
