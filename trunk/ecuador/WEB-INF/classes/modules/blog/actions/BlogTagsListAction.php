@@ -1,8 +1,26 @@
 <?php
 
-class BlogTagsListAction extends BaseAction {
+class BlogTagsListAction extends BaseListAction {
+	
+	function __construct() {
+		parent::__construct('BlogTag');
+	}
+	
+	/*protected function postList() {
+		parent::postList();
+		
+		$this->smarty->assign("module","Blog");
+		$this->smarty->assign("section","Tags");
+		
+		$blogTagPeer = new BlogTag();
 
-	function BlogTagsListAction() {
+		$pager = $blogTagPeer->getAllPaginatedFiltered($_GET["page"]);
+		$this->smarty->assign("tags",$pager->getResult());
+		$this->smarty->assign("pager",$pager);
+		$url = "Main.php?do=blogTagsList";
+	}*/
+
+	/*function BlogTagsListAction() {
 		;
 	}
 
@@ -40,7 +58,7 @@ class BlogTagsListAction extends BaseAction {
 		$smarty->assign("url",$url);
 		$smarty->assign("message",$_GET["message"]);
 		return $mapping->findForwardConfig('success');
-	}
+	}*/
 
 }
 

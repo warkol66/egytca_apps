@@ -1,17 +1,6 @@
 <?php
 
 class BlogPreviewAction extends BaseAction {
-	
-	/*function __construct() {
-		parent::__construct('BlogEntry');
-	}
-	
-	protected function postPreview() {
-		parent::postPreview();
-		
-		$module = "Blog";
-		$this->smarty->assign("module",$module);
-	}*/
 
 	function BlogPreviewAction() {
 		;
@@ -34,9 +23,9 @@ class BlogPreviewAction extends BaseAction {
 		$smarty->assign("module",$module);
 
 		if (!empty($_POST['id']))
-			$_POST['blogEntry']['id'] = $_POST['id'];
+			$_POST['params']['id'] = $_POST['id'];
 
-		$preview = BlogEntry::createPreview($_POST['blogEntry']);
+		$preview = BlogEntry::createPreview($_POST['params']);
 
 		//caso de preview en Home
 		if ($_POST['mode'] == 'home') {

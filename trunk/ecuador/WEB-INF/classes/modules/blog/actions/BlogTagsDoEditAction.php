@@ -9,10 +9,8 @@ class BlogTagsDoEditAction extends BaseDoEditAction {
 	protected function postUpdate(){
 		parent::postUpdate();
 		
-		$module = "Blog";
-		$section = "Tags";
-		$this->smarty->assign("module",$module);
-		$this->smarty->assign("section",$section);
+		$this->smarty->assign("module","Blog");
+		$this->smarty->assign("section","Tags");
 		
 	}
 

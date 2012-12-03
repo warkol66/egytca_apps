@@ -46,15 +46,16 @@ class BlogCategory extends BaseBlogCategory {
 	}
 	
 	/**
-	* Crea un indicator nuevo.
+	* Setea las columnas que no se setean en el DoEdit
 	*
-	* @param string $name name del indicator
-	* @param Connection $con [optional] Conexion a la db
+	* @param int $id id de la categoria
+	* @param params $params parametros del form
 	* @return boolean true si se creo el indicator correctamente, false sino
 	*/
 	function createCat($id,$params){
 		$object = BlogCategoryQuery::create()->findOneById($id);
-		/*foreach ($params as $key => $value) {
+		/*$object = new BlogCategory;
+		foreach ($params as $key => $value) {
 			$setMethod = "set".$key;
 			if ( method_exists($object,$setMethod) ) {          
 				if (!empty($value) || $value == "0")
@@ -112,7 +113,7 @@ class BlogCategory extends BaseBlogCategory {
 
 			$parentNode = $object->getParent();
 
-			if ((!empty($parentNode))&& ($parentNode->getId() != $params[parentId])) {
+			if ((!empty($parentNode)) && ($parentNode->getId() != $params[parentId])) {
 				$newParentNode = BlogCategoryQuery::create()->findOneById($params[parentId]);
 				$object->moveToLastChildOf($newParentNode);
 			}

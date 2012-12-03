@@ -24,8 +24,7 @@ class BlogSendFormAction extends BaseAction {
 
 		$this->template->template = "TemplateAjax.tpl";
 
-		$blogEntryPeer = new BlogEntryPeer();
-		$entry = $blogEntryPeer->get($_POST['id']);
+		$entry = BlogEntryQuery::create()->findOneById($_POST['id']);
 
 		$smarty->assign('entry',$entry);
 
