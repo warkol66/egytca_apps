@@ -17,9 +17,91 @@ class PlanningConstruction extends BasePlanningConstruction {
 	
 	private $baseProject;
 	
+	/* ******** random values for testing ******** */
+	private $useRandomValues;
+	
+	private $randomAcomplished;
+	private $randomCancelled;
+	private $randomRealStart;
+	private $randomRealEnd;
+	private $randomStartingDate;
+	private $randomEndingDate;
+	
+	private function randomDate($format) {
+		$format = str_replace('%', '', $format);
+		if (rand(0, 1)) {
+			return null;
+		} else {
+			$sign = rand(0, 1) ? '+': '-';
+			return date($format, strtotime('today '.$sign.rand(0, 365).' days'));
+		}
+	}
+	
+	public function getAcomplished() {
+		if ($this->useRandomValues) {
+			if (!isset($this->randomAcomplished))
+				$this->randomAcomplished = rand(0, 1);
+			return $this->randomAcomplished;
+		} else {
+			return parent::getAcomplished();
+		}
+	}
+	
+	public function getCancelled() {
+		if ($this->useRandomValues) {
+			if (!isset($this->randomCancelled))
+				$this->randomCancelled = rand(0, 1);
+			return $this->randomCancelled;
+		} else {
+			return parent::getCancelled();
+		}
+	}
+	
+	public function getRealStart($format = '%Y/%m/%d') {
+		if ($this->useRandomValues) {
+			if (!isset($this->randomRealStart))
+				$this->randomRealStart = $this->randomDate($format);
+			return $this->randomRealStart;
+		} else {
+			return parent::getRealStart($format);
+		}
+	}
+	
+	public function getRealEnd($format = '%Y/%m/%d') {
+		if ($this->useRandomValues) {
+			if (!isset($this->randomRealEnd))
+				$this->randomRealEnd = $this->randomDate($format);
+			return $this->randomRealEnd;
+		} else {
+			return parent::getRealEnd($format);
+		}
+	}
+	
+	public function getStartingDate($format = '%Y/%m/%d') {
+		if ($this->useRandomValues) {
+			if (!isset($this->randomStartingDate))
+				$this->randomStartingDate = $this->randomDate($format);
+			return $this->randomStartingDate;
+		} else {
+			return parent::getStartingDate($format);
+		}
+	}
+	
+	public function getEndingDate($format = '%Y/%m/%d') {
+		if ($this->useRandomValues) {
+			if (!isset($this->randomEndingDate))
+				$this->randomEndingDate = $this->randomDate($format);
+			return $this->randomEndingDate;
+		} else {
+			return parent::getEndingDate($format);
+		}
+	}
+	/* ****** end random values for testing ****** */
+	
 	public function __construct() {
 		parent::__construct();
 		$this->baseProject = new BaseProject($this);
+		$this->useRandomValues = ConfigModule::get('planning', 'useDemoValues');
 	}
 	
 	public function __call($name, $params) {
