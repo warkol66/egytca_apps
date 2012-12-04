@@ -56,6 +56,8 @@ class BaseDoDeleteAction extends BaseAction {
 			$this->postDelete();
 						return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'success');
 		} catch (Exception $e) {
+			echo($e->__toString());
+			die();
 			if (ConfigModule::get("global","showPropelExceptions")){
 				print_r($e->__toString());
 			}
