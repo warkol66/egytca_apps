@@ -1,8 +1,44 @@
 <?php
 
-class BlogViewAction extends BaseAction {
+class BlogViewAction extends BaseEditAction {
+	
+	function __construct() {
+		parent::__construct('BlogEntry');
+	}
+	
+	protected function preEdit() {
+		parent::preEdit();
+		
+		if(isset($_GET["url"])){
+			$_POST['id'] = BlogEntryQuery::create()->findOneByUrl($_GET["url"]);
+		}
+		
+	}
 
-	function BlogViewAction() {
+	protected function postEdit() {
+		parent::postEdit();
+		
+		$module = "Blog";
+		$this->smarty->assign("module",$module);
+		
+		$this->entity->increaseViews();
+		
+		$moduleConfig = Common::getModuleConfiguration($module);
+		$this->smarty->assign("moduleConfig",$moduleConfig);
+		
+		if ($moduleConfig['comments']['useComments']['value'] == "YES") {
+			//si se la configuracion pide que se muestren los comentarios de forma directa
+			if ($moduleConfig['comments']['displayComments']['value'] == 'YES') {
+				$comments = BlogCommentQuery::create()->findByEntryIdAndStatus($this->entity->getId(),BlogComment::APPROVED);
+				$this->smarty->assign("comments",$comments);
+			}
+		}
+		
+		$this->template->template = "TemplateBlogPublic.tpl";
+		
+	}
+
+	/*function BlogViewAction() {
 		;
 	}
 
@@ -28,7 +64,7 @@ class BlogViewAction extends BaseAction {
 
 		/**
 		* Use a different template
-		*/
+		*
 		$this->template->template = "TemplateBlogPublic.tpl";
 
 		if (!empty($_GET["id"]) || !empty($_GET["url"])) {
@@ -62,6 +98,6 @@ class BlogViewAction extends BaseAction {
 			return $mapping->findForwardConfig('success');
 		}
 		return $mapping->findForwardConfig('success');
-	}
+	}*/
 
 }

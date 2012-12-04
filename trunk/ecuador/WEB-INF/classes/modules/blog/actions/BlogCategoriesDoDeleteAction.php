@@ -12,8 +12,9 @@ class BlogCategoriesDoDeleteAction extends BaseDoDeleteAction {
 		$category = BlogCategoryQuery::create()->findOneById($_POST['id']);
 		
 		if ($category->isRoot()){
-			BlogCategoryPeer::deleteTree($category->getScope());
-			//return $mapping->findForwardConfig('success');
+			//solucion temporal: eliminar descendientes y hacer que no sea root (propel no permite eliminar roots)
+			$category->deleteDescendants();
+			$category->setLeftValue(0)->save();
 		}		
 			
 	}
