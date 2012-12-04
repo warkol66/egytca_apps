@@ -336,6 +336,7 @@ class RegistrationUserPeer extends BaseRegistrationUserPeer {
 	/**
 	 * Genera un hash y se lo asocia a un determinado usuario
 	 * @param RegistrationUser RegistrationUser instance
+	 * @return string
 	 */
 	public function generateHash($user) {
 		

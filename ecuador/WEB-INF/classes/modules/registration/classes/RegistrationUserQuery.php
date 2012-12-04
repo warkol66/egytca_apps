@@ -239,4 +239,28 @@ class RegistrationUserQuery extends BaseRegistrationUserQuery
     public static function getCountries(){
         return RegistrationUserQuery::$countries;
     }
+
+	/**
+	 * Genera un hash y se lo asocia a un determinado usuario
+	 * @param RegistrationUser $user RegistrationUser instance
+	 * @return string
+	 */
+	public static function generateHash($user) {
+
+		try {
+
+			$hash = sha1($user->getId() . $user->getUsername() . date("Y-m-d H:i:s"));
+			$user->setVerificationHash($hash);
+			$user->save();
+
+		} catch (Exception $e) {
+
+			return false;
+
+		}
+
+		return $user->getVerificationHash();
+
+	}
+
 }
