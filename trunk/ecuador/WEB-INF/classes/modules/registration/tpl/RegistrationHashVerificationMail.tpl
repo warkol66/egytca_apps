@@ -1,6 +1,5 @@
 <p>
-	|-assign var=userInfo value=$newUser->getRegistrationUserInfo()-|
-	|-$userInfo->getName()-| |-$userInfo->getSurname()-|, Ha creado una cuenta. Ahora se requiere la activación de la misma.
+	|-$registrationUser->getName()-| |-$registrationUser->getSurname()-|, Ha creado una cuenta. Ahora se requiere la activación de la misma.
 </p>
 <p>
 	Acceda al siguiente link para activar su cuenta.<br />
