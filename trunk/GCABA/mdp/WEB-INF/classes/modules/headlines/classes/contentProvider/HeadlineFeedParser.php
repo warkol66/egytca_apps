@@ -24,7 +24,7 @@ class HeadlineFeedParser {
 		try {
 			$parsedData = new SimpleXMLElement($xmlData);
 		} catch (Exception $e) {
-			$xmlData = preg_replace("/[\x01]/", '', $xmlData);
+			$xmlData = preg_replace("/[\x01\x1F]/", '', $xmlData);
 			$parsedData = new SimpleXMLElement($xmlData);
 		}
 		
