@@ -2,7 +2,7 @@
 |-if $message eq "created"-|
 	<div class='successMessage'>El Usuario ha sido creado. A continuación puede ingresar al sistema.</div>
 |-elseif $message eq "wrongUser"-|
-	<div class='failureMessage'>Usuario desconocido o contraseña incorrecta!. Intente nuevamente.</div>
+	<div class='failureMessage errorMessage'>Usuario desconocido o contraseña incorrecta!. Intente nuevamente.</div>
 |-elseif $message eq "passwordSent"-|
 	<div class='successMessage'>Se envio una nueva contraseña a su casilla de correo.</div>
 |-elseif $message eq "createdModerated"-|

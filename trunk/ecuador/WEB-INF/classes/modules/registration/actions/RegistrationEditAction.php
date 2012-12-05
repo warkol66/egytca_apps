@@ -53,6 +53,8 @@ class RegistrationEditAction extends BaseEditAction {
 			$entity=RegistrationUserQuery::create()->findPk($loggedUser->getId());
 			if($entity) $this->entity=$entity;
 		}
+
+
 	}
 
 }

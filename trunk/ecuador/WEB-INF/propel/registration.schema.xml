@@ -5,7 +5,7 @@
 		<column name="id" required="true" primaryKey="true" type="INTEGER" description="User Id" autoIncrement="true"/>
 		<column name="username" required="true"  type="VARCHAR" size="255" description="username"/>
 		<column name="password" required="true"  type="VARCHAR" size="255" description="password"/>
-        <column name="passwordUpdated" type="DATE" description="Fecha de actualizacion de la clave" />
+        <column name="passwordUpdated" type="TIMESTAMP" description="Fecha de actualizacion de la clave" />
         <column name="name" type="VARCHAR" size="255" description="name" required="true"/>
         <column name="surname" type="VARCHAR" size="255" description="surname" required="true"/>
         <column name="mailAddress" type="VARCHAR" size="255" description="Email" required="true"/>
