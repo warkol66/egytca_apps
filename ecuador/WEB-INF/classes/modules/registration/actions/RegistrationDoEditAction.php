@@ -14,28 +14,7 @@ class RegistrationDoEditAction extends BaseDoEditAction {
 		parent::__construct('RegistrationUser');
 	}
 
-//
-//		/**
-//		 * Creacion y activacion de un usuario nuevo.
-//		 */
-//		private function createActiveUser($smarty) {
-//
-//			$userByRegistrationPeer = new RegistrationUserPeer();
-//			$newUser = $userByRegistrationPeer->create($_POST["registrationUser"],$_POST["registrationUserInfo"]);
-//			$userByRegistrationPeer->activateUser($newUser);
-//			$smarty->assign("message","created");
-//		}
-//
-//		/**
-//		 * Creacion de un usuario nuevo, el mismo no queda activado y debera ser activado por un moderador.
-//		 */
-//		/*private function createUser($smarty) {
-//
-//			$userByRegistrationPeer = new RegistrationUserPeer();
-//			$newUser = $userByRegistrationPeer->create($_POST["registrationUser"],$_POST["registrationUserInfo"]);
-//			$smarty->assign("message","created-moderated");
-//		}*/
-//
+
 	/**
 	 * Envia el correspondiente email de notificacionn de hash al usuario creado
 	 */
@@ -140,7 +119,7 @@ class RegistrationDoEditAction extends BaseDoEditAction {
 		 * Esete es el caso de un usuario registrado en el sitio publico editando Mi Perfil
 		 */
 		if ($loggedUser && get_class($loggedUser) == "RegistrationUser") {
-			$entity = RegistrationUserQuery::create()->findPk($_SESSION['loginRegistrationUser']);
+			$entity = RegistrationUserQuery::create()->findPk($loggedUser->getId());
 			if ($entity) $this->entity = $entity;
 		}
 
@@ -195,7 +174,6 @@ class RegistrationDoEditAction extends BaseDoEditAction {
 				$this->forwardName = "success";
 			else
 				$this->forwardName = "success-edit";
-			exit("hay usuario");
 		} else $this->performRegistration();
 	}
 

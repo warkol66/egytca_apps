@@ -240,8 +240,8 @@ class Common {
 		$user = NULL;
 		if (!empty($_SESSION['loginUser']) && is_object($_SESSION['loginUser']) && get_class($_SESSION["loginUser"]) == "User")
 			$user = $_SESSION['loginUser'];
-		else if (!empty($_SESSION['loginUserByRegistration']) && is_object($_SESSION['loginUserByRegistration']) && get_class($_SESSION["loginUserByRegistration"]) == "UserByRegistration")
-			$user = $_SESSION['loginUserByRegistration'];
+		else if (!empty($_SESSION['loginRegistrationUser']) && is_object($_SESSION['loginRegistrationUser']) && get_class($_SESSION["loginRegistrationUser"]) == "RegistrationUser")
+			$user = $_SESSION['loginRegistrationUser'];
 		else if (!empty($_SESSION["loginAffiliateUser"]) && is_object($_SESSION['loginAffiliateUser']) && get_class($_SESSION["loginAffiliateUser"]) == "AffiliateUser")
 			$user = $_SESSION['loginAffiliateUser'];
 		else if (!empty($_SESSION["loginClientUser"]) && is_object($_SESSION['loginClientUser']) && get_class($_SESSION["loginClientUser"]) == "ClientUser")

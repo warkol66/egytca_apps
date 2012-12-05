@@ -2,13 +2,17 @@
 <h2>Módulo de Registro de Usuarios</h2>
 <h1>Administrar Registro de Usuarios</h1>
 |-else-|
+    |-if $registrationUser->isNew() -|
 <div id="contentBody">
 <div id="titleContent">Registro de Usuarios</div>
 <p>Si querés recibir nuestro Newsletter semanal que se envía los días jueves, dejá tus datos aquí. 
 Si preferís recibir nuestras novedades de manera diaria, te recomendamos te suscribas al servicio <a href="Main.php?do=contentShow&amp;id=4">RSS</a>.</p>
 <p>Si tienes problemas con el proceso de registro, por favor, ponte en contacto con nosotros enviando un mail a <a href="mailto:infocivica@poderciudadano.org">infocivica@poderciudadano.org</a></p>
-
-<h1>|-if !$registrationUser->isNew() -|Editar Mi Perfil|-else-|Alta de Usuario de Registro|-/if-|</h1>
+<h1>Alta de Usuario de Registro</h1>
+    |-else-|
+<div id="contentBody">
+    <h1>Editar Mi Perfil</h1>
+    |-/if-|
 |-/if-|
 
 
@@ -26,6 +30,8 @@ Si preferís recibir nuestras novedades de manera diaria, te recomendamos te sus
     |-elseif $error eq "error_captcha"-|
         <div class="failureMessage errorMessage">Error en Código de Seguridad.</div>
     |-/if-|
+|-elseif $message eq "saved"-|
+    <div class='successMessage'>Sus datos se salvaron correectamente.</div>
 |-/if-|
 <form method="post" action="Main.php?do=registrationDoEdit"> 
 	<fieldset> 
@@ -135,21 +141,25 @@ Si preferís recibir nuestras novedades de manera diaria, te recomendamos te sus
 
 		|-/if-|
 
-		|-if isset($loginRegistrationUser) and $loginRegistrationUser-|
+		|-if isset($loggedUser) and get_class($loggedUser) eq "RegistrationUser"-|
 		<p>
-		<label for="created">Fecha de registro</label>  |-$registrationUser->getCreated()-|
+		<label for="created">Fecha de registro</label>  |-$registrationUser->getCreatedAt()-|
 		</p>
 		<p>
 		<label for="ip">IP de registro</label>  |-$registrationUser->getIp()-|
 		</p>
-		|-if $registrationUser->getUpdated() != $registrationUser->getCreatedAt()-|
+		|-if $registrationUser->getUpdatedAt() != $registrationUser->getCreatedAt()-|
 		<p>
-		<label for="created">Fecha última modificación</label>  |-$registrationUser->getUpdated()-|
+		<label for="created">Fecha última modificación</label>  |-$registrationUser->getUpdatedAt()-|
 		</p>
 		|-/if-|
 		<p>
 		<label for="lastLogin">Fecha último ingreso</label>  |-$registrationUser->getLastLogin()-|
 		</p>
+
+        <p>
+            <label for="lastLogin">Fecha última actualización de Contraseña</label>  |-$registrationUser->getPasswordupdated()-|
+        </p>
 		|-/if-|
 
         <script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
@@ -164,7 +174,7 @@ Si preferís recibir nuestras novedades de manera diaria, te recomendamos te sus
             |-if isset($loggedUser)-|
                 |-javascript_form_validation_button value=Guardar-|
             |-else-|
-                |-javascript_form_validation_button value=Guardar-|
+                |-javascript_form_validation_button value=Crear-|
             |-/if-|
 
 

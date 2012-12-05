@@ -56,4 +56,30 @@ class RegistrationUser extends BaseRegistrationUser {
 		parent::delete();
 	}
 
+	/**
+	 * Autentica el usuario y devuelve un objetio de tipo RegistrationUser si es correcto o null en otro caso.
+	 * @static
+	 * @param $username
+	 * @param $password
+	 * @return RegistrationUser
+	 */
+	public static function auth($username,$password){
+		$user=RegistrationUserQuery::create()->filterByUsername($username)->filterByPassword(RegistrationUser::encryptPassword($password))->findOne();
+		// Si no son correctos el usuario y password deveuvel null
+		if(is_null($user)) return null;
+		// Si no esta activo o no se ha verificado el email
+		if(!$user->getActive() || $user->getVerificationhash()!="") return false;
+		return $user;
+	}
+
+	/**
+	 * Esta funcion encripta el password para la BD.
+	 * @static
+	 * @param $password
+	 * @return string
+	 */
+	public static function encryptPassword($password){
+		return md5($password);
+	}
+
 } // RegistrationUser

@@ -3,7 +3,7 @@
 class RegistrationDoLoginAction extends BaseAction {
 
 	function RegistrationDoLoginAction() {
-		;
+
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
@@ -39,17 +39,19 @@ class RegistrationDoLoginAction extends BaseAction {
 
 		$module = "Registration";
 		if ( !empty($_POST["registrationUsername"]) && !empty($_POST["registrationPassword"]) ) {
-			$user = RegistrationUserPeer::auth($_POST["registrationUsername"],$_POST["registrationPassword"]);
+			$user = RegistrationUser::auth($_POST["registrationUsername"],$_POST["registrationPassword"]);
 			if ( !empty($user) ) {
+				$user->setLastlogin(mktime());
+				$user->save();
 				$_SESSION["loginRegistrationUser"] = $user;
-				$smarty->assign("loginRegisteredUser",$user);
+				$smarty->assign("registrationUser",$user);
 				return $mapping->findForwardConfig($success);
 			}
 		}
 
 		//caso si ya estaba registrado
 		if (isset($_SESSION["loginRegistrationUser"])) {
-			$smarty->assign("loginRegisteredUser",$_SESSION["loginRegistrationUser"]);
+			$smarty->assign("registrationUser",$_SESSION["loginRegistrationUser"]);
 			return $mapping->findForwardConfig($success);
 
 		}
