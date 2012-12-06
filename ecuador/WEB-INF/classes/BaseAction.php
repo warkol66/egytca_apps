@@ -128,11 +128,9 @@ class BaseAction extends Action {
 
 		header("Content-type: text/html; charset=UTF-8");
 
-		$loggedUser = Common::getLoggedUser();
-
 		if (!$noCheckLogin) { //Verifica login $noCheckLogin != 1
 
-
+			$loggedUser = Common::getLoggedUser();			
 			if (!empty($loggedUser)) {
 				if (!ConfigModule::get("global","noSecurity") && $actionRequested != "securityNoPermission") {
 					if (!empty($securityAction))
