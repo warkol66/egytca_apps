@@ -137,11 +137,13 @@ class HeadlineParsedParser {
 	private $existentHeadlinesCount;
 	private $invalidHeadlinesCount;
 	private $logEntryId;
+	private $debug;
 	
 	public function __construct($type, $makeFeedBackup = true) {
 		$this->type = $type;
 		$this->makeFeedBackup = $makeFeedBackup;
 		$this->typeMap = ConfigModule::get('headlines', 'typeMap');
+		$this->debug = false;
 	}
 	
 	/**
@@ -177,6 +179,10 @@ class HeadlineParsedParser {
 			if ($this->makeFeedBackup)
 				$this->zipData();
 			$this->headlines = $headlineParser->debugMode($this->debug)->parse($this->feed);
+			if ($this->debug) {
+				echo "<br/><br/><br/><br/><br/><br/>";
+				$headlineParser->printDebugInfo();
+			}
 			$logEntry->setStatus('success');
 		} catch (Exception $e) {
 			$logEntry->setStatus('failure');
