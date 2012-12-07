@@ -38,7 +38,7 @@ html =   '      <tr> '
 	}
 </script>|-/if-|
   <div style="margin-left:150px;"> 
-     <table class="tableTdBorders" id="activitiesTable" style="display:none; margin-bottom:15px;"> 
+     <table class="tableTdBorders" id="activitiesTable" style="margin-bottom:15px;"> 
       <thead> 
          <tr> 
           <th colspan="6">|-if !$construction-||-if $showGantt && $activities|count gt 0-|

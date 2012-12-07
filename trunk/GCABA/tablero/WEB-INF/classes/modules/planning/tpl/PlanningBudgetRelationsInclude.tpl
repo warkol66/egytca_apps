@@ -45,7 +45,7 @@ html =   '      <tr> '
 	}
 </script>|-/if-|
   <div style="margin-left:150px;"> 
-     <table class="tableTdBorders" id="budgetItemsTable" style="display:none; margin-bottom:15px;"> 
+     <table class="tableTdBorders" id="budgetItemsTable" style="margin-bottom:15px;"> 
       <thead> 
         |-if !$show && !$showLog-| <tr> 
           <th colspan="12"><div class="rightLink"><a href="#" onclick="return addBudgetItemRow()" class="addLink" title="Agregar nuevo Monto">Agregar Nueva Partida</a></div></th> 
