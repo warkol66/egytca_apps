@@ -770,6 +770,9 @@ a.importHeadlines:hover{
 	background-image: url(../images/icon_collapse.png);
 	background-repeat: no-repeat;
 }
+a.collapseLink.expandLink {
+	background-image: url(../images/icon_expand.png) !Important;
+}
 a.expandLink:link,a.expandLink:visited, a.collapseLink:link,a.collapseLink:visited{
 	color: #404040;
 	text-decoration: none;
