@@ -49,10 +49,10 @@
 			<tablePrefix></tablePrefix>
 			<news>Novedades: Bienvenido al Sistema de Gestión de Planificación del Gobierno de la Ciudad Autónoma de Buenos Aires</news>
 			<defaultSystemMode>
-				<value>plannnigMode</value>
+				<value>plannigMode</value>
 				<element_type>Options</element_type>
 				<element_options>
-					<option_1>plannnigMode</option_1>
+					<option_1>plannigMode</option_1>
 					<option_2>panelMode</option_2>
 				</element_options>
 			</defaultSystemMode>
@@ -125,5 +125,54 @@
 			<planned>white</planned>
 			<notDefined>yellow</notDefined>
 		</colors>
+		<objectives>
+			<parameterControl>
+				<value>0</value>
+				<element_type>Options</element_type>
+				<element_options>
+					<option_1>PERCENTAGE</option_1>
+					<option_2>DAYS</option_2>
+					<option_3>BOTH</option_3>
+				</element_options>
+			</parameterControl>
+			<delayed>10</delayed>
+			<delayedPercentage>15</delayedPercentage>
+			<late>30</late>
+			<latePercentage>25</latePercentage>
+		</objectives>
+		<projects>
+			<parameterControl>
+				<value>0</value>
+				<element_type>Options</element_type>
+				<element_options>
+					<option_1>PERCENTAGE</option_1>
+					<option_2>DAYS</option_2>
+					<option_3>BOTH</option_3>
+				</element_options>
+			</parameterControl>
+			<delayed>5</delayed>
+			<delayedPercentage>10</delayedPercentage>
+			<late>10</late>
+			<latePercentage>15</latePercentage>
+			<useCoordinates>
+				<value>YES</value>
+				<element_type>YES/NO</element_type>
+			</useCoordinates>
+		</projects>
+		<activities>
+			<parameterControl>
+				<value>0</value>
+				<element_type>Options</element_type>
+				<element_options>
+					<option_1>PERCENTAGE</option_1>
+					<option_2>DAYS</option_2>
+					<option_3>BOTH</option_3>
+				</element_options>
+			</parameterControl>
+			<delayed>3</delayed>
+			<delayedPercentage>5</delayedPercentage>
+			<late>10</late>
+			<latePercentage>10</latePercentage>
+		</activities>
 	</tablero>
 </config>

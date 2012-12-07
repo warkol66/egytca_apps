@@ -92,7 +92,7 @@
 		<input name="params[preexistingCode]" type="text" id="params_preexistingCode " size="20" value="|-$planningProject->getPreexistingCode()-|" title="Código Preexistente" maxlength="255" |-$readonly|readonly-|/>
 	</p>
 		 |-if !$planningProject->isNew()-|
-		 <h3>Partida presupuestaria &nbsp; <a href="javascript:void(null)" id="showHideBudgetRelations" onClick="$('budgetItemsTable').toggle(); $('showHideBudgetRelations').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningProject->getBudgetItems()-||-/if-|
+		 <h3>Partida presupuestaria &nbsp; <a href="javascript:void(null)" id="showHideBudgetRelations" onClick="$('budgetItemsTable').toggle(); $('showHideBudgetRelations').toggleClassName('expandLink');" class="collapseLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningProject->getBudgetItems()-||-/if-|
 	<p>
 		<label for="params_ministryPriority">Prioridad Ministerial</label>
 		<select id="params_ministryPriority" name="params[ministryPriority]" title="Prioridad Ministerial" |-$readonly|readonly-| |-if $show || $showLog-|disabled="disabled"|-/if-|>
@@ -141,7 +141,9 @@
 	</p>
 	  
 	  
-		 |-if !$planningProject->isNew()-|<h3>Gantt (Hitos) &nbsp; <a href="javascript:void(null)" id="showHidePlanningActivities" onClick="$('activitiesTable').toggle(); $('showHidePlanningActivities').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a> </h3>|-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() showGantt="true"-||-/if-|
+		 |-if !$planningProject->isNew()-|
+		 <h3>Gantt (Hitos) &nbsp; <a href="javascript:void(null)" id="showHidePlanningActivities" onClick="$('activitiesTable').toggle(); $('showHidePlanningActivities').toggleClassName('expandLink');" class="collapseLink">&nbsp;<span>Ver/Ocultar</span></a> </h3>
+		 |-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() showGantt="true"-||-/if-|
 	  
 	  
 	  
