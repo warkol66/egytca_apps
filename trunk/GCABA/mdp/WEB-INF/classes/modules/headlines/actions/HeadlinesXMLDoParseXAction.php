@@ -33,7 +33,7 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 		
 		if (!empty($_POST['type'])) {
 			
-			$type = $_POST['type'];
+			$this->type = $_POST['type'];
 			$makeFeedBackup = true;
 			
 			if (empty($_FILES['file'])) {
@@ -43,16 +43,25 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 				if (!in_array($this->type, array_keys($this->typeMap))) {
 					if ($this->type == "")
 						$this->type = "(empty string)";
-					return $this->returnAjaxFailure("$this->type is not a valid type");
+					
+					if ($_ENV['PHPMVC_MODE_CLI'])
+						die("$this->type is not a valid type\n");
+					else
+						return $this->returnAjaxFailure("$this->type is not a valid type");
 				}
 
 				if (!$this->timeIsOk()) {
-					// se parseo hace muy poco -> impedir
-					$smarty->assign('parseErrors', array(
-						array('strategy' => 'feed', 'message' => 'El feed se parseo hace poco. Espere para volver a parsear')
-					));
-					$smarty->display('HeadlinesParsedListInclude.tpl');
-					return;
+					$errorMsg = 'El feed se parseo hace poco. Espere para volver a parsear';
+					if ($_ENV['PHPMVC_MODE_CLI']) {
+						die("$errorMsg\n");
+					} else {
+						// se parseo hace muy poco -> impedir
+						$smarty->assign('parseErrors', array(
+							array('strategy' => 'feed', 'message' => $errorMsg)
+						));
+						$smarty->display('HeadlinesParsedListInclude.tpl');
+						return;
+					}
 				}
 				
 			} else {
@@ -68,16 +77,20 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 				$uri = $_FILES['file']['tmp_name'];
 			}
 			
-			$this->parse($type, $makeFeedBackup, $uri);
+			$this->parse($this->type, $makeFeedBackup, $uri);
 			
 		} elseif (!empty($_POST['logentryid'])) {
 			
 			$makeFeedBackup = false;
 			$logEntry = HeadlineParseLogEntryQuery::create()->findOneById($_POST['logentryid']);
-			if (is_null($logEntry))
-				return $this->returnAjaxFailure('invalid logentryid');
+			if (is_null($logEntry)) {
+				if ($_ENV['PHPMVC_MODE_CLI'])
+					die("invalid logentryid\n");
+				else
+					return $this->returnAjaxFailure('invalid logentryid');
+			}
 			
-			$type = $logEntry->getHeadlinetype();
+			$this->type = $logEntry->getHeadlinetype();
 			
 			$feedsPath = ConfigModule::get('headlines', 'feedBackupsPath');
 			$extractedDir = $feedsPath.'/'.'temp-'.$logEntry->getId().'-'.uniqid();
@@ -85,31 +98,53 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 			
 			$zippedFeed = $feedsPath.'/'.$logEntry->getId().'.zip';
 			$zip = new ZipArchive() ;
-			if ($zip->open($zippedFeed) !== true)
-				return $this->returnAjaxFailure("unable to open $zippedFeed");
+			if ($zip->open($zippedFeed) !== true) {
+				if ($_ENV['PHPMVC_MODE_CLI'])
+					die("unable to open $zippedFeed\n");
+				else
+					return $this->returnAjaxFailure("unable to open $zippedFeed");
+			}
 			
 			$zip->extractTo($extractedDir);
 			$zip->close();
 			
-			if (!file_exists($uri))
-				return $this->returnAjaxFailure("$uri not found");
+			if (!file_exists($uri)) {
+				if ($_ENV['PHPMVC_MODE_CLI'])
+					die("$uri not found\n");
+				else
+					return $this->returnAjaxFailure("$uri not found");
+			}
 			
-			$this->parse($type, $makeFeedBackup, $uri);
+			$this->parse($this->type, $makeFeedBackup, $uri);
 			
 			unlink($uri);
 			rmdir($extractedDir);
 			
 		} else {
-			return $this->returnAjaxFailure('invalid parameters');
+			if ($_ENV['PHPMVC_MODE_CLI'])
+				die("invalid parameters\n");
+			else
+				return $this->returnAjaxFailure('invalid parameters');
 		}
-
-		// hack para el uploader
-		if ($displayHeadlinesFeedList) {
-			$smarty->assign('headlineParsedColl', $this->parser->getSavedHeadlines());
-			$smarty->display('HeadlinesFeedList.tpl');
+		
+		if ($_ENV['PHPMVC_MODE_CLI']) {
+			
+			echo "saved headlines: ".count($this->parser->getSavedHeadlines())."\n";
+			echo "existent headlines: ".$this->parser->getExistentHeadlinesCount()."\n";
+			echo "invalid headlines: ".$this->parser->getInvalidHeadlinesCount()."\n";
+			die;
+			
 		} else {
-			$smarty->assign('headlinesParsed', $this->parser->getSavedHeadlines());
-			$smarty->display('HeadlinesParsedListInclude.tpl');
+
+			// hack para el uploader
+			if ($displayHeadlinesFeedList) {
+				$smarty->assign('headlineParsedColl', $this->parser->getSavedHeadlines());
+				$smarty->display('HeadlinesFeedList.tpl');
+			} else {
+				$smarty->assign('headlinesParsed', $this->parser->getSavedHeadlines());
+				$smarty->display('HeadlinesParsedListInclude.tpl');
+			}
+			return;
 		}
 	}
 	
