@@ -3,7 +3,7 @@
 class RegistrationDoHashVerificationAction extends BaseAction {
 
 	function RegistrationDoHashVerificationAction() {
-		;
+
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
@@ -12,61 +12,50 @@ class RegistrationDoHashVerificationAction extends BaseAction {
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
+		if ($smarty == NULL) {
+			echo 'No PlugIn found matching key: ' . $plugInKey . "<br>\n";
 		}
 
 		$module = "Registration";
-		$smarty->assign("module",$module);
+		$smarty->assign("module", $module);
 
-			if (!isset($_SESSION["login_user"]))
-				$this->template->template = "TemplatePublic.tpl";
+		$loggedUser = Common::getLoggedUser();
 
-		$type = Common::getRegistrationMode();
-
-		$registrationUserPeer = new RegistrationUserPeer();
-
-		$user = $registrationUserPeer->getByHash($_GET['hash']);
+		if (!$loggedUser || get_class($loggedUser) != "User")
+			$this->template->template = "TemplatePublic.tpl";
 
 		$type = Common::getRegistrationMode();
 
-		if (($user != null) && $user->isImported()) {
-
-			if ($user != null && ($registrationUserPeer->activateUserByHash($user,$_GET['hash']))) {
-				$password = $registrationUserPeer->assignRandomPassword($user);
-				$smarty->assign('userActive',$user);
-				$smarty->assign('password',$password);
-				return $mapping->findForwardConfig('success');
-			}
-			else {
-				$smarty->assign('error',true);
-			}
-
-		}
-
-		if ( ($type == 'Moderated') || ($type == 'Open') ) {
+		if (($type == 'Moderated') || ($type == 'Open')) {
 			//si estan activos estos tipos, no hay verificacion
 			return $mapping->findForwardConfig('disabled');
 		}
 
+		$user = RegistrationUserQuery::create()->findOneByVerificationhash($_GET["hash"]);
+
 		if ($type == 'Email Verification') {
 
-			if ($user != null && ($registrationUserPeer->activateUserByHash($user,$_GET['hash']))) {
-				$smarty->assign('userActive',$user);
-			}
-			else {
-				$smarty->assign('error',true);
+			if ($user != null) {
+				$user->setVerified(1);
+				$user->setActive(1);
+				$user->setVerificationhash("");
+				$user->save();
+				$smarty->assign('userActive', $user);
+			} else {
+				$smarty->assign('error', true);
 			}
 
 		}
 
 		if ($type == 'Moderated with Email Verification') {
 
-			if ($user != null && ($registrationUserPeer->verifyUserByHash($user,$_GET['hash']))) {
-				$smarty->assign('userVerified',$user);
-			}
-			else {
-				$smarty->assign('error',true);
+			if ($user != null) {
+				$user->setVerified(1);
+				$user->setVerificationhash("");
+				$user->save();
+				$smarty->assign('userVerified', $user);
+			} else {
+				$smarty->assign('error', true);
 			}
 
 		}

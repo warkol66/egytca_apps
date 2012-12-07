@@ -141,7 +141,7 @@ Si preferís recibir nuestras novedades de manera diaria, te recomendamos te sus
 
 		|-/if-|
 
-		|-if isset($loggedUser) and get_class($loggedUser) eq "RegistrationUser"-|
+		|-if $smarty.session.loginRegistrationUser-|
 		<p>
 		<label for="created">Fecha de registro</label>  |-$registrationUser->getCreatedAt()-|
 		</p>
