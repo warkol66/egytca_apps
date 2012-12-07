@@ -6,14 +6,4 @@ class BlogCommentsChangeStatusXAction extends BaseDoEditAction {
 		parent::__construct('BlogComment');
 	}
 	
-	protected function preUpdate(){
-		parent::preUpdate();
-		
-	}
-	
-	protected function postUpdate(){
-		parent::postUpdate();
-		
-	}
-	
 }

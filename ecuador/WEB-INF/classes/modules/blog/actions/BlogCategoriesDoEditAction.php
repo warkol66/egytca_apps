@@ -11,11 +11,11 @@ class BlogCategoriesDoEditAction extends BaseDoEditAction {
 		$module = "Blog";
 		$section = "Categories";
 		
-		//Arreglar cambio o asignacion de padre a uno existente (uodate)
+		//Arreglar cambio o asignacion de padre a uno existente (update)
 		if($_POST['action'] == 'edit')
 			BlogCategory::updateCat($_POST["id"],$_POST["params"]);
 		else
-			BlogCategory::createCat($id = $this->entity->getId(),$_POST["params"]);	
+			BlogCategory::createCat($this->entity->getId(),$_POST["params"]);	
 	}
 
 }

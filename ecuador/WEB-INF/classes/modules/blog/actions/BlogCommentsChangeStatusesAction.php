@@ -24,12 +24,8 @@ class BlogCommentsChangeStatusesAction extends BaseAction {
 
 		//cambio de status de varios elementos
 		if (isset($_POST['status']) && isset($_POST['selected'])) {
-
-			foreach ($_POST['selected'] as $id) {
-				$blogComment['id'] = $id;
-				$blogComment['status'] = $_POST['status'];
-				BlogCommentPeer::update($id,$blogComment);
-			}
+			
+			BlogCommentQuery::create()->filterById($_POST['selected'], Criteria::IN)->update(array('Status' => $_POST['status']));
 
 			$smarty->assign('selected',$_POST['selected']);
 			$smarty->assign('status',$_POST['status']);

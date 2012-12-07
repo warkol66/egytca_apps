@@ -108,17 +108,6 @@ class BlogComment extends BaseBlogComment {
 	}
 	
 	/**
-	* Obtiene la informacion de un noticia.
-	*
-	* @param int $id id del blogEntry
-	* @return array Informacion del blogEntry
-	*/
-	function get($id) {
-		$blogCommentObj = BlogCommentPeer::retrieveByPK($id);
-	return $blogCommentObj;
-	}
-	
-	/**
 	* Obtiene la cantidad de filas por pagina por defecto en los listado paginados.
 	*
 	* @return int Cantidad de filas por pagina
@@ -195,38 +184,6 @@ class BlogComment extends BaseBlogComment {
 		$pager = new PropelPager($cond,"BlogCommentPeer", "doSelect",$page,$perPage);
 		return $pager;
 	 }
-	 
-	 /**
-	* Elimina un comentario a partir de los valores de la clave.
-	*
-	* @param int $id id del blogComment
-	*	@return boolean true si se elimino correctamente el blogComment, false sino
-	*/
-	function deleteComment($id) {
-		$blogComment = BlogCommentPeer::retrieveByPK($id);
-		$blogComment->delete();
-		return true;
-	}
-	
-	/**
-	* Crea un comentario
-	*
-	* @param blogComment
-	*	@return boolean true si se creo correctamente el blogComment, false sino
-	*/
-	function createComment($params) {
-		$blogComment = new BlogComment();
-		$blogComment = Common::setObjectFromParams($blogComment,$params);		
-		try {
-			$blogComment->save();
-			return true;
-		}
-		catch (PropelException $exp) {
-			if (ConfigModule::get("global","showPropelExceptions"))
-				print_r($exp->getMessage());
-			return false;
-		}
-	}
 	
 	/**
 	* Actualiza un comentario
@@ -235,7 +192,7 @@ class BlogComment extends BaseBlogComment {
 	*	@return boolean true si se creo correctamente el blogComment, false sino
 	*/
 	function update($id,$params) {
-		$blogComment = BlogCommentPeer::get($id);
+		$blogComment = BlogCommentQuery::create()->findOneById($id);
 		$blogComment = Common::setObjectFromParams($blogComment,$params);		
 		try {
 			$blogComment->save();

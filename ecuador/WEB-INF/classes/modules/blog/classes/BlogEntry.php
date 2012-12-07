@@ -50,24 +50,6 @@ class BlogEntry extends BaseBlogEntry {
 	public function setSearchString($string) {
 		$this->searchString = $string;
 	}
-	
-	/**
-	 * Especifica una fecha desde para una busqueda personalizada.
-	 *
-	 * @param $fromDate string YYYY-MM-DD
-	 */
-	public function setFromDate($fromDate) {
-		$this->fromDate = $fromDate;
-	}
-
-	/**
-	 * Especifica una fecha hasta para una busqueda personalizada.
-	 *
-	 * @param $toDate string YYYY-MM-DD
-	 */
-	public function setToDate($toDate) {
-		$this->toDate = $toDate;		
-	}
 
 	/**
 	 * Especifica una fecha hasta para una busqueda personalizada.
@@ -109,14 +91,6 @@ class BlogEntry extends BaseBlogEntry {
 	public function setPublishedMode() {
 		$this->publishedMode = true;
 	}
-
-	public function setCategory($category) {
-		$this->category = $category;
-	}
-
-	public function setTag($tag) {
-		$this->tag = $tag;
-	}
 	
 	/**
 	* Crea un Preview de una articulo.
@@ -153,42 +127,6 @@ class BlogEntry extends BaseBlogEntry {
 		
 	}
 	
-	/**
-	* Elimina un noticia a partir de los valores de la clave.
-	*
-	* @param int $id id del blogEntry
-	*	@return boolean true si se elimino correctamente el blogEntry, false sino
-	*/
-	/*function delete($id) {
-		$blogEntryObj = BlogEntryPeer::retrieveByPK($id);
-		$blogEntryObj->delete();
-		return true;
-	}
-
-	/**
-	* Obtiene la informacion de un noticia.
-	*
-	* @param int $id id del blogEntry
-	* @return array Informacion del blogEntry
-	*/
-	function get($id) {
-		$blogEntryObj = BlogEntryPeer::retrieveByPK($id);
-		return $blogEntryObj;
-	}
-	
-	/**
-	* Obtiene la informacion de un noticia por el url.
-	*
-	* @param string $url url del blogEntry
-	* @return array Informacion del blogEntry
-	*/
-	function getByUrl($url) {
-		$criteria = new Criteria();
-		$criteria->add(BlogEntryPeer::URL,$url);
-		$blogEntryObj = BlogEntryPeer::doSelectOne($criteria);
-		return $blogEntryObj;
-	}
-
 	/**
 	 * Obtiene la cantidad de articulos aprobados que pueden ser mostrados por interfaz
 	 * del articulo

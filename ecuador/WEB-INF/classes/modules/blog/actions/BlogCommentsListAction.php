@@ -15,11 +15,11 @@ class BlogCommentsListAction extends BaseListAction {
 		$this->smarty->assign("entries", BlogEntryQuery::create()->find());
 		
 		if (!empty($_GET['filters'])) {
-			//Arreglar
-			if (!empty($_GET['filters']['fromDate']))
-				$_GET['filters']['fromDate'] = Common::convertToMysqlDateFormat($_GET['filters']['fromDate']);
-			if (!empty($_GET['filters']['toDate']))
-				$_GET['filters']['toDate'] = Common::convertToMysqlDateFormat($_GET['filters']['toDate']);
+			
+			if (!empty($_GET['filters']['dateRange']['creationdate']['min']))
+				$_GET['filters']['dateRange']['creationdate']['min'] = Common::convertToMysqlDateFormat($_GET['filters']['dateRange']['creationdate']['min']);
+			if (!empty($_GET['filters']['dateRange']['creationdate']['max']))
+				$_GET['filters']['dateRange']['creationdate']['max'] = Common::convertToMysqlDateFormat($_GET['filters']['dateRange']['creationdate']['max']);
 		}
 	}
 
