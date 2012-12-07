@@ -1,4 +1,5 @@
 <?php
+set_time_limit(720);
 
 class HeadlinesOneTimeFixClippingResampleAction extends BaseAction {
 	
