@@ -87,9 +87,9 @@ function clearElement(element) {
 				<label for="params[description]">Descripción</label>
 				<textarea name="params[description]" cols="70" rows="6" wrap="virtual" id="params[description]" title="Descripción">|-$campaign->getdescription()|escape-|</textarea>
 			</p>
-		<div id="client" style="position: relative;z-index:10000;">
+		|-if class_exists('Client')-|<div id="client" style="position: relative;z-index:10000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_clientId" label="Cliente" url="Main.php?do=commonAutocompleteListX&object=client" hiddenName="params[clientId]" defaultHiddenValue=$campaign->getClientId() defaultValue=$campaign->getClient()-|
-		</div>
+		</div>|-/if-|
 			<p>
 				<label for="params[defaultKeywords]">Palabras clave</label>
 				<input name="params[defaultKeywords]" type="text" id="params[defaultKeywords]" title="Palabras clave por defecto para la búsqueda de noticias" value="|-$campaign->getDefaultKeywords()|escape-|" size="50">
