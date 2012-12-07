@@ -124,7 +124,7 @@
 		|-foreach from=$headlineColl item=headline name=for_headlines-|
 		<tr>
 				<td>|-$headline->getMedia()-|</td>
-				<td>|-$headline->getDatePublished()|date_format-|</td>
+				<td>|-$headline->getDatePublished()|change_timezone|dateTime_format-|</td>
 				<td>|-$headline->getPicture()|si_no-|</td>
 				<td>|-$headlineValues[$headline->getValue()]-|</td>
 				<td>|-$headlineRelevances[$headline->getRelevance()]-|</td>
@@ -144,48 +144,46 @@
 		<table border="1">
 			<tr>
 				<th>Fecha</th>
-					<th>Tema</th>
-					<th>Medio</th>
-					<th>Nombre</th>
-					<th>Contenido</th>
-					<th>Seccion</th>
-					<th>Pagina</th>
-					<th>Programa</th>
-					<th>Periodista</th>
-					<th>Titulo</th>
-					<th>Valor</th>
-					<th>Vocero</th>
-					<th>Relevancia</th>
-					<th>Foto</th>
-					<th>Otros_politicos</th>
-					|-if $filters.actorName ne '' || $filters.actorName ne ''-|<th>Vocero (|-$filters.actorName-|)</th>
-					<th>Otros politicos (|-$filters.actorName-|)</th>|-/if-|
+				<th>Fecha</th>
+				<th>Tema</th>
+				<th>Medio</th>
+				<th>Nombre</th>
+				<th>Programa</th>
+				<th>Seccion</th>
+				<th>Pagina</th>
+				<th>Periodista</th>
+				<th>Titulo</th>
+				<th>Contenido</th>
+				<th>Valor</th>
+				<th>Relevancia</th>
+				<th>Vocero</th>
+				<th>Otros_politicos</th>
+				<th>Foto</th>
+				|-if $filters.actorName ne '' || $filters.actorName ne ''-|<th>Vocero (|-$filters.actorName-|)</th>
+				<th>Otros politicos (|-$filters.actorName-|)</th>|-/if-|
 			</tr>
 			|-foreach from=$headlineColl item=headline name=for_headlines-|
 			<tr>
-					<td>|-$headline->getDatePublished()|date_format-|</td>
+					<td>|-$headline->getDatePublished()|change_timezone|date_format-|-|</td>
+					<td>|-$headline->getDatePublished()|change_timezone|dateTime_format-|-|</td>
 					<td>|-assign var=issues value=$headline->getIssues()-||-foreach from=$issues item=issue name=for_issues-||-if !$issue@first-|, |-/if-||-$issue-||-/foreach-|</td>
 					<td>|-assign var=media value=$headline->getMedia()-||-if is_object($media)-||-$media->getType()-||-/if-|</td>
 					<td>|-$headline->getMedia()-|</td>
-					<td>|-$headline->getContent()|mb_truncate:295:" ... ":'UTF-8':true-|</td>
-					<td>|-$headline->getSection()-|</td>
-					<td>|-$headline->getPage()-|</td>
 					<td>|-$headline->getProgram()-|</td>
+					<td>|-$headline->getSection()-|</td>
+					<td>|-if $headline->getPage() ne 0-||-$headline->getPage()-||-/if-|</td>
 					<td>|-counter name=journalist start=1 assign=journalist-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::JOURNALIST'))-||-if $journalist gt 1-|, |-/if-||-counter name=journalist assign=journalist-||-$actor-||-/if-||-/foreach-||-/foreach-|</td>
 					<td>|-$headline->getName()-|</td>
+					<td>|-$headline->getContent()|mb_truncate:295:" ... ":'UTF-8':true-|</td>
 					<td>|-$headlineValues[$headline->getValue()]-|</td>
-					<td>|-counter name=spokesman start=1 assign=spokesman-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::SPOKESMAN'))-||-if $spokesman gt 1-|, |-/if-||-counter name=spokesman assign=spokesman-||-$actor-||-if $actor->getId() eq $filters.actorId-||-assign var=spokesmanSelectedActor value=$actor-||-/if-||-/if-||-/foreach-||-/foreach-|</td>
 					<td>|-$headlineRelevances[$headline->getRelevance()]-|</td>
-					<td>|-$headline->getPicture()|si_no-|</td>
+					<td>|-counter name=spokesman start=1 assign=spokesman-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::SPOKESMAN'))-||-if $spokesman gt 1-|, |-/if-||-counter name=spokesman assign=spokesman-||-$actor-||-if $actor->getId() eq $filters.actorId-||-assign var=spokesmanSelectedActor value=$actor-||-/if-||-/if-||-/foreach-||-/foreach-|</td>
 					<td>|-if $headline->getActors()|count gt 0-||-foreach from=$headline->getActors() item=actor-|
 								|-if !$actor@first-|, |-/if-||-$actor-||-if $actor->getId() eq $filters.actorId-||-assign var=otherSelectedActor value=$actor-||-/if-|
-						|-/foreach-|</ul>|-/if-|
-		</td>
-		
+						|-/foreach-|</ul>|-/if-|</td>
+					<td>|-$headline->getPicture()|si_no-|</td>
 					|-if $filters.actorName ne '' || $filters.actorName ne ''-|<td>|-$spokesmanSelectedActor-|</td>
 					<td>|-if $spokesmanSelectedActor eq ''-||-$otherSelectedActor-||-/if-|</td>|-assign var=spokesmanSelectedActor value=""-||-assign var=otherSelectedActor value=""-||-/if-|
-		
-		
 			</tr>
 			|-/foreach-|
 		</table>
@@ -283,7 +281,7 @@
 					<p style="border: 1px solid black"><strong>Fecha:  |-$headline->getDatePublished()|date_format-|
 					<br />Medio: |-$headline->getMedia()-|
 					<br />Sección:  |-$headline->getSection()-|
-					<br />Página:  |-$headline->getPage()-|
+					<br />Página:  |-if $headline->getPage() ne 0-||-$headline->getPage()-||-/if-|
 					<br />Periodista:  |-counter name=journalist start=1 assign=journalist-||-foreach from=$headline->getActors() item=actor-||-foreach from=$headline->getHeadlineActors() item=headlineActor-||-if ($actor->getId() eq $headlineActor->getActorId()) && ($headlineActor->getRole() eq constant('HeadlinePeer::JOURNALIST'))-||-if $journalist gt 1-|, |-/if-||-counter name=journalist assign=journalist-||-$actor-||-/if-||-/foreach-||-/foreach-| </strong></p>
 					<p><strong>Tema:  |-assign var=issues value=$headline->getIssues()-||-foreach from=$issues item=issue name=for_issues-||-if !$issue@first-|, |-/if-||-$issue-||-/foreach-|
 					<br />Título: |-$headline->getName()-|
@@ -297,6 +295,7 @@
 					|-if $filters.includeClipping-|
 						|-foreach $headline->getImagesIdData() as $imageData-|
 						<table cellspacing="1" cellpadding="0" border="0" align="center"><tr><td style="border:2px solid black; "><img src="attachments/|-$imageData.source-|-|-$imageData.id-|.|-$imageData.extension-|" /></td></tr></table>
+					<p>&nbsp;</p>
 						|-/foreach-|
 					|-/if-|
 			<br  style="page-break-after: always"/>
