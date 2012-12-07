@@ -120,6 +120,8 @@
 			$err .="<errormysql>".$MYSQL_ERRNO.":".$MYSQL_ERROR."</errormysql>";
 		}
 
+		$err = "<pre>". htmlentities($err) ."</pre>";
+
 		if ($errno == E_USER_ERROR || $errno == E_ERROR || $errno == E_CORE_ERROR  ||
 				$errno == E_COMPILE_ERROR || $errno == mysql_errno()) {
 
@@ -143,7 +145,7 @@
 			}
 
 			die("<br /><strong>Error procesando su requerimiento, por favor reintente o comuniquese con el administrador.</strong>\n <br /><br />".
-					"Texto del error: ".$err );
+					"Texto del error:" . $err );
 		}
 	}
 

@@ -410,4 +410,10 @@ function recordset2Array() {
    return $return;
   }
 
+  function checksum($table_name) {
+    $this->query("CHECKSUM TABLE `$table_name`");
+    $return=@mysql_fetch_array($this->Query_ID);
+    return $return;
+  }
+
 }
