@@ -52,11 +52,17 @@
 			|-if $loginUser->isSupervisor()-|		
 			<li><a href="javascript:void(null)" class="sub">Configuración</a>
 				<ul>
-					<li class="last"><a href="Main.php?do=securityEditPermissions">Administrar permisos</a></li>
+					<li><a href="Main.php?do=securityEditPermissions">Administrar permisos</a></li>
 					<li><a href="Main.php?do=usersPasswordChange">Actualice su contraseña</a></li>
 					<li><a href="Main.php?do=commonConfigSet">Configurar Sistema</a></li>
 					<li><a href="Main.php?do=commonMeasureUnitsList">Unidades de Medida</a></li>
-					<li class="last"><a href="Main.php?do=commonConfigEdit">Editar Configuración</a></li>
+					<li><a href="Main.php?do=commonConfigEdit">Editar Configuración</a></li>
+					<li class="last"><a href="javascript:void(null)">Utilidades</a>
+					<ul>
+					<li><a href="Main.php?do=backupList">Administrar Respaldos</a></li>
+					<li><a href="Main.php?do=modulesInstallList">Instalación de Módulos</a></li>
+						<li class="last"><a href="Main.php?do=commonChecksum">Checksum de Tablas</a></li>
+					</ul></li>
 				</ul></li>
 			|-/if-|		
 		|-else-|
@@ -68,14 +74,14 @@
 	|-/if-|
 			<li><a href="javascript:void(null)" class="sub">Tutoriales</a>
 			<ul>
-				<li><a href="tutoriales/1_Bienvenida.avi" target="_blank">1 Bienvenida</a></li>
-				<li><a href="tutoriales/2_CrearObjetivoDeImpacto.avi" target="_blank">2 Crear Objetivo de Impacto</a></li>
-				<li><a href="tutoriales/3_CrearObjetivoMinisterial.avi" target="_blank">3 Crear Objetivo Ministerial</a></li>
-				<li><a href="tutoriales/4_CrearObjetivoOperativo.avi" target="_blank">4 Crear Objetivo Operativo</a></li>
-				<li><a href="tutoriales/5_CrearProyecto.avi" target="_blank">5 Crear Proyecto</a></li>
-				<li><a href="tutoriales/6_CargarHitos.avi" target="_blank">6 Cargar Hitos</a></li>
-				<li><a href="tutoriales/7_CargarObras.avi" target="_blank">7 Cargar Obras</a></li>
-				<li class="last"><a href="tutoriales/8_CargarIndicadoresDeImpacto.avi" target="_blank">8 Cargar Indicadores de Impacto</a></li>
+				<li><a href="javascript:void(null);" onClick="window.open('Main.php?do=commonTutorialView&fileName=1_Bienvenida.wmv','tutorial','width=900,height=640,toolbar=no,status=yes,menubar=no,scrollbars=no')">1 Bienvenida</a></li>
+				<li><a href="javascript:void(null);" onClick="window.open('Main.php?do=commonTutorialView&fileName=2_CrearObjetivoDeImpacto.wmv','tutorial','width=900,height=640,toolbar=no,status=yes,menubar=no,scrollbars=no')">2 Crear Objetivo de Impacto</a></li>
+				<li><a href="javascript:void(null);" onClick="window.open('Main.php?do=commonTutorialView&fileName=3_CrearObjetivoMinisterial.wmv','tutorial','width=900,height=640,toolbar=no,status=yes,menubar=no,scrollbars=no')">3 Crear Objetivo Ministerial</a></li>
+				<li><a href="javascript:void(null);" onClick="window.open('Main.php?do=commonTutorialView&fileName=4_CrearObjetivoOperativo.wmv','tutorial','width=900,height=640,toolbar=no,status=yes,menubar=no,scrollbars=no')">4 Crear Objetivo Operativo</a></li>
+				<li><a href="javascript:void(null);" onClick="window.open('Main.php?do=commonTutorialView&fileName=5_CrearProyecto.wmv','tutorial','width=900,height=640,toolbar=no,status=yes,menubar=no,scrollbars=no')">5 Crear Proyecto</a></li>
+				<li><a href="javascript:void(null);" onClick="window.open('Main.php?do=commonTutorialView&fileName=6_CargarHitos.wmv','tutorial','width=900,height=640,toolbar=no,status=yes,menubar=no,scrollbars=no')">6 Cargar Hitos</a></li>
+				<li><a href="javascript:void(null);" onClick="window.open('Main.php?do=commonTutorialView&fileName=7_CargarObras.wmv','tutorial','width=900,height=640,toolbar=no,status=yes,menubar=no,scrollbars=no')">7 Cargar Obras</a></li>
+				<li class="last"><a href="javascript:void(null);" onClick="window.open('Main.php?do=commonTutorialView&fileName=8_CargarIndicadoresDeImpacto.wmv','tutorial','width=900,height=640,toolbar=no,status=yes,menubar=no,scrollbars=no')">8 Cargar Indicadores de Impacto</a></li>
 			</ul>
 		</li>
 |-/if-|
