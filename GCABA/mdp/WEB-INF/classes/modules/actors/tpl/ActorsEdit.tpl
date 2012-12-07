@@ -62,6 +62,6 @@ function actorsDeleteCategoryFromActor(form){
 		</fieldset>
 	</form>
 </div>
-|-if !$actor->isNew()-|
+|-if !$actor->isNew() && method_exists($actor,"getActorCategorys")-|
 |-include file="ActorsEditCategoriesInclude.tpl"-|
 |-/if-|
