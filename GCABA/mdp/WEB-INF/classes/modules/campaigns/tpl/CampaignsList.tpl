@@ -36,7 +36,7 @@
 			<tr class="thFillTitle"> 
 	<!--			<th width="5%">Id</th> -->
 				<th width="5%">Fechas</th> 
-				<th width="10%">Cliente</th> 
+				|-if class_exists('Client')-|<th width="10%">Cliente</th> |-/if-|
 				<th width="10%">Tipo</th> 
 				<th width="10%">Nombre</th> 
 				<th width="30%">Descripción</th> 
@@ -46,14 +46,14 @@
 		</thead> 
 	<tbody>|-if $campaigns|@count eq 0-|
 		<tr>
-			 <td colspan="7">|-if isset($filter)-|No hay campañas que concuerden con la búsqueda|-else-|No hay campañas disponibles|-/if-|</td>
+			 <td colspan="|-if class_exists('Client')-|7|-else-|6|-/if-|">|-if isset($filter)-|No hay campañas que concuerden con la búsqueda|-else-|No hay campañas disponibles|-/if-|</td>
 		</tr>
 	|-else-|
 		|-foreach from=$campaigns item=campaign name=for_campaigns-|
 		<tr> 
 	<!--		<td>|-$campaign->getid()-|</td> -->
 			<td align="center">|-$campaign->getStartDate()|date_format:"%d-%m-%Y"-| al |-$campaign->getFinishDate()|date_format:"%d-%m-%Y"-|</td> 
-			<td>|-$campaign->getClient()-|</td>
+			|-if class_exists('Client')-|<td>|-$campaign->getClient()-|</td>|-/if-|
 			<td>|-$campaign->getTypeTranslated()-|</td> 
 			<td>|-$campaign->getName()-|</td> 
 			<td>|-$campaign->getDescription()-|</td> 
@@ -83,11 +83,11 @@
 		|-/foreach-|
 		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
 		<tr> 
-			<td colspan="7">|-include file="PaginateInclude.tpl"-|</td> 
+			<td colspan="|-if class_exists('Client')-|7|-else-|6|-/if-|">|-include file="PaginateInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 			<tr class="thFillTitle">
-				 <th colspan="7">|-if $campaigns|@count gt 5-|<div class="rightLink"><a href="Main.php?do=campaignsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Campaña</a></div>|-/if-|</th>
+				 <th colspan="|-if class_exists('Client')-|7|-else-|6|-/if-|">|-if $campaigns|@count gt 5-|<div class="rightLink"><a href="Main.php?do=campaignsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Campaña</a></div>|-/if-|</th>
 			</tr>
 		|-/if-|
 		</tbody> 

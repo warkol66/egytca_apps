@@ -13,11 +13,11 @@
 		<column name="responsible" description="Persona Responsable de la campaign" type="CHAR" size="120" />
 
 		<behavior name="soft_delete" />
-
-		<foreign-key foreignTable="affiliates_affiliate">
+<!-- Solo si esta activo el modulo de clientes (affiliates) -->
+<!--		<foreign-key foreignTable="affiliates_affiliate">
 			<reference local="clientId" foreign="id" />
 		</foreign-key>
-
+-->
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
