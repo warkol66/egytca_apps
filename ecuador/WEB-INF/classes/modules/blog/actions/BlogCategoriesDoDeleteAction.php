@@ -2,7 +2,7 @@
 
 class BlogCategoriesDoDeleteAction extends BaseDoDeleteAction {
 
-	function __construct() {
+	/*function __construct() {
 		parent::__construct('BlogCategory');
 	}
 	
@@ -17,6 +17,32 @@ class BlogCategoriesDoDeleteAction extends BaseDoDeleteAction {
 			$category->setLeftValue(0)->save();
 		}		
 			
+	}*/
+	
+	function BlogCategoriesDoDeleteAction() {
+		;
+	}
+
+	function execute($mapping, $form, &$request, &$response) {
+
+		BaseAction::execute($mapping, $form, $request, $response);
+
+		//////////
+		// Access the Smarty PlugIn instance
+		// Note the reference "=&"
+		$plugInKey = 'SMARTY_PLUGIN';
+		$smarty =& $this->actionServer->getPlugIn($plugInKey);
+		if($smarty == NULL) {
+			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
+		}
+
+		$module = "Blog";
+		$category = BlogCategoryQuery::create()->findOneById($_POST["id"]);
+		if ($category->isRoot())
+			BlogCategory::deleteTree($category->getScope());
+		else		
+			BlogCategory::delete($_POST["id"]);
+		return $mapping->findForwardConfig('success');
 	}
 
 }

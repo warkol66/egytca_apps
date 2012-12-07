@@ -6,6 +6,13 @@ class BlogShowAction extends BaseListAction {
 		parent::__construct('BlogEntry');
 	}
 	
+	protected function preList() {
+		parent::preList();
+		
+		//if(isset($_GET['categoryId']))
+			$filters['categoryid'] = $_GET['categoryId'];
+	}
+	
 	protected function postList() {
 		parent::postList();
 		
