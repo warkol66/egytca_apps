@@ -73,6 +73,7 @@ class RegistrationDoEditAction extends BaseDoEditAction {
 		//caso de registracion de modo abierto
 		if ($type == 'Open') {
 			$this->entity->setActive(1);
+			$this->entity->setVerified(1);
 			$this->entity->save();
 			$this->forwardName = 'success-user-open';
 		}
@@ -83,6 +84,8 @@ class RegistrationDoEditAction extends BaseDoEditAction {
 		}
 
 		if ($type == 'Moderated') {
+			$this->entity->setActive(1);
+			$this->entity->save();
 			$this->smarty->assign('moderated', true);
 			$this->forwardName = 'success-user-moderated';
 		}
@@ -160,7 +163,10 @@ class RegistrationDoEditAction extends BaseDoEditAction {
 			$this->entity->setPasswordupdated(mktime());
 		}
 
-		if (!$loggedUser) $this->entity->setActive(0);
+		if (!$loggedUser) {
+			$this->entity->setActive(0);
+			$this->entity->setVerified(0);
+		}
 	}
 
 	/**

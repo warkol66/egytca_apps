@@ -20,14 +20,6 @@
 			<forward name="failure" path="RegistrationLogin.tpl"/>
 			<forward name="failureAjax" path="RegistrationDoLoginX.tpl"/>
 		</action>
-
-		<action    path = "registrationPasswordRecovery"
-							 type = "RegistrationPasswordRecoveryAction"
-							 name = "registrationPasswordRecovery"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="RegistrationPasswordRecovery.tpl"/>
-		</action>
 		
 		<action    path = "registrationDoPasswordRecovery"
 							 type = "RegistrationDoPasswordRecoveryAction"
@@ -36,14 +28,6 @@
 					 validate = "true">
 			<forward name="success" path="RegistrationDoPasswordRecovery.tpl"/>
 			<forward name="failure" path="RegistrationPasswordRecovery.tpl"/>
-		</action>		
-
-		<action    path = "registrationEdit"
-							 type = "RegistrationEditAction"
-							 name = "registrationEdit"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="RegistrationEdit.tpl" />
 		</action>
 
 		<action    path = "registrationDoEdit"
@@ -86,22 +70,6 @@
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=registrationLogin" redirect="true"/>
 		</action>
-		<action    path = "registrationList"
-							 type = "RegistrationListAction"
-							 name = "registrationList"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="RegistrationList.tpl"/>
-		</action>
-		
-	    <action    path = "registrationCaptchaGeneration"
-	               type = "RegistrationCaptchaGenerationAction"
-	               name = "registrationCaptchaGenerationAction"
-	              scope = "request"
-	           validate = "true">
-	    <forward name="success" path="template_ajax.tpl"/>
-	    </action>
-		
 
 	</action-mappings>
 
