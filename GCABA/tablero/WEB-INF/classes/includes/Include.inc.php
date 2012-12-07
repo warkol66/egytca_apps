@@ -111,13 +111,16 @@
 		$err .= "</errorentry>\n";
 		if (isset($_SERVER['HTTP_REFERER']))
 			$err .= "<referrer>" . $_SERVER['HTTP_REFERER'] . "</referrer>\n";
-		$err .= "<request>"  . $_SERVER['REQUEST_URI']  . "</request>\n\n";
+		if (isset($_SERVER['REQUEST_URI']))
+			$err .= "<request>"  . $_SERVER['REQUEST_URI']  . "</request>\n\n";
 
 		if (!empty($errstr) && preg_match('/^(sql)$/', $errstr)) {
 			$MYSQL_ERRNO = mysql_errno();
 			$MYSQL_ERROR = mysql_error();
 			$err .="<errormysql>".$MYSQL_ERRNO.":".$MYSQL_ERROR."</errormysql>";
 		}
+
+		$err = "<pre>". htmlentities($err) ."</pre>";
 
 		if ($errno == E_USER_ERROR || $errno == E_ERROR || $errno == E_CORE_ERROR  ||
 				$errno == E_COMPILE_ERROR || $errno == mysql_errno()) {
@@ -142,7 +145,7 @@
 			}
 
 			die("<br /><strong>Error procesando su requerimiento, por favor reintente o comuniquese con el administrador.</strong>\n <br /><br />".
-					"Texto del error: <pre>". htmlentities($err) ."</pre>");
+					"Texto del error:" . $err );
 		}
 	}
 
