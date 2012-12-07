@@ -9,7 +9,7 @@
 			<forward  name="success" path="BlogSendToEmailX.tpl" />
 			<forward  name="failure" path="BlogSendToEmailXFailure.tpl" />
 		</action>
-
+		<!--queda -->
 		<action  path = "blogSearch"
 						 type = "BlogSearchAction"
 						 name = "blogSearch"
@@ -17,6 +17,14 @@
 				 validate = "true">
 			<forward  name="success" path="BlogSearch.tpl" />
 			<forward  name="rss" path="BlogShowRss.tpl" />
+		</action>
+		
+		<action  path = "blogChangeStatuses"
+					type = "BlogChangeStatusesAction"
+					name = "blogChangeStatuses"
+					scope = "request"
+				validate = "true">
+			<forward  name="success" path="/Main.php?do=blogList&amp;message=changed" redirect="true" />
 		</action>
 
 		<action  path = "blogShow"
@@ -59,7 +67,7 @@
 				 validate = "true">
 			<forward  name="success" path="BlogViewXInclude.tpl" />
 		</action>
-
+		<!--queda -->
 		<action  path = "blogPreview"
 						 type = "BlogPreviewAction"
 						 name = "blogPreview"
@@ -76,7 +84,7 @@
 				 validate = "true">
 			<forward  name="success" path="BlogSendToEmailInclude.tpl" />
 		</action>
-
+		<!--queda -->
 		<action    path = "blogDoAddTagToEntryX"
 							 type = "BlogDoAddTagToEntryXAction"
 							 name = "blogDoAddTagToEntryX"
@@ -85,7 +93,7 @@
 			<forward name="success" path="BlogDoAddTagToEntryX.tpl" />
 			<forward name="failure" path="Error.tpl"  />
 		</action>
-
+		<!--queda -->
 		<action    path = "blogDoDeleteTagFromEntryX"
 							 type = "BlogDoDeleteTagFromEntryXAction"
 							 name = "blogDoDeleteTagFromEntryX"

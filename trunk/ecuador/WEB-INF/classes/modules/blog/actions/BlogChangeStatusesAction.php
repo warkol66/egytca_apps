@@ -1,6 +1,6 @@
 <?php
 
-class BlogChangeStatusesAction extends BaseDoEditAction {
+class BlogChangeStatusesAction extends BaseAction {
 	
 	/*function __construct() {
 		parent::__construct('BlogEntry');
@@ -36,32 +36,27 @@ class BlogChangeStatusesAction extends BaseDoEditAction {
 		}
 
 		//por ser una llamada via ajax
-		$this->template->template = 'TemplateAjax.tpl';
+		//$this->template->template = 'TemplateAjax.tpl';
 
 		$module = "Blog";
 		$smarty->assign("module",$module);
 
 		//cambio de status de varios elementos
 		if (isset($_POST['status']) && isset($_POST['selected'])) {
-
-			foreach ($_POST['selected'] as $id) {
-				$blogEntry = BlogEntryQuery::create()->findOneById($id);
-				if(is_object($blogEntry)){
-					$blogEntry->setStatus($_POST['status']); 
-					$blogEntry->save();
-				}
-			}
+			
+			BlogEntryQuery::create()->filterById($_POST['selected'], Criteria::IN)->update(array('Status' => $_POST['status']));
+			
+			$smarty->assign('selected',$_POST['selected']);
+			$smarty->assign('status',$_POST['status']);
 		}
 
 		$myRedirectConfig = $mapping->findForwardConfig('success');
 		$myRedirectPath = $myRedirectConfig->getpath();
 		if ($_POST['page'])
 			$queryData = '&page='.$_POST["page"];
-
 		$myRedirectPath .= $queryData;
 		$fc = new ForwardConfig($myRedirectPath, True);
 		return $fc;
-
 
 	}
 

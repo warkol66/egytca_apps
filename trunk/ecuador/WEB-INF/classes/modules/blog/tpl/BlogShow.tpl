@@ -2,7 +2,7 @@
 		|-foreach from=$blogEntryColl item=blogEntry name=for_blogEntries-|
 			<div id="article|-$blogEntry->getId()-|" class="blog01">
 				<h4>|-$blogEntry->getCreationDate()|date_format:"%A %e de %B de %Y"-|</h4>
-				<h1><a href="Main.php?do=blogView&id=|-$blogEntry->getId()-|">|-$blogEntry->gettitle()-|</a>
+				<h1><a href="Main.php?do=blogView&url=|-$blogEntry->getUrl()-|">|-$blogEntry->gettitle()-|</a>
 				|-assign var="category" value=$blogEntry->getBlogCategory()-||-if !empty($category)-|<br /><span class="blogCategoryLink"><a href="Main.php?do=blogShow&categoryId=|-$category->getId()-|" class="blogCategoryLink">|-$category->getName()-|</a></span>|-/if-|</h1>
 				<div id="summary">|-if $blogEntry->getBody()|mb_count_characters:true:true > $moduleConfig.charsInList-|
 				|-assign var=id value=$blogEntry->getId()-|

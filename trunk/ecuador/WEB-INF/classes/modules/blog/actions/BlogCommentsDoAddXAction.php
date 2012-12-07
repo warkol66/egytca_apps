@@ -9,15 +9,10 @@ class BlogCommentsDoAddXAction extends BaseDoEditAction {
 	protected function preUpdate() {
 		parent::preUpdate();
 		
-		if(!is_object($this->entity)){
-			echo "No";
-			die();
-		}
-		
 		if ( (empty($_POST['formId'])) || !Common::validateCaptcha($_POST['formId']) || !empty($_POST['securityCode'])) {
 			$this->smarty->assign('captcha',true);
 			//probar
-			return $mapping->findForwardConfig('failure');
+			//return $mapping->findForwardConfig('failure');
 		}else{
 			
 			$this->entity->setCreationdate(date('Y-m-d H:m:s'));

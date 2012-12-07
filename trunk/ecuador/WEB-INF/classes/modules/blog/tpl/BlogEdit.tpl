@@ -87,6 +87,7 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 				|-/if-|
 				|-if !$blogEntry->isNew()-|
 				<input type="hidden" name="id" id="id" value="|-$blogEntry->getid()-|" />
+				<input type="hidden" name="params[url]" id="params_url" value="|-$blogEntry->getUrl()-|" />
 				|-/if-|
 				
 			<p>	
@@ -96,8 +97,9 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 				<input type="hidden" name="action" id="action" value=|-if !$blogEntry->isNew()-|"edit"|-else-|"create"|-/if-| />
 				<input type="hidden" name="do" id="doEdit" value="blogDoEdit" />
 				<input type="button" id="button_edit_blogEntry" name="button_edit_blogEntry" title="##blog,40,Guardar##" value="##blog,40,Guardar##" onClick="javascript:submitEntryCreation(this.form)"  />			<input type="button" id="button_return_project" name="button_return_project" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=blogList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
-
+				|-if !$blogEntry->isNew()-|
 				<input type="button" id="button_edit_blogEntry" name="button_edit_blogEntry" title="##blog,42,Vista previa en listado##" value="##blog,42,Vista previa en listado##" onClick="javascript:submitPreviewOnHome(this.form)"/>
+				|-/if-|
 	|-if $blogConfig.bodyOnArticlesShow.value eq "NO"-|<input type="button" id="button_edit_blogEntry" name="button_edit_blogEntry" title="##blog,41,Vista previa del detalle##" value="##blog,41,Vista previa del detalle##" onClick="javascript:submitPreviewDetailed(this.form)"  />|-/if-|
 			</p>
 			<p>

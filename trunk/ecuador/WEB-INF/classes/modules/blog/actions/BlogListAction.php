@@ -6,26 +6,11 @@ class BlogListAction extends BaseListAction {
 		parent::__construct('BlogEntry');
 	}
 
-	protected function preList() {
-		parent::preList();
-		
-		if (!empty($_GET['filters'])) {
-			
-			if (!empty($_GET['filters']['fromdate']))
-				$_GET['filters']['fromdate'] = Common::convertToMysqlDateFormat($_GET['filters']['fromdate']);
-			if (!empty($_GET['filters']['todate']))
-				$_GET['filters']['todate'] = Common::convertToMysqlDateFormat($_GET['filters']['todate']);
-		}
-	}
-
 	protected function postList() {
 		parent::postList();
 		
 		$module = "Blog";
 		$this->smarty->assign("module", $module);
-		
-		$blogEntry = new BlogEntry();
-		$blogEntry->setReverseOrder();
 
 		//como manejar esto ahora?
 		/*if ($_GET["export"] == "xls") {
@@ -44,7 +29,7 @@ class BlogListAction extends BaseListAction {
 			die;
 		}*/
 		
-		$this->smarty->assign("categories",BlogCategory::getAll());
+		$this->smarty->assign("categories",BlogCategoryQuery::create()->find());
 		$this->smarty->assign("blogEntryStatus",BlogEntry::getStatuses());
 
 	}

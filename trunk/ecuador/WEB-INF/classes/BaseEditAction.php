@@ -39,7 +39,10 @@ class BaseEditAction extends BaseAction {
 		}
 		
 		$id = $request->getParameter("id");
-		if (!empty($id)) {
+		if(isset($id))
+			echo "yes";
+		die();
+		if (isset($id)) {
 			$this->entity = BaseQuery::create($this->entityClassName)->findOneById($id);
 			if (is_null($this->entity)) {
 				//Elijo la vista basado en si es o no un pedido por AJAX
