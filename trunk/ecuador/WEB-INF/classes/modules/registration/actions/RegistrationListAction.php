@@ -18,7 +18,6 @@ class RegistrationListAction extends BaseListAction {
 
     protected function preList() {
         parent::preList();
-	    $this->perPage=2;
         $this->module = "Registration";
 		$this->template->template = 'TemplateJQuery.tpl';
 	    if(!isset($this->filters["includeDeleted"]))
