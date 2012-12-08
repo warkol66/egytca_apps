@@ -80,6 +80,9 @@ class BaseDoEditAction extends BaseAction {
 		}
 
 		$params["id"] = $this->entity->getId();
+		// Hay que agregar la pagina a los parametros de retorno
+		if(isset($_REQUEST["page"]))
+		$params["page"]=$_REQUEST["page"];
 		$this->postUpdate();
 
 		/*

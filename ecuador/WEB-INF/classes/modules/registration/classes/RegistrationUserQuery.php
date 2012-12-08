@@ -263,4 +263,15 @@ class RegistrationUserQuery extends BaseRegistrationUserQuery
 
 	}
 
-}
+	public function searchString($searchString) {
+		return $this->where("RegistrationUser.Username LIKE ?", "%$searchString%")
+			->_or()
+			->where("RegistrationUser.Name LIKE ?", "%$searchString%")
+			->_or()
+			->where("RegistrationUser.Surname LIKE ?", "%$searchString%")
+			->_or()
+			->where("RegistrationUser.Mailaddress LIKE ?", "%$searchString%");
+	}
+
+
+	}

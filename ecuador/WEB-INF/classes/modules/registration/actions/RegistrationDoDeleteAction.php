@@ -18,17 +18,20 @@ class RegistrationDoDeleteAction extends BaseAction {
 
 		$module = "Registration";
 
+		$filters=$_REQUEST["filters"];
 				$registrationUserPeer = new RegistrationUserPeer();
 		//verificamos que este fijado el id a borrar
-		if (isset($_GET['id_registered_user'])) {
+		if (isset($_GET['id'])) {
+			$user=RegistrationUserQuery::create()->findPk($_GET['id']);
 
-			if ( $registrationUserPeer->delete($_GET["id_registered_user"])) {
-				return $mapping->findForwardConfig('success');
+			if($user){
+				$user->logicDelete();
+				return $this->addFiltersToForwards($filters,$mapping,"success");
 			}
 		}
 
 		//o bien no se llamo se paso via get el id de usuario o no se pudo borrar.
-		return $mapping->findForwardConfig('failure');
+		return $this->addFiltersToForwards($filters,$mapping,"failure");
 
 	}
 
