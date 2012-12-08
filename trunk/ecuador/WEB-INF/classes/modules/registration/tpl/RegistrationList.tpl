@@ -18,10 +18,13 @@
 	<col width="5%">
 	<thead>
     <tr>
-        <td colspan="6" class="tdSearch"><a href="javascript:void(null);" onClick='$("#divSearch").toggle();return false;' class="tdTitSearch">Busqueda por nombre</a>
-            <div id="divSearch" style="display:none;"><form action='Main.php' method='get' style="display:inline;">
+        <td colspan="7" class="tdSearch"><a href="javascript:void(null);" onClick='$("#divSearch").toggle();return false;' class="tdTitSearch">Busqueda por nombre</a>
+            <div id="divSearch" |-if not $filters or $filters|@count eq 0-|style="display:none;"|-/if-|><form action='Main.php' method='get' style="display:inline;">
                 <input type="hidden" name="do" value="registrationList" />
                 Nombre: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" />
+                &nbsp;&nbsp;
+                Incluir eliminados
+                <input type="checkbox" value="true" name="filters[includeDeleted]" |-if isset($filters.includeDeleted)-|checked="checked"|-/if-|/>
                 &nbsp;&nbsp;<input type='submit' value='Buscar' class='tdSearchButton' />|-if $filters|@count gt 0-|
                 <input type='button' onClick='location.href="Main.php?do=registrationList"' value="Quitar Filtros" title="Quitar Filtros"/>
             |-/if-|</form></div></td>
@@ -34,14 +37,17 @@
 		<th>Apellido</th>
 		<th>Nombre</th>
 		<th>Email</th>
-		<th>Estado</th>		
+		<th>Estado</th>
+        |-if isset($filters.includeDeleted)-|
+        <th>Eliminado</th>
+        |-/if-|
 		<th>&nbsp;</th>
 	</tr>
 	</thead>
 
     |-if $registrationUserColl|@count eq 0-|
     <tr>
-        <td colspan="6">|-if isset($filters)-|No hay usuarios que concuerden con la búsqueda|-else-|No hay usuarios disponibles|-/if-|</td>
+        <td colspan="7">|-if isset($filters)-|No hay usuarios que concuerden con la búsqueda|-else-|No hay usuarios disponibles|-/if-|</td>
     </tr>
     |-else-|
 
@@ -53,6 +59,9 @@
 		<td>|-$user->getName()-|</td>
 		<td>|-$user->getMailAddress()-|</td>
 		<td nowrap="nowrap">|-if $user->getActive()-|Activo|-else-|Inactivo|-/if-|</td>
+        |-if isset($filters.includeDeleted)-|
+        <td nowrap="nowrap">|-if $user->getDeleted()-|Sí|-else-|No|-/if-|</td>
+        |-/if-|
 		<td nowrap="nowrap">
             <a href='Main.php?do=registrationEdit&id=|-$user->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|' title="##114,Editar##"><img src="images/clear.png" class="icon iconEdit"></a>
             <a href='Main.php?do=registrationDoDelete&id=|-$user->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|' title="##115,Eliminar##" onClick='return window.confirm("¿Esta seguro que quiere eliminar este usuario?")'><img src="images/clear.png" class="icon iconDelete"></a>
@@ -61,7 +70,7 @@
 	|-/foreach-|
 	|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
-			<td colspan="7" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+			<td colspan="7" class="pages">|-include file="ModelPagerInclude.tpl"-|</td>
 		</tr>							
 	|-/if-|
     |-/if-|

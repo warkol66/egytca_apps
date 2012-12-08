@@ -66,7 +66,7 @@ class RegistrationUser extends BaseRegistrationUser {
 		// Si no son correctos el usuario y password deveuvel null
 		if(is_null($user)) return null;
 		// Si no esta activo o no se ha verificado el email
-		if(!$user->getActive() || $user->getVerificationhash()!="") return false;
+		if(!$user->getActive() || !$user->getVerified() || $user->getDeleted()) return false;
 		return $user;
 	}
 
@@ -80,8 +80,9 @@ class RegistrationUser extends BaseRegistrationUser {
 		return md5($password);
 	}
 
-	public function cancel() {
-		parent::delete();
+	public function logicDelete() {
+		$this->setDeleted(1);
+		$this->save();
 	}
 
 	/**

@@ -165,14 +165,24 @@ Si preferís recibir nuestras novedades de manera diaria, te recomendamos te sus
         <script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 
 		<p>
-			|-if not $registrationUser->isNew() and (not isset($loginRegistrationUser) || not $loginRegistrationUser)-|
+			|-if isset($loggedUser) and get_class($loggedUser) eq "User"-|
 				<input type="hidden" name="id" value="|-$registrationUser->getId()-|"/>
-
+                |-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+                |-if isset($smarty.request.page)-|
+                <input type="hidden" name="page" value="|-$smarty.request.page-|"/>
+                |-/if-|
 			|-/if-|
 
 
             |-if isset($loggedUser)-|
                 |-javascript_form_validation_button value=Guardar-|
+
+                |-if get_class($loggedUser) eq "User"-|
+
+                <input type='button' onClick='location.href="Main.php?do=registrationList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Usuarios Registrados"/>
+
+                |-/if-|
+
             |-else-|
                 |-javascript_form_validation_button value=Crear-|
             |-/if-|
