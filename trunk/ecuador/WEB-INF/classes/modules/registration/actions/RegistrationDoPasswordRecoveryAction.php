@@ -24,40 +24,36 @@ class RegistrationDoPasswordRecoveryAction extends BaseAction {
 
 		$module = "Registration";
 
-		if (!empty($_POST["username"]) ) {
-			$userAndPassword = RegistrationUserPeer::generatePassword($_POST["username"],$_POST["mailAddress"]);
-			if ( !empty($userAndPassword) ) {
-						$smarty->assign("user",$userAndPassword[0]);
-						$smarty->assign("password",$userAndPassword[1]);
-						$body = $smarty->fetch("RegistrationPasswordRecoveryMail.tpl");
+		if (!empty($_POST["email"]) ) {
 
-				$userInfo = $userAndPassword[0]->getUserInfo();
+			$user=RegistrationUserQuery::create()->findOneByMailaddress($_POST["email"]);
 
-				global $system;
-
-				$mailFrom = $system["config"]["system"]["parameters"]["fromEmail"];
-
-				if (isset($_POST['alternateMailSend']) && ($_POST['alternateMailSend'])) {
-					$mailTo = $userInfo->getAlternateMailAddress();
-				}
-				else {
-					$mailTo = $userInfo->getMailAddress();
-				}
-
-				$subject = 'Nueva Contraseña';
-
-				$manager = new EmailManagement();
-				$message = $manager->createHTMLMessage($subject,$body);
-				$result = $manager->sendMessage($mailTo,$mailFrom,$message);
-
-				$smarty->assign('mailTo',$mailTo);
-
-				if ($result) {
-					$this->template->template = "TemplatePublic.tpl";
-					return $mapping->findForwardConfig('success');
-				}
-
+			if(!$user){
+				$smarty->assign("message","wrongUser");
+				return $mapping->findForwardConfig('failure');
 			}
+
+			$new_password=RegistrationUser::getNewPassword(10);
+
+			$smarty->assign("user",$user);
+			$smarty->assign("password",$new_password);
+			$body = $smarty->fetch("RegistrationPasswordRecoveryMail.tpl");
+
+			global $system;
+
+			$mailFrom = $system["config"]["system"]["parameters"]["fromEmail"];
+			$mailTo = $user->getMailaddress();
+
+			$subject ="Nueva ContraseÃ±a";
+
+			$manager = new EmailManagement();
+			$message = $manager->createHTMLMessage($subject, $body);
+			$result = $manager->sendMessage($mailTo, $mailFrom, $message);
+
+			$smarty->assign("email", $mailTo);
+
+			$this->template->template = "TemplatePublic.tpl";
+			return $mapping->findForwardConfig('success');
 		}
 
 		$this->template->template = "TemplatePublic.tpl";

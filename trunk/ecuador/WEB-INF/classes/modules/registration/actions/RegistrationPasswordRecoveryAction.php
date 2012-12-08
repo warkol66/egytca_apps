@@ -3,14 +3,18 @@
 class RegistrationPasswordRecoveryAction extends BaseAction {
 
 	function RegistrationPasswordRecoveryAction() {
-		;
+
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		if (!isset($_SESSION["login_user"]))
+
+
+		$loggedUser = Common::getLoggedUser();
+
+		if (!$loggedUser || get_class($loggedUser) != "User")
 			$this->template->template = "TemplatePublic.tpl";
 
 		$plugInKey = 'SMARTY_PLUGIN';

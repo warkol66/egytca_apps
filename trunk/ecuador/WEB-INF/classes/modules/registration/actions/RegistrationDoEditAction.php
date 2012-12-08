@@ -200,6 +200,8 @@ class RegistrationDoEditAction extends BaseDoEditAction {
 			$this->smarty->assign('admin', true);
 		}
 
+		$this->smarty->assign("loggedUser",$loggedUser);
+
 		//verifico que este activo el newsletter para que construir la vista.
 		if (Common::systemHasNewsletter()) {
 			$this->smarty->assign('newsletterActive', true);

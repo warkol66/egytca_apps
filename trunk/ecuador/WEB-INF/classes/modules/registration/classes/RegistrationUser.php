@@ -52,9 +52,7 @@ class RegistrationUser extends BaseRegistrationUser {
 		return $userInfo->getNewsletterSubscribe();
 	}
 	
-	public function cancel() {
-		parent::delete();
-	}
+
 
 	/**
 	 * Autentica el usuario y devuelve un objetio de tipo RegistrationUser si es correcto o null en otro caso.
@@ -80,6 +78,43 @@ class RegistrationUser extends BaseRegistrationUser {
 	 */
 	public static function encryptPassword($password){
 		return md5($password);
+	}
+
+	public function cancel() {
+		parent::delete();
+	}
+
+	/**
+	 * Genera una nueva contraseña.
+	 *
+	 * @param int $length [optional] Longitud de la contraseña
+	 * @return string Contraseña
+	 */
+	public static function getNewPassword($length = 8)
+	{
+		// start with a blank password
+		$password = "";
+
+		// define possible characters
+		$possible = "0123456789bcdfghjkmnpqrstvwxyz";
+
+		// set up a counter
+		$i = 0;
+
+		// add random characters to $password until $length is reached
+		while ($i < $length) {
+
+			// pick a random character from the possible ones
+			$char = substr($possible, mt_rand(0, strlen($possible)-1), 1);
+
+			// we don't want this character if it's already in the password
+			if (!strstr($password, $char)) {
+				$password .= $char;
+				$i++;
+			}
+		}
+		// done!
+		return $password;
 	}
 
 } // RegistrationUser

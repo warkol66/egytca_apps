@@ -460,33 +460,7 @@ class RegistrationUserPeer extends BaseRegistrationUserPeer {
 		return true;
   }
 
-	/**
-	* Autentica a un usuario.
-	*
-	* @param string $username Nombre de usuario
-	* @param string $mailAddress Email
-	* @return array [0] -> User Informacion sobre el usuario; [1] -> New password, false si no fue exitosa la autenticacion de usuario e email
-	*/
-  function generatePassword($username) {
-		$cond = new Criteria();
-		$cond->add(RegistrationUserPeer::USERNAME, $username);
-		$cond->add(RegistrationUserPeer::ACTIVE, "1");
-		$todosObj = RegistrationUserPeer::doSelectJoinUserInfo($cond);
-		$user = $todosObj[0];
-		if ( !empty($user) ) {
-			$userInfo = $user->getUserInfo();
-			if ( !empty($userInfo)) {
-				$newPassword = RegistrationUserPeer::getNewPassword();
-				$user->setPassword(md5($newPassword."ASD"));
-				$user->save();
-				$result = array();
-				$result[0] = $user;
-				$result[1] = $newPassword;
-				return $result;
-			}
-		}
-		return false;
-  }
+
 
   /**
   * Genera una nueva contraseña.
