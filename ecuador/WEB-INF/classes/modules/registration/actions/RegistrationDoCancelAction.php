@@ -28,7 +28,8 @@ class RegistrationDoCancelAction extends BaseAction {
 		if ($user != null  ) {
 			try{
 				// Cuando un objeto es archivable y timespable no se borra correctamente.
-				$user->delete();
+				$user->setDeleted(1);
+				$user->save();
 				$smarty->assign('error', false);
 			}
 			catch(Exception $e){

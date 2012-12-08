@@ -11,12 +11,12 @@
 			Ingrese su dirección de correo eletrónico para recibir una nueva contraseña
 		</p>
 		<p>
-			<label for='username' >Identificación</label>
-			<input type='text' name='username' size='45' />
+			<label for='email' >Email</label>
+			<input type='text' id="email" name='email' size='45' />
 		</p>
 		<p>
 			<label for='alternateMailSend'>Enviar a dirección alternativa</label>
-			<input type='checkbox' name='alternateMailSend' value="1" />
+			<input type='checkbox' name='alternateMailSend' id='alternateMailSend' value="1" />
 		</p>
 		<p>
 			<input type='submit' value='Enviar' class='button' />

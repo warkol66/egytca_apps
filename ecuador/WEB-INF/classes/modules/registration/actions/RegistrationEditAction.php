@@ -2,7 +2,12 @@
 
 require_once 'BaseEditAction.php';
 
+/**
+ * @property Smarty $smarty
+ *
+ */
 class RegistrationEditAction extends BaseEditAction {
+
 
 	/**
 	 * Esto para el intellisense del editor
@@ -30,6 +35,8 @@ class RegistrationEditAction extends BaseEditAction {
 		if ($loggedUser && get_class($loggedUser)=="User") {
 			$this->smarty->assign('admin',true);
 		}
+
+		$this->smarty->assign("loggedUser",$loggedUser);
 
 		//verifico que este activo el newsletter para que construir la vista.
 		if (Common::systemHasNewsletter()) {

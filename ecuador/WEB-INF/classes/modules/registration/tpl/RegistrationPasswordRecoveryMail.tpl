@@ -1,8 +1,8 @@
 <p>
-	Ha pedido que se le asigne una nueva contraseña.
+	Ha pedido que se le asigne una nueva contrase&ntilde;a.
 </p>
 	
 <p>
 	Nombre de usuario: |-$user->getUsername()-|<br/>
-	Nueva Contraseña: |-$password-|.
+	Nueva Contrase&ntilde;a: |-$password-|.
 </p>

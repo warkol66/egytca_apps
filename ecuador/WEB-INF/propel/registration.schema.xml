@@ -26,8 +26,8 @@
 		<column name="lastLogin" type="TIMESTAMP" description="Fecha del ultimo login del usuario" />
 		<column name="imported" required="true"  type="BOOLEAN"  default='0' description="Is user imported to the system?"/>
 		<column name="verificationHash" type="VARCHAR" size="255" description="Hash de Verificacion de Creacion" />
+        <column name="deleted" required="true"  type="BOOLEAN"  default='0' description="Is user deleted?"/>
 
-		<behavior name="archivable" />
         <behavior name="timestampable" />
 
         <validator column="username">
@@ -42,6 +42,7 @@
         </validator>
         <validator column="mailAddress">
             <rule name="required" message="La Dirección de Email es obligatoria" />
+            <rule name="unique" message="La Dirección de Email ya existe"/>
             <rule name="match"
                   value="/^([a-zA-Z0-9])+([\.a-zA-Z0-9_-])*@([a-zA-Z0-9])+(\.[a-zA-Z0-9_-]+)+$/"
                   message="La Dirección de Email es inválida" />
@@ -58,6 +59,10 @@
         <unique>
 			<unique-column name="username" />
 		</unique>
+
+        <unique>
+            <unique-column name="mailAddress" />
+        </unique>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
