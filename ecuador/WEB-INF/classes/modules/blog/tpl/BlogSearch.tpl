@@ -15,7 +15,7 @@
 
 <div id="searchResults">
 		
-		<p>|-if $blogEntries|@count gt 0-|
+		<p>|-if $blogEntryColl|@count gt 0-|
 			Resultados Encontrados: |-$pager->getTotalRecordCount()-| Entradas |-if $searchString ne ''-|que contienen "|-$searchString-|"|-/if-|. Mostrando del |-$fromRecord-| al |-$toRecord-|.
 			|-else-|
 			No se encontraron entradas |-if $searchString ne ''-|que contengan "|-$searchString-|"|-/if-|

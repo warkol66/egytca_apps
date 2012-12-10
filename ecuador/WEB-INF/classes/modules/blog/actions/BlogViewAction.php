@@ -9,15 +9,13 @@ class BlogViewAction extends BaseEditAction {
 	protected function preEdit() {
 		parent::preEdit();
 		
-		if(!empty($_GET["url"])){
+		if(isset($_GET["url"]) && !empty($_GET["url"])){
 			$entry = BlogEntryQuery::create()->findOneByUrl($_GET["url"]);
 			if(is_object($entry))
 				$_POST['id'] = $entry->getId();
 			else
 				$_POST['id'] = 0;
 		}
-		else
-			$_POST['id'] = 0;
 	}
 
 	protected function postEdit() {
@@ -38,6 +36,8 @@ class BlogViewAction extends BaseEditAction {
 				$this->smarty->assign("comments",$comments);
 			}
 		}
+		
+		$this->smarty->assign("entryDeleted", $this->entity->getDeletedAt('Y-m-d H:i:s')); 
 		
 		$this->template->template = "TemplateBlogPublic.tpl";
 		

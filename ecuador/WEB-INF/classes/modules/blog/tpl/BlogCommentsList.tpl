@@ -27,6 +27,7 @@
 	|-if $message eq "ok"-|<div class="successMessage">Comentario guardado correctamente</div>|-/if-|
 	|-if $message eq "deleted_ok"-|<div class="successMessage">Comentario eliminado correctamente</div>|-/if-|
 	|-if $message eq "changed"-|<div class="successMessage">Estados modificados correctamente</div>|-/if-|
+	|-if $noEntry eq true-|<div class="errorMessage">La entrada que comentó no existe, el comentario no aparecerá en la lista</div>|-/if-|
 </div>
 
 |-if isset($entryId)-|

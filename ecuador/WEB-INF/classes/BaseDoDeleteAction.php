@@ -20,6 +20,13 @@ class BaseDoDeleteAction extends BaseAction {
 	function execute($mapping, $form, &$request, &$response) {
 
 		BaseAction::execute($mapping, $form, $request, $response);
+		
+		$plugInKey = 'SMARTY_PLUGIN';
+		$smarty =& $this->actionServer->getPlugIn($plugInKey);
+		if($smarty == NULL) {
+			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
+		}
+		$this->smarty =& $smarty;
 
 		if (!empty($_POST["filters"]))
 			$filters = $_POST["filters"];
@@ -44,7 +51,7 @@ class BaseDoDeleteAction extends BaseAction {
 				if ($this->isAjax()) {
 					throw new Exception(); // Buscar una mejor forma de que falle AJAX
 				} else {
-					$this->smarty->assign('notValidId', 'true');
+					$this->smarty->assign("notValid",true);
 					return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'success');
 				}
 			}

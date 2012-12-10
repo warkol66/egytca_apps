@@ -56,6 +56,8 @@
 		<div class="successMessage">##blog,20,Entrada eliminada correctamente##</div>
 	|-elseif $message eq "changed"-|
 	<div class="successMessage">##blog,21,Estados modificados correctamente##</div>
+	|-elseif $message eq "not_edited"-|
+	<div class="errorMessage">##blog,22,Error al modificar la entrada. Verifique que la entrada que está intentando editar existe##</div>
 	|-/if-|
 	|-if $notValidId-|
 	<div class="errorMessage">|-$message-|</div>
