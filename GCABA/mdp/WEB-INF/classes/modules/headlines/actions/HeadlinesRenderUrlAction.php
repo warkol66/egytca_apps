@@ -55,7 +55,7 @@ class HeadlinesRenderUrlAction extends BaseAction {
 					try {
 						$this->getImage($imageFullname);
 					} catch (Exception $e) {
-						$this->smarty->assign('errorMessage', $e->getMessage());
+						$smarty->assign('errorMessage', $e->getMessage());
 						return $mapping->findForwardConfig('success');
 					}
 
