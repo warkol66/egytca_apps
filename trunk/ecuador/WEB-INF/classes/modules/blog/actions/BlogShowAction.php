@@ -9,8 +9,8 @@ class BlogShowAction extends BaseListAction {
 	protected function preList() {
 		parent::preList();
 		
-		//if(isset($_GET['categoryId']))
-			$filters['categoryid'] = $_GET['categoryId'];
+		if(isset($_GET['categoryId']))
+			$this->filters['categoryid'] = $_GET['categoryId'];
 	}
 	
 	protected function postList() {

@@ -11,6 +11,10 @@ class BlogCommentsDoEditAction extends BaseDoEditAction {
 		
 		$this->smarty->assign("module","Blog");
 		
+		$entry = $this->entity->getBlogentry();
+		if(!is_object($entry))
+			$this->smarty->assign("noEntry",true);
+		
 	}
 
 }

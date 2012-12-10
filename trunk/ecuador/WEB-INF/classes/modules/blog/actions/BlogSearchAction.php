@@ -42,7 +42,7 @@ class BlogSearchAction extends BaseAction {
 			$searchStringParams = "&searchString=".$_GET['searchString'];
 
 			$pager = $blogEntry->getAllPaginatedFiltered($_GET["page"]);
-			$smarty->assign("blogEntriesColl",$pager->getResult());
+			$smarty->assign("blogEntryColl",$pager->getResult());
 			$smarty->assign("pager",$pager);
 			$url = "Main.php?do=blogSearch".$searchStringParams;
 
@@ -71,7 +71,6 @@ class BlogSearchAction extends BaseAction {
 		}
 
 		return $mapping->findForwardConfig('success');
-
 
 	}
 

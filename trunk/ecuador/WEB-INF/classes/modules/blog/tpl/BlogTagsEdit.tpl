@@ -1,11 +1,11 @@
 <h2>##blog,1,Blog##</h2>
-<h1>|-if !$blogTag->isNew()-|Editar|-else-|Crear|-/if-| Etiqueta de Entradas</h1>
-<!-- Link VOLVER -->
-<!-- /Link VOLVER -->
-|-if isset($exists)-|
+|-if !is_object($blogTag)-|
 <div>Etiqueta no encontrada, puede que haya sido eliminada o esté incorrectamente identificada.<br />
 Puede regresar a la página principal de las etiquetas haciendo click <a href="Main.php?do=blogTagsList">aquí</a></div>
 |-else-|
+<h1>|-if !$blogTag->isNew()-|Editar|-else-|Crear|-/if-| Etiqueta de Entradas</h1>
+<!-- Link VOLVER -->
+<!-- /Link VOLVER -->
 <p>A continuación podrá |-if !$blogTag->isNew()-|editar|-else-|crear|-/if-| una etiqueta de entradas del blog.</p>
 <div id="div_tag">
 	|-if $message eq "ok"-|

@@ -1,4 +1,4 @@
-|-if !is_object($blogEntry)-|
+|-if !is_object($blogEntry) or isset($entryDeleted)-|
 		<div>Entrada no encontrada, puede que haya sido eliminada o esté incorrectamente identificada.<br />
  Puede regresar a la página principal del blog haciendo click <a href="Main.php?do=blogShow">aquí</a></div>
 |-elseif $message eq "noEntryIdRequested"-|
