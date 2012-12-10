@@ -22,8 +22,8 @@ class HeadlinesRenderUrlAction extends BaseAction {
 
 		if (isset($_GET["id"]) && $_GET["id"] != '') {
 			
-			if (empty($_POST['type']))
-					$_POST['type'] = 'clipping';
+			if (empty($_GET['type']))
+					$_GET['type'] = 'clipping';
 			
 			$headline = HeadlineQuery::create()->findOneById($_GET["id"]);
 			if (empty($headline)) {
@@ -34,7 +34,7 @@ class HeadlinesRenderUrlAction extends BaseAction {
 			$this->uri = $headline->getUrl();
 			
 			$smarty->assign("headline", $headline);
-			$smarty->assign("type", $_POST['type']);
+			$smarty->assign("type", $_GET['type']);
 			$smarty->assign("id", $_GET["id"]);
 			
 			switch ($_POST['type']) {
