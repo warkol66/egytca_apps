@@ -37,7 +37,7 @@ class HeadlinesRenderUrlAction extends BaseAction {
 			$smarty->assign("type", $_GET['type']);
 			$smarty->assign("id", $_GET["id"]);
 			
-			switch ($_POST['type']) {
+			switch ($_GET['type']) {
 				
 				case 'clipping':
 					
