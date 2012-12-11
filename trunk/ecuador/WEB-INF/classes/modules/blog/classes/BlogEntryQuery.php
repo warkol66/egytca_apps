@@ -14,4 +14,17 @@
  * @package    propel.generator.blog.classes
  */
 class BlogEntryQuery extends BaseBlogEntryQuery {
+
+ /**
+	* Agrega filtros por nombre o contenido de una BlogEntry
+	*
+	* @param   type string $searchString texto a buscar
+	* @return condicion de filtrado por texto a buscar
+	*/
+	public function searchString($searchString) {
+		return $this->where("BlogEntry.Title LIKE ?", "%$searchString%")
+							->_or()
+								->where("BlogEntry.Body LIKE ?", "%$searchString%");
+	}
+
 } // BlogEntryQuery
