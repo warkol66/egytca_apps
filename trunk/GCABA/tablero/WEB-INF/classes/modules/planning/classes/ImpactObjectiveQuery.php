@@ -15,6 +15,14 @@
  */
 class ImpactObjectiveQuery extends BaseImpactObjectiveQuery {
 	
+	public function __construct($dbName = 'application', $modelName = 'ImpactObjective', $modelAlias = null) {
+		parent::__construct($dbName, $modelName, $modelAlias);
+		$minYear = ConfigModule::get('planning', 'startingYear');
+		$maxYear = ConfigModule::get('planning', 'endingYear');
+		return $this->filterByStartingyear($minYear, Criteria::GREATER_EQUAL)
+			->filterByEndingyear($maxYear, Criteria::LESS_EQUAL);
+	}
+	
 	protected function preSelect(\PropelPDO $con) {
 		parent::preSelect($con);
 		
