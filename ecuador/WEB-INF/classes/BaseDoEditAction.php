@@ -28,7 +28,7 @@ class BaseDoEditAction extends BaseAction {
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$this->smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
+		if($this->smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
