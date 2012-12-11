@@ -8,7 +8,7 @@ class BaseDoEditAction extends BaseAction {
 	protected $entityParams;
 	protected $ajaxTemplate;
 	protected $actionLog;
-	protected $entityLog;
+	protected $createEntityLog;
 	protected $forwardName = "success";
 	protected $forwardFailureName = "failure-edit";
 
@@ -71,11 +71,11 @@ class BaseDoEditAction extends BaseAction {
 			if ($this->actionLog && method_exists($this->entity, 'getLogData'))
 				Common::doLog('success', $this->entity->getLogData() . $logSufix);
 
-			$logClassName = $this->entityClassName.'Log';
+			$entityLogClassName = $this->entityClassName.'Log';
 			$setEntityId = 'set'.$this->entityClassName.'id';
-			if ($this->entityLog && class_exists($logClassName)) {
+			if ($this->createEntityLog && class_exists($entityLogClassName)) {
 				if (!$this->entity->isNew()) {
-					$entityLog = new $logClassName();
+					$entityLog = new $entitylogClassName();
 					$entityLog->fromJSON($this->entity->toJSON());
 					$entityLog->setId(NULL);
 					$entityLog->$setEntityId($id);
