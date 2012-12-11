@@ -12,6 +12,7 @@ class BaseListAction extends BaseAction {
 	private $entityClassName;
 	protected $smarty;
 	protected $ajaxTemplate;
+	protected $filters;
 	protected $query;
 	protected $results;
 	protected $pager;
@@ -74,10 +75,10 @@ class BaseListAction extends BaseAction {
 	}
 
 
-/**
- * postList
- * Acciones a ejecutar antes de obtener la coleccion de objetos
- */
+	/**
+	 * postList
+	 * Acciones a ejecutar antes de obtener la coleccion de objetos
+	 */
 	protected function preList() {
 
 		// Informacion de filtros
@@ -86,10 +87,10 @@ class BaseListAction extends BaseAction {
 			$this->perPage = $this->filters["perPage"];
 	}
 
-/**
- * postList
- * Acciones a ejecutar despues de obtener la coleccion de objetos
- */
+	/**
+	 * postList
+	 * Acciones a ejecutar despues de obtener la coleccion de objetos
+	 */
 	protected function postList() {
 
 		// Informacion para armar los links de paginador
