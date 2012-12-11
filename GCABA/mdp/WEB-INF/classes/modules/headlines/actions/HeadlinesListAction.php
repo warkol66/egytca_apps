@@ -22,8 +22,6 @@ class HeadlinesListAction extends BaseAction {
 		$moduleConfig = Common::getModuleConfiguration($module);
 		$smarty->assign("moduleConfig",$moduleConfig);
 
-		$headlinePeer = new HeadlinePeer();
-
 		if (!empty($_GET["page"])) {
 			$page = $_GET["page"];
 			$smarty->assign("page",$page);

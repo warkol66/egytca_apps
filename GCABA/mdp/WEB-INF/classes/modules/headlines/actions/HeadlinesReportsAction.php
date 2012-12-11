@@ -55,8 +55,6 @@ class HeadlinesReportsAction extends BaseListAction {
 		$this->filters["setReportOrder"] = true;
 		$this->filters["processed"] = true;
 
-		if (!empty($_GET['filters']["perPage"]))
-			$this->perPage = $filters["perPage"];
 	}
 
 	protected function postList() {
