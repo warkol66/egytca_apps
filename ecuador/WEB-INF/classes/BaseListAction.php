@@ -30,7 +30,8 @@ class BaseListAction extends BaseAction {
 
 		$this->query = BaseQuery::create($this->entityClassName);
 
-		$this->preList();
+		if ($this->preList() === false)
+			return $mapping->findForwardConfig('failure');
 
 		if (class_exists($this->entityClassName)) {
 

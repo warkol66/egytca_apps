@@ -59,7 +59,9 @@ class BaseDoEditAction extends BaseAction {
 			$this->entity = new $entityClassName();
 
 		try {
-			$this->preUpdate();
+			if ($this->preUpdate() === false)
+				$this->returnFailure($mapping, $smarty, $this->entity, $this->forwardFailureName);
+			
 			$this->entity->fromArray($this->entityParams,BasePeer::TYPE_FIELDNAME);
 			$this->preSave();
 			$action = $this->entity->isNew() ? 'create' : 'edit';
