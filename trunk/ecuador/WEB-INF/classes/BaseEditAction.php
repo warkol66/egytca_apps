@@ -27,7 +27,8 @@ class BaseEditAction extends BaseAction {
 		$this->smarty =& $smarty;
 
 		try {
-			$this->preEdit();
+			if ($this->preEdit() === false)
+				return $mapping->findForwardConfig('failure');
 		} catch (Exception $e) {
 			//Elijo la vista basado en si es o no un pedido por AJAX
 			if ($this->isAjax()) {

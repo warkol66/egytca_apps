@@ -32,7 +32,8 @@ class BaseDoDeleteAction extends BaseAction {
 			$filters = $_POST["filters"];
 
 		try {
-			$this->preDelete();
+			if ($this->preDelete() === false)
+				return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'failure');
 		} catch (Exception $e) {
 			//Elijo la vista basado en si es o no un pedido por AJAX
 			if ($this->isAjax()) {
@@ -71,21 +72,6 @@ class BaseDoDeleteAction extends BaseAction {
 		}
 
 		return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'failure');
-
-//		try {
-//			$this->entity->delete();
-//		} catch (Exception $e) {
-//			if (ConfigModule::get("global","showPropelExceptions")){
-//				print_r($e->__toString());
-//            }
-//		}
-//	
-//		$this->postDelete();
-//
-//		if ($this->entity->isDeleted())
-//			return $mapping->findForwardConfig('success');
-//		else
-//			return $mapping->findForwardConfig('failure');
 	}
 	
 	protected function preDelete() {
