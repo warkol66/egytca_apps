@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * BaseListAction
+ *
+ * Accion generica para guardar un objeto
+ *
+ */
+
 class BaseDoEditAction extends BaseAction {
 
 	private $entityClassName;
@@ -7,6 +14,8 @@ class BaseDoEditAction extends BaseAction {
 	protected $entity;
 	protected $entityParams;
 	protected $ajaxTemplate;
+	protected $params;
+	protected $filters;
 	protected $actionLog;
 	protected $createEntityLog;
 	protected $forwardName = "success";
@@ -32,12 +41,6 @@ class BaseDoEditAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		if ($_POST["page"] > 0)
-			$params["page"] = $_POST["page"];
-
-		if (!empty($_POST["filters"]))
-			$filters = $_POST["filters"];
-
 		$this->entityParams = Common::addUserInfoToParams($_POST["params"]);
 
 		$entityClassName = $this->entityClassName;
@@ -46,16 +49,16 @@ class BaseDoEditAction extends BaseAction {
 		if (!empty($id)) {
 			$this->entity = BaseQuery::create($entityClassName)->findOneById($id);
 			if (empty($this->entity))
-				return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'failure-list');
+				return $this->addParamsAndFiltersToForwards($this->params, $this->filters, $mapping,'failure-list');
 		}
 		else
 			$this->entity = new $entityClassName();
 
 		try {
 			// Acciones a ejecutar antes de actualizar el objeto
-			// Si el preUpdate devuelve false, se retorna $this->returnFailure
+			// Si el preUpdate devuelve false, se retorna $this->returnFailure (del BaseAction)
 			if ($this->preUpdate() === false)
-				$this->returnFailure($mapping, $this->smarty, $this->entity, $this->forwardFailureName);
+				return $this->returnFailure($mapping, $this->smarty, $this->entity, $this->forwardFailureName);
 			
 			$this->entity->fromArray($this->entityParams,BasePeer::TYPE_FIELDNAME);
 
@@ -75,7 +78,7 @@ class BaseDoEditAction extends BaseAction {
 			$setEntityId = 'set'.$this->entityClassName.'id';
 			if ($this->createEntityLog && class_exists($entityLogClassName)) {
 				if (!$this->entity->isNew()) {
-					$entityLog = new $entitylogClassName();
+					$entityLog = new $entityLogClassName();
 					$entityLog->fromJSON($this->entity->toJSON());
 					$entityLog->setId(NULL);
 					$entityLog->$setEntityId($id);
@@ -96,16 +99,14 @@ class BaseDoEditAction extends BaseAction {
 			}
 		}
 
-		$params["id"] = $this->entity->getId();
-		// Hay que agregar la pagina a los parametros de retorno
-		if(isset($_REQUEST["page"]))
-			$params["page"]=$_REQUEST["page"];
+		// Se agrega el Id del objeto guardado a los parametros de retorno
+		$this->params["id"] = $this->entity->getId();
 
 		// Elijo la vista basado en si es o no un pedido por AJAX
 		if ($this->isAjax())
 			$this->smarty->display($this->ajaxTemplate);
 		else
-			return $this->addParamsAndFiltersToForwards($params, $filters, $mapping, $this->forwardName);
+			return $this->addParamsAndFiltersToForwards($this->params, $this->filters, $mapping, $this->forwardName);
 
 	}
 
@@ -116,7 +117,12 @@ class BaseDoEditAction extends BaseAction {
 	 * // si updateRegions() lanza una excepcion se cancela el DoEdit con su mensaje de error
 	 */
 	protected function preSave() {
-		// default: do nothing
+
+		if (!empty($_REQUEST["filters"]))
+			$this->filters = $_REQUEST["filters"];
+		if (isset($_REQUEST["page"]) && $_REQUEST["page"] > 0)
+			$this->params["page"] = $_REQUEST["page"];
+
 	}
 
 	/**

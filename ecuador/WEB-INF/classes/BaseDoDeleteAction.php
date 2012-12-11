@@ -1,11 +1,19 @@
 <?php
 
+/**
+ * BaseListAction
+ *
+ * Accion generica para eliminar un objeto
+ *
+ */
+
 class BaseDoDeleteAction extends BaseAction {
 	
 	private $entityClassName;
 	protected $smarty;
 	protected $entity;
 	protected $ajaxTemplate;
+	protected $filters;
 	
 	function __construct($entityClassName) {
 		if (empty($entityClassName))
@@ -22,25 +30,23 @@ class BaseDoDeleteAction extends BaseAction {
 		BaseAction::execute($mapping, $form, $request, $response);
 		
 		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
+		$this->smarty =& $this->actionServer->getPlugIn($plugInKey);
+		if($this->smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
-		$this->smarty =& $smarty;
-
-		if (!empty($_POST["filters"]))
-			$filters = $_POST["filters"];
 
 		try {
+			// Acciones a ejecutar despues de eliminar el objeto
+			// Si el preDelete devuelve false, se retorna failure
 			if ($this->preDelete() === false)
-				return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'failure');
+				return $this->addParamsAndFiltersToForwards($params, $this->filters, $mapping, 'failure');
 		} catch (Exception $e) {
 			//Elijo la vista basado en si es o no un pedido por AJAX
 			if ($this->isAjax()) {
 				throw $e; // Buscar una mejor forma de que falle AJAX
 			} else {
 				$this->smarty->assign('message', $e->getMessage());
-				return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'failure');
+				return $this->addParamsAndFiltersToForwards($params, $this->filters, $mapping,'failure');
 			}
 		}
 		
@@ -53,7 +59,7 @@ class BaseDoDeleteAction extends BaseAction {
 					throw new Exception(); // Buscar una mejor forma de que falle AJAX
 				} else {
 					$this->smarty->assign("notValid",true);
-					return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'success');
+					return $this->addParamsAndFiltersToForwards($params, $this->filters, $mapping,'success');
 				}
 			}
 			
@@ -61,8 +67,10 @@ class BaseDoDeleteAction extends BaseAction {
         
 		try {
 			$this->entity->delete();
+
+			// Acciones a ejecutar despues de eliminar el objeto
 			$this->postDelete();
-						return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'success');
+			return $this->addParamsAndFiltersToForwards($params, $this->filters, $mapping,'success');
 		} catch (Exception $e) {
 			echo($e->__toString());
 			die();
@@ -71,13 +79,25 @@ class BaseDoDeleteAction extends BaseAction {
 			}
 		}
 
-		return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'failure');
+		return $this->addParamsAndFiltersToForwards($params, $this->filters, $mapping,'failure');
 	}
 	
+	/**
+	 * preDelete
+	 * Acciones a tomar despues de eliminar el objeto
+	 */
 	protected function preDelete() {
-		// default: do nothing
+
+		// Informacion de filtros
+		if (!empty($_REQUEST["filters"]))
+			$this->filters = $_REQUEST['filters'];
+
 	}
 	
+	/**
+	 * postDelete
+	 * Acciones a tomar despues de eliminar el objeto
+	 */
 	protected function postDelete() {
 		// default: do nothing
 	}
