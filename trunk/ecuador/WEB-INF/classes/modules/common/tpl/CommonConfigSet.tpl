@@ -21,13 +21,13 @@
 	<ul id="config_ul">
 		<li id="config[|-$selectedModule-|]"><span class="titulo2">|-$selectedModule|multilang_get_translation:"common"-|</span>
 			<ul id="config[|-$selectedModule-|]_ul">
-				|-include file="CommonConfigSetInclude.tpl" elements=$config name=[$selectedModule]-|
+				|-include file="CommonConfigSetInclude.tpl" elements=$config name="[$selectedModule]"-|
 			</ul>
 		</li>
 	</ul>
 	<input type="hidden" name="do" value="commonConfigDoSet" />
 	<input type="hidden" name="module" value="|-$selectedModule-|" />
-	<input type="submit" id="guardar" value="Guardar" />
+	<input type="submit" value="Guardar" />
 </form>
 </div>
 |-/if-|
