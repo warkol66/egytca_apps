@@ -59,12 +59,12 @@
 				</p>
 				<p>
 					<label for="fromDate">##blog,5,Fecha Desde##</label>
-					<input name="filters[dateRange][creationdate][min]" type="text" id="filters_dateRange_min" class="datepickerFrom" title="fromDate" value="|-$filters.fromDate|date_format:"%d-%m-%Y"-|" size="12" /> 
+					<input name="filters[dateRange][creationdate][min]" type="text" id="filters_dateRange_min" class="datepickerFrom" title="fromDate" value="|-$filters.dateRange.creationdate.min|date_format:"%d-%m-%Y"-|" size="12" /> 
 					<img src="images/calendar.png" width="16" height="15" border="0"  title="Seleccione la fecha">
 				</p>
 				<p>
 					<label for="toDate">##blog,6,Fecha Hasta##</label>
-					<input name="filters[dateRange][creationdate][max]" type="text" id="filters_dateRange_max" class="datepickerTo" title="toDate" value="|-$filters.toDate|date_format:"%d-%m-%Y"-|" size="12" /> 
+					<input name="filters[dateRange][creationdate][max]" type="text" id="filters_dateRange_max" class="datepickerTo" title="toDate" value="|-$filters.dateRange.creationdate.max|date_format:"%d-%m-%Y"-|" size="12" /> 
 					<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 				</p>
 				|-if not isset($entryId)-|
