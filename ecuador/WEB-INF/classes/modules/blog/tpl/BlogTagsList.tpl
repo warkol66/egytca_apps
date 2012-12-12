@@ -1,3 +1,5 @@
+<script type="text/javascript" src="scripts/jquery/jquery.jeditable.mini.js"></script>
+<script type="text/javascript" src="scripts/jquery/egytca.js"></script>
 <h2>##blog,1,Blog##</h2>
 <h1>Administración de Etiqueta de Entradas</h1>
 <p>A continuación podrá editar la lista de etiquetas de entradas del blog del sistema.</p>
