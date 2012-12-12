@@ -29,11 +29,10 @@ else {
 	  $configArray = $converter->xml2array($xml);
 	  file_put_contents($xmlData,serialize($configArray));
 	}
-	// sino uso el data guardado
-	else {
-		$data = file_get_contents($xmlData);
-		$system = unserialize($data);
-	}
+
+	$data = file_get_contents($xmlData);
+	$system = unserialize($data);
+
 }
 
 require_once($appDir . "/config/config_module.php");
