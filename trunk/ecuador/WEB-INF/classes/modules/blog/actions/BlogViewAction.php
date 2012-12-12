@@ -9,12 +9,12 @@ class BlogViewAction extends BaseEditAction {
 	protected function preEdit() {
 		parent::preEdit();
 		
-		if(isset($_GET["url"]) && !empty($_GET["url"])){
+		if(isset($_GET["url"])){
 			$entry = BlogEntryQuery::create()->findOneByUrl($_GET["url"]);
 			if(is_object($entry))
 				$_POST['id'] = $entry->getId();
 			else
-				$_POST['id'] = 0;
+				$_POST['id'] = -1;
 		}
 	}
 

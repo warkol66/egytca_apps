@@ -1,3 +1,6 @@
+|-if $captcha eq true-|
+<div id="errorMessage">Captcha incorrecto, intente nuevamente</div>
+|-/if-|
 |-if $comment->getStatus() eq 2-|
 <script type="text/javascript">
 	var noComments = $('#no_comments_' + |-$entry->getId()-|);
