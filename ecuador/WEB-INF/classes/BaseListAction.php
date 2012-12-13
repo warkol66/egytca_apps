@@ -61,7 +61,7 @@ class BaseListAction extends BaseAction {
 				$this->smarty->assign("pager",$this->pager);
 			}
 			else
-				$this->results = $this->query->addFilters($this->filters)->find();
+				$this->results = $this->query->setFormatter(ModelCriteria::FORMAT_ON_DEMAND)->addFilters($this->filters)->find();
 
 			// Acciones a ejecutar despues de obtener la coleccion de objetos
 			$this->postList();
