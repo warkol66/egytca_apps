@@ -12,6 +12,7 @@ class BaseListAction extends BaseAction {
 	private $entityClassName;
 	protected $smarty;
 	protected $ajaxTemplate;
+	protected $filters;
 	protected $query;
 	protected $results;
 	protected $pager;
@@ -24,6 +25,8 @@ class BaseListAction extends BaseAction {
 		$this->entityClassName = $entityClassName;
 		if (substr(get_class($this), -7, 1) != "X")
 			$this->ajaxTemplate = str_replace('Action', '', get_class($this)).'X.tpl';
+		else
+			$this->ajaxTemplate = str_replace('Action', '', get_class($this)) . '.tpl';
 	}
 
 	function execute($mapping, $form, &$request, &$response) {
@@ -31,18 +34,20 @@ class BaseListAction extends BaseAction {
 		parent::execute($mapping, $form, $request, $response);
 
 		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
+		$this->smarty =& $this->actionServer->getPlugIn($plugInKey);
+		if($this->smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
-		$this->smarty =& $smarty;
 
 		// Verificamos la existencia de la clase de la que se obtendra la coleccion
 		if (class_exists($this->entityClassName)) {
 
-			$this->query = BaseQuery::create($this->entityClassName);
 			// Acciones a ejecutar antes de obtener la coleccion de objetos
-			$this->preList();
+			// Si el preList devuelve false, se retorna $mapping->findForwardConfig('failure')
+			if ($this->preList() === false)
+				return $mapping->findForwardConfig('failure');
+
+			$this->query = BaseQuery::create($this->entityClassName);
 
 			if (!$this->notPaginated) {
 				$this->smarty->assign("moduleConfig", Common::getModuleConfiguration($this->module));
