@@ -9,6 +9,20 @@
 */
 
 class CommonActionLogsListAction extends BaseAction {
+	
+	/*function __construct() {
+		parent::__construct('ActionLog');
+	}
+
+	protected function postList() {
+		parent::postList();
+		
+		$module = "actionlogs";
+		$this->smarty->assign("module",$module);
+		
+		$this->smarty->assign("users",UserQuery::create()->filterByActive(1)->find());
+		$this->smarty->assign("modules",ModuleQuery::create()->find());
+	}*/
 
 
 	function CommonActionLogsListAction() {

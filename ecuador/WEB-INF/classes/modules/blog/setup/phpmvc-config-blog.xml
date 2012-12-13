@@ -52,14 +52,6 @@
 			<forward  name="include" path="BlogView.tpl" />
 		</action>
 
-		<action  path = "blogView"
-						 type = "BlogViewAction"
-						 name = "blogView"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="BlogView.tpl" />
-		</action>
-
 		<action  path = "blogViewX"
 						 type = "BlogViewXAction"
 						 name = "blogViewX"
@@ -103,30 +95,13 @@
 			<forward name="failure" path="Error.tpl"  />
 		</action>
 
-<!-- Section BlogComments -->
+		<!-- Section BlogComments -->
 		<action  path = "blogCommentsShow"
 						 type = "BlogCommentsShowAction"
 						 name = "blogCommentsShow"
 						scope = "request"
 				 validate = "true">
 			<forward  name="success" path="BlogCommentsShow.tpl" />
-		</action>
-
-		<action  path = "blogCommentsDoAddX"
-						 type = "BlogCommentsDoAddXAction"
-						 name = "blogCommentsDoAdd"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="BlogCommentsDoAddX.tpl" />
-			<forward  name="failure" path="BlogCommentsDoAddXFailure.tpl" />
-		</action>
-
-		<action  path = "blogCommentsDoDelete"
-						 type = "BlogCommentsDoDeleteAction"
-						 name = "blogCommentsDoDelete"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=blogCommentsList&amp;message=deleted_ok" redirect="true" />
 		</action>
 
 		<action  path = "blogCommentsChangeStatuses"

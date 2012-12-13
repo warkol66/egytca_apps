@@ -10,7 +10,7 @@
 		<div id="searchOptions" style="display:|-if !isset($logs) || ($filters|@count gt 0)-|inline|-else-|none|-/if-|">
 		<input type='hidden' name='do' value='commonActionLogsList' />
 				<p><label for="filters[userId]">Usuario</label>
-					<select name="filters[userId]" id="filters[userId]">
+					<select name="filters[userId]" id="filters_userId">
 						<option value="0">Todos</option>
 						|-foreach from=$users item=user name=eachuser-|
 						<option value="|-$user->getId()-|" |-$user->getId()|selected:$filters.userId-|>|-if $user->getId() lt 3-||-$user->getUsername()-||-else-||-$user->getSurname()-|,|-$user->getName()-| (|-$user->getUsername()-|)|-/if-|</option> 
@@ -19,17 +19,17 @@
 				  </p>
 				<p> 
 					<label for="filters[dateFrom]">Fecha Desde</label>
-						<input name="filters[dateFrom]" id="filters[dateFrom]" type="text" value="|-$filters.dateFrom|date_format-|" size="10">
+						<input name="filters[dateRange][datetime][min]" id="filters_dateRange_datetime_min" type="text" value="|-$filters.dateFrom|date_format-|" size="10">
 						&nbsp;&nbsp;<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateFrom]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">  <span class="size4">(dd-mm-aaaa)</span>
 					</p>
 				<p> 
 					<label for="filters[dateTo]">Fecha Hasta</label>
-						<input name="filters[dateTo]" id="filters[dateTo]"type="text" value="|-$filters.dateTo|date_format-|" size="10">
+						<input name="filters[dateRange][datetime][max]" id="filters_dateRange_datetime_max"type="text" value="|-$filters.dateTo|date_format-|" size="10">
 						&nbsp;&nbsp;<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateTo]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">  <span class="size4">(dd-mm-aaaa)</span>
 					</p>
 					<p>
 					<label for="filters[module]">Módulo</label>
-						<select name="filters[module]" id="filters[module]">
+						<select name="filters[module]" id="filters_module">
 						  <option value="0">Todos</option>
 							|-foreach from=$modules item=moduleObj name=foreachModule-|
 						  <option value="|-$moduleObj->getName()-|" |-$moduleObj->getName()|selected:$filters.module-|>|-$moduleObj->getName()|multilang_get_translation:"common"-|</option>

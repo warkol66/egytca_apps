@@ -1,6 +1,6 @@
 <?php
 
-class BlogCategoriesDoDeleteAction extends BaseDoDeleteAction {
+class BlogCategoriesDoDeleteAction extends BaseAction {
 
 	/*function __construct() {
 		parent::__construct('BlogCategory');
@@ -39,7 +39,7 @@ class BlogCategoriesDoDeleteAction extends BaseDoDeleteAction {
 		$module = "Blog";
 		$category = BlogCategoryQuery::create()->findOneById($_POST["id"]);
 		if ($category->isRoot())
-			BlogCategory::deleteTree($category->getScope());
+			BlogCategoryPeer::deleteTree($category->getScope());
 		else		
 			BlogCategory::delete($_POST["id"]);
 		return $mapping->findForwardConfig('success');
