@@ -15,7 +15,7 @@
 <script type="text/javascript">
 function updateName(id, value) {
 	$('#span_name_'+id).load(
-		'Main.php?do=blogTagsDoEditX',
+		'Main.php?do=blogDoEditFieldX',
 		{
 			id: id,
 			paramName: 'name',
@@ -26,7 +26,7 @@ function updateName(id, value) {
 
 function attachNameInPlaceEditors() {
 |-foreach from=$blogTagColl item=blogTag name=for_blogTags_ajax-|
-	$('#name_|-$blogTag->getId()-|').egytca('inplaceEdit', 'Main.php?do=blogTagsDoEditX', {
+	$('#name_|-$blogTag->getId()-|').egytca('inplaceEdit', 'Main.php?do=blogDoEditFieldX', {
 		cssclass: 'inplaceEditSize20',
 		submitdata: {
 			objectType: 'blogTag',

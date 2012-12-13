@@ -2,7 +2,7 @@
 <script type="text/javascript">
 
 function attachNameInPlaceEditors|-$blogTag->getId()-|() {
-	$('#name_|-$blogTag->getId()-|').egytca('inplaceEdit', 'Main.php?do=blogTagsDoEditX', {
+	$('#name_|-$blogTag->getId()-|').egytca('inplaceEdit', 'Main.php?do=blogDoEditFieldX', {
 		cssclass: 'inplaceEditSize20',
 		submitdata: {
 			objectType: 'blogTag',
@@ -15,6 +15,6 @@ function attachNameInPlaceEditors|-$blogTag->getId()-|() {
 	});
 }
 
-attachNameInPlaceEditors|-$measureUnit->getId()-|();
+attachNameInPlaceEditors|-$blogTag->getId()-|();
 
 </script>
