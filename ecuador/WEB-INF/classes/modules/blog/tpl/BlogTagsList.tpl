@@ -1,5 +1,3 @@
-<script type="text/javascript" src="scripts/jquery/jquery.jeditable.mini.js"></script>
-<script type="text/javascript" src="scripts/jquery/egytca.js"></script>
 <h2>##blog,1,Blog##</h2>
 <h1>Administración de Etiqueta de Entradas</h1>
 <p>A continuación podrá editar la lista de etiquetas de entradas del blog del sistema.</p>
@@ -27,7 +25,18 @@
 					</div></td>
 			</tr>
 			<tr>
-				<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=blogTagsEdit" class="addNew">Agregar Etiqueta</a></div></th>
+				<th colspan="3" class="thFillTitle">
+					<div class="rightLink">
+						<a href="#" onclick="showInput('addInput2', 'addLink2'); return false;" id="addLink2" class="addLink">Agregar Etiqueta</a>
+						<form id="addInput2" action="Main.php" method="POST" onsubmit="prepareAndSubmit(this); showInput('addLink2', 'addInput2'); return false;" style="display: none;">
+							<label>Nombre</label>
+							<input type="text" name="params[name]" />
+							<input type="hidden" name="do" value="blogTagsDoEditX" />
+							<input type="submit" value="Guardar" class="icon iconActivate" />
+							<input type="button" value="Cancelar" class="icon iconCancel" onclick="showInput('addLink2', 'addInput2');" />
+						</form>
+					</div>
+				</th>
 			</tr>
 			<tr class="thFillTitle">
 <!--				<th width="5%" class="thFillTitle">Id</th> -->
@@ -42,34 +51,92 @@
 			<td colspan="3">|-if isset($filters)-|No hay etiquetas que concuerden con la búsqueda|-else-|No hay etiquetas disponibles|-/if-|</td>
 		</tr>
 		|-else-|
-		|-foreach from=$blogTagColl item=tag name=for_blogTags-|
+		|-include file="BlogTagsListInclude.tpl"-|
+	|-/if-|
+	</tbody>
+	<tfoot>
+	|-if "blogTagsDoEditX"|security_has_access-|
 		<tr>
-<!--			<td>|-$tag->getId()-|</td> -->
-			<td>|-$tag->getName()-|</td>
-			<td>|-$tag->countBlogEntrys()-| (|-$tag->getPublishedEntries()-|)</td>
-			<td nowrap><form action="Main.php" method="get" style="display:inline;">
-					<input type="hidden" name="do" value="blogTagsEdit" />
-					<input type="hidden" name="id" value="|-$tag->getid()-|" />
-					<input type="submit" name="submit_go_edit_tag" value="Editar" class="icon iconEdit" title="Editar" />
-				</form>
-				<form action="Main.php" method="post" style="display:inline;">
-					<input type="hidden" name="do" value="blogTagsDoDelete" />
-					<input type="hidden" name="id" value="|-$tag->getid()-|" />
-					<input type="submit" name="submit_go_delete_tag" value="Borrar" title="Borrar" onclick="return confirm('Confirme que desea eliminar la etiqueta?');" class="icon iconDelete" />
-				</form>
-			</td>
+			<th colspan="3" class="thFillTitle">
+				<div class="rightLink">
+					<a href="#" onclick="showInput('addInput2', 'addLink2'); return false;" id="addLink2" class="addLink">Agregar Etiqueta</a>
+					<form id="addInput2" action="Main.php" method="POST" onsubmit="prepareAndSubmit(this); showInput('addLink2', 'addInput2'); return false;" style="display: none;">
+						<label>Nombre</label>
+						<input type="text" name="params[name]" />
+						<input type="hidden" name="do" value="blogTagsDoEditX" />
+						<input type="submit" value="Guardar" class="icon iconActivate" />
+						<input type="button" value="Cancelar" class="icon iconCancel" onclick="showInput('addLink2', 'addInput2');" />
+					</form>
+				</div>
+			</th>
 		</tr>
-		|-/foreach-|						
-		|-if isset($pager) && ($pager->getLastPage() gt 1)-|
-		<tr>
-			<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td>
-		</tr>
-		|-/if-|
-		<tr>
-			<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=blogTagsEdit" class="addNew">Agregar Etiqueta</a></div></th>
-		</tr>
-		|-/if-|
-		</tbody>
-		
+	|-/if-|
+	</tfoot>
 	</table>
 </div>
+|-if "blogTagsDoEditX"|security_has_access-|
+<script language="JavaScript" type="text/JavaScript">
+function showInput(to_show, to_hide) {
+	$('#'+to_show).show();
+	$('#'+to_hide).hide();
+}
+function setStatus(status, message) {
+	switch (status) {
+		case 'working':
+			if (message != undefined)
+				$('[name=working_status_message]').html(message);
+			$('[name=done_status_message]').hide();
+			$('[name=working_status_message]').show();
+			$('[name=error_status_message]').hide();
+			break;
+		case 'done':
+			if (message != undefined)
+				$('[name=done_status_message]').html(message);
+			$('[name=done_status_message]').show();
+			$('[name=working_status_message]').hide();
+			$('[name=error_status_message]').hide();
+			break;
+		case 'error':
+			if (message != undefined)
+				$('[name=error_status_message]').html(message);
+			$('[name=done_status_message]').hide();
+			$('[name=working_status_message]').hide();
+			$('[name=error_status_message]').show();
+			break;
+		default:
+			// unimplemented status
+			break;
+	}
+}
+function chomp(raw_text) {
+		return raw_text.replace(/(\n|\r)+$/, '');
+}
+function clean_text_content_from(element) {
+		element.innerHTML = chomp(element.innerHTML);
+}
+function clean(value) {
+	var aux;
+	aux = value.replace(/---\s/, '');
+	return aux.replace(/\s---$/, '');
+}
+function prepareAndSubmit(form) {
+	setStatus('working');
+	$.ajax({
+		url: 'Main.php',
+		type: 'post',
+		data: $(form).serialize(),
+		success: function(data) {
+			$(data).appendTo($('#blogTagsTbody'));
+			setStatus('done');
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			var errorMsg = 'Ocurrió un error al intentar agregar la Etiqueta';
+			if (errorThrown != undefined)
+				errorMsg += ': ' + errorThrown;
+			setStatus('error', errorMsg);
+		}
+	});
+	form.reset();
+}
+</script>
+|-/if-|

@@ -1,8 +1,20 @@
-<div class="successMessage">Etiqueta guardada correctamente</div>
+|-include file="BlogTagsListRowInclude.tpl"-|
 <script type="text/javascript">
-	$('#form_edit_tag')[0].reset();
-</script>
 
-<script type="text/javascript" language="javascript" charset="utf-8">
-	$('#tagId').append($('<option></option>').val(|-$blogTag->getId()-|).attr('id','tagOption|-$blogTag->getId()-|').html('|-$blogTag->getName()-|'));
+function attachNameInPlaceEditors|-$blogTag->getId()-|() {
+	$('#name_|-$blogTag->getId()-|').egytca('inplaceEdit', 'Main.php?do=blogTagsDoEditX', {
+		cssclass: 'inplaceEditSize20',
+		submitdata: {
+			objectType: 'blogTag',
+			objectId: '|-$blogTag->getId()-|',
+			paramName: 'name'
+		},
+		callback: function(value, settings) {
+			return chomp(value);
+		}
+	});
+}
+
+attachNameInPlaceEditors|-$measureUnit->getId()-|();
+
 </script>
