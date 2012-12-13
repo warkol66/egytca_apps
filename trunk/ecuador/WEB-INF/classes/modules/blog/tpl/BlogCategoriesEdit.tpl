@@ -1,5 +1,9 @@
 <h2>##blog,1,Blog##</h2>
-<h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Categoría de Entradas</h1>
+|-if !is_object($blogCategory)-|
+<div>Categoría no encontrada, puede que haya sido eliminada o esté incorrectamente identificada.<br />
+Puede regresar a la página principal del blog haciendo click <a href="Main.php?do=blogCategoriesList">aquí</a></div>
+|-else-|
+<h1>|-if !$blogCategory->isNew()-|Editar|-else-|Crear|-/if-| Categoría de Entradas</h1>
 <!-- Link VOLVER -->
 <!-- /Link VOLVER -->
 <p>A continuación podrá |-if !$blogCategory->isNew()-|editar|-else-|crear|-/if-| una categoría de entradas del blog.</p>
@@ -35,3 +39,4 @@
 	</form>
 </fieldset>
 </div>
+|-/if-|
