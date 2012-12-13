@@ -45,7 +45,7 @@
 				<th width="5%">&nbsp;</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody id="blogTagsTbody">
 		|-if $blogTagColl|@count eq 0-|
 		<tr>
 			<td colspan="3">|-if isset($filters)-|No hay etiquetas que concuerden con la búsqueda|-else-|No hay etiquetas disponibles|-/if-|</td>

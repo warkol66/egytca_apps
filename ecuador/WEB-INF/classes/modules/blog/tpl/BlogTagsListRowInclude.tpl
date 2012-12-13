@@ -1,11 +1,12 @@
 		<tr> 
 			<td>
 				|-if "blogTagsDoEditX"|security_has_access-|
-				<span id="name_|-$blogTag->getId()-|" class="in_place_editable">|-$blogTag->getName()-|</span>
+				<span id="name_|-$blogTag->getId()-|" name="params[name]" class="in_place_editable">|-$blogTag->getName()-|</span>
 				|-else-|
 				|-$blogTag->getName()-|
 				|-/if-|
 			</td>
+			<td>|-$blogTag->countBlogEntrys()-| (|-$blogTag->getPublishedEntries()-|)</td>
 			<td nowrap>
 				|-if "blogTagsDoEditX"|security_has_access-|
 					<input type="hidden" name="do" value="blogTagsDoEditX" />

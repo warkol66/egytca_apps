@@ -14,6 +14,8 @@ class BlogTagsDoEditXAction extends BaseDoEditAction {
 		$this->smarty->assign("module",$module);
 		$this->smarty->assign("section",$section);
 		
+		$this->smarty->assign('blogTag', $this->entity);
+		
 	}
 
 }
