@@ -21,6 +21,6 @@
 <script src="scripts/jquery/functions.js" language="JavaScript" type="text/javascript"></script>
 <script src="scripts/overlib.js" type="text/javascript"></script>
 <script src="scripts/jquery/chosen.js"></script>
-<script src="scripts/egytca.js" type="text/javascript"></script>
+<script src="scripts/jquery/egytca.js" type="text/javascript"></script>
 
 |-include file="ValidationJavascriptInclude.jquery.tpl"-|

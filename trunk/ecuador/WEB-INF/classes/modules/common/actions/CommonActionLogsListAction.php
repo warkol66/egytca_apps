@@ -8,9 +8,9 @@
 * @package actionlogs
 */
 
-class CommonActionLogsListAction extends BaseAction {
+class CommonActionLogsListAction extends BaseListAction {
 	
-	/*function __construct() {
+	function __construct() {
 		parent::__construct('ActionLog');
 	}
 
@@ -22,10 +22,16 @@ class CommonActionLogsListAction extends BaseAction {
 		
 		$this->smarty->assign("users",UserQuery::create()->filterByActive(1)->find());
 		$this->smarty->assign("modules",ModuleQuery::create()->find());
-	}*/
+		$this->smarty->assign("message",$_GET["message"]);
+		
+		$this->smarty->assign("affiliates",AffiliateQuery::create()->find()); 
+		$this->smarty->assign("affiliatesUser",AffiliateUserQuery::create()->find()); 
+		//$this->smarty->assign("clients",ClientUserQuery::create()->find());
+		
+	}
 
 
-	function CommonActionLogsListAction() {
+	/*function CommonActionLogsListAction() {
 		;
 	}
 
@@ -104,6 +110,6 @@ class CommonActionLogsListAction extends BaseAction {
 		$smarty->assign("url",$url);
 
 		return $mapping->findForwardConfig('success');
-	}
+	}*/
 
 }
