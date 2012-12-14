@@ -8,7 +8,6 @@ class BlogDoEditAction extends BaseDoEditAction {
 	
 	protected function postUpdate(){
 		parent::postUpdate();
-		
 	}
 	
 }
