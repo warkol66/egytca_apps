@@ -1,5 +1,4 @@
 <script type="text/javascript" src="scripts/jquery/jquery.jeditable.mini.js"></script>
-<script type="text/javascript" src="scripts/jquery/egytca.js"></script>
 
 |-foreach from=$blogTagColl item=blogTag name=for_blogTag-|
 	|-include file="BlogTagsListRowInclude.tpl"-|

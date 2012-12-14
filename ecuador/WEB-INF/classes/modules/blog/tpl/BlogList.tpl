@@ -107,20 +107,15 @@
 				|-/if-|
 				</td>								
 				<td nowrap>|-if "blogChangeStatusX"|security_user_has_access || "blogChangeStatuses"|security_user_has_access || $articleStatus eq 1-|
-					<form action="Main.php" method="get">
-						<!--pasaje de parametros de filtros -->
-						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-						<input type="hidden" name="do" value="blogEdit" />
-						<input type="hidden" name="id" value="|-$blogEntry->getid()-|" />
-						<input type="submit" name="submit_go_edit_blogEntry" value="##common,1,Editar##" title="##common,1,Editar##" class="buttonImageEdit" />
-					</form>
-					<form action="Main.php" method="post">
-						<!--pasaje de parametros de filtros -->
+					<input type="button" class="buttonImageEdit" title="##common,1,Editar##" value="##common,1,Editar##" onClick="location.href='Main.php?do=blogEdit&id=|-$blogEntry->getid()-||-if isset($filtersUrl)-|&|-$filtersUrl-||-/if-||-if isset($page) -|&page=|-$page-||-/if-|'" />
+					<input type="button" class="buttonImageDelete" value="##common,2,Eliminar##" title="##common,2,Eliminar##" onclick="if(confirm('##blog,22,Seguro que desea eliminar la entrada?##')){location.href='Main.php?do=blogDoDelete&id=|-$blogEntry->getid()-||-if isset($filtersUrl)-|&|-$filtersUrl-||-/if-|'}" />
+					<!--form action="Main.php" method="post">
+						<!--pasaje de parametros de filtros >
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						<input type="hidden" name="do" value="blogDoDelete" />
 						<input type="hidden" name="id" value="|-$blogEntry->getid()-|" />
-						<input type="submit" name="submit_go_delete_blogEntry" value="##common,2,Eliminar##" title="##common,2,Eliminar##" onclick="return confirm('##blog,22,Seguro que desea eliminar la entrada?##')" class="buttonImageDelete" />
-					</form>
+						<input type="submit" name="submit_go_delete_blogEntry" value="##common,2,Eliminar##" title="##common,2,Eliminar##" onclick="if(confirm('##blog,22,Seguro que desea eliminar la entrada?##'))location.href='Main.php?do=blogEdit&id=|-$blogEntry->getid()-|&|-$filtersUrl-|" class="buttonImageDelete" />
+					</form-->
 					|-else-|
 					
 					|-/if-|
