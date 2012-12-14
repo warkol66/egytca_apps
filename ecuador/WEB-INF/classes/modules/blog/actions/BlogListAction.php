@@ -9,6 +9,14 @@ class BlogListAction extends BaseListAction {
 	protected function preList() {
 		parent::preList();
 		
+		if(!empty($_GET['filters']['minDate']) || !empty($_GET['filters']['maxDate']))
+			unset($this->filters['dateRange']);
+		if(!empty($_GET['filters']['minDate'])){
+            $this->filters['dateRange']['creationdate']['min'] = $_GET['filters']['minDate'];
+        }
+        if(!empty($_GET['filters']['maxDate'])){
+            $this->filters['dateRange']['creationdate']['max'] = $_GET['filters']['maxDate'];
+		}
 		
 		
 	}
@@ -35,10 +43,12 @@ class BlogListAction extends BaseListAction {
 			die;
 		}*/
 		
-		if(!empty($_GET['filters'])){
-			$filtersUrl = http_build_query(array('filters' => $_GET['filters']));
-			$this->smarty->assign("filtersUrl", $filtersUrl);
-		}
+		if(!empty($_GET['filters']['dateRange']['creationdate']['min']))
+            $this->filters['minDate'] = $_GET['filters']['dateRange']['creationdate']['min'];
+        if(!empty($_GET['filters']['dateRange']['creationdate']['max']))
+            $this->filters['maxDate'] = $_GET['filters']['dateRange']['creationdate']['max'];
+		
+		$this->smarty->assign("filters",$this->filters);
 		
 		$this->smarty->assign("categories",BlogCategoryQuery::create()->find());
 		$this->smarty->assign("blogEntryStatus",BlogEntry::getStatuses());

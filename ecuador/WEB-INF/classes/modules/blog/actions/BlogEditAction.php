@@ -21,11 +21,6 @@ class BlogEditAction extends BaseEditAction {
 		if ($blogConfig['useCategories']['value'] == "YES"){
 			$this->smarty->assign("categoryIdValues",BlogCategoryQuery::create()->find());
 		}
-		
-		if(!empty($_GET['filters'])){
-			$filtersUrl = http_build_query(array('filters' => $_GET['filters']));
-			$this->smarty->assign("filtersUrl", $filtersUrl);
-		}
 
 		//users, statuses y tags
 		$this->smarty->assign("userIdValues",UserQuery::create()->find());
