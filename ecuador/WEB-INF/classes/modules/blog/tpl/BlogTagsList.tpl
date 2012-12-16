@@ -1,3 +1,4 @@
+<script type="text/javascript" src="scripts/jquery/jquery.jeditable.mini.js"></script>
 <h2>##blog,1,Blog##</h2>
 <h1>Administración de Etiqueta de Entradas</h1>
 <p>A continuación podrá editar la lista de etiquetas de entradas del blog del sistema.</p>
@@ -51,7 +52,9 @@
 			<td colspan="3">|-if isset($filters)-|No hay etiquetas que concuerden con la búsqueda|-else-|No hay etiquetas disponibles|-/if-|</td>
 		</tr>
 		|-else-|
-		|-include file="BlogTagsListInclude.tpl"-|
+		|-foreach from=$blogTagColl item=blogTag name=for_blogTag-|
+		|-include file="BlogTagsListRowInclude.tpl"-|
+		|-/foreach-|
 	|-/if-|
 	</tbody>
 	<tfoot>
@@ -75,6 +78,13 @@
 	</table>
 </div>
 |-if "blogTagsDoEditX"|security_has_access-|
+
+<style>
+	.inplaceEditSize20 {
+		color: 'red';
+	}
+</style>
+
 <script language="JavaScript" type="text/JavaScript">
 function showInput(to_show, to_hide) {
 	$('#'+to_show).show();
@@ -138,5 +148,37 @@ function prepareAndSubmit(form) {
 	});
 	form.reset();
 }
+
+function updateName(id, value) {
+	$('#span_name_'+id).load(
+		'Main.php?do=blogDoEditFieldX',
+		{
+			id: id,
+			paramName: 'name',
+			paramValue: value
+		}
+	);
+}
+
+function attachNameInPlaceEditors() {
+|-foreach from=$blogTagColl item=blogTag name=for_blogTags_ajax-|
+	$('#name_|-$blogTag->getId()-|').egytca('inplaceEdit', 'Main.php?do=blogDoEditFieldX', {
+		cssclass: 'inplaceEditSize20',
+		submitdata: {
+			objectType: 'blogTag',
+			objectId: '|-$blogTag->getId()-|',
+			paramName: 'name'
+		},
+		callback: function(value, settings) {
+			return chomp(value);
+		}
+	});
+|-/foreach-|
+}
+
+$(document).ready(function() {
+	attachNameInPlaceEditors();
+});
+
 </script>
 |-/if-|
