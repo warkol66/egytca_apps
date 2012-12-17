@@ -7,6 +7,7 @@ class BlogCategoriesDoEditAction extends BaseDoEditAction {
 	}
 	
 	protected function postUpdate(){
+		parent::postUpdate();
 		
 		$module = "Blog";
 		$section = "Categories";
