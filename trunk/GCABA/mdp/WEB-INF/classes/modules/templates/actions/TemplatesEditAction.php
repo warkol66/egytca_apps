@@ -8,9 +8,28 @@
 * @package templates
 */
 
-class TemplatesEditAction extends BaseAction {
+class TemplatesEditAction extends BaseEditAction {
+	
+	function __construct() {
+		parent::__construct('Template');
+	}
+	
+	function postEdit() {
+		parent::postEdit();
+		
+		$module = "Templates";
+		$this->smarty->assign("module",$module);
+		
+		$this->smarty->assign("templatesUpload", true); //en el template se realizan subidas de documentos
 
-	function TemplatesEditAction() {
+		$maxUploadSize =  Common::maxUploadSize();
+		$this->smarty->assign("maxUploadSize",$maxUploadSize);
+		
+		$this->smarty->assign("template",$template);
+		$this->smarty->assign("date",date("d/m/y"));
+	}
+
+	/*function TemplatesEditAction() {
 		;
 	}
 
@@ -44,6 +63,6 @@ class TemplatesEditAction extends BaseAction {
 		$smarty->assign("date",date("d/m/y"));
 		return $mapping->findForwardConfig('success-upload');
 
-	}
+	}*/
 
 }

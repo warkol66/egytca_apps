@@ -10,8 +10,7 @@ Ingrese los datos de la plantilla y haga click en "Agregar Plantilla".
 </p>
 |-if isset($label)-||-else-||-assign var=label value="documentos"-||-/if-|<div id="documentAdder">
 <div id="documentOperationInfo"></div>
-
-<form method="post" action="Main.php?do=documentsDoEdit" enctype="multipart/form-data" name="formSearch" id="documentsAdderForm">
+<form method="post" action="Main.php?do=templatesDoEdit" enctype="multipart/form-data" name="formSearch" id="documentsAdderForm">
 	|-if $template neq ''-|
 	<input type="hidden" name="id" value="|-$template->getId()-|">
 	|-/if-|

@@ -13,12 +13,73 @@ class TemplatesDoEditAction extends BaseDoEditAction {
 	function __construct() {
 		parent::__construct('Template');
 	}
+	
+	protected function preUpdate(){
+		parent::preUpdate();
+		
+		//caso edit
+		if ($_POST['id']) {
+			
+			$id = $_POST["id"];
+			$document = TemplateQuery::create()->findOneById($_POST["id"]);
+			$password = $_POST["old_password"];
+			
+			//validacion de password
+			if (!$document->checkPassword($password)) {
 
+				$this->failureSmartySetup($smarty,$document);
+				$this->smarty->assign('message','wrongPassword');
+				return false;
+			}
+			
+			//validamos el nuevo password y su verificacion
+			if($_POST["password"]!=$_POST["password_compare"]) {
+				$this->failureSmartySetup($smarty,$document);
+				$this->smarty->assign('message','wrongPasswordComparison');
+				return false;
+			}
+			
+		}else{
+			
+			if($_POST["password"]!=$_POST["password_compare"]){
+				$this->failureSmartySetup($smarty,$document);
+				$this->smarty->assign('message','wrongPasswordComparison');
+				return false;
+			}
+		}
+		
+		//seteo nombre y size
+		if (!$_FILES["document_file"]['name'] == ''){
+			$this->entityParams['realFilename'] = $_FILES["document_file"]['name'];
+			$this->entityParams['size'] = $_FILES["document_file"]['size'];
+		}
+		
+		$this->entityParams['date'] = new DateTime();
+		
+	}
+	
 	protected function postUpdate(){
 		parent::postUpdate();
-
-	// TODO: MAnipular el archivo subido
-
+		
+		$module = "Templates";
+		$this->smarty->assign("module",$module);
+		
+		$moduleConfig = Common::getModuleConfiguration('templates');
+		//$documentsPath = $moduleConfig['templatesPath'];
+		$documentsPath = 'WEB-INF/';
+		//echo($documentsPath);
+		die();*/
+		
+		/*if(is_uploaded_file($_FILES["document_file"]['tmp_name'])){
+			echo('Yes');
+			//die();
+		}*/
+		
+		if (move_uploaded_file($_FILES["document_file"]['tmp_name'], $documentsPath . $this->entity->getRealfilename())){
+			/*echo "Uploaded";
+			die();*/
+		}
+		
 	}
 
 }
