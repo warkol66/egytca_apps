@@ -1,0 +1,18 @@
+<database defaultIdMethod="native" package="templates.classes" name="application" >
+
+	<table phpName="Template" name="templates_template" description="Templates del sistema">
+		<column name="id" type="INTEGER" description="Id template" primaryKey="true" autoIncrement="true"  />
+		<column name="name" type="VARCHAR" size="255" description="El titulo del archivo"/>
+		<column name="description" type="VARCHAR" size="255" description="Descripcion del archivo" />
+		<column name="realFilename" type="VARCHAR" size="255" description="El nombre real del archivo"/>
+		<column name="date" type="DATE" description="Fecha" />
+		<column name="size" type="INTEGER" description="Tamano de archivo" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>
