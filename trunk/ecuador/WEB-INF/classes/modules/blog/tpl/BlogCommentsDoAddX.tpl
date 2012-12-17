@@ -1,4 +1,4 @@
-|-if $captcha eq true-|
+|-if $message eq "captcha"-|
 <div id="errorMessage">Captcha incorrecto, intente nuevamente</div>
 |-/if-|
 |-if $comment->getStatus() eq 2-|

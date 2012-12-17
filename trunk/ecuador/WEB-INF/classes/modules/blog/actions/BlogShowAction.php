@@ -22,12 +22,11 @@ class BlogShowAction extends BaseListAction {
 		$moduleConfig = Common::getModuleConfiguration($module);
 		$this->smarty->assign('moduleConfig',$moduleConfig);
 		
-		/*	Falta contemplar este caso
-		 * if (isset($_REQUEST["rss"])) {
+		if (isset($_REQUEST["rss"])) {
 			$this->template->template = "TemplatePlain.tpl";
 			header("content-Type:application/rss+xml; charset=utf-8"); 
-			return $mapping->findForwardConfig('rss');
-		}*/
+			//return $mapping->findForwardConfig('rss');
+		}
 		
 	}
 

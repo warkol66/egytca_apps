@@ -27,7 +27,8 @@ class BlogListAction extends BaseListAction {
 		$module = "Blog";
 		$this->smarty->assign("module", $module);
 
-		/*if ($_GET["export"] == "xls") {
+		/* Comentado para uso futuro
+		 * if ($_GET["export"] == "xls") {
 			$blogEntries = $blogEntry->getAllFiltered();
 
 			$this->smarty->assign("blogEntries",$blogEntries);
