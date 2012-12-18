@@ -24,7 +24,7 @@ class Template extends BaseTemplate
 
 		$moduleConfig = Common::getModuleConfiguration('templates');
 		//$templatesPath = $moduleConfig['templatesPath'];
-		$templatesPath = 'WEB-INF/';
+		$templatesPath = 'WEB-INF/templates/';
 		
 		readfile($templatesPath . $this->getId());
 		
