@@ -22,6 +22,9 @@ class TemplatesDoDownloadAction extends BaseAction {
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
+		
+		$module = "Templates";
+		$smarty->assign("module",$module);
 
 		$id = $_REQUEST["id"];
 		$template = TemplateQuery::create()->findOneById($id);
