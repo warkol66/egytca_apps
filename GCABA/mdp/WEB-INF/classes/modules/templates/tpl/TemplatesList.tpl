@@ -7,9 +7,11 @@
 |-if $message eq "errorFound"-|
 	<div class="failureMessage">Error: No se ha podido realizar su accion</div>
 |-elseif $message eq "uploaded"-|
-	<div class="successMessage">El templateo fue subido satisfactoriamente</div> 
+	<div class="successMessage">La plantilla fue subida satisfactoriamente</div> 
 |-elseif $message eq "edited"-|
-	<div class="successMessage">El templateo fue editado satisfactoriamente</div> 
+	<div class="successMessage">La plantilla fue editada satisfactoriamente</div> 
+|-elseif $message eq "deleted_ok"-|
+	<div class="successMessage">La plantilla fue eliminada satisfactoriamente</div> 
 |-/if-|
 </div>
 |-if $templateColl neq ''-|
