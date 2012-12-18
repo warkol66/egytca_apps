@@ -82,11 +82,15 @@ class Campaign extends BaseCampaign {
 	/**
 	* Obtiene el cliente
 	*
-	* @return string nombre del tipo
+	* @return objeto cliente
 	*/
 	function getClient() {
-		$client = ClientQuery::create()->findOneById($this->getClientId());
-		return $client;
+		if (class_exists("ClientQuery")) {
+			$client = ClientQuery::create()->findOneById($this->getClientId());
+			return $client;
+		}
+		else
+			return;
 	}
 
 } // Campaign
