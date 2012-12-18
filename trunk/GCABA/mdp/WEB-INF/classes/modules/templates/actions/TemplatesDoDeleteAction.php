@@ -15,8 +15,11 @@ class TemplatesDoDeleteAction extends BaseDoDeleteAction {
 
 	protected function postDelete(){
 		parent::postDelete();
+
+		global $appDir;
+		$templatesPath = realpath($appDir . '/WEB-INF/templates/');
+		unlink($templatesPath . '/' . $this->entity->getId());
 		
-		//Todo delete file
 	}
 
 }

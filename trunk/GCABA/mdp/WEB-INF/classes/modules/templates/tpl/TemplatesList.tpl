@@ -27,7 +27,7 @@
 			</div></td>
 		</tr>
 			<tr>
-				<th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=templatesEdit&id=|-$docscategory-|" class="addLink" title="##templates,10,Agregar templateo##">##templates,10,Agregar templateo##</a></div></th>
+				<th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=templatesEdit&id=|-$docscategory-|" class="addLink" title="Agregar plantilla">Agregar plantilla</a></div></th>
 			</tr>
 			<tr>
 				<th width="5%">Fecha</th>
@@ -62,16 +62,17 @@
 				</form>
 
 				<!-- form de eliminar -->
-				<form name='templates' action='Main.php?do=templatesDoDelete' style='display:inline;' method='POST'>
+				<form name='templates' action='Main.php' style='display:inline;' method='POST'>
 					<input type=hidden name='id' value='|-$template->getId()-|'>
-					<input type='submit' name='submit' value='##common,2,Eliminar##' title='##common,2,Eliminar##' class='icon iconDelete' onclick='if (confirm("¿Seguro que desea eliminar este templateo?")){new Ajax.Updater("templateOperationInfo", "Main.php?do=templatesDoDeleteX", { method: "post", parameters: { id: "|-$template->getId()-|" }, evalScripts: true})}return false;' alt="Eliminar" />
+					<input type=hidden name='do' value='templatesDoDelete'>
+					<input type='submit' name='submit' value='##common,2,Eliminar##' title='##common,2,Eliminar##' class='icon iconDelete' onclick="return confirm('¿Seguro que desea eliminar la plantilla?')" alt="Eliminar" />
 				</form>
 
 				</td>
 			</tr>
 		|-/foreach-|
 			<tr>
-				<th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=templatesEdit&id=|-$docscategory-|" class="addLink" title="##templates,10,Agregar templateo##">##templates,10,Agregar templateo##</a></div></th>
+				<th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=templatesEdit&id=|-$docscategory-|" class="addLink" title="Agregar plantilla">Agregar plantilla</a></div></th>
 			</tr>
 		</table>
 |-/if-|
