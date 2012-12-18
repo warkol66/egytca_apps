@@ -44,6 +44,9 @@ class ConfigModule {
 			"askForNewPasswordOnRecovery" => false,
 			"useFilterByUserGroup" => true,
 			"passwordRecoveryExpirationTimeInHours" => 24
+		),
+		"banners" => array(
+			"saveClicks" => false
 		)
 	);
 
