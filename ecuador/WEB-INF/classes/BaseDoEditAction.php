@@ -62,7 +62,7 @@ class BaseDoEditAction extends BaseAction {
 			
 			$this->entity->fromArray($this->entityParams,BasePeer::TYPE_FIELDNAME);
 
-			// Acciones a ejecutar antes de actualizar el objeto
+			// Acciones a ejecutar despues de actualizar el objeto
 			$this->postUpdate();
 
 			// Acciones a ejecutar antes de guardar el objeto
