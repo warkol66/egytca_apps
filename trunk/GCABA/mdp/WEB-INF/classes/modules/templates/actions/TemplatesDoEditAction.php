@@ -67,17 +67,9 @@ class TemplatesDoEditAction extends BaseDoEditAction {
 		$moduleConfig = Common::getModuleConfiguration('templates');
 		//$documentsPath = $moduleConfig['templatesPath'];
 		$documentsPath = 'WEB-INF/';
-		//echo($documentsPath);
-		die();*/
 		
-		/*if(is_uploaded_file($_FILES["document_file"]['tmp_name'])){
-			echo('Yes');
-			//die();
-		}*/
-		
-		if (move_uploaded_file($_FILES["document_file"]['tmp_name'], $documentsPath . $this->entity->getRealfilename())){
-			/*echo "Uploaded";
-			die();*/
+		if (move_uploaded_file($_FILES["document_file"]['tmp_name'], $documentsPath . $this->entity->getId())){
+			//Ver que hacer si no se guarda
 		}
 		
 	}
