@@ -54,8 +54,8 @@ class ContentDoEditAction extends BaseAction
         $module = "Content";
 
 
-        if (!get_magic_quotes_gpc() || !get_magic_quotes_runtime())
-            $this->addSlasshesToContent();
+//        if (!get_magic_quotes_gpc() || !get_magic_quotes_runtime())
+//            $this->addSlasshesToContent();
 
         // En el caso de la edicion.
         if (isset($_REQUEST["id"]) && $_REQUEST["id"] != "") {
