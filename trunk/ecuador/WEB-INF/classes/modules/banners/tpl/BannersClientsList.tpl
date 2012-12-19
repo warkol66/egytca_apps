@@ -23,7 +23,7 @@
 		<th width="95%">Clientes de Banners</th>
 		<th width="5%">&nbsp;</th>
 	</tr>
-	|-foreach from=$clients item=client name=for_clients-|
+	|-foreach from=$bannerClient item=client name=for_clients-|
 	<tr>
 		<td>|-$client->getName()-|</td>
 		<td nowrap="nowrap"><a href='Main.php?do=bannersClientsEdit&clientId=|-$client->getId()-|'><img src="images/clear.gif" class="linkImageEdit" /></a>

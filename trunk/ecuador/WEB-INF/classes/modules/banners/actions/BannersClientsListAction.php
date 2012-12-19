@@ -18,34 +18,20 @@ require_once("BannerClientPeer.php");
  * Muestra el listado de clientes de Banners
  * @package banners 
  */
-class BannersClientsListAction extends BaseAction {
-
-	function BannersClientsListAction() {
-		;
+class BannersClientsListAction extends BaseListAction {
+	
+	function __construct() {
+		parent::__construct('BannerClient');
 	}
-
-	function execute($mapping, $form, &$request, &$response) {
-
-		BaseAction::execute($mapping, $form, $request, $response);
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) 
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-
-		$module = "Banners";
-		$smarty->assign("module",$module);
-		$section = "Clients";
-		$smarty->assign("section",$section);
-
-		$clients = BannerClientPeer::getAll();
-		$smarty->assign("clients", $clients);
-		$smarty->assign("message", $_GET['message']);
-
-		return $mapping->findForwardConfig('success');
+	
+	protected function postList(){
+		parent::postList();
+		
+		$smarty->assign("module","Banners");
+		$smarty->assign("section","Clients");
+		
+		//$this->smarty->assign("message", $_GET['message']);
+		
 	}
 
 }
