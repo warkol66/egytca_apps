@@ -18,7 +18,6 @@ class BlogListAction extends BaseListAction {
             $this->filters['dateRange']['creationdate']['max'] = $_GET['filters']['maxDate'];
 		}
 		
-		
 	}
 
 	protected function postList() {
@@ -43,6 +42,10 @@ class BlogListAction extends BaseListAction {
 			$excel->sendXlsFromXml($xml);
 			die;
 		}*/
+		/*if(!empty($_GET['filters']['minDate']))
+			 $this->filters['dateRange']['creationdate']['min'] = $_GET['filters']['minDate'];
+		if(!empty($_GET['filters']['maxDate']))
+			 $this->filters['filters']['dateRange']['creationdate']['max'] = $_GET['filters']['maxDate'];*/
 		
 		if(!empty($_GET['filters']['dateRange']['creationdate']['min']))
             $this->filters['minDate'] = $_GET['filters']['dateRange']['creationdate']['min'];
