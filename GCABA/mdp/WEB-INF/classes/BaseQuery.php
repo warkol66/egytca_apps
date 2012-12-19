@@ -118,7 +118,8 @@ class BaseQuery {
 					// filterByXxx acepta arrays. filterBy('Xxx', $v) no
 					$filterMethod = 'filterBy'.$filterName;
 					$this->query->$filterMethod($filterValue);
-				}
+				} elseif (is_array($filterValue))
+					$this->addFilters($filterValue);
 				else
 					$found = false;
 	
