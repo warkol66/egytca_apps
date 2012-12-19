@@ -29,9 +29,11 @@
 			<reference local="categoryId" foreign="id" />
 		</foreign-key>
 
+		<!--
 		<foreign-key foreignTable="regions_region" >
 			<reference local="regionId" foreign="id" />
 		</foreign-key>
+		-->
 
 	  <vendor type="mysql">
 	    <parameter name="Charset" value="utf8"/>
