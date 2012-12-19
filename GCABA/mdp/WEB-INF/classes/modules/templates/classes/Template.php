@@ -23,7 +23,7 @@ class Template extends BaseTemplate
 	public function getContents() {
 
 		global $appDir;
-		$templatesPath = realpath($appDir . '/WEB-INF/templates/');
+		$templatesPath = realpath($appDir . '/WEB-INF/templates');
 		
 		readfile($templatesPath . "/" . $this->getId());
 		

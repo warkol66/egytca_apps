@@ -9,6 +9,11 @@ Ingrese los datos de la plantilla y haga click en "Agregar Plantilla".
 |-/if-|
 </p>
 |-if isset($label)-||-else-||-assign var=label value="documentos"-||-/if-|<div id="documentAdder">
+|-if $uploadeFailure-|
+	<div class="failureMessage">Erorr al subir el archivo</div> 
+|-else if $message eq "ok"-|
+	<div class="successMessage">Cambos guardados satisfactoriamente</div> 
+|-/if-|
 <div id="documentOperationInfo"></div>
 <form method="post" action="Main.php?do=templatesDoEdit" enctype="multipart/form-data" name="formSearch" id="documentsAdderForm">
 	|-if $template neq ''-|
@@ -17,7 +22,7 @@ Ingrese los datos de la plantilla y haga click en "Agregar Plantilla".
 	<fieldset title="Formulario para Agregar Nuevo |-$label-|">
 		|-if $template neq ''-|
 		<legend>Editar Plantilla</legend>
-			<p>Ingrese los datos correspondientes a la plantilla. Seleccione un nuevo archivo si desea reemplazar el actual (<em><strong>"|-$template->getRealFilename()-|"</strong></em>)</p>	
+			<p>Ingrese los datos correspondientes a la plantilla.|-if !$template->isNew()-| Seleccione un nuevo archivo si desea reemplazar el actual (<em><strong>"|-$template->getRealFilename()-|"</strong></em>)|-/if-|</p>	
 		|-elseif $module eq "Documents" && $entity eq ''-|
 		<legend>Formulario de Plantillas</legend>
 			<p>Ingrese los datos correspondientes a la plantilla</p>	
@@ -75,7 +80,8 @@ Ingrese los datos de la plantilla y haga click en "Agregar Plantilla".
 		</p> 
 			 <div id="upload_info"></div>
 				<input type="submit" name="uploadButton" value="|-if !$template->isNew()-|Guardar Cambios|-else-|Guardar|-/if-|" id="btnSubmit">
-				<input name="return" type="button" value="Regresar" onClick="history.back(-1);"/><span id="msgBoxUploader"></span>
+				<input type="button" id="cancel" name="cancel" title="Regresar al listado" value="Regresar al listado" onClick="location.href='Main.php?do=templatesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) && $page gt 0-|&page=|-$page-||-/if-|'"/>
+				<span id="msgBoxUploader"></span>
 			 </p>
 	</fieldset>
 </form>
