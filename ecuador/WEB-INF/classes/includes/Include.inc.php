@@ -105,12 +105,14 @@
 		$err .= "\t<scriptname>"    . $filename .   "</scriptname>\n";
 		$err .= "\t<scriptlinenum>" . $linenum .    "</scriptlinenum>\n";
 
-		if (in_array($errno, $user_errors)){
+		if (in_array($errno, $user_errors))
 			$err .= "\t<vartrace>" . wddx_serialize_value($vars, "Vars") . "</vartrace>\n";
-		}
+
 		$err .= "</errorentry>\n";
+
 		if (isset($_SERVER['HTTP_REFERER']))
 			$err .= "<referrer>" . $_SERVER['HTTP_REFERER'] . "</referrer>\n";
+
 		if (isset($_SERVER['REQUEST_URI']))
 			$err .= "<request>"  . $_SERVER['REQUEST_URI']  . "</request>\n\n";
 
@@ -142,9 +144,15 @@
 
 				$message = $manager->createHTMLMessage($subject,$err);
 				$result = $manager->sendMessage($email,$mailFrom,$message);
+
+				if ($result)
+					die("<br /><strong>Error procesando su requerimiento.<br /><br /><br />" .
+								"<span style='color:red'>El sistema ha generado un reporte del error y ha sido enviado al administrador del sistema!!!.</span></strong>\n <br /><br />" .
+								"Texto del error:" . $err );
+
 			}
 
-			die("<br /><strong>Error procesando su requerimiento, por favor reintente o comuniquese con el administrador.</strong>\n <br /><br />".
+			die("<br /><strong><span style='color:red'>Error procesando su requerimiento, por favor reintente o comuniquese con el administrador.</span></strong>\n <br /><br />".
 					"Texto del error:" . $err );
 		}
 	}
