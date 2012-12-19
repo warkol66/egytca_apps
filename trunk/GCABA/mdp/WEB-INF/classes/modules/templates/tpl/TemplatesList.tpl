@@ -17,7 +17,7 @@
 |-if $templateColl neq ''-|
 		<table id="table-templates" width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders">
 		<tr>
-			<td colspan="5" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Buscar templates</a>
+			<td colspan="5" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Buscar plantillas</a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="templatesList" />
 					Texto: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
