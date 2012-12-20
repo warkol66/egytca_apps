@@ -16,6 +16,8 @@
 |-elseif $banner->isImage()-|
   <img src="bannerimages/|-$banner->getId()-|.|-$banner->getExtension()-|" alt="|-$banner->getAltText()-|" class="bannerImage" border="0"|-if $banner->getWidth() gt 0-| width="|-$banner->getWidth()-|"|-/if-||-if $banner->getHeight() gt 0-| height="|-$banner->getHeight()-|" |-/if-|/>
 |-else $content->isText()-|
-  |-$content->printHtml()-|
+	|-if is_object($content)-|
+	|-$content->printHtml()-|
+	|-/if-|
 |-/if-|
 |-if $banner->getTargetUrl() ne ''-|</a>|-/if-|</div>

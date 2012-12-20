@@ -23,13 +23,20 @@
 		<th width="95%">Banners del sistema</th>
 		<th width="5%">&nbsp;</th>
 	</tr>
-	|-foreach from=$banners item=banner name=for_banners-|
+	|-foreach from=$bannerColl item=banner name=for_banners-|
 	<tr>
 		<td>|-$banner->getName()-|</td>
-		<td nowrap="nowrap"><a href='Main.php?do=bannersEdit&bannerId=|-$banner->getId()-|'><img src="images/clear.gif" class="linkImageEdit" /></a>
-			<a href='Main.php?do=bannersDoDelete&bannerId=|-$banner->getId()-|'
-			onclick="return confirm('##256, ¿Está seguro que desea eliminar de forma permanente este Banner?##');"><img src="images/clear.gif" class="linkImageDelete" /></a>
-			<a href='Main.php?do=bannersPreview&bannerId=|-$banner->getId()-|' target="_blank"><img src="images/clear.gif" class="linkImageView" /></a>
+		<td nowrap="nowrap">
+			<form action="Main.php" method="get">
+				<input type="hidden" name="do" value="bannersEdit" />
+				<input type="hidden" name="id" value="|-$banner->getid()-|" />
+				<input type="submit" name="submit_go_edit_banner" value="Editar" class="buttonImageEdit" />
+			</form>
+			<form action="Main.php" method="post">
+				<input type="hidden" name="do" value="bannersDoDelete" />
+				<input type="hidden" name="id" value="|-$banner->getid()-|" />
+				<input type="submit" name="submit_go_delete_banner" value="Borrar" onclick="return confirm('Seguro que desea eliminar el banner?')" class="buttonImageDelete" />
+			</form>
 		</td>
 	</tr>
 	|-/foreach-|

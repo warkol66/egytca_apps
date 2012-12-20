@@ -1,7 +1,7 @@
 <h2>Banners</h2>
-|-if !is_object($bannerClient)|
+|-if !is_object($bannerClient)-|
 <p>El cliente especificado no existe</p>
-|else|
+|-else-|
 <h1>|-if !$bannerClient->isNew() -|Editar|-else-|Crear|-/if-| Clientes</h1>
 <p>A continuación encontrará el formularo de información del cliente. Ingrese la información solicitada y haga clcik en "Guardar" para conservar los cambios. 
 </p>

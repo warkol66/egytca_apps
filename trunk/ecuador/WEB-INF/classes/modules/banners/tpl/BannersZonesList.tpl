@@ -22,16 +22,25 @@
 			<th width="95%">Zonas</th>
 			<th width="5%">&nbsp;</th>
 		</tr>
-		|-foreach from=$zones item=zone name=for_zones-|
+		|-foreach from=$bannerZoneColl item=zone name=for_zones-|
 		<tr>
 			<td><div class='titulo2'>|-$zone->getName()-|</div></td>
-			<td nowrap="nowrap"><a href='Main.php?do=bannersZonesEdit&zoneId=|-$zone->getId()-|'><img src="images/clear.gif" class="linkImageEdit" title="Modificar la información de la zona" /></a>
-				<a href='Main.php?do=bannersZonesDoDelete&zoneId=|-$zone->getId()-|'
-					onclick="return confirm('##256, ¿Está seguro que desea eliminar de forma permanente este Zona?##');"><img src="images/clear.gif" class="linkImageDelete" title="Elimina esta zona" /></a>
-							<a href='Main.php?do=bannersZonesDisplay&zoneId=|-$zone->getId()-|&mode=preview' target="_blank"><img src="images/clear.gif" class="linkImageView" title="Genera una vista de como se muestran los banners de la zona" /></a>
-							|-if $zone->getRotationType() eq constant("BannerZone::ROTATION_WEIGHTED")-|<a href='Main.php?do=bannersWeightByZone&zoneId=|-$zone->getId()-|'><img src="images/clear.gif" class="linkImageWeight" title="Modificar los pesos relativos de los banners de la zona" /></a>
-							|-elseif $zone->getRotationType() eq constant("BannerZone::ROTATION_ORDERED")-|<a href='Main.php?do=bannersOrderByZone&zoneId=|-$zone->getId()-|'><img src="images/clear.gif" class="linkImageOrder" title="Modificar el orden de los banners de la zona" /></a>
-							|-/if-|</td>
+			<td nowrap="nowrap">
+				<form action="Main.php" method="get">
+					<input type="hidden" name="do" value="bannersZonesEdit" />
+					<input type="hidden" name="id" value="|-$zone->getid()-|" />
+					<input type="submit" name="submit_go_edit_bannerZone" value="Editar" class="buttonImageEdit" />
+				</form>
+				<form action="Main.php" method="post">
+					<input type="hidden" name="do" value="bannersZonesDoDelete" />
+					<input type="hidden" name="id" value="|-$zone->getid()-|" />
+					<input type="submit" name="submit_go_delete_bannerZone" value="Borrar" onclick="return confirm('Seguro que desea eliminar la zona?')" class="buttonImageDelete" />
+				</form>
+				<a href='Main.php?do=bannersZonesDisplay&zoneId=|-$zone->getId()-|&mode=preview' target="_blank"><img src="images/clear.gif" class="linkImageView" title="Genera una vista de como se muestran los banners de la zona" /></a>
+				|-if $zone->getRotationType() eq constant("BannerZone::ROTATION_WEIGHTED")-|<a href='Main.php?do=bannersWeightByZone&zoneId=|-$zone->getId()-|'><img src="images/clear.gif" class="linkImageWeight" title="Modificar los pesos relativos de los banners de la zona" /></a>
+				|-elseif $zone->getRotationType() eq constant("BannerZone::ROTATION_ORDERED")-|<a href='Main.php?do=bannersOrderByZone&zoneId=|-$zone->getId()-|'><img src="images/clear.gif" class="linkImageOrder" title="Modificar el orden de los banners de la zona" /></a>
+				|-/if-|
+			</td>
 		</tr>
 		|-/foreach-|
 		<tr>

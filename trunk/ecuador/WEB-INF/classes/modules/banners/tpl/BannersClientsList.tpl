@@ -23,11 +23,21 @@
 		<th width="95%">Clientes de Banners</th>
 		<th width="5%">&nbsp;</th>
 	</tr>
-	|-foreach from=$bannerClient item=client name=for_clients-|
+	|-foreach from=$bannerClientColl item=client name=for_clients-|
 	<tr>
 		<td>|-$client->getName()-|</td>
-		<td nowrap="nowrap"><a href='Main.php?do=bannersClientsEdit&clientId=|-$client->getId()-|'><img src="images/clear.gif" class="linkImageEdit" /></a>
-			<a href='Main.php?do=bannersClientsDoDelete&clientId=|-$client->getId()-|' onclick="return confirm('##256, ¿Está seguro que desea eliminar de forma permanente este Cliente?##');"><img src="images/clear.gif" class="linkImageDelete" /></a></td>
+		<td nowrap="nowrap">
+			<form action="Main.php" method="get">
+				<input type="hidden" name="do" value="bannersClientsEdit" />
+				<input type="hidden" name="id" value="|-$client->getid()-|" />
+				<input type="submit" name="submit_go_edit_bannerClient" value="Editar" class="buttonImageEdit" />
+			</form>
+			<form action="Main.php" method="post">
+				<input type="hidden" name="do" value="bannersClientsDoDelete" />
+				<input type="hidden" name="id" value="|-$client->getid()-|" />
+				<input type="submit" name="submit_go_delete_bannerClient" value="Borrar" onclick="return confirm('Seguro que desea eliminar el cliente?')" class="buttonImageDelete" />
+			</form>
+		</td>
 	</tr>
 	|-/foreach-|
 	<tr>

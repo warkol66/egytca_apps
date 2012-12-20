@@ -27,8 +27,8 @@ class BannersClientsDoEditAction extends BaseDoEditAction {
 	protected function postUpdate(){
 		parent::postUpdate();
 		
-		$smarty->assign("module","Banners");
-		$smarty->assign("section","Clients");
+		$this->smarty->assign("module","Banners");
+		$this->smarty->assign("section","Clients");
 		
 	}
 

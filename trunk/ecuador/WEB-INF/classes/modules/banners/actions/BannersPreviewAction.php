@@ -30,8 +30,8 @@ class BannersPreviewAction extends BaseAction {
 
 		if (isset($_GET['bannerId'])) {
 			try {
-				$banner = BannerPeer::get($_GET['bannerId']);
-				if (! $banner == null) {
+				$banner = BannerQuery::create()->findOneById($_GET['id']);
+				if (is_object($banner)) {
 					$smarty->assign("banner", $banner);
 					$smarty->assign("mode", 'preview');
 					return $mapping->findForwardConfig('success');

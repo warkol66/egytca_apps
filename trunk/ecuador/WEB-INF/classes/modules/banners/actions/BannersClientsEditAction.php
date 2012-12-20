@@ -28,8 +28,8 @@ class BannersClientsEditAction extends BaseEditAction {
 	protected function postEdit(){
 		parent::postEdit();
 		
-		$smarty->assign("module","Banners");
-		$smarty->assign("section","Clients");
+		$this->smarty->assign("module","Banners");
+		$this->smarty->assign("section","Clients");
 		
 	}
 

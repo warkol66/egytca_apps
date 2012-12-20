@@ -10,11 +10,12 @@
 	<legend>Datos de Banners</legend>
 		<p>
 			<label for="name">Nombre</label>
-			<input type="text" size="50" name="name" value="|-$banner->getName()-|" />
+			<input type="text" size="50" name="params[name]" value="|-$banner->getName()-|" />
 		</p>
 		<p>
 			<label for="clientId">Cliente</label>
-			<select name="clientId" size="1">
+			<select name="params[clientId]" size="1">
+				<option value="0">Elija un cliente</option>
 			|-foreach from=$clients item=client name=for_clients-|
 				<option value="|-$client->getId()-|" |-if $client->getId() eq $banner->getClientId()-| selected |-/if-|>|-$client->getName()|truncate:45:"..."-|</option>
 			|-/foreach-|
@@ -54,7 +55,7 @@
 			|-if !$banner->isNew()-|
 				|-html_select_date prefix='' time=$time start_year='-1' end_year='+5' display_days=true field_order='DMY' month_format='%m' field_array="campaignFinalDate" time=$banner->getCampaignFinalDate()-|
 			|-else-|
-				|-html_select_date prefix='' time=$time start_year='-1' end_year='+5' display_days=true field_order='DMY' month_format='%m' field_array="campaignFinalDate" time='01/01/2013-|
+				|-html_select_date prefix='' time=$time start_year='-1' end_year='+5' display_days=true field_order='DMY' month_format='%m' field_array="campaignFinalDate" time='01/01/2013'-|
 			|-/if-|
 			<span title="|-$banner->getCampaignFinalDate()-|">*</span>
 		</p>
