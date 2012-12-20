@@ -23,11 +23,11 @@
 		</p>
 		<p>
 			<label for="targetUrl">URL de destino</label>
-			<input type="text" name="params[targetUrl]" size="50" value="|-$banner->getTargetUrl()-|" />
+			<input type="text" name="params[targeturl]" size="50" value="|-$banner->getTargetUrl()-|" />
 			</p>
 		<p>
 			<label for="altText">Texto ALT</label>
-			 <input type="text" name="params[altText]" size="30" value="|-$banner->getAltText()-|" />
+			 <input type="text" name="params[alttext]" size="30" value="|-$banner->getAltText()-|" />
 		</p>
 		<p>
 			<label for="description">Descripción</label>
@@ -35,11 +35,11 @@
 		</p>
 		<p>
 			<label for="printsTotal">Total impresiones</label>
-			<input type="text" name="params[printsTotal]" size="5" value="|-$banner->getPrintsTotal()-|" />
+			<input type="text" name="params[printstotal]" size="5" value="|-$banner->getPrintsTotal()-|" />
 		</p>
 		<p>
 			<label for="printsLeft">Restantes</label>
-			<input type="text" name="params[printsLeft]" size="5" value="|-$banner->getPrintsLeft()-|" />
+			<input type="text" name="params[printsleft]" size="5" value="|-$banner->getPrintsLeft()-|" />
 		</p>
 		<p>
 			<label for="frequency">Frecuencia</label>
@@ -69,7 +69,7 @@
 		</p>
 		<p>
 			<label for="active">Activo</label>
-			<input type="checkbox" name="active[]" value="1" |-if $banner->getActive() eq 1-|checked="checked"|-/if-| />
+			<input type="checkbox" name="params[active]" value="1" |-if $banner->getActive() eq 1-|checked="checked"|-/if-| />
 		</p>
 		<p>
 			<label for="zones">Zonas</label>
@@ -77,7 +77,7 @@
 				|-* FIXME: posiblemente se pueda hacer más simple aca y trabajarlo más en el action*-|
 				|-foreach from=$allZones item=zone name=for_zones-|
 					<label>|-$zone->getName()-|</label>
-					<input type="checkbox" name="zones[]" value="|-$zone->getId()-|" 
+					<input type="checkbox" name="params[zones]" value="|-$zone->getId()-|" 
 					|-foreach from=$selectedZones item=selectedZone name=for_selectedZones-|
 						|-if $zone->getId() eq $selectedZone->getZoneId()-| checked |-/if-|
 					|-/foreach-|  

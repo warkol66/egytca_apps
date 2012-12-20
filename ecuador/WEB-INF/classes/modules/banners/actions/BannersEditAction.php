@@ -21,6 +21,7 @@ class BannersEditAction extends BaseEditAction {
 		$this->smarty->assign("allZones", BannerZoneQuery::create()->find());
 		
 		if (isset($_GET['id'])) {
+			//TODO: ver si se puede hacer de otra forma
 			$this->smarty->assign("selectedZones", $this->entity->getBannerZoneRelationsJoinBannerZone());
 		}
 		

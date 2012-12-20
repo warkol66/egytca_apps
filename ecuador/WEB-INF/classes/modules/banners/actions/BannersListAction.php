@@ -15,7 +15,6 @@ class BannersListAction extends BaseListAction {
 		parent::postList();
 		
 		$this->smarty->assign("module","Banners");
-		//$this->smarty->assign("message", $_GET['message']);
 		
 	}
 
