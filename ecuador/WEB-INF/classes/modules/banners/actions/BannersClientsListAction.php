@@ -8,7 +8,7 @@
 
 /**
  * Requires de Clases base del modelo y del módulo banners
- */
+ *
 require_once("BaseAction.php");
 require_once("BannerClientPeer.php");
 
@@ -27,8 +27,8 @@ class BannersClientsListAction extends BaseListAction {
 	protected function postList(){
 		parent::postList();
 		
-		$smarty->assign("module","Banners");
-		$smarty->assign("section","Clients");
+		$this->smarty->assign("module","Banners");
+		$this->smarty->assign("section","Clients");
 		
 		//$this->smarty->assign("message", $_GET['message']);
 		

@@ -1,32 +1,6 @@
 <!-- Module Banners-->
 	<action-mappings module="Banners">
 
-		<action  path = "bannersList"
-						 type = "BannersListAction"
-						 name = "bannersList"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="BannersList.tpl"/>
-		</action>
-
-		<action  path = "bannersEdit"
-						 type = "BannersEditAction"
-						 name = "bannersEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="BannersEdit.tpl" />
-			<forward  name="failure" path="/Main.php?do=bannersList&amp;message=notget" redirect="true"/>
-		</action>
-
-		<action  path = "bannersDoEdit"
-						 type = "BannersDoEditAction"
-						 name = "bannersDoEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=bannersList&amp;message=saved" redirect="true"/>
-			<forward  name="failure" path="/Main.php?do=bannersList&amp;message=notsaved" redirect="true"/>
-		</action>
-
 		<action  path = "bannersDoDelete"
 						 type = "BannersDoDeleteAction"
 						 name = "bannersDoDelete"
@@ -79,41 +53,6 @@
 
 <!-- Section Zones -->
 
-		<action  path = "bannersZonesList"
-						 type = "BannersZonesListAction"
-						 name = "bannersZonesList"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="BannersZonesList.tpl"/>
-		</action>
-
-		<action  path = "bannersZonesEdit"
-						 type = "BannersZonesEditAction"
-						 name = "bannersZonesEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="BannersZonesEdit.tpl" />
-			<forward  name="failure" path="/Main.php?do=bannersZonesList&amp;message=notget" redirect="true"/>
-		</action>
-
-		<action  path = "bannersZonesDoEdit"
-						 type = "BannersZonesDoEditAction"
-						 name = "bannersZonesDoEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=bannersZonesList&amp;message=saved" redirect="true"/>
-			<forward  name="failure" path="/Main.php?do=bannersZonesList&amp;message=notsaved" redirect="true"/>
-		</action>
-
-		<action  path = "bannersZonesDoDelete"
-						 type = "BannersZonesDoDeleteAction"
-						 name = "bannersZonesDoDelete"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=bannersZonesList&amp;message=deleted" redirect="true" />
-			<forward  name="failure" path="/Main.php?do=bannersZonesList&amp;message=notdeleted" redirect="true" />
-		</action>
-
 		<action  path = "bannersWeightByZone"
 						 type = "BannersWeightByZoneAction"
 						 name = "bannersWeightByZone"
@@ -161,43 +100,6 @@
 <!-- End Section Zones -->
 
 <!-- Section Clients -->
-
-		<action  path = "bannersClientsList"
-						 type = "BannersClientsListAction"
-						 name = "bannersClientsList"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="BannersClientsList.tpl"/>
-		</action>
-
-		<action  path = "bannersClientsEdit"
-						 type = "BannersClientsEditAction"
-						 name = "bannersClientsEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="BannersClientsEdit.tpl" />
-			<forward  name="failure" path="/Main.php?do=bannersClientsList&amp;message=notget" redirect="true"/>
-		</action>
-
-		<action  path = "bannersClientsDoEdit"
-						 type = "BannersClientsDoEditAction"
-						 name = "bannersClientsDoEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=bannersClientsList&amp;message=saved" redirect="true"/>
-			<forward  name="failure" path="/Main.php?do=bannersClientsList&amp;message=notsaved" redirect="true"/>
-		</action>
-
-		<action  path = "bannersClientsDoDelete"
-						 type = "BannersClientsDoDeleteAction"
-						 name = "bannersClientsDoDelete"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=bannersClientsList&amp;message=deleted" redirect="true" />
-			<forward  name="failure" path="/Main.php?do=bannersClientsList&amp;message=notdeleted" redirect="true" />
-		</action>
-
-	</action-mappings>
 
 <!-- End Section Clients -->
 

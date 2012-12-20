@@ -18,6 +18,7 @@ require_once("BannerClickPeer.php");
  *
  * Registra el clcik relacionado a un banner y redirecciona al url especificado
  * @package banners
+ * Se puede extender con DoEdit?
  */
 class BannersDoClickThruAction extends BaseAction {
 
@@ -39,11 +40,11 @@ class BannersDoClickThruAction extends BaseAction {
 
 		$bannerId = $_GET['bannerId'];
 		$zoneId = $_GET['zoneId'];
-		$banner = BannerPeer::get($bannerId);
+		$banner = BannerQuery::create()->findOneById($bannerId);
 
 		$url = $banner->getTargeturl();
-		if (!$banner == null) {
-			BannerClickPeer::create($banner, $zoneId);
+		if (is_object($banner)) {
+			BannerClick::create($banner, $zoneId);
 			if (!empty($url))
 				header("Location: $url");
 		}

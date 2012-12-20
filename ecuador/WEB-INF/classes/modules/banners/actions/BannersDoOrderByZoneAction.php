@@ -27,6 +27,7 @@ class BannersDoOrderByZoneAction extends BaseAction {
 		$section = "Zones";
 
 		$result = BannerZoneRelationPeer::update($_POST['zoneId'], $_POST['banners']);
+		//BlogEntryQuery::create()->filterById($_POST['selected'], Criteria::IN)->update(array('Status' => $_POST['status']));
 
 		if ($result)
 			return $mapping->findForwardConfig('success');

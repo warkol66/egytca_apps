@@ -1,5 +1,8 @@
 <h2>Banners</h2>
-<h1>|-if $zone->getId() ne ''-|Editar|-else-|Crear|-/if-| Zonas</h1>
+|-if !is_object($bannerZone)-|
+<p>La zona especificada no existe</p>
+|-else-|
+<h1>|-if !$bannerZone->isNew()-|Editar|-else-|Crear|-/if-| Zonas</h1>
 <p>A continuación encontrará el formularo de información de las zonas. Ingrese la información solicitada y haga clcik en "Guardar" para conservar los cambios. 
 </p>
 <form method="post" action="Main.php" id="form1">
@@ -7,29 +10,30 @@
 	<legend>Datos de la Zona</legend>
 		<p>
 			<label for="name">Nombre</label>
-			<input type="text" size="35" name="zone[name]" value="|-$zone->getName()-|" />
+			<input type="text" size="35" name="params[name]" value="|-$bannerZone->getName()-|" />
 		</p>
 		<p>
 			<label for="rotationType">Tipo de Rotación</label>
-			|-html_options name=zone[rotationType] options=$zone->getRotationTypes() selected=$zone->getRotationType()-|
+			|-html_options name="params[rotationType]" options=$bannerZone->getRotationTypes() selected=$bannerZone->getRotationType()-|
 		</p>
 		<p>
 			<label for="rows">Filas</label>
-			<input type="text" name="zone[rows]" size="5" value="|-$zone->getRows()-|" />
+			<input type="text" name="params[rows]" size="5" value="|-$bannerZone->getRows()-|" />
 		</p>
 		<p>
 			<label for="columns">Columnas</label>
-			<input type="text" name="zone[columns]" size="5" value="|-$zone->getColumns()-|" />
+			<input type="text" name="params[columns]" size="5" value="|-$bannerZone->getColumns()-|" />
 		</p>
 		<p>
 			<label for="description">Descripción</label>
-			<textarea name="zone[description]" cols="65" rows="4" wrap="virtual">|-$zone->getDescription()-|</textarea>
+			<textarea name="params[description]" cols="65" rows="4" wrap="virtual">|-$bannerZone->getDescription()-|</textarea>
 		</p>
 		<p>
 			<input type="submit" value="##5,Guardar##" class="button"/>
 			<input type="button" value="##6,Regresar##" onClick="history.go(-1)" class="button" />                
 		</p>
 	</fieldset>    
-	<input type="hidden" name="zone[zoneId]" value="|-$zone->getId()-|" />
+	<input type="hidden" name="id" value="|-$bannerZone->getId()-|" />
 	<input type="hidden" name="do" value="bannersZonesDoEdit" />
 </form>
+|-/if-|

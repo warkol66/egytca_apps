@@ -27,7 +27,7 @@ class BannersDoDeleteAction  extends BaseDoDeleteAction {
 	protected function postDelete(){
 		parent::postDelete();
 		
-		$smarty->assign("module","Banners");
+		$this->smarty->assign("module","Banners");
 		
 	}
 
