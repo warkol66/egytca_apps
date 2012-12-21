@@ -26,7 +26,7 @@
 	<p>
 		<label for="clientId">Cliente</label>
 		<select name="filters[clientId]" size="1">
-			<option value="0">Seleccione un cliente</option>
+			<option value="">Seleccione un cliente</option>
 		|-foreach from=$clients item=client name=for_clients-|
 			<option value="|-$client->getId()-|" |-if isset($filters.clientId) and ($filters.clientId eq $client->getId())-|selected="selected"|-/if-|>|-$client->getName()|truncate:45:"..."-|</option>
 		|-/foreach-|
@@ -35,7 +35,7 @@
 	<p id="bannersList">
 		<label for="bannerId">Banner</label>
 		<select name="filters[id]" size="1">
-			<option value="0">Seleccione un Banner</option>
+			<option value="">Seleccione un Banner</option>
 		|-foreach from=$banners item=banner name=for_banners-|
 			<option value="|-$banner->getId()-|" |-if isset($filters.id) and ($filters.id eq $banner->getId())-|selected="selected"|-/if-|>|-$banner->getName()|truncate:45:"..."-|</option>
 		|-/foreach-|
@@ -44,7 +44,7 @@
 	<p>
 		<label for="zones">Zonas</label>
 		<select name="filters[zones]" size="1">
-			<option value="0">Seleccione una Zona</option>
+			<option value="">Seleccione una Zona</option>
 		|-foreach from=$zones item=zone name=for_zones-|
 			<option value="|-$zone->getId()-|" |-if isset($filters.zones) and ($filters.zones eq $zone->getId())-|selected="selected"|-/if-|>|-$zone->getName()|truncate:45:"..."-|</option>
 		|-/foreach-|
@@ -52,13 +52,11 @@
 	</p>
 	<p>
 		<label for="initialDate">Fecha desde</label>
-		<input name="initialDate" type="text" size="12" />
 		<input name="filters[dateRange][campaignStartDate]" type="text" id="filters_dateRange_min" class="datepickerFrom" title="fromDate" value="|-$filters.dateRange.campaignStartDate|date_format:"%d-%m-%Y"-|" size="12" />			
 		<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 	</p>
 	<p>
 		<label for="endDate">Fecha hasta</label>
-		<input name="endDate" type="text" size="12" />
 		<input name="filters[dateRange][campaignFinalDate]" type="text" id="filters_dateRange_max" class="datepickerTo" title="toDate" value="|-$filters.dateRange.campaignFinalDate|date_format:"%d-%m-%Y"-|" size="12" />
 		<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 	</p>
@@ -87,12 +85,12 @@ El listado de banners se muestra una vez seleccionado el cliente *-|
 		<th>Impresiones</th>
 		<th>Click thru</th>
 	</tr>
-	|-foreach from=$BannerColl item=banner name=for_stats-|
+	|-foreach from=$bannerColl item=banner name=for_stats-|
 	<tr>
-		<td>|-$banner.NAME-|</td>
-		<td>|-$banner.PRINTSLEFT-| / |-$banner.PRINTSTOTAL-|</td>
-		<td>|-$banner.printsReached-|</td>
-		<td>|-$banner.clickthru-|</td>
+		<td>|-$banner->getName()-|</td>
+		<td>|-$banner->getPrintsleft()-| / |-$banner->getPrintstotal()-|</td>
+		<td>|-$banner->getPrintsReached-|</td>
+		<td>|-$banner->getClickthru-|</td>
 	</tr>
 	|-/foreach-|
 </table>
