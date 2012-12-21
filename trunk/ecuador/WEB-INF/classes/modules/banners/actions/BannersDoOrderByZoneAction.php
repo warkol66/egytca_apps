@@ -26,13 +26,13 @@ class BannersDoOrderByZoneAction extends BaseAction {
 		$module = "Banners";
 		$section = "Zones";
 
-		$result = BannerZoneRelationPeer::update($_POST['zoneId'], $_POST['banners']);
-		//BlogEntryQuery::create()->filterById($_POST['selected'], Criteria::IN)->update(array('Status' => $_POST['status']));
+		$result = BannerZoneRelation::updateRel($_POST['zoneId'], $_POST['banners']);
 
-		if ($result)
-			return $mapping->findForwardConfig('success');
-		else
-			return $mapping->findForwardConfig('failure');
+		if (!$result)
+			$smarty->assign("message", "orderError");
+			/*return $mapping->findForwardConfig('success');
+		else*/
+		return $mapping->findForwardConfig('failure');
 	}
 
 }

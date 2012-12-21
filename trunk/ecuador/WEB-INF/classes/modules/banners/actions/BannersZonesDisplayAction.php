@@ -6,8 +6,35 @@
  * @package banners
  */
 class BannersZonesDisplayAction extends BaseAction {
+	
+	function __construct() {
+		parent::__construct('BannerZone');
+	}
+	
+	protected function postEdit(){
+		parent::postEdit();
+		
+		$this->smarty->assign("module","Banners");
+		$this->smarty->assign("section","Zones");
+		
+		$moduleConfig = Common::getModuleConfiguration($module);
 
-	function BannersZonesDisplayAction() {
+		if ($moduleConfig["saveClicks"]["value"] == "YES")
+			$this->smarty->assign("saveClicks",$saveClicks);
+			
+		if (is_object($this->entity)) {
+			$this->entity->setMode($_GET['mode']); //save?
+			$arrengedBanners = $this->entity->getBannersInRowsAndCols();
+
+			$this->smarty->assign("banners", $arrengedBanners);
+			$this->smarty->assign("zoneId", $_GET['id']); //zoneId
+			$this->smarty->assign("mode", $_GET['mode']);
+			$this->smarty->assign("request_uri", $_SERVER['REQUEST_URI']);
+		}
+		
+	}
+
+	/*function BannersZonesDisplayAction() {
 		;
 	}
 
@@ -51,6 +78,6 @@ class BannersZonesDisplayAction extends BaseAction {
 		else
 			return $mapping->findForwardConfig('failure');
 
-	}
+	}*/
 
 }

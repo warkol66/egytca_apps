@@ -34,7 +34,7 @@ class BannersDoOrderByZoneXAction extends BaseAction {
 		parse_str($_POST['data']);
 
 		for ($i = 0; $i < count($bannersList); $i++)
-			BannerZoneRelationPeer::updateOrder($_POST['zoneId'], $bannersList[$i],$i);
+			BannerZoneRelation::updateOrder($_POST['zoneId'], $bannersList[$i],$i);
 
 		return $mapping->findForwardConfig('success');
 

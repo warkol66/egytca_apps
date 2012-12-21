@@ -28,7 +28,7 @@ class BannersDoWeightByZoneAction extends BaseAction {
 		$section = "Zones";
 		$smarty->assign("section",$section);
 
-		$result = BannerZoneRelationPeer::update($_POST['zoneId'], $_POST['banners']);
+		$result = BannerZoneRelation::updateRel($_POST['zoneId'], $_POST['banners']);
 
 		if ($result)
 			return $mapping->findForwardConfig('success');
