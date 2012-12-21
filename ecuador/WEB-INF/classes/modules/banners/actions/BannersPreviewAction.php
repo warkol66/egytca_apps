@@ -5,43 +5,29 @@
  * Muestra una vista previa del banner
  * @package banners
  */
-class BannersPreviewAction extends BaseAction {
-
-	function BannersPreviewAction() {
-		;
+class BannersPreviewAction extends BaseEditAction {
+	
+	function __construct() {
+		parent::__construct('Banner');
 	}
+	
+	protected function preEdit(){
+		parent::preEdit();
+		//TODO: probar que pasa pasandole id vacio (asegurarse de que edit no cree un nuevo banner)
+		if (!isset($_GET['bannerId']))
+			$_POST['id'] = -1;
 
-	function execute($mapping, $form, &$request, &$response) {
-
-		BaseAction::execute($mapping, $form, $request, $response);
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL)
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-
+	}
+	
+	protected function postEdit(){
+		parent::postEdit();
+		
 		$this->template->template = "TemplatePlain.tpl";
-
-		$module = "Banners";
-		$smarty->assign("module",$module);
-
-		if (isset($_GET['bannerId'])) {
-			try {
-				$banner = BannerQuery::create()->findOneById($_GET['id']);
-				if (is_object($banner)) {
-					$smarty->assign("banner", $banner);
-					$smarty->assign("mode", 'preview');
-					return $mapping->findForwardConfig('success');
-				}
-			}
-			catch (PropelException $e) {
-			}
-		}
-
-		return $mapping->findForwardConfig('failure');
+		$this->smarty->assign("module","Banners");
+		
+		if(is_object($this->entity))
+			$this->smarty->assign("mode", 'preview');
+		
 	}
 
 }
