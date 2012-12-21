@@ -23,11 +23,11 @@
 		</p>
 		<p>
 			<label for="targetUrl">URL de destino</label>
-			<input type="text" name="params[targeturl]" size="50" value="|-$banner->getTargetUrl()-|" />
+			<input type="text" name="params[targetUrl]" size="50" value="|-$banner->getTargetUrl()-|" />
 			</p>
 		<p>
 			<label for="altText">Texto ALT</label>
-			 <input type="text" name="params[alttext]" size="30" value="|-$banner->getAltText()-|" />
+			 <input type="text" name="params[altText]" size="30" value="|-$banner->getAltText()-|" />
 		</p>
 		<p>
 			<label for="description">Descripción</label>
@@ -35,11 +35,11 @@
 		</p>
 		<p>
 			<label for="printsTotal">Total impresiones</label>
-			<input type="text" name="params[printstotal]" size="5" value="|-$banner->getPrintsTotal()-|" />
+			<input type="text" name="params[printsTotal]" size="5" value="|-$banner->getPrintsTotal()-|" />
 		</p>
 		<p>
 			<label for="printsLeft">Restantes</label>
-			<input type="text" name="params[printsleft]" size="5" value="|-$banner->getPrintsLeft()-|" />
+			<input type="text" name="params[printsLeft]" size="5" value="|-$banner->getPrintsLeft()-|" />
 		</p>
 		<p>
 			<label for="frequency">Frecuencia</label>
@@ -61,7 +61,7 @@
 		</p>
 		<p>
 			<label for="content">Contenido</label>
-			<input type="file" name="params[content]" size="30">
+			<input type="file" name="document_file" size="30">
 		</p>
 		<p>
 			<label for="linkTarget">Target del Link</label>
