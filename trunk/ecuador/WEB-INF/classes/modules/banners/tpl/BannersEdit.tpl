@@ -1,3 +1,21 @@
+<script>
+    $(function() {
+		$.datepicker.setDefaults($.datepicker.regional['es']);
+        $( ".datepickerFrom" ).datepicker({
+			dateFormat:"dd-mm-yy",
+			onClose: function(selectedDate) {
+                $(".datepickerTo").datepicker("option", "minDate", selectedDate);
+            }
+		});
+		$(".datepickerTo").datepicker({
+			dateFormat:"dd-mm-yy",
+			defaultValue: $.datepicker.parseDate("dd-mm-yy", "1-1-2013"),
+			onClose: function(selectedDate) {
+                $(".datepickerFrom").datepicker("option", "maxDate", selectedDate);
+            }
+		});
+    });
+</script>
 <h2>Banners</h2>
 |-if !is_object($banner)-|
 <p>El banner especificado no existe</p>
@@ -47,16 +65,14 @@
 		</p>
 		<p>
 			<label for="targetUrl">Fecha inicio</label>
-			|-html_select_date prefix='' time=$time start_year='-1' end_year='+5' display_days=true field_order='DMY' month_format='%m' field_array="campaignStartDate" time=$banner->getCampaignStartDate()-|
+			<input name="params[campaignStartDate]" type="text" id="params_campaignStartDate" class="datepickerFrom" title="fromDate" value="|-$banner->getCampaignStartDate()|date_format:"%d-%m-%Y"-|" size="12" />
+			
 			<span title="|-$banner->getCampaignStartDate()-|">*</span>
 		</p>
 		<p>
 			<label for="targetUrl">Fecha fin</label>
-			|-if !$banner->isNew()-|
-				|-html_select_date prefix='' time=$time start_year='-1' end_year='+5' display_days=true field_order='DMY' month_format='%m' field_array="campaignFinalDate" time=$banner->getCampaignFinalDate()-|
-			|-else-|
-				|-html_select_date prefix='' time=$time start_year='-1' end_year='+5' display_days=true field_order='DMY' month_format='%m' field_array="campaignFinalDate" time='01/01/2013'-|
-			|-/if-|
+			<input name="params[campaignFinalDate]" type="text" id="params_campaignFinalDate" class="datepickerTo" title="toDate" value="|-$banner->getCampaignFinalDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+
 			<span title="|-$banner->getCampaignFinalDate()-|">*</span>
 		</p>
 		<p>

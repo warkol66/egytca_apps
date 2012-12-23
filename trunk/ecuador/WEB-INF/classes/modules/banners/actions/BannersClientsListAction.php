@@ -30,8 +30,6 @@ class BannersClientsListAction extends BaseListAction {
 		$this->smarty->assign("module","Banners");
 		$this->smarty->assign("section","Clients");
 		
-		//$this->smarty->assign("message", $_GET['message']);
-		
 	}
 
 }
