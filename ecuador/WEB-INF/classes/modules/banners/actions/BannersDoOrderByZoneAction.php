@@ -31,8 +31,9 @@ class BannersDoOrderByZoneAction extends BaseAction {
 		if (!$result)
 			$smarty->assign("message", "orderError");
 			/*return $mapping->findForwardConfig('success');
-		else*/
-		return $mapping->findForwardConfig('failure');
+		else
+		return $mapping->findForwardConfig('failure');*/
+		return $mapping->findForwardConfig('success');
 	}
 
 }

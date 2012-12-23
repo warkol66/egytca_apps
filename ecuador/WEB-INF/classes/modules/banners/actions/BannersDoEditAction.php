@@ -18,13 +18,9 @@ class BannersDoEditAction extends BaseDoEditAction {
 		
 		global $appDir;
 		$bannersPath = realpath($appDir . '/WEB-INF/classes/modules/banners/files/');
+		//arreglar upload
 		if (!move_uploaded_file($_FILES["document_file"]['tmp_name'], $bannersPath . $this->entity->getId()))
 			$this->smarty->assign("message", "uploadFailure");
-		
-		/* Setear bien los parametros
-		$campaignStartDate = $_POST['campaignStartDate']['Year'] . '-' . $_POST['campaignStartDate']['Month'] . '-' . $_POST['campaignStartDate']['Day'];
-		$campaignFinalDate = $_POST['campaignFinalDate']['Year'] . '-' . $_POST['campaignFinalDate']['Month'] . '-' . $_POST['campaignFinalDate']['Day'];
-		*/
 		
 	}
 
