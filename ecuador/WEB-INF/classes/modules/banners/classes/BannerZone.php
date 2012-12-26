@@ -43,13 +43,13 @@ class BannerZone extends BaseBannerZone {
 
 	private function getRandomBanners($amount)
 	{
-		$banners = BannerPeer::getRandom($this->getId(), $amount);
+		$banners = BannerQuery::getRandom($this->getId(), $amount);
 		return $banners;
 	}
 
 	private function getOrderedBanners($amount)
 	{
-		$banners = BannerPeer::getOrdered($this->getId(), $amount);
+		$banners = BannerQuery::getOrdered($this->getId(), $amount);
 		return $banners;
 	}
 
@@ -67,7 +67,7 @@ class BannerZone extends BaseBannerZone {
 					foreach($banners as $banner) {
 							$notIn[] = $banner->getId();
 					}
-					$bzs = BannerPeer::getByZoneForDisplay($zoneId, $notIn);
+					$bzs = BannerQuery::getByZoneForDisplay($zoneId, $notIn);
 
 					// calculo el peso total de los banerZone seleccionados
 					$totalWeight = 0;
