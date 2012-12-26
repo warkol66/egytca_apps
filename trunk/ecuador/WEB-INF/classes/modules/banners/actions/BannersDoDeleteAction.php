@@ -24,6 +24,15 @@ class BannersDoDeleteAction  extends BaseDoDeleteAction {
 		parent::__construct('Banner');
 	}
 	
+	protected function preDelete(){
+		parent::preDelete();
+		
+		//elimina zonas y archivo
+		Banner::removeFromAllZones($_POST['id']);
+		$banner = BannerQuery::create()->findOneById($_POST['id']);
+		unlink('WEB-INF/classes/modules/banners/files/' . $_POST['id'] . '.' . $banner->getExtension());
+	}
+	
 	protected function postDelete(){
 		parent::postDelete();
 		

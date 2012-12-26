@@ -24,7 +24,7 @@ class BannersStatsShowAction extends BaseListAction {
 		$zoneId = $_GET['filters']['zoneId'];
 		$bannerId = $_GET['filters']['id'];
 		$clientId = $_GET['filters']['clientId'];
-		$stats = BannerPeer::getStats($clientId, $zoneId); //migrar de peer
+		$stats = BannerQuery::getStats($clientId, $zoneId);
 		$this->smarty->assign("stats", $stats);
 		
 		//filtra solo por cliente y zona, pero no por bannerId (para stats se necesitan cliente y zona)

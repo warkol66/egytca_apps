@@ -93,7 +93,7 @@
 				|-* FIXME: posiblemente se pueda hacer más simple aca y trabajarlo más en el action*-|
 				|-foreach from=$allZones item=zone name=for_zones-|
 					<label>|-$zone->getName()-|</label>
-					<input type="checkbox" name="params[zones]" value="|-$zone->getId()-|" 
+					<input type="checkbox" name="params[zones][|-$zone->getId()-|]" value="|-$zone->getId()-|" 
 					|-foreach from=$selectedZones item=selectedZone name=for_selectedZones-|
 						|-if $zone->getId() eq $selectedZone->getZoneId()-| checked |-/if-|
 					|-/foreach-|  

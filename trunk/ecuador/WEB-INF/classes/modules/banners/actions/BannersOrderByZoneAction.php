@@ -28,12 +28,12 @@ class BannersOrderByZoneAction extends BaseAction {
 		$smarty->assign("section",$section);
 
 		if ( isset($_GET['zoneId']) ) {
-			$zone = BannerZonePeer::get($_GET['zoneId']);
+			$zone = BannerZoneQuery::create()->findOneById($_GET['zoneId']);
 			$smarty->assign("zone", $zone);
 			$smarty->assign("zoneId", $_GET['zoneId']);
 
 			//$bannersObj = new BannerPeer();
-			$banners = BannerPeer::getAllByZoneHydrated($_GET['zoneId'],"order");
+			$banners = BannerQuery::getAllByZoneHydrated($_GET['zoneId'],"order");
 			$smarty->assign("banners", $banners);
 			return $mapping->findForwardConfig('success');
 		}
