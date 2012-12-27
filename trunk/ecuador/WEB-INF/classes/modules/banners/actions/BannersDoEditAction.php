@@ -31,7 +31,7 @@ class BannersDoEditAction extends BaseDoEditAction {
 		
 		$zones = $_POST['params']['zones'];
 		foreach($zones as $zoneId){
-			$this->entity->addToZone($zoneId);
+			$this->entity->addToZone($zoneId, $this->entity->getId());
 		}
 		
 		global $appDir;
