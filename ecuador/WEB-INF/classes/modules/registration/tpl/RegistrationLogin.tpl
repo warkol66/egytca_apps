@@ -7,6 +7,8 @@
 	<div class='successMessage'>Se envio una nueva contraseña a su casilla de correo.</div>
 |-elseif $message eq "createdModerated"-|
 	<div class='successMessage'>El Usuario ha sido creado. Su cuenta debera ser activada por un administrador para ser utilizada.</div>
+|-elseif $message eq "hashSent"-|
+	<div class='successMessage'>El Usuario ha sido creado. Se ha enviado un mensaje de correo a la casilla indicada para activarla.</div>
 |-/if-|
 <form method='post' action="Main.php?do=registrationDoLogin"> 
 	<fieldset> 

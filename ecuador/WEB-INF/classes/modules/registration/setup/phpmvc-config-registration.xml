@@ -20,7 +20,7 @@
 			<forward name="failure" path="RegistrationLogin.tpl"/>
 			<forward name="failureAjax" path="RegistrationDoLoginX.tpl"/>
 		</action>
-		
+
 		<action    path = "registrationDoPasswordRecovery"
 							 type = "RegistrationDoPasswordRecoveryAction"
 							 name = "registrationDoPasswordRecovery"
@@ -35,14 +35,14 @@
 							 name = "registrationDoEdit"
 							scope = "request"
 					 validate = "true">
-            <forward name="success" path="/Main.php?do=registrationList&amp;message=saved" redirect="true"/>
+			<forward name="success" path="/Main.php?do=registrationList&amp;message=saved" redirect="true"/>
 			<forward name="success-edit" path="/Main.php?do=registrationEdit&amp;message=saved" redirect="true"/>
 			<forward name="success-user-open" path="/Main.php?do=registrationLogin&amp;message=created" redirect="true"/>
-			<forward name="success-user-moderated" path="/Main.php?do=registrationLogin&amp;message=createdModerated" redirect="true"/>		
-			<forward name="success-user-hash" path="RegistrationHashVerificationSent.tpl" />			
+			<forward name="success-user-moderated" path="/Main.php?do=registrationLogin&amp;message=createdModerated" redirect="true"/>
+			<forward name="success-user-hash" path="/Main.php?do=registrationLogin&amp;message=hashSent" redirect="true"/>
 			<forward name="success-update-user" path="/Main.php?do=registrationDoLogin" redirect="true"/>
 			<forward name="failure" path="RegistrationEdit.tpl" />
-            <forward name="failure-edit" path="RegistrationEdit.tpl" />
+			<forward name="failure-edit" path="RegistrationEdit.tpl" />
 		</action>
 
 		<action    path = "registrationDoHashVerification"

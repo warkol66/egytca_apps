@@ -1,11 +1,5 @@
 <?php
 
-require_once 'BaseEditAction.php';
-
-/**
- * @property Smarty $smarty
- *
- */
 class RegistrationEditAction extends BaseEditAction {
 
 

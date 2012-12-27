@@ -1,10 +1,7 @@
 <?php
 
-
-require_once 'BaseListAction.php';
-
 /**
- * LIstado de Usuario registrados
+ * Listado de Usuario registrados
  *
  * @package    planning
  * @subpackage    planningPlanningConstructions *
@@ -12,21 +9,20 @@ require_once 'BaseListAction.php';
  */
 class RegistrationListAction extends BaseListAction {
 
-    function __construct() {
-        parent::__construct('RegistrationUser');
-    }
+	function __construct() {
+		parent::__construct('RegistrationUser');
+	}
 
-    protected function preList() {
-        parent::preList();
-        $this->module = "Registration";
-		$this->template->template = 'TemplateJQuery.tpl';
-	    if(!isset($this->filters["includeDeleted"]))
-	    $this->query=$this->query->filterByDeleted(0);
-    }
+	protected function preList() {
+		parent::preList();
+		$this->module = "Registration";
+		if(!isset($this->filters["includeDeleted"]))
+			$this->query=$this->query->filterByDeleted(0);
+	}
 
-    protected function postList() {
-        parent::postList();
-        $this->smarty->assign("module", $this->module);
-    }
+	protected function postList() {
+		parent::postList();
+		$this->smarty->assign("module", $this->module);
+	}
 
 }
