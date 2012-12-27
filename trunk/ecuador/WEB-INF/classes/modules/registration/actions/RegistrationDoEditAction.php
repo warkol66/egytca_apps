@@ -1,7 +1,6 @@
 <?php
 
 require_once("EmailManagement.php");
-require_once 'BaseDoEditAction.php';
 
 class RegistrationDoEditAction extends BaseDoEditAction {
 

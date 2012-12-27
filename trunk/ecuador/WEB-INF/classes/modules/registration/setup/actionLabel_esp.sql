@@ -1,0 +1,11 @@
+DELETE FROM `security_actionLabel` WHERE `action` LIKE 'Registration%' AND `language` = 'esp';
+OPTIMIZE TABLE `security_actionLabel`;
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('RegistrationEdit', 'Edición de usuarios por registro', 'Edición de usuarios por registro', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('RegistrationImportUsers', 'Importar usuariso por registro', 'Importar usuariso por registro', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('RegistrationLogin', 'Ingreso al sistema', 'Ingreso al sistema', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('RegistrationPasswordRecovery', 'Recuperar contraseña', 'Recuperar contraseña', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('RegistrationDoCancel', 'Cancelar registro', 'Cancelar registro', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('RegistrationDoDelete', 'Eliminar usuario por registro', 'Eliminar usuario por registro', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('RegistrationDoHashVerification', 'Verificar usuario por registro', 'Verificar usuario por registro', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('RegistrationDoLogout', 'Salir del sistema', 'Salir del sistema', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('RegistrationList', 'Listado de usuarios por registro', 'Listado de usuarios por registro', 'esp');
