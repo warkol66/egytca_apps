@@ -1,1 +1,1 @@
-|-extends file="Template.tpl"-|
+|-extends file="TemplateBlogHome.tpl"-|
