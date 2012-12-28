@@ -398,3 +398,143 @@ ul#directions_results {
 	background-repeat: no-repeat;
 	line-height: 50px;
 }
+
+
+select, .shadowedBox {
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border-radius:2px;
+	-moz-box-shadow:0 1px 2px #808080;
+	-webkit-box-shadow:0 1px 2px #a0a0a0;
+	box-shadow:0 1px 2px #808080;
+	border:1px solid #a0a0a0;
+	color:#333333;
+	padding: 3px;
+}
+option {
+	padding-right: 12px;
+}
+fieldset legend {
+	font-weight: bold;
+	color: #000000;
+	padding:5px 10px;
+	border-radius:2px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+	border:1px solid #a0a0a0;
+	background-color: #ffffff;
+	-moz-box-shadow:2px 2px 3px #a0a0a0;
+	-webkit-box-shadow:2px 2px 3px #a0a0a0;
+	box-shadow:2px 2px 3px #a0a0a0;
+}
+input[type="text"], input[type="file"], input[type="password"], textarea, .in_place_editable form input {
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	box-shadow: 0 1px 2px #cdcdcd;
+	-moz-box-shadow: 0 1px 2px #cdcdcd;
+	-webkit-box-shadow: 0 1px 2px #cdcdcd;
+	border: 1px solid #a0a0a0;
+	padding:3px;
+}
+.in_place_editable form input {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
+	background-color: #a5a5a5;
+  background: -webkit-gradient(linear, left top, left bottom, from(#cccccc), to(#dddddd));
+  background: -moz-linear-gradient(top,  #cccccc,  #dddddd);
+  background: -o-linear-gradient(top,  #cccccc,  #dddddd);
+  cursor: pointer;
+}
+input[type="submit"], input[type="button"], input[type="reset"], input[disabled="disabled"]:hover {
+	background-color: #e0e0e0;
+	border: 1px outset #cdcdcd !Important;/*#F0F0F0;*/
+	outline: 0 none;
+	cursor: pointer;
+	border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-opera-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	margin: 0 5px 0 5px;
+	padding: 2px 12px 2px 12px;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#cccccc));
+	background: -moz-linear-gradient(top,  #ffffff,  #cccccc);
+	background: -o-linear-gradient(top,  #ffffff,  #cccccc);
+}
+input[readonly="readonly"], textarea[readonly="readonly"], select[readonly="readonly"] {
+	background-color: #E7E7E7;
+	border: 1px outset #cdcdcd !Important;/*#F0F0F0;*/
+}
+input[disabled="disabled"] {
+	color: #4F4F4F;
+	background-color: #d0d0d0;
+}
+a.tdTitSearch:link, a.tdTitSearch:visited {
+	color: #000000 !Important;
+}
+a.tdTitSearch:hover, a.tdTitSearch:active {
+	color: #f3ca00 !Important;
+}
+a.addLink:link, a.addLink:visited {
+	color: #000000 !Important;
+}
+a.addLink:hover, a.addLink:active {
+/*	color: #f3ca00 !Important;*/
+	color: #669933 !Important;
+
+}
+.pages {
+	background-color: #fff093 !Important;
+	color: #000000 !Important;
+}
+ul.menu li:hover li:hover a, ul.menu li.hover li.hover .protofish a {
+	background-color: #fff6cc !Important;	
+}
+ul.menu li ul.menu li ul.menu li a {
+	background-color: #fdf0b4 !Important;	
+}
+ul.menu li:hover li:hover li:hover a {
+	background-color: #fff9de !Important;	
+}
+
+.detail,
+a.detail:link,
+a.detail:visited{
+	color: #000 !Important;
+}
+a.detail:hover{
+	color: #A3A3A3 !Important;
+	background-color: transparent !Important;
+}
+legend, fieldset legend, fieldset fieldset legend {
+	color: #696969 !Important;
+}
+
+#navBar {
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border:1px solid #a0a0a0;
+	background-color: #dde5eb;
+	-moz-box-shadow:2px 2px 3px #a0a0a0;
+	-webkit-box-shadow:2px 2px 3px #a0a0a0;
+	box-shadow:2px 2px 3px #a0a0a0;
+	font-size: 125% !Important;
+background: #fceabb; /* Old browsers */
+
+}
+#navBar a {
+}
+#navBar a:hover {
+}
+#navBar a:visited, #navBar a:link, #navBar a:active {
+	color: #555555;
+}
+
+fieldset.noMargin {
+	margin-left: 0 !Important;
+}
