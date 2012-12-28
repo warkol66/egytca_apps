@@ -35,7 +35,8 @@ function smarty_function_include_module($params, &$smarty)
     //Debo cambiarle el outputfilter para poder usar otro external
     $smartyOutputFilter = new SmartyOutputFilter();
     $smartyOutputFilter->template = 'TemplateInclude.tpl';
-    $oldSmartyOutputFilter = $smarty->_plugins['outputfilter']['SmartyOutputFilter_smarty_add_template'][0];
+    $smartyFilters = $smarty->getRegisteredFilters();
+    $oldSmartyOutputFilter = $smartyFilters['output']['SmartyOutputFilter_smarty_add_template'][0];
     $smarty->registerFilter('output', array($smartyOutputFilter,"smarty_add_template"));
     
     //Si esta vacio el template opcional, debo buscar el template en el forward del action
