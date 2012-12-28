@@ -138,7 +138,7 @@ class BannerZone extends BaseBannerZone {
 				}
 			}
 		}
-		$banners = $banners->getArrayCopy();
+//		$banners = $banners->getArrayCopy();
 		// acomoda los banners en un array bidimensional de filas y columnas.
 		$arrengedBanners = array();
 		for ($rowNumber = 0; $rowNumber < $rows; $rowNumber++) {
