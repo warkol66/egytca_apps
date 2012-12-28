@@ -29,16 +29,16 @@
 				<form action="Main.php" method="get">
 					<input type="hidden" name="do" value="bannersZonesEdit" />
 					<input type="hidden" name="id" value="|-$zone->getid()-|" />
-					<input type="submit" name="submit_go_edit_bannerZone" value="Editar" class="buttonImageEdit" />
+					<input type="submit" name="submit_go_edit_bannerZone" value="Editar" class="icon iconEdit" />
 				</form>
 				<form action="Main.php" method="post">
 					<input type="hidden" name="do" value="bannersZonesDoDelete" />
 					<input type="hidden" name="id" value="|-$zone->getid()-|" />
-					<input type="submit" name="submit_go_delete_bannerZone" value="Borrar" onclick="return confirm('Seguro que desea eliminar la zona?')" class="buttonImageDelete" />
+					<input type="submit" name="submit_go_delete_bannerZone" value="Borrar" onclick="return confirm('Seguro que desea eliminar la zona?')" class="icon iconDelete" />
 				</form>
-				<a href='Main.php?do=bannersZonesDisplay&zoneId=|-$zone->getId()-|&mode=preview' target="_blank"><img src="images/clear.gif" class="linkImageView" title="Genera una vista de como se muestran los banners de la zona" /></a>
-				|-if $zone->getRotationType() eq constant("BannerZone::ROTATION_WEIGHTED")-|<a href='Main.php?do=bannersWeightByZone&zoneId=|-$zone->getId()-|'><img src="images/clear.gif" class="linkImageWeight" title="Modificar los pesos relativos de los banners de la zona" /></a>
-				|-elseif $zone->getRotationType() eq constant("BannerZone::ROTATION_ORDERED")-|<a href='Main.php?do=bannersOrderByZone&zoneId=|-$zone->getId()-|'><img src="images/clear.gif" class="linkImageOrder" title="Modificar el orden de los banners de la zona" /></a>
+				<a href='Main.php?do=bannersZonesDisplay&id=|-$zone->getId()-|&mode=preview' target="_blank"><img src="images/clear.png" class="icon iconView" title="Genera una vista de como se muestran los banners de la zona" /></a>
+				|-if $zone->getRotationType() eq constant("BannerZone::ROTATION_WEIGHTED")-|<a href='Main.php?do=bannersWeightByZone&id=|-$zone->getId()-|'><img src="images/clear.png" class="icon iconWeight" title="Modificar los pesos relativos de los banners de la zona" /></a>
+				|-elseif $zone->getRotationType() eq constant("BannerZone::ROTATION_ORDERED")-|<a href='Main.php?do=bannersOrderByZone&id=|-$zone->getId()-|'><img src="images/clear.png" class="icon iconOrder" title="Modificar el orden de los banners de la zona" /></a>
 				|-/if-|
 			</td>
 		</tr>

@@ -28,13 +28,13 @@ class BannersWeightByZoneAction extends BaseAction {
 		$section = "Zones";
 		$smarty->assign("section",$section);
 
-		if ( isset($_GET['zoneId']) ) {
-			$zone = BannerZoneQuery::create()->findOneById($_GET['zoneId']);
+		if ( isset($_GET['id']) ) {
+			$zone = BannerZoneQuery::create()->findOneById($_GET['id']);
 			$smarty->assign("zone", $zone);
-			$smarty->assign("zoneId", $_GET['zoneId']);
+			$smarty->assign("id", $_GET['id']);
 
 			//$bannersObj = new BannerPeer();
-			$banners = BannerQuery::getAllByZoneHydrated($_GET['zoneId'],"weight");
+			$banners = BannerQuery::getAllByZoneHydrated($_GET['id'],"weight");
 			$smarty->assign("banners", $banners);
 			return $mapping->findForwardConfig('success');
 		}
