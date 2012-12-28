@@ -29,6 +29,7 @@ class BannersZonesDisplayAction extends BaseEditAction {
 			$this->smarty->assign("banners", $arrangedBanners);
 			$this->smarty->assign("zoneId", $_GET['id']); //zoneId
 			$this->smarty->assign("mode", $_GET['mode']);
+			$this->smarty->assign("display", true);
 			$this->smarty->assign("request_uri", $_SERVER['REQUEST_URI']);
 		}
 		

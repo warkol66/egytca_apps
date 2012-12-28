@@ -1,4 +1,4 @@
-
+|-$result.saveClicks-|
 |-if !is_object($banner) or $banner->isNew()-|
 	<p>El banner especificado no existe</p>
 |-else-|
@@ -22,5 +22,5 @@
 	|-else if is_object($content) and $content->isText()-|
 		|-$content->printHtml()-|
 	|-/if-|
-	|-if $banner->getTargetUrl() ne ''-||-$banner->getAlttext()-|</a>|-/if-|</div>
+	|-if $banner->getTargetUrl() ne ''-|</a>|-/if-|</div>
 |-/if-|
