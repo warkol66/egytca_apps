@@ -2,7 +2,7 @@
 /**
  * BannersZonesDoEditAction
  *
- * Guarda los cambios a una zona existente del módulo de Banners, o crea una nueva
+ * Guarda los cambios a una zona existente del modulo de Banners, o crea una nueva
  * @package banners
  */
 class BannersZonesDoEditAction extends BaseDoEditAction {
@@ -10,13 +10,11 @@ class BannersZonesDoEditAction extends BaseDoEditAction {
 	function __construct() {
 		parent::__construct('BannerZone');
 	}
-	
-	protected function postUpdate(){
-		parent::postUpdate();
-		
+
+	protected function postUpdate() {
+		parent::postUpdate();		
 		$this->smarty->assign("module","Banners");
 		$this->smarty->assign("section","Zones");
-		
 	}
 
 }
