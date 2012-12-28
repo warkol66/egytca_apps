@@ -5,6 +5,8 @@
  * Muestra una vista previa del banner
  * @package banners
  */
+require_once('BannersInclude.php'); 
+
 class BannersPreviewAction extends BaseEditAction {
 	
 	function __construct() {
@@ -13,20 +15,21 @@ class BannersPreviewAction extends BaseEditAction {
 	
 	protected function preEdit(){
 		parent::preEdit();
-		//TODO: probar que pasa pasandole id vacio (asegurarse de que edit no cree un nuevo banner)
-		if (!isset($_GET['bannerId']))
+		
+		if (!isset($_GET['id']))
 			$_POST['id'] = -1;
-
 	}
 	
 	protected function postEdit(){
 		parent::postEdit();
 		
-		$this->template->template = "TemplatePlain.tpl";
+		
 		$this->smarty->assign("module","Banners");
 		
 		if(is_object($this->entity))
 			$this->smarty->assign("mode", 'preview');
+			
+		//$this->template->template = "TemplatePlain.tpl";
 		
 	}
 

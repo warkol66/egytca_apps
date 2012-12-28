@@ -189,7 +189,7 @@ class BannerQuery extends BaseBannerQuery {
 
 		$c->addDescendingOrderByColumn('clickthru');
 
-		$stmt = self::doSelectStmt($c);
+		$stmt = BannerPeer::doSelectStmt($c);
 		$allObj = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		return $allObj;
 	 }

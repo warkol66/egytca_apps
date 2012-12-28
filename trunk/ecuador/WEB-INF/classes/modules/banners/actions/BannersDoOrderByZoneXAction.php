@@ -31,7 +31,7 @@ class BannersDoOrderByZoneXAction extends BaseAction {
 		$module = "Banners";
 		$section = "Zones";
 
-		parse_str($_POST['data']);
+		$bannersList = ($_POST['data']);
 
 		for ($i = 0; $i < count($bannersList); $i++)
 			BannerZoneRelation::updateOrder($_POST['zoneId'], $bannersList[$i],$i);

@@ -11,7 +11,6 @@
 |-/section-|
 </table>
 
-
 |-if $mode eq 'preview'-|
     <br />[<a href="|-$request_uri-|">##25,Recargar##</a>]
 |-/if-|

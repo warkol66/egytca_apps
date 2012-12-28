@@ -26,7 +26,7 @@ class BannerZoneRelation extends BaseBannerZoneRelation {
 		try {
 			foreach($banners as $banner){
 				//$bannerZone = BannerZoneRelationPeer::retrieveByPK($banner['id'], $zoneId);
-				$bannerZone = BannerZoneRelationQuery::create()->filterByBannerid($banner['id'])->filterByZoneid($zoneId);
+				$bannerZone = BannerZoneRelationQuery::create()->findOneByBanneridAndZoneid($banner['id'], $zoneId);
 				if ($banner['weight'] != '')
 					$bannerZone->setWeight($banner['weight']);
 				if ($banner['order'] != '')
@@ -53,7 +53,7 @@ class BannerZoneRelation extends BaseBannerZoneRelation {
 	function updateOrder($zoneId, $bannerId, $order)
 	{
 		try {
-			$bannerZone = BannerZoneRelationQuery::filterByBanneridAndZoneid($bannerId, $zoneId);
+			$bannerZone = BannerZoneRelationQuery::create()->findOneByBanneridAndZoneid($bannerId, $zoneId);
 			$bannerZone->setOrder($order);
 			$bannerZone->save();
 			return true;

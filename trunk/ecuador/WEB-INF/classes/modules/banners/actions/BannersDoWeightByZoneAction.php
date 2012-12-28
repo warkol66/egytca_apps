@@ -31,9 +31,12 @@ class BannersDoWeightByZoneAction extends BaseAction {
 		$result = BannerZoneRelation::updateRel($_POST['zoneId'], $_POST['banners']);
 
 		if ($result)
-			return $mapping->findForwardConfig('success');
+			$smarty->assign("message","saved");
 		else
-			return $mapping->findForwardConfig('failure');
+			$smarty->assign("message","notsaved");
+		
+		return $mapping->findForwardConfig('success');
+		
 	}
 
 }

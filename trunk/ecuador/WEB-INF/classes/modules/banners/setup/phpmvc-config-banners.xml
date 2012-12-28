@@ -1,29 +1,12 @@
 <!-- Module Banners-->
 	<action-mappings module="Banners">
 
-		<action  path = "bannersDoDelete"
-						 type = "BannersDoDeleteAction"
-						 name = "bannersDoDelete"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=bannersList&amp;message=deleted" redirect="true" />
-			<forward  name="failure" path="/Main.php?do=bannersList&amp;message=notdeleted" redirect="true" />
-		</action>
-
 		<action  path = "bannersContentStream"
 						 type = "BannersContentStreamAction"
 						 name = "bannersContentStream"
 						scope = "request"
 				 validate = "true">
 			<forward  name="success" path="BannersContentStream.tpl" />
-		</action>
-
-		<action  path = "bannersPreview"
-						 type = "BannersPreviewAction"
-						 name = "bannersPreview"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="BannersDisplay.tpl" />
 		</action>
 
 		<action  path = "bannersZonesDisplay"
@@ -42,15 +25,7 @@
 				 validate = "true">
 			<forward  name="success" path="BannersDoClickThru.tpl" />
 		</action>
-
-		<action  path = "bannersStatsShow"
-						 type = "BannersStatsShowAction"
-						 name = "bannersStatsShow"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="BannersStatsShow.tpl" />
-		</action>
-
+		
 <!-- Section Zones -->
 
 		<action  path = "bannersWeightByZone"
@@ -68,16 +43,6 @@
 						scope = "request"
 				 validate = "true">
 			<forward  name="success" path="/Main.php?do=bannersZonesList&amp;message=saved" redirect="true"/>
-			<forward  name="failure" path="/Main.php?do=bannersZonesList&amp;message=notsaved" redirect="true"/>
-		</action>
-
-		<action  path = "bannersOrderByZone"
-						 type = "BannersOrderByZoneAction"
-						 name = "bannersOrderByZone"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="BannersOrderByZone.tpl" />
-			<forward  name="failure" path="/Main.php?do=bannersZonesList&amp;message=notget" redirect="true"/>
 		</action>
 
 		<action  path = "bannersDoOrderByZone"

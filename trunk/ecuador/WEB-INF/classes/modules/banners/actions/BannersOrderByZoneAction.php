@@ -22,8 +22,6 @@ class BannersOrderByZoneAction extends BaseEditAction {
 			$this->smarty->assign("banners", $banners);
 		}
 		
-		//ver failure
-		
 	}
 
 }

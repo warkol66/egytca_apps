@@ -10,11 +10,11 @@ require_once("Banner.php");
 class BannersInclude extends Banner {
 
 	function getZonesDisplay($options) {
-		require_once("BannerPeer.php");
-		require_once("BannerZonePeer.php");
+		require_once("Banner.php");
+		require_once("BannerZone.php");
 
 		$zoneId = $options["id"];
-		$zone = BannerZonePeer::get($zoneId);
+		$zone = BannerZoneQuery::create()->findOneById($zoneId);
 		if (!empty($zone))
 			$arrengedBanners = $zone->getBannersInRowsAndCols();
 		else
