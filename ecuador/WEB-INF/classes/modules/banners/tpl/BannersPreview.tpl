@@ -12,13 +12,13 @@
 			codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,115,0" |-if $banner->getWidth() gt 0-| width="|-$banner->getWidth()-|"|-/if-||-if $banner->getHeight() gt 0-| height="|-$banner->getHeight()-|"|-/if-|>
 		  <param name="movie" value="bannerimages/|-$banner->getId()-|.|-$banner->getExtension()-|">
 		  <param name=quality value=high>
-		  <embed src="files/|-$banner->getId()-|.|-$banner->getExtension()-|" quality='high' 
+		  <embed src="bannerimages/|-$banner->getId()-|.|-$banner->getExtension()-|" quality='high' 
 			  pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" 
 			  type="application/x-shockwave-flash"|-if $banner->getWidth() gt 0-| width="|-$banner->getWidth()-|"|-/if-||-if $banner->getHeight() gt 0-| height="|-$banner->getHeight()-|" |-/if-|>
 		  </embed> 
 		</object>        
 	|-elseif $banner->isImage()-|
-		<img src="files/|-$banner->getId()-|.|-$banner->getExtension()-|" alt="|-$banner->getAltText()-|" class="bannerImage" border="0"|-if $banner->getWidth() gt 0-| width="|-$banner->getWidth()-|"|-/if-||-if $banner->getHeight() gt 0-| height="|-$banner->getHeight()-|" |-/if-|/>
+		<img src="bannerimages/|-$banner->getId()-|.|-$banner->getExtension()-|" alt="|-$banner->getAltText()-|" class="bannerImage" border="0"|-if $banner->getWidth() gt 0-| width="|-$banner->getWidth()-|"|-/if-||-if $banner->getHeight() gt 0-| height="|-$banner->getHeight()-|" |-/if-|/>
 	|-else if is_object($content) and $content->isText()-|
 		|-$content->printHtml()-|
 	|-/if-|

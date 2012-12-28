@@ -111,45 +111,44 @@ class BannerZone extends BaseBannerZone {
 		$rows = $this->getRows();
 		$cols = $this->getColumns();
 		$amount = $rows * $cols;
-					
+
 		if ($this->getRotationType() == BannerZone::ROTATION_RANDOM) {
 			// aleatoria
 			$banners = $this->getRandomBanners($amount);
-//			$content = $banners[0]->getBannerContent();              
+
+//			$content = $banners[0]->getBannerContent();
 		} elseif ($this->getRotationType() == BannerZone::ROTATION_WEIGHTED) {
 			// ponderada
 			$banners = $this->getWeightedBanners($amount);
 			// desordeno porque los de mas peso siempre aparecen primero
-			shuffle($banners);              
+			shuffle($banners);
 		} elseif ($this->getRotationType() == BannerZone::ROTATION_ORDERED) {
 			// ordenada
 			$banners = $this->getOrderedBanners($amount);
 		}
-					
+
 		if (empty($this->mode) or $this->mode !== 'preview' ) {
 			// si no está en modo vista previa
-						
+
 			// decrementa el contador de impresiones restantes
 			foreach( $banners as $banner) {
-				if (! $banner == null) {              
+				if (! $banner == null) {
 					$banner->decresePrintsLeft();
 					$banner->save();
 				}
 			}
 		}
-
+		$banners = $banners->getArrayCopy();
 		// acomoda los banners en un array bidimensional de filas y columnas.
 		$arrengedBanners = array();
 		for ($rowNumber = 0; $rowNumber < $rows; $rowNumber++) {
 			for ($colNumber = 0; $colNumber < $cols; $colNumber++) {
 				$banner = array_shift($banners);
-				if ( is_a($banner, "Banner") ) {
-					$arrengedBanners[$rowNumber][$colNumber] = $banner = $banner ;
-				}
+				if (is_a($banner, "Banner"))
+					$arrengedBanners[$rowNumber][$colNumber] = $banner;
 			}
 		}
-		
 		return $arrengedBanners;
-	}	
-	
+	}
+
 } // Zone

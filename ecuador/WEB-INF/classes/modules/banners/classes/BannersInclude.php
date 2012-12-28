@@ -5,13 +5,9 @@
  * @package banners
  */
 
-require_once("Banner.php");
-
 class BannersInclude extends Banner {
 
 	function getZonesDisplay($options) {
-		require_once("Banner.php");
-		require_once("BannerZone.php");
 
 		$zoneId = $options["id"];
 		$zone = BannerZoneQuery::create()->findOneById($zoneId);

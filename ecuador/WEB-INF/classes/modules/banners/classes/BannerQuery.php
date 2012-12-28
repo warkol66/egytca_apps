@@ -54,8 +54,8 @@ class BannerQuery extends BaseBannerQuery {
 		$criteria->addAscendingOrderByColumn('RAND()');
 		$criteria->setLimit($amount);
 
-		$objects = BannerPeer::doSelect($criteria);
-		return $objects;
+
+		return BannerQuery::create($criteria)->find();
 	}
 
 
