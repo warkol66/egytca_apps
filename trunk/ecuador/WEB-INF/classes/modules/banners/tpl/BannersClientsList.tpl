@@ -30,12 +30,12 @@
 			<form action="Main.php" method="get">
 				<input type="hidden" name="do" value="bannersClientsEdit" />
 				<input type="hidden" name="id" value="|-$client->getid()-|" />
-				<input type="submit" name="submit_go_edit_bannerClient" value="Editar" class="buttonImageEdit" />
+				<input type="submit" name="submit_go_edit_bannerClient" value="Editar" class="icon iconEdit" />
 			</form>
 			<form action="Main.php" method="post">
 				<input type="hidden" name="do" value="bannersClientsDoDelete" />
 				<input type="hidden" name="id" value="|-$client->getid()-|" />
-				<input type="submit" name="submit_go_delete_bannerClient" value="Borrar" onclick="return confirm('Seguro que desea eliminar el cliente?')" class="buttonImageDelete" />
+				<input type="submit" name="submit_go_delete_bannerClient" value="Borrar" onclick="return confirm('Seguro que desea eliminar el cliente?')" class="icon iconDelete" />
 			</form>
 		</td>
 	</tr>

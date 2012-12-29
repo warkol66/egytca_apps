@@ -29,11 +29,11 @@
 				|-if $usePasswords && $document->getPassword() ne ''-|
 					<input type='password' name='password' />
 				|-/if-|
-				<input type='submit' name='submit' value='##common,1,Editar##' title='##common,1,Editar##' class='buttonImageEdit' />
+				<input type='submit' name='submit' value='##common,1,Editar##' title='##common,1,Editar##' class='icon iconEdit' />
 			</form>
 		|-/capture-|
 		|-if $usePasswords && $document->getPassword() ne ""-|
-			<input type="button" |-popup sticky='true' caption='Ingresar contraseña' trigger='onClick' text=$smarty.capture.formEdit snapx='10' snapy='10' width='180' height='25' border='2' closetext='Cerrar'-| value="value='##common,1,Editar##'" class='buttonImageEdit' />
+			<input type="button" |-popup sticky='true' caption='Ingresar contraseña' trigger='onClick' text=$smarty.capture.formEdit snapx='10' snapy='10' width='180' height='25' border='2' closetext='Cerrar'-| value="value='##common,1,Editar##'" class='icon iconEdit' />
 		|-else-|
 			|-$smarty.capture.formEdit-|
 		|-/if-|
@@ -46,11 +46,11 @@
 				|-if $usePasswords && $document->getPassword() ne ''-|
 					<input type='password' name='password' />
 				|-/if-|
-				<input type='submit' name='submit' value='##documents,22,Descargar##' title='##documents,25,Descargar##' class='buttonImageDownload' />
+				<input type='submit' name='submit' value='##documents,22,Descargar##' title='##documents,25,Descargar##' class='icon iconDownload' />
 			</form>
 		|-/capture-|
 		|-if $usePasswords && $document->getPassword() ne ""-|
-			<input type="button" |-popup sticky=true caption="##documents,26,Ingresar contraseña##" trigger="onClick" text=$smarty.capture.formDownload snapx=10 snapy=10 width='180' closetext='Cerrar'-| value="##documents,25,Descargar##" title='##documents,25,Descargar##' class='buttonImageDownload' />
+			<input type="button" |-popup sticky=true caption="##documents,26,Ingresar contraseña##" trigger="onClick" text=$smarty.capture.formDownload snapx=10 snapy=10 width='180' closetext='Cerrar'-| value="##documents,25,Descargar##" title='##documents,25,Descargar##' class='icon iconDownload' />
 		|-else-|
 			|-$smarty.capture.formDownload-|
 		|-/if-|
@@ -65,11 +65,11 @@
 				|-if $usePasswords && $document->getPassword() ne ''-|
 					<input type='password' name='password' />
 				|-/if-|
-				<input type='submit' name='submit' value='##common,2,Eliminar##' title='##common,2,Eliminar##' class='buttonImageDelete' onclick='if (confirm("¿Seguro que desea eliminar este documento?")){new Ajax.Updater("documentOperationInfo", "Main.php?do=documentsDoDeleteX", { method: "post", parameters: { id: "|-$document->getId()-|", entity: "|-$entity-|", entityId: "|-$entityId-|", category: "|-$document->getCategoryid()-|"}, evalScripts: true})}return false;' alt="Eliminar" />
+				<input type='submit' name='submit' value='##common,2,Eliminar##' title='##common,2,Eliminar##' class='icon iconDelete' onclick='if (confirm("¿Seguro que desea eliminar este documento?")){new Ajax.Updater("documentOperationInfo", "Main.php?do=documentsDoDeleteX", { method: "post", parameters: { id: "|-$document->getId()-|", entity: "|-$entity-|", entityId: "|-$entityId-|", category: "|-$document->getCategoryid()-|"}, evalScripts: true})}return false;' alt="Eliminar" />
 			</form>
 		|-/capture-|
 		|-if $usePasswords && $document->getPassword() ne ""-|
-			<input type="button" |-popup sticky=true caption="##documents,26,Ingresar contraseña##" trigger="onClick" text=$smarty.capture.formDelete snapx=10 snapy=10 width='180' closetext='Cerrar'-| value="##common,2,Eliminar##" title="##common,2,Eliminar##" class='buttonImageDelete' />
+			<input type="button" |-popup sticky=true caption="##documents,26,Ingresar contraseña##" trigger="onClick" text=$smarty.capture.formDelete snapx=10 snapy=10 width='180' closetext='Cerrar'-| value="##common,2,Eliminar##" title="##common,2,Eliminar##" class='icon iconDelete' />
 		|-else-|
 			|-$smarty.capture.formDelete-|
 		|-/if-|

@@ -142,7 +142,7 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="blogCommentsEdit" />
 						<input type="hidden" name="id" value="|-$blogComment->getid()-|" />
-						<input type="submit" name="submit_go_edit_blogComment" value="Editar" class="buttonImageEdit" />
+						<input type="submit" name="submit_go_edit_blogComment" value="Editar" class="icon iconEdit" />
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($articleId)-|
 							<input type="hidden" name="articleId" value="|-$articleId-|" id="articleId"/>
@@ -151,7 +151,7 @@
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="blogCommentsDoDelete" />
 						<input type="hidden" name="id" value="|-$blogComment->getid()-|" />
-						<input type="submit" name="submit_go_delete_blogComment" value="Borrar" onclick="return confirm('Seguro que desea eliminar el comentario?')" class="buttonImageDelete" />
+						<input type="submit" name="submit_go_delete_blogComment" value="Borrar" onclick="return confirm('Seguro que desea eliminar el comentario?')" class="icon iconDelete" />
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($articleId)-|
 							<input type="hidden" name="articleId" value="|-$articleId-|" id="articleId"/>

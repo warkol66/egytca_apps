@@ -88,11 +88,11 @@ function checkPass(form){
 					|-if $document->getPassword() ne ''-|
 					<input type='password' name='password' title='Ingrese la contraseña para descargar' />
 					|-/if-|
-					<input type='submit' name='submit' value='Descargar' class='buttonImageDownload' title='descargar' />
+					<input type='submit' name='submit' value='Descargar' class='icon iconDownload' title='descargar' />
 				</form>
 				|-/capture-|
 				|-if $document->getPassword() ne ""-|
-					<input type="button" |-popup sticky=true caption="Ingresar contraseña" trigger="onClick" text=$smarty.capture.formDownload snapx=10 snapy=10 width='180' closetext='Cerrar'-| value="Descargar" class='buttonImageDownload' title='descargar' />
+					<input type="button" |-popup sticky=true caption="Ingresar contraseña" trigger="onClick" text=$smarty.capture.formDownload snapx=10 snapy=10 width='180' closetext='Cerrar'-| value="Descargar" class='icon iconDownload' title='descargar' />
 				|-else-|
 					|-$smarty.capture.formDownload-|
 				|-/if-|

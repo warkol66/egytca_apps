@@ -54,7 +54,7 @@
 	|-foreach from=$registrationUserColl item=user-|
 	<tr>
 		|-assign var=userInfoTelephone value=$user->getTelephone()-||-assign var=userInfoOrganization value=$user->getOrganization()-||-*assign var=userInfoGroup value=$user->getGroup()*-||-*assign var=userInfoCountry value=$user->getCountry()*-||-assign var=userCreated value=$user->getCreatedAt()-||-assign var=userLastLogin value=$user->getLastLogin()-|
-		<td><a href="#" |-popup sticky=true caption="Información del Usuario" trigger="onMouseOver" text="Organización: $userOrganization <br />Teléfono: $userTelephone<br />Grupo: $userGroup<br />País: $userCountry<br />Fecha de registro: $userCreated<br />Último ingreso: $userLastLogin" snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a></td>
+		<td><a href="#" |-popup sticky=true caption="Información del Usuario" trigger="onMouseOver" text="Organización: $userOrganization <br />Teléfono: $userTelephone<br />Grupo: $userGroup<br />País: $userCountry<br />Fecha de registro: $userCreated<br />Último ingreso: $userLastLogin" snapx=10 snapy=10-|><img src="images/clear.png" class="icon iconInfo"></a></td>
 		<td>|-$user->getSurname()-|</td>
 		<td>|-$user->getName()-|</td>
 		<td>|-$user->getMailAddress()-|</td>

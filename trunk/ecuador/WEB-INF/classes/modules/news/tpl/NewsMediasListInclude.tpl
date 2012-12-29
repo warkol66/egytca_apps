@@ -32,7 +32,7 @@
 						<!--pasaje de parametros de filtros -->
 						<input type="hidden" name="do" value="newsMediasDoDelete" />
 						<input type="hidden" name="id" value="|-$newsmedia->getid()-|" />
-						<input type="button" name="submit_go_delete_newsmedia" value="Borrar" onClick="javascript:submitNewsArticleMediaDeleteX(|-$newsmedia->getId()-|,this.form)" class="buttonImageDelete" />
+						<input type="button" name="submit_go_delete_newsmedia" value="Borrar" onClick="javascript:submitNewsArticleMediaDeleteX(|-$newsmedia->getId()-|,this.form)" class="icon iconDelete" />
 						<input type="hidden" name="ajaxFromArticle" value="1" />
 					</form> <span id="newsMediaItemMsgBox|-$newsmedia->getId()-|"></span>
 				</li><br clear="all" />
@@ -74,7 +74,7 @@
 				<!--pasaje de parametros de filtros -->
 				<input type="hidden" name="do" value="newsMediasDoDelete" />
 				<input type="hidden" name="id" value="|-$newsmedia->getid()-|" />
-				<input type="button" name="submit_go_delete_newsmedia" value="Borrar" onClick="javascript:submitNewsArticleMediaDeleteX(|-$newsmedia->getId()-|,this.form)" class="buttonImageDelete" />
+				<input type="button" name="submit_go_delete_newsmedia" value="Borrar" onClick="javascript:submitNewsArticleMediaDeleteX(|-$newsmedia->getId()-|,this.form)" class="icon iconDelete" />
 				<input type="hidden" name="ajaxFromArticle" value="1" />
 			</form> <span id="newsMediaItemMsgBox|-$newsmedia->getId()-|"></span>
 		</li><br clear="all" />
@@ -116,7 +116,7 @@
 				<!--pasaje de parametros de filtros -->
 				<input type="hidden" name="do" value="newsMediasDoDelete" />
 				<input type="hidden" name="id" value="|-$newsmedia->getid()-|" />
-				<input type="button" name="submit_go_delete_newsmedia" value="Borrar" onClick="javascript:submitNewsArticleMediaDeleteX(|-$newsmedia->getId()-|,this.form)" class="buttonImageDelete" />
+				<input type="button" name="submit_go_delete_newsmedia" value="Borrar" onClick="javascript:submitNewsArticleMediaDeleteX(|-$newsmedia->getId()-|,this.form)" class="icon iconDelete" />
 				<input type="hidden" name="ajaxFromArticle" value="1" />
 			</form> <span id="newsMediaItemMsgBox|-$newsmedia->getId()-|"></span>
 		</li><br clear="all" />

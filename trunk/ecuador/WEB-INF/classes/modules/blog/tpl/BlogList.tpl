@@ -112,14 +112,14 @@
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						<input type="hidden" name="do" value="blogEdit" />
 						<input type="hidden" name="id" value="|-$blogEntry->getid()-|" />
-						<input type="submit" name="submit_go_edit_blogEntry" value="##common,1,Editar##" title="##common,1,Editar##" class="buttonImageEdit" />
+						<input type="submit" name="submit_go_edit_blogEntry" value="##common,1,Editar##" title="##common,1,Editar##" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<!--pasaje de parametros de filtros -->
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						<input type="hidden" name="do" value="blogDoDelete" />
 						<input type="hidden" name="id" value="|-$blogEntry->getid()-|" />
-						<input type="submit" name="submit_go_delete_blogEntry" value="##common,2,Eliminar##" title="##common,2,Eliminar##" onclick="return confirm('##blog,22,Seguro que desea eliminar la entrada?##')" class="buttonImageDelete" />
+						<input type="submit" name="submit_go_delete_blogEntry" value="##common,2,Eliminar##" title="##common,2,Eliminar##" onclick="return confirm('##blog,22,Seguro que desea eliminar la entrada?##')" class="icon iconDelete" />
 					</form>
 					|-else-|
 					

@@ -20,7 +20,7 @@
 			<tr valign="top">	
 	|-foreach from=$keyWords item=keyWord name=foreach_keyWord-|
 |-if $smarty.foreach.foreach_keyWord.index mod 3 eq 0 && !$smarty.foreach.foreach_keyWord.first-|</tr>|-if !$smarty.foreach.foreach_keyWord.last-|<tr valign="top">|-/if-||-/if-|
-				<td><div style="float:right; vertical-align:top"><a href="Main.php?do=documentsKeyWordEdit&id=|-$keyWord->getId()-|"><img src="images/clear.png" class="linkImageEdit" /></a></div>|-$keyWord->getKeyWord()-|</td>
+				<td><div style="float:right; vertical-align:top"><a href="Main.php?do=documentsKeyWordEdit&id=|-$keyWord->getId()-|"><img src="images/clear.png" class="icon iconEdit" /></a></div>|-$keyWord->getKeyWord()-|</td>
 |-if $smarty.foreach.foreach_keyWord.last-|
 |-math equation = "n - a % n" n=3 a=$keyWords|@count assign="modCells"-|
 |-if $modCells neq 3-|
