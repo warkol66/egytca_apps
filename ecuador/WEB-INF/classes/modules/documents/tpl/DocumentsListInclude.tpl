@@ -73,7 +73,7 @@
 					</form>
 					|-/capture-|
 				|-if $usePasswords && $document->getPassword() ne ""-|
-					<input type="button" |-popup sticky='true' caption='Ingresar contraseña' trigger='onClick' text=$smarty.capture.formEdit snapx='10' snapy='10' width='180' height='25' border='2' closetext='Cerrar'-| value="value='##common,1,Editar##'" class='buttonImageEdit' />
+					<input type="button" |-popup sticky='true' caption='Ingresar contraseña' trigger='onClick' text=$smarty.capture.formEdit snapx='10' snapy='10' width='180' height='25' border='2' closetext='Cerrar'-| value="value='##common,1,Editar##'" class='icon iconEdit' />
 				|-else-|
 					|-$smarty.capture.formEdit-|
 				|-/if-|

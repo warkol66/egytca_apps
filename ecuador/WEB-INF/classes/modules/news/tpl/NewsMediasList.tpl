@@ -84,14 +84,14 @@
 						
 						<input type="hidden" name="do" value="newsMediasEdit" />
 						<input type="hidden" name="id" value="|-$newsmedia->getid()-|" />
-						<input type="submit" name="submit_go_edit_newsmedia" value="Editar" class="buttonImageEdit" />
+						<input type="submit" name="submit_go_edit_newsmedia" value="Editar" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<!--pasaje de parametros de filtros -->
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						<input type="hidden" name="do" value="newsMediasDoDelete" />
 						<input type="hidden" name="id" value="|-$newsmedia->getid()-|" />
-						<input type="submit" name="submit_go_delete_newsmedia" value="Borrar" onclick="return confirm('Seguro que desea eliminar el newsmedia?')" class="buttonImageDelete" />
+						<input type="submit" name="submit_go_delete_newsmedia" value="Borrar" onclick="return confirm('Seguro que desea eliminar el newsmedia?')" class="icon iconDelete" />
 					</form>				
 					</td>
 			</tr>

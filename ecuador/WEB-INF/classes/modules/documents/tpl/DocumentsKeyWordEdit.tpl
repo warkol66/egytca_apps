@@ -7,7 +7,7 @@ Ingrese la palabra clave y haga click en "Agregar palabra clave".
 |-/if-|
 </p>
 <form method="post" enctype="multipart/form-data" action="Main.php?do=documentsKeyWordDoEdit">
-	|-if $keyWord neq''-|
+	|-if $keyWord neq ''-|
 	<input type="hidden" name="id" value="|-$keyWord->getId()-|">
 	|-/if-|
 	<fieldset title="Formulario para Agregar Nuevo Documento">
