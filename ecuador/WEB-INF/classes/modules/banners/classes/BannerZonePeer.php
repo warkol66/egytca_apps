@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 /**
  * Skeleton subclass for performing query and update operations on the 'banners_zone' table.

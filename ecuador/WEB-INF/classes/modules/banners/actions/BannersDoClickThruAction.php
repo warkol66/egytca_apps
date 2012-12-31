@@ -7,7 +7,7 @@
  */
 
 /**
- * Requires de Clases base del modelo y del mÃ³dulo banners
+ * Requires de Clases base del modelo y del módulo banners
  */
 require_once("BaseAction.php");
 require_once("BannerPeer.php");

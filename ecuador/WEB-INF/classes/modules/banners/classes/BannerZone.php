@@ -25,7 +25,7 @@ class BannerZone extends BaseBannerZone {
 	);
 
 	/**
-	* Obtiene los tipos de frecuencia v√°lidos
+	* Obtiene los tipos de frecuencia v·lidos
 	*
 	* @return arry Frecuencias
 	*/
@@ -88,7 +88,7 @@ class BannerZone extends BaseBannerZone {
 						// el comiendo del rango de prueba es igual al fin del anterior
 						$start = $end;
 
-						// el fin del rango es igual al inicio m√°s el peso ponderado por el peso total
+						// el fin del rango es igual al inicio m·s el peso ponderado por el peso total
 						$end = $start + $weight/$totalWeight;
 
 						//print "B:" .$bz->getBanner()->getId() . " S:$start : E:$end : W:$weight";
@@ -128,7 +128,7 @@ class BannerZone extends BaseBannerZone {
 		}
 
 		if (empty($this->mode) or $this->mode !== 'preview' ) {
-			// si no est√° en modo vista previa
+			// si no est· en modo vista previa
 
 			// decrementa el contador de impresiones restantes
 			foreach( $banners as $banner) {

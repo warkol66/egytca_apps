@@ -2,7 +2,7 @@
 /**
  * BannersDoOrderByZoneAction
  *
- * Guarda la informaciÃ³n de pesos relativos de los banners de una zona
+ * Guarda la información de pesos relativos de los banners de una zona
  * @package banners
  */
 class BannersDoOrderByZoneAction extends BaseAction {

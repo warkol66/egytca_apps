@@ -1,5 +1,4 @@
 <?php
-require_once 'banner/classes/om/BaseBannerContent.php';
 
 
 /**
