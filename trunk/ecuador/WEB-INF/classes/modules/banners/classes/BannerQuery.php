@@ -33,12 +33,12 @@ class BannerQuery extends BaseBannerQuery {
 		$criteria->add(BannerZoneRelationPeer::ZONEID, $zoneId);
 
 		// que le queden impresiones restantes o de frecuencia permanente
-		// que estÃ© dentro del rango de fechas de la campaÃ±a
+		// que esté dentro del rango de fechas de la campaña
 
 		// permanente
 		$criteriOn1 = $criteria->getNewCriterion(BannerPeer::FREQUENCY, Banner::FREQUENCY_PERMANENT);
 
-		// o que le queden impresiones restantes dentro del rango de fechas de la campaÃ±a
+		// o que le queden impresiones restantes dentro del rango de fechas de la campaña
 		$criteriOn2 = $criteria->getNewCriterion(BannerPeer::PRINTSLEFT, 0, Criteria::GREATER_THAN);
 
 		$criteriOn3 = $criteria->getNewCriterion(BannerPeer::CAMPAIGNSTARTDATE, Criteria::CURRENT_DATE, Criteria::LESS_EQUAL);
@@ -77,12 +77,12 @@ class BannerQuery extends BaseBannerQuery {
 		$criteria->add(BannerZoneRelationPeer::ZONEID, $zoneId);
 
 		// que le queden impresiones restantes o de frecuencia permanente
-		// que estÃ© dentro del rango de fechas de la campaÃ±a
+		// que esté dentro del rango de fechas de la campaña
 
 		// permanente
 		$criteriOn1 = $criteria->getNewCriterion(BannerPeer::FREQUENCY, Banner::FREQUENCY_PERMANENT);
 
-		// o que le queden impresiones restantes dentro del rango de fechas de la campaÃ±a
+		// o que le queden impresiones restantes dentro del rango de fechas de la campaña
 		$criteriOn2 = $criteria->getNewCriterion(BannerPeer::PRINTSLEFT, 0, Criteria::GREATER_THAN);
 
 		$criteriOn3 = $criteria->getNewCriterion(BannerPeer::CAMPAIGNSTARTDATE, Criteria::CURRENT_DATE, Criteria::LESS_EQUAL);
@@ -121,12 +121,12 @@ class BannerQuery extends BaseBannerQuery {
 		$criteria->add(BannerZoneRelationPeer::ZONEID, $zoneId);
 
 		// que le queden impresiones restantes o de frecuencia permanente
-		// que estÃ© dentro del rango de fechas de la campaÃ±a
+		// que esté dentro del rango de fechas de la campaña
 
 		// permanente
 		$criteriOn1 = $criteria->getNewCriterion(BannerPeer::FREQUENCY, Banner::FREQUENCY_PERMANENT);
 
-		// o que le queden impresiones restantes dentro del rango de fechas de la campaÃ±a
+		// o que le queden impresiones restantes dentro del rango de fechas de la campaña
 		$criteriOn2 = $criteria->getNewCriterion(BannerPeer::PRINTSLEFT, 0, Criteria::GREATER_THAN);
 
 		$criteriOn3 = $criteria->getNewCriterion(BannerPeer::CAMPAIGNSTARTDATE, Criteria::CURRENT_DATE, Criteria::LESS_EQUAL);
@@ -196,7 +196,7 @@ class BannerQuery extends BaseBannerQuery {
 	 /**
 	 * Retorna los banners de la zona con su correspndiente peso
 	 * @param int $zoneId Id de la zona
-	 * @return array InformaciÃ³n de los banners para la zona dada
+	 * @return array Información de los banners para la zona dada
 	 */
 	function getAllByZone($zoneId)
 	{
@@ -211,7 +211,7 @@ class BannerQuery extends BaseBannerQuery {
 	/**
 	 * Retorna los banners de la zona con su correspndiente peso
 	 * @param int $zoneId Id de la zona
-	 * @return array InformaciÃ³n de los banners para la zona dada
+	 * @return array Información de los banners para la zona dada
 	 */
 	function getAllByClient($clientId)
 	{
@@ -225,7 +225,7 @@ class BannerQuery extends BaseBannerQuery {
 	/**
 	 * Retorna los banners de la zona con su correspondiente peso y orden
 	 * @param int $zoneId Id de la zona
-	 * @return array InformaciÃ³n de los banners para la zona dada
+	 * @return array Información de los banners para la zona dada
 	 */
 	function getAllByZoneHydrated($zoneId,$method)
 	{

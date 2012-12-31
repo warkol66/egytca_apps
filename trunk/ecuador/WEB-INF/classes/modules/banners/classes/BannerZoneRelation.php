@@ -18,7 +18,7 @@ class BannerZoneRelation extends BaseBannerZoneRelation {
 	* Actualiza los pesos de los banner de una zona
 	*
 	* @param int $id ID de la zona
-	* @param array $banners InformaciÃ³n de los pesos por banner
+	* @param array $banners Información de los pesos por banner
 	* @return boolean true si pudo actualizar sino false
 	*/
 	function updateRel($zoneId, $banners)
@@ -47,7 +47,7 @@ class BannerZoneRelation extends BaseBannerZoneRelation {
 	* Actualiza los pesos de los banner de una zona
 	*
 	* @param int $id ID de la zona
-	* @param array $banners InformaciÃ³n de los pesos por banner
+	* @param array $banners Información de los pesos por banner
 	* @return boolean true si pudo actualizar sino false
 	*/
 	function updateOrder($zoneId, $bannerId, $order)

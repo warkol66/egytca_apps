@@ -30,7 +30,7 @@ class Banner extends BaseBanner {
 
 	//nombre de los tipos de frecuencia
 	private $frecuencies = array(
-		Banner::FREQUENCY_ONCE => 'Ãšnica vez',
+		Banner::FREQUENCY_ONCE => 'Única vez',
 		Banner::FREQUENCY_DAILY => 'Diaria',
 		Banner::FREQUENCY_WEEKLY => 'Semanal',
 		Banner::FREQUENCY_TWICE_A_MONTH => 'Quincenal',
@@ -42,7 +42,7 @@ class Banner extends BaseBanner {
 	);
 
  /**
-	* Obtiene los tipos de frecuencia vÃ¡lidos
+	* Obtiene los tipos de frecuencia válidos
 	*
 	* @return arry Frecuencias
 	*/
@@ -52,7 +52,7 @@ class Banner extends BaseBanner {
 	}
 
  /**
-	* Obtiene los tipos de target vÃ¡lidos (misma ventana / ventana nueva)
+	* Obtiene los tipos de target válidos (misma ventana / ventana nueva)
 	*
 	* @return arry Targets
 	*/
@@ -72,7 +72,7 @@ class Banner extends BaseBanner {
 	}
 
  /**
-	* Obtiene los tipos de condiciÃ³n vÃ¡lidos (activo / inactivo)
+	* Obtiene los tipos de condición válidos (activo / inactivo)
 	*
 	* @return arry Condiciones
 	*/
