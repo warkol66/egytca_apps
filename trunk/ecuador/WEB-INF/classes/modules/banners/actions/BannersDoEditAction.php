@@ -20,8 +20,8 @@ class BannersDoEditAction extends BaseDoEditAction {
 		}
 	}
 
-	protected function postUpdate(){
-		parent::postUpdate();
+	protected function postSave(){
+		parent::postSave();
 
 		$this->smarty->assign("module","Banners");
 		$this->entity->removeFromAllZones();

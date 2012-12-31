@@ -28,7 +28,7 @@
 	<legend>Datos de Banners</legend>
 		<p>
 			<label for="name">Nombre</label>
-			<input type="text" size="50" name="params[name]" value="|-$banner->getName()-|" />
+			<input type="text" size="50" id='params[name]' name="params[name]" value="|-$banner->getName()-|" class="emptyValidation" |-ajax_onchange_validation_attribute actionName="bannersValidationNameX"-| /> |-validation_msg_box idField="params[name]"-|
 		</p>
 		<p>
 			<label for="clientId">Cliente</label>
