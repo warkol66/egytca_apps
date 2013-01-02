@@ -7,98 +7,54 @@
 * @package documents
 */
 
-class DocumentsListAction extends BaseAction {
-
-	function DocumentsListAction() {
-		;
+class DocumentsListAction extends BaseListAction {
+	
+	public function __construct() {
+		parent::__construct('Document');
 	}
-
-	function execute($mapping, $form, &$request, &$response) {
-
-		BaseAction::execute($mapping, $form, $request, $response);
-
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
-
-		$module = "Documents";
-		$smarty->assign("module",$module);
-
-		$documentPeer = new DocumentPeer();
-
-		if (!empty($_GET["page"])){
-			$page = $_GET["page"];
-			$smarty->assign("page",$page);
-		}
-		if (!empty($_GET['filters'])){
-			$filters = $_GET['filters'];
-			$this->applyFilters($documentPeer,$filters,$smarty);
-		}
-
-
-		$documents = $documentPeer->getAllFilteredPaginated($selectedCategory);
-		$smarty->assign('documents',$documents);
-
-		$pager = $documentPeer->getAllPaginatedFiltered($page);
-
-		$smarty->assign("documents",$pager->getResult());
-		$smarty->assign("pager",$pager);
-
+	
+	protected function postList() {
+		parent::postList();
+		$this->smarty->assign('module', 'Documents');
+		
 		//obtencion de documentos por categoria.
 		if (isset($_GET['categoryId'])) {
 
 			if ($_GET['categoryId'] > 0) {
 
 				//se ha elegido una categoria
-				$selectedCategory = CategoryPeer::get($_GET['categoryId']);
-				$documentPeer->setCategory($selectedCategory);
-
+				$selectedCategory = BaseQuery::create('Category')->findOneById($_GET['categoryId']);
 				$moduleName = $selectedCategory->getModule();
-				$selectedModule = ModulePeer::get($moduleName);
-				$smarty->assign('selectedModule',$selectedModule);
-				$smarty->assign('selectedCategory',$selectedCategory);
-
-				//obtengo los documentos para la categoria
-				$documents = $documentPeer->getAllFiltered($selectedCategory);
-				$smarty->assign('documents',$documents);
-
+				$selectedModule = BaseQuery::create('Module')->findOneByName($moduleName);
+				$documents = BaseQuery::create('Document')->filterByCategory($selectedCategory)->findOne();
+				
+				$this->smarty->assign('selectedModule', $selectedModule);
+				$this->smarty->assign('selectedCategory', $selectedCategory);
+				$this->smarty->assign('documents', $documents);
 			}
 			else {
 				//se han pedido documentos sin categoria
-				$documents = $documentPeer->getAllWithoutCategory();
-				$smarty->assign('documents',$documents);
+				$documents = BaseQuery::create('Document')->findByCategoryId(0);
+				$this->smarty->assign('documents', $documents);
 			}
 		}
-
-		$smarty->assign('categoryId',$_GET['categoryId']);
-
+		
+		$this->smarty->assign('categoryId', $_GET['categoryId']);
+		
 		$user = Common::getAdminLogged();
-		$smarty->assign('user',$user);
-		if (!empty($user))
+		$this->smarty->assign('user', $user);
+		if (!empty($user)) {
 			$generalParentCategories = $user->getDocumentsGeneralParentCategories();
-
-		$smarty->assign('generalParentCategories',$generalParentCategories);
-
-		$modules = $documentPeer->getModulesWithDocuments();
-		$smarty->assign('modules',$modules);
-
-		if (!empty($user))
 			$parentCategories = $user->getDocumentsParentCategories();
+		}
+		$this->smarty->assign('generalParentCategories', $generalParentCategories);
+		$this->smarty->assign('parentCategories', $parentCategories);
 
-		$smarty->assign('parentCategories',$parentCategories);
+		$modules = ModuleQuery::findAllWithDocuments();
+		$this->smarty->assign('modules', $modules);
 
-		$documentsWithoutCategoryCount = $documentPeer->getDocumentsWithoutCategoryCount();
-		$smarty->assign('documentsWithoutCategoryCount',$documentsWithoutCategoryCount);
-
-		////////////
-		// se asignan las variables trabajadas
-		$smarty->assign("message",$msg);
-		$smarty->assign("results",$docs);
-
-		return $mapping->findForwardConfig('success');
-
+		$documentsWithoutCategoryCount = BaseQuery::create('Document')->filterByNoCategory()->count();
+		$this->smarty->assign('documentsWithoutCategoryCount', $documentsWithoutCategoryCount);
 	}
 
 }

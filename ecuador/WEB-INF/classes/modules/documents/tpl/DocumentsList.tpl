@@ -68,7 +68,7 @@ function checkPassDelete(form){
 	|-/if-|
 |-/if-|
 
-|-if $documents neq ''-|
+|-if $documentColl neq ''-|
 	<fieldset name="Listado de documentos disponibles">
 		<legend>|-if $selectedCategory neq ''-|
 			##documents,29,Documentos disponibles en la categoría## |-$selectedCategory->getName()-|
@@ -85,7 +85,7 @@ function checkPassDelete(form){
 					<input type="hidden" name="do" value="documentsList" />
 					Texto: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
 					Resultados por página
-				|-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getRowsPerPage()-|	
+				|-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getMaxPerPage()-|	
 				|-if $loginUser->isSupervisor()-|Incluir eliminados<input name="filters[includeDeleted]" type="checkbox" value="true" |-$filters.includeDeleted|checked:"true"-|>|-/if-|
 					<input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
 				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=documentsList'"/>|-/if-|
@@ -93,7 +93,7 @@ function checkPassDelete(form){
 			</div></td>
 		</tr>
 			<tr>
-				<th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=documentsEdit&id=|-$docscategory-|" class="addLink" title="##documents,10,Agregar Documento##">##documents,10,Agregar Documento##</a></div></th>
+				<th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=documentsEdit" class="addLink" title="##documents,10,Agregar Documento##">##documents,10,Agregar Documento##</a></div></th>
 			</tr>
 			<tr>
 				<th width="5%">##documents,11,Fecha##</th>
@@ -104,12 +104,12 @@ function checkPassDelete(form){
 |-if $configModule->get('documents','useKeywords')-|				<th width="10%">##documents,16,Palabra clave##</th>|-/if-|
 				<th width="5%">&nbsp;</th>
 			</tr>
-			|-if $documents|@count eq 0-|
+			|-if $documentColl|@count eq 0-|
 			<tr>
 				<td colspan="7"> Aun no hay publicaciones en esta categoría</td>
 			</tr>
 			|-/if-|
-			|-foreach from=$documents item=document name=document-|
+			|-foreach from=$documentColl item=document name=document-|
 
 			<tr id="row_|-$document->getId()-|"valign="top">	
 				<td nowrap="nowrap">|-$document->getDocumentdate()|date_format:"%m-%Y"-|</td>
@@ -129,7 +129,8 @@ function checkPassDelete(form){
 
 				<!-- form de editar -->
 					|-capture name=formEdit-|
-					<form name='documents' action='Main.php?do=documentsEdit' style='display:inline;' method='POST'>
+					<form name='documents' action='Main.php' style='display:inline;' method='GET'>
+						<input type=hidden name='do' value='documentsEdit'>
 						<input type=hidden name='id' value='|-$document->getId()-|'>
 						<input type=hidden name='category' value='|-$document->getCategoryid()-|'>
 

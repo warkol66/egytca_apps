@@ -13,5 +13,9 @@
  * @package    propel.generator.modules.classes
  */
 class ModuleQuery extends BaseModuleQuery {
+	
+	static function findAllWithDocuments() {
+		return self::create()->findByName('documents');
+	}
 
 } // ModuleQuery

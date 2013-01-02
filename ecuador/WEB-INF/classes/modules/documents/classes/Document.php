@@ -5,6 +5,21 @@
  * @package documents 
  */
 class Document extends BaseDocument {
+	
+	/**
+	 * Devuelve un array asociativo con los tipos de documentos establecidos en la configuracón local.
+	 * @example Array ( [Word] => *.doc;*.docx; [Excel] => *.xls;*.xlsx; )
+	 * @return Array $documentTypes, array asociativo con la informacion de los tipos de documentos soportados.
+	 */
+	public static function getDocumentsTypesConfig() {
+		$documentTypesConfig = ConfigModule::get('documents', 'documentTypes');
+		foreach ($documentTypesConfig as $key => $extensions){
+			$explodeExtensions = explode(',', $extensions);
+			foreach ($explodeExtensions as $extension)
+				$documentTypes[$key] .= "*.$extension;";
+		}
+		return $documentTypes;
+	}
 
 	/**
 	 * Indica si un documento esta protegido por password
@@ -23,6 +38,8 @@ class Document extends BaseDocument {
 	 * @return boolean
 	 */
 	public function checkPassword($password) {
+//		echo "|: ".$this->getPassword()."|:".Common::md5($password)." |: ".$password."|";die;
+		return empty($password) || ( $this->getPassword() == Common::md5($password) );
 		if ($this->getPassword() == Common::md5($password) )
 			return true;
 

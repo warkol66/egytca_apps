@@ -13,6 +13,22 @@
  * @package    propel.generator.categories.classes
  */
 class CategoryQuery extends BaseCategoryQuery {
+	
+	/**
+	 * Obtiene todas las categorias para un modulo.
+	 * 
+	 * @return array Informacion sobre todas las categories
+	 */
+	public static function getAllParentsByUserAndModule($user, $module = '') {
+		return self::create()
+			->orderByBranch()
+			->filterByScope(array('min' => 0))
+			->filterByActive(1)
+			->filterByTreeLevel(0)
+			->filterByUser($user)
+			->filterByModule($module)
+			->find();
+  }
   
   /**
    * Devuelve aquellas categorias a las que tiene acceso el usuario más
