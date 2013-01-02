@@ -10,78 +10,78 @@
 		<fieldset title="##news,27,Formulario de edición de datos de un noticia##">
 		<legend>##news,28,Formulario de Noticias##</legend>
 			<p>
-				<label for="newsarticle_title">##news,10,Título##</label>
-				<input name="newsarticle[title]" type="text" id="newsarticle_title" title="title" value="|-$newsarticle->gettitle()|escape-|" size="60" maxlength="255" />
+				<label for="params_title">##news,10,Título##</label>
+				<input name="params[title]" type="text" id="params_title" title="title" value="|-$newsArticle->gettitle()|escape-|" size="60" maxlength="255" />
 			</p>
 |-if $newsArticlesConfig.useTopTitle.value eq "YES"-|<p>
-				<label for="newsarticle_topTitle">##news,29,Volanta##</label>
-				<textarea name="newsarticle[topTitle]" cols="60" rows="2" wrap="VIRTUAL" id="newsarticle_topTitle">|-$newsarticle->gettopTitle()|escape-|</textarea>
+				<label for="params_topTitle">##news,29,Volanta##</label>
+				<textarea name="params[topTitle]" cols="60" rows="2" wrap="VIRTUAL" id="params_topTitle">|-$newsArticle->gettopTitle()|escape-|</textarea>
 			</p>|-/if-|
 |-if $newsArticlesConfig.useSubTitle.value eq "YES"-|<p>
-			<label for="newsarticle_subTitle">##news,30,Bajada##</label>
-				<textarea name="newsarticle[subTitle]" cols="60" rows="3" wrap="VIRTUAL" id="newsarticle_subTitle">|-$newsarticle->getsubTitle()|escape-|</textarea>
+			<label for="params_subTitle">##news,30,Bajada##</label>
+				<textarea name="params[subTitle]" cols="60" rows="3" wrap="VIRTUAL" id="params_subTitle">|-$newsArticle->getsubTitle()|escape-|</textarea>
 			</p>|-/if-|
 |-if $newsArticlesConfig.useSummary.value eq "YES"-|<p>
-				<label for="newsarticle_summary">##news,31,Resumen##</label>
-				<textarea name="newsarticle[summary]" cols="60" rows="4" wrap="VIRTUAL" id="newsarticle_summary">|-$newsarticle->getsummary()|escape-|</textarea>
+				<label for="params_summary">##news,31,Resumen##</label>
+				<textarea name="params[summary]" cols="60" rows="4" wrap="VIRTUAL" id="params_summary">|-$newsArticle->getsummary()|escape-|</textarea>
 			</p>|-/if-|
 			<p>
-				<label for="newsarticle_body">##news,32,Texto de la nota##</label>
-				<textarea name="newsarticle[body]" cols="60" rows="15" wrap="VIRTUAL"  id="newsarticle_body">|-$newsarticle->getbody()|htmlentities-|</textarea>
+				<label for="params_body">##news,32,Texto de la nota##</label>
+				<textarea name="params[body]" cols="60" rows="15" wrap="VIRTUAL"  id="params_body">|-$newsArticle->getbody()|htmlentities-|</textarea>
 		</p>
 |-if $newsArticlesConfig.useSource.value eq "YES"-|<p>
-				<label for="newsarticle_source">##news,33,Fuente##</label>
-				<input name="newsarticle[source]" type="text" id="newsarticle_source" title="source" value="|-$newsarticle->getsource()-|" size="45" maxlength="255" />
+				<label for="params_source">##news,33,Fuente##</label>
+				<input name="params[source]" type="text" id="params_source" title="source" value="|-$newsArticle->getsource()-|" size="45" maxlength="255" />
 			</p>
 			<p>
 				<label for="newsarticle_sourceContact">##news,34,Contatar a fuente##</label>
-				<input name="newsarticle[sourceContact]" type="text" id="newsarticle_sourceContact" title="sourceContact" value="|-$newsarticle->getsourceContact()|escape-|" size="60" maxlength="150" />
+				<input name="params[sourceContact]" type="text" id="params_sourceContact" title="sourceContact" value="|-$newsArticle->getsourceContact()|escape-|" size="60" maxlength="150" />
 			</p>|-/if-|
 			<p>
 				<label for="newsarticle_creationDate">##news,35,Fecha de Creación##</label>
-				<input name="newsarticle[creationDate]" type="text" id="newsarticle_creationDate" title="creationDate" value="|-$newsarticle->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<input name="params[creationDate]" type="text" id="params_creationDate" title="creationDate" value="|-$newsArticle->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('newsarticle[creationDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<p>
 				<label for="newsarticle_archiveDate">##news,36,Fecha de Archivo##</label>
-				<input name="newsarticle[archiveDate]" type="text" id="newsarticle_archiveDate" title="archiveDate" value="|-$newsarticle->getarchiveDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<input name="params[archiveDate]" type="text" id="params_archiveDate" title="archiveDate" value="|-$newsArticle->getarchiveDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('newsarticle[archiveDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
-			|-assign var=newsid value=$newsarticle->getId()-|
+			|-assign var=newsid value=$newsArticle->getId()-|
 			|-if not empty($newsid)-|
 			<p>
 				<label for="newsarticle_status">##news,13,Estado##</label>
-				<select name="newsarticle[status]">
+				<select name="params[status]">
 					|-foreach from=$newsArticleStatus key=key item=name-|
-						<option value="|-$key-|" |-if ($newsarticle->getStatus()) eq $key-|selected="selected"|-/if-|>|-$name-|</option>
+						<option value="|-$key-|" |-if ($newsArticle->getStatus()) eq $key-|selected="selected"|-/if-|>|-$name-|</option>
 					|-/foreach-|
 				</select>
 			</p>
 			|-/if-|
 |-if $newsArticlesConfig.useRegions.value eq "YES"-|<p>
 				<label for="newsarticle_regionId">##news,15,Provincia##</label>
-				<select id="newsarticle_regionId" name="newsarticle[regionId]" title="regionId">
+				<select id="params_regionId" name="params[regionId]" title="regionId">
 					<option value="">##news,37,Seleccione una Provincia##</option>
 									|-foreach from=$regionIdValues item=object-|
-									<option value="|-$object->getid()-|" |-if $newsarticle->getregionId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>
+									<option value="|-$object->getid()-|" |-if $newsArticle->getregionId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>
 									|-/foreach-|
 								</select>
 		</p>|-/if-|
 |-if $newsArticlesConfig.useCategories.value eq "YES"-|<p>
 				<label for="newsarticle_categoryId">##news,14,Categoría##</label>
-				<select id="newsarticle_categoryId" name="newsarticle[categoryId]" title="categoryId">
+				<select id="params_categoryId" name="params[categoryId]" title="categoryId">
 					<option value="">##news,18,Seleccione una categoría##</option>
 									|-foreach from=$categoryIdValues item=object-|
-									<option value="|-$object->getid()-|" |-if $newsarticle->getcategoryId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>
+									<option value="|-$object->getid()-|" |-if $newsArticle->getcategoryId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>
 									|-/foreach-|
 								</select>
 		</p>|-/if-|
 			<p>
 				<label for="newsarticle_userId">##news,38,Usuario##</label>
-				<select id="newsarticle_userId" name="newsarticle[userId]" title="userId">
+				<select id="params_userId" name="params[userId]" title="userId">
 					<option value="">##news,39,Seleccione un Usuario##</option>
 									|-foreach from=$userIdValues item=object-|
-									<option value="|-$object->getid()-|" |-if $newsarticle->getuserId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getusername()-|</option>
+									<option value="|-$object->getid()-|" |-if $newsArticle->getuserId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getusername()-|</option>
 									|-/foreach-|
 								</select>
 		</p>
@@ -90,8 +90,8 @@
 				<label>Vistas</label> |-$newsarticle->getViews()-| veces
 			</p>|-/if-|
 				|-/if-|
-				|-if $action eq "edit"-|
-				<input type="hidden" name="newsarticle[id]" id="newsarticle_id" value="|-$newsarticle->getid()-|" />
+				|-if !$newsArticle->isNew()-|
+				<input type="hidden" name="id" id="id" value="|-$newsArticle->getid()-|" />
 				|-/if-|
 				
 			<p>	
@@ -117,10 +117,10 @@
 		|-include file='NewsMediasAddInclude.tpl' article=$newsarticle-|
 	|-/if-|
 |-/if-|
-|-if $newsArticlesConfig.useCommets.value eq "YES" && $action eq 'edit'-|	<div>
+|-if $newsArticlesConfig.useCommets.value eq "YES" && !$newsArticle->isNew()-|	<div>
 		<fieldset>
 			<form action="Main.php" method="get">
-				<input type="hidden" name="articleId" value="|-$newsarticle->getId()-|" id="articleId" />
+				<input type="hidden" name="articleId" value="|-$newsArticle->getId()-|" id="articleId" />
 				<input type="hidden" name="do" value="newsCommentsList" />
 				<input type="submit" value="Ver comentarios asociados a este artículo" />
 			</form>

@@ -3,9 +3,24 @@
 require_once("BaseAction.php");
 require_once("NewsArticlePeer.php");
 
-class NewsArticlesDoEditAction extends BaseAction {
+class NewsArticlesDoEditAction extends BaseDoEditAction {
+	
+	function __construct() {
+		parent::__construct('NewsArticle');
+		
+	}
+	
+	protected function postUpdate(){
+		parent::postUpdate();
+		
+		$module = "News";
+		$this->smarty->assign("module",$module);
+		
+		//ver redireccionam con filtros
+		
+	}
 
-
+/*
 	// ----- Constructor ---------------------------------------------------- //
 
 	function NewsArticlesDoEditAction() {
@@ -28,7 +43,7 @@ class NewsArticlesDoEditAction extends BaseAction {
 	* @param HttpRequestBase	The HTTP response we are creating
 	* @public
 	* @returns ActionForward
-	*/
+	*
 	function execute($mapping, $form, &$request, &$response) {
 
     BaseAction::execute($mapping, $form, $request, $response);
@@ -88,6 +103,6 @@ class NewsArticlesDoEditAction extends BaseAction {
 		//redireccionamiento con opciones correctas
 		return $this->addFiltersToForwards($_POST['filters'],$mapping,'success');
 
-	}
+	}*/
 
 }
