@@ -1,60 +1,44 @@
+//migrada
 function newsCommentsShow(form,id) {
 	
-	var divId = 'comments_holder_' + id;
-	$(divId).innerHTML = '';
-	
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: divId},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				}
-			);
-			
-	$('mgsBoxCommentsShow'+id).innerHTML = '<span class="inProgress">... buscando comentarios ...</span>';
+	var divId = '#comments_holder_' + id;
+	$(divId).slideToggle('slow',function(){
+		$('#commentsShow').hide();
+		$('#commentsHide').show();
+	});
 	
 }
-
+//migrada
 function newsCommentsHide(divId) {
-	
-	$(divId).innerHTML = '';
-	
-}
 
+	$('#' + divId).slideToggle('slow',function(){
+		$('#commentsHide').hide();
+		$('#commentsShow').show();
+	});
+
+}
+//migrada
 function showCommentAddForm(idDiv) {
-	
-	var toShow = $(idDiv);
-	if (toShow != null)
-	 	toShow.show();
-	
-}
 
+	$('#' + idDiv).show();
+}
+//migrada
 function hideCommentAddForm(id) {
 	
-	var toHide = $( "div_comments_adder_" + id);
-	if (toHide != null)
-	 	toHide.hide();
-	
-	$("formCommentAdder" + id).reset();
+	//$("#div_comments_adder_" + id).hide();
+	$("#formCommentAdder" + id)[0].reset();
 	
 }
-
+//migrada
 function newsCommmentAdd(form,id) {
-	
-	var fields = Form.serialize(form);
-	var divId = 'mgsBoxCommentsShow'+id;
-	var myAjax = new Ajax.Updater(
-				{success: divId},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true,
-					insertion: Insertion.top
-				}
-			);
-	$('msgBoxAdder'+id).innerHTML = '<span class="inProgress">... agregando comentario ...</span>';
+	$.ajax({
+		url: url,
+		data: $(form).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#mgsBoxCommentsShow' + id).html(data);
+		}	
+	});
+	$('msgBoxAdder'+id).html('<span class="inProgress">... agregando comentario ...</span>');
+
 }

@@ -1,241 +1,193 @@
+//migrada
 function submitFormX(formId) {
 
-	var form = $(formId);
-	var fields = Form.serialize(form);
-
-	var myAjax = new Ajax.Updater(
-				{success: 'divMsgBox'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				});
-
+	$.ajax({
+		url: url,
+		data: $('#' + formId).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#divMsgBox').html(data);
+		}
+	});
 
 }
-
+//migrada
 function submitNewsChangeFormX(formId) {
-	
-	submitFormX(formId);
-	$('divMsgBox').innerHTML = '<span class="inProgress">... Actualizando Estado de Noticia ...</span>';
-	
-}
 
+	submitFormX(formId);
+	$('#divMsgBox').html('<span class="inProgress">... Actualizando Estado de Noticia ...</span>');
+
+}
+//migrada
 function submitCommentsChangeFormX(formId) {
-	
-	submitFormX(formId);
-	$('divMsgBox').innerHTML = '<span class="inProgress">... Actualizando Estado de Comentario...</span>';
-	
-}
 
+	submitFormX(formId);
+	$('#divMsgBox').html('<span class="inProgress">... Actualizando Estado de Comentario...</span>');
+
+}
+//migrada
 function submitForm(formId) {
-	var form = $(formId);
+	var form = $('#' + formId);
 	if (form != null)
 		form.submit();
 }
-
+//migrada
 function buildMultipleItemsForm(formId) {
 	
-	var form = $(formId);
-	
+	var form = $('#' + formId);
 	//elimino elementos que puedan existir en el form anteriormente
-	toDelete = form.childElements();
-	
-	var i;
-	for (i=0;i<toDelete.length; i++) {
-		if (toDelete[i].name == 'selected[]')
-			toDelete[i].remove();
-	}
+	$('#' + formId + " input[name='selected[]']").remove();
 	
 	//armo el formulario con los elementos seleccionados
-	var checkboxes = document.getElementsByName('selected[]');
-	
-	for (i=0;i<checkboxes.length; i++) {
-		
-		if (checkboxes[i].checked == true) {
-			
-			var hidden = document.createElement('input');
-			hidden.setAttribute('type','hidden');
-			hidden.setAttribute('name',checkboxes[i].name);
-			hidden.setAttribute('value',checkboxes[i].value);
-			form.appendChild(hidden);
+	$('input[name="selected[]"]').each(function(){
+		if($(this).attr('checked')){
+			var hidden = $('<input>').attr('type','hidden').attr('name',$(this).attr('name')).attr('value',$(this).attr('value'));
+			$('#' + formId).append(hidden);
+			console.log(hidden);
 		}
-	
-	}
-	
-	return true;
-	
-}
+	});
 
+	return true;
+
+}
+//migrada
 function submitMultipleArticlesChangeFormX(formId) {
 
 	buildMultipleItemsForm(formId);
 	submitForm(formId);
-	$('divMsgBox').innerHTML = '<span class="inProgress">... Actualizando Estado de Articulos...</span>';
-	
-	return true;
-	
-}
+	$('divMsgBox').html('<span class="inProgress">... Actualizando Estado de Articulos...</span>');
 
+	return true;
+
+}
+//migrada
 function submitMultipleCommentsChangeFormX(formId) {
 
 	buildMultipleItemsForm(formId);
-	submitForm(formId);
-	$('divMsgBox').innerHTML = '<span class="inProgress">... Actualizando Estado de Comentarios...</span>';
-	
+	$('#' + formId).submit();
+	$('divMsgBox').html('<span class="inProgress">... Actualizando Estado de Comentarios...</span>');
 	
 }
-
+//migrada
 function selectAllCheckboxes() {
-	
-	var checkboxes = document.getElementsByName('selected[]');
-	var allbox = document.getElementById('allBoxes');
-	for (i=0;i<checkboxes.length;i++) {
-		checkboxes[i].checked = allbox.checked;
-	}
+
+	var checkboxes = $('[name="selected[]"]');
+	var allbox = $('#allBoxes').is(':checked');
+	checkboxes.attr('checked',allbox);
 	
 }
-
+//migrada - probar
 function submitNewsArticleMediaDeleteX(id,form) {
 	
 	var result = confirm('Seguro que desea eliminar el newsmedia?');
 	if (result == false)
 		return false;
-		
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'msgBoxUploader'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				}
-			);		
 	
-	$('newsMediaItemMsgBox'+id).innerHTML = '<span class="inProgress>... eliminando media ...</span>';
+	$.ajax({
+		url: url,
+		data: $('#' + form).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#msgBoxUploader').html(data);
+		}
+	});
+	$('#newsMediaItemMsgBox'+id).html('<span class="inProgress>... eliminando media ...</span>');
 	
 }
-
+//migrada - probar
 function submitnewsMediasVideoDoReplaceThumbnailX(id,form) {
 	
 	var result = confirm('Seguro que desea regenerar el thumbnail?');
 	if (result == false)
 		return false;
 		
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'msgBoxUploader'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				}
-			);		
-	
-	$('newsMediaItemMsgBox'+id).innerHTML = '<span class="inProgress>... generando thumbnail ...</span>';
+	$.ajax({
+		url: url,
+		data: $('#' + form).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#msgBoxUploader').html(data);
+		}
+	});
+	$('newsMediaItemMsgBox'+id).html('<span class="inProgress>... generando thumbnail ...</span>');
 	
 }
-
+//migrada
 function submitPreview(form) {
-	form.setAttribute('target','_blank');
-	form.submit();
+	$(form).attr('target','_blank').submit();
 }
-
+//migrada
 function submitPreviewOnHome(form) {
-	$('doEdit').setAttribute('value','newsArticlesPreview');
-	mode = document.createElement('input');
-	mode.setAttribute('type','hidden');
-	mode.setAttribute('name','mode');
-	mode.setAttribute('value','home');
-	form.appendChild(mode);
+	$('#doEdit').attr('value','newsArticlesPreview');
+	var mode = $('<input>').attr('type','hidden').attr('name','mode').attr('value','home');
+	$(form).append(mode);
 	submitPreview(form);
-}
 
+}
+//migrada
 function submitPreviewDetailed(form) {
-	$('doEdit').setAttribute('value','newsArticlesPreview');
-	mode = document.createElement('input');
-	mode.setAttribute('type','hidden');
-	mode.setAttribute('name','mode');
-	mode.setAttribute('value','detailed');
-	form.appendChild(mode);
+	$('#doEdit').attr('value','newsArticlesPreview');
+	mode = $('<input>').attr('type','hidden').attr('name','mode').attr('value','detailed');
+	$(form).append(mode);
 	submitPreview(form);
-}
 
+}
+//migrada
 function submitArticleCreation(form) {
-	$('doEdit').setAttribute('value','newsArticlesDoEdit');
-	mode = document.createElement('input');
-	form.setAttribute('target','');
-	form.submit();
-}
 
+	$('#doEdit').attr('value','newsArticlesDoEdit');
+	$('<input>');
+	$(form).attr('target','').submit();
+
+}
+//migrada
 function sendNewsArticleByEmailX(id,form) {
-		
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'sendArticleMsgBox'+id},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				}
-			);		
-	
-	$('sendArticleMsgBox'+id).innerHTML = '<span class="inProgress>... enviando noticia a destinatario ...</span>';
+
+	$.ajax({
+		url: url,
+		data: $(form).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#sendArticleMsgBox' + id).html(data);
+		}	
+	});
+	$('#sendEntryMsgBox'+id).html('<span class="inProgress>... enviando noticia a destinatario ...</span>');
 	
 }
-
+//terminar
 function showSendEmailFormX(idArticle,idDiv) {
-	if ($(idDiv))
-		$(idDiv).show();
 
-		var fields = "&id="+idArticle+"&do=newsArticlesSendForm";
-		var myAjax = new Ajax.Updater(
-					{success: idDiv},
-					url,
-					{
-						method: 'post',
-						postBody: fields,
-						evalScripts: true
-					}
-				);
-				
-	var toHide = $$('div.sendToEmailFormClass');
+	$('#' + idDiv).show();
+
+	var fields = "&id="+idArticle+"&do=newsArticlesSendForm";
+	
+	$.ajax({
+		url: url,
+		data: fields,
+		type: 'post',
+		success: function(data){
+			$('#' + idDiv).html(data);
+		}	
+	});
+			
+	/*var toHide = $$('div.sendToEmailFormClass');
 	for (var i=0; i < toHide.length; i++) {
 		if (toHide[i].id != idDiv)
 			toHide[i].innerHTML = '';
-	};
+	};*/
 	
 }
-
+//migrada
 function hideSendEmailForm(id) {
-	if ($(id))
-		$(id).hide();
-		
-	$(id).innerHTML = '';
+	$('#' + id).hide();
+	$('#' + id).html('');
 }
-
-
+//migrada
 function refreshCaptchaX(id) {
-	var idDiv = 'captchaArticle' + id;
-
-	var url = 'Main.php?do=newsCaptchaRefresh';
-		
-	var myAjax = new Ajax.Updater(
-				{success: idDiv},
-				url,
-				{
-					method: 'post',
-					postBody: '&id='+id,
-					evalScripts: true
-				}
-			);
-	
-	$('sendArticleMsgBox'+id).innerHTML = 'recargando captcha...';
-	$(idDiv).innerHTML = "";
+	var divId = '#captchaArticle' + id;
+	var time = new Date().getTime();
+	$('sendArticleMsgBox'+id).html('recargando captcha...');
+	$(divId).html('');
+	$(divId).html("<img src='Main.php?do=newsCaptchaRefresh&t=" + time + "'/>");
 	return false;
-	
 }
