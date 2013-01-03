@@ -1,9 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("NewsArticlePeer.php");
-require_once("NewsMediaPeer.php");
-
 class NewsArticlesEditAction extends BaseEditAction {
 	
 	function __construct() {
@@ -51,8 +47,6 @@ class NewsArticlesEditAction extends BaseEditAction {
 			$this->smarty->assign("sounds",$this->entity->getSounds());
 			$this->smarty->assign("videos",$this->entity->getVideos());
 		}
-		
-		//ver redireccionam con filtros
 		
 	}
 

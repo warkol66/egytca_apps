@@ -1,8 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("NewsArticlePeer.php");
-
 class NewsArticlesDoEditAction extends BaseDoEditAction {
 	
 	function __construct() {
@@ -16,20 +13,9 @@ class NewsArticlesDoEditAction extends BaseDoEditAction {
 		$module = "News";
 		$this->smarty->assign("module",$module);
 		
-		//ver redireccionam con filtros
-		
 	}
 
 /*
-	// ----- Constructor ---------------------------------------------------- //
-
-	function NewsArticlesDoEditAction() {
-		;
-	}
-
-
-	// ----- Public Methods ------------------------------------------------- //
-
 	/**
 	* Process the specified HTTP request, and create the corresponding HTTP
 	* response (or forward to another web component that will create it).
@@ -44,22 +30,6 @@ class NewsArticlesDoEditAction extends BaseDoEditAction {
 	* @public
 	* @returns ActionForward
 	*
-	function execute($mapping, $form, &$request, &$response) {
-
-    BaseAction::execute($mapping, $form, $request, $response);
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
-
-		$module = "News";
-		$smarty->assign("module",$module);
-				
 
 		if ( $_POST["action"] == "edit" ) {
 			//estoy editando un newsarticle existente
@@ -99,9 +69,6 @@ class NewsArticlesDoEditAction extends BaseDoEditAction {
 				return $this->addFiltersToForwards($_POST['filters'],$mapping,'failure');
 			}
       }
-	  
-		//redireccionamiento con opciones correctas
-		return $this->addFiltersToForwards($_POST['filters'],$mapping,'success');
 
 	}*/
 

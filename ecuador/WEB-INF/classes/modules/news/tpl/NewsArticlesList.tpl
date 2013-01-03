@@ -1,3 +1,21 @@
+<script src="Main.php?do=js&name=js&module=blog&code=|-$currentLanguageCode-|" type="text/javascript"></script>
+<script>
+    $(function() {
+		$.datepicker.setDefaults($.datepicker.regional['es']);
+        $( ".datepickerFrom" ).datepicker({
+			dateFormat:"dd-mm-yy",
+			onClose: function(selectedDate) {
+                $(".datepickerTo").datepicker("option", "minDate", selectedDate);
+            }
+		});
+		$(".datepickerTo").datepicker({
+			dateFormat:"dd-mm-yy",
+			onClose: function(selectedDate) {
+                $(".datepickerFrom").datepicker("option", "maxDate", selectedDate);
+            }
+		});
+    });
+</script>
 <h2>##news,1,Noticias##</h2>
 <h1>##news,2,NoticiasLista de Noticias##</h1>
 <p>##news,3,A continuación se muestra el listado de noticias disponibles en el sistema, ud. podrá agregar nuevas noticias o eliminar las existente, así como publicar o archivar noticia.##</p>
@@ -7,13 +25,13 @@
 		<legend>##news,4,Opciones de Búsqueda##</legend>
 		<p>
 			<label for="fromDate">##news,5,Fecha Desde##</label>
-			<input name="filters[fromDate]" type="text" id="fromDate" title="fromDate" value="|-$filters.fromDate|date_format:"%d-%m-%Y"-|" size="12" /> 
-			<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[fromDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+			<input name="filters[dateRange][creationdate][min]" type="text" id="filters_dateRange_min" class="datepickerFrom" title="fromDate" value="|-$filters.dateRange.creationdate.min|date_format:"%d-%m-%Y"-|" size="12" /> 
+			<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 		</p>
 		<p>
 			<label for="toDate">##news,6,Fecha Hasta##</label>
-			<input name="filters[toDate]" type="text" id="toDate" title="toDate" value="|-$filters.toDate|date_format:"%d-%m-%Y"-|" size="12" /> 
-			<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[toDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+			<input name="filters[dateRange][creationdate][max]" type="text" id="filters_dateRange_max" class="datepickerTo" title="toDate" value="|-$filters.dateRange.creationdate.max|date_format:"%d-%m-%Y"-|" size="12" /> 
+			<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 		</p>
 |-if $newsArticlesConfig.useCategories.value eq "YES"-|		<p>
 			<label for="categoryId">##news,14,Categoría##</label>
@@ -61,7 +79,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		|-foreach from=$newsarticles item=newsarticle name=for_newsarticles-|
+		|-foreach from=$newsArticleColl item=newsarticle name=for_newsarticles-|
 			<tr>
 				<td><input type="checkbox" name="selected[]" value="|-$newsarticle->getId()-|"></td>
 				<td>|-$newsarticle->gettitle()-|</td>
@@ -134,7 +152,7 @@
 				</td>
 			</tr>
 		|-/if-|
-		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
+		|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 			<tr> 
 				<td colspan="|-$colSpan-|" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 			</tr>							

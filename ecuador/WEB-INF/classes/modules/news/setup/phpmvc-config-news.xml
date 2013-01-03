@@ -1,32 +1,6 @@
 <!-- Module News -->
 	<action-mappings>
 
-		<action  path = "newsArticlesEdit"
-						 type = "NewsArticlesEditAction"
-						 name = "newsArticlesEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="NewsArticlesEdit.tpl" />
-		</action>
-
-		<action  path = "newsArticlesDoEdit"
-						 type = "NewsArticlesDoEditAction"
-						 name = "newsArticlesDoEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=newsArticlesList&amp;message=ok" redirect="true" />
-			<forward  name="failure" path="NewsArticlesEdit.tpl" />
-		</action>
-
-		<action  path = "newsArticlesList"
-						 type = "NewsArticlesListAction"
-						 name = "newsArticlesList"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="NewsArticlesList.tpl" />
-			<forward  name="xml" path="NewsArticlesListXml.tpl" />
-		</action>
-
 		<action  path = "newsArticlesSendToEmailX"
 						 type = "NewsArticlesSendToEmailXAction"
 						 name = "newsArticlesSendToEmailX"
@@ -94,14 +68,6 @@
 			<forward  name="success" path="NewsMediasSortX.tpl" />
 		</action>
 
-		<action  path = "newsArticlesView"
-						 type = "NewsArticlesViewAction"
-						 name = "newsArticlesView"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="NewsArticlesView.tpl" />
-		</action>
-
 		<action  path = "newsArticlesViewX"
 						 type = "NewsArticlesViewXAction"
 						 name = "newsArticlesViewX"
@@ -157,39 +123,6 @@
 				 validate = "true">
 			<forward  name="success" path="NewsCommentsDoAddX.tpl" />
 			<forward  name="failure" path="NewsCommentsDoAddXFailure.tpl" />
-		</action>
-
-		<action  path = "newsCommentsEdit"
-						 type = "NewsCommentsEditAction"
-						 name = "newsCommentsEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="NewsCommentsEdit.tpl" />
-		</action>
-
-		<action  path = "newsCommentsDoEdit"
-						 type = "NewsCommentsDoEditAction"
-						 name = "newsCommentsDoEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=newsCommentsList&amp;message=ok" redirect="true" />
-			<forward  name="failure" path="NewsCommentsEdit.tpl" />
-		</action>
-
-		<action  path = "newsCommentsList"
-						 type = "NewsCommentsListAction"
-						 name = "newsCommentsList"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="NewsCommentsList.tpl" />
-		</action>
-
-		<action  path = "newsCommentsDoDelete"
-						 type = "NewsCommentsDoDeleteAction"
-						 name = "newsCommentsDoDelete"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=newsCommentsList&amp;message=deleted_ok" redirect="true" />
 		</action>
 
 		<action  path = "newsCommentsChangeStatusX"
@@ -264,14 +197,6 @@
 						 name = "newsMediasGetSound"
 						scope = "request"
 				 validate = "true">
-		</action>
-
-		<action  path = "newsMediasArticleList"
-						 type = "NewsMediasArticleListAction"
-						 name = "newsMediasArticleList"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="NewsMediasListInclude.tpl" />
 		</action>
 
 		<action  path = "newsMediasUpload"

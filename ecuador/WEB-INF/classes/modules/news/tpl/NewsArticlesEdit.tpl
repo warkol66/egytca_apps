@@ -1,6 +1,20 @@
+<script src="Main.php?do=js&name=js&module=news&code=|-$currentLanguageCode-|" type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
+        $( ".creation, .file" ).datepicker({
+			dateFormat:"dd-mm-yy"
+		});
+
+	});//fin docready
+</script>
 |-include file='NewsArticlesEditTinyMceInclude.tpl' elements="newsarticle_body" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"-|
 <h2>##news,1,Noticias##</h2>
-<h1>|-if $action eq "edit"-|##news,23,Editar Noticia##|-else-|##news,24,Crear Noticia##|-/if-| </h1>
+|-if !is_object($newsArticle)-|
+<div>Noticia no encontrada, puede que haya sido eliminada o esté incorrectamente identificada.<br />
+Puede regresar a la página principal de noticias haciendo click <a href="Main.php?do=newsArticlesList">aquí</a></div>
+|-else-|
+<h1>|-if !$newsArticle->isNew()-|##news,23,Editar Noticia##|-else-|##news,24,Crear Noticia##|-/if-| </h1>
 |-if $message eq "error"-|
 	<div class="failureMessage">##news,25,Ha ocurrido un error al intentar guardar la noticia##</div>
 |-/if-|
@@ -39,13 +53,13 @@
 			</p>|-/if-|
 			<p>
 				<label for="newsarticle_creationDate">##news,35,Fecha de Creación##</label>
-				<input name="params[creationDate]" type="text" id="params_creationDate" title="creationDate" value="|-$newsArticle->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
-				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('newsarticle[creationDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input name="params[creationDate]" type="date" id="params_creationDate" class="creation" title="creationDate" value="|-$newsArticle->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 			</p>
 			<p>
 				<label for="newsarticle_archiveDate">##news,36,Fecha de Archivo##</label>
-				<input name="params[archiveDate]" type="text" id="params_archiveDate" title="archiveDate" value="|-$newsArticle->getarchiveDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
-				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('newsarticle[archiveDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input name="params[archiveDate]" type="date" id="params_archiveDate" class="file" title="archiveDate" value="|-$newsArticle->getarchiveDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 			</p>
 			|-assign var=newsid value=$newsArticle->getId()-|
 			|-if not empty($newsid)-|
@@ -126,4 +140,5 @@
 			</form>
 		</fieldset>
 	</div>
+|-/if-|
 |-/if-|

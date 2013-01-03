@@ -1,8 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("NewsArticlePeer.php");
-
 class NewsArticlesPreviewAction extends BaseAction {
 
 
@@ -62,9 +59,7 @@ class NewsArticlesPreviewAction extends BaseAction {
 		if ($_POST['mode'] == 'detailed') {
 
 			$this->template->template = "TemplateNewsPublic.tpl";
-		
 			$smarty->assign('newsarticle',$preview);
-
 			return $mapping->findForwardConfig('success-detailed');
 
 		}
