@@ -13,7 +13,7 @@
 		<header>Status</header>
 	</tableHeaders>
 	<tableValues>		
-	|-foreach from=$newsarticles item=newsarticle name=for_newsarticles-|
+	|-foreach from=$newsArticleColl item=newsarticle name=for_newsarticles-|
 		<row>
 			<id>|-$newsarticle->getId()-|</id>
 			<title>|-$newsarticle->gettitle()-|</title>

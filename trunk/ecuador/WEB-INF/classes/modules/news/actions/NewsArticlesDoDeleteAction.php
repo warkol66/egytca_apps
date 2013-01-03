@@ -16,8 +16,6 @@ class NewsArticlesDoDeleteAction extends BaseDoDeleteAction {
 		$module = "News";
 		$this->smarty->assign("module",$module);
 		
-		//ver redireccionam con filtros
-		
 	}
 
 }

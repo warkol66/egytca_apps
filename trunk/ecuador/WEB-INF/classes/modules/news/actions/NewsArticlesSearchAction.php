@@ -58,7 +58,7 @@ class NewsArticlesSearchAction extends BaseAction {
 			$searchStringParams = "&searchString=".$_GET['searchString'];
 			
 			if (!empty($_GET['filters']['categoryId'])) {
-				$category = CategoryPeer::get($_GET['filters']['categoryId']);
+				$category = CategoryQuery::create()->findOneById($_GET['filters']['categoryId']);
 				$newsArticlePeer->setCategory($category);
 
 				$searchStringParams = $searchStringParams."&filters%5BcategoryId%5D=".$_GET['filters']['categoryId'];
@@ -82,7 +82,7 @@ class NewsArticlesSearchAction extends BaseAction {
 			}
 			
 			if (!empty($_GET['filters']['regionId'])) {
-				$region = RegionPeer::get($_GET['filters']['regionId']);
+				$region = RegionQuery::create()->findOneById($_GET['filters']['regionId']);
 				$newsArticlePeer->setRegion($region);
 
 				$searchStringParams = $searchStringParams."&filters%5BregionId%5D=".$_GET['filters']['regionId'];
@@ -98,13 +98,11 @@ class NewsArticlesSearchAction extends BaseAction {
 
 			$smarty->assign('filters',$_GET['filters']);
 			
-			$smarty->assign('categorySelected',$category);						
-			$categories = CategoryPeer::getAllPublicByModule('news');
-			$smarty->assign("categories",$categories);
+			$smarty->assign('categorySelected',$category);
+			$smarty->assign("categories",CategoryQuery::create()->filterByIspublicAndByModule(true,'news')->find());
 			
 			$smarty->assign('regionSelected',$region);
-			$regions = RegionPeer::getAll();
-			$smarty->assign("regions",$regions);
+			$smarty->assign("regions",RegionQuery::create()->find());
 			
 			$smarty->assign('archive',$_GET['filters']['archive']);
 			
@@ -113,7 +111,7 @@ class NewsArticlesSearchAction extends BaseAction {
 			$smarty->assign("pager",$pager);
 			$url = "Main.php?do=newsArticlesSearch".$searchStringParams;
 		
-      $perPage = 	NewsArticlePeer::getRowsPerPage();
+      $perPage = NewsArticlePeer::getRowsPerPage();
       if ($_GET['page'] > 1 )
 	      $pageCount = $_GET['page'] - 1;
 			else

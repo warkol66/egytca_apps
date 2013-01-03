@@ -1,84 +1,32 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("NewsArticlePeer.php");
-
-class NewsArticlesViewAction extends BaseAction {
-
-
-	// ----- Constructor ---------------------------------------------------- //
-
-	function NewsArticlesViewAction() {
-		;
-	}
-
-
-	// ----- Public Methods ------------------------------------------------- //
-
-	/**
-	* Process the specified HTTP request, and create the corresponding HTTP
-	* response (or forward to another web component that will create it).
-	* Return an <code>ActionForward</code> instance describing where and how
-	* control should be forwarded, or <code>NULL</code> if the response has
-	* already been completed.
-	*
-	* @param ActionConfig		The ActionConfig (mapping) used to select this instance
-	* @param ActionForm			The optional ActionForm bean for this request (if any)
-	* @param HttpRequestBase	The HTTP request we are processing
-	* @param HttpRequestBase	The HTTP response we are creating
-	* @public
-	* @returns ActionForward
-	*/
-	function execute($mapping, $form, &$request, &$response) {
-
-    BaseAction::execute($mapping, $form, $request, $response);
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
-
-		$module = "News";
-		$smarty->assign("module",$module);
-		$moduleConfig = Common::getModuleConfiguration($module);
-		$smarty->assign("moduleConfig",$moduleConfig);
-		$newsArticlesConfig = $moduleConfig["newsAticles"];
-		$smarty->assign("newsArticlesConfig",$newsArticlesConfig);
-
-  	/**
-   	* Use a different template
-   	*/
-		$this->template->template = "TemplateNewsPublic.tpl";
-
- 		if ( !empty($_GET["id"]) ) {
-
-			$newsarticle = NewsArticlePeer::get($_GET["id"]);
-			
-			$newsarticle->increaseViews();
-			
-			$smarty->assign('newsarticle',$newsarticle);
-
-			if ($newsArticlesConfig['useComments']['value'] == "YES") {
-				require_once("NewsCommentPeer.php");
-
-				//si se la configuracion pide que se muestren los comentarios de forma directa
-				if ($newsArticlesConfig['displayNewsComments']['value'] == 'YES') {
+class NewsArticlesViewAction extends BaseEditAction {
 	
-					$newsCommentPeer = new NewsCommentPeer();
-					$comments = $newsCommentPeer->getAllApprovedByArticle($_GET["id"]);
-					$smarty->assign("comments",$comments);
-				}
-			}
-		}
-		else {
-			return $mapping->findForwardConfig('failure');			
+	function __construct() {
+		parent::__construct('NewsArticle');
+	}
+	
+	protected function postEdit() {
+		parent::postEdit();
+		
+		$module = "News";
+		$this->smarty->assign("module",$module);
+		$moduleConfig = Common::getModuleConfiguration($module);
+		$this->smarty->assign("moduleConfig",$moduleConfig);
+		$newsArticlesConfig = $moduleConfig["newsAticles"];
+		$this->smarty->assign("newsArticlesConfig",$newsArticlesConfig);
+		
+		if(is_object($this->entity)){
+			
+			$this->entity->increaseViews();
+			
+			//si se la configuracion pide que se muestren los comentarios de forma directa
+			if ($newsArticlesConfig['useComments']['value'] == "YES" && $newsArticlesConfig['displayNewsComments']['value'] == 'YES')
+				$this->smarty->assign("comments",NewsCommentQuery::create()->filterByApprovedAndByArticle(1, $_GET["id"])->find());
+
 		}
 		
-		return $mapping->findForwardConfig('success');
+		$this->template->template = "TemplateNewsPublic.tpl";
 	}
 
 }
