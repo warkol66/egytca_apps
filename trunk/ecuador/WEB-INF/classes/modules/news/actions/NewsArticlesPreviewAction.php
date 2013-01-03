@@ -41,8 +41,11 @@ class NewsArticlesPreviewAction extends BaseAction {
 
 		$module = "News";
 		$smarty->assign("module",$module);
+		
+		if (!empty($_POST['id']))
+			$_POST['params']['id'] = $_POST['id'];
 
-		$preview = NewsArticlePeer::createPreview($_POST['newsarticle']);
+		$preview = NewsArticle::createPreview($_POST['params']);
 		
 		//caso de preview en Home
 		if ($_POST['mode'] == 'home') {

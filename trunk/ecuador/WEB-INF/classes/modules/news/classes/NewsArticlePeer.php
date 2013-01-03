@@ -17,11 +17,6 @@ class NewsArticlePeer extends BaseNewsArticlePeer {
 	private $searchString;
 	private $moduleConfig;
 	private $newsInHome;
-	
-	const NOTPUBLISHED = 1;
-	const PUBLISHED = 2;
-	const ARCHIVED = 3;
-
 
 	/**
 	 * Especifica una cadena de busqueda. Cada palabra de la cadena sera extraida y buscada en
@@ -32,40 +27,6 @@ class NewsArticlePeer extends BaseNewsArticlePeer {
 		$this->searchString = $string;
 	}
 
-	/**
-	 * Especifica una fecha desde para una busqueda personalizada.
-	 *
-	 * @param $fromDate string YYYY-MM-DD
-	 */
-	public function setFromDate($fromDate) {
-		
-		$this->fromDate = $fromDate;
-		
-	}
-
-	/**
-	 * Especifica una fecha hasta para una busqueda personalizada.
-	 *
-	 * @param $toDate string YYYY-MM-DD
-	 */
-	public function setToDate($toDate) {
-		
-		$this->toDate = $toDate;
-		
-	}
-
-  /**
-   * Devuelve los estados posibles de la noticias y sus codigos 
-   * para la generacion de selects
-   */
-  public function getStatus() {
-	
-	$status[NewsArticlePeer::NOTPUBLISHED] = 'No Publicada';
-	$status[NewsArticlePeer::PUBLISHED] = 'Publicada';
-	$status[NewsArticlePeer::ARCHIVED] = 'Archivada';
-	
-	return $status;
-  }
 
   /**
    * Aplica ordenamiento por fecha a las consultas
@@ -125,12 +86,6 @@ class NewsArticlePeer extends BaseNewsArticlePeer {
   public function setRegion($region) {
 
   $this->region = $region;
-
-  }
-
-  public function getModuleConfig() {
-
-	  $this->moduleConfig = Common::getModuleConfiguration('News');
 
   }
 
@@ -285,121 +240,6 @@ class NewsArticlePeer extends BaseNewsArticlePeer {
 	  	return $systemConfig['rowsPerPage'];
 	  }
   }
-  
-  /**
-  * Crea un noticia nueva.
-  *
-  * @param array $params Array asociativo con los atributos del objeto
-  * @return boolean true si se creo correctamente, false sino
-  */  
-  function create($params) {
-    try {
-      $newsArticleObj = new NewsArticle();
-      foreach ($params as $key => $value) {
-        $setMethod = "set".$key;
-        if ( method_exists($newsArticleObj,$setMethod) ) {          
-          if (!empty($value) || $value == "0")
-            $newsArticleObj->$setMethod($value);
-          else
-            $newsArticleObj->$setMethod(null);
-        }
-      }
-	  
-	  // Regla de negocio, cuando se crea una noticia, se pasa a no publicada.
-	  $newsArticleObj->setStatus(NewsArticlePeer::NOTPUBLISHED);
-
-      $newsArticleObj->save();
-      return true;
-    } catch (Exception $exp) {
-      return false;
-    }         
-  }
-
-  /**
-  * Crea un Preview de una articulo.
-  * Devuelve una instancia de articulo el cual no ha salvado en la base de datos.
-  *
-  * @param array $params Array asociativo con los atributos del objeto
-  * @return boolean true si se creo correctamente, false sino
-  */  
-  function createPreview($params) {
-
-      $newsArticleObj = new NewsArticle();
-      foreach ($params as $key => $value) {
-        $setMethod = "set".$key;
-        if ( method_exists($newsArticleObj,$setMethod) ) {          
-          if (!empty($value) || $value == "0")
-            $newsArticleObj->$setMethod($value);
-          else
-            $newsArticleObj->$setMethod(null);
-        }
-      }
-
-	  return $newsArticleObj;
-  }  
-  
-  /**
-  * Actualiza la informacion de un noticia.
-  *
-  * @param array $params Array asociativo con los atributos del objeto
-  * @return boolean true si se actualizo la informacion correctamente, false sino
-  */  
-  function update($params) {
-    try {
-      $newsArticleObj = NewsArticlePeer::retrieveByPK($params["id"]);    
-      if (empty($newsArticleObj))
-        throw new Exception();
-      foreach ($params as $key => $value) {
-        $setMethod = "set".$key;
-        if ( method_exists($newsArticleObj,$setMethod) ) {          
-          if (!empty($value) || $value == "0")
-            $newsArticleObj->$setMethod($value);
-          else
-            $newsArticleObj->$setMethod(null);
-        }
-      }
-      $newsArticleObj->save();
-      return true;
-    } catch (Exception $exp) {
-      return false;
-    }         
-  }    
-
-	/**
-	* Elimina un noticia a partir de los valores de la clave.
-	*
-  * @param int $id id del newsarticle
-	*	@return boolean true si se elimino correctamente el newsarticle, false sino
-	*/
-  function delete($id) {
-  	$newsarticleObj = NewsArticlePeer::retrieveByPK($id);
-    $newsarticleObj->delete();
-		return true;
-  }
-
-  /**
-  * Obtiene la informacion de un noticia.
-  *
-  * @param int $id id del newsarticle
-  * @return array Informacion del newsarticle
-  */
-  function get($id) {
-		$newsarticleObj = NewsArticlePeer::retrieveByPK($id);
-    return $newsarticleObj;
-  }
-
-  /**
-  * Obtiene todos los noticias.
-	*   @param integer limite de cantidad de resultados
-	*	@return array Informacion sobre todos los newsarticles
-  */
-	function getAll($limit=0) {
-		$cond = new Criteria();
-		if ($limit > 0)
-			$cond->setLimit($limit);
-		$alls = NewsArticlePeer::doSelect($cond);
-		return $alls;
-  }
 
   /**
   * Obtiene todos los noticias aplicando los filtros correspondientes.
@@ -429,22 +269,6 @@ class NewsArticlePeer extends BaseNewsArticlePeer {
     return $pager;
    }
 
-  /**
-  * Obtiene todos los noticias paginados con las opciones de filtro asignadas al peer.
-  *
-  * @param int $page [optional] Numero de pagina actual
-  * @param int $perPage [optional] Cantidad de filas por pagina
-  *	@return array Informacion sobre todos los newsarticles
-  */
-  function getAllPaginatedFiltered($page=1,$perPage=-1) {  
-    if ($perPage == -1)
-      $perPage = 	NewsArticlePeer::getRowsPerPage();
-    if (empty($page))
-      $page = 1;
-    $cond = $this->getCriteria();     
-    $pager = new PropelPager($cond,"NewsArticlePeer", "doSelect",$page,$perPage);
-    return $pager;
-   }
    
   /**
   * Obtiene todos los noticias paginados con las opciones de filtro asignadas al peer.
@@ -547,16 +371,6 @@ class NewsArticlePeer extends BaseNewsArticlePeer {
 		
 		return NewsArticlePeer::doSelect($criteria);
 		
-	}
-	
-	static function getHeaders() {
-		$headers = array();
-		$headers[0] = "Título";
-		$headers[1] = "Fecha";
-		$headers[2] = "Archivar";
-		$headers[3] = "Provincia";
-		$headers[4] = "Categoría";
-		return $headers;
 	}
 
 /*

@@ -1,8 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("NewsArticlePeer.php");
-
 class NewsArticlesGetThumbnailAction extends BaseAction {
 
 
@@ -48,7 +45,7 @@ class NewsArticlesGetThumbnailAction extends BaseAction {
 		global $moduleRootDir;
 
 		if ( !empty($_GET["id"]) ) {
-			$newsArticle = NewsArticlePeer::get($_GET["id"]);
+			$newsArticle = NewsArticleQuery::create()->findOneById($_GET["id"]);
 			if (!empty($newsArticle)) {
 				$image = $newsArticle->getFirstImage();
 				if (!empty($image)) {

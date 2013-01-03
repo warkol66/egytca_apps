@@ -1,7 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("NewsArticlePeer.php");
 require_once("EmailManagement.php");
 
 class NewsArticlesSendToEmailXAction extends BaseAction {
@@ -72,7 +70,7 @@ class NewsArticlesSendToEmailXAction extends BaseAction {
 			return $mapping->findForwardConfig('failure');
 		}
 		
-		$article = NewsArticlePeer::get($_POST['id']);
+		$article = NewsArticleQuery::create()->find($_POST['id']);
 		
 		if (empty($article))
 			return $mapping->findForwardConfig('failure');

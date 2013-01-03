@@ -16,6 +16,33 @@ require_once('NewsArticlePeer.php');
  */
 class NewsArticle extends BaseNewsArticle {
 	
+	const NOTPUBLISHED = 1;
+	const PUBLISHED = 2;
+	const ARCHIVED = 3;
+	
+	/**
+	* Devuelve los estados posibles de la noticias y sus codigos 
+	* para la generacion de selects
+	*/
+	public function getStatus() {
+
+	$status[NewsArticle::NOTPUBLISHED] = 'No Publicada';
+	$status[NewsArticle::PUBLISHED] = 'Publicada';
+	$status[NewsArticle::ARCHIVED] = 'Archivada';
+
+	return $status;
+	}
+	
+	static function getHeaders() {
+		$headers = array();
+		$headers[0] = "Título";
+		$headers[1] = "Fecha";
+		$headers[2] = "Archivar";
+		$headers[3] = "Provincia";
+		$headers[4] = "Categoría";
+		return $headers;
+	}
+	
 	/**
 	 * Devuelve el nombre del estado actual en que se encuentra la noticia
 	 *
@@ -262,5 +289,29 @@ class NewsArticle extends BaseNewsArticle {
 		return $array;	
 	}
 	
+	
+	/**
+	* Crea un Preview de una articulo.
+	* Devuelve una instancia de articulo el cual no ha salvado en la base de datos.
+	*
+	* @param array $params Array asociativo con los atributos del objeto
+	* @return boolean true si se creo correctamente, false sino
+	*/  
+	function createPreview($params) {
+
+	  $newsArticleObj = new NewsArticle();
+	  foreach ($params as $key => $value) {
+		$setMethod = "set".$key;
+		if ( method_exists($newsArticleObj,$setMethod) ) {          
+		  if (!empty($value) || $value == "0")
+			$newsArticleObj->$setMethod($value);
+		  else
+			$newsArticleObj->$setMethod(null);
+		}
+	  }
+
+	  return $newsArticleObj;
+	}
+
 
 } // NewsArticle

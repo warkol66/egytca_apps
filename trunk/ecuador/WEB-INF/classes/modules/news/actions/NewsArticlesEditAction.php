@@ -37,12 +37,12 @@ class NewsArticlesEditAction extends BaseEditAction {
 		if ($moduleConfig["audio"]["useAudio"]["value"] == "NO")
 			$types[NewsMediaPeer::NEWSMEDIA_SOUND] = 'Sonido';
 
-		$this->smarty->assign("newsArticleStatus",NewsArticlePeer::getStatus());
+		$this->smarty->assign("newsArticleStatus",NewsArticle::getStatus());
 		$this->smarty->assign("newsMediasTypes",array_diff_assoc($newsMediasTypes, $types));
 		
 		//si la accion es edit
 		if (!empty($_GET["id"])){
-			$this->smarty->assign("newsmedias",NewsMediaPeer::getAll($_GET['id']));
+			$this->smarty->assign("newsmedias",NewsMediaQuery::create()->filterByArticleid($_GET['id'])->find());
 			$this->smarty->assign("images",$this->entity->getImages());
 			$this->smarty->assign("sounds",$this->entity->getSounds());
 			$this->smarty->assign("videos",$this->entity->getVideos());

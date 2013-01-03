@@ -1,11 +1,23 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("NewsArticlePeer.php");
+class NewsArticlesSendFormAction extends BaseEditAction {
+	
+	function __construct() {
+		parent::__construct('NewsArticle');
+		
+	}
+	
+	protected function postEdit(){
+		parent::postEdit();
+		
+		$module = "News";
+		$this->smarty->assign("module",$module);
 
-class NewsArticlesSendFormAction extends BaseAction {
+		$this->template->template = "TemplateAjax.tpl";
+		
+	}
 
-
+/*
 	// ----- Constructor ---------------------------------------------------- //
 
 	function NewsArticlesSendFormAction() {
@@ -28,7 +40,7 @@ class NewsArticlesSendFormAction extends BaseAction {
 	* @param HttpRequestBase	The HTTP response we are creating
 	* @public
 	* @returns ActionForward
-	*/
+	*
 	function execute($mapping, $form, &$request, &$response) {
 
     BaseAction::execute($mapping, $form, $request, $response);
@@ -53,6 +65,6 @@ class NewsArticlesSendFormAction extends BaseAction {
 		$smarty->assign('article',$article);
 		
 		return $mapping->findForwardConfig('success');
-	}
+	}*/
 
 }
