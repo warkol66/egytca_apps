@@ -1,1 +1,1 @@
-|-include file="TemplateContentHome.tpl"-|
+|-include file="TemplatePublic.tpl"-|
