@@ -1,8 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("NewsArticlePeer.php");
-
 class NewsArticlesChangeStatusesAction extends BaseAction {
 
 
@@ -51,11 +48,8 @@ class NewsArticlesChangeStatusesAction extends BaseAction {
 		//cambio de status de varios elementos
 		if (isset($_POST['status']) && isset($_POST['selected'])) {
 			
-			foreach ($_POST['selected'] as $id) {
-				$newsarticle['id'] = $id;
-				$newsarticle['status'] = $_POST['status'];
-				NewsArticlePeer::update($newsarticle);
-			}
+			NewsArticleQuery::create()->filterById($_POST['selected'], Criteria::IN)->update(array('Status' => $_POST['status']));
+			
 		}
 
 		$myRedirectConfig = $mapping->findForwardConfig('success');

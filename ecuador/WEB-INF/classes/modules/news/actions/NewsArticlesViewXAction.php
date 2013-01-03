@@ -1,31 +1,17 @@
 <?php
 
-class NewsArticlesViewXAction extends BaseAction {
-
-	function NewsArticlesViewXAction() {
-		;
+class NewsArticlesViewXAction extends BaseEditAction {
+	
+	function __construct() {
+		parent::__construct('NewsArticle');
+	}
+	
+	protected function postEdit() {
+		parent::postEdit();
+		
 	}
 
-	function execute($mapping, $form, &$request, &$response) {
-
-    BaseAction::execute($mapping, $form, $request, $response);
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
-
-		$module = "News";
-
-  	/**
-   	* Use a different template
-   	*/
-		$this->template->template = "TemplateAjax.tpl";
-
+/*
  		if (!empty($_GET["page"])) {
 
 			$perPage = 1;
@@ -46,6 +32,6 @@ class NewsArticlesViewXAction extends BaseAction {
 			return $mapping->findForwardConfig('failure');			
 		}
 		return $mapping->findForwardConfig('success');
-	}
+	}*/
 
 }
