@@ -1,8 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("NewsCommentPeer.php");
-
 class NewsCommentsChangeStatusesAction extends BaseAction {
 
 
@@ -48,12 +45,8 @@ class NewsCommentsChangeStatusesAction extends BaseAction {
 		//cambio de status de varios elementos
 		if (isset($_POST['status']) && isset($_POST['selected'])) {
 			
-			foreach ($_POST['selected'] as $id) {
-				$newscomment['id'] = $id;
-				$newscomment['status'] = $_POST['status'];
-				NewsCommentPeer::update($newscomment);
-			}
-			
+			NewsCommentQuery::create()->filterById($_POST['selected'], Criteria::IN)->update(array('Status' => $_POST['status']));
+
 			$smarty->assign('selected',$_POST['selected']);
 			$smarty->assign('status',$_POST['status']);
 		}

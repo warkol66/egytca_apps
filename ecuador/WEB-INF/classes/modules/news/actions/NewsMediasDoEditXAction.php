@@ -1,10 +1,21 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("NewsMediaPeer.php");
-class NewsMediasDoEditXAction extends BaseAction {
+class NewsMediasDoEditXAction extends BaseDoEditAction {
+	
+	function __construct() {
+		parent::__construct('NewsMedia');
+	}
+	
+	protected function postUpdate() {
+		parent::postUpdate();
+		
+		$this->smarty->assign("module","News");
+		$section = "Media";
+		$this->smarty->assign("section",$section);
+		
+	}
 
-
+/*
 	// ----- Constructor ---------------------------------------------------- //
 
 	function NewsMediasDoEditXAction() {
@@ -27,7 +38,7 @@ class NewsMediasDoEditXAction extends BaseAction {
 	* @param HttpRequestBase	The HTTP response we are creating
 	* @public
 	* @returns ActionForward
-	*/
+	*
 	function execute($mapping, $form, &$request, &$response) {
 
     BaseAction::execute($mapping, $form, $request, $response);
@@ -82,6 +93,6 @@ class NewsMediasDoEditXAction extends BaseAction {
 		$smarty->assign('value',$value);
 	
 		return $mapping->findForwardConfig('success');
-	}
+	}*/
 
 }
