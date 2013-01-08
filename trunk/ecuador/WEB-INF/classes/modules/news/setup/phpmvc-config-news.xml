@@ -19,14 +19,6 @@
 			<forward  name="rss" path="NewsArticlesShowRss.tpl" />
 		</action>
 
-		<action  path = "newsArticlesDoDelete"
-						 type = "NewsArticlesDoDeleteAction"
-						 name = "newsArticlesDoDelete"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=newsArticlesList&amp;message=deleted_ok" redirect="true" />
-		</action>
-
 		<action  path = "newsArticlesShow"
 						 type = "NewsArticlesShowAction"
 						 name = "newsArticlesShow"
@@ -44,20 +36,20 @@
 			<forward  name="include" path="NewsArticlesMostViewedInclude.tpl" />
 		</action>
 
+		<action  path = "newsArticlesChangeStatuses"
+						 type = "NewsArticlesChangeStatusesAction"
+						 name = "newsArticlesChangeStatuses"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=newsArticlesList&amp;message=changed" redirect="true" />
+		</action>
+
 		<action  path = "newsArticlesArticle"
 						 type = "NewsArticlesArticleAction"
 						 name = "newsArticlesArticle"
 						scope = "request"
 				 validate = "true">
 			<forward  name="include" path="NewsArticlesView.tpl" />
-		</action>
-
-		<action  path = "newsArticlesChangeStatusX"
-						 type = "NewsArticlesChangeStatusXAction"
-						 name = "newsArticlesChangeStatusX"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="NewsArticlesChangeStatusX.tpl" />
 		</action>
 
 		<action  path = "newsMediasSortX"
@@ -116,23 +108,6 @@
 			<forward  name="success" path="NewsCommentsShow.tpl" />
 		</action>
 
-		<action  path = "newsCommentsDoAddX"
-						 type = "NewsCommentsDoAddXAction"
-						 name = "newsCommentsDoAdd"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="NewsCommentsDoAddX.tpl" />
-			<forward  name="failure" path="NewsCommentsDoAddXFailure.tpl" />
-		</action>
-
-		<action  path = "newsCommentsChangeStatusX"
-						 type = "NewsCommentsChangeStatusXAction"
-						 name = "newsCommentsChangeStatusX"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="NewsCommentsChangeStatusX.tpl" />
-		</action>
-
 		<action  path = "newsCommentsChangeStatuses"
 						 type = "NewsCommentsChangeStatusesAction"
 						 name = "newsCommentsChangeStatuses"
@@ -141,42 +116,9 @@
 			<forward  name="success" path="/Main.php?do=newsCommentsList&amp;message=changed" redirect="true" />
 		</action>
 
-		<action  path = "newsArticlesChangeStatuses"
-						 type = "NewsArticlesChangeStatusesAction"
-						 name = "newsArticlesChangeStatuses"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=newsArticlesList&amp;message=changed" redirect="true" />
-		</action>
-
 <!-- End Section NewsComments -->
 
 <!-- Section NewsMedias -->
-
-		<action  path = "newsMediasEdit"
-						 type = "NewsMediasEditAction"
-						 name = "newsMediasEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="NewsMediasEdit.tpl" />
-		</action>
-
-		<action  path = "newsMediasDoEdit"
-						 type = "NewsMediasDoEditAction"
-						 name = "newsMediasDoEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=newsMediasList&amp;message=ok" redirect="true" />
-			<forward  name="failure" path="NewsMediasEdit.tpl" />
-		</action>
-
-		<action  path = "newsMediasList"
-						 type = "NewsMediasListAction"
-						 name = "newsMediasList"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="NewsMediasList.tpl" />
-		</action>
 
 		<action  path = "newsMediasGetImage"
 						 type = "NewsMediasGetImageAction"
@@ -205,23 +147,6 @@
 						scope = "request"
 				 validate = "true">
 			<forward  name="success" path="/Main.php?do=newsArticlesEdit&amp;message=upload_ok" redirect="true" />
-		</action>
-
-		<action  path = "newsMediasDoDelete"
-						 type = "NewsMediasDoDeleteAction"
-						 name = "newsMediasDoDelete"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=newsMediasList&amp;message=deleted_ok" redirect="true" />
-			<forward  name="success-from-article" path="NewsMediasDeleteFromArticle.tpl" />
-		</action>
-
-		<action  path = "newsMediasDoEditX"
-						 type = "NewsMediasDoEditXAction"
-						 name = "newsMediasDoEditX"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="NewsMediasDoEditX.tpl" />
 		</action>
 
 		<action  path = "newsCaptchaGeneration"

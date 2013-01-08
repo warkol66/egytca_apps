@@ -11,6 +11,8 @@ class NewsCommentsDoAddXAction extends BaseDoEditAction {
 		
 		if ( (empty($_POST['securityCode'])) || !Common::validateCaptcha($_POST['securityCode'])) {
 			$this->smarty->assign('captcha',true);
+			$this->smarty->assign('article',NewsArticleQuery::create()->findOneById($_POST["params"]['entryId']));
+			$this->forwardFailureName = 'success';
 			return false;
 		}
 

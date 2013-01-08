@@ -1,3 +1,13 @@
+<script src="Main.php?do=js&name=js&module=news&code=|-$currentLanguageCode-|" type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
+        $( ".datepicker" ).datepicker({
+			dateFormat:"dd-mm-yy"
+		});
+
+	});//fin docready
+</script>
 <h2>Comentarios</h2>
 <h1>Administrar Comentarios</h1>
 <div id="div_newscomment">
@@ -19,36 +29,36 @@
 				</p>
 				<p>
 				<label for="newscomment_text">Comentario</label>
-			<textarea name="newscomment[text]" cols="45" rows="4" wrap="VIRTUAL" id="newscomment_text">|-$newscomment->gettext()-|</textarea>
+			<textarea name="params[text]" cols="45" rows="4" wrap="VIRTUAL" id="params_text">|-$newsComment->gettext()-|</textarea>
 		</p>
 				<p>
 				<label for="newscomment_email">email</label>
-				<input type="text" id="newscomment_email" name="newscomment[email]" value="|-$newscomment->getemail()-|" title="email" maxlength="255" />
+				<input type="text" id="params_email" name="params[email]" value="|-$newsComment->getemail()-|" title="email" maxlength="255" />
 				</p>
 				<p>
 				<label for="newscomment_username">Usuario</label>
-				<input type="text" id="newscomment_username" name="newscomment[username]" value="|-$newscomment->getusername()-|" title="username" maxlength="255" />
+				<input type="text" id="params_username" name="params[username]" value="|-$newsComment->getusername()-|" title="username" maxlength="255" />
 			</p>
 <!--			<p>
 				<label for="newscomment_url">url</label>
-				<input type="text" id="newscomment_url" name="newscomment[url]" value="|-$newscomment->geturl()-|" title="url" maxlength="255" />
+				<input type="text" id="params_url" name="params[url]" value="|-$newsComment->geturl()-|" title="url" maxlength="255" />
 			</p> -->
 			<p>
 				<label for="newscomment_ip">ip</label>
-				<input type="text" id="newscomment_ip" name="newscomment[ip]" value="|-$newscomment->getip()-|" title="ip" maxlength="50" />
+				<input type="text" id="params_ip" name="params[ip]" value="|-$newsComment->getip()-|" title="ip" maxlength="50" />
 			</p>
 			<p>
 				<label for="newscomment_creationDate">Fecha</label>
-				<input name="newscomment[creationDate]" type="text" id="newscomment_creationDate" title="creationDate" value="|-$newscomment->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
-				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('newscomment[creationDate]', false, 'ymd', '-');" title="Seleccione la fecha">
+				<input name="params[creationDate]" type="date" id="params_creationDate" class="datepicker" title="creationDate" value="|-$newsComment->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 			</p>
 			<p>
 				<label for="newscomment_status">Estado</label>
-				<input type="text" id="newscomment_status" name="newscomment[status]" value="|-$newscomment->getstatus()-|" title="status" />
+				<input type="text" id="params_status" name="params[status]" value="|-$newsComment->getstatus()-|" title="status" />
 			</p>
 			<p>
 				<label for="newscomment_userId">Usuario</label>
-				<select id="newscomment_userId" name="newscomment[userId]" title="userId">
+				<select id="newscomment_userId" name="params[userId]" title="userId">
 				<option value="">Seleccione un User</option>
 					|-foreach from=$userIdValues item=object-|
 					<option value="|-$object->getid()-|" |-if $newscomment->getuserId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getusername()-|</option>
@@ -57,7 +67,7 @@
 		</p>
 		<p>
 				|-if $action eq "edit"-|
-				<input type="hidden" name="newscomment[id]" id="newscomment_id" value="|-$newscomment->getid()-|" />
+				<input type="hidden" name="id" id="id" value="|-$newsComment->getid()-|" />
 				|-/if-|
 				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="newsCommentsDoEdit" />

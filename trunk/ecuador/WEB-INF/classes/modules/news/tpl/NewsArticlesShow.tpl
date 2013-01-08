@@ -3,7 +3,7 @@
 <!-- **************************************** --> 		   
 <!--  NOTICIA  **************************************** -->
 <div id="div_newsarticles">
-		|-foreach from=$newsarticles item=newsarticle name=for_newsarticles-|
+		|-foreach from=$newsArticleColl item=newsarticle name=for_newsarticles-|
 			<div id="article|-$newsarticle->getId()-|" class="news01">|-if $newsarticle->hasImages()-|<img src="Main.php?do=newsArticlesGetThumbnail&id=|-$newsarticle->getId()-|" width="150" height="105" align="left" class="newsImage" />
 			|-elseif $newsarticle->hasVideos()-|<!--<img src="Main.php?do=newsArticlesGetVideoThumbnail&id=|-$newsarticle->getId()-|" width="150" height="105" align="left" class="newsImage" /> -->|-/if-|
 					<h4>|-assign var=region value=$newsarticle->getRegion()-|
