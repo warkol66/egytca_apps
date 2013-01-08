@@ -1,6 +1,6 @@
 <h2>Documentos</h2>
-<h1>|-if $document neq ''-|Editar|-else-|Ingresar|-/if-| datos de documentos</h1>
-<p>|-if $document neq ''-|
+<h1>|-if !$document->isNew()-|Editar|-else-|Ingresar|-/if-| datos de documentos</h1>
+<p>|-if !$document->isNew()-|
 Ingrese los datos del documento a editar y haga click en "Editar Documento".<br>
 Puede cambiar los datos que se muestran a contimnuación, si desea modificar el archivo, busque el archivo correspondiente en el campo Archivo y 
 súbalo nuevamente.

@@ -4,19 +4,15 @@
 	<div class="failureMessage">Error: Las contraseñas ingresadas no concuerdan</div>
 |-elseif $message eq "wrongPassword"-|
 	<div class="failureMessage">Error: Se ha ingresado incorectamente la contraseña actual</div>
-|-elseif $msg eq "wrongPasswordComparison"-|
-	<div class="failureMessage">Error: Las contraseñas ingresadas no concuerdan</div>
-	|-elseif $msg eq "wrongCategory"-|
+|-elseif $message eq "wrongCategory"-|
 	<div class="failureMessage">Error: Debe seleccionar un tipo de archivo</div>
 |-/if-|
 </div>
 
 <form method="post" action="Main.php?do=documentsDoEdit" enctype="multipart/form-data" name="formSearch" id="documentsAdderForm">
-	|-if $document neq''-|
 	<input type="hidden" name="id" value="|-$document->getId()-|">
-	|-/if-|
 	<fieldset title="Formulario para Agregar Nuevo |-$label-|">
-		|-if $document neq ''-|
+		|-if !$document->isNew()-|
 		<legend>Editar Documento</legend>
 			<p>Ingrese los datos correspondientes al |-$label-|. Seleccione un nuevo |-$label-| si desea reemplazar el actual ("|-$document->getRealFilename()-|")</p>	
 		|-elseif $module eq "Documents" && $entity eq ''-|
@@ -63,16 +59,16 @@
 			</div>
 			
 			<p><label for="date">Fecha</label>
-				 <input name="date" type="text" value="|-if $document neq ''-||-$document->getDocumentDate()|date_format:'%d-%m-%Y'-||-else-||-$smarty.now|date_format:'%d-%m-%Y'-||-/if-|" size="10" title="Fecha del documento (Formato: dd-mm-yyyy)"/>
+				 <input name="date" type="text" value="|-if !$document->isNew()-||-$document->getDocumentDate()|date_format:'%d-%m-%Y'-||-else-||-$smarty.now|date_format:'%d-%m-%Y'-||-/if-|" size="10" title="Fecha del documento (Formato: dd-mm-yyyy)"/>
       <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('date', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<p>
 				<label for="title">Título</label>
-				<textarea name="title" cols="55" rows="2" wrap="virtual" title="Título">|-if $document neq ''-||-$document->getTitle()|escape-||-/if-|</textarea>
+				<textarea name="title" cols="55" rows="2" wrap="virtual" title="Título">|-$document->getTitle()|escape-|</textarea>
 			</p>
 			<p>
 				<label for="description">Descripción</label>
-			 	<textarea name="description" cols="55" rows="6" wrap="VIRTUAL" title="Descripción">|-if $document neq ''-||-$document->getDescription()|escape-||-/if-|</textarea>
+			 	<textarea name="description" cols="55" rows="6" wrap="VIRTUAL" title="Descripción">|-$document->getDescription()|escape-|</textarea>
   			</p> 
   			|-if $module eq "Documents" && $entity eq ''-|
 				<p><label for="category">Categoría</label>
@@ -82,21 +78,21 @@
 						</select>
 				</p>
 				<p><label for="extra[author]">Autor(es)</label>
-					 <input name="extra[author]" type="text" value="|-if $document neq ''-||-$document->getAuthor()|escape-||-/if-|" size="50" />
+					 <input name="extra[author]" type="text" value="|-$document->getAuthor()|escape-|" size="50" />
 				</p>
 				<p><label for="extra[keyWords]">Palabras clave<img src="images/icon_search.png" onClick="switch_vis('keyWordSearch','block');" title="Buscar palabaras clave"/></label>
-					 <input name="extra[keyWords]" id="keyWords" type="text" value="|-if $document neq ''-||-$document->getKeyWords()|escape-||-/if-|" size="50" />
-				<script language="JavaScript" type="text/javascript">
-				function sendText(element, text, sep) {
-					if (element.value != '')
-						element.value += sep + text;
-					else
-						element.value = text;					
-				}
-				</script>
+					 <input name="extra[keyWords]" id="keyWords" type="text" value="|-$document->getKeyWords()|escape-|" size="50" />
+					<script language="JavaScript" type="text/javascript">
+					function sendText(element, text, sep) {
+						if (element.value != '')
+							element.value += sep + text;
+						else
+							element.value = text;					
+					}
+					</script>
 				|-include_module module=Documents action=KeyWordList-|</p>
 				<p><label for="extra[number]">Número</label>
-					 <input name="extra[number]" type="text" value="|-if $document neq ''-||-$document->getNumber()|escape-||-/if-|" size="10" />
+					 <input name="extra[number]" type="text" value="|-$document->getNumber()|escape-|" size="10" />
 				</p>
 			|-/if-|
 |-if $document neq '' && $document->getPassword() neq ''-|
@@ -118,7 +114,7 @@
 				 	<input type="hidden" name="entity" value="|-$entity-|" />
 				 	<input type="hidden" name="entityId" value="|-$entityId-|" />
 			 	|-/if-|
-				<input type="submit" name="uploadButton" value="|-if $document neq ''-|Guardar Cambios|-else-|Agregar |-$label-||-/if-|" id="btnSubmit">|-if $module eq 'Documents' && $action eq 'edit'-|<input name="return" type="button" value="Regresar" onClick="history.back(-1);"/>|-/if-|<span id="msgBoxUploader"></span>
+				<input type="submit" name="uploadButton" value="|-if !$document->isNew()-|Guardar Cambios|-else-|Agregar |-$label-||-/if-|" id="btnSubmit">|-if $module eq 'Documents' && $action eq 'edit'-|<input name="return" type="button" value="Regresar" onClick="history.back(-1);"/>|-/if-|<span id="msgBoxUploader"></span>
 			 </p>
 	</fieldset>
 </form>

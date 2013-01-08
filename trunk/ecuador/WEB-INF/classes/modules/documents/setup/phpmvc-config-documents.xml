@@ -2,16 +2,6 @@
 
 	<action-mappings module="Documents">
 
-		<action    path = "documentsEdit"
-							 type = "DocumentsEditAction"
-							 name = "documentsEdit"
-							scope = "request"
-					 validate = "true">
-			<forward name="success-edit" path="DocumentsEdit.tpl"/>
-			<forward name="success-upload" path="DocumentsEdit.tpl"/>
-			<forward name="failure-edit" path="/Main.php?do=documentsList&amp;errormessage=wrongPassword" redirect="true"/>
-		</action>
-
 		<action    path = "documentsDoDownload"
 							 type = "DocumentsDoDownloadAction"
 							 name = "documentsDoDownload"
