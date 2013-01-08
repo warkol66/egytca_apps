@@ -1,6 +1,12 @@
-|-if $message eq "captcha"-|
-<div id="errorMessage">Captcha incorrecto, intente nuevamente</div>
-|-/if-|
+|-if $captcha-|
+<script type="text/javascript" charset="utf-8">
+	$('#msgBoxAdder'+|-$entry->getId()-|).html('<span class="resultFailure">El código de validación ingresao es incorrecto, ingreselo nuevamente</span>');
+</script>
+|-elseif !is_object($comment)-|
+<script type="text/javascript" charset="utf-8">
+	$('#msgBoxAdder'+|-$entry->getId()-|).html('<span class="resultFailure">Se ha producido un error al agregar el comentario</span>');
+</script>
+|-else-|
 |-if $comment->getStatus() eq 2-|
 <script type="text/javascript">
 	var noComments = $('#no_comments_' + |-$entry->getId()-|);
@@ -34,4 +40,5 @@
 		$('#msgBoxAdder'+|-$entry->getId()-|).html('<span class="resultSuccess">El comentario ha sido agregado. La publicación del mismo está sujeta a la aprobación por parte del administrador.</span>');
 		$('#formCommentAdder|-$entry->getId()-|')[0].reset();
 </script>
+|-/if-|
 |-/if-|

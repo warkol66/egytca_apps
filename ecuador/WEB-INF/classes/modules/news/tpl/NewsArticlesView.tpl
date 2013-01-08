@@ -27,7 +27,7 @@
 |-if $newsArticlesConfig.useCategories.value eq "YES"-||-assign var=category value=$newsArticle->getCategory()-|
 	|-if not empty($category)-||-if not empty($region)-| &gt;&gt;|-/if-||-$category->getName()-||-/if-||-/if-|</h4>
 |-if $newsArticlesConfig.useTopTitle.value eq "YES"-|<h2>|-$newsArticle->gettoptitle()-|</h2>|-/if-|
-<h1>|-$newsArticle->gettitle()-|</h1>
+<h1>|-$newsArticle->getTitle()-|</h1>
 |-if $newsArticlesConfig.useSubTitle.value eq "YES"-|<p><em>|-$newsArticle->getSubTitle()-|</em></p>|-/if-|
 	<!-- Begin  COMPLETE TEXT //  TEXTO NOTICIA COMPLETA --------------------- -->
 |-if $moduleConfig.image.useImages.value eq "YES"-||-if $newsArticle->getImages()|@count gt 0-||-include file='NewsMediasViewInclude.tpl'-||-/if-||-/if-|

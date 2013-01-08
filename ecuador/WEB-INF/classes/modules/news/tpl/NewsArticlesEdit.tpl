@@ -99,9 +99,9 @@ Puede regresar a la página principal de noticias haciendo click <a href="Main.p
 									|-/foreach-|
 								</select>
 		</p>
-				|-if $newsarticle neq ''-|
+				|-if is_object($newsArticle)-|
 |-if $newsArticlesConfig.bodyOnArticlesShow.value eq "NO"-|<p>
-				<label>Vistas</label> |-$newsarticle->getViews()-| veces
+				<label>Vistas</label> |-$newsArticle->getViews()-| veces
 			</p>|-/if-|
 				|-/if-|
 				|-if !$newsArticle->isNew()-|

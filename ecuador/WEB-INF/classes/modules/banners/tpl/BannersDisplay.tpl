@@ -1,4 +1,3 @@
-
 |-if !is_object($banner) or $banner->isNew()-|
 	<p>El banner especificado no existe</p>
 |-else-|

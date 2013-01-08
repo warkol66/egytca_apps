@@ -22,7 +22,7 @@ function blogCommentsHide(divId) {
 //migrada?
 function showCommentAddForm(idDiv) {
 	
-	 $('#' + idDiv).show();
+	$('#' + idDiv).show();
 	
 }
 
