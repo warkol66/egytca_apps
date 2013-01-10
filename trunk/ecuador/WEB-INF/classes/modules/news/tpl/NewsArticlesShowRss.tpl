@@ -14,7 +14,7 @@
 		<generator>|-$systemUrl-|</generator>
 		<language>es</language>
 		<atom:link href="|-$systemUrl-|?do=|-$smarty.request.do-|&amp;rss=1|-if $categorySelected ne ''-|&amp;category=|-$categorySelected->getId()-||-/if-|" rel="self" type="application/rss+xml" />
-		|-foreach from=$newsarticles item=newsarticle name=for_newsarticles-|
+		|-foreach from=$newsArticleColl item=newsarticle name=for_newsarticles-|
 		<item>
 			<title>|-$newsarticle->gettitle()-|</title>
 			<author>|-$parameters.webmasterMail-| (Cippec)</author>

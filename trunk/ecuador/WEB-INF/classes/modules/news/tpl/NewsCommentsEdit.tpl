@@ -66,12 +66,15 @@
 				</select>
 		</p>
 		<p>
-				|-if $action eq "edit"-|
+				|-if !$newsComment->isNew()-|
 				<input type="hidden" name="id" id="id" value="|-$newsComment->getid()-|" />
 				|-/if-|
 				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="newsCommentsDoEdit" />
-				<input type="submit" id="button_edit_newscomment" name="button_edit_newscomment" title="Aceptar" value="Aceptar" />
+				<p>|-javascript_form_validation_button id="button_edit_blogComment" value='Aceptar' title='Aceptar'-|
+				<input type="button" onClick='location.href="Main.php?do=blogCommentsList"' title="Cancelar" value="Cancelar" />
+				</p>
+				<!--input type="submit" id="button_edit_newscomment" name="button_edit_newscomment" title="Aceptar" value="Aceptar" /-->
 				
 				|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 				|-if isset($articleId)-|

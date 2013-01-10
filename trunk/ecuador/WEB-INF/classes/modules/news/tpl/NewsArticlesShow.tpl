@@ -49,7 +49,7 @@
 |-if $smarty.get.page == ''-|<div id="surveyInclude" class="news01">
 |-*include_module module=SurveysSurveys action=Display options="lastActive=1&includeHome=1"*-|
 </div>|-/if-|
-				|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
+				|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 				<div class="pages">|-if $smarty.get.page == ''-||-include file="NewsHomePaginateInclude.tpl"-||-else-||-include file="NewsArticleShowPaginateInclude.tpl"-||-/if-|</div>
 				|-/if-|
 	</div>
