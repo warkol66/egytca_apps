@@ -1,3 +1,21 @@
+<script src="Main.php?do=js&name=js&module=news&code=|-$currentLanguageCode-|" type="text/javascript"></script>
+<script>
+    $(function() {
+		$.datepicker.setDefaults($.datepicker.regional['es']);
+        $( ".datepickerFrom" ).datepicker({
+			dateFormat:"dd-mm-yy",
+			onClose: function(selectedDate) {
+                $(".datepickerTo").datepicker("option", "minDate", selectedDate);
+            }
+		});
+		$(".datepickerTo").datepicker({
+			dateFormat:"dd-mm-yy",
+			onClose: function(selectedDate) {
+                $(".datepickerFrom").datepicker("option", "maxDate", selectedDate);
+            }
+		});
+    });
+</script>
 <div id="searchForm">
 
 	<form action="Main.php" method="get" accept-charset="utf-8">
@@ -11,12 +29,12 @@
 		<div id="newsArticlesSearch" style="display: |-if $filters.fromDate ne '' ||  $filters.toDate ne '' || $filters.categoryId ne 0 || $filters.regionId ne 0 || $archive neq ''-|block|-else-|none|-/if-|;">
 			<p>
 				<label for="fromDate">Fecha Desde</label>
-				<input name="filters[fromDate]" type="text" id="fromDate" title="fromDate" value="|-$filters.fromDate|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<input name="filters[dateRange][creationdate][min]" type="text" id="fromDate" title="fromDate" value="|-$filters.dateRange.creationdate.min|date_format:"%d-%m-%Y"-|" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[fromDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<p>
 				<label for="toDate">Fecha Hasta</label>
-				<input name="filters[toDate]" type="text" id="toDate" title="toDate" value="|-$filters.toDate|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<input name="filters[dateRange][creationdate][max]" type="text" id="toDate" title="toDate" value="|-$filters.dateRange.creationdate.max|date_format:"%d-%m-%Y"-|" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[toDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<p>
@@ -44,22 +62,22 @@
 	
 		<p>		
 			<input type="submit" value="Buscar" name="searchSubmit" />
-			<a href="#" onclick="toggleNewsArticlesSearch()" id="newsArticleSearchLink">Búsqueda Avanzada</a>		
+			<a href="#" onclick="$('#newsArticlesSearch').toggle()" id="newsArticleSearchLink">Búsqueda Avanzada</a>		
 		</p>
 		</fieldset>	
 	</form>
 </div>
 
-<div id="searchResults">
-		
-		<p>|-if $newsarticles|@count gt 0-|
+|-if isset($_GET['filters'])-|
+<div id="searchResults">		
+		<p>|-if $newsArticleColl|@count gt 0-|
 			Resultados Encontrados: |-$pager->getTotalRecordCount()-| Artículos |-if $searchString ne ''-|que contienen "|-$searchString-|"|-/if-| |-if $categorySelected ne ''-| de la categoría "|-$categorySelected->getName()-|"|-/if-|. Mostrando del |-$fromRecord-| al |-$toRecord-|.
 			|-else-|
 			No se encontraron artículos |-if $searchString ne ''-|que contengan "|-$searchString-|"|-/if-||-if $categorySelected ne ''-| de la categoría "|-$categorySelected->getName()-|"|-/if-|
 			|-/if-|
 		</p>
 		
-		|-foreach from=$newsarticles item=newsarticle name=for_newsarticles-|
+		|-foreach from=$newsArticleColl item=newsarticle name=for_newsarticles-|
 			<div id="article|-$newsarticle->getId()-|" class="news01">
 					<h2>|-assign var=region value=$newsarticle->getRegion()-|
 					|-if not empty($region)-||-$region->getName()-| &gt;&gt;|-/if-|
@@ -78,8 +96,9 @@
 				<div class="masInfo"><a href="Main.php?do=newsArticlesView&id=|-$newsarticle->getId()-|">Ver nota completa</a></div>
 	</div><!-- end NEWS01  -->
 	|-/foreach-|			
-			|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
+			|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 				<p>|-include file="PaginateInclude.tpl"-|</p>
 			|-/if-|
 </div>
+|-/if-|
 

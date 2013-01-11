@@ -41,7 +41,7 @@ Puede regresar a la página principal de noticias haciendo click <a href="Main.p
 			</p>|-/if-|
 			<p>
 				<label for="params_body">##news,32,Texto de la nota##</label>
-				<textarea name="params[body]" cols="60" rows="15" wrap="VIRTUAL"  id="params_body">|-$newsArticle->getbody()|htmlentities-|</textarea>
+				<textarea name="params[body]" cols="60" rows="15" wrap="VIRTUAL" class="tinymce" id="params_body">|-$newsArticle->getbody()|htmlentities-|</textarea>
 		</p>
 |-if $newsArticlesConfig.useSource.value eq "YES"-|<p>
 				<label for="params_source">##news,33,Fuente##</label>

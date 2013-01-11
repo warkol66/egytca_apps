@@ -1,8 +1,5 @@
 <?php
 
-require_once 'om/BaseNewsArticle.php';
-require_once('NewsArticlePeer.php');
-
 /**
  * Skeleton subclass for representing a row from the 'news_article' table.
  *
@@ -20,17 +17,14 @@ class NewsArticle extends BaseNewsArticle {
 	const PUBLISHED = 2;
 	const ARCHIVED = 3;
 	
-	/**
-	* Devuelve los estados posibles de la noticias y sus codigos 
-	* para la generacion de selects
-	*/
-	public function getStatus() {
+	private $searchString;
 
-	$status[NewsArticle::NOTPUBLISHED] = 'No Publicada';
-	$status[NewsArticle::PUBLISHED] = 'Publicada';
-	$status[NewsArticle::ARCHIVED] = 'Archivada';
-
-	return $status;
+	
+	public function getStatuses() {
+		$status[NewsArticle::NOTPUBLISHED] = 'No Publicada';
+		$status[NewsArticle::PUBLISHED] = 'Publicada';
+		$status[NewsArticle::ARCHIVED] = 'Archivada';
+		return $status;
 	}
 	
 	static function getHeaders() {
@@ -46,9 +40,9 @@ class NewsArticle extends BaseNewsArticle {
 	/**
 	 * Devuelve el nombre del estado actual en que se encuentra la noticia
 	 *
-	 */
+	 *
 	public function getStatusName() {
-		$status = NewsArticlePeer::getStatus();
+		$status = getStatus();
 		return $status[$this->getStatus()];
 	}
 
@@ -58,8 +52,6 @@ class NewsArticle extends BaseNewsArticle {
 	 * @return array array of instances of NewsMedia.
 	 */
 	private function getMedias($mediaType) {
-		
-		require_once("NewsMediaPeer.php");
 		
 		$criteria = new Criteria();	
 
@@ -73,17 +65,17 @@ class NewsArticle extends BaseNewsArticle {
 	
 	public function getVideos() {
 		require_once("NewsMediaPeer.php");
-		return $this->getMedias(NewsMediaPeer::NEWSMEDIA_VIDEO);
+		return $this->getMedias(NewsMedia::NEWSMEDIA_VIDEO);
 	}	
 	
 	public function getSounds() {
 		require_once("NewsMediaPeer.php");
-		return $this->getMedias(NewsMediaPeer::NEWSMEDIA_SOUND);
+		return $this->getMedias(NewsMedia::NEWSMEDIA_SOUND);
 	}
 	
 	public function getImages() {
 		require_once("NewsMediaPeer.php");
-		return $this->getMedias(NewsMediaPeer::NEWSMEDIA_IMAGE);
+		return $this->getMedias(NewsMedia::NEWSMEDIA_IMAGE);
 	}	
 	
 	
@@ -98,27 +90,22 @@ class NewsArticle extends BaseNewsArticle {
 			return false;		
 	}
 	
-	public function hasVideos() {
-		require_once("NewsMediaPeer.php");
-		return $this->hasMedias(NewsMediaPeer::NEWSMEDIA_VIDEO);
-	}	
-
-	public function hasSounds() {
-		require_once("NewsMediaPeer.php");
-		return $this->hasMedias(NewsMediaPeer::NEWSMEDIA_SOUND);
+	public function hasVideos(){
+		return $this->hasMedias(NewsMedia::NEWSMEDIA_VIDEO);
 	}
 
-	public function hasImages() {
-		require_once("NewsMediaPeer.php");
-		return $this->hasMedias(NewsMediaPeer::NEWSMEDIA_IMAGE);
-	}	
-	
+	public function hasSounds(){
+		return $this->hasMedias(NewsMedia::NEWSMEDIA_SOUND);
+	}
+
+	public function hasImages(){
+		return $this->hasMedias(NewsMedia::NEWSMEDIA_IMAGE);
+	}
 	
 	public function getFirstImage() {
-		require_once("NewsMediaPeer.php");
 		$criteria = new Criteria();	
 		$criteria->add(NewsMediaPeer::ARTICLEID,$this->getId());		
-		$criteria->add(NewsMediaPeer::MEDIATYPE,NewsMediaPeer::NEWSMEDIA_IMAGE);
+		$criteria->add(NewsMediaPeer::MEDIATYPE,NewsMedia::NEWSMEDIA_IMAGE);
 		$criteria->addAscendingOrderByColumn(newsMediaPeer::ORDER);
 		$image = NewsMediaPeer::doSelectOne($criteria);
 		return $image;		
@@ -137,6 +124,15 @@ class NewsArticle extends BaseNewsArticle {
 	function setBody($v) {
 		
 		return parent::setBody(stripslashes($v));
+	}
+	
+		/**
+	 * Especifica una cadena de busqueda. Cada palabra de la cadena sera extraida y buscada en
+	 * titulos, descripcion, copete, etc.
+	 * @param string cadena de busqueda.
+	 */
+	public function setSearchString($string) {
+		$this->searchString = $string;
 	}
 
 	/**
@@ -312,6 +308,109 @@ class NewsArticle extends BaseNewsArticle {
 
 	  return $newsArticleObj;
 	}
+	
+	/**
+   * Crea una Criteria a partir de las condiciones de filtro ingresadas al peer.
+   * @return Criteria instancia de criteria
+   */
+  private function getCriteria() {
+	$criteria = new Criteria();
+	
+	$criteria->setIgnoreCase(true);
+
+	if ($this->orderByDate)
+		$criteria->addDescendingOrderByColumn(NewsArticlePeer::CREATIONDATE);
+
+	if ($this->orderByCreationDate)
+		$criteria->addDescendingOrderByColumn(NewsArticlePeer::CREATIONDATE);
+
+	if ($this->orderByUpdateDate)
+		$criteria->addDescendingOrderByColumn(NewsArticlePeer::LASTUPDATE);	
+	
+	if ($this->archiveMode) {
+    $criteria->add(NewsArticlePeer::STATUS,NewsArticlePeer::ARCHIVED);		
+	}
+	
+	if ($this->publishedMode)
+		$criteria->add(NewsArticlePeer::STATUS,NewsArticlePeer::PUBLISHED);
+    
+  if (!empty($this->archiveAndpublishedMode)) {
+    $criterion = $criteria->getNewCriterion(NewsArticlePeer::STATUS, NewsArticlePeer::ARCHIVED);
+    $criterion->addOr($criteria->getNewCriterion(NewsArticlePeer::STATUS, NewsArticlePeer::PUBLISHED));
+    $criteria->add($criterion);
+  }
+		
+	if (!empty($this->fromDate) && ! empty($this->toDate)) {
+		$criterion = $criteria->getNewCriterion(NewsArticlePeer::CREATIONDATE, $this->fromDate, Criteria::GREATER_EQUAL);
+		$criterion->addAnd($criteria->getNewCriterion(NewsArticlePeer::CREATIONDATE, $this->toDate, Criteria::LESS_EQUAL));
+		$criteria->add($criterion);
+	}
+	else {
+		
+		if (!empty($this->fromDate)) {
+			$criteria->add(NewsArticlePeer::CREATIONDATE, $this->fromDate, Criteria::GREATER_EQUAL);
+		}
+		
+		if (!empty($this->toDate)) {
+			
+			$criteria->add(NewsArticlePeer::CREATIONDATE,$this->toDate, Criteria::LESS_EQUAL);
+		}
+	}
+	
+	if (!empty($this->category)) {
+		$category = $this->category;
+		$criteria->add(NewsArticlePeer::CATEGORYID,$category->getId());
+	}
+  
+  if (!empty($this->region)) {
+    $region = $this->region;
+    $criteria->add(NewsArticlePeer::REGIONID,$region->getId());
+  }
+	
+	if (!empty($this->searchString)) {
+		//separamos por palabras
+		$words = explode(' ',$this->searchString);
+		
+		foreach ($words as $word) {
+		
+      $sql = "( ".NewsArticlePeer::TITLE." like '%".$word."%' )";
+			if (!isset($criterionTitle))
+				$criterionTitle = $criteria->getNewCriterion(NewsArticlePeer::TITLE,$sql,Criteria::CUSTOM);
+			else {
+				$criterionTitle->addOr($criteria->getNewCriterion(NewsArticlePeer::TITLE,$sql,Criteria::CUSTOM));
+			}
+			
+      $sql = "( ".NewsArticlePeer::SUBTITLE." like '%".$word."%' )";
+			if (!isset($criterionSubtitle))
+				$criterionSubtitle = $criteria->getNewCriterion(NewsArticlePeer::SUBTITLE,$sql,Criteria::CUSTOM);
+			else	$criterionSubtitle->addOr($criteria->getNewCriterion(NewsArticlePeer::SUBTITLE,$sql,Criteria::CUSTOM));
+			
+      $sql = "( ".NewsArticlePeer::BODY." like '%".$word."%' )";
+			if (!isset($criterionBody))
+				$criterionBody = $criteria->getNewCriterion(NewsArticlePeer::BODY,$sql,Criteria::CUSTOM);
+			else {
+	$criterionBody->addOr($criteria->getNewCriterion(NewsArticlePeer::BODY,$sql,Criteria::CUSTOM));
+			}
+			
+			$sql = "( ".NewsArticlePeer::SUMMARY." like '%".$word."%' )";
+      if (!isset($criterionSummary))
+				$criterionSummary = $criteria->getNewCriterion(NewsArticlePeer::SUMMARY,$sql,Criteria::CUSTOM);
+			else {
+	$criterionSummary->addOr($criteria->getNewCriterion(NewsArticlePeer::SUMMARY,$sql,Criteria::CUSTOM));
+			}			
+														
+		}
+		
+		$criterionTitle->addOr($criterionSubtitle);
+		$criterionTitle->addOr($criterionBody);
+		$criterionTitle->addOr($criterionSummary);		
+		$criteria->add($criterionTitle);
+
+	}
+
+	return $criteria;
+	
+  }
 
 
 } // NewsArticle

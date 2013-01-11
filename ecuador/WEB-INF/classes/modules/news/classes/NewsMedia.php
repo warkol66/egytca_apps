@@ -28,9 +28,9 @@ class NewsMedia extends BaseNewsMedia {
 	public function getMediaTypes() {
 
 	$types = array();
-	$types[NewsMediaPeer::NEWSMEDIA_IMAGE] = 'Imagen';
-	$types[NewsMediaPeer::NEWSMEDIA_VIDEO] = 'Video';
-	$types[NewsMediaPeer::NEWSMEDIA_SOUND] = 'Sonido';
+	$types[NEWSMEDIA_IMAGE] = 'Imagen';
+	$types[NEWSMEDIA_VIDEO] = 'Video';
+	$types[NEWSMEDIA_SOUND] = 'Sonido';
 
 	return $types;
 
@@ -332,7 +332,7 @@ class NewsMedia extends BaseNewsMedia {
 	imagealphablending($back,true);
 
 	//Apply watermark and save
-	$image = NewsMediaPeer::image_overlap($image, $back);
+	$image = image_overlap($image, $back);
 	imagecopy($image,$back,0,0,0,0,$width,$height);
 	$success = imagejpeg($image,$video_thumbnail_output_dir.$newsmediaObj->getId().'.jpg',85);
 

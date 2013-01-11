@@ -27,17 +27,17 @@ class NewsArticlesEditAction extends BaseEditAction {
 		$this->smarty->assign("userIdValues",UserQuery::create()->find());
 		
 		//migrar
-		$newsMediasTypes = NewsMediaPeer::getMediaTypes();
+		$newsMediasTypes = NewsMedia::getMediaTypes();
 		
 		$types = array();
 		if ($moduleConfig["image"]["useImages"]["value"] == "NO")
-			$types[NewsMediaPeer::NEWSMEDIA_IMAGE] = 'Imagen';
+			$types[NewsMedia::NEWSMEDIA_IMAGE] = 'Imagen';
 		if ($moduleConfig["video"]["useVideo"]["value"] == "NO")
-			$types[NewsMediaPeer::NEWSMEDIA_VIDEO] = 'Video';
+			$types[NewsMedia::NEWSMEDIA_VIDEO] = 'Video';
 		if ($moduleConfig["audio"]["useAudio"]["value"] == "NO")
-			$types[NewsMediaPeer::NEWSMEDIA_SOUND] = 'Sonido';
+			$types[NewsMedia::NEWSMEDIA_SOUND] = 'Sonido';
 
-		$this->smarty->assign("newsArticleStatus",NewsArticle::getStatus());
+		$this->smarty->assign("newsArticleStatus",NewsArticle::getStatuses());
 		$this->smarty->assign("newsMediasTypes",array_diff_assoc($newsMediasTypes, $types));
 		
 		//si la accion es edit

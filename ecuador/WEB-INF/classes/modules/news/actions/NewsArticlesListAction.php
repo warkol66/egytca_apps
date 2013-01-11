@@ -35,13 +35,15 @@ class NewsArticlesListAction extends BaseListAction {
 		$categories = $user->getCategoriesByModule('news');
 		$this->smarty->assign("categories",$categories);
 		//migrar cuando esten los peers
-		$this->smarty->assign("newsArticleStatus",NewsArticlePeer::getStatus());
+		$this->smarty->assign("newsArticleStatus",NewsArticle::getStatuses());
 		
 		//filtros
 		if(!empty($_GET['filters']['dateRange']['creationdate']['min']))
             $this->filters['minDate'] = $_GET['filters']['dateRange']['creationdate']['min'];
         if(!empty($_GET['filters']['dateRange']['creationdate']['max']))
             $this->filters['maxDate'] = $_GET['filters']['dateRange']['creationdate']['max'];
+            
+        $this->smarty->assign("filters",$this->filters);
 
 		/* Comentado para uso futuro
 		 * if ($_GET["export"] == "xls") {
