@@ -1,4 +1,4 @@
-<script src="Main.php?do=js&name=js&module=blog&code=|-$currentLanguageCode-|" type="text/javascript"></script>
+<script src="Main.php?do=js&name=js&module=news&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 <script>
     $(function() {
 		$.datepicker.setDefaults($.datepicker.regional['es']);
@@ -98,12 +98,12 @@
 				</td>|-/if-|
 			<td>|-if "newsArticlesChangeStatusX"|security_user_has_access-|	
 						<form action="Main.php" method="post" id="formStatusNewsArticle|-$newsarticle->getId()-|">
-							<select name="newsarticle[status]" id="selectStatusArticle|-$newsarticle->getId()-|" onChange="javascript:submitNewsChangeFormX('formStatusNewsArticle|-$newsarticle->getId()-|')">
+							<select name="params[status]" id="selectStatusArticle|-$newsarticle->getId()-|" onChange="javascript:submitNewsChangeFormX('formStatusNewsArticle|-$newsarticle->getId()-|')">
 								|-foreach from=$newsArticleStatus key=key item=name-|
 									<option value="|-$key-|" |-if ($newsarticle->getStatus()) eq $key-|selected="selected"|-/if-|>|-$name-|</option>
 								|-/foreach-|
 							</select>											
-							<input type="hidden" name="newsarticle[id]" id="newsarticle_id" value="|-$newsarticle->getid()-|" />
+							<input type="hidden" name="id" id="id" value="|-$newsarticle->getid()-|" />
 							<input type="hidden" name="do" value="newsArticlesChangeStatusX" id="do">
 						</form>
 				|-else-|
@@ -132,7 +132,7 @@
 				</td>
 			</tr>
 		|-/foreach-|
-		|-if $newsarticles|@count neq 0 && "newsArticlesChangeStatuses"|security_user_has_access-|
+		|-if $newsArticleColl|@count neq 0 && "newsArticlesChangeStatuses"|security_user_has_access-|
 			<tr>
 				<td colspan="|-$colSpan-|">
 					<form action="Main.php" method="post" id='multipleArticlesChangeForm'>

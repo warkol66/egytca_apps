@@ -1,6 +1,5 @@
-<script language="Javascript" src="scripts/news-comments.js" type="text/javascript"></script>
 <script type="text/javascript" charset="utf-8">
-	$('mgsBoxCommentsShow'+ |-$article->getId()-|).innerHTML = '';
+	$('#mgsBoxCommentsShow'+ |-$article->getId()-|).html('');
 </script>
 <!-- Begin COMENTARIOS ***************************************************-->
 

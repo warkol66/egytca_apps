@@ -1,4 +1,19 @@
-<script type="text/javascript" src="scripts/news.js">
+<script>
+    $(function() {
+		$.datepicker.setDefaults($.datepicker.regional['es']);
+        $( ".datepickerFrom" ).datepicker({
+			dateFormat:"dd-mm-yy",
+			onClose: function(selectedDate) {
+                $(".datepickerTo").datepicker("option", "minDate", selectedDate);
+            }
+		});
+		$(".datepickerTo").datepicker({
+			dateFormat:"dd-mm-yy",
+			onClose: function(selectedDate) {
+                $(".datepickerFrom").datepicker("option", "maxDate", selectedDate);
+            }
+		});
+    });
 </script>
 <h2>Comentarios</h2>
 <h1>Administrar Comentarios</h1>
@@ -41,13 +56,13 @@
 				</p>
 				<p>
 					<label for="fromDate">Fecha Desde</label>
-					<input name="filters[fromDate]" type="text" id="fromDate" title="fromDate" value="|-$filters.fromDate-|" size="12" /> 
-					<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[fromDate]', false, 'ymd', '-');" title="Seleccione la fecha">
+					<input name="filters[dateRange][creationdate][min]" type="text" id="filters_dateRange_min" class="datepickerFrom" title="fromDate" value="|-$filters.dateRange.creationdate.min|date_format:"%d-%m-%Y"-|" size="12" /> 
+					<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 				</p>
 				<p>
 					<label for="toDate">Fecha Hasta</label>
-					<input name="filters[toDate]" type="text" id="toDate" title="toDate" value="|-$filters.toDate-|" size="12" /> 
-					<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[toDate]', false, 'ymd', '-');" title="Seleccione la fecha">
+					<input name="filters[dateRange][creationdate][max]" type="text" id="toDate" class="datepickerTo" title="toDate" value="|-$filters.dateRange.creationdate.max|date_format:"%d-%m-%Y"-|" size="12" /> 
+					<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 				</p>
 				|-if not isset($articleId)-|
 				<p>

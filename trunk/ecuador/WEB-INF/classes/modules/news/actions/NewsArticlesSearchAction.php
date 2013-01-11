@@ -1,9 +1,64 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("NewsArticlePeer.php");
-
 class NewsArticlesSearchAction extends BaseAction {
+	
+	/*function __construct() {
+		parent::__construct('NewsArticle');
+	}
+	
+	protected function preList() {
+		parent::preList();
+		
+		if(!empty($_GET['filters']['minDate']) || !empty($_GET['filters']['maxDate']))
+			unset($this->filters['dateRange']);
+		if(!empty($_GET['filters']['minDate'])){
+            $this->filters['dateRange']['creationdate']['min'] = $_GET['filters']['minDate'];
+        }
+        if(!empty($_GET['filters']['maxDate'])){
+            $this->filters['dateRange']['creationdate']['max'] = $_GET['filters']['maxDate'];
+		}
+		
+		if (!empty($_GET['searchString'])) {
+			
+			$this->smarty->assign('searchString',$_GET['searchString']);
+			
+			$this->entity->setSearchString($_GET['searchString']);
+		}
+		
+	}
+
+	protected function postList() {
+		parent::postList();
+		
+		$module = "News";
+		$this->smarty->assign("module", $module);
+		
+		//filtros
+		if(!empty($_GET['filters']['dateRange']['creationdate']['min']))
+            $this->filters['minDate'] = $_GET['filters']['dateRange']['creationdate']['min'];
+        if(!empty($_GET['filters']['dateRange']['creationdate']['max']))
+            $this->filters['maxDate'] = $_GET['filters']['dateRange']['creationdate']['max'];
+            
+        $this->smarty->assign("filters",$this->filters);
+        
+        
+        
+        $this->smarty->assign('categorySelected',$category);
+		$this->smarty->assign("categories",CategoryQuery::create()->filterByIsPublic(true)->filterByModule('news')->find());
+		
+		/*$this->smarty->assign('regionSelected',$region);
+		$this->smarty->assign("regions",RegionQuery::create()->find());*
+		
+		$this->smarty->assign('archive',$_GET['filters']['archive']);
+		
+		if ($_REQUEST["rss"]=="1") {
+			$this->template->template = "TemplatePlain.tpl";
+			header("content-Type:application/rss+xml; charset=utf-8"); 	
+			//return $mapping->findForwardConfig('rss');
+		}
+
+		
+	}*/
 
 
 	// ----- Constructor ---------------------------------------------------- //
@@ -43,25 +98,23 @@ class NewsArticlesSearchAction extends BaseAction {
 		}
 
 		//usamos el template para no autenticado.
-		$this->template->template = "TemplateNewsSearch.tpl";
+		//$this->template->template = "TemplateNewsSearch.tpl";
 		
-		$newsArticlePeer = new NewsArticlePeer();
-		$newsArticlePeer->setOrderByUpdateDate();
-		$newsArticlePeer->setPublishedMode();
+		$newsArticle = new NewsArticle();
 				
 		if (!empty($_GET['searchString'])) {
 			
 			$smarty->assign('searchString',$_GET['searchString']);
 			
-			$newsArticlePeer->setSearchString($_GET['searchString']);
+			$newsArticle->setSearchString($_GET['searchString']);
 			
 			$searchStringParams = "&searchString=".$_GET['searchString'];
 			
 			if (!empty($_GET['filters']['categoryId'])) {
 				$category = CategoryQuery::create()->findOneById($_GET['filters']['categoryId']);
-				$newsArticlePeer->setCategory($category);
+				$newsArticle->setCategory($category);
 
-				$searchStringParams = $searchStringParams."&filters%5BcategoryId%5D=".$_GET['filters']['categoryId'];
+				$searchString = $searchStringParams."&filters%5BcategoryId%5D=".$_GET['filters']['categoryId'];
 
 			}
 			
@@ -75,7 +128,7 @@ class NewsArticlesSearchAction extends BaseAction {
 			
 			if (!empty($_GET['filters']['toDate'])) {
 				$toDate = Common::convertToMysqlDateFormat($_GET['filters']['toDate']);
-				$newsArticlePeer->setToDate($toDate);
+				$newsArticle->setToDate($toDate);
 
 				$searchStringParams = $searchStringParams."&filters%5BtoDate%5D=".$_GET['filters']['toDate'];
 
@@ -85,12 +138,12 @@ class NewsArticlesSearchAction extends BaseAction {
 				$region = RegionQuery::create()->findOneById($_GET['filters']['regionId']);
 				$newsArticlePeer->setRegion($region);
 
-				$searchStringParams = $searchStringParams."&filters%5BregionId%5D=".$_GET['filters']['regionId'];
+				$searchString = $searchStringParams."&filters%5BregionId%5D=".$_GET['filters']['regionId'];
 
 			}
 			
 			if (!empty($_GET['filters']['archive'])) {
-				$newsArticlePeer->setArchiveAndPublishedMode();
+				$newsArticle->setArchiveAndPublishedMode();
 
 				$searchStringParams = $searchStringParams."&filters%5Barchive%5D=".$_GET['filters']['archive'];
 
@@ -99,14 +152,14 @@ class NewsArticlesSearchAction extends BaseAction {
 			$smarty->assign('filters',$_GET['filters']);
 			
 			$smarty->assign('categorySelected',$category);
-			$smarty->assign("categories",CategoryQuery::create()->filterByIspublicAndByModule(true,'news')->find());
+			$smarty->assign("categories",CategoryQuery::create()->filterByIsPublic(true)->filterByModule('news')->find());
 			
-			$smarty->assign('regionSelected',$region);
-			$smarty->assign("regions",RegionQuery::create()->find());
+			/*$smarty->assign('regionSelected',$region);
+			$smarty->assign("regions",RegionQuery::create()->find());*/
 			
 			$smarty->assign('archive',$_GET['filters']['archive']);
 			
-    	$pager = $newsArticlePeer->getAllPaginatedFiltered($_GET["page"]);
+    	/*$pager = $newsArticle->getAllPaginatedFiltered($_GET["page"]);
 			$smarty->assign("newsarticles",$pager->getResult());
 			$smarty->assign("pager",$pager);
 			$url = "Main.php?do=newsArticlesSearch".$searchStringParams;
@@ -128,7 +181,7 @@ class NewsArticlesSearchAction extends BaseAction {
 
 			$smarty->assign("url",$url);		
 		
-		}
+		}*/
 		
 		if ($_REQUEST["rss"]=="1") {
 			$this->template->template = "TemplatePlain.tpl";
@@ -140,5 +193,7 @@ class NewsArticlesSearchAction extends BaseAction {
 	
 
 	}
+
+}
 
 }

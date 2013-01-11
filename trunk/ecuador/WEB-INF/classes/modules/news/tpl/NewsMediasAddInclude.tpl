@@ -2,13 +2,13 @@
 	<fieldset>
 	<legend>Agregar Contenido Multimedia</legend>
 	<form id="mediasAdderForm" method="post" enctype="multipart/form-data">
-		<p><label for="newsmedia[title]">Título</label>
-		<input type="text" name="newsmedia[title]" value="" size="50" id="newsmedia_title"></p>
-		<p><label for="newsmedia[description]">Descripción</label>
-		<textarea name="newsmedia[description]" cols="45" rows="3" wrap="virtual" id="newsmedia_description"></textarea>
+		<p><label for="params[title]">Título</label>
+		<input type="text" name="params[title]" value="" size="50" id="params_title"></p>
+		<p><label for="params[description]">Descripción</label>
+		<textarea name="params[description]" cols="45" rows="3" wrap="virtual" id="params_description"></textarea>
 		</p>
-		<p><label for="newsmedia[mediaType]">Tipo de Contenido</label>
-		<select name="newsmedia[mediaType]" id="newsmedia_mediaType" onChange="javascript:changeTypeFileManager()">
+		<p><label for="params[mediaType]">Tipo de Contenido</label>
+		<select name="params[mediaType]" id="params_mediaType" onChange="javascript:changeTypeFileManager()">
 				|-foreach from=$newsMediasTypes key=key item=value-|
 					<option value="|-$key-|">|-$value-|</option>
 				|-/foreach-|
@@ -30,7 +30,7 @@
 			<!-- This is where the file ID is stored after SWFUpload uploads the file and gets the ID back from upload.php -->
 		</div>
 
-		<input type="hidden" name="newsmedia[articleId]" value="|-$article->getId()-|" id="newsmedia_articleId">
+		<input type="hidden" name="params[articleId]" value="|-$article->getId()-|" id="params_articleId">
 		<input type="submit" name="uploadButton" value="Subir Contenido" id="btnSubmit"> <span id="msgBoxUploader"></span>
 	</form> 
 	</fieldset>
