@@ -15,6 +15,16 @@
 class CategoryQuery extends BaseCategoryQuery {
 	
 	/**
+	 * Return an array with all the categories the user can access
+	 *
+	 * @param User $user
+	 * @return categories
+	 */
+	public static function getUserCategories($user) {
+		return self::create()->filterByActive(1)->filterByUser($user)->find();
+	}
+	
+	/**
 	 * Obtiene todas las categorias para un modulo.
 	 * 
 	 * @return array Informacion sobre todas las categories

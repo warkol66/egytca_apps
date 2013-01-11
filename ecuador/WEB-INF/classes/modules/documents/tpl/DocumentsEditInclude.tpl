@@ -58,30 +58,30 @@
 				</p>
 			</div>
 			
-			<p><label for="date">Fecha</label>
-				 <input name="date" type="text" value="|-if !$document->isNew()-||-$document->getDocumentDate()|date_format:'%d-%m-%Y'-||-else-||-$smarty.now|date_format:'%d-%m-%Y'-||-/if-|" size="10" title="Fecha del documento (Formato: dd-mm-yyyy)"/>
+			<p><label for="params[documentdate]">Fecha</label>
+				 <input name="params[documentdate]" type="text" value="|-if !$document->isNew()-||-$document->getDocumentDate()|date_format:'%d-%m-%Y'-||-else-||-$smarty.now|date_format:'%d-%m-%Y'-||-/if-|" size="10" title="Fecha del documento (Formato: dd-mm-yyyy)"/>
       <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('date', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<p>
-				<label for="title">Título</label>
-				<textarea name="title" cols="55" rows="2" wrap="virtual" title="Título">|-$document->getTitle()|escape-|</textarea>
+				<label for="params[title]">Título</label>
+				<textarea name="params[title]" cols="55" rows="2" wrap="virtual" title="Título">|-$document->getTitle()|escape-|</textarea>
 			</p>
 			<p>
-				<label for="description">Descripción</label>
-			 	<textarea name="description" cols="55" rows="6" wrap="VIRTUAL" title="Descripción">|-$document->getDescription()|escape-|</textarea>
+				<label for="params[description]">Descripción</label>
+			 	<textarea name="params[description]" cols="55" rows="6" wrap="VIRTUAL" title="Descripción">|-$document->getDescription()|escape-|</textarea>
   			</p> 
   			|-if $module eq "Documents" && $entity eq ''-|
-				<p><label for="category">Categoría</label>
-					<select name="category">
+				<p><label for="params[categoryid]">Categoría</label>
+					<select name="params[categoryid]">
 						<option value=''>Sin Categoría</option>
-					|-include file="DocumentsCategoriesInclude.tpl" categories=$parentCategories user=$user selectedCategoryId=$filters.categoryId count='0'-|
-						</select>
+						|-include file="DocumentsCategoriesInclude.tpl" categories=$parentCategories user=$user selectedCategoryId=$filters.categoryId count='0'-|
+					</select>
 				</p>
-				<p><label for="extra[author]">Autor(es)</label>
-					 <input name="extra[author]" type="text" value="|-$document->getAuthor()|escape-|" size="50" />
+				<p><label for="params[author]">Autor(es)</label>
+					 <input name="params[author]" type="text" value="|-$document->getAuthor()|escape-|" size="50" />
 				</p>
-				<p><label for="extra[keyWords]">Palabras clave<img src="images/icon_search.png" onClick="switch_vis('keyWordSearch','block');" title="Buscar palabaras clave"/></label>
-					 <input name="extra[keyWords]" id="keyWords" type="text" value="|-$document->getKeyWords()|escape-|" size="50" />
+				<p><label for="params[keyWords]">Palabras clave<img src="images/icon_search.png" onClick="switch_vis('keyWordSearch','block');" title="Buscar palabaras clave"/></label>
+					 <input name="params[keyWords]" id="keyWords" type="text" value="|-$document->getKeyWords()|escape-|" size="50" />
 					<script language="JavaScript" type="text/javascript">
 					function sendText(element, text, sep) {
 						if (element.value != '')
@@ -91,8 +91,8 @@
 					}
 					</script>
 				|-include_module module=Documents action=KeyWordList-|</p>
-				<p><label for="extra[number]">Número</label>
-					 <input name="extra[number]" type="text" value="|-$document->getNumber()|escape-|" size="10" />
+				<p><label for="params[number]">Número</label>
+					 <input name="params[number]" type="text" value="|-$document->getNumber()|escape-|" size="10" />
 				</p>
 			|-/if-|
 |-if $document neq '' && $document->getPassword() neq ''-|

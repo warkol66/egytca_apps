@@ -15,7 +15,7 @@ class DocumentsDoDownloadAction extends BaseAction {
 
 	function execute($mapping, $form, &$request, &$response) {
 
-		BaseAction::execute($mapping, $form, $request, $response);
+		parent::execute($mapping, $form, $request, $response);
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
@@ -26,16 +26,14 @@ class DocumentsDoDownloadAction extends BaseAction {
 		$module = "Documents";
 		$smarty->assign("module",$module);
 
-		$documentPeer = new DocumentPeer();
-
 		$id = $_REQUEST["id"];
-		$document = $documentPeer->getById($id);
+		$document = DocumentQuery::create()->findOneById($id);
 		if (empty($document))
 			$document = new Document();
 
 		//validacion de password
 		$password = $_POST['password'];
-		if (!$document->checkPasswordValidation($password))
+		if ($document->isPasswordProtected() && !$document->checkPassword($password))
 			return $mapping->findForwardConfig('failure');
 
 		header('Pragma: public');   // required

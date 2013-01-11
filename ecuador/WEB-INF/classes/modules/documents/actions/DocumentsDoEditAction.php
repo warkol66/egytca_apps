@@ -8,109 +8,99 @@
 * @package documents
 */
 
-class DocumentsDoEditAction extends BaseAction {
-
-	function DocumentsDoEditAction() {
-		;
+class DocumentsDoEditAction extends BaseDoEditAction {
+	
+	public function __construct() {
+		parent::__construct('Document');
 	}
 	
-	function failureSmartySetup($smarty,$document) {
-		
-		require_once('CategoryPeer.php');
+	function failureSmartySetup() {
 		
 		//obtengo las categorias que el usuario puede acceder	
 		$user = Common::getAdminLogged();
-		$smarty->assign('user',$user);
+		$this->smarty->assign('user', $user);
 		$categories = $user->getDocumentsParentCategories();
-		$smarty->assign("categories",$categories);
+		$this->smarty->assign('categories', $categories);
 		
-		$smarty->assign('document',$document);
+		$this->smarty->assign('document', $this->entity);
+	}	
+	
+	protected function preUpdate() {
 		
-	}
-
-	function execute($mapping, $form, &$request, &$response) {
-
-    BaseAction::execute($mapping, $form, $request, $response);
-
-
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
+		$this->smarty->assign('module', 'Documents');
+		
+		//validacion de password
+		if ($this->entity->isPasswordProtected() && !$this->entity->checkPassword($_POST['old_password'])) {
+			$this->failureSmartySetup();
+			$this->smarty->assign('message', 'wrongPassword');
+			$this->forwardFailureName = 'failure';
+			return false;
 		}
-
-		$module = "Documents";
-		$smarty->assign("module",$module);
-
-		$documentPeer = new DocumentPeer();
 		
-		//caso de edicion
-		if ($_POST['id']) {
-		
-			$id = $_POST["id"];
-			$document = $documentPeer->getById($id);
-
-			$password = $_POST["old_password"];
-			
-			//validacion de password
-			if (!$document->checkPasswordValidation($password)) {
-
-				$this->failureSmartySetup($smarty,$document);
-				$smarty->assign('message','wrongPassword');
-				return $mapping->findForwardConfig('failure');
-			}
-			
-			//validamos el nuevo password y su verificacion
-			if($_POST["password"]!=$_POST["password_compare"]) {
-				$this->failureSmartySetup($smarty,$document);
-				$smarty->assign('message','wrongPasswordComparison');
-				return $mapping->findForwardConfig('failure');
-			}
-
-			if (!$_FILES["document_file"]['name'] == '') 
-				$documentPeer->updateDocument($_POST["id"],$_POST['title'],$_POST["description"],$_POST["date"],$_POST["category"],$_POST["password"],$_POST["extra"],$_FILES["document_file"]);
-			else 
-				$documentPeer->updateDocument($_POST["id"],$_POST['title'],$_POST["description"],$_POST["date"],$_POST["category"],$_POST["password"],$_POST["extra"]);
-
-			return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping, 'success' . $_POST['entity']);
-
+		//validamos el nuevo password y su verificacion
+		if ($_POST['password'] != $_POST['password_compare']) {
+			$this->failureSmartySetup();
+			$this->smarty->assign('message', 'wrongPasswordComparison');
+			$this->forwardFailureName = 'failure';
+			return false;
 		}
-		else {
-			//caso de upload o creacion de nuevo documento
-			
-			//si no llega ningun archivo significa que la carga se realizo por swfUpload.
-			if(empty($_FILES["document_file"]['name'])) {
-				return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping, 'success' . $_POST['entity']);
+		
+		if (!empty($_POST['password']))
+			$this->entityParams['password'] = Common::md5($_POST['password']);
+		
+		$file = $_FILES['document_file'];
+		if (!empty($file['name'])) {
+			try {
+				Common::ensureWritable(Document::getDocumentsPath());
+			} catch (Exception $e) {
+				$this->smarty->assign('message', $e->getMessage());
+				$this->forwardFailureName = 'failure';
+				return false;
 			}
-
-			if($_POST["password"]!=$_POST["password_compare"]){
-				$this->failureSmartySetup($smarty,$document);
-				$smarty->assign('message','wrongPasswordComparison');
-				return $mapping->findForwardConfig('failure');
-			}		
-			////////////
-			// se inserta en la base de datos todo lo ingresado en el formulario anterior y la fecha
-			$document = $documentPeer->create($_FILES["document_file"],$_POST['title'],$_POST["description"],$_POST['date'],$_POST["category"],$_POST["password"],$_POST["extra"]);
+			$this->entityParams['realFilename'] = $file['name'];
+			$this->entityParams['fileSize'] = $file['size'];
+			$this->entity->extractFullText($file);
 			
-			// Si no le tenemos que asociar ninguna entidad terminamos la accion acá
-			if (empty($_POST['entity'])) {
-				return $mapping->findForwardConfig('success');
-			}
+			$this->params['message'] = 'uploadsuccess';
+		}
+		
+		if ($this->entity->isNew() && !empty($_POST['entity'])) {
+			
+			$this->params['id'] = $_POST['entityId'];
+			$this->forwardName = 'success'.$_POST['entity'];
 			
 			$addMethod = 'add' . $_POST['entity'];
-			if ( method_exists($document, $addMethod) && !empty($_POST['entityId'])) {
+			if ( method_exists($this->entity, $addMethod) && !empty($_POST['entityId']) ) {
 				$queryClass = $_POST['entity'] . 'Query';
 				if ( class_exists($queryClass) ) {
-					$queryInstance = new $queryClass;
-					$entity = $queryInstance->findPK($_POST['entityId']);
-					$document->$addMethod($entity);
-					$document->save();
-					return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping, 'success' . $_POST['entity']);
+					$entity = $queryClass::create()->findOneById($_POST['entityId']);
+					$this->entity->$addMethod($entity);
+					return;
 				}
 			}
-			return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'errormessage'=>'documentUploadError'), $mapping, 'failureUpload' . $_POST['entity']);
+			
+			$this->params['errormessage'] = 'documentUploadError';
+			$this->forwardFailureName = 'failureUpload'.$_POST['entity'];
+			return false;
 		}
-
+		
+		$this->forwardName = 'success'.$_POST['entity'];
+		
+		//TODO: ordenar uso del swfupload
+//		//si no llega ningun archivo significa que la carga se realizo por swfUpload.
+//		if(empty($_FILES["document_file"]['name'])) {
+//			return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping, 'success' . $_POST['entity']);
+//		}
+		
+		parent::preUpdate();
 	}
-
+	
+	protected function postSave() {
+		parent::postSave();
+		if (!empty($_FILES['document_file']['name'])) {
+			if (file_exists($this->entity->getFullyQualifiedFileName()))
+				unlink($this->entity->getFullyQualifiedFileName());
+			move_uploaded_file($_FILES['document_file']['tmp_name'], $this->entity->getFullyQualifiedFileName());
+		}
+	}
 }

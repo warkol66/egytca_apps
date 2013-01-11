@@ -7,6 +7,31 @@
 class Document extends BaseDocument {
 	
 	/**
+	 * 
+	 * @return string documents path
+	 */
+	public static function getDocumentsPath() {
+		$moduleConfig = Common::getModuleConfiguration('documents');
+		return $moduleConfig['documentsPath'];
+	}
+	
+	/**
+	 * 
+	 * @return string name of the file containing the document data
+	 */
+	public function getFileName() {
+		return $this->getId();
+	}
+	
+	/**
+	 * 
+	 * @return string fully quelified name of the file containing the document data
+	 */
+	public function getFullyQualifiedFileName() {
+		return self::getDocumentsPath().'/'.$this->getFileName();
+	}
+	
+	/**
 	 * Devuelve un array asociativo con los tipos de documentos establecidos en la configuracón local.
 	 * @example Array ( [Word] => *.doc;*.docx; [Excel] => *.xls;*.xlsx; )
 	 * @return Array $documentTypes, array asociativo con la informacion de los tipos de documentos soportados.
@@ -49,12 +74,7 @@ class Document extends BaseDocument {
 	 *
 	 */
 	public function getContents() {
-
-		$moduleConfig = Common::getModuleConfiguration('documents');
-		$documentsPath = $moduleConfig['documentsPath'];
-		
-		readfile($documentsPath . '/' . $this->getId());
-		
+		readfile($this->getFullyQualifiedFileName());
 	}
 	
 	/**
