@@ -41,6 +41,32 @@
 	  </vendor>
 
 	</table>
+
+	<table phpName="NewsComment" name="news_comment" description="Comentarios a noticias">
+
+		<column name="id" type="INTEGER"  required="true" description="Id comentario" primaryKey="true" autoIncrement="true"  />
+		<column name="newsArticleId" type="INTEGER"  required="true" description="Id de la noticia" />
+		<column name="text" type="LONGVARCHAR" description="Comentario"/>
+		<column name="email" type="VARCHAR" size="255" description="Email del usuario" />
+		<column name="username" type="VARCHAR" size="255" description="Nombre del usuario" />
+		<column name="url" type="VARCHAR" size="255" description="Url del usuario" />
+		<column name="ip" type="VARCHAR" size="50" description="IP del usuario" />
+		<column name="creationDate" type="TIMESTAMP" description="Fecha de creacion" />
+		<column name="status" type="INTEGER" required="true" description="Estado del comentario" />
+		<column name="userId" type="INTEGER"  required="true" description="Id del usuario por registracion" />
+		<column name="objectType" type="VARCHAR" size="50" description="Tipo de usuario" />
+		<column name="objectId" type="INTEGER" description="Id del usuario" />
+
+		<foreign-key foreignTable="news_article" >
+			<reference local="newsArticleId" foreign="id" />
+		</foreign-key>
+
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+	</table>
 	
 	<table phpName="NewsMedia" name="news_media" description="Media de las noticias">
 
