@@ -1,3 +1,5 @@
+<script type="text/javascript" src="scripts/jquery/jquery.jeditable.mini.js"></script>
+<script type="text/javascript" src="scripts/jquery/egytca.js"></script>
 <script type="text/javascript" src="scripts/news.js"></script>
 |-if $images|@count gt 0-|
 <div id="mediasImagesLister">
@@ -127,53 +129,50 @@
 |-/if-|
 <script type="text/javascript">
 	|-if $created eq "1"-|	
-		var msgbox = $('msgBoxUploader');
-		msgbox.innerHTML = 'Se ha subido el archivo con éxito';
+		$('#msgBoxUploader').html('Se ha subido el archivo con éxito');
 	|-/if-|
 </script>
 
 <script type="text/javascript">
-	
-	if ($('imagesList')) {
-	
-		imagesSortable = Sortable.create("imagesList", {
-
-				onUpdate: function() {
-							new Ajax.Updater("imagesOrderMsg", "Main.php?do=newsMediasSortX",
-								{
-				 					method: "post",  
-				 					parameters: { data: Sortable.serialize("imagesList") }
-								});
-						} 
-					});
-
-	 }
-	
-	if ($('soundsList')) {
-		soundsSortable = Sortable.create("soundsList", {
-
-				onUpdate: function() {
-							new Ajax.Updater("soundsOrderMsg", "Main.php?do=newsMediasSortX",
-								{
-				 					method: "post",  
-				 					parameters: { data: Sortable.serialize("soundsList") }
-								});
-						} 
-					});
-
-	 }
-
-	if ($('videosList')) {
-	
-		videosSortable = Sortable.create("videosList", {
-
-				onUpdate: function() {
-							new Ajax.Updater("videosOrderMsg", "Main.php?do=newsMediasSortX",
-								{
-				 					method: "post",  
-				 					parameters: { data: Sortable.serialize("videosList") }
-								});
-						} 
-					});
-	}						
+	$(function() {
+		$("#imagesList").sortable({
+			update: function(event,ui){
+				$('#imagesOrderMsg').html("<span class='inProgress'>Cambiando orden...</span>");
+				$.ajax({
+					url: "Main.php?do=newsMediasSortX",
+					data: $("#imagesList").sortable("toArray") },
+					type: 'post',
+					success: function(data){
+						$('#imagesOrderMsg').html(data);
+					}	
+				});
+			}
+		});
+		$("#soundsList").sortable({
+			update: function(event,ui){
+				$('#soundsOrderMsg').html("<span class='inProgress'>Cambiando orden...</span>");
+				$.ajax({
+					url: "Main.php?do=newsMediasSortX",
+					data: $("#soundsList").sortable("toArray") },
+					type: 'post',
+					success: function(data){
+						$('#soundsOrderMsg').html(data);
+					}	
+				});
+			}
+		});
+		$("#videosList").sortable({
+			update: function(event,ui){
+				$('#videosOrderMsg').html("<span class='inProgress'>Cambiando orden...</span>");
+				$.ajax({
+					url: "Main.php?do=newsMediasSortX",
+					data: $("#videosList").sortable("toArray") },
+					type: 'post',
+					success: function(data){
+						$('#videosOrderMsg').html(data);
+					}	
+				});
+			}
+		});
+	});						
 </script>

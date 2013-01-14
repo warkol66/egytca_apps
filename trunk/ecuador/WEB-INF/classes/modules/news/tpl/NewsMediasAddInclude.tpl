@@ -18,8 +18,8 @@
 			<div>
 				<p>
 					<label>Archivo</label>
-					<input type="text" id="txtFileName" disabled="true" style="border: solid 1px; background-color: #FFFFFF;" />
-					<span id="spanButtonPlaceholder"></span> (15 MB max)
+					<input type="file" id="txtFileName" style="border: solid 1px; background-color: #FFFFFF;" />
+					<span id="spanButtonPlaceholder"></span> (2 MB max)
 				</p> 
 			</div>
 			<div class="flash" id="fsUploadProgress">
