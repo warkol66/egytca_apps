@@ -26,8 +26,29 @@
 					</span> 
 
 						<script type="text/javascript">
-							new Ajax.InPlaceEditor('titleEdit_|-$newsmedia->getId()-|', 'Main.php?do=newsMediasDoEditX', {});
-							new Ajax.InPlaceEditor('descriptionEdit_|-$newsmedia->getId()-|', 'Main.php?do=newsMediasDoEditX', {});													
+							//blogDoEditFieldX
+							$('#titleEdit_|-$newsmedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=newsMediasDoEditX', {
+								cssclass: 'inplaceEditSize20',
+								submitdata: {
+									objectType: 'newsMedia',
+									objectId: '|-$newsmedia->getId()-|',
+									paramName: 'title'
+								},
+								callback: function(value, settings) {
+									return chomp(value);
+								}
+							});
+							$('#descriptionEdit_|-$newsmedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=newsMediasDoEditX', {
+								cssclass: 'inplaceEditSize20',
+								submitdata: {
+									objectType: 'newsMedia',
+									objectId: '|-$newsmedia->getId()-|',
+									paramName: 'description'
+								},
+								callback: function(value, settings) {
+									return chomp(value);
+								}
+							});												
 						</script>
 						
 					<form action="Main.php" method="post">
@@ -68,8 +89,29 @@
 			</span> 
 
 				<script type="text/javascript">
-					new Ajax.InPlaceEditor('titleEdit_|-$newsmedia->getId()-|', 'Main.php?do=newsMediasDoEditX', {});
-					new Ajax.InPlaceEditor('descriptionEdit_|-$newsmedia->getId()-|', 'Main.php?do=newsMediasDoEditX', {});													
+					//blogDoEditFieldX
+					$('#titleEdit_|-$newsmedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=newsMediasDoEditX', {
+						cssclass: 'inplaceEditSize20',
+						submitdata: {
+							objectType: 'newsMedia',
+							objectId: '|-$newsmedia->getId()-|',
+							paramName: 'title'
+						},
+						callback: function(value, settings) {
+							return chomp(value);
+						}
+					});
+					$('#descriptionEdit_|-$newsmedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=newsMediasDoEditX', {
+						cssclass: 'inplaceEditSize20',
+						submitdata: {
+							objectType: 'newsMedia',
+							objectId: '|-$newsmedia->getId()-|',
+							paramName: 'description'
+						},
+						callback: function(value, settings) {
+							return chomp(value);
+						}
+					});												
 				</script>
 				
 			<form action="Main.php" method="post">
@@ -110,8 +152,29 @@
 			</span> 
 
 				<script type="text/javascript">
-					new Ajax.InPlaceEditor('titleEdit_|-$newsmedia->getId()-|', 'Main.php?do=newsMediasDoEditX', {});
-					new Ajax.InPlaceEditor('descriptionEdit_|-$newsmedia->getId()-|', 'Main.php?do=newsMediasDoEditX', {});													
+					//blogDoEditFieldX
+					$('#titleEdit_|-$newsmedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=newsMediasDoEditX', {
+						cssclass: 'inplaceEditSize20',
+						submitdata: {
+							objectType: 'newsMedia',
+							objectId: '|-$newsmedia->getId()-|',
+							paramName: 'title'
+						},
+						callback: function(value, settings) {
+							return chomp(value);
+						}
+					});
+					$('#descriptionEdit_|-$newsmedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=newsMediasDoEditX', {
+						cssclass: 'inplaceEditSize20',
+						submitdata: {
+							objectType: 'newsMedia',
+							objectId: '|-$newsmedia->getId()-|',
+							paramName: 'description'
+						},
+						callback: function(value, settings) {
+							return chomp(value);
+						}
+					});											
 				</script>
 			
 			<form action="Main.php" method="post">
@@ -140,7 +203,7 @@
 				$('#imagesOrderMsg').html("<span class='inProgress'>Cambiando orden...</span>");
 				$.ajax({
 					url: "Main.php?do=newsMediasSortX",
-					data: $("#imagesList").sortable("toArray") },
+					data: $("#imagesList").sortable("toArray"),
 					type: 'post',
 					success: function(data){
 						$('#imagesOrderMsg').html(data);
@@ -153,7 +216,7 @@
 				$('#soundsOrderMsg').html("<span class='inProgress'>Cambiando orden...</span>");
 				$.ajax({
 					url: "Main.php?do=newsMediasSortX",
-					data: $("#soundsList").sortable("toArray") },
+					data: $("#soundsList").sortable("toArray"),
 					type: 'post',
 					success: function(data){
 						$('#soundsOrderMsg').html(data);
@@ -166,7 +229,7 @@
 				$('#videosOrderMsg').html("<span class='inProgress'>Cambiando orden...</span>");
 				$.ajax({
 					url: "Main.php?do=newsMediasSortX",
-					data: $("#videosList").sortable("toArray") },
+					data: $("#videosList").sortable("toArray"),
 					type: 'post',
 					success: function(data){
 						$('#videosOrderMsg').html(data);
@@ -174,5 +237,5 @@
 				});
 			}
 		});
-	});						
+	});				
 </script>
