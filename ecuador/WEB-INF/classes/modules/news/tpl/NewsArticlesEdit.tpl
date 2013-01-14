@@ -123,14 +123,14 @@ Puede regresar a la página principal de noticias haciendo click <a href="Main.p
 		</fieldset>
 	</form>
 </div>
-|-if $newsArticlesConfig.useImages.value eq "YES" || $newsArticlesConfig.useAudio.value eq "YES" || $newsArticlesConfig.useVideo.value eq "YES"-|
+|*-if $newsArticlesConfig.useImages.value eq "YES" || $newsArticlesConfig.useAudio.value eq "YES" || $newsArticlesConfig.useVideo.value eq "YES"-*|
 <div id="mediasListHolder">
 	|-include file='NewsMediasListInclude.tpl'-|
 </div>
-	|-if $action eq 'edit'-|
-		|-include file='NewsMediasAddInclude.tpl' article=$newsarticle-|
+	|-if !$newsArticle->isNew()-|
+		|-include file='NewsMediasAddInclude.tpl' article=$newsArticle-|
 	|-/if-|
-|-/if-|
+|*-/if-*|
 |-if $newsArticlesConfig.useCommets.value eq "YES" && !$newsArticle->isNew()-|	<div>
 		<fieldset>
 			<form action="Main.php" method="get">

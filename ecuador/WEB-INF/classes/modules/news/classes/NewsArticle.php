@@ -64,17 +64,14 @@ class NewsArticle extends BaseNewsArticle {
 	}
 	
 	public function getVideos() {
-		require_once("NewsMediaPeer.php");
 		return $this->getMedias(NewsMedia::NEWSMEDIA_VIDEO);
 	}	
 	
 	public function getSounds() {
-		require_once("NewsMediaPeer.php");
 		return $this->getMedias(NewsMedia::NEWSMEDIA_SOUND);
 	}
 	
 	public function getImages() {
-		require_once("NewsMediaPeer.php");
 		return $this->getMedias(NewsMedia::NEWSMEDIA_IMAGE);
 	}	
 	

@@ -28,9 +28,9 @@ class NewsMedia extends BaseNewsMedia {
 	public function getMediaTypes() {
 
 	$types = array();
-	$types[NEWSMEDIA_IMAGE] = 'Imagen';
-	$types[NEWSMEDIA_VIDEO] = 'Video';
-	$types[NEWSMEDIA_SOUND] = 'Sonido';
+	$types[NewsMedia::NEWSMEDIA_IMAGE] = 'Imagen';
+	$types[NewsMedia::NEWSMEDIA_VIDEO] = 'Video';
+	$types[NewsMedia::NEWSMEDIA_SOUND] = 'Sonido';
 
 	return $types;
 
@@ -55,7 +55,7 @@ class NewsMedia extends BaseNewsMedia {
 	*
 	*
 	*/
-	private function getSavePath($type) {
+	public function getSavePath($type) {
 
 	$path = NewsMedia::NEWSMEDIA_SAVEPATH;
 
@@ -80,114 +80,116 @@ class NewsMedia extends BaseNewsMedia {
 	* @param string $name Nombre 
 	* @return void
 	*/	
-	function createImages($newsmediaObj,$image,$name) {		
-	$uploadFile = 'WEB-INF/classes/modules/news/files/images/resizes/' . $name;
-	copy($image['tmp_name'], $uploadFile);	
+	function createImages($newsmediaObj,$image,$name) {
+		global $moduleRootDir;
+		
+		$uploadFile = $moduleRootDir . 'WEB-INF/classes/modules/news/files/images/resizes/' . $name;
+		move_uploaded_file($image['tmp_name'], $uploadFile);
 
-	global $system;	
-	$width = $system["config"]["news"]["image"]["resize"]["width"];
-	$height = $system["config"]["news"]["image"]["resize"]["height"];
-	$resizeFormat = $system["config"]["news"]["image"]["resize"]["resizeFormat"];
-	$jpegQuality = $system["config"]["news"]["image"]["jpegQuality"];
+		global $system;	
+		$width = $system["config"]["news"]["image"]["resize"]["width"];
+		$height = $system["config"]["news"]["image"]["resize"]["height"];
+		$resizeFormat = $system["config"]["news"]["image"]["resize"]["resizeFormat"];
+		$jpegQuality = $system["config"]["news"]["image"]["jpegQuality"];
 
-	$file = $uploadFile;
+		$file = $uploadFile;
 
-	$info = getimagesize($file);
-	$actualWidth = $info[0];
-	$actualHeight = $info[1];
-	$mime_type = $info['mime'];
+		$info = getimagesize($file);
+		$actualWidth = $info[0];
+		$actualHeight = $info[1];
+		$mime_type = $info['mime'];
 
-	switch ($resizeFormat) {
-	  case "1":
-		$newWidth = $width;
-		$newHeight = $height;
-		break;
-	  case "2":
-		$newHeight = $height;
-		$perc = $newHeight / $actualHeight;
-		$newWidth = $actualWidth * $perc;
-		break;
-	  case "3":
-		$newWidth = $width;
-		$perc = $newWidth / $actualWidth;
-		$newHeight = $actualHeight * $perc;			
-		break;							
-	  case "4":
-		$newHeight = $height;
-		$newWidth = $width;
-		$percWidth = $newWidth / $actualWidth;
-		$percHeight = $newHeight / $actualHeight;
-				$perc = min($percWidth, $percHeight);
-		$newHeight = $actualHeight * $perc;
-		$newWidth = $actualWidth * $perc;
-		break;							
-	}
+		switch ($resizeFormat) {
+		  case "1":
+			$newWidth = $width;
+			$newHeight = $height;
+			break;
+		  case "2":
+			$newHeight = $height;
+			$perc = $newHeight / $actualHeight;
+			$newWidth = $actualWidth * $perc;
+			break;
+		  case "3":
+			$newWidth = $width;
+			$perc = $newWidth / $actualWidth;
+			$newHeight = $actualHeight * $perc;			
+			break;							
+		  case "4":
+			$newHeight = $height;
+			$newWidth = $width;
+			$percWidth = $newWidth / $actualWidth;
+			$percHeight = $newHeight / $actualHeight;
+					$perc = min($percWidth, $percHeight);
+			$newHeight = $actualHeight * $perc;
+			$newWidth = $actualWidth * $perc;
+			break;							
+		}
 
-	$newsmediaObj->setWidth($newWidth);
-	$newsmediaObj->setHeight($newHeight);
-	$newsmediaObj->save();
+		$newsmediaObj->setWidth($newWidth);
+		$newsmediaObj->setHeight($newHeight);
+		$newsmediaObj->save();
 
-	$tn = imagecreatetruecolor($newWidth, $newHeight);
+		$tn = imagecreatetruecolor($newWidth, $newHeight);
 
-	switch ($mime_type) {
-	  case "image/jpeg":
-		$newImage = imagecreatefromjpeg($file);
-		break;
-	  case "image/png":
-		$newImage = imagecreatefrompng($file);
-		break;				
-	  case "image/gif":
-		$newImage = imagecreatefromgif($file);
-		break;		          
-	}
+		switch ($mime_type) {
+		  case "image/jpeg":
+			$newImage = imagecreatefromjpeg($file);
+			break;
+		  case "image/png":
+			$newImage = imagecreatefrompng($file);
+			break;				
+		  case "image/gif":
+			$newImage = imagecreatefromgif($file);
+			break;		          
+		}
 
-	imagecopyresampled($tn, $newImage, 0, 0, 0, 0, $newWidth, $newHeight, $actualWidth, $actualHeight);
+		imagecopyresampled($tn, $newImage, 0, 0, 0, 0, $newWidth, $newHeight, $actualWidth, $actualHeight);
 
-	global $system;	
-	$width = $system["config"]["news"]["image"]["thumbnail"]["width"];
-	$height = $system["config"]["news"]["image"]["thumbnail"]["height"];
-	$resizeFormat = $system["config"]["news"]["image"]["thumbnail"]["resizeFormat"];
-	$jpegQuality = $system["config"]["news"]["image"]["jpegQuality"];
+		global $system;	
+		$width = $system["config"]["news"]["image"]["thumbnail"]["width"];
+		$height = $system["config"]["news"]["image"]["thumbnail"]["height"];
+		$resizeFormat = $system["config"]["news"]["image"]["thumbnail"]["resizeFormat"];
+		$jpegQuality = $system["config"]["news"]["image"]["jpegQuality"];
 
-	imagejpeg($tn, $uploadFile, $jpegQuality); 	
+		imagejpeg($tn, $uploadFile, $jpegQuality); 	
 
-	$uploadFile = 'WEB-INF/classes/modules/news/files/images/thumbnails/' . $name;
-	copy($image['tmp_name'], $uploadFile);	
+		$uploadFile = $moduleRootDir . 'WEB-INF/classes/modules/news/files/images/thumbnails/' . $name;
+		move_uploaded_file($image['tmp_name'], $uploadFile);	
 
-	$file = $uploadFile;
-	list($actualWidth, $actualHeight) = getimagesize($file);
+		$file = $uploadFile;
+		list($actualWidth, $actualHeight) = getimagesize($file);
 
-	switch ($resizeFormat) {
-	  case "1":
-		$newWidth = $width;
-		$newHeight = $height;
-		break;
-	  case "2":
-		$newHeight = $height;
-		$perc = $newHeight / $actualHeight;
-		$newWidth = $actualWidth * $perc;
-		break;
-	  case "3":
-		$newWidth = $width;
-		$perc = $newWidth / $actualWidth;
-		$newHeight = $actualHeight * $perc;			
-		break;							
-	}
+		switch ($resizeFormat) {
+		  case "1":
+			$newWidth = $width;
+			$newHeight = $height;
+			break;
+		  case "2":
+			$newHeight = $height;
+			$perc = $newHeight / $actualHeight;
+			$newWidth = $actualWidth * $perc;
+			break;
+		  case "3":
+			$newWidth = $width;
+			$perc = $newWidth / $actualWidth;
+			$newHeight = $actualHeight * $perc;			
+			break;							
+		}
 
-	$tn = imagecreatetruecolor($newWidth, $newHeight);
+		$tn = imagecreatetruecolor($newWidth, $newHeight);
 
-	switch ($mime_type) {
-	  case "image/jpeg":
-		$newImage = imagecreatefromjpeg($file);
-		break;
-	  case "image/png":
-		$newImage = imagecreatefrompng($file);
-		break;				
-	}
+		switch ($mime_type) {
+		  case "image/jpeg":
+			$newImage = imagecreatefromjpeg($file);
+			break;
+		  case "image/png":
+			$newImage = imagecreatefrompng($file);
+			break;				
+		}
 
-	imagecopyresampled($tn, $newImage, 0, 0, 0, 0, $newWidth, $newHeight, $actualWidth, $actualHeight);
+		imagecopyresampled($tn, $newImage, 0, 0, 0, 0, $newWidth, $newHeight, $actualWidth, $actualHeight);
 
-	imagejpeg($tn, $uploadFile, $jpegQuality); 	      
+		imagejpeg($tn, $uploadFile, $jpegQuality); 	      
 
 	}   
 
@@ -224,7 +226,7 @@ class NewsMedia extends BaseNewsMedia {
 	function createVideo($newsmediaObj,$video,$name) {		
 	global $moduleRootDir;
 
-	$uploadFile = $moduleRootDir.'/WEB-INF/classes/modules/news/files/videos/flv/' . $name;
+	$uploadFile = $moduleRootDir.'WEB-INF/classes/modules/news/files/videos/flv/' . $name;
 	copy($video['tmp_name'], $uploadFile);	
 
 		$parts = explode('\.',$video['name']);
@@ -235,10 +237,10 @@ class NewsMedia extends BaseNewsMedia {
 	require_once 'config/videotoolkit-config.php';
 	require_once 'videotoolkit/phpvideotoolkit.php5.php';
 
-	$tmp_dir = $moduleRootDir.'/WEB-INF/classes/modules/news/files/videos/tmp/';
-	$video_output_dir = $moduleRootDir.'/WEB-INF/classes/modules/news/files/videos/flv/';
-		$video_thumbnail_output_dir = $moduleRootDir.'/WEB-INF/classes/modules/news/files/videos/thumbnail/';
-	$log_dir = $moduleRootDir.'/WEB-INF/classes/modules/news/files/videos/logs/';		
+	$tmp_dir = $moduleRootDir.'WEB-INF/classes/modules/news/files/videos/tmp/';
+	$video_output_dir = $moduleRootDir.'WEB-INF/classes/modules/news/files/videos/flv/';
+	$video_thumbnail_output_dir = $moduleRootDir.'WEB-INF/classes/modules/news/files/videos/thumbnail/';
+	$log_dir = $moduleRootDir.'WEB-INF/classes/modules/news/files/videos/logs/';		
 
 	global $system;	
 	$width = $system["config"]["news"]["video"]["resize"]["width"];
@@ -350,10 +352,10 @@ class NewsMedia extends BaseNewsMedia {
 	* @param string $name Nombre 
 	* @return void
 	*/	
-	function createSound($newsmediaObj,$sound,$name) {		
+	function createSound($sound,$name) {		
 		global $moduleRootDir;
-		$uploadFile = $moduleRootDir.'audio/' . $name;
-		$result = copy($sound['tmp_name'], $uploadFile);
+		$uploadFile = $moduleRootDir . 'WEB-INF/classes/modules/news/files/audio/' . $name;
+		move_uploaded_file($sound['tmp_name'], $uploadFile);
 	}        
 
 

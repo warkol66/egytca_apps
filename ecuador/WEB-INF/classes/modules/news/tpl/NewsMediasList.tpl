@@ -1,3 +1,21 @@
+<script src="Main.php?do=js&name=js&module=news&code=|-$currentLanguageCode-|" type="text/javascript"></script>
+<script>
+    $(function() {
+		$.datepicker.setDefaults($.datepicker.regional['es']);
+        $( ".datepickerFrom" ).datepicker({
+			dateFormat:"dd-mm-yy",
+			onClose: function(selectedDate) {
+                $(".datepickerTo").datepicker("option", "minDate", selectedDate);
+            }
+		});
+		$(".datepickerTo").datepicker({
+			dateFormat:"dd-mm-yy",
+			onClose: function(selectedDate) {
+                $(".datepickerFrom").datepicker("option", "maxDate", selectedDate);
+            }
+		});
+    });
+</script>
 <h2>Multimedia</h2>
 <h1>Administrar contenido Multimedia</h1>
 <p>A continuación puede ver el contenido multimedia asociado a los artículos publicados.</p>
@@ -13,13 +31,13 @@
 			<form action="Main.php" method="get">
 				<p>
 					<label for="fromDate">Fecha de Articulo Desde</label>
-					<input name="filters[fromDate]" type="text" id="fromDate" title="fromDate" value="|-$filters.fromDate-|" size="12" /> 
-					<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[fromDate]', false, 'ymd', '-');" title="Seleccione la fecha">
+					<input name="filters[dateRange][creationdate][min]" type="text" id="filters_dateRange_min" class="datepickerFrom" title="fromDate" value="|-$filters.dateRange.creationdate.min|date_format:"%d-%m-%Y"-|" size="12" /> 
+					<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 				</p>
 				<p>
 					<label for="toDate">Fecha de Articulo Hasta</label>
-					<input name="filters[toDate]" type="text" id="toDate" title="toDate" value="|-$filters.toDate-|" size="12" /> 
-					<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[toDate]', false, 'ymd', '-');" title="Seleccione la fecha">
+					<input name="filters[dateRange][creationdate][max]" type="text" id="filters_dateRange_max" class="datepickerTo" title="toDate" value="|-$filters.dateRange.creationdate.max|date_format:"%d-%m-%Y"-|" size="12" /> 
+					<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 				</p>
 				<p>
 					<label for="categoryId">Categoria Articulo</label>
@@ -63,7 +81,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		|-foreach from=$newsmedias item=newsmedia name=for_newsmedias-|
+		|-foreach from=$newsMediaColl item=newsmedia name=for_newsmedias-|
 			<tr>
 
 				<td>|-if $newsmedia->getNewsArticle() gt 0-||-assign var=article value=$newsmedia->getNewsArticle()-||-$article->getTitle()-||-/if-|</td>
@@ -80,8 +98,7 @@
 					<form action="Main.php" method="get">
 						<!--pasaje de parametros de filtros -->
 						<!--pasaje de parametros de filtros -->
-						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-						
+						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|	
 						<input type="hidden" name="do" value="newsMediasEdit" />
 						<input type="hidden" name="id" value="|-$newsmedia->getid()-|" />
 						<input type="submit" name="submit_go_edit_newsmedia" value="Editar" class="icon iconEdit" />
@@ -96,7 +113,7 @@
 					</td>
 			</tr>
 		|-/foreach-|						
-		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
+		|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 			<tr> 
 				<td colspan="7" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 			</tr>							

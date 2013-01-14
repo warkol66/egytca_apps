@@ -1,12 +1,47 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("NewsArticlePeer.php");
-require_once("NewsMediaPeer.php");
+class NewsMediasUploadAction extends BaseDoEditAction {
 
-class NewsMediasUploadAction extends BaseAction {
+	function __construct() {
+		parent::__construct('NewsMedia');
+	}
+	
+	protected function postUpdate() {
+		parent::postUpdate();
+		
+		$this->smarty->assign("module","News");
+		
+	}
+	
+	protected function postSave() {
+		parent::postSave();
+		
+		$destPath = NewsMedia::getSavePath($this->entity->getMediaType());
+		$destPath .= $this->entity->getId();
 
+		//si el tipo es imagen
+		if ($params["mediaType"] == NewsMedia::NEWSMEDIA_IMAGE && !empty($file['tmp_name']))
+		NewsMedia::createImages($this->entity,$file,$this->entity->getId()); 
+		//si el tipo es video
+		if ($params["mediaType"] == NewsMedia::NEWSMEDIA_VIDEO && !empty($file['tmp_name']))
+		NewsMedia::createVideo($this->entity,$file,$this->entity->getId().".flv"); 
+		//si el tipo es audio
+		if ($params["mediaType"] == NewsMedia::NEWSMEDIA_SOUND && !empty($file['tmp_name']))
+		NewsMedia::createSound($this->entity,$file,$this->entity->getId().".mp3"); 
 
+		
+		/* Ver esto
+		global $system;
+  
+		$saveOriginalFiles = $system["config"]["news"]["medias"]["saveOriginalFiles"]["value"];
+
+		if ($saveOriginalFiles == "YES")
+		  return copy($file["tmp_name"],$destPath);
+		}*/
+
+	}
+
+/*
 	// ----- Constructor ---------------------------------------------------- //
 
 	function NewsMediasUploadAction() {
@@ -29,7 +64,7 @@ class NewsMediasUploadAction extends BaseAction {
 	* @param HttpRequestBase	The HTTP response we are creating
 	* @public
 	* @returns ActionForward
-	*/
+	*
 	function execute($mapping, $form, &$request, &$response) {
 
     	BaseAction::execute($mapping, $form, $request, $response);
@@ -67,6 +102,6 @@ class NewsMediasUploadAction extends BaseAction {
 		}	
 
 
-	}
+	}*/
 
 }
