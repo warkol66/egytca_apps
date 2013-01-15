@@ -19,8 +19,14 @@ class MinistryObjectiveQuery extends BaseMinistryObjectiveQuery {
 		parent::__construct($dbName, $modelName, $modelAlias);
 		$minYear = ConfigModule::get('planning', 'startingYear');
 		$maxYear = ConfigModule::get('planning', 'endingYear');
-		return $this->filterByStartingyear($minYear, Criteria::GREATER_EQUAL)
-			->filterByEndingyear($maxYear, Criteria::LESS_EQUAL);
+		
+		return $this->condition('cond1', MinistryObjectivePeer::STARTINGYEAR.' >= ?', $minYear)
+			->condition('cond2', MinistryObjectivePeer::STARTINGYEAR.' <= ?', $maxYear)
+			->combine(array('cond1', 'cond2'), 'and', 'startingYearInRange')
+			->condition('cond3', MinistryObjectivePeer::ENDINGYEAR.' >= ?', $minYear)
+			->condition('cond4', MinistryObjectivePeer::ENDINGYEAR.' <= ?', $maxYear)
+			->combine(array('cond3', 'cond4'), 'and', 'endingYearInRange')
+			->where(array('startingYearInRange', 'endingYearInRange'), 'or');
 	}
 	
 	protected function preSelect(\PropelPDO $con) {
