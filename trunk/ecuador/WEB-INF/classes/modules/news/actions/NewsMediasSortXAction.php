@@ -1,7 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("NewsMediaPeer.php");
 class NewsMediasSortXAction extends BaseAction {
 
 
@@ -48,19 +46,13 @@ class NewsMediasSortXAction extends BaseAction {
 
 		//por ser un action ajax
 		$this->template->template = 'TemplateAjax.tpl';
- 
 
-		parse_str($_POST['data']);
-
-		if (isset($imagesList))
-			$list = $imagesList;
-		if (isset($soundsList))
-			$list = $soundsList;
-		if (isset($videosList))
-			$list = $soundsList;
+		$list = ($_POST['data']);
 			
+		//ver por que salen dos de mas
 		for ($pos = 0; $pos < count($list); $pos++) {
-			NewsMediaPeer::changeNewsMediaOrder($list[$pos],$pos);
+			if(!empty($list[$pos]))
+				NewsMedia::changeNewsMediaOrder($list[$pos],$pos);
 	   	}
 	
 		return $mapping->findForwardConfig('success');

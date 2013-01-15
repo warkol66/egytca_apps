@@ -1,6 +1,11 @@
+<script src="Main.php?do=js&name=js&module=news&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 <script type="text/javascript" src="scripts/jquery/jquery.jeditable.mini.js"></script>
 <script type="text/javascript" src="scripts/jquery/egytca.js"></script>
-<script type="text/javascript" src="scripts/news.js"></script>
+<style>
+	.inplaceEditSize20 {
+		color: 'red';
+	}
+</style>
 |-if $images|@count gt 0-|
 <div id="mediasImagesLister">
 	<fieldset title="Contenido Multimedia asociado al Artículo">
@@ -8,26 +13,25 @@
 		<span id="imagesOrderMsg"></span>
 		<ul id="imagesList">
 			|-foreach from=$images item=newsmedia name=for_newsmedias-|
-				<li id="imagesList_|-$newsmedia->getId()-|">
+				<li id="|-$newsmedia->getId()-|">
 					<span style="float:left;width:95%;">
 						<strong>Título: </strong>
 					|-if $newsmedia->getTitle() ne ''-|
-						<span id="titleEdit_|-$newsmedia->getId()-|">|-$newsmedia->getTitle()-|</span>
+						<span id="titleEdit_|-$newsmedia->getId()-|" name="params[title]" class="in_place_editable">|-$newsmedia->getTitle()-|</span>
 					|-else-|
-						<span id="titleEdit_|-$newsmedia->getId()-|">(No se ingresó título)</span>
+						<span id="titleEdit_|-$newsmedia->getId()-|" name="params[title]" class="in_place_editable">(No se ingresó título)</span>
 					|-/if-|				
 						 <strong>Descripción: </strong>
 					|-if $newsmedia->getDescription() ne ''-|
-						<span id="descriptionEdit_|-$newsmedia->getId()-|">|-$newsmedia->getDescription()-|</span>
+						<span id="descriptionEdit_|-$newsmedia->getId()-|" name="params[description]" class="in_place_editable">|-$newsmedia->getDescription()-|</span>
 					|-else-|
-						<span id="descriptionEdit_|-$newsmedia->getId()-|">(No se ingresó descripción)</span>
-					|-/if-|				
+						<span id="descriptionEdit_|-$newsmedia->getId()-|" name="params[description]" class="in_place_editable">(No se ingresó descripción)</span>
+					|-/if-|
 	(Tipo: |-$newsmedia->getMediaTypeName()-|)
 					</span> 
 
 						<script type="text/javascript">
-							//blogDoEditFieldX
-							$('#titleEdit_|-$newsmedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=newsMediasDoEditX', {
+							$('#titleEdit_|-$newsmedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=newsDoEditFieldX', {
 								cssclass: 'inplaceEditSize20',
 								submitdata: {
 									objectType: 'newsMedia',
@@ -38,7 +42,7 @@
 									return chomp(value);
 								}
 							});
-							$('#descriptionEdit_|-$newsmedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=newsMediasDoEditX', {
+							$('#descriptionEdit_|-$newsmedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=newsDoEditFieldX', {
 								cssclass: 'inplaceEditSize20',
 								submitdata: {
 									objectType: 'newsMedia',
@@ -53,7 +57,7 @@
 						
 					<form action="Main.php" method="post">
 						<!--pasaje de parametros de filtros -->
-						<input type="hidden" name="do" value="newsMediasDoDelete" />
+						<input type="hidden" name="do" value="newsMediasDoDeleteX" />
 						<input type="hidden" name="id" value="|-$newsmedia->getid()-|" />
 						<input type="button" name="submit_go_delete_newsmedia" value="Borrar" onClick="javascript:submitNewsArticleMediaDeleteX(|-$newsmedia->getId()-|,this.form)" class="icon iconDelete" />
 						<input type="hidden" name="ajaxFromArticle" value="1" />
@@ -71,49 +75,46 @@
 		<div id="soundsOrderMsg"></div>
 		<ul id="soundsList">
 		|-foreach from=$sounds item=newsmedia name=for_newsmedias-|
-		<li id="soundsList_|-$newsmedia->getId()-|">
+		<li id="|-$newsmedia->getId()-|">
 			<span style="float:left;width:95%;">
 				<strong>Título: </strong>
 					|-if $newsmedia->getTitle() ne ''-|
-						<span id="titleEdit_|-$newsmedia->getId()-|">|-$newsmedia->getTitle()-|</span>
+						<span id="titleEdit_|-$newsmedia->getId()-|" name="params[title]" class="in_place_editable">|-$newsmedia->getTitle()-|</span>
 					|-else-|
-						<span id="titleEdit_|-$newsmedia->getId()-|">(No se ingresó título)</span>
+						<span id="titleEdit_|-$newsmedia->getId()-|" name="params[title]" class="in_place_editable">(No se ingresó título)</span>
 					|-/if-|				
 				 <strong>Descripción: </strong>
 					|-if $newsmedia->getDescription() ne ''-|
-						<span id="descriptionEdit_|-$newsmedia->getId()-|">|-$newsmedia->getDescription()-|</span>
+						<span id="descriptionEdit_|-$newsmedia->getId()-|" name="params[description]" class="in_place_editable">|-$newsmedia->getDescription()-|</span>
 					|-else-|
-						<span id="descriptionEdit_|-$newsmedia->getId()-|">(No se ingresó descripción)</span>
+						<span id="descriptionEdit_|-$newsmedia->getId()-|" name="params[description]" class="in_place_editable">(No se ingresó descripción)</span>
 					|-/if-|				
 (Tipo: |-$newsmedia->getMediaTypeName()-|)
 			</span> 
-
-				<script type="text/javascript">
-					//blogDoEditFieldX
-					$('#titleEdit_|-$newsmedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=newsMediasDoEditX', {
-						cssclass: 'inplaceEditSize20',
-						submitdata: {
-							objectType: 'newsMedia',
-							objectId: '|-$newsmedia->getId()-|',
-							paramName: 'title'
-						},
-						callback: function(value, settings) {
-							return chomp(value);
-						}
-					});
-					$('#descriptionEdit_|-$newsmedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=newsMediasDoEditX', {
-						cssclass: 'inplaceEditSize20',
-						submitdata: {
-							objectType: 'newsMedia',
-							objectId: '|-$newsmedia->getId()-|',
-							paramName: 'description'
-						},
-						callback: function(value, settings) {
-							return chomp(value);
-						}
-					});												
-				</script>
-				
+			<script type="text/javascript">
+				$('#titleEdit_|-$newsmedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=newsDoEditFieldX', {
+					cssclass: 'inplaceEditSize20',
+					submitdata: {
+						objectType: 'newsMedia',
+						objectId: '|-$newsmedia->getId()-|',
+						paramName: 'title'
+					},
+					callback: function(value, settings) {
+						return chomp(value);
+					}
+				});
+				$('#descriptionEdit_|-$newsmedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=newsDoEditFieldX', {
+					cssclass: 'inplaceEditSize20',
+					submitdata: {
+						objectType: 'newsMedia',
+						objectId: '|-$newsmedia->getId()-|',
+						paramName: 'description'
+					},
+					callback: function(value, settings) {
+						return chomp(value);
+					}
+				});												
+			</script>
 			<form action="Main.php" method="post">
 				<!--pasaje de parametros de filtros -->
 				<input type="hidden" name="do" value="newsMediasDoDelete" />
@@ -134,49 +135,46 @@
 		<div id="videosOrderMsg"></div>
 		<ul id="videosList">
 		|-foreach from=$videos item=newsmedia name=for_newsmedias-|
-		<li id="videosList_|-$newsmedia->getId()-|">
+		<li id="|-$newsmedia->getId()-|">
 			<span style="float:left;width:95%;">
 				<strong>Título: </strong>
 					|-if $newsmedia->getTitle() ne ''-|
-						<span id="titleEdit_|-$newsmedia->getId()-|">|-$newsmedia->getTitle()-|</span>
+						<span id="titleEdit_|-$newsmedia->getId()-|" name="params[title]" class="in_place_editable">|-$newsmedia->getTitle()-|</span>
 					|-else-|
-						<span id="titleEdit_|-$newsmedia->getId()-|">(No se ingresó título)</span>
+						<span id="titleEdit_|-$newsmedia->getId()-|" name="params[title]" class="in_place_editable">(No se ingresó título)</span>
 					|-/if-|				
 				 <strong>Descripción: </strong>
 					|-if $newsmedia->getDescription() ne ''-|
-						<span id="descriptionEdit_|-$newsmedia->getId()-|">|-$newsmedia->getDescription()-|</span>
+						<span id="descriptionEdit_|-$newsmedia->getId()-|" name="params[description]" class="in_place_editable">|-$newsmedia->getDescription()-|</span>
 					|-else-|
-						<span id="descriptionEdit_|-$newsmedia->getId()-|">(No se ingresó descripción)</span>
+						<span id="descriptionEdit_|-$newsmedia->getId()-|" name="params[description]" class="in_place_editable">(No se ingresó descripción)</span>
 					|-/if-|				
 	(Tipo: |-$newsmedia->getMediaTypeName()-|)
 			</span> 
-
-				<script type="text/javascript">
-					//blogDoEditFieldX
-					$('#titleEdit_|-$newsmedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=newsMediasDoEditX', {
-						cssclass: 'inplaceEditSize20',
-						submitdata: {
-							objectType: 'newsMedia',
-							objectId: '|-$newsmedia->getId()-|',
-							paramName: 'title'
-						},
-						callback: function(value, settings) {
-							return chomp(value);
-						}
-					});
-					$('#descriptionEdit_|-$newsmedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=newsMediasDoEditX', {
-						cssclass: 'inplaceEditSize20',
-						submitdata: {
-							objectType: 'newsMedia',
-							objectId: '|-$newsmedia->getId()-|',
-							paramName: 'description'
-						},
-						callback: function(value, settings) {
-							return chomp(value);
-						}
-					});											
-				</script>
-			
+			<script type="text/javascript">
+				$('#titleEdit_|-$newsmedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=newsDoEditFieldX', {
+					cssclass: 'inplaceEditSize20',
+					submitdata: {
+						objectType: 'newsMedia',
+						objectId: '|-$newsmedia->getId()-|',
+						paramName: 'title'
+					},
+					callback: function(value, settings) {
+						return chomp(value);
+					}
+				});
+				$('#descriptionEdit_|-$newsmedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=newsDoEditFieldX', {
+					cssclass: 'inplaceEditSize20',
+					submitdata: {
+						objectType: 'newsMedia',
+						objectId: '|-$newsmedia->getId()-|',
+						paramName: 'description'
+					},
+					callback: function(value, settings) {
+						return chomp(value);
+					}
+				});											
+			</script>
 			<form action="Main.php" method="post">
 				<!--pasaje de parametros de filtros -->
 				<input type="hidden" name="do" value="newsMediasDoDelete" />
@@ -216,7 +214,7 @@
 				$('#soundsOrderMsg').html("<span class='inProgress'>Cambiando orden...</span>");
 				$.ajax({
 					url: "Main.php?do=newsMediasSortX",
-					data: $("#soundsList").sortable("toArray"),
+					data: {data: $("#soundsList").sortable("toArray")},
 					type: 'post',
 					success: function(data){
 						$('#soundsOrderMsg').html(data);
@@ -237,5 +235,5 @@
 				});
 			}
 		});
-	});				
+	});		
 </script>

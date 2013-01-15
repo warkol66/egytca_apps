@@ -50,7 +50,8 @@
 				</p>
 			</div>
 		<input type="hidden" name="params[articleId]" value="|-$article->getId()-|" id="params_articleId">
-		<input type="submit" name="uploadButton" value="Subir Contenido" id="btnSubmit"> <span id="msgBoxUploader"></span>
+		<input type="hidden" name="do" id="do" value="newsMediasUpload" />
+		<input type="submit" value="Subir Contenido" > <span id="msgBoxUploader"></span>
 	</form> 
 	</fieldset>
 </div>

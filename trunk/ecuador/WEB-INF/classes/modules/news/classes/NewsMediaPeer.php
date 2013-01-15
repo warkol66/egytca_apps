@@ -73,24 +73,6 @@ class NewsMediaPeer extends BaseNewsMediaPeer {
     return $pager;
    }  
   
-  /** Eliminarla al migrar cambio de orden
-   * Cambia el orden de un newsmedia en su tipo
-   * @param integer id del media a cambiar el orden
-   * @param integer nueva posicion.
-   */
-  public function changeNewsMediaOrder($mediaId,$pos) {
-	
-	try {
-		$newsMedia = NewsMediaPeer::get($mediaId);
-		$newsMedia->setOrder($pos);
-		$newsMedia->save();
-	}
-	catch (PropelException $exp) {
-		return false;
-	}
-	
-	return true;
-	
-  }
+  
 
 }
