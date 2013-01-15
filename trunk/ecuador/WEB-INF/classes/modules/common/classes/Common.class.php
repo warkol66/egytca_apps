@@ -407,10 +407,14 @@ class Common {
 	 * @param string fecha y hora
 	 * @return string con el formato
 	 */
-	public static function convertToMysqlDatetimeFormat($date,$dateFormat='') {
+	public static function convertToMysqlDatetimeFormat($date, $useTime = true) {
 		
-		$mysqlDate = date('Y-m-d H:i:s', strtotime($date));
-		$mysqlDate = Common::getDatetimeOnGMT($mysqlDate);
+		if ($useTime) {
+			$mysqlDate = date('Y-m-d H:i:s', strtotime($date));
+			$mysqlDate = Common::getDatetimeOnGMT($mysqlDate);
+		} else {
+			$mysqlDate = date('Y-m-d', strtotime($date));
+		}
 		return $mysqlDate;
 		
 //		global $system;
@@ -1260,13 +1264,12 @@ class Common {
 	*
 	* @return array dechas max y min
 	*/
-	public static function getPeriodArray($fromDate = null, $toDate = null) {
+	public static function getPeriodArray($fromDate = null, $toDate = null, $useTime = true) {
 		if (!empty($fromDate))
-			$fromDate = Common::convertToMysqlDatetimeFormat($fromDate);
+			$fromDate = Common::convertToMysqlDatetimeFormat($fromDate, $useTime);
 		if (!empty($toDate)) {
-			$hasHour = !preg_match("/\d{2}-\d{2}-\d{4}\s*$/", $toDate);
-			$toDate = Common::convertToMysqlDatetimeFormat($toDate);
-			if (!$hasHour)
+			$toDate = Common::convertToMysqlDatetimeFormat($toDate, $useTime);
+			if ($useTime)
 				$toDate = date('Y-m-d H:i:s', strtotime($toDate.' + 1 day - 1 second'));
 		}
 

@@ -101,14 +101,16 @@ class BaseQuery {
 				break;
 			
 			case 'dateRange':
-				foreach ($filterValue as $rangeName => $rangeValue) {
-					$rangeMinMax = Common::getPeriodArray(
-						$rangeValue['min']
-					,	$rangeValue['max']
-					);
-					if (!empty($rangeMinMax))
-						$this->addFilter($rangeName, $rangeMinMax);
-				}
+//				trigger_error('dateRange filter is deprecated - use rangeDatetime instead', E_USER_DEPRECATED); //TODO: revisar por que no anda
+				$this->addFilter('rangeDatetime', $filterValue);
+				break;
+				
+			case 'rangeDate':
+				$this->rangeDateFilter($filterValue, false);
+				break;
+			
+			case 'rangeDatetime':
+				$this->rangeDateFilter($filterValue, true);
 				break;
 	
 			default:
@@ -245,6 +247,23 @@ class BaseQuery {
 				$this->query->$filterByEntity($entity);
 		}
 
+	}
+	
+	/**
+	 * filtro por rango de fechas
+	 * @param type $filterValue
+	 * @param boolean $useTime si se debe usar la hora o solo la fecha
+	 */
+	private function rangeDateFilter($filterValue, $useTime) {
+		foreach ($filterValue as $rangeName => $rangeValue) {
+			$rangeMinMax = Common::getPeriodArray(
+				$rangeValue['min']
+			,	$rangeValue['max']
+			,	$useTime
+			);
+			if (!empty($rangeMinMax))
+				$this->addFilter($rangeName, $rangeMinMax);
+		}
 	}
 
 	/**
