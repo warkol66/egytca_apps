@@ -20,24 +20,23 @@ class NewsMediasUploadAction extends BaseDoEditAction {
 		$destPath .= $this->entity->getId();
 
 		//si el tipo es imagen
-		if ($params["mediaType"] == NewsMedia::NEWSMEDIA_IMAGE && !empty($file['tmp_name']))
-		NewsMedia::createImages($this->entity,$file,$this->entity->getId()); 
+		if ($_POST["params"]["mediaType"] == NewsMedia::NEWSMEDIA_IMAGE && !empty($_FILES["document_file"]['tmp_name']))
+			NewsMedia::createImages($this->entity,$_FILES['document_file'],$this->entity->getId());
 		//si el tipo es video
-		if ($params["mediaType"] == NewsMedia::NEWSMEDIA_VIDEO && !empty($file['tmp_name']))
-		NewsMedia::createVideo($this->entity,$file,$this->entity->getId().".flv"); 
+		if ($_POST["params"]["mediaType"] == NewsMedia::NEWSMEDIA_VIDEO && !empty($_FILES["document_file"]['tmp_name']))
+			NewsMedia::createVideo($this->entity,$_FILES['document_file'],$this->entity->getId() . ".flv"); 
 		//si el tipo es audio
-		if ($params["mediaType"] == NewsMedia::NEWSMEDIA_SOUND && !empty($file['tmp_name']))
-		NewsMedia::createSound($this->entity,$file,$this->entity->getId().".mp3"); 
+		if ($_POST["params"]["mediaType"] == NewsMedia::NEWSMEDIA_SOUND && !empty($_FILES["document_file"]['tmp_name']))
+			NewsMedia::createSound($_FILES['document_file'],$this->entity->getId() . ".mp3"); 
 
 		
-		/* Ver esto
+		/* Ver esto*/
 		global $system;
   
 		$saveOriginalFiles = $system["config"]["news"]["medias"]["saveOriginalFiles"]["value"];
 
 		if ($saveOriginalFiles == "YES")
-		  return copy($file["tmp_name"],$destPath);
-		}*/
+		  copy($_FILES["document_file"]["tmp_name"],$destPath);
 
 	}
 

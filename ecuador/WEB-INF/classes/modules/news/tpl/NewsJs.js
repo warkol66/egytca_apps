@@ -85,7 +85,7 @@ function submitNewsArticleMediaDeleteX(id,form) {
 	
 	$.ajax({
 		url: url,
-		data: $('#' + form).serialize(),
+		data: $(form).serialize(),
 		type: 'post',
 		success: function(data){
 			$('#msgBoxUploader').html(data);
@@ -94,6 +94,18 @@ function submitNewsArticleMediaDeleteX(id,form) {
 	$('#newsMediaItemMsgBox'+id).html('<span class="inProgress>... eliminando media ...</span>');
 	
 }
+function submitAddMedia(form) {
+	$('#msgBoxUploader').html('<span class="inProgress>... creando media ...</span>');
+	$.ajax({
+		url: url,
+		data: { data: $(form).serialize()},
+		type: 'post',
+		success: function(data){
+			$('#msgBoxUploader').html(data);
+		}
+	});
+}
+
 //migrada - probar
 function submitnewsMediasVideoDoReplaceThumbnailX(id,form) {
 	
@@ -103,7 +115,7 @@ function submitnewsMediasVideoDoReplaceThumbnailX(id,form) {
 		
 	$.ajax({
 		url: url,
-		data: $('#' + form).serialize(),
+		data: $(form).serialize(),
 		type: 'post',
 		success: function(data){
 			$('#msgBoxUploader').html(data);
@@ -191,3 +203,7 @@ function refreshCaptchaX(id) {
 	$(divId).html("<img src='Main.php?do=newsCaptchaRefresh&t=" + time + "'/>");
 	return false;
 }
+
+function chomp(raw_text) {
+	return raw_text.replace(/(\n|\r)+$/, '');
+}		

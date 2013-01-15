@@ -5,7 +5,6 @@
         $( ".creation, .file" ).datepicker({
 			dateFormat:"dd-mm-yy"
 		});
-
 	});//fin docready
 </script>
 |-include file='NewsArticlesEditTinyMceInclude.tpl' elements="newsarticle_body" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"-|

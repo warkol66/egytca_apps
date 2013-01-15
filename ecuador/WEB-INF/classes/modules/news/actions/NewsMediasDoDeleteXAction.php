@@ -1,6 +1,6 @@
 <?php
 
-class NewsMediasDoDeleteAction extends BaseDoDeleteAction {
+class NewsMediasDoDeleteXAction extends BaseDoDeleteAction {
 	
 	function __construct() {
 		parent::__construct('NewsMedia');
@@ -13,11 +13,10 @@ class NewsMediasDoDeleteAction extends BaseDoDeleteAction {
 		$module = "News";
 		$this->smarty->assign("module",$module);
 		
-		$media = NewsMediaQuery::create()->findOneById($_POST["id"]);
-		$this->smarty->assign('type',$media->getMediaTypeName());
+		$this->smarty->assign('id',$_POST["id"]);
 		
 		//elimina el archivo
-		$path = NewsMedia::getSavePath($newsmediaObj->getMediaType());
+		$path = NewsMedia::getSavePath($this->entity->getMediaType());
 		$destPath = $path . $this->entity->getId();
 		unlink($destPath);
 		
@@ -42,15 +41,7 @@ class NewsMediasDoDeleteAction extends BaseDoDeleteAction {
 		global $moduleRootDir;
 		$destPathMp3 = $moduleRootDir.'audio/' . $this->entity->getId() . '.mp3';
 		unlink($destPathMp3);
-		}   
-
-		
-		/* manejar esto
-		if (!empty($_POST['ajaxFromArticle'])) {
-			$this->template->template = 'TemplateAjax.tpl';
-			$smarty->assign('id',$_POST["id"]);
-			return $mapping->findForwardConfig('success-from-article');
-		}*/
+		}
 		
 	}
 

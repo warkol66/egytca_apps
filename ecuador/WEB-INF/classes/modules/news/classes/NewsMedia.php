@@ -356,7 +356,27 @@ class NewsMedia extends BaseNewsMedia {
 		global $moduleRootDir;
 		$uploadFile = $moduleRootDir . 'WEB-INF/classes/modules/news/files/audio/' . $name;
 		move_uploaded_file($sound['tmp_name'], $uploadFile);
-	}        
+	}
+	
+	/**
+   * Cambia el orden de un newsmedia en su tipo
+   * @param integer id del media a cambiar el orden
+   * @param integer nueva posicion.
+   */
+  public function changeNewsMediaOrder($mediaId,$pos) {
+	
+	try {
+		$newsMedia = NewsMediaQuery::create()->findOneById($mediaId);
+		$newsMedia->setOrder($pos);
+		$newsMedia->save();
+	}
+	catch (PropelException $exp) {
+		return false;
+	}
+	
+	return true;
+	
+  }   
 
 
 
