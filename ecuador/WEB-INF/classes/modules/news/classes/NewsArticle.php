@@ -17,6 +17,13 @@ class NewsArticle extends BaseNewsArticle {
 	const PUBLISHED = 2;
 	const ARCHIVED = 3;
 	
+	private $orderByDate = false;
+	private $orderByUpdateDate = false;
+	private $archiveMode = false;
+	private $publishedMode = false;
+	private $fromDate;
+	private $toDate;
+	private $category;
 	private $searchString;
 
 	
@@ -130,6 +137,89 @@ class NewsArticle extends BaseNewsArticle {
 	 */
 	public function setSearchString($string) {
 		$this->searchString = $string;
+	}
+	
+	/**
+	 * Especifica una fecha desde para una busqueda personalizada.
+	 *
+	 * @param $fromDate string YYYY-MM-DD
+	 */
+	public function setFromDate($fromDate) {
+		
+		$this->fromDate = $fromDate;
+		
+	}
+
+	/**
+	 * Especifica una fecha hasta para una busqueda personalizada.
+	 *
+	 * @param $toDate string YYYY-MM-DD
+	 */
+	public function setToDate($toDate) {
+		
+		$this->toDate = $toDate;
+		
+	}
+
+	/**
+	* Aplica ordenamiento por fecha a las consultas
+	*/	
+	public function setOrderByDate() {
+
+	$this->orderByDate = true;
+
+	}
+
+	/**
+	* Aplica ordenamiento por fecha de actualizacion a las consultas
+	*/	
+	public function setOrderByUpdateDate() {
+
+	$this->orderByUpdateDate = true;
+
+	}
+
+	/**
+	* Aplica ordenamiento por fecha de creaci�n a las consultas
+	*/	
+	public function setOrderByCreationDate() {
+
+	$this->orderByCreationDate = true;
+
+	}
+
+	public function setArchiveMode() {
+
+	$this->archiveMode = true;
+	$this->archiveAndpublishedMode = false;
+
+	}
+
+	public function setPublishedMode() {
+
+	$this->publishedMode = true;
+	$this->archiveAndpublishedMode = false;
+
+	}
+
+	public function setArchiveAndPublishedMode() {
+
+	$this->archiveAndpublishedMode = true;
+	$this->publishedMode = false;
+	$this->archiveMode = false;
+
+	}
+
+	public function setCategory($category) {
+
+	$this->category = $category;
+
+	}
+
+	public function setRegion($region) {
+
+	$this->region = $region;
+
 	}
 
 	/**
@@ -408,6 +498,38 @@ class NewsArticle extends BaseNewsArticle {
 	return $criteria;
 	
   }
+  
+  /**
+  * Obtiene la cantidad de filas por pagina por defecto en los listado paginados.
+  *
+  * @return int Cantidad de filas por pagina
+  */
+  function getRowsPerPage() {
+  	$moduleConfig = Common::getModuleConfiguration('News');
+  	if ($moduleConfig["newsPerPage"] > 0)
+	    return $moduleConfig["newsPerPage"];
+	  else {
+	  	$systemConfig = Common::getModuleConfiguration('System');
+	  	return $systemConfig['rowsPerPage'];
+	  }
+  }
+  
+  /**
+  * Obtiene todos los noticias paginados con las opciones de filtro asignadas al peer.
+  *
+  * @param int $page [optional] Numero de pagina actual
+  * @param int $perPage [optional] Cantidad de filas por pagina
+  *	@return array Informacion sobre todos los newsarticles
+  */
+  function getAllPaginatedFiltered($page=1,$perPage=-1) {  
+    if ($perPage == -1)
+      $perPage = 	NewsArticle::getRowsPerPage();
+    if (empty($page))
+      $page = 1;
+    $cond = $this->getCriteria();     
+    $pager = new PropelPager($cond,"NewsArticlePeer", "doSelect",$page,$perPage);
+    return $pager;
+   }
 
 
 } // NewsArticle
