@@ -122,22 +122,22 @@ Puede regresar a la página principal de noticias haciendo click <a href="Main.p
 		</fieldset>
 	</form>
 </div>
-|*-if $newsArticlesConfig.useImages.value eq "YES" || $newsArticlesConfig.useAudio.value eq "YES" || $newsArticlesConfig.useVideo.value eq "YES"-*|
+|-if $newsArticlesConfig.useImages.value eq "YES" || $newsArticlesConfig.useAudio.value eq "YES" || $newsArticlesConfig.useVideo.value eq "YES"-|
 <div id="mediasListHolder">
 	|-include file='NewsMediasListInclude.tpl'-|
 </div>
 	|-if !$newsArticle->isNew()-|
 		|-include file='NewsMediasAddInclude.tpl' article=$newsArticle-|
 	|-/if-|
-|*-/if-*|
-|*-if $newsArticlesConfig.useCommets.value eq "YES" && !$newsArticle->isNew()-*|	<div>
+|-/if-|
+|-if $newsArticlesConfig.useCommets.value eq "YES" && !$newsArticle->isNew()-|	<div>
 		<fieldset>
 			<form action="Main.php" method="get">
-				<input type="hidden" name="articleId" value="|-$newsArticle->getId()-|" id="articleId" />
+				<input type="hidden" name="filters[newsarticleid]" value="|-$newsArticle->getId()-|" id="articleId" />
 				<input type="hidden" name="do" value="newsCommentsList" />
 				<input type="submit" value="Ver comentarios asociados a este artículo" />
 			</form>
 		</fieldset>
 	</div>
-|*-/if-*|
+|-/if-|
 |-/if-|

@@ -29,13 +29,13 @@
 		<div id="newsArticlesSearch" style="display: |-if $filters.fromDate ne '' ||  $filters.toDate ne '' || $filters.categoryId ne 0 || $filters.regionId ne 0 || $archive neq ''-|block|-else-|none|-/if-|;">
 			<p>
 				<label for="fromDate">Fecha Desde</label>
-				<input name="filters[dateRange][creationdate][min]" type="text" id="fromDate" title="fromDate" value="|-$filters.dateRange.creationdate.min|date_format:"%d-%m-%Y"-|" size="12" /> 
-				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[fromDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input name="filters[fromDate]" type="text" id="fromDate" class="datepickerFrom" title="fromDate" value="|-$filters.dateRange.creationdate.min|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<img src="images/calendar.png" width="16" height="15" border="0"  title="Seleccione la fecha">
 			</p>
 			<p>
 				<label for="toDate">Fecha Hasta</label>
-				<input name="filters[dateRange][creationdate][max]" type="text" id="toDate" title="toDate" value="|-$filters.dateRange.creationdate.max|date_format:"%d-%m-%Y"-|" size="12" /> 
-				<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[toDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input name="filters[toDate]" type="text" id="toDate" class="datepickerTo" title="toDate" value="|-$filters.dateRange.creationdate.max|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 			</p>
 			<p>
 				<label for="categoryId">Categoría</label>
@@ -70,14 +70,14 @@
 
 |-if isset($_GET['filters'])-|
 <div id="searchResults">		
-		<p>|-if $newsArticleColl|@count gt 0-|
+		<p>|-if $newsArticle|@count gt 0-|
 			Resultados Encontrados: |-$pager->getTotalRecordCount()-| Artículos |-if $searchString ne ''-|que contienen "|-$searchString-|"|-/if-| |-if $categorySelected ne ''-| de la categoría "|-$categorySelected->getName()-|"|-/if-|. Mostrando del |-$fromRecord-| al |-$toRecord-|.
 			|-else-|
 			No se encontraron artículos |-if $searchString ne ''-|que contengan "|-$searchString-|"|-/if-||-if $categorySelected ne ''-| de la categoría "|-$categorySelected->getName()-|"|-/if-|
 			|-/if-|
 		</p>
 		
-		|-foreach from=$newsArticleColl item=newsarticle name=for_newsarticles-|
+		|-foreach from=$newsArticlesColl item=newsarticle name=for_newsarticles-|
 			<div id="article|-$newsarticle->getId()-|" class="news01">
 					<h2>|-assign var=region value=$newsarticle->getRegion()-|
 					|-if not empty($region)-||-$region->getName()-| &gt;&gt;|-/if-|
