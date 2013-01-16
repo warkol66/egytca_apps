@@ -130,7 +130,7 @@ Puede regresar a la página principal de noticias haciendo click <a href="Main.p
 		|-include file='NewsMediasAddInclude.tpl' article=$newsArticle-|
 	|-/if-|
 |*-/if-*|
-|-if $newsArticlesConfig.useCommets.value eq "YES" && !$newsArticle->isNew()-|	<div>
+|*-if $newsArticlesConfig.useCommets.value eq "YES" && !$newsArticle->isNew()-*|	<div>
 		<fieldset>
 			<form action="Main.php" method="get">
 				<input type="hidden" name="articleId" value="|-$newsArticle->getId()-|" id="articleId" />
@@ -139,5 +139,5 @@ Puede regresar a la página principal de noticias haciendo click <a href="Main.p
 			</form>
 		</fieldset>
 	</div>
-|-/if-|
+|*-/if-*|
 |-/if-|

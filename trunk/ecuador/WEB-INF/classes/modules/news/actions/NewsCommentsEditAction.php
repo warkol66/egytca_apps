@@ -14,6 +14,7 @@ class NewsCommentsEditAction extends BaseEditAction {
 
 		$this->smarty->assign("articleIdValues",NewsArticleQuery::create()->find());		
 		$this->smarty->assign("userIdValues",UserQuery::create()->find());
+		$this->smarty->assign("statuses",NewsComment::getStatusOptions());
 		
 	}
 
