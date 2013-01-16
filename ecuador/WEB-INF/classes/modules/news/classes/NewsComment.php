@@ -1,14 +1,5 @@
 <?php
 
-require_once 'om/BaseNewsComment.php';
-
-//estados posibles de los comentarios
-
-define('NEWSCOMMENT_PENDING',1);
-define('NEWSCOMMENT_APPROVED',2);
-define('NEWSCOMMENT_SPAM',3);
-define('NEWSCOMMENT_DELETED',4);
-
 /**
  * Skeleton subclass for representing a row from the 'news_comment' table.
  *
@@ -22,12 +13,33 @@ define('NEWSCOMMENT_DELETED',4);
  */
 class NewsComment extends BaseNewsComment {
 	
+	/*Estados de los comments*/
+	const PENDING  = 1;
+	const APPROVED = 2;
+	const SPAM     = 3;
+	const DELETED  = 4;
+	
+	protected static $statusOptions = array(
+		NewsComment::PENDING    => 'Pendiente',
+		NewsComment::APPROVED   => 'Aprobado',
+		NewsComment::SPAM       => 'SPAM',
+		NewsComment::DELETED    => 'Eliminado'
+	);
+
+	/**
+	 * Devuelve los posibles estados
+	 */
+	public static function getStatusOptions() {
+		$statusOptions = NewsComment::$statusOptions;
+		return $statusOptions;
+	}
+	
 	/**
 	 * Indica si un comentario se encuentra pendiente
 	 * @return boolean
 	 */
 	public function isPending() {
-		return ($this->getStatus() == NEWSCOMMENT_PENDING);
+		return ($this->getStatus() == NewsComment::PENDING);
 	}
 
 	/**
@@ -35,7 +47,7 @@ class NewsComment extends BaseNewsComment {
 	 * @return boolean
 	 */
 	public function isApproved() {
-		return ($this->getStatus() == NEWSCOMMENT_APPROVED);
+		return ($this->getStatus() == NewsComment::APPROVED);
 	}
 
 	/**
@@ -43,7 +55,7 @@ class NewsComment extends BaseNewsComment {
 	 * @return boolean
 	 */
 	public function isSpam() {
-		return ($this->getStatus() == NEWSCOMMENT_SPAM);
+		return ($this->getStatus() == NewsComment::SPAM);
 	}
 
 	/**
@@ -51,7 +63,7 @@ class NewsComment extends BaseNewsComment {
 	 * @return boolean
 	 */
 	public function isDeleted() {
-		return ($this->getStatus() == NEWSCOMMENT_DELETED);
+		return ($this->getStatus() == NewsComment::DELETED);
 	}
 
 } // NewsComment

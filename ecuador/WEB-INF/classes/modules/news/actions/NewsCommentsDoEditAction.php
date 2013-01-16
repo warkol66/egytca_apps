@@ -9,14 +9,15 @@ class NewsCommentsDoEditAction extends BaseDoEditAction {
 	protected function preUpdate() {
 		parent::preUpdate();
 		
+		
 		$this->entity->setCreationdate(date('Y-m-d H:m:s'));
 		
 		//regla de negocio, si se indica un usuario de sistema el mensaje directamente se encuentra aprobado
 		//TODO: Cuando se incorpore usuarios por registracion, agregar verificacion de usuario existente.
 		if ($params['newscomment']['userId'])
-			$this->entity->setStatus(NewsComment::NEWSCOMMENT_APPROVED);
+			$this->entity->setStatus(NewsComment::APPROVED);
 		else
-			$this->entity->setStatus(NewsComment::NEWSCOMMENT_PENDING);
+			$this->entity->setStatus(NewsComment::PENDING);
 		
 	}
 	

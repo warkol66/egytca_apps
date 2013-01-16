@@ -13,19 +13,19 @@
 <div id="div_newscomment">
 	<form name="form_edit_newscomment" id="form_edit_newscomment" action="Main.php" method="post">
 		|-if $message eq "error"-|<div class="failureMessage">Ha ocurrido un error al intentar guardar el comentario</div>|-/if-|
-		<h3>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Comentario</h3>
+		<h3>|-if !$newsComment->isNew()-|Editar|-else-|Crear|-/if-| Comentario</h3>
 		<p>
 			Ingrese los datos del comentario.
 		</p>
 		<fieldset title="Formulario de edición de datos de un comentario">
 			<p>
-				<label for="newscomment_articleId">Noticia</label>
-				<select id="newscomment_articleId" name="newscomment[articleId]" title="articleId">
+				<label for="newscomment_newsarticleid">Noticia</label>
+				<select id="params_newsArticleId" name="params[newsArticleId]" class="emptyValidation">
 				<option value="">Seleccione un NewsArticle</option>
 					|-foreach from=$articleIdValues item=object-|
-					<option value="|-$object->getid()-|" |-if $newscomment->getarticleId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->gettitle()|truncate:45:"...":true-|</option>
+					<option value="|-$object->getid()-|" |-if $newsComment->getNewsarticleid() eq $object->getid()-|selected="selected" |-/if-|>|-$object->gettitle()|truncate:45:"...":true-|</option>
 					|-/foreach-|
-				</select>
+				</select> |-validation_msg_box idField="newsComment_newsarticleId"-|
 				</p>
 				<p>
 				<label for="newscomment_text">Comentario</label>
@@ -54,14 +54,19 @@
 			</p>
 			<p>
 				<label for="newscomment_status">Estado</label>
-				<input type="text" id="params_status" name="params[status]" value="|-$newsComment->getstatus()-|" title="status" />
+				<select id="params_status" name="params[status]" title="status">
+					<option value="">Seleccione un Estado</option>
+					|-foreach from=$statuses key=optionKey item=option name=for_type-|
+					<option value="|-$optionKey-|" |-if $newsComment->getstatus() eq $optionKey-|selected="selected" |-/if-|>|-$option-|</option>
+					|-/foreach-|
+				</select>
 			</p>
 			<p>
 				<label for="newscomment_userId">Usuario</label>
-				<select id="newscomment_userId" name="params[userId]" title="userId">
+				<select id="params_userId" name="params[userId]" title="userId">
 				<option value="">Seleccione un User</option>
 					|-foreach from=$userIdValues item=object-|
-					<option value="|-$object->getid()-|" |-if $newscomment->getuserId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getusername()-|</option>
+					<option value="|-$object->getid()-|" |-if $newsComment->getuserId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getusername()-|</option>
 					|-/foreach-|
 				</select>
 		</p>

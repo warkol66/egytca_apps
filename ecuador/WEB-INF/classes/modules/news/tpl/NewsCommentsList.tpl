@@ -1,3 +1,4 @@
+<script src="Main.php?do=js&name=js&module=news&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 <script>
     $(function() {
 		$.datepicker.setDefaults($.datepicker.regional['es']);
@@ -66,8 +67,8 @@
 				</p>
 				|-if not isset($articleId)-|
 				<p>
-					<label for="articleId">Artículos</label>
-					<select name='filters[articleId]' title="Seleccione un artículo de los últimos 50 publicados">
+					<label for="newsArticleId">Artículos</label>
+					<select name='filters[newsarticleid]'>
 							<option value=''>Seleccione un Artículo</option>
 						|-foreach from=$articles item=article name=from_categories-|
 							<option value="|-$article->getId()-|" |-if $filters neq '' and $filters.articleId eq $article->getId()-|selected="selected"|-/if-|>|-$article->getTitle()|mb_truncate:60:"...":'UTF-8':true-|</option>
@@ -94,7 +95,8 @@
 			</tr>
 	|-/if-|
 			<tr>
-				<th></th>
+				<th width="2%"><input type="checkbox" name="allbox" value="checkbox" id="allBoxes" onChange="javascript:selectAllCheckboxes()" title="Seleccionar todos" />
+				</th>
 				<th>Artículo</th>
 				<th>Comentario</th>
 				<th>Email</th>
@@ -106,30 +108,34 @@
 			</tr>
 		</thead>
 		<tbody>
-		|-foreach from=$newscomments item=newscomment name=for_newscomments-|
+		|-foreach from=$newsCommentColl item=newscomment name=for_newscomments-|
 			<tr>
 	
 				|-assign var=article value=$newscomment->getNewsArticle()-|
 				<td>
 					<input type="checkbox" name="selected[]" value="|-$newscomment->getId()-|" />
 				</td>
+				|-if is_object($article)-|
 				<td>|-$article->getTitle()-|</td>
+				|-else-|
+				<td></td>
+				|-/if-|
 				<td>|-$newscomment->gettext()-|</td>
 				<td>|-$newscomment->getemail()-|</td>
 				<td>|-$newscomment->getusername()-|</td>
 				<td>|-$newscomment->getcreationDate()-|</td>
 	<!--																<td>|-$newscomment->getUserId()-|</td> -->
 				<td>
-					|-assign var=status value=$newscomment->getstatus()-|
+					|-assign var=status value=$newscomment->getStatus()-|
 	
 					<form action="Main.php" method="post" id="formStatusComment|-$newscomment->getId()-|">
-						<select name="newscomment[status]" onChange="javascript:submitCommentsChangeFormX('formStatusComment|-$newscomment->getId()-|')" id='newsCommentsStatusSelect|-$newscomment->getId()-|'>
+						<select name="params[status]" onChange="javascript:submitCommentsChangeFormX('formStatusComment|-$newscomment->getId()-|')" id='newsCommentsStatusSelect|-$newscomment->getId()-|'>
 							<option value="1" |-if isset($status) and ($status eq 1)-|selected="selected"|-/if-|>Pendiente</option>
 							<option value="2" |-if isset($status) and ($status eq 2)-|selected="selected"|-/if-|>Aprobado</option>
 							<option value="3" |-if isset($status) and ($status eq 3)-|selected="selected"|-/if-|>Spam</option>
 							<option value="4" |-if isset($status) and ($status eq 4)-|selected="selected"|-/if-|>Eliminado</option>
 						</select>
-						<input type="hidden" name="newscomment[id]" id="newscomment_id" value="|-$newscomment->getid()-|" />
+						<input type="hidden" name="id" id="id" value="|-$newscomment->getid()-|" />
 						<input type="hidden" name="do" value="newsCommentsChangeStatusX" id="do">
 					</form>
 				</td>
@@ -157,8 +163,7 @@
 		|-/foreach-|						
 
 		<tr>
-			<td colspan="9">
-				<p><input type="button" name="selectAll" value="Seleccionar Todos" id="selectAll" onClick="javascript:selectAllCheckboxes()"/></p>								
+			<td colspan="9">								
 				<form action="Main.php" method="post" id='multipleCommentsChangeForm'>
 					<p>
 						Cambiar los Comentarios seleccionados al estado 
@@ -178,7 +183,7 @@
 			</td>
 		</tr>							
 						
-	|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
+	|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 		<tr> 
 			<td colspan="9" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 		</tr>							
