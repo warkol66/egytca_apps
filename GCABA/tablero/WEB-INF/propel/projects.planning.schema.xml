@@ -5,6 +5,7 @@
 		<column name="internalCode" type="INTEGER" description="Codigo de Identificacion" />
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del proyecto" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del proyecto"/>
+		<column name="order" type="INTEGER" default="0" description="Orden"/>
 
 		<column name="operativeObjectiveId" type="INTEGER" description="Objetivo de Impacto"/>
 		<column name="goalProduct" type="VARCHAR" size="300" description="Meta Producto" />
@@ -63,6 +64,7 @@
 		<column name="projectId" type="INTEGER" description="Id del objetivo de Impacto"/>
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del proyecto" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del proyecto"/>
+		<column name="order" type="INTEGER" default="0" description="Orden"/>
 
 		<column name="operativeObjectiveId" type="INTEGER" description="Objetivo de Impacto"/>
 		<column name="goalProduct" type="VARCHAR" size="50" description="Meta Producto" />
@@ -113,6 +115,56 @@
 		</vendor>
 
 	</table>
+
+	<table name="planning_projectIndicator" phpName="PlanningProjectIndicator" description="Indicadores de Proyectos" >
+
+		<column name="planningProjectId" required="true" primaryKey="true" type="INTEGER"  description="PlanningProject ID"/>
+		<column name="indicatorId" required="true" primaryKey="true" type="INTEGER"  description="Indicador ID"/>
+
+		<foreign-key foreignTable="planning_project">
+			<reference local="planningProjectId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="planning_indicator">
+			<reference local="indicatorId" foreign="id"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="planning_projectTag" phpName="PlanningProjectTag" description="Etiquetas de titulares">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Tag Id" autoIncrement="true"/>
+		<column name="name" required="true"  type="VARCHAR" size="120" description="Etiquetas de PlanningProject" primaryString="true" />
+
+		<behavior name="timestampable" />
+
+		<unique>
+			<unique-column name="name" />
+		</unique>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+	</table>
+
+	<table name="planning_projectTagRelation" phpName="PlanningProjectTagRelation" isCrossRef="true" description="PlanningProjects / Etiquetas">
+		<column name="planningProjectId" required="true" primaryKey="true" type="INTEGER"  description="PlanningProject ID"/>
+		<column name="planningProjectTagId" required="true" primaryKey="true" type="INTEGER"  description="Etiqueta ID"/>
+
+		<foreign-key foreignTable="planning_project" onDelete="cascade">
+			<reference local="planningProjectId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="planning_projectTag" onDelete="cascade">
+			<reference local="planningProjectTagId" foreign="id"/>
+		</foreign-key>
+	</table>
+
 
 <!-- Obras -->
 	<table name="planning_construction" phpName="PlanningConstruction" description="Obras">
@@ -330,7 +382,30 @@
 		<column name="realEnd" type="DATE" description="Fecha de finalizacion real" />
 		<column name="acomplished" type="BOOLEAN" sqlType="BOOL" default="0" description="Cumplido"/>
 		<column name="cancelled" type="BOOLEAN" sqlType="BOOL" default="0" description="Cancelado"/>
+		<column name="priority" type="BOOLEAN" description="Es una actividad Prioritaria?"/>
+		<column name="priorityPercentage" type="INTEGER" description="Porcentaje de prioridad"/>
+		<column name="order" type="INTEGER" default="0" description="Orden"/>
 		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="planning_activityDocument" phpName="PlanningActivityDocument" isCrossRef="true">
+
+		<column name="planningActivityId" type="INTEGER" primaryKey="true"/>
+		<column name="documentId" type="INTEGER" primaryKey="true"/>
+
+		<foreign-key foreignTable="planning_activity" onDelete="CASCADE">
+  		<reference local="planningActivityId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="documents_document" onDelete="CASCADE">
+  		<reference local="documentId" foreign="id"/>
+		</foreign-key>
+
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
