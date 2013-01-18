@@ -47,7 +47,8 @@ class PlanningIndicator extends BasePlanningIndicator {
 	public static function getIndicatorTypes() {
 		$productTypes = array(
 			1 => 'Impacto',
-			2 => 'Gestión'
+			2 => 'Gestión',
+			3 => 'Producto'
 		);
 		return $productTypes;
 	}
