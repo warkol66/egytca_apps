@@ -84,6 +84,7 @@
 		
 		<column name="startingDate" type="DATE" description="Fecha de inicio" />
 		<column name="endingDate" type="DATE" description="Fecha de finalizacion" />
+		<column name="potentialEndingDate" type="DATE" description="Fecha probable de finalizacion" />
 		<column name="acomplished" type="BOOLEAN" sqlType="BOOL" default="0" description="Cumplido"/>
 		<column name="cancelled" type="BOOLEAN" sqlType="BOOL" default="0" description="Cancelado"/>
 
