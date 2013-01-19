@@ -460,6 +460,10 @@ class UserPeer extends BaseUserPeer {
 				$user->setLastLogin(time());
 				$user->setSession(session_id());
 				$user->save();
+				if (ConfigModule::get('global', 'defaultMode') == "panel")
+					Common::setPanelMode();
+				else
+					Common::setPlanningMode();
 				if (is_null($user->getPasswordUpdated()) && ConfigModule::get("users","forceFirstPasswordChange"))
 					$_SESSION['firstLogin'] = User::FIRST_LOGIN;
 				else
