@@ -350,7 +350,7 @@ class PlanningProject extends BasePlanningProject {
 	
 	private function updateRealEnd() {
 		
-		if ($this->investment()) {
+		if ($this->getInvestment()) {
 			// if any construction is unfinished, project is unfinished
 			$unfinishedConstructionsCount = BaseQuery::create('PlanningConstruction')
 				->filterByPlanningProject($this)
@@ -376,7 +376,7 @@ class PlanningProject extends BasePlanningProject {
 		}
 
 		$lastFinishedConstruction = null;
-		if ($this->investment()) {
+		if ($this->getInvestment()) {
 			$lastFinishedConstruction = BaseQuery::create('PlanningConstruction')
 				->filterByPlanningProject($this)
 				->filterByRealEnd(null, Criteria::ISNOTNULL)
@@ -407,7 +407,7 @@ class PlanningProject extends BasePlanningProject {
 	private function updateRealStart() {
 		
 		$firstStartedConstruction = null;
-		if ($this->investment()) {
+		if ($this->getInvestment()) {
 			$firstStartedConstruction = BaseQuery::create('PlanningConstruction')
 				->filterByPlanningProject($this)
 				->filterByRealStart(null, Criteria::ISNOTNULL)
@@ -462,6 +462,46 @@ class PlanningProject extends BasePlanningProject {
 			4 => 'C'
 		);
 		return $priorities;
+	}
+
+	/**
+	 * Devuelve eje de gestion (PolicyGuideline) asociado al Objetivo de Impacto
+	 *
+	 * @return PolicyGuideline del que se desprende el proyecto
+	 */
+	public function getPolicyGuideline() {
+		$operativeObjective = $this->getOperativeObjective();
+		if (is_object($operativeObjective)) {
+			$ministryObjective = $operativeObjective->getMinistryObjective();
+			if (is_object($ministryObjective)) {
+				$impactObjective = $ministryObjective->getImpactObjective();
+				if (is_object($impactObjective)) {
+					$policyGuideline = ImpactObjective::getPolicyGuidelines();
+					return $policyGuideline[$impactObjective->getPolicyGuideline()];
+				}
+			}
+		}
+		return;
+	}
+
+	/**
+	 * Devuelve prioridad ministerial traducida
+	 *
+	 * @return string con Ministrypriority convertida a texto
+	 */
+	public function getMinistrypriorityTrasnlated() {
+		$ministryPriorities = PlanningProject::getMinistryPriorities();
+		return $ministryPriorities[$this->getMinistrypriority()];
+	}
+
+	/**
+	 * Devuelve prioridad traducida
+	 *
+	 * @return string con Priority convertida a texto
+	 */
+	public function getPriorityTrasnlated() {
+		$priorities = PlanningProject::getPriorities();
+		return $priorities[$this->getPriority()];
 	}
 
 } // PlanningProject
