@@ -9,6 +9,8 @@ class BaseDoEditAction extends BaseAction {
 	protected $ajaxTemplate;
 	protected $actionLog;
 	protected $entityLog;
+	protected $forwardName = "success";
+	protected $forwardFailureName = "failure-edit";
 
 	function __construct($entityClassName) {
 		if (empty($entityClassName))
@@ -16,14 +18,14 @@ class BaseDoEditAction extends BaseAction {
 		$this->entityClassName = $entityClassName;
 		if (substr(get_class($this), -7, 1) != "X")
 			$this->ajaxTemplate = str_replace('Action', '', get_class($this)).'X.tpl';
-		$this->actionLog = true;
-		$this->entityLog = true;
+		else
+			$this->ajaxTemplate = str_replace('Action', '', get_class($this)) . '.tpl';
 	}
 
 	public function execute($mapping, $form, &$request, &$response) {
 
 		parent::execute($mapping, $form, $request, $response);
-		
+
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -41,7 +43,7 @@ class BaseDoEditAction extends BaseAction {
 
 		$entityClassName = $this->entityClassName;
 		$id = $request->getParameter("id");
-	
+
 		if (!empty($id)) {
 			$this->entity = BaseQuery::create($entityClassName)->findOneById($id);
 			if (empty($this->entity))
@@ -51,16 +53,22 @@ class BaseDoEditAction extends BaseAction {
 			$this->entity = new $entityClassName();
 
 		try {
+			// Acciones a ejecutar antes de actualizar el objeto
 			$this->preUpdate();
 			$this->entity->fromArray($this->entityParams,BasePeer::TYPE_FIELDNAME);
+
+			// Acciones a ejecutar despues de actualizar el objeto
+			$this->postUpdate();
+
+			// Acciones a ejecutar antes de guardar el objeto
 			$this->preSave();
 			$action = $this->entity->isNew() ? 'create' : 'edit';
 			$this->entity->save();
-			
+
 			$logSufix = ', ' . Common::getTranslation('action: '.$action, 'common');
 			if ($this->actionLog && method_exists($this->entity, 'getLogData'))
 				Common::doLog('success', $this->entity->getLogData() . $logSufix);
-			
+
 			$logClassName = $this->entityClassName.'Log';
 			$setEntityId = 'set'.$this->entityClassName.'id';
 			if ($this->entityLog && class_exists($logClassName)) {
@@ -72,16 +80,16 @@ class BaseDoEditAction extends BaseAction {
 					$entityLog->save();
 				}
 			}
-			
+			// Acciones a ejecutar luego de guardar el objeto
 			$this->postSave();
 		} catch (Exception $e) {
-			
+
 			//Elijo la vista basado en si es o no un pedido por AJAX
-			if ($this->isAjax()) {
+			if ($this->isAjax())
 				return $this->returnAjaxFailure($e->getMessage());
-			} else {
+			else {
 				$this->onFailure($e);
-				return $this->returnFailure($mapping, $smarty, $this->entity, 'failure-edit');
+				return $this->returnFailure($mapping, $smarty, $this->entity, $this->forwardFailureName);
 			}
 		}
 
@@ -91,16 +99,15 @@ class BaseDoEditAction extends BaseAction {
 		/*
 		 * Elijo la vista basado en si es o no un pedido por AJAX
 		 */
-		if ($this->isAjax()) {
+		if ($this->isAjax())
 			$smarty->display($this->ajaxTemplate);
-		} else {
-			return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'success-edit');
-		}
+		else
+			return $this->addParamsAndFiltersToForwards($params, $filters, $mapping, $this->forwardName);
 	}
 
 	/**
 	 * Acciones a tomar despues de updatear el objeto pero antes de guardarlo
-	 * 
+	 *
 	 * $this->entity->updateRegions()
 	 * // si updateRegions() lanza una excepcion se cancela el DoEdit con su mensaje de error
 	 */
@@ -118,7 +125,7 @@ class BaseDoEditAction extends BaseAction {
 	/**
 	 * Chequeos previos al update del objeto (update de datos sin guardarlos)
 	 * Example:
-	 * 
+	 *
 	 * if (!checkOk())
 	 *	throw new Exception('error XXX');
 	 */
@@ -133,6 +140,10 @@ class BaseDoEditAction extends BaseAction {
 		// default: do nothing
 	}
 
+	/**
+	 * onFailure
+	 * Asigna al smarty el objeto con errores y los errores para su edicion
+	 */
 	protected function onFailure($e) {
 		$this->entity->fromArray($this->entityParams,BasePeer::TYPE_FIELDNAME);
 		$this->smarty->assign('entity', $this->entity);
