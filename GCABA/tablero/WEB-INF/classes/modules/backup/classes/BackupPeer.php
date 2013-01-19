@@ -497,7 +497,7 @@ class BackupPeer {
 
 			if (!empty($behavior["_c"]["parameter"])) {
 				foreach ($behavior["_c"]["parameter"] as $parameter) {
-					if ($parameter["_a"]["name"] == 'version_table')
+					if (isset($parameter["_a"]["name"]) && $parameter["_a"]["name"] == 'version_table')
 						$versionableTable = $parameter["_a"]["value"];
 				}
 			}
