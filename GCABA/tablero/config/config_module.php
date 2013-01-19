@@ -4,6 +4,7 @@ class ConfigModule {
 
 	private static $configModule = array(
 		"global" => array(
+			"defaultMode" => "planning",
 			"debugMode" => true,
 			"noSecurity" => true,
 			"noCheckLogin" => false,
@@ -29,9 +30,11 @@ class ConfigModule {
 			"passwordRecoveryExpirationTimeInHours" => 24
 		),
 		"planning" => array(
-			"useDemoValues" => true,
+			"useDemoValues" => false,
 			"startingYear" => 2013,
 			"endingYear" => 2013,
+			"planningUsersGroup" => 31,
+			"panelUsersGroup" => 32,
 			"verifyGroupWriteAccess" => false,
 			"useLogs" => true,
 			"logsPerPage" => 5,
@@ -147,19 +150,10 @@ class ConfigModule {
 				11 => 'Secretary',
 				12 => 'Sub secretary',
 				13 => 'General Director'
-				),
-			"useExchangeRate" => true
-		),
-		"banners" => array(
-			"saveClicks" => false
-		),
-		"import" => array(
-			"quotesUseQuantities" => false
+				)
 		),
 		"documents" => array(
 			"usePasswords" => true,
-			"useKeywords" => false,
-			"useAuthors" => false,
 			"useFullTextSearch" => true,
 			"catdocPath" => "/usr/local/bin/",
 			"pdftotextPath" => "/usr/local/bin/",
