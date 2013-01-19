@@ -14,7 +14,6 @@ class CommonMeasureUnitsListAction extends BaseListAction {
 	protected function preList() {
 		parent::preList();
 
-		$this->notPaginated = true;
 		$this->module = "Common";
 	}
 

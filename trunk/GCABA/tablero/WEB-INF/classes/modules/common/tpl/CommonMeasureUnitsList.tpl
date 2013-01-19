@@ -60,6 +60,11 @@
 	|-else-|
 		|-include file="CommonMeasureUnitsListInclude.tpl"-|
 	|-/if-|
+		|-if isset($pager) && $pager->haveToPaginate()-|
+		<tr> 
+			<td colspan="3" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
+		</tr>
+		|-/if-|
 	</tbody>
 	<tfoot>
 	|-if "commonMeasureUnitsDoEditX"|security_has_access-|
