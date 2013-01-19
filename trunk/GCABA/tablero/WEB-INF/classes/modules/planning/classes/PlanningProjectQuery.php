@@ -40,4 +40,15 @@ class PlanningProjectQuery extends BasePlanningProjectQuery {
 			->orderByInternalCode();
 	}
 
+ /**
+	* Agrega filtros por dependencia y sus descendientes
+	*
+	* @param   type integer $positionCode code del Position
+	* @return condicion de filtrado por position y descendientes
+	*/
+	public function broodPositions($positionCode) {
+		$position = PositionQuery::create()->findOneByCode($positionCode);
+		return $this->filterByPosition($position->getBranch());
+	}
+
 } // PlanningProjectQuery

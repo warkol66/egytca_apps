@@ -43,8 +43,9 @@ class PlanningIndicatorSerie extends BasePlanningIndicatorSerie {
     function getYs() {
         // No podemos hacer una consulta a la DB porque puede tratarse
         // de un indicador no persistido.
-        $serieYs = $this->getPlanningIndicatorYs();
-        uasort($serieYs, array('IndicatorSerie', 'compareByOrder'));
+				$serieYs = PlanningIndicatorYQuery::create()->filterByPlanningindicatorserie($this)->orderByXid()->find();
+//        $serieYs = $this->getPlanningIndicatorYs();
+//        uasort($serieYs, array('IndicatorSerie', 'compareByOrder'));
         return $serieYs;
     }
 

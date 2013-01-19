@@ -291,5 +291,17 @@ class PlanningConstruction extends BasePlanningConstruction {
 		);
 		return $constructionTypes;
 	}
-	
+
+	/**
+	 * Devuelve eje de gestion (PolicyGuideline) asociado al Objetivo de Impacto
+	 *
+	 * @return PolicyGuideline del que se desprende el proyecto
+	 */
+	public function getPolicyGuideline() {
+		$planningProject = $this->getPlanningProject();
+		if (is_object($planningProject))
+			return $planningProject->getPolicyGuideline();
+		return;
+	}
+
 } // PlanningConstruction

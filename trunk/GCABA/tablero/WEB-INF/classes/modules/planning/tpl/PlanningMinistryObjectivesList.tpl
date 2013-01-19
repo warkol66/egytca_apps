@@ -1,4 +1,4 @@
-<script type="text/javascript" src="scripts/lightbox.js"></script> 			
+|-if !$csv-|<script type="text/javascript" src="scripts/lightbox.js"></script> 			
 <div id="lightbox1" class="leightbox">
 	<p align="right">				
 		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
@@ -38,7 +38,7 @@
 |-/if-|</form></div></td>
 		</tr>|-/if-|
 			<tr>
-				 <th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningMinistryObjectivesEdit|-if $filters.impactobjectiveid-|&fromImpactObjectiveId=|-$filters.impactobjectiveid-||-/if-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|" class="addLink">Agregar Objetivo Ministerial</a></div></th>
+				 <th colspan="4" class="thFillTitle"><div class="rightLink">|-if $smarty.session.planningMode || $loginUser->mayPlan() || $loginUser->mayFollow()-|<a href="Main.php?do=planningMinistryObjectivesEdit|-if $filters.impactobjectiveid-|&fromImpactObjectiveId=|-$filters.impactobjectiveid-||-/if-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|" class="addLink">Agregar Objetivo Ministerial</a>|-/if-|</div></th>
 			</tr>
 			<tr class="thFillTitle">
 				<th width="50%">Objetivo de Impacto</th>
@@ -77,13 +77,13 @@
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
 						<input type="submit" name="submit_go_delete_objective" value="Borrar" onclick="return confirm('¿Seguro que desea eliminar el objetivo?')" class="icon iconDelete" title="Eliminar Objetivo Ministerial" />
 					</form>
-					<form action="Main.php" method="get" style="display:inline;">
+					|-if $smarty.session.planningMode || $loginUser->mayPlan() || $loginUser->mayFollow()-|<form action="Main.php" method="get" style="display:inline;">
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="planningOperativeObjectivesEdit" />
 						<input type="hidden" name="fromMinistryObjectiveId" value="|-$objective->getid()-|" />
 						<input type="submit" name="submit_go_edit" value="Agregar Objetivos Operativos" class="icon iconAdd" title="Agregar Objetivos Operativos al Objetivo Ministerial" />
-					</form>			
+					</form>|-/if-|
 					</td>
 			</tr>
 		|-/foreach-|
@@ -99,3 +99,9 @@
 		</tbody>
 	</table>
 </div>
+|-else-|
+"Eje"|"Objetivo de Impacto"|"Objetivo Ministerial"|"Dependencia"
+|-foreach from=$ministryObjectiveColl item=objective name=for_objectives-||-assign var=impactObjective value=$objective->getImpactObjective()-|
+"|-if is_object($impactObjective)-||-$policyGuidelines[$impactObjective->getPolicyGuideline()]-||-/if-|"|"|-$impactObjective-|"|"|-$objective-|"|"|-$objective->getPosition()-|"|
+|-/foreach-|
+|-/if-|

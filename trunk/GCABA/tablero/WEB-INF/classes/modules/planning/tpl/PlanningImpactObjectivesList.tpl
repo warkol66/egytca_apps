@@ -1,4 +1,4 @@
-<script type="text/javascript" src="scripts/lightbox.js"></script> 			
+|-if !$csv-|<script type="text/javascript" src="scripts/lightbox.js"></script> 			
 <div id="lightbox1" class="leightbox">
 	<p align="right">				
 		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a> 
@@ -37,7 +37,8 @@
 |-/if-|</form></div></td>
 		</tr>|-/if-|
 			<tr>
-				 <th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningImpactObjectivesEdit" class="addLink">Agregar Objetivo de Impacto</a></div></th>
+				 <th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningImpactObjectivesEdit" class="addLink">|-if $smarty.session.planningMode || $loginUser->mayPlan() || $loginUser->mayFollow()-|Agregar Objetivo de Impacto</a>|-/if-|</div>
+				 </th>
 			</tr>
 			<tr class="thFillTitle">
 				<th width="35%">Dependencia</th>
@@ -76,11 +77,11 @@
 						<input type="hidden" name="id" value="|-$objective->getid()-|" />
 						<input type="submit" name="submit_go_delete_objective" value="Borrar" onclick="return confirm('¿Seguro que desea eliminar el objetivo?')" class="icon iconDelete" title="Eliminar Objetivo de Impacto" />
 					</form>
-					<form action="Main.php" method="get" style="display:inline;">
+					|-if $smarty.session.planningMode || $loginUser->mayPlan() || $loginUser->mayFollow()-|<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="planningMinistryObjectivesEdit" />
 						<input type="hidden" name="fromImpactObjectiveId" value="|-$objective->getid()-|" />
 						<input type="submit" name="submit_go_edit" value="Agregar Objetivos Ministeriales" class="icon iconAdd" title="Agregar Objetivos Ministeriales al Objetivo de Impacto" />
-					</form>			
+					</form>|-/if-|
 					</td>
 			</tr>
 		|-/foreach-|
@@ -96,3 +97,9 @@
 		</tbody>
 	</table>
 </div>
+|-else-|
+"Eje"|"Objetivo de Impacto"|"Dependencia"
+|-foreach from=$impactObjectiveColl item=objective name=for_objectives-|
+"|-$policyGuidelines[$objective->getPolicyGuideline()]-|"|"|-$objective-|"|"|-$objective->getPosition()-|"|
+|-/foreach-|
+|-/if-|

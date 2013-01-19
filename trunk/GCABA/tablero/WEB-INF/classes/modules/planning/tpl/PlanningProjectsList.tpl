@@ -1,4 +1,4 @@
-<script type="text/javascript" src="scripts/lightbox.js"></script> 			
+|-if !$csv-|<script type="text/javascript" src="scripts/lightbox.js"></script> 			
 <div id="lightbox1" class="leightbox">
 	<p align="right">				
 		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
@@ -8,6 +8,7 @@
 		<div id="planningProjectsShowDiv"></div>
 	</div>
 </div>
+|-include file="CommonAutocompleterInclude.tpl"-|
 <h2>Planificación</h2>
 <h1>Administración de Proyectos</h1>
 <!-- Link VOLVER -->
@@ -29,16 +30,26 @@
 	<table id="tabla-projects" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 		<thead>
 		|-if !$nav-|<tr>
-			<td colspan="5" class="tdSearch"><a href="javascript:void(null);" onClick='$("divSearch").toggle();' class="tdTitSearch">Busqueda por nombre</a>
+			<td colspan="5" class="tdSearch"><a href="javascript:void(null);" onClick='$("divSearch").toggle();' class="tdTitSearch">Busqueda por nombre del proyecto</a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0 && !($filters.fromStrategicObjectives)-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="planningProjectsList" />
-					Nombre: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" />
-					&nbsp;&nbsp;<input type='submit' value='Buscar' class='tdSearchButton' />|-if $filters|@count gt 0-|
-				<input type='button' onClick='location.href="Main.php?do=planningProjectsList"' value="Quitar Filtros" title="Quitar Filtros"/>
-|-/if-|</form></div></td>
+					<p><label for="filters[searchString]">Texto</label><input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="30" /></p>
+		<div div="div_filters[positionCode]" style="position: relative;z-index:10000;">
+					|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_position" url="Main.php?do=commonAutocompleteListX&object=position&objectParam=code" hiddenName="filters[positionCode]" label="Dependencia" defaultValue=$filters.positionName defaultHiddenValue=$filters.positionCode name="filters[positionName]"-|
+		</div>
+<p><label for="filters[getPositionBrood]">Incluir dependientes</label>
+				<input name="filters[getPositionBrood]" type="checkbox" value="1" |-$filters.getPositionBrood|checked_bool-| />
+</p>
+					<p><input type='submit' value='Buscar' class='tdSearchButton' />|-if $filters|@count gt 0-|
+				&nbsp;&nbsp;<input type="button" value="Exportar" onclick="window.open(('Main.php?'+Form.serialize(this.form)+'&csv=true'));"/>
+				&nbsp;&nbsp;<input type='button' onClick='location.href="Main.php?do=planningProjectsList"' value="Quitar Filtros" title="Quitar Filtros"/>
+|-/if-|</p>
+
+					|-if $loginUser->isSupervisor()-||-/if-|
+</form></div></td>
 		</tr>|-/if-|
 			<tr>
-				 <th colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningProjectsEdit|-if $filters.operativeobjectiveid-|&fromOperativeObjectiveId=|-$filters.operativeobjectiveid-||-/if-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|" class="addLink">Agregar Proyecto</a></div></th>
+				 <th colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="thFillTitle"><div class="rightLink">|-if $smarty.session.planningMode || $loginUser->mayPlan() || $loginUser->mayFollow()-|<a href="Main.php?do=planningProjectsEdit|-if $filters.operativeobjectiveid-|&fromOperativeObjectiveId=|-$filters.operativeobjectiveid-||-/if-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|" class="addLink">Agregar Proyecto</a></div>|-/if-|</th>
 			</tr>
 			<tr class="thFillTitle">
 				<th width="33%">Objetivo Operativo</th>
@@ -81,7 +92,7 @@
 						<input type="hidden" name="id" value="|-$project->getid()-|" />
 						<input type="submit" name="submit_go_delete_project" value="Borrar" onclick="return confirm('¿Seguro que desea eliminar el objetivo?')" class="icon iconDelete" title="Eliminar Proyecto" />
 					</form>|-/if-|
-					|-if $smarty.session.planningMode-||-if "planningConstructionsEdit"|security_has_access-||-if $project->getInvestment()-|<form action="Main.php" method="get" style="display:inline;">
+					|-if $smarty.session.planningMode || $loginUser->mayPlan() || $loginUser->mayFollow()-||-if "planningConstructionsEdit"|security_has_access-||-if $project->getInvestment()-|<form action="Main.php" method="get" style="display:inline;">
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 						<input type="hidden" name="do" value="planningConstructionsEdit" />
@@ -103,3 +114,9 @@
 		</tbody>
 	</table>
 </div>
+|-else-|
+"Eje"|"Objetivo Ministerial"|"Objetivo Operativo"|"Proyecto"|"Dependencia"|"Inversion"|"Prioridad Ministerial"|"Prioridad"|"Presupuesto Solicitado"
+|-foreach from=$planningProjectColl item=project name=for_projects-||-assign var=operativeObjective value=$project->getOperativeObjective()-||-if is_object($operativeObjective)-||-assign var=ministryObjective value=$operativeObjective->getMinistryObjective()-||-if is_object($ministryObjective)-||-assign var=impactObjective value=$ministryObjective->getImpactObjective()-||-/if-||-/if-|
+"|-$project->getPolicyGuideline()|escape-|"|"|-$ministryObjective|escape-|"|"|-$operativeObjective-|"|"|-$project-|"|"|-$project->getPosition()-|"|"|-$project->getInvestment()|si_no-|"|"|-$project->getMinistrypriorityTrasnlated()-|"|"|-$project->getPriorityTrasnlated()-|"|"|-$project->getAppliedAmount()|system_numeric_format-|"
+|-/foreach-|
+|-/if-|
