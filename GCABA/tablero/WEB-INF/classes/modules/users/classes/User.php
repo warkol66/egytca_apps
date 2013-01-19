@@ -489,6 +489,20 @@ class User extends BaseUser {
 	}
 
  /**
+	 * Especifica si un usuario puede modificar la planificacion siendo de planificacion
+	 */
+	function mayPlan() {
+		return $this->belongsToGroups(ConfigModule::get('planning', 'planningUsersGroup'));
+	}
+
+ /**
+	 * Especifica si un usuario puede modificar la planificacion siendo de control
+	 */
+	function mayFollow() {
+		return $this->belongsToGroups(ConfigModule::get('planning', 'panelUsersGroup'));
+	}
+
+ /**
 	 * Verifica que la sesion sea la correspondiente
 	 * @return bool true si la sesion se corresponde con el usuario o si no se verifica
 	 */
