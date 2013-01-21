@@ -55,6 +55,7 @@ html =   '      <tr> '
 |-else-|
           <th>Fecha</th> 
 |-/if-|
+          <th>Prioritaria</th>
           <th>Cumplida</th> 
           |-if !$show && !$showLog-|<th>&nbsp;</th>|-/if-| 
         </tr> 
@@ -90,9 +91,10 @@ html =   '      <tr> '
             <td><input type="hidden" name="activity[][id]" value="|-$activity->getId()-|"/>
             |-if isset($construction) && $construction->getConstructionType() eq 2-|<input name="activity[][name]" id="params_name[]" type="text" value="|-$activity->getName()|escape-|" size="60" title="Actividad" readonly="readonly"></td>
             |-else-|<input name="activity[][name]" id="params_name[]" type="text" value="|-$activity->getName()|escape-|" size="60" title="Actividad" |-$readonly|readonly-|>|-/if-|</td>
-|-if !$construction-|            <td><input name="activity[][startingDate]"  id="params_startingDate[]" type="text" value="|-$activity->getStartingDate()|date_format-|" size="12" title="Fecha de inicio en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation"></td>|-/if-|  
-            <td><input name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="|-$activity->getEndingDate()|date_format-|" size="12" title="Fecha de finalización en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation"></td>
-            <td align="center"><input name="activity[][acomplished]" type="hidden" value="0"><input name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1" |-$activity->getAcomplished()|checked_bool-| title="Indique si se completó la actividad" |-$readonly|readonly-|>
+|-if !$construction-|            <td><input name="activity[][startingDate]"  id="activity|-$activity->getId()-|_startingDate" type="text" value="|-$activity->getStartingDate()|date_format-|" size="12" title="Fecha de inicio en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation">|-/if-||-*|-if !$show && !$showLog-|<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('activity|-$activity->getId()-|_startingDate', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de inicio">|-/if-|*-|</td>
+            <td><input name="activity[][endingDate]"  id="activity|-$activity->getId()-|_endingDate" type="text" value="|-$activity->getEndingDate()|date_format-|" size="12" title="Fecha de finalización en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation">|-*|-if !$show && !$showLog-|<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('activity|-$activity->getId()-|_endingDate', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de inicio">|-/if-|*-|</td>
+            <td align="center"><input name="activity[][priority]" type="hidden" value="0"><input name="activity[][priority]" type="checkbox" value="1" |-$activity->getPriority()|checked_bool-| |-$readonly|readonly-|></td>
+	    <td align="center"><input name="activity[][acomplished]" type="hidden" value="0"><input name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1" |-$activity->getAcomplished()|checked_bool-| title="Indique si se completó la actividad" |-$readonly|readonly-|>
         </td>
          		|-if !$show && !$showLog-|<td><input name="activity[][eol]" type="hidden" value="1">|-if !isset($construction) || (isset($construction) && !$construction->getConstructionType() eq 2)-|<input type="button" class="icon iconDelete" title="Eliminar" value="Eliminar" onClick="removeActivity('|-$activity->getId()-|')" />|-else-|<img src="images/clear.png" class="disabled icon iconClear" />|-/if-|</td>|-/if-| 
        </tr> 
