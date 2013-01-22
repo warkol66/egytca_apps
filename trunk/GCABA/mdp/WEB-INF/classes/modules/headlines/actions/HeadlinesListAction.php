@@ -71,6 +71,15 @@ class HeadlinesListAction extends BaseAction {
 
 		$pager = BaseQuery::create('Headline')->orderByCreatedAt('desc')->createPager($filters,$page,$perPage);
 
+		if (!empty($filters['Actor']))
+			unset($filters['Actor']);
+		if (!empty($filters['Media']))
+			unset($filters['Media']);
+		if (!empty($filters['Issue']))
+			unset($filters['Issue']);
+
+
+
 		$smarty->assign("filters", $filters);
 		$smarty->assign("headlines",$pager->getResults());
 		$smarty->assign("pager",$pager);
