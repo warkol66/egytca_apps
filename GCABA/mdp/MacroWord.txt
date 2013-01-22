@@ -1,0 +1,33 @@
+Sub FormatImages()
+'
+' FormatImages Macro
+'
+'
+    For Each oILShp In ActiveDocument.InlineShapes
+        oILShp.Select
+        Selection.ParagraphFormat.Alignment = wdAlignParagraphCenter
+        Dim p As Object
+            If Selection.InlineShapes.Count = 1 Then
+                Set p = Selection.InlineShapes(1)
+            ElseIf Selection.ShapeRange.Count = 1 Then
+                Set p = Selection.ShapeRange(1)
+            Else
+                MsgBox "Please select a single shape or inline shape.", vbExclamation
+                Exit Sub
+            End If
+            With p.Shadow
+                .Blur = 4
+                .OffsetX = 3
+                .OffsetY = 3
+                .Size = 100
+                .Style = msoShadowStyleOuterShadow
+                .Transparency = 0.57
+                .Visible = True
+            End With
+            With p.Line
+                .Weight = 1
+                .ForeColor = vbBlack
+            End With
+    Next
+End Sub
+
