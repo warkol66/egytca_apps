@@ -1,7 +1,7 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
+error_reporting(0);
+ini_set("display_errors", 0);
 
 $moduleRootDir = ".";
 $backupPeer = new BackupPeer();
@@ -21,21 +21,21 @@ else {
 	echo "Seleccione el archivo<br />";
 	$files = $backupPeer->getBackupList();
 	foreach ($files as $file) {
-		echo "<a href=\"install.php?filename=". $file['name'] . "\">" . $file['name'] . "</a><br />";
+		echo "<a href=\"maintenance.php?filename=". $file['name'] . "\">" . $file['name'] . "</a><br />";
 	}
-	echo "<form id=\"backupLoaderForm\" action=\"install.php\" method=\"post\" enctype=\"multipart/form-data\">";
+	echo "<form id=\"backupLoaderForm\" action=\"maintenance.php\" method=\"post\" enctype=\"multipart/form-data\">";
 	echo "<p>A continuacion indique el archivo local a restaurar en el sistema:</p>";
 	echo "<p><label>Archivo:</label><input type=\"file\" name=\"backup\" size=\"40\" /></p>";
-	echo "<p><input type=\"submit\" value=\"Restaurar respaldo local\" accept=\"txt/sql\" onclick=\"return confirm('Esta opciÃ³n reemplazarÃ¡ la informaciÃ³n en el sistema por la informaciÃ³n en este respaldo. Â¿EstÃ¡ seguro que desea continuar?');\"/></p>";
+	echo "<p><input type=\"submit\" value=\"Restaurar respaldo local\" accept=\"txt/sql\" onclick=\"return confirm('Esta opción reemplazará la información en el sistema por la información en este respaldo. ¿Está seguro que desea continuar?');\"/></p>";
 	echo "</form>";
 }
 
 function restoreBackup($backupPeer, $filename, $originalFileName) {
 	
 	if ($backupPeer->restoreBackup($filename, $originalFileName))
-		echo "InstalaciÃ³n completa";
+		echo "Instalación completa";
 	else
-		echo "No se pudo realizar la instalaciÃ³n";
+		echo "No se pudo realizar la instalación";
 }
 
 /**
@@ -78,8 +78,6 @@ class BackupPeer {
 
 		$zipfile = new zipfile;
 		$zipfile->read_zip($zipFilename);
-
-		$sql = '';
 
 		$rootDir = "";
 		foreach($zipfile->files as $filea) {
@@ -151,6 +149,21 @@ class BackupPeer {
 			}
 
 		}
+
+		$path = $path . "backups/";
+		$dir = opendir($path);
+		while ($file = readdir($dir)) {
+			if (preg_match("/\.zip/i",$file)) {
+				$filename = $path . $file;
+				$data = array(
+									'name' => "backups/" . $file,
+									'size' => (filesize($filename) / 1024),
+									'time' => filemtime($filename)
+								);
+				array_push($filenames,$data);
+			}
+		}
+
 		//ordenamos los nombres de archivo
 		if ($order == "desc")
 			rsort($filenames);
