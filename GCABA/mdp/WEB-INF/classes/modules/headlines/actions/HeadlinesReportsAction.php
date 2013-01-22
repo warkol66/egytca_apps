@@ -58,7 +58,17 @@ class HeadlinesReportsAction extends BaseListAction {
 	}
 
 	protected function postList() {
+		
+		if (!empty($this->filters['Actor']))
+			unset($this->filters['Actor']);
+		if (!empty($this->filters['Media']))
+			unset($this->filters['Media']);
+		if (!empty($this->filters['Issue']))
+			unset($this->filters['Issue']);
+		$this->smarty->assign("filters", $this->filters);
 		parent::postList();
+
+
 		$this->smarty->assign("module", $this->module);
 		$this->smarty->assign("section", "Reports");
 

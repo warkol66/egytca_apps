@@ -30,6 +30,7 @@
 				<li><a href="Main.php?do=mediasTypeList">Tipo de medios</a></li>
 				<li><a href="Main.php?do=headlinesTagsList">Etiquetas</a></li>
 				<li class="last"><a href="Main.php?do=mediasAudienceList">Audiencias</a></li>
+				<li class="last"><a href="Main.php?do=templatesList">Plantillas y fuentes</a></li>
 			</ul>
 			</li>
 		</li>
