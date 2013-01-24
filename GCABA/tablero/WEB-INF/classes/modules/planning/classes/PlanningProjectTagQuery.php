@@ -15,4 +15,12 @@
  */
 class PlanningProjectTagQuery extends BasePlanningProjectTagQuery
 {
+	/**
+	 * Agrega parametro de busqueda para el BaseQuery
+	 *
+	 * @return query
+	 */
+	public function searchString($searchString) {
+		return $this->where("PlanningProjectTag.Name LIKE ?", "%$searchString%");
+	}
 }

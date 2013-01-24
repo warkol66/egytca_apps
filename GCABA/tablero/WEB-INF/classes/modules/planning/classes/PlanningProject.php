@@ -503,5 +503,15 @@ class PlanningProject extends BasePlanningProject {
 		$priorities = PlanningProject::getPriorities();
 		return $priorities[$this->getPriority()];
 	}
+	
+	/**
+	 * Determina la existencia de una relacion con un determindo issue.
+	 * @param $issue Object
+	 */
+	public function hasPlanningProjectTag($tag) {
+		$projectTagQuery = PlanningProjectTagRelationQuery::create()->filterByPlanningProject($this)
+                        ->filterByPlanningProjectTag($tag);
+		return ($projectTagQuery->count() > 0);															 		
+	}
 
 } // PlanningProject
