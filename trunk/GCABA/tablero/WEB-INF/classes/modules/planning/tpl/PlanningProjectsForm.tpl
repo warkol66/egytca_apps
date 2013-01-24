@@ -1,3 +1,7 @@
+<link type="text/css" href="css/chosen.css" rel="stylesheet" />
+<script language="JavaScript" type="text/javascript" src="scripts/chosen.proto.js"></script>
+<script language="JavaScript" type="text/javascript" src="scripts/event.simulate.js"></script>
+
 |-if is_object($planningProject)-|
 <script type="text/javascript" src="scripts/lightbox.js"></script> 			
 <div id="lightbox1" class="leightbox">
@@ -146,7 +150,7 @@
 		 |-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() showGantt="true"-||-/if-|
 	  
 	  
-	  
+
 	  
 	  
 			|-if isset($loginUser) && $loginUser->isSupervisor() && !$planningProject->isNew()-|
@@ -175,4 +179,46 @@
 		|-/if-|</p>	|-/if-|
     </fieldset> 
   </form>
+|-/if-|
+
+|-if !$planningProject->isNew()-|
+<script type="text/javascript">
+	Event.observe(window, 'load', function() {
+		new Chosen($('tagsIds'));
+	});
+	
+	function updateSelected(options, action) {
+
+		var postParams = "";
+		postParams += "planningProjectId=|-$planningProject->getId()-|";
+
+		 // Cargar selecionados
+		 for (var i=0; i < options.length; i++) {
+			 if (options[i].selected)
+				 postParams += "&selectedIds[]="+options[i].value;
+		 }
+
+		 new Ajax.Request(
+			 action,
+			 {
+				 method: 'post',
+				 postBody: postParams,
+				 evalScripts: true
+			 });
+		 return true;
+	 }
+</script>
+<fieldset>
+	<legend>Etiquetas</legend>
+	<p>
+	<form method="post" id="form_tags">
+		<label for="tags">Etiquetas</label>
+		<select class="chzn-select wide-chz-select" data-placeholder="Seleccione una o varias etiquetas..." id="tagsIds" name="tagsIds[]" size="5" multiple="multiple" onChange="updateSelected(this.options, 'Main.php?do=planningProjectsUpdateTagsX')">
+			|-foreach from=$planningProjectTags item=planningProjectTag name=for_planningProjectTags-|
+				<option value="|-$planningProjectTag->getId()-|" |-if $planningProject->hasPlanningProjectTag($planningProjectTag)-|selected="selected"|-/if-| >|-$planningProjectTag->getName()-|</option>
+			|-/foreach-|
+		</select>
+	</form>
+	</p>
+</fieldset>
 |-/if-|
