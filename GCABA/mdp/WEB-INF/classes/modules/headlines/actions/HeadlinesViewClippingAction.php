@@ -16,8 +16,18 @@ class HeadlinesViewClippingAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
+		if ($_REQUEST["page"] > 0)
+			$params["page"] = $_REQUEST["page"];
+
+		if (!empty($_REQUEST["filters"]))
+			$filters = $_REQUEST["filters"];
+
 		if ($request->getParameter('noTemplate'))
 			$this->template->template = 'TemplateAjax.tpl';
+
+		$smarty->assign("filters", $filters);
+		$smarty->assign("params", $params);
+		$smarty->assign("page",$_REQUEST["page"]);
 
 		$headlineId = $request->getParameter('id');
 		if ($headlineId > 0) {

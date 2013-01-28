@@ -163,11 +163,12 @@
 				<th>Foto</th>
 				|-if $filters.actorName ne '' || $filters.actorName ne ''-|<th>Vocero (|-$filters.actorName-|)</th>
 				<th>Otros politicos (|-$filters.actorName-|)</th>|-/if-|
+				<th>Duración(s)/Superficie(mm2)</th>
 			</tr>
 			|-foreach from=$headlineColl item=headline name=for_headlines-|
 			<tr>
-					<td>|-$headline->getDatePublished()|change_timezone|date_format-|-|</td>
-					<td>|-$headline->getDatePublished()|change_timezone|dateTime_format-|-|</td>
+					<td>|-$headline->getDatePublished()|change_timezone|date_format-|</td>
+					<td>|-$headline->getDatePublished()|change_timezone|dateTime_format-|</td>
 					<td>|-assign var=issues value=$headline->getIssues()-||-foreach from=$issues item=issue name=for_issues-||-if !$issue@first-|, |-/if-||-$issue-||-/foreach-|</td>
 					<td>|-assign var=media value=$headline->getMedia()-||-if is_object($media)-||-$media->getType()-||-/if-|</td>
 					<td>|-$headline->getMedia()-|</td>
@@ -186,6 +187,7 @@
 					<td>|-$headline->getPicture()|si_no-|</td>
 					|-if $filters.actorName ne '' || $filters.actorName ne ''-|<td>|-$spokesmanSelectedActor-|</td>
 					<td>|-if $spokesmanSelectedActor eq ''-||-$otherSelectedActor-||-/if-|</td>|-assign var=spokesmanSelectedActor value=""-||-assign var=otherSelectedActor value=""-||-/if-|
+					<td>|-$headline->getLength()-|</td>
 			</tr>
 			|-/foreach-|
 		</table>

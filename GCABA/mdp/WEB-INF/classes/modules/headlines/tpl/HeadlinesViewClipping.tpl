@@ -3,7 +3,7 @@
 |-elseif $image eq ''-|
 	No hay una imágen asociada al titular.
 	&nbsp;
-	<input type='button' id='button_render' value='Capturar imágen' onClick='location.href="Main.php?do=headlinesRenderUrl&id=|-$id-|"' />
+	<input type='button' id='button_render' value='Capturar imágen' onClick='location.href="Main.php?do=headlinesRenderUrl&id=|-$id-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) && ($page ne 1)-|&page=|-$page-||-/if-|"' />
 |-else-|
 	
 <div id="statusMsg"></div>
@@ -52,12 +52,14 @@
 
 <p><br>
 
+|-include file="HiddenInputsInclude.tpl" filters="$filters" page="$page"-|
+
 <input type='button' id='button_save_crop' value='Guardar' onClick='applyCrop(function() { setTimeout("reload()", 500); });' style="display:none" />
 <input type='button' id='button_start_crop' value='Recortar' onClick='enableEdit()' />
 <input type='button' id='button_cancel_crop' value='Cancelar' onClick='disableEdit()' style="display:none" />
-<input type='button' id='button_render' value='Capturar nuevamente' onClick='location.href="Main.php?do=headlinesRenderUrl&id=|-$id-|"' />
-<input type='button' id='button_return_edit' value='Volver a edición' onClick='location.href="Main.php?do=headlinesEdit&id=|-$id-|&submit_go_edit_headline=Editar"' />
-<input type='button' id='button_create_new' value='Crear nuevo' onClick='location.href="Main.php?do=headlinesEdit&campaignId=|-$headline->getCampaignId()-|"' />
+<input type='button' id='button_render' value='Capturar nuevamente' onClick='location.href="Main.php?do=headlinesRenderUrl&id=|-$id-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) && ($page ne 1)-|&page=|-$page-||-/if-|"' />
+<input type='button' id='button_return_edit' value='Volver a edición' onClick='location.href="Main.php?do=headlinesEdit&id=|-$id-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) && ($page ne 1)-|&page=|-$page-||-/if-|&submit_go_edit_headline=Editar"' />
+<input type='button' id='button_create_new' value='Crear nuevo' onClick='location.href="Main.php?do=headlinesEdit&campaignId=|-$headline->getCampaignId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) && ($page ne 1)-|&page=|-$page-||-/if-|"' />
 <input type='button' id='button_delete' value='Eliminar' onClick='deleteClipping();' />
 </p>
 
