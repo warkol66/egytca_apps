@@ -1,3 +1,5 @@
+|-assign var="defaultOrder" value=999-|
+
 <link type="text/css" href="css/chosen.css" rel="stylesheet" />
 <script language="JavaScript" type="text/javascript" src="scripts/chosen.proto.js"></script>
 <script language="JavaScript" type="text/javascript" src="scripts/event.simulate.js"></script>
@@ -142,6 +144,10 @@
 	<p>     
 		<label for="params_endingDate">Fecha de Finalización</label>
 		<input id="params_endingDate" name="params[endingDate]" type='text' value='|-$planningProject->getEndingDate()|date_format-|' size="12" title="Ingrese la fecha de Finalizacion en formato dd-mm-aaaa"  |-$readonly|readonly-| class="dateValidation"/> |-if !$show && !$showLog-|<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[endingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de finalizacion">|-/if-|
+	</p>
+	<p>     
+		<label for="params_order">Orden</label>
+		<input id="params_order" class="order" name="params[order]" type='text' value='|-if $planningProject->getOrder() neq $defaultOrder-||-$planningProject->getOrder()-||-/if-|' size="12" title="Ingrese el orden"  |-$readonly|readonly-| />
 	</p>
 	  
 	  
