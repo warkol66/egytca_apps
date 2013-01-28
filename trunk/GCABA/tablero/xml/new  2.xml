@@ -1,0 +1,19 @@
+<data>
+	<anio valor="2013" />
+	<linea_base valor="20000" />
+	<meta valor="56000" />
+	<meses>
+		<mes nombre="enero" valor="20000" avance="0" />
+		<mes nombre="febrero" valor="23000" avance="8" />
+		<mes nombre="marzo" valor="23000" avance="8" />
+		<mes nombre="abril" valor="27000" avance="19" />
+		<mes nombre="mayo" valor="31500" avance="32" />
+		<mes nombre="junio" valor="31500" avance="32" />
+		<mes nombre="julio" valor="31500" avance="32" />
+		<mes nombre="agosto" valor="34500" avance="40" />
+		<mes nombre="septiembre" valor="41000" avance="58" />
+		<mes nombre="octubre" valor="41000" avance="58" />
+		<mes nombre="noviembre" valor="41000" avance="67" />
+		<mes nombre="diciembre" valor="56000" avance="100" />
+	</meses>
+</data>	

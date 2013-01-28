@@ -1,0 +1,38 @@
+<chart 
+	caption='Cantidad de obras ejecutandose ministerio' 
+	xAxisName='' 
+	yAxisName='Cantidad' 
+	showLabels='1'
+	exportEnabled='1' 
+	exportAtClient='1'
+	exportHandler='fcExporter1'
+	exportDataSeparator='{tab}' 
+	showExportDataMenuItem='1'
+	labelDisplay='rotate' 	
+	> 
+	
+	<set label='VJG' value='1800'/> 
+    <set label='JGM' value='2400' />      
+    <set label='MED' value='1600' /> 
+	<set label='MSAL' value='1380' /> 
+	<set label='VJG' value='800'/> 
+    <set label='JGM' value='400' /> 
+    <set label='MHAC' value='1210' /> 
+    <set label='MED' value='600' /> 
+	<set label='MSAL' value='780' /> 
+	<set label='VJG' value='800'/> 
+    <set label='JGM' value='400' /> 
+	<set label='MHAC' value='210' /> 
+    <set label='MED' value='600' /> 
+	<set label='MSAL' value='80' /> 
+	<set label='VJG' value='880'/> 
+    <set label='JGM' value='400' /> 
+    <set label='MHAC' value='210' />    
+	<set label='VJG' value='150'/> 
+    <set label='JGM' value='410' /> 
+    <set label='MHAC' value='210' />
+	<set label='MSAL' value='380' /> 
+	
+    
+	
+</chart>

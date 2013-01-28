@@ -1,0 +1,74 @@
+
+<chart caption='Grado de cumplimiento y avance de las metas físicas' showValues='0' sNumberSuffix='%25'
+
+showSecondaryLimits='0'
+decimals='2' setAdaptiveYMin='1' setAdaptiveSYMin='1' lineThickness='5'
+	exportEnabled='1' 
+	exportAtClient='1'
+	exportHandler='fcExporter1'
+	exportDataSeparator='{tab}' 
+	showExportDataMenuItem='1'
+	 formatNumberScale='0'>
+    <categories>
+        <category name='Ene' />
+        <category name='Feb' />
+        <category name='Mar' />
+        <category name='Abr' />
+        <category name='May' />
+        <category name='Jun' />
+		<category name='Jul' />
+		<category name='Ago' />
+		<category name='Sep' />
+		<category name='Oct' />
+		<category name='Nov' />
+		<category name='Dic' />
+    </categories>
+
+    <dataset  seriesname='Línea de base'  >
+        <set value='500'/>        
+        <set value='0'/>
+        <set value='0'/>
+        <set value='0'/>
+        <set value='0'/>
+		<set value='0'/>
+		<set value='0'/>
+		<set value='0'/>
+		<set value='0'/>
+		<set value='0'/>
+		<set value='0'/>
+		<set value='0'/>
+    </dataset>
+
+    <dataset  seriesname='Meta'  >
+        <set value='0'/>        
+        <set value='0'/>
+        <set value='0'/>
+        <set value='0'/>
+        <set value='0'/>
+		<set value='0'/>
+		<set value='0'/>
+		<set value='0'/>
+		<set value='0'/>
+		<set value='0'/>
+		<set value='0'/>
+		<set value='20000'/>
+    </dataset>
+	
+    <dataset  seriesname='Evolución' renderAs = 'Line' showValues='1'  >
+        <set value='500'/>
+        <set value='650'/>
+        <set value='850'/>
+		<set value='950'/>
+		<set value='1200'/>
+		<set value='12220'/>
+		<set value='null'/>
+		<set value='null'/>
+		<set value='null'/>
+		<set value='null'/>
+		<set value='null'/>
+
+    </dataset>
+
+
+
+</chart>

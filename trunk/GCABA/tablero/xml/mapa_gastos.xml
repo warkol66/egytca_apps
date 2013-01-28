@@ -1,0 +1,20 @@
+<mapa>
+    <fontsize>10</fontsize>
+    <comunas>
+        <comuna numero="1"  color="#FFD1D1" valor="2,61%" />
+        <comuna numero="2"  color="#D1BAFF" valor="10,8%" />
+        <comuna numero="3"  color="#3B48FF" valor="30%" />
+        <comuna numero="4"  color="#F9FF87" valor="14,76%" />
+        <comuna numero="5"  color="#2EC740" valor="16,6%" />
+        <comuna numero="6"  color="#638AFF" valor="15,37%" />
+        <comuna numero="7"  color="#B5B5B5" valor="15,37%" />
+        <comuna numero="8"  color="#96F1FF" valor="168" />
+        <comuna numero="9"  color="#FFD000" valor="97" />
+        <comuna numero="10" color="#FC77E8" valor="39" />
+        <comuna numero="11" color="#AB7800" valor="67" />
+        <comuna numero="12" color="#A247D6" valor="206" />
+        <comuna numero="13" color="#ED3939" valor="132" />
+        <comuna numero="14" color="#B8FFBE" valor="141" />
+        <comuna numero="15" color="#74FF5C" valor="36" />
+    </comunas>
+</mapa>

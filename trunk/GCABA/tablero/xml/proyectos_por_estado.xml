@@ -1,0 +1,22 @@
+<chart 
+	caption='Proyecto por estado de avance de hitos' 
+	xAxisName='Estado' 
+	yAxisName='Cantidad' 
+	showLabels='0'
+	exportEnabled='1' 
+	exportAtClient='1'
+	exportHandler='fcExporter1'
+	exportDataSeparator='{tab}' 
+	showExportDataMenuItem='1'
+	> 
+	
+	<set label='Gris' value='180' color="#A4A4A4" /> 
+    <set label='Verde' value='300' color="#04B431" /> 
+    <set label='Amarillo' value='250' color="#FFFF00"/> 
+    <set label='Rojo' value='60' color="#DF0101"/> 
+	<set label='Azul' value='120' color="#0040FF"/> 
+	
+</chart>
+
+
+
