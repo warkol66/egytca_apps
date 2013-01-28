@@ -63,6 +63,8 @@
 					<input id="filters[summaryTable]" name="filters[summaryTable]" type="checkbox" value="1" |-$filters.summaryTable|checked_bool-| title="Tabla Resumen" />
 					|-*&nbsp; &nbsp; <label for="filters[includeClipping]" class="inlineLabel">Resumen Ejecutivo</label>
 					<input id="filters[executiveSummary]" name="filters[executiveSummary]" type="checkbox" value="1" |-$filters.executiveSummary|checked_bool-| title="Resumen Ejecutivo" /> *-|
+					&nbsp; &nbsp; <label for="filters[unprocessed]" class="inlineLabel">Incluir sin procesar</label>
+					<input id="filters[unprocessed]" name="filters[unprocessed]" type="checkbox" value="1" |-$filters.unprocessed|checked_bool-| title="Incluir sin procesar" />
 		</p>
 					<p>
 					<input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />

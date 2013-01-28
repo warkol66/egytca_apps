@@ -20,6 +20,16 @@ class HeadlinesRenderUrlAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
+		if ($_REQUEST["page"] > 0)
+			$params["page"] = $_REQUEST["page"];
+
+		if (!empty($_REQUEST["filters"]))
+			$filters = $_REQUEST["filters"];
+
+		$smarty->assign("filters", $filters);
+		$smarty->assign("params", $params);
+		$smarty->assign("page",$_REQUEST["page"]);
+
 		if (isset($_GET["id"]) && $_GET["id"] != '') {
 			
 			if (empty($_GET['type']))
@@ -28,7 +38,7 @@ class HeadlinesRenderUrlAction extends BaseAction {
 			$headline = HeadlineQuery::create()->findOneById($_GET["id"]);
 			if (empty($headline)) {
 				$smarty->assign("errorMessage", "invalidId");
-				return $mapping->findForwardConfig('success');
+				return $this->addParamsAndFiltersToForwards($params, $filters, $mapping, 'success');
 			}
 			
 			$this->uri = $headline->getUrl();
@@ -78,7 +88,7 @@ class HeadlinesRenderUrlAction extends BaseAction {
 						$this->getImage($fileFullpath);
 					} catch (Exception $e) {
 						$smarty->assign('errorMessage', $e->getMessage());
-						return $mapping->findForwardConfig('success');
+						return $this->addParamsAndFiltersToForwards($params, $filters, $mapping, 'success');
 					}
 					
 					$attachment = new HeadlineAttachment();
@@ -99,15 +109,15 @@ class HeadlinesRenderUrlAction extends BaseAction {
 					
 					$smarty->assign('attachment', $attachment);
 					
-					return $mapping->findForwardConfig('success');
+					return $this->addParamsAndFiltersToForwards($params, $filters, $mapping, 'success');
 
 				default:
 					$smarty->assign("errorMessage", "invalid destination");
-					return $mapping->findForwardConfig('success');
+					return $this->addParamsAndFiltersToForwards($params, $filters, $mapping, 'success');
 			}
 		} else {
 			$smarty->assign("errorMessage", "invalidId");
-			return $mapping->findForwardConfig('success');
+			return $this->addParamsAndFiltersToForwards($params, $filters, $mapping, 'success');
 		}
 	}
 	

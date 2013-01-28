@@ -1,7 +1,7 @@
 <h2>Titulares</h2>
 |-if $errorMessage eq "invalidId"-|
 	<div class="errorMessage">El identificador del titular es inválido</div>
-<p>	<input type='button' id='button_return_edit' value='Regresar a listado de titulares' onClick='location.href="Main.php?do=headlinesList"' /></p>
+<p>	<input type='button' id='button_return_edit' value='Regresar a listado de titulares' onClick='location.href="Main.php?do=headlinesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' /></p>
 |-else if $errorMessage neq ''-|
 <h1>Clipping - |-$headline-|</h1>
 <div class="errorMessage">|-$errorMessage-|</div>
@@ -16,7 +16,7 @@
 
 <script type='text/javascript'>
 	function gotoViewCrop() {
-		window.location='Main.php?do=headlinesViewClipping&id=|-$id-|';
+		window.location='Main.php?do=headlinesViewClipping&id=|-$id-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|';
 	}
 	
 	function saveUnmodified(onsuccess) {
@@ -66,9 +66,9 @@
 <input type='button' id='button_save_unmodified' value='Guardar' onClick='saveUnmodified(gotoViewCrop);' />
 <input type='button' id='button_start_crop' value='Recortar' onClick='enableEdit()' />
 <input type='button' id='button_cancel_crop' value='Cancelar' onClick='disableEdit()' style="display:none" />
-<input type='button' id='button_render' value='Capturar nuevamente' onClick='location.href="Main.php?do=headlinesRenderUrl&id=|-$id-|"' />
+<input type='button' id='button_render' value='Capturar nuevamente' onClick='location.href="Main.php?do=headlinesRenderUrl&id=|-$id-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' />
 <input type='button' id='button_manual_upload' value='Subir imagen' onClick="$('manualUpload').show();" />
-<input type='button' id='button_return_edit' value='Volver a edición' onClick='location.href="Main.php?do=headlinesEdit&id=|-$id-|"' />
+<input type='button' id='button_return_edit' value='Volver a edición' onClick='location.href="Main.php?do=headlinesEdit&id=|-$id-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' />
 </p>
 
 
@@ -76,7 +76,7 @@
 	<img src="Main.php?do=headlinesAttachmentGetData&id=|-$attachment->getId()-|" />
 	<p>
 		<br>
-		<input type="button" value="Volver a edición" onclick="window.location='Main.php?do=headlinesEdit&id=|-$headline->getId()-|'" />
+		<input type="button" value="Volver a edición" onclick="window.location='Main.php?do=headlinesEdit&id=|-$headline->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'" />
 	</p>
 |-/if-|
 
@@ -89,8 +89,9 @@
 			<p><label for="file">Subir manualmente:</label>
 			<input type="file" name="clipping" id="clipping" /></p>
 			<input type="hidden" name="manual" value="1" />
+				|-include file="HiddenInputsInclude.tpl" filters="$filters" page="$page"-|
 			<p><input type="submit" name="submit" value="Subir" />
-			<input type='button' id='button_return_edit' value='Volver a edición' onClick='location.href="Main.php?do=headlinesEdit&id=|-$id-|"' />
+			<input type='button' id='button_return_edit' value='Volver a edición' onClick='location.href="Main.php?do=headlinesEdit&id=|-$id-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' />
 			</p>
 		</form>
 	</div>
