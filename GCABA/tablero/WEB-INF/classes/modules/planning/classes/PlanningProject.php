@@ -116,6 +116,13 @@ class PlanningProject extends BasePlanningProject {
 		}
 	}
 	
+	public function preSave(\PropelPDO $con = null) {
+		parent::preSave($con);
+		if ($this->getOrder() == 0)
+			$this->setOrder(999);
+		return true;
+	}
+	
 	/**
 	 * Obtiene los proyectos (constructions) asociados al project
 	 */

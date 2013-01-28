@@ -5,7 +5,7 @@
 		<column name="internalCode" type="INTEGER" description="Codigo de Identificacion" />
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del proyecto" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del proyecto"/>
-		<column name="order" type="INTEGER" default="0" description="Orden"/>
+		<column name="order" type="INTEGER" default="999" description="Orden"/>
 
 		<column name="operativeObjectiveId" type="INTEGER" description="Objetivo de Impacto"/>
 		<column name="goalProduct" type="VARCHAR" size="300" description="Meta Producto" />
@@ -64,7 +64,7 @@
 		<column name="projectId" type="INTEGER" description="Id del objetivo de Impacto"/>
 		<column name="name" required="true" type="VARCHAR" size="255" description="Enunciado del proyecto" primaryString="true" />
 		<column name="description" type="LONGVARCHAR" description="Descripcion del proyecto"/>
-		<column name="order" type="INTEGER" default="0" description="Orden"/>
+		<column name="order" type="INTEGER" default="999" description="Orden"/>
 
 		<column name="operativeObjectiveId" type="INTEGER" description="Objetivo de Impacto"/>
 		<column name="goalProduct" type="VARCHAR" size="50" description="Meta Producto" />
@@ -386,7 +386,7 @@
 		<column name="cancelled" type="BOOLEAN" sqlType="BOOL" default="0" description="Cancelado"/>
 		<column name="priority" type="BOOLEAN" description="Es una actividad Prioritaria?"/>
 		<column name="priorityPercentage" type="INTEGER" description="Porcentaje de prioridad"/>
-		<column name="order" type="INTEGER" default="0" description="Orden"/>
+		<column name="order" type="INTEGER" default="999" description="Orden"/>
 		
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
