@@ -47,7 +47,7 @@ class DocumentsDoDeleteAction extends BaseAction {
 		
 		$fconf = $mapping->findForwardConfig($forwardName);
 		if (!is_null($fconf))
-			return $this->addParamsToForwards($params, $mapping, $forwardName . $_POST['entity']);
+			return $this->addParamsAndFiltersToForwards($params, $filters, $mapping, $forwardName . $_POST['entity']);
 		else
 			return $this->generateDynamicForward($forwardName, $params);
 	}
@@ -64,6 +64,12 @@ class DocumentsDoDeleteAction extends BaseAction {
 
 		$module = "Documentos";
 		$smarty->assign("module",$module);
+
+		if ($_POST["page"] > 0)
+			$params["page"] = $_POST["page"];
+
+		if (!empty($_POST["filters"]))
+			$filters = $_POST["filters"];
 
 		$documentPeer = new DocumentPeer();
 

@@ -22,40 +22,39 @@ class DocumentsDoEditAction extends BaseAction {
 		parent::__construct('Document');
 	}*/
 	
-	function addParams($params, $url) {
-		$urlWithParams = $url;
-		foreach ($params as $param => $value) {
-			$urlWithParams .= '&'.$param.'='.$value;
-		}
-		return $urlWithParams;
+	function addParamsAndFilters($params, $filters, $url) {
+		$urlWithParamsAndFilters = $url;
+		foreach ($params as $param => $value)
+			$urlWithParamsAndFilters .= '&'.$param.'='.$value;
+		foreach ($filters as $key => $value)
+			$urlWithParamsAndFilters .= "&filters[$key]=" . htmlentities(urlencode($value));
+		return $urlWithParamsAndFilters;
 	}
-	
+
 	function generateDynamicForward($forwardName, $params) {
 		
 		switch ($forwardName) {
 			case 'success':
 				$action = ActionGetter::scan(
 					$_SERVER['HTTP_REFERER']);
-				return new ForwardConfig($this->addParams($params,
-					'Main.php?do='.$action), True);
+				return new ForwardConfig($this->addParamsAndFilters($params, $filters, 'Main.php?do='.$action), True);
 			case 'failureUpload':
 				$action = ActionGetter::scan(
 					$_SERVER['HTTP_REFERER']);
-				return new ForwardConfig($this->addParams($params,
-					'Main.php?do='.$action), True);
+				return new ForwardConfig($this->addParamsAndFilters($params, $filters, 'Main.php?do='.$action), True);
 			default:
 				throw new Exception('invalid argument "'.$forwardName
 					.'" for '.$forwardName);
 		}
 	}
 	
-	function findEntityForwardConfig($forwardName, $params, $mapping) {
+	function findEntityForwardConfig($forwardName, $params, $filters, $mapping) {
 		
 		$fconf = $mapping->findForwardConfig($forwardName);
 		if (!is_null($fconf))
-			return $this->addParamsToForwards($params, $mapping, $forwardName . $_POST['entity']);
+			return $this->addParamsAndFiltersToForwards($params, $filters, $mapping, $forwardName . $_POST['entity']);
 		else
-			return $this->generateDynamicForward($forwardName, $params);
+			return $this->generateDynamicForward($forwardName, $filters, $params);
 	}
 	
 	function failureSmartySetup($smarty,$document) {
@@ -131,7 +130,6 @@ class DocumentsDoEditAction extends BaseAction {
 
     BaseAction::execute($mapping, $form, $request, $response);
 
-
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -140,6 +138,12 @@ class DocumentsDoEditAction extends BaseAction {
 		
 		$module = "Documents";
 		$smarty->assign("module",$module);
+
+		if ($_POST["page"] > 0)
+			$params["page"] = $_POST["page"];
+
+		if (!empty($_POST["filters"]))
+			$filters = $_POST["filters"];
 
 		$documentPeer = new DocumentPeer();
 		
@@ -171,7 +175,7 @@ class DocumentsDoEditAction extends BaseAction {
 			else 
 				$documentPeer->updateDocument($_POST["id"],$_POST['title'],$_POST["description"],$_POST["date"],$_POST["category"],$_POST["password"],$_POST["extra"]);
 
-			return $this->findEntityForwardConfig('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping);
+			return $this->findEntityForwardConfig('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $filters, $mapping);
 
 		}
 		else {
@@ -179,7 +183,7 @@ class DocumentsDoEditAction extends BaseAction {
 			
 			//si no llega ningun archivo significa que la carga se realizo por swfUpload.
 			if(empty($_FILES["document_file"]['name'])) {
-				return $this->findEntityForwardConfig('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping);
+				return $this->findEntityForwardConfig('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $filters, $mapping);
 			}
 
 			if($_POST["password"]!=$_POST["password_compare"]){
@@ -204,10 +208,10 @@ class DocumentsDoEditAction extends BaseAction {
 					$entity = $queryInstance->findPK($_POST['entityId']);
 					$document->$addMethod($entity);
 					$document->save();
-					return $this->findEntityForwardConfig('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping);
+					return $this->findEntityForwardConfig('success', array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $filters, $mapping);
 				}
 			}
-			return $this->findEntityForwardConfig('failureUpload', array('id'=>$_POST['entityId'],'errormessage'=>'documentUploadError'), $mapping);
+			return $this->findEntityForwardConfig('failureUpload', array('id'=>$_POST['entityId'],'errormessage'=>'documentUploadError'), $filters, $mapping);
 		}
 
 	}

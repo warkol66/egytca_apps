@@ -69,6 +69,7 @@
 						|-if $usePasswords && $document->getPassword() ne ''-|
 						<input type='password' name='password' />
 						|-/if-|
+				|-include file="HiddenInputsInclude.tpl" filters="$filters" page="$page"-|
 						<input type='submit' name='submit' value='##common,1,Editar##' title='##common,1,Editar##' class="icon iconEdit" />
 					</form>
 					|-/capture-|
