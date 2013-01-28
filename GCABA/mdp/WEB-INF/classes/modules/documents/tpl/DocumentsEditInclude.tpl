@@ -89,6 +89,7 @@
 				 	<input type="hidden" name="entity" value="|-$entity-|" />
 				 	<input type="hidden" name="entityId" value="|-$entityId-|" />
 			 	|-/if-|
+				|-include file="HiddenInputsInclude.tpl" filters="$filters" page="$page"-|
 				<input type="submit" name="uploadButton" value="|-if $document neq ''-|Guardar Cambios|-else-|Agregar |-$label-||-/if-|" id="btnSubmit">|-if $module eq 'Documents' && $action eq 'edit'-|<input name="return" type="button" value="Regresar" onClick="history.back(-1);"/>|-/if-|<span id="msgBoxUploader"></span>
 			 </p>
 	</fieldset>

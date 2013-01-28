@@ -23,7 +23,7 @@ class Document extends BaseDocument {
 	 * @return boolean
 	 */
 	public function checkPassword($password) {
-		if ($this->getPassword() == Common::md5($password) )
+		if ($this->getPassword() === NULL || $this->getPassword() == Common::md5($password))
 			return true;
 
 		return false;
