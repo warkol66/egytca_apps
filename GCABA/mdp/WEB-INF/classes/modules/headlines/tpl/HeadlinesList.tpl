@@ -97,12 +97,12 @@
 				<td nowrap="nowrap"|-if $headline->processed()-| class="processed"|-/if-|>|-if $headline->getUrl() ne ''-| <a href="|-$headline->getUrl()-|" target="_blank" title="Ir a nota original" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a> |-/if-|
 				
 		|-if $headline->getStrategy() neq 'feed'-|
-			|-if $headline->hasClipping()-|<a href="Main.php?do=headlinesViewClipping&id=|-$headline->getId()-|" title="Ver recorte"><img src="images/clear.png" class="icon iconNewsClipping" /></a>
-			|-else-|<a href="Main.php?do=headlinesRenderUrl&id=|-$headline->getId()-|" title="Generar recorte"><img src="images/clear.png" class="icon iconNewsAdd" /></a>
+			|-if $headline->hasClipping()-|<a href="Main.php?do=headlinesViewClipping&id=|-$headline->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" title="Ver recorte"><img src="images/clear.png" class="icon iconNewsClipping" /></a>
+			|-else-|<a href="Main.php?do=headlinesRenderUrl&id=|-$headline->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" title="Generar recorte"><img src="images/clear.png" class="icon iconNewsAdd" /></a>
 			|-/if-|
 		|-else-|
 				|-if $headline->getHeadlineAttachments()|count gt 0-|
-					<a href="Main.php?do=headlinesViewAttachments&id=|-$headline->getId()-|" title="Ver archivos adjuntos"><img src="images/clear.png" class="icon iconNewsClipping" /></a>
+					<a href="Main.php?do=headlinesViewAttachments&id=|-$headline->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" title="Ver archivos adjuntos"><img src="images/clear.png" class="icon iconNewsClipping" /></a>
 				|-else-|
 				|-/if-|
 		|-/if-|
