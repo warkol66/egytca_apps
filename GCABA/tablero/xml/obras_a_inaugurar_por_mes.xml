@@ -1,0 +1,26 @@
+<chart 
+	caption='Cantidad de obras a inaugurar por mes' 
+	xAxisName='' 
+	yAxisName='Cantidad' 
+	showLabels='1'
+	exportEnabled='1' 
+	exportAtClient='1'
+	exportHandler='fcExporter1'
+	exportDataSeparator='{tab}' 
+	showExportDataMenuItem='1'	
+	> 
+	
+	<set label='Ene13' value='800'/> 
+    <set label='Feb13' value='400' /> 
+    <set label='Mar13' value='210' /> 
+    <set label='Abr13' value='600' /> 
+	<set label='May13' value='80' /> 
+    <set label='Jun13' value='110' /> 
+    <set label='Jul13' value='500' /> 
+	<set label='Ago13' value='310' /> 
+    <set label='Sep13' value='170' /> 
+    <set label='Oct13' value='410' /> 
+	<set label='Nov13' value='280' /> 
+    <set label='Dic13' value='170' /> 
+	
+</chart>

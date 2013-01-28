@@ -1,0 +1,19 @@
+<mapa>
+    <coumans>
+        <comuna numero="1" color="verde" valor="5" />
+        <comuna numero="2" color="rojo" valor="59" />
+        <comuna numero="3" color="verde" valor="310" />
+        <comuna numero="4" color="verde" valor="120" />
+        <comuna numero="5" color="verde" valor="166" />
+        <comuna numero="6" color="amarillo" valor="65" />
+        <comuna numero="7" color="verde" valor="2" />
+        <comuna numero="8" color="verde" valor="168" />
+        <comuna numero="9" color="amarillo" valor="97" />
+        <comuna numero="10" color="verde" valor="39" />
+        <comuna numero="11" color="verde" valor="67" />
+        <comuna numero="12" color="amarillo" valor="206" />
+        <comuna numero="13" color="rojo" valor="132" />
+        <comuna numero="14" color="verde" valor="141" />
+        <comuna numero="15" color="verde" valor="36" />
+    </coumans>
+</mapa>

@@ -1,0 +1,33 @@
+<chart 
+	caption='Gasto por comuna' 
+	xAxisName='Estado' 
+	yAxisName='Cantidad' 
+	showLabels='1'
+	exportEnabled='1' 
+	exportAtClient='1'
+	exportHandler='fcExporter1'
+	exportDataSeparator='{tab}' 
+	showExportDataMenuItem='1'
+	> 
+	
+	<set  label='Comuna 1'  color="#FFD1D1" value='145' />
+    <set  label='Comuna 2'  color="#D1BAFF" value='600' />
+	<set  label='Comuna 3'  color="#3B48FF" value='200' />
+    <set  label='Comuna 4'  color="#F9FF87" value='440' />
+	<set  label='Comuna 5'  color="#2EC740" value='820' />
+    <set  label='Comuna 6'  color="#638AFF" value='160' />
+	<set  label='Comuna 7'  color="#B5B5B5" value='854' />
+    <set  label='Comuna 8'  color="#96F1FF" value='130' />
+	<set  label='Comuna 9'  color="#FFD000" value='543' />
+    <set  label='Comuna 10' color="#FC77E8" value='130' />
+	<set  label='Comuna 11' color="#AB7800" value='501' />
+    <set  label='Comuna 12' color="#A247D6" value='136' />
+    <set  label='Comuna 13' color="#ED3939" value='458' />
+	<set  label='Comuna 14' color="#B8FFBE" value='135' />
+    <set  label='Comuna 15' color="#74FF5C" value='305' />
+	
+	
+</chart>
+
+
+

@@ -1,0 +1,22 @@
+<chart 
+	caption='Obras por estado de avance' 
+	xAxisName='Estado' 
+	yAxisName='Cantidad' 
+	showLabels='0'
+	exportEnabled='1' 
+	exportAtClient='1'
+	exportHandler='fcExporter1'
+	exportDataSeparator='{tab}' 
+	showExportDataMenuItem='1'
+	> 
+	
+	<set label='Gris' value='800' color="#A4A4A4" /> 
+    <set label='Verde' value='400' color="#04B431" /> 
+    <set label='Amarillo' value='210' color="#FFFF00"/> 
+    <set label='Rojo' value='600' color="#DF0101"/> 
+	<set label='Azul' value='80' color="#0040FF"/> 
+	
+</chart>
+
+
+
