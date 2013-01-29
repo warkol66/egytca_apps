@@ -1,4 +1,6 @@
 |-if !$csv-|<script type="text/javascript" src="scripts/lightbox.js"></script> 			
+<link type="text/css" href="css/chosen.css" rel="stylesheet" />
+<script language="JavaScript" type="text/javascript" src="scripts/chosen.proto.js"></script>
 <div id="lightbox1" class="leightbox">
 	<p align="right">				
 		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
@@ -39,6 +41,14 @@
 		</div>
 <p><label for="filters[getPositionBrood]">Incluir dependientes</label>
 				<input name="filters[getPositionBrood]" type="checkbox" value="1" |-$filters.getPositionBrood|checked_bool-| />
+</p>
+<p>
+	<label for="filters_tags">TAGS</label>
+	<select style="width:480px" class="chzn-select wide-chz-select" data-placeholder="Seleccione uno o varios tags..." multiple="multiple" id="filters_tags" name="filters[tagIds][]" size="5" title="tags">
+		|-foreach from=$tags item=tag-|
+			<option value="|-$tag->getId()-|" |-in_array($tag->getId(), $filters.tagIds)|selected:true-|>|-$tag->getName()-|</option>
+		|-/foreach-|
+	</select>
 </p>
 					<p><input type='submit' value='Buscar' class='tdSearchButton' />|-if $filters|@count gt 0-|
 				&nbsp;&nbsp;<input type="button" value="Exportar" onclick="window.open(('Main.php?'+Form.serialize(this.form)+'&csv=true'));"/>
@@ -114,6 +124,11 @@
 		</tbody>
 	</table>
 </div>
+<script>
+	Element.observe(window, 'load', function() {
+		$$('.chzn-select').each(function(e) {new Chosen(e)} );
+	});
+</script>
 |-else-|
 "Eje"|"Objetivo Ministerial"|"Objetivo Operativo"|"Proyecto"|"Dependencia"|"Inversion"|"Prioridad Ministerial"|"Prioridad"|"Presupuesto Solicitado"
 |-foreach from=$planningProjectColl item=project name=for_projects-||-assign var=operativeObjective value=$project->getOperativeObjective()-||-if is_object($operativeObjective)-||-assign var=ministryObjective value=$operativeObjective->getMinistryObjective()-||-if is_object($ministryObjective)-||-assign var=impactObjective value=$ministryObjective->getImpactObjective()-||-/if-||-/if-|
