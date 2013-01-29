@@ -50,5 +50,16 @@ class PlanningProjectQuery extends BasePlanningProjectQuery {
 		$position = PositionQuery::create()->findOneByCode($positionCode);
 		return $this->filterByPosition($position->getBranch());
 	}
+	
+	/**
+	 * filtra por id de tags
+	 * @param array $tagIds
+	 */
+	public function tagIds($tagIds) {
+		return $this->usePlanningProjectTagRelationQuery()
+			->filterByPlanningprojecttagid($tagIds)
+			->endUse()
+			->groupBy('id');
+	}
 
 } // PlanningProjectQuery

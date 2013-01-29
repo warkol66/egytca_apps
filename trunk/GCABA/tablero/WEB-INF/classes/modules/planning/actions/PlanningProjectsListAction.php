@@ -40,6 +40,7 @@ class PlanningProjectsListAction extends BaseListAction {
 		parent::postList();
 		$this->smarty->assign("module", $this->module);
 		$this->smarty->assign("section", "Projects");
+		$this->smarty->assign("tags", PlanningProjectTagQuery::create()->find());
 
 		if ($_GET["nav"])
 			$this->smarty->assign("nav", true);
