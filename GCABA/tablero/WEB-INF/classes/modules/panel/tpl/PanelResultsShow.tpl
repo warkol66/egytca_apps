@@ -24,7 +24,7 @@
                 <div class="floatleft"id="chartContainer"></div>
                 <script type="text/javascript">
                     var myChart = new FusionCharts( "images/Pie3D.swf", "myChartId", "300", "225", "0", "1" );
-                    myChart.setDataURL("xml/proyectos_por_estado.xml");
+                    myChart.setDataURL(escape("Main.php?do=planningByStateXml&type=projects&positionId=|-$position->getId()-|"));
                     myChart.render("chartContainer");
                 </script>
             </div>
