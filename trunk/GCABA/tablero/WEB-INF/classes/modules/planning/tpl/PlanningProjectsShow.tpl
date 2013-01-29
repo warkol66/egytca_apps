@@ -25,7 +25,7 @@ myChart.setDataURL(escape("Main.php?do=planningByStateXml&type=projects&position
 myChart.render("chartContainer");
 
 var myChart2 = new FusionCharts( "images/Pie3D.swf", "myChartId2", "400", "300", "0", "1" );
-myChart2.setDataURL("xml/obras_por_estado.xml");
+myChart2.setDataURL(escape("Main.php?do=planningByStateXml&type=constructions&positionId=|-$position->getId()-|"));
 myChart2.render("chartContainer2");
 </script>
 </div>

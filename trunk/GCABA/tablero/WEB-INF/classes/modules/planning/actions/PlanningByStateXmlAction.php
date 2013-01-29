@@ -21,10 +21,9 @@ class PlanningByStateXmlAction extends BaseAction {
 			
 			foreach ($system['config']['tablero']['colors'] as $color) {
 				if ($_GET['type'] == 'projects')
-					$smarty->assign($color.'Count', $position->countProjectsByStatusColor($color));
-				else
-					die;
-//					$smarty->assign($color.'Count', $position->countProjectsByStatusColor($color));
+					$smarty->assign($color.'Count', $position->countParentZxcProjectsByStatusColor($color));
+				elseif ($_GET['type'] == 'constructions')
+					$smarty->assign($color.'Count', $position->countParentZxcConstructionsByStatusColor($color));
 			}
 			
 			header('Content-type: application/xml');

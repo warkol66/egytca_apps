@@ -190,6 +190,42 @@ class Position extends BasePosition {
 		
 		return BaseProjectQuery::create(null, $query)->filterByResponsiblecode($positionCodes)->find();
 	}
+	
+	/**
+	 * Obtiene todas los projects asociados a la instancia.
+	 *
+	 * @param Criteria $query, criteria para aplicar a los proyectos.
+	 * @return PropelCollection $projects
+	 */
+	public function getOnlyProjectsWithDescendants($query = null) {
+		$positionCodes = array();
+		$positionCodes[] = $this->getCode();
+		if ($this->hasChildren()){
+			$descendants = $this->getDescendants();
+			foreach ($descendants as $descendant)
+				$positionCodes[] = $descendant->getCode();
+		}
+		
+		return PlanningProjectQuery::create(null, $query)->filterByResponsiblecode($positionCodes)->find();
+	}
+	
+	/**
+	 * Obtiene todas los constructions asociados a la instancia.
+	 *
+	 * @param Criteria $query, criteria para aplicar a los constructions.
+	 * @return PropelCollection $constructions
+	 */
+	public function getOnlyConstructionsWithDescendants($query = null) {
+		$positionCodes = array();
+		$positionCodes[] = $this->getCode();
+		if ($this->hasChildren()){
+			$descendants = $this->getDescendants();
+			foreach ($descendants as $descendant)
+				$positionCodes[] = $descendant->getCode();
+		}
+		
+		return PlanningConstructionQuery::create(null, $query)->filterByResponsiblecode($positionCodes)->find();
+	}
 
 	/**
 	 * Obtiene la cantidad total de projects asociados a la instancia.
@@ -358,6 +394,73 @@ class Position extends BasePosition {
 	 */
 	public function countProjectsByStatusColor($color) {
 		return count($this->getProjectsByStatusColor($color));
+	}
+	
+	
+	public function getGraphParent() {
+		$current = $this;
+		do {	
+			if ($current->getType() == 11 || $current->getPlanning())
+				$chosen = $current;
+		} while ($current = $current->getParent()); // es una asignacion intencional
+		
+		return $chosen;
+	}
+	
+	/**
+	 * Obtiene los proyectos asignadas a la position con un determinado status color.
+	 *
+	 * @return array Projects
+	 */
+	public function getGraphParentProjectsByStatusColor($color) {
+		$graphParent = $this->getGraphParent();
+		if (!$graphParent)
+			return;
+		$projects = $graphParent->getOnlyProjectsWithDescendants();
+		$filteredProjects = array();
+		foreach ($projects as $project) {
+			if ($project->isOfStatusColor($color)) {
+				$filteredProjects[] = $project;
+			}
+		}
+		return $filteredProjects;
+	}
+	
+	/**
+	 * Obtiene la cantidad de projects asignados al position con un determinado status color.
+	 *
+	 * @return int $count
+	 */
+	public function countGraphParentProjectsByStatusColor($color) {
+		return count($this->getGraphParentProjectsByStatusColor($color));
+	}
+	
+	/**
+	 * Obtiene las construcciones asignadas a la position con un determinado status color.
+	 *
+	 * @return array Projects
+	 */
+	public function getGraphParentConstructionsByStatusColor($color) {
+		$graphParent = $this->getGraphParent();
+		if (!$graphParent)
+			return;
+		$constructions = $graphParent->getOnlyConstructionsWithDescendants();
+		$filteredConstructions = array();
+		foreach ($constructions as $construction) {
+			if ($construction->isOfStatusColor($color)) {
+				$filteredConstructions[] = $construction;
+			}
+		}
+		return $filteredConstructions;
+	}
+	
+	/**
+	 * Obtiene la cantidad de projects asignados al position con un determinado status color.
+	 *
+	 * @return int $count
+	 */
+	public function countGraphParentConstructionsByStatusColor($color) {
+		return count($this->getGraphParentConstructionsByStatusColor($color));
 	}
 
 	/**
