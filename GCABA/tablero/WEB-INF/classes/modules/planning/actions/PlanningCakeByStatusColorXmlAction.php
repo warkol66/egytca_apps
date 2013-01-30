@@ -1,6 +1,6 @@
 <?php
 
-class PlanningByStateXmlAction extends BaseAction {
+class PlanningCakeByStatusColorXmlAction extends BaseAction {
 	
 	function execute($mapping, $form, &$request, &$response) {
 
