@@ -2,6 +2,7 @@
 <script language="JavaScript" type="text/javascript" src="scripts/chosen.proto.js"></script>
 <!--<script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>-->
 <!--<script language="JavaScript" type="text/javascript" src="scripts/jquery/ajax-chosen.min.js"></script>-->
+<script type="text/javascript" src="scripts/lightbox.js"></script>
 <script type="text/javascript">
 document.observe("dom:loaded", function() {
 	new Chosen($("params_regions"));
@@ -33,6 +34,31 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 
 
 </script>
+<div id="lightbox1" class="leightbox">
+	<p align="right">				
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a> 
+	</p>
+	<div id="planningActivityDocumentsShowWorking"></div>
+	<div class="innerLighbox">
+		<div><a href="#">agregar nuevo</a></div>
+		<div id="planningActivityDocumentsListDiv"></div>
+	</div>
+</div>
+<a id="lightbox1_control" href="#lightbox1" rel="lightbox1" class="lbOn" style="display:none"></a>
+
+<div id="lightbox2" class="leightbox">
+	<p align="right">				
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a> 
+	</p>
+	<div id="planningConstructionsShowWorking2"></div>
+	<div class="innerLighbox">
+		<div id="planningConstructionsShowDiv2">
+			agregar documento
+		</div>
+	</div>
+</div>
+<a id="lightbox2_control" href="#lightbox2" rel="lightbox2" class="lbOn" style="display:none"></a>
+
 
 |-if $message eq "ok"-|
 	<div class="successMessage">Obra guardado correctamente</div>
@@ -176,6 +202,21 @@ $("#autocomplete_responsibleCode").ajaxChosen({
   </p>
       
 		 |-if !$planningConstruction->isNew()-|<h3>Partida presupuestaria &nbsp; <a href="javascript:void(null)" id="showHideBudgetRelations" onClick="$('budgetItemsTable').toggle(); $('showHideBudgetRelations').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningConstruction->getBudgetItems() readonly="readonly" showLog="true"-||-/if-|
+  <p>
+  <p>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</p>
+  <p>arreglar PlanningConstructionsTemplateInclude.tpl y borrar esto</p>
+  <ul>
+	  |-foreach $planningConstruction->getActivities() as $activity-|
+		  <li>
+			  <span>|-$activity->getName()-|</span>
+			  <a href="#lightbox1" rel="lightbox1" class="lbOn">
+				  <input type="button" class="icon iconView" onclick="loadAddDocumentsLightbox(|-$activity->getId()-|)" value="Ver documentos" title="Ver documentos" />
+			  </a>
+		  </li>
+	  |-/foreach-|
+  </ul>
+  <p>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</p>
+  </p>
 		 <h3>Gantt (Hitos) <a href="javascript:void(null)" id="showHidePlanningConstruction" onClick="$('activitiesTable').toggle(); $('showHidePlanningConstruction').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-if !$planningConstruction->isNew()-||-include file="PlanningActivitiesInclude.tpl" activities=$planningConstruction->getActivities() construction=$planningConstruction showGantt="true"-||-else-|
 		 |-include file="PlanningConstructionsTemplateInclude.tpl" construction="true"-||-/if-|
 	<p>
@@ -234,5 +275,25 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 	}
 	function enableInputId(elementId) {
 		document.getElementById(elementId).enable();
+	}
+
+	function loadAddDocumentsLightbox(activityId) {
+		$('planningActivityDocumentsListDiv').innerHTML = '';
+		new Ajax.Updater(
+			'planningActivityDocumentsListDiv',
+			'Main.php?do=planningActivityDocumentsListX',
+			{
+				method: 'get',
+				parameters: { id: activityId },
+				evalScripts: true,
+				onSuccess: function() {
+					$('planningActivityDocumentsShowWorking').innerHTML = '';
+				},
+				onFailure: function(response) {
+					$('planningActivityDocumentsShowWorking').innerHTML = response.statusText;
+				}
+			}
+		);
+		$('planningActivityDocumentsShowWorking').innerHTML = '<span class="inProgress">buscando Documentos...</span>';
 	}
 </script>
