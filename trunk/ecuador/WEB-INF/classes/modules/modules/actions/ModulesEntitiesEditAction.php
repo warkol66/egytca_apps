@@ -1,45 +1,27 @@
 <?php
 
-class ModulesEntitiesEditAction extends BaseAction {
-
-	function ModulesEntitiesEditAction() {
-		;
+class ModulesEntitiesEditAction extends BaseEditAction {
+	
+	function __construct() {
+		parent::__construct('ModuleEntity');
+		
 	}
-
-	function execute($mapping, $form, &$request, &$response) {
-
-		BaseAction::execute($mapping, $form, $request, $response);
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
-
+	
+	protected function postEdit(){
+		parent::postEdit();
+		
 		$module = "Modules";
-		$smarty->assign("module",$module);
+		$this->smarty->assign("module",$module);
 		$section = "Entities";
-		$smarty->assign("section",$section);
+		$this->smarty->assign("section",$section);
+		
+		$entityPeer = new ModuleEntityPeer();
+		$fields = $entityPeer->getFieldNames(BasePeer::TYPE_FIELDNAME);	
+		$this->smarty->assign("fields",$fields);
+		
+		$hiddens = array ( "id" => "getId", "do" => "moduleEntititesDoEdit", "action" => "$action" );
+		$this->smarty->assign("hiddens",$hiddens);
 
-		if ( !empty($_GET["id"]) ) {
-			$entity = ModuleEntityPeer::get($_GET["id"]);
-			$smarty->assign("action","edit");
-		}
-		else {
-			//voy a crear un entity nuevo
-			$entity = new ModuleEntity();
-			$smarty->assign("action","create");
-		}
-
-		$smarty->assign("filters",$_GET["filters"]);
-		$smarty->assign("page",$_GET["page"]);
-		$smarty->assign("entity",$entity);
-		$smarty->assign("message",$_GET["message"]);
-
-		return $mapping->findForwardConfig('success');
 	}
 
 }

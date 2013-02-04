@@ -32,7 +32,7 @@
 		|-/foreach-|
 
 		|-if $pager neq ''-|
-			|-if $pager->getTotalPages() gt 0-|
+			|-if $pager->getLastPage() gt 0-|
 				<div class="pages">|-if $smarty.get.page == ''-||-include file="NewsHomePaginateInclude.tpl"-||-else-||-include file="NewsArticleShowPaginateInclude.tpl"-||-/if-|</div>
 			|-else-|
 				<div class="pages"><a href="|-$url-|" class="detail">Inicio</a></div>

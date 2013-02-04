@@ -1,6 +1,6 @@
 <div id="div_paginate" class="paginateBar curved">
 	<!-- <p>
-	Total Pages: |-$pager->getTotalPages()-|  Total Texts: |-$pager->getTotalRecordCount()-|
+	Total Pages: |-$pager->getLastPage()-|  Total Texts: |-$pager->getTotalRecordCount()-|
 	</p>
 	-->
 	<div id="paginateFirst" class="paginateText">|-assign var="firstpage" value=$pager->getFirstPage()-||-assign var="page" value=$pager->getPage()-||-if $page gt 1-|<a href="|-$url-|&page=|-$firstpage-|" class="changePages">Inicio</a>|-else-|<a href="|-$url-|" class="changePages">Inicio</a>|-/if-|

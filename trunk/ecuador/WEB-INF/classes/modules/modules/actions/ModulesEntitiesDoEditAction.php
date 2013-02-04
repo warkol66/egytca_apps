@@ -20,8 +20,8 @@ class ModulesEntitiesDoEditAction extends BaseAction {
 		}
 
 		$module = "Modules";
-    $entityParams = $_POST["entityParams"];
-    $entityParams['behaviors'] = serialize($entityParams['behaviors']);
+		$entityParams = $_POST["entityParams"];
+		$entityParams['behaviors'] = serialize($entityParams['behaviors']);
 
 		if ($_POST["page"] > 0)
 			$params["page"] = $_POST["page"];
