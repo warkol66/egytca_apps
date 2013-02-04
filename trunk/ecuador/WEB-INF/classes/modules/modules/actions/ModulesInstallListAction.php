@@ -46,7 +46,7 @@ class ModulesInstallListAction extends BaseAction {
 			//verifico si es un directory y no no sea ni oculto ni raiz
 			if (is_dir($modulePath . $moduleName) && ($moduleName[0] != ".")) {
 				//busco si el modulo esta instalado
-				$result = $modulePeer->get($moduleName);
+				$result = ModuleQuery::create()->findOneByName($moduleName);
 				if (empty($result))
 					//es candidato
 					array_push($modulesToInstall, $moduleName);
@@ -58,10 +58,8 @@ class ModulesInstallListAction extends BaseAction {
 		closedir($directoryHandler);
 
 		//buscamos todos los modulos instalados
-
-		$modulesInstalled = ModulePeer::getAll();
-
-		$smarty->assign('modulesInstalled',$modulesInstalled);
+		$smarty->assign('modulesInstalled',ModuleQuery::create()->find());
+		
 		$smarty->assign('modulesToInstall',$modulesToInstall);
 
 		return $mapping->findForwardConfig('success');
