@@ -2,11 +2,36 @@
 	<li>No hay documentos asociados</li>
 |-else-|
 	|-foreach $planningActivityDocumentColl as $planningActivityDocument-|
-		<li>
+		|-assign var="planningActivityId" value=$planningActivityDocument->getPlanningActivity()->getId()-|
+		|-assign var="documentId" value=$planningActivityDocument->getDocument()->getId()-|
+		<li id="planningActivityDocument_|-$documentId-|_|-$planningActivityId-|">
 			<span>|-$planningActivityDocument->getDocument()->getTitle()-|</span>
-			<a href="#">ver</a>
+			<form method="POST" action="Main.php">
+				<input type="hidden" name="do" value="documentsDoDownload" />
+				<input type="hidden" name="id" value="|-$documentId-|" />
+				<button type="submit">ver</button>
+			</form>
 			<a href="#">editar</a>
-			<a href="#">borrar</a>
+			<a href="#" onclick="confirm('seguro eliminar?') && doDeleteDocument(|-$documentId-|, |-$planningActivityId-|)">borrar</a>
 		</li>
 	|-/foreach-|
 |-/if-|
+
+<script>
+	doDeleteDocument = function(documentId, planningActivityId) {
+		new Ajax.Request(
+			'Main.php?do=documentsDoDeleteX',
+			{
+				method: 'POST',
+				parameters: {
+					id: documentId,
+					entityId: planningActivityId,
+					entity: 'PlanningActivity'
+				},
+				onSuccess: function() {
+					$('planningActivityDocument_'+documentId+'_'+planningActivityId).remove();
+				}
+			}
+		);
+	}
+</script>
