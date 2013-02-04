@@ -1,17 +1,17 @@
 <script type="text/javascript" language="javascript">
 function modulesGetAllFieldsByEntityX(form){
-	form['do'].value = 'modulesEntitiesFieldsListX';
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'fieldMsgField'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true,
-				});
-	$('fieldMsgField').innerHTML = '<p><span class="inProgress">buscando campos...</span></p>';
-	form['do'].value = 'modulesEntitiesFieldsDoEdit';
+	$(form).attr('do','modulesEntitiesFieldsListX');
+	//form['do'].value = 'modulesEntitiesFieldsListX';
+	$.ajax({
+		url: url,
+		data: $('#' + form).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#fieldMsgField').html(data);
+		}	
+	});
+	$('#fieldMsgField').html('<p><span class="inProgress">buscando campos...</span></p>');
+	$(form).attr('do','modulesEntitiesFieldsDoEdit');
 	return true;
 }
 </script>
@@ -21,58 +21,58 @@ function modulesGetAllFieldsByEntityX(form){
 <form action="Main.php?do=modulesEntitiesFieldsDoEdit" method="POST" name="modulesEntitiesFieldsEdit">
 <input name="do" type="hidden" value="modulesEntitiesFieldsDoEdit" />
 
-|-php-|$fieldFieldPeer = new ModuleEntityFieldPeer();
+|-*php-|$fieldFieldPeer = new ModuleEntityFieldPeer();
 $fields = $fieldFieldPeer->getFieldNames(BasePeer::TYPE_FIELDNAME);
 $this->assign("fields",$fields);
 $hiddens = array ( "id" => "getId", "do" => "modulesEntititesFieldsDoEdit", "action" => "$action" );
 $this->assign("hiddens",$hiddens);
-|-/php-|
-|-*include file="CreateAutoForm.tpl" object="entity" paramsArray="fieldParams"*-|
+|-/php*-|
+|-*include file="CreateAutoForm.tpl" object="entity" paramsArray="params"*-|
 
 <fieldset title="Formulario de información del campo"> 
 	<legend>Información del campo</legend>
 <p>
-      <label for="fieldParams[entityId]">entityId</label> 
-					<select name="fieldParams[entityId]" id="fieldParams[entityId]" |-if $field->isForeignKey()-|disabled |-/if-|>	
+      <label for="params[entityId]">entityId</label> 
+					<select name="params[entityId]" id="params[entityId]" |-if $field->isForeignKey()-|disabled |-/if-|>	
 	<option value="">Seleccione entidad</option>|-foreach from=$entities item=entity name=for_entities-|
 	<option value="|-$entity->getId()-|" |-if $field->getEntityName() eq $entity->getId()-|selected="selected"|-/if-|>|-$entity->getName()-|</option>
 	|-/foreach-|
 </select>
 	   </p>
 		    <p> 
-      <label for="fieldParams[name]">name</label> 
-	      <input name="fieldParams[name]" title="name" value="|-$field->getName()-|" size="50" maxlength="50" type="text"> 
+      <label for="params[name]">name</label> 
+	      <input name="params[name]" title="name" value="|-$field->getName()-|" size="50" maxlength="50" type="text"> 
 	   </p> 
 		    <p> 
-      <label for="fieldParams[description]">description</label> 
-	      <input name="fieldParams[description]" title="description" value="|-$field->getDescription()|escape-|" size="80" maxlength="255" type="text"> 
+      <label for="params[description]">description</label> 
+	      <input name="params[description]" title="description" value="|-$field->getDescription()|escape-|" size="80" maxlength="255" type="text"> 
 	   </p> 
 		    <p> 
-      <label for="fieldParams[isRequired]">Required</label> 
-				<input name="fieldParams[isRequired]" type="hidden" value="0" />
-				<input name="fieldParams[isRequired]" type="checkbox" title="isRequired" value="1" |-if $field->getIsRequired() eq 1-|checked="checked"|-/if-| />
+      <label for="params[isRequired]">Required</label> 
+				<input name="params[isRequired]" type="hidden" value="0" />
+				<input name="params[isRequired]" type="checkbox" title="isRequired" value="1" |-if $field->getIsRequired() eq 1-|checked="checked"|-/if-| />
 	   </p>
 	   <p> 
-        <label for="fieldParams[defaultValue]">defaultValue</label> 
-        <input name="fieldParams[defaultValue]" type="text" title="defaultValue" value="|-$field->getDefaultValue()-|" />
+        <label for="params[defaultValue]">defaultValue</label> 
+        <input name="params[defaultValue]" type="text" title="defaultValue" value="|-$field->getDefaultValue()-|" />
      </p> 	   
 		    <p> 
-      <label for="fieldParams[isPrimaryKey]">primaryKey</label> 
-				<input name="fieldParams[isPrimaryKey]" type="hidden" value="0" />
-				<input name="fieldParams[isPrimaryKey]" type="checkbox" title="isPrimaryKey" value="1" |-if $field->getIsPrimaryKey() eq 1-|checked="checked"|-/if-| />
+      <label for="params[isPrimaryKey]">primaryKey</label> 
+				<input name="params[isPrimaryKey]" type="hidden" value="0" />
+				<input name="params[isPrimaryKey]" type="checkbox" title="isPrimaryKey" value="1" |-if $field->getIsPrimaryKey() eq 1-|checked="checked"|-/if-| />
 	   </p> 
 		    <p> 
-      <label for="fieldParams[isAutoIncrement]">AutoIncrement</label> 
-				<input name="fieldParams[isAutoIncrement]" type="hidden" value="0" />
-				<input name="fieldParams[isAutoIncrement]" type="checkbox" title="isAutoIncrement" value="1" |-if $field->getIsAutoIncrement() eq 1-|checked="checked"|-/if-| />
+      <label for="params[isAutoIncrement]">AutoIncrement</label> 
+				<input name="params[isAutoIncrement]" type="hidden" value="0" />
+				<input name="params[isAutoIncrement]" type="checkbox" title="isAutoIncrement" value="1" |-if $field->getIsAutoIncrement() eq 1-|checked="checked"|-/if-| />
 	   </p> 
 		    <p> 
-      <label for="fieldParams[order]">order</label> 
-	      <input name="fieldParams[order]" title="order" value="|-$field->getOrder()-|" size="4" maxlength="4" type="text"> 
+      <label for="params[order]">order</label> 
+	      <input name="params[order]" title="order" value="|-$field->getOrder()-|" size="4" maxlength="4" type="text"> 
 	   </p> 
 	<p> 
-		<label for="fieldParams[type]">type</label> 
-		<select name="fieldParams[type]" id="fieldParams[type]">	
+		<label for="params[type]">type</label> 
+		<select name="params[type]" id="params[type]">	
 			<option value="">Seleccione tipo</option>
 			|-foreach from=$fieldTypes key=typeKey item=type name=for_fieldTypes-|
 			<optgroup label="|-$type.name-|">
@@ -84,43 +84,43 @@ $this->assign("hiddens",$hiddens);
 		</select>
 	</p> 
 		    <p> 
-      <label for="fieldParams[unique]">unique</label> 
-	  			<input name="fieldParams[unique]" type="hidden" value="0" />
-				<input name="fieldParams[unique]" type="checkbox" title="unique" value="1" |-if $field->getUnique() eq 1-|checked="checked"|-/if-| />
+      <label for="params[unique]">unique</label> 
+	  			<input name="params[unique]" type="hidden" value="0" />
+				<input name="params[unique]" type="checkbox" title="unique" value="1" |-if $field->getUnique() eq 1-|checked="checked"|-/if-| />
 	   </p> 
 		    <p> 
-      <label for="fieldParams[size]">size</label> 
-	      <input name="fieldParams[size]" title="size" value="|-$field->getSize()-|" size="4" maxlength="4" type="text"> 
+      <label for="params[size]">size</label> 
+	      <input name="params[size]" title="size" value="|-$field->getSize()-|" size="4" maxlength="4" type="text"> 
 	   </p> 
 		    <p> 
-      <label for="fieldParams[aggregateExpression]">aggregateExpression</label> 
-	      <input name="fieldParams[aggregateExpression]" title="aggregateExpression" value="|-$field->getAggregateExpression()-|" size="80" maxlength="255" type="text"> 
+      <label for="params[aggregateExpression]">aggregateExpression</label> 
+	      <input name="params[aggregateExpression]" title="aggregateExpression" value="|-$field->getAggregateExpression()-|" size="80" maxlength="255" type="text"> 
 	   </p> 
 		    <p> 
-      <label for="fieldParams[label]">label</label> 
-	      <input name="fieldParams[label]" title="label" value="|-$field->getLabel()|escape-|" size="80" maxlength="255" type="text"> 
+      <label for="params[label]">label</label> 
+	      <input name="params[label]" title="label" value="|-$field->getLabel()|escape-|" size="80" maxlength="255" type="text"> 
 	   </p> 
 		    <p> 
-      <label for="fieldParams[formFieldType]">formFieldType</label> 
-	      <input name="fieldParams[formFieldType]" title="formFieldType" value="|-$field->getFormFieldType()-|" size="50" maxlength="50" type="text"> 
+      <label for="params[formFieldType]">formFieldType</label> 
+	      <input name="params[formFieldType]" title="formFieldType" value="|-$field->getFormFieldType()-|" size="50" maxlength="50" type="text"> 
 	   </p> 
 		    <p> 
-      <label for="fieldParams[formFieldSize]">formFieldSize</label> 
-	      <input name="fieldParams[formFieldSize]" title="formFieldSize" value="|-$field->getFormFieldSize()-|" size="4" maxlength="4" type="text"> 
+      <label for="params[formFieldSize]">formFieldSize</label> 
+	      <input name="params[formFieldSize]" title="formFieldSize" value="|-$field->getFormFieldSize()-|" size="4" maxlength="4" type="text"> 
 	   </p> 
 		    <p> 
-      <label for="fieldParams[formFieldLines]">formFieldLines</label> 
-	      <input name="fieldParams[formFieldLines]" title="formFieldLines" value="|-$field->getFormFieldLines()-|" size="4" maxlength="4" type="text"> 
+      <label for="params[formFieldLines]">formFieldLines</label> 
+	      <input name="params[formFieldLines]" title="formFieldLines" value="|-$field->getFormFieldLines()-|" size="4" maxlength="4" type="text"> 
 	   </p> 
 		    <p> 
-      <label for="fieldParams[formFieldUseCalendar]">formFieldUseCalendar</label> 
-	  			<input name="fieldParams[formFieldUseCalendar]" type="hidden" value="0" />
-				<input name="fieldParams[formFieldUseCalendar]" type="checkbox" title="formFieldUseCalendar" value="1" |-if $field->getFormFieldUseCalendar() eq 1-|checked="checked"|-/if-| />
+      <label for="params[formFieldUseCalendar]">formFieldUseCalendar</label> 
+	  			<input name="params[formFieldUseCalendar]" type="hidden" value="0" />
+				<input name="params[formFieldUseCalendar]" type="checkbox" title="formFieldUseCalendar" value="1" |-if $field->getFormFieldUseCalendar() eq 1-|checked="checked"|-/if-| />
 	   </p> 
 |-if $field->getForeignKeyTable() ne ""-|
   <p>
-    <label for="fieldParams[foreignKeyTable]">foreignKeyTable</label> 
-	  <select name="fieldParams[foreignKeyTable]" id="fieldParams[foreignKeyTable]" onChange="javascript:modulesGetAllFieldsByEntityX(this.form)">	
+    <label for="params[foreignKeyTable]">foreignKeyTable</label> 
+	  <select name="params[foreignKeyTable]" id="params[foreignKeyTable]" onChange="javascript:modulesGetAllFieldsByEntityX(this.form)">	
 	    <option value="">Seleccione entidad</option>
 	    |-foreach from=$entities item=entity name=for_entities-|
 	      <option value="|-$entity->getId()-|" |-if $field->getForeignKeyTable() eq $entity->getId()-|selected="selected"|-assign var=fields value=$entity->getAllEntityFields()-||-/if-|>|-$entity->getName()-|</option>
@@ -129,8 +129,8 @@ $this->assign("hiddens",$hiddens);
   </p>
 	<div id="fieldMsgField">
 	  <p>
-	    <label for="fieldParams[foreignKeyRemote]">foreignKeyRemote</label>
-      <select id="fieldParams[foreignKeyRemote]" name="fieldParams[foreignKeyRemote]" title="foreignKeyRemote"> 
+	    <label for="params[foreignKeyRemote]">foreignKeyRemote</label>
+      <select id="params[foreignKeyRemote]" name="params[foreignKeyRemote]" title="foreignKeyRemote"> 
         <option value="0" selected="selected">Seleccione Campo</option> 
 	      |-foreach from=$fields item=eachField name=for_fields-|
           <option value="|-$eachField->getId()-|"|-if $eachField->getId() eq $field->getforeignKeyRemote()-|selected="selected"|-/if-|>|-$eachField->getName()-|</option> 
@@ -138,8 +138,8 @@ $this->assign("hiddens",$hiddens);
       </select>
     </p>
     <p> 
-      <label for="fieldParams[onDelete]">onDelete</label> 
-      <select name="fieldParams[onDelete]" title="defaultValue">
+      <label for="params[onDelete]">onDelete</label> 
+      <select name="params[onDelete]" title="defaultValue">
         |-if $field->getOnDelete() eq ''-|<option value="">Seleccione un valor</option>|-/if-|
         <option value="none" |-if $field->getOnDelete() eq 'none'-|selected|-/if-|>none</option>
         <option value="cascade" |-if $field->getOnDelete() eq 'cascade'-|selected|-/if-|>cascade</option>
@@ -150,8 +150,8 @@ $this->assign("hiddens",$hiddens);
   </div>
 |-else-|
   <p>      
-    <label for="fieldParams[foreignKeyTable]">foreignKeyTable</label> 
-  	<select name="fieldParams[foreignKeyTable]" id="fieldParams[foreignKeyTable]" onChange="javascript:modulesGetAllFieldsByEntityX(this.form)">	
+    <label for="params[foreignKeyTable]">foreignKeyTable</label> 
+  	<select name="params[foreignKeyTable]" id="params[foreignKeyTable]" onChange="javascript:modulesGetAllFieldsByEntityX(this.form)">	
   	  <option value="">Seleccione entidad</option>
   	  |-foreach from=$entities item=entity name=for_entities-|
   	    <option value="|-$entity->getId()-|" |-if $field->getForeignKeyTable() eq $entity->getId()-|selected="selected"|-/if-|>|-$entity->getName()-|</option>
@@ -175,7 +175,7 @@ $this->assign("hiddens",$hiddens);
 		|-/foreach-|
 	</div>
 	
-	<a href="#" onclick="$('validationFields').insert('<div class=\'validationField\'>'+$('validationField').innerHTML+'</div>');return false;">Agregar Validación</a>	
+	<a href="#" onclick="$('#validationFields').append('<div class=\'validationField\'>'+$('validationField').innerHTML+'</div>');return false;">Agregar Validación</a>	
 			
 			|-if $field->getId() ne ""-|
 			<input name="id" type="hidden" value="|-$field->getId()-|" />
