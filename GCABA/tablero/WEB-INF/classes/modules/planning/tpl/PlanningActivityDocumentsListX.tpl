@@ -3,7 +3,7 @@
 |-else-|
 	|-foreach $planningActivityDocumentColl as $planningActivityDocument-|
 		<li>
-			<span>|-$planningActivityDocument->getName()-|</span>
+			<span>|-$planningActivityDocument->getDocument()->getTitle()-|</span>
 			<a href="#">ver</a>
 			<a href="#">editar</a>
 			<a href="#">borrar</a>
