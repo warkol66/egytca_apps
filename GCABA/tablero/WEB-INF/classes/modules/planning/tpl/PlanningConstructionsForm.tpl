@@ -44,7 +44,8 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 		<div id="planningActivityDocumentsListDiv"></div>
 	</div>
 </div>
-<a id="lightbox1_control" href="#lightbox1" rel="lightbox1" class="lbOn" style="display:none"></a>
+<a id="openLightbox1_control" href="#lightbox1" rel="lightbox1" class="lbOn" style="display:none"></a>
+<a id="closeLightbox_control" href="#" class="lbAction blackNoDecoration" rel="deactivate" style="display:none"></a>
 
 <div id="lightbox2" class="leightbox">
 	<p align="right">				
@@ -55,7 +56,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 		<div id="planningActivityDocumentsEditDiv"></div>
 	</div>
 </div>
-<a id="lightbox2_control" href="#lightbox2" rel="lightbox2" class="lbOn" style="display:none"></a>
+<a id="openLightbox2_control" href="#lightbox2" rel="lightbox2" class="lbOn" style="display:none"></a>
 
 
 |-if $message eq "ok"-|
@@ -296,12 +297,16 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 		$('documentAddLink').onclick = function() {
 			var html = $('planningActivityDocumentsEditTemplate').innerHTML.replace('<%planningActivityId%>', planningActivityId);
 			$('planningActivityDocumentsEditDiv').innerHTML = html;
-			$('lightbox2_control').click();
+			openLightbox2();
 		};
 	}
+
+	function openLightbox1() { $('openLightbox1_control').click(); }
+	function openLightbox2() { $('openLightbox2_control').click(); }
+	function closeLightbox() { $('closeLightbox_control').click(); }
 </script>
 
 <div id="planningActivityDocumentsEditTemplate" style="display:none">
 	|-include file="DocumentsEditInclude.tpl" entity="PlanningActivity" entityId="<%planningActivityId%>" target="submit-iframe"-|
-	<iframe name="submit-iframe" style="display: none;" onload="loadAddDocumentsLightbox('<%planningActivityId%>'); $('lightbox1_control').click();"></iframe>
+	<iframe name="submit-iframe" style="display: none;" |-*onload="if (this.innerHTML != '') { closeLightbox(); loadAddDocumentsLightbox('<%planningActivityId%>'); openLightbox1(); }"*-|></iframe>
 </div>
