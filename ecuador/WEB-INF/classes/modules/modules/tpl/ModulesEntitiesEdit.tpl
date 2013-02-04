@@ -67,7 +67,7 @@
                   <span style="display: inline-block;">
                     <label for="params[behaviors][|-$behaviorsCount-|][name]">Nombre</label>
                     <input type="text" name="params[behaviors][|-$behaviorsCount-|][name]" value="|-$behavior.name-|" />
-                    <input type="button" value="Agregar Parametro" onClick="javascript: addParam(this.parentNode.parentNode, |-$behaviorsCount-|);"/>
+                    <input type="button" value="Agregar Parametro" onClick="javascript: addParam(this.parentNode.parentNode, |-$behaviorsCount-|);" id="addParam"/>
                   </span>
                   <input type="button" value="Borrar" onClick="javascript: removeBehavior(this.parentNode.parentNode);"/>
                 </p>
@@ -118,34 +118,34 @@ fieldset fieldset {
 </style>
 
 <script type="text/javascript" language="JavaScript">
-  var behaviorsCount = |-$behaviors|@count-|;
-  var paramsCount = [];
-  |-foreach from=$behaviors item=behavior key=behaviorsCount-|
-    paramsCount[|-$behaviorsCount-|] = |-$behavior.parameters|@count-|;
-  |-/foreach-|
-  
-  function addBehavior() {
-    var placeholder = $('behaviors_placeholder');
-    placeholder.insert({
-      bottom: '<div id="behavior_'+behaviorsCount+'"><p><span style="display: inline-block;"><label for="params[behaviors]['+behaviorsCount+'][name]">Nombre</label><input type="text" name="params[behaviors]['+behaviorsCount+'][name]" /><input type="button" value="Agregar Parametro" onClick="javascript: addParam(this.parentNode, '+behaviorsCount+');"/></span><input type="button" value="Borrar" onClick="javascript: removeBehavior(this.parentNode.parentNode);"/></p></div>'
-    });
-    paramsCount[behaviorsCount] = 0;
-    behaviorsCount++;
-  }
-  
-  function addParam(elem, idx) {
-    var placeholder = elem;
-    placeholder.insert({
-      bottom: '<div id="behavior_'+idx+'_param_'+paramsCount[idx]+'"><p><span style="display: inline-block;"><label for="params[behaviors]['+idx+'][parameters]['+paramsCount[idx]+'][name]">Nombre</label><input type="text" name="params[behaviors]['+idx+'][parameters]['+paramsCount[idx]+'][name]" /></span><span style="display: inline-block;"><label for="params[behaviors]['+idx+'][parameters]['+paramsCount[idx]+'][value]">Valor</label><input type="text" name="params[behaviors]['+idx+'][parameters]['+paramsCount[idx]+'][value]"/></span><input type="button" value="Borrar" onClick="javascript: removeBehavior(this.parentNode.parentNode);"/></p></div>'
-    });
-    paramsCount[idx] += 1;
-  }
-  
-  function removeParam(elem) {
-    elem.remove();
-  }
-  
-  function removeBehavior(elem) {
-    elem.remove();
-  }
+	var behaviorsCount = |-$behaviors|@count-|;
+	var paramsCount = [];
+	|-foreach from=$behaviors item=behavior key=behaviorsCount-|
+	paramsCount[|-$behaviorsCount-|] = |-$behavior.parameters|@count-|;
+	|-/foreach-|
+
+	function addBehavior() {
+		var placeholder = $('#behaviors_placeholder');
+		placeholder.append(
+			'<div id="behavior_'+behaviorsCount+'"><p><span style="display: inline-block;"><label for="params[behaviors]['+behaviorsCount+'][name]">Nombre</label><input type="text" name="params[behaviors]['+behaviorsCount+'][name]" /><input type="button" value="Agregar Parametro" onClick="javascript: addParam(this.parentNode, '+behaviorsCount+');"/></span><input type="button" value="Borrar" onClick="javascript: removeBehavior(this.parentNode.parentNode);"/></p></div>'
+		);
+		paramsCount[behaviorsCount] = 0;
+		behaviorsCount++;
+	}
+
+	function addParam(elem, idx) {
+		var placeholder = $(elem);
+		placeholder.append(
+			'<div id="behavior_'+idx+'_param_'+paramsCount[idx]+'"><p><span style="display: inline-block;"><label for="params[behaviors]['+idx+'][parameters]['+paramsCount[idx]+'][name]">Nombre</label><input type="text" name="params[behaviors]['+idx+'][parameters]['+paramsCount[idx]+'][name]" /></span><span style="display: inline-block;"><label for="params[behaviors]['+idx+'][parameters]['+paramsCount[idx]+'][value]">Valor</label><input type="text" name="params[behaviors]['+idx+'][parameters]['+paramsCount[idx]+'][value]"/></span><input type="button" value="Borrar" onClick="javascript: removeBehavior(this.parentNode.parentNode);"/></p></div>'
+		);
+		paramsCount[idx] += 1;
+	}
+
+	function removeParam(elem) {
+		$(elem).remove();
+	}
+
+	function removeBehavior(elem) {
+		$(elem).remove();
+	}
 </script>
