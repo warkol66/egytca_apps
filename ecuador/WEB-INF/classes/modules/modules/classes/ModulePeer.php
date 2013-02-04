@@ -10,7 +10,7 @@
 
 class ModulePeer extends BaseModulePeer {
 
-/**
+/** Se reemplaza por findOneByName
  *	Obtiene un modulo a partir de su nombre
  *	@param string $moduleName nombre del modulo
  *	@return object $module nombre del modulo seleccionado
@@ -22,7 +22,7 @@ class ModulePeer extends BaseModulePeer {
 		return $module;
 	}
 
-/**
+/** Se reemplaza por find
  *	Obtiene todos los módulos almacenados en la base de datos
  *	@return array $modules Modulos almacenados en la base de datos
  */
