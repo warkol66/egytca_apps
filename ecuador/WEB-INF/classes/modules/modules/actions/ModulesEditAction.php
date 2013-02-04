@@ -21,10 +21,8 @@ class ModulesEditAction extends BaseAction {
 		$modulo = "Modules";
 		$smarty->assign("modulo",$modulo);
 
-		$modulePeer = new ModulePeer();
-
 		$moduleName = $_GET["moduleName"];
-		$currentModule = $modulePeer->get($moduleName);
+		$currentModule = ModuleQuery::create()->findOneByName($moduleName);
 
 		if(is_null($currentModule))
 			$smarty->assign("notValidId",true);

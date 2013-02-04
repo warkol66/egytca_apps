@@ -20,7 +20,7 @@
     $(function() {
         $("#bannersList").sortable({
 			update: function(event,ui){
-				$('orderChanged').html("<span class='inProgress'>Cambiando orden...</span>");
+				$('#orderChanged').html("<span class='inProgress'>Cambiando orden...</span>");
 				$.ajax({
 					url: "Main.php?do=bannersDoOrderByZoneX",
 					data: { zoneId: "|-$bannerZone->getId()-|", data: $("#bannersList").sortable("toArray") },

@@ -1,8 +1,29 @@
 <?php
 
-class ModulesEntitiesCreateAction extends BaseAction {
+class ModulesEntitiesCreateAction extends BaseEditAction {
+	
+	//este se va a usar como Edit y hay que crear otro que extienda DoEdit
+	
+	function __construct() {
+		parent::__construct('ModuleEntity');
+		
+	}
+	
+	protected function postUpdate(){
+		parent::postUpdate();
+		
+		$module = "Modules";
+		$this->smarty->assign("module",$module);
+		$section = "Entities";
+		$this->smarty->assign("section",$section);
+		
+		$field = new ModuleEntityField();
+		$this->smarty->assign("field",$field);
+		$this->smarty->assign("fieldCount",$_GET["fieldCount"]);
+		
+	}
 
-	function ModulesEntitiesCreateAction() {
+	/*function ModulesEntitiesCreateAction() {
 		;
 	}
 
@@ -49,7 +70,7 @@ class ModulesEntitiesCreateAction extends BaseAction {
 		$smarty->assign("fieldTypes",$fieldTypes);
 
 		return $mapping->findForwardConfig('success');
-	}
+	}*/
 
 }
 

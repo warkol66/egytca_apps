@@ -35,7 +35,7 @@
 		<th width="5%" scope="col">Schema</th>
 		<th width="5%" scope="col">Sql</th>
 	</tr> 
-	|-foreach from=$pager item=entity name=for_entities-|
+	|-foreach from=$moduleEntityColl item=entity name=for_entities-|
 	<tr> 
 		<td nowrap="nowrap">
 			|-$entity->getModuleName()|multilang_get_translation:"common"-| 
@@ -56,7 +56,7 @@
 </td> 
 	</tr> 
 	|-/foreach-|
-		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
+		|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 			<tr> 
 				<td colspan="6" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 			</tr>

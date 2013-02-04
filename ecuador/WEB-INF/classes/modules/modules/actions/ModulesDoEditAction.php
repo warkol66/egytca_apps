@@ -1,35 +1,18 @@
 <?php
 
-class ModulesDoEditAction extends BaseAction {
-
-	function ModulesDoEditAction() {
-		;
+class ModulesDoEditAction extends BaseDoEditAction {
+	
+	function __construct() {
+		parent::__construct('Module');
+		
 	}
-
-	function execute($mapping, $form, &$request, &$response) {
-
-		BaseAction::execute($mapping, $form, $request, $response);
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
-
+	
+	protected function postUpdate(){
+		parent::postUpdate();
+		
 		$module = "Modules";
-		$smarty->assign("module",$module);
-
-		$modulePeer = new ModulePeer();
-
-		$moduleName = $_POST["moduleName"];
-		$description = $_POST["description"];
-		$label = $_POST["label"];
-
-		$updateModule= $modulePeer->updateModule($moduleName,$description,$label);
-
-		return $mapping->findForwardConfig('success');
+		$this->smarty->assign("module",$module);
+		
 	}
 
 }

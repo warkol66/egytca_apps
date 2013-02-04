@@ -1,18 +1,16 @@
 function modulesDoActivateX(form) {
 	var pars = 'do=modulesDoActivateX';
-	var fields = Form.serialize(form);
-
-	var myAjax = new Ajax.Updater(
-				{success: 'message'},
-				url,
-				{
-					method: 'post',
-					parameters: pars,
-					postBody: fields,
-					evalScripts: true
-				});
-		$('messageResult').innerHTML = "";
-		$('messageMod').innerHTML = "<div class='inProgress'>Actualizando módulo...</div>";
+	
+	$.ajax({
+		url: url,
+		data: {parameters: pars, data: $('#' + form).serialize()},
+		type: 'post',
+		success: function(data){
+			$('#message').html(data);
+		}	
+	});
+	$('#messageResult').html("");
+	$('#messageMod').html("<div class='inProgress'>Actualizando módulo...</div>");
 }
 function createHidden(name,value) {
 
