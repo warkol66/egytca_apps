@@ -41,13 +41,13 @@ class BaseListAction extends BaseAction {
 
 		// Verificamos la existencia de la clase de la que se obtendra la coleccion
 		if (class_exists($this->entityClassName)) {
+			
+			$this->query = BaseQuery::create($this->entityClassName);
 
 			// Acciones a ejecutar antes de obtener la coleccion de objetos
 			// Si el preList devuelve false, se retorna $mapping->findForwardConfig('failure')
 			if ($this->preList() === false)
 				return $mapping->findForwardConfig('failure');
-
-			$this->query = BaseQuery::create($this->entityClassName);
 
 			if (!$this->notPaginated) {
 				$this->smarty->assign("moduleConfig", Common::getModuleConfiguration($this->module));

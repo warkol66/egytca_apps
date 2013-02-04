@@ -40,7 +40,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 	</p>
 	<div id="planningActivityDocumentsShowWorking"></div>
 	<div class="innerLighbox">
-		<div><a href="#">agregar nuevo</a></div>
+		<div><a id="documentAddLink" href="#">agregar nuevo</a></div>
 		<div id="planningActivityDocumentsListDiv"></div>
 	</div>
 </div>
@@ -50,11 +50,9 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 	<p align="right">				
 		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a> 
 	</p>
-	<div id="planningConstructionsShowWorking2"></div>
+	<div id="planningActivityDocumentsShowWorking2"></div>
 	<div class="innerLighbox">
-		<div id="planningConstructionsShowDiv2">
-			agregar documento
-		</div>
+		<div id="planningActivityDocumentsEditDiv"></div>
 	</div>
 </div>
 <a id="lightbox2_control" href="#lightbox2" rel="lightbox2" class="lbOn" style="display:none"></a>
@@ -277,14 +275,14 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 		document.getElementById(elementId).enable();
 	}
 
-	function loadAddDocumentsLightbox(activityId) {
+	function loadAddDocumentsLightbox(planningActivityId) {
 		$('planningActivityDocumentsListDiv').innerHTML = '';
 		new Ajax.Updater(
 			'planningActivityDocumentsListDiv',
 			'Main.php?do=planningActivityDocumentsListX',
 			{
 				method: 'get',
-				parameters: { id: activityId },
+				parameters: { id: planningActivityId },
 				evalScripts: true,
 				onSuccess: function() {
 					$('planningActivityDocumentsShowWorking').innerHTML = '';
@@ -295,5 +293,26 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 			}
 		);
 		$('planningActivityDocumentsShowWorking').innerHTML = '<span class="inProgress">buscando Documentos...</span>';
+		$('documentAddLink').onclick = function() {
+			var html = $('planningActivityDocumentsEditTemplate').innerHTML.replace('<%planningActivityId%>', planningActivityId);
+			$('planningActivityDocumentsEditDiv').innerHTML = html;
+			$('lightbox2_control').click();
+		};
+	}
+</script>
+
+<div id="planningActivityDocumentsEditTemplate" style="display:none">|-include file="DocumentsEditInclude.tpl" entity="PlanningActivity" entityId="<%planningActivityId%>" onsubmit="documentDoAddX(this); return false;"-|</div>
+<script>
+	function documentDoAddX(form) {
+		new Ajax.Request(
+			'Main.php?do=documentsDoEdit',
+			{
+				method: 'POST',
+				parameters: Form.serialize(form),
+				onSuccess: function(response) {
+					console.log(response.responseText);
+				}
+			}
+		);
 	}
 </script>
