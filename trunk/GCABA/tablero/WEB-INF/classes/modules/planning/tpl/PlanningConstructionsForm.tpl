@@ -301,18 +301,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 	}
 </script>
 
-<div id="planningActivityDocumentsEditTemplate" style="display:none">|-include file="DocumentsEditInclude.tpl" entity="PlanningActivity" entityId="<%planningActivityId%>" onsubmit="documentDoAddX(this); return false;"-|</div>
-<script>
-	function documentDoAddX(form) {
-		new Ajax.Request(
-			'Main.php?do=documentsDoEdit',
-			{
-				method: 'POST',
-				parameters: Form.serialize(form),
-				onSuccess: function(response) {
-					console.log(response.responseText);
-				}
-			}
-		);
-	}
-</script>
+<div id="planningActivityDocumentsEditTemplate" style="display:none">
+	|-include file="DocumentsEditInclude.tpl" entity="PlanningActivity" entityId="<%planningActivityId%>" target="submit-iframe"-|
+	<iframe name="submit-iframe" style="display: none;" onload="loadAddDocumentsLightbox('<%planningActivityId%>'); $('lightbox1_control').click();"></iframe>
+</div>
