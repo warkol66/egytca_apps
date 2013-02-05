@@ -88,7 +88,7 @@ class MultilangLanguagePeer extends BaseMultilangLanguagePeer {
 		return $languageCode;
 	}
 
-	/**
+	/** Reemplazada por findOneByCode()
 	* Obtiene la informacion de un language.
 	*
 	* @param int $id id del language
