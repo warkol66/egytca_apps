@@ -30,14 +30,12 @@ class ModulesInstallSetupActionsLabelAction extends BaseAction {
 		$module = "Install";
 		$smarty->assign("module",$module);
 
-		$modulePeer = new ModulePeer();
-
 		if (!isset($_GET['moduleName']))
 			return $mapping->findForwardConfig('failure');
 
 		$languages = Array();
 		foreach ($_GET["languages"] as $languageCode) {
-			$language = MultilangLanguagePeer::getLanguageByCode($languageCode);
+			$language = MultilangLanguageQuery::create()->findOneByCode($languageCode);
 			$languages[] = $language;
 		}
 
@@ -94,7 +92,7 @@ class ModulesInstallSetupActionsLabelAction extends BaseAction {
 			$actualLabels = array();
 			foreach ($totalActions as $action) {
 				foreach ($languages as $language) {
-					$actionLabel = SecurityActionLabelPeer::getByActionAndLanguage($action,$language->getCode());
+					$actionLabel = SecurityActionLabel::getByActionAndLanguage($action,$language->getCode());
 					if (!empty($actionLabel)) {
 						$actualLabels[$action][$language->getCode()]['label'] = $actionLabel->getLabel();
 						$actualLabels[$action][$language->getCode()]['description'] = $actionLabel->getDescription();

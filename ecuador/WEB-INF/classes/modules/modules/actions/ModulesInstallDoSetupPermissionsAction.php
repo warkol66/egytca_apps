@@ -26,7 +26,7 @@ class ModulesInstallDoSetupPermissionsAction extends BaseAction {
 	 */
 	function writeActionsPermissionsToOutput($module,$pairs,$permission,$permissionAffiliate,$permissionRegistration,$noCheckLoginArray,$fd) {
 
-		$sql = SecurityActionPeer::getSQLCleanup($module);
+		$sql = SecurityAction::getSQLCleanup($module);
 		fprintf($fd,"%s\n",$sql);
 
 		foreach (array_keys($permission) as $action) {
@@ -170,8 +170,6 @@ class ModulesInstallDoSetupPermissionsAction extends BaseAction {
 		//asigno modulo
 		$module = "Install";
 		$smarty->assign("module",$module);
-
-		$modulePeer = new ModulePeer();
 
 
 		if (!isset($_POST['permission']) && (!isset($_POST['moduleName'])))

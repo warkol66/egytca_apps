@@ -45,7 +45,7 @@ class ModulesInstallDoSetupModuleInformationAction extends BaseAction {
 		//asigno modulo
 		$moduleLabel = "Install";
 		$smarty->assign("moduleLabel",$moduleLabel);
-		$modulePeer = new ModulePeer();
+		//$modulePeer = new ModulePeer();
 
 		if (!isset($_POST['moduleName'])) {
 			return $mapping->findForwardConfig('failure');
@@ -73,10 +73,10 @@ class ModulesInstallDoSetupModuleInformationAction extends BaseAction {
 		foreach ($_POST["languages"] as $languageCode)
 			$fds[$languageCode] = fopen($modulePath . 'modulesLabel_'.$languageCode.'.sql','w');
 
-		$moduleLabelPeer = new ModuleLabelPeer();
+		//$moduleLabelPeer = new ModuleLabelPeer();
 
 		foreach ($_POST["languages"] as $languageCode)
-			fprintf($fds[$languageCode],"%s\n",ModuleLabelPeer::getSQLCleanup($_POST['moduleName'],$languageCode));
+			fprintf($fds[$languageCode],"%s\n",ModuleLabel::getSQLCleanup($_POST['moduleName'],$languageCode));
 
 		foreach ($_POST["labels"] as $languageCode => $label) {
 			$moduleLabel = new ModuleLabel();

@@ -32,14 +32,12 @@ class ModulesInstallSetupModuleInformationAction extends BaseAction {
 		$module = "Install";
 		$smarty->assign("module",$module);
 
-		$modulePeer = new ModulePeer();
-
 		if (!isset($_GET['moduleName']))
 			return $mapping->findForwardConfig('failure');
 
 		$languages = Array();
 		foreach ($_GET["languages"] as $languageCode) {
-			$language = MultilangLanguagePeer::getLanguageByCode($languageCode);
+			$language = MultilangLanguageQuery::create()->findOneByCode($languageCode);
 			$languages[] = $language;
 		}
 
@@ -54,7 +52,7 @@ class ModulesInstallSetupModuleInformationAction extends BaseAction {
 		$smarty->assign('languages',$languages);
 
 		//obtengo todos los modulos para analizar sus dependencias
-		$modules = $modulePeer->getAll();
+		$modules = ModuleQuery::create()->find();
 
 		if (isset($_GET['mode']) && ($_GET['mode'] == 'reinstall')) {
 
@@ -62,24 +60,20 @@ class ModulesInstallSetupModuleInformationAction extends BaseAction {
 
 			//tengo que obtener la informacion del modulo
 
-			$moduleObj = $modulePeer->get($_GET['moduleName']);
+			$moduleObj = ModuleQuery::create()->findOneByName($_GET['moduleName']);
 
 			if (empty($moduleObj))
 				return $mapping->findForwardConfig('failure');
 
 			//sus labels correspondientes
-
-			$moduleLabelPeer = new ModuleLabelPeer();
-
 			$labels = Array();
 			foreach ($languages as $language) {
-				$label = $moduleLabelPeer->getByModuleAndLanguage($_GET['moduleName'],$language->getCode());
+				$label = ModuleLabelQuery::create()->findByModuleAndByLanguage($_GET['moduleName'],$language->getCode());
 				$labels[$language->getCode()] = $label;
 			}
 
 			// y sus dependencias
-			$moduleDependencyPeer = new ModuleDependencyPeer();
-			$dependencies = $moduleDependencyPeer->get($_GET['moduleName']);
+			$dependencies = ModuleDependencyQuery::create()->findByModuleName($_GET['moduleName']);
 
 			// y los asignamos a smarty
 			$smarty->assign('moduleObj',$moduleObj);
@@ -91,7 +85,7 @@ class ModulesInstallSetupModuleInformationAction extends BaseAction {
 				$all = array();
 
 				foreach ($dependencies as $dependency) {
-					$module = $modulePeer->get($dependency->getDependence());
+					$module = ModuleQuery::create()->findOneByName($dependency->getDependence());
 					$assigned[$module->getName()] = $module;
 				}
 
