@@ -8,6 +8,8 @@
  * @package    security
  */
 class SecurityModule extends BaseSecurityModule {
+	
+	const LEVEL_ALL = 1073741823;
 
 	/**
 	 * Genera instrucciones sql para insertar informacion de seguridad del modulo

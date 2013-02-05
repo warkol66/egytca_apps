@@ -197,5 +197,30 @@ class SecurityAction extends BaseSecurityAction {
 				$noCheckLogin = 1;
 		return $noCheckLogin;
 	}
+	
+	/** Migrada de Peer
+	* Obtiene un action a partir de su nombre o del par
+	* @param string $action nombre del action
+	* @return object $obj action encontrado
+	*/
+	function getByNameOrPair($action) {
+		$securityAction = SecurityActionQuery::create()
+												->setIgnoreCase('true')
+												->filterByAction($action)
+													->_or()
+												->filterByPair($action)
+												->findOne();
+		return $securityAction;
+	}
+	
+	/** Migrada de Peer
+	 * genera el codigo SQL de limpieza de las tablas afectadas al modulo.
+	 * @return string SQL
+	 */
+	function getSQLCleanup($module) {
+		$sql = "DELETE FROM `security_action` WHERE `module` = '" . $module . "';\n";
+		$sql .= "OPTIMIZE TABLE `security_action`;";
+		return  $sql;
+	}
 
 } // SecurityAction

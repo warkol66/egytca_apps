@@ -497,7 +497,7 @@ class SecurityActionPeer extends BaseSecurityActionPeer {
 		return $access;
 	}
 
-	/**
+	/** Migrada a Security Action para moduleInstall
 	 * genera el codigo SQL de limpieza de las tablas afectadas al modulo.
 	 * @return string SQL
 	 */
