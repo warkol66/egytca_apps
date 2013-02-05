@@ -29,13 +29,13 @@ class ModulesInstallSetupPermissionsAction extends BaseAction {
 		foreach ($actions as $action) {
 			$lcAction = lcfirst($action);
 
-			$securityAction = SecurityActionPeer::getByNameOrPair($lcAction);
+			$securityAction = SecurityAction::getByNameOrPair($lcAction);
 			if (!empty($securityAction)) {
 	
 				$access[$action] = array();
 	
 				$bitLevel = $securityAction->getAccess();
-				if ($bitLevel == SecurityModulePeer::LEVEL_ALL) {
+				if ($bitLevel == SecurityModule::LEVEL_ALL) {
 					$access[$action]['bitLevel'] = 0;
 					$access[$action]['all'] = 1;
 				}
@@ -46,7 +46,7 @@ class ModulesInstallSetupPermissionsAction extends BaseAction {
 				if (class_exists("AffiliateLevelPeer")) {
 	
 					$bitLevelAffiliate = $securityAction->getAccessAffiliateUser();
-					if ($bitLevelAffiliate == SecurityModulePeer::LEVEL_ALL) {
+					if ($bitLevelAffiliate == SecurityModule::LEVEL_ALL) {
 						$access[$action]['bitLevelAffiliate'] = 0;
 						$access[$action]['affiliateAll'] = 1;
 					}
@@ -68,25 +68,25 @@ class ModulesInstallSetupPermissionsAction extends BaseAction {
 	function getAccessToModule($module) {
 
 		$access = array();
-		$securityModule = SecurityModulePeer::getAccess($module);
+		$securityModule = SecurityModuleQuery::create()->findOneByModule($module);
 
 		if (!empty($securityModule)) {
 
 			$bitlevel = $securityModule->getAccess();
 
 			//Permisos para usuarios
-			$userLevels = LevelPeer::getAll();
+			$userLevels = LevelQuery::create()->find();
 			foreach ($userLevels as $level)
 				$access['permissionGeneral'][$level->getBitLevel()] = $this->evaluateBitlevel($level->getBitLevel(),$bitlevel);
-			$access['permissionGeneral'][all] = $this->evaluateBitlevel(SecurityModulePeer::LEVEL_ALL,$bitlevel);
+			$access['permissionGeneral'][all] = $this->evaluateBitlevel(SecurityModule::LEVEL_ALL,$bitlevel);
 
 			//Permisos para usuarios por afiliado
 			if (class_exists("AffiliateLevelPeer")) {
 				$bitLevelAffiliate = $securityModule->getAccessAffiliateUser();
-				$affiliateUserLevels = AffiliateLevelPeer::getAll();
+				$affiliateUserLevels = AffiliateLevelQuery::create()->find();
 				foreach ($affiliateUserLevels as $level)
 					$access['permissionAffiliateGeneral'][$level->getBitLevel()] = $this->evaluateBitlevel($level->getBitLevel(),$bitLevelAffiliate);
-				$access['permissionAffiliateGeneral'][all] = $this->evaluateBitlevel(SecurityModulePeer::LEVEL_ALL,$bitLevelAffiliate);
+				$access['permissionAffiliateGeneral'][all] = $this->evaluateBitlevel(SecurityModule::LEVEL_ALL,$bitLevelAffiliate);
 			}
 			//Permisos para usauarios por registro
 			if (class_exists("RegistrationUser")) {
@@ -117,14 +117,14 @@ class ModulesInstallSetupPermissionsAction extends BaseAction {
 		$section = "Installation";
 		$smarty->assign("section",$section);
 
-		$modulePeer = new ModulePeer();
+		//$modulePeer = new ModulePeer();
 
 		if (!isset($_GET['moduleName']))
 			return $mapping->findForwardConfig('failure');
 
 		$languages = Array();
 		foreach ($_GET["languages"] as $languageCode) {
-			$language = MultilangLanguagePeer::getLanguageByCode($languageCode);
+			$language = MultilangLanguageQuery::create()->findOneByCode($languageCode);
 			$languages[] = $language;
 		}
 
@@ -175,7 +175,7 @@ class ModulesInstallSetupPermissionsAction extends BaseAction {
 
 			$smarty->assign('mode',$_GET['mode']);
 
-			$moduleSelected = SecurityModulePeer::getAccess($_GET['moduleName']);
+			$moduleSelected = SecurityModuleQuery::create()->findOneByModule($_GET['moduleName']);
 			if (empty($moduleSelected))
 				$moduleSelected = new SecurityModule();
 
@@ -190,18 +190,19 @@ class ModulesInstallSetupPermissionsAction extends BaseAction {
 			$smarty->assign('generalAccess',$generalAccess);
 		}
 
-		$levels = LevelPeer::getAllWithBitLevelGreaterThan(1);
+		$levels = LevelQuery::create()->filterByBitlevel(1, Criteria::GREATER_THAN)->find();
+		//$levels = LevelPeer::getAllWithBitLevelGreaterThan(1);
 		$smarty->assign('levels',$levels);
 
 		if (class_exists("AffiliateLevelPeer")) {
-			$affiliateLevels = AffiliateLevelPeer::getAll();
+			$affiliateLevels = AffiliateLevelQuery::create()->find();
 			$smarty->assign('affiliateLevels',$affiliateLevels);
 		}
 
 		if (class_exists("RegistrationUser"))
 			$smarty->assign('registrationAvailable',1);
 
-		$levelSave = SecurityModulePeer::LEVEL_ALL;
+		$levelSave = SecurityModule::LEVEL_ALL;
 		$smarty->assign("levelsave",$levelSave);
 
 		$smarty->assign('withoutPair',$withoutPair);

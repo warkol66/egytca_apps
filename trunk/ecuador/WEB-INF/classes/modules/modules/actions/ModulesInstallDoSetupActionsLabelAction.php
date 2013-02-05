@@ -45,7 +45,7 @@ class ModulesInstallDoSetupActionsLabelAction extends BaseAction {
 		$module = "Install";
 		$smarty->assign("module",$module);
 
-		$modulePeer = new ModulePeer();
+		//$modulePeer = new ModulePeer();
 
 		if (!isset($_POST['moduleName']))
 			return $mapping->findForwardConfig('failure');

@@ -56,7 +56,7 @@ class ModulesInstallSetupMessagesAction extends BaseAction {
 
 		$languages = Array();
 		foreach ($_GET["languages"] as $languageCode) {
-			$language = MultilangLanguagePeer::getLanguageByCode($languageCode);
+			$language = MultilangLanguageQuery::create()->findOneByCode($languageCode);
 			$languages[] = $language;
 		}
 

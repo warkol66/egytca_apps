@@ -30,7 +30,7 @@ class ModuleLabelPeer extends BaseModuleLabelPeer {
 		}
 	}
 
-/**
+/** Migrado a ModuleLabel
  * Genera el codigo SQL de limpieza de las tablas afectadas al modulo.
  * @return string SQL
  */
