@@ -17,6 +17,25 @@ class SecurityActionLabel extends BaseSecurityActionLabel {
 		$sql = "INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('" . $this->getAction() . "', '" . $this->getLabel() . "', '" . $this->getDescription() . "', '" . $this->getLanguage() . "');";
 		return $sql;
 	}
+	
+	/** Migrada de Peer
+	*	Obtiene etiquetas segun el idioma y action
+	*	@param string $language idioma
+	*	@param string $module nombre del modulo
+	*	@return object $objs etiquetas
+	*/
+	function getByActionAndLanguage($action,$language) {
+		if (preg_match("/(.*)(Do[A-Z])(.*)/",$action,$parts))
+			$actionWithoutDo = $parts[1].$parts[2][2].$parts[3];
+
+		$securityActionLabel = SecurityActionLabelQuery::create()
+															->filterByLanguage($language)
+															->filterByAction($language)
+																->_or()
+															->filterByAction($actionWithoutDo)
+															->findOne();
+		return $securityActionLabel;
+	}
 
 	/**
 	 * Genera instrucciones sql para elimnar informacion existente en la tabla
