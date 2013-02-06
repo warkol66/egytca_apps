@@ -63,15 +63,6 @@ class SecurityAction extends BaseSecurityAction {
 	}
 
 	/**
-	 * genera el codigo SQL de limpieza de las tablas afectadas al modulo.
-	 * @return string SQL
-	 */
-	function getSQLCleanup() {
-		$sql = "DELETE FROM `security_action` WHERE `module` = " . "'" . $this->getModule() . "'" . ';';
-		return  $sql;
-	}
-
-	/**
 	 * Indica si el valor pasado corresponde al bitlevel actual de admin de la instancia
 	 * @param integer bitlevel
 	 * @return true en caso afirmativo, false sino.
