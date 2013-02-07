@@ -1,10 +1,13 @@
 <?php
 
-error_reporting(E_ALL);
+error_reporting(E_ALL ^ E_WARNING);
 ini_set("display_errors", 1);
 
 $moduleRootDir = ".";
 $backupPeer = new BackupPeer();
+
+header("Content-type: text/html; charset=UTF-8");
+echo "<h3>Aplicación de Instalación</h3><hr />";
 
 if (!empty($_FILES['backup'])) {
 	$filename = $_FILES["backup"]['tmp_name'];
@@ -16,26 +19,27 @@ else if (!empty($_GET['filename'])) {
 	$originalFileName = $filename;
 	restoreBackup($backupPeer, $filename, $originalFileName);
 }
-else {
+else
 	echo "No ha seleccionado un archivo para instalar<br />";
-	echo "Seleccione el archivo<br />";
-	$files = $backupPeer->getBackupList();
-	foreach ($files as $file) {
-		echo "<a href=\"install.php?filename=". $file['name'] . "\">" . $file['name'] . "</a><br />";
-	}
-	echo "<form id=\"backupLoaderForm\" action=\"install.php\" method=\"post\" enctype=\"multipart/form-data\">";
-	echo "<p>A continuacion indique el archivo local a restaurar en el sistema:</p>";
-	echo "<p><label>Archivo:</label><input type=\"file\" name=\"backup\" size=\"40\" /></p>";
-	echo "<p><input type=\"submit\" value=\"Restaurar respaldo local\" accept=\"txt/sql\" onclick=\"return confirm('Esta opción reemplazará la información en el sistema por la información en este respaldo. ¿Está seguro que desea continuar?');\"/></p>";
-	echo "</form>";
-}
+
+echo "<hr /><h3>Seleccione un archivo disponible en el servidor</h3>";
+$files = $backupPeer->getBackupList();
+foreach ($files as $file)
+	echo "<a href=\"install.php?filename=". $file['name'] . "\" onClick=\"return confirm('Esta opción reemplazará la información en el sistema por la información en este respaldo. ¿Está seguro que desea continuar?');\" >" . $file['name'] . "</a><br />";
+
+echo "<form id=\"backupLoaderForm\" action=\"install.php\" method=\"post\" enctype=\"multipart/form-data\">";
+echo "<h3>Seleccione un archivo local a instalar:</h3>";
+echo "<p><label>Archivo:</label><input type=\"file\" name=\"backup\" size=\"40\" /></p>";
+echo "<p><input type=\"submit\" value=\"Restaurar respaldo local\" accept=\"txt/sql\" onclick=\"return confirm('Esta opción reemplazará la información en el sistema por la información en este respaldo. ¿Está seguro que desea continuar?');\"/></p>";
+echo "</form>";
+
 
 function restoreBackup($backupPeer, $filename, $originalFileName) {
 	
 	if ($backupPeer->restoreBackup($filename, $originalFileName))
-		echo "Instalación completa";
+		echo "<h4>Instalación completa !</h4>";
 	else
-		echo "No se pudo realizar la instalación";
+		echo "<h4>No se pudo realizar la instalación !!!!</h4>";
 }
 
 /**
@@ -102,7 +106,7 @@ class BackupPeer {
 					$clearRoute = explode($rootDir.'files/',$filea['dir']);
 					$path = $clearRoute[1] . '/';
 					if (!empty($path) && !file_exists($path))
-						mkdir($path, 0777, true);
+						mkdir($path, 0755, true);
 				}
 				//guardamos el archivo en su ubicacion
 				file_put_contents($path . $filea["name"] , $filea['data']);
@@ -111,7 +115,7 @@ class BackupPeer {
 		
 		foreach ($this->pathContentIgnoreList as $createme) {
 			if (!file_exists($createme))
-				mkdir($createme, 0777, true);
+				mkdir($createme, 0755, true);
 		}
 
 		//hay procesamiento de SQL
@@ -121,7 +125,6 @@ class BackupPeer {
 			if (!$ret)
 				return false;
 		}
-		
 
 		return true;
 
@@ -151,6 +154,21 @@ class BackupPeer {
 			}
 
 		}
+
+		$path = $path . "backups/";
+		$dir = opendir($path);
+		while ($file = readdir($dir)) {
+			if (preg_match("/\.zip/i",$file)) {
+				$filename = $path . $file;
+				$data = array(
+									'name' => "backups/" . $file,
+									'size' => (filesize($filename) / 1024),
+									'time' => filemtime($filename)
+								);
+				array_push($filenames,$data);
+			}
+		}
+
 		//ordenamos los nombres de archivo
 		if ($order == "desc")
 			rsort($filenames);
@@ -526,5 +544,3 @@ class zipfile
 				"\x00\x00"; // .zip file comment length
 	}
 }
-
-?>
