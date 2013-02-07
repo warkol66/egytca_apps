@@ -199,9 +199,6 @@ class ModulesInstallSetupPermissionsAction extends BaseAction {
 			$smarty->assign('affiliateLevels',$affiliateLevels);
 		}
 
-		if (class_exists("RegistrationUser"))
-			$smarty->assign('registrationAvailable',1);
-
 		$levelSave = SecurityModule::LEVEL_ALL;
 		$smarty->assign("levelsave",$levelSave);
 

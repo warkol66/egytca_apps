@@ -29,13 +29,6 @@ class ModulesInstallDoSetupModuleInformationAction extends BaseAction {
 	function execute($mapping, $form, &$request, &$response) {
 
 		BaseAction::execute($mapping, $form, $request, $response);
-		global $PHP_SELF;
-		//////////
-		// Call our business logic from here
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -45,11 +38,9 @@ class ModulesInstallDoSetupModuleInformationAction extends BaseAction {
 		//asigno modulo
 		$moduleLabel = "Install";
 		$smarty->assign("moduleLabel",$moduleLabel);
-		//$modulePeer = new ModulePeer();
 
-		if (!isset($_POST['moduleName'])) {
+		if (!isset($_POST['moduleName']))
 			return $mapping->findForwardConfig('failure');
-		}
 
 		//salto de paso
 		if (isset($_POST['skip']))
@@ -62,12 +53,10 @@ class ModulesInstallDoSetupModuleInformationAction extends BaseAction {
 		$modulePath .= '/';
 
 		//guardado de informacion de descripcion del modulo
-
 		$fd = fopen($modulePath . 'information.sql','w');
 
-		if ($fd == false){
+		if ($fd == false)
 			return $mapping->findForwardConfig('failure');
-		}
 
 		$fds = Array();
 		foreach ($_POST["languages"] as $languageCode)
@@ -119,7 +108,6 @@ class ModulesInstallDoSetupModuleInformationAction extends BaseAction {
 				$sql = $moduleDependency->getSQLInsert();
 				fprintf($fd,"%s\n",$sql);
 			}
-
 
 		}
 

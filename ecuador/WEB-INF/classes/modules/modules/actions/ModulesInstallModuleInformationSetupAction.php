@@ -5,8 +5,6 @@
  * @package install
  */
 
-require_once("includes/assoc_array2xml.php");
-
 class ModulesInstallModuleInformationSetupAction extends BaseAction {
 
 	function ModulesInstallModuleInformationSetupAction() {
@@ -16,13 +14,6 @@ class ModulesInstallModuleInformationSetupAction extends BaseAction {
 	function execute($mapping, $form, &$request, &$response) {
 
 		BaseAction::execute($mapping, $form, $request, $response);
-		global $PHP_SELF;
-		//////////
-		// Call our business logic from here
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -32,12 +23,8 @@ class ModulesInstallModuleInformationSetupAction extends BaseAction {
 		$module = "Install";
 		$smarty->assign("module",$module);
 
-		if (!isset($_GET['moduleName'])) {
+		if (!isset($_GET['moduleName']))
 			return $mapping->findForwardConfig('failure');
-		}
-
-		if (!isset($_GET['reinstall']))
-
 
 		return $mapping->findForwardConfig('success');
 	}

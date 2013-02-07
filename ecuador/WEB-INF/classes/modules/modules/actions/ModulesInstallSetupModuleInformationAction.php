@@ -5,8 +5,6 @@
  * @package install
  */
 
-require_once("includes/assoc_array2xml.php");
-
 class ModulesInstallSetupModuleInformationAction extends BaseAction {
 
 	function ModulesInstallSetupModuleInformationAction() {
@@ -16,13 +14,6 @@ class ModulesInstallSetupModuleInformationAction extends BaseAction {
 	function execute($mapping, $form, &$request, &$response) {
 
 		BaseAction::execute($mapping, $form, $request, $response);
-		global $PHP_SELF;
-		//////////
-		// Call our business logic from here
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -48,16 +39,16 @@ class ModulesInstallSetupModuleInformationAction extends BaseAction {
 
 		$smarty->assign('languages',$languages);
 
+		//tengo que obtener la informacion del modulo
+		$moduleObj = ModuleQuery::create()->findOneByName($_GET['moduleName']);
+		$smarty->assign('moduleObj',$moduleObj);
+
 		//obtengo todos los modulos para analizar sus dependencias
-		$modules = ModuleQuery::create()->find();
+		$modules = ModuleQuery::create()->select('Name')->filterByName($_GET['moduleName'], Criteria::NOT_EQUAL)->find();
 
 		if (isset($_GET['mode']) && ($_GET['mode'] == 'reinstall')) {
 
 			$smarty->assign('mode',$_GET['mode']);
-
-			//tengo que obtener la informacion del modulo
-
-			$moduleObj = ModuleQuery::create()->findOneByName($_GET['moduleName']);
 
 			if (empty($moduleObj))
 				return $mapping->findForwardConfig('failure');
@@ -66,38 +57,29 @@ class ModulesInstallSetupModuleInformationAction extends BaseAction {
 			$labels = Array();
 			foreach ($languages as $language)
 				$labels[$language->getCode()] = ModuleLabelQuery::create()
-					->filterByModule(ModuleQuery::create()->findOneByName($_GET['moduleName']))
+					->filterByModule($moduleObj)
 					->filterByLanguage($language->getCode())
 					->findOne();
-
-
-			// y sus dependencias
-			$dependencies = ModuleDependencyQuery::create()->findByModuleName($_GET['moduleName']);
-
-			// y los asignamos a smarty
-			$smarty->assign('moduleObj',$moduleObj);
 			$smarty->assign('labels',$labels);
 
+			// y sus dependencias
+			$dependencies = ModuleDependencyQuery::create()->select('Dependence')->findByModule($moduleObj);
+
 			if (!empty($dependencies)) {
+				$smarty->assign('assignedDependencyModules', $dependencies);
 
-				$assigned = array();
-				$all = array();
-
-				foreach ($dependencies as $dependency)
-					$assigned[$module->getName()] = ModuleQuery::create()->findOneByName($dependency->getDependence());
-
-
-				foreach ($modules as $module)
-					$all[$module->getName()] = $module;
-
-				$modules = array_diff_key($all,$assigned);
-				$smarty->assign('assignedDependencyModules',$assigned);
+				$modules = array();
+				$modules = ModuleQuery::create()->select('Name')
+						->filterByName($_GET['moduleName'], Criteria::NOT_IN)				
+					->_and()
+						->filterByName($dependencies, Criteria::NOT_IN)
+					->find();
 			}
 
 		}
 
-		$smarty->assign('dependencyModules',$modules);
-		$smarty->assign('moduleName',$_GET['moduleName']);
+		$smarty->assign('dependencyModules', $modules);
+		$smarty->assign('moduleName', $_GET['moduleName']);
 		return $mapping->findForwardConfig('success');
 	}
 

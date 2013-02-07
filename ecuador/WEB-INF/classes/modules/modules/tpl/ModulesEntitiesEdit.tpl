@@ -101,7 +101,7 @@
 			<input name="action" type="hidden" value="|-$action-|" />
 			<input name="do" type="hidden" value="modulesEntitiesDoEdit" />
 <p>		  <input type="submit" name="Submit" value="Guardar cambios"  title="Guardar cambios"/>
-<input name="return" type="button"  value="Regresar" title="Regresar" onClick="location.href='Main.php?do=modulesEntitiesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" /></p>
+<input name="return" type="button"  value="Regresar" title="Regresar" onClick="location.href='Main.php?do=modulesEntitiesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'" /></p>
 </fieldset> 
 </form>
 

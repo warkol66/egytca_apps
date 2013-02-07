@@ -5,8 +5,6 @@
  * @package install
  */
 
-require_once("includes/assoc_array2xml.php");
-
 class ModulesInstallSetupActionsLabelAction extends BaseAction {
 
 	function ModulesInstallSetupActionsLabelAction() {
@@ -16,11 +14,6 @@ class ModulesInstallSetupActionsLabelAction extends BaseAction {
 	function execute($mapping, $form, &$request, &$response) {
 
 		BaseAction::execute($mapping, $form, $request, $response);
-		global $PHP_SELF;
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -52,7 +45,6 @@ class ModulesInstallSetupActionsLabelAction extends BaseAction {
 		closedir($directoryHandler);
 
 		//separacion entre accions con par y acciones sin par
-
 		foreach ($actions as $action) {
 
 			//separamos los pares de aquellos que no tienen pares
@@ -89,7 +81,7 @@ class ModulesInstallSetupActionsLabelAction extends BaseAction {
 			$actualLabels = array();
 			foreach ($totalActions as $action) {
 				foreach ($languages as $language) {
-					$actionLabel = SecurityActionLabel::getByActionAndLanguage($action,$language->getCode());
+					$actionLabel = SecurityActionLabel::getByActionAndLanguage($action, $language->getCode());
 					if (!empty($actionLabel)) {
 						$actualLabels[$action][$language->getCode()]['label'] = $actionLabel->getLabel();
 						$actualLabels[$action][$language->getCode()]['description'] = $actionLabel->getDescription();

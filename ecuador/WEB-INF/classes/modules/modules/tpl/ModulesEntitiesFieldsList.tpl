@@ -38,7 +38,7 @@
 		<td>|-$entityField->getId()-|</td> 
 		<td>|-$entityField->getModuleName()|multilang_get_translation:"common"-|</td> 
 		<td>|-$entityField->getEntityName()-|</td> 
-		<td><a href="Main.php?do=modulesEntitiesFieldsEdit&id=|-$entityField->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|">|-$entityField->getName()-|</a></td> 
+		<td><a href="Main.php?do=modulesEntitiesFieldsEdit&id=|-$entityField->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|">|-$entityField->getName()-|</a></td> 
 		<td>|-$entityField->getDescription()-| </td> 
 	</tr> 
 	|-/foreach-|

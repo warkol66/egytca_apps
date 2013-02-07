@@ -154,13 +154,6 @@ class ModulesInstallDoSetupPermissionsAction extends BaseAction {
 	function execute($mapping, $form, &$request, &$response) {
 
 		BaseAction::execute($mapping, $form, $request, $response);
-		global $PHP_SELF;
-		//////////
-		// Call our business logic from here
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -171,14 +164,12 @@ class ModulesInstallDoSetupPermissionsAction extends BaseAction {
 		$module = "Install";
 		$smarty->assign("module",$module);
 
-
 		if (!isset($_POST['permission']) && (!isset($_POST['moduleName'])))
 			return $mapping->findForwardConfig('failure');
 
 		//salto de paso
 		if (isset($_POST['skip']))
 			return $this->executeSuccess($mapping);
-
 
 		$permission = $_POST['permission'];
 		$pairs = $_POST['pair'];
