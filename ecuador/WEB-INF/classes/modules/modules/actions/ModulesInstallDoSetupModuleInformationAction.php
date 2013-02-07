@@ -61,13 +61,13 @@ class ModulesInstallDoSetupModuleInformationAction extends BaseAction {
 
 		$modulePath .= '/';
 
-
 		//guardado de informacion de descripcion del modulo
 
 		$fd = fopen($modulePath . 'information.sql','w');
 
-		if ($fd == false)
+		if ($fd == false){
 			return $mapping->findForwardConfig('failure');
+		}
 
 		$fds = Array();
 		foreach ($_POST["languages"] as $languageCode)

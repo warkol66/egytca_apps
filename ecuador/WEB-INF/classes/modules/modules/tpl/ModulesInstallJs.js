@@ -5,20 +5,20 @@ function createHidden(name,value) {
 	
 }
 
-function installSkipTheStep(form) {
+function installSkipTheStep(formId) {
 	toAdd = createHidden('skip',1);
-	$(form).append(toAdd).submit();
+	$('#' + formId).append(toAdd).submit();
 }
 
-function installExecuteStep(form) {
+function installExecuteStep(formId) {
 	toAdd = createHidden('stepOnly',1);
-	$(form).append(toAdd).submit();
+	$('#' + formId).append(toAdd).submit();
 }
 
-function installExecuteSQL(form) {
+function installExecuteSQL(formId) {
 
 	toAdd = createHidden('executeSQL',1);
-	$(form).append(toAdd).submit();
+	$('#' + formId).append(toAdd).submit();
 	
 }
 

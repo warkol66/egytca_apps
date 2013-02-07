@@ -1,7 +1,7 @@
 <script type="text/javascript" src="Main.php?do=js&name=js&module=modules&code=|-$currentLanguageCode-|"></script>
 <h2>Configuración del Sistema</h2>
 <h1>Instalación de Módulos: Módulo <strong>|-$moduleName|capitalize-|</strong>.</h1>
-<form  method="post">
+<form  method="post" id="form">
 	<fieldset>
 		<legend>Información del Módulo</legend>
 		<p>Ingrese la información correspondiente al módulo</p>

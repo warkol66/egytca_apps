@@ -30,8 +30,6 @@ class ModulesInstallListAction extends BaseAction {
 		$module = "Install";
 		$smarty->assign("module",$module);
 
-		$modulePeer = new ModulePeer();
-
 		$message=$_GET["message"];
 		$smarty->assign("message",$message);
 

@@ -1,7 +1,7 @@
 <script type="text/javascript" src="Main.php?do=js&name=js&module=modules&code=|-$currentLanguageCode-|"></script>
 <h2>Configuración del Sistema</h2>
 <h1>Instalación de Módulos: Módulo <strong>|-$moduleName|capitalize-|</strong>.</h1>
-<form method="post">
+<form method="post" id="form">
 <fieldset>
 	<legend>Etiquetas de acciones</legend>
 	<p>Asigne las etiquetas correspondientes</p> 
@@ -16,6 +16,7 @@
 		<legend>|-$action-|</legend>
 			<h4>|-$label|capitalize-|</h4>
 			|-foreach from=$languages item=language-|
+				|-if is_object($language)-|
 				|-assign var=languageCode value=$language->getCode()-|
 				<p>
 					<legend>|-$language->getName()-|</legend>
@@ -28,6 +29,7 @@
 					<label for="labels[|-$action-|][|-$languageCode-|][description]">Descripción</label>
 					<input name="labels[|-$action-|][|-$languageCode-|][description]" type="text" value="|-if isset($actualLabels)-||-$actualLabels.$action.$languageCode.description-||-/if-|" size="60">
 				</p>
+				|-/if-|
 			|-/foreach-|
 	</fieldset>
 	|-/foreach-|
@@ -38,7 +40,9 @@
 		<input type="hidden" name="mode" value="|-$mode-|" id="mode">
 	|-/if-|
 	|-foreach from=$languages item=language-|
+	|-if is_object($language)-|
 	<input type="hidden" name="languages[]" value="|-$language->getCode()-|" />
+	|-/if-|
 	|-/foreach-|
 	<p>
 		<input type="submit" value="Guardar Labels" />

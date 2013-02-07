@@ -49,16 +49,11 @@ class ModulesInstallSetupMessagesAction extends BaseAction {
 		$module = "Install";
 		$smarty->assign("module",$module);
 
-		$modulePeer = new ModulePeer();
-
 		if (!isset($_GET['moduleName']))
 			return $mapping->findForwardConfig('failure');
-
+			
 		$languages = Array();
-		foreach ($_GET["languages"] as $languageCode) {
-			$language = MultilangLanguageQuery::create()->findOneByCode($languageCode);
-			$languages[] = $language;
-		}
+		$languages = MultilangLanguageQuery::create()->filterByCode($_GET["languages"],Criteria::IN)->find();
 
 		$path = "WEB-INF/classes/modules/" . $_GET['moduleName'] . "/setup/";
 

@@ -34,10 +34,7 @@ class ModulesInstallFileCheckAction extends BaseAction {
 		$smarty->assign("module",$module);
 
 		$languages = Array();
-		foreach ($_GET["languages"] as $languageCode) {
-			$language = MultilangLanguageQuery::create()->findOneByCode($languageCode);
-			$languages[] = $language;
-		}
+		$languages = MultilangLanguageQuery::create()->filterByCode($_GET["languages"],Criteria::IN)->find();
 
 		if (!isset($_GET['moduleName']))
 			return $mapping->findForwardConfig('failure');
@@ -75,12 +72,6 @@ class ModulesInstallFileCheckAction extends BaseAction {
 		$smarty->assign('messages',$messages);
 		$smarty->assign('multilangTexts',$multilangTexts);
 		$smarty->assign('moduleName',$_GET['moduleName']);
-
-		$languages = Array();
-		foreach ($_GET["languages"] as $languageCode) {
-			$language = MultilangLanguageQuery::create()->findOneByCode($languageCode);
-			$languages[] = $language;
-		}
 		$smarty->assign('languages',$languages);
 
 		return $mapping->findForwardConfig('success');

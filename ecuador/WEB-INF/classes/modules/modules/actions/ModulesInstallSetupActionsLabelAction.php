@@ -34,10 +34,7 @@ class ModulesInstallSetupActionsLabelAction extends BaseAction {
 			return $mapping->findForwardConfig('failure');
 
 		$languages = Array();
-		foreach ($_GET["languages"] as $languageCode) {
-			$language = MultilangLanguageQuery::create()->findOneByCode($languageCode);
-			$languages[] = $language;
-		}
+		$languages = MultilangLanguageQuery::create()->filterByCode($_GET["languages"],Criteria::IN)->find();
 
 		//buscamos todos los actions sin instalar.
 

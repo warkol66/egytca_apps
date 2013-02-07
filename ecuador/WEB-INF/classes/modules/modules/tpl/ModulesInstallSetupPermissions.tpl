@@ -4,7 +4,7 @@
 <fieldset>
 	<legend>Configuración de Permisos</legend>
 	<p>Asigne los permisos correspondientes</p> 
-	<form method="post">
+	<form method="post" id="form">
 		<p>
 		<input type="submit" value="Generar archivo de permisos" />
 		|-include file="ModulesInstallFormNavigationInclude.tpl"-|
