@@ -36,11 +36,8 @@ class ModulesInstallSetupModuleInformationAction extends BaseAction {
 			return $mapping->findForwardConfig('failure');
 
 		$languages = Array();
-		foreach ($_GET["languages"] as $languageCode) {
-			$language = MultilangLanguageQuery::create()->findOneByCode($languageCode);
-			$languages[] = $language;
-		}
-
+		$languages = MultilangLanguageQuery::create()->filterByCode($_GET["languages"],Criteria::IN)->find();
+		
 		//Por defecto si no existen idiomas, se carga el español
 		if (empty($languages)) {
 			$language = new MultilangLanguage();
@@ -67,10 +64,12 @@ class ModulesInstallSetupModuleInformationAction extends BaseAction {
 
 			//sus labels correspondientes
 			$labels = Array();
-			foreach ($languages as $language) {
-				$label = ModuleLabelQuery::create()->findByModuleAndByLanguage($_GET['moduleName'],$language->getCode());
-				$labels[$language->getCode()] = $label;
-			}
+			foreach ($languages as $language)
+				$labels[$language->getCode()] = ModuleLabelQuery::create()
+					->filterByModule(ModuleQuery::create()->findOneByName($_GET['moduleName']))
+					->filterByLanguage($language->getCode())
+					->findOne();
+
 
 			// y sus dependencias
 			$dependencies = ModuleDependencyQuery::create()->findByModuleName($_GET['moduleName']);
@@ -84,10 +83,9 @@ class ModulesInstallSetupModuleInformationAction extends BaseAction {
 				$assigned = array();
 				$all = array();
 
-				foreach ($dependencies as $dependency) {
-					$module = ModuleQuery::create()->findOneByName($dependency->getDependence());
-					$assigned[$module->getName()] = $module;
-				}
+				foreach ($dependencies as $dependency)
+					$assigned[$module->getName()] = ModuleQuery::create()->findOneByName($dependency->getDependence());
+
 
 				foreach ($modules as $module)
 					$all[$module->getName()] = $module;

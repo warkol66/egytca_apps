@@ -26,7 +26,7 @@ class ModulesInstallDoSetupPermissionsAction extends BaseAction {
 	 */
 	function writeActionsPermissionsToOutput($module,$pairs,$permission,$permissionAffiliate,$permissionRegistration,$noCheckLoginArray,$fd) {
 
-		$sql = SecurityAction::getSQLCleanup($module);
+		$sql = SecurityActionPeer::getSQLCleanup($module);
 		fprintf($fd,"%s\n",$sql);
 
 		foreach (array_keys($permission) as $action) {

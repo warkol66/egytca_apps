@@ -25,9 +25,19 @@ class ModuleLabel extends BaseModuleLabel {
 /**
  * genera el codigo SQL de limpieza de las tablas afectadas al modulo.
  * @return string SQL
- */
+ *
 	public function getSQLCleanup() {
 		$sql = "DELETE FROM `modules_label` WHERE `name` = '" . $this->getName() . "';\n";
+		$sql .= "OPTIMIZE TABLE `modules_label`;";
+		return  $sql;
+	}*/
+	
+	/** Migrado de Peer
+ * Genera el codigo SQL de limpieza de las tablas afectadas al modulo.
+ * @return string SQL
+ */
+	public static function getSQLCleanup($moduleName,$languageCode) {
+		$sql = "DELETE FROM `modules_label` WHERE `name` = " . "'" . $moduleName . "' and `language` = '" . $languageCode . "';\n";
 		$sql .= "OPTIMIZE TABLE `modules_label`;";
 		return  $sql;
 	}

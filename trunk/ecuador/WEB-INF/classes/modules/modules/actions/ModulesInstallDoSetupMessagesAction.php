@@ -63,8 +63,7 @@ class ModulesInstallDoSetupMessagesAction extends BaseAction {
 			$fds[$languageCode] = fopen($modulePath . 'messages_'.$languageCode.'.sql','w');
 
 		foreach ($_POST["languages"] as $languageCode)
-			fprintf($fds[$languageCode],"%s\n",ActionLogLabel::getSQLCleanup($_POST['moduleName'],$languageCode));
-			//fprintf($fds[$languageCode],"%s\n",ActionLogLabelPeer::getSQLCleanup($_POST['moduleName'],$languageCode));
+			fprintf($fds[$languageCode],"%s\n",ActionLogLabelPeer::getSQLCleanup($_POST['moduleName'],$languageCode));
 
 		$messages = $_POST['message'];
 

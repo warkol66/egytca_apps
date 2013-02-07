@@ -15,7 +15,7 @@ class ModulesInstallSetupPermissionsAction extends BaseAction {
 		//si el valor que queda al restarle el nivel a evaluar es mayor o igual a cero, ese
 		//nivel esta seteado
 
-		if ($level == SecurityModulePeer::LEVEL_ALL)
+		if ($level == SecurityModule::LEVEL_ALL)
 			return ($bitlevel == $level);
 
 		return ((intval($level) & intval($bitlevel)) > 0);
@@ -43,7 +43,7 @@ class ModulesInstallSetupPermissionsAction extends BaseAction {
 					$access[$action]['bitLevel'] = $bitLevel;
 	
 	
-				if (class_exists("AffiliateLevelPeer")) {
+				if (class_exists("AffiliateLevel")) {
 	
 					$bitLevelAffiliate = $securityAction->getAccessAffiliateUser();
 					if ($bitLevelAffiliate == SecurityModule::LEVEL_ALL) {

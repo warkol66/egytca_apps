@@ -25,9 +25,9 @@
 	<h4>Permisos</h4>
 		<pre>|-$permissions-|</pre>
 	<h4>Mensajes de log</h4>
-		|-foreach from=$messages item=messages key=languageCode-|		
+		|-foreach from=$messages item=message key=languageCode-|		
 		<h5>|-$languageCode-|</h5>		
-		<pre>|-$messages-|</pre>
+		<pre>|-$message-|</pre>
 		|-/foreach-|
 	<h4>Traducciones</h4>
 		|-foreach from=$multilangTexts item=multilangText key=languageCode-|		
@@ -37,14 +37,14 @@
 
 <p>
 <br />
-<form method="post">
+<form method="post" id="form">
 	<input type="hidden" name="moduleName" value="|-$moduleName-|" />
 	<input type="hidden" name="do" value="modulesInstallDoFileCheck" />
 	|-foreach from=$languages item=language-|
 	<input type="hidden" name="languages[]" value="|-$language->getCode()-|" />
 	|-/foreach-|
 	<input type="submit" value="Ir al listado de instalación" />
-	<input type="button" value="Ejecutar SQLs" onClick="javascript:installExecuteSQL(this.form)"/>
+	<input type="button" value="Ejecutar SQLs" onClick="javascript:installExecuteSQL('form')"/>
 </form>
 </p>
 </fieldset>
