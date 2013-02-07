@@ -29,8 +29,9 @@ class SecurityActionLabel extends BaseSecurityActionLabel {
 			$actionWithoutDo = $parts[1].$parts[2][2].$parts[3];
 
 		$securityActionLabel = SecurityActionLabelQuery::create()
+															->setIgnoreCase(true)
 															->filterByLanguage($language)
-															->filterByAction($language)
+															->filterByAction($action)
 																->_or()
 															->filterByAction($actionWithoutDo)
 															->findOne();
