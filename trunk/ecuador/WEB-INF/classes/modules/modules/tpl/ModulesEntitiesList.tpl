@@ -42,7 +42,7 @@
 			<a href="javascript:void(null);" onClick='switch_vis("entity_|-$entity->getId()-|");'>Ver campos</a>
 			<a href="Main.php?do=modulesEntitiesFieldsEdit&entityId=|-$entity->getId()-|">Agregar Campo</a>
 		</td> 
-		<td><a href="Main.php?do=modulesEntitiesEdit&id=|-$entity->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|">|-$entity->getName()-|</a></td> 
+		<td><a href="Main.php?do=modulesEntitiesEdit&id=|-$entity->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|">|-$entity->getName()-|</a></td> 
 		<td>|-$entity->getDescription()-|</td> 
 		<td><a href="Main.php?do=modulesEntitiesSchemaGet&id=|-$entity->getId()-|">Schema</a></td>
 		<td><a href="Main.php?do=modulesEntitiesSqlGet&id=|-$entity->getId()-|">Sql</a></td>

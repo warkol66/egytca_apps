@@ -22,7 +22,7 @@ function checkscript() {
 				<input type="hidden" name="module" value="|-$eachModule->getName()-|" /> 
 				<input type="hidden" name="do" value="modulesDoActivateX" /> 
 				|-if $eachModule->getAlwaysActive() eq 1-|
-				<img src="images/clear.png" class="linkImageInfo" height="16" width="16" title="Haga click para obtener más información" alt="Haga click para obtener más información" onClick="return checkscript()"/> |-else-|
+				<img src="images/clear.png" class="icon iconInfo" height="16" width="16" title="Haga click para obtener más información" alt="Haga click para obtener más información" onClick="return checkscript()"/> |-else-|
 				<input type="checkbox" id="active_|-$eachModule->getName()-|" name="activeModule" value="1" |-$eachModule->getActive()|checked_bool-| onclick="modulesDoActivateX(this.form)" /> |-/if-|
 		</form></td> 
 		<td class="tdSize1"> <a href="Main.php?do=modulesEdit&moduleName=|-$eachModule->getName()-|">|-if $eachModule->getLabel() neq ''-||-$eachModule->getLabel()-||-else-||-$eachModule->getName()-||-/if-|</a> </td> 

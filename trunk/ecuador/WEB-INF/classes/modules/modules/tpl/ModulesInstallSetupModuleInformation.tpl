@@ -57,14 +57,14 @@
 				Indique aquellos módulos de los cuales depende el módulo <strong>|-$moduleName|capitalize-|</strong>.			</p>
 			|-foreach from=$assignedDependencyModules item="dependency"-|
 			<p>
-				<label>|-$dependency->getName()-|</label> 
-				<input type="checkbox" name="dependencies[]" value="|-$dependency->getName()-|" checked="checked"/>
+				<label>|-$dependency-|</label> 
+				<input type="checkbox" name="dependencies[]" value="|-$dependency-|" checked="checked"/>
 			</p>
 			|-/foreach-|
 			|-foreach from=$dependencyModules item="dependency"-|
 			<p>
-				<label>|-$dependency->getName()-|</label> 
-				<input type="checkbox" name="dependencies[]" value="|-$dependency->getName()-|"/>
+				<label>|-$dependency-|</label> 
+				<input type="checkbox" name="dependencies[]" value="|-$dependency-|"/>
 			</p>
 			|-/foreach-|
 				
