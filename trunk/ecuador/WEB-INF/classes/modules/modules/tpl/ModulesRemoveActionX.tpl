@@ -1,3 +1,3 @@
-<script language="JavaScript" type="text/javascript">
-	$("resultDiv").innerHTML = "<span class=\"resultSuccess\">Acción Eliminada</span>";
+<script type="text/javascript">
+	$("#resultDiv").html("<span class='resultSuccess'>Acción Eliminada</span>");
 </script>
