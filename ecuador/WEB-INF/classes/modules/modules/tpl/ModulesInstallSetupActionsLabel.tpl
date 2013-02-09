@@ -15,7 +15,7 @@
 |-foreach from=$actions item=action-|
 	<fieldset id="fieldset_|-$action-|"> 
 		<legend>|-$action-|&nbsp; &nbsp; &nbsp; &nbsp; <input type="button" value="Remover" class="icon iconDelete" onclick="removeAction('|-$moduleName-|', '|-$action-|', removeFieldset('|-$action-|')); return false;" /></legend>
-			<p>|-$label|capitalize-|</p>
+			<h4>|-$label|capitalize-|</h4>
 			|-foreach from=$languages item=language-|
 				|-if is_object($language)-|
 				|-assign var=languageCode value=$language->getCode()-|

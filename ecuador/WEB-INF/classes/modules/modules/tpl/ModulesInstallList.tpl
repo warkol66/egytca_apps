@@ -14,7 +14,34 @@
 |-/if-|
 |-if $modulesToInstall|@count gt 0-|
 	<h4>Módulos disponibles para instalar</h4>
-	<p>
+	<p>	
+<div id="dummy" style="display:none;"></div>
+
+<script language="JavaScript" type="text/JavaScript">
+function checkAll(elementName) {
+	var checkboxes = $("[name='"+ elementName + "']");
+	var allbox = $('#allBoxes').is(':checked');
+	checkboxes.attr('checked',allbox);
+}
+
+function uncheckedInstall() {
+	
+	var modules = $("[name='modules[]']");
+	//var modules = document.getElementsByName('modules[]');
+	
+	form = $("<form></form>");
+	form.attr('action', 'Main.php?do=modulesInstallUnchecked');
+	form.attr('method', 'post');
+	$('body').append(form);
+	
+	modules.each(function(){
+		form.append($(this).clone());
+	});
+	
+	$('dummy').append(form); // firefox compatibility
+	form.submit();
+}
+</script>
 
 <!-- new form is inserted here (for firefox compatibility) -->
 <div id="dummy" style="display:none;"></div>
@@ -45,9 +72,9 @@ function uncheckedInstall() {
 }
 </script>
 <table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders"> 
-	<tr> 
+	<tr>
 		<th width="2%" scope="col">&nbsp;</th> 
-		<th width="18%" scope="col">Nombre del Módulo</th> 
+		<th width="20%" scope="col">Nombre del Módulo</th>
 		<th width="80%" scope="col">Pasos Específicos del proceso de instalación</th> 
 	</tr> 
 	|-foreach from=$modulesToInstall item=eachModule name=modulef-|
