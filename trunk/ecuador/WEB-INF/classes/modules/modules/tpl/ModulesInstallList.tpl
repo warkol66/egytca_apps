@@ -12,6 +12,13 @@
 |-elseif $message eq "phpmvc-xml-error"-|
 	<div class='failureMessage'>El XML de phpmvc no es un xml válido.</div>
 |-/if-|
+|-if $file_errors|@count gt 0-|
+	<div class='errorMessage'> No se pudieron escribir los siguientes archivos: 
+	|-foreach from=$file_errors item=lang -|
+		'|-$lang-|',
+	|-/foreach-|
+	veifique que existen y que tienen los permisos necesarios.</div>
+|-/if-|
 |-if $modulesToInstall|@count gt 0-|
 	<h4>Módulos disponibles para instalar</h4>
 	<p>	

@@ -25,6 +25,9 @@ class ModulesInstallListAction extends BaseAction {
 
 		$message=$_GET["message"];
 		$smarty->assign("message",$message);
+		
+		if(isset($file_errors))
+			$smarty->assign("file_errors",$_GET["file_errors"]);
 
 		//buscamos todos los modulos sin instalar.
 		$modulePath = "WEB-INF/classes/modules/";
@@ -40,9 +43,7 @@ class ModulesInstallListAction extends BaseAction {
 				if (empty($result))
 					//es candidato
 					array_push($modulesToInstall, $moduleName);
-
 			}
-
 		}
 
 		closedir($directoryHandler);

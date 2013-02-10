@@ -59,7 +59,7 @@
 					 validate = "true">
 			<forward name="success"  path="/Main.php?do=modulesInstallSetupPermissions" redirect="true" />
 			<forward name="success-step"  path="/Main.php?do=modulesInstallList&amp;message=step-success" redirect="true"/>
-			<forward name="failure" path="/Main.php?do=modulesInstallList&amp;message=failure" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=modulesInstallList" redirect="true"/>
 		</action>
 
 		<action    path = "modulesInstallDoSetupPermissions"

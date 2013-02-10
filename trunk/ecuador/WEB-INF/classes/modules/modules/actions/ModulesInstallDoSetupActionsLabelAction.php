@@ -25,6 +25,21 @@ class ModulesInstallDoSetupActionsLabelAction extends BaseAction {
 		return $fc;
 
 	}
+	
+	function executeFailure($mapping, $file_errors) {
+
+		$myRedirectConfig = $mapping->findForwardConfig('failure');
+		$myRedirectPath = $myRedirectConfig->getpath();
+		$queryData = '&moduleName='.$_POST["moduleName"];
+		if (isset($_POST['mode']))
+			$queryData .= '&mode=' . $_POST['mode'];
+		foreach ($file_errors as $lang)
+			$queryData .= '&file_errors[]=' . 'actionLabel_' . $lang . '.sql';
+		$myRedirectPath .= $queryData;
+		$fc = new ForwardConfig($myRedirectPath, True);
+		return $fc;
+
+	}
 
 	function execute($mapping, $form, &$request, &$response) {
 
@@ -53,19 +68,28 @@ class ModulesInstallDoSetupActionsLabelAction extends BaseAction {
 			return $this->executeSuccess($mapping);
 
 		$modulePath = "WEB-INF/classes/modules/" . $_POST['moduleName'] . '/setup';
-		if (!is_dir($modulePath))
-			mkdir($modulePath,0755);
+		if (!is_dir($modulePath)){
+			if(!mkdir($modulePath,0755))
+				return $mapping->findForwardConfig('falure');
+		}
 
 		$modulePath .= '/';
 
 		//guardado de informacion de descripcion del modulo
 
 		$fds = Array();
+		$file_errors = Array();
 		foreach ($_POST["languages"] as $languageCode) {
-			$fds[$languageCode] = fopen($modulePath . 'actionLabel_'.$languageCode.'.sql','w');
-			$securityActionLabel = new SecurityActionLabel();
-			$sql = $securityActionLabel->getSQLCleanup($_POST['moduleName'],$languageCode);
-			fprintf($fds[$languageCode],"%s\n",$sql);
+			//si el archivo existe y tiene permisos de escritura lo modifico
+			if(is_writable($modulePath . 'actionLabel_'.$languageCode.'.sql')) {
+				$fds[$languageCode] = fopen($modulePath . 'actionLabel_'.$languageCode.'.sql','w');
+				$securityActionLabel = new SecurityActionLabel();
+				$sql = $securityActionLabel->getSQLCleanup($_POST['moduleName'],$languageCode);
+				fprintf($fds[$languageCode],"%s\n",$sql);
+			}else{
+				//si no existe o no tiene permisos de escritura, lo voy a informar
+				$file_errors[$languageCode] = $languageCode;
+			}
 		}
 
 		foreach ($_POST["labels"] as $action => $labels) {
@@ -82,6 +106,12 @@ class ModulesInstallDoSetupActionsLabelAction extends BaseAction {
 
 		foreach ($_POST["languages"] as $languageCode)
 			fclose($fds[$languageCode]);
+			
+		/*print_r($file_errors);
+		die();*/
+		$smarty->assign("file_errors",$file_errors);
+		
+		return $this->executeFailure($mapping, $file_errors);
 
 		//solamente se ejecuta este paso
 		if (isset($_POST['stepOnly']))
