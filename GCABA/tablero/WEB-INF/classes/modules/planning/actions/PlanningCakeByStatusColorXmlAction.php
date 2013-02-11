@@ -14,21 +14,28 @@ class PlanningCakeByStatusColorXmlAction extends BaseAction {
 		
 		$this->template->template = 'TemplatePlain.tpl';
 		
-		global $system;
 		if (!empty($_GET['positionId'])) {
 			$smarty->assign('type', $_GET['type']);
-			$position = PositionQuery::create()->findOneById($_GET['positionId']);
+			$position = PositionQuery::create()->findOneById($_GET['positionId'])->getGraphParent();
 			
-			foreach ($system['config']['tablero']['colors'] as $color) {
-				if ($_GET['type'] == 'projects')
-					$smarty->assign($color.'Count', $position->countGraphParentProjectsByStatusColor($color));
-				elseif ($_GET['type'] == 'constructions')
-					$smarty->assign($color.'Count', $position->countGraphParentConstructionsByStatusColor($color));
-			}
-			
-			header('Content-type: application/xml');
-			return $mapping->findForwardConfig('success');
+			$method = $_GET['type'] == 'projects' ? 'getOnlyProjectsWithDescendants' : 'getOnlyConstructionsWithDescendants';
+			$entities = $position->$method();
 		}
+		else {
+			$entityQuery = $_GET['type'] == 'projects' ? PlanningProjectQuery : PlanningConstructionQuery;
+			$entities = $entityQuery::create()->find();
+		}
+
+		$colorsCount = array();
+		foreach ($entities as $entity) {
+			$colorsCount[$entity->statusColor()]++;
+		}
+		foreach ($colorsCount as $color => $count) {
+			$smarty->assign($color.'Count', $count);
+		}
+		
+		header('Content-type: application/xml');
+		return $mapping->findForwardConfig('success');
 	}
 
 }

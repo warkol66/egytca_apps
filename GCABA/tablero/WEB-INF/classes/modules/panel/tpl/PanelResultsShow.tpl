@@ -24,7 +24,7 @@
                 <div class="floatleft"id="chartContainer"></div>
                 <script type="text/javascript">
                     var myChart = new FusionCharts( "images/Pie3D.swf", "myChartId", "300", "225", "0", "1" );
-                    myChart.setDataURL(escape("Main.php?do=planningCakeByStatusColorXml&type=projects&positionId=|-$position->getId()-|"));
+                    myChart.setDataURL(escape("Main.php?do=planningCakeByStatusColorXml&type=projects"));
                     myChart.render("chartContainer");
                 </script>
             </div>
@@ -41,7 +41,7 @@
                 <div class="floatleft" id="chartContainer2"></div>
                 <script type="text/javascript">
                     var myChart2 = new FusionCharts( "images/Pie3D.swf", "myChartId2", "300", "225", "0", "1" );
-                    myChart2.setDataURL(escape("Main.php?do=planningCakeByStatusColorXml&type=constructions&positionId=|-$position->getId()-|"));
+                    myChart2.setDataURL(escape("Main.php?do=planningCakeByStatusColorXml&type=constructions"));
                     myChart2.render("chartContainer2");
                 </script>
             </div>
@@ -61,7 +61,7 @@
     <br/>
     <script type="text/javascript">
         var myChart4 = new FusionCharts("images/Column2D.swf", "myChartId4", "1000", "300", "0", "1" );
-        myChart4.setDataURL("xml/obras_por_ministerio_ejecutandose_por_mes.xml");
+	myChart4.setDataURL(escape("Main.php?do=planningBarsQXml"));
         myChart4.render("chartContainer4");
     </script>
 
