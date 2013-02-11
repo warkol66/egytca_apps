@@ -400,7 +400,7 @@ class Position extends BasePosition {
 	public function getGraphParent() {
 		$current = $this;
 		do {	
-			if ($current->getType() == 11 || $current->getPlanning())
+			if ($current->getType() == 9 || $current->getPlanning())
 				$chosen = $current;
 		} while ($current = $current->getParent()); // es una asignacion intencional
 		
