@@ -20,6 +20,15 @@ class ActionLogPeer extends BaseActionLogPeer {
 	private $module;
 	private $affiliateId;
 
+	//mapea las condiciones del filtro
+	var $filterConditions = array(
+					"dateFrom" => "setDateFrom",
+					"setDateTo" => "setDateTo",
+					"module" => "setModule",
+					"affiliateId" => "setAffiliateId",
+					"userId" => "setUserId"
+				);
+
 	/**
 	 * Especifica una fecha desde para una busqueda personalizada.
 	 *
