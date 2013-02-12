@@ -4,7 +4,7 @@ class ConfigModule {
 
 	private static $configModule = array(
 		"global" => array(
-			"defaultMode" => "planning",
+			"defaultMode" => "panel",
 			"debugMode" => true,
 			"noSecurity" => true,
 			"noCheckLogin" => false,
@@ -17,17 +17,19 @@ class ConfigModule {
 			"unifiedUsernames" => true,
 			"backupTimeLimit" => 720,
 			"tmpwatch" => "/usr/sbin/tmpwatch",
-			"internalMailUseAffiliates" => false 
-		),
-		"affiliates" => array(
-			"unifiedLogin" => false
+			"securityFailureThreshold" => 5,
+			"securityFailureThresholdTime" => 15,
+			"securityFailureBlockedTime" => 15
 		),
 		"users" => array(
 			"useTimezones" => false,
 			"forceFirstPasswordChange" => true,
 			"askForNewPasswordOnRecovery" => false,
 			"useFilterByUserGroup" => true,
-			"passwordRecoveryExpirationTimeInHours" => 24
+			"passwordRecoveryExpirationTimeInHours" => 24,
+			"loginFailureThreshold" => 5,
+			"loginFailureThresholdTime" => 15,
+			"loginFailureBlockedTimeTime" => 15
 		),
 		"planning" => array(
 			"useDemoValues" => false,
@@ -153,8 +155,8 @@ class ConfigModule {
 				)
 		),
 		"documents" => array(
-			"usePasswords" => true,
-			"useFullTextSearch" => true,
+			"usePasswords" => false,
+			"useFullTextSearch" => false,
 			"catdocPath" => "/usr/local/bin/",
 			"pdftotextPath" => "/usr/local/bin/",
 			"maxUploadSize" => '15M',
@@ -166,8 +168,11 @@ class ConfigModule {
 				"Pdf" => "pdf",
 				"Images" => "jpeg,jpg,png,gif"
 				)
-		)
-
+		),
+		"remoteSystems" => array(
+			"prensa" => array( "Tablero de Prensa" => "prensagcba.com" ),
+			"agenda" => array( "Agenda de Gobierno" => "agendagcba.com" )
+		),
 	);
 
 	public static function get($module,$key) {
