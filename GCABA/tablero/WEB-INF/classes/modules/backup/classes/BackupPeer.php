@@ -249,7 +249,7 @@ class BackupPeer {
 					$clearRoute = explode($rootDir.'files/',$filea['dir']);
 					$path = $clearRoute[1] . '/';
 					if (!empty($path) && !file_exists($path))
-						mkdir($path, 0777, true);
+						mkdir($path, 0755, true);
 				}
 				//guardamos el archivo en su ubicacion
 				file_put_contents($path . $filea["name"] , $filea['data']);
@@ -258,7 +258,7 @@ class BackupPeer {
 		
 		foreach ($this->pathContentIgnoreList as $createme) {
 			if (!file_exists($createme))
-				mkdir($createme, 0777, true);
+				mkdir($createme, 0755, true);
 		}
 
 		//hay procesamiento de SQL
