@@ -4,7 +4,7 @@
  *
  * Listado de Etiquetas de proyectos extendiendo BaseListAction
  *
- * @package    actors
+ * @package    planning
  */
 
 class PlanningProjectTagsListAction extends BaseListAction {
