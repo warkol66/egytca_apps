@@ -258,24 +258,38 @@
 	<table name="planning_budgetRelation" phpName="BudgetRelation" description="Asociacion patridas presupuestarias y proyectos u obras">
 	
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
-		<column name="objectType" type="VARCHAR" size="100" description="Tipo de objeto relacionado"/>
-		<column name="objectId" type="INTEGER" description="Id del proyecto u obra"/>
+		<column name="objectType" type="VARCHAR" size="100" description="Tipo de objeto relacionado" />
+		<column name="objectId" type="INTEGER" description="Id del proyecto u obra" />
 
 		<!--Partida presupuestaria-->
-		<column name="budgetYear" type="INTEGER" description="Ano"/>
-		<column name="budgetJurisdiction" type="INTEGER" description="Jurisdiccion"/>
-		<column name="budgetOgese" type="INTEGER" description="OGESE"/>
-		<column name="budgetUnit" type="INTEGER" description="Unidad Ejecutora"/>
-		<column name="budgetProgram" type="INTEGER" description="Programa"/>
-		<column name="budgetSubProgram" type="INTEGER" description="Subprograma"/>
-		<column name="budgetProyect" type="INTEGER" description="Proyecto"/>
-		<column name="budgetActivity" type="INTEGER" description="Actividad"/>
-		<column name="budgetConstruction" type="INTEGER" description="Obra"/>
+		<column name="budgetYear" type="INTEGER" description="Ano" />
+		<column name="budgetJurisdiction" type="INTEGER" description="Jurisdiccion" />
+		<column name="budgetOgese" type="INTEGER" description="OGESE" />
+		<column name="budgetUnit" type="INTEGER" description="Unidad Ejecutora" />
+		<column name="budgetProgram" type="INTEGER" description="Programa" />
+		<column name="budgetSubProgram" type="INTEGER" description="Subprograma" />
+		<column name="budgetProyect" type="INTEGER" description="Proyecto" />
+		<column name="budgetActivity" type="INTEGER" description="Actividad" />
+		<column name="budgetConstruction" type="INTEGER" description="Obra" />
 		<!--Fin Partida presupuestaria-->
 
-		<column name="totalItem" type="BOOLEAN" sqlType="BOOL" default="0" description="Utiliza toda la partida?"/>
-		<column name="amount" type="DECIMAL" size="12" scale="2" description="Presupuesto Total de la Obra"/>
+		<column name="totalItem" type="BOOLEAN" sqlType="BOOL" default="0" description="Utiliza toda la partida?" />
+		<column name="amount" type="DECIMAL" size="16" scale="2" description="Presupuesto Total de la Obra" />
 		
+		<!--SIGAF-->
+		<column name="sanctioned" type="DECIMAL" size="16" scale="2" description="Presupuesto Sancionado" />
+		<column name="active" type="DECIMAL" size="16" scale="2" description="Presupuesto Vigente" />
+		<column name="restricted" type="DECIMAL" size="16" scale="2" description="Presupuesto Restringido" />
+		<column name="preventive" type="DECIMAL" size="16" scale="2" description="Presupuesto Preventivo" />
+		<column name="definitive" type="DECIMAL" size="16" scale="2" description="Presupuesto Definitivo" />
+		<column name="available" type="DECIMAL" size="16" scale="2" description="Presupuesto Disponible" />
+		<column name="accrued" type="DECIMAL" size="16" scale="2" description="Presupuesto Devengado" />
+		<column name="paid" type="DECIMAL" size="16" scale="2" description="Presupuesto Pagado" />
+		<!--Datos de actualizacion-->
+		<column name="match" type="BOOLEAN" sqlType="BOOL" default="0" description="Si el dato fue encontrado" />
+		<column name="updatedSigaf" type="TIMESTAMP" description="Fecha de actualizacion" />
+		<!--Fin SIGAF-->
+
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
@@ -387,7 +401,11 @@
 		<column name="priority" type="BOOLEAN" description="Es una actividad Prioritaria?"/>
 		<column name="priorityPercentage" type="INTEGER" description="Porcentaje de prioridad"/>
 		<column name="order" type="INTEGER" default="999" description="Orden"/>
+		<column name="userObjectType" type="VARCHAR" size="100" description="tipo de objeto usuario realizo la accion"/>
+		<column name="userObjectId" type="INTEGER" description="id de objeto usuario realizo la accion"/>
 		
+  	<behavior name="timestampable" />
+
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
