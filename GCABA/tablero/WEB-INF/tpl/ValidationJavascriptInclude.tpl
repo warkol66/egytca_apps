@@ -56,8 +56,8 @@
 
 		var dateFormat = '|-$parameters.dateFormat.value-|';
 		var regExp = '/^(()|(' + dateFormat + '))$/';
-		regExp = regExp.gsub('d', '(0[1-9]|[12][0-9]|3[01])');
-		regExp = regExp.gsub('m', '(0[1-9]|1[012])');
+		regExp = regExp.gsub('d', '([1-9]|0[1-9]|[12][0-9]|3[01])');
+		regExp = regExp.gsub('m', '([1-9]|0[1-9]|1[012])');
 		regExp = regExp.gsub('y', '\\d{2,2}');
 		regExp = regExp.gsub('Y', '\\d{4,4}');
 
@@ -65,17 +65,17 @@
 
 			// filtramos el día.
 			var dayRegExp = dateFormat.gsub(/[myY]/, '');
-			dayRegExp = dayRegExp.gsub(/^(.)*-d$/, '-\\d{2,2}$');
-			dayRegExp = dayRegExp.gsub(/^d(.)*$/, '^\\d{2,2}-');
-			dayRegExp = dayRegExp.gsub(/^(.)*-d-(.)*$/, '-\\d{2,2}-');
+			dayRegExp = dayRegExp.gsub(/^(.)*-d$/, '-\\d{1,2}$');
+			dayRegExp = dayRegExp.gsub(/^d(.)*$/, '^\\d{1,2}-');
+			dayRegExp = dayRegExp.gsub(/^(.)*-d-(.)*$/, '-\\d{1,2}-');
 			dayRegExp = new RegExp(dayRegExp);
 			var day = dayRegExp.exec(element.value)[0].gsub('-', '');
 
 			// filtramos el mes.
 			var monthRegExp = dateFormat.gsub(/[dyY]/, '');
-			monthRegExp = monthRegExp.gsub(/^(.)*-m$/, '-\\d{2,2}$');
-			monthRegExp = monthRegExp.gsub(/^m(.)*$/, '^\\d{2,2}-');
-			monthRegExp = monthRegExp.gsub(/^(.)*-m-(.)*$/, '-\\d{2,2}-');
+			monthRegExp = monthRegExp.gsub(/^(.)*-m$/, '-\\d{1,2}$');
+			monthRegExp = monthRegExp.gsub(/^m(.)*$/, '^\\d{1,2}-');
+			monthRegExp = monthRegExp.gsub(/^(.)*-m-(.)*$/, '-\\d{1,2}-');
 			monthRegExp = new RegExp(monthRegExp);
 			var month = monthRegExp.exec(element.value)[0].gsub('-', '');
 
