@@ -1,16 +1,28 @@
 <?php
 /**
- * PlanningConstructionsDoEditAction
+ * PanelConstructionsDoEditAction
  *
- * Crea o guarda cambios de Proyectos (PlanningProject)
+ * Crea o guarda cambios de Obras (PlanningConstruction)
  *
- * @package    planning
- * @subpackage    planningProjects
+ * @package    panel
+ * @subpackage    planningConstructions
  */
 
-class PlanningProjectsDoEditAction extends BaseAction {
+/*
+require_once 'BaseDoEditAction.php';
 
-	function PlanningProjectsDoEditAction() {
+class PanelConstructionsDoEditAction extends BaseDoEditAction {
+	
+	function __construct() {
+		parent::__construct('PlanningConstruction');
+	}
+
+}
+*/
+
+class PanelConstructionsDoEditAction extends BaseAction {
+
+	function PanelConstructionsDoEditAction() {
 		;
 	}
 
@@ -33,35 +45,37 @@ class PlanningProjectsDoEditAction extends BaseAction {
 		$id = $request->getParameter("id");
 		$params = Common::addUserInfoToParams($_POST["params"]);
 
+		$params["surface"] = Common::convertToMysqlNumericFormat($params["surface"]);
+		$params["amount"] = Common::convertToMysqlNumericFormat($params["amount"]);
 		$params["appliedAmount"] = Common::convertToMysqlNumericFormat($params["appliedAmount"]);
 		$params["managementAmount"] = Common::convertToMysqlNumericFormat($params["managementAmount"]);
 		$params["raisedAmount"] = Common::convertToMysqlNumericFormat($params["raisedAmount"]);
 		$params["sanctionAmount"] = Common::convertToMysqlNumericFormat($params["sanctionAmount"]);
 
 		if (!empty($id)) {
-			$planningProject = BaseQuery::create("PlanningProject")->findOneByID($id);
-			if (!empty($planningProject)) {
-				$planningProjectLog = new PlanningProjectLog();
+			$planningConstruction = BaseQuery::create("PlanningConstruction")->findOneByID($id);
+			if (!empty($planningConstruction)) {
+				$planningConstructionLog = new PlanningConstructionLog();
 			}
 		}
 		else {
-			$planningProject = new PlanningProject();
+			$planningConstruction = new PlanningConstruction();
 		}
 
-		if (!$planningProject->isNew()) {
-			$planningProjectLog->fromJSON($planningProject->toJSON());
-			$planningProjectLog->setId(NULL);
-			$planningProjectLog->setProjectId($id);
+		if (!$planningConstruction->isNew()) {
+			$planningConstructionLog->fromJSON($planningConstruction->toJSON());
+			$planningConstructionLog->setId(NULL);
+			$planningConstructionLog->setConstructionId($id);
 		}
 
-		$planningProject->fromArray($params, BasePeer::TYPE_FIELDNAME);
-		$planningProject->setVersion($planningProject->getVersion() + 1);
+		$planningConstruction->fromArray($params, BasePeer::TYPE_FIELDNAME);
+		$planningConstruction->setVersion($planningConstruction->getVersion() + 1);
 
 		try {
-			$planningProject->save();
-			if (isset($planningProjectLog)) {
+			$planningConstruction->save();
+			if (isset($planningConstructionLog)) {
 				try {
-					$planningProjectLog->save();
+					$planningConstructionLog->save();
 				} catch (Exception $e) {
 					if (ConfigModule::get("global","showPropelExceptions")) {
 						print_r($e->__toString());
@@ -100,8 +114,8 @@ class PlanningProjectsDoEditAction extends BaseAction {
 			else
 				$budgetRelation = new BudgetRelation();
 			$budgetRelation->fromArray($budgetItem,BasePeer::TYPE_FIELDNAME);
-			$budgetRelation->setObjectType('Project');
-			$budgetRelation->setObjectid($planningProject->getId());
+			$budgetRelation->setObjectType('Construction');
+			$budgetRelation->setObjectid($planningConstruction->getId());
 			try {
 				$budgetRelation->save();
 			} catch (PropelException $exp) {
@@ -110,7 +124,7 @@ class PlanningProjectsDoEditAction extends BaseAction {
 			}
 		}
 		//Fin partidas
-
+		
 		/***
 		 * Actividades
 		 */
@@ -137,8 +151,8 @@ class PlanningProjectsDoEditAction extends BaseAction {
 			if (!is_numeric($activity['order']))
 				$activity['order'] = 999;
 			$activityObj->fromArray($activity,BasePeer::TYPE_FIELDNAME);
-			$activityObj->setObjectType('Project');
-			$activityObj->setObjectid($planningProject->getId());
+			$activityObj->setObjectType('Construction');
+			$activityObj->setObjectid($planningConstruction->getId());
 			try {
 				$activityObj->save();
 			} catch (PropelException $exp) {
@@ -148,17 +162,72 @@ class PlanningProjectsDoEditAction extends BaseAction {
 		}
 		//Fin actividades
 
+		/***
+		 * Registros de ejcucion
+		 */
+		foreach ($_POST["progressRecord"] as $item) {
+			foreach ($item as $itemValue => $value) {
+				if ($itemValue == "physicalProgress" || $itemValue == "financialProgress") 
+					$value = Common::convertToMysqlNumericFormat($value);
+				$itemValues[$itemValue] = $value;
+			}
+			//Cuando complete todos los valores asociados a un monto, lo guardo en $itemParams
+			if ($itemValue == "eol") {
+				$itemParams[] = $itemValues;
+				$itemValues = array();
+			}
+		}
+		//Guardo los datos de montos asociados a la obra
+		foreach ($itemParams as $progressRecord) {
+			if (!empty($progressRecord["id"])) {
+				$record = ConstructionProgressQuery::create()->findOneById($progressRecord["id"]);	
+				if (empty($record))
+					$record = new ConstructionProgress();
+			}
+			else
+				$record = new ConstructionProgress();
+			$record->fromArray($progressRecord,BasePeer::TYPE_FIELDNAME);
+			$record->setConstructionid($planningConstruction->getId());
+			try {
+				$record->save();
+			} catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->__toString());
+			}
+		}
+		//Fin Registros de ejcucion
+
+
+		$regionsIds = $_POST['params']['regionsIds'];
+		if (empty($regionsIds))
+			$regionsIds = array();
+
+		$query = ConstructionRegionQuery::create()->filterByPlanningConstruction($planningConstruction);
+		$query->delete();
+
+		foreach ($regionsIds as $regionId) {
+			$region = RegionQuery::create()->findOneById($regionId);
+			$assigned = $query->findOneByRegionid($regionId);
+			if (empty($assigned))
+				try {
+					$planningConstruction->addRegion($region);
+				} catch (Exception $e) {
+				}
+		}
+		$planningConstruction->save();
+
+
 		if (isset($id))
 			$logSufix = ', ' . Common::getTranslation('action: create','common');
 		else
 			$logSufix = ', ' . Common::getTranslation('action: edit','common');
 
-		Common::doLog('success', $planningProject->getName() . $logSufix);
+		Common::doLog('success', $planningConstruction->getName() . $logSufix);
 
 		$params = array();
-		$params["id"] = $planningProject->getId();
-		if (!empty($_POST["fromOperativeObjectiveId"]))
-			$params["fromOperativeObjectiveId"] = $_POST["fromOperativeObjectiveId"];
+		$params["id"] = $planningConstruction->getId();
+		if (!empty($_POST["fromPlanningProjectId"]))
+			$params["fromPlanningProjectId"] = $_POST["fromPlanningProjectId"];
 		return $this->addParamsAndFiltersToForwards($params, $filters, $mapping,'success-edit');
 
 	}

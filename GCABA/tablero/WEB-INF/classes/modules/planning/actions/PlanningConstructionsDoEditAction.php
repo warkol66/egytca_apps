@@ -5,7 +5,7 @@
  * Crea o guarda cambios de Obras (PlanningConstruction)
  *
  * @package    planning
- * @subpackage    planningPlanningConstructions
+ * @subpackage    planningConstructions
  */
 
 /*
@@ -147,6 +147,9 @@ class PlanningConstructionsDoEditAction extends BaseAction {
 			}
 			else
 				$activityObj = new PlanningActivity();
+			$activity = Common::addUserInfoToParams($activity);
+			if (!is_numeric($activity['order']))
+				$activity['order'] = 999;
 			$activityObj->fromArray($activity,BasePeer::TYPE_FIELDNAME);
 			$activityObj->setObjectType('Construction');
 			$activityObj->setObjectid($planningConstruction->getId());

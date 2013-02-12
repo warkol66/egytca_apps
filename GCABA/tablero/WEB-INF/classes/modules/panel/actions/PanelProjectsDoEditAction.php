@@ -1,16 +1,16 @@
 <?php
 /**
- * PlanningConstructionsDoEditAction
+ * PanelProjectsDoEditAction
  *
  * Crea o guarda cambios de Proyectos (PlanningProject)
  *
- * @package    planning
+ * @package    panel
  * @subpackage    planningProjects
  */
 
-class PlanningProjectsDoEditAction extends BaseAction {
+class PanelProjectsDoEditAction extends BaseAction {
 
-	function PlanningProjectsDoEditAction() {
+	function PanelProjectsDoEditAction() {
 		;
 	}
 
