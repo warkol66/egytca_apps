@@ -2,9 +2,7 @@
 <h2>Etiquetas</h2>
 <h1>|-if $planningProjectTag->isNew()-|Crear|-else-|Editar|-/if-| Etiquetas</h1>
 <div id="div_actor">
-	<p>Ingrese los datos del Etiquetas.<br>
-<strong>Atención!</strong>: Las estiquetas e utilizan para destacar los textos en los listados de titutlares.<br>
- Las etiqueta sno pueden contener estos caracteres <strong>( "\" - "/" - "'" - "?" - "|" )</strong>.</p>
+	<p>Ingrese los datos del Etiquetas.</p>
 		|-if $message eq "error"-|
 			<div class="errorMessage">Ha ocurrido un error al intentar guardar la Etiqueta</div>
 		|-else if $message eq "ok"-|
@@ -13,7 +11,7 @@
 	
 	<form name="form_edit_actor" id="form_edit_actor" action="Main.php" method="post">
 		<fieldset title="Formulario de edición de datos de un actor">
-			<legend>Formulario de Administración de Etiquetas de Titulares</legend>
+			<legend>Formulario de Administración de Etiquetas de Proyectos</legend>
 			|-include file='PlanningProjectTagsForm.tpl'-|
 				|-if !$planningProjectTag->isNew()-|
 				<input type="hidden" name="id" id="id" value="|-$planningProjectTag->getid()-|" />

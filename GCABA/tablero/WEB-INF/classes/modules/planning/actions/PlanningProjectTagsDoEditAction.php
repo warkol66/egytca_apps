@@ -4,7 +4,7 @@
  *
  * Crea o guarda cambios de etiquetas (PlanningProjectTag)
  *
- * @package    headlines
+ * @package    planning
  */
 
 class PlanningProjectTagsDoEditAction extends BaseDoEditAction {
