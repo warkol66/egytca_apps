@@ -521,4 +521,15 @@ class PlanningProject extends BasePlanningProject {
 		return ($projectTagQuery->count() > 0);															 		
 	}
 
+	/**
+	 * Devuelve las actividades
+	 * @return array Relacion las actividades
+	 */
+	public function getActivitiesOrderedForGantt() {
+		return BaseQuery::create('PlanningActivity')->filterByObjecttype('Project')->filterByObjectid($this->getId())
+									->orderByOrder()
+									->orderByStartingdate()
+									->find();
+	}
+
 } // PlanningProject

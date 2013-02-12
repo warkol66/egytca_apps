@@ -304,4 +304,15 @@ class PlanningConstruction extends BasePlanningConstruction {
 		return;
 	}
 
+	/**
+	 * Devuelve las actividades
+	 * @return array Relacion las actividades
+	 */
+	public function getActivitiesOrderedForGantt() {
+		return BaseQuery::create('PlanningActivity')->filterByObjecttype('Construction')->filterByObjectid($this->getId())
+									->orderByOrder()
+									->orderByStartingdate()
+									->find();
+	}
+
 } // PlanningConstruction
