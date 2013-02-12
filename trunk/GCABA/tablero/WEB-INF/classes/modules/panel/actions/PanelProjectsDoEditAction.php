@@ -126,24 +126,26 @@ class PanelProjectsDoEditAction extends BaseAction {
 		}
 		//Guardo los datos de montos asociados a la obra
 		foreach ($activityParams as $activity) {
-			if (!empty($activity["id"])) {
-				$activityObj = PlanningActivityQuery::create()->findOneById($activity["id"]);
-				if (empty($activityObj))
+			if (!empty($activity['name'])) {
+				if (!empty($activity["id"])) {
+					$activityObj = PlanningActivityQuery::create()->findOneById($activity["id"]);
+					if (empty($activityObj))
+						$activityObj = new PlanningActivity();
+				}
+				else
 					$activityObj = new PlanningActivity();
-			}
-			else
-				$activityObj = new PlanningActivity();
-			$activity = Common::addUserInfoToParams($activity);
-			if (!is_numeric($activity['order']))
-				$activity['order'] = 999;
-			$activityObj->fromArray($activity,BasePeer::TYPE_FIELDNAME);
-			$activityObj->setObjectType('Project');
-			$activityObj->setObjectid($planningProject->getId());
-			try {
-				$activityObj->save();
-			} catch (PropelException $exp) {
-				if (ConfigModule::get("global","showPropelExceptions"))
-					print_r($exp->__toString());
+				$activity = Common::addUserInfoToParams($activity);
+				if (!is_numeric($activity['order']))
+					$activity['order'] = 999;
+				$activityObj->fromArray($activity,BasePeer::TYPE_FIELDNAME);
+				$activityObj->setObjectType('Project');
+				$activityObj->setObjectid($planningProject->getId());
+				try {
+					$activityObj->save();
+				} catch (PropelException $exp) {
+					if (ConfigModule::get("global","showPropelExceptions"))
+						print_r($exp->__toString());
+				}
 			}
 		}
 		//Fin actividades
