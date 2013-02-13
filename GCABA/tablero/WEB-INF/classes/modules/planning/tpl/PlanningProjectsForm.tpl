@@ -86,8 +86,9 @@
       <input name="params[goalQuantification]" type="text" id="params_goalQuantification" size="80" value="|-$planningProject->getGoalQuantification()-|" title="Meta Cuantificacion" maxlength="100" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
     </p>
 	<p>
-        <label for="params_investment">Proyecto de inversión?</label><input name="params[investment]" type="hidden" value="0"/>
-      <input name="params[investment]" type="checkbox" id="params_investment" value="1" |-$planningProject->getInvestment()|checked_bool-|  title="Proyecto de Inversion" |-$readonly|readonly-|/>
+     <label for="params_investment">Proyecto de inversión?</label><input name="params[investment]" type="hidden" value="0"/>
+      <input name="params[investment]" type="checkbox" id="params_investment" value="1" title="Proyecto de Inversion" |-if $planningProject->countPlanningConstructions() gt 0-|checked="checked" |-"readonly"|readonly-||-else-|
+			|-$planningProject->getInvestment()|checked_bool-| |-$readonly|readonly-||-/if-| />
     </p>
 	<p>
 			<label for="params_preexisting">Proyecto preexistente?</label><input name="params[preexisting]" type="hidden" value="0"/>
@@ -147,7 +148,7 @@
 	</p>
 	<p>     
 		<label for="params_order">Orden</label>
-		<input id="params_order" class="order" name="params[order]" type='text' value='|-if $planningProject->getOrder() neq $defaultOrder-||-$planningProject->getOrder()-||-/if-|' size="12" title="Ingrese el orden"  |-$readonly|readonly-| />
+		<input id="params_order" class="order" name="params[order]" type='text' value='|-if $planningProject->getOrder() neq $defaultOrder-||-$planningProject->getOrder()-||-/if-|' size="3" title="Ingrese el orden"  |-$readonly|readonly-| />
 	</p>
 	  
 	  
@@ -173,15 +174,15 @@
     <input type="hidden" name="params[startingYear]" id="params_startingYear" value="|-$startingYear-|" /> 
     <input type="hidden" name="params[endingYear]" id="params_endingYear" value="|-$endingYear-|" /> 
     <input type="hidden" name="currentPage" id="currentPage" value="|-$currentPage-|" /> 
-    <input type="hidden" name="do" id="do" value="planningProjectsDoEdit" /> 
+    <input type="hidden" name="do" id="do" value="|-if isset($do)-||-$do-||-else-|planningProjectsDoEdit|-/if-|" /> 
 		<p>|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
 |-if $planningProject->getInvestment()-|
 <input type='button' onClick='location.href="Main.php?do=planningConstructionsEdit&fromPlanningProjectId=|-$planningProject->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Agregar Obra' title='Agregar Obra' />|-/if-|
 		|-if !$planningProject->isNew() && $fromOperativeObjectiveId-|	<input type='button' onClick='location.href="Main.php?do=planningProjectsEdit&fromOperativeObjectiveId=|-$fromOperativeObjectiveId-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Agregar otro proyecto' title="Agregar otro proyecto al objetivo operativo"/>|-/if-|
 		|-if $fromOperativeObjectiveId-|
-		<input type='button' onClick='location.href="Main.php?do=planningProjectsList&id=|-$fromOperativeObjectiveId-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|&filters[operativeobjectiveid]=|-$fromOperativeObjectiveId-|"' value='Regresar al Objetivo Operativo' title='Regresar al Objetivo Operativo' />
+		<input type='button' onClick='location.href="Main.php?do=|-if isset($list)-||-$list-||-else-|planningProjectsList|-/if-|&id=|-$fromOperativeObjectiveId-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|&filters[operativeobjectiveid]=|-$fromOperativeObjectiveId-|"' value='Regresar al Objetivo Operativo' title='Regresar al Objetivo Operativo' />
 		|-else-|
-	<input type='button' onClick='location.href="Main.php?do=planningProjectsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Proyectos"/>
+	<input type='button' onClick='location.href="Main.php?do=|-if isset($list)-||-$list-||-else-|planningProjectsList|-/if-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Proyectos"/>
 		|-/if-|</p>	|-/if-|
     </fieldset> 
   </form>

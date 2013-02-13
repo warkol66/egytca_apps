@@ -43,8 +43,8 @@
 				<input name="filters[getPositionBrood]" type="checkbox" value="1" |-$filters.getPositionBrood|checked_bool-| />
 </p>
 <p>
-	<label for="filters_tags">TAGS</label>
-	<select style="width:480px" class="chzn-select wide-chz-select" data-placeholder="Seleccione uno o varios tags..." multiple="multiple" id="filters_tags" name="filters[tagIds][]" size="5" title="tags">
+	<label for="filters_tags">Etiquetas</label>
+	<select style="width:480px" class="chzn-select wide-chz-select" data-placeholder="Seleccione una o varias etiquetas..." multiple="multiple" id="filters_tags" name="filters[tagIds][]" size="5" title="tags">
 		|-foreach from=$tags item=tag-|
 			<option value="|-$tag->getId()-|" |-in_array($tag->getId(), $filters.tagIds)|selected:true-|>|-$tag->getName()-|</option>
 		|-/foreach-|
@@ -54,8 +54,6 @@
 				&nbsp;&nbsp;<input type="button" value="Exportar" onclick="window.open(('Main.php?'+Form.serialize(this.form)+'&csv=true'));"/>
 				&nbsp;&nbsp;<input type='button' onClick='location.href="Main.php?do=planningProjectsList"' value="Quitar Filtros" title="Quitar Filtros"/>
 |-/if-|</p>
-
-					|-if $loginUser->isSupervisor()-||-/if-|
 </form></div></td>
 		</tr>|-/if-|
 			<tr>
@@ -118,9 +116,9 @@
 			<td colspan="5" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
-			<tr>
-				<th colspan="5" class="thFillTitle">|-if $projectColl|@count gt 5-|<div class="rightLink"><a href="Main.php?do=planningProjectsEdit|-if $filters.operativeobjectiveid-|&fromOperativeObjectiveId=|-$filters.operativeobjectiveid-||-/if-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|" class="addLink">Agregar Proyecto</a></div>|-/if-|</th>
-			</tr>
+			|-if $projectColl|@count gt 5-|<tr>
+				 <th colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="thFillTitle"><div class="rightLink">|-if $smarty.session.planningMode || $loginUser->mayPlan() || $loginUser->mayFollow()-|<a href="Main.php?do=planningProjectsEdit|-if $filters.operativeobjectiveid-|&fromOperativeObjectiveId=|-$filters.operativeobjectiveid-||-/if-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|" class="addLink">Agregar Proyecto</a></div>|-/if-|</th>
+			</tr>|-/if-|
 		</tbody>
 	</table>
 </div>
