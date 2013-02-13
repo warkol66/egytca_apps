@@ -34,20 +34,20 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 
 
 </script>
-<div id="lightbox1" class="leightbox">
-	<p align="right">				
+<div id="lightbox1" class="leightbox" style="z-index:12000;">
+	<p align="right">
 		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a> 
 	</p>
 	<div id="planningActivityDocumentsShowWorking"></div>
 	<div class="innerLighbox">
-		<div><a id="documentAddLink" href="#">agregar nuevo</a></div>
+		<div><p align="right"><a id="documentAddLink" href="#" class="addLink">Agregar nuevo documento</a></p></div>
 		<div id="planningActivityDocumentsListDiv"></div>
 	</div>
 </div>
 <a id="openLightbox1_control" href="#lightbox1" rel="lightbox1" class="lbOn" style="display:none"></a>
 <a id="closeLightbox_control" href="#" class="lbAction blackNoDecoration" rel="deactivate" style="display:none"></a>
 
-<div id="lightbox2" class="leightbox">
+<div id="lightbox2" class="leightbox" style="z-index:13000;">
 	<p align="right">				
 		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a> 
 	</p>
@@ -60,9 +60,9 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 
 
 |-if $message eq "ok"-|
-	<div class="successMessage">Obra guardado correctamente</div>
+	<div class="successMessage">Obra guardada correctamente</div>
 |-elseif $message eq "error"-|
-	<div class="failureMessage">Ha ocurrido un error al intentar Obra</div>
+	<div class="failureMessage">Ha ocurrido un error al intentar guardar la obra</div>
 |-/if-|
 |-if !$show && !$showLog-||-include file="CommonAutocompleterInclude.tpl"-||-/if-|
   <form name="form_edit_project" id="form_edit_project" action="Main.php" method="post">
@@ -73,7 +73,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
      <legend>Obra|-if $startingYear eq $endingYear-| - |-$startingYear-||-else-| (|-$startingYear-| - |-$endingYear-|)|-/if-|</legend>
 		|-if !$fromPlanningProjectId-|
 		|-if $readonly neq "readonly"-|<div id="planningProject" style="position: relative;z-index:11100;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_planningProjectId" label="Proyecto" url="Main.php?do=commonAutocompleteListX&object=planningProject&objectParam=id" hiddenName="params[planningProjectId]" defaultHiddenValue=$planningConstruction->getplanningProjectId() defaultValue=$planningConstruction->getPlanningProject()-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_planningProjectId" label="Proyecto" url="Main.php?do=commonAutocompleteListX&object=planningProject&objectParam=id&filters[investment]=true" hiddenName="params[planningProjectId]" defaultHiddenValue=$planningConstruction->getplanningProjectId() defaultValue=$planningConstruction->getPlanningProject()-|
 		</div>
 		|-else-|
       <p>
@@ -201,21 +201,6 @@ $("#autocomplete_responsibleCode").ajaxChosen({
   </p>
       
 		 |-if !$planningConstruction->isNew()-|<h3>Partida presupuestaria &nbsp; <a href="javascript:void(null)" id="showHideBudgetRelations" onClick="$('budgetItemsTable').toggle(); $('showHideBudgetRelations').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningConstruction->getBudgetItems() readonly="readonly" showLog="true"-||-/if-|
-  <p>
-  <p>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</p>
-  <p>arreglar PlanningConstructionsTemplateInclude.tpl y borrar esto</p>
-  <ul>
-	  |-foreach $planningConstruction->getActivities() as $activity-|
-		  <li>
-			  <span>|-$activity->getName()-|</span>
-			  <a href="#lightbox1" rel="lightbox1" class="lbOn">
-				  <input type="button" class="icon iconView" onclick="loadAddDocumentsLightbox(|-$activity->getId()-|)" value="Ver documentos" title="Ver documentos" />
-			  </a>
-		  </li>
-	  |-/foreach-|
-  </ul>
-  <p>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</p>
-  </p>
 		 <h3>Gantt (Hitos) <a href="javascript:void(null)" id="showHidePlanningConstruction" onClick="$('activitiesTable').toggle(); $('showHidePlanningConstruction').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-if !$planningConstruction->isNew()-||-include file="PlanningActivitiesInclude.tpl" activities=$planningConstruction->getActivities() construction=$planningConstruction showGantt="true"-||-else-|
 		 |-include file="PlanningConstructionsTemplateInclude.tpl" construction="true"-||-/if-|
 	<p>
@@ -244,13 +229,13 @@ $("#autocomplete_responsibleCode").ajaxChosen({
     <input type="hidden" name="params[startingYear]" id="params_startingYear" value="|-$startingYear-|" /> 
     <input type="hidden" name="params[endingYear]" id="params_endingYear" value="|-$endingYear-|" /> 
     <input type="hidden" name="currentPage" id="currentPage" value="|-$currentPage-|" /> 
-    <input type="hidden" name="do" id="do" value="planningConstructionsDoEdit" /> 
+    <input type="hidden" name="do" id="do" value="|-if isset($do)-||-$do-||-else-|planningConstructionsDoEdit|-/if-|" /> 
 		<p>|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
 		|-if !$planningConstruction->isNew() && $fromPlanningProjectId-|	<input type='button' onClick='location.href="Main.php?do=planningConstructionsEdit&fromPlanningProjectId=|-$fromPlanningProjectId-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Agregar otra obra al proyecto' title="Agregar otra obra al proyecto"/>|-/if-|
 		|-if $fromPlanningProjectId-|
 		<input type='button' onClick='location.href="Main.php?do=planningProjectsEdit&id=|-$fromPlanningProjectId-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Regresar al Proyecto' title='Regresar al Proyecto' />
 		|-else-|
-	<input type='button' onClick='location.href="Main.php?do=planningConstructionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Obras"/>
+	<input type='button' onClick='location.href="Main.php?do=|-if isset($list)-||-$list-||-else-|planningConstructionsList|-/if-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Obras"/>
 		|-/if-|		</p>|-/if-|
     </fieldset> 
   </form> 
