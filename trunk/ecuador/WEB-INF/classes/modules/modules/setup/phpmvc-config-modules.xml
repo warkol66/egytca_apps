@@ -50,6 +50,8 @@
 					 validate = "true">
 			<forward name="success"  path="/Main.php?do=modulesInstallSetupActionsLabel" />
 			<forward name="success-step"  path="/Main.php?do=modulesInstallList&amp;message=step-success" redirect="true"/>
+			<forward name="failure-create"  path="/Main.php?do=modulesInstallList&amp;message=failure-create" redirect="true"/>
+			<forward name="failure"  path="/Main.php?do=modulesInstallList" redirect="true"/>
 		</action>
 
 		<action    path = "modulesInstallDoSetupActionsLabel"
@@ -59,6 +61,7 @@
 					 validate = "true">
 			<forward name="success"  path="/Main.php?do=modulesInstallSetupPermissions" redirect="true" />
 			<forward name="success-step"  path="/Main.php?do=modulesInstallList&amp;message=step-success" redirect="true"/>
+			<forward name="failure-create"  path="/Main.php?do=modulesInstallList&amp;message=failure-create" redirect="true"/>
 			<forward name="failure" path="/Main.php?do=modulesInstallList" redirect="true"/>
 		</action>
 
@@ -69,6 +72,8 @@
 					 validate = "true">
 			<forward name="success"  path="/Main.php?do=modulesInstallSetupMessages" redirect="true" />
 			<forward name="success-step"  path="/Main.php?do=modulesInstallList&amp;message=step-success" redirect="true"/>
+			<forward name="failure-create"  path="/Main.php?do=modulesInstallList&amp;message=failure-create" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=modulesInstallList&amp;message=permissions" redirect="true"/>
 		</action>
 
 		<action    path = "modulesInstallSetupMessages"
@@ -78,6 +83,7 @@
 					 validate = "true">
 			<forward name="success"  path="ModulesInstallSetupMessages.tpl" />
 			<forward name="failure" path="/Main.php?do=modulesInstallList" redirect="true"/>
+			<forward name="failure-create"  path="/Main.php?do=modulesInstallList&amp;message=failure-create" redirect="true"/>
 			<forward name="failure-xml" path="/Main.php?do=modulesInstallList&amp;message=phpmvc-xml-error" redirect="true"/>
 		</action>
 
@@ -88,6 +94,7 @@
 					 validate = "true">
 			<forward name="success"  path="/Main.php?do=modulesInstallFileCheck" />
 			<forward name="success-step"  path="/Main.php?do=modulesInstallList&amp;message=step-success" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=modulesInstallList" redirect="true"/>
 		</action>
 
 		<action    path = "modulesInstallDoFileCheck"

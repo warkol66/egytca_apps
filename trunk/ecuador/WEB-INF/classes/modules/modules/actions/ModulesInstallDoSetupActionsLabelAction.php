@@ -70,7 +70,7 @@ class ModulesInstallDoSetupActionsLabelAction extends BaseAction {
 		$modulePath = "WEB-INF/classes/modules/" . $_POST['moduleName'] . '/setup';
 		if (!is_dir($modulePath)){
 			if(!mkdir($modulePath,0755))
-				return $mapping->findForwardConfig('falure');
+				return $mapping->findForwardConfig('failure-create');
 		}
 
 		$modulePath .= '/';
@@ -80,14 +80,15 @@ class ModulesInstallDoSetupActionsLabelAction extends BaseAction {
 		$fds = Array();
 		$file_errors = Array();
 		foreach ($_POST["languages"] as $languageCode) {
+			$open_file = fopen($modulePath . 'actionLabel_'.$languageCode.'.sql','w');
 			//si el archivo existe y tiene permisos de escritura lo modifico
-			if(is_writable($modulePath . 'actionLabel_'.$languageCode.'.sql')) {
-				$fds[$languageCode] = fopen($modulePath . 'actionLabel_'.$languageCode.'.sql','w');
+			if($open_file) {
+				$fds[$languageCode] = $open_file;
 				$securityActionLabel = new SecurityActionLabel();
 				$sql = $securityActionLabel->getSQLCleanup($_POST['moduleName'],$languageCode);
 				fprintf($fds[$languageCode],"%s\n",$sql);
 			}else{
-				//si no existe o no tiene permisos de escritura, lo voy a informar
+				//si no lo pude abrir, lo voy a informar
 				$file_errors[$languageCode] = $languageCode;
 			}
 		}
@@ -106,12 +107,10 @@ class ModulesInstallDoSetupActionsLabelAction extends BaseAction {
 
 		foreach ($_POST["languages"] as $languageCode)
 			fclose($fds[$languageCode]);
-			
-		/*print_r($file_errors);
-		die();*/
-		$smarty->assign("file_errors",$file_errors);
 		
-		return $this->executeFailure($mapping, $file_errors);
+		//si no se pudo escribir algun archivo, lo informo
+		if(count($file_errors) > 0)
+			return $this->executeFailure($mapping, $file_errors);
 
 		//solamente se ejecuta este paso
 		if (isset($_POST['stepOnly']))
