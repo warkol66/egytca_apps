@@ -10,7 +10,11 @@
 |-elseif $message eq "step-success"-|
 	<div class='successMessage'>El paso de instalacion ha sido ejecutado correctamente.</div>
 |-elseif $message eq "phpmvc-xml-error"-|
-	<div class='failureMessage'>El XML de phpmvc no es un xml válido.</div>
+	<div class='errorMessage'>El XML de phpmvc no es un xml válido.</div>
+|-elseif $message eq "permissions"-|
+	<div class='errorMessage'>El archivo de permisos del módulo que intenta instalar no existe o no tiene los permisos necesarios.</div>
+|-elseif $message eq "failure-create"-|
+	<div class='errorMessage'>Se ha producido un error. Verifique la existencia y los permisos de la carpeta setup en el directorio del módulo que desea instalar.</div>
 |-/if-|
 |-if $file_errors|@count gt 0-|
 	<div class='errorMessage'> No se pudieron escribir los siguientes archivos: 

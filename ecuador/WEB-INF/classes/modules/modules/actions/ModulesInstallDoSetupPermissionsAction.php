@@ -185,9 +185,11 @@ class ModulesInstallDoSetupPermissionsAction extends BaseAction {
 				$permission[$action] = $action;
 
 		$moduleName = $_POST['moduleName'];
-		$modulePath = "WEB-INF/classes/modules/" . $_POST['moduleName'] . '/setup';
-		if (!is_dir($modulePath))
-			mkdir($modulePath,0755);
+		$modulePath = "WEB-INF/classes/modules/" . $moduleName . '/setup';
+		if (!is_dir($modulePath)) {
+			if(!mkdir($modulePath,0755))
+				return $mapping->findForwardConfig('failure-create');
+		}
 
 		$modulePath .= '/';
 

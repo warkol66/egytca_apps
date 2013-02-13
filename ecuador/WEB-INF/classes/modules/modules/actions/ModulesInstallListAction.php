@@ -26,7 +26,7 @@ class ModulesInstallListAction extends BaseAction {
 		$message=$_GET["message"];
 		$smarty->assign("message",$message);
 		
-		if(isset($file_errors))
+		if(isset($_GET["file_errors"]))
 			$smarty->assign("file_errors",$_GET["file_errors"]);
 
 		//buscamos todos los modulos sin instalar.
