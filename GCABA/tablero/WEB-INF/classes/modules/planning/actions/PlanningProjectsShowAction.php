@@ -22,10 +22,12 @@ class PlanningProjectsShowAction extends BaseAction {
 		$smarty->assign("moduleConfig",$moduleConfig);
 
 		if (!empty($_GET['positionId'])) {
+			$filters = $_GET['filters'];
+			$projectsQuery = BaseQuery::create('PlanningProject')->addFilters($filters);
 			$position = PositionQuery::create()->findOneById($_GET['positionId']);
 			$smarty->assign("position", $position);
 			$projects = empty($_GET['color']) ?
-				$position->getAllProjectsWithDescendants() : $position->getProjectsByStatusColor($_GET['color']);
+				$position->getAllProjectsWithDescendants($projectsQuery) : $position->getProjectsByStatusColor($_GET['color'],$projectsQuery);
 		} elseif (!empty($_GET['objectiveId'])) {
 			require_once 'BaseObjectiveQuery.php';
 			$objective = BaseObjectiveQuery::create()->filterById($_GET['objectiveId'])->findOne();
@@ -35,6 +37,10 @@ class PlanningProjectsShowAction extends BaseAction {
 		}
 
 		$smarty->assign("projects", $projects);
+
+		$smarty->assign("planningTags", PlanningProjectTagQuery::create()->find());
+		$smarty->assign("priorities", PlanningProject::getPriorities());
+		$smarty->assign("filters", $filters);
 
 		return $mapping->findForwardConfig('success');
 	}

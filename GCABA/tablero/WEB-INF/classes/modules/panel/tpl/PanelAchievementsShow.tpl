@@ -1,14 +1,31 @@
 <h2>Tablero de Gestión (index2.html)</h2>
 |-if $position-|
 <h1>|-$position->getName()-|</h1>
-<p>Responsable : |-$position->getOwnerName()-||-if get_class($position->getActiveTenureName()) eq "PositionTenure"-||-assign var=tenure value=$position->getActiveTenureName()-||-if $tenure->getName() ne ''-| &#8212; |-$tenure->getName()-||-/if-||-else-||-assign var=userInfo value=$position->getActiveTenureName()-||-if $userInfo->getName() ne '' || $userInfo->getSurname() ne ''-| &#8212; |-/if-||-$userInfo->getName()-| |-$userInfo->getSurname()-||-/if-|</p>
+<p>Responsable : |-$position->getOwnerName()-|
+|-if get_class($position->getActiveTenureName()) eq "PositionTenure"-|
+|-assign var=tenure value=$position->getActiveTenureName()-|
+|-if $tenure->getObject() != NULL-|
+&#8212;  |-assign var=tenureObject value=$tenure->getObject()-||-$tenureObject->getName()-| |-$tenureObject->getSurname()-||-/if-|
+|-else-|
+|-assign var=userInfo value=$position->getActiveTenureName()-|
+|-if $userInfo->getName() ne '' || $userInfo->getSurname() ne ''-|
+ &#8212; |-/if-|
+|-$userInfo->getName()-|
+ |-$userInfo->getSurname()-|
+|-/if-|
+</p>
 <!--Aca comienzan los cambios -->
 <script type="text/javascript" src="scripts/FusionCharts.js"></script>
 <script type="text/javascript" src="scripts/FusionChartsExportComponent.js"></script>
 <link rel="stylesheet" href="css/extrastyles.css" type="text/css" />
 <script type="text/javascript" src="scripts/raphael.js"></script>
 <script type="text/javascript" src="scripts/mapa.js"></script>
+<script type="text/javascript" src="scripts/tableExport.js"></script>
 <!-- fin de los cambios -->
+<form name="formTableExport" method="post" action="echo.php">
+<input type="hidden" name="content" />
+<input type="hidden" name="filename" />
+</form>
 
 <div class="clearfix">
 
@@ -43,7 +60,7 @@ myChart2.render("chartContainer2");
       myChart3.render("chartContainer3");
   </script>
 
-    <table class="tablaInfo">
+    <table class="tablaInfo" id="evolucionMeta">
         <tr>
             <th>2012</th>
             <th>Linea Base</th>
@@ -137,7 +154,8 @@ myChart2.render("chartContainer2");
         </tr>
     </table>
 
-<button type="button" name="" value="" class="yellowButton">Exportar</button>
+    <button type="button" name="" value="" class="yellowButton" onclick="tableExport('evolucionMeta', 'evolucion_meta.xls');">Exportar</button>
+
 <div id="fcexpDiv" align="center">FusionCharts Export</div>
 <script type="text/javascript">
   var myExportComponent = new FusionChartsExportObject("fcExporter1", "images/FCExporter.swf");

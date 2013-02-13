@@ -1,7 +1,19 @@
-<h2>Tablero de Gestión (index.html)</h2>
+<h2>Tablero de Gestión</h2>
 |-if $position-|
 <h1>|-$position->getName()-|</h1>
-<p>Responsable : |-$position->getOwnerName()-||-if get_class($position->getActiveTenureName()) eq "PositionTenure"-||-assign var=tenure value=$position->getActiveTenureName()-||-if $tenure->getName() ne ''-| &#8212; |-$tenure->getName()-||-/if-||-else-||-assign var=userInfo value=$position->getActiveTenureName()-||-if $userInfo->getName() ne '' || $userInfo->getSurname() ne ''-| &#8212; |-/if-||-$userInfo->getName()-| |-$userInfo->getSurname()-||-/if-|</p>
+<p>Responsable : |-$position->getOwnerName()-|
+|-if get_class($position->getActiveTenureName()) eq "PositionTenure"-|
+|-assign var=tenure value=$position->getActiveTenureName()-|
+|-if $tenure->getObject() != NULL-|
+&#8212;  |-assign var=tenureObject value=$tenure->getObject()-||-$tenureObject->getName()-| |-$tenureObject->getSurname()-||-/if-|
+|-else-|
+|-assign var=userInfo value=$position->getActiveTenureName()-|
+|-if $userInfo->getName() ne '' || $userInfo->getSurname() ne ''-|
+ &#8212; |-/if-|
+|-$userInfo->getName()-|
+ |-$userInfo->getSurname()-|
+|-/if-|
+</p>
 <!--Aca comienzan los cambios -->
 <script type="text/javascript" src="scripts/FusionCharts.js"></script>
 <script type="text/javascript" src="scripts/FusionChartsExportComponent.js"></script>
@@ -34,7 +46,37 @@ myChart2.render("chartContainer2");
 |-elseif $objective-|
 	<h1>|-$objective->getName()-|</h1>
 |-/if-|        
-<h3>Proyectos</h3>
+<h3>Filtrar Proyectos &nbsp;|&nbsp; <form action='Main.php' method='get' style="display:inline;"><input type="hidden" name="do" value="planningProjectsShow" />
+&nbsp;&nbsp;Prioridad Ministerial
+<select name="filters[ministrypriority]">
+<option value="">Seleccione</option>
+<option value="1">Si</option>
+<option value="0">No</option>
+</select>
+&nbsp;&nbsp;Prioridad Jefatura
+<select name="filters[priority]">
+<option value="">Seleccione</option>
+	|-foreach from=$priorities key=key item=name-|
+		<option value="|-$key-|" |-$filters.priority|selected:$key-|>|-$name-|</option>
+	|-/foreach-|
+</select>
+&nbsp;&nbsp;Inversión
+<select name="filters[investment]">
+<option value="">Seleccione</option>
+<option value="1">Si</option>
+<option value="0">No</option>
+</select>
+&nbsp;&nbsp;Etiquetas
+<select name="filters[tag]">
+<option value="">Seleccione</option>
+	|-foreach from=$planningTags item=tag-|
+		<option value="|-$tag->getId()-|" |-$filters.tag|selected:$tag->getId()-|>|-$tag-|</option>
+	|-/foreach-|
+</select>
+|-include file="FiltersRedirectInclude.tpl" filters=$filters-|<input type='submit' value='Buscar' class='tdSearchButton' />|-if $filters|@count gt 0-|
+				&nbsp;&nbsp;<input type='button' onClick='location.href="Main.php?do=planningProjectsList"' value="Quitar Filtros" title="Quitar Filtros"/>
+|-/if-|
+</form></h3>
 		<table id="table-projects" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 		<thead>
 			<tr class="thFillTitle">
@@ -53,24 +95,24 @@ myChart2.render("chartContainer2");
 			<tr>
 				<td>|-$project->getOperativeObjective()-|</td>
 				<td><a href="javascript:void(null);" class="flag|-$project->statusColor()|capitalize-|"></a></td>
-				<td><a href="Main.php?do=projectsActivitiesList&filters[projectId]=|-$project->getid()-|&filters[fromProjects]=true" title="Ver actividades del proyecto" title="Ver actividades del proyecto" class="follow">|-$project->getname()-|</a></td>
+				<td><a href="Main.php?do=planningActivitiesList&filters[projectId]=|-$project->getid()-|&filters[fromProjects]=true" title="Ver actividades del proyecto" class="follow">|-$project->getname()-|</a></td>
 				<td nowrap>|-*$project->getdate()|date_format*-|</td>
 				<td nowrap>|-*$project->getPlannedEnd()|date_format:"%d-%m-%Y"*-|</td>
 				<td align="center">|-$project->getAcomplished()|si_no-|</td>
 				<td align="center" nowrap >
-					<a href="Main.php?do=projectsActivitiesShow&projectId=|-$project->getId()-|&color=white" class="flagWhite">
+					<a href="Main.php?do=planningActivitiesList&filters[projectId]=|-$project->getId()-|&filters[color]=white" class="flagWhite">
 						|-$colorsCount.white-|
 					</a>
-					<a href="Main.php?do=projectsActivitiesShow&projectId=|-$project->getId()-|&color=green" class="flagGreen">
+					<a href="Main.php?do=planningActivitiesList&filters[projectId]=|-$project->getId()-|&filters[color]=green" class="flagGreen">
 						|-$colorsCount.green-|
 					</a>
-					<a href="Main.php?do=projectsActivitiesShow&projectId=|-$project->getId()-|&color=yellow" class="flagYellow">					
+					<a href="Main.php?do=planningActivitiesList&filters[projectId]=|-$project->getId()-|&filters[color]=yellow" class="flagYellow">					
 						|-$colorsCount.yellow-|
 					</a>
-					<a href="Main.php?do=projectsActivitiesShow&projectId=|-$project->getId()-|&color=red" class="flagRed">
+					<a href="Main.php?do=planningActivitiesList&filters[projectId]=|-$project->getId()-|&filters[color]=red" class="flagRed">
 						|-$colorsCount.red-|
 					</a>
-					<a href="Main.php?do=projectsActivitiesShow&projectId=|-$project->getId()-|&color=blue" class="flagBlue">
+					<a href="Main.php?do=planningActivitiesList&filters[projectId]=|-$project->getId()-|&filters[color]=blue" class="flagBlue">
 						|-$colorsCount.blue-|
 					</a>
 				</td>

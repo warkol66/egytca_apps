@@ -1,7 +1,19 @@
-<h2>Tablero de Gestión (index3.html)</h2>
+<h2>Tablero de Gestión</h2>
 |-if $position-|
 <h1>|-$position->getName()-|</h1>
-<p>Responsable : |-$position->getOwnerName()-||-if get_class($position->getActiveTenureName()) eq "PositionTenure"-||-assign var=tenure value=$position->getActiveTenureName()-||-if $tenure->getName() ne ''-| &#8212; |-$tenure->getName()-||-/if-||-else-||-assign var=userInfo value=$position->getActiveTenureName()-||-if $userInfo->getName() ne '' || $userInfo->getSurname() ne ''-| &#8212; |-/if-||-$userInfo->getName()-| |-$userInfo->getSurname()-||-/if-|</p>
+<p>Responsable : |-$position->getOwnerName()-|
+|-if get_class($position->getActiveTenureName()) eq "PositionTenure"-|
+|-assign var=tenure value=$position->getActiveTenureName()-|
+|-if $tenure->getObject() != NULL-|
+&#8212;  |-assign var=tenureObject value=$tenure->getObject()-||-$tenureObject->getName()-| |-$tenureObject->getSurname()-||-/if-|
+|-else-|
+|-assign var=userInfo value=$position->getActiveTenureName()-|
+|-if $userInfo->getName() ne '' || $userInfo->getSurname() ne ''-|
+ &#8212; |-/if-|
+|-$userInfo->getName()-|
+ |-$userInfo->getSurname()-|
+|-/if-|
+</p>
 <!--Aca comienzan los cambios -->
 <script type="text/javascript" src="scripts/FusionCharts.js"></script>
 <script type="text/javascript" src="scripts/FusionChartsExportComponent.js"></script>

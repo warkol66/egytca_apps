@@ -376,8 +376,8 @@ class Position extends BasePosition {
 	 *
 	 * @return array Projects
 	 */
-	public function getProjectsByStatusColor($color) {
-		$projects = $this->getAllProjectsWithDescendants();
+	public function getProjectsByStatusColor($color, $query = null) {
+		$projects = $this->getAllProjectsWithDescendants($query);
 		$filteredProjects = array();
 		foreach ($projects as $project) {
 			if ($project->isOfStatusColor($color)) {
