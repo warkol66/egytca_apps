@@ -11,9 +11,9 @@
 			|-/if-|				
 	|-else-|
 			<li><a href="Main.php?do=usersWelcome" class="sub">Ir al Inicio</a>
-			<ul class="menu">
+			|-if $loginUser->mayPlan() || $loginUser->mayFollow()-|<ul class="menu">
 				<li class="last">|-if !$smarty.session.panelMode-|<a href="Main.php?do=panelSetPanel">Cambiar a Modo Seguimiento</a>|-else-|<a href="Main.php?do=planningSetPlanning">Cambiar a Modo Planeamiento</a>|-/if-|</li>
-			</ul>
+			</ul>|-/if-|
 		</li>
 			<li><a href="#" class="sub">Objetivos</a>
 			  <ul class="menu">
@@ -29,6 +29,13 @@
 				<li class="last"><a href="Main.php?do=planningActivitiesList">Actividades e Hitos</a></li>
 			</ul>
 		</li>
+			|-if $loginUser->isSupervisor() || $loginUser->mayFollow()-|<li><a href="javascript:void(null)" class="sub">Seguimiento</a>
+			  <ul class="menu">
+				<li><a href="Main.php?do=panelProjectsList">Proyectos</a></li>
+				<li class="last"><a href="Main.php?do=panelConstructionsList">Obras</a></li>
+				<!--<li class="last"><a href="Main.php?do=panelActivitiesList">Actividades e Hitos</a></li>-->
+			</ul>
+		</li>|-/if-|
 			<li><a href="Main.php?do=planningIndicatorsList">Indicadores</a>
 			</li>
 		|-if $loginUser->isAdmin() || $loginUser->isSupervisor()-|		
@@ -45,7 +52,8 @@
 				<li><a href="Main.php?do=usersList">Usuarios</a></li>
 				<li><a href="Main.php?do=usersGroupsList">Grupos de Usuarios</a></li>
 				<li><a href="Main.php?do=usersLevelsList">Niveles Usuarios</a></li>
-				<li><a href="Main.php?do=categoriesList">Categorías</a></li>
+				<li class="last"><a href="Main.php?do=planningProjectTagsList">Etiquetas de Proyectos</a></li>
+				<!--<li><a href="Main.php?do=categoriesList">Categorías</a></li>-->
 				<li><a href="Main.php?do=commonActionLogsList">Histórico de Operaciones</a></li>
 				<li class="last"><a href="Main.php?do=backupList">Respaldos</a></li>
 			</ul></li>
