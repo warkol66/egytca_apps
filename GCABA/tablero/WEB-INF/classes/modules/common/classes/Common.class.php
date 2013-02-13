@@ -91,7 +91,7 @@ class Common {
 	}
 
 	/**
-	* Agrega la informacion del user y id a lso params
+	* Agrega la informacion del user y id a params
 	* @return array $params array con la informacion recibida mas la del tipo de usuario y su id
 	*/
 	public static function addUserInfoToParams($params) {
@@ -1432,6 +1432,218 @@ class Common {
 	public static function isPanelMode() {
 		if (isset($_SESSION["panelMode"]) && $_SESSION["planningMode"])
 		return true;
+	}
+
+/* Chequeo fallas login y seguridad al solicitar acciones no permitidas */
+
+	/**
+	* Guarda una falla al solicitar login
+	*
+	* @param string $username nombre de usuario
+	* @param string $password clave ingresada
+	* @return void
+	*/
+	public static function loginFailure($username, $password) {
+
+		$remoteIp = $_SERVER["REMOTE_ADDR"];
+		$ipBlocked = Common::checkLoginIpFailures($remoteIp);
+		$userBlocked = Common::checkLoginUserFailures($objectType, $objectId);
+		if ($ipBlocked || $userBlocked)
+			$blocked = true;
+
+		try {
+				$loginFailure = new LoginFailure();
+				$loginFailure->setAttemptAt(time());
+				$loginFailure->setUsername($username);
+				$loginFailure->setPassword($password);
+				$loginFailure->setIp($remoteIp);
+				$loginFailure->setBlocked($blocked);
+				$loginFailure->save();
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+		}
+
+	}
+
+	/**
+	* Informa si se bloqua una Ip por fallas de login
+	*
+	* @param string $remoteIp ip de intento fallido de login
+	* @return true si bloqueo la ip, false si no la bloqueo
+	*/
+	public static function checkLoginIpFailures($remoteIp) {
+
+		$loginFailureThreshold = ConfigModule::get("users","loginFailureThreshold");
+		$loginFailureThresholdTime = ConfigModule::get("users","loginFailureThresholdTime");
+		$loginFailureBlockedTimeTime = ConfigModule::get("users","loginFailureBlockedTimeTime");
+
+		$loginFailureThresholdTimeArray = array('min' => time() - ($loginFailureThresholdTime * 60));
+
+		$ipLoginFailures = LoginFailureQuery::create()
+				->filterByIp($remoteIp)
+				->filterByAttemptat($loginFailureThresholdTimeArray)->count();
+
+		if ($ipLoginFailures > $loginFailureThreshold) {
+			try {
+				$blockedIp = new BlockedIp();
+				$blockedIp->setIp($remoteIp);
+				$blockedIp->setBlockedAt(time());
+				$blockedIp->save();
+				return true;
+			}
+			catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->getMessage());
+			}
+		}
+		return false;
+	}
+
+	/**
+	* Informa si se bloqua una Ip por fallas de login
+	*
+	* @param string $objectType tipo de usuario intento fallido de login
+	* @param string $objectId id de usuario fallido de login
+	* @return true si bloqueo el usuario, false si no lo bloqueo
+	*/
+	public static function checkLoginUserFailures($objectType, $objectId) {
+
+		$loginFailureThreshold = ConfigModule::get("users","loginFailureThreshold");
+		$loginFailureThresholdTime = ConfigModule::get("users","loginFailureThresholdTime");
+		$loginFailureBlockedTimeTime = ConfigModule::get("users","loginFailureBlockedTimeTime");
+
+		$loginFailureThresholdTimeArray = array('min' => time() - ($loginFailureThresholdTime * 60));
+
+		$userLoginFailures = LoginFailureQuery::create()
+				->filterByObjecttype($objectType)->filterByObjectid($objectId)
+				->filterByAttemptat($loginFailureThresholdTimeArray)->count();
+
+		if ($userLoginFailures > $loginFailureThreshold) {
+			try {
+				Common::blockUser($objectType, $objectId);
+				$blockedUser = new BlockedUser();
+				$blockedUser->setObjecttype($objectType);
+				$blockedUser->setObjectid($objectId);
+				$blockedUser->save();
+				return true;
+			}
+			catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->getMessage());
+			}
+		}
+		return false;
+	}
+
+	/**
+	* Guarda una falla al solicitar acciones o permitidas
+	*
+	* @param object $user usuario solitante de la accion
+	* @param string $action  accion solicitada
+	* @return void
+	*/
+	public static function securityFailure($user, $action) {
+
+		$userBlocked = Common::checkSecurityUserFailures($objectType, $objectId);
+
+		try {
+			$securityFailure = new SecurityFailure();
+			$securityFailure->setObjecttype(get_class($user));
+			$securityFailure->setObjectid($user->getId());
+			$securityFailure->setAaction($action);
+			$securityFailure->setAttemptAt(time());
+			$securityFailure->setIp($_SERVER["REMOTE_ADDR"]);
+			$securityFailure->setBlocked($userBlocked);
+			$securityFailure->save();
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+		}
+	}
+
+	/**
+	* Informa si se bloqua un usuario pro solicitar acciones no permitidas
+	*
+	* @param string $objectType tipo de usuario intento accion no permitida
+	* @param string $objectId id de usuario fallido de accion no permitida
+	* @return true si bloqueo el usuario, false si no lo bloqueo
+	*/
+	public static function checkSecurityUserFailures($objectType, $objectId) {
+
+		$securityFailureThreshold = ConfigModule::get("global","securityFailureThreshold");
+		$securityFailureThresholdTime = ConfigModule::get("global","securityFailureThresholdTime");
+		$securityFailureBlockedTime = ConfigModule::get("global","securityFailureBlockedTime");
+
+		$securityFailureThresholdTimeArray = array('min' => time() - ($securityFailureThresholdTime * 60));
+
+		$securityFailures = SecurityFailureQuery::create()
+				->filterByObjecttype($objectType)->filterByObjectid($objectId)
+				->filterByAttemptat($securityFailureThresholdTimeArray)->count();
+
+		if ($securityFailures > $securityFailureThreshold) {
+			try {
+				Common::blockUser($objectType, $objectId);
+				$blockedUser = new BlockedUser();
+				$blockedUser->setObjecttype($objectType);
+				$blockedUser->setObjectid($objectId);
+				$blockedUser->save();
+				return true;
+			}
+			catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->getMessage());
+			}
+		}
+		return false;
+	}
+
+	/**
+	* Bloqua un usuario
+	*
+	* @param string $objectType tipo de usuario a bloquar
+	* @param string $objectId id de usuario a bloquar
+	* @return true si bloqueo el usuario, false si no lo bloqueo
+	*/
+	public static function blockUser($objectType, $objectId) {
+
+		$queryClass = $objectType . "Query";
+		$user = $queryClass::create()->findOneById($objectId);
+		try {
+			$user->setBlockedat(time());
+			$user->save();
+			return true;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+		}
+		return false;
+	}
+
+	/**
+	* Desbloquea un usuario
+	*
+	* @param string $objectType tipo de usuario a desbloquar
+	* @param string $objectId id de usuario a desbloquar
+	* @return true si desbloqueo el usuario, false si no lo desbloqueo
+	*/
+	public static function unblockUser($objectType, $objectId) {
+
+		$queryClass = $objectType . "Query";
+		$user = $queryClass::create()->findOneById($objectId);
+		try {
+			$user->setBlockedat(NULL);
+			$user->save();
+			return true;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+		}
+		return false;
 	}
 
 } // end of class
