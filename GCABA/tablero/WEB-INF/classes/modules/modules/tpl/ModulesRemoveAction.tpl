@@ -9,7 +9,10 @@
 					actionName: actionName
 				},
 				evalScripts: true,
-				onSuccess: onSuccess
+				onSuccess: function(response){
+					onSuccess;
+					$("resultDiv").innerHTML = response.responseText;
+				}
 			}
 		);
 	}
@@ -18,14 +21,14 @@
 		$("resultDiv").innerHTML = "<span class=\"inProgress\">Eliminando</span>";
 		var tr = $('tr_'+action);
 		tr.parentNode.removeChild(tr);
-		window.setTimeout(function() {$("resultDiv").innerHTML = "<span class=\"resultSuccess\">Acción Eliminada</span>";},1000);
+		//window.setTimeout(function() {$("resultDiv").innerHTML = "<span class=\"resultSuccess\">Acción Eliminada</span>";},1000);
 	}
 
 	function removeFieldset(action) {
 		$("resultDiv").innerHTML = "<span class=\"inProgress\">Eliminando</span>";
 		var fieldset = $('fieldset_'+action);
 		fieldset.parentNode.removeChild(fieldset);
-		window.setTimeout(function() {$("resultDiv").innerHTML = "<span class=\"resultSuccess\">Acción Eliminada</span>";},1000);
+		//window.setTimeout(function() {$("resultDiv").innerHTML = "<span class=\"resultSuccess\">Acción Eliminada</span>";},1000);
 	}
 
 </script>
