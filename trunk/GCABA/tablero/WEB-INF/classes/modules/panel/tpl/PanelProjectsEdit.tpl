@@ -6,9 +6,10 @@
 <h1>Seguimiento  de Proyectos - |-if !$planningProject->isNew()-|Editar|-else-|Crear|-/if-| Proyecto</h1>
 <!-- Link VOLVER -->
 <!-- /Link VOLVER -->
-<p class='paragraphEdit'>A continuación se puede modificar los elementos que definen el Proyecto.</p>
+<p>Responsable:</p>
 <div id="div_project"> 
-  |-include file="PlanningProjectsForm.tpl" do="panelProjectsDoEdit" list="panelProjectsList"-|
+	|-include file="PannelActivitiesInclude.tpl" do="planningActivitiesList" list="planningActivityColl"-|
+	|-include file="PanelConstructionsIncludeList.tpl" planningConstructionColl=$planningProject->getPlanningConstructions()-|
 </div> 
 |-if !$planningProject->isNew() && $readonly ne "readonly"-|
 	<input type="button" title="Ver Historial de cambios" value="Ver Historia" onClick="location.href='Main.php?do=planningProjectsLogTabs&id=|-$planningProject->getId()-|'" />
