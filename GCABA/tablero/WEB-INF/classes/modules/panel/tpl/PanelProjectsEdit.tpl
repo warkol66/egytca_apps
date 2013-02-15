@@ -1,3 +1,24 @@
+<script type="text/javascript" src="scripts/lightbox.js"></script>
+
+<div id="lightbox1" class="leightbox">
+	<p align="right">				
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
+	</p> 
+	<div id="planningProjectsShowWorking"></div>
+	<div class="innerLighbox">
+		<div id="planningProjectsShowDiv"></div>
+	</div>
+</div>
+<div id="lightbox2" class="leightbox">
+	<p align="right">				
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a> 
+	</p> 
+	<div id="planningConstructionsShowWorking"></div>
+	<div class="innerLighbox">
+		<div id="planningConstructionsShowDiv"></div>
+	</div>
+</div>
+
 <h2>Seguimiento
 |-if isset($show) && is_object($dependency)-|
  - <a href="Main.php?do=tableroPolicyGuidelinesShow">|-$dependency->getName()-|</a></h2> 
@@ -7,13 +28,15 @@
 <!-- Link VOLVER -->
 <!-- /Link VOLVER -->
 <p>Responsable:</p>
-<div id="div_project"> 
-	|-include file="PannelActivitiesInclude.tpl" do="planningActivitiesList" list="planningActivityColl"-|
-	|-include file="PanelConstructionsIncludeList.tpl" planningConstructionColl=$planningProject->getPlanningConstructions()-|
-</div> 
-|-if !$planningProject->isNew() && $readonly ne "readonly"-|
-	<input type="button" title="Ver Historial de cambios" value="Ver Historia" onClick="location.href='Main.php?do=planningProjectsLogTabs&id=|-$planningProject->getId()-|'" />
-|-/if-|
+<div id="div_project">
+	<fieldset>
+	<h1>Proyecto: |-$planningProject->getName()-|</h1>
+	<h3>Listado y Gantt de actividades</h3>
+	|-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities()-|
+	<h3>Listado de obras</h3>
+	|-include file="PanelConstructionsInclude.tpl" constructions=$planningProject->getPlanningConstructions()-|
+	</fieldset>
+</div>
 |-else-|
 	<h1>Administración de Proyectos</h1>
 	<div class="errorMessage">El identificador del proyecto ingresado no es válido. Seleccione un proyecto de la lista.</div>
