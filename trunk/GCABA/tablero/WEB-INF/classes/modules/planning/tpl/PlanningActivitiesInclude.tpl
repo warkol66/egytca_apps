@@ -20,27 +20,12 @@ html =   '      <tr> '
  + '      <td align="center"><input name="activity[][priorityPercentage]" id="params_priorityPercentage[]" type="text" value="" size="5" title="Indique el porcentaje de la prioridad"></td>'
  + '      <td align="center"><input name="activity[][acomplished]" type="hidden" value="0"><input name="activity[][acomplished]" id="params_acomplished[]" type="checkbox" value="1" title="Indique si se completó la actividad"></td>'
  + '      <td align="center"><input type="button" class="disabled icon iconAttach" title="Para anexar documentos primero debe guardar la actividad" /></td>'
- + '      <td><input name="activity[][edit]" type="hidden" value="1"><input type="button" class="icon iconSave" title="Guardar partida" onclick="saveActivityRow(this.parentNode.parentNode)" /></td> '
  + '      <td><input name="activity[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar partida" onclick="deleteActivityRow(this.parentNode.parentNode.rowIndex)" /></td> '
  + '    </tr>';
 	row.innerHTML= html;
 	document.getElementById("activitiesTbody").appendChild(row);
 	return false;
-}
-
-	function saveActivityRow(id){
-		var form = $(id);
-		var fields = Form.serialize(form);
-		var myAjax = new Ajax.Updater(
-				{success: 'activityMsgField'},
-					'Main.php?do=planningActivitiesDoEditX',
-					{
-						method: 'post',
-						parameters: fields,
-						evalScripts: true
-					});
-	}
-	
+}	
 	function removeActivity(id) {
 		var params = '&id='+id;
 		var myAjax = new Ajax.Updater(
@@ -57,7 +42,7 @@ html =   '      <tr> '
 		return true;
 	}
 </script>|-/if-|
-  <div> 
+  <div |-if isset($margin) && $margin eq 'true'-| |-else-|style="margin-left:150px;" |-/if-|> 
      <table class="tableTdBorders" id="activitiesTable" style="margin-bottom:15px;"> 
       <thead> 
          <tr> 
