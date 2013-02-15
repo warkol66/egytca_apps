@@ -93,4 +93,44 @@
 
 |-elseif $objective-|
 	<h1>|-$objective->getName()-|</h1>
+|-elseif $positions-|
+	<h1>Visión Estratégica</h1>
+	<table id="tabla-projectss" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
+		<thead>
+			<tr class="thFillTitle">
+				<th colspan="2">Orden Ranking -- Organigrama -- Ministerio</th>
+				<th>Proyectos</th>
+				<th>Obras</th>
+			</tr>
+		</thead>
+		<tbody>
+		|-foreach from=$positions item=position name=for_positions-|
+		|-assign var="colorsCount" value=$position->getProjectsByStatusColorCountAssoc()-|
+			<tr>
+				<td>
+					<form>
+					<input type="hidden" />
+					<input type="hidden" id="id" name="id"/>
+					<input type="button" class="icon iconFollow" onClick=""/>
+					</form>
+				</td>
+				<td>|-$position->getName()-|</td>
+				<td align="center" nowrap >
+					<a href="" class="flagWhite">
+						|-$colorsCount.white-|
+					</a><a href="" class="flagGreen">
+						|-$colorsCount.green-|
+					</a><a href="" class="flagYellow">					
+						|-$colorsCount.yellow-|
+					</a><a href="" class="flagRed">
+						|-$colorsCount.red-|
+					</a><a href="" class="flagBlue">
+						|-$colorsCount.blue-|
+					</a>
+				</td>
+				<td>Obras</td>
+			</tr>
+		|-/foreach-|
+		</tbody>
+	</table>
 |-/if-|        
