@@ -1,24 +1,5 @@
 <script type="text/javascript" src="scripts/lightbox.js"></script>
 
-<div id="lightbox1" class="leightbox">
-	<p align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
-	</p> 
-	<div id="planningProjectsShowWorking"></div>
-	<div class="innerLighbox">
-		<div id="planningProjectsShowDiv"></div>
-	</div>
-</div>
-<div id="lightbox2" class="leightbox">
-	<p align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a> 
-	</p> 
-	<div id="planningConstructionsShowWorking"></div>
-	<div class="innerLighbox">
-		<div id="planningConstructionsShowDiv"></div>
-	</div>
-</div>
-
 <h2>Seguimiento
 |-if isset($show) && is_object($dependency)-|
  - <a href="Main.php?do=tableroPolicyGuidelinesShow">|-$dependency->getName()-|</a></h2> 

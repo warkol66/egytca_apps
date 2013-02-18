@@ -1,3 +1,12 @@
+<div id="lightbox_const" class="leightbox">
+	<p align="right">				
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a> 
+	</p> 
+	<div id="planningConstructionsShowWorking"></div>
+	<div class="innerLighbox">
+		<div id="planningConstructionsShowDiv"></div>
+	</div>
+</div>
 <div> 
 	<table class="tableTdBorders" id="constructionsTable" style="margin-bottom:15px;"> 
 	<thead>
@@ -17,7 +26,7 @@
 				<form action="Main.php" method="get" style="display:inline;">
 					<input type="hidden" name="do" value="planningConstructionsViewX" />
 					<input type="hidden" name="id" value="|-$construction->getid()-|" />
-					<a href="#lightbox_const" rel="lightbox2" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("planningConstructionsShowDiv", "Main.php?do=planningConstructionsViewX&id=|-$construction->getid()-|", { method: "post", parameters: { id: "|-$construction->getId()-|"}, evalScripts: true})};$("planningConstructionsShowWorking").innerHTML = "<span class=\"inProgress\">buscando Obra...</span>";' value="Ver detalle" name="submit_go_show_construction" title="Ver detalle" /></a>
+					<a href="#lightbox_const" rel="lightbox_const" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("planningConstructionsShowDiv", "Main.php?do=planningConstructionsViewX&id=|-$construction->getid()-|", { method: "post", parameters: { id: "|-$construction->getId()-|"}, evalScripts: true})};$("planningConstructionsShowWorking").innerHTML = "<span class=\"inProgress\">buscando Obra...</span>";' value="Ver detalle" name="submit_go_show_construction" title="Ver detalle" /></a>
 				</form>
 			</td>
 		</tr>

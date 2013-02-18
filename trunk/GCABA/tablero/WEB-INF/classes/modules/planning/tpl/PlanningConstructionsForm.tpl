@@ -34,7 +34,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 
 
 </script>
-<div id="lightbox1" class="leightbox" style="z-index:12000;">
+<div id="lightbox2" class="leightbox" style="z-index:12000;">
 	<p align="right">
 		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a> 
 	</p>
@@ -44,10 +44,10 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 		<div id="planningActivityDocumentsListDiv"></div>
 	</div>
 </div>
-<a id="openLightbox1_control" href="#lightbox1" rel="lightbox1" class="lbOn" style="display:none"></a>
+<a id="openLightbox2_control" href="#lightbox2" rel="lightbox2" class="lbOn" style="display:none"></a>
 <a id="closeLightbox_control" href="#" class="lbAction blackNoDecoration" rel="deactivate" style="display:none"></a>
 
-<div id="lightbox2" class="leightbox" style="z-index:13000;">
+<div id="lightbox3" class="leightbox" style="z-index:13000;">
 	<p align="right">				
 		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a> 
 	</p>
@@ -56,7 +56,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 		<div id="planningActivityDocumentsEditDiv"></div>
 	</div>
 </div>
-<a id="openLightbox2_control" href="#lightbox2" rel="lightbox2" class="lbOn" style="display:none"></a>
+<a id="openLightbox3_control" href="#lightbox3" rel="lightbox3" class="lbOn" style="display:none"></a>
 
 
 |-if $message eq "ok"-|
@@ -286,8 +286,8 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 		};
 	}
 
-	function openLightbox1() { $('openLightbox1_control').click(); }
-	function openLightbox2() { $('openLightbox2_control').click(); }
+	function openLightbox1() { $('openLightbox2_control').click(); }
+	function openLightbox2() { $('openLightbox3_control').click(); }
 	function closeLightbox() { $('closeLightbox_control').click(); }
 </script>
 
