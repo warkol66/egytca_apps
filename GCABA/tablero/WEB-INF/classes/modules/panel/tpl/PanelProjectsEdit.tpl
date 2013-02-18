@@ -32,7 +32,7 @@
 	<fieldset>
 	<h1>Proyecto: |-$planningProject->getName()-|</h1>
 	<h3>Listado y Gantt de actividades</h3>
-	|-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities()-|
+	|-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() margin="false" add="false" -|
 	<h3>Listado de obras</h3>
 	|-include file="PanelConstructionsInclude.tpl" constructions=$planningProject->getPlanningConstructions()-|
 	</fieldset>
