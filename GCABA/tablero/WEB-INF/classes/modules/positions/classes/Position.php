@@ -192,6 +192,24 @@ class Position extends BasePosition {
 	}
 	
 	/**
+	 * Obtiene todas los constructions asociados a la instancia.
+	 *
+	 * @param Criteria $query, criteria para aplicar a los proyectos.
+	 * @return PropelCollection $constructions
+	 */
+	public function getAllConstructionsWithDescendants($query = null) {
+		$positionCodes = array();
+		$positionCodes[] = $this->getCode();
+		if ($this->hasChildren()){
+			$descendants = $this->getDescendants();
+			foreach ($descendants as $descendant)
+				$positionCodes[] = $descendant->getCode();
+		}
+		
+		return BasePlanningConstructionQuery::create(null, $query)->filterByResponsiblecode($positionCodes)->find();
+	}
+	
+	/**
 	 * Obtiene todas los projects asociados a la instancia.
 	 *
 	 * @param Criteria $query, criteria para aplicar a los proyectos.
@@ -357,6 +375,27 @@ class Position extends BasePosition {
 	 */
 	public function getProjectsByStatusColorCountAssoc() {
 		$projects = $this->getAllProjectsWithDescendants();
+		$colorsCount = array();
+
+		foreach ($this->colors as $color) {
+			$colorsCount[$color] = 0;
+		}
+
+		foreach ($projects as $project) {
+			$color = $project->statusColor();
+			$colorsCount[$color]++;
+		}
+
+		return $colorsCount;
+	}
+	
+	/**
+	 * Obtiene un array asociativo con la cantidad de projects asignados al position por cada color.
+	 *
+	 * @return array $colorsCount.
+	 */
+	public function getConstructionsByStatusColorCountAssoc() {
+		$projects = $this->getAllConstructionsWithDescendants();
 		$colorsCount = array();
 
 		foreach ($this->colors as $color) {
