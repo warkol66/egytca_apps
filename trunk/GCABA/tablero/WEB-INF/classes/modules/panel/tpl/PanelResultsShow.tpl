@@ -1,3 +1,43 @@
+<script type="text/javascript" src="scripts/lightbox.js"></script> 			
+<script language="JavaScript" type="text/JavaScript">
+function showImpactObjectives(id){
+	//alert(id);
+	var pars = 'do=panelImpactObjectivesListX';
+
+	new Ajax.Request(
+			'Main.php?do=panelImpactObjectivesListX',
+			{
+				method: 'post',
+				parameters: {
+					id: id,
+				},
+				evalScripts: true,
+				onSuccess: function(response){
+					$("impactObjectives_" + id).insert({after:response.responseText});
+				}
+			}
+		);
+		return false;
+}
+</script>
+<div id="lightbox2" class="leightbox">
+	<p align="right">				
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
+	</p> 
+	<div id="planningIndicatorsShowWorking"></div>
+	<div class="innerLighbox">
+		<div id="planningIndicatorsShowDiv"></div>
+	</div>
+</div>
+<div id="lightbox1" class="leightbox">
+	<p align="right">				
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a> 
+	</p> 
+	<div id="planningImpactObjectivesShowWorking"></div>
+	<div class="innerLighbox">
+		<div id="planningImpactObjectivesShowDiv"></div>
+	</div>
+</div> 
 <h2>Tablero de Gestión</h2>
 |-if $position-|
 <h1>|-$position->getName()-|</h1>
@@ -106,13 +146,10 @@
 		<tbody>
 		|-foreach from=$positions item=position name=for_positions-|
 		|-assign var="colorsCount" value=$position->getProjectsByStatusColorCountAssoc()-|
+		|-assign var="constColorsCount" value=$position->getConstructionsByStatusColorCountAssoc()-|
 			<tr>
 				<td>
-					<form>
-					<input type="hidden" />
-					<input type="hidden" id="id" name="id"/>
-					<input type="button" class="icon iconFollow" onClick=""/>
-					</form>
+					<a class="icon iconFollow" href="#" onClick="showImpactObjectives(|-$position->getId()-|); return false;"></a>
 				</td>
 				<td>|-$position->getName()-|</td>
 				<td align="center" nowrap >
@@ -128,8 +165,21 @@
 						|-$colorsCount.blue-|
 					</a>
 				</td>
-				<td>Obras</td>
+				<td align="center" nowrap >
+					<a href="" class="flagWhite">
+						|-$constColorsCount.white-|
+					</a><a href="" class="flagGreen">
+						|-$constColorsCount.green-|
+					</a><a href="" class="flagYellow">					
+						|-$constColorsCount.yellow-|
+					</a><a href="" class="flagRed">
+						|-$constColorsCount.red-|
+					</a><a href="" class="flagBlue">
+						|-$constColorsCount.blue-|
+					</a>
+				</td>
 			</tr>
+			<tr id="impactObjectives_|-$position->getId()-|" ></tr>
 		|-/foreach-|
 		</tbody>
 	</table>
