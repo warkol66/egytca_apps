@@ -42,7 +42,7 @@ html =   '      <tr> '
 		return true;
 	}
 </script>|-/if-|
-  <div |-if isset($margin) && $margin eq 'true'-| |-else-|style="margin-left:150px;" |-/if-|> 
+  <div |-if isset($margin) && $margin eq 'false'-| |-else-|style="margin-left:150px;" |-/if-|> 
      <table class="tableTdBorders" id="activitiesTable" style="margin-bottom:15px;"> 
       <thead> 
          <tr> 
