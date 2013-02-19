@@ -56,6 +56,9 @@
 			<!-- Forwards para el modulo Panel - ReportSection -->
 			<forward name="successReportSection" path="/Main.php?do=panelReportsSectionsEdit" redirect="true"/>
 			<forward name="failureUploadReportSection" path="/Main.php?do=panelReportsSectionsEdit" redirect="true"/>
+			<!-- Forwards para el modulo PlanningActivity -->
+			<forward name="successPlanningActivity" path="/Main.php?do=planningActivityDocumentsListX" redirect="true"/>
+			<forward name="failurePlanningActivity" path="DocumentsEdit.tpl" redirect="true"/>
 		</action>
 
 		<action    path = "documentsDoDelete"

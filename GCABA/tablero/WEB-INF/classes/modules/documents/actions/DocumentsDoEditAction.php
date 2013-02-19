@@ -82,6 +82,12 @@ class DocumentsDoEditAction extends BaseAction {
 			if(empty($_FILES["document_file"]['name'])) {
 				return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping, 'success' . $_POST['entity']);
 			}
+			
+			//si es por iframe busco los documentos relacionados a esa activity
+			if(isset($iframe) && $iframe == "true"){
+				$planningActivityDocumentColl = PlanningActivityDocumentQuery::create()->filterByPlanningActivityId()->find();
+				$smarty->assign('planningActivityDocumentColl', $planningActivityDocumentColl);
+			}
 
 			if($_POST["password"]!=$_POST["password_compare"]){
 				$this->failureSmartySetup($smarty,$document);

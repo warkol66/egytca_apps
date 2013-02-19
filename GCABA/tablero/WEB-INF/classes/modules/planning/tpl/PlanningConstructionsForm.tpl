@@ -28,13 +28,9 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 });
 
 	})*/
-
-
-
-
-
 </script>
-<div id="lightbox2" class="leightbox" style="z-index:12000;">
+
+<div id="lightbox1" class="leightbox" style="z-index:12000;">
 	<p align="right">
 		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a> 
 	</p>
@@ -292,6 +288,6 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 </script>
 
 <div id="planningActivityDocumentsEditTemplate" style="display:none">
-	|-include file="DocumentsEditInclude.tpl" entity="PlanningActivity" entityId="<%planningActivityId%>" target="submit-iframe"-|
+	|-include file="DocumentsEditInclude.tpl" entity="PlanningActivity" entityId="<%planningActivityId%>" iframe="true" target="submit-iframe"-|
 	<iframe name="submit-iframe" style="display: none;" |-*onload="if (this.innerHTML != '') { closeLightbox(); loadAddDocumentsLightbox('<%planningActivityId%>'); openLightbox1(); }"*-|></iframe>
 </div>
