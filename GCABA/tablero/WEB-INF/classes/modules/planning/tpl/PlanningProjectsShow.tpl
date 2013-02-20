@@ -21,7 +21,7 @@
 <!-- fin de los cambios -->
 
 <div class="clearfix">
-<div class="floatleft"id="chartContainer">Cargando...</div>
+<div class="floatleft" id="chartContainer">Cargando...</div>
     <div class="floatleft">
         <object title="Jefatura de Gabinete de Ministros" height="250" width="250">
             <param name="wmode" value="transparent" />

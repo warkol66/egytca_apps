@@ -43,7 +43,7 @@ class PositionQuery extends BasePositionQuery {
 	*/
   public function filterByDoPlanning() {
   	$planningType = key(ConfigModule::get("planning","positionsTypes"));
-		$this->filterByType($planningType)
+		return $this->filterByType($planningType)
 			->_or()
 		->filterByPlanning(1);
   }

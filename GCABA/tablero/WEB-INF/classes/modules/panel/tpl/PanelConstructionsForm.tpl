@@ -154,16 +154,16 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 	<p>
         <label for="params_priority">¿Prioridad?</label>
       <input name="params[priority]" type="hidden" value="0"/>
-      <input name="params[priority]" type="checkbox" id="params_priority" |-$planningConstruction->getPriority()|checked_bool-|  value="1" title="Prioridad" |-$readonly|readonly-|/>
+      <input name="params[priority]" type="checkbox" id="params_priority" |-$planningConstruction->getPriority()|checked_bool-|  value="1" title="Prioridad"/>
     </p>
 	<p>
         <label for="params_communicable">¿Comunicable?</label>
       <input name="params[communicable]" type="hidden" value="0"/>
-      <input name="params[communicable]" type="checkbox" id="params_communicable" |-$planningConstruction->getCommunicable()|checked_bool-|  value="1" title="Comunicable" |-$readonly|readonly-|/>
+      <input name="params[communicable]" type="checkbox" id="params_communicable" |-$planningConstruction->getCommunicable()|checked_bool-|  value="1" title="Comunicable"/>
     </p>
 	<p>
         <label for="params_amount">Presupuesto Total de la Obra</label>
-      <input name="params[amount]" type="text" id="params_amount" size="20" value="|-$planningConstruction->getAmount()|system_numeric_format-|" title="Presupuesto total de la Obra" maxlength="20" class="emptyValidation right" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
+      <input name="params[amount]" type="text" id="params_amount" size="20" value="|-$planningConstruction->getAmount()|system_numeric_format-|" title="Presupuesto total de la Obra" maxlength="20" class="emptyValidation right" /> |-validation_msg_box idField="params_name"-|
     </p>
 	<p>
         <label for="params_appliedAmount">Presupuesto Solicitado</label>
@@ -171,7 +171,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
     </p>
 	<p>
         <label for="params_managementAmount">Presupuesto Gestión</label>
-      <input name="params[managementAmount]" type="text" id="params_managementAmount" size="20" value="|-$planningConstruction->getManagementAmount()|system_numeric_format-|" title="Presupuesto Gestion " class="right" |-$readonly|readonly-|/>
+      <input name="params[managementAmount]" type="text" id="params_managementAmount" size="20" value="|-$planningConstruction->getManagementAmount()|system_numeric_format-|" title="Presupuesto Gestion " class="right" />
     </p>
 	<p>
         <label for="params_raisedAmount">Presupuesto Elevado</label>
@@ -189,25 +189,25 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 
   <p>     
     <label for="params_startingDate">Fecha de Inicio</label>
-    <input id="params_startingDate" name="params[startingDate]" type='text' value='|-$planningConstruction->getStartingDate()|date_format-|' size="12" title="Ingrese la fecha de Inicio en formato dd-mm-aaaa"  |-$readonly|readonly-| class="dateValidation"/>|-if !$show && !$showLog-| <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de inicio">|-/if-|
+    <input id="params_startingDate" name="params[startingDate]" type='text' value='|-$planningConstruction->getStartingDate()|date_format-|' size="12" title="Ingrese la fecha de Inicio en formato dd-mm-aaaa" class="dateValidation"/>|-if !$show && !$showLog-| <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de inicio">|-/if-|
   </p>
   <p>     
     <label for="params_endingDate">Fecha de Finalización</label>
-    <input id="params_endingDate" name="params[endingDate]" type='text' value='|-$planningConstruction->getEndingDate()|date_format-|' size="12" title="Ingrese la fecha de Finalizacion en formato dd-mm-aaaa"  |-$readonly|readonly-| class="dateValidation"/> |-if !$show && !$showLog-|<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[endingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de finalizacion">|-/if-|
+    <input id="params_endingDate" name="params[endingDate]" type='text' value='|-$planningConstruction->getEndingDate()|date_format-|' size="12" title="Ingrese la fecha de Finalizacion en formato dd-mm-aaaa" class="dateValidation"/> |-if !$show && !$showLog-|<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[endingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de finalizacion">|-/if-|
   </p>
   <p>     
     <label for="params_potentialEndingDate">Fecha Probable de Finalización</label>
-    <input id="params_potentialEndingDate" name="params[potentialEndingDate]" type='text' value='|-$planningConstruction->getPotentialEndingDate()|date_format-|' size="12" title="Ingrese la fecha de Finalizacion en formato dd-mm-aaaa"  |-$readonly|readonly-| class="dateValidation"/> |-if !$show && !$showLog-|<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[potentialEndingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de finalizacion">|-/if-|
+    <input id="params_potentialEndingDate" name="params[potentialEndingDate]" type='text' value='|-$planningConstruction->getPotentialEndingDate()|date_format-|' size="12" title="Ingrese la fecha de Finalizacion en formato dd-mm-aaaa" class="dateValidation"/> |-if !$show && !$showLog-|<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[potentialEndingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de finalizacion">|-/if-|
   </p>
       
 		 |-if !$planningConstruction->isNew()-|<h3>Partida presupuestaria &nbsp; <a href="javascript:void(null)" id="showHideBudgetRelations" onClick="$('budgetItemsTable').toggle(); $('showHideBudgetRelations').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningConstruction->getBudgetItems() readonly="readonly" showLog="true"-||-/if-|
-		 <h3>Gantt (Hitos) <a href="javascript:void(null)" id="showHidePlanningConstruction" onClick="$('activitiesTable').toggle(); $('showHidePlanningConstruction').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-if !$planningConstruction->isNew()-||-include file="PlanningActivitiesInclude.tpl" activities=$planningConstruction->getActivities() construction=$planningConstruction showGantt="true"-||-else-|
-		 |-include file="PlanningConstructionsTemplateInclude.tpl" construction="true"-||-/if-|
+		 <h3>Gantt (Hitos) <a href="javascript:void(null)" id="showHidePlanningConstruction" onClick="$('activitiesTable').toggle(); $('showHidePlanningConstruction').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-if !$planningConstruction->isNew()-||-include file="PlanningActivitiesInclude.tpl" activities=$planningConstruction->getActivities() construction=$planningConstruction showGantt="true" readonly=false-||-else-|
+		 |-include file="PlanningConstructionsTemplateInclude.tpl" construction="true" readonly=false-||-/if-|
 	<p>
         <label for="params_address">Dirección</label>
       <input name="params[address]" type="text" id="params_address" size="80" value="|-$planningConstruction->getAddress()-|" title="Dirección" |-$readonly|readonly-|/>
     </p>
-|-if !$planningConstruction->isNew()-|<h3>Ejecución Físico/Financiera &nbsp; <a href="javascript:void(null)" id="showHideConstructionProgress" onClick="$('progressRecordsTable').toggle(); $('showHideConstructionProgress').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningConstructionProgressInclude.tpl" progressRecords=$planningConstruction->getConstructionProgresss()-||-/if-|
+|-if !$planningConstruction->isNew()-|<h3>Ejecución Físico/Financiera &nbsp; <a href="javascript:void(null)" id="showHideConstructionProgress" onClick="$('progressRecordsTable').toggle(); $('showHideConstructionProgress').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningConstructionProgressInclude.tpl" progressRecords=$planningConstruction->getConstructionProgresss()  readonly=false-||-/if-|
 	<p>
 		<label for="params_regions">Comunas</label>
 		<select class="chzn-select wide-chz-select" data-placeholder="Seleccione una o varias comunas..." multiple="multiple" id="params_regions" name="params[regionsIds][]" size="5" title="comunas" |-$readonly|readonly-|>
@@ -229,13 +229,13 @@ $("#autocomplete_responsibleCode").ajaxChosen({
     <input type="hidden" name="params[startingYear]" id="params_startingYear" value="|-$startingYear-|" /> 
     <input type="hidden" name="params[endingYear]" id="params_endingYear" value="|-$endingYear-|" /> 
     <input type="hidden" name="currentPage" id="currentPage" value="|-$currentPage-|" /> 
-    <input type="hidden" name="do" id="do" value="planningConstructionsDoEdit" /> 
+    <input type="hidden" name="do" id="do" value="panelConstructionsDoEdit" /> 
 		<p>|-javascript_form_validation_button id="button_edit" value='Aceptar' title='Aceptar'-|
-		|-if !$planningConstruction->isNew() && $fromPlanningProjectId-|	<input type='button' onClick='location.href="Main.php?do=planningConstructionsEdit&fromPlanningProjectId=|-$fromPlanningProjectId-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Agregar otra obra al proyecto' title="Agregar otra obra al proyecto"/>|-/if-|
+		|-if !$planningConstruction->isNew() && $fromPlanningProjectId-|	<input type='button' onClick='location.href="Main.php?do=panelConstructionsEdit&fromPlanningProjectId=|-$fromPlanningProjectId-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Agregar otra obra al proyecto' title="Agregar otra obra al proyecto"/>|-/if-|
 		|-if $fromPlanningProjectId-|
 		<input type='button' onClick='location.href="Main.php?do=planningProjectsEdit&id=|-$fromPlanningProjectId-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='Regresar al Proyecto' title='Regresar al Proyecto' />
 		|-else-|
-	<input type='button' onClick='location.href="Main.php?do=planningConstructionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Obras"/>
+	<input type='button' onClick='location.href="Main.php?do=panelConstructionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Obras"/>
 		|-/if-|		</p>|-/if-|
     </fieldset> 
   </form> 

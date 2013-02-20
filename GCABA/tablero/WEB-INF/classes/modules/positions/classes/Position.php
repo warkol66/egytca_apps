@@ -436,10 +436,16 @@ class Position extends BasePosition {
 	}
 	
 	
+	/**
+	 * Obtiene el padre de la position que se mostrara en graficos.
+	 *
+	 * @return propelObject $chosen
+	 */
 	public function getGraphParent() {
+		$planningType = key(ConfigModule::get("planning","positionsTypes"));
 		$current = $this;
 		do {	
-			if ($current->getType() == 9 || $current->getPlanning())
+			if ($current->getType() == $planningType || $current->getPlanning())
 				$chosen = $current;
 		} while ($current = $current->getParent()); // es una asignacion intencional
 		
