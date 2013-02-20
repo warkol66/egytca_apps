@@ -33,10 +33,7 @@ class PanelResultsShowAction extends BaseAction {
 			$projects = empty($_GET['color']) ?
 				$objective->getAllProjects() : $objective->getProjectsByStatusColor($_GET['color']);
 		} elseif (empty($_GET['objectiveId'])) {
-			$positionsLatetsVersion = PositionPeer::getLatestVersion();
-			$positionPeer = new PositionPeer();
-			$positionPeer->setSearchVersion($positionsLatetsVersion);
-			$positions = $positionPeer->getAllFiltered();
+			$positions = PositionQuery::create()->filterByPlanning(1)->find();
 			$smarty->assign("positions", $positions);
 		}
 
