@@ -21,13 +21,22 @@
 	|-foreach from=$constructions item=construction name=for_contractConstructions-|
 		<tr id="constructionId_|-$construction->getId()-|"> 
 			<td>|-$construction->getName()-|</td>
-			<td></td>
+			<td><a href="javascript:void(null);" class="flag|-$construction->statusColor()|capitalize-|"></a></td>
 			<td nowrap>
 				<form action="Main.php" method="get" style="display:inline;">
 					<input type="hidden" name="do" value="planningConstructionsViewX" />
 					<input type="hidden" name="id" value="|-$construction->getid()-|" />
 					<a href="#lightbox_const" rel="lightbox_const" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("planningConstructionsShowDiv", "Main.php?do=planningConstructionsViewX&id=|-$construction->getid()-|", { method: "post", parameters: { id: "|-$construction->getId()-|"}, evalScripts: true})};$("planningConstructionsShowWorking").innerHTML = "<span class=\"inProgress\">buscando Obra...</span>";' value="Ver detalle" name="submit_go_show_construction" title="Ver detalle" /></a>
 				</form>
+					<form action="Main.php" method="get" style="display:inline;">
+						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
+						<input type="hidden" name="do" value="panelConstructionsEdit" />
+						<input type="hidden" name="id" value="|-$construction->getid()-|" />
+						<input type="submit" name="submit_go_edit_construction" value="Editar" class="icon iconListCheck" title="Seguimiento de Obra"/>
+					</form>
+
+|-if $showGantt && $construction->countActivities() gt 0-|<input type="button" class="icon iconViewGantt" onClick='window.open("Main.php?do=planningConstructionsViewX&showGantt=true&id=|-$construction->getid()-|","Gantt","scrollbars=1,width=800,height=600");' value="Ver Gantt" title="Ver Gantt (abre en ventana nueva)" />|-else-|<img src="images/clear.png" class="icon iconClear disabled" />|-/if-|
 			</td>
 		</tr>
 	|-/foreach-|

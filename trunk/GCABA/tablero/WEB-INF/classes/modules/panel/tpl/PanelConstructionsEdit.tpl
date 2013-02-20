@@ -8,7 +8,8 @@
 <!-- /Link VOLVER -->
 <p class='paragraphEdit'>A continuación se puede modificar los elementos que definen el Obra.</p>
 <div id="div_project"> 
-  |-include file="PlanningConstructionsForm.tpl" do="panelConstructionsDoEdit" list="panelConstructionsList"-|
+  |-*include file="PlanningConstructionsForm.tpl" do="panelConstructionsDoEdit" list="panelConstructionsList"*-|
+  |-include file="PanelConstructionsForm.tpl" do="panelConstructionsDoEdit" list="panelConstructionsList" readonly=true-|
 	</div> 
 |-if !$planningConstruction->isNew() && $readonly ne "readonly"-|
 	<input type="button" title="Ver Historial de cambios" value="Ver Historia" onClick="location.href='Main.php?do=planningConstructionsLogTabs&id=|-$planningConstruction->getId()-|'" />

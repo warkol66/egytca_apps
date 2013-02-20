@@ -73,7 +73,7 @@ function showImpactObjectives(id){
                     <embed src="images/speedometer.swf" wmode="transparent" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" flashvars="var3=97&amp;var4=Main.php?do=positionsShow&amp;positionId=3" height="170" width="170" /></object>
                 </div>
 
-                <div class="floatleft"id="chartContainer"></div>
+                <div class="floatleft" id="chartContainer"></div>
                 <script type="text/javascript">
                     var myChart = new FusionCharts( "images/Pie3D.swf", "myChartId", "300", "225", "0", "1" );
                     myChart.setDataURL(escape("Main.php?do=planningCakeByStatusColorXml&type=projects"));
