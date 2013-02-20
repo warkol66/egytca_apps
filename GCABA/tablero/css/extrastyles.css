@@ -1,0 +1,87 @@
+.clearfix {
+    *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: "";
+    line-height: 0;
+}
+.clearfix:after {
+    clear: both;
+}
+
+.floatleft {
+       float: left;
+}
+
+table.small {
+    font-size: 11px;
+
+}
+.tablaInfo .left{
+    text-align: left;
+}
+
+.tablaInfo {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    width: 900px;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.tablaInfo th, .tablaInfo tr, .tablaInfo td {
+    border-collapse: collapse;
+    border: 2px solid #E9CA00;
+}
+
+.tablaInfo th{
+    font-weight: bold;
+    text-align: center;
+}
+
+.tablaInfo td{
+    text-align: center;
+}
+
+
+
+button.yellowButton {
+    cursor:pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #240404;
+    padding: 10px 20px;
+    background: -moz-linear-gradient(
+        top,
+        #ffe642 0%,
+        #ffb700);
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#ffe642),
+        to(#ffb700));
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    border: 1px solid #dea739;
+    -moz-box-shadow:
+        0px 0px 0px rgba(000,000,000,0),
+        inset 0px 0px 0px rgba(255,255,255,0);
+    -webkit-box-shadow:
+        0px 0px 0px rgba(000,000,000,0),
+        inset 0px 0px 0px rgba(255,255,255,0);
+    box-shadow:
+        0px 0px 0px rgba(000,000,000,0),
+        inset 0px 0px 0px rgba(255,255,255,0);
+    text-shadow:
+        0px 0px 0px rgba(000,000,000,0),
+        0px 0px 0px rgba(255,255,255,0);
+}
+
+
+#canvas_container {
+    width: 500px;
+    border: 1px solid #aaa;
+}
