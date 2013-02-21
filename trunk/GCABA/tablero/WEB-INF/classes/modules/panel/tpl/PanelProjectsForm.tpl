@@ -5,17 +5,6 @@
 <script language="JavaScript" type="text/javascript" src="scripts/event.simulate.js"></script>
 
 |-if is_object($planningProject)-|
-<script type="text/javascript" src="scripts/lightbox.js"></script> 			
-<div id="lightbox1" class="leightbox">
-	<p align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
-	</p> 
-	<div id="planningProjectsShowWorking"></div>
-	<div class="innerLighbox">
-		<div id="planningProjectsShowDiv"></div>
-	</div>
-</div>
-
 |-if $message eq "ok"-|
 	<div class="successMessage">Proyecto guardado correctamente</div>
 |-elseif $message eq "error"-|
@@ -154,10 +143,6 @@
 		 |-if !$planningProject->isNew()-|
 		 <h3>Gantt (Hitos) &nbsp; <a href="javascript:void(null)" id="showHidePlanningActivities" onClick="$('activitiesTable').toggle(); $('showHidePlanningActivities').toggleClassName('expandLink');" class="collapseLink">&nbsp;<span>Ver/Ocultar</span></a> </h3>
 		 |-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() showGantt="true"-||-/if-|
-	  
-	  
-
-	  
 	  
 			|-if isset($loginUser) && $loginUser->isSupervisor() && !$planningProject->isNew()-|
 				<p>

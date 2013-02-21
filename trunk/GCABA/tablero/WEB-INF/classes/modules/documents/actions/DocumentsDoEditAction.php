@@ -77,6 +77,8 @@ class DocumentsDoEditAction extends BaseAction {
 		}
 		else {
 			//caso de upload o creacion de nuevo documento
+			/*if(isset($iframe) && $iframe == true)
+				//$this->template->template = 'PlanningActivityDocumentsListX.tpl';*/
 			
 			//si no llega ningun archivo significa que la carga se realizo por swfUpload.
 			if(empty($_FILES["document_file"]['name'])) {
