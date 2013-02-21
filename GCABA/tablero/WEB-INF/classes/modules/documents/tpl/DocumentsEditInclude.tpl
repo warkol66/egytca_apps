@@ -11,7 +11,7 @@
 |-/if-|
 </div>
 
-<form method="post" action="Main.php?do=documentsDoEdit" enctype="multipart/form-data" name="formSearch" id="documentsAdderForm" onsubmit="|-$onsubmit|default:'return true'-|" target="|-$target-|">
+<form method="post" action="Main.php?do=documentsDoEdit" enctype="multipart/form-data" name="formSearch" id="BLABLA" onsubmit="|-$onsubmit|default:'return true'-|" target="|-$target-|">
 	|-if $document neq ''-|
 	<input type="hidden" name="id" value="|-$document->getId()-|">
 	|-/if-|
