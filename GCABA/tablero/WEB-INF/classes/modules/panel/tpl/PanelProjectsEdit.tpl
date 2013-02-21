@@ -43,13 +43,11 @@ myChart2.render("chartContainer2");
 |-/if-|
 
 <div id="div_project">
-	<fieldset>
 	<h1>Proyecto: |-$planningProject->getName()-|</h1>
 	<h3>Listado y Gantt de actividades</h3>
 	|-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() showGantt="true" margin="false" add="false"-|
 	<h3>Listado de obras</h3>
 	|-include file="PanelConstructionsInclude.tpl" constructions=$planningProject->getPlanningConstructions() showGantt="true"-|
-	</fieldset>
 </div>
 |-else-|
 	<h1>Administración de Proyectos</h1>
