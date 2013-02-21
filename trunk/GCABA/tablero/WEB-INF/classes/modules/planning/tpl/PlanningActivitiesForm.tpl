@@ -27,11 +27,6 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 });
 
 	})*/
-
-
-
-
-
 </script>
 |-if $message eq "ok"-|
 	<div class="successMessage">Obra guardado correctamente</div>
