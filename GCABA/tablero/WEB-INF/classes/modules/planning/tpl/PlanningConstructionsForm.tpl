@@ -232,3 +232,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 		document.getElementById(elementId).enable();
 	}
 </script>
+<div id="planningActivityDocumentsEditTemplate" style="display:none">
+	|-include file="DocumentsEditInclude.tpl" entity="PlanningActivity" entityId="<%planningActivityId%>" iframe="true" target="submit-iframe"-|
+	<iframe name="submit-iframe" style="display: none;" |-*onload="if (this.innerHTML != '') { closeLightbox(); loadAddDocumentsLightbox('<%planningActivityId%>'); openLightbox1(); }"*-|></iframe>
+</div>

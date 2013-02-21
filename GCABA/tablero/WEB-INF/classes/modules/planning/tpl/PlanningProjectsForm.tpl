@@ -1,3 +1,4 @@
+
 |-assign var="defaultOrder" value=999-|
 
 <link type="text/css" href="css/chosen.css" rel="stylesheet" />
@@ -5,7 +6,6 @@
 <script language="JavaScript" type="text/javascript" src="scripts/event.simulate.js"></script>
 
 |-if is_object($planningProject)-|
-
 |-if $message eq "ok"-|
 	<div class="successMessage">Proyecto guardado correctamente</div>
 |-elseif $message eq "error"-|
@@ -36,7 +36,6 @@
       <input name="fromOperativeObjectiveId" type="hidden" value="|-$fromOperativeObjectiveId-|" />
       </p>
 		|-/if-|
-
 		|-if !$show && !$showLog-|<div id="responsible" style="position: relative;z-index:11000;">
 
 		|-if isset($operativeObjective)-|
@@ -146,10 +145,6 @@
 		 <h3>Gantt (Hitos) &nbsp; <a href="javascript:void(null)" id="showHidePlanningActivities" onClick="$('activitiesTable').toggle(); $('showHidePlanningActivities').toggleClassName('expandLink');" class="collapseLink">&nbsp;<span>Ver/Ocultar</span></a> </h3>
 		 |-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() showGantt="true"-||-/if-|
 	  
-	  
-
-	  
-	  
 			|-if isset($loginUser) && $loginUser->isSupervisor() && !$planningProject->isNew()-|
 				<p>
 					<label for="changedBy">|-if $planningProject->getVersion() gt 1-|Modificado|-else-|Creado|-/if-| por:</label>
@@ -219,3 +214,7 @@
 	</p>
 </fieldset>
 |-/if-|
+<div id="planningActivityDocumentsEditTemplate" style="display:none">
+	|-include file="DocumentsEditInclude.tpl" entity="PlanningActivity" entityId="<%planningActivityId%>" iframe="true" target="submit-iframe"-|
+	<iframe name="submit-iframe" style="display: none;" |-*onload="if (this.innerHTML != '') { closeLightbox(); loadAddDocumentsLightbox('<%planningActivityId%>'); openLightbox1(); }"*-|></iframe>
+</div>

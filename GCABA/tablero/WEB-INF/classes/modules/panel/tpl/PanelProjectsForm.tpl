@@ -1,7 +1,6 @@
 |-assign var="defaultOrder" value=999-|
 
 <link type="text/css" href="css/chosen.css" rel="stylesheet" />
-<script language="JavaScript" type="text/javascript" src="scripts/chosen.proto.js"></script>
 <script language="JavaScript" type="text/javascript" src="scripts/event.simulate.js"></script>
 
 |-if is_object($planningProject)-|
@@ -174,7 +173,7 @@
 
 |-if !$planningProject->isNew()-|
 <script type="text/javascript">
-	Event.observe(window, 'load', function() {
+	/*Event.observe(window, 'load', function() {
 		new Chosen($('tagsIds'));
 	});
 	
@@ -197,7 +196,7 @@
 				 evalScripts: true
 			 });
 		 return true;
-	 }
+	 }*/
 </script>
 <fieldset>
 	<legend>Etiquetas</legend>
