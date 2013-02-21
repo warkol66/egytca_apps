@@ -17,7 +17,11 @@ function showImpactObjectives(id){
 				}
 			}
 		);
-		return false;
+}
+
+function toggleSwitch(id){
+	 $$('.indicator_' +  id).each(function(b){Element.toggle(b)});
+	 return false;
 }
 </script>
 <div id="lightbox2" class="leightbox">
