@@ -49,12 +49,8 @@
 		};
 	}
 
-	function openLightbox1() { $('openLightbox1_control').click(); }
-	function openLightbox2() { $('openLightbox2_control').click(); }
-	function closeLightbox() { $('closeLightbox_control').click(); }
+	function openLightbox1() { $('openLightbox1_control').click(); return false; }
+	function openLightbox2() { $('openLightbox2_control').click(); return false;}
+	function closeLightbox() { $('closeLightbox_control').click(); return false;}
 </script>
 
-<div id="planningActivityDocumentsEditTemplate" style="display:none">
-	|-include file="DocumentsEditInclude.tpl" entity="PlanningActivity" entityId="<%planningActivityId%>" iframe="true" target="submit-iframe"-|
-	<iframe name="submit-iframe" style="display: none;" |-*onload="if (this.innerHTML != '') { closeLightbox(); loadAddDocumentsLightbox('<%planningActivityId%>'); openLightbox1(); }"*-|></iframe>
-</div>

@@ -120,14 +120,14 @@
 			 	|-/if-|
 			 	|-if isset($iframe) and $iframe eq "true"-|				
 			 	<input type="hidden" name="iframe" value="true" />
-				<input type="button" value="Agregar Documento" onClick="fileUpload('documentsAdderForm','Main.php?do=documentsDoEdit','upload'); return false;" >
+				<input type="button" value="Agregar Documento" onClick="fileUpload('documentsAdderForm','Main.php?do=documentsDoEdit','upload')" >
 				|-else-|
 				<input type="submit" name="uploadButton" value="|-if $document neq ''-|Guardar Cambios|-else-|Agregar Documento|-/if-|" id="btnSubmit">|-if $module eq 'Documents' && $action eq 'edit'-|<input name="return" type="button" value="Regresar" onClick="history.back(-1);"/>|-/if-|<span id="msgBoxUploader"></span>
 				|-/if-|
-				<div id="upload"></div>
 			 </p>
 	</fieldset>
 </form>
+<div id="upload"></div>
 </div>
 <script language="Javascript">
 function fileUpload(form, action_url, div_id) {
@@ -181,8 +181,8 @@ function fileUpload(form, action_url, div_id) {
     // Submit the form...
     form.submit();
  
-    document.getElementById(div_id).innerHTML = "Uploading...";
-    /*document.getElementById('documentsAdderForm').innerHTML = " ";
-    $('lightbox1').setStyle({ display: 'none' });*/
+    document.getElementById(div_id).innerHTML = "Adjuntando Documento...";
+    document.getElementById('documentsAdderForm').innerHTML = " ";
+    $('lightbox1').setStyle({ display: 'none' });
 }
 </script>

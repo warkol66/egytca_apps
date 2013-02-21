@@ -1,4 +1,4 @@
-<fieldset><legend>Documentos asociados</legend>
+<fieldset id="docs_list"><legend>Documentos asociados</legend>
 <ul>
 |-if $planningActivityDocumentColl|count eq 0-|
 	<p>No hay documentos asociados</p>
@@ -15,7 +15,7 @@
 				<input type="hidden" name="id" value="|-$documentId-|" />
 				<button type="submit" class="icon iconDownload" title="Descargar documento">ver</button>
 			</form><a href="#" title="Editar documento"><img src="images/clear.png" class="icon iconEdit" title="Editar"/></a>
-			<a href="#" title="Eliminar documento" onclick="confirm('seguro eliminar?') && doDeleteDocument(|-$documentId-|, |-$planningActivityId-|)"><img src="images/clear.png" class="icon iconDelete" title="Editar"/></a></span>
+			<a href="#" title="Eliminar documento" onclick="confirm('seguro eliminar?') && doDeleteDocument(|-$documentId-|, |-$planningActivityId-|); return false;"><img src="images/clear.png" class="icon iconDelete" title="Editar"/></a></span>
 			<br style="clear: all" />
 		</li>
 	|-/foreach-|
