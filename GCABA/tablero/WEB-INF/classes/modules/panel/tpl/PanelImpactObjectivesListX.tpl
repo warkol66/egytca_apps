@@ -6,7 +6,7 @@
 |-else-|
 |-foreach from=$objectives item=objective name=for_objectives-|
 	<tr style="background:#E3E9F1;">
-	<td><a class="icon iconFollow" href="#" onClick="return false;"></a></td>
+	<td><a class="icon iconFollow" href="#" onClick="toggleSwitch(|-$objective->getId()-|); return false;"></a></td>
 	<td>Objetivo de Impacto: |-$objective->getName()-|</td>
 	<td nowrap>
 		<form action="Main.php" method="get" style="display:inline;">
@@ -38,7 +38,7 @@
 	</tr>
 	|-assign var=indicators value=$objective->getPlanningIndicators()-|
 	|-foreach from=$indicators item=indicator name=for_indicators-|
-		<tr style="background:#E3E9F1;">
+		<tr style="background:#E3E9F1;display: none;" class="indicator_|-$objective->getId()-|">
 			<td><a class="icon iconFollow" href="#" onClick="return false;"></a></td>
 			<td>Indicador: |-$indicator->getName()-|</td>
 			<td nowrap>
