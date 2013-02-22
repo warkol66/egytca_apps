@@ -73,3 +73,11 @@ myChart2.render("chartContainer2");
 	|-include file="DocumentsEditInclude.tpl" entity="PlanningActivity" entityId="<%planningActivityId%>" iframe="true" target="submit-iframe"-|
 	<iframe name="submit-iframe" style="display: none;" |-*onload="if (this.innerHTML != '') { closeLightbox(); loadAddDocumentsLightbox('<%planningActivityId%>'); openLightbox1(); }"*-|></iframe>
 </div>
+
+
+<div id="fcexpDiv" align="center">FusionCharts Export</div>
+  <script type="text/javascript">
+  var myExportComponent = new FusionChartsExportObject("fcExporter1", "images/FCExporter.swf");
+     //Render the exporter SWF in our DIV fcexpDiv
+		myExportComponent.Render("fcexpDiv");
+	</script>
