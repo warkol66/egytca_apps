@@ -24,6 +24,7 @@ function toggleSwitch(id){
 	 return false;
 }
 </script>
+
 <div id="lightbox2" class="leightbox">
 	<p align="right">				
 		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
@@ -142,7 +143,8 @@ function toggleSwitch(id){
 	<table id="tabla-projectss" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 		<thead>
 			<tr class="thFillTitle">
-				<th colspan="2">Orden Ranking -- Organigrama -- Ministerio</th>
+				<th width="1%"></th>
+				<th width="89%"><!-- Orden Ranking -- Organigrama -- Ministerio --></th>
 				<th>Proyectos</th>
 				<th>Obras</th>
 			</tr>
@@ -153,34 +155,34 @@ function toggleSwitch(id){
 		|-assign var="constColorsCount" value=$position->getConstructionsByStatusColorCountAssoc()-|
 			<tr>
 				<td>
-					<a class="icon iconFollow" href="#" onClick="showImpactObjectives(|-$position->getId()-|); return false;"></a>
+					<a href="#" onClick="showImpactObjectives(|-$position->getId()-|); return false;"><img src="images/icon_expand.png" /></a>
 				</td>
-				<td>|-$position->getName()-|</td>
-				<td align="center" nowrap >
-					<a href="" class="flagWhite">
+				<td><strong>|-$position->getName()-|</strong></td>
+				<td align="center" nowrap="nowrap">
+					<div style="width:108px;"><!--<a href="" class="flagWhite">
 						|-$colorsCount.white-|
-					</a><a href="" class="flagGreen">
+					</a>--><a href="" class="flagGreen">
 						|-$colorsCount.green-|
 					</a><a href="" class="flagYellow">					
 						|-$colorsCount.yellow-|
 					</a><a href="" class="flagRed">
 						|-$colorsCount.red-|
-					</a><a href="" class="flagBlue">
+					</a><!--<a href="" class="flagBlue">
 						|-$colorsCount.blue-|
-					</a>
+					</a>--></div>
 				</td>
-				<td align="center" nowrap >
-					<a href="" class="flagWhite">
+				<td align="center" nowrap="nowrap" >
+					<div  style="width:108px;"><!--<a href="" class="flagWhite">
 						|-$constColorsCount.white-|
-					</a><a href="" class="flagGreen">
+					</a>--><a href="" class="flagGreen">
 						|-$constColorsCount.green-|
 					</a><a href="" class="flagYellow">					
 						|-$constColorsCount.yellow-|
 					</a><a href="" class="flagRed">
 						|-$constColorsCount.red-|
-					</a><a href="" class="flagBlue">
+					</a><!--<a href="" class="flagBlue">
 						|-$constColorsCount.blue-|
-					</a>
+					</a>--></div>
 				</td>
 			</tr>
 			<tr id="impactObjectives_|-$position->getId()-|" ></tr>

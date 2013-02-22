@@ -79,7 +79,7 @@
 				<td>|-if is_object($operativeObjective)-||-$operativeObjective->getStringCode()-|&nbsp;|-/if-||-$project->getOperativeobjective()-|</td>
 				<td>|-$project->getPosition()-|</td>
 				<td>|-$project->getStringCode()-|&nbsp;|-$project->getName()-|</td>
-				<td nowrap>|-if $project->countPlanningConstructions() gt 0-|<a href="Main.php?do=planningConstructionsList&nav=true&&filters[planningprojectid]=|-$project->getId()-|" class="icon iconFollow" title="Ver Obras del Proyecto">Ver Obras</a>|-/if-|</td>
+				<td nowrap>|-if $project->countPlanningConstructions() gt 0-|<a href="Main.php?do=panelConstructionsList&nav=true&&filters[planningprojectid]=|-$project->getId()-|" class="icon iconFollow" title="Ver Obras del Proyecto">Ver Obras</a>|-/if-|</td>
 				<td nowrap>
 					|-if "planningProjectsViewX"|security_has_access-||-if $project->getActivities()|count gt 0-|
 					<input type="button" class="icon iconViewGantt" onClick='window.open("Main.php?do=planningProjectsViewX&showGantt=true&id=|-$project->getid()-|","Gantt","scrollbars=1,width=800,height=600");' value="Ver Gantt" title="Ver Gantt (abre en ventana nueva)" />|-else-|<img src="images/clear.png" class="icon iconClear disabled" />|-/if-|

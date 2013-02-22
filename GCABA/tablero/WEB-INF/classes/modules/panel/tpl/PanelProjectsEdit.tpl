@@ -45,7 +45,14 @@ myChart2.render("chartContainer2");
 <div id="div_project">
 	<h1>Proyecto: |-$planningProject->getName()-|</h1>
 	<h3>Listado y Gantt de actividades</h3>
+  <form name="form_edit_project" id="form_edit_project" action="Main.php" method="post">
 	|-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() showGantt="true" margin="false" add="false"-|
+    <input type="hidden" name="id" id="id" value="|-$planningProject->getId()-|" /> 
+		|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+    <input type="hidden" name="do" id="do" value="panelProjectsDoEdit" /> 
+		<p>|-javascript_form_validation_button id="button_edit" value='Guardar cambios' title='Guardar cambios'-|</p>
+</form>
+
 	<h3>Listado de obras</h3>
 	|-include file="PanelConstructionsInclude.tpl" constructions=$planningProject->getPlanningConstructions() showGantt="true"-|
 </div>
