@@ -22,6 +22,7 @@
 	</p>
 	<p>			
 		<input type="hidden" name="do" id="do" value="blogTagsDoEditX" />
+		<input type="hidden" name="fromBlog" id="fromBlog" value="true" />
 		<input type="button" id="button_edit_actor" name="button_edit_actor" title="Aceptar" value="Agregar" onClick="javascript:createTag(this.form)"/>
 		<a href="javascript:$.fancybox.close();" class="lbAction" rel="deactivate"><input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" /></a> 
 </p>

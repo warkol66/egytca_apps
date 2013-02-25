@@ -16,6 +16,9 @@ class BlogTagsDoEditXAction extends BaseDoEditAction {
 		
 		$this->smarty->assign('blogTag', $this->entity);
 		
+		if(isset($_POST['fromBlog']))
+			$this->template->template = 'BlogDoAddTagX.tpl';
+		
 	}
 
 }
