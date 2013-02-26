@@ -32,6 +32,7 @@ class PlanningProjectsEditAction extends BaseEditAction {
 		$this->smarty->assign("goalTypes", PlanningIndicator::getGoalTypes());
 		$this->smarty->assign("trendTypes", PlanningIndicator::getTrendTypes());
 		
+		$this->smarty->assign("indicators", PlanningIndicatorQuery::create()->find());
 		$this->smarty->assign('planningProjectTags',PlanningProjectTagQuery::create()->find());
 
 		//Para asignar directamente el Objetivo Operativo navegando desde ese objetivo

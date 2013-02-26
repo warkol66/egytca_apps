@@ -15,4 +15,18 @@
  */
 class PlanningProjectIndicator extends BasePlanningProjectIndicator
 {
+	public function update($project, $indicator){
+		
+		$this->setPlanningprojectid($project)->setIndicatorid($indicator);
+		try {
+			$this->save();
+			return $this;
+			//return $this->modifiedColumns;
+		}catch(PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+			return false;
+		}
+	}
+	
 }
