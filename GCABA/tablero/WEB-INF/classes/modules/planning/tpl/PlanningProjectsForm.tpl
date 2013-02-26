@@ -1,6 +1,4 @@
-
 |-assign var="defaultOrder" value=999-|
-
 <link type="text/css" href="css/chosen.css" rel="stylesheet" />
 <script language="JavaScript" type="text/javascript" src="scripts/chosen.proto.js"></script>
 <script language="JavaScript" type="text/javascript" src="scripts/event.simulate.js"></script>
@@ -143,7 +141,9 @@
 	  
 		 |-if !$planningProject->isNew()-|
 		 <h3>Gantt (Hitos) &nbsp; <a href="javascript:void(null)" id="showHidePlanningActivities" onClick="$('activitiesTable').toggle(); $('showHidePlanningActivities').toggleClassName('expandLink');" class="collapseLink">&nbsp;<span>Ver/Ocultar</span></a> </h3>
-		 |-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() showGantt="true"-||-/if-|
+		 |-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() showGantt="true"-|
+		 
+		 |-/if-|
 	  
 			|-if isset($loginUser) && $loginUser->isSupervisor() && !$planningProject->isNew()-|
 				<p>
@@ -177,7 +177,24 @@
 <script type="text/javascript">
 	Event.observe(window, 'load', function() {
 		new Chosen($('tagsIds'));
+		new Chosen($('selectProjectIndicator'));
 	});
+	
+	function updateIndicator(formId){
+		var action = 'Main.php?do=planningProjectsUpdateIndicatorX';
+		form = $(formId);
+		
+		new Ajax.Updater(
+			{success: 'message'},
+			action,
+			{
+				method: 'post',
+				postBody: Form.serialize(form),
+				evalScripts: true
+			});
+		$('message').innerHTML = "<div class='inProgress'>Actualizando proyecto...</div>";
+		
+	}
 	
 	function updateSelected(options, action) {
 
@@ -210,6 +227,23 @@
 				<option value="|-$planningProjectTag->getId()-|" |-if $planningProject->hasPlanningProjectTag($planningProjectTag)-|selected="selected"|-/if-| >|-$planningProjectTag->getName()-|</option>
 			|-/foreach-|
 		</select>
+	</form>
+	</p>
+</fieldset>
+<div id="message"></div>
+<fieldset>
+	<legend>Indicador</legend>
+	|-include file="PlanningIndicatorsInclude.tpl" activities=$planningProject->getActivities() -|
+	<p>
+	<form action="Main.php" method="post" id="formProjectIndicator">
+		<select data-placeholder="Elija un indicador..." name="indicatorId" id="selectProjectIndicator" class="chzn-select" onChange="updateIndicator('formProjectIndicator');">
+			<option value=""></option> 
+			|-assign var="indicator" value=$planningProject->getPlanningProjectIndicators()-|
+			|-foreach from=$indicators key=key item=name-|
+			<option value="|-$key-|" |-if $indicator[0]->getIndicatorId() eq $key-|selected="selected"|-/if-|>|-$name-|</option>
+			|-/foreach-|
+		</select>											
+		<input type="hidden" name="id" id="id" value="|-$planningProject->getid()-|" />
 	</form>
 	</p>
 </fieldset>
