@@ -25,7 +25,8 @@
 				<input name="params[phone]" type="text" value="|-$affiliate->getPhone()|escape-|" size="25"> 
 			</p>
 		 <p><label for="params[mail]">E-mail</label>
-				<input name="params[mail]" id="params[mail]" type="text" value="|-$affiliate->getEmail()|escape-|" size="30" class="mailValidation" onchange="javascript:validationValidateFieldClienSide('params[mail]');" /> |-validation_msg_box idField=params[mail]-|
+				<input name="params[mail]" id="params[mail]" type="text" value="|-$affiliate->getEmail()|escape-|" size="30" class="mailValidation" onchange="javascript:validationValidateFieldClienSide('params[mail]');" />
+				|-validation_msg_box idField="params[mail]"-|
 			</p>
 		 <p><label for="params[contact]">Persona contacto</label>
 				<input name="params[contact]" type="text" value="|-$affiliate->getContact()|escape-|" size="40"> 
@@ -40,7 +41,7 @@
 				<textarea name="params[memo]" cols="45" rows="6" wrap="VIRTUAL">|-$affiliate->getMemo()|escape-|</textarea>
 			</p>
 		 <p><input name="save" type="submit" value="Guardar Cambios"> 
-				<input type='button' onClick='location.href="Main.php?do=affiliatesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de ##affiliates,1,Afiliados##"/>
+				<input type='button' onClick='' value='##104,Regresar##' title="Regresar al listado de ##affiliates,1,Afiliados##"/>
 			 </p>
 		</form>
 	</fieldset>
