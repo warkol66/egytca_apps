@@ -118,8 +118,9 @@
 
 	<table name="planning_projectIndicator" phpName="PlanningProjectIndicator" description="Indicadores de Proyectos" >
 
-		<column name="planningProjectId" required="true" primaryKey="true" type="INTEGER"  description="PlanningProject ID"/>
-		<column name="indicatorId" required="true" primaryKey="true" type="INTEGER"  description="Indicador ID"/>
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id" autoIncrement="true"/>
+		<column name="planningProjectId" required="true" type="INTEGER"  description="PlanningProject ID"/>
+		<column name="indicatorId" required="true" type="INTEGER"  description="Indicador ID"/>
 
 		<foreign-key foreignTable="planning_project">
 			<reference local="planningProjectId" foreign="id"/>
