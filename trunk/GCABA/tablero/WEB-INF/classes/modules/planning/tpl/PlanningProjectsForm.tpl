@@ -233,7 +233,6 @@
 <div id="message"></div>
 <fieldset>
 	<legend>Indicador</legend>
-	|-include file="PlanningIndicatorsInclude.tpl" activities=$planningProject->getActivities() -|
 	<p>
 	<form action="Main.php" method="post" id="formProjectIndicator">
 		<select data-placeholder="Elija un indicador..." name="indicatorId" id="selectProjectIndicator" class="chzn-select" onChange="updateIndicator('formProjectIndicator');">
