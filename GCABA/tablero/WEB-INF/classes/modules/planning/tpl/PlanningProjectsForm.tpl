@@ -236,10 +236,9 @@
 	<p>
 	<form action="Main.php" method="post" id="formProjectIndicator">
 		<select data-placeholder="Elija un indicador..." name="indicatorId" id="selectProjectIndicator" class="chzn-select" onChange="updateIndicator('formProjectIndicator');">
-			<option value=""></option> 
-			|-assign var="indicator" value=$planningProject->getPlanningProjectIndicators()-|
-			|-foreach from=$indicators key=key item=name-|
-			<option value="|-$key-|" |-if $indicator[0]->getIndicatorId() eq $key-|selected="selected"|-/if-|>|-$name-|</option>
+			<option value=""></option>
+			|-foreach from=$indicators item=indicator-|
+			<option value="|-$indicator->getId()-|" |-if isset($planningProjectIndicator) and $planningProjectIndicator eq $indicator->getId()-|selected="selected"|-/if-| >|-$indicator->getName()-|</option>
 			|-/foreach-|
 		</select>											
 		<input type="hidden" name="id" id="id" value="|-$planningProject->getid()-|" />

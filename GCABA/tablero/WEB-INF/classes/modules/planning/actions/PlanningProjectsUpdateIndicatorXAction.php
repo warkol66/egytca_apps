@@ -1,8 +1,8 @@
 <?php
 /**
- * PlanningConstructionsDoEditAction
+ * PlanningProjectsUpdateIndicatorXAction
  *
- * Crea o guarda cambios de Proyectos (PlanningProject)
+ * Crea o modifica indicadores de Proyectos (PlanningProject)
  *
  * @package    planning
  * @subpackage    planningProjects
@@ -28,15 +28,9 @@ class PlanningProjectsUpdateIndicatorXAction extends BaseAction {
 		
 		if(!empty($_POST['indicatorId']) && !empty($_POST['id'])){
 			
-			$id = $_POST['id'];
-			$indicator = $_POST['indicatorId'];
-			
-			$relation = PlanningProjectIndicatorQuery::create()->findOneByPlanningProjectid($_POST['id']);
-			//si no existe, creo una nueva relacion
-			if(empty($relation))
-				$relation = new PlanningProjectIndicator();
-			
-			$result = $relation->setPlanningprojectid($id)->setIndicatorid($indicator)->save();
+			$relation = PlanningProjectIndicatorQuery::create()->filterByPlanningProjectid($_POST['id'])->findOneOrCreate();
+
+			$result = $relation->setIndicatorid($_POST['indicatorId'])->save();
 			if($result)
 				$smarty->assign('indicatorMessage', 'Indicador asociado correctamente');
 			else
