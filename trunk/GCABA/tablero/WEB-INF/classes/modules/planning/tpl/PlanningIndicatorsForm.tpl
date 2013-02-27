@@ -9,6 +9,7 @@
 
     <fieldset title="Formulario de datos de Indicador">
      <legend>Indicador</legend>
+		<input type="button" id="button_view_graphx" title="Ver Gráfico" value="Ver Gráfico" onClick="viewGraphX(|-$planningIndicator->getId()-|,1)" />
 		<p>
         <label for="params_name">Nombre</label>
       <input name="params[name]" type="text" id="params_name" size="80" value="|-$planningIndicator->getName()-|" title="Nombre del Indicador" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
@@ -120,6 +121,7 @@
 		|-/if-|
 		<input type='button' onClick='location.href="Main.php?do=planningIndicatorsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Indicadores"/>
 		</p>|-/if-|
+		
     </fieldset> 
   </form>
 
