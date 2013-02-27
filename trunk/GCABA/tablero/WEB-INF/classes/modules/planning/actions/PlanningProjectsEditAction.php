@@ -34,6 +34,10 @@ class PlanningProjectsEditAction extends BaseEditAction {
 		
 		$this->smarty->assign("indicators", PlanningIndicatorQuery::create()->find());
 		$this->smarty->assign('planningProjectTags',PlanningProjectTagQuery::create()->find());
+		
+		$planningProjectIndicator = PlanningProjectIndicatorQuery::create()->findOneByPlanningprojectid($this->entity->getId());
+		if(is_object($planningProjectIndicator))
+			$this->smarty->assign('planningProjectIndicator', $planningProjectIndicator->getIndicatorId());
 
 		//Para asignar directamente el Objetivo Operativo navegando desde ese objetivo
 		if (isset($_GET["fromOperativeObjectiveId"])) {
