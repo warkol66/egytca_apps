@@ -1,9 +1,10 @@
 DELETE FROM `security_actionLabel` WHERE `action` LIKE 'Regions%' AND `language` = 'esp';
-INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('RegionsEdit', 'Alta/Modificación de regiones', 'esp');
-INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('RegionsTimezoneEdit', 'Alta/Modificación de zonas horarias', 'esp');
-INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('RegionsDoDelete', 'Eliminar regiones', 'esp');
-INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('RegionsGetAllParentsByRegionX', 'Obtiene todos los potenciales padres de una región', 'esp');
-INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('RegionsList', 'Listado de regiones del sistema', 'esp');
-INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('RegionsTimezoneDoDelete', 'Elimina una zona horaria', 'esp');
-INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('RegionsTimezoneGetAllParentsByRegionX', 'Obtiene todos los potenciales padres de una zona horaria', 'esp');
-INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('RegionsTimezoneList', 'Listado de zonas horariasdel sistema', 'esp');
+OPTIMIZE TABLE `security_actionLabel`;
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('RegionsEdit', 'Alta/Modificación de regiones', 'Permite Alta/Modificación de regiones', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('RegionsTimezoneEdit', 'Alta/Modificación de zonas horarias', 'Permite el Alta/Modificación de zonas horarias', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('RegionsDoDelete', 'Eliminar regiones', 'Elimina regiones', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('RegionsGetAllParentsByRegionX', 'Obtiener los potenciales padres de una región', 'Obtiene todos los potenciales padres de una región', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('RegionsList', 'Listar regiones del sistema', 'Listado de regiones del sistema', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('RegionsTimezoneDoDelete', 'Eliminar zona horaria', 'Elimina una zona horaria', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('RegionsTimezoneGetAllParentsByRegionX', 'Obtiener los potenciales padres de una zona horaria', 'Obtiene todos los potenciales padres de una zona horaria', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('RegionsTimezoneList', 'Listar zonas horariasdel sistema', 'Listado de zonas horariasdel sistema', 'esp');
