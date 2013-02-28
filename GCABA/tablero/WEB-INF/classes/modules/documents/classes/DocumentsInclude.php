@@ -56,10 +56,9 @@ class DocumentsInclude extends DocumentPeer {
 	}
 
 	function getKeyWordList($options) {
-	
-		$results = DocumentKeyWordPeer::getAll();
+		if (class_exists("DocumentKeyWordPeer"))
+			$results = DocumentKeyWordPeer::getAll();
 		return $results;
-		
 	}
 
 
