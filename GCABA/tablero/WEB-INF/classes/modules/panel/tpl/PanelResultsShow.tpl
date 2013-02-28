@@ -1,4 +1,5 @@
-<script type="text/javascript" src="scripts/lightbox.js"></script> 			
+<script type="text/javascript" src="scripts/lightbox.js"></script> 	
+<script language="JavaScript" src="scripts/FusionCharts/FusionCharts.js"></script>		
 <script language="JavaScript" type="text/JavaScript">
 function showImpactObjectives(id){
 	//alert(id);
