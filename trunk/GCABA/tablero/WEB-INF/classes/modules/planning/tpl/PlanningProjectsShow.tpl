@@ -23,7 +23,7 @@
 <div class="clearfix">
 <div class="floatleft" id="chartContainer">Cargando...</div>
     <div class="floatleft">
-        <object title="Jefatura de Gabinete de Ministros" height="250" width="250">
+        <object title="|-$position->getName()-|" height="250" width="250">
             <param name="wmode" value="transparent" />
             <param name="movie" value="images/speedometer.swf" />
             <param name="flashvars" value="var3=20&amp;var4=Main.php?do=positionsShow&amp;positionId=3" />
