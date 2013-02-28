@@ -28,9 +28,11 @@ class PlanningProjectsUpdateIndicatorXAction extends BaseAction {
 		
 		if(!empty($_POST['indicatorId']) && !empty($_POST['id'])){
 			
-			$relation = PlanningProjectIndicatorQuery::create()->filterByPlanningProjectid($_POST['id'])->findOneOrCreate();
-
-			$result = $relation->setIndicatorid($_POST['indicatorId'])->save();
+			// elimino (si existe) y creo intencionalmente, sino la tabla no se modifica
+			PlanningProjectIndicatorQuery::create()->filterByPlanningprojectid($_POST['id'])->delete();
+			$planningProjectIndicator = new PlanningProjectIndicator();
+			$result = $planningProjectIndicator->setPlanningprojectid($_POST['id'])->setIndicatorid($_POST['indicatorId'])->save();
+			
 			if($result)
 				$smarty->assign('indicatorMessage', 'Indicador asociado correctamente');
 			else
