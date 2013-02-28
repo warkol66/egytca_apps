@@ -19,8 +19,8 @@ class PlanningIndicatorsViewGraphXAction extends BaseAction {
 		$module = "Indicators";
 		$smarty->assign("module",$module);
 
-		if (!empty($_GET["id"])) {
-			$indicator = PlanningIndicatorQuery::create()->findPk($_GET["id"]);
+		if (!empty($_REQUEST["id"])) {
+			$indicator = PlanningIndicatorQuery::create()->findOneById($_REQUEST["id"]);
 			if (!empty($indicator))
 				$smarty->assign("indicator",$indicator);
 			else

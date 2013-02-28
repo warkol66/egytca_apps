@@ -1,11 +1,11 @@
 |-if !$notValidId-|
-|-if $indicator->getType() eq constant("PlanningIndicator::COLUMN")-|
+|-if $indicator->getGraphType() eq constant("PlanningIndicator::COLUMN")-|
 	|-assign var=graphType value='MSColumn3D'-|
-|-elseif $indicator->getType() eq constant("PlanningIndicator::LINE")-|
+|-elseif $indicator->getGraphType() eq constant("PlanningIndicator::LINE")-|
 	|-assign var=graphType value='MSLine'-|
-|-elseif $indicator->getType() eq constant("PlanningIndicator::PIE")-|
+|-elseif $indicator->getGraphType() eq constant("PlanningIndicator::PIE")-|
 	|-assign var=graphType value='Pie3D'-|
-|-elseif $indicator->getType() eq constant("PlanningIndicator::STACKEDCOLUMN")-|
+|-elseif $indicator->getGraphType() eq constant("PlanningIndicator::STACKEDCOLUMN")-|
 	|-assign var=graphType value='StackedColumn2D'-|
 |-/if-|
 <script language="JavaScript" src="scripts/FusionCharts/FusionCharts.js"></script>
