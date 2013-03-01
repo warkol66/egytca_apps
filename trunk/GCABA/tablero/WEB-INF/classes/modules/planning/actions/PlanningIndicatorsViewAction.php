@@ -26,6 +26,9 @@ class PlanningIndicatorsViewAction extends BaseAction {
 			else
 				$smarty->assign("notValidId",true);
 		}
+		
+		if(isset($_POST['lightbox']))
+			$smarty->assign("lightbox",true);
 
 		$smarty->assign("fromEdit",$_GET["fromEdit"]);
 		$smarty->assign("message",$_GET["message"]);

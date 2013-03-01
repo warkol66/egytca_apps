@@ -2,11 +2,13 @@
 |-if !$disbursement-|
 	<h2>Indicadores</h2>
 	<h1>Ver Indicador</h1>
+		|-if !$lightbox-|
 		|-if !$fromEdit-|
 			<input type="button" id="indicatorsList" name="indicatorsList" title="Ir a listado de Indicadores" value="Ir a listado de Indicadores" onClick="location.href='Main.php?do=planningIndicatorsList'" />
 		|-else-|
 			<input type="button" id="button_edit_xs" name="button_edit_xs" title="Regresar" value="Regresar" onClick="javascript:history.back(1)" />
 			<input type="button" id="indicatorsList" name="indicatorsList" title="Ir a listado de Indicadores" value="Ir a listado de Indicadores" onClick="location.href='Main.php?do=planningIndicatorsList'" />
+		|-/if-|
 		|-/if-|
 |-else-|
 	<h2>|-if $entity eq "Objective"-|Subcomponentes|-elseif $entity eq "StrategicObjective"-|Componentes|-else-|Proyectos|-/if-|</h2>
@@ -54,3 +56,6 @@
 	<div class="errorMessage">El identificador del indicador ingresado no es válido. Seleccione un indicador de la lista.</div>
 	<input type='button' onClick='location.href="Main.php?do=planningIndicatorsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Indicadores"/>
 |-/if-|
+<script language="JavaScript" type="text/JavaScript">
+	$("planningGraphShowWorking").innerHTML = "";
+</script>
