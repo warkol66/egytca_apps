@@ -2,7 +2,6 @@
 <script language="JavaScript" src="scripts/FusionCharts/FusionCharts.js"></script>		
 <script language="JavaScript" type="text/JavaScript">
 function showImpactObjectives(id){
-	//alert(id);
 	var pars = 'do=panelImpactObjectivesListX';
 
 	new Ajax.Request(
@@ -18,11 +17,52 @@ function showImpactObjectives(id){
 				}
 			}
 		);
+	$('position_' + id).onclick = function(){
+		objectivesShow(id);
+		return false;
+	};
+	$('expandP_' + id).hide();
+	$('collapseP_' + id).show();
 }
 
-function toggleSwitch(id){
-	 $$('.indicator_' +  id).each(function(b){Element.toggle(b)});
+function objectivesShow(id){
+	 $$('.position_' + id).each(function(b){Element.toggle(b)});
+	 $('expandP_' + id).hide();
+	 $('collapseP_' + id).show();
 	 return false;
+}
+
+function objectivesHide(id){
+	 $$('.position_' + id).each(function(b){Element.toggle(b)});
+	 $('collapseP_' + id).hide();
+	 $('expandP_' + id).show();
+	 return false;
+}
+
+function indicatorsShow(id){
+	 $$('.indicator_' +  id).each(function(b){Element.toggle(b)});
+	 $('expand_' + id).hide();
+	 $('collapse_' + id).show();
+	 return false;
+}
+
+function indicatorsHide(id){
+	 $$('.indicator_' +  id).each(function(b){Element.toggle(b)});
+	 $('collapse_' + id).hide();
+	 $('expand_' + id).show();
+	 return false;
+}
+
+function viewObjective(id){
+	new Ajax.Updater(
+		"planningImpactObjectivesShowDiv", 
+		"Main.php?do=planningImpactObjectivesViewX", 
+			{ method: "post", 
+			parameters: { id: id}, 
+			evalScripts: true}
+			);
+	$("planningImpactObjectivesShowWorking").innerHTML = "<span class=\"inProgress\">buscando Objetivo de Impacto...</span>";
+	
 }
 </script>
 
@@ -164,9 +204,8 @@ function toggleSwitch(id){
 		|-assign var="colorsCount" value=$position->getProjectsByStatusColorCountAssoc()-|
 		|-assign var="constColorsCount" value=$position->getConstructionsByStatusColorCountAssoc()-|
 			<tr>
-				<td>
-					<a href="#" onClick="showImpactObjectives(|-$position->getId()-|); return false;"><img src="images/icon_expand.png" /></a>
-				</td>
+				<td id="expandP_|-$position->getId()-|"><a href="#" id="position_|-$position->getId()-|" onClick="showImpactObjectives(|-$position->getId()-|); return false;"><img src="images/icon_expand.png" /></a></td>
+				<td id="collapseP_|-$position->getId()-|" style="display: none;"><a href="#" onClick="objectivesHide(|-$position->getId()-|); return false;"><img src="images/icon_collapse.png" /></a></td>
 				<td><strong>|-$position->getName()-|</strong></td>
 				<td align="center" nowrap="nowrap">
 					<div style="width:108px;"><!--<a href="" class="flagWhite">

@@ -1,17 +1,18 @@
 |-if count($objectives) eq 0-|
-	<tr style="background:#E3E9F1;">
+	<tr style="background:#E3E9F1;" class="position_|-$posId-|">
 		<td colspan="4">No se encontraron objetivos de impacto</td>
 	</tr>
 |-else-|
 |-foreach from=$objectives item=objective name=for_objectives-|
-	<tr style="background:#E3E9F1;">
-	<td><a href="#" onClick="toggleSwitch(|-$objective->getId()-|); return false;"><img src="images/icon_expand.png" /></a></td>
+	<tr style="background:#E3E9F1;" class="position_|-$posId-|">
+	<td id="expand_|-$objective->getId()-|"><a href="#" onClick="indicatorsShow(|-$objective->getId()-|); return false;"><img src="images/icon_expand.png" /></a></td>
+	<td id="collapse_|-$objective->getId()-|" style="display: none;"><a href="#" onClick="indicatorsHide(|-$objective->getId()-|); return false;"><img src="images/icon_collapse.png" /></a></td>
 	<td><strong>Objetivo de Impacto:</strong> |-$objective->getName()-|</td>
 	<td colspan="2" nowrap>
 		<form action="Main.php" method="get" style="display:inline;">
 			<input type="hidden" name="do" value="planningImpactObjectivesViewX" />
 			<input type="hidden" name="id" value="|-$objective->getid()-|" />
-			<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("planningImpactObjectivesShowDiv", "Main.php?do=planningImpactObjectivesViewX&id=|-$objective->getid()-|", { method: "post", parameters: { id: "|-$objective->getId()-|"}, evalScripts: true})};$("planningImpactObjectivesShowWorking").innerHTML = "<span class=\"inProgress\">buscando Objetivo de Impacto...</span>";' value="Ver detalle" name="submit_go_show_objective" title="Ver detalle" /></a>
+			<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" id="objective_|-$objective->getId()-|" onClick='javaScript:viewObjective(|-$objective->getId()-|);' value="Ver detalle" name="submit_go_show_objective" title="Ver detalle" /></a>
 		</form>
 		<form action="Main.php" method="get" style="display:inline;">
 			|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
@@ -36,6 +37,11 @@
 	</td>
 	</tr>
 	|-assign var=indicators value=$objective->getPlanningIndicators()-|
+	|-if count($indicators) eq 0-|
+	<tr style="background:#D6FFFF;display: none;" class="indicator_|-$objective->getId()-|">
+		<td colspan="4">No se encontraron indicadores</td>
+	</tr>
+	|-else-|
 	|-foreach from=$indicators item=indicator name=for_indicators-|
 		<tr style="background:#D6FFFF;display: none;" class="indicator_|-$objective->getId()-|">
 			<td>&nbsp;</td>
@@ -74,6 +80,7 @@
 			</td>
 		</tr>
 	|-/foreach-|
+	|-/if-|
 |-/foreach-|
 |-/if-|
 <script language="JavaScript" type="text/JavaScript">
