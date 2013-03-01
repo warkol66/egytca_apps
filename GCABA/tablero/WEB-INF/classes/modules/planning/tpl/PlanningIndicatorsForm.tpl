@@ -120,10 +120,6 @@
 		|-/if-|
 		<input type='button' onClick='location.href="Main.php?do=planningIndicatorsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Indicadores"/>
 		</p>|-/if-|
-		|-if isset($graphX) and $graphX eq 'true'-|
-		<p><input type="button" id="button_view_graphx" title="Ver Gráfico" value="Ver Gráfico" onClick="new Ajax.Updater({ success: 'graphX' },'Main.php?do=planningIndicatorsViewGraphX',{method: 'post',parameters: {id: |-$planningIndicator->getId()-|,},evalScripts: true});; return false;" /></p>
-		<div id="graphX"></div>
-		|-/if-|
     </fieldset> 
   </form>
 
