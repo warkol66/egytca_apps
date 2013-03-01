@@ -112,6 +112,11 @@ class PlanningActivity extends BasePlanningActivity {
 		if ($this->getProject())
 			$this->getProject()->doUpdateRealDates();
 	}
+	
+	// TODO: Deberia reemplazar a isOnWork()????
+	public function isOnExecution() {
+		return ( !$this->getRealEnd() && $this->getRealStart('U') && ($this->getRealStart('U') < date('U')) );
+	}
 
 	/**
 	 * Devuelve el nombre mas la particula identificatoria
