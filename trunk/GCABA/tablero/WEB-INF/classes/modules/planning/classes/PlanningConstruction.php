@@ -121,6 +121,20 @@ class PlanningConstruction extends BasePlanningConstruction {
 			$this->getPlanningProject()->doUpdateRealDates();
 	}
 	
+	// TODO: Deberia reemplazar a isOnWork()????
+	public function isOnExecution() {
+		return ( !$this->getRealEnd() && $this->getRealStart('U') && ($this->getRealStart('U') < date('U')) )
+			|| $this->hasActivitiesOnExecution();
+	}
+	
+	public function hasActivitiesOnExecution() {
+		foreach ($this->getActivities() as $activity) {
+			if ($activity->isOnExecution())
+				return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * Obtiene el objective asociado al project
 	 */

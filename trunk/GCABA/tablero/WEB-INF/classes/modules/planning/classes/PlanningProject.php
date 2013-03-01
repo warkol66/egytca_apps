@@ -123,6 +123,20 @@ class PlanningProject extends BasePlanningProject {
 		return true;
 	}
 	
+	// TODO: Deberia reemplazar a isOnWork()????
+	public function isOnExecution() {
+		return ( !$this->getRealEnd() && $this->getRealStart('U') && ($this->getRealStart('U') < date('U')) )
+			|| $this->hasPlanningConstructionsOnExecution();
+	}
+	
+	public function hasPlanningConstructionsOnExecution() {
+		foreach ($this->getPlanningConstructions() as $planningConstruction) {
+			if ($planningConstruction->isOnExecution())
+				return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * Obtiene los proyectos (constructions) asociados al project
 	 */

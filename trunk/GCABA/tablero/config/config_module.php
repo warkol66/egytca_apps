@@ -73,7 +73,9 @@ class ConfigModule {
 				13 => 'General Director',
 				14 => 'Director',
 				15 => 'Sub Director'
-				)
+				),
+			"inaugurationDateBefore" => 15,
+			"inaugurationDateAfter" => 15
 		),
 		"positions" => array(
 			"useFemale" => true,
