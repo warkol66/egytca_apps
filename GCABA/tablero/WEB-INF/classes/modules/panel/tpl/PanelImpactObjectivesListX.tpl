@@ -50,7 +50,7 @@
 				<form action="Main.php" method="get" style="display:inline;">
 					<input type="hidden" name="do" value="planningIndicatorsView" />
 					<input type="hidden" name="id" value="|-$indicator->getid()-|" />
-					<input type="submit" name="submit_go_edit_indicator" value="Ver Gráfico" class="icon iconGraph" title="Ver Gráfico" />
+					<a href="#lightbox3" rel="lightbox3" class="lbOn"><input type="button" class="icon iconGraph" onClick='{new Ajax.Updater("planningGraphShowDiv", "Main.php?do=planningIndicatorsView&id=|-$indicator->getid()-|", { method: "post", parameters: { lightbox: true}, evalScripts: true})};$("planningIndicatorsShowWorking").innerHTML = "<span class=\"inProgress\">buscando Gráfico...</span>";' value="Ver Gráfico" name="submit_go_edit_indicator" title="Ver Gráfico" /></a>
 				</form>
 <!--				<form action="Main.php" method="get" style="display:inline;">
 					<input type="hidden" name="do" value="planningIndicatorsViewGraphX" />

@@ -44,6 +44,15 @@ function toggleSwitch(id){
 		<div id="planningImpactObjectivesShowDiv"></div>
 	</div>
 </div> 
+<div id="lightbox3" class="leightbox">
+	<p align="right">				
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
+	</p> 
+	<div id="planningGraphShowWorking"></div>
+	<div class="innerLighbox">
+		<div id="planningGraphShowDiv"></div>
+	</div>
+</div>
 <h2>Tablero de Gestión</h2>
 |-if $position-|
 <h1>|-$position->getName()-|</h1>
