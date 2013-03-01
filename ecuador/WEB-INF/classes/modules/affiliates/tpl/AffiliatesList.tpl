@@ -1,13 +1,15 @@
-<script type="text/javascript" src="scripts/lightbox.js"></script> 			
-<div id="lightbox1" class="leightbox">
-	<p align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
-	</p> 
-	<div id="affiliatesViewWorking"></div>
-	<div class="innerLighbox">
-		<div id="affiliatesViewDiv"></div>
+<script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+<div style="display:none;">
+	<div id="data">
+		<p align="right">				
+			<a href="javascript:$.fancybox.close();" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
+		</p> 
+		<div id="affiliatesViewWorking"></div>
+		<div class="innerLighbox">
+			<div id="affiliatesViewDiv"></div>
+		</div>
 	</div>
-</div> 
+</div>
 <h2>##affiliates,1,Afiliados##</h2>
 	<h1>Administración de ##affiliates,1,Afiliados##</h1>
 	<p>A continuación podrá editar la lista de ##affiliates,1,Afiliados## del sistema.</p>
@@ -46,7 +48,7 @@
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="affiliatesViewX" />
 						<input type="hidden" name="id" value="|-$affiliate->getId()-|" />
-						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("affiliatesViewDiv", "Main.php?do=affiliatesViewX&id=|-$affiliate->getId()-|", { method: "post", parameters: { id: "|-$affiliate->getId()-|"}, evalScripts: true})};$("affiliatesViewWorking").innerHTML = "<span class=\"inProgress\">buscando información...</span>";' value="Ver detalle" name="submit_go_show_project" /></a>
+						<a href="#data" id="inline" rel="inline" class="lbOn"><input type="button" class="icon iconView" onClick='$("a#inline").fancybox({"autoDimensions": false,"width": 560});$.ajax({url: "Main.php?do=affiliatesViewX&id=|-$affiliate->getId()-|",data: { id: "|-$affiliate->getId()-|"},type: "post",success: function(data){$("#affiliatesViewDiv").html(data);}});$("affiliatesViewWorking").innerHTML = "<span class=\"inProgress\">buscando información...</span>";' value="Ver detalle" name="submit_go_show_project" /></a>
 					</form>|-/if-|
 			|-if "affiliatesEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="affiliatesEdit" /> 
