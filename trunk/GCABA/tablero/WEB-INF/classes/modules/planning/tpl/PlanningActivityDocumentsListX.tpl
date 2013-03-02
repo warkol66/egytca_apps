@@ -1,4 +1,4 @@
-<fieldset id="docs_list"><legend>Documentos asociados</legend>
+<fieldset id="docs_list" class="noMargin"><legend>Documentos asociados</legend>
 <ul>
 |-if $planningActivityDocumentColl|count eq 0-|
 	<p>No hay documentos asociados</p>

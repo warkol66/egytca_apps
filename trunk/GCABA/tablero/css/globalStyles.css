@@ -721,3 +721,37 @@ a.return, a.report, a.importHeadlines {
 	padding-top: 0.30em;
 	margin-left: 150px;
 }
+
+.dateValidation {
+	width: 5.2em;
+}
+.narrowInput {
+	width: 8.0em;
+}
+.wideInput  {
+	width: 15.0em;
+}
+.width3em {
+	width: 3.0em;
+}
+.width4em {
+	width: 4.0em;
+}
+.width5em {
+	width: 5.0em;
+}
+.width8em {
+	width: 8.0em;
+}
+.width10em {
+	width: 10.0em;
+}
+.width12em {
+	width: 12.0em;
+}
+.width15em {
+	width: 15.0em;
+}
+.width20em {
+	width: 20.0em;
+}

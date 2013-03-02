@@ -35,8 +35,8 @@
 				<li class="last"><a href="Main.php?do=panelConstructionsList">Obras</a></li>
 				<!--<li class="last"><a href="Main.php?do=panelActivitiesList">Actividades e Hitos</a></li>-->
 				<li><a href="Main.php?do=panelResultsShow">Vision estratégica</a></li>
-				<li><a href="Main.php?do=panelRelativeExpensesShow">Gasto</a></li>
-				<li class="last"><a href="Main.php?do=panelExpensesShow">Gasto relativo</a></li>
+				<li><a href="Main.php?do=panelExpensesShow">Gasto</a></li>
+				<li class="last"><a href="Main.php?do=panelRelativeExpensesShow">Gasto relativo</a></li>
 			</ul>
 		</li>|-/if-|
 			<li><a href="Main.php?do=planningIndicatorsList">Indicadores</a>
@@ -70,8 +70,6 @@
 					<li><a href="Main.php?do=commonConfigEdit">Editar Configuración</a></li>
 					<li class="last"><a href="javascript:void(null)">Utilidades</a>
 					<ul>
-					<li><a href="Main.php?do=backupList">Administrar Respaldos</a></li>
-					<li><a href="Main.php?do=modulesInstallList">Instalación de Módulos</a></li>
 						<li class="last"><a href="Main.php?do=commonChecksum">Checksum de Tablas</a></li>
 					</ul></li>
 				</ul></li>

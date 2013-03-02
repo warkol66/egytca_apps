@@ -35,6 +35,8 @@ class PlanningProjectsEditAction extends BaseEditAction {
 		$this->smarty->assign("indicators", PlanningIndicatorQuery::create()->find());
 		$this->smarty->assign('planningProjectTags',PlanningProjectTagQuery::create()->find());
 		
+		$this->smarty->assign("maxUploadSize", Common::maxUploadSize());
+
 		$planningProjectIndicator = PlanningProjectIndicatorQuery::create()->findOneByPlanningprojectid($this->entity->getId());
 		if(is_object($planningProjectIndicator))
 			$this->smarty->assign('planningProjectIndicator', $planningProjectIndicator->getIndicatorId());

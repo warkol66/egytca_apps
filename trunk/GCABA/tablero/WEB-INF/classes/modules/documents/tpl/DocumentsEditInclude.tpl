@@ -15,7 +15,7 @@
 	|-if $document neq ''-|
 	<input type="hidden" name="id" value="|-$document->getId()-|">
 	|-/if-|
-	<fieldset title="Formulario para Agregar Nuevo Documento">
+	<fieldset title="Formulario para Agregar Nuevo Documento" class="noMargin">
 		|-if $document neq ''-|
 		<legend>Editar Documento</legend>
 			<p>Ingrese los datos correspondientes al documento. Seleccione un nuevo documento si desea reemplazar el documento actual ("|-$document->getRealFilename()-|")</p>	

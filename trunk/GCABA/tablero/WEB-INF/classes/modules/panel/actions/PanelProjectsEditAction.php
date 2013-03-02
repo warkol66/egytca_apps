@@ -34,6 +34,8 @@ class PanelProjectsEditAction extends BaseEditAction {
 		
 		$this->smarty->assign('planningProjectTags',PlanningProjectTagQuery::create()->find());
 
+		$this->smarty->assign("maxUploadSize", Common::maxUploadSize());
+
 		//Para asignar directamente el Objetivo Operativo navegando desde ese objetivo
 		if (isset($_GET["fromOperativeObjectiveId"])) {
 			$operativeObjective = BaseQuery::create("OperativeObjective")->findOneById($_GET["fromOperativeObjectiveId"]);
