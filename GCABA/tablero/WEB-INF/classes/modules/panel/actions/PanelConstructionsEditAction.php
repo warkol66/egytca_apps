@@ -24,6 +24,8 @@ class PanelConstructionsEditAction extends BaseEditAction {
 		$this->smarty->assign("tenderTypes", PlanningConstruction::getTenderTypes());
 		$this->smarty->assign("constructionTypes", PlanningConstruction::getConstructionTypes());
 
+		$this->smarty->assign("maxUploadSize", Common::maxUploadSize());
+
 		//Para asignar directamente el Objetivo Operativo navegando desde ese objetivo
 		if (isset($_GET["fromPlanningProjectId"])) {
 			$planningProject = BaseQuery::create("PlanningProject")->findOneById($_GET["fromPlanningProjectId"]);

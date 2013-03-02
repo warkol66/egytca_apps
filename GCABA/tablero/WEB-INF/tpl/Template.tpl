@@ -66,7 +66,7 @@
 	<!-- End contentWrapper -->
 	<!-- Begin Footer -->
 	<div id="footer">
-			<p>Gobierno de la Ciudad Autónoma de Buenos Aires / DG Planificación Estratégica - Planificación 2013</p>       
+			<p>Gobierno de la Ciudad Autónoma de Buenos Aires / Sistema de Planificación y Seguimiento - Versión 1.1 (40)</p>       
 	</div>
 	<!-- End Footer -->
 </div>

@@ -4,7 +4,12 @@
 |-if $noTables-|
 	<div class="failureMessage">No se pudo obtener el listado de tablas de la base de datos.</div>
 |-else-|
-<table border="0" class="tableTdBorders">
+<script type="text/javascript" src="scripts/tableExport.js"></script>
+<form name="formTableExport" method="post" action="echo.php">
+<input type="hidden" name="content" />
+<input type="hidden" name="filename" />
+</form>
+<table border="0" class="tableTdBorders" id="checksumTable">
       <tr class="thFillTitle">
         <th>Tabla</th>
         <th>Checksum</th>
@@ -15,7 +20,7 @@
   <tr>
     <td>|-$result.Table-|</td>
     <td align="right">|-$result.Checksum|number_format-|</td>
-    <td align="center">|-if stristr($result.Table, 'actionLogs_log') || stristr($result.Table, 'propel_migration')-|NO|-else-|SI|-if $result.Checksum gt 0-||-math equation="x+y" x=$TotalChecksum y=$result.Checksum assign=TotalChecksum-||-/if-||-/if-|</td>
+    <td align="center">|-if stristr($result.Table, 'actionLogs_log') || stristr($result.Table, 'propel_migration') || stristr($result.Table, 'users_user')-|NO|-else-|SI|-if $result.Checksum gt 0-||-math equation="x+y" x=$TotalChecksum y=$result.Checksum assign=TotalChecksum-||-/if-||-/if-|</td>
   </tr>
 		|-/foreach-|
       <tr class="thFillTitle">
@@ -24,4 +29,7 @@
         <td></td>
       </tr>
 </table>
+
+<button type="button" name="" value="" onclick="tableExport('checksumTable', 'checksum.xls');">Exportar</button>
+
 |-/if-|
