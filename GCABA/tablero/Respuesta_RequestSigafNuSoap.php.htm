@@ -1,0 +1,1915 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"></head><body><h2>Test de conectividad con SIGAF</h2><h2>Result</h2><pre>Array
+(
+    [ConsultarPartidaPresupuestariaResult] =&gt; Array
+        (
+            [Clasificador] =&gt; Array
+                (
+                    [Actividad] =&gt; 1
+                    [Ejercicio] =&gt; 2011
+                    [Entidad] =&gt; 0
+                    [FueFin] =&gt; 11
+                    [Inciso] =&gt; 2
+                    [Jurisdiccion] =&gt; 21
+                    [Moneda] =&gt; 1
+                    [Obra] =&gt; 0
+                    [Parcial] =&gt; 2
+                    [Principal] =&gt; 9
+                    [Programa] =&gt; 1
+                    [Proyecto] =&gt; 0
+                    [SubJurisdiccion] =&gt; 0
+                    [SubParcial] =&gt; 0
+                    [SubPrograma] =&gt; 0
+                    [UbicaGeo] =&gt; 1
+                )
+
+            [Cuota] =&gt; Array
+                (
+                    [Consumida1] =&gt; 39744.93
+                    [Consumida2] =&gt; 55051.87
+                    [Consumida3] =&gt; 121309.93
+                    [Consumida4] =&gt; 235503.50
+                    [Disponible1] =&gt; 0.07
+                    [Disponible2] =&gt; 0.13
+                    [Disponible3] =&gt; 0.07
+                    [Disponible4] =&gt; 0.50
+                    [Distribuida1] =&gt; 39745
+                    [Distribuida2] =&gt; 55052
+                    [Distribuida3] =&gt; 121310
+                    [Distribuida4] =&gt; 235504
+                )
+
+            [Indicativa] =&gt; Array
+                (
+                    [Definitivo] =&gt; 131714.11
+                    [Devengado] =&gt; 131520.42
+                    [Pagado] =&gt; 131520.42
+                    [Preventivo] =&gt; 0
+                    [Restringido] =&gt; 0
+                    [Vigente] =&gt; 131715
+                )
+
+            [Limitativa] =&gt; Array
+                (
+                    [Definitivo] =&gt; 451610.23
+                    [Devengado] =&gt; 451377.47
+                    [Pagado] =&gt; 451377.47
+                    [Preventivo] =&gt; 0
+                    [Restringido] =&gt; 0
+                    [Vigente] =&gt; 453082
+                )
+
+        )
+
+)
+</pre><h2>Request</h2><pre>POST /wcftest/Servicio.svc?wsdl HTTP/1.1
+Host: 172.17.7.8:83
+User-Agent: NuSOAP/0.9.5 (1.123)
+Connection: Keep-Alive
+Content-Type: text/xml; charset=utf-8
+SOAPAction: "http://tempuri.org/IServicio/ConsultarPartidaPresupuestaria"
+Content-Length: 1031
+
+&lt;s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+			&lt;s:Header /&gt;
+			&lt;s:Body&gt;
+				&lt;ConsultarPartidaPresupuestaria xmlns="http://tempuri.org/"&gt;
+					&lt;cp xmlns:d4p1="http://schemas.datacontract.org/2004/07/WCF_ENTIDADES" xmlns:i="http://www.w3.org/2001/XMLSchema-instance"&gt;
+						&lt;d4p1:Actividad&gt;1&lt;/d4p1:Actividad&gt;
+						&lt;d4p1:Ejercicio&gt;2011&lt;/d4p1:Ejercicio&gt;
+						&lt;d4p1:Entidad&gt;0&lt;/d4p1:Entidad&gt;
+						&lt;d4p1:FueFin&gt;11&lt;/d4p1:FueFin&gt;
+						&lt;d4p1:Inciso&gt;2&lt;/d4p1:Inciso&gt;
+						&lt;d4p1:Jurisdiccion&gt;21&lt;/d4p1:Jurisdiccion&gt;
+						&lt;d4p1:Moneda&gt;1&lt;/d4p1:Moneda&gt;
+						&lt;d4p1:Obra&gt;0&lt;/d4p1:Obra&gt;
+						&lt;d4p1:Parcial&gt;2&lt;/d4p1:Parcial&gt;
+						&lt;d4p1:Principal&gt;9&lt;/d4p1:Principal&gt;
+						&lt;d4p1:Programa&gt;1&lt;/d4p1:Programa&gt;
+						&lt;d4p1:Proyecto&gt;0&lt;/d4p1:Proyecto&gt;
+						&lt;d4p1:SubJurisdiccion&gt;0&lt;/d4p1:SubJurisdiccion&gt;
+						&lt;d4p1:SubParcial&gt;0&lt;/d4p1:SubParcial&gt;
+						&lt;d4p1:SubPrograma&gt;0&lt;/d4p1:SubPrograma&gt;
+						&lt;d4p1:UbicaGeo&gt;1&lt;/d4p1:UbicaGeo&gt;
+					&lt;/cp&gt;
+				&lt;/ConsultarPartidaPresupuestaria&gt;
+			&lt;/s:Body&gt;
+		&lt;/s:Envelope&gt;</pre><h2>Response</h2><pre>HTTP/1.1 200 OK
+Content-Type: text/xml; charset=utf-8
+X-Powered-By: ASP.NET
+Date: Sat, 02 Mar 2013 17:07:13 GMT
+Content-Length: 1775
+
+&lt;s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"&gt;&lt;s:Body&gt;&lt;ConsultarPartidaPresupuestariaResponse xmlns="http://tempuri.org/"&gt;&lt;ConsultarPartidaPresupuestariaResult xmlns:a="http://schemas.datacontract.org/2004/07/WCF_ENTIDADES" xmlns:i="http://www.w3.org/2001/XMLSchema-instance"&gt;&lt;a:Clasificador&gt;&lt;a:Actividad&gt;1&lt;/a:Actividad&gt;&lt;a:Ejercicio&gt;2011&lt;/a:Ejercicio&gt;&lt;a:Entidad&gt;0&lt;/a:Entidad&gt;&lt;a:FueFin&gt;11&lt;/a:FueFin&gt;&lt;a:Inciso&gt;2&lt;/a:Inciso&gt;&lt;a:Jurisdiccion&gt;21&lt;/a:Jurisdiccion&gt;&lt;a:Moneda&gt;1&lt;/a:Moneda&gt;&lt;a:Obra&gt;0&lt;/a:Obra&gt;&lt;a:Parcial&gt;2&lt;/a:Parcial&gt;&lt;a:Principal&gt;9&lt;/a:Principal&gt;&lt;a:Programa&gt;1&lt;/a:Programa&gt;&lt;a:Proyecto&gt;0&lt;/a:Proyecto&gt;&lt;a:SubJurisdiccion&gt;0&lt;/a:SubJurisdiccion&gt;&lt;a:SubParcial&gt;0&lt;/a:SubParcial&gt;&lt;a:SubPrograma&gt;0&lt;/a:SubPrograma&gt;&lt;a:UbicaGeo&gt;1&lt;/a:UbicaGeo&gt;&lt;/a:Clasificador&gt;&lt;a:Cuota&gt;&lt;a:Consumida1&gt;39744.93&lt;/a:Consumida1&gt;&lt;a:Consumida2&gt;55051.87&lt;/a:Consumida2&gt;&lt;a:Consumida3&gt;121309.93&lt;/a:Consumida3&gt;&lt;a:Consumida4&gt;235503.50&lt;/a:Consumida4&gt;&lt;a:Disponible1&gt;0.07&lt;/a:Disponible1&gt;&lt;a:Disponible2&gt;0.13&lt;/a:Disponible2&gt;&lt;a:Disponible3&gt;0.07&lt;/a:Disponible3&gt;&lt;a:Disponible4&gt;0.50&lt;/a:Disponible4&gt;&lt;a:Distribuida1&gt;39745&lt;/a:Distribuida1&gt;&lt;a:Distribuida2&gt;55052&lt;/a:Distribuida2&gt;&lt;a:Distribuida3&gt;121310&lt;/a:Distribuida3&gt;&lt;a:Distribuida4&gt;235504&lt;/a:Distribuida4&gt;&lt;/a:Cuota&gt;&lt;a:Indicativa&gt;&lt;a:Definitivo&gt;131714.11&lt;/a:Definitivo&gt;&lt;a:Devengado&gt;131520.42&lt;/a:Devengado&gt;&lt;a:Pagado&gt;131520.42&lt;/a:Pagado&gt;&lt;a:Preventivo&gt;0&lt;/a:Preventivo&gt;&lt;a:Restringido&gt;0&lt;/a:Restringido&gt;&lt;a:Vigente&gt;131715&lt;/a:Vigente&gt;&lt;/a:Indicativa&gt;&lt;a:Limitativa&gt;&lt;a:Definitivo&gt;451610.23&lt;/a:Definitivo&gt;&lt;a:Devengado&gt;451377.47&lt;/a:Devengado&gt;&lt;a:Pagado&gt;451377.47&lt;/a:Pagado&gt;&lt;a:Preventivo&gt;0&lt;/a:Preventivo&gt;&lt;a:Restringido&gt;0&lt;/a:Restringido&gt;&lt;a:Vigente&gt;453082&lt;/a:Vigente&gt;&lt;/a:Limitativa&gt;&lt;/ConsultarPartidaPresupuestariaResult&gt;&lt;/ConsultarPartidaPresupuestariaResponse&gt;&lt;/s:Body&gt;&lt;/s:Envelope&gt;</pre><h2>Client Debug</h2><pre>2013-03-02 11:06:51.306951 nusoap_client: ctor wsdl=1 timeout=0 response_timeout=30
+endpoint=string(46) "http://172.17.7.8:83/wcftest/Servicio.svc?wsdl"
+2013-03-02 11:06:51.307335 nusoap_client: will use lazy evaluation of wsdl from http://172.17.7.8:83/wcftest/Servicio.svc?wsdl
+2013-03-02 11:06:51.307390 nusoap_client: useHTTPPersistentConnection
+2013-03-02 11:06:51.307431 nusoap_client: setUseCURL()
+2013-03-02 11:06:51.307550 nusoap_client: transporting via HTTP
+2013-03-02 11:06:51.308222 nusoap_client: sending message, length=1031
+2013-03-02 11:06:51.307640 soap_transport_http: ctor url=http://172.17.7.8:83/wcftest/Servicio.svc?wsdl use_curl= curl_options:
+array(0) {
+}
+2013-03-02 11:06:51.307728 soap_transport_http: parsed URL scheme = http
+2013-03-02 11:06:51.307768 soap_transport_http: parsed URL host = 172.17.7.8
+2013-03-02 11:06:51.307811 soap_transport_http: parsed URL port = 83
+2013-03-02 11:06:51.307847 soap_transport_http: parsed URL path = /wcftest/Servicio.svc
+2013-03-02 11:06:51.307888 soap_transport_http: parsed URL query = wsdl
+2013-03-02 11:06:51.307954 soap_transport_http: set header Host: 172.17.7.8:83
+2013-03-02 11:06:51.308028 soap_transport_http: set header User-Agent: NuSOAP/0.9.5 (1.123)
+2013-03-02 11:06:51.308095 soap_transport_http: set header Connection: Keep-Alive
+2013-03-02 11:06:51.308144 soap_transport_http: set header Content-Type: text/xml; charset=utf-8
+2013-03-02 11:06:51.308184 soap_transport_http: set header SOAPAction: "http://tempuri.org/IServicio/ConsultarPartidaPresupuestaria"
+2013-03-02 11:06:51.308274 soap_transport_http: entered send() with data of length: 1031
+2013-03-02 11:06:51.308330 soap_transport_http: connect connection_timeout 0, response_timeout 30, scheme http, host 172.17.7.8, port 83
+2013-03-02 11:06:51.308377 soap_transport_http: calling fsockopen with host 172.17.7.8 connection_timeout 0
+2013-03-02 11:06:51.310378 soap_transport_http: set response timeout to 30
+2013-03-02 11:06:51.310439 soap_transport_http: socket connected
+2013-03-02 11:06:51.310494 soap_transport_http: set header Content-Length: 1031
+2013-03-02 11:06:51.310540 soap_transport_http: HTTP request: POST /wcftest/Servicio.svc?wsdl HTTP/1.1
+2013-03-02 11:06:51.310587 soap_transport_http: HTTP header: Host: 172.17.7.8:83
+2013-03-02 11:06:51.310626 soap_transport_http: HTTP header: User-Agent: NuSOAP/0.9.5 (1.123)
+2013-03-02 11:06:51.310663 soap_transport_http: HTTP header: Connection: Keep-Alive
+2013-03-02 11:06:51.310699 soap_transport_http: HTTP header: Content-Type: text/xml; charset=utf-8
+2013-03-02 11:06:51.310740 soap_transport_http: HTTP header: SOAPAction: "http://tempuri.org/IServicio/ConsultarPartidaPresupuestaria"
+2013-03-02 11:06:51.310779 soap_transport_http: HTTP header: Content-Length: 1031
+2013-03-02 11:06:51.310887 soap_transport_http: wrote data to socket, length = 1290
+2013-03-02 11:07:01.415316 soap_transport_http: read line of 17 bytes: HTTP/1.1 200 OK
+2013-03-02 11:07:01.415453 soap_transport_http: read line of 39 bytes: Content-Type: text/xml; charset=utf-8
+2013-03-02 11:07:01.415499 soap_transport_http: read line of 23 bytes: X-Powered-By: ASP.NET
+2013-03-02 11:07:01.415548 soap_transport_http: read line of 37 bytes: Date: Sat, 02 Mar 2013 17:07:13 GMT
+2013-03-02 11:07:01.415591 soap_transport_http: read line of 22 bytes: Content-Length: 1775
+2013-03-02 11:07:01.415633 soap_transport_http: read line of 2 bytes: 
+2013-03-02 11:07:01.415696 soap_transport_http: found end of headers after length 140
+2013-03-02 11:07:01.415786 soap_transport_http: want to read content of length 1775
+2013-03-02 11:07:01.415843 soap_transport_http: read buffer of 1775 bytes
+2013-03-02 11:07:01.415897 soap_transport_http: read body of length 1775
+2013-03-02 11:07:01.415937 soap_transport_http: received a total of 1915 bytes of data from server
+2013-03-02 11:07:01.416001 soap_transport_http: No Content-Encoding header
+2013-03-02 11:07:01.416043 soap_transport_http: end of send()
+2013-03-02 11:07:01.416172 nusoap_client: got response, length=1775 type=text/xml; charset=utf-8
+2013-03-02 11:07:01.416212 nusoap_client: Entering parseResponse() for data of length 1775 headers:
+array(4) {
+  ["content-type"]=&gt;
+  string(23) "text/xml; charset=utf-8"
+  ["x-powered-by"]=&gt;
+  string(7) "ASP.NET"
+  ["date"]=&gt;
+  string(29) "Sat, 02 Mar 2013 17:07:13 GMT"
+  ["content-length"]=&gt;
+  string(4) "1775"
+}
+2013-03-02 11:07:01.416286 nusoap_client: Got response encoding: utf-8
+2013-03-02 11:07:01.416346 nusoap_client: Use encoding: UTF-8 when creating nusoap_parser
+2013-03-02 11:07:01.416445 nusoap_parser: No XML declaration
+2013-03-02 11:07:01.416484 nusoap_parser: Entering nusoap_parser(), length=1775, encoding=UTF-8
+2013-03-02 11:07:01.417033 nusoap_parser: found root struct ConsultarPartidaPresupuestariaResponse, pos 2
+2013-03-02 11:07:01.417987 nusoap_parser: in buildVal() for Clasificador(pos 4) of type 
+2013-03-02 11:07:01.418029 nusoap_parser: in buildVal, there are children
+2013-03-02 11:07:01.418109 nusoap_parser: in buildVal, adding Java Vector or generic compound type Clasificador
+2013-03-02 11:07:01.418205 nusoap_parser: in buildVal, return:
+array(16) {
+  ["Actividad"]=&gt;
+  &amp;string(1) "1"
+  ["Ejercicio"]=&gt;
+  &amp;string(4) "2011"
+  ["Entidad"]=&gt;
+  &amp;string(1) "0"
+  ["FueFin"]=&gt;
+  &amp;string(2) "11"
+  ["Inciso"]=&gt;
+  &amp;string(1) "2"
+  ["Jurisdiccion"]=&gt;
+  &amp;string(2) "21"
+  ["Moneda"]=&gt;
+  &amp;string(1) "1"
+  ["Obra"]=&gt;
+  &amp;string(1) "0"
+  ["Parcial"]=&gt;
+  &amp;string(1) "2"
+  ["Principal"]=&gt;
+  &amp;string(1) "9"
+  ["Programa"]=&gt;
+  &amp;string(1) "1"
+  ["Proyecto"]=&gt;
+  &amp;string(1) "0"
+  ["SubJurisdiccion"]=&gt;
+  &amp;string(1) "0"
+  ["SubParcial"]=&gt;
+  &amp;string(1) "0"
+  ["SubPrograma"]=&gt;
+  &amp;string(1) "0"
+  ["UbicaGeo"]=&gt;
+  &amp;string(1) "1"
+}
+2013-03-02 11:07:01.418840 nusoap_parser: in buildVal() for Cuota(pos 21) of type 
+2013-03-02 11:07:01.418880 nusoap_parser: in buildVal, there are children
+2013-03-02 11:07:01.418929 nusoap_parser: in buildVal, adding Java Vector or generic compound type Cuota
+2013-03-02 11:07:01.418998 nusoap_parser: in buildVal, return:
+array(12) {
+  ["Consumida1"]=&gt;
+  &amp;string(8) "39744.93"
+  ["Consumida2"]=&gt;
+  &amp;string(8) "55051.87"
+  ["Consumida3"]=&gt;
+  &amp;string(9) "121309.93"
+  ["Consumida4"]=&gt;
+  &amp;string(9) "235503.50"
+  ["Disponible1"]=&gt;
+  &amp;string(4) "0.07"
+  ["Disponible2"]=&gt;
+  &amp;string(4) "0.13"
+  ["Disponible3"]=&gt;
+  &amp;string(4) "0.07"
+  ["Disponible4"]=&gt;
+  &amp;string(4) "0.50"
+  ["Distribuida1"]=&gt;
+  &amp;string(5) "39745"
+  ["Distribuida2"]=&gt;
+  &amp;string(5) "55052"
+  ["Distribuida3"]=&gt;
+  &amp;string(6) "121310"
+  ["Distribuida4"]=&gt;
+  &amp;string(6) "235504"
+}
+2013-03-02 11:07:01.419386 nusoap_parser: in buildVal() for Indicativa(pos 34) of type 
+2013-03-02 11:07:01.419434 nusoap_parser: in buildVal, there are children
+2013-03-02 11:07:01.419475 nusoap_parser: in buildVal, adding Java Vector or generic compound type Indicativa
+2013-03-02 11:07:01.419526 nusoap_parser: in buildVal, return:
+array(6) {
+  ["Definitivo"]=&gt;
+  &amp;string(9) "131714.11"
+  ["Devengado"]=&gt;
+  &amp;string(9) "131520.42"
+  ["Pagado"]=&gt;
+  &amp;string(9) "131520.42"
+  ["Preventivo"]=&gt;
+  &amp;string(1) "0"
+  ["Restringido"]=&gt;
+  &amp;string(1) "0"
+  ["Vigente"]=&gt;
+  &amp;string(6) "131715"
+}
+2013-03-02 11:07:01.419880 nusoap_parser: in buildVal() for Limitativa(pos 41) of type 
+2013-03-02 11:07:01.419926 nusoap_parser: in buildVal, there are children
+2013-03-02 11:07:01.419968 nusoap_parser: in buildVal, adding Java Vector or generic compound type Limitativa
+2013-03-02 11:07:01.420019 nusoap_parser: in buildVal, return:
+array(6) {
+  ["Definitivo"]=&gt;
+  &amp;string(9) "451610.23"
+  ["Devengado"]=&gt;
+  &amp;string(9) "451377.47"
+  ["Pagado"]=&gt;
+  &amp;string(9) "451377.47"
+  ["Preventivo"]=&gt;
+  &amp;string(1) "0"
+  ["Restringido"]=&gt;
+  &amp;string(1) "0"
+  ["Vigente"]=&gt;
+  &amp;string(6) "453082"
+}
+2013-03-02 11:07:01.420120 nusoap_parser: in buildVal() for ConsultarPartidaPresupuestariaResult(pos 3) of type 
+2013-03-02 11:07:01.420180 nusoap_parser: in buildVal, there are children
+2013-03-02 11:07:01.420219 nusoap_parser: in buildVal, adding Java Vector or generic compound type ConsultarPartidaPresupuestariaResult
+2013-03-02 11:07:01.420266 nusoap_parser: in buildVal, return:
+array(4) {
+  ["Clasificador"]=&gt;
+  &amp;array(16) {
+    ["Actividad"]=&gt;
+    &amp;string(1) "1"
+    ["Ejercicio"]=&gt;
+    &amp;string(4) "2011"
+    ["Entidad"]=&gt;
+    &amp;string(1) "0"
+    ["FueFin"]=&gt;
+    &amp;string(2) "11"
+    ["Inciso"]=&gt;
+    &amp;string(1) "2"
+    ["Jurisdiccion"]=&gt;
+    &amp;string(2) "21"
+    ["Moneda"]=&gt;
+    &amp;string(1) "1"
+    ["Obra"]=&gt;
+    &amp;string(1) "0"
+    ["Parcial"]=&gt;
+    &amp;string(1) "2"
+    ["Principal"]=&gt;
+    &amp;string(1) "9"
+    ["Programa"]=&gt;
+    &amp;string(1) "1"
+    ["Proyecto"]=&gt;
+    &amp;string(1) "0"
+    ["SubJurisdiccion"]=&gt;
+    &amp;string(1) "0"
+    ["SubParcial"]=&gt;
+    &amp;string(1) "0"
+    ["SubPrograma"]=&gt;
+    &amp;string(1) "0"
+    ["UbicaGeo"]=&gt;
+    &amp;string(1) "1"
+  }
+  ["Cuota"]=&gt;
+  &amp;array(12) {
+    ["Consumida1"]=&gt;
+    &amp;string(8) "39744.93"
+    ["Consumida2"]=&gt;
+    &amp;string(8) "55051.87"
+    ["Consumida3"]=&gt;
+    &amp;string(9) "121309.93"
+    ["Consumida4"]=&gt;
+    &amp;string(9) "235503.50"
+    ["Disponible1"]=&gt;
+    &amp;string(4) "0.07"
+    ["Disponible2"]=&gt;
+    &amp;string(4) "0.13"
+    ["Disponible3"]=&gt;
+    &amp;string(4) "0.07"
+    ["Disponible4"]=&gt;
+    &amp;string(4) "0.50"
+    ["Distribuida1"]=&gt;
+    &amp;string(5) "39745"
+    ["Distribuida2"]=&gt;
+    &amp;string(5) "55052"
+    ["Distribuida3"]=&gt;
+    &amp;string(6) "121310"
+    ["Distribuida4"]=&gt;
+    &amp;string(6) "235504"
+  }
+  ["Indicativa"]=&gt;
+  &amp;array(6) {
+    ["Definitivo"]=&gt;
+    &amp;string(9) "131714.11"
+    ["Devengado"]=&gt;
+    &amp;string(9) "131520.42"
+    ["Pagado"]=&gt;
+    &amp;string(9) "131520.42"
+    ["Preventivo"]=&gt;
+    &amp;string(1) "0"
+    ["Restringido"]=&gt;
+    &amp;string(1) "0"
+    ["Vigente"]=&gt;
+    &amp;string(6) "131715"
+  }
+  ["Limitativa"]=&gt;
+  &amp;array(6) {
+    ["Definitivo"]=&gt;
+    &amp;string(9) "451610.23"
+    ["Devengado"]=&gt;
+    &amp;string(9) "451377.47"
+    ["Pagado"]=&gt;
+    &amp;string(9) "451377.47"
+    ["Preventivo"]=&gt;
+    &amp;string(1) "0"
+    ["Restringido"]=&gt;
+    &amp;string(1) "0"
+    ["Vigente"]=&gt;
+    &amp;string(6) "453082"
+  }
+}
+2013-03-02 11:07:01.420363 nusoap_parser: in buildVal() for ConsultarPartidaPresupuestariaResponse(pos 2) of type struct
+2013-03-02 11:07:01.420399 nusoap_parser: in buildVal, there are children
+2013-03-02 11:07:01.420438 nusoap_parser: in buildVal, adding Java Vector or generic compound type ConsultarPartidaPresupuestariaResponse
+2013-03-02 11:07:01.420480 nusoap_parser: in buildVal, return:
+array(1) {
+  ["ConsultarPartidaPresupuestariaResult"]=&gt;
+  &amp;array(4) {
+    ["Clasificador"]=&gt;
+    &amp;array(16) {
+      ["Actividad"]=&gt;
+      &amp;string(1) "1"
+      ["Ejercicio"]=&gt;
+      &amp;string(4) "2011"
+      ["Entidad"]=&gt;
+      &amp;string(1) "0"
+      ["FueFin"]=&gt;
+      &amp;string(2) "11"
+      ["Inciso"]=&gt;
+      &amp;string(1) "2"
+      ["Jurisdiccion"]=&gt;
+      &amp;string(2) "21"
+      ["Moneda"]=&gt;
+      &amp;string(1) "1"
+      ["Obra"]=&gt;
+      &amp;string(1) "0"
+      ["Parcial"]=&gt;
+      &amp;string(1) "2"
+      ["Principal"]=&gt;
+      &amp;string(1) "9"
+      ["Programa"]=&gt;
+      &amp;string(1) "1"
+      ["Proyecto"]=&gt;
+      &amp;string(1) "0"
+      ["SubJurisdiccion"]=&gt;
+      &amp;string(1) "0"
+      ["SubParcial"]=&gt;
+      &amp;string(1) "0"
+      ["SubPrograma"]=&gt;
+      &amp;string(1) "0"
+      ["UbicaGeo"]=&gt;
+      &amp;string(1) "1"
+    }
+    ["Cuota"]=&gt;
+    &amp;array(12) {
+      ["Consumida1"]=&gt;
+      &amp;string(8) "39744.93"
+      ["Consumida2"]=&gt;
+      &amp;string(8) "55051.87"
+      ["Consumida3"]=&gt;
+      &amp;string(9) "121309.93"
+      ["Consumida4"]=&gt;
+      &amp;string(9) "235503.50"
+      ["Disponible1"]=&gt;
+      &amp;string(4) "0.07"
+      ["Disponible2"]=&gt;
+      &amp;string(4) "0.13"
+      ["Disponible3"]=&gt;
+      &amp;string(4) "0.07"
+      ["Disponible4"]=&gt;
+      &amp;string(4) "0.50"
+      ["Distribuida1"]=&gt;
+      &amp;string(5) "39745"
+      ["Distribuida2"]=&gt;
+      &amp;string(5) "55052"
+      ["Distribuida3"]=&gt;
+      &amp;string(6) "121310"
+      ["Distribuida4"]=&gt;
+      &amp;string(6) "235504"
+    }
+    ["Indicativa"]=&gt;
+    &amp;array(6) {
+      ["Definitivo"]=&gt;
+      &amp;string(9) "131714.11"
+      ["Devengado"]=&gt;
+      &amp;string(9) "131520.42"
+      ["Pagado"]=&gt;
+      &amp;string(9) "131520.42"
+      ["Preventivo"]=&gt;
+      &amp;string(1) "0"
+      ["Restringido"]=&gt;
+      &amp;string(1) "0"
+      ["Vigente"]=&gt;
+      &amp;string(6) "131715"
+    }
+    ["Limitativa"]=&gt;
+    &amp;array(6) {
+      ["Definitivo"]=&gt;
+      &amp;string(9) "451610.23"
+      ["Devengado"]=&gt;
+      &amp;string(9) "451377.47"
+      ["Pagado"]=&gt;
+      &amp;string(9) "451377.47"
+      ["Preventivo"]=&gt;
+      &amp;string(1) "0"
+      ["Restringido"]=&gt;
+      &amp;string(1) "0"
+      ["Vigente"]=&gt;
+      &amp;string(6) "453082"
+    }
+  }
+}
+2013-03-02 11:07:01.420586 nusoap_parser: in nusoap_parser ctor, message:
+array(48) {
+  [0]=&gt;
+  array(9) {
+    ["pos"]=&gt;
+    int(0)
+    ["children"]=&gt;
+    string(2) "|1"
+    ["cdata"]=&gt;
+    string(0) ""
+    ["depth"]=&gt;
+    int(0)
+    ["parent"]=&gt;
+    string(0) ""
+    ["status"]=&gt;
+    string(8) "envelope"
+    ["name"]=&gt;
+    string(8) "Envelope"
+    ["attrs"]=&gt;
+    array(1) {
+      ["xmlns:s"]=&gt;
+      string(41) "http://schemas.xmlsoap.org/soap/envelope/"
+    }
+    ["namespace"]=&gt;
+    string(41) "http://schemas.xmlsoap.org/soap/envelope/"
+  }
+  [1]=&gt;
+  array(9) {
+    ["pos"]=&gt;
+    int(1)
+    ["children"]=&gt;
+    string(2) "|2"
+    ["cdata"]=&gt;
+    string(0) ""
+    ["depth"]=&gt;
+    int(1)
+    ["parent"]=&gt;
+    int(0)
+    ["status"]=&gt;
+    string(4) "body"
+    ["name"]=&gt;
+    string(4) "Body"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(41) "http://schemas.xmlsoap.org/soap/envelope/"
+  }
+  [2]=&gt;
+  array(11) {
+    ["pos"]=&gt;
+    int(2)
+    ["children"]=&gt;
+    string(2) "|3"
+    ["cdata"]=&gt;
+    string(0) ""
+    ["depth"]=&gt;
+    int(2)
+    ["parent"]=&gt;
+    int(1)
+    ["type"]=&gt;
+    string(6) "struct"
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(38) "ConsultarPartidaPresupuestariaResponse"
+    ["attrs"]=&gt;
+    array(1) {
+      ["xmlns"]=&gt;
+      string(19) "http://tempuri.org/"
+    }
+    ["namespace"]=&gt;
+    string(19) "http://tempuri.org/"
+    ["result"]=&gt;
+    array(1) {
+      ["ConsultarPartidaPresupuestariaResult"]=&gt;
+      &amp;array(4) {
+        ["Clasificador"]=&gt;
+        &amp;array(16) {
+          ["Actividad"]=&gt;
+          &amp;string(1) "1"
+          ["Ejercicio"]=&gt;
+          &amp;string(4) "2011"
+          ["Entidad"]=&gt;
+          &amp;string(1) "0"
+          ["FueFin"]=&gt;
+          &amp;string(2) "11"
+          ["Inciso"]=&gt;
+          &amp;string(1) "2"
+          ["Jurisdiccion"]=&gt;
+          &amp;string(2) "21"
+          ["Moneda"]=&gt;
+          &amp;string(1) "1"
+          ["Obra"]=&gt;
+          &amp;string(1) "0"
+          ["Parcial"]=&gt;
+          &amp;string(1) "2"
+          ["Principal"]=&gt;
+          &amp;string(1) "9"
+          ["Programa"]=&gt;
+          &amp;string(1) "1"
+          ["Proyecto"]=&gt;
+          &amp;string(1) "0"
+          ["SubJurisdiccion"]=&gt;
+          &amp;string(1) "0"
+          ["SubParcial"]=&gt;
+          &amp;string(1) "0"
+          ["SubPrograma"]=&gt;
+          &amp;string(1) "0"
+          ["UbicaGeo"]=&gt;
+          &amp;string(1) "1"
+        }
+        ["Cuota"]=&gt;
+        &amp;array(12) {
+          ["Consumida1"]=&gt;
+          &amp;string(8) "39744.93"
+          ["Consumida2"]=&gt;
+          &amp;string(8) "55051.87"
+          ["Consumida3"]=&gt;
+          &amp;string(9) "121309.93"
+          ["Consumida4"]=&gt;
+          &amp;string(9) "235503.50"
+          ["Disponible1"]=&gt;
+          &amp;string(4) "0.07"
+          ["Disponible2"]=&gt;
+          &amp;string(4) "0.13"
+          ["Disponible3"]=&gt;
+          &amp;string(4) "0.07"
+          ["Disponible4"]=&gt;
+          &amp;string(4) "0.50"
+          ["Distribuida1"]=&gt;
+          &amp;string(5) "39745"
+          ["Distribuida2"]=&gt;
+          &amp;string(5) "55052"
+          ["Distribuida3"]=&gt;
+          &amp;string(6) "121310"
+          ["Distribuida4"]=&gt;
+          &amp;string(6) "235504"
+        }
+        ["Indicativa"]=&gt;
+        &amp;array(6) {
+          ["Definitivo"]=&gt;
+          &amp;string(9) "131714.11"
+          ["Devengado"]=&gt;
+          &amp;string(9) "131520.42"
+          ["Pagado"]=&gt;
+          &amp;string(9) "131520.42"
+          ["Preventivo"]=&gt;
+          &amp;string(1) "0"
+          ["Restringido"]=&gt;
+          &amp;string(1) "0"
+          ["Vigente"]=&gt;
+          &amp;string(6) "131715"
+        }
+        ["Limitativa"]=&gt;
+        &amp;array(6) {
+          ["Definitivo"]=&gt;
+          &amp;string(9) "451610.23"
+          ["Devengado"]=&gt;
+          &amp;string(9) "451377.47"
+          ["Pagado"]=&gt;
+          &amp;string(9) "451377.47"
+          ["Preventivo"]=&gt;
+          &amp;string(1) "0"
+          ["Restringido"]=&gt;
+          &amp;string(1) "0"
+          ["Vigente"]=&gt;
+          &amp;string(6) "453082"
+        }
+      }
+    }
+  }
+  [3]=&gt;
+  array(11) {
+    ["pos"]=&gt;
+    int(3)
+    ["children"]=&gt;
+    string(11) "|4|21|34|41"
+    ["cdata"]=&gt;
+    string(0) ""
+    ["depth"]=&gt;
+    int(3)
+    ["parent"]=&gt;
+    int(2)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(36) "ConsultarPartidaPresupuestariaResult"
+    ["attrs"]=&gt;
+    array(2) {
+      ["xmlns:a"]=&gt;
+      string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+      ["xmlns:i"]=&gt;
+      string(41) "http://www.w3.org/2001/XMLSchema-instance"
+    }
+    ["namespace"]=&gt;
+    string(19) "http://tempuri.org/"
+    ["type"]=&gt;
+    string(0) ""
+    ["result"]=&gt;
+    &amp;array(4) {
+      ["Clasificador"]=&gt;
+      &amp;array(16) {
+        ["Actividad"]=&gt;
+        &amp;string(1) "1"
+        ["Ejercicio"]=&gt;
+        &amp;string(4) "2011"
+        ["Entidad"]=&gt;
+        &amp;string(1) "0"
+        ["FueFin"]=&gt;
+        &amp;string(2) "11"
+        ["Inciso"]=&gt;
+        &amp;string(1) "2"
+        ["Jurisdiccion"]=&gt;
+        &amp;string(2) "21"
+        ["Moneda"]=&gt;
+        &amp;string(1) "1"
+        ["Obra"]=&gt;
+        &amp;string(1) "0"
+        ["Parcial"]=&gt;
+        &amp;string(1) "2"
+        ["Principal"]=&gt;
+        &amp;string(1) "9"
+        ["Programa"]=&gt;
+        &amp;string(1) "1"
+        ["Proyecto"]=&gt;
+        &amp;string(1) "0"
+        ["SubJurisdiccion"]=&gt;
+        &amp;string(1) "0"
+        ["SubParcial"]=&gt;
+        &amp;string(1) "0"
+        ["SubPrograma"]=&gt;
+        &amp;string(1) "0"
+        ["UbicaGeo"]=&gt;
+        &amp;string(1) "1"
+      }
+      ["Cuota"]=&gt;
+      &amp;array(12) {
+        ["Consumida1"]=&gt;
+        &amp;string(8) "39744.93"
+        ["Consumida2"]=&gt;
+        &amp;string(8) "55051.87"
+        ["Consumida3"]=&gt;
+        &amp;string(9) "121309.93"
+        ["Consumida4"]=&gt;
+        &amp;string(9) "235503.50"
+        ["Disponible1"]=&gt;
+        &amp;string(4) "0.07"
+        ["Disponible2"]=&gt;
+        &amp;string(4) "0.13"
+        ["Disponible3"]=&gt;
+        &amp;string(4) "0.07"
+        ["Disponible4"]=&gt;
+        &amp;string(4) "0.50"
+        ["Distribuida1"]=&gt;
+        &amp;string(5) "39745"
+        ["Distribuida2"]=&gt;
+        &amp;string(5) "55052"
+        ["Distribuida3"]=&gt;
+        &amp;string(6) "121310"
+        ["Distribuida4"]=&gt;
+        &amp;string(6) "235504"
+      }
+      ["Indicativa"]=&gt;
+      &amp;array(6) {
+        ["Definitivo"]=&gt;
+        &amp;string(9) "131714.11"
+        ["Devengado"]=&gt;
+        &amp;string(9) "131520.42"
+        ["Pagado"]=&gt;
+        &amp;string(9) "131520.42"
+        ["Preventivo"]=&gt;
+        &amp;string(1) "0"
+        ["Restringido"]=&gt;
+        &amp;string(1) "0"
+        ["Vigente"]=&gt;
+        &amp;string(6) "131715"
+      }
+      ["Limitativa"]=&gt;
+      &amp;array(6) {
+        ["Definitivo"]=&gt;
+        &amp;string(9) "451610.23"
+        ["Devengado"]=&gt;
+        &amp;string(9) "451377.47"
+        ["Pagado"]=&gt;
+        &amp;string(9) "451377.47"
+        ["Preventivo"]=&gt;
+        &amp;string(1) "0"
+        ["Restringido"]=&gt;
+        &amp;string(1) "0"
+        ["Vigente"]=&gt;
+        &amp;string(6) "453082"
+      }
+    }
+  }
+  [4]=&gt;
+  array(11) {
+    ["pos"]=&gt;
+    int(4)
+    ["children"]=&gt;
+    string(43) "|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20"
+    ["cdata"]=&gt;
+    string(0) ""
+    ["depth"]=&gt;
+    int(4)
+    ["parent"]=&gt;
+    int(3)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(12) "Clasificador"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["type"]=&gt;
+    string(0) ""
+    ["result"]=&gt;
+    &amp;array(16) {
+      ["Actividad"]=&gt;
+      &amp;string(1) "1"
+      ["Ejercicio"]=&gt;
+      &amp;string(4) "2011"
+      ["Entidad"]=&gt;
+      &amp;string(1) "0"
+      ["FueFin"]=&gt;
+      &amp;string(2) "11"
+      ["Inciso"]=&gt;
+      &amp;string(1) "2"
+      ["Jurisdiccion"]=&gt;
+      &amp;string(2) "21"
+      ["Moneda"]=&gt;
+      &amp;string(1) "1"
+      ["Obra"]=&gt;
+      &amp;string(1) "0"
+      ["Parcial"]=&gt;
+      &amp;string(1) "2"
+      ["Principal"]=&gt;
+      &amp;string(1) "9"
+      ["Programa"]=&gt;
+      &amp;string(1) "1"
+      ["Proyecto"]=&gt;
+      &amp;string(1) "0"
+      ["SubJurisdiccion"]=&gt;
+      &amp;string(1) "0"
+      ["SubParcial"]=&gt;
+      &amp;string(1) "0"
+      ["SubPrograma"]=&gt;
+      &amp;string(1) "0"
+      ["UbicaGeo"]=&gt;
+      &amp;string(1) "1"
+    }
+  }
+  [5]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(5)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(1) "1"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(4)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(9) "Actividad"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(1) "1"
+  }
+  [6]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(6)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(4) "2011"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(4)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(9) "Ejercicio"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(4) "2011"
+  }
+  [7]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(7)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(1) "0"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(4)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(7) "Entidad"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(1) "0"
+  }
+  [8]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(8)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(2) "11"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(4)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(6) "FueFin"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(2) "11"
+  }
+  [9]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(9)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(1) "2"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(4)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(6) "Inciso"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(1) "2"
+  }
+  [10]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(10)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(2) "21"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(4)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(12) "Jurisdiccion"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(2) "21"
+  }
+  [11]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(11)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(1) "1"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(4)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(6) "Moneda"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(1) "1"
+  }
+  [12]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(12)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(1) "0"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(4)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(4) "Obra"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(1) "0"
+  }
+  [13]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(13)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(1) "2"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(4)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(7) "Parcial"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(1) "2"
+  }
+  [14]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(14)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(1) "9"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(4)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(9) "Principal"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(1) "9"
+  }
+  [15]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(15)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(1) "1"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(4)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(8) "Programa"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(1) "1"
+  }
+  [16]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(16)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(1) "0"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(4)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(8) "Proyecto"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(1) "0"
+  }
+  [17]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(17)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(1) "0"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(4)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(15) "SubJurisdiccion"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(1) "0"
+  }
+  [18]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(18)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(1) "0"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(4)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(10) "SubParcial"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(1) "0"
+  }
+  [19]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(19)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(1) "0"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(4)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(11) "SubPrograma"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(1) "0"
+  }
+  [20]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(20)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(1) "1"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(4)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(8) "UbicaGeo"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(1) "1"
+  }
+  [21]=&gt;
+  array(11) {
+    ["pos"]=&gt;
+    int(21)
+    ["children"]=&gt;
+    string(36) "|22|23|24|25|26|27|28|29|30|31|32|33"
+    ["cdata"]=&gt;
+    string(0) ""
+    ["depth"]=&gt;
+    int(4)
+    ["parent"]=&gt;
+    int(3)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(5) "Cuota"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["type"]=&gt;
+    string(0) ""
+    ["result"]=&gt;
+    &amp;array(12) {
+      ["Consumida1"]=&gt;
+      &amp;string(8) "39744.93"
+      ["Consumida2"]=&gt;
+      &amp;string(8) "55051.87"
+      ["Consumida3"]=&gt;
+      &amp;string(9) "121309.93"
+      ["Consumida4"]=&gt;
+      &amp;string(9) "235503.50"
+      ["Disponible1"]=&gt;
+      &amp;string(4) "0.07"
+      ["Disponible2"]=&gt;
+      &amp;string(4) "0.13"
+      ["Disponible3"]=&gt;
+      &amp;string(4) "0.07"
+      ["Disponible4"]=&gt;
+      &amp;string(4) "0.50"
+      ["Distribuida1"]=&gt;
+      &amp;string(5) "39745"
+      ["Distribuida2"]=&gt;
+      &amp;string(5) "55052"
+      ["Distribuida3"]=&gt;
+      &amp;string(6) "121310"
+      ["Distribuida4"]=&gt;
+      &amp;string(6) "235504"
+    }
+  }
+  [22]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(22)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(8) "39744.93"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(21)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(10) "Consumida1"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(8) "39744.93"
+  }
+  [23]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(23)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(8) "55051.87"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(21)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(10) "Consumida2"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(8) "55051.87"
+  }
+  [24]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(24)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(9) "121309.93"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(21)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(10) "Consumida3"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(9) "121309.93"
+  }
+  [25]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(25)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(9) "235503.50"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(21)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(10) "Consumida4"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(9) "235503.50"
+  }
+  [26]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(26)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(4) "0.07"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(21)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(11) "Disponible1"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(4) "0.07"
+  }
+  [27]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(27)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(4) "0.13"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(21)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(11) "Disponible2"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(4) "0.13"
+  }
+  [28]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(28)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(4) "0.07"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(21)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(11) "Disponible3"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(4) "0.07"
+  }
+  [29]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(29)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(4) "0.50"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(21)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(11) "Disponible4"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(4) "0.50"
+  }
+  [30]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(30)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(5) "39745"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(21)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(12) "Distribuida1"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(5) "39745"
+  }
+  [31]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(31)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(5) "55052"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(21)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(12) "Distribuida2"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(5) "55052"
+  }
+  [32]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(32)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(6) "121310"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(21)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(12) "Distribuida3"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(6) "121310"
+  }
+  [33]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(33)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(6) "235504"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(21)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(12) "Distribuida4"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(6) "235504"
+  }
+  [34]=&gt;
+  array(11) {
+    ["pos"]=&gt;
+    int(34)
+    ["children"]=&gt;
+    string(18) "|35|36|37|38|39|40"
+    ["cdata"]=&gt;
+    string(0) ""
+    ["depth"]=&gt;
+    int(4)
+    ["parent"]=&gt;
+    int(3)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(10) "Indicativa"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["type"]=&gt;
+    string(0) ""
+    ["result"]=&gt;
+    &amp;array(6) {
+      ["Definitivo"]=&gt;
+      &amp;string(9) "131714.11"
+      ["Devengado"]=&gt;
+      &amp;string(9) "131520.42"
+      ["Pagado"]=&gt;
+      &amp;string(9) "131520.42"
+      ["Preventivo"]=&gt;
+      &amp;string(1) "0"
+      ["Restringido"]=&gt;
+      &amp;string(1) "0"
+      ["Vigente"]=&gt;
+      &amp;string(6) "131715"
+    }
+  }
+  [35]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(35)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(9) "131714.11"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(34)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(10) "Definitivo"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(9) "131714.11"
+  }
+  [36]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(36)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(9) "131520.42"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(34)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(9) "Devengado"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(9) "131520.42"
+  }
+  [37]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(37)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(9) "131520.42"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(34)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(6) "Pagado"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(9) "131520.42"
+  }
+  [38]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(38)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(1) "0"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(34)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(10) "Preventivo"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(1) "0"
+  }
+  [39]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(39)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(1) "0"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(34)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(11) "Restringido"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(1) "0"
+  }
+  [40]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(40)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(6) "131715"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(34)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(7) "Vigente"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(6) "131715"
+  }
+  [41]=&gt;
+  array(11) {
+    ["pos"]=&gt;
+    int(41)
+    ["children"]=&gt;
+    string(18) "|42|43|44|45|46|47"
+    ["cdata"]=&gt;
+    string(0) ""
+    ["depth"]=&gt;
+    int(4)
+    ["parent"]=&gt;
+    int(3)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(10) "Limitativa"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["type"]=&gt;
+    string(0) ""
+    ["result"]=&gt;
+    &amp;array(6) {
+      ["Definitivo"]=&gt;
+      &amp;string(9) "451610.23"
+      ["Devengado"]=&gt;
+      &amp;string(9) "451377.47"
+      ["Pagado"]=&gt;
+      &amp;string(9) "451377.47"
+      ["Preventivo"]=&gt;
+      &amp;string(1) "0"
+      ["Restringido"]=&gt;
+      &amp;string(1) "0"
+      ["Vigente"]=&gt;
+      &amp;string(6) "453082"
+    }
+  }
+  [42]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(42)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(9) "451610.23"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(41)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(10) "Definitivo"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(9) "451610.23"
+  }
+  [43]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(43)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(9) "451377.47"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(41)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(9) "Devengado"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(9) "451377.47"
+  }
+  [44]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(44)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(9) "451377.47"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(41)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(6) "Pagado"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(9) "451377.47"
+  }
+  [45]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(45)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(1) "0"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(41)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(10) "Preventivo"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(1) "0"
+  }
+  [46]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(46)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(1) "0"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(41)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(11) "Restringido"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(1) "0"
+  }
+  [47]=&gt;
+  array(10) {
+    ["pos"]=&gt;
+    int(47)
+    ["children"]=&gt;
+    string(0) ""
+    ["cdata"]=&gt;
+    string(6) "453082"
+    ["depth"]=&gt;
+    int(5)
+    ["parent"]=&gt;
+    int(41)
+    ["status"]=&gt;
+    string(6) "method"
+    ["name"]=&gt;
+    string(7) "Vigente"
+    ["attrs"]=&gt;
+    array(0) {
+    }
+    ["namespace"]=&gt;
+    string(53) "http://schemas.datacontract.org/2004/07/WCF_ENTIDADES"
+    ["result"]=&gt;
+    &amp;string(6) "453082"
+  }
+}
+2013-03-02 11:07:01.421204 nusoap_parser: parsed successfully, found root struct: 2 of name ConsultarPartidaPresupuestariaResponse
+</pre><h2>Proxy Debug</h2><pre></pre></body></html>
