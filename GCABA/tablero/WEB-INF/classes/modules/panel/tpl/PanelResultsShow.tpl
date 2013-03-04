@@ -130,7 +130,7 @@ function viewObjective(id){
 
                 <div class="floatleft" id="chartContainer"></div>
                 <script type="text/javascript">
-                    var myChart = new FusionCharts( "images/Pie3D.swf", "myChartId", "300", "225", "0", "1" );
+                    var myChart = new FusionCharts( "images/Pie3D.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId", "300", "225", "0", "1" );
                     myChart.setDataURL(escape("Main.php?do=planningCakeByStatusColorXml&type=projects"));
                     myChart.render("chartContainer");
                 </script>
@@ -147,7 +147,7 @@ function viewObjective(id){
 
                 <div class="floatleft" id="chartContainer2"></div>
                 <script type="text/javascript">
-                    var myChart2 = new FusionCharts( "images/Pie3D.swf", "myChartId2", "300", "225", "0", "1" );
+                    var myChart2 = new FusionCharts( "images/Pie3D.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId2", "300", "225", "0", "1" );
                     myChart2.setDataURL(escape("Main.php?do=planningCakeByStatusColorXml&type=constructions"));
                     myChart2.render("chartContainer2");
                 </script>
@@ -167,14 +167,14 @@ function viewObjective(id){
     <div id="chartContainer4">Cargando...</div>
     <br/>
     <script type="text/javascript">
-        var myChart4 = new FusionCharts("images/Column2D.swf", "myChartId4", "1000", "300", "0", "1" );
-	myChart4.setDataURL(escape("Main.php?do=planningBarsQXml"));
+        var myChart4 = new FusionCharts("images/Column2D.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId4", "1000", "300", "0", "1" );
+		myChart4.setDataURL(escape("Main.php?do=planningBarsQXml"));
         myChart4.render("chartContainer4");
     </script>
 
     <div id="chartContainer5">Cargando...</div>
     <script type="text/javascript">
-        var myChart5 = new FusionCharts("images/Column2D.swf", "myChartId5", "1000", "300", "0", "1" );
+        var myChart5 = new FusionCharts("images/Column2D.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId5", "1000", "300", "0", "1" );
         myChart5.setDataURL("xml/obras_a_inaugurar_por_mes.xml");
         myChart5.render("chartContainer5");
     </script>
