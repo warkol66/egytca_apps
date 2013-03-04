@@ -14,15 +14,11 @@ class PlanningBarsQXmlAction extends BaseAction {
 		
 		$this->template->template = 'TemplatePlain.tpl';
 		
-		$positions = PositionQuery::create()->filterByType(9) // cambiar filtro +++++++++++++++++++++++++++++++++++++
+		$positionType = key(ConfigModule::get("planning","positionsTypes"));
+		$positions = PositionQuery::create()->filterByType($positionType)
 			->_or()->filterByPlanning(true)->find();
 		
 		foreach ($positions as $position) {
-//			$q[$position->getInternalCode()] = count($position->getOnlyConstructionsWithDescendants());
-//			$projects = $position->getOnlyProjectsWithDescendants();
-//			foreach ($projects as $project) {
-//				$q[$position->getInternalCode()] += $project->countPlanningConstructions();
-//			}
 			
 			$q[$position->getInternalCode()] = 0;
 			
