@@ -41,11 +41,11 @@
 <div class="floatleft" id="chartContainer2">Cargando...</div>
 <script type="text/javascript">
 
-var myChart = new FusionCharts( "images/Pie3D.swf", "myChartId", "400", "300", "0", "1" );
+var myChart = new FusionCharts( "images/Pie3D.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId", "400", "300", "0", "1" );
 myChart.setDataURL(escape("Main.php?do=planningCakeByStatusColorXml&type=projects&positionId=|-$position->getId()-|"));
 myChart.render("chartContainer");
 
-var myChart2 = new FusionCharts( "images/Pie3D.swf", "myChartId2", "400", "300", "0", "1" );
+var myChart2 = new FusionCharts( "images/Pie3D.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId2", "400", "300", "0", "1" );
 myChart2.setDataURL(escape("Main.php?do=planningCakeByStatusColorXml&type=constructions&positionId=|-$position->getId()-|"));
 myChart2.render("chartContainer2");
 </script>
@@ -55,7 +55,7 @@ myChart2.render("chartContainer2");
 <div id="chartContainer3"></div>
 
   <script type="text/javascript">
-      var myChart3 = new FusionCharts( "images/MSCombi2D.swf", "myChartId3", "900", "400", "0", "1" );
+      var myChart3 = new FusionCharts( "images/MSCombi2D.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId3", "900", "400", "0", "1" );
       myChart3.setDataURL("xml/cumplimiento_metas.xml");
       myChart3.render("chartContainer3");
   </script>
