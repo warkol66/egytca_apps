@@ -1,6 +1,12 @@
 DELETE FROM `security_actionLabel` WHERE `action` LIKE 'Actors%' AND `language` = 'esp';
-INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('ActorsEditX', 'Crear nuevo funcionario', 'esp');
-INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('ActorsEdit', 'Crear/Editar Funcionario', 'esp');
-INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('ActorsDoDelete', 'Eliminar Funcionario', 'esp');
-INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('ActorsList', 'Listado de Funcionarios', 'esp');
-INSERT INTO `security_actionLabel` ( `action` , `label` , `language` ) VALUES ('ActorsAutocompleteListX', 'Listado funcionario con autocompletar', 'esp');
+OPTIMIZE TABLE `security_actionLabel`;
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('ActorsCategoryEdit', 'Administrar categorías de funcionarios', 'Administrar categorías de funcionarios', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('ActorsEdit', 'Alta/Modificación de Funcionarios', 'Alta/Modificación de Funcionarios', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('ActorsEditX', 'Alta/Modificación de Funcionarios', 'Alta/Modificación de Funcionarios', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('ActorsAutocompleteListX', 'Lista de autocompletar funcionarios', 'Lista de autocompletar funcionarios', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('ActorsCategoryDoDelete', 'Eliminar categoría de funcionario', 'Lista de autocompletar funcionarios', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('ActorsCategoryList', 'Listar categorías de funcionarios', 'Listar categorías de funcionarios', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('ActorsDoAddCategoryToActorX', 'Agregar categoría a funcionario', 'Agregar categoría a funcionario', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('ActorsDoDelete', 'Eliminar funcionario', 'Eliminar funcionario', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('ActorsDoDeleteCategoryFromActorX', 'Eliminar categoría a funcionario', 'Eliminar categoría a funcionario', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('ActorsList', 'Listado de funcionarios', 'Listado de funcionarios', 'esp');
