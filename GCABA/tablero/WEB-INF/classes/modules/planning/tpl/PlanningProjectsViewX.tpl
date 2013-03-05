@@ -9,7 +9,7 @@
 
 <div id="chartdiv" align="center">Diagrama de Gantt</div>
 <script type="text/javascript">|-assign var=height value="250"-||-math equation="q * y" q=$planningProject->countActivities() y="45" assign=calculatedHeight-|
-	var myChart = new FusionCharts("scripts/FusionCharts/Gantt.swf", "myChartId", "700", "|-if $calculatedHeight gt $height-||-$calculatedHeight-||-else-||-$height-||-/if-|", "0", "0");
+	var myChart = new FusionCharts("scripts/FusionCharts/Gantt.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId", "700", "|-if $calculatedHeight gt $height-||-$calculatedHeight-||-else-||-$height-||-/if-|", "0", "0");
 	myChart.setDataXML("|-$smarty.capture.xml-||-$smarty.capture.process-||-$smarty.capture.task-|");
 	myChart.render("chartdiv");
  </script>
