@@ -40,7 +40,7 @@
 <script language="JavaScript" src="scripts/FusionCharts/FusionCharts.js"></script>
 	<div id="chartdiv" align="center"></div>
 	<script type="text/javascript">
-		 var chart = new FusionCharts("scripts/FusionCharts/|-$graphType-|.swf", "ChartId", "640", "420", "0", "0");
+		 var chart = new FusionCharts("scripts/FusionCharts/|-$graphType-|.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "ChartId", "640", "420", "0", "0");
 		 |-if $entity ne ''-|
 		 	chart.setDataURL("Main.php%3Fdo%3DplanningIndicatorsViewXml%26id%3D|-$entityId-|%26entity%3D|-$entity-|");
 		 |-else-|
