@@ -14,4 +14,10 @@ class PlanningProjectsDoDeleteAction extends BaseDoDeleteAction {
 	function __construct() {
 		parent::__construct('PlanningProject');
 	}
+	
+	function postDelete(){
+        parent::postDelete();
+       
+        $activities = PlanningActivityQuery::create()->filterByObjectType('Project')->filterByObjectid($_POST['id'])->delete();
+    }
 }
