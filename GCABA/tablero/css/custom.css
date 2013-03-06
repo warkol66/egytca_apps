@@ -116,7 +116,7 @@ body {
 }
 #contentCloser {
 	width: 955px;
-	background-image: url(../images/bkg-2columns-d3dbe4.png);
+/*	background-image: url(../images/bkg-2columns-d3dbe4.png);*/
 	background-repeat: repeat-y;
 }
 #leftColumn{

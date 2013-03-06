@@ -65,8 +65,6 @@ myChart2.render("chartContainer2");
     <script type="text/javascript" src="scripts/FusionCharts.js"></script>
     <script type="text/javascript" src="scripts/FusionChartsExportComponent.js"></script>
     <link rel="stylesheet" href="css/extrastyles.css" type="text/css" />
-</head>
-<body>
 
 |-if is_object($planningProject)-||-includeReport id=$planningProject->getId()-||-/if-|
 <div id="planningActivityDocumentsEditTemplate" style="display:none">

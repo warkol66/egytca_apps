@@ -227,7 +227,7 @@ class ReportService{
             return '
             <div id="'. $id .'"></div>
             <script type="text/javascript">
-                var myChart3 = new FusionCharts( "images/MSCombi2D.swf", "myChartId3", "900", "400", "0", "1" );
+                var myChart3 = new FusionCharts( "images/MSCombi2D.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId3", "900", "400", "0", "1" );
                 myChart3.setDataURL("' . $url_xml_grafico .'");
                 myChart3.render("' .$id . '");
             </script>';
