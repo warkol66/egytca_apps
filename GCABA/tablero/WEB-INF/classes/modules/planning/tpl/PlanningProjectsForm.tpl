@@ -127,11 +127,11 @@
     </p>|-/if-|
 	<p>     
 		<label for="params_startingDate">Fecha de Inicio</label>
-		<input id="params_startingDate" name="params[startingDate]" type='text' value='|-$planningProject->getStartingDate()|date_format-|' size="12" title="Ingrese la fecha de Inicio en formato dd-mm-aaaa"  |-$readonly|readonly-| class="dateValidation"/>|-if !$show && !$showLog-| <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de inicio">|-/if-|
+		<input id="params_startingDate" name="params[startingDate]" type='text' value='|-$planningProject->getStartingDate()|date_format:"%d-%m-%Y"-|' size="12" title="Ingrese la fecha de Inicio en formato dd-mm-aaaa"  |-$readonly|readonly-| class="dateValidation"/>|-if !$show && !$showLog-| <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de inicio">|-/if-|
 	</p>
 	<p>     
 		<label for="params_endingDate">Fecha de Finalización</label>
-		<input id="params_endingDate" name="params[endingDate]" type='text' value='|-$planningProject->getEndingDate()|date_format-|' size="12" title="Ingrese la fecha de Finalizacion en formato dd-mm-aaaa"  |-$readonly|readonly-| class="dateValidation"/> |-if !$show && !$showLog-|<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[endingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de finalizacion">|-/if-|
+		<input id="params_endingDate" name="params[endingDate]" type='text' value='|-$planningProject->getEndingDate()|date_format:"%d-%m-%Y"-|' size="12" title="Ingrese la fecha de Finalizacion en formato dd-mm-aaaa"  |-$readonly|readonly-| class="dateValidation"/> |-if !$show && !$showLog-|<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[endingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de finalizacion">|-/if-|
 	</p>
 	<p>     
 		<label for="params_order">Orden</label>
