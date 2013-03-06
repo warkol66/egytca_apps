@@ -10,5 +10,7 @@ class PlanningActivityDocumentsListXAction extends BaseListAction {
 		parent::preList();
 		$this->query->filterByPlanningActivityId($_GET['id']);
 		$this->template->template = 'TemplateAjax.tpl';
+		
+		$this->smarty->assign("id",$_GET['id']);
 	}
 }

@@ -1,3 +1,10 @@
+<div id="planningActivityDocumentsEditTemplate" style="display:none">
+	|-include file="DocumentsEditInclude.tpl" entity="PlanningActivity" entityId=|-$id-| iframe="true"-|
+</div>
+<div class="innerLighbox">
+	<div><p align="right"><a id="documentAddLink" href="#" class="addLink">Agregar nuevo documento</a></p></div>
+	<div id="planningActivityDocumentsListDiv"></div>
+</div>
 <fieldset id="docs_list" class="noMargin"><legend>Documentos asociados</legend>
 <ul>
 |-if $planningActivityDocumentColl|count eq 0-|
@@ -23,6 +30,10 @@
 |-/if-|
 </fieldset>
 <script>
+	$('documentAddLink').onclick = function() {
+		$('planningActivityDocumentsEditDiv').show();
+	};
+	
 	doDeleteDocument = function(documentId, planningActivityId) {
 		new Ajax.Request(
 			'Main.php?do=documentsDoDeleteX',
