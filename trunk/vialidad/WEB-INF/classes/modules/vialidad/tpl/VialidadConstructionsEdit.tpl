@@ -39,7 +39,7 @@
 		 <p>
 		   <label>N° de Contrato</label>
 			 |-if !is_object($contract)-||-assign var=contract value=$construction->getContract()-||-/if-|
-				|-$contract->getContractNumber()|escape-|
+				|-if is_object($contract)-||-$contract->getContractNumber()|escape-||-/if-|
 		</p>
 		 <p><label for="params[name]">Nombre</label>
 			<input name="params[name]" type="text" value="|-$construction->getName()|escape-|" size="60">

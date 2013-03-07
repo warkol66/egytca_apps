@@ -38,6 +38,7 @@ class AffiliatesDoEditAction extends BaseAction {
 		else {
 			$affiliate = new Affiliate();
 			$affiliate = Common::setObjectFromParams($affiliate,$_POST["params"]);
+			$affiliate->setClasskey(1);
 
 			if(!$affiliate->validate()) {
 				$smarty->assign("affiliate",$affiliate);

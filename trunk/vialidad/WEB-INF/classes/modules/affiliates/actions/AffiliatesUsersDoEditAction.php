@@ -87,7 +87,7 @@ class AffiliatesUsersDoEditAction extends BaseAction {
 				$smarty->assign("message","errorUpdate");
 				return $mapping->findForwardConfig('failure');
 			}
-			$affiliate->save(); //necesitamos que tenga id
+			$result = $affiliate->save(); //necesitamos que tenga id
 			$affiliateUser->setAffiliateRelatedByAffiliateid($affiliate);
 		}
 
@@ -113,7 +113,6 @@ class AffiliatesUsersDoEditAction extends BaseAction {
 			$smarty->assign("message","errorUpdate");
 			return $mapping->findForwardConfig('failure');
 		}
-		
 		if (!empty($affiliate) && !empty($_POST["ownerCreation"])) {
 			$affiliate->setOwnerId($affiliateUser->getId());
 			if (!$affiliate->save()) {

@@ -8,7 +8,7 @@
   <table border="0" cellpadding="4" cellspacing="0" class="tableTdBorders"> 
      <tr> 
       <td width="20%" nowrap class="tdTitle">Contrato</td> 
-      <td>|-$construction->getContract()-|</td> 
+      <td>|-if is_object($construction)-||-$construction->getContract()-||-else-|N/D|-/if-|</td> 
     </tr> 
      <tr> 
       <td width="20%" nowrap class="tdTitle">Obra</td> 

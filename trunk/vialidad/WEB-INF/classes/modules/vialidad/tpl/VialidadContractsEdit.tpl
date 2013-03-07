@@ -118,7 +118,9 @@
 				
 				|-assign var=indicators value=$contract->getIndicators()-|
 				|-if !empty($indicators)-|
-		 		<input type='button' onClick='location.href="Main.php?do=indicatorsView&id=|-$indicators[0]->getId()-|"' value='Ir a Curva de Desembolso' title="Ir a Curva de Desembolso"/>
+				|-foreach from=$indicators item=indicator-|
+		 		<input type='button' onClick='location.href="Main.php?do=indicatorsView&id=|-$indicator->getId()-|"' value='Ir a Curva de Desembolso' title="Ir a Curva de Desembolso"/>
+				|-/foreach-|
 				 |-else-|
 		 		<input type='button' onClick='location.href="Main.php?do=indicatorsEdit&contractId=|-$contract->getId()-|&id="' value='Curva de Desembolso' title="Curva de Desembolso"/>
 				 |-/if-|
