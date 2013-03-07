@@ -27,7 +27,7 @@
             <param name="wmode" value="transparent" />
             <param name="movie" value="images/speedometer.swf" />
             <param name="flashvars" value="var3=20&amp;var4=Main.php?do=positionsShow&amp;positionId=3" />
-            <embed src="images/speedometer.swf" wmode="transparent" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" flashvars="var3=|-$position->getSpeed()-|&amp;var4=Main.php?do=positionsShow&amp;positionId=|-$position->getId()-|" height="250" width="250" /></object>
+            <embed src="images/speedometer.swf" wmode="transparent" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" flashvars="var3=|-$position->getSpeed()-|&amp;var4=Main.php?do=positionsShow%26id=|-$position->getId()-|" height="250" width="250" /></object>
     </div>
 <div class="floatleft" id="chartContainer2">Cargando...</div>
 <script type="text/javascript">
