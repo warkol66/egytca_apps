@@ -29,7 +29,7 @@
 				<input type="hidden" name="do" value="documentsDoDownload" />
 				<input type="hidden" name="id" value="|-$documentId-|" />
 				<button type="submit" class="icon iconDownload" title="Descargar documento">ver</button>
-			</form><a href="#" title="Editar documento"><img src="images/clear.png" class="icon iconEdit" title="Editar"/></a>
+			</form>
 			<a href="#" title="Eliminar documento" onclick="confirm('seguro eliminar?') && doDeleteDocument(|-$documentId-|, |-$planningActivityId-|); return false;"><img src="images/clear.png" class="icon iconDelete" title="Editar"/></a></span>
 			<br style="clear: all" />
 		</li>
