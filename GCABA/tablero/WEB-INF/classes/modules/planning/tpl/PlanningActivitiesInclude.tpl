@@ -116,7 +116,7 @@ html =   '      <tr> '
             <td><input name="activity[][realStart]"  id="activity|-$activity->getId()-|_realStart" type="text" value="|-$activity->getRealStart()|date_format:'%d-%m-%Y'-|" title="Fecha de inicio real en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation"></td>
             <td><input name="activity[][realEnd]"  id="activity|-$activity->getId()-|_realStart" type="text" value="|-$activity->getRealend()|date_format:'%d-%m-%Y'-|" title="Fecha de de finalización real en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation"></td>
 	    <td align="center"><input name="activity[][acomplished]" type="hidden" value="0"><input name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1" |-$activity->getAcomplished()|checked_bool-| title="Indique si se completó la actividad" |-$readonly|readonly-|>
-			|-if !$show && !$showLog-|<td><a id="various5" href="Main.php?do=planningActivityDocumentsListX&id=|-$activity->getId()-|" class="iframe lbOn"><input type="button" class="icon iconAttach" value="Administrar documentos" title="Administrar documentos" /></a></td>
+			|-if !$show && !$showLog-|<td><a id="fancybox_|-$activity->getId()-|" href="Main.php?do=planningActivityDocumentsListX&id=|-$activity->getId()-|" class="iframe lbOn"><input type="button" class="icon iconAttach" onclick="jQuery('a#fancybox_|-$activity->getId()-|').fancybox({'width' : '600'});" value="Administrar documentos" title="Administrar documentos" /></a></td>
         </td>
          		<td><input name="activity[][eol]" type="hidden" value="1">|-if !isset($construction) || (isset($construction) && !$construction->getConstructionType() eq 2)-|<input type="button" class="icon iconDelete" title="Eliminar" value="Eliminar" onClick="removeActivity('|-$activity->getId()-|')" />|-else-|<img src="images/clear.png" class="disabled icon iconClear" />|-/if-|</td>|-/if-| 
        </tr> 
@@ -130,6 +130,10 @@ html =   '      <tr> '
      </table> 
    </div> 
 <script type="text/javascript">
+	
+	function openF(id){
+		jQuery('a#' + id).fancybox({'width' : '600'});
+	}
 	jQuery('a#various5').fancybox({'width' : '600'});
 	
 function deleteActivityRow(i){
