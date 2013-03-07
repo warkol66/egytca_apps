@@ -223,11 +223,11 @@ function viewObjective(id){
 				<td align="center" nowrap="nowrap" >
 					<div  style="width:108px;"><!--<a href="" class="flagWhite">
 						|-$constColorsCount.white-|
-					</a>--><a href="Main.php?do=panelConstructionsList&filters[positionCode]=|-$position->getCode()-|" class="flagGreen">
+					</a>--><a href="Main.php?do=planningConstructionsShow&positionId=|-$position->getId()-|&color=green" class="flagGreen">
 						|-$constColorsCount.green-|
-					</a><a href="Main.php?do=panelConstructionsList&filters[positionCode]=|-$position->getCode()-|" class="flagYellow">
+					</a><a href="Main.php?do=planningConstructionsShow&positionId=|-$position->getId()-|&color=yellow" class="flagYellow">
 						|-$constColorsCount.yellow-|
-					</a><a href="Main.php?do=panelConstructionsList&filters[positionCode]=|-$position->getCode()-|" class="flagRed">
+					</a><a href="Main.php?do=planningConstructionsShow&positionId=|-$position->getId()-|&color=red" class="flagRed">
 						|-$constColorsCount.red-|
 					</a><!--<a href="" class="flagBlue">
 						|-$constColorsCount.blue-|

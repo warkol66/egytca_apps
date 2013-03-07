@@ -29,6 +29,11 @@ class PlanningActivitiesListAction extends BaseListAction {
 			$this->filters["objecttype"] = "Project";
 			$this->filters["objectid"] = $_GET['filters']['projectId'];
 		}
+		
+		if (!empty($_GET['filters']['constructionId'])) {
+			$this->filters["objecttype"] = "Construction";
+			$this->filters["objectid"] = $_GET['filters']['constructionId'];
+		}
 
 		//Si es csv: no paginado, external vacio y para descargar
 		if ($_GET["csv"]) {

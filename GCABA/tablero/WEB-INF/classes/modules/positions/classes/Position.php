@@ -427,6 +427,22 @@ class Position extends BasePosition {
 	}
 	
 	/**
+	 * Obtiene los obras asignadas a la position con un determinado status color.
+	 *
+	 * @return array PlanningConstructions
+	 */
+	public function getConstructionsByStatusColor($color, $query = null) {
+		$constructions = $this->getAllConstructionsWithDescendants($query);
+		$filteredConstructions = array();
+		foreach ($constructions as $construction) {
+			if ($construction->isOfStatusColor($color)) {
+				$filteredConstructions[] = $construction;
+			}
+		}
+		return $filteredConstructions;
+	}
+	
+	/**
 	 * Obtiene la cantidad de projects asignados al position con un determinado status color.
 	 *
 	 * @return int $count
