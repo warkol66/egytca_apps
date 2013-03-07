@@ -135,6 +135,14 @@ class PlanningConstruction extends BasePlanningConstruction {
 		return false;
 	}
 	
+	public function isToBeInaugurated() {
+		$inaugurationDateBefore = ConfigModule::get('panel', 'inaugurationDateBefore');
+		$inaugurationDateAfter = ConfigModule::get('panel', 'inaugurationDateAfter');
+		
+		return $this->getPotentialendingdate('U') > strtotime("now - $inaugurationDateBefore days")
+				&& $this->getPotentialendingdate('U') < strtotime("now + $inaugurationDateAfter days");
+	}
+	
 	/**
 	 * Obtiene el objective asociado al project
 	 */
