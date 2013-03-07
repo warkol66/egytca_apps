@@ -55,6 +55,7 @@
 					|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 			  <input type="submit" name="submit_go_edit_affiliate" value="Editar" class="icon iconEdit" /> 
 			</form>|-/if-|
+			|-if "affiliatesDoDelete"|security_has_access-|<a href='Main.php?do=affiliatesDoDelete&id=|-$affiliate->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|' title="##115,Eliminar##" onClick='return window.confirm("¿Está seguro que quiere eliminar este proveedor?")'><img src="images/clear.png" class="icon iconDelete"></a>|-/if-|
     </td>
 	</tr>
 	|-/foreach-|

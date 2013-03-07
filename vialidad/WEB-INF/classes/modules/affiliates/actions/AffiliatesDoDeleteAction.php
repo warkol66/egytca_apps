@@ -18,14 +18,16 @@ class AffiliatesDoDeleteAction extends BaseAction {
 
 		$module = "Affiliates";
 
-		$affiliate = AffiliatePeer::get($_POST["id"]);
+		$affiliate = AffiliateQuery::create()->findOneById($_GET["id"]);
 
-		if ($affiliate->delete())
-			return $mapping->findForwardConfig('success');
+		if (!empty($affiliate)) {
+			if ($affiliate->delete())
+				return $mapping->findForwardConfig('success');
+			else
+				return $mapping->findForwardConfig('failure');
+			}
 		else
-			return $mapping->findForwardConfig('failure');
-
-		return $mapping->findForwardConfig('success');
+			return $mapping->findForwardConfig('success');
 	}
 
 }

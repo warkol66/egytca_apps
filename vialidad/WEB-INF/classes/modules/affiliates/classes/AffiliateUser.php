@@ -91,7 +91,7 @@ class AffiliateUser extends BaseAffiliateUser {
 	 */
 	public function isOwner($user) {
 		$affiliate = $this->getAffiliate();
-		if ($affiliate->isOwner($user))
+		if (is_object($affiliate) && $affiliate->isOwner($user))
 			return true;
 		else
 			return false;
@@ -117,7 +117,7 @@ class AffiliateUser extends BaseAffiliateUser {
 	*/
 	function isAffiliateOwner() {
 		$affiliate = $this->getAffiliate();
-		if ($affiliate->getOwnerId() == $this->getId())
+		if (is_object($affiliate) && $affiliate->getOwnerId() == $this->getId())
 			return true;
 		else
 			return false;
