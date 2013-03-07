@@ -175,7 +175,7 @@ function viewObjective(id){
     <div id="chartContainer5">Cargando...</div>
     <script type="text/javascript">
         var myChart5 = new FusionCharts("images/Column2D.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId5", "1000", "300", "0", "1" );
-        myChart5.setDataURL("xml/obras_a_inaugurar_por_mes.xml");
+		myChart5.setDataURL(escape("Main.php?do=planningBarsWXml"));
         myChart5.render("chartContainer5");
     </script>
 <div id="fcexpDiv" align="center">FusionCharts Export</div>
@@ -210,11 +210,11 @@ function viewObjective(id){
 				<td align="center" nowrap="nowrap">
 					<div style="width:108px;"><!--<a href="" class="flagWhite">
 						|-$colorsCount.white-|
-					</a>--><a href="" class="flagGreen">
+					</a>--><a href="Main.php?do=planningProjectsShow&positionId=|-$position->getId()-|&color=green" class="flagGreen">
 						|-$colorsCount.green-|
-					</a><a href="" class="flagYellow">					
+					</a><a href="Main.php?do=planningProjectsShow&positionId=|-$position->getId()-|&color=yellow" class="flagYellow">					
 						|-$colorsCount.yellow-|
-					</a><a href="" class="flagRed">
+					</a><a href="Main.php?do=planningProjectsShow&positionId=|-$position->getId()-|&color=red" class="flagRed">
 						|-$colorsCount.red-|
 					</a><!--<a href="" class="flagBlue">
 						|-$colorsCount.blue-|
@@ -223,11 +223,11 @@ function viewObjective(id){
 				<td align="center" nowrap="nowrap" >
 					<div  style="width:108px;"><!--<a href="" class="flagWhite">
 						|-$constColorsCount.white-|
-					</a>--><a href="" class="flagGreen">
+					</a>--><a href="Main.php?do=panelConstructionsList&filters[positionCode]=|-$position->getCode()-|" class="flagGreen">
 						|-$constColorsCount.green-|
-					</a><a href="" class="flagYellow">					
+					</a><a href="Main.php?do=panelConstructionsList&filters[positionCode]=|-$position->getCode()-|" class="flagYellow">
 						|-$constColorsCount.yellow-|
-					</a><a href="" class="flagRed">
+					</a><a href="Main.php?do=panelConstructionsList&filters[positionCode]=|-$position->getCode()-|" class="flagRed">
 						|-$constColorsCount.red-|
 					</a><!--<a href="" class="flagBlue">
 						|-$constColorsCount.blue-|
