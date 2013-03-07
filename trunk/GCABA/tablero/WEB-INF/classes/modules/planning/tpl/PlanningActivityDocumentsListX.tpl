@@ -1,10 +1,18 @@
+<!--Se vuelven a agregar los scripts y estilos porque si no no los incluye-->
+<script src="scripts/prototype.js" language="JavaScript" type="text/javascript"></script>
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<!--[if !IE]>--> <link href="css/style_ns6+.css" rel="stylesheet" type="text/css"> <!--<![endif]-->
+<link rel="stylesheet" href="css/main.css" type="text/css">
+<!--[if lte IE 6]> <link href="css/styles-ie6.css" rel="stylesheet" type="text/css"> <![endif]-->
+<!--[if gte IE 7]> <link href="css/styles-ie7.css" rel="stylesheet" type="text/css"> <![endif]-->
+<link rel="shortcut icon" href="images/favicon.ico">
+<!--/-->
 <div id="planningActivityDocumentsEditTemplate" style="display:none">
-	|-include file="DocumentsEditInclude.tpl" entity="PlanningActivity" entityId=|-$id-| iframe="true"-|
+	|-include file="DocumentsEditInclude.tpl" entity="PlanningActivity" entityId=|-$id-| -|
 </div>
-<div class="innerLighbox">
+<div id="documentsList">
 	<div><p align="right"><a id="documentAddLink" href="#" class="addLink">Agregar nuevo documento</a></p></div>
 	<div id="planningActivityDocumentsListDiv"></div>
-</div>
 <fieldset id="docs_list" class="noMargin"><legend>Documentos asociados</legend>
 <ul>
 |-if $planningActivityDocumentColl|count eq 0-|
@@ -29,9 +37,12 @@
 </ul>
 |-/if-|
 </fieldset>
+</div>
 <script>
 	$('documentAddLink').onclick = function() {
-		$('planningActivityDocumentsEditDiv').show();
+		$('planningActivityDocumentsEditTemplate').show();
+		$('documentsList').hide();
+		return false;
 	};
 	
 	doDeleteDocument = function(documentId, planningActivityId) {

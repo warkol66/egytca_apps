@@ -24,7 +24,7 @@
 <a id="openLightbox2_control" href="#lightbox2" rel="lightbox2" class="lbOn" style="display:none"></a>
 
 <script type="text/javascript">
-	function loadAddDocumentsLightbox(planningActivityId) {
+	/*function loadAddDocumentsLightbox(planningActivityId) {
 		$('planningActivityDocumentsListDiv').innerHTML = '';
 		new Ajax.Updater(
 			'planningActivityDocumentsListDiv',
@@ -51,6 +51,6 @@
 
 	function openLightbox1() { $('openLightbox1_control').click(); return false; }
 	function openLightbox2() { $('openLightbox2_control').click(); return false;}
-	function closeLightbox() { $('closeLightbox_control').click(); return false;}
+	function closeLightbox() { $('closeLightbox_control').click(); return false;}*/
 </script>
 
