@@ -2,7 +2,6 @@
 <script language="JavaScript" type="text/javascript" src="scripts/chosen.proto.js"></script>
 <!--<script language="JavaScript" type="text/javascript" src="scripts/jquery/chosen.js"></script>-->
 <!--<script language="JavaScript" type="text/javascript" src="scripts/jquery/ajax-chosen.min.js"></script>-->
-<script type="text/javascript" src="scripts/lightbox.js"></script>
 <script type="text/javascript">
 document.observe("dom:loaded", function() {
 	new Chosen($("params_regions"));
@@ -233,7 +232,3 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 		document.getElementById(elementId).enable();
 	}
 </script>
-<div id="planningActivityDocumentsEditTemplate" style="display:none">
-	|-include file="DocumentsEditInclude.tpl" entity="PlanningActivity" entityId="<%planningActivityId%>" iframe="true" target="submit-iframe"-|
-	<iframe name="submit-iframe" style="display: none;" |-*onload="if (this.innerHTML != '') { closeLightbox(); loadAddDocumentsLightbox('<%planningActivityId%>'); openLightbox1(); }"*-|></iframe>
-</div>

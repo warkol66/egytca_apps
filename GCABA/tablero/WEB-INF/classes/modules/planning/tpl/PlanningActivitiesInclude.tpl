@@ -5,7 +5,7 @@
 |-if !$show && !$showLog-|
 <div id="activityMsgField"></div>
 <script language="JavaScript" type="text/JavaScript">
-ljQuery.noConflict();
+	jQuery.noConflict();
 	
 function addActivity(a) {
 	var div = $$("#activityEdit div:first")[0];
@@ -116,7 +116,7 @@ html =   '      <tr> '
             <td><input name="activity[][realStart]"  id="activity|-$activity->getId()-|_realStart" type="text" value="|-$activity->getRealStart()|date_format:'%d-%m-%Y'-|" title="Fecha de inicio real en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation"></td>
             <td><input name="activity[][realEnd]"  id="activity|-$activity->getId()-|_realStart" type="text" value="|-$activity->getRealend()|date_format:'%d-%m-%Y'-|" title="Fecha de de finalización real en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation"></td>
 	    <td align="center"><input name="activity[][acomplished]" type="hidden" value="0"><input name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1" |-$activity->getAcomplished()|checked_bool-| title="Indique si se completó la actividad" |-$readonly|readonly-|>
-			|-if !$show && !$showLog-|<td><a id="various5" href="Main.php?do=planningActivityDocumentsListX&id=|-$activity->getId()-|" class="lbOn"><input type="button" class="icon iconAttach" value="Administrar documentos" title="Administrar documentos" /></a><a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconAttach" onclick="loadAddDocumentsLightbox(|-$activity->getId()-|)" value="Administrar documentos" title="Administrar documentos" /></a></td>
+			|-if !$show && !$showLog-|<td><a id="various5" href="Main.php?do=planningActivityDocumentsListX&id=|-$activity->getId()-|" class="iframe lbOn"><input type="button" class="icon iconAttach" value="Administrar documentos" title="Administrar documentos" /></a></td>
         </td>
          		<td><input name="activity[][eol]" type="hidden" value="1">|-if !isset($construction) || (isset($construction) && !$construction->getConstructionType() eq 2)-|<input type="button" class="icon iconDelete" title="Eliminar" value="Eliminar" onClick="removeActivity('|-$activity->getId()-|')" />|-else-|<img src="images/clear.png" class="disabled icon iconClear" />|-/if-|</td>|-/if-| 
        </tr> 
@@ -130,10 +130,9 @@ html =   '      <tr> '
      </table> 
    </div> 
 <script type="text/javascript">
-	jQuery('a#various5').fancybox({'hideOnContentClick': false});
+	jQuery('a#various5').fancybox({'width' : '600'});
 	
 function deleteActivityRow(i){
 	document.getElementById('activitiesTable').deleteRow(i)
 }
 </script>
-|-*include file="PlanningDocumentsLightbox.tpl"*-|
