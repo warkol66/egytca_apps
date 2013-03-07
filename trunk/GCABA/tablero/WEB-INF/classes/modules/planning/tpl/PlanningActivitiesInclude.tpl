@@ -17,7 +17,7 @@ function addActivity(a) {
 function addActivityRow() {
 	var row = document.createElement('tr');
 html =   '      <tr> '
- + '      <td><input name="activity[][name]"  id="params_name[]" type="text" value="" size="60" title="Actividad"></td>'
+ + '      <td><input name="activity[][name]"  id="params_name[]" type="text" value="" size="40" title="Actividad"></td>'
  + '      <td><input name="activity[][order]"  id="params_order[]" type="text" value="" class="width3em" title="Orden" ></td>'
 |-if !$construction-| + '        <td><input name="activity[][startingDate]"  id="params_startingDate[]" type="text" value="" title="Fecha de inicio en formato dd-mm-aaaa" class="dateValidation"></td>'|-/if-|
  + '      <td><input name="activity[][endingDate]"  id="params_endingDate[]" type="text" value="" title="Fecha de finalización en formato dd-mm-aaaa" class="dateValidation"></td>'
@@ -107,25 +107,20 @@ html =   '      <tr> '
       <tr id="activityId_|-$activity->getId()-|"> 
             <td><input type="hidden" name="activity[][id]" value="|-$activity->getId()-|"/>
             |-if isset($construction) && $construction->getConstructionType() eq 2-|<input name="activity[][name]" id="params_name[]" type="text" value="|-$activity->getName()|escape-|" size="60" title="Actividad" readonly="readonly"></td>
-            |-else-|<input name="activity[][name]" id="params_name[]" type="text" value="|-$activity->getName()|escape-|" size="60" title="Actividad" |-$readonly|readonly-|>|-/if-|</td>
-	    <td align="center"><input name="activity[][order]" type="text" class="width3em" value="|-if $activity->getOrder() neq $defaultOrder-||-$activity->getOrder()-||-/if-|" |-$readonly|readonly-|></td>
-|-if !$construction-|            <td><input name="activity[][startingDate]"  id="activity|-$activity->getId()-|_startingDate" type="text" value="|-$activity->getStartingDate()|date_format:"%d-%m-%Y"-|" title="Fecha de inicio en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation">|-/if-||-*|-if !$show && !$showLog-|<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('activity|-$activity->getId()-|_startingDate', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de inicio">|-/if-|*-|</td>
-            <td><input name="activity[][endingDate]"  id="activity|-$activity->getId()-|_endingDate" type="text" value="|-$activity->getEndingDate()|date_format:'%d-%m-%Y'-|" title="Fecha de finalización en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation">|-*|-if !$show && !$showLog-|<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('activity|-$activity->getId()-|_endingDate', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de inicio">|-/if-|*-|</td>
+            |-else-|<input name="activity[][name]" id="params_name[]" type="text" value="|-$activity->getName()|escape-|" size="40" title="Actividad" |-$readonly|readonly-|>|-/if-|</td>
+	    <td align="center"><input name="activity[][order]" type="text" class="width3em" value="|-if $activity->getOrder() neq $defaultOrder-||-$activity->getOrder()-||-/if-|" |-$readonly|readonly-| style="width:3.0em !Important"></td>
+|-if !$construction-|            <td><input name="activity[][startingDate]" id="activity|-$activity->getId()-|_startingDate" type="text" value="|-$activity->getStartingDate()|date_format:"%d-%m-%Y"-|" title="Fecha de inicio en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation" style="width:5.2em !Important"></td>|-/if-|
+            <td><input name="activity[][endingDate]"  id="activity|-$activity->getId()-|_endingDate" type="text" value="|-$activity->getEndingDate()|date_format:'%d-%m-%Y'-|" title="Fecha de finalización en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation" style="width:5.2em !Important"></td>
       <td align="center"><input name="activity[][priority]" type="hidden" value="0"><input name="activity[][priority]" type="checkbox" value="1" |-$activity->getPriority()|checked_bool-| |-$readonly|readonly-|></td>
 	    <td align="center"><input name="activity[][priorityPercentage]" type="text" class="width3em" value="|-$activity->getPriorityPercentage()-|" |-$readonly|readonly-|></td>
-            <td><input name="activity[][realStart]"  id="activity|-$activity->getId()-|_realStart" type="text" value="|-$activity->getRealStart()|date_format:'%d-%m-%Y'-|" title="Fecha de inicio real en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation"></td>
-            <td><input name="activity[][realEnd]"  id="activity|-$activity->getId()-|_realStart" type="text" value="|-$activity->getRealend()|date_format:'%d-%m-%Y'-|" title="Fecha de de finalización real en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation"></td>
+            <td><input name="activity[][realStart]"  id="activity|-$activity->getId()-|_realStart" type="text" value="|-$activity->getRealStart()|date_format:'%d-%m-%Y'-|" title="Fecha de inicio real en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation" style="width:5.2em !Important"></td>
+            <td><input name="activity[][realEnd]"  id="activity|-$activity->getId()-|_realStart" type="text" value="|-$activity->getRealend()|date_format:'%d-%m-%Y'-|" title="Fecha de de finalización real en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation" style="width:5.2em !Important"></td>
 	    <td align="center"><input name="activity[][acomplished]" type="hidden" value="0"><input name="activity[][acomplished]" id="params_total[]" type="checkbox" value="1" |-$activity->getAcomplished()|checked_bool-| title="Indique si se completó la actividad" |-$readonly|readonly-|>
 			|-if !$show && !$showLog-|<td><a id="fancybox_|-$activity->getId()-|" href="Main.php?do=planningActivityDocumentsListX&id=|-$activity->getId()-|" class="iframe lbOn"><input type="button" class="icon iconAttach" onclick="jQuery('a#fancybox_|-$activity->getId()-|').fancybox({'width' : '600'});" value="Administrar documentos" title="Administrar documentos" /></a></td>
         </td>
          		<td><input name="activity[][eol]" type="hidden" value="1">|-if !isset($construction) || (isset($construction) && !$construction->getConstructionType() eq 2)-|<input type="button" class="icon iconDelete" title="Eliminar" value="Eliminar" onClick="removeActivity('|-$activity->getId()-|')" />|-else-|<img src="images/clear.png" class="disabled icon iconClear" />|-/if-|</td>|-/if-| 
        </tr> 
       |-/foreach-|
-			|-*else*-|
-			 <!--<tr> 
-          <td colspan="12">No hay partidas presupuestarias asociadas</td> 
-        </tr> -->
-			|-*/if*-|
       </tbody> 
      </table> 
    </div> 
