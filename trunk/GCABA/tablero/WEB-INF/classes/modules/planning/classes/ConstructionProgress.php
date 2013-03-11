@@ -15,4 +15,20 @@
  */
 class ConstructionProgress extends BaseConstructionProgress {
 
+	/**
+	 * Obtiene la diferencia de avance fisico del planificado vs real
+	 */
+	public function getFinancialDelta() {
+		$delta = $this->getRealFinancialProgress() - $this->getFinancialProgress();
+		return $delta;
+	}
+
+	/**
+	 * Obtiene la diferencia de avance finaciero del planificado vs real
+	 */
+	public function getPhysicalDelta() {
+		$delta = $this->getRealPhysicalProgress() - $this->getPhysicalProgress();
+		return $delta;
+	}
+
 } // ConstructionProgress
