@@ -2,9 +2,10 @@
 <h1>|-$position->getName()-|</h1>
 <p>Responsable: |-$position->getOwnerName()-||-assign var=tenure value=$position->getActiveTenure()-| |-if $tenure->getObject() != NULL-||-assign var=tenureObject value=$tenure->getObject()-| &#8212; |-$tenureObject->getName()-| |-$tenureObject->getSurname()-||-/if-|</p>
 <p>
-<object title="|-$position->getName()-|" height="170" width="170">
+|-assign var=graphParent value=$position->getGraphParent()-|
+<object title="|-$graphParent-|" height="170" width="170">
 	<param name="movie" value="images/speedometer.swf">
-	<param name="flashvars" value="var3=|-$position->getSpeed()-|&amp;var4=Main.php?do=positionsShow&amp;positionId=|-$position->getId()-|">
+	<param name="flashvars" value="var3=|-$graphParent->getSpeed()-|&amp;var4=Main.php?do=positionsShow&amp;positionId=|-$position->getId()-|">
 	<embed src="images/speedometer.swf" wmode="transparent" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" flashvars="var3=|-$position->getSpeed()-|&amp;var4=Main.php?do=positionsShow&amp;positionId=|-$position->getId()-|" height="170" width="170" /></object>
 </p>        
 |-if !empty($objectives)-|
