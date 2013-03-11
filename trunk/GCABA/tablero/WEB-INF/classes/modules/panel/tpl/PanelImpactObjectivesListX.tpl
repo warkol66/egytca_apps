@@ -8,20 +8,20 @@
 	<td id="expand_|-$objective->getId()-|"><a href="#" onClick="indicatorsShow(|-$objective->getId()-|); return false;"><img src="images/icon_expand.png" /></a></td>
 	<td id="collapse_|-$objective->getId()-|" style="display: none;"><a href="#" onClick="indicatorsHide(|-$objective->getId()-|); return false;"><img src="images/icon_collapse.png" /></a></td>
 	<td><strong>Objetivo de Impacto:</strong> |-$objective->getName()-|</td>
-	<td colspan="2" nowrap>
+			<td colspan="2" nowrap="nowrap">
 		<form action="Main.php" method="get" style="display:inline;">
 			<input type="hidden" name="do" value="planningImpactObjectivesViewX" />
 			<input type="hidden" name="id" value="|-$objective->getid()-|" />
 			<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" id="objective_|-$objective->getId()-|" onClick='javaScript:viewObjective(|-$objective->getId()-|);' value="Ver detalle" name="submit_go_show_objective" title="Ver detalle" /></a>
 		</form>
-		<form action="Main.php" method="get" style="display:inline;">
+		<!--<form action="Main.php" method="get" style="display:inline;">
 			|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 			|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 			<input type="hidden" name="do" value="planningImpactObjectivesEdit" />
 			<input type="hidden" name="id" value="|-$objective->getid()-|" />
 			<input type="submit" name="submit_go_edit_objective" value="Editar" class="icon iconEdit" title="Editar Objetivo de Impacto"/>
 		</form>
-		<!--<form action="Main.php" method="post" style="display:inline;">
+		<form action="Main.php" method="post" style="display:inline;">
 			|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 			|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 			<input type="hidden" name="do" value="planningImpactObjectivesDoDelete" />
@@ -46,7 +46,7 @@
 		<tr style="background:#D6FFFF;display: none;" class="indicator_|-$objective->getId()-|">
 			<td>&nbsp;</td>
 			<td><strong>Indicador:</strong> |-$indicator->getName()-|</td>
-			<td nowrap>
+			<td colspan="2" nowrap="nowrap">
 			<!--<input type="button" class="icon iconView" onClick='window.open("Main.php?do=planningIndicatorsViewX&id=|-$indicator->getid()-|","indicator","width=800,height=600");' value="Ver indicador" title="Ver indicador (abre en ventana nueva)" />-->
 				<form action="Main.php" method="get" style="display:inline;">
 					<input type="hidden" name="do" value="planningIndicatorsViewX" />

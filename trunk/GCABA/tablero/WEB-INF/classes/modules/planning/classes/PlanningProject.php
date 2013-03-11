@@ -546,4 +546,12 @@ class PlanningProject extends BasePlanningProject {
 									->find();
 	}
 
+	/**
+	 * Devuelve las notas de seguimiento
+	 * @return coll notas de seguimiento
+	 */
+	public function getPanelNotes() {
+		return BaseQuery::create('PanelNote')->filterByObjecttype('PlanningProject')->filterByObjectid($this->getId())->find();
+	}
+
 } // PlanningProject

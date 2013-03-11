@@ -171,14 +171,14 @@ $("#autocomplete_responsibleCode").ajaxChosen({
     <input id="params_potentialEndingDate" name="params[potentialEndingDate]" type='text' value='|-$planningConstruction->getPotentialEndingDate()|date_format-|' size="12" title="Ingrese la fecha de Finalizacion en formato dd-mm-aaaa" class="dateValidation"/> |-if !$show && !$showLog-|<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[potentialEndingDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha de finalizacion">|-/if-|
   </p>
       
-		 |-if !$planningConstruction->isNew()-|<h3>Partida presupuestaria &nbsp; <a href="javascript:void(null)" id="showHideBudgetRelations" onClick="$('budgetItemsTable').toggle(); $('showHideBudgetRelations').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningConstruction->getBudgetItems() readonly="readonly" showLog="true"-||-/if-|
+		 |-if !$planningConstruction->isNew()-|<h3>Partida presupuestaria &nbsp; <a href="javascript:void(null)" id="showHideBudgetRelations" onClick="$('budgetItemsTable').toggle(); $('showHideBudgetRelations').toggleClassName('expandLink');" class="collapseLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningConstruction->getBudgetItems() readonly="readonly" showLog="true"-||-/if-|
 		 <h3>Gantt (Hitos) <a href="javascript:void(null)" id="showHidePlanningConstruction" onClick="$('activitiesTable').toggle(); $('showHidePlanningConstruction').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-if !$planningConstruction->isNew()-||-include file="PlanningActivitiesInclude.tpl" activities=$planningConstruction->getActivities() construction=$planningConstruction showGantt="true" readonly=false-||-else-|
 		 |-include file="PlanningConstructionsTemplateInclude.tpl" construction="true" readonly=false-||-/if-|
 	<p>
         <label for="params_address">Dirección</label>
       <input name="params[address]" type="text" id="params_address" size="80" value="|-$planningConstruction->getAddress()-|" title="Dirección" |-$readonly|readonly-|/>
     </p>
-|-if !$planningConstruction->isNew()-|<h3>Ejecución Físico/Financiera &nbsp; <a href="javascript:void(null)" id="showHideConstructionProgress" onClick="$('progressRecordsTable').toggle(); $('showHideConstructionProgress').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningConstructionProgressInclude.tpl" progressRecords=$planningConstruction->getConstructionProgresss()  readonly=false-||-/if-|
+|-if !$planningConstruction->isNew()-|<h3>Ejecución Físico/Financiera &nbsp; <a href="javascript:void(null)" id="showHideConstructionProgress" onClick="$('progressRecordsTable').toggle(); $('showHideConstructionProgress').toggleClassName('expandLink');" class="collapseLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningConstructionProgressInclude.tpl" progressRecords=$planningConstruction->getConstructionProgresss()  readonly=false-||-/if-|
 	<p>
 		<label for="params_regions">Comunas</label>
 		<select class="chzn-select wide-chz-select" data-placeholder="Seleccione una o varias comunas..." multiple="multiple" id="params_regions" name="params[regionsIds][]" size="5" title="comunas" |-$readonly|readonly-|>
@@ -210,7 +210,59 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 		|-/if-|		</p>|-/if-|
     </fieldset> 
   </form> 
+|-if !$planningConstruction->isNew()-|
+<fieldset><legend>Notas de Seguimiento</legend>
+<div id="messageAdd"></div>
+|-assign var=panelNotes value=$planningConstruction->getPanelNotes()-|
+<ul id="panelNotes" class="iconOptionsList">|-foreach from=$panelNotes item=note-|
+			<li id="noteListItem|-$note->getId()-|" title="Nota">
+						<form action="Main.php" method="post" style="display:inline;"> 
+							<input type="hidden" name="do" value="panelNotesDoDeleteX" /> 
+							<input type="hidden" name="id" value="|-$note->getId()-|" /> 
+							<input type="button" name="submit_go_remove_actor" value="Borrar" title="Eliminar nota" onclick="if (confirm('Seguro que desea eliminar nota?')) removePanelNotes(this.form);" class="icon iconDelete" /> 
+						</form> |-$note->getCreatedAt()|change_timezone|dateTime_format-| - |-$note->updatedBy()-| | |-$note->getNote()-|</li>
+|-/foreach-|</ul>
+<h3>Agregar nota</h3>
+<script language="JavaScript" type="text/JavaScript">
+	function removePanelNotes(form){
+		var fields = Form.serialize(form);
+		var myAjax = new Ajax.Updater(
+					{success: 'panelNotes'},
+					'Main.php?do=panelNotesDoDeleteX',
+					{
+						method: 'post',
+						postBody: fields,
+						evalScripts: true,
+						insertion: Insertion.Bottom
+					});
+		$('messageAdd').innerHTML = '<span class="inProgress">Eliminando nota...</span>';
+		return true;
+	}
+function addPanelNotes(form) {
+			var fields = Form.serialize(form);
+			var myAjax = new Ajax.Updater(
+				{success: 'panelNotes'},
+				'Main.php?do=panelNotesDoAddX',
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true,
+					insertion: Insertion.Bottom
+				});	
+	$('messageAdd').innerHTML = '<span class="inProgress">agregando nota ...</span>';
+	return true;
+}
+</script>
 
+<form method="post" style="display:inline;">
+	<input type="hidden" name="do" id="do" value="panelNotesDoAddX" /> 
+	<input type="hidden" name="params[objectId]" id="params_objectId" value="|-$planningConstruction->getId()-|" />
+	<input type="hidden" name="params[objectType]" id="params_objectType" value="PlanningConstruction" />
+	<p><label for="params_note">Texto de la nota</label><textarea name="params[note]" cols="60" rows="5" wrap="VIRTUAL" id="params_note" height="5"></textarea></p>
+  <input type="button" id="addNote" name="addNoteSubmit" value="Agregar nota" title="" onClick="javascript:addPanelNotes(this.form)"/> </p>
+</form>
+</fieldset> 
+|-/if-|
 <script type="text/javascript">
 	function checkTender(elementId) {
 			var selectType = document.getElementById(elementId);

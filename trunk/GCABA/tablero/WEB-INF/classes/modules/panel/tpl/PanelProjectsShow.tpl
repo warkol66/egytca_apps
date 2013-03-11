@@ -1,4 +1,16 @@
-<h2>Tablero de Gestión (index.html)</h2>
+<script type="text/javascript" src="scripts/lightbox.js"></script> 			
+<link type="text/css" href="css/chosen.css" rel="stylesheet" />
+<script language="JavaScript" type="text/javascript" src="scripts/chosen.proto.js"></script>
+<div id="lightbox1" class="leightbox">
+	<p align="right">				
+		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
+	</p> 
+	<div id="planningProjectsShowWorking"></div>
+	<div class="innerLighbox">
+		<div id="planningProjectsShowDiv"></div>
+	</div>
+</div>
+<h2>Tablero de Gestión</h2>
 |-if $position-|
 <h1>|-$position->getName()-|</h1>
 <p>Responsable : |-$position->getOwnerName()-||-if get_class($position->getActiveTenureName()) eq "PositionTenure"-||-assign var=tenure value=$position->getActiveTenureName()-||-if $tenure->getName() ne ''-| &#8212; |-$tenure->getName()-||-/if-||-else-||-assign var=userInfo value=$position->getActiveTenureName()-||-if $userInfo->getName() ne '' || $userInfo->getSurname() ne ''-| &#8212; |-/if-||-$userInfo->getName()-| |-$userInfo->getSurname()-||-/if-|</p>
@@ -43,7 +55,8 @@ myChart2.render("chartContainer2");
 				<th width="40%">Nombre</th>
 				<th width="5%">Fecha</th>
 				<th width="5%">Fin Planificado </th>
-				<th width="5%">Terminado</th>
+				<th width="5%">Fin Real </th>
+				<th width="5%">&nbsp;</th>
 				<th width="5%"><div style="width:175px;">Actividades</div></th>
 			</tr>
 		</thead>
@@ -53,24 +66,38 @@ myChart2.render("chartContainer2");
 			<tr>
 				<td>|-$project->getOperativeObjective()-|</td>
 				<td><a href="javascript:void(null);" class="flag|-$project->statusColor()|capitalize-|"></a></td>
-				<td><a href="Main.php?do=projectsActivitiesList&filters[projectId]=|-$project->getid()-|&filters[fromProjects]=true" title="Ver actividades del proyecto" title="Ver actividades del proyecto" class="follow">|-$project->getname()-|</a></td>
-				<td nowrap>|-*$project->getdate()|date_format*-|</td>
-				<td nowrap>|-*$project->getPlannedEnd()|date_format:"%d-%m-%Y"*-|</td>
-				<td align="center">|-$project->getAcomplished()|si_no-|</td>
+				<td><a href="Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getid()-|&filters[fromProjects]=true" title="Ver actividades del proyecto" title="Ver actividades del proyecto" class="follow">|-$project->getname()-|</a></td>
+				<td nowrap>|-$project->getStartingDate()|date_format-|</td>
+				<td nowrap>|-$project->getEndingDate()|date_format-|</td>
+				<td nowrap>|-$project->getRealEnd()|date_format-|</td>
+				<td align="center" nowrap="nowrap">					|-if "planningProjectsViewX"|security_has_access-||-if $project->getActivities()|count gt 0-|
+					<input type="button" class="icon iconViewGantt" onClick='window.open("Main.php?do=planningProjectsViewX&showGantt=true&id=|-$project->getid()-|","Gantt","scrollbars=1,width=800,height=600");' value="Ver Gantt" title="Ver Gantt (abre en ventana nueva)" />|-else-|<img src="images/clear.png" class="icon iconClear disabled" />|-/if-|
+					<form action="Main.php" method="get" style="display:inline;">
+						<input type="hidden" name="do" value="planningProjectsViewX" />
+						<input type="hidden" name="id" value="|-$project->getid()-|" />
+						<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("planningProjectsShowDiv", "Main.php?do=planningProjectsViewX&id=|-$project->getid()-|", { method: "post", parameters: { id: "|-$project->getId()-|"}, evalScripts: true})};$("planningProjectsShowWorking").innerHTML = "<span class=\"inProgress\">buscando Proyecto...</span>";' value="Ver detalle" name="submit_go_show_project" title="Ver detalle" /></a>
+					</form>|-/if-|
+|-if "panelProjectsEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;">
+						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
+						<input type="hidden" name="do" value="panelProjectsEdit" />
+						<input type="hidden" name="id" value="|-$project->getid()-|" />
+						<input type="submit" name="submit_go_edit_project" value="Editar" class="icon iconListCheck" title="Seguimiento del Proyecto"/>
+					</form>|-/if-|</td>
 				<td align="center" nowrap >
-					<a href="Main.php?do=projectsActivitiesShow&projectId=|-$project->getId()-|&color=white" class="flagWhite">
+					<a href="Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=white" class="flagWhite">
 						|-$colorsCount.white-|
 					</a>
-					<a href="Main.php?do=projectsActivitiesShow&projectId=|-$project->getId()-|&color=green" class="flagGreen">
+					<a href="Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=green" class="flagGreen">
 						|-$colorsCount.green-|
 					</a>
-					<a href="Main.php?do=projectsActivitiesShow&projectId=|-$project->getId()-|&color=yellow" class="flagYellow">					
+					<a href="Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=yellow" class="flagYellow">					
 						|-$colorsCount.yellow-|
 					</a>
-					<a href="Main.php?do=projectsActivitiesShow&projectId=|-$project->getId()-|&color=red" class="flagRed">
+					<a href="Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=red" class="flagRed">
 						|-$colorsCount.red-|
 					</a>
-					<a href="Main.php?do=projectsActivitiesShow&projectId=|-$project->getId()-|&color=blue" class="flagBlue">
+					<a href="Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=blue" class="flagBlue">
 						|-$colorsCount.blue-|
 					</a>
 				</td>

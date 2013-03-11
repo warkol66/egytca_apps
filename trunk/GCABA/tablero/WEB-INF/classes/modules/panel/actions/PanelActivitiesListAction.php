@@ -25,6 +25,11 @@ class PanelActivitiesListAction extends BaseListAction {
 				$this->filters["broodPositions"] = $_GET['filters']['positionCode'];
 		}
 
+		if (!empty($_GET['filters']['projectId'])) {
+			$this->filters["objectid"] = $_GET['filters']['projectId'];
+			$this->filters["objecttype"] = "Project";
+		}
+
 		//Si es csv: no paginado, external vacio y para descargar
 		if ($_GET["csv"]) {
 			$this->notPaginated = true;

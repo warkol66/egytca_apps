@@ -56,6 +56,60 @@ myChart2.render("chartContainer2");
 	<h3>Listado de obras</h3>
 	|-include file="PanelConstructionsInclude.tpl" constructions=$planningProject->getPlanningConstructions() showGantt="true"-|
 </div>
+
+|-if !$planningProject->isNew()-|
+<fieldset><legend>Notas de Seguimiento</legend>
+<div id="messageAdd"></div>
+|-assign var=panelNotes value=$planningProject->getPanelNotes()-|
+<ul id="panelNotes" class="iconOptionsList">|-foreach from=$panelNotes item=note-|
+			<li id="noteListItem|-$note->getId()-|" title="Nota">
+						<form action="Main.php" method="post" style="display:inline;"> 
+							<input type="hidden" name="do" value="panelNotesDoDeleteX" /> 
+							<input type="hidden" name="id" value="|-$note->getId()-|" /> 
+							<input type="button" name="submit_go_remove_actor" value="Borrar" title="Eliminar nota" onclick="if (confirm('Seguro que desea eliminar nota?')) removePanelNotes(this.form);" class="icon iconDelete" /> 
+						</form> |-$note->getCreatedAt()|change_timezone|dateTime_format-| - |-$note->updatedBy()-| | |-$note->getNote()-|</li>
+|-/foreach-|</ul>
+<h3>Agregar nota</h3>
+<script language="JavaScript" type="text/JavaScript">
+	function removePanelNotes(form){
+		var fields = Form.serialize(form);
+		var myAjax = new Ajax.Updater(
+					{success: 'panelNotes'},
+					'Main.php?do=panelNotesDoDeleteX',
+					{
+						method: 'post',
+						postBody: fields,
+						evalScripts: true,
+						insertion: Insertion.Bottom
+					});
+		$('messageAdd').innerHTML = '<span class="inProgress">Eliminando nota...</span>';
+		return true;
+	}
+function addPanelNotes(form) {
+			var fields = Form.serialize(form);
+			var myAjax = new Ajax.Updater(
+				{success: 'panelNotes'},
+				'Main.php?do=panelNotesDoAddX',
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true,
+					insertion: Insertion.Bottom
+				});	
+	$('messageAdd').innerHTML = '<span class="inProgress">agregando nota ...</span>';
+	return true;
+}
+</script>
+
+<form method="post" style="display:inline;">
+	<input type="hidden" name="do" id="do" value="panelNotesDoAddX" /> 
+	<input type="hidden" name="params[objectId]" id="params_objectId" value="|-$planningProject->getId()-|" />
+	<input type="hidden" name="params[objectType]" id="params_objectType" value="PlanningProject" />
+	<p><label for="params_note">Texto de la nota</label><textarea name="params[note]" cols="60" rows="5" wrap="VIRTUAL" id="params_note" height="5"></textarea></p>
+  <input type="button" id="addNote" name="addNoteSubmit" value="Agregar nota" title="" onClick="javascript:addPanelNotes(this.form)"/> </p>
+</form>
+</fieldset> 
+|-/if-|
 |-else-|
 	<h1>Administración de Proyectos</h1>
 	<div class="errorMessage">El identificador del proyecto ingresado no es válido. Seleccione un proyecto de la lista.</div>

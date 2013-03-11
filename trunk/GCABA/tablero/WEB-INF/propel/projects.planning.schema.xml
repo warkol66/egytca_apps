@@ -306,6 +306,8 @@
 		<column name="month" type="INTEGER" description="Mes" />
 		<column name="physicalProgress" type="DECIMAL" size="12" scale="2" description="Avance fisico de la Obra"/>
 		<column name="financialProgress" type="DECIMAL" size="12" scale="2" description="Avance financiero de la Obra"/>
+		<column name="realPhysicalProgress" type="DECIMAL" size="12" scale="2" description="Avance fisico real de la Obra"/>
+		<column name="realFinancialProgress" type="DECIMAL" size="12" scale="2" description="Avance financiero real de la Obra"/>
 
 		<foreign-key foreignTable="planning_construction" >
 			<reference local="constructionId" foreign="id" />
