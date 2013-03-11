@@ -72,8 +72,8 @@ html =   '      <tr> '
             <td> $ <input name="progressRecord[][financialProgress]"  id="params_financialProgress[]" type="text" value="|-$progressRecord->getFinancialProgress()|system_numeric_format-|" style="width: 8em !Important;" title="Avance Financiero en Pesos" class="right" |-$readonly|readonly-|></td>
             <td><input name="progressRecord[][realPhysicalProgress]"  id="params_realPhysicalProgress[]" type="text" value="|-$progressRecord->getRealPhysicalProgress()|system_numeric_format-|" style="width: 4em !Important;" title="Avance Físico en Porcentaje" class="right" |-$readonly|readonly-|> % </td>
             <td> $ <input name="progressRecord[][realFinancialProgress]"  id="params_realFinancialProgress[]" type="text" value="|-$progressRecord->getRealFinancialProgress()|system_numeric_format-|" style="width: 8em !Important;" title="Avance Financiero en Pesos" class="right" |-$readonly|readonly-|></td>
-            <td align="right">|-math equation="x-y" x=$progressRecord->getRealPhysicalProgress() y=$progressRecord->getPhysicalProgress() assign=deltaPhisical-||-$deltaPhisical|system_numeric_format-|%</td>
-            <td align="right">$ |-math equation="x-y" x=$progressRecord->getRealFinancialProgress() y=$progressRecord->getFinancialProgress()  assign=deltaFinacial-||-$deltaFinacial|system_numeric_format-|</td>
+            <td align="right">|-$progressRecord->getPhysicalDelta()|system_numeric_format-| %</td>
+            <td align="right">$ |-$progressRecord->getFinancialDelta()|system_numeric_format-| </td>
          		<td>|-if !$show && !$showLog-|<input name="progressRecord[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar partida" value="Eliminar partida" onClick="removeRecordFromConstruction('|-$progressRecord->getId()-|')" />|-else-|<img src="images/clear.png" class="disabled icon iconClear" />|-/if-|</td> 
        </tr> 
       |-/foreach-|
