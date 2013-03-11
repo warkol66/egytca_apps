@@ -60,7 +60,7 @@
 				<td>|-if is_object($impactObjective) && !empty($impactObjective)-||-$impactObjective->getStringCode()-|&nbsp;|-$impactObjective-||-/if-|</td>
 				<td>|-if is_object($ministryObjective)-||-$ministryObjective->getStringCode()-|&nbsp;|-$ministryObjective-||-/if-|</td>
 				<td>|-$objective->getStringCode()-|&nbsp;|-$objective->getName()-|</td>
-				<td nowrap>|-if $objective->countPlanningProjects() gt 0-|<a href="Main.php?do=planningProjectsList&nav=true&&filters[operativeobjectiveid]=|-$objective->getid()-|" class="icon iconFollow" title="Ver Proyectos del Objetivo Operativo">Ver Proyectos</a>|-/if-|</td>
+				<td nowrap>|-if $objective->countPlanningProjects() gt 0-|<a href="Main.php?do=|-if $smarty.session.planningMode-|planning|-else-|panel|-/if-|ProjectsList&nav=true&&filters[operativeobjectiveid]=|-$objective->getid()-|" class="icon iconFollow" title="Ver Proyectos del Objetivo Operativo">Ver Proyectos</a>|-/if-|</td>
 				<td nowrap>
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="planningOperativeObjectivesViewX" />

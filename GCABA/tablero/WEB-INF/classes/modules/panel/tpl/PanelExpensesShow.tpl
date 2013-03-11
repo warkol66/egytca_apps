@@ -1,5 +1,5 @@
 <h2>Visión Estratégica</h2>
-<h1>Cuadros de Gasto Relativo</h1>
+<h1>Cuadros de Gasto</h1>
 <!--Aca comienzan los cambios -->
 <script type="text/javascript" src="scripts/FusionCharts.js"></script>
 <script type="text/javascript" src="scripts/FusionChartsExportComponent.js"></script>

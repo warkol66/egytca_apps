@@ -337,4 +337,12 @@ class PlanningConstruction extends BasePlanningConstruction {
 									->find();
 	}
 
+	/**
+	 * Devuelve las notas de seguimiento
+	 * @return coll notas de seguimiento
+	 */
+	public function getPanelNotes() {
+		return BaseQuery::create('PanelNote')->filterByObjecttype('PlanningConstruction')->filterByObjectid($this->getId())->find();
+	}
+
 } // PlanningConstruction

@@ -1,0 +1,21 @@
+<database defaultIdMethod="native" package="panel.classes" name="application" >
+
+	<table name="panel_note" phpName="PanelNote" description="Notas de seguimiento">
+	
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="note" type="LONGVARCHAR" description="Nota"/>
+		<column name="objectType" type="VARCHAR" size="100" description="Tipo de objeto relacionado" />
+		<column name="objectId" type="INTEGER" description="Id del proyecto u obra" />
+		<column name="userObjectType" type="VARCHAR" size="100" description="tipo de objeto usuario realizo la accion"/>
+		<column name="userObjectId" type="INTEGER" description="id de objeto usuario realizo la accion"/>
+
+		<behavior name="timestampable" />
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>

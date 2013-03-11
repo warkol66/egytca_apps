@@ -13,9 +13,12 @@ function addProgressRecordRow() {
 html =   '      <tr> '
  + '            <td><input name="progressRecord[][year]"  id="params_year[]" type="text" value="" size="4" class="right" title="Año (yyyy)"></td>'
  + '            <td><input name="progressRecord[][month]"  id="params_month[]" type="text" value="" size="4" class="right" title="Mes (mm)"></td>'
- + '            <td><input name="progressRecord[][physicalProgress]"  id="params_physicalProgress[]" type="text" value="" size="4" class="right" title="Avance Físico en Porcentaje"> % </td>'
- + '            <td> $ <input name="progressRecord[][financialProgress]"  id="params_financialProgress[]" type="text" value="" size="12" class="right" title="Avance Físico en Pesos"></td>'
- + '         		<td><input name="progressRecord[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar partida" onclick="deleteProgressRow(this.parentNode.parentNode.rowIndex)" /></td> '
+ + '            <td><input name="progressRecord[][physicalProgress]"  id="params_physicalProgress[]" type="text" value="" style="width: 4em !Important;" class="right" title="Avance Físico en Porcentaje"> % </td>'
+ + '            <td> $ <input name="progressRecord[][financialProgress]"  id="params_financialProgress[]" type="text" value="" style="width: 8em !Important;" class="right" title="Avance Finaciero en Pesos"></td>'
+ + '            <td><input name="progressRecord[][realPhysicalProgress]"  id="params_physicalProgress[]" type="text" value="" style="width: 4em !Important;" class="right" title="Avance Físico real en Porcentaje"> % </td>'
+ + '            <td> $ <input name="progressRecord[][realFinancialProgress]"  id="params_financialProgress[]" type="text" value="" style="width: 8em !Important;" class="right" title="Avance Finaciero real en Pesos"></td>'
+ + '            <td>&nbsp;</td><td>&nbsp;</td>'
+ + '         		<td><input name="progressRecord[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete disable" title="Eliminar registro" onclick="deleteProgressRow(this.parentNode.parentNode.rowIndex)" /></td> '
  + '       </tr>';
 	row.innerHTML= html;
 	document.getElementById("progressRecordsTbody").appendChild(row);
@@ -38,14 +41,14 @@ html =   '      <tr> '
 	}
 </script>|-/if-|
   <div style="margin-left:150px;"> 
-     <table class="tableTdBorders" id="progressRecordsTable" style="display:none; margin-bottom:15px;"> 
+     <table class="tableTdBorders" id="progressRecordsTable" style="display:block; margin-bottom:15px;"> 
       <thead> 
         |-if !$show && !$showLog-| <tr> 
-          <th colspan="5"><div class="rightLink"><a href="#" onclick="return addProgressRecordRow()" class="addLink" title="Agregar nuevo Monto">Agregar Nuevo Registro</a></div></th> 
+          <th colspan="9"><div class="rightLink"><a href="#" onclick="return addProgressRecordRow()" class="addLink" title="Agregar nuevo Monto">Agregar Nuevo Registro</a></div></th> 
         </tr> |-/if-|
 				|-if $progressRecords|count eq 0 && ($show || $showLog)-|
 			 <tr> 
-          <td colspan="5">No hay registros de evolución</td> 
+          <td colspan="9">No hay registros de evolución</td> 
         </tr>
 			|-else-|
          <tr> 
@@ -53,19 +56,32 @@ html =   '      <tr> '
           <th>Mes</th> 
           <th>Avance Físico</th> 
           <th>Avance Financiero</th> 
+          <th>Avance Físico Real</th> 
+          <th>Avance Financiero Real</th> 
+          <th>Desvío Físico</th> 
+          <th>Desvío Financiero</th> 
           <th>&nbsp;</th> 
         </tr> 
        </thead> 
       <tbody id="progressRecordsTbody">  |-foreach from=$progressRecords item=progressRecord name=for_contractProgressRecords-|
       <tr id="progressRecordId_|-$progressRecord->getId()-|"> 
             <td><input type="hidden" name="progressRecord[][id]" value="|-$progressRecord->getId()-|" class="right" |-$readonly|readonly-|/>
-								<input name="progressRecord[][year]"  id="params_year[]" type="text" value="|-$progressRecord->getYear()-|" size="4" title="Año (yyyy)" class="right" |-$readonly|readonly-|></td>
-            <td><input name="progressRecord[][month]"  id="params_month[]" type="text" value="|-$progressRecord->getMonth()-|" size="4" title="Mes (mm)" class="right" |-$readonly|readonly-|></td>
-            <td><input name="progressRecord[][physicalProgress]"  id="params_physicalProgress[]" type="text" value="|-$progressRecord->getPhysicalProgress()|system_numeric_format-|" size="4" title="Avance Físico en Porcentaje" class="right" |-$readonly|readonly-|> % </td>
-            <td> $ <input name="progressRecord[][financialProgress]"  id="params_financialProgress[]" type="text" value="|-$progressRecord->getFinancialProgress()|system_numeric_format-|" size="12" title="Avance Financiero en Pesos" class="right" |-$readonly|readonly-|></td>
+								<input name="progressRecord[][year]"  id="params_year[]" type="text" value="|-$progressRecord->getYear()-|" style="width: 3em !Important;" title="Año (yyyy)" class="right" |-$readonly|readonly-|></td>
+            <td><input name="progressRecord[][month]"  id="params_month[]" type="text" value="|-$progressRecord->getMonth()-|" style="width: 3em !Important;" title="Mes (mm)" class="right" |-$readonly|readonly-|></td>
+            <td><input name="progressRecord[][physicalProgress]"  id="params_physicalProgress[]" type="text" value="|-$progressRecord->getPhysicalProgress()|system_numeric_format-|" style="width: 4em !Important;" title="Avance Físico en Porcentaje" class="right" |-$readonly|readonly-|> % </td>
+            <td> $ <input name="progressRecord[][financialProgress]"  id="params_financialProgress[]" type="text" value="|-$progressRecord->getFinancialProgress()|system_numeric_format-|" style="width: 8em !Important;" title="Avance Financiero en Pesos" class="right" |-$readonly|readonly-|></td>
+            <td><input name="progressRecord[][realPhysicalProgress]"  id="params_realPhysicalProgress[]" type="text" value="|-$progressRecord->getRealPhysicalProgress()|system_numeric_format-|" style="width: 4em !Important;" title="Avance Físico en Porcentaje" class="right" |-$readonly|readonly-|> % </td>
+            <td> $ <input name="progressRecord[][realFinancialProgress]"  id="params_realFinancialProgress[]" type="text" value="|-$progressRecord->getRealFinancialProgress()|system_numeric_format-|" style="width: 8em !Important;" title="Avance Financiero en Pesos" class="right" |-$readonly|readonly-|></td>
+            <td align="right">|-math equation="x-y" x=$progressRecord->getRealPhysicalProgress() y=$progressRecord->getPhysicalProgress() assign=deltaPhisical-||-$deltaPhisical|system_numeric_format-|%</td>
+            <td align="right">$ |-math equation="x-y" x=$progressRecord->getRealFinancialProgress() y=$progressRecord->getFinancialProgress()  assign=deltaFinacial-||-$deltaFinacial|system_numeric_format-|</td>
          		<td>|-if !$show && !$showLog-|<input name="progressRecord[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar partida" value="Eliminar partida" onClick="removeRecordFromConstruction('|-$progressRecord->getId()-|')" />|-else-|<img src="images/clear.png" class="disabled icon iconClear" />|-/if-|</td> 
        </tr> 
       |-/foreach-|
+			 <tr> 
+          <th colspan="5">Ejecución Finaciera acumulada según SIGAF (Actualizada: dd-mm-yyy)</th> 
+          <th align="right"> #.###,00 &nbsp;&nbsp;&nbsp;</th> 
+          <th colspan="3">&nbsp;</th> 
+        </tr>
       </tbody> 
 			|-/if-|
      </table> 

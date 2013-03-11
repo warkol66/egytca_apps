@@ -210,11 +210,11 @@ function viewObjective(id){
 				<td align="center" nowrap="nowrap">
 					<div style="width:108px;"><!--<a href="" class="flagWhite">
 						|-$colorsCount.white-|
-					</a>--><a href="Main.php?do=planningProjectsShow&positionId=|-$position->getId()-|&color=green" class="flagGreen">
+					</a>--><a href="Main.php?do=panelProjectsShow&positionId=|-$position->getId()-|&color=green" class="flagGreen">
 						|-$colorsCount.green-|
-					</a><a href="Main.php?do=planningProjectsShow&positionId=|-$position->getId()-|&color=yellow" class="flagYellow">					
+					</a><a href="Main.php?do=panelProjectsShow&positionId=|-$position->getId()-|&color=yellow" class="flagYellow">					
 						|-$colorsCount.yellow-|
-					</a><a href="Main.php?do=planningProjectsShow&positionId=|-$position->getId()-|&color=red" class="flagRed">
+					</a><a href="Main.php?do=panelProjectsShow&positionId=|-$position->getId()-|&color=red" class="flagRed">
 						|-$colorsCount.red-|
 					</a><!--<a href="" class="flagBlue">
 						|-$colorsCount.blue-|
@@ -223,11 +223,11 @@ function viewObjective(id){
 				<td align="center" nowrap="nowrap" >
 					<div  style="width:108px;"><!--<a href="" class="flagWhite">
 						|-$constColorsCount.white-|
-					</a>--><a href="Main.php?do=planningConstructionsShow&positionId=|-$position->getId()-|&color=green" class="flagGreen">
+					</a>--><a href="Main.php?do=panelConstructionsShow&positionId=|-$position->getId()-|&color=green" class="flagGreen">
 						|-$constColorsCount.green-|
-					</a><a href="Main.php?do=planningConstructionsShow&positionId=|-$position->getId()-|&color=yellow" class="flagYellow">
+					</a><a href="Main.php?do=panelConstructionsShow&positionId=|-$position->getId()-|&color=yellow" class="flagYellow">
 						|-$constColorsCount.yellow-|
-					</a><a href="Main.php?do=planningConstructionsShow&positionId=|-$position->getId()-|&color=red" class="flagRed">
+					</a><a href="Main.php?do=panelConstructionsShow&positionId=|-$position->getId()-|&color=red" class="flagRed">
 						|-$constColorsCount.red-|
 					</a><!--<a href="" class="flagBlue">
 						|-$constColorsCount.blue-|
