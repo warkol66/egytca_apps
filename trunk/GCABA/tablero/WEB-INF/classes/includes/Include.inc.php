@@ -155,6 +155,9 @@
 			die("<br /><strong><span style='color:red'>Error procesando su requerimiento, por favor reintente o comuniquese con el administrador.</span></strong>\n <br /><br />".
 					"Texto del error:" . $err );
 		}
+		elseif ($system['config']['system']['parameters']['debugMode']['value'] == 'YES' && $errno == E_USER_DEPRECATED) {
+			echo $err;
+		}
 	}
 
 	/**
