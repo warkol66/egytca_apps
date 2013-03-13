@@ -11,6 +11,8 @@ class PlanningActivityDocumentsListXAction extends BaseListAction {
 		$this->query->filterByPlanningActivityId($_GET['id']);
 		$this->template->template = 'TemplateAjax.tpl';
 		
+		$this->smarty->assign("maxUploadSize", Common::maxUploadSize());
+
 		$this->smarty->assign("id",$_GET['id']);
 	}
 }

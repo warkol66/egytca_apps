@@ -8,7 +8,7 @@
 <link rel="shortcut icon" href="images/favicon.ico">
 <!--/-->
 <div id="planningActivityDocumentsEditTemplate" style="display:none">
-	|-include file="DocumentsEditInclude.tpl" entity="PlanningActivity" entityId=|-$id-| -|
+	|-include file="DocumentsEditInclude.tpl" entity="PlanningActivity" entityId=$id-|
 </div>
 <div id="documentsList">
 	<div><p align="right"><a id="documentAddLink" href="#" class="addLink">Agregar nuevo documento</a></p></div>
@@ -20,17 +20,16 @@
 |-else-|
 	<ul class="iconList">
 	|-foreach $planningActivityDocumentColl as $planningActivityDocument-|
-		|-assign var="planningActivityId" value=$planningActivityDocument->getPlanningActivity()->getId()-|
-		|-assign var="documentId" value=$planningActivityDocument->getDocument()->getId()-|
-		<li id="planningActivityDocument_|-$documentId-|_|-$planningActivityId-|">
-			<span style="float:left;width:75%;" title="Título del documento">
-			|-$planningActivityDocument->getDocument()->getTitle()-|</span>
-			<span style="float:left;width:25%;text-align:right;"><form method="POST" action="Main.php">
+		|-assign var="document" value=$planningActivityDocument->getDocument()-|
+		<li id="planningActivityDocument_|-$document->getId()-|_|-$id-|">
+			<span style="float: left;width: 80%;font-weight: bold;" title="Título del documento">|-$document->getDate()|date_format-| | |-$document->getTitle()-|<br />
+			<span style="float: left;margin-left: 3em;font-weight: normal;" title="Descripción del documento">|-$document->getDescription()-|</span></span>
+			<span style="float: left;width: 20%;text-align: right;"><form method="POST" action="Main.php">
 				<input type="hidden" name="do" value="documentsDoDownload" />
-				<input type="hidden" name="id" value="|-$documentId-|" />
+				<input type="hidden" name="id" value="|-$document->getId()-|" />
 				<button type="submit" class="icon iconDownload" title="Descargar documento">ver</button>
 			</form>
-			<a href="#" title="Eliminar documento" onclick="confirm('seguro eliminar?') && doDeleteDocument(|-$documentId-|, |-$planningActivityId-|); return false;"><img src="images/clear.png" class="icon iconDelete" title="Editar"/></a></span>
+			<a href="#" title="Eliminar documento" onclick="confirm('¿Está seguro que desea eliminar el documento?') && doDeleteDocument(|-$document->getId()-|, |-$id-|); return false;"><img src="images/clear.png" class="icon iconDelete" title="Eliminar"/></a></span>
 			<br style="clear: all" />
 		</li>
 	|-/foreach-|

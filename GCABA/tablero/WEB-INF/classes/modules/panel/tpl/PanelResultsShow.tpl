@@ -133,6 +133,7 @@ function viewObjective(id){
                 <script type="text/javascript">
                     var myChart = new FusionCharts( "images/Pie3D.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId", "300", "225", "0", "1" );
                     myChart.setDataURL(escape("Main.php?do=planningCakeByStatusColorXml&type=projects"));
+										myChart.setTransparent(true);
                     myChart.render("chartContainer");
                 </script>
             </div>
