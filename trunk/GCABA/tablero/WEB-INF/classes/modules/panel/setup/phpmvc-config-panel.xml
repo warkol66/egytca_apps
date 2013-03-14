@@ -1,0 +1,13 @@
+<!-- Module Panel -->
+	<action-mappings>
+		<action    path = "panelBudgetRelationsDoRequest"
+							 type = "PanelBudgetRelationsDoRequestAction"
+							 name = "panelBudgetRelationsDoRequest"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=panelBudgetRelationsRequest&amp;message=ok"/>
+			<forward name="failure" path="/Main.php?do=panelBudgetRelationsRequest&amp;message=error"/>
+		</action>
+
+	</action-mappings>
+<!-- End Module Panel -->
