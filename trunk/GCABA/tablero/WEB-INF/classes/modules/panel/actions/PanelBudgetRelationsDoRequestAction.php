@@ -24,6 +24,7 @@
 		require_once('WEB-INF/classes/includes/NuSOAP/nusoap.php');
 		
 		$budgetColl = BudgetRelationQuery::create()->find();
+		$errors = Array();
 		
 		//por cada uno de los de la tabla, consulto al ws
 		foreach($budgetColl as $budget){
@@ -77,13 +78,23 @@
 				// Check for errors
 				$err = $webServiceBudget->getError();
 				if ($err) {
-					// Display the error
-					echo '<h2>Error</h2><pre>' . $err . '</pre>';
+					// Agrego el error al arreglo
+					$errors[$budget->getId()] = $err;
 				} else {
-					// Actualizo el registro en la base
-					//Ver como manejar el caso en que no lo encuentra
-					//$budget->set;
-					$budget->save();
+					if(is_array($result)){
+						// Actualizo el registro en la base con $result
+						$budget->setMatch(true);
+						$budget->setUpdatedsigaf(date('now'));
+						$budget->setDefinitive($result['ConsultarPartidaPresupuestariaResult']['Indicativa']['Definitivo']);
+						$budget->setAccrued($result['ConsultarPartidaPresupuestariaResult']['Indicativa']['Devengado']);
+						$budget->setPaid($result['ConsultarPartidaPresupuestariaResult']['Indicativa']['Pagado']);
+						$budget->setPreventive($result['ConsultarPartidaPresupuestariaResult']['Indicativa']['Preventivo']);
+						$budget->setRestricted($result['ConsultarPartidaPresupuestariaResult']['Indicativa']['Restringido']);
+						$budget->setAvailable($result['ConsultarPartidaPresupuestariaResult']['Indicativa']['Vigente']);
+						$budget->save();
+					} else {
+						$budget->setMatch(false)->save();
+					}
 				}
 			}
 		}
