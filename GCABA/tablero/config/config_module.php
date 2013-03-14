@@ -6,6 +6,7 @@ class ConfigModule {
 		"global" => array(
 			"defaultMode" => "panel",
 			"debugMode" => true,
+			"warnDeprecated" => true,
 			"noSecurity" => true,
 			"noCheckLogin" => false,
 			"nonConcurrentSession" => false,
@@ -78,6 +79,7 @@ class ConfigModule {
 			"inaugurationDateAfter" => 15
 		),
 		"positions" => array(
+			"stopOnPlanning" => true,
 			"useFemale" => true,
 			"treeRootType" => 6,
 			"lowestType" => 7,
