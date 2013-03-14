@@ -1,6 +1,6 @@
 <?php
 /**
- * PlanningProjectsViewXAction
+ * PnelProjectsViewXAction
  *
  * Vista via AJAX de Proyectos (PlanningProject)
  *
@@ -9,7 +9,7 @@
  */
 require_once 'BaseEditAction.php';
 
-class PlanningProjectsViewXAction extends BaseEditAction {
+class PnelProjectsViewXAction extends BaseEditAction {
 	
 	function __construct() {
 		parent::__construct('PlanningProject');

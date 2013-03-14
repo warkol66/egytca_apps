@@ -3,7 +3,31 @@
 |-else-|
 	<script language="JavaScript" src="scripts/FusionCharts/FusionCharts.js"></script>
 |-assign var=activities value=$planningConstruction->getActivitiesOrderedForGantt()-|
-	|-capture name=xml-|<chart dateFormat='dd/mm/yyyy' caption='|-$planningConstruction->getName()-|' subCaption='' showSlackAsFill='0' showPercentLabel='1'><categories><category start='01/01/2013' end='31/12/2013' label='2013' /></categories><categories><category start='01/01/2013' end='01/02/2013' label='Ene' /><category start='01/02/2013' end='01/03/2013' label='Feb' /><category start='01/03/2013' end='01/04/2013' label='Mar' /><category start='01/04/2013' end='01/05/2013' label='Apr' /><category start='01/05/2013' end='01/06/2013' label='May' /><category start='01/06/2013' end='01/07/2013' label='Jun' /><category start='01/07/2013' end='01/08/2013' label='Jul' /><category start='01/08/2013' end='01/09/2013' label='Aug' /><category start='01/09/2013' end='01/10/2013' label='Sep' /><category start='01/10/2013' end='01/11/2013' label='Oct' /><category start='01/11/2013' end='01/12/2013' label='Nov' /><category start='01/12/2013' end='31/12/2013' label='Dic' /></categories><processes fontSize='10' isBold='0' align='left' headerText='Actividades' headerFontSize='18' headerVAlign='bottom' headerAlign='left'>|-/capture-|
+	|-capture name=xml-|<chart dateFormat='dd/mm/yyyy' caption='|-$planningConstruction->getName()-|' subCaption='' showSlackAsFill='0' showPercentLabel='1'>	|-foreach from=$datesArray item=date name=for_categories-|
+	|-if !$date@first-|
+		|-assign var=tempYearFrom value=$date.first|date_format:"Y"-|
+		|-if $tempYearFrom neq $yearFrom-|<categories><category start='|-$dateFrom-|' end='|-$dateTo-|' label='|-$yearFrom-|' />
+			|-assign var=dateFrom value=$date.first|date_format-|
+			|-assign var=dateTo value=$date.last|date_format-|
+			|-assign var=yearFrom value=$tempYearFrom-|
+		|-else-|
+			|-assign var=dateTo value=$date.last|date_format-|
+		|-/if-|
+		|-if $date@last-|
+			<category start='|-$dateFrom-|' end='|-$dateTo-|' label='|-$yearFrom-|' /></categories>
+		|-/if-|
+	|-else-|
+		|-assign var=yearFrom value=$date.first|date_format:"Y"-|
+		|-assign var=dateFrom value=$date.first|date_format-|
+		|-assign var=dateTo value=$date.last|date_format-|
+	|-/if-|	
+	|-/foreach-|
+	<categories>
+	|-foreach from=$datesArray item=date name=for_categories-|
+		<category start='|-$date.first|date_format-|' end='|-$date.last|date_format-|' label='|-$date.first|date_format:"M"-|' />
+	|-/foreach-|
+	</categories>
+	<processes fontSize='10' isBold='0' align='left' headerText='Actividades' headerFontSize='18' headerVAlign='bottom' headerAlign='left'>|-/capture-|
 	|-capture name=process-||-foreach from=$activities item=activity name=for_contractActivitys-|<process label='|-$activity|escape:"javascript"-|' />|-/foreach-|</processes>|-/capture-|
 	|-capture name=task-|<tasks>|-foreach from=$activities item=activity name=for_contractActivitys-|<task start='|-$activity->getEndingDate()|date_format:"%d/%m/%Y"-|' end='|-$activity->getEndingDate()|date_format:"%d/%m/%Y"-|' label='|-$activity|escape:"javascript"-|' showLabel='0' id='|-$activity->getid()-|' showborder='0'/>|-/foreach-|</tasks><milestones>|-foreach from=$activities item=activity name=for_contractActivitys-|<milestone date='|-$activity->getEndingDate()|date_format:"%d/%m/%Y"-|' taskId='|-$activity->getid()-|' radius='10' color='|-if $activity->getAcomplished()-|00ACD3|-else-|D38200|-/if-|' shape='Star' numSides='5' |-if $activity->getPriority()-|showBorder='true' borderThickness='3' borderColor='FFF602'|-/if-| tooltext='|-$activity|escape:"javascript"-|, |-$activity->getEndingDate()|date_format:"%d/%m/%Y"-|'/>|-/foreach-|</milestones></chart>|-/capture-| 
 <div id="chartdiv" align="center">Diagrama de Gantt</div>

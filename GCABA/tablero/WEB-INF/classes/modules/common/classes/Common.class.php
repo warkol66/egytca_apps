@@ -1646,4 +1646,22 @@ class Common {
 		return false;
 	}
 
+	/**
+	* Devuelve un array con los dias primero y ultimo del mes de una fecha determinada
+	*
+	* @param string $anyDate fecha de referencia en formato yyyy-mm-dd
+	* @return arry valores first y last correspondientes al primer y ultimo dia del mes de la fecha de referencia
+	*/
+	public static function findFirstAndLastDay($anyDate) {
+		//$anyDate        = '2009-08-25';								// date format should be yyyy-mm-dd
+		list($yr,$mn,$dt) = split('-',$anyDate);				// separate year, month and date
+		$timeStamp        = mktime(0,0,0,$mn,1,$yr);		//Create time stamp of the first day from the give date.
+		$firstDay         = date('Y-m-d',$timeStamp);		//get first day of the given month
+		list($y,$m,$t)    = split('-',date('Y-m-t',$timeStamp));	//Find the last date of the month and separating it
+		$lastDayTimeStamp = mktime(0,0,0,$m,$t,$y);								//create time stamp of the last date of the give month
+		$lastDay          = date('Y-m-d',$lastDayTimeStamp);			// Find last day of the month
+		$arrDay           = array("first" => $firstDay, "last" => $lastDay);	// return the result in an array format.
+		return $arrDay;
+	}
+
 } // end of class

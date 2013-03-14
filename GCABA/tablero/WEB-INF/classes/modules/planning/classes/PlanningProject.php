@@ -554,4 +554,36 @@ class PlanningProject extends BasePlanningProject {
 		return BaseQuery::create('PanelNote')->filterByObjecttype('PlanningProject')->filterByObjectid($this->getId())->find();
 	}
 
+
+ /**
+	* Devuelve un array con las fechas para mostrar en el gantt
+	* @param string $startDate fecha de referencia de inicio en formato yyyy-mm-dd
+	* @param string $endDate fecha de referencia final en formato yyyy-mm-dd
+	* @return array fechas para el gantt en formato yyyy-mm-dd
+	*/
+	public function getDatesArrayForGantt($startDate = NULL, $endDate = NULL) {
+
+		$firstDateStr = BaseQuery::create('PlanningActivity')->filterByObjecttype('Project')->filterByObjectid($this->getId())
+																		->orderByStartingdate()->select('Startingdate')->findOne();
+		$lastDateStr = BaseQuery::create('PlanningActivity')->filterByObjecttype('Project')->filterByObjectid($this->getId())
+																		->orderByEndingdate(Criteria::DESC)->select('Endingdate')->findOne();
+
+		if (!is_null($startDate) && $startDate < $firstDateStr)
+			$firstDateStr = $startDate;
+		if (!is_null($endDate) && $endDate > $lastDateStr)
+			$lastDateStr = $endDate;
+
+		$firstDate = new DateTime($firstDateStr);
+		$lastDate = new DateTime($lastDateStr);
+
+		while ($firstDate <= $lastDate) { 
+			$dates = Common::findFirstAndLastDay($firstDate->format('Y-m-d'));
+			$datesArray[] = $dates;
+			$firstDate = DateTime::createFromFormat('Y-m-d', $dates["last"]);
+			$firstDate->modify('+1 day');
+		}
+
+		return $datesArray;
+	}
+
 } // PlanningProject

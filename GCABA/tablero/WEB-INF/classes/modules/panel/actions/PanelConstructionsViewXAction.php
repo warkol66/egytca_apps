@@ -26,9 +26,12 @@ class PanelConstructionsViewXAction extends BaseEditAction {
 		$this->smarty->assign("constructionTypes", PlanningConstruction::getConstructionTypes());
 		$this->smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
 		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
+
 		if ($_GET["showGantt"]) {
+			$this->smarty->assign("datesArray", $this->entity->getDatesArrayForGantt());
 			$this->smarty->assign("showGantt",true);
 			$this->template->template = "TemplateAjax.tpl";
 		}
+
 	}
 }
