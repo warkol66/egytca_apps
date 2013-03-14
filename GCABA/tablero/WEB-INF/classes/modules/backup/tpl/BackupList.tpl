@@ -3,7 +3,6 @@
 	function showBackupLoader() {
 		$('backupLoader').show();
 	}
-	
 	function hideBackupLoader() {
 		$('backupLoader').hide();
 		$('backupLoaderForm').reset();
@@ -34,7 +33,9 @@
 		<div class="errorMessage">Se ha producido un error al enviar el backup.</div>
 	|-/if-|
 	<p>Esta herramienta le permite generar y restaurar respaldos de la información contenida en el sistema. Puede guardar los respaldos en el servidor o en su equipo.</p>
-	<p>Recuerde que al resutaurar un respaldo toda la información existente se reemplazará por la información que está en el respaldo</p>
+	<div class="failureMessage">ATENCION!!!!  Recuerde que al resutaurar un respaldo toda la información existente se reemplazará por la información que está en el archivo de respaldo!!!.<br /><br />
+	Esta funcionalidad está condicionada por el tiempo límite de ejecución y la memoria disponible para ejecución que disponga el servidor.<br />
+	Se recomienda verificar el espacio ocupado en disco antes de solicitar un respaldo completo. Los respaldos guardados en el servidor se excluyen de los repaldos completos.</div>
 	<fieldset class="nestedFieldset" title="Administrador de Respaldos">
 	<legend>Administrar Respaldos</legend>
 	<p>Generar respaldo almacenado en el servidor &nbsp;&nbsp;
