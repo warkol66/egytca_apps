@@ -1,12 +1,15 @@
+<div id="rightColumn">
 <!--Se vuelven a agregar los scripts y estilos porque si no no los incluye-->
 <script src="scripts/prototype.js" language="JavaScript" type="text/javascript"></script>
+<link rel="stylesheet" href="css/globalStyles.css" type="text/css">
+<link rel="stylesheet" href="css/globalCustom.css" type="text/css">
 <link rel="stylesheet" href="css/style.css" type="text/css">
-<!--[if !IE]>--> <link href="css/style_ns6+.css" rel="stylesheet" type="text/css"> <!--<![endif]-->
-<link rel="stylesheet" href="css/main.css" type="text/css">
-<!--[if lte IE 6]> <link href="css/styles-ie6.css" rel="stylesheet" type="text/css"> <![endif]-->
-<!--[if gte IE 7]> <link href="css/styles-ie7.css" rel="stylesheet" type="text/css"> <![endif]-->
-<link rel="shortcut icon" href="images/favicon.ico">
-<!--/-->
+<link rel="stylesheet" href="css/custom.css" type="text/css">
+<style type="text/css">
+<!--
+body {	background-image: none; 	background-color: transparent;}
+-->
+</style>
 <div id="planningActivityDocumentsEditTemplate" style="display:none">
 	|-include file="DocumentsEditInclude.tpl" entity="PlanningActivity" entityId=$id-|
 </div>
@@ -37,7 +40,7 @@
 |-/if-|
 </fieldset>
 </div>
-<script>
+<script language="JavaScript" type="text/javascript">
 	$('documentAddLink').onclick = function() {
 		$('planningActivityDocumentsEditTemplate').show();
 		$('documentsList').hide();
@@ -61,3 +64,4 @@
 		);
 	}
 </script>
+</div>
