@@ -34,7 +34,7 @@ class PanelProjectsShowAction extends BaseAction {
 			$position = PositionQuery::create()->findOneById($_GET['positionId']);
 			$smarty->assign("position", $position);
 			$projects = empty($_GET['color']) ?
-				$position->getAllProjectsWithDescendants() : $position->getProjectsByStatusColor($_GET['color']);
+				$position->getPlanningProjectsWithDescendants() : $position->getPlanningProjectsByStatusColor($_GET['color']);
 		} elseif (!empty($_GET['objectiveId'])) {
 			require_once 'BaseObjectiveQuery.php';
 			$objective = BaseObjectiveQuery::create()->filterById($_GET['objectiveId'])->findOne();

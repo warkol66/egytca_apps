@@ -172,95 +172,99 @@ class Position extends BasePosition {
 		$params["positionCode"] = $this->getCode();
 		return PositionTenurePeer::create($params);
 	}
+	
+	/**
+	 * Returns the codes of the position and its descendants
+	 * 
+	 * @return mixed array of positions codes
+	 */
+	public function getCodeWithDescendants() {
+		$codes = array($this->getCode());
+		foreach ($this->getChildren() as $child) {
+			if ( !(ConfigModule::get('positions', 'stopOnPlanning') && $child->getPlanning()) )
+				$codes = array_merge($codes, $child->getCodeWithDescendants());
+		}
+		return $codes;
+	}
 
 	/**
-	 * Obtiene todas los projects asociados a la instancia.
+	 * Obtiene todos los PlanningProjects y PlanningConstructions asociados a la instancia.
 	 *
 	 * @param Criteria $query, criteria para aplicar a los proyectos.
 	 * @return PropelCollection $projects
 	 */
 	public function getAllProjectsWithDescendants($query = null) {
-		$positionCodes = array();
-		$positionCodes[] = $this->getCode();
-		if ($this->hasChildren()){
-			$descendants = $this->getDescendants();
-			foreach ($descendants as $descendant)
-				$positionCodes[] = $descendant->getCode();
-		}
-		
+		$positionCodes = $this->getCodeWithDescendants();
 		return BaseProjectQuery::create(null, $query)->filterByResponsiblecode($positionCodes)->find();
 	}
 	
 	/**
-	 * Obtiene todas los constructions asociados a la instancia.
-	 *
-	 * @param Criteria $query, criteria para aplicar a los proyectos.
-	 * @return PropelCollection $constructions
-	 */
-	public function getAllConstructionsWithDescendants($query = null) {
-		$positionCodes = array();
-		$positionCodes[] = $this->getCode();
-		if ($this->hasChildren()){
-			$descendants = $this->getDescendants();
-			foreach ($descendants as $descendant)
-				$positionCodes[] = $descendant->getCode();
-		}
-		
-		return BasePlanningConstructionQuery::create(null, $query)->filterByResponsiblecode($positionCodes)->find();
-	}
-	
-	/**
-	 * Obtiene todas los projects asociados a la instancia.
+	 * Obtiene todos los PlanningProjects asociados a la instancia.
 	 *
 	 * @param Criteria $query, criteria para aplicar a los proyectos.
 	 * @return PropelCollection $projects
 	 */
-	public function getOnlyProjectsWithDescendants($query = null) {
-		$positionCodes = array();
-		$positionCodes[] = $this->getCode();
-		if ($this->hasChildren()){
-			$descendants = $this->getDescendants();
-			foreach ($descendants as $descendant)
-				$positionCodes[] = $descendant->getCode();
-		}
-		
+	public function getPlanningProjectsWithDescendants($query = null) {
+		$positionCodes = $this->getCodeWithDescendants();
 		return PlanningProjectQuery::create(null, $query)->filterByResponsiblecode($positionCodes)->find();
 	}
 	
 	/**
-	 * Obtiene todas los constructions asociados a la instancia.
+	 * Obtiene todos los PlanningProjects asociados a la instancia.
 	 *
-	 * @param Criteria $query, criteria para aplicar a los constructions.
-	 * @return PropelCollection $constructions
+	 * @param Criteria $query, criteria para aplicar a los proyectos.
+	 * @return PropelCollection $projects
+	 * @deprecated
 	 */
-	public function getOnlyConstructionsWithDescendants($query = null) {
-		$positionCodes = array();
-		$positionCodes[] = $this->getCode();
-		if ($this->hasChildren()){
-			$descendants = $this->getDescendants();
-			foreach ($descendants as $descendant)
-				$positionCodes[] = $descendant->getCode();
-		}
-		
-		return PlanningConstructionQuery::create(null, $query)->filterByResponsiblecode($positionCodes)->find();
+	public function getOnlyProjectsWithDescendants($query = null) {
+		trigger_error('getOnlyProjectsWithDescendants() is deprecated - use getPlanningProjectsWithDescendants() instead', E_USER_DEPRECATED);
+		return $this->getPlanningProjectsWithDescendants($query);
 	}
-
+	
 	/**
-	 * Obtiene la cantidad total de projects asociados a la instancia.
+	 * Obtiene la cantidad total de PlanningProjects + PlanningConstructions asociados a la instancia.
 	 *
 	 * @param Criteria $query, criteria para aplicar a los proyectos.
 	 * @return int $count
 	 */
 	public function countAllProjectsWithDescendants($query = null) {
-		$positionCodes = array();
-		$positionCodes[] = $this->getCode();
-		if ($this->hasChildren()){
-			$descendants = $this->getDescendants();
-			foreach ($descendants as $descendant)
-				$positionCodes[] = $descendant->getCode();
-		}
-		
+		$positionCodes = $this->getCodeWithDescendants();
 		return BaseProjectQuery::create(null, $query)->filterByResponsiblecode($positionCodes)->count();
+	}
+	
+	/**
+	 * Obtiene todas las PlanningConstructions asociadas a la instancia.
+	 *
+	 * @param Criteria $query, criteria para aplicar a los constructions.
+	 * @return PropelCollection $constructions
+	 */
+	public function getPlanningConstructionsWithDescendants($query = null) {
+		$positionCodes = $this->getCodeWithDescendants();
+		return PlanningConstructionQuery::create(null, $query)->filterByResponsiblecode($positionCodes)->find();
+	}
+	
+	/**
+	 * Obtiene todas las PlanningConstructions asociadas a la instancia.
+	 *
+	 * @param Criteria $query, criteria para aplicar a los constructions.
+	 * @return PropelCollection $constructions
+	 * @deprecated
+	 */
+	public function getOnlyConstructionsWithDescendants($query = null) {
+		trigger_error('getOnlyConstructionsWithDescendants() is deprecated - use getPlanningConstructionsWithDescendants() instead', E_USER_DEPRECATED);
+		return $this->getPlanningConstructionsWithDescendants($query);
+	}
+	
+	/**
+	 * Obtiene todas las PlanningConstructions asociadas a la instancia.
+	 *
+	 * @param Criteria $query, criteria para aplicar a los proyectos.
+	 * @return PropelCollection $constructions
+	 * @deprecated
+	 */
+	public function getAllConstructionsWithDescendants($query = null) {
+		trigger_error('getAllConstructionsWithDescendants() is deprecated - use getPlanningConstructionsWithDescendants() instead', E_USER_DEPRECATED);
+		return $this->getPlanningConstructionsWithDescendants($query);
 	}
 
 	/**
@@ -270,14 +274,7 @@ class Position extends BasePosition {
 	 * @return PropelCollection $objectives
 	 */
 	public function getAllObjectivesWithDescendants($query = null) {
-		$positionCodes = array();
-		$positionCodes[] = $this->getCode();
-		if ($this->hasChildren()){
-			$descendants = $this->getDescendants();
-			foreach ($descendants as $descendant)
-				$positionCodes[] = $descendant->getCode();
-		}
-		
+		$positionCodes = $this->getCodeWithDescendants();
 		return BaseObjectiveQuery::create(null, $query)->filterByResponsiblecode($positionCodes)->find();
 	}
 
@@ -288,14 +285,7 @@ class Position extends BasePosition {
 	 * @return int $count
 	 */
 	public function countAllObjectivesWithDescendants($query = null) {
-		$positionCodes = array();
-		$positionCodes[] = $this->getCode();
-		if ($this->hasChildren()){
-			$descendants = $this->getDescendants();
-			foreach ($descendants as $descendant)
-				$positionCodes[] = $descendant->getCode();
-		}
-		
+		$positionCodes = $this->getCodeWithDescendants();
 		return BaseObjectiveQuery::create(null, $query)->filterByResponsiblecode($positionCodes)->count();
 	}
 
@@ -348,11 +338,12 @@ class Position extends BasePosition {
 	}
 	
 	/**
-	 * Obtiene un array asociativo con el total ponderado de projects asignados al position por cada color.
+	 * Obtiene un array asociativo con el total ponderado de PlanningProjects + PlanningConstructions
+	 * asignados al position por cada color.
 	 *
 	 * @return array $colorsCount.
 	 */
-	public function getProjectsByStatusColorWeightedByPriorityAssoc() {
+	public function getProjectsByStatusColorWeightedByPriorityAssoc() { // TODO: deberia llamarse getAllProjectsByStatusColorWeightedByPriorityAssoc
 		$projects = $this->getAllProjectsWithDescendants();
 		$colorsCount = array();
 		
@@ -369,11 +360,12 @@ class Position extends BasePosition {
 	}
 	
 	/**
-	 * Obtiene un array asociativo con la cantidad de projects asignados al position por cada color.
+	 * Obtiene un array asociativo con la cantidad de PlanningProjects + PlanningConstructions
+	 * asignados al position por cada color.
 	 *
 	 * @return array $colorsCount.
 	 */
-	public function getProjectsByStatusColorCountAssoc() {
+	public function getProjectsByStatusColorCountAssoc() { // TODO: deberia llamarse getAllProjectsByStatusColorCountAssoc
 		$projects = $this->getAllProjectsWithDescendants();
 		$colorsCount = array();
 
@@ -390,12 +382,13 @@ class Position extends BasePosition {
 	}
 	
 	/**
-	 * Obtiene un array asociativo con la cantidad de projects asignados al position por cada color.
+	 * Obtiene un array asociativo con la cantidad de PlanningProjects
+	 * asignados al position por cada color.
 	 *
 	 * @return array $colorsCount.
 	 */
-	public function getConstructionsByStatusColorCountAssoc() {
-		$projects = $this->getAllConstructionsWithDescendants();
+	public function getPlanningProjectsByStatusColorCountAssoc() {
+		$projects = $this->getPlanningProjectsWithDescendants();
 		$colorsCount = array();
 
 		foreach ($this->colors as $color) {
@@ -411,11 +404,42 @@ class Position extends BasePosition {
 	}
 	
 	/**
-	 * Obtiene los proyectos asignadas a la position con un determinado status color.
+	 * Obtiene un array asociativo con la cantidad de PlanningConstructions asignados al position por cada color.
+	 *
+	 * @return array $colorsCount.
+	 */
+	public function getPlanningConstructionsByStatusColorCountAssoc() {
+		$constructions = $this->getPlanningConstructionsWithDescendants();
+		$colorsCount = array();
+
+		foreach ($this->colors as $color) {
+			$colorsCount[$color] = 0;
+		}
+
+		foreach ($constructions as $construction) {
+			$color = $construction->statusColor();
+			$colorsCount[$color]++;
+		}
+
+		return $colorsCount;
+	}
+	
+	/**
+	 * Obtiene un array asociativo con la cantidad de PlanningConstructions asignados al position por cada color.
+	 *
+	 * @return array $colorsCount.
+	 */
+	public function getConstructionsByStatusColorCountAssoc() {
+		trigger_error('getConstructionsByStatusColorCountAssoc() is deprecated - use getPlanningConstructionsByStatusColorCountAssoc() instead', E_USER_DEPRECATED);
+		return $this->getPlanningConstructionsByStatusColorCountAssoc();
+	}
+	
+	/**
+	 * Obtiene los PlanningProjects y PlanningConstructions asignadas a la position con un determinado status color.
 	 *
 	 * @return array Projects
 	 */
-	public function getProjectsByStatusColor($color, $query = null) {
+	public function getProjectsByStatusColor($color, $query = null) { //TODO: deberia llamarse getAllProjectsByStatusColor
 		$projects = $this->getAllProjectsWithDescendants($query);
 		$filteredProjects = array();
 		foreach ($projects as $project) {
@@ -427,12 +451,38 @@ class Position extends BasePosition {
 	}
 	
 	/**
-	 * Obtiene los obras asignadas a la position con un determinado status color.
+	 * Obtiene los PlanningProjects asignadas a la position con un determinado status color.
+	 *
+	 * @return array Projects
+	 */
+	public function getPlanningProjectsByStatusColor($color, $query = null) {
+		$projects = $this->getPlanningProjectsWithDescendants($query);
+		$filteredProjects = array();
+		foreach ($projects as $project) {
+			if ($project->isOfStatusColor($color)) {
+				$filteredProjects[] = $project;
+			}
+		}
+		return $filteredProjects;
+	}
+	
+	/**
+	 * Obtiene la cantidad de PlanningProjects + PlanningConstructions asignados
+	 * al position con un determinado status color.
+	 *
+	 * @return int $count
+	 */
+	public function countProjectsByStatusColor($color) { // TODO: deberia llamarse countAllProjectsByStatusColor
+		return count($this->getProjectsByStatusColor($color));
+	}
+	
+	/**
+	 * Obtiene las PlanningConstructions asignadas a la position con un determinado status color.
 	 *
 	 * @return array PlanningConstructions
 	 */
-	public function getConstructionsByStatusColor($color, $query = null) {
-		$constructions = $this->getAllConstructionsWithDescendants($query);
+	public function getPlanningConstructionsByStatusColor($color, $query = null) {
+		$constructions = $this->getOnlyConstructionsWithDescendants($query);
 		$filteredConstructions = array();
 		foreach ($constructions as $construction) {
 			if ($construction->isOfStatusColor($color)) {
@@ -443,14 +493,14 @@ class Position extends BasePosition {
 	}
 	
 	/**
-	 * Obtiene la cantidad de projects asignados al position con un determinado status color.
+	 * Obtiene las PlanningConstructions a la position con un determinado status color.
 	 *
-	 * @return int $count
+	 * @return array PlanningConstructions
 	 */
-	public function countProjectsByStatusColor($color) {
-		return count($this->getProjectsByStatusColor($color));
+	public function getConstructionsByStatusColor($color, $query = null) {
+		trigger_error('getConstructionsByStatusColor() is deprecated - use getPlanningConstructionsByStatusColor() instead', E_USER_DEPRECATED);
+		return $this->getPlanningConstructionsByStatusColor($color, $query);
 	}
-	
 	
 	/**
 	 * Obtiene el padre de la position que se mostrara en graficos.
@@ -460,8 +510,10 @@ class Position extends BasePosition {
 	public function getGraphParent() {
 		$planningType = key(ConfigModule::get("planning","positionsTypes"));
 		$current = $this;
-		do {	
-			if ($current->getType() == $planningType || $current->getPlanning())
+		do {
+			if ($current->getPlanning())
+				return $current;
+			if ($current->getType() == $planningType)
 				$chosen = $current;
 		} while ($current = $current->getParent()); // es una asignacion intencional
 		
@@ -477,7 +529,7 @@ class Position extends BasePosition {
 		$graphParent = $this->getGraphParent();
 		if (!$graphParent)
 			return;
-		$projects = $graphParent->getOnlyProjectsWithDescendants();
+		$projects = $graphParent->getPlanningProjectsWithDescendants();
 		$filteredProjects = array();
 		foreach ($projects as $project) {
 			if ($project->isOfStatusColor($color)) {
@@ -505,7 +557,7 @@ class Position extends BasePosition {
 		$graphParent = $this->getGraphParent();
 		if (!$graphParent)
 			return;
-		$constructions = $graphParent->getOnlyConstructionsWithDescendants();
+		$constructions = $graphParent->getPlanningConstructionsWithDescendants();
 		$filteredConstructions = array();
 		foreach ($constructions as $construction) {
 			if ($construction->isOfStatusColor($color)) {

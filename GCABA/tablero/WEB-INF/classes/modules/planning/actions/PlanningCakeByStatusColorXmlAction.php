@@ -18,7 +18,7 @@ class PlanningCakeByStatusColorXmlAction extends BaseAction {
 			$smarty->assign('type', $_GET['type']);
 			$position = PositionQuery::create()->findOneById($_GET['positionId'])->getGraphParent();
 			
-			$method = $_GET['type'] == 'projects' ? 'getOnlyProjectsWithDescendants' : 'getOnlyConstructionsWithDescendants';
+			$method = $_GET['type'] == 'projects' ? 'getPlanningProjectsWithDescendants' : 'getPlanningConstructionsWithDescendants';
 			$entities = $position->$method();
 		}
 		else {

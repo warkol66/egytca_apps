@@ -203,8 +203,8 @@ function viewObjective(id){
 		</thead>
 		<tbody>
 		|-foreach from=$positions item=position name=for_positions-|
-		|-assign var="colorsCount" value=$position->getProjectsByStatusColorCountAssoc()-|
-		|-assign var="constColorsCount" value=$position->getConstructionsByStatusColorCountAssoc()-|
+		|-assign var="colorsCount" value=$position->getPlanningProjectsByStatusColorCountAssoc()-|
+		|-assign var="constColorsCount" value=$position->getPlanningConstructionsByStatusColorCountAssoc()-|
 			<tr>
 				<td id="expandP_|-$position->getId()-|"><a href="#" id="position_|-$position->getId()-|" onClick="showImpactObjectives(|-$position->getId()-|); return false;"><img src="images/icon_expand.png" /></a></td>
 				<td id="collapseP_|-$position->getId()-|" style="display: none;"><a href="#" onClick="objectivesHide(|-$position->getId()-|); return false;"><img src="images/icon_collapse.png" /></a></td>

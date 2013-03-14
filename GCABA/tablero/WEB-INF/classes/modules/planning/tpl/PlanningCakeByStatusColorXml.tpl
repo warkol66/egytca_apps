@@ -15,5 +15,5 @@
 	<set label='Amarillo' value='|-$yellowCount-|' color='#FFFF00'/>
 	<set label='Rojo' value='|-$redCount-|' color='#DF0101'/> 
 	<set label='Azul' value='|-$blueCount-|' color='#0040FF'/> 
-	
+
 </chart>

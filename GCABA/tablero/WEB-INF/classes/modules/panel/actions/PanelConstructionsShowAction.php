@@ -27,7 +27,7 @@ class PanelConstructionsShowAction extends BaseAction {
 			$position = PositionQuery::create()->findOneById($_GET['positionId']);
 			$smarty->assign("position", $position);
 			$constructions = empty($_GET['color']) ?
-				$position->getAllConstructionsWithDescendants($constructionsQuery) : $position->getConstructionsByStatusColor($_GET['color'],$constructionsQuery);
+				$position->getPlanningConstructionsWithDescendants($constructionsQuery) : $position->getPlanningConstructionsByStatusColor($_GET['color'],$constructionsQuery);
 		}
 
 		$smarty->assign("constructions", $constructions);
