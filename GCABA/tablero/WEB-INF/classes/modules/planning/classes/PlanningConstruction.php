@@ -354,7 +354,7 @@ class PlanningConstruction extends BasePlanningConstruction {
 	public function getDatesArrayForGantt($startDate = NULL, $endDate = NULL) {
 
 		$firstDateStr = BaseQuery::create('PlanningActivity')->filterByObjecttype('Construction')->filterByObjectid($this->getId())
-																		->orderByStartingdate()->select('Startingdate')->findOne();
+																		->orderByEndingdate()->select('Endingdate')->findOne();
 		$lastDateStr = BaseQuery::create('PlanningActivity')->filterByObjecttype('Construction')->filterByObjectid($this->getId())
 																		->orderByEndingdate(Criteria::DESC)->select('Endingdate')->findOne();
 
