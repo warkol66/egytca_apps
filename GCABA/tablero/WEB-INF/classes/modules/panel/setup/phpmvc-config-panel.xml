@@ -5,8 +5,8 @@
 							 name = "panelBudgetRelationsDoRequest"
 							scope = "request"
 					 validate = "true">
-			<forward name="success" path="PanelBudgetRelationsRequest.tpl"/>
-			<forward name="failure" path="PanelBudgetRelationsRequest.tpl"/>
+			<forward name="success" path="/Main.php?do=panelBudgetRelationsRequest" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=panelBudgetRelationsRequest" redirect="true"/>
 		</action>
 		
 		<action    path = "panelBudgetRelationsDoUpdateX"
@@ -14,8 +14,8 @@
 							 name = "panelBudgetRelationsDoUpdateX"
 							scope = "request"
 					 validate = "true">
-			<forward name="success" path="/Main.php?do=panelBudgetRelationsDoUpdateX&amp;message=ok"/>
-			<forward name="failure" path="/Main.php?do=panelBudgetRelationsDoUpdateX"/>
+			<forward name="success" path="PanelBudgetRelationsDoUpdateX.tpl" />
+			<forward name="failure" path="PanelBudgetRelationsDoUpdateX.tpl" />
 		</action>
 
 	</action-mappings>
