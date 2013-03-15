@@ -28,6 +28,23 @@ html =   '      <tr> '
 	document.getElementById("budgetItemsTbody").appendChild(row);
 	return false;
 }
+
+	function updateItem(id){
+		var params = '&id='+id;
+		var myAjax = new Ajax.Updater(
+				{success: 'budgetItemMsgField'},
+					'Main.php?do=panelBudgetRelationsDoUpdateX',
+					{
+						method: 'post',
+						parameters: params,
+						evalScripts: true
+					});
+		var tr = document.getElementById('budgetItemId_'+id);
+		//tr.remove(); actualizarlo
+		$('budgetItemMsgField').innerHTML = '<span class="inProgress">Actualizando Partida Presupuestaria</span>';
+		return true;
+	}
+
 	function removeItemFromConstruction(id) {
 		var params = '&id='+id;
 		var myAjax = new Ajax.Updater(
@@ -48,11 +65,11 @@ html =   '      <tr> '
      <table class="tableTdBorders" id="budgetItemsTable" style="margin-bottom:15px;"> 
       <thead> 
         |-if !$show && !$showLog-| <tr> 
-          <th colspan="12"><div class="rightLink"><a href="#" onclick="return addBudgetItemRow()" class="addLink" title="Agregar nuevo Monto">Agregar Nueva Partida</a></div></th> 
+          <th colspan="13"><div class="rightLink"><a href="#" onclick="return addBudgetItemRow()" class="addLink" title="Agregar nuevo Monto">Agregar Nueva Partida</a></div></th> 
         </tr> |-/if-|
 				|-if $budgetItems|count eq 0 && ($show || $showLog)-|
 			 <tr> 
-          <td colspan="12">No hay partidas presupuestarias asociadas</td> 
+          <td colspan="13">No hay partidas presupuestarias asociadas</td> 
         </tr>
 			|-else-|
          <tr> 
@@ -67,6 +84,7 @@ html =   '      <tr> '
           <th>Obra</th> 
           <th>Total</th> 
           <th>Monto</th> 
+          <th>&nbsp;</th> 
           <th>&nbsp;</th> 
         </tr> 
        </thead> 
@@ -83,9 +101,10 @@ html =   '      <tr> '
             <td><input name="budgetItem[][budgetActivity]"  id="params_budgetActivity[]" type="text" value="|-$budgetItem->getBudgetActivity()|escape-|" size="2" title="Actividad" |-$readonly|readonly-|></td>
             <td><input name="budgetItem[][budgetConstruction]"  id="params_budgetConstruction[]" type="text" value="|-$budgetItem->getBudgetConstruction()|escape-|" size="2" title="Obra" |-$readonly|readonly-|></td>
             <td align="center"><input name="budgetItem[][totalItem]" type="hidden" value="0"><input name="budgetItem[][totalItem]" id="params_total[]" type="checkbox" value="1" |-$budgetItem->getTotalItem()|checked_bool-| title="Indique si se utiliza toda la partida" |-$readonly|readonly-|>
-        </td>
+			</td>
             <td><input name="budgetItem[][amount]"  id="params_amount[]" type="text" value="|-$budgetItem->getAmount()|system_numeric_format-|" class="right" size="12" title="Monto" |-$readonly|readonly-|></td>
-         		<td>|-if !$show && !$showLog-|<input name="budgetItem[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar partida" value="Eliminar partida" onClick="removeItemFromConstruction('|-$budgetItem->getId()-|')" />|-else-|<img src="images/clear.png" class="disabled icon iconClear" />|-/if-|</td> 
+			<td nowrap>|-if !$show && !$showLog-|<input name="updateBudgetItem" type="hidden" value="1"><input type="button" class="icon iconEdit" title="Actualizar partida" value="Actualizar partida" onClick="updateItem('|-$budgetItem->getId()-|')" />|-else-|<img src="images/clear.png" class="disabled icon iconEdit" />|-/if-|</td>
+         	<td>|-if !$show && !$showLog-|<input name="budgetItem[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar partida" value="Eliminar partida" onClick="removeItemFromConstruction('|-$budgetItem->getId()-|')" />|-else-|<img src="images/clear.png" class="disabled icon iconClear" />|-/if-|</td> 
        </tr> 
       |-/foreach-|
       </tbody> 
