@@ -280,6 +280,7 @@
 		<column name="budgetPartial" type="INTEGER" description="Parcial" />
 		<column name="budgetSubpartial" type="INTEGER" description="SubParcial" />
 		<column name="budgetCapital" type="INTEGER" description="Principal" />
+		<column name="budgetSubjurisdiction" type="INTEGER" description="SubJurisdiccion" />
 		<column name="budgetGeolocation" type="INTEGER" description="UbicaGeo" />
 		<!--Fin Partida presupuestaria-->
 

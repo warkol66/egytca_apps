@@ -89,7 +89,7 @@ html =   '      <tr> '
         </tr> 
        </thead> 
       <tbody id="budgetItemsTbody">  |-foreach from=$budgetItems item=budgetItem name=for_contractBudgetItems-|
-      <tr id="budgetItemId_|-$budgetItem->getId()-|"> 
+      <tr id="budgetItemId_|-$budgetItem->getId()-|">
             <td><input type="hidden" name="budgetItem[][id]" value="|-$budgetItem->getId()-|" |-$readonly|readonly-|/>
 								<input name="budgetItem[][budgetYear]"  id="params_budgetYear[]" type="text" value="|-$budgetItem->getBudgetYear()|escape-|" size="4" title="Año" |-$readonly|readonly-|></td>
             <td><input name="budgetItem[][budgetJurisdiction]"  id="params_budgetJurisdiction[]" type="text" value="|-$budgetItem->getBudgetJurisdiction()|escape-|" size="4" title="Jurisdicción" |-$readonly|readonly-|></td>
@@ -103,7 +103,12 @@ html =   '      <tr> '
             <td align="center"><input name="budgetItem[][totalItem]" type="hidden" value="0"><input name="budgetItem[][totalItem]" id="params_total[]" type="checkbox" value="1" |-$budgetItem->getTotalItem()|checked_bool-| title="Indique si se utiliza toda la partida" |-$readonly|readonly-|>
 			</td>
             <td><input name="budgetItem[][amount]"  id="params_amount[]" type="text" value="|-$budgetItem->getAmount()|system_numeric_format-|" class="right" size="12" title="Monto" |-$readonly|readonly-|></td>
-			<td nowrap>|-if !$show && !$showLog-|<input name="updateBudgetItem" type="hidden" value="1"><input type="button" id="update_|-$budgetItem->getId()-|" class="icon iconEdit" title="Actualizar partida" value="Actualizar partida" onClick="updateItem('|-$budgetItem->getId()-|')" />|-else-|<img src="images/clear.png" class="disabled icon iconEdit" />|-/if-|</td>
+			<td nowrap>|-if !$show && !$showLog-|
+				|-assign var=updated value=strtotime($budgetItem->getUpdatedSigaf(), "Y-m-d")-|
+				|-if $updated eq date("Y-m-d")-|<img src="images/clear.png" class="disabled icon iconActivate" title="Actualizado hoy" />|-else-|
+				<input name="updateBudgetItem" type="hidden" value="1"><input type="button" id="update_|-$budgetItem->getId()-|" class="icon iconEdit" title="Actualizar partida" value="Actualizar partida" onClick="updateItem('|-$budgetItem->getId()-|')" />
+				|-/if-|
+				|-else-|<img src="images/clear.png" class="disabled icon iconEdit" />|-/if-|</td>
          	<td>|-if !$show && !$showLog-|<input name="budgetItem[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar partida" value="Eliminar partida" onClick="removeItemFromConstruction('|-$budgetItem->getId()-|')" />|-else-|<img src="images/clear.png" class="disabled icon iconClear" />|-/if-|</td> 
        </tr> 
       |-/foreach-|
