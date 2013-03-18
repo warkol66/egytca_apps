@@ -19,12 +19,12 @@
 		$smarty->assign("section",$section);
 		
 		// Muestro todos los errores
-		error_reporting(E_ALL - E_STRICT - E_NOTICE - E_WARNING);
-		ini_set('display_errors',1);
+		/*error_reporting(E_ALL - E_STRICT - E_NOTICE - E_WARNING);
+		ini_set('display_errors',1);*/
 		require_once('WEB-INF/classes/includes/NuSOAP/nusoap.php');
 		
 		$budgetColl = BudgetRelationQuery::create()->find();
-		$errors = Array();
+		//$errors = Array();
 		
 		//por cada uno de los de la tabla, consulto al ws
 		foreach($budgetColl as $budget){
@@ -60,8 +60,8 @@
 			//$webServiceBudget = new nusoap_client("http://10.73.2.136:83/wcfroot/servicio.svc?wsdl",true);
 			$err = $webServiceBudget->getError();
 			if ($err) {
-				return $mapping->findForwardConfig('failure');
-				echo '<h2>Constructor error</h2><pre>' . $err . '</pre>';
+				//si da error marco que no lo encontro
+				$budget->setMatch(false)->save();
 			}
 			
 			$webServiceBudget->soap_defencoding = 'utf-8';
@@ -71,15 +71,12 @@
 			$result = $webServiceBudget->send($bodyxml, $bsoapaction);
 			// Check for a fault
 			if ($webServiceBudget->fault) {
-				echo '<h2>Fault</h2><pre>';
-				print_r($result);
-				echo '</pre>';
+				$budget->setMatch(false)->save();
 			} else {
 				// Check for errors
 				$err = $webServiceBudget->getError();
 				if ($err) {
-					// Agrego el error al arreglo
-					$errors[$budget->getId()] = $err;
+					$budget->setMatch(false)->save();
 				} else {
 					if(is_array($result)){
 						// Actualizo el registro en la base con $result
@@ -90,7 +87,7 @@
 						$budget->setPaid($result['ConsultarPartidaPresupuestariaResult']['Indicativa']['Pagado']);
 						$budget->setPreventive($result['ConsultarPartidaPresupuestariaResult']['Indicativa']['Preventivo']);
 						$budget->setRestricted($result['ConsultarPartidaPresupuestariaResult']['Indicativa']['Restringido']);
-						$budget->setAvailable($result['ConsultarPartidaPresupuestariaResult']['Indicativa']['Vigente']);
+						$budget->setActive($result['ConsultarPartidaPresupuestariaResult']['Indicativa']['Vigente']);
 						$budget->save();
 					} else {
 						$budget->setMatch(false)->save();
