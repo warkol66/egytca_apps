@@ -271,6 +271,16 @@
 		<column name="budgetProyect" type="INTEGER" description="Proyecto" />
 		<column name="budgetActivity" type="INTEGER" description="Actividad" />
 		<column name="budgetConstruction" type="INTEGER" description="Obra" />
+
+		<!--Extra - Partida presupuestaria-->
+		<column name="budgetEntity" type="INTEGER" description="Entidad" />
+		<column name="budgetSource" type="INTEGER" description="FueFin - Fuente de Financiamiento" />
+		<column name="budgetSubsection" type="INTEGER" description="Inciso" />
+		<column name="budgetCurrency" type="INTEGER" description="Moneda" default="1" />
+		<column name="budgetPartial" type="INTEGER" description="Parcial" />
+		<column name="budgetSubpartial" type="INTEGER" description="SubParcial" />
+		<column name="budgetCapital" type="INTEGER" description="Principal" />
+		<column name="budgetGeolocation" type="INTEGER" description="UbicaGeo" />
 		<!--Fin Partida presupuestaria-->
 
 		<column name="totalItem" type="BOOLEAN" sqlType="BOOL" default="0" description="Utiliza toda la partida?" />

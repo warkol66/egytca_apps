@@ -127,7 +127,7 @@
 		if ($errno == E_USER_ERROR || $errno == E_ERROR || $errno == E_CORE_ERROR  ||
 				$errno == E_COMPILE_ERROR || $errno == mysql_errno()) {
 
-			if(ConfigModule::get('global', 'debugMode')) {
+			if(($system['config']['system']['parameters']['debugMode']['value']=='YES')) {
 
 				require_once('EmailManagement.php');
 				$manager = new EmailManagement();
@@ -154,10 +154,6 @@
 
 			die("<br /><strong><span style='color:red'>Error procesando su requerimiento, por favor reintente o comuniquese con el administrador.</span></strong>\n <br /><br />".
 					"Texto del error:" . $err );
-		}
-		elseif (ConfigModule::get('global', 'debugMode') && ConfigModule::get('global', 'warnDeprecated')
-				&& $errno == E_USER_DEPRECATED) {
-			echo $err;
 		}
 	}
 
