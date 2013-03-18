@@ -13,6 +13,12 @@
  * @package    propel.generator.positions.classes
  */
 class PositionQuery extends BasePositionQuery {
+	
+	public static function findMinistries() {
+		$ministryType = key(ConfigModule::get("planning","positionsTypes"));
+		return self::create()->filterByType($ministryType)
+			->_or()->filterByPlanning(true)->find();
+	}
 
 	/**
 	 * Aplica filtros automaticos por defecto
