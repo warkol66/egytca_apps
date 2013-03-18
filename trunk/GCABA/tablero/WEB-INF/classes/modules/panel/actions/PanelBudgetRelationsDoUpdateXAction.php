@@ -95,7 +95,7 @@
 					$err = $webServiceBudget->getError();
 					if ($err) {
 						// Error
-						$budget->setUpdatedsigaf(date("Y-m-d H:i:s"));
+						//$budget->setUpdatedsigaf(date("Y-m-d H:i:s"));
 						$budget->setMatch(false)->save();
 						$smarty->assign("error", addslashes($err));
 					} else {
