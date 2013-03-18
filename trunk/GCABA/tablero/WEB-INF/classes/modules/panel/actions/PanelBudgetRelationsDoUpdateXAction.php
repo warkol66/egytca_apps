@@ -38,8 +38,9 @@
 		require_once('WEB-INF/classes/includes/NuSOAP/nusoap.php');
 		
 		$budget = BudgetRelationQuery::create()->findOneById($_POST['id']);
+		
+		//si existe la partida presupuestaria
 		if(is_object($budget)){
-			$errors = Array();
 			
 			//consulto al ws
 			$bodyxml = '<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
@@ -74,6 +75,7 @@
 				//$webServiceBudget = new nusoap_client("http://10.73.2.136:83/wcfroot/servicio.svc?wsdl",true);
 				$err = $webServiceBudget->getError();
 				if ($err) {
+					$smarty->assign("budget", $budget);
 					$smarty->assign("error", addslashes($err));
 					return $mapping->findForwardConfig('success');
 				}
@@ -85,17 +87,14 @@
 				$result = $webServiceBudget->send($bodyxml, $bsoapaction);
 				// Check for a fault
 				if ($webServiceBudget->fault) {
-					//que devolver aca?
-					echo '<h2>Fault</h2><pre>';
-					print_r($result);
-					echo '</pre>';
+					//Actualizo el registro indicando que no lo encontro
+					$budget->setMatch(false)->save();
 				} else {
 					//Me fijo si hay errores
 					$err = $webServiceBudget->getError();
 					if ($err) {
 						// Error
 						$smarty->assign("error", addslashes($err));
-						return $mapping->findForwardConfig('success');
 					} else {
 						if(is_array($result)){
 							// Actualizo el registro en la base con $result
@@ -106,16 +105,17 @@
 							$budget->setPaid($result['ConsultarPartidaPresupuestariaResult']['Indicativa']['Pagado']);
 							$budget->setPreventive($result['ConsultarPartidaPresupuestariaResult']['Indicativa']['Preventivo']);
 							$budget->setRestricted($result['ConsultarPartidaPresupuestariaResult']['Indicativa']['Restringido']);
-							$budget->setAvailable($result['ConsultarPartidaPresupuestariaResult']['Indicativa']['Vigente']);
+							$budget->setActive($result['ConsultarPartidaPresupuestariaResult']['Indicativa']['Vigente']);
 							$budget->save();
 						} else {
 							$budget->setMatch(false)->save();
 						}
 					}
 				}
-			$smarty->assign("message", "ok");
+			$smarty->assign("budget", $budget);
 			return $mapping->findForwardConfig('success');
 		} else {
+			//no se encontro la partida presupuestaria en la base
 			$smarty->assign("message", "error");
 			return $mapping->findForwardConfig('success');	
 		}
