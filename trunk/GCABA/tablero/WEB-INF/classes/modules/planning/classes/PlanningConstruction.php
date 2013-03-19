@@ -329,6 +329,8 @@ class PlanningConstruction extends BasePlanningConstruction {
 	 */
 	public function getActivitiesOrderedForGantt() {
 		return BaseQuery::create('PlanningActivity')->filterByObjecttype('Construction')->filterByObjectid($this->getId())
+									->filterByEndingdate(null, Criteria::ISNOTNULL)
+									->filterByEndingdate('0000-00-00', Criteria::NOT_EQUAL)
 									->orderByOrder()
 									->orderByStartingdate()
 									->find();
@@ -351,8 +353,12 @@ class PlanningConstruction extends BasePlanningConstruction {
 	public function getDatesArrayForGantt($startDate = NULL, $endDate = NULL) {
 
 		$firstDateStr = BaseQuery::create('PlanningActivity')->filterByObjecttype('Construction')->filterByObjectid($this->getId())
+																		->filterByEndingdate(null, Criteria::ISNOTNULL)
+																		->filterByEndingdate('0000-00-00', Criteria::NOT_EQUAL)
 																		->orderByEndingdate()->select('Endingdate')->findOne();
 		$lastDateStr = BaseQuery::create('PlanningActivity')->filterByObjecttype('Construction')->filterByObjectid($this->getId())
+																		->filterByEndingdate(null, Criteria::ISNOTNULL)
+																		->filterByEndingdate('0000-00-00', Criteria::NOT_EQUAL)
 																		->orderByEndingdate(Criteria::DESC)->select('Endingdate')->findOne();
 
 		if (!is_null($startDate) && $startDate < $firstDateStr)
