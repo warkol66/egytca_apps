@@ -56,6 +56,8 @@ class PlanningProjectsDoEditAction extends BaseAction {
 				$params["sanctionAmount"] = Common::convertToMysqlNumericFormat($params["sanctionAmount"]);
 			else
 				unset($params["sanctionAmount"]);
+			if (isset($params["order"]) && ($params["order"]) === 0 || empty($params["order"]))
+				unset($params["order"]);
 		}
 		else {
 			$planningProject = new PlanningProject();
