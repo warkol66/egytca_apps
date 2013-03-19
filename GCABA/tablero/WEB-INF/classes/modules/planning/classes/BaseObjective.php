@@ -101,6 +101,18 @@ class BaseObjective {
 		return ($this->child->countProjectsByStatus('late') != 0);
 	}
 	
+	/**
+	 * Devuelve las partidas presupuestarias
+	 * @return PropelObjectCollection partidas presupuestarias
+	 */
+	function getBudgetItems() {
+		$budgetItems = array();
+		foreach ($this->child->getAllProjects() as $project) { // $project no necesariamente es un PlanningProject (ver BaseProject)
+			$budgetItems = array_merge($budgetItems, $project->getBudgetItems()->getArrayCopy());
+		}
+		return new PropelObjectCollection($budgetItems);
+	}
+	
 }
 
 //	private $toLog;

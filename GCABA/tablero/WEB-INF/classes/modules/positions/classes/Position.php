@@ -592,6 +592,18 @@ class Position extends BasePosition {
 		return $this;
 	}
 	
+	/**
+	 * Devuelve las partidas presupuestarias
+	 * @return PropelObjectCollection partidas presupuestarias
+	 */
+	function getBudgetItems() {
+		$budgetItems = array();
+		foreach ($this->getAllProjects() as $project) { // $project no necesariamente es un PlanningProject (ver BaseProject)
+			$budgetItems = array_merge($budgetItems, $project->getBudgetItems()->getArrayCopy());
+		}
+		return new PropelObjectCollection($budgetItems);
+	}
+	
 //	/**
 //	 * Obtiene el color acorde al estado
 //	 * @return string $colors nombre del color que representa el estado

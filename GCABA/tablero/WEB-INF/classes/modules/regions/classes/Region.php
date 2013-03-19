@@ -62,5 +62,17 @@ class Region extends BaseRegion {
 		return $regionTypeNameTranslated;
 
 	}
+	
+	/**
+	 * Devuelve las partidas presupuestarias
+	 * @return PropelObjectCollection partidas presupuestarias
+	 */
+	function getBudgetItems() {
+		$budgetItems = array();
+		foreach ($this->getPlanningConstructions() as $planningConstruction) {
+			$budgetItems = array_merge($budgetItems, $planningConstruction->getBudgetItems()->getArrayCopy());
+		}
+		return new PropelObjectCollection($budgetItems);
+	}
 
 } // Region
