@@ -1,16 +1,6 @@
 <?php
 
 	class PanelBudgetRelationsDoUpdateXAction extends BaseAction {
-		
-	function executeFailure($mapping, $err) {
-		//paso el error
-		$myRedirectConfig = $mapping->findForwardConfig('failure');
-		$myRedirectPath = $myRedirectConfig->getpath();
-		$myRedirectPath .= '&error=' . 'Error';
-		$fc = new ForwardConfig($myRedirectPath, True);
-		return $fc;
-
-	}
 	
 	function execute($mapping, $form, &$request, &$response) {
 
@@ -27,10 +17,6 @@
 
 		$smarty->assign("module",$module);
 		$smarty->assign("section",$section);
-		
-		$budget = BudgetRelationQuery::create()->findOneById($_POST['id']);
-		/*print_r($budget);
-		die();*/
 		
 		// Muestro todos los errores
 		/*error_reporting(E_ALL - E_STRICT - E_NOTICE - E_WARNING);
@@ -94,8 +80,6 @@
 					//Me fijo si hay errores
 					$err = $webServiceBudget->getError();
 					if ($err) {
-						// Error
-						//$budget->setUpdatedsigaf(date("Y-m-d H:i:s"));
 						$budget->setMatch(false)->save();
 						$smarty->assign("error", addslashes($err));
 					} else {

@@ -14,8 +14,10 @@
 		$('budgetItemMsgField').innerHTML = '<span id="successMessage">Partida presupuestaria actualizada.</span>';
 		|-if $budget->getMatch() eq "true"-|
 			$('update_|-$budget->getId()-|').className = "";
-			$('update_|-$budget->getId()-|').addClassName('icon iconActivate');
+			$('update_|-$budget->getId()-|').addClassName('icon disabled iconActivate');
+			$('update_|-$budget->getId()-|').disabled = 'disabled';
 			$('update_|-$budget->getId()-|').setAttribute('title', 'Partida actualizada el |-$budget->getUpdatedSigaf()-|');
+			$('update_|-$budget->getId()-|').disabled = true;
 		|-else-|
 			$('update_|-$budget->getId()-|').className = "";
 			$('update_|-$budget->getId()-|').addClassName('icon iconClose');
