@@ -24,7 +24,6 @@
 		require_once('WEB-INF/classes/includes/NuSOAP/nusoap.php');
 		
 		$budgetColl = BudgetRelationQuery::create()->find();
-		//$errors = Array();
 		
 		//por cada uno de los de la tabla, consulto al ws
 		foreach($budgetColl as $budget){

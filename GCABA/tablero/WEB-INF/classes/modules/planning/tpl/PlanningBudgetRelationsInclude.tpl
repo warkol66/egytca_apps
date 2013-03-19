@@ -104,8 +104,7 @@ html =   '      <tr> '
 			</td>
             <td><input name="budgetItem[][amount]"  id="params_amount[]" type="text" value="|-$budgetItem->getAmount()|system_numeric_format-|" class="right" size="12" title="Monto" |-$readonly|readonly-|></td>
 			<td nowrap>|-if !$show && !$showLog-|
-				|-assign var=updated value=strtotime($budgetItem->getUpdatedSigaf(), "Y-m-d")-|
-				|-if $updated eq date("Y-m-d")-|<img src="images/clear.png" class="disabled icon iconActivate" title="Actualizado hoy" />|-else-|
+				|-if date('Y-m-d',strtotime($budgetItem->getUpdatedsigaf())) eq date("Y-m-d")-|<img src="images/clear.png" class="disabled icon iconActivate" title="Actualizado hoy" />|-else-|
 				<input name="updateBudgetItem" type="hidden" value="1"><input type="button" id="update_|-$budgetItem->getId()-|" class="icon iconEdit" title="Actualizar partida" value="Actualizar partida" onClick="updateItem('|-$budgetItem->getId()-|')" />
 				|-/if-|
 				|-else-|<img src="images/clear.png" class="disabled icon iconEdit" />|-/if-|</td>
