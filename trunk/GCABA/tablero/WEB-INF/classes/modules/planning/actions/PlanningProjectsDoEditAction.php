@@ -31,31 +31,58 @@ class PlanningProjectsDoEditAction extends BaseAction {
 			$filters = $_POST["filters"];
 
 		$id = $request->getParameter("id");
-		$params = Common::addUserInfoToParams($_POST["params"]);
-
-		$params["appliedAmount"] = Common::convertToMysqlNumericFormat($params["appliedAmount"]);
-		$params["managementAmount"] = Common::convertToMysqlNumericFormat($params["managementAmount"]);
-		$params["raisedAmount"] = Common::convertToMysqlNumericFormat($params["raisedAmount"]);
-		$params["sanctionAmount"] = Common::convertToMysqlNumericFormat($params["sanctionAmount"]);
+		$params = $_POST["params"];
 
 		if (!empty($id)) {
 			$planningProject = BaseQuery::create("PlanningProject")->findOneByID($id);
 			if (!empty($planningProject)) {
 				$planningProjectLog = new PlanningProjectLog();
 			}
+
+			//Para no generar versiones cuando no se modifica nada, pueden venir valores vacios y generan log
+			if (isset($params["appliedAmount"]) && $planningProject->getAppliedAmount() != Common::convertToMysqlNumericFormat($params["appliedAmount"]))
+				$params["appliedAmount"] = Common::convertToMysqlNumericFormat($params["appliedAmount"]);
+			else
+				unset($params["appliedAmount"]);
+			if (isset($params["managementAmount"]) && $planningProject->getManagementAmount() != Common::convertToMysqlNumericFormat($params["managementAmount"]))
+				$params["managementAmount"] = Common::convertToMysqlNumericFormat($params["managementAmount"]);
+			else
+				unset($params["managementAmount"]);
+			if (isset($params["raisedAmount"]) && $planningProject->getRaisedAmount() != Common::convertToMysqlNumericFormat($params["raisedAmount"]))
+				$params["raisedAmount"] = Common::convertToMysqlNumericFormat($params["raisedAmount"]);
+			else
+				unset($params["raisedAmount"]);
+			if (isset($params["sanctionAmount"]) && $planningProject->getSanctionAmount() != Common::convertToMysqlNumericFormat($params["sanctionAmount"]))
+				$params["sanctionAmount"] = Common::convertToMysqlNumericFormat($params["sanctionAmount"]);
+			else
+				unset($params["sanctionAmount"]);
 		}
 		else {
 			$planningProject = new PlanningProject();
-		}
 
-		if (!$planningProject->isNew()) {
-			$planningProjectLog->fromJSON($planningProject->toJSON());
-			$planningProjectLog->setId(NULL);
-			$planningProjectLog->setProjectId($id);
+			//Para no mandar valores vacios
+			if (isset($params["appliedAmount"]))
+				$params["appliedAmount"] = Common::convertToMysqlNumericFormat($params["appliedAmount"]);
+			if (isset($params["managementAmount"]))
+				$params["managementAmount"] = Common::convertToMysqlNumericFormat($params["managementAmount"]);
+			if (isset($params["raisedAmount"]))
+				$params["raisedAmount"] = Common::convertToMysqlNumericFormat($params["raisedAmount"]);
+			if (isset($params["sanctionAmount"]))
+				$params["sanctionAmount"] = Common::convertToMysqlNumericFormat($params["sanctionAmount"]);
 		}
 
 		$planningProject->fromArray($params, BasePeer::TYPE_FIELDNAME);
-		$planningProject->setVersion($planningProject->getVersion() + 1);
+
+		if ($planningProject->isModified()) {
+			if (!$planningProject->isNew()) {
+				$planningProjectLog->fromJSON($planningProject->toJSON());
+				$planningProjectLog->setId(NULL);
+				$planningProjectLog->setProjectId($id);
+			}
+			$planningProject->setVersion($planningProject->getVersion() + 1);
+			$userParams = Common::addUserInfoToParams(array());
+			$planningProject->fromArray($userParams, BasePeer::TYPE_FIELDNAME);
+		}
 
 		try {
 			$planningProject->save();
