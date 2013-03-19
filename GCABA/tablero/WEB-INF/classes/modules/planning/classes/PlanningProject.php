@@ -541,6 +541,10 @@ class PlanningProject extends BasePlanningProject {
 	 */
 	public function getActivitiesOrderedForGantt() {
 		return BaseQuery::create('PlanningActivity')->filterByObjecttype('Project')->filterByObjectid($this->getId())
+									->filterByStartingdate(null, Criteria::ISNOTNULL)
+									->filterByStartingdate('0000-00-00', Criteria::NOT_EQUAL)
+									->filterByEndingdate(null, Criteria::ISNOTNULL)
+									->filterByEndingdate('0000-00-00', Criteria::NOT_EQUAL)
 									->orderByOrder()
 									->orderByStartingdate()
 									->find();
@@ -564,8 +568,12 @@ class PlanningProject extends BasePlanningProject {
 	public function getDatesArrayForGantt($startDate = NULL, $endDate = NULL) {
 
 		$firstDateStr = BaseQuery::create('PlanningActivity')->filterByObjecttype('Project')->filterByObjectid($this->getId())
+																		->filterByStartingdate(null, Criteria::ISNOTNULL)
+																		->filterByStartingdate('0000-00-00', Criteria::NOT_EQUAL)
 																		->orderByStartingdate()->select('Startingdate')->findOne();
 		$lastDateStr = BaseQuery::create('PlanningActivity')->filterByObjecttype('Project')->filterByObjectid($this->getId())
+																		->filterByEndingdate(null, Criteria::ISNOTNULL)
+																		->filterByEndingdate('0000-00-00', Criteria::NOT_EQUAL)
 																		->orderByEndingdate(Criteria::DESC)->select('Endingdate')->findOne();
 
 		if (!is_null($startDate) && $startDate < $firstDateStr)
