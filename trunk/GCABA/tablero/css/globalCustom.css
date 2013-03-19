@@ -88,7 +88,7 @@ input[type="submit"].icon, input[type="button"].icon {
 }
 .iconEdit {
 	background-position: 0px 0px !Important; }
-.iconClose, .iconOptionsList .iconDelete, .iconList {
+.iconClose, .iconOptionsList .iconDelete, .iconList, input.disabled.iconClose {
 	background-position: -20px 0px !Important; }
 .iconView {
 	background-position: -40px 0px !Important; }
@@ -122,7 +122,7 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-position: -120px -20px !Important; }
 .iconWeight {
 	background-position: -140px -20px !Important; }
-.iconActivate, input.editor_ok_button {
+.iconActivate, input.editor_ok_button, input.disabled.iconActivate {
 	background-position: -160px -20px !Important; }
 .iconHistory {
 	background-position: -180px -20px !Important; }
