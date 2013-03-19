@@ -6,6 +6,7 @@ class BaseDoEditAction extends BaseAction {
 	protected $smarty;
 	protected $entity;
 	protected $entityParams;
+	protected $userParams;
 	protected $ajaxTemplate;
 	protected $actionLog;
 	protected $entityLog;
@@ -39,10 +40,9 @@ class BaseDoEditAction extends BaseAction {
 		if (!empty($_POST["filters"]))
 			$filters = $_POST["filters"];
 
-		$this->entityParams = Common::addUserInfoToParams($_POST["params"]);
-
 		$entityClassName = $this->entityClassName;
 		$id = $request->getParameter("id");
+		$this->entityParams = $_POST["params"];
 
 		if (!empty($id)) {
 			$this->entity = BaseQuery::create($entityClassName)->findOneById($id);
@@ -55,31 +55,47 @@ class BaseDoEditAction extends BaseAction {
 		try {
 			// Acciones a ejecutar antes de actualizar el objeto
 			$this->preUpdate();
-			$this->entity->fromArray($this->entityParams,BasePeer::TYPE_FIELDNAME);
+
+			// Duplico el objeto para el log antes de modificarlo
+			if (!$this->entity->isNew()) {
+				$logClassName = $this->entityClassName.'Log';
+				$setEntityId = 'set'.$this->entityClassName.'id';
+				if ($this->entityLog && class_exists($logClassName)) {
+					$entityLog = new $logClassName();
+					$entityLog->fromJSON($this->entity->toJSON());
+					$entityLog->setId(NULL);
+					$entityLog->$setEntityId($id);
+				}
+			}
+	
+			// Actualizo el objeto con los parametros enviados
+			$this->entity->fromArray($this->entityParams, BasePeer::TYPE_FIELDNAME);
 
 			// Acciones a ejecutar despues de actualizar el objeto
 			$this->postUpdate();
 
 			// Acciones a ejecutar antes de guardar el objeto
 			$this->preSave();
+
+			// Solo si el objeto se modifico, agrego los datos de usuario
+			if ($this->entity->isModified()) {
+				$this->userParams = Common::addUserInfoToParams(array());
+				$this->entity->fromArray($this->userParams, BasePeer::TYPE_FIELDNAME);
+			}
 			$action = $this->entity->isNew() ? 'create' : 'edit';
 			$this->entity->save();
+
+			if (!empty($entityLog) && $entityLog->isModified())
+				try {
+					$entityLog->save();
+			} catch (Exception $e) {
+				;
+			}
 
 			$logSufix = ', ' . Common::getTranslation('action: '.$action, 'common');
 			if ($this->actionLog && method_exists($this->entity, 'getLogData'))
 				Common::doLog('success', $this->entity->getLogData() . $logSufix);
-
-			$logClassName = $this->entityClassName.'Log';
-			$setEntityId = 'set'.$this->entityClassName.'id';
-			if ($this->entityLog && class_exists($logClassName)) {
-				if (!$this->entity->isNew()) {
-					$entityLog = new $logClassName();
-					$entityLog->fromJSON($this->entity->toJSON());
-					$entityLog->setId(NULL);
-					$entityLog->$setEntityId($id);
-					$entityLog->save();
-				}
-			}
+	
 			// Acciones a ejecutar luego de guardar el objeto
 			$this->postSave();
 		} catch (Exception $e) {
