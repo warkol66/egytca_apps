@@ -98,24 +98,24 @@ myChart2.render("chartContainer2");
 			<tr>
 				<td>|-$project->getOperativeObjective()-|</td>
 				<td><a href="javascript:void(null);" class="flag|-$project->statusColor()|capitalize-|"></a></td>
-				<td><a href="Main.php?do=planningActivitiesList&filters[projectId]=|-$project->getid()-|&filters[fromProjects]=true" title="Ver actividades del proyecto" class="follow">|-$project->getname()-|</a></td>
+				<td><a href="Main.php?do=planningActivitiesList&filters[|-if get_class($project) eq "PlanningConstruction"-|construction|-else-|project|-/if-|Id]=|-$project->getid()-|&filters[fromProjects]=true" title="Ver actividades del proyecto" class="follow">|-$project->getname()-|</a></td>
 				<td nowrap>|-*$project->getdate()|date_format*-|</td>
 				<td nowrap>|-*$project->getPlannedEnd()|date_format:"%d-%m-%Y"*-|</td>
 				<td align="center">|-$project->getAcomplished()|si_no-|</td>
 				<td align="center" nowrap >
-					<a href="Main.php?do=planningActivitiesList&filters[projectId]=|-$project->getId()-|&filters[color]=white" class="flagWhite">
+					<a href="Main.php?do=planningActivitiesList&filters[|-if get_class($project) eq "PlanningConstruction"-|construction|-else-|project|-/if-|Id]=|-$project->getId()-|&filters[color]=white" class="flagWhite">
 						|-$colorsCount.white-|
 					</a>
-					<a href="Main.php?do=planningActivitiesList&filters[projectId]=|-$project->getId()-|&filters[color]=green" class="flagGreen">
+					<a href="Main.php?do=planningActivitiesList&filters[|-if get_class($project) eq "PlanningConstruction"-|construction|-else-|project|-/if-|Id]=|-$project->getId()-|&filters[color]=green" class="flagGreen">
 						|-$colorsCount.green-|
 					</a>
-					<a href="Main.php?do=planningActivitiesList&filters[projectId]=|-$project->getId()-|&filters[color]=yellow" class="flagYellow">					
+					<a href="Main.php?do=planningActivitiesList&filters[|-if get_class($project) eq "PlanningConstruction"-|construction|-else-|project|-/if-|Id]=|-$project->getId()-|&filters[color]=yellow" class="flagYellow">					
 						|-$colorsCount.yellow-|
 					</a>
-					<a href="Main.php?do=planningActivitiesList&filters[projectId]=|-$project->getId()-|&filters[color]=red" class="flagRed">
+					<a href="Main.php?do=planningActivitiesList&filters[|-if get_class($project) eq "PlanningConstruction"-|construction|-else-|project|-/if-|Id]=|-$project->getId()-|&filters[color]=red" class="flagRed">
 						|-$colorsCount.red-|
 					</a>
-					<a href="Main.php?do=planningActivitiesList&filters[projectId]=|-$project->getId()-|&filters[color]=blue" class="flagBlue">
+					<a href="Main.php?do=planningActivitiesList&filters[|-if get_class($project) eq "PlanningConstruction"-|construction|-else-|project|-/if-|Id]=|-$project->getId()-|&filters[color]=blue" class="flagBlue">
 						|-$colorsCount.blue-|
 					</a>
 				</td>
