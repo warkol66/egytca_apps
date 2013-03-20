@@ -86,15 +86,15 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 		|-/if-|
 		<p>
         <label for="params_name">Nombre</label>
-      <input name="params[name]" type="text" id="params_name" size="80" value="|-$planningConstruction->getName()-|" title="Nombre del Obra" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
+      <input name="params[name]" type="text" id="params_name" size="80" value="|-$planningConstruction->getName()-|" title="Nombre del Obra" maxlength="255" |-$readonly|readonly:"emptyValidation"-| /> |-validation_msg_box idField="params_name"-|
     </p>
     <p> 
       <label for="params_description">Breve Descripción</label>
-      <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Obra" class="emptyValidation" |-$readonly|readonly-| >|-$planningConstruction->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
+      <textarea name="params[description]" cols="70" rows="6" wrap="VIRTUAL" id="params_description" type="text" title="Descripción del Obra"  |-$readonly|readonly:"emptyValidation"-| >|-$planningConstruction->getDescription()|escape-|</textarea> |-validation_msg_box idField="params_description"-|
     </p> 
   <p>
     <label for="params_constructionType">Tipo de obra</label>|-if $planningConstruction->isNew()-|
-    <select id="params_constructionType" name="params[constructionType]" title="Tipo de Obra" class="emptyValidation" |-$readonly|readonly-|>
+    <select id="params_constructionType" name="params[constructionType]" title="Tipo de Obra" |-$readonly|readonly:"emptyValidation"-|>
       <option value="">Seleccione tipo de Obra</option>
       |-foreach from=$constructionTypes key=key item=name-|
 					<option value="|-$key-|" |-$planningConstruction->getConstructionType()|selected:$key-|>|-$name-|</option>
@@ -120,7 +120,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
     </p>
 	<p>
         <label for="params_surface">Superfice (mts2)</label>
-      <input name="params[surface]" type="text" id="params_surface" size="20" value="|-$planningConstruction->getSurface()|system_numeric_format-|" title="Superficie" maxlength="20" class="emptyValidation right" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
+      <input name="params[surface]" type="text" id="params_surface" size="20" value="|-$planningConstruction->getSurface()|system_numeric_format-|" title="Superficie" maxlength="20" |-$readonly|readonly:"emptyValidation right"-| /> |-validation_msg_box idField="params_name"-|
     </p>
 	<p>
         <label for="params_priority">¿Prioridad?</label>
