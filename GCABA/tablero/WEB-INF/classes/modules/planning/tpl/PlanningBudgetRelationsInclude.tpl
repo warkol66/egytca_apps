@@ -1,5 +1,5 @@
-|-if !$show && !$showLog-|
 <div id="budgetItemMsgField"></div>
+|-if !$show && !$showLog-|
 <script language="JavaScript" type="text/JavaScript">
 function addBudgetItem(a) {
 	var div = $$("#budgetItemEdit div:first")[0];
