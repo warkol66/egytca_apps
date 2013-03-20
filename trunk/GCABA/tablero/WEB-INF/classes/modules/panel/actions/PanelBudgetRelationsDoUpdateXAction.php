@@ -63,7 +63,7 @@
 				if ($err) {
 					$budget->setMatch(false)->save();
 					$smarty->assign("budget", $budget);
-					$smarty->assign("error", addslashes($err));
+					$smarty->assign("error", true);
 					return $mapping->findForwardConfig('success');
 				}
 				
@@ -78,10 +78,9 @@
 					$budget->setMatch(false)->save();
 				} else {
 					//Me fijo si hay errores
-					$err = $webServiceBudget->getError();
-					if ($err) {
+					if ($webServiceBudget->getError()) {
 						$budget->setMatch(false)->save();
-						$smarty->assign("error", addslashes($err));
+						$smarty->assign("error", true);
 					} else {
 						if(is_array($result)){
 							// Actualizo el registro en la base con $result
