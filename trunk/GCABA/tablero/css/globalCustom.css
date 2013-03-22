@@ -166,6 +166,10 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-position: -0px -80px !Important; }
 .iconSetPrivileges{
 	background-position: -20px -80px !Important; }
+.iconRevert{
+	background-position: -40px -80px !Important; }
+.iconUpdate,  input.disabled.iconUpdate{
+	background-position: -60px -80px !Important; }
 .iconSendMultiple {
 	background-position: -120px -80px !Important; }
 .iconRead{
