@@ -84,6 +84,7 @@
 	|-elseif $message eq "error"-|
 		<div class="failureMessage" id="actionMessage">Ha ocurrido un error al intentar guardar el ##headlines,2,Titular##</div>
 	|-/if-|
+	<p><div id="validate"></div></p>
 	<form name="form_edit_headline" id="form_edit_headline" action="Main.php" method="post">
 		<fieldset title="Formulario de edición de datos de un titular">
 			<legend>Formulario de Administración de ##headlines,1,Titulares##</legend>
@@ -243,8 +244,8 @@
 				<p>
 			<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 				|-include file="HiddenInputsInclude.tpl" filters="$filters" page="$page"-|
-				<input type="hidden" name="do" id="do" value="headlinesDoEdit" />
-				|-javascript_form_validation_button value='Guardar' title='Guardar'-|
+				<!--input type="hidden" name="do" id="do" value="headlinesDoEdit" /-->
+				<input id="button" type="button" name="button" value="Guardar" title="Guardar" onclick="javascript:validateInternal(this.form);">
 				<input type="button" id="cancel" name="cancel" title="Regresar al listado" value="Regresar al listado" onClick="location.href='Main.php?do=headlinesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) && $page gt 0-|&page=|-$page-||-/if-|'"/>
 				|-if !$headline->isNew()-|
 				<input type="hidden" name="id" id="id" value="|-$headline->getid()-|" />
@@ -255,6 +256,20 @@
 </div>
 
 <script type="text/javascript">
+	function validateInternal(form){
+		var pars = 'do=headersValidateX';
+		var fields = Form.serialize(form);
+	
+		var myAjax = new Ajax.Updater(
+			{success: 'validate'},
+			'Main.php?do=headlinesValidateX',
+			{
+				method: 'post',
+				postBody: fields,
+				evalScripts: true
+			});
+	}
+	
 	function classKeyForm(elementId) {
 			var selectType = document.getElementById(elementId);
 			var chosenOption = selectType.options[selectType.selectedIndex];
