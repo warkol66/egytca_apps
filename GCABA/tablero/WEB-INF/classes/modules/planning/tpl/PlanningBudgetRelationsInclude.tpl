@@ -11,26 +11,27 @@ function addBudgetItem(a) {
 function addBudgetItemRow() {
 	var row = document.createElement('tr');
 html =   '      <tr> '
- + '            <td><input name="budgetItem[][budgetYear]"  id="params_budgetYear[]" type="text" value="" size="4" title="Año"></td>'
- + '            <td><input name="budgetItem[][budgetJurisdiction]"  id="params_budgetJurisdiction[]" type="text" value="" size="4" title="Jurisdicción"></td>'
- + '            <td><input name="budgetItem[][budgetOgese]"  id="params_budgetOgese[]" type="text" value="" size="4" title="OGESE"></td>'
- + '            <td><input name="budgetItem[][budgetUnit]"  id="params_budgetUnit[]" type="text" value="" size="1" title="Unidad Ejecutora"></td>'
- + '            <td><input name="budgetItem[][budgetProgram]"  id="params_budgetProgram[]" type="text" value="" size="3" title="Programa"></td>'
- + '            <td><input name="budgetItem[][budgetSubProgram]"  id="params_budgetSubProgram[]" type="text" value="" size="3" title="Subprograma"></td>'
- + '            <td><input name="budgetItem[][budgetProyect]"  id="params_budgetProyect[]" type="text" value="" size="3" title="Proyecto"></td>'
- + '            <td><input name="budgetItem[][budgetActivity]"  id="params_budgetActivity[]" type="text" value="" size="2" title="Actividad"></td>'
- + '            <td><input name="budgetItem[][budgetConstruction]"  id="params_budgetConstruction[]" type="text" value="" size="2" title="Obra"></td>'
- + '			<td><input name="budgetItem[][budgetEntity]"  id="params_budgetEntity[]" type="text" value="" size="2" title="Entidad" ></td>'
- + '            <td><input name="budgetItem[][budgetSource]"  id="params_budgetSource[]" type="text" value="" size="2" title="Fuente de Financiamiento" ></td>'
- + '            <td><input name="budgetItem[][budgetSubsection]"  id="params_budgetSubsection[]" type="text" value="" size="2" title="Inciso" ></td>'
- + '            <td><input name="budgetItem[][budgetCurrency]"  id="params_budgetCurrency[]" type="text" value="" size="2" title="Moneda" ></td>'
- + '            <td><input name="budgetItem[][budgetPartial]"  id="params_budgetPartial[]" type="text" value="" size="2" title="Parcial" ></td>'
- + '            <td><input name="budgetItem[][budgetSubpartial]"  id="params_budgetSubpartial[]" type="text" value="" size="2" title="SubParcial" ></td>'
- + '            <td><input name="budgetItem[][budgetCapital]"  id="params_budgetCapital[]" type="text" value="" size="2" title="Principal" ></td>'
- + '            <td><input name="budgetItem[][budgetSubjurisdiction]"  id="params_budgetSubjurisdiction[]" type="text" value="" size="2" title="SubJurisdiccion" ></td>'
- + '            <td><input name="budgetItem[][budgetGeolocation]"  id="params_budgetGeolocation[]" type="text" value="" size="2" title="Ubicacion Geo" ></td>'
+ + '            <td><input name="budgetItem[][budgetYear]" id="params_budgetYear[]" type="text" value="" title="Año" class="width2_5em"></td>'
+ + '            <td><input name="budgetItem[][budgetJurisdiction]" id="params_budgetJurisdiction[]" type="text" value="" title="Jurisdicción" class="width2em"></td>'
+ + '            <td><input name="budgetItem[][budgetSubjurisdiction]" id="params_budgetSubjurisdiction[]" type="text" value="" title="SubJurisdiccion" class="width2em"></td>'
+ + '            <td><input name="budgetItem[][budgetOgese]" id="params_budgetOgese[]" type="text" value="" title="OGESE" class="width2em"></td>'
+ + '            <td><input name="budgetItem[][budgetUnit]" id="params_budgetUnit[]" type="text" value="" size="1" title="Unidad Ejecutora" class="width2em"></td>'
+ + '            <td><input name="budgetItem[][budgetProgram]" id="params_budgetProgram[]" type="text" value="" title="Programa" class="width2em"></td>'
+ + '            <td><input name="budgetItem[][budgetSubProgram]" id="params_budgetSubProgram[]" type="text" value="" title="Subprograma" class="width2em"></td>'
+ + '            <td><input name="budgetItem[][budgetProyect]" id="params_budgetProyect[]" type="text" value="" title="Proyecto" class="width2em"></td>'
+ + '            <td><input name="budgetItem[][budgetActivity]" id="params_budgetActivity[]" type="text" value="" title="Actividad" class="width2em"></td>'
+ + '            <td><input name="budgetItem[][budgetConstruction]" id="params_budgetConstruction[]" type="text" value="" title="Obra" class="width2em"></td>'
+ + '			      <td><input name="budgetItem[][budgetEntity]" id="params_budgetEntity[]" type="text" value="" title="Entidad" class="width2em"></td>'
+ + '            <td><input name="budgetItem[][budgetSource]" id="params_budgetSource[]" type="text" value="" title="Fuente de Financiamiento" class="width2em"></td>'
+ + '            <td><input name="budgetItem[][budgetSubsection]" id="params_budgetSubsection[]" type="text" value="" title="Inciso" class="width2em"></td>'
+ + '            <td><input name="budgetItem[][budgetCurrency]" id="params_budgetCurrency[]" type="text" value="" title="Moneda" class="width2em"></td>'
+ + '            <td><input name="budgetItem[][budgetCapital]" id="params_budgetCapital[]" type="text" value="" title="Principal" class="width2em"></td>'
+ + '            <td><input name="budgetItem[][budgetPartial]" id="params_budgetPartial[]" type="text" value="" title="Parcial" class="width2em"></td>'
+ + '            <td><input name="budgetItem[][budgetSubpartial]" id="params_budgetSubpartial[]" type="text" value="" title="SubParcial" class="width2em"></td>'
+ + '            <td><input name="budgetItem[][budgetGeolocation]" id="params_budgetGeolocation[]" type="text" value="" title="Ubicacion Geográfica" class="width2em"></td>'
  + '            <td align="center"><input name="budgetItem[][total]" type="hidden" value="0"><input name="budgetItem[][total]" id="params_total[]" type="checkbox" value="1" title="Indique si se utiliza toda la partida"></td>'
- + '            <td><input name="budgetItem[][amount]"  id="params_amount[]" type="text" value="" size="12" title="Monto"></td>'
+ + '            <td><input name="budgetItem[][amount]" id="params_amount[]" type="text" value="" title="Monto" class="width6em"></td>'
+ + '         		<td><input type="button" class="icon iconUpdate disabled" /></td> '
  + '         		<td><input name="budgetItem[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar partida" onclick="deleteBudgetItemRow(this.parentNode.parentNode.rowIndex)" /></td> '
  + '       </tr>';
 	row.innerHTML= html;
@@ -84,6 +85,7 @@ html =   '      <tr> '
          <tr> 
           <th>Año</th> 
           <th>Jur</th> 
+          <th>Sjur</th>
           <th>Ogese</th> 
           <th>UE</th> 
           <th>Pr</th> 
@@ -91,17 +93,14 @@ html =   '      <tr> '
           <th>Proy</th>
           <th>Act</th>
           <th>Obra</th> 
-          
           <th>Ent</th> 
           <th>Fue</th> 
           <th>Inc</th> 
           <th>Mon</th> 
+          <th>Pri</th>
           <th>Par</th> 
           <th>Spar</th> 
-          <th>Pri</th>
-          <th>Sjur</th>
           <th>Ubi</th> 
-          
           <th>Total</th> 
           <th>Monto</th> 
           <th>&nbsp;</th> 
@@ -110,35 +109,33 @@ html =   '      <tr> '
        </thead> 
       <tbody id="budgetItemsTbody">  |-foreach from=$budgetItems item=budgetItem name=for_contractBudgetItems-|
       <tr id="budgetItemId_|-$budgetItem->getId()-|">
-            <td><input type="hidden" name="budgetItem[][id]" value="|-$budgetItem->getId()-|" |-$readonly|readonly-|/>
-								<input name="budgetItem[][budgetYear]"  id="params_budgetYear[]" type="text" value="|-$budgetItem->getBudgetYear()|escape-|" size="4" title="Año" |-$readonly|readonly-|></td>
-            <td><input name="budgetItem[][budgetJurisdiction]"  id="params_budgetJurisdiction[]" type="text" value="|-$budgetItem->getBudgetJurisdiction()|escape-|" size="4" title="Jurisdicción" |-$readonly|readonly-|></td>
-            <td><input name="budgetItem[][budgetOgese]"  id="params_budgetOgese[]" type="text" value="|-$budgetItem->getBudgetOgese()|escape-|" size="4" title="OGESE" |-$readonly|readonly-|></td>
-            <td><input name="budgetItem[][budgetUnit]"  id="params_budgetUnit[]" type="text" value="|-$budgetItem->getBudgetUnit()|escape-|" size="1" title="Unidad Ejecutora" |-$readonly|readonly-|></td>
-            <td><input name="budgetItem[][budgetProgram]"  id="params_budgetProgram[]" type="text" value="|-$budgetItem->getBudgetProgram()|escape-|" size="3" title="Programa" |-$readonly|readonly-|></td>
-            <td><input name="budgetItem[][budgetSubProgram]"  id="params_budgetSubProgram[]" type="text" value="|-$budgetItem->getBudgetSubProgram()|escape-|" size="3" title="Subprograma" |-$readonly|readonly-|></td>
-            <td><input name="budgetItem[][budgetProyect]"  id="params_budgetProyect[]" type="text" value="|-$budgetItem->getBudgetProyect()|escape-|" size="3" title="Proyecto" |-$readonly|readonly-|></td>
-            <td><input name="budgetItem[][budgetActivity]"  id="params_budgetActivity[]" type="text" value="|-$budgetItem->getBudgetActivity()|escape-|" size="2" title="Actividad" |-$readonly|readonly-|></td>
-            <td><input name="budgetItem[][budgetConstruction]"  id="params_budgetConstruction[]" type="text" value="|-$budgetItem->getBudgetConstruction()|escape-|" size="2" title="Obra" |-$readonly|readonly-|></td>
-           
-            <td><input name="budgetItem[][budgetEntity]"  id="params_budgetEntity[]" type="text" value="|-$budgetItem->getBudgetEntity()|escape-|" size="2" title="Entidad" |-$readonly|readonly-|></td>
-            <td><input name="budgetItem[][budgetSource]"  id="params_budgetSource[]" type="text" value="|-$budgetItem->getBudgetSource()|escape-|" size="2" title="Fuente de Financiamiento" |-$readonly|readonly-|></td>
-            <td><input name="budgetItem[][budgetSubsection]"  id="params_budgetSubsection[]" type="text" value="|-$budgetItem->getBudgetSubsection()|escape-|" size="2" title="Inciso" |-$readonly|readonly-|></td>
-            <td><input name="budgetItem[][budgetCurrency]"  id="params_budgetCurrency[]" type="text" value="|-$budgetItem->getBudgetCurrency()|escape-|" size="2" title="Moneda" |-$readonly|readonly-|></td>
-            <td><input name="budgetItem[][budgetPartial]"  id="params_budgetPartial[]" type="text" value="|-$budgetItem->getBudgetPartial()|escape-|" size="2" title="Parcial" |-$readonly|readonly-|></td>
-            <td><input name="budgetItem[][budgetSubpartial]"  id="params_budgetSubpartial[]" type="text" value="|-$budgetItem->getBudgetSubpartial()|escape-|" size="2" title="SubParcial" |-$readonly|readonly-|></td>
-            <td><input name="budgetItem[][budgetCapital]"  id="params_budgetCapital[]" type="text" value="|-$budgetItem->getBudgetCapital()|escape-|" size="2" title="Principal" |-$readonly|readonly-|></td>
-            <td><input name="budgetItem[][budgetSubjurisdiction]"  id="params_budgetSubjurisdiction[]" type="text" value="|-$budgetItem->getBudgetSubjurisdiction()|escape-|" size="2" title="SubJurisdiccion" |-$readonly|readonly-|></td>
-            <td><input name="budgetItem[][budgetGeolocation]"  id="params_budgetGeolocation[]" type="text" value="|-$budgetItem->getBudgetGeolocation()|escape-|" size="2" title="Ubicacion Geo" |-$readonly|readonly-|></td>
-            
-            <td align="center"><input name="budgetItem[][totalItem]" type="hidden" value="0"><input name="budgetItem[][totalItem]" id="params_total[]" type="checkbox" value="1" |-$budgetItem->getTotalItem()|checked_bool-| title="Indique si se utiliza toda la partida" |-$readonly|readonly-|>
-			</td>
-            <td><input name="budgetItem[][amount]"  id="params_amount[]" type="text" value="|-$budgetItem->getAmount()|system_numeric_format-|" class="right" size="12" title="Monto" |-$readonly|readonly-|></td>
+			<td><input type="hidden" name="budgetItem[][id]" value="|-$budgetItem->getId()-|" |-$readonly|readonly-|/>
+					<input name="budgetItem[][budgetYear]" id="params_budgetYear[]" type="text" value="|-$budgetItem->getBudgetYear()-|" title="Año" |-$readonly|readonly:"width2_5em"-|></td>
+			<td><input name="budgetItem[][budgetJurisdiction]" id="params_budgetJurisdiction[]" type="text" value="|-$budgetItem->getBudgetJurisdiction()-|" title="Jurisdicción" |-$readonly|readonly:"width2em"-|></td>
+			<td><input name="budgetItem[][budgetSubjurisdiction]" id="params_budgetSubjurisdiction[]" type="text" value="|-$budgetItem->getBudgetSubjurisdiction()-|" title="SubJurisdiccion" |-$readonly|readonly:"width2em"-|></td>
+			<td><input name="budgetItem[][budgetOgese]" id="params_budgetOgese[]" type="text" value="|-$budgetItem->getBudgetOgese()-|" title="OGESE" |-$readonly|readonly:"width2em"-|></td>
+			<td><input name="budgetItem[][budgetUnit]" id="params_budgetUnit[]" type="text" value="|-$budgetItem->getBudgetUnit()-|" title="Unidad Ejecutora" |-$readonly|readonly:"width2em"-|></td>
+			<td><input name="budgetItem[][budgetProgram]" id="params_budgetProgram[]" type="text" value="|-$budgetItem->getBudgetProgram()-|" title="Programa" |-$readonly|readonly:"width2em"-|></td>
+			<td><input name="budgetItem[][budgetSubProgram]" id="params_budgetSubProgram[]" type="text" value="|-$budgetItem->getBudgetSubProgram()-|" title="Subprograma" |-$readonly|readonly:"width2em"-|></td>
+			<td><input name="budgetItem[][budgetProyect]" id="params_budgetProyect[]" type="text" value="|-$budgetItem->getBudgetProyect()-|" title="Proyecto" |-$readonly|readonly:"width2em"-|></td>
+			<td><input name="budgetItem[][budgetActivity]" id="params_budgetActivity[]" type="text" value="|-$budgetItem->getBudgetActivity()-|" title="Actividad" |-$readonly|readonly:"width2em"-|></td>
+			<td><input name="budgetItem[][budgetConstruction]" id="params_budgetConstruction[]" type="text" value="|-$budgetItem->getBudgetConstruction()-|" title="Obra" |-$readonly|readonly:"width2em"-|></td>
+			<td><input name="budgetItem[][budgetEntity]" id="params_budgetEntity[]" type="text" value="|-$budgetItem->getBudgetEntity()-|" title="Entidad" |-$readonly|readonly:"width2em"-|></td>
+			<td><input name="budgetItem[][budgetSource]" id="params_budgetSource[]" type="text" value="|-$budgetItem->getBudgetSource()-|" title="Fuente de Financiamiento" |-$readonly|readonly:"width2em"-|></td>
+			<td><input name="budgetItem[][budgetSubsection]" id="params_budgetSubsection[]" type="text" value="|-$budgetItem->getBudgetSubsection()-|" title="Inciso" |-$readonly|readonly:"width2em"-|></td>
+			<td><input name="budgetItem[][budgetCurrency]" id="params_budgetCurrency[]" type="text" value="|-$budgetItem->getBudgetCurrency()-|" title="Moneda" |-$readonly|readonly:"width2em"-|></td>
+			<td><input name="budgetItem[][budgetCapital]" id="params_budgetCapital[]" type="text" value="|-$budgetItem->getBudgetCapital()-|" title="Principal" |-$readonly|readonly:"width2em"-|></td>
+			<td><input name="budgetItem[][budgetPartial]" id="params_budgetPartial[]" type="text" value="|-$budgetItem->getBudgetPartial()-|" title="Parcial" |-$readonly|readonly:"width2em"-|></td>
+			<td><input name="budgetItem[][budgetSubpartial]" id="params_budgetSubpartial[]" type="text" value="|-$budgetItem->getBudgetSubpartial()-|" title="SubParcial" |-$readonly|readonly:"width2em"-|></td>
+			<td><input name="budgetItem[][budgetGeolocation]" id="params_budgetGeolocation[]" type="text" value="|-$budgetItem->getBudgetGeolocation()-|" title="Ubicacion Geo" |-$readonly|readonly:"width2em"-|></td>
+			<td align="center"><input name="budgetItem[][totalItem]" type="hidden" value="0"><input name="budgetItem[][totalItem]" id="params_total[]" type="checkbox" value="1" |-$budgetItem->getTotalItem()|checked_bool-| title="Indique si se utiliza toda la partida" |-$readonly|readonly-|>
+</td>
+			<td><input name="budgetItem[][amount]" id="params_amount[]" type="text" value="|-$budgetItem->getAmount()|system_numeric_format-|" class="right" title="Monto" |-$readonly|readonly:"width6em"-|></td>
 			<td nowrap>|-if !$show && !$showLog-|
 				|-if date('Y-m-d',strtotime($budgetItem->getUpdatedsigaf())) eq date("Y-m-d")-|<img src="images/clear.png" class="disabled icon iconActivate" title="Actualizado hoy" />|-else-|
-				<input name="updateBudgetItem" type="hidden" value="1"><input type="button" id="update_|-$budgetItem->getId()-|" class="icon iconEdit" title="Actualizar partida" value="Actualizar partida" onClick="updateItem('|-$budgetItem->getId()-|')" />
+				<input name="updateBudgetItem" type="hidden" value="1"><input type="button" id="update_|-$budgetItem->getId()-|" class="icon iconUpdate" title="Actualizar partida" value="Actualizar partida" onClick="updateItem('|-$budgetItem->getId()-|')" />
 				|-/if-|
-				|-else-|<img src="images/clear.png" class="disabled icon iconEdit" />|-/if-|</td>
+				|-else-|<img src="images/clear.png" class="disabled icon iconActivate" />|-/if-|</td>
          	<td>|-if !$show && !$showLog-|<input name="budgetItem[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar partida" value="Eliminar partida" onClick="removeItemFromConstruction('|-$budgetItem->getId()-|')" />|-else-|<img src="images/clear.png" class="disabled icon iconClear" />|-/if-|</td> 
        </tr> 
       |-/foreach-|

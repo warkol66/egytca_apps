@@ -731,6 +731,18 @@ a.return, a.report, a.importHeadlines {
 .wideInput  {
 	width: 15.0em;
 }
+.width1em {
+	width: 1.0em;
+}
+.width1_5em {
+	width: 1.5em;
+}
+.width2em {
+	width: 2.0em;
+}
+.width2_5em {
+	width: 2.5em;
+}
 .width3em {
 	width: 3.0em;
 }
