@@ -13,6 +13,5 @@
 	|-foreach $months as $month-|
 		<set label="|-$month.label-|" value="|-$month.value-|" />
 	|-/foreach-|
-    <set label='test' value='170' /> 
 	
 </chart>
