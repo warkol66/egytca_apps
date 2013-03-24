@@ -1,6 +1,6 @@
 <?php
 
-class PlanningBarsQXmlAction extends BaseAction {
+class PlanningConstructionsOnExecutionByMinistryXmlAction extends BaseAction {
 	
 	function execute($mapping, $form, &$request, &$response) {
 
@@ -14,23 +14,13 @@ class PlanningBarsQXmlAction extends BaseAction {
 		
 		$this->template->template = 'TemplatePlain.tpl';
 		
-		$positionType = key(ConfigModule::get("planning","positionsTypes"));
-		$positions = PositionQuery::create()->filterByType($positionType)
-			->_or()->filterByPlanning(true)->find();
-		
+		$positions = PositionQuery::findMinistries();
 		foreach ($positions as $position) {
-			
 			$q[$position->getInternalCode()] = 0;
 			
-			foreach ($position->getOnlyConstructionsWithDescendants() as $construction) {
-				if ($construction->isOnExecution())
+			foreach ($position->getPlanningConstructionsWithDescendants() as $planningConstruction) {
+				if ($planningConstruction->isOnExecution()) {
 					$q[$position->getInternalCode()]++;
-			}
-			
-			foreach ($position->getOnlyProjectsWithDescendants() as $project) {
-				foreach ($project->getPlanningConstructions() as $planningConstruction) {
-					if ($planningConstruction->isOnExecution())
-						$q[$position->getInternalCode()]++;
 				}
 			}
 		}

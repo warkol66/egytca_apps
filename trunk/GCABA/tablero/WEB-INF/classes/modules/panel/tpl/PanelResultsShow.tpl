@@ -170,7 +170,7 @@ function viewObjective(id){
     <br/>
     <script type="text/javascript">
         var myChart4 = new FusionCharts("images/Column2D.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId4", "1000", "300", "0", "1" );
-		myChart4.setDataURL(escape("Main.php?do=planningBarsQXml"));
+		myChart4.setDataURL(escape("Main.php?do=planningConstructionsOnExecutionByMinistryXml"));
         myChart4.render("chartContainer4");
     </script>
 
