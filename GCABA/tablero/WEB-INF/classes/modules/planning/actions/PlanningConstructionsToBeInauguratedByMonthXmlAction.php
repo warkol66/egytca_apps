@@ -1,6 +1,6 @@
 <?php
 
-class PlanningBarsWXmlAction extends BaseAction {
+class PlanningConstructionsToBeInauguratedByMonthXmlAction extends BaseAction {
 	
 	function execute($mapping, $form, &$request, &$response) {
 
@@ -14,32 +14,23 @@ class PlanningBarsWXmlAction extends BaseAction {
 		
 		$this->template->template = 'TemplatePlain.tpl';
 		
-		$positionType = key(ConfigModule::get("planning","positionsTypes"));
-		$positions = PositionQuery::create()->filterByType($positionType)
-			->_or()->filterByPlanning(true)->find();
+		$positions = PositionQuery::findMinistries();
 		
 		$months = array();
-		for ($i = 1; $i <= 12; $i++) {
+		for ($i = 1; $i <= 12; $i++) {	
 			
 			$monthStr = "2013-$i";
 			$month['label'] = date('M', strtotime($monthStr)).'13';
 			$month['dateRange']['min'] = strtotime("first day of $monthStr");
 			$month['dateRange']['max'] = strtotime("last day of $monthStr");
+			$month['value'] = 0;
 			
 			foreach ($positions as $position) {
-
-				$month['value'] = 0;
-				
 				$dateFilteredQuery = PlanningConstructionQuery::create()->filterByPotentialendingdate($month['dateRange']);
-				
-				$month['value'] += count($position->getOnlyConstructionsWithDescendants($dateFilteredQuery));
-
-				foreach ($position->getOnlyProjectsWithDescendants() as $project) {
-//					$month['value'] +=  count($project->getPlanningConstructions($dateFilteredQuery));
-				}
+				$month['value'] += count($position->getPlanningConstructionsWithDescendants($dateFilteredQuery));
 			}
-			
-			$months []= $month;
+		
+			$months[] = $month;
 		}
 		
 		$smarty->assign('months', $months);
@@ -47,5 +38,5 @@ class PlanningBarsWXmlAction extends BaseAction {
 		header('Content-type: application/xml');
 		return $mapping->findForwardConfig('success');
 	}
-
+	
 }

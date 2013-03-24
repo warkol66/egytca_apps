@@ -177,7 +177,7 @@ function viewObjective(id){
     <div id="chartContainer5">Cargando...</div>
     <script type="text/javascript">
         var myChart5 = new FusionCharts("images/Column2D.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId5", "1000", "300", "0", "1" );
-		myChart5.setDataURL(escape("Main.php?do=planningBarsWXml"));
+		myChart5.setDataURL(escape("Main.php?do=planningConstructionsToBeInauguratedByMonthXml"));
         myChart5.render("chartContainer5");
     </script>
 <div id="fcexpDiv" align="center">FusionCharts Export</div>

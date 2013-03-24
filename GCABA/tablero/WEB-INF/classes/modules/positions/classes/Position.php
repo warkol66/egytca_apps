@@ -482,7 +482,7 @@ class Position extends BasePosition {
 	 * @return array PlanningConstructions
 	 */
 	public function getPlanningConstructionsByStatusColor($color, $query = null) {
-		$constructions = $this->getOnlyConstructionsWithDescendants($query);
+		$constructions = $this->getPlanningConstructionsWithDescendants($query);
 		$filteredConstructions = array();
 		foreach ($constructions as $construction) {
 			if ($construction->isOfStatusColor($color)) {
