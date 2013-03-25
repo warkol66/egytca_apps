@@ -82,5 +82,18 @@ class ActionLog extends BaseActionLog {
 		}
 		return $result;
 	}
+	
+	/**
+	* Obtiene el sql para eliminar los una etiqueta dependiendo el nombre del action y el forward
+	* @param string $module nombre del modulo
+	* @param string $language código del idioma
+	* @return string $sql para eliminar registros
+	*/
+
+	function getSQLCleanup($module,$language) {
+		$sql = "DELETE FROM `actionLogs_label` WHERE `action` LIKE '" . ucfirst($module) . "%' AND `language` = '" . $language . "';\n";
+		$sql .= "OPTIMIZE TABLE `actionLogs_label`;";
+		return $sql;
+	}
 
 } // ActionLog

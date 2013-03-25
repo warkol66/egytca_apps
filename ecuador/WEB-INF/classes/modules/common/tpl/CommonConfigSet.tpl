@@ -1,7 +1,9 @@
 <h2>##common,18,Configuración del Sistema##</h2>
 <h1>Variables de Configuración del Sistema</h1>
 <p>A continuación podrá editar las variables de configuración del sistema.</p>
-|-if $message eq "ok"-|
+|-if $message eq "error"-|
+<div class='errorMessage'>No se pudo guardar la configuración</div>
+|-elseif $message eq "ok"-|
 	<div class='successMessage'>Configuración Guardada</div>
 |-/if-|
 <form action="Main.php" method="get">

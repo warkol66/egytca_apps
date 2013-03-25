@@ -7,6 +7,18 @@
 class Document extends BaseDocument {
 	
 	/**
+	 * Verifica si el documento está protegido pro contraseña y si la contraseña coincide
+	 * @param string password
+	 * @return boolean
+	 */
+	public function checkPasswordValidation($password) {
+		if (!$this->isPasswordProtected())
+			return true;
+
+		return $this->checkPassword($password);
+	}
+	
+	/**
 	 * 
 	 * @return string documents path
 	 */
