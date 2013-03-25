@@ -46,10 +46,17 @@ class UsersDoLoginAction extends BaseAction {
 				Common::doLog('success','username: ' . $_POST["loginUsername"]);
 				$smarty->assign("SESSION",$_SESSION);
 
-			if (is_null($user->getPasswordUpdated()))
-				return $mapping->findForwardConfig('successFirstLogin');
-			else
-				return $mapping->findForwardConfig('success');
+				if (is_null($user->getPasswordUpdated()))
+					return $mapping->findForwardConfig('successFirstLogin');
+				else
+					return $mapping->findForwardConfig('success');
+			} else {
+				//Guardo una falla al solicitar login
+				Common::loginFailure($_POST["loginUsername"], $_POST["loginPassword"]);
+				//Me fijo si tengo que bloquear el usuario
+				$failure = UserQuery::create()->findOneByUsername($_POST["loginUsername"]);
+				//obtener el userType
+				//Common::checkLoginUserFailures($failure->get, $failure->getId());
 			}
 		}
 

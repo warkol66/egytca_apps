@@ -1,5 +1,8 @@
 <h2>##common,18,Configuración del Sistema##</h2>
 <h1>Variables de Configuración del Sistema</h1>
+|-if $message eq "error"-|
+	<div class='errorMessage'>La configuración no pudo ser guardada. Verifique los permisos del archivo</div>
+|-/if-|
 <p>A continuación podrá editar las variables de configuración del sistema.</p>
 <!-- BOX VARIABLES ------------------------------->
 <div id="boxVariables">

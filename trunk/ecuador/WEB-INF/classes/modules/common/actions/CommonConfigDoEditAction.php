@@ -34,7 +34,8 @@ class CommonConfigDoEditAction extends BaseAction {
 		require_once('includes/assoc_array2xml.php');
 		$converter= new assoc_array2xml;
 		$xml = $converter->array2xml($system["config"]);
-		file_put_contents("config/config.xml",$xml);
+		if(!file_put_contents("config/config.xml",$xml))
+			return $mapping->findForwardConfig('failure');
 
 		return $mapping->findForwardConfig('success');
 	}

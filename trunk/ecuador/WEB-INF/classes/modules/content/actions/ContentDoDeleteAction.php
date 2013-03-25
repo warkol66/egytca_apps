@@ -41,8 +41,9 @@ class ContentDoDeleteAction extends BaseAction {
 		$result = false; //resultado de la operacion
 
 		if (isset($_POST['id'])) {
-			$contentToDelete = $content->getContent($_POST['id']);
-			$result = $content->deleteContent($contentToDelete);
+			$contentToDelete = ContentQuery::create()->findOneById($_POST['id']);
+			//$contentToDelete = $content->getContent($_POST['id']);
+			$result = $contentToDelete->delete();
 		}
 
 		if ($result)

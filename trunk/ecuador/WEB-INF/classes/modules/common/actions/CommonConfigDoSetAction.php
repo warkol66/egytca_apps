@@ -38,7 +38,8 @@ class CommonConfigDoSetAction extends BaseAction {
 		require_once('includes/assoc_array2xml.php');
 		$converter= new assoc_array2xml;
 		$xml = $converter->array2xml($system["config"]);
-		file_put_contents("config/config.xml",$xml);
+		if(!file_put_contents("config/config.xml",$xml))
+			$failure = true;
 		//Cambiamos opciones de Configuracion Generales del sistema al modificarse en la configuracion
 		
 		//Error Reporting
@@ -47,8 +48,11 @@ class CommonConfigDoSetAction extends BaseAction {
 				$level = 0;
 			}
 			error_reporting($level);		
-
-		return $mapping->findForwardConfig('success');
+		
+		if(isset($failure))
+			return $mapping->findForwardConfig('failure');
+		else
+			return $mapping->findForwardConfig('success');
 	}
 
 }

@@ -160,6 +160,7 @@
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=commonConfigSet&amp;message=ok" redirect="true" />
+			<forward name="failure" path="/Main.php?do=commonConfigSet&amp;message=error" redirect="true" />
 		</action>
 
 		<action    path = "commonConfigDoEdit"
@@ -168,6 +169,7 @@
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=commonConfigView&amp;message=ok" redirect="true" />
+			<forward name="failure" path="/Main.php?do=commonConfigEdit&amp;message=error" redirect="true" />
 		</action>
 
 	</action-mappings>

@@ -78,6 +78,11 @@ class Content extends BaseContent {
 				$this->setLocale($locale);
 				return $this->getTitle();
 		}
+		
+		public function deleteContent($toDelete){
+			//if($toDelete->isRoot())
+				
+		}
 
 
 }
