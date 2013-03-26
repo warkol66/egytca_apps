@@ -1639,6 +1639,22 @@ class Common {
 		}
 		return false;
 	}
+	
+	public static function isBlockedUser($userName) {
+		
+		$usernameExists = Common::getByUsername($userName);
+		
+		if (!empty($usernameExists)) { //Si existe el username
+			$objectType = get_class($usernameExists);
+			$queryClass = $objectType . "Query";
+			$user = $queryClass::create()->findOneByUsername($objectId);
+			if($user->getBlockedAt())
+				return true;
+			else
+				return false;
+		}
+	
+	}
 
 	/**
 	* Devuelve un array con los dias primero y ultimo del mes de una fecha determinada

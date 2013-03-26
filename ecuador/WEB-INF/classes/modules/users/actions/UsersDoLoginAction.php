@@ -55,8 +55,7 @@ class UsersDoLoginAction extends BaseAction {
 				Common::loginFailure($_POST["loginUsername"], $_POST["loginPassword"]);
 				//Me fijo si tengo que bloquear el usuario
 				$failure = UserQuery::create()->findOneByUsername($_POST["loginUsername"]);
-				//obtener el userType
-				//Common::checkLoginUserFailures($failure->get, $failure->getId());
+				Common::checkLoginUserFailures("User", $failure->getId());
 			}
 		}
 

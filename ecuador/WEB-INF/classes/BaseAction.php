@@ -130,8 +130,11 @@ class BaseAction extends Action {
 
 		if (!$noCheckLogin) { //Verifica login $noCheckLogin != 1
 
-			$loggedUser = Common::getLoggedUser();			
+			$loggedUser = Common::getLoggedUser();	
 			if (!empty($loggedUser)) {
+				/*Veo que el usuario no este bloqueado
+				if(isBlockedUser())*/
+				
 				if (!ConfigModule::get("global","noSecurity") && $actionRequested != "securityNoPermission") {
 					if (!empty($securityAction))
 						$access = $securityAction->getAccessByUser($loggedUser);
