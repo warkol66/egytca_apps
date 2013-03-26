@@ -47,8 +47,13 @@ class CommonDoLoginAction extends BaseAction {
 							else
 								$forwardValue = 'successUsers';
 						}
-						else //si no autentifico
+						else {//si no autentifico
+							//Guardo una falla al solicitar login
+							Common::loginFailure($_POST["loginUsername"], $_POST["loginPassword"]);
+							//Si tengo que bloquear al usuario lo bloqueo
+							Common::checkLoginUserFailures(get_class($usernameExists), $failure->getId());
 							$forwardValue = 'failureDataMissmatch';
+						}
 					}
 					else if (get_class($usernameExists) == "AffiliateUser") {
 						$user = AffiliateUserPeer::auth($_POST["loginUsername"],$_POST["loginPassword"]);
@@ -61,8 +66,13 @@ class CommonDoLoginAction extends BaseAction {
 							else
 								$forwardValue = 'successAffiliateUsers';
 						}
-						else //si no autentifico
+						else {//si no autentifico
+							//Guardo una falla al solicitar login
+							Common::loginFailure($_POST["loginUsername"], $_POST["loginPassword"]);
+							//Si tengo que bloquear al usuario lo bloqueo
+							Common::checkLoginUserFailures(get_class($usernameExists), $failure->getId());
 							$forwardValue = 'failureDataMissmatch';
+						}
 					}
 					else if (get_class($usernameExists) == "ClientUser") {
 						$user = ClientUserPeer::auth($_POST["loginUsername"],$_POST["loginPassword"]);
@@ -75,14 +85,22 @@ class CommonDoLoginAction extends BaseAction {
 							else
 								$forwardValue = 'successClientUsers';
 						}
-						else //si no autentifico
+						else {//si no autentifico
+							//Guardo una falla al solicitar login
+							Common::loginFailure($_POST["loginUsername"], $_POST["loginPassword"]);
+							//Si tengo que bloquear al usuario lo bloqueo
+							Common::checkLoginUserFailures(get_class($usernameExists), $failure->getId());
 							$forwardValue = 'failureDataMissmatch';
+						}
 					}
 					//Si encontre usuario valido regreso con la informacion del $forwardValue
 					return $mapping->findForwardConfig($forwardValue);
 				}
-				else //No consigo usuario valido
+				else {//No consigo usuario valido
+					$remoteIp = Common::getIp();
+					Common::checkLoginIpFailures($remoteIp);
 					return $mapping->findForwardConfig('failureDataMissmatch');
+				}
 			}
 			else
 				return $mapping->findForwardConfig('failureMissingData');
