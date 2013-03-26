@@ -1405,6 +1405,32 @@ class Common {
 /* Chequeo fallas login y seguridad al solicitar acciones no permitidas */
 
 	/**
+	* Obtiene la ip del cliente
+	*
+	* @return ip
+	*/
+	public static function getIp() {
+		
+		$client  = $_SERVER['HTTP_CLIENT_IP'];
+		$forward = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		$remote  = $_SERVER['REMOTE_ADDR'];
+
+		if(filter_var($client, FILTER_VALIDATE_IP))
+		{
+			$ip = $client;
+		}
+		elseif(filter_var($forward, FILTER_VALIDATE_IP))
+		{
+			$ip = $forward;
+		}
+		else
+		{
+			$ip = $remote;
+		}
+		return $ip;
+
+	}
+	/**
 	* Guarda una falla al solicitar login
 	*
 	* @param string $username nombre de usuario
@@ -1413,7 +1439,7 @@ class Common {
 	*/
 	public static function loginFailure($username, $password) {
 
-		$remoteIp = $_SERVER["REMOTE_ADDR"];
+		$remoteIp = Common::getIp();
 		$ipBlocked = Common::checkLoginIpFailures($remoteIp);
 		$userBlocked = Common::checkLoginUserFailures($objectType, $objectId);
 		if ($ipBlocked || $userBlocked)
