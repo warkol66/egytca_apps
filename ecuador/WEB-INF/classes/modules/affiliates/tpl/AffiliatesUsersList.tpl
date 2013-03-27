@@ -1,15 +1,28 @@
 <script language="JavaScript" type="text/javascript">
 function resetPassword(form){
 	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'usersMsgField'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				});
-	$('usersMsgField').innerHTML = '<span class="inProgress">generando nueva contraseña...</span>';
+	$.ajax({
+		url: url,
+		data: $('#' + form).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#usersMsgField').html(data);
+		}	
+	});
+	$('#usersMsgField').innerHTML = '<span class="inProgress">generando nueva contraseña...</span>';
+	return true;
+}
+
+function unblockUser(form){
+	$.ajax({
+		url: url,
+		data: $('#' + form).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#usersMsgField').html(data);
+		}	
+	});
+	$('#usersMsgField').innerHTML = '<span class="inProgress">desbloqueando usuario...</span>';
 	return true;
 }
 </script>
@@ -61,10 +74,10 @@ function resetPassword(form){
 	|-foreach from=$users item=user name=for_users-|
 	<tr>
 		<td width="15%">|-$user->getAffiliate()-|</td>
-		<td width="25%">|-$user->getUsername()-|</td>
+		<td width="20%">|-$user->getUsername()-|</td>
 		<td width="25%">|-$user->getSurname()-|, |-$user->getName()-|</td>
 		<td width="25%">|-$user->getMailAddress()-|</td>
-		<td width="10%" nowrap>
+		<td width="15%" nowrap>
 			|-if "affiliatesUsersEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="affiliatesUsersEdit" /> 
 			  <input type="hidden" name="id" value="|-$user->getId()-|" /> 
@@ -89,14 +102,22 @@ function resetPassword(form){
 				|-/if-| 
 			|-/if-|
 		|-if "affiliatesUsersPasswordResetX"|security_has_access-|
-			|-if ($user->getMailAddress() ne '') && (!isset($loginAffiliateUser) || (isset($loginAffiliateUser) && ($loginAffiliateUser->getUsername() neq $user->getUsername())))-|<form method="post">
+			|-if ($user->getMailAddress() ne '') && (!isset($loginAffiliateUser) || (isset($loginAffiliateUser) && ($loginAffiliateUser->getUsername() neq $user->getUsername())))-|<form method="post" id="pss_|-$user->getId()-|">
 				<input type="hidden" name="do" value="affiliatesUsersPasswordResetX" />
 				<input type="hidden" name="id" value="|-$user->getId()-|" />
-				<input type="button" value="Resetear contraseña" onClick="if (confirm('Una nueva contraseña se enviará por correo a la dirección del usuario. ¿Seguro que desea resetear esta contraseña?')){resetPassword(this.form)}; return false" title="Resetear contraseña" class="icon iconPassword">
+				<input type="button" value="Resetear contraseña" onClick="if (confirm('Una nueva contraseña se enviará por correo a la dirección del usuario. ¿Seguro que desea resetear esta contraseña?')){resetPassword('pss_|-$user->getId()-|')}; return false" title="Resetear contraseña" class="icon iconPassword">
 				</form>
 			|-elseif ($user->getMailAddress() eq '' && (isset($loginAffiliateUser) && ($loginAffiliateUser->getUsername() neq $user->getUsername())))-|
 				<input type="button" title="El usuario no posee dirección de correo electrónico, no se puede resetear la contraseña" class="icon iconPassword disabled">
 			|-/if-|
+		|-/if-|
+		|-if $user->getBlockedAt()-|
+			<form method="post" id="unblock_|-$user->getId()-|">
+			<input type="hidden" name="do" value="commonUsersDoUnblockX" />
+			<input type="hidden" name="type" value="|-get_class($user)-|" />
+			<input type="hidden" name="id" value="|-$user->getId()-|" />
+			<input type="button" value="Desbloquear Usuario" onClick="unblockUser('unblock_|-$user->getId()-|'); return false" title="Desbloquear Usuario" class="icon iconPassword">
+			</form>
 		|-/if-|
 		</td>
 	</tr>
