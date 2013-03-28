@@ -119,6 +119,7 @@ class PlanningProjectsDoEditAction extends BaseAction {
 				$itemValues = array();
 			}
 		}
+		
 		//Guardo los datos de montos asociados a la obra
 		foreach ($itemParams as $budgetItem) {
 			if (!empty($budgetItem["id"])) {
