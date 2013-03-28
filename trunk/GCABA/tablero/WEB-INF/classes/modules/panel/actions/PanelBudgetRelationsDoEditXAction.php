@@ -36,24 +36,23 @@ class PanelBudgetRelationsDoEditXAction extends BaseAction {
 			$budgetRelation = BudgetRelationQuery::create()->findOneById($itemValues["id"]);
 			if (empty($budgetRelation))
 				$budgetRelation = new BudgetRelation();
-			else
-				$budgetRelation = new BudgetRelation();
+		} else
+			$budgetRelation = new BudgetRelation();
 			
-			$budgetRelation->fromArray($itemValues,BasePeer::TYPE_FIELDNAME);
-			$budgetRelation->setObjectType($_POST["objectType"]);
-			$budgetRelation->setObjectid($_POST["objectId"]);
-			try {
-				$budgetRelation->save();
-			} catch (PropelException $exp) {
-				if (ConfigModule::get("global","showPropelExceptions"))
-					print_r($exp->__toString());
-			}
-			$smarty->assign("bEdit", "ok");
-			return $mapping->findForwardConfig('success');
+		$budgetRelation->fromArray($itemValues,BasePeer::TYPE_FIELDNAME);
+		$budgetRelation->setObjectType($_POST["objectType"]);
+		$budgetRelation->setObjectid($_POST["objectId"]);
+		try {
+			$budgetRelation->save();
+		} catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->__toString());
 		}
-		
-		$smarty->assign("bEdit", "error");
+		$smarty->assign("bEdit", "ok");
 		return $mapping->findForwardConfig('success');
+		
+		/*$smarty->assign("bEdit", "error");
+		return $mapping->findForwardConfig('success');*/
 		
 	}
 	
