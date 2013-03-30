@@ -98,10 +98,17 @@ class PanelExpensesShowAction extends BaseAction {
 	 * @return array array of ExpensesSum
 	 */
 	function getEntitiesExpenses($entities) {
+		
+		$yearsRange = array(
+			'min' => ConfigModule::get('planning', 'startingYear'),
+			'max' => ConfigModule::get('planning', 'endingYear')
+		);
+		
 		$entitiesExpenses = array();
 		foreach ($entities as $entity) {
 			
-			$budgetRelations = $entity->getBudgetItems();
+			$yearFilteredQuery = BudgetRelationQuery::create()->filterByBudgetyear($yearsRange);
+			$budgetRelations = $entity->getBudgetItems($yearFilteredQuery);
 //			$budgetRelations = array(ExpensesSum::createRandomBudgetRelation(), ExpensesSum::createRandomBudgetRelation()); // TODO: revisar $budgetRelations y borrar
 			
 			$entityExpenses = new ExpensesSum($entity->getName(), $budgetRelations);

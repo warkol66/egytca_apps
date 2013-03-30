@@ -239,8 +239,8 @@ class PlanningProject extends BasePlanningProject {
 	 * Devuelve las partidas presupuestarias
 	 * @return array Relacion con partidas presupuestarias
 	 */
-	public function getBudgetItems() {
-		return BaseQuery::create('BudgetRelation')->filterByObjecttype('Project')->filterByObjectid($this->getId())->find();
+	public function getBudgetItems($criteria) {
+		return BudgetRelationQuery::create(null, $criteria)->filterByObjecttype('Project')->filterByObjectid($this->getId())->find();
 	}
 
 	/**
