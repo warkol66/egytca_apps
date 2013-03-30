@@ -67,10 +67,10 @@ class Region extends BaseRegion {
 	 * Devuelve las partidas presupuestarias
 	 * @return PropelObjectCollection partidas presupuestarias
 	 */
-	function getBudgetItems() {
+	function getBudgetItems($criteria) {
 		$budgetItems = array();
 		foreach ($this->getPlanningConstructions() as $planningConstruction) {
-			$budgetItems = array_merge($budgetItems, $planningConstruction->getBudgetItems()->getArrayCopy());
+			$budgetItems = array_merge($budgetItems, $planningConstruction->getBudgetItems($criteria)->getArrayCopy());
 		}
 		return new PropelObjectCollection($budgetItems);
 	}
