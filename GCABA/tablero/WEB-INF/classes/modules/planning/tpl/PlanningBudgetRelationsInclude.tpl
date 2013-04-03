@@ -11,6 +11,7 @@ function addBudgetItem(a) {
 function addBudgetItemRow() {
 	var row = document.createElement('tr');
 html =   '      <tr> '
+ + '		<td></td> '
  + '        <td><input type="hidden" class="item_new" name="objectType" value="|-$type-|" |-$readonly|readonly-|/>'
  + '            <input type="hidden" class="item_new" name="objectId" value="|-$objId-|" |-$readonly|readonly-|/>'
  + '            <input class="item_new" name="budgetItem[][budgetYear]" id="params_budgetYear[]" type="text" value="" title="Año" class="width2_5em"></td>'
@@ -94,14 +95,15 @@ html =   '      <tr> '
      <table class="tableTdBorders" id="budgetItemsTable" style="margin-bottom:15px;"> 
       <thead> 
         |-if !$show && !$showLog-| <tr> 
-          <th colspan="23"><div class="rightLink"><a href="#" onclick="return addBudgetItemRow()" class="addLink" title="Agregar nuevo Monto">Agregar Nueva Partida</a></div></th> 
+          <th colspan="24"><div class="rightLink"><a href="#" onclick="return addBudgetItemRow()" class="addLink" title="Agregar nuevo Monto">Agregar Nueva Partida</a></div></th> 
         </tr> |-/if-|
 				|-if $budgetItems|count eq 0 && ($show || $showLog)-|
 			 <tr> 
-          <td colspan="23">No hay partidas presupuestarias asociadas</td> 
+          <td colspan="24">No hay partidas presupuestarias asociadas</td> 
         </tr>
 			|-else-|
          <tr> 
+		  <th>&nbsp;</th>
           <th>Año</th> 
           <th>Jur</th> 
           <th>Sjur</th>
@@ -129,10 +131,12 @@ html =   '      <tr> '
        </thead> 
       <tbody id="budgetItemsTbody">  |-foreach from=$budgetItems item=budgetItem name=for_contractBudgetItems-|
       <tr id="budgetItemId_|-$budgetItem->getId()-|">
+			|-assign var=isUpdated value=$budgetItem->getUpdatedsigaf()-|
+			<td><a href="javascript:void(null);" class="tooltipWide"><span>Definitivo: |-$budgetItem->getDefinitive()-|<br />Devengado: |-$budgetItem->getAccrued()-|<br />Pagado: |-$budgetItem->getPaid()-|<br />Preventivo: |-$budgetItem->getPreventive()-|<br />Restringido: |-$budgetItem->getRestricted()-|<br />Vigente: |-$budgetItem->getActive()-|</span><img src="images/clear.png" class="icon iconInfo"></a></td>
 			<td><input type="hidden" class="item_|-$budgetItem->getId()-|" name="budgetItem[][id]" value="|-$budgetItem->getId()-|" |-$readonly|readonly-|/>
 			<input type="hidden" class="item_|-$budgetItem->getId()-|" name="objectType" value="|-$type-|" |-$readonly|readonly-|/>
 			<input type="hidden" class="item_|-$budgetItem->getId()-|" name="objectId" value="|-$objId-|" |-$readonly|readonly-|/>
-					<input class="item_|-$budgetItem->getId()-|" name="budgetItem[][budgetYear]" id="params_budgetYear[]" type="text" value="|-$budgetItem->getBudgetYear()-|" title="Año" |-$readonly|readonly:"width2_5em"-|></td>
+				<input class="item_|-$budgetItem->getId()-|" name="budgetItem[][budgetYear]" id="params_budgetYear[]" type="text" value="|-$budgetItem->getBudgetYear()-|" title="Año" |-$readonly|readonly:"width2_5em"-|></td>
 			<td><input class="item_|-$budgetItem->getId()-|" name="budgetItem[][budgetJurisdiction]" id="params_budgetJurisdiction[]" type="text" value="|-$budgetItem->getBudgetJurisdiction()-|" title="Jurisdicción" |-$readonly|readonly:"width2em"-|></td>
 			<td><input class="item_|-$budgetItem->getId()-|" name="budgetItem[][budgetSubjurisdiction]" id="params_budgetSubjurisdiction[]" type="text" value="|-$budgetItem->getBudgetSubjurisdiction()-|" title="SubJurisdiccion" |-$readonly|readonly:"width2em"-|></td>
 			<td><input class="item_|-$budgetItem->getId()-|" name="budgetItem[][budgetOgese]" id="params_budgetOgese[]" type="text" value="|-$budgetItem->getBudgetOgese()-|" title="OGESE" |-$readonly|readonly:"width2em"-|></td>
