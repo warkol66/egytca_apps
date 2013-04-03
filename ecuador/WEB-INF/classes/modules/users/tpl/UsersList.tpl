@@ -1,15 +1,27 @@
 <script language="JavaScript" type="text/javascript">
 function resetPassword(form){
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'usersMsgField'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true
-				});
-	$('usersMsgField').innerHTML = '<span class="inProgress">generando nueva contraseña...</span>';
+	$.ajax({
+		url: url,
+		data: $('#' + form).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#usersMsgField').html(data);
+		}	
+	});
+	$('usersMsgField').html('<span class="inProgress">generando nueva contraseña...</span>');
+	return true;
+}
+
+function unblockUser(form){
+	$.ajax({
+		url: url,
+		data: $('#' + form).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#usersMsgField').html(data);
+		}	
+	});
+	$('#usersMsgField').html('<span class="inProgress">desbloqueando usuario...</span>');
 	return true;
 }
 </script>
@@ -91,15 +103,24 @@ function resetPassword(form){
 				<a href='Main.php?do=usersDoDelete&user=|-$user->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|' title="##115,Eliminar##" onClick='return window.confirm("¿Esta seguro que quiere eliminar este usuario?")'><img src="images/clear.png" class="icon iconDelete"></a>
 			|-/if-|
 		|-/if-|
-		|-if ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() ne '')-|<form method="post">
+		|-if ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() ne '')-|<form method="post" id="pss_|-$user->getId()-|>
 			<input type="hidden" name="do" value="usersPasswordResetX" />
 			<input type="hidden" name="id" value="|-$user->getId()-|" />
-			<input type="button" value="Resetear contraseña" onClick="if (confirm('Una nueva contraseña se enviará por correo a la dirección del usuario. ¿Seguro que desea resetear esta contraseña?')){resetPassword(this.form)}; return false" title="Resetear contraseña" class="icon iconPassword">
+			<input type="button" value="Resetear contraseña" onClick="if (confirm('Una nueva contraseña se enviará por correo a la dirección del usuario. ¿Seguro que desea resetear esta contraseña?')){resetPassword('pss_|-$user->getId()-|')}; return false" title="Resetear contraseña" class="icon iconPassword">
 			</form>
 		|-elseif ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() eq '') -|
 			<input type="button" title="El usuario no podee dirección de correo electrónico, no se puede resetear la contraseña" class="icon iconPassword disabled">
 		|-/if-|
-		|-/if-|</td>
+		|-/if-|
+		|-if $user->getBlockedAt()-|
+			<form method="post" id="unblock_|-$user->getId()-|">
+			<input type="hidden" name="do" value="commonUsersDoUnblockX" />
+			<input type="hidden" name="type" value="|-get_class($user)-|" />
+			<input type="hidden" name="id" value="|-$user->getId()-|" />
+			<input type="button" value="Desbloquear Usuario" onClick="unblockUser('unblock_|-$user->getId()-|'); return false" title="Desbloquear Usuario" class="icon iconPassword">
+			</form>
+		|-/if-|
+		</td>
 	</tr>
 	|-/foreach-|
 	|-if "usersEdit"|security_has_access-||-if !isset($licensesLeft) || (isset($licensesLeft) && $licensesLeft gt 0)-|
