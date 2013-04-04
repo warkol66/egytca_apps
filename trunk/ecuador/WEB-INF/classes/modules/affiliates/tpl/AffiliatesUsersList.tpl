@@ -1,6 +1,5 @@
 <script language="JavaScript" type="text/javascript">
 function resetPassword(form){
-	var fields = Form.serialize(form);
 	$.ajax({
 		url: url,
 		data: $('#' + form).serialize(),
@@ -9,7 +8,7 @@ function resetPassword(form){
 			$('#usersMsgField').html(data);
 		}	
 	});
-	$('#usersMsgField').innerHTML = '<span class="inProgress">generando nueva contraseña...</span>';
+	$('#usersMsgField').html('<span class="inProgress">generando nueva contraseña...</span>');
 	return true;
 }
 

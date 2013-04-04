@@ -1647,7 +1647,7 @@ class Common {
 		if (!empty($usernameExists)) { //Si existe el username
 			$objectType = get_class($usernameExists);
 			$queryClass = $objectType . "Query";
-			$user = $queryClass::create()->findOneByUsername($objectId);
+			$user = $queryClass::create()->findOneByUsername($userName);
 			if($user->getBlockedAt())
 				return true;
 			else

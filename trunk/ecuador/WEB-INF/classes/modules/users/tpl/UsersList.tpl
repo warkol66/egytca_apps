@@ -78,10 +78,10 @@ function unblockUser(form){
 	<tr>
 		<th width="25%" nowrap >##162,Identificación de Usuario##</th>
 		<th width="20%">##163,Nombre##</th>
-		<th width="30%">##164,Apellido##</th>
+		<th width="25%">##164,Apellido##</th>
 		<th width="20%">Email</th>
 		<th width="10%">Nivel Permisos</th>
-		<th width="5%">&nbsp;</th>
+		<th width="10%">&nbsp;</th>
 	</tr>
 	|-foreach from=$users item=user name=for_users-|
 	<tr>
@@ -103,13 +103,13 @@ function unblockUser(form){
 				<a href='Main.php?do=usersDoDelete&user=|-$user->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|' title="##115,Eliminar##" onClick='return window.confirm("¿Esta seguro que quiere eliminar este usuario?")'><img src="images/clear.png" class="icon iconDelete"></a>
 			|-/if-|
 		|-/if-|
-		|-if ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() ne '')-|<form method="post" id="pss_|-$user->getId()-|>
+		|-if ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() ne '')-|<form method="post" id="pss_|-$user->getId()-|">
 			<input type="hidden" name="do" value="usersPasswordResetX" />
 			<input type="hidden" name="id" value="|-$user->getId()-|" />
 			<input type="button" value="Resetear contraseña" onClick="if (confirm('Una nueva contraseña se enviará por correo a la dirección del usuario. ¿Seguro que desea resetear esta contraseña?')){resetPassword('pss_|-$user->getId()-|')}; return false" title="Resetear contraseña" class="icon iconPassword">
 			</form>
 		|-elseif ($loginUser->getUsername() neq $user->getUsername()) && ($user->getMailAddress() eq '') -|
-			<input type="button" title="El usuario no podee dirección de correo electrónico, no se puede resetear la contraseña" class="icon iconPassword disabled">
+			<input type="button" title="El usuario no posee dirección de correo electrónico, no se puede resetear la contraseña" class="icon iconPassword disabled">
 		|-/if-|
 		|-/if-|
 		|-if $user->getBlockedAt()-|
