@@ -13,6 +13,8 @@
 			<br /><br />Este sistema requiere que la habilite para su correcto funcionamiento.
 			<br /><br />Podrá ingresar al sistema pero recuerde que algunas funciones pueden no ejecutarse correctamente.</div></noscript>
 			<p>|-if isset($unifiedLogin)-|Selecciones el tipo de usuario e i|-else-|I|-/if-|ngrese su usuario y contraseña para ingresar al sistema</p> 
+			|-if $message eq "blockedUser"-|
+				<div align='center' class='errorMessage'>El usuario con el que intenta ingresar ha sido bloqueado. Comuníquese con el administrador</div> 
 			|-if $message eq "dataMissmatch"-|
 				<div align='center' class='errorMessage'>Usuario desconocido o contraseña incorrecta!. Intente nuevamente.</div> 
 			|-elseif $message eq "missingData"-|
