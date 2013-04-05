@@ -208,7 +208,7 @@ function viewObjective(id){
 			<tr>
 				<td id="expandP_|-$position->getId()-|"><a href="#" id="position_|-$position->getId()-|" onClick="showImpactObjectives(|-$position->getId()-|); return false;"><img src="images/icon_expand.png" /></a></td>
 				<td id="collapseP_|-$position->getId()-|" style="display: none;"><a href="#" onClick="objectivesHide(|-$position->getId()-|); return false;"><img src="images/icon_collapse.png" /></a></td>
-				<td><strong>|-$position->getName()-|</strong></td>
+				<td><strong><a href="Main.php?do=panelProjectsShow&positionId=|-$position->getId()-|">|-$position->getName()-|</a></strong></td>
 				<td align="center" nowrap="nowrap">
 					<div style="width:108px;"><!--<a href="" class="flagWhite">
 						|-$colorsCount.white-|

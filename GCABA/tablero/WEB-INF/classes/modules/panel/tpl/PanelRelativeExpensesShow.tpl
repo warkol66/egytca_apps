@@ -13,42 +13,51 @@
 <input type="hidden" name="filename" />
 </form>
 
-<h6>Gasto en Obras por comuna mensual / acumulado en millones de pesos corrientes, año 2013 al 20/03/2013</h6>
+<h6>Gasto en Obras por comuna mensual / acumulado en porcentaje</h6>
 	<table class="tablaInfo small" id="gastoComuna">
-			<tr><th>Gasto por Comuna</th><th>Sanción </th><th>Vigente </th><th>Restringido </th><th>Preventivo </th><th>Definitivo </th><th>Devengado  </th><th>Disponible </th><th>Pagado  </th></tr>
+			<tr><th width="28%">Gasto por Comuna</th><th width="8%">Sanción </th>
+			<th width="8%">Vigente </th>
+			<th width="8%">Restringido </th>
+			<th width="8%">Preventivo </th>
+			<th width="8%">Definitivo </th>
+			<th width="8%">Devengado  </th>
+			<th width="8%">Disponible </th>
+			<th width="8%">Pagado  </th>
+			</tr>
 			<tr>
 				<th>Total</th>
-				|-*<th>|-$regionsExpensesTotal.sanctioned-|</th>
-				<th>|-$regionsExpensesTotal.active-|</th>
-				<th>|-$regionsExpensesTotal.restricted-|</th>
-				<th>|-$regionsExpensesTotal.preventive-|</th>
-				<th>|-$regionsExpensesTotal.definitive-|</th>
-				<th>|-$regionsExpensesTotal.accrued-|</th>
-				<th>|-$regionsExpensesTotal.available-|</th>
-				<th>|-$regionsExpensesTotal.paid-|</th>*-|
-				<th>100</th>
-				<th>100</th>
-				<th>100</th>
-				<th>100</th>
-				<th>100</th>
-				<th>100</th>
-				<th>100</th>
-				<th>100</th>
+				|-*<th align="right">|-$regionsExpensesTotal.sanctioned-|</th>
+				<th align="right">|-$regionsExpensesTotal.active-|</th>
+				<th align="right">|-$regionsExpensesTotal.restricted-|</th>
+				<th align="right">|-$regionsExpensesTotal.preventive-|</th>
+				<th align="right">|-$regionsExpensesTotal.definitive-|</th>
+				<th align="right">|-$regionsExpensesTotal.accrued-|</th>
+				<th align="right">|-$regionsExpensesTotal.available-|</th>
+				<th align="right">|-$regionsExpensesTotal.paid-|</th>
+				*-|
+				<th align="right">100</th>
+				<th align="right">100</th>
+				<th align="right">100</th>
+				<th align="right">100</th>
+				<th align="right">100</th>
+				<th align="right">100</th>
+				<th align="right">100</th>
+				<th align="right">100</th>
 			</tr>
 			|-foreach $regionsExpenses as $regionExpenses-|
 			<tr>
 				<td class="left">|-$regionExpenses->getEntityname()-|</td>
-				<th>|-$regionExpenses->getsanctioned()-|</th>
-				<td>|-$regionExpenses->getactive()-|</td>
-				<td>|-$regionExpenses->getrestricted()-|</td>
-				<td>|-$regionExpenses->getpreventive()-|</td>
-				<td>|-$regionExpenses->getdefinitive()-|</td>
-				<td>|-$regionExpenses->getaccrued()-|</td>
-				<th>|-$regionExpenses->getavailable()-|</th>
-				<td>|-$regionExpenses->getpaid()-|</td>
+				<td align="right">|-$regionExpenses->getsanctioned()|system_numeric_format-|</td>
+				<td align="right">|-$regionExpenses->getactive()|system_numeric_format-|</td>
+				<td align="right">|-$regionExpenses->getrestricted()|system_numeric_format-|</td>
+				<td align="right">|-$regionExpenses->getpreventive()|system_numeric_format-|</td>
+				<td align="right">|-$regionExpenses->getdefinitive()|system_numeric_format-|</td>
+				<td align="right">|-$regionExpenses->getaccrued()|system_numeric_format-|</td>
+				<td align="right">|-$regionExpenses->getavailable()|system_numeric_format-|</td>
+				<td align="right">|-$regionExpenses->getpaid()|system_numeric_format-|</td>
 			</tr>
 			|-/foreach-|
-	</table>
+</table>
     <button type="button" name="" value="" class="yellowButton" onclick="tableExport('gastoComuna', 'gasto_por_comuna.xls');">Exportar</button>
     <br/>
 
@@ -70,160 +79,198 @@
         </script>
     </div>
 
-<h6>Gasto por ministerio mensual / acumulado en millones de pesos corrientes, año 2013 al 20/03/2013</h6>
+<h6>Gasto por ministerio mensual / acumulado en porcentaje</h6>
     <table class="tablaInfo small" id="gastoMinisterio">
-        <tr><th>Jurisdicción </th><th>Sanción </th><th>Vigente </th><th>Restringido </th><th>Preventivo </th><th>Definitivo </th><th>Devengado  </th><th>Disponible </th><th>Pagado  </th></tr>
+        <tr><th width="28%">Jurisdicción </th><th width="8%">Sanción </th>
+        <th width="8%">Vigente </th>
+        <th width="8%">Restringido </th>
+        <th width="8%">Preventivo </th>
+        <th width="8%">Definitivo </th>
+        <th width="8%">Devengado  </th>
+        <th width="8%">Disponible </th>
+        <th width="8%">Pagado  </th>
+        </tr>
         <tr>
 			<th>Total</th>
-			|-*<th>|-$ministriesExpensesTotal.sanctioned-|</th>
-			<th>|-$ministriesExpensesTotal.active-|</th>
-			<th>|-$ministriesExpensesTotal.restricted-|</th>
-			<th>|-$ministriesExpensesTotal.preventive-|</th>
-			<th>|-$ministriesExpensesTotal.definitive-|</th>
-			<th>|-$ministriesExpensesTotal.accrued-|</th>
-			<th>|-$ministriesExpensesTotal.available-|</th>
-			<th>|-$ministriesExpensesTotal.paid-|</th>*-|
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
+			|-*<th align="right">|-$ministriesExpensesTotal.sanctioned-|</th>
+			<th align="right">|-$ministriesExpensesTotal.active-|</th>
+			<th align="right">|-$ministriesExpensesTotal.restricted-|</th>
+			<th align="right">|-$ministriesExpensesTotal.preventive-|</th>
+			<th align="right">|-$ministriesExpensesTotal.definitive-|</th>
+			<th align="right">|-$ministriesExpensesTotal.accrued-|</th>
+			<th align="right">|-$ministriesExpensesTotal.available-|</th>
+			<th align="right">|-$ministriesExpensesTotal.paid-|</th>
+			*-|
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
 		</tr>
 		|-foreach $ministriesExpenses as $ministryExpenses-|
 		<tr>
 			<td class="left">|-$ministryExpenses->getEntityname()-|</td>
-			<th>|-$ministryExpenses->getsanctioned()-|</th>
-			<td>|-$ministryExpenses->getactive()-|</td>
-			<td>|-$ministryExpenses->getrestricted()-|</td>
-			<td>|-$ministryExpenses->getpreventive()-|</td>
-			<td>|-$ministryExpenses->getdefinitive()-|</td>
-			<td>|-$ministryExpenses->getaccrued()-|</td>
-			<th>|-$ministryExpenses->getavailable()-|</th>
-			<td>|-$ministryExpenses->getpaid()-|</td>
+			<td align="right">|-$ministryExpenses->getsanctioned()|system_numeric_format-|</td>
+			<td align="right">|-$ministryExpenses->getactive()|system_numeric_format-|</td>
+			<td align="right">|-$ministryExpenses->getrestricted()|system_numeric_format-|</td>
+			<td align="right">|-$ministryExpenses->getpreventive()|system_numeric_format-|</td>
+			<td align="right">|-$ministryExpenses->getdefinitive()|system_numeric_format-|</td>
+			<td align="right">|-$ministryExpenses->getaccrued()|system_numeric_format-|</td>
+			<td align="right">|-$ministryExpenses->getavailable()|system_numeric_format-|</td>
+			<td align="right">|-$ministryExpenses->getpaid()|system_numeric_format-|</td>
 		</tr>
 		|-/foreach-|
-    </table>
+</table>
     <button type="button" name="" value="" class="yellowButton" onclick="tableExport('gastoMinisterio', 'gasto_por_ministerio.xls');">Exportar</button>
 
     <br/><br/><br/><br/>
 
-<h6>Gasto por objetivo operativo mensual / acumulado en millones de pesos corrientes, año 2013 al 20/03/2013</h6>
+<h6>Gasto por objetivo operativo mensual / acumulado en porcentaje</h6>
     <table class="tablaInfo small" id="objetivoOperativo">
-        <tr><th>Objetivo Operativo  </th><th>Sanción </th><th>Vigente </th><th>Restringido </th><th>Preventivo </th><th>Definitivo </th><th>Devengado  </th><th>Disponible </th><th>Pagado </th></tr>
+        <tr><th width="28%">Objetivo Operativo  </th>
+        <th width="8%">Sanción </th>
+        <th width="8%">Vigente </th>
+        <th width="8%">Restringido </th>
+        <th width="8%">Preventivo </th>
+        <th width="8%">Definitivo </th>
+        <th width="8%">Devengado  </th>
+        <th width="8%">Disponible </th>
+        <th width="8%">Pagado </th>
+        </tr>
         <tr>
 			<th>Total</th>
-			|-*<th>|-$operativeObjectivesExpensesTotal.sanctioned-|</th>
-			<th>|-$operativeObjectivesExpensesTotal.active-|</th>
-			<th>|-$operativeObjectivesExpensesTotal.restricted-|</th>
-			<th>|-$operativeObjectivesExpensesTotal.preventive-|</th>
-			<th>|-$operativeObjectivesExpensesTotal.definitive-|</th>
-			<th>|-$operativeObjectivesExpensesTotal.accrued-|</th>
-			<th>|-$operativeObjectivesExpensesTotal.available-|</th>
-			<th>|-$operativeObjectivesExpensesTotal.paid-|</th>*-|
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
+			|-*<th align="right">|-$operativeObjectivesExpensesTotal.sanctioned-|</th>
+			<th align="right">|-$operativeObjectivesExpensesTotal.active-|</th>
+			<th align="right">|-$operativeObjectivesExpensesTotal.restricted-|</th>
+			<th align="right">|-$operativeObjectivesExpensesTotal.preventive-|</th>
+			<th align="right">|-$operativeObjectivesExpensesTotal.definitive-|</th>
+			<th align="right">|-$operativeObjectivesExpensesTotal.accrued-|</th>
+			<th align="right">|-$operativeObjectivesExpensesTotal.available-|</th>
+			<th align="right">|-$operativeObjectivesExpensesTotal.paid-|</th>
+			*-|
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
 		</tr>
 		|-foreach $operativeObjectivesExpenses as $operativeObjectiveExpenses-|
 		<tr>
 			<td class="left">|-$operativeObjectiveExpenses->getEntityname()-|</td>
-			<th>|-$operativeObjectiveExpenses->getsanctioned()-|</th>
-			<td>|-$operativeObjectiveExpenses->getactive()-|</td>
-			<td>|-$operativeObjectiveExpenses->getrestricted()-|</td>
-			<td>|-$operativeObjectiveExpenses->getpreventive()-|</td>
-			<td>|-$operativeObjectiveExpenses->getdefinitive()-|</td>
-			<td>|-$operativeObjectiveExpenses->getaccrued()-|</td>
-			<th>|-$operativeObjectiveExpenses->getavailable()-|</th>
-			<td>|-$operativeObjectiveExpenses->getpaid()-|</td>
+			<td align="right">|-$operativeObjectiveExpenses->getsanctioned()|system_numeric_format-|</td>
+			<td align="right">|-$operativeObjectiveExpenses->getactive()|system_numeric_format-|</td>
+			<td align="right">|-$operativeObjectiveExpenses->getrestricted()|system_numeric_format-|</td>
+			<td align="right">|-$operativeObjectiveExpenses->getpreventive()|system_numeric_format-|</td>
+			<td align="right">|-$operativeObjectiveExpenses->getdefinitive()|system_numeric_format-|</td>
+			<td align="right">|-$operativeObjectiveExpenses->getaccrued()|system_numeric_format-|</td>
+			<td align="right">|-$operativeObjectiveExpenses->getavailable()|system_numeric_format-|</td>
+			<td align="right">|-$operativeObjectiveExpenses->getpaid()|system_numeric_format-|</td>
 		</tr>
 		|-/foreach-|
-    </table>
+</table>
     <button type="button" name="" value="" class="yellowButton" onclick="tableExport('objetivoOperativo', 'gasto_por_objetivo_operativo.xls');">Exportar</button>
 
     <br/><br/><br/><br/>
-	<h6>Gasto por objetivo de impacto mensual / acumulado en millones de pesos corrientes, año 2013 al 20/03/2013</h6>
+	<h6>Gasto por objetivo de impacto mensual / acumulado en porcentaje</h6>
     <table  class="tablaInfo small" id="objetivoImpacto">
-        <tr><th>Objetivo de Impacto</th><th>Sanción </th><th>Vigente </th><th>Restringido </th><th>Preventivo </th><th>Definitivo </th><th>Devengado  </th><th>Disponible </th><th>Pagado </th></tr>
+        <tr><th width="28%">Objetivo de Impacto</th><th width="8%">Sanción </th>
+        <th width="8%">Vigente </th>
+        <th width="8%">Restringido </th>
+        <th width="8%">Preventivo </th>
+        <th width="8%">Definitivo </th>
+        <th width="8%">Devengado  </th>
+        <th width="8%">Disponible </th>
+        <th width="8%">Pagado </th>
+        </tr>
         <tr>
-			<th>Total</th>
-			|-*<th>|-$impactObjectivesExpensesTotal.sanctioned-|</th>
-			<th>|-$impactObjectivesExpensesTotal.active-|</th>
-			<th>|-$impactObjectivesExpensesTotal.restricted-|</th>
-			<th>|-$impactObjectivesExpensesTotal.preventive-|</th>
-			<th>|-$impactObjectivesExpensesTotal.definitive-|</th>
-			<th>|-$impactObjectivesExpensesTotal.accrued-|</th>
-			<th>|-$impactObjectivesExpensesTotal.available-|</th>
-			<th>|-$impactObjectivesExpensesTotal.paid-|</th>*-|
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
+			<th align="right">Total</th>
+			|-*<th align="right">|-$impactObjectivesExpensesTotal.sanctioned-|</th>
+			<th align="right">|-$impactObjectivesExpensesTotal.active-|</th>
+			<th align="right">|-$impactObjectivesExpensesTotal.restricted-|</th>
+			<th align="right">|-$impactObjectivesExpensesTotal.preventive-|</th>
+			<th align="right">|-$impactObjectivesExpensesTotal.definitive-|</th>
+			<th align="right">|-$impactObjectivesExpensesTotal.accrued-|</th>
+			<th align="right">|-$impactObjectivesExpensesTotal.available-|</th>
+			<th align="right">|-$impactObjectivesExpensesTotal.paid-|</th>
+			*-|
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
 		</tr>
 		|-foreach $impactObjectivesExpenses as $impactObjectiveExpenses-|
 		<tr>
-			<td class="left">|-$impactObjectiveExpenses->getEntityname()-|</td>
-			<th>|-$impactObjectiveExpenses->getsanctioned()-|</th>
-			<td>|-$impactObjectiveExpenses->getactive()-|</td>
-			<td>|-$impactObjectiveExpenses->getrestricted()-|</td>
-			<td>|-$impactObjectiveExpenses->getpreventive()-|</td>
-			<td>|-$impactObjectiveExpenses->getdefinitive()-|</td>
-			<td>|-$impactObjectiveExpenses->getaccrued()-|</td>
-			<th>|-$impactObjectiveExpenses->getavailable()-|</th>
-			<td>|-$impactObjectiveExpenses->getpaid()-|</td>
+			<td align="right" class="left">|-$impactObjectiveExpenses->getEntityname()-|</td>
+			<td align="right">|-$impactObjectiveExpenses->getsanctioned()|system_numeric_format-|</td>
+			<td align="right">|-$impactObjectiveExpenses->getactive()|system_numeric_format-|</td>
+			<td align="right">|-$impactObjectiveExpenses->getrestricted()|system_numeric_format-|</td>
+			<td align="right">|-$impactObjectiveExpenses->getpreventive()|system_numeric_format-|</td>
+			<td align="right">|-$impactObjectiveExpenses->getdefinitive()|system_numeric_format-|</td>
+			<td align="right">|-$impactObjectiveExpenses->getaccrued()|system_numeric_format-|</td>
+			<td align="right">|-$impactObjectiveExpenses->getavailable()|system_numeric_format-|</td>
+			<td align="right">|-$impactObjectiveExpenses->getpaid()|system_numeric_format-|</td>
 		</tr>
 		|-/foreach-|
-    </table>
+</table>
     <button type="button" name="" value="" class="yellowButton"onclick="tableExport('objetivoImpacto', 'gasto_por_objetivo_impacto.xls');">Exportar</button>
     <br/>
     <br/><br/><br/>
-	<h6>Gasto por objetivo ministerial mensual / acumulado en millones de pesos corrientes, año 2013 al 20/03/2013</h6>
+	<h6>Gasto por objetivo ministerial mensual / acumulado en porcentaje</h6>
     <table class="tablaInfo small" id="gastoObjetivoMinisterial">
-		<tr><th>Objetivo Ministerial  </th><th>Sanción </th><th>Vigente </th><th>Restringido </th><th>Preventivo </th><th>Definitivo </th><th>Devengado  </th><th>Disponible </th><th>Pagado </th></tr>
+		<tr><th width="28%">Objetivo Ministerial  </th>
+		<th width="8%">Sanción </th>
+		<th width="8%">Vigente </th>
+		<th width="8%">Restringido </th>
+		<th width="8%">Preventivo </th>
+		<th width="8%">Definitivo </th>
+		<th width="8%">Devengado  </th>
+		<th width="8%">Disponible </th>
+		<th width="8%">Pagado </th>
+		</tr>
 		<tr>
 			<th>Total</th>
-			|-*<th>|-$ministryObjectivesExpensesTotal.sanctioned-|</th>
-			<th>|-$ministryObjectivesExpensesTotal.active-|</th>
-			<th>|-$ministryObjectivesExpensesTotal.restricted-|</th>
-			<th>|-$ministryObjectivesExpensesTotal.preventive-|</th>
-			<th>|-$ministryObjectivesExpensesTotal.definitive-|</th>
-			<th>|-$ministryObjectivesExpensesTotal.accrued-|</th>
-			<th>|-$ministryObjectivesExpensesTotal.available-|</th>
-			<th>|-$ministryObjectivesExpensesTotal.paid-|</th>*-|
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
-			<th>100</th>
+			|-*<th align="right">|-$ministryObjectivesExpensesTotal.sanctioned-|</th>
+			<th align="right">|-$ministryObjectivesExpensesTotal.active-|</th>
+			<th align="right">|-$ministryObjectivesExpensesTotal.restricted-|</th>
+			<th align="right">|-$ministryObjectivesExpensesTotal.preventive-|</th>
+			<th align="right">|-$ministryObjectivesExpensesTotal.definitive-|</th>
+			<th align="right">|-$ministryObjectivesExpensesTotal.accrued-|</th>
+			<th align="right">|-$ministryObjectivesExpensesTotal.available-|</th>
+			<th align="right">|-$ministryObjectivesExpensesTotal.paid-|</th>
+			*-|
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
 		</tr>
 		|-foreach $ministryObjectivesExpenses as $ministryObjectiveExpenses-|
 		<tr>
 			<td class="left">|-$ministryObjectiveExpenses->getEntityname()-|</td>
-			<th>|-$ministryObjectiveExpenses->getsanctioned()-|</th>
-			<td>|-$ministryObjectiveExpenses->getactive()-|</td>
-			<td>|-$ministryObjectiveExpenses->getrestricted()-|</td>
-			<td>|-$ministryObjectiveExpenses->getpreventive()-|</td>
-			<td>|-$ministryObjectiveExpenses->getdefinitive()-|</td>
-			<td>|-$ministryObjectiveExpenses->getaccrued()-|</td>
-			<th>|-$ministryObjectiveExpenses->getavailable()-|</th>
-			<td>|-$ministryObjectiveExpenses->getpaid()-|</td>
+			<td align="right">|-$ministryObjectiveExpenses->getsanctioned()|system_numeric_format-|</td>
+			<td align="right">|-$ministryObjectiveExpenses->getactive()|system_numeric_format-|</td>
+			<td align="right">|-$ministryObjectiveExpenses->getrestricted()|system_numeric_format-|</td>
+			<td align="right">|-$ministryObjectiveExpenses->getpreventive()|system_numeric_format-|</td>
+			<td align="right">|-$ministryObjectiveExpenses->getdefinitive()|system_numeric_format-|</td>
+			<td align="right">|-$ministryObjectiveExpenses->getaccrued()|system_numeric_format-|</td>
+			<td align="right">|-$ministryObjectiveExpenses->getavailable()|system_numeric_format-|</td>
+			<td align="right">|-$ministryObjectiveExpenses->getpaid()|system_numeric_format-|</td>
 		</tr>
 		|-/foreach-|
-    </table>
+</table>
     <button type="button" name="" value="" class="yellowButton"onclick="tableExport('gastoObjetivoMinisterial', 'gasto_por_objetivo_ministerial.xls');">Exportar</button>
 
 <div id="fcexpDiv" align="center">FusionCharts Export</div>
