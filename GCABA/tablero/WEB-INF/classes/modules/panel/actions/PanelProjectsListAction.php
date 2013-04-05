@@ -41,6 +41,8 @@ class PanelProjectsListAction extends BaseListAction {
 		$this->smarty->assign("module", $this->module);
 		$this->smarty->assign("section", "Projects");
 		$this->smarty->assign("tags", PlanningProjectTagQuery::create()->find());
+		$this->smarty->assign("ministryPriorities", PlanningProject::getMinistryPriorities());
+		$this->smarty->assign("priorities", PlanningProject::getPriorities());
 
 		if ($_GET["nav"])
 			$this->smarty->assign("nav", true);
