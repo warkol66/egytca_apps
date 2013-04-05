@@ -40,6 +40,9 @@
 <p><label for="filters[getPositionBrood]">Incluir dependientes</label>
 				<input name="filters[getPositionBrood]" type="checkbox" value="1" |-$filters.getPositionBrood|checked_bool-| />
 </p>
+<p><label for="filters[priority]">Prioritarias</label>
+				<input name="filters[priority]" type="checkbox" value="1" |-$filters.priority|checked_bool-| />
+</p>
 <p><label for="filters[constructiontype]">Tipo de Obra</label>
     <select id="filters_constructionyype" name="filters[constructiontype]" title="Tipo de Obra">
       <option value="">Seleccione tipo de Obra</option>

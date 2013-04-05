@@ -42,6 +42,15 @@
 <p><label for="filters[getPositionBrood]">Incluir dependientes</label>
 				<input name="filters[getPositionBrood]" type="checkbox" value="1" |-$filters.getPositionBrood|checked_bool-| />
 </p>
+	<p>
+		<label for="filters[priority]">Prioridad</label>
+		<select id="filters[priority]" name="filters[priority]" title="Prioridad">
+			<option value="">Seleccione prioridad</option>
+			|-foreach from=$priorities key=key item=name-|
+						<option value="|-$key-|" |-$filters.priority|selected:$key-|>|-$name-|</option>
+			|-/foreach-|
+		</select>
+	</p>
 <p>
 	<label for="filters_tags">Etiquetas</label>
 	<select style="width:480px" class="chzn-select wide-chz-select" data-placeholder="Seleccione una o varias etiquetas..." multiple="multiple" id="filters_tags" name="filters[tagIds][]" size="5" title="tags">
