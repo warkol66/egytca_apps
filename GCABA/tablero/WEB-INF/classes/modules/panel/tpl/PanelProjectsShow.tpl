@@ -19,11 +19,14 @@
 <script type="text/javascript" src="scripts/FusionChartsExportComponent.js"></script>
 <link rel="stylesheet" href="css/extrastyles.css" type="text/css" />
 <!-- fin de los cambios -->
-
+|-assign var=graphParent value=$position->getGraphParent()-|
+|-if $graphParent ne $position-|
+|-assign var=closeFieldset value=true-|
+<fieldset style="background-color:white !Important;"><legend>|-$graphParent-|</legend>
+|-/if-|
 <div class="clearfix">
 <div class="floatleft" id="chartContainer">Cargando...</div>
     <div class="floatleft">
-|-assign var=graphParent value=$position->getGraphParent()-|
                 <object title="|-$graphParent-|" height="250" width="250">
                     <param name="wmode" value="transparent" />
                     <param name="movie" value="images/speedometer.swf" />
@@ -44,7 +47,9 @@ myChart2.setTransparent(true);
 myChart2.render("chartContainer2");
 </script>
 </div>
-
+|-if $closeFieldset-|
+</fieldset>
+|-/if-|
 
 |-elseif $objective-|
 	<h1>|-$objective->getName()-|</h1>
