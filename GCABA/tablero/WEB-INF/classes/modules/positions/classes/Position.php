@@ -597,11 +597,20 @@ class Position extends BasePosition {
 	 * @return PropelObjectCollection partidas presupuestarias
 	 */
 	function getBudgetItems($criteria) {
-		$budgetItems = array();
 		foreach ($this->getAllProjects() as $project) { // $project no necesariamente es un PlanningProject (ver BaseProject)
-			$budgetItems = array_merge($budgetItems, $project->getBudgetItems($criteria)->getArrayCopy());
+			if ($project instanceof PlanningProject)
+				$planningProjectIds[] = $project->getId();
+			elseif ($project instanceof PlanningConstruction)
+				$planningConstructionIds[] = $project->getId();
+			else
+				throw new Exception('Unknown project type');
 		}
-		return new PropelObjectCollection($budgetItems);
+		
+		return BudgetRelationQuery::create(null, $criteria)
+					->filterByProjectObjectWithId($planningProjectIds)
+				->_or()
+					->filterByConstructionObjectWithId($planningConstructionIds)
+				->find();
 	}
 	
 //	/**

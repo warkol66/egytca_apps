@@ -14,5 +14,13 @@
  * @package    propel.generator.planning.classes
  */
 class BudgetRelationQuery extends BaseBudgetRelationQuery {
+	
+	function filterByConstructionObjectWithId($constructionId) {
+		return $this->filterByObjecttype('Construction')->filterByObjectid($constructionId);
+	}
+	
+	function filterByProjectObjectWithId($projectId) {
+		return $this->filterByObjecttype('Construction')->filterByObjectid($projectId);
+	}
 
 } // BudgetRelationQuery
