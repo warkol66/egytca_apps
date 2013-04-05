@@ -48,7 +48,7 @@
         <div class="floatleft" width="400px" height="600px">
             <div id="mapaChart" width="500px" height="500px"></div>
             <script type="text/javascript">
-                dibujarMapa('mapaChart','xml/mapa_gastos.xml?filters[prioridadproyecto]=a');
+                dibujarMapa('mapaChart','xmlMapa.php');
             </script>
 
         </div>
@@ -56,7 +56,7 @@
         <div class="floatleft" id="chartContainer2"></div>
         <script type="text/javascript">
             var myChart2 = new FusionCharts( "images/Pie3D.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId2", "600", "425", "0", "1" );
-            myChart2.setDataURL("xml/gasto_por_comuna.xml");
+            myChart2.setDataURL(escape("Main.php?do=panelExpensesByComuneXml"));
             myChart2.render("chartContainer2");
         </script>
     </div>

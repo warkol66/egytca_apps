@@ -7,7 +7,7 @@ class PanelRelativeExpensesShowAction extends PanelExpensesShowAction {
 	
 	function execute($mapping, $form, &$request, &$response) {
 
-		parent::execute($mapping, $form, $request, $response);
+		BaseAction::execute($mapping, $form, $request, $response);
 		
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
