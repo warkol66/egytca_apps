@@ -33,9 +33,12 @@ class CommonDoLoginAction extends BaseAction {
 			if (!empty($_POST["loginUsername"]) && !empty($_POST["loginPassword"])) {
 
 				$usernameExists = Common::getByUsername($_POST['loginUsername']);
-
+				
 				if (!empty($usernameExists)) { //Si existe el username
 
+					$remoteIp = Common::getIp();
+					$class = get_class($usernameExists);
+					
 					if (get_class($usernameExists) == "User") {
 						$user = UserPeer::auth($_POST["loginUsername"],$_POST["loginPassword"]);
 						if (!empty($user)) {
@@ -49,9 +52,7 @@ class CommonDoLoginAction extends BaseAction {
 						}
 						else {//si no autentifico
 							//Guardo una falla al solicitar login
-							Common::loginFailure($_POST["loginUsername"], $_POST["loginPassword"]);
-							//Si tengo que bloquear al usuario lo bloqueo
-							Common::checkLoginUserFailures(get_class($usernameExists), $failure->getId());
+							Common::loginFailure($_POST["loginUsername"], $_POST["loginPassword"], $class);
 							$forwardValue = 'failureDataMissmatch';
 						}
 					}
@@ -68,9 +69,7 @@ class CommonDoLoginAction extends BaseAction {
 						}
 						else {//si no autentifico
 							//Guardo una falla al solicitar login
-							Common::loginFailure($_POST["loginUsername"], $_POST["loginPassword"]);
-							//Si tengo que bloquear al usuario lo bloqueo
-							Common::checkLoginUserFailures(get_class($usernameExists), $failure->getId());
+							Common::loginFailure($_POST["loginUsername"], $_POST["loginPassword"], $class);
 							$forwardValue = 'failureDataMissmatch';
 						}
 					}
@@ -87,9 +86,7 @@ class CommonDoLoginAction extends BaseAction {
 						}
 						else {//si no autentifico
 							//Guardo una falla al solicitar login
-							Common::loginFailure($_POST["loginUsername"], $_POST["loginPassword"]);
-							//Si tengo que bloquear al usuario lo bloqueo
-							Common::checkLoginUserFailures(get_class($usernameExists), $failure->getId());
+							Common::loginFailure($_POST["loginUsername"], $_POST["loginPassword"], $class);
 							$forwardValue = 'failureDataMissmatch';
 						}
 					}
