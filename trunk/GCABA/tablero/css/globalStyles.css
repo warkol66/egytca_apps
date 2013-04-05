@@ -618,17 +618,17 @@ a.detail:hover{
 	font-style: italic;
 }
 /* tooltip ------*/
-a.tooltip, a.tooltipWide{
+a.tooltip, a.tooltipWide, a.tooltipWider{
 	vertical-align: top;
 	padding: 0 4px 0 4px;
 }
-a.tooltip img, a.tooltipWide img{
+a.tooltip img, a.tooltipWide img, a.tooltipWider img{
 	border: none;
 }
-a.tooltip:hover,a.tooltipWide:hover {
+a.tooltip:hover,a.tooltipWide:hover,a.tooltipWider:hover {
 	text-decoration:none;
 } /*BG color is a must for IE6*/
-a.tooltip span, a.tooltipWide span {
+a.tooltip span, a.tooltipWide span, a.tooltipWider span{
 	display:none;
 	padding:2px 3px;
 	margin-left: 18px;
@@ -640,7 +640,10 @@ a.tooltip span, a.tooltipWide span {
 a.tooltipWide span {
 	width:300px;
 }
-a.tooltip:hover span, a.tooltipWide:hover span{
+a.tooltipWider span {
+	width:500px;
+}
+a.tooltip:hover span, a.tooltipWide:hover span, a.tooltipWider:hover span{
 	display: inline;
 	position: absolute;
 	margin-top: -65px;
