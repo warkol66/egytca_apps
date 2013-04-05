@@ -47,16 +47,16 @@
 							<d4p1:SubJurisdiccion>'. $budget->getBudgetSubjurisdiction() .'</d4p1:SubJurisdiccion>
 							<d4p1:SubParcial>'. $budget->getBudgetSubPartial() .'</d4p1:SubParcial>
 							<d4p1:SubPrograma>'. $budget->getBudgetSubProgram() .'</d4p1:SubPrograma>
-							<d4p1:UbicaGeo>'. $budget->getBudgetGeolocation .'</d4p1:UbicaGeo>
+							<d4p1:UbicaGeo>'. $budget->getBudgetGeolocation() .'</d4p1:UbicaGeo>
 						</cp>
 					</ConsultarPartidaPresupuestaria>
 				</s:Body>
 				</s:Envelope>';
 			
 			// Testing
-			$webServiceBudget = new nusoap_client("http://172.17.7.8:83/wcftest/Servicio.svc?wsdl",true);
+			//$webServiceBudget = new nusoap_client("http://172.17.7.8:83/wcftest/Servicio.svc?wsdl",true);
 			// Producción
-			//$webServiceBudget = new nusoap_client("http://10.73.2.136:83/wcfroot/servicio.svc?wsdl",true);
+			$webServiceBudget = new nusoap_client("http://10.73.2.136:83/wcfroot/servicio.svc?wsdl",true);
 			$err = $webServiceBudget->getError();
 			if ($err) {
 				//si da error marco que no lo encontro
