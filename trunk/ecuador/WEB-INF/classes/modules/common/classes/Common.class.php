@@ -1437,7 +1437,9 @@ class Common {
 	* @param string $password clave ingresada
 	* @return void
 	*/
-	public static function loginFailure($username, $password) {
+	public static function loginFailure($username, $password, $objectType) {
+		
+		//$usernameExists = Common::getByUsername($username);
 
 		$remoteIp = Common::getIp();
 		$ipBlocked = Common::checkLoginIpFailures($remoteIp);

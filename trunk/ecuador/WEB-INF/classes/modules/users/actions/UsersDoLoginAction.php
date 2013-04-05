@@ -36,6 +36,9 @@ class UsersDoLoginAction extends BaseAction {
 			$smarty->assign("unifiedLogin",true);
 			Common::setValueUnifiedLoginCookie($_POST['select']);
 		}
+		
+		if(Common::isBlockedUser($_POST["loginUsername"]))
+			return $mapping->findForwardConfig('blockedUser');
 
 		if (!empty($_POST["loginUsername"]) && !empty($_POST["loginPassword"])) {
 			$user = UserPeer::auth($_POST["loginUsername"],$_POST["loginPassword"]);
@@ -52,10 +55,7 @@ class UsersDoLoginAction extends BaseAction {
 					return $mapping->findForwardConfig('success');
 			} else {
 				//Guardo una falla al solicitar login
-				Common::loginFailure($_POST["loginUsername"], $_POST["loginPassword"]);
-				//Me fijo si tengo que bloquear el usuario
-				$failure = UserQuery::create()->findOneByUsername($_POST["loginUsername"]);
-				Common::checkLoginUserFailures("User", $failure->getId());
+				Common::loginFailure($_POST["loginUsername"], $_POST["loginPassword"], "User");
 			}
 		}
 
