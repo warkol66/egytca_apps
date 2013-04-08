@@ -5,33 +5,35 @@
 	</ul>
 	<a href="Main.php?do=|-if ($configModule->get("global","unifiedUsernames"))-|commonDoLogout|-else-|usersDoLogout|-/if-|" onClick='return window.confirm("Si ya actualizó su clave, puede proceder a salir del sistema. ¿Esta seguro que quiere salir del sistema?")' id="logout">Salir del Sistema</a>
 	|-else-|
-	<ul>
+	<ul class="nav">
 		<li><a href="Main.php?do=usersWelcome">Ir al Inicio</a></li>
 
-		<li class="titleMenu" onclick="$('#sectionApplications').toggle()">Aplicaciones</li>
-		<div id="sectionApplications" style="display:|-if $module|upper eq 'CONTENT' || $module|upper eq 'BLOG' || $module|upper eq 'REGISTRATION' || $module|upper eq 'DOCUMENTS'-|block|-else-|none|-/if-|">
-			<li><a href="Main.php?do=blogList">Blog</a></li>
-			<li><a href="Main.php?do=contentList">Contenidos</a></li>
-			<li><a href="Main.php?do=registrationList">Usuarios registrados</a></li>
-			<li><a href="Main.php?do=documentsList">Documentos</a></li>
-		</div>
+		<li class="medium"><a href="#" onclick="//$('#sectionApplications').toggle()">Aplicaciones</a>
+			<ul id="sectionApplications" class="in_nav" style="display:|-if $module|upper eq 'CONTENT' || $module|upper eq 'BLOG' || $module|upper eq 'REGISTRATION' || $module|upper eq 'DOCUMENTS'-|block|-else-|none|-/if-|">
+				<li><a href="Main.php?do=blogList">Blog</a></li>
+				<li><a href="Main.php?do=contentList">Contenidos</a></li>
+				<li><a href="Main.php?do=registrationList">Usuarios registrados</a></li>
+				<li><a href="Main.php?do=documentsList">Documentos</a></li>
+			</ul>
+		</li>
 
-		<li class="titleMenu" onclick="$('#sectionConfigurations').toggle()">Configuración</li>
-		<div id="sectionConfigurations" style="display:|-if $module|upper eq 'CLIENTS' || $module|upper eq 'MEDIAS'-|block|-else-|none|-/if-|">
-			<li><a href="Main.php?do=mediasTypeList">Tipo de medios</a></li>
-			<li><a href="Main.php?do=mediasAudienceList">Audiencias</a></li>
-			<li><a href="Main.php?do=mediasMarketList">Mercados</a></li>
+		<li class="large"><a href="#" onclick="//$('#sectionConfigurations').toggle()">Configuración</a>
+			<ul id="sectionConfigurations" class="in_nav" style="display:|-if $module|upper eq 'CLIENTS' || $module|upper eq 'MEDIAS'-|block|-else-|none|-/if-|">
+				<li><a href="Main.php?do=mediasTypeList">Tipo de medios</a></li>
+				<li><a href="Main.php?do=mediasAudienceList">Audiencias</a></li>
+				<li><a href="Main.php?do=mediasMarketList">Mercados</a></li>
 
-			<li><a href="Main.php?do=actorsCategoryList">Categorías de actores</a></li>
-			<li><a href="Main.php?do=issuesCategoryList">Categorías de asuntos</a></li>
+				<li><a href="Main.php?do=actorsCategoryList">Categorías de actores</a></li>
+				<li><a href="Main.php?do=issuesCategoryList">Categorías de asuntos</a></li>
 
-			<li><a href="Main.php?do=mediasList">Medios</a></li>
-			<li><a href="Main.php?do=clientsList">Clientes</a></li>
-			<li><a href="Main.php?do=clientsUsersList">Usuarios de Clientes</a></li>
-		</div>
+				<li><a href="Main.php?do=mediasList">Medios</a></li>
+				<li><a href="Main.php?do=clientsList">Clientes</a></li>
+				<li><a href="Main.php?do=clientsUsersList">Usuarios de Clientes</a></li>
+			</ul>
+		</li>
 
-		<li class="titleMenu" onclick="$('#sectionAdmin').toggle()">Administración</li>
-		<div id="sectionAdmin" style="display:|-if $module|upper eq 'USERS' || $module|upper eq 'AFFILIATES' || $module|upper eq 'MODULES' 
+		<li class="large"><a href="#" onclick="//$('#sectionAdmin').toggle()">Administración</a></li>
+			<ul id="sectionAdmin" class="in_nav" style="display:|-if $module|upper eq 'USERS' || $module|upper eq 'AFFILIATES' || $module|upper eq 'MODULES' 
 		|| $module|upper eq 'COMMON' || $module|upper eq 'SURVEYS' || $module|upper eq 'SECURITY'-|block|-else-|none|-/if-|">
 			<li><a href="Main.php?do=affiliatesList">##affiliates,1,Afiliados##</a></li>
 			<li><a href="Main.php?do=affiliatesBranchesList">##affiliates,5,Sucursales##</a></li>
@@ -48,10 +50,12 @@
 		|-if $loginUser->isSupervisor()-|
 			<li><a href="Main.php?do=securityEditPermissions">Administrar Permisos</a></li>
 		|-/if-|
-		</div>
+			</ul>
+		</li>
+		<li><a href="Main.php?do=|-if ($configModule->get("global","unifiedUsernames"))-|commonDoLogout|-else-|usersDoLogout|-/if-|" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")' >Salir del Sistema</a></li>
 	</ul>
 
-	<a href="Main.php?do=|-if ($configModule->get("global","unifiedUsernames"))-|commonDoLogout|-else-|usersDoLogout|-/if-|" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")' id="logout">Salir del Sistema</a>
+	
 	|-/if-|
 |-elseif !empty($loginAffiliateUser)-|
 	|-if $SESSION.firstLogin-|

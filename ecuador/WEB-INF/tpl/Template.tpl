@@ -26,13 +26,18 @@
 	<b class="rounded"><b class="rtop"><b class="r7"></b><b class="r6"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r1"></b></b></b>
 	<!-- Begin Header -->
 	<div id="header">
+		 <span>Empoderando al ciudadano,<br />gracias a los Derechos y Obligaciones</span>
 		<a href="Main.php"><strong>|-$parameters.siteName-|</strong></a>
+		<h1 id="headerLogo">
+			<a href="index.html"><strong>Parroquias Rurales Ecuador</strong></a>
+		</h1>
 	</div>
 	<!-- End Header -->
 	<!-- Begin contentWrapper -->
 		<div id="contentWrapper">
 			<!-- Begin Left Column -->
-				<div id="leftColumn">
+			<div class="clear"></div>
+				<div class="allColumns">
 					|-include file="MenuLeft.tpl"-|
 				</div>
 			<!-- End Left Column -->
