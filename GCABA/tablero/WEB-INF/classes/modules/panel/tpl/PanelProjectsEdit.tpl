@@ -55,7 +55,7 @@ myChart2.render("chartContainer2");
     <input type="hidden" name="do" id="do" value="panelProjectsDoEdit" /> 
 		<p>|-javascript_form_validation_button id="button_edit" value='Guardar cambios' title='Guardar cambios'-|</p>
 </form>
-
+		 <h3>Partida presupuestaria &nbsp; <a href="javascript:void(null)" id="showHideBudgetRelations" onClick="$('budgetItemsTable').toggle(); $('showHideBudgetRelations').toggleClassName('expandLink');" class="collapseLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningProject->getBudgetItems() type="Project" objId=$planningProject->getId()-|
 	<h3>Listado de obras</h3>
 	|-include file="PanelConstructionsInclude.tpl" constructions=$planningProject->getPlanningConstructions() showGantt="true"-|
 </div>
