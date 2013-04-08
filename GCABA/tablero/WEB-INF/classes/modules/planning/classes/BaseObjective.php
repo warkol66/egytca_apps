@@ -106,12 +106,7 @@ class BaseObjective {
 	 * @return PropelObjectCollection partidas presupuestarias
 	 */
 	function getBudgetItems($criteria) {
-//		$budgetItems = array();
-//		foreach ($this->child->getAllProjects() as $project) { // $project no necesariamente es un PlanningProject (ver BaseProject)
-//			$budgetItems = array_merge($budgetItems, $project->getBudgetItems($criteria)->getArrayCopy());
-//		}
-//		return new PropelObjectCollection($budgetItems);
-		
+
 		foreach ($this->child->getAllProjects() as $project) { // $project no necesariamente es un PlanningProject (ver BaseProject)
 			if ($project instanceof PlanningProject)
 				$planningProjectIds[] = $project->getId();
