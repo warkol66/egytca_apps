@@ -13,6 +13,57 @@
 <input type="hidden" name="filename" />
 </form>
 
+<h6>Gasto por ministerio mensual / acumulado en porcentaje</h6>
+    <table class="tablaInfo small" id="gastoMinisterio">
+        <tr><th width="28%">Jurisdicción </th><th width="8%">Sanción </th>
+        <th width="8%">Vigente </th>
+        <th width="8%">Restringido </th>
+        <th width="8%">Preventivo </th>
+        <th width="8%">Definitivo </th>
+        <th width="8%">Devengado  </th>
+        <th width="8%">Disponible </th>
+        <th width="8%">Pagado  </th>
+        </tr>
+        <tr>
+			<th>Total</th>
+			|-*<th align="right">|-$ministriesExpensesTotal.sanctioned-|</th>
+			<th align="right">|-$ministriesExpensesTotal.active-|</th>
+			<th align="right">|-$ministriesExpensesTotal.restricted-|</th>
+			<th align="right">|-$ministriesExpensesTotal.preventive-|</th>
+			<th align="right">|-$ministriesExpensesTotal.definitive-|</th>
+			<th align="right">|-$ministriesExpensesTotal.accrued-|</th>
+			<th align="right">|-$ministriesExpensesTotal.available-|</th>
+			<th align="right">|-$ministriesExpensesTotal.paid-|</th>
+			*-|
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+			<th align="right">100</th>
+		</tr>
+		|-foreach $ministriesExpenses as $ministryExpenses-|
+		<tr>
+			<td class="left">|-$ministryExpenses->getEntityname()-|</td>
+			<td align="right">|-$ministryExpenses->getsanctioned()|system_numeric_format-|</td>
+			<td align="right">|-$ministryExpenses->getactive()|system_numeric_format-|</td>
+			<td align="right">|-$ministryExpenses->getrestricted()|system_numeric_format-|</td>
+			<td align="right">|-$ministryExpenses->getpreventive()|system_numeric_format-|</td>
+			<td align="right">|-$ministryExpenses->getdefinitive()|system_numeric_format-|</td>
+			<td align="right">|-$ministryExpenses->getaccrued()|system_numeric_format-|</td>
+			<td align="right">|-$ministryExpenses->getavailable()|system_numeric_format-|</td>
+			<td align="right">|-$ministryExpenses->getpaid()|system_numeric_format-|</td>
+		</tr>
+		|-/foreach-|
+</table>
+    <button type="button" name="" value="" class="yellowButton" onclick="tableExport('gastoMinisterio', 'gasto_por_ministerio.xls');">Exportar</button>
+<br>
+<br>
+<br>
+<br>
+
 <h6>Gasto en Obras por comuna mensual / acumulado en porcentaje</h6>
 	<table class="tablaInfo small" id="gastoComuna">
 			<tr><th width="28%">Gasto por Comuna</th><th width="8%">Sanción </th>
@@ -79,52 +130,6 @@
         </script>
     </div>
 
-<h6>Gasto por ministerio mensual / acumulado en porcentaje</h6>
-    <table class="tablaInfo small" id="gastoMinisterio">
-        <tr><th width="28%">Jurisdicción </th><th width="8%">Sanción </th>
-        <th width="8%">Vigente </th>
-        <th width="8%">Restringido </th>
-        <th width="8%">Preventivo </th>
-        <th width="8%">Definitivo </th>
-        <th width="8%">Devengado  </th>
-        <th width="8%">Disponible </th>
-        <th width="8%">Pagado  </th>
-        </tr>
-        <tr>
-			<th>Total</th>
-			|-*<th align="right">|-$ministriesExpensesTotal.sanctioned-|</th>
-			<th align="right">|-$ministriesExpensesTotal.active-|</th>
-			<th align="right">|-$ministriesExpensesTotal.restricted-|</th>
-			<th align="right">|-$ministriesExpensesTotal.preventive-|</th>
-			<th align="right">|-$ministriesExpensesTotal.definitive-|</th>
-			<th align="right">|-$ministriesExpensesTotal.accrued-|</th>
-			<th align="right">|-$ministriesExpensesTotal.available-|</th>
-			<th align="right">|-$ministriesExpensesTotal.paid-|</th>
-			*-|
-			<th align="right">100</th>
-			<th align="right">100</th>
-			<th align="right">100</th>
-			<th align="right">100</th>
-			<th align="right">100</th>
-			<th align="right">100</th>
-			<th align="right">100</th>
-			<th align="right">100</th>
-		</tr>
-		|-foreach $ministriesExpenses as $ministryExpenses-|
-		<tr>
-			<td class="left">|-$ministryExpenses->getEntityname()-|</td>
-			<td align="right">|-$ministryExpenses->getsanctioned()|system_numeric_format-|</td>
-			<td align="right">|-$ministryExpenses->getactive()|system_numeric_format-|</td>
-			<td align="right">|-$ministryExpenses->getrestricted()|system_numeric_format-|</td>
-			<td align="right">|-$ministryExpenses->getpreventive()|system_numeric_format-|</td>
-			<td align="right">|-$ministryExpenses->getdefinitive()|system_numeric_format-|</td>
-			<td align="right">|-$ministryExpenses->getaccrued()|system_numeric_format-|</td>
-			<td align="right">|-$ministryExpenses->getavailable()|system_numeric_format-|</td>
-			<td align="right">|-$ministryExpenses->getpaid()|system_numeric_format-|</td>
-		</tr>
-		|-/foreach-|
-</table>
-    <button type="button" name="" value="" class="yellowButton" onclick="tableExport('gastoMinisterio', 'gasto_por_ministerio.xls');">Exportar</button>
 
     <br/><br/><br/><br/>
 
