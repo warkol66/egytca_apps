@@ -964,7 +964,7 @@ ul.asideLinks li a:hover{color: #ffcc66;}
 
 
 /*   NAVIGATION   */
-ul.nav {border:none; background-image:url(../images/bkgMenu.gif); background-repeat:repeat-x; background-position: top left;}
+ul.nav {border:none; background-image:url(../images/bkgMenu.gif); background-repeat:repeat-x; background-position: top left;margin-bottom:50px;}
 ul.nav li{height:38px;border:none;}
 ul.nav li.medium {}
 ul.nav li.large {}
@@ -973,11 +973,11 @@ ul.nav li a:hover { color: #FC9;}
 ul.nav li ul {position:absolute;}
 
 /* INSIDE NAVIGATION   */
-ul.in_nav {border:none;}
-ul.in_nav li{height:38px;border:none;}
+ul.in_nav {border:none;margin-left:0;}
+ul.in_nav li{height:28px;border:none;}
 ul.in_nav li.medium {}
 ul.in_nav li.large {}
-ul.in_nav li a { height:38px;text-transform:uppercase; color:#990000; font-weight:bold; font-size:14px;text-decoration:none;}
+ul.in_nav li a { height:38px;text-transform:uppercase; color:#990000; font-weight:bold; font-size:12px;text-decoration:none;}
 ul.in_nav li a:hover { color: #FC9;}
 
 		
