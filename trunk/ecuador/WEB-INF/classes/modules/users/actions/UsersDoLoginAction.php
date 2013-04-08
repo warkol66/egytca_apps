@@ -39,6 +39,10 @@ class UsersDoLoginAction extends BaseAction {
 		
 		if(Common::isBlockedUser($_POST["loginUsername"]))
 			return $mapping->findForwardConfig('blockedUser');
+			
+		$remoteip = Common::getIp();
+		/*if(Common::isBLockedIp($remoteip))
+			return $mapping->findForwardConfig('blockedIp');*/
 
 		if (!empty($_POST["loginUsername"]) && !empty($_POST["loginPassword"])) {
 			$user = UserPeer::auth($_POST["loginUsername"],$_POST["loginPassword"]);

@@ -1439,11 +1439,17 @@ class Common {
 	*/
 	public static function loginFailure($username, $password, $objectType) {
 		
-		//$usernameExists = Common::getByUsername($username);
+		$queryClass = $objectType . 'Query';
+		$user = $queryClass::create()->findOneByUsername($username);
 
 		$remoteIp = Common::getIp();
 		$ipBlocked = Common::checkLoginIpFailures($remoteIp);
-		$userBlocked = Common::checkLoginUserFailures($objectType, $objectId);
+		/*echo($ipBlocked);
+		die();*/
+		$userId = $user->getId();
+		/*echo($userId);
+		die();*/
+		$userBlocked = Common::checkLoginUserFailures($objectType, $userId);
 		if ($ipBlocked || $userBlocked)
 			$blocked = true;
 
@@ -1452,6 +1458,7 @@ class Common {
 				$loginFailure->setAttemptAt(time());
 				$loginFailure->setUsername($username);
 				$loginFailure->setPassword($password);
+				$loginFailure->setObjectType($objectType);
 				$loginFailure->setIp($remoteIp);
 				$loginFailure->setBlocked($blocked);
 				$loginFailure->save();
@@ -1510,11 +1517,21 @@ class Common {
 		$loginFailureThresholdTime = ConfigModule::get("users","loginFailureThresholdTime");
 		$loginFailureBlockedTimeTime = ConfigModule::get("users","loginFailureBlockedTimeTime");
 
-		$loginFailureThresholdTimeArray = array('min' => time() - ($loginFailureThresholdTime * 60));
+		//$time = strtotime($loginFailureThresholdTime * 60);
+		$time = strtotime($loginFailureThresholdTime * 60);
+		$now = strtotime(date("Y-m-d h:i:s"));
+		$min = date("Y-m-d h:i:s", $now - $time);
+		//$loginFailureThresholdTimeArray = array('min' => );
+		
+		/*print_r($min);
+		die();*/
 
 		$userLoginFailures = LoginFailureQuery::create()
 				->filterByObjecttype($objectType)->filterByObjectid($objectId)
-				->filterByAttemptat($loginFailureThresholdTimeArray)->count();
+				->filterByAttemptat(array('min' => $min))->count();
+		/*echo($userLoginFailures);
+		echo($loginFailureThreshold);
+		die();*/
 
 		if ($userLoginFailures > $loginFailureThreshold) {
 			try {
@@ -1607,8 +1624,12 @@ class Common {
 
 		$queryClass = $objectType . "Query";
 		$user = $queryClass::create()->findOneById($objectId);
+		/*echo("<pre>");
+		print_r($user);
+		echo("</pre>");
+		die();*/
 		try {
-			$user->setBlockedat(time());
+			$user->setBlockedat(date("Y-m-d h:i:s"));
 			$user->save();
 			return true;
 		}
@@ -1655,6 +1676,16 @@ class Common {
 			else
 				return false;
 		}
+	
+	}
+	
+	public static function isBlockedIp($ip) {
+		
+		/*$blocked = BlockedIpQuery::create()->filterByIp($ip);
+		if($blocked->getBlockedAt())
+			return true;
+		else
+			return false;*/
 	
 	}
 
