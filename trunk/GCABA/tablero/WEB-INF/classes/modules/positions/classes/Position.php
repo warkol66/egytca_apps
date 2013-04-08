@@ -598,13 +598,7 @@ class Position extends BasePosition {
 	 */
 	function getBudgetItems($criteria) {
 		
-		$budgetItems = array();
 		foreach ($this->getAllProjectsWithDescendants() as $project) { // $project no necesariamente es un PlanningProject (ver BaseProject)
-			$budgetItems = array_merge($budgetItems, $project->getBudgetItems($criteria)->getArrayCopy());
-		}
-		return new PropelObjectCollection($budgetItems);
-		
-/*		foreach ($this->getAllProjects() as $project) { // $project no necesariamente es un PlanningProject (ver BaseProject)
 			if ($project instanceof PlanningProject)
 				$planningProjectIds[] = $project->getId();
 			elseif ($project instanceof PlanningConstruction)
@@ -618,7 +612,7 @@ class Position extends BasePosition {
 			$query->conditionForProjectObjectWithId($planningProjectIds),
 			$query->conditionForConstructionObjectWithId($planningConstructionIds)
 		), 'or')->find();
-*/	}
+	}
 	
 //	/**
 //	 * Obtiene el color acorde al estado
