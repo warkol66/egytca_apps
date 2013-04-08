@@ -2,7 +2,31 @@
 * {
 	font-family: Arial, Helvetica, sans-serif, Geneva;
 }
+
+
 /* INPUTS, ICONS & LINKS ------------------------------*/
+input[type="submit"], input[type="button"], input[type="reset"] {
+	background-color: #e0e0e0 !Important;
+	border: 1px outset #D5D5D5 !Important;/*#F0F0F0;*/
+	outline: 0 none !Important;
+	cursor: pointer !Important;
+	-khtml-border-radius: 2px !Important;
+	-opera-border-radius: 2px !Important;
+	-moz-border-radius: 2px !Important;
+	-webkit-border-radius: 2px !Important;
+	margin: 0 5px 0 5px !Important;
+	padding: 2px 12px 2px 12px !Important;
+}
+.shadowedBox {
+	background-color: #e0e0e0;
+	border: 1px outset #D5D5D5;/*#F0F0F0;*/
+	outline: 0 none;
+	cursor: pointer;
+	-khtml-border-radius: 2px;
+	-opera-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
 input#remaining{
 	border: none !Important;
 	box-shadow: none !Important;
@@ -230,7 +254,6 @@ a.addLink:hover, a.addLink:active {
 /* ADD   ----------------------------------------------*/
 /* SEARCH   -------------------------------------------*/
 a.tdTitSearch{
-	background-color: #f4f6f3;
 	background-image:url(../images/icon_search.png);
 	background-position:11px 7px;
 	background-repeat:no-repeat;
@@ -311,10 +334,12 @@ a.linkMailDelete {
 /* PAGINADO    ----------------------------*/
 .pages{
 	background-color: #FFF;
+}
+.pages, .divPages {
 	color:#0066CC;
 }
 a.pageLink:link, a.pageLink:visited {
-	color:#666;
+	color: #191970;
 }
 a.pageLink:hover, a.pageLink:active {
 	color:#0066CC;
@@ -493,6 +518,12 @@ div.autocomplete ul b {
 	padding: 5px 30px 5px 30px;
 	display: inline-block;
 }
+.error {
+	font-weight: bold;
+	color: #B22222;
+	padding: 0 0 0 5px;
+	display: inline-block;
+}
 .successMessage {
 	color: #007D62;
 	font-weight: bold;
@@ -501,7 +532,7 @@ div.autocomplete ul b {
 	border: 1px solid #007D62;
 	text-align: center;
 }
-.errorMessage {
+.errorMessage, .failureMessage {
 	color: #B22222;
 	font-weight: bold;
 	padding: 8px;
@@ -683,4 +714,56 @@ a.follow:hover{
 	color: #000066;
 	background-image: url(../images/icon_follow.png);
 	background-repeat: no-repeat;
+}
+
+
+a.return {
+	background-image: url(../images/icon_follow.png);
+}
+a.report {
+	background-image: url(../images/icon_print.png);
+}
+a.importHeadlines {
+	background-image: url(../images/icon_news.png);
+}
+a.return, a.return:link, a.return:visited,
+a.report, a.report:link, a.report:visited,
+a.importHeadlines, a.importHeadlines:link, a.importHeadlines:visited {
+	color:#0054A4;
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+a.report:hover,
+a.report:hover,
+a.importHeadlines:hover{
+	text-decoration: underline !Important;
+}
+
+.expandLink, .collapseLink {
+	color: #404040;
+	padding: 0 0 0 16px;
+}
+.expandLink:link, .collapseLink:link {
+	text-decoration: none;
+}
+.expandLink {
+	background-image: url(../images/icon_expand.png);
+	background-repeat: no-repeat;
+}
+.collapseLink {
+	background-image: url(../images/icon_collapse.png);
+	background-repeat: no-repeat;
+}
+a.expandLink:link,a.expandLink:visited, a.collapseLink:link,a.collapseLink:visited{
+	color: #404040;
+	text-decoration: none;
+}
+.expandLink span, .collapseLink span {
+	font-size: 100% !Important;
+	font-weight: normal !Important;
+	display: none;
+}
+.expandLink:hover span, .collapseLink:hover span {
+	font-size: 100% !Important;
+	display: inline;
 }

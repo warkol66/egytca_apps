@@ -1,121 +1,127 @@
+body {
+}
 /*  LOGIN  -----------------------------------------------*/
-#login { 
+#login {
 	display: block;
 	margin:30px auto 0 auto;
 	text-align: center;
 }
 #loginTop {
-	height: 40px;	
 }
-#loginContent, #passRecovery { 
+#loginContent, #passRecovery {
 	text-align:left;
 }
-#loginContent h1, #passRecovery h1, #passRecovery h2 { 
+#loginContent h1, #passRecovery h1, #passRecovery h2 {
 	font-weight: bold;
 	font-size: 138.5%;
 	padding-left: 25px;
 }
-#loginContent p, #passRecovery p { 
+#loginContent p, #passRecovery p {
 	font-weight: bold;
 	padding-left: 25px;
 	padding-right: 25px;
 	padding-bottom: 15px;
 }
-#loginContent input, #passRecovery input { 
+#loginContent input, #passRecovery input {
 	width: 260px;
 	height: 20px;
 	margin-bottom: 10px;
 }
-#security_code { 
+#security_code {
 	width: 100px !Important;
 }
-#loginButton { 
+#loginButton {
 	margin: 0 auto 0 auto !Important;
 	background-color: transparent !Important;
 	border: none !Important;
 	cursor: pointer !Important;
 	text-align:center !Important;
 }
-#loginButtonDiv { 
+#loginButtonDiv {
 	margin: 0 auto 25px auto !Important;
 	text-align:center !Important;
 }
 #lostPassword {
 	text-align:right;
 }
-#lostPassword a { 
+#lostPassword a {
 	padding: 5px 30px 5px 30px;
 	text-decoration: none;
 }
-#lostPassword a:hover { 
+#lostPassword a:hover {
 	padding-right:30px;
 	text-decoration: underline;
 }
-#loginBottom { 
-	height: 100px;	
+#loginBottom {
+}
+#loginContentWrapper {
 }
 /*  /LOGIN  -----------------------------------------------*/
 
-/* wrapper -----------------------------------------------------------*/ 
-#wrapper { 
+/* wrapper -----------------------------------------------------------*/
+#wrapper {
+	width: 950px;
 	margin: 0 auto;
-	width: 955px;
 	padding: 0 0 0 0; /*  1px necesary to show margin-bottom of footer n FF*/
 }
 #header {
-	width: 945px;
-	height: 45px;
 	margin: 0;
 	padding: 0;
 	display: block;
 }
+#header h1{margin:0; padding:0;}
+#headerLogo {
+}
 #header a{
-	width:115px;
-	height: 35px;
-	float: left;
-	display: block;
-	margin: 8px 0 0 8px;
 }
 #header a strong{
 	display:none;
 }
-#contentWrapper { 
-	width: 945px;
+#separatorHeader {
+	clear: both;
+}
+#contentWrapper {
+	width: 100%;
 	margin: auto;
 	padding: 0px 0px 0px 0px; /*  1px necesary to show margin-bottom of footer n FF*/
 }
-#contentCloser { 
-	width: 955px;
+#contentCloser {
 	margin: auto;
 	clear: both;
 	display: block;
 }
-#leftColumn { 
+#leftColumn {
 	clear: both;
-	width: 150px;
 	float: left;
 	border: none;
-	margin: 0px 5px 5px 0px;
+	margin:0;
+	/*margin: 0px 5px 5px 0px;*/
 	padding: 0px;
 }
-
-#rightColumn { 
-	float: right;
-	width: 750px;   /* ie6*/ /*ie7*/ 
+#rightColumn {
+	float: left;
 	display: inline;
 	border: none;
-	margin: 0 5px 5px 0;
-	padding: 15px;
+	margin: 0;
+	padding: 15px 15px 20px 20px;
 }
-#footer { 
-	width: 945px; /* 955px - 5leftBorder - 5px rightBorder*/
-	height: 20px;
+#footer {
+	width:100%;
+	height:80px;
+	margin:0;
+	padding:0;
 	clear: both;
 	border: none;
 }
+#footer ul { display:block; margin: 0; padding:25px 0 0 25px; clear:both; }
+#footer ul li {
+	display:inline-block;
+	list-style:none;}
+	
 #footer p{
 	text-align:right;
-	padding: 3px 5px 0 0 ;
+	vertical-align: bottom;
+	margin: 10px 15px 5px 10px;
 }
 .rounded .rtop, .rounded .rbottom{display:block; }
 .rounded .rtop *, .rounded .rbottom *{display: block; height: 1px; overflow: hidden;}
@@ -128,9 +134,16 @@
 .rounded .r5 {margin: 0 4px; border-width: 0 2px;}
 .rounded .r6 {margin: 0 6px; border-width: 0 2px;}
 .rounded .r7 {margin: 0 8px; border: none;}
-/* /wrapper -----------------------------------------------------------*/ 
+/* /wrapper -----------------------------------------------------------*/
 
-/* content -----------------------------------------------------------*/ 
+/* content -----------------------------------------------------------*/
+.allColumns {
+	 width: 100%;
+}
+.3Columns {
+	width: 320px;
+	display:inline-block;
+}
 #rightColumn h1{
 	font-size: 153.9%;
 	font-weight:bold;
@@ -171,17 +184,16 @@
 #rightColumn h2 a:hover, #rightColumn h2 a:active{
 	font-size: inherit;
 	font-weight:normal;
-	text-decoration:underline;	
+	text-decoration:underline;
 }
 #rightColumn p{
-	width: 570px;
 	margin-bottom: 10px;
 	padding-right: 10px;
 }
 .paragraphEdit {
 	padding-left: 25px;
 }
-/* /content -----------------------------------------------------------*/ 
+/* /content -----------------------------------------------------------*/
 
 .tableTdBorders {
 	border-collapse: collapse;
@@ -207,16 +219,14 @@
 }
 
 /* MENU NAVEGACION   */
-#leftColumn ul { 
+#leftColumn ul {
 	margin:0;   /*   styles-ie*/
-	width: 150px;
 }
-#leftColumn li { 
+#leftColumn li {
 	margin:0;
 	list-style: none;
 }
-#leftColumn li a { 
-	width:135px; /* 150px styles-ie6.css*/
+#leftColumn li a {
 	height:auto;
 	display:block;
 	padding: 4px 0px 4px 0px;
@@ -226,41 +236,45 @@
 	list-style-position:outside;
 	vertical-align:top;
 }
-#leftColumn li a:hover { 
-	width:135px;  /* 150px stylres-ie6.css*/
+#leftColumn li a:hover {
 	height:auto;
 }
-#leftColumn li a.titleLink, #leftColumn li a.titleLink:hover{ 
+#leftColumn li a.titleLink, #leftColumn li a.titleLink:hover{
 	padding:0;
 	margin:0;
 	list-style: none;
 }
-.titleMenu { 
+.titleMenu {
 	margin:0;
 	padding: 5px;
 	text-transform:uppercase;
-	font-weight:bold;	
+	font-weight:bold;
 }
 #logout{
-	width: 147px;
-	height: 31px;
 	display:block;
-	padding: 7px 32px;
-	margin: 15px 0 0 2px;
 }
 .linksEdicion{
 	clear:left;
 	display:inline;
 }
-.textOptionMove:hover {
-	cursor: move;
-}
-.optionsList {
-	clear: both;
-	padding-bottom: .95em;
-}
+
+
+#leftColumn .leftColumn1,
+#leftColumn .leftColumn2 {
+	width:280px;
+	height:auto;
+	display:inline-block;
+	vertical-align:top;
+	}
+
+#leftColumn .leftColumn1 {margin:10px 10px 10px 20px;}
+#leftColumn .leftColumn2 {margin:10px 20px 10px 10px;}
+
+	
+	
+
 /*  AGREGADOS -----------------------------------------------*/
-#projectFilter label{	
+#projectFilter label{
 	color:#0066CC;
 	font-weight:bold;
 }
@@ -277,26 +291,95 @@
 	position:absolute;
 	z-index:12000;
 }
-.navChain {
-	padding: 8px;
-	margin: 8px 8px 8px 0;
-	-khtml-border-radius: 5px;
-	-opera-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
+
+fieldset fieldset.noMargin {
+	margin-left: 10px !Important;
 }
-.path_Base, .path_Mark, .path_Mark_current {
-	line-height: 1.9em;
-	vertical-align: middle;
+.inline {
+	display: inline !Important;
 }
-.path_Base:link, .path_Base:visited, .path_Mark:link, .path_Mark:visited,
-.path_Mark_current {
-	font-weight: bold;
-	padding: 0px 3px 5px 12px;
-	margin: 3px;
-	text-decoration: none;
+.block {
+	display: block !Important;
 }
-.mceExternalToolbar {
-  margin-left: 145px !Important;
+.floatLeft {
+	float: left !Important;
 }
+.floatRight {
+	float: rigth !Important;
+}
+.baseline {
+	vertical-align: baseline !Important;
+}
+.textBottom {
+	vertical-align: text-bottom !Important;
+}
+.bottom {
+	vertical-align: bottom !Important;
+}
+
+
+.textBanner {	
+	width:320px; 
+	height:50px;
+	display: block;
+	float:left;
+	margin:340px 0 0 0;
+	padding:10px 0 ;}
+
+ul.asideLinks { width:270px; margin:5px 10px 15px 35px; padding:0 0 10px 0; }
+ul.asideLinks li { list-style:square; margin:0 0 8px 0; padding:0;}
+
+
+/*   NAVIGATION   */
+ul.nav { width:100%; height:38px; margin:0 auto 0 0; display:block;}
+ul.nav li{display:inline-block; text-align:center;  margin:0; }
+ul.nav li.medium {}
+ul.nav li.large {}
+ul.nav li a { display:block; text-wrap:none;  padding:0px 15px 0 15px;  line-height:38px; }
+ul.nav li a:hover {}
+
+
+
+/* =Clear Floated Elements
+--------------------------------------------------------------------------------*/
+
+
+html body * span.clear,
+html body * div.clear,
+html body * li.clear,
+html body * dd.clear
+{
+	background: none;
+	border: 0;
+	clear: both;
+	display: block;
+	float: none;
+	font-size: 0;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+
+.blog01 {
+	width:100%;
+	margin:0 0 0 2%;}
+	
+	a{-webkit-transition: color 200ms ease-in-out;
+			-moz-transition: color 200ms ease-in-out;
+			-ms-transition: color 200ms ease-in-out;
+			-o-transition: color 200ms ease-in-out;
+			transition: color 200ms ease-in-out;}
+			
+			
+		
+/*  FORMULARIO COMMENTS */
+.commentForm input.formButton {padding:10px;}
+
+#leftColumn ul.commentsList li {margin:0 0 15px 0;}
+#leftColumn ul.commentsList li p {line-height:1.2em;}
+p.commentData {margin-bottom:0;}
+
