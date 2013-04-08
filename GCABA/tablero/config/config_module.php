@@ -38,7 +38,7 @@ class ConfigModule {
 			"endingYear" => 2013,
 			"planningUsersGroup" => 31,
 			"panelUsersGroup" => 32,
-			"verifyGroupWriteAccess" => false,
+			"verifyGroupWriteAccess" => true,
 			"useLogs" => true,
 			"logsPerPage" => 5,
 			"useMinorChanges" => true,
