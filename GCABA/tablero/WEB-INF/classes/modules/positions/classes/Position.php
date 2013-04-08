@@ -597,6 +597,13 @@ class Position extends BasePosition {
 	 * @return PropelObjectCollection partidas presupuestarias
 	 */
 	function getBudgetItems($criteria) {
+		
+//		$budgetItems = array();
+//		foreach ($this->getAllProjects() as $project) { // $project no necesariamente es un PlanningProject (ver BaseProject)
+//			$budgetItems = array_merge($budgetItems, $project->getBudgetItems($criteria)->getArrayCopy());
+//		}
+//		return new PropelObjectCollection($budgetItems);
+		
 		foreach ($this->getAllProjects() as $project) { // $project no necesariamente es un PlanningProject (ver BaseProject)
 			if ($project instanceof PlanningProject)
 				$planningProjectIds[] = $project->getId();
@@ -606,11 +613,11 @@ class Position extends BasePosition {
 				throw new Exception('Unknown project type');
 		}
 		
-		return BudgetRelationQuery::create(null, $criteria)
-					->filterByProjectObjectWithId($planningProjectIds)
-				->_or()
-					->filterByConstructionObjectWithId($planningConstructionIds)
-				->find();
+		$query = BudgetRelationQuery::create(null, $criteria);
+		return $query->where(array(
+			$query->conditionForProjectObjectWithId($planningProjectIds),
+			$query->conditionForConstructionObjectWithId($planningConstructionIds)
+		), 'or')->find();
 	}
 	
 //	/**
