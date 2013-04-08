@@ -34,7 +34,8 @@
 				<li><a href="Main.php?do=panelProjectsList">Proyectos</a></li>
 				<li class="last"><a href="Main.php?do=panelConstructionsList">Obras</a></li>
 				<!--<li class="last"><a href="Main.php?do=panelActivitiesList">Actividades e Hitos</a></li>-->
-				<li><a href="Main.php?do=panelResultsShow">Vision estratégica</a></li>
+				<li><a href="Main.php?do=panelResultsGraphShow">Vision estratégica</a></li>
+				<li><a href="Main.php?do=panelResultsShow">Indicadores de resultado</a></li>
 				<li><a href="Main.php?do=panelExpensesShow">Gasto</a></li>
 				<li class="last"><a href="Main.php?do=panelRelativeExpensesShow">Gasto relativo</a></li>
 			</ul>

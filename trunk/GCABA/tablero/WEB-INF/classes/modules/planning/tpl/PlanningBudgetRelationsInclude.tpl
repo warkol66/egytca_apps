@@ -14,27 +14,27 @@ html =   '      <tr> '
  + '		<td></td> '
  + '        <td><input type="hidden" class="item_new" name="objectType" value="|-$type-|" |-$readonly|readonly-|/>'
  + '            <input type="hidden" class="item_new" name="objectId" value="|-$objId-|" |-$readonly|readonly-|/>'
- + '            <input class="item_new" name="budgetItem[][budgetYear]" id="params_budgetYear[]" type="text" value="" title="Año" class="width2_5em"></td>'
- + '            <td><input class="item_new" name="budgetItem[][budgetJurisdiction]" id="params_budgetJurisdiction[]" type="text" value="" title="Jurisdicción" class="width2em"></td>'
- + '            <td><input class="item_new" name="budgetItem[][budgetSubjurisdiction]" id="params_budgetSubjurisdiction[]" type="text" value="" title="SubJurisdiccion" class="width2em"></td>'
- + '			      <td><input class="item_new" name="budgetItem[][budgetEntity]" id="params_budgetEntity[]" type="text" value="" title="Entidad" class="width2em"></td>'
- + '            <td><input class="item_new" name="budgetItem[][budgetOgese]" id="params_budgetOgese[]" type="text" value="" title="OGESE" class="width2em"></td>'
- + '            <td><input class="item_new" name="budgetItem[][budgetUnit]" id="params_budgetUnit[]" type="text" value="" size="1" title="Unidad Ejecutora" class="width2em"></td>'
- + '            <td><input class="item_new" name="budgetItem[][budgetProgram]" id="params_budgetProgram[]" type="text" value="" title="Programa" class="width2em"></td>'
- + '            <td><input class="item_new" name="budgetItem[][budgetSubProgram]" id="params_budgetSubProgram[]" type="text" value="" title="Subprograma" class="width2em"></td>'
- + '            <td><input class="item_new" name="budgetItem[][budgetProyect]" id="params_budgetProyect[]" type="text" value="" title="Proyecto" class="width2em"></td>'
- + '            <td><input class="item_new" name="budgetItem[][budgetActivity]" id="params_budgetActivity[]" type="text" value="" title="Actividad" class="width2em"></td>'
- + '            <td><input class="item_new" name="budgetItem[][budgetConstruction]" id="params_budgetConstruction[]" type="text" value="" title="Obra" class="width2em"></td>'
- + '            <td><input class="item_new" name="budgetItem[][budgetSource]" id="params_budgetSource[]" type="text" value="" title="Fuente de Financiamiento" class="width2em"></td>'
- + '            <td><input class="item_new" name="budgetItem[][budgetCurrency]" id="params_budgetCurrency[]" type="text" value="" title="Moneda" class="width2em"></td>'
- + '            <td><input class="item_new" name="budgetItem[][budgetSubsection]" id="params_budgetSubsection[]" type="text" value="" title="Inciso" class="width2em"></td>'
- + '            <td><input class="item_new" name="budgetItem[][budgetCapital]" id="params_budgetCapital[]" type="text" value="" title="Principal" class="width2em"></td>'
- + '            <td><input class="item_new" name="budgetItem[][budgetPartial]" id="params_budgetPartial[]" type="text" value="" title="Parcial" class="width2em"></td>'
- + '            <td><input class="item_new" name="budgetItem[][budgetSubpartial]" id="params_budgetSubpartial[]" type="text" value="" title="SubParcial" class="width2em"></td>'
- + '            <td><input class="item_new" name="budgetItem[][budgetGeolocation]" id="params_budgetGeolocation[]" type="text" value="" title="Ubicacion Geográfica" class="width2em"></td>'
+ + '            <input class="item_new width2_5em" name="budgetItem[][budgetYear]" id="params_budgetYear[]" type="text" value="" title="Año"></td>'
+ + '            <td><input class="item_new width2em" name="budgetItem[][budgetJurisdiction]" id="params_budgetJurisdiction[]" type="text" value="" title="Jurisdicción"></td>'
+ + '            <td><input class="item_new width2em" name="budgetItem[][budgetSubjurisdiction]" id="params_budgetSubjurisdiction[]" type="text" value="" title="SubJurisdiccion"></td>'
+ + '			      <td><input class="item_new width2em" name="budgetItem[][budgetEntity]" id="params_budgetEntity[]" type="text" value="" title="Entidad"></td>'
+ + '            <td><input class="item_new width2em" name="budgetItem[][budgetOgese]" id="params_budgetOgese[]" type="text" value="" title="OGESE"></td>'
+ + '            <td><input class="item_new width2em" name="budgetItem[][budgetUnit]" id="params_budgetUnit[]" type="text" value="" size="1" title="Unidad Ejecutora"></td>'
+ + '            <td><input class="item_new width2em" name="budgetItem[][budgetProgram]" id="params_budgetProgram[]" type="text" value="" title="Programa"></td>'
+ + '            <td><input class="item_new width2em" name="budgetItem[][budgetSubProgram]" id="params_budgetSubProgram[]" type="text" value="" title="Subprograma"></td>'
+ + '            <td><input class="item_new width2em" name="budgetItem[][budgetProyect]" id="params_budgetProyect[]" type="text" value="" title="Proyecto"></td>'
+ + '            <td><input class="item_new width2em" name="budgetItem[][budgetActivity]" id="params_budgetActivity[]" type="text" value="" title="Actividad"></td>'
+ + '            <td><input class="item_new width2em" name="budgetItem[][budgetConstruction]" id="params_budgetConstruction[]" type="text" value="" title="Obra"></td>'
+ + '            <td><input class="item_new width2em" name="budgetItem[][budgetSource]" id="params_budgetSource[]" type="text" value="" title="Fuente de Financiamiento"></td>'
+ + '            <td><input class="item_new width2em" name="budgetItem[][budgetCurrency]" id="params_budgetCurrency[]" type="text" value="" title="Moneda"></td>'
+ + '            <td><input class="item_new width2em" name="budgetItem[][budgetSubsection]" id="params_budgetSubsection[]" type="text" value="" title="Inciso"></td>'
+ + '            <td><input class="item_new width2em" name="budgetItem[][budgetCapital]" id="params_budgetCapital[]" type="text" value="" title="Principal"></td>'
+ + '            <td><input class="item_new width2em" name="budgetItem[][budgetPartial]" id="params_budgetPartial[]" type="text" value="" title="Parcial"></td>'
+ + '            <td><input class="item_new width2em" name="budgetItem[][budgetSubpartial]" id="params_budgetSubpartial[]" type="text" value="" title="SubParcial"></td>'
+ + '            <td><input class="item_new width2em" name="budgetItem[][budgetGeolocation]" id="params_budgetGeolocation[]" type="text" value="" title="Ubicacion Geográfica"></td>'
  + '            <td align="center"><input class="item_new" name="budgetItem[][total]" type="hidden" value="0"><input name="budgetItem[][total]" id="params_total[]" type="checkbox" value="1" title="Indique si se utiliza toda la partida"></td>'
- + '            <td><input class="item_new" name="budgetItem[][amount]" id="params_amount[]" type="text" value="" title="Monto" class="width6em"></td>'
- + '			<td><input type="button" class="icon iconEdit" title="Guardar partida" value="Guardar partida" onClick="editItem(\'item_new\')" /></td>'
+ + '            <td><input class="item_new width6em" name="budgetItem[][amount]" id="params_amount[]" type="text" value="" title="Monto"></td>'
+ + '						<td><input type="button" class="icon iconEdit" title="Guardar partida" value="Guardar partida" onClick="editItem(\'item_new\')" /></td>'
  + '         		<td><input type="button" class="icon iconUpdate disabled" /></td> '
  + '         		<td><input name="budgetItem[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar partida" onclick="deleteBudgetItemRow(this.parentNode.parentNode.rowIndex)" /></td> '
  + '       </tr>';
@@ -134,20 +134,20 @@ html =   '      <tr> '
 			|-assign var=isUpdated value=$budgetItem->getUpdatedsigaf()-|
 			<td><a href="javascript:void(null);" class="tooltipWider"><span style="padding: .3em;" id="budgetSpanId_|-$budgetItem->getId()-|"><table width="490" border="0" cellpadding="0" cellspacing="0">
   <tr align="center">
+    <th>Vigente</th>
+    <th>Restringido</th>
+    <th>Preventivo</th>
     <th>Definitivo</th>
     <th>Devengado</th>
     <th>Pagado</th>
-    <th>Preventivo</th>
-    <th>Restringido</th>
-    <th>Vigente</th>
   </tr>
   <tr align="right">
+    <td>|-$budgetItem->getActive()|system_numeric_format-|</td>
+    <td>|-$budgetItem->getRestricted()|system_numeric_format-|</td>
+    <td>|-$budgetItem->getPreventive()|system_numeric_format-|</td>
     <td>|-$budgetItem->getDefinitive()|system_numeric_format-|</td>
     <td>|-$budgetItem->getAccrued()|system_numeric_format-|</td>
     <td>|-$budgetItem->getPaid()|system_numeric_format-|</td>
-    <td>|-$budgetItem->getPreventive()|system_numeric_format-|</td>
-    <td>|-$budgetItem->getRestricted()|system_numeric_format-|</td>
-    <td>|-$budgetItem->getActive()|system_numeric_format-|</td>
   </tr>
 </table>
 			</span><img src="images/clear.png" class="icon iconInfo"></a></td>
