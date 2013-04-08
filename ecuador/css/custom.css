@@ -970,6 +970,15 @@ ul.nav li.medium {}
 ul.nav li.large {}
 ul.nav li a { height:38px;text-transform:uppercase; color:#FFFFFF; font-weight:bold; font-size:14px;text-decoration:none;}
 ul.nav li a:hover { color: #FC9;}
+ul.nav li ul {position:absolute;}
+
+/* INSIDE NAVIGATION   */
+ul.in_nav {border:none;}
+ul.in_nav li{height:38px;border:none;}
+ul.in_nav li.medium {}
+ul.in_nav li.large {}
+ul.in_nav li a { height:38px;text-transform:uppercase; color:#990000; font-weight:bold; font-size:14px;text-decoration:none;}
+ul.in_nav li a:hover { color: #FC9;}
 
 		
 /*  FORMULARIO COMMENTS */
