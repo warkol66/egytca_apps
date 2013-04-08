@@ -98,21 +98,23 @@ a.linkMailDelete,a.linkMailDelete:link {
 	clear:left;
 }
 /* PAGINADO    ----------------------------*/
-.pages{
+.pages, .divPages {
 	height: 37px;
-	text-align:center;
-	vertical-align:middle;
-	font-weight:bold;
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+}
+.divPages {
+	padding: 5px;
+}
+a.pageLink{
+	text-decoration: none;
 }
 a.pageLink:link, a.pageLink:visited {
-	font-weight:normal;
-	text-decoration:underline;
-	margin: 0 2px;
+	text-decoration: none;
 }
 a.pageLink:hover, a.pageLink:active {
-	font-weight:normal;
 	text-decoration:underline;
-	margin: 0 2px;
 }
 .tdFooter{
 	padding: 5px;
@@ -175,10 +177,11 @@ a.pageLink:hover, a.pageLink:active {
 	top: 10%;
 	z-index:11001;
 	max-height: 80%;
-	-khtml-border-radius: 10px;
-	-opera-border-radius: 10px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
+	-khtml-border-radius: 0.75em;
+	-opera-border-radius: 0.75em;
+	-moz-border-radius: 0.75em;
+	-webkit-border-radius: 0.75em;
+	border-radius: 0.75em;
 }
 .innerLighbox {
 	overflow: auto;
@@ -228,15 +231,21 @@ div.autocomplete ul b {
 /* fieldset    ----------------------------*/
 fieldset {
 	padding: 8px;
-	margin-bottom: 2em; /* IE 3.5em */
+	margin-top: .5em; /* IE 3.5em */
+	margin-bottom: 1em; /* IE 3.5em */
 	position: relative;
+	-khtml-border-radius: 0.75em;
+	-opera-border-radius: 0.75em;
+	-moz-border-radius: 0.75em;
+	-webkit-border-radius: 0.75em;
+	border-radius: 0.75em;
 }
 fieldset legend {
 	font-weight: bold;
 	font-size: 123.1%;
 	margin-bottom: 0.5em;
 	position: relative;
-	margin-left: -.3em;
+	margin-left: .8em;
 	padding: .2em;
 }
 fieldset label {
@@ -291,15 +300,23 @@ fieldset fieldset legend {
 /*  /fieldset  ----------------------------------- */
 
 
-#divSearch p label {
-	float: left;
-	width: 70px;
-	font-weight: bold;
+#divSearch p label, #divSearch label {
+	width: 110px;
 	vertical-align: text-bottom;
 	text-align: right;
 	height: auto;
-	display: block;
+	display: inline-table;
 	padding-right: 5px;
+	margin-right: 7px;
+}
+.labelWide {
+	width: 150px !Important;
+}
+.labelWider {
+	width: 250px !Important;
+}
+#divSearch input{
+	clear: both;
 }
 #divSearch td p label {
 	width: 40px;
@@ -311,9 +328,9 @@ fieldset fieldset legend {
 	border: 1px solid transparent !Important;
 	padding: 0 !Important;
 }
-#divSearch p input[type="text"] {
+/*#divSearch p input[type="text"] {
 	padding: .1em;
-}
+}*/
 
 /* InternalMail */
 fieldset #recipientsSelected li {
@@ -410,7 +427,7 @@ fieldset #recipientsSelected li {
 }
 /*  /BOX VARIABLES   ----------------------------------- */
 
-ul.iconOptionsList li {
+ul.iconOptionsList li, ul.iconList li {
 	list-style: none;
 	margin-left: 15px;
 	line-height: 2em;
@@ -444,6 +461,16 @@ ul.iconOptionsList li {
 	list-style: circle;
 	margin-left: 135px;
 }
+ul.iconList li ul li {
+	list-style: none;
+	margin-left: 90px;
+	vertical-align: bottom;
+	line-height: normal;
+	padding-bottom: 0.50em;
+}
+#selectedHeadlinesForm ul.iconList li ul li {
+	margin-left: 115px;
+}
 .noDecoration {
 	text-decoration: none !Important;
 }
@@ -472,6 +499,15 @@ ul.iconOptionsList li {
 .markets-chz-select {
 	min-width: 500px;
 }
+.wide-chz-select {
+	min-width: 500px;
+}
+.medium-chz-select {
+	min-width: 250px;
+}
+.narrow-chz-select {
+	min-width: 100px;
+}
 .in_place_editable {
 	padding: 4px;
 	border: 1px solid transparent;/*#F0F0F0;*/
@@ -481,6 +517,7 @@ ul.iconOptionsList li {
 	-opera-border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
+	border-radius: 2px;
 }
 .in_place_hover {
 	background-color: #b0e9ff !Important; /*  b7e0ff*/
@@ -492,6 +529,7 @@ ul.iconOptionsList li {
 	-opera-border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
+	border-radius: 2px;
 	padding-right: 25px !Important;
 	background-image: url(../images/icon_iconEdit.png) !Important;
 	background-repeat: no-repeat !Important;
@@ -507,6 +545,7 @@ form.inplaceeditor-form {
 	-opera-border-radius: 2px;
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
+	border-radius: 2px;
 }
 .edit {
 	text-decoration: underline;
@@ -672,3 +711,38 @@ fieldset .tableTdBorders label {
 }
 
 /*  /.formFieldset   ----------------------------------- */
+
+a.return, a.report, a.importHeadlines {
+	line-height: 1.4em;
+	vertical-align: middle;
+	display: inline-block;
+	font-weight: bold;
+	padding: 0 5px 0 20px;
+	margin: 3px;
+	text-decoration: none;
+}
+
+.inlineTable, a.inlineTable {
+	display: inline-table !Important;
+}
+
+/*.readMore {
+	background-image: url(../images/icon_readMore.png);
+	background-repeat:no-repeat;
+	background-position: left top;
+}*/
+.readLess {
+	background-image: url(../images/icon_readLess.png);
+}
+.readMore, .readLess {
+	width: 16px;
+	height: 13px;
+}
+.inlineLink {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+table.tableTdBorders ul li {
+	list-style: none;
+}
