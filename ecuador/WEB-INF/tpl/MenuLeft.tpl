@@ -8,7 +8,7 @@
 	<ul class="nav">
 		<li><a href="Main.php?do=usersWelcome">Ir al Inicio</a></li>
 
-		<li class="medium"><a href="#" onclick="//$('#sectionApplications').toggle()">Aplicaciones</a>
+		<li class="medium"><a href="#" onclick="$('#sectionConfigurations, #sectionAdmin').hide();$('#sectionApplications').toggle()">Aplicaciones</a>
 			<ul id="sectionApplications" class="in_nav" style="display:|-if $module|upper eq 'CONTENT' || $module|upper eq 'BLOG' || $module|upper eq 'REGISTRATION' || $module|upper eq 'DOCUMENTS'-|block|-else-|none|-/if-|">
 				<li><a href="Main.php?do=blogList">Blog</a></li>
 				<li><a href="Main.php?do=contentList">Contenidos</a></li>
@@ -17,7 +17,7 @@
 			</ul>
 		</li>
 
-		<li class="large"><a href="#" onclick="//$('#sectionConfigurations').toggle()">Configuración</a>
+		<li class="large"><a href="#" onclick="$('#sectionApplications, #sectionAdmin').hide();$('#sectionConfigurations').toggle()">Configuración</a>
 			<ul id="sectionConfigurations" class="in_nav" style="display:|-if $module|upper eq 'CLIENTS' || $module|upper eq 'MEDIAS'-|block|-else-|none|-/if-|">
 				<li><a href="Main.php?do=mediasTypeList">Tipo de medios</a></li>
 				<li><a href="Main.php?do=mediasAudienceList">Audiencias</a></li>
@@ -32,7 +32,7 @@
 			</ul>
 		</li>
 
-		<li class="large"><a href="#" onclick="//$('#sectionAdmin').toggle()">Administración</a></li>
+		<li class="large"><a href="#" onclick="$('#sectionApplications, #sectionConfigurations').hide();$('#sectionAdmin').toggle()">Administración</a></li>
 			<ul id="sectionAdmin" class="in_nav" style="display:|-if $module|upper eq 'USERS' || $module|upper eq 'AFFILIATES' || $module|upper eq 'MODULES' 
 		|| $module|upper eq 'COMMON' || $module|upper eq 'SURVEYS' || $module|upper eq 'SECURITY'-|block|-else-|none|-/if-|">
 			<li><a href="Main.php?do=affiliatesList">##affiliates,1,Afiliados##</a></li>
