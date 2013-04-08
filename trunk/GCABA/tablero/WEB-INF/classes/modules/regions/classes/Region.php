@@ -68,10 +68,7 @@ class Region extends BaseRegion {
 	 * @return PropelObjectCollection partidas presupuestarias
 	 */
 	function getBudgetItems($criteria) {
-		foreach ($this->getPlanningConstructions() as $planningConstruction) { // $project no necesariamente es un PlanningProject (ver BaseProject)
-			$planningConstructionIds[] = $planningConstruction->getId();
-		}
-		return BudgetRelationQuery::create(null, $criteria)->filterByConstructionObjectWithId($planningConstructionIds)->find();
+		return BudgetRelationQuery::create(null, $criteria)->filterByBudgetgeolocation($this->getOldid())->find();
 	}
 
 } // Region
