@@ -20,4 +20,24 @@ class PlanningActivityQuery extends BasePlanningActivityQuery {
 		$this->orderById();
 	}
 
+ /**
+	* Agrega filtros por fecha de vencimiento de la actividad
+	*
+	* @param   type array $range array con rango de fechas
+	* @return condicion de filtrado por rango de fecha de vencimiento
+	*/
+	public function rangeExpiring($range) {
+		return $this->filterByEndingdate($range);
+	}
+
+ /**
+	* Agrega filtros por fecha de inicio de la actividad
+	*
+	* @param   type array $range array con rango de fechas
+	* @return condicion de filtrado por rango de fecha de vencimiento
+	*/
+	public function rangeStarting($range) {
+		return $this->filterByStartingdate($range);
+	}
+
 } // PlanningActivityQuery

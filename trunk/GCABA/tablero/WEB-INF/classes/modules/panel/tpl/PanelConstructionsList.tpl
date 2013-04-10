@@ -30,7 +30,7 @@
 	<table id="tabla-constructions" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 		<thead>
 		|-if !$nav-|	<tr>
-			<td colspan="4" class="tdSearch"><a href="javascript:void(null);" onClick='$("divSearch").toggle();' class="tdTitSearch">Buscar Obras</a>
+			<td colspan="5" class="tdSearch"><a href="javascript:void(null);" onClick='$("divSearch").toggle();' class="tdTitSearch">Buscar Obras</a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0 && !($filters.fromProjects)-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="panelConstructionsList" />
 					<p><label for="filters[searchString]">Texto</label><input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="30" /></p>
@@ -60,6 +60,7 @@
 				 <th colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="thFillTitle"><div class="rightLink">|-if $smarty.session.planningMode || $loginUser->mayPlan() || $loginUser->mayFollow()-|<a href="Main.php?do=panelConstructionsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-||-if $nav-|&fromPlanningProjectId=|-$filters.planningprojectid-||-/if-|" class="addLink">Agregar Obra</a>|-/if-|</div></th>
 			</tr>
 			<tr class="thFillTitle">
+				<th width="1%">&nbsp;</th>
 				<th width="33%">Proyecto</th>
 				<th width="33%">Dependencia</th>
 				<th width="33%">Obra</th>
@@ -68,11 +69,12 @@
 		</thead>
 		<tbody>|-if $planningConstructionColl|@count eq 0-|
 			<tr>
-				 <td colspan="4">|-if isset($filters)-|No hay Obra que concuerden con la búsqueda|-else-|No hay Obra disponibles|-/if-|</td>
+				 <td colspan="5">|-if isset($filters)-|No hay Obra que concuerden con la búsqueda|-else-|No hay Obra disponibles|-/if-|</td>
 			</tr>
 			|-else-|
 		|-foreach from=$planningConstructionColl item=construction name=for_constructions-|
 			<tr>
+			<td><a href="javascript:void(null);" class="smallIcon flag|-$construction->statusColor()|capitalize-|"></a></td>
 				<td>|-assign var=planningProject value=$construction->getPlanningProject()-||-$planningProject-|</td>
 				<td>|-if is_object($planningProject)-||-$planningProject->getPosition()-||-/if-|</td>
 				<td>|-$construction->getName()-|</td>
@@ -102,7 +104,7 @@
 		|-/if-|					
 		|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
-			<td colspan="4" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
+			<td colspan="5" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 			|-if $planningConstructionColl|@count gt 5-|<tr>

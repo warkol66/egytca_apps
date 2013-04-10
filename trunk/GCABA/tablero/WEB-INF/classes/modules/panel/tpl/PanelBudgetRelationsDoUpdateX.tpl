@@ -15,20 +15,20 @@
 	|-capture name=budgetData-|	
 		<table width="490" border="0" cellpadding="0" cellspacing="0">
   <tr>
+    <th>Vigente</th>
+    <th>Restringido</th>
+    <th>Preventivo</th>
     <th>Definitivo</th>
     <th>Devengado</th>
     <th>Pagado</th>
-    <th>Preventivo</th>
-    <th>Restringido</th>
-    <th>Vigente</th>
   </tr>
   <tr align="right">
+    <td>|-$budget->getActive()|system_numeric_format-|</td>
+    <td>|-$budget->getRestricted()|system_numeric_format-|</td>
+    <td>|-$budget->getPreventive()|system_numeric_format-|</td>
     <td>|-$budget->getDefinitive()|system_numeric_format-|</td>
     <td>|-$budget->getAccrued()|system_numeric_format-|</td>
     <td>|-$budget->getPaid()|system_numeric_format-|</td>
-    <td>|-$budget->getPreventive()|system_numeric_format-|</td>
-    <td>|-$budget->getRestricted()|system_numeric_format-|</td>
-    <td>|-$budget->getActive()|system_numeric_format-|</td>
   </tr>
 </table>
 |-/capture-|

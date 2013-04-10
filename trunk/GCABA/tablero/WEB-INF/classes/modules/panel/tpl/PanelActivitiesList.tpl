@@ -27,9 +27,9 @@
 	<table id="tabla-constructions" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 		<thead>
 		<tr>
-			<td colspan="7" class="tdSearch"><a href="javascript:void(null);" onClick='$("divSearch").toggle();' class="tdTitSearch">Busqueda por nombre</a>
+			<td colspan="8" class="tdSearch"><a href="javascript:void(null);" onClick='$("divSearch").toggle();' class="tdTitSearch">Busqueda por nombre</a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0 && !($filters.fromStrategicObjectives)-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
-					<input type="hidden" name="do" value="planningActivitiesList" />
+					<input type="hidden" name="do" value="panelActivitiesList" />
 					<p><label for="filters[searchString]">Texto</label><input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="30" /></p>
 		<!--<div div="div_filters[positionCode]" style="position: relative;z-index:10000;">
 					|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_position" url="Main.php?do=commonAutocompleteListX&object=position&objectParam=code" hiddenName="filters[positionCode]" label="Dependencia" defaultValue=$filters.positionName defaultHiddenValue=$filters.positionCode name="filters[positionName]"-|
@@ -37,8 +37,20 @@
 <p><label for="filters[getPositionBrood]">Incluir dependientes</label>
 				<input name="filters[getPositionBrood]" type="checkbox" value="1" |-$filters.getPositionBrood|checked_bool-| />
 </p>-->
+			<p>
+					<label for="filters[startingFromDate]">Inicio desde</label>
+					<input id="filters[startingFromDate]" name="filters[startingFromDate]" type="text" value="|-$filters.startingFromDate-|" size="12" title="Fecha desde" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[startingFromDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha desde ">
+					&nbsp; &nbsp; <label for="filters[startingToDate]" class="inlineLabel">hasta</label>
+					<input id="filters[startingToDate]" name="filters[startingToDate]" type="text" value="|-$filters.startingToDate-|" size="12" title="Fecha hasta" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[startingToDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha hasta">
+</p>
+			<p>
+					<label for="filters[endingFromDate]">Vencimiento desde</label>
+					<input id="filters[endingFromDate]" name="filters[endingFromDate]" type="text" value="|-$filters.endingFromDate-|" size="12" title="Fecha desde" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[endingFromDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha desde ">
+					&nbsp; &nbsp; <label for="filters[endingToDate]" class="inlineLabel">hasta</label>
+					<input id="filters[endingToDate]" name="filters[endingToDate]" type="text" value="|-$filters.endingToDate-|" size="12" title="Fecha hasta" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[endingToDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha hasta">
+</p>
 				<p><input type='submit' value='Buscar' class='tdSearchButton' />|-if $filters|@count gt 0-|
-				&nbsp;&nbsp;<input type='button' onClick='location.href="Main.php?do=planningActivitiesList"' value="Quitar Filtros" title="Quitar Filtros"/>
+				&nbsp;&nbsp;<input type='button' onClick='location.href="Main.php?do=panelActivitiesList"' value="Quitar Filtros" title="Quitar Filtros"/>
 				&nbsp;&nbsp;<input type="button" value="Exportar" onclick="window.open(('Main.php?'+Form.serialize(this.form)+'&csv=true'));"/>|-/if-|</p>
 </form></div></td>
 		</tr>
@@ -46,6 +58,7 @@
 				 <th colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=planningActivitiesEdit" class="addLink">Agregar Actividad</a></div></th>
 			</tr>-->
 			<tr class="thFillTitle">
+				<th width="1%">&nbsp;</th>
 				<th width="25%">Proyecto/Obra</th>
 				<th width="25%">Dependencia</th>
 				<th width="20%">Actividad</th>
@@ -57,11 +70,12 @@
 		</thead>
 		<tbody>|-if $planningActivityColl|@count eq 0-|
 			<tr>
-				 <td colspan="7">|-if isset($filters)-|No hay Actividad que concuerden con la búsqueda|-else-|No hay Actividad disponibles|-/if-|</td>
+				 <td colspan="8">|-if isset($filters)-|No hay Actividad que concuerden con la búsqueda|-else-|No hay Actividad disponibles|-/if-|</td>
 			</tr>
 			|-else-|
 		|-foreach from=$planningActivityColl item=construction name=for_constructions-|
 			<tr>
+				<td><a href="javascript:void(null);" class="smallIcon flag|-$construction->statusColor()|capitalize-|"></a></td>
 				<td>|-if method_exists($construction,"getProject")-||-assign var=project value=$construction->getProject()-||-else-||-assign var=project value=''-||-/if-||-$project-|</td>
 				<td>|-if is_object($project)-||-$project->getPosition()-||-/if-|</td>
 				<td>|-$construction->getName()-|</td>
@@ -93,11 +107,11 @@
 		|-/if-|					
 		|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
-			<td colspan="7" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
+			<td colspan="8" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 			<!--<tr>
-				<th colspan="7" class="thFillTitle">|-if $planningActivityColl|@count gt 5-|<div class="rightLink"><a href="Main.php?do=planningActivitiesEdit" class="addLink">Agregar Actividad</a></div>|-/if-|</th>
+				<th colspan="8" class="thFillTitle">|-if $planningActivityColl|@count gt 5-|<div class="rightLink"><a href="Main.php?do=planningActivitiesEdit" class="addLink">Agregar Actividad</a></div>|-/if-|</th>
 			</tr>-->
 		</tbody>
 	</table>
