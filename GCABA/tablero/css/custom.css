@@ -287,6 +287,12 @@ body {
 	line-height: 36px;
 	vertical-align: middle;
 }
+.smallIcon {
+	width: 18px !Important;
+	height: 18px !Important;
+	background: url(../images/semaphoreButtonsSmall.png) no-repeat;
+	line-height: 19px !Important;
+}
 .flagRed {
 	background-position: 0px 0px;
 }

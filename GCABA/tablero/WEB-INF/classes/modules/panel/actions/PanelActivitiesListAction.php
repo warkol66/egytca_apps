@@ -30,6 +30,16 @@ class PanelActivitiesListAction extends BaseListAction {
 			$this->filters["objecttype"] = "Project";
 		}
 
+		if (!empty($_GET['filters']['startingFromDate']) || !empty($_GET['filters']['startingtoDate']))
+			$this->filters['rangeStarting'] = Common::getPeriodArray(
+				$_GET['filters']['startingFromDate'], $_GET['filters']['startingToDate']
+			);
+
+		if (!empty($_GET['filters']['endingFromDate']) || !empty($_GET['filters']['endingToDate']))
+			$this->filters['rangeExpiring'] = Common::getPeriodArray(
+				$_GET['filters']['endingFromDate'], $_GET['filters']['endingToDate']
+			);
+
 		//Si es csv: no paginado, external vacio y para descargar
 		if ($_GET["csv"]) {
 			$this->notPaginated = true;

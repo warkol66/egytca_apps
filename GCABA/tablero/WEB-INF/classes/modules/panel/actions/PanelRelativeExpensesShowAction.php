@@ -46,7 +46,7 @@ class PanelRelativeExpensesShowAction extends PanelExpensesShowAction {
 		$smarty->assign('ministryObjectivesExpenses', $ministryObjectivesExpenses);
 //		$smarty->assign('ministryObjectivesExpensesTotal', $ministryObjectivesExpensesTotal);
 		
-		$smarty->assign('updatedSigaf', BudgetRelationQuery::create()->findOne()->getUpdatedsigaf());
+		$smarty->assign('updatedSigaf', BudgetRelationQuery::create()->orderByUpdatedsigaf(Criteria::DESC)->findOne()->getUpdatedsigaf());
 
 		return $mapping->findForwardConfig('success');
 	}

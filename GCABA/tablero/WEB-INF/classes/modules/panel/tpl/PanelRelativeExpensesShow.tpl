@@ -13,7 +13,7 @@
 <input type="hidden" name="filename" />
 </form>
 
-<h6>Gasto por ministerio mensual / acumulado en porcentaje</h6>
+<h6>Gasto por ministerio mensual / acumulado en porcentaje al |-$updatedSigaf|date_format-|</h6>
     <table class="tablaInfo small" id="gastoMinisterio">
         <tr><th width="28%">Jurisdicción </th><th width="8%">Sanción </th>
         <th width="8%">Vigente </th>
@@ -64,7 +64,7 @@
 <br>
 <br>
 
-<h6>Gasto en Obras por comuna mensual / acumulado en porcentaje</h6>
+<h6>Gasto en Obras por comuna mensual / acumulado en porcentaje |-$updatedSigaf|date_format-|</h6>
 	<table class="tablaInfo small" id="gastoComuna">
 			<tr><th width="28%">Gasto por Comuna</th><th width="8%">Sanción </th>
 			<th width="8%">Vigente </th>
@@ -133,7 +133,7 @@
 
     <br/><br/><br/><br/>
 
-<h6>Gasto por objetivo operativo mensual / acumulado en porcentaje</h6>
+<h6>Gasto por objetivo operativo mensual / acumulado en porcentaje |-$updatedSigaf|date_format-|</h6>
     <table class="tablaInfo small" id="objetivoOperativo">
         <tr><th width="28%">Objetivo Operativo  </th>
         <th width="8%">Sanción </th>
@@ -182,7 +182,7 @@
     <button type="button" name="" value="" class="yellowButton" onclick="tableExport('objetivoOperativo', 'gasto_por_objetivo_operativo.xls');">Exportar</button>
 
     <br/><br/><br/><br/>
-	<h6>Gasto por objetivo de impacto mensual / acumulado en porcentaje</h6>
+	<h6>Gasto por objetivo de impacto mensual / acumulado en porcentaje |-$updatedSigaf|date_format-|</h6>
     <table  class="tablaInfo small" id="objetivoImpacto">
         <tr><th width="28%">Objetivo de Impacto</th><th width="8%">Sanción </th>
         <th width="8%">Vigente </th>
@@ -230,7 +230,7 @@
     <button type="button" name="" value="" class="yellowButton"onclick="tableExport('objetivoImpacto', 'gasto_por_objetivo_impacto.xls');">Exportar</button>
     <br/>
     <br/><br/><br/>
-	<h6>Gasto por objetivo ministerial mensual / acumulado en porcentaje</h6>
+	<h6>Gasto por objetivo ministerial mensual / acumulado en porcentaje |-$updatedSigaf|date_format-|</h6>
     <table class="tablaInfo small" id="gastoObjetivoMinisterial">
 		<tr><th width="28%">Objetivo Ministerial  </th>
 		<th width="8%">Sanción </th>

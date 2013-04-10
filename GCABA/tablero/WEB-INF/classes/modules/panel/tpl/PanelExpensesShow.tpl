@@ -13,7 +13,7 @@
 <input type="hidden" name="filename" />
 </form>
 
-<h6>Gasto por ministerio mensual / acumulado en millones de pesos corrientes</h6>
+<h6>Gasto por ministerio mensual / acumulado en millones de pesos corrientes al |-$updatedSigaf|date_format-|</h6>
     <table class="tablaInfo small" id="gastoMinisterio">
         <tr><th width="28%">Jurisdicción </th>
         <th width="8%">Sanción </th>
@@ -55,7 +55,7 @@
 <br>
 <br>
 <br>
-<h6>Gasto en Obras por comuna mensual / acumulado en millones de pesos corrientes</h6>
+<h6>Gasto en Obras por comuna mensual / acumulado en millones de pesos corrientes al |-$updatedSigaf|date_format-|</h6>
 		<table class="tablaInfo small" id="gastoComuna">
 				<tr><th width="28%">Gasto por Comuna</th><th width="8%">Sanción </th><th width="8%">Vigente </th><th width="8%">Restringido </th><th width="8%">Preventivo </th><th width="8%">Definitivo </th><th width="8%">Devengado  </th><th width="8%">Disponible </th><th width="8%">Pagado  </th></tr>
 				<tr>
@@ -104,7 +104,7 @@
     </div>
 
 
-<h6>Gasto por objetivo operativo mensual / acumulado en millones de pesos corrientes</h6>
+<h6>Gasto por objetivo operativo mensual / acumulado en millones de pesos corrientes al |-$updatedSigaf|date_format-|</h6>
     <table class="tablaInfo small" id="objetivoOperativo">
         <tr>
 					<th width="28%">Objetivo Operativo</th>
@@ -184,7 +184,7 @@
     <button type="button" name="" value="" class="yellowButton"onclick="tableExport('objetivoImpacto', 'gasto_por_objetivo_impacto.xls');">Exportar</button>
     <br/>
     <br/><br/><br/>
-	<h6>Gasto por objetivo ministerial mensual / acumulado en millones de pesos corrientes</h6>
+	<h6>Gasto por objetivo ministerial mensual / acumulado en millones de pesos corrientes al |-$updatedSigaf|date_format-|</h6>
     <table class="tablaInfo small" id="gastoObjetivoMinisterial">
         <tr><th width="28%">Objetivo Ministerial  </th><th width="8%">Sanción </th>
         <th width="8%">Vigente </th>

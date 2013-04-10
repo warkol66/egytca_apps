@@ -32,7 +32,7 @@
 	<table id="tabla-projects" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 		<thead>
 		|-if !$nav-|<tr>
-			<td colspan="5" class="tdSearch"><a href="javascript:void(null);" onClick='$("divSearch").toggle();' class="tdTitSearch">Busqueda por nombre del proyecto</a>
+			<td colspan="6" class="tdSearch"><a href="javascript:void(null);" onClick='$("divSearch").toggle();' class="tdTitSearch">Busqueda por nombre del proyecto</a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0 && !($filters.fromStrategicObjectives)-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="panelProjectsList" />
 					<p><label for="filters[searchString]">Texto</label><input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="30" /></p>
@@ -71,6 +71,7 @@
 				 <th colspan="|-if $moduleConfig.useDependencies.value =="YES"-|9|-else-|8|-/if-|" class="thFillTitle"><div class="rightLink">|-if $smarty.session.planningMode || $loginUser->mayPlan() || $loginUser->mayFollow()-|<a href="Main.php?do=planningProjectsEdit|-if $filters.operativeobjectiveid-|&fromOperativeObjectiveId=|-$filters.operativeobjectiveid-||-/if-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|" class="addLink">Agregar Proyecto</a></div>|-/if-|</th>
 			</tr>
 			<tr class="thFillTitle">
+				<th width="1%">&nbsp;</th>
 				<th width="33%">Objetivo Operativo</th>
 				<th width="33%">Dependencia</th>
 				<th width="30%">Proyecto</th>
@@ -80,11 +81,12 @@
 		</thead>
 		<tbody>|-if $planningProjectColl|@count eq 0-|
 			<tr>
-				 <td colspan="5">|-if isset($filters)-|No hay Proyecto que concuerden con la búsqueda|-else-|No hay Proyecto disponibles|-/if-|</td>
+				 <td colspan="6">|-if isset($filters)-|No hay Proyecto que concuerden con la búsqueda|-else-|No hay Proyecto disponibles|-/if-|</td>
 			</tr>
 			|-else-|
 		|-foreach from=$planningProjectColl item=project name=for_projects-|
 			<tr>|-assign var=operativeObjective value=$project->getOperativeObjective()-|
+			<td><a href="javascript:void(null);" class="smallIcon flag|-$project->statusColor()|capitalize-|"></a></td>
 				<td>|-if is_object($operativeObjective)-||-$operativeObjective->getStringCode()-|&nbsp;|-/if-||-$project->getOperativeobjective()-|</td>
 				<td>|-$project->getPosition()-|</td>
 				<td>|-$project->getStringCode()-|&nbsp;|-$project->getName()-|</td>
@@ -124,11 +126,11 @@
 		|-/if-|					
 		|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
-			<td colspan="5" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
+			<td colspan="6" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 			<tr>
-				<th colspan="5" class="thFillTitle">|-if $projectColl|@count gt 5-|<div class="rightLink"><a href="Main.php?do=planningProjectsEdit|-if $filters.operativeobjectiveid-|&fromOperativeObjectiveId=|-$filters.operativeobjectiveid-||-/if-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|" class="addLink">Agregar Proyecto</a></div>|-/if-|</th>
+				<th colspan="6" class="thFillTitle">|-if $projectColl|@count gt 5-|<div class="rightLink"><a href="Main.php?do=planningProjectsEdit|-if $filters.operativeobjectiveid-|&fromOperativeObjectiveId=|-$filters.operativeobjectiveid-||-/if-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|" class="addLink">Agregar Proyecto</a></div>|-/if-|</th>
 			</tr>
 		</tbody>
 	</table>
