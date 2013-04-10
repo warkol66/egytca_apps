@@ -26,14 +26,14 @@
 			  <ul class="menu">
 				<li><a href="Main.php?do=planningProjectsList">Proyectos</a></li>
 				<li><a href="Main.php?do=planningConstructionsList">Obras</a></li>
-				<li class="last"><a href="Main.php?do=planningActivitiesList">Actividades e Hitos</a></li>
+				<li class="last"><a href="Main.php?do=planningActivitiesList">Actividades</a></li>
 			</ul>
 		</li>
 			|-if $loginUser->isSupervisor() || $loginUser->mayFollow()-|<li><a href="javascript:void(null)" class="sub">Seguimiento</a>
 			  <ul class="menu">
 				<li><a href="Main.php?do=panelProjectsList">Proyectos</a></li>
-				<li class="last"><a href="Main.php?do=panelConstructionsList">Obras</a></li>
-				<!--<li class="last"><a href="Main.php?do=panelActivitiesList">Actividades e Hitos</a></li>-->
+				<li><a href="Main.php?do=panelConstructionsList">Obras</a></li>
+				<li class="last"><a href="Main.php?do=panelActivitiesList">Actividades</a></li>
 				<li><a href="Main.php?do=panelResultsGraphShow">Vision estratégica</a></li>
 				<li><a href="Main.php?do=panelResultsShow">Indicadores de resultado</a></li>
 				<li><a href="Main.php?do=panelExpensesShow">Gasto</a></li>
