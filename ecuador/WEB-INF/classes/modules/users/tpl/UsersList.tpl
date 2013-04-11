@@ -117,7 +117,7 @@ function unblockUser(form){
 			<input type="hidden" name="do" value="commonUsersDoUnblockX" />
 			<input type="hidden" name="type" value="|-get_class($user)-|" />
 			<input type="hidden" name="id" value="|-$user->getId()-|" />
-			<input type="button" value="Desbloquear Usuario" onClick="unblockUser('unblock_|-$user->getId()-|'); return false" title="Desbloquear Usuario" class="icon iconPassword">
+			<input type="button" value="Desbloquear Usuario" onClick="unblockUser('unblock_|-$user->getId()-|'); return false" title="Desbloquear Usuario" class="icon iconUserBlocked">
 			</form>
 		|-/if-|
 		</td>
