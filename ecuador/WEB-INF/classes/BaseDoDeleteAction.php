@@ -13,7 +13,9 @@ class BaseDoDeleteAction extends BaseAction {
 	protected $smarty;
 	protected $entity;
 	protected $ajaxTemplate;
+	protected $params;
 	protected $filters;
+	protected $page;
 	
 	function __construct($entityClassName) {
 		if (empty($entityClassName))
@@ -36,7 +38,7 @@ class BaseDoDeleteAction extends BaseAction {
 		}
 
 		try {
-			// Acciones a ejecutar despues de eliminar el objeto
+			// Acciones a ejecutar antes de eliminar el objeto
 			// Si el preDelete devuelve false, se retorna failure
 			if ($this->preDelete() === false)
 				return $this->addParamsAndFiltersToForwards($params, $this->filters, $mapping, 'failure');
@@ -46,7 +48,7 @@ class BaseDoDeleteAction extends BaseAction {
 				throw $e; // Buscar una mejor forma de que falle AJAX
 			} else {
 				$this->smarty->assign('message', $e->getMessage());
-				return $this->addParamsAndFiltersToForwards($params, $this->filters, $mapping,'failure');
+				return $this->addParamsAndFiltersToForwards($this->params, $this->filters, $mapping,'failure');
 			}
 		}
 		
@@ -58,8 +60,8 @@ class BaseDoDeleteAction extends BaseAction {
 				if ($this->isAjax()) {
 					throw new Exception(); // Buscar una mejor forma de que falle AJAX
 				} else {
-					$this->smarty->assign("notValid",true);
-					return $this->addParamsAndFiltersToForwards($params, $this->filters, $mapping,'success');
+					$this->smarty->assign('notValidId', 'true');
+					return $this->addParamsAndFiltersToForwards($this->params, $this->filters, $mapping,'success');
 				}
 			}
 			
@@ -70,16 +72,14 @@ class BaseDoDeleteAction extends BaseAction {
 
 			// Acciones a ejecutar despues de eliminar el objeto
 			$this->postDelete();
-			return $this->addParamsAndFiltersToForwards($params, $this->filters, $mapping,'success');
+			return $this->addParamsAndFiltersToForwards($this->params, $this->filters, $mapping,'success');
 		} catch (Exception $e) {
-			echo($e->__toString());
-			die();
 			if (ConfigModule::get("global","showPropelExceptions")){
 				print_r($e->__toString());
 			}
 		}
 
-		return $this->addParamsAndFiltersToForwards($params, $this->filters, $mapping,'failure');
+		return $this->addParamsAndFiltersToForwards($this->params, $this->filters, $mapping,'failure');
 	}
 	
 	/**
@@ -88,9 +88,10 @@ class BaseDoDeleteAction extends BaseAction {
 	 */
 	protected function preDelete() {
 
-		// Informacion de filtros
 		if (!empty($_REQUEST["filters"]))
-			$this->filters = $_REQUEST['filters'];
+			$this->filters = $_REQUEST["filters"];
+		if (isset($_REQUEST["page"]) && $_REQUEST["page"] > 0)
+			$this->params["page"] = $_REQUEST["page"];
 
 	}
 	

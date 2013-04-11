@@ -6,7 +6,7 @@
 		<entriesPerPage>8</entriesPerPage>
 		<blogMostViewed>3</blogMostViewed>
 		<blogMostViewPeriod>60</blogMostViewPeriod>
-		<sendMailSubjectSufix>Te han eviado esta nota desde Cippec</sendMailSubjectSufix>
+		<sendMailSubjectSufix>Te han eviado esta nota desde _____</sendMailSubjectSufix>
 		<blog>
 			<useTopTitle>
 				<value>NO</value>
