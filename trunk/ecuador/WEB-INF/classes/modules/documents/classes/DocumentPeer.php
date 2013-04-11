@@ -205,6 +205,12 @@ class DocumentPeer extends BaseDocumentPeer {
 		$moduleConfig = Common::getModuleConfiguration('documents');
 		$documentsPath = $moduleConfig['documentsPath'];
 
+		if (!empty($documentsPath) && !file_exists($documentsPath)) {
+			$created = mkdir($documentsPath, 0755, true);
+			if (!$created)
+				$errorCreatingDirectory = true;
+		}
+
 		move_uploaded_file($file['tmp_name'],$documentsPath . '/' . $document->getId());
 
 		return $document;
