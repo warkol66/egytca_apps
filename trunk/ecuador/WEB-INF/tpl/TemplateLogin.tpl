@@ -25,8 +25,25 @@
 <script language="JavaScript" type="text/javascript" src="scripts/functions.js"></script>
 </head>
 <body>
-	<img src="images/logo_buenos_aires_60.png" style="margin-left:30px; top: 0; float: left; position: fixed; z-index: 50002"/>
+<div id="wrapper">
+	<!-- Begin Header -->
+	<div id="header"><span>Empoderando al ciudadano,<br />gracias a los Derechos y Obligaciones conferidos <br />en las Leyes de Autonomía y Descentralización</span>
+		<a href="Main.php"><strong>|-$parameters.siteName-|</strong></a>
+				<h1 id="headerLogo">
+					<a href="index.html"><strong>Parroquias Rurales Ecuador</strong></a>
+				</h1>
+	</div>
+	<div class="allColumns">
+							<ul class="nav"></ul>
+<div class="clear"></div>                           
+	</div>
 |-$centerHTML-|
+	<div id="footer">
+	<ul></ul>     
+<p>&nbsp;</p>
+		<p>Copyright©2013 Parroquias Rurales Ecuador / Desarrollado por Módulos Empresarios.</p>
+	</div>
+</div>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 </body>
