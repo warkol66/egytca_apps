@@ -15,13 +15,8 @@ class ContentShowAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Use a different template
-        $this->template->template = 'TemplateJQuery.tpl';
+		$this->template->template = 'TemplateContent.tpl';
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -43,21 +38,23 @@ class ContentShowAction extends BaseAction {
 			$id = $contentHomeId;
 
 		$smarty->assign('contentId',$id);
-        $content=ContentQuery::create()->findPk($id);
+		$content=ContentQuery::create()->findPk($id);
 
-        if(!$content){
-            $smarty->assign("notValidId", 1);
-            return $mapping->findForwardConfig('success');
-        }
+		if (!$content){
+			$smarty->assign("notValidId", 1);
+			return $mapping->findForwardConfig('success');
+		}
 
-        if(isset($_GET["lang"])){
-            if(is_numeric($_GET["lang"])) $language=ContentActiveLanguageQuery::create()->findPk($_GET["lang"]);
-            else $language=ContentActiveLanguageQuery::create()->filterByLanguagecode($_GET["lang"])->findOne();
-        }
-        if(!$language) $language=ContentActiveLanguageQuery::getDefaultLanguage();
+		if (isset($_GET["lang"])){
+			if (is_numeric($_GET["lang"]))
+				$language=ContentActiveLanguageQuery::create()->findPk($_GET["lang"]);
+			else
+				$language=ContentActiveLanguageQuery::create()->filterByLanguagecode($_GET["lang"])->findOne();
+		}
+		if (!$language)
+			$language=ContentActiveLanguageQuery::getDefaultLanguage();
 
-        $content->setLocale($language->getLanguagecode());
-
+		$content->setLocale($language->getLanguagecode());
 		$smarty->assign("content",$content);
 
 		//El home puede usar template interno y externo distinto
