@@ -39,5 +39,69 @@ class PlanningActivityQuery extends BasePlanningActivityQuery {
 	public function rangeStarting($range) {
 		return $this->filterByStartingdate($range);
 	}
+	
+	public function filterByColor($color, $comparison = Criteria::EQUAL) {
+		
+		global $system;
+		$availableColors = $system['config']['tablero']['colors'];
+		
+		$colorStates = array_keys($availableColors, $color);
+		$filterMethod = 'filterBy'.$colorStates[0];
+		
+		return $this->$filterMethod(null, $comparison);
+	}
+	
+	public function filterByOnTime($value = null, $comparison = Criteria::EQUAL) {
+		return $this; // TODO: implementar
+	}
+	
+	public function filterByDelayed($value = null, $comparison = Criteria::EQUAL) {
+		return $this; // TODO: implementar
+	}
+	
+	public function filterByLate($value = null, $comparison = Criteria::EQUAL) {
+		
+		$currentTime = time();
+
+		// Si se usa tolerancia en dias
+		global $system;
+		if ($system["config"]["tablero"]["activities"]["parameterControl"]["value"] == "DAYS") {
+			$days = $system["config"]["tablero"]["activities"]["late"];
+			$currentTime = time() - ($days * 24 * 60 * 60);
+		}
+		
+		$condDateComparison = uniqid('cond-');
+		$this->condition($condDateComparison, date('Y-m-d', $currentTime) . ($comparison == Criteria::EQUAL ? ' > ' : ' < ') . PlanningActivityPeer::ENDINGDATE);
+		$condFinished = $this->conditionForFinished($comparison == Criteria::EQUAL ? Criteria::NOT_EQUAL : Criteria::EQUAL);
+		$cond1 = uniqid('cond-');
+		$this->combine(array($condDateComparison, $condFinished), 'and', $cond1);
+		
+		$condEndingDateExistance = uniqid('cond-');
+		$this->condition($condEndingDateExistance, PlanningActivityPeer::ENDINGDATE . ($comparison == Criteria::EQUAL ? ' IS NOT NULL' : ' IS NULL') );
+		
+		echo $this->where(array($cond1, $condEndingDateExistance), $comparison == Criteria::EQUAL ? 'and' : 'or')->toString();die;
+	}
+	
+	public function filterByFinished($value = null, $comparison = Criteria::EQUAL) {
+		return $this->where(array($this->conditionForFinished($comparison)));
+	}
+	
+	public function conditionForFinished($comparison = Criteria::EQUAL) {
+		$condResult = $comparison == Criteria::EQUAL ? 'condFinished' : 'condNotFinished';
+		$cond1 = uniqid('cond-');
+		$cond2 = uniqid('cond-');
+		$this->condition($cond1, PlanningActivityPeer::ACOMPLISHED .' '. $comparison . ' TRUE')
+			->condition($cond2, PlanningActivityPeer::REALEND . ($comparison == Criteria::EQUAL ? ' IS NOT NULL' : ' IS NULL') )
+			->combine(array($cond1, $cond2), $comparison == Criteria::EQUAL ? 'or' : 'and', $condResult);
+		return $condResult;
+	}
+	
+	public function filterByPlanned($value = null, $comparison = Criteria::EQUAL) {
+		return $this->filterByStarted(null, $comparison);
+	}
+	
+	public function filterByStarted($value = null, $comparison = Criteria::EQUAL) {
+		return $this; // TODO implementar
+	}
 
 } // PlanningActivityQuery
