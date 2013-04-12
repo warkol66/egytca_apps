@@ -185,7 +185,8 @@ class PlanningActivity extends BasePlanningActivity {
 			$currentTime = time() - ($days * 24 * 60 * 60);
 		}
 		// TODO agregar otros tipos de tolerancias
-
+		
+		$currentTime = strtotime(date('Y-m-d', $currentTime)); // tiempo del comienzo del dia (comparo contra un date, no un datetime)
 		return ($currentTime > $plannedStart && !$this->isStarted());
 	}
 
@@ -204,7 +205,8 @@ class PlanningActivity extends BasePlanningActivity {
 			$currentTime = time() - ($days * 24 * 60 * 60);
 		}
 		// TODO agregar otros tipos de tolerancias
-
+		
+		$currentTime = strtotime(date('Y-m-d', $currentTime)); // tiempo del comienzo del dia (comparo contra un date, no un datetime)
 		return (($currentTime > $plannedEnd) && !$this->isFinished());
 	}
 	
