@@ -205,7 +205,7 @@ class PlanningActivity extends BasePlanningActivity {
 		}
 		// TODO agregar otros tipos de tolerancias
 
-		return (($currentTime > $plannedEnd) && !$this->isFinished);
+		return (($currentTime > $plannedEnd) && !$this->isFinished());
 	}
 	
 } // PlanningActivity

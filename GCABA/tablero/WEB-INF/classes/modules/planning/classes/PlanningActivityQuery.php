@@ -51,15 +51,43 @@ class PlanningActivityQuery extends BasePlanningActivityQuery {
 		return $this->$filterMethod(null, $comparison);
 	}
 	
-	public function filterByOnTime($value = null, $comparison = Criteria::EQUAL) {
-		return $this; // TODO: implementar
+	public function filterByDelayed($value = null, $comparison = Criteria::EQUAL) {
+		return $this->where(array($this->conditionForDelayed($comparison)));
 	}
 	
-	public function filterByDelayed($value = null, $comparison = Criteria::EQUAL) {
-		return $this; // TODO: implementar
+	public function filterByFinished($value = null, $comparison = Criteria::EQUAL) {
+		return $this->where(array($this->conditionForFinished($comparison)));
 	}
 	
 	public function filterByLate($value = null, $comparison = Criteria::EQUAL) {
+		return $this->where(array($this->conditionForLate($comparison)));
+	}
+	
+	public function filterByOnTime($value = null, $comparison = Criteria::EQUAL) {
+		$opposedComparison = $comparison == Criteria::EQUAL ? Criteria::NOT_EQUAL : Criteria::EQUAL;
+		return $this->where(array(
+			$this->conditionForDelayed($opposedComparison),
+			$this->conditionForLate($opposedComparison),
+			$this->conditionForFinished($opposedComparison),
+			$this->conditionForCancelled($opposedComparison)
+		), $comparison == Criteria::EQUAL ? 'and' : 'or');
+	}
+	
+	public function filterByPlanned($value = null, $comparison = Criteria::EQUAL) {
+		return $this->filterByStarted($value, $comparison);
+	}
+	
+	public function filterByStarted($value = null, $comparison = Criteria::EQUAL) {
+		return $this->where(array($this->conditionForStarted($comparison)));
+	}
+	
+	public function conditionForCancelled($comparison = Criteria::EQUAL) {
+		$condResult = $comparison == Criteria::EQUAL ? 'condCancelled' : 'condNotCancelled';
+		$this->condition($condResult, PlanningActivityPeer::CANCELLED . ' ' . $comparison . ' TRUE');
+		return $condResult;
+	}
+	
+	public function conditionForDelayed($comparison = Criteria::EQUAL) {
 		
 		$currentTime = time();
 
@@ -71,19 +99,17 @@ class PlanningActivityQuery extends BasePlanningActivityQuery {
 		}
 		
 		$condDateComparison = uniqid('cond-');
-		$this->condition($condDateComparison, date('Y-m-d', $currentTime) . ($comparison == Criteria::EQUAL ? ' > ' : ' < ') . PlanningActivityPeer::ENDINGDATE);
-		$condFinished = $this->conditionForFinished($comparison == Criteria::EQUAL ? Criteria::NOT_EQUAL : Criteria::EQUAL);
+		$this->condition($condDateComparison, '"'.date('Y-m-d', $currentTime).'"' . ($comparison == Criteria::EQUAL ? ' > ' : ' <= ') . PlanningActivityPeer::STARTINGDATE);
+		$condStarted = $this->conditionForStarted($comparison == Criteria::EQUAL ? Criteria::NOT_EQUAL : Criteria::EQUAL);
 		$cond1 = uniqid('cond-');
-		$this->combine(array($condDateComparison, $condFinished), 'and', $cond1);
+		$this->combine(array($condDateComparison, $condStarted), $comparison == Criteria::EQUAL ? 'and' : 'or', $cond1);
 		
-		$condEndingDateExistance = uniqid('cond-');
-		$this->condition($condEndingDateExistance, PlanningActivityPeer::ENDINGDATE . ($comparison == Criteria::EQUAL ? ' IS NOT NULL' : ' IS NULL') );
+		$condStartingDateExistance = uniqid('cond-');
+		$this->condition($condStartingDateExistance, PlanningActivityPeer::STARTINGDATE . ($comparison == Criteria::EQUAL ? ' IS NOT NULL' : ' IS NULL') );
 		
-		echo $this->where(array($cond1, $condEndingDateExistance), $comparison == Criteria::EQUAL ? 'and' : 'or')->toString();die;
-	}
-	
-	public function filterByFinished($value = null, $comparison = Criteria::EQUAL) {
-		return $this->where(array($this->conditionForFinished($comparison)));
+		$condResult = $comparison == Criteria::EQUAL ? 'condDelayed' : 'condNotDelayed';
+		$this->combine(array($cond1, $condStartingDateExistance), $comparison == Criteria::EQUAL ? 'and' : 'or', $condResult);
+		return $condResult;
 	}
 	
 	public function conditionForFinished($comparison = Criteria::EQUAL) {
@@ -96,12 +122,35 @@ class PlanningActivityQuery extends BasePlanningActivityQuery {
 		return $condResult;
 	}
 	
-	public function filterByPlanned($value = null, $comparison = Criteria::EQUAL) {
-		return $this->filterByStarted(null, $comparison);
+	public function conditionForLate($comparison = Criteria::EQUAL) {
+		
+		$currentTime = time();
+
+		// Si se usa tolerancia en dias
+		global $system;
+		if ($system["config"]["tablero"]["activities"]["parameterControl"]["value"] == "DAYS") {
+			$days = $system["config"]["tablero"]["activities"]["late"];
+			$currentTime = time() - ($days * 24 * 60 * 60);
+		}
+		
+		$condDateComparison = uniqid('cond-');
+		$this->condition($condDateComparison, '"'.date('Y-m-d', $currentTime).'"' . ($comparison == Criteria::EQUAL ? ' > ' : ' <= ') . PlanningActivityPeer::ENDINGDATE);
+		$condFinished = $this->conditionForFinished($comparison == Criteria::EQUAL ? Criteria::NOT_EQUAL : Criteria::EQUAL);
+		$cond1 = uniqid('cond-');
+		$this->combine(array($condDateComparison, $condFinished), $comparison == Criteria::EQUAL ? 'and' : 'or', $cond1);
+		
+		$condEndingDateExistance = uniqid('cond-');
+		$this->condition($condEndingDateExistance, PlanningActivityPeer::ENDINGDATE . ($comparison == Criteria::EQUAL ? ' IS NOT NULL' : ' IS NULL') );
+		
+		$condResult = $comparison == Criteria::EQUAL ? 'condLate' : 'condNotLate';
+		$this->combine(array($cond1, $condEndingDateExistance), $comparison == Criteria::EQUAL ? 'and' : 'or', $condResult);
+		return $condResult;
 	}
 	
-	public function filterByStarted($value = null, $comparison = Criteria::EQUAL) {
-		return $this; // TODO implementar
+	public function conditionForStarted($comparison = Criteria::EQUAL) {
+		$condResult = $comparison == Criteria::EQUAL ? 'condStarted' : 'condNotStarted';
+		$this->condition($condResult, PlanningActivityPeer::REALSTART . ' ' . ($comparison == Criteria::EQUAL ? Criteria::ISNOTNULL : Criteria::ISNULL) );
+		return $condResult;
 	}
 
 } // PlanningActivityQuery
