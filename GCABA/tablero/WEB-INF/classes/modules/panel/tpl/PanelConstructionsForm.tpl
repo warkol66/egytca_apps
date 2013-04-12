@@ -172,7 +172,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
   </p>
       
 		 |-if !$planningConstruction->isNew()-|<h3>Partida presupuestaria &nbsp; <a href="javascript:void(null)" id="showHideBudgetRelations" onClick="$('budgetItemsTable').toggle(); $('showHideBudgetRelations').toggleClassName('expandLink');" class="collapseLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningConstruction->getBudgetItems() type="Construction" objId=$planningConstruction->getId()-||-/if-|
-		 <h3>Gantt (Hitos) <a href="javascript:void(null)" id="showHidePlanningConstruction" onClick="$('activitiesTable').toggle(); $('showHidePlanningConstruction').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-if !$planningConstruction->isNew()-||-include file="PlanningActivitiesInclude.tpl" activities=$planningConstruction->getActivities() construction=$planningConstruction showGantt="true" readonly=false-||-else-|
+		 <h3>Gantt (Hitos) <a href="javascript:void(null)" id="showHidePlanningConstruction" onClick="$('activitiesTable').toggle(); $('showHidePlanningConstruction').toggleClassName('collapseLink');" class="expandLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-if !$planningConstruction->isNew()-||-include file="PlanningActivitiesInclude.tpl" activities=$planningConstruction->getActivities() construction=$planningConstruction showGantt="true" readonly=false  semaphore="true"-||-else-|
 		 |-include file="PlanningConstructionsTemplateInclude.tpl" construction="true" readonly=false-||-/if-|
 	<p>
         <label for="params_address">Dirección</label>

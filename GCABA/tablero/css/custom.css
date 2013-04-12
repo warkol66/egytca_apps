@@ -783,3 +783,7 @@ table.tableTdBorders {
 fieldset.noMargin {
 	margin-left: 0 !Important;
 }
+
+h6 {
+	font-size: 1.4em;
+}
