@@ -40,6 +40,24 @@ class PlanningActivityQuery extends BasePlanningActivityQuery {
 		return $this->filterByStartingdate($range);
 	}
 	
+	public function filterByPositionCode($positionCode) {
+		$projects = BaseProjectQuery::create()->filterByResponsibleCode($positionCode)->find();
+		foreach ($projects as $project) { // $project no necesariamente es un PlanningProject (ver BaseProject)
+			if ($project instanceof PlanningProject)
+				$planningProjectIds[] = $project->getId();
+			elseif ($project instanceof PlanningConstruction)
+				$planningConstructionIds[] = $project->getId();
+			else
+				throw new Exception('Unknown project type');
+		}
+		
+		$query = PlanningActivityQuery::create();
+		return $query->where(array(
+			$query->conditionForProjectObjectWithId($planningProjectIds),
+			$query->conditionForConstructionObjectWithId($planningConstructionIds)
+		), 'or')->find();
+	}
+
 	public function filterByColor($color, $comparison = Criteria::EQUAL) {
 		
 		global $system;
@@ -79,6 +97,14 @@ class PlanningActivityQuery extends BasePlanningActivityQuery {
 	
 	public function filterByStarted($value = null, $comparison = Criteria::EQUAL) {
 		return $this->where(array($this->conditionForStarted($comparison)));
+	}
+	
+	function conditionForConstructionObjectWithId($constructionId) {
+		return $this->conditionForObjectTypeWithId('Construction', $constructionId);
+	}
+	
+	function conditionForProjectObjectWithId($projectId) {
+		return $this->conditionForObjectTypeWithId('Project', $projectId);
 	}
 	
 	public function conditionForCancelled($comparison = Criteria::EQUAL) {
@@ -151,6 +177,21 @@ class PlanningActivityQuery extends BasePlanningActivityQuery {
 		$condResult = $comparison == Criteria::EQUAL ? 'condStarted' : 'condNotStarted';
 		$this->condition($condResult, PlanningActivityPeer::REALSTART . ' ' . ($comparison == Criteria::EQUAL ? Criteria::ISNOTNULL : Criteria::ISNULL) );
 		return $condResult;
+	}
+	
+	public function conditionForObjectTypeWithId($objectType, $objectId) {
+		
+		// conditionForObjectTypeWithId($objectType, $objectId = array()) {...} doesn't work
+		if (empty($objectId))
+			$objectId = array();
+		
+		$cond1Name = uniqid('cond-');
+		$cond2Name = uniqid('cond-');
+		$condResultName = uniqid('cond-');
+		$this->condition($cond1Name, PlanningActivityPeer::OBJECTTYPE . ' =  ?', $objectType);
+		$this->condition($cond2Name, PlanningActivityPeer::OBJECTID . (is_array($objectId) ? ' IN ' : ' = ') . '?', $objectId);
+		$this->combine(array($cond1Name, $cond2Name), 'and', $condResultName);
+		return $condResultName;
 	}
 
 } // PlanningActivityQuery
