@@ -49,7 +49,7 @@ myChart2.render("chartContainer2");
 	<h1>Proyecto: |-$planningProject->getName()-|</h1>
 	<h3>Listado y Gantt de actividades</h3>
   <form name="form_edit_project" id="form_edit_project" action="Main.php" method="post">
-	|-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() showGantt="true" margin="false" add="false"-|
+	|-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() showGantt="true" margin="false" add="false" semaphore="true"-|
     <input type="hidden" name="id" id="id" value="|-$planningProject->getId()-|" /> 
 		|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
     <input type="hidden" name="do" id="do" value="panelProjectsDoEdit" /> 

@@ -141,7 +141,7 @@
 	  
 		 |-if !$planningProject->isNew()-|
 		 <h3>Gantt (Hitos) &nbsp; <a href="javascript:void(null)" id="showHidePlanningActivities" onClick="$('activitiesTable').toggle(); $('showHidePlanningActivities').toggleClassName('expandLink');" class="collapseLink">&nbsp;<span>Ver/Ocultar</span></a> </h3>
-		 |-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() showGantt="true"-||-/if-|
+		 |-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() showGantt="true" semaphore="true"-||-/if-|
 	  
 			|-if isset($loginUser) && $loginUser->isSupervisor() && !$planningProject->isNew()-|
 				<p>

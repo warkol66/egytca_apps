@@ -117,7 +117,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 		 <h3>Partida presupuestaria</h3>
 		 |-if !$planningConstruction->isNew()-||-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningConstruction->getBudgetItems() readonly="readonly" showLog="true"-||-/if-|
 
-		 |-if !$planningConstruction->isNew()-|<h3>Actividades</h3>|-include file="PlanningActivitiesInclude.tpl" activities=$planningConstruction->getActivities() construction="true"-||-/if-|
+		 |-if !$planningConstruction->isNew()-|<h3>Actividades</h3>|-include file="PlanningActivitiesInclude.tpl" activities=$planningConstruction->getActivities() construction="true" semaphore="true"-||-/if-|
 	<p>
         <label for="params_fundingSource">Fuente de Financiamiento</label>
       <input name="params[fundingSource]" type="text" id="params_fundingSource" size="80" value="|-$planningConstruction->getFundingSource()-|" title="Fuente de Financiamiento" |-$readonly|readonly-|/>

@@ -17,6 +17,7 @@ function addActivity(a) {
 function addActivityRow() {
 	var row = document.createElement('tr');
 html =   '      <tr> '
+ + '      <td>&nbsp;</td>'
  + '      <td><input name="activity[][name]"  id="params_name[]" type="text" value="" size="40" title="Actividad"></td>'
  + '      <td><input name="activity[][order]"  id="params_order[]" type="text" value="" class="width3em" title="Orden" ></td>'
 |-if !$construction-| + '        <td><input name="activity[][startingDate]"  id="params_startingDate[]" type="text" value="" title="Fecha de inicio en formato dd-mm-aaaa" class="dateValidation"></td>'|-/if-|
@@ -53,14 +54,15 @@ html =   '      <tr> '
      <table class="tableTdBorders" id="activitiesTable" style="margin-bottom:15px;"> 
       <thead> 
          <tr> 
-          <th colspan="11">|-if !$construction-||-if $showGantt && $activities|count gt 0-|
+          <th colspan="12">|-if !$construction-||-if $showGantt && $activities|count gt 0-|
 					<input type="button" class="icon iconViewGantt" onClick='window.open("Main.php?do=planningProjectsViewX&showGantt=true&id=|-$planningProject->getid()-|","Gantt","scrollbars=1,width=800,height=600");' value="Ver Gantt" title="Ver Gantt (abre en ventana nueva)" /> Ver Gantt |-else-|<img src="images/clear.png" class="icon iconClear disabled" />|-/if-||-else-|
 					|-if $showGantt && $activities|count gt 0-|<input type="button" class="icon iconViewGantt" onClick='window.open("Main.php?do=planningConstructionsViewX&showGantt=true&id=|-$construction->getid()-|","Gantt","scrollbars=1,width=800,height=600");' value="Ver Gantt" title="Ver Gantt (abre en ventana nueva)" /> Ver Gantt |-else-|<img src="images/clear.png" class="icon iconClear disabled" />|-/if-||-/if-|
-					|-if !$show && !$showLog-||-if !isset($construction) || (isset($construction) && $construction->getConstructionType() eq 1)-|<div class="rightLink"><a href="#" onclick="return addActivityRow()" class="addLink" title="Agregar nueva actividad">Agregar Hitos</a></div>|-/if-|
+					|-if !$show && !$showLog-|<div class="rightLink"><a href="#" onclick="return addActivityRow()" class="addLink" title="Agregar nueva actividad">Agregar Actividades</a></div>
 				|-/if-|</th> 
         </tr> 
 				|-*if ($show || $showLog) && $activities|@count gt 0*-|
          <tr> 
+         <th>&nbsp;</th>
           <th>Nombre</th> 
           <th>Orden</th> 
 |-if !$construction-|          <th>Fecha Inicio</th> 
@@ -79,36 +81,36 @@ html =   '      <tr> '
        </thead> 
       <tbody id="activitiesTbody">  
 |-if isset($construction) && $construction->getConstructionType() eq 2-|    <tr> 
-      <th colspan="11">Elaboración del proyecto</th> 
+      <th colspan="12">Elaboración del proyecto</th> 
     </tr> 
     <tr> 
-      <th colspan="11">Por Concurso</th> 
+      <th colspan="12">Por Concurso</th> 
     </tr> 
 |-else if isset($construction)-|
     <tr> 
-      <th colspan="11">Diseño del Proyecto</th> 
+      <th colspan="12">Diseño del Proyecto</th> 
     </tr> 
 |-/if-|
  |-foreach from=$activities item=activity name=for_contractActivitys-|
 |-if isset($construction) && $construction->getConstructionType() eq 2 && $activity->getName() eq "Diseño del Proyecto"-|
     <tr> 
-      <th colspan="11">Diseño Propio</th> 
+      <th colspan="12">Diseño Propio</th> 
     </tr> 
 |-else if isset($construction) && $construction->getConstructionType() eq 2 && $activity->getName() eq "Presentación EIA en APRA"-|
     <tr> 
-      <th colspan="11">Evaluación del impacto Ambiental</th> 
+      <th colspan="12">Evaluación del impacto Ambiental</th> 
     </tr> 
 |-else if isset($construction) && $activity->getName() eq "Aprobación de Pliegos"-|
     <tr> 
-      <th colspan="11">Licitación</th> 
+      <th colspan="12">Licitación</th> 
     </tr> 
 |-/if-|
- 
-      <tr id="activityId_|-$activity->getId()-|"> 
-            <td><input type="hidden" name="activity[][id]" value="|-$activity->getId()-|"/>
-            |-if isset($construction) && $construction->getConstructionType() eq 2-|<input name="activity[][name]" id="params_name[]" type="text" value="|-$activity->getName()|escape-|" size="60" title="Actividad" readonly="readonly"></td>
-            |-else-|<input name="activity[][name]" id="params_name[]" type="text" value="|-$activity->getName()|escape-|" size="40" title="Actividad" |-$readonly|readonly-|>|-/if-|</td>
-	    <td align="center"><input name="activity[][order]" type="text" class="width3em" value="|-if $activity->getOrder() neq $defaultOrder-||-$activity->getOrder()-||-/if-|" |-$readonly|readonly-| style="width:3.0em !Important"></td>
+		<tr id="activityId_|-$activity->getId()-|"> 
+			<td>|-if $semaphore-|<a href="javascript:void(null);" class="smallIcon flag|-$activity->statusColor()|capitalize-|"></a>|-else-|&nbsp;|-/if-|</td>
+			<td><input type="hidden" name="activity[][id]" value="|-$activity->getId()-|"/>
+			|-if isset($construction) && $construction->getConstructionType() eq 2-|<input name="activity[][name]" id="params_name[]" type="text" value="|-$activity->getName()|escape-|" size="60" title="Actividad" readonly="readonly"></td>
+			|-else-|<input name="activity[][name]" id="params_name[]" type="text" value="|-$activity->getName()|escape-|" size="40" title="Actividad" |-$readonly|readonly-|>|-/if-|</td>
+		<td align="center"><input name="activity[][order]" type="text" class="width3em" value="|-if $activity->getOrder() neq $defaultOrder-||-$activity->getOrder()-||-/if-|" |-$readonly|readonly-| style="width:3.0em !Important"></td>
 |-if !$construction-|            <td><input name="activity[][startingDate]" id="activity|-$activity->getId()-|_startingDate" type="text" value="|-$activity->getStartingDate()|date_format:"%d-%m-%Y"-|" title="Fecha de inicio en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation" style="width:5.2em !Important"></td>|-/if-|
             <td><input name="activity[][endingDate]"  id="activity|-$activity->getId()-|_endingDate" type="text" value="|-$activity->getEndingDate()|date_format:'%d-%m-%Y'-|" title="Fecha de finalización en formato dd-mm-aaaa" |-$readonly|readonly-| class="dateValidation" style="width:5.2em !Important"></td>
       <td align="center"><input name="activity[][priority]" type="hidden" value="0"><input name="activity[][priority]" type="checkbox" value="1" |-$activity->getPriority()|checked_bool-| |-$readonly|readonly-|></td>

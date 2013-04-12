@@ -212,10 +212,6 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-position: -80px -140px !Important; }
 .iconNewsClipping {
 	background-position: -100px -140px !Important; }
-.iconExpand {
-	background-position: -0px -160px !Important; }
-.iconCollapse {
-	background-position: -20px -160px !Important; }
 .iconNodes {
 	background-position: -120px -140px !Important; }
 .icon:hover,input[type="submit"].icon:hover, input[type="button"].icon:hover  {
