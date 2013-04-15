@@ -37,7 +37,8 @@
 				<li><a href="Main.php?do=panelResultsGraphShow">Vision estratégica</a></li>
 				<li><a href="Main.php?do=panelResultsShow">Indicadores de resultado</a></li>
 				<li><a href="Main.php?do=panelExpensesShow">Gasto</a></li>
-				<li class="last"><a href="Main.php?do=panelRelativeExpensesShow">Gasto relativo</a></li>
+				<li><a href="Main.php?do=panelRelativeExpensesShow">Gasto relativo</a></li>
+				<li class="last"><a href="Main.php?do=panelExpensesShareShow">Participación del Gasto</a></li>
 			</ul>
 		</li>|-/if-|
 			<li><a href="Main.php?do=planningIndicatorsList">Indicadores</a>

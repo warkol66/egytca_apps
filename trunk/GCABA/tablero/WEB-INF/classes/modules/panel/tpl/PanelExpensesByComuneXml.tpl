@@ -14,7 +14,7 @@
 		<set label="Todos son cero" color="#FFFFFF" value="1" />
 	|-else-|
 		|-foreach $regionsExpenses as $regionExpenses-|
-			<set label="|-$regionExpenses->getEntityName()-|" color="#|-$colors->next()-|" value="|-$regionExpenses->getAccrued()|default:0-|" />
+			<set label="|-$regionExpenses->getEntityName()-|" color="#|-$colors->next()-|" value="|-$regionExpenses->getAccrued()|default:0|system_numeric_format:"0"-|" />
 		|-/foreach-|
 	|-/if-|
 		

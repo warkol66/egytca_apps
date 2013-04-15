@@ -1,6 +1,6 @@
 <?php
 
-
+require_once("BaseProjectQuery.php");
 
 /**
  * Skeleton subclass for performing query and update operations on the 'planning_activity' table.

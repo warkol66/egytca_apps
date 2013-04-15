@@ -1,13 +1,12 @@
 <?php
 
 require_once 'ExpensesSum.php';
-require_once 'PanelExpensesShowAction.php';
 
-class PanelRelativeExpensesShowAction extends PanelExpensesShowAction {
+class PanelRelativeExpensesShowAction extends BaseAction {
 	
 	function execute($mapping, $form, &$request, &$response) {
 
-		BaseAction::execute($mapping, $form, $request, $response);
+		parent::execute($mapping, $form, $request, $response);
 		
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
@@ -21,34 +20,102 @@ class PanelRelativeExpensesShowAction extends PanelExpensesShowAction {
 		$smarty->assign("module",$module);
 		$smarty->assign("section",$section);
 		
-		$regionsExpenses = RelativeExpensesSum::absoluteToRelative($this->getRegionsExpenses());
-//		$regionsExpensesTotal = RelativeExpensesSum::total($regionsExpenses);
+		$regionsExpenses = $this->getRegionsExpenses();
+		$regionsExpensesTotal = ExpensesSum::total($regionsExpenses);
 		$smarty->assign('regionsExpenses', $regionsExpenses);
-//		$smarty->assign('regionsExpensesTotal', $regionsExpensesTotal);
+		$smarty->assign('regionsExpensesTotal', $regionsExpensesTotal);
 		
-		$ministriesExpenses = RelativeExpensesSum::absoluteToRelative($this->getMinistriesExpenses());
-//		$ministriesExpensesTotal = RelativeExpensesSum::total($ministriesExpenses);
+		$ministriesExpenses = $this->getMinistriesExpenses();		
+		$ministriesExpensesTotal = ExpensesSum::total($ministriesExpenses);
 		$smarty->assign('ministriesExpenses', $ministriesExpenses);
-//		$smarty->assign('ministriesExpensesTotal', $ministriesExpensesTotal);
+		$smarty->assign('ministriesExpensesTotal', $ministriesExpensesTotal);
 		
-		$operativeObjectivesExpenses = RelativeExpensesSum::absoluteToRelative($this->getOperativeObjectivesExpenses());
-//		$operativeObjectivesExpensesTotal = RelativeExpensesSum::total($operativeObjectivesExpenses);
+		$operativeObjectivesExpenses = $this->getOperativeObjectivesExpenses();
+		$operativeObjectivesExpensesTotal = ExpensesSum::total($operativeObjectivesExpenses);
 		$smarty->assign('operativeObjectivesExpenses', $operativeObjectivesExpenses);
-//		$smarty->assign('operativeObjectivesExpensesTotal', $operativeObjectivesExpensesTotal);
+		$smarty->assign('operativeObjectivesExpensesTotal', $operativeObjectivesExpensesTotal);
 		
-		$impactObjectivesExpenses = RelativeExpensesSum::absoluteToRelative($this->getImpactObjectivesExpenses());
-//		$impactObjectivesExpensesTotal = RelativeExpensesSum::total($impactObjectivesExpenses);
+		$impactObjectivesExpenses = $this->getImpactObjectivesExpenses();
+		$impactObjectivesExpensesTotal = ExpensesSum::total($impactObjectivesExpenses);
 		$smarty->assign('impactObjectivesExpenses', $impactObjectivesExpenses);
-//		$smarty->assign('impactObjectivesExpensesTotal', $impactObjectivesExpensesTotal);
+		$smarty->assign('impactObjectivesExpensesTotal', $impactObjectivesExpensesTotal);
 		
-		$ministryObjectivesExpenses = RelativeExpensesSum::absoluteToRelative($this->getMinistryObjectivesExpenses());
-//		$ministryObjectivesExpensesTotal = RelativeExpensesSum::total($ministryObjectivesExpenses);
+		$ministryObjectivesExpenses = $this->getMinistryObjectivesExpenses();
+		$ministryObjectivesExpensesTotal = ExpensesSum::total($ministryObjectivesExpenses);
 		$smarty->assign('ministryObjectivesExpenses', $ministryObjectivesExpenses);
-//		$smarty->assign('ministryObjectivesExpensesTotal', $ministryObjectivesExpensesTotal);
+		$smarty->assign('ministryObjectivesExpensesTotal', $ministryObjectivesExpensesTotal);
 		
 		$smarty->assign('updatedSigaf', BudgetRelationQuery::create()->orderByUpdatedsigaf(Criteria::DESC)->findOne()->getUpdatedsigaf());
-
+		
 		return $mapping->findForwardConfig('success');
 	}
-
+	
+	/**
+	 * Returns a collection with the ExpensesSum of the BudgetRelations asociated to the Comunes
+	 * @return array array of ExpensesSum
+	 */
+	function getRegionsExpenses() {
+		$regions = RegionQuery::create()->filterByType(RegionPeer::COMMUNE)->find();
+		return $this->getEntitiesExpenses($regions);
+	}
+	
+	/**
+	 * Returns a collection with the ExpensesSum of the BudgetRelations asociated to the Ministries
+	 * @return array array of ExpensesSum
+	 */
+	function getMinistriesExpenses() {
+		$ministries = PositionQuery::findMinistries();
+		return $this->getEntitiesExpenses($ministries);
+	}
+	
+	/**
+	 * Returns a collection with the ExpensesSum of the BudgetRelations asociated to the OperativeObjectives
+	 * @return array array of ExpensesSum
+	 */
+	function getOperativeObjectivesExpenses() {
+		$operativeObjectives = OperativeObjectiveQuery::create()->find();
+		return $this->getEntitiesExpenses($operativeObjectives);
+	}
+	
+	/**
+	 * Returns a collection with the ExpensesSum of the BudgetRelations asociated to the ImpactObjectives
+	 * @return array array of ExpensesSum
+	 */
+	function getImpactObjectivesExpenses() {
+		$impactObjectives = ImpactObjectiveQuery::create()->find();
+		return $this->getEntitiesExpenses($impactObjectives);
+	}
+	
+	/**
+	 * Returns a collection with the ExpensesSum of the BudgetRelations asociated to the MinistryObjectives
+	 * @return array array of ExpensesSum
+	 */
+	function getMinistryObjectivesExpenses() {
+		$ministryObjectives = MinistryObjectiveQuery::create()->find();
+		return $this->getEntitiesExpenses($ministryObjectives);
+	}
+	
+	/**
+	 * Returns a collection with the ExpensesSum of the BudgetRelations asociated to the $entities
+	 * @return array array of ExpensesSum
+	 */
+	function getEntitiesExpenses($entities) {
+		
+		$yearsRange = array(
+			'min' => ConfigModule::get('planning', 'startingYear'),
+			'max' => ConfigModule::get('planning', 'endingYear')
+		);
+		
+		$entitiesExpenses = array();
+		foreach ($entities as $entity) {
+			
+			$yearFilteredQuery = BudgetRelationQuery::create()->filterByBudgetyear($yearsRange);
+			$budgetRelations = $entity->getBudgetItems($yearFilteredQuery);
+//			$budgetRelations = array(ExpensesSum::createRandomBudgetRelation(), ExpensesSum::createRandomBudgetRelation()); // TODO: revisar $budgetRelations y borrar
+			
+			$entityExpenses = new ExpensesSum($entity->getName(), $budgetRelations);
+			$entitiesExpenses[] = $entityExpenses;
+		}
+		return $entitiesExpenses;
+	}
 }
