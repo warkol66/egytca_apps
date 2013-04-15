@@ -42,7 +42,7 @@
 				<li class="last"><a href="Main.php?do=multilangTextsDump&amp;moduleName=|-*$moduleName*-|">Textos SQL</a></li>			
 			</ul></li>
 |-/if-|
-		
+		<li><a href="Main.php?do=|-if ($configModule->get("global","unifiedUsernames"))-|commonDoLogout|-else-|affiliatesUsersDoLogout|-/if-|" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")' >Salir del Sistema</a></li>
 |-/if-|
 |-/if-|
 |-if !empty($loginAffiliateUser)-|

@@ -38,7 +38,7 @@
 			<!-- Begin Left Column -->
 			<div class="clear"></div>
 				<div class="allColumns">
-					|-include file="MenuLeft.tpl"-|
+					|-include file="MenuHorizontal.tpl"-|
 				</div>
 			<!-- End Left Column -->
 			<!-- Begin Right Column -->
