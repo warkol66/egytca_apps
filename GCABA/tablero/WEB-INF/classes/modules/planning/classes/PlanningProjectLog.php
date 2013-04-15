@@ -45,6 +45,18 @@ class PlanningProjectLog extends BasePlanningProjectLog {
 									->find();
 	}
 
+
+	/**
+	 * Devuelve los indicadores asociados (PlanningProject)
+	 *
+	 * @return PropelObjectCollection|PlanningIndicator[] Objetos indicadores asociados
+	 */
+	public function countPlanningConstructions() {
+		return PlanningConstructionQuery::create()
+							->filterByPlanningprojectid($this->getProjectid())
+							->find();
+	}
+
 	/**
 	 * Obtiene todas las versiones de un asunto a partir de su objectiveId ordenados por instante de creación y paginados.
 	 *
