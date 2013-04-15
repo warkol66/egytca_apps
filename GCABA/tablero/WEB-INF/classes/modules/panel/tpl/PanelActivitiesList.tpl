@@ -49,6 +49,9 @@
 					&nbsp; &nbsp; <label for="filters[endingToDate]" class="inlineLabel">hasta</label>
 					<input id="filters[endingToDate]" name="filters[endingToDate]" type="text" value="|-$filters.endingToDate-|" size="12" title="Fecha hasta" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[endingToDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha hasta">
 </p>
+<p><label for="filters[filterByColor]">Con demora</label>
+				<input name="filters[filterByColor]" type="checkbox" value="yellow" |-if $filters.filterByColor eq "yellow"-|checked="checked"|-/if-| title="Mostrar solo actividades con atraso"/>
+</p>
 				<p><input type='submit' value='Buscar' class='tdSearchButton' />|-if $filters|@count gt 0-|
 				&nbsp;&nbsp;<input type='button' onClick='location.href="Main.php?do=panelActivitiesList"' value="Quitar Filtros" title="Quitar Filtros"/>
 				&nbsp;&nbsp;<input type="button" value="Exportar" onclick="window.open(('Main.php?'+Form.serialize(this.form)+'&csv=true'));"/>|-/if-|</p>
