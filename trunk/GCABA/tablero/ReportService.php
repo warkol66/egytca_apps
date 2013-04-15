@@ -1,4 +1,5 @@
 <?php
+//version 130411
 class ReportService{
     private $conn;
 
@@ -126,6 +127,10 @@ class ReportService{
     private function getIndicador($id){
         if(!is_numeric($id))
             throw new Exception("Id erroneo");
+/*        JOIN planning_operativeobjective ON (planning_project.operativeObjectiveId = planning_operativeobjective.id)
+        Join planning_ministryobjective ON (planning_ministryobjective.id = planning_operativeobjective.ministryObjectiveId)
+        join planning_impactobjective ON (planning_impactobjective.id = planning_ministryobjective.impactObjectiveId)
+*/
 
         $query = "SELECT planning_indicator.id as idIndicator, planning_indicator.realValue as base, planning_project.goalQuantification as meta
         FROM planning_project
@@ -235,11 +240,12 @@ class ReportService{
 
 
 
+
     public function xmlAvanceMetas()
     {
 
         $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"  ?>
-        <chart caption='Grado de cumplimiento y avance de las metas fisicas' showValues='0' sNumberSuffix='%25'
+        <chart caption='Grado de cumplimiento y avance de las metas físicas' showValues='0' sNumberSuffix='%25'
         showSecondaryLimits='0'
         decimals='2' setAdaptiveYMin='1' setAdaptiveSYMin='1' lineThickness='5'
         exportEnabled='1'
@@ -260,7 +266,7 @@ class ReportService{
         $xml .= "<category name='Meta' />
         </categories>
 
-        <dataset  seriesname='Linea de base'  >\r\n";
+        <dataset  seriesname='Línea de base'  >\r\n";
 
         $xml .= "<set value='" . $this->base_numerica . "'/>";
 
@@ -282,7 +288,7 @@ class ReportService{
         $xml .= "<set value='" . $this->meta_numerica . "'/>";
         $xml .= "</dataset>";
 
-        $xml .= "<dataset  seriesname='Evolucion' renderAs = 'Line' showValues='1'  >
+        $xml .= "<dataset  seriesname='Evolución' renderAs = 'Line' showValues='1'  >
         <set value='" . $this->base_numerica . "'/>";
 
         foreach($this->valores_numericos as $key => $value){
@@ -299,14 +305,43 @@ class ReportService{
     }
 
 
+    public function xmlMapaGastoComuna($year)
+    {
+        $year = intval($year);
+
+        $query = "select r.oldId as numero, sum(ifnull(amount,0)) valor
+        from regions_region r
+        left join (select * from planning_budgetRelation where budgetYear = $year) b on(b.budgetGeolocation = r.oldId)
+        where r.oldId >= 1 and  r.oldId <= 15
+        group by r.oldId";
+
+
+        $result = mysqli_query($this->conn, $query);
+        $allRows = array();
+
+        while(($row = mysqli_fetch_assoc($result))){
+            array_push($allRows, $row);
+        }
+        mysqli_free_result($result);
+        $xml = "<mapa>
+                    <fontsize>12</fontsize>
+                    <comunas>";
+
+        foreach($allRows as $key => $value)
+            $xml .= '       <comuna numero="' . $value["numero"] . '" color="#fafa5c" valor="$' . $value["valor"] . '" />';
+        $xml .= '    </comunas>
+</mapa>';
+        return $xml;
+    }
+
     public function xmlMapaObras(){
         $query = 'SELECT replace(r.name, "Comuna ","") as numero, count(c.id) as valor
-						FROM planning_project as p
-						JOIN planning_construction as c on (p.id = c.planningProjectId)
-						JOIN planning_constructionRegion as cr on (c.id = cr.constructionId)
-						RIGHT JOIN regions_region as r on (cr.regionId = r.id)
-						WHERE p.priority in (1,2,3,4)
-						GROUP BY numero';
+FROM planning_project as p
+JOIN planning_construction as c on (p.id = c.planningProjectId)
+JOIN planning_constructionRegion as cr on (c.id = cr.constructionId)
+RIGHT JOIN regions_region as r on (cr.regionId = r.id)
+WHERE p.priority in (1,2,3,4)
+GROUP BY numero';
 
         $result = mysqli_query($this->conn, $query);
         $allRows = array();
