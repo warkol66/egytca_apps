@@ -117,7 +117,7 @@
         <div class="floatleft" width="400px" height="600px">
             <div id="mapaChart" width="500px" height="500px"></div>
             <script type="text/javascript">
-                dibujarMapa('mapaChart','xml/xmlMapa.php');
+                dibujarMapa('mapaChart','xmlMapa.php');
             </script>
 
         </div>
