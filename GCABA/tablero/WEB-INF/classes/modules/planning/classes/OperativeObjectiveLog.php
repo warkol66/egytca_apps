@@ -32,6 +32,15 @@ class OperativeObjectiveLog extends BaseOperativeObjectiveLog {
 	}
 
 	/**
+	 * Devuelve el objeto (MinistryObjective) del que se desprende el objetivo operativo
+	 *
+	 * @return MinistryObjective del que se desprende el objetivo operativo
+	 */
+	public function getAntecessor() {
+		return $this->getMinistryObjective();
+	}
+
+	/**
 	 * Devuelve los indicadores asociados (OperativeObjective)
 	 *
 	 * @return PropelObjectCollection|PlanningIndicator[] Objetos indicadores asociados

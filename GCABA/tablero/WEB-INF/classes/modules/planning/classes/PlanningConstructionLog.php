@@ -48,6 +48,23 @@ class PlanningConstructionLog extends BasePlanningConstructionLog {
 		return BaseQuery::create('PlanningActivity')->filterByObjecttype('Construction')->filterByObjectid($this->getConstructionid())->find();
 	}
 
+	/**
+	 * Devuelve el objeto (PlanningProject) del que se desprende la obra
+	 *
+	 * @return PlanningProject del que se desprende la obra
+	 */
+	public function getAntecessor() {
+		return $this->getPlanningProject();
+	}
+
+	/**
+	 * Devuelve las partidas presupuestarias
+	 * @return array Relacion con partidas presupuestarias
+	 */
+	public function getConstructionProgresss() {
+		return BaseQuery::create('ConstructionProgresss')->filterByObjecttype('Construction')->filterByObjectid($this->getConstructionid())->find();
+	}
+
 
 	/**
 	 * Obtiene todas las versiones de un asunto a partir de su planningConstructionId ordenados por instante de creación y paginados.
