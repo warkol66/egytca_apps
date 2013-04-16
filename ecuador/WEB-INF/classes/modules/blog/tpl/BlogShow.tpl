@@ -3,8 +3,7 @@
 			<!--class ex blog01-->
 			<div id="article|-$blogEntry->getId()-|" class="article">
 				|-assign var="eId" value=$blogEntry->getId()-|
-				|-$blogEntry|@print_r-|
-				<h5>|-$blogEntry->stringDate-|</h5>
+				<h5>|-$blogEntry->getCreationDate()|change_timezone|date_format:"%A %e %B de %Y - %R"-|</h5>
 				<h2><a href="Main.php?do=blogView&url=|-$blogEntry->getUrl()-|">|-$blogEntry->gettitle()-|</a></h2>
 				|-assign var="category" value=$blogEntry->getBlogCategory()-||-if !empty($category)-|<br /><span class="blogCategoryLink"><a href="Main.php?do=blogShow&categoryId=|-$category->getId()-|" class="blogCategoryLink">|-$category->getName()-|</a></span>|-/if-|
 				<div id="summary">|-if $blogEntry->getBody()|mb_count_characters:true:true > $moduleConfig.charsInList-|
