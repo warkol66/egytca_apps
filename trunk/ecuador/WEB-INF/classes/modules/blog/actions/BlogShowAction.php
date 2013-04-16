@@ -16,6 +16,8 @@ class BlogShowAction extends BaseListAction {
 	protected function postList() {
 		parent::postList();
 		
+		$this->template->template = "TemplatePublic.tpl";
+
 		$module = "Blog";
 		$this->smarty->assign("module",$module);
 		 

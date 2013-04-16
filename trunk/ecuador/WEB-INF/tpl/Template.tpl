@@ -25,8 +25,7 @@
 <div id="wrapper">
 	<b class="rounded"><b class="rtop"><b class="r7"></b><b class="r6"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r1"></b></b></b>
 	<!-- Begin Header -->
-	<div id="header">
-		 <span>Empoderando al ciudadano,<br />gracias a los Derechos y Obligaciones</span>
+	<div id="header"><span>Empoderando al ciudadano,<br />gracias a los Derechos y Obligaciones conferidos <br />en las Leyes de Autonomía y Descentralización</span>
 		<a href="Main.php"><strong>|-$parameters.siteName-|</strong></a>
 		<h1 id="headerLogo">
 			<a href="index.html"><strong>Parroquias Rurales Ecuador</strong></a>
