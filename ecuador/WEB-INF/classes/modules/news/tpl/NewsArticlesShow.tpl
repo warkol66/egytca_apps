@@ -4,14 +4,14 @@
 <!--  NOTICIA  **************************************** -->
 <div id="div_newsarticles">
 		|-foreach from=$newsArticleColl item=newsarticle name=for_newsarticles-|
-			<div id="article|-$newsarticle->getId()-|" class="news01">|-if $newsarticle->hasImages()-|<img src="Main.php?do=newsArticlesGetThumbnail&id=|-$newsarticle->getId()-|" width="150" height="105" align="left" class="newsImage" />
+			<div id="article|-$newsarticle->getId()-|" class="news01 article">|-if $newsarticle->hasImages()-|<img src="Main.php?do=newsArticlesGetThumbnail&id=|-$newsarticle->getId()-|" width="150" height="105" align="left" class="newsImage" />
 			|-elseif $newsarticle->hasVideos()-|<!--<img src="Main.php?do=newsArticlesGetVideoThumbnail&id=|-$newsarticle->getId()-|" width="150" height="105" align="left" class="newsImage" /> -->|-/if-|
 					<h4>|-assign var=region value=$newsarticle->getRegion()-|
 					|-if not empty($region)-||-$region->getName()-||-/if-|
 					|-assign var=category value=$newsarticle->getCategory()-|
 					|-if not empty($category)-||-if not empty($region)-|&gt;&gt; |-/if-||-$category->getName()-||-/if-|</h4>
 				<!--<h2>|-$newsarticle->gettoptitle()-|</h2>-->
-				<h1><a href="Main.php?do=newsArticlesView&id=|-$newsarticle->getId()-|">|-$newsarticle->gettitle()-|</a></h1>
+				<h2><a href="Main.php?do=newsArticlesView&id=|-$newsarticle->getId()-|">|-$newsarticle->gettitle()-|</a></h2>
 				<!--<p>Estado: |-$newsarticle->getStatusName()-|</p>
 				<p>
 					|-assign var=newsUser value=$newsarticle->getUser()-|

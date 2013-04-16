@@ -1444,11 +1444,7 @@ class Common {
 
 		$remoteIp = Common::getIp();
 		$ipBlocked = Common::checkLoginIpFailures($remoteIp);
-		/*echo($ipBlocked);
-		die();*/
 		$userId = $user->getId();
-		/*echo($userId);
-		die();*/
 		$userBlocked = Common::checkLoginUserFailures($objectType, $userId);
 		if ($ipBlocked || $userBlocked)
 			$blocked = true;
@@ -1459,6 +1455,7 @@ class Common {
 				$loginFailure->setUsername($username);
 				$loginFailure->setPassword($password);
 				$loginFailure->setObjectType($objectType);
+				$loginFailure->setObjectId($userId);
 				$loginFailure->setIp($remoteIp);
 				$loginFailure->setBlocked($blocked);
 				$loginFailure->save();
@@ -1475,6 +1472,7 @@ class Common {
 	*
 	* @param string $remoteIp ip de intento fallido de login
 	* @return true si bloqueo la ip, false si no la bloqueo
+	* Testeada
 	*/
 	public static function checkLoginIpFailures($remoteIp) {
 
@@ -1493,6 +1491,7 @@ class Common {
 				$blockedIp = new BlockedIp();
 				$blockedIp->setIp($remoteIp);
 				$blockedIp->setBlockedAt(time());
+				$blockedIp->setUnblocked(false);
 				$blockedIp->save();
 				return true;
 			}
@@ -1516,22 +1515,20 @@ class Common {
 		$loginFailureThreshold = ConfigModule::get("users","loginFailureThreshold");
 		$loginFailureThresholdTime = ConfigModule::get("users","loginFailureThresholdTime");
 		$loginFailureBlockedTimeTime = ConfigModule::get("users","loginFailureBlockedTimeTime");
-
-		//$time = strtotime($loginFailureThresholdTime * 60);
-		$time = strtotime($loginFailureThresholdTime * 60);
-		$now = strtotime(date("Y-m-d h:i:s"));
-		$min = date("Y-m-d h:i:s", $now - $time);
-		//$loginFailureThresholdTimeArray = array('min' => );
 		
-		/*print_r($min);
-		die();*/
-
+		$loginFailureThresholdTimeArray = array('min' => time() - ($loginFailureThresholdTime * 60));
+		
 		$userLoginFailures = LoginFailureQuery::create()
 				->filterByObjecttype($objectType)->filterByObjectid($objectId)
-				->filterByAttemptat(array('min' => $min))->count();
-		/*echo($userLoginFailures);
-		echo($loginFailureThreshold);
-		die();*/
+				->filterByAttemptat($loginFailureThresholdTimeArray)->count();
+				
+		$remoteIp = Common::getIp();
+				
+		$ipLoginFailures = LoginFailureQuery::create()
+				->filterByIp($remoteIp)
+				->filterByAttemptat($loginFailureThresholdTimeArray)->count();
+				
+		//return $userLoginFailures;
 
 		if ($userLoginFailures > $loginFailureThreshold) {
 			try {
@@ -1539,6 +1536,7 @@ class Common {
 				$blockedUser = new BlockedUser();
 				$blockedUser->setObjecttype($objectType);
 				$blockedUser->setObjectid($objectId);
+				$blockedUser->setUnblocked(false);
 				$blockedUser->save();
 				return true;
 			}
@@ -1624,10 +1622,6 @@ class Common {
 
 		$queryClass = $objectType . "Query";
 		$user = $queryClass::create()->findOneById($objectId);
-		/*echo("<pre>");
-		print_r($user);
-		echo("</pre>");
-		die();*/
 		try {
 			$user->setBlockedat(date("Y-m-d h:i:s"));
 			$user->save();
@@ -1676,16 +1670,6 @@ class Common {
 			else
 				return false;
 		}
-	
-	}
-	
-	public static function isBlockedIp($ip) {
-		
-		/*$blocked = BlockedIpQuery::create()->filterByIp($ip);
-		if($blocked->getBlockedAt())
-			return true;
-		else
-			return false;*/
 	
 	}
 

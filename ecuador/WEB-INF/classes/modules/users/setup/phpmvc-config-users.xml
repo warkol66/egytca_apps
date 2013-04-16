@@ -18,7 +18,7 @@
 					 validate = "true">
 			<forward name="success" path="UsersWelcome.tpl"/>
 			<forward name="failure" path="UsersLogin.tpl"/>
-			<forward name="blockedUser" path="UsersLogin.tpl&amp;message=blocked"/>
+			<forward name="blockedUser" path="UsersLogin.tpl"/>
 			<forward name="successFirstLogin" path="/Main.php?do=usersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
 		</action>
 
