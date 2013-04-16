@@ -19,6 +19,8 @@ class VialidadBulletinDoEditAction extends BaseAction {
 		if ($_POST["page"] > 0)
 			$params["page"] = $_POST["page"];
 
+		$_POST["params"]["bulletinDate"] = $_POST["params"]["bulletinDateYear"] . "-" . $_POST["params"]["bulletinDateMonth"] . "-01";
+
 		if (!empty($_POST["filters"]))
 			$filters = $_POST["filters"];
 
