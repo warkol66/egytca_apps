@@ -1,3 +1,9 @@
+<script type="text/javascript" src="scripts/jquery.min.js"></script>
+<script>
+	jQuery.noConflict();
+</script>
+|-assign var="jqueryAndNoConflictAdded" value=1-|
+
 <script type="text/javascript" language="JavaScript">
     function selectTab(anchorElement) {
         $$('#tabsLogs ul li.activeTab').each(function(e) {

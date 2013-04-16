@@ -1,11 +1,11 @@
-<script type="text/javascript" src="scripts/jquery.min.js"></script>
+|-if !$jqueryAndNoConflictAdded-|<script type="text/javascript" src="scripts/jquery.min.js"></script>|-/if-|
 <script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.js"></script>
 <link href="scripts/fancybox/jquery.fancybox-1.3.4.css" rel="stylesheet" type="text/css" />
 |-assign var="defaultOrder" value=999-|
 |-if !$show && !$showLog-|
 <div id="activityMsgField"></div>
 <script language="JavaScript" type="text/JavaScript">
-	jQuery.noConflict();
+	|-if !$jqueryAndNoConflictAdded-|jQuery.noConflict();|-/if-|
 	
 function addActivity(a) {
 	var div = $$("#activityEdit div:first")[0];

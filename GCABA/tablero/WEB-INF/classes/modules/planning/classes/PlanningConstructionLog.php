@@ -62,16 +62,16 @@ class PlanningConstructionLog extends BasePlanningConstructionLog {
 	 * @return array Relacion con partidas presupuestarias
 	 */
 	public function getConstructionProgresss() {
-		return BaseQuery::create('ConstructionProgresss')->filterByObjecttype('Construction')->filterByObjectid($this->getConstructionid())->find();
+		return BaseQuery::create('ConstructionProgress')->filterByConstructionId($this->getConstructionid())->find();
 	}
 
 
 	/**
-	 * Obtiene todas las versiones de un asunto a partir de su planningConstructionId ordenados por instante de creación y paginados.
+	 * Obtiene todas las versiones de un asunto a partir de su planningConstructionId ordenados por instante de creacion y paginados.
 	 *
 	 * @param int $planningConstructionId id del objetivo ministerial.
 	 * @param string $orderType forma en que se ordena, 'asc' = ascendente 'desc' = descendente.
-	 * @return array versions correspondientes al asunto ordenados por instante de creación.
+	 * @return array versions correspondientes al asunto ordenados por instante de creacion.
 	 */
 	public function getAllByPlanningConstruction($planningConstructionId, $orderType = Criteria::ASC) {
 		return $this->filterByPlanningconstructionid($planningConstructionId)->orderByUpdatedAt($orderType);
