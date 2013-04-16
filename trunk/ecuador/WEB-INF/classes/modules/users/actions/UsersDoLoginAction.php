@@ -36,17 +36,20 @@ class UsersDoLoginAction extends BaseAction {
 			$smarty->assign("unifiedLogin",true);
 			Common::setValueUnifiedLoginCookie($_POST['select']);
 		}
-		
-		if(Common::isBlockedUser($_POST["loginUsername"]))
-			return $mapping->findForwardConfig('blockedUser');
 			
 		$remoteip = Common::getIp();
-		/*if(Common::isBLockedIp($remoteip))
-			return $mapping->findForwardConfig('blockedIp');*/
 
 		if (!empty($_POST["loginUsername"]) && !empty($_POST["loginPassword"])) {
+			
 			$user = UserPeer::auth($_POST["loginUsername"],$_POST["loginPassword"]);
 			if (!empty($user)) {
+				//Me fijo si el usuario que intenta ingresar esta bloqueado
+				if(Common::isBlockedUser($_POST["loginUsername"]) || Common::checkLoginUserFailures('User',$user->getId())){
+					$this->template->template = "TemplateLogin.tpl";
+					$smarty->assign("message","blocked");
+					return $mapping->findForwardConfig('blockedUser');
+				}
+				
 				$_SESSION["login_user"] = $user;
 				$_SESSION["loginUser"] = $user;
 				$smarty->assign("loginUser",$user);
