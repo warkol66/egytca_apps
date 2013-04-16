@@ -49,11 +49,6 @@
 			<tablePrefix></tablePrefix>
 			<news>Novedades: Bienvenido al Sistema</news>
 			<affiliateNews>Novedades: Bienvenido al Sistema</affiliateNews>
-			<maintenanceMessage>El sistema permanecerá en mantenimiento por 2 horas, por favor regrese mas tarde.</maintenanceMessage>
-			<applicationTimeZoneGMT>
-				<value>-3</value>
-				<element_type>TIMEZONE</element_type>
-			</applicationTimeZoneGMT>
 		</parameters>
 		<errorReporting>
 			<value>E_ALL &amp; ~E_NOTICE ~E_WARNING</value>

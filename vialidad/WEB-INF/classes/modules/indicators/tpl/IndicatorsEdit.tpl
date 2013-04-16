@@ -1,16 +1,16 @@
 
 <h2>Curvas de Desembolso</h2>
 	|-if !$notValidId-|
-<h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Curva de Desembolso</h1>
+<h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Curva de Avance</h1>
 <!-- Link VOLVER -->
 <!-- /Link VOLVER -->
-<p>A continuación podrá |-if $action eq "edit"-|editar|-else-|crear|-/if-| un Curva de Desembolso del sistema.</p>
+<p>A continuación podrá |-if $action eq "edit"-|editar|-else-|crear|-/if-| un Curva de Avance del sistema.</p>
 <div id="div_indicator">
 	|-if $message eq "error"-|
-		<div class="errorMessage">Ha ocurrido un error al intentar guardar el Curva de Desembolso</div>
+		<div class="errorMessage">Ha ocurrido un error al intentar guardar el Curva de Avance</div>
 	|-/if-|
-		<fieldset title="Formulario de edición de datos de un Curva de Desembolso">
-     <legend>Ingrese los datos del Curva de Desembolso</legend>
+		<fieldset title="Formulario de edición de datos de un Curva de Avance">
+     <legend>Ingrese los datos del Curva de Avance</legend>
 	<form action="Main.php" method="post">
 	<p><label for="indicatorData[name]">Nombre</label>
 				<input name="indicatorData[name]" type="text" class="emptyValidation" id="indicatorData[name]" title="name" value="|-if $action eq 'edit'-||-$indicator->getName()-||-/if-|" size="60" maxlength="100" />
@@ -56,5 +56,5 @@
 |-if $action == "edit"-|
 |-/if-|
 |-else-|
-<div class="errorMessage">Ingresó un Identificador de Curva de Desembolso inexistente, regrese al listado haciendo <a href="Main.php?do=indicatorsList">click aquí</a></div>
+<div class="errorMessage">Ingresó un Identificador de Curva de Avance inexistente, regrese al listado haciendo <a href="Main.php?do=indicatorsList">click aquí</a></div>
 |-/if-|

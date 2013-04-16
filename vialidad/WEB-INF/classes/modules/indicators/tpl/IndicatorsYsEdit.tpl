@@ -4,8 +4,8 @@
 <p><strong>Indicador:</strong> |-$indicator->getName()-|</p>
 <p><strong>Tipo de Indicador:</strong> |-$indicator->getIndicatorTypeTranslated()-|</p>|-else-|
 <h2>Proyectos</h2>
-<h1>Curva de desembolso</h1>
-<p>A contunuación encontrará los importes que configuran la curva de desembolsos. Ingrese o modifique los valores en las casillas correspondientes y haga click en "Aceptar" para guardar los cambios.</p>
+<h1>Curva de Avance</h1>
+<p>A contunuación encontrará los importes que configuran la curva de avances. Ingrese o modifique los valores en las casillas correspondientes y haga click en "Aceptar" para guardar los cambios.</p>
 |-/if-|
 <form method="post">
 <fieldset>
