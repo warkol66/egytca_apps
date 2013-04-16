@@ -23,7 +23,32 @@
 		</p>
 		<p>     
 			<label for="params[bulletinDate]">Mes del Boletín</label>
-			<input id="params[bulletinDate]" name="params[bulletinDate]" type='text' value='|-$bulletin->getBulletinDate()|date_format-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[bulletinDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<select id="params[bulletinDateMonth]" name="params[bulletinDateMonth]" title="Seleccione el mes" > 
+					 <option value="01" |-$bulletin->getBulletinDate()|date_format:"m"|selected:"01"-|>Enero</option> 
+					 <option value="02" |-$bulletin->getBulletinDate()|date_format:"m"|selected:"02"-|>Febrero</option> 
+					 <option value="03" |-$bulletin->getBulletinDate()|date_format:"m"|selected:"03"-|>Marzo</option> 
+					 <option value="04" |-$bulletin->getBulletinDate()|date_format:"m"|selected:"04"-|>Abril</option> 
+					 <option value="05" |-$bulletin->getBulletinDate()|date_format:"m"|selected:"05"-|>Mayo</option> 
+					 <option value="06" |-$bulletin->getBulletinDate()|date_format:"m"|selected:"06"-|>Junio</option> 
+					 <option value="07" |-$bulletin->getBulletinDate()|date_format:"m"|selected:"07"-|>Julio</option> 
+					 <option value="08" |-$bulletin->getBulletinDate()|date_format:"m"|selected:"08"-|>Agosto</option> 
+					 <option value="09" |-$bulletin->getBulletinDate()|date_format:"m"|selected:"09"-|>Septiembre</option> 
+					 <option value="10" |-$bulletin->getBulletinDate()|date_format:"m"|selected:"10"-|>Octibre</option> 
+					 <option value="11" |-$bulletin->getBulletinDate()|date_format:"m"|selected:"11"-|>Noviembre</option> 
+					 <option value="12" |-$bulletin->getBulletinDate()|date_format:"m"|selected:"12"-|>Diciembre</option> 
+				 </select> 
+				<select id="params[bulletinDateYear]" name="params[bulletinDateYear]" title="Seleccione el año" > 
+					 <option value="2010" |-$bulletin->getBulletinDate()|date_format:"Y"|selected:"2010"-|>2010</option> 
+					 <option value="2011" |-$bulletin->getBulletinDate()|date_format:"Y"|selected:"2011"-|>2011</option> 
+					 <option value="2012" |-$bulletin->getBulletinDate()|date_format:"Y"|selected:"2012"-|>2012</option> 
+					 <option value="2013" |-$bulletin->getBulletinDate()|date_format:"Y"|selected:"2013"-|>2013</option> 
+					 <option value="2014" |-$bulletin->getBulletinDate()|date_format:"Y"|selected:"2014"-|>2014</option> 
+					 <option value="2015" |-$bulletin->getBulletinDate()|date_format:"Y"|selected:"2015"-|>2015</option> 
+					 <option value="2016" |-$bulletin->getBulletinDate()|date_format:"Y"|selected:"2016"-|>2016</option> 
+					 <option value="2017" |-$bulletin->getBulletinDate()|date_format:"Y"|selected:"2017"-|>2017</option> 
+					 <option value="2018" |-$bulletin->getBulletinDate()|date_format:"Y"|selected:"2018"-|>2018</option> 
+					 <option value="2019" |-$bulletin->getBulletinDate()|date_format:"Y"|selected:"2019"-|>2019</option> 
+				 </select> 
 		</p>
 		<p>     
 			<label for="params[comments]">Observaciones</label>
