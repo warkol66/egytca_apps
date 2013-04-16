@@ -1,7 +1,7 @@
 <h2>Contratos</h2>
-<h1>Curva de desembolso |-if $entityObj-| - |-$entityObj->getName()-||-/if-|</h1>
+<h1>Curva de Avance |-if $entityObj-| - |-$entityObj->getName()-||-/if-|</h1>
 |-if $message eq "graph_ok"-|
-	<div class="successMessage">Se ha creado la curva de desembolso correctamente.</div>
+	<div class="successMessage">Se ha creado la curva de avance correctamente.</div>
 	<p>Para cargar los datos, ingrese a Editar Importes.</p>
 |-/if-|
 |-if !$entity-|

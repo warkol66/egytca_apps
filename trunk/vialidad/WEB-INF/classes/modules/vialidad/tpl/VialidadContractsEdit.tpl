@@ -114,15 +114,15 @@
 
 	 <p><input name="save" type="submit" value="Guardar Cambios">
 		 		|-if $action eq 'edit'-|
-		 		<input type='button' onClick='location.href="Main.php?do=indicatorsList&contractId=|-$contract->getId()-|"' value='Curva de Desembolso' title="Curva de Desembolso"/>
+		 		<input type='button' onClick='location.href="Main.php?do=indicatorsList&contractId=|-$contract->getId()-|"' value='Curva de Avance' title="Curva de Avance"/>
 				
 				|-assign var=indicators value=$contract->getIndicators()-|
 				|-if !empty($indicators)-|
 				|-foreach from=$indicators item=indicator-|
-		 		<input type='button' onClick='location.href="Main.php?do=indicatorsView&id=|-$indicator->getId()-|"' value='Ir a Curva de Desembolso' title="Ir a Curva de Desembolso"/>
+		 		<input type='button' onClick='location.href="Main.php?do=indicatorsView&id=|-$indicator->getId()-|"' value='Ir a Curva de Avance' title="Ir a Curva de Avance"/>
 				|-/foreach-|
 				 |-else-|
-		 		<input type='button' onClick='location.href="Main.php?do=indicatorsEdit&contractId=|-$contract->getId()-|&id="' value='Curva de Desembolso' title="Curva de Desembolso"/>
+		 		<input type='button' onClick='location.href="Main.php?do=indicatorsEdit&contractId=|-$contract->getId()-|&id="' value='Curva de Avance' title="Curva de Avance"/>
 				 |-/if-|
 				 |-/if-|
 				<input type='button' onClick='location.href="Main.php?do=vialidadContractsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Contratos"/>

@@ -1,6 +1,6 @@
 <h2>Contratos - Desembolsos</h2>
-<h1>Períodos de Curva de desembolso</h1>
-<p>A continuación encontrará los meses que abarca la curva de desembolsos. Si quiere agregar un período más, haga click en "Agregar Período". Puede modificar los períodos existentes en el campo junto al mismo.<br />
+<h1>Períodos de Curva de Avance</h1>
+<p>A continuación encontrará los meses que abarca la curva de avances. Si quiere agregar un período más, haga click en "Agregar Período". Puede modificar los períodos existentes en el campo junto al mismo.<br />
 Para cambiar el orden en que aparecen los meses, arrastre el nombre del mismo a la posición deseada; el sistema le indicará si la operación resultó exitosa.</p>
 <p><strong>Gráfico:</strong> |-$indicator->getName()-|</p>
 <form method="post">

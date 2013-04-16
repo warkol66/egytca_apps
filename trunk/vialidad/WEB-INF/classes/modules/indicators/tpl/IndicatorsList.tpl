@@ -4,9 +4,9 @@
 </h1>
 <p>A continuación podrá editar la lista de Curvas de Desembolso de  |-if is_object($contract)-||-$contract->getName()-||-/if-|.</p>
 <div id="div_indicators"> |-if $message eq "ok"-|
-	<div class="successMessage">Curva de Desembolso guardado correctamente</div>
+	<div class="successMessage">Curva de Avance guardado correctamente</div>
 	|-elseif $message eq "deleted_ok"-|
-	<div class="successMessage">Curva de Desembolso eliminado correctamente</div>
+	<div class="successMessage">Curva de Avance eliminado correctamente</div>
 	|-/if-|
 	<table border="0" cellpadding="5" cellspacing="0"  class='tableTdBorders' id="tabla-indicators">
 		<thead>
@@ -26,7 +26,7 @@
 					</div></td>
 			</tr>
 			<tr>
-				<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=indicatorsEdit&contractId=|-$contract->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Curva de Desembolso</a></div></th>
+				<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=indicatorsEdit&contractId=|-$contract->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Curva de Avance</a></div></th>
 			</tr>
 			<tr>
 <!--				<th width="5%" class="thFillTitle">Id</th>   -->
@@ -72,7 +72,7 @@
 		</tr>
 		|-/if-|
 		<tr>
-			<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=indicatorsEdit&contractId=|-$contract->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Curva de Desembolso</a></div></th>
+			<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=indicatorsEdit&contractId=|-$contract->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Curva de Avance</a></div></th>
 		</tr>
 		|-/if-|
 		</tbody>
