@@ -35,7 +35,7 @@ class VialidadBulletinEditAction extends BaseAction {
 			$smarty->assign("bulletin",$bulletin);
 			$smarty->assign("action","edit");
 			
-			$supplies = SupplyQuery::create()->find();
+			$supplies = SupplyQuery::create()->filterByType(1)->find();
 			
 			// Si un supply se agrego, creo su priceBulletin
 			foreach ($supplies as $supply) {
