@@ -34,10 +34,12 @@ class BlogDoAddTagToEntryXAction extends BaseAction {
 
 			if (!empty($entry) && !empty($tag)) {
 				
-				$isEntryTag = BlogTagRelationQuery::create()->filterByEntryid($entry->getId())->filterByTagid($tag->getId())->find();
+				$isEntryTag = BlogTagRelationQuery::create()->filterByEntryid($entry->getId())->filterByTagid($tag->getId())->findOne();
+				/*print_r(is_object($isEntryTag));
+				die();*/
 				if(is_object($isEntryTag)){
-					$smarty->assign('errorTagId','tagMsgField');
-					return $mapping->findForwardConfig('failure');
+					$smarty->assign('message','duplicate');
+					return $mapping->findForwardConfig('success');
 				}
 
 				$relation = new BlogTagRelation();
@@ -46,8 +48,8 @@ class BlogDoAddTagToEntryXAction extends BaseAction {
 				if ($result)
 					return $mapping->findForwardConfig('success');
 				else {
-					$smarty->assign('errorTagId','tagMsgField');
-					return $mapping->findForwardConfig('failure');
+					$smarty->assign('message','error');
+					return $mapping->findForwardConfig('success');
 				}
 
 			}
@@ -59,8 +61,8 @@ class BlogDoAddTagToEntryXAction extends BaseAction {
 
 		}
 
-		$smarty->assign('errorTagId','tagMsgField');
-		return $mapping->findForwardConfig('failure');
+		$smarty->assign('message','error');
+		return $mapping->findForwardConfig('success');
 	}
 
 }
