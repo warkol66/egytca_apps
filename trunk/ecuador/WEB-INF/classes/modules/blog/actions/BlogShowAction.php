@@ -11,6 +11,16 @@ class BlogShowAction extends BaseListAction {
 		
 		if(isset($_GET['categoryId']))
 			$this->filters['categoryid'] = $_GET['categoryId'];
+
+		//TODO: Revisar por qu eno funciona directo con el filterByBlogTag
+		if(isset($_GET['tagId']))
+			$this->filters['blogTag'] = BaseQuery::create('BlogTag')->findOneById($_GET['tagId']);
+
+		if(isset($_GET['tagId']))
+			$this->filters['entityFilter'] = array(
+				'entityType' => "BlogTag",
+				'entityId' => $_GET['tagId']
+			);
 	}
 	
 	protected function postList() {
