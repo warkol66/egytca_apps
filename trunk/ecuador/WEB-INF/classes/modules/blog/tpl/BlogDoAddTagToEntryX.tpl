@@ -1,4 +1,8 @@
 <script type="text/javascript" language="javascript" >
+|-if $errorTagId eq duplicate-|
+	$('#tagMsgField').html('<span class="resultFailure">La etiqueta ya pertenece a esta entrada</span>');
+</script>
+|-else-|
 	$('#tagMsgField').html('<span class="resultSuccess">Etiqueta Agregada</span>');
 	if ($('#tagOption|-$tag->getId()-|') != null) {
 		$('#tagOption|-$tag->getId()-|').remove();
@@ -14,3 +18,4 @@
 	</form>
 	<span title="Para eliminar haga click sobre el botón de la izquierda">&nbsp;&nbsp;&nbsp;|-$tag->getName()-|</span>
 </li>
+|-/if-|

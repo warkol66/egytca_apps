@@ -44,7 +44,9 @@ class UsersDoLoginAction extends BaseAction {
 			$user = UserPeer::auth($_POST["loginUsername"],$_POST["loginPassword"]);
 			if (!empty($user)) {
 				//Me fijo si el usuario que intenta ingresar esta bloqueado
-				if(Common::isBlockedUser($_POST["loginUsername"]) || Common::checkLoginUserFailures('User',$user->getId())){
+				/*echo(Common::isBlockedUser($_POST["loginUsername"]) && Common::checkLoginUserFailures('User',$user->getId()));
+				die();*/
+				if(Common::isBlockedUser($_POST["loginUsername"]) && Common::checkLoginUserFailures('User',$user->getId())){
 					$this->template->template = "TemplateLogin.tpl";
 					$smarty->assign("message","blocked");
 					return $mapping->findForwardConfig('blockedUser');

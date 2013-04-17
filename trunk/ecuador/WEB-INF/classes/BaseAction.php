@@ -94,11 +94,19 @@ class BaseAction extends Action {
 		$smarty->assign("systemUrl",$systemUrl);
 		$scriptPath = substr($_SERVER['PHP_SELF'], 0, (strlen($_SERVER['PHP_SELF']) -8 - @strlen($_SERVER['PATH_INFO'])));
 		$smarty->assign('scriptPath',$scriptPath);
-
+		//Chequeo si esta en mantenimiento
 		if (Common::inMaintenance()) {
 			header("Location: Main.php?do=commonMaintenance");
 			exit;
 		}
+		//Chequeo si esta bloqueada la ip del usuario
+		global $loginPath;
+		$remoteIp = Common::getIp();
+		if(Common::checkLoginIpFailures($remoteIp)) {// No tiene permiso
+			header("Location:Main.php?do=$loginPath");
+			exit();
+		}
+		
 		$actionRequested = $request->getAttribute('ACTION_DO_PATH');
 		//Se obtienen modulo y accion solicitada
 		//$actionRequested = $_REQUEST["do"];
@@ -133,10 +141,11 @@ class BaseAction extends Action {
 			$loggedUser = Common::getLoggedUser();	
 			if (!empty($loggedUser)) {
 				//Veo que el usuario no este bloqueado
-				if(Common::isBlockedUser($loggedUser->getUsername())) {// No tiene permiso
-					header("Location:Main.php?do=commonLogin&amp;message=blockedUser");
+				if(Common::isBlockedUser($loggedUser->getUsername()) && Common::checkLoginUserFailures('User',$user->getId())) {// No tiene permiso
+					header("Location:Main.php?do=$loginPath");
 					exit();
 				}
+				
 				
 				if (!ConfigModule::get("global","noSecurity") && $actionRequested != "securityNoPermission") {
 					if (!empty($securityAction))
@@ -153,7 +162,7 @@ class BaseAction extends Action {
 				}
 			}
 			else { //Si requiere login y no hay sesion va a login
-				global $loginPath;
+				//global $loginPath;
 				if ($actionRequested != $loginPath && $actionRequested != "commonDoLogin" && $actionRequested != "usersDoLogin") {
 					header("Location:Main.php?do=$loginPath");
 					exit();
