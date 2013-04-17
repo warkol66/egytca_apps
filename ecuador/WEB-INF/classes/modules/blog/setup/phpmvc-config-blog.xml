@@ -76,16 +76,6 @@
 				 validate = "true">
 			<forward  name="success" path="BlogSendToEmailInclude.tpl" />
 		</action>
-		<!--queda -->
-		<action    path = "blogDoAddTagToEntryX"
-							 type = "BlogDoAddTagToEntryXAction"
-							 name = "blogDoAddTagToEntryX"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="BlogDoAddTagToEntryX.tpl" />
-			<forward name="failure" path="Error.tpl"  />
-		</action>
-		<!--queda -->
 		<action    path = "blogDoDeleteTagFromEntryX"
 							 type = "BlogDoDeleteTagFromEntryXAction"
 							 name = "blogDoDeleteTagFromEntryX"

@@ -26,5 +26,20 @@ class BlogEntryQuery extends BaseBlogEntryQuery {
 							->_or()
 								->where("BlogEntry.Body LIKE ?", "%$searchString%");
 	}
+	
+	/**
+	* Obtiene todos las etiquetas disponibles para la entrada
+	*
+	* @param int $id Id de la entrada
+	* @return array grupos posibles a elegir
+	*/
+	function getTagCandidates($id){
+		$tags = BlogTagRelationQuery::create()->select("TagId")->filterByEntryId($id)->find();
+
+		$candidates = BlogTagQuery::create()
+											->add(BlogTagPeer::ID, $tags, Criteria::NOT_IN)
+											->find();
+		return $candidates;
+	}
 
 } // BlogEntryQuery

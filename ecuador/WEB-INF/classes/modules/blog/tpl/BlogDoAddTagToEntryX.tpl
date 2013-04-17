@@ -1,6 +1,9 @@
 <script type="text/javascript" language="javascript" >
-|-if $errorTagId eq duplicate-|
+|-if $message eq "duplicate"-|
 	$('#tagMsgField').html('<span class="resultFailure">La etiqueta ya pertenece a esta entrada</span>');
+</script>
+|-elseif $message eq "error"-|
+	$('#tagMsgField').html('<span class="resultFailure">Error al relacionar la etiqueta</span>');
 </script>
 |-else-|
 	$('#tagMsgField').html('<span class="resultSuccess">Etiqueta Agregada</span>');
