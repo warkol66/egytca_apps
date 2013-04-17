@@ -26,8 +26,6 @@
 				<li><a href="Main.php?do=usersList">Usuarios</a></li>
 				<li><a href="Main.php?do=usersGroupsList">Grupos de Usuarios</a></li>
 				<li><a href="Main.php?do=usersLevelsList">Niveles Usuarios</a></li>
-				<li><a href="Main.php?do=commonConfigSet">Cambiar Configuración</a></li>
-				<li><a href="Main.php?do=commonConfigView">Ver Configuración</a></li>
 				<li><a href="Main.php?do=bannersList">Banners</a></li>
 				<li class="last"><a href="Main.php?do=backupList">Respaldos</a></li>
 			</ul></li>
