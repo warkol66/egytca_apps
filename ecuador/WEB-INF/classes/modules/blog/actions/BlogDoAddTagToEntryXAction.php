@@ -32,10 +32,16 @@ class BlogDoAddTagToEntryXAction extends BaseAction {
 			$smarty->assign('entry',$entry);
 			$smarty->assign('tag',$tag);
 
-			if (!empty($_POST["entryId"]) && !empty($_POST["tagId"])) {
+			if (!empty($entry) && !empty($tag)) {
+				
+				$isEntryTag = BlogTagRelationQuery::create()->filterByEntryid($entry->getId())->filterByTagid($tag->getId())->find();
+				if(is_object($isEntryTag)){
+					$smarty->assign('errorTagId','tagMsgField');
+					return $mapping->findForwardConfig('failure');
+				}
 
 				$relation = new BlogTagRelation();
-				$result = $relation->setEntryid($_POST["entryId"])->setTagid($_POST["tagId"])->save();
+				$result = $relation->setEntryid($entry->getId())->setTagid($tag->getId())->save();
 
 				if ($result)
 					return $mapping->findForwardConfig('success');

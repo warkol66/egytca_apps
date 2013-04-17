@@ -28,11 +28,6 @@ class CommonBlockedUsersListAction extends BaseAction {
 		$smarty->assign("blockedUsers",$blockedUsers);
 		$smarty->assign("blockedAffiliates",$blockedAffiliates);
 		
-		/*echo('<pre>');
-		print_r($blockedAffiliateUsers);
-		echo('</pre>');
-		die();*/
-
 		return $mapping->findForwardConfig('success');
 	}
 
