@@ -9,6 +9,8 @@ class BlogShowAction extends BaseListAction {
 	protected function preList() {
 		parent::preList();
 		
+		$this->filters['status'] = 2; //Solo las entradas publicadas
+
 		if(isset($_GET['categoryId']))
 			$this->filters['categoryid'] = $_GET['categoryId'];
 
