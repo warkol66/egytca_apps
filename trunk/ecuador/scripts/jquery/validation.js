@@ -345,7 +345,7 @@ function validationValidateFieldThruAjax(element,doAction) {
 	
 	$.ajax({
 		url: url,
-		method: 'post',
+		type: 'post',
 		data: fields,
 		dataType: 'json',
 		success: function(data) {
