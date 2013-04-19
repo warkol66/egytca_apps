@@ -91,7 +91,7 @@ class Common {
 	}
 
 	/**
-	* Agrega la informacion del user y id a lso params
+	* Agrega la informacion del user y id a params
 	* @return array $params array con la informacion recibida mas la del tipo de usuario y su id
 	*/
 	public static function addUserInfoToParams($params) {
@@ -259,16 +259,16 @@ class Common {
 	*/
 	public static function getByUsername($username) {
 		$user = NULL;
-		$user = UserPeer::getByUsername($username);
+		$user = BaseQuery::create('User')->findOneByUsername($username);
 		if (!empty($user))
 			return $user;
-		if (class_exists(AffiliateUserPeer)){
-			$user = AffiliateUserPeer::getByUsername($username);
+		if (class_exists(AffiliateUserQuery)){
+			$user = BaseQuery::create('AffiliateUser')->findOneByUsername($username);
 			if (!empty($user))
 				return $user;
 		}
-		if (class_exists(ClientUserPeer)){
-			$user = ClientUserPeer::getByUsername($username);
+		if (class_exists(ClientUserQuery)){
+			$user = BaseQuery::create('ClientUser')->findOneByUsername($username);
 			if (!empty($user))
 				return $user;
 		}
@@ -280,18 +280,18 @@ class Common {
 	* @return obj $user con el objeto logueado de la session
 	*/
 	public static function authenticateByUserAndMail($username,$email) {
-		if (class_exists(UserPeer)){
-			$user = UserPeer::authenticateByUserAndMail($username,$email);
+		if (class_exists('UserQuery')){
+			$user = BaseQuery::create('User')->searchByUsernameAndMail($username,$email)->findOne();
 			if (!empty($user))
 				return $user;
 		}
-		if (class_exists(AffiliateUserPeer)){
-			$user = AffiliateUserPeer::authenticateByUserAndMail($username,$email);
+		if (class_exists('AffiliateUserQuery')){
+			$user = BaseQuery::create('AffiliateUser')->searchByUsernameAndMail($username,$email)->findOne();
 			if (!empty($user))
 				return $user;
 		}
-		if (class_exists(ClientUserPeer)){
-			$user = ClientUserPeer::authenticateByUserAndMail($username,$email);
+		if (class_exists('ClientUserQuery')){
+			$user = BaseQuery::create('ClientUser')->searchByUsernameAndMail($username,$email)->findOne();
 			if (!empty($user))
 				return $user;
 		}
@@ -303,18 +303,18 @@ class Common {
 	* @return obj $user con el objeto logueado de la session
 	*/
 	public static function getByRecoveryHash($hash) {
-		if (class_exists(UserPeer)){
-			$user = UserPeer::getByRecoveryHash($hash);
+		if (class_exists('UserQuery')){
+			$user = BaseQuery::create('User')->findOneByRecoveryhash($hash);
 			if (!empty($user))
 				return $user;
 		}
-		if (class_exists(AffiliateUserPeer)){
-			$user = AffiliateUserPeer::getByRecoveryHash($hash);
+		if (class_exists('AffiliateUserQuery')){
+			$user = BaseQuery::create('AffiliateUser')->findOneByRecoveryhash($hash);
 			if (!empty($user))
 				return $user;
 		}
-		if (class_exists(ClientUserPeer)){
-			$user = ClientUserPeer::getByRecoveryHash($hash);
+		if (class_exists('ClientUserQuery')){
+			$user = BaseQuery::create('ClientUser')->findOneByRecoveryhash($hash);
 			if (!empty($user))
 				return $user;
 		}
@@ -597,7 +597,18 @@ class Common {
 	*
 	* @return int Cantidad de filas por pagina
 	*/
-	public static function getRowsPerPage() {
+	public static function getRowsPerPage($module) {
+		if (!empty($module)) {
+			$perPage = ConfigModule::get($module,"rowsPerPage");
+			if (!empty($perPage))
+				return $perPage;
+			else {
+				$moduleConfiguration = Common::getModuleConfiguration($module);
+				$perPage = $moduleConfiguration['rowsPerPage'];
+				if (!empty($perPage))
+					return $perPage;
+			}
+		}
 		global $system;
 		return $system['config']['system']['rowsPerPage'];
 	}
@@ -650,7 +661,7 @@ class Common {
 	* @return Idiomas del sistema
 	*/
 	public static function getAllLanguages() {
-		$languages = MultilangLanguagePeer::getAll();
+		$languages = MultilangLanguageQuery::create()->find();
 		return $languages;
 	}
 
@@ -662,7 +673,7 @@ class Common {
 	 */
 	public static function getTranslation($text,$moduleName) {
 		$languageCode = Common::getCurrentLanguageCode();
-		$translationObject = MultilangTextPeer::getByTextAndModuleNameAndCode($text,$moduleName,$languageCode);
+		$translationObject = MultilangText::getByTextAndModuleNameAndCode($text,$moduleName,$languageCode);
 		if (empty($translationObject))
 			$translation = $text;
 		else
@@ -678,7 +689,7 @@ class Common {
 	 * @return translation
 	 */
 	public static function getTranslationByLanguageCode($text,$moduleName,$languageCode) {
-		$translationObject = MultilangTextPeer::getByTextAndModuleNameAndCode($text,$moduleName,$languageCode);
+		$translationObject = MultilangText::getByTextAndModuleNameAndCode($text,$moduleName,$languageCode);
 		if (empty($translationObject))
 			$translation = $text;
 		else
@@ -1254,7 +1265,7 @@ class Common {
 	 * @return true o false
 	 */
 	public static function evaluateBitlevel($level,$bitlevel) {
-		if ($level == SecurityModulePeer::LEVEL_ALL)
+		if ($level == SecurityModule::LEVEL_ALL)
 			return ($bitlevel == $level);
 		return ((intval($level) & intval($bitlevel)) > 0);
 	}
