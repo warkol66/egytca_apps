@@ -15,6 +15,44 @@
  */
 class MultilangText extends BaseMultilangText {
 
+	/**
+	* Obtiene la informacion de un text con un id, modulo e idioma especifico.
+	*
+	* @param int $id id del text
+	* @param int $moduleName Nombre del modulo
+	* @param string $languageCode Codigo del idioma
+	* @return array Informacion de los texts
+	*/
+	public static function getByIdAndModuleNameAndCode($id,$moduleName,$languageCode) {
+		return MultilangTextQuery::create()
+							->select("Text")
+							->filterById($id)
+							->filterByModulename(lcfirst($moduleName))
+							->filterByLanguagecode($languageCode)
+							->findOne();
+	}
+
+	/**
+	* Obtiene la informacion de un text con un texto, modulo e idioma especifico.
+	*
+	* @param string $text Text original
+	* @param int $moduleName Nombre del modulo
+	* @param string $languageCode Codigo del idioma
+	* @return array Informacion de los texts
+	*/
+	public static function getByTextAndModuleNameAndCode($text,$moduleName,$languageCode) {
+		$textId = MultilangTextQuery::create()
+									->select("Id")
+									->filterByText($text)
+									->filterByModulename(lcfirst($moduleName))
+									->findOne();
+
+		if (!empty($textId))
+			$translation = MultilangText::getByIdAndModuleNameAndCode($textId,$moduleName,$languageCode);
+
+		return $translation;
+	}
+
  /**
 	* Genera el SQL para insertar un texto
 	*
