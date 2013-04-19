@@ -1,0 +1,49 @@
+<!-- Module Backup -->
+	<action-mappings>
+
+		<action    path = "backupCreate"
+							 type = "BackupCreateAction"
+							 name = "backupCreate"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=backupList&amp;message=created" redirect="true" />
+			<forward name="failure" path="/Main.php?do=backupList&amp;message=create_error" redirect="true" />
+		</action>
+
+		<action    path = "backupRestore"
+							 type = "BackupRestoreAction"
+							 name = "backupRestore"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=backupList&amp;message=restored" redirect="true" />
+			<forward name="failure" path="/Main.php?do=backupList&amp;message=restore_error" redirect="true" />
+		</action>
+
+		<action    path = "backupDoDelete"
+							 type = "BackupDoDeleteAction"
+							 name = "backupDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=backupList&amp;message=deleted" redirect="true" />
+			<forward name="failure" path="/Main.php?do=backupList&amp;message=delete_error" redirect="true" />
+		</action>
+		
+		<action    path = "backupSendByEmail"
+							 type = "BackupSendByEmailAction"
+							 name = "backupSendByEmail"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=backupList&amp;message=email_sent" redirect="true" />
+			<forward name="failure" path="/Main.php?do=backupList&amp;message=email_error" redirect="true" />
+		</action>
+
+		<action    path = "backupDownload"
+							 type = "BackupDownloadAction"
+							 name = "backupDownload"
+							scope = "request"
+					 validate = "true">
+			<forward name="failure" path="/Main.php?do=backupList&amp;message=not_exists" redirect="true" />
+		</action>
+
+	</action-mappings>
+<!-- End Module Backup-->

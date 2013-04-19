@@ -1,0 +1,17 @@
+DELETE FROM `actionLogs_label` WHERE `action` LIKE 'Backup%';
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'BackupCreate', 'Respaldo creado en el servidor con éxito','esp','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'BackupCreate', 'Backup succesfully created on the server','eng','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'BackupCreate', 'Error al crear respaldo en el servidor','esp','failure');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'BackupCreate', 'Backup creation on server failed','eng','failure');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'BackupRestore', 'Respaldo restaurado desde el servidor con éxito','esp','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'BackupRestore', 'Successfully restored backup from server','eng','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'BackupRestore', 'Error restaurando respaldo desde el servidor','esp','failure');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'BackupRestore', 'Backup restore from server error','eng','failure');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'BackupRestoreFromFile', 'Respaldo restaurado desde archivo con éxito','esp','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'BackupRestoreFromFile', 'Backup successfully restored from file','eng','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'BackupRestoreFromFile', 'Error restaurando respaldo desde el archivo','esp','failure');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'BackupRestoreFromFile', 'Backup restore from file failed','eng','failure');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'BackupDelete', 'Backup eliminado del servidor con éxito','esp','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'BackupDelete', 'Backup deleted successfully from server','eng','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'BackupDelete', 'Error al eliminar respaldo del servidor','esp','failure');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'BackupDelete', 'Backup deletion from server failed','eng','failure');
