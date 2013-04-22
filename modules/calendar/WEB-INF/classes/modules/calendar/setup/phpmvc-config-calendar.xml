@@ -1,32 +1,7 @@
 <!-- Module Calendar -->
 	<action-mappings>
 
-		<action  path = "calendarEventsEdit"
-						 type = "CalendarEventsEditAction"
-						 name = "calendarEventsEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="CalendarEventsEdit.tpl" />
-		</action>
-
-		<action  path = "calendarEventsDoEdit"
-						 type = "CalendarEventsDoEditAction"
-						 name = "calendarEventsDoEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=calendarEventsList&amp;message=ok" redirect="true" />
-			<forward  name="failure" path="CalendarEventsEdit.tpl" />
-		</action>
-
-		<action  path = "calendarEventsList"
-						 type = "CalendarEventsListAction"
-						 name = "calendarEventsList"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="CalendarEventsList.tpl" />
-		</action>
-
-		<action  path = "calendarEventsSearch"
+		<action  path = "calendarSearch"
 						 type = "CalendarEventsSearchAction"
 						 name = "calendarEventsSearch"
 						scope = "request"
@@ -34,16 +9,8 @@
 			<forward  name="success" path="CalendarEventsSearch.tpl" />
 			<forward  name="rss" path="CalendarEventsShowRss.tpl" />
 		</action>
-
-		<action  path = "calendarEventsDoDelete"
-						 type = "CalendarEventsDoDeleteAction"
-						 name = "calendarEventsDoDelete"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=calendarEventsList&amp;message=deleted_ok" redirect="true" />
-		</action>
-
-		<action  path = "calendarEventsShow"
+		
+		<action  path = "calendarShow"
 						 type = "CalendarEventsShowAction"
 						 name = "calendarEventsShow"
 						scope = "request"
@@ -77,13 +44,13 @@
 			<forward  name="success" path="CalendarEventsView.tpl" />
 		</action>
 
-		<action  path = "calendarEventsPreview"
-						 type = "CalendarEventsPreviewAction"
-						 name = "calendarEventsPreview"
+		<action  path = "calendarPreview"
+						 type = "CalendarPreviewAction"
+						 name = "calendarPreview"
 						scope = "request"
 				 validate = "true">
-			<forward  name="success-home" path="CalendarEventsShow.tpl" />
-			<forward  name="success-detailed" path="CalendarEventsView.tpl" />
+			<forward  name="success-home" path="CalendarShow.tpl" />
+			<forward  name="success-detailed" path="CalendarView.tpl" />
 		</action>
 
 		<action  path = "calendarEventsGetThumbnail"

@@ -137,6 +137,7 @@ class CalendarEventPeer extends BaseCalendarEventPeer {
 
 	}
 
+	//eliminar
 	private function getModuleConfig() {
 
 		$this->moduleConfig = Common::getModuleConfiguration('Calendar');
@@ -243,118 +244,7 @@ class CalendarEventPeer extends BaseCalendarEventPeer {
 		return $this->moduleConfig["rowsPerPage"];
 	}
 
-	/**
-	* Crea un evento nueva.
-	*
-	* @param array $params Array asociativo con los atributos del objeto
-	* @return boolean true si se creo correctamente, false sino
-	*/
-	function create($params) {
-		try {
-			$CalendarEventObj = new CalendarEvent();
-			foreach ($params as $key => $value) {
-				$setMethod = "set".$key;
-				if ( method_exists($CalendarEventObj,$setMethod) ) {
-					if (!empty($value) || $value == "0")
-						$CalendarEventObj->$setMethod($value);
-					else
-						$CalendarEventObj->$setMethod(null);
-				}
-			}
-
-			// Regla de negocio, cuando se crea una evento, se pasa a no publicada.
-			$CalendarEventObj->setStatus(CalendarEventPeer::NOTPUBLISHED);
-
-			$CalendarEventObj->save();
-			return true;
-		} catch (Exception $exp) {
-			return false;
-		}
-	}
-
-	/**
-	* Crea un Preview de una articulo.
-	* Devuelve una instancia de articulo el cual no ha salvado en la base de datos.
-	*
-	* @param array $params Array asociativo con los atributos del objeto
-	* @return boolean true si se creo correctamente, false sino
-	*/
-	function createPreview($params) {
-
-			$CalendarEventObj = new CalendarEvent();
-			foreach ($params as $key => $value) {
-				$setMethod = "set".$key;
-				if ( method_exists($CalendarEventObj,$setMethod) ) {
-					if (!empty($value) || $value == "0")
-						$CalendarEventObj->$setMethod($value);
-					else
-						$CalendarEventObj->$setMethod(null);
-				}
-			}
-
-		return $CalendarEventObj;
-	}
-
-	/**
-	* Actualiza la informacion de un evento.
-	*
-	* @param array $params Array asociativo con los atributos del objeto
-	* @return boolean true si se actualizo la informacion correctamente, false sino
-	*/
-	function update($params) {
-		try {
-			$CalendarEventObj = CalendarEventPeer::retrieveByPK($params["id"]);
-			if (empty($CalendarEventObj))
-				throw new Exception();
-			foreach ($params as $key => $value) {
-				$setMethod = "set".$key;
-				if ( method_exists($CalendarEventObj,$setMethod) ) {
-					if (!empty($value) || $value == "0")
-						$CalendarEventObj->$setMethod($value);
-					else
-						$CalendarEventObj->$setMethod(null);
-				}
-			}
-			$CalendarEventObj->save();
-			return true;
-		} catch (Exception $exp) {
-			return false;
-		}
-	}
-
-	/**
-	* Elimina un evento a partir de los valores de la clave.
-	*
-	* @param int $id id del CalendarEvent
-	*	@return boolean true si se elimino correctamente el CalendarEvent, false sino
-	*/
-	function delete($id) {
-		$CalendarEventObj = CalendarEventPeer::retrieveByPK($id);
-		$CalendarEventObj->delete();
-		return true;
-	}
-
-	/**
-	* Obtiene la informacion de un evento.
-	*
-	* @param int $id id del CalendarEvent
-	* @return array Informacion del CalendarEvent
-	*/
-	function get($id) {
-		$CalendarEventObj = CalendarEventPeer::retrieveByPK($id);
-		return $CalendarEventObj;
-	}
-
-	/**
-	* Obtiene todos los eventos.
-	*
-	*	@return array Informacion sobre todos los CalendarEvents
-	*/
-	function getAll() {
-		$cond = new Criteria();
-		$alls = CalendarEventPeer::doSelect($cond);
-		return $alls;
-	}
+	
 
 	/**
 	* Obtiene todos los eventos paginados.
@@ -435,12 +325,12 @@ class CalendarEventPeer extends BaseCalendarEventPeer {
 		return $result;
 	}
 
-	/**
+	/** Migrada, eliminar
 	* Obtiene todos los eventos antes de una fecha
 	*
 	* @param int $date fecha
 	*	@return array Informacion sobre todos los Eventos antes de esa fecha
-	*/
+	*
 
 	 function getEventsBeforeDate($date) {
 		$c = new Criteria();
@@ -454,20 +344,20 @@ class CalendarEventPeer extends BaseCalendarEventPeer {
 
 		$result = CalendarEventPeer::doSelect($c);
 		return $result;
-	 }
+	 }*/
 
- /**
+ /** Migrada, eliminar
 	* Obtiene todos los eventos anteriores al mes/año
 	*
 	* @param int $year Año
 	* @param int $month Mes
 	*	@return array Informacion sobre todos los CalendarEvents del mes
-	*/
+	*
 	function getEventsBeforeMonth($year, $month) {
 		$date = $year.'-'.$month.'-01 00:00:00';
 		$result = CalendarEventPeer::getEventsBeforeDate($date);
 		return $result;
-	}
+	}*/
 
 	/**
 	* Suma n dias a una fecha

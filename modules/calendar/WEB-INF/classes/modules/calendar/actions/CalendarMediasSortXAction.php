@@ -60,6 +60,7 @@ class CalendarMediasSortXAction extends BaseAction {
 			$list = $soundsList;
 			
 		for ($pos = 0; $pos < count($list); $pos++) {
+			//cambiar cuando migre peer
 			CalendarMediaPeer::changeCalendarMediaOrder($list[$pos],$pos);
 	   	}
 	
