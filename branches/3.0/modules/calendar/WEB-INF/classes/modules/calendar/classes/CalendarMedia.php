@@ -20,21 +20,15 @@ require_once 'om/BaseCalendarMedia.php';
  */
 class CalendarMedia extends BaseCalendarMedia {
 	
-	const CALENDARMEDIA_IMAGE = 1;
-	const CALENDARMEDIA_VIDEO = 2;
-	const CALENDARMEDIA_SOUND = 3;
-	
-	const CALENDARMEDIA_SAVEPATH = 'WEB-INF/classes/modules/calendar/files/images/';
-	
 	public function getMediaTypeName() {
 		
 		$type = $this->getMediaType();
 		
 		switch ($type) {
 			
-			case CalendarMedia::CALENDARMEDIA_IMAGE : return 'Imagen';
-			case CalendarMedia::CALENDARMEDIA_VIDEO : return 'Video';
-			case CalendarMedia::CALENDARMEDIA_SOUND : return 'Sonido';
+			case CalendarMediaPeer::CalendarMEDIA_IMAGE : return 'Imagen';
+			case CalendarMediaPeer::CalendarMEDIA_VIDEO : return 'Video';
+			case CalendarMediaPeer::CalendarMEDIA_SOUND : return 'Sonido';
 			
 		}
 		
@@ -42,133 +36,6 @@ class CalendarMedia extends BaseCalendarMedia {
 	
 	public function setDescription($v) {
 		parent::setDescription(stripslashes($v));
-	}
-	
-		/**
-	* Devuelve la ruta de salvado de un media. 
-	*
-	*
-	*/
-	public function getSavePath() {
-
-		return CalendarMedia::CALENDARMEDIA_SAVEPATH;
-
-	}
-	
-	/** Migrado de Peer
-	* Copia la imagen del evento y crea el thumbnail.
-	*
-	* @param array $image Imagen
-	* @param string $name Nombre
-	* @return void
-	*/
-	function createImages($CalendarmediaObj,$image,$name) {
-		$uploadFile = 'WEB-INF/classes/modules/calendar/files/images/resizes/' . $name;
-		copy($image['tmp_name'], $uploadFile);
-
-		global $system;
-		$width = $system["config"]["calendar"]["image"]["resize"]["width"];
-		$height = $system["config"]["calendar"]["image"]["resize"]["height"];
-		$resizeFormat = $system["config"]["calendar"]["image"]["resize"]["resizeFormat"];
-
-		$file = $uploadFile;
-
-		$info = getimagesize($file);
-		$actualWidth = $info[0];
-		$actualHeight = $info[1];
-		$mime_type = $info['mime'];
-
-		switch ($resizeFormat) {
-			case "1":
-				$newWidth = $width;
-				$newHeight = $height;
-				break;
-			case "2":
-				$newHeight = $height;
-				$perc = $newHeight / $actualHeight;
-				$newWidth = $actualWidth * $perc;
-				break;
-			case "3":
-				$newWidth = $width;
-				$perc = $newWidth / $actualWidth;
-				$newHeight = $actualHeight * $perc;
-				break;
-			case "4":
-				$newHeight = $height;
-				$newWidth = $width;
-				$percWidth = $newWidth / $actualWidth;
-				$percHeight = $newHeight / $actualHeight;
-				$perc = min($percWidth, $percHeight);
-				$newHeight = $actualHeight * $perc;
-				$newWidth = $actualWidth * $perc;
-				break;
-		}
-
-		$CalendarmediaObj->setWidth($newWidth);
-		$CalendarmediaObj->setHeight($newHeight);
-		$CalendarmediaObj->save();
-
-		$tn = imagecreatetruecolor($newWidth, $newHeight);
-
-		switch ($mime_type) {
-			case "image/jpeg":
-				$newImage = imagecreatefromjpeg($file);
-				break;
-			case "image/png":
-				$newImage = imagecreatefrompng($file);
-				break;
-			case "image/gif":
-				$newImage = imagecreatefromgif($file);
-				break;
-		}
-
-		imagecopyresampled($tn, $newImage, 0, 0, 0, 0, $newWidth, $newHeight, $actualWidth, $actualHeight);
-
-		imagejpeg($tn, $uploadFile, 100);
-
-		$uploadFile = 'WEB-INF/classes/modules/calendar/files/images/thumbnails/' . $name;
-		copy($image['tmp_name'], $uploadFile);
-
-		global $system;
-		$width = $system["config"]["calendar"]["image"]["thumbnail"]["width"];
-		$height = $system["config"]["calendar"]["image"]["thumbnail"]["height"];
-		$resizeFormat = $system["config"]["calendar"]["image"]["thumbnail"]["resizeFormat"];
-
-		$file = $uploadFile;
-		list($actualWidth, $actualHeight) = getimagesize($file);
-
-		switch ($resizeFormat) {
-			case "1":
-				$newWidth = $width;
-				$newHeight = $height;
-				break;
-			case "2":
-				$newHeight = $height;
-				$perc = $newHeight / $actualHeight;
-				$newWidth = $actualWidth * $perc;
-				break;
-			case "3":
-				$newWidth = $width;
-				$perc = $newWidth / $actualWidth;
-				$newHeight = $actualHeight * $perc;
-				break;
-		}
-
-		$tn = imagecreatetruecolor($newWidth, $newHeight);
-
-		switch ($mime_type) {
-			case "image/jpeg":
-				$newImage = imagecreatefromjpeg($file);
-				break;
-			case "image/png":
-				$newImage = imagecreatefrompng($file);
-				break;
-		}
-
-		imagecopyresampled($tn, $newImage, 0, 0, 0, 0, $newWidth, $newHeight, $actualWidth, $actualHeight);
-
-		imagejpeg($tn, $uploadFile, 100);
-
 	}
 
 } // CalendarMedia
