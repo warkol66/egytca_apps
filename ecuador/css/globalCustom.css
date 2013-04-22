@@ -337,6 +337,12 @@ a.linkMailDelete {
 .pages{
 	background-color: #FFF;
 }
+.pages a{
+	color: #990000;
+}
+.pages a:hover{
+	color: #cc6600;
+}
 .pages, .divPages {
 	color:#0066CC;
 }
