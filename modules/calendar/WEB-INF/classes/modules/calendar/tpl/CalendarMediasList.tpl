@@ -1,21 +1,3 @@
-<script src="Main.php?do=js&name=js&module=calendar&code=|-$currentLanguageCode-|" type="text/javascript"></script>
-<script>
-    $(function() {
-		$.datepicker.setDefaults($.datepicker.regional['es']);
-        $( ".datepickerFrom" ).datepicker({
-			dateFormat:"dd-mm-yy",
-			onClose: function(selectedDate) {
-                $(".datepickerTo").datepicker("option", "minDate", selectedDate);
-            }
-		});
-		$(".datepickerTo").datepicker({
-			dateFormat:"dd-mm-yy",
-			onClose: function(selectedDate) {
-                $(".datepickerFrom").datepicker("option", "maxDate", selectedDate);
-            }
-		});
-    });
-</script>
 <h2>Imágenes</h2>
 <h1>Administrar Imágenes</h1>
 <p>A continuación puede ver las imágenes asociadas a los eventos publicados.</p>
@@ -48,7 +30,7 @@
 	<table cellpadding="4" cellspacing="0" class="tableTdBorders" id="tabla-calendarmedias">
 		<thead>
 			<tr>
-				<th colspan="7" class="thFillTitle"><div class="rightLink"> <a href="Main.php?do=calendarMediasEdit" class="addLink">Agregar Imagen</a></div></th> 
+				<th colspan="7" class="thFillTitle"><!--<div class="rightLink"> <a href="Main.php?do=calendarMediasEdit" class="addLink">Agregar Imagen</a></div>--></th> 
 			</tr>
 			<tr>
 				<th>Evento</th>
@@ -61,7 +43,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		|-foreach from=$calendarMediaColl item=calendarMedias name=for_calendarMedias-|
+		|-foreach from=$calendarMedias item=calendarMedias name=for_calendarMedias-|
 			<tr>
 		 	  	<td>|-if $calendarMedias->getCalendarEvent() gt 0-||-assign var=event value=$calendarMedias->getCalendarEvent()-||-$event->getTitle()-||-/if-|</td>
 				<td>|-$calendarMedias->getname()-|</td>
@@ -93,13 +75,13 @@
 					</td>
 			</tr>
 		|-/foreach-|						
-		|-if isset($pager) && ($pager->getLastPage() gt 1)-|
+		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
 			<tr> 
 				<td colspan="7" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 			</tr>							
 		|-/if-|						
 			<tr>
-				<th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=calendarMediasEdit" class="addLink">Agregar Imagen</a></div></th> 
+				<th colspan="7" class="thFillTitle"><!-- <div class="rightLink"><a href="Main.php?do=calendarMediasEdit" class="addLink">Agregar Imagen</a></div>--></th> 
 			</tr>
 		</tbody>
 	</table>

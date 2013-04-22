@@ -20,30 +20,12 @@ require_once('CalendarEventPeer.php');
  */
 class CalendarEvent extends BaseCalendarEvent {
 	
-	const NOTPUBLISHED = 1;
-	const PUBLISHED = 2;
-	const ARCHIVED = 3;
-	
-	/**
-	 * Devuelve los estados posibles de la eventos y sus codigos
-	 * para la generacion de selects
-	 */
-	public function getStatus() {
-
-	$status[CalendarEvent::NOTPUBLISHED] = 'No Publicado';
-	$status[CalendarEvent::PUBLISHED] = 'Publicado';
-	$status[CalendarEvent::ARCHIVED] = 'Archivado';
-
-	return $status;
-	}
-	
-	
 	/**
 	 * Devuelve el nombre del estado actual en que se encuentra la noticia
 	 *
 	 */
 	public function getStatusName() {
-		$status = CalendarEvent::getStatus();
+		$status = CalendarEventPeer::getStatus();
 		return $status[$this->getStatus()];
 	}
 
@@ -186,52 +168,5 @@ class CalendarEvent extends BaseCalendarEvent {
 
 	return $days; 
   }
-  
-  	/**
-	* Obtiene la fecha inicio para crear el filtro
-	*
-	* @param int $year Año
-	* @param int $month Mes
-	*	@return string fecha inicio de ese mes en ese año
-	*/
-	function getStartDate($year, $month) {
-		return $year.'-'.$month.'-01 00:00:00';
-		$paramEnd = $year.'-'.$month.'-'.$daysInMonth.' 23:59:59';
-	}
-	
-  	/**
-	* Obtiene la fecha fin para crear el filtro
-	*
-	* @param int $year Año
-	* @param int $month Mes
-	*	@return string fecha fin de ese mes en ese año
-	*/
-	function getEndDate($year, $month) {
-		$daysInMonth = cal_days_in_month (CAL_GREGORIAN, $month, $year);
-		return $year.'-'.$month.'-'.$daysInMonth.' 23:59:59';
-	}
-	
-	/** Migrada de Peer
- 	* Crea un Preview de una articulo.
-	* Devuelve una instancia de articulo el cual no ha salvado en la base de datos.
-	*
-	* @param array $params Array asociativo con los atributos del objeto
-	* @return boolean true si se creo correctamente, false sino
-	*/
-	function createPreview($params) {
-
-			$CalendarEventObj = new CalendarEvent();
-			foreach ($params as $key => $value) {
-				$setMethod = "set".$key;
-				if ( method_exists($CalendarEventObj,$setMethod) ) {
-					if (!empty($value) || $value == "0")
-						$CalendarEventObj->$setMethod($value);
-					else
-						$CalendarEventObj->$setMethod(null);
-				}
-			}
-
-		return $CalendarEventObj;
-	}
 
 } // CalendarEvent

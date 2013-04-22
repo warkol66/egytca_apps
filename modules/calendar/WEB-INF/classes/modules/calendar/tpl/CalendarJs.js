@@ -1,41 +1,61 @@
 function submitFormX(formId) {
-	$.ajax({
-		url: url,
-		data: $('#' + formId).serialize(),
-		type: 'post',
-		success: function(data){
-			$('#divMsgBox').html(data);
-		}	
-	});
+
+	var form = $(formId);
+	var fields = Form.serialize(form);
+
+	var myAjax = new Ajax.Updater(
+				{success: 'divMsgBox'},
+				url,
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true
+				});
+
+
 }
 
-function submitEntriesChangeFormX(formId) {
+function submitEventsChangeFormX(formId) {
 	
 	submitFormX(formId);
-	$('#divMsgBox').html('<span class="inProgress">... Actualizando Estado del Evento ...</span>');
+	$('divMsgBox').innerHTML = '<span class="inProgress">... Actualizando Estado de Evento ...</span>';
 	
 }
 
-/*function submitForm(formId) {
+function submitForm(formId) {
 	var form = $(formId);
 	if (form != null)
 		form.submit();
-}*/
+}
 
 function buildMultipleItemsForm(formId) {
 	
-	var form = $('#' + formId);
+	var form = $(formId);
+	
 	//elimino elementos que puedan existir en el form anteriormente
-	$('#' + formId + " input[name='selected[]']").remove();
+	toDelete = form.childElements();
+	
+	var i;
+	for (i=0;i<toDelete.length; i++) {
+		if (toDelete[i].name == 'selected[]')
+			toDelete[i].remove();
+	}
 	
 	//armo el formulario con los elementos seleccionados
-	$('input[name="selected[]"]').each(function(){
-		if($(this).attr('checked')){
-			var hidden = $('<input>').attr('type','hidden').attr('name',$(this).attr('name')).attr('value',$(this).attr('value'));
-			$('#' + formId).append(hidden);
-			console.log(hidden);
+	var checkboxes = document.getElementsByName('selected[]');
+	
+	for (i=0;i<checkboxes.length; i++) {
+		
+		if (checkboxes[i].checked == true) {
+			
+			var hidden = document.createElement('input');
+			hidden.setAttribute('type','hidden');
+			hidden.setAttribute('name',checkboxes[i].name);
+			hidden.setAttribute('value',checkboxes[i].value);
+			form.appendChild(hidden);
 		}
-	});
+	
+	}
 	
 	return true;
 	
@@ -44,8 +64,8 @@ function buildMultipleItemsForm(formId) {
 function submitMultipleEventsChangeFormX(formId) {
 
 	buildMultipleItemsForm(formId);
-	$('#' + formId).submit();
-	$('#divMsgBox').html('<span class="inProgress">... Actualizando Estado de Entradas...</span>');
+	submitForm(formId);
+	$('divMsgBox').innerHTML = '<span class="inProgress">... Actualizando Estado de Eventos...</span>';
 	
 	return true;
 	
@@ -53,9 +73,11 @@ function submitMultipleEventsChangeFormX(formId) {
 
 function selectAllCheckboxes() {
 	
-	var checkboxes = $('[name="selected[]"]');
-	var allbox = $('#allBoxes').is(':checked');
-	checkboxes.attr('checked',allbox);
+	var checkboxes = document.getElementsByName('selected[]');
+	for (i=0;i<checkboxes.length;i++) {
+		checkboxes[i].checked = true;
+	}
+	
 }
 
 function submitCalendarEventsMediaDeleteX(id,form) {
@@ -64,33 +86,38 @@ function submitCalendarEventsMediaDeleteX(id,form) {
 	if (result == false)
 		return false;
 		
-	$.ajax({
-		url: url,
-		data: $('#' + form).serialize(),
-		type: 'post',
-		success: function(data){
-			$('#msgBoxUploader').html(data);
-		}	
-	});
-	$('#calendarMediaItemMsgBox'+id).innerHTML = 'eliminando media...';
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'msgBoxUploader'},
+				url,
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true
+				}
+			);		
+	
+	$('calendarMediaItemMsgBox'+id).innerHTML = 'eliminando media...';
 	
 }
 
 function submitPreview(form) {
-	$(form).attr('target','_blank').submit();
+	form.setAttribute('target','_blank');
+	form.submit();
 }
 
 function submitEventsPreviewOnHome(form) {
-	
-	$('#doEdit').attr('value','calendarPreview');
-	var mode = $('<input>').attr('type','hidden').attr('name','mode').attr('value','home');
-	$(form).append(mode);
+	$('doEdit').setAttribute('value','calendarEventsPreview');
+	mode = document.createElement('input');
+	mode.setAttribute('type','hidden');
+	mode.setAttribute('name','mode');
+	mode.setAttribute('value','home');
+	form.appendChild(mode);
 	submitPreview(form);
 }
 
-//migrar
 function submitEventsPreviewDetailed(form) {
-	$('doEdit').setAttribute('value','calendarPreview');
+	$('doEdit').setAttribute('value','calendarEventsPreview');
 	mode = document.createElement('input');
 	mode.setAttribute('type','hidden');
 	mode.setAttribute('name','mode');
@@ -100,21 +127,23 @@ function submitEventsPreviewDetailed(form) {
 }
 
 function submitEventCreation(form) {
-	
-	$('#doEdit').attr('value','calendarDoEdit');
-	$('<input>');
-	$(form).attr('target','').submit();
+	$('doEdit').setAttribute('value','calendarEventsDoEdit');
+	mode = document.createElement('input');
+	form.setAttribute('target','');
+	form.submit();
 }
 
 function calendarMediaAdd(form) {
-	
-	$.ajax({
-		url: url,
-		data: $('#' + form).serialize(),
-		type: 'post',
-		success: function(data){
-			$('#mediasAdderMsgBox').html(data);
-		}	
-	});
+
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'mediasAdderMsgBox'},
+				url,
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true
+				}
+			);
 	$('mediasAdderMsgBox').innerHTML = '<span class="inProgress"> ... subiendo archivo... </span>';
 }
