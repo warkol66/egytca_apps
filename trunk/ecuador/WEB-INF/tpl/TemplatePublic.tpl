@@ -44,7 +44,7 @@
 	<!-- Begin contentWrapper -->
 		<div id="contentWrapper">
 			<!-- Begin Right Column -->
-				<div id="rightColumn">
+				<div id="leftColumn">
 					<!--centerHTML start-->
 					|-$centerHTML-|
 					<!--centerHTML end -->
