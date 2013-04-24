@@ -51,7 +51,7 @@ $(function() {
 <!-- /TinyMCE -->
 
 <div id="div_calendarMedia">
-	<form name="form_edit_calendarMedia" id="form_edit_calendarMedia" action="Main.php" method="post">
+	<form name="form_edit_calendarMedia" id="form_edit_calendarMedia" action="Main.php" enctype="multipart/form-data" method="post">
 		|-if $message eq "error"-|<div class="failureMessage">Ha ocurrido un error al intentar guardar la imagen</div>|-/if-|
 		<h3>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Imagen</h3>
 		<p>
@@ -60,7 +60,7 @@ $(function() {
 		<fieldset title="Formulario de edición de datos de una Imagen">
 			<p>
 				<label for="calendarMedia_EventId">Evento</label>
-				<select id="calendarMedia_EventId" name="calendarMedia[calendarEventId]" title="calendarEventId">
+				<select id="params_calendarEventId" name="params[calendarEventId]" title="calendarEventId">
 				<option value="">Seleccione un Evento</option>
 					|-foreach from=$calendarIdValues item=object-|
 					<option value="|-$object->getid()-|"|-if $calendarMedia->getCalendarEventId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->gettitle()-|</option>
@@ -134,14 +134,14 @@ $(function() {
 				</p>
 			</div>
 			<p>
-				|-if $action eq "edit"-|
+				|-if !$calendarMedia->isNew()-|
 				<input type="hidden" name="id" id="id" value="|-$calendarMedia->getid()-|" />
 				|-/if-|
 				<!--pasaje de parametros de filtros -->
 				|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="calendarMediasDoEdit" />
-				<input type="submit" id="button_edit_calendarMedia" name="button_edit_calendarMedia" title="Aceptar" value="Aceptar" />
+				<input type="submit" id="button_edit_calendarmedia" name="button_edit_calendarMedia" title="Aceptar" value="Aceptar" />
 			</p>
 			
 		</fieldset>
