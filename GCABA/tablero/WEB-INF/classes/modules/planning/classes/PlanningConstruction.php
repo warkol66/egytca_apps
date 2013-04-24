@@ -255,7 +255,7 @@ class PlanningConstruction extends BasePlanningConstruction {
 			->filterByRealEnd(null, Criteria::ISNULL)
 			->count()
 		;
-		if ($unfinishedActivitiesCount == 0) {
+		if ($unfinishedActivitiesCount != 0) {
 			$this->setRealend(null);
 			return;
 		}
