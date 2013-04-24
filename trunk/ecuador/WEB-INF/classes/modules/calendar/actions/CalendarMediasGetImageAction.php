@@ -1,8 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("CalendarMediaPeer.php");
-
 class CalendarMediasGetImageAction extends BaseAction {
 
 

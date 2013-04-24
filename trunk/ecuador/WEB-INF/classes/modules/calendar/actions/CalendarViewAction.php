@@ -17,8 +17,6 @@ class CalendarViewAction extends BaseEditAction {
 		$module = "Calendar";
 		$this->smarty->assign("module",$module);
 		
-		$this->entity->increaseViews();
-		
 		$moduleConfig = Common::getModuleConfiguration($module);
 		$this->smarty->assign("moduleConfig",$moduleConfig);
 		

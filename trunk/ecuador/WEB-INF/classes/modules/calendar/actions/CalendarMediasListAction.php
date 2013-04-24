@@ -29,8 +29,7 @@ class CalendarMediasListAction extends BaseListAction {
 		$user = Common::getAdminLogged();
 		$categories = $user->getCategories();
 		$this->smarty->assign("categories",$categories);
-		//Cambiar al migrar peer
-		$this->smarty->assign("mediaTypes",CalendarMediaPeer::getMediaTypes());
+		$this->smarty->assign("mediaTypes",CalendarMedia::getMediaTypes());
 		
 		//filtros
 		if(!empty($_GET['filters']['dateRange']['creationdate']['min']))

@@ -22,7 +22,7 @@ class CalendarEvent extends BaseCalendarEvent{
 	 * Devuelve los estados posibles de la eventos y sus codigos
 	 * para la generacion de selects
 	 */
-	public function getStatus() {
+	public function getStatuses() {
 
 	$status[CalendarEvent::NOTPUBLISHED] = 'No Publicado';
 	$status[CalendarEvent::PUBLISHED] = 'Publicado';
@@ -62,7 +62,7 @@ class CalendarEvent extends BaseCalendarEvent{
 	
 	public function getImages() {
 		require_once("CalendarMediaPeer.php");
-		return $this->getMedias(CalendarMediaPeer::CALENDARMEDIA_IMAGE);
+		return $this->getMedias(CalendarMedia::CALENDARMEDIA_IMAGE);
 	}	
 	
 	
@@ -79,7 +79,7 @@ class CalendarEvent extends BaseCalendarEvent{
 	
 	public function hasImages() {
 		require_once("CalendarMediaPeer.php");
-		return $this->hasMedias(CalendarMediaPeer::CALENDARMEDIA_IMAGE);
+		return $this->hasMedias(CalendarMedia::CALENDARMEDIA_IMAGE);
 	}	
 	
 	
@@ -87,7 +87,7 @@ class CalendarEvent extends BaseCalendarEvent{
 		require_once("CalendarMediaPeer.php");
 		$criteria = new Criteria();	
 		$criteria->add(CalendarMediaPeer::CALENDAREVENTID,$this->getId());		
-		$criteria->add(CalendarMediaPeer::MEDIATYPE,CalendarMediaPeer::CALENDARMEDIA_IMAGE);
+		$criteria->add(CalendarMediaPeer::MEDIATYPE,CalendarMedia::CALENDARMEDIA_IMAGE);
 		$criteria->addAscendingOrderByColumn(CalendarMediaPeer::ORDER);
 		$image = CalendarMediaPeer::doSelectOne($criteria);
 		return $image;		

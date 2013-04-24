@@ -1,7 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("CalendarMediaPeer.php");
 class CalendarMediasSortXAction extends BaseAction {
 
 
@@ -54,14 +52,13 @@ class CalendarMediasSortXAction extends BaseAction {
 
 		if (isset($imagesList))
 			$list = $imagesList;
-		if (isset($soundsList))
+		/*if (isset($soundsList))
 			$list = $soundsList;
 		if (isset($videosList))
-			$list = $soundsList;
+			$list = $soundsList;*/
 			
 		for ($pos = 0; $pos < count($list); $pos++) {
-			//cambiar cuando migre peer
-			CalendarMediaPeer::changeCalendarMediaOrder($list[$pos],$pos);
+			CalendarMedia::changeCalendarMediaOrder($list[$pos],$pos);
 	   	}
 	
 		return $mapping->findForwardConfig('success');

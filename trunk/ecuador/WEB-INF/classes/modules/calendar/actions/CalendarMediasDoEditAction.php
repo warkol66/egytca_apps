@@ -6,6 +6,14 @@ class CalendarMediasDoEditAction extends BaseDoEditAction {
 		parent::__construct('CalendarMedia');
 	}
 	
+	protected function preUpdate() {
+		parent::preUpdate();
+		
+		if (!empty($_FILES["document_file"]['tmp_name']))
+			$this->entityParams['mediaType'] = CalendarMedia::CALENDARMEDIA_IMAGE;
+		
+	}
+	
 	protected function postUpdate() {
 		parent::postUpdate();
 		
@@ -29,7 +37,7 @@ class CalendarMediasDoEditAction extends BaseDoEditAction {
 		$saveOriginalFiles = $system["config"]["calendar"]["medias"]["saveOriginalFiles"]["value"];
 
 		if ($saveOriginalFiles == "YES")
-		  copy($file["tmp_name"],$destPath);
+		  copy($_FILES["document_file"]["tmp_name"],$destPath);
 
 	}
 	

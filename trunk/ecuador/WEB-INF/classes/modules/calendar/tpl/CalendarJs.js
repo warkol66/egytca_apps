@@ -9,7 +9,7 @@ function submitFormX(formId) {
 	});
 }
 
-function submitEntriesChangeFormX(formId) {
+function submitEventsChangeFormX(formId) {
 	
 	submitFormX(formId);
 	$('#divMsgBox').html('<span class="inProgress">... Actualizando Estado del Evento ...</span>');

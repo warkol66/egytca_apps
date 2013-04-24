@@ -1,12 +1,7 @@
 <div id="titleAgenda">Agenda</div>
 <!-- begin EVENTO01 -->
-<div class="news02">
-		<h4>Publicado el |-$calendarEvent->getCreationDate()|date_format:"%d de %B de %Y"-|</h4>
-<h2>|-assign var=region value=$calendarEvent->getRegion()-|
-	|-if not empty($region)-||-$region->getName()-||-/if-|
-		|-assign var=category value=$calendarEvent->getCategory()-|
-	|-if not empty($category)-||-if not empty($region)-| &gt;&gt;|-/if-||-$category->getName()-||-/if-|
-</h2>
+<div class="article">
+		<h5>Publicado el |-$calendarEvent->getCreationDate()|date_format:"%d de %B de %Y"-|</h5>
 		|-assign var=startDateMonth value=$calendarEvent->getStartDate()|date_format:"%m"-|
 		|-assign var=startDateYear  value=$calendarEvent->getStartDate()|date_format:"%Y"-|
 		|-assign var=endDateMonth value=$calendarEvent->getEndDate()|date_format:"%m"-|
@@ -20,7 +15,7 @@
 		|-else-|
 				<h4>Desde el |-$calendarEvent->getStartDate()|date_format:"%d de %B de %Y"-| al |-$calendarEvent->getEndDate()|date_format:"%d de %B de %Y"-|</h4>
 		|-/if-|
-<h1>|-$calendarEvent->gettitle()-|</h1>
+<h2>|-$calendarEvent->gettitle()-|</h2>
 	<!-- Begin  COMPLETE TEXT //  TEXTO EVENTO COMPLETA --------------------- -->
 	|-if $calendarEvent->getImages()|@count gt 0-||-include file='CalendarMediasViewInclude.tpl'-||-/if-|
 <div id="completeText">	

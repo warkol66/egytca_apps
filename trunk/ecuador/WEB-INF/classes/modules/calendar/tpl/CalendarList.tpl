@@ -1,4 +1,4 @@
-<script type="text/javascript" src="scripts/news.js">
+<script src="Main.php?do=js&name=js&module=calendar&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 </script>
 <h2>Calendario</h2>
 <h1>Lista de Eventos</h1>
@@ -73,7 +73,7 @@
 						<form action="Main.php" method="post" id="formStatuscalendarEvent|-$calendarEvent->getId()-|">
 							<select name="params[status]" id="selectStatusEvent|-$calendarEvent->getId()-|" onChange="javascript:submitEventsChangeFormX('formStatuscalendarEvent|-$calendarEvent->getId()-|')">
 								|-foreach from=$calendarEventStatus key=key item=name-|
-									<option value="|-$key-|" |-if ($calendarEvent->getStatus()) eq $key-|selected="selected"|-/if-|>|-$name-|</option>
+									<option value="|-$key-|" |-if $calendarEvent->getStatus() eq $key-|selected="selected"|-/if-|>|-$name-|</option>
 								|-/foreach-|
 							</select>											
 							<input type="hidden" name="id" id="id" value="|-$calendarEvent->getid()-|" />
@@ -105,10 +105,10 @@
 				</td>
 			</tr>
 		|-/foreach-|
-		|-if $calendarEvents|@count neq 0 && "calendarEventsChangeStatuses"|security_user_has_access-|
+		|-if $calendarEventColl|@count neq 0 && "calendarEventsChangeStatuses"|security_user_has_access-|
 			<tr>
 				<td colspan="|-$colSpan-|">
-					<p><input type="button" name="selectAll" value="Seleccionar Todos" id="selectAll" onClick="javascript:selectAllCheckboxes()" class="smallButton" /></p>
+					<p><input type="checkbox" name="allbox" value="checkbox" id="allBoxes" onChange="javascript:selectAllCheckboxes()" title="Seleccionar todos" /></p>
 					<form action="Main.php" method="post" id='multipleEventsChangeForm'>
 						<p>Cambiar los Artículos seleccionados al estado 
 							<select name="status" id="selectStatusEvent|-$calendarEvent->getId()-|">

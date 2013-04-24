@@ -34,7 +34,7 @@ class CalendarListAction extends BaseListAction {
 		$user = Common::getAdminLogged();
 		$categories = $user->getCategoriesByModule('news'); //news?
 		$this->smarty->assign("categories",$categories);
-		$this->smarty->assign("calendarEventStatus",CalendarEvent::getStatus());   
+		$this->smarty->assign("calendarEventStatus",CalendarEvent::getStatuses());   
 		$this->smarty->assign("message",$_GET["message"]);
 		
 		//filtros
