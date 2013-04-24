@@ -378,7 +378,7 @@ class PlanningProject extends BasePlanningProject {
 				->filterByRealEnd(null, Criteria::ISNULL)
 				->count()
 			;
-			if ($unfinishedConstructionsCount == 0) {
+			if ($unfinishedConstructionsCount != 0) {
 				$this->setRealend(null);
 				return;
 			}
@@ -391,7 +391,7 @@ class PlanningProject extends BasePlanningProject {
 			->filterByRealEnd(null, Criteria::ISNULL)
 			->count()
 		;
-		if ($unfinishedActivitiesCount == 0) {
+		if ($unfinishedActivitiesCount != 0) {
 			$this->setRealend(null);
 			return;
 		}
