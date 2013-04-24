@@ -9,6 +9,14 @@ class CalendarShowAction extends BaseListAction {
 	protected function preList() {
 		parent::preList();
 		
+		//Agregar filtros para poder hacer esto
+		/*if (isset($_GET['archive'])) {
+			$smarty->assign('archive',$_GET['archive']);
+			$calendarEventPeer->setArchiveMode();
+		}
+		else
+			$calendarEventPeer->setPublishedMode();*/
+		
 	}
 	
 	protected function postList() {
@@ -18,14 +26,6 @@ class CalendarShowAction extends BaseListAction {
 
 		$module = "Calendar";
 		$this->smarty->assign("module",$module);
-		 
-		//modo archivo
-		/*if (isset($_GET['archive'])) {
-			$smarty->assign('archive',$_GET['archive']);
-			$calendarEventPeer->setArchiveMode();
-		}
-		else
-			$calendarEventPeer->setPublishedMode();*/
 		
 		if (isset($_REQUEST["rss"])) {
 			$this->template->template = "TemplatePlain.tpl";

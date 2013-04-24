@@ -27,9 +27,8 @@ class CalendarEditAction extends BaseEditAction {
 		}
 		//obtengo usuarios, estados y medias
 		$this->smarty->assign("userIdValues",UserQuery::create()->find());
-		$this->smarty->assign("calendarEventStatus",CalendarEvent::getStatus());
-		//TODO: migrar cuando migre media
-		$calendarMediasTypes = CalendarMediaPeer::getMediaTypes();
+		$this->smarty->assign("calendarEventStatus",CalendarEvent::getStatuses());
+		$calendarMediasTypes = CalendarMedia::getMediaTypes();
 		
 		//si estoy editando, obtengo los medias
 		if (!empty($_GET["id"])){

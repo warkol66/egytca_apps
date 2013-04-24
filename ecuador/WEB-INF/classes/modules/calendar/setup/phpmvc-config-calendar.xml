@@ -2,30 +2,22 @@
 	<action-mappings>
 
 		<action  path = "calendarSearch"
-						 type = "CalendarEventsSearchAction"
-						 name = "calendarEventsSearch"
+						 type = "CalendarSearchAction"
+						 name = "calendarSearch"
 						scope = "request"
 				 validate = "true">
-			<forward  name="success" path="CalendarEventsSearch.tpl" />
+			<forward  name="success" path="CalendarSearch.tpl" />
 			<forward  name="rss" path="CalendarEventsShowRss.tpl" />
 		</action>
 		
 		<action  path = "calendarShow"
-						 type = "CalendarEventsShowAction"
-						 name = "calendarEventsShow"
+						 type = "CalendarShowAction"
+						 name = "calendarShow"
 						scope = "request"
 				 validate = "true">
-			<forward  name="success" path="CalendarEventsShow.tpl" />
+			<forward  name="success" path="CalendarShow.tpl" />
 			<forward  name="include" path="CalendarEventsShowInclude.tpl"/>
 			<forward  name="rss" path="CalendarEventsShowRss.tpl" />
-		</action>
-
-		<action  path = "calendarChangeStatusX"
-						 type = "CalendarEventsChangeStatusXAction"
-						 name = "calendarEventsChangeStatusX"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="CalendarEventsChangeStatusX.tpl" />
 		</action>
 
 		<action  path = "calendarMediasSortX"
@@ -37,11 +29,11 @@
 		</action>
 
 		<action  path = "calendarView"
-						 type = "CalendarEventsViewAction"
-						 name = "calendarEventsView"
+						 type = "CalendarViewAction"
+						 name = "calendarView"
 						scope = "request"
 				 validate = "true">
-			<forward  name="success" path="CalendarEventsView.tpl" />
+			<forward  name="success" path="CalendarView.tpl" />
 		</action>
 
 		<action  path = "calendarPreview"
@@ -65,7 +57,7 @@
 						 name = "calendarChangeStatuses"
 						scope = "request"
 				 validate = "true">
-			<forward  name="success" path="/Main.php?do=calendarEventsList&amp;message=changed" redirect="true" />
+			<forward  name="success" path="/Main.php?do=calendarList&amp;message=changed" redirect="true" />
 		</action>
 
 		<action  path = "calendarEventsWeek"

@@ -1,9 +1,5 @@
 <?php
 
-require_once("BaseAction.php");
-require_once("CalendarEventPeer.php");
-require_once("CalendarMediaPeer.php");
-
 class CalendarMediasEventListAction extends BaseAction {
 
 
@@ -44,12 +40,12 @@ class CalendarMediasEventListAction extends BaseAction {
 		}
 
 		//por ser una llamada via ajax
-		$this->template->template = 'TemplateAjax.tpl';
+		//$this->template->template = 'TemplateAjax.tpl';
 
 		$module = "CalendarMedias";
 		$smarty->assign("module",$module);						
  
- 		$calendarEvent = CalendarEventPeer::get($_REQUEST['calendarEventId']);
+ 		$calendarEvent = CalendarEventQuery::create()->findOneById($_REQUEST['calendarEventId']);
 		$smarty->assign("images",$calendarEvent->getImages());
 
  		$smarty->assign("created",$_REQUEST["created"]);

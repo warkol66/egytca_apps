@@ -1,4 +1,11 @@
-<script type="text/javascript" src="scripts/calendar.js"></script>
+<script src="Main.php?do=js&name=js&module=calendar&code=|-$currentLanguageCode-|" type="text/javascript"></script>
+<script type="text/javascript" src="scripts/jquery/jquery.jeditable.mini.js"></script>
+<script type="text/javascript" src="scripts/jquery/egytca.js"></script>
+<style>
+	.inplaceEditSize20 {
+		color: 'red';
+	}
+</style>
 |-if $images|@count gt 0-|
 <div id="mediasImagesLister">
 	<fieldset title="Imágenes asociadas al Evento">
@@ -22,10 +29,29 @@
 						<span id="descriptionEdit_|-$calendarMedia->getId()-|">(No se ingresó descripción)</span>
 					|-/if-|				
 					</span> 
-
 						<script type="text/javascript">
-							new Ajax.InPlaceEditor('titleEdit_|-$calendarMedia->getId()-|', 'Main.php?do=calendarMediasDoEditX', {});
-							new Ajax.InPlaceEditor('descriptionEdit_|-$calendarMedia->getId()-|', 'Main.php?do=calendarMediasDoEditX', {});													
+							$('#titleEdit_|-$calendarMedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=calendarMediasDoEditX', {
+								cssclass: 'inplaceEditSize20',
+								submitdata: {
+									objectType: 'calendarMedia',
+									objectId: '|-$calendarMedia->getId()-|',
+									paramName: 'title'
+								},
+								callback: function(value, settings) {
+									return chomp(value);
+								}
+							});
+							$('#descriptionEdit_|-$calendarMedia->getId()-|').egytca('inplaceEdit', 'Main.php?do=calendarMediasDoEditX', {
+								cssclass: 'inplaceEditSize20',
+								submitdata: {
+									objectType: 'calendarMedia',
+									objectId: '|-$calendarMedia->getId()-|',
+									paramName: 'description'
+								},
+								callback: function(value, settings) {
+									return chomp(value);
+								}
+							});												
 						</script>
 						
 					<form action="Main.php" method="post">
@@ -44,20 +70,24 @@
 |-/if-|
 <script type="text/javascript">
 	|-if $created eq "1"-|	
-		var msgbox = $('msgBoxUploader');
+		var msgbox = $('#msgBoxUploader');
 		msgbox.innerHTML = 'Se ha subido el archivo con éxito';
 	|-/if-|
 </script>
 
 <script type="text/javascript">
-	 imagesSortable = Sortable.create("imagesList", {
-
-			onChange: function() {
-						new Ajax.Updater("imagesOrderMsg", "Main.php?do=calendarMediasSortX",
-							{
-			 					method: "post",  
-			 					parameters: { data: Sortable.serialize("imagesList") }
-							});
-					} 
+	$(function() {
+		$("#imagesList").sortable({
+			update: function(event,ui){
+				$('#imagesOrderMsg').html("<span class='inProgress'>Cambiando orden...</span>");
+				$.ajax({
+					url: "Main.php?do=calendarMediasSortX",
+					data: $("#imagesList").sortable("toArray"),
+					type: 'post',
+					success: function(data){
+						$('#imagesOrderMsg').html(data);
+					}	
 				});
+			}
+		});
 </script>

@@ -3,7 +3,7 @@
 <!-- **************************************** --> 		   
 <!--  AGENDA NOTICIA  **************************************** -->
 <div id="div_calendarEvents">
-		|-foreach from=$calendarEvents item=calendarEvent name=for_calendarEvents-|
+		|-foreach from=$calendarEventColl item=calendarEvent name=for_calendarEvents-|
 			<div id="event|-$calendarEvent->getId()-|" class="article">|-if $calendarEvent->hasImages()-|<img src="Main.php?do=calendarGetThumbnail&id=|-$calendarEvent->getId()-|" width="85" height="86" align="left" class="agendaImage"/>|-/if-|
 			 	<h5>Publicado el |-$calendarEvent->getCreationDate()|date_format:"%d de %B, %Y"-|</h5>
 				<h2><a href="Main.php?do=calendarView&id=|-$calendarEvent->getId()-|">|-$calendarEvent->gettitle()-|</a></h2>
