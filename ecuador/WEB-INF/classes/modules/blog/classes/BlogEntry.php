@@ -226,7 +226,7 @@ class BlogEntry extends BaseBlogEntry {
 	}
 	
 	/**
-	 * Crea una Criteria a partir de las condiciones de filtro ingresadas al peer.
+	 * Crea una Criteria a partir de las condiciones de filtro ingresadas.
 	 * @return Criteria instancia de criteria
 	 */
 	private function getCriteria() {

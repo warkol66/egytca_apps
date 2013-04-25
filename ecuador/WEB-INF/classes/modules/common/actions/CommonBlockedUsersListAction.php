@@ -1,6 +1,35 @@
 <?php
+//Probar
+class CommonBlockedUsersListAction extends BaseListAction {
+	
+	function __construct() {
+		parent::__construct('User');
+	}
+	
+	protected function preList() {
+		parent::preList();
 
-class CommonBlockedUsersListAction extends BaseAction {
+		//aplicar filtro
+		$this->filters['selectBlocked'] = true;
+		
+	}
+
+	protected function postList() {
+		parent::postList();
+		
+		$module = "Common";
+		$this->smarty->assign("module",$module);
+		
+		$blockedAffiliates = AffiliateUserQuery::create()->where('AffiliateUser.BlockedAt IS NOT NULL')->find();
+		$this->smarty->assign("blockedAffiliates",$blockedAffiliates);
+
+		$this->smarty->assign("message",$_GET["message"]);
+
+	}
+
+}
+
+/*class CommonBlockedUsersListAction extends BaseAction {
 	
 	function CommonBlockedUsersListAction() {
 		;
@@ -31,4 +60,4 @@ class CommonBlockedUsersListAction extends BaseAction {
 		return $mapping->findForwardConfig('success');
 	}
 
-}
+}*/

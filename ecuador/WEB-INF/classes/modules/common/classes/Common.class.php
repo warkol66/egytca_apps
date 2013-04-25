@@ -673,7 +673,7 @@ class Common {
 	 */
 	public static function getTranslation($text,$moduleName) {
 		$languageCode = Common::getCurrentLanguageCode();
-		$translationObject = MultilangText::getByTextAndModuleNameAndCode($text,$moduleName,$languageCode);
+		$translationObject = MultilangTextPeer::getByTextAndModuleNameAndCode($text,$moduleName,$languageCode);
 		if (empty($translationObject))
 			$translation = $text;
 		else
@@ -689,7 +689,7 @@ class Common {
 	 * @return translation
 	 */
 	public static function getTranslationByLanguageCode($text,$moduleName,$languageCode) {
-		$translationObject = MultilangText::getByTextAndModuleNameAndCode($text,$moduleName,$languageCode);
+		$translationObject = MultilangTextPeer::getByTextAndModuleNameAndCode($text,$moduleName,$languageCode);
 		if (empty($translationObject))
 			$translation = $text;
 		else

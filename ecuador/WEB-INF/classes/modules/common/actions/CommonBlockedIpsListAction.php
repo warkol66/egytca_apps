@@ -10,7 +10,9 @@ class CommonBlockedIpsListAction extends BaseListAction {
 		parent::preList();
 
 		//aplicar filtro
-
+		$this->filters['selectDistinctIp'] = true;
+		$this->filters['unBlocked'] = false;
+		
 	}
 
 	protected function postList() {
@@ -24,41 +26,4 @@ class CommonBlockedIpsListAction extends BaseListAction {
 	}
 
 }
-
-
-/*class CommonBlockedIpsListAction extends BaseAction {
-	
-	function CommonBlockedIpsListAction() {
-		;
-	}
-
-	function execute($mapping, $form, &$request, &$response) {
-
-    BaseAction::execute($mapping, $form, $request, $response);
-
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
-
-		$module = "Common";
-		$smarty->assign("module",$module);
-
-		$smarty->assign("message",$_GET["message"]);
-		
-		$blockedIps = BlockedIpQuery::create()->groupByIp()->find();
-		//$blockedIps = $blockedIps->distinct();
-		echo("<pre>");
-		print_r($blockedIps);
-		echo("</pre>");
-		die();
-		
-		$smarty->assign("blockedUsers",$blockedUsers);
-		$smarty->assign("blockedAffiliates",$blockedAffiliates);
-		
-		return $mapping->findForwardConfig('success');
-	}
-
-}*/
 

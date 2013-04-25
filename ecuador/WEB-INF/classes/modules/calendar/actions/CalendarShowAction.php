@@ -10,12 +10,11 @@ class CalendarShowAction extends BaseListAction {
 		parent::preList();
 		
 		//Agregar filtros para poder hacer esto
-		/*if (isset($_GET['archive'])) {
-			$smarty->assign('archive',$_GET['archive']);
-			$calendarEventPeer->setArchiveMode();
-		}
-		else
-			$calendarEventPeer->setPublishedMode();*/
+		if(!empty($_GET['archive']))
+			//restarle un dia
+            $this->filters['dateRange']['enddate']['max'] = date('Y-m-d');
+        else
+            $this->filters['dateRange']['enddate']['min'] = date('Y-m-d');
 		
 	}
 	

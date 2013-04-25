@@ -1,27 +1,14 @@
 <script language="JavaScript" type="text/javascript">
-function resetPassword(form){
+function unblockIp(form){
 	$.ajax({
 		url: url,
 		data: $('#' + form).serialize(),
 		type: 'post',
 		success: function(data){
-			$('#usersMsgField').html(data);
+			$('#ipsMsgField').html(data);
 		}	
 	});
-	$('usersMsgField').html('<span class="inProgress">generando nueva contraseña...</span>');
-	return true;
-}
-
-function unblockUser(form){
-	$.ajax({
-		url: url,
-		data: $('#' + form).serialize(),
-		type: 'post',
-		success: function(data){
-			$('#usersMsgField').html(data);
-		}	
-	});
-	$('#usersMsgField').html('<span class="inProgress">desbloqueando usuario...</span>');
+	$('#ipsMsgField').html('<span class="inProgress">desbloqueando IP...</span>');
 	return true;
 }
 </script>
@@ -39,7 +26,7 @@ function unblockUser(form){
 |-elseif $message eq "saved"-|
 	<div class='successMessage'>##157,Usuario guardado##</div>
 |-/if-|
-<span id="usersMsgField"></span>
+<span id="ipsMsgField"></span>
 <h2>IPs bloqueadas</h2>
 
 <table class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
@@ -52,9 +39,9 @@ function unblockUser(form){
 		<td>|-$ip->getIp()-|</td>
 		<td>|-if $ip->getBlockedAt()-|
 			<form method="post" id="unblock_|-$ip->getId()-|">
-			<input type="hidden" name="do" value="commonIpsDoUnblockX" />
-			<input type="hidden" name="id" value="|-$ip->getId()-|" />
-			<input type="button" value="Desbloquear Usuario" onClick="unblockUser('unblock_|-$ip->getId()-|'); return false" title="Desbloquear IP" class="icon iconPassword">
+			<input type="hidden" name="do" value="commonBlockedIpsDoUnblockX" />
+			<input type="hidden" name="ip" value="|-$ip->getIp()-|" />
+			<input type="button" value="Desbloquear Usuario" onClick="unblockIp('unblock_|-$ip->getId()-|'); return false" title="Desbloquear IP" class="icon iconPassword">
 			</form>
 		|-/if-|
 		</td>

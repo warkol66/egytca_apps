@@ -72,7 +72,6 @@
 			<tr>
 				<th>Artículo</th>
 				<th>Nombre Archivo</th>
-
 				<th>Tipo de Archivo</th>
 				<th>Fecha de Creación</th>
 				<th>Estado</th>

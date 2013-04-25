@@ -28,7 +28,7 @@ class BlogPreviewAction extends BaseAction {
 		$preview = BlogEntry::createPreview($_POST['params']);
 		
 		//calculo la fecha en español
-		$day = date('N',strtotime($preview->getCreationDate()));
+		/*$day = date('N',strtotime($preview->getCreationDate()));
 		$month = date('m',strtotime($preview->getCreationDate()));
 
 		switch ($day){
@@ -54,7 +54,7 @@ class BlogPreviewAction extends BaseAction {
 			case "11"; $month = "Noviembre"; break;
 			case "12"; $month = "Diciembre"; break;
 		}
-		$date = $day . " " . date('d',strtotime($preview->getCreationDate())) . " de " . $month . " de " . date('Y',strtotime($preview->getCreationDate()));
+		$date = $day . " " . date('d',strtotime($preview->getCreationDate())) . " de " . $month . " de " . date('Y',strtotime($preview->getCreationDate()));*/
 
 		//caso de preview en Home
 		if ($_POST['mode'] == 'home') {

@@ -13,5 +13,11 @@
  * @package    propel.generator.users.classes
  */
 class UserQuery extends BaseUserQuery {
+	
+	function selectBlocked($blocked){
+		if($blocked)
+			$this->where('User.BlockedAt IS NOT NULL');
+		return $this;
+	}
 
 } // UserQuery
