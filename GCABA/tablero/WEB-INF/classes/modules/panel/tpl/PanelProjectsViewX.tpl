@@ -1,3 +1,6 @@
+	<script language="JavaScript" type="text/JavaScript">
+		$("planningProjectsShowWorking").innerHTML = "";
+	</script>
 |-if !$showGantt-|	
 	|-include file="PanelProjectsForm.tpl" readonly="readonly"-|
 |-else-|
@@ -46,6 +49,3 @@
 </p>
 </div>
 |-/if-|
-	<script language="JavaScript" type="text/JavaScript">
-		$("planningProjectsShowWorking").innerHTML = "";
-	</script>

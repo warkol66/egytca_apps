@@ -1,3 +1,6 @@
+	<script language="JavaScript" type="text/JavaScript">
+		$("planningConstructionsShowWorking").innerHTML = "";
+	</script>
 |-if !$showGantt-|	
 	|-include file="PlanningConstructionsForm.tpl" readonly="readonly"-|
 |-else-|
@@ -38,9 +41,6 @@
 	myChart.render("chartdiv");
  </script>
 |-/if-|
-	<script language="JavaScript" type="text/JavaScript">
-		$("planningConstructionsShowWorking").innerHTML = "";
-	</script>
 <div>
 <p>&nbsp;</p>
 <p>&nbsp;</p>

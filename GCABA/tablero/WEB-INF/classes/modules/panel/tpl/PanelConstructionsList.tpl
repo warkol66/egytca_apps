@@ -43,6 +43,16 @@
 <p><label for="filters[priority]">Prioritarias</label>
 				<input name="filters[priority]" type="checkbox" value="1" |-$filters.priority|checked_bool-| />
 </p>
+	<p>
+		<label for="filters[priorityProject]">Prioridad</label>
+		<select id="filters[priorityProject]" name="filters[priorityProject]" title="Prioridad">
+			<option value="">Seleccione prioridad</option>
+			|-foreach from=$priorities key=key item=name-|
+						<option value="|-$key-|" |-$filters.priorityProject|selected:$key-|>|-$name-|</option>
+			|-/foreach-|
+		</select>
+	</p>
+
 <p><label for="filters[constructiontype]">Tipo de Obra</label>
     <select id="filters_constructionyype" name="filters[constructiontype]" title="Tipo de Obra">
       <option value="">Seleccione tipo de Obra</option>

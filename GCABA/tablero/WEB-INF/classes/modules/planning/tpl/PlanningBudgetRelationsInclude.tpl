@@ -175,14 +175,14 @@ html =   '      <tr> '
 			<td align="center"><input name="budgetItem[][totalItem]" type="hidden" value="0"><input class="item_|-$budgetItem->getId()-|" name="budgetItem[][totalItem]" id="params_total[]" type="checkbox" value="1" |-$budgetItem->getTotalItem()|checked_bool-| title="Indique si se utiliza toda la partida" |-$readonly|readonly:"item_|-$budgetItem->getId()-|"-|>
 </td>
 			<td><input name="budgetItem[][amount]" id="params_amount[]" type="text" value="|-$budgetItem->getAmount()|system_numeric_format-|" class="right" title="Monto" |-$readonly|readonly:"item_|-$budgetItem->getId()-| width6em"-|></td>
-			<td><input type="button" class="icon iconStoreLocal" title="Guardar partida" value="Guardar partida" onClick="editItem('item_|-$budgetItem->getId()-|')" /></td>
+			<td>|-if !$show && !$showLog-|<input type="button" class="icon iconStoreLocal" title="Guardar partida" value="Guardar partida" onClick="editItem('item_|-$budgetItem->getId()-|')" />|-else-|<img src="images/clear.png" class="disabled icon iconClear" />|-/if-|</td>
 			<td nowrap>|-if !$show && !$showLog-|
 				|-if date('Y-m-d',strtotime($budgetItem->getUpdatedsigaf())) eq date("Y-m-d")-|
 				<input name="updateBudgetItem" type="hidden" value="1"><input type="button" id="update_|-$budgetItem->getId()-|" class="disabled icon iconActivate" title="Actualizado hoy - Actualizar partida" value="Actualizado hoy - Actualizar partida" onClick="updateItem('|-$budgetItem->getId()-|')" />
 				|-else-|
 				<input name="updateBudgetItem" type="hidden" value="1"><input type="button" id="update_|-$budgetItem->getId()-|" class="icon iconUpdate" title="Actualizar partida" value="Actualizar partida" onClick="updateItem('|-$budgetItem->getId()-|')" />
 				|-/if-|
-				|-else-|<img src="images/clear.png" class="disabled icon iconActivate" />|-/if-|</td>
+				|-else-|<img src="images/clear.png" class="disabled icon iconActivate" |-if $budgetItem->getUpdatedSigaf()-|title="Partida actualizada el |-$budgetItem->getUpdatedSigaf()|change_timezone|dateTime_format-|"|-/if-| />|-/if-|</td>
          	<td>|-if !$show && !$showLog-|<input name="budgetItem[|-$budgetItem->getId()-|][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar partida" value="Eliminar partida" onClick="removeItemFromConstruction('|-$budgetItem->getId()-|')" />|-else-|<img src="images/clear.png" class="disabled icon iconClear" />|-/if-|</td> 
        </tr> 
       |-/foreach-|

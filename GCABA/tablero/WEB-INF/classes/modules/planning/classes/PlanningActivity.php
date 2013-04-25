@@ -136,61 +136,117 @@ class PlanningActivity extends BasePlanningActivity {
 		return BaseQuery::create('Planning'.$this->getObjecttype())->findOneById($this->getObjectid());
 	}
 	
+	/**
+	 * Devuelve el color "status" de una actividad
+	 * @return string con el color "status" de una actividad
+	 */
 	function statusColor() {
 		if ($this->isCancelled())
 			return $this->colors["cancelled"];
 		if ($this->isFinished())
-			return $this->colors["finished"];
-		if ($this->isLate())
+			return $this->colors["onTime"];
+		if ($this->isLate() && !$this->isUndefined())
 			return $this->colors["late"];
-		if ($this->isDelayed())
+		if ($this->isUndefined() || $this->isDelayed())
 			return $this->colors["delayed"];
 		if (!$this->isStarted())
 			return $this->colors["planned"];
-		return $this->colors["onTime"];
+		if ($this->isStarted())
+			return $this->colors["onTime"];
+		return $this->colors["planned"];
 	}
-	
+	/**
+	 * Devuelve true si la actividad esta cancelada
+	 * @return bool si o no si esta cancelada
+	 */
+	function isCancelled() {
+		return $this->getCancelled();
+	}
+	/**
+	 * Devuelve true si la actividad esta terminada
+	 * @return bool si o no si tiene fecha de fin real y marcada como cumplida
+	 */
+	function isFinished() {
+		return ($this->getAcomplished() && !is_null($this->getRealEnd('U')));
+	}
+	/**
+	 * Devuelve true si la actividade no tiene las fechas necesarias
+	 * @return bool si tiene o no cargadas las fechas necesarias
+	 */
+	function isUndefined() {
+		if ($this->getObjecttype() == "Construction")
+			return is_null($this->getEndingDate('U'));
+		else
+			return (is_null($this->getStartingDate('U')) || is_null($this->getEndingDate('U')));
+	}
+	/**
+	 * Devuelve true si la actividad esta iniciada, en caso que sea hito, devuelve true siempre
+	 * @return bool si se inicio o no la actividad
+	 */
+	function isStarted() {
+		if ($this->getObjecttype() == "Construction")
+			return false;
+		else
+			return !is_null($this->getRealStart('U'));
+	}
+	/**
+	 * Devuelve true si la actividad esta demorada, su inicio o fin estan vencidas y menores a la tolerancia
+	 * @return bool si o no dependiendo de si esta demorada
+	 */
+	function isDelayed() {
+		// Tolerancia en dias
+		global $system;
+		if ($system["config"]["tablero"]["activities"]["parameterControl"]["value"] == "DAYS") {
+			$days = $system["config"]["tablero"]["activities"]["delayed"];
+			$comparisonTime = time() - ($days * 24 * 60 * 60);
+		}
+		$comparisonDate = strtotime(date('Y-m-d', $comparisonTime)); 		// tiempo del comienzo del dia (comparo contra un date, no un datetime)
+
+		if ($this->getObjecttype() == "Construction")
+			return (($this->getEndingDate('U') < date('U')) && ($this->getEndingDate('U') > $comparisonDate));
+		else
+			if ($this->isStarted())
+				return (($this->getEndingDate('U') < date('U')) && ($this->getEndingDate('U') > $comparisonDate));
+			else
+				return (($this->getStartingDate('U') < date('U')) && ($this->getStartingDate('U') > $comparisonDate));
+	}
+	/**
+	 * Devuelve true si la actividad esta retrasada, su inicio o fin estan vencidos y mayores a la tolerancia
+	 * @return bool si o no dependiendo de si esta demorada
+	 */
+	function isLate() {
+		// Tolerancia en dias
+		global $system;
+		if ($system["config"]["tablero"]["activities"]["parameterControl"]["value"] == "DAYS") {
+			$days = $system["config"]["tablero"]["activities"]["delayed"];
+			$comparisonTime = time() - ($days * 24 * 60 * 60);
+		}
+		$comparisonDate = strtotime(date('Y-m-d', $comparisonTime)); 		// tiempo del comienzo del dia (comparo contra un date, no un datetime)
+		if ($this->getObjecttype() == "Construction")
+			return (($this->getEndingDate('U') < date('U')) && ($this->getEndingDate('U') < $comparisonDate));
+		else
+			if ($this->isStarted())
+				return (($this->getEndingDate('U') < date('U')) && ($this->getEndingDate('U') < $comparisonDate));
+			else
+				return (($this->getStartingDate('U') < date('U')) && ($this->getStartingDate('U') < $comparisonDate));
+	}
+	/**
+	 * Devuelve true si la actividad esta a termino
+	 * @return bool si o no dependiendo de si esta a termino
+	 */
+	function isOnTime() {
+		return (!$this->isDelayed() && !$this->isLate() && !$this->isFinished() && !$this->isCancelled());
+	}
+	/**
+	 * Devuelve true la actividad es del color indicado
+	 * @return bool si tiene o no el color indicado
+	 */
 	function isOfStatusColor($color) {
 		return ($this->statusColor() === $color);
 	}
 
-	function isStarted() {
-		return !is_null($this->getRealStart());
-	}
 
-	function isCancelled() {
-		return $this->getCancelled();
-	}
-
-	function isFinished() {
-		return ( $this->getAcomplished() || (!is_null($this->getRealEnd())) );
-	}
-
-	function isOnTime() {
-		return (!$this->isDelayed() && !$this->isLate() && !$this->isFinished() && !$this->isCancelled());
-	}
-
-	function isDelayed() {
-		global $system;
-
-		$currentTime = time();
-		$plannedStart = $this->getStartingdate('U');
-
-		if (is_null($plannedStart))
-			return false;
-
-		// Si se usa tolerancia en dias
-		if ($system["config"]["tablero"]["activities"]["parameterControl"]["value"] == "DAYS") {
-			$days = $system["config"]["tablero"]["activities"]["delayed"];
-			$currentTime = time() - ($days * 24 * 60 * 60);
-		}
-		// TODO agregar otros tipos de tolerancias
-		
-		$currentTime = strtotime(date('Y-m-d', $currentTime)); // tiempo del comienzo del dia (comparo contra un date, no un datetime)
-		return ($currentTime > $plannedStart && !$this->isStarted());
-	}
-
-	function isLate() {
+/*	function isLate() {
 		global $system;
 
 		$currentTime = time();
@@ -209,7 +265,7 @@ class PlanningActivity extends BasePlanningActivity {
 		$currentTime = strtotime(date('Y-m-d', $currentTime)); // tiempo del comienzo del dia (comparo contra un date, no un datetime)
 		return (($currentTime > $plannedEnd) && !$this->isFinished());
 	}
-	
+*/
 } // PlanningActivity
 
 

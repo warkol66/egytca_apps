@@ -16,7 +16,7 @@
 class PlanningConstructionQuery extends BasePlanningConstructionQuery {
 
  /**
-	* Agrega filtros por issue y sus descendientes
+	* Agrega filtros por position y sus descendientes
 	*
 	* @param   type integer $positionCode code del Position
 	* @return condicion de filtrado por position y descendientes
@@ -24,6 +24,18 @@ class PlanningConstructionQuery extends BasePlanningConstructionQuery {
 	public function broodPositions($positionCode) {
 		$position = PositionQuery::create()->findOneByCode($positionCode);
 		return $this->filterByPosition($position->getBranch());
+	}
+
+ /**
+	* Agrega filtros por prioridad jefatura
+	*
+	* @param   type integer $positionCode code del Position
+	* @return condicion de filtrado por position y descendientes
+	*/
+	public function priorityProject($priority) {
+		return $this->usePlanningProjectQuery()
+									->filterByPriority($priority)
+							->endUse();
 	}
 
 } // PlanningConstructionQuery

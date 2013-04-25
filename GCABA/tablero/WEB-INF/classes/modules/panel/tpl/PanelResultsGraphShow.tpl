@@ -9,8 +9,10 @@
 <script type="text/javascript" src="scripts/raphael.js"></script>
 <script type="text/javascript" src="scripts/mapa.js"></script>
 <!-- fin de los cambios -->
-
-    <div class="clearfix">
+<br>
+<br>
+<br>
+<div class="clearfix">
         <div class="floatleft">
             <div class="clearfix">
                 |-*<div class="floatleft">
@@ -24,7 +26,7 @@
 
                 <div class="floatleft" id="chartContainer"></div>
                 <script type="text/javascript">
-                    var myChart = new FusionCharts( "images/Pie3D.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId", "300", "225", "0", "1" );
+                    var myChart = new FusionCharts( "images/Pie3D.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId", "350", "250", "0", "1" );
                     myChart.setDataURL(escape("Main.php?do=planningCakeByStatusColorXml&type=projects"));
 										myChart.setTransparent(true);
                     myChart.render("chartContainer");
@@ -42,7 +44,7 @@
 
                 <div class="floatleft" id="chartContainer2"></div>
                 <script type="text/javascript">
-                    var myChart2 = new FusionCharts( "images/Pie3D.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId2", "300", "225", "0", "1" );
+                    var myChart2 = new FusionCharts( "images/Pie3D.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId2", "350", "250", "0", "1" );
                     myChart2.setDataURL(escape("Main.php?do=planningCakeByStatusColorXml&type=constructions"));
                     myChart2.render("chartContainer2");
                 </script>
@@ -50,12 +52,13 @@
 
         </div>
         <div class="floatleft" width="400px" height="600px">
+				<strong><center>Proyectos por comuna</center></strong>
             <div id="mapaChart" style="margin-top: -40px" width="500px" height="500px"></div>
             <script type="text/javascript">
                 dibujarMapa('mapaChart','xmlMapa.php');
             </script>
         </div>
-    </div>
+</div>
 
     <div id="chartContainer4">Cargando...</div>
     <br/>
@@ -77,3 +80,34 @@
 		//Render the exporter SWF in our DIV fcexpDiv
 		myExportComponent.Render("fcexpDiv");
 </script>
+
+<h6>Gasto en Obras por comuna acumulado en pesos corrientes al |-$updatedSigaf|date_format-|</h6>
+		<table class="tablaInfo small" id="gastoComuna">
+				<tr><th width="28%">Gasto por Comuna</th><th width="8%">Sanción </th><th width="8%">Vigente </th><th width="8%">Restringido </th><th width="8%">Preventivo </th><th width="8%">Definitivo </th><th width="8%">Devengado  </th><th width="8%">Disponible </th><th width="8%">Pagado  </th></tr>
+				<tr>
+					<th>Total</th>
+					<th>|-$regionsExpensesTotal.sanctioned|system_numeric_format:"0"-|</th>
+					<th>|-$regionsExpensesTotal.active|system_numeric_format:"0"-|</th>
+					<th width="8%">|-$regionsExpensesTotal.restricted|system_numeric_format:"0"-|</th>
+					<th>|-$regionsExpensesTotal.preventive|system_numeric_format:"0"-|</th>
+					<th>|-$regionsExpensesTotal.definitive|system_numeric_format:"0"-|</th>
+					<th>|-$regionsExpensesTotal.accrued|system_numeric_format:"0"-|</th>
+					<th>|-$regionsExpensesTotal.available|system_numeric_format:"0"-|</th>
+					<th>|-$regionsExpensesTotal.paid|system_numeric_format:"0"-|</th>
+				</tr>
+				|-foreach $regionsExpenses as $regionExpenses-|
+				<tr>
+					<td class="left">|-$regionExpenses->getEntityname()-|</td>
+					<td align="right">|-$regionExpenses->getsanctioned()|system_numeric_format:"0"-|</td>
+					<td align="right">|-$regionExpenses->getactive()|system_numeric_format:"0"-|</td>
+					<td align="right">|-$regionExpenses->getrestricted()|system_numeric_format:"0"-|</td>
+					<td align="right">|-$regionExpenses->getpreventive()|system_numeric_format:"0"-|</td>
+					<td align="right">|-$regionExpenses->getdefinitive()|system_numeric_format:"0"-|</td>
+					<td align="right">|-$regionExpenses->getaccrued()|system_numeric_format:"0"-|</td>
+					<td align="right">|-$regionExpenses->getavailable()|system_numeric_format:"0"-|</td>
+					<td align="right">|-$regionExpenses->getpaid()|system_numeric_format:"0"-|</td>
+				</tr>
+				|-/foreach-|
+</table>
+    <button type="button" name="" value="" class="yellowButton" onclick="tableExport('gastoComuna', 'gasto_por_comuna.xls');">Exportar</button>
+    <br/>
