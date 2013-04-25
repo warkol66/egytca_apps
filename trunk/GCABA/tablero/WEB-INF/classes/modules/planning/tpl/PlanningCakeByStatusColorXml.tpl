@@ -1,5 +1,5 @@
 <chart 
-	caption='|-if $type eq 'projects'-|Proyectos|-else-|Obras|-/if-| por estado de avance|-if $type eq 'projects'-| de hitos|-/if-|' 
+	caption='|-if $type eq 'projects'-|Proyectos|-else-|Obras|-/if-| por estado de avance' 
 	xAxisName='Estado' 
 	yAxisName='Cantidad' 
 	showLabels='0'
@@ -10,10 +10,10 @@
 	showExportDataMenuItem='1'
 	> 
 	
-	<set label='Gris' value='|-$blackCount-|' color='#A4A4A4' />
-	<set label='Verde' value='|-$greenCount-|' color='#04B431' />
-	<set label='Amarillo' value='|-$yellowCount-|' color='#FFFF00'/>
-	<set label='Rojo' value='|-$redCount-|' color='#DF0101'/> 
-	<set label='Azul' value='|-$blueCount-|' color='#0040FF'/> 
+	<set label='Planificado' value='|-$blackCount-|' color='#A4A4A4' />
+	<set label='En término' value='|-$greenCount-|' color='#04B431' />
+	<set label='Demorado/Indefinido' value='|-$yellowCount-|' color='#FFFF00'/>
+	<set label='Retrasado' value='|-$redCount-|' color='#DF0101'/> 
+	<set label='Concluido' value='|-$blueCount-|' color='#0040FF'/> 
 
 </chart>

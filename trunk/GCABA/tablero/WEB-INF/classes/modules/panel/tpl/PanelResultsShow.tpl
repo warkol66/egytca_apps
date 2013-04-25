@@ -192,6 +192,22 @@ function viewObjective(id){
 	<h1>|-$objective->getName()-|</h1>
 |-elseif $positions-|
 	<h1>Visión Estratégica</h1>
+<div class="clearfix">
+<div style="float:left !Important" id="chartContainer">Cargando...</div>
+<div id="chartContainer2">Cargando...</div>
+<script type="text/javascript">
+
+var myChart = new FusionCharts( "images/Pie3D.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId", "400", "300", "0", "1" );
+myChart.setDataURL(escape("Main.php?do=planningCakeByStatusColorXml&type=projects"));
+myChart.setTransparent(true);
+myChart.render("chartContainer");
+
+var myChart2 = new FusionCharts( "images/Pie3D.swf?ChartNoDataText=No se encontraron datos para mostrar&PBarLoadingText=Cargando datos&ChartNoDataText=No se encontraron datos para mostrar&LoadDataErrorText=Error cargando los datos&InvalidXMLText=Datos inválidos&XMLLoadingText=Obteniendo datos", "myChartId2", "400", "300", "0", "1" );
+myChart2.setDataURL(escape("Main.php?do=planningCakeByStatusColorXml&type=constructions"));
+myChart2.setTransparent(true);
+myChart2.render("chartContainer2");
+</script>
+</div>
 	<table id="tabla-projectss" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 		<thead>
 			<tr class="thFillTitle">
@@ -208,7 +224,7 @@ function viewObjective(id){
 			<tr>
 				<td id="expandP_|-$position->getId()-|"><a href="#" id="position_|-$position->getId()-|" onClick="showImpactObjectives(|-$position->getId()-|); return false;"><img src="images/icon_expand.png" /></a></td>
 				<td id="collapseP_|-$position->getId()-|" style="display: none;"><a href="#" onClick="objectivesHide(|-$position->getId()-|); return false;"><img src="images/icon_collapse.png" /></a></td>
-				<td><strong><a href="Main.php?do=panelProjectsShow&positionId=|-$position->getId()-|">|-$position->getName()-|</a></strong></td>
+				<td><strong><a href="Main.php?do=panelProjectsShow&positionId=|-$position->getId()-|" class="detail">|-$position->getName()-|</a></strong></td>
 				<td align="center" nowrap="nowrap">
 					<div style="width:108px;"><!--<a href="" class="flagWhite">
 						|-$colorsCount.white-|

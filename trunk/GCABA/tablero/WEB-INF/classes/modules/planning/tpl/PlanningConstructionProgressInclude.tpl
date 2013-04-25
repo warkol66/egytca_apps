@@ -77,11 +77,11 @@ html =   '      <tr> '
          		<td>|-if !$show && !$showLog-|<input name="progressRecord[][eol]" type="hidden" value="1"><input type="button" class="icon iconDelete" title="Eliminar partida" value="Eliminar partida" onClick="removeRecordFromConstruction('|-$progressRecord->getId()-|')" />|-else-|<img src="images/clear.png" class="disabled icon iconClear" />|-/if-|</td> 
        </tr> 
       |-/foreach-|
-			 <tr> 
+			<!-- <tr> 
           <th colspan="5">Ejecución Finaciera acumulada según SIGAF (Actualizada: dd-mm-yyy)</th> 
           <th align="right"> #.###,00 &nbsp;&nbsp;&nbsp;</th> 
           <th colspan="3">&nbsp;</th> 
-        </tr>
+        </tr> -->
       </tbody> 
 			|-/if-|
      </table> 

@@ -13,7 +13,9 @@
 <h2>Tablero de Gestión</h2>
 |-if $position-|
 <h1>|-$position->getName()-|</h1>
-<p>Responsable : |-$position->getOwnerName()-||-if get_class($position->getActiveTenureName()) eq "PositionTenure"-||-assign var=tenure value=$position->getActiveTenureName()-||-if $tenure->getName() ne ''-| &#8212; |-$tenure->getName()-||-/if-||-else-||-assign var=userInfo value=$position->getActiveTenureName()-||-if $userInfo->getName() ne '' || $userInfo->getSurname() ne ''-| &#8212; |-/if-||-$userInfo->getName()-| |-$userInfo->getSurname()-||-/if-|</p>
+<p>Responsable : |-if get_class($position->getActiveTenureName()) eq "PositionTenure"-||-assign var=tenure value=$position->getActiveTenure()-||-if $tenure->getObject() != NULL-||-$tenure->getOwnerName()-| &#8212;  |-assign var=tenureObject value=$tenure->getObject()-||-$tenureObject->getName()-| |-$tenureObject->getSurname()-||-assign var=tenureId value=$tenure->getId()-||-/if-||-/if-|
+
+</p>
 <!--Aca comienzan los cambios -->
 <script type="text/javascript" src="scripts/FusionCharts.js"></script>
 <script type="text/javascript" src="scripts/FusionChartsExportComponent.js"></script>
@@ -64,6 +66,7 @@ myChart2.render("chartContainer2");
 				<th width="5%">Fecha</th>
 				<th width="5%">Fin Planificado </th>
 				<th width="5%">Fin Real </th>
+				<th width="1%">&nbsp;</th>
 				<th width="5%">&nbsp;</th>
 				<th width="5%"><div style="width:175px;">Actividades</div></th>
 			</tr>
@@ -78,6 +81,7 @@ myChart2.render("chartContainer2");
 				<td nowrap>|-$project->getStartingDate()|date_format-|</td>
 				<td nowrap>|-$project->getEndingDate()|date_format-|</td>
 				<td nowrap>|-$project->getRealEnd()|date_format-|</td>
+				<td nowrap>|-if $project->countPlanningConstructions() gt 0-|<a href="Main.php?do=panelConstructionsList&nav=true&filters[planningprojectid]=|-$project->getId()-|" class="icon iconFollow" title="Ver Obras del Proyecto">Ver Obras</a>|-/if-|</td>
 				<td align="center" nowrap="nowrap">					|-if "planningProjectsViewX"|security_has_access-||-if $project->getActivities()|count gt 0-|
 					<input type="button" class="icon iconViewGantt" onClick='window.open("Main.php?do=planningProjectsViewX&showGantt=true&id=|-$project->getid()-|","Gantt","scrollbars=1,width=800,height=600");' value="Ver Gantt" title="Ver Gantt (abre en ventana nueva)" />|-else-|<img src="images/clear.png" class="icon iconClear disabled" />|-/if-|
 					<form action="Main.php" method="get" style="display:inline;">
@@ -93,19 +97,19 @@ myChart2.render("chartContainer2");
 						<input type="submit" name="submit_go_edit_project" value="Editar" class="icon iconListCheck" title="Seguimiento del Proyecto"/>
 					</form>|-/if-|</td>
 				<td align="center" nowrap >
-					<a href="Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=white" class="flagWhite">
+					<a href="|-*Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=white*-|#" class="flagWhite">
 						|-$colorsCount.white-|
 					</a>
-					<a href="Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=green" class="flagGreen">
+					<a href="|-*Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=green*-|#" class="flagGreen">
 						|-$colorsCount.green-|
 					</a>
-					<a href="Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=yellow" class="flagYellow">					
+					<a href="|-*Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=yellow*-|#" class="flagYellow">					
 						|-$colorsCount.yellow-|
 					</a>
-					<a href="Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=red" class="flagRed">
+					<a href="|-*Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=red*-|#" class="flagRed">
 						|-$colorsCount.red-|
 					</a>
-					<a href="Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=blue" class="flagBlue">
+					<a href="|-*Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=blue*-|#" class="flagBlue">
 						|-$colorsCount.blue-|
 					</a>
 				</td>

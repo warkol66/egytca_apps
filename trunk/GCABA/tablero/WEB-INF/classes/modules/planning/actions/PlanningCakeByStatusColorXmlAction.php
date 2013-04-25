@@ -13,6 +13,7 @@ class PlanningCakeByStatusColorXmlAction extends BaseAction {
 		}
 		
 		$this->template->template = 'TemplatePlain.tpl';
+		$smarty->assign('type', $_GET['type']);
 		
 		if (!empty($_GET['positionId'])) {
 			$smarty->assign('type', $_GET['type']);

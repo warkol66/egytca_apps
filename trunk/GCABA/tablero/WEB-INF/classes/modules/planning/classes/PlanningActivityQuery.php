@@ -58,6 +58,13 @@ class PlanningActivityQuery extends BasePlanningActivityQuery {
 		), 'or')->find();
 	}
 
+ /**
+	* Agrega filtros por color "status"
+	*
+	* @param   type string $color colore correspondiente al status
+	* @param   type string $comparison corresponde a la comparacion
+	* @return condicion de filtrado por rango de fecha de vencimiento
+	*/
 	public function filterByColor($color, $comparison = Criteria::EQUAL) {
 		
 		global $system;

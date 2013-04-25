@@ -34,6 +34,9 @@ class PanelConstructionsShowAction extends BaseAction {
 
 		$smarty->assign("filters", $filters);
 
+		$smarty->assign("regions", RegionQuery::create()->filterByType('11')->find());
+		$smarty->assign("tenderTypes", PlanningConstruction::getTenderTypes());
+
 		return $mapping->findForwardConfig('success');
 	}
 

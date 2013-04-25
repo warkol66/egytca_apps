@@ -1,6 +1,9 @@
 <?php
 
-class PanelResultsGraphShowAction extends BaseAction {
+require_once 'ExpensesSum.php';
+require_once 'PanelExpensesShowAction.php';
+
+class PanelResultsGraphShowAction extends PanelExpensesShowAction {
 	
 	function execute($mapping, $form, &$request, &$response) {
 
@@ -17,6 +20,11 @@ class PanelResultsGraphShowAction extends BaseAction {
 
 		$smarty->assign("module",$module);
 		$smarty->assign("section",$section);
+
+		$regionsExpenses = $this->getRegionsExpenses();
+		$regionsExpensesTotal = ExpensesSum::total($regionsExpenses);
+		$smarty->assign('regionsExpenses', $regionsExpenses);
+		$smarty->assign('regionsExpensesTotal', $regionsExpensesTotal);
 
 		$moduleConfig = Common::getModuleConfiguration($module);
 		$smarty->assign("moduleConfig",$moduleConfig);
