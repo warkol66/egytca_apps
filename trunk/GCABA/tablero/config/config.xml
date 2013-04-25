@@ -127,7 +127,7 @@
 		</colors>
 		<objectives>
 			<parameterControl>
-				<value>0</value>
+				<value>DAYS</value>
 				<element_type>Options</element_type>
 				<element_options>
 					<option_1>PERCENTAGE</option_1>
@@ -142,7 +142,7 @@
 		</objectives>
 		<projects>
 			<parameterControl>
-				<value>0</value>
+				<value>DAYS</value>
 				<element_type>Options</element_type>
 				<element_options>
 					<option_1>PERCENTAGE</option_1>
@@ -161,7 +161,7 @@
 		</projects>
 		<activities>
 			<parameterControl>
-				<value>0</value>
+				<value>DAYS</value>
 				<element_type>Options</element_type>
 				<element_options>
 					<option_1>PERCENTAGE</option_1>

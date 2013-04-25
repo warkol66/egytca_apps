@@ -22,7 +22,7 @@
 				<li class="last"><a href="Main.php?do=planningOperativeObjectivesList">Objetivos Operativos</a></li>
 			</ul>
 		</li>
-			<li><a href="javascript:void(null)" class="sub">Proyectos</a>
+			<li><a href="javascript:void(null)" class="sub">Planificación</a>
 			  <ul class="menu">
 				<li><a href="Main.php?do=planningProjectsList">Proyectos</a></li>
 				<li><a href="Main.php?do=planningConstructionsList">Obras</a></li>

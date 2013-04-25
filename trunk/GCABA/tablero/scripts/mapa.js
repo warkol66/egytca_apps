@@ -225,9 +225,9 @@ function dibujarMapa(container, url){
     var mapa = {
 
         colores: {
-            rojo: "#FF6969",
-            amarillo: "#FAF87F",
-            verde: "#B6FF91"
+            Retrasado: "#FF6969",
+            Demorado: "#FAF87F",
+            Vigente: "#B6FF91"
         },
         comunas: {
             comuna1: comuna1,
