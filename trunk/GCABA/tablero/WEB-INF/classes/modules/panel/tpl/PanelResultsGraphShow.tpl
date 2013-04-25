@@ -52,7 +52,10 @@
 
         </div>
         <div class="floatleft" width="400px" height="600px">
-				<strong><center>Proyectos por comuna</center></strong>
+				<strong><center>Proyectos por comuna</center></strong><br>
+<br>
+<br>
+
             <div id="mapaChart" style="margin-top: -40px" width="500px" height="500px"></div>
             <script type="text/javascript">
                 dibujarMapa('mapaChart','xmlMapa.php');
