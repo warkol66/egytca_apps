@@ -28,9 +28,7 @@ class NewsMedia extends BaseNewsMedia {
 	public function getMediaTypes() {
 
 	$types = array();
-	$types[NewsMedia::NEWSMEDIA_IMAGE] = 'Imagen';
-	$types[NewsMedia::NEWSMEDIA_VIDEO] = 'Video';
-	$types[NewsMedia::NEWSMEDIA_SOUND] = 'Sonido';
+	$types[CalendarMedia::CALENDARMEDIA_IMAGE] = 'Imagen';
 
 	return $types;
 

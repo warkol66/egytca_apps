@@ -12,6 +12,10 @@ class NewsMediasDoEditXAction extends BaseDoEditAction {
 		$this->smarty->assign("module","News");
 		$section = "Media";
 		$this->smarty->assign("section",$section);
+	}
+	
+	protected function postSave() {
+		parent::postSave();
 		
 		//si el tipo es imagen
 		if ($_POST["params"]["mediaType"] == NewsMedia::NEWSMEDIA_IMAGE && !empty($_FILES["document_file"]['tmp_name']))
@@ -33,85 +37,5 @@ class NewsMediasDoEditXAction extends BaseDoEditAction {
 		  copy($file["tmp_name"],$destPath);
 		
 	}
-
-/*
-	// ----- Constructor ---------------------------------------------------- //
-
-	function NewsMediasDoEditXAction() {
-		;
-	}
-	
-
-	// ----- Public Methods ------------------------------------------------- //
-
-	/**
-	* Process the specified HTTP request, and create the corresponding HTTP
-	* response (or forward to another web component that will create it).
-	* Return an <code>ActionForward</code> instance describing where and how
-	* control should be forwarded, or <code>NULL</code> if the response has
-	* already been completed.
-	*
-	* @param ActionConfig		The ActionConfig (mapping) used to select this instance
-	* @param ActionForm			The optional ActionForm bean for this request (if any)
-	* @param HttpRequestBase	The HTTP request we are processing
-	* @param HttpRequestBase	The HTTP response we are creating
-	* @public
-	* @returns ActionForward
-	*
-	function execute($mapping, $form, &$request, &$response) {
-
-    BaseAction::execute($mapping, $form, $request, $response);
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
-
-		$module = "News";
-		$smarty->assign("module",$module);
-		$section = "Media";
-		$smarty->assign("section",$section);				
-
-		//por ser un action ajax
-		$this->template->template = 'TemplateAjax.tpl';
-		
-		//obtenemos las variables del request
-		list($code,$id) = explode('_',$_POST['editorId']);
-		$value = $_POST['value'];
-		
-		
-		$newsMedia = NewsMediaPeer::get($id);
-		
-		if ($code == 'descriptionEdit') {
-			//estamos editando la descripcion
-			try {
-				$newsMedia->setDescription($value);
-				$newsMedia->save();
-			}
-			catch (PropelException $e) {
-				;
-			}
-		}
-
-		if ($code == 'titleEdit') {
-			//estamos editando el titulo
-			try {
-				$newsMedia->setTitle($value);
-				$newsMedia->save();
-			}
-			catch (PropelException $e) {
-				;
-			}
-		}
-	
-		//seteamos la respuesta de smarty
-		$smarty->assign('value',$value);
-	
-		return $mapping->findForwardConfig('success');
-	}*/
 
 }
