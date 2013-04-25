@@ -292,6 +292,7 @@ body {
 	height: 18px !Important;
 	background: url(../images/semaphoreButtonsSmall.png) no-repeat;
 	line-height: 19px !Important;
+	cursor: auto !Important;
 }
 .flagRed {
 	background-position: 0px 0px;
