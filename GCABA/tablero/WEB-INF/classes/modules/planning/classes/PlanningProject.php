@@ -369,50 +369,58 @@ class PlanningProject extends BasePlanningProject {
 		$this->save();
 	}
 	
-	private function updateRealEnd() {
-		
-		if ($this->getInvestment()) {
-			// if any construction is unfinished, project is unfinished
-			$unfinishedConstructionsCount = BaseQuery::create('PlanningConstruction')
-				->filterByPlanningProject($this)
-				->filterByRealEnd(null, Criteria::ISNULL)
-				->count()
-			;
-			if ($unfinishedConstructionsCount != 0) {
-				$this->setRealend(null);
-				return;
-			}
-		}
-
-		// if any activity is unfinished, project is unfinished
-		$unfinishedActivitiesCount = BaseQuery::create('PlanningActivity')
+	/**
+	 * @return boolean Whether or not the planningProject has unfinished asociated planningConstructions
+	 */
+	public function hasUnfinishedPlanningConstructions() {
+		return BaseQuery::create('PlanningConstruction')
+			->filterByPlanningProject($this)
+			->filterByRealEnd(null, Criteria::ISNULL)
+			->count() > 0;
+	}
+	
+	/**
+	 * @return boolean Whether or not the planningProject has unfinished asociated planningActivities
+	 */
+	public function hasUnfinishedPlanningActivities() {
+		return BaseQuery::create('PlanningActivity')
 			->filterByObjecttype('Project')
 			->filterByObjectid($this->getId())
 			->filterByRealEnd(null, Criteria::ISNULL)
-			->count()
-		;
-		if ($unfinishedActivitiesCount != 0) {
-			$this->setRealend(null);
-			return;
-		}
-
-		$lastFinishedConstruction = null;
-		if ($this->getInvestment()) {
-			$lastFinishedConstruction = BaseQuery::create('PlanningConstruction')
-				->filterByPlanningProject($this)
-				->filterByRealEnd(null, Criteria::ISNOTNULL)
-				->orderByRealend(Criteria::DESC)
-				->findOne()
-			;
-		}
-
-		$lastFinishedActivity = BaseQuery::create('PlanningActivity')
+			->count() > 0;
+	}
+	
+	private function getLastFinishedConstruction() {
+		return BaseQuery::create('PlanningConstruction')
+			->filterByPlanningProject($this)
+			->filterByRealEnd(null, Criteria::ISNOTNULL)
+			->orderByRealend(Criteria::DESC)
+			->findOne();
+	}
+	
+	private function getLastFinishedActivity() {
+		return BaseQuery::create('PlanningActivity')
 			->filterByObjecttype('Project')
 			->filterByObjectid($this->getId())
 			->filterByRealEnd(null, Criteria::ISNOTNULL)
 			->orderByRealend(Criteria::DESC)
-			->findOne()
-		;
+			->findOne();
+	}
+	
+	private function updateRealEnd() {
+		
+		if ($this->getInvestment() && $this->hasUnfinishedPlanningConstructions()) {
+			$this->setRealend(null);
+			return;
+		}
+
+		if ($this->hasUnfinishedPlanningActivities()) {
+			$this->setRealend(null);
+			return;
+		}
+
+		$lastFinishedConstruction = $this->getInvestment() ? $this->getLastFinishedConstruction() : null;
+		$lastFinishedActivity = $this->getLastFinishedActivity();
 		
 		if (!is_null($lastFinishedConstruction) && !is_null($lastFinishedActivity))
 			$this->setRealend(max($lastFinishedConstruction->getRealend(), $lastFinishedActivity->getRealend()));
