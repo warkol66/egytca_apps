@@ -106,7 +106,7 @@ html =   '      <tr> '
     </tr> 
 |-/if-|
 		<tr id="activityId_|-$activity->getId()-|"> 
-			<td><img src="images/clear.png" class="smallIcon|-if $semaphore-| flag|-$activity->statusColor()|capitalize-||-/if-|"></a></td>
+			<td><img src="images/clear.png" class="|-if $semaphore-|smallIcon flag|-$activity->statusColor()|capitalize-||-else-|icon iconClear|-/if-|"></a></td>
 			<td><input type="hidden" name="activity[][id]" value="|-$activity->getId()-|"/>
 			|-if isset($construction) && $construction->getConstructionType() eq 2-|<input name="activity[][name]" id="params_name[]" type="text" value="|-$activity->getName()|escape-|" size="60" title="Actividad" readonly="readonly"></td>
 			|-else-|<input name="activity[][name]" id="params_name[]" type="text" value="|-$activity->getName()|escape-|" size="40" title="Actividad" |-$readonly|readonly-|>|-/if-|</td>
