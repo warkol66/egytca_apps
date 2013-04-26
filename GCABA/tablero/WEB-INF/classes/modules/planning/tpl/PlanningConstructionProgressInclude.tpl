@@ -1,5 +1,5 @@
-|-if !$show && !$showLog-|
 <div id="progressRecordMsgField"></div>
+|-if !$show && !$showLog-|
 <script language="JavaScript" type="text/JavaScript">
 function addProgressRecord(a) {
 	var div = $$("#progressRecordEdit div:first")[0];

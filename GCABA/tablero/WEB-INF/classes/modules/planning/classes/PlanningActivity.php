@@ -198,7 +198,10 @@ class PlanningActivity extends BasePlanningActivity {
 		global $system;
 		if ($system["config"]["tablero"]["activities"]["parameterControl"]["value"] == "DAYS") {
 			$days = $system["config"]["tablero"]["activities"]["delayed"];
-			$comparisonTime = time() - ($days * 24 * 60 * 60);
+			if ($days > 0)
+				$comparisonTime = time() - ($days * 24 * 60 * 60);
+			else
+				$comparisonTime = time();
 		}
 		$comparisonDate = strtotime(date('Y-m-d', $comparisonTime)); 		// tiempo del comienzo del dia (comparo contra un date, no un datetime)
 
@@ -219,7 +222,10 @@ class PlanningActivity extends BasePlanningActivity {
 		global $system;
 		if ($system["config"]["tablero"]["activities"]["parameterControl"]["value"] == "DAYS") {
 			$days = $system["config"]["tablero"]["activities"]["delayed"];
-			$comparisonTime = time() - ($days * 24 * 60 * 60);
+			if ($days > 0)
+				$comparisonTime = time() - ($days * 24 * 60 * 60);
+			else
+				$comparisonTime = time();
 		}
 		$comparisonDate = strtotime(date('Y-m-d', $comparisonTime)); 		// tiempo del comienzo del dia (comparo contra un date, no un datetime)
 		if ($this->getObjecttype() == "Construction")

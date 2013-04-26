@@ -10,8 +10,6 @@
 <script type="text/javascript" src="scripts/mapa.js"></script>
 <!-- fin de los cambios -->
 <br>
-<br>
-<br>
 <div class="clearfix">
         <div class="floatleft">
             <div class="clearfix">
