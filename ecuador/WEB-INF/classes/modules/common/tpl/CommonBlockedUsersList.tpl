@@ -50,8 +50,8 @@ function unblockUser(form){
 		<th width="10%">Nivel Permisos</th>
 		<th width="10%">&nbsp;</th>
 	</tr>
-	|-foreach from=$blockedUsers item=user name=for_users-|
-	<tr>
+	|-foreach from=$userColl item=user name=for_users-|
+	<tr id="|-get_class($user)-|_|-$user->getId()-|">
 		<td>|-$user->getUsername()-|</td>
 		<td>|-$user->getName()-|</td>
 		<td>|-$user->getSurname()-|</td>
@@ -70,8 +70,8 @@ function unblockUser(form){
 		|-if $user->getBlockedAt()-|
 			<form method="post" id="unblock_|-$user->getId()-|">
 			<input type="hidden" name="do" value="commonUsersDoUnblockX" />
-			<input type="hidden" name="type" value="|-get_class($user)-|" />
 			<input type="hidden" name="id" value="|-$user->getId()-|" />
+			<input type="hidden" name="params[type]" value="|-get_class($user)-|" />
 			<input type="button" value="Desbloquear Usuario" onClick="unblockUser('unblock_|-$user->getId()-|'); return false" title="Desbloquear Usuario" class="icon iconPassword">
 			</form>
 		|-/if-|
@@ -82,7 +82,7 @@ function unblockUser(form){
 	
 	|-else-|
 	|-/if-||-/if-|
-		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
+		|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 			<tr> 
 				<td colspan="6" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 			</tr>							
@@ -100,7 +100,7 @@ function unblockUser(form){
 		<th>&nbsp;</th>
 	</tr>
 	|-foreach from=$blockedAffiliates item=user name=for_users-|
-	<tr>
+	<tr id="|-get_class($user)-|_|-$user->getId()-|">
 		<td width="15%">|-$user->getAffiliate()-|</td>
 		<td width="20%">|-$user->getUsername()-|</td>
 		<td width="25%">|-$user->getSurname()-|, |-$user->getName()-|</td>
@@ -119,7 +119,7 @@ function unblockUser(form){
 		|-if $user->getBlockedAt()-|
 			<form method="post" id="unblockAffiliate_|-$user->getId()-|">
 			<input type="hidden" name="do" value="commonUsersDoUnblockX" />
-			<input type="hidden" name="type" value="|-get_class($user)-|" />
+			<input type="hidden" name="params[type]" value="|-get_class($user)-|" />
 			<input type="hidden" name="id" value="|-$user->getId()-|" />
 			<input type="button" value="Desbloquear Usuario" onClick="unblockUser('unblockAffiliate_|-$user->getId()-|'); return false" title="Desbloquear Usuario" class="icon iconPassword">
 			</form>
@@ -127,7 +127,7 @@ function unblockUser(form){
 		</td>
 	</tr>
 	|-/foreach-|
-	|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
+	|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 			<tr> 
 				<td colspan="5" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 			</tr>							

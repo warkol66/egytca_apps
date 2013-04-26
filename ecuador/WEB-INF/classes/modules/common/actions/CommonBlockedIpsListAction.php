@@ -11,7 +11,7 @@ class CommonBlockedIpsListAction extends BaseListAction {
 
 		//aplicar filtro
 		$this->filters['selectDistinctIp'] = true;
-		$this->filters['unBlocked'] = false;
+		$this->filters['unblocked'] = 'false';
 		
 	}
 

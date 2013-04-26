@@ -113,7 +113,7 @@ function unblockUser(form){
 		|-if $user->getBlockedAt()-|
 			<form method="post" id="unblock_|-$user->getId()-|">
 			<input type="hidden" name="do" value="commonUsersDoUnblockX" />
-			<input type="hidden" name="type" value="|-get_class($user)-|" />
+			<input type="hidden" name="params[type]" value="|-get_class($user)-|" />
 			<input type="hidden" name="id" value="|-$user->getId()-|" />
 			<input type="button" value="Desbloquear Usuario" onClick="unblockUser('unblock_|-$user->getId()-|'); return false" title="Desbloquear Usuario" class="icon iconPassword">
 			</form>
