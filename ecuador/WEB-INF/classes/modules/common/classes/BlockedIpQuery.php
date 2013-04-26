@@ -13,6 +13,12 @@
  *
  * @package    propel.generator.common.classes
  */
-class BlockedIpQuery extends BaseBlockedIpQuery
-{
+class BlockedIpQuery extends BaseBlockedIpQuery{
+	
+	function selectDistinctIp($distinct){
+		if($distinct)
+			$this->groupByIp();
+			
+		return $this;
+	}
 }
