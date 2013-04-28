@@ -35,13 +35,13 @@ class HeadlineAttachment extends BaseHeadlineAttachment {
 	 * Downloads attachment file.
 	 */
 	function download() {
-		$attachmentsPath = ConfigModule::get('headlines', 'clippingsPath');
-		if (!file_exists($attachmentsPath))
-			mkdir ($attachmentsPath, 0777, true);
-		if (!file_exists($attachmentsPath))
-			throw new Exception("No se pudo crear el directorio $attachmentsPath. Verifique la configuración de permisos.");
+		$dataDir = $this->getDataDir();
+		if (!file_exists($dataDir))
+			mkdir ($dataDir, 0777, true);
+		if (!file_exists($dataDir))
+			throw new Exception("No se pudo crear el directorio $dataDir. Verifique la configuracion de permisos.");
 		
-		$filename = realpath($attachmentsPath)."/".$this->getName();
+		$filename = $this->getRealpath();
 		$command = 'wget '.$this->getUrl().' -O '.$filename;
 		shell_exec($command);
 		if (!file_exists($filename))
@@ -58,15 +58,27 @@ class HeadlineAttachment extends BaseHeadlineAttachment {
 	}
 	
 	/**
+	 * @return directory for attachment's files
+	 */
+	function getDataDir() {
+		$dirCant = 1000; // esto se saca del config
+		$squaredDirCant = $dirCant * $dirCant;
+		$id = $this->getId();
+		
+		$filesDir = realpath(ConfigModule::get('headlines', 'clippingsPath'));
+		$firstRamification = floor($id / $squaredDirCant);
+		$secondRamification = floor(($id - $firstRamification * $squaredDirCant) / $dirCant);
+		
+		return "$filesDir/$firstRamification/$secondRamification";
+	}
+	
+	/**
 	 * 
 	 * @return string absolute path to resource
 	 */
 	function getRealpath() {
-		$name = $this->getName();
-		if (empty($name))
-			return false;
-		else
-			return realpath(ConfigModule::get('headlines', 'clippingsPath')).'/'.$name;
+		$filename = $this->getName();
+		return !empty($filename) ? $this->getDataDir()."/$filename" : false;
 	}
 	
 	/**
@@ -82,11 +94,8 @@ class HeadlineAttachment extends BaseHeadlineAttachment {
 	 * @return string absolute path to resource
 	 */
 	function getSecondaryDataRealpath() {
-		$secondaryDataName = $this->getSecondaryDataName();
-		if (!empty($secondaryDataName))
-			return realpath(ConfigModule::get('headlines', 'clippingsPath')).'/'.$secondaryDataName;
-		else
-			return false;
+		$filename = $this->getSecondarydataname();
+		return !empty($filename) ? $this->getDataDir()."/$filename" : false;
 	}
 	
 	/**
@@ -96,5 +105,41 @@ class HeadlineAttachment extends BaseHeadlineAttachment {
 	function secondaryDataExists() {
 		return file_exists($this->getSecondaryDataRealpath());
 	}
+	
+	
+	
+	
+	/* ********************************************************************** */
+	/* *********************** Filename migration *************************** */
+	/* ********************************************************************** */
+	
+	// DELETEME: after migration
+	function getOldRealpath() {
+		$name = $this->getName();
+		if (empty($name))
+			return false;
+		else
+			return realpath(ConfigModule::get('headlines', 'clippingsPath')).'/'.$name;
+	}
+	
+	// DELETEME: after migration
+	function oldDataExists() {
+		return file_exists($this->getOldRealpath());
+	}
+	
+	// DELETEME: after migration
+	function getOldSecondaryDataRealpath() {
+		$secondaryDataName = $this->getSecondaryDataName();
+		if (!empty($secondaryDataName))
+			return realpath(ConfigModule::get('headlines', 'clippingsPath')).'/'.$secondaryDataName;
+		else
+			return false;
+	}
+	
+	// DELETEME: after migration
+	function oldSecondaryDataExists() {
+		return file_exists($this->getSecondaryDataRealpath());
+	}
+	/* ********************************************************************** */
 
 } // HeadlineAttachment

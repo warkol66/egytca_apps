@@ -24,6 +24,7 @@ download() {
 	mustResample=`grep "mustResample" $queuedFile | sed -e "s/mustResample=//"`
 	id=`grep "id" $queuedFile | sed -e "s/id=//"`
 
+	mkdir -p `echo "$of" | sed -e "s/\/[^\/]*$//g"` # create dir for downloaded file
 	$downloadCmd $url -O $of > /dev/null 2>/dev/null
 
 	if [ $mustResample = 1 ] ; then

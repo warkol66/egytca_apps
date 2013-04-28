@@ -57,7 +57,7 @@ class HeadlineParsed extends BaseHeadlineParsed {
 			if (!file_exists($attachmentsPath))
 				mkdir ($attachmentsPath, 0777, true);
 			if (!file_exists($attachmentsPath))
-				throw new Exception("No se pudo crear el directorio $attachmentsPath. Verifique la configuración de permisos.");
+				throw new Exception("No se pudo crear el directorio $attachmentsPath. Verifique la configuracion de permisos.");
 
 			$downloader = new AutoDownloader();
 			foreach ($this->getHeadlineParsedAttachments() as $attachment) {
