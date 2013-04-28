@@ -174,6 +174,8 @@ class HeadlinesXMLDoParseXAction extends BaseAction {
 			$maxAllowedTimeString = $this->maxAllowedTimeStrings[$this->type];
 			$maxAllowedTime = strtotime($maxAllowedTimeString);
 			return $lastParsedTime < $maxAllowedTime;
+		} else {
+			return true;
 		}
 	}
 }
