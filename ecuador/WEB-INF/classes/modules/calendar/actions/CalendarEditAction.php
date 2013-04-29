@@ -37,10 +37,9 @@ class CalendarEditAction extends BaseEditAction {
 		}
 		
 		//mediaTypes
-		//TODO: cambiar cuando migre medias
 		$types = array();
 		if ($moduleConfig["image"]["useImages"]["value"] == "NO")
-			$types[CalendarMediaPeer::CALENDARMEDIA_IMAGE] = 'Imagen';
+			$types[CalendarMedia::CALENDARMEDIA_IMAGE] = 'Imagen';
 
 		$this->smarty->assign("calendarMediasTypes",array_diff_assoc($calendarMediasTypes, $types));
 

@@ -33,7 +33,6 @@ Puede regresar a la página principal del calendario haciendo click <a href="Mai
  
 </script>
 <div id="div_calendarEvents">
-	|-$calendarEvent->getstartdate|date_format-|
 		<form name="form_edit_calendarEvent" id="form_edit_calendarEvent" action="Main.php" method="post">
 			<p>Ingrese los datos del evento</p>
 			<fieldset title="Formulario de edición de datos de un evento">
@@ -64,13 +63,13 @@ Puede regresar a la página principal del calendario haciendo click <a href="Mai
 					<label for="calendarEvent_startDate">Fecha de Inicio Actividad</label>
 					<input name="params[startDate]" type="text" id="params_startDate" class="datepickerStart" title="startDate" value="|-$calendarEvent->getstartDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
 					<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
-					<a href="#" |-popup sticky=true caption="Fechas de la agenda" trigger="onMouseOver" text="Las fechas deben completarse para que el evento se registre correctamente.<br />La fecha de creación ubicará el evento por orden descendente en la página principal, las fechas de inicio y fin de la actividad le indican al sistema la vigencia del mismo." snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a>
+					<a href="#" |-popup sticky=true caption="Fechas de la agenda" trigger="onMouseOver" text="Las fechas deben completarse para que el evento se registre correctamente. Las fechas de inicio y fin de la actividad le indican al sistema la vigencia del mismo." snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a>
 				</p>
 				<p>
 					<label for="calendarEvent_endDate">Fecha de Fin Actividad</label>
 					<input name="params[endDate]" type="text" id="params_endDate" class="datepickerEnd" title="endDate" value="|-$calendarEvent->getendDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
 					<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
-					<a href="#" |-popup sticky=true caption="Fechas de la agenda" trigger="onMouseOver" text="Las fechas deben completarse para que el evento se registre correctamente.<br />La fecha de creación ubicará el evento por orden descendente en la página principal, las fechas de inicio y fin de la actividad le indican al sistema la vigencia del mismo." snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a>
+					<a href="#" |-popup sticky=true caption="Fechas de la agenda" trigger="onMouseOver" text="Las fechas deben completarse para que el evento se registre correctamente.<br />Las fechas de inicio y fin de la actividad le indican al sistema la vigencia del mismo." snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a>
 				</p>							
 				|-assign var=eventid value=$calendarEvent->getId()-|
 				|-if not empty($eventid)-|
