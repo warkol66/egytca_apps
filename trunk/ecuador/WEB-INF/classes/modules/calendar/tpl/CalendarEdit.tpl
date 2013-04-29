@@ -13,14 +13,27 @@ Puede regresar a la página principal del calendario haciendo click <a href="Mai
 <script type="text/javascript">
 	$(document).ready(function() {
 		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
-        $( ".datepicker, .datepickerStart, .datepickerEnd" ).datepicker({
+        $( ".datepicker" ).datepicker({
 			dateFormat:"dd-mm-yy"
+		});
+		$( ".datepickerStart" ).datepicker({
+			dateFormat:"dd-mm-yy",
+			onClose: function(selectedDate) {
+                $(".datepickerEnd").datepicker("option", "minDate", selectedDate);
+            }
+		});
+        $( ".datepickerEnd" ).datepicker({
+			dateFormat:"dd-mm-yy",
+			onClose: function(selectedDate) {
+                $(".datepickerStart").datepicker("option", "maxDate", selectedDate);
+            }
 		});
 
 	});//fin docready
  
 </script>
 <div id="div_calendarEvents">
+	|-$calendarEvent->getstartdate|date_format-|
 		<form name="form_edit_calendarEvent" id="form_edit_calendarEvent" action="Main.php" method="post">
 			<p>Ingrese los datos del evento</p>
 			<fieldset title="Formulario de edición de datos de un evento">
@@ -49,7 +62,7 @@ Puede regresar a la página principal del calendario haciendo click <a href="Mai
 				</p>
 				<p>
 					<label for="calendarEvent_startDate">Fecha de Inicio Actividad</label>
-					<input name="params[startDate]" type="text" id="params_startDate" class="datepickerStart" title="creationDate" value="|-$calendarEvent->getstartDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+					<input name="params[startDate]" type="text" id="params_startDate" class="datepickerStart" title="startDate" value="|-$calendarEvent->getstartDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
 					<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 					<a href="#" |-popup sticky=true caption="Fechas de la agenda" trigger="onMouseOver" text="Las fechas deben completarse para que el evento se registre correctamente.<br />La fecha de creación ubicará el evento por orden descendente en la página principal, las fechas de inicio y fin de la actividad le indican al sistema la vigencia del mismo." snapx=10 snapy=10-|><img src="images/clear.png" class="linkImageInfo"></a>
 				</p>

@@ -59,7 +59,7 @@
 			<tr>
 				<td><input type="checkbox" name="selected[]" value="|-$calendarEvent->getId()-|"></td>
 				<td>|-$calendarEvent->gettitle()-|</td>
-				<td>|-$calendarEvent->getstartDate()|date_format:"%d-%m-%Y"-|</td>
+				<td>|-$calendarEvent->getStartDate()|date_format:"%d-%m-%Y"-|</td>
 <!--|-if $calendarEventsConfig.useRegions.value eq "YES"-|<td>
 					|-assign var=region value=$calendarEvent->getRegion()-|
 					|-if empty($region)-|N/A|-else-||-$region->getName()-||-/if-|
