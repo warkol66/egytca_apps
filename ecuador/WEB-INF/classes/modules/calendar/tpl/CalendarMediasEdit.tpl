@@ -3,9 +3,8 @@
 	$(document).ready(function() {
 		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
         $( ".datepicker" ).datepicker({
-			dateFormat:"dd-mm-yy"
+			dateFormat:"dd-mm-yy";
 		});
-
 	});//fin docready
  
 </script>

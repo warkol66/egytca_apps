@@ -4,8 +4,8 @@
 <div id="calendarChart" style="display: block;">
 |-include file="CalendarEventsMonthChart.tpl"-|
 </div>
-<div id="calendar" class="calendar">
-	<h1>|-$monthDisplayed|date_format:"%B %Y"|ucfirst-|</h1>
+<div id="calendarMonth" class="calendar">
+	<h2>|-$monthDisplayed|date_format:"%B %Y"|ucfirst-|</h2>
 |-foreach from=$daysEvents item=dayEvent name=for_dayEvents key=day-|
 	|-if $dayEvent|@count gt 0-|
 		|-assign var=divOpened value=false-|
@@ -40,7 +40,7 @@
 			|-if $calendarEventsConfig.bodyOnEventsShow.value eq "YES"-|
 				<li><h3>|-$event->getTitle()-|</h3><br />|-if $eventDates ne ""-|<span class="eventDate">|-$eventDates-|</span><br />|-/if-||-$event->getBody()-|</li>
 			|-else-|
-				<li><a href="Main.php?do=calendarEventsView&id=|-$event->getId()-|" class="eventTitle">|-$event->getTitle()-|</a><br />|-if $eventDates ne ""-|<span class="eventDate">|-$eventDates-|</span><br />|-/if-||-$event->getSummary()-|</li><div class="masInfo"><a href="Main.php?do=calendarEventsView&id=|-$event->getId()-|">Ver mas información</a></div>
+				<li><a href="Main.php?do=calendarView&id=|-$event->getId()-|" class="eventTitle">|-$event->getTitle()-|</a><br />|-if $eventDates ne ""-|<span class="eventDate">|-$eventDates-|</span><br />|-/if-||-$event->getSummary()-|</li><div class="masInfo"><a href="Main.php?do=calendarView&id=|-$event->getId()-|">Ver mas información</a></div>
 			|-/if-|		
 		|-else-|
 		|-/if-|
@@ -54,8 +54,11 @@
 </div>
 
 |-if $eventsBeforeMonth|@count gt 0-|
-<div id="calendar" class="calendar">
+<div id="calendarProgress" class="calendar">
 	<h1>##calendar,11,Eventos en curso##</h1>
-|-include file="CalendarEventsInProgressInclude.tpl" eventsInProgress=$eventsBeforeMonth-|
+|-include file="CalendarInProgressInclude.tpl" eventsInProgress=$eventsBeforeMonth-|
 </div>
 |-/if-|
+<div id="rightColumn">
+.
+</div>

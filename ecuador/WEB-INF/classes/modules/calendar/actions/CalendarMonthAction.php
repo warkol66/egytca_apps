@@ -22,6 +22,8 @@ class CalendarMonthAction extends BaseListAction {
 		//seteo los filtros para que busque dentro de esas fechas (para $events)
         $this->filters['dateRange']['creationdate']['min'] = CalendarEvent::getStartDate($year,$month);
         $this->filters['dateRange']['creationdate']['max'] = CalendarEvent::getEndDate($year,$month);
+        //como es published mode traigo solo los eventos que no terminaron
+        $this->filters['dateRange']['enddate']['min'] = CalendarEvent::getStartDate($year,$month);
 		
 	}
 
@@ -36,39 +38,43 @@ class CalendarMonthAction extends BaseListAction {
 		$calendarEventsConfig = $moduleConfig["calendarEvents"];
 		$this->smarty->assign("calendarEventsConfig",$calendarEventsConfig);
 		
+		//genero year y month para las busquedas
 		if (empty($_REQUEST["year"]))
 			$year = date("Y");
 		else
 			$year = $_REQUEST["year"];
-			
 		if (empty($_REQUEST["month"]))	
 			$month = date("m");
 		else
 			$month = $_REQUEST["month"];
+		
+		//mes y año proximos
+		if ($month+1 > 12)
+			$nextMonth = 1;
+		else
+			$nextMonth = $month+1;
 			
-		//$eventsBeforeMonth = CalendarEventQuery::create()->getEventsBeforeMonth($year, $month);
+		$nextYear = $year+1;
+		
+		//mes y año anteriores
+		if ($month-1 < 1)
+			$previousMonth = 12;
+		else
+			$previousMonth = $month-1;
+
+		$previousYear = $year-1;	
+	
+		$eventsBeforeMonth = CalendarEvent::getEventsBeforeMonth($year, $month);
+		/*echo('<pre>');
+		print_r($this->results);
+		echo('</pre>');
+		die();*/
 		
 		$monthDisplayed = mktime(0, 0, 0, $month, 1, $year);
 		$this->smarty->assign("monthDisplayed",$monthDisplayed);
-		
-		$nextMonth = $month+1;
-		$nextYear = $year;
-		
-		if ($nextMonth > 12) {
-			$nextMonth = 1;
-			$nextYear++;
-		}		
-		
-		$previousMonth = $month-1;	
-		$previousYear = $year;	
-		if ($previousMonth < 1) {
-			$previousMonth = 12;
-			$previousYear--;
-		}
-	
 		$daysInMonth = cal_days_in_month (CAL_GREGORIAN, $month, $year);
-		//$events = $calendarEventPeer->getEventsMonth($year,$month);
-		$events = $this->entity;
+		
+		$events = $this->results;
 		
 		$daysEvents = array();
 		for ($i=1; $i<=$daysInMonth; $i++) {
@@ -83,7 +89,6 @@ class CalendarMonthAction extends BaseListAction {
 		}
 
 		$firstDay = date("w",mktime(0, 0, 0, $month, 1, $year));
-		
 		$beginOnSunday = $moduleConfig["beginOnSunday"]["value"];
 		
 		if ($beginOnSunday == "NO") {
@@ -93,7 +98,7 @@ class CalendarMonthAction extends BaseListAction {
 		}
 		
 		$countDay = date("t", mktime(0,0,0, $month, 1, $year));
-	
+
 		$this->smarty->assign("beginOnSunday",$beginOnSunday);
 		$this->smarty->assign("firstDay",$firstDay);
 		$this->smarty->assign("countDay",$countDay);
@@ -107,124 +112,8 @@ class CalendarMonthAction extends BaseListAction {
 		$this->smarty->assign("eventsBeforeMonth",$eventsBeforeMonth);
 		
 		$this->template->template = "TemplatePublic.tpl";
-            
         $this->smarty->assign("filters",$this->filters);
 
 	}
 
 }
-
-/* Falta terminar de probar
- * 
- * require_once("BaseAction.php");
-require_once("CalendarEventPeer.php");
-
-class CalendarEventsMonthAction extends BaseAction {
-
-
-	// ----- Constructor ---------------------------------------------------- //
-
-	function CalendarEventsMonthAction() {
-		;
-	}
-
-
-	// ----- Public Methods ------------------------------------------------- //
-
-	/**
-	* Process the specified HTTP request, and create the corresponding HTTP
-	* response (or forward to another web component that will create it).
-	* Return an <code>ActionForward</code> instance describing where and how
-	* control should be forwarded, or <code>NULL</code> if the response has
-	* already been completed.
-	*
-	* @param ActionConfig		The ActionConfig (mapping) used to select this instance
-	* @param ActionForm			The optional ActionForm bean for this request (if any)
-	* @param HttpRequestBase	The HTTP request we are processing
-	* @param HttpRequestBase	The HTTP response we are creating
-	* @public
-	* @returns ActionForward
-	*
-	function execute($mapping, $form, &$request, &$response) {
-
-    BaseAction::execute($mapping, $form, $request, $response);
-
-		
-						
- 		$calendarEventPeer = new CalendarEventPeer();
-		$calendarEventPeer->setOrderByUpdateDate();
-		$calendarEventPeer->setPublishedMode();
-		
-		if (empty($_REQUEST["year"]))
-			$year = date("Y");
-		else
-			$year = $_REQUEST["year"];
-			
-		if (empty($_REQUEST["month"]))	
-			$month = date("m");
-		else
-			$month = $_REQUEST["month"];	
-			
-		$eventsBeforeMonth = $calendarEventPeer->getEventsBeforeMonth($year, $month);	
-
-		$monthDisplayed = mktime(0, 0, 0, $month, 1, $year);
-		$smarty->assign("monthDisplayed",$monthDisplayed);
-		
-		$nextMonth = $month+1;
-		$nextYear = $year;
-		
-		if ($nextMonth > 12) {
-			$nextMonth = 1;
-			$nextYear++;
-		}		
-		
-		$previousMonth = $month-1;	
-		$previousYear = $year;	
-		if ($previousMonth < 1) {
-			$previousMonth = 12;
-			$previousYear--;
-		}
-	
-		$daysInMonth = cal_days_in_month (CAL_GREGORIAN, $month, $year);
-		$events = $calendarEventPeer->getEventsMonth($year,$month);
-		
-		$daysEvents = array();
-		for ($i=1; $i<=$daysInMonth; $i++) {
-		    $daysEvents[$i] = array();
-		}
-				
-		foreach($events as $event) {
-			$days = $event->getEventDaysOnMonth($year,$month);
-   			foreach ($days as $day) {
-				$daysEvents[$day][] = $event;
-			}	
-		}
-
-		$firstDay = date("w",mktime(0, 0, 0, $month, 1, $year));
-		
-		$beginOnSunday = $moduleConfig["beginOnSunday"]["value"];
-		
-		if ($beginOnSunday == "NO") {
-			$firstDay -= 1;
-			if ($firstDay<0)
-				$firstDay = 6;
-		}
-		
-		$countDay = date("t", mktime(0,0,0, $month, 1, $year));
-	
-		$smarty->assign("beginOnSunday",$beginOnSunday);
-		$smarty->assign("firstDay",$firstDay);
-		$smarty->assign("countDay",$countDay);
-		$smarty->assign("daysEvents",$daysEvents);
-		$smarty->assign("month", $month);
-		$smarty->assign("year", $year);
-		$smarty->assign("nextMonth", $nextMonth);
-		$smarty->assign("nextYear", $nextYear);
-		$smarty->assign("previousMonth", $previousMonth);
-		$smarty->assign("previousYear", $previousYear);
-		$smarty->assign("eventsBeforeMonth",$eventsBeforeMonth);
-
-		return $mapping->findForwardConfig('success');
-	}
-
-}*/

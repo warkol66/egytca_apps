@@ -227,4 +227,109 @@ class CalendarEvent extends BaseCalendarEvent{
 
 		return $CalendarEventObj;
 	}
+	
+	/** Migrada de Peer
+	* Obtiene todos los eventos anteriores al mes/año
+	*
+	* @param int $year Año
+	* @param int $month Mes
+	*	@return array Informacion sobre todos los CalendarEvents del mes
+	*/
+	function getEventsBeforeMonth($year, $month) {
+		$date = $year.'-'.$month.'-01 00:00:00';
+		$result = CalendarEvent::getEventsBeforeDate($date);
+		return $result;
+	}
+	
+	/** Migrada, eliminar
+	* Obtiene todos los eventos antes de una fecha
+	*
+	* @param int $date fecha
+	*	@return array Informacion sobre todos los Eventos antes de esa fecha
+	**/
+
+	 function getEventsBeforeDate($date) {
+		$result = CalendarEventQuery::create()
+			->where('CalendarEvent.StartDate < ?',$date)
+			->where('CalendarEvent.EndDate >= ?',$date)
+			->filterByStatus(CalendarEvent::PUBLISHED)
+			->find();
+		
+		/*$result = CalendarEventQuery::create()
+			->filterByStartDate($date,Criteria::LESS_THAN)
+			->filterByEndDate($date,Criteria::GREATER_EQUAL)
+			->filterByStatus($date,CalendarEvent::PUBLISHED)
+			->find();
+		
+		/*$c = new Criteria();
+		$crit0 = $c->getNewCriterion(CalendarEventPeer::STARTDATE,$date,Criteria::LESS_THAN);
+		$crit1 = $c->getNewCriterion(CalendarEventPeer::ENDDATE,$date,Criteria::GREATER_EQUAL);
+
+		$crit0->addAnd($crit1);
+
+		$c->add($crit0);
+		$c->add(CalendarEventPeer::STATUS,CalendarEventPeer::PUBLISHED);
+
+		$result = CalendarEventPeer::doSelect($c);*/
+		return $result;
+	 }
+	 
+	 /** Migrada de Peer
+	* Obtiene todos los eventos entre dos fechas (comienzo y fin)
+	*
+	* @param int $paramStart fecha de comienzo
+	* @param int $paramEnd  fecha de fin
+	*	@return array Informacion sobre todos los Eventos entre esas fechas
+	*/
+	 function getEventsBetweenDates($paramStart,$paramEnd) {
+		$result = CalendarEventQuery::create()
+			->condition('c0','CalendarEvent.StartDate >= ?', $paramStart)
+			->condition('c1','CalendarEvent.StartDate <= ?', $paramEnd)
+			->combine(array('c0','c1'), 'and', 'c01')
+			->condition('c2','CalendarEvent.EndDate <= ?', $paramEnd)
+			->condition('c3','CalendarEvent.EndDate >= ?', $paramStart)
+			->combine(array('c2','c3'), 'and', 'c23')
+			->condition('c4','CalendarEvent.StartDate <= ?', $paramStart)
+			->condition('c5','CalendarEvent.EndDate >= ?', $paramEnd)
+			->combine(array('c4','c5'), 'and', 'c45')
+			->combine(array('c01','c23'), 'or', 'c02')
+			->where(array('c02','c45'), 'or')
+			->filterByStatus(CalendarEvent::PUBLISHED)
+			->find();
+		/*$c = new Criteria();
+
+		$crit0 = $c->getNewCriterion(CalendarEventPeer::STARTDATE,$paramStart,Criteria::GREATER_EQUAL);
+		$crit1 = $c->getNewCriterion(CalendarEventPeer::STARTDATE,$paramEnd,Criteria::LESS_EQUAL);
+		$crit0->addAnd($crit1);
+		$crit2 = $c->getNewCriterion(CalendarEventPeer::ENDDATE,$paramEnd,Criteria::LESS_EQUAL);
+		$crit3 = $c->getNewCriterion(CalendarEventPeer::ENDDATE,$paramStart,Criteria::GREATER_EQUAL);
+		$crit2->addAnd($crit3);
+		$crit0->addOr($crit2);
+		$crit4 = $c->getNewCriterion(CalendarEventPeer::STARTDATE,$paramStart,Criteria::LESS_EQUAL);
+		$crit5 = $c->getNewCriterion(CalendarEventPeer::ENDDATE,$paramEnd,Criteria::GREATER_EQUAL);
+		$crit4->addAnd($crit5);
+		$crit0->addOr($crit4);
+		$c->add($crit0);
+
+		$c->add(CalendarEventPeer::STATUS,CalendarEventPeer::PUBLISHED);
+
+		$result = CalendarEventPeer::doSelect($c);*/
+		return $result;
+	 }
+
+	/**
+	* Obtiene todos los eventos del mes/año
+	*
+	* @param int $year Año
+	* @param int $month Mes
+	*	@return array Informacion sobre todos los CalendarEvents del mes
+	*/
+	function getEventsMonth($year, $month) {
+		$daysInMonth = cal_days_in_month (CAL_GREGORIAN, $month, $year);
+		$paramStart = $year.'-'.$month.'-01 00:00:00';
+		$paramEnd = $year.'-'.$month.'-'.$daysInMonth.' 23:59:59';
+
+		$result = CalendarEvent::getEventsBetweenDates($paramStart,$paramEnd);
+		return $result;
+	}
 }
