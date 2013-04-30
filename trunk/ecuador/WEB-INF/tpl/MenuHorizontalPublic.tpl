@@ -6,7 +6,7 @@
 			<ul class="menu">
 				<li><a href="Main.php?do=blogShow">Blog</a></li>
 				<li><a href="Main.php?do=documentsList">Documentos</a></li>
-				<li><a href="Main.php?do=calendarEventsList">Eventos</a></li>
+				<li><a href="Main.php?do=calendarList">Eventos</a></li>
 				<li class="last"><a href="Main.php?do=newsArticlesShow">Novedades</a></li>
 			</ul>
 		</li>

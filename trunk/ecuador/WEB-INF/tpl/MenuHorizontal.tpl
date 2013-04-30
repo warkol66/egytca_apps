@@ -17,7 +17,7 @@
 				<li><a href="Main.php?do=blogList">Blog</a></li>
 				<li><a href="Main.php?do=registrationList">Usuarios registrados</a></li>
 				<li><a href="Main.php?do=documentsList">Documentos</a></li>
-				<li><a href="Main.php?do=calendarEventsList">Eventos</a></li>
+				<li><a href="Main.php?do=calendarList">Eventos</a></li>
 				<li class="last"><a href="Main.php?do=newsArticlesList">Novedades</a></li>
 			</ul>
 		</li>
