@@ -30,6 +30,8 @@ class BoardViewAction extends BaseEditAction {
 		$this->smarty->assign("moduleConfig",$moduleConfig);
 		
 		if ($moduleConfig['comments']['useComments']['value'] == "YES") {
+			//busco los compromisos posibles
+			$bonds = BoardBondQuery::create()->find();
 			//si se la configuracion pide que se muestren los comentarios de forma directa
 			if ($moduleConfig['comments']['displayComments']['value'] == 'YES') {
 				$comments = BoardCommentQuery::create()->findByChallengeIdAndStatus($this->entity->getId(),BoardComment::APPROVED);
