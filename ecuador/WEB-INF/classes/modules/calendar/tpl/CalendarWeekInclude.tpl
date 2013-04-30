@@ -4,8 +4,9 @@
 	 <ul>
 	 |-foreach from=$dayEvent item=event name=for_events-|
 	 |-assign var=eventSummary value=$event->getSummary()-|      
-			<li><a href="Main.php?do=calendarEventsView&id=|-$event->getId()-|">|-$event->getTitle()-|</a></li>
+			<li><a href="Main.php?do=calendarView&id=|-$event->getId()-|">|-$event->getTitle()-|</a></li>
 	 |-/foreach-|  
-	 </ul>|-/if-|
-		 |-/foreach-|  
+	 </ul>
+	 |-/if-|
+|-/foreach-|  
 </div>

@@ -47,20 +47,20 @@
 						|-elseif $startDateYear eq $endDateYear and $startDateMonth eq $endDateMonth-|
 							|-assign var=eventDates value=$event->getStartDate()|date_format:"Desde el %d"-|
 							|-assign var=eventDates2 value=$event->getEndDate()|date_format:" al %d de %B de %Y"-|
-							|-assign var=eventDates value=$eventDates$eventDates2-|
+							|-$eventDates|cat:$eventDates2-|
 						|-elseif $startDateYear eq $endDateYear-|
 							|-assign var=eventDates value=$event->getStartDate()|date_format:"Desde el %d de %B"-|
 							|-assign var=eventDates2 value=$event->getEndDate()|date_format:" al %d de %B de %Y"-|
-							|-assign var=eventDates value=$eventDates$eventDates2-|
+							|-$eventDates|cat:$eventDates2-|
 						|-else-|
 							|-assign var=eventDates value=$event->getStartDate()|date_format:"Desde el %d de %B de %Y"-|
 							|-assign var=eventDates2 value=$event->getEndDate()|date_format:" al %d de %B de %Y"-|
-							|-assign var=eventDates value=$eventDates$eventDates2-|
+							|-$eventDates|cat:$eventDates2-|
 						|-/if-|
 						 |-assign var=eventSummary value=$event->getSummary()|escape:'html'-|
 						 |-assign var=eventTitle value=$event->getTitle()|escape:'html'-|
-						|-assign var=eventText value=<h3>$eventTitle</h3><h4>$eventDates</h4>$eventSummary-|
-            <li><a href="Main.php?do=calendarEventsView&id=|-$event->getId()-|" |-popup sticky=true fgcolor="#ffffff" bgcolor="#ffffff" closecolor="#cdcdcd" closetext='Cerrar' closetitle='Cerrar' capcolor='#ffffff' bgcolor='#006699' snapx=10 snapy=10 width=350 caption="Información del Evento" trigger="onMouseOver" text="$eventText"-|>|-$eventTitle-|</a></li>
+						|-assign var=eventText value="<h3>"|cat:$eventTitle|cat:"</h3><h4>"|cat:$eventDates|cat:"</h4>"|cat:$eventSummary-|
+            <li><a href="Main.php?do=calendarView&id=|-$event->getId()-|" |-popup sticky=true fgcolor="#ffffff" bgcolor="#ffffff" closecolor="#cdcdcd" closetext='Cerrar' closetitle='Cerrar' capcolor='#ffffff' bgcolor='#006699' snapx=10 snapy=10 width=350 caption="Información del Evento" trigger="onMouseOver" text="$eventText"-|>|-$eventTitle-|</a></li>
 					|-/if-|
          |-/foreach-|  
          	|-if $ulOpened eq true-|
