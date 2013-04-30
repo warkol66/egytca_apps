@@ -20,15 +20,20 @@ class CalendarMonthAction extends BaseListAction {
 			$month = $_REQUEST["month"];
 
 		//seteo los filtros para que busque dentro de esas fechas (para $events)
-        $this->filters['dateRange']['creationdate']['min'] = CalendarEvent::getStartDate($year,$month);
-        $this->filters['dateRange']['creationdate']['max'] = CalendarEvent::getEndDate($year,$month);
+        $this->filters['dateRange']['startdate']['min'] = CalendarEvent::getMonthStartDate($year,$month);
+        $this->filters['dateRange']['startdate']['max'] = CalendarEvent::getMonthEndDate($year,$month);
         //como es published mode traigo solo los eventos que no terminaron
-        $this->filters['dateRange']['enddate']['min'] = CalendarEvent::getStartDate($year,$month);
+        $this->filters['dateRange']['enddate']['min'] = CalendarEvent::getMonthStartDate($year,$month);
 		
 	}
 
 	protected function postList() {
 		parent::postList();
+		
+		/*echo('<pre>');
+		print_r($this->results);
+		echo('</pre>');
+		die();*/
 		
 		$module = "Calendar";
 		$this->smarty->assign("module",$module);
@@ -49,26 +54,24 @@ class CalendarMonthAction extends BaseListAction {
 			$month = $_REQUEST["month"];
 		
 		//mes y año proximos
-		if ($month+1 > 12)
+		if ($month+1 > 12){
 			$nextMonth = 1;
-		else
+			$nextYear = $year+1;
+		}else{
 			$nextMonth = $month+1;
-			
-		$nextYear = $year+1;
+			$nextYear = $year;
+		}
 		
 		//mes y año anteriores
-		if ($month-1 < 1)
+		if ($month-1 < 1){
 			$previousMonth = 12;
-		else
+			$previousYear = $year-1;
+		}else{
 			$previousMonth = $month-1;
-
-		$previousYear = $year-1;	
+			$previousYear = $year;
+		}	
 	
 		$eventsBeforeMonth = CalendarEvent::getEventsBeforeMonth($year, $month);
-		/*echo('<pre>');
-		print_r($this->results);
-		echo('</pre>');
-		die();*/
 		
 		$monthDisplayed = mktime(0, 0, 0, $month, 1, $year);
 		$this->smarty->assign("monthDisplayed",$monthDisplayed);

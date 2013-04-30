@@ -1,6 +1,6 @@
 <div id="titleAgenda"><div id="icoAgenda"><a href="javascript:switch_vis('calendarChart');" title="Haga click sobre este ícono para ver el calendario"><img src="images/ico_calendar.gif" border="0" /></a></div>
-Agenda semanal del |-$days-|/|-$month-|/|-$year-|&nbsp;&nbsp;<a href="Main.php?do=calendarEventsWeek&startWeek=|-$previousStartWeek-|">&lt;&lt;</a>&nbsp;&nbsp;
-      <a href="Main.php?do=calendarEventsWeek&startWeek=|-$nextStartWeek-|">&gt;&gt;</a>
+Agenda semanal del |-$days-|/|-$month-|/|-$year-|&nbsp;&nbsp;<a href="Main.php?do=calendarWeek&startWeek=|-$previousStartWeek-|">&lt;&lt;</a>&nbsp;&nbsp;
+      <a href="Main.php?do=calendarWeek&startWeek=|-$nextStartWeek-|">&gt;&gt;</a>
 </div>
 <div id="calendarChart" style="display: none;">
 |-include file="CalendarEventsWeekChart.tpl"-|
@@ -28,16 +28,16 @@ Agenda semanal del |-$days-|/|-$month-|/|-$year-|&nbsp;&nbsp;<a href="Main.php?d
 		|-elseif $startDateYear eq $endDateYear and $startDateMonth eq $endDateMonth-|
 			|-assign var=eventDates value=$event->getStartDate()|date_format:"Desde el %d"-|
 			|-assign var=eventDates2 value=$event->getEndDate()|date_format:" al %d de %B de %Y"-|
-			|-assign var=eventDates value=$eventDates$eventDates2-|
+			|-$eventDates|cat:$eventDates2-|
 		|-elseif $startDateYear eq $endDateYear-|
 			|-assign var=eventDates value=$event->getStartDate()|date_format:"Desde el %d de %B"-|
 			|-assign var=eventDates2 value=$event->getEndDate()|date_format:" al %d de %B de %Y"-|
-			|-assign var=eventDates value=$eventDates$eventDates2-|
+			|-$eventDates|cat:$eventDates2-|
 		|-else-|
 			|-assign var=eventDates value=$event->getStartDate()|date_format:"Desde el %d de %B de %Y"-|
 			|-assign var=eventDates2 value=$event->getEndDate()|date_format:" al %d de %B de %Y"-|
-			|-assign var=eventDates value=$eventDates$eventDates2-|
-		|-/if-|<li><a href="Main.php?do=calendarEventsView&id=|-$event->getId()-|" class="eventTitle">|-$event->getTitle()-|</a><br />|-if $eventDates ne ""-|<span class="eventDate">|-$eventDates-|</span><br />|-/if-||-$event->getSummary()-|</li><div class="masInfo"><a href="Main.php?do=calendarEventsView&id=|-$event->getId()-|">Ver mas información</a></div>
+			|-$eventDates|cat:$eventDates2-|
+		|-/if-|<li><a href="Main.php?do=calendarView&id=|-$event->getId()-|" class="eventTitle">|-$event->getTitle()-|</a><br />|-if $eventDates ne ""-|<span class="eventDate">|-$eventDates-|</span><br />|-/if-||-$event->getSummary()-|</li><div class="masInfo"><a href="Main.php?do=calendarView&id=|-$event->getId()-|">Ver mas información</a></div>
 		|-else-|
 		|-/if-|
 	 |-/foreach-|  
@@ -52,6 +52,6 @@ Agenda semanal del |-$days-|/|-$month-|/|-$year-|&nbsp;&nbsp;<a href="Main.php?d
 |-if $eventsBeforeWeek|@count gt 0-|
 <div id="calendar" class="calendar">
 	<h1>Eventos en curso</h1>
-|-include file="CalendarEventsInProgressInclude.tpl" eventsInProgress=$eventsBeforeWeek-|
+|-include file="CalendarInProgressInclude.tpl" eventsInProgress=$eventsBeforeWeek-|
 </div>
 |-/if-|

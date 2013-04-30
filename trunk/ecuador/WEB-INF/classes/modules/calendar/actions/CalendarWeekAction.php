@@ -1,7 +1,6 @@
 <?php
 
-
-class CalendarWeekAction extends BaseListAction {
+/*class CalendarWeekAction extends BaseListAction {
 	
 	function __construct() {
 		parent::__construct('CalendarEvent');
@@ -10,19 +9,38 @@ class CalendarWeekAction extends BaseListAction {
 	protected function preList() {
 		parent::preList();
 		
-		if (empty($_REQUEST["year"]))
-			$year = date("Y");
-		else
-			$year = $_REQUEST["year"];
+		if (empty($_REQUEST["startWeek"])){
+			$startWeek = date("Y-m-d",strtotime('this week'));
+			$year = date("Y",strtotime($startWeek));
+			$month = date("m",strtotime($startWeek));
+			$days = date("d",strtotime($startWeek));
+		}	
+		else {		
+			$startWeek = $_REQUEST["startWeek"];
+			list($year,$month,$days)=explode("-",$startWeek);
+			$dayStartWeek = date("N",mktime(0, 0, 0, $month,$days, $year));
 			
-		if (empty($_REQUEST["month"]))	
-			$month = date("m");
-		else
-			$month = $_REQUEST["month"];
-
-		//seteo los filtros para que busque dentro de esas fechas (para $events)
-        $this->filters['dateRange']['creationdate']['min'] = CalendarEvent::getStartDate($year,$month);
-        $this->filters['dateRange']['creationdate']['max'] = CalendarEvent::getEndDate($year,$month);
+			if ($dayStartWeek > 0 && $dayStartWeek < 7) {
+				$diffDays = -$dayStartWeek;
+				$startWeek = CalendarEvent::addDate($startWeek,$diffDays);
+				list($year,$month,$days)=explode("-",$startWeek);
+			} 				
+		}
+		
+		//seteo los filtros para que busque dentro de esa semana
+		$this->filters['dateRange']['startdate']['min'] = date("Y-m-d H:i:s",strtotime($startWeek));
+        $this->filters['dateRange']['startdate']['max'] = CalendarEvent::addDate($startWeek,7);
+        //como es published mode traigo solo los eventos que no terminaron
+        $this->filters['dateRange']['enddate']['min'] = date("Y-m-d H:i:s",strtotime($startWeek));
+		
+		
+		
+        /*$this->filters['dateRange']['Strardate']['min'] = $startWeek; //date("Y-m-d H:i:s",strtotime($startWeek));
+        $this->filters['dateRange']['Strardate']['max'] = CalendarEvent::addDate($startWeek,7); //date("Y-m-d H:i:s",strtotime($startWeek));
+        $this->filters['dateRange']['Enddate']['min'] = CalendarEvent::addDate($startWeek,1);*/
+        
+        /*print_r($this->filters);
+        die();*
 		
 	}
 
@@ -31,79 +49,66 @@ class CalendarWeekAction extends BaseListAction {
 		
 		$module = "Calendar";
 		$this->smarty->assign("module",$module);
-
-		$moduleConfig = Common::getModuleConfiguration($module);
-		$this->smarty->assign("moduleConfig",$moduleConfig);
-		$calendarEventsConfig = $moduleConfig["calendarEvents"];
-		$this->smarty->assign("calendarEventsConfig",$calendarEventsConfig);
 		
-		if (empty($_REQUEST["year"]))
-			$year = date("Y");
-		else
-			$year = $_REQUEST["year"];
+		if (empty($_REQUEST["startWeek"])){
+			$startWeek = date("Y-m-d",strtotime('this week'));
+			$year = date("Y",strtotime($startWeek));
+			$month = date("m",strtotime($startWeek));
+			$days = date("d",strtotime($startWeek));
+		}	
+		else {		
+			$startWeek = $_REQUEST["startWeek"];
+			list($year,$month,$days)=explode("-",$startWeek);
+			$dayStartWeek = date("N",mktime(0, 0, 0, $month,$days, $year)); // 1 lunes, 7 Domingo
 			
-		if (empty($_REQUEST["month"]))	
-			$month = date("m");
-		else
-			$month = $_REQUEST["month"];
-			
-		//$eventsBeforeMonth = CalendarEventQuery::create()->getEventsBeforeMonth($year, $month);
-		
-		$monthDisplayed = mktime(0, 0, 0, $month, 1, $year);
-		$this->smarty->assign("monthDisplayed",$monthDisplayed);
-		
-		$nextMonth = $month+1;
-		$nextYear = $year;
-		
-		if ($nextMonth > 12) {
-			$nextMonth = 1;
-			$nextYear++;
-		}		
-		
-		$previousMonth = $month-1;	
-		$previousYear = $year;	
-		if ($previousMonth < 1) {
-			$previousMonth = 12;
-			$previousYear--;
+			if ($dayStartWeek > 0 && $dayStartWeek < 7) {
+				$diffDays = -$dayStartWeek;
+				$startWeek = CalendarEvent::addDate($startWeek,$diffDays);
+				list($year,$month,$days)=explode("-",$startWeek);
+			} 				
 		}
-	
-		$daysInMonth = cal_days_in_month (CAL_GREGORIAN, $month, $year);
-		//$events = $calendarEventPeer->getEventsMonth($year,$month);
-		$events = $this->entity;
+		
+		$eventsBeforeWeek = CalendarEvent::getEventsBeforeDate($startWeek);
+		
+		$endWeek = CalendarEvent::addDate($startWeek,7);
+		$nextStartWeek = CalendarEvent::addDate($startWeek,7);		
+		$previousStartWeek = CalendarEvent::addDate($startWeek,-7);	
 		
 		$daysEvents = array();
-		for ($i=1; $i<=$daysInMonth; $i++) {
-		    $daysEvents[$i] = array();
-		}
-				
-		foreach($events as $event) {
-			$days = $event->getEventDaysOnMonth($year,$month);
-   			foreach ($days as $day) {
-				$daysEvents[$day][] = $event;
-			}	
-		}
-
-		$firstDay = date("w",mktime(0, 0, 0, $month, 1, $year));
 		
-		$beginOnSunday = $moduleConfig["beginOnSunday"]["value"];
+		foreach($this->results as $event)
+			$daysEvents[] = $event;
 		
-		if ($beginOnSunday == "NO") {
-			$firstDay -= 1;
-			if ($firstDay<0)
-				$firstDay = 6;
-		}
+		/*print_r($this->results);
+		die();*/
 		
-		$countDay = date("t", mktime(0,0,0, $month, 1, $year));
+		/*$daysEvents = array();
+		for ($i=0; $i<=6; $i++) {
+			$date=CalendarEvent::addDate($startWeek,$i);
+	  		$events = CalendarEvent::getEventsOnDay($date);
+			list($eventYear,$eventMonth,$eventDay)=explode("-",$date);
+			$daysEvents[$eventDay] = $events;	
+		}*
+		
+		print_r($daysEvents);
+		die();*
+		
+		$firstDay = date("w",mktime(0, 0, 0, $month,$days, $year));
+		
+		if ($firstDay > 0)  
+			$lastDays = 7-$firstDay;
+		else
+			$lastDays = 0;
 	
-		$smarty->assign("firstDay",$firstDay);
-		$smarty->assign("lastDays",$lastDays);
-		$smarty->assign("daysEvents",$daysEvents);
-		$smarty->assign("days",$days);
-		$smarty->assign("month", $month);
-		$smarty->assign("year", $year);
-		$smarty->assign("previousStartWeek",$previousStartWeek);
-		$smarty->assign("nextStartWeek",$nextStartWeek);
-		$smarty->assign("eventsBeforeWeek", $eventsBeforeWeek);	
+		$this->smarty->assign("firstDay",$firstDay);
+		$this->smarty->assign("lastDays",$lastDays);
+		$this->smarty->assign("daysEvents",$daysEvents);
+		$this->smarty->assign("days",$days);
+		$this->smarty->assign("month", $month);
+		$this->smarty->assign("year", $year);
+		$this->smarty->assign("previousStartWeek",$previousStartWeek);
+		$this->smarty->assign("nextStartWeek",$nextStartWeek);
+		$this->smarty->assign("eventsBeforeWeek", $eventsBeforeWeek);	
 		
 		$this->template->template = "TemplatePublic.tpl";
             
@@ -111,17 +116,13 @@ class CalendarWeekAction extends BaseListAction {
 
 	}
 
-}
-/*
-require_once("BaseAction.php");
-require_once("CalendarEventPeer.php");
-
-class CalendarEventsWeekAction extends BaseAction {
+}*/
+class CalendarWeekAction extends BaseAction {
 
 
 	// ----- Constructor ---------------------------------------------------- //
 
-	function CalendarEventsWeekAction() {
+	function CalendarWeekAction() {
 		;
 	}
 
@@ -141,7 +142,7 @@ class CalendarEventsWeekAction extends BaseAction {
 	* @param HttpRequestBase	The HTTP response we are creating
 	* @public
 	* @returns ActionForward
-	*
+	*/
 	function execute($mapping, $form, &$request, &$response) {
 
     BaseAction::execute($mapping, $form, $request, $response);
@@ -158,13 +159,10 @@ class CalendarEventsWeekAction extends BaseAction {
 		$module = "Calendar";
 		$smarty->assign("module",$module);
 
-  	/**
-   	* Use a different template
-   	*
 		$this->template->template = "TemplatePublic.tpl";
 						
- 		$calendarEventPeer = new CalendarEventPeer();
-		$calendarEventPeer->setOrderByUpdateDate();
+ 		/*$calendarEventPeer = new CalendarEventPeer();
+		$calendarEventPeer->setOrderByUpdateDate();*/
 		
 		if (empty($_REQUEST["startWeek"])){
 			$startWeek = date("Y-m-d");
@@ -179,22 +177,22 @@ class CalendarEventsWeekAction extends BaseAction {
 			
 			if ($dayStartWeek > 0 && $dayStartWeek < 7) {
 				$diffDays = -$dayStartWeek;
-				$startWeek = CalendarEventPeer::addDate($startWeek,$diffDays);
+				$startWeek = CalendarEvent::addDate($startWeek,$diffDays);
 				list($year,$month,$days)=explode("-",$startWeek);
 			} 				
 		}
 		
 		$date = date("Y-m-d h:i:s",mktime(0, 0, 0, $month,$days, $year));
-		$eventsBeforeWeek = CalendarEventPeer::getEventsBeforeDate($date);
+		$eventsBeforeWeek = CalendarEvent::getEventsBeforeDate($date);
 		
-		$endWeek = CalendarEventPeer::addDate($startWeek,7);
-		$nextStartWeek = CalendarEventPeer::addDate($startWeek,7);		
-		$previousStartWeek = CalendarEventPeer::addDate($startWeek,-7);	
+		$endWeek = CalendarEvent::addDate($startWeek,7);
+		$nextStartWeek = CalendarEvent::addDate($startWeek,7);		
+		$previousStartWeek = CalendarEvent::addDate($startWeek,-7);	
 	
 		$daysEvents = array();
 		for ($i=0; $i<=6; $i++) {
-			$date=CalendarEventPeer::addDate($startWeek,$i);
-	  		$events = CalendarEventPeer::getEventsOnDay($date);
+			$date=CalendarEvent::addDate($startWeek,$i);
+	  		$events = CalendarEvent::getEventsOnDay($date);
 			list($eventYear,$eventMonth,$eventDay)=explode("-",$date);
 			$daysEvents[$eventDay] = $events;	
 		}
@@ -221,4 +219,4 @@ class CalendarEventsWeekAction extends BaseAction {
 		return $mapping->findForwardConfig('success');
 	}
 
-}*/
+}

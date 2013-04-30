@@ -134,7 +134,7 @@ class CalendarEvent extends BaseCalendarEvent{
 		
 	}
 	
-  /**
+  /** TODO: probar que ande
   * Obtiene todos los d�as que ocupa el Evento en el A�o y Mes parametro, sabiendo que el evento por lo menos esta en un dia de ese mes
   *
   * @param int $year A�o
@@ -143,8 +143,8 @@ class CalendarEvent extends BaseCalendarEvent{
   */
   function getEventDaysOnMonth($year,$month) {
 	$days = array();
-	$start = CalendarEvent::getStartDate();
-	$end = CalendarEvent::getEndDate();
+	$start = CalendarEvent::getMonthStartDate($year,$month);
+	$end = CalendarEvent::getMonthEndDate($year,$month);
 
 	$monthStart = substr($start,5,2);
 	$yearStart = substr($start,0,4);
@@ -173,6 +173,8 @@ class CalendarEvent extends BaseCalendarEvent{
 
 	$day = $dayStart;
 	
+	//return $day;
+	
 	while ($day <= $dayEnd) {
 		$days[] = $day;
 		$day++;
@@ -182,25 +184,25 @@ class CalendarEvent extends BaseCalendarEvent{
   }
   
   	/**
-	* Obtiene la fecha inicio para crear el filtro
+	* Obtiene el primer dia del mes para crear el filtro
 	*
 	* @param int $year Año
 	* @param int $month Mes
 	*	@return string fecha inicio de ese mes en ese año
 	*/
-	function getStartDate($year, $month) {
+	function getMonthStartDate($year, $month) {
 		return $year.'-'.$month.'-01 00:00:00';
 		$paramEnd = $year.'-'.$month.'-'.$daysInMonth.' 23:59:59';
 	}
 	
   	/**
-	* Obtiene la fecha fin para crear el filtro
+	* Obtiene el ultimo dia del mes para crear el filtro
 	*
 	* @param int $year Año
 	* @param int $month Mes
 	*	@return string fecha fin de ese mes en ese año
 	*/
-	function getEndDate($year, $month) {
+	function getMonthEndDate($year, $month) {
 		$daysInMonth = cal_days_in_month (CAL_GREGORIAN, $month, $year);
 		return $year.'-'.$month.'-'.$daysInMonth.' 23:59:59';
 	}
@@ -254,13 +256,7 @@ class CalendarEvent extends BaseCalendarEvent{
 			->where('CalendarEvent.EndDate >= ?',$date)
 			->filterByStatus(CalendarEvent::PUBLISHED)
 			->find();
-		
-		/*$result = CalendarEventQuery::create()
-			->filterByStartDate($date,Criteria::LESS_THAN)
-			->filterByEndDate($date,Criteria::GREATER_EQUAL)
-			->filterByStatus($date,CalendarEvent::PUBLISHED)
-			->find();
-		
+			
 		/*$c = new Criteria();
 		$crit0 = $c->getNewCriterion(CalendarEventPeer::STARTDATE,$date,Criteria::LESS_THAN);
 		$crit1 = $c->getNewCriterion(CalendarEventPeer::ENDDATE,$date,Criteria::GREATER_EQUAL);
@@ -328,6 +324,38 @@ class CalendarEvent extends BaseCalendarEvent{
 		$daysInMonth = cal_days_in_month (CAL_GREGORIAN, $month, $year);
 		$paramStart = $year.'-'.$month.'-01 00:00:00';
 		$paramEnd = $year.'-'.$month.'-'.$daysInMonth.' 23:59:59';
+
+		$result = CalendarEvent::getEventsBetweenDates($paramStart,$paramEnd);
+		return $result;
+	}
+	
+	/** Migrado de Peer
+	* Suma n dias a una fecha
+	*
+	* @param string $date fecha
+	* @param int $ndays cantidad de dias
+	* @return nueva fecha
+	*/
+
+	function addDate($date,$ndays) {
+		list($year,$month,$day)=explode("-",$date);
+
+		$new = mktime(0,0,0, $month,$day,$year) + $ndays * 24 * 60 * 60;
+		$newdate = date("Y-m-d",$new);
+
+		return ($newdate);
+	}
+	
+	/** Migrado de Peer
+	* Obtiene todos los eventos de un dia
+	*
+	* @param int $date fecha de los eventos
+	*	@return array Informacion sobre todos los CalendarEvents del dia
+	*/
+	function getEventsOnDay($date) {
+		list($year,$month,$day) = explode("-",$date);
+		$paramStart = $year.'-'.$month.'-'.$day.' 00:00:00';
+		$paramEnd = $year.'-'.$month.'-'.$day.' 23:59:59';
 
 		$result = CalendarEvent::getEventsBetweenDates($paramStart,$paramEnd);
 		return $result;
