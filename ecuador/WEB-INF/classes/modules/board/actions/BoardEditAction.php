@@ -11,12 +11,11 @@ class BoardEditAction extends BaseEditAction {
 		
 		$module = "Board";
 		$this->smarty->assign("module",$module);
-		$this->smarty->assign("actualAction", "boardEdit");
 		
-		$moduleConfig = Common::getModuleConfiguration($module);
+		/*$moduleConfig = Common::getModuleConfiguration($module);
 		$this->smarty->assign("moduleConfig",$moduleConfig);
 		$blogConfig = $moduleConfig["boardChallenges"];
-		$this->smarty->assign("boardConfig",$moduleConfig["boardChallenges"]);
+		$this->smarty->assign("boardConfig",$moduleConfig["boardChallenges"]);*/
 
 		//users, statuses y tags
 		$this->smarty->assign("userIdValues",UserQuery::create()->find());

@@ -42,6 +42,12 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
     protected $challengeid;
 
     /**
+     * The value for the bondid field.
+     * @var        int
+     */
+    protected $bondid;
+
+    /**
      * The value for the text field.
      * @var        string
      */
@@ -107,6 +113,11 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
     protected $aBoardChallenge;
 
     /**
+     * @var        BoardBond
+     */
+    protected $aBoardBond;
+
+    /**
      * Flag to prevent endless save loop, if this object is referenced
      * by another object which falls in this transaction.
      * @var        boolean
@@ -138,6 +149,16 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
     public function getChallengeid()
     {
         return $this->challengeid;
+    }
+
+    /**
+     * Get the [bondid] column value.
+     * Id del compromiso
+     * @return int
+     */
+    public function getBondid()
+    {
+        return $this->bondid;
     }
 
     /**
@@ -312,6 +333,31 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
 
         return $this;
     } // setChallengeid()
+
+    /**
+     * Set the value of [bondid] column.
+     * Id del compromiso
+     * @param int $v new value
+     * @return BoardComment The current object (for fluent API support)
+     */
+    public function setBondid($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->bondid !== $v) {
+            $this->bondid = $v;
+            $this->modifiedColumns[] = BoardCommentPeer::BONDID;
+        }
+
+        if ($this->aBoardBond !== null && $this->aBoardBond->getId() !== $v) {
+            $this->aBoardBond = null;
+        }
+
+
+        return $this;
+    } // setBondid()
 
     /**
      * Set the value of [text] column.
@@ -559,16 +605,17 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
 
             $this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
             $this->challengeid = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
-            $this->text = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-            $this->email = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
-            $this->username = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
-            $this->url = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
-            $this->ip = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
-            $this->creationdate = ($row[$startcol + 7] !== null) ? (string) $row[$startcol + 7] : null;
-            $this->status = ($row[$startcol + 8] !== null) ? (int) $row[$startcol + 8] : null;
-            $this->userid = ($row[$startcol + 9] !== null) ? (int) $row[$startcol + 9] : null;
-            $this->objecttype = ($row[$startcol + 10] !== null) ? (string) $row[$startcol + 10] : null;
-            $this->objectid = ($row[$startcol + 11] !== null) ? (int) $row[$startcol + 11] : null;
+            $this->bondid = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
+            $this->text = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+            $this->email = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
+            $this->username = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
+            $this->url = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
+            $this->ip = ($row[$startcol + 7] !== null) ? (string) $row[$startcol + 7] : null;
+            $this->creationdate = ($row[$startcol + 8] !== null) ? (string) $row[$startcol + 8] : null;
+            $this->status = ($row[$startcol + 9] !== null) ? (int) $row[$startcol + 9] : null;
+            $this->userid = ($row[$startcol + 10] !== null) ? (int) $row[$startcol + 10] : null;
+            $this->objecttype = ($row[$startcol + 11] !== null) ? (string) $row[$startcol + 11] : null;
+            $this->objectid = ($row[$startcol + 12] !== null) ? (int) $row[$startcol + 12] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -577,7 +624,7 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
                 $this->ensureConsistency();
             }
 
-            return $startcol + 12; // 12 = BoardCommentPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 13; // 13 = BoardCommentPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating BoardComment object", $e);
@@ -602,6 +649,9 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
 
         if ($this->aBoardChallenge !== null && $this->challengeid !== $this->aBoardChallenge->getId()) {
             $this->aBoardChallenge = null;
+        }
+        if ($this->aBoardBond !== null && $this->bondid !== $this->aBoardBond->getId()) {
+            $this->aBoardBond = null;
         }
     } // ensureConsistency
 
@@ -643,6 +693,7 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
         if ($deep) {  // also de-associate any related objects?
 
             $this->aBoardChallenge = null;
+            $this->aBoardBond = null;
         } // if (deep)
     }
 
@@ -768,6 +819,13 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
                 $this->setBoardChallenge($this->aBoardChallenge);
             }
 
+            if ($this->aBoardBond !== null) {
+                if ($this->aBoardBond->isModified() || $this->aBoardBond->isNew()) {
+                    $affectedRows += $this->aBoardBond->save($con);
+                }
+                $this->setBoardBond($this->aBoardBond);
+            }
+
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
                 if ($this->isNew()) {
@@ -810,6 +868,9 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
         }
         if ($this->isColumnModified(BoardCommentPeer::CHALLENGEID)) {
             $modifiedColumns[':p' . $index++]  = '`CHALLENGEID`';
+        }
+        if ($this->isColumnModified(BoardCommentPeer::BONDID)) {
+            $modifiedColumns[':p' . $index++]  = '`BONDID`';
         }
         if ($this->isColumnModified(BoardCommentPeer::TEXT)) {
             $modifiedColumns[':p' . $index++]  = '`TEXT`';
@@ -857,6 +918,9 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
                         break;
                     case '`CHALLENGEID`':
                         $stmt->bindValue($identifier, $this->challengeid, PDO::PARAM_INT);
+                        break;
+                    case '`BONDID`':
+                        $stmt->bindValue($identifier, $this->bondid, PDO::PARAM_INT);
                         break;
                     case '`TEXT`':
                         $stmt->bindValue($identifier, $this->text, PDO::PARAM_STR);
@@ -993,6 +1057,12 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
                 }
             }
 
+            if ($this->aBoardBond !== null) {
+                if (!$this->aBoardBond->validate($columns)) {
+                    $failureMap = array_merge($failureMap, $this->aBoardBond->getValidationFailures());
+                }
+            }
+
 
             if (($retval = BoardCommentPeer::doValidate($this, $columns)) !== true) {
                 $failureMap = array_merge($failureMap, $retval);
@@ -1041,33 +1111,36 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
                 return $this->getChallengeid();
                 break;
             case 2:
-                return $this->getText();
+                return $this->getBondid();
                 break;
             case 3:
-                return $this->getEmail();
+                return $this->getText();
                 break;
             case 4:
-                return $this->getUsername();
+                return $this->getEmail();
                 break;
             case 5:
-                return $this->getUrl();
+                return $this->getUsername();
                 break;
             case 6:
-                return $this->getIp();
+                return $this->getUrl();
                 break;
             case 7:
-                return $this->getCreationdate();
+                return $this->getIp();
                 break;
             case 8:
-                return $this->getStatus();
+                return $this->getCreationdate();
                 break;
             case 9:
-                return $this->getUserid();
+                return $this->getStatus();
                 break;
             case 10:
-                return $this->getObjecttype();
+                return $this->getUserid();
                 break;
             case 11:
+                return $this->getObjecttype();
+                break;
+            case 12:
                 return $this->getObjectid();
                 break;
             default:
@@ -1101,20 +1174,24 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
         $result = array(
             $keys[0] => $this->getId(),
             $keys[1] => $this->getChallengeid(),
-            $keys[2] => $this->getText(),
-            $keys[3] => $this->getEmail(),
-            $keys[4] => $this->getUsername(),
-            $keys[5] => $this->getUrl(),
-            $keys[6] => $this->getIp(),
-            $keys[7] => $this->getCreationdate(),
-            $keys[8] => $this->getStatus(),
-            $keys[9] => $this->getUserid(),
-            $keys[10] => $this->getObjecttype(),
-            $keys[11] => $this->getObjectid(),
+            $keys[2] => $this->getBondid(),
+            $keys[3] => $this->getText(),
+            $keys[4] => $this->getEmail(),
+            $keys[5] => $this->getUsername(),
+            $keys[6] => $this->getUrl(),
+            $keys[7] => $this->getIp(),
+            $keys[8] => $this->getCreationdate(),
+            $keys[9] => $this->getStatus(),
+            $keys[10] => $this->getUserid(),
+            $keys[11] => $this->getObjecttype(),
+            $keys[12] => $this->getObjectid(),
         );
         if ($includeForeignObjects) {
             if (null !== $this->aBoardChallenge) {
                 $result['BoardChallenge'] = $this->aBoardChallenge->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aBoardBond) {
+                $result['BoardBond'] = $this->aBoardBond->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
         }
 
@@ -1157,33 +1234,36 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
                 $this->setChallengeid($value);
                 break;
             case 2:
-                $this->setText($value);
+                $this->setBondid($value);
                 break;
             case 3:
-                $this->setEmail($value);
+                $this->setText($value);
                 break;
             case 4:
-                $this->setUsername($value);
+                $this->setEmail($value);
                 break;
             case 5:
-                $this->setUrl($value);
+                $this->setUsername($value);
                 break;
             case 6:
-                $this->setIp($value);
+                $this->setUrl($value);
                 break;
             case 7:
-                $this->setCreationdate($value);
+                $this->setIp($value);
                 break;
             case 8:
-                $this->setStatus($value);
+                $this->setCreationdate($value);
                 break;
             case 9:
-                $this->setUserid($value);
+                $this->setStatus($value);
                 break;
             case 10:
-                $this->setObjecttype($value);
+                $this->setUserid($value);
                 break;
             case 11:
+                $this->setObjecttype($value);
+                break;
+            case 12:
                 $this->setObjectid($value);
                 break;
         } // switch()
@@ -1212,16 +1292,17 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
 
         if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
         if (array_key_exists($keys[1], $arr)) $this->setChallengeid($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setText($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setEmail($arr[$keys[3]]);
-        if (array_key_exists($keys[4], $arr)) $this->setUsername($arr[$keys[4]]);
-        if (array_key_exists($keys[5], $arr)) $this->setUrl($arr[$keys[5]]);
-        if (array_key_exists($keys[6], $arr)) $this->setIp($arr[$keys[6]]);
-        if (array_key_exists($keys[7], $arr)) $this->setCreationdate($arr[$keys[7]]);
-        if (array_key_exists($keys[8], $arr)) $this->setStatus($arr[$keys[8]]);
-        if (array_key_exists($keys[9], $arr)) $this->setUserid($arr[$keys[9]]);
-        if (array_key_exists($keys[10], $arr)) $this->setObjecttype($arr[$keys[10]]);
-        if (array_key_exists($keys[11], $arr)) $this->setObjectid($arr[$keys[11]]);
+        if (array_key_exists($keys[2], $arr)) $this->setBondid($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setText($arr[$keys[3]]);
+        if (array_key_exists($keys[4], $arr)) $this->setEmail($arr[$keys[4]]);
+        if (array_key_exists($keys[5], $arr)) $this->setUsername($arr[$keys[5]]);
+        if (array_key_exists($keys[6], $arr)) $this->setUrl($arr[$keys[6]]);
+        if (array_key_exists($keys[7], $arr)) $this->setIp($arr[$keys[7]]);
+        if (array_key_exists($keys[8], $arr)) $this->setCreationdate($arr[$keys[8]]);
+        if (array_key_exists($keys[9], $arr)) $this->setStatus($arr[$keys[9]]);
+        if (array_key_exists($keys[10], $arr)) $this->setUserid($arr[$keys[10]]);
+        if (array_key_exists($keys[11], $arr)) $this->setObjecttype($arr[$keys[11]]);
+        if (array_key_exists($keys[12], $arr)) $this->setObjectid($arr[$keys[12]]);
     }
 
     /**
@@ -1235,6 +1316,7 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
 
         if ($this->isColumnModified(BoardCommentPeer::ID)) $criteria->add(BoardCommentPeer::ID, $this->id);
         if ($this->isColumnModified(BoardCommentPeer::CHALLENGEID)) $criteria->add(BoardCommentPeer::CHALLENGEID, $this->challengeid);
+        if ($this->isColumnModified(BoardCommentPeer::BONDID)) $criteria->add(BoardCommentPeer::BONDID, $this->bondid);
         if ($this->isColumnModified(BoardCommentPeer::TEXT)) $criteria->add(BoardCommentPeer::TEXT, $this->text);
         if ($this->isColumnModified(BoardCommentPeer::EMAIL)) $criteria->add(BoardCommentPeer::EMAIL, $this->email);
         if ($this->isColumnModified(BoardCommentPeer::USERNAME)) $criteria->add(BoardCommentPeer::USERNAME, $this->username);
@@ -1309,6 +1391,7 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
         $copyObj->setChallengeid($this->getChallengeid());
+        $copyObj->setBondid($this->getBondid());
         $copyObj->setText($this->getText());
         $copyObj->setEmail($this->getEmail());
         $copyObj->setUsername($this->getUsername());
@@ -1429,12 +1512,64 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
     }
 
     /**
+     * Declares an association between this object and a BoardBond object.
+     *
+     * @param             BoardBond $v
+     * @return BoardComment The current object (for fluent API support)
+     * @throws PropelException
+     */
+    public function setBoardBond(BoardBond $v = null)
+    {
+        if ($v === null) {
+            $this->setBondid(NULL);
+        } else {
+            $this->setBondid($v->getId());
+        }
+
+        $this->aBoardBond = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the BoardBond object, it will not be re-added.
+        if ($v !== null) {
+            $v->addBoardComment($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated BoardBond object
+     *
+     * @param PropelPDO $con Optional Connection object.
+     * @return BoardBond The associated BoardBond object.
+     * @throws PropelException
+     */
+    public function getBoardBond(PropelPDO $con = null)
+    {
+        if ($this->aBoardBond === null && ($this->bondid !== null)) {
+            $this->aBoardBond = BoardBondQuery::create()->findPk($this->bondid, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aBoardBond->addBoardComments($this);
+             */
+        }
+
+        return $this->aBoardBond;
+    }
+
+    /**
      * Clears the current object and sets all attributes to their default values
      */
     public function clear()
     {
         $this->id = null;
         $this->challengeid = null;
+        $this->bondid = null;
         $this->text = null;
         $this->email = null;
         $this->username = null;
@@ -1468,6 +1603,7 @@ abstract class BaseBoardComment extends BaseObject implements Persistent
         } // if ($deep)
 
         $this->aBoardChallenge = null;
+        $this->aBoardBond = null;
     }
 
     /**
