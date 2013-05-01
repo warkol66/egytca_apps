@@ -13,6 +13,36 @@
  *
  * @package    propel.generator.board.classes
  */
-class BoardChallenge extends BaseBoardChallenge
-{
+class BoardChallenge extends BaseBoardChallenge{
+	
+	/*Posibles estados de la consigna*/
+	const NOT_PUBLISHED = 1;
+	const PUBLISHED = 2;
+	const ARCHIVED = 3;
+	
+	/**
+	 * Devuelve los estados posibles de la consigna y sus codigos 
+	 * para la generacion de selects
+	 */
+	public function getStatuses() {
+		$status[BlogEntry::NOT_PUBLISHED] = 'No Publicada';
+		$status[BlogEntry::PUBLISHED] = 'Publicada';
+		$status[BlogEntry::ARCHIVED] = 'Archivada';
+		return $status;
+	}
+	
+	/**
+	* Crea un Preview de una consigna.
+	* Devuelve una instancia de consigna el cual no ha salvado en la base de datos.
+	*
+	* @param array $params Array asociativo con los atributos del objeto
+	* @return boolean true si se creo correctamente, false sino
+	*/  
+	function createPreview($params) {
+
+			$boardChallengeObj = new BoardChallenge();
+			$boardChallengeObj = Common::setObjectFromParams($boardChallenge,$params);
+
+		return $boardChallenge;
+	}
 }

@@ -33,7 +33,7 @@ class BoardListAction extends BaseListAction {
 		
 		$this->smarty->assign("filters",$this->filters);
 		
-		$this->smarty->assign("boardChallengeStatus",BoardEntry::getStatuses());
+		$this->smarty->assign("boardChallengeStatus",BoardChallenge::getStatuses());
 
 	}
 

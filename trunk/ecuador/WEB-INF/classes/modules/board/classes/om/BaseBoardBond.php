@@ -42,15 +42,10 @@ abstract class BaseBoardBond extends BaseObject implements Persistent
     protected $name;
 
     /**
-     * @var        PropelObjectCollection|BoardBondRelation[] Collection to store aggregation of BoardBondRelation objects.
+     * @var        PropelObjectCollection|BoardComment[] Collection to store aggregation of BoardComment objects.
      */
-    protected $collBoardBondRelations;
-    protected $collBoardBondRelationsPartial;
-
-    /**
-     * @var        PropelObjectCollection|BoardChallenge[] Collection to store aggregation of BoardChallenge objects.
-     */
-    protected $collBoardChallenges;
+    protected $collBoardComments;
+    protected $collBoardCommentsPartial;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -70,13 +65,7 @@ abstract class BaseBoardBond extends BaseObject implements Persistent
      * An array of objects scheduled for deletion.
      * @var		PropelObjectCollection
      */
-    protected $boardChallengesScheduledForDeletion = null;
-
-    /**
-     * An array of objects scheduled for deletion.
-     * @var		PropelObjectCollection
-     */
-    protected $boardBondRelationsScheduledForDeletion = null;
+    protected $boardCommentsScheduledForDeletion = null;
 
     /**
      * Get the [id] column value.
@@ -244,9 +233,8 @@ abstract class BaseBoardBond extends BaseObject implements Persistent
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->collBoardBondRelations = null;
+            $this->collBoardComments = null;
 
-            $this->collBoardChallenges = null;
         } // if (deep)
     }
 
@@ -371,37 +359,17 @@ abstract class BaseBoardBond extends BaseObject implements Persistent
                 $this->resetModified();
             }
 
-            if ($this->boardChallengesScheduledForDeletion !== null) {
-                if (!$this->boardChallengesScheduledForDeletion->isEmpty()) {
-                    $pks = array();
-                    $pk = $this->getPrimaryKey();
-                    foreach ($this->boardChallengesScheduledForDeletion->getPrimaryKeys(false) as $remotePk) {
-                        $pks[] = array($remotePk, $pk);
-                    }
-                    BoardBondRelationQuery::create()
-                        ->filterByPrimaryKeys($pks)
+            if ($this->boardCommentsScheduledForDeletion !== null) {
+                if (!$this->boardCommentsScheduledForDeletion->isEmpty()) {
+                    BoardCommentQuery::create()
+                        ->filterByPrimaryKeys($this->boardCommentsScheduledForDeletion->getPrimaryKeys(false))
                         ->delete($con);
-                    $this->boardChallengesScheduledForDeletion = null;
-                }
-
-                foreach ($this->getBoardChallenges() as $boardChallenge) {
-                    if ($boardChallenge->isModified()) {
-                        $boardChallenge->save($con);
-                    }
+                    $this->boardCommentsScheduledForDeletion = null;
                 }
             }
 
-            if ($this->boardBondRelationsScheduledForDeletion !== null) {
-                if (!$this->boardBondRelationsScheduledForDeletion->isEmpty()) {
-                    BoardBondRelationQuery::create()
-                        ->filterByPrimaryKeys($this->boardBondRelationsScheduledForDeletion->getPrimaryKeys(false))
-                        ->delete($con);
-                    $this->boardBondRelationsScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collBoardBondRelations !== null) {
-                foreach ($this->collBoardBondRelations as $referrerFK) {
+            if ($this->collBoardComments !== null) {
+                foreach ($this->collBoardComments as $referrerFK) {
                     if (!$referrerFK->isDeleted()) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -556,8 +524,8 @@ abstract class BaseBoardBond extends BaseObject implements Persistent
             }
 
 
-                if ($this->collBoardBondRelations !== null) {
-                    foreach ($this->collBoardBondRelations as $referrerFK) {
+                if ($this->collBoardComments !== null) {
+                    foreach ($this->collBoardComments as $referrerFK) {
                         if (!$referrerFK->validate($columns)) {
                             $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
                         }
@@ -638,8 +606,8 @@ abstract class BaseBoardBond extends BaseObject implements Persistent
             $keys[1] => $this->getName(),
         );
         if ($includeForeignObjects) {
-            if (null !== $this->collBoardBondRelations) {
-                $result['BoardBondRelations'] = $this->collBoardBondRelations->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            if (null !== $this->collBoardComments) {
+                $result['BoardComments'] = $this->collBoardComments->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
         }
 
@@ -792,9 +760,9 @@ abstract class BaseBoardBond extends BaseObject implements Persistent
             // store object hash to prevent cycle
             $this->startCopy = true;
 
-            foreach ($this->getBoardBondRelations() as $relObj) {
+            foreach ($this->getBoardComments() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addBoardBondRelation($relObj->copy($deepCopy));
+                    $copyObj->addBoardComment($relObj->copy($deepCopy));
                 }
             }
 
@@ -859,40 +827,40 @@ abstract class BaseBoardBond extends BaseObject implements Persistent
      */
     public function initRelation($relationName)
     {
-        if ('BoardBondRelation' == $relationName) {
-            $this->initBoardBondRelations();
+        if ('BoardComment' == $relationName) {
+            $this->initBoardComments();
         }
     }
 
     /**
-     * Clears out the collBoardBondRelations collection
+     * Clears out the collBoardComments collection
      *
      * This does not modify the database; however, it will remove any associated objects, causing
      * them to be refetched by subsequent calls to accessor method.
      *
      * @return void
-     * @see        addBoardBondRelations()
+     * @see        addBoardComments()
      */
-    public function clearBoardBondRelations()
+    public function clearBoardComments()
     {
-        $this->collBoardBondRelations = null; // important to set this to null since that means it is uninitialized
-        $this->collBoardBondRelationsPartial = null;
+        $this->collBoardComments = null; // important to set this to null since that means it is uninitialized
+        $this->collBoardCommentsPartial = null;
     }
 
     /**
-     * reset is the collBoardBondRelations collection loaded partially
+     * reset is the collBoardComments collection loaded partially
      *
      * @return void
      */
-    public function resetPartialBoardBondRelations($v = true)
+    public function resetPartialBoardComments($v = true)
     {
-        $this->collBoardBondRelationsPartial = $v;
+        $this->collBoardCommentsPartial = $v;
     }
 
     /**
-     * Initializes the collBoardBondRelations collection.
+     * Initializes the collBoardComments collection.
      *
-     * By default this just sets the collBoardBondRelations collection to an empty array (like clearcollBoardBondRelations());
+     * By default this just sets the collBoardComments collection to an empty array (like clearcollBoardComments());
      * however, you may wish to override this method in your stub class to provide setting appropriate
      * to your application -- for example, setting the initial array to the values stored in database.
      *
@@ -901,17 +869,17 @@ abstract class BaseBoardBond extends BaseObject implements Persistent
      *
      * @return void
      */
-    public function initBoardBondRelations($overrideExisting = true)
+    public function initBoardComments($overrideExisting = true)
     {
-        if (null !== $this->collBoardBondRelations && !$overrideExisting) {
+        if (null !== $this->collBoardComments && !$overrideExisting) {
             return;
         }
-        $this->collBoardBondRelations = new PropelObjectCollection();
-        $this->collBoardBondRelations->setModel('BoardBondRelation');
+        $this->collBoardComments = new PropelObjectCollection();
+        $this->collBoardComments->setModel('BoardComment');
     }
 
     /**
-     * Gets an array of BoardBondRelation objects which contain a foreign key that references this object.
+     * Gets an array of BoardComment objects which contain a foreign key that references this object.
      *
      * If the $criteria is not null, it is used to always fetch the results from the database.
      * Otherwise the results are fetched from the database the first time, then cached.
@@ -921,98 +889,98 @@ abstract class BaseBoardBond extends BaseObject implements Persistent
      *
      * @param Criteria $criteria optional Criteria object to narrow the query
      * @param PropelPDO $con optional connection object
-     * @return PropelObjectCollection|BoardBondRelation[] List of BoardBondRelation objects
+     * @return PropelObjectCollection|BoardComment[] List of BoardComment objects
      * @throws PropelException
      */
-    public function getBoardBondRelations($criteria = null, PropelPDO $con = null)
+    public function getBoardComments($criteria = null, PropelPDO $con = null)
     {
-        $partial = $this->collBoardBondRelationsPartial && !$this->isNew();
-        if (null === $this->collBoardBondRelations || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collBoardBondRelations) {
+        $partial = $this->collBoardCommentsPartial && !$this->isNew();
+        if (null === $this->collBoardComments || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collBoardComments) {
                 // return empty collection
-                $this->initBoardBondRelations();
+                $this->initBoardComments();
             } else {
-                $collBoardBondRelations = BoardBondRelationQuery::create(null, $criteria)
+                $collBoardComments = BoardCommentQuery::create(null, $criteria)
                     ->filterByBoardBond($this)
                     ->find($con);
                 if (null !== $criteria) {
-                    if (false !== $this->collBoardBondRelationsPartial && count($collBoardBondRelations)) {
-                      $this->initBoardBondRelations(false);
+                    if (false !== $this->collBoardCommentsPartial && count($collBoardComments)) {
+                      $this->initBoardComments(false);
 
-                      foreach($collBoardBondRelations as $obj) {
-                        if (false == $this->collBoardBondRelations->contains($obj)) {
-                          $this->collBoardBondRelations->append($obj);
+                      foreach($collBoardComments as $obj) {
+                        if (false == $this->collBoardComments->contains($obj)) {
+                          $this->collBoardComments->append($obj);
                         }
                       }
 
-                      $this->collBoardBondRelationsPartial = true;
+                      $this->collBoardCommentsPartial = true;
                     }
 
-                    return $collBoardBondRelations;
+                    return $collBoardComments;
                 }
 
-                if($partial && $this->collBoardBondRelations) {
-                    foreach($this->collBoardBondRelations as $obj) {
+                if($partial && $this->collBoardComments) {
+                    foreach($this->collBoardComments as $obj) {
                         if($obj->isNew()) {
-                            $collBoardBondRelations[] = $obj;
+                            $collBoardComments[] = $obj;
                         }
                     }
                 }
 
-                $this->collBoardBondRelations = $collBoardBondRelations;
-                $this->collBoardBondRelationsPartial = false;
+                $this->collBoardComments = $collBoardComments;
+                $this->collBoardCommentsPartial = false;
             }
         }
 
-        return $this->collBoardBondRelations;
+        return $this->collBoardComments;
     }
 
     /**
-     * Sets a collection of BoardBondRelation objects related by a one-to-many relationship
+     * Sets a collection of BoardComment objects related by a one-to-many relationship
      * to the current object.
      * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
      * and new objects from the given Propel collection.
      *
-     * @param PropelCollection $boardBondRelations A Propel collection.
+     * @param PropelCollection $boardComments A Propel collection.
      * @param PropelPDO $con Optional connection object
      */
-    public function setBoardBondRelations(PropelCollection $boardBondRelations, PropelPDO $con = null)
+    public function setBoardComments(PropelCollection $boardComments, PropelPDO $con = null)
     {
-        $this->boardBondRelationsScheduledForDeletion = $this->getBoardBondRelations(new Criteria(), $con)->diff($boardBondRelations);
+        $this->boardCommentsScheduledForDeletion = $this->getBoardComments(new Criteria(), $con)->diff($boardComments);
 
-        foreach ($this->boardBondRelationsScheduledForDeletion as $boardBondRelationRemoved) {
-            $boardBondRelationRemoved->setBoardBond(null);
+        foreach ($this->boardCommentsScheduledForDeletion as $boardCommentRemoved) {
+            $boardCommentRemoved->setBoardBond(null);
         }
 
-        $this->collBoardBondRelations = null;
-        foreach ($boardBondRelations as $boardBondRelation) {
-            $this->addBoardBondRelation($boardBondRelation);
+        $this->collBoardComments = null;
+        foreach ($boardComments as $boardComment) {
+            $this->addBoardComment($boardComment);
         }
 
-        $this->collBoardBondRelations = $boardBondRelations;
-        $this->collBoardBondRelationsPartial = false;
+        $this->collBoardComments = $boardComments;
+        $this->collBoardCommentsPartial = false;
     }
 
     /**
-     * Returns the number of related BoardBondRelation objects.
+     * Returns the number of related BoardComment objects.
      *
      * @param Criteria $criteria
      * @param boolean $distinct
      * @param PropelPDO $con
-     * @return int             Count of related BoardBondRelation objects.
+     * @return int             Count of related BoardComment objects.
      * @throws PropelException
      */
-    public function countBoardBondRelations(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    public function countBoardComments(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
     {
-        $partial = $this->collBoardBondRelationsPartial && !$this->isNew();
-        if (null === $this->collBoardBondRelations || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collBoardBondRelations) {
+        $partial = $this->collBoardCommentsPartial && !$this->isNew();
+        if (null === $this->collBoardComments || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collBoardComments) {
                 return 0;
             } else {
                 if($partial && !$criteria) {
-                    return count($this->getBoardBondRelations());
+                    return count($this->getBoardComments());
                 }
-                $query = BoardBondRelationQuery::create(null, $criteria);
+                $query = BoardCommentQuery::create(null, $criteria);
                 if ($distinct) {
                     $query->distinct();
                 }
@@ -1022,52 +990,52 @@ abstract class BaseBoardBond extends BaseObject implements Persistent
                     ->count($con);
             }
         } else {
-            return count($this->collBoardBondRelations);
+            return count($this->collBoardComments);
         }
     }
 
     /**
-     * Method called to associate a BoardBondRelation object to this object
-     * through the BoardBondRelation foreign key attribute.
+     * Method called to associate a BoardComment object to this object
+     * through the BoardComment foreign key attribute.
      *
-     * @param    BoardBondRelation $l BoardBondRelation
+     * @param    BoardComment $l BoardComment
      * @return BoardBond The current object (for fluent API support)
      */
-    public function addBoardBondRelation(BoardBondRelation $l)
+    public function addBoardComment(BoardComment $l)
     {
-        if ($this->collBoardBondRelations === null) {
-            $this->initBoardBondRelations();
-            $this->collBoardBondRelationsPartial = true;
+        if ($this->collBoardComments === null) {
+            $this->initBoardComments();
+            $this->collBoardCommentsPartial = true;
         }
-        if (!$this->collBoardBondRelations->contains($l)) { // only add it if the **same** object is not already associated
-            $this->doAddBoardBondRelation($l);
+        if (!$this->collBoardComments->contains($l)) { // only add it if the **same** object is not already associated
+            $this->doAddBoardComment($l);
         }
 
         return $this;
     }
 
     /**
-     * @param	BoardBondRelation $boardBondRelation The boardBondRelation object to add.
+     * @param	BoardComment $boardComment The boardComment object to add.
      */
-    protected function doAddBoardBondRelation($boardBondRelation)
+    protected function doAddBoardComment($boardComment)
     {
-        $this->collBoardBondRelations[]= $boardBondRelation;
-        $boardBondRelation->setBoardBond($this);
+        $this->collBoardComments[]= $boardComment;
+        $boardComment->setBoardBond($this);
     }
 
     /**
-     * @param	BoardBondRelation $boardBondRelation The boardBondRelation object to remove.
+     * @param	BoardComment $boardComment The boardComment object to remove.
      */
-    public function removeBoardBondRelation($boardBondRelation)
+    public function removeBoardComment($boardComment)
     {
-        if ($this->getBoardBondRelations()->contains($boardBondRelation)) {
-            $this->collBoardBondRelations->remove($this->collBoardBondRelations->search($boardBondRelation));
-            if (null === $this->boardBondRelationsScheduledForDeletion) {
-                $this->boardBondRelationsScheduledForDeletion = clone $this->collBoardBondRelations;
-                $this->boardBondRelationsScheduledForDeletion->clear();
+        if ($this->getBoardComments()->contains($boardComment)) {
+            $this->collBoardComments->remove($this->collBoardComments->search($boardComment));
+            if (null === $this->boardCommentsScheduledForDeletion) {
+                $this->boardCommentsScheduledForDeletion = clone $this->collBoardComments;
+                $this->boardCommentsScheduledForDeletion->clear();
             }
-            $this->boardBondRelationsScheduledForDeletion[]= $boardBondRelation;
-            $boardBondRelation->setBoardBond(null);
+            $this->boardCommentsScheduledForDeletion[]= $boardComment;
+            $boardComment->setBoardBond(null);
         }
     }
 
@@ -1077,7 +1045,7 @@ abstract class BaseBoardBond extends BaseObject implements Persistent
      * an identical criteria, it returns the collection.
      * Otherwise if this BoardBond is new, it will return
      * an empty collection; or if this BoardBond has previously
-     * been saved, it will retrieve related BoardBondRelations from storage.
+     * been saved, it will retrieve related BoardComments from storage.
      *
      * This method is protected by default in order to keep the public
      * api reasonable.  You can provide public methods for those you
@@ -1086,182 +1054,14 @@ abstract class BaseBoardBond extends BaseObject implements Persistent
      * @param Criteria $criteria optional Criteria object to narrow the query
      * @param PropelPDO $con optional connection object
      * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return PropelObjectCollection|BoardBondRelation[] List of BoardBondRelation objects
+     * @return PropelObjectCollection|BoardComment[] List of BoardComment objects
      */
-    public function getBoardBondRelationsJoinBoardChallenge($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    public function getBoardCommentsJoinBoardChallenge($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
     {
-        $query = BoardBondRelationQuery::create(null, $criteria);
+        $query = BoardCommentQuery::create(null, $criteria);
         $query->joinWith('BoardChallenge', $join_behavior);
 
-        return $this->getBoardBondRelations($query, $con);
-    }
-
-    /**
-     * Clears out the collBoardChallenges collection
-     *
-     * This does not modify the database; however, it will remove any associated objects, causing
-     * them to be refetched by subsequent calls to accessor method.
-     *
-     * @return void
-     * @see        addBoardChallenges()
-     */
-    public function clearBoardChallenges()
-    {
-        $this->collBoardChallenges = null; // important to set this to null since that means it is uninitialized
-        $this->collBoardChallengesPartial = null;
-    }
-
-    /**
-     * Initializes the collBoardChallenges collection.
-     *
-     * By default this just sets the collBoardChallenges collection to an empty collection (like clearBoardChallenges());
-     * however, you may wish to override this method in your stub class to provide setting appropriate
-     * to your application -- for example, setting the initial array to the values stored in database.
-     *
-     * @return void
-     */
-    public function initBoardChallenges()
-    {
-        $this->collBoardChallenges = new PropelObjectCollection();
-        $this->collBoardChallenges->setModel('BoardChallenge');
-    }
-
-    /**
-     * Gets a collection of BoardChallenge objects related by a many-to-many relationship
-     * to the current object by way of the board_bondRelation cross-reference table.
-     *
-     * If the $criteria is not null, it is used to always fetch the results from the database.
-     * Otherwise the results are fetched from the database the first time, then cached.
-     * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this BoardBond is new, it will return
-     * an empty collection or the current collection; the criteria is ignored on a new object.
-     *
-     * @param Criteria $criteria Optional query object to filter the query
-     * @param PropelPDO $con Optional connection object
-     *
-     * @return PropelObjectCollection|BoardChallenge[] List of BoardChallenge objects
-     */
-    public function getBoardChallenges($criteria = null, PropelPDO $con = null)
-    {
-        if (null === $this->collBoardChallenges || null !== $criteria) {
-            if ($this->isNew() && null === $this->collBoardChallenges) {
-                // return empty collection
-                $this->initBoardChallenges();
-            } else {
-                $collBoardChallenges = BoardChallengeQuery::create(null, $criteria)
-                    ->filterByBoardBond($this)
-                    ->find($con);
-                if (null !== $criteria) {
-                    return $collBoardChallenges;
-                }
-                $this->collBoardChallenges = $collBoardChallenges;
-            }
-        }
-
-        return $this->collBoardChallenges;
-    }
-
-    /**
-     * Sets a collection of BoardChallenge objects related by a many-to-many relationship
-     * to the current object by way of the board_bondRelation cross-reference table.
-     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-     * and new objects from the given Propel collection.
-     *
-     * @param PropelCollection $boardChallenges A Propel collection.
-     * @param PropelPDO $con Optional connection object
-     */
-    public function setBoardChallenges(PropelCollection $boardChallenges, PropelPDO $con = null)
-    {
-        $this->clearBoardChallenges();
-        $currentBoardChallenges = $this->getBoardChallenges();
-
-        $this->boardChallengesScheduledForDeletion = $currentBoardChallenges->diff($boardChallenges);
-
-        foreach ($boardChallenges as $boardChallenge) {
-            if (!$currentBoardChallenges->contains($boardChallenge)) {
-                $this->doAddBoardChallenge($boardChallenge);
-            }
-        }
-
-        $this->collBoardChallenges = $boardChallenges;
-    }
-
-    /**
-     * Gets the number of BoardChallenge objects related by a many-to-many relationship
-     * to the current object by way of the board_bondRelation cross-reference table.
-     *
-     * @param Criteria $criteria Optional query object to filter the query
-     * @param boolean $distinct Set to true to force count distinct
-     * @param PropelPDO $con Optional connection object
-     *
-     * @return int the number of related BoardChallenge objects
-     */
-    public function countBoardChallenges($criteria = null, $distinct = false, PropelPDO $con = null)
-    {
-        if (null === $this->collBoardChallenges || null !== $criteria) {
-            if ($this->isNew() && null === $this->collBoardChallenges) {
-                return 0;
-            } else {
-                $query = BoardChallengeQuery::create(null, $criteria);
-                if ($distinct) {
-                    $query->distinct();
-                }
-
-                return $query
-                    ->filterByBoardBond($this)
-                    ->count($con);
-            }
-        } else {
-            return count($this->collBoardChallenges);
-        }
-    }
-
-    /**
-     * Associate a BoardChallenge object to this object
-     * through the board_bondRelation cross reference table.
-     *
-     * @param  BoardChallenge $boardChallenge The BoardBondRelation object to relate
-     * @return void
-     */
-    public function addBoardChallenge(BoardChallenge $boardChallenge)
-    {
-        if ($this->collBoardChallenges === null) {
-            $this->initBoardChallenges();
-        }
-        if (!$this->collBoardChallenges->contains($boardChallenge)) { // only add it if the **same** object is not already associated
-            $this->doAddBoardChallenge($boardChallenge);
-
-            $this->collBoardChallenges[]= $boardChallenge;
-        }
-    }
-
-    /**
-     * @param	BoardChallenge $boardChallenge The boardChallenge object to add.
-     */
-    protected function doAddBoardChallenge($boardChallenge)
-    {
-        $boardBondRelation = new BoardBondRelation();
-        $boardBondRelation->setBoardChallenge($boardChallenge);
-        $this->addBoardBondRelation($boardBondRelation);
-    }
-
-    /**
-     * Remove a BoardChallenge object to this object
-     * through the board_bondRelation cross reference table.
-     *
-     * @param BoardChallenge $boardChallenge The BoardBondRelation object to relate
-     * @return void
-     */
-    public function removeBoardChallenge(BoardChallenge $boardChallenge)
-    {
-        if ($this->getBoardChallenges()->contains($boardChallenge)) {
-            $this->collBoardChallenges->remove($this->collBoardChallenges->search($boardChallenge));
-            if (null === $this->boardChallengesScheduledForDeletion) {
-                $this->boardChallengesScheduledForDeletion = clone $this->collBoardChallenges;
-                $this->boardChallengesScheduledForDeletion->clear();
-            }
-            $this->boardChallengesScheduledForDeletion[]= $boardChallenge;
-        }
+        return $this->getBoardComments($query, $con);
     }
 
     /**
@@ -1291,26 +1091,17 @@ abstract class BaseBoardBond extends BaseObject implements Persistent
     public function clearAllReferences($deep = false)
     {
         if ($deep) {
-            if ($this->collBoardBondRelations) {
-                foreach ($this->collBoardBondRelations as $o) {
-                    $o->clearAllReferences($deep);
-                }
-            }
-            if ($this->collBoardChallenges) {
-                foreach ($this->collBoardChallenges as $o) {
+            if ($this->collBoardComments) {
+                foreach ($this->collBoardComments as $o) {
                     $o->clearAllReferences($deep);
                 }
             }
         } // if ($deep)
 
-        if ($this->collBoardBondRelations instanceof PropelCollection) {
-            $this->collBoardBondRelations->clearIterator();
+        if ($this->collBoardComments instanceof PropelCollection) {
+            $this->collBoardComments->clearIterator();
         }
-        $this->collBoardBondRelations = null;
-        if ($this->collBoardChallenges instanceof PropelCollection) {
-            $this->collBoardChallenges->clearIterator();
-        }
-        $this->collBoardChallenges = null;
+        $this->collBoardComments = null;
     }
 
     /**

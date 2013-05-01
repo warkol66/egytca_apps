@@ -24,19 +24,22 @@ abstract class BaseBoardCommentPeer
     const TM_CLASS = 'BoardCommentTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 12;
+    const NUM_COLUMNS = 13;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 12;
+    const NUM_HYDRATE_COLUMNS = 13;
 
     /** the column name for the ID field */
     const ID = 'board_comment.ID';
 
     /** the column name for the CHALLENGEID field */
     const CHALLENGEID = 'board_comment.CHALLENGEID';
+
+    /** the column name for the BONDID field */
+    const BONDID = 'board_comment.BONDID';
 
     /** the column name for the TEXT field */
     const TEXT = 'board_comment.TEXT';
@@ -87,12 +90,12 @@ abstract class BaseBoardCommentPeer
      * e.g. BoardCommentPeer::$fieldNames[BoardCommentPeer::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('Id', 'Challengeid', 'Text', 'Email', 'Username', 'Url', 'Ip', 'Creationdate', 'Status', 'Userid', 'Objecttype', 'Objectid', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'challengeid', 'text', 'email', 'username', 'url', 'ip', 'creationdate', 'status', 'userid', 'objecttype', 'objectid', ),
-        BasePeer::TYPE_COLNAME => array (BoardCommentPeer::ID, BoardCommentPeer::CHALLENGEID, BoardCommentPeer::TEXT, BoardCommentPeer::EMAIL, BoardCommentPeer::USERNAME, BoardCommentPeer::URL, BoardCommentPeer::IP, BoardCommentPeer::CREATIONDATE, BoardCommentPeer::STATUS, BoardCommentPeer::USERID, BoardCommentPeer::OBJECTTYPE, BoardCommentPeer::OBJECTID, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'CHALLENGEID', 'TEXT', 'EMAIL', 'USERNAME', 'URL', 'IP', 'CREATIONDATE', 'STATUS', 'USERID', 'OBJECTTYPE', 'OBJECTID', ),
-        BasePeer::TYPE_FIELDNAME => array ('id', 'challengeId', 'text', 'email', 'username', 'url', 'ip', 'creationDate', 'status', 'userId', 'objectType', 'objectId', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, )
+        BasePeer::TYPE_PHPNAME => array ('Id', 'Challengeid', 'Bondid', 'Text', 'Email', 'Username', 'Url', 'Ip', 'Creationdate', 'Status', 'Userid', 'Objecttype', 'Objectid', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'challengeid', 'bondid', 'text', 'email', 'username', 'url', 'ip', 'creationdate', 'status', 'userid', 'objecttype', 'objectid', ),
+        BasePeer::TYPE_COLNAME => array (BoardCommentPeer::ID, BoardCommentPeer::CHALLENGEID, BoardCommentPeer::BONDID, BoardCommentPeer::TEXT, BoardCommentPeer::EMAIL, BoardCommentPeer::USERNAME, BoardCommentPeer::URL, BoardCommentPeer::IP, BoardCommentPeer::CREATIONDATE, BoardCommentPeer::STATUS, BoardCommentPeer::USERID, BoardCommentPeer::OBJECTTYPE, BoardCommentPeer::OBJECTID, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'CHALLENGEID', 'BONDID', 'TEXT', 'EMAIL', 'USERNAME', 'URL', 'IP', 'CREATIONDATE', 'STATUS', 'USERID', 'OBJECTTYPE', 'OBJECTID', ),
+        BasePeer::TYPE_FIELDNAME => array ('id', 'challengeId', 'bondId', 'text', 'email', 'username', 'url', 'ip', 'creationDate', 'status', 'userId', 'objectType', 'objectId', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, )
     );
 
     /**
@@ -102,12 +105,12 @@ abstract class BaseBoardCommentPeer
      * e.g. BoardCommentPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Challengeid' => 1, 'Text' => 2, 'Email' => 3, 'Username' => 4, 'Url' => 5, 'Ip' => 6, 'Creationdate' => 7, 'Status' => 8, 'Userid' => 9, 'Objecttype' => 10, 'Objectid' => 11, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'challengeid' => 1, 'text' => 2, 'email' => 3, 'username' => 4, 'url' => 5, 'ip' => 6, 'creationdate' => 7, 'status' => 8, 'userid' => 9, 'objecttype' => 10, 'objectid' => 11, ),
-        BasePeer::TYPE_COLNAME => array (BoardCommentPeer::ID => 0, BoardCommentPeer::CHALLENGEID => 1, BoardCommentPeer::TEXT => 2, BoardCommentPeer::EMAIL => 3, BoardCommentPeer::USERNAME => 4, BoardCommentPeer::URL => 5, BoardCommentPeer::IP => 6, BoardCommentPeer::CREATIONDATE => 7, BoardCommentPeer::STATUS => 8, BoardCommentPeer::USERID => 9, BoardCommentPeer::OBJECTTYPE => 10, BoardCommentPeer::OBJECTID => 11, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'CHALLENGEID' => 1, 'TEXT' => 2, 'EMAIL' => 3, 'USERNAME' => 4, 'URL' => 5, 'IP' => 6, 'CREATIONDATE' => 7, 'STATUS' => 8, 'USERID' => 9, 'OBJECTTYPE' => 10, 'OBJECTID' => 11, ),
-        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'challengeId' => 1, 'text' => 2, 'email' => 3, 'username' => 4, 'url' => 5, 'ip' => 6, 'creationDate' => 7, 'status' => 8, 'userId' => 9, 'objectType' => 10, 'objectId' => 11, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, )
+        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Challengeid' => 1, 'Bondid' => 2, 'Text' => 3, 'Email' => 4, 'Username' => 5, 'Url' => 6, 'Ip' => 7, 'Creationdate' => 8, 'Status' => 9, 'Userid' => 10, 'Objecttype' => 11, 'Objectid' => 12, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'challengeid' => 1, 'bondid' => 2, 'text' => 3, 'email' => 4, 'username' => 5, 'url' => 6, 'ip' => 7, 'creationdate' => 8, 'status' => 9, 'userid' => 10, 'objecttype' => 11, 'objectid' => 12, ),
+        BasePeer::TYPE_COLNAME => array (BoardCommentPeer::ID => 0, BoardCommentPeer::CHALLENGEID => 1, BoardCommentPeer::BONDID => 2, BoardCommentPeer::TEXT => 3, BoardCommentPeer::EMAIL => 4, BoardCommentPeer::USERNAME => 5, BoardCommentPeer::URL => 6, BoardCommentPeer::IP => 7, BoardCommentPeer::CREATIONDATE => 8, BoardCommentPeer::STATUS => 9, BoardCommentPeer::USERID => 10, BoardCommentPeer::OBJECTTYPE => 11, BoardCommentPeer::OBJECTID => 12, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'CHALLENGEID' => 1, 'BONDID' => 2, 'TEXT' => 3, 'EMAIL' => 4, 'USERNAME' => 5, 'URL' => 6, 'IP' => 7, 'CREATIONDATE' => 8, 'STATUS' => 9, 'USERID' => 10, 'OBJECTTYPE' => 11, 'OBJECTID' => 12, ),
+        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'challengeId' => 1, 'bondId' => 2, 'text' => 3, 'email' => 4, 'username' => 5, 'url' => 6, 'ip' => 7, 'creationDate' => 8, 'status' => 9, 'userId' => 10, 'objectType' => 11, 'objectId' => 12, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, )
     );
 
     /**
@@ -183,6 +186,7 @@ abstract class BaseBoardCommentPeer
         if (null === $alias) {
             $criteria->addSelectColumn(BoardCommentPeer::ID);
             $criteria->addSelectColumn(BoardCommentPeer::CHALLENGEID);
+            $criteria->addSelectColumn(BoardCommentPeer::BONDID);
             $criteria->addSelectColumn(BoardCommentPeer::TEXT);
             $criteria->addSelectColumn(BoardCommentPeer::EMAIL);
             $criteria->addSelectColumn(BoardCommentPeer::USERNAME);
@@ -196,6 +200,7 @@ abstract class BaseBoardCommentPeer
         } else {
             $criteria->addSelectColumn($alias . '.ID');
             $criteria->addSelectColumn($alias . '.CHALLENGEID');
+            $criteria->addSelectColumn($alias . '.BONDID');
             $criteria->addSelectColumn($alias . '.TEXT');
             $criteria->addSelectColumn($alias . '.EMAIL');
             $criteria->addSelectColumn($alias . '.USERNAME');
@@ -554,6 +559,57 @@ abstract class BaseBoardCommentPeer
 
 
     /**
+     * Returns the number of rows matching criteria, joining the related BoardBond table
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return int Number of matching rows.
+     */
+    public static function doCountJoinBoardBond(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        // we're going to modify criteria, so copy it first
+        $criteria = clone $criteria;
+
+        // We need to set the primary table name, since in the case that there are no WHERE columns
+        // it will be impossible for the BasePeer::createSelectSql() method to determine which
+        // tables go into the FROM clause.
+        $criteria->setPrimaryTableName(BoardCommentPeer::TABLE_NAME);
+
+        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+            $criteria->setDistinct();
+        }
+
+        if (!$criteria->hasSelectClause()) {
+            BoardCommentPeer::addSelectColumns($criteria);
+        }
+
+        $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
+
+        // Set the correct dbName
+        $criteria->setDbName(BoardCommentPeer::DATABASE_NAME);
+
+        if ($con === null) {
+            $con = Propel::getConnection(BoardCommentPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+        }
+
+        $criteria->addJoin(BoardCommentPeer::BONDID, BoardBondPeer::ID, $join_behavior);
+
+        $stmt = BasePeer::doCount($criteria, $con);
+
+        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $count = (int) $row[0];
+        } else {
+            $count = 0; // no rows returned; we infer that means 0 matches.
+        }
+        $stmt->closeCursor();
+
+        return $count;
+    }
+
+
+    /**
      * Selects a collection of BoardComment objects pre-filled with their BoardChallenge objects.
      * @param      Criteria  $criteria
      * @param      PropelPDO $con
@@ -621,6 +677,73 @@ abstract class BaseBoardCommentPeer
 
 
     /**
+     * Selects a collection of BoardComment objects pre-filled with their BoardBond objects.
+     * @param      Criteria  $criteria
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return array           Array of BoardComment objects.
+     * @throws PropelException Any exceptions caught during processing will be
+     *		 rethrown wrapped into a PropelException.
+     */
+    public static function doSelectJoinBoardBond(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $criteria = clone $criteria;
+
+        // Set the correct dbName if it has not been overridden
+        if ($criteria->getDbName() == Propel::getDefaultDB()) {
+            $criteria->setDbName(BoardCommentPeer::DATABASE_NAME);
+        }
+
+        BoardCommentPeer::addSelectColumns($criteria);
+        $startcol = BoardCommentPeer::NUM_HYDRATE_COLUMNS;
+        BoardBondPeer::addSelectColumns($criteria);
+
+        $criteria->addJoin(BoardCommentPeer::BONDID, BoardBondPeer::ID, $join_behavior);
+
+        $stmt = BasePeer::doSelect($criteria, $con);
+        $results = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $key1 = BoardCommentPeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj1 = BoardCommentPeer::getInstanceFromPool($key1))) {
+                // We no longer rehydrate the object, since this can cause data loss.
+                // See http://www.propelorm.org/ticket/509
+                // $obj1->hydrate($row, 0, true); // rehydrate
+            } else {
+
+                $cls = BoardCommentPeer::getOMClass();
+
+                $obj1 = new $cls();
+                $obj1->hydrate($row);
+                BoardCommentPeer::addInstanceToPool($obj1, $key1);
+            } // if $obj1 already loaded
+
+            $key2 = BoardBondPeer::getPrimaryKeyHashFromRow($row, $startcol);
+            if ($key2 !== null) {
+                $obj2 = BoardBondPeer::getInstanceFromPool($key2);
+                if (!$obj2) {
+
+                    $cls = BoardBondPeer::getOMClass();
+
+                    $obj2 = new $cls();
+                    $obj2->hydrate($row, $startcol);
+                    BoardBondPeer::addInstanceToPool($obj2, $key2);
+                } // if obj2 already loaded
+
+                // Add the $obj1 (BoardComment) to $obj2 (BoardBond)
+                $obj2->addBoardComment($obj1);
+
+            } // if joined row was not null
+
+            $results[] = $obj1;
+        }
+        $stmt->closeCursor();
+
+        return $results;
+    }
+
+
+    /**
      * Returns the number of rows matching criteria, joining all related tables
      *
      * @param      Criteria $criteria
@@ -657,6 +780,8 @@ abstract class BaseBoardCommentPeer
         }
 
         $criteria->addJoin(BoardCommentPeer::CHALLENGEID, BoardChallengePeer::ID, $join_behavior);
+
+        $criteria->addJoin(BoardCommentPeer::BONDID, BoardBondPeer::ID, $join_behavior);
 
         $stmt = BasePeer::doCount($criteria, $con);
 
@@ -695,7 +820,12 @@ abstract class BaseBoardCommentPeer
         BoardChallengePeer::addSelectColumns($criteria);
         $startcol3 = $startcol2 + BoardChallengePeer::NUM_HYDRATE_COLUMNS;
 
+        BoardBondPeer::addSelectColumns($criteria);
+        $startcol4 = $startcol3 + BoardBondPeer::NUM_HYDRATE_COLUMNS;
+
         $criteria->addJoin(BoardCommentPeer::CHALLENGEID, BoardChallengePeer::ID, $join_behavior);
+
+        $criteria->addJoin(BoardCommentPeer::BONDID, BoardBondPeer::ID, $join_behavior);
 
         $stmt = BasePeer::doSelect($criteria, $con);
         $results = array();
@@ -731,6 +861,274 @@ abstract class BaseBoardCommentPeer
                 // Add the $obj1 (BoardComment) to the collection in $obj2 (BoardChallenge)
                 $obj2->addBoardComment($obj1);
             } // if joined row not null
+
+            // Add objects for joined BoardBond rows
+
+            $key3 = BoardBondPeer::getPrimaryKeyHashFromRow($row, $startcol3);
+            if ($key3 !== null) {
+                $obj3 = BoardBondPeer::getInstanceFromPool($key3);
+                if (!$obj3) {
+
+                    $cls = BoardBondPeer::getOMClass();
+
+                    $obj3 = new $cls();
+                    $obj3->hydrate($row, $startcol3);
+                    BoardBondPeer::addInstanceToPool($obj3, $key3);
+                } // if obj3 loaded
+
+                // Add the $obj1 (BoardComment) to the collection in $obj3 (BoardBond)
+                $obj3->addBoardComment($obj1);
+            } // if joined row not null
+
+            $results[] = $obj1;
+        }
+        $stmt->closeCursor();
+
+        return $results;
+    }
+
+
+    /**
+     * Returns the number of rows matching criteria, joining the related BoardChallenge table
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return int Number of matching rows.
+     */
+    public static function doCountJoinAllExceptBoardChallenge(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        // we're going to modify criteria, so copy it first
+        $criteria = clone $criteria;
+
+        // We need to set the primary table name, since in the case that there are no WHERE columns
+        // it will be impossible for the BasePeer::createSelectSql() method to determine which
+        // tables go into the FROM clause.
+        $criteria->setPrimaryTableName(BoardCommentPeer::TABLE_NAME);
+
+        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+            $criteria->setDistinct();
+        }
+
+        if (!$criteria->hasSelectClause()) {
+            BoardCommentPeer::addSelectColumns($criteria);
+        }
+
+        $criteria->clearOrderByColumns(); // ORDER BY should not affect count
+
+        // Set the correct dbName
+        $criteria->setDbName(BoardCommentPeer::DATABASE_NAME);
+
+        if ($con === null) {
+            $con = Propel::getConnection(BoardCommentPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+        }
+
+        $criteria->addJoin(BoardCommentPeer::BONDID, BoardBondPeer::ID, $join_behavior);
+
+        $stmt = BasePeer::doCount($criteria, $con);
+
+        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $count = (int) $row[0];
+        } else {
+            $count = 0; // no rows returned; we infer that means 0 matches.
+        }
+        $stmt->closeCursor();
+
+        return $count;
+    }
+
+
+    /**
+     * Returns the number of rows matching criteria, joining the related BoardBond table
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return int Number of matching rows.
+     */
+    public static function doCountJoinAllExceptBoardBond(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        // we're going to modify criteria, so copy it first
+        $criteria = clone $criteria;
+
+        // We need to set the primary table name, since in the case that there are no WHERE columns
+        // it will be impossible for the BasePeer::createSelectSql() method to determine which
+        // tables go into the FROM clause.
+        $criteria->setPrimaryTableName(BoardCommentPeer::TABLE_NAME);
+
+        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+            $criteria->setDistinct();
+        }
+
+        if (!$criteria->hasSelectClause()) {
+            BoardCommentPeer::addSelectColumns($criteria);
+        }
+
+        $criteria->clearOrderByColumns(); // ORDER BY should not affect count
+
+        // Set the correct dbName
+        $criteria->setDbName(BoardCommentPeer::DATABASE_NAME);
+
+        if ($con === null) {
+            $con = Propel::getConnection(BoardCommentPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+        }
+
+        $criteria->addJoin(BoardCommentPeer::CHALLENGEID, BoardChallengePeer::ID, $join_behavior);
+
+        $stmt = BasePeer::doCount($criteria, $con);
+
+        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $count = (int) $row[0];
+        } else {
+            $count = 0; // no rows returned; we infer that means 0 matches.
+        }
+        $stmt->closeCursor();
+
+        return $count;
+    }
+
+
+    /**
+     * Selects a collection of BoardComment objects pre-filled with all related objects except BoardChallenge.
+     *
+     * @param      Criteria  $criteria
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return array           Array of BoardComment objects.
+     * @throws PropelException Any exceptions caught during processing will be
+     *		 rethrown wrapped into a PropelException.
+     */
+    public static function doSelectJoinAllExceptBoardChallenge(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $criteria = clone $criteria;
+
+        // Set the correct dbName if it has not been overridden
+        // $criteria->getDbName() will return the same object if not set to another value
+        // so == check is okay and faster
+        if ($criteria->getDbName() == Propel::getDefaultDB()) {
+            $criteria->setDbName(BoardCommentPeer::DATABASE_NAME);
+        }
+
+        BoardCommentPeer::addSelectColumns($criteria);
+        $startcol2 = BoardCommentPeer::NUM_HYDRATE_COLUMNS;
+
+        BoardBondPeer::addSelectColumns($criteria);
+        $startcol3 = $startcol2 + BoardBondPeer::NUM_HYDRATE_COLUMNS;
+
+        $criteria->addJoin(BoardCommentPeer::BONDID, BoardBondPeer::ID, $join_behavior);
+
+
+        $stmt = BasePeer::doSelect($criteria, $con);
+        $results = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $key1 = BoardCommentPeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj1 = BoardCommentPeer::getInstanceFromPool($key1))) {
+                // We no longer rehydrate the object, since this can cause data loss.
+                // See http://www.propelorm.org/ticket/509
+                // $obj1->hydrate($row, 0, true); // rehydrate
+            } else {
+                $cls = BoardCommentPeer::getOMClass();
+
+                $obj1 = new $cls();
+                $obj1->hydrate($row);
+                BoardCommentPeer::addInstanceToPool($obj1, $key1);
+            } // if obj1 already loaded
+
+                // Add objects for joined BoardBond rows
+
+                $key2 = BoardBondPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+                if ($key2 !== null) {
+                    $obj2 = BoardBondPeer::getInstanceFromPool($key2);
+                    if (!$obj2) {
+
+                        $cls = BoardBondPeer::getOMClass();
+
+                    $obj2 = new $cls();
+                    $obj2->hydrate($row, $startcol2);
+                    BoardBondPeer::addInstanceToPool($obj2, $key2);
+                } // if $obj2 already loaded
+
+                // Add the $obj1 (BoardComment) to the collection in $obj2 (BoardBond)
+                $obj2->addBoardComment($obj1);
+
+            } // if joined row is not null
+
+            $results[] = $obj1;
+        }
+        $stmt->closeCursor();
+
+        return $results;
+    }
+
+
+    /**
+     * Selects a collection of BoardComment objects pre-filled with all related objects except BoardBond.
+     *
+     * @param      Criteria  $criteria
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return array           Array of BoardComment objects.
+     * @throws PropelException Any exceptions caught during processing will be
+     *		 rethrown wrapped into a PropelException.
+     */
+    public static function doSelectJoinAllExceptBoardBond(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $criteria = clone $criteria;
+
+        // Set the correct dbName if it has not been overridden
+        // $criteria->getDbName() will return the same object if not set to another value
+        // so == check is okay and faster
+        if ($criteria->getDbName() == Propel::getDefaultDB()) {
+            $criteria->setDbName(BoardCommentPeer::DATABASE_NAME);
+        }
+
+        BoardCommentPeer::addSelectColumns($criteria);
+        $startcol2 = BoardCommentPeer::NUM_HYDRATE_COLUMNS;
+
+        BoardChallengePeer::addSelectColumns($criteria);
+        $startcol3 = $startcol2 + BoardChallengePeer::NUM_HYDRATE_COLUMNS;
+
+        $criteria->addJoin(BoardCommentPeer::CHALLENGEID, BoardChallengePeer::ID, $join_behavior);
+
+
+        $stmt = BasePeer::doSelect($criteria, $con);
+        $results = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $key1 = BoardCommentPeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj1 = BoardCommentPeer::getInstanceFromPool($key1))) {
+                // We no longer rehydrate the object, since this can cause data loss.
+                // See http://www.propelorm.org/ticket/509
+                // $obj1->hydrate($row, 0, true); // rehydrate
+            } else {
+                $cls = BoardCommentPeer::getOMClass();
+
+                $obj1 = new $cls();
+                $obj1->hydrate($row);
+                BoardCommentPeer::addInstanceToPool($obj1, $key1);
+            } // if obj1 already loaded
+
+                // Add objects for joined BoardChallenge rows
+
+                $key2 = BoardChallengePeer::getPrimaryKeyHashFromRow($row, $startcol2);
+                if ($key2 !== null) {
+                    $obj2 = BoardChallengePeer::getInstanceFromPool($key2);
+                    if (!$obj2) {
+
+                        $cls = BoardChallengePeer::getOMClass();
+
+                    $obj2 = new $cls();
+                    $obj2->hydrate($row, $startcol2);
+                    BoardChallengePeer::addInstanceToPool($obj2, $key2);
+                } // if $obj2 already loaded
+
+                // Add the $obj1 (BoardComment) to the collection in $obj2 (BoardChallenge)
+                $obj2->addBoardComment($obj1);
+
+            } // if joined row is not null
 
             $results[] = $obj1;
         }

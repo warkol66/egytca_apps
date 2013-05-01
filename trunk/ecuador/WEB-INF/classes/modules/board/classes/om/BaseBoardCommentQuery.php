@@ -8,6 +8,7 @@
  *
  * @method BoardCommentQuery orderById($order = Criteria::ASC) Order by the id column
  * @method BoardCommentQuery orderByChallengeid($order = Criteria::ASC) Order by the challengeId column
+ * @method BoardCommentQuery orderByBondid($order = Criteria::ASC) Order by the bondId column
  * @method BoardCommentQuery orderByText($order = Criteria::ASC) Order by the text column
  * @method BoardCommentQuery orderByEmail($order = Criteria::ASC) Order by the email column
  * @method BoardCommentQuery orderByUsername($order = Criteria::ASC) Order by the username column
@@ -21,6 +22,7 @@
  *
  * @method BoardCommentQuery groupById() Group by the id column
  * @method BoardCommentQuery groupByChallengeid() Group by the challengeId column
+ * @method BoardCommentQuery groupByBondid() Group by the bondId column
  * @method BoardCommentQuery groupByText() Group by the text column
  * @method BoardCommentQuery groupByEmail() Group by the email column
  * @method BoardCommentQuery groupByUsername() Group by the username column
@@ -40,11 +42,16 @@
  * @method BoardCommentQuery rightJoinBoardChallenge($relationAlias = null) Adds a RIGHT JOIN clause to the query using the BoardChallenge relation
  * @method BoardCommentQuery innerJoinBoardChallenge($relationAlias = null) Adds a INNER JOIN clause to the query using the BoardChallenge relation
  *
+ * @method BoardCommentQuery leftJoinBoardBond($relationAlias = null) Adds a LEFT JOIN clause to the query using the BoardBond relation
+ * @method BoardCommentQuery rightJoinBoardBond($relationAlias = null) Adds a RIGHT JOIN clause to the query using the BoardBond relation
+ * @method BoardCommentQuery innerJoinBoardBond($relationAlias = null) Adds a INNER JOIN clause to the query using the BoardBond relation
+ *
  * @method BoardComment findOne(PropelPDO $con = null) Return the first BoardComment matching the query
  * @method BoardComment findOneOrCreate(PropelPDO $con = null) Return the first BoardComment matching the query, or a new BoardComment object populated from the query conditions when no match is found
  *
  * @method BoardComment findOneById(int $id) Return the first BoardComment filtered by the id column
  * @method BoardComment findOneByChallengeid(int $challengeId) Return the first BoardComment filtered by the challengeId column
+ * @method BoardComment findOneByBondid(int $bondId) Return the first BoardComment filtered by the bondId column
  * @method BoardComment findOneByText(string $text) Return the first BoardComment filtered by the text column
  * @method BoardComment findOneByEmail(string $email) Return the first BoardComment filtered by the email column
  * @method BoardComment findOneByUsername(string $username) Return the first BoardComment filtered by the username column
@@ -58,6 +65,7 @@
  *
  * @method array findById(int $id) Return BoardComment objects filtered by the id column
  * @method array findByChallengeid(int $challengeId) Return BoardComment objects filtered by the challengeId column
+ * @method array findByBondid(int $bondId) Return BoardComment objects filtered by the bondId column
  * @method array findByText(string $text) Return BoardComment objects filtered by the text column
  * @method array findByEmail(string $email) Return BoardComment objects filtered by the email column
  * @method array findByUsername(string $username) Return BoardComment objects filtered by the username column
@@ -157,7 +165,7 @@ abstract class BaseBoardCommentQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `ID`, `CHALLENGEID`, `TEXT`, `EMAIL`, `USERNAME`, `URL`, `IP`, `CREATIONDATE`, `STATUS`, `USERID`, `OBJECTTYPE`, `OBJECTID` FROM `board_comment` WHERE `ID` = :p0';
+        $sql = 'SELECT `ID`, `CHALLENGEID`, `BONDID`, `TEXT`, `EMAIL`, `USERNAME`, `URL`, `IP`, `CREATIONDATE`, `STATUS`, `USERID`, `OBJECTTYPE`, `OBJECTID` FROM `board_comment` WHERE `ID` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -314,6 +322,49 @@ abstract class BaseBoardCommentQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(BoardCommentPeer::CHALLENGEID, $challengeid, $comparison);
+    }
+
+    /**
+     * Filter the query on the bondId column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByBondid(1234); // WHERE bondId = 1234
+     * $query->filterByBondid(array(12, 34)); // WHERE bondId IN (12, 34)
+     * $query->filterByBondid(array('min' => 12)); // WHERE bondId > 12
+     * </code>
+     *
+     * @see       filterByBoardBond()
+     *
+     * @param     mixed $bondid The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return BoardCommentQuery The current query, for fluid interface
+     */
+    public function filterByBondid($bondid = null, $comparison = null)
+    {
+        if (is_array($bondid)) {
+            $useMinMax = false;
+            if (isset($bondid['min'])) {
+                $this->addUsingAlias(BoardCommentPeer::BONDID, $bondid['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($bondid['max'])) {
+                $this->addUsingAlias(BoardCommentPeer::BONDID, $bondid['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(BoardCommentPeer::BONDID, $bondid, $comparison);
     }
 
     /**
@@ -730,6 +781,82 @@ abstract class BaseBoardCommentQuery extends ModelCriteria
         return $this
             ->joinBoardChallenge($relationAlias, $joinType)
             ->useQuery($relationAlias ? $relationAlias : 'BoardChallenge', 'BoardChallengeQuery');
+    }
+
+    /**
+     * Filter the query by a related BoardBond object
+     *
+     * @param   BoardBond|PropelObjectCollection $boardBond The related object(s) to use as filter
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return   BoardCommentQuery The current query, for fluid interface
+     * @throws   PropelException - if the provided filter is invalid.
+     */
+    public function filterByBoardBond($boardBond, $comparison = null)
+    {
+        if ($boardBond instanceof BoardBond) {
+            return $this
+                ->addUsingAlias(BoardCommentPeer::BONDID, $boardBond->getId(), $comparison);
+        } elseif ($boardBond instanceof PropelObjectCollection) {
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+
+            return $this
+                ->addUsingAlias(BoardCommentPeer::BONDID, $boardBond->toKeyValue('PrimaryKey', 'Id'), $comparison);
+        } else {
+            throw new PropelException('filterByBoardBond() only accepts arguments of type BoardBond or PropelCollection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the BoardBond relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return BoardCommentQuery The current query, for fluid interface
+     */
+    public function joinBoardBond($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('BoardBond');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'BoardBond');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the BoardBond relation BoardBond object
+     *
+     * @see       useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return   BoardBondQuery A secondary query class using the current class as primary query
+     */
+    public function useBoardBondQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinBoardBond($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'BoardBond', 'BoardBondQuery');
     }
 
     /**

@@ -40,6 +40,7 @@ class BoardCommentTableMap extends TableMap
         // columns
         $this->addPrimaryKey('ID', 'Id', 'INTEGER', true, null, null);
         $this->addForeignKey('CHALLENGEID', 'Challengeid', 'INTEGER', 'board_challenge', 'ID', true, null, null);
+        $this->addForeignKey('BONDID', 'Bondid', 'INTEGER', 'board_bond', 'ID', true, null, null);
         $this->addColumn('TEXT', 'Text', 'LONGVARCHAR', false, null, null);
         $this->addColumn('EMAIL', 'Email', 'VARCHAR', false, 255, null);
         $this->addColumn('USERNAME', 'Username', 'VARCHAR', false, 255, null);
@@ -59,6 +60,7 @@ class BoardCommentTableMap extends TableMap
     public function buildRelations()
     {
         $this->addRelation('BoardChallenge', 'BoardChallenge', RelationMap::MANY_TO_ONE, array('challengeId' => 'id', ), null, null);
+        $this->addRelation('BoardBond', 'BoardBond', RelationMap::MANY_TO_ONE, array('bondId' => 'id', ), null, null);
     } // buildRelations()
 
 } // BoardCommentTableMap

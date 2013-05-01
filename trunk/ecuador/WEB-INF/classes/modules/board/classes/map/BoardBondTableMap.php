@@ -48,8 +48,7 @@ class BoardBondTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('BoardBondRelation', 'BoardBondRelation', RelationMap::ONE_TO_MANY, array('id' => 'bondId', ), 'CASCADE', null, 'BoardBondRelations');
-        $this->addRelation('BoardChallenge', 'BoardChallenge', RelationMap::MANY_TO_MANY, array(), 'CASCADE', null, 'BoardChallenges');
+        $this->addRelation('BoardComment', 'BoardComment', RelationMap::ONE_TO_MANY, array('id' => 'bondId', ), null, null, 'BoardComments');
     } // buildRelations()
 
 } // BoardBondTableMap

@@ -60,8 +60,6 @@ class BoardChallengeTableMap extends TableMap
     {
         $this->addRelation('User', 'User', RelationMap::MANY_TO_ONE, array('userId' => 'id', ), null, null);
         $this->addRelation('BoardComment', 'BoardComment', RelationMap::ONE_TO_MANY, array('id' => 'challengeId', ), null, null, 'BoardComments');
-        $this->addRelation('BoardBondRelation', 'BoardBondRelation', RelationMap::ONE_TO_MANY, array('id' => 'challengeId', ), 'CASCADE', null, 'BoardBondRelations');
-        $this->addRelation('BoardBond', 'BoardBond', RelationMap::MANY_TO_MANY, array(), 'CASCADE', null, 'BoardBonds');
     } // buildRelations()
 
     /**
