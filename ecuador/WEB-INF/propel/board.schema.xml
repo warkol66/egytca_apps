@@ -1,0 +1,81 @@
+<database defaultIdMethod="native" package="board.classes" name="application" >
+
+	<table phpName="BoardChallenge" name="board_challenge" description="Challenges del Board">
+
+		<column name="id" type="INTEGER"  required="true" description="Id del challenge" primaryKey="true" autoIncrement="true"  />
+		<column name="title" type="VARCHAR" size="255" description="Titulo" />
+		<column name="url" type="VARCHAR" size="255" description="Url a partir del titulo" />
+		<column name="body" type="LONGVARCHAR" description="Texto de la entrada"/>
+		<column name="creationDate" type="TIMESTAMP" description="Fecha de creacion" />
+		<column name="startDate" type="TIMESTAMP" description="Fecha de inicio" />
+		<column name="endDate" type="TIMESTAMP" description="Fecha fin" />
+		<column name="lastUpdate" type="TIMESTAMP" description="Fecha de ultima actualizacion" />
+		<column name="status" type="INTEGER" description="Estado del challenge" />
+		<column name="userId" type="INTEGER" required="true" description="Id del usuario" />
+		<column name="views" type="INTEGER" default="0" description="Cantidad de vistas a la entrada" />
+
+		<unique>
+		  <unique-column name="url" />
+		</unique>
+
+		<behavior name="soft_delete" />
+
+		<foreign-key foreignTable="users_user" >
+			<reference local="userId" foreign="id" />
+		</foreign-key>
+
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+	</table>
+
+	<table phpName="BoardComment" name="board_comment" description="Comentarios a challenges">
+
+		<column name="id" type="INTEGER"  required="true" description="Id comentario" primaryKey="true" autoIncrement="true"  />
+		<column name="challengeId" type="INTEGER"  required="true" description="Id del challenge" />
+		<column name="bondId" type="INTEGER"  required="true" description="Id del compromiso" />
+		<column name="text" type="LONGVARCHAR" description="Comentario"/>
+		<column name="email" type="VARCHAR" size="255" description="Email del usuario" />
+		<column name="username" type="VARCHAR" size="255" description="Nombre del usuario" />
+		<column name="url" type="VARCHAR" size="255" description="Url del usuario" />
+		<column name="ip" type="VARCHAR" size="50" description="IP del usuario" />
+		<column name="creationDate" type="TIMESTAMP" description="Fecha de creacion" />
+		<column name="status" type="INTEGER" required="true" description="Estado del comentario" />
+		<column name="userId" type="INTEGER"  required="true" description="Id del usuario por registracion" />
+		<column name="objectType" type="VARCHAR" size="50" description="Tipo de usuario" />
+		<column name="objectId" type="INTEGER" description="Id del usuario" />
+
+		<foreign-key foreignTable="board_challenge" >
+			<reference local="challengeId" foreign="id" />
+		</foreign-key>
+		
+		<foreign-key foreignTable="board_bond" >
+			<reference local="bondId" foreign="id" />
+		</foreign-key>
+
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+	</table>
+
+	<table phpName="BoardBond" name="board_bond" description="Compromiso con el challenge">
+
+		<column name="id" type="INTEGER" description="Id del compromiso" primaryKey="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="255" description="Compromiso" />
+
+		<unique>
+		  <unique-column name="name" />
+		</unique>
+
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+	</table>
+
+</database>
