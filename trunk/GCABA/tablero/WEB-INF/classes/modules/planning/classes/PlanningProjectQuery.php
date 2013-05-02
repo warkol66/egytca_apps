@@ -32,12 +32,25 @@ class PlanningProjectQuery extends BasePlanningProjectQuery {
 	protected function preSelect(PropelPDO $con) {
 		parent::preSelect($con);
 		
-		$this->leftJoinOperativeObjective()
-			->addAscendingOrderByColumn(OperativeObjectivePeer::RESPONSIBLECODE)
-			->leftJoinPosition('Position')
-			->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
-			->addAscendingOrderByColumn(OperativeObjectivePeer::INTERNALCODE)
-			->orderByInternalCode();
+		$loginUser = Common::getLoggedUser();
+		if (!ConfigModule::get('projects', 'verifyGroupWriteAccess') || $loginUser->isAdmin())
+			$this->leftJoinOperativeObjective()
+						->addAscendingOrderByColumn(OperativeObjectivePeer::RESPONSIBLECODE)
+						->leftJoinPosition('Position')
+						->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
+						->addAscendingOrderByColumn(OperativeObjectivePeer::INTERNALCODE)
+						->orderByInternalCode();
+		else {
+			$groupIds = $loginUser->getUserGroupIds();
+			$this->leftJoinOperativeObjective()
+							->addAscendingOrderByColumn(OperativeObjectivePeer::RESPONSIBLECODE)
+							->usePositionQuery()
+								->filterByUsergroupid($groupIds)
+								->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
+							->endUse()
+							->addAscendingOrderByColumn(OperativeObjectivePeer::INTERNALCODE)
+							->orderByInternalCode();
+		}
 	}
 
  /**

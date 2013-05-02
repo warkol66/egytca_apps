@@ -32,13 +32,26 @@ class OperativeObjectiveQuery extends BaseOperativeObjectiveQuery {
 	protected function preSelect(\PropelPDO $con) {
 		parent::preSelect($con);
 		
-		$this->leftJoinMinistryObjective()
-			->addAscendingOrderByColumn(MinistryObjectivePeer::RESPONSIBLECODE)
-			->leftJoinPosition('Position')
-			->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
-			->addAscendingOrderByColumn(MinistryObjectivePeer::INTERNALCODE)
-			->orderByInternalCode()
-		;
+		$loginUser = Common::getLoggedUser();
+		if (!ConfigModule::get('objectives', 'verifyGroupWriteAccess') || $loginUser->isAdmin())
+			$this->leftJoinMinistryObjective()
+								->addAscendingOrderByColumn(MinistryObjectivePeer::RESPONSIBLECODE)
+								->leftJoinPosition('Position')
+								->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
+								->addAscendingOrderByColumn(MinistryObjectivePeer::INTERNALCODE)
+								->orderByInternalCode();
+		else {
+			$groupIds = $loginUser->getUserGroupIds();
+			$this->leftJoinMinistryObjective()
+								->addAscendingOrderByColumn(MinistryObjectivePeer::RESPONSIBLECODE)
+								->usePositionQuery()
+									->filterByUsergroupid($groupIds)
+									->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
+								->endUse()
+								->addAscendingOrderByColumn(MinistryObjectivePeer::INTERNALCODE)
+								->orderByInternalCode();
+		}
+		
 	}
 
 } // OperativeObjectiveQuery

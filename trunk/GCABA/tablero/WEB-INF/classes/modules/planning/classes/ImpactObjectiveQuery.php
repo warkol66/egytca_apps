@@ -32,11 +32,20 @@ class ImpactObjectiveQuery extends BaseImpactObjectiveQuery {
 	protected function preSelect(\PropelPDO $con) {
 		parent::preSelect($con);
 		
-		$this->leftJoinPosition('Position')
-			->orderByResponsiblecode()
-			->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
-			->orderByInternalCode()
-		;
+		$loginUser = Common::getLoggedUser();
+		if (!ConfigModule::get('objectives', 'verifyGroupWriteAccess') || $loginUser->isAdmin())
+			$this->leftJoinPosition('Position')
+				->orderByResponsiblecode()
+				->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
+				->orderByInternalCode();
+		else {
+			$groupIds = $loginUser->getUserGroupIds();
+			$this->usePositionQuery()
+									->filterByUsergroupid($groupIds)
+									->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
+								->endUse()
+				->orderByInternalCode();
+		}
 	}
 
 } // ImpactObjectiveQuery
