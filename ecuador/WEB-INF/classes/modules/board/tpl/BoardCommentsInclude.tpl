@@ -48,22 +48,11 @@
 		<p>
 			<label for="params_text">Comentario</label><textarea id="params_text" name="params[text]" cols="65" rows="5" wrap="VIRTUAL" ></textarea>
 		</p>
-		<p><label>Código de seguridad</label><div id="codemsgBoxAdder|-$challenge->getId()-|">
-			<img src="Main.php?do=commonImage&width=120&height=45&characters=5" />
-			</div>
-		</p>
-		<!--p>
-			<label for="formId">Ingrese el código de seguridad</label><input id="formId" name="formId" type="text" size="10" />
-		</p-->
-		<div id="cpatcha" style="display:none">		<p>
-			<label for="security_code">No completar</label><input id="security_code" name="securityCode" type="text" size="10" />
-		</p></div>
 		<p>	
 			<input type="hidden" name="params[challengeId]" value="|-$challenge->getId()-|" id="params_challengeId" />
 			<input type="hidden" name="do" value="boardCommentsDoAddX" id="do">
 			<input type="button" value="Agregar Comentario" onClick="javascript:boardCommmentAdd(this.form,|-$challenge->getId()-|)" /> 
 			<input type="button" name="commentAdderHideButton|-$challenge->getId()-|" value="Cancelar" id="commentAdderHideButton|-$challenge->getId()-|" onClick="javascript:hideCommentAddForm(|-$challenge->getId()-|)" />
-			<input type="button" name="codeRefresher" id="codeRefresher" value="Regenerar código de seguridad"> <span id="msgBoxAdder|-$challenge->getId()-|"></span>
 		</p>
 		</fieldset>
 	</form>
