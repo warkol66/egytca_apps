@@ -78,7 +78,7 @@
 				<td>|-$boardChallenge->getcreationDate()|date_format:"%d-%m-%Y"-|</td>
 			<td>|-if "boardChangeStatusX"|security_user_has_access-|	
 						<form action="Main.php" method="post" id="formStatusChallenges|-$boardChallenge->getId()-|">
-							<select name="params[status]" id="selectChallengeStatus|-$boardChallenge->getId()-|" onChange="javascript:submitEntriesChangeFormX('formStatusEntries|-$boardChallenge->getId()-|')">
+							<select name="params[status]" id="selectChallengeStatus|-$boardChallenge->getId()-|" onChange="javascript:submitChallengesChangeFormX('formStatusChallenges|-$boardChallenge->getId()-|')">
 								|-foreach from=$boardChallengeStatus key=key item=name-|
 									<option value="|-$key-|" |-if ($boardChallenge->getStatus()) eq $key-|selected="selected"|-/if-|>|-$name-|</option>
 								|-/foreach-|
@@ -115,7 +115,7 @@
 		|-if $boardChallengeColl|@count neq 0 && "boardChangeStatuses"|security_user_has_access-|
 			<tr>
 				<td colspan="|-$colSpan-|">
-					<form action="Main.php" method="post" id='multipleEntriesChangeForm'>
+					<form action="Main.php" method="post" id='multipleChallengesChangeForm'>
 						<p>##board,16,Cambiar las Consignas seleccionados al estado##
 							<select name="status" id="selectEntryStatus|-$boardChallenge->getId()-|">
 							|-foreach from=$boardChallengeStatus key=key item=name-|
@@ -126,7 +126,7 @@
 								<input type="hidden" name="page" value="|-$pager->getPage()-|" id="page">
 							|-/if-|
 							<input type="hidden" name="do" value="boardChangeStatuses" id="do">
-							<input type="button" onClick="javascript:submitMultipleEntriesChangeFormX('multipleEntriesChangeForm')" value="##board,17,Cambiar Estado##" title="##board,17,Cambiar Estado##" class="button">
+							<input type="button" onClick="javascript:submitMultipleChallengesChangeFormX('multipleChallengesChangeForm')" value="##board,17,Cambiar Estado##" title="##board,17,Cambiar Estado##" class="button">
 						</p>
 					</form>
 				</td>
