@@ -449,12 +449,16 @@ class UserPeer extends BaseUserPeer {
 	* @return User Informacion sobre el usuario, false si no fue exitosa la autenticacion
 	*/
 	function auth($username,$password) {
+		global $system;
+		$maintenance = $system["config"]["system"]["parameters"]["underMaintenance"]["value"];
 		$criteria = new Criteria();
 		$criteria->add(UserPeer::USERNAME, $username);
 		$criteria->add(UserPeer::ID, 0, Criteria::GREATER_THAN); //Saco de los posibles resultados al usuario "system" id =-1
 		$criteria->add(UserPeer::ACTIVE, 1);
 		$user = UserPeer::doSelectOne($criteria);
 		if (!empty($user)) {
+			if ($maintenance == "YES" && !$user->isSupervisor())
+				return false;
 			if ($user->getPassword() == Common::md5($password)) {
 				$_SESSION['lastLogin'] = $user->getLastLogin();
 				$user->setLastLogin(time());
