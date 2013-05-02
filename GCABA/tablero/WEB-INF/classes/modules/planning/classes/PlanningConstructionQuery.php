@@ -15,6 +15,21 @@
  */
 class PlanningConstructionQuery extends BasePlanningConstructionQuery {
 
+	protected function preSelect(\PropelPDO $con) {
+		parent::preSelect($con);
+		
+		$loginUser = Common::getLoggedUser();
+		if (!ConfigModule::get('projects', 'verifyGroupWriteAccess') || $loginUser->isAdmin())
+			$this;
+		else {
+			$groupIds = $loginUser->getUserGroupIds();
+			$this->usePositionQuery()
+									->filterByUsergroupid($groupIds)
+									->addCond('cond1', PositionPeer::VERSIONID, PositionVersionQuery::getLastVersionId(), Criteria::EQUAL)
+								->endUse();
+		}
+	}
+
  /**
 	* Agrega filtros por position y sus descendientes
 	*
