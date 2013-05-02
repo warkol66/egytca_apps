@@ -13,6 +13,26 @@
  *
  * @package    propel.generator.board.classes
  */
-class BoardComment extends BaseBoardComment
-{
+class BoardComment extends BaseBoardComment{
+	
+	/*Estados de los comments*/
+	const PENDING  = 1;
+	const APPROVED = 2;
+	const SPAM     = 3;
+	const DELETED  = 4;
+	
+	protected static $statusOptions = array(
+		BoardComment::PENDING    => 'Pendiente',
+		BoardComment::APPROVED   => 'Aprobado',
+		BoardComment::SPAM       => 'SPAM',
+		BoardComment::DELETED    => 'Eliminado'
+	);
+
+	/**
+	 * Devuelve los posibles estados
+	 */
+	public static function getStatusOptions() {
+		$statusOptions = BoardComment::$statusOptions;
+		return $statusOptions;
+	}
 }

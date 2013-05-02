@@ -14,7 +14,7 @@ function submitFormX(formId) {
 function submitChallengesChangeFormX(formId) {
 	
 	submitFormX(formId);
-	$('#divMsgBox').html('<span class="inProgress">... Actualizando Estado de Entrada ...</span>');
+	$('#divMsgBox').html('<span class="inProgress">... Actualizando Estado de Consigna ...</span>');
 	
 }
 

@@ -19,7 +19,7 @@ class BoardEditAction extends BaseEditAction {
 
 		//users, statuses y tags
 		$this->smarty->assign("userIdValues",UserQuery::create()->find());
-		$this->smarty->assign("boardChallengeStatus",BlogEntry::getStatuses());
+		$this->smarty->assign("boardChallengeStatus",BoardChallenge::getStatuses());
 	}
 
 }

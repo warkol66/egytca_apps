@@ -9,9 +9,9 @@
 Puede regresar a la página principal del board haciendo click <a href="Main.php?do=boardShow">aquí</a></div>
 |-else-|
 <!-- begin board01 -->
-<div class="board01">
-<h4>|-$boardChallenge->getCreationDate()|date_format:"%A %e de %B de %Y"-|</h4>
-<h1>|-$boardChallenge->getTitle()-|</h1>	
+<div class="article">
+<h5>|-$boardChallenge->getCreationDate()|date_format:"%A %e de %B de %Y"-|</h5>
+<h2>|-$boardChallenge->getTitle()-|</h2>
 <div id="completeText">
 |-$boardChallenge->getBody()-|
 </div>

@@ -69,9 +69,9 @@
 				</p>
 				|-if not isset($challengeId)-|
 				<p>
-					<label for="articleId">Entradas</label>
+					<label for="articleId">Consignas</label>
 					<select name='filters[challengeid]' title="Seleccione una entrada de los últimas 50 publicadas">
-							<option value=''>Seleccione una entrada</option>
+							<option value=''>Seleccione una consigna</option>
 						|-foreach from=$challenges item=challenge name=from_challenges-|
 							<option value="|-$challenge->getId()-|" |-if $filters neq '' and $filters.challengeid eq $challenge->getId()-|selected="selected"|-/if-|>|-$challenge->getTitle()|mb_truncate:60:"...":'UTF-8':true-|</option>
 						|-/foreach-|

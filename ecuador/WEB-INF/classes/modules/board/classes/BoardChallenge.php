@@ -45,4 +45,109 @@ class BoardChallenge extends BaseBoardChallenge{
 
 		return $boardChallenge;
 	}
+	
+	function selectBetweenDates($paramStart, $paramEnd){
+		$between = BoardChallengeQuery::create()
+			->condition('c0','BoardChallenge.StartDate >= ?', $paramStart)
+			->condition('c1','BoardChallenge.StartDate <= ?', $paramEnd)
+			->combine(array('c0','c1'), 'and', 'c01')
+			->condition('c2','BoardChallenge.EndDate <= ?', $paramEnd)
+			->condition('c3','BoardChallenge.EndDate >= ?', $paramStart)
+			->combine(array('c2','c3'), 'and', 'c23')
+			->condition('c4','BoardChallenge.StartDate <= ?', $paramStart)
+			->condition('c5','BoardChallenge.EndDate >= ?', $paramEnd)
+			->combine(array('c4','c5'), 'and', 'c45')
+			->combine(array('c01','c23'), 'or', 'c02')
+			->where(array('c02','c45'), 'or')
+			->find();
+			
+		return $between;
+	}
+	
+	/**
+     * Code to be run before inserting to database
+     * @param PropelPDO $con 
+     * @return boolean 
+     */
+    public function preInsert(PropelPDO $con = null) {
+    	$uniqueUrl = BoardChallenge::getUrlFromTitle($this->getTitle());
+    	$this->setUrl($uniqueUrl);
+        return true;
+    }
+    
+    /**
+	 * Devuelve una Url única que corresponde a la consigna a partir de su titulo.
+	 * 
+	 * La url es generada encadenando las palabras con '_' y agregando un sufijo numérico 
+	 * si es necesario para mantener la unicidad. Los caracteres que forman parte del ASCII 
+     * extendido son transliterados a ASCII. Cualquier caractér inválido es descartado.
+	 * 
+	 *
+	 * @param $title título.
+	 * @return url del blog.
+	 */
+	public static function getUrlFromTitle($title) {
+		$url = preg_replace('/\s+/', '_', $title);               // \s: whitespace characters
+		$url = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $url);  // esto es para pasar cosas como 'é' a 'e'
+		$url = preg_replace('/\W/', '', $url);                   // \W: non-word characters
+		$url = preg_replace('/(^_)|(_$)/', '', $url);                   // es posible que hayan quedado '_' al principio o al final.
+		$url = preg_replace('/_+/', '_', $url);					 // cualquier cantidad de '_' consecutiva debe reducirse.
+		$url = strtolower($url);
+		$sufix = '';
+		$counter = 1;
+		BoardChallengeQuery::disableSoftDelete();      //necesario para que devuelva en la consulta las que estan eliminadas.
+		do {
+			$uniqueUrl = $url . $sufix; 
+			$unicity = BoardChallengeQuery::create()->filterByUrl($uniqueUrl)->count();
+			$sufix = '_' . $counter;
+			$counter++;
+		} while($unicity !== 0);
+		BoardChallengeQuery::enableSoftDelete();
+		
+		return $uniqueUrl;
+	}
+	
+	/**
+	 * Incrementa la cantidad de vistas que tiene el articulo
+	 * y lo persiste
+	 */
+	public function increaseViews() {
+		
+		try {
+			$counter = $this->getViews();
+			$counter++;
+			$this->setViews($counter);
+			parent::save();
+
+		} catch (PropelException $e) {
+			return false;
+		}
+
+		return true;
+		
+	}
+	
+	/**
+	 * Obtiene la cantidad de articulos aprobados que pueden ser mostrados por interfaz
+	 * del articulo
+	 * @return integer
+	 */ 
+	public function getApprovedCommentsCount() {
+		
+		$criteria = $this->getApprovedCommentsCriteria();
+		return BoardChallengePeer::doCount($criteria);
+		
+	}
+	
+	/**
+	 * Genera la criteria necesaria para obtener todos los comentarios aprobados para el
+	 * Articulos
+	 * @return Criteria
+	 */
+	private function getApprovedCommentsCriteria() {
+		$criteria = new Criteria();
+		$criteria->add(BoardCommentPeer::CHALLENGEID,$this->getId());
+		$criteria->add(BoardCommentPeer::STATUS,BoardComment::APPROVED);
+		return $criteria;
+	}
 }

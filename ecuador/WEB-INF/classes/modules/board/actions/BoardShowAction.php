@@ -9,7 +9,8 @@ class BoardShowAction extends BaseListAction {
 	protected function preList() {
 		parent::preList();
 		
-		$this->filters['status'] = 2; //Solo las entradas publicadas
+		$this->filters['status'] = 2; //Solo las consignas publicadas
+		$this->filters['dateRange']['enddate']['min'] = date("Y-m-d H:i:s"); //Solo las que todavia no terminaron
 		
 	}
 	
@@ -29,7 +30,7 @@ class BoardShowAction extends BaseListAction {
 			header("content-Type:application/rss+xml; charset=utf-8"); 
 			//return $mapping->findForwardConfig('rss');
 		}
-		
+
 	}
 
 }
