@@ -63,6 +63,12 @@
 		<column name="price3"      type="DECIMAL" size="12" scale="2" description="Precio proveedor 3" />
 		<column name="definitive3" type="BOOLEAN" description="Indica si el precio es definitivo o no, proveedor 3" />
 		<column name="supplierDocument3" type="INTEGER" description="Documento respaldatorio, proveedor 3" />
+		
+		<column name="supplierId4" type="INTEGER" required="true" />
+		<column name="lastPrice4"  type="DECIMAL" size="12" scale="2" description="Precio anterior proveedor 4" />
+		<column name="price4"      type="DECIMAL" size="12" scale="2" description="Precio proveedor 4" />
+		<column name="definitive4" type="BOOLEAN" description="Indica si el precio es definitivo o no, proveedor 4" />
+		<column name="supplierDocument4" type="INTEGER" description="Documento respaldatorio, proveedor 4" />
 
 		<foreign-key foreignTable="vialidad_bulletin" onDelete="cascade" >
 			<reference local="bulletinId" foreign="id" />
@@ -83,6 +89,10 @@
 		<foreign-key foreignTable="affiliates_affiliate" >
 			<reference local="supplierId3" foreign="id" />
 		</foreign-key>
+		
+		<foreign-key foreignTable="affiliates_affiliate" >
+			<reference local="supplierId4" foreign="id" />
+		</foreign-key>
 
 		<foreign-key foreignTable="documents_document">
 			<reference local="supplierDocument1" foreign="id" />
@@ -94,6 +104,10 @@
 
 		<foreign-key foreignTable="documents_document">
 			<reference local="supplierDocument3" foreign="id" />
+		</foreign-key>
+		
+		<foreign-key foreignTable="documents_document">
+			<reference local="supplierDocument4" foreign="id" />
 		</foreign-key>
 
 	</table>
