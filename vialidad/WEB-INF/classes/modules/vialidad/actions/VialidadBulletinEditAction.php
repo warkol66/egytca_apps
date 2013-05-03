@@ -55,18 +55,22 @@ class VialidadBulletinEditAction extends BaseAction {
 			//voy a crear un objeto nuevo a partir del último bulletin
 			
 			$last = BulletinQuery::create()->orderByBulletindate(Criteria::DESC)->findOne();
-			$last->setNumber($last->getNumber()+1);
-			$date = $last->getBulletindate('%m/%d/%Y');
-			$last->setBulletindate(date('d-m-Y',strtotime("$date +1 month")));
-			$last->setComments(null);
-			$last->setPublished(false);
-			
 			$new = new Bulletin();
-			$last->copyInto($new);
 			
-			$smarty->assign('toBeCopiedId', $last->getId());
+			if ($last) {
+				
+				$last->copyInto($new);
+				$new->setNumber($last->getNumber()+1);
+				$lastBulletinDate = $last->getBulletindate('%m/%d/%Y');
+				$new->setBulletindate(date('d-m-Y',strtotime("$lastBulletinDate +1 month")));
+				$new->setComments(null);
+				$new->setPublished(false);
+				
+				$smarty->assign('toBeCopiedId', $last->getId());
+				$smarty->assign("action","copy");
+			}
+			
 			$smarty->assign("bulletin",$new);
-			$smarty->assign("action","copy");
 		}
 
 		$smarty->assign("filters",$_GET["filters"]);
