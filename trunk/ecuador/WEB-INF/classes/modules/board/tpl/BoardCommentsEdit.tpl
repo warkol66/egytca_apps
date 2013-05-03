@@ -91,4 +91,8 @@
 			</p>
 		</fieldset>
 	</form>
+	|-if isset($children)-|
+		|-assign var=challenge value=$boardComment->getBoardChallenge()-|
+		|-include file="BoardCommentsShow.tpl" comments=$children boardChallenge=$challenge-|
+	|-/if-|
 </div>

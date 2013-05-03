@@ -41,6 +41,7 @@ class BoardCommentTableMap extends TableMap
         $this->addPrimaryKey('ID', 'Id', 'INTEGER', true, null, null);
         $this->addForeignKey('CHALLENGEID', 'Challengeid', 'INTEGER', 'board_challenge', 'ID', true, null, null);
         $this->addForeignKey('BONDID', 'Bondid', 'INTEGER', 'board_bond', 'ID', true, null, null);
+        $this->addColumn('PARENTID', 'Parentid', 'INTEGER', false, null, null);
         $this->addColumn('TEXT', 'Text', 'LONGVARCHAR', false, null, null);
         $this->addColumn('EMAIL', 'Email', 'VARCHAR', false, 255, null);
         $this->addColumn('USERNAME', 'Username', 'VARCHAR', false, 255, null);

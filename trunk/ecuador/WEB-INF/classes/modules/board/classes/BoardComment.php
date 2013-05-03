@@ -35,4 +35,41 @@ class BoardComment extends BaseBoardComment{
 		$statusOptions = BoardComment::$statusOptions;
 		return $statusOptions;
 	}
+	
+	/**
+	 * Indica si un comentario se encuentra pendiente
+	 * @return boolean
+	 */
+	public function isPending() {
+		return ($this->getStatus() == BoardComment::PENDING);
+	}
+
+	/**
+	 * Indica si un comentario se encuentra aprobado
+	 * @return boolean
+	 */
+	public function isApproved() {
+		return ($this->getStatus() == BoardComment::APPROVED);
+	}
+
+	/**
+	 * Indica si un comentario esta indicado como spam
+	 * @return boolean
+	 */
+	public function isSpam() {
+		return ($this->getStatus() == BoardComment::SPAM);
+	}
+
+	/**
+	 * Indica si un comentario esta eliminado
+	 * @return boolean
+	 */
+	public function isDeleted() {
+		return ($this->getStatus() == BoardComment::DELETED);
+	}
+	
+	public static function selectChildren($id) {
+		$children = BoardCommentQuery::create()->filterByParentId($id)->find();
+		return $children;
+	}
 }

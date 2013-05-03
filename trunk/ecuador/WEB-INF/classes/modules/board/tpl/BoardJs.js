@@ -25,12 +25,6 @@ function submitCommentsChangeFormX(formId) {
 	$('divMsgBox').html('<span class="inProgress">... Actualizando Estado de Comentario...</span>');
 	
 }
-/*
-function submitForm(formId) {
-	var form = $(formId);
-	if (form != null)
-		form.submit();
-}*/
 
 //migrada
 function buildMultipleItemsForm(formId) {
@@ -88,9 +82,11 @@ function submitPreview(form) {
 //migrada
 function submitPreviewOnHome(form) {
 	
-	$('#doEdit').attr('value','boardPreview');
+	//$('#doEdit').attr('value','boardPreview');
 	var mode = $('<input>').attr('type','hidden').attr('name','mode').attr('value','home');
+	var preview = $('<input>').attr('type','hidden').attr('name','do').attr('id','doEdit').attr('value','boardPreview');
 	$(form).append(mode);
+	$(form).append(preview);
 	submitPreview(form);
 }
 

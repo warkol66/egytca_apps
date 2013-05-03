@@ -31,7 +31,7 @@ class BoardPreviewAction extends BaseAction {
 		if ($_POST['mode'] == 'home') {
 
 			$this->template->template = "TemplateBlogHome.tpl";
-			$blogEntryColl = array();
+			$boardChallengeColl = array();
 			array_push($boardChallengeColl,$preview);
 			$smarty->assign("boardChallengeColl",$boardChallengeColl);
 

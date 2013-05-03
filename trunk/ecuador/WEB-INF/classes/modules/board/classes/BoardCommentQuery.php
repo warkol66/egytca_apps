@@ -13,6 +13,12 @@
  *
  * @package    propel.generator.board.classes
  */
-class BoardCommentQuery extends BaseBoardCommentQuery
-{
+class BoardCommentQuery extends BaseBoardCommentQuery{
+	
+	function selectParents($parents){
+		if($parents)
+			$this->filterByParentId(NULL, Criteria::EQUAL);
+		
+		return $this;
+	}
 }

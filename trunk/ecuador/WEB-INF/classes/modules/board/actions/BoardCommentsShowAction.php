@@ -12,7 +12,7 @@ class BoardCommentsShowAction extends BaseEditAction {
 		$module = "Board";
 		$this->smarty->assign("module",$module);
 		
-		$this->smarty->assign($comments, BoardChallengeQuery::getBoardComments($this->entity->getid()));
+		$this->smarty->assign($comments, $this->entity->getBoardComments());
 	}
 
 }

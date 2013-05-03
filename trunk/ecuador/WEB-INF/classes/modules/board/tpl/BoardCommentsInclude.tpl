@@ -6,7 +6,7 @@
 		});
 	});
 </script>
-<form action="Main.php" method="post">
+<form action="Main.php" method="post" style="margin-bottom: 20px;">
 	<input type="hidden" name="do" value="boardCommentsShow" id="do">
 	<input type="hidden" name="challengeId" value="|-$challenge->getId()-|" id="challengeId">
 	|-if $challenge->getApprovedCommentsCount() gt 0-|
@@ -16,7 +16,6 @@
 	|-/if-|
 	<span id="mgsBoxCommentsShow|-$challenge->getId()-|"></span>
 </form>
-
 <div id="comments_holder_|-$challenge->getId()-|">
 		|-include file="BoardCommentsShow.tpl" comments=$comments challenge=$challenge-|
 <!-- Formulario para agregar comentario -->

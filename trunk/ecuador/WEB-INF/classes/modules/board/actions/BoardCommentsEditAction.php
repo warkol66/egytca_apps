@@ -18,6 +18,9 @@ class BoardCommentsEditAction extends BaseEditAction {
 		$this->smarty->assign("bonds",BoardBondQuery::create()->find());
 		$this->smarty->assign("userIdValues",UserQuery::create()->find());
 		
+		if(isset($_REQUEST['id']))
+			$this->smarty->assign("children",BoardComment::selectChildren($this->entity->getId()));
+		
 	}
 
 }

@@ -9,6 +9,7 @@
  * @method BoardCommentQuery orderById($order = Criteria::ASC) Order by the id column
  * @method BoardCommentQuery orderByChallengeid($order = Criteria::ASC) Order by the challengeId column
  * @method BoardCommentQuery orderByBondid($order = Criteria::ASC) Order by the bondId column
+ * @method BoardCommentQuery orderByParentid($order = Criteria::ASC) Order by the parentId column
  * @method BoardCommentQuery orderByText($order = Criteria::ASC) Order by the text column
  * @method BoardCommentQuery orderByEmail($order = Criteria::ASC) Order by the email column
  * @method BoardCommentQuery orderByUsername($order = Criteria::ASC) Order by the username column
@@ -23,6 +24,7 @@
  * @method BoardCommentQuery groupById() Group by the id column
  * @method BoardCommentQuery groupByChallengeid() Group by the challengeId column
  * @method BoardCommentQuery groupByBondid() Group by the bondId column
+ * @method BoardCommentQuery groupByParentid() Group by the parentId column
  * @method BoardCommentQuery groupByText() Group by the text column
  * @method BoardCommentQuery groupByEmail() Group by the email column
  * @method BoardCommentQuery groupByUsername() Group by the username column
@@ -52,6 +54,7 @@
  * @method BoardComment findOneById(int $id) Return the first BoardComment filtered by the id column
  * @method BoardComment findOneByChallengeid(int $challengeId) Return the first BoardComment filtered by the challengeId column
  * @method BoardComment findOneByBondid(int $bondId) Return the first BoardComment filtered by the bondId column
+ * @method BoardComment findOneByParentid(int $parentId) Return the first BoardComment filtered by the parentId column
  * @method BoardComment findOneByText(string $text) Return the first BoardComment filtered by the text column
  * @method BoardComment findOneByEmail(string $email) Return the first BoardComment filtered by the email column
  * @method BoardComment findOneByUsername(string $username) Return the first BoardComment filtered by the username column
@@ -66,6 +69,7 @@
  * @method array findById(int $id) Return BoardComment objects filtered by the id column
  * @method array findByChallengeid(int $challengeId) Return BoardComment objects filtered by the challengeId column
  * @method array findByBondid(int $bondId) Return BoardComment objects filtered by the bondId column
+ * @method array findByParentid(int $parentId) Return BoardComment objects filtered by the parentId column
  * @method array findByText(string $text) Return BoardComment objects filtered by the text column
  * @method array findByEmail(string $email) Return BoardComment objects filtered by the email column
  * @method array findByUsername(string $username) Return BoardComment objects filtered by the username column
@@ -165,7 +169,7 @@ abstract class BaseBoardCommentQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `ID`, `CHALLENGEID`, `BONDID`, `TEXT`, `EMAIL`, `USERNAME`, `URL`, `IP`, `CREATIONDATE`, `STATUS`, `USERID`, `OBJECTTYPE`, `OBJECTID` FROM `board_comment` WHERE `ID` = :p0';
+        $sql = 'SELECT `ID`, `CHALLENGEID`, `BONDID`, `PARENTID`, `TEXT`, `EMAIL`, `USERNAME`, `URL`, `IP`, `CREATIONDATE`, `STATUS`, `USERID`, `OBJECTTYPE`, `OBJECTID` FROM `board_comment` WHERE `ID` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -365,6 +369,47 @@ abstract class BaseBoardCommentQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(BoardCommentPeer::BONDID, $bondid, $comparison);
+    }
+
+    /**
+     * Filter the query on the parentId column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByParentid(1234); // WHERE parentId = 1234
+     * $query->filterByParentid(array(12, 34)); // WHERE parentId IN (12, 34)
+     * $query->filterByParentid(array('min' => 12)); // WHERE parentId > 12
+     * </code>
+     *
+     * @param     mixed $parentid The value to use as filter.
+     *              Use scalar values for equality.
+     *              Use array values for in_array() equivalent.
+     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return BoardCommentQuery The current query, for fluid interface
+     */
+    public function filterByParentid($parentid = null, $comparison = null)
+    {
+        if (is_array($parentid)) {
+            $useMinMax = false;
+            if (isset($parentid['min'])) {
+                $this->addUsingAlias(BoardCommentPeer::PARENTID, $parentid['min'], Criteria::GREATER_EQUAL);
+                $useMinMax = true;
+            }
+            if (isset($parentid['max'])) {
+                $this->addUsingAlias(BoardCommentPeer::PARENTID, $parentid['max'], Criteria::LESS_EQUAL);
+                $useMinMax = true;
+            }
+            if ($useMinMax) {
+                return $this;
+            }
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        return $this->addUsingAlias(BoardCommentPeer::PARENTID, $parentid, $comparison);
     }
 
     /**

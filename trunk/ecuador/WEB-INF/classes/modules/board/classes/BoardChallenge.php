@@ -25,9 +25,9 @@ class BoardChallenge extends BaseBoardChallenge{
 	 * para la generacion de selects
 	 */
 	public function getStatuses() {
-		$status[BlogEntry::NOT_PUBLISHED] = 'No Publicada';
-		$status[BlogEntry::PUBLISHED] = 'Publicada';
-		$status[BlogEntry::ARCHIVED] = 'Archivada';
+		$status[BoardChallenge::NOT_PUBLISHED] = 'No Publicada';
+		$status[BoardChallenge::PUBLISHED] = 'Publicada';
+		$status[BoardChallenge::ARCHIVED] = 'Archivada';
 		return $status;
 	}
 	
@@ -41,9 +41,9 @@ class BoardChallenge extends BaseBoardChallenge{
 	function createPreview($params) {
 
 			$boardChallengeObj = new BoardChallenge();
-			$boardChallengeObj = Common::setObjectFromParams($boardChallenge,$params);
+			$boardChallengeObj = Common::setObjectFromParams($boardChallengeObj,$params);
 
-		return $boardChallenge;
+		return $boardChallengeObj;
 	}
 	
 	function selectBetweenDates($paramStart, $paramEnd){
@@ -134,20 +134,12 @@ class BoardChallenge extends BaseBoardChallenge{
 	 */ 
 	public function getApprovedCommentsCount() {
 		
-		$criteria = $this->getApprovedCommentsCriteria();
-		return BoardChallengePeer::doCount($criteria);
+		$approved = BoardCommentQuery::create()
+			->filterByChallengeId($this->getId())
+			->filterByStatus(BoardComment::APPROVED)
+			->find();
+			
+		return count($approved);
 		
-	}
-	
-	/**
-	 * Genera la criteria necesaria para obtener todos los comentarios aprobados para el
-	 * Articulos
-	 * @return Criteria
-	 */
-	private function getApprovedCommentsCriteria() {
-		$criteria = new Criteria();
-		$criteria->add(BoardCommentPeer::CHALLENGEID,$this->getId());
-		$criteria->add(BoardCommentPeer::STATUS,BoardComment::APPROVED);
-		return $criteria;
 	}
 }
