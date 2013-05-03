@@ -19,25 +19,20 @@ class PriceBulletin extends BasePriceBulletin {
 	 * Calcula el averagePrice a partir de los precios de los proveedores.
 	 */
 	function calculatePrice() {
-		$cant = 0;
+		$count = 0;
 		$sum = 0;
 		
-		if (!is_null($this->getPrice1())) {
-			$sum += $this->getPrice1();
-			$cant++;
+		$documentsCount = 4;
+		for ($i = 1; $i <= $documentsCount; $i++) {
+			$getPrice = "getPrice$i";
+			
+			if ($this->$getPrice() > 0) {
+				$sum += $this->$getPrice();
+				$count++;
+			}
 		}
 		
-		if (!is_null($this->getPrice2())) {
-			$sum += $this->getPrice2();
-			$cant++;
-		}
-		
-		if (!is_null($this->getPrice3())) {
-			$sum += $this->getPrice3();
-			$cant++;
-		}
-		
-		return $cant != 0 ? $sum/$cant : 0;
+		return $count != 0 ? $sum/$count : 0;
 	
 	}
 

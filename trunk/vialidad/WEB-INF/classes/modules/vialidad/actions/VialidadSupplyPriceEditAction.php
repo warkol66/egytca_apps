@@ -32,9 +32,9 @@ class VialidadSupplyPriceEditAction extends BaseAction {
 			}
 			
 			$smarty->assign('priceBulletin', $priceBulletin);
-			$smarty->assign('document1', $priceBulletin->getDocumentRelatedBySupplierdocument1());
-			$smarty->assign('document2', $priceBulletin->getDocumentRelatedBySupplierdocument2());
-			$smarty->assign('document3', $priceBulletin->getDocumentRelatedBySupplierdocument3());
+			$smarty->assign('document1', $priceBulletin->getDocumentRelatedBySupplierdocument1()); // TODO: sirve? borrar
+			$smarty->assign('document2', $priceBulletin->getDocumentRelatedBySupplierdocument2()); // TODO: sirve? borrar
+			$smarty->assign('document3', $priceBulletin->getDocumentRelatedBySupplierdocument3()); // TODO: sirve? borrar
 			$smarty->assign('allSuppliers', AffiliateQuery::create()->find());
 			
 			return $mapping->findForwardConfig('success');

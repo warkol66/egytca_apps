@@ -40,21 +40,20 @@ class Bulletin extends BaseBulletin {
 			$newPriceBulletin->setPublish(false);
 			$newPriceBulletin->setAverageprice(0);
 			$newPriceBulletin->setDefinitive(false);
-
-			$newPriceBulletin->setLastprice1($priceBulletin->getPrice1());
-			$newPriceBulletin->setPrice1(0);
-			$newPriceBulletin->setDefinitive1(false);
-			$newPriceBulletin->setSupplierdocument1(null);
-
-			$newPriceBulletin->setLastprice2($priceBulletin->getPrice2());
-			$newPriceBulletin->setPrice2(0);
-			$newPriceBulletin->setDefinitive2(false);
-			$newPriceBulletin->setSupplierdocument2(null);
-
-			$newPriceBulletin->setLastprice3($priceBulletin->getPrice3());
-			$newPriceBulletin->setPrice3(0);
-			$newPriceBulletin->setDefinitive3(false);
-			$newPriceBulletin->setSupplierdocument3(null);
+			
+			$documentsCount = 4;
+			for ($i = 1; $i <= $documentsCount; $i++) {
+				$setLastprice = "setLastprice$i";
+				$setPrice = "setPrice$i";
+				$setDefinitive = "setDefinitive$i";
+				$setSupplierdocument = "setSupplierdocument$i";
+				$getPrice = "getPrice$i";
+				
+				$newPriceBulletin->$setLastprice($priceBulletin->$getPrice());
+				$newPriceBulletin->$setPrice(0);
+				$newPriceBulletin->$setDefinitive(false);
+				$newPriceBulletin->$setSupplierdocument(null);
+			}
 		
 			$newPriceBulletin->save();
 			$this->save();	
