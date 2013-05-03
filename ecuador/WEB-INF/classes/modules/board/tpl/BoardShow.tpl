@@ -1,5 +1,5 @@
-﻿<div id="div_boardEntries">
-		|-foreach from=$boardChallengeColl item=boardChallenge name=for_boardEntries-|
+﻿<div id="div_boardChallenges">
+		|-foreach from=$boardChallengeColl item=boardChallenge name=for_boardChallenges-|
 			<!--class ex board01-->
 			<div id="article|-$boardChallenge->getId()-|" class="article">
 				|-assign var="eId" value=$boardChallenge->getId()-|

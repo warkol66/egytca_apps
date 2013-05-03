@@ -26,18 +26,19 @@ class BoardViewAction extends BaseEditAction {
 		
 		$this->entity->increaseViews();
 		
-		$moduleConfig = Common::getModuleConfiguration($module);
+		$moduleConfig = Common::getModuleConfiguration("board");
 		$this->smarty->assign("moduleConfig",$moduleConfig);
 		
-		if ($moduleConfig['comments']['useComments']['value'] == "YES") {
+		//if ($moduleConfig['comments']['useComments']['value'] == "YES") {
 			//busco los compromisos posibles
 			$bonds = BoardBondQuery::create()->find();
+			$this->smarty->assign("bonds",$bonds);
 			//si se la configuracion pide que se muestren los comentarios de forma directa
-			if ($moduleConfig['comments']['displayComments']['value'] == 'YES') {
-				$comments = BoardCommentQuery::create()->findByChallengeIdAndStatus($this->entity->getId(),BoardComment::APPROVED);
+			//if ($moduleConfig['comments']['displayComments']['value'] == 'YES') {
+				$comments = BoardCommentQuery::create()->filterByParentId(NULL, Criteria::EQUAL)->findByChallengeIdAndStatus($this->entity->getId(),BoardComment::APPROVED);
 				$this->smarty->assign("comments",$comments);
-			}
-		}
+			//}
+		//}
 		
 		$this->smarty->assign("challengeDeleted", $this->entity->getDeletedAt('Y-m-d H:i:s')); 
 		

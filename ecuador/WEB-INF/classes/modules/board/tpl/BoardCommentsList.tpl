@@ -1,4 +1,4 @@
-<script type="text/javascript" src="scripts/board.js"></script>
+<script src="Main.php?do=js&name=commentsJs&module=board&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 <script>
     $(function() {
 		$.datepicker.setDefaults($.datepicker.regional['es']);
@@ -69,8 +69,8 @@
 				</p>
 				|-if not isset($challengeId)-|
 				<p>
-					<label for="articleId">Consignas</label>
-					<select name='filters[challengeid]' title="Seleccione una entrada de los últimas 50 publicadas">
+					<label for="challengeId">Consignas</label>
+					<select name='filters[challengeid]' title="Seleccione una consigna de los últimas 50 publicadas">
 							<option value=''>Seleccione una consigna</option>
 						|-foreach from=$challenges item=challenge name=from_challenges-|
 							<option value="|-$challenge->getId()-|" |-if $filters neq '' and $filters.challengeid eq $challenge->getId()-|selected="selected"|-/if-|>|-$challenge->getTitle()|mb_truncate:60:"...":'UTF-8':true-|</option>

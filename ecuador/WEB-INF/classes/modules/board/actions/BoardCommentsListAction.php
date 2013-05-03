@@ -6,6 +6,13 @@ class BoardCommentsListAction extends BaseListAction {
 		parent::__construct('BoardComment');
 	}
 	
+	protected function preList(){
+		parent::preList();
+		
+		$this->filters['selectParents'] = true;
+		
+	}
+	
 	protected function postList(){
 		parent::postList();
 		

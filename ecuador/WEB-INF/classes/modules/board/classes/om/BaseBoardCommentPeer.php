@@ -24,13 +24,13 @@ abstract class BaseBoardCommentPeer
     const TM_CLASS = 'BoardCommentTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 13;
+    const NUM_COLUMNS = 14;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 13;
+    const NUM_HYDRATE_COLUMNS = 14;
 
     /** the column name for the ID field */
     const ID = 'board_comment.ID';
@@ -40,6 +40,9 @@ abstract class BaseBoardCommentPeer
 
     /** the column name for the BONDID field */
     const BONDID = 'board_comment.BONDID';
+
+    /** the column name for the PARENTID field */
+    const PARENTID = 'board_comment.PARENTID';
 
     /** the column name for the TEXT field */
     const TEXT = 'board_comment.TEXT';
@@ -90,12 +93,12 @@ abstract class BaseBoardCommentPeer
      * e.g. BoardCommentPeer::$fieldNames[BoardCommentPeer::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('Id', 'Challengeid', 'Bondid', 'Text', 'Email', 'Username', 'Url', 'Ip', 'Creationdate', 'Status', 'Userid', 'Objecttype', 'Objectid', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'challengeid', 'bondid', 'text', 'email', 'username', 'url', 'ip', 'creationdate', 'status', 'userid', 'objecttype', 'objectid', ),
-        BasePeer::TYPE_COLNAME => array (BoardCommentPeer::ID, BoardCommentPeer::CHALLENGEID, BoardCommentPeer::BONDID, BoardCommentPeer::TEXT, BoardCommentPeer::EMAIL, BoardCommentPeer::USERNAME, BoardCommentPeer::URL, BoardCommentPeer::IP, BoardCommentPeer::CREATIONDATE, BoardCommentPeer::STATUS, BoardCommentPeer::USERID, BoardCommentPeer::OBJECTTYPE, BoardCommentPeer::OBJECTID, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'CHALLENGEID', 'BONDID', 'TEXT', 'EMAIL', 'USERNAME', 'URL', 'IP', 'CREATIONDATE', 'STATUS', 'USERID', 'OBJECTTYPE', 'OBJECTID', ),
-        BasePeer::TYPE_FIELDNAME => array ('id', 'challengeId', 'bondId', 'text', 'email', 'username', 'url', 'ip', 'creationDate', 'status', 'userId', 'objectType', 'objectId', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, )
+        BasePeer::TYPE_PHPNAME => array ('Id', 'Challengeid', 'Bondid', 'Parentid', 'Text', 'Email', 'Username', 'Url', 'Ip', 'Creationdate', 'Status', 'Userid', 'Objecttype', 'Objectid', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'challengeid', 'bondid', 'parentid', 'text', 'email', 'username', 'url', 'ip', 'creationdate', 'status', 'userid', 'objecttype', 'objectid', ),
+        BasePeer::TYPE_COLNAME => array (BoardCommentPeer::ID, BoardCommentPeer::CHALLENGEID, BoardCommentPeer::BONDID, BoardCommentPeer::PARENTID, BoardCommentPeer::TEXT, BoardCommentPeer::EMAIL, BoardCommentPeer::USERNAME, BoardCommentPeer::URL, BoardCommentPeer::IP, BoardCommentPeer::CREATIONDATE, BoardCommentPeer::STATUS, BoardCommentPeer::USERID, BoardCommentPeer::OBJECTTYPE, BoardCommentPeer::OBJECTID, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'CHALLENGEID', 'BONDID', 'PARENTID', 'TEXT', 'EMAIL', 'USERNAME', 'URL', 'IP', 'CREATIONDATE', 'STATUS', 'USERID', 'OBJECTTYPE', 'OBJECTID', ),
+        BasePeer::TYPE_FIELDNAME => array ('id', 'challengeId', 'bondId', 'parentId', 'text', 'email', 'username', 'url', 'ip', 'creationDate', 'status', 'userId', 'objectType', 'objectId', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, )
     );
 
     /**
@@ -105,12 +108,12 @@ abstract class BaseBoardCommentPeer
      * e.g. BoardCommentPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Challengeid' => 1, 'Bondid' => 2, 'Text' => 3, 'Email' => 4, 'Username' => 5, 'Url' => 6, 'Ip' => 7, 'Creationdate' => 8, 'Status' => 9, 'Userid' => 10, 'Objecttype' => 11, 'Objectid' => 12, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'challengeid' => 1, 'bondid' => 2, 'text' => 3, 'email' => 4, 'username' => 5, 'url' => 6, 'ip' => 7, 'creationdate' => 8, 'status' => 9, 'userid' => 10, 'objecttype' => 11, 'objectid' => 12, ),
-        BasePeer::TYPE_COLNAME => array (BoardCommentPeer::ID => 0, BoardCommentPeer::CHALLENGEID => 1, BoardCommentPeer::BONDID => 2, BoardCommentPeer::TEXT => 3, BoardCommentPeer::EMAIL => 4, BoardCommentPeer::USERNAME => 5, BoardCommentPeer::URL => 6, BoardCommentPeer::IP => 7, BoardCommentPeer::CREATIONDATE => 8, BoardCommentPeer::STATUS => 9, BoardCommentPeer::USERID => 10, BoardCommentPeer::OBJECTTYPE => 11, BoardCommentPeer::OBJECTID => 12, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'CHALLENGEID' => 1, 'BONDID' => 2, 'TEXT' => 3, 'EMAIL' => 4, 'USERNAME' => 5, 'URL' => 6, 'IP' => 7, 'CREATIONDATE' => 8, 'STATUS' => 9, 'USERID' => 10, 'OBJECTTYPE' => 11, 'OBJECTID' => 12, ),
-        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'challengeId' => 1, 'bondId' => 2, 'text' => 3, 'email' => 4, 'username' => 5, 'url' => 6, 'ip' => 7, 'creationDate' => 8, 'status' => 9, 'userId' => 10, 'objectType' => 11, 'objectId' => 12, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, )
+        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Challengeid' => 1, 'Bondid' => 2, 'Parentid' => 3, 'Text' => 4, 'Email' => 5, 'Username' => 6, 'Url' => 7, 'Ip' => 8, 'Creationdate' => 9, 'Status' => 10, 'Userid' => 11, 'Objecttype' => 12, 'Objectid' => 13, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'challengeid' => 1, 'bondid' => 2, 'parentid' => 3, 'text' => 4, 'email' => 5, 'username' => 6, 'url' => 7, 'ip' => 8, 'creationdate' => 9, 'status' => 10, 'userid' => 11, 'objecttype' => 12, 'objectid' => 13, ),
+        BasePeer::TYPE_COLNAME => array (BoardCommentPeer::ID => 0, BoardCommentPeer::CHALLENGEID => 1, BoardCommentPeer::BONDID => 2, BoardCommentPeer::PARENTID => 3, BoardCommentPeer::TEXT => 4, BoardCommentPeer::EMAIL => 5, BoardCommentPeer::USERNAME => 6, BoardCommentPeer::URL => 7, BoardCommentPeer::IP => 8, BoardCommentPeer::CREATIONDATE => 9, BoardCommentPeer::STATUS => 10, BoardCommentPeer::USERID => 11, BoardCommentPeer::OBJECTTYPE => 12, BoardCommentPeer::OBJECTID => 13, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'CHALLENGEID' => 1, 'BONDID' => 2, 'PARENTID' => 3, 'TEXT' => 4, 'EMAIL' => 5, 'USERNAME' => 6, 'URL' => 7, 'IP' => 8, 'CREATIONDATE' => 9, 'STATUS' => 10, 'USERID' => 11, 'OBJECTTYPE' => 12, 'OBJECTID' => 13, ),
+        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'challengeId' => 1, 'bondId' => 2, 'parentId' => 3, 'text' => 4, 'email' => 5, 'username' => 6, 'url' => 7, 'ip' => 8, 'creationDate' => 9, 'status' => 10, 'userId' => 11, 'objectType' => 12, 'objectId' => 13, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, )
     );
 
     /**
@@ -187,6 +190,7 @@ abstract class BaseBoardCommentPeer
             $criteria->addSelectColumn(BoardCommentPeer::ID);
             $criteria->addSelectColumn(BoardCommentPeer::CHALLENGEID);
             $criteria->addSelectColumn(BoardCommentPeer::BONDID);
+            $criteria->addSelectColumn(BoardCommentPeer::PARENTID);
             $criteria->addSelectColumn(BoardCommentPeer::TEXT);
             $criteria->addSelectColumn(BoardCommentPeer::EMAIL);
             $criteria->addSelectColumn(BoardCommentPeer::USERNAME);
@@ -201,6 +205,7 @@ abstract class BaseBoardCommentPeer
             $criteria->addSelectColumn($alias . '.ID');
             $criteria->addSelectColumn($alias . '.CHALLENGEID');
             $criteria->addSelectColumn($alias . '.BONDID');
+            $criteria->addSelectColumn($alias . '.PARENTID');
             $criteria->addSelectColumn($alias . '.TEXT');
             $criteria->addSelectColumn($alias . '.EMAIL');
             $criteria->addSelectColumn($alias . '.USERNAME');

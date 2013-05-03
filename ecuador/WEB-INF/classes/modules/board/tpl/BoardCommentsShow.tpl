@@ -9,6 +9,8 @@
 	|-/if-|
 		<div id="div_comments_container_|-$boardChallenge->getId()-|" >
 		|-foreach from=$comments item=comment name=for_comments-|
+				|-assign var=id value=$comment->getId()-|
+				|-assign var=children value=BoardComment::selectChildren($id)-|
 				<div id="comment|-$comment->getId()-|" class="commentContainer">				
 				<!-- begin INDIVIDUAL-->		 
 					<div class="individual">
@@ -22,6 +24,8 @@
 					<div class="close"></div>
 					</div><!-- end INDIVIDUAL-->
 				</div>
+				|-include file="BoardChildrenCommentsInclude.tpl" id=$comment->getId() comments=$children-|
+				|-include file="BoardChildrenCommentsFormInclude.tpl" comment=$comment-|
 		|-/foreach-|
 		</div>
 </div>
