@@ -17,7 +17,25 @@ class PlanningActivityQuery extends BasePlanningActivityQuery {
 	
 	protected function preSelect(\PropelPDO $con) {
 		parent::preSelect($con);
-		$this->orderById();
+		
+		$loginUser = Common::getLoggedUser();
+		if (!ConfigModule::get('projects', 'verifyGroupWriteAccess') || $loginUser->isAdmin())
+			$this->orderById();
+		else {
+			$planningProjectIds = PlanningProjectQuery::create()->select('Id')->find()->toArray();
+			$planningConstructionIds = PlanningConstructionQuery::create()->select('Id')->find()->toArray();
+
+			//Palicamos filtros por grupos de usuarios, que se establecen a partir de proyectos y obras
+			$this
+			->condition('cond1', PlanningActivityPeer::OBJECTTYPE . ' =  ?', 'Project')
+			->condition('cond2', PlanningActivityPeer::OBJECTID . ' IN ?', $planningProjectIds)
+		  ->combine(array('cond1', 'cond2'), 'and', 'cond12')
+			->condition('cond3', PlanningActivityPeer::OBJECTTYPE . ' =  ?', 'Construction')
+			->condition('cond4', PlanningActivityPeer::OBJECTID . ' IN ?', $planningConstructionIds)
+		  ->combine(array('cond3', 'cond4'), 'and', 'cond34')
+			->where(array('cond12', 'cond34'), 'or')
+			->orderById();
+		}
 	}
 
  /**

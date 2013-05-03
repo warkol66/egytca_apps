@@ -194,40 +194,42 @@ class PlanningActivity extends BasePlanningActivity {
 	 * @return bool si o no dependiendo de si esta demorada
 	 */
 	function isDelayed() {
-		// Tolerancia en dias
+		$comparisonTime = time();
 		global $system;
+		// Tolerancia en dias
 		if ($system["config"]["tablero"]["activities"]["parameterControl"]["value"] == "DAYS") {
 			$days = $system["config"]["tablero"]["activities"]["delayed"];
 			if ($days > 0)
 				$comparisonTime = time() - ($days * 24 * 60 * 60);
-			else
-				$comparisonTime = time();
 		}
+
 		$comparisonDate = strtotime(date('Y-m-d', $comparisonTime)); 		// tiempo del comienzo del dia (comparo contra un date, no un datetime)
 
 		if ($this->getObjecttype() == "Construction")
-			return (($this->getEndingDate('U') < date('U')) && ($this->getEndingDate('U') > $comparisonDate));
+			return (($this->getEndingDate('U') <= date('U')) && ($this->getEndingDate('U') >= $comparisonDate));
 		else
 			if ($this->isStarted())
-				return (($this->getEndingDate('U') < date('U')) && ($this->getEndingDate('U') > $comparisonDate));
+				return (($this->getEndingDate('U') <= date('U')) && ($this->getEndingDate('U') >= $comparisonDate));
 			else
-				return (($this->getStartingDate('U') < date('U')) && ($this->getStartingDate('U') > $comparisonDate));
+				return (($this->getStartingDate('U') <= date('U')) && ($this->getStartingDate('U') >= $comparisonDate));
 	}
+
 	/**
 	 * Devuelve true si la actividad esta retrasada, su inicio o fin estan vencidos y mayores a la tolerancia
 	 * @return bool si o no dependiendo de si esta demorada
 	 */
 	function isLate() {
-		// Tolerancia en dias
+		$comparisonTime = time();
 		global $system;
+		// Tolerancia en dias
 		if ($system["config"]["tablero"]["activities"]["parameterControl"]["value"] == "DAYS") {
 			$days = $system["config"]["tablero"]["activities"]["delayed"];
 			if ($days > 0)
 				$comparisonTime = time() - ($days * 24 * 60 * 60);
-			else
-				$comparisonTime = time();
 		}
+
 		$comparisonDate = strtotime(date('Y-m-d', $comparisonTime)); 		// tiempo del comienzo del dia (comparo contra un date, no un datetime)
+
 		if ($this->getObjecttype() == "Construction")
 			return (($this->getEndingDate('U') < date('U')) && ($this->getEndingDate('U') < $comparisonDate));
 		else
@@ -236,6 +238,7 @@ class PlanningActivity extends BasePlanningActivity {
 			else
 				return (($this->getStartingDate('U') < date('U')) && ($this->getStartingDate('U') < $comparisonDate));
 	}
+
 	/**
 	 * Devuelve true si la actividad esta a termino
 	 * @return bool si o no dependiendo de si esta a termino
