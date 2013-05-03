@@ -134,6 +134,13 @@ class BlogEntry extends BaseBlogEntry {
 	 */ 
 	public function getApprovedCommentsCount() {
 		
+		$approved = BlogCommentQuery::create()
+			->filterByEntryId($this->getId())
+			->filterByStatus(BlogComment::APPROVED)
+			->find();
+			
+		return count($approved);
+		
 		$criteria = $this->getApprovedCommentsCriteria();
 		return BlogCommentPeer::doCount($criteria);
 		

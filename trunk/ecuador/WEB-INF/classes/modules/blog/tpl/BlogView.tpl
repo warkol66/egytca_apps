@@ -9,9 +9,9 @@
 Puede regresar a la página principal del blog haciendo click <a href="Main.php?do=blogShow">aquí</a></div>
 |-else-|
 <!-- begin blog01 -->
-<div class="blog01">
-<h4>|-$blogEntry->getCreationDate()|date_format:"%A %e de %B de %Y"-|</h4>
-<h1>|-$blogEntry->getTitle()-|</h1>	
+<div class="article">
+<h5>|-$blogEntry->getCreationDate()|date_format:"%A %e de %B de %Y"-|</h5>
+<h2>|-$blogEntry->getTitle()-|</h2>	
 <div id="completeText">
 |-$blogEntry->getBody()-|
 </div>
