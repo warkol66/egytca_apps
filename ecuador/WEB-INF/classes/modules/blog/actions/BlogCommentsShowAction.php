@@ -12,7 +12,7 @@ class BlogCommentsShowAction extends BaseEditAction {
 		$module = "Blog";
 		$this->smarty->assign("module",$module);
 		
-		$this->smarty->assign($comments, BlogEntryQuery::getBlogComments($this->entity->getid()));
+		$this->smarty->assign($comments, $this->entity->getBlogComments());
 	}
 
 }
