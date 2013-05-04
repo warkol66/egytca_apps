@@ -19,12 +19,13 @@ El precio anterior se muestra como referencia y no puede ser modificado.
 	<p>Ingrese el precio en cada proveedor y haga click en &quot;Guardar&quot; </p>
 <table class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 	<tr>
-		<th width="4%">Precio</th>
+		<th width="3%">Precio</th>
 		<th width="50%">Proveedor</th>
 		<th width="20%">Precio anterior</th>
 		<th width="20%">Precio</th>
-		<th width="6%">Definitivo</th>
-		<th width="8%">Respaldo</th>
+		<th width="3%">Definitivo</th>
+		<th width="3%">Respaldo</th>
+		<th width="1%">&nbsp;</th>
 	</tr>
 	|-for $i=1 to 4-|
 		|-assign var='getAffiliateRelatedBySupplierid' value='getAffiliateRelatedBySupplierid'|cat:$i-|
@@ -34,7 +35,7 @@ El precio anterior se muestra como referencia y no puede ser modificado.
 		|-assign var='getDocumentRelatedBySupplierdocument' value='getDocumentRelatedBySupplierdocument'|cat:$i-|
 		|-assign var='getSupplierDocument' value='getSupplierDocument'|cat:$i-|
 		<tr>
-			<td>|-$i-|</td>
+			<td align="center">|-$i-|</td>
 			<td>
 				|-assign var='supplier' value=$priceBulletin->$getAffiliateRelatedBySupplierid()-|
 				<span id="supplier|-$i-|_name">|-if $supplier neq ''-||-$supplier->getName()-||-else-|&nbsp;-&nbsp;|-/if-|</span>
@@ -56,12 +57,11 @@ El precio anterior se muestra como referencia y no puede ser modificado.
 					<input type="submit"  onclick="return confirm('Seguro que desea eliminar el respaldo definitivamente?')" class="icon iconDelete" />
 				</form>|-/if-|
 			</td>
+			<td align="center" nowrap="nowrap"><input class="icon desabled">
+			</td>
 		</tr>
 	|-/for-|
 </table>
-	
-
-
 	<h3>Precio del boletín</h3>
 	<p>
 		<label for="averagePrice">Precio</label>
@@ -80,13 +80,10 @@ El precio anterior se muestra como referencia y no puede ser modificado.
 </fieldset>
 	
 <script type="text/javascript" src="scripts/lightbox.js"></script>
-|-section name=lightboxes start=1 loop=4 step=1-|
+|-section name=lightboxes start=1 loop=5 step=1-|
 |-assign var=i value=$smarty.section.lightboxes.index-|
 <div id="lightbox|-$i-|" class="leightbox"> 
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p>
-	
-
-	
 	<form method="post" action="Main.php?do=vialidadSupplyPriceDoAddDocument" enctype="multipart/form-data" id="documentsAdderForm|-$i-|">
 	<input type="hidden" name="id" value="|-$priceBulletin->getId()-|" />
 	<input type="hidden" name="supplierNumber" value="|-$i-|" />
@@ -126,7 +123,7 @@ function attachSupplierAutocompleter(elementName, number) {
 	new Ajax.Autocompleter(
 		elementName,
 		"autocomplete_choices"+number,
-		"Main.php?do=affiliatesAutocompleteListX",
+		"Main.php?do=affiliatesAutocompleteListX&getCandidates=true&bulletinId=1&supplyId=1&supplierId="+number,
 		{
 			minChars: 3,
 			afterUpdateElement: function(text, li) {
