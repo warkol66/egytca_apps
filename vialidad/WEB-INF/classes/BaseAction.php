@@ -14,6 +14,11 @@ include_once("Action.php");
 require_once("Smarty_config.inc.php");
 require_once("BaseQuery.php");
 
+require_once 'BaseListAction.php';
+require_once 'BaseEditAction.php';
+require_once 'BaseDoEditAction.php';
+require_once 'BaseDoDeleteAction.php';
+
 /**
 * Implementation of <strong>Action</strong> that demonstrates the use of the Smarty
 * compiling PHP template engine within php.MVC.
