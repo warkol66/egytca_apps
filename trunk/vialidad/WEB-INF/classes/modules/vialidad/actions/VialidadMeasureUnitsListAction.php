@@ -4,12 +4,11 @@
  *
  * Listado de Unidades de Medida basado en BaseListAction
  */
-require_once 'BaseListAction.php';
 
 class VialidadMeasureUnitsListAction extends BaseListAction {
 	
 	function __construct() {
-		parent::__construct('MeasureUnit','Vialidad');
+		parent::__construct('MeasureUnit');
 	}
 	
 	protected function postList() {

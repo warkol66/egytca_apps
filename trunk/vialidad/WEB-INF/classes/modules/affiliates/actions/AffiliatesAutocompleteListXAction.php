@@ -22,13 +22,14 @@ class AffiliatesAutocompleteListXAction extends BaseAction {
         $searchString = $_REQUEST['value'];
         $smarty->assign("searchString",$searchString);
 
-
 				if ($_REQUEST['getCandidates']) {
 					$bulletinPrice = PriceBulletinQuery::create()->filterByBulletinid($_REQUEST['bulletinId'])->filterBySupplyid($_REQUEST['supplyId'])->findOne();
-					for ($i = 1; $i <= 4; $i++) {
-						if ($i != $_REQUEST['supplierId']) {
-							$method = "getsupplierId" . $i;
-							$alreadyRelated[] = $bulletinPrice->$method();
+					if (!empty($bulletinPrice)) {
+						for ($i = 1; $i <= 4; $i++) {
+							if ($i != $_REQUEST['supplierId']) {
+								$method = "getsupplierId" . $i;
+								$alreadyRelated[] = $bulletinPrice->$method();
+							}
 						}
 					}
 				}

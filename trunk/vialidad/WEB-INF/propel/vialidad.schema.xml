@@ -207,7 +207,7 @@
 
 	</table>
 
-	<table name="vialidad_contractSource" phpName="ContractSource" isCrossRef="true" description="Contract / Source">
+	<table phpName="ContractSource" name="vialidad_contractSource" isCrossRef="true" description="Contract / Source">
 
 		<column name="contractId" required="true" primaryKey="true" type="INTEGER" description="Contract ID"/>
 		<column name="sourceId" required="true" primaryKey="true" type="INTEGER" description="Source ID"/>
@@ -289,7 +289,7 @@
 
 	</table>
 
-	<table name="vialidad_constructionDepartment" phpName="ConstructionDepartment" isCrossRef="true" description="Construction / Deparment">
+	<table phpName="ConstructionDepartment" name="vialidad_constructionDepartment" isCrossRef="true" description="Construction / Deparment">
 
 		<column name="constructionId" required="true" primaryKey="true" type="INTEGER" description="Construction ID"/>
 		<column name="departmentId" required="true" primaryKey="true" type="INTEGER" description="Department ID"/>
@@ -432,6 +432,30 @@
 
 		<foreign-key foreignTable="vialidad_measurementRecord" onDelete="cascade" >
 			<reference local="measurementRecordId" foreign="id" />
+		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="Invoice" name="vialidad_invoice" description="Facturas">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+		<column name="certificateId" type="INTEGER" required="true"  description="Id del certificado asociado" />
+		<column name="contractorNumber" type="VARCHAR" size="50" description="Numero de factura del contratista" />
+		<column name="advancePayment" type="DECIMAL" size="12" scale="2" description="Anticipo" />
+		<column name="advancePaymentRecovery" type="DECIMAL" size="12" scale="2" description="Recupero de Anticipo" />
+		<column name="withholding" type="DECIMAL" size="12" scale="2" description="Retenciones" />
+		<column name="totalPrice" type="DECIMAL" size="12" scale="2" description="Importe" />
+		<column name="status" type="INTEGER" description="Estado de la Factura" />
+
+		<behavior name="timestampable" />
+
+		<foreign-key foreignTable="vialidad_certificate" onDelete="cascade" >
+			<reference local="certificateId" foreign="id" />
 		</foreign-key>
 		
 		<vendor type="mysql">
