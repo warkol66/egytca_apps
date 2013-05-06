@@ -19,6 +19,7 @@ class VialidadBulletinDoDeletePriceXAction extends BaseAction {
 			
 			$priceBulletin->deletePriceN($priceNumber);
 				
+			$smarty->assign('bulletin', $priceBulletin->getBulletin());
 			$smarty->assign('priceBulletin', $priceBulletin);
 			$smarty->assign('priceNumber', $priceNumber);
 			$smarty->assign('attachInplaceEditors', true);

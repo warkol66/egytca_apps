@@ -9,9 +9,8 @@
 
 <h1>Administración de Precios - |-$bulletin->getBulletindate()|date_format:"%B / %Y"|@ucfirst-|</h1>
 	
-<p>A continuación podrá administrar los precios del insumo: |-$supply->getName()-|. <br />
-El precio es por "<strong>|-$supply->getMeasureUnit()->getName()-| (|-$supply->getMeasureUnit()-|)</strong>" expresado en Guaraníes (sin separador de miles).<br />
-El precio anterior se muestra como referencia y no puede ser modificado.
+<p>A continuación podrá administrar los precios del insumo: |-$supply->getName()-|. El precio es por "<strong>|-$supply->getMeasureUnit()->getName()-| (|-$supply->getMeasureUnit()-|)</strong>" expresado en Guaraníes sin separador de miles. (El precio anterior se muestra como referencia y no puede ser modificado)<br />
+Para que el precio sea considerado definitivo, debe marcarse la casilla correspondiente en todos los precios, incluso los vacíos, indicando que no se suministrará otro precio.
 </p>
 
 <fieldset title="Formulario de edición de precios del Insumo">

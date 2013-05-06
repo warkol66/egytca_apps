@@ -35,13 +35,14 @@
 			<input type="submit"  onclick="return confirm('Seguro que desea eliminar el respaldo definitivamente?')" class="icon iconDelete" />
 		</form>|-/if-|
 	</td>
-	<td align="center" nowrap="nowrap"><input type="button" class="icon iconDelete" onclick="if (confirm('Eliminar?')) { deletePrice(|-$i-|) };" title="eliminar proveedor">
+	<td align="center" nowrap="nowrap"><input type="button" |-if !$bulletin->getPublished()-|class="icon iconDelete" onclick="if (confirm('¿Está seguro que desea eliminar el precio?')) { deletePrice(|-$i-|) };" title="Elimnar información de precio y proveedor"|-else-|class="icon iconDelete disabled"|-/if-|>
 	</td>
 </tr>
 
-|-if $attachInplaceEditors|default:false-|
+|-if $attachInplaceEditors|default:false && !$bulletin->getPublished()-|
 	<script>
 		attachInPlaceEditor('price|-$i-|');
 		attachSupplierEditor(|-$i-|);
+		updateDefinitive();
 	</script>
 |-/if-|
