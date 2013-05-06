@@ -28,38 +28,7 @@ El precio anterior se muestra como referencia y no puede ser modificado.
 		<th width="1%">&nbsp;</th>
 	</tr>
 	|-for $i=1 to 4-|
-		|-assign var='getAffiliateRelatedBySupplierid' value='getAffiliateRelatedBySupplierid'|cat:$i-|
-		|-assign var='getLastprice' value='getLastprice'|cat:$i-|
-		|-assign var='getPrice' value='getPrice'|cat:$i-|
-		|-assign var='getDefinitive' value='getDefinitive'|cat:$i-|
-		|-assign var='getDocumentRelatedBySupplierdocument' value='getDocumentRelatedBySupplierdocument'|cat:$i-|
-		|-assign var='getSupplierDocument' value='getSupplierDocument'|cat:$i-|
-		<tr>
-			<td align="center">|-$i-|</td>
-			<td>
-				|-assign var='supplier' value=$priceBulletin->$getAffiliateRelatedBySupplierid()-|
-				<span id="supplier|-$i-|_name">|-if $supplier neq ''-||-$supplier->getName()-||-else-|&nbsp;-&nbsp;|-/if-|</span>
-				<div id="autocomplete_choices|-$i-|" class="autocomplete" style="position: relative;z-index:12000;display: none;" ></div>
-			</td>
-			<td align="right">|-$priceBulletin->$getLastprice()|system_numeric_format-|</td>
-			<td align="right"><span id="price|-$i-|" |-if "vialidadSupplyPriceEdit"|security_has_access-|class="in_place_editable"|-/if-|>|-$priceBulletin->$getPrice()|system_numeric_format-|</span></td>
-			<td align="center"><input id="definitive|-$i-|" onchange="setParam('definitive|-$i-|', this.checked);updateDefinitive();" type="checkbox" value="1" |-$priceBulletin->$getDefinitive()|checked_bool-| /></td>
-			<td align="center" nowrap="nowrap">
-				|-assign var='document' value=$priceBulletin->$getDocumentRelatedBySupplierdocument()-|
-				|-if $document eq ''-|<a href="#lightbox|-$i-|" rel="lightbox|-$i-|" class="lbOn"><img src="images/clear.png" class="icon iconAttach" /></a>|-/if-|
-				|-if $document neq ''-|
-				|-if !empty($document) && ($document->getDescription() neq '' || $document->getTitle() ne '')-|
-				<a class="tooltip" href="#"><span>|-$document->getDescription()-|</span><img src="images/clear.png" class="icon iconInfo"></a>|-/if-|
-				<input onclick="window.open('Main.php?do=documentsDoDownload&view=1&id=|-$priceBulletin->$getSupplierDocument()-|')" type="button" class="icon iconView" />
-				<form action="Main.php?do=vialidadSupplyPriceDoDeleteDocument" method="post">
-					<input type="hidden" name="id" value="|-$priceBulletin->getId()-|" />
-					<input type="hidden" name="supplierNumber" value="|-$i-|" />
-					<input type="submit"  onclick="return confirm('Seguro que desea eliminar el respaldo definitivamente?')" class="icon iconDelete" />
-				</form>|-/if-|
-			</td>
-			<td align="center" nowrap="nowrap"><input class="icon desabled">
-			</td>
-		</tr>
+		|-include file='VialidadPriceInclude.tpl' priceBulletin=$priceBulletin priceNumber=$i-|
 	|-/for-|
 </table>
 	<h3>Precio del boletín</h3>
@@ -119,6 +88,21 @@ var requestParamValue;
 var supplierId = new Array();
 var submitButton;
 
+deletePrice = function(priceNumber) {
+	new Ajax.Updater(
+		'priceBulletinPrice'+priceNumber,
+		'Main.php?do=vialidadBulletinDoDeletePriceX',
+		{
+			method: 'post',
+			parameters: {
+				priceBulletinId: '|-$priceBulletin->getId()-|',
+				priceNumber: priceNumber
+			},
+			evalScripts: true
+		}
+	);
+}
+
 function attachSupplierAutocompleter(elementName, number) {
 	new Ajax.Autocompleter(
 		elementName,
@@ -135,7 +119,7 @@ function attachSupplierAutocompleter(elementName, number) {
 );
 }
 
-function attachSupplierEditor(number) {
+attachSupplierEditor = function(number) {
 	new Ajax.InPlaceEditor(
 		'supplier'+number+'_name',
 		'Main.php?do=vialidadSupplyPriceEditFieldX',
@@ -215,7 +199,7 @@ Object.extend(Ajax.InPlaceEditor.prototype, {
 	}
 });
 
-function attachInPlaceEditor(name) {
+attachInPlaceEditor = function(name) {
 	new Ajax.InPlaceEditor(
 		name,
 		'Main.php?do=vialidadSupplyPriceEditFieldX',
