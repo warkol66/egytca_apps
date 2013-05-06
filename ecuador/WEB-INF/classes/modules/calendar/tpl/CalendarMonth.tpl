@@ -59,6 +59,3 @@
 |-include file="CalendarInProgressInclude.tpl" eventsInProgress=$eventsBeforeMonth-|
 </div>
 |-/if-|
-<div id="rightColumn">
-.
-</div>
