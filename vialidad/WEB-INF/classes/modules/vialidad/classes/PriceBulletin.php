@@ -70,5 +70,42 @@ class PriceBulletin extends BasePriceBulletin {
 		}
 		return $price;
 	}
+	
+	/**
+	 * elimina el n-ésimo precio
+	 * @param type $priceNumber
+	 */
+	function deletePriceN($priceNumber) {
+		
+		if ($priceNumber < 1 || $priceNumber > 4)
+			throw new Exception('invalid price number');
+		
+		$setSupplierId = "setSupplierId$priceNumber";
+		$setPrice = "setPrice$priceNumber";
+		$setLastPrice = "setLastprice$priceNumber";
+		$setDefinitive = "setDefinitive$priceNumber";
+			
+		$this->$setSupplierId(null);
+		$this->$setPrice(null);
+		$this->$setLastPrice(null);
+		$this->$setDefinitive(false);
+		$this->deleteSupplierDocumentN($priceNumber);
+		
+		$this->save();
+	}
+	
+	function deleteSupplierDocumentN($documentNumber) {
+		
+		if ($documentNumber < 1 || $documentNumber > 4)
+			throw new Exception('invalid document number');
+		
+		$setSupplierDocument = "setSupplierDocument$documentNumber";
+		$getDocumentRelatedBySupplierDocument = "getDocumentRelatedBySupplierDocument$documentNumber";
+		
+		$document = $this->$getDocumentRelatedBySupplierDocument();
+		if ($document)
+			$document->delete();
+		$this->$setSupplierDocument(null);
+	}
     
 } // PriceBulletin
