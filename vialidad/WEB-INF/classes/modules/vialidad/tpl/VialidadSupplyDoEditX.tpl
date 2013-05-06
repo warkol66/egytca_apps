@@ -14,7 +14,7 @@
 	</td>
 	<td>
 		|-if "vialidadSupplyEdit"|security_has_access-|
-			<span id="unit_|-$supply->getId()-|" class="in_place_editable">|-$supply->getUnit()-|</span>
+			<span id="unit_|-$supply->getId()-|" class="in_place_editable">|-$supply->getMeasureUnit()-|</span>
 		<!--<select id="select_unit_|-$supply->getId()-|" style="display:none" onchange="updateUnit('|-$supply->getId()-|', this.value);this.hide();$('span_unit_|-$supply->getId()-|').show();" onblur="this.hide();$('span_unit_|-$supply->getId()-|').show();">
 			|-foreach from=$allUnits item=unit-|
 			<option value="|-$unit-|" |-$unit|selected:$supply->getUnit()-|>|-$unit-|</option>
