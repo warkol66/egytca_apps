@@ -88,8 +88,9 @@ class CalendarMonthAction extends BaseListAction {
 			$days = $event->getEventDaysOnMonth($year,$month);
    			foreach ($days as $day) {
 				$daysEvents[$day][] = $event;
-			}	
+			}
 		}
+		
 
 		$firstDay = date("w",mktime(0, 0, 0, $month, 1, $year));
 		$beginOnSunday = $moduleConfig["beginOnSunday"]["value"];

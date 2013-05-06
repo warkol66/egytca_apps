@@ -149,6 +149,7 @@ class CalendarEvent extends BaseCalendarEvent{
 	$monthStart = substr($start,5,2);
 	$yearStart = substr($start,0,4);
 	$dayStart = substr($start,8,2);
+	
 	$monthEnd = substr($end,5,2);
 	$yearEnd = substr($end,0,4);
 	$dayEnd = substr($end,8,2);
@@ -157,10 +158,10 @@ class CalendarEvent extends BaseCalendarEvent{
 	$days_in_month = cal_days_in_month (CAL_GREGORIAN, $month, $year);
 
 	if ($dayStart <= 9)
-		$dayStart = $dayStart[1];
+		$dayStart = $dayStart[0];
 
 	if ($dayEnd <= 9)
-		$dayEnd = $dayEnd[1];
+		$dayEnd = $dayEnd[0];
 
 
 	if ($yearStart < $year || $monthStart < $month) {
@@ -173,7 +174,7 @@ class CalendarEvent extends BaseCalendarEvent{
 
 	$day = $dayStart;
 	
-	//return $day;
+	//return $dayStart;
 	
 	while ($day <= $dayEnd) {
 		$days[] = $day;
@@ -192,7 +193,6 @@ class CalendarEvent extends BaseCalendarEvent{
 	*/
 	function getMonthStartDate($year, $month) {
 		return $year.'-'.$month.'-01 00:00:00';
-		$paramEnd = $year.'-'.$month.'-'.$daysInMonth.' 23:59:59';
 	}
 	
   	/**
@@ -292,24 +292,7 @@ class CalendarEvent extends BaseCalendarEvent{
 			->where(array('c02','c45'), 'or')
 			->filterByStatus(CalendarEvent::PUBLISHED)
 			->find();
-		/*$c = new Criteria();
-
-		$crit0 = $c->getNewCriterion(CalendarEventPeer::STARTDATE,$paramStart,Criteria::GREATER_EQUAL);
-		$crit1 = $c->getNewCriterion(CalendarEventPeer::STARTDATE,$paramEnd,Criteria::LESS_EQUAL);
-		$crit0->addAnd($crit1);
-		$crit2 = $c->getNewCriterion(CalendarEventPeer::ENDDATE,$paramEnd,Criteria::LESS_EQUAL);
-		$crit3 = $c->getNewCriterion(CalendarEventPeer::ENDDATE,$paramStart,Criteria::GREATER_EQUAL);
-		$crit2->addAnd($crit3);
-		$crit0->addOr($crit2);
-		$crit4 = $c->getNewCriterion(CalendarEventPeer::STARTDATE,$paramStart,Criteria::LESS_EQUAL);
-		$crit5 = $c->getNewCriterion(CalendarEventPeer::ENDDATE,$paramEnd,Criteria::GREATER_EQUAL);
-		$crit4->addAnd($crit5);
-		$crit0->addOr($crit4);
-		$c->add($crit0);
-
-		$c->add(CalendarEventPeer::STATUS,CalendarEventPeer::PUBLISHED);
-
-		$result = CalendarEventPeer::doSelect($c);*/
+			
 		return $result;
 	 }
 
