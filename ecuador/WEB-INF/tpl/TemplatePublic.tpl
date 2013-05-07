@@ -4,9 +4,10 @@
 |-block name="title"-|<title>|-if isset($module)-||-$module|multilang_get_translation:"common"-| - |-/if-||-$parameters.siteName-|</title>|-/block-|
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="css/main.css" type="text/css">
-<!--[if IE 7]><link rel="stylesheet" type="text/css" href="css/ie7.css" media="screen" /><![endif]-->
-<!--[if IE]><link rel="stylesheet" type="text/css" href="css/ie.css" media="screen" /><![endif]-->
-<link rel="stylesheet" href="css/mainHandheld.css" type="text/css" media="handheld">
+<!--[if lte IE 6]> <link href="css/styles-ie6.css" rel="stylesheet" type="text/css"> <![endif]-->
+<!--[if gt IE 6]> <link href="css/styles-ie.css" rel="stylesheet" type="text/css"> <![endif]-->
+<!--[if IE 7]> <link href="css/styles-ie7.css" rel="stylesheet" type="text/css"> <![endif]-->
+<!--[if IE 8]> <link href="css/styles-ie8.css" rel="stylesheet" type="text/css"> <![endif]-->
 <link rel="stylesheet" href="css/print.css" type="text/css" media="print">
 <link rel="shortcut icon" href="images/favicon.ico">
 <script language="JavaScript" type="text/JavaScript">
@@ -24,16 +25,19 @@
 	<b class="rounded"><b class="rtop"><b class="r7"></b><b class="r6"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r1"></b></b></b>
 	<!-- Begin Header -->
 	<div id="header"><span>Empoderando al ciudadano,<br />gracias a los Derechos y Obligaciones conferidos <br />en las Leyes de Autonomía y Descentralización</span>
-               <ul>
-    	           	<li><a href="#" class="facebook"></a></li>
-	               	<li><a href="#" class="twitter"></a></li>
-                </ul>                
+     <ul>
+       	<li><a href="#" class="facebook"></a></li>
+       	<li><a href="#" class="twitter"></a></li>
+      </ul>                
 		<a href="Main.php"><strong>|-$parameters.siteName-|</strong></a>
 				<h1 id="headerLogo">
 					<a href="index.html"><strong>Parroquias Rurales Ecuador</strong></a>
 				</h1> 
 	</div>
 	<!-- End Header -->
+	<!-- Begin contentWrapper -->
+		<div id="contentWrapper">
+			<!-- Begin Left Column -->
 	<div class="clear"></div>
 	<div class="allColumns">
 					|-include file="MenuHorizontalPublic.tpl"-|
@@ -44,7 +48,7 @@
 	<!-- Begin contentWrapper -->
 		<div id="contentWrapper">
 			<!-- Begin Right Column -->
-				<div id="leftColumn">
+				<div id="rightColumn">
 					<!--centerHTML start-->
 					|-$centerHTML-|
 					<!--centerHTML end -->
@@ -65,7 +69,7 @@
                 <li><a href="#">Contacto</a></li>
                 <li><a href="#">Mapa del Sitio</a></li>
               </ul>
-		<p>Copyright©2013 Parroquias Rurales Ecuador / Desarrollado por Módulos Empresarios.</p>
+		<p>Copyright©2013 Lídres Parroquiales Ecuador / Desarrollado por Módulos Empresarios.</p>
 	</div>
 	<!-- End Footer -->
 </div>

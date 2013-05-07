@@ -8,7 +8,6 @@
 <!--[if gt IE 6]> <link href="css/styles-ie.css" rel="stylesheet" type="text/css"> <![endif]-->
 <!--[if IE 7]> <link href="css/styles-ie7.css" rel="stylesheet" type="text/css"> <![endif]-->
 <!--[if IE 8]> <link href="css/styles-ie8.css" rel="stylesheet" type="text/css"> <![endif]-->
-<link rel="stylesheet" href="css/mainHandheld.css" type="text/css" media="handheld">
 <link rel="stylesheet" href="css/print.css" type="text/css" media="print">
 <link rel="shortcut icon" href="images/favicon.ico">
 <script language="JavaScript" type="text/JavaScript">
@@ -26,6 +25,10 @@
 	<b class="rounded"><b class="rtop"><b class="r7"></b><b class="r6"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r1"></b></b></b>
 	<!-- Begin Header -->
 	<div id="header"><span>Empoderando al ciudadano,<br />gracias a los Derechos y Obligaciones conferidos <br />en las Leyes de Autonomía y Descentralización</span>
+     <ul>
+       	<li><a href="#" class="facebook"></a></li>
+       	<li><a href="#" class="twitter"></a></li>
+      </ul>                
 		<a href="Main.php"><strong>|-$parameters.siteName-|</strong></a>
 		<h1 id="headerLogo">
 			<a href="index.html"><strong>Parroquias Rurales Ecuador</strong></a>
@@ -54,7 +57,15 @@
 	<!-- End contentWrapper -->
 	<!-- Begin Footer -->
 	<div id="footer">		       
-		<p>Desarrollado por Módulos Empresarios.</p>
+              <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Trayectoria</a></li>
+                <li><a href="#">Parlamentarias</a></li>
+                <li><a href="#">Novedades</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li><a href="#">Mapa del Sitio</a></li>
+              </ul>
+		<p>Copyright©2013 Lídres Parroquiales Ecuador / Desarrollado por Módulos Empresarios.</p>
 	</div>
 	<!-- End Footer -->
 </div>
