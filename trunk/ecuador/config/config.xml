@@ -141,7 +141,7 @@
 			</element_options>
 		</mode>
 		<useCaptcha>
-			<value>NO</value>
+			<value>YES</value>
 			<element_type>YES/NO</element_type>
 		</useCaptcha>
 		<newsletterSubscription>
