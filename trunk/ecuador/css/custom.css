@@ -1003,4 +1003,119 @@ p.commentData {color:#993333;}
 p.commentData span {font-weight:bold;}
 
 
-
+#calendar{
+	padding:10px 10px 5px 0px
+}
+.eventsMonth{
+	empty-cells:show;
+	table-layout:fixed;
+	padding:5px
+}
+.eventsMonth td{
+	border:solid 1px #999999;
+	padding:10px;
+	vertical-align:top
+}
+.eventsMonth th{
+	color:#006699;
+	text-align:center;
+	font-size:1.2em;
+	font-weight:bold;
+	padding:5px;
+	vertical-align:top;
+	border:solid 1px #999999
+}
+.eventsMonth tbody tr td ul li{
+	list-style-type:disc;
+	list-style-position:inside
+}
+#calendar h1{
+	margin:5px 0px 5px 0px;
+	display:block;
+	clear:both
+}
+#calendar a.eventTitle{
+	font-size:1.5em;
+	font-weight:bold;
+	color:#006699;
+	text-decoration:none
+}
+#calendar .eventDate{
+	font-size:1em;
+	font-weight:bold
+}
+#calendar li{
+	font-size:1.1em
+}
+#calendar .events li{
+	display:inline
+}
+.eventsDay{
+	color:#990000;
+	font-size:1.5em;
+	font-weight:bold;
+	float:left;
+	width:20px;
+	padding-left:5px;
+	overflow:hidden
+}
+.events{
+	display:inline;
+	float:left;
+	margin:0 0 15px 10px;
+	padding:0 0 0 8px;
+	clear:right;
+	border-left:#990000 2px solid;
+	width:465px
+}
+.currentDay{
+	background-color:#fff4ce
+}
+.calendarClose{
+	display:block;
+	float:none;
+	clear:both
+}
+.dayNumber{
+	color:#8B8B8B;
+	font-size:1.2em
+}
+a.dayEventNumber{
+	color:#990000;
+	font-weight:bold;
+	text-decoration:none;
+	font-size:1.2em
+}
+#titleAgenda{
+	width:520px !important;
+	width:514px;
+	height:auto;
+	padding:5px 5px 5px 5px;
+	margin:0px 0px 10px 0px;
+	color:#990000;
+	font-size:1.4em;
+	font-weight:bold;
+	text-transform:uppercase;
+	border:1px solid #CCCCCC;
+	background-color:#fff4ce
+}
+#titleAgenda a{
+	color:#990000;
+	text-decoration:none
+}
+#titleAgenda a:visited{
+	color:#990000;
+	text-decoration:none
+}
+#titleAgenda a:hover{
+	color:#990000;
+	text-decoration:underline
+}
+#icoAgenda{
+	width:42px;
+	height:35px;
+	background-image:url(../images/ico_calendar.gif);
+	float:right;
+	position:absolute;
+	margin:-10px 0px 0px 475px
+}

@@ -96,7 +96,7 @@ class BaseListAction extends BaseAction {
 		// Informacion para armar los links de paginador
 		$url = "Main.php?" . "do=" . lcfirst(substr_replace(get_class($this),'', strrpos(get_class($this), 'Action'), 6));
 		foreach ($this->filters as $key => $value)
-			$url .= "&filters[$key]=$value";
+			$url .= "&filters[$key]=" . htmlentities(urlencode($value));
 		$this->smarty->assign("url",$url);
 		$this->smarty->assign("filters", $this->filters);
 		$this->smarty->assign("page", $this->page);
