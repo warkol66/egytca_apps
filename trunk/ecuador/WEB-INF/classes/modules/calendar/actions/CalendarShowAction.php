@@ -25,6 +25,7 @@ class CalendarShowAction extends BaseListAction {
 
 		$module = "Calendar";
 		$this->smarty->assign("module",$module);
+		//$this->smarty->assign("CalendarEventColl",$this->results);
 		
 		if (isset($_REQUEST["rss"])) {
 			$this->template->template = "TemplatePlain.tpl";
