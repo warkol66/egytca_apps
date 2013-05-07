@@ -50,7 +50,7 @@ class CalendarPreviewAction extends BaseAction {
 			$this->template->template = "TemplateNewsHome.tpl";
 			$events = array();
 			array_push($events,$preview);
-			$smarty->assign("calendarEvents",$events);
+			$smarty->assign("calendarEventColl",$events);
 
 			return $mapping->findForwardConfig('success-home');
 		}
