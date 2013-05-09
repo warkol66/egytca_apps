@@ -32,7 +32,7 @@ class CommonSendSchedulesAction extends BaseAction {
 				$subject = Common::getTranslation('Schedule','users');
 				$smarty->assign('scheduleSubscription', $scheduleSubscription);
 				$body = $smarty->fetch('CommonScheduleMail.tpl');
-				$partialRecipients = ScheduleSubscriptionPeer::sendSchedule($scheduleSubscription, $body, $recipients, $subject);
+				$partialRecipients = ScheduleSubscription::sendSchedule($scheduleSubscription, $body, $recipients, $subject);
 				$totalRecipients = array_merge($totalRecipients, $partialRecipients);
 			}	
 		}

@@ -185,47 +185,6 @@ class AlertSubscriptionPeer extends BaseAlertSubscriptionPeer {
 	}
 	
 	/**
-	 * Envia una alerta.
-	 * @param $object el objeto sobre el cual notificar. Puede ser un AlertSubscription o cualquier objeto.
-	 * @param $body cuerpo del mensaje.
-	 * @param $recipients destinatarios. Puede ser un array o un único destinatario.
-	 * @param $subject asunto del mensaje. Por defecto es 'Alerta: <descripcion de la entidad del objeto según ModulesEntities>'.
-	 * 
-	 * @return array con los destinatarios a los que realmente se les llego a envíar un mensaje.
-	 */
-	public static function sendAlert($object, $body, $recipients, $subject = null) {
-		$system = Common::getModuleConfiguration("system");
-		$totalRecipients = array();
-		$className = get_class($object);
-		if (!is_array($recipients))
-			$recipients = array($recipients);
-		foreach($recipients as $recipient) {
-			$mailTo = $recipient;
-			if ($subject === null) {
-				$subject = 'Alerta: ';
-				$moduleEntity = ModuleEntityQuery::create()->filterByPhpName($className)->findOne();
-				if (!empty($moduleEntity))
-					$entityDescription = $moduleEntity->getDescription();
-				$subject .= $entityDescription;
-			}
-			$mailFrom = $system["parameters"]["fromEmail"];
-			
-			if (class_exists('InternalMailPeer')) {
-				$recipientsUsers = $object->getUsers();
-				$fromUser = UserPeer::get(-1);  //Usuario "system"
-				InternalMailPeer::sendToUsers($subject, $body, $recipientsUsers, $fromUser);
-			}
-			
-			$manager = new EmailManagement();
-			$manager->setTestMode();
-			$message = $manager->createHTMLMessage($subject,$body);
-			$result = $manager->sendMessage($mailTo,$mailFrom,$message); // se envía.
-			$totalRecipients[] = $mailTo;
-		}
-		return $totalRecipients;
-	}
-	
-	/**
 	 * Envia una alerta usando Smarty para renderizar el cuerpo del mail.
 	 * @param $object el objeto sobre el cual notificar. Puede ser un AlertSubscription o cualquier objeto.
 	 * @param $smarty referencia al plugin de Smarty.

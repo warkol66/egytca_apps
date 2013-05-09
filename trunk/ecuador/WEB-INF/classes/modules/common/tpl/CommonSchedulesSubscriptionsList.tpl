@@ -31,15 +31,16 @@
 				<th width="5%">&nbsp;</th> 
 			</tr> 
 		</thead> 
-	<tbody>|-if $schedulesSubscriptions|@count eq 0-|
+	<tbody>|-if $scheduleSubscriptionColl|@count eq 0-|
 		<tr>
 			 <td colspan="7">|-if isset($filter)-|No hay suscripciones a agendas que concuerden con la búsqueda|-else-|No hay suscripciones a agendas disponibles|-/if-|</td>
 		</tr>
 	|-else-|
-		|-foreach from=$schedulesSubscriptions item=scheduleSubscription name=for_schedulesSubscriptions-|
+		|-foreach from=$scheduleSubscriptionColl item=scheduleSubscription name=for_schedulesSubscriptions-|
 		<tr> 
 			<td>|-$scheduleSubscription->getName()-|</td> 
-			<td>|-assign var=moduleEntity value=$scheduleSubscription->getModuleEntity()-||-$moduleEntity->getPhpName()-|</td>
+			|-assign var=moduleEntity value=$scheduleSubscription->getModuleEntity()-|
+				<td>|-if is_object($moduleEntity)-||-$moduleEntity->getPhpName()-| |-/if-|</td>
 			<td nowrap> 
 				<form action="Main.php" method="get" style="display:inline;"> 
 					<input type="hidden" name="do" value="commonSchedulesSubscriptionsEdit" /> 
@@ -60,13 +61,13 @@
 			</td> 
 		</tr> 
 		|-/foreach-|
-		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
+		|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 		<tr> 
 			<td colspan="7" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 			<tr>
-				 <th colspan="7" class="thFillTitle">|-if $schedulesSubscriptions|@count gt 5-|<div class="rightLink"><a href="Main.php?do=commonSchedulesSubscriptionsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addNew">Agregar Suscripción a Agenda</a></div>|-/if-|</th>
+				 <th colspan="7" class="thFillTitle">|-if $scheduleSubscriptionColl|@count gt 5-|<div class="rightLink"><a href="Main.php?do=commonSchedulesSubscriptionsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addNew">Agregar Suscripción a Agenda</a></div>|-/if-|</th>
 			</tr>
 		|-/if-|
 		</tbody> 

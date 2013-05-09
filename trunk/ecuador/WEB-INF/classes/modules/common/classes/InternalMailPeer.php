@@ -145,36 +145,6 @@ class InternalMailPeer extends BaseInternalMailPeer {
 		$reply->setReplyId($replyId);
 		return $reply;
 	}
-	
-	/**
-	 * Envía mensajes internos simulando un mailer común y corriente.
-	 * 
-	 * La diferencia es que en lugar de direcciones de correo, recibe usuarios.
-	 * 
-	 * @param string $subject, asunto del mensaje.
-	 * @param string $body, cuerpo del mensaje.
-	 * @param array $recipientsUsers, usuarios destinatarios.
-	 * @param User $fromUser, usuario remitente.
-	 */
-	public static function sendToUsers($subject, $body, $recipientsUsers, $fromUser) {
-		if (!empty($recipientsUsers)) {
-			$baseMail = new InternalMail;
-			$baseMail->setSubject($subject);
-			$baseMail->setBody($body);
-			$baseMail->setFromId($fromUser->getId());
-			$type = get_class($fromUser);
-			$type{0} = strtolower($type{0});
-			$baseMail->setFromType($type);
-			$to = array();
-			foreach ($recipientsUsers as $recipientUser) {
-				$type = get_class($recipientUser);
-				$type{0} = strtolower($type{0});
-				$to[] = array('id'=>$recipientUser->getId(), 'type'=>$type);
-			}
-			$baseMail->setTo($to);
-			$baseMail->send();
-		}
-	}
 
 
 

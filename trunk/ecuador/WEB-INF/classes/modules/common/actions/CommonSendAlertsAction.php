@@ -22,7 +22,7 @@ class CommonSendAlertsAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 				
-		$alertsSubscriptions = AlertSubscriptionPeer::getAll();
+		$alertsSubscriptions = AlertSubscriptionQuery::create()->find();
 		$totalRecipients = array();
 		
 		foreach($alertsSubscriptions as $alertSubscription) {

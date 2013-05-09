@@ -27,8 +27,8 @@
 		<div id="searchOptions" style="display:|-if !isset($actionLogColl) || ($filters|@count gt 0)-|inline|-else-|none|-/if-|">
 		<input type='hidden' name='do' value='commonActionLogsList' />
 				<p><label for="filters[userId]">Usuario</label>
-					<select name="filters[userid]" id="filters_userid">
-						<option value="0">Todos</option>
+					<select name="filters[userId]" id="filters_userid">
+						<option value="">Todos</option>
 						|-foreach from=$users item=user name=eachuser-|
 						|-if $user->getId() neq -1-|
 						<option value="|-$user->getId()-|" |-$user->getId()|selected:$filters.userId-|>|-if $user->getId() lt 3-||-$user->getUsername()-||-else-||-$user->getSurname()-|,|-$user->getName()-| (|-$user->getUsername()-|)|-/if-|</option> 

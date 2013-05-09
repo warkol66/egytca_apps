@@ -5,8 +5,6 @@
  * @package common
  */
 
-require_once("BaseAction.php");
-
 class CommonSetLanguageAction extends BaseAction {
 
 	function CommonSetLanguageAction() {
@@ -26,7 +24,7 @@ class CommonSetLanguageAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$languageCode = MultilangLanguagePeer::getByCode($_GET["languageCode"]);
+		$languageCode = MultilangLanguageQuery::create()->findOneByCode($_GET["languageCode"]);
 
 		if (!empty($languageCode))
 			Common::setCurrentLanguageCode($languageCode);
