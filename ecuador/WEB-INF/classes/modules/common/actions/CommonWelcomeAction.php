@@ -5,11 +5,6 @@
  * @package users 
  */
 
-require_once("BaseAction.php");
-require_once("TimezonePeer.php");
-require_once("UserGroupPeer.php");
-require_once("AffiliateUserGroupPeer.php");
-
 class CommonWelcomeAction extends BaseAction {
 
 	function CommonWelcomeAction() {
@@ -32,11 +27,12 @@ class CommonWelcomeAction extends BaseAction {
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
-		$projectsCountByColors = ProjectPeer::getProjectsByStatusColorCountAssoc();
+		/* Que hacer con project?
+		 * $projectsCountByColors = ProjectPeer::getProjectsByStatusColorCountAssoc();
 		$smarty->assign('projectsCountByColors', $projectsCountByColors);		
 		
 		$projectsSpeed = ProjectPeer::getSpeed();
-		$smarty->assign('projectsSpeed', $projectsSpeed);
+		$smarty->assign('projectsSpeed', $projectsSpeed);*/
 
 		return $mapping->findForwardConfig('success');
 	}

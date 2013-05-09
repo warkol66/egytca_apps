@@ -1,5 +1,30 @@
 <?php
 
+class CommonSchedulesSubscriptionsGetEntityFieldsAction extends BaseEditAction {
+	
+	function __construct() {
+		parent::__construct('ScheduleSubscription');
+	}
+
+	protected function postEdit() {
+		parent::postEdit();
+		
+		if(isset($_GET['entityName'])){
+			$entityName = $_GET['entityName'];
+			$moduleEntityDateFields = ScheduleSubscription::getPosibleTemporalFieldsByEntityName($entityName);
+			$moduleEntityBooleanFields = ScheduleSubscription::getPosibleBooleanFieldsByEntityName($entityName);
+			$moduleEntityPosibleNameFields = ScheduleSubscription::getPosibleNameFieldsByEntityName($entityName);
+
+			$this->smarty->assign('entityDateFields', $moduleEntityDateFields);
+			$this->smarty->assign('entityNameFields', $moduleEntityPosibleNameFields);
+			$this->smarty->assign('entityBooleanFields', $moduleEntityBooleanFields);
+		}
+
+	}
+
+}
+
+/*
 class CommonSchedulesSubscriptionsGetEntityFieldsAction extends BaseAction {
 
 	function CommonSchedulesSubscriptionsGetEntityFieldsAction() {
@@ -34,4 +59,4 @@ class CommonSchedulesSubscriptionsGetEntityFieldsAction extends BaseAction {
 		$smarty->assign('scheduleSubscription', $scheduleSubscription);
 		return $mapping->findForwardConfig('success');
 	}
-}
+}*/

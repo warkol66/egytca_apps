@@ -5,8 +5,6 @@
  * @package common
  */
 
-require_once("BaseAction.php");
-
 class CommonTemplatePublicAction extends BaseAction {
 
 	function CommonTemplatePublicAction() {
