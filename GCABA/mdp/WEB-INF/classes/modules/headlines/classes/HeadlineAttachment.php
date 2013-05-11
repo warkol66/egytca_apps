@@ -63,7 +63,9 @@ class HeadlineAttachment extends BaseHeadlineAttachment {
 	function getDataDir() {
 		$dirCant = 1000; // esto se saca del config
 		$squaredDirCant = $dirCant * $dirCant;
-		$id = $this->getId();
+		
+		preg_match("/^(\d+)-\w+$/", $this->getName(), $matches);
+		$id = $matches[1];
 		
 		$filesDir = realpath(ConfigModule::get('headlines', 'clippingsPath'));
 		$firstRamification = floor($id / $squaredDirCant);
