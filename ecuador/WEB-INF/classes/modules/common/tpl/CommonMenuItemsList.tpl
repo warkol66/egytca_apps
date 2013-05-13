@@ -18,10 +18,10 @@
 	<div id="menuItems-links">
 	<fieldset title="Administración de Menús">
 		<legend>Menús</legend>
-		|-if $menuItems->isEmpty()-|
+		|-if count($menuItemColl) eq 0-|
 			<h4>No se han definido items en este nivel.</h4>
 		|-else-|
-			|-include file="CommonMenuItemsRecursiveInclude.tpl" menuItems=$menuItems menuType="editableTree" parentId=$parentId-|
+			|-include file="CommonMenuItemsRecursiveInclude.tpl" menuItems=$menuItemColl menuType="editableTree" parentId=$parentId-|
 		|-/if-|
 		</fieldset>
 	</div>

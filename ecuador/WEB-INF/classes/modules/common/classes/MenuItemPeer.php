@@ -97,20 +97,5 @@ class MenuItemPeer extends BaseMenuItemPeer {
 	public static function get($id) {
 		return MenuItemQuery::create()->findPK($id);
 	}
-	
-	/**
-	 * Genera la url a partir del nombre del action y sus parametros
-	 * @param string $action nombre del action
-	 * @param array $params arreglo asociativo con los parametros del action
-	 * @return string $url url resultante
-	 */
-	public static function generateUrl($action, $params) {
-		$url = 'Main.php?do=' . $action;
-		foreach($params as $key => $value) {
-			$url .= '&' . $key . '=' . $value;
-		}
-		return $url;
-	}
-	
 
 } // MenuItemPeer

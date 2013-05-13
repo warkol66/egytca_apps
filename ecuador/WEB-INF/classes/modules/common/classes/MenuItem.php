@@ -1,7 +1,5 @@
 <?php
 
-
-
 /**
  * Skeleton subclass for representing a row from the 'common_menuItem' table.
  *
@@ -120,4 +118,18 @@ class MenuItem extends BaseMenuItem {
 		return parent::setParentId($v);
 	} // setParentid()
 
+	/** Migrado de Peer
+	 * Genera la url a partir del nombre del action y sus parametros
+	 * @param string $action nombre del action
+	 * @param array $params arreglo asociativo con los parametros del action
+	 * @return string $url url resultante
+	 */
+	public static function generateUrl($action, $params) {
+		$url = 'Main.php?do=' . $action;
+		foreach($params as $key => $value) {
+			$url .= '&' . $key . '=' . $value;
+		}
+		return $url;
+	}
 } // MenuItem
+
