@@ -182,7 +182,7 @@ top:45px; right:15px;}
 #rightColumn {
 	display:inline-block;
 	width: 320px;   /* ie6*/ /*ie7*/
-	margin:10px 10px 0 0;
+	margin: 10px 10px 0 25px;
 }
 
 #menuColumn{
@@ -1181,3 +1181,24 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#990000', end
 	border-spacing: 2px;
 }
 
+a.path_Mark:link, a.path_Mark:visited {
+	color:#0054A4;
+	background-image:url(../images/path_Mark.png);
+	background-position:left top;
+	background-repeat:no-repeat;
+}
+
+a.path_Mark:hover, a.path_Mark:active {
+	background-image:url(../images/path_Mark_over.png);
+}
+.path_Mark_current {
+	color:#007c54;
+	background-image:url(../images/path_Mark_current.png);
+	background-position: left top;
+	background-repeat: no-repeat;
+	line-height: 50px;
+}
+.navChain {
+	background-color: #dde5eb;
+	border: 1px solid transparent;
+}

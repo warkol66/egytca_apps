@@ -433,6 +433,11 @@ ul.iconOptionsList li, ul.iconList li {
 	line-height: 2em;
 	vertical-align: bottom;
 	padding-bottom: .2em;
+	clear: both;
+}
+#contentList li{
+	line-height: 2.2em;
+	clear: both;
 }
 #categoriesListPlaceHolder ul.iconOptionsList li {
 	list-style: circle;
@@ -745,4 +750,7 @@ a.return, a.report, a.importHeadlines {
 
 table.tableTdBorders ul li {
 	list-style: none;
+}
+fieldset .mceExternalToolbar {
+	margin-left: 145px !Important; /* Mismo ancho que el label de los form mas el padding */
 }

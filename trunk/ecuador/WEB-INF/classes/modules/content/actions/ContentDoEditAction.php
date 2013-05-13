@@ -66,29 +66,30 @@ class ContentDoEditAction extends BaseAction
 
             $parentId=$content->getParent()->getId();
 
-            if($content->getType()!=1){
+            if($content->getType()!=1) {
                 // Para Contenidos y Links
                 if($content->getParent()->getId()!=$_REQUEST["parentId"]){
                     $parent = ContentQuery::create()->findPk($_REQUEST["parentId"]);
-                    $content->moveToLastChildOf($parent);
-                    $parentId=$parent->getId();
+//                    $content->moveToLastChildOf($parent);
+//                    $parentId=$parent->getId();
                 }
             }
 
             $languages = ContentActiveLanguageQuery::create()->filterByActive(1)->find();
             foreach ($languages as $eachLanguage) {
                 $languageCode = $eachLanguage->getLanguagecode();
-
-                $contentLocale=ContentI18nQuery::create()->filterByLocale($languageCode)->filterById($content->getId())->findOne();
-                if(!$contentLocale) $contentLocale=new ContentI18n();
+                $contentLocale = ContentI18nQuery::create()->filterByLocale($languageCode)->filterById($content->getId())->findOne();
+                if(!$contentLocale)
+                	$contentLocale=new ContentI18n();
                 $contentLocale->setLocale($languageCode);
                 $contentLocale->setTitle($_POST['locale'][$languageCode]['title']);
                 $contentLocale->setTitleinmenu($_POST['locale'][$languageCode]['titleInMenu']);
                 $contentLocale->setBody($_POST['locale'][$languageCode]['body']);
-                $content->addContentI18n($contentLocale);
+                $contentLocale->save();
+//                $content->addContentI18n($contentLocale);
             }
 
-            $content->save();
+//            $content->save();
             return $this->addParamsToForwards(array("sectionId"=>$parentId),$mapping,"success");
 
         } else {

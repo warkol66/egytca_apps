@@ -382,7 +382,6 @@ html body * dd.clear
 			-o-transition: color 200ms ease-in-out;
 			transition: color 200ms ease-in-out;}
 			
-			
 		
 /*  FORMULARIO COMMENTS */
 .commentForm input.formButton {padding:10px;}
@@ -391,3 +390,28 @@ html body * dd.clear
 #leftCenterColumn ul.commentsList li p {line-height:1.2em;}
 p.commentData {margin-bottom:0;}
 
+
+a.path_Mark, .path_Mark_current {
+	line-height: 1.4em;
+	vertical-align: middle;
+}
+
+a.path_Mark:link, a.path_Mark:visited,
+.path_Mark_current {
+	font-weight: bold;
+	padding: 0 2px 0 12px;
+	margin: 3px;
+	text-decoration: none;
+}
+.navChain {
+	padding: 10px;
+	margin: 8px 8px 8px 0;
+	-khtml-border-radius: 5px;
+	-opera-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+.textOptionMove {
+	cursor: move;
+}
