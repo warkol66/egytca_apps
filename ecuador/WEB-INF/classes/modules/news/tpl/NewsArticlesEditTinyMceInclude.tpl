@@ -1,5 +1,6 @@
 <!-- TinyMCE -->
 <script type="text/javascript" src="scripts/swampy_browser/sb.js"></script>
+<script type="text/javascript" src="scripts/tinymce/tiny_mce.js"></script>
 <script type="text/javascript" src="scripts/tinymce/jquery.tinymce.js"></script>
 
 <script type="text/javascript">

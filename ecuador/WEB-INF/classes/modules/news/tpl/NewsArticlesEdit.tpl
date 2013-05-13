@@ -7,7 +7,7 @@
 		});
 	});//fin docready
 </script>
-|-include file='NewsArticlesEditTinyMceInclude.tpl' elements="newsarticle_body" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"-|
+|-include file='NewsArticlesEditTinyMceInclude.tpl' elements="params_body" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"-|
 <h2>##news,1,Noticias##</h2>
 |-if !is_object($newsArticle)-|
 <div>Noticia no encontrada, puede que haya sido eliminada o esté incorrectamente identificada.<br />

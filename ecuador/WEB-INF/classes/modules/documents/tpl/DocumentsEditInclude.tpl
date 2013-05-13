@@ -58,9 +58,8 @@
 				</p>
 			</div>
 			
-			<p><label for="params[documentdate]">Fecha</label>
-				 <input name="params[documentdate]" type="text" value="|-if !$document->isNew()-||-$document->getDocumentDate()|date_format:'%d-%m-%Y'-||-else-||-$smarty.now|date_format:'%d-%m-%Y'-||-/if-|" size="10" title="Fecha del documento (Formato: dd-mm-yyyy)"/>
-      <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('date', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+			<p><label for="params[documentDate]">Fecha</label>
+				 <input name="params[documentDate]" type="text" class="datepicker" value="|-if !$document->isNew()-||-$document->getDocumentDate()|date_format:'%d-%m-%Y'-||-else-||-$smarty.now|date_format:'%d-%m-%Y'-||-/if-|" size="10" title="Fecha del documento (Formato: dd-mm-yyyy)"/>
 			</p>
 			<p>
 				<label for="params[title]">Título</label>
@@ -70,7 +69,7 @@
 				<label for="params[description]">Descripción</label>
 			 	<textarea name="params[description]" cols="55" rows="6" wrap="VIRTUAL" title="Descripción">|-$document->getDescription()|escape-|</textarea>
   			</p> 
-  			|-if $module eq "Documents" && $entity eq ''-|
+  			|-if $module eq "Documents" && $entity eq '' && $parentCategories|@count gt 0-|
 				<p><label for="params[categoryid]">Categoría</label>
 					<select name="params[categoryid]">
 						<option value=''>Sin Categoría</option>
@@ -80,7 +79,7 @@
 				<p><label for="params[author]">Autor(es)</label>
 					 <input name="params[author]" type="text" value="|-$document->getAuthor()|escape-|" size="50" />
 				</p>
-				<p><label for="params[keyWords]">Palabras clave<img src="images/icon_search.png" onClick="switch_vis('keyWordSearch','block');" title="Buscar palabaras clave"/></label>
+				|-*<p><label for="params[keyWords]">Palabras clave<img src="images/icon_search.png" onClick="switch_vis('keyWordSearch','block');" title="Buscar palabaras clave"/></label>
 					 <input name="params[keyWords]" id="keyWords" type="text" value="|-$document->getKeyWords()|escape-|" size="50" />
 					<script language="JavaScript" type="text/javascript">
 					function sendText(element, text, sep) {
@@ -93,7 +92,7 @@
 				|-include_module module=Documents action=KeyWordList-|</p>
 				<p><label for="params[number]">Número</label>
 					 <input name="params[number]" type="text" value="|-$document->getNumber()|escape-|" size="10" />
-				</p>
+				</p>*-|
 			|-/if-|
 |-if $document neq '' && $document->getPassword() neq ''-|
 			<p><label for="old_password">Contraseña actual</label>
@@ -119,3 +118,12 @@
 	</fieldset>
 </form>
 </div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
+        $( ".datepicker" ).datepicker({
+			dateFormat:"dd-mm-yy"
+		});
+	});//fin docready
+ 
+</script>

@@ -14,50 +14,47 @@ function checkPass(form){
 	return true;
 }
 </script>
-<p>Utilice este menu para ingresar a cada una de las diversas categorías existentes. |-if $usePasswords-|El (*) indica archivos protegidos por contraseña.|-/if-|</p>
+<p>En esta sección encontrará los documentos de trabajo de las sesiones desarrolladas en Seminarios y encuentros de líderes de parroquias rurales. |-if $usePasswords-|El (*) indica archivos protegidos por contraseña.|-/if-|</p>
 <p style="text-align:right;"><a href="javascript:void(null);" onClick="switch_vis('searchOptions','block');" class="searchLink">Buscar Documentos</a></p>
 |-include file='DocumentsSearchDialogInclude.tpl' do="documentsShow"-|
-
 |-if $filters eq ''-|
 	|-if (isset($module))-|
 		|-*include file='DocumentsShowCategoriesInclude.tpl' user=$user selectedModule=$selectedModule selectedCategory=$selectedCategory*-|
-					<form action="Main.php" method="get"><p><label for="category">Categoría</label>
+					|-if $parentCategories|count gt 0-|<form action="Main.php" method="get"><p><label for="category">Categoría</label>
 				<select name="categoryId" onchange="this.form.submit();">
 					<option value=''>Sin Categoría</option>
 				|-include file="DocumentsCategoriesListSelectInclude.tpl" categories=$parentCategories user=$user selectedCategoryId=$filters.categoryId count='0'-|
 					</select>
 						<input type="hidden" name="do" value="documentsShow" />
-			</p></form>
+			</p></form>|-/if-|
 	|-else-|
 		|-*include file='DocumentsShowCategoriesInclude.tpl' user=$user generalParentCategories=$generalParentCategories categoryId=$categoryId documentsWithoutCategoryCount=$documentsWithoutCategoryCount*-|
-					<form action="Main.php" method="get"><p><label for="category">Categoría</label>
+					|-if $parentCategories|count gt 0-|<form action="Main.php" method="get"><p><label for="category">Categoría</label>
 				<select name="categoryId" onchange="this.form.submit();">
 					<option value=''>Sin Categoría</option>
 				|-include file="DocumentsCategoriesListSelectInclude.tpl" categories=$parentCategories user=$user selectedCategoryId=$filters.categoryId count='0'-|
 					</select>
 						<input type="hidden" name="do" value="documentsShow" />
-			</p></form>
-
+			</p></form>|-/if-|
 	|-/if-|
 |-/if-|
-
 |-if $documents neq ''-|
-	<fieldset name="Listado de documentos disponibles">
-		<legend>|-if $selectedCategory neq ''-|
+		<table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders">
+			<tr>
+			<th colspan="6" class="thFillTitle">|-if $selectedCategory neq ''-|
 			Documentos disponibles en la categoría |-$selectedCategory->getName()-|
 		|-elseif $filters neq ''-|
 			Documentos obtenidos de la búsqueda
 		|-else-|
 			Documentos disponibles
-		|-/if-|</legend>
-		<table width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders">
+		|-/if-|</th>
+			</tr>
 			<tr>
-				<th width="5%">##documents,11,Fecha##</th>
+				<th width="3%">##documents,11,Fecha##</th>
 				<th width="25%">##documents,12,Título##</th>
-				<th width="30%">##documents,14,Descripción##</th>
+				<th width="56%">##documents,14,Descripción##</th>
 				<th width="15%">##documents,15,Autor(es)##</th>
-				<th width="10%">##documents,16,Palabras clave##</th>
-				<th width="5%">&nbsp;</th>
+				<th width="1%">&nbsp;</th>
 			</tr>
 			|-if $documents|@count eq 0-|
 			<tr>
@@ -65,13 +62,11 @@ function checkPass(form){
 			</tr>
 			|-/if-|
 			|-foreach from=$documents item=document name=document-|
-
 			<tr valign="top">	
 				<td nowrap="nowrap">|-$document->getDocumentdate()|date_format:"%m-%Y"-|</td>
 				<td>|-$document->getTitle()-|</td>
 				<td>|-$document->getDescription()-|</td>
 				<td>|-$document->getAuthor()-|</td>
-				<td>|-$document->getKeywords()-|</td>
 				<td nowrap="nowrap">
 					|-assign var="documentId" value=$document->getId()-|
 					|-assign var="documentCategoryId" value=$document->getCategoryId()-|
@@ -100,6 +95,5 @@ function checkPass(form){
 			</tr>
 		|-/foreach-|
 		</table>
-	</fieldset>
 |-/if-|
 </div>

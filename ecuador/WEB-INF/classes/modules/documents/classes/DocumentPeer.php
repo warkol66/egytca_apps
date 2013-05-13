@@ -393,7 +393,7 @@ class DocumentPeer extends BaseDocumentPeer {
 
 		$criteria = new Criteria();
 		$criteria->setIgnoreCase(true);
-		$criteria->addDescendingOrderByColumn(DocumentPeer::DOCUMENT_DATE);
+		$criteria->addDescendingOrderByColumn(DocumentPeer::DOCUMENTDATE);
 
 		if (!empty($this->textSearch)) { //Busqueda por texto
 
@@ -405,16 +405,16 @@ class DocumentPeer extends BaseDocumentPeer {
 						DocumentPeer::FULLTEXTCONTENT;
 			$criteria->add(DocumentPeer::DESCRIPTION, "MATCH (" . $fields . ") AGAINST('" . $this->textSearch . "')", Criteria::CUSTOM);
 			if (!empty($this->startDate) && !empty($this->endDate)) {
-				$criterion = $criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->startDate, Criteria::GREATER_EQUAL);
-				$criterion->addAnd($criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->endDate, Criteria::LESS_EQUAL));
+				$criterion = $criteria->getNewCriterion(DocumentPeer::DOCUMENTDATE, $this->startDate, Criteria::GREATER_EQUAL);
+				$criterion->addAnd($criteria->getNewCriterion(DocumentPeer::DOCUMENTDATE, $this->endDate, Criteria::LESS_EQUAL));
 				$criteria->add($criterion);
 			} else {
 
 					if (!empty($this->startDate))
-						$criteria->add(DocumentPeer::DOCUMENT_DATE,$this->startDate,Criteria::GREATER_EQUAL);
+						$criteria->add(DocumentPeer::DOCUMENTDATE,$this->startDate,Criteria::GREATER_EQUAL);
 
 					if (!empty($this->endDate))
-						$criteria->add(DocumentPeer::DOCUMENT_DATE,$this->endDate,Criteria::LESS_EQUAL);
+						$criteria->add(DocumentPeer::DOCUMENTDATE,$this->endDate,Criteria::LESS_EQUAL);
 
 				}
 
@@ -441,31 +441,31 @@ class DocumentPeer extends BaseDocumentPeer {
 				$criteria->add(DocumentPeer::DESCRIPTION,"%" . $this->description . "%",Criteria::LIKE);
 
 			if (!empty($this->startDate) && !empty($this->endDate)) {
-				$criterion = $criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->startDate, Criteria::GREATER_EQUAL);
-				$criterion->addAnd($criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->endDate, Criteria::LESS_EQUAL));
+				$criterion = $criteria->getNewCriterion(DocumentPeer::DOCUMENTDATE, $this->startDate, Criteria::GREATER_EQUAL);
+				$criterion->addAnd($criteria->getNewCriterion(DocumentPeer::DOCUMENTDATE, $this->endDate, Criteria::LESS_EQUAL));
 				$criteria->add($criterion);
 			}
 			else {
 
 				if (!empty($this->startDate))
-					$criteria->add(DocumentPeer::DOCUMENT_DATE,$this->startDate,Criteria::GREATER_EQUAL);
+					$criteria->add(DocumentPeer::DOCUMENTDATE,$this->startDate,Criteria::GREATER_EQUAL);
 
 				if (!empty($this->endDate))
-					$criteria->add(DocumentPeer::DOCUMENT_DATE,$this->endDate,Criteria::LESS_EQUAL);
+					$criteria->add(DocumentPeer::DOCUMENTDATE,$this->endDate,Criteria::LESS_EQUAL);
 
 			}
 
 			if (!empty($this->publishedYear))
-				$criteria->add($criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, 'DATE_FORMAT('. DocumentPeer::DOCUMENT_DATE .", '%Y')='" . $this->publishedYear ."'", Criteria::CUSTOM));
+				$criteria->add($criteria->getNewCriterion(DocumentPeer::DOCUMENTDATE, 'DATE_FORMAT('. DocumentPeer::DOCUMENTDATE .", '%Y')='" . $this->publishedYear ."'", Criteria::CUSTOM));
 
 				// Funciona con having sobre un alias
 				//				DocumentPeer::addSelectColumns($criteria);
-				//        $criteria->addSelectColumn('DATE_FORMAT('. DocumentPeer::DOCUMENT_DATE .", '%Y') AS PublishedYear");
-				//				$criteria->addHaving($criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, "PublishedYear='" . $this->publishedYear ."'", Criteria::CUSTOM));
+				//        $criteria->addSelectColumn('DATE_FORMAT('. DocumentPeer::DOCUMENTDATE .", '%Y') AS PublishedYear");
+				//				$criteria->addHaving($criteria->getNewCriterion(DocumentPeer::DOCUMENTDATE, "PublishedYear='" . $this->publishedYear ."'", Criteria::CUSTOM));
 
 				// Funciona con criterion
-				//				$criterion = $criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->publishedYear."-01-01", Criteria::GREATER_EQUAL);
-				//				$criterion->addAnd($criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->publishedYear."-12-31", Criteria::LESS_EQUAL));
+				//				$criterion = $criteria->getNewCriterion(DocumentPeer::DOCUMENTDATE, $this->publishedYear."-01-01", Criteria::GREATER_EQUAL);
+				//				$criterion->addAnd($criteria->getNewCriterion(DocumentPeer::DOCUMENTDATE, $this->publishedYear."-12-31", Criteria::LESS_EQUAL));
 				//				$criteria->add($criterion);
 
 			if (!empty($this->category)) {
@@ -515,7 +515,7 @@ class DocumentPeer extends BaseDocumentPeer {
 
 		$criteria = DocumentQuery::create();
 		$criteria->setIgnoreCase(true);
-		$criteria->addDescendingOrderByColumn(DocumentPeer::DOCUMENT_DATE);
+		$criteria->addDescendingOrderByColumn(DocumentPeer::DOCUMENTDATE);
 
 		if ($this->searchString) {
 			$fields = DocumentPeer::DESCRIPTION . ', ' . DocumentPeer::TITLE . ', ' . DocumentPeer::REALFILENAME . ', ' . DocumentPeer::AUTHOR . ', ' .
@@ -533,16 +533,16 @@ class DocumentPeer extends BaseDocumentPeer {
 						DocumentPeer::FULLTEXTCONTENT;
 			$criteria->add(DocumentPeer::DESCRIPTION, "MATCH (" . $fields . ") AGAINST('" . $this->textSearch . "')", Criteria::CUSTOM);
 			if (!empty($this->startDate) && !empty($this->endDate)) {
-				$criterion = $criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->startDate, Criteria::GREATER_EQUAL);
-				$criterion->addAnd($criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->endDate, Criteria::LESS_EQUAL));
+				$criterion = $criteria->getNewCriterion(DocumentPeer::DOCUMENTDATE, $this->startDate, Criteria::GREATER_EQUAL);
+				$criterion->addAnd($criteria->getNewCriterion(DocumentPeer::DOCUMENTDATE, $this->endDate, Criteria::LESS_EQUAL));
 				$criteria->add($criterion);
 			} else {
 
 					if (!empty($this->startDate))
-						$criteria->add(DocumentPeer::DOCUMENT_DATE,$this->startDate,Criteria::GREATER_EQUAL);
+						$criteria->add(DocumentPeer::DOCUMENTDATE,$this->startDate,Criteria::GREATER_EQUAL);
 
 					if (!empty($this->endDate))
-						$criteria->add(DocumentPeer::DOCUMENT_DATE,$this->endDate,Criteria::LESS_EQUAL);
+						$criteria->add(DocumentPeer::DOCUMENTDATE,$this->endDate,Criteria::LESS_EQUAL);
 
 				}
 
@@ -569,31 +569,31 @@ class DocumentPeer extends BaseDocumentPeer {
 				$criteria->add(DocumentPeer::DESCRIPTION,"%" . $this->description . "%",Criteria::LIKE);
 
 			if (!empty($this->startDate) && !empty($this->endDate)) {
-				$criterion = $criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->startDate, Criteria::GREATER_EQUAL);
-				$criterion->addAnd($criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->endDate, Criteria::LESS_EQUAL));
+				$criterion = $criteria->getNewCriterion(DocumentPeer::DOCUMENTDATE, $this->startDate, Criteria::GREATER_EQUAL);
+				$criterion->addAnd($criteria->getNewCriterion(DocumentPeer::DOCUMENTDATE, $this->endDate, Criteria::LESS_EQUAL));
 				$criteria->add($criterion);
 			}
 			else {
 
 				if (!empty($this->startDate))
-					$criteria->add(DocumentPeer::DOCUMENT_DATE,$this->startDate,Criteria::GREATER_EQUAL);
+					$criteria->add(DocumentPeer::DOCUMENTDATE,$this->startDate,Criteria::GREATER_EQUAL);
 
 				if (!empty($this->endDate))
-					$criteria->add(DocumentPeer::DOCUMENT_DATE,$this->endDate,Criteria::LESS_EQUAL);
+					$criteria->add(DocumentPeer::DOCUMENTDATE,$this->endDate,Criteria::LESS_EQUAL);
 
 			}
 
 			if (!empty($this->publishedYear))
-				$criteria->add($criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, 'DATE_FORMAT('. DocumentPeer::DOCUMENT_DATE .", '%Y')='" . $this->publishedYear ."'", Criteria::CUSTOM));
+				$criteria->add($criteria->getNewCriterion(DocumentPeer::DOCUMENTDATE, 'DATE_FORMAT('. DocumentPeer::DOCUMENTDATE .", '%Y')='" . $this->publishedYear ."'", Criteria::CUSTOM));
 
 				// Funciona con having sobre un alias
 				//				DocumentPeer::addSelectColumns($criteria);
-				//        $criteria->addSelectColumn('DATE_FORMAT('. DocumentPeer::DOCUMENT_DATE .", '%Y') AS PublishedYear");
-				//				$criteria->addHaving($criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, "PublishedYear='" . $this->publishedYear ."'", Criteria::CUSTOM));
+				//        $criteria->addSelectColumn('DATE_FORMAT('. DocumentPeer::DOCUMENTDATE .", '%Y') AS PublishedYear");
+				//				$criteria->addHaving($criteria->getNewCriterion(DocumentPeer::DOCUMENTDATE, "PublishedYear='" . $this->publishedYear ."'", Criteria::CUSTOM));
 
 				// Funciona con criterion
-				//				$criterion = $criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->publishedYear."-01-01", Criteria::GREATER_EQUAL);
-				//				$criterion->addAnd($criteria->getNewCriterion(DocumentPeer::DOCUMENT_DATE, $this->publishedYear."-12-31", Criteria::LESS_EQUAL));
+				//				$criterion = $criteria->getNewCriterion(DocumentPeer::DOCUMENTDATE, $this->publishedYear."-01-01", Criteria::GREATER_EQUAL);
+				//				$criterion->addAnd($criteria->getNewCriterion(DocumentPeer::DOCUMENTDATE, $this->publishedYear."-12-31", Criteria::LESS_EQUAL));
 				//				$criteria->add($criterion);
 
 			if (!empty($this->category)) {
@@ -732,8 +732,8 @@ class DocumentPeer extends BaseDocumentPeer {
 	 */
 	public function getPublicationYears() {
 		$criteria = new Criteria();
-		$criteria->addAscendingOrderByColumn(DocumentPeer::DOCUMENT_DATE);
-		$criteria->addGroupByColumn('DATE_FORMAT(' .DocumentPeer::DOCUMENT_DATE. ", '%Y')");
+		$criteria->addAscendingOrderByColumn(DocumentPeer::DOCUMENTDATE);
+		$criteria->addGroupByColumn('DATE_FORMAT(' .DocumentPeer::DOCUMENTDATE. ", '%Y')");
 		return DocumentPeer::doSelect($criteria);
 	}
 
