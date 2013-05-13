@@ -1,49 +1,29 @@
 <?php
 
-class CommonSchedulesSubscriptionsEditAction extends BaseAction {
-
-	function CommonSchedulesSubscriptionsEditAction() {
-		;
+class CommonSchedulesSubscriptionsEditAction extends BaseEditAction {
+	
+	function __construct() {
+		parent::__construct('ScheduleSubscription');
 	}
 
-	function execute($mapping, $form, &$request, &$response) {
-
-		BaseAction::execute($mapping, $form, $request, $response);
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
+	protected function postEdit() {
+		parent::postEdit();
 		
-		if (!empty($_GET["id"])) {
-			//voy a editar un scheduleSubscription
-			$scheduleSubscription = ScheduleSubscriptionPeer::get($_GET["id"]);
-			$moduleEntity = $scheduleSubscription->getModuleEntity();
-			$moduleEntityDateFields = $scheduleSubscription->getPosibleTemporalFields();
-			$moduleEntityPosibleNameFields = $scheduleSubscription->getPosibleNameFields();
-			$moduleEntityPosibleBooleanFields = $scheduleSubscription->getPosibleBooleanFields();
-			$smarty->assign('entityDateFields', $moduleEntityDateFields);
-			$smarty->assign('entityNameFields', $moduleEntityPosibleNameFields);
-			$smarty->assign('entityBooleanFields', $moduleEntityPosibleBooleanFields);														  
-			$smarty->assign("action","edit");
-		}
-		else {
-			//voy a crear un scheduleSubscription
-			$scheduleSubscription = new ScheduleSubscription();
+		$module = "Common";
+		$this->smarty->assign("module",$module);
+		
+		if (isset($_GET['id'])){
+			$moduleEntity = $this->entity->getModuleEntity();
+			$this->smarty->assign('entityDateFields', $this->entity->getPosibleTemporalFields());
+			$this->smarty->assign('entityNameFields', $this->entity->getPosibleNameFields());
+			$this->smarty->assign('entityBooleanFields', $this->entity->getPosibleBooleanFields());
+		}else{	
 			$moduleEntity = new ModuleEntity();
-			$smarty->assign("action","create");
 		}
-		$smarty->assign("scheduleSubscription",$scheduleSubscription);
-		$smarty->assign("moduleEntity",$moduleEntity);
 
-		$smarty->assign("filters",$_GET["filters"]);
-		$smarty->assign("page",$_GET["page"]);
-		$smarty->assign("message",$_GET["message"]);
+		$this->smarty->assign('moduleEntity',$moduleEntity);
+		$this->smarty->assign("message",$_GET["message"]);
 
-		return $mapping->findForwardConfig('success');
 	}
+
 }

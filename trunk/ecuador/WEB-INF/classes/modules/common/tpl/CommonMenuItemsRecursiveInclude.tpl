@@ -48,7 +48,7 @@
 	</ul>
 <!-- Esta se usa para el CommonMenuItemsList, tiene una vista simple y cada item tiene botones de editar, eliminar, etc...-->
 |-elseif $menuType eq "editableTree"-|
-	<ul id="menuItemsList_|-$parentId-|" class="menuItemsList">
+	<ul id="menuItemsList" class="ui-sortable">
 		|-foreach from=$menuItems item=menuItem-|
 		|-assign var=childs value=$menuItem->getAllChilds()-|
 		<li id="menuItemsListItem_|-$menuItem->getId()-|" class="menuItemLi editableTree">	
@@ -73,13 +73,32 @@
 			</span>
 			<br style="clear: all" />
 			<div id="menu_|-$menuItem->getId()-|" class="subMenus" style="display:none;">
+			|-if !$childs->isEmpty()-|
 				|-include file="CommonMenuItemsRecursiveInclude.tpl" menuItems=$childs menuType="editableTree" parentId=$menuItem->getId()-|
+			|-/if-|
 			</div>
 		</li>
 		|-/foreach-|
 	</ul>
 	<script type="text/javascript">
-		$('#menuItemsList_|-$menuItem->getParentId()-|').sortable({
+		$(function(){
+		$("#menuItemsList").sortable({
+			placeholder: "ui-state-highlight",
+			update:function(){
+				var lis=$("#menuItemsList > li");
+				var data= { parentId: '|-$parentId-|' , data: $('#menuItemsList').sortable('serialize')};
+				for(var i=0;i<lis.size();i++){
+					data+="&orden[]="+lis.get(i).id.replace("contentList_","");
+				}
+				$.post("Main.php?do=commonMenuItemsDoEditOrderX",data,function(response){
+					$("#orderChanged").html(response);
+					$("#orderChanged").show("slow")
+					setTimeout('$("#orderChanged").hide("slow")',3000);
+				},"html");
+			}
+		}).disableSelection();
+   });
+		/*$('#menuItemsList_|-$menuItem->getParentId()-|').sortable({
 			update: function(){
 				$('orderChanged').html("<span class='inProgress'>Cambiando orden...</span>");
 				$.ajax({

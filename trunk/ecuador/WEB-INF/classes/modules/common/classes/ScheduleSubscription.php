@@ -92,15 +92,15 @@ class ScheduleSubscription extends BaseScheduleSubscription {
 	}
 	
 	public function getPosibleNameFields() {
-		return ScheduleSubscriptionPeer::getPosibleNameFieldsByEntityName($this->getEntityName());
+		return ScheduleSubscription::getPosibleNameFieldsByEntityName($this->getEntityName());
 	}
 	
 	public function getPosibleTemporalFields() {
-		return ScheduleSubscriptionPeer::getPosibleTemporalFieldsByEntityName($this->getEntityName());
+		return ScheduleSubscription::getPosibleTemporalFieldsByEntityName($this->getEntityName());
 	}
 	
 	public function getPosibleBooleanFields() {
-		return ScheduleSubscriptionPeer::getPosibleBooleanFieldsByEntityName($this->getEntityName());
+		return ScheduleSubscription::getPosibleBooleanFieldsByEntityName($this->getEntityName());
 	}
 	
 	//Migradas de Peer

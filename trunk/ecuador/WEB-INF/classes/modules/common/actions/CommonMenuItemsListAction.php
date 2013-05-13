@@ -7,39 +7,28 @@
 * @package actionlogs
 */
 
-require_once("BaseAction.php");
-
-class CommonMenuItemsListAction extends BaseAction {
-
-	function CommonMenuItemsListAction() {
-		;
+class CommonMenuItemsListAction extends BaseListAction {
+	
+	function __construct() {
+		parent::__construct('MenuItem');
 	}
+	
+	protected function preList() {
+		parent::preList();
+		
+		$parentId = (empty($_GET['parentId'])) ? NULL : $_GET['parentId'];
+		$this->filters['parentId'] = $parentId;
+		$this->smarty->assign('parentId',$parentId);
 
-	function execute($mapping, $form, &$request, &$response) {
-
-    BaseAction::execute($mapping, $form, $request, $response);
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
+	}
+	
+	protected function postList() {
+		parent::postList();
 		
 		$module = "Common";
-		$smarty->assign("module",$module);
+		$this->smarty->assign("module",$module);
 
-		$parentId = (empty($_GET['parentId'])) ? NULL : $_GET['parentId'];
-		
-		$menuItems = MenuItemQuery::create()->filterByParentId($parentId)->orderByOrder()->find();
-		
-		$smarty->assign("parentId",$parentId);
-		$smarty->assign("menuItems", $menuItems);
-		
-		return $mapping->findForwardConfig('success');
 
 	}
-
+	
 }

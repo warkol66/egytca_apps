@@ -1,10 +1,9 @@
-|-include file="CommonAutocompleterInclude.tpl"-|
-<script type="text/javascript">
+<link type="text/css" rel="stylesheet" href="css/chosen.css" />
+<script src="scripts/jquery/chosen.js"></script>
+<script type="text/javascript" src="scripts/jquery/ajax-chosen.min.js"></script>
+<script type="text/javascript" src="scripts/jquery/egytca.js"></script>
 
-	function getSelectionActionInfo(text, li) {
-		//probar
-		$('menuItem_action').val($(li).html().stripTags());	
-	}
+<script type="text/javascript">
 
 	function getDefaultInfo() {
 		$('#indicator2').show();
@@ -54,9 +53,10 @@
 		<legend>|-if isset($create)-|Agregar |-/if-|Menú</legend>
 		
 		<form id="editors_here" action="Main.php?do=commonMenuItemsDoEdit" method="post">
-			<input name="menuItem[parentId]" type="hidden" id="menuItem[parentId]" value="|-$parentId-|" />
-			<input name="menuItem[id]" type="hidden" id="menuItem[id]" value="|-$menuItem->getId()-|" /> 
-
+			<input name="params[parentId]" type="hidden" id="params[parentId]" value="|-$parentId-|" />
+			|-if !$menuItem->isNew()-|
+			<input name="id" type="hidden" id="id" value="|-$menuItem->getId()-|" /> 
+			|-/if-|
 				<p>Informacion del enlace</p>
 				<p><label for="useExternalUrl">URL</label>
 					<input type="radio" name="useExternalUrl" |-if !$menuItem->usingExternalUrl()-|checked="true"|-/if-| value="false" onclick="useExternalUrlChanged();" /> Usar enlace interno
@@ -64,12 +64,11 @@
 				</p>
 				<div id="external_url_info" |-if !$menuItem->usingExternalUrl()-| style="display: none;" |-/if-|>
 					<label>Url: </label>
-					<input type="text" name="menuItem[url]" id="menuItem[url]" value="|-$menuItem->getUrl()-|" />
+					<input type="text" name="params[url]" id="params[url]" value="|-$menuItem->getUrl()-|" />
 				</div>
 				<div id="action_info" |-if $menuItem->usingExternalUrl()-| style="display: none;" |-/if-| style="position: relative;">
 					<div style="float: left;">
-					|-include file="CommonAutocompleterInstanceInclude.tpl" label="Acción: " id="autocompleter_actions" url="Main.php?do=commonMenuItemsActionsAutocompleteListX" afterUpdateElement="getSelectionActionInfo"-|
-					<input type="hidden" id="menuItem_action" name="menuItem[action]" value="|-$menuItem->getAction()-|"/>
+					<select id="params_action_select" name="params[action]" value="|-$menuItem->getAction()-|" class="chzn-select markets-chz-select" data-placeholder="Elija una opcion..."></select>
 					</div>
 					<a href="#" onclick="addParamToAction(); return false;" alt="Agregar argumento" title="Agregar argumento"><img src="images/clear.png" class="icon iconAdd" /></a>
 					<a href="#" onclick="getDefaultInfo(); return false;" alt="Obtener valores por defecto" title="Obtener valores por defecto"><img src="images/clear.png" class="icon iconEmail" /></a>
@@ -86,7 +85,7 @@
 					</ul>
 				</div>
 				<p>
-					<label for="menuItem[newWindow]">Abrir en nueva ventana</label><input type="checkbox" name="menuItem[newWindow]" |-$menuItem->getNewWindow()|checked_bool-| /> 
+					<label for="params[newWindow]">Abrir en nueva ventana</label><input type="checkbox" name="params[newWindow]" |-$menuItem->getNewWindow()|checked_bool-| /> 
 				</p>
 				<hr />
 			<div id="lang_info">
@@ -105,9 +104,14 @@
 	
 	</fieldset>
 	
-	|-if !isset($create) -|
+	|-if !$menuItem->isNew()-|
 	<fieldset>
 		<legend>Vista Preliminar</legend>
 		|-include_module module=Common action=MenuItemsShow options="template=CommonMenuItemsHorizontalView.tpl&id="|cat:$menuItem->getId()-|
 	</fieldset>
 	|-/if-|
+<script type="text/javascript">
+$(function(){
+	$('#params_action_select').egytca('autocomplete', 'Main.php?do=commonMenuItemsActionsAutocompleteListX');
+});
+</script>
