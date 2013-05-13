@@ -90,7 +90,7 @@ body {
 	clear: both;
 	display: block;
 }
-#leftColumn {
+#leftColumn, leftCenterColumn {
 	clear: both;
 	float: left;
 	border: none;
@@ -104,6 +104,14 @@ body {
 	border: none;
 	margin: 0;
 	padding: 15px 15px 20px 20px;
+}
+#menuColumn {
+	clear: both;
+	float: left;
+	border: none;
+	margin:0;
+	/*margin: 0px 5px 5px 0px;*/
+	padding: 0px;
 }
 #footer {
 	width:100%;
@@ -259,16 +267,16 @@ body {
 }
 
 
-#leftColumn .leftColumn1,
-#leftColumn .leftColumn2 {
+#leftCenterColumn .leftColumn1,
+#leftCenterColumn .leftColumn2 {
 	width:280px;
 	height:auto;
 	display:inline-block;
 	vertical-align:top;
 	}
 
-#leftColumn .leftColumn1 {margin:10px 10px 10px 20px;}
-#leftColumn .leftColumn2 {margin:10px 20px 10px 10px;}
+#leftCenterColumn .leftColumn1 {margin:10px 10px 10px 20px;}
+#leftCenterColumn .leftColumn2 {margin:10px 20px 10px 10px;}
 
 	
 	
@@ -379,7 +387,7 @@ html body * dd.clear
 /*  FORMULARIO COMMENTS */
 .commentForm input.formButton {padding:10px;}
 
-#leftColumn ul.commentsList li {margin:0 0 15px 0;}
-#leftColumn ul.commentsList li p {line-height:1.2em;}
+#leftCenterColumn ul.commentsList li {margin:0 0 15px 0;}
+#leftCenterColumn ul.commentsList li p {line-height:1.2em;}
 p.commentData {margin-bottom:0;}
 

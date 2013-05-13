@@ -34,8 +34,10 @@
 				</h1>
 	</div>
 	<div class="allColumns">
-							<ul class="nav"></ul>
-<div class="clear"></div>                           
+		<div id="mainMenuH">
+			<ul class="nav"></ul>
+		</div>
+<div class="clear"></div>
 	</div>
 |-$centerHTML-|
 	<div id="footer">

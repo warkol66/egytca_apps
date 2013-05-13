@@ -20,6 +20,6 @@
 				<li class="last"><a href="Main.php?do=registrationEdit">Modifique su cuenta</a></li>
 			</ul>
 		</li>
-		</ul>
+		<li><a href="Main.php?do=commonDoLogout" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")'>Salir</a></li>
 	</nav>
 </div>

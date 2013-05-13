@@ -61,14 +61,14 @@
 	<!-- End contentWrapper -->
 	<!-- Begin Footer -->
 	<div id="footer">		       
-              <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Trayectoria</a></li>
-                <li><a href="#">Parlamentarias</a></li>
-                <li><a href="#">Novedades</a></li>
-                <li><a href="#">Contacto</a></li>
-                <li><a href="#">Mapa del Sitio</a></li>
-              </ul>
+		<ul>
+			<li><a href="Main.php?do=contentShow">Inicio</a></li>
+			<li><a href="Main.php?do=boardShow">Desafíos</a></li>
+			<li><a href="Main.php?do=blogShow">Experiencias exitosas</a></li>
+			<li><a href="Main.php?do=newsArticlesShow">Novedades</a></li>
+			<li><a href="Main.php?do=calendarMonth">Eventos</a></li>
+			<li><a href="Main.php?do=documentsList">Documentos</a></li>
+		</ul>
 		<p>Copyright©2013 Lídres Parroquiales Ecuador / Desarrollado por Módulos Empresarios.</p>
 	</div>
 	<!-- End Footer -->
