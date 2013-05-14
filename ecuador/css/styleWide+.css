@@ -19,6 +19,23 @@
 #rightColumn fieldset p {
 	width: 980px;
 }
+#rightColumn #contentBody p {
+	width: 480px;
+}
+#contentBody {
+	float: left;
+	width: 520px;
+}
 .wide-chz-select {
 	min-width: 700px;
 }
+ #rightColumn {
+    width: 1050px;
+}
+.home  #rightMenu {
+    width: 420px;
+    float: right;
+    margin-right: 20px;
+    margin-top: -423px;
+}
+

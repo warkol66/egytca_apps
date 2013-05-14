@@ -33,28 +33,14 @@ class UsersEditInfoAction extends BaseAction {
 
 		$smarty->assign("message",$_GET["message"]);
 
-		if (!empty($_GET["id"])) {
-			//voy a editar un usuario
-
-			try {
-				$user = UserPeer::get($_GET["id"]);
-			}
-			catch (PropelException $e) {
-				$smarty->assign("action","create");
-			}
-		}
-		else {
-			//return $mapping->findForwardConfig('failure');
-		}
-
-		$smarty->assign("currentUser",$user);
+		$smarty->assign("currentUser",Common::getLoggedUser());
 		$smarty->assign("editInfo",true);
-
-		$documentTypes = UserPeer::getDocumentTypes();
-		$smarty->assign("documentTypes",$documentTypes);
 
 		$smarty->assign("filters",$_GET["filters"]);
 		$smarty->assign("page",$_GET["page"]);
+
+		$this->template->template = "TemplatePublic.tpl";
+
 		return $mapping->findForwardConfig('success');
 
 	}

@@ -40,6 +40,7 @@ class UsersPasswordChangeAction extends BaseAction {
     $smarty->assign("firstLogin",$_GET["firstLogin"]);
 
 		$smarty->assign("currentUser",$_SESSION["loginUser"]);
+		$this->template->template = "TemplatePublic.tpl";
 
 		return $mapping->findForwardConfig('success');
 	}

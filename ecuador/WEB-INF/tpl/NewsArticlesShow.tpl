@@ -1,6 +1,6 @@
 <div id=contentBody>
 	<div id=titleContent>
-		<h1>Novedades</h1>
+		<h2 class="home">Novedades</h1>
 	</div>
 	<div id="div_newsarticles">
 		|-foreach from=$newsArticleColl item=newsarticle name=for_newsarticles-|

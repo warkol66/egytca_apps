@@ -1,2 +1,1 @@
-<h1>|-$contentData.title-|</h1>
-|-$contentData.content-|
+|-extends file="ContentShow.tpl"-|
