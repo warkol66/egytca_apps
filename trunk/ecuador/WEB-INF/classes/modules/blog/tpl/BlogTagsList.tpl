@@ -1,7 +1,7 @@
 <script type="text/javascript" src="scripts/jquery/jquery.jeditable.mini.js"></script>
-<h2>##blog,1,Blog##</h2>
-<h1>Administración de Etiqueta de Entradas</h1>
-<p>A continuación podrá editar la lista de etiquetas de entradas del blog del sistema.</p>
+<h2>Experiencias Exitosas</h2>
+<h1>Administración de Etiqueta de Experiencias Exitosas</h1>
+<p>A continuación podrá editar la lista de etiquetas de experiencias exitosas del sistema.</p>
 <div id="div_tags"> |-if $message eq "ok"-|
 	<div class="successMessage">Etiqueta guardada correctamente</div>
 	|-elseif $message eq "deleted_ok"-|
@@ -42,7 +42,7 @@
 			<tr class="thFillTitle">
 <!--				<th width="5%" class="thFillTitle">Id</th> -->
 				<th width="60%">Nombre</th>
-				<th width="30%">Entradas (publicadas)</th>
+				<th width="30%">Experiencias (publicadas)</th>
 				<th width="5%">&nbsp;</th>
 			</tr>
 		</thead>
@@ -140,7 +140,7 @@ function prepareAndSubmit(form) {
 			setStatus('done');
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
-			var errorMsg = 'Ocurrió un error al intentar agregar la Etiqueta';
+			var errorMsg = 'Ocurrió un error al intentar agregar la etiqueta';
 			if (errorThrown != undefined)
 				errorMsg += ': ' + errorThrown;
 			setStatus('error', errorMsg);

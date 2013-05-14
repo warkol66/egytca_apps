@@ -26,6 +26,7 @@
 				<li><a href="Main.php?do=usersList">Usuarios</a></li>
 				<li><a href="Main.php?do=usersGroupsList">Grupos de Usuarios</a></li>
 				<li><a href="Main.php?do=usersLevelsList">Niveles Usuarios</a></li>
+				<li><a href="Main.php?do=blogTagsList">Etiquetas de experiencias exitosas</a></li>
 				<li><a href="Main.php?do=bannersList">Banners</a></li>
 				<li class="last"><a href="Main.php?do=backupList">Respaldos</a></li>
 			</ul></li>
@@ -34,10 +35,10 @@
 			<ul>
 				<!-- <li class="menuLink"><a href="Main.php?do=commonConfigView">Ver Configuración</a></li> -->
 				<li><a href="Main.php?do=commonConfigSet">Configurar Sistema</a></li>
-				<li><a href="Main.php?do=commonConfigEdit">Editar Configuración</a></li>
-				<li><a href="Main.php?do=multilangLanguagesList">Idiomas</a></li>
+				<li class="last"><a href="Main.php?do=commonConfigEdit">Editar Configuración</a></li>
+<!-- 				<li><a href="Main.php?do=multilangLanguagesList">Idiomas</a></li>
 				<li><a href="Main.php?do=multilangTextsList">Textos</a></li>		
-				<li class="last"><a href="Main.php?do=multilangTextsDump&amp;moduleName=|-*$moduleName*-|">Textos SQL</a></li>			
+				<li class="last"><a href="Main.php?do=multilangTextsDump&amp;moduleName=|-*$moduleName*-|">Textos SQL</a></li>			 -->
 			</ul></li>
 |-/if-|
 		<li><a href="Main.php?do=|-if ($configModule->get("global","unifiedUsernames"))-|commonDoLogout|-else-|affiliatesUsersDoLogout|-/if-|" onClick='return window.confirm("¿Esta seguro que quiere salir del sistema?")' >Salir del Sistema</a></li>

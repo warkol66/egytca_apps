@@ -16,39 +16,37 @@
 		});
     });
 </script>
-<h2>##board,1,board##</h2>
-<h1>##board,2,Lista de Desafíos##</h1>
-<p>##board,3,A continuación se muestra el listado de desafíos disponibles en el sistema, ud. podrá agregar nuevos o eliminar los existentes, así como publicar o archivar un desafío.##</p>
+<h2>Desafíos - Challenging board</h2>
+<h1>Lista de Desafíos</h1>
+<p>A continuación se muestra el listado de desafíos disponibles en el sistema, ud. podrá agregar nuevos o eliminar los existentes, así como publicar o archivar un desafío</p>
 <div id="boardFilters">
 <form action="Main.php" method="get">
-	<fieldset title="##board,7,Formulario de Opciones de búsqueda de desafíos##">
-		<legend>##board,4,Opciones de Búsqueda##</legend>
+	<fieldset title="Formulario de Opciones de búsqueda de desafíos">
+		<legend>Opciones de Búsqueda</legend>
 		<p>
-			<label for="fromDate">##board,5,Fecha Desde##</label>
-			<input name="filters[dateRange][creationdate][min]" type="text" id="filters_dateRange_min" class="datepickerFrom" title="fromDate" value="|-$filters.dateRange.creationdate.min|date_format:"%d-%m-%Y"-|" size="12" /> 
-			<img src="images/calendar.png" width="16" height="15" border="0"  title="Seleccione la fecha">
+			<label for="fromDate">Fecha Desde</label>
+			<input name="filters[dateRange][creationdate][min]" type="text" id="filters_dateRange_min" class="datepickerFrom" title="Indique la fecha de inicio" value="|-$filters.dateRange.creationdate.min|date_format:"%d-%m-%Y"-|" size="12" /> 
 		</p>
 		<p>
-			<label for="toDate">##board,6,Fecha Hasta##</label>
-			<input name="filters[dateRange][creationdate][max]" type="text" id="filters_dateRange_max" class="datepickerTo" title="toDate" value="|-$filters.dateRange.creationdate.max|date_format:"%d-%m-%Y"-|" size="12" /> 
-			<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
+			<label for="toDate">Fecha Hasta</label>
+			<input name="filters[dateRange][creationdate][max]" type="text" id="filters_dateRange_max" class="datepickerTo" title="Indicque la fecha límite" value="|-$filters.dateRange.creationdate.max|date_format:"%d-%m-%Y"-|" size="12" /> 
 		</p>
 		<p>
 			<input type="hidden" name="do" value="boardList" />
-			<input type="submit" value="##board,8,Buscar##">
+			<input type="submit" value="Buscar">
 		</p>
 	</fieldset>
 </form>
 </div>
 <div id="divMsgBox"></div>
 	|-if $message eq "ok"-|
-		<div class="successMessage">##board,19,Consigna guardado correctamente##</div>
+		<div class="successMessage">Desafío guardado correctamente</div>
 	|-elseif $message eq "deleted_ok"-|
-		<div class="successMessage">##board,20,Consigna eliminada correctamente##</div>
+		<div class="successMessage">Desafío eliminado correctamente</div>
 	|-elseif $message eq "changed"-|
-	<div class="successMessage">##board,21,Estados modificados correctamente##</div>
+	<div class="successMessage">Estados modificados correctamente</div>
 	|-elseif $message eq "not_edited"-|
-	<div class="errorMessage">##board,22,Error al modificar la consigna. Verifique que la consigna que está intentando editar existe##</div>
+	<div class="errorMessage">Error al modificar el desafío. Verifique que la consigna que está intentando editar existe</div>
 	|-/if-|
 	|-if $notValidId-|
 	<div class="errorMessage">|-$message-|</div>
@@ -59,24 +57,23 @@
 	<table width="100%" cellpadding="4" cellspacing="0" class="tableTdBorders" id="tabla-boardChallenges">
 		<thead>
 			<tr>
-				<th colspan="|-$colSpan-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=boardEdit" class="addLink">##board,9,Agregar Consigna##</a></div></th>
+				<th colspan="|-$colSpan-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=boardEdit" class="addLink">Agregar Desafío</a></div></th>
 			</tr>
 			<tr>
-				<th width="2%"><input type="checkbox" name="allbox" value="checkbox" id="allBoxes" onChange="javascript:selectAllCheckboxes()" title="Seleccionar todos" />
-				</th>
-				<th width="40%">##board,10,Título##</th>
-				<th width="8%">##board,11,Fecha##</th>
-				<th width="15%">##board,13,Estado##</th>
-				<th width="2%">&nbsp;</th>
+				<th width="1%"><input type="checkbox" name="allbox" value="checkbox" id="allBoxes" onChange="javascript:selectAllCheckboxes()" title="Seleccionar todos" /></th>
+				<th width="86%">##board,10,Título##</th>
+				<th width="6%">##board,11,Fecha##</th>
+				<th width="6%">##board,13,Estado##</th>
+				<th width="1%">&nbsp;</th>
 			</tr>
 		</thead>
 		<tbody>
 		|-foreach from=$boardChallengeColl item=boardChallenge name=for_boardChallenges-|
 			<tr>
-				<td><input type="checkbox" name="selected[]" value="|-$boardChallenge->getId()-|"></td>
+				<td align="center"><input type="checkbox" name="selected[]" value="|-$boardChallenge->getId()-|"></td>
 				<td>|-$boardChallenge->gettitle()-|</td>
 				<td>|-$boardChallenge->getcreationDate()|date_format:"%d-%m-%Y"-|</td>
-			<td>|-if "boardChangeStatusX"|security_user_has_access-|	
+				<td>|-if "boardChangeStatusX"|security_user_has_access-|	
 						<form action="Main.php" method="post" id="formStatusChallenges|-$boardChallenge->getId()-|">
 							<select name="params[status]" id="selectChallengeStatus|-$boardChallenge->getId()-|" onChange="javascript:submitChallengesChangeFormX('formStatusChallenges|-$boardChallenge->getId()-|')">
 								|-foreach from=$boardChallengeStatus key=key item=name-|
@@ -104,7 +101,7 @@
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						<input type="hidden" name="do" value="boardDoDelete" />
 						<input type="hidden" name="id" value="|-$boardChallenge->getid()-|" />
-						<input type="submit" name="submit_go_delete_boardEntry" value="##common,2,Eliminar##" title="##common,2,Eliminar##" onclick="return confirm('##board,22,Seguro que desea eliminar la Consigna?##')" class="icon iconDelete" />
+						<input type="submit" name="submit_go_delete_boardEntry" value="##common,2,Eliminar##" title="##common,2,Eliminar##" onclick="return confirm('¿Está seguro que desea eliminar la Consigna?')" class="icon iconDelete" />
 					</form>
 					|-else-|
 					
@@ -126,7 +123,7 @@
 								<input type="hidden" name="page" value="|-$pager->getPage()-|" id="page">
 							|-/if-|
 							<input type="hidden" name="do" value="boardChangeStatuses" id="do">
-							<input type="button" onClick="javascript:submitMultipleChallengesChangeFormX('multipleChallengesChangeForm')" value="##board,17,Cambiar Estado##" title="##board,17,Cambiar Estado##" class="button">
+							<input type="button" onClick="javascript:submitMultipleChallengesChangeFormX('multipleChallengesChangeForm')" value="Cambiar Estado" title="Cambiar Estado" class="button">
 						</p>
 					</form>
 				</td>
@@ -134,11 +131,11 @@
 		|-/if-|
 		|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 			<tr> 
-				<td colspan="|-$colSpan-|" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+				<td colspan="|-$colSpan-|" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 			</tr>							
 		|-/if-|						
 			<tr>
-				<th colspan="|-$colSpan-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=boardEdit" class="addLink">##board,9,Agregar Consigna##</a></div></th>
+				<th colspan="|-$colSpan-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=boardEdit" class="addLink">Agregar Desafío</a></div></th>
 			</tr>
 		</tbody>
 	</table>

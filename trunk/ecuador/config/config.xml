@@ -101,7 +101,7 @@
 	<content>
 		<home>2</home>
 		<useDifferentHomeTemplate>
-			<value>NO</value>
+			<value>YES</value>
 			<element_type>YES/NO</element_type>
 		</useDifferentHomeTemplate>
 	</content>

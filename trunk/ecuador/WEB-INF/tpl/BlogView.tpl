@@ -1,4 +1,4 @@
-<h1>Experiencias Exitosas </h1>
+<h2 class="home">Experiencias exitosas</h1>
 |-if $message eq "captcha"-|
 <div id="errorMessage">Captcha incorrecto, intente nuevamente</div>
 |-/if-|
@@ -10,14 +10,13 @@
 Puede regresar a la página principal del blog haciendo click <a href="Main.php?do=blogShow">aquí</a></div>
 |-else-|
 <!-- begin blog01 -->
-<div class="article">
-<h5>|-$blogEntry->getTitle()-|</h5>	
-<div id="completeText">
-|-$blogEntry->getBody()-|
-</div>
-<!-- End  COMPLETE TEXT // TEXTO NOTICIA COMPLETA --------------------- -->
+<div class="blog01">
+	<h3>|-$blogEntry->getTitle()-|</h3>	
+	<div id="completeText">
+		|-$blogEntry->getBody()-|
+	</div>
 		<div class="tags">Etiquetas: |-foreach from=$blogEntry->getBlogTags() item=tag name=for_tagss-|
-       <a href="Main.php?do=blogShow&tagId=|-$tag->getId()-|">|-$tag->getName()-|</a>&nbsp;|-/foreach-|
+     <a href="Main.php?do=blogShow&tagId=|-$tag->getId()-|">|-$tag->getName()-|</a>&nbsp;|-/foreach-|
 </div>
 <p>&nbsp;</p>
 		<p><input type="button" name="Volver" value="Volver" id="Volver" onClick="javascript:history.go(-1);"></p>
