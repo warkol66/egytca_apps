@@ -1,3 +1,6 @@
+|-if $message eq "captcha"-|
+<div id="errorMessage">Captcha incorrecto, intente nuevamente</div>
+|-/if-|
 <h2 class="home">Experiencias exitosas</h1>
 |-if $message eq "captcha"-|
 <div id="errorMessage">Captcha incorrecto, intente nuevamente</div>
@@ -22,7 +25,7 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 		<p><input type="button" name="Volver" value="Volver" id="Volver" onClick="javascript:history.go(-1);"></p>
 </div>
 |-if $moduleConfig.comments.useComments.value eq "YES"-|
-		|-include file='BlogCommentsInclude.tpl' entry=$blogEntry comments=$comments-|
+		|-include file='BlogCommentsInclude.tpl' entry=$blogEntry comments=$comments logged=$logged-|
 		|-/if-|
 <!-- END Entrada  **************************************** -->
 

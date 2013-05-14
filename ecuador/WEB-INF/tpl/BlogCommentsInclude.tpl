@@ -26,7 +26,7 @@
 <a name="commentsForm"></a>
 
 <!-- TITULO FORMULARIO / DEJAR COMENTARIOS -->
- <div id="titleComments"><div id="icoWriteComments"></div>Deja tu comentario</div>	
+ <div id="titleComments"><div id="icoWriteComments"></div>Deja tu comentario</div>
 	<div id="msgError"></div>
 	<div id="formComments">
 	<form action="Main.php" method="post" id="formCommentAdder|-$entry->getId()-|">
@@ -40,18 +40,21 @@
 		</p>
 		<p>
 			<label for="params_text">Comentario</label><textarea id="params_text" name="params[text]" cols="65" rows="5" wrap="VIRTUAL" ></textarea>
-		</p>|-assign var=useCaptcha value=1-|
+		</p>
+		|-if !isset($logged)-|
+		|-assign var=useCaptcha value=1-|
 		|-if $useCaptcha-|<p><label>Código de seguridad</label><div id="codemsgBoxAdder|-$entry->getId()-|">
 			<img src="Main.php?do=commonImage&width=120&height=45&characters=5" />
 			</div>
 		</p>
 		<p>
-			<label for="formId">Ingrese el código de seguridad</label><input id="formId" name="formId" type="text" size="10" />Sesion|-$smarty.session.security_code-||-$smarty.session.id-|
+			<label for="formId">Ingrese el código de seguridad</label><input id="formId" name="formId" type="text" size="10" />
 		</p>
 		<div id="cpatcha" style="display:none">		<p>
 			<label for="security_code">No completar</label><input id="security_code" name="securityCode" type="text" size="10" />
 		</p></div>|-/if-|
 		<p>	
+		|-/if-|
 			<input type="hidden" name="params[entryId]" value="|-$entry->getId()-|" id="params_entryId" />
 			<input type="hidden" name="do" value="blogCommentsDoAddX" id="do">
 			<input type="hidden" name="params[entryId]" value="|-$entry->getId()-|" id="params_entryId" />
