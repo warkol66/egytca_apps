@@ -74,10 +74,12 @@
 
 	</table>
 	
-	<table phpName="BoardBondRelation" name="board_bondRelation" isCrossRef="true" description="Asociacion entre Desafios y Compromisos">
-		<column name="challengeId" required="true" primaryKey="true" type="INTEGER" />
-		<column name="bondId" required="true" primaryKey="true" type="INTEGER" />
-		<!--column name="userId" required="true" primaryKey="true" type="INTEGER" /-->
+	<table phpName="BoardBondRelation" name="board_bondRelation" description="Asociacion entre Desafios y Compromisos">
+		
+		<column name="id" type="INTEGER"  required="true" description="Id relacion" primaryKey="true" autoIncrement="true"/>
+		<column name="challengeId" required="true" type="INTEGER" />
+		<column name="bondId" required="true" type="INTEGER" />
+		<column name="userId" required="true" type="INTEGER" />
 
 		<foreign-key foreignTable="board_challenge" onDelete="CASCADE">
 			<reference local="challengeId" foreign="id" />
@@ -87,9 +89,14 @@
 			<reference local="bondId" foreign="id" />
 		</foreign-key>
 		
-		<!--foreign-key foreignTable="users_user" onDelete="CASCADE">
+		<foreign-key foreignTable="users_user" onDelete="CASCADE">
 			<reference local="userId" foreign="id" />
-		</foreign-key-->
+		</foreign-key>
+		
+		<vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
 
 	</table>
 
