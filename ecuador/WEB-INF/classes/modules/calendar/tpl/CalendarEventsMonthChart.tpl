@@ -67,10 +67,10 @@
 		|-if $allThisDayEvents ne ''-|
 			|-assign var=closeText value="Cerrar"|multilang_get_translation:"common"-|
 			|-assign var=caption value="Información del Evento"|multilang_get_translation:"calendar"-|
-				<a href="javascript:void(null);" |-popup sticky=true fgcolor="#ffffff" bgcolor="#ffffff" closecolor="#cdcdcd" closetext="$closeText" closetitle="$closeText" capcolor='#ffffff' bgcolor='#006699' snapx=10 snapy=10 width=350 caption="$caption" trigger="onMouseOver" text="$allThisDayEvents"-| class="dayEventNumber">|-$smarty.foreach.for_dayEvents.iteration-|</a>
+				<a href="javascript:void(null);" |-*popup sticky=true fgcolor="#ffffff" bgcolor="#ffffff" closecolor="#cdcdcd" closetext="$closeText" closetitle="$closeText" capcolor='#ffffff' bgcolor='#006699' snapx=10 snapy=10 width=350 caption="$caption" trigger="onMouseOver" text="$allThisDayEvents"*-| class="dayEventNumber">|-$smarty.foreach.for_dayEvents.iteration-|</a>
 				|-assign var=allThisDayEvents value=''-|
-		|-else-|
-	<span class="dayNumber">|-$smarty.foreach.for_dayEvents.iteration-|</span>      
+		|-else-||-if $smarty.foreach.for_dayEvents.iteration lt 32-|
+			<span class="dayNumber">|-$smarty.foreach.for_dayEvents.iteration-|</span>|-/if-|      
 		|-/if-|
     		</td>
       |-counter name=cellCounter print=false-|

@@ -5,19 +5,22 @@
 	width: 1200px;
 }
 #contentWrapper { 
-	width: 1195px;
+	width: 1200px;
 }
 #header { 
-	/*width: 1190px;*/
+	width: 1200px;
 }
 #footer {
-	/*width: 1190px;*/
+	width: 1200px;
+}
+#rightColumn {
+	width: 765px;
 }
 #rightColumn p {
-	width: 900px;
+	width: 755px;
 }
 #rightColumn fieldset p {
-	width: 750px;
+	width: 650px;
 }
 #rightColumn #contentBody p {
 	width: 480px;
@@ -37,5 +40,11 @@ width:270px;
 }
 .home  #rightMenu {
 	margin-top:-423px;
+}
+#titleAgenda{
+	width:750px !important;
+}
+.events{
+	width:330px
 }
 
