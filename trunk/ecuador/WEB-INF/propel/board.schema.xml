@@ -35,7 +35,6 @@
 
 		<column name="id" type="INTEGER"  required="true" description="Id comentario" primaryKey="true" autoIncrement="true"  />
 		<column name="challengeId" type="INTEGER"  required="true" description="Id del challenge" />
-		<column name="bondId" type="INTEGER"  required="true" description="Id del compromiso" />
 		<column name="parentId" type="INTEGER" description="Id de comentario padre" />
 		<column name="text" type="LONGVARCHAR" description="Comentario"/>
 		<column name="email" type="VARCHAR" size="255" description="Email del usuario" />
@@ -50,10 +49,6 @@
 
 		<foreign-key foreignTable="board_challenge" >
 			<reference local="challengeId" foreign="id" />
-		</foreign-key>
-		
-		<foreign-key foreignTable="board_bond" >
-			<reference local="bondId" foreign="id" />
 		</foreign-key>
 
 	  <vendor type="mysql">
@@ -76,6 +71,25 @@
 	    <parameter name="Charset" value="utf8"/>
 	    <parameter name="Collate" value="utf8_general_ci"/>
 	  </vendor>
+
+	</table>
+	
+	<table phpName="BoardBondRelation" name="board_bondRelation" isCrossRef="true" description="Asociacion entre Desafios y Compromisos">
+		<column name="challengeId" required="true" primaryKey="true" type="INTEGER" />
+		<column name="bondId" required="true" primaryKey="true" type="INTEGER" />
+		<!--column name="userId" required="true" primaryKey="true" type="INTEGER" /-->
+
+		<foreign-key foreignTable="board_challenge" onDelete="CASCADE">
+			<reference local="challengeId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="board_bond" onDelete="CASCADE">
+			<reference local="bondId" foreign="id" />
+		</foreign-key>
+		
+		<!--foreign-key foreignTable="users_user" onDelete="CASCADE">
+			<reference local="userId" foreign="id" />
+		</foreign-key-->
 
 	</table>
 
