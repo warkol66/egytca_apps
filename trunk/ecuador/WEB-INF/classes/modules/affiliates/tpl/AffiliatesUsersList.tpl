@@ -21,7 +21,7 @@ function unblockUser(form){
 			$('#usersMsgField').html(data);
 		}	
 	});
-	$('#usersMsgField').innerHTML = '<span class="inProgress">desbloqueando usuario...</span>';
+	$('#usersMsgField').html('<span class="inProgress">desbloqueando usuario...</span>');
 	return true;
 }
 </script>

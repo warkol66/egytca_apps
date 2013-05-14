@@ -13,7 +13,6 @@ class NewsMediasEditAction extends BaseEditAction {
 		$this->smarty->assign("module",$module);
 
 		$this->smarty->assign("articleIdValues",NewsArticleQuery::create()->find());
-		$this->smarty->assign("userIdValues",UserQuery::create()->find());
 		$this->smarty->assign("types",NewsMedia::getMediaTypes());
 		
 		$maxUploadSize =  Common::maxUploadSize();

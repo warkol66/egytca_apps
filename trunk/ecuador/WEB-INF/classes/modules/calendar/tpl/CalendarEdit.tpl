@@ -100,15 +100,6 @@ Puede regresar a la página principal del calendario haciendo click <a href="Mai
 									</select>
 			</p>|-/if-|
 				<p>
-					<label for="calendarEvent_userId">Usuario</label>
-					<select id="params_userId" name="params[userId]" title="userId">
-						<option value="">Seleccione un Usuario</option>
-										|-foreach from=$userIdValues item=object-|
-										<option value="|-$object->getid()-|" |-if $calendarEvent->getuserId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getusername()-|</option>
-										|-/foreach-|
-									</select>
-			</p>
-				<p>
 					|-if !$calendarEvent->isNew()-|
 					<input type="hidden" name="id" id="id" value="|-$calendarEvent->getid()-|" />
 					|-/if-|

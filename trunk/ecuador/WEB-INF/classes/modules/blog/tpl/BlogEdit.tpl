@@ -71,15 +71,6 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 									|-/foreach-|
 								</select>
 		</p>|-/if-|
-			<p>
-				<label for="params_userId">##blog,38,Usuario##</label>
-				<select id="params_userId" name="params[userId]" title="userId">
-					<option value="">##blog,39,Seleccione un Usuario##</option>
-									|-foreach from=$userIdValues item=object-|
-									<option value="|-$object->getid()-|" |-if $blogEntry->getuserId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getusername()-|</option>
-									|-/foreach-|
-								</select>
-		</p>
 				|-if $blogEntry neq ''-|
 |-if $blogConfig.bodyOnArticlesShow.value eq "NO"-|<p>
 				<label>Vistas</label> |-$blogEntry->getViews()-| veces

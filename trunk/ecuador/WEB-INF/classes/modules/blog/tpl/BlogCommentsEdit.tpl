@@ -31,18 +31,6 @@
 			<textarea name="params[text]" cols="55" rows="8" wrap="VIRTUAL" id="params_text">|-$blogComment->gettext()-|</textarea>
 		</p>
 				<p>
-				<label for="params_email">email</label>
-				<input type="text" id="params_email" name="params[email]" value="|-$blogComment->getemail()-|" title="email" maxlength="255" />
-				</p>
-				<p>
-				<label for="params_username">Usuario</label>
-				<input type="text" id="params_username" name="params[username]" value="|-$blogComment->getusername()-|" title="username" maxlength="255" />
-			</p>
-			<p>
-				<label for="params_ip">ip</label>
-				<input type="text" id="params_ip" name="params[ip]" value="|-$blogComment->getip()-|" title="ip" maxlength="50" />
-			</p>
-			<p>
 				<label for="params_creationDate">Fecha</label>
 				<input name="params[creationDate]" type="text" id="params_creationDate" class="datepicker" title="creationDate" value="|-$blogComment->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
@@ -57,18 +45,10 @@
 				</select>
 			</p>
 			<p>
-				<label for="params_userId">Usuario</label>
-				<select id="params_userId" name="params[userId]" title="userId">
-				<option value="">Seleccione un User</option>
-					|-foreach from=$userIdValues item=object-|
-					<option value="|-$object->getid()-|" |-if $blogComment->getuserId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getusername()-|</option>
-					|-/foreach-|
-				</select>
-		</p>
-		<p>
 				|-if !$blogComment->isNew()-|
 				<input type="hidden" name="id" id="id" value="|-$blogComment->getid()-|" />
 				|-/if-|
+				<input type="hidden" name="params[userId]" id="params_userId" value="|-$action-|" />
 				<input type="hidden" name="action" id="action" value="|-$action-|" />
 				<input type="hidden" name="do" id="do" value="blogCommentsDoEdit" />
 				<p>|-javascript_form_validation_button id="button_edit_blogComment" value='Aceptar' title='Aceptar'-|

@@ -1,7 +1,7 @@
 |-if $message eq "captcha"-|
 <div id="errorMessage">Captcha incorrecto, intente nuevamente</div>
 |-/if-|
-|-if !is_object($boardChallenge) or isset($entryDeleted)-|
+|-if !is_object($boardChallenge) or isset($boardDeleted)-|
 		<div>Entrada no encontrada, puede que haya sido eliminada o esté incorrectamente identificada.<br />
  Puede regresar a la página principal del board haciendo click <a href="Main.php?do=boardShow">aquí</a></div>
 |-elseif $message eq "noChallengeIdRequested"-|
@@ -17,6 +17,9 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 </div>
 <!-- End  COMPLETE TEXT // TEXTO NOTICIA COMPLETA --------------------- -->
 <p>&nbsp;</p>
+		|-foreach from=$bonds item=bond-|
+			<p><input type="button" name="|-$bond->getName()-|" value="|-$bond->getName()-|" id="bond_|-$bond->getId()-|" onClick="javascript:addBond(|-$bond->getId()-|);"></p>
+		|-/foreach-|
 		<p><input type="button" name="Volver" value="Volver" id="Volver" onClick="javascript:history.go(-1);"></p>
 </div>
 	|-include file='BoardCommentsInclude.tpl' challenge=$boardChallenge comments=$comments bonds=$bonds-|
@@ -26,4 +29,16 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 <!-- END Entrada  **************************************** -->
 
 |-/if-|
-
+<script type="text/javascript">
+	function addBond(id){
+		$.ajax({
+			url: 'Main.php?do=boardDoAddBondToChallengeX',
+			data: {bondId: id, challengeId: |-$boardChallenge->getId()-|},
+			type: 'post',
+			success: function(data){
+				$('#divMsgBox').html(data);
+			}
+		});
+		$('#bond_' + id).attr("disabled", "disabled");
+	}
+</script>

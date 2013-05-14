@@ -29,24 +29,12 @@
 				</p>
 				<p>
 				<label for="newscomment_text">Comentario</label>
-			<textarea name="params[text]" cols="45" rows="4" wrap="VIRTUAL" id="params_text">|-$newsComment->gettext()-|</textarea>
-		</p>
-				<p>
-				<label for="newscomment_email">email</label>
-				<input type="text" id="params_email" name="params[email]" value="|-$newsComment->getemail()-|" title="email" maxlength="255" />
+				<textarea name="params[text]" cols="45" rows="4" wrap="VIRTUAL" id="params_text">|-$newsComment->gettext()-|</textarea>
 				</p>
-				<p>
-				<label for="newscomment_username">Usuario</label>
-				<input type="text" id="params_username" name="params[username]" value="|-$newsComment->getusername()-|" title="username" maxlength="255" />
-			</p>
 <!--			<p>
 				<label for="newscomment_url">url</label>
 				<input type="text" id="params_url" name="params[url]" value="|-$newsComment->geturl()-|" title="url" maxlength="255" />
 			</p> -->
-			<p>
-				<label for="newscomment_ip">ip</label>
-				<input type="text" id="params_ip" name="params[ip]" value="|-$newsComment->getip()-|" title="ip" maxlength="50" />
-			</p>
 			<p>
 				<label for="newscomment_creationDate">Fecha</label>
 				<input name="params[creationDate]" type="date" id="params_creationDate" class="datepicker" title="creationDate" value="|-$newsComment->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
@@ -62,15 +50,6 @@
 				</select>
 			</p>
 			<p>
-				<label for="newscomment_userId">Usuario</label>
-				<select id="params_userId" name="params[userId]" title="userId">
-				<option value="">Seleccione un User</option>
-					|-foreach from=$userIdValues item=object-|
-					<option value="|-$object->getid()-|" |-if $newsComment->getuserId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getusername()-|</option>
-					|-/foreach-|
-				</select>
-		</p>
-		<p>
 				|-if !$newsComment->isNew()-|
 				<input type="hidden" name="id" id="id" value="|-$newsComment->getid()-|" />
 				|-/if-|

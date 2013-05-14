@@ -22,8 +22,7 @@ class BlogEditAction extends BaseEditAction {
 			$this->smarty->assign("categoryIdValues",BlogCategoryQuery::create()->find());
 		}
 
-		//users, statuses y tags
-		$this->smarty->assign("userIdValues",UserQuery::create()->find());
+		//statuses y tags
 		$this->smarty->assign("blogEntryStatus",BlogEntry::getStatuses());
 		$this->smarty->assign("tags", BlogEntryQuery::getTagCandidates($this->entity->getId()));
 	}

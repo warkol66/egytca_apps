@@ -27,29 +27,8 @@
 				</select> |-validation_msg_box idField="boardComment_challengeId"-|
 			</p>
 			<p>
-				<label for="params_bondId">Compromiso</label>
-				<select id="params_bondId" name="params[bondId]" title="bondId" class="emptyValidation">
-				<option value="">Seleccione el nivel de compromiso</option>
-					|-foreach from=$bonds item=object-|
-					<option value="|-$object->getid()-|">|-$object->getname()|truncate:45:"...":true-|</option>
-					|-/foreach-|
-				</select> |-validation_msg_box idField="boardComment_challengeId"-|
-			</p>
-			<p>
 				<label for="params_text">Comentario</label>
 				<textarea name="params[text]" cols="55" rows="8" wrap="VIRTUAL" id="params_text">|-$boardComment->gettext()-|</textarea>
-			</p>
-				<p>
-				<label for="params_email">email</label>
-				<input type="text" id="params_email" name="params[email]" value="|-$boardComment->getemail()-|" title="email" maxlength="255" />
-				</p>
-				<p>
-				<label for="params_username">Usuario</label>
-				<input type="text" id="params_username" name="params[username]" value="|-$boardComment->getusername()-|" title="username" maxlength="255" />
-			</p>
-			<p>
-				<label for="params_ip">ip</label>
-				<input type="text" id="params_ip" name="params[ip]" value="|-$boardComment->getip()-|" title="ip" maxlength="50" />
 			</p>
 			<p>
 				<label for="params_creationDate">Fecha</label>
@@ -65,15 +44,6 @@
 					|-/foreach-|
 				</select>
 			</p>
-			<p>
-				<label for="params_userId">Usuario</label>
-				<select id="params_userId" name="params[userId]" title="userId">
-				<option value="">Seleccione un User</option>
-					|-foreach from=$userIdValues item=object-|
-					<option value="|-$object->getid()-|" |-if $boardComment->getuserId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getusername()-|</option>
-					|-/foreach-|
-				</select>
-		</p>
 		<p>
 				|-if !$boardComment->isNew()-|
 				<input type="hidden" name="id" id="id" value="|-$boardComment->getid()-|" />

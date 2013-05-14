@@ -74,15 +74,6 @@ Puede regresar a la página principal de consignas haciendo click <a href="Main.
 				</select>
 			</p>
 			|-/if-|
-			<p>
-				<label for="params_userId">##board,38,Usuario##</label>
-				<select id="params_userId" name="params[userId]" title="userId">
-					<option value="">##board,39,Seleccione un Usuario##</option>
-									|-foreach from=$userIdValues item=object-|
-									<option value="|-$object->getid()-|" |-if $boardChallenge->getuserId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getusername()-|</option>
-									|-/foreach-|
-								</select>
-		</p>
 				|-if $boardChallenge neq ''-|
 |-if $boardConfig.bodyOnArticlesShow.value eq "NO"-|<p>
 				<label>Vistas</label> |-$boardChallenge->getViews()-| veces

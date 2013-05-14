@@ -83,15 +83,6 @@ $(function() {
 					|-/foreach-|
 				</select>
 			</p>
-			<p>
-				<label for="newsmedia_userId">Usuario</label>
-				<select id="params_userId" name="params[userId]" title="userId">
-				<option value="">Seleccione un Usuario</option>
-					|-foreach from=$userIdValues item=object-|
-					<option value="|-$object->getid()-|" |-if $newsMedia->getuserId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getusername()-|</option>
-					|-/foreach-|
-				</select>
-			</p>
 			<div id="divSWFUploadUI" |-if !$configModule->get('news', useSWFUploader)-|style="display:none;"|-/if-|>
 			<p>
 				<label for="documentType">Tipo de archivo</label>

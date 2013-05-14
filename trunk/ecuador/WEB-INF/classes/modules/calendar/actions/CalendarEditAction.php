@@ -25,8 +25,7 @@ class CalendarEditAction extends BaseEditAction {
 		if ($calendarEventsConfig['useCategories']['value'] == "YES") {	
 			$this->smarty->assign("categoryIdValues",CategoryQuery::create()->find());
 		}
-		//obtengo usuarios, estados y medias
-		$this->smarty->assign("userIdValues",UserQuery::create()->find());
+		//obtengo estados y medias
 		$this->smarty->assign("calendarEventStatus",CalendarEvent::getStatuses());
 		$calendarMediasTypes = CalendarMedia::getMediaTypes();
 		
