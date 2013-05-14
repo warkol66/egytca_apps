@@ -24,23 +24,34 @@
 			|-/if-|
 		|-if $event->getEndDate() eq $event->getStartDate()-|
 			|-assign var=eventDates value=""-|
-		|-elseif $startDateYear eq $endDateYear and $startDateMonth eq $endDateMonth-|
+		|-else if $startDateYear eq $endDateYear and $startDateMonth eq $endDateMonth-|
 			|-assign var=eventDates value=$event->getStartDate()|date_format:"Desde el %d"-|
 			|-assign var=eventDates2 value=$event->getEndDate()|date_format:" al %d de %B de %Y"-|
-			|-$eventDates|cat:$eventDates2-|
-		|-elseif $startDateYear eq $endDateYear-|
+			|-assign var=eventDates value=$eventDates|cat:$eventDates2-|
+		|-else if $startDateYear eq $endDateYear-|
 			|-assign var=eventDates value=$event->getStartDate()|date_format:"Desde el %d de %B"-|
 			|-assign var=eventDates2 value=$event->getEndDate()|date_format:" al %d de %B de %Y"-|
-			|-$eventDates|cat:$eventDates2-|
+			|-assign var=eventDates value=$eventDates|cat:$eventDates2-|
 		|-else-|
 			|-assign var=eventDates value=$event->getStartDate()|date_format:"Desde el %d de %B de %Y"-|
 			|-assign var=eventDates2 value=$event->getEndDate()|date_format:" al %d de %B de %Y"-|
-			|-$eventDates|cat:$eventDates2-|
+			|-assign var=eventDates value=$eventDates|cat:$eventDates2-|
 		|-/if-|
 			|-if $calendarEventsConfig.bodyOnEventsShow.value eq "YES"-|
-				<li><h3>|-$event->getTitle()-|</h3><br />|-if $eventDates ne ""-|<span class="eventDate">|-$eventDates-|</span><br />|-/if-||-$event->getBody()-|</li>
+				<li>
+					<h3>|-$event->getTitle()-|</h3>
+						<br />|-if $eventDates ne ""-|<span class="eventDate">|-$eventDates-|</span>
+						<br />|-/if-|
+						|-$event->getBody()-|
+						</li>
 			|-else-|
-				<li><a href="Main.php?do=calendarView&id=|-$event->getId()-|" class="eventTitle">|-$event->getTitle()-|</a><br />|-if $eventDates ne ""-|<span class="eventDate">|-$eventDates-|</span><br />|-/if-||-$event->getSummary()-|</li><div class="masInfo"><a href="Main.php?do=calendarView&id=|-$event->getId()-|">Ver mas información</a></div>
+				<li>
+					<a href="Main.php?do=calendarView&id=|-$event->getId()-|" class="eventTitle">|-$event->getTitle()-|</a>
+					<br />|-if $eventDates ne ""-|<span class="eventDate">|-$eventDates-|</span><br />|-/if-|
+					|-if $calendarEventsConfig.useSummary.value eq "YES"-||-$event->getSummary()-|</li>
+						<div class="masInfo"><a href="Main.php?do=calendarView&id=|-$event->getId()-|">Ver mas información</a></div>
+					|-else-|</li>
+					|-/if-|
 			|-/if-|		
 		|-else-|
 		|-/if-|

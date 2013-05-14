@@ -64,8 +64,8 @@
 		<rowsPerPage>25</rowsPerPage>
 		<language>esp</language>
 		<fileBrowser>
-			<host>http://localhost/htdocs2/apps/trunk/ecuador</host>
-			<applicationPath>/htdocs2/apps/trunk/ecuador/</applicationPath>
+			<host>http://lideresparroquiales.org</host>
+			<applicationPath></applicationPath>
 			<directories>
 				<dir_1>
 					<title>Documentos</title>
@@ -141,7 +141,7 @@
 			</element_options>
 		</mode>
 		<useCaptcha>
-			<value>YES</value>
+			<value>NO</value>
 			<element_type>YES/NO</element_type>
 		</useCaptcha>
 		<newsletterSubscription>
@@ -238,4 +238,28 @@
 			</displayNewsComments>
 		</comments>
 	</news>
+	<calendar>
+		<calendarEvents>
+			<useSummary>
+				<value>YES</value>
+				<element_type>YES/NO</element_type>
+			</useSummary>
+			<useRegions>
+				<value>NO</value>
+				<element_type>YES/NO</element_type>
+			</useRegions>
+			<useCategories>
+				<value>NO</value>
+				<element_type>YES/NO</element_type>
+			</useCategories>
+			<useImages>
+				<value>NO</value>
+				<element_type>YES/NO</element_type>
+			</useImages>
+			<bodyOnArticlesShow>
+				<value>YES</value>
+				<element_type>YES/NO</element_type>
+			</bodyOnArticlesShow>
+		</calendarEvents>
+	</calendar>
 </config>
