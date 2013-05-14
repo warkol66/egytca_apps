@@ -24,7 +24,6 @@ class NewsArticlesEditAction extends BaseEditAction {
 		if ($newsArticlesConfig['useCategories']['value'] == "YES") {
 			$this->smarty->assign("categoryIdValues",CategoryQuery::create()->find());
 		}
-		$this->smarty->assign("userIdValues",UserQuery::create()->find());
 		
 		//migrar
 		$newsMediasTypes = NewsMedia::getMediaTypes();

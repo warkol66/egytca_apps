@@ -39,6 +39,7 @@
 		<p>
 			<label for="params_text">Comentario</label><textarea id="params_text" name="params[text]" cols="65" rows="5" wrap="VIRTUAL" ></textarea>
 		</p>
+		|-if $logged eq "true"-|
 		<p><label>Código de seguridad</label><div id="codemsgBoxAdder|-$entry->getId()-|">
 			<img src="Main.php?do=commonImage&width=120&height=45&characters=5" />
 			</div>
@@ -46,6 +47,7 @@
 		<p>
 			<label for="formId">Ingrese el código de seguridad</label><input id="formId" name="formId" type="text" size="10" />
 		</p>
+		|-/if-|
 		<div id="cpatcha" style="display:none">		<p>
 			<label for="security_code">No completar</label><input id="security_code" name="securityCode" type="text" size="10" />
 		</p></div>
@@ -55,7 +57,8 @@
 			<input type="hidden" name="params[entryId]" value="|-$entry->getId()-|" id="params_entryId" />
 			<input type="button" value="Agregar Comentario" onClick="javascript:blogCommmentAdd(this.form,|-$entry->getId()-|)" /> 
 			<input type="button" name="commentAdderHideButton|-$entry->getId()-|" value="Cancelar" id="commentAdderHideButton|-$entry->getId()-|" onClick="javascript:hideCommentAddForm(|-$entry->getId()-|)" />
-			<input type="button" name="codeRefresher" id="codeRefresher" value="Regenerar código de seguridad"> <span id="msgBoxAdder|-$entry->getId()-|"></span>
+			|-if $logged eq "true"-|
+			<input type="button" name="codeRefresher" id="codeRefresher" value="Regenerar código de seguridad">|-/if-| <span id="msgBoxAdder|-$entry->getId()-|"></span>
 		</p>
 		</fieldset>
 	</form>

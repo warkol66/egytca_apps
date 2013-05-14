@@ -89,15 +89,6 @@ Puede regresar a la página principal de noticias haciendo click <a href="Main.p
 									|-/foreach-|
 								</select>
 		</p>|-/if-|
-			<p>
-				<label for="newsarticle_userId">##news,38,Usuario##</label>
-				<select id="params_userId" name="params[userId]" title="userId">
-					<option value="">##news,39,Seleccione un Usuario##</option>
-									|-foreach from=$userIdValues item=object-|
-									<option value="|-$object->getid()-|" |-if $newsArticle->getuserId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getusername()-|</option>
-									|-/foreach-|
-								</select>
-		</p>
 				|-if is_object($newsArticle)-|
 |-if $newsArticlesConfig.bodyOnArticlesShow.value eq "NO"-|<p>
 				<label>Vistas</label> |-$newsArticle->getViews()-| veces

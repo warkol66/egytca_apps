@@ -36,15 +36,6 @@
 			<label for="params_email">Email</label><input type="text" id="params_email" name="params[email]" size="40" />
 		</p>
 		<p>
-			<label for="params_bondId">Compromiso</label>
-			<select id="params_bondId" name="params[bondId]" title="bondId" class="emptyValidation">
-			<option value="">Seleccione el nivel de compromiso</option>
-				|-foreach from=$bonds item=object-|
-				<option value="|-$object->getid()-|">|-$object->getname()|truncate:45:"...":true-|</option>
-				|-/foreach-|
-			</select> |-validation_msg_box idField="boardComment_challengeId"-|
-		</p>
-		<p>
 			<label for="params_text">Comentario</label><textarea id="params_text" name="params[text]" cols="65" rows="5" wrap="VIRTUAL" ></textarea>
 		</p>
 		<p>	
