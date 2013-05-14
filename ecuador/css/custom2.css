@@ -181,7 +181,7 @@ top:45px; right:15px;}
 
 #rightColumn {
 	display:inline-block;
-	width: 320px;   /* ie6*/ /*ie7*/
+	width: 540px;   /* ie6*/ /*ie7*/
 	margin: 10px 10px 0 25px;
 }
 
@@ -1460,7 +1460,7 @@ a.readMore {
 #rightMenu {
 	width: 320px;
 	float: right;
-	margin-right: 20px;
+	margin-right: 12px;
 }
 #rightColumn #contentBody p {
 	width: 480px;
