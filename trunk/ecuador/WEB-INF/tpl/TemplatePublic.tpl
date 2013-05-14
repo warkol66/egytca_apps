@@ -43,6 +43,27 @@
 					|-include file="MenuHorizontalPublic.tpl"-|
 			<div class="clear"></div>                           
             <div class="allColumns topbanner"></div>
+						<div id="rightMenu"><br />
+							    <div class="rightBox">
+                    <h3>Red de Autoridades de Parroquias Rurales</h3>
+                    <ul class="asideLinks">
+                      <li><a href="Main.php?do=contentShow&id=6">Quienes Conforman la Red de Autoridades de Parroquias Rurales</a></li>
+                      <li><a href="Main.php?do=contentShow&id=6"> Como Participar en la Red</a></li>
+                      <li><a href="Main.php?do=contentShow&id=6"> Como me beneficio del intercambio con otras autoridades</a></li>
+                      <li><a href="Main.php?do=contentShow&id=6"> Mecanismos de Intercambio de Experiencias</a></li>
+                    </ul>
+                </div>
+                <div class="rightBox">                
+                    <h3>Capacitación</h3>
+                    <ul class="asideLinks">
+                      <li><a href="#">Legislación y regulaciones</a></li>
+                      <li><a href="#"> Como hacer un buen uso de la tecnología de información</a></li>
+                      <li><a href="#">para la gestión pública</a></li>
+                      <li><a href="#"> Cómo redactar gacetillas de prensa.</a></li>
+                    </ul>
+                </div>
+							</div>
+						<!-- End rightMenu -->
 	</div>
 	<!-- End allColumns -->
 	<!-- Begin contentWrapper -->
