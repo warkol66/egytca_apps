@@ -58,6 +58,7 @@ class BoardDoAddBondToChallengeXAction extends BaseDoEditAction {
 				$isEntryTag = BoardBondRelationQuery::create()
 					->filterByBondid($bond->getId())
 					->filterByChallengeid($challenge->getId())
+					->filterByUserid($user->getId())
 					->findOne();
 				
 				if(is_object($isEntryTag)){
@@ -66,7 +67,7 @@ class BoardDoAddBondToChallengeXAction extends BaseDoEditAction {
 				}
 
 				$relation = new BoardBondRelation();
-				$result = $relation->setBondid($bond->getId())->setChallengeid($challenge->getId())->save();
+				$result = $relation->setBondid($bond->getId())->setChallengeid($challenge->getId())->setUserid($user->getId())->save();
 
 				if ($result)
 					return $mapping->findForwardConfig('success');
