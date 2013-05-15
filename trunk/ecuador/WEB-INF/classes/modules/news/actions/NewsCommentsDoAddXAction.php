@@ -9,11 +9,13 @@ class NewsCommentsDoAddXAction extends BaseDoEditAction {
 	protected function preUpdate() {
 		parent::preUpdate();
 		
-		if ( (empty($_POST['securityCode'])) || !Common::validateCaptcha($_POST['securityCode'])) {
-			$this->smarty->assign('captcha',true);
-			$this->smarty->assign('article',NewsArticleQuery::create()->findOneById($_POST["params"]['entryId']));
-			$this->forwardFailureName = 'success';
-			return false;
+		if(!isset($_SESSION['loginUser']) && !isset($_SESSION['loginAffiliateUser']) && !isset($_SESSION['loginClientUser'])){
+			if ( (empty($_POST['securityCode'])) || !Common::validateCaptcha($_POST['securityCode'])) {
+				$this->smarty->assign('captcha',true);
+				$this->smarty->assign('article',NewsArticleQuery::create()->findOneById($_POST["params"]['entryId']));
+				$this->forwardFailureName = 'success';
+				return false;
+			}
 		}
 
 	}

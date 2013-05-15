@@ -229,14 +229,14 @@ class NewsArticle extends BaseNewsArticle {
 	 */
 	private function getApprovedCommentsCriteria() {
 		
-		require_once('NewsComment.php');
+		/*require_once('NewsComment.php');
 		require_once('NewsCommentPeer.php');
 		
 		$criteria = new Criteria();
 		$criteria->add(NewsCommentPeer::ARTICLEID,$this->getId());
 		$criteria->add(NewsCommentPeer::STATUS,NEWSCOMMENT_APPROVED);
 		
-		return $criteria;
+		return $criteria;*/
 		
 	}
 
@@ -245,10 +245,14 @@ class NewsArticle extends BaseNewsArticle {
 	 * del articulo
 	 * @return array de instancias de NewsComment
 	 */ 
-	public function getApprovedComments() {
+	public function getApprovedComments($id) {
 		
-		$criteria = $this->getApprovedCommentsCriteria();
-		return NewsCommentPeer::doSelect($criteria);
+		$approved = NewsCommentQuery::create()
+			->filterByNewsArticleId($this->getId())
+			->filterByStatus(NewsComment::APPROVED)
+			->find();
+		
+		return $approved;
 		
 	}
 	
@@ -259,8 +263,12 @@ class NewsArticle extends BaseNewsArticle {
 	 */ 
 	public function getApprovedCommentsCount() {
 		
-		$criteria = $this->getApprovedCommentsCriteria();
-		return NewsCommentPeer::doCount($criteria);
+		$approved = NewsCommentQuery::create()
+			->filterByNewsArticleId($this->getId())
+			->filterByStatus(NewsComment::APPROVED)
+			->find();
+			
+		return count($approved);
 		
 	}
 	
