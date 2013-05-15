@@ -37,6 +37,10 @@ class BlogViewAction extends BaseEditAction {
 			}
 		}
 		
+		if(isset($_SESSION['loginUser']) || isset($_SESSION['loginAffiliateUser']) || isset($_SESSION['loginClientUser']))
+			$logged = true;
+		
+		$this->smarty->assign("logged", $logged); 
 		$this->smarty->assign("entryDeleted", $this->entity->getDeletedAt('Y-m-d H:i:s')); 
 		
 		$this->template->template = "TemplateBlogPublic.tpl";
