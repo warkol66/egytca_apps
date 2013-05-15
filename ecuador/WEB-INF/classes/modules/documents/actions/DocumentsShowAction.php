@@ -2,7 +2,7 @@
 /**
 * DocumentsShowAction
 *
-*  Action público utilizado para mostrar los documentos existentes
+*  Action pï¿½o utilizado para mostrar los documentos existentes
 *
 * @package documents
 */
@@ -19,7 +19,7 @@ class DocumentsShowAction extends BaseAction {
 
 		//////////
 		// Use a different template
-		$this->template->template = "TemplatePublicDocuments.tpl";
+		$this->template->template = "TemplatePublic.tpl";
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
@@ -163,6 +163,12 @@ class DocumentsShowAction extends BaseAction {
 
 		}
 		else {
+			$pager = $documentPeer->getAllPaginatedFilteredForShow($_GET['page']);
+			$smarty->assign('documents',$pager->getResult());
+			$smarty->assign('pager',$pager);
+			$url = "Main.php?do=documentsShow" . $searchStringParams;
+			$smarty->assign("url",$url);
+
 				$newest = $documentPeer->getNewest();
 				$smarty->assign('newest',$newest);
 			}

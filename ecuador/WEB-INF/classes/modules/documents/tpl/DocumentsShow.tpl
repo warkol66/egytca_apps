@@ -51,9 +51,8 @@ function checkPass(form){
 			</tr>
 			<tr>
 				<th width="3%">##documents,11,Fecha##</th>
-				<th width="25%">##documents,12,Título##</th>
-				<th width="56%">##documents,14,Descripción##</th>
-				<th width="15%">##documents,15,Autor(es)##</th>
+				<th width="30%">##documents,12,Título##</th>
+				<th width="66%">##documents,14,Descripción##</th>
 				<th width="1%">&nbsp;</th>
 			</tr>
 			|-if $documents|@count eq 0-|
@@ -66,7 +65,6 @@ function checkPass(form){
 				<td nowrap="nowrap">|-$document->getDocumentdate()|date_format:"%m-%Y"-|</td>
 				<td>|-$document->getTitle()-|</td>
 				<td>|-$document->getDescription()-|</td>
-				<td>|-$document->getAuthor()-|</td>
 				<td nowrap="nowrap">
 					|-assign var="documentId" value=$document->getId()-|
 					|-assign var="documentCategoryId" value=$document->getCategoryId()-|
