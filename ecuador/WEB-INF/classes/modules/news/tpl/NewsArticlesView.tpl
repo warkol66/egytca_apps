@@ -43,9 +43,9 @@
 <!-- End  COMPLETE TEXT // TEXTO NOTICIA COMPLETA --------------------- -->
 		<p><input type="button" name="Volver" value="Volver" id="Volver" onClick="javascript:history.go(-1);"></p>
 	</div>
-	<p>|-if $newsArticlesConfig.useCommets.value eq "YES"-|
-		|-include file='NewsCommentsInclude.tpl' article=$newsArticle comments=$comments-|
-		|-/if-|
+	<p>
+		|-include file='NewsCommentsInclude.tpl' article=$newsArticle comments=$comments  logged=$logged-|
+		
 	</p>
 	<div id="sendToEmailDiv|-$newsArticle->getId()-|Bottom" style="display: none;">
 		<p>
