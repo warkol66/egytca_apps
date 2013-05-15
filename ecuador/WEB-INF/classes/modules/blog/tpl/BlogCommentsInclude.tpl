@@ -39,7 +39,7 @@
 		<p>
 			<label for="params_text">Comentario</label><textarea id="params_text" name="params[text]" cols="65" rows="5" wrap="VIRTUAL" ></textarea>
 		</p>
-		|-if $logged eq "true"-|
+		|-if isset($logged)-|
 		<p><label>Código de seguridad</label><div id="codemsgBoxAdder|-$entry->getId()-|">
 			<img src="Main.php?do=commonImage&width=120&height=45&characters=5" />
 			</div>

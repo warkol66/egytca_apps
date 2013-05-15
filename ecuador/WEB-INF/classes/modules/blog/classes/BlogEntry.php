@@ -141,8 +141,8 @@ class BlogEntry extends BaseBlogEntry {
 			
 		return count($approved);
 		
-		$criteria = $this->getApprovedCommentsCriteria();
-		return BlogCommentPeer::doCount($criteria);
+		/*$criteria = $this->getApprovedCommentsCriteria();
+		return BlogCommentPeer::doCount($criteria);*/
 		
 	}
 
