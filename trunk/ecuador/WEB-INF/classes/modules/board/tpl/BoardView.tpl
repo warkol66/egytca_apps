@@ -15,10 +15,13 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 <div id="completeText">
 |-$boardChallenge->getBody()-|
 </div>
+<div class="tags">|-foreach from=$bonds key=key item=bond-|
+     |-$bond-|(|-count(array_keys($usersBonds, $key))-|)&nbsp;|-/foreach-|
+</div>
 <!-- End  COMPLETE TEXT // TEXTO NOTICIA COMPLETA --------------------- -->
 <p>&nbsp;</p>
-		|-foreach from=$bonds item=bond-|
-			<p><input type="button" name="|-$bond->getName()-|" value="|-$bond->getName()-|" id="bond_|-$bond->getId()-|" onClick="javascript:addBond(|-$bond->getId()-|);"></p>
+		|-foreach from=$bonds key=key item=bond-|
+			<p><input type="button" name="|-$bond-|" value="|-$bond-|" id="bond_|-$key-|" onClick="javascript:addBond(|-$key-|);"></p>
 		|-/foreach-|
 		<p><input type="button" name="Volver" value="Volver" id="Volver" onClick="javascript:history.go(-1);"></p>
 </div>
