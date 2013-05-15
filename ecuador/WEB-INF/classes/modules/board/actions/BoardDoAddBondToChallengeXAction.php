@@ -31,10 +31,20 @@ class BoardDoAddBondToChallengeXAction extends BaseDoEditAction {
 			$this->entityParams['challengeId'] = $_POST['challengeId'];
 		}
 	}
-
 	
-	protected function postUpdate(){
-		parent::postUpdate();
+	protected function postSave(){
+		parent::postSave();
+		
+		//busco los compromisos posibles
+		$this->smarty->assign("bonds",BoardBond::getTypes());
+		//busco los compromisos existentes en este desafio
+		$usersB = BoardBondQuery::create()->filterByChallengeId($this->entity->getChallengeId())->find();
+		$usersBonds = array();
+		foreach($usersB as $usersBond){
+			$usersBonds[] = $usersBond->getType();
+		}
+		
+		$this->smarty->assign("usersBonds",$usersBonds);
 		
 	}
 

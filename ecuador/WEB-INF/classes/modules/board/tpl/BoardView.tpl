@@ -39,9 +39,10 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 			data: {bondId: id, challengeId: |-$boardChallenge->getId()-|},
 			type: 'post',
 			success: function(data){
-				$('#divMsgBox').html(data);
+				$('.tags').html(data);
 			}
 		});
+		$('.tags').html('<span>Actualizando...</span>');
 		$('#bond_' + id).attr("disabled", "disabled");
 	}
 </script>
