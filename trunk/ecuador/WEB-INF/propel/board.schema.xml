@@ -61,39 +61,20 @@
 	<table phpName="BoardBond" name="board_bond" description="Compromiso con el challenge">
 
 		<column name="id" type="INTEGER" description="Id del compromiso" primaryKey="true" autoIncrement="true" />
-		<column name="name" type="VARCHAR" size="255" description="Compromiso" />
+		<column name="type" type="INTEGER" description="Tipo de Compromiso" />
+		<column name="userId" type="INTEGER" description="Usuario" />
+		<column name="userType" type="VARCHAR" description="Tipo de Usuario" />
+		<column name="challengeId" type="INTEGER" description="Compromiso" />
 
-		<unique>
-		  <unique-column name="name" />
-		</unique>
-
-	  <vendor type="mysql">
-	    <parameter name="Charset" value="utf8"/>
-	    <parameter name="Collate" value="utf8_general_ci"/>
-	  </vendor>
-
-	</table>
-	
-	<table phpName="BoardBondRelation" name="board_bondRelation" description="Asociacion entre Desafios y Compromisos">
-		
-		<column name="id" type="INTEGER"  required="true" description="Id relacion" primaryKey="true" autoIncrement="true"/>
-		<column name="challengeId" required="true" type="INTEGER" />
-		<column name="bondId" required="true" type="INTEGER" />
-		<column name="userId" required="true" type="INTEGER" />
-
-		<foreign-key foreignTable="board_challenge" onDelete="CASCADE">
-			<reference local="challengeId" foreign="id" />
-		</foreign-key>
-
-		<foreign-key foreignTable="board_bond" onDelete="CASCADE">
-			<reference local="bondId" foreign="id" />
-		</foreign-key>
-		
-		<foreign-key foreignTable="users_user" onDelete="CASCADE">
+		<foreign-key foreignTable="users_user" >
 			<reference local="userId" foreign="id" />
 		</foreign-key>
 		
-		<vendor type="mysql">
+		<foreign-key foreignTable="board_challenge" >
+			<reference local="challengeId" foreign="id" />
+		</foreign-key>
+
+	  <vendor type="mysql">
 	    <parameter name="Charset" value="utf8"/>
 	    <parameter name="Collate" value="utf8_general_ci"/>
 	  </vendor>
