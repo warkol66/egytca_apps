@@ -15,6 +15,7 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 <div id="completeText">
 |-$boardChallenge->getBody()-|
 </div>
+<div id="msgBond"></div>
 <div class="tags">|-foreach from=$bonds key=key item=bond-|
      |-$bond-|(|-count(array_keys($usersBonds, $key))-|)&nbsp;|-/foreach-|
 </div>
