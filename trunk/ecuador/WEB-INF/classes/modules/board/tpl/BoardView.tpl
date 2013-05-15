@@ -15,22 +15,21 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 <div id="completeText">
 |-$boardChallenge->getBody()-|
 </div>
-<div id="msgBond"></div>
-<div class="tags">|-foreach from=$bonds key=key item=bond-|
-     |-$bond-|(|-count(array_keys($usersBonds, $key))-|)&nbsp;|-/foreach-|
-</div>
-<!-- End  COMPLETE TEXT // TEXTO NOTICIA COMPLETA --------------------- -->
 <p>&nbsp;</p>
-		|-foreach from=$bonds key=key item=bond-|
-			<p><input type="button" name="|-$bond-|" value="|-$bond-|" id="bond_|-$key-|" onClick="javascript:addBond(|-$key-|);"></p>
-		|-/foreach-|
-		<p><input type="button" name="Volver" value="Volver" id="Volver" onClick="javascript:history.go(-1);"></p>
+<div id="msgBond"></div>
+<div class="tags">
+  <p>Resultados: |-foreach from=$bonds key=key item=bond-|
+ -&nbsp;|-$bond|regex_replace:"/ /":"&nbsp;"-|&nbsp;(|-count(array_keys($usersBonds, $key))-|)|-/foreach-|
+</div>
+|-foreach from=$bonds key=key item=bond-|
+	<input type="button" name="|-$bond-|" value="|-$bond-|" id="bond_|-$key-|" onClick="javascript:addBond(|-$key-|);" class="bondButton|-if $bond|count_characters gt 15-| whiteSpaceNormal|-/if-|">
+|-/foreach-|
+		<p><br />
+<input type="button" name="Volver" value="Volver" id="Volver" onClick="javascript:history.go(-1);"></p>
 </div>
 	|-include file='BoardCommentsInclude.tpl' challenge=$boardChallenge comments=$comments bonds=$bonds-|
-|-if $moduleConfig.comments.useComments.value eq "YES"-|
-		
-		|-/if-|
-<!-- END Entrada  **************************************** -->
+	|-if $moduleConfig.comments.useComments.value eq "YES"-|
+	|-/if-|
 
 |-/if-|
 <script type="text/javascript">
@@ -43,7 +42,7 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 				$('.tags').html(data);
 			}
 		});
-		$('.tags').html('<span>Actualizando...</span>');
+		$('.tags').html('<span class="inProgress">Actualizando...</span>');
 		$('#bond_' + id).attr("disabled", "disabled");
 	}
 </script>

@@ -1,8 +1,33 @@
+<link rel="stylesheet" href="css/main.css" type="text/css">
+
+<style type="text/css">
+<!--
+body {
+	background-image: url(images/bkg_bodyFancybox.png);
+	background-color: #dad2ca;
+	background-position: top left;
+	background-repeat:repeat-x;
+	color: #333;
+	font-size:77%; /* this makes the text sized at 10px */
+	padding: 0 0 40px;
+}
+#wrapper {
+	width: 92%;
+	background-color:#fdf8e9;
+	-webkit-box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.5);
+	-webkit-border-radius: 0px 0px 10px 10px;
+border-radius: 0px 0px 10px 10px;
+
+}
+#rightColumn {
+	background-color: #FDF8E9;
+	margin-top: 50px;
+}
+-->
+</style>
+<div id="wrapper">
 <div id="rightColumn">
-<link rel="stylesheet" href="css/globalStyles.css" type="text/css">
-<link rel="stylesheet" href="css/globalCustom.css" type="text/css">
-<link rel="stylesheet" href="css/style.css" type="text/css">
-<link rel="stylesheet" href="css/custom.css" type="text/css">
 <div id="titleAgenda">Agenda</div>
 <!-- begin EVENTO01 -->
 <div class="article">
@@ -31,8 +56,6 @@
 <!-- End  COMPLETE TEXT // TEXTO EVENTO COMPLETA --------------------- -->
 </div>
 </div>
-
-	   
-		
-
-
+</div>
+	 
+	
