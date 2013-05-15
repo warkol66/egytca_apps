@@ -56,27 +56,9 @@
                    </li>
                 </ul>
 							</div>
-							
-							
 								<div id="rightMenu">
-							    <div class="rightBox">
-                    <h3>Red de Autoridades de Parroquias Rurales</h3>
-                    <ul class="asideLinks">
-                      <li><a href="Main.php?do=contentShow&id=6">Quienes Conforman la Red de Autoridades de Parroquias Rurales</a></li>
-                      <li><a href="Main.php?do=contentShow&id=6"> Como Participar en la Red</a></li>
-                      <li><a href="Main.php?do=contentShow&id=6"> Como me beneficio del intercambio con otras autoridades</a></li>
-                      <li><a href="Main.php?do=contentShow&id=6"> Mecanismos de Intercambio de Experiencias</a></li>
-                    </ul>
-                </div>
-                <div class="rightBox">                
-                    <h3>Capacitación</h3>
-                    <ul class="asideLinks">
-                      <li><a href="#">Legislación y regulaciones</a></li>
-                      <li><a href="#"> Como hacer un buen uso de la tecnología de información</a></li>
-                      <li><a href="#">para la gestión pública</a></li>
-                      <li><a href="#"> Cómo redactar gacetillas de prensa.</a></li>
-                    </ul>
-                </div>
+							|-include file='PublicContentsBlockInclude.tpl'-|
+							|-include file='PublicDocumentsBlockInclude.tpl'-|
 							</div>
 						<!-- End rightMenu -->
 
@@ -105,14 +87,8 @@
 	<!-- End contentWrapper -->
 	<!-- Begin Footer -->
 	<div id="footer">		       
-		<ul>
-			<li><a href="Main.php?do=contentShow">Inicio</a></li>
-			<li><a href="Main.php?do=boardShow">Desafíos</a></li>
-			<li><a href="Main.php?do=blogShow">Experiencias exitosas</a></li>
-			<li><a href="Main.php?do=newsArticlesShow">Novedades</a></li>
-			<li><a href="Main.php?do=calendarMonth">Eventos</a></li>
-			<li><a href="Main.php?do=documentsList">Documentos</a></li>
-		</ul>
+		<ul>							|-include file='MenuBottomInclude.tpl'-|
+</ul>
 		<p>Copyright©2013 Lídres Parroquiales Ecuador / Desarrollado por Módulos Empresarios.</p>
 	</div>
 	<!-- End Footer -->

@@ -53,7 +53,7 @@ $(document).ready(function() {
 						</li>
 			|-else-|
 				<li>
-					<a href="Main.php?do=calendarView&id=|-$event->getId()-|" class="eventTitle">|-$event->getTitle()-|</a>
+					<span class="eventTitle">|-$event->getTitle()-|</span>
 					<br />|-if $eventDates ne ""-|<span class="eventDate">|-$eventDates-|</span><br />|-/if-|
 					|-if $calendarEventsConfig.useSummary.value eq "YES"-||-$event->getSummary()-|</li>
 						<div class="masInfo"><a id="fancybox_|-$event->getId()-|" href="Main.php?do=calendarViewX&id=|-$event->getId()-|" class="iframe">Ver mas información</a></div>

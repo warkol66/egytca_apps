@@ -999,9 +999,9 @@ transition: background 300ms ease-in-out;
 }	
 
 ul.asideLinks {}
-ul.asideLinks li { color:#fdf8e9;}
-ul.asideLinks li a{color:#fdf8e9; font-size:14px; font-weight: bold; }
-ul.asideLinks li a:hover{color: #ffcc66;}
+ul.asideLinks li { color:#fdf8e9; padding-bottom: 6px;}
+ul.asideLinks li a{color:#fdf8e9; font-size:14px; font-weight: bold; text-decoration: none}
+ul.asideLinks li a:hover{color: #ffcc66;  text-decoration: underline}
 
 
 /*   NAVIGATION   */
@@ -1077,6 +1077,11 @@ p.commentData span {font-weight:bold;}
 	font-weight:bold;
 	color:#006699;
 	text-decoration:none
+}
+.calendar span.eventTitle{
+	font-size:1.4em;
+	font-weight:bold;
+	color: #8B0000;
 }
 #calendar .eventDate{
 	font-size:1em;
@@ -1468,4 +1473,10 @@ a.readMore {
 #contentBody {
 	float: left;
 	width: 520px;
+}
+.bondButton {
+	width: 150px;
+	height: 54px;
+	white-space: normal;
+	vertical-align: bottom !Important;
 }
