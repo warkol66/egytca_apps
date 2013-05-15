@@ -1,5 +1,5 @@
 <script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-<link rel="stylesheet" href="/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="scripts/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
 <script type="text/javascript">
 $(document).ready(function() {
 	$("a#single_image").fancybox();
@@ -56,12 +56,10 @@ $(document).ready(function() {
 					<a href="Main.php?do=calendarView&id=|-$event->getId()-|" class="eventTitle">|-$event->getTitle()-|</a>
 					<br />|-if $eventDates ne ""-|<span class="eventDate">|-$eventDates-|</span><br />|-/if-|
 					|-if $calendarEventsConfig.useSummary.value eq "YES"-||-$event->getSummary()-|</li>
-						<a id="fancybox_|-$event->getId()-|" href="Main.php?do=calendarViewX&id=|-$event->getId()-|" class="iframe">Ver mas información</a>	
-						<div class="masInfo"><a class="fbox_|-$event->getId()-|" href="Main.php?do=calendarViewX">Ver mas información</a></div>
+						<div class="masInfo"><a id="fancybox_|-$event->getId()-|" href="Main.php?do=calendarViewX&id=|-$event->getId()-|" class="iframe">Ver mas información</a></div>
 						<script>
 							$('a#fancybox_|-$event->getId()-|').fancybox({'width' : 800, 'height' : 600});
 						</script>
-						<div class="masInfo"><a href="Main.php?do=calendarView&id=|-$event->getId()-|">Ver mas información</a></div>
 					|-else-|</li>
 					|-/if-|
 			|-/if-|		
