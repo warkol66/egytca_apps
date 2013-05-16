@@ -223,7 +223,7 @@ top:45px; right:15px;}
 #leftCenterColumn h2.home,
 #leftCenterColumn .article h2,
 #leftCenterColumn .article h3,
-#rightColumn h2.home,
+#rightColumn h2.home, #titleContent,
 #rightColumn .article h2,
 #rightColumn .article h3{
 	width:100%;font-family:Georgia, "Times New Roman", Times, serif; 
@@ -242,6 +242,8 @@ top:45px; right:15px;}
 	#rightColumn .article h2 a{line-height:26px;color:#990000; font-weight:bold;text-decoration: none;}
 	#rightColumn .article h3{font-size:22px;}
 	#rightColumn h2.home{font-size:26px; margin:10px 0 0 15px; padding:0 0 40px 0; text-transform: uppercase;}
+	#titleContent{font-size:26px;}
+
 
 #leftCenterColumn .article h4,
 #rightColumn .article h4{
@@ -1469,14 +1471,18 @@ a.readMore {
 }
 #rightColumn #contentBody p {
 	width: 480px;
+	font-size: 1.1em;
 }
 #contentBody {
 	float: left;
 	width: 520px;
 }
-.bondButton {
-	width: 150px;
+.bondButton , .bondButtonWide {
+	width: 100px;
 	height: 54px;
 	white-space: normal;
 	vertical-align: bottom !Important;
+}
+.bondButtonWide {
+	width: 150px;
 }

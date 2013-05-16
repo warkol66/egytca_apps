@@ -20,17 +20,17 @@
 	width: 980px;
 }
 #rightColumn #contentBody p {
-	width: 680px;
+	width: 780px;
 }
 #contentBody {
 	float: left;
-	width: 720px;
+	width: 920px;
 }
 .wide-chz-select {
 	min-width: 700px;
 }
  #rightColumn {
-    width: 1050px;
+    width: 950px;
 }
 .home  #rightMenu {
     width: 420px;
