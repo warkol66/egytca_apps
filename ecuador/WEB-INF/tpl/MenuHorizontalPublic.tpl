@@ -5,7 +5,7 @@
 			<li><a href="#" class="sub"><span class="titleMenu">Red de Líderes</span></a>
 			<ul class="menu">
 				<li><a href="Main.php?do=blogShow">Experiencias Exitosas</a></li>
-				<li><a href="Main.php?do=boardShow">Challenging board</a></li>
+				<li><a href="Main.php?do=boardView&url=">Challenging board</a></li>
 				<li><a href="Main.php?do=calendarMonth">Eventos</a></li>
 				<li class="last"><a href="Main.php?do=newsArticlesShow">Novedades</a></li>
 			</ul>
