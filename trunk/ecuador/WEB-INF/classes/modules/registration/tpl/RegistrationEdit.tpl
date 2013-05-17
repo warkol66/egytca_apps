@@ -1,3 +1,17 @@
+<script type="text/javascript">
+	$(function(){
+		$('#codeRefresher').click(function(event){
+			refreshCodeX('msgBoxAdder');
+		});
+	});
+	
+	function refreshCodeX(id) {	
+		var divId = '#code' + id;
+		var time = new Date().getTime();
+		$(divId).html("<img src='Main.php?do=commonImage&width=120&height=45&characters=5&t=" + time + "'/>");
+		return false;
+	}
+</script>
 |-if isset($loggedUser) and get_class($loggedUser) eq "User"-|
 <h2>Módulo de Registro de Usuarios</h2>
 <h1>Administrar Registro de Usuarios</h1>
@@ -127,16 +141,17 @@
 		</p>
 		|-*/if*-|
 
-		|-if isset($useCaptcha) and $useCaptcha-|
-		<p>
-			<label for="security_code">Código de Seguridad</label>
-            <img src="Main.php?do=commonImage" />
+		|-if !isset($loggedUser)-|
+		<p><label for="newsletterSubscribe">Código de seguridad</label><div id="codemsgBoxAdder">
+			<img src="Main.php?do=commonImage&width=120&height=45&characters=5" />
+			</div>
 		</p>
 		<p>
-				Ingrese el código de seguridad de la imagen <br />
-           <input class="emptyValidation" id="security_code" name="securityCode" type="text" size="10" />
+			<label for="formId">Ingrese el código de seguridad</label><input class="emptyValidation" id="formId" name="formId" type="text" size="10" />
 		</p>
-
+		<div id="cpatcha" style="display:none">	<p>
+			<label for="security_code">No completar</label><input id="security_code" name="securityCode" type="text" size="10" />
+		</p></div>
 		|-/if-|
 
 		|-if $smarty.session.loginRegistrationUser-|
@@ -185,6 +200,10 @@
 
             |-else-|
                 |-javascript_form_validation_button value=Crear-|
+            |-/if-|
+            
+            |-if !isset($loggedUser)-|
+				<input type="button" name="codeRefresher" id="codeRefresher" value="Regenerar código de seguridad"><span id="msgBoxAdder"></span>
             |-/if-|
 
 
