@@ -27,7 +27,7 @@ class UsersPasswordRecoveryDoRequestAction extends BaseAction {
 		$section = "Users";
 
 		if ( !empty($_POST["username"]) && !empty($_POST["mailAddress"]) ) {
-			if (Common::validateCaptcha($_POST['securityCode'])) {
+			if ( !empty($_POST['formId']) || Common::validateCaptcha($_POST['formId'])) {
 				$user = UserPeer::authenticateByUserAndMail($_POST["username"],$_POST["mailAddress"]);
 				if ( !empty($user)) {
 					if (!$user->recoveryRequestAlredyMade()) {

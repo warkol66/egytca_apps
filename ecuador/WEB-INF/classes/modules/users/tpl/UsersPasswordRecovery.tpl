@@ -1,3 +1,10 @@
+<script type="text/javascript">
+	$(function(){
+		$('#codeRefresher').click(function(event){
+			refreshCodeX('msgBoxAdder');
+		});
+	});
+</script>
 <div id="loginWrapper"> 
 	<!-- Begin Login --> 
 	<div id="login">
@@ -25,16 +32,20 @@
 							<h1>E-Mail</h1>
 							<p><input type='text' name='mailAddress' size='35'  class="inputLogin" /></p>
 							
-							<!--Captcha -->
-							<p>
-								<label for="newsletterSubscribe">Código de Seguridad</label>
-								<img src="Main.php?do=commonCaptchaGeneration" />
+							<!--Sec Code -->
+							
+							<p><label for="newsletterSubscribe">Código de seguridad</label><div id="codemsgBoxAdder">
+								<img src="Main.php?do=commonImage&width=120&height=45&characters=5" />
+								</div>
 							</p>
 							<p>
-								Ingrese el código de seguridad de la imagen <br />
-								<input id="security_code" name="securityCode" type="text" size="10" />
+								<label for="formId">Ingrese el código de seguridad</label><input id="formId" name="formId" type="text" size="10" />
 							</p>
-							<!-- End Captcha -->
+							<div id="cpatcha" style="display:none">		<p>
+								<label for="security_code">No completar</label><input id="security_code" name="securityCode" type="text" size="10" />
+							</p></div>
+							<input type="button" name="codeRefresher" id="codeRefresher" value="Regenerar código de seguridad"><span id="msgBoxAdder"></span>
+							<!-- Sec Code -->
 				|-/if-|
 		<!--[if lte IE 6]><p>Su versión actual de navegador es IExplorer 6.<br />Este sistema requiere que utilice una versión mas nueva de Interntet Explorer.<br />
 													Debe actualizarla para el correcto funcionamiento del sistema.</p><![endif]-->
