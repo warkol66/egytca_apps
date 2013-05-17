@@ -44,7 +44,7 @@
 		<p><input type="button" name="Volver" value="Volver" id="Volver" onClick="javascript:history.go(-1);"></p>
 	</div>
 	<p>
-		|-include file='NewsCommentsInclude.tpl' article=$newsArticle comments=$comments  logged=$logged-|
+		|-include file='NewsCommentsInclude.tpl' article=$newsArticle comments=$comments logged=$logged-|
 		
 	</p>
 	<div id="sendToEmailDiv|-$newsArticle->getId()-|Bottom" style="display: none;">

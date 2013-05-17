@@ -11,13 +11,13 @@ class BlogCommentsDoAddXAction extends BaseDoEditAction {
 		
 		//Si no hay usuario logueado hago chequeo de security code
 		if(!isset($_SESSION['loginUser']) && !isset($_SESSION['loginAffiliateUser']) && !isset($_SESSION['loginClientUser'])){
-			if ( (empty($_POST['securityCode'])) || !Common::validateCaptcha($_POST['securityCode'])) {
+			if ( empty($_POST['formId']) || !Common::validateCaptcha($_POST['formId'])) {
 				$this->smarty->assign('captcha',true);
 				$this->smarty->assign('entry',BlogEntryQuery::create()->findOneById($_POST["params"]['entryId']));
 				$this->forwardFailureName = 'success';
 				return false;
 			}else{
-				
+				$module = "Blog";
 				$this->entity->setCreationdate(date('Y-m-d H:m:s'));
 				$this->entity->setIp($_SERVER['REMOTE_ADDR']);
 				

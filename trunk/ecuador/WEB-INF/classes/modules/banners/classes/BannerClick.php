@@ -36,7 +36,7 @@ class BannerClick extends BaseBannerClick {
 	{
 		try {
 			$click = new BannerClick();
-			$click->setBanner($banner);
+			$click->setBannerId($banner);
 			$click->setTime(time());
 			$click->setZoneid($zoneId);
 			$click->setUrl($banner->getTargetUrl());
