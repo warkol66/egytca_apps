@@ -136,7 +136,7 @@ class RegistrationDoEditAction extends BaseDoEditAction {
 		 * Chequeando el codigo del captcha
 		 */
 		if (!$loggedUser && Common::getRegistrationCaptchaUse()) {
-			if ((empty($_POST['securityCode'])) || !Common::validateCaptcha($_POST['securityCode'])) {
+			if ((empty($_POST['formId'])) || !Common::validateCaptcha($_POST['formId'])) {
 				$this->smarty->assign('captcha', true);
 				$this->smarty->assign("message", "error");
 				throw new Exception("error_captcha", 1);
