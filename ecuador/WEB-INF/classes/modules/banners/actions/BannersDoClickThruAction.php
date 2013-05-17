@@ -7,13 +7,6 @@
  */
 
 /**
- * Requires de Clases base del modelo y del módulo banners
- */
-require_once("BaseAction.php");
-require_once("BannerPeer.php");
-require_once("BannerClickPeer.php");
-
-/**
  * Class BannersDoClickThruAction
  *
  * Registra el clcik relacionado a un banner y redirecciona al url especificado
@@ -42,8 +35,8 @@ class BannersDoClickThruAction extends BaseAction {
 		$zoneId = $_GET['zoneId'];
 		$banner = BannerQuery::create()->findOneById($bannerId);
 
-		$url = $banner->getTargeturl();
 		if (is_object($banner)) {
+			$url = $banner->getTargeturl();
 			BannerClick::create($banner, $zoneId);
 			if (!empty($url))
 				header("Location: $url");

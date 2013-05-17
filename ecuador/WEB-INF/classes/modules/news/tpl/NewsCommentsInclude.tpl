@@ -41,7 +41,8 @@
 			<label for="params_text">Comentario</label><textarea id="params_text" name="params[text]" cols="65" rows="5" wrap="VIRTUAL" ></textarea>
 		</p>
 		|-if !isset($logged)-|
-		<p><label>Código de seguridad</label><div id="codemsgBoxAdder|-$article->getId()-|">
+		|-assign var=useCaptcha value=1-|
+		|-if $useCaptcha-|<p><label>Código de seguridad</label><div id="codemsgBoxAdder|-$article->getId()-|">
 			<img src="Main.php?do=commonImage&width=120&height=45&characters=5" />
 			</div>
 		</p>
@@ -50,14 +51,14 @@
 		</p>
 		<div id="cpatcha" style="display:none">		<p>
 			<label for="security_code">No completar</label><input id="security_code" name="securityCode" type="text" size="10" />
-		</p></div>
+		</p></div>|-/if-|
 		|-/if-|
 		<p>	
 			<input type="hidden" name="params[articleId]" value="|-$article->getId()-|" id="params_entryId" />
 			<input type="hidden" name="do" value="newsCommentsDoAddX" id="do">
 			<input type="button" value="Agregar Comentario" onClick="javascript:newsCommmentAdd(this.form,|-$article->getId()-|)" /> 
 			<input type="button" name="commentAdderHideButton|-$article->getId()-|" value="Cancelar" id="commentAdderHideButton|-$article->getId()-|" onClick="javascript:hideCommentAddForm(|-$article->getId()-|)" />
-			<input type="button" name="codeRefresher" id="codeRefresher" value="Regenerar código de seguridad"> <span id="msgBoxAdder|-$article->getId()-|"></span>
+			|-if $useCaptcha-|<input type="button" name="codeRefresher" id="codeRefresher" value="Regenerar código de seguridad">|-/if-| <span id="msgBoxAdder|-$article->getId()-|"></span>
 		</p>
 		</fieldset>
 	</form>
