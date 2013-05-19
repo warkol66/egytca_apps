@@ -67,4 +67,58 @@ class Contract extends BaseContract {
 		return $termTypes;
 	}
 
+	/**
+	 * Calcula la fecha de finalizacion
+	 *
+	 * @return  date fecha de finalizacion
+	 */
+	public function getCalculatedEndDate() {
+		$calculatedEndDate = new DateTime($this->getSignDate('Y-m-d'));
+		switch ($this->getValidationType()) {
+		case 1:
+			$calculatedEndDate->modify(+$this->getValidationLength() . ' days');
+		case 2:
+			$calculatedEndDate->modify(+$this->getValidationLength() . ' months');
+		case 3:
+			$calculatedEndDate->modify(+$this->getValidationLength() . ' yearts');
+		}
+		return $calculatedEndDate->format('Y-m-d');
+	}
+
+	/**
+	 * Cuenta cuantos certificados hay
+	 *
+	 * @return  date fecha de finalizacion
+	 */
+	public function getCertificatesCount() {
+		return CertificateQuery::create()
+										->useMeasurementRecordQuery()
+											->useConstructionQuery()
+												->filterByContractid($this->getId())
+											->endUse()
+										->endUse()
+									->count();
+	}
+
+	/**
+	 * Cuenta cuantos certificados hay
+	 *
+	 * @return  date fecha de finalizacion
+	 */
+	public function getLastCertificateDate() {
+		$lastCertificate = CertificateQuery::create()
+										->useMeasurementRecordQuery()
+										->orderByMeasurementDate(Criteria::DESC)
+											->useConstructionQuery()
+												->filterByContractid($this->getId())
+											->endUse()
+										->endUse()
+									->findOne();
+		if (!empty($lastCertificate))
+			return $lastCertificate->getMeasureRecord()->getMeasurementDate();
+		else
+			return;
+	}
+
+
 } // Contract
