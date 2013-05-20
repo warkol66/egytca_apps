@@ -26,11 +26,6 @@ class NewsArticlesViewAction extends BaseEditAction {
 
 		}
 		
-		if(isset($_SESSION['loginUser']) || isset($_SESSION['loginAffiliateUser']) || isset($_SESSION['loginClientUser']))
-			$logged = true;
-		
-		$this->smarty->assign("logged", $logged);
-		
 		$this->template->template = "TemplateNewsPublic.tpl";
 	}
 

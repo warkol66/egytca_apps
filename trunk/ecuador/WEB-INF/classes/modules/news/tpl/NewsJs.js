@@ -195,12 +195,11 @@ function hideSendEmailForm(id) {
 	$('#' + id).html('');
 }
 //migrada
-function refreshCaptchaX(id) {
-	var divId = '#captchaArticle' + id;
+function refreshCodeX(id) {
+	
+	var divId = '#code' + id;
 	var time = new Date().getTime();
-	$('sendArticleMsgBox'+id).html('recargando captcha...');
-	$(divId).html('');
-	$(divId).html("<img src='Main.php?do=newsCaptchaRefresh&t=" + time + "'/>");
+	$(divId).html("<img src='Main.php?do=commonImage&width=120&height=45&characters=5&t=" + time + "'/>");
 	return false;
 }
 

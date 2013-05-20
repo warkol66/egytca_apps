@@ -42,3 +42,11 @@ function newsCommmentAdd(form,id) {
 	$('msgBoxAdder'+id).html('<span class="inProgress">... agregando comentario ...</span>');
 
 }
+
+function refreshCodeX(id) {
+	
+	var divId = '#code' + id;
+	var time = new Date().getTime();
+	$(divId).html("<img src='Main.php?do=commonImage&width=120&height=45&characters=5&t=" + time + "'/>");
+	return false;
+}
