@@ -28,17 +28,27 @@
 	<div id="formComments">
 	<form action="Main.php" method="post" id="formCommentAdder|-$challenge->getId()-|">
 <fieldset title="Formulario para agregar comentarios">
-	<p>
+	|-if !empty($loggedUser)-|<p>
 	<label for="boardComment_username">Nombre</label>
+			<input type="hidden" id="params_username" name="params[username]" value="|-$loggedUser->getName()-| |-$loggedUser->getSurname()-|"/><span>|-$loggedUser->getName()-| |-$loggedUser->getSurname()-|</span>
+		</p>
+		<p>
+			<label for="params_email">Email</label><input type="hidden" id="params_email" name="params[email]" value="|-$loggedUser->getMailAddress()-|" /><span>|-$loggedUser->getMailAddress()-|</span>
+		</p>
+	|-else-|
+		<p>
+			<label for="boardComment_username">Nombre</label>
 			<input type="text" id="params_username" name="params[username]" title="username" size="40"/>
 		</p>
 		<p>
 			<label for="params_email">Email</label><input type="text" id="params_email" name="params[email]" size="40" />
 		</p>
+	|-/if-|
 		<p>
 			<label for="params_text">Comentario</label><textarea id="params_text" name="params[text]" cols="65" rows="5" wrap="VIRTUAL" ></textarea>
 		</p>
-		|-if !isset($logged)-|
+		|-if empty($loggedUser)-|
+		|-assign var=useCaptcha value=1-|
 		|-if $useCaptcha-|<p><label>Código de seguridad</label><div id="codemsgBoxAdder|-$challenge->getId()-|">
 			<img src="Main.php?do=commonImage&width=120&height=45&characters=5" />
 			</div>

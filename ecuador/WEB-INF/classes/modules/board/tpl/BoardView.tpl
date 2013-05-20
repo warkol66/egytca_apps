@@ -27,7 +27,7 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 		<p><br />
 <input type="button" name="Volver" value="Volver" id="Volver" onClick="javascript:history.go(-1);"></p>
 </div>
-	|-include file='BoardCommentsInclude.tpl' challenge=$boardChallenge comments=$comments bonds=$bonds logged=$logged-|
+	|-include file='BoardCommentsInclude.tpl' challenge=$boardChallenge comments=$comments bonds=$bonds-|
 	|-if $moduleConfig.comments.useComments.value eq "YES"-|
 	|-/if-|
 

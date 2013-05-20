@@ -11,7 +11,7 @@ class BoardCommentsDoAddXAction extends BaseDoEditAction {
 		
 		$module = "Board";
 		
-		if(!isset($_SESSION['loginUser']) && !isset($_SESSION['loginAffiliateUser']) && !isset($_SESSION['loginClientUser'])){
+		if(empty(Common::getLoggedUser())){
 			if ( (empty($_POST['securityCode'])) || !Common::validateCaptcha($_POST['securityCode'])) {
 				$this->smarty->assign('captcha',true);
 				$this->smarty->assign('entry',BlogEntryQuery::create()->findOneById($_POST["params"]['entryId']));
