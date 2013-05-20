@@ -18,6 +18,8 @@
 		<column name="mailAddressAlt" type="VARCHAR" size="90" description="Direccion electronica alternativa"/>
 		<column name="blockedAt" type="TIMESTAMP" description="Fecha y hora del bloqueo" />
 
+		<column name="regionId" type="INTEGER" description="Region" />
+
 		<behavior name="soft_delete" />
 		<behavior name="timestampable" />
 
@@ -27,6 +29,10 @@
 
 		<foreign-key foreignTable="users_level" >
 			<reference local="levelId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="regions_region" >
+			<reference local="regionId" foreign="id" />
 		</foreign-key>
 
 		<vendor type="mysql">
