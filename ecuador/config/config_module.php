@@ -38,6 +38,16 @@ class ConfigModule {
 			"useFilterByUserGroup" => true,
 			"passwordRecoveryExpirationTimeInHours" => 24
 		),
+		"regions" => array(
+			"treeRootType" => 3,
+			"lowestType" => 5,
+			"highestType" => 7,
+			"activeRegionTypes" => array(
+				5 => 'Province',
+				6 => 'Canton',
+				7 => 'Parrish'
+			)
+		),
 		"affiliates" => array(
 			"useTimezones" => false,
 			"forceFirstPasswordChange" => true,
