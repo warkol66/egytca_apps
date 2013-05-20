@@ -24,8 +24,8 @@
 					<div class="close"></div>
 					</div><!-- end INDIVIDUAL-->
 				</div>
-				|-include file="BoardChildrenCommentsInclude.tpl" id=$comment->getId() comments=$children-|
-				|-include file="BoardChildrenCommentsFormInclude.tpl" comment=$comment-|
+				|-*include file="BoardChildrenCommentsInclude.tpl" id=$comment->getId() comments=$children*-|
+				|-*include file="BoardChildrenCommentsFormInclude.tpl" comment=$comment*-|
 		|-/foreach-|
 		</div>
 </div>

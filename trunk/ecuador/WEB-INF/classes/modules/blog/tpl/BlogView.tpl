@@ -29,4 +29,3 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 <!-- END Entrada  **************************************** -->
 
 |-/if-|
-

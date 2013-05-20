@@ -651,9 +651,9 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
 input[type="submit"], input[type="button"], input[type="reset"], input[disabled="disabled"]:hover {
 	color:#FFFFFF;
 	background-color: #CC0000;
-  	background: -webkit-gradient(linear, left top, left bottom, from(#CC0000), to(#993333));
-  	background: -moz-linear-gradient(top,  #CC0000,  #993333);
-	  background: -o-linear-gradient(top,  #CC0000,  #993333);
+  background: -webkit-gradient(linear, left top, left bottom, from(#CC0000), to(#993333));
+  background: -moz-linear-gradient(top,  #CC0000,  #993333);
+	background: -o-linear-gradient(top,  #CC0000,  #993333);
 	border: 1px outset #cdcdcd !Important;/*#F0F0F0;*/
 	outline: 0 none;
 	cursor: pointer;
@@ -666,13 +666,12 @@ input[type="submit"], input[type="button"], input[type="reset"], input[disabled=
 	padding: 2px 12px 2px 12px;
 	font-weight:bold;
 	font-size:1em;
-
 }
 input[readonly="readonly"] {
 	background-color: #dcdcdc;
 }
 input[disabled="disabled"] {
-	color: #4F4F4F;
+	color: #BABABA !Important;
 	background-color: #d0d0d0;
 }
 
@@ -1486,3 +1485,21 @@ a.readMore {
 .bondButtonWide {
 	width: 150px;
 }
+/* MAILS   --------------------------------------------*/
+a.linkMailNew:link, a.linkMailNew:visited,
+a.linkMailMarkRead:link, a.linkMailMarkRead:visited,
+a.linkMailMarkUnread:link, a.linkMailMarkUnread:visited,
+a.linkMailReply:link, a.linkMailReply:visited,
+a.linkMailForward:link, a.linkMailForward:visited,
+a.linkMailDelete:link, a.linkMailDelete:visited {
+	color:#FFFFFF;
+}
+a.linkMailNew:hover, a.linkMailNew:active,
+a.linkMailMarkRead:hover, a.linkMailMarkRead:active,
+a.linkMailMarkUnread:hover, a.linkMailMarkUnread:active,
+a.linkMailReply:hover, a.linkMailReply:active,
+a.linkMailForward:hover, a.linkMailForward:active,
+a.linkMailDelete:hover, a.linkMailDelete:active {
+	color:#009900;
+}
+/* MAILS   --------------------------------------------*/
