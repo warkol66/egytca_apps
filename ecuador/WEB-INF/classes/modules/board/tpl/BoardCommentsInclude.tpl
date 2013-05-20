@@ -39,7 +39,6 @@
 			<label for="params_text">Comentario</label><textarea id="params_text" name="params[text]" cols="65" rows="5" wrap="VIRTUAL" ></textarea>
 		</p>
 		|-if !isset($logged)-|
-		|-assign var=useCaptcha value=1-|
 		|-if $useCaptcha-|<p><label>Código de seguridad</label><div id="codemsgBoxAdder|-$challenge->getId()-|">
 			<img src="Main.php?do=commonImage&width=120&height=45&characters=5" />
 			</div>

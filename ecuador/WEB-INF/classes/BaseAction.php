@@ -136,16 +136,16 @@ class BaseAction extends Action {
 
 		header("Content-type: text/html; charset=UTF-8");
 
+		$loggedUser = Common::getLoggedUser();	
+
 		if (!$noCheckLogin) { //Verifica login $noCheckLogin != 1
 
-			$loggedUser = Common::getLoggedUser();	
 			if (!empty($loggedUser)) {
 				//Veo que el usuario no este bloqueado
 				if(Common::isBlockedUser($loggedUser->getUsername()) && Common::checkLoginUserFailures('User',$user->getId())) {// No tiene permiso
 					header("Location:Main.php?do=$loginPath");
 					exit();
 				}
-				
 				
 				if (!ConfigModule::get("global","noSecurity") && $actionRequested != "securityNoPermission") {
 					if (!empty($securityAction))

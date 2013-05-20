@@ -178,6 +178,32 @@
 			</moderated>
 		</comments>
 	</blog>
+	<board>
+		<boardEntries>
+			<useCategories>
+				<value>YES</value>
+				<element_type>YES/NO</element_type>
+			</useCategories>
+			<useSendEntries>
+				<value>YES</value>
+				<element_type>YES/NO</element_type>
+			</useSendEntries>
+		</boardEntries>
+		<comments>
+			<useComments>
+				<value>YES</value>
+				<element_type>YES/NO</element_type>
+			</useComments>
+			<displayComments>
+				<value>YES</value>
+				<element_type>YES/NO</element_type>
+			</displayComments>
+			<moderated>
+				<value>NO</value>
+				<element_type>YES/NO</element_type>
+			</moderated>
+		</comments>
+	</board>
 	<news>
 		<newsInHome>5</newsInHome>
 		<newsPerPage>8</newsPerPage>
