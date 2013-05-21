@@ -9,8 +9,9 @@ class BlogCommentsDoAddXAction extends BaseDoEditAction {
 	protected function preUpdate() {
 		parent::preUpdate();
 		
-		//Si no hay usuario logueado hago chequeo de security code
-		if(empty(Common::getLoggedUser())){
+		$loggedUser = Common::getLoggedUser();
+		//Si no hay usuario logueado verifico sec dode
+		if(empty($loggedUser)){
 			if ( empty($_POST['formId']) || !Common::validateCaptcha($_POST['formId'])) {
 				$this->smarty->assign('captcha',true);
 				$this->smarty->assign('entry',BlogEntryQuery::create()->findOneById($_POST["params"]['entryId']));
