@@ -9,7 +9,7 @@ class BoardShowAction extends BaseListAction {
 	protected function preList() {
 		parent::preList();
 		
-		$this->filters['status'] = 2; //Solo las consignas publicadas
+		$this->filters['status'] = BoardChallenge::PUBLISHED; //Solo las consignas publicadas
 		$this->filters['dateRange']['enddate']['min'] = date("Y-m-d H:i:s"); //Solo las que todavia no terminaron
 		
 	}
@@ -24,6 +24,35 @@ class BoardShowAction extends BaseListAction {
 		 
 		$moduleConfig = Common::getModuleConfiguration($module);
 		$this->smarty->assign('moduleConfig',$moduleConfig);
+		
+		//me fijo si hay algun challenge vigente
+		foreach($this->results as $challenge){
+			if( (strtotime($challenge->getStartDate()) <= time()) && (strtotime($challenge->getEndDate()) > time()) ){
+				$current = $challenge;
+				break;
+			}
+		}
+		
+		//asignaciones necesarias para mostrar el challenge vigente
+		if(isset($current)){
+			$this->smarty->assign("bonds",BoardBond::getTypes());
+			$usersB = BoardBondQuery::create()->filterByChallengeId($current->getId())->find();
+			$usersBonds = array();
+			foreach($usersB as $usersBond){
+				$usersBonds[] = $usersBond->getType();
+			}
+			
+			$this->smarty->assign("usersBonds",$usersBonds);
+			if ($moduleConfig['comments']['useComments']['value'] == "YES") {
+
+				//si se la configuracion pide que se muestren los comentarios de forma directa
+				if ($moduleConfig['comments']['displayComments']['value'] == 'YES') {
+					$comments = BoardCommentQuery::create()->filterByParentId(NULL, Criteria::EQUAL)->findByChallengeIdAndStatus($current->getId(),BoardComment::APPROVED);
+					$this->smarty->assign("comments",$comments);
+				}
+			}
+		}
+		//fin asignaciones para mostrar el challenge vigente
 		
 		if (isset($_REQUEST["rss"])) {
 			$this->template->template = "TemplatePlain.tpl";
