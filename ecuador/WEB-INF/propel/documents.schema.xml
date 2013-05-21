@@ -13,6 +13,8 @@
 		<column name="number" type="VARCHAR" size="10" description="Numero de Publicacion" />		
 		<column name="size" type="INTEGER" description="Tamano de archivo" />
 		<column name="fullTextContent" type="LONGVARCHAR" description="Contenido del archivo" />
+		<column name="userObjectType" type="VARCHAR" size="50" required="true" description="Tipo de usuario" />
+		<column name="userObjectId" type="INTEGER" required="true" description="Id del usuario" />
 
 		<index name="fullTextContent">
 			<index-column name="title" />
