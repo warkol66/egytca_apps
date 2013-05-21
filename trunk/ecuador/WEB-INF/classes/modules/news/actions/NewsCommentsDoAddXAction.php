@@ -9,7 +9,9 @@ class NewsCommentsDoAddXAction extends BaseDoEditAction {
 	protected function preUpdate() {
 		parent::preUpdate();
 		
-		if(empty(Common::getLoggedUser())){
+		$loggedUser = Common::getLoggedUser();
+		//Si no hay usuario logueado verifico sec dode
+		if(empty($loggedUser)){
 			if ( (empty($_POST['formId'])) || !Common::validateCaptcha($_POST['formId'])) {
 				$this->smarty->assign('captcha',true);
 				$this->smarty->assign('article',NewsArticleQuery::create()->findOneById($_POST["params"]['entryId']));
