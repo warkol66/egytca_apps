@@ -1,14 +1,16 @@
 <database defaultIdMethod="native" package="regions.classes" name="application">
 
-	<table name="regions_region" phpName='Region' description="Regiones">
+	<table name="regions_region" phpName="Region" description="Regiones">
 		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
 		<column name="name" required="true" type="VARCHAR" size="100" description="Name"/>
 		<column name="type" required="true" type="INTEGER" size="2" description="Tipo de Region"/>
-		<column name="oldCode" required="true" type="VARCHAR" size="100" description="Old Code"/>
-		<column name="oldId" required="true" type="INTEGER" size="5" description="Old Id"/>
 		<column name="postalCode" type="INTEGER" size="4" description="Postal Code"/>
 		<column name="latitude" type="DOUBLE" description="Latitud" />
 		<column name="longitude" type="DOUBLE" description="Longitud" />
+		<column name="population" type="DOUBLE" description="Habitantes" />
+		<column name="populationYear" type="INTEGER" description="Fecha censo" />
+		<column name="area" type="DOUBLE" description="Superficie" />
+		<column name="capital" type="VARCHAR" size="100" description="Capital (si aplica)"/>
 
 		<unique>
 			<unique-column name="name" />
@@ -27,7 +29,7 @@
 
 	</table>
 
-	<table name="regions_timezone" phpName='RegionTimezone' description="Regiones y Zonas">
+	<table name="regions_timezone" phpName="RegionTimezone" description="Regiones y Zonas">
 		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
 		<column name="name" required="true" type="VARCHAR" size="100" description="Name"/>
 		<column name="label" required="true" type="VARCHAR" size="100" description="Label"/>

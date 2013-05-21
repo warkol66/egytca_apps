@@ -27,16 +27,15 @@ class RegionsEditAction extends BaseAction {
 		$smarty->assign("regionTypes",$regionTypes);
 
 		if ( !empty($_GET["id"]) ) {
-			$region = RegionPeer::get($_GET["id"]);
-			$smarty->assign("region",$region);
-			$smarty->assign("action","edit");
-			$type = $region->getType();
-			$regions =  RegionPeer::getAllPossibleParentsByType($type);
+			$region = RegionQuery::create()->findOneById($_GET["id"]);
+			if (!empty($region)) {
+				$smarty->assign("region",$region);
+				$regions =  RegionPeer::getAllPossibleParentsByType($region->getType());
+			}
 		}
 		else {
 			$region = new Region();
 			$smarty->assign("region",$region);
-			$smarty->assign("action","create");
 			$regions =  RegionPeer::getAllPossibleParents();
 		}
 

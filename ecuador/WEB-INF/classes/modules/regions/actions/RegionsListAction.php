@@ -1,54 +1,25 @@
 <?php
+/**
+ * RegionsListAction
+ *
+ * Listado de Region extendiendo BaseListAction
+ *
+ * @package    region
+ */
 
-class RegionsListAction extends BaseAction {
-
-	function RegionsListAction() {
-		;
+class RegionsListAction extends BaseListAction {
+	
+	function __construct() {
+		parent::__construct('Region');
 	}
 
-	function execute($mapping, $form, &$request, &$response) {
-
-		BaseAction::execute($mapping, $form, $request, $response);
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
-
-		$module = "Regions";
-		$smarty->assign("module",$module);
-
-		$regionPeer = new RegionPeer();
-
-		$regionTypes = $regionPeer->getRegionTypesTranslated();
-		$smarty->assign("regionTypes",$regionTypes);
-
-		if (!empty($_GET["page"])){
-			$page = $_GET["page"];
-			$smarty->assign("page",$page);
-		}
-		if (!empty($_GET['filters'])){
-			$filters = $_GET['filters'];
-			$this->applyFilters($regionPeer,$filters,$smarty);
-		}
-
-		$pager = $regionPeer->getAllPaginatedFiltered($_GET["page"]);
-		$smarty->assign("regions",$pager->getResult());
-		$smarty->assign("pager",$pager);
-
-		$url = "Main.php?do=regionsList";
-		foreach ($filters as $key => $value)
-			$url .= "&filters[$key]=$value";
-		$smarty->assign("url",$url);
-
-		$smarty->assign("message",$_GET["message"]);
-		return $mapping->findForwardConfig('success');
+	protected function preList() {
+		parent::preList();
+		$this->module = "Region";
 	}
 
+	protected function postList() {
+		parent::postList();
+		$this->smarty->assign("module", $this->module);
+	}
 }
-
-
