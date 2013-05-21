@@ -10,8 +10,9 @@ class BoardCommentsDoAddXAction extends BaseDoEditAction {
 		parent::preUpdate();
 		
 		$module = "Board";
+		$loggedUser = Common::getLoggedUser();
 		
-		if(empty(Common::getLoggedUser())){
+		if(empty($loggedUser)){
 			if ( (empty($_POST['securityCode'])) || !Common::validateCaptcha($_POST['securityCode'])) {
 				$this->smarty->assign('captcha',true);
 				$this->smarty->assign('entry',BlogEntryQuery::create()->findOneById($_POST["params"]['entryId']));

@@ -1,5 +1,12 @@
 ﻿<div id="div_boardChallenges">
 		|-foreach from=$boardChallengeColl item=boardChallenge name=for_boardChallenges-|
+			|-assign var=start value=$boardChallenge->getStartDate()|date_format:"%Y/%m/%d"-|
+			|-assign var=end value=$boardChallenge->getEndDate()|date_format:"%Y/%m/%d"-|
+			|-assign var=now value=$smarty.now|date_format:"%Y/%m/%d"-|
+			|-if ($now ge $start) and ($now le $end)-|
+				|-include file="BoardView.tpl" boardChallenge=$boardChallenge usersBonds=$usersBonds comments=$comments-|
+				<h1>Próximos Desafíos</h1>
+			|-else-|
 			<!--class ex board01-->
 			<div id="article|-$boardChallenge->getId()-|" class="article">
 				|-assign var="eId" value=$boardChallenge->getId()-|
@@ -16,8 +23,9 @@
 				<div class="masInfo">
 					 <a class="commentsBut" href="Main.php?do=boardView&id=|-$boardChallenge->getId()-|" title="Haga click aquí para comentar">Comentarios: |-$boardChallenge->getApprovedCommentsCount()-|</a>
 				</div>
-		<div class="close"></div>
+			<div class="close"></div>
 			</div>
+			|-/if-|
 		|-/foreach-|			
 		|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 		<div class="pages">|-if $smarty.get.page == ''-||-include file="BoardHomePaginateInclude.tpl"-||-else-||-include file="BoardShowPaginateInclude.tpl"-||-/if-|</div>

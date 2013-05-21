@@ -9,7 +9,7 @@
 class BoardDoDeleteAction extends BaseDoDeleteAction {
 	
 	function __construct() {
-		parent::__construct('BoardEntry');
+		parent::__construct('BoardChallenge');
 		
 	}
 	
