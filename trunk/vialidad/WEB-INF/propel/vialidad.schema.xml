@@ -444,18 +444,29 @@
 	<table phpName="Invoice" name="vialidad_invoice" description="Facturas">
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
-		<column name="certificateId" type="INTEGER" required="true"  description="Id del certificado asociado" />
+		<column name="certificateId" type="INTEGER" description="Id del certificado asociado (CertificateInvoice)" />
+		<column name="constructionId" type="INTEGER" description="Id de la obra asociada (AdvancePaymentInvoice)" />
 		<column name="contractorNumber" type="VARCHAR" size="50" description="Numero de factura del contratista" />
 		<column name="advancePayment" type="DECIMAL" size="12" scale="2" description="Anticipo" />
 		<column name="advancePaymentRecovery" type="DECIMAL" size="12" scale="2" description="Recupero de Anticipo" />
 		<column name="withholding" type="DECIMAL" size="12" scale="2" description="Retenciones" />
 		<column name="totalPrice" type="DECIMAL" size="12" scale="2" description="Importe" />
 		<column name="status" type="INTEGER" description="Estado de la Factura" />
+		
+		<column name="class_key" type="INTEGER" inheritance="single">
+			<inheritance key="1" class="Invoice"/>
+			<inheritance key="2" class="CertificateInvoice" extends="Invoice"/>
+			<inheritance key="3" class="AdvancePaymentInvoice" extends="Invoice"/>
+		</column>
 
 		<behavior name="timestampable" />
 
 		<foreign-key foreignTable="vialidad_certificate" onDelete="cascade" >
 			<reference local="certificateId" foreign="id" />
+		</foreign-key>
+		
+		<foreign-key foreignTable="vialidad_construction" onDelete="cascade" >
+			<reference local="constructionId" foreign="id" />
 		</foreign-key>
 		
 		<vendor type="mysql">
