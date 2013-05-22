@@ -1,0 +1,1 @@
+<p>|-$certificateInvoice->toJSON()|regex_replace:"/^\{(.*)\}$/":'$1'|regex_replace:'/("\w+":[^,]*,)/':'$1<br>'-|</p>

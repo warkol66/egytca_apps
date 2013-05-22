@@ -115,7 +115,7 @@ class Contract extends BaseContract {
 										->endUse()
 									->findOne();
 		if (!empty($lastCertificate))
-			return $lastCertificate->getMeasureRecord()->getMeasurementDate();
+			return $lastCertificate->getMeasurementRecord()->getMeasurementDate();
 		else
 			return;
 	}
