@@ -45,6 +45,21 @@ class DocumentsEditAction extends BaseEditAction {
 		
 		if ($this->entity->isPasswordProtected() && !$this->entity->checkPassword($password))
 			return false;
+			
+		//si es edicion de documento existente verifico que el usuario logueado tenga mas permisos que el que creo el documento
+		if(!$this->entity->isNew()){
+			$logged = Common::getLoggedUser();
+			$queryClass = $this->entity->getUserObjectType() . 'Query';
+			if ( class_exists($queryClass) ) {
+				$author = $queryClass::create()->findOneById($this->entity->getUserObjectId());
+				//si no es administrador o no es el creador no lo dejo editar
+				if($logged->getLevelId() > 2 || (get_class($logged) == get_class($author) && $logged->getId() == $author->getId())){
+					$this->smarty->assign('level',true);
+					$this->forwardFailureName = 'success';
+					return false;
+				}
+			}
+		}
 		
 		$this->smarty->assign('entity', $_POST['entity']);
 		$this->smarty->assign('entityId', $_POST['entityId']);

@@ -26,6 +26,7 @@ class DocumentsDoEditAction extends BaseDoEditAction {
 	}	
 	
 	protected function preUpdate() {
+		parent::preUpdate();
 		
 		$this->smarty->assign('module', 'Documents');
 		
@@ -52,7 +53,10 @@ class DocumentsDoEditAction extends BaseDoEditAction {
 		if (!empty($file['name'])) {
 			try {
 				Common::ensureWritable(Document::getDocumentsPath());
+				//die();
 			} catch (Exception $e) {
+				/*echo(Document::getDocumentsPath());
+				die();*/
 				$this->smarty->assign('message', $e->getMessage());
 				$this->forwardFailureName = 'failure';
 				return false;
@@ -86,17 +90,24 @@ class DocumentsDoEditAction extends BaseDoEditAction {
 		
 		$this->forwardName = 'success'.$_POST['entity'];
 		
+		//datos del usuario
+		$user = Common::getLoggedUser();
+		if(is_object($user)){
+			$this->entityParams['userObjectType'] = get_class($user);
+			$this->entityParams['userObjectId'] = $user->getId();
+		}
+		
 		//TODO: ordenar uso del swfupload
 //		//si no llega ningun archivo significa que la carga se realizo por swfUpload.
 //		if(empty($_FILES["document_file"]['name'])) {
 //			return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'uploadsuccess'), $mapping, 'success' . $_POST['entity']);
 //		}
 		
-		parent::preUpdate();
 	}
 	
 	protected function postSave() {
 		parent::postSave();
+		
 		if (!empty($_FILES['document_file']['name'])) {
 			if (file_exists($this->entity->getFullyQualifiedFileName()))
 				unlink($this->entity->getFullyQualifiedFileName());

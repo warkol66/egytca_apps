@@ -7,6 +7,39 @@
 *
 */
 
+/*class DocumentsDoDeleteAction extends BaseDoDeleteAction {
+	
+	function __construct() {
+		parent::__construct('Document');
+		
+	}
+	
+	protected function preDelete(){
+		
+		// se obtiene el archivo a eliminar
+		$id = $_POST["id"];
+		$document = DocumentQuery::create()->findOneById($id);
+		$password = $_POST['password'];
+		
+		//si no valida el password no hago nada
+		if (!$document->checkPasswordValidation($password)){
+			$this->forwardFailureName = 'success';
+			return false;
+			//return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'errormessage'=>'wrongPasswordComparison'), $mapping, 'failure' . $_POST['entity']);
+		}
+		
+	}
+	
+	protected function postDelete(){
+		parent::postDelete();
+		
+		$module = "Documentos";
+		$this->smarty->assign("module",$module);
+		
+	}
+
+}*/
+
 class DocumentsDoDeleteAction extends BaseAction {
 
 	function DocumentsDoDeleteAction() {
@@ -26,12 +59,10 @@ class DocumentsDoDeleteAction extends BaseAction {
 		$module = "Documentos";
 		$smarty->assign("module",$module);
 
-		$documentPeer = new DocumentPeer();
-
 		////////////
 		// se obtiene el archivo a eliminar
 		$id = $_POST["id"];
-		$document = $documentPeer->getById($id);
+		$document = DocumentQuery::create()->findOneById($id);
 		$password = $_POST['password'];
 
 		//validacion de password
@@ -52,13 +83,13 @@ class DocumentsDoDeleteAction extends BaseAction {
 					//si el documento no tiene mas referencias cruzadas lo elimino.
 					$queryInstance = new $queryClassName;
 					if ($queryInstance->filterByDocumentId($_POST["id"])->count() <= 0) {
-						if (!$documentPeer->delete($_POST["id"]))
+						if (!Document::deleteUnlink($_POST["id"]))
 							return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'errormessage'=>'errorFound'), $mapping, 'failure' . $_POST['entity']);
 					}
 				}
 			}
 			else {
-				if (!$documentPeer->delete($_POST["id"])) {
+				if (!Document::deleteUnlink($_POST["id"])) {
 					$smarty->assign("errormessage", "errorFound");
 					return $mapping->findForwardConfig("failure");
 				}

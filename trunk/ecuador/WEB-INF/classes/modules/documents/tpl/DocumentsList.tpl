@@ -165,14 +165,14 @@ function checkPassDelete(form){
 
 				<!-- form de eliminar -->
 				|-capture name=formDelete-|
-				<form name='documents' action='Main.php?do=documentsDoDelete' style='display:inline;' method='POST'>
+				<form name='documents' id='document_|-$document->getId()-|' action='Main.php?do=documentsDoDelete' style='display:inline;' method='POST'>
 					<input type=hidden name='id' value='|-$document->getId()-|'>
 					<input type=hidden name='category' value='|-$document->getCategoryid()-|'>
 
 					|-if $usePasswords && $document->getPassword() ne ''-|
 						<input type='password' name='password' />
 					|-/if-|
-					<input type='submit' name='submit' value='##common,2,Eliminar##' title='##common,2,Eliminar##' class='icon iconDelete' onclick='if (confirm("¿Seguro que desea eliminar este documento?")){new Ajax.Updater("documentOperationInfo", "Main.php?do=documentsDoDeleteX", { method: "post", parameters: { id: "|-$document->getId()-|", category: "|-$document->getCategoryid()-|"}, evalScripts: true})}return false;' alt="Eliminar" />
+					<input type='submit' name='submit' value='##common,2,Eliminar##' title='##common,2,Eliminar##' class='icon iconDelete' onclick="if (confirm('¿Seguro que desea eliminar este documento?'))$.ajax({url: 'Main.php?do=documentsDoDeleteX',data:$('#document_|-$document->getId()-|').serialize(),type: 'post',success:function(data){$('#documentOperationInfo').html(data);}});return false;" alt="Eliminar" />
 				</form>
 				|-/capture-|
 				|-if $usePasswords && $document->getPassword() ne ""-|

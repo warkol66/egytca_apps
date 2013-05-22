@@ -1,4 +1,7 @@
 <h2>Documentos</h2>
+|-if isset($level)-|
+<p>No tiene permisos para editar este documento</p>
+|-else-|
 <h1>|-if !$document->isNew()-|Editar|-else-|Ingresar|-/if-| datos de documentos</h1>
 <p>|-if !$document->isNew()-|
 Ingrese los datos del documento a editar y haga click en "Editar Documento".<br>
@@ -19,5 +22,6 @@ Ingrese los datos del documento y haga click en "Agregar Documento".
 |-/if-|
 </p>
 |-include file="DocumentsEditInclude.tpl"-|
+|-/if-|
 
  
