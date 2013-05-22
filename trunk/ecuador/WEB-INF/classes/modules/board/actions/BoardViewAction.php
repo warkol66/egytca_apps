@@ -32,13 +32,15 @@ class BoardViewAction extends BaseEditAction {
 		//busco los compromisos posibles
 		$this->smarty->assign("bonds",BoardBond::getTypes());
 		//busco los compromisos existentes en este desafio
-		$usersB = BoardBondQuery::create()->filterByChallengeId($this->entity->getId())->find();
-		$usersBonds = array();
-		foreach($usersB as $usersBond){
-			$usersBonds[] = $usersBond->getType();
-		}
+		$usersB = BoardBondQuery::create()->select('Type')->filterByChallengeId($this->entity->getId())->find();
+		$this->smarty->assign("usersBonds",$usersB->getData());
 		
-		$this->smarty->assign("usersBonds",$usersBonds);
+		//busco los compromisos que hizo el usuario logueado
+		$user = Common::getLoggedUser();
+		$loggedBonds = BoardBondQuery::create()->select('Type')->filterByUserId($user->getId())->find();
+		$this->smarty->assign("loggedBonds",$loggedBonds->getData());
+		/*echo($loggedBonds->getData());
+		die();*/
 		
 		if ($moduleConfig['comments']['useComments']['value'] == "YES") {
 
