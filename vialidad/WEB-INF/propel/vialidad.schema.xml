@@ -451,7 +451,7 @@
 		<column name="advancePaymentRecovery" type="DECIMAL" size="12" scale="2" description="Recupero de Anticipo" />
 		<column name="withholding" type="DECIMAL" size="12" scale="2" description="Retenciones" />
 		<column name="totalPrice" type="DECIMAL" size="12" scale="2" description="Importe" />
-		<column name="status" type="INTEGER" description="Estado de la Factura" />
+		<column name="status" type="ENUM" valueSet="submitted, paid, void" description="Estado de la Factura"/>
 		
 		<column name="class_key" type="INTEGER" inheritance="single">
 			<inheritance key="1" class="Invoice"/>

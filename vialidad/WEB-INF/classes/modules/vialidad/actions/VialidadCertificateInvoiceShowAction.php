@@ -20,7 +20,7 @@ class VialidadCertificateInvoiceShowAction extends BaseEditAction {
 
 			$invoice = CertificateInvoiceQuery::create()->findOneOrCreate();
 			$invoice->setCertificate(CertificateQuery::create()->findOne());
-			$invoice->setStatus(2);
+			$invoice->setStatus('paid');
 
 			$invoice->save();
 
