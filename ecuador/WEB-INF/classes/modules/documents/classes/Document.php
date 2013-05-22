@@ -157,5 +157,34 @@ class Document extends BaseDocument {
 			}
 		}
 	}
+	
+	/** Migrado de Peer
+	 * Eliminacion de documentos
+	 * @param $id integer identificador de documentos
+	 *
+	 */
+	function deleteUnlink($id) {
+
+		$moduleConfig = Common::getModuleConfiguration('documents');
+		$documentsPath = $moduleConfig['documentsPath'];
+		try {
+
+			$document = DocumentQuery::create()->findOneById($id);
+
+			//si no se puede eliminar se lanza una excepcion
+			if(!unlink($documentsPath . '/' . $document->getId()))
+				throw new PropelException();
+
+			//se elimina la entrada en la base de datos
+			$document->delete();
+
+		}
+		catch (PropelException $e) {
+			return false;
+		}
+
+		return true;
+
+	}
 
 }

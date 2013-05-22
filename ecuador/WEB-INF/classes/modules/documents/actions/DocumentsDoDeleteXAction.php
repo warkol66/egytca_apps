@@ -25,14 +25,12 @@ class DocumentsDoDeleteXAction extends BaseAction {
 
 		$module = "Documentos";
 		$smarty->assign("module",$module);
-
-		$documentPeer = new DocumentPeer();
-
+		
 		////////////
 		// se obtiene el archivo a eliminar
 		$id = $_POST["id"];
 		$smarty->assign("id", $id);
-		$document = $documentPeer->getById($id);
+		$document = DocumentQuery::create()->findOneById($id);
 		$password = $_POST['password'];
 
 		//validacion de password
@@ -56,7 +54,7 @@ class DocumentsDoDeleteXAction extends BaseAction {
 					//si el documento no tiene mas referencias cruzadas lo elimino.
 					$queryInstance = new $queryClassName;
 					if ($queryInstance->filterByDocumentId($_POST["id"])->count() <= 0) {
-						if (!$documentPeer->delete($_POST["id"])) {
+						if (!Document::deleteUnlink($_POST["id"])) {
 							$smarty->assign("errormessage", "errorFound");
 							return $mapping->findForwardConfig("failure");
 						}
@@ -64,7 +62,10 @@ class DocumentsDoDeleteXAction extends BaseAction {
 				}
 			}
 			else {
-				if (!$documentPeer->delete($_POST["id"])) {
+				if (!Document::deleteUnlink($_POST["id"])) {
+					//print_r(Document::deleteUnlink($_POST["id"]));
+					//echo(Document::deleteUnlink($_POST["id"]));
+					//die();
 					$smarty->assign("errormessage", "errorFound");
 					return $mapping->findForwardConfig("failure");
 				}

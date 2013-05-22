@@ -25,7 +25,7 @@
 			<div id="divSWFUploadUI" |-if !$configModule->get('documents', useSWFUploader)-|style="display:none;"|-/if-|>
 			<p>
 				<label for="documentType">Tipo de archivo</label>
-				<select name="documentType" id="document_type" onChange="javascript:changeTypeFileManager()">
+				<select name="params[documentType]" id="params_document_type" onChange="javascript:changeTypeFileManager()">
 					|-foreach from=$documentTypes key=key item=value-|
 						<option value="|-$key-|">|-$key-|</option>
 					|-/foreach-|
