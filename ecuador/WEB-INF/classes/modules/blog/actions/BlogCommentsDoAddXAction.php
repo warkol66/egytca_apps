@@ -33,8 +33,8 @@ class BlogCommentsDoAddXAction extends BaseDoEditAction {
 				else
 					$this->entity->setStatus(BlogComment::APPROVED);
 			}
-		}
-			
+		//}
+
 	}
 	
 	protected function postUpdate() {

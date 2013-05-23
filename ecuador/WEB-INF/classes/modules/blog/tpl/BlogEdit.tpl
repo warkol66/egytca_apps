@@ -2,17 +2,92 @@
 <div>Entrada no encontrada, puede que haya sido eliminada o esté incorrectamente identificada.<br />
 Puede regresar a la página principal del blog haciendo click <a href="Main.php?do=blogList">aquí</a></div>
 |-else-|
+<link type="text/css" href="css/smoothness/jquery-ui-1.8.19.custom.css" rel="Stylesheet" />
+<script type="text/javascript" src="scripts/jquery/jquery-ui-1.8.19.custom.min.js"></script>
 <script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+<script type="text/javascript" src="scripts/jquery/jquery-ui-sliderAccess.js"></script>
+<script type="text/javascript" src="scripts/jquery/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="scripts/fancybox/jquery.easing-1.3.pack.js"></script>
+<script type="text/javascript" src="scripts/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+<script type="text/javascript" src="scripts/jquery/jquery.jeditable.mini.js"></script>
 <script type="text/javascript">
+	var galleryOptions; 
+	
 	$(document).ready(function() {
 		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
         $( ".datepicker" ).datepicker({
 			dateFormat:"dd-mm-yy"
 		});
         
-        $("a#inline").fancybox();	
+        $("a#inline").fancybox();
+        
+        galleryOptions = {
+			titleShow: true,
+			titlePosition: 'inside',
+			titleFormat: function(title, currentArray, currentIndex, currentOpts) {
+				var a = currentArray[currentIndex];
+				var photoDiv = $('<div></div>');
+				$('<p><span id="title" class="jeditable_'+$(a).attr('photoId')+'">'+$(a).attr('photoTitle')+'</span></p>').appendTo(photoDiv);
+				$('<p><span id="description" class="jeditable_'+$(a).attr('photoId')+'">'+$(a).attr('photoDescription')+'</span></p>').appendTo(photoDiv);
+				return photoDiv;
+			},
+			onComplete: function(currentArray, currentIndex) {
+				var a = currentArray[currentIndex];
+				$('.jeditable_'+$(a).attr('photoId')).editable('Main.php?do=resourcesDoEditParam', {
+					id: 'paramName',
+					name: 'paramValue',
+					submitdata: { id: $(a).attr('photoId') },
+					submit: 'OK',
+					cancel: 'Cancel',
+					indicator : 'Saving...',
+					callback: function(value, settings) {
+						$(a).attr('photo'+$(this).attr('id'), value);
+					}
+				});
+			}
+		}
+		
+		$('a.galleryPhoto').fancybox(galleryOptions);
+		|-if !$blogEntry->isNew()-|
+			$('a#photoAdd').fancybox({
+				onComplete: function() {
+					swfuInit();
+				}
+			});
+		|-/if-|
 
 	});//fin docready
+	
+	blogPhotoUploadSuccess = function (file, serverData) {
+			try {
+				var parsedData = JSON.parse(serverData);
+				var progress = new FileProgress(file, this.customSettings.progressTarget);
+				
+				if (parsedData.error == 1) {
+					progress.setError();
+					progress.setStatus(parsedData.message);
+				} else {
+					progress.setComplete();
+					progress.setStatus('Complete.');
+					var data = JSON.parse(parsedData.data);
+					var photo = JSON.parse(data.photo);
+					$.ajax({
+						url: 'Main.php?do=blogLoadGalleryPhotoX',
+						type: 'post',
+						data: { photoId: photo.Id },
+						success: function(data) {
+							$(data).appendTo($('#photos'));
+							$('a.galleryPhoto').fancybox(galleryOptions);
+						}
+					});
+				}
+				
+				progress.toggleCancel(false);
+
+			} catch (ex) {
+				this.debug(ex);
+			}
+		}
  
 </script>
 <div style="display:none;">
@@ -38,6 +113,12 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 		<p>##blog,26,Ingrese los datos de la entrada##</p>
 		<fieldset title="##blog,27,Formulario de edición de datos de un noticia##">
 		<legend>##blog,28,Formulario de Entrada##</legend>
+			|-if !$blogEntry->isNew()-|
+			<p>
+				<a href="#" onclick="$('a.galleryPhoto').first().click();">Ver fotos</a>
+				<a id="documentAdd" href="#uploader">Agregar foto</a>
+			</p>
+			|-/if-|
 			<p>
 				<label for="params_title">##blog,10,Título##</label>
 				<input name="params[title]" type="text" id="params_title" title="title" value="|-$blogEntry->gettitle()|escape-|" size="60" maxlength="255" />
@@ -108,6 +189,16 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 		</fieldset>
 	</div>
 |-/if-|
+<!--Upload de documentos-->
+<div style="display:none"><div id="uploader">
+	|-include
+		file="SWFUploadInclude.tpl"
+		url="Main.php?do=BlogDoUploadPicture&entryId="|cat:$blogEntry->getId()
+		preventInit=true
+		uploadSuccessHandler="blogPhotoUploadSuccess"
+	-|
+</div>
+<!--Fin Upload de documentos-->
 |-if !$blogEntry->isNew()-|
 <fieldset title="Formulario de edición de etiquetas">
 	<legend>Etiquetas</legend>
