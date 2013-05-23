@@ -19,6 +19,8 @@
 			<th>advancePaymentRecovery</th>
 			<th>withholding</th>
 			<th>totalPrice</th>
+			<th>acc. totalPrice</th>
+			<th>acc. withholding</th>
 			<th>status</th>
 		</tr>
 	</thead>
@@ -31,6 +33,8 @@
 				<td>|-$certificateInvoice->getAdvancePaymentRecovery()-|</td>
 				<td>|-$certificateInvoice->getWithholding()-|</td>
 				<td>|-$certificateInvoice->getTotalPrice()-|</td>
+				<td>|-$certificateInvoice->getAccumulatedTotalPrice()-|</td>
+				<td>|-$certificateInvoice->getAccumulatedWithholding()-|</td>
 				<td>|-$certificateInvoice->getStatus()-|</td>
 			</tr>
 		|-/foreach-|

@@ -34,6 +34,52 @@ class CertificateInvoice extends Invoice {
 		return parent::preSave($con);
 	}
 	
+	/**
+	 * Returns the totalPrice accumulated value for this and all previous CertificateInvoices
+	 * related by a Construction
+	 * 
+	 * @return type accumulated value
+	 */
+	public function getAccumulatedTotalPrice() {
+		return $this->accumulateByName('Totalprice');
+	}
+	
+	/**
+	 * Returns the withholding accumulated value for this and all previous CertificateInvoices
+	 * related by a Construction
+	 * 
+	 * @return type accumulated value
+	 */
+	public function getAccumulatedWithholding() {
+		return $this->accumulateByName('Withholding');
+	}
+	
+	/**
+	 * Returns the field accumulated value for this and all previous CertificateInvoices
+	 * related by a Construction
+	 * 
+	 * @param string $fieldname field to be accumulated
+	 * @return type accumulated value
+	 */
+	private function accumulateByName($fieldname) {
+		
+		$measurementDate = $this->getCertificate()->getMeasurementRecord()->getMeasurementdate();
+		$certificateInvoices = CertificateInvoiceQuery::create()
+			->useCertificateQuery()
+				->useMeasurementRecordQuery()
+					->filterByMeasurementdate($measurementDate, Criteria::LESS_EQUAL) // $this CertificateInvoice included
+				->endUse()
+			->endUse()
+		->find();
+		
+		$accumulated = 0;
+		foreach ($certificateInvoices as $certificateInvoice) {
+			$accumulated += $certificateInvoice->getByName($fieldname);
+		}
+		
+		return $accumulated;
+	}
+	
 	public function updateValues() {
 		$this->updateAdvancePaymentRecovery();
 		$this->updateTotalPrice();
