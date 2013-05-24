@@ -125,4 +125,25 @@
 
 	</table>
 -->
+
+	<table name="blog_entryDocument" phpName="BlogEntryDocument" isCrossRef="true">
+
+		<column name="blogEntryId" type="INTEGER" primaryKey="true"/>
+		<column name="documentId" type="INTEGER" primaryKey="true"/>
+
+		<foreign-key foreignTable="blog_entry" onDelete="CASCADE">
+  		<reference local="blogEntryId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="documents_document" onDelete="CASCADE">
+  		<reference local="documentId" foreign="id"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+	
 </database>
