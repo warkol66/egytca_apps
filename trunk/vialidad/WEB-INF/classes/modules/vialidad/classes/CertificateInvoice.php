@@ -40,8 +40,8 @@ class CertificateInvoice extends Invoice {
 	 * 
 	 * @return type accumulated value
 	 */
-	public function getAccumulatedTotalPrice() {
-		return $this->accumulateByName('Totalprice');
+	public function getAccumulatedTotalPrice($includeThis = true) {
+		return $this->accumulateByName('Totalprice', $includeThis);
 	}
 	
 	/**
@@ -50,8 +50,8 @@ class CertificateInvoice extends Invoice {
 	 * 
 	 * @return type accumulated value
 	 */
-	public function getAccumulatedWithholding() {
-		return $this->accumulateByName('Withholding');
+	public function getAccumulatedWithholding($includeThis = true) {
+		return $this->accumulateByName('Withholding', $includeThis);
 	}
 	
 	/**
@@ -61,13 +61,15 @@ class CertificateInvoice extends Invoice {
 	 * @param string $fieldname field to be accumulated
 	 * @return type accumulated value
 	 */
-	private function accumulateByName($fieldname) {
+	private function accumulateByName($fieldname, $includeThis = true) {
+		
+		$comparison = $includeThis ? Criteria::LESS_EQUAL : Criteria::LESS_THAN;
 		
 		$measurementDate = $this->getCertificate()->getMeasurementRecord()->getMeasurementdate();
 		$certificateInvoices = CertificateInvoiceQuery::create()
 			->useCertificateQuery()
 				->useMeasurementRecordQuery()
-					->filterByMeasurementdate($measurementDate, Criteria::LESS_EQUAL) // $this CertificateInvoice included
+					->filterByMeasurementdate($measurementDate, $comparison)
 				->endUse()
 			->endUse()
 		->find();
@@ -82,13 +84,30 @@ class CertificateInvoice extends Invoice {
 	
 	public function updateValues() {
 		$this->updateAdvancePaymentRecovery();
-		$this->updateTotalPrice();
 		$this->updateWithholding();
+		$this->updateTotalPrice();
 	}
 	
 	private function updateAdvancePaymentRecovery() {
-		$advancePaymentRecoveryRate = 0.10; // TODO: mover al config?
-		$this->setAdvancepaymentrecovery($this->getCertificate()->getTotalprice() * $advancePaymentRecoveryRate);
+		$contractId = $this->getCertificate()->getMeasurementRecord()->getConstruction()->getContractId();
+		$advancePaymentInvoice = AdvancePaymentInvoiceQuery::create()->findOneByContractid($contractId);
+		
+		$advancePayment = is_null($advancePaymentInvoice) ? 0 : $advancePaymentInvoice->getAdvancepayment();
+		$recoveredAdvancePayment = $this->accumulateByName('Advancepaymentrecovery', false);
+		
+		$advancePaymentFaltante = $advancePayment - $recoveredAdvancePayment;
+		
+		if ($advancePaymentFaltante > 0) {
+			
+			$advancePaymentRecoveryRate = 0.10; // TODO: mover al config?
+			$multiplicado = $this->getCertificate()->getTotalprice() * $advancePaymentRecoveryRate;
+			$thisAdvancePaymentRecovery = min(array($advancePaymentFaltante, $multiplicado));
+		}
+		else {
+			$thisAdvancePaymentRecovery = 0;
+		}
+		
+		$this->setAdvancepaymentrecovery($thisAdvancePaymentRecovery);
 	}
 	
 	private function updateWithholding() {

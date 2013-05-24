@@ -21,7 +21,12 @@ class VialidadCertificateInvoiceShowAction extends BaseEditAction {
 			$invoice = CertificateInvoiceQuery::create()->findOneOrCreate();
 			$invoice->setCertificate(CertificateQuery::create()->findOne());
 			$invoice->setStatus('paid');
-
+			
+			$contractId = $invoice->getCertificate()->getMeasurementRecord()->getConstruction()->getContractid();
+			$advancePaymentInvoice = AdvancePaymentInvoiceQuery::create()->filterByContractId($contractId)->findOneOrCreate();
+			$advancePaymentInvoice->setAdvancepayment(50);
+			$advancePaymentInvoice->save();
+			
 			$invoice->save();
 
 			$smarty->assign('certificateInvoice', $invoice);
