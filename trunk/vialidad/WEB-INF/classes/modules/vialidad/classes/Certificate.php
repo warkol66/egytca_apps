@@ -33,7 +33,7 @@ class Certificate extends BaseCertificate {
 			$price += $adjustment->getPrice();
 		
 		foreach ($others as $other)
-			$price += $others->getPrice();
+			$price += $other->getPrice();
 		
 		return $price;
 	}
