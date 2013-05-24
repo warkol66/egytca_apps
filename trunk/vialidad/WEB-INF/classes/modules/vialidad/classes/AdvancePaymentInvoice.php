@@ -26,7 +26,7 @@ class AdvancePaymentInvoice extends Invoice {
 	
 	public function preSave(\PropelPDO $con = null) {
 		
-		if (is_null($this->getConstructionid()))
+		if (is_null($this->getContractid()))
 			throw new Exception ('constructionId cannot be null');
 		
 		return parent::preSave($con);
