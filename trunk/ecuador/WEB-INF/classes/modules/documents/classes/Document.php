@@ -6,6 +6,38 @@
  */
 class Document extends BaseDocument {
 	
+	const DOCUMENT_IMAGE = 1;
+	const DOCUMENT_VIDEO = 2;
+	const DOCUMENT_SOUND = 3;
+	
+	const DOCUMENT_SAVEPATH = 'WEB-INF/documents/';
+	
+	/**
+	* Devuelve un array con todos los tipos de media existentes y sus codigos
+	*/
+	public function getDocumentCategories() {
+
+	$types = array();
+	$types[CalendarMedia::CALENDARMEDIA_IMAGE] = 'Imagen';
+
+	return $types;
+
+	}
+	
+	public function getDocumentCategoryName() {
+		
+		$type = $this->getMediaType();
+		
+		switch ($type) {
+			
+			case NewsMedia::DOCUMENT_IMAGE : return 'Imagen';
+			case NewsMedia::DOCUMENT_VIDEO : return 'Video';
+			case NewsMedia::DOCUMENT_SOUND : return 'Sonido';
+			
+		}
+		
+	}
+	
 	/**
 	 * Verifica si el documento está protegido pro contraseña y si la contraseña coincide
 	 * @param string password
@@ -20,11 +52,30 @@ class Document extends BaseDocument {
 	
 	/**
 	 * 
-	 * @return string documents path
+	 * @return string documents path (para modulo documents)
 	 */
 	public static function getDocumentsPath() {
 		$moduleConfig = Common::getModuleConfiguration('documents');
 		return $moduleConfig['documentsPath'];
+	}
+	
+	/**
+	* Devuelve la ruta de salvado de un documento (para usar documents en otros modulos)
+	*
+	*
+	*/
+	public function getSavePath($type, $module) {
+
+		$path = NewsMedia::DOCUMENT_SAVEPATH;
+
+		if ($type == Document::DOCUMENT_IMAGE)
+			$path .= $module . 'images/';
+		if ($type == Document::DOCUMENT_VIDEO)
+			$path .= $module . 'videos/';
+		if ($type == Document::DOCUMENT_SOUND)
+			$path .= $module . 'audio/';
+		return $path;
+
 	}
 	
 	/**
@@ -39,8 +90,11 @@ class Document extends BaseDocument {
 	 * 
 	 * @return string fully quelified name of the file containing the document data
 	 */
-	public function getFullyQualifiedFileName() {
-		return self::getDocumentsPath().'/'.$this->getFileName();
+	public function getFullyQualifiedFileName($type = null,$module = null) {
+		if(isset($module) && isset($type))
+			return self::getSavePath($type, $module).'/'.$this->getFileName();
+		else
+			return self::getDocumentsPath().'/'.$this->getFileName();
 	}
 	
 	/**
@@ -185,6 +239,35 @@ class Document extends BaseDocument {
 
 		return true;
 
+	}
+	
+	public function isOwned(){
+		$logged = Common::getLoggedUser();
+		$queryClass = $this->getUserObjectType() . 'Query';
+		if ( class_exists($queryClass) ) {
+			$author = $queryClass::create()->findOneById($this->getUserObjectId());
+			//si no es administrador (level>2) o no es el creador no lo dejo editar
+			if((get_class($logged) == get_class($author) && $logged->getId() == $author->getId()) || ($logged->getLevelId() <= 2))
+				return false;
+			else
+				return true;
+		}else
+			return true;
+	}
+	
+	/**
+	* Copia el sonido.
+	*
+	* @param NewsMedia $newsmediaObj Objeto NewsMedia 
+	* @param array $sound Audio
+	* @param string $name Nombre 
+	* @return void
+	*/	
+	function createSound($sound,$name,$module) {
+		global $moduleRootDir;
+		$upload = self::getSavePath(self::DOCUMENT_SOUND, $module);
+		$uploadFile = $moduleRootDir . $upload . $name;
+		move_uploaded_file($sound['tmp_name'], $uploadFile);
 	}
 
 }
