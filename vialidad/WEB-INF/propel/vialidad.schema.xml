@@ -445,7 +445,7 @@
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="certificateId" type="INTEGER" description="Id del certificado asociado (CertificateInvoice)" />
-		<column name="constructionId" type="INTEGER" description="Id de la obra asociada (AdvancePaymentInvoice)" />
+		<column name="contractId" type="INTEGER" description="Id de la obra asociada (AdvancePaymentInvoice)" />
 		<column name="contractorNumber" type="VARCHAR" size="50" description="Numero de factura del contratista" />
 		<column name="advancePayment" type="DECIMAL" size="12" scale="2" description="Anticipo" />
 		<column name="advancePaymentRecovery" type="DECIMAL" size="12" scale="2" description="Recupero de Anticipo" />
@@ -465,8 +465,8 @@
 			<reference local="certificateId" foreign="id" />
 		</foreign-key>
 		
-		<foreign-key foreignTable="vialidad_construction" onDelete="cascade" >
-			<reference local="constructionId" foreign="id" />
+		<foreign-key foreignTable="vialidad_contract" onDelete="cascade" >
+			<reference local="contractId" foreign="id" />
 		</foreign-key>
 		
 		<vendor type="mysql">
