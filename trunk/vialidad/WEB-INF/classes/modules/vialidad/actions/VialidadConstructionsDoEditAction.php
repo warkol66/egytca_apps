@@ -30,6 +30,19 @@ class VialidadConstructionsDoEditAction extends BaseAction {
 		$userParams = Common::userInfoToDoLog();
 		$constructionParams = array_merge_recursive($_POST["params"],$userParams);
 
+		if (isset($constructionParams["routeStartingKm"]))
+			$constructionParams["routeStartingKm"] = Common::convertToMysqlNumericFormat($constructionParams["routeStartingKm"]);
+		if (isset($constructionParams["routeEndingKm"]))
+			$constructionParams["routeEndingKm"] = Common::convertToMysqlNumericFormat($constructionParams["routeEndingKm"]);
+		if (isset($constructionParams["startingLatitude"]))
+			$constructionParams["startingLatitude"] = Common::convertToMysqlNumericFormat($constructionParams["startingLatitude"]);
+		if (isset($constructionParams["startingLongitude"]))
+			$constructionParams["startingLongitude"] = Common::convertToMysqlNumericFormat($constructionParams["startingLongitude"]);
+		if (isset($constructionParams["endingLatitude"]))
+			$constructionParams["endingLatitude"] = Common::convertToMysqlNumericFormat($constructionParams["endingLatitude"]);
+		if (isset($constructionParams["endingLongitude"]))
+			$constructionParams["endingLongitude"] = Common::convertToMysqlNumericFormat($constructionParams["endingLongitude"]);
+
 		$smarty->assign("filters",$filters);
 		
 		if (!empty($_REQUEST["returnToContract"]))
@@ -39,7 +52,7 @@ class VialidadConstructionsDoEditAction extends BaseAction {
 			$params["id"] = $_POST["id"];
 			$construction = ConstructionPeer::get($_POST["id"]);
 			if (!empty($construction)) {
-				$construction = Common::setObjectFromParams($construction,$_POST["params"]);
+				$construction = Common::setObjectFromParams($construction,$constructionParams);
 
 				if ($construction->isModified() && $construction->validate() && !$construction->save()) 
 					return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'failure');

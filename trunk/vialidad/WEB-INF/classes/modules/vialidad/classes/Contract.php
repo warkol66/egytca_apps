@@ -77,10 +77,13 @@ class Contract extends BaseContract {
 		switch ($this->getValidationType()) {
 		case 1:
 			$calculatedEndDate->modify(+$this->getValidationLength() . ' days');
+			 break;
 		case 2:
 			$calculatedEndDate->modify(+$this->getValidationLength() . ' months');
+			 break;
 		case 3:
 			$calculatedEndDate->modify(+$this->getValidationLength() . ' yearts');
+			 break;
 		}
 		return $calculatedEndDate->format('Y-m-d');
 	}
@@ -120,5 +123,89 @@ class Contract extends BaseContract {
 			return;
 	}
 
+	/**
+	 * Total en guaranies
+	 *
+	 * @return  total monto en guararines
+	 */
+	public function getAmountGs() {
+		$contractAmountInUsD = ContractAmountQuery::create()
+								->filterByContractid($this->getId())
+								->filterByCurrencyid(1)
+								->find();
+		foreach($contractAmountInUsD as $contractAmount)
+			$amount += $contractAmount->getAmount();
+
+		return $amount;
+	}
+
+	/**
+	 * Total en dolares
+	 *
+	 * @return  total monto en dolares
+	 */
+	public function getAmountUsD() {
+		$contractAmountInUsD = ContractAmountQuery::create()
+								->filterByContractid($this->getId())
+								->filterByCurrencyid(2)
+								->find();
+		foreach($contractAmountInUsD as $contractAmount)
+			$amount += $contractAmount->getAmount();
+
+		return $amount;
+	}
+
+	/**
+	 * Total en dolares
+	 *
+	 * @return  total monto en dolares
+	 */
+	public function getExchangeRate() {
+		return  ContractAmountQuery::create()
+								->select('ExchangeRate')
+								->filterByContractid($this->getId())
+								->filterByCurrencyid(1)
+								->findOne();
+	}
+
+	/**
+	 * Calcula la fecha de finalizacion
+	 *
+	 * @return  date fecha de finalizacion
+	 */
+	public function getValidationLengthInDays() {
+		switch ($this->getValidationType()) {
+		case 1:
+			$validationLengthInDays = $this->getValidationLength();
+			 break;
+		case 2:
+			$validationLengthInDays = $this->getValidationLength() * 30;
+			 break;
+		case 3:
+			$validationLengthInDays = $this->getValidationLength() * 365;
+			 break;
+		}
+		return $validationLengthInDays;
+	}
+
+	/**
+	 * Calcula la fecha de finalizacion
+	 *
+	 * @return  date fecha de finalizacion
+	 */
+	public function getValidationLengthModifiedInDays() {
+		switch ($this->getValidationType()) {
+		case 1:
+			$validationLengthModifiedInDays = $this->getValidationLengthModified();
+			 break;
+		case 2:
+			$validationLengthModifiedInDays = $this->getValidationLengthModified() * 30;
+			 break;
+		case 3:
+			$validationLengthModifiedInDays = $this->getValidationLengthModified() * 365;
+			 break;
+		}
+		return $validationLengthModifiedInDays;
+	}
 
 } // Contract
