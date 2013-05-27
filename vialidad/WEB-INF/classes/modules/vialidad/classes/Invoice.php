@@ -13,6 +13,6 @@
  *
  * @package    propel.generator.vialidad.classes
  */
-class Invoice extends BaseInvoice
-{
-}
+class Invoice extends BaseInvoice {
+
+} // Invoice

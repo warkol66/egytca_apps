@@ -77,8 +77,8 @@ a.tooltipWide span {
 		<th rowspan="3">OBRA</th>
 		<th rowspan="3">Tipo de Obra / Capa de Rodadura</th>
 		<th rowspan="3">L (Km)</th>
-		<th rowspan="2" colspan="2" class="red">Coordenadas Geográficas del Proyecto</th>
-		<th rowspan="3">Empresa Contratista (En caso de Consorcio aclarar las empresas que lo conforman y el % de participación)<span class="yellow"> - No está implementado el manejo de ocnsorcios</span></th>
+		<th rowspan="2" colspan="2">Coordenadas Geográficas del Proyecto</th>
+		<th rowspan="3">Empresa Contratista (En caso de Consorcio aclarar las empresas que lo conforman y el % de participación)</th>
 		<th rowspan="3">Empresa Fiscalizadora / Fiscal de Obras</th>
 		<th colspan="5"></th>
 		<th colspan="4">SITUACION</th>
@@ -103,8 +103,8 @@ a.tooltipWide span {
 	<tr>
 		<th>De Km</th>
 		<th>A Km</th>
-		<th class="red">Inicio</th>
-		<th class="red">Fin</th>
+		<th>Inicio</th>
+		<th>Fin</th>
 		<th>% Avance Programado Acumulado</th>
 		<th>% Avance Ejecutado Acumulado</th>
 		<th>% Avance Programado del mes</th>
@@ -125,14 +125,14 @@ a.tooltipWide span {
 				|-if !$department@first-|, |-/if-||-$department->getName()-|
 			|-/foreach-|
 		</td>
-		<td class="red">por ahora no tenemos este dato</td>
-		<td class="red">por ahora no tenemos este dato</td>
-		<td class="red">por ahora no tenemos este dato</td>
+		<td>por ahora no tenemos este dato</td>
+		<td>por ahora no tenemos este dato</td>
+		<td>por ahora no tenemos este dato</td>
 		<td>|-$construction->getName()-|</td>
 		<td>|-assign var="constructionType" value=$construction->getConstructionType()-||-if $constructionType-||-$constructionType->getName()-||-/if-|</td>
 		<td>|-$construction->getLength()|system_numeric_format-|</td>
-		<td class="red">Por ahora no está, ver si lo incluimos</td>
-		<td class="red">Por ahora no está, ver si lo incluimos</td>
+		<td>Por ahora no está, ver si lo incluimos</td>
+		<td>Por ahora no está, ver si lo incluimos</td>
 		<td>|-assign var="contractor" value=$construction->getContractor()-||-if $contractor-||-$contractor->getName()-||-/if-|</td>
 		<td>|-assign var="affiliate" value=$construction->getAffiliate()-||-if $affiliate-||-$affiliate->getName()-||-/if-|</td>
 		<td>|-if $contract-||-$contract->getSignDate()|system_date_format-||-/if-|</td>
@@ -140,20 +140,20 @@ a.tooltipWide span {
 		<td>|-if $contract-||-$contract->getValidationLength()-||-/if-|</td>
 		<td>|-if $contract-||-$contract->getValidationLengthModified()-||-/if-|</td>
 		<td>|-if $contract-||-$contract->getCalculatedEndDate()|date_format-||-/if-|</td>
-		<td class="red">se puede sacar de las curvas?<span class="yellow">pendiente</span></td>
-		<td class="red">se puede sacar de las curvas?<span class="yellow">pendiente</span></td>
-		<td class="red">se puede sacar de las curvas?<span class="yellow">pendiente</span></td>
-		<td class="red">se puede sacar de las curvas?<span class="yellow">pendiente</span></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
 		<td>|-if $contract-||-$contract->getAmmount()-||-/if-|</td>
 		<td>|-if $contract-||-$contract->getAmmountModified()-||-/if-|</td>
 		<td>|-if $contract-||-$contract->getCertificatesCount()-||-/if-|</td>
 		<td>|-if $contract-||-$contract->getLastCertificateDate()-||-/if-|</td>
-		<td class="red">Está en algún lado?</td>
-		<td class="red">De la base de contratos<span class="yellow"> - qué es?</span></td>
-		<td class="red"></td>
-		<td class="red">calcular en función de lo montos de los contratos modificatorios</td>
-		<td class="red">averiguar cómo se calcula con Cristian</td>
-		<td class="red">por ahora no se guarda en ningún lado</td>
+		<td>Está en algún lado?</td>
+		<td>De la base de contratos</td>
+		<td></td>
+		<td>calcular en función de lo montos de los contratos modificatorios</td>
+		<td>averiguar cómo se calcula con Cristian</td>
+		<td>por ahora no se guarda en ningún lado</td>
 	</tr>
 	|-/foreach-|
 </table>

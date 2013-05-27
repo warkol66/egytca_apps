@@ -1,27 +1,17 @@
-<style type="text/css">
-	table th {
-		border-bottom: 2px solid #666666;
-		padding: 6px;
-	}
-	
-	table td {
-		border-top: 1px solid #666666;
-		padding: 6px;
-	}
-</style>
-
-<table>
+<h2>Facturas</h2>
+<h1>Facturas de Certificados</h1>
+<table class='tableTdBorders'>
 	<thead>
 		<tr>
 			<th>id</th>
-			<th>certificateId</th>
-			<th>certificateTotalPrice</th>
-			<th>advancePaymentRecovery</th>
-			<th>withholding</th>
-			<th>totalPrice</th>
-			<th>acc. totalPrice</th>
-			<th>acc. withholding</th>
-			<th>status</th>
+			<th>Certificado</th>
+			<th>Total Certificado</th>
+			<th>Retención de Anticipo</th>
+			<th>Retención</th>
+			<th>Total</th>
+			<th>Acumulado Total</th>
+			<th>Acumulado Retención</th>
+			<th>Estado</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -29,12 +19,12 @@
 			<tr>
 				<td>|-$certificateInvoice->getId()-|</td>
 				<td>|-$certificateInvoice->getCertificateId()-|</td>
-				<td>|-$certificateInvoice->getCertificate()->getTotalPrice()-|</td>
-				<td>|-$certificateInvoice->getAdvancePaymentRecovery()-|</td>
-				<td>|-$certificateInvoice->getWithholding()-|</td>
-				<td>|-$certificateInvoice->getTotalPrice()-|</td>
-				<td>|-$certificateInvoice->getAccumulatedTotalPrice()-|</td>
-				<td>|-$certificateInvoice->getAccumulatedWithholding()-|</td>
+				<td>|-$certificateInvoice->getCertificate()->getTotalPrice()|system_numeric_format-|</td>
+				<td>|-$certificateInvoice->getAdvancePaymentRecovery()|system_numeric_format-|</td>
+				<td>|-$certificateInvoice->getWithholding()|system_numeric_format-|</td>
+				<td>|-$certificateInvoice->getTotalPrice()|system_numeric_format-|</td>
+				<td>|-$certificateInvoice->getAccumulatedTotalPrice()|system_numeric_format-|</td>
+				<td>|-$certificateInvoice->getAccumulatedWithholding()|system_numeric_format-|</td>
 				<td>|-$certificateInvoice->getStatus()-|</td>
 			</tr>
 		|-/foreach-|
