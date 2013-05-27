@@ -15,16 +15,18 @@ class Document extends BaseDocument {
 	/**
 	* Devuelve un array con todos los tipos de media existentes y sus codigos
 	*/
-	public function getDocumentCategories() {
+	public function getDocumentUploadCategories() {
 
 	$types = array();
-	$types[CalendarMedia::CALENDARMEDIA_IMAGE] = 'Imagen';
+	$types[Document::DOCUMENT_IMAGE] = 'Imagen';
+	$types[Document::DOCUMENT_VIDEO] = 'Video';
+	$types[Document::DOCUMENT_SOUND] = 'Sonido';
 
 	return $types;
 
 	}
 	
-	public function getDocumentCategoryName() {
+	public function getDocumentUploadCategoryName() {
 		
 		$type = $this->getMediaType();
 		
@@ -54,28 +56,12 @@ class Document extends BaseDocument {
 	 * 
 	 * @return string documents path (para modulo documents)
 	 */
-	public static function getDocumentsPath() {
+	public static function getDocumentsPath($module = null) {
 		$moduleConfig = Common::getModuleConfiguration('documents');
-		return $moduleConfig['documentsPath'];
-	}
-	
-	/**
-	* Devuelve la ruta de salvado de un documento (para usar documents en otros modulos)
-	*
-	*
-	*/
-	public function getSavePath($type, $module) {
-
-		$path = NewsMedia::DOCUMENT_SAVEPATH;
-
-		if ($type == Document::DOCUMENT_IMAGE)
-			$path .= $module . 'images/';
-		if ($type == Document::DOCUMENT_VIDEO)
-			$path .= $module . 'videos/';
-		if ($type == Document::DOCUMENT_SOUND)
-			$path .= $module . 'audio/';
-		return $path;
-
+		if(isset($module))
+			return $moduleConfig['documentsPath'] . '/' . $module . '/';
+		else
+			return $moduleConfig['documentsPath'];
 	}
 	
 	/**
@@ -90,11 +76,11 @@ class Document extends BaseDocument {
 	 * 
 	 * @return string fully quelified name of the file containing the document data
 	 */
-	public function getFullyQualifiedFileName($type = null,$module = null) {
-		if(isset($module) && isset($type))
-			return self::getSavePath($type, $module).'/'.$this->getFileName();
+	public function getFullyQualifiedFileName($module = null) {
+		if(isset($module))
+			return self::getDocumentsPath($module) . $this->getFileName();
 		else
-			return self::getDocumentsPath().'/'.$this->getFileName();
+			return self::getDocumentsPath() . $this->getFileName();
 	}
 	
 	/**

@@ -66,28 +66,6 @@ class DocumentsDoAddAction extends BaseDoEditAction {
 			$this->params['message'] = 'uploadsuccess';
 		}
 		
-		if ($this->entity->isNew() && !empty($_POST['entity'])) {
-			
-			$this->params['id'] = $_POST['entityId'];
-			$this->forwardName = 'success'.$_POST['entity'];
-			
-			$addMethod = 'add' . $_POST['entity'];
-			if ( method_exists($this->entity, $addMethod) && !empty($_POST['entityId']) ) {
-				$queryClass = $_POST['entity'] . 'Query';
-				if ( class_exists($queryClass) ) {
-					$entity = $queryClass::create()->findOneById($_POST['entityId']);
-					$this->entity->$addMethod($entity);
-					return;
-				}
-			}
-			
-			$this->params['errormessage'] = 'documentUploadError';
-			$this->forwardFailureName = 'failureUpload'.$_POST['entity'];
-			return false;
-		}
-		
-		$this->forwardName = 'success'.$_POST['entity'];
-		
 		//datos del usuario
 		$user = Common::getLoggedUser();
 		if(is_object($user)){
@@ -106,32 +84,51 @@ class DocumentsDoAddAction extends BaseDoEditAction {
 	protected function postSave() {
 		parent::postSave();
 		
+		//creo la relacion documento - entity
+		if(!empty($_POST['entity'])){
+			$entityClass = $_POST['entity'] . 'Document';
+			if ( class_exists($entityClass) ) {
+				$setMethod = 'set' . $_POST['entity'] . 'Id';
+				$entity = new $entityClass;
+				$entity->$setMethod($_POST['entityId'])->setDocumentId($this->entity->getId())->save();
+				$this->smarty->assign('document',$entity);
+				$this->smarty->assign('entity',$_POST['entity']);
+				$this->smarty->assign('entityId',$_POST['entityId']);
+			}
+		}
+		
 		//armo el path para guardar el documento
 		if(isset($_POST['module']))
-			$destPath = NewsMedia::getSavePath($this->entity->getCategoryId(), $_POST['module']);
+			$destPath = Document::getDocumentsPath($_POST['module']);
 		else
-			$destPath = NewsMedia::getDocumentsPath();
+			$destPath = Document::getDocumentsPath();
 		
 		$destPath .= $this->entity->getId();
 		
+		//si el directorio no existe lo creo
+		if (!file_exists($destPath)) {
+			mkdir($destPath);
+		}
+		
 		//si el archivo ya existe lo elimino
 		if (!empty($_FILES['document_file']['name'])) {
-			if (file_exists($this->entity->getFullyQualifiedFileName()))
-				unlink($this->entity->getFullyQualifiedFileName());
-			//move_uploaded_file($_FILES['document_file']['tmp_name'], $this->entity->getFullyQualifiedFileName());
+			if (file_exists($this->entity->getFullyQualifiedFileName($_POST['module'])))
+				unlink($this->entity->getFullyQualifiedFileName($_POST['module']));
 		}
 		
 		//si el tipo es imagen
-		if ($this->entity->getCategoryId() == Document::DOCUMENT_IMAGE && !empty($_FILES["document_file"]['tmp_name']))
-			move_uploaded_file($_FILES['document_file']['tmp_name'], $this->entity->getFullyQualifiedFileName());
-			//Document::createImages($this->entity,$_FILES['document_file'],$this->entity->getId());
+		if ($_POST['params']['type'] == Document::DOCUMENT_IMAGE && !empty($_FILES["document_file"]['tmp_name'])){
+			if(move_uploaded_file($_FILES['document_file']['tmp_name'], $this->entity->getFullyQualifiedFileName($_POST['module'])))
+				$this->smarty->assign($success,true);
+		}
 		//si el tipo es video
-		if ($this->entity->getCategoryId() == Document::DOCUMENT_VIDEO && !empty($_FILES["document_file"]['tmp_name']))
-			Document::createVideo($this->entity,$_FILES['document_file'],$this->entity->getId() . ".flv"); 
+		if ($_POST['params']['type'] == Document::DOCUMENT_VIDEO && !empty($_FILES["document_file"]['tmp_name']))
+			if(Document::createVideo($this->entity,$_FILES['document_file'],$this->entity->getId() . ".flv")) 
+				$this->smarty->assign($success,true);
 		//si el tipo es audio
-		if ($this->entity->getCategoryId() == Document::DOCUMENT_SOUND && !empty($_FILES["document_file"]['tmp_name']))
-			Document::createSound($_FILES['document_file'],$this->entity->getId() . ".mp3", $_POST['module']);
-
+		if ($_POST['params']['type'] == Document::DOCUMENT_SOUND && !empty($_FILES["document_file"]['tmp_name']))
+			if(Document::createSound($_FILES['document_file'],$this->entity->getId() . ".mp3", $_POST['module']))
+				$this->smarty->assign($success,true);
 		
 		/* Ver esto*/
 		global $system;
