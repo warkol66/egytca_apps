@@ -13,6 +13,6 @@
  *
  * @package    propel.generator.vialidad.classes
  */
-class InvoiceQuery extends BaseInvoiceQuery
-{
-}
+class InvoiceQuery extends BaseInvoiceQuery {
+
+} // InvoiceQuery
