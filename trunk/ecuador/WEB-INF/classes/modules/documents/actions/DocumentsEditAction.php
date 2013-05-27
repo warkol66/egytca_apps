@@ -15,6 +15,8 @@ class DocumentsEditAction extends BaseEditAction {
 	}
 	
 	protected function preEdit() {
+		parent::preEdit();
+		
 		$module = "Documents";
 		$this->smarty->assign('module', $module);
 
@@ -34,7 +36,7 @@ class DocumentsEditAction extends BaseEditAction {
 		$this->smarty->assign('generalParentCategories', $user->getDocumentsGeneralParentCategories());
 		$this->smarty->assign('parentCategories', $user->getDocumentsParentCategories());
 		
-		parent::preEdit();
+		$this->smarty->assign('uploadTypes', Document::getDocumentUploadCategories());
 	}
 	
 	protected function postEdit() {
@@ -59,7 +61,7 @@ class DocumentsEditAction extends BaseEditAction {
 			}
 		}
 		
-		$this->smarty->assign('entity', $_POST['entity']);
-		$this->smarty->assign('entityId', $_POST['entityId']);
+		$this->smarty->assign('entity', $_REQUEST['entity']);
+		$this->smarty->assign('entityId', $_REQUEST['entityId']);
 	}
 }

@@ -1,3 +1,13 @@
+|-if isset($requester)-|
+<!--div id="rightColumn">
+<!--Se vuelven a agregar los scripts y estilos porque si no no los incluye-->
+<script src="scripts/jquery/jquery.min.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/jquery/jquery.ui.datepicker-es.js" language="JavaScript" type="text/javascript"></script>
+<link rel="stylesheet" href="css/globalStyles.css" type="text/css">
+<link rel="stylesheet" href="css/globalCustom.css" type="text/css">
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<link rel="stylesheet" href="css/custom.css" type="text/css">
+|-/if-|
 |-if isset($label)-||-else-||-assign var=label value="documentos"-||-/if-|<div id="documentAdder">
 <div id="documentOperationInfo">
 |-if $message eq "wrongPasswordComparison"-|
@@ -8,11 +18,12 @@
 	<div class="failureMessage">Error: Debe seleccionar un tipo de archivo</div>
 |-/if-|
 </div>
-
-<form method="post" action="Main.php?do=documentsDoEdit" enctype="multipart/form-data" name="formSearch" id="documentsAdderForm">
+<form method="post" action="Main.php?do=|-if !isset($requester)-|documentsDoEdit|-else-|documentsDoAdd|-/if-|" enctype="multipart/form-data" name="formSearch" id="documentsAdderForm">
+	|-if $document neq ''-|
 	<input type="hidden" name="id" value="|-$document->getId()-|">
+	|-/if-|
 	<fieldset title="Formulario para Agregar Nuevo |-$label-|">
-		|-if !$document->isNew()-|
+		|-if $document neq ''-|
 		<legend>Editar Documento</legend>
 			<p>Ingrese los datos correspondientes al |-$label-|. Seleccione un nuevo |-$label-| si desea reemplazar el actual ("|-$document->getRealFilename()-|")</p>	
 		|-elseif $module eq "Documents" && $entity eq ''-|
@@ -53,13 +64,22 @@
 			
 			<div id="divAlternateContent" |-if $configModule->get('documents', useSWFUploader)-|style="display:none;"|-/if-|>
 				<p>
+					<label for="type">Tipo de archivo</label>
+					<select name="params[type]" id="params_type">
+						|-foreach from=$uploadTypes key=key item=value-|
+							<option value="|-$key-|">|-$value-|</option>
+						|-/foreach-|
+					</select>
+				</p>
+			
+				<p>
 					<label for="document_file">Archivo</label>
 					<input type="file" id="document_file" name="document_file" title="Seleccione el archivo" size="45"/> (|-$maxUploadSize-| MB max)
 				</p>
 			</div>
 			
 			<p><label for="params[documentDate]">Fecha</label>
-				 <input name="params[documentDate]" type="text" class="datepicker" value="|-if !$document->isNew()-||-$document->getDocumentDate()|date_format:'%d-%m-%Y'-||-else-||-$smarty.now|date_format:'%d-%m-%Y'-||-/if-|" size="10" title="Fecha del documento (Formato: dd-mm-yyyy)"/>
+				 <input name="params[documentDate]" type="text" class="datepicker" value="|-if $document neq ''-||-$document->getDocumentDate()|date_format:'%d-%m-%Y'-||-else-||-$smarty.now|date_format:'%d-%m-%Y'-||-/if-|" size="10" title="Fecha del documento (Formato: dd-mm-yyyy)"/>
 			</p>
 			<p>
 				<label for="params[title]">Título</label>
@@ -113,7 +133,10 @@
 				 	<input type="hidden" name="entity" value="|-$entity-|" />
 				 	<input type="hidden" name="entityId" value="|-$entityId-|" />
 			 	|-/if-|
-				<input type="submit" name="uploadButton" value="|-if !$document->isNew()-|Guardar Cambios|-else-|Agregar |-$label-||-/if-|" id="btnSubmit">|-if $module eq 'Documents' && $action eq 'edit'-|<input name="return" type="button" value="Regresar" onClick="history.back(-1);"/>|-/if-|<span id="msgBoxUploader"></span>
+			 	|-if isset($requester)-|
+					<input type="hidden" name="module" value="|-$requester-|" />
+			 	|-/if-|
+				<input type="submit" name="uploadButton" value="|-if $document neq ''-|Guardar Cambios|-else-|Agregar |-$label-||-/if-|" id="btnSubmit">|-if $module eq 'Documents' && $action eq 'edit'-|<input name="return" type="button" value="Regresar" onClick="history.back(-1);"/>|-/if-|<span id="msgBoxUploader"></span>
 			 </p>
 	</fieldset>
 </form>
