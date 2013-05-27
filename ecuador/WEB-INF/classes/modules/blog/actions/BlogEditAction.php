@@ -29,7 +29,7 @@ class BlogEditAction extends BaseEditAction {
 		//si es edicion busco los documentos asociados y tipos de documentos
 		if(!$this->entity->isNew()){
 			$this->smarty->assign("documents", BlogEntryDocumentQuery::create()->filterByBlogEntryId($this->entity->getId())->find());
-			$this->smarty->assign("documentCategories", Document::getDocumentCategories());
+			//$this->smarty->assign("documentCategories", Document::getDocumentCategories());
 		}
 	}
 

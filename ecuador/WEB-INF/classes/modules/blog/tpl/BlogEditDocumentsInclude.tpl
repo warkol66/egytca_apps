@@ -6,9 +6,9 @@ iframe{
 <div id="documentsList">
 <fieldset id="docs_list" class="noMargin"><legend>Documentos asociados</legend>
 	<div><p align="right">
-		<a class="iframe addLink" id="fancybox_document" href="Main.php?do=documentsEdit&entityId=|-$id-|&requester=Blog">Agregar nuevo documento</a>
+		<a class="iframe addLink" id="fancybox_document" href="Main.php?do=documentsEdit&entityId=|-$id-|&requester=Blog&entity=BlogEntry&entityId=|-$id-|">Agregar nuevo documento</a>
 	</p></div>
-	<div id="planningActivityDocumentsListDiv"></div>
+<div id="blogEntryDocumentsListDiv">
 <ul>
 |-if $blogEntryDocumentColl|count eq 0-|
 	<p>No hay documentos asociados</p>
@@ -29,19 +29,30 @@ iframe{
 		</li>
 	|-/foreach-|
 </ul>
+</div>
 |-/if-|
 </fieldset>
 </div>
 <script language="JavaScript" type="text/javascript">
-	$('#documentAddLink').click(function() {
-		$('#blogEntryDocumentsEditTemplate').show();
-		$('#documentsList').hide();
-		return false;
-	});
 	
-	$('a#fancybox_document').fancybox({'width' : 800, 'height' : 600, 'hideOnContentClick': true});
+	$('a#fancybox_document').fancybox({	'autoScale': false,
+										'width' : 800,
+										'height' :400,
+										'hideOnContentClick': true,
+										'onClosed': function(){
+											$.ajax({
+												url: 'Main.php?do=blogDocumentsListX',
+												data: {id: |-$id-|},
+												type: 'post',
+												success: function(data){
+													$('#blogEntryDocumentsListDiv').html(data);
+												}	
+											});
+											$('#blogEntryDocumentsListDiv').html('Actualizando documentos...');
+										}
+									});
 	
-	doDeleteDocument = function(documentId, planningActivityId) {
+	doDeleteDocument = function(documentId, blogEntryId) {
 		/*new Ajax.Request(
 			'Main.php?do=documentsDoDeleteX',
 			{
