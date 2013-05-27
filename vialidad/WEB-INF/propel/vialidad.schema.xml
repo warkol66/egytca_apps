@@ -240,7 +240,13 @@
 		<column name="validationLength" type="INTEGER" size="5" description="Plazo de la Obra" />
 		<column name="validationType" type="INTEGER" size="2" description="Tipo de longitud de la Obra" />
 
-
+		<column name="routeType" type="VARCHAR" size="50" description="Tipo de Ruta" />
+		<column name="routeStartingKm" type="VARCHAR" size="50" description="Desde Km" />
+		<column name="routeEndingKm" type="VARCHAR" size="50" description="Hasta Km" />
+		<column name="startingLatitude" type="FLOAT" description="latitud de inicio del proyecto" />
+		<column name="startingLongitude" type="FLOAT" description="longitud de inicio del proyecto" />
+		<column name="endingLatitude" type="FLOAT" description="latitud de inicio del proyecto" />
+		<column name="endingLongitude" type="FLOAT" description="longitud de inicio del proyecto" />
 
 		<foreign-key foreignTable="vialidad_measureUnit" onDelete="cascade" >
 			<reference local="lengthUnit" foreign="id" />

@@ -81,6 +81,24 @@
 				|-/foreach-|
 			</select>
 		 </p>
+
+
+		 <p><label for="params[routeType]">Tipo de Ruta</label>
+			<input name="params[routeType]" type="text" value="|-$construction->getrouteType()|escape-|" size="20">
+		 </p>
+		 <p><label for="params[routeStartingKm]">Kilómetro</label>
+			&nbsp; desde <input name="params[routeStartingKm]" type="text" value="|-$construction->getrouteStartingKm()|system_numeric_format-|" class="right" size="6">
+			&nbsp; &nbsp; hasta <input name="params[routeEndingKm]" type="text" value="|-$construction->getrouteEndingKm()|system_numeric_format-|" class="right" size="6">
+		 </p>
+		 <p><label for="params[startingLatitude]">Desde</label>
+			&nbsp; Latitud <input name="params[startingLatitude]" type="text" value="|-$construction->getstartingLatitude()|system_numeric_format:8-|" class="right" size="12">
+			&nbsp; &nbsp; Longitud <input name="params[startingLongitude]" type="text" value="|-$construction->getstartingLongitude()|system_numeric_format:8-|" class="right" size="12">
+		 </p>
+		 <p><label for="params[endingLatitude]">Hasta</label>
+			&nbsp; Latitud <input name="params[endingLatitude]" type="text" value="|-$construction->getendingLatitude()|system_numeric_format:8-|" class="right" size="12">
+			&nbsp; &nbsp; Longitud <input name="params[endingLongitude]" type="text" value="|-$construction->getendingLongitude()|system_numeric_format:8-|" class="right" size="12">
+		 </p>
+
 		 |-if $returnContractId neq ""-|
 		 <input type="hidden" name="returnToContract" value="|-$returnContractId-|" />
 		 |-/if-|
