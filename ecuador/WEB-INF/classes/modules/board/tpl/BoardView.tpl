@@ -18,8 +18,12 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 <p>&nbsp;</p>
 <div id="msgBond"></div>
 <div class="tags">
-  <p>Resultados: |-foreach from=$bonds key=key item=bond-|
- -&nbsp;|-$bond|regex_replace:"/ /":"&nbsp;"-|&nbsp;(|-count(array_keys($usersBonds, $key))-|)|-/foreach-|
+  <p>Resultados: |-foreach from=$usersByBonds key=key item=users-|
+		-&nbsp;|-$bonds[$key]|regex_replace:"/ /":"&nbsp;"-|<a href="javascript:void(null);" class="tooltipWide">
+		<span>|-foreach from=$users item=user-|
+			|-$user->getName() -|<br />
+		|-/foreach-|</span>(|-count(array_keys($boardBonds, $key))-|)</a>
+	|-/foreach-|</p>
 </div>
 |-foreach from=$bonds key=key item=bond-|
 	<input type="button" name="|-$bond-|" value="|-$bond-|" id="bond_|-$key-|" onClick="javascript:addBond(|-$key-|);" class="bondButton|-if $bond|count_characters gt 25-|Wide|-/if-|" |-if in_array($key,$loggedBonds)-|disabled="disabled"|-/if-|>
