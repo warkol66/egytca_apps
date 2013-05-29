@@ -32,6 +32,28 @@ class BoardViewAction extends BaseEditAction {
 		//busco los compromisos posibles
 		$this->smarty->assign("bonds",BoardBond::getTypes());
 		//busco los compromisos existentes en este desafio
+		$usersB = BoardBondQuery::create()->filterByChallengeId($this->entity->getId())->find();
+		//armo un arreglo con usuarios por compromiso y otro con los compromisos (para contarlos)
+		$usersBonds = array();
+		$keys = array();
+		
+		foreach($usersB as $bond){
+			$queryClass = $bond->getUserType() . 'Query';
+			if(class_exists($queryClass)){
+				$user = $queryClass::create()->findOneById($bond->getUserId());
+				if(is_object($user)){
+					$usersBonds[$bond->getType()][] = $user;
+					$keys[] = $bond->getType();
+				}	
+			}
+		}
+		
+		$this->smarty->assign("usersByBonds",$usersBonds);
+		$this->smarty->assign("boardBonds",$keys);
+		
+		//busco los compromisos posibles
+		$this->smarty->assign("bonds",BoardBond::getTypes());
+		//busco los compromisos existentes en este desafio
 		$usersB = BoardBondQuery::create()->select('Type')->filterByChallengeId($this->entity->getId())->find();
 		$this->smarty->assign("usersBonds",$usersB->getData());
 		
