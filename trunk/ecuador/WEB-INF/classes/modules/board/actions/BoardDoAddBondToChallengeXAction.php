@@ -53,18 +53,6 @@ class BoardDoAddBondToChallengeXAction extends BaseDoEditAction {
 				
 				$this->smarty->assign("usersByBonds",$usersBonds);
 				$this->smarty->assign("boardBonds",$keys);
-				
-				/*//busco los compromisos posibles
-				$this->smarty->assign("bonds",BoardBond::getTypes());
-				//busco los compromisos existentes en este desafio
-				$usersB = BoardBondQuery::create()->filterByChallengeId($_POST['challengeId'])->find();
-				$usersBonds = array();
-				foreach($usersB as $usersBond){
-					$usersBonds[] = $usersBond->getType();
-				}
-				
-				$this->smarty->assign("usersBonds",$usersBonds);*/
-				
 				$this->smarty->assign("existent",true);
 				$this->forwardFailureName = 'success';
 				return false;
@@ -97,15 +85,6 @@ class BoardDoAddBondToChallengeXAction extends BaseDoEditAction {
 		
 		$this->smarty->assign("usersByBonds",$usersBonds);
 		$this->smarty->assign("boardBonds",$keys);
-		
-		/*//busco los compromisos existentes en este desafio
-		$usersB = BoardBondQuery::create()->filterByChallengeId($this->entity->getChallengeId())->find();
-		$usersBonds = array();
-		foreach($usersB as $usersBond){
-			$usersBonds[] = $usersBond->getType();
-		}
-		
-		$this->smarty->assign("usersBonds",$usersBonds);*/
 		
 	}
 
