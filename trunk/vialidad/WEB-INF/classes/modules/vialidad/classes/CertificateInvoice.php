@@ -29,8 +29,6 @@ class CertificateInvoice extends Invoice {
 		if (is_null($this->getCertificateid()))
 			throw new Exception ('certificateId cannot be null');
 		
-		$this->updateValues();
-		
 		return parent::preSave($con);
 	}
 	
@@ -82,42 +80,41 @@ class CertificateInvoice extends Invoice {
 		return $accumulated;
 	}
 	
-	public function updateValues() {
-		$this->updateAdvancePaymentRecovery();
-		$this->updateWithholding();
-		$this->updateTotalPrice();
-	}
+//	public function updateValues() {
+//		$this->updateAdvancePaymentRecovery();
+//		$this->updateWithholding();
+//		$this->updateTotalPrice();
+//	}
 	
-	private function updateAdvancePaymentRecovery() {
+	public function calculateAdvancePaymentRecovery() {
+		
 		$contractId = $this->getCertificate()->getMeasurementRecord()->getConstruction()->getContractId();
 		$advancePaymentInvoice = AdvancePaymentInvoiceQuery::create()->findOneByContractid($contractId);
 		
 		$advancePayment = is_null($advancePaymentInvoice) ? 0 : $advancePaymentInvoice->getAdvancepayment();
 		$recoveredAdvancePayment = $this->accumulateByName('Advancepaymentrecovery', false);
 		
-		$advancePaymentFaltante = $advancePayment - $recoveredAdvancePayment;
+		$availableAdvancePayment = $advancePayment - $recoveredAdvancePayment;
 		
-		if ($advancePaymentFaltante > 0) {
+		if ($availableAdvancePayment > 0) {
 			
 			$advancePaymentRecoveryRate = 0.10; // TODO: mover al config?
-			$multiplicado = $this->getCertificate()->getTotalprice() * $advancePaymentRecoveryRate;
-			$thisAdvancePaymentRecovery = min(array($advancePaymentFaltante, $multiplicado));
+			$calculatedAdvancePaymentRecovery = $this->getCertificate()->getTotalprice() * $advancePaymentRecoveryRate;
+			return min(array($availableAdvancePayment, $calculatedAdvancePaymentRecovery));
 		}
 		else {
-			$thisAdvancePaymentRecovery = 0;
+			return 0;
 		}
-		
-		$this->setAdvancepaymentrecovery($thisAdvancePaymentRecovery);
 	}
 	
-	private function updateWithholding() {
+	public function calculateWithholding() {
 		$withholdingTax = 0.05; // TODO: mover a config?
 		$price = $this->getPriceWithoutWithholding();
-		$this->setWithholding(is_null($price) ? null : $price * $withholdingTax);
+		return is_null($price) ? null : ($price * $withholdingTax);
 	}
 	
-	private function updateTotalPrice() {
-		$this->setTotalprice($this->getPriceWithoutWithholding() - $this->getWithholding());
+	public function calculateTotalPrice() {
+		return $this->getPriceWithoutWithholding() - $this->getWithholding();
 	}
 	
 	private function getPriceWithoutWithholding() {
