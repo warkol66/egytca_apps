@@ -71,7 +71,10 @@ class DocumentsDoDownloadAction extends BaseAction {
 		if ($document->getSize() != 0)
 			header("Content-Length: " . $document->getSize() ."; ");
 
-		$document->getContents();
+		if(isset($_POST['module']))
+			$document->getContents($_POST['module']);
+		else
+			$document->getContents();
 	}
 
 }

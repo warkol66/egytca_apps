@@ -7,6 +7,15 @@
 <link rel="stylesheet" href="css/globalCustom.css" type="text/css">
 <link rel="stylesheet" href="css/style.css" type="text/css">
 <link rel="stylesheet" href="css/custom.css" type="text/css">
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
+        $( ".datepicker" ).datepicker({
+			dateFormat:"dd-mm-yy"
+		});
+	});//fin docready
+ 
+</script>
 |-/if-|
 |-if isset($label)-||-else-||-assign var=label value="documentos"-||-/if-|<div id="documentAdder">
 <div id="documentOperationInfo">
@@ -134,19 +143,10 @@
 				 	<input type="hidden" name="entityId" value="|-$entityId-|" />
 			 	|-/if-|
 			 	|-if isset($requester)-|
-					<input type="hidden" name="module" value="|-$requester-|" />
+					<!--input type="hidden" name="module" value="|-$requester-|" /-->
 			 	|-/if-|
 				<input type="submit" name="uploadButton" value="|-if $document neq ''-|Guardar Cambios|-else-|Agregar |-$label-||-/if-|" id="btnSubmit">|-if $module eq 'Documents' && $action eq 'edit'-|<input name="return" type="button" value="Regresar" onClick="history.back(-1);"/>|-/if-|<span id="msgBoxUploader"></span>
 			 </p>
 	</fieldset>
 </form>
 </div>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
-        $( ".datepicker" ).datepicker({
-			dateFormat:"dd-mm-yy"
-		});
-	});//fin docready
- 
-</script>
