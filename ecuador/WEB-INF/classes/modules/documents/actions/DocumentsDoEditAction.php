@@ -53,10 +53,7 @@ class DocumentsDoEditAction extends BaseDoEditAction {
 		if (!empty($file['name'])) {
 			try {
 				Common::ensureWritable(Document::getDocumentsPath());
-				//die();
 			} catch (Exception $e) {
-				/*echo(Document::getDocumentsPath());
-				die();*/
 				$this->smarty->assign('message', $e->getMessage());
 				$this->forwardFailureName = 'failure';
 				return false;

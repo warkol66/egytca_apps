@@ -61,7 +61,7 @@ class Document extends BaseDocument {
 		if(isset($module))
 			return $moduleConfig['documentsPath'] . '/' . $module . '/';
 		else
-			return $moduleConfig['documentsPath'];
+			return $moduleConfig['documentsPath'] . '/';
 	}
 	
 	/**
@@ -125,8 +125,8 @@ class Document extends BaseDocument {
 	 * Obtencion de contenidos y los escribe en la salida estandart
 	 *
 	 */
-	public function getContents() {
-		readfile($this->getFullyQualifiedFileName());
+	public function getContents($module = null) {
+		readfile($this->getFullyQualifiedFileName($module));
 	}
 	
 	/**
@@ -239,21 +239,6 @@ class Document extends BaseDocument {
 				return true;
 		}else
 			return true;
-	}
-	
-	/**
-	* Copia el sonido.
-	*
-	* @param NewsMedia $newsmediaObj Objeto NewsMedia 
-	* @param array $sound Audio
-	* @param string $name Nombre 
-	* @return void
-	*/	
-	function createSound($sound,$name,$module) {
-		global $moduleRootDir;
-		$upload = self::getSavePath(self::DOCUMENT_SOUND, $module);
-		$uploadFile = $moduleRootDir . $upload . $name;
-		move_uploaded_file($sound['tmp_name'], $uploadFile);
 	}
 
 }
