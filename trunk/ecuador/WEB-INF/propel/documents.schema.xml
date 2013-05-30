@@ -5,6 +5,7 @@
 		<column name="realFilename" type="VARCHAR" size="255" description="El nombre real del archivo"/>
 		<column name="date" type="DATE" description="Fecha" />
 		<column name="categoryId" type="INTEGER" description="Numero de tipo de archivo" />
+		<column name="type" type="INTEGER" description="Tipo de Documento" />
 		<column name="description" type="VARCHAR" size="255" description="Descripcion del archivo" />
 		<column name="documentDate" type="DATE" description="Fecha del documento" />
 		<column name="password" type="VARCHAR" size="32" description="Clave del archivo" />
