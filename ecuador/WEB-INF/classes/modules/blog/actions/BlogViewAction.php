@@ -26,6 +26,11 @@ class BlogViewAction extends BaseEditAction {
 		
 		$this->entity->increaseViews();
 		
+		$this->smarty->assign("path", Document::getDocumentsPath());
+		$this->smarty->assign("documents", BlogEntryDocumentQuery::create()->filterByBlogEntryId($this->entity->getId())->find());
+		$this->smarty->assign("photos", BlogEntryDocumentQuery::create()->useDocumentQuery()->filterByType(Document::DOCUMENT_IMAGE)->endUse()->filterByBlogEntryId($this->entity->getId())->find());
+
+
 		$moduleConfig = Common::getModuleConfiguration($module);
 		$this->smarty->assign("moduleConfig",$moduleConfig);
 		

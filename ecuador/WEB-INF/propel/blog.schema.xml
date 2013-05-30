@@ -13,6 +13,19 @@
 		<column name="userId" type="INTEGER" required="true" description="Id del usuario" />
 		<column name="views" type="INTEGER" default="0" description="Cantidad de vistas a la entrada" />
 
+		<!-- Ficha de experiencia -->
+		<column name="parish" type="LONGVARCHAR" description="Parroquia"/>
+		<column name="canton" type="LONGVARCHAR" description="Canton"/>
+		<column name="authority" type="LONGVARCHAR" description="Autoridad"/>
+		<column name="experience" type="LONGVARCHAR" description="Experiencia"/>
+		<column name="actors" type="LONGVARCHAR" description="Actores"/>
+		<column name="populationServed" type="LONGVARCHAR" description="Poblacion Beneficiada"/>
+		<column name="target" type="LONGVARCHAR" description="Objetivo"/>
+		<column name="actions" type="LONGVARCHAR" description="Acciones"/>
+		<column name="results" type="LONGVARCHAR" description="Resultados"/>
+		<column name="replica" type="LONGVARCHAR" description="Replica"/>
+		<!-- /Ficha de experiencia -->
+
 		<unique>
 		  <unique-column name="url" />
 		</unique>
