@@ -49,6 +49,49 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 				<label for="params_body">##blog,32,Texto de la entrada##</label>
 				<textarea name="params[body]" cols="60" rows="15" wrap="VIRTUAL"  id="params_body">|-$blogEntry->getbody()|htmlentities-|</textarea>
 		</p>
+<p>Ficha de experiencia</p>
+<div>
+			<p>
+				<label for="params_parish">Parroquia</label>
+				<textarea name="params[parish]" cols="60" rows="2" wrap="VIRTUAL" id="params_parish">|-$blogEntry->getparish()|escape-|</textarea>
+		</p>
+			<p>
+				<label for="params_canton">Cantón</label>
+				<textarea name="params[canton]" cols="60" rows="2" wrap="VIRTUAL" id="params_canton">|-$blogEntry->getcanton()|escape-|</textarea>
+		</p>
+			<p>
+				<label for="params_authority">Autoridad</label>
+				<textarea name="params[authority]" cols="60" rows="2" wrap="VIRTUAL" id="params_authority">|-$blogEntry->getauthority()|escape-|</textarea>
+		</p>
+			<p>
+				<label for="params_experience">Experiencia</label>
+				<textarea name="params[experience]" cols="60" rows="2" wrap="VIRTUAL" id="params_authority">|-$blogEntry->getexperience()|escape-|</textarea>
+		</p>
+			<p>
+				<label for="params_actors">Actores</label>
+				<textarea name="params[actors]" cols="60" rows="3" wrap="VIRTUAL" id="params_actors">|-$blogEntry->getactors()|escape-|</textarea>
+		</p>
+			<p>
+				<label for="params_populationServed">Población beneficiada</label>
+				<textarea name="params[populationServed]" cols="60" rows="2" wrap="VIRTUAL" id="params_populationServed">|-$blogEntry->getPopulationServed()|escape-|</textarea>
+		</p>
+			<p>
+				<label for="params_target">Objetivo</label>
+				<textarea name="params[target]" cols="60" rows="6" wrap="VIRTUAL" id="params_target">|-$blogEntry->gettarget()|escape-|</textarea>
+		</p>
+			<p>
+				<label for="params_actions">Acciones</label>
+				<textarea name="params[actions]" cols="60" rows="6" wrap="VIRTUAL" id="params_actions">|-$blogEntry->getactions()|escape-|</textarea>
+		</p>
+			<p>
+				<label for="params_results">Resultados</label>
+				<textarea name="params[results]" cols="60" rows="3" wrap="VIRTUAL" id="params_results">|-$blogEntry->getresults()|escape-|</textarea>
+		</p>
+			<p>
+				<label for="params_replica">Replica</label>
+				<textarea name="params[replica]" cols="60" rows="3" wrap="VIRTUAL" id="params_replica">|-$blogEntry->getreplica()|escape-|</textarea>
+		</p>
+</div>
 			<p>
 				<label for="params_creationDate">##blog,35,Fecha de Creación##</label>
 				<input name="params[creationDate]" type="date" id="params_creationDate" class="datepicker" title="creationDate" value="|-$blogEntry->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
@@ -114,7 +157,7 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 
 |-if !$blogEntry->isNew()-|
 <!--Upload de documentos-->
-|-include file="BlogEditDocumentsInclude.tpl" path=$path blogEntryDocumentColl=$documents photos=$photos id=$blogEntry->getId()-|
+|-include file="BlogEditDocumentsInclude.tpl" path=$path blogEntryDocumentColl=$documents photos=$photos id=$blogEntry->getId()  edit=true-|
 <!--Fin Upload de documentos-->
 <!--Etiquetas-->
 <fieldset title="Formulario de edición de etiquetas">

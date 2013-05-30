@@ -371,4 +371,15 @@ class BlogEntry extends BaseBlogEntry {
     return $archive;
   }
 
+	/**
+	* Devuelve verdadero o falso si tiene informacion en la ficha de experiencia
+	*	@return bool verdadero o falso si tiene informacion en la ficha de experiencia
+	*/
+	public function hasRecordSheet() {
+		if (strlen($this->getParish()) > 1 || strlen($this->getCanton()) > 1 || strlen($this->getAutorithy()) > 1 || strlen($this->getExperience()) > 1)
+			return true;
+		else
+			return false;
+	}
+
 } // BlogEntry

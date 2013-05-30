@@ -17,10 +17,58 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 	<h3>|-$blogEntry->getTitle()-|</h3>	
 	<div id="completeText">
 		|-$blogEntry->getBody()-|
+
+|-if $blogEntry->hasRecordSheet()-|
+<table border="0" class="tableTdBorders">
+<colgroup><col width="25%"><col width="75%"></colgroup>
+|-if $blogEntry->getParish()|strlen gt 1-|<tr>
+<th>Parroquia</th>
+<td>|-$blogEntry->getParish()-|</td>
+</tr>|-/if-|
+|-if $blogEntry->getCanton()|strlen gt 1-|<tr>
+<th>Cantón</th>
+<td>|-$blogEntry->getCanton()-|</td>
+</tr>|-/if-|
+|-if $blogEntry->getauthority()|strlen gt 1-|<tr>
+<th>Autoridad</th>
+<td>|-$blogEntry->getauthority()-|</td>
+</tr>|-/if-|
+|-if $blogEntry->getexperience()|strlen gt 1-|<tr>
+<th>Experiencia</th>
+<td>|-$blogEntry->getexperience()-|</td>
+</tr>|-/if-|
+|-if $blogEntry->getactors()|strlen gt 1-|<tr>
+<th>Actores</th>
+<td>|-$blogEntry->getactors()-|</td>
+</tr>|-/if-|
+|-if $blogEntry->getPopulationServed()|strlen gt 1-|<tr>
+<th>Población beneficiada</th>
+<td>|-$blogEntry->getPopulationServed()-|</td>
+</tr>|-/if-|
+|-if $blogEntry->gettarget()|strlen gt 1-|<tr>
+<th>Objetivo</th>
+<td>|-$blogEntry->gettarget()-|</td>
+</tr>|-/if-|
+|-if $blogEntry->getactions()|strlen gt 1-|<tr>
+<th>Acciones</th>
+<td>|-$blogEntry->getactions()-|</td>
+</tr>|-/if-|
+|-if $blogEntry->getresults()|strlen gt 1-|<tr>
+<th>Resultados</th>
+<td>|-$blogEntry->getresults()-|</td>
+</tr>|-/if-|
+|-if $blogEntry->getreplica()|strlen gt 1-|<tr>
+<th>Replica</th>
+<td>|-$blogEntry->getreplica()-|</td>
+</tr>|-/if-|
+</table>
+|-/if-|
+
 	</div>
 		<div class="tags">Etiquetas: |-foreach from=$blogEntry->getBlogTags() item=tag name=for_tagss-|
      <a href="Main.php?do=blogShow&tagId=|-$tag->getId()-|">|-$tag->getName()-|</a>&nbsp;|-/foreach-|
 </div>
+|-include file="BlogEditDocumentsInclude.tpl" path=$path blogEntryDocumentColl=$documents photos=$photos id=$blogEntry->getId() edit=false-|
 <p>&nbsp;</p>
 		<p><input type="button" name="Volver" value="Volver" id="Volver" onClick="javascript:history.go(-1);"></p>
 </div>

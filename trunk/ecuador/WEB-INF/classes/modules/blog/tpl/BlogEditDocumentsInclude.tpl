@@ -82,9 +82,9 @@ iframe{
 <div id="documentsList">
 <div id="documents"></div>
 <fieldset id="docs_list" class="noMargin"><legend>Documentos asociados</legend>
-	<div><p align="right">
+	|-if $edit-|<div><p align="right">
 		<a class="iframe addLink" id="fancybox_document" href="Main.php?do=documentsEdit&entityId=|-$id-|&requester=Blog&entity=BlogEntry&entityId=|-$id-|">Agregar nuevo documento</a>
-	</p></div>
+	</p></div>|-/if-|
 	|-if count($photos) > 0-|
 	<div><p align="right">
 		<a href="#" onclick="$('a.galleryPhoto').first().click();">Ver fotos</a>
