@@ -12,5 +12,12 @@ class BlogDocumentsListXAction extends BaseListAction {
 		$this->template->template = 'TemplateAjax.tpl';
 		
 		$this->smarty->assign("id",$_POST['id']);
+		
+	}
+	
+	protected function postList() {
+		parent::postList();
+		
+		$this->smarty->assign("photos", BlogEntryDocumentQuery::create()->useDocumentQuery()->filterByType(Document::DOCUMENT_IMAGE)->endUse()->filterByBlogEntryId($_POST['id'])->find());
 	}
 }

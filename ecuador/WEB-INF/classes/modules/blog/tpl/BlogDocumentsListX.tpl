@@ -4,7 +4,7 @@
 	<ul class="iconList">
 	|-foreach $blogEntryDocumentColl as $blogEntryDocument-|
 		|-assign var="document" value=$blogEntryDocument->getDocument()-|
-		<li id="blogEntryDocument_|-$document->getId()-|_|-$id-|">
+		<li id="blogEntryDocument_|-$document->getId()-|">
 			<span style="float: left;width: 80%;font-weight: bold;" title="Título del documento">|-$document->getDate()|date_format-| | |-$document->getTitle()-|<br />
 			<span style="float: left;margin-left: 3em;font-weight: normal;" title="Descripción del documento">|-$document->getDescription()-|</span></span>
 			<span style="float: left;width: 20%;text-align: right;"><form method="POST" action="Main.php">
@@ -18,4 +18,18 @@
 	|-/foreach-|
 </ul>
 </div>
+<script type="text/javascript">
+	$('#photos').html('');
+	|-foreach $photos as $picture-|
+		|-assign var=photo value=$picture->getDocument()-|
+		var photoItem = $('<a></a>').addClass('galleryPhoto').attr('rel','unnamedGallery').attr('href','#divPhoto|-$photo->getId()-|').attr('photoId','|-$photo->getId()-|'); 
+		var divPhoto = $('<div></div>').attr('id','divPhoto|-$photo->getId()-|');
+		var img = $('<img />').attr('src','WEB-INF/documents/|-$photo->getId()-|');
+		divPhoto = $(divPhoto).append(img);
+		$('#photos').append(photoItem);
+		$('#photos').append(divPhoto);
+	|-/foreach-|
+	
+	$('a.galleryPhoto').fancybox();
+</script>
 |-/if-|

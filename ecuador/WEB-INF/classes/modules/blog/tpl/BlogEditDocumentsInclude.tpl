@@ -6,39 +6,10 @@
 	$(document).ready(function() {
 		
 		galleryOptions = {
-			titleShow: true,
-			titlePosition: 'inside',
-			titleFormat: function(title, currentArray, currentIndex, currentOpts) {
-				var a = currentArray[currentIndex];
-				var photoDiv = $('<div></div>');
-				$('<p><span id="title" class="jeditable_'+$(a).attr('photoId')+'">'+$(a).attr('photoTitle')+'</span></p>').appendTo(photoDiv);
-				$('<p><span id="description" class="jeditable_'+$(a).attr('photoId')+'">'+$(a).attr('photoDescription')+'</span></p>').appendTo(photoDiv);
-				return photoDiv;
-			},
-			onComplete: function(currentArray, currentIndex) {
-				var a = currentArray[currentIndex];
-				$('.jeditable_'+$(a).attr('photoId')).editable('Main.php?do=resourcesDoEditParam', {
-					id: 'paramName',
-					name: 'paramValue',
-					submitdata: { id: $(a).attr('photoId') },
-					submit: 'OK',
-					cancel: 'Cancel',
-					indicator : 'Saving...',
-					callback: function(value, settings) {
-						$(a).attr('photo'+$(this).attr('id'), value);
-					}
-				});
-			}
+			titleShow: false
 		}
 		
 		$('a.galleryPhoto').fancybox(galleryOptions);
-		|-if !$blogEntry->isNew()-|
-			$('a#photoAdd').fancybox({
-				onComplete: function() {
-					swfuInit();
-				}
-			});
-		|-/if-|
 	});
 	
 	$('#params_visitDate').datepicker();
@@ -80,14 +51,14 @@ iframe{
 }
 </style>
 <div id="documentsList">
-<div id="documents"></div>
+<div id="documentOperationInfo"></div>
 <fieldset id="docs_list" class="noMargin"><legend>Documentos asociados</legend>
-	|-if $edit-|<div><p align="right">
+	<div><p align="right">
 		<a class="iframe addLink" id="fancybox_document" href="Main.php?do=documentsEdit&entityId=|-$id-|&requester=Blog&entity=BlogEntry&entityId=|-$id-|">Agregar nuevo documento</a>
-	</p></div>|-/if-|
+	</p></div>
 	|-if count($photos) > 0-|
 	<div><p align="right">
-		<a href="#" onclick="$('a.galleryPhoto').first().click();">Ver fotos</a>
+		<a href="#" onclick="$('a.galleryPhoto').first().click();return false;">Ver fotos</a>
 	</p></div>
 	|-/if-|
 <div id="blogEntryDocumentsListDiv">
@@ -98,7 +69,7 @@ iframe{
 	<ul class="iconList">
 	|-foreach $blogEntryDocumentColl as $blogEntryDocument-|
 		|-assign var="document" value=$blogEntryDocument->getDocument()-|
-		<li id="blogEntryDocument_|-$document->getId()-|_|-$id-|">
+		<li id="blogEntryDocument_|-$document->getId()-|">
 			<span style="float: left;width: 80%;font-weight: bold;" title="Título del documento">|-$document->getDate()|date_format-| | |-$document->getTitle()-|<br />
 			<span style="float: left;margin-left: 3em;font-weight: normal;" title="Descripción del documento">|-$document->getDescription()-|</span></span>
 			<span style="float: left;width: 20%;text-align: right;"><form method="POST" action="Main.php">
@@ -109,11 +80,10 @@ iframe{
 			</form>
 			<form name='documents' id='document_|-$document->getId()-|' style='display:inline;' method='POST'>
 					<input type=hidden name='id' value='|-$document->getId()-|'>
-					<input type=hidden name='category' value='|-$document->getCategoryid()-|'>
 					|-if $usePasswords && $document->getPassword() ne ''-|
 						<input type='password' name='password' />
 					|-/if-|
-					<!--input type='submit' name='submit' value='##common,2,Eliminar##' title='##common,2,Eliminar##' class='icon iconDelete' onclick="if (confirm('¿Seguro que desea eliminar este documento?'))$.ajax({url: 'Main.php?do=documentsDoDeleteX',data:$('#documents').serialize(),type: 'post',success:function(data){$('#documentOperationInfo').html(data);}});return false;" alt="Eliminar" /-->
+					<input type='submit' name='submit' value='##common,2,Eliminar##' title='##common,2,Eliminar##' class='icon iconDelete' onclick="if (confirm('¿Seguro que desea eliminar este documento?'))$.ajax({url: 'Main.php?do=documentsDoDeleteX',data:$('#document_|-$document->getId()-|').serialize(),type: 'post',success:function(data){$('#documentOperationInfo').html(data);}});return false;" alt="Eliminar" />
 			</form></span>
 			<br style="clear: all" />
 		</li>
