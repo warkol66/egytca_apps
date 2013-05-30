@@ -6,7 +6,7 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 <script type="text/javascript" src="scripts/jquery/jquery-ui-1.8.19.custom.min.js"></script>
 <script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 <script type="text/javascript">
-	var galleryOptions; 
+	//var galleryOptions; 
 	
 	$(document).ready(function() {
 		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
@@ -114,7 +114,7 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 
 |-if !$blogEntry->isNew()-|
 <!--Upload de documentos-->
-|-include file="BlogEditDocumentsInclude.tpl" blogEntryDocumentColl=$documents id=$blogEntry->getId()-|
+|-include file="BlogEditDocumentsInclude.tpl" path=$path blogEntryDocumentColl=$documents photos=$photos id=$blogEntry->getId()-|
 <!--Fin Upload de documentos-->
 <!--Etiquetas-->
 <fieldset title="Formulario de edición de etiquetas">
