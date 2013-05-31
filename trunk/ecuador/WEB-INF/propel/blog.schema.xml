@@ -24,6 +24,7 @@
 		<column name="actions" type="LONGVARCHAR" description="Acciones"/>
 		<column name="results" type="LONGVARCHAR" description="Resultados"/>
 		<column name="replica" type="LONGVARCHAR" description="Replica"/>
+		<column name="result" type="BOOLEAN" sqlType="BOOL" default="1" description="Exitosa o no"/>
 		<!-- /Ficha de experiencia -->
 
 		<unique>
