@@ -61,6 +61,10 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 <th>Replica</th>
 <td>|-$blogEntry->getreplica()-|</td>
 </tr>|-/if-|
+<tr>
+<th>Conclusión</th>
+<td>|-if $blogEntry->getResult()-|Se considera experiencia exitosa|-else-|No se considera exitosa|-/if-|</td>
+</tr>
 </table>
 |-/if-|
 

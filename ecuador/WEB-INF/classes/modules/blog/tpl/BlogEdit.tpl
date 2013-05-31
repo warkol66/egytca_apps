@@ -29,24 +29,24 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 </div>
 <script src="Main.php?do=js&name=js&module=blog&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 |-include file='BlogEditTinyMceInclude.tpl' elements="params_body" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"-| 
-<h2>##blog,1,Entradas##</h2>
-<h1>|-if !$blogEntry->isNew()-|##blog,23,Editar entrada##|-else-|##blog,24,Crear entrada##|-/if-| </h1>
+<h2>Experiencias</h2>
+<h1>|-if !$blogEntry->isNew()-|Editar|-else-|Crear|-/if-| experiencia</h1>
 |-if $message eq "ok"-|
-	<div class="successMessage">Entrada guardada correctamente</div>
+	<div class="successMessage">Experiencia guardada correctamente</div>
 |-elseif $message eq "error"-|
-	<div class="failureMessage">##blog,25,Ha ocurrido un error al intentar guardar la entrada##</div>
+	<div class="failureMessage">Ha ocurrido un error al intentar guardar la experiencia</div>
 |-/if-|
 <div id="div_blogEntry">
 	<form name="form_edit_blogEntry" id="form_edit_blogEntry" action="Main.php" method="post">
-		<p>##blog,26,Ingrese los datos de la entrada##</p>
-		<fieldset title="##blog,27,Formulario de edición de datos de un noticia##">
-		<legend>##blog,28,Formulario de Entrada##</legend>
+		<p>Ingrese los datos de la experiencia</p>
+		<fieldset title="Formulario de edición de datos de una experiencia">
+		<legend>Formulario de Experiencia</legend>
 			<p>
-				<label for="params_title">##blog,10,Título##</label>
+				<label for="params_title">Título</label>
 				<input name="params[title]" type="text" id="params_title" title="title" value="|-$blogEntry->gettitle()|escape-|" size="60" maxlength="255" />
 			</p>
 			<p>
-				<label for="params_body">##blog,32,Texto de la entrada##</label>
+				<label for="params_body">Descripción</label>
 				<textarea name="params[body]" cols="60" rows="15" wrap="VIRTUAL"  id="params_body">|-$blogEntry->getbody()|htmlentities-|</textarea>
 		</p>
 <p>Ficha de experiencia</p>
@@ -91,16 +91,20 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 				<label for="params_replica">Replica</label>
 				<textarea name="params[replica]" cols="60" rows="3" wrap="VIRTUAL" id="params_replica">|-$blogEntry->getreplica()|escape-|</textarea>
 		</p>
+			<p>
+				<label for="params_result">Conclusión</label>
+				Se considera exitosa <input name="params[result]" type="radio" value="1" |-$blogEntry->getResult()|checked:"1"-|> 
+				&nbsp; No fue exitosa <input name="params[result]" type="radio" value="0" |-$blogEntry->getResult()|checked:"0"-|>
+		</p>
 </div>
 			<p>
-				<label for="params_creationDate">##blog,35,Fecha de Creación##</label>
+				<label for="params_creationDate">Fecha de Creación</label>
 				<input name="params[creationDate]" type="date" id="params_creationDate" class="datepicker" title="creationDate" value="|-$blogEntry->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
-				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 			</p>
 			|-assign var=entryId value=$blogEntry->getId()-|
 			|-if not empty($entryId)-|
 			<p>
-				<label for="params_status">##blog,13,Estado##</label>
+				<label for="params_status">Estado</label>
 				<select name="params[status]" id="params_status">
 					|-foreach from=$blogEntryStatus key=key item=name-|
 						<option value="|-$key-|" |-if ($blogEntry->getStatus()) eq $key-|selected="selected"|-/if-|>|-$name-|</option>
@@ -109,9 +113,9 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 			</p>
 			|-/if-|
 |-if $blogConfig.useCategories.value eq "YES"-|<p>
-				<label for="params_categoryId">##blog,14,Categoría##</label>
+				<label for="params_categoryId">Categoría</label>
 				<select id="params_categoryId" name="params[categoryId]" title="categoryId">
-					<option value="">##blog,18,Seleccione una categoría##</option>
+					<option value="">Seleccione una categoría</option>
 									|-foreach from=$categoryIdValues item=object-|
 									<option value="|-$object->getid()-|" |-if $blogEntry->getcategoryId() eq $object->getid()-|selected="selected" |-/if-|>|-$object->getname()-|</option>
 									|-/foreach-|

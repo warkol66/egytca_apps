@@ -9,6 +9,8 @@ class BlogDoEditAction extends BaseDoEditAction {
 	protected function preUpdate(){
 		parent::preUpdate();
 
+		$this->forwardName = "success-edit";
+
 		//informacion del usuario		
 		if(isset($_SESSION['loginUser']) || isset($_SESSION['loginAffiliateUser']) || isset($_SESSION['loginClientUser'])){
 			if(isset($_SESSION['loginUser']))
