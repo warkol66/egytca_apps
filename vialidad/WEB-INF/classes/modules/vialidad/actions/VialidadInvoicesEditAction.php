@@ -13,9 +13,4 @@ class VialidadInvoicesEditAction extends BaseEditAction {
 	function __construct() {
 		parent::__construct('Invoice');
 	}
-	
-	protected function postEdit() {
-		parent::postEdit();
-	}
-
 }
