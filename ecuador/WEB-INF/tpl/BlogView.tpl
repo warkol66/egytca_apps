@@ -12,6 +12,7 @@
 		<div>No se ingresó inguna entrada, debe identificar una entrada para visualizarla. <br />
 Puede regresar a la página principal del blog haciendo click <a href="Main.php?do=blogShow">aquí</a></div>
 |-else-|
+<script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 <!-- begin blog01 -->
 <div class="blog01">
 	<h3>|-$blogEntry->getTitle()-|</h3>	
