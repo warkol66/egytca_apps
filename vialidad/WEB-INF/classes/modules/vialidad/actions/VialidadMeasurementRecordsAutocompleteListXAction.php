@@ -24,16 +24,28 @@ class VialidadMeasurementRecordsAutocompleteListXAction extends BaseAction {
 		$searchString = $_REQUEST['value'];
 		$smarty->assign("searchString",$searchString);
 
-		$recordsQuery = MeasurementRecordQuery::create()->useConstructionQuery()
-			->where('Construction.Name LIKE ?', "%" . $searchString . "%")
-			->endUse()->limit($_REQUEST['limit']);
-		
-		if ($_GET['noCertificate']) {
-			$existentCertificates = CertificateQuery::create()->find();
-			foreach ($existentCertificates as $existentCertificate)
-				$recordsQuery->filterByCertificate($existentCertificate, Criteria::NOT_EQUAL);
+		if ($_GET['noCertificate'])
+			$existentCertificates = CertificateQuery::create()->select('Id')->find();
+
+		if ($_GET['noInvoice']) {
+			$existentInvoices = InvoiceQuery::create()->select('Id')->find();
+			$existentCertificates = CertificateQuery::create()
+																				->useInvoiceQuery()
+																					->filterByid($existentInvoices, Criteria::NOT_IN)
+																				->endUse()
+																		->select('Id')
+																		->find();
 		}
-		
+
+		$recordsQuery = MeasurementRecordQuery::create()
+												->useConstructionQuery()
+													->where('Construction.Name LIKE ?', "%" . $searchString . "%")
+												->endUse()
+												->useCertificateQuery()
+													->filterByid($existentCertificates, Criteria::NOT_IN)
+												->endUse()
+												->limit($_REQUEST['limit']);
+
 		$records = $recordsQuery->find();
 
 		$smarty->assign("records",$records);

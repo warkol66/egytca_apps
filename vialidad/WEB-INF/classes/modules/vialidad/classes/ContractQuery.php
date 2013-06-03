@@ -78,4 +78,16 @@ class ContractQuery extends BaseContractQuery {
 		return $this->addFilters($filters)->paginate($page, $perPage);
 	}
 
+	/**
+	 * Agrega filtros por nombre y numero de contrato
+	 *
+	 * @param   type string $filterValue texto a buscar
+	 * @return condicion de filtrado por texto a buscar
+	 */
+	public function searchString($filterValue) {
+		return $this->filterByName("%$filterValue%", Criteria::LIKE)
+				->_or()
+					->filterByContractnumber("%$filterValue%", Criteria::LIKE);
+	}
+
 } // ContractQuery

@@ -21,7 +21,7 @@
 			<p>
 				|-if $advancePaymentInvoice->isNew()-|
 					<div style="position: relative;z-index:10000;">
-						|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=vialidadContractsAutocompleteListX&noCertificateInvoice=1" hiddenName="params[contractId]" disableSubmit="button_edit_invoice" label="Contrato"-|
+						|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=vialidadContractsAutocompleteListX" hiddenName="params[contractId]" disableSubmit="button_edit_invoice" label="Contrato"-|
 					</div>
 				|-else-|
 					<label for="contract">Contrato</label>

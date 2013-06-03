@@ -24,7 +24,8 @@ class VialidadContractsAutocompleteListXAction extends BaseAction {
 		$searchString = $_REQUEST['value'];
 		$smarty->assign("searchString",$searchString);
 
-		$contracts = ContractQuery::create()->where('Contract.Name LIKE ?', "%" . $searchString . "%")
+		$contracts = ContractQuery::create()
+										->searchString($searchString)
 									->limit($_REQUEST['limit'])
 									->find();
 

@@ -19,9 +19,9 @@
 		<fieldset title="Formulario de edición de datos de un Factura de Contratista">
 			<legend>Formulario de Administración de Factura de Contratista</legend>
 			<p>
-				|-if $action eq "create"-|
+				|-if $invoice->isNew()-|
 				<div style="position: relative;z-index:10000;">
-				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=vialidadMeasurementRecordsAutocompleteListX&noCertificate=1" hiddenName="params[measurementRecordId]" disableSubmit="button_edit_invoice" label="Certificado"-|
+				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=vialidadCertificatesAutocompleteListX&noCertificateInvoice=1" hiddenName="params[certificateId]" disableSubmit="button_edit_invoice" label="Certificado"-|
 				</div>
 				|-else-|
 				<label for="params[measurementRecordId]">Certificado</label>
@@ -51,7 +51,6 @@
 		 <p>
 		   <label for="params[status]">Estado</label>
 			<select id='params[status]' name='params[status]'>
-					<option value="">Seleccionar estado</option>
 					<option value="submitted" |-$invoice->getStatus()|selected:"submitted"-|>Presentada</option>
 					<option value="void" |-$invoice->getStatus()|selected:"void"-|>Anulada</option>
 					<option value="paid" |-$invoice->getStatus()|selected:"paid"-|>Pagada</option>
