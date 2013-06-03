@@ -18,7 +18,7 @@
 			<tr>
 				<th colspan="|-$colCount-|">
 					<div class="rightLink">
-						<a href="Main.php?do=|-$editAction-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Item</a>
+						<a href="Main.php?do=|-$editAction-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar |-$itemName-|</a>
 					</div>
 				</th>
 			</tr>
@@ -34,6 +34,14 @@
 	  *-|
 |-/block-|
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
+|-block "colGroup"-|
+	|-*
+		*
+		* <colgroup>'s go here
+		*
+		*-|
+|-/block-|
+
 	<thead>
 		|-block "thead"-|
 			|-block "filtersBox"-|

@@ -1,5 +1,5 @@
 <ul>
-	|-if count($contracts) == 0-|
+	|-if $contracts->count() == 0-|
 		<b>No hay resultados que coincidan</b>
 	|-else-|
 		|-foreach from=$contracts item=contract-|

@@ -86,11 +86,11 @@
 		<td>|-if !empty($record)-||-$record->getConstruction()-||-/if-|</td>
 		<td>|-if !empty($record)-||-$record->getContractor()-||-/if-|</td>
 		<td>|-if !empty($record)-||-$record->getMeasurementDate()|date_format:"%B / %Y"|@ucfirst-||-/if-|</td>
-		<td align="right">|-if !empty($certificate)-||-$certificate->getTotalPrice()|number_format-||-/if-|</td>
-		<td align="right">|-$invoice->getadvancePayment()|number_format-|</td>
-		<td align="right">|-$invoice->getAdvancePaymentRecovery()|number_format-|</td>
-		<td align="right">|-$invoice->getWithholding()|number_format-|</td>
-		<td align="right">|-$invoice->getTotalPrice()|number_format-|</td>
+		<td align="right">|-if !empty($certificate)-||-$certificate->getTotalPrice()|system_numeric_format-||-/if-|</td>
+		<td align="right">|-$invoice->getadvancePayment()|system_numeric_format-|</td>
+		<td align="right">|-$invoice->getAdvancePaymentRecovery()|system_numeric_format-|</td>
+		<td align="right">|-$invoice->getWithholding()|system_numeric_format-|</td>
+		<td align="right">|-$invoice->getTotalPrice()|system_numeric_format-|</td>
 		<td nowrap align="center">
 		
 						|-if !empty($certificate)-|<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("viewDiv", "Main.php?do=vialidadInvoicesViewX&id=|-$certificate->getId()-|", { method: "post", parameters: { id: "|-$certificate->getId()-|"}, evalScripts: true})};$("viewWorking").innerHTML = "<span class=\"inProgress\">buscando información...</span>";' value="Ver detalle" name="submit_go_view" /></a>|-/if-|
