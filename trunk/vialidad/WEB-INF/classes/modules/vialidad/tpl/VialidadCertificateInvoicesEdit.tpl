@@ -62,7 +62,7 @@
 				|-/if-|
 				<input type="hidden" name="do" id="do" value="vialidadCertificateInvoicesDoEdit" />
 				<input type="submit" id="button_edit_invoice" name="button_edit_invoice" |-if $certificateInvoice->isNew()-|disabled="disabled"|-/if-| title="Aceptar" value="Guardar" />
-				<input type="button" id="cancel" name="cancel" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=vialidadCertificateInvoicesList'"/>
+				<input type="button" id="cancel" name="cancel" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=|-if $returnToInvoicesList-|vialidadInvoicesList|-else-|vialidadCertificateInvoicesList|-/if-|'"/>
 				<div id="div_form_error" style="display:none">Falta completar campos</div>
 			</p>
 		</fieldset>
