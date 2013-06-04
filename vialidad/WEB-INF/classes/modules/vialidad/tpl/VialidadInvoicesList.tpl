@@ -57,7 +57,10 @@
 		</form></div></td>
 	</tr>
 	|-if "vialidadInvoicesEdit"|security_has_access-|<tr>
-		<th colspan="11" ><div class="rightLink"><a href="Main.php?do=vialidadInvoicesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Factura de Contratista</a></div></th>
+		<th colspan="11" ><div class="rightLink">
+			<a href="Main.php?do=vialidadAdvancePaymentInvoicesEdit&returnToInvoicesList=1|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Factura de Anticipo</a>
+			<a href="Main.php?do=vialidadCertificateInvoicesEdit&returnToInvoicesList=1|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Factura de Certificado</a>
+		</div></th>
 	</tr>|-/if-|
 	<tr>
 		<th width="5%">NºContratista</th>
@@ -97,14 +100,15 @@
 
 
 			|-if "vialidadInvoicesEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
-			  <input type="hidden" name="do" value="vialidadInvoicesEdit" /> 
+			  <input type="hidden" name="do" value="|-if $invoice->getClassKey() eq InvoicePeer::CLASSKEY_CERTIFICATEINVOICE-|vialidadCertificateInvoicesEdit|-else-|vialidadAdvancePaymentInvoicesEdit|-/if-|" /> 
+			  <input type="hidden" name="returnToInvoicesList" value="1" />
 			<input type="hidden" name="id" value="|-$invoice->getId()-|" />
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 					|-if isset($pager) && ($pager->getPage() gt 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 			  <input type="submit" name="submit_go_edit_certificate" value="Editar" class="icon iconEdit" /> 
 			</form>|-/if-|
 			|-if "vialidadInvoicesDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;"> 
-			  <input type="hidden" name="do" value="vialidadInvoicesDoDelete" /> 
+			  <input type="hidden" name="do" value="|-if $invoice->getClassKey() eq InvoicePeer::CLASSKEY_CERTIFICATEINVOICE-|vialidadCertificateInvoicesDoDelete|-else-|vialidadAdvancePaymentInvoicesDoDelete|-/if-|" /> 
 			  <input type="hidden" name="id" value="|-$invoice->getId()-|" /> 
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 					|-if isset($pager) && ($pager->getPage() gt 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
@@ -121,8 +125,11 @@
 		</tr>
 		|-/if-|
 	|-/if-|
-	|-if "vialidadInvoicesEdit"|security_has_access && $certificates|@count gt 5-|<tr>
-		<th colspan="11" ><div class="rightLink"><a href="Main.php?do=vialidadInvoicesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Factura de Contratista</a></div></th>
+	|-if "vialidadInvoicesEdit"|security_has_access && $invoiceColl|@count gt 5-|<tr>
+		<th colspan="11" ><div class="rightLink">
+			<a href="Main.php?do=vialidadAdvancePaymentInvoicesEdit&returnToInvoicesList=1|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Factura de Anticipo</a>
+			<a href="Main.php?do=vialidadCertificateInvoicesEdit&returnToInvoicesList=1|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Factura de Certificado</a>
+		</div></th>
 	</tr>|-/if-|
 	</tfoot>
 </table>
