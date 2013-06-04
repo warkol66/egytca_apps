@@ -12,7 +12,13 @@
 				<input type="hidden" name="id" value="|-$document->getId()-|" />
 				<button type="submit" class="icon iconDownload" title="Descargar documento">ver</button>
 			</form>
-			<a href="#" title="Eliminar documento" onclick="confirm('¿Está seguro que desea eliminar el documento?') && doDeleteDocument(|-$document->getId()-|, |-$id-|); return false;"><img src="images/clear.png" class="icon iconDelete" title="Eliminar"/></a></span>
+			<form name='documents' id='document_|-$document->getId()-|' style='display:inline;' method='POST'>
+					<input type=hidden name='id' value='|-$document->getId()-|'>
+					|-if $usePasswords && $document->getPassword() ne ''-|
+						<input type='password' name='password' />
+					|-/if-|
+					<input type='submit' name='submit' value='##common,2,Eliminar##' title='##common,2,Eliminar##' class='icon iconDelete' onclick="if (confirm('¿Seguro que desea eliminar este documento?'))$.ajax({url: 'Main.php?do=documentsDoDeleteX',data:$('#document_|-$document->getId()-|').serialize(),type: 'post',success:function(data){$('#documentOperationInfo').html(data);}});return false;" alt="Eliminar" />
+			</form></a></span>
 			<br style="clear: all" />
 		</li>
 	|-/foreach-|
