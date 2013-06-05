@@ -53,14 +53,15 @@ iframe{
 <div id="documentsList">
 <div id="documentOperationInfo"></div>
 <fieldset id="docs_list" class="noMargin"><legend>Documentos asociados</legend>
-	<div><p align="right">
+	<div id="actions"><p align="right">
 		<a class="iframe addLink" id="fancybox_document" href="Main.php?do=documentsEdit&entityId=|-$id-|&requester=Blog&entity=BlogEntry&entityId=|-$id-|">Agregar nuevo documento</a>
-	</p></div>
+	</p>
+	<p id="viewPhotos" align="right">
 	|-if count($photos) > 0-|
-	<div><p align="right">
 		<a href="#" onclick="$('a.galleryPhoto').first().click();return false;">Ver fotos</a>
-	</p></div>
 	|-/if-|
+	</p>
+	</div>
 <div id="blogEntryDocumentsListDiv">
 <ul>
 |-if $blogEntryDocumentColl|count eq 0-|
@@ -98,7 +99,7 @@ iframe{
 	$('a.fancygallery').fancybox(); 
 	$('a#fancybox_document').fancybox({	'autoScale': false,
 										'width' : 800,
-										'height' :400,
+										'height' :420,
 										'hideOnContentClick': true,
 										'onClosed': function(){
 											$.ajax({
