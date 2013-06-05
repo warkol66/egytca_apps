@@ -117,19 +117,8 @@ class DocumentsDoAddAction extends BaseDoEditAction {
 				unlink($this->entity->getFullyQualifiedFileName());
 		}
 		
-		//si el tipo es imagen - probado
-		if ($_POST['params']['type'] == Document::DOCUMENT_IMAGE && !empty($_FILES["document_file"]['tmp_name'])){
-			if(move_uploaded_file($_FILES['document_file']['tmp_name'], $this->entity->getFullyQualifiedFileName()))
-				$this->smarty->assign($success,true);
-		}
-		//si el tipo es video - PROBAR
-		if ($_POST['params']['type'] == Document::DOCUMENT_VIDEO && !empty($_FILES["document_file"]['tmp_name']))
-			if(Document::createVideo($this->entity,$_FILES['document_file'],$this->entity->getId() . ".flv")) 
-				$this->smarty->assign($success,true);
-		//si el tipo es audio - probado
-		if ($_POST['params']['type'] == Document::DOCUMENT_SOUND && !empty($_FILES["document_file"]['tmp_name']))
-			if(move_uploaded_file($_FILES['document_file']['tmp_name'], $this->entity->getFullyQualifiedFileName()))
-				$this->smarty->assign($success,true);
+		if(move_uploaded_file($_FILES['document_file']['tmp_name'], $this->entity->getFullyQualifiedFileName()))
+			$this->smarty->assign($success,true);
 		
 		/* Ver esto*/
 		global $system;

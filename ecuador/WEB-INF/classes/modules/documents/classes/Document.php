@@ -9,6 +9,7 @@ class Document extends BaseDocument {
 	const DOCUMENT_IMAGE = 1;
 	const DOCUMENT_VIDEO = 2;
 	const DOCUMENT_SOUND = 3;
+	const DOCUMENT_DOCUMENT = 4;
 	
 	const DOCUMENT_SAVEPATH = 'WEB-INF/documents/';
 	
@@ -21,6 +22,7 @@ class Document extends BaseDocument {
 	$types[Document::DOCUMENT_IMAGE] = 'Imagen';
 	$types[Document::DOCUMENT_VIDEO] = 'Video';
 	$types[Document::DOCUMENT_SOUND] = 'Sonido';
+	$types[Document::DOCUMENT_DOCUMENT] = 'Documento';
 
 	return $types;
 
@@ -28,13 +30,14 @@ class Document extends BaseDocument {
 	
 	public function getDocumentUploadCategoryName() {
 		
-		$type = $this->getMediaType();
+		$type = $this->getType();
 		
 		switch ($type) {
 			
 			case NewsMedia::DOCUMENT_IMAGE : return 'Imagen';
 			case NewsMedia::DOCUMENT_VIDEO : return 'Video';
 			case NewsMedia::DOCUMENT_SOUND : return 'Sonido';
+			case NewsMedia::DOCUMENT_DOCUMENT : return 'Documento';
 			
 		}
 		
