@@ -16,8 +16,8 @@
 						 name = "documentsUpload"
 						scope = "request"
 				 validate = "true">
-			<forward name="success" path="DocumentsUploadSuccess.tpl"/>
-			<forward name="failure" path="DocumentsUploadFailure.tpl"/>
+			<forward name="success" path="/Main.php?do=documentsEdit" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=documentsEdit" redirect="true"/>
 		</action>
 
 		<action    path = "documentsDoEdit"
@@ -51,13 +51,13 @@
 			<forward name="failureUploadHeadline" path="/Main.php?do=headlinesEdit" redirect="true"/>
 		</action>
 		
-		<!--action    path = "documentsDoAdd"
+		<action    path = "documentsDoAdd"
 							 type = "DocumentsDoAddAction"
 							 name = "documentsDoAdd"
 							scope = "request"
 					 validate = "true">
-			<forward name="success" path="/Main.php?do=documentsEdit" redirect="true"/>
-		</action-->
+			<forward name="success" path="/Main.php?do=documentsEdit"/>
+		</action>
 
 		<action    path = "documentsDoDelete"
 							 type = "DocumentsDoDeleteAction"

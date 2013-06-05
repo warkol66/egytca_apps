@@ -63,7 +63,7 @@ class DocumentsDoAddAction extends BaseDoEditAction {
 			$this->entityParams['fileSize'] = $file['size'];
 			$this->entity->extractFullText($file);
 			
-			$this->params['message'] = 'uploadsuccess';
+			$this->params['uploadMessage'] = 'uploadsuccess';
 		}
 		
 		//datos del usuario
@@ -83,6 +83,8 @@ class DocumentsDoAddAction extends BaseDoEditAction {
 	
 	protected function postSave() {
 		parent::postSave();
+		
+		$this->template->template = 'TemplateAjax.tpl';
 		
 		//creo la relacion documento - entity
 		if(!empty($_POST['entity'])){
@@ -135,7 +137,13 @@ class DocumentsDoAddAction extends BaseDoEditAction {
 		$saveOriginalFiles = $system["config"]["blog"]["documents"]["saveOriginalFiles"]["value"];
 
 		if ($saveOriginalFiles == "YES")
-		  copy($file["tmp_name"],$destPath);
-		
+			copy($file["tmp_name"],$destPath);
+		  
+		 $this->params['entity'] = $_POST['entity'];
+		 $this->params['entityId'] = $_POST['entityId'];
+		 $this->params['password'] = $_POST['password'];
+		 $this->params['requester'] = $_POST['requester'];
+		 $this->params['success'] = 'true';
+		 
 	}
 }
