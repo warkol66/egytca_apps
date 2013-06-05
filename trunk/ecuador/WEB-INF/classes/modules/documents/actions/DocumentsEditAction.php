@@ -42,13 +42,13 @@ class DocumentsEditAction extends BaseEditAction {
 	protected function postEdit() {
 		parent::postEdit();
 		
-		if(isset($_GET['requester'])){
+		if(isset($_REQUEST['requester'])){
 			$this->template->template = 'TemplateAjax.tpl';
-			$this->smarty->assign("requester",$_GET['requester']);
+			$this->smarty->assign("requester",$_REQUEST['requester']);
 		}
 		
 		//password enviado desde el listado
-		$password = $_POST['password'];
+		$password = $_REQUEST['password'];
 		
 		if ($this->entity->isPasswordProtected() && !$this->entity->checkPassword($password))
 			return false;
@@ -63,5 +63,6 @@ class DocumentsEditAction extends BaseEditAction {
 		
 		$this->smarty->assign('entity', $_REQUEST['entity']);
 		$this->smarty->assign('entityId', $_REQUEST['entityId']);
+		$this->smarty->assign('success', $_REQUEST['success']);
 	}
 }

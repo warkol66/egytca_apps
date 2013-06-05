@@ -25,6 +25,10 @@
 	<div class="failureMessage">Error: Se ha ingresado incorectamente la contraseña actual</div>
 |-elseif $message eq "wrongCategory"-|
 	<div class="failureMessage">Error: Debe seleccionar un tipo de archivo</div>
+|-elseif $message eq "success"-|
+|-/if-|
+|-if isset($success) and $success eq 'true'-|
+	<div class="successMessage">Documento guardado. Puede editarlo aquí</div>
 |-/if-|
 </div>
 <form method="post" action="Main.php?do=|-if !isset($requester)-|documentsDoEdit|-else-|documentsDoAdd|-/if-|" enctype="multipart/form-data" name="formSearch" id="documentsAdderForm">

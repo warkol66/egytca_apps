@@ -1,4 +1,4 @@
-|-if $requester eq ""-|
+|-if !isset($requester) and !isset($success)-|
 <h2>Documentos</h2>
 |-if isset($level)-|
 <p>No tiene permisos para editar este documento</p>
@@ -25,7 +25,7 @@ Ingrese los datos del documento y haga click en "Agregar Documento".
 |-include file="DocumentsEditInclude.tpl"-|
 |-/if-|
 |-else-|
-|-include file="DocumentsEditInclude.tpl" requester=$requester entity=$entity entityId=$entityId-|
+|-include file="DocumentsEditInclude.tpl" requester=$requester entity=$entity entityId=$entityId success=$success-|
 |-/if-|
 
  
