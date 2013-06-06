@@ -18,24 +18,27 @@
 	<form name="form_edit_invoice" id="form_edit_invoice" action="Main.php" method="post">
 		<fieldset title="Formulario de edición de datos de una Factura de Contratista">
 			<legend>Formulario de Administración de Factura de Contratista</legend>
-			<p>
-				|-if $certificateInvoice->isNew()-|
+			|-if $certificateInvoice->isNew()-|<p>
 					<div style="position: relative;z-index:10000;">
 						|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=vialidadCertificatesAutocompleteListX&noCertificateInvoice=1" hiddenName="params[certificateId]" disableSubmit="button_edit_invoice" label="Certificado"-|
 					</div>
+				</p>
 				|-else-|
+					<p>
 					<label for="certificate">Certificado</label>
-					<span id="certificate">
-						|-$certificateInvoice->getCertificate()->getMeasurementRecord()->getConstruction()->getName()-|
-						-
-						|-$certificateInvoice->getCertificate()->getMeasurementRecord()->getPeriod()|date_format:"%B / %Y"-|
-					</span>
-				|-/if-|
+					<input id='certificate' name='certificate' type='text' id="certificate" |-"readonly"|readonly-| value="|-$certificateInvoice->getCertificate()->getMeasurementRecord()->getConstruction()->getName()-| - |-$certificateInvoice->getCertificate()->getMeasurementRecord()->getPeriod()|date_format:"%B / %Y"-|" size="60" />
+				</p>
+				<p>
+				<label for="certificateAmount">Monto certificado</label>
+				<input id='certificateAmount' name='certificateAmount' type='text' title="Monto del certificado" value='|-$certificateInvoice->getCertificate()->getTotalprice()|system_numeric_format-|' |-"readonly"|readonly:"right"-| size="20" />
 			</p>
+|-/if-|
+			
+
 			<p>
 				<label for="params[contractorNumber]">Número S/Contratista</label>
 				<input id='params[contractorNumber]' name='params[contractorNumber]' type='text' title="Número de Factura Según el Contratista" value='|-$certificateInvoice->getContractorNumber()|escape-|' class="right" size="10" />
-			</p>
+			</p>		
 			<p>
 				<label for="params[advancePaymentRecovery]">Recupero de Anticipo</label>
 				<input id='params[advancePaymentRecovery]' name='params[advancePaymentRecovery]' type='text' title="Recupero de Anticipo" value='|-$certificateInvoice->getAdvancePaymentRecovery()|system_numeric_format-|' class="right" size="20" />

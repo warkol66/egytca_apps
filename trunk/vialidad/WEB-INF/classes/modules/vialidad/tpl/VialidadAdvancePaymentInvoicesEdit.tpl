@@ -25,7 +25,7 @@
 					</div>
 				|-else-|
 					<label for="contract">Contrato</label>
-					<span id="contract">|-$advancePaymentInvoice->getContract()->getName()-|</span>
+				<input id='contract' name='contract' type='text' title="Contrato" value='|-$advancePaymentInvoice->getContract()->getName()-|' |-"readonly"|readonly-|size="60" />
 				|-/if-|
 			</p>
 			<p>
