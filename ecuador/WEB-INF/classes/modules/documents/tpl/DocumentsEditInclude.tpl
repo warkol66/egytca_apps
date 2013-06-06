@@ -76,14 +76,14 @@
 			</div>
 			
 			<div id="divAlternateContent" |-if $configModule->get('documents', useSWFUploader)-|style="display:none;"|-/if-|>
-				<p>
+				<!--p>
 					<label for="type">Tipo de archivo</label>
 					<select name="params[type]" id="params_type">
 						|-foreach from=$uploadTypes key=key item=value-|
 							<option value="|-$key-|">|-$value-|</option>
 						|-/foreach-|
 					</select>
-				</p>
+				</p-->
 			
 				<p>
 					<label for="document_file">Archivo</label>

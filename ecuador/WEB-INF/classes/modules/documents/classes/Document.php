@@ -34,13 +34,48 @@ class Document extends BaseDocument {
 		
 		switch ($type) {
 			
-			case NewsMedia::DOCUMENT_IMAGE : return 'Imagen';
-			case NewsMedia::DOCUMENT_VIDEO : return 'Video';
-			case NewsMedia::DOCUMENT_SOUND : return 'Sonido';
-			case NewsMedia::DOCUMENT_DOCUMENT : return 'Documento';
+			case Document::DOCUMENT_IMAGE : return 'Imagen';
+			case Document::DOCUMENT_VIDEO : return 'Video';
+			case Document::DOCUMENT_SOUND : return 'Sonido';
+			case Document::DOCUMENT_DOCUMENT : return 'Documento';
 			
 		}
 		
+	}
+	
+	public function getFileExtensionType($file){
+		$path_parts = pathinfo($file['name']);
+		$extension = $path_parts['extension'];
+		
+		if (is_array($file) and $file['size'] > 0) {
+			switch ($extension) {
+				case "jpeg":
+				case "jpg":
+				case "gif":
+				case "png":
+					$type = Document::DOCUMENT_IMAGE;
+					break;
+				case "mp4":
+				case "flv":
+					$type = Document::DOCUMENT_VIDEO;
+					break;
+				case "mp3":
+					$type = Document::DOCUMENT_SOUND;
+					break;
+				case "pdf":
+				case "doc":
+				case "xls":
+				case "ppt":
+					$type = Document::DOCUMENT_DOCUMENT;
+					break;
+
+				default:
+					$type = 0;
+			}
+		}else
+			$type = 0;
+			
+		return $type;
 	}
 	
 	/**
