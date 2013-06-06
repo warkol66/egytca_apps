@@ -28,6 +28,8 @@ class DocumentsDoAddAction extends BaseDoEditAction {
 	protected function preUpdate() {
 		parent::preUpdate();
 		
+		$this->template->template = 'TemplateAjax.tpl';
+		
 		if(isset($_POST['module']))
 			$this->smarty->assign('module', $_POST['module']);
 		
@@ -62,8 +64,21 @@ class DocumentsDoAddAction extends BaseDoEditAction {
 			$this->entityParams['realFilename'] = $file['name'];
 			$this->entityParams['fileSize'] = $file['size'];
 			$this->entity->extractFullText($file);
+			//me fijo si es una extension valida
+			$extension = Document::getFileExtensionType($file);
+			//si no es valida, salgo con error
+			if($extension == 0){
+				$this->smarty->assign('error','true');
+				$this->smarty->assign('entity',$_POST['entity']);
+				$this->smarty->assign('entityId',$_POST['entityId']);
+				$this->smarty->assign('password',$_POST['password']);
+				$this->smarty->assign('requester',$_POST['requester']);
+				$this->forwardFailureName = 'success';
+				return false;
+			}else
+				$this->entityParams['type'] = Document::getFileExtensionType($file);
 			
-			$this->params['uploadMessage'] = 'uploadsuccess';
+			$this->smarty->assign('uploadMessage','uploadsuccess');
 		}
 		
 		//datos del usuario
@@ -83,8 +98,6 @@ class DocumentsDoAddAction extends BaseDoEditAction {
 	
 	protected function postSave() {
 		parent::postSave();
-		
-		$this->template->template = 'TemplateAjax.tpl';
 		
 		//creo la relacion documento - entity
 		if(!empty($_POST['entity'])){
@@ -128,11 +141,11 @@ class DocumentsDoAddAction extends BaseDoEditAction {
 		if ($saveOriginalFiles == "YES")
 			copy($file["tmp_name"],$destPath);
 		  
-		 $this->params['entity'] = $_POST['entity'];
-		 $this->params['entityId'] = $_POST['entityId'];
-		 $this->params['password'] = $_POST['password'];
-		 $this->params['requester'] = $_POST['requester'];
-		 $this->params['success'] = 'true';
+		 $this->smarty->assign('success','true');
+				$this->smarty->assign('entity',$_POST['entity']);
+				$this->smarty->assign('entityId',$_POST['entityId']);
+				$this->smarty->assign('password',$_POST['password']);
+				$this->smarty->assign('requester',$_POST['requester']);
 		 
 	}
 }

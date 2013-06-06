@@ -50,14 +50,6 @@
 			<forward name="successHeadline" path="/Main.php?do=headlinesEdit" redirect="true"/>
 			<forward name="failureUploadHeadline" path="/Main.php?do=headlinesEdit" redirect="true"/>
 		</action>
-		
-		<action    path = "documentsDoAdd"
-							 type = "DocumentsDoAddAction"
-							 name = "documentsDoAdd"
-							scope = "request"
-					 validate = "true">
-			<forward name="success" path="/Main.php?do=documentsEdit"/>
-		</action>
 
 		<action    path = "documentsDoDelete"
 							 type = "DocumentsDoDeleteAction"
