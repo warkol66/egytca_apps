@@ -401,3 +401,7 @@ ul#directions_results {
 #categoriesListPlaceHolder ul.iconOptionsList li:hover {
 	color: #333; /* Color rightColumn */
 }
+input[readonly="readonly"], textarea[readonly="readonly"], select[readonly="readonly"] {
+	background-color: #E7E7E7;
+	border: 1px outset #cdcdcd !Important;/*#F0F0F0;*/
+}
