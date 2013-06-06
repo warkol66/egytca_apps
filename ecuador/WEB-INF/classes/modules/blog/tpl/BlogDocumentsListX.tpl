@@ -40,7 +40,7 @@
 	
 	|-if count($photos) > 0-|
 		var view = $('<a></a>').attr('href','#').attr('onClick',"$('a.galleryPhoto').first().click();return false;").text('Ver fotos');
-		$('#viewPhotos').append(view);
+		$('#viewPhotos').html(view);
 	|-/if-|
 </script>
 |-/if-|
