@@ -66,6 +66,8 @@ class Document extends BaseDocument {
 				case "doc":
 				case "xls":
 				case "ppt":
+				case "docx":
+				case "xlsx":
 					$type = Document::DOCUMENT_DOCUMENT;
 					break;
 
