@@ -32,6 +32,9 @@ class DocumentsDoDeleteXAction extends BaseAction {
 		$smarty->assign("id", $id);
 		$document = DocumentQuery::create()->findOneById($id);
 		$password = $_POST['password'];
+		
+		if(isset($_POST['objectId']))
+			$smarty->assign("objectId", $_POST['objectId']);
 
 		//validacion de password
 		if (!$document->checkPasswordValidation($password)) {
