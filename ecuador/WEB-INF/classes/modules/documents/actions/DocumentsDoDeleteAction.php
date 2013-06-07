@@ -97,6 +97,7 @@ class DocumentsDoDeleteAction extends BaseAction {
 
 		}
 		return $this->addParamsToForwards(array('id'=>$_POST['entityId'],'message'=>'deletesuccess'), $mapping, 'success' . $_POST['entity']);
+		
 
 	}
 
