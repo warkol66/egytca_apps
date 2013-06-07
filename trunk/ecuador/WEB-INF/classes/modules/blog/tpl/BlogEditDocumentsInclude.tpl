@@ -81,10 +81,11 @@ iframe{
 			</form>
 			<form name='documents' id='document_|-$document->getId()-|' style='display:inline;' method='POST'>
 					<input type=hidden name='id' value='|-$document->getId()-|'>
+					<input type=hidden name='objectId' value='|-$id-|'>
 					|-if $usePasswords && $document->getPassword() ne ''-|
 						<input type='password' name='password' />
 					|-/if-|
-					<input type='submit' name='submit' value='##common,2,Eliminar##' title='##common,2,Eliminar##' class='icon iconDelete' onclick="if (confirm('¿Seguro que desea eliminar este documento?'))$.ajax({url: 'Main.php?do=documentsDoDeleteX',data:$('#document_|-$document->getId()-|').serialize(),type: 'post',success:function(data){$('#documentOperationInfo').html(data);}});return false;" alt="Eliminar" />
+					<input type='submit' name='submit' value='##common,2,Eliminar##' title='##common,2,Eliminar##' class='icon iconDelete' onclick="if (confirm('¿Seguro que desea eliminar este documento?'))$.ajax({url: 'Main.php?do=documentsDoDeleteX',data:$('#document_|-$document->getId()-|').serialize(),type: 'post',success:function(data){$('#blogEntryDocumentsListDiv').html(data);}});return false;" alt="Eliminar" />
 			</form></span>
 			<br style="clear: all" />
 		</li>
