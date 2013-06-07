@@ -10,6 +10,7 @@
 			<span style="float: left;width: 20%;text-align: right;"><form method="POST" action="Main.php">
 				<input type="hidden" name="do" value="documentsDoDownload" />
 				<input type="hidden" name="id" value="|-$document->getId()-|" />
+				<input type="hidden" name="objectId" value="|-$id-|" />
 				<button type="submit" class="icon iconDownload" title="Descargar documento">ver</button>
 			</form>
 			<form name='documents' id='document_|-$document->getId()-|' style='display:inline;' method='POST'>
@@ -24,7 +25,9 @@
 	|-/foreach-|
 </ul>
 </div>
+|-/if-|
 <script type="text/javascript">
+
 	$('#photos').html('');
 	|-foreach $photos as $picture-|
 		|-assign var=photo value=$picture->getDocument()-|
@@ -41,6 +44,7 @@
 	|-if count($photos) > 0-|
 		var view = $('<a></a>').attr('href','#').attr('onClick',"$('a.galleryPhoto').first().click();return false;").text('Ver fotos');
 		$('#viewPhotos').html(view);
+	|-else-|
+		$('#viewPhotos').hide();
 	|-/if-|
 </script>
-|-/if-|
