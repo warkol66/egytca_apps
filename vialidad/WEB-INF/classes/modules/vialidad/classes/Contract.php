@@ -14,6 +14,21 @@
  * @package    propel.generator.vialidad.classes
  */
 class Contract extends BaseContract {
+	
+	public function getAdvancePaymentInvoice() {
+		return AdvancePaymentInvoiceQuery::create()->filterByContract($this)->findOne();
+	}
+	
+	public function getAdvancePayment() {
+		$advancePaymentInvoice = $this->getAdvancePaymentInvoice();
+		return is_null($advancePaymentInvoice) ? 0 : $advancePaymentInvoice->getAdvancepayment();
+	}
+	
+//	public function getRecoveredAdvancePayment() {
+//		foreach ($this->getConstructions() as $construction) {
+//			$construction->getRecoveredAdvancePayment()
+//		}
+//	}
 
 	/**
 	 * Obtiene el Contractor

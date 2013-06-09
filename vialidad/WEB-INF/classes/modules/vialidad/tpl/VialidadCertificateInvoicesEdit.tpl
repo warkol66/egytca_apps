@@ -42,14 +42,23 @@
 			<p>
 				<label for="params[advancePaymentRecovery]">Recupero de Anticipo</label>
 				<input id='params[advancePaymentRecovery]' name='params[advancePaymentRecovery]' type='text' title="Recupero de Anticipo" value='|-$certificateInvoice->getAdvancePaymentRecovery()|system_numeric_format-|' class="right" size="20" />
+				|-if !$certificateInvoice->isNew()-|
+					<span>calculated:<span id='calculatedValues[advancePaymentRecovery]'>|-$calculatedValues.advancePaymentRecovery|system_numeric_format-|</span></span>
+				|-/if-|
 			</p>
 			<p>
 				<label for="params[withholding]">Retención</label>
 				<input id='params[withholding]' name='params[withholding]' type='text' title="Retención" value='|-$certificateInvoice->getWithholding()|system_numeric_format-|' class="right" size="20" />
+				|-if !$certificateInvoice->isNew()-|
+					<span>calculated:<span id='calculatedValues[withholding]'>|-$calculatedValues.withholding|system_numeric_format-|</span></span>
+				|-/if-|
 			</p>
 			<p>
 				<label for="params[totalPrice]">Total</label>
 				<input id='params[totalPrice]' name='params[totalPrice]' type='text' title="Recupero de Anticipo" value='|-$certificateInvoice->getTotalPrice()|system_numeric_format-|' class="right" size="20" />
+				|-if !$certificateInvoice->isNew()-|
+					<span>calculated:<span id='calculatedValues[totalPrice]'>|-$calculatedValues.totalPrice|system_numeric_format-|</span></span>
+				|-/if-|
 			</p>
 			<p>
 				<label for="params[status]">Estado</label>
@@ -66,10 +75,28 @@
 				<input type="hidden" name="do" id="do" value="vialidadCertificateInvoicesDoEdit" />
 				<input type="submit" id="button_edit_invoice" name="button_edit_invoice" |-if $certificateInvoice->isNew()-|disabled="disabled"|-/if-| title="Aceptar" value="Guardar" />
 				<input type="button" id="cancel" name="cancel" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=|-if $returnToInvoicesList-|vialidadInvoicesList|-else-|vialidadCertificateInvoicesList|-/if-|'"/>
+				|-if !$certificateInvoice->isNew()-|
+					<input type="button" value="Usar valores calculados" onclick="useCalculatedValues();" />
+				|-/if-|
 				<div id="div_form_error" style="display:none">Falta completar campos</div>
 			</p>
 		</fieldset>
 	</form>
 </div>
+
+<script>
+	useCalculatedValues = function() {
+		
+		var calculatedValues = {
+			'advancePaymentRecovery': '|-$calculatedValues.advancePaymentRecovery|system_numeric_format-|',
+			'withholding': '|-$calculatedValues.withholding|system_numeric_format-|',
+			'totalPrice': '|-$calculatedValues.totalPrice|system_numeric_format-|'
+		};
+		
+		for (var key in calculatedValues) {
+			$('params['+key+']').value = calculatedValues[key];
+		};
+	};
+</script>
 
 |-/if-|
