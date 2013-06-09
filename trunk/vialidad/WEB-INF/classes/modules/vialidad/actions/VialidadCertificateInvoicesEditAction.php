@@ -8,7 +8,11 @@ class VialidadCertificateInvoicesEditAction extends BaseEditAction {
 	
 	protected function postEdit() {
 		parent::postEdit();
+		
 		if (!empty($_GET['returnToInvoicesList']))
 			$this->smarty->assign('returnToInvoicesList', true);
+		
+		if (!$this->entity->isNew())
+			$this->smarty->assign('calculatedValues', $this->entity->calculateValues());
 	}
 }

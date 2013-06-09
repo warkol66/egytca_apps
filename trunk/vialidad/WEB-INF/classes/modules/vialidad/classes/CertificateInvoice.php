@@ -80,21 +80,22 @@ class CertificateInvoice extends Invoice {
 		return $accumulated;
 	}
 	
-//	public function updateValues() {
-//		$this->updateAdvancePaymentRecovery();
-//		$this->updateWithholding();
-//		$this->updateTotalPrice();
-//	}
+	public function calculateValues() {
+		return array(
+			'advancePaymentRecovery' => $this->calculateAdvancePaymentRecovery(),
+			'withholding' => $this->calculateWithholding(true),
+			'totalPrice' => $this->calculateTotalPrice(true)
+		);
+	}
 	
 	public function calculateAdvancePaymentRecovery() {
 		
-		$contractId = $this->getCertificate()->getMeasurementRecord()->getConstruction()->getContractId();
-		$advancePaymentInvoice = AdvancePaymentInvoiceQuery::create()->findOneByContractid($contractId);
+		$contract = $this->getCertificate()->getMeasurementRecord()->getConstruction()->getContract();
 		
-		$advancePayment = is_null($advancePaymentInvoice) ? 0 : $advancePaymentInvoice->getAdvancepayment();
+//		$recoveredAdvancePayment = $contract->getRecoveredAdvancePayment();
 		$recoveredAdvancePayment = $this->accumulateByName('Advancepaymentrecovery', false);
 		
-		$availableAdvancePayment = $advancePayment - $recoveredAdvancePayment;
+		$availableAdvancePayment = $contract->getAdvancePayment() - $recoveredAdvancePayment;
 		
 		if ($availableAdvancePayment > 0) {
 			
@@ -107,19 +108,22 @@ class CertificateInvoice extends Invoice {
 		}
 	}
 	
-	public function calculateWithholding() {
+	public function calculateWithholding($chainCalculated = false) {
 		$withholdingTax = 0.05; // TODO: mover a config?
-		$price = $this->getPriceWithoutWithholding();
+		$price = $this->getPriceWithoutWithholding($chainCalculated);
 		return is_null($price) ? null : ($price * $withholdingTax);
 	}
 	
-	public function calculateTotalPrice() {
-		return $this->getPriceWithoutWithholding() - $this->getWithholding();
+	public function calculateTotalPrice($chainCalculated = false) {
+		$priceWithoutWitholding = $this->getPriceWithoutWithholding($chainCalculated);
+		$withholding = $chainCalculated ? $this->calculateWithholding($chainCalculated) : $this->getWithholding();
+		return $priceWithoutWitholding - $withholding;
 	}
 	
-	private function getPriceWithoutWithholding() {
+	private function getPriceWithoutWithholding($chainCalculated = false) {
 		$certificateTotalPrice = $this->getCertificate()->getTotalprice();
-		return $certificateTotalPrice - $this->getAdvancepaymentrecovery();
+		$advancePaymentRecovery = $chainCalculated ? $this->calculateAdvancePaymentRecovery() : $this->getAdvancepaymentrecovery();
+		return $certificateTotalPrice - $advancePaymentRecovery;
 	}
 	
 
