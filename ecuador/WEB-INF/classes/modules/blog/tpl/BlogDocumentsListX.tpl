@@ -18,7 +18,7 @@
 					|-if $usePasswords && $document->getPassword() ne ''-|
 						<input type='password' name='password' />
 					|-/if-|
-					<input type='submit' name='submit' value='##common,2,Eliminar##' title='##common,2,Eliminar##' class='icon iconDelete' onclick="if (confirm('¿Seguro que desea eliminar este documento?'))$.ajax({url: 'Main.php?do=documentsDoDeleteX',data:$('#document_|-$document->getId()-|').serialize(),type: 'post',success:function(data){$('#documentOperationInfo').html(data);}});return false;" alt="Eliminar" />
+					<input type='submit' name='submit' value='##common,2,Eliminar##' title='##common,2,Eliminar##' class='icon iconDelete' onclick="if (confirm('¿Seguro que desea eliminar este documento?'))deleteDocument(|-$document->getId()-|,|-$id-|);return false;" alt="Eliminar" />
 			</form></a></span>
 			<br style="clear: all" />
 		</li>
@@ -27,6 +27,26 @@
 </div>
 |-/if-|
 <script type="text/javascript">
+	
+	function deleteDocument(documentId, entryId){
+		$.ajax({
+			url: 'Main.php?do=documentsDoDeleteX',
+			data:$('#document_|-$document->getId()-|').serialize(),
+			type: 'post',
+			success:function(){
+				//$('#documentOperationInfo').html(data);
+				return $.ajax({
+					url: 'Main.php?do=blogDocumentsListX',
+					data: {id: entryId},
+					type: 'post',
+					success: function(data){
+						$('#blogEntryDocumentsListDiv').html(data);
+					}	
+				});
+			}
+		});
+	
+	}
 
 	$('#photos').html('');
 	|-foreach $photos as $picture-|
