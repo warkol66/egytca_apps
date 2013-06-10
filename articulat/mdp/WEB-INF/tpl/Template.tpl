@@ -16,7 +16,7 @@
 |-include file='TemplateJsIncludes.tpl'-|
 </head>
 <body>
-	<img src="images/logo_buenos_aires_60.png" style="margin-left:30px; top: 0; float: left; position: fixed; z-index: 50002"/>
+	<img src="images/logo_200.png" style="margin-left:30px; top: 0; float: left; position: fixed; z-index: 50002"/>
 <!-- Begin Wrapper -->
 <div id="wrapper">
 	<b class="rounded"><b class="rtop"><b class="r7"></b><b class="r6"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r1"></b></b></b>
