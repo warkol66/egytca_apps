@@ -32,14 +32,11 @@ class DocumentsDoDeleteXAction extends BaseAction {
 		$smarty->assign("id", $id);
 		$document = DocumentQuery::create()->findOneById($id);
 		$password = $_POST['password'];
-		
-		if(isset($_POST['objectId']))
-			$smarty->assign("objectId", $_POST['objectId']);
 
 		//validacion de password
 		if (!$document->checkPasswordValidation($password)) {
 			$smarty->assign("errormessage", "wrongPasswordComparison");
-			return $mapping->findForwardConfig("failure");
+			return $mapping->findForwardConfig("success");
 		}
 		else {
 			if (!empty($_POST['entity'])) {
@@ -59,7 +56,7 @@ class DocumentsDoDeleteXAction extends BaseAction {
 					if ($queryInstance->filterByDocumentId($_POST["id"])->count() <= 0) {
 						if (!Document::deleteUnlink($_POST["id"])) {
 							$smarty->assign("errormessage", "errorFound");
-							return $mapping->findForwardConfig("failure");
+							return $mapping->findForwardConfig("success");
 						}
 					}
 				}
@@ -70,7 +67,7 @@ class DocumentsDoDeleteXAction extends BaseAction {
 					//echo(Document::deleteUnlink($_POST["id"]));
 					//die();
 					$smarty->assign("errormessage", "errorFound");
-					return $mapping->findForwardConfig("failure");
+					return $mapping->findForwardConfig("success");
 				}
 			}
 		}
