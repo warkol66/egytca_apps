@@ -142,4 +142,8 @@ class BoardChallenge extends BaseBoardChallenge{
 		return count($approved);
 		
 	}
+	
+	public function getLogData(){
+		return substr($this->getTitle(),0,50);
+	}
 }

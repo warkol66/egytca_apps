@@ -1,4 +1,8 @@
-|-include file="CommonAutocompleterInclude.tpl" -| 
+<link type="text/css" rel="stylesheet" href="css/chosen.css" />
+<script src="scripts/jquery/chosen.js"></script>
+<script type="text/javascript" src="scripts/jquery/ajax-chosen.min.js"></script>
+<script type="text/javascript" src="scripts/jquery/egytca.js"></script>
+|-*include file="CommonAutocompleterInclude.tpl" *-| 
 |-*include file="CommonEditTinyMceInclude.tpl" elements="internalMail[body]" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"*-|
 
 <script type="text/javascript" language="javascript" charset="utf-8">
@@ -79,7 +83,8 @@ function updateSubmitButton() {
 			</p>
 	
 			<div id="recipientsUsers" style="position: relative;">
-				|-include file="CommonAutocompleterInstanceInclude.tpl" id="autocomplete_users" label="Para" defaultValue="" defaultHiddenValue="" url="Main.php?do=usersAutocompleteListX" afterUpdateElement="recipientsUsersAfterUpdateElement"-|
+				<select id="params_user_select" name="params[user]" value="" class="chzn-select markets-chz-select" data-placeholder="Elija una opcion..."></select>
+				|-*include file="CommonAutocompleterInstanceInclude.tpl" id="autocomplete_users" label="Para" defaultValue="" defaultHiddenValue="" url="Main.php?do=usersAutocompleteListX" afterUpdateElement="recipientsUsersAfterUpdateElement"*-|
 			</div>	
 |-if ($configModule->get("global","internalMailUseAffiliates"))-|			
 			<div id="recipientsAffiliates" style="position: relative; display: none">

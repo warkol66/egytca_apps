@@ -538,6 +538,10 @@ class NewsArticle extends BaseNewsArticle {
     $pager = new PropelPager($cond,"NewsArticlePeer", "doSelect",$page,$perPage);
     return $pager;
    }
+   
+   public function getLogData(){
+		return substr($this->getTitle(),0,50);
+	}
 
 
 } // NewsArticle

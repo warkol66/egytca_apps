@@ -72,4 +72,8 @@ class BoardComment extends BaseBoardComment{
 		$children = BoardCommentQuery::create()->filterByParentId($id)->find();
 		return $children;
 	}
+	
+	public function getLogData(){
+		return substr($this->getText(),0,50);
+	}
 }
