@@ -24,11 +24,27 @@ class Contract extends BaseContract {
 		return is_null($advancePaymentInvoice) ? 0 : $advancePaymentInvoice->getAdvancepayment();
 	}
 	
-//	public function getRecoveredAdvancePayment() {
-//		foreach ($this->getConstructions() as $construction) {
-//			$construction->getRecoveredAdvancePayment()
-//		}
-//	}
+	public function getRecoveredAdvancePayment($date = null) {
+
+		$advancePaymentRecoveryQuery = CertificateInvoiceQuery::create()
+			->useCertificateQuery()
+				->useMeasurementRecordQuery()
+					->_if(!is_null($date))
+						->filterByMeasurementdate($date, Criteria::LESS_THAN)
+					->_endif()
+					->useConstructionQuery()
+						->filterByContract($this)
+					->endUse()
+				->endUse()
+			->endUse()
+			->select('Advancepaymentrecovery');
+		
+		return array_sum($advancePaymentRecoveryQuery->find()->toArray());
+	}
+	
+	public function getAvailableAdvancePayment($date = null) {
+		return $this->getAdvancePayment() - $this->getRecoveredAdvancePayment($date);
+	}
 
 	/**
 	 * Obtiene el Contractor

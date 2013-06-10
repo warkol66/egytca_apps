@@ -64,10 +64,13 @@ class CertificateInvoice extends Invoice {
 		$comparison = $includeThis ? Criteria::LESS_EQUAL : Criteria::LESS_THAN;
 		
 		$measurementDate = $this->getCertificate()->getMeasurementRecord()->getMeasurementdate();
+		$construction = $this->getCertificate()->getMeasurementRecord()->getConstruction();
+		
 		$certificateInvoices = CertificateInvoiceQuery::create()
 			->useCertificateQuery()
 				->useMeasurementRecordQuery()
 					->filterByMeasurementdate($measurementDate, $comparison)
+					->filterByConstruction($construction)
 				->endUse()
 			->endUse()
 		->find();
@@ -90,12 +93,9 @@ class CertificateInvoice extends Invoice {
 	
 	public function calculateAdvancePaymentRecovery() {
 		
-		$contract = $this->getCertificate()->getMeasurementRecord()->getConstruction()->getContract();
-		
-//		$recoveredAdvancePayment = $contract->getRecoveredAdvancePayment();
-		$recoveredAdvancePayment = $this->accumulateByName('Advancepaymentrecovery', false);
-		
-		$availableAdvancePayment = $contract->getAdvancePayment() - $recoveredAdvancePayment;
+		$measurementRecord = $this->getCertificate()->getMeasurementRecord();
+		$contract = $measurementRecord->getConstruction()->getContract();
+		$availableAdvancePayment = $contract->getAvailableAdvancePayment($measurementRecord->getMeasurementdate());
 		
 		if ($availableAdvancePayment > 0) {
 			
