@@ -1400,6 +1400,7 @@ class Common {
 			if (!file_exists($dirAfter)) {
 				mkdir($dirAfter);
 				if (!file_exists($dirAfter)) {
+					return "No exists";
 					$msg = "el directorio $path no existe. creacion automatica fallo: no se puede escribir en $dirBefore, verifique permisos";
 					throw new Exception($msg);
 				}
@@ -1407,6 +1408,7 @@ class Common {
 			$dirBefore = $dirAfter;
 		}
 		if (!Common::isWritable($dirBefore)) {
+			return "No writeable";
 			throw new Exception("no se puede escribir en $dirBefore, verifique permisos");
 		}
 

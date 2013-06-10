@@ -343,4 +343,8 @@ class CalendarEvent extends BaseCalendarEvent{
 		$result = CalendarEvent::getEventsBetweenDates($paramStart,$paramEnd);
 		return $result;
 	}
+	
+	public function getLogData(){
+		return substr($this->getTitle(),0,50);
+	}
 }

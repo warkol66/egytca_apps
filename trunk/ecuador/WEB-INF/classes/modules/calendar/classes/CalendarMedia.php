@@ -201,4 +201,8 @@ class CalendarMedia extends BaseCalendarMedia{
 	return true;
 
 	}
+	
+	public function getLogData(){
+		return substr($this->getName(),0,50);
+	}
 }

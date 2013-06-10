@@ -182,5 +182,9 @@ class Banner extends BaseBanner {
 		$is = preg_match("/(html|htm)/i", $this->getContentType());
 		return $is;
 	}
+	
+	public function getLogData(){
+		return substr($this->getName(),0,50);
+	}
 
 } // Banner

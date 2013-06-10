@@ -280,5 +280,9 @@ class Document extends BaseDocument {
 		}else
 			return true;
 	}
+	
+	public function getLogData(){
+		return substr($this->getTitle(),0,50);
+	}
 
 }

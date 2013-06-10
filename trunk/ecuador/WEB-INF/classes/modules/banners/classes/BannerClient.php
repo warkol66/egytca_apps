@@ -24,5 +24,9 @@ class BannerClient extends BaseBannerClient {
 		// is where any default values for this object are set.
 		parent::__construct();
 	}
+	
+	public function getLogData(){
+		return substr($this->getName(),0,50);
+	}
 
 } // BannerClient

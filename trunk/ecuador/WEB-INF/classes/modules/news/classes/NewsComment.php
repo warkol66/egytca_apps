@@ -65,5 +65,9 @@ class NewsComment extends BaseNewsComment {
 	public function isDeleted() {
 		return ($this->getStatus() == NewsComment::DELETED);
 	}
+	
+	public function getLogData(){
+		return substr($this->getName(),0,50);
+	}
 
 } // NewsComment
