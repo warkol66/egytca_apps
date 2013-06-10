@@ -21,6 +21,12 @@ class DocumentsUploadAction extends BaseAction {
 
 		$this->template->template = 'TemplateAjax.tpl';
 
+		if ($_POST["page"] > 0)
+			$params["page"] = $_POST["page"];
+
+		if (!empty($_POST["filters"]))
+			$filters = $_POST["filters"];
+
 		if (isset($_FILES["document_file"]) && is_uploaded_file($_FILES["document_file"]["tmp_name"]) && $_FILES["document_file"]["error"] == 0) {
 			$documentPeer = new DocumentPeer();
 
@@ -75,7 +81,8 @@ class DocumentsUploadAction extends BaseAction {
 						$smarty->assign('entity', $_POST['entity']);
 						$smarty->assign('entityId', $_POST['entityId']);
 						$smarty->assign('document', $document);
-						return $mapping->findForwardConfig('success');
+//						return $mapping->findForwardConfig('success');
+						return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success');
 					}
 				}
 				$smarty->assign('message','errorRelation');
