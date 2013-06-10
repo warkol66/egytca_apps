@@ -1,0 +1,23 @@
+<database defaultIdMethod="native" package="actors.classes" name="application" >
+
+	<table name="actors_actor" phpName="Actor" description="Base de Actores">
+
+		<column name="id" description="Identificacion del actor" type="INTEGER" required="true" primaryKey="true" autoIncrement="true" />
+		<column name="title" description="Titulo" type="CHAR" size="15" />
+		<column name="name" description="Nombre" type="CHAR" size="90" />
+		<column name="surname" description="Apellido" type="CHAR" size="90" />
+		<column name="nickname" description="Sobrenombre" type="CHAR" size="90" />
+		<column name="institution" description="Institucion" type="CHAR" size="200" />
+
+		<behavior name="soft_delete" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>
+
+

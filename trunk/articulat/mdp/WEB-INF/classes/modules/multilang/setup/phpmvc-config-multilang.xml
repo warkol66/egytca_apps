@@ -1,0 +1,16 @@
+<!-- Modulo Multilang -->
+	<action-mappings>
+
+<!-- Seccion Texts -->
+		<action    path = "multilangTextsList"
+							 type = "MultilangTextsListAction"
+							 name = "multilangTextsList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="MultilangTextsList.tpl" />
+			<forward name="search" path="MultilangTextsListSearch.tpl" />
+		</action>
+<!-- End Section Texts -->
+
+	</action-mappings>
+<!-- End Module Multilang -->

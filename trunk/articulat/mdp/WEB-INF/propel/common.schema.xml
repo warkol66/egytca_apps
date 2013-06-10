@@ -1,0 +1,75 @@
+<database defaultIdMethod="native" package="common.classes" name="application" >
+
+	<table name="actionLogs_log" phpName="ActionLog" description="logs de acciones del sistema">
+
+	  <column name="id" type="INTEGER" required="true" description="Id log" primaryKey="true" autoIncrement="true" />
+		<column name="userObjectType" type="VARCHAR" size="50" required="true" description="Tipo de usuario" />
+		<column name="userObjectId" type="INTEGER" required="true" description="Id del usuario" />
+	  <column name="datetime" type="TIMESTAMP" required="true" description="Fecha en que se logueo el dato" />
+	  <column name="action" type="VARCHAR" size="100" required="true" description="action en que se logueo el dato" />
+	  <column name="message" type="VARCHAR" size="255" description="Mensaje resultado de la accion"/>
+	  <column name="forward" type="VARCHAR" size="100" description="tipo de accion de la etiqueta"/>
+
+	  <foreign-key foreignTable="security_action" >
+	   <reference local="action" foreign="action" />
+	  </foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="actionLogs_label" phpName="ActionLogLabel" description="Etiquetas de los logs">
+
+	  <column name="id" type="INTEGER" required="true" description="Id Label" primaryKey="true" autoIncrement="true" />
+	  <column name="action" primaryKey="true" type="VARCHAR" size="100" required="true" description="action en que se loguea el dato" />
+	  <column name="label" type="VARCHAR" size="100" required="true" description="mensaje del log"/>
+	  <column name="language" type="VARCHAR" size="100" description="idioma de la etiqueta"/>
+	  <column name="forward" type="VARCHAR" size="100" description="tipo de accion de la etiqueta"/>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="common_menuItem" phpName="MenuItem" description="Items de los menues dinamicos">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
+		<column name="action" type="VARCHAR" size="100" description="Nombre de la accion a ejecutar"/>
+		<column name="url" type="VARCHAR" size="255" description="Direccion del enlace"/>
+		<column name="order" type="INTEGER" description="Indice de ordenamiento"/>
+		<column name="parentId" type="INTEGER" description="Id item padre"/>
+		<column name="newWindow" required="true" default="0" type="BOOLEAN" sqlType="BOOL" description="Abrir el enlace en nueva ventana" />
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+	
+	<table name="common_menuItemInfo" phpName="MenuItemInfo" description="Items de los menues dinamicos">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
+		<column name="menuItemId" required="true" type="INTEGER" />
+		<column name="name" required="true" type="VARCHAR" size="100" description="Nombre a mostrar en el item"/>
+		<column name="title" type="VARCHAR" size="255" description="Titulo a mostrar en el item"/>
+		<column name="description" type="LONGVARCHAR" description="Descripcion del item"/>
+		<column name="language" required="true" type="VARCHAR" size="100" description="Idioma"/>
+		
+		<foreign-key foreignTable="common_menuItem" onDelete="cascade">
+     		<reference local="menuItemId" foreign="id"/>
+  		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+	
+  </database>

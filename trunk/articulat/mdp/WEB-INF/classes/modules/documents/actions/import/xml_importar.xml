@@ -1,0 +1,17 @@
+<!-- Accion de importar documentos, eliminar luego de migrar datos -->
+
+		<action    path = "documentsImportar"
+							 type = "DocumentsImportarAction"
+							 name = "documentsImportar"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="DocumentsList.tpl"/>
+		</action>
+		<action    path = "documentsCorrectEncoding"
+							 type = "DocumentsCorrectEncodingAction"
+							 name = "documentsCorrectEncoding"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="DocumentsList.tpl"/>
+		</action>
+<!-- Fin Accion de importar documentos, eliminar luego de migrar datos -->

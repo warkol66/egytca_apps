@@ -1,0 +1,282 @@
+<database defaultIdMethod="native" package="headlines.classes" name="application" >
+
+	<table name="headlines_headline" phpName="Headline" description="Headline">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Headline Id" autoIncrement="true"/>
+		<column name="name" required="true"  type="VARCHAR" size="255" description="Headline" primaryString="true" />
+		<column name="content" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Headline content"/>
+		<column name="datePublished" type="TIMESTAMP" description="Fecha de publicacion" />
+		<column name="headlineDate" type="TIMESTAMP" description="Fecha del titular" />
+		<column name="url" type="VARCHAR" size="255" description="Url del titular" />
+		<column name="twitts" type="INTEGER" description="Twitts del titular" />
+		<column name="fcb" type="INTEGER" description="Fcb del titular" />
+		<column name="gplus" type="INTEGER" description="G+ del titular" />
+		<column name="comment" type="INTEGER" description="Comentario del titular" />
+		<column name="picture" type="BOOLEAN" description="Foto del titular" />
+		<column name="campaignId" type="INTEGER" description="Campaign ID"/>
+		<column name="mediaId" type="INTEGER" description="Media ID"/>
+		<column name="value" type="TINYINT" default="0" description="Valoracion de la noticia"/>
+		<column name="relevance" type="TINYINT" default="0" description="Valoracion del medio"/>
+		<column name="internalId" required="true" type="VARCHAR" size="255" description="Headline internal Id" />
+		<column name="page" type="INTEGER" description="Pagina" />
+		<column name="section" type="VARCHAR" description="Seccion" />
+		<column name="author" type="VARCHAR" description="Autor" />
+		<column name="source" type="VARCHAR" description="Fuente" />
+		<column name="summary" type="VARCHAR" description="Resumen" />
+		<column name="caption" type="VARCHAR" />
+		<column name="program" type="VARCHAR" />
+		<column name="strategy" type="VARCHAR" size="50" description="Estrategia que parseo el titular" />
+
+		<column name="length" type="INTEGER" description="Duracion en segs o superficie en mm2"/>
+		<column name="agenda" type="TINYINT" default="0" description="Tipo de agenda"/>
+		<column name="headlineScope" type="TINYINT" default="0" description="Ambito"/>
+		<column name="processed" type="BOOLEAN" sqlType="BOOL" default="false" description="Indica si esta procesado" />
+
+		<column name="class_key" type="INTEGER" inheritance="single">
+			<inheritance key="1" class="Headline" />
+			<inheritance key="2" class="PressHeadline" extends="Headline"/>
+			<inheritance key="3" class="MultimediaHeadline" extends="Headline"/>
+			<inheritance key="4" class="WebHeadline" extends="Headline"/>
+		</column>
+
+		<behavior name="timestampable" />
+
+	  <behavior name="aggregate_column">
+	    <parameter name="name" value="issuesCount" />
+	    <parameter name="foreign_table" value="headlines_issue" />
+	    <parameter name="expression" value="COUNT(headlineId)" />
+	  </behavior>
+
+		<foreign-key foreignTable="campaigns_campaign" onDelete="cascade">
+			<reference local="campaignId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="medias_media" onDelete="cascade">
+			<reference local="mediaId" foreign="id"/>
+		</foreign-key>
+        
+        <unique>
+            <unique-column name="internalId" />
+        </unique>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="headlines_actor" phpName="HeadlineActor" isCrossRef="true" description="Headlines / Actors">
+
+		<column name="headlineId" required="true" primaryKey="true" type="INTEGER"  description="Headline ID"/>
+		<column name="actorId" required="true" primaryKey="true" type="INTEGER"  description="Actor ID"/>
+		<column name="actorType" required="true" primaryKey="true" type="INTEGER"  description="Actor type ID"/>
+		<column name="role" type="INTEGER"  description="Actor role"/>
+
+		<foreign-key foreignTable="headlines_headline" onDelete="cascade">
+			<reference local="headlineId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="actors_actor" onDelete="cascade">
+			<reference local="actorId" foreign="id"/>
+		</foreign-key>
+
+	</table>
+
+	<table name="headlines_issue" phpName="HeadlineIssue" isCrossRef="true" description="Headlines / Issues">
+
+		<column name="headlineId" required="true" primaryKey="true" type="INTEGER"  description="Headline ID"/>
+		<column name="issueId" required="true" primaryKey="true" type="INTEGER"  description="Issues ID"/>
+
+		<foreign-key foreignTable="headlines_headline" onDelete="cascade">
+			<reference local="headlineId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="issues_issue" onDelete="cascade">
+			<reference local="issueId" foreign="id"/>
+		</foreign-key>
+
+	</table>
+
+<!--	<table name="headlines_media" phpName="HeadlineMedia" isCrossRef="true" description="Headlines / Issues">
+
+		<column name="headlineId" required="true" primaryKey="true" type="INTEGER"  description="Headline ID"/>
+		<column name="mediaId" required="true" primaryKey="true" type="INTEGER"  description="Medias ID"/>
+
+		<foreign-key foreignTable="headlines_headline" onDelete="cascade">
+			<reference local="headlineId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="medias_media" onDelete="cascade">
+			<reference local="mediaId" foreign="id"/>
+		</foreign-key>
+
+	</table>
+-->
+<!--	<table name="headlines_relation" phpName="HeadlineRelation" isCrossRef="true" description="Tabla de relaciones de titulares">
+
+		<column name="headlineFromId" required="true" primaryKey="true" type="INTEGER"  description="ID Headline origen"/>
+		<column name="headlineToId" required="true" primaryKey="true" type="INTEGER"  description="ID Headline destino"/>
+
+		<foreign-key foreignTable="headlines_headline" onDelete="cascade">
+			<reference local="headlineFromId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="headlines_headline" onDelete="cascade">
+			<reference local="headlineToId" foreign="id"/>
+		</foreign-key>
+
+	</table>
+-->
+
+	<table name="headlines_relation" phpName="HeadlineRelation" description="Tabla de relaciones de titulares">
+	  <behavior name="equal_nest">
+	    <parameter name="parent_table" value="headlines_headline" />
+	  </behavior>
+	</table>
+
+
+	<!-- Relacion many-to-many de headline con documents -->	
+	<table name="headlines_headlineDocument" phpName="HeadlineDocument" isCrossRef="true">
+
+		<column name="headlineId" type="INTEGER" primaryKey="true"/>
+		<column name="documentId" type="INTEGER" primaryKey="true"/>
+
+		<foreign-key foreignTable="headlines_headline" onDelete="CASCADE">
+  		<reference local="headlineId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="documents_document" onDelete="CASCADE">
+  		<reference local="documentId" foreign="id"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="headlines_parsed" phpName="HeadlineParsed" description="Headline parsed">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Headline Id" autoIncrement="true"/>
+		<column name="internalId" required="true" type="VARCHAR" size="255" description="Headline internal Id" />
+		<column name="headlineId" type="INTEGER" description="Headline Id"/>
+		<column name="campaignId" type="INTEGER" description="Campaign ID"/>
+		<column name="name" required="true" type="VARCHAR" size="255" description="Headline" primaryString="true" />
+		<column name="content" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Headline content"/>
+		<column name="datePublished" type="TIMESTAMP" description="Fecha de publicacion" />
+		<column name="headlineDate" type="TIMESTAMP" description="Fecha del titular" />
+		<column name="url" type="VARCHAR" size="255" description="Url del titular" />
+		<column name="picture" type="BOOLEAN" description="Foto del titular" />
+		<column name="mediaName" type="VARCHAR" size="255" description="Media Name"/>
+		<column name="mediaId" type="INTEGER" description="Media ID"/>
+		<column name="keywords" type="VARCHAR" size="255" description="Palabras clave de la busqueda"/>
+    <column name="status" type="INTEGER" description="Estado del headline importado"/>
+    <column name="moreSourcesUrl" type="VARCHAR" size="255" description="Url para obtener mas titulares de distintas fuentes"/>
+    <column name="strategy" type="VARCHAR" size="50" description="Estrategia que parseo el titular" />	
+		<column name="page" type="INTEGER" description="Pagina" />
+		<column name="section" type="VARCHAR" description="Seccion" />
+		<column name="author" type="VARCHAR" description="Autor" />
+		<column name="source" type="VARCHAR" description="Fuente" />
+		<column name="summary" type="VARCHAR" description="Resumen" />
+		<column name="caption" type="VARCHAR" />
+		<column name="program" type="VARCHAR" />
+		<column name="lastChangeDate" type="TIMESTAMP" />
+
+		<column name="length" type="INTEGER" description="Duracion en segs o superficie en mm2"/>
+
+		<column name="class_key" type="INTEGER" description="Clase de headline a crear" />
+        
+		<behavior name="timestampable" />
+
+		<foreign-key foreignTable="headlines_headline">
+			<reference local="headlineId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="campaigns_campaign" onDelete="cascade">
+			<reference local="campaignId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="medias_media" onDelete="cascade">
+			<reference local="mediaId" foreign="id"/>
+		</foreign-key>
+
+        <unique>
+            <unique-column name="internalId" />
+        </unique>
+        
+        <vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+	
+	<table name="headlines_attachment" phpName="HeadlineAttachment">
+		
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id" autoIncrement="true"/>
+		<column name="length" type="INTEGER" />
+		<column name="type" type="VARCHAR" />
+		<column name="name" type="VARCHAR" />
+		<column name="url" type="VARCHAR" />
+		<column name="headlineId" type="INTEGER" primaryKey="true"/>
+		<column name="secondaryDataName" type="VARCHAR" />
+		
+		<foreign-key foreignTable="headlines_headline" onDelete="CASCADE">
+			<reference local="headlineId" foreign="id"/>
+		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+	
+	<table name="headlines_parsedAttachment" phpName="HeadlineParsedAttachment">
+		
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Id" autoIncrement="true"/>
+		<column name="length" type="INTEGER" />
+		<column name="type" type="VARCHAR" />
+		<column name="url" type="VARCHAR" />
+		<column name="headlineParsedId" type="INTEGER" primaryKey="true"/>
+		
+		<foreign-key foreignTable="headlines_parsed" onDelete="CASCADE">
+			<reference local="headlineParsedId" foreign="id"/>
+		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+	
+	<table name="headlines_parseLogEntry" phpName="HeadlineParseLogEntry" description="Log del parseo de Headlines">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Log entry Id" autoIncrement="true" />
+		<column name="headlineType" type="VARCHAR" description="Tipo de Headlines a parsear" />
+		<column name="status" type="ENUM" valueSet="success, failure, ongoing" description="Resultado del parseo" />
+		<column name="errorMessage" type="LONGVARCHAR" description="Texto del error" />
+		<column name="userId" type="INTEGER" description="Id el usuario que corrio el parser" />
+		<column name="url" type="VARCHAR" description="URL parseada" />
+		<column name="parsedCount" type="INTEGER" description="Cantidad de headlines parseados" />
+		<column name="createdCount" type="INTEGER" description="Cantidad de headlinesParsed agregados" />
+		<column name="existentCount" type="INTEGER" description="Cantidad de headlinesParsed repetidos" />
+		<column name="invalidCount" type="INTEGER" description="Cantidad de headlines parseados invalidos" />
+
+		<behavior name="timestampable" />
+
+		<foreign-key foreignTable="users_user"> <!-- sin onDelete="cascade" -->
+			<reference local="userId" foreign="id"/>
+		</foreign-key>
+		
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>
