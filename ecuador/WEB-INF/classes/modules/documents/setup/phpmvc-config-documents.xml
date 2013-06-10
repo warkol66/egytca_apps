@@ -69,14 +69,14 @@
 				<forward name="failureHeadline" path="/Main.php?do=headlinesEdit" redirect="true" />
 		</action>
 
-		<action    path = "documentsDoDeleteX"
+		<!--action    path = "documentsDoDeleteX"
 							 type = "DocumentsDoDeleteXAction"
 							 name = "documentsDoDeleteXAction"
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="DocumentsDoDeleteXSuccess.tpl" />
 			<forward name="failure" path="DocumentsDoDeleteXFailure.tpl" />
-		</action>
+		</action-->
 
 <!-- Section Key words -->
 
