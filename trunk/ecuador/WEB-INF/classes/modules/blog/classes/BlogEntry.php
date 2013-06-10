@@ -381,5 +381,9 @@ class BlogEntry extends BaseBlogEntry {
 		else
 			return false;
 	}
+	
+	public function getLogData(){
+		return substr($this->getTitle(),0,50);
+	}
 
 } // BlogEntry

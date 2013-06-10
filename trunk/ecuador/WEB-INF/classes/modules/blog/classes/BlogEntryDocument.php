@@ -13,6 +13,9 @@
  *
  * @package    propel.generator.blog.classes
  */
-class BlogEntryDocument extends BaseBlogEntryDocument
-{
+class BlogEntryDocument extends BaseBlogEntryDocument{
+	
+	public function getLogData(){
+		return substr($this->getTitle(),0,50);
+	}
 }

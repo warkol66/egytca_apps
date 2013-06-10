@@ -237,5 +237,9 @@ class BlogCategory extends BaseBlogCategory {
 		else
 			return;
 	}
+	
+	public function getLogData(){
+		return substr($this->getName(),0,50);
+	}
 
 } // BlogCategory
