@@ -31,7 +31,7 @@ class HeadlinesFeedListAction extends BaseAction {
 		
 		$logEntries = HeadlineParseLogEntryQuery::create()
 			->filterById($feeds)
-			->orderByCreatedAt(Criteria::ASC)
+			->orderByCreatedAt(Criteria::DESC)
 			->find();
 		
 		$smarty->assign('logEntries', $logEntries);
