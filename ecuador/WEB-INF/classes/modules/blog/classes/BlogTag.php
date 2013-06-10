@@ -33,5 +33,9 @@ class BlogTag extends BaseBlogTag {
 	public function setWeight($weight){
 		$this->getWeight = $weight;
 	}
+	
+	public function getLogData(){
+		return substr($this->getName(),0,50);
+	}
 
 } // BlogTag

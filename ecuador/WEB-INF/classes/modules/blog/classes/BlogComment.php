@@ -204,5 +204,9 @@ class BlogComment extends BaseBlogComment {
 			return false;
 		}
 	}
+	
+	public function getLogData(){
+		return substr($this->getName(),0,50);
+	}
 
 } // BlogComment
