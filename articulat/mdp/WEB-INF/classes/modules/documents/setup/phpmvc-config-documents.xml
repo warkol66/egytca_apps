@@ -1,0 +1,115 @@
+<!-- Module Documents -->
+
+	<action-mappings module="Documents">
+
+		<action    path = "documentsEdit"
+							 type = "DocumentsEditAction"
+							 name = "documentsEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success-edit" path="DocumentsEdit.tpl"/>
+			<forward name="success-upload" path="DocumentsEdit.tpl"/>
+			<forward name="failure-edit" path="/Main.php?do=documentsList&amp;errormessage=wrongPassword" redirect="true"/>
+		</action>
+
+		<action    path = "documentsDoDownload"
+							 type = "DocumentsDoDownloadAction"
+							 name = "documentsDoDownload"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=documentsList" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=documentsList&amp;errormessage=wrongPassword" redirect="true"/>
+		</action>
+
+		<action  path = "documentsUpload"
+						 type = "DocumentsUploadAction"
+						 name = "documentsUpload"
+						scope = "request"
+				 validate = "true">
+			<forward name="success" path="DocumentsUploadSuccess.tpl"/>
+			<forward name="failure" path="DocumentsUploadFailure.tpl"/>
+		</action>
+
+		<action    path = "documentsDoEdit"
+							 type = "DocumentsDoEditAction"
+							 name = "documentsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=documentsList" redirect="true"/>
+			<forward name="failure" path="DocumentsEdit.tpl"/>
+			<forward name="failureUpload" path="/Main.php?do=documentsEdit" redirect="true"/>
+			<!-- Forwards para el modulo Projects -->
+			<forward name="successProject" path="/Main.php?do=projectsEdit" redirect="true"/>
+			<forward name="failureUploadProject" path="/Main.php?do=projectsEdit" redirect="true"/>
+			<!-- Forwards para el modulo Panel - AdministrativeAct-->
+			<forward name="successAdministrativeAct" path="/Main.php?do=panelAdministrativeActsEdit" redirect="true"/>
+			<forward name="failureUploadAdministrativeAct" path="/Main.php?do=panelAdministrativeActsEdit" redirect="true"/>
+			<!-- Forwards para el modulo Panel - Mission -->
+			<forward name="successMission" path="/Main.php?do=panelMissionsEdit" redirect="true"/>
+			<forward name="failureUploadMission" path="/Main.php?do=panelMissionsEdit" redirect="true"/>
+			<!-- Forwards para el modulo Panel - Guarantee -->
+			<forward name="successGuarantee" path="/Main.php?do=panelGuaranteesEdit" redirect="true"/>
+			<forward name="failureUploadGuarantee" path="/Main.php?do=panelGuaranteesEdit" redirect="true"/>
+			<!-- Forwards para el modulo Panel - ReportSection -->
+			<forward name="successReportSection" path="/Main.php?do=panelReportsSectionsEdit" redirect="true"/>
+			<forward name="failureUploadReportSection" path="/Main.php?do=panelReportsSectionsEdit" redirect="true"/>
+			<!-- Forwards para el modulo Campaigns -->
+			<forward name="successCampaign" path="/Main.php?do=campaignsEdit" redirect="true"/>
+			<forward name="failureUploadCampaign" path="/Main.php?do=campaignsEdit" redirect="true"/>
+			<!-- Forwards para el modulo Headlines -->
+			<forward name="successHeadline" path="/Main.php?do=headlinesEdit" redirect="true"/>
+			<forward name="failureUploadHeadline" path="/Main.php?do=headlinesEdit" redirect="true"/>
+		</action>
+
+		<action    path = "documentsDoDelete"
+							 type = "DocumentsDoDeleteAction"
+							 name = "documentsDoDeleteAction"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=documentsList" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=documentsList" redirect="true" />
+			<!-- Forwards para el modulo Projects -->
+				<forward name="successProject" path="/Main.php?do=projectsEdit" redirect="true"/>
+				<forward name="failureProject" path="/Main.php?do=projectsEdit" redirect="true" />
+			<!-- Forwards para el modulo Campaigns -->
+				<forward name="successCampaign" path="/Main.php?do=campaignsEdit" redirect="true"/>
+				<forward name="failureCampaign" path="/Main.php?do=campaignsEdit" redirect="true" />
+			<!-- Forwards para el modulo Headlines -->
+				<forward name="successHeadline" path="/Main.php?do=headlinesEdit" redirect="true"/>
+				<forward name="failureHeadline" path="/Main.php?do=headlinesEdit" redirect="true" />
+		</action>
+
+		<action    path = "documentsDoDeleteX"
+							 type = "DocumentsDoDeleteXAction"
+							 name = "documentsDoDeleteXAction"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="DocumentsDoDeleteXSuccess.tpl" />
+			<forward name="failure" path="DocumentsDoDeleteXFailure.tpl" />
+		</action>
+
+<!-- Section Key words -->
+
+		<action    path = "documentsKeyWordList"
+							 type = "DocumentsKeyWordListAction"
+							 name = "documentsKeyWordList"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="DocumentsKeyWordList.tpl"/>
+			<forward name="include" path="DocumentsKeyWordListInclude.tpl"/>
+		</action>
+
+		<action    path = "documentsKeyWordDoDelete"
+							 type = "DocumentsKeyWordDoDeleteAction"
+							 name = "documentsKeyWordDoDeleteAction"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=documentsKeyWordList" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=documentsKeyWordList" redirect="true" />
+		</action>
+
+	</action-mappings>
+
+<!-- End Section Key words -->
+
+<!-- End Module Documents -->

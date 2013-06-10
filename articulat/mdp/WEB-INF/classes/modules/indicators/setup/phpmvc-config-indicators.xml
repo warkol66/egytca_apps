@@ -1,0 +1,50 @@
+<!-- Module Indicators -->
+	<action-mappings>
+
+		<action    path = "indicatorsSeriesDoEdit"
+							 type = "IndicatorsSeriesDoEditAction"
+							 name = "indicatorsSeriesDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward  name="success" path="/Main.php?do=indicatorsSeriesEdit" redirect="true" />
+			<forward  name="failure" path="/Main.php?do=indicatorsList&amp;message=notget" redirect="true"/>
+		</action>
+
+		<action    path = "indicatorsSeriesDoDeleteX"
+							 type = "IndicatorsSeriesDoDeleteXAction"
+							 name = "indicatorsSeriesDoDeleteX"
+							scope = "request"
+					 validate = "true">
+			<forward  name="success" path="IndicatorsSeriesDoDeleteXSuccess.tpl" />
+			<forward  name="failure" path="IndicatorsSeriesDoDeleteXFailure.tpl" />
+		</action>
+
+		<action    path = "indicatorsYsDoEdit"
+							 type = "IndicatorsYsDoEditAction"
+							 name = "indicatorsYsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward  name="success" path="/Main.php?do=indicatorsYsEdit" redirect="true" />
+			<forward  name="failure" path="/Main.php?do=indicatorsList&amp;message=notget" redirect="true"/>
+		</action>
+
+		<action    path = "indicatorsXsDoEdit"
+							 type = "IndicatorsXsDoEditAction"
+							 name = "indicatorsXsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward  name="success" path="/Main.php?do=indicatorsXsEdit" redirect="true" />
+			<forward  name="failure" path="/Main.php?do=indicatorsList&amp;message=notget" redirect="true"/>
+		</action>
+
+		<action    path = "indicatorsXsDoDeleteX"
+							 type = "IndicatorsXsDoDeleteXAction"
+							 name = "indicatorsXsDoDeleteX"
+							scope = "request"
+					 validate = "true">
+			<forward  name="success" path="IndicatorsXsDoDeleteXSuccess.tpl" />
+			<forward  name="failure" path="IndicatorsXsDoDeleteXFailure.tpl" />
+		</action>
+
+	</action-mappings>
+<!-- Fin Module Indicators -->

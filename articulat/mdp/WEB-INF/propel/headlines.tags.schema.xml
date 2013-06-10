@@ -1,0 +1,36 @@
+<database defaultIdMethod="native" package="headlines.classes" name="application" >
+
+	<table name="headlines_tag" phpName="HeadlineTag" description="Etiquetas de titulares">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Tag Id" autoIncrement="true"/>
+		<column name="name" required="true"  type="VARCHAR" size="120" description="Etiquetas de Headline" primaryString="true" />
+
+		<behavior name="timestampable" />
+
+    <unique>
+      <unique-column name="name" />
+    </unique>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="headlines_headlineTags" phpName="HeadlineTagRelation" isCrossRef="true" description="Headlines / Etiquetas">
+
+		<column name="headlineId" required="true" primaryKey="true" type="INTEGER"  description="Headline ID"/>
+		<column name="tagId" required="true" primaryKey="true" type="INTEGER"  description="Etiqueta ID"/>
+
+		<foreign-key foreignTable="headlines_headline" onDelete="cascade">
+			<reference local="headlineId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="headlines_tag" onDelete="cascade">
+			<reference local="tagId" foreign="id"/>
+		</foreign-key>
+
+	</table>
+
+</database>
