@@ -25,7 +25,7 @@
 <script language="JavaScript" type="text/javascript" src="scripts/functions.js"></script>
 </head>
 <body>
-	<img src="images/logo_buenos_aires_60.png" style="margin-left:30px; top: 0; float: left; position: fixed; z-index: 50002"/>
+	<img src="images/logo_200.png" style="margin-left:30px; top: 0; float: left; position: fixed; z-index: 50002"/>
 |-$centerHTML-|
 <p>&nbsp;</p>
 <p>&nbsp;</p>
