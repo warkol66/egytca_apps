@@ -37,8 +37,8 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
 	border: outset 1px  #808080 !Important;
 }
 input[disabled="disabled"], input[type="disabled"]:hover {
-	color: #5a5a5a !Important;
-	background-color:  #e0e0e0 !Important;
+	color: #4C4C4C !Important;
+	background-color:  #eeeeee !Important;
 }
 input[type="submit"].icon, input[type="button"].icon, input[type="reset"].icon {
 	line-height: 999px !Important;

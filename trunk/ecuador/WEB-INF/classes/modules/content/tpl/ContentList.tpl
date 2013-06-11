@@ -56,10 +56,17 @@ Para eliminar haga click en "Eliminar". Para cambiar el orden de la información
 				|-elseif $value->getType() eq 1-|
 					<a href="Main.php?do=contentShow&id=|-$value->getId()-|" alt="Ver" title="Ver" target="_blank"><img src="images/clear.png" class="icon iconView"></a>
 					<a href="Main.php?do=contentEdit&parentId=|-$value->getId()-|" title="Agregar nuevo contenido en este nivel"><img src="images/clear.png" class="icon iconAdd"></a>
-				|-elseif $value->getType() eq 2-|<a href="|-$value->getLink()-|" alt="Ver" title="Ver" target="_blank"><img src="images/clear.png" class="icon iconView"></a>|-/if-|
-				|-if $value->getType() eq 1-|<a href="Main.php?do=contentList&sectionId=|-$value->getId()-|" alt="ir a Sección" title="ir a Sección"><img src="images/clear.png" class="icon iconGoTo"></a>|-/if-|
+				|-elseif $value->getType() eq 2-|
+				<a href="|-$value->getLink()-|" alt="Ver" title="Ver" target="_blank"><img src="images/clear.png" class="icon iconView"></a>
+				|-/if-|
+				|-if $value->getType() eq 1-|
+					<a href="Main.php?do=contentList&sectionId=|-$value->getId()-|" alt="ir a Sección" title="ir a Sección"><img src="images/clear.png" class="icon iconGoTo"></a>
+				|-/if-|
 				<a href="Main.php?do=contentEdit&id=|-$value->getId()-|" alt="Editar" title="Editar"><img src="images/clear.png" class="icon iconEdit"></a>
-				<form action="Main.php?do=contentDoDelete" method="post" name="content|-$value->getId()-|" style="display: inline;"><input type="hidden" name="id" value="|-$value->getId()-|"/><a href="#" onclick="if (confirm('¿Esta seguro que quiere eliminar este elemento?')) this.parentNode.submit();" alt="Eliminar" title="Eliminar"><img src="images/clear.png" class="icon iconDelete"></a>
+				<form action="Main.php?do=contentDoDelete" method="post" name="content|-$value->getId()-|" style="display: inline;">
+				<input type="hidden" name="id" value="|-$value->getId()-|"/>
+				<input type="hidden" name="sectionId" value="|-$sectionId-|"/>
+				<a href="#" onclick="if (confirm('¿Esta seguro que quiere eliminar este elemento?')) this.parentNode.submit();" alt="Eliminar" title="Eliminar"><img src="images/clear.png" class="icon iconDelete"></a>
 				</form>
 			</span>
 			<br style="clear: all" />
