@@ -15,6 +15,11 @@ class VialidadConstructionsReportAction extends BaseAction {
 		$constructions = ConstructionQuery::create()->find();
 		$smarty->assign('constructions', $constructions);
 		
+		$time = time();
+		$smarty->assign('date', $time);
+		require_once 'Period.php';
+		$period = new Period(date('Y-m-d', $time), 'Y-m-d');
+		$smarty->assign('period', $period);
 		
 		$this->template->template = 'TemplatePlain.tpl';
 		return $mapping->findForwardConfig('success');

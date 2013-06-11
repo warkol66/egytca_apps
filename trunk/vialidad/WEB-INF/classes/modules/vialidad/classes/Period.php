@@ -32,7 +32,7 @@ class Period {
 	}
 	
 	function getLimits($format = "d-m-Y") {
-		return array("min" => $this->getMin(), "max" => $this->getMax());
+		return array("min" => $this->getMin($format), "max" => $this->getMax($format));
 	}
 	
 	function getNextPeriod() {

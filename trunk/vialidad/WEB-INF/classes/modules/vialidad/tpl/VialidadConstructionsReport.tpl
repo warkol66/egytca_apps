@@ -68,7 +68,7 @@ a.tooltipWide span {
 </style>
 
 <h1>Reporte de Obras</h1>
-<h4>Al |-$smarty.now|date_format-|</h4>
+<h4>Al |-$date|date_format-|</h4>
 <table style="float: left;">
 	<tr>
 		<th rowspan="3">Departamento Div. Política (*)</th>
@@ -105,10 +105,10 @@ a.tooltipWide span {
 		<th>A Km</th>
 		<th>Inicio</th>
 		<th>Fin</th>
-		<th>% Avance Programado Acumulado</th>
-		<th>% Avance Ejecutado Acumulado</th>
-		<th>% Avance Programado del mes</th>
-		<th>% Avance Ejecutado del mes</th>
+		<th>Avance Programado Acumulado</th>
+		<th>Avance Ejecutado Acumulado</th>
+		<th>Avance Programado del mes</th>
+		<th>Avance Ejecutado del mes</th>
 		<th>GS</th>
 		<th>USD</th>
 		<th>Nro.</th>
@@ -140,10 +140,10 @@ a.tooltipWide span {
 		<td>|-if $contract-||-$contract->getValidationLengthInDays()-||-/if-|</td>
 		<td>|-if $contract-||-$contract->getValidationLengthModifiedInDays()-||-/if-|</td>
 		<td>|-if $contract-||-$contract->getCalculatedEndDate()|date_format-||-/if-|</td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td>|-if $contract-||-$contract->getAcummulatedProgrammedProgress($date|date_format:'%Y-%m-%d')-||-/if-|</td>
+		<td>|-$construction->getAccumulatedPriceOnPeriod($period)-|</td>
+		<td>|-if $contract-||-$contract->getProgrammedProgress($date|date_format:'%Y-%m-%d')-||-/if-|</td>
+		<td>|-$construction->getPriceOnPeriod($period)-|</td>
 		<td>|-if $contract-||-$contract->getAmmount()|system_numeric_format-||-/if-|</td>
 		<td>|-if $contract-||-$contract->getAmmountModified()|system_numeric_format-||-/if-|</td>
 		<td>|-if $contract-||-$contract->getCertificatesCount()|system_numeric_format-||-/if-|</td>
