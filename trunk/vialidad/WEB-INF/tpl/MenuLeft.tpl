@@ -26,8 +26,7 @@
 			<li><a href="Main.php?do=vialidadMeasurementRecordsList">Actas de Medición</a></li>
 			<li><a href="Main.php?do=vialidadCertificatesList">Certificados de Obra</a></li>
 			<li><a href="Main.php?do=vialidadInvoicesList">Facturas de Contratistas</a></li>
-			<li><a href="Main.php?do=vialidadConstructionsReport">Reporte de Obras</a></li>
-
+			<li><a href="Main.php?do=vialidadConstructionsReport" target="_blank" title="Abre en ventana nueva">Reporte de Obras</a></li>
 			<li><a href="Main.php?do=vialidadSourcesList">Fuentes de Finaciamiento</a></li>
 			<li><a href="Main.php?do=vialidadDepartmentsList">Departamentos</a></li>
 			<li><a href="Main.php?do=vialidadConstructionTypesList">Tipos de Obra</a></li>
