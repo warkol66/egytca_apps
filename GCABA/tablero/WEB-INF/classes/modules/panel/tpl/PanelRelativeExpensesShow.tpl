@@ -12,8 +12,11 @@
 <input type="hidden" name="content" />
 <input type="hidden" name="filename" />
 </form>
+<br />
+<br />
 
-<h6>Gasto Relativo acumuldo por Jurisdicción en porcentaje al |-$updatedSigaf|date_format-|</h6>
+<h6>Gasto en obras por jurisdicción</h6>
+	<h7>En porcentaje al |-$updatedSigaf|date_format-|</h7>
     <table class="tablaInfo small" id="gastoMinisterio">
         <tr><th width="28%">Jurisdicción </th>
         <th width="8%">Vigente / Sanción</th>
@@ -58,7 +61,8 @@
 <br>
 <br>
 
-<h6>Gasto Relativo acumuldo por Comuna en porcentaje |-$updatedSigaf|date_format-|</h6>
+<h6>Gasto en obras por comuna</h6>
+	<h7>En porcentaje al |-$updatedSigaf|date_format-|</h7>
 	<table class="tablaInfo small" id="gastoComuna">
 			<tr><th width="28%">Gasto por Comuna</th>
 			  <th width="8%">Vigente / Sanción</th>
@@ -88,7 +92,8 @@
     <br/>
 
     <br/><br/><br/><br/>
-	<h6>Gasto Relativo acumuldo por Objetivo de Impacto en porcentaje |-$updatedSigaf|date_format-|</h6>
+	<h6>Gasto en obras por objetivo de impacto</h6>
+	<h7>En porcentaje al |-$updatedSigaf|date_format-|</h7>
     <table  class="tablaInfo small" id="objetivoImpacto">
         <tr><th width="28%">Objetivo de Impacto</th>
 			  <th width="8%">Vigente / Sanción</th>

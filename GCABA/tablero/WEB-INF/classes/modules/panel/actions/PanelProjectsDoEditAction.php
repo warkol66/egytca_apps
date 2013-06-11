@@ -107,20 +107,13 @@ class PanelProjectsDoEditAction extends BaseAction {
 		/***
 		 * Partidas presupuestarias
 		 */
-		foreach ($_POST["budgetItem"] as $item) {
-			foreach ($item as $itemValue => $value) {
-				if ($itemValue == "amount") 
-					$value = Common::convertToMysqlNumericFormat($value);
-				$itemValues[$itemValue] = $value;
-			}
-			//Cuando complete todos los valores asociados a un monto, lo guardo en $itemParams
-			if ($itemValue == "eol") {
-				$itemParams[] = $itemValues;
-				$itemValues = array();
-			}
-		}
-		//Guardo los datos de montos asociados a la obra
-		foreach ($itemParams as $budgetItem) {
+		//Guardo los datos de montos asociados al proyecto
+		foreach ($_POST["budgetItem"] as $budgetItem) {
+
+			if (!empty($budgetItem["amount"])) 
+				$budgetItem["amount"] = Common::convertToMysqlNumericFormat($budgetItem["amount"]);
+
+
 			if (!empty($budgetItem["id"])) {
 				$budgetRelation = BudgetRelationQuery::create()->findOneById($budgetItem["id"]);
 				if (empty($budgetRelation))
@@ -143,18 +136,8 @@ class PanelProjectsDoEditAction extends BaseAction {
 		/***
 		 * Actividades
 		 */
-		foreach ($_POST["activity"] as $item) {
-			foreach ($item as $itemValue => $value) {
-				$itemValues[$itemValue] = $value;
-			}
-			//Cuando complete todos los valores asociados a una actividad y lo guardo en $activityParams
-			if ($itemValue == "eol") {
-				$activityParams[] = $itemValues;
-				$itemValues = array();
-			}
-		}
-		//Guardo los datos de montos asociados a la obra
-		foreach ($activityParams as $activity) {
+		//Guardo los datos de actividades asociadas al proyecto
+		foreach ($_POST["activity"] as $activity) {
 			if (!empty($activity['name'])) {
 				if (!empty($activity["id"])) {
 					$activityObj = PlanningActivityQuery::create()->findOneById($activity["id"]);

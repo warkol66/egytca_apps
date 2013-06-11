@@ -110,6 +110,9 @@ class SecurityAction extends BaseSecurityAction {
 	 * @return int $access bit level de permisos de la accion
 	 */
 	function getAccessByUser($user) {
+		if (get_class($user) == "User")
+			if ($user->isSupervisor())
+				return true;
 		$userClass = get_class($user);
 		$method = "getAccess";
 		if ($userClass != "User")

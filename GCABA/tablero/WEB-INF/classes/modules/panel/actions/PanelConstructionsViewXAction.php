@@ -26,8 +26,8 @@ class PanelConstructionsViewXAction extends BaseEditAction {
 		$this->smarty->assign("regions", RegionQuery::create()->filterByType('11')->find());
 		$this->smarty->assign("tenderTypes", PlanningConstruction::getTenderTypes());
 		$this->smarty->assign("constructionTypes", PlanningConstruction::getConstructionTypes());
-		$this->smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
-		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
+		$this->smarty->assign("startingYear", Common::getStartingYear());
+		$this->smarty->assign("endingYear", Common::getEndingYear());
 
 		if ($_GET["showGantt"]) {
 			$this->smarty->assign("datesArray", $this->entity->getDatesArrayForGantt());

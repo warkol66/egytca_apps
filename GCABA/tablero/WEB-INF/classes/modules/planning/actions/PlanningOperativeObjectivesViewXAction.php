@@ -23,8 +23,8 @@ class PlanningOperativeObjectivesViewXAction extends BaseEditAction {
 
 		$this->smarty->assign("show", true);
 
-		$this->smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
-		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
+		$this->smarty->assign("startingYear", Common::getStartingYear());
+		$this->smarty->assign("endingYear", Common::getEndingYear());
 
 		$this->smarty->assign("productKinds", OperativeObjective::getProductKinds());
 		$this->smarty->assign("populationGenders", OperativeObjective::getPopulationGender());

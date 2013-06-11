@@ -64,22 +64,20 @@ class BaseDoDeleteAction extends BaseAction {
 					return $this->addParamsAndFiltersToForwards($this->params, $this->filters, $mapping,'success');
 				}
 			}
-
-		}
-
-		try {
-			$this->entity->delete();
-
-			// Acciones a ejecutar despues de eliminar el objeto
-			$this->postDelete();
-			return $this->addParamsAndFiltersToForwards($this->params, $this->filters, $mapping,'success');
-		} catch (Exception $e) {
-			if (ConfigModule::get("global","showPropelExceptions")){
-				print_r($e->__toString());
+			else {
+				try {
+					$this->entity->delete();
+					// Acciones a ejecutar despues de eliminar el objeto
+					$this->postDelete();
+					return $this->addParamsAndFiltersToForwards($this->params, $this->filters, $mapping,'success');
+				} catch (Exception $e) {
+					if (ConfigModule::get("global","showPropelExceptions")){
+						print_r($e->__toString());
+					}
+				}
+				return $this->addParamsAndFiltersToForwards($this->params, $this->filters, $mapping,'failure');
 			}
 		}
-
-		return $this->addParamsAndFiltersToForwards($this->params, $this->filters, $mapping,'failure');
 	}
 
 	/**

@@ -7,7 +7,7 @@
 				<element_type>YES/NO</element_type>
 			</debugMode>
 			<mailCapture>
-				<value>NO</value>
+				<value>YES</value>
 				<element_type>YES/NO</element_type>
 			</mailCapture>
 			<underMaintenance>

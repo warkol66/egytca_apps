@@ -11,7 +11,7 @@
      <legend>Indicador</legend>
 		<p>
         <label for="params_name">Nombre</label>
-      <input name="params[name]" type="text" id="params_name" size="80" value="|-$planningIndicator->getName()-|" title="Nombre del Indicador" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
+      <input name="params[name]" type="text" id="params_name" size="80" value="|-$planningIndicator->getName()|escape-|" title="Nombre del Indicador" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
       </p>
 		<p>
 			<label for="params_type">Tipo</label>
@@ -28,11 +28,11 @@
     </p>
 		<p>
         <label for="params_formula">Fórmula</label>
-      <input name="params[formula]" type="text" id="params_formula" size="80" value="|-$planningIndicator->getFormula()-|" title="Fórmula del Indicador" maxlength="100" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_formula"-|
+      <input name="params[formula]" type="text" id="params_formula" size="80" value="|-$planningIndicator->getFormula()|escape-|" title="Fórmula del Indicador" maxlength="100" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_formula"-|
       </p>		
 		<p>
         <label for="params_dataSources">Fuentes de datos utilizados</label>
-      <input name="params[dataSources]" type="text" id="params_dataSources" size="80" value="|-$planningIndicator->getDataSources()-|" title="Fuentes de datos utilizados" maxlength="100" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_dataSources"-|
+      <input name="params[dataSources]" type="text" id="params_dataSources" size="80" value="|-$planningIndicator->getDataSources()|escape-|" title="Fuentes de datos utilizados" maxlength="100" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_dataSources"-|
       </p>		
 		<p>
         <label for="params_measureFrecuency">Frecuencia de medición</label>
@@ -43,6 +43,10 @@
 				|-/foreach-|
 			</select>      
       </p>		
+		<p>
+      <label for="params_decimals">Cantidad de decimales</label>
+      <input name="params[decimals]" type="text" id="params_decimals" size="3" value="|-$planningIndicator->getDecimals()-|" title="Cantidad de decimales" maxlength="3" |-$readonly|readonly-| />
+    </p>
 		<!--<p>
         <label for="params_dataResponsible">Responsable de datos</label>
       <input name="params[dataResponsible]" type="text" id="params_dataResponsible" size="80" value="|-$planningIndicator->getDataResponsible()-|" title="Responsable de datos" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_dataResponsible"-|
@@ -70,7 +74,7 @@
 		</p>	
 		<p>
         <label for="params_realValue">Línea de Base</label>
-      <input name="params[realValue]" type="text" id="params_realValue" size="80" value="|-$planningIndicator->getRealValue()-|" title="Linea de Base" maxlength="100" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_realValue"-|
+      <input name="params[realValue]" type="text" id="params_realValue" size="80" value="|-$planningIndicator->getRealValue()|escape-|" title="Linea de Base" maxlength="100" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_realValue"-|
       </p>	
 	<p>
         <label for="params_measureTaken">¿Se realizó la medición?</label>

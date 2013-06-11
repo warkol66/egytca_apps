@@ -17,8 +17,8 @@ class OperativeObjectiveQuery extends BaseOperativeObjectiveQuery {
 	
 	public function __construct($dbName = 'application', $modelName = 'OperativeObjective', $modelAlias = null) {
 		parent::__construct($dbName, $modelName, $modelAlias);
-		$minYear = ConfigModule::get('planning', 'startingYear');
-		$maxYear = ConfigModule::get('planning', 'endingYear');
+		$minYear = Common::getStartingYear();
+		$maxYear = Common::getEndingYear();
 		
 		return $this->condition('cond1', OperativeObjectivePeer::STARTINGYEAR.' >= ?', $minYear)
 			->condition('cond2', OperativeObjectivePeer::STARTINGYEAR.' <= ?', $maxYear)

@@ -53,7 +53,7 @@
       </p>
 		<p>
         <label for="params_name">Objetivo Operativo</label>
-      <input name="params[name]" type="text" id="params_name" size="80" value="|-$operativeObjective->getName()-|" title="Nombre del Objetivo Operativo" maxlength="255" class="emptyValidation"  |-$readonly|readonly-|/> |-validation_msg_box idField="params_name"-|
+      <input name="params[name]" type="text" id="params_name" size="80" value="|-$operativeObjective->getName()|escape-|" title="Nombre del Objetivo Operativo" maxlength="255" class="emptyValidation"  |-$readonly|readonly-|/> |-validation_msg_box idField="params_name"-|
       </p>
     <p> 
       <label for="params_description">Descripción / Resumen Narrativo</label>
@@ -79,11 +79,11 @@
 		</p>
     <p> 
       <label for="params_objectivePopulationAge">Grupos etareos población objetivo</label>
-      <input name="params[objectivePopulationAge]" type="text" id="params_objectivePopulationAge" title="Grupos etareos población objetivo" value="|-$operativeObjective->getObjectivePopulationAge()-|" size="50" |-$readonly|readonly-|> 
+      <input name="params[objectivePopulationAge]" type="text" id="params_objectivePopulationAge" title="Grupos etareos población objetivo" value="|-$operativeObjective->getObjectivePopulationAge()|escape-|" size="50" |-$readonly|readonly-|> 
     </p> 
     <p> 
       <label for="params_objectivePopulationGroup">Población objetivo grupos vulnerables</label>
-      <input name="params[objectivePopulationGroup]" type="text" id="params_objectivePopulationGroup" title="Población objetivo grupos vulnerables" value="|-$operativeObjective->getObjectivePopulationGroup()-|" size="50" |-$readonly|readonly-|> 
+      <input name="params[objectivePopulationGroup]" type="text" id="params_objectivePopulationGroup" title="Población objetivo grupos vulnerables" value="|-$operativeObjective->getObjectivePopulationGroup()|escape-|" size="50" |-$readonly|readonly-|> 
     </p> 
 			|-if isset($loginUser) && $loginUser->isSupervisor() && !$operativeObjective->isNew()-|
 				<p>

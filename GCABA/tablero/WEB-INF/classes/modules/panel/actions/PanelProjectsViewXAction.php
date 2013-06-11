@@ -23,8 +23,8 @@ class PnelProjectsViewXAction extends BaseEditAction {
 		$this->smarty->assign("show", true);
 
 		//Constantes y opciones posibles
-		$this->smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
-		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
+		$this->smarty->assign("startingYear", Common::getStartingYear());
+		$this->smarty->assign("endingYear", Common::getEndingYear());
 		$this->smarty->assign("ministryPriorities", PlanningProject::getMinistryPriorities());
 		$this->smarty->assign("priorities", PlanningProject::getPriorities());
 

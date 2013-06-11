@@ -18,8 +18,8 @@ class PlanningConstructionsToBeInauguratedByMonthXmlAction extends BaseAction {
 		
 		$months = array();
 		
-		$firstYear = ConfigModule::get('planning', 'startingYear');
-		$lastYear = ConfigModule::get('planning', 'endingYear');
+		$firstYear = Common::getStartingYear();
+		$lastYear = Common::getEndingYear();
 		$years = array();
 		for ($yearIndex = $firstYear; $yearIndex <= $lastYear; $yearIndex++) {
 			$years[] = $yearIndex;

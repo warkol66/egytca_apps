@@ -10,8 +10,8 @@ class PanelActivitiesEditAction extends BaseEditAction {
 	
 	protected function postEdit() {
 		parent::postEdit();
-		$this->smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
-		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
+		$this->smarty->assign("startingYear", Common::getStartingYear());
+		$this->smarty->assign("endingYear", Common::getEndingYear());
 		$this->smarty->assign("tenderTypes", PlanningConstruction::getTenderTypes());
 	}
 }

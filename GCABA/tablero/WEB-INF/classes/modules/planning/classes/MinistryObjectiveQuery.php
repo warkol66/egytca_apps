@@ -17,8 +17,8 @@ class MinistryObjectiveQuery extends BaseMinistryObjectiveQuery {
 	
 	public function __construct($dbName = 'application', $modelName = 'MinistryObjective', $modelAlias = null) {
 		parent::__construct($dbName, $modelName, $modelAlias);
-		$minYear = ConfigModule::get('planning', 'startingYear');
-		$maxYear = ConfigModule::get('planning', 'endingYear');
+		$minYear = Common::getStartingYear();
+		$maxYear = Common::getEndingYear();
 		
 		return $this->condition('cond1', MinistryObjectivePeer::STARTINGYEAR.' >= ?', $minYear)
 			->condition('cond2', MinistryObjectivePeer::STARTINGYEAR.' <= ?', $maxYear)

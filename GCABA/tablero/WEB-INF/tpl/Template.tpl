@@ -2,7 +2,7 @@
 |-/if-|
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-|-block name="title"-|<title>|-if isset($module)-||-$module|multilang_get_translation:"common"-| - |-/if-||-$parameters.siteName-|</title>|-/block-|
+|-block name="title"-|<title>|-if isset($module)-||-$module|multilang_get_translation:"common"-| - |-/if-||-$parameters.siteName-| _ |-if $smarty.session.planningMode-|Planificación|-else-|Seguimiento|-/if-| |-if $smarty.session.periodYears.startingYear eq $smarty.session.periodYears.endingYear-||-$smarty.session.periodYears.startingYear-||-else-||-$smarty.session.periodYears.startingYear-|/|-$smarty.session.periodYears.endingYear-||-/if-|</title>|-/block-|
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="css/main.css" type="text/css" />
 <!--[if !IE]>--> <link href="css/style_ns6+.css" rel="stylesheet" type="text/css"> <!--<![endif]-->
@@ -66,7 +66,7 @@
 	<!-- End contentWrapper -->
 	<!-- Begin Footer -->
 	<div id="footer">
-			<p>Gobierno de la Ciudad Autónoma de Buenos Aires / Sistema de Planificación y Seguimiento - Versión 1.1 (40)</p>       
+			<p>Gobierno de la Ciudad Autónoma de Buenos Aires / Sistema de Planificación y Seguimiento - Versión 1.1d&nbsp; (67)</p>       
 	</div>
 	<!-- End Footer -->
 </div>

@@ -16,7 +16,7 @@ class PlanningMinistryObjectivesViewXAction extends BaseEditAction {
 		$this->smarty->assign("show", true);
 
 		$this->smarty->assign("regions", RegionQuery::create()->filterByType('11')->find());
-		$this->smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
-		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
+		$this->smarty->assign("startingYear", Common::getStartingYear());
+		$this->smarty->assign("endingYear", Common::getEndingYear());
 	}
 }

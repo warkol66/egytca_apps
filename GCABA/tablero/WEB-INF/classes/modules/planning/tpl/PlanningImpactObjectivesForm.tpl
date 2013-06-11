@@ -34,7 +34,7 @@
       </p>
       <p>
         <label for="params_name">Objetivo de Impacto</label>
-      <input name="params[name]" type="text" id="params_name" size="80" value="|-$impactObjective->getName()-|" title="Nombre del Objetivo de Impacto" maxlength="255" class="emptyValidation" |-$readonly|readonly-| |-js_char_counter assign="js_counter" object=$impactObjective columnName="name" fieldName="params[name]" idRemaining="remaining" sizeRemaining="3" classRemaining="charCount" counterTitle="Cantidad de caracteres restantes"  showHide="1" useSpan="0"-||-$Counter.pre-| /> |-$Counter.pos-| |-validation_msg_box idField="params_name"-|
+      <input name="params[name]" type="text" id="params_name" size="80" value="|-$impactObjective->getName()|escape-|" title="Nombre del Objetivo de Impacto" maxlength="255" class="emptyValidation" |-$readonly|readonly-| |-js_char_counter assign="js_counter" object=$impactObjective columnName="name" fieldName="params[name]" idRemaining="remaining" sizeRemaining="3" classRemaining="charCount" counterTitle="Cantidad de caracteres restantes"  showHide="1" useSpan="0"-||-$Counter.pre-| /> |-$Counter.pos-| |-validation_msg_box idField="params_name"-|
       </p>
     <p> 
       <label for="params_description">Resumen narrativo </label>
@@ -51,11 +51,11 @@
 		</p>
       <p>
         <label for="params_contextualFactors">Factores contextuales</label>
-        <textarea name="params[contextualFactors]" cols="80" rows="3" wrap="VIRTUAL" id="params_contextualFactors" title="Factores contextuales" |-$readonly|readonly-|>|-$impactObjective->getContextualFactors()-|</textarea> |-validation_msg_box idField="params_contextualFactors"-|
+        <textarea name="params[contextualFactors]" cols="80" rows="3" wrap="VIRTUAL" id="params_contextualFactors" title="Factores contextuales" |-$readonly|readonly-|>|-$impactObjective->getContextualFactors()|escape-|</textarea> |-validation_msg_box idField="params_contextualFactors"-|
       </p>
       <p>
         <label for="params_contextualFactorsEvolution">Evolucion de Factores contextuales</label>
-        <textarea name="params[contextualFactorsEvolution]" cols="80" rows="5" wrap="VIRTUAL" id="params_contextualFactorsEvolution" title="Evolucion de Factores contextuales" |-$readonly|readonly-|>|-$impactObjective->getContextualFactorsEvolution()-|</textarea> |-validation_msg_box idField="params_contextualFactorsEvolution"-|
+        <textarea name="params[contextualFactorsEvolution]" cols="80" rows="5" wrap="VIRTUAL" id="params_contextualFactorsEvolution" title="Evolucion de Factores contextuales" |-$readonly|readonly-|>|-$impactObjective->getContextualFactorsEvolution()|escape-|</textarea> |-validation_msg_box idField="params_contextualFactorsEvolution"-|
       </p>
 			|-if isset($loginUser) && $loginUser->isSupervisor() && !$impactObjective->isNew()-|
 				<p>

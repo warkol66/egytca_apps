@@ -58,7 +58,7 @@
       </p>
 		<p>
         <label for="params_name">Proyecto</label>
-      <input name="params[name]" type="text" id="params_name" size="80" value="|-$planningProject->getName()-|" title="Nombre del Proyecto" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
+      <input name="params[name]" type="text" id="params_name" size="80" value="|-$planningProject->getName()|escape-|" title="Nombre del Proyecto" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
       </p>
     <p> 
       <label for="params_description">Descripción</label>
@@ -66,11 +66,11 @@
     </p> 
 	<p>
         <label for="params_goalProduct">Meta Producto</label>
-      <input name="params[goalProduct]" type="text" id="params_goalProduct" size="80" value="|-$planningProject->getGoalProduct()-|" title="Meta producto" maxlength="300" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
+      <input name="params[goalProduct]" type="text" id="params_goalProduct" size="80" value="|-$planningProject->getGoalProduct()|escape-|" title="Meta producto" maxlength="300" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
     </p>
 	<p>
         <label for="params_goalQuantification">Meta Cuantificación</label>
-      <input name="params[goalQuantification]" type="text" id="params_goalQuantification" size="80" value="|-$planningProject->getGoalQuantification()-|" title="Meta Cuantificacion" maxlength="100" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
+      <input name="params[goalQuantification]" type="text" id="params_goalQuantification" size="80" value="|-$planningProject->getGoalQuantification()|escape-|" title="Meta Cuantificacion" maxlength="100" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
     </p>
 	<p>
      <label for="params_investment">Proyecto de inversión?</label><input name="params[investment]" type="hidden" value="0"/>
@@ -83,7 +83,7 @@
     </p>
 	<p>
 		<label for="params_preexistingCode ">Código preexistente</label>
-		<input name="params[preexistingCode]" type="text" id="params_preexistingCode " size="20" value="|-$planningProject->getPreexistingCode()-|" title="Código Preexistente" maxlength="255" |-$readonly|readonly-|/>
+		<input name="params[preexistingCode]" type="text" id="params_preexistingCode " size="20" value="|-$planningProject->getPreexistingCode()|escape-|" title="Código Preexistente" maxlength="255" |-$readonly|readonly-|/>
 	</p>
 		 |-if !$planningProject->isNew()-|
 		 <h3>Partida presupuestaria &nbsp; <a href="javascript:void(null)" id="showHideBudgetRelations" onClick="$('budgetItemsTable').toggle(); $('showHideBudgetRelations').toggleClassName('expandLink');" class="collapseLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningProject->getBudgetItems() type="Project" objId=$planningProject->getId()-||-/if-|

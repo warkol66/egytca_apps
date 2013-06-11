@@ -6,7 +6,7 @@
 |-include file="PositionsIncludeVersionEdit.tpl"-|
 </div>
 <p>A continuación podrá editar el organigrama. |-if ($browser->getBrowser() == 'Firefox' && $browser->getVersion() >= 3) || ($browser->getBrowser() == 'Internet Explorer' && $browser->getVersion() >= 7)-|
-Puede ver la versión gráfica haciendo click <a href="Main.php?do=positionsChartView" target="_blank">aquí</a>
+Puede ver la versión gráfica haciendo click <a href="Main.php?do=positionsChartView#init" target="_blank">aquí</a>
 <a href="javascript:void(null);" class="tooltipWide"><span>(Sólo disponible para IExplorer 7 o mas reciente y Firefox 3.0 o mas reciente)</span><img src="images/clear.png" class="icon iconInfo"></a>
 |-else-|
 <a href="javascript:void(null);" class="tooltipWide"><span>(Una versión gráfica del organigrama está disponible utilizando un navegador IExplorer 7 o mas reciente y Firefox 3.0 o mas reciente)</span><img src="images/clear.png" class="icon iconInfo"></a>

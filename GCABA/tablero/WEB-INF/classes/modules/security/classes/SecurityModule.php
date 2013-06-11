@@ -74,6 +74,9 @@ class SecurityModule extends BaseSecurityModule {
 	 * @return boolean
 	 */
 	function getAccessByUser($user) {
+		if (get_class($user) == "User")
+			if ($user->isSupervisor())
+				return true;
 		$userClass = get_class($user);
 		$access = 0;
 		$method = "getAccess";

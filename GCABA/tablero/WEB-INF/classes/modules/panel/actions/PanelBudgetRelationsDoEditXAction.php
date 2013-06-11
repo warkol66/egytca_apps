@@ -24,30 +24,27 @@ class PanelBudgetRelationsDoEditXAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 		
-		foreach ($_POST["budgetItem"] as $item) {
-			foreach ($item as $itemValue => $value) {
-				if ($itemValue == "amount") 
-					$value = Common::convertToMysqlNumericFormat($value);
-				$itemValues[$itemValue] = $value;
+		foreach ($_POST["budgetItem"] as $budgetItem) {
+
+			if (!empty($budgetItem["amount"])) 
+				$budgetItem["amount"] = Common::convertToMysqlNumericFormat($budgetItem["amount"]);
+
+			if (!empty($budgetItem["id"])) {
+				$budgetRelation = BudgetRelationQuery::create()->findOneById($budgetItem["id"]);
+				if (empty($budgetRelation))
+					$budgetRelation = new BudgetRelation();
+			}
+			else
+				$budgetRelation = new BudgetRelation();
+			$budgetRelation->fromArray($budgetItem,BasePeer::TYPE_FIELDNAME);
+			try {
+				$budgetRelation->save();
+			} catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->__toString());
 			}
 		}
-		
-		if(!empty($itemValues["id"])) {
-			$budgetRelation = BudgetRelationQuery::create()->findOneById($itemValues["id"]);
-			if (empty($budgetRelation))
-				$budgetRelation = new BudgetRelation();
-		} else
-			$budgetRelation = new BudgetRelation();
-			
-		$budgetRelation->fromArray($itemValues,BasePeer::TYPE_FIELDNAME);
-		$budgetRelation->setObjectType($_POST["objectType"]);
-		$budgetRelation->setObjectid($_POST["objectId"]);
-		try {
-			$budgetRelation->save();
-		} catch (PropelException $exp) {
-			if (ConfigModule::get("global","showPropelExceptions"))
-				print_r($exp->__toString());
-		}
+
 		$smarty->assign("bEdit", "ok");
 		return $mapping->findForwardConfig('success');
 		

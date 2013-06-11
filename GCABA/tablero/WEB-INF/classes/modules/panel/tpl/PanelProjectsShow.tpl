@@ -63,9 +63,9 @@ myChart2.render("chartContainer2");
 				<th width="20%">##objectives,3,Objetivo##</th>
 				<th width="2%">&nbsp;</th>
 				<th width="40%">Nombre</th>
-				<th width="5%">Fecha</th>
-				<th width="5%">Fin Planificado </th>
-				<th width="5%">Fin Real </th>
+				<th width="5%">Fecha de Inicio Planificada</th>
+				<th width="5%">Fecha de Fin Planificada</th>
+				<th width="5%">Fecha Finalización</th>
 				<th width="1%">&nbsp;</th>
 				<th width="5%">&nbsp;</th>
 				<th width="5%"><div style="width:175px;">Actividades</div></th>
@@ -96,22 +96,22 @@ myChart2.render("chartContainer2");
 						<input type="hidden" name="id" value="|-$project->getid()-|" />
 						<input type="submit" name="submit_go_edit_project" value="Editar" class="icon iconListCheck" title="Seguimiento del Proyecto"/>
 					</form>|-/if-|</td>
-				<td align="center" nowrap >
-					<a href="|-*Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=white*-|#" class="flagWhite">
+				<td align="center" nowrap ><div style="width:144px;">
+					<a href="|-*Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=white*-|javascript:void(null);" class="flagWhite">
 						|-$colorsCount.white-|
 					</a>
-					<a href="|-*Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=green*-|#" class="flagGreen">
+					<a href="|-*Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=green*-|javascript:void(null);" class="flagGreen">
 						|-$colorsCount.green-|
 					</a>
-					<a href="|-*Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=yellow*-|#" class="flagYellow">					
+					<a href="|-*Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=yellow*-|javascript:void(null);" class="flagYellow">					
 						|-$colorsCount.yellow-|
 					</a>
-					<a href="|-*Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=red*-|#" class="flagRed">
+					<a href="|-*Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=red*-|javascript:void(null);" class="flagRed">
 						|-$colorsCount.red-|
-					</a>
-					<a href="|-*Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=blue*-|#" class="flagBlue">
+					</a><!--
+					<a href="|-*Main.php?do=panelActivitiesList&filters[projectId]=|-$project->getId()-|&color=blue*-|javascript:void(null);" class="flagBlue">
 						|-$colorsCount.blue-|
-					</a>
+					</a>--></div>
 				</td>
 			</tr>
 		|-/foreach-|						
