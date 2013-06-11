@@ -54,7 +54,7 @@ iframe{
 <div id="documentOperationInfo"></div>
 <fieldset id="docs_list" class="noMargin"><legend>Documentos asociados</legend>
 	<div id="actions"><p align="right">
-		<a class="iframe addLink" id="fancybox_document" href="Main.php?do=documentsEdit&requester=Blog&entity=BlogEntry&entityId=|-$id-|">Agregar nuevo documento</a>
+		<a class="iframe addLink" id="fancybox_document" href="Main.php?do=documentsEdit&entityId=|-$id-|&requester=Blog&entity=BlogEntry&entityId=|-$id-|">Agregar nuevo documento</a>
 	</p>
 	<p id="viewPhotos" align="right">
 	|-if count($photos) > 0-|
