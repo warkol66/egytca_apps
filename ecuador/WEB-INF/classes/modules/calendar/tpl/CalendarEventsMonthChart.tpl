@@ -82,7 +82,7 @@
 				 |-counter name=completeCols assign=completeCols start=7 skip=-1-| 
         |-/if-|
         |-/if-|
-      |-/foreach-|      
+      |-/foreach-|
 				|-if $cellCounter lte ($daysEvents|@count+$firstDay-1)-|
 				 <tr>
 				 |-counter name=completeCols assign=completeCols start=7 skip=-1-| 

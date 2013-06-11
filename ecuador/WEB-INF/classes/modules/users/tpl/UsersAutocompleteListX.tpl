@@ -1,3 +1,11 @@
+|-if $type eq 'json'-|
+    {
+        |-foreach $users as $user-|
+            "|-json_encode($user->getId())-|": |-json_encode($user->getName()|cat:' '|cat:$user->getSurname())-|
+            |-if !$user@last-|,|-/if-|
+        |-/foreach-|
+    }
+|-else-|
 <ul>
 	|-if count($users) == 0-|
 		<b>No hay resultados que coincidan</b>
@@ -10,3 +18,4 @@
 		|-/if-|
 	|-/if-|
 </ul>
+|-/if-|

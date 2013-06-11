@@ -31,6 +31,7 @@ class CommonMenuItemsActionsAutocompleteListXAction extends BaseAction {
 
 		$smarty->assign("actions",$actions);
 		$smarty->assign("limit",$_REQUEST['limit']);
+		$smarty->assign("type",$_REQUEST['type']);
 
 		return $mapping->findForwardConfig('success');
 	}

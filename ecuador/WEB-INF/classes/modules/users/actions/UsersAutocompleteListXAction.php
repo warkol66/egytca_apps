@@ -53,6 +53,7 @@ class UsersAutocompleteListXAction extends BaseAction {
 
 		$smarty->assign("users",$users);
 		$smarty->assign("limit",$_REQUEST['limit']);
+		$smarty->assign("type",$_REQUEST['type']);
 
 		return $mapping->findForwardConfig('success');
 	}
