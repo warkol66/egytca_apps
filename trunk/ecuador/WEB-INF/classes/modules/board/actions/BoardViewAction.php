@@ -57,37 +57,12 @@ class BoardViewAction extends BaseEditAction {
 		$usersB = BoardBondQuery::create()->select('Type')->filterByChallengeId($this->entity->getId())->find();
 		$this->smarty->assign("usersBonds",$usersB->getData());
 		
-		$bondUsers = array();
-		$keys = array();
-		
-		foreach($usersB as $bond){
-			$queryClass = $bond->getUserType() . 'Query';
-			if(class_exists($queryClass)){
-				$user = $queryClass::create()->findOneById($bond->getUserId());
-				if(is_object($user)){
-					$bondUsers[$bond->getType()][] = $user;
-					$keys[] = $bond->getType();
-				}	
-			}
-		}
-		
-		$this->smarty->assign("usersBonds",$bondUsers);
-		$this->smarty->assign("compUsers",$keys);
-		/*echo('<pre>');
-		print_r($usersBonds->getData());
-		echo('</pre>');
-		echo('<pre>');
-		print_r($keys);
-		echo('</pre>');*
-		echo('<pre>');
-		print_r($bondUsers[6]);
-		echo('</pre>');
-		die();*/
-		
 		//busco los compromisos que hizo el usuario logueado
 		$user = Common::getLoggedUser();
 		$loggedBonds = BoardBondQuery::create()->select('Type')->filterByUserId($user->getId())->find();
 		$this->smarty->assign("loggedBonds",$loggedBonds->getData());
+		/*echo($loggedBonds->getData());
+		die();*/
 		
 		if ($moduleConfig['comments']['useComments']['value'] == "YES") {
 
