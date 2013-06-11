@@ -92,8 +92,8 @@ class ConfigModule {
 					// "twitter" => "Twitter",
 					// "bing"    => "Bing",
 					"googleNews" => "Google News",
-					"google"     => "Google"
-//					, "topsy"      => "Topsy"
+					"google"     => "Google",
+					"topsy"      => "Topsy"
 				),
 				"errors" => array(
 					"service_unavailable" => "Ha realizado muchas consultas, espere 5 min e intente de nuevo.",
