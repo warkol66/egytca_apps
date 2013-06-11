@@ -27,7 +27,7 @@ class User extends BaseUser {
 		if (ConfigModule::get("users","toStringFormat") == "Surname, Name (Username)")
 			$string .= $surname . ', ' . $name;
 		else
-			$string .= $name . ', ' . $surname;
+			$string .= $name . ' ' . $surname;
 
 		$string .= ' (' . $this->getUserName() . ')';
 
@@ -121,7 +121,7 @@ class User extends BaseUser {
 	 * @returns true si pertenece al grupo, de lo contrario, false.
 	 */
 	function isAdmin() {
-		if ( $this->getLevelId() == 2 )
+		if ( $this->getLevelId() == 2 || $this->isSupervisor() )
 			return true;
 
 		$groups = $this->getGroups();

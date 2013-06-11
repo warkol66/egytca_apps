@@ -68,7 +68,8 @@ class UsersDoEditAction extends BaseAction {
 				$userObj = Common::setObjectFromParams($userObj,$_POST["userParams"]);
 
 				$userObj->setPasswordString($_POST["pass"]);
-				$userObj->setPasswordUpdatedTime();
+				if (!ConfigModule::get("users","forceFirstPasswordChange"))
+					$userObj->setPasswordUpdatedTime();
 				$userObj->setActiveUser();
 
 				if (empty($_POST["userParams"]["levelId"]))

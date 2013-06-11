@@ -1,3 +1,7 @@
+<script type="text/javascript">
+	jQuery.noConflict();
+</script>
+<script src="scripts/prototype.js" language="JavaScript" type="text/javascript"></script>
 <h2>Administración de Datos de Usuarios</h2>
 <h1>Cambio de Contraseña</h1>
 <!-- Link VOLVER -->
