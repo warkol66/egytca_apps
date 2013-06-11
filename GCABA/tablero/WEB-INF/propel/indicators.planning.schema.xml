@@ -30,7 +30,7 @@
 <!-- /Indicadores Planeamiento -->
 
 		<column name="graphType" required="true" type="INTEGER" size="2" description="Tipo de Grafico"/>
-		<column name="decimals" type="INTEGER" size="2" description="Numero de decimales"/>
+		<column name="decimals" type="INTEGER" size="2" default="2" description="Numero de decimales"/>
 		<column name="valueType" type="INTEGER" size="2" description="Tipo de valor"/>
 		<column name="showValue" type="INTEGER" size="2" description="Tipo de valor"/>
 		<column name="labelX" type="VARCHAR" size="100" description="Etiqueta eje X"/>
@@ -97,7 +97,7 @@
 		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
 		<column name="serieId" type="INTEGER" size="4" description="Id Serie"/>
 		<column name="xId" type="INTEGER" size="4" description="Id de coordenada x"/>
-		<column name="value" type="FLOAT" description="Valor"/>
+		<column name="value" type="FLOAT" size="24" scale="8" description="Valor"/>
 		<column name="order" type="INTEGER" size="4" description="Orden"/>
 		<column name="color" type="VARCHAR" size="100" description="Name"/>
 		<column name="oldId" required="true" type="INTEGER" size="5" description="Old Id"/>
