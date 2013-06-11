@@ -65,6 +65,9 @@ class ContentListAction extends BaseAction
             }
         }
 
+
+
+        $smarty->assign("sectionId", $parentId); //asignamos el id del padre
         $smarty->assign("parentId", $parentId); //asignamos el id del padre
         $smarty->assign("elements", $elements);
         $smarty->assign("defaultLanguage", $defaultLanguage);

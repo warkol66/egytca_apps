@@ -648,7 +648,7 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
   background: -o-linear-gradient(top,  #ff0000,  #CC0000);
   cursor: pointer;
 }
-input[type="submit"], input[type="button"], input[type="reset"], input[disabled="disabled"]:hover {
+input[type="submit"], input[type="button"], input[type="reset"] {
 	color:#FFFFFF;
 	background-color: #CC0000;
   background: -webkit-gradient(linear, left top, left bottom, from(#CC0000), to(#993333));
@@ -667,12 +667,12 @@ input[type="submit"], input[type="button"], input[type="reset"], input[disabled=
 	font-weight:bold;
 	font-size:1em;
 }
-input[readonly="readonly"] {
-	background-color: #dcdcdc;
+input[readonly="readonly"],input[type="button"][disabled="disabled"]:hover  {
+	background-color: #EEEEEE;
 }
-input[disabled="disabled"] {
+input[type="text"][disabled="disabled"] {
 	color: #BABABA !Important;
-	background-color: #d0d0d0;
+	background-color: #EEEEEE;
 }
 
 /*

@@ -636,14 +636,14 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
   background: -o-linear-gradient(top,  #ff0000,  #CC0000);
   cursor: pointer;
 }
-input[type="submit"], input[type="button"], input[type="reset"], input[disabled="disabled"]:hover {
+/*input[type="submit"], input[type="button"], input[type="reset"], input[disabled="disabled"]:hover {
 	color:#FFFFFF;
 	background-color: #CC0000;
   	background: -webkit-gradient(linear, left top, left bottom, from(#CC0000), to(#993333));
   	background: -moz-linear-gradient(top,  #CC0000,  #993333);
 	  background: -o-linear-gradient(top,  #CC0000,  #993333);
 	border: 1px outset #cdcdcd !Important;/*#F0F0F0;*/
-	outline: 0 none;
+/*	outline: 0 none;
 	cursor: pointer;
 	border-radius: 5px;
 	-khtml-border-radius: 5px;
@@ -655,13 +655,13 @@ input[type="submit"], input[type="button"], input[type="reset"], input[disabled=
 	font-weight:bold;
 	font-size:1em;
 
-}
+}*/
 input[readonly="readonly"] {
-	background-color: #dcdcdc;
+	background-color: #EEEEEE;
 }
 input[disabled="disabled"] {
 	color: #4F4F4F;
-	background-color: #d0d0d0;
+	background-color: #EEEEEE;
 }
 
 /*
