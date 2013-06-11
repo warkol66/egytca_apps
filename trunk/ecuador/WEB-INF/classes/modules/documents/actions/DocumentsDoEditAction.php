@@ -87,13 +87,17 @@ class DocumentsDoEditAction extends BaseDoEditAction {
 		
 		$this->forwardName = 'success'.$_POST['entity'];
 		
+		if (!$this->entity->isNew()) {
+			unset($this->entityParams['userObjectType']);
+			unset($this->entityParams['userObjectId']);
+		}
 		//datos del usuario
-		$user = Common::getLoggedUser();
-		if(is_object($user)){
+/*		$user = Common::getLoggedUser();
+		if($this->entity->isNew() && is_object($user)) {
 			$this->entityParams['userObjectType'] = get_class($user);
 			$this->entityParams['userObjectId'] = $user->getId();
 		}
-		
+*/		
 		//TODO: ordenar uso del swfupload
 //		//si no llega ningun archivo significa que la carga se realizo por swfUpload.
 //		if(empty($_FILES["document_file"]['name'])) {
