@@ -56,11 +56,11 @@
                    </li>
                 </ul>
 							</div>
-								<div id="rightMenu">
+								|-if !empty($loginUser) && !$SESSION.firstLogin-|<div id="rightMenu">
 							|-include file='PublicContentsBlockInclude.tpl'-|
 							|-include file='PublicDocumentsBlockInclude.tpl'-|
 							</div>
-						<!-- End rightMenu -->
+						<!-- End rightMenu -->|-/if-|
 
 		</div>
 	<!-- End allColumns -->

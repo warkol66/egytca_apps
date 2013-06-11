@@ -43,11 +43,11 @@
 					|-include file="MenuHorizontalPublic.tpl"-|
 			<div class="clear"></div>                           
             <div class="allColumns topbanner"></div>
-						<div id="rightMenu"><br />
+								|-if !empty($loginUser) && !$SESSION.firstLogin-|<br /><div id="rightMenu">
 							|-include file='PublicContentsBlockInclude.tpl'-|
 							|-include file='PublicDocumentsBlockInclude.tpl'-|
 							</div>
-						<!-- End rightMenu -->
+						<!-- End rightMenu -->|-/if-|
 	</div>
 	<!-- End allColumns -->
 	<!-- Begin contentWrapper -->
@@ -66,7 +66,7 @@
 	<!-- End contentWrapper -->
 	<!-- Begin Footer -->
 	<div id="footer">		       
-		<ul>							|-include file='MenuBottomInclude.tpl'-|
+		<ul>							|-if !empty($loginUser) && !$SESSION.firstLogin-||-include file='MenuBottomInclude.tpl'-||-else-|<li></li>|-/if-|
 </ul>
 		<p>Copyright©2013 Lídres Parroquiales Ecuador / Desarrollado por Módulos Empresarios.</p>
 	</div>
