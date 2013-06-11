@@ -2,46 +2,11 @@
 <script src="scripts/jquery/chosen.js"></script>
 <script type="text/javascript" src="scripts/jquery/ajax-chosen.min.js"></script>
 <script type="text/javascript" src="scripts/jquery/egytca.js"></script>
+
 |-*include file="CommonAutocompleterInclude.tpl" *-| 
 |-*include file="CommonEditTinyMceInclude.tpl" elements="internalMail[body]" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"*-|
 
 <script type="text/javascript" language="javascript" charset="utf-8">
-//migrada?
-function recipientsUsersAfterUpdateElement(text, li) {
-	$('#autocomplete_users').val('');
-	var idx = $('#recipientsSelected > li').size();
-	var liId = $(li).attr('id');
-	if(!($(li).hasClass('informative_only')))
-		$('#button_edit_internalMail').attr('disabled', false);
-
-	$('recipientsSelected').after('<li><input type="button" class="icon iconDelete" onClick="this.parentNode.remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+liId+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="user" />'+li.innerHTML.stripTags()+'</li>');
-	//$('autocomplete_users').value = '';
-	//var idx = $$('#recipientsSelected > li').size();
-	//$('recipientsSelected').insert('<li><input type="button" class="icon iconDelete" onClick="this.parentNode.remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+li.id+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="user" />'+li.innerHTML.stripTags()+'</li>')
-    /*if (!li.hasClassName('informative_only')) {
-        var submit = $('button_edit_internalMail');
-        if (Object.isElement(submit))
-    		submit.enable();
-	}*/
-}
-//migrada?
-function recipientsAffiliatesAfterUpdateElement(text, li) {
-	$('#autocomplete_affiliates').val('');
-	var idx = $('#recipientsSelected > li').size();
-	var liId = $(li).attr('id');
-	$('recipientsSelected').insert('<li><input type="button" class="icon iconDelete" onClick="this.parentNode.remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+liId+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+li.innerHTML.stripTags()+'</li>')
-    if (!($(li).hasClass('informative_only')))
-        $('button_edit_internalMail').attr('disabled',false);
-	
-	//$('autocomplete_affiliates').value = '';
-	//var idx = $$('#recipientsSelected > li').size();
-	/*$('recipientsSelected').insert('<li><input type="button" class="icon iconDelete" onClick="this.parentNode.remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+li.id+'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+li.innerHTML.stripTags()+'</li>')
-    if (!li.hasClassName('informative_only')) {
-        var submit = $('button_edit_internalMail');
-        if (Object.isElement(submit))
-    		submit.enable();
-	}*/
-}
 //migrada
 function changeRecipientType(entityName) {
 	if (entityName == "affiliateUser") {
@@ -55,10 +20,11 @@ function changeRecipientType(entityName) {
 }
 //migrada
 function updateSubmitButton() {
-	$("#recipientsSelected").children().each(function(){$("#button_edit_internalMail").attr('disabled',true)})
+	$("#recipientsSelected").children().each(function(){$("#button_edit_internalMail").attr('disabled',true)});
 	/*if (($("recipientsSelected").childNodes.length - 1) <= 0)
 		$("button_edit_internalMail").disable();*/
 }
+
 </script>
 <h2>Mensajería Interna</h2>
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| Mensaje</h1>
@@ -78,17 +44,16 @@ function updateSubmitButton() {
 			
 			<p>
 				<label>Tipo de destinatario:</label>
-				<input type="radio" name="recipientType" value="user" onclick="changeRecipientType(this.value)" checked />##users,2,Usuario##
+				<input type="radio" name="internalMail[recipientType]" value="user" onclick="changeRecipientType(this.value)" checked />##users,2,Usuario##
 |-if ($configModule->get("global","internalMailUseAffiliates"))-|<input type="radio" name="recipientType" value="affiliateUser" onclick="changeRecipientType(this.value)" />##affiliates,2,Affiliado##|-/if-|
 			</p>
 	
 			<div id="recipientsUsers" style="position: relative;">
-				<select id="params_user_select" name="params[user]" value="" class="chzn-select markets-chz-select" data-placeholder="Elija una opcion..."></select>
-				|-*include file="CommonAutocompleterInstanceInclude.tpl" id="autocomplete_users" label="Para" defaultValue="" defaultHiddenValue="" url="Main.php?do=usersAutocompleteListX" afterUpdateElement="recipientsUsersAfterUpdateElement"*-|
+				<select id="params_user_select" name="internalMail[recipientId]" class="chzn-select markets-chz-select" data-placeholder="Para..."></select>
 			</div>	
 |-if ($configModule->get("global","internalMailUseAffiliates"))-|			
 			<div id="recipientsAffiliates" style="position: relative; display: none">
-				|-include file="CommonAutocompleterInstanceInclude.tpl" id="autocomplete_affiliates" label="Para" defaultValue="" defaultHiddenValue="" url="Main.php?do=affiliatesUsersAutocompleteListX" afterUpdateElement="recipientsAffiliatesAfterUpdateElement"-|
+				<select id="params_affiliate_select" name="internalMail[recipientId]" class="chzn-select markets-chz-select" data-placeholder="Para..."></select>
 			</div>
 |-/if-|			
 			<span id="indicator2" style="display: none">
@@ -130,3 +95,8 @@ function updateSubmitButton() {
 		</fieldset>
 	</form>
 </div>
+<script type="text/javascript">
+$('#params_user_select').egytca('autocomplete', 'Main.php?do=usersAutocompleteListX',{disable: '#button_edit_internalMail'});
+$('#params_affiliate_select').egytca('autocomplete', 'Main.php?do=affiliatesUsersAutocompleteListX',{disable: '#button_edit_internalMail'});
+</script>
+</script>

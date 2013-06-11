@@ -1,3 +1,11 @@
+|-if $type eq 'json'-|
+    {
+        |-foreach $actions as $action-|
+            "|-json_encode($action->getAction())-|": |-json_encode($action->getAction())-|
+            |-if !$action@last-|,|-/if-|
+        |-/foreach-|
+    }
+|-else-|
 <ul>
     |-if count($actions) == 0-|
         <b>No hay resultados que coincidan</b>
@@ -10,3 +18,4 @@
         |-/if-|
     |-/if-|
 </ul>
+|-/if-|

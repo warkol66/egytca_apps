@@ -1,3 +1,4 @@
+<!--script src="scripts/prototype.js" language="JavaScript" type="text/javascript"></script-->
 |-if !$result-|
 <h2>Mensajería Interna</h2>
 <h1>Administración de Mensajes</h1>
@@ -80,6 +81,8 @@
 </div> 
 
 <script type="text/javascript" language="javascript" charset="utf-8">
+	//jQuery.noConflict();
+	
 	var selected=-1;
 	
 	function deleteMessages(ids) {
@@ -123,7 +126,26 @@
 	}
 	
 	function markAsUnread(ids) {
+		ids = $('.selector').serialize();
 		if (ids === undefined)
+			ids = $('.selector').serialize();
+		else
+			//ids = Object.toQueryString(ids);
+		var fields = ids + '&' + $('.filter').serialize() + '&' + $('#page').serialize() + 'reverse=true';
+		alert(fields);
+		$.ajax({
+			url: 'Main.php?do=commonInternalMailsDoMarkAsReadX',
+			data: fields,
+			type: 'post',
+			success: function(data){
+				$('#internalMailsList').html(data);
+				updateLightBox();
+			}	
+		});
+		$('#allbox').attr('checked',false);
+		return true;
+		
+		/*if (ids === undefined)
 			ids = Form.serializeElements($$('.selector'));
 		else
 			ids = Object.toQueryString(ids);
@@ -139,7 +161,7 @@
 			}
 		);
 		var allbox = document.getElementById('allbox');
-		allbox.checked = false;
+		allbox.checked = false;*/
 		return true;
 	}
 	
