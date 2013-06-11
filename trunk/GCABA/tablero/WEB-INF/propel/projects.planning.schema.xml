@@ -407,6 +407,8 @@
 		<column name="objectId" type="INTEGER" description="Id del proyecto u obra"/>
 		<column name="startingDate" type="DATE" description="Fecha de inicio" />
 		<column name="endingDate" type="DATE" description="Fecha de finalizacion" />
+		<column name="rescheduledStart" type="DATE" description="Fecha de inicio reprogramada" />
+		<column name="rescheduledEnd" type="DATE" description="Fecha de finalizacion reprogramada" />
 		<column name="realStart" type="DATE" description="Fecha de inicio real" />
 		<column name="realEnd" type="DATE" description="Fecha de finalizacion real" />
 		<column name="acomplished" type="BOOLEAN" sqlType="BOOL" default="0" description="Cumplido"/>
