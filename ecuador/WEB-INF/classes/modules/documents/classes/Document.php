@@ -281,6 +281,22 @@ class Document extends BaseDocument {
 			return true;
 	}
 	
+	/**
+	 * Devuelve un string con quien es el que subio el documento
+	 *
+	 * @return string nombre del usuario que modifico el documento
+	 */
+	public function ownedBy() {
+		if ($this->getUserobjecttype() != "") {
+			$objectQueryName = $this->getUserobjecttype() . 'Query';
+			if (class_exists($objectQueryName)) {
+				$query = BaseQuery::create($this->getUserobjecttype());
+				return $query->findPK($this->getUserobjectid());
+			}
+		}
+		return;
+	}
+
 	public function getLogData(){
 		return substr($this->getTitle(),0,50);
 	}

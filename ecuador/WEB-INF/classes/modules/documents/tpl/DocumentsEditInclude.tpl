@@ -103,15 +103,15 @@
 			 	<textarea name="params[description]" cols="55" rows="6" wrap="VIRTUAL" title="Descripción">|-$document->getDescription()|escape-|</textarea>
   			</p> 
   			|-if $module eq "Documents" && $entity eq '' && $parentCategories|@count gt 0-|
-				<p><label for="params[categoryid]">Categoría</label>
-					<select name="params[categoryid]">
+				<p><label for="params[categoryId]">Categoría</label>
+					<select name="params[categoryId]">
 						<option value=''>Sin Categoría</option>
-						|-include file="DocumentsCategoriesInclude.tpl" categories=$parentCategories user=$user selectedCategoryId=$filters.categoryId count='0'-|
+						|-include file="DocumentsCategoriesInclude.tpl" count='0'-|
 					</select>
 				</p>
-				<p><label for="params[author]">Autor(es)</label>
+				|-*<p><label for="params[author]">Autor(es)</label>
 					 <input name="params[author]" type="text" value="|-$document->getAuthor()|escape-|" size="50" />
-				</p>
+				</p>*-|
 				|-*<p><label for="params[keyWords]">Palabras clave<img src="images/icon_search.png" onClick="switch_vis('keyWordSearch','block');" title="Buscar palabaras clave"/></label>
 					 <input name="params[keyWords]" id="keyWords" type="text" value="|-$document->getKeyWords()|escape-|" size="50" />
 					<script language="JavaScript" type="text/javascript">
@@ -140,6 +140,12 @@
 			  <input name="password_compare" type="password" size="15" />
 	</p>
 |-/if-|
+	|-if isset($loginUser) && $loginUser->isAdmin() && !$document->isNew()-|
+		<p>
+			<label for="ownedBy">Creado por:</label>
+		<input type="text" id="ownedBy" size="80" value="|-$document->ownedBy()-|" title="Creado por:" readonly="readonly" />
+			 </p>
+	|-/if-|
 			 <div id="upload_info"></div>
 			 <p> 
 			 	|-if $entity neq ""-|
@@ -149,7 +155,16 @@
 			 	|-if isset($requester)-|
 					<!--input type="hidden" name="module" value="|-$requester-|" /-->
 			 	|-/if-|
-				<input type="submit" name="uploadButton" value="|-if $document neq ''-|Guardar Cambios|-else-|Agregar |-$label-||-/if-|" id="btnSubmit">|-if $module eq 'Documents' && $action eq 'edit'-|<input name="return" type="button" value="Regresar" onClick="history.back(-1);"/>|-/if-|<span id="msgBoxUploader"></span>
+
+
+				|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+				|-if $page gt 1-| <input type="hidden" name="page" id="page" value="|-$page-|" />|-/if-|
+
+				<input type="submit" name="uploadButton" value="|-if $document neq ''-|Guardar Cambios|-else-|Agregar |-$label-||-/if-|" id="btnSubmit">
+				|-if $module eq 'Documents'-|<input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=documentsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"/>|-/if-|
+
+				|-if $module eq 'Documents' && $action eq 'edit'-|<input name="return" type="button" value="Regresar" onClick="history.back(-1);"/>|-/if-|
+				<span id="msgBoxUploader"></span>
 			 </p>
 	</fieldset>
 </form>

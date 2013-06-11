@@ -1,3 +1,41 @@
+<script type="text/javascript">
+	jQuery.noConflict();
+</script>
+<script src="scripts/prototype.js" language="JavaScript" type="text/javascript"></script>
+<script type="text/javascript">
+var myGlobalHandlers = {
+	onCreate: function(){
+		Element.show('systemWorking');
+	},
+	onFailure: function(){
+		alert('Sorry. There was an error.');
+	},
+	onComplete: function() {
+		if(Ajax.activeRequestCount == 0){
+			Element.hide('systemWorking');
+		}
+	}
+};
+
+Ajax.Responders.register(myGlobalHandlers);
+
+function categoriesDoEditX() {
+	var pars = 'do=categoriesDoEditX';
+	var fields = Form.serialize('form_category_add');
+
+	var myAjax = new Ajax.Updater(
+				{success: 'categoriesListPlaceHolder'},
+				'Main.php?do=categoriesDoEditX',
+				{
+					method: 'post',
+					parameters: pars,
+					postBody: fields
+				});
+	$('name').value = "";
+}
+</script>
+
+
 <h2>##common,18,Configuración del Sistema##</h2>
 <h1>##139,Editar categorías##</h1>
 |-if $message eq "notdeleted"-|<div class='errorMessage'>##140,No se pudo eliminar la categoría porque posee datos asociados##.</div>|-/if-|

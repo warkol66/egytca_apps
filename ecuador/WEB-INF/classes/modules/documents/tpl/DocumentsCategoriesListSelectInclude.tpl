@@ -3,6 +3,6 @@
 	|-assign var=newCount value=$count+1-|
 	|-assign var=childrens value=$user->getDocumentsChildrenCategories($category->getId())-|
 	|-if $childrens|@count neq 0-|
-		|-include file="DocumentsCategoriesListSelectInclude.tpl" categories=$childrens count=$newCount document=$document user=$user-|
+		|-*include file="DocumentsCategoriesListSelectInclude.tpl" categories=$childrens count=$newCount document=$document user=$user*-|
 	|-/if-|
 |-/foreach-|

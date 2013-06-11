@@ -16,14 +16,14 @@
 		</p>
 		<p>
       <label for="description">Descripción</label>
-      <textarea name="category[description]" cols="45" rows="5" wrap="virtual" id="description">|-$category->getdescription()-|</textarea>
+      <textarea name="category[description]" cols="45" rows="3" wrap="virtual" id="description">|-$category->getDescription()-|</textarea>
     </p>
 	|-if $category->isParent()-|
 		<p><label for="category[module]">Módulo</label>
 		<select name="category[module]">
 			<option value='' |-if $category->getModule() eq ''-|selected="selected"|-/if-|>|-"Global"|multilang_get_translation:"common"-|</option>
 		|-foreach from=$modules item=module-|
-			<option value="|-$module->getName()-|" |-if $category->getModule() eq $module->getName()-|selected="selected"|-/if-|>|-$module->getName()|multilang_get_translation:"common"-|</option>
+			<option value="|-$module->getName()-|" |-$category->getModule()|selected:$module->getName()-|>|-$module->getName()|multilang_get_translation:"common"-|</option>
 		|-/foreach-|
 		</select>
 		</p>
@@ -42,7 +42,7 @@
 	|-/if-|
 		<p><label for="category[isPublic]">Pública</label>
 		<input type="hidden" name="category[isPublic]" value="0" />
-		<input type="checkbox" name="category[isPublic]" value="1" |-if $category->getIsPublic() eq 1-| checked="checked" |-/if-| />
+		<input type="checkbox" name="category[isPublic]" value="1" |-$category->getIsPublic()|checked_bool-| />
 		</p>
 		<input type="hidden" name="id" id="id" value="|-$category->getId()-|" />
 		<input type="hidden" name="accion" id="accion" value="edicion" />

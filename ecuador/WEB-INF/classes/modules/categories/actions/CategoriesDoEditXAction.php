@@ -72,6 +72,7 @@ class CategoriesDoEditXAction extends BaseAction {
       
 			$category = new Category;
       Common::setObjectFromParams($category, $categoryParams);
+      $category->setActive(1);
       if (!$category->save())
         return $mapping->findForwardConfig('failure');
         
