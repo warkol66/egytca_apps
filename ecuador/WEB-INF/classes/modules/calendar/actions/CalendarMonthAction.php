@@ -24,12 +24,16 @@ class CalendarMonthAction extends BaseListAction {
         $this->filters['dateRange']['startdate']['max'] = CalendarEvent::getMonthEndDate($year,$month);
         //como es published mode traigo solo los eventos que no terminaron
         $this->filters['dateRange']['enddate']['min'] = CalendarEvent::getMonthStartDate($year,$month);
-        $this->filters['status'] = CalendarEvent::PUBLISHED;
 		
 	}
 
 	protected function postList() {
 		parent::postList();
+		
+		/*echo('<pre>');
+		print_r($this->results);
+		echo('</pre>');
+		die();*/
 		
 		$module = "Calendar";
 		$this->smarty->assign("module",$module);
@@ -86,11 +90,6 @@ class CalendarMonthAction extends BaseListAction {
 				$daysEvents[$day][] = $event;
 			}
 		}
-		
-		/*echo('<pre>');
-		print_r($daysEvents);
-		echo('</pre>');
-		die();*/
 		
 
 		$firstDay = date("w",mktime(0, 0, 0, $month, 1, $year));
