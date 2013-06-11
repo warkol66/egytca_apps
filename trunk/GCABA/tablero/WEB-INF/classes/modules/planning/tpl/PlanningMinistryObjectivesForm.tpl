@@ -76,7 +76,7 @@
       </p>
 					<p>
 				<label for="params_name">Objetivo Ministerial</label>
-			<input name="params[name]" type="text" id="params_name" size="80" value="|-$ministryObjective->getName()-|" title="Nombre del Objetivo Ministerial" maxlength="255"  class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
+			<input name="params[name]" type="text" id="params_name" size="80" value="|-$ministryObjective->getName()|escape-|" title="Nombre del Objetivo Ministerial" maxlength="255"  class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
 			</p>
 		<p>
 			<label for="params_description">Resumen Narrativo </label>

@@ -13,8 +13,8 @@ class PlanningMinistryObjectives2EditAction extends BaseEditAction {
 
 		//Constantes y opciones posibles
 		$this->smarty->assign("regions", RegionQuery::create()->filterByType('11')->find());
-		$this->smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
-		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
+		$this->smarty->assign("startingYear", Common::getStartingYear());
+		$this->smarty->assign("endingYear", Common::getEndingYear());
 		$this->smarty->assign("goalTypes", MinistryObjective::getGoalTypes());
 		$this->smarty->assign("goalTrends", MinistryObjective::getGoalTrends());
 

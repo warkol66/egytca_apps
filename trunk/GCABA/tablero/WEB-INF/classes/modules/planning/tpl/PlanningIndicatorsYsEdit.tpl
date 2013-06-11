@@ -51,7 +51,7 @@
 	|-foreach from=$series item=serie name=for_serie-|
 	|-assign value=$serie->getYForX($xValue) var=yValue-|
 		<td>
-			<input name="yValue[|-$xValue->getId()-|][|-$serie->getId()-|]" type="text" value="|-$yValue->getValue()-|" size="12" />
+			<input name="yValue[|-$xValue->getId()-|][|-$serie->getId()-|]" type="text" class="right" value="|-$yValue->getValue()-|" size="12" />
 		</td>
 	|-/foreach-|</tr>
 |-/foreach-|

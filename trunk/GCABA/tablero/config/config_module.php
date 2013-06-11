@@ -20,7 +20,22 @@ class ConfigModule {
 			"tmpwatch" => "/usr/sbin/tmpwatch",
 			"securityFailureThreshold" => 5,
 			"securityFailureThresholdTime" => 15,
-			"securityFailureBlockedTime" => 15
+			"securityFailureBlockedTime" => 15,
+			"defaultPeriod" => 2013,
+			"periodOptions" => array(
+				"2013" => array(
+					"startingYear" => 2013,
+					"endingYear" => 2013),
+				"2014" => array(
+					"startingYear" => 2014,
+					"endingYear" => 2014), 
+		/*		"2015" => array(
+					"startingYear" => 2015,
+					"endingYear" => 2015) */
+		/*		"2016" => array(
+					"startingYear" => 2016,
+					"endingYear" => 2016) */
+			)
 		),
 		"users" => array(
 			"useTimezones" => false,
@@ -34,6 +49,7 @@ class ConfigModule {
 		),
 		"planning" => array(
 			"useDemoValues" => false,
+			"defaultPeriod" => 2013,
 			"startingYear" => 2013,
 			"endingYear" => 2013,
 			"planningUsersGroup" => 31,
@@ -65,6 +81,7 @@ class ConfigModule {
 				)
 		),
 		"panel" => array(
+			"defaultPeriod" => 2013,
 			"startingYear" => 2013,
 			"endingYear" => 2013,
 			"positionsTypes" => array(
@@ -113,7 +130,7 @@ class ConfigModule {
 			)
 		),
 		"projects" => array(
-			"verifyGroupWriteAccess" => false,
+			"verifyGroupWriteAccess" => true,
 			"useLogs" => true,
 			"logsPerPage" => 5,
 			"useMinorChanges" => true,
@@ -141,7 +158,7 @@ class ConfigModule {
 			"useDocuments" => true
 		),
 		"objectives" => array(
-			"verifyGroupWriteAccess" => false,
+			"verifyGroupWriteAccess" => true,
 			"useLogs" => true,
 			"logsPerPage" => 5,
 			"useMinorChanges" => true,

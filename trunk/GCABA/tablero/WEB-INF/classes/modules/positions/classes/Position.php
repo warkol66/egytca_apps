@@ -332,11 +332,11 @@ class Position extends BasePosition {
 	public function getSpeed() {
 		$colorsWeight = $this->getProjectsByStatusColorWeightedByPriorityAssoc();
 		$totalWeight = array_sum($colorsWeight);
-		$speed = round((1 - (( $colorsWeight['red']*2 + $colorsWeight['yellow'] ) / ($totalWeight) ))*100);
-
-		return $speed < 0 ? 0 : $speed;
+		$pondaratedByStatus = ( $colorsWeight['blue'] * 1 + $colorsWeight['green'] * 0.90 + $colorsWeight['yellow'] * 0.25 + $colorsWeight['red'] * 0 + $colorsWeight['white'] * 0);
+		$speed = round( ($pondaratedByStatus / $totalWeight) * 100);
+		return $speed;
 	}
-	
+
 	/**
 	 * Obtiene un array asociativo con el total ponderado de PlanningProjects + PlanningConstructions
 	 * asignados al position por cada color.

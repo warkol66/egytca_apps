@@ -253,7 +253,20 @@ class ReportService{
         exportHandler='fcExporter1'
         exportDataSeparator='{tab}'
         showExportDataMenuItem='1'
-        formatNumberScale='0'>
+        formatNumberScale='0'
+				baseFont='Arial'
+				baseFontSize ='12'
+				baseFontColor ='000000'
+        >
+		    <styles>
+		      <definition>
+		          <style name='captionStyle' type='font' font='Arial' size='14' color='000000' bold='1' />
+		      </definition>
+		      <application>
+		          <apply toObject='Caption' styles='captionStyle' />
+		      </application>
+		    </styles>
+
     <categories>
         <category name='Linea de Base'/>
          ";
@@ -324,11 +337,16 @@ class ReportService{
         }
         mysqli_free_result($result);
         $xml = "<mapa>
-                    <fontsize>12</fontsize>
+                    <fontsize>16</fontsize>
                     <comunas>";
 
+				$colors = array("#FAFAF8","#FAFAEC","#FAFAE0","#FAFAD4","#FAFAC8","#FAFABC","#FAFAB0","#FAFAA4","#FAFA98","#FAFA8C","#FAFA80","#FAFA74","#FAFA68","#FAFA5C","#FAFA50");
+					usort($allRows, function($a, $b) {
+					    return $a['valor'] - $b['valor'];
+					});
+
         foreach($allRows as $key => $value)
-            $xml .= '       <comuna numero="' . $value["numero"] . '" color="#fafa5c" valor="$' . $value["valor"] . '" />';
+            $xml .= '       <comuna numero="' . $value["numero"] . '" color="'.$colors[$key].'" valor="$' . number_format($value["valor"], 0, ',', '.') . '" />';
         $xml .= '    </comunas>
 </mapa>';
         return $xml;
@@ -351,10 +369,16 @@ GROUP BY numero';
         }
         mysqli_free_result($result);
         $xml = "<mapa>
+                    <fontsize>16</fontsize>
                     <comunas>";
 
+				$colors = array("#FAFAF8","#FAFAEC","#FAFAE0","#FAFAD4","#FAFAC8","#FAFABC","#FAFAB0","#FAFAA4","#FAFA98","#FAFA8C","#FAFA80","#FAFA74","#FAFA68","#FAFA5C","#FAFA50");
+					usort($allRows, function($a, $b) {
+					    return $a['valor'] - $b['valor'];
+					});
+
         foreach($allRows as $key => $value)
-            $xml .= '       <comuna numero="' . $value["numero"] . '" color="#fafa5c" valor="' . $value["valor"] . '" />';
+            $xml .= '       <comuna numero="' . $value["numero"] . '" color="'.$colors[$key].'" valor="' . $value["valor"] . '" />';
         $xml .= '    </comunas>
 </mapa>';
         return $xml;

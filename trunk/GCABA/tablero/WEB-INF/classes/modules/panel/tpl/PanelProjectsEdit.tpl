@@ -6,6 +6,7 @@
 <h1>Seguimiento  de Proyectos</h1>
 <!-- Link VOLVER -->
 <!-- /Link VOLVER -->
+<script type="text/javascript" src="scripts/lightbox.js"></script>
 
 
 <!--Aca comienzan los cambios -->
@@ -50,10 +51,15 @@ myChart2.render("chartContainer2");
 	<h3>Listado y Gantt de actividades</h3>
   <form name="form_edit_project" id="form_edit_project" action="Main.php" method="post">
 	|-include file="PlanningActivitiesInclude.tpl" activities=$planningProject->getActivities() showGantt="true" margin="false" add="false" semaphore="true"-|
+ 
+    <p>  <label for="params_cancelled">Cancelado</label><input name="params[cancelled]" type="hidden" value="0"/>
+      <input name="params[cancelled]" type="checkbox" id="params_cancelled" value="1" title="Proyecto cancelado" |-$planningProject->getCancelled()|checked_bool-| /> </p>
+
     <input type="hidden" name="id" id="id" value="|-$planningProject->getId()-|" /> 
 		|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
     <input type="hidden" name="do" id="do" value="panelProjectsDoEdit" /> 
-		<p>|-javascript_form_validation_button id="button_edit" value='Guardar cambios' title='Guardar cambios'-|</p>
+		<p>|-javascript_form_validation_button id="button_edit" value='Guardar cambios' title='Guardar cambios'-|
+		<input type='button' onClick='location.href="Main.php?do=|-if isset($list)-||-$list-||-else-|panelProjectsList|-/if-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de Proyectos"/></p>
 </form>
 		 <h3>Partida presupuestaria &nbsp; <a href="javascript:void(null)" id="showHideBudgetRelations" onClick="$('budgetItemsTable').toggle(); $('showHideBudgetRelations').toggleClassName('expandLink');" class="collapseLink">&nbsp;<span>Ver/Ocultar</span></a></h3>|-include file="PlanningBudgetRelationsInclude.tpl" budgetItems=$planningProject->getBudgetItems() type="Project" objId=$planningProject->getId()-|
 	<h3>Listado de obras</h3>

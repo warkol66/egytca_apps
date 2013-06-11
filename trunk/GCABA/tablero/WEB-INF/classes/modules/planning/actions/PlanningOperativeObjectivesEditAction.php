@@ -14,8 +14,8 @@ class PlanningOperativeObjectivesEditAction extends BaseEditAction {
 		//Constantes y opciones posibles
 		$this->smarty->assign("productKinds", OperativeObjective::getProductKinds());
 		$this->smarty->assign("populationGenders", OperativeObjective::getPopulationGender());
-		$this->smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
-		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
+		$this->smarty->assign("startingYear", Common::getStartingYear());
+		$this->smarty->assign("endingYear", Common::getEndingYear());
 
 		//Constantes y opciones posibles para la creación de indicadores
 		$this->smarty->assign("planningIndicator", new PlanningIndicator());

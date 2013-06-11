@@ -50,10 +50,10 @@
 
         </div>
         <div class="floatleft" width="400px" height="600px">
-				<strong><center>Proyectos por comuna</center></strong><br>
-<br>
-<br>
-
+				<h6><strong><center>Obras de proyectos prioritarios por comuna</center></strong></h6>
+				<br />
+				<br />
+				<br />
             <div id="mapaChart" style="margin-top: -40px" width="500px" height="500px"></div>
             <script type="text/javascript">
                 dibujarMapa('mapaChart','xmlMapa.php');
@@ -81,8 +81,10 @@
 		//Render the exporter SWF in our DIV fcexpDiv
 		myExportComponent.Render("fcexpDiv");
 </script>
-
-<h6>Gasto en Obras por comuna acumulado en pesos corrientes al |-$updatedSigaf|date_format-|</h6>
+				<br />
+				<br />
+<h6>Gasto en Obras por comuna</h6>
+<h7>Acumulado en pesos corrientes al |-$updatedSigaf|date_format-|</h7>
 		<table class="tablaInfo small" id="gastoComuna">
 				<tr><th width="28%">Gasto por Comuna</th><th width="8%">Sanción </th><th width="8%">Vigente </th><th width="8%">Restringido </th><th width="8%">Preventivo </th><th width="8%">Definitivo </th><th width="8%">Devengado  </th><th width="8%">Disponible </th><th width="8%">Pagado  </th></tr>
 				<tr>

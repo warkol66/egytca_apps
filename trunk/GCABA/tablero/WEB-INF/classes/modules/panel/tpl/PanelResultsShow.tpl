@@ -191,7 +191,7 @@ function viewObjective(id){
 |-elseif $objective-|
 	<h1>|-$objective->getName()-|</h1>
 |-elseif $positions-|
-	<h1>Visión Estratégica</h1>
+	<h1>Indicadores de Resultado</h1>
 <div class="clearfix">
 <div style="float:left !Important" id="chartContainer">Cargando...</div>
 <div id="chartContainer2">Cargando...</div>
@@ -213,8 +213,8 @@ myChart2.render("chartContainer2");
 			<tr class="thFillTitle">
 				<th width="1%"></th>
 				<th width="89%"><!-- Orden Ranking -- Organigrama -- Ministerio --></th>
-				<th>Proyectos</th>
-				<th>Obras</th>
+				<th><div style="width:180px;">Proyectos</div></th>
+				<th><div style="width:180px;">Obras</div></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -226,30 +226,30 @@ myChart2.render("chartContainer2");
 				<td id="collapseP_|-$position->getId()-|" style="display: none;"><a href="#" onClick="objectivesHide(|-$position->getId()-|); return false;"><img src="images/icon_collapse.png" /></a></td>
 				<td><strong><a href="Main.php?do=panelProjectsShow&positionId=|-$position->getId()-|" class="detail">|-$position->getName()-|</a></strong></td>
 				<td align="center" nowrap="nowrap">
-					<div style="width:108px;"><!--<a href="" class="flagWhite">
+					<div style="width:180px;"><a href="" class="flagWhite">
 						|-$colorsCount.white-|
-					</a>--><a href="Main.php?do=panelProjectsShow&positionId=|-$position->getId()-|&color=green" class="flagGreen">
+					</a><a href="Main.php?do=panelProjectsShow&positionId=|-$position->getId()-|&color=green" class="flagGreen">
 						|-$colorsCount.green-|
 					</a><a href="Main.php?do=panelProjectsShow&positionId=|-$position->getId()-|&color=yellow" class="flagYellow">					
 						|-$colorsCount.yellow-|
 					</a><a href="Main.php?do=panelProjectsShow&positionId=|-$position->getId()-|&color=red" class="flagRed">
 						|-$colorsCount.red-|
-					</a><!--<a href="" class="flagBlue">
+					</a><a href="" class="flagBlue">
 						|-$colorsCount.blue-|
-					</a>--></div>
+					</a></div>
 				</td>
 				<td align="center" nowrap="nowrap" >
-					<div  style="width:108px;"><!--<a href="" class="flagWhite">
+					<div  style="width:180px;"><a href="" class="flagWhite">
 						|-$constColorsCount.white-|
-					</a>--><a href="Main.php?do=panelConstructionsShow&positionId=|-$position->getId()-|&color=green" class="flagGreen">
+					</a><a href="Main.php?do=panelConstructionsShow&positionId=|-$position->getId()-|&color=green" class="flagGreen">
 						|-$constColorsCount.green-|
 					</a><a href="Main.php?do=panelConstructionsShow&positionId=|-$position->getId()-|&color=yellow" class="flagYellow">
 						|-$constColorsCount.yellow-|
 					</a><a href="Main.php?do=panelConstructionsShow&positionId=|-$position->getId()-|&color=red" class="flagRed">
 						|-$constColorsCount.red-|
-					</a><!--<a href="" class="flagBlue">
+					</a><a href="" class="flagBlue">
 						|-$constColorsCount.blue-|
-					</a>--></div>
+					</a></div>
 				</td>
 			</tr>
 			<tr id="impactObjectives_|-$position->getId()-|" ></tr>

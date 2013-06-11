@@ -15,6 +15,9 @@ class UsersDoLoginAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
+		//////////
+		// Access the Smarty PlugIn instance
+		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -41,15 +44,12 @@ class UsersDoLoginAction extends BaseAction {
 				$_SESSION["loginUser"] = $user;
 				$smarty->assign("loginUser",$user);
 				Common::doLog('success','username: ' . $_POST["loginUsername"]);
+				$smarty->assign("SESSION",$_SESSION);
 
-				global $system;
-				$defaultSystemMode = $system["config"]["system"]["parameters"]["defaultSystemMode"]["value"];
-				$_SESSION[$defaultSystemMode] = true;
-
-				if (is_null($user->getPasswordUpdated()))
-					return $mapping->findForwardConfig('successFirstLogin');
-				else
-					return $mapping->findForwardConfig('success');
+			if (is_null($user->getPasswordUpdated()))
+				return $mapping->findForwardConfig('successFirstLogin');
+			else
+				return $mapping->findForwardConfig('success');
 			}
 		}
 

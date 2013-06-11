@@ -27,6 +27,10 @@ class PlanningProjectsListAction extends BaseListAction {
 
 		//Si es csv: no paginado, external vacio y para descargar
 		if ($_GET["csv"]) {
+			//Caso especial desetear el $_GET["filters"]["tagIds"] por el proceso por js
+			$tagIds = array_filter($_GET["filters"]["tagIds"]);
+			if (count($tagIds) == 0)
+				unset($this->filters["tagIds"]);
 			$this->notPaginated = true;
 			$this->smarty->assign("csv", true);
 			$this->template->template = 'TemplateAjax.tpl';

@@ -137,7 +137,8 @@ class BaseAction extends Action {
 						$access = $securityAction->getAccessByUser($loggedUser);
 					else if (!empty($securityModule))
 						$access = $securityModule->getAccessByUser($loggedUser);
-
+					else
+						$access = $loggedUser->isSupervisor();
 					if (empty($access)) {// No tiene permiso
 						header("Location:Main.php?do=securityNoPermission");
 						exit();

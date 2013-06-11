@@ -59,7 +59,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 		|-/if-|
 		<p>
         <label for="params_name">Nombre</label>
-      <input name="params[name]" type="text" id="params_name" size="80" value="|-$planningConstruction->getName()-|" title="Nombre del Obra" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
+      <input name="params[name]" type="text" id="params_name" size="80" value="|-$planningConstruction->getName()|escape-|" title="Nombre del Obra" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
       </p>
     <p> 
       <label for="params_description">Breve Descripción</label>
@@ -77,7 +77,7 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 	</p>
 	<p>
         <label for="params_tenderDescription">Detalles de la licitación</label>
-      <input name="params[tenderDescription]" type="text" id="params_tenderDescription" size="80" value="|-$planningConstruction->getTenderDescription()-|" title="Detalles de la licitación" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
+      <input name="params[tenderDescription]" type="text" id="params_tenderDescription" size="80" value="|-$planningConstruction->getTenderDescription()|escape-|" title="Detalles de la licitación" maxlength="255" class="emptyValidation" |-$readonly|readonly-| /> |-validation_msg_box idField="params_name"-|
     </p>
 	<p>
         <label for="params_surface">Superfice (mts2)</label>
@@ -119,11 +119,11 @@ $("#autocomplete_responsibleCode").ajaxChosen({
 		 |-if !$planningConstruction->isNew()-|<h3>Actividades</h3>|-include file="PlanningActivitiesInclude.tpl" activities=$planningConstruction->getActivities() construction="true"-||-/if-|
 	<p>
         <label for="params_fundingSource">Fuente de Financiamiento</label>
-      <input name="params[fundingSource]" type="text" id="params_fundingSource" size="80" value="|-$planningConstruction->getFundingSource()-|" title="Fuente de Financiamiento" |-$readonly|readonly-|/>
+      <input name="params[fundingSource]" type="text" id="params_fundingSource" size="80" value="|-$planningConstruction->getFundingSource()|escape-|" title="Fuente de Financiamiento" |-$readonly|readonly-|/>
     </p>
 	<p>
         <label for="params_address">Dirección</label>
-      <input name="params[address]" type="text" id="params_address" size="80" value="|-$planningConstruction->getAddress()-|" title="Dirección" |-$readonly|readonly-|/>
+      <input name="params[address]" type="text" id="params_address" size="80" value="|-$planningConstruction->getAddress()|escape-|" title="Dirección" |-$readonly|readonly-|/>
     </p>
 	<p>
 		<label for="params_regions">Comunas</label>

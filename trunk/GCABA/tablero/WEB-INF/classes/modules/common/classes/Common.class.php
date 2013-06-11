@@ -1401,20 +1401,50 @@ class Common {
 	}
 
 	/**
-	 * Guarda en la sesion el modo planeamiento
+	 * Guarda en la sesion el modo planeamiento y las fechas de inicio y fin del periodo correspondiente
 	 */
-	public static function setPlanningMode() {
+	public static function setPlanningMode($period = null) {
 		$_SESSION["planningMode"] = true;
 		unset($_SESSION["panelMode"]);
+		if (is_null($period))
+			$_SESSION["period"] = ConfigModule::get('planning', 'defaultPeriod');
+		else
+			$_SESSION["period"] = $period;
+		$periodDataArray = ConfigModule::get('global', 'periodOptions');
+		$_SESSION["periodDataArray"] = $periodDataArray;
+		$_SESSION["periodYears"]["startingYear"] = $periodDataArray[$_SESSION["period"]]['startingYear'];
+		$_SESSION["periodYears"]["endingYear"] = $periodDataArray[$_SESSION["period"]]['endingYear'];
 	}
 
 	/**
-	 * Guarda en la sesion el modo tablero
+	 * Guarda en la sesion el modo tablero y las fechas de inicio y fin del periodo correspondiente
 	 */
-	public static function setPanelMode() {
+	public static function setPanelMode($period = null) {
 		$_SESSION["panelMode"] = true;
 		unset($_SESSION["planningMode"]);
+		if (is_null($period))
+			$_SESSION["period"] = ConfigModule::get('panel', 'defaultPeriod');
+		else
+			$_SESSION["period"] = $period;
+		$periodDataArray = ConfigModule::get('global', 'periodOptions');
+		$_SESSION["periodDataArray"] = $periodDataArray;
+		$_SESSION["periodYears"]["startingYear"] = $periodDataArray[$_SESSION["period"]]['startingYear'];
+		$_SESSION["periodYears"]["endingYear"] = $periodDataArray[$_SESSION["period"]]['endingYear'];
 	}
+
+	/**
+	 * Entrega los year de inicio y fin por defecto
+	 */
+	public static function defaultYearLimits() {
+		if (isset($_SESSION["planningMode"]) && $_SESSION["planningMode"])
+			$period = ConfigModule::get('panel', 'defaultPeriod');
+		else
+			$period = ConfigModule::get('panel', 'defaultPeriod');
+
+		$periodDataArray = ConfigModule::get('global', 'periodOptions');
+		return $periodDataArray[$period];
+	}
+
 
 	/**
 	 * Indica si el sistema está en modo planeamiento
@@ -1422,7 +1452,7 @@ class Common {
 	 */
 	public static function isPlanningMode() {
 		if (isset($_SESSION["planningMode"]) && $_SESSION["planningMode"])
-		return true;
+			return true;
 	}
 
 	/**
@@ -1430,8 +1460,34 @@ class Common {
 	 * @return boolean
 	 */
 	public static function isPanelMode() {
-		if (isset($_SESSION["panelMode"]) && $_SESSION["planningMode"])
-		return true;
+		if (isset($_SESSION["panelMode"]) && $_SESSION["panelMode"])
+			return true;
+	}
+
+	/**
+	 * Regresa el year limite inferior segun este en modo planificacion o seguimiento
+	 * @return boolean
+	 */
+	public static function getStartingYear() {
+		if (isset($_SESSION["periodYears"]["startingYear"]) && $_SESSION["periodYears"]["startingYear"])
+			return $_SESSION["periodYears"]["startingYear"];
+		else {
+			$defaultYearLimits = Common::defaultYearLimits();
+			return $defaultYearLimits['startingYear'];
+		}
+	}
+
+	/**
+	 * Regresa el year limite superior segun este en modo planificacion o seguimiento
+	 * @return boolean
+	 */
+	public static function getEndingYear() {
+		if (isset($_SESSION["periodYears"]["endingYear"]) && $_SESSION["periodYears"]["endingYear"])
+			return $_SESSION["periodYears"]["endingYear"];
+		else {
+			$defaultYearLimits = Common::defaultYearLimits();
+			return $defaultYearLimits['endingYear'];
+		}
 	}
 
 /* Chequeo fallas login y seguridad al solicitar acciones no permitidas */

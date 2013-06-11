@@ -19,8 +19,8 @@ class PanelConstructionsEditAction extends BaseEditAction {
 	protected function postEdit() {
 		parent::postEdit();
 		$this->smarty->assign("regions", RegionQuery::create()->filterByType('11')->find());
-		$this->smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
-		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
+		$this->smarty->assign("startingYear", Common::getStartingYear());
+		$this->smarty->assign("endingYear", Common::getEndingYear());
 		$this->smarty->assign("tenderTypes", PlanningConstruction::getTenderTypes());
 		$this->smarty->assign("constructionTypes", PlanningConstruction::getConstructionTypes());
 

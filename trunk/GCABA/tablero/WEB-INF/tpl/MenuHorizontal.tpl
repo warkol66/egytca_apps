@@ -11,9 +11,20 @@
 			|-/if-|				
 	|-else-|
 			<li><a href="Main.php?do=usersWelcome" class="sub">Ir al Inicio</a>
-			|-if $loginUser->mayPlan() || $loginUser->mayFollow()-|<ul class="menu">
-				<li class="last">|-if !$smarty.session.panelMode-|<a href="Main.php?do=panelSetPanel">Cambiar a Modo Seguimiento</a>|-else-|<a href="Main.php?do=planningSetPlanning">Cambiar a Modo Planeamiento</a>|-/if-|</li>
-			</ul>|-/if-|
+	|-if $loginUser->mayPlan() || $loginUser->mayFollow()-|<ul class="menu">
+		|-if !$smarty.session.panelMode-|
+			<li><a href="Main.php?do=panelSetPanel">Cambiar a Modo Seguimiento</a>
+			|-foreach from=$smarty.session.periodDataArray item=period name=for_periods-|
+				<li|-if $period@last-| class="last"|-/if-|><a href="Main.php?do=panelSetPanel&period=|-$period@key-|"> Año |-$period@key-|: desde |-$period.startingYear-| hasta |-$period.endingYear-|</a></li>
+			|-/foreach-|
+		|-else-|
+			<li><a href="Main.php?do=planningSetPlanning">Cambiar a Modo Planeamiento</a></li>
+			|-foreach from=$smarty.session.periodDataArray item=period name=for_periods-|
+				<li|-if $period@last-| class="last"|-/if-|><a href="Main.php?do=planningSetPlanning&period=|-$period@key-|"> Año |-$period@key-|: desde |-$period.startingYear-| hasta |-$period.endingYear-|</a></li>
+			|-/foreach-|
+		|-/if-|
+		</ul>
+		|-/if-|
 		</li>
 			<li><a href="#" class="sub">Objetivos</a>
 			  <ul class="menu">
@@ -57,6 +68,7 @@
 				<li><a href="Main.php?do=usersList">Usuarios</a></li>
 				<li><a href="Main.php?do=usersGroupsList">Grupos de Usuarios</a></li>
 				<li><a href="Main.php?do=usersLevelsList">Niveles Usuarios</a></li>
+				<li><a href="Main.php?do=regionsList">Parroquias</a></li>
 				<li class="last"><a href="Main.php?do=planningProjectTagsList">Etiquetas de Proyectos</a></li>
 				<!--<li><a href="Main.php?do=categoriesList">Categorías</a></li>-->
 				<li><a href="Main.php?do=commonActionLogsList">Histórico de Operaciones</a></li>

@@ -91,8 +91,10 @@ class ActionLogPeer extends BaseActionLogPeer {
 		if ($this->orderByDatetime)
 			$criteria->addDescendingOrderByColumn(ActionLogPeer::DATETIME);
 
-		if (!empty($this->userId)) 
-			$criteria->add(ActionLogPeer::USERID, $this->userId);
+		if (!empty($this->userId)) {
+			$criteria->add(ActionLogPeer::USEROBJECTID, $this->userId);
+			$criteria->add(ActionLogPeer::USEROBJECTTYPE, "User");
+		}
 
 		if (!empty($this->affiliateId)) 
 			$criteria->add(ActionLogPeer::AFFILIATEID, $this->affiliateId);

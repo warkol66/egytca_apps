@@ -102,8 +102,8 @@ class PanelExpensesShowAction extends BaseAction {
 	function getEntitiesExpenses($entities) {
 		
 		$yearsRange = array(
-			'min' => ConfigModule::get('planning', 'startingYear'),
-			'max' => ConfigModule::get('planning', 'endingYear')
+			'min' => Common::getStartingYear(),
+			'max' => Common::getEndingYear()
 		);
 		
 		$entitiesExpenses = array();

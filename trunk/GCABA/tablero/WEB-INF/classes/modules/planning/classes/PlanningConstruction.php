@@ -14,19 +14,19 @@ require_once 'BaseProject.php';
  * @package    propel.generator.planning.classes
  */
 class PlanningConstruction extends BasePlanningConstruction {
-	
+
 	private $baseProject;
-	
+
 	/* ******** random values for testing ******** */
 	private $useRandomValues;
-	
+
 	private $randomAcomplished;
 	private $randomCancelled;
 	private $randomRealStart;
 	private $randomRealEnd;
 	private $randomStartingDate;
 	private $randomEndingDate;
-	
+
 	private function randomDate($format) {
 		$format = str_replace('%', '', $format);
 		if (rand(0, 1)) {
@@ -36,7 +36,7 @@ class PlanningConstruction extends BasePlanningConstruction {
 			return date($format, strtotime('today '.$sign.rand(0, 365).' days'));
 		}
 	}
-	
+
 	public function getAcomplished() {
 		if ($this->useRandomValues) {
 			if (!isset($this->randomAcomplished))
@@ -46,7 +46,7 @@ class PlanningConstruction extends BasePlanningConstruction {
 			return parent::getAcomplished();
 		}
 	}
-	
+
 	public function getCancelled() {
 		if ($this->useRandomValues) {
 			if (!isset($this->randomCancelled))
@@ -56,7 +56,7 @@ class PlanningConstruction extends BasePlanningConstruction {
 			return parent::getCancelled();
 		}
 	}
-	
+
 	public function getRealStart($format = '%Y/%m/%d') {
 		if ($this->useRandomValues) {
 			if (!isset($this->randomRealStart))
@@ -66,7 +66,7 @@ class PlanningConstruction extends BasePlanningConstruction {
 			return parent::getRealStart($format);
 		}
 	}
-	
+
 	public function getRealEnd($format = '%Y/%m/%d') {
 		if ($this->useRandomValues) {
 			if (!isset($this->randomRealEnd))
@@ -76,7 +76,7 @@ class PlanningConstruction extends BasePlanningConstruction {
 			return parent::getRealEnd($format);
 		}
 	}
-	
+
 	public function getStartingDate($format = '%Y/%m/%d') {
 		if ($this->useRandomValues) {
 			if (!isset($this->randomStartingDate))
@@ -86,7 +86,7 @@ class PlanningConstruction extends BasePlanningConstruction {
 			return parent::getStartingDate($format);
 		}
 	}
-	
+
 	public function getEndingDate($format = '%Y/%m/%d') {
 		if ($this->useRandomValues) {
 			if (!isset($this->randomEndingDate))
@@ -97,13 +97,13 @@ class PlanningConstruction extends BasePlanningConstruction {
 		}
 	}
 	/* ****** end random values for testing ****** */
-	
+
 	public function __construct() {
 		parent::__construct();
 		$this->baseProject = new BaseProject($this);
 		$this->useRandomValues = ConfigModule::get('planning', 'useDemoValues');
 	}
-	
+
 	public function __call($name, $params) {
 		try {
 			return parent::__call($name, $params);
@@ -114,19 +114,19 @@ class PlanningConstruction extends BasePlanningConstruction {
 				throw $e;
 		}
 	}
-	
+
 	public function postSave(\PropelPDO $con = null) {
 		parent::postSave($con);
 		if ($this->getPlanningProject())
 			$this->getPlanningProject()->doUpdateRealDates();
 	}
-	
+
 	// TODO: Deberia reemplazar a isOnWork()????
 	public function isOnExecution() {
 		return ( !$this->getRealEnd() && $this->getRealStart('U') && ($this->getRealStart('U') < date('U')) )
 			|| $this->hasActivitiesOnExecution();
 	}
-	
+
 	public function hasActivitiesOnExecution() {
 		foreach ($this->getActivities() as $activity) {
 			if ($activity->isOnExecution())
@@ -134,15 +134,15 @@ class PlanningConstruction extends BasePlanningConstruction {
 		}
 		return false;
 	}
-	
+
 	public function isToBeInaugurated() {
 		$inaugurationDateBefore = ConfigModule::get('panel', 'inaugurationDateBefore');
 		$inaugurationDateAfter = ConfigModule::get('panel', 'inaugurationDateAfter');
-		
+
 		return $this->getPotentialendingdate('U') > strtotime("now - $inaugurationDateBefore days")
 				&& $this->getPotentialendingdate('U') < strtotime("now + $inaugurationDateAfter days");
 	}
-	
+
 	/**
 	 * Obtiene el objective asociado al project
 	 */
@@ -202,14 +202,14 @@ class PlanningConstruction extends BasePlanningConstruction {
 	 * @return array Versions para el proyecto ordenados en forma decreciente por fecha de creacion.
 	 */
 	public function getVersionsOrderedByUpdatedPaginated($orderType = Criteria::ASC, $page=1, $maxPerPage=5) {
-		$filters = array();		
+		$filters = array();
 		return BaseQuery::create('PlanningConstructionLog')->getAllByPlanningConstruction($this->getId(), $orderType)->createPager($filters, $page, $maxPerPage);
 	}
 
 	/**
 	 * Devuelve true si el PlanningConstruction tiene asociada la region,
 	 * y false caso contrario.
-	 * 
+	 *
 	 * @param Region $region
 	 * @return boolean
 	 */
@@ -240,26 +240,31 @@ class PlanningConstruction extends BasePlanningConstruction {
 	public function countActivities() {
 		return BaseQuery::create('PlanningActivity')->filterByObjecttype('Construction')->filterByObjectid($this->getId())->count();
 	}
-	
+
+	/**
+	 * Actualiza las fechas de inicio y finalizacion reales al guardar actividades
+	 */
 	public function doUpdateRealDates() {
 		$this->updateRealEnd();
 		$this->updateRealStart();
 		$this->save();
 	}
-	
+
+	/**
+	 * Actualiza las fechas de finalizacion reales al guardar actividades
+	 */
 	private function updateRealEnd() {
-		
+
 		$unfinishedActivitiesCount = BaseQuery::create('PlanningActivity')
-			->filterByObjecttype('Construction')
-			->filterByObjectid($this->getId())
-			->filterByRealEnd(null, Criteria::ISNULL)
-			->count()
-		;
+																			->filterByObjecttype('Construction')
+																			->filterByObjectid($this->getId())
+																			->filterByRealEnd(null, Criteria::ISNULL)
+																			->count();
 		if ($unfinishedActivitiesCount != 0) {
 			$this->setRealend(null);
 			return;
 		}
-		
+
 		$lastFinishedActivity = BaseQuery::create('PlanningActivity')
 			->filterByObjecttype('Construction')
 			->filterByObjectid($this->getId())
@@ -269,17 +274,18 @@ class PlanningConstruction extends BasePlanningConstruction {
 		;
 		$this->setRealend($lastFinishedActivity ? $lastFinishedActivity->getRealStart() : null);
 	}
-	
+
+	/**
+	 * Actualiza las fechas de inicio reales al guardar actividades
+	 */
 	private function updateRealStart() {
-		
+
 		$firstStartedActivity = BaseQuery::create('PlanningActivity')
-			->filterByObjecttype('Construction')
-			->filterByObjectid($this->getId())
-			->filterByRealStart(null, Criteria::ISNOTNULL)
-			->orderByRealstart(Criteria::ASC)
-			->findOne()
-		;
-		
+															->filterByObjecttype('Construction')
+															->filterByObjectid($this->getId())
+															->filterByRealStart(null, Criteria::ISNOTNULL)
+															->orderByRealstart(Criteria::ASC)
+															->findOne();
 		$this->setRealstart($firstStartedActivity ? $firstStartedActivity->getRealStart() : null);
 	}
 
@@ -353,13 +359,17 @@ class PlanningConstruction extends BasePlanningConstruction {
 	public function getDatesArrayForGantt($startDate = NULL, $endDate = NULL) {
 
 		$firstDateStr = BaseQuery::create('PlanningActivity')->filterByObjecttype('Construction')->filterByObjectid($this->getId())
-																		->filterByEndingdate(null, Criteria::ISNOTNULL)
-																		->filterByEndingdate('0000-00-00', Criteria::NOT_EQUAL)
-																		->orderByEndingdate()->select('Endingdate')->findOne();
+														->filterByEndingdate(null, Criteria::ISNOTNULL)
+														->filterByEndingdate('0000-00-00', Criteria::NOT_EQUAL)
+														->orderByEndingdate()
+														->select('Endingdate')
+														->findOne();
 		$lastDateStr = BaseQuery::create('PlanningActivity')->filterByObjecttype('Construction')->filterByObjectid($this->getId())
-																		->filterByEndingdate(null, Criteria::ISNOTNULL)
-																		->filterByEndingdate('0000-00-00', Criteria::NOT_EQUAL)
-																		->orderByEndingdate(Criteria::DESC)->select('Endingdate')->findOne();
+														->filterByEndingdate(null, Criteria::ISNOTNULL)
+														->filterByEndingdate('0000-00-00', Criteria::NOT_EQUAL)
+														->orderByEndingdate(Criteria::DESC)
+														->select('Endingdate')
+														->findOne();
 
 		if (!is_null($startDate) && $startDate < $firstDateStr)
 			$firstDateStr = $startDate;
@@ -368,12 +378,14 @@ class PlanningConstruction extends BasePlanningConstruction {
 
 		$firstDate = new DateTime($firstDateStr);
 		$lastDate = new DateTime($lastDateStr);
+		if ($firstDate->format('Y-m') == $lastDate->format('Y-m'))
+			$firstDate->modify('-1 month');
 
-		while ($firstDate <= $lastDate) { 
+		while ($firstDate <= $lastDate) {
 			$dates = Common::findFirstAndLastDay($firstDate->format('Y-m-d'));
 			$datesArray[] = $dates;
 			$firstDate = DateTime::createFromFormat('Y-m-d', $dates["last"]);
-			$firstDate->modify('+1 day');	
+			$firstDate->modify('+1 day');
 		}
 
 		return $datesArray;

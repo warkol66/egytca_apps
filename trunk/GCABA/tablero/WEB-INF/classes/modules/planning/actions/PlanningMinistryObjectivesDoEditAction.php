@@ -25,8 +25,8 @@ class PlanningMinistryObjectivesDoEditAction extends BaseDoEditAction {
 	protected function onFailure($e) {
 		parent::onFailure($e);
 		$this->smarty->assign("regions", RegionQuery::create()->filterByType('11')->find());
-		$this->smarty->assign("startingYear", ConfigModule::get("planning","startingYear"));
-		$this->smarty->assign("endingYear", ConfigModule::get("planning","endingYear"));
+		$this->smarty->assign("startingYear", Common::getStartingYear());
+		$this->smarty->assign("endingYear", Common::getEndingYear());
 	}
 
 	private function updateRegions() {
