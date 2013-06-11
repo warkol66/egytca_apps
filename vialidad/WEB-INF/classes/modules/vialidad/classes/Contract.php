@@ -15,6 +15,42 @@
  */
 class Contract extends BaseContract {
 	
+	function getProgrammedProgress($date) {
+		
+		require_once 'Period.php';
+		$format = 'Y-m-d';
+		$period = new Period($date, $format);
+		
+		$indicatorY = IndicatorYQuery::create()
+			->useIndicatorXQuery()
+				->filterByDate($period->getLimits($format))
+				->useIndicatorQuery()
+					->filterByContract($this)
+				->endUse()
+			->endUse()
+			->findOne();
+		
+		return is_null($indicatorY) ? 0 : $indicatorY->getValue();
+	}
+	
+	public function getAcummulatedProgrammedProgress($date) {
+		
+		require_once 'Period.php';
+		$format = 'Y-m-d';
+		$period = new Period($date, $format);
+		
+		$indicatorYQuery = IndicatorYQuery::create()
+			->useIndicatorXQuery()
+				->filterByDate($period->getMax($format), Criteria::LESS_THAN)
+				->useIndicatorQuery()
+					->filterByContract($this)
+				->endUse()
+			->endUse()
+			->select('Value');
+		
+		return array_sum($indicatorYQuery->find()->toArray());
+	}
+	
 	public function getAdvancePaymentInvoice() {
 		return AdvancePaymentInvoiceQuery::create()->filterByContract($this)->findOne();
 	}
