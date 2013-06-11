@@ -6,8 +6,9 @@
 		<column name="parentId" type="INTEGER" required="true" description="Parent Category if it has" default='0' />
 		<column name="name" size="255" type="VARCHAR" required="true" description="Category name"/>
 		<column name="module" size="255" type="VARCHAR" description="Module name if it is for a module" default="" />
-		<column name="active" type="BOOLEAN" required="true" description="Is category active?" />
-		<column name="isPublic" type="BOOLEAN" required="true" description="Is category public?" default="0" />
+		<column name="description" type="LONGVARCHAR" description="Descripcion" />
+		<column name="active" type="BOOLEAN" required="true" default='1' description="Is category active?" />
+		<column name="isPublic" type="BOOLEAN" required="true" description="Is category public?" default="1" />
 
 		<behavior name="soft_delete" />
 
