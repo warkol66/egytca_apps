@@ -1,7 +1,8 @@
 <h2>Contratos - Desembolsos</h2>
 <h1>Períodos de Curva de Avance</h1>
 <p>A continuación encontrará los meses que abarca la curva de avances. Si quiere agregar un período más, haga click en "Agregar Período". Puede modificar los períodos existentes en el campo junto al mismo.<br />
-Para cambiar el orden en que aparecen los meses, arrastre el nombre del mismo a la posición deseada; el sistema le indicará si la operación resultó exitosa.</p>
+Para cambiar el orden en que aparecen los meses, arrastre el nombre del mismo a la posición deseada; el sistema le indicará si la operación resultó exitosa.<br />
+NOTA: Para poder generar cálculos en el sistema apartir de las fecha, los formatos de períodos deben expresarse como MM-AAAA (dos cifras para mes y 4 para el año)</p>
 <p><strong>Gráfico:</strong> |-$indicator->getName()-|</p>
 <form method="post">
 <div id="operationInfo"></div>
@@ -11,7 +12,7 @@ Para cambiar el orden en que aparecen los meses, arrastre el nombre del mismo a 
 	<ul id="xsList">
 		<li class="contentLi" style="display:none;">
 			<label for="xLabel[name][]">Nuevo Período</label>
-			<input name="xLabel[name][]" type="text" id="xLabel[name][]" value="" size="45" title="Nombre deel período" /> 
+			<input name="xLabel[name][]" type="text" id="xLabel[name][]" value="" size="15" title="Nombre del período en formato MM-AAAA" /> 
 			<input name="xLabel[id][]" type="hidden" id="xLabel[id][]" value="0" />
 			<a href="#" onclick="if (confirm('¿Seguro que desea eliminar el período?')){this.parentNode.remove()}; return false;"><img src="images/clear.png" class="icon iconDelete"></a>
 		</li>
@@ -19,7 +20,7 @@ Para cambiar el orden en que aparecen los meses, arrastre el nombre del mismo a 
 		|-foreach from=$xValues item=xValue name=for_xValue-|
 			<li id="xsList_|-$xValue->getId()-|" class="contentLi">
 				<label for="xLabel[name][]">|-$xValue->getName()|escape-|</label>
-				<input name="xLabel[name][]" type="text" id="xLabel[name][]" value="|-$xValue->getName()|escape-|" size="45" title="Nombre del período" />
+				<input name="xLabel[name][]" type="text" id="xLabel[name][]" value="|-$xValue->getName()|escape-|" size="15" title="Nombre del período en formato MM-AAAA" />
 				<input name="xLabel[id][]" type="hidden" id="xLabel[id][]" value="|-$xValue->getId()-|" />
 				<a href="#" onclick='if (confirm("¿Seguro que desea eliminar el Período?")){new Ajax.Updater("operationInfo", "Main.php?do=indicatorsXsDoDeleteX", { method: "post", parameters: { id: "|-$xValue->getId()-|"}, evalScripts: true})};return false;'><img src="images/clear.png" class="icon iconDelete"></a>
 			</li>
