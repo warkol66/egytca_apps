@@ -3,22 +3,28 @@
 $moduleRootDir = dirname(__FILE__);
 
 if (PHP_OS != "WINNT")
-	set_include_path($moduleRootDir.'/externals/phpMVC/WEB-INF/lib/pear/:'.$moduleRootDir.'/WEB-INF/classes/propel/build/classes/');
+	set_include_path('/usr/local/lib/php/phpMVC5.3/WEB-INF/lib/pear/:'.$moduleRootDir.'/WEB-INF/lib-phpmvc/Propel:'.$moduleRootDir.'/WEB-INF/classes/modules');
 else
 	set_include_path('C:\\apache\\htdocs2\\anmaga\\trunk\\externals\\phpMVC\\WEB-INF\\lib\\pear\\;C:\\apache\\htdocs2\\anmaga\\trunk\\WEB-INF\\classes\\propel\\build\\classes\\');
 
 require_once 'Log.php';
-require_once 'propel/Propel.php';
+
+//Propel Version
+$propelConfig = include("$moduleRootDir/config/application-conf.php");
+$propelVersion = $propelConfig["generator_version"];
+require_once $propelVersion.'/runtime/lib/Propel.php';
+Propel::init("$moduleRootDir/config/application-conf.php");
+
 
 if (PHP_OS != "WINNT") {
-	Propel::init("$moduleRootDir/config/anmaga-conf.php");
-	require_once 'WEB-INF/classes/propel/build/classes/anmaga/AffiliatePeer.php';
+	Propel::init("$moduleRootDir/config/application-conf.php");
+/*	require_once 'WEB-INF/classes/propel/build/classes/anmaga/AffiliatePeer.php';
 	require_once 'WEB-INF/classes/propel/build/classes/anmaga/AffiliateInfoPeer.php';
 	require_once 'WEB-INF/classes/propel/build/classes/anmaga/Branch.php';
-	require_once 'WEB-INF/classes/propel/build/classes/anmaga/BranchPeer.php';
+	require_once 'WEB-INF/classes/propel/build/classes/anmaga/BranchPeer.php';*/
 }
 else{
-	Propel::init("C:\\apache\\htdocs2\\anmaga\\trunk\\config\\anmaga-conf.php");
+	Propel::init("$moduleRootDir/config/application-conf.php");
 	require_once 'WEB-INF\\classes\\propel\\build\\classes\\anmaga\\AffiliatePeer.php';
 	require_once 'WEB-INF\\classes\\propel\\build\\classes\\anmaga\\AffiliateInfoPeer.php';
 	require_once 'WEB-INF\\classes\\propel\\build\\classes\\anmaga\\Branch.php';
@@ -37,18 +43,21 @@ if (is_file("updates/Clientes.txt")) {
 		$row[5] = trim($row[5]);
 		$affiliateCode = $row[5];
 	
-		$affiliateInfo = AffiliatePeer::getByInternalNumber($affiliateCode);
+		$affiliate = AffiliatePeer::getByInternalNumber($affiliateCode);
 	
-		if (!is_object($affiliateInfo)){ // No tiene afiliado válido
+		if (!is_object($affiliate)){ // No tiene afiliado válido
 			$affiliateCode = "V";
 			$affiliateInfo = AffiliatePeer::getByInternalNumber($affiliateCode);
-			if (!is_object($affiliateInfo)) // Si no es "V" es "OFI"
-				$affiliateInfo = AffiliatePeer::getByInternalNumber('OFI');
+			if (!is_object($affiliate)) // Si no es "V" es "OFI"
+				$affiliate = AffiliatePeer::getByInternalNumber('OFI');
 			$errors .= "No se encontro mayorista: '$row[5]'\n";
 		}
-	
-		$affiliateId = $affiliateInfo->getAffiliateId();
-			
+
+		if (is_object($affiliate)) // No tiene afiliado válido
+			$affiliateId = $affiliate->getId();
+		else
+			$affiliateId = 1;
+
 		$branch = AffiliateBranchPeer::getByCode($row[0]);
 		if (empty($branch))
 			$branch = New AffiliateBranch();

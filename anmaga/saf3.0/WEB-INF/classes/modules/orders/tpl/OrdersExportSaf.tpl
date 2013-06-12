@@ -1,11 +1,11 @@
 |-* WARNING: Cuidado con las dobles comillas en los formatos de número *-|<?xml version = "1.0" encoding="Windows-1252" standalone="yes"?>
 <VFPData>
-|-counter start=0 assign=subnumber name=subnumber-||-counter start=0 assign=iteration name=iteration-||-assign var=currentOrder value=$smarty.now|date_format:"%Y%m%d%H%M%S"-|
+|-counter start=0 assign=subnumber name=subnumber-||-counter start=0 assign=iteration name=iteration-||-assign var=currentOrder value=$smarty.now|change_timezone|date_format:"%Y%m%d%H%M%S"-|
 |-foreach from=$orderItems item=orderItem name=for_orderItems-||-counter name=iteration-||-assign var=productOrderCode value=$orderItem->getOrderCode()-||-assign var=productOrderCodePre value=$productOrderCode|truncate:1:""-||-assign var=unit value=$orderItem->getUnit()-||-if ($lastProductOrderCodePre ne $productOrderCodePre) && ($iteration ne 1)-||-*Corte por almacen, controla que el producto sea del mismo almacen que el actual *-||-counter name=subnumber-||-counter start=0 assign=iteration name=iteration-||-/if-|	<cursor_profit_xml>
 		<nro_ord>|-* Generar codigo especial para cada orden*-||-$currentOrder-|_|-$subnumber-|</nro_ord>
 		<co_cli>|-* El codigo del mayorista en el SAF de ANMAGA*-||-$profitCode-|</co_cli>
-		<fec_emis>|-$smarty.now|date_format:"%Y-%m-%d"-|</fec_emis>
-		<fec_venc>|-$smarty.now|date_format:"%Y-%m-%d"-|</fec_venc>
+		<fec_emis>|-$smarty.now|change_timezone|date_format:"%Y-%m-%d"-|</fec_emis>
+		<fec_venc>|-$smarty.now|change_timezone|date_format:"%Y-%m-%d"-|</fec_venc>
 		<descrip>Consolidado |-$siteShortName-|</descrip>
 		<reng_num>|-$iteration-|</reng_num>
 		<co_art>|-$orderItem->getCode()-|</co_art>
