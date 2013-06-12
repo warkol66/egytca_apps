@@ -100,7 +100,7 @@ iframe{
 	function deleteDocument(documentId, entryId){
 		$.ajax({
 			url: 'Main.php?do=documentsDoDeleteX',
-			data:$('#document_|-$document->getId()-|').serialize(),
+			data:$('#document_' + documentId).serialize(),
 			type: 'post',
 			success:function(){
 				$('#documentOperationInfo').html(data);
