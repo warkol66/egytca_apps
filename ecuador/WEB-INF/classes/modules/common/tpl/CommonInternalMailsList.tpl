@@ -1,4 +1,5 @@
-<!--script src="scripts/prototype.js" language="JavaScript" type="text/javascript"></script-->
+<script src="scripts/prototype.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/lightbox.js" language="JavaScript" type="text/javascript"></script>
 |-if !$result-|
 <h2>Mensajería Interna</h2>
 <h1>Administración de Mensajes</h1>
@@ -80,8 +81,13 @@
 	</div>
 </div> 
 
+<!--div style="display:none;">
+	<div id="data">
+	</div>
+</div-->
+
 <script type="text/javascript" language="javascript" charset="utf-8">
-	//jQuery.noConflict();
+	jQuery.noConflict();
 	
 	var selected=-1;
 	
@@ -106,62 +112,39 @@
 	
 	function markAsRead(ids) {
 		if (ids === undefined)
-			ids = Form.serializeElements($$('.selector'));
+			ids = jQuery('.selector').serialize();
 		else
-			ids = Object.toQueryString(ids);
-		var fields = ids + '&' + Form.serializeElements($$('.filter')) + '&' + Form.serializeElements($$('#page'));
-		var myAjax = new Ajax.Updater(
-			{success: 'internalMailsList'},
-			'Main.php?do=commonInternalMailsDoMarkAsReadX',
-			{
-				method: 'post',
-				postBody: fields,
-				evalScripts: true,
-				onComplete: updateLightBox //inicializamos el lighbox nuevamente
-			}
-		);
-		var allbox = document.getElementById('allbox');
-		allbox.checked = false;
-		return true;
-	}
-	
-	function markAsUnread(ids) {
-		ids = $('.selector').serialize();
-		if (ids === undefined)
-			ids = $('.selector').serialize();
-		else
-			//ids = Object.toQueryString(ids);
-		var fields = ids + '&' + $('.filter').serialize() + '&' + $('#page').serialize() + 'reverse=true';
-		alert(fields);
-		$.ajax({
+			ids = jQuery(ids).serialize();//Object.toQueryString(ids);
+		var fields = ids + '&' + jQuery('.filter').serialize() + '&' + jQuery('#page').serialize();
+		jQuery.ajax({
 			url: 'Main.php?do=commonInternalMailsDoMarkAsReadX',
 			data: fields,
 			type: 'post',
 			success: function(data){
-				$('#internalMailsList').html(data);
+				jQuery('#internalMailsList').html(data);
 				updateLightBox();
 			}	
 		});
-		$('#allbox').attr('checked',false);
+		jQuery('#allbox').attr('checked',false);
 		return true;
-		
-		/*if (ids === undefined)
-			ids = Form.serializeElements($$('.selector'));
+	}
+	
+	function markAsUnread(ids) {
+		if (ids === undefined)
+			ids = jQuery('.selector').serialize();
 		else
-			ids = Object.toQueryString(ids);
-		var fields = ids + '&' + Form.serializeElements($$('.filter')) + '&' + Form.serializeElements($$('#page')) + '&reverse=true';
-		var myAjax = new Ajax.Updater(
-			{success: 'internalMailsList'},
-			'Main.php?do=commonInternalMailsDoMarkAsReadX',
-			{
-				method: 'post',
-				postBody: fields,
-				evalScripts: true,
-				onComplete: updateLightBox //inicializamos el lighbox nuevamente
-			}
-		);
-		var allbox = document.getElementById('allbox');
-		allbox.checked = false;*/
+			ids = jQuery(ids).serialize();//Object.toQueryString(ids);
+		var fields = ids + '&' + jQuery('.filter').serialize() + '&' + jQuery('#page').serialize() + 'reverse=true';
+		jQuery.ajax({
+			url: 'Main.php?do=commonInternalMailsDoMarkAsReadX',
+			data: fields,
+			type: 'post',
+			success: function(data){
+				jQuery('#internalMailsList').html(data);
+				updateLightBox();
+			}	
+		});
+		jQuery('#allbox').attr('checked',false);
 		return true;
 	}
 	
@@ -179,7 +162,16 @@
 			}
 		);
 		if (selected != id) { 
-		
+			
+			/*jQuery.ajax({
+				url: 'Main.php?do=commonInternalMailsViewX&id='+id,
+				type: 'post',
+				success: function(data){
+					jQuery('#data').html(data);
+					
+				}
+			});
+			jQuery('a#inline'+id).fancybox();*/
 			//Cargamos los datos en el lightbox.
 			document.getElementById('lightboxContent').innerHTML = "<p class='inProgress'>Cargando mensaje</p>";
 			var myAjax = new Ajax.Updater(
@@ -198,6 +190,17 @@
 	}
 	
 	function updateLightBox() {
+		/*lbox = $('.lbOn');
+		for(i = 0; i < lbox.length; i++) {
+			valid = $(lbox[i]).lightbox;
+			lbActions = $('.lbAction');
+			for(j = 0; j < lbActions.length; j++) {
+				$(lbActions[j]).click(function(){
+					valid[lbActions[j].rel].bind(valid);
+					return false;
+				});
+			}
+		}*/
 		lbox = document.getElementsByClassName('lbOn');
 		for(i = 0; i < lbox.length; i++) {
 			valid = new lightbox(lbox[i]);
