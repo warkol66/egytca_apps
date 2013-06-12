@@ -23,7 +23,7 @@ class Contract extends BaseContract {
 		
 		$indicatorY = IndicatorYQuery::create()
 			->useIndicatorXQuery()
-				->filterByDate($period->getLimits($format))
+				->filterByPeriod($period)
 				->useIndicatorQuery()
 					->filterByContract($this)
 				->endUse()
@@ -41,7 +41,7 @@ class Contract extends BaseContract {
 		
 		$indicatorYQuery = IndicatorYQuery::create()
 			->useIndicatorXQuery()
-				->filterByDate($period->getMax($format), Criteria::LESS_THAN)
+				->filterByPeriod($period, Criteria::LESS_EQUAL)
 				->useIndicatorQuery()
 					->filterByContract($this)
 				->endUse()
