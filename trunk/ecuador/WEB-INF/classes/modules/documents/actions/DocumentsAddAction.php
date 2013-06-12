@@ -14,8 +14,8 @@ class DocumentsAddAction extends BaseEditAction {
 		parent::__construct('Document');
 	}
 	
-	protected function preUpdate() {
-		parent::preUpdate();
+	protected function postEdit() {
+		parent::postEdit();		
 		$this->template->template = 'TemplateAjax.tpl';
 	}
 
