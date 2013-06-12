@@ -67,7 +67,6 @@
 				<input type="hidden" name="accion" value="edit" />
 				|-/if-|
 						|-javascript_form_validation_button value=Guardar-|
-				|-if !$firstLogin-|<input type='button' onClick='javascript:history.go(-1)' value='##104,Regresar##'/>|-/if-|
 	</p>
 
 </fieldset>
