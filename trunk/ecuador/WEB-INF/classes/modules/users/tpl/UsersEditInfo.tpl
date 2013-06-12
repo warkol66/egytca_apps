@@ -1,3 +1,7 @@
+<script type="text/javascript">
+	jQuery.noConflict();
+</script>
+<script src="scripts/prototype.js" language="JavaScript" type="text/javascript"></script>
 <h2>##common,18,Configuración del Sistema##</h2>
 <h1>##users,151,Administración de Usuarios##</h1>
 <!-- Link VOLVER -->

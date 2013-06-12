@@ -109,8 +109,8 @@ class UserPeer extends BaseUserPeer {
 			$user = new User();
 			$user->setUsername($username);
 			$user->setPassword(Common::md5($pass));
-			$user->setCreated(time());
-			$user->setUpdated(time());
+			$user->setCreatedAt(time());
+			$user->setUpdatedAt(time());
 			$user->setLevelId($levelId);
 			$user->setActive(1);
 			$user->setTimezone($timezone);
@@ -143,8 +143,8 @@ class UserPeer extends BaseUserPeer {
 			}
 		}
 		$object->setPassword(Common::md5($params["pass"]));
-		$object->setCreated(time());
-		$object->setUpdated(time());
+		$object->setCreatedAt(time());
+		$object->setUpdatedAt(time());
 		$object->setActive(1);
 		try {
 			$object->save($con);
@@ -168,20 +168,22 @@ class UserPeer extends BaseUserPeer {
 	function update($object,$params,$con = null) {
 		foreach ($params as $key => $value){
 			$setMethod = "set".$key;
-			if ( method_exists($object,$setMethod) ){
+			if ( method_exists($object, $setMethod) ){
 				if (!empty($value) || $value == "0")
 					$object->$setMethod($value);
 				else
 					$object->$setMethod(null);
 			}
 		}
-		$object->setUpdated(time());
-		if (!empty($pass)) {
+		$object->setUpdatedAt(time());
+		if (!empty($params["pass"])) {
 			$object->setPassword(Common::md5($params["pass"]));
 			$object->setPasswordUpdated(time());
 		}
+
 		try {
 			$object->save();
+			$_SESSION["loginUser"] = $object;
 			return true;
 		}
 		catch (PropelException $exp) {
@@ -287,7 +289,7 @@ class UserPeer extends BaseUserPeer {
 		try {
 			$user = UserPeer::retrieveByPK($id);
 			$user->setUsername($username);
-			$user->setUpdated(time());
+			$user->setUpdatedAt(time());
 			$user->setLevelId($levelId);
 			$user->setTimezone($timezone);
 			$user->setName($name);
@@ -343,7 +345,7 @@ class UserPeer extends BaseUserPeer {
 		try {
 			$user = UserPeer::retrieveByPK($id);
 			$user->setMailAddress($mailAddress);
-			$user->setUpdated(time());
+			$user->setUpdatedAt(time());
 			if ( !empty($timezone) )
 				$user->setTimezone($timezone);
 			$user->save();
