@@ -1,4 +1,4 @@
-|-* WARNING: Cuidado con las dobles comillas en los formatos de n�mero *-|<?xml version = "1.0" encoding="Windows-1252" standalone="yes"?>
+|-* WARNING: Cuidado con las dobles comillas en los formatos de n?mero *-|<?xml version = "1.0" encoding="Windows-1252" standalone="yes"?>
 <VFPData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="\\|-$profitRoot-|\pedidos_xml\profit_Schema.xsd">
 |-foreach from=$orders item=order name=for_orders-||-assign var=number value=$order->getNumber()-||-counter start=0 assign=subnumber name=subnumber-||-counter start=0 assign=iteration name=iteration-||-foreach from=$order->getOrderItemsOrderByProductOrderCode() item=item name=for_products-||-counter name=iteration-||-assign var=product value=$item->getProduct()-|
 |-assign var=productOrderCode value=$product->getOrderCode()-|
@@ -8,8 +8,8 @@
 	<cursor_profit_xml>
 		<nro_ord>|-if $order->getNumber() eq 0-||-$order->getId()-||-else-||-$order->getNumber()-||-/if-|_|-$subnumber-|</nro_ord>
 		<co_cli>|-if $branch-||-$branch->getCode()-||-/if-|</co_cli>
-		<fec_emis>|-$order->getCreated()|date_format:"%Y-%m-%d"-|</fec_emis>
-		<fec_venc>|-$order->getCreated()|date_format:"%Y-%m-%d"-|</fec_venc>
+		<fec_emis>|-$order->getCreated()|change_timezone|date_format:"%Y-%m-%d"-|</fec_emis>
+		<fec_venc>|-$order->getCreated()|change_timezone|date_format:"%Y-%m-%d"-|</fec_venc>
 		<descrip>|-assign var=comment value=$order->getLastComment()-||-if $comment ne ''-||-$comment->getComment()|truncate:60:""-||-/if-|</descrip>
 		<reng_num>|-$smarty.foreach.for_products.iteration-|</reng_num>
 		<co_art>|-$product->getcode()-|</co_art>

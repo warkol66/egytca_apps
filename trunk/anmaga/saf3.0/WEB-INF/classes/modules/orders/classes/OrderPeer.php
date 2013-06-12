@@ -256,11 +256,13 @@ class OrderPeer extends BaseOrderPeer {
   }
 
   function setSearchDateFrom($dateFrom) {
-  	$this->searchDateFrom = $dateFrom;
+  	$timezonePeer = new TimezonePeer();
+  	$this->searchDateFrom = $timezonePeer->getGMT0DatetimeFromTimezoneDefault($dateFrom);
   }
 
   function setSearchDateTo($dateTo) {
-  	$this->searchDateTo = $dateTo;
+  	$timezonePeer = new TimezonePeer();
+  	$this->searchDateTo = $timezonePeer->getGMT0DatetimeFromTimezoneDefault($dateTo." 23:59:59");
   }
   
   function setSearchState($state) {
@@ -288,13 +290,16 @@ class OrderPeer extends BaseOrderPeer {
 
     	if ( !empty($this->searchDateFrom) || !empty($this->searchDateTo) ) {
     		if ( !empty($this->searchDateFrom) ) {
-				$criterion = $cond->getNewCriterion(OrderPeer::CREATED, $this->searchDateFrom." 00:00:00", Criteria::GREATER_EQUAL);
+//				$criterion = $cond->getNewCriterion(OrderPeer::CREATED, $this->searchDateFrom." 00:00:00", Criteria::GREATER_EQUAL);
+				$criterion = $cond->getNewCriterion(OrderPeer::CREATED, $this->searchDateFrom, Criteria::GREATER_EQUAL);
 			}
     		if ( !empty($this->searchDateTo) ) {
       			if (!empty($criterion))
-      				$criterion->addAnd($cond->getNewCriterion(OrderPeer::CREATED, $this->searchDateTo." 23:59:59", Criteria::LESS_EQUAL));
+//      				$criterion->addAnd($cond->getNewCriterion(OrderPeer::CREATED, $this->searchDateTo." 23:59:59", Criteria::LESS_EQUAL));
+      				$criterion->addAnd($cond->getNewCriterion(OrderPeer::CREATED, $this->searchDateTo, Criteria::LESS_EQUAL));
         		else
-        			$criterion = $cond->getNewCriterion(OrderPeer::CREATED, $this->searchDateTo." 23:59:59", Criteria::LESS_EQUAL);
+//        			$criterion = $cond->getNewCriterion(OrderPeer::CREATED, $this->searchDateTo." 23:59:59", Criteria::LESS_EQUAL);
+        			$criterion = $cond->getNewCriterion(OrderPeer::CREATED, $this->searchDateTo, Criteria::LESS_EQUAL);
      		}
 			$cond->add($criterion);
     	}

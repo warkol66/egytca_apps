@@ -26,7 +26,7 @@
 			<tr>
 				<td>|-$orderTemplate->getid()-|</td>
 				<td>|-$orderTemplate->getname()-|</td>
-				<td>|-$orderTemplate->getcreated()|date_format-|</td>
+				<td>|-$orderTemplate->getcreated()|change_timezone|date_format-|</td>
 				<td>|-assign var=user value=$orderTemplate->getAffiliateUser()-||-if $user-||-$user->getUsername()-||-/if-|</td>
 				|-if $all eq "1"-|<td>|-assign var=affiliate value=$orderTemplate->getAffiliate()-||-if $affiliate-||-$affiliate->getName()-||-/if-|</td>|-/if-|
 				<td>|-assign var=branch value=$orderTemplate->getAffiliateBranch()-||-if $branch-||-$branch->getName()-||-/if-|</td>

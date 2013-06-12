@@ -68,7 +68,7 @@ Para eliminar pedidos, seleccione los pedidos a eliminar y haga click en "Elimin
 		|-foreach from=$orders item=order name=for_orders-|
 			<tr>
 				<td>|-assign var=affiliate value=$order->getAffiliate()-||-if $affiliate-||-$affiliate->getName()-||-/if-|</td>
-				<td nowrap>|-$order->getcreated()|date_format:"%d-%m-%Y"-|</td>
+				<td nowrap>|-$order->getcreated()|change_timezone|date_format:"%d-%m-%Y"-|</td>
 				<td nowrap align="right">|-if $order->getNumber() eq 0-||-$order->getId()-||-else-||-$order->getNumber()-||-/if-|</td>
 				<td>|-assign var=user value=$order->getAffiliateUser()-||-if $user-||-$user->getUsername()-||-/if-|</td>
 				<td>|-assign var=branch value=$order->getAffiliateBranch()-||-if $branch-||-$branch->getName()-||-/if-|</td>

@@ -108,5 +108,25 @@ class TimezonePeer {
 	
 	}
 
+	/*
+	 * Devuelve una timestamp en otra zona horaria
+	 * @param $datetime datetime en GMT-0
+	 * @param $timezoneCode codigo de zona de GMT
+	 * @returns datetime convertido a la correspondiente zona horaria pedida 
+	 */
+	public function getGMT0DatetimeFromTimezoneDefault($datetime) {
+		global $system;
+		$timezoneCode = $system["config"]["system"]["parameters"]["applicationTimeZoneGMT"]["value"];
+				
+		//solucion por el problema del pasaje de XML a array de PHP
+		//que toma el 0 como null
+		if ($timezoneCode == null)
+			$timezoneCode = 0;
+
+		return $this->getGMT0TimeOnTimezone($datetime,$timezoneCode);
+
+	}
+
+
 
 }

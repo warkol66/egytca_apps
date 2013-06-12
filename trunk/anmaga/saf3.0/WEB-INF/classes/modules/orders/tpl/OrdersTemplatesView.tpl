@@ -9,7 +9,7 @@
 	|-$orderTemplate->getName()-|
 	</p>
 <p class="textAfterLabel"><label>Creada:</label>
-	|-$orderTemplate->getCreated()|system_date_format:""-|
+	|-$orderTemplate->getCreated()|change_timezone|system_date_format:""-|
 	</p>
 <p class="textAfterLabel"><label>Mayorista:</label>
 |-assign var=affiliate value=$orderTemplate->getAffiliate()-||-if $affiliate-||-$affiliate->getName()-||-/if-| </p>

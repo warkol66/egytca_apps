@@ -52,14 +52,14 @@ class CatalogProductsDoUpdateAction extends BaseAction {
 					}						
 
 					//Busco la unidad
-					$unit = UnitQuery::create()->findOneByName($product['unitName']);
+					$unit = UnitQuery::create()->setIgnoreCase(true)->findOneByName(trim($productData['unitName']));
 					if (!empty($unit))
 						$productData['unitId'] = $unit->getId();
 					else
 						unset($productData['unitId']);
 
 					//Busco la unidad de medida
-					$measureUnit = MeasureUnitQuery::create()->findOneByName($product['measureUnitId']);
+					$measureUnit = MeasureUnitQuery::create()->setIgnoreCase(true)->findOneByName(trim($productData['measureUnitId']));
 					if (!empty($measureUnit))
 						$productData['measureUnitId'] = $measureUnit->getId();
 					else
@@ -81,6 +81,10 @@ class CatalogProductsDoUpdateAction extends BaseAction {
 			copy($updatesDir . "Catalogo.txt",$processedDir . "Catalogo_" . date("Ymdhms") . '.txt');
 			unlink($updatesDir . "Catalogo.txt");
 		}
+
+		// borrar actualizaciones vijas
+		shell_exec('/usr/sbin/tmpwatch -m -d 720 ' . $processedDir );
+
 		die;
 	}
 }
