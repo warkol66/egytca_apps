@@ -2,11 +2,14 @@
 <!--div id="rightColumn">
 <!--Se vuelven a agregar los scripts y estilos porque si no no los incluye-->
 <script src="scripts/jquery/jquery.min.js" language="JavaScript" type="text/javascript"></script>
+<script type="text/javascript" src="scripts/jquery/jquery-ui-1.8.19.custom.min.js"></script>
 <script src="scripts/jquery/jquery.ui.datepicker-es.js" language="JavaScript" type="text/javascript"></script>
 <link rel="stylesheet" href="css/globalStyles.css" type="text/css">
 <link rel="stylesheet" href="css/globalCustom.css" type="text/css">
 <link rel="stylesheet" href="css/style.css" type="text/css">
 <link rel="stylesheet" href="css/custom.css" type="text/css">
+<link type="text/css" href="css/smoothness/jquery-ui-1.8.19.custom.css" rel="Stylesheet" />
+|-/if-|
 <script type="text/javascript">
 	$(document).ready(function() {
 		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
@@ -16,7 +19,6 @@
 	});//fin docready
  
 </script>
-|-/if-|
 |-if isset($label)-||-else-||-assign var=label value="documentos"-||-/if-|<div id="documentAdder">
 <div id="documentOperationInfo">
 |-if $message eq "wrongPasswordComparison"-|
@@ -92,7 +94,7 @@
 			</div>
 			
 			<p><label for="params[documentDate]">Fecha</label>
-				 <input name="params[documentDate]" type="text" class="datepicker" value="|-if $document neq ''-||-$document->getDocumentDate()|date_format:'%d-%m-%Y'-||-else-||-$smarty.now|date_format:'%d-%m-%Y'-||-/if-|" size="10" title="Fecha del documento (Formato: dd-mm-yyyy)"/>
+				 <input name="params[documentDate]" type="text" class="datepicker" value="|-if !$document->isNew() -||-$document->getDocumentDate()|date_format:'%d-%m-%Y'-||-else-||-$smarty.now|date_format:'%d-%m-%Y'-||-/if-|" size="10" title="Fecha del documento (Formato: dd-mm-yyyy)"/>
 			</p>
 			<p>
 				<label for="params[title]">Título</label>
