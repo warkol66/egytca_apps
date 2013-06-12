@@ -11,6 +11,15 @@
 			<forward name="failure" path="/Main.php?do=documentsList&amp;errormessage=wrongPassword" redirect="true"/>
 		</action>
 
+		<action  path = "documentsDoAdd"
+						 type = "DocumentsDoAddAction"
+						 name = "documentsDoAdd"
+						scope = "request"
+				 validate = "true">
+			<forward name="success" path="/Main.php?do=documentsAdd" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=documentsAdd" redirect="true"/>
+		</action>
+
 		<action  path = "documentsUpload"
 						 type = "DocumentsUploadAction"
 						 name = "documentsUpload"
