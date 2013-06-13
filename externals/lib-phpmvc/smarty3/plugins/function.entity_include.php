@@ -19,10 +19,8 @@
 
 function smarty_function_entity_include($params, &$smarty)
 {
-
 	if (!empty($params['entity']))
-		$smarty->assign("result", BaseQuery::create($params['entity'])->addFilters($params['filters'])->find());
-
+		$smarty->assign("result", BaseQuery::create($params['entity'])->addFilters($params['filters'])->limit($params['limit'])->find());
 	//Debo cambiarle el outputfilter para poder usar otro external
 	$smartyOutputFilter = new SmartyOutputFilter();
 	$smartyOutputFilter->template = 'TemplateInclude.tpl';
@@ -31,8 +29,8 @@ function smarty_function_entity_include($params, &$smarty)
 	$smarty->registerFilter('output', array($smartyOutputFilter,"smarty_add_template"));
 
 	//Obtengo el html resultante
-	if(!$smarty->templateExists($params['template']))
-		echo "NO EXISTE TEMPLATE: '" . $params['template'] . "'.";
+//	if(!$smarty->templateExists($params['template']))
+//		echo "NO EXISTE TEMPLATE: '" . $params['template'] . "'.";
 
 	$html_result = $smarty->fetch($params['template']);
 
