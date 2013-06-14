@@ -1,4 +1,7 @@
-﻿<div id="div_boardChallenges">
+﻿|-if count($boardChallengeColl) eq 0-|
+	<div id="div_boardChallenges">No hay desafíos en este momento</div>
+|-else-|
+<div id="div_boardChallenges">
 		|-foreach from=$boardChallengeColl item=boardChallenge name=for_boardChallenges-|
 			|-assign var=start value=$boardChallenge->getStartDate()|date_format:"%Y/%m/%d"-|
 			|-assign var=end value=$boardChallenge->getEndDate()|date_format:"%Y/%m/%d"-|
@@ -33,3 +36,4 @@
 	</div>
 	<div>
 </div>
+|-/if-|

@@ -146,4 +146,11 @@ class BoardChallenge extends BaseBoardChallenge{
 	public function getLogData(){
 		return substr($this->getTitle(),0,50);
 	}
+	
+	public function getCurrent(){
+		$now = date("Y-m-d H:i:s");
+		$current = BoardChallengeQuery::create()->filterByStartDate(array('max' => $now))->filterByEndDate(array('min' => $now))->findOne();
+		if(is_object($current))
+			return $current;
+	}
 }
