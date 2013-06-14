@@ -7,6 +7,9 @@
 |-elseif $message eq "noChallengeIdRequested"-|
 		<div>No se ingresó inguna entrada, debe identificar una entrada para visualizarla. <br />
 Puede regresar a la página principal del board haciendo click <a href="Main.php?do=boardShow">aquí</a></div>
+|-elseif isset($current) and $current eq 'false'-|
+		<div>No hay desafío actualmente <br />
+Puede regresar a la página principal del board haciendo click <a href="Main.php?do=boardShow">aquí</a></div>
 |-else-|
 <!-- begin board01 -->
 <div class="article">

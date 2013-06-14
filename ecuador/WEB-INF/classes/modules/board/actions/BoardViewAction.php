@@ -16,6 +16,16 @@ class BoardViewAction extends BaseEditAction {
 			else
 				$_POST['id'] = -1;
 		}
+		
+		//si no me pasaron id muestro el challenge vigente
+		if(!isset($_GET["url"]) && !isset($_GET["id"])){
+			$current = BoardChallenge::getCurrent();
+			if(is_object($current))
+				$_POST['id'] = $current->getId();
+			else
+				$this->smarty->assign('current','false');
+		}
+		
 	}
 
 	protected function postEdit() {
