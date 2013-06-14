@@ -1,3 +1,14 @@
+|-if isset($iframe)-|
+<!--Se vuelven a agregar los scripts y estilos porque si no no los incluye-->
+<script src="scripts/jquery/jquery.min.js" language="JavaScript" type="text/javascript"></script>
+<script type="text/javascript" src="scripts/jquery/jquery-ui-1.8.19.custom.min.js"></script>
+<script src="scripts/jquery/jquery.ui.datepicker-es.js" language="JavaScript" type="text/javascript"></script>
+<link rel="stylesheet" href="css/globalStyles.css" type="text/css">
+<link rel="stylesheet" href="css/globalCustom.css" type="text/css">
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<link rel="stylesheet" href="css/custom.css" type="text/css">
+<link type="text/css" href="css/smoothness/jquery-ui-1.8.19.custom.css" rel="Stylesheet" />
+|-/if-|
 <link type="text/css" rel="stylesheet" href="css/chosen.css" />
 <script src="scripts/jquery/chosen.js"></script>
 <script type="text/javascript" src="scripts/jquery/ajax-chosen.min.js"></script>
@@ -47,13 +58,23 @@ function updateSubmitButton() {
 				<input type="radio" name="internalMail[recipientType]" value="user" onclick="changeRecipientType(this.value)" checked />##users,2,Usuario##
 |-if ($configModule->get("global","internalMailUseAffiliates"))-|<input type="radio" name="recipientType" value="affiliateUser" onclick="changeRecipientType(this.value)" />##affiliates,2,Affiliado##|-/if-|
 			</p>
-	
+			<p>
+			<label>Destinatario:</label>
 			<div id="recipientsUsers" style="position: relative;">
+			|-if isset($user) and get_class($user) eq 'User'-|
+				<input type="hidden" id="params_user" name="internalMail[recipientId]" value="|-$user->getId()-|" /><span>|-$user->getName()-| |-$user->getSurname()-|</span>
+			|-else-|
 				<select id="params_user_select" name="internalMail[recipientId]" class="chzn-select markets-chz-select" data-placeholder="Para..."></select>
-			</div>	
+			|-/if-|
+			</div>
+			</p>
 |-if ($configModule->get("global","internalMailUseAffiliates"))-|			
 			<div id="recipientsAffiliates" style="position: relative; display: none">
+			|-if isset($user) and get_class($user) eq 'Affiliate'-|
+				<input type="hidden" id="params_user_select" name="internalMail[recipientId]" value="|-$user->getId()-|" /><span>|-$user->getName()-| |-$user->getSurname()-|</span>
+			|-else-|
 				<select id="params_affiliate_select" name="internalMail[recipientId]" class="chzn-select markets-chz-select" data-placeholder="Para..."></select>
+			|-/if-|
 			</div>
 |-/if-|			
 			<span id="indicator2" style="display: none">
@@ -89,14 +110,22 @@ function updateSubmitButton() {
 				<input type="hidden" name="id" id="id" value="|-$internalMail->getId()-|" />
 				<input type="hidden" name="internalMail[replyId]" id="internalMail[replyId]" value="|-$internalMail->getReplyId()-|" />
 				<input type="hidden" name="page" id="page" value="|-$page-|" />
-				<input type="submit" id="button_edit_internalMail" name="button_edit_internalMail" title="Enviar" value="Enviar" disabled="disabled" />
-				<input type="button" id="cancel" name="cancel" title="Cancelar y volver al listado" value="Cancelar" onClick="location.href='Main.php?do=commonInternalMailsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'"/>
+				|-if isset($iframe)-|
+				<input type="hidden" name="iframe" id="iframe" value="true" />
+				<input type="hidden" name="userId" id="userId" value="|-$userId-|" />
+				<input type="hidden" name="userType" id="userType" value="|-$userType-|" />
+				|-/if-|
+				<input type="submit" id="button_edit_internalMail" name="button_edit_internalMail" title="Enviar" value="Enviar" />
+				|-if !isset($iframe)-|
+				<input type="button" id="cancel" name="cancel" title="Cancelar y volver al listado" value="Cancelar" onClick="location.href='Main.php?do=commonInternalMailsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'"/>|-/if-|
 			</p>
 		</fieldset>
 	</form>
 </div>
 <script type="text/javascript">
+|-if !isset($user)-|
 $('#params_user_select').egytca('autocomplete', 'Main.php?do=usersAutocompleteListX',{disable: '#button_edit_internalMail'});
 $('#params_affiliate_select').egytca('autocomplete', 'Main.php?do=affiliatesUsersAutocompleteListX',{disable: '#button_edit_internalMail'});
+|-/if-|
 </script>
 </script>
