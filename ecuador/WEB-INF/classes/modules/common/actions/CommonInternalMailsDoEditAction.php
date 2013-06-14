@@ -38,6 +38,12 @@ class CommonInternalMailsDoEditAction extends BaseAction {
 			//No hay edición de mensajes.
 			return $mapping->findForwardConfig('failure');
 		
+		if(isset($_POST["iframe"])){
+			$smarty->assign("userId", $_POST["userId"]);
+			$smarty->assign("userType", $_POST["userType"]);
+			return $mapping->findForwardConfig('success-iframe');
+		}
+			
 		return $mapping->findForwardConfig('success');
 	}
 

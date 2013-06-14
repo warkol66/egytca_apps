@@ -137,6 +137,16 @@
 			<forward name="success" path="CommonInternalMailsListTableBodyInclude.tpl" />
 		</action>
 		
+		<action    path = "commonInternalMailsDoEdit"
+							 type = "CommonInternalMailsDoEditAction"
+							 name = "commonInternalMailsDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=commonInternalMailsList&amp;message=ok" redirect="true" />
+			<forward name="success-iframe" path="/Main.php?do=commonInternalMailsSend" redirect="true" />
+			<forward name="failure" path="/Main.php?do=commonInternalMailsList&amp;message=error" redirect="true" />
+		</action>
+		
 <!-- End Section InternalMails -->
 
 <!-- Section ActionLogs -->
