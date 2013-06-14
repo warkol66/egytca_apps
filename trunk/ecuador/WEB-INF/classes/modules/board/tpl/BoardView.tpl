@@ -1,3 +1,4 @@
+<script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 |-if $message eq "captcha"-|
 <div id="errorMessage">Captcha incorrecto, intente nuevamente</div>
 |-/if-|
@@ -21,13 +22,11 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 <p>&nbsp;</p>
 <div id="msgBond"></div>
 <div class="tags">
-  <p>Resultados: |-foreach from=$usersByBonds key=key item=users-|
-		-&nbsp;|-$bonds[$key]|regex_replace:"/ /":"&nbsp;"-|<a href="javascript:void(null);" class="tooltipWide">
-		<span>|-foreach from=$users item=user-|
-			|-$user->getName() -|<br />
-		|-/foreach-|</span>(|-count(array_keys($boardBonds, $key))-|)</a>
-	|-/foreach-|</p>
-</div>
+	<p>Resultados: |-foreach from=$usersBonds item=bond-|
+		<a href="#" onClick="javascript:getUsers(|-$bond->getType()-|);">|-$bond->getName()-|</a>
+	|-/foreach-|</p>Haga click en los resultados para ver quiénes los seleccionaron
+</div><br />
+<div id="users"></div>
 |-foreach from=$bonds key=key item=bond-|
 	<input type="button" name="|-$bond-|" value="|-$bond-|" id="bond_|-$key-|" onClick="javascript:addBond(|-$key-|);" class="bondButton|-if $bond|count_characters gt 25-|Wide|-/if-|" |-if in_array($key,$loggedBonds)-|disabled="disabled"|-/if-|>
 |-/foreach-|
@@ -51,5 +50,17 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 		});
 		$('.tags').html('<span class="inProgress">Actualizando...</span>');
 		$('#bond_' + id).attr("disabled", "disabled");
+	}
+	
+	function getUsers(id){
+		$.ajax({
+			url: 'Main.php?do=boardBondsGetUsersX',
+			data: {id: id},
+			type: 'post',
+			success: function(data){
+				$('#users').html(data);
+			}
+		});
+		$('#users').html('<span class="inProgress">Buscando usuarios...</span>');
 	}
 </script>

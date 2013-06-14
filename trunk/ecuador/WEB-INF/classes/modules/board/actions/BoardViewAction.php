@@ -42,7 +42,10 @@ class BoardViewAction extends BaseEditAction {
 		//busco los compromisos posibles
 		$this->smarty->assign("bonds",BoardBond::getTypes());
 		//busco los compromisos existentes en este desafio
-		$usersB = BoardBondQuery::create()->filterByChallengeId($this->entity->getId())->find();
+		$usersB = BoardBondQuery::create()->filterByChallengeId($this->entity->getId())->groupBy('BoardBond.Type')->find();
+		/*print_r($usersB);
+		die();*/
+		$this->smarty->assign("usersBonds",BoardBondQuery::create()->filterByChallengeId($this->entity->getId())->groupBy('Type')->find());
 		//armo un arreglo con usuarios por compromiso y otro con los compromisos (para contarlos)
 		$usersBonds = array();
 		$keys = array();
@@ -61,18 +64,10 @@ class BoardViewAction extends BaseEditAction {
 		$this->smarty->assign("usersByBonds",$usersBonds);
 		$this->smarty->assign("boardBonds",$keys);
 		
-		//busco los compromisos posibles
-		$this->smarty->assign("bonds",BoardBond::getTypes());
-		//busco los compromisos existentes en este desafio
-		$usersB = BoardBondQuery::create()->select('Type')->filterByChallengeId($this->entity->getId())->find();
-		$this->smarty->assign("usersBonds",$usersB->getData());
-		
 		//busco los compromisos que hizo el usuario logueado
 		$user = Common::getLoggedUser();
 		$loggedBonds = BoardBondQuery::create()->select('Type')->filterByUserId($user->getId())->find();
 		$this->smarty->assign("loggedBonds",$loggedBonds->getData());
-		/*echo($loggedBonds->getData());
-		die();*/
 		
 		if ($moduleConfig['comments']['useComments']['value'] == "YES") {
 

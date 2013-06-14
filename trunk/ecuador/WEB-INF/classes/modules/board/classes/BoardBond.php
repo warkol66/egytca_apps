@@ -36,4 +36,29 @@ class BoardBond extends BaseBoardBond{
 		$status[BoardBond::DID_SOMETHING] = 'Hice algo a partir de la consigna';
 		return $status;
 	}
+	
+	public function getName(){
+		$id = $this->getType();
+		switch($id){
+			case BoardBond::INTERESTED:
+				$name = 'Estoy interesado';
+				break;
+			case BoardBond::KNOWLEDGE:
+				$name = 'Tengo conocimiento sobre la consigna';
+				break;
+			case BoardBond::NEED_HELP:
+				$name = 'Necesito Ayuda';
+				break;
+			case BoardBond::CAN_HELP:
+				$name = 'Puedo ayudar';
+				break;
+			case BoardBond::NOT_RELEVANT:
+				$name = 'No es relevante para mi parroquia';
+				break;
+			case BoardBond::DID_SOMETHING:
+				$name = 'Hice algo a partir de la consigna';
+				break;
+		}
+		return $name;
+	}
 }
