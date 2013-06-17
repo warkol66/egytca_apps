@@ -18,17 +18,13 @@ class VialidadCertificatesAutocompleteListXAction extends BaseAction {
 		$searchString = $_REQUEST['value'];
 		$smarty->assign("searchString",$searchString);
 
-		$certificatesQuery = CertificateQuery::create()->useMeasurementRecordQuery()->useConstructionQuery()
-			->where('Construction.Name LIKE ?', "%" . $searchString . "%")
-			->endUse()->endUse()->limit($_REQUEST['limit']);
-		
-		if ($_GET['noCertificateInvoice']) {
-			$existentCertificateInvoices = CertificateInvoiceQuery::create()->find();
-			foreach ($existentCertificateInvoices as $existentCertificateInvoice)
-				$certificatesQuery->filterByInvoice($existentCertificateInvoice, Criteria::NOT_EQUAL);
-		}
-		
-		$certificates = $certificatesQuery->find();
+		$certificates = CertificateQuery::create()
+			->filterBySearchString($searchString)
+			->_if($_GET['noCertificateInvoice'])
+				->filterByHasNoCertificateInvoice()
+			->_endif()
+			->limit($_REQUEST['limit'])
+			->find();
 
 		$smarty->assign("certificates",$certificates);
 		$smarty->assign("limit",$_REQUEST['limit']);

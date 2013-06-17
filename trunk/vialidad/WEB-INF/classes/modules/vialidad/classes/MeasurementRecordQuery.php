@@ -35,6 +35,38 @@ class MeasurementRecordQuery extends BaseMeasurementRecordQuery {
 	}
 	
 	/**
+	 * filtra la Query por searchString
+	 */
+	public function filterBySearchString($value, $comparison = Criteria::LIKE) {
+		
+		return $this->useConstructionQuery()
+			->filterByName("%$value%", $comparison)
+		->endUse();
+	}
+	
+	/**
+	 * Filters all objects associated to a Certificate
+	 */
+	public function filterByHasNoCertificate() {
+		
+		$existentCertificates = CertificateQuery::create()->find();
+		foreach ($existentCertificates as $existentCertificate)
+			$this->filterByCertificate($existentCertificate, Criteria::NOT_EQUAL);
+		
+		return $this;
+	}
+	
+	/**
+	 * Filters all objects associated to a CertificateInvoice
+	 * Objects not associated with a Certificate are not included
+	 */
+	public function filterByHasNoInvoice() {
+		return $this->useCertificateQuery()
+			->filterByHasNoCertificateInvoice()
+		->endUse();
+	}
+	
+	/**
 	 * Filtra la Query por fechas con mismo mes y año
 	 */
 	public function filterByPeriodo($date) {

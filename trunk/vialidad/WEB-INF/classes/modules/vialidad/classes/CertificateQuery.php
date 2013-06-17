@@ -24,6 +24,30 @@ class CertificateQuery extends BaseCertificateQuery {
 	}
 	
 	/**
+	 * filtra la Query por searchString
+	 */
+	public function filterBySearchString($value, $comparison = Criteria::LIKE) {
+		
+		return $this->useMeasurementRecordQuery()
+			->useConstructionQuery()
+				->filterByName("%$value%", $comparison)
+			->endUse()
+		->endUse();
+	}
+	
+	/**
+	 * Filters all objects associated to a CertificateInvoice
+	 */
+	public function filterByHasNoCertificateInvoice() {
+		
+		$existentCertificateInvoices = CertificateInvoiceQuery::create()->find();
+		foreach ($existentCertificateInvoices as $existentCertificateInvoice)
+			$this->filterByInvoice($existentCertificateInvoice, Criteria::NOT_EQUAL);
+		
+		return $this;
+	}
+	
+	/**
 	 * Permite agregar un filtro personalizado a la Query, que puede ser
 	 * traducido al campo correspondiente.
 	 *
