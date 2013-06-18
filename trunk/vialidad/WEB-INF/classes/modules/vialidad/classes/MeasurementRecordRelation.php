@@ -20,23 +20,45 @@ class MeasurementRecordRelation extends BaseMeasurementRecordRelation {
 	 * período del MeasurementRecord asociado.
 	 */
 	function suggestedPrice() {
-		
 		$periodo = $this->getMeasurementRecord()->getMeasurementdate('%d/%m/%Y');
 		return $this->getEstimatedPrice($periodo, 'd/m/Y');
 	}
 	
+/**
+ * Precio estimado item del acta de medicion
+ */
 	function getEstimatedPrice($datestring, $format = 'd-m-Y') {
 		return $this->getConstructionItem()->getEstimatedPrice($datestring, $format);
 	}
 	
+/**
+ * Precio total del item del acta de medicion
+ */
 	function getTotalPrice() {
 		return $this->getPrice() * $this->getQuantity();
 	}
 	
+/**
+ * Precio estimado del item del acta de medicion
+ */
 	function getEstimatedTotalPrice($datestring, $format = 'd-m-Y') {
 		return $this->getEstimatedPrice($datestring, $format) * $this->getQuantity();
 	}
 	
+/**
+ * Precio total del item del acta de medicion ajustado por coeficientes de ajuste 
+ */
+	function getAdjustedTotalPrice($newDatestring, $oldDatestring, $format = 'd-m-Y') {
+		return $this->getAdjustedPrice($newDatestring, $oldDatestring, $format = 'd-m-Y') * $this->getQuantity();
+	}
+
+/**
+ * Precio del item del acta de medicion ajustado por coeficientes de ajuste 
+ */
+	function getAdjustedPrice($newDatestring, $oldDatestring, $format = 'd-m-Y') {
+		return $this->getConstructionItem()->getAdjustedPrice($newDatestring, $oldDatestring, $format);
+	}
+
 	function postSave(PropelPDO $con = null) {
 		parent::postSave($con);
 		$certificate = CertificateQuery::create()->filterByMeasurementrecordid($this->getMeasurementrecordid())->findOne();

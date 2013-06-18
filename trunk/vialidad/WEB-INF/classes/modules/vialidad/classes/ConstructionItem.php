@@ -35,6 +35,9 @@ class ConstructionItem extends BaseConstructionItem {
 		return ($related->count() > 0);														 		
 	}
 	
+/**
+ * Precio estimado del item de construccion
+ */
 	function getEstimatedPrice($datestring, $format = 'd-m-Y') {
 		$price = 0;
 		
@@ -54,8 +57,18 @@ class ConstructionItem extends BaseConstructionItem {
 		return $price;
 	}
 	
-	function getAdjustmentCoeficient($newDatestring, $oldDatestring, $format) {
+/**
+ * Coeficientes de ajuste 
+ */
+	function getAdjustmentCoeficient($newDatestring, $oldDatestring, $format = 'd-m-Y') {
 		return $this->getEstimatedPrice($newDatestring, $format) / $this->getEstimatedPrice($oldDatestring, $format);
+	}
+
+/**
+ * Precio total del item de construccion ajustado por coeficientes de ajuste 
+ */
+	function getAdjustedPrice($newDatestring, $oldDatestring, $format = 'd-m-Y') {
+		return $this->getEstimatedPrice($newDatestring, $format) * $this->getAdjustmentCoeficient($newDatestring, $oldDatestring, $format);
 	}
 
 } // ConstructionItem

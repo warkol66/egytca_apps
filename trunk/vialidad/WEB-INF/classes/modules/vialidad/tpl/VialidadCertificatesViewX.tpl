@@ -29,8 +29,8 @@
       <td>|-$construction->getContractor()-|</td> 
     </tr> 
      <tr> 
-      <td width="20%" nowrap class="tdTitle">Monto</td> 
-      <td>|-$certificate->calculatePrice()|system_numeric_format-|</td> 
+      <td width="20%" nowrap class="tdTitle">Monto del Certificado </td> 
+      <td>|-$certificate->getTotalPrice()|system_numeric_format-|</td> 
     </tr> 
    </table> 
 
