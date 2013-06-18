@@ -68,7 +68,42 @@ class Certificate extends BaseCertificate {
 		foreach ($relations as $relation) {
 			$price += $relation->getEstimatedTotalPrice($datestring, $format);
 		}
-		$price += $this->getExtrasPrice();
+		return $price;
+	}
+
+/**
+ * Precio del total de items de construccion
+ */
+	function getConstructionItemsPrice() {
+		$relations = MeasurementRecordRelationQuery::create()
+			->filterByMeasurementrecordid($this->getMeasurementrecordid())
+			->useConstructionItemQuery()
+				->filterByClassKey(ConstructionItemPeer::CLASSKEY_CONSTRUCTIONITEM)
+			->endUse()
+			->find();
+		
+		$price = 0;
+		foreach ($relations as $relation) {
+			$price += $relation->getTotalPrice();
+		}
+		return $price;
+	}
+
+/**
+ * Precio del total de items de construccion ajustado por coeficientes de ajuste 
+ */
+	function getAdjustedPrice($datestring, $format = 'd-m-Y') {
+		$relations = MeasurementRecordRelationQuery::create()
+			->filterByMeasurementrecordid($this->getMeasurementrecordid())
+			->useConstructionItemQuery()
+				->filterByClassKey(ConstructionItemPeer::CLASSKEY_CONSTRUCTIONITEM)
+			->endUse()
+			->find();
+		
+		$price = 0;
+		foreach ($relations as $relation) {
+			$price += $relation->getAdjustedTotalPrice($datestring, $this->getMeasurementRecord()->getContract()->getSigndate('d-m-Y'), $format);
+		}
 		return $price;
 	}
 
