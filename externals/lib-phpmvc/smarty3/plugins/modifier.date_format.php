@@ -28,9 +28,20 @@
  */
 function smarty_modifier_date_format($string, $format=null, $default_date='', $formatter='auto')
 {
-    if ($format === null) {
+
+  //modificacion para uso del formato por default del sistema
+	if ($format === null) {
+		//utilizamos el formato del sistema
+		global $system;
+		$format = $system["config"]["system"]["parameters"]["dateFormat"]["value"];
+		$format = preg_replace('/(.)-(.)-(.)/','%\\1-%\\2-%\\3',$format);
+
+		if (empty($format))
+			//seteamos el formato default de smarty
         $format = Smarty::$_DATE_FORMAT;
-    }
+	}
+
+
     /**
     * Include the {@link shared.make_timestamp.php} plugin
     */
