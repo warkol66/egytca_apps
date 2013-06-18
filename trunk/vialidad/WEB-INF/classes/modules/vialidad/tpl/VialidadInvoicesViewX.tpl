@@ -76,13 +76,13 @@
 		<tr class="thFillTitle"> 
 			<th colspan="4">Ajustes</th>
 			<td class="right">|-assign var=recordDate value=$record->getMeasurementdate()|date_format-|
-			|-assign var=estimatedPrice value=$certificate->getAdjustedPrice($recordDate)-|
-			|-if $estimatedPrice gt $totalItems-|
-				|-math equation="a-b" a=$totalItems b=$certificate->getEstimatedPrice($recordDate) assign=constructionItemsAdjustment-|
-			|-else if $estimatedPrice lt $totalItems-|
-				|-math equation="b-a" a=$totalItems b=$certificate->getEstimatedPrice($recordDate) assign=constructionItemsAdjustment-|
+			|-assign var=adjustedPrice value=$certificate->getAdjustedPrice($recordDate)-|
+			|-if $adjustedPrice gt $totalItems-|
+				|-math equation="a-b" a=$totalItems b=$adjustedPrice assign=constructionItemsAdjustment-|
+			|-else if $adjustedPrice lt $totalItems-|
+				|-math equation="b-a" a=$totalItems b=$adjustedPrice assign=constructionItemsAdjustment-|
 			|-/if-|
-			|-$estimatedPrice|system_numeric_format-|</td>
+			|-$constructionItemsAdjustment|system_numeric_format-|</td>
 		</tr>
 		<tr class="thFillTitle"> 
 			<th colspan="4">Total items de construcción</th>
