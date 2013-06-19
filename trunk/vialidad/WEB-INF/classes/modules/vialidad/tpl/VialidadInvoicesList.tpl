@@ -96,7 +96,8 @@
 		<td align="right">|-$invoice->getTotalPrice()|system_numeric_format-|</td>
 		<td nowrap align="center">
 		
-						|-if !empty($certificate)-|<a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="icon iconView" onClick='{new Ajax.Updater("viewDiv", "Main.php?do=vialidadInvoicesViewX&id=|-$certificate->getId()-|", { method: "post", parameters: { id: "|-$certificate->getId()-|"}, evalScripts: true})};$("viewWorking").innerHTML = "<span class=\"inProgress\">buscando información...</span>";' value="Ver detalle" name="submit_go_view" /></a>|-/if-|
+						|-if !empty($invoice)-||-if $invoice->getClassKey() eq InvoicePeer::CLASSKEY_CERTIFICATEINVOICE-|<a href="#lightbox1" rel="lightbox1" class="lbOn">
+						<input type="button" class="icon iconView" onClick='{new Ajax.Updater("viewDiv", "Main.php?do=vialidadInvoicesViewX&id=|-$invoice->getId()-|", { method: "post", parameters: { id: "|-$invoice->getId()-|"}, evalScripts: true})};$("viewWorking").innerHTML = "<span class=\"inProgress\">buscando información...</span>";' value="Ver detalle" name="submit_go_view" /></a>|-/if-||-/if-|
 
 
 			|-if "vialidadInvoicesEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 

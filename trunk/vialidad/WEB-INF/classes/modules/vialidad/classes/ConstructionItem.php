@@ -42,7 +42,8 @@ class ConstructionItem extends BaseConstructionItem {
 		$price = 0;
 		
 		$dateTime = DateTime::createFromFormat($format, $datestring);
-		$bulletin = BulletinQuery::create()->filterByPeriodo($dateTime->format('d/m/Y'))->findOne();
+		if (!empty($dateTime))
+			$bulletin = BulletinQuery::create()->filterByPeriodo($dateTime->format('d/m/Y'))->findOne();
 		if (is_null($bulletin))
 			return null;
 			
