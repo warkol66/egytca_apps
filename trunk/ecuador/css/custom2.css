@@ -456,6 +456,7 @@ fieldset table.tableTdBorders td {
 	background: transparent;
  }
 fieldset table.tableTdBorders th {
+	color: #990000 !Important;
 	background: #E3E9F1; /* #E3E9F1 o #C6CBD9 o #DFE5ED*/
 }
 /* /TABLES   -------------------------------------------*/
@@ -673,6 +674,15 @@ input[readonly="readonly"],input[type="button"][disabled="disabled"]:hover  {
 input[type="text"][disabled="disabled"] {
 	color: #BABABA !Important;
 	background-color: #EEEEEE;
+}
+
+input[type="submit"][disabled="disabled"], input[type="button"][disabled="disabled"], input[type="reset"][disabled="disabled"] {
+	background-color: #E38080 !Important;
+	color: White !Important;
+	background: -webkit-gradient(linear, left top, left bottom, from(#E38080), to(#FF8A8A));
+  background: -moz-linear-gradient(top,  #E38080,  #FF8A8A);
+  background: -o-linear-gradient(top,  #E38080,  #FF8A8A);
+  cursor: default !Important;
 }
 
 /*

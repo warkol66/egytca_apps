@@ -25,10 +25,10 @@
 			<forward name="success" path="CommonLogin.tpl"/>
 			<forward name="failureRedirect" path="/Main.php?do=usersLogin" redirect="true" />
 			<forward name="maintenance" path="Maintenance.tpl"/>
-			<forward name="welcome" path="/Main.php?do=contentShow" redirect="true" />
-			<forward name="usersWelcome" path="/Main.php?do=contentShow" redirect="true" />
-			<forward name="affiliateUsersWelcome" path="/Main.php?do=contentShow" redirect="true" />
-			<forward name="clientUsersWelcome" path="/Main.php?do=contentShow" redirect="true" />
+			<forward name="welcome" path="/Main.php?do=newsArticlesShow" redirect="true" />
+			<forward name="usersWelcome" path="/Main.php?do=newsArticlesShow" redirect="true" />
+			<forward name="affiliateUsersWelcome" path="/Main.php?do=newsArticlesShow" redirect="true" />
+			<forward name="clientUsersWelcome" path="/Main.php?do=newsArticlesShow" redirect="true" />
 		</action>
 
 		<action    path = "commonDoLogin"
@@ -38,9 +38,9 @@
 					 validate = "true">
 			<forward name="failureDataMissmatch" path="/Main.php?do=commonLogin&amp;message=dataMissmatch" redirect="true" />
 			<forward name="failureMissingData" path="/Main.php?do=commonLogin&amp;message=missingData" redirect="true" />
-			<forward name="successUsers" path="/Main.php?do=contentShow" redirect="true" />
-			<forward name="successClientUsers" path="/Main.php?do=contentShow" redirect="true" />
-			<forward name="successAffiliateUsers" path="/Main.php?do=contentShow" redirect="true" />
+			<forward name="successUsers" path="/Main.php?do=newsArticlesShow" redirect="true" />
+			<forward name="successClientUsers" path="/Main.php?do=newsArticlesShow" redirect="true" />
+			<forward name="successAffiliateUsers" path="/Main.php?do=newsArticlesShow" redirect="true" />
 			<forward name="successUsersFirstLogin" path="/Main.php?do=usersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
 			<forward name="successClientUsersFirstLogin" path="/Main.php?do=clientsUsersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
 			<forward name="successAffiliateUsersFirstLogin" path="/Main.php?do=affiliatesUsersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />

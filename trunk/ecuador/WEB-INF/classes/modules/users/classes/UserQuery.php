@@ -20,4 +20,8 @@ class UserQuery extends BaseUserQuery {
 		return $this;
 	}
 
+	function getLoged(){
+		return $this->filterBySession(null, Criteria::ISNOTNULL);
+	}
+
 } // UserQuery

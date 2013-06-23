@@ -3,10 +3,41 @@
 <script src="scripts/jquery/jquery.min.js" language="JavaScript" type="text/javascript"></script>
 <script type="text/javascript" src="scripts/jquery/jquery-ui-1.8.19.custom.min.js"></script>
 <script src="scripts/jquery/jquery.ui.datepicker-es.js" language="JavaScript" type="text/javascript"></script>
-<link rel="stylesheet" href="css/globalStyles.css" type="text/css">
-<link rel="stylesheet" href="css/globalCustom.css" type="text/css">
-<link rel="stylesheet" href="css/style.css" type="text/css">
-<link rel="stylesheet" href="css/custom.css" type="text/css">
+<link rel="stylesheet" href="css/main.css" type="text/css">
+
+<style type="text/css">
+<!--
+body {
+	background-image: url(images/bkg_bodyFancybox.png);
+	background-color: #dad2ca;
+	background-position: top left;
+	background-repeat:repeat-x;
+	color: #333;
+	font-size:77%; /* this makes the text sized at 10px */
+	padding: 0 0 40px;
+}
+#wrapper {
+	width: 100%;
+	background-color:#fdf8e9;
+	-webkit-box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.5);
+	-webkit-border-radius: 0px 0px 10px 10px;
+border-radius: 0px 0px 10px 10px;
+
+}
+#rightColumn{
+	background-image: url(images/bkg_bodyFancyboxBody.png);
+	background-repeat: repeat-x;
+	background-position: top;
+	background-color: #FDF8E9;
+	margin-top: 0px;
+}
+.emergent{
+	width: 90% !Important;
+	margin-left: auto;
+}
+-->
+</style>
 <link type="text/css" href="css/smoothness/jquery-ui-1.8.19.custom.css" rel="Stylesheet" />
 |-/if-|
 <link type="text/css" rel="stylesheet" href="css/chosen.css" />
@@ -67,11 +98,15 @@ function updateSubmitButton() {
 }
 
 </script>
+|-if $iframe-|<div id="wrapper">
+<div id="rightColumn" class="emergent">
+  <p>&nbsp;</p>
+|-/if-|
 <h2>Mensajería Interna</h2>
 <h1>|-if $action eq 'edit'-|Editar|-else-|Crear|-/if-| Mensaje</h1>
 <div id="div_internalMail">
 	<p>Ingrese los datos del mensaje</p>
-		<p><a href="#" onClick="location.href='Main.php?do=commonInternalMailsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'">Volver atras</a>
+		|-if !$iframe-|<p><a href="#" onClick="location.href='Main.php?do=commonInternalMailsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'">Volver atras</a>|-/if-|
 		</p>
 	|-if $message eq "ok"-|
 		<div class="successMessage">Mensaje enviado correctamente</div>
@@ -83,7 +118,7 @@ function updateSubmitButton() {
 		<fieldset title="Formulario de edición de datos de un mensaje">
 			<legend>Formulario de Administración de Mensajes</legend>
 			
-			<p>
+			<p |-if $iframe-|style="display:none;"|-/if-|>
 				<label>Tipo de destinatario:</label>
 				<input type="radio" name="internalMail[recipientType]" value="user" onclick="changeRecipientType(this.value)" checked />##users,2,Usuario##
 |-if ($configModule->get("global","internalMailUseAffiliates"))-|<input type="radio" name="recipientType" value="affiliateUser" onclick="changeRecipientType(this.value)" />##affiliates,2,Affiliado##|-/if-|
@@ -132,7 +167,7 @@ function updateSubmitButton() {
 			
 			<p>
 				<label for="internalMail[body]">Mensaje</label>
-				<textarea id="internalMail[body]" name="internalMail[body]" cols="60" rows="8" wrap="virtual" value="|-$internalMail->getBody()-|" title="Cuerpo del mensaje"></textarea>
+				<textarea id="internalMail[body]" name="internalMail[body]" cols="60" rows="6" wrap="virtual" value="|-$internalMail->getBody()-|" title="Cuerpo del mensaje"></textarea>
 			</p>
 
 			<p>
@@ -158,3 +193,6 @@ $('#params_user_select').egytca('autocomplete', 'Main.php?do=usersAutocompleteLi
 $('#params_affiliate_select').egytca('autocomplete', 'Main.php?do=affiliatesUsersAutocompleteListX',{disable: '#button_edit_internalMail'});
 |-/if-|
 </script>
+|-if $iframe-|</div>
+</div>
+|-/if-|

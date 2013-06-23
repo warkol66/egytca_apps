@@ -22,10 +22,11 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 <p>&nbsp;</p>
 <div id="msgBond"></div>
 <div class="tags">
-	<p>Resultados: |-foreach from=$usersBonds item=bond-|
-		<a href="#" onClick="javascript:getUsers(|-$bond->getType()-|);">|-$bond->getName()-|</a>
-	|-/foreach-|</p>Haga click en los resultados para ver quiénes los seleccionaron
-</div><br />
+	<p>Haga click en los resultados para ver quiénes los seleccionaron<br>
+		|-foreach from=$bonds key=key item=bond-|
+		<a href="#" onClick="javascript:getUsers(|-$key-|);">|-$bond-|</a>&nbsp; 
+	|-/foreach-|</p>
+</div>
 <div id="users"></div>
 |-foreach from=$bonds key=key item=bond-|
 	<input type="button" name="|-$bond-|" value="|-$bond-|" id="bond_|-$key-|" onClick="javascript:addBond(|-$key-|);" class="bondButton|-if $bond|count_characters gt 25-|Wide|-/if-|" |-if in_array($key,$loggedBonds)-|disabled="disabled"|-/if-|>
@@ -54,7 +55,7 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 	
 	function getUsers(id){
 		$.ajax({
-			url: 'Main.php?do=boardBondsGetUsersX',
+			url: 'Main.php?do=boardBondsGetUsersX&chalengeId=|-$boardChallenge->getId()-|&type='+id,
 			data: {id: id},
 			type: 'post',
 			success: function(data){

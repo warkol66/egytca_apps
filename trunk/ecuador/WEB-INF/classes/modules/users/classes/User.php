@@ -476,4 +476,45 @@ class User extends BaseUser {
 		$this->setActive('1');
 	}
 
+	/**
+	 * Obtiene los usuarios que tiene sesion iniciada.
+	 *
+	 * @return de usuarios con sesion activa
+	 */
+	function getLoggedUsers() {
+
+		return UserQuery::create()
+			->filterBySession(null, Criteria::ISNOTNULL)
+			->find();
+
+	}
+
+	/**
+	 * Obtiene los usuarios que tiene sesion iniciada.
+	 *
+	 * @return de usuarios con sesion activa
+	 */
+	function isLoged() {
+
+		if (is_null($this->getSession()))
+			return false;
+		else
+			return true;
+	}
+
+	/**
+	 * Obtiene los usuarios que tiene sesion iniciada.
+	 *
+	 * @return de usuarios con sesion activa
+	 */
+	function hasRecentlyAction() {
+
+		$limit = date('U') + (60 * 60 * $system["config"]["system"]["parameters"]["applicationTimeZoneGMT"]["value"]) - (2 * 60 * 60);
+
+		if ($this->isLoged() && $this->getLastAction('U') < $limit)
+			return false;
+		else
+			return true;
+	}
+
 } // User

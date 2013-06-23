@@ -452,14 +452,19 @@ class UserPeer extends BaseUserPeer {
 	*/
 	function auth($username,$password) {
 		$criteria = new Criteria();
+		$maintenance = $system["config"]["system"]["parameters"]["underMaintenance"]["value"];
+		$criteria = new Criteria();
 		$criteria->add(UserPeer::USERNAME, $username);
 		$criteria->add(UserPeer::ID, 0, Criteria::GREATER_THAN); //Saco de los posibles resultados al usuario "system" id =-1
 		$criteria->add(UserPeer::ACTIVE, 1);
 		$user = UserPeer::doSelectOne($criteria);
 		if (!empty($user)) {
+			if ($maintenance == "YES" && !$user->isSupervisor())
+				return false;
 			if ($user->getPassword() == Common::md5($password)) {
 				$_SESSION['lastLogin'] = $user->getLastLogin();
 				$user->setLastLogin(time());
+				$user->setSession(session_id());
 				$user->save();
 				if (is_null($user->getPasswordUpdated()) && ConfigModule::get("users","forceFirstPasswordChange"))
 					$_SESSION['firstLogin'] = User::FIRST_LOGIN;

@@ -10,8 +10,8 @@ class BoardBondsGetUsersXAction extends BaseListAction {
 	protected function preList(){
 		parent::preList();
 		
-		if(isset($_POST['type']))
-			$this->filters['type'] = $_POST['type'];
+		$this->filters['type'] = $_REQUEST['type'];
+		$this->filters['chalengeId'] = $_REQUEST['chalengeId'];
 		
 	}
 	
@@ -31,6 +31,7 @@ class BoardBondsGetUsersXAction extends BaseListAction {
 			}
 		}
 		
+		$this->smarty->assign("bonds",BoardBond::getTypes());
 		$this->smarty->assign("users",$users);
 		$this->smarty->assign("host",$_SERVER['HTTP_HOST']);
 	}

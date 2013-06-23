@@ -16,7 +16,9 @@
 		<column name="recoveryHashCreatedOn" type="TIMESTAMP" description="Momento de la solicitud para la recuperacion de clave" />
 		<column name="mailAddress" type="VARCHAR" size="90" description="Direccion electronica"/>
 		<column name="mailAddressAlt" type="VARCHAR" size="90" description="Direccion electronica alternativa"/>
+		<column name="session" type="VARCHAR" size="90" description="Nombre de la sesion" />
 		<column name="blockedAt" type="TIMESTAMP" description="Fecha y hora del bloqueo" />
+		<column name="lastAction" type="TIMESTAMP" description="Fecha y hora deultima accion solicitada" />
 
 		<column name="regionId" type="INTEGER" description="Region" />
 

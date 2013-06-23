@@ -9,6 +9,16 @@ class NewsArticlesShowAction extends BaseListAction {
 	protected function preList() {
 		parent::preList();
 		
+		$moduleConfig = Common::getModuleConfiguration("news");
+		$newsInHome = $moduleConfig["newsInHome"];
+		$newsPerPage = $moduleConfig["newsPerPage"];
+
+		if (!empty($newsInHome)) {
+			$this->perPage = $newsInHome;
+			if (!isset($_GET['page']))
+				$this->smarty->assign('page',1);
+		}
+
 		if(isset($_GET['categoryId']))
 			$this->filters['categoryid'] = $_GET['categoryId'];
 	}
@@ -18,6 +28,7 @@ class NewsArticlesShowAction extends BaseListAction {
 		
 		$module = "News";
 		$this->smarty->assign("module",$module);
+
 		$this->template->template = "TemplateNewsHome.tpl";
 		
 		if (isset($_GET['archive']))
@@ -27,9 +38,6 @@ class NewsArticlesShowAction extends BaseListAction {
 		else
 			$newsArticlePeer->setPublishedMode();*/
 			
-		$moduleConfig = Common::getModuleConfiguration($module);
-		$newsInHome = $moduleConfig["newsInHome"];
-		$newsPerPage = $moduleConfig["newsPerPage"];
 		
 		if (isset($_REQUEST["rss"])) {
 			$this->template->template = "TemplatePlain.tpl";

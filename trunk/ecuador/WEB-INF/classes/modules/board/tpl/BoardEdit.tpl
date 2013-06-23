@@ -49,18 +49,18 @@ Puede regresar a la página principal de consignas haciendo click <a href="Main.
 				<textarea name="params[body]" cols="60" rows="15" wrap="VIRTUAL"  id="params_body">|-$boardChallenge->getbody()|htmlentities-|</textarea>
 			</p>
 			<p>
-				<label for="params_creationDate">##board,35,Fecha de Creación##</label>
-				<input name="params[creationDate]" type="date" id="params_creationDate" class="datepicker" title="creationDate" value="|-$boardChallenge->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<label for="params_creationDate">Fecha de Creación</label>
+				<input name="params[creationDate]" type="date" id="params_creationDate" class="datepicker" title="Fecha de Creación" value="|-$boardChallenge->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 			</p>
 			<p>
-				<label for="params_startDate">##board,35,Fecha de Creación##</label>
-				<input name="params[startDate]" type="date" id="params_startDate" class="datepickerStart" title="startDate" value="|-$boardChallenge->getstartDate()|date_format:"%d-%m-%Y"-|" size="12" />
+				<label for="params_startDate">Fecha de inicio</label>
+				<input name="params[startDate]" type="date" id="params_startDate" class="datepickerStart" title="Fecha de inicio" value="|-$boardChallenge->getstartDate()|date_format:"%d-%m-%Y"-|" size="12" />
 				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 			</p>
 			<p>
-				<label for="params_endDate">##board,35,Fecha de Creación##</label>
-				<input name="params[endDate]" type="date" id="params_endDate" class="datepickerEnd" title="endDate" value="|-$boardChallenge->getendDate()|date_format:"%d-%m-%Y"-|" size="12" />
+				<label for="params_endDate">Fecha de finalización</label>
+				<input name="params[endDate]" type="date" id="params_endDate" class="datepickerEnd" title="Fecha de finalización" value="|-$boardChallenge->getendDate()|date_format:"%d-%m-%Y"-|" size="12" />
 				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 			</p>
 			|-assign var=boardChallengeId value=$boardChallenge->getId()-|
