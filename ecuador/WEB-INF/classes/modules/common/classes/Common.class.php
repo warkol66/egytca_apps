@@ -1687,6 +1687,25 @@ class Common {
 	}
 
 	/**
+	* Guarda la ultima hora a la que se produjouna accion de un usuario
+	*
+	* @param object $loggedUser objeto usuario logueado
+	*/
+	public static function setLastActionTime($loggedUser) {
+    if (method_exists($loggedUser, 'setLastAction')) {
+    	$loggedUser->setLastAction(time());
+    	try {
+    		$loggedUser->save();
+    	}
+			catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->getMessage());
+			}
+		}
+		return;
+	}
+
+	/**
 	* Devuelve un array con los dias primero y ultimo del mes de una fecha determinada
 	*
 	* @param string $anyDate fecha de referencia en formato yyyy-mm-dd

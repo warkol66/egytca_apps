@@ -8,7 +8,7 @@
 					 validate = "true">
 			<forward name="success" path="UsersLogin.tpl"/>
 			<forward name="maintenance" path="Maintenance.tpl"/>
-			<forward name="welcome" path="/Main.php?do=usersWelcome" redirect="true" />
+			<forward name="welcome" path="/Main.php?do=newsArticlesShow" redirect="true" />
 		</action>
 
 		<action    path = "usersDoLogin"

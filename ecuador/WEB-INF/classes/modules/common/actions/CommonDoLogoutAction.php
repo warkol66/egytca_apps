@@ -28,6 +28,10 @@ class CommonDoLogoutAction extends BaseAction {
 				$username = $user->getUsername();
 			else
 				$username ="";
+
+			if(method_exists($user,"setSession"))
+				$user->setSession(null)->save();
+
 			$classname = lcfirst(get_class($username));
 			Common::doLog('success', $classname . 'username: ' . $username);
 		}

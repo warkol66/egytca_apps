@@ -30,8 +30,7 @@ function checkPassDelete(form){
 
 </script>|-/if-|
 
-<p>##documents,7,Utilice este menu para ingresar a cada una de las diversas categorías existentes.## |-if $usePasswords-|##documents,8,El (*) indica archivos protegidos por contraseña.##|-/if-|</p>
-|-if $configModule->get('documents','useKeywords')-|<p>Para editar el listado de palabras clave, ingrese <a href="Main.php?do=documentsKeyWordList">aquí</a></p>|-/if-|
+<p>A continuación se muestra el listado de documentos disponibles en el sistema.</p>
 <div id="documentOperationInfo">
 |-if $message eq "errorFound"-|
 	<div class="failureMessage">Error: No se ha podido realizar su accion</div>
@@ -43,12 +42,12 @@ function checkPassDelete(form){
 	<div class="successMessage">El documento fue editado satisfactoriamente</div> 
 |-/if-|
 </div>
-<p style="text-align:right;"><a href="javascript:void(null);" onClick="switch_vis('searchOptions','block');" class="searchLink">##documents,9,Buscar Documentos##</a></p>
+|-*<p style="text-align:right;"><a href="javascript:void(null);" onClick="switch_vis('searchOptions','block');" class="searchLink">##documents,9,Buscar Documentos##</a></p>
 |-include file='DocumentsSearchDialogInclude.tpl' do="documentsList"-|
 
 |-if $filters eq ''-|
-	|-if (isset($selectedModule))-|
-		|-*include file='DocumentsCategoriesListInclude.tpl' user=$user selectedModule=$selectedModule selectedCategory=$selectedCategory*-|
+	|-if (isset($selectedModule))-|*-|
+		|-*include file='DocumentsCategoriesListInclude.tpl' user=$user selectedModule=$selectedModule selectedCategory=$selectedCategory*-||-*
 			<form action="Main.php" method="get"><p><label for="category">Categoría</label>
 				<select name="categoryId" onchange="this.form.submit();">
 					<option value=''>Sin Categoría</option>
@@ -57,7 +56,7 @@ function checkPassDelete(form){
 						<input type="hidden" name="do" value="documentsList" />
 			</p></form>
 	|-else-|
-		|-*include file='DocumentsCategoriesListInclude.tpl' user=$user generalParentCategories=$generalParentCategories categoryId=$categoryId documentsWithoutCategoryCount=$documentsWithoutCategoryCount*-|
+		*-||-*include file='DocumentsCategoriesListInclude.tpl' user=$user generalParentCategories=$generalParentCategories categoryId=$categoryId documentsWithoutCategoryCount=$documentsWithoutCategoryCount*-||-*
 			<form action="Main.php" method="get"><p><label for="category">Categoría</label>
 				<select name="categoryId" onchange="this.form.submit();">
 					<option value=''>Sin Categoría</option>
@@ -68,7 +67,6 @@ function checkPassDelete(form){
 	|-/if-|
 |-/if-|
 
-|-if $documentColl neq ''-|
 	<fieldset name="Listado de documentos disponibles">
 		<legend>|-if $selectedCategory neq ''-|
 			##documents,29,Documentos disponibles en la categoría## |-$selectedCategory->getName()-|
@@ -78,6 +76,8 @@ function checkPassDelete(form){
 			##documents,28,Documentos disponibles##
 		|-/if-|</legend>
 	</fieldset>
+*-|
+|-if $documentColl neq ''-|
 		<table id="table-documents" width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders">
 		<tr>
 			<td colspan="7" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">##documents,9,Buscar Documentos##</a>
@@ -86,7 +86,6 @@ function checkPassDelete(form){
 					Texto: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
 					Resultados por página
 				|-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getMaxPerPage()-|	
-				|-if $loginUser->isSupervisor()-|Incluir eliminados<input name="filters[includeDeleted]" type="checkbox" value="true" |-$filters.includeDeleted|checked:"true"-|>|-/if-|
 					<input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
 				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=documentsList'"/>|-/if-|
 			</form>
@@ -106,7 +105,7 @@ function checkPassDelete(form){
 			</tr>
 			|-if $documentColl|@count eq 0-|
 			<tr>
-				<td colspan="7"> Aun no hay publicaciones en esta categoría</td>
+				<td colspan="7">No hay publicaciones con el texto ingresadocategoría</td>
 			</tr>
 			|-/if-|
 			|-foreach from=$documentColl item=document name=document-|
@@ -165,6 +164,7 @@ function checkPassDelete(form){
 
 				<!-- form de eliminar -->
 				|-capture name=formDelete-|
+				|-if $document->isOwned()-|
 				<form name='documents' id='document_|-$document->getId()-|' action='Main.php?do=documentsDoDelete' style='display:inline;' method='POST'>
 					<input type=hidden name='id' value='|-$document->getId()-|'>
 					<input type=hidden name='category' value='|-$document->getCategoryid()-|'>
@@ -173,7 +173,7 @@ function checkPassDelete(form){
 						<input type='password' name='password' />
 					|-/if-|
 					<input type='submit' name='submit' value='##common,2,Eliminar##' title='##common,2,Eliminar##' class='icon iconDelete' onclick="if (confirm('¿Seguro que desea eliminar este documento?'))$.ajax({url: 'Main.php?do=documentsDoDeleteX',data:$('#document_|-$document->getId()-|').serialize(),type: 'post',success:function(data){$('#documentOperationInfo').html(data);}});return false;" alt="Eliminar" />
-				</form>
+				</form>|-/if-|
 				|-/capture-|
 				|-if $usePasswords && $document->getPassword() ne ""-|
 					<input type="button" |-popup sticky=true caption="##documents,26,Ingresar contraseña##" trigger="onClick" text=$smarty.capture.formDelete snapx=10 snapy=10 width='180' closetext='Cerrar'-| value="##common,2,Eliminar##" title="##common,2,Eliminar##" class='icon iconDelete' />

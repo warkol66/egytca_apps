@@ -31,6 +31,9 @@ class UsersDoLogoutAction extends BaseAction {
 			$username = $user->getUsername();
 		}		
 
+		if(method_exists($user,"setSession"))
+			$user->setSession(null)->save();
+
 		if($_SESSION["lastLogin"])
 		unset($_SESSION["lastLogin"]);
 		

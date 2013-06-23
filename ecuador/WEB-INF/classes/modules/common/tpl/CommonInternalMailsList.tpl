@@ -1,3 +1,7 @@
+<script type="text/javascript" language="javascript" charset="utf-8">
+	jQuery.noConflict();
+</script>
+<script src="scripts/funtions.js" language="JavaScript" type="text/javascript"></script>
 <script src="scripts/prototype.js" language="JavaScript" type="text/javascript"></script>
 <script src="scripts/lightbox.js" language="JavaScript" type="text/javascript"></script>
 |-if !$result-|
@@ -17,7 +21,7 @@
 		<thead> 
 			<tr>
 				<td colspan="5" class="tdSearch"><div class="rightLink"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Filtros de búsqueda</a></div>
-					<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;">
+					<div id="divSearch" style="display:block;">
 						<form action='Main.php' method='get' style="display:inline;">
 							<input type="hidden" name="do" value="commonInternalMailsList" />
 							<p>
@@ -87,8 +91,7 @@
 </div-->
 
 <script type="text/javascript" language="javascript" charset="utf-8">
-	jQuery.noConflict();
-	
+
 	var selected=-1;
 	
 	function deleteMessages(ids) {

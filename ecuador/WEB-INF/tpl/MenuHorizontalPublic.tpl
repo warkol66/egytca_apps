@@ -10,14 +10,15 @@
 				<li><a href="Main.php?do=affiliatesUsersDoLogout" onClick='return window.confirm("Si ya actualizó su clave, puede proceder a salir del sistema. ¿Esta seguro que quiere salir del sistema?")'>Salir</a></li>
 			|-/if-|				
 	|-else-|
-			<li><a href="Main.php?do=contentShow">Ir al Inicio</a></li>
+			<li><a href="Main.php?do=newsArticlesShow">Ir al Inicio</a></li>
 			<li><a href="#" class="sub"><span class="titleMenu">Red de Líderes</span></a>
 			<ul class="menu">
 				<li><a href="Main.php?do=blogShow">Experiencias Exitosas</a></li>
-				<li><a href="Main.php?do=boardView&url=">Desafíos</a></li>
+				<li><a href="Main.php?do=boardView">Desafíos</a></li>
 				<li><a href="Main.php?do=documentsList">Documentos</a></li>
 				<li><a href="Main.php?do=calendarMonth">Eventos</a></li>
-				<li class="last"><a href="Main.php?do=newsArticlesShow">Novedades</a></li>
+				<li><a href="Main.php?do=newsArticlesShow">Novedades</a></li>
+				<li class="last"><a href="Main.php?do=commonInternalMailsList">Mensajería Interna</a></li>
 			</ul>
 		</li>
 		<li><a href="#" class="sub">Su cuenta</a>

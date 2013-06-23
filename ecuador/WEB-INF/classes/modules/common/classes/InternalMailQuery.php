@@ -63,8 +63,8 @@ class InternalMailQuery extends BaseInternalMailQuery {
 	 * @return    InternalMailQuery The current query, for fluid interface
 	 */
 	public function sentByUser($user = null, $comparison = null) {
-		$this->filterByRecipientType(null)  //Con esto nos aseguramos no ver las copias propias
-				 ->filterByRecipientId(null);   //de cada destinatario.
+		//$this->filterByRecipientType(null)  //Con esto nos aseguramos no ver las copias propias
+				 $this->filterByRecipientId(null);   //de cada destinatario.
 
 		if (is_object($user) && get_class($user) == 'User')
 			return $this->filterByFromType('user')->filterByFromId($user->getId(), $comparison);

@@ -15,6 +15,22 @@
  */
 class DocumentQuery extends BaseDocumentQuery {
 	
+ /**
+	* Agrega filtros por nombre o contenido de una BlogEntry
+	*
+	* @param   type string $searchString texto a buscar
+	* @return condicion de filtrado por texto a buscar
+	*/
+	public function searchString($searchString) {
+		return $this->where("Document.Title LIKE ?", "%$searchString%")
+							->_or()
+								->where("Document.Description LIKE ?", "%$searchString%")
+							->_or()
+								->where("Document.Realfilename LIKE ?", "%$searchString%")
+							->_or()
+								->where("Document.Fulltextcontent LIKE ?", "%$searchString%");
+	}
+
 	function filterByNoCategory($comparison = null) {
 		return $this->filterByCategoryid(0, $comparison);
 	}

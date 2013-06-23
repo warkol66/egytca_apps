@@ -1,6 +1,6 @@
 <div id=contentBody>
 	<div id=titleContent>
-		<h2 class="home">Novedades</h1>
+		<h2>Novedades</h2>
 	</div>
 	<div id="div_newsarticles">
 		|-foreach from=$newsArticleColl item=newsarticle name=for_newsarticles-|
@@ -33,7 +33,7 @@
 
 		|-if $pager neq ''-|
 			|-if $pager->getLastPage() gt 0-|
-				<div class="pages">|-if $smarty.get.page == ''-||-include file="NewsHomePaginateInclude.tpl"-||-else-||-include file="NewsArticleShowPaginateInclude.tpl"-||-/if-|</div>
+				<div class="pages">|-if $page eq '1'-||-include file="NewsHomePaginateInclude.tpl"-||-else-||-include file="NewsArticleShowPaginateInclude.tpl"-||-/if-|</div>
 			|-else-|
 				<div class="pages"><a href="|-$url-|" class="detail">Inicio</a></div>
 			|-/if-|

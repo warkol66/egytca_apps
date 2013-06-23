@@ -136,7 +136,7 @@ class BaseAction extends Action {
 
 		header("Content-type: text/html; charset=UTF-8");
 
-		$loggedUser = Common::getLoggedUser();	
+		$loggedUser = Common::getLoggedUser();
 
 		if (!$noCheckLogin) { //Verifica login $noCheckLogin != 1
 
@@ -146,7 +146,7 @@ class BaseAction extends Action {
 					header("Location:Main.php?do=$loginPath");
 					exit();
 				}
-				
+				Common::setLastActionTime($loggedUser);
 				if (!ConfigModule::get("global","noSecurity") && $actionRequested != "securityNoPermission") {
 					if (!empty($securityAction))
 						$access = $securityAction->getAccessByUser($loggedUser);
