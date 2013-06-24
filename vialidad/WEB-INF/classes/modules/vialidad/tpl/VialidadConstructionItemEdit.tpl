@@ -51,6 +51,10 @@
 		</select>
 	</p>
 	<p>
+		<label for="params[order]">Orden</label>
+		<input id="params[order]" name="params[order]" type="text" value="|-$item->getOrder()-|" size="15" title="Orden" />
+	</p>
+	<p>
 		|-if $action eq 'edit'-|
 		<input type="hidden" name="id" id="id" value="|-$item->getid()-|" />
 		|-/if-|
@@ -64,7 +68,7 @@
 		|-/if-|
 		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 			|-javascript_form_validation_button value='Guardar' title='Guardar'-|
-		<input type='button' onClick='location.href="|-if $returnConstructionId neq ""-|Main.php?do=vialidadConstructionsEdit&id=|-$returnConstructionId-||-else-|Main.php?do=vialidadConstructionItemList|-/if-|"' value='Regresar' title="Regresar al listado de Items de Construcción" />
+		<input type='button' onClick='location.href="|-if $returnConstructionId neq ""-|Main.php?do=vialidadConstructionsEdit&id=|-$returnConstructionId-||-else-|Main.php?do=vialidadConstructionItemList|-/if-|"' value='Regresar' title="|-if $returnConstructionId neq ""-|Regresar a la obraRegresar al listado de Items de |-else-|Regresar al listado de Items de Construcción|-/if-|" />
 	</p>
 </form>
 |-if $action eq 'edit'-|

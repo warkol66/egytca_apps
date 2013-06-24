@@ -321,6 +321,7 @@
 		<column name="constructionId" type="INTEGER" description="Id del construction" />
 		<column name="description" type="LONGVARCHAR" />
 		<column name="date" type="DATE" />
+		<column name="order" type="INTEGER" description="Orden" />
 
 		<column name="type" type="TINYINT" defaultValue="1" description="Tipo" />
 
