@@ -47,8 +47,8 @@ class VialidadConstructionsEditAction extends BaseAction {
 			}
 			else
 				$smarty->assign("action","edit");
-			
-			$smarty->assign("items",$construction->getConstructionItems());
+			$order = ConstructionItemQuery::create()->orderByOrder();
+			$smarty->assign("items",$construction->getConstructionItems($order));
 			
 			$smarty->assign("fines", FineQuery::create()->filterByConstruction($construction)->find());
 			

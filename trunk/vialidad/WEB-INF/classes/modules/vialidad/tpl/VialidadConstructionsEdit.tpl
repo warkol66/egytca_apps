@@ -29,10 +29,10 @@
 		 <p><label for="params[contractId]">Contrato</label>
 			|-if $returnContractId neq ""-|
 				<input type="hidden" value="|-$returnContractId-|" name="params[contractId]">
-				<input type="text" value="|-$contract-|" readonly="readOnly">
+				<input type="text" value="|-$contract-|" readonly="readOnly" size="60">
 			|-else-|
 				<input type="hidden" value="|-$construction->getContractId()-|" name="params[contractId]">
-				<input type="text" value="|-$construction->getContract()-|" readonly="readOnly">
+				<input type="text" value="|-$construction->getContract()-|" size="60" readonly="readOnly">
 			|-/if-|
 
 		 </p>
@@ -161,6 +161,7 @@
 		<th colspan="4" class="thFillTitle"><div class="rightLink">
 			<form action="Main.php?do=vialidadConstructionItemEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" method="post">
 			<input type="hidden" name="constructionId" value="|-$construction->getId()-|" />
+			<input type="hidden" name="returnConstructionId" value="|-$construction->getId()-|" />
 			<a href="#" onclick='this.parentNode.submit()' class="addLink">Agregar Item</a></form>
 		</div></th>
 	</tr>

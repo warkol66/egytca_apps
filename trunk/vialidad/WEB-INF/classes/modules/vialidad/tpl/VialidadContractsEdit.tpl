@@ -231,7 +231,7 @@
 		</div> 
 </fieldset>
 
-|-if !$contract->isNew()-|
+|-if !$contract->isNew() && $contract->getType() eq 1-|
 <h3>Obras</h3>
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 	<thead>
