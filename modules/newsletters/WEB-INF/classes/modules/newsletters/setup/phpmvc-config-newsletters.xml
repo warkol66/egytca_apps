@@ -1,0 +1,38 @@
+<!-- Module Newsletters -->
+<!-- Section NewsletterTemplates -->
+  <action-mappings>
+    <action    path = "newslettersNewsletterTemplatesEdit"
+               type = "NewslettersNewsletterTemplatesEditAction"
+               name = "newslettersNewsletterTemplatesEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="NewslettersNewsletterTemplatesEdit.tpl" />
+    </action>
+
+    <action    path = "newslettersNewsletterTemplatesDoEdit"
+               type = "NewslettersNewsletterTemplatesDoEditAction"
+               name = "newslettersNewsletterTemplatesDoEdit"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="/Main.php?do=newslettersNewsletterTemplatesList&amp;message=ok" redirect="true" />
+    <forward name="failure" path="NewslettersNewsletterTemplatesEdit.tpl" />
+    </action>
+
+    <action    path = "newslettersNewsletterTemplatesList"
+               type = "NewslettersNewsletterTemplatesListAction"
+               name = "newslettersNewsletterTemplatesList"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="NewslettersNewsletterTemplatesList.tpl" />
+    </action>
+
+    <action    path = "newslettersNewsletterTemplatesDoDelete"
+               type = "NewslettersNewsletterTemplatesDoDeleteAction"
+               name = "newslettersNewsletterTemplatesDoDelete"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="/Main.php?do=newslettersNewsletterTemplatesList&amp;message=deleted_ok" redirect="true" />
+    </action>
+  </action-mappings>
+<!-- End Section NewsletterTemplates -->
+<!-- End Module Newsletters -->
