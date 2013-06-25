@@ -70,6 +70,8 @@ function usersDoEditInfo(form){
 	return true;
 }
 </script>
+|-$currentUser->getGroups()-|
+
 <form method='post' action='Main.php?do=usersDoEdit'>
 <fieldset title="Formulario de edición de usuarios">
 <legend>Datos del Usuario</legend>
@@ -143,7 +145,8 @@ function usersDoEditInfo(form){
 			</p> 
 		</form> 
 		<ul id="groupList" class="iconOptionsList">
-			 |-foreach from=$currentUser->getGroups() item=group name=for_group-|			 
+			 |-foreach from=$currentUser->getUserGroups() item=userGroup name=for_group-|
+			 |-assign var=group value=$userGroup->getGroup()-|			 
 			<li id="groupListItem|-$group->getId()-|">
 				<form  method="post"> 
 					<input type="hidden" name="do" id="do" value="usersDoDeleteFromGroupX" /> 
