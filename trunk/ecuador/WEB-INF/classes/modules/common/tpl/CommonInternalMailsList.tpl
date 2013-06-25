@@ -20,8 +20,8 @@
 	<table id="tabla-internalMails" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead> 
 			<tr>
-				<td colspan="5" class="tdSearch"><div class="rightLink"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Filtros de búsqueda</a></div>
-					<div id="divSearch" style="display:block;">
+				<td colspan="5" class="tdSearch"><div class="rightLink"><a href="javascript:void(null);" onClick="$('divSearch').toggle();" class="tdTitSearch">Filtros de búsqueda</a></div>
+					<div id="divSearch" style="display:none;">
 						<form action='Main.php' method='get' style="display:inline;">
 							<input type="hidden" name="do" value="commonInternalMailsList" />
 							<p>
@@ -117,7 +117,7 @@
 		if (ids === undefined)
 			ids = jQuery('.selector').serialize();
 		else
-			ids = jQuery(ids).serialize();//Object.toQueryString(ids);
+			ids = 'selectedIds[]=' + ids;//Object.toQueryString(ids);
 		var fields = ids + '&' + jQuery('.filter').serialize() + '&' + jQuery('#page').serialize();
 		jQuery.ajax({
 			url: 'Main.php?do=commonInternalMailsDoMarkAsReadX',
@@ -136,7 +136,7 @@
 		if (ids === undefined)
 			ids = jQuery('.selector').serialize();
 		else
-			ids = jQuery(ids).serialize();//Object.toQueryString(ids);
+			ids = 'selectedIds[]=' + ids;//Object.toQueryString(ids);
 		var fields = ids + '&' + jQuery('.filter').serialize() + '&' + jQuery('#page').serialize() + 'reverse=true';
 		jQuery.ajax({
 			url: 'Main.php?do=commonInternalMailsDoMarkAsReadX',
