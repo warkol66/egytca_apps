@@ -41,7 +41,7 @@
 				<input type="submit" id="button_reply_internalMail" name="button_reply_internalMail" title="Responder a todos" value="Responder a todos" />
 	</form>|-/if-|
 	<form method="GET" action="Main.php" style="display: inline;">
-				<input type="button" id="button_mark_as_unread" name="button_mark_as_unread" title="Marcar como no leído" value="Marcar como no leído" onClick="markAsUnread({ 'selectedIds[]': |-$internalMail->getId()-|}); return false;"/>
+				<input type="button" id="button_mark_as_unread" name="button_mark_as_unread" title="Marcar como no leído" value="Marcar como no leído" onClick="markAsUnread(|-$internalMail->getId()-|); return false;"/>
 	</form>
 	<form method="GET" action="Main.php" style="display: inline;">
 				<a href="#" class="lbAction blackNoDecoration" rel="deactivate"><input type="button" id="button_delete" name="button_delete" title="Eliminar" value="Eliminar" onClick="deleteMessages({ 'selectedIds[]': |-$internalMail->getId()-|});"/></a> 
