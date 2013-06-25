@@ -1,3 +1,4 @@
-Renombrar el install.php.ini a install.php
-Renombrar el /lib/config.php.ini a config.php
-Correr el intall.php
+- Copiar el install.php.ini a install.php
+- Copiar el /lib/config.php.ini a /lib/config.php y colocar la informaciónd e conexión a la base de datos
+- Correr el intall.php
+- Eliminar el install.php
