@@ -146,7 +146,7 @@ class NewsArticlePeer extends BaseNewsArticlePeer {
 	 * Obtiene los ultimos N articulos publicados
 	 * @param integer cantidad de ultimos articulos publicados a obtener
 	 * @return Array array de instancias de NewsArticle
-	 */
+	 *
 	public function getLastArticles($quantity) {
 		
 		$criteria = new Criteria();
@@ -156,7 +156,7 @@ class NewsArticlePeer extends BaseNewsArticlePeer {
 		
 		return NewsArticlePeer::doSelect($criteria);
 		
-	}
+	}*/
   
 	/**
 	 * Obtiene los ultimos N articulos actualizados

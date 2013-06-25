@@ -33,5 +33,21 @@ class NewsArticleQuery extends BaseNewsArticleQuery {
 		}
 		return $query;
 	}
+	
+	/** Migrado de Peer
+	 * Obtiene los ultimos N articulos publicados
+	 * @param integer cantidad de ultimos articulos publicados a obtener
+	 * @return Array array de instancias de NewsArticle
+	 */
+	public function getLastArticles($quantity) {
+		
+		$articles = NewsArticleQuery::create()
+						->orderByCreationDate('desc')
+						->filterByStatus(NewsArticle::PUBLISHED)
+						->limit($quantity)
+						->find();
+		return $articles;
+		
+	}
 
 } // NewsArticleQuery
