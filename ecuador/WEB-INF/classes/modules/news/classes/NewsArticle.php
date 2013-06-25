@@ -539,9 +539,10 @@ class NewsArticle extends BaseNewsArticle {
     return $pager;
    }
    
-   public function getLogData(){
+	public function getLogData(){
 		return substr($this->getTitle(),0,50);
 	}
+	
 
 
 } // NewsArticle
