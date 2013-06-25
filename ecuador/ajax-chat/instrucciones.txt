@@ -1,0 +1,3 @@
+Renombrar el install.php.ini a install.php
+Renombrar el /lib/config.php.ini a config.php
+Correr el intall.php
