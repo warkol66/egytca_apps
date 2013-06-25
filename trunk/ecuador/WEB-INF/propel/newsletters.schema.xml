@@ -1,0 +1,67 @@
+<database defaultIdMethod="native" package="newsletters.classes" name="application" >
+
+<!-- Module Newsletters -->
+
+<table phpName="NewsletterTemplate" name="newsletters_template" description="Templates de newsletters">
+	<column name="id" type="INTEGER"  required="true" description="Id" primaryKey="true" autoIncrement="true"  />
+	<column name="name" type="VARCHAR" size="255" description="Nombre" />
+	<column name="content" type="LONGVARCHAR" description="Contenido del template" />
+	<column name="newsletterTemplateExternalId" type="INTEGER"  required="true" description="Template Externo" />	
+	<column name="dynamicSubjectMask" type="INTEGER" required="true" default="0" description="Mask for dynamic subject" />	
+	
+	<foreign-key foreignTable="newsletters_templateExternal">
+		<reference local="newsletterTemplateExternalId" foreign="id" />
+	</foreign-key>	
+</table>
+
+<table phpName="NewsletterTemplateExternal" name="newsletters_templateExternal" description="Templates externos de newsletters">
+	<column name="id" type="INTEGER"  required="true" description="Id" primaryKey="true" autoIncrement="true"  />
+	<column name="name" type="VARCHAR" size="255" description="Nombre" />
+	<column name="content" type="LONGVARCHAR" description="Contenido del template externo" />
+</table>
+
+<table phpName="Newsletter" name="newsletters_newsletter" description="Newsletters">
+	<column name="id" type="INTEGER"  required="true" description="Id" primaryKey="true" autoIncrement="true"  />
+	<column name="subject" type="VARCHAR" size="255" description="Asunto" />
+	<column name="content" type="LONGVARCHAR" description="Contenido del newsletter" />
+	<column name="sentAt" type="TIMESTAMP"  description="Fecha de envio del newsletter" />
+	<column name="newsletterTemplateId" type="INTEGER"  required="true" description="template a partir del que se genero el newsletter" />
+	
+	<foreign-key foreignTable="newsletters_template">
+		<reference local="newsletterTemplateId" foreign="id" />
+	</foreign-key>
+</table>
+
+<table phpName="NewsletterSchedule" name="newsletters_schedule" description="Programacion de Newsletters">
+	<column name="id" type="INTEGER"  required="true" description="Id" primaryKey="true" autoIncrement="true" />
+	<column name="newsletterTemplateId" type="INTEGER"  required="true" description="Id" />
+	<column name="deliveryMode" required="true" type="VARCHAR" size="2" description="Modo de envio" />
+    <column name="deliveryDate" type="TIMESTAMP"  description="Fecha de envio si el pedido lo requiere"/>	
+    <column name="deliveryDay" type="VARCHAR" size="3" description="Dia de envio si el pedido lo requiere"/>
+	<column name="deliveryDayNumber" type="INTEGER" size="2" description="Numero de Dia de mes en que se envia si el pedido lo requiere"/>
+	<!--column name="clusterId" type="INTEGER"  required="true" description="Cluster de usuarios al cual sera enviado el newsletter" /-->	
+	<column name="active" type="BOOLEAN" required="true" default="1" description="Activo o inactivo" />
+	
+	<foreign-key foreignTable="newsletters_template">
+		<reference local="newsletterTemplateId" foreign="id" />
+	</foreign-key>
+	<!--foreign-key foreignTable="segmentation_cluster">
+		<reference local="clusterId" foreign="id" />
+	</foreign-key-->		
+</table>
+
+<table phpName="NewsletterUser" name="newsletters_user" description="Newsletters enviados a usuarios">
+	<column name="newsletterId" type="INTEGER"  required="true" description="Id del newsletter" primaryKey="true" />
+	<column name="registrationUserId" type="INTEGER"  required="true" description="Id del newsletter" primaryKey="true" />	
+	
+	<foreign-key foreignTable="newsletters_newsletter">
+		<reference local="newsletterId" foreign="id" />
+	</foreign-key>
+	<foreign-key foreignTable="registration_user">
+		<reference local="registrationUserId" foreign="id" />
+	</foreign-key>
+</table>
+
+</database>
+
+<!-- End Module Newsletter -->
