@@ -1,0 +1,10 @@
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'newslettersNewsletterTemplatesEdit', '','esp','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'newslettersNewsletterTemplatesEdit', '','eng','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'newslettersNewsletterTemplatesDoEdit', '','esp','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'newslettersNewsletterTemplatesDoEdit', '','eng','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'newslettersNewsletterTemplatesDoEdit', '','esp','failure');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'newslettersNewsletterTemplatesDoEdit', '','eng','failure');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'newslettersNewsletterTemplatesList', '','esp','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'newslettersNewsletterTemplatesList', '','eng','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'newslettersNewsletterTemplatesDoDelete', '','esp','success');
+INSERT INTO `actionLogs_label` (`action`, `label`, `language`, `forward`) VALUES ( 'newslettersNewsletterTemplatesDoDelete', '','eng','success');
