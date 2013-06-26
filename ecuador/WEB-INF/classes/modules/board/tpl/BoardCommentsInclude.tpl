@@ -21,7 +21,7 @@
 <!-- Formulario para agregar comentario -->
 <div id="div_comments_adder_|-$challenge->getId()-|">
 <a name="commentsForm"></a>
-
+|-if !isset($finished)-|
 <!-- TITULO FORMULARIO / DEJAR COMENTARIOS -->
  <div id="titleComments"><div id="icoWriteComments"></div>Deja tu comentario</div>	
 	<div id="msgError"></div>
@@ -70,5 +70,6 @@
 		</fieldset>
 	</form>
 	</div>
+|-/if-|
 </div>
 </div>

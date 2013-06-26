@@ -28,13 +28,16 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 	|-/foreach-|</p>
 </div>
 <div id="users"></div>
+|-if !isset($finished)-|
 |-foreach from=$bonds key=key item=bond-|
 	<input type="button" name="|-$bond-|" value="|-$bond-|" id="bond_|-$key-|" onClick="javascript:addBond(|-$key-|);" class="bondButton|-if $bond|count_characters gt 25-|Wide|-/if-|" |-if in_array($key,$loggedBonds)-|disabled="disabled"|-/if-|>
 |-/foreach-|
+|-/if-|
 		<p><br />
+
 <input type="button" name="Volver" value="Volver" id="Volver" onClick="javascript:history.go(-1);"></p>
 </div>
-	|-include file='BoardCommentsInclude.tpl' challenge=$boardChallenge comments=$comments bonds=$bonds-|
+	|-include file='BoardCommentsInclude.tpl' challenge=$boardChallenge comments=$comments bonds=$bonds finished=$finished-|
 	|-if $moduleConfig.comments.useComments.value eq "YES"-|
 	|-/if-|
 

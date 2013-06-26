@@ -10,7 +10,10 @@ class BoardShowAction extends BaseListAction {
 		parent::preList();
 		
 		$this->filters['status'] = BoardChallenge::PUBLISHED; //Solo las consignas publicadas
-		$this->filters['dateRange']['enddate']['min'] = date("Y-m-d H:i:s"); //Solo las que todavia no terminaron
+		if(isset($_GET['finished']))
+			$this->filters['dateRange']['enddate']['max'] = date("Y-m-d H:i:s"); //Solo las que ya terminaron
+		else
+			$this->filters['dateRange']['enddate']['min'] = date("Y-m-d H:i:s"); //Solo las que todavia no terminaron
 		
 	}
 	
@@ -24,6 +27,9 @@ class BoardShowAction extends BaseListAction {
 		 
 		$moduleConfig = Common::getModuleConfiguration($module);
 		$this->smarty->assign('moduleConfig',$moduleConfig);
+		
+		if(isset($_GET['finished']))
+			$this->smarty->assign('finished','true');
 		
 		//me fijo si hay algun challenge vigente
 		foreach($this->results as $challenge){
