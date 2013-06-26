@@ -1,3 +1,5 @@
+<h2>Desafíos</h2>
+<p>Esta sección permitirá el diálogo e intercambio de ideas alrededor de temas de interés entre los líderes parroquiales.</p>
 <script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 |-if $message eq "captcha"-|
 <div id="errorMessage">Captcha incorrecto, intente nuevamente</div>

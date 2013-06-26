@@ -82,6 +82,8 @@
 			<!-- End Right Column -->
 	<!-- Begin contentCloser -->
 	<div id="contentCloser"></div>
+	|-entity_include entity="InternalMail" template="CommonInternalMailNotificationInclude.tpl" filters=['filterByRecipient' => $loginUser,'unread' => 'true']-|
+	|-entity_include entity="User" template="UsersIncludeList.tpl" filters=['orderByUsername' => 'desc','getLoged' => 'true']-|
 	<!-- End contentCloser -->
 	</div>
 	<!-- End contentWrapper -->
@@ -96,7 +98,7 @@
 <!-- End Wrapper -->
 	|-*include_module module=Banners action=ZonesDisplay options="id=1"*-|
 
-			|-entity_include entity="User" template="UsersIncludeList.tpl" filters=['orderByUsername' => 'desc','getLoged' => 'true']-|
+			
 
 </body>
 </html>
