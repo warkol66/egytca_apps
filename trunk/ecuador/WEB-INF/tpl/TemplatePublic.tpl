@@ -56,11 +56,15 @@
 				<div id="rightColumn">
 					<!--centerHTML start-->
 					|-$centerHTML-|
+
+
 					<!--centerHTML end -->
 				</div>
 			<!-- End Right Column -->
 	<!-- Begin contentCloser -->
 	<div id="contentCloser"></div>
+	|-entity_include entity="InternalMail" template="CommonInternalMailNotificationInclude.tpl" filters=['filterByRecipient' => $loginUser,'unread' => 'true']-|
+	|-entity_include entity="User" template="UsersIncludeList.tpl" filters=['orderByUsername' => 'desc','getLoged' => 'true']-|
 	<!-- End contentCloser -->
 	</div>
 	<!-- End contentWrapper -->
