@@ -19,7 +19,7 @@ class RegionsAutocompleteListXAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$module = "Users";
+		$module = "Regions";
 		$smarty->assign("module",$module);
 		
 		$searchString = $_REQUEST['value'];
@@ -47,9 +47,10 @@ class RegionsAutocompleteListXAction extends BaseAction {
 		else if ($_REQUEST['campaignId'])
 			$filters = array_merge_recursive($filters, array("relatedObject" => CampaignPeer::get($_REQUEST['campaignId'])));
 
-		$regionPeer = new RegionPeer();
-		$this->applyFilters($regionPeer,$filters);
-		$regions = $regionPeer->getAll();
+		$regions = RegionQuery::create()
+			->addFilters($filters)
+			->limit($_REQUEST['limit'])
+			->find();
 
 		$smarty->assign("regions",$regions);
 		$smarty->assign("limit",$_REQUEST['limit']);

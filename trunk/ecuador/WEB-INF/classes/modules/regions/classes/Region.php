@@ -70,5 +70,7 @@ class Region extends BaseRegion {
 	function getBudgetItems($criteria) {
 		return BudgetRelationQuery::create(null, $criteria)->filterByBudgetgeolocation($this->getOldid())->find();
 	}
+	
+	
 
 } // Region
