@@ -1,3 +1,7 @@
+<link type="text/css" rel="stylesheet" href="css/chosen.css" />
+<script src="scripts/jquery/chosen.js"></script>
+<script type="text/javascript" src="scripts/jquery/ajax-chosen.min.js"></script>
+<script type="text/javascript" src="scripts/jquery/egytca.js"></script>
 <h2>##common,18,Configuración del Sistema##</h2>
 <h1>##users,151,Administración de Usuarios##</h1>
 <!-- Link VOLVER -->
@@ -70,8 +74,6 @@ function usersDoEditInfo(form){
 	return true;
 }
 </script>
-|-$currentUser->getGroups()-|
-
 <form method='post' action='Main.php?do=usersDoEdit'>
 <fieldset title="Formulario de edición de usuarios">
 <legend>Datos del Usuario</legend>
@@ -93,6 +95,10 @@ function usersDoEditInfo(form){
 		</p>
 		<p><label for="userParams[mailAddress]">E-mail</label>
 			<input id='userParams[mailAddress]' name='userParams[mailAddress]' type='text' value='|-$currentUser->getMailAddress()-|' size="40" class="mailValidation emptyValidation" onchange="javascript:validationValidateFieldClienSide('userParams[mailAddress]');" /> |-validation_msg_box idField="userParams[mailAddress]"-|
+		</p>
+		|-assign var=currentReg value=$currentUser->getRegion()-|
+		<p><label for="userParams[regionId]">Región</label>
+			<select id="user_params_regionId" name="userParams[regionId]" class="chzn-select markets-chz-select" data-placeholder="|-$currentReg->getName()-|"></select>
 		</p>
 		<p><label for="pass">##users,165,Contraseña##</label>
 			<input id='pass' name='pass' type='password' value='' size="20" class="" onchange="javascript:setElementClass('pass','emptyValidation');setElementClass('pass2','passwordMatch');validationValidateFieldClienSide('pass');" /> |-validation_msg_box idField=pass-|
@@ -205,3 +211,6 @@ function usersDoEditInfo(form){
 
 
 |-include file="UsersEditAddonInclude.tpl"-|
+<script language="JavaScript" type="text/javascript">
+	$('#user_params_regionId').egytca('autocomplete', 'Main.php?do=regionsAutocompleteListX');
+</script>
