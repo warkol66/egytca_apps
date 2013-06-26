@@ -39,6 +39,9 @@ class BoardViewAction extends BaseEditAction {
 		$moduleConfig = Common::getModuleConfiguration("board");
 		$this->smarty->assign("moduleConfig",$moduleConfig);
 		
+		if(isset($_GET['finished']))
+			$this->smarty->assign('finished','true');
+		
 		//busco los compromisos posibles
 		$this->smarty->assign("bonds",BoardBond::getTypes());
 		//busco los compromisos existentes en este desafio
