@@ -606,13 +606,13 @@ option {
 }
 fieldset legend {
 	font-weight: bold;
-	color: #000000;
+	color: #FFF;
 	padding:5px 10px;
 	border-radius:2px;
 	-moz-border-radius:2px;
 	-webkit-border-radius:2px;
 	border:1px solid #a0a0a0;
-	background-color: #ffffff;
+	background-color: #900;
 	-moz-box-shadow:2px 2px 3px #a0a0a0;
 	-webkit-box-shadow:2px 2px 3px #a0a0a0;
 	box-shadow:2px 2px 3px #a0a0a0;
@@ -1066,13 +1066,14 @@ p.commentData span {font-weight:bold;}
 	vertical-align:top
 }
 .eventsMonth th{
-	color:#006699;
+	color: #900;
 	text-align:center;
 	font-size:1.2em;
 	font-weight:bold;
 	padding:5px;
 	vertical-align:top;
-	border:solid 1px #999999
+	border:solid 1px #999999;
+	background-color:#FFFFFF
 }
 .eventsMonth tbody tr td ul li{
 	list-style-type:disc;
@@ -1098,6 +1099,12 @@ p.commentData span {font-weight:bold;}
 	font-size:1em;
 	font-weight:bold
 }
+.calendar h2 {
+	margin:10px 0 10px 0;
+	color:#900 !important;
+	font-size:1.4em !important;
+	text-transform:uppercase;
+	font-weight:bold;}
 #calendar li{
 	font-size:1.1em
 }
@@ -1114,13 +1121,20 @@ p.commentData span {font-weight:bold;}
 	overflow:hidden
 }
 .events{
-	display:inline;
-	float:left;
-	margin:0 0 15px 10px;
-	padding:0 0 0 8px;
+	width:45%;
+	min-height:70px;
+	display:inline-block;
+/*	float:left;*/
+	margin:0 5px 15px 5px;
+	padding:4px 0 4px 8px;
 	clear:right;
 	border-left:#990000 2px solid;
-	width:475px
+	border-top:#990000 2px solid;
+/*	width:475px*/
+	background-color:#FFF;
+	-webkit-border-radius: 0 0 10px 10px;
+     border-radius: 0 0 10px 10px;
+	
 }
 .events li {
 	list-style: none !Important;
@@ -1147,14 +1161,28 @@ a.dayEventNumber{
 	width:520px !important;
 	width:514px;
 	height:auto;
-	padding:5px 5px 5px 5px;
+/*	padding:5px 5px 5px 5px;
 	margin:0px 0px 10px 0px;
 	color:#990000;
 	font-size:1.4em;
 	font-weight:bold;
 	text-transform:uppercase;
 	border:1px solid #CCCCCC;
-	background-color:#fff4ce
+	background-color:#fff4ce; 
+	*/
+	
+    font-family: Georgia,"Times New Roman",Times,serif;
+    line-height: 26px;
+    color: rgb(153, 0, 0);
+    font-weight: bold;
+    padding: 0px 0px 40px;
+    margin: 0px;
+    background-image: url("../images/bkgH2.gif");
+    background-position: left bottom;
+    background-repeat: repeat-x;
+	background-color:transparent;
+	border:none;
+	position:relative;
 }
 #titleAgenda a{
 	color:#990000;
@@ -1174,7 +1202,8 @@ a.dayEventNumber{
 	background-image:url(../images/ico_calendar.gif);
 	float:right;
 	position:absolute;
-	margin:-10px 0px 0px 475px
+	margin:-10px 0px 0px 0;
+	right:10px;
 }
 
 .blog01 #summary table,  #completeText table {
@@ -1367,18 +1396,18 @@ a.readMore {
 	line-height: 1.4em;
 }
 #titleComments {
-	border-bottom: #CCCCCC 1px solid;
-	border-left: #CCCCCC 1px solid;
-	margin: 2px 0px 10px;
-	border-top: #CCCCCC 1px solid;
-	border-right: #CCCCCC 1px solid;
-	padding: 5px;
-	background: url(../images/bkg_titleComments.gif) #FFFFFF repeat-x left bottom;
-	color: #006699;
-	font-size: 1.4em;
+	width:100%;
+	margin:2px 0px 10px 0;
+	padding: 5px 10px;
+/*	background: url(../images/bkg_titleComments.gif) #FFFFFF repeat-x left bottom;*/
+	font-size: 1.3em;
 	font-weight: bold;
 	text-transform: uppercase;
 	height: auto;
+	color:#ffcc66;
+	background-color:#990000;
+	-webkit-border-radius: 0px 0px 10px 10px;
+    border-radius: 0px 0px 10px 10px;	
 }
 #icoComments {
 	margin: -10px 0px 0px 545px;
@@ -1432,24 +1461,26 @@ a.readMore {
 	width: 490px;
 }
 #comentarios p.nombre {
-	width: 110px;
+	width: 100%;
+	text-align:left !important;
 }
 #comentarios .commentContainer {
 	display: block;
-	background-image: url(../images/separadorComentarios.png);
-	background-repeat: repeat-y;
+	background-color:#FFFFFF;
 	clear: both !important;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
+	padding:5px 10px;
+	-webkit-border-radius: 5px;
+    border-radius: 5px;
+	border: solid #CCC 1px;
 }
 #comentarios .close {
 	clear: both !important;
 }
 #formComments {
-	margin: 0px 10px 15px 30px;
+	margin: 0px 10px 15px 0px;
 	color: #333333;
-	font-size: 1.2em;
 	font-weight: normal;
-	line-height: 1.4em;
 }
 #formComments input, #formComments textarea {
 	border: #999999 1px solid;
@@ -1459,6 +1490,8 @@ a.readMore {
 	text-align: left !Important;
 	font-size: 1em!Important;
 }
+
+p.formSendButton {text-align:center;}
 .blog01 .tags , .blog02 .tags {
 	padding-left: 8px;
 	color: #006699;
@@ -1486,15 +1519,15 @@ a.readMore {
 	float: left;
 	width: 520px;
 }
-.bondButton , .bondButtonWide {
+/*.bondButton , .bondButtonWide {
 	width: 100px;
 	height: 54px;
 	white-space: normal;
 	vertical-align: bottom !Important;
-}
-.bondButtonWide {
+}*/
+/*.bondButtonWide {
 	width: 150px;
-}
+}*/
 /* MAILS   --------------------------------------------*/
 a.linkMailNew:link, a.linkMailNew:visited,
 a.linkMailMarkRead:link, a.linkMailMarkRead:visited,
@@ -1513,3 +1546,118 @@ a.linkMailDelete:hover, a.linkMailDelete:active {
 	color:#009900;
 }
 /* MAILS   --------------------------------------------*/
+
+
+
+/* BOTTOM DIVS  -----------------------------------*/
+.news01 img {
+	float:left;
+	margin:0 8px 4px 0;}
+	
+	#mailAlert {
+		font-weight:bold;
+		color:#ffcc66;
+		margin:0 25px 10px 25px;
+		padding:10px 10px 5px 50px;
+		background-color:#993333;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		background-image:url(../images/iconMail.png);
+		background-repeat:no-repeat;
+		background-position:10px 0px;
+		}
+		#mailAlert a{ color:#FFF;}
+		#mailAlert a:hover{ text-decoration:none;}
+				
+	#logedUsers{
+		margin:0 25px 10px 25px;
+	padding:10px 10px 10px 50px;
+	background-color:#ffcc66;
+		background-image:url(../images/iconUser.png);
+		background-repeat:no-repeat;
+		background-position:10px 10px;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		font-weight:bold;		
+		}
+	
+	#logedUsers #logedUsersList {
+		font-weight:normal;}
+	#logedUsers ul { margin-bottom:10px;}
+	#logedUsers ul li { list-style:none; margin-left:15px; color:#900;}
+		
+		
+/*  boardView   */
+		.buttonsVotation{
+		width:94%;
+		margin-top:15px;
+		background-color:#FFF;
+		-webkit-box-shadow:  0px 5px 5px 0px rgba(0, 0, 0, 0.3);
+         box-shadow:  0px 5px 5px 0px rgba(0, 0, 0, 0.3);
+		-webkit-border-radius: 10px;
+	  	 border-radius: 10px;
+		 padding:25px 15px;
+		 text-align:center;
+		 
+		 /* para que se expanda con los inputs/FLOATS*/
+		 overflow: auto;
+/*		width: 100%;*/
+		}
+		
+	.buttonsVotation .bondButton, 
+	.buttonsVotation .bondButtonWide {
+		width:29%; min-height:6em; 
+	display:inline-block; margin:10px !important; 
+	padding:8px; text-transform:uppercase;
+	line-height:0.5em; white-space:normal;
+	vertical-align:text-top top;
+	float:left;
+	}
+	
+	.tags {border: solid 1px #990000; -webkit-border-radius: 10px; border-radius: 10px;padding:15px 15px 0 15px}
+	.tags h4, 
+	.resultsSelection h4 {font-family: Arial,Helvetica,sans-serif,Geneva !important;
+	font-size:12px!important;
+		text-transform:uppercase;
+		margin-bottom:5px!important;}
+	.tags p a{/*float:left;*/
+	display:inline-block;
+		color:#ffcc66;
+		background-color:#993333;
+		-webkit-border-radius: 5px;
+		border-radius: 5px;
+		margin:3px;
+		padding:3px 6px;
+		text-decoration:none;}
+	.tags p a:hover{color:#FFF;}
+
+		
+	.resultsSelection {	
+		width:70%;
+		margin:0 auto 15px auto;
+		padding:10px;
+		background-color:#FFF;
+		-webkit-border-radius: 0 0 5px 5px;
+		border-radius: 0 0 5px 5px;
+		border: solid 1px #999;
+		border-top:none;
+		}
+		.resultsSelection ul{ margin:0 10px 10px 15px;}
+		.resultsSelection ul li{list-style:none; background-image:url(../images/iconMailSmall.png);
+		background-position:0 0; background-repeat:no-repeat;
+		padding:0 0 0 20px;}
+		
+		.showHideComments {
+			width:100%;
+			margin:0;
+			padding:5px 10px;
+			border-top: solid #999 1px;
+			border-bottom: solid #999 1px;
+			color:#990000;
+			font-weight:bold;}
+			
+			
+			
+			/* tema LIs */
+			#contentBody p {margin-left:0 !important;}
+			#contentBody li {margin:0 10px 0 25px; width:90%;}
