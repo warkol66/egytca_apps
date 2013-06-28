@@ -24,16 +24,16 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 <p>&nbsp;</p>
 <div id="msgBond"></div>
 <div class="tags">
-	<p>Haga click en los resultados para ver quiénes los seleccionaron<br>
+	<h4>Haga click en los resultados para ver quiénes los seleccionaron</h4>
 		|-foreach from=$bonds key=key item=bond-|
 		<a href="#" onClick="javascript:getUsers(|-$key-|);">|-$bond-|</a>&nbsp; 
-	|-/foreach-|</p>
+	|-/foreach-|
 </div>
 <div id="users"></div>
-|-if !isset($finished)-|
+|-if !isset($finished)-|<div class="buttonsVotation">
 |-foreach from=$bonds key=key item=bond-|
 	<input type="button" name="|-$bond-|" value="|-$bond-|" id="bond_|-$key-|" onClick="javascript:addBond(|-$key-|);" class="bondButton|-if $bond|count_characters gt 25-|Wide|-/if-|" |-if in_array($key,$loggedBonds)-|disabled="disabled"|-/if-|>
-|-/foreach-|
+|-/foreach-|</div>
 |-/if-|
 		<p><br />
 

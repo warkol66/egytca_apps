@@ -21,10 +21,14 @@ class NewsArticlesShowAction extends BaseListAction {
 
 		if(isset($_GET['categoryId']))
 			$this->filters['categoryid'] = $_GET['categoryId'];
+
+		$this->filters['orderByCreationdate'] = "desc";
 	}
 	
 	protected function postList() {
 		parent::postList();
+
+		unset($this->filters['orderByCreationdate']);
 		
 		$module = "News";
 		$this->smarty->assign("module",$module);

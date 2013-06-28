@@ -6,7 +6,8 @@
 		});
 	});
 </script>
-<form action="Main.php" method="post" style="margin-bottom: 20px;">
+<div class="showHideComments">
+<form action="Main.php" method="post">
 	<input type="hidden" name="do" value="boardCommentsShow" id="do">
 	<input type="hidden" name="challengeId" value="|-$challenge->getId()-|" id="challengeId">
 	|-if $challenge->getApprovedCommentsCount() gt 0-|
@@ -70,6 +71,6 @@
 		</fieldset>
 	</form>
 	</div>
-|-/if-|
+</div>|-/if-|
 </div>
 </div>

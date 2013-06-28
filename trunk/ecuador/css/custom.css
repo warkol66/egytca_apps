@@ -1044,7 +1044,7 @@ p.commentData span {font-weight:bold;}
 	vertical-align:top
 }
 .eventsMonth th{
-	color:#006699;
+/*	color:#006699;*/
 	text-align:center;
 	font-size:1.2em;
 	font-weight:bold;
@@ -1092,7 +1092,6 @@ p.commentData span {font-weight:bold;}
 	margin:0 0 15px 10px;
 	padding:0 0 0 8px;
 	clear:right;
-	border-left:#990000 2px solid;
 	width:465px
 }
 .currentDay{
@@ -1145,4 +1144,25 @@ a.dayEventNumber{
 	float:right;
 	position:absolute;
 	margin:-10px 0px 0px 475px
+}
+
+.news01 {
+	margin-bottom: 2em !Important;
+	clear: both !Important;
+}
+
+div#logedUsersList ul li, 
+div.resultsSelection ul li {
+	display: inline !Important;
+}
+div.resultsSelection ul li a,
+div.resultsSelection ul li a:link,
+div.resultsSelection ul li a:visited {
+	color: #993333 !Important;
+	text-decoration: none !Important;
+}
+div.resultsSelection ul li a:hover{
+	background-color: #993333 !Important;
+	color: White !Important;
+	text-decoration: underine !Important;
 }

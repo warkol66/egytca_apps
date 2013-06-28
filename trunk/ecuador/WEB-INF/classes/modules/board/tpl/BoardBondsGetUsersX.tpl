@@ -1,4 +1,4 @@
-|-$bonds[$filters.type]-|
+<div class="resultsSelection"><h4>|-$bonds[$filters.type]-|</h4>
 <ul>
 |-if $users|@count gt 0-|
 |-foreach from=$users item=user-|
@@ -17,3 +17,4 @@
 								});
 	
 </script>
+</div>
