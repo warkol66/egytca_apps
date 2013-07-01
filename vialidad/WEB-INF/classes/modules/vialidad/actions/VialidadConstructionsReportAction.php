@@ -1,27 +1,35 @@
 <?php
 
-class VialidadConstructionsReportAction extends BaseAction {
 
-	function execute($mapping, $form, &$request, &$response) {
-
-		BaseAction::execute($mapping, $form, $request, $response);
-
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
+class VialidadConstructionsReportAction extends BaseListAction {
+	
+	function __construct() {
+		parent::__construct('Construction');
+	}
+	protected function preList() {
+		parent::preList();
 		
 		$constructions = ConstructionQuery::create()->find();
-		$smarty->assign('constructions', $constructions);
+		$this->smarty->assign('constructions', $constructions);
 		
 		$time = time();
-		$smarty->assign('date', $time);
+		$this->smarty->assign('date', $time);
 		require_once 'Period.php';
 		$period = new Period(date('Y-m-d', $time), 'Y-m-d');
-		$smarty->assign('period', $period);
+		$this->smarty->assign('period', $period);
+
+		$this->smarty->assign("types",ConstructionTypeQuery::create()->find());
 		
-		$this->template->template = 'TemplatePlain.tpl';
-		return $mapping->findForwardConfig('success');
 	}
+
+	protected function postList() {
+		parent::postList();
+		
+		if ($_REQUEST['report']) {
+			$this->smarty->assign('report', true);
+			$this->template->template = 'TemplatePlain.tpl';
+		}
+
+	}
+
 }

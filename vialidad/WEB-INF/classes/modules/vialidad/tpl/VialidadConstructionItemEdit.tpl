@@ -108,6 +108,7 @@
 			<tr><td align="center" colspan="3" class="thFillTitle">
 				<div id="message_invalid_proportions" class="errorMessage" style="display:none">Proporciones inválidas, se ha superado el 100%</div>
 				<div id="message_incomplete_proportions" class="inProgress" style="display:none">Item incompleto, no se ha llegado al 100%</div>
+				<div id="actual_proportions"></div>
 			</td></tr>
 		</tfoot>
 	</table>
@@ -143,14 +144,17 @@ function checkProportions(v) {
 	if (result < 100) {
 		$('message_incomplete_proportions').show();
 		$('message_invalid_proportions').hide();
+		$('actual_proportions').update('Proporción completada:' + result + '%');
 		return -1;
 	} else if (result == 100) {
 		$('message_incomplete_proportions').hide();
 		$('message_invalid_proportions').hide();
+		$('actual_proportions').update('Proporción completada:' + result + '%');
 		return 0;
 	} else if (result > 100) {
 		$('message_incomplete_proportions').hide();
 		$('message_invalid_proportions').show();
+		$('actual_proportions').update('Proporción completada:' + result + '%');
 		return 1;
 	}
 }
