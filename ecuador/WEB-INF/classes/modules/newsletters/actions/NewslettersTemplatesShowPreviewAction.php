@@ -44,7 +44,7 @@ class NewslettersTemplatesShowPreviewAction extends BaseAction {
 		$section = "NewsletterTemplates";
 		$smarty->assign("section",$section);
 		
-		$this->template->template = "TemplateClear.tpl";
+		//$this->template->template = "TemplateClear.tpl";
 		
     	if ( !empty($_GET["id"]) ) {
 			

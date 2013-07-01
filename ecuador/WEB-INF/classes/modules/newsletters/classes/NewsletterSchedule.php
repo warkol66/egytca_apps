@@ -104,12 +104,13 @@ class NewsletterSchedule extends BaseNewsletterSchedule {
 
 		try {
 		
-			$cluster = $this->getSegmentationCluster();
+			/* Aca no usamos clusters
+			 * $cluster = $this->getSegmentationCluster();
 			//no habia cluster asignado
 			if (empty($cluster))
-				return false;
+				return false;*/
 			
-			$users = $cluster->getUsers();
+			$users = UserQuery::create()->find();
 
 			global $system;
 			$mailFrom = $system["config"]["system"]["parameters"]["fromEmail"];
@@ -117,10 +118,11 @@ class NewsletterSchedule extends BaseNewsletterSchedule {
 			//variable que no permite evaluar si de debera enviar a usuarios importados.
 			$sendToImporter = ($system["config"]["newsletters"]["sendToPendingUsers"]["value"] == 'YES');
 	
-			//require_once('EmailManagement.php');
+			require_once('EmailManagement.php');
 			$manager = new EmailManagement();
 			
 			$template = $this->getNewsletterTemplate();
+			require_once('NewsletterTemplateRenderFactory.php');
 			$renderFactory = new NewsletterTemplateRenderFactory();
 			$render = $renderFactory->build($template);
 			$subject = $render->getSubject();
@@ -132,14 +134,18 @@ class NewsletterSchedule extends BaseNewsletterSchedule {
 			$params['newsletterTemplateId'] = $template->getId();
 			
 			//creamos registro del envio
-			$newsletterRegister = NewsletterPeer::create($params);			
+			$newsletterRegister = NewsletterPeer::create($params);
+			
+			/*print_r($newsletterRegister);
+			die();	*/
 
 			//envio de email a cada usuario		
 			foreach ($users as $user) {	
 				
-				if ($user->wantsNewsletter()) {
+				/* Envio a todos los usuarios
+				 * if ($user->wantsNewsletter()) {
 
-					if ((!$user->isImported()) || ($user->isImported() && $sendToImporter)) {
+					if ((!$user->isImported()) || ($user->isImported() && $sendToImporter)) {*/
 
 						//se envian aquello que no fueron importados
 						//o que fueron importados y que se indico en la configuracion que hay que enviarlos.
@@ -163,8 +169,8 @@ class NewsletterSchedule extends BaseNewsletterSchedule {
 								
 						NewsletterUserPeer::create($params);	
 				
-					}
-				}
+					//}
+				//}
 			}
 			
 

@@ -11,7 +11,7 @@ class NewslettersSchedulesDoEditAction extends BaseAction {
 	
 	function validate($mapping,$smarty) {
 
-		return (!empty($_POST["newsletterschedule"]["clusterId"]) && !empty($_POST["newsletterschedule"]["deliveryMode"]) && !empty($_POST["newsletterschedule"]["newsletterTemplateId"]));
+		return (!empty($_POST["newsletterschedule"]["deliveryMode"]) && !empty($_POST["newsletterschedule"]["newsletterTemplateId"]));
 		
 	}
 
@@ -20,8 +20,8 @@ class NewslettersSchedulesDoEditAction extends BaseAction {
 		$newsletterSchedule = NewsletterSchedulePeer::get($_POST["newsletterschedule"]["id"]);
 		$smarty->assign('newsletterschedule',$newsletterSchedule);
 		
-		$clusters = SegmentationClusterPeer::getAll();
-		$smarty->assign('clusters',$clusters);		
+		/*$clusters = SegmentationClusterPeer::getAll();
+		$smarty->assign('clusters',$clusters);*/
 		$smarty->assign("newsletterTemplateIdValues",NewsletterTemplatePeer::getAll());
 
 		$smarty->assign("action",'edit');
@@ -38,7 +38,7 @@ class NewslettersSchedulesDoEditAction extends BaseAction {
 		require_once("NewsletterTemplatePeer.php");		
 		$smarty->assign("newsletterTemplateIdValues",NewsletterTemplatePeer::getAll());
 		$newsletterschedule->setDeliveryMode($_POST["newsletterschedule"]["deliveryMode"]);
-		$newsletterschedule->setclusterId($_POST["newsletterschedule"]["clusterId"]);
+		//$newsletterschedule->setclusterId($_POST["newsletterschedule"]["clusterId"]);
 		$newsletterschedule->setactive($_POST["newsletterschedule"]["active"]);
 		$smarty->assign("newsletterschedule",$newsletterschedule);	
 		$smarty->assign("action",'create');
