@@ -51,7 +51,7 @@
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_verifierId" label="Fiscalizadora" url="Main.php?do=affiliatesAutocompleteListX" hiddenName="params[verifierId]" defaultHiddenValue=$construction->getVerifierId() defaultValue=$construction->getAffiliate()-|
 		 </div>
 			<p>
-				<label for="params[typeId]">Tipo del Obra</label>
+				<label for="params[typeId]">Tipo de Obra</label>
 				<select id="params[typeId]" name="params[typeId]" >
         		<option value="">Seleccione</option>
 				|-foreach from=$types item=type name=for_type-|

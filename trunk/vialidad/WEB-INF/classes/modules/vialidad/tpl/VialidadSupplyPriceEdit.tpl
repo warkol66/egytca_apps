@@ -12,7 +12,7 @@
 <p>A continuación podrá administrar los precios del insumo: |-$supply->getName()-|. El precio es por "<strong>|-$supply->getMeasureUnit()->getName()-| (|-$supply->getMeasureUnit()-|)</strong>" expresado en Guaraníes sin separador de miles. (El precio anterior se muestra como referencia y no puede ser modificado)<br />
 Para que el precio sea considerado definitivo, debe marcarse la casilla correspondiente en todos los precios, incluso los vacíos, indicando que no se suministrará otro precio.
 </p>
-
+<p>En caso que el proveedor no se encuentre en la base de datos, debe darlo de alta primero, puede abrir este <a href="Main.php?do=affiliatesEdit" target="_blank">link</a> en ventana nueva e iniciar el proceso. Al terminar el proceso de alta, el proveedor estar&aacute; disponible en los listados de autocompletar.  </p>
 <fieldset title="Formulario de edición de precios del Insumo">
 	<legend>|-$supply->getName()-|</legend>
 	<p>Ingrese el precio en cada proveedor y haga click en &quot;Guardar&quot; </p>
