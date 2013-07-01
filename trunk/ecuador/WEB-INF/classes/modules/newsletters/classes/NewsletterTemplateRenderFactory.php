@@ -1,4 +1,6 @@
 <?php
+
+require_once('NewsletterTemplateRender.php');
 /**
 * Construye instancias de NewsletterTemplateRender a traves  
 * del procesamiento de un NewsletterTemplate

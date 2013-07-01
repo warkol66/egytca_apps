@@ -46,12 +46,13 @@ class NewslettersExecuteDeliveryAction extends BaseAction {
 		$section = "Newsletters";
 		$smarty->assign("section",$section);
 				
-		$schedule = NewsletterSchedulePeer::get($_POST['id']);	
+		$schedule = NewsletterSchedulePeer::get($_REQUEST['id']);
 		
 		if (empty($schedule))
 			return $mapping->findForwardConfig('failure');
 
 		$schedule->execute();		
+		die();
 		return $mapping->findForwardConfig('success');
 		
 

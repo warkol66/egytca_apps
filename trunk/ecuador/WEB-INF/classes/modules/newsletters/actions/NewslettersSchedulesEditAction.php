@@ -44,8 +44,8 @@ class NewslettersSchedulesEditAction extends BaseAction {
 		$section = "NewsletterSchedules";
 		$smarty->assign("section",$section);
 		
-		$clusters = SegmentationClusterPeer::getAll();
-		$smarty->assign('clusters',$clusters);	
+		/*$clusters = SegmentationClusterPeer::getAll();
+		$smarty->assign('clusters',$clusters);	*/
 
     if ( !empty($_GET["id"]) ) {
 			//voy a editar un newsletterschedule

@@ -1,3 +1,10 @@
+<script type="text/javascript" language="javascript" charset="utf-8">
+	jQuery.noConflict();
+</script>
+<script src="scripts/prototype.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/functions.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/datePicker.js" language="JavaScript" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="css/datePicker.css">
 <h2>Newsletter</h2>
 <h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Newsletters Enviados</h1>
 				<div id="div_newsletter">

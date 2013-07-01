@@ -17,7 +17,7 @@
 	<table width="100%" cellpadding="0" cellspacing="0" class="tableTdBorders" id="tabla-newsletterschedules">
 		<col width="25%">
 		<col width="40">
-		<col width="15%">
+		<!--col width="15%"-->
 		<col width="15%">
 		<col width="5%">
 			<thead>
@@ -27,7 +27,7 @@
 			<tr>
 				<th>Plantilla</th>
 				<th>Tipo de Envío</th>
-				<th>Cluster</th>
+				<!--th>Cluster</th-->
 				<th>Estado</th>
 				<th>&nbsp;</th>
 			</tr>
@@ -37,7 +37,7 @@
 			<tr>
 				<td>|-assign var=template value=$newsletterschedule->getnewsletterTemplate()-||-if $template neq ''-||-$template->getName()-||-/if-|</td>
 				<td>|-$newsletterschedule->getScheduleDescription()-|</td>
-				<td>|- assign var=cluster value=$newsletterschedule->getSegmentationCluster()-||-if $cluster eq ''-|No Asignado|-else-||-$cluster->getName()-||-/if-|</td>
+				<!--td>|- assign var=cluster value=$newsletterschedule->getSegmentationCluster()-||-if $cluster eq ''-|No Asignado|-else-||-$cluster->getName()-||-/if-|</td-->
 				<td>|-if $newsletterschedule->getactive() eq 1-|Activo|-else-|Inactivo|-/if-|</td>
 				<td nowrap="nowrap">
 					<form action="Main.php" method="get">

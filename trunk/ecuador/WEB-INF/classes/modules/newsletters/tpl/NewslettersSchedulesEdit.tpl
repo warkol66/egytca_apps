@@ -71,8 +71,8 @@
 						<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('newsletterschedule[deliveryDate]', false, 'ymd', '-');" title="Seleccione la fecha"></img>
 					</p>
 				|-/if-|
-
-				<p>
+				<!--no usamos grupos solo se envia a users-->
+				<!--p>
 					<label for="newsletterschedule_clusterId">Grupo</label>
 					<select name="newsletterschedule[clusterId]">
 						<option value="0">Seleccione un Grupo</option>
@@ -80,7 +80,7 @@
 						<option value="|-$cluster->getId()-|" |-if $newsletterschedule->getClusterId() eq $cluster->getId()-|selected="selected"|-/if-|>|-$cluster->getName()-|</option>
 					|-/foreach-|
 					</select>
-				</p>
+				</p-->
 				<p>
 				<label for="newsletterschedule_active">Estado</label>
 					<select id="newsletterschedule_active" name="newsletterschedule[active]">
