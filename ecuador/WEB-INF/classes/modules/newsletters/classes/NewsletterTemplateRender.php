@@ -28,18 +28,17 @@ class NewsletterTemplateRender  {
 	
 	private function processMatch($user,$condition,$match,$callback,$processedString) {
 		
-		$userInfo = $user->getUserInfo();
+		//$userInfo = $user->getUserInfo();
 		
 		$replacement = '';
 		
-		if (method_exists($user,$callback)) {
+		if (method_exists($user,$callback))
 			$replacement = $user->$callback();
-		}
-		else {
+		/*else {
 			if (method_exists($userInfo,$callback)) {
-				$replacement = $userInfo->$callback();
+				$replacement = $user->$callback();
 			}
-		}
+		}*/
 
 		return ereg_replace($condition,$replacement,$processedString);
 		
@@ -55,6 +54,7 @@ class NewsletterTemplateRender  {
 		$unprocessedContent = $this->body;
 
 		$splittedContent = split(' ',$unprocessedContent);
+
 		$processedContent = '';
 		
 		foreach ($splittedContent as $string) {
@@ -69,9 +69,9 @@ class NewsletterTemplateRender  {
 			$processedContent .= "$processedString ";
 		}
 		
-		if ($user->isImported()) {
+		/*if ($user->isImported()) {
 			$processedContent .= $this->buildUserVerificationText($processedContent,$user);
-		}
+		}*/
 
 		return $processedContent;
 

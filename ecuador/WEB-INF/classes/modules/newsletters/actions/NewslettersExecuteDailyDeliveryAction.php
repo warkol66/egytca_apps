@@ -68,8 +68,6 @@ class NewslettersExecuteDailyDeliveryAction extends BaseAction {
 			}
 			
 		}
-		
-		die();		
 
 	}
 
