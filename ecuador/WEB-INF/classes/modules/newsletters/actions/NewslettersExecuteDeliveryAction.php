@@ -51,8 +51,7 @@ class NewslettersExecuteDeliveryAction extends BaseAction {
 		if (empty($schedule))
 			return $mapping->findForwardConfig('failure');
 
-		$schedule->execute();		
-		die();
+		$schedule->execute();
 		return $mapping->findForwardConfig('success');
 		
 
