@@ -2,7 +2,7 @@
 
 class ConfigModule {
 
-	private static $configModule = array(
+	static $configModule = array(
 		"global" => array(
 			"debugMode" => true,
 			"noSecurity" => true,
@@ -12,7 +12,11 @@ class ConfigModule {
 			"showSwiftExceptions" => true,
 			"doLog" => true,
 			"unifiedUsernames" => true,
-			"backupTimeLimit" => 720
+			"backupTimeLimit" => 720,
+			"tmpwatch" => "/usr/sbin/tmpwatch",
+			"securityFailureThreshold" => 5,
+			"securityFailureThresholdTime" => 15,
+			"securityFailureBlockedTime" => 15
 		),
 		"documents" => array(
 			"useKeywords" => false,

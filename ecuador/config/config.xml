@@ -44,7 +44,7 @@
 			<siteDescription>Sistema de Gestión</siteDescription>
 			<siteShortName>sistema</siteShortName>
 			<webmasterMail>moddebugger@gmail.com</webmasterMail>
-			<debugMail>moddebugger@gmail.com</debugMail>
+			<debugMail>solange.blundi@gmail.com</debugMail><!--debugMail>moddebugger@gmail.com</debugMail-->
 			<fromEmail>moddebugger@gmail.com</fromEmail>
 			<tablePrefix></tablePrefix>
 			<news>Novedades: Bienvenido al Sistema</news>
@@ -264,6 +264,12 @@
 			</displayNewsComments>
 		</comments>
 	</news>
+	<newsletters>
+		<sendToPendingUsers>
+			<value>YES</value>
+			<element_type>YES/NO</element_type>
+		</sendToPendingUsers>
+	</newsletters>
 	<calendar>
 		<calendarEvents>
 			<useSummary>
