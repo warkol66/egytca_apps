@@ -136,43 +136,24 @@ class NewsletterSchedule extends BaseNewsletterSchedule {
 			//creamos registro del envio
 			$newsletterRegister = NewsletterPeer::create($params);
 			
-			/*print_r($newsletterRegister);
-			die();	*/
+			foreach ($users as $user) {
+				$mailTo = $user->getmailAddress();
 
-			//envio de email a cada usuario		
-			foreach ($users as $user) {	
-				
-				/* Envio a todos los usuarios
-				 * if ($user->wantsNewsletter()) {
+				//personalizamos el envio para el usuario
+				$body = $render->getCustomBody($user);
 
-					if ((!$user->isImported()) || ($user->isImported() && $sendToImporter)) {*/
-
-						//se envian aquello que no fueron importados
-						//o que fueron importados y que se indico en la configuracion que hay que enviarlos.
-				
-						$userInfo = $user->getUserInfo();
-						$mailTo = $userInfo->getMailAddress();
-
-						//personalizamos el envio para el usuario
-
-						$body = $render->getCustomBody($user);
-
-						$message = $manager->createMultipartMessage($subject,$body);
-
-						//realizamos el envio
-						$result = $manager->sendMessage($mailTo,$mailFrom,$message);
-
-						$params = array();
-						//creamos el registro del envio a un usuario				
-						$params['newsletterId'] = $newsletterRegister->getId();
-						$params['registrationUserId'] = $user->getId();
-								
-						NewsletterUserPeer::create($params);	
-				
-					//}
+				$message = $manager->createMultipartMessage($subject,$body);
+				//realizamos el envio
+				$result = $manager->sendMessage($mailTo,$mailFrom,$message);
+				//if($manager->sendMessage($mailTo,$mailFrom,$message)){
+					$params = array();
+					//creamos el registro del envio a un usuario				
+					$params['newsletterId'] = $newsletterRegister->getId();
+					$params['registrationUserId'] = $user->getId();
+							
+					NewsletterUserPeer::create($params);
 				//}
 			}
-			
 
 		}
 		catch (Exception $exp) {
@@ -201,10 +182,11 @@ class NewsletterSchedule extends BaseNewsletterSchedule {
 
 		try {
 		
-			$cluster = $this->getSegmentationCluster();
+			/* No se usa cluster
+			 * $cluster = $this->getSegmentationCluster();
 			//no habia cluster asignado
 			if (empty($cluster))
-				return false;
+				return false;*/
 			
 			$users = $cluster->getUsersAfterUser($lastUser);
 
@@ -234,15 +216,15 @@ class NewsletterSchedule extends BaseNewsletterSchedule {
 			//envio de email a cada usuario		
 			foreach ($users as $user) {	
 				
-				if ($user->wantsNewsletter()) {
+				//if ($user->wantsNewsletter()) {
 
-					if ((!$user->isImported()) || ($user->isImported() && $sendToImporter)) {
+					//if ((!$user->isImported()) || ($user->isImported() && $sendToImporter)) {
 
 						//se envian aquello que no fueron importados
 						//o que fueron importados y que se indico en la configuracion que hay que enviarlos.
 				
-						$userInfo = $user->getUserInfo();
-						$mailTo = $userInfo->getMailAddress();
+						//$userInfo = $user->getUserInfo();
+						$mailTo = $user->getMailAddress();
 
 						//personalizamos el envio para el usuario
 
@@ -269,8 +251,8 @@ class NewsletterSchedule extends BaseNewsletterSchedule {
 							
 						}
 				
-					}
-				}
+					//}
+				//}
 			}
 			
 
