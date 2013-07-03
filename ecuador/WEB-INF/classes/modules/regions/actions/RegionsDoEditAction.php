@@ -33,10 +33,13 @@ class RegionsDoEditAction extends BaseAction {
 		else
 			$redirectParams = $filterRedirect;
 
-		if ($_POST["action"] == "edit") {
+		$_POST["regionData"]["latitude"] = Common::convertToMysqlNumericFormat($_POST["regionData"]["latitude"]);
+		$_POST["regionData"]["longitude"] = Common::convertToMysqlNumericFormat($_POST["regionData"]["longitude"]);
+		$_POST["regionData"]["population"] = Common::convertToMysqlNumericFormat($_POST["regionData"]["population"]);
+		$_POST["regionData"]["populationYear"] = Common::convertToMysqlNumericFormat($_POST["regionData"]["populationYear"]);
+		$_POST["regionData"]["area"] = Common::convertToMysqlNumericFormat($_POST["regionData"]["area"]);
 
-			$_POST["regionData"]["latitude"] = Common::convertToMysqlNumericFormat($_POST["regionData"]["latitude"]);
-			$_POST["regionData"]["longitude"] = Common::convertToMysqlNumericFormat($_POST["regionData"]["longitude"]);
+		if (!empty($_POST["id"])) {
 
 			if (RegionPeer::update($_POST["id"],$_POST["regionData"])) {
 				$logSufix = ', ' . Common::getTranslation('action: edit','common');
@@ -45,9 +48,6 @@ class RegionsDoEditAction extends BaseAction {
 			}
 		}
 		else {
-
-			$_POST["regionData"]["latitude"] = Common::convertToMysqlNumericFormat($_POST["regionData"]["latitude"]);
-			$_POST["regionData"]["longitude"] = Common::convertToMysqlNumericFormat($_POST["regionData"]["longitude"]);
 
 			$result = RegionPeer::create($_POST["regionData"]);
 

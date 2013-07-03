@@ -60,11 +60,11 @@
 		color:red;
 	}
 	#content {
-		background-color:#F1F1F1;
+/*		background-color:#F1F1F1;*/
 		color:#333333;
 	}
 	#content h1 {
-		color:#333333;
+		color: #990000;
 	}
 	#content a {
 		color:#B84623;

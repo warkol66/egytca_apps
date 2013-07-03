@@ -23,7 +23,7 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 </div>
 <p>&nbsp;</p>
 <div id="msgBond"></div>
-<div class="tags">
+<div class="boardResults">
 	<h4>Haga click en los resultados para ver quiénes los seleccionaron</h4>
 		|-foreach from=$bonds key=key item=bond-|
 		<a href="#" onClick="javascript:getUsers(|-$key-|);">|-$bond-|</a>&nbsp; 
