@@ -427,7 +427,7 @@ table.tableTdBorders th {
 	padding: 5px;
 }
 table.tableTdBorders td {
-	border: 1px solid #A9A9A9;
+/*	border: 1px solid #A9A9A9;*/
 	padding: 4px;
 }
 .tdBorders {
@@ -924,17 +924,7 @@ background: -ms-linear-gradient(top,  rgba(197,39,74,1) 0%,rgba(196,64,93,0.79) 
 background: linear-gradient(to bottom,  rgba(197,39,74,1) 0%,rgba(196,64,93,0.79) 89%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c5274a', endColorstr='#c9c4405d',GradientType=0 ); /* IE6-8 */
 }
-table.tableTdBorders th.thFillTitle {
-	background: -moz-linear-gradient(left,  rgba(19,22,22,0.28) 0%, rgba(207,205,191,0.79) 71%, rgba(255,251,234,0.79) 89%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(19,22,22,0.28)), color-stop(71%,rgba(207,205,191,0.79)), color-stop(89%,rgba(255,251,234,0.79))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left,  rgba(19,22,22,0.28) 0%,rgba(207,205,191,0.79) 71%,rgba(255,251,234,0.79) 89%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left,  rgba(19,22,22,0.28) 0%,rgba(207,205,191,0.79) 71%,rgba(255,251,234,0.79) 89%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left,  rgba(19,22,22,0.28) 0%,rgba(207,205,191,0.79) 71%,rgba(255,251,234,0.79) 89%); /* IE10+ */
-	background: linear-gradient(to right,  rgba(19,22,22,0.28) 0%,rgba(207,205,191,0.79) 71%,rgba(255,251,234,0.79) 89%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#47131616', endColorstr='#c9fffbea',GradientType=1 ); /* IE6-9 */
-}
-table.tableTdBorders tr.thfillTitle th {
-}
+
 table.tableTdBorders {
 	border:none !Important;
   border-collapse: inherit !Important;
@@ -1144,25 +1134,4 @@ a.dayEventNumber{
 	float:right;
 	position:absolute;
 	margin:-10px 0px 0px 475px
-}
-
-.news01 {
-	margin-bottom: 2em !Important;
-	clear: both !Important;
-}
-
-div#logedUsersList ul li, 
-div.resultsSelection ul li {
-	display: inline !Important;
-}
-div.resultsSelection ul li a,
-div.resultsSelection ul li a:link,
-div.resultsSelection ul li a:visited {
-	color: #993333 !Important;
-	text-decoration: none !Important;
-}
-div.resultsSelection ul li a:hover{
-	background-color: #993333 !Important;
-	color: White !Important;
-	text-decoration: underine !Important;
 }

@@ -66,23 +66,23 @@ function regionsGetAllParentsByRegionX(form){
 				<input name="regionData[name]" type="text" id="regionData[name]" title="name" value="|-$region->getName()|escape-|" size="60" maxlength="100" />
 	</p>			
 	<p><label for="regionData[postalCode]">Código Postal</label>
-				<input name="regionData[postalCode]" type="text" id="regionData[postalCode]" title="postalCode" value="|-$region->getPostalCode()-|" size="10" />
+				<input name="regionData[postalCode]" type="text" id="regionData[postalCode]" title="postalCode" value="|-$region->getPostalCode()-|" size="10"  class="right" />
 	</p>			
 	<p><label for="regionData[latitude]">Latitud</label>
-				<input name="regionData[latitude]" type="text" id="regionData[latitude]" title="latitude" value="|-$region->getLatitude()|system_numeric_format:8-|" size="10" />
+				<input name="regionData[latitude]" type="text" id="regionData[latitude]" title="latitude" value="|-$region->getLatitude()|system_numeric_format:8-|" size="10"  class="right" />
 	</p>			
 	<p><label for="regionData[longitude]">Longitud</label>
-				<input name="regionData[longitude]" type="text" id="regionData[longitude]" title="longitude" value="|-$region->getLongitude()|system_numeric_format:8-|" size="10" />
+				<input name="regionData[longitude]" type="text" id="regionData[longitude]" title="longitude" value="|-$region->getLongitude()|system_numeric_format:8-|" size="10"  class="right" />
 	</p>			
 	<p><label for="regionData[population]">Población</label>
-				<input name="regionData[population]" type="text" id="regionData[population]" title="Población" value="|-$region->getPopulation()|system_numeric_format:0-|" size="8" />
-	</p>			
+				<input name="regionData[population]" type="text" id="regionData[population]" title="Población" value="|-$region->getPopulation()|system_numeric_format:0-|" size="8"  class="right" />
+habitantes	</p>			
 	<p><label for="regionData[populationYear]">Año de medición</label>
-				<input name="regionData[populationYear]" type="text" id="regionData[populationYear]" title="Año de medición" value="|-$region->getPopulationYear()|system_numeric_format:0-|" size="6" />
+				<input name="regionData[populationYear]" type="text" id="regionData[populationYear]" title="Año de medición" value="|-$region->getPopulationYear()|system_numeric_format:0-|" size="6" class="right" />
 	</p>			
-	<p><label for="regionData[area]">Superficie (Km2)</label>
-				<input name="regionData[area]" type="text" id="regionData[area]" title="Superficie" value="|-$region->getArea()|system_numeric_format-|" size="10" />
-	</p>			
+	<p><label for="regionData[area]">Superficie </label>
+				<input name="regionData[area]" type="text" id="regionData[area]" title="Superficie" value="|-$region->getArea()|system_numeric_format-|" size="10"  class="right" />
+(Km2)	</p>			
 	<p><label for="regionData[capital]">Capital</label>
 				<input name="regionData[capital]" type="text" id="regionData[capital]" title="Capital" value="|-$region->getCapital()-|" size="60" />
 	</p>			

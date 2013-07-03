@@ -44,7 +44,7 @@
 			<siteDescription>Sistema de Gestión</siteDescription>
 			<siteShortName>sistema</siteShortName>
 			<webmasterMail>moddebugger@gmail.com</webmasterMail>
-			<debugMail>moddebugger@gmail.com</debugMail><!--debugMail>moddebugger@gmail.com</debugMail-->
+			<debugMail>moddebugger@gmail.com</debugMail>
 			<fromEmail>moddebugger@gmail.com</fromEmail>
 			<tablePrefix></tablePrefix>
 			<news>Novedades: Bienvenido al Sistema</news>
@@ -205,8 +205,8 @@
 		</comments>
 	</board>
 	<news>
-		<newsInHome>1</newsInHome>
-		<newsPerPage>3</newsPerPage>
+		<newsInHome>2</newsInHome>
+		<newsPerPage>2</newsPerPage>
 		<newsArticles>
 			<useTopTitle>
 				<value>NO</value>

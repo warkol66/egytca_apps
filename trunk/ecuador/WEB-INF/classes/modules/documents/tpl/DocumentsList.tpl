@@ -79,11 +79,11 @@ function checkPassDelete(form){
 *-|
 |-if $documentColl neq ''-|
 		<table id="table-documents" width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders">
-		<tr>
-			<td colspan="7" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">##documents,9,Buscar Documentos##</a>
+		<tr class="trFillTitle">
+<td colspan="7"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="searchLinkBut">##documents,9,Buscar Documentos##</a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="documentsList" />
-					Texto: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
+					Texto: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="20" title="Ingrese el texto a buscar" />
 					Resultados por página
 				|-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getMaxPerPage()-|	
 					<input type="submit" value="Buscar" title="Buscar con los parámetros ingresados" />
@@ -185,7 +185,7 @@ function checkPassDelete(form){
 			</tr>
 		|-/foreach-|
 			<tr>
-				<th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=documentsEdit&id=|-$docscategory-|" class="addLink" title="##documents,10,Agregar Documento##">##documents,10,Agregar Documento##</a></div></th>
+				<th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=documentsEdit&id=|-$docscategory-|" class="addLinkBottom" title="##documents,10,Agregar Documento##">##documents,10,Agregar Documento##</a></div></th>
 			</tr>
 		</table>
 |-/if-|
