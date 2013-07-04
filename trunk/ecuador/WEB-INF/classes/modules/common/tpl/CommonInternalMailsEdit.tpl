@@ -56,8 +56,9 @@ function updateUserSelected(opt){
 	
 	for (var i=0; i < options.length; i++) {
 		if (options[i].selected){
-			console.log(options[i]);
-			$('#recipientsSelected').append('<li><input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+ $(options[i]).val() +'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="user" />'+ $(options[i]).html()  +'</li>');
+			if($('#recipient_' + $(options[i]).val()).length() == 0){
+				$('#recipientsSelected').append('<li id="recipient_' + $(options[i]).val() +'"><input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+ $(options[i]).val() +'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="user" />'+ $(options[i]).html()  +'</li>');
+			}
 			$(options[i]).remove();
 		}
 	 }
@@ -72,7 +73,9 @@ function updateAffiliateSelected(opt) {
 	
 	for (var i=0; i < options.length; i++) {
 		if (options[i].selected){
-			$('#recipientsSelected').append('<li><input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+ $(options[i]).val() +'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+ $(options[i]).html()  +'</li>');
+			if($('#recipient_' + $(options[i]).val()).length() == 0){
+				$('#recipientsSelected').append('<li id="recipient_' + $(options[i]).val() +'"><input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+ $(options[i]).val() +'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+ $(options[i]).html()  +'</li>');
+			}
 			$(options[i]).remove();
 		}
 	 }
@@ -149,12 +152,12 @@ function updateSubmitButton() {
 			<p>
 				|-assign var=recipients value=$internalMail->getTo()-|
 				<ul id="recipientsSelected">
-					|-foreach from=$internalMail->getRecipients() key=idx item=user-|
-						<li>
-							<input type="button" class="icon iconDelete" onClick="this.parentNode.remove();updateSubmitButton()" title="Eliminar destinatario" />
-							<input type="hidden" name="internalMail[to][|-$idx-|][id]" value="|-$user->getId()-|" />
+					|-foreach from=$internalMail->getRecipients() key=idx item=toUser-|
+						<li id="recipient_|-$toUser->getId()-|">
+							<input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" />
+							<input type="hidden" name="internalMail[to][|-$idx-|][id]" value="|-$toUser->getId()-|" />
 							<input type="hidden" name="internalMail[to][|-$idx-|][type]" value="|-$recipients[$idx].type-|" />
-							|-if ($user->getName() ne '') or ($user->getSurname() ne '')-||-$user->getSurname()-|, |-$user->getName()-| - |-/if-|(|-$user->getUserName()-|)
+							|-if ($toUser->getName() ne '') or ($toUser->getSurname() ne '')-||-$toUser->getSurname()-|, |-$toUser->getName()-| - |-/if-|(|-$toUser->getUserName()-|)
 						</li>
 					|-/foreach-|
 				</ul>
@@ -177,8 +180,8 @@ function updateSubmitButton() {
 				<input type="hidden" name="page" id="page" value="|-$page-|" />
 				|-if isset($iframe)-|
 				<input type="hidden" name="iframe" id="iframe" value="true" />
-				<input type="hidden" name="userId" id="userId" value="|-$userId-|" />
-				<input type="hidden" name="userType" id="userType" value="|-$userType-|" />
+				<input type="hidden" name="userId" id="userId" value="|-$user->getId()-|" />
+				<input type="hidden" name="userType" id="userType" value="|-get_class($user)-|" />
 				|-/if-|
 				<input type="submit" id="button_edit_internalMail" name="button_edit_internalMail" title="Enviar" value="Enviar" />
 				|-if !isset($iframe)-|

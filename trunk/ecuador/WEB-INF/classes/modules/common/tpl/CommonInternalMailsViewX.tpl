@@ -27,7 +27,7 @@
 			<p>&nbsp;</p>
 	<hr />	
 			<p>&nbsp;</p>
-|-if ($internalMail->getFromId() neq "-1" && $internalMail->getFromType() neq "user")-|<form method="GET" action="Main.php" style="display: inline;">
+|-if ($internalMail->getFromId() neq "-1")-|<form method="GET" action="Main.php" style="display: inline;">
 				<input type="hidden" name="do" id="do" value="commonInternalMailsEdit" />
 				<input type="hidden" name="replyId" id="replyId" value="|-$internalMail->getId()-|" />
 				<input type="hidden" name="page" id="page" value="|-$page-|" />
