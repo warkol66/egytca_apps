@@ -28,7 +28,7 @@ class CommonInternalMailsEditAction extends BaseAction {
 		
 		//si esta seteado el usuario al que le quiero enviar el mensaje
 		if(isset($_REQUEST["userId"]) && isset($_REQUEST["userType"])){
-			$queryClass = $_GET["userType"] . 'Query';
+			$queryClass = $_REQUEST["userType"] . 'Query';
 			if(class_exists($queryClass)){
 				$user = $queryClass::create()->findOneById($_REQUEST["userId"]);
 				if(is_object($user)){
