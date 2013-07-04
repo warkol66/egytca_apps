@@ -38,7 +38,7 @@ border-radius: 0px 0px 10px 10px;
 	<input type="hidden" name="iframe" value="true" />
 	<input type="hidden" name="userId" value="|-$userId-|" />
 	<input type="hidden" name="userType" value="|-$userType-|" />
-	<button type="submit" title="Agregar nuevo documento">	Enviar nuevo mensaje</button>
+	<button type="submit" title="Enviar nuevo mensaje">	Enviar nuevo mensaje</button>
 </form>
 </div>
 </div>
