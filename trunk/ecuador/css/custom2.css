@@ -225,7 +225,9 @@ top:45px; right:15px;}
 #leftCenterColumn .article h3,
 #rightColumn h2.home, #titleContent,
 #rightColumn .article h2,
-#rightColumn .article h3{
+#rightColumn .article h3,
+#rightColumn .event h2,
+#rightColumn .event h3 {
 	width:100%;font-family:Georgia, "Times New Roman", Times, serif; 
  	line-height:26px;color:#990000; font-weight:bold; 
 	padding:0px 0 40px 0;
@@ -238,15 +240,17 @@ top:45px; right:15px;}
 	#leftCenterColumn .article h2 a{line-height:26px;color:#990000; font-weight:bold;text-decoration: none;}
 	#leftCenterColumn .article h3{font-size:22px;}
 	#leftCenterColumn h2.home{font-size:26px; margin:10px 0 0 15px; padding:0 0 40px 0; text-transform: uppercase;}
-	#rightColumn .article h2{font-size:26px;}
-	#rightColumn .article h2 a{line-height:26px;color:#990000; font-weight:bold;text-decoration: none;}
-	#rightColumn .article h3{font-size:22px;}
+	#rightColumn .article h2, #rightColumn .event h2 {font-size:26px;}
+	#rightColumn .article h2 a, #rightColumn .event h2 a {line-height:26px;color:#990000; font-weight:bold;text-decoration: none;}
+	#rightColumn .article h3, #rightColumn .event h3{font-size:22px;}
 	#rightColumn h2.home{font-size:26px; margin:10px 0 0 15px; padding:0 0 40px 0; text-transform: uppercase;}
 	#titleContent{font-size:26px;}
 
 
 #leftCenterColumn .article h4,
-#rightColumn .article h4{
+#rightColumn .article h4,
+#leftCenterColumn .event h4,
+#rightColumn .event h4 {
 	width:100%;
 	font-size:16px; text-transform:normal; 
 	font-family:Georgia, "Times New Roman", Times, serif; 
@@ -255,7 +259,8 @@ top:45px; right:15px;}
 	margin:0;
 	padding:0;
 	background:none;}
-#leftCenterColumn .article h5, #rightColumn .article h5{
+#leftCenterColumn .article h5, #rightColumn .article h5,
+#leftCenterColumn .event h5, #rightColumn .event h5 {
 	width:100%;
 	font-size:10px; text-transform:uppercase; 
 	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif, Arial; 
@@ -266,6 +271,8 @@ top:45px; right:15px;}
 	#leftCenterColumn .article p img{margin:0 15px 10px 15px; float:right; border:solid 1px #999; padding:4px;}
 	#rightColumn .article p {margin:0 0 15px 0; font-size:1.2em; line-height:1.4em;}
 	#rightColumn .article p img{margin:0 15px 10px 15px; float:right; border:solid 1px #999; padding:4px;}
+	#rightColumn .event p {margin:0 0 15px 0; font-size:1.2em; line-height:1.4em;}
+	#rightColumn .event p img{margin:0 15px 10px 15px; border:solid 1px #999; padding:4px;}
 	
 #summary .readMore{width: auto;}
 

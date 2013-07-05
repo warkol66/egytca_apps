@@ -98,7 +98,7 @@ function usersDoEditInfo(form){
 		</p>
 		|-assign var=currentReg value=$currentUser->getRegion()-|
 		<p><label for="userParams[regionId]">Región</label>
-			<select id="user_params_regionId" name="userParams[regionId]" class="chzn-select markets-chz-select" data-placeholder="|-$currentReg->getName()-|"></select>
+			<select id="user_params_regionId" name="userParams[regionId]" class="chzn-select markets-chz-select" data-placeholder="|-if is_object($currentReg)-||-$currentReg->getName()-||-/if-|"></select>
 		</p>
 		<p><label for="pass">##users,165,Contraseña##</label>
 			<input id='pass' name='pass' type='password' value='' size="20" class="" onchange="javascript:setElementClass('pass','emptyValidation');setElementClass('pass2','passwordMatch');validationValidateFieldClienSide('pass');" /> |-validation_msg_box idField=pass-|

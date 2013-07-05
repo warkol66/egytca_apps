@@ -1,16 +1,16 @@
 |-if $message eq "captcha"-|
 <div id="errorMessage">Captcha incorrecto, intente nuevamente</div>
 |-/if-|
-<h2 class="home">Experiencias exitosas</h1>
+<h2 class="home">Experiencias de Gestión</h1>
 |-if $message eq "captcha"-|
 <div id="errorMessage">Captcha incorrecto, intente nuevamente</div>
 |-/if-|
 |-if !is_object($blogEntry) or isset($entryDeleted)-|
 		<div>Entrada no encontrada, puede que haya sido eliminada o esté incorrectamente identificada.<br />
- Puede regresar a la página principal del blog haciendo click <a href="Main.php?do=blogShow">aquí</a></div>
+ Puede regresar a la página principal de las Experiencias de Gestión haciendo click <a href="Main.php?do=blogShow">aquí</a></div>
 |-elseif $message eq "noEntryIdRequested"-|
-		<div>No se ingresó inguna entrada, debe identificar una entrada para visualizarla. <br />
-Puede regresar a la página principal del blog haciendo click <a href="Main.php?do=blogShow">aquí</a></div>
+		<div>No se ingresó identificación de ninguna experiencia, debe identificar una para visualizarla. <br />
+Puede regresar a la página principal del experiencias de gestión haciendo click <a href="Main.php?do=blogShow">aquí</a></div>
 |-else-|
 <script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 <!-- begin blog01 -->

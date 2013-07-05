@@ -1,4 +1,4 @@
-﻿<h2 class="home">Experiencias Exitosas</h2>
+﻿<h2 class="home">Experiencias de Gestión </h2>
 <div id="div_blogEntries">
 		|-foreach from=$blogEntryColl item=blogEntry name=for_blogEntries-|
 			<!--class ex blog01-->

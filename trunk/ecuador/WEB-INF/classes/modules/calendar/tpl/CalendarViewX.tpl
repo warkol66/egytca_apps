@@ -12,25 +12,28 @@ body {
 	padding: 0 0 40px;
 }
 #wrapper {
-	width: 92%;
+	width: 98%;
 	background-color:#fdf8e9;
 	-webkit-box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.5);
 	box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.5);
 	-webkit-border-radius: 0px 0px 10px 10px;
-border-radius: 0px 0px 10px 10px;
-
+	border-radius: 0px 0px 10px 10px;
 }
 #rightColumn {
 	background-color: #FDF8E9;
 	margin-top: 50px;
+	width: 90%;
 }
+#titleAgenda {
+  width: 100% !Important;
+	}
 -->
 </style>
 <div id="wrapper">
 <div id="rightColumn">
 <div id="titleAgenda">Agenda</div>
 <!-- begin EVENTO01 -->
-<div class="article">
+<div class="event">
 		<h5>Publicado el |-$calendarEvent->getCreationDate()|date_format:"%d de %B de %Y"-|</h5>
 		|-assign var=startDateMonth value=$calendarEvent->getStartDate()|date_format:"%m"-|
 		|-assign var=startDateYear  value=$calendarEvent->getStartDate()|date_format:"%Y"-|
