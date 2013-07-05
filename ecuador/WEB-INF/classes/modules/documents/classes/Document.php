@@ -267,18 +267,27 @@ class Document extends BaseDocument {
 
 	}
 	
-	public function isOwned(){
+	/**
+	 * Devuelve si un documento es propiedad del usuario logueado
+	 *
+	 * @return bool tur si es propietario, false si no lo es
+	 */
+	public function isOwned() {
 		$logged = Common::getLoggedUser();
-		$queryClass = $this->getUserObjectType() . 'Query';
-		if ( class_exists($queryClass) ) {
-			$author = $queryClass::create()->findOneById($this->getUserObjectId());
-			//si no es administrador (level>2) o no es el creador no lo dejo editar
-			if((get_class($logged) == get_class($author) && $logged->getId() == $author->getId()) || ($logged->getLevelId() <= 2))
-				return false;
-			else
-				return true;
-		}else
+		// si es administrador (level <=2) es propietario
+		if ($logged->getLevelId() <= 2) 
 			return true;
+		else {
+			$queryClass = $this->getUserObjectType() . 'Query';
+			if (class_exists($queryClass)) {
+				$author = $queryClass::create()->findOneById($this->getUserObjectId());
+				// lo dejo editar si es el creado
+				if(!empty($author) && (get_class($logged) == get_class($author) && $logged->getId() == $author->getId()))
+					return true;
+			}
+			else
+				return false;
+		}
 	}
 	
 	/**

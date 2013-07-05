@@ -4,11 +4,41 @@
 <script src="scripts/jquery/jquery.min.js" language="JavaScript" type="text/javascript"></script>
 <script type="text/javascript" src="scripts/jquery/jquery-ui-1.8.19.custom.min.js"></script>
 <script src="scripts/jquery/jquery.ui.datepicker-es.js" language="JavaScript" type="text/javascript"></script>
-<link rel="stylesheet" href="css/globalStyles.css" type="text/css">
-<link rel="stylesheet" href="css/globalCustom.css" type="text/css">
-<link rel="stylesheet" href="css/style.css" type="text/css">
-<link rel="stylesheet" href="css/custom.css" type="text/css">
+<link rel="stylesheet" href="css/main.css" type="text/css">
 <link type="text/css" href="css/smoothness/jquery-ui-1.8.19.custom.css" rel="Stylesheet" />
+<link rel="stylesheet" href="css/main.css" type="text/css">
+
+<style type="text/css">
+<!--
+body {
+	background-image: url(images/bkg_bodyFancybox.png);
+	background-color: #dad2ca;
+	background-position: top left;
+	background-repeat:repeat-x;
+	color: #333;
+	font-size:77%; /* this makes the text sized at 10px */
+	padding: 0 0 40px;
+}
+#wrapper {
+	width: 98%;
+	background-color:#fdf8e9;
+	-webkit-box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.5);
+	box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.5);
+	-webkit-border-radius: 0px 0px 10px 10px;
+	border-radius: 0px 0px 10px 10px;
+}
+#rightColumn {
+	background-color: #FDF8E9;
+	margin-top: 36px;
+	width: 90%;
+}
+#titleAgenda {
+  width: 100% !Important;
+	}
+-->
+</style>
+<div id="wrapper">
+<div id="rightColumn">
 |-/if-|
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -34,13 +64,13 @@
 |-/if-|
 </div>
 <form method="post" action="Main.php?do=|-if !isset($requester)-|documentsDoEdit|-else-|documentsDoAdd|-/if-|" enctype="multipart/form-data" name="formSearch" id="documentsAdderForm">
-	|-if $document neq ''-|
+	|-if !$document->isNew()-|
 	<input type="hidden" name="id" value="|-$document->getId()-|">
 	|-/if-|
 	<fieldset title="Formulario para Agregar Nuevo |-$label-|">
-		|-if $document neq ''-|
+		|-if !$document->isNew()-|
 		<legend>Editar Documento</legend>
-			<p>Ingrese los datos correspondientes al |-$label-|. Seleccione un nuevo |-$label-| si desea reemplazar el actual ("|-$document->getRealFilename()-|")</p>	
+			<p>Ingrese los datos correspondientes al |-$label-|. Seleccione un nuevo |-$label-| si desea reemplazar el actual ("|-$document->getRealFilename()-|").</p>	
 		|-elseif $module eq "Documents" && $entity eq ''-|
 		<legend>Formulario de Documentos</legend>
 			<p>Ingrese los datos correspondientes al documento</p>	
@@ -162,12 +192,18 @@
 				|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 				|-if $page gt 1-| <input type="hidden" name="page" id="page" value="|-$page-|" />|-/if-|
 
-				<input type="submit" name="uploadButton" value="|-if $document neq ''-|Guardar Cambios|-else-|Agregar |-$label-||-/if-|" id="btnSubmit">
-				|-if $module eq 'Documents'-|<input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=documentsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"/>|-/if-|
-
-				|-if $module eq 'Documents' && $action eq 'edit'-|<input name="return" type="button" value="Regresar" onClick="history.back(-1);"/>|-/if-|
+				<input type="submit" name="uploadButton" value="|-if !$document->isNew()-|Guardar Cambios|-else-|Agregar |-$label-||-/if-|" id="btnSubmit">
+				|-if $module eq 'Documents' && !isset($requester)-|
+					<input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=documentsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"/>
+				|-else-|
+					<input name="return" type="button" value="Cancelar" onClick="#"/>
+				|-/if-|
 				<span id="msgBoxUploader"></span>
 			 </p>
 	</fieldset>
 </form>
 </div>
+|-if isset($requester)-|
+</div>
+</div>
+|-/if-|	 

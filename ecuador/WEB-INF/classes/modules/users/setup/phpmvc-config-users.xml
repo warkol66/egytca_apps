@@ -16,7 +16,7 @@
 							 name = "usersDoLogin"
 							scope = "request"
 					 validate = "true">
-			<forward name="success" path="UsersWelcome.tpl"/>
+			<forward name="success" path="/Main.php?do=newsArticlesShow" redirect="true" />
 			<forward name="failure" path="UsersLogin.tpl"/>
 			<forward name="blockedUser" path="UsersLogin.tpl"/>
 			<forward name="successFirstLogin" path="/Main.php?do=usersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />

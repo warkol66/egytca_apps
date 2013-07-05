@@ -382,8 +382,33 @@ class BlogEntry extends BaseBlogEntry {
 			return false;
 	}
 	
+	/**
+	* Devuelve si el usuario es el que lo dio de alta
+	*	@return bool verdadero o falso si el usuario lo dio de alta
+	*/
+	public function isOwned($user) {
+		if ($this->getUserId() == $user->getId())
+			return true;
+		else
+			return false;
+	}
+
+	/**
+	* Devuelve el usuario que lo dio de alta
+	*	@return obj user que lo dio de alta
+	*/
+	public function getOwner() {
+		return UserQuery::create()->findOneById($this->getUserId());
+	}
+
+
+	/**
+	* Devuelve el string para ser usado en el historico de operaciones
+	*	@return string con el texto a guardar en el historico de operaciones
+	*/
 	public function getLogData(){
 		return substr($this->getTitle(),0,50);
 	}
+
 
 } // BlogEntry
