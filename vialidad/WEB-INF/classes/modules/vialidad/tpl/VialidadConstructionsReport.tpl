@@ -9,7 +9,7 @@ Los reportes de obra están generados en formatos compatibles con herramientas t
 <fieldset>
 	<legend>Reportes</legend><form action='Main.php' method='get' style="display:inline;">
 		<input type="hidden" name="do" value="vialidadConstructionsReport" />
-					<label for="filters[searchString]">Buscaar por texto</label>
+					<label for="filters[searchString]">Buscar por texto</label>
 					<input id="filters[searchString]" name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
 					&nbsp; &nbsp; <label for="filters[perPage]" class="inlineLabel labelWide">Resultados por página</label> &nbsp;
 					|-html_options name="filters[perPage]" id="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getMaxPerPage()-|
