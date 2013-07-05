@@ -13,7 +13,7 @@
 			<li class="narrow"><a href="Main.php?do=newsArticlesShow">Ir al Inicio</a></li>
 			<li><a href="#" class="sub"><span class="titleMenu">Red de Líderes</span></a>
 				<ul class="menu">
-					<li><a href="Main.php?do=blogShow">Experiencias Exitosas</a></li>
+					<li><a href="Main.php?do=blogShow">Experiencias de Gestión</a></li>
 					<li><a href="Main.php?do=boardView">Desafíos</a></li>
 					<li><a href="Main.php?do=documentsList">Documentos</a></li>
 					<li><a href="Main.php?do=calendarMonth">Eventos</a></li>
@@ -33,7 +33,7 @@
 			<ul class="menu">
 				<li><a href="Main.php?do=boardList">Desafíos</a></li>
 				<li><a href="Main.php?do=contentList">Contenidos</a></li>
-				<li><a href="Main.php?do=blogList">Experiencias Exitosas</a></li>
+				<li><a href="Main.php?do=blogList">Experiencias de Gestión</a></li>
 				<li><a href="Main.php?do=calendarList">Eventos</a></li>
 				<li class="last"><a href="Main.php?do=newsArticlesList">Novedades</a></li>
 			</ul>

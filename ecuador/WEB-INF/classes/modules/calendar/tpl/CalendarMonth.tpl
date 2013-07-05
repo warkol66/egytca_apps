@@ -58,7 +58,7 @@ $(document).ready(function() {
 					|-if $calendarEventsConfig.useSummary.value eq "YES"-||-$event->getSummary()-|</li>
 						<div class="masInfo"><a id="fancybox_|-$event->getId()-|" href="Main.php?do=calendarViewX&id=|-$event->getId()-|" class="iframe">Ver mas información</a></div>
 						<script>
-							$('a#fancybox_|-$event->getId()-|').fancybox({'width' : 800, 'height' : 600});
+							$('a#fancybox_|-$event->getId()-|').fancybox({'width' : 900, 'height' : 650});
 						</script>
 					|-else-|</li>
 					|-/if-|

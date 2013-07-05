@@ -13,10 +13,13 @@ class NewsArticlesShowAction extends BaseListAction {
 		$newsInHome = $moduleConfig["newsInHome"];
 		$newsPerPage = $moduleConfig["newsPerPage"];
 
-		if (!empty($newsInHome)) {
-			$this->perPage = $newsInHome;
-			if (!isset($_GET['page']))
-				$this->smarty->assign('page',1);
+		$this->perPage = $newsInHome;
+		if (!isset($_GET['page']))
+			$this->template->template = "TemplateNewsHome.tpl";
+		else {
+			$this->perPage = $newsPerPage;
+			$this->template->template = "TemplatePublic.tpl";
+			$this->query->offset($newsInHome);
 		}
 
 		if(isset($_GET['categoryId']))
@@ -26,15 +29,13 @@ class NewsArticlesShowAction extends BaseListAction {
 	}
 	
 	protected function postList() {
+		unset($this->filters['orderByCreationdate']);
 		parent::postList();
 
-		unset($this->filters['orderByCreationdate']);
 		
 		$module = "News";
 		$this->smarty->assign("module",$module);
 
-		$this->template->template = "TemplateNewsHome.tpl";
-		
 		if (isset($_GET['archive']))
 			$this->smarty->assign('archive',$_GET['archive']);
 			/*$newsArticlePeer->setArchiveMode();

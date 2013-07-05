@@ -90,14 +90,14 @@
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						<input type="hidden" name="do" value="calendarEdit" />
 						<input type="hidden" name="id" value="|-$calendarEvent->getid()-|" />
-						<input type="submit" name="submit_go_edit_calendarEvent" value="Editar" class="buttonImageEdit" />
+						<input type="submit" name="submit_go_edit_calendarEvent" value="Editar" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<!--pasaje de parametros de filtros -->
 						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 						<input type="hidden" name="do" value="calendarDoDelete" />
 						<input type="hidden" name="id" value="|-$calendarEvent->getid()-|" />
-						<input type="submit" name="submit_go_delete_calendarEvent" value="Borrar" onclick="return confirm('Seguro que desea eliminar el evento?')" class="buttonImageDelete" />
+						<input type="submit" name="submit_go_delete_calendarEvent" value="Borrar" onclick="return confirm('Seguro que desea eliminar el evento?')" class="icon iconDelete" />
 					</form>
 					|-else-|
 					
@@ -120,7 +120,7 @@
 								<input type="hidden" name="page" value="|-$pager->getPage()-|" id="page">
 							|-/if-|
 							<input type="hidden" name="do" value="calendarChangeStatuses" id="do">
-							<input type="button" onClick="javascript:submitMultipleEventsChangeFormX('multipleEventsChangeForm')" value="Cambiar Estado" class="smallButton">
+							<input type="button" onClick="javascript:submitMultipleEventsChangeFormX('multipleEventsChangeForm')" value="Cambiar Estado">
 						</p>
 					</form>
 				</td>
