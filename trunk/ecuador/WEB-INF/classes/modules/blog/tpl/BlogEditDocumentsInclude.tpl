@@ -53,9 +53,9 @@ iframe{
 <div id="documentsList">
 <div id="documentOperationInfo"></div>
 <fieldset id="docs_list" class="noMargin"><legend>Documentos asociados</legend>
-	<div id="actions"><p align="right">
-		<a class="iframe addLink" id="fancybox_document" href="Main.php?do=documentsEdit&entityId=|-$id-|&requester=Blog&entity=BlogEntry&entityId=|-$id-|">Agregar nuevo documento</a>
-	</p>
+	<div id="actions">|-if $editable-|<p align="right">
+		<a class="iframe addLink" id="fancybox_document" href="Main.php?do=documentsEdit&entityId=|-$entityId-|&requester=Blog&entity=BlogEntry&entityId=|-$entityId-|">Agregar nuevo documento</a>
+	</p>|-/if-|
 	<p id="viewPhotos" align="right">
 	|-if count($photos) > 0-|
 		<a href="#" onclick="$('a.galleryPhoto').first().click();return false;">Ver fotos</a>
@@ -71,22 +71,22 @@ iframe{
 	|-foreach $blogEntryDocumentColl as $blogEntryDocument-|
 		|-assign var="document" value=$blogEntryDocument->getDocument()-|
 		<li id="blogEntryDocument_|-$document->getId()-|">
-			<span style="float: left;width: 80%;font-weight: bold;" title="Título del documento">|-$document->getDate()|date_format-| | |-$document->getTitle()-|<br />
+			<span style="float: left;width: 80%;font-weight: bold;" title="Título del documento">|-$document->getDocumentDate()|date_format-| | |-$document->getTitle()-|<br />
 			<span style="float: left;margin-left: 3em;font-weight: normal;" title="Descripción del documento">|-$document->getDescription()-|</span></span>
 			<span style="float: left;width: 20%;text-align: right;"><form method="POST" action="Main.php">
 				<input type="hidden" name="do" value="documentsDoDownload" />
 				<input type="hidden" name="id" value="|-$document->getId()-|" />
 				<!--input type="hidden" name="module" value="Blog" /-->
-				<button type="submit" class="icon iconDownload" title="Descargar documento">ver</button>
+				<button type="submit" class="icon iconDownload" title="Descargar documento">Descargar</button>
 			</form>
-			<form name='documents' id='document_|-$document->getId()-|' style='display:inline;' method='POST'>
+			|-if $editable-|<form name='documents' id='document_|-$document->getId()-|' style='display:inline;' method='POST'>
 					<input type=hidden name='id' value='|-$document->getId()-|'>
 					<input type=hidden name='objectId' value='|-$id-|'>
 					|-if $usePasswords && $document->getPassword() ne ''-|
 						<input type='password' name='password' />
 					|-/if-|
 					<input type='submit' name='submit' value='##common,2,Eliminar##' title='##common,2,Eliminar##' class='icon iconDelete' onclick="if (confirm('¿Seguro que desea eliminar este documento?'))deleteDocument(|-$document->getId()-|,|-$id-|);return false;" alt="Eliminar" />
-			</form></span>
+			</form>|-/if-|</span>
 			<br style="clear: all" />
 		</li>
 	|-/foreach-|
@@ -95,7 +95,7 @@ iframe{
 |-/if-|
 </fieldset>
 </div>
-<script language="JavaScript" type="text/javascript">
+|-if $editable-|<script language="JavaScript" type="text/javascript">
 	
 	function deleteDocument(documentId, entryId){
 		$.ajax({
@@ -120,12 +120,12 @@ iframe{
 	$('a.fancygallery').fancybox(); 
 	$('a#fancybox_document').fancybox({	'autoScale': false,
 										'width' : 800,
-										'height' :420,
+										'height' :460,
 										'hideOnContentClick': true,
 										'onClosed': function(){
 											$.ajax({
 												url: 'Main.php?do=blogDocumentsListX',
-												data: {id: |-$id-|},
+												data: {id: |-$entityId-|},
 												type: 'post',
 												success: function(data){
 													$('#blogEntryDocumentsListDiv').html(data);
@@ -135,6 +135,7 @@ iframe{
 										}
 									});
 </script>
+|-/if-|
 <div id="photos" style="display:none">
 |-foreach $photos as $picture-|
 	|-assign var=photo value=$picture->getDocument()-|

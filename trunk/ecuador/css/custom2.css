@@ -455,8 +455,16 @@ table#table-documents.tableTdBorders td {
 	padding: 4px;
 }
 
-table.tableTdBorders tr:nth-child(even) {background: #f0ede0;}
-table.tableTdBorders tr:nth-child(odd) {background: #fbfbfa;}
+table.tableTdBorders tr:nth-child(even) {
+	background: #f0ede0;
+}
+table.tableTdBorders tr:nth-child(odd) {
+	background: #fbfbfa;
+}
+table#table-documents.tableTdBorders th.thFillTitle {
+	border: none !Important;
+	background-color: #FDF8E9 !Important;
+}
 
 .tdBorders {
 	border: 1px solid #112139;
@@ -727,7 +735,7 @@ ul.menu li {
 /*	border-right:solid 1px #ffe049; */
 }
 ul.menu li.narrow {
-	width: 9em;
+	width: 11em;
 }
 ul.menu li.wide {
 	width: 18em;

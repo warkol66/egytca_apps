@@ -126,6 +126,24 @@ function checkPassDelete(form){
 					 |-assign var="documentPassword" value=1-|
 					|-/if-|
 
+				<!-- form de descargar -->
+				|-capture name=formDownload-|
+				<form name='documents' action='Main.php?do=documentsDoDownload' style='display:inline;' method='POST'>
+					<input type=hidden name='id' value='|-$document->getId()-|'>
+					<input type=hidden name='category' value='|-$document->getCategoryid()-|'>
+					|-if $usePasswords && $document->getPassword() ne ''-|
+					<input type='password' name='password' />
+					|-/if-|
+					<input type='submit' name='submit' value='##documents,22,Descargar##' title='##documents,25,Descargar##' class='icon iconDownload' />
+				</form>
+				|-/capture-|
+				|-if $usePasswords && $document->getPassword() ne ""-|
+					<input type="button" |-popup sticky=true caption="##documents,26,Ingresar contraseña##" trigger="onClick" text=$smarty.capture.formDownload snapx=10 snapy=10 width='180' closetext='Cerrar'-| value="##documents,25,Descargar##" title='##documents,25,Descargar##' class='icon iconDownload' />
+				|-else-|
+					|-$smarty.capture.formDownload-|
+				|-/if-|
+				<!-- /form de descargar -->
+				|-if $document->isOwned()-|
 				<!-- form de editar -->
 					|-capture name=formEdit-|
 					<form name='documents' action='Main.php' style='display:inline;' method='GET'>
@@ -144,27 +162,13 @@ function checkPassDelete(form){
 				|-else-|
 					|-$smarty.capture.formEdit-|
 				|-/if-|
+				<!-- /form de editar -->
+			|-/if-|
 
-				<!-- form de descargar -->
-				|-capture name=formDownload-|
-				<form name='documents' action='Main.php?do=documentsDoDownload' style='display:inline;' method='POST'>
-					<input type=hidden name='id' value='|-$document->getId()-|'>
-					<input type=hidden name='category' value='|-$document->getCategoryid()-|'>
-					|-if $usePasswords && $document->getPassword() ne ''-|
-					<input type='password' name='password' />
-					|-/if-|
-					<input type='submit' name='submit' value='##documents,22,Descargar##' title='##documents,25,Descargar##' class='icon iconDownload' />
-				</form>
-				|-/capture-|
-				|-if $usePasswords && $document->getPassword() ne ""-|
-					<input type="button" |-popup sticky=true caption="##documents,26,Ingresar contraseña##" trigger="onClick" text=$smarty.capture.formDownload snapx=10 snapy=10 width='180' closetext='Cerrar'-| value="##documents,25,Descargar##" title='##documents,25,Descargar##' class='icon iconDownload' />
-				|-else-|
-					|-$smarty.capture.formDownload-|
-				|-/if-|
 
+				|-if $document->isOwned()-|
 				<!-- form de eliminar -->
 				|-capture name=formDelete-|
-				|-if $document->isOwned()-|
 				<form name='documents' id='document_|-$document->getId()-|' action='Main.php?do=documentsDoDelete' style='display:inline;' method='POST'>
 					<input type=hidden name='id' value='|-$document->getId()-|'>
 					<input type=hidden name='category' value='|-$document->getCategoryid()-|'>
@@ -173,17 +177,23 @@ function checkPassDelete(form){
 						<input type='password' name='password' />
 					|-/if-|
 					<input type='submit' name='submit' value='##common,2,Eliminar##' title='##common,2,Eliminar##' class='icon iconDelete' onclick="if (confirm('¿Seguro que desea eliminar este documento?'))$.ajax({url: 'Main.php?do=documentsDoDeleteX',data:$('#document_|-$document->getId()-|').serialize(),type: 'post',success:function(data){$('#documentOperationInfo').html(data);}});return false;" alt="Eliminar" />
-				</form>|-/if-|
+				</form>
 				|-/capture-|
 				|-if $usePasswords && $document->getPassword() ne ""-|
 					<input type="button" |-popup sticky=true caption="##documents,26,Ingresar contraseña##" trigger="onClick" text=$smarty.capture.formDelete snapx=10 snapy=10 width='180' closetext='Cerrar'-| value="##common,2,Eliminar##" title="##common,2,Eliminar##" class='icon iconDelete' />
 				|-else-|
 					|-$smarty.capture.formDelete-|
 				|-/if-|
-
+				<!-- /form de eliminar -->
+		|-/if-|
 				</td>
 			</tr>
 		|-/foreach-|
+		|-if isset($pager) && $pager->haveToPaginate()-|
+		<tr> 
+			<td colspan="7" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
+		</tr>							
+		|-/if-|						
 			<tr>
 				<th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=documentsEdit&id=|-$docscategory-|" class="addLinkBottom" title="##documents,10,Agregar Documento##">##documents,10,Agregar Documento##</a></div></th>
 			</tr>

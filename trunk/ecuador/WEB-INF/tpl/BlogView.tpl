@@ -73,7 +73,10 @@ Puede regresar a la página principal del experiencias de gestión haciendo clic
 		<div class="tags">Etiquetas: |-foreach from=$blogEntry->getBlogTags() item=tag name=for_tagss-|
      <a href="Main.php?do=blogShow&tagId=|-$tag->getId()-|">|-$tag->getName()-|</a>&nbsp;|-/foreach-|
 </div>
-|-include file="BlogEditDocumentsInclude.tpl" path=$path blogEntryDocumentColl=$documents photos=$photos id=$blogEntry->getId() edit=false-|
+|-if $blogEntry->isOwned($loginUser) || $loginUser->isAdmin()-|
+|-assign var=editable value=true-|
+|-/if-|
+|-include file="BlogEditDocumentsInclude.tpl" path=$path blogEntryDocumentColl=$documents photos=$photos entityId=$blogEntry->getId() editable=$editable-|
 <p>&nbsp;</p>
 		<p><input type="button" name="Volver" value="Volver" id="Volver" onClick="javascript:history.go(-1);"></p>
 </div>
