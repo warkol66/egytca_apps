@@ -187,4 +187,20 @@ class NewsArticlePeer extends BaseNewsArticlePeer {
 
   }
 
+	/**
+	 * Obtiene los ultimos N articulos publicados
+	 * @param integer cantidad de ultimos articulos publicados a obtener
+	 * @return Array array de instancias de NewsArticle
+	 */
+	public function getLastArticles($quantity) {
+		
+		$criteria = new Criteria();
+		$criteria->addDescendingOrderByColumn(NewsArticlePeer::CREATIONDATE);
+		$criteria->add(NewsArticlePeer::STATUS,NewsArticle::PUBLISHED);
+		$criteria->setLimit($quantity);
+		
+		return NewsArticlePeer::doSelect($criteria);
+		
+	}
+
 }

@@ -13,7 +13,7 @@
 						<p>
 							Ingrese los datos del newsletter.
 						</p>
-						<fieldset title="Formulario de edición de datos de un newsletter">
+						<fieldset title="Formulario de ediciÃ³n de datos de un newsletter">
 							<p>
 								<label for="newsletter_subject">Asunto</label>
 								<input name="newsletter[subject]" type="text" id="newsletter_subject" title="subject" value="|-$newsletter->getsubject()-|" size="45" maxlength="255" />

@@ -6,9 +6,9 @@
 	</p>
 
 |-if $message eq "ok"-|
-	<div class="resultSuccess">Plantilla externa de Newsletter guardada correctamente</div>
+	<div class="successMessage">Plantilla externa de Newsletter guardada correctamente</div>
 |-elseif $message eq "deleted_ok"-|
-	<div class="resultSuccess">Plantilla externa de Newsletter eliminad correctamente</div>
+	<div class="successMessage">Plantilla externa de Newsletter eliminada correctamente</div>
 |-/if-|
 	<table width="100%" class="tableTdBorders" id="tabla-newslettertemplateexternals">
 		<col width="95%">
@@ -30,12 +30,12 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="newslettersTemplateExternalsEdit" />
 						<input type="hidden" name="id" value="|-$newslettertemplateexternal->getid()-|" />
-						<input type="submit" name="submit_go_edit_newslettertemplateexternal" value="Editar" class="buttonImageEdit" />
+						<input type="submit" name="submit_go_edit_newslettertemplateexternal" value="Editar" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="newslettersTemplateExternalsDoDel" />
 						<input type="hidden" name="id" value="|-$newslettertemplateexternal->getid()-|" />
-						<input type="submit" name="submit_go_delete_newslettertemplateexternal" value="Borrar" onclick="return confirm('Seguro que desea eliminar el newslettertemplateexternal?')" class="buttonImageDelete" />
+						<input type="submit" name="submit_go_delete_newslettertemplateexternal" value="Borrar" onclick="return confirm('Seguro que desea eliminar el newslettertemplateexternal?')" class="icon iconDelete" />
 					</form>
 				</td>
 			</tr>

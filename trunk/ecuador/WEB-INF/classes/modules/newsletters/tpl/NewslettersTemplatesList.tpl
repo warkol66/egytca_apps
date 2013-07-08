@@ -32,17 +32,17 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="newslettersTemplatesEdit" />
 						<input type="hidden" name="id" value="|-$newslettertemplate->getid()-|" />
-						<input type="submit" name="submit_go_edit_newslettertemplate" value="Editar" class="buttonImageEdit" />
+						<input type="submit" name="submit_go_edit_newslettertemplate" value="Editar" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="get" target="_blank">
 						<input type="hidden" name="do" value="newslettersTemplatesShowPreview" />
 						<input type="hidden" name="id" value="|-$newslettertemplate->getid()-|" />
-						<input type="submit" name="submit_go_edit_newslettertemplate" value="Vista Preliminar" class="buttonImageView" />
+						<input type="submit" name="submit_go_edit_newslettertemplate" value="Vista Preliminar" class="icon iconView" />
 					</form>									
 					<form action="Main.php" method="post" >
 						<input type="hidden" name="do" value="newslettersTemplatesDoDelete" />
 						<input type="hidden" name="id" value="|-$newslettertemplate->getid()-|" />
-						<input type="submit" name="submit_go_delete_newslettertemplate" value="Borrar" onclick="return confirm('Seguro que desea eliminar el newslettertemplate?')" class="buttonImageDelete" />
+						<input type="submit" name="submit_go_delete_newslettertemplate" value="Borrar" onclick="return confirm('Seguro que desea eliminar la plantilla de newsletter?')" class="icon iconDelete" />
 					</form>
 				</td>
 			</tr>
@@ -52,9 +52,11 @@
 				<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 			</tr>							
 		|-/if-|						
+		|-if $newslettertemplates|count gt 5-|
 			<tr>
 				<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=newslettersTemplatesEdit" class="addLink">Agregar Plantilla de Newsletter</a></div></th>
 			</tr>
+		|-/if-|						
 		</tbody>
 	</table>
 </div>
