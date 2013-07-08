@@ -33,12 +33,5 @@ border-radius: 0px 0px 10px 10px;
 |-elseif isset($success) and $success eq 'true'-|
 <div class="successMessage">Mensaje enviado correctamente.</div>
 |-/if-|
-<form method="POST" action="Main.php">
-	<input type="hidden" name="do" value="commonInternalMailsEdit" />
-	<input type="hidden" name="iframe" value="true" />
-	<input type="hidden" name="userId" value="|-$userId-|" />
-	<input type="hidden" name="userType" value="|-$userType-|" />
-	<button type="submit" title="Enviar nuevo mensaje">	Enviar nuevo mensaje</button>
-</form>
 </div>
 </div>

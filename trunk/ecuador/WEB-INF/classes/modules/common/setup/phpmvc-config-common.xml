@@ -143,7 +143,8 @@
 							scope = "request"
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=commonInternalMailsList&amp;message=ok" redirect="true" />
-			<forward name="success-iframe" path="/Main.php?do=commonInternalMailsSend" redirect="true" />
+			<forward name="success-iframe" path="/Main.php?do=commonInternalMailsSend&amp;success=true" redirect="true" />
+			<forward name="failure-iframe" path="/Main.php?do=commonInternalMailsSend&amp;error=true" redirect="true" />
 			<forward name="failure" path="/Main.php?do=commonInternalMailsList&amp;message=error" redirect="true" />
 		</action>
 		

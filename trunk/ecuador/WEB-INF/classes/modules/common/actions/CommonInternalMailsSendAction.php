@@ -17,6 +17,12 @@ class CommonInternalMailsSendAction extends BaseEditAction {
 	protected function postEdit() {
 		parent::postEdit();		
 		$this->template->template = 'TemplateAjax.tpl';
+		
+		if(isset($_GET['error']))
+			$this->smarty->assign('error',$_GET['error']);
+			
+		if(isset($_GET['success']))
+			$this->smarty->assign('success',$_GET['success']);
 	}
 
 }
