@@ -34,19 +34,16 @@ class CommonInternalMailsDoEditAction extends BaseAction {
 			Common::setObjectFromParams($internalMail, $params);
 			$internalMail->send();
 		}
-		else
+		else{
 			//No hay edición de mensajes.
+			if(isset($_REQUEST["iframe"]))
+				return $mapping->findForwardConfig('failure-iframe');
+			else
 			return $mapping->findForwardConfig('failure');
-		
-		if(isset($_REQUEST["iframe"])){
-			/*echo($_REQUEST["userId"]);
-			echo($_REQUEST["userType"]);
-			die();*/
-			$smarty->assign("iframe", 'true');
-			$smarty->assign("userId", $_REQUEST["userId"]);
-			$smarty->assign("userType", $_REQUEST["userType"]);
-			return $mapping->findForwardConfig('success-iframe');
 		}
+		
+		if(isset($_REQUEST["iframe"]))
+			return $mapping->findForwardConfig('success-iframe');
 			
 		return $mapping->findForwardConfig('success');
 	}
