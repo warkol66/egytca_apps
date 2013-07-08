@@ -41,6 +41,7 @@
 			<decimalSeparator>,</decimalSeparator>
 			<numberOfDecimals>2</numberOfDecimals>
 			<siteName>Sistema</siteName>
+			<siteUrl>http://www.lideresparroquiales.org</siteUrl>
 			<siteDescription>Sistema de Gestión</siteDescription>
 			<siteShortName>sistema</siteShortName>
 			<webmasterMail>moddebugger@gmail.com</webmasterMail>
@@ -205,7 +206,7 @@
 		</comments>
 	</board>
 	<news>
-		<newsInHome>2</newsInHome>
+		<newsInHome>1</newsInHome>
 		<newsPerPage>2</newsPerPage>
 		<newsArticles>
 			<useTopTitle>

@@ -25,13 +25,16 @@
 				|-$eventDates|cat:$eventDates2-|	
 			|-/if-|
 			|-if $calendarEventsConfig.bodyOnEventsShow.value eq "YES"-|
-			<li><h3>|-$event->getTitle()-|</h3><br />|-if $eventDates ne ""-|<span class="eventDate">|-$eventDates-|</span><br />|-/if-||-$event->getBody()-|</li>
+				<li><h3>|-$event->getTitle()-|</h3><br />|-if $eventDates ne ""-|<span class="eventDate">|-$eventDates-|</span><br />|-/if-||-$event->getBody()-|</li>
 			|-else-|
-			<li><a href="Main.php?do=calendarView&id=|-$event->getId()-|" class="eventTitle">|-$event->getTitle()-|</a><br />|-if $eventDates ne ""-|<span class="eventDate">|-$eventDates-|</span><br />|-/if-||-$event->getSummary()-|</li><div class="masInfo"><a id="fancybox_|-$event->getId()-|" href="Main.php?do=calendarViewX&id=|-$event->getId()-|" class="iframe">Ver mas información</a></div>
+				<li>
+					<span class="eventTitle">|-$event->getTitle()-|</span>
+					|-if $calendarEventsConfig.useSummary.value eq "YES"-||-$event->getSummary()-|</li>
+					<div class="masInfo"><a id="fancybox_|-$event->getId()-|" href="Main.php?do=calendarViewX&id=|-$event->getId()-|" class="iframe">Ver mas información</a></div>
 			<script>
-				$('a#fancybox_|-$event->getId()-|').fancybox({'width' : 800, 'height' : 600});
+				$('a#fancybox_|-$event->getId()-|').fancybox({'width' : 900, 'height' : 650});
 			</script>
-			 </ul>
+			 </ul>|-/if-|
 			</div>
 			|-/if-|
 		|-/if-|

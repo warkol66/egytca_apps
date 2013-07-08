@@ -2,13 +2,13 @@
 <h1>Listado de Envios Programados</h1>
 <div id="div_newsletterschedules">
 	|-if $message eq "ok"-|
-		<div class="resultSuccess">Envío programado guardado correctamente</div>
+		<div class="successMessage">Envío programado guardado correctamente</div>
 	|-elseif $message eq "deleted_ok"-|
-		<div class="resultSuccess">Envío programado eliminado correctamente</div>
+		<div class="successMessage">Envío programado eliminado correctamente</div>
 	|-elseif $message eq "sent_ok"-|
-		<div class="resultSuccess">Envío realizado enviado correctamente</div>
+		<div class="successMessage">Envío realizado enviado correctamente</div>
 	|-elseif $message eq "sent_failed"-|
-		<div class="resultSuccess">El envío no se pudo realizar</div>
+		<div class="failureMessage">El envío no se pudo realizar</div>
 	|-/if-|
 
 	<p>
@@ -43,17 +43,17 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="newslettersSchedulesEdit" />
 						<input type="hidden" name="id" value="|-$newsletterschedule->getid()-|" />
-						<input type="submit" name="submit_go_edit_newsletterschedule" value="Editar" title="Editar" class="buttonImageEdit" />
+						<input type="submit" name="submit_go_edit_newsletterschedule" value="Editar" title="Editar" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="newslettersExecuteDelivery" />
 						<input type="hidden" name="id" value="|-$newsletterschedule->getid()-|" />
-						<input type="submit" name="submit_execute_delete_newsletterschedule" value="Enviar Ahora" title="Enviar Ahora" onclick="return confirm('Esta seguro que desear realizar el envio?')" class="buttonImageEmail" />
+						<input type="submit" name="submit_execute_delete_newsletterschedule" value="Enviar Ahora" title="Enviar Ahora" onclick="return confirm('Esta seguro que desear realizar el envio?')" class="icon iconEmail" />
 					</form>					
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="newslettersSchedulesDoDelete" />
 						<input type="hidden" name="id" value="|-$newsletterschedule->getid()-|" />
-						<input type="submit" name="submit_go_delete_newsletterschedule" value="Eliminar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar el newsletterschedule?')" class="buttonImageDelete" />
+						<input type="submit" name="submit_go_delete_newsletterschedule" value="Eliminar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar el newsletterschedule?')" class="icon iconDelete" />
 					</form>
 				</td>
 			</tr>
@@ -63,9 +63,11 @@
 				<td colspan="5" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 			</tr>							
 		|-/if-|						
+		|-if $newsletterschedules|count gt 5-|
 			<tr>
 				<th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=newslettersSchedulesEdit" class="addLink">Agregar Envío Programado de Newsletter</a></div></th>
 			</tr>
+		|-/if-|						
 		</tbody>
 	</table>
 </div>

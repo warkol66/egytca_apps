@@ -47,6 +47,9 @@
 				<li><a href="Main.php?do=blogTagsList">Etiquetas de experiencias exitosas</a></li>
 				<li><a href="Main.php?do=regionsList">Parroquias</a></li>
 				<li><a href="Main.php?do=categoriesList&filters[searchModule]=documents">Categorías de documentos</a></li>
+				<li><a href="Main.php?do=newslettersTemplatesList">Plantillas de Novedades</a></li>
+				<li><a href="Main.php?do=newslettersSchedulesList">Envío de Novedades</a></li>
+				
 				<li><a href="Main.php?do=bannersList">Banners</a></li>
 				<li class="last"><a href="Main.php?do=backupList">Respaldos</a></li>
 			</ul></li>

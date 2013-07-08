@@ -14,7 +14,7 @@
 			<td colspan="7" class="tdSearch"><div><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Buscar</a></div>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
 					<input type="hidden" name="do" value="regionsList" />
-					Por tipo<select id="filters[type]" name="filters[type]" title="type">
+					<strong> Por tipo </strong><select id="filters[type]" name="filters[type]" title="type">
 				<option value="0">Seleccione el tipo</option>
 			|-foreach from=$regionTypes key=typeKey item=type name=for_type-|
 				|-if $typeKey gt $configModule->get("regions","treeRootType")-|
@@ -22,13 +22,10 @@
 				|-/if-|
 			|-/foreach-|
       </select>
-					Nombre: <input name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" />
-					&nbsp;Código Postal: <input name="filters[postalCode]" type="text" value="|-if isset($filters.postalCode)-||-$filters.postalCode-||-/if-|" size="8" />
+					<strong>Nombre: </strong><input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="30" />
 					&nbsp;&nbsp;<input type='submit' value='Buscar' class='tdSearchButton' />
-			</form>|-if $filters|@count gt 0-|<form  method="get">
-				<input type="hidden" name="do" value="regionsList" />
-				<input type="submit" value="Quitar Filtros" />
-		</form>|-/if-|</div></td>
+				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=regionsList'"/>|-/if-|
+			</form></div></td>
 		</tr>
 			<tr>
 				 <th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=regionsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Región</a></div></th>

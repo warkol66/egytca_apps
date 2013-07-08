@@ -1,5 +1,5 @@
 <!-- TinyMCE -->
-<script type="text/javascript" src="scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript" src="scripts/tinymce/tiny_mce.js"></script>
 <script type="text/javascript">
 
 // Creates a new plugin class and a custom listbox

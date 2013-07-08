@@ -125,7 +125,7 @@ function unblockUser(form){
 	|-/foreach-|
 	|-if "usersEdit"|security_has_access-||-if !isset($licensesLeft) || (isset($licensesLeft) && $licensesLeft gt 0)-|
 	<tr>
-		<th colspan="6"><div class="rightLink"><a href="Main.php?do=usersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Usuario</a></div></th>
+		<th colspan="6" class="thBottom"><div class="rightLink"><a href="Main.php?do=usersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Usuario</a></div></th>
 	</tr>
 	|-else-|
 	<tr>
