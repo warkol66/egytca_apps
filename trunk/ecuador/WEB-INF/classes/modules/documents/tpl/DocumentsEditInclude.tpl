@@ -196,7 +196,7 @@ body {
 				|-if $module eq 'Documents' && !isset($requester)-|
 					<input type="button" id="cancel" name="cancel" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=documentsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"/>
 				|-else-|
-					<input name="return" type="button" value="Cancelar" onClick="#"/>
+					<input name="return" type="button" value="Cancelar" onClick="parent.$.fancybox.close()"/>
 				|-/if-|
 				<span id="msgBoxUploader"></span>
 			 </p>
