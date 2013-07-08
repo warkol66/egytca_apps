@@ -120,12 +120,12 @@ iframe{
 	$('a.fancygallery').fancybox(); 
 	$('a#fancybox_document').fancybox({	'autoScale': false,
 										'width' : 800,
-										'height' :460,
+										'height' :510,
 										'hideOnContentClick': true,
 										'onClosed': function(){
 											$.ajax({
 												url: 'Main.php?do=blogDocumentsListX',
-												data: {id: |-$entityId-|},
+												data: {id: |-$id-|},
 												type: 'post',
 												success: function(data){
 													$('#blogEntryDocumentsListDiv').html(data);

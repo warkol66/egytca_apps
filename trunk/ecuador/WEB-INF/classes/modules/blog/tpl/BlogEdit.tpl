@@ -10,7 +10,7 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 	
 	$(document).ready(function() {
 		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
-        $( ".datepicker" ).datepicker({
+        $( ".startDate" ).datepicker({
 			dateFormat:"dd-mm-yy"
 		});
         
