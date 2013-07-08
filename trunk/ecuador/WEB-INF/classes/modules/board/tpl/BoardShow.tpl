@@ -1,6 +1,11 @@
 ﻿|-if count($boardChallengeColl) eq 0-|
 	<div id="div_boardChallenges">No hay desafíos en este momento. Para ver los desafíos anteriores haga click <a href="Main.php?do=boardShow&finished=true">aquí</a></div>
 |-else-|
+|-if isset($finished)-|
+	<div id="div_boardChallenges">Para ver los desafíos vigentes haga click<a href="Main.php?do=boardShow">aquí</a></div>
+|-else-|
+	<div id="div_boardChallenges">Para ver los desafíos anteriores haga click<a href="Main.php?do=boardShow&finished=true">aquí</a></div>
+|-/if-|
 <div id="div_boardChallenges">
 		|-foreach from=$boardChallengeColl item=boardChallenge name=for_boardChallenges-|
 			|-assign var=start value=$boardChallenge->getStartDate()|date_format:"%Y/%m/%d"-|
