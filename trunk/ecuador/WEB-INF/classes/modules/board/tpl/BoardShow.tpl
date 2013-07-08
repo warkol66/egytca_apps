@@ -1,5 +1,5 @@
 ﻿|-if count($boardChallengeColl) eq 0-|
-	<div id="div_boardChallenges">No hay desafíos en este momento</div>
+	<div id="div_boardChallenges">No hay desafíos en este momento. Para ver los desafíos anteriores haga click <a href="Main.php?do=boardShow&finished=true">aquí</a></div>
 |-else-|
 <div id="div_boardChallenges">
 		|-foreach from=$boardChallengeColl item=boardChallenge name=for_boardChallenges-|

@@ -34,7 +34,8 @@ class BoardViewAction extends BaseEditAction {
 		$module = "Board";
 		$this->smarty->assign("module",$module);
 		
-		$this->entity->increaseViews();
+		if (!$this->entity->isNew())
+            $this->entity->increaseViews();
 		
 		$moduleConfig = Common::getModuleConfiguration("board");
 		$this->smarty->assign("moduleConfig",$moduleConfig);
