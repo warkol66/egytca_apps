@@ -46,9 +46,17 @@ class NewslettersTemplatesShowPreviewAction extends BaseAction {
 		
 		//$this->template->template = "TemplateClear.tpl";
 		
-    	if ( !empty($_GET["id"]) ) {
+   	if ( !empty($_GET["id"]) ) {
 			
 			$smarty->assign('id',$_GET['id']);
+			$template = NewsletterTemplatePeer::get($_GET["id"]);
+			
+			require_once('NewsletterTemplateRenderFactory.php');
+			$renderFactory = new NewsletterTemplateRenderFactory();
+			$render = $renderFactory->build($template);
+
+			$smarty->assign("newslettertemplate",$template);
+			$smarty->assign("templateRender",$render);
 
 		}
 		
