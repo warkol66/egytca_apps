@@ -45,9 +45,9 @@
 				<td colspan="2" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 			</tr>							
 		|-/if-|						
-			<tr>
+			|-if $newslettertemplateexternals|count gt 5-|<tr>
 				<th colspan="2" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=newslettersTemplateExternalsEdit" class="addLink">Agregar Plantilla Externa de Newsletter</a></div></th>
-			</tr>
+			</tr>|-/if-|
 		</tbody>
 	</table>
 </div>

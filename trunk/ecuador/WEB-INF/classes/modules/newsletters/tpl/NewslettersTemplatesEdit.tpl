@@ -18,11 +18,11 @@
 		<fieldset title="Formulario de edición de datos de plantilla de newsletter">
 			<p>
 				<label for="newslettertemplate_name">Nombre de Plantilla</label>
-				<input type="text" id="newslettertemplate_name" name="newslettertemplate[name]" value="|-$newslettertemplate->getname()-|" title="name" maxlength="255" />
+				<input name="newslettertemplate[name]" type="text" id="newslettertemplate_name" title="name" value="|-$newslettertemplate->getname()-|" size="60" maxlength="255" />
 			</p>
 			<p>
 				<label for="newslettertemplate_content">Cotenido de Plantilla</label>
-				<textarea id="newslettertemplate_content" name="newslettertemplate[content]">|-$newslettertemplate->getcontent()-|</textarea>
+				<textarea name="newslettertemplate[content]" cols="70" rows="9" wrap="VIRTUAL" id="newslettertemplate_content">|-$newslettertemplate->getcontent()-|</textarea>
 			</p>
 			<p>
 				<label>Agregar Fecha de Envio a Asunto</label>

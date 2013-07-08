@@ -51,15 +51,15 @@
 						<p>
 							Ingrese los datos de la plantilla externa de newsletter.
 						</p>
-						<fieldset title="Formulario de edición de datos de un newsletter external template">
+						<fieldset title="Formulario de ediciÃ³n de datos de un newsletter external template">
 																																			<p>
 								<label for="newslettertemplateexternal_name">Nombre</label>
 																																<input type="text" id="newslettertemplateexternal_name" name="newslettertemplateexternal[name]" value="|-$newslettertemplateexternal->getname()-|" title="name" maxlength="255" />
 																															</p>
 														<p>
-								<label for="newslettertemplateexternal_content">Contenido</label><br />
-																								<textarea id="newslettertemplateexternal_content" name="newslettertemplateexternal[content]">|-$newslettertemplateexternal->getcontent()-|</textarea>
-																								</p>
+								<label for="newslettertemplateexternal_content">Contenido</label>
+																								<textarea name="newslettertemplateexternal[content]" cols="80" rows="8" wrap="VIRTUAL" id="newslettertemplateexternal_content">|-$newslettertemplateexternal->getcontent()-|</textarea>
+						</p>
 														<p>
 																|-if $action eq "edit"-|
 								<input type="hidden" name="newslettertemplateexternal[id]" id="newslettertemplateexternal_id" value="|-$newslettertemplateexternal->getid()-|" />
