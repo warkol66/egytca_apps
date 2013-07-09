@@ -206,8 +206,8 @@
 		</comments>
 	</board>
 	<news>
-		<newsInHome>1</newsInHome>
-		<newsPerPage>2</newsPerPage>
+		<newsInHome>2</newsInHome>
+		<newsPerPage>10</newsPerPage>
 		<newsArticles>
 			<useTopTitle>
 				<value>NO</value>
