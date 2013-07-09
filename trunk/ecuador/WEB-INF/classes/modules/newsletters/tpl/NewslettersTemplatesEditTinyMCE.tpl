@@ -10,7 +10,7 @@ tinymce.create('tinymce.plugins.InfocivicaNewsletterTemplatePlugin', {
             case 'setNewsArticleId':
                 var c = cm.createSplitButton('setNewsArticleId', {
                     title : 'Inserta una noticia con un cierto Id',
-                    image : 'images/setNewsArticleId.gif',
+                    image : 'images/setNewsArticleId.png',
                 });
 
                 c.onRenderMenu.add(function(c, m) {
@@ -27,18 +27,18 @@ tinymce.create('tinymce.plugins.InfocivicaNewsletterTemplatePlugin', {
 
             case 'setLastNewsArticles':
                 var c = cm.createSplitButton('setLastNewsArticles', {
-                    title : 'Inserta las ultima noticias indicadas',
-                    image : 'images/setNewsArticleId.gif',
+                    title : 'Inserta las &uacute;ltimas noticias indicadas',
+                    image : 'images/setLastNewsArticles.png',
                 });
 
                 c.onRenderMenu.add(function(c, m) {
-					m.add({title : 'Seleccione la cantidad de ultimas noticias a insertar', 'class' : 'mceMenuItemTitle'}).setDisabled(1);
+					m.add({title : 'Seleccione la cantidad de &uacute;ltimas noticias a insertar', 'class' : 'mceMenuItemTitle'}).setDisabled(1);
  
 					for (var i=1; i < 11; i++) {
 							(function (j,m) {
 								m.add(
 									{
-										title : 'Ultimas '+j+' Noticias.', 
+										title : 'Ultimas '+j+' noticias.', 
 										onclick : function() {
 											tinyMCE.activeEditor.selection.setContent(' {setLastNewsArticles_'+j+'} ') 
 											}
@@ -67,7 +67,7 @@ tinymce.PluginManager.add('newsletterTemplate', tinymce.plugins.InfocivicaNewsle
 		plugins : "-newsletterTemplate,safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking",
 		language : "es",
 		docs_language : "es",
-		theme_advanced_buttons4 : "setUserRegistrationDate,setUserRegistrationIP,setUserRegistrationName,setUserRegistrationLastname,setNewsArticleId,setLastNewsArticles",
+		theme_advanced_buttons4 : "setUserRegistrationName,setUserRegistrationLastname,setNewsArticleId,setLastNewsArticles",
 		button_tile_map : true,
 		theme_advanced_toolbar_location : "external",
 		theme_advanced_toolbar_align : "left",
@@ -99,7 +99,7 @@ tinymce.PluginManager.add('newsletterTemplate', tinymce.plugins.InfocivicaNewsle
 				// Agregado de Nombre de usuario
 				ed.addButton('setUserRegistrationName', {
 					title : 'Inserta el nombre del usuario con la que se registro el usuario',
-					image : 'images/setUserRegistrationName.gif',
+					image : 'images/setUserRegistrationName.png',
 					onclick : function() {
 						ed.selection.setContent(' {setUserRegistrationName} ');
 					}
@@ -108,7 +108,7 @@ tinymce.PluginManager.add('newsletterTemplate', tinymce.plugins.InfocivicaNewsle
 				// Agregado de Apellido de usuario
 				ed.addButton('setUserRegistrationLastname', {
 					title : 'Inserta el Apellido del usuario con la que se registro el usuario',
-					image : 'images/setUserRegistrationLastname.gif',
+					image : 'images/setUserRegistrationLastname.png',
 					onclick : function() {
 						ed.selection.setContent(' {setUserRegistrationLastname} ');
 					}

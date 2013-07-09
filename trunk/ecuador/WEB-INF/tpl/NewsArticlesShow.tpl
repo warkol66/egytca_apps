@@ -33,9 +33,9 @@
 
 		|-if $pager neq ''-|
 			|-if $pager->getLastPage() gt 0-|
-				<div class="pages">|-if $page eq '1'-||-include file="NewsHomePaginateInclude.tpl"-||-else-||-include file="NewsArticleShowPaginateInclude.tpl"-||-/if-|</div>
+				<div class="publicPager">|-if !$page-||-include file="NewsHomePaginateInclude.tpl"-||-else-||-include file="NewsArticleShowPaginateInclude.tpl"-||-/if-|</div>
 			|-else-|
-				<div class="pages"><a href="|-$url-|" class="detail">Inicio</a></div>
+				<div class="publicPager"><a href="|-$url-|" class="detail">Inicio</a></div>
 			|-/if-|
 		|-/if-|
 	</div>
