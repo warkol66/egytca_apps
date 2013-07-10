@@ -164,6 +164,7 @@ class BaseAction extends Action {
 			else { //Si requiere login y no hay sesion va a login
 				//global $loginPath;
 				if ($actionRequested != $loginPath && $actionRequested != "commonDoLogin" && $actionRequested != "usersDoLogin") {
+					$_SESSION["referrer"] = $_SERVER["REQUEST_URI"];
 					header("Location:Main.php?do=$loginPath");
 					exit();
 				}
