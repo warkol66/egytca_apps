@@ -44,8 +44,6 @@ class UsersDoLoginAction extends BaseAction {
 			$user = UserPeer::auth($_POST["loginUsername"],$_POST["loginPassword"]);
 			if (!empty($user)) {
 				//Me fijo si el usuario que intenta ingresar esta bloqueado
-				/*echo(Common::isBlockedUser($_POST["loginUsername"]) && Common::checkLoginUserFailures('User',$user->getId()));
-				die();*/
 				if(Common::isBlockedUser($_POST["loginUsername"]) && Common::checkLoginUserFailures('User',$user->getId())){
 					$this->template->template = "TemplateLogin.tpl";
 					$smarty->assign("message","blocked");
@@ -60,8 +58,16 @@ class UsersDoLoginAction extends BaseAction {
 
 				if (is_null($user->getPasswordUpdated()))
 					return $mapping->findForwardConfig('successFirstLogin');
-				else
+				else{
+					if(isset($_SESSION["referrer"])){
+						$referrer = substr($_SESSION["referrer"],13);
+						unset($_SESSION["referrer"]);
+						if($referrer != 'usersLogin' && $referrer != 'commonLogin')
+							header("Location:Main.php?do=". $referrer);
+							exit();
+					}
 					return $mapping->findForwardConfig('success');
+				}
 			} else {
 				//Guardo una falla al solicitar login
 				Common::loginFailure($_POST["loginUsername"], $_POST["loginPassword"], "User");
