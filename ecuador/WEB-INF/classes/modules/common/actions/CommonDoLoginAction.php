@@ -47,8 +47,16 @@ class CommonDoLoginAction extends BaseAction {
 							Common::doLog('success','username: ' . $_POST["loginUsername"]);
 							if (is_null($user->getPasswordUpdated()))
 								$forwardValue = 'successUsersFirstLogin';
-							else
+							else{
+								if(isset($_SESSION["referrer"])){
+									$referrer = substr($_SESSION["referrer"],13);
+									unset($_SESSION["referrer"]);
+									if($referrer != 'usersLogin' && $referrer != 'commonLogin')
+										header("Location:Main.php?do=". $referrer);
+										exit();
+								}
 								$forwardValue = 'successUsers';
+							}
 						}
 						else {//si no autentifico
 							//Guardo una falla al solicitar login
@@ -64,8 +72,16 @@ class CommonDoLoginAction extends BaseAction {
 							Common::doLog('success','affiliateUsername: ' . $_POST["loginUsername"]);
 							if (is_null($user->getPasswordUpdated()))
 								$forwardValue = 'successAffiliateUsersFirstLogin';
-							else
+							else{
+								if(isset($_SESSION["referrer"])){
+									$referrer = substr($_SESSION["referrer"],13);
+									unset($_SESSION["referrer"]);
+									if($referrer != 'usersLogin' && $referrer != 'commonLogin')
+										header("Location:Main.php?do=". $referrer);
+										exit();
+								}
 								$forwardValue = 'successAffiliateUsers';
+							}
 						}
 						else {//si no autentifico
 							//Guardo una falla al solicitar login
@@ -81,8 +97,16 @@ class CommonDoLoginAction extends BaseAction {
 							Common::doLog('success','clientUsername: ' . $_POST["loginUsername"]);
 							if (is_null($user->getPasswordUpdated()))
 								$forwardValue = 'successClientUsersFirstLogin';
-							else
+							else{
+								if(isset($_SESSION["referrer"])){
+									$referrer = substr($_SESSION["referrer"],13);
+									unset($_SESSION["referrer"]);
+									if($referrer != 'usersLogin' && $referrer != 'commonLogin')
+										header("Location:Main.php?do=". $referrer);
+										exit();
+								}
 								$forwardValue = 'successClientUsers';
+							}
 						}
 						else {//si no autentifico
 							//Guardo una falla al solicitar login
