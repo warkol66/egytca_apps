@@ -48,7 +48,7 @@ class UsersLoginAction extends BaseAction {
 				$smarty->assign('cookieSelection',$value);
 			}
 		}
-
+		
 		return $mapping->findForwardConfig('success');
 	}
 
