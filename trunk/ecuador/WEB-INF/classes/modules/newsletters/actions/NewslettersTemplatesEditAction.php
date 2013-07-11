@@ -46,6 +46,10 @@ class NewslettersTemplatesEditAction extends BaseAction {
 		
 		$articles = NewsArticleQuery::getLastArticles(30);
 		$smarty->assign('articles',$articles);
+		$entries = BlogEntryQuery::getLastEntries(2);
+		$smarty->assign('entries',$entries);
+		$challenge = BoardChallenge::getCurrent();
+		$smarty->assign('challenge',$challenge);
 
     if ( !empty($_GET["id"]) ) {
 			//voy a editar un newslettertemplate

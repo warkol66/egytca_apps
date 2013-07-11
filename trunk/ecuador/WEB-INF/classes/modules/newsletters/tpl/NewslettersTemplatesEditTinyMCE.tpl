@@ -50,6 +50,69 @@ tinymce.create('tinymce.plugins.InfocivicaNewsletterTemplatePlugin', {
 
                 // Return the new splitbutton instance
                 return c;
+                
+            case 'setBlogEntryId':
+                var c = cm.createSplitButton('setBlogEntryId', {
+                    title : 'Inserta una entrada con un cierto Id',
+                    image : 'images/setBlogEntryId.png',
+                });
+
+                c.onRenderMenu.add(function(c, m) {
+                    m.add({title : 'Seleccione una entrada a insertar', 'class' : 'mceMenuItemTitle'}).setDisabled(1);
+						|-foreach from=$entries item=entry name=for_entries-|
+                    m.add({title : '|-$entry->getTitle()-|', onclick : function() {
+						tinyMCE.activeEditor.selection.setContent(' {setBlogEntryId_|-$entry->getId()-|} ');
+                    }});
+						|-/foreach-|
+
+                });
+
+                return c;
+                
+            case 'setLastBlogEntries':
+                var c = cm.createSplitButton('setLastBlogEntries', {
+                    title : 'Inserta las &uacute;ltimas entradas indicadas',
+                    image : 'images/setLastBlogEntries.png',
+                });
+
+                c.onRenderMenu.add(function(c, m) {
+					m.add({title : 'Seleccione la cantidad de &uacute;ltimas entradas a insertar', 'class' : 'mceMenuItemTitle'}).setDisabled(1);
+ 
+					for (var i=1; i < 11; i++) {
+							(function (j,m) {
+								m.add(
+									{
+										title : 'Ultimas '+j+' entradas.', 
+										onclick : function() {
+											tinyMCE.activeEditor.selection.setContent(' {setLastBlogEntries_'+j+'} ') 
+											}
+									}
+								);
+							})(i,m);
+					}
+               });
+
+                // Return the new splitbutton instance
+                return c;
+            |-if is_object($challenge)-|
+			case 'setChallenge':
+                var c = cm.createSplitButton('setChallenge', {
+                    title : 'Inserta el desafio vigente',
+                    image : 'images/setChallenge.png',
+                });
+
+                c.onRenderMenu.add(function(c, m) {
+                    m.add({title : 'Seleccione un desafio a insertar', 'class' : 'mceMenuItemTitle'}).setDisabled(1);
+						|-foreach from=$challenge item=chall name=for_challenge-|
+                    m.add({title : '|-$chall->getTitle()-|', onclick : function() {
+						tinyMCE.activeEditor.selection.setContent(' {setChallenge_|-$chall->getId()-|} ');
+                    }});
+						|-/foreach-|
+
+                });
+
+                return c;
+            |-/if-|
 
         }
 
@@ -67,7 +130,7 @@ tinymce.PluginManager.add('newsletterTemplate', tinymce.plugins.InfocivicaNewsle
 		plugins : "-newsletterTemplate,safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking",
 		language : "es",
 		docs_language : "es",
-		theme_advanced_buttons4 : "setUserRegistrationName,setUserRegistrationLastname,setNewsArticleId,setLastNewsArticles",
+		theme_advanced_buttons4 : "setUserRegistrationName,setUserRegistrationLastname,setNewsArticleId,setLastNewsArticles,setBlogEntryId,setLastBlogEntries,setChallenge",
 		button_tile_map : true,
 		theme_advanced_toolbar_location : "external",
 		theme_advanced_toolbar_align : "left",

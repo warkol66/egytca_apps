@@ -3,7 +3,7 @@
 </script>
 <script src="scripts/functions.js" language="JavaScript" type="text/javascript"></script>
 <script src="scripts/prototype.js" language="JavaScript" type="text/javascript"></script>
-|-include file="NewslettersTemplatesEditTinyMCE.tpl" articles=$articles-|
+|-include file="NewslettersTemplatesEditTinyMCE.tpl" articles=$articles entries=$entries challenge=$challenge-|
 
 <h2>Newsletter</h2>
 <h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Plantilla</h1>
