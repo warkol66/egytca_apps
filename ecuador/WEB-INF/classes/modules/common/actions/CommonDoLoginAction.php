@@ -48,9 +48,9 @@ class CommonDoLoginAction extends BaseAction {
 							if (is_null($user->getPasswordUpdated()))
 								$forwardValue = 'successUsersFirstLogin';
 							else{
-								if(isset($_SESSION["referrer"])){
-									$referrer = substr($_SESSION["referrer"],13);
-									unset($_SESSION["referrer"]);
+								if(isset($_SESSION["loginRequestReferrer"])){
+									$referrer = substr($_SESSION["loginRequestReferrer"],3);
+									unset($_SESSION["loginRequestReferrer"]);
 									if($referrer != 'usersLogin' && $referrer != 'commonLogin')
 										header("Location:Main.php?do=". $referrer);
 										exit();
@@ -73,9 +73,9 @@ class CommonDoLoginAction extends BaseAction {
 							if (is_null($user->getPasswordUpdated()))
 								$forwardValue = 'successAffiliateUsersFirstLogin';
 							else{
-								if(isset($_SESSION["referrer"])){
-									$referrer = substr($_SESSION["referrer"],13);
-									unset($_SESSION["referrer"]);
+								if(isset($_SESSION["loginRequestReferrer"])){
+									$referrer = substr($_SESSION["loginRequestReferrer"],3);
+									unset($_SESSION["loginRequestReferrer"]);
 									if($referrer != 'usersLogin' && $referrer != 'commonLogin')
 										header("Location:Main.php?do=". $referrer);
 										exit();
@@ -98,9 +98,9 @@ class CommonDoLoginAction extends BaseAction {
 							if (is_null($user->getPasswordUpdated()))
 								$forwardValue = 'successClientUsersFirstLogin';
 							else{
-								if(isset($_SESSION["referrer"])){
-									$referrer = substr($_SESSION["referrer"],13);
-									unset($_SESSION["referrer"]);
+								if(isset($_SESSION["loginRequestReferrer"])){
+									$referrer = substr($_SESSION["loginRequestReferrer"],3);
+									unset($_SESSION["loginRequestReferrer"]);
 									if($referrer != 'usersLogin' && $referrer != 'commonLogin')
 										header("Location:Main.php?do=". $referrer);
 										exit();
