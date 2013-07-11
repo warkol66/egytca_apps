@@ -59,9 +59,9 @@ class UsersDoLoginAction extends BaseAction {
 				if (is_null($user->getPasswordUpdated()))
 					return $mapping->findForwardConfig('successFirstLogin');
 				else{
-					if(isset($_SESSION["referrer"])){
-						$referrer = substr($_SESSION["referrer"],13);
-						unset($_SESSION["referrer"]);
+					if(isset($_SESSION["loginRequestReferrer"])){
+						$referrer = substr($_SESSION["loginRequestReferrer"],3);
+						unset($_SESSION["loginRequestReferrer"]);
 						if($referrer != 'usersLogin' && $referrer != 'commonLogin')
 							header("Location:Main.php?do=". $referrer);
 							exit();
