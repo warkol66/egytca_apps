@@ -32,7 +32,7 @@ function smarty_function_entity_include($params, &$smarty)
 //	if(!$smarty->templateExists($params['template']))
 //		echo "NO EXISTE TEMPLATE: '" . $params['template'] . "'.";
 
-	$html_result = $smarty->fetch($params['template']);
+	//$html_result = $smarty->fetch($params['template']);
 
 	//vuelvo a poner el viejo outputfilter de antes
 	$smarty->registerFilter('output', array($oldSmartyOutputFilter, 'smarty_add_template'));
