@@ -131,5 +131,13 @@ class MenuItem extends BaseMenuItem {
 		}
 		return $url;
 	}
+	
+	/**
+	* Devuelve el string para ser usado en el historico de operaciones
+	*	@return string con el texto a guardar en el historico de operaciones
+	*/
+	public function getLogData(){
+		return substr($this->getAction(),0,50);
+	}
 } // MenuItem
 
