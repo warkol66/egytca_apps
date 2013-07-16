@@ -46,5 +46,13 @@ class RegionTimezone extends BaseRegionTimezone {
 		else
 			return;
 	}
+	
+	/**
+	* Devuelve el string para ser usado en el historico de operaciones
+	*	@return string con el texto a guardar en el historico de operaciones
+	*/
+	public function getLogData(){
+		return substr($this->getName(),0,50);
+	}
 
 } // RegionTimezone

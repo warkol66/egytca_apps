@@ -71,6 +71,14 @@ class Region extends BaseRegion {
 		return BudgetRelationQuery::create(null, $criteria)->filterByBudgetgeolocation($this->getOldid())->find();
 	}
 	
+	/**
+	* Devuelve el string para ser usado en el historico de operaciones
+	*	@return string con el texto a guardar en el historico de operaciones
+	*/
+	public function getLogData(){
+		return substr($this->getName(),0,50);
+	}
+	
 	
 
 } // Region
