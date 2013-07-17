@@ -19,6 +19,7 @@ class CommonMenuItemsEditAction extends BaseEditAction {
 		$this->smarty->assign("module",$module);
 		$languages = Common::getAllLanguages();
 		$this->smarty->assign("languages",$languages);
+		$this->smarty->assign("actions",SecurityActionQuery::create()->find());
 
 		if (isset($_GET['id'])){
 			$this->smarty->assign('parentId', $this->entity->getParentId());
