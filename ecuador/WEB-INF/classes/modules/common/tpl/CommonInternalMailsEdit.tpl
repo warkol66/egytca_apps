@@ -45,16 +45,31 @@ border-radius: 0px 0px 10px 10px;
 <script type="text/javascript" src="scripts/jquery/ajax-chosen.min.js"></script>
 <script type="text/javascript" src="scripts/jquery/egytca.js"></script>
 
-|-*include file="CommonAutocompleterInclude.tpl" *-| 
 |-*include file="CommonEditTinyMceInclude.tpl" elements="internalMail[body]" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"*-|
 
 <script type="text/javascript" language="javascript" charset="utf-8">
 $(function(){
-	var users = [|-foreach from=$users item=avUser name=users-|"|-$avUser-|"|-if !$smarty.foreach.users.last-|,|-/if-||-/foreach-|];
+	var users = [|-foreach from=$users item=avUser name=users-|{label:"|-$avUser-|",value:"|-$avUser->getId()-|"} |-if !$smarty.foreach.users.last-|,|-/if-||-/foreach-|];
 	var affiliates = [|-foreach from=$affiliates item=avAffiliate name=affiliates-|"|-$avAffiliate-|"|-if !$smarty.foreach.users.last-|,|-/if-||-/foreach-|];
 	
-	$( "#userRecipients" ).autocomplete({source: users});
-	$( "#affiliateRecipients" ).autocomplete({source: users});
+	$("#userRecipients").autocomplete({
+		source: users,
+		select:function(event,ui){
+			var idx = $('#recipientsSelected > li').size();
+			if($('#recipient_' + ui.item.value).length == 0)
+				$('#recipientsSelected').append('<li id="recipient_' + ui.item.value +'"><input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+ ui.item.value +'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="user" />'+ ui.item.label +'</li>');
+			$("#userRecipients").html('');
+		}
+	});
+	$( "#affiliateRecipients" ).autocomplete({
+		source: affiliates,
+		select:function(event,ui){
+			var idx = $('#recipientsSelected > li').size();
+			if($('#recipient_' + ui.item.value).length == 0)
+				$('#recipientsSelected').append('<li id="recipient_' + ui.item.value +'"><input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+ ui.item.value +'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+ ui.item.label  +'</li>');
+			$("#userRecipients").html('');
+		}
+	});
 });
 
 function updateUserSelected(opt){
