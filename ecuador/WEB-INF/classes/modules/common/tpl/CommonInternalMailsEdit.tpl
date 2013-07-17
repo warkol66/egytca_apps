@@ -58,7 +58,7 @@ $(function(){
 			var idx = $('#recipientsSelected > li').size();
 			if($('#recipient_' + ui.item.value).length == 0)
 				$('#recipientsSelected').append('<li id="recipient_' + ui.item.value +'"><input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+ ui.item.value +'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="user" />'+ ui.item.label +'</li>');
-			$("#userRecipients").html('');
+			$("#userRecipients").val('');
 		}
 	});
 	$( "#affiliateRecipients" ).autocomplete({
@@ -67,44 +67,11 @@ $(function(){
 			var idx = $('#recipientsSelected > li').size();
 			if($('#recipient_' + ui.item.value).length == 0)
 				$('#recipientsSelected').append('<li id="recipient_' + ui.item.value +'"><input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+ ui.item.value +'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+ ui.item.label  +'</li>');
-			$("#userRecipients").html('');
+			$("#userRecipients").val('');
 		}
 	});
 });
 
-function updateUserSelected(opt){
-	
-	var options = $(opt).children();
-	var idx = $('#recipientsSelected > li').size();
-	
-	for (var i=0; i < options.length; i++) {
-		if (options[i].selected){
-			if($('#recipient_' + $(options[i]).val()).length() == 0){
-				$('#recipientsSelected').append('<li id="recipient_' + $(options[i]).val() +'"><input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+ $(options[i]).val() +'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="user" />'+ $(options[i]).html()  +'</li>');
-			}
-			$(options[i]).remove();
-		}
-	 }
-	 $('.chzn-results').html('');
-	 $('.search-choice').remove();
-}
-
-function updateAffiliateSelected(opt) {
-	
-	var options = $(opt).children();
-	var idx = $('#recipientsSelected > li').size();
-	
-	for (var i=0; i < options.length; i++) {
-		if (options[i].selected){
-			if($('#recipient_' + $(options[i]).val()).length() == 0){
-				$('#recipientsSelected').append('<li id="recipient_' + $(options[i]).val() +'"><input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+ $(options[i]).val() +'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+ $(options[i]).html()  +'</li>');
-			}
-			$(options[i]).remove();
-		}
-	 }
-	 $('.chzn-results').html('');
-	 $('.search-choice').remove();
-}
 //migrada
 function changeRecipientType(entityName) {
 	if (entityName == "affiliateUser") {

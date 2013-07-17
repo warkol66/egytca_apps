@@ -1,9 +1,13 @@
-<link type="text/css" rel="stylesheet" href="css/chosen.css" />
-<script src="scripts/jquery/chosen.js"></script>
-<script type="text/javascript" src="scripts/jquery/ajax-chosen.min.js"></script>
 <script type="text/javascript" src="scripts/jquery/egytca.js"></script>
 
 <script type="text/javascript">
+$(function(){
+	var actions = [|-foreach from=$actions item=avAction name=actions-|"|-$avAction->getAction()-|"|-if !$smarty.foreach.users.last-|,|-/if-||-/foreach-|];
+	
+	$("#action").autocomplete({
+		source: actions
+	});
+});
 
 	function getDefaultInfo() {
 		$('#indicator2').show();
@@ -68,7 +72,8 @@
 				</div>
 				<div id="action_info" |-if $menuItem->usingExternalUrl()-| style="display: none;" |-/if-| style="position: relative;">
 					<div style="float: left;">
-					<select id="params_action_select" name="params[action]" value="|-$menuItem->getAction()-|" class="chzn-select markets-chz-select" data-placeholder="Elija una opcion..."></select>
+						<label>Elija una acción</label>
+						<input id="action" name="params[action]" />
 					</div>
 					<a href="#" onclick="addParamToAction(); return false;" alt="Agregar argumento" title="Agregar argumento"><img src="images/clear.png" class="icon iconAdd" /></a>
 					<a href="#" onclick="getDefaultInfo(); return false;" alt="Obtener valores por defecto" title="Obtener valores por defecto"><img src="images/clear.png" class="icon iconEmail" /></a>
@@ -110,8 +115,3 @@
 		|-include_module module=Common action=MenuItemsShow options="template=CommonMenuItemsHorizontalView.tpl&id="|cat:$menuItem->getId()-|
 	</fieldset>
 	|-/if-|
-<script type="text/javascript">
-$(function(){
-	$('#params_action_select').egytca('autocomplete', 'Main.php?do=commonMenuItemsActionsAutocompleteListX');
-});
-</script>
