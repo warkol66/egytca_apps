@@ -49,6 +49,14 @@ border-radius: 0px 0px 10px 10px;
 |-*include file="CommonEditTinyMceInclude.tpl" elements="internalMail[body]" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"*-|
 
 <script type="text/javascript" language="javascript" charset="utf-8">
+$(function(){
+	var users = [|-foreach from=$users item=avUser name=users-|"|-$avUser-|"|-if !$smarty.foreach.users.last-|,|-/if-||-/foreach-|];
+	var affiliates = [|-foreach from=$affiliates item=avAffiliate name=affiliates-|"|-$avAffiliate-|"|-if !$smarty.foreach.users.last-|,|-/if-||-/foreach-|];
+	
+	$( "#userRecipients" ).autocomplete({source: users});
+	$( "#affiliateRecipients" ).autocomplete({source: users});
+});
+
 function updateUserSelected(opt){
 	
 	var options = $(opt).children();
@@ -132,7 +140,7 @@ function updateSubmitButton() {
 			|-if isset($user) and get_class($user) eq 'User'-|
 				<input type="hidden" id="params_user" name="internalMail[recipientId]" value="|-$user->getId()-|" /><span>|-$user->getName()-| |-$user->getSurname()-|</span>
 			|-else-|
-				<select multiple='multiple' id="params_user_select" name="internalMail[recipientId]" class="chzn-select markets-chz-select" data-placeholder="Para..." onChange="javascript:updateUserSelected('#params_user_select')"></select>
+				<input id="userRecipients" />
 			|-/if-|
 			</div>
 			</p>
@@ -141,7 +149,7 @@ function updateSubmitButton() {
 			|-if isset($user) and get_class($user) eq 'Affiliate'-|
 				<input type="hidden" id="params_user_select" name="internalMail[recipientId]" value="|-$user->getId()-|" /><span>|-$user->getName()-| |-$user->getSurname()-|</span>
 			|-else-|
-				<select multiple='multiple' id="params_affiliate_select" class="chzn-select markets-chz-select" data-placeholder="Para..." onChange="javascript:updateAffiliateSelected('#params_user_select')"></select>
+				<input id="affiliateRecipients" />
 			|-/if-|
 			</div>
 |-/if-|			
@@ -190,12 +198,6 @@ function updateSubmitButton() {
 		</fieldset>
 	</form>
 </div>
-<script type="text/javascript">
-|-if !isset($user)-|
-$('#params_user_select').egytca('autocomplete', 'Main.php?do=usersAutocompleteListX',{disable: '#button_edit_internalMail'});
-$('#params_affiliate_select').egytca('autocomplete', 'Main.php?do=affiliatesUsersAutocompleteListX',{disable: '#button_edit_internalMail'});
-|-/if-|
-</script>
 |-if $iframe-|</div>
 </div>
 |-/if-|

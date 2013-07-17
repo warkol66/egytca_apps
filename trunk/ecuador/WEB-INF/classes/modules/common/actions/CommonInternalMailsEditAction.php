@@ -24,6 +24,9 @@ class CommonInternalMailsEditAction extends BaseAction {
 			$smarty->assign("iframe", 'true');
 			$smarty->assign("userId", $_REQUEST["userId"]);
 			$smarty->assign("userType", $_REQUEST["userType"]);
+		}else{
+			$smarty->assign("users", UserQuery::create()->find());
+			$smarty->assign("affiliates", AffiliateQuery::create()->find());
 		}
 		
 		//si esta seteado el usuario al que le quiero enviar el mensaje
