@@ -1,6 +1,3 @@
-<link type="text/css" rel="stylesheet" href="css/chosen.css" />
-<script src="scripts/jquery/chosen.js"></script>
-<script type="text/javascript" src="scripts/jquery/ajax-chosen.min.js"></script>
 <script type="text/javascript" src="scripts/jquery/egytca.js"></script>
 <h2>##common,18,Configuración del Sistema##</h2>
 <h1>##users,151,Administración de Usuarios##</h1>
@@ -33,6 +30,18 @@
 	<br />
 |-/if-|
 <script language="JavaScript" type="text/javascript">
+$(function(){
+	var regions = [|-foreach from=$regions item=avRegion name=regions-|"|-$avRegion-|"|-if !$smarty.foreach.regions.last-|,|-/if-||-/foreach-|];
+	
+	$("#region").autocomplete({
+		source: regions,
+		change: function(event,ui){
+		  $(this).val((ui.item ? ui.item.label : ""));
+		},
+		minLength: 3
+	});
+});
+
 function usersDoAddFromGroup(form) {
 	var fields = $(form).serialize();
 	$.ajax({
@@ -98,7 +107,8 @@ function usersDoEditInfo(form){
 		</p>
 		|-assign var=currentReg value=$currentUser->getRegion()-|
 		<p><label for="userParams[regionId]">Región</label>
-			<select id="user_params_regionId" name="userParams[regionId]" class="chzn-select markets-chz-select" data-placeholder="|-if is_object($currentReg)-||-$currentReg->getName()-||-/if-|"></select>
+			<input id="region" name="params[action]" placeholder="Ingrese una región" />
+			<!--select id="user_params_regionId" name="userParams[regionId]" class="chzn-select markets-chz-select" data-placeholder="|-if is_object($currentReg)-||-$currentReg->getName()-||-/if-|"></select-->
 		</p>
 		<p><label for="pass">##users,165,Contraseña##</label>
 			<input id='pass' name='pass' type='password' value='' size="20" class="" onchange="javascript:setElementClass('pass','emptyValidation');setElementClass('pass2','passwordMatch');validationValidateFieldClienSide('pass');" /> |-validation_msg_box idField=pass-|

@@ -77,6 +77,7 @@ class UsersEditAction extends BaseAction {
 
 		$documentTypes = UserPeer::getDocumentTypes();
 		$smarty->assign("documentTypes",$documentTypes);
+		$smarty->assign("regions",RegionQuery::create()->find());
 
 		$smarty->assign("filters",$_GET["filters"]);
 		$smarty->assign("page",$_GET["page"]);
