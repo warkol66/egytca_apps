@@ -54,12 +54,17 @@ $(function(){
 	
 	$("#userRecipients").autocomplete({
 		source: users,
+		change: function(event,ui){
+		  $(this).val((ui.item ? ui.item.label : ""));
+		},
 		select:function(event,ui){
 			var idx = $('#recipientsSelected > li').size();
 			if($('#recipient_' + ui.item.value).length == 0)
 				$('#recipientsSelected').append('<li id="recipient_' + ui.item.value +'"><input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+ ui.item.value +'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="user" />'+ ui.item.label +'</li>');
-			$("#userRecipients").val('');
-		}
+			$("#userRecipients").val("");
+			return false;
+		},
+		minLength: 3
 	});
 	$( "#affiliateRecipients" ).autocomplete({
 		source: affiliates,
@@ -68,7 +73,9 @@ $(function(){
 			if($('#recipient_' + ui.item.value).length == 0)
 				$('#recipientsSelected').append('<li id="recipient_' + ui.item.value +'"><input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+ ui.item.value +'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+ ui.item.label  +'</li>');
 			$("#userRecipients").val('');
-		}
+			return false;
+		},
+		minLength: 3
 	});
 });
 
@@ -122,7 +129,7 @@ function updateSubmitButton() {
 			|-if isset($user) and get_class($user) eq 'User'-|
 				<input type="hidden" id="params_user" name="internalMail[recipientId]" value="|-$user->getId()-|" /><span>|-$user->getName()-| |-$user->getSurname()-|</span>
 			|-else-|
-				<input id="userRecipients" />
+				<input id="userRecipients" placeholder="Ingrese un destinatario" />
 			|-/if-|
 			</div>
 			</p>
@@ -131,7 +138,7 @@ function updateSubmitButton() {
 			|-if isset($user) and get_class($user) eq 'Affiliate'-|
 				<input type="hidden" id="params_user_select" name="internalMail[recipientId]" value="|-$user->getId()-|" /><span>|-$user->getName()-| |-$user->getSurname()-|</span>
 			|-else-|
-				<input id="affiliateRecipients" />
+				<input id="affiliateRecipients" placeholder="Ingrese un destinatario"/>
 			|-/if-|
 			</div>
 |-/if-|			
