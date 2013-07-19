@@ -5,7 +5,10 @@ $(function(){
 	var actions = [|-foreach from=$actions item=avAction name=actions-|"|-$avAction->getAction()-|"|-if !$smarty.foreach.users.last-|,|-/if-||-/foreach-|];
 	
 	$("#action").autocomplete({
-		source: actions
+		source: actions,
+		change: function(event,ui){
+		  $(this).val((ui.item ? ui.item.label : ""));
+		}
 	});
 });
 
