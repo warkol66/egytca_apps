@@ -1,10 +1,10 @@
 ﻿|-if count($boardChallengeColl) eq 0-|
-	<div id="div_boardChallenges">No hay desafíos en este momento. Para ver los desafíos anteriores haga click <a href="Main.php?do=boardShow&finished=true">aquí</a></div>
+	<div id="div_boardChallenges">No hay desafío vigente. Para ver los desafíos anteriores haga click <a href="Main.php?do=boardShow&finished=true">aquí</a></div>
 |-else-|
 |-if isset($finished)-|
-	<div id="div_boardChallenges">Para ver los desafíos vigentes haga click<a href="Main.php?do=boardShow">aquí</a></div>
+	<div id="div_boardChallenges">Para ver el desafío vigente haga click <a href="Main.php?do=boardShow">aquí</a></div>
 |-else-|
-	<div id="div_boardChallenges">Para ver los desafíos anteriores haga click<a href="Main.php?do=boardShow&finished=true">aquí</a></div>
+	<div id="div_boardChallenges">Para ver los desafíos anteriores haga click <a href="Main.php?do=boardShow&finished=true">aquí</a></div>
 |-/if-|
 <div id="div_boardChallenges">
 		|-foreach from=$boardChallengeColl item=boardChallenge name=for_boardChallenges-|
@@ -24,7 +24,7 @@
 				|-assign var=id value=$boardChallenge->getId()-|
 				|-assign var=url value="Main.php?do=boardView&id=$id"-|
 				|-assign var=readMore value="<p class='readMore'><a href='$url|-if $finished eq "true"-|&finished=true|-/if-|'> ... seguir leyendo</a></p>"-|
-				|-$boardChallenge->getBody()|mb_truncate_strip_tags:$moduleConfig.charsInList:"...":$readMore-|
+				|-$boardChallenge->getBody()|mb_truncate_strip_tags:180:"...":$readMore-|
 				|-else-||-$boardChallenge->getBody()-|
 				|-/if-|
 				</div>

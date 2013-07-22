@@ -4,8 +4,12 @@
 	<div id="comentarios">
 	<!-- TITULO COMENTARIOS -->
 		<div id="titleComments"><div id="icoComments"></div>Comentarios</div>
-	|-if ($comments|@count eq 0)-|
+	|-if $comments|@count eq 0-|
+		|-if !$finished-|
 		<p id="no_comments_|-$boardChallenge->getId()-|">No hay comentarios actualmente, sea el primero en dejar uno.</p>
+		|-else-|
+		<p id="no_comments_|-$boardChallenge->getId()-|">No hay comentarios asociados al desafío.</p>
+		|-/if-|
 	|-/if-|
 		<div id="div_comments_container_|-$boardChallenge->getId()-|" >
 		|-foreach from=$comments item=comment name=for_comments-|

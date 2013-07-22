@@ -24,7 +24,7 @@ class ConfigModule {
 			"useFullTextSearch" => true,
 			"catdocPath" => "/usr/local/bin/",
 			"pdftotextPath" => "/usr/local/bin/",
-			"maxUploadSize" => '15M',
+			"maxUploadSize" => '20M',
 			"useSWFUploader" => false,
 			"documentTypes" => array(
 				"Word" => "doc,docx",
