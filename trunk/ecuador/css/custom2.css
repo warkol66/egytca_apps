@@ -1847,12 +1847,37 @@ table#table-documents #divSearch{
 }
 .mce_setUserRegistrationName img, .mce_setUserRegistrationName,
 .mce_setUserRegistrationLastname img, .mce_setUserRegistrationLastname{width:48px !Important}
+
+.mce_setBlogEntryId img, .mce_setLastBlogEntries img,
+.mce_setBoardChallengeId img, .mce_setLastBoardChallenges img,
 .mce_setNewsArticleId img, .mce_setLastNewsArticles img {width:50px !Important;}
+
+table.mce_setBlogEntryId, table.mce_setLastBlogEntries,
+table.mce_setBoardChallengeId, table.mce_setLastBoardChallenges,
 table.mce_setNewsArticleId, table.mce_setLastNewsArticles {width:auto !Important; background-image: none !Important;}
+
+table.mceSplitButton a.mceOpen.mce_setLastBlogEntries,
+table.mceSplitButton a.mceOpen.mce_setBlogEntryId,
+table.mceSplitButton a.mceOpen.mce_setLastBoardChallenges,
+table.mceSplitButton a.mceOpen.mce_setBoardChallengeId,
 table.mceSplitButton a.mceOpen.mce_setLastNewsArticles,
 table.mceSplitButton a.mceOpen.mce_setNewsArticleId {width:10px !Important; }
+
+a.mceAction.mce_setBlogEntryId, a.mceAction.mce_setLastBlogEntries,
+a.mceAction.mce_setBoardChallengeId, a.mceAction.mce_setLastBoardChallenges,
 a.mceAction.mce_setNewsArticleId, a.mceAction.mce_setLastNewsArticles,
+img.mceAction.mce_setLastBlogEntries, img.mceAction.mce_setBlogEntryId, 
+img.mceAction.mce_setLastBoardChallenges, img.mceAction.mce_setBoardChallengeId, 
 img.mceAction.mce_setLastNewsArticles, img.mceAction.mce_setNewsArticleId {background-image: none !Important;}
+
+.mce_setBlogEntryId, .mce_setLastBlogEntries,
+.mce_setBoardChallengeId, .mce_setLastBoardChallenges,
 .mce_setNewsArticleId, .mce_setLastNewsArticles {width:50px !Important; background: center no-repeat url(../images/open.png) !Important;}
+
+img.mce_setBlogEntryId, img.mce_setLastBlogEntries,
+img.mce_setBoardChallengeId, img.mce_setLastBoardChallenges,
 img.mce_setNewsArticleId, img.mce_setLastNewsArticles {width:50px !Important;}
 
+.readMore {
+	background-image: none;
+}
