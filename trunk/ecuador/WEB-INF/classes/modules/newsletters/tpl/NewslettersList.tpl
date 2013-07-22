@@ -33,17 +33,17 @@
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="newslettersView" />
 						<input type="hidden" name="id" value="|-$newsletter->getid()-|" />
-						<input type="submit" name="submit_go_edit_newsletter" value="Ver" class="buttonImageView" />
+						<input type="submit" name="submit_go_edit_newsletter" value="Ver" class="icon iconView" />
 					</form>
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="newslettersEdit" />
 						<input type="hidden" name="id" value="|-$newsletter->getid()-|" />
-						<input type="submit" name="submit_go_edit_newsletter" value="Editar" class="buttonImageEdit" />
+						<input type="submit" name="submit_go_edit_newsletter" value="Editar" class="icon iconEdit" />
 					</form>
 					<form action="Main.php" method="post">
 						<input type="hidden" name="do" value="newslettersDoDelete" />
 						<input type="hidden" name="id" value="|-$newsletter->getid()-|" />
-						<input type="submit" name="submit_go_delete_newsletter" value="Borrar" onclick="return confirm('Seguro que desea eliminar el newsletter?')" class="buttonImageDelete" />
+						<input type="submit" name="submit_go_delete_newsletter" value="Borrar" onclick="return confirm('Seguro que desea eliminar el newsletter?')" class="icon iconDelete" />
 					</form>
 				</td>
 			</tr>

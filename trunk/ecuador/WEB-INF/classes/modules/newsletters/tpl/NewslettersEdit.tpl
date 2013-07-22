@@ -34,6 +34,7 @@
 								<input type="hidden" name="action" id="action" value="|-$action-|" />
 								<input type="hidden" name="do" id="do" value="newslettersDoEdit" />
 								<input type="submit" id="button_edit_newsletter" name="button_edit_newsletter" title="Aceptar" value="Aceptar" />
+								<input type="button" id="button_return_list" name="button_return_list" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=newslettersList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
 							</p>
 			      </fieldset>
 					</form>

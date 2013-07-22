@@ -1,1 +1,1 @@
-|-$templateRender->getBody()-|
+|-$templateRender->getCustomBody($loginUser)-|
