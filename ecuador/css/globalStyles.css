@@ -731,11 +731,11 @@ a.return, a.report, a.importHeadlines {
 	display: inline-table !Important;
 }
 
-/*.readMore {
+.readMore {
 	background-image: url(../images/icon_readMore.png);
 	background-repeat:no-repeat;
 	background-position: left top;
-}*/
+}
 .readLess {
 	background-image: url(../images/icon_readLess.png);
 }
