@@ -13,7 +13,7 @@ class NewsletterTemplateRender  {
 			'(\{userRegistrationDate\})' => 'getCreated',
 			'(\{userRegistrationIP\})' => 'getIp',
 			'(\{setUserRegistrationName\})' => 'getName',
-			'(\{setUserRegistrationLastname\})' => 'getSurName'
+			'(\{setUserRegistrationLastname\})' => 'getSurname'
 		);
 
 

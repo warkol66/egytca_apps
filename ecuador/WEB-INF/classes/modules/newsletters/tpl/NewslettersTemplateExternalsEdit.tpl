@@ -1,7 +1,5 @@
 <h2>Newsletter</h2>
 <h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Plantilla Externa</h1>
-
-
 <!-- TinyMCE -->
 <script type="text/javascript" src="scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript">
@@ -58,15 +56,16 @@
 																															</p>
 														<p>
 								<label for="newslettertemplateexternal_content">Contenido</label>
-																								<textarea name="newslettertemplateexternal[content]" cols="80" rows="8" wrap="VIRTUAL" id="newslettertemplateexternal_content">|-$newslettertemplateexternal->getcontent()-|</textarea>
+																								<textarea name="newslettertemplateexternal[content]" cols="80" rows="16" wrap="VIRTUAL" id="newslettertemplateexternal_content">|-$newslettertemplateexternal->getcontent()-|</textarea>
 						</p>
 														<p>
 																|-if $action eq "edit"-|
 								<input type="hidden" name="newslettertemplateexternal[id]" id="newslettertemplateexternal_id" value="|-$newslettertemplateexternal->getid()-|" />
 								|-/if-|
-																<input type="hidden" name="action" id="action" value="|-$action-|" />
+								<input type="hidden" name="action" id="action" value="|-$action-|" />
 								<input type="hidden" name="do" id="do" value="newslettersTemplateExternalsDoEdit" />
 								<input type="submit" id="button_edit_newslettertemplateexternal" name="button_edit_newslettertemplateexternal" title="Aceptar" value="Aceptar" />
+								<input type="button" id="button_return_list" name="button_return_list" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=newslettersTemplateExternalsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
 							</p>
 			      </fieldset>
 					</form>
