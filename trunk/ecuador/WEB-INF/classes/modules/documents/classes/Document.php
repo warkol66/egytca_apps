@@ -247,24 +247,20 @@ class Document extends BaseDocument {
 
 		$moduleConfig = Common::getModuleConfiguration('documents');
 		$documentsPath = $moduleConfig['documentsPath'];
+
 		try {
-
 			$document = DocumentQuery::create()->findOneById($id);
-
-			//si no se puede eliminar se lanza una excepcion
-			if(!unlink($documentsPath . '/' . $document->getId()))
+			//Si existe el archivo y no se puede eliminar se lanza una excepcion
+			if(file_exists($documentsPath . '/' . $document->getId()) && !unlink($documentsPath . '/' . $document->getId()))
 				throw new PropelException();
 
 			//se elimina la entrada en la base de datos
 			$document->delete();
-
 		}
 		catch (PropelException $e) {
 			return false;
 		}
-
 		return true;
-
 	}
 	
 	/**
