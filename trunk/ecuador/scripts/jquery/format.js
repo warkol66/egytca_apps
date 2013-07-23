@@ -3,23 +3,19 @@
  * TODO: migrar a jQuery cuando todos los sistemas dejen de usar Prototype
  */
 
-function formatInputs(thousands,decimal,form){
-	console.log(form)
-	//numeric
-	convertToMysqlNumericFormat(thousands,decimal);
-	if(form != null)
-		$(form).submit();
-	//return true
-}
-
-/**
- * Efectua el formateo a tipo numerico de mySQL
- */
-function convertToMysqlNumericFormat(thousands,decimal){
-	var n = document.querySelectorAll(".toNumeric").length;
+function format(){
+	
+	var commaT = document.querySelectorAll(".commaThousandsSeparator").length;
+	var periodD = document.querySelectorAll(".periodDecimalSeparator").length;
+	//en general deberian ser iguales pero chequeo por las dudas
+	var n = Math.max(commaT, periodD);
+	
 	for(var i = 0; i < n; i++){
-		document.querySelectorAll(".toNumeric")[i].value = document.querySelectorAll(".toNumeric")[i].value.replace(thousands,'');
-		document.querySelectorAll(".toNumeric")[i].value = document.querySelectorAll(".toNumeric")[i].value.replace(decimal,'.');
+		if(i < commaT)
+			document.querySelectorAll(".commaThousandsSeparator")[i].value = document.querySelectorAll(".commaThousandsSeparator")[i].value.replace('.','');
+		if(i < periodD)
+			document.querySelectorAll(".periodDecimalSeparator")[i].value = document.querySelectorAll(".periodDecimalSeparator")[i].value.replace(',','.');
 	}
 	return true;
+	
 }
