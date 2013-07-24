@@ -9,8 +9,11 @@ class NewsletterTemplateRenderFactory {
 
 	private $externalReplacement = '{center}';
 	private $templateReplacements = array(
-			'(\{setNewsArticleId_[0-9]*\})' => 'get',
+			'(\{setNewsArticleId_[0-9]*\})' => 'findOneById',
 			'(\{setLastNewsArticles_[0-9]*\})' => 'getLastArticles',
+			'(\{setLastBlogEntries_[0-9]*\})' => 'getLastEntries',
+			'(\{setBlogEntryId_[0-9]*\})' => 'findOneById',
+			'(\{setChallenge\})' => 'getCurrent'
 		);
 
 	function __construct() {
@@ -41,12 +44,15 @@ class NewsletterTemplateRenderFactory {
 	private function processMatch($condition,$match,$callback,$string) {
 		
 		$matchParse = array();
-		if (ereg('\{[a-zA-z]*_([0-9]*)\}',$match,$matchParse)) {
+		if (ereg('\{setNewsArticleId_([0-9]*)\}',$match,$matchParse) || ereg('\{setLastNewsArticles_([0-9]*)\}',$match,$matchParse)) {
 
 			$id = $matchParse[1];
 			
 			$newsArticlePeer = new NewsArticlePeer();
-			$result = $newsArticlePeer->$callback($id);
+			$result = NewsArticleQuery::create()->$callback($id);
+			//si se pidieron varios la consulta devuelve objectCollecion, lo paso a array para poder usar el toXHTML
+			if(method_exists($result, 'getData'))
+				$result = $result->getData();
 			
 			$replacement = '';
 			
@@ -60,6 +66,40 @@ class NewsletterTemplateRenderFactory {
 			}
 			
 			return ereg_replace($condition,$replacement,$string);
+			
+		}elseif(ereg('\{setLastBlogEntries_([0-9]*)\}',$match,$matchParse) || ereg('\{setBlogEntryId_([0-9]*)\}',$match,$matchParse)){
+			
+			$id = $matchParse[1];
+			
+			$result = BlogEntryQuery::create()->$callback($id);
+			//si se pidieron varios la consulta devuelve objectCollecion, lo paso a array para poder usar el toXHTML
+			if(method_exists($result, 'getData'))
+				$result = $result->getData();
+			
+			$replacement = '';
+			
+			if (is_array($result)) {
+				foreach ($result as $item) {
+					$replacement .= $item->toXHTML();
+				}
+			}
+			else {
+				$replacement .= $result->toXHTML();
+			}
+			
+			return ereg_replace($condition,$replacement,$string);
+			
+		}elseif(ereg('\{setChallenge\}',$match,$matchParse)){
+			
+			$id = $matchParse[1];
+			
+			$result = BoardChallengeQuery::create()->$callback($id);
+			
+			$replacement = '';
+			$replacement .= $result->toXHTML();
+			
+			return ereg_replace($condition,$replacement,$string);
+			
 		}
 		
 	}
