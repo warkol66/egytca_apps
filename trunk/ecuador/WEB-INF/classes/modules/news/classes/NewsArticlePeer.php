@@ -141,22 +141,6 @@ class NewsArticlePeer extends BaseNewsArticlePeer {
      
      
    }
-
-	/**
-	 * Obtiene los ultimos N articulos publicados
-	 * @param integer cantidad de ultimos articulos publicados a obtener
-	 * @return Array array de instancias de NewsArticle
-	 *
-	public function getLastArticles($quantity) {
-		
-		$criteria = new Criteria();
-		$criteria->addDescendingOrderByColumn(NewsArticlePeer::CREATIONDATE);
-		$criteria->add(NewsArticlePeer::STATUS,NewsArticlePeer::PUBLISHED);
-		$criteria->setLimit($quantity);
-		
-		return NewsArticlePeer::doSelect($criteria);
-		
-	}*/
   
 	/**
 	 * Obtiene los ultimos N articulos actualizados
@@ -186,21 +170,16 @@ class NewsArticlePeer extends BaseNewsArticlePeer {
 		return NewsArticlePeer::doSelectOne($criteria);
 
   }
-
-	/**
-	 * Obtiene los ultimos N articulos publicados
-	 * @param integer cantidad de ultimos articulos publicados a obtener
-	 * @return Array array de instancias de NewsArticle
-	 */
-	public function getLastArticles($quantity) {
-		
-		$criteria = new Criteria();
-		$criteria->addDescendingOrderByColumn(NewsArticlePeer::CREATIONDATE);
-		$criteria->add(NewsArticlePeer::STATUS,NewsArticle::PUBLISHED);
-		$criteria->setLimit($quantity);
-		
-		return NewsArticlePeer::doSelect($criteria);
-		
-	}
+  
+  /**
+  * Obtiene la informacion de un noticia.
+  *
+  * @param int $id id del newsarticle
+  * @return array Informacion del newsarticle
+  */
+  function get($id) {
+		$newsarticleObj = NewsArticlePeer::retrieveByPK($id);
+    return $newsarticleObj;
+  }
 
 }
