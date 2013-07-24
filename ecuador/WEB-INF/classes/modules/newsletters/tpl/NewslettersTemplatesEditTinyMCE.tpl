@@ -103,11 +103,9 @@ tinymce.create('tinymce.plugins.InfocivicaNewsletterTemplatePlugin', {
 
                 c.onRenderMenu.add(function(c, m) {
                     m.add({title : 'Seleccione un desafio a insertar', 'class' : 'mceMenuItemTitle'}).setDisabled(1);
-						|-foreach from=$challenge item=chall name=for_challenge-|
-                    m.add({title : '|-$chall->getTitle()-|', onclick : function() {
-						tinyMCE.activeEditor.selection.setContent(' {setChallenge_|-$chall->getId()-|} ');
+                    m.add({title : '|-$challenge->getTitle()-|', onclick : function() {
+						tinyMCE.activeEditor.selection.setContent(' {setChallenge} ');
                     }});
-						|-/foreach-|
 
                 });
 
