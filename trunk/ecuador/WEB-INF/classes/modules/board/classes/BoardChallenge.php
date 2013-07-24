@@ -153,4 +153,23 @@ class BoardChallenge extends BaseBoardChallenge{
 		if(is_object($current))
 			return $current;
 	}
+	
+	/**
+	 * Da una representacion del objeto en XHTML
+	 * @param boolean indica si se quiere tambien el cuerpo de la entrada
+	 * @return     String
+	 */	
+	public function toXHTML($fullMode=false) {
+		global $system;
+
+		$siteUrl = $system["config"]["system"]["parameters"]["siteUrl"];
+		$output  = '<div class="article">';
+		$output .= "<h1><a href='".$siteUrl."/Main.php?do=boardView&id=".$this->getId()."' target='_blank'>".$this->getTitle().'</a></h1>';
+		if ($fullMode)
+			$output .= '<p>'.$this->getBody().'</p>';
+		$output .= "<div class='masInfo'><a href='".$siteUrl."/Main.php?do=boardView&id=".$this->getId()."' target='_blank'>Ver desafio completo</a></h1>";
+		$output .= '</div>';
+		$output .= '</div>';
+		return $output;
+	}
 }
