@@ -41,20 +41,20 @@ class BlogEntryQuery extends BaseBlogEntryQuery {
 											->find();
 		return $candidates;
 	}
-
-	/** Migrado de Peer
+	
+	/** 
 	 * Obtiene los ultimos N articulos publicados
 	 * @param integer cantidad de ultimos articulos publicados a obtener
 	 * @return Array array de instancias de NewsArticle
 	 */
 	public function getLastEntries($quantity) {
 		
-		$articles = BlogEntryQuery::create()
+		$entries = BlogEntryQuery::create()
 						->orderByCreationDate('desc')
 						->filterByStatus(BlogEntry::PUBLISHED)
 						->limit($quantity)
 						->find();
-		return $articles;
+		return $entries;
 		
 	}
 
