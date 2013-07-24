@@ -217,22 +217,6 @@ class BlogEntry extends BaseBlogEntry {
 	}
 	
 	/**
-	 * Obtiene los ultimos N articulos publicados
-	 * @param integer cantidad de ultimos articulos publicados a obtener
-	 * @return Array array de instancias de NewsArticle
-	 */
-	public function getLastEntries($quantity) {
-		
-		$criteria = new Criteria();
-		$criteria->addDescendingOrderByColumn(BlogEntryPeer::CREATIONDATE);
-		$criteria->add(BlogEntryPeer::STATUS,BlogEntryPeer::PUBLISHED);
-		$criteria->setLimit($quantity);
-		
-		return BlogEntryPeer::doSelect($criteria);
-		
-	}
-	
-	/**
 	 * Crea una Criteria a partir de las condiciones de filtro ingresadas.
 	 * @return Criteria instancia de criteria
 	 */
@@ -408,6 +392,25 @@ class BlogEntry extends BaseBlogEntry {
 	*/
 	public function getLogData(){
 		return substr($this->getTitle(),0,50);
+	}
+	
+	/**
+	 * Da una representacion del objeto en XHTML
+	 * @param boolean indica si se quiere tambien el cuerpo de la entrada
+	 * @return     String
+	 */	
+	public function toXHTML($fullMode=false) {
+		global $system;
+
+		$siteUrl = $system["config"]["system"]["parameters"]["siteUrl"];
+		$output  = '<div class="blog01">';
+		$output .= "<h1><a href='".$siteUrl."/Main.php?do=blogView&id=".$this->getId()."' target='_blank'>".$this->getTitle().'</a></h1>';
+		if ($fullMode)
+			$output .= '<p>'.$this->getBody().'</p>';
+		$output .= "<div class='masInfo'><a href='".$siteUrl."/Main.php?do=blogView&id=".$this->getId()."' target='_blank'>Ver entrada completa</a></h1>";
+		$output .= '</div>';
+		$output .= '</div>';
+		return $output;
 	}
 
 
