@@ -1,4 +1,4 @@
-<div class="rightBox">
+<div id="rightBoxContentBlock" class="rightBox">
 	<h3>Red de Autoridades de Parroquias Rurales</h3>
 		<ul class="asideLinks">
 			<li><a href="Main.php?do=contentShow&id=6">¿Qué es la Red de Líderes Parroquiales?</a></li>

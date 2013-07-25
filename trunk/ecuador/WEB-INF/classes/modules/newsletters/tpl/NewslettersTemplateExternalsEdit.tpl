@@ -1,6 +1,6 @@
 <h2>Newsletter</h2>
 <h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Plantilla Externa</h1>
-<!-- TinyMCE -->
+|-*<!-- TinyMCE -->
 <script type="text/javascript" src="scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript">
 	tinyMCE.init({
@@ -41,32 +41,32 @@
 	});
 	
 </script>
-<!-- /TinyMCE -->
+<!-- /TinyMCE -->*-|
 
-				<div id="div_newslettertemplateexternal">
-					<form name="form_edit_newslettertemplateexternal" id="form_edit_newslettertemplateexternal" action="Main.php" method="post">
-						|-if $message eq "error"-|<span class="message_error">Ha ocurrido un error al intentar guardar el newsletter external template</span>|-/if-|
-						<p>
-							Ingrese los datos de la plantilla externa de newsletter.
-						</p>
-						<fieldset title="Formulario de edición de datos de un newsletter external template">
-																																			<p>
-								<label for="newslettertemplateexternal_name">Nombre</label>
-																																<input type="text" id="newslettertemplateexternal_name" name="newslettertemplateexternal[name]" value="|-$newslettertemplateexternal->getname()-|" title="name" maxlength="255" />
-																															</p>
-														<p>
-								<label for="newslettertemplateexternal_content">Contenido</label>
-																								<textarea name="newslettertemplateexternal[content]" cols="80" rows="16" wrap="VIRTUAL" id="newslettertemplateexternal_content">|-$newslettertemplateexternal->getcontent()-|</textarea>
-						</p>
-														<p>
-																|-if $action eq "edit"-|
-								<input type="hidden" name="newslettertemplateexternal[id]" id="newslettertemplateexternal_id" value="|-$newslettertemplateexternal->getid()-|" />
-								|-/if-|
-								<input type="hidden" name="action" id="action" value="|-$action-|" />
-								<input type="hidden" name="do" id="do" value="newslettersTemplateExternalsDoEdit" />
-								<input type="submit" id="button_edit_newslettertemplateexternal" name="button_edit_newslettertemplateexternal" title="Aceptar" value="Aceptar" />
-								<input type="button" id="button_return_list" name="button_return_list" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=newslettersTemplateExternalsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
-							</p>
-			      </fieldset>
-					</form>
-				</div>
+<div id="div_newslettertemplateexternal">
+	<form name="form_edit_newslettertemplateexternal" id="form_edit_newslettertemplateexternal" action="Main.php" method="post">
+		|-if $message eq "error"-|<span class="message_error">Ha ocurrido un error al intentar guardar el newsletter external template</span>|-/if-|
+		<p>
+			Ingrese los datos de la plantilla externa de newsletter.
+		</p>
+		<fieldset title="Formulario de edición de datos de un newsletter external template">
+			<p>
+				<label for="newslettertemplateexternal_name">Nombre</label>
+				<input type="text" id="newslettertemplateexternal_name" name="newslettertemplateexternal[name]" value="|-$newslettertemplateexternal->getname()-|" title="name" maxlength="255" />
+		</p>
+		<p>
+				<label for="newslettertemplateexternal_content">Contenido</label>
+				<textarea name="newslettertemplateexternal[content]" cols="80" rows="16" wrap="VIRTUAL" id="newslettertemplateexternal_content">|-$newslettertemplateexternal->getcontent()-|</textarea>
+		</p>
+	<p>
+		|-if $action eq "edit"-|
+		<input type="hidden" name="newslettertemplateexternal[id]" id="newslettertemplateexternal_id" value="|-$newslettertemplateexternal->getid()-|" />
+		|-/if-|
+				<input type="hidden" name="action" id="action" value="|-$action-|" />
+				<input type="hidden" name="do" id="do" value="newslettersTemplateExternalsDoEdit" />
+				<input type="submit" id="button_edit_newslettertemplateexternal" name="button_edit_newslettertemplateexternal" title="Aceptar" value="Aceptar" />
+				<input type="button" id="button_return_list" name="button_return_list" title="Cancelar" value="Cancelar" onClick="location.href='Main.php?do=|-if !$smarty.get.fromTemplatesList-|newslettersTemplateExternalsList|-else-|newslettersTemplatesList|-/if-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
+			</p>
+		</fieldset>
+	</form>
+</div>
