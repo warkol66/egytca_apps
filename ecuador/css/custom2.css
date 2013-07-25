@@ -1026,6 +1026,7 @@ table.tableTdBorders {
 	opacity:0.8;
 	color:#fdf8e9;
 	text-align:center;
+	vertical-align: baseline;
 	font-size:20px;
 	text-decoration:none;
 	font-family:Georgia, "Times New Roman", Times, serif;

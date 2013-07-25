@@ -96,7 +96,8 @@ class NewsletterTemplateRenderFactory {
 			$result = BoardChallengeQuery::create()->$callback($id);
 			
 			$replacement = '';
-			$replacement .= $result->toXHTML();
+			if (!empty($result))
+				$replacement .= $result->toXHTML();
 			
 			return ereg_replace($condition,$replacement,$string);
 			

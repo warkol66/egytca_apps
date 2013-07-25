@@ -18,6 +18,20 @@
 <script language="JavaScript" type="text/JavaScript">
 	//jQuery.noConflict();
 </script>
+<script language="JavaScript" type="text/JavaScript">
+window.onload = function() {
+	$('#topBannersDiv').delay(3000).animate({height:'85px'}, 2200);
+	$('#topBannersUl').delay(3000).animate({height:'85px'}, 2200);
+	$('#rightBoxContentBlock').delay(3000).animate({marginTop:'325px'}, 2200);
+	$('#topBannersLi1').delay(3000).animate({height:'85px'}, 2200);
+	$('#topBannersLi2').delay(3000).animate({height:'85px'}, 2200);
+	$('#topBannersLi3').delay(3000).animate({height:'85px'}, 2200);
+	$('#banner1').delay(3000).animate({marginTop:'18px'}, 2200);
+	$('#banner2').delay(3000).animate({marginTop:'18px'}, 2200);
+	$('#banner3').delay(3000).animate({marginTop:'18px'}, 2200);
+}
+
+</script>
 </head>
 <body>
 <!-- Begin Wrapper -->
@@ -41,7 +55,8 @@
 	<div class="clear"></div>
 	<div class="allColumns">
 					|-include file="MenuHorizontalPublic.tpl"-|
-			<div class="clear"></div>                           
+			<div class="clear"></div>           
+                
 							|-include file='TopBannersInclude.tpl'-|
 								|-if !empty($loginUser) && !$SESSION.firstLogin-|<div id="rightMenu">
 							|-include file='PublicContentsBlockInclude.tpl'-|

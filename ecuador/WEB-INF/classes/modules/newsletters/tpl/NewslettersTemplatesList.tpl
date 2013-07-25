@@ -27,7 +27,7 @@
 		|-foreach from=$newslettertemplates item=newslettertemplate name=for_newslettertemplates-|
 			<tr>
 				<td>|-$newslettertemplate->getname()-|</td>
-				<td>|-assign var=external value=$newslettertemplate->getnewsletterTemplateExternal()-||-if ($external neq '')-||-$external->getName()-||-else-|Sin Plantilla Externa|-/if-|</td>
+				<td>|-assign var=external value=$newslettertemplate->getnewsletterTemplateExternal()-||-if ($external neq '')-||-$external->getName()-|  <input type="button" onClick="location.href='Main.php?do=newslettersTemplateExternalsEdit&id=|-$external->getid()-|&fromTemplatesList=true'" class="icon iconEdit">|-else-|Sin Plantilla Externa|-/if-|</td>
 				<td nowrap="nowrap">
 					<form action="Main.php" method="get">
 						<input type="hidden" name="do" value="newslettersTemplatesEdit" />
