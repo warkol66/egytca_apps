@@ -1,3 +1,4 @@
+<script src="Main.php?do=js&name=js&module=news&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 <!-- TITULO ULTIMAS NOTICIAS -->
 <div id="titleLastNews">Noticias</div>
 |-if !is_object($newsArticle)-|

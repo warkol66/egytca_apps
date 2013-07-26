@@ -45,7 +45,7 @@ class NewsArticlesSendToEmailXAction extends BaseAction {
 		$smarty->assign("module",$module);
 		$section = "Article";
 		$smarty->assign("section",$section);				
-
+		
 		//por ser un action ajax
 		$this->template->template = 'TemplateAjax.tpl';
  		
@@ -57,6 +57,7 @@ class NewsArticlesSendToEmailXAction extends BaseAction {
 		$sendMailSubjectSufix = $system["config"]["news"]["sendMailSubjectSufix"];		
 		$mailTo = $_POST['email'];
 		$mailReplyTo = $_POST["emailReplyTo"];
+		
 		
 		//validacion de captcha
 		if ( (empty($_POST['securityCode'])) || !Common::validateCaptcha($_POST['securityCode'])) {
@@ -70,11 +71,11 @@ class NewsArticlesSendToEmailXAction extends BaseAction {
 			return $mapping->findForwardConfig('failure');
 		}
 		
-		$article = NewsArticleQuery::create()->find($_POST['id']);
+		$article = NewsArticleQuery::create()->findOneById($_POST['id']);
 		
 		if (empty($article))
 			return $mapping->findForwardConfig('failure');
-			
+		
 		$manager = new EmailManagement();
 		//creamos el mensaje multipart
 		$message = $manager->createMultipartMessage($sendMailSubjectSufix,$article->toXHTML(false));
