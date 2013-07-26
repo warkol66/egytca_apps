@@ -20,15 +20,15 @@
 </script>
 <script language="JavaScript" type="text/JavaScript">
 window.onload = function() {
-	$('#topBannersDiv').delay(3000).animate({height:'85px'}, 2200);
-	$('#topBannersUl').delay(3000).animate({height:'85px'}, 2200);
-	$('#rightBoxContentBlock').delay(3000).animate({marginTop:'325px'}, 2200);
-	$('#topBannersLi1').delay(3000).animate({height:'85px'}, 2200);
-	$('#topBannersLi2').delay(3000).animate({height:'85px'}, 2200);
-	$('#topBannersLi3').delay(3000).animate({height:'85px'}, 2200);
-	$('#banner1').delay(3000).animate({marginTop:'18px'}, 2200);
-	$('#banner2').delay(3000).animate({marginTop:'18px'}, 2200);
-	$('#banner3').delay(3000).animate({marginTop:'18px'}, 2200);
+	$('#topBannersDiv').delay(900).animate({height:'85px'}, 2200);
+	$('#topBannersUl').delay(900).animate({height:'85px'}, 2200);
+	$('#rightBoxContentBlock').delay(900).animate({marginTop:'325px'}, 2200);
+	$('#topBannersLi1').delay(900).animate({height:'85px'}, 2200);
+	$('#topBannersLi2').delay(900).animate({height:'85px'}, 2200);
+	$('#topBannersLi3').delay(900).animate({height:'85px'}, 2200);
+	$('#banner1').delay(900).animate({marginTop:'18px'}, 2200);
+	$('#banner2').delay(900).animate({marginTop:'18px'}, 2200);
+	$('#banner3').delay(900).animate({marginTop:'18px'}, 2200);
 }
 
 </script>

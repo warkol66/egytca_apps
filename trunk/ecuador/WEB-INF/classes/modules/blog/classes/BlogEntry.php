@@ -371,7 +371,7 @@ class BlogEntry extends BaseBlogEntry {
 	*	@return bool verdadero o falso si el usuario lo dio de alta
 	*/
 	public function isOwned($user) {
-		if ($this->getUserId() == $user->getId())
+		if (is_object($user) && ($this->getUserId() == $user->getId()))
 			return true;
 		else
 			return false;
