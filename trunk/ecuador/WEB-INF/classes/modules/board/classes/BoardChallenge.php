@@ -167,7 +167,7 @@ class BoardChallenge extends BaseBoardChallenge{
 		$output .= "<h1><a href='".$siteUrl."/Main.php?do=boardView&id=".$this->getId()."' target='_blank'>".$this->getTitle().'</a></h1>';
 		if ($fullMode)
 			$output .= '<p>'.$this->getBody().'</p>';
-		$output .= "<div class='masInfo'><a href='".$siteUrl."/Main.php?do=boardView&id=".$this->getId()."' target='_blank'>Ver desafio completo</a></h1>";
+		$output .= "<div class='masInfo'><a href='".$siteUrl."/Main.php?do=boardView&id=".$this->getId()."' target='_blank'>Ver desaf&iacute;o completo</a></h1>";
 		$output .= '</div>';
 		$output .= '</div>';
 		return $output;

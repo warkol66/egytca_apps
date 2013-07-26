@@ -407,7 +407,7 @@ class BlogEntry extends BaseBlogEntry {
 		$output .= "<h1><a href='".$siteUrl."/Main.php?do=blogView&id=".$this->getId()."' target='_blank'>".$this->getTitle().'</a></h1>';
 		if ($fullMode)
 			$output .= '<p>'.$this->getBody().'</p>';
-		$output .= "<div class='masInfo'><a href='".$siteUrl."/Main.php?do=blogView&id=".$this->getId()."' target='_blank'>Ver entrada completa</a></h1>";
+		$output .= "<div class='masInfo'><a href='".$siteUrl."/Main.php?do=blogView&id=".$this->getId()."' target='_blank'>Ver experiencia completa</a></h1>";
 		$output .= '</div>';
 		$output .= '</div>';
 		return $output;
