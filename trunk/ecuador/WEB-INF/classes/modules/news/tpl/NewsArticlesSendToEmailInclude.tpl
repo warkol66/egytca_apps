@@ -14,7 +14,7 @@
 		</p>
 		<p><label>Código de seguridad</label>
 			<div id="captchaArticle|-$article->getId()-|">
-				<img src="Main.php?do=newsCaptchaGeneration&width=120&height=45&characters=5" />
+				<img src="Main.php?do=commonImage&width=120&height=45&characters=5" />
 			</div>
 		</p>
 		<p>
@@ -26,7 +26,7 @@
 			<input type="hidden" name="do" value="newsArticlesSendToEmailX" id="do"></input>
 			<input type="button" value="Enviar a Email" onClick="javascript:sendNewsArticleByEmailX(|-$article->getId()-|,form);"></input>
 			<input type="button" name="hidder" value="Cancelar" onClick="javascript:hideSendEmailForm('sendToEmailDiv|-$article->getId()-|')">
-			<input type="button" name="captchaRefresher" value="Regenerar código de seguridad" onClick="javascript:refreshCaptchaX('|-$article->getId()-|')">
+			<input type="button" name="captchaRefresher" value="Regenerar código de seguridad" onClick="javascript:refreshCodeX('|-$article->getId()-|')">
 			<span id='sendArticleMsgBox|-$article->getId()-|'></span>
 		</p>
 		</fieldset>

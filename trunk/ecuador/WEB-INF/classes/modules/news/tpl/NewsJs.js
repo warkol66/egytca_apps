@@ -163,7 +163,7 @@ function sendNewsArticleByEmailX(id,form) {
 			$('#sendArticleMsgBox' + id).html(data);
 		}	
 	});
-	$('#sendEntryMsgBox'+id).html('<span class="inProgress>... enviando noticia a destinatario ...</span>');
+	$('#sendArticleMsgBox'+id).html('<span class="inProgress>... enviando noticia a destinatario ...</span>');
 	
 }
 //terminar
@@ -173,14 +173,14 @@ function showSendEmailFormX(idArticle,idDiv) {
 
 	var fields = "&id="+idArticle+"&do=newsArticlesSendForm";
 	
-	$.ajax({
+	/*$.ajax({
 		url: url,
 		data: fields,
 		type: 'post',
 		success: function(data){
 			$('#' + idDiv).html(data);
 		}	
-	});
+	});*/
 			
 	/*var toHide = $$('div.sendToEmailFormClass');
 	for (var i=0; i < toHide.length; i++) {
