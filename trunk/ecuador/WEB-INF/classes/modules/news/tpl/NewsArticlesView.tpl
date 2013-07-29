@@ -57,14 +57,14 @@
 <!-- **************************************** --> 
 
 	   
-       <!-- begin ACTIONBOX -->
-			<div class="actionBox">
+       <!-- begin ACTIONBOX >
+			<div class="right actionBox">
            <ul>
              <li><a href="javascript:showSendEmailFormX(|-$newsArticle->getId()-|,'sendToEmailDiv|-$newsArticle->getId()-|Bottom')" class="enviar">Enviar</a></li>
 |-if $newsArticlesConfig.useCommets.value eq "YES"-|<li><a href='javascript:showCommentAddForm("div_comments_adder_|-$newsArticle->getId()-|")' class="comentar">Comentar</a></li>|-/if-|
 <!--			 <li><a href="*" class="imprimir">Imprimir</a></li>-->
 <!--			 <li><a href="*" class="letterLow">&nbsp;</a></li>
-			 <li><a href="*" class="letterPlus">Cambiar Tamaño</a></li>			--> 			 			 
+			 <li><a href="*" class="letterPlus">Cambiar Tamaño</a></li>			- -> 			 			 
            </ul>
        </div><!-- end ACTIONBOX -->  		
 |-/if-|
