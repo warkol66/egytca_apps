@@ -1,0 +1,17 @@
+{
+  "prod": {
+    "database": null,
+    "username": null,
+    "password": null
+  },
+  "dev": {
+    "database": "ecuador",
+    "username": "root",
+    "password": "pepitolala"
+  },
+  "test": {
+    "database": null,
+    "username": null,
+    "password": null
+  }
+}

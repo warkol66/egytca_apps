@@ -8,4 +8,5 @@ rm -f config/application-classmap.php
 
 rm -f WEB-INF/smarty_tpl/templates_c/*
 
+php tasks/propel/make-config.php
 ./propel-run

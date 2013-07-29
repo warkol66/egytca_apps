@@ -1,9 +1,4 @@
 <?php
-/*
-* Main
-* Dispatcher del phpMVC
-* @package phpMVCconfig
-*/
 
 //processing using commandline
 if (!empty($argc)) {
@@ -19,7 +14,7 @@ if (!empty($argc)) {
 			$_REQUEST[$parts[0]] = $parts[1];
 			$_POST[$parts[0]] = $parts[1];
 			$_GET[$parts[0]] = $parts[1];
-		} 
+		}
 	}
 	$_ENV['PHPMVC_MODE_CLI'] = true;
 }
