@@ -1,0 +1,76 @@
+<!-- Module Registration-->
+	<action-mappings module="Registration">
+		<action    path = "registrationLogin"
+							 type = "RegistrationLoginAction"
+							 name = "registrationLogin"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="RegistrationLogin.tpl"/>
+			<forward name="maintenance" path="Maintenance.tpl"/>
+			<forward name="include" path="RegistrationLoginInclude.tpl"/>
+		</action>
+
+		<action    path = "registrationDoLogin"
+							 type = "RegistrationDoLoginAction"
+							 name = "RegistrationDoLogin"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="RegistrationWelcome.tpl"/>
+			<forward name="successAjax" path="RegistrationDoLoginX.tpl"/>
+			<forward name="failure" path="RegistrationLogin.tpl"/>
+			<forward name="failureAjax" path="RegistrationDoLoginX.tpl"/>
+		</action>
+
+		<action    path = "registrationDoPasswordRecovery"
+							 type = "RegistrationDoPasswordRecoveryAction"
+							 name = "registrationDoPasswordRecovery"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="RegistrationDoPasswordRecovery.tpl"/>
+			<forward name="failure" path="RegistrationPasswordRecovery.tpl"/>
+		</action>
+
+		<action    path = "registrationDoEdit"
+							 type = "RegistrationDoEditAction"
+							 name = "registrationDoEdit"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=registrationList&amp;message=saved" redirect="true"/>
+			<forward name="success-edit" path="/Main.php?do=registrationEdit&amp;message=saved" redirect="true"/>
+			<forward name="success-user-open" path="/Main.php?do=registrationLogin&amp;message=created" redirect="true"/>
+			<forward name="success-user-moderated" path="/Main.php?do=registrationLogin&amp;message=createdModerated" redirect="true"/>
+			<forward name="success-user-hash" path="/Main.php?do=registrationLogin&amp;message=hashSent" redirect="true"/>
+			<forward name="success-update-user" path="/Main.php?do=registrationDoLogin" redirect="true"/>
+			<forward name="failure" path="RegistrationEdit.tpl" />
+			<forward name="failure-edit" path="RegistrationEdit.tpl" />
+		</action>
+
+		<action    path = "registrationDoHashVerification"
+				 type = "RegistrationDoHashVerificationAction"
+				 name = "registrationDoHashVerification"
+				scope = "request"
+		 validate = "true">
+			<forward name="success" path="RegistrationDoHashVerification.tpl" />
+			<forward name="disabled" path="/Main.php?do=registrationLogin" redirect="true"/>
+		</action>
+
+		<action    path = "registrationDoDelete"
+							 type = "RegistrationDoDeleteAction"
+							 name = "registrationDoDelete"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=registrationList&amp;message=deleted" redirect="true" />
+			<forward name="failure" path="/Main.php?do=registrationList&amp;message=notdeleted" redirect="true" />
+		</action>
+
+		<action    path = "registrationDoLogout"
+							 type = "RegistrationDoLogoutAction"
+							 name = "registrationDoLogout"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=registrationLogin" redirect="true"/>
+		</action>
+
+	</action-mappings>
+
+<!-- End Module Registration -->

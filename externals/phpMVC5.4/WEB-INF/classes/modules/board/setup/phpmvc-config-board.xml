@@ -1,0 +1,102 @@
+<!-- Module Blog -->
+	<action-mappings>
+
+		<action  path = "boardSendToEmailX"
+						 type = "BoardSendToEmailXAction"
+						 name = "boardSendToEmailX"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BoardSendToEmailX.tpl" />
+			<forward  name="failure" path="BoardSendToEmailXFailure.tpl" />
+		</action>
+		<!--queda -->
+		<action  path = "boardSearch"
+						 type = "BoardSearchAction"
+						 name = "boardSearch"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BoardSearch.tpl" />
+			<forward  name="rss" path="BoardShowRss.tpl" />
+		</action>
+		
+		<action  path = "boardChangeStatuses"
+					type = "BoardChangeStatusesAction"
+					name = "boardChangeStatuses"
+					scope = "request"
+				validate = "true">
+			<forward  name="success" path="/Main.php?do=boardList&amp;message=changed" redirect="true" />
+		</action>
+
+		<action  path = "boardShow"
+						 type = "BoardShowAction"
+						 name = "boardShow"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BoardShow.tpl" />
+			<forward  name="rss" path="BoardShowRss.tpl" />
+		</action>
+
+		<action  path = "boardMostViewed"
+						 type = "BoardMostViewedAction"
+						 name = "boardMostViewed"
+						scope = "request"
+				 validate = "true">
+			<forward  name="include" path="BoardMostViewedInclude.tpl" />
+		</action>
+
+		<action  path = "boardArticle"
+						 type = "BoardArticleAction"
+						 name = "boardArticle"
+						scope = "request"
+				 validate = "true">
+			<forward  name="include" path="BoardView.tpl" />
+		</action>
+
+		<action  path = "boardViewX"
+						 type = "BoardViewXAction"
+						 name = "boardViewX"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BoardViewXInclude.tpl" />
+		</action>
+		<!--queda -->
+		<action  path = "boardPreview"
+						 type = "BoardPreviewAction"
+						 name = "boardPreview"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success-home" path="BoardShow.tpl" />
+			<forward  name="success-detailed" path="BoardView.tpl" />
+		</action>
+
+		<action  path = "boardSendForm"
+						 type = "BoardSendFormAction"
+						 name = "boardSendForm"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BoardSendToEmailInclude.tpl" />
+		</action>
+
+		<!-- Section BlogComments -->
+		<action  path = "boardCommentsShow"
+						 type = "BoardCommentsShowAction"
+						 name = "boardCommentsShow"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BoardCommentsShow.tpl" />
+		</action>
+
+		<action  path = "boardCommentsChangeStatuses"
+						 type = "BoardCommentsChangeStatusesAction"
+						 name = "boardCommentsChangeStatuses"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=boardCommentsList&amp;message=changed" redirect="true" />
+		</action>
+
+
+<!-- End Section BlogComments -->
+
+	</action-mappings>
+
+<!-- End Module Blog-->

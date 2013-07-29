@@ -1,0 +1,14 @@
+<!-- Module Security -->
+	<action-mappings module="Security">
+
+		<action    path = "securityDoEditPermissions"
+							 type = "SecurityDoEditPermissionsAction"
+							 name = "securityDoEditPermissions"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=securityEditPermissions&amp;message=ok" redirect='true'/>
+			<forward name="failure" path="/Main.php?do=securityEditPermissions&amp;message=failure" redirect='true'/>
+		</action>
+
+	</action-mappings>
+<!-- End Module Security -->

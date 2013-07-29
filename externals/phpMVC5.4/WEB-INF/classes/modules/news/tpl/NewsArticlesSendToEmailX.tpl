@@ -1,0 +1,1 @@
+<span class="resultSuccess">La noticia se ha enviado con éxito</span>

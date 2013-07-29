@@ -1,0 +1,155 @@
+<?php
+/*
+* Filename        : Boot-php.inc.php
+* @package phpMVCconfig
+*
+*/
+
+// Include the bootup config file
+require_once("boot.config.php");
+
+// Timer start
+if($timerRun == True) $start = utime();
+
+// Setup the module paths
+require_once("$appDir/WEB-INF/ModulePaths.php");
+$modulePaths = ModulePaths::getModulePaths();
+
+// Include the bundled phpmvc library
+require_once("$appDir/WEB-INF/lib-phpmvc/PhpMvcOneBase.php.ws");
+$gPath = ClassPath::setClassPath("$appDir/", $modulePaths, $osType);
+$mPath = ClassPath::getClassPath("$appDir/", $modulePaths, $osType);
+$cPath = ClassPath::concatPaths($gPath, $mPath, $osType);
+
+// Set the 'include_path' variables, as used by the file functions
+ini_set('include_path', $cPath);
+define('CLASSPATH', True);
+
+// Include the xml digester classes - On demand:
+// If the config data file is out-of-date or we are requesting a Force-Compile
+$phpmvcConfigXMLFile	= $appXmlCfgs['config']['name'];					// 'phpmvc-config.xml'
+$phpmvcConfigDataFile= substr($phpmvcConfigXMLFile, 0, -3).'data';// 'phpmvc-config.data'
+$initXMLConfig = CheckConfigDataFile("$appDir/" . $configPath, $phpmvcConfigDataFile, $phpmvcConfigXMLFile);
+if($initXMLConfig == True OR $appXmlCfgs['config']['fc'] == True ) {
+	echo '<br><b>Loading XML Parser ...</b>';
+}
+
+// Timer - Base Classes Load Time
+if($timerRun == True) printTime($start, 'Base Classes Load Time');
+
+// Now the local application specific classes
+include_once "$appDir/WEB-INF/Prepend.php";
+
+// Timer - Application Classes Load Time
+if($timerRun == True) printTime($start, 'Application Classes Load Time');
+
+// Startup configuration information for an php.MVC Web app
+$appServerContext	= new AppServerContext;
+$appServerConfig	= new AppServerConfig;
+$appServerContext->setInitParameter('ACTION_DISPATCHER', $actionDispatcher);
+$appServerConfig->setAppServerContext($appServerContext);
+
+// Setup the php.MVC Web application controller
+$actionServer = new ActionServer;
+
+$appServerRootDir = "$appDir/";
+
+// Load Application Configuration
+$bootUtils = new BootUtils;
+
+if( is_array($appXmlCfgs) && count($appXmlCfgs) > 0 ) {
+	foreach($appXmlCfgs as $cfgId => $cfgValue) {
+		// config-key => array(config-name, force-compile)
+		// $cfgId="config",       $cfgValue=array("phpmvc-config.xml", True)
+		// $cfgId="config/admin", $cfgValue=array("phpmvc-config-admin.xml", False)
+		// echo "$cfgId = " . $cfgValue['name'] . " - ". $cfgValue['fc'] . " <br>";
+		$oApplicationConfig = $bootUtils->loadAppConfig($actionServer, $appServerConfig,
+																		"$appDir/" . $configPath, $cfgId, $cfgValue,
+																		$appServerRootDir, $globalPrependXML);
+		break; // Only one config file allowed for now
+	}
+} else {
+	// No application config array - so try a default startup.
+	$oApplicationConfig = $bootUtils->loadAppConfig($actionServer, $appServerConfig, "$appDir/" . $configPath);
+}
+
+if($oApplicationConfig == NULL) {
+	exit;
+}
+
+// Setup HTTP Request and add request attributes
+$request = new HttpRequestBase;
+$request->setAttribute(Action::getKey('APPLICATION_KEY'), $oApplicationConfig);
+$request->setRequestURI($_SERVER['PHP_SELF']);
+
+// Set the application context path:
+$contextPath = substr($_SERVER["SCRIPT_NAME"], 0, strrpos($_SERVER["SCRIPT_NAME"], '/'));
+$request->setContextPath($contextPath);
+
+// Retrieve the 'action path'. Eg: index.php?do=[logonForm]
+$doPath = BOOTUtils::getActionPath($_REQUEST, $actionID, 2, 64);
+
+// If we have no path query string, try the application default path
+if($doPath == NULL) {
+	$doPath = $welcomePath;
+}
+
+// See: RequestProcessor->processPath(...) !!!
+// <action    path = "/stdLogon" ...> => "LogonAction"
+// Note: We should catch any dodgy 'do=badHackerFile' path hacks
+//       in RequestProcessor->processMapping(...)
+$request->setAttribute('ACTION_DO_PATH', $doPath);
+
+// Setup HTTP Response and add request attributes
+$response = new HttpResponseBase;
+
+// Start processing the php.MVC Web application
+// Note: Consider ALL input data as tainted (insecure). All inputs should be
+//       checked for correctness and valid character/numeric ranges.
+//       Eg: "username "=> "^[a-z0-9]{8}$".
+if( isset($_GET) ) {
+	$actionServer->doGet($request, $response, $_GET);
+} elseif( isset($_POST) ) {
+	$actionServer->doPost($request, $response, $_POST, $_FILES);
+}
+
+if($timerRun == True) printTime($start, 'Total Run Time');
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+
+// Calculates current microtime
+function utime() {
+	// microtime() = current UNIX timestamp with microseconds
+	$time	= explode( ' ', microtime());
+	$usec	= (double)$time[0];
+	$sec	= (double)$time[1];
+	return $sec + $usec;
+}
+
+function printTime($start, $strMsg) {
+	$end = utime();
+	$run = $end - $start;
+	echo '<br><b>'.$strMsg.': </b>'.substr($run, 0, 5) . ' secs.';
+}
+
+// Check if we need to (re)initialise the application
+function CheckConfigDataFile($configPath, $phpmvcConfigDataFile, $phpmvcConfigXMLFile) {
+
+	$initXMLConfig = False;
+
+	if( ! file_exists("$configPath/" . $phpmvcConfigDataFile) ) {
+		// No config data file
+		$initXMLConfig = True;
+	} else {
+		// Check the config file timestamps
+		$cfgDataMTime	= filemtime("$configPath/" . $phpmvcConfigDataFile);
+		$cfgXMLMTime	= filemtime("$configPath/" . $phpmvcConfigXMLFile);
+		if($cfgXMLMTime > $cfgDataMTime) {
+			// The 'phpmvc-config.xml' has been modified, so we need to reinitialise
+			// the application
+			$initXMLConfig = True;
+		}
+	}
+
+	return $initXMLConfig;
+}

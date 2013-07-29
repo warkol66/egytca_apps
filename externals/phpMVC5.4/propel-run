@@ -1,0 +1,3 @@
+#!/bin/sh
+
+php tasks/propel-gen/propel-gen.php

@@ -1,0 +1,74 @@
+<!-- Module Banners-->
+	<action-mappings module="Banners">
+
+		<action  path = "bannersContentStream"
+						 type = "BannersContentStreamAction"
+						 name = "bannersContentStream"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BannersContentStream.tpl" />
+		</action>
+
+		<action  path = "bannersZonesDisplay"
+						 type = "BannersZonesDisplayAction"
+						 name = "bannersZonesDisplay"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BannersZonesDisplay.tpl" />
+			<forward  name="include" path="BannersZonesDisplayInclude.tpl" />
+		</action>
+
+		<action  path = "bannersDoClickThru"
+						 type = "BannersDoClickThruAction"
+						 name = "bannersDoClickThru"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BannersDoClickThru.tpl" />
+		</action>
+		
+<!-- Section Zones -->
+
+		<action  path = "bannersWeightByZone"
+						 type = "BannersWeightByZoneAction"
+						 name = "bannersWeightByZone"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="BannersWeightByZone.tpl" />
+			<forward  name="failure" path="/Main.php?do=bannersZonesList&amp;message=notget" redirect="true"/>
+		</action>
+
+		<action  path = "bannersDoWeightByZone"
+						 type = "BannersDoWeightByZoneAction"
+						 name = "bannersDoWeightByZone"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=bannersZonesList&amp;message=saved" redirect="true"/>
+		</action>
+
+		<action  path = "bannersDoOrderByZone"
+						 type = "BannersDoOrderByZoneAction"
+						 name = "bannersDoOrderByZone"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=bannersZonesList&amp;message=saved" redirect="true"/>
+			<forward  name="failure" path="/Main.php?do=bannersZonesList&amp;message=notsaved" redirect="true"/>
+		</action>
+
+		<action    path = "bannersDoOrderByZoneX"
+							 type = "BannersDoOrderByZoneXAction"
+							 name = "bannersDoOrderByZoneX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="BannersDoOrderByZoneX.tpl" />
+		</action>
+
+<!-- End Section Zones -->
+
+<!-- Section Clients -->
+
+<!-- End Section Clients -->
+
+<!-- End Module Banners -->
+
+</action-mappings>
+

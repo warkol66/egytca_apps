@@ -1,0 +1,13 @@
+DELETE FROM `security_actionLabel` WHERE `action` LIKE 'Documents%' AND `language` = 'esp';
+OPTIMIZE TABLE `security_actionLabel`;
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('DocumentsEdit', 'Permite dar de alta o editar documentos', '', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('DocumentsKeyWordEdit', 'Editar palabra clave', '', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('DocumentsDoDelete', 'Elimina documentos', '', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('DocumentsDoDeleteX', 'Eliminar documento ', '', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('DocumentsDoDownload', 'Permite la descarga de documentos', '', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('DocumentsDoViewImage', '', '', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('DocumentsKeyWordDoDelete', 'Eliminar palabra clave', '', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('DocumentsKeyWordList', 'Obtener listado de palabras clave', '', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('DocumentsList', 'Muestra el listado de documentos disponible', '', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('DocumentsShow', 'Listado público de documentos', '', 'esp');
+INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('DocumentsUpload', 'Agregar documento', '', 'esp');

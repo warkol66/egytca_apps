@@ -1,0 +1,172 @@
+<!-- Module News -->
+	<action-mappings>
+
+		<action  path = "newsArticlesSendToEmailX"
+						 type = "NewsArticlesSendToEmailXAction"
+						 name = "newsArticlesSendToEmailX"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="NewsArticlesSendToEmailX.tpl" />
+			<forward  name="failure" path="NewsArticlesSendToEmailXFailure.tpl" />
+		</action>
+
+		<action  path = "newsArticlesSearch"
+						 type = "NewsArticlesSearchAction"
+						 name = "newsArticlesSearch"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="NewsArticlesSearch.tpl" />
+			<forward  name="rss" path="NewsArticlesShowRss.tpl" />
+		</action>
+
+		<action  path = "newsArticlesShow"
+						 type = "NewsArticlesShowAction"
+						 name = "newsArticlesShow"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="NewsArticlesShow.tpl" />
+			<forward  name="rss" path="NewsArticlesShowRss.tpl" />
+		</action>
+
+		<action  path = "newsArticlesMostViewed"
+						 type = "NewsArticlesMostViewedAction"
+						 name = "newsArticlesMostViewed"
+						scope = "request"
+				 validate = "true">
+			<forward  name="include" path="NewsArticlesMostViewedInclude.tpl" />
+		</action>
+
+		<action  path = "newsArticlesChangeStatuses"
+						 type = "NewsArticlesChangeStatusesAction"
+						 name = "newsArticlesChangeStatuses"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=newsArticlesList&amp;message=changed" redirect="true" />
+		</action>
+
+		<action  path = "newsArticlesArticle"
+						 type = "NewsArticlesArticleAction"
+						 name = "newsArticlesArticle"
+						scope = "request"
+				 validate = "true">
+			<forward  name="include" path="NewsArticlesView.tpl" />
+		</action>
+
+		<action  path = "newsMediasSortX"
+						 type = "NewsMediasSortXAction"
+						 name = "newsMediasSortX"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="NewsMediasSortX.tpl" />
+		</action>
+
+		<action  path = "newsArticlesViewX"
+						 type = "NewsArticlesViewXAction"
+						 name = "newsArticlesViewX"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="NewsArticlesViewXInclude.tpl" />
+		</action>
+
+		<action  path = "newsArticlesPreview"
+						 type = "NewsArticlesPreviewAction"
+						 name = "newsArticlesPreview"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success-home" path="NewsArticlesShow.tpl" />
+			<forward  name="success-detailed" path="NewsArticlesView.tpl" />
+		</action>
+
+		<action  path = "newsArticlesGetThumbnail"
+						 type = "NewsArticlesGetThumbnailAction"
+						 name = "newsArticlesGetThumbnail"
+						scope = "request"
+				 validate = "true">
+		</action>
+
+		<action  path = "newsArticlesGetVideoThumbnail"
+						 type = "NewsArticlesGetVideoThumbnailAction"
+						 name = "newsArticlesGetVideoThumbnail"
+						scope = "request"
+				 validate = "true">
+		</action>
+
+		<action  path = "newsArticlesSendForm"
+						 type = "NewsArticlesSendFormAction"
+						 name = "newsArticlesSendForm"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="NewsArticlesSendToEmailInclude.tpl" />
+		</action>
+
+<!-- Section NewsComments -->
+		<action  path = "newsCommentsShow"
+						 type = "NewsCommentsShowAction"
+						 name = "newsCommentsShow"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="NewsCommentsShow.tpl" />
+		</action>
+
+		<action  path = "newsCommentsChangeStatuses"
+						 type = "NewsCommentsChangeStatusesAction"
+						 name = "newsCommentsChangeStatuses"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=newsCommentsList&amp;message=changed" redirect="true" />
+		</action>
+
+<!-- End Section NewsComments -->
+
+<!-- Section NewsMedias -->
+
+		<action  path = "newsMediasGetImage"
+						 type = "NewsMediasGetImageAction"
+						 name = "newsMediasGetImage"
+						scope = "request"
+				 validate = "true">
+		</action>
+
+		<action  path = "newsMediasGetVideo"
+						 type = "NewsMediasGetVideoAction"
+						 name = "newsMediasGetVideo"
+						scope = "request"
+				 validate = "true">
+		</action>
+
+		<action  path = "newsMediasGetSound"
+						 type = "NewsMediasGetSoundAction"
+						 name = "newsMediasGetSound"
+						scope = "request"
+				 validate = "true">
+		</action>
+
+		<action  path = "newsMediasUpload"
+						 type = "NewsMediasUploadAction"
+						 name = "newsMediasUpload"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="/Main.php?do=newsArticlesEdit&amp;message=upload_ok" redirect="true" />
+		</action>
+
+		<action  path = "newsCaptchaGeneration"
+						 type = "NewsCaptchaGenerationAction"
+						 name = "newsCaptchaGenerationAction"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="TemplateAjax.tpl"/>
+		</action>
+
+		<action  path = "newsCaptchaRefresh"
+						 type = "NewsCaptchaRefreshAction"
+						 name = "newsCaptchaRefresgAction"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="NewsCaptchaRefresh.tpl"/>
+		</action>
+
+<!-- End Section NewsMedias -->
+
+	</action-mappings>
+
+<!-- End Module News-->

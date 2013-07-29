@@ -1,0 +1,50 @@
+<database defaultIdMethod="native" package="regions.classes" name="application">
+
+	<table name="regions_region" phpName="Region" description="Regiones">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
+		<column name="name" required="true" type="VARCHAR" size="100" description="Name"/>
+		<column name="type" required="true" type="INTEGER" size="2" description="Tipo de Region"/>
+		<column name="postalCode" type="INTEGER" size="4" description="Postal Code"/>
+		<column name="latitude" type="DOUBLE" description="Latitud" />
+		<column name="longitude" type="DOUBLE" description="Longitud" />
+		<column name="population" type="DOUBLE" description="Habitantes" />
+		<column name="populationYear" type="INTEGER" description="Fecha censo" />
+		<column name="area" type="DOUBLE" description="Superficie" />
+		<column name="capital" type="VARCHAR" size="100" description="Capital (si aplica)"/>
+
+		<unique>
+			<unique-column name="name" />
+			<unique-column name="type" />
+		</unique>
+
+		<behavior name="nested_set">
+			<parameter name="use_scope" value="true" />
+			<parameter name="scope_column" value="scope" />
+		</behavior>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="regions_timezone" phpName="RegionTimezone" description="Regiones y Zonas">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
+		<column name="name" required="true" type="VARCHAR" size="100" description="Name"/>
+		<column name="label" required="true" type="VARCHAR" size="100" description="Label"/>
+
+		<unique>
+			<unique-column name="name" />
+		</unique>
+
+		<behavior name="nested_set" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+</database>

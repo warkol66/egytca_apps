@@ -1,0 +1,163 @@
+<database defaultIdMethod="native" package="blog.classes" name="application" >
+
+	<table phpName="BlogEntry" name="blog_entry" description="Entradas del Blog">
+
+		<column name="id" type="INTEGER"  required="true" description="Id de la entrada" primaryKey="true" autoIncrement="true"  />
+		<column name="title" type="VARCHAR" size="255" description="Titulo" />
+		<column name="url" type="VARCHAR" size="255" description="Url a partir del titulo" />
+		<column name="body" type="LONGVARCHAR" description="Texto de la entrada"/>
+		<column name="creationDate" type="TIMESTAMP" description="Fecha de creacion" />
+		<column name="lastUpdate" type="TIMESTAMP" description="Fecha de ultima actualizacion" />
+		<column name="status" type="INTEGER" description="Estado de l aentrada" />
+		<column name="categoryId" type="INTEGER" description="Id de la categoria" />
+		<column name="userId" type="INTEGER" required="true" description="Id del usuario" />
+		<column name="views" type="INTEGER" default="0" description="Cantidad de vistas a la entrada" />
+
+		<!-- Ficha de experiencia -->
+		<column name="parish" type="LONGVARCHAR" description="Parroquia"/>
+		<column name="canton" type="LONGVARCHAR" description="Canton"/>
+		<column name="authority" type="LONGVARCHAR" description="Autoridad"/>
+		<column name="experience" type="LONGVARCHAR" description="Experiencia"/>
+		<column name="actors" type="LONGVARCHAR" description="Actores"/>
+		<column name="populationServed" type="LONGVARCHAR" description="Poblacion Beneficiada"/>
+		<column name="target" type="LONGVARCHAR" description="Objetivo"/>
+		<column name="actions" type="LONGVARCHAR" description="Acciones"/>
+		<column name="results" type="LONGVARCHAR" description="Resultados"/>
+		<column name="replica" type="LONGVARCHAR" description="Replica"/>
+		<column name="result" type="BOOLEAN" sqlType="BOOL" default="1" description="Exitosa o no"/>
+		<!-- /Ficha de experiencia -->
+
+		<unique>
+		  <unique-column name="url" />
+		</unique>
+
+		<behavior name="soft_delete" />
+
+		<foreign-key foreignTable="users_user" >
+			<reference local="userId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="blog_category" >
+			<reference local="categoryId" foreign="id" />
+		</foreign-key>
+
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+	</table>
+
+	<table phpName="BlogComment" name="blog_comment" description="Comentarios a entradas">
+
+		<column name="id" type="INTEGER"  required="true" description="Id comentario" primaryKey="true" autoIncrement="true"  />
+		<column name="entryId" type="INTEGER"  required="true" description="Id de la emtrada" />
+		<column name="text" type="LONGVARCHAR" description="Comentario"/>
+		<column name="email" type="VARCHAR" size="255" description="Email del usuario" />
+		<column name="username" type="VARCHAR" size="255" description="Nombre del usuario" />
+		<column name="url" type="VARCHAR" size="255" description="Url del usuario" />
+		<column name="ip" type="VARCHAR" size="50" description="IP del usuario" />
+		<column name="creationDate" type="TIMESTAMP" description="Fecha de creacion" />
+		<column name="status" type="INTEGER" required="true" description="Estado del comentario" />
+		<column name="userId" type="INTEGER"  required="true" description="Id del usuario por registracion" />
+		<column name="objectType" type="VARCHAR" size="50" description="Tipo de usuario" />
+		<column name="objectId" type="INTEGER" description="Id del usuario" />
+
+		<foreign-key foreignTable="blog_entry" >
+			<reference local="entryId" foreign="id" />
+		</foreign-key>
+
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+	</table>
+
+	<table phpName="BlogTag" name="blog_tag" description="Etiquetas de blog">
+
+		<column name="id" type="INTEGER" description="Id de etiqueta" primaryKey="true" autoIncrement="true" />
+		<column name="name" type="VARCHAR" size="255" description="Etiqueta" />
+
+		<unique>
+		  <unique-column name="name" />
+		</unique>
+
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+	</table>
+
+	<table phpName="BlogTagRelation" name="blog_tagRelation" isCrossRef="true" description="Asociacion entre Entradas y Etiquetas">
+		<column name="entryId" required="true" primaryKey="true" type="INTEGER" />
+		<column name="tagId" required="true" primaryKey="true" type="INTEGER" />
+
+		<foreign-key foreignTable="blog_entry" onDelete="CASCADE">
+			<reference local="entryId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="blog_tag" onDelete="CASCADE">
+			<reference local="tagId" foreign="id" />
+		</foreign-key>
+
+	</table>
+
+	<table phpName="BlogCategory" name="blog_category" description="Categorias de Entradas">
+		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
+		<column name="name" required="true" type="VARCHAR" size="100" description="Name"/>
+
+	  <behavior name="nested_set">
+	    <parameter name="use_scope" value="true" />
+	    <parameter name="scope_column" value="scope" />
+	  </behavior>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+<!--
+	<table phpName="BlogCategoryRelation" name="blog_entriesCategory" isCrossRef="true" description="Relacion Categorias y Entradas">
+		<column name="entryId" required="true" primaryKey="true" type="INTEGER" size="4" description="Id Entrada"/>
+		<column name="categoryId" required="true" primaryKey="true" type="INTEGER" size="5" description="Category Id"/>
+
+	  <foreign-key foreignTable="blog_category" onDelete="CASCADE">
+	    <reference local="categoryId" foreign="id" />
+	  </foreign-key>
+
+	  <foreign-key foreignTable="blog_entry" onDelete="CASCADE">
+	    <reference local="entryId" foreign="id" />
+	  </foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+-->
+
+	<table name="blog_entryDocument" phpName="BlogEntryDocument" isCrossRef="true">
+
+		<column name="blogEntryId" type="INTEGER" primaryKey="true"/>
+		<column name="documentId" type="INTEGER" primaryKey="true"/>
+
+		<foreign-key foreignTable="blog_entry" onDelete="CASCADE">
+  		<reference local="blogEntryId" foreign="id"/>
+		</foreign-key>
+
+		<foreign-key foreignTable="documents_document" onDelete="CASCADE">
+  		<reference local="documentId" foreign="id"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+	
+</database>
