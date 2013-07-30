@@ -2,7 +2,11 @@
 	<div id="div_boardChallenges">No hay desafío vigente. Para ver los desafíos anteriores haga click <a href="Main.php?do=boardShow&finished=true">aquí</a></div>
 |-else-|
 |-if isset($finished)-|
+	|-if !isset($view)-|
 	<div id="div_boardChallenges">Para ver el desafío vigente haga click <a href="Main.php?do=boardShow">aquí</a></div>
+	|-else-|
+	<div id="div_boardChallenges">Para ver el desafío vigente haga click <a href="Main.php?do=boardView">aquí</a></div>
+	|-/if-|
 |-else-|
 	<div id="div_boardChallenges">Para ver los desafíos anteriores haga click <a href="Main.php?do=boardShow&finished=true">aquí</a></div>
 |-/if-|
@@ -12,7 +16,7 @@
 			|-assign var=end value=$boardChallenge->getEndDate()|date_format:"%Y/%m/%d"-|
 			|-assign var=now value=$smarty.now|date_format:"%Y/%m/%d"-|
 			|-if ($now ge $start) and ($now le $end)-|
-				|-include file="BoardView.tpl" boardChallenge=$boardChallenge usersBonds=$usersBonds comments=$comments-|
+				|-include file="BoardView.tpl" boardChallenge=$boardChallenge usersBonds=$usersBonds comments=$comments bonds=$bonds loogedBonds=$loggedBonds show=true-|
 				<h1>Próximos Desafíos</h1>
 			|-else-|
 			<!--class ex board01-->

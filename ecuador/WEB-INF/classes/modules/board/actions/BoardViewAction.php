@@ -47,8 +47,7 @@ class BoardViewAction extends BaseEditAction {
 		$this->smarty->assign("bonds",BoardBond::getTypes());
 		//busco los compromisos existentes en este desafio
 		$usersB = BoardBondQuery::create()->filterByChallengeId($this->entity->getId())->groupBy('BoardBond.Type')->find();
-		/*print_r($usersB);
-		die();*/
+
 		$this->smarty->assign("usersBonds",BoardBondQuery::create()->filterByChallengeId($this->entity->getId())->groupBy('Type')->find());
 		//armo un arreglo con usuarios por compromiso y otro con los compromisos (para contarlos)
 		$usersBonds = array();
