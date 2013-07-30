@@ -20,7 +20,7 @@ class BoardShowAction extends BaseListAction {
 	protected function postList() {
 		parent::postList();
 		
-		$this->template->template = "TemplatePublic.tpl";
+		//$this->template->template = "TemplatePublic.tpl";
 
 		$module = "Board";
 		$this->smarty->assign("module",$module);
@@ -30,6 +30,8 @@ class BoardShowAction extends BaseListAction {
 		
 		if(isset($_GET['finished']))
 			$this->smarty->assign('finished','true');
+		if(isset($_GET['view']))
+			$this->smarty->assign('view','true');
 		
 		//me fijo si hay algun challenge vigente
 		foreach($this->results as $challenge){
@@ -41,17 +43,39 @@ class BoardShowAction extends BaseListAction {
 		
 		//asignaciones necesarias para mostrar el challenge vigente
 		if(isset($current)){
+			//busco los compromisos posibles
 			$this->smarty->assign("bonds",BoardBond::getTypes());
-			$usersB = BoardBondQuery::create()->filterByChallengeId($current->getId())->find();
+			//busco los compromisos existentes en este desafio
+			$usersB = BoardBondQuery::create()->filterByChallengeId($current->getId())->groupBy('BoardBond.Type')->find();
+
+			//$usersB = BoardBondQuery::create()->filterByChallengeId($current->getId())->find();
+			$this->smarty->assign("usersBonds",BoardBondQuery::create()->filterByChallengeId($current->getId())->groupBy('Type')->find());
+			//armo un arreglo con usuarios por compromiso y otro con los compromisos (para contarlos)
 			$usersBonds = array();
-			foreach($usersB as $usersBond){
-				$usersBonds[] = $usersBond->getType();
+			$keys = array();
+			
+			foreach($usersB as $bond){
+				$queryClass = $bond->getUserType() . 'Query';
+				if(class_exists($queryClass)){
+					$user = $queryClass::create()->findOneById($bond->getUserId());
+					if(is_object($user)){
+						$usersBonds[$bond->getType()][] = $user;
+						$keys[] = $bond->getType();
+					}	
+				}
 			}
 			
-			$this->smarty->assign("usersBonds",$usersBonds);
+			$this->smarty->assign("usersByBonds",$usersBonds);
+			$this->smarty->assign("boardBonds",$keys);
+			
+			//busco los compromisos que hizo el usuario logueado
+			$user = Common::getLoggedUser();
+			$loggedBonds = BoardBondQuery::create()->select('Type')->filterByUserId($user->getId())->find();
+			$this->smarty->assign("loggedBonds",$loggedBonds->getData());
+			
 			if ($moduleConfig['comments']['useComments']['value'] == "YES") {
 
-				//si se la configuracion pide que se muestren los comentarios de forma directa
+				//si la configuracion pide que se muestren los comentarios de forma directa
 				if ($moduleConfig['comments']['displayComments']['value'] == 'YES') {
 					$comments = BoardCommentQuery::create()->filterByParentId(NULL, Criteria::EQUAL)->findByChallengeIdAndStatus($current->getId(),BoardComment::APPROVED);
 					$this->smarty->assign("comments",$comments);

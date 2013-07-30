@@ -1,6 +1,11 @@
 <h2>Desafíos</h2>
 <p>Esta sección permitirá el diálogo e intercambio de ideas alrededor de temas de interés entre los líderes parroquiales.</p>
 <script type="text/javascript" src="scripts/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+|-if isset($finished)-|
+	<div id="div_boardChallenges">Para ver el desafío vigente haga click <a href="Main.php?do=boardView">aquí</a></div>
+|-else-|
+	<div id="div_boardChallenges">Para ver los desafíos anteriores haga click <a href="Main.php?do=boardShow&finished=true&view=true">aquí</a></div>
+|-/if-|
 |-if $message eq "captcha"-|
 <div id="errorMessage">Captcha incorrecto, intente nuevamente</div>
 |-/if-|
@@ -37,7 +42,9 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 |-/if-|
 		<p><br />
 
+|-if !isset($show)-|
 <input type="button" name="Volver" value="Volver" id="Volver" onClick="javascript:history.go(-1);"></p>
+|-/if-|
 </div>
 	|-include file='BoardCommentsInclude.tpl' challenge=$boardChallenge comments=$comments bonds=$bonds finished=$finished-|
 	|-if $moduleConfig.comments.useComments.value eq "YES"-|
