@@ -12,8 +12,11 @@ class SecurityRenameMeAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 		
-		$userLevels = LevelQuery::create()->filterByBitlevel(1, Criteria::NOT_EQUAL)->find();
+		$userLevels = LevelQuery::create()->filterByBitlevel(1, Criteria::GREATER_THAN)->find();
 		$smarty->assign('userLevels', $userLevels);
+		
+		$userBitLevel = empty($_GET['userBitLevel']) ? 1 : $_GET['userBitLevel'];
+		$smarty->assign('userBitLevel', $userBitLevel);
 		
 		$modules = ModulePeer::getActiveAndPresent();
 		$actions = array();
