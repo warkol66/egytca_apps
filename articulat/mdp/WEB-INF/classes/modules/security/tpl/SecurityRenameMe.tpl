@@ -8,8 +8,12 @@
 		padding-left: 40px;
 	}
 	
+	.action {
+		border: 1px solid transparent;
+	}
+	
 	.action:hover {
-		border: 1px solid #aaaaaa;
+		border-color: #aaaaaa;
 		background-color: #d6f8ef;
 	}
 	
@@ -25,15 +29,18 @@
 </style>
 
 <div class="sidebar">
-	<div>
-		|-foreach $userLevels as $userLevel-|
-			<p><input type="checkbox">|-$userLevel-|</p>
-		|-/foreach-|
-	</div>
-	<span>Sin implementar...</span>
+	<form method="GET" action="Main.php">
+		<input type="hidden" name="do" value="securityRenameMe">
+		<select name="userBitLevel" onchange="this.form.submit();">
+			|-foreach $userLevels as $userLevel-|
+				<option value="|-$userLevel->getBitLevel()-|" |-$userLevel->getBitLevel()|selected:$userBitLevel-|>|-$userLevel-|</option>
+			|-/foreach-|
+		</select>
+	</form>
+	<p>Sin implementar...</p>
 	<div class="filter">
 		<p><label>filtrar por nombre</label></p>
-		</p><input type="text" onkeyup="filterByName(this.value);"></p>
+		<p><input type="text" onkeyup="filterByName(this.value);"></p>
 	</div>
 </div>
 <ul class="modules">
