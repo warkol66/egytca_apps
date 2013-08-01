@@ -53,9 +53,9 @@ iframe{
 <div id="documentsList">
 <div id="documentOperationInfo"></div>
 <fieldset id="docs_list" class="noMargin"><legend>Documentos asociados</legend>
-	<div id="actions">|-if $editable-|<p align="right">
+	<div id="actions">|-*if $editable*-|<p align="right">
 		<a class="iframe addLink" id="fancybox_document" href="Main.php?do=documentsEdit&entityId=|-$entityId-|&requester=Blog&entity=BlogEntry&entityId=|-$entityId-|">Agregar nuevo documento</a>
-	</p>|-/if-|
+	</p>|-*/if*-|
 	<p id="viewPhotos" align="right">
 	|-if count($photos) > 0-|
 		<a href="#" onclick="$('a.galleryPhoto').first().click();return false;">Ver fotos</a>
@@ -95,7 +95,7 @@ iframe{
 |-/if-|
 </fieldset>
 </div>
-|-if $editable-|<script language="JavaScript" type="text/javascript">
+|-*if $editable*-|<script language="JavaScript" type="text/javascript">
 	
 	function deleteDocument(documentId, entryId){
 		$.ajax({
@@ -135,7 +135,7 @@ iframe{
 										}
 									});
 </script>
-|-/if-|
+|-*/if*-|
 <div id="photos" style="display:none">
 |-foreach $photos as $picture-|
 	|-assign var=photo value=$picture->getDocument()-|

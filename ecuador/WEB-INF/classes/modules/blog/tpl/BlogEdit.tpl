@@ -10,7 +10,7 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 	
 	$(document).ready(function() {
 		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
-        $( ".startDate" ).datepicker({
+        $( ".datepicker" ).datepicker({
 			dateFormat:"dd-mm-yy"
 		});
         
@@ -197,4 +197,5 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 </fieldset>
 <!--Fin Etiquetas-->
 |-/if-|
+<input type="button" id="button_return_project" name="button_return_project" title="Volver" value="Volver al Listado" onClick="location.href='Main.php?do=blogList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'" />
 |-/if-|
