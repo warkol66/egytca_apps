@@ -1,7 +1,6 @@
 <style>
 	.modules {
-		overflow-y: scroll;
-		height: 400px;
+		padding-left: 20px;
 	}
 	
 	.actions {
@@ -17,10 +16,14 @@
 		background-color: #d6f8ef;
 	}
 	
-	.sidebar {
-		float:left;
-		width: 200px;
+	#sidebar {
+		position: fixed;
+		width: 210px;
 		border-right: 1px solid #aaaaaa;
+	}
+	
+	#content {
+		padding-left: 210px;
 	}
 	
 	.filter {
@@ -28,7 +31,7 @@
 	}
 </style>
 
-<div class="sidebar">
+<div id="sidebar">
 	<form method="GET" action="Main.php">
 		<input type="hidden" name="do" value="securityRenameMe">
 		<select name="userBitLevel" onchange="this.form.submit();">
@@ -40,24 +43,54 @@
 	<p>Sin implementar...</p>
 	<div class="filter">
 		<p><label>filtrar por nombre</label></p>
-		<p><input type="text" onkeyup="filterByName(this.value);"></p>
+		<p>
+			<button onclick="clearFilterByName();">x</button>
+			<input id="name-filter-input" type="text" onkeyup="filterByName(this.value);">
+		</p>
 	</div>
 </div>
-<ul class="modules">
-	<li id="noMatchesMsg" style="display: none;">No hay coincidencias.</li>
-	|-foreach $actions as $module => $moduleActions-|
-		<li id="|-$module-|" class="module visible">
-			<p>|-$module-|</p>
-			<ul class="actions">
-				|-foreach $moduleActions as $action-|
-					<li id="|-$action-|" class="action visible">|-$action-|
-				|-/foreach-|
-			</ul>
-		</li>
-	|-/foreach-|
-</ul>
-
+<div id="content">
+	<ul class="modules">
+		<li id="noMatchesMsg" style="display: none;">No hay coincidencias.</li>
+		|-foreach $actions as $module => $moduleActions-|
+			<li id="|-$module-|" class="module visible">
+				<p>
+					<button class="collapse-button" onclick="collapse(this.parentNode.parentNode.id);">-</button>
+					<button class="expand-button" onclick="expand(this.parentNode.parentNode.id);" style="display: none;">+</button>
+					<span>|-$module-|</span>
+				</p>
+				<ul class="actions">
+					|-foreach $moduleActions as $action => $access-|
+						<li id="|-$action-|" class="action visible">
+							|-$action-|
+							<span>
+								<input type="checkbox" |-$access.bitLevel|checked_if_has_access:$userBitLevel-|>
+								acceso
+							</span>
+							<span>
+								<input type="checkbox" |-$access.noCheckLogin|checked:1-|>
+								noCheckLogin
+							</span>
+						</li>
+					|-/foreach-|
+				</ul>
+			</li>
+		|-/foreach-|
+	</ul>
+</div>
 <script>
+	collapse = function(elemId) {
+		$$('#'+elemId+' .actions').each(function(e, i) { e.hide(); });
+		$$('#'+elemId+' .collapse-button').each(function(e, i) { e.hide(); });
+		$$('#'+elemId+' .expand-button').each(function(e, i) { e.show(); });
+	};
+	
+	expand = function(elemId) {
+		$$('#'+elemId+' .actions').each(function(e, i) { e.show(); });
+		$$('#'+elemId+' .collapse-button').each(function(e, i) { e.show(); });
+		$$('#'+elemId+' .expand-button').each(function(e, i) { e.hide(); });
+	};
+	
 	filterByName = function(value) {
 		
 		var value = value.trim();
@@ -85,5 +118,9 @@
 			elem.hide();
 			elem.removeClassName('visible');
 		}
+	};
+	
+	clearFilterByName = function() {
+		$('name-filter-input').clear().onkeyup();
 	};
 </script>
