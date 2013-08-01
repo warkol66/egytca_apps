@@ -18,6 +18,11 @@ class BlogListAction extends BaseListAction {
             $this->filters['dateRange']['creationdate']['max'] = $_GET['filters']['maxDate'];
 		}
 		
+		//si no tiene permisos suficientes muestro solo sus entradas
+		$user = Common::getLoggedUser();
+		if($user->getLevelId() > 2)
+			$this->filters['userid'] = $user->getId();
+		
 	}
 
 	protected function postList() {
