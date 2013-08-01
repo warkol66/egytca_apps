@@ -28,12 +28,26 @@ class SecurityRenameMeAction extends BaseAction {
 				
 				$actions[$module] = array();
 				
+				$actionNames = array();
 				while ($filename = readdir($directoryHandler)) {
 					//verifico si es un archivo php
 					if (is_file($modulePath . $filename) && (preg_match('/(.*)Action.php$/', $filename, $regs)))
-						array_push($actions[$module], $regs[1]);
+						array_push($actionNames, $regs[1]);
 				}
 				closedir($directoryHandler);
+				
+				$securituActionPeer = new SecurityActionPeer();
+				$accessToActions = $securituActionPeer->getAccessToActions($actionNames);
+				
+				foreach ($actionNames as $actionName) {
+//					$actions[$module][$actionName] = array_key_exists($actionName, $accessToActions) ?
+//						$accessToActions[$actionName] : array('noCheckLogin' => null, 'bitLevel' => null);
+					$actions[$module][$actionName] = $accessToActions[$actionName];
+				}
+				
+//				echo "<br>actions[module]<br><pre>";print_r($actions[$module]);
+//				echo "</pre>";
+//				die('die');
 
 //				//separacion entre actions con par y acciones sin par
 //				foreach ($actions as $action) {
