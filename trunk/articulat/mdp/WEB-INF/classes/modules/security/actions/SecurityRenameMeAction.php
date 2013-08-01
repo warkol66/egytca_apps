@@ -15,7 +15,7 @@ class SecurityRenameMeAction extends BaseAction {
 		$userLevels = LevelQuery::create()->filterByBitlevel(1, Criteria::GREATER_THAN)->find();
 		$smarty->assign('userLevels', $userLevels);
 		
-		$userBitLevel = empty($_GET['userBitLevel']) ? 1 : $_GET['userBitLevel'];
+		$userBitLevel = empty($_GET['userBitLevel']) ? 2 : $_GET['userBitLevel'];
 		$smarty->assign('userBitLevel', $userBitLevel);
 		
 		$modules = ModulePeer::getActiveAndPresent();
@@ -40,14 +40,8 @@ class SecurityRenameMeAction extends BaseAction {
 				$accessToActions = $securituActionPeer->getAccessToActions($actionNames);
 				
 				foreach ($actionNames as $actionName) {
-//					$actions[$module][$actionName] = array_key_exists($actionName, $accessToActions) ?
-//						$accessToActions[$actionName] : array('noCheckLogin' => null, 'bitLevel' => null);
 					$actions[$module][$actionName] = $accessToActions[$actionName];
 				}
-				
-//				echo "<br>actions[module]<br><pre>";print_r($actions[$module]);
-//				echo "</pre>";
-//				die('die');
 
 //				//separacion entre actions con par y acciones sin par
 //				foreach ($actions as $action) {
