@@ -1,0 +1,65 @@
+<database defaultIdMethod="native" package="auxiliar.classes" name="application" >
+
+  <table name="ajax_chat_bans" phpName="AjaxChatBans" idMethod="native" readOnly="true">
+    <column name="userID" phpName="Userid" type="INTEGER" primaryKey="true" required="true"/>
+    <column name="userName" phpName="Username" type="VARCHAR" size="64" required="true"/>
+    <column name="dateTime" phpName="Datetime" type="TIMESTAMP" required="true"/>
+    <column name="ip" phpName="Ip" type="VARCHAR" size="16" sqlType="varbinary(16)" required="true"/>
+    <index name="userName">
+      <index-column name="userName"/>
+    </index>
+    <index name="dateTime">
+      <index-column name="dateTime"/>
+    </index>
+		<vendor type="mysql">
+			<parameter name="Engine" value="InnoDB"/>
+		</vendor>
+  </table>
+  <table name="ajax_chat_invitations" phpName="AjaxChatInvitations" idMethod="native" readOnly="true">
+    <column name="userID" phpName="Userid" type="INTEGER" primaryKey="true" required="true"/>
+    <column name="channel" phpName="Channel" type="INTEGER" primaryKey="true" required="true"/>
+    <column name="dateTime" phpName="Datetime" type="TIMESTAMP" required="true"/>
+    <index name="dateTime">
+      <index-column name="dateTime"/>
+    </index>
+		<vendor type="mysql">
+			<parameter name="Engine" value="InnoDB"/>
+		</vendor>
+  </table>
+  <table name="ajax_chat_messages" phpName="AjaxChatMessages" idMethod="native" readOnly="true">
+    <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="userID" phpName="Userid" type="INTEGER" required="true"/>
+    <column name="userName" phpName="Username" type="VARCHAR" size="64" required="true"/>
+    <column name="userRole" phpName="Userrole" type="INTEGER" size="1" required="true"/>
+    <column name="channel" phpName="Channel" type="INTEGER" required="true"/>
+    <column name="dateTime" phpName="Datetime" type="TIMESTAMP" required="true"/>
+    <column name="ip" phpName="Ip" type="VARCHAR" size="16" sqlType="varbinary(16)" required="true"/>
+    <column name="text" phpName="Text" type="LONGVARCHAR" required="false"/>
+    <index name="message_condition">
+      <index-column name="id"/>
+      <index-column name="channel"/>
+      <index-column name="dateTime"/>
+    </index>
+    <index name="dateTime">
+      <index-column name="dateTime"/>
+    </index>
+		<vendor type="mysql">
+			<parameter name="Engine" value="InnoDB"/>
+		</vendor>
+  </table>
+  <table name="ajax_chat_online" phpName="AjaxChatOnline" idMethod="native" readOnly="true">
+    <column name="userID" phpName="Userid" type="INTEGER" primaryKey="true" required="true"/>
+    <column name="userName" phpName="Username" type="VARCHAR" size="64" required="true"/>
+    <column name="userRole" phpName="Userrole" type="INTEGER" size="1" required="true"/>
+    <column name="channel" phpName="Channel" type="INTEGER" required="true"/>
+    <column name="dateTime" phpName="Datetime" type="TIMESTAMP" required="true"/>
+    <column name="ip" phpName="Ip" type="VARCHAR" size="16" sqlType="varbinary(16)" required="true"/>
+    <index name="userName">
+      <index-column name="userName"/>
+    </index>
+		<vendor type="mysql">
+			<parameter name="Engine" value="InnoDB"/>
+		</vendor>
+  </table>
+
+</database>
