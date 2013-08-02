@@ -1,4 +1,7 @@
-﻿|-if count($boardChallengeColl) eq 0-|
+﻿<h2>Desafíos</h2>
+<h1>Desafíos pasados</h1>
+|-entity_include entity="Content" template="ContentBodyInclude.tpl" filters=['id' => '13']-|
+|-if count($boardChallengeColl) eq 0-|
 	<div id="div_boardChallenges">No hay desafío vigente. Para ver los desafíos anteriores haga click <a href="Main.php?do=boardShow&finished=true">aquí</a></div>
 |-else-|
 |-if isset($finished)-|
