@@ -31,7 +31,7 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 <div class="boardResults">
 	<h4>Haga click en los resultados para ver quiénes los seleccionaron</h4>
 		|-foreach from=$bonds key=key item=bond-|
-		<a href="#" onClick="javascript:getUsers(|-$key-|);">|-$bond-|</a>&nbsp; 
+		<a href="javascript:void(null);" onClick="javascript:getUsers(|-$key-|);">|-$bond-|</a>&nbsp; 
 	|-/foreach-|
 </div>
 <div id="users"></div>
@@ -43,7 +43,8 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 		<p><br />
 
 |-if !isset($show)-|
-<input type="button" name="Volver" value="Volver" id="Volver" onClick="javascript:history.go(-1);"></p>
+<input type="button" name="Volver" value="Volver" id="Volver" onClick="javascript:history.go(-1);"><input name="goToFinished" type="button" onClick="location.href='Main.php?do=boardShow&finished=true&view=true'" value="Ver los desafíos anteriores" >
+		</p>
 |-/if-|
 </div>
 	|-include file='BoardCommentsInclude.tpl' challenge=$boardChallenge comments=$comments bonds=$bonds finished=$finished-|

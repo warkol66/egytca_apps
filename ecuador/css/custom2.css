@@ -669,18 +669,24 @@ input[type="text"], input[type="file"], input[type="password"], textarea, .radio
 	vertical-align: text-bottom;
 }
 input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
-	background-color: #ff0000;
+	/*background-color: #ff0000;*/
 	background: -webkit-gradient(linear, left top, left bottom, from(#ff0000), to(#CC0000));
   background: -moz-linear-gradient(top,  #ff0000,  #CC0000);
   background: -o-linear-gradient(top,  #ff0000,  #CC0000);
+  background: -ms-linear-gradient(top,  #ff0000,  #CC0000);
+	zoom: 1;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFff0000, endColorstr=#FFCC0000);
   cursor: pointer;
 }
 input[type="submit"], input[type="button"], input[type="reset"] {
 	color:#FFFFFF;
-	background-color: #CC0000;
+	/*background-color: #CC0000;*/
   background: -webkit-gradient(linear, left top, left bottom, from(#CC0000), to(#993333));
   background: -moz-linear-gradient(top,  #CC0000,  #993333);
 	background: -o-linear-gradient(top,  #CC0000,  #993333);
+	background: -ms-linear-gradient(top,  #CC0000,  #993333);
+	zoom: 1;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFCC0000, endColorstr=#FF993333);
 	border: 1px outset #cdcdcd !Important;/*#F0F0F0;*/
 	outline: 0 none;
 	cursor: pointer;
@@ -708,6 +714,9 @@ input[type="submit"][disabled="disabled"], input[type="button"][disabled="disabl
 	background: -webkit-gradient(linear, left top, left bottom, from(#E38080), to(#FF8A8A));
   background: -moz-linear-gradient(top,  #E38080,  #FF8A8A);
   background: -o-linear-gradient(top,  #E38080,  #FF8A8A);
+  background: -ms-linear-gradient(top,  #E38080,  #FF8A8A);
+	zoom: 1;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFE38080, endColorstr=#FFFF8A8A);
   cursor: default !Important;
 }
 
@@ -966,7 +975,7 @@ table.tableTdBorders th {
 	-moz-border-radius:5px 5px 0 0;
 	-webkit-border-radius:5px 5px 0 0;
 	
-	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzk5MDAwMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iIzk5MDAwMCIgc3RvcC1vcGFjaXR5PSIwLjkiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzk5MDAwMCIgc3RvcC1vcGFjaXR5PSIwLjc5Ii8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzk5MDAwMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iIzk5MDAwMCIgc3RvcC1vcGFjaXR5PSIwLjkiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzk5MDAwMCIgc3RvcC1vcGFjaXR5PSIwLjc5Ii8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
 background: -moz-linear-gradient(top,  rgba(153,0,0,1) 0%, rgba(153,0,0,0.9) 50%, rgba(153,0,0,0.79) 100%);
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(153,0,0,1)), color-stop(50%,rgba(153,0,0,0.9)), color-stop(100%,rgba(153,0,0,0.79)));
 background: -webkit-linear-gradient(top,  rgba(153,0,0,1) 0%,rgba(153,0,0,0.9) 50%,rgba(153,0,0,0.79) 100%); 
@@ -1657,7 +1666,7 @@ a.linkMailDelete:hover, a.linkMailDelete:active {
 		width:29%; min-height:6em; 
 	display:inline-block; margin:10px !important; 
 	padding:8px; text-transform:uppercase;
-	line-height:0.5em; white-space:normal;
+	line-height:1.5em; white-space:normal;
 	vertical-align:text-top top;
 	float:left;
 	}
