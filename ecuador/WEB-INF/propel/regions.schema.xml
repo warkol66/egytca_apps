@@ -2,7 +2,7 @@
 
 	<table name="regions_region" phpName="Region" description="Regiones">
 		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>
-		<column name="name" required="true" type="VARCHAR" size="100" description="Name"/>
+		<column name="name" required="true" type="VARCHAR" size="100" primaryString="true" description="Name"/>
 		<column name="type" required="true" type="INTEGER" size="2" description="Tipo de Region"/>
 		<column name="postalCode" type="INTEGER" size="4" description="Postal Code"/>
 		<column name="latitude" type="DOUBLE" description="Latitud" />
