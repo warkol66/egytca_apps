@@ -64,7 +64,8 @@ $(function(){
 			$("#userRecipients").val("");
 			return false;
 		},
-		minLength: 3
+		minLength: 3,
+		appendTo: '#recipientsUsers-container'
 	});
 	$( "#affiliateRecipients" ).autocomplete({
 		source: affiliates,
@@ -75,7 +76,8 @@ $(function(){
 			$("#userRecipients").val('');
 			return false;
 		},
-		minLength: 3
+		minLength: 3,
+		appendTo: '#recipientsAffiliates-container'
 	});
 });
 
@@ -129,7 +131,7 @@ function updateSubmitButton() {
 			|-if isset($user) and get_class($user) eq 'User'-|
 				<input type="hidden" id="params_user" name="internalMail[recipientId]" value="|-$user->getId()-|" /><span>|-$user->getName()-| |-$user->getSurname()-|</span>
 			|-else-|
-				<input id="userRecipients" placeholder="Ingrese un destinatario" />
+				<div id="recipientsUsers-container" style="position:absolute; width: 400px;"></div><input type="text" id="userRecipients" placeholder="Ingrese un destinatario" />
 			|-/if-|
 			</div>
 			</p>
@@ -138,7 +140,7 @@ function updateSubmitButton() {
 			|-if isset($user) and get_class($user) eq 'Affiliate'-|
 				<input type="hidden" id="params_user_select" name="internalMail[recipientId]" value="|-$user->getId()-|" /><span>|-$user->getName()-| |-$user->getSurname()-|</span>
 			|-else-|
-				<input id="affiliateRecipients" placeholder="Ingrese un destinatario"/>
+				<div id="affiliateRecipients-container" style="position:absolute; width: 400px;"></div><input type="text" id="affiliateRecipients" placeholder="Ingrese un destinatario"/>
 			|-/if-|
 			</div>
 |-/if-|			

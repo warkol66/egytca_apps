@@ -31,14 +31,16 @@
 |-/if-|
 <script language="JavaScript" type="text/javascript">
 $(function(){
-	var regions = [|-foreach from=$regions item=avRegion name=regions-|"|-$avRegion-|"|-if !$smarty.foreach.regions.last-|,|-/if-||-/foreach-|];
+	|-*var regions = [|-foreach from=$regions item=avRegion name=regions-|"|-$avRegion-|"|-if !$smarty.foreach.regions.last-|,|-/if-||-/foreach-|];*-|
+	var regions = [|-foreach from=$regions item=avRegion name=regions-|{label:"|-$avRegion->getName()-|",value:"|-$avRegion->getId()-|"} |-if !$smarty.foreach.regions.last-|,|-/if-||-/foreach-|];
 	
 	$("#region").autocomplete({
 		source: regions,
 		change: function(event,ui){
 		  $(this).val((ui.item ? ui.item.label : ""));
 		},
-		minLength: 3
+		minLength: 3,
+		appendTo: '#region-container'
 	});
 });
 
@@ -107,7 +109,7 @@ function usersDoEditInfo(form){
 		</p>
 		|-assign var=currentReg value=$currentUser->getRegion()-|
 		<p><label for="userParams[regionId]">Región</label>
-			<input id="region" name="params[action]" placeholder="Ingrese una región" />
+			<div id="region-container" style="position:absolute; width: 400px;"></div><input type="text" id="region" name="params[action]" placeholder="Ingrese una región" />
 			<!--select id="user_params_regionId" name="userParams[regionId]" class="chzn-select markets-chz-select" data-placeholder="|-if is_object($currentReg)-||-$currentReg->getName()-||-/if-|"></select-->
 		</p>
 		<p><label for="pass">##users,165,Contraseña##</label>
