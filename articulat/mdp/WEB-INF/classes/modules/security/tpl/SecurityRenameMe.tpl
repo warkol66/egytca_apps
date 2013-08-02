@@ -6,7 +6,7 @@
 	}
 	
 	#content {
-		padding-left: 210px;
+		margin-left: 210px;
 	}
 	
 	.filter {
@@ -14,7 +14,7 @@
 	}
 	
 	.modules {
-		padding-left: 20px;
+		margin-left: 20px;
 	}
 	
 	tr:hover {
@@ -109,10 +109,10 @@
 	
 	filterByName = function(value) {
 		
-		var value = value.trim();
+		var value = value.trim().replace(' ', '.*', 'g');
+		var regex = new RegExp(value, 'i');
 		
 		$$('.action').each(function(e, i) {
-			var regex = new RegExp(value, 'i');
 			filterByCond(e, e.id.match(regex));
 		});
 		
@@ -139,4 +139,8 @@
 	clearFilterByName = function() {
 		$('name-filter-input').clear().onkeyup();
 	};
+	
+	Event.observe(window, 'load', function() {
+		$('name-filter-input').focus();
+	});
 </script>
