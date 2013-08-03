@@ -70,7 +70,9 @@
 					</form>
 				</td>
 			</tr>
-		|-/foreach-|						
+		|-/foreach-|
+				</tbody>
+<tfoot>				
 		|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
 			<td colspan="7" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
@@ -80,6 +82,6 @@
 				 <th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=regionsEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Región</a></div></th>
 			</tr>
 		|-/if-|
-		</tbody>
+		</tfoot>
 	</table>
 </div>

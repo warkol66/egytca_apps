@@ -44,7 +44,7 @@
 				<th colspan="|-$colSpan-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=calendarEdit" class="addLink">Agregar Evento</a></div></th>
 			</tr>
 			<tr>
-				<th width="2%"></th>
+				<th width="2%"><input type="checkbox" name="allbox" value="checkbox" id="allBoxes" onChange="javascript:selectAllCheckboxes()" title="Seleccionar todos" />
 				<th width="40%">Título</th>
 				<th width="8%">Fecha</th>
 |-if $calendarEventsConfig.useRegions.value eq "YES"-|<th width="12%">Provincia</th>|-/if-|
@@ -57,7 +57,8 @@
 		<tbody>
 		|-foreach from=$calendarEventColl item=calendarEvent name=for_calendaEvents-|
 			<tr>
-				<td><input type="checkbox" name="selected[]" value="|-$calendarEvent->getId()-|"></td>
+				<td align="center">
+			  <input type="checkbox" name="selected[]" value="|-$calendarEvent->getId()-|"></td>
 				<td>|-$calendarEvent->gettitle()-|</td>
 				<td>|-$calendarEvent->getStartDate()|date_format:"%d-%m-%Y"-|</td>
 <!--|-if $calendarEventsConfig.useRegions.value eq "YES"-|<td>
@@ -105,10 +106,11 @@
 				</td>
 			</tr>
 		|-/foreach-|
+		</tbody>
+		<tfoot>
 		|-if $calendarEventColl|@count neq 0 && "calendarEventsChangeStatuses"|security_user_has_access-|
 			<tr>
 				<td colspan="|-$colSpan-|">
-					<p><input type="checkbox" name="allbox" value="checkbox" id="allBoxes" onChange="javascript:selectAllCheckboxes()" title="Seleccionar todos" /></p>
 					<form action="Main.php" method="post" id='multipleEventsChangeForm'>
 						<p>Cambiar los Artículos seleccionados al estado 
 							<select name="status" id="selectStatusEvent|-$calendarEvent->getId()-|">
@@ -134,6 +136,6 @@
 			<tr>
 				<th colspan="|-$colSpan-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=calendarEdit" class="addLink">Agregar Evento</a></div></th>
 			</tr>
-		</tbody>
+		</tfoot>
 	</table>
 </div>

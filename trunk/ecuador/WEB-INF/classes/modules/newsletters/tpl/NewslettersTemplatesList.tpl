@@ -47,6 +47,8 @@
 				</td>
 			</tr>
 		|-/foreach-|						
+		</tbody>
+		<tfoot>
 		|-if $pager->getTotalPages() gt 1-|
 			<tr> 
 				<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
@@ -56,7 +58,7 @@
 			<tr>
 				<th colspan="3" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=newslettersTemplatesEdit" class="addLink">Agregar Plantilla de Newsletter</a></div></th>
 			</tr>
-		|-/if-|						
-		</tbody>
+		|-/if-|
+		</tfoot>			
 	</table>
 </div>

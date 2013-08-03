@@ -59,6 +59,7 @@ function unblockUser(form){
 |-/if-|<span id="usersMsgField"></span>
 
 <table class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
+	<thead>
 	<tr>
 		<td  colspan="6" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Buscar usuario</a>
 			<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none;|-/if-|"><form action='Main.php' method='get' style="display:inline;">
@@ -72,7 +73,7 @@ function unblockUser(form){
 	</tr>
 	|-if "usersEdit"|security_has_access-||-if !isset($licensesLeft) || (isset($licensesLeft) && $licensesLeft gt 0)-|
 	<tr>
-		<th colspan="6"><div class="rightLink"><a href="Main.php?do=usersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Usuario</a></div></th>
+		<th colspan="6" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=usersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Usuario</a></div></th>
 	</tr>
 	|-/if-||-/if-|
 	<tr>
@@ -83,6 +84,8 @@ function unblockUser(form){
 		<th width="10%">Nivel Permisos</th>
 		<th width="10%">&nbsp;</th>
 	</tr>
+	</thead>
+	<tbody>
 	|-foreach from=$users item=user name=for_users-|
 	<tr>
 		<td>|-$user->getUsername()-|</td>
@@ -123,9 +126,11 @@ function unblockUser(form){
 		</td>
 	</tr>
 	|-/foreach-|
+	</tbody>
+	<tfoot>
 	|-if "usersEdit"|security_has_access-||-if !isset($licensesLeft) || (isset($licensesLeft) && $licensesLeft gt 0)-|
 	<tr>
-		<th colspan="6" class="thBottom"><div class="rightLink"><a href="Main.php?do=usersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Usuario</a></div></th>
+		<th colspan="6" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=usersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Usuario</a></div></th>
 	</tr>
 	|-else-|
 	<tr>
@@ -136,7 +141,8 @@ function unblockUser(form){
 			<tr> 
 				<td colspan="6" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
 			</tr>							
-		|-/if-|						
+		|-/if-|
+	</tfoot>						
 </table>
 <!--
 |-if $inactiveUsers|@count gt 0-|
