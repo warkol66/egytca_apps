@@ -74,18 +74,17 @@
 				<th width="8%">##news,12,Archivar##</th>
 |-if $newsArticlesConfig.useRegions.value eq "YES"-|<th width="12%">##news,15,Provincia##</th>|-/if-|
 |-if $newsArticlesConfig.useCategories.value eq "YES"-|<th width="12%">##news,14,Categoría##</th>|-/if-|
-				<th width="15%">##news,13,Estado##</th>
+				<th width="5%">##news,13,Estado##</th>
 				<th width="2%">&nbsp;</th>
 			</tr>
 		</thead>
 		<tbody>
 		|-foreach from=$newsArticleColl item=newsarticle name=for_newsarticles-|
 			<tr>
-				<td><input type="checkbox" name="selected[]" value="|-$newsarticle->getId()-|"></td>
+				<td align="center"><input type="checkbox" name="selected[]" value="|-$newsarticle->getId()-|"></td>
 				<td>|-$newsarticle->gettitle()-|</td>
-				<td>|-$newsarticle->getcreationDate()|date_format:"%d-%m-%Y"-|</td>
-				<td>
-					|-assign var=archiveDate value=$newsarticle->getarchiveDate()-|
+				<td align="center">|-$newsarticle->getcreationDate()|date_format:"%d-%m-%Y"-|</td>
+				<td>|-assign var=archiveDate value=$newsarticle->getarchiveDate()-|
 					|-if empty($archiveDate)-|No archivada|-else-||-$archiveDate|date_format:"%d-%m-%Y"-||-/if-|
 				</td>
 |-if $newsArticlesConfig.useRegions.value eq "YES"-|<td>
@@ -132,6 +131,8 @@
 				</td>
 			</tr>
 		|-/foreach-|
+		</tbody>
+		<tfoot>
 		|-if $newsArticleColl|@count neq 0 && "newsArticlesChangeStatuses"|security_user_has_access-|
 			<tr>
 				<td colspan="|-$colSpan-|">
@@ -160,6 +161,6 @@
 			<tr>
 				<th colspan="|-$colSpan-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=newsArticlesEdit" class="addLink">##news,9,Agregar Noticia##</a></div></th>
 			</tr>
-		</tbody>
+			</tfoot>
 	</table>
 </div>

@@ -70,5 +70,5 @@
 		<div class="pages">|-if $smarty.get.page == ''-||-include file="BlogHomePaginateInclude.tpl"-||-else-||-include file="BlogShowPaginateInclude.tpl"-||-/if-|</div>
 		|-/if-|
 </div>
-	<div>
+<div>|-if "blogList"|security_has_access-|<a href="Main.php?do=blogList" class="addLink">Administrar Experiencias</a>|-/if-|
 </div>

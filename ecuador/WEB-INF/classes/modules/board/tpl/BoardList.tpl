@@ -109,6 +109,8 @@
 				</td>
 			</tr>
 		|-/foreach-|
+		</tbody>
+		<tfoot>
 		|-if $boardChallengeColl|@count neq 0 && "boardChangeStatuses"|security_user_has_access-|
 			<tr>
 				<td colspan="|-$colSpan-|">
@@ -137,6 +139,6 @@
 			<tr>
 				<th colspan="|-$colSpan-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=boardEdit" class="addLink">Agregar Desafío</a></div></th>
 			</tr>
-		</tbody>
+		</tfoot>
 	</table>
 </div>

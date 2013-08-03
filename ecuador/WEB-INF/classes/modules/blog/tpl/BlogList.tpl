@@ -81,7 +81,7 @@
 		<tbody>
 		|-foreach from=$blogEntryColl item=blogEntry name=for_blogEntries-|
 			<tr>
-				<td><input type="checkbox" name="selected[]" value="|-$blogEntry->getId()-|"></td>
+				<td align="center"><input type="checkbox" name="selected[]" value="|-$blogEntry->getId()-|"></td>
 				<td>|-$blogEntry->gettitle()-|</td>
 				<td>|-$blogEntry->getcreationDate()|date_format:"%d-%m-%Y"-|</td>
 				|-if $blogConfig.useCategories.value eq "YES"-|<td>
@@ -125,6 +125,8 @@
 				</td>
 			</tr>
 		|-/foreach-|
+		</tbody>
+		<tfoot>
 		|-if $blogEntryColl|@count neq 0 && "blogChangeStatuses"|security_user_has_access-|
 			<tr>
 				<td colspan="|-$colSpan-|">
@@ -153,6 +155,6 @@
 			<tr>
 				<th colspan="|-$colSpan-|" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=blogEdit" class="addLink">##blog,9,Agregar Entrada##</a></div></th>
 			</tr>
-		</tbody>
+			</tfoot>
 	</table>
 </div>

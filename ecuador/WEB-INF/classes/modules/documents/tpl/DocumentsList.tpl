@@ -79,6 +79,7 @@ function checkPassDelete(form){
 *-|
 |-if $documentColl neq ''-|
 		<table id="table-documents" width="100%" cellpadding="5" cellspacing="0" class="tableTdBorders">
+		<thead>
 		<tr class="trFillTitle">
 <td colspan="7"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="searchLinkBut">##documents,9,Buscar Documentos##</a>
 				<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get' style="display:inline;">
@@ -103,6 +104,8 @@ function checkPassDelete(form){
 |-if $configModule->get('documents','useKeywords')-|				<th width="10%">##documents,16,Palabra clave##</th>|-/if-|
 				<th width="5%">&nbsp;</th>
 			</tr>
+			</thead>
+			<tbody>
 			|-if $documentColl|@count eq 0-|
 			<tr>
 				<td colspan="7">No hay publicaciones con el texto ingresadocategoría</td>
@@ -164,8 +167,6 @@ function checkPassDelete(form){
 				|-/if-|
 				<!-- /form de editar -->
 			|-/if-|
-
-
 				|-if $document->isOwned()-|
 				<!-- form de eliminar -->
 				|-capture name=formDelete-|
@@ -189,13 +190,16 @@ function checkPassDelete(form){
 				</td>
 			</tr>
 		|-/foreach-|
+		</tbody>
+		<tfoot>
 		|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
 			<td colspan="7" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 		</tr>							
 		|-/if-|						
 			<tr>
-				<th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=documentsEdit&id=|-$docscategory-|" class="addLinkBottom" title="##documents,10,Agregar Documento##">##documents,10,Agregar Documento##</a></div></th>
+				<th colspan="7" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=documentsEdit&id=|-$docscategory-|" class="addLink" title="##documents,10,Agregar Documento##">##documents,10,Agregar Documento##</a></div></th>
 			</tr>
+			</tfoot>
 		</table>
 |-/if-|

@@ -434,10 +434,10 @@ a.blackNoDecoration:visited {
 /* TABLES   -------------------------------------------*/
 table{
 }
-.row_odd {
+tbody .row_odd {
 	background: #BFD3FF; /* #BFD3FF o #AFC3FE  #FFCBCB*/
 }
-.row_even {
+tbody .row_even {
 	background: #D6DBE9; /* #D6DBE9 o #C6CBD9*/
 }
 table.tableTdBorders th {
@@ -450,16 +450,17 @@ table.tableTdBorders td {
 	border: 1px solid #A9A9A9;
 	padding: 4px;
 }
-table#table-documents.tableTdBorders td {
+.tableTdBorders tbody td {
 	border: 1px transparent !Important;
 	border-bottom: 1px solid #A9A9A9 !Important;
 	padding: 4px;
+	border-radius: 0 !Important;
 }
 
-table.tableTdBorders tr:nth-child(even) {
+table.tableTdBorders tbody tr:nth-child(even) {
 	background: #f0ede0;
 }
-table.tableTdBorders tr:nth-child(odd) {
+table.tableTdBorders tbody tr:nth-child(odd) {
 	background: #fbfbfa;
 }
 table#table-documents.tableTdBorders th.thFillTitle {
@@ -630,13 +631,13 @@ select {
 option {
 	padding-right: 12px;
 }
-fieldset legend {
+fieldset legend, fieldset fieldset legend  {
 	font-weight: bold;
 	color: #FFF;
 	padding:5px 10px;
-	border-radius:2px;
-	-moz-border-radius:2px;
-	-webkit-border-radius:2px;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
 	border:1px solid #a0a0a0;
 	background-color: #900;
 	-moz-box-shadow:2px 2px 3px #a0a0a0;
@@ -1249,13 +1250,18 @@ a.dayEventNumber{
 .blog01 #summary table,  #completeText table {
 	width: 80%;
 }
-.blog01 #summary table td, .article #summary table th,
-#completeText table td, #completeText table th {
-	border-radius: 3px;
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	border-spacing: 3px !Important;
+.blog01 #summary table td,
+.article #summary table th,
+#completeText table td,
+#completeText table th {
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-spacing: 5px !Important;
 }
+.blog01 #summary table th {
+	border-radius: 5px;
+} 
 .blog01 #summary table th, #completeText table th {
 	color: #ffffff; /*#0066CC;*/
 	border: 1px solid #A9A9A9;
@@ -1270,8 +1276,12 @@ background: -ms-linear-gradient(top,  rgba(153,0,0,1) 0%,rgba(153,0,0,0.9) 50%,r
 background: linear-gradient(to bottom,  rgba(153,0,0,1) 0%,rgba(153,0,0,0.9) 50%,rgba(153,0,0,0.79) 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#990000', endColorstr='#c9990000',GradientType=0 ); /* IE6-8 */
 }
-.blog01 #summary table td,  #completeText table td  {
+.blog01 #summary table td,
+#completeText table td  {
 	border: 1px solid #A9A9A9 !Important;
+	border-radius: 5px !Important;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 	padding: 4px !Important;
 }
 
@@ -1739,58 +1749,7 @@ a.linkMailDelete:hover, a.linkMailDelete:active {
 			#contentBody p {margin-left:0 !important;}
 			#contentBody li {margin:0 10px 0 25px; width:90%;}
 			
-#table-documents .thFillTitle a.addLink:link,
-#table-documents .thFillTitle a.addLink:visited,
-#table-documents .thFillTitle a.addLinkBottom:link,
-#table-documents .thFillTitle a.addLinkBottom:visited {
-	color:#0054A4;
-	background-image:url(../images/icon_add.png);
-	background-position:5px 5px;
-	background-repeat:no-repeat;
-}
-#table-documents .thFillTitle a.addLink:hover,
-#table-documents .thFillTitle a.addLink:active,
-#table-documents .thFillTitle a.addLinkBottom:hover,
-#table-documents .thFillTitle a.addLinkBottom:active {
-	color:#009900;
-}
-/* ADD   ----------------------------------------------*/
 
-			#table-documents .thFillTitle a.addLink:link,
-			#table-documents .thFillTitle a.addLink:visited,
-			#table-documents .thFillTitle a.addLink:active,
-			#table-documents .thFillTitle a.addLinkBottom,
-			#table-documents .thFillTitle a.addLinkBottom:visited,
-			#table-documents .thFillTitle a.addLinkBottom:active  {
-				border: solid 1px #006600;
-				border-color:#006600;
-				color: #006600 !important;
-
-				line-height: 1.4em;
-				vertical-align: middle;
-				display: inline-block;				
-				font-weight: bold;
-				padding: 4px 9px 5px 25px;
-				margin: 3px 0px 0px 0;
-				text-decoration: none;				
-				}
-			table#table-documents .thFillTitle a.addLink:hover,
-			table#table-documents .thFillTitle a.addLinkBottom:hover{
-				background-color:#c0df81;
-				color: #FFF; }
-				
-				table#table-documents .thFillTitle a.addLink {
-				border-bottom:none !important;
-				margin-bottom:-2px !important;
-				-webkit-border-radius: 5px 5px 0 0;
-				border-radius: 5px 5px 0 0;
-				}
-				table#table-documents .thFillTitle a.addLinkBottom {
-				border-top:none !important;
-				margin-top:-2px !important;
-				-webkit-border-radius: 0 0 5px 5px;
-				border-radius: 0 0 5px 5px;
-				}
 				
 				/*  search  */	
 				
@@ -1890,4 +1849,47 @@ img.mce_setNewsArticleId, img.mce_setLastNewsArticles {width:50px !Important;}
 
 .readMore {
 	background-image: none;
+}
+
+
+.thFillTitle a.addLink:link,
+.thFillTitle a.addLink:visited {
+	color:#0054A4;
+	background-image:url(../images/icon_add.png);
+	background-position:25px 5px;
+	background-repeat:no-repeat;
+}
+.thFillTitle a.addLink:hover,
+.thFillTitle a.addLink:active {
+	color:#009900;
+}
+.thFillTitle a.addLink:link,
+.thFillTitle a.addLink:visited,
+.thFillTitle a.addLink:active {
+	border: solid 1px #006600;
+	border-color:#006600;
+	color: #006600 !important;
+	line-height: 1.4em;
+	vertical-align: middle;
+	display: inline-block;
+	font-weight: bold;
+	padding: 4px 29px 5px 45px;
+	margin: 3px 2px 0px 0;
+	text-decoration: none;
+}
+.thFillTitle a.addLink:hover {
+	background-color:#c0df81;
+	color: #FFF;
+}
+thead .thFillTitle a.addLink {
+	border-bottom:none !important;
+	margin-bottom:-2px !important;
+	-webkit-border-radius: 5px 5px 0 0;
+	border-radius: 5px 5px 0 0;
+	}
+tfoot .thFillTitle a.addLink {
+	border-top:none !important;
+	margin-top:-2px !important;
+	-webkit-border-radius: 0 0 5px 5px;
+	border-radius: 0 0 5px 5px;
 }

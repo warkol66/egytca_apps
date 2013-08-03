@@ -18,11 +18,12 @@
 		<tr>
 			<th colspan="2" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=bannersEdit" class="addLink">Agregar Banner</a></div></th>
 		</tr>
-	</thead>
 	<tr>
 		<th width="95%">Banners del sistema</th>
 		<th width="5%">&nbsp;</th>
 	</tr>
+	</thead>
+	<tbody>
 	|-foreach from=$bannerColl item=banner name=for_banners-|
 	<tr>
 		<td>|-$banner->getName()-|</td>
@@ -40,7 +41,9 @@
 		</td>
 	</tr>
 	|-/foreach-|
+	</tbody>
+	<tfoot>
 	<tr>
 		<th colspan="2" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=bannersEdit" class="addLink">Agregar Banner</a></div></th>
-	</tr>
+	</tr></tfoot>
 </table>
