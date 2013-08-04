@@ -119,8 +119,8 @@ border-radius: 0px 0px 10px 10px;
 	margin:0px;
 	text-align: right;
 	color:#993333;
-	font-family:"Palatino Linotype", "Book Antiqua", Palatino, serif;
-	font-size:18px;}			
+	font-size:18px;
+}
 
 #header ul{position:absolute;
 top:45px; right:15px;}
@@ -182,7 +182,8 @@ top:45px; right:15px;}
 #rightColumn {
 	display:inline-block;
 	width: 540px;   /* ie6*/ /*ie7*/
-	margin: 10px 10px 0 25px;
+	margin: 0px 10px 0 25px;
+	padding-top: 0;
 }
 
 #menuColumn{
@@ -228,7 +229,7 @@ top:45px; right:15px;}
 #rightColumn .article h3,
 #rightColumn .event h2,
 #rightColumn .event h3 {
-	width:100%;font-family:Georgia, "Times New Roman", Times, serif; 
+	width:100%; 
  	line-height:26px;color:#990000; font-weight:bold; 
 	padding:0px 0 40px 0;
 	margin:0;
@@ -243,7 +244,7 @@ top:45px; right:15px;}
 	#rightColumn .article h2, #rightColumn .event h2 {font-size:26px;}
 	#rightColumn .article h2 a, #rightColumn .event h2 a {line-height:26px;color:#990000; font-weight:bold;text-decoration: none;}
 	#rightColumn .article h3, #rightColumn .event h3{font-size:22px;}
-	#rightColumn h2.home{font-size:26px; margin:10px 0 0 15px; padding:0 0 40px 0; text-transform: uppercase;}
+	#rightColumn h2.home{font-size:26px; margin:10px 0 0 0; padding:0 0 40px 0; text-transform: uppercase;}
 	#titleContent{font-size:26px;}
 
 
@@ -253,7 +254,6 @@ top:45px; right:15px;}
 #rightColumn .event h4 {
 	width:100%;
 	font-size:16px; text-transform:normal; 
-	font-family:Georgia, "Times New Roman", Times, serif; 
 	font-weight:bold;
 	color:#990000;
 	margin:0;
@@ -263,7 +263,6 @@ top:45px; right:15px;}
 #leftCenterColumn .event h5, #rightColumn .event h5 {
 	width:100%;
 	font-size:10px; text-transform:uppercase; 
-	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif, Arial; 
 	color:#666666;
 	margin:0;}
 	
@@ -276,18 +275,28 @@ top:45px; right:15px;}
 	
 #summary .readMore{width: auto;}
 
-.blog01 h3 {width:100%; border-bottom:solid 1px #ccc; margin-bottom:10px;}
-.blog01 h3 a{width:100% ;font-family:Georgia, "Times New Roman", Times, serif; 
-font-size:18px; line-height:26px;color:#990000; font-weight:bold;
+.blog01 h3 {
+	width:100%;
+	border-bottom:solid 1px #ccc;
+	margin-bottom:10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+.blog01 h3 a{
+	width:100%;
+	font-family:Georgia, "Times New Roman", Times, serif; 
+	color:#990000;
 }
 	.blog01 h3 a {text-decoration:none;}
 	.blog01 h3 a:hover {color:#cc6600; text-decoration: underline;}
 	
-.blog01 h4{font-size:10px; text-transform:uppercase; font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif, Arial; color:#666666;}
+.blog01 h4{font-size:10px; text-transform:uppercase; color:#666666;}
 
 .blog01 .imgNews {margin:0 15px 10px 0; float:left; border:solid 1px #999; padding:4px;}
 
-.blog01 p{ font-family: Arial, Helvetica, sans-serif; font-size:14px; color:#000; font-weight:normal; margin:0 0 5px 0; padding:0 0 10px 0; line-height:18px;}	
+.blog01 p {
+	font-size:14px; color:#000; font-weight:normal; margin:0 0 5px 0; padding:0 0 10px 0; line-height:18px;}	
 .blog01 p a{color:#990000;text-decoration:none;}
 .blog01 p a:hover{color:#cc6600; text-decoration: underline;}
 	
@@ -295,10 +304,22 @@ font-size:18px; line-height:26px;color:#990000; font-weight:bold;
 .blog01 a:hover.readMore{color:#cc6600;text-decoration:underline;}
 
 .blog01 .masInfo,
-.article .masInfo {clear:both; border:solid 1px #CCC; border-bottom:solid 1px #999; padding:5px; margin:0 0 25px 0;}
+.article .masInfo {
+	clear:both;
+	border:solid 1px #CCC;
+	border-bottom:solid 1px #999;
+	padding:5px;
+	margin:0 0 25px 0;
+}
 .blog01 .masInfo a.commentsBut,
 .article .masInfo a.commentsBut,
-.article .readMore a{color:#990000; padding-right:15px; border-right:solid 1px 999; font-weight:bold;}
+.article .readMore a{
+	color:#990000;
+	padding-right:15px;
+	border-right:solid 1px 999;
+	font-weight:bold;
+	text-decoration: none
+}
 .blog01 .masInfo a.commentsBut:hover,
 .article .masInfo a.commentsBut:hover {color:#cc6600;}	
 .blog01 .masInfo span a,
@@ -432,7 +453,8 @@ a.blackNoDecoration:visited {
 }
 
 /* TABLES   -------------------------------------------*/
-table{
+table.tableTdBorders th, table.tableTdBorders td  {
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 tbody .row_odd {
 	background: #BFD3FF; /* #BFD3FF o #AFC3FE  #FFCBCB*/
@@ -633,7 +655,7 @@ option {
 }
 fieldset legend, fieldset fieldset legend  {
 	font-weight: bold;
-	color: #FFF;
+	color: #FFF !Important;
 	padding:5px 10px;
 	border-radius:5px;
 	-moz-border-radius:5px;
@@ -1212,7 +1234,6 @@ a.dayEventNumber{
 	background-color:#fff4ce; 
 	*/
 	
-    font-family: Georgia,"Times New Roman",Times,serif;
     line-height: 26px;
     color: rgb(153, 0, 0);
     font-weight: bold;
@@ -1320,6 +1341,7 @@ a.path_Mark:hover, a.path_Mark:active {
 	text-align: left;
 	padding-bottom:16px;
 	margin-bottom: 0px;
+	margin-left:0;
 }
 .blog01 {
 	border-bottom: 1px solid #F0F0F0;
@@ -1349,12 +1371,12 @@ a.path_Mark:hover, a.path_Mark:active {
 .blog01 h1, .blog02 h1 {
 	margin: 0px;
 	margin-bottom:10px;
-	color: #006699 !important;
+	color: #993333 !important;
 	font-size: 2.0em;
 	font-weight: bold;
 	text-align: justify;
 	border-bottom: 1px solid #c8c8c8;
-	padding:0px 8px 4px 8px;
+	padding: 0px 8px 4px 0;
 }
 .blog01 #summary img, .blog02 #summary img {
 	padding:0px 8px 8px 0px;
@@ -1418,12 +1440,12 @@ a.readMore {
 	text-align: left;
 }
 .blog01 #completeText {
-	margin: 5px 0px 0px 40px;
+	margin: 0px 0px 0px 40px;
 	padding: 0px;
 	display: block;
 }
 .blog01 #completeText p {
-	margin: 5px !Important;
+	margin: 5px 5px 5px 0 !Important;
 	color: #000000;
 	font-size: 1.2em !Important;
 	font-weight: normal;
@@ -1479,14 +1501,14 @@ a.readMore {
 }
 #comentarios .commentContainer .image {
 	float: left;
-	width: 120px;
+	width: 126px;
 	text-align: center;
 }
 #comentarios .image p.nombre {
 	color: #000000;
-	font-size: 1.2em;
+	font-size: 1.1em;
 	font-weight: bold;
-	line-height: 1.4em;
+	line-height: 1.2em;
 	text-align: center !Important;
 	margin: 0 !Important;
 	padding: 5px !Important;
@@ -1500,7 +1522,6 @@ a.readMore {
 	font-style: italic !Important;
 }
 #comentarios .commentContainer .individual {
-	padding: 5px;
 }
 #comentarios p {
 	margin: 0px 15px 0;
@@ -1508,10 +1529,10 @@ a.readMore {
 	font-size: 1.2em;
 	font-weight: normal;
 	line-height: 1.4em;
-	width: 490px;
+	width: 490px  !important;
 }
 #comentarios p.nombre {
-	width: 100%;
+	width: 120px !important;
 	text-align:left !important;
 }
 #comentarios .commentContainer {
@@ -1521,8 +1542,11 @@ a.readMore {
 	margin-bottom: 10px;
 	padding:5px 10px;
 	-webkit-border-radius: 5px;
-    border-radius: 5px;
+  border-radius: 5px;
 	border: solid #CCC 1px;
+	background-image: url(../images/commentsBackground.png);
+	background-repeat: repeat-y;
+	background-position: 138px 0;
 }
 #comentarios .close {
 	clear: both !important;
@@ -1687,7 +1711,7 @@ a.linkMailDelete:hover, a.linkMailDelete:active {
 
 	.boardResults h4, 
 	.resultsSelection h4 {
-	font-family: Arial,Helvetica,sans-serif,Geneva !important;
+	font-family: Georgia, "Times New Roman", Times, serif;
 	font-size:12px!important;
 		text-transform:uppercase;
 		margin-bottom:5px!important;
@@ -1743,6 +1767,26 @@ a.linkMailDelete:hover, a.linkMailDelete:active {
 			color:#990000;
 			font-weight:bold;}
 			
+p.contactOwner {
+	color: #993333;
+	margin-top: 0.6em;
+	margin-left: 0.6em;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+.contactOwner a { 
+	background-image:url(../images/iconMailSmall.png);
+	background-repeat:no-repeat;
+	padding-left: 20px;
+}
+		.resultsSelection ul li, .contactOwner ul li {
+			list-style:none;
+			background-image:url(../images/iconMailSmall.png);
+			background-position:0 0;
+			background-repeat:no-repeat;
+		padding:0 0 0 20px;
+		display: inline;
+		}
 			
 			
 			/* tema LIs */
@@ -1892,4 +1936,13 @@ tfoot .thFillTitle a.addLink {
 	margin-top:-2px !important;
 	-webkit-border-radius: 0 0 5px 5px;
 	border-radius: 0 0 5px 5px;
+}
+
+#fancybox-content #data fieldset legend {
+	color: #ffffff !Important;
+}
+
+#recipientsUsers span {
+	display: inline-block;
+	line-height: 1.2em;
 }

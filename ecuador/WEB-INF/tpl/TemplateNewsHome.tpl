@@ -20,9 +20,11 @@
 </script>
 <script language="JavaScript" type="text/JavaScript">
 window.onload = function() {
+	var browserWidth = window.innerWidth || document.documentElement.clientWidth;
 	$('#topBannersDiv').delay(900).animate({height:'85px'}, 2200);
 	$('#topBannersUl').delay(900).animate({height:'85px'}, 2200);
-	$('#rightBoxContentBlock').delay(900).animate({marginTop:'325px'}, 2200);
+	if (browserWidth > 1200)
+		$('#rightBoxContentBlock').delay(900).animate({marginTop:'325px'}, 2200);
 	$('#topBannersLi1').delay(900).animate({height:'85px'}, 2200);
 	$('#topBannersLi2').delay(900).animate({height:'85px'}, 2200);
 	$('#topBannersLi3').delay(900).animate({height:'85px'}, 2200);
@@ -69,7 +71,7 @@ window.onload = function() {
 	<!-- Begin contentWrapper -->
 		<div id="contentWrapper">
 			<!-- Begin Right Column -->
-				<div id="rightColumn">
+				<div id="rightColumn" class="withRigthBanners">
 					<!--centerHTML start-->
 					|-$centerHTML-|
 					<!--centerHTML end -->

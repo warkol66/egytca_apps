@@ -127,13 +127,14 @@ function updateSubmitButton() {
 			</p>
 			<p>
 			<label>Destinatario:</label>
-			<div id="recipientsUsers" style="position: relative;">
 			|-if isset($user) and get_class($user) eq 'User'-|
 				<input type="hidden" id="params_user" name="internalMail[recipientId]" value="|-$user->getId()-|" /><span>|-$user->getName()-| |-$user->getSurname()-|</span>
 			|-else-|
-				<div id="recipientsUsers-container" style="position:absolute; width: 400px;"></div><input type="text" id="userRecipients" placeholder="Ingrese un destinatario" />
+				<div id="recipientsUsers" style="position: relative;">
+					<div id="recipientsUsers-container" style="position:absolute; width: 400px;"></div><input type="text" id="userRecipients" placeholder="Ingrese un destinatario" />
+				</div>
 			|-/if-|
-			</div>
+			
 			</p>
 |-if ($configModule->get("global","internalMailUseAffiliates"))-|			
 			<div id="recipientsAffiliates" style="position: relative; display: none">

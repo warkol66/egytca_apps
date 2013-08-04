@@ -18,11 +18,11 @@
 				<div id="comment|-$comment->getId()-|" class="commentContainer">				
 				<!-- begin INDIVIDUAL-->		 
 					<div class="individual">
-					<div class="image"><img src="images/individual.png" alt="" width="55" height="55" />
+					<div class="image"><img src="images/individual.png" alt="" />
 					<p class="nombre">|-$comment->getUsername()-|</p>
 					</div>
 					<div class="comment">
-					<p><span class="fecha"> |-$comment->getCreationDate()|date_format:"%A %e de %B de %Y"-|</span><br />
+					<p><span class="fecha"> |-$comment->getCreationDate()|date_format:"%A %e de %B de %Y"|ucfirst-|</span><br />
 |-$comment->getText()|escape|nl2br-|</p>
 					</div>
 					<div class="close"></div>

@@ -1,7 +1,7 @@
 <div id="topBannersdiv" class="allColumns topbanner">
 	<ul id="topBannersUl">
 		<li id="topBannersLi1" class="banner1">
-				<a href="Main.php?do=contentShow&id=3" id="banner1" class="textBanner">Qué es la Red de Autoridades <br />de Parroquias Rurales</a>
+				<a href="Main.php?do=contentShow&id=3" id="banner1" class="textBanner">Código de Organización Territorial (COOTAD) </a>
 			</li>
 		<li id="topBannersLi2" class="banner2">
 				<a href="Main.php?do=contentShow&id=4" id="banner2" class="textBanner">En que puede ayudar <br />la Red a sus Funciones</a>

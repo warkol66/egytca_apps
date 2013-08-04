@@ -53,7 +53,7 @@
 	<!-- Begin contentWrapper -->
 		<div id="contentWrapper">
 			<!-- Begin Right Column -->
-				<div id="rightColumn">
+				<div id="rightColumn" class="withRigthBanners">
 					<!--centerHTML start-->
 					|-$centerHTML-|
 
@@ -72,7 +72,7 @@
 	<div id="footer">		       
 		<ul>							|-if !empty($loginUser) && !$SESSION.firstLogin-||-include file='MenuBottomInclude.tpl'-||-else-|<li></li>|-/if-|
 </ul>
-		<p>Copyright©2013 Lídres Parroquiales Ecuador / Desarrollado por Módulos Empresarios.</p>
+		<p>Copyright©2013 Líderes Parroquias Rurales Ecuador / Desarrollado por Módulos Empresarios.</p>
 	</div>
 	<!-- End Footer -->
 </div>

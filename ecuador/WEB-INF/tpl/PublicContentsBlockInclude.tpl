@@ -6,6 +6,5 @@
 			<li><a href="Main.php?do=contentShow&id=6">¿Cómo participar en la Red?</a></li>
 			<li><a href="Main.php?do=contentShow&id=6">¿Cómo me beneficio del intercambio con otros líderes?</a></li>
 			<li><a href="Main.php?do=contentShow&id=6">¿Cuáles son los mecanismos de intercambio de experiencias?</a></li>
-			<li><a href="Main.php?do=contentShow&id=6">¿En qué puede ayudar a sus funciones?</a></li>
 		</ul>
 </div>

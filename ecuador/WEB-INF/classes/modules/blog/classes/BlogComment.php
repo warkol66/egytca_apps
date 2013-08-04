@@ -1,4 +1,4 @@
-l<?php
+<?php
 
 /**
  * Skeleton subclass for representing a row from the 'blog_comment' table.

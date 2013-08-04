@@ -188,7 +188,7 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-position: -20px -120px !Important; }
 .iconDelete {
 	background-position: -80px -120px !Important; }
-.iconCancel, input.editor_cancel_button {
+.iconCancel, input.editor_cancel_button, #fancybox-content #data .iconDelete {
 	background-position: -100px -120px !Important; }
 .iconUnordered {
 	background-position: -120px -120px !Important; }

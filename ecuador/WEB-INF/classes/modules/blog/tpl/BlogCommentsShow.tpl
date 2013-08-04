@@ -12,7 +12,7 @@
 				<div id="comment|-$comment->getId()-|" class="commentContainer">				
 				<!-- begin INDIVIDUAL-->		 
 					<div class="individual">
-					<div class="image"><img src="images/individual.png" alt="" width="55" height="55" />
+					<div class="image"><img src="images/individual.png" />
 					<p class="nombre">|-$comment->getUsername()-|</p>
 					</div>
 					<div class="comment">

@@ -29,8 +29,15 @@
 .wide-chz-select {
 	min-width: 700px;
 }
- #rightColumn {
+#rightColumn.withRigthBanners {
     width: 950px;
+}
+#rightColumn.withRigthBanners p {
+	width: 950px;
+	text-align: justify;
+}
+#rightMenu {
+	width: 420px;
 }
 .home  #rightMenu {
     width: 420px;
@@ -38,7 +45,10 @@
     margin-right: 20px;
     margin-top: -423px;
 }
+ul.asideLinks {
+	width:380px;
+}
 #titleAgenda{
-	width:1050px !important;
+	width:950px !important;
 }
 
