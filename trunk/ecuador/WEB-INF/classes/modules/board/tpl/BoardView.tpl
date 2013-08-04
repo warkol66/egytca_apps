@@ -29,15 +29,16 @@ Puede regresar a la página principal del board haciendo click <a href="Main.php
 <p>&nbsp;</p>
 <div id="msgBond"></div>
 <div class="boardResults">
-	<h4>Haga click en los resultados para ver quiénes los seleccionaron</h4>
+	<h4>¿Quieres ver quienes han participado?. Haz click en los botones a continuación.</h4>
 		|-foreach from=$bonds key=key item=bond-|
 		<a href="javascript:void(null);" onClick="javascript:getUsers(|-$key-|);">|-$bond-|</a>&nbsp; 
 	|-/foreach-|
 </div>
 <div id="users"></div>
 |-if !isset($finished)-|<div class="buttonsVotation">
+<h1>¿Ahora quieres participar también? Haz click en todas las opciones que desees.</h1>
 |-foreach from=$bonds key=key item=bond-|
-	<input type="button" name="|-$bond-|" value="|-$bond-|" id="bond_|-$key-|" onClick="javascript:addBond(|-$key-|);" class="bondButton|-if $bond|count_characters gt 25-|Wide|-/if-|" |-if in_array($key,$loggedBonds)-|disabled="disabled"|-/if-|>
+	<input type="button" name="|-$bond-|" value="|-$bond-|" id="bond_|-$key-|" onClick="javascript:addBond(|-$key-|);" class="bondButton|-if $bond|count_characters gt 25-|Wide|-/if-|" |-if in_array($key,$loggedBonds)-|disabled="disabled" title="Usted ya seleccionó esta opción"|-else-|title="Haga click para guardar su selección"|-/if-|>
 |-/foreach-|</div>
 |-/if-|
 		<p><br />

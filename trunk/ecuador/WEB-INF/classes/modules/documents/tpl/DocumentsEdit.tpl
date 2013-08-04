@@ -1,6 +1,6 @@
 |-if !isset($requester) and !isset($success)-|
 <h2>Documentos</h2>
-|-if !$document->isOwned()-|
+|-if !$document->isNew() && !$document->isOwned()-|
 <p>No tiene permisos para editar este documento</p>
 |-else-|
 <h1>|-if !$document->isNew()-|Editar|-else-|Ingresar|-/if-| datos de documentos</h1>

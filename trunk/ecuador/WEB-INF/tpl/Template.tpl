@@ -44,7 +44,7 @@
 				</div>
 			<!-- End Left Column -->
 			<!-- Begin Right Column -->
-				<div id="rightColumn">
+				<div id="rightColumn" class="home">
 					<!--centerHTML start-->
 					|-$centerHTML-|
 					<!--centerHTML end -->
@@ -59,7 +59,7 @@
 	<div id="footer">		       
 		<ul>							|-include file='MenuBottomInclude.tpl'-|
 </ul>
-		<p>Copyright©2013 Lídres Parroquiales Ecuador / Desarrollado por Módulos Empresarios.</p>
+		<p>Copyright©2013 Líderes Parroquias Rurales Ecuador / Desarrollado por Módulos Empresarios.</p>
 	</div>
 	<!-- End Footer -->
 </div>

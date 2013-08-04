@@ -38,7 +38,6 @@
 				<li class="last"><a href="Main.php?do=newsArticlesList">Novedades</a></li>
 			</ul>
 		</li>
-		|-/if-|
 		<li><a href="#" class="sub">Administración</a>
 			<ul>
 				<li><a href="Main.php?do=usersList">Usuarios</a></li>
@@ -53,6 +52,8 @@
 				<li><a href="Main.php?do=bannersList">Banners</a></li>
 				<li class="last"><a href="Main.php?do=backupList">Respaldos</a></li>
 			</ul></li>
+					|-/if-|
+
 		|-if $loginUser->isSupervisor()-|		
 		<li><a href="#" class="sub">Configuración</a>
 			<ul>

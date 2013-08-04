@@ -1,60 +1,51 @@
 ﻿<h2 class="home">Experiencias de Gestión </h2>
+|-if "blogEdit"|security_has_access-|<p>Para administrar las experiencias de su autoría, puede hacer click <a href="Main.php?do=blogList">aquí</a></p>|-/if-|
 <div id="div_blogEntries">
 		|-foreach from=$blogEntryColl item=blogEntry name=for_blogEntries-|
 			<!--class ex blog01-->
 			<div id="article|-$blogEntry->getId()-|" class="blog01">
 				|-assign var="eId" value=$blogEntry->getId()-|
-				<h5><a href="Main.php?do=blogView&url=|-$blogEntry->getUrl()-|">|-$blogEntry->gettitle()-|</a></h5>
+				<h3><a href="Main.php?do=blogView&url=|-$blogEntry->getUrl()-|">|-$blogEntry->gettitle()-|</a></h3>
 				|-assign var="category" value=$blogEntry->getBlogCategory()-||-if !empty($category)-|<br /><span class="blogCategoryLink"><a href="Main.php?do=blogShow&categoryId=|-$category->getId()-|" class="blogCategoryLink">|-$category->getName()-|</a></span>|-/if-|
 				<div id="summary">
 				|-$blogEntry->getBody()-|
 |-if $blogEntry->hasRecordSheet()-|
 <table border="0" class="tableTdBorders">
-<colgroup><col width="25%"><col width="75%"></colgroup>
-|-if $blogEntry->getParish()|strlen gt 1-|<tr>
-<th>Parroquia</th>
-<td>|-$blogEntry->getParish()-|</td>
-</tr>|-/if-|
-|-if $blogEntry->getCanton()|strlen gt 1-|<tr>
-<th>Cantón</th>
-<td>|-$blogEntry->getCanton()-|</td>
-</tr>|-/if-|
-|-if $blogEntry->getauthority()|strlen gt 1-|<tr>
-<th>Autoridad</th>
-<td>|-$blogEntry->getauthority()-|</td>
-</tr>|-/if-|
-|-if $blogEntry->getexperience()|strlen gt 1-|<tr>
-<th>Experiencia</th>
-<td>|-$blogEntry->getexperience()-|</td>
-</tr>|-/if-|
-|-if $blogEntry->getactors()|strlen gt 1-|<tr>
-<th>Actores</th>
-<td>|-$blogEntry->getactors()-|</td>
-</tr>|-/if-|
-|-if $blogEntry->getPopulationServed()|strlen gt 1-|<tr>
-<th>Población beneficiada</th>
-<td>|-$blogEntry->getPopulationServed()-|</td>
-</tr>|-/if-|
-|-if $blogEntry->gettarget()|strlen gt 1-|<tr>
-<th>Objetivo</th>
-<td>|-$blogEntry->gettarget()-|</td>
-</tr>|-/if-|
-|-if $blogEntry->getactions()|strlen gt 1-|<tr>
-<th>Acciones</th>
-<td>|-$blogEntry->getactions()-|</td>
-</tr>|-/if-|
-|-if $blogEntry->getresults()|strlen gt 1-|<tr>
-<th>Resultados</th>
-<td>|-$blogEntry->getresults()-|</td>
-</tr>|-/if-|
-|-if $blogEntry->getreplica()|strlen gt 1-|<tr>
-<th>Replica</th>
-<td>|-$blogEntry->getreplica()-|</td>
-</tr>|-/if-|
-<tr>
-<th>Conclusión</th>
-<td>|-if $blogEntry->getResult()-|Se considera experiencia exitosa|-else-|No se considera exitosa|-/if-|</td>
-</tr>
+	<colgroup><col width="25%"><col width="75%"></colgroup>
+	|-if $blogEntry->getParish()|strlen gt 1-|<tr>
+		<th>Parroquia</th>
+		<td>|-$blogEntry->getParish()-|</td></tr>|-/if-|
+	|-if $blogEntry->getCanton()|strlen gt 1-|<tr>
+		<th>Cantón</th>
+		<td>|-$blogEntry->getCanton()-|</td></tr>|-/if-|
+	|-if $blogEntry->getauthority()|strlen gt 1-|<tr>
+		<th>Autoridad</th>
+		<td>|-$blogEntry->getauthority()-|</td></tr>|-/if-|
+	|-if $blogEntry->getexperience()|strlen gt 1-|<tr>
+		<th>Experiencia</th>
+		<td>|-$blogEntry->getexperience()-|</td></tr>|-/if-|
+	|-if $blogEntry->getactors()|strlen gt 1-|<tr>
+		<th>Actores</th>
+		<td>|-$blogEntry->getactors()-|</td></tr>|-/if-|
+	|-if $blogEntry->getPopulationServed()|strlen gt 1-|<tr>
+		<th>Población beneficiada</th>
+		<td>|-$blogEntry->getPopulationServed()-|</td></tr>|-/if-|
+	|-if $blogEntry->gettarget()|strlen gt 1-|<tr>
+		<th>Objetivo</th>
+		<td>|-$blogEntry->gettarget()-|</td></tr>|-/if-|
+	|-if $blogEntry->getactions()|strlen gt 1-|<tr>
+		<th>Acciones</th>
+		<td>|-$blogEntry->getactions()-|</td></tr>|-/if-|
+	|-if $blogEntry->getresults()|strlen gt 1-|<tr>
+		<th>Resultados</th>
+		<td>|-$blogEntry->getresults()-|</td></tr>|-/if-|
+	|-if $blogEntry->getreplica()|strlen gt 1-|<tr>
+		<th>Replica</th>
+		<td>|-$blogEntry->getreplica()-|</td></tr>|-/if-|
+	<tr>
+		<th>Conclusión</th>
+		<td>|-if $blogEntry->getResult()-|Se considera experiencia exitosa|-else-|No se considera exitosa|-/if-|</td>
+	</tr>
 </table>
 |-/if-|
 
