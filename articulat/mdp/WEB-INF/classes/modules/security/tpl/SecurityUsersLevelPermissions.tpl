@@ -31,12 +31,17 @@
 	}
 </style>
 
+|-capture "statusIcons"-|
+	<img class="resultStatus yes" style="display: none;" src="images/icon_yes.png">
+	<img class="resultStatus no" style="display: none;" src="images/icon_no.png">
+	<img class="spinner" style="display: none;" src="images/icon_spinner.gif">
+|-/capture-|
 <div id="sidebar">
 	<form method="GET" action="Main.php">
 		<input type="hidden" name="do" value="securityUsersLevelPermissions">
 		<select name="userBitLevel" onchange="this.form.submit();">
 			|-foreach $userLevels as $userLevel-|
-				<option value="|-$userLevel->getBitLevel()-|" |-$userLevel->getBitLevel()|selected:$userBitLevel-|>|-$userLevel-|</option>
+				<option value="|-$userLevel->getBitLevel()-|" |-$userLevel->getBitLevel()|selected:$userBitLevel-|>|-$userLevel->getName()-|</option>
 			|-/foreach-|
 			<option value="noCheckLogin" |-'noCheckLogin'|selected:$userBitLevel-|>noCheckLogin</option>
 		</select>
@@ -65,9 +70,7 @@
 			<td>
 				<button onclick="if (confirm('seguro que desea permitir el acceso a todos los actions visibles?')) setVisibleActionsAccess(true);">+</button>
 				<button onclick="if (confirm('seguro que desea impedir el acceso a todos los actions visibles?')) setVisibleActionsAccess(false);">-</button>
-				<img class="resultStatus yes" style="display: none;" src="images/icon_yes.png">
-				<img class="resultStatus no" style="display: none;" src="images/icon_no.png">
-				<img class="spinner" style="display: none;" src="images/icon_spinner.gif">
+				|-$smarty.capture.statusIcons-|
 			</td>
 		</tr>
 		<tr id="noMatchesMsg" style="display: none;"><td>No hay coincidencias.</td></tr>
@@ -89,9 +92,7 @@
 						|-else-|
 							<input class="access" type="checkbox" |-$access.noCheckLogin|checked:1-| onchange="setActionAccess(this.parentNode.parentNode.id, this.checked)">
 						|-/if-|
-						<img class="resultStatus yes" style="display: none;" src="images/icon_yes.png">
-						<img class="resultStatus no" style="display: none;" src="images/icon_no.png">
-						<img class="spinner" style="display: none;" src="images/icon_spinner.gif">
+						|-$smarty.capture.statusIcons-|
 					</td>
 				</tr>
 			|-/foreach-|
