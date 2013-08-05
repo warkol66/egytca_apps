@@ -29,6 +29,10 @@
 	.collapsed-module {
 		display: none;
 	}
+	
+	.filtered-out {
+		display: none;
+	}
 </style>
 
 |-capture "statusIcons"-|
@@ -75,7 +79,7 @@
 		</tr>
 		<tr id="noMatchesMsg" style="display: none;"><td>No hay coincidencias.</td></tr>
 		|-foreach $modules as $moduleName => $module-|
-			<tr id="|-$moduleName-|" class="module non-filtered">
+			<tr id="|-$moduleName-|" class="module">
 				<td>
 					<button class="collapse-button" onclick="collapse(this.parentNode.parentNode.id);">-</button>
 					<button class="expand-button" onclick="expand(this.parentNode.parentNode.id);" style="display: none;">+</button>
@@ -89,7 +93,7 @@
 				</td>
 			</tr>
 			|-foreach $module.actions as $action => $access-|
-				<tr id="|-$action-|" class="action non-filtered |-$moduleName-|-action">
+				<tr id="|-$action-|" class="action |-$moduleName-|-action">
 					<td class="name">|-$action-|</td>
 					<td>
 						|-if $userBitLevel neq 'noCheckLogin'-|
@@ -135,7 +139,7 @@
 	
 	setModuleAccess = function(module, access) {
 		setAccess('module', module, access);
-	}
+	};
 	
 	setActionAccess = function(action, access) {
 		setAccess('action', action, access);
@@ -143,8 +147,10 @@
 	
 	setVisibleActionsAccess = function(access) {
 		
+		var visibleActionsSelector = '.action:not(.filtered-out):not(.collapsed-module)';
+		
 		var actions = [];
-		$$('.action.non-filtered:not(.collapsed-module)').each(function(e, i){
+		$$(visibleActionsSelector).each(function(e, i){
 			actions.push(e.id);
 		});
 		
@@ -156,7 +162,7 @@
 		sendAccessChangeRequest(params, $('allActions'), function(response) {
 			
 			if (!getErrors(response)) {
-				$$('.action.non-filtered:not(.collapsed-module)').each(function(e, i){
+				$$(visibleActionsSelector).each(function(e, i){
 					e.select('.access').first().checked = access;
 				});
 			}
@@ -206,23 +212,20 @@
 		});
 		
 		$$('.module').each(function(e, i) {
-			filterByCond(e, $$('.'+e.id+'-action.non-filtered').length > 0);
+			filterByCond(e, $$('.'+e.id+'-action:not(.filtered-out)').length > 0);
 		});
 		
-		if ($$('.modules .module.non-filtered').length > 0)
+		if ($$('.modules .module:not(.filtered-out)').length > 0)
 			$('noMatchesMsg').hide();
 		else
 			$('noMatchesMsg').show();
 	};
 	
 	filterByCond = function(elem, cond) {
-		if (cond) {
-			elem.show();
-			elem.addClassName('non-filtered');
-		} else {
-			elem.hide();
-			elem.removeClassName('non-filtered');
-		}
+		if (cond)
+			elem.removeClassName('filtered-out');
+		else
+			elem.addClassName('filtered-out');
 	};
 	
 	clearFilterByName = function() {

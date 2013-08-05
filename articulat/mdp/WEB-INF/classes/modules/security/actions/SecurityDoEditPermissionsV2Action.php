@@ -17,6 +17,8 @@ class SecurityDoEditPermissionsV2Action extends BaseAction {
 		$errors = rand(0, 1) > 0.5 ? null : array('someErrorCode' => 'someErrorDescription');
 		$smarty->assign('errors', $errors);
 		
+		$smarty->assign('module', null); // hack para usar la variable
+		
 		if (!$errors) {
 			$smarty->assign('action', $_POST['action']);
 			$smarty->assign('module', $_POST['module']);
