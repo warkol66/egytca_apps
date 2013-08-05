@@ -1,6 +1,6 @@
 <?php
 
-class SecurityRenameMeAction extends BaseAction {
+class securityUsersLevelPermissionsAction extends BaseAction {
 	
 	public function execute($mapping, $form, &$request, &$response) {
 
@@ -23,25 +23,16 @@ class SecurityRenameMeAction extends BaseAction {
 		
 		foreach ($modules as $module) {
 			
-			$modulePath = "WEB-INF/classes/modules/$module/actions/";
-			if ($directoryHandler = opendir($modulePath)) { //Si el directorio existe
-				
-				$actions[$module] = array();
-				
-				$actionNames = array();
-				while ($filename = readdir($directoryHandler)) {
-					//verifico si es un archivo php
-					if (is_file($modulePath . $filename) && (preg_match('/(.*)Action.php$/', $filename, $regs)))
-						array_push($actionNames, $regs[1]);
-				}
-				closedir($directoryHandler);
-				
-				$securituActionPeer = new SecurityActionPeer();
-				$accessToActions = $securituActionPeer->getAccessToActions($actionNames);
-				
-				foreach ($actionNames as $actionName) {
-					$actions[$module][$actionName] = $accessToActions[$actionName];
-				}
+			$actions[$module] = array();
+
+			$actionNames = $this->getActions($module);
+
+			$securituActionPeer = new SecurityActionPeer();
+			$accessToActions = $securituActionPeer->getAccessToActions($actionNames);
+
+			foreach ($actionNames as $actionName) {
+				$actions[$module][$actionName] = $accessToActions[$actionName];
+			}
 
 //				//separacion entre actions con par y acciones sin par
 //				foreach ($actions as $action) {
@@ -69,11 +60,26 @@ class SecurityRenameMeAction extends BaseAction {
 //					$withoutPair = $actions;
 //					$withPair = array();
 //				}
-			}
 		}
 		
 		$smarty->assign('actions', $actions);
 		
 		return $mapping->findForwardConfig('success');
+	}
+	
+	function getActions($module) {
+		
+		$modulePath = "WEB-INF/classes/modules/$module/actions/";
+		$actions = array();
+		if ($directoryHandler = opendir($modulePath)) { //Si el directorio existe
+			
+			while (false !== ($filename = readdir($directoryHandler))) {
+				//verifico si es un archivo php
+				if (is_file($modulePath . $filename) && (preg_match('/(.*)Action.php$/', $filename, $matches)))
+					array_push($actions, $matches[1]);
+			}
+			closedir($directoryHandler);
+		}
+		return $actions;
 	}
 }
