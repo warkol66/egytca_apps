@@ -14,8 +14,13 @@ class SecurityDoEditPermissionsV2Action extends BaseAction {
 		
 		header('Content-Type: text/json');
 		
-		$smarty->assign('errors', json_encode(rand(0, 1) > 0.5 ? null : array('someErrorCode' => 'someErrorDescription')));
-		$smarty->assign('action', json_encode($_POST['action']));
+		$errors = rand(0, 1) > 0.5 ? null : array('someErrorCode' => 'someErrorDescription');
+		$smarty->assign('errors', $errors);
+		
+		if (!$errors) {
+			$smarty->assign('action', $_POST['action']);
+			$smarty->assign('module', $_POST['module']);
+		}
 		
 		sleep(3); // quiero que quede el spinner un rato para testing
 		
