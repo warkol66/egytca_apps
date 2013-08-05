@@ -12,17 +12,17 @@
 	var noComments = $('#no_comments_' + |-$entry->getId()-|);
 	if (noComments != null)
 		noComments.remove();
-	$('#msgBoxAdder'+|-$entry->getId()-|).html('<span class="resultSuccess">El comentario ha sido agregado con exito</span>');
+	$('#msgBoxAdder'+|-$entry->getId()-|).html('<span class="resultSuccess">El comentario ha sido agregado con éxito</span>');
 	$('#formCommentAdder|-$entry->getId()-|')[0].reset();
 	
 	var container = $('<div></div>').addClass("commentContainer").attr('id', "comment|-$comment->getId()-|");
 	var individual = $('<div>',{
 		"class": "individual",
-		html: "<div class='image'><img src='images/individual.png' width='55' height='55' /><p class='nombre'>|-$comment->getUsername()-|</p></div>",
+		html: "<div class='image'><img src='images/individual.png' /><p class='nombre'>|-$comment->getUsername()-|</p></div>",
 	});
 	var comment = $('<div>',{
 		"class": "comment",
-		html: '<p><span class="fecha">|-$comment->getCreationDate()|date_format:"%A %e de %B de %Y"-|</span><br />|-$comment->getText()|escape|nl2br-|</p><div class="close"></div>'
+		html: '<p><span class="fecha">|-$comment->getCreationDate()|date_format:"%A %e de %B de %Y"|ucfirst-|</span><br />|-$comment->getText()|escape|nl2br-|</p><div class="close"></div>'
 	})
 	var closeDiv = $('<div>',{"class": "close"});
 	

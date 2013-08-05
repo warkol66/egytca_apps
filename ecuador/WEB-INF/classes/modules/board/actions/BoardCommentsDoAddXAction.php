@@ -12,30 +12,28 @@ class BoardCommentsDoAddXAction extends BaseDoEditAction {
 		$module = "Board";
 		$loggedUser = Common::getLoggedUser();
 		
-		if(empty($loggedUser)){
+		if(empty($loggedUser)) {
 			if ( (empty($_POST['securityCode'])) || !Common::validateCaptcha($_POST['securityCode'])) {
 				$this->smarty->assign('captcha',true);
 				$this->smarty->assign('entry',BlogEntryQuery::create()->findOneById($_POST["params"]['entryId']));
 				$this->forwardFailureName = 'success';
 				return false;
-			}else{
-				
-				$this->entity->setCreationdate(date('Y-m-d H:m:s'));
-				$this->entity->setIp($_SERVER['REMOTE_ADDR']);
-				
-				$moduleConfig = Common::getModuleConfiguration($module);
-				
-				if ($moduleConfig["comments"]["moderated"] == "YES") {
-					if ($params['params']['userId'])
-						$this->entity->setStatus(BoardComment::APPROVED);
-					else
-						$this->entity->setStatus(BoardComment::PENDING);
-				}
-				else
-					$this->entity->setStatus(BoardComment::APPROVED);
+			}
+			else {
 			}
 		}
-			
+		$this->entity->setCreationdate(date('Y-m-d H:m:s'));
+		$this->entity->setIp($_SERVER['REMOTE_ADDR']);
+		$moduleConfig = Common::getModuleConfiguration($module);
+		
+		if ($moduleConfig['comments']['moderated']['value'] == "YES") {
+			if ($params['params']['userId'])
+				$this->entity->setStatus(BoardComment::APPROVED);
+			else
+				$this->entity->setStatus(BoardComment::PENDING);
+		}
+		else
+			$this->entity->setStatus(BoardComment::APPROVED);
 	}
 	
 	protected function postUpdate() {
