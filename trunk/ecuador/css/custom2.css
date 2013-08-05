@@ -1544,9 +1544,9 @@ a.readMore {
 	-webkit-border-radius: 5px;
   border-radius: 5px;
 	border: solid #CCC 1px;
-	background-image: url(../images/commentsBackground.png);
+/*	background-image: url(../images/commentsBackground.png);
 	background-repeat: repeat-y;
-	background-position: 138px 0;
+	background-position: 138px 0; */
 }
 #comentarios .close {
 	clear: both !important;

@@ -1,7 +1,7 @@
 |-assign var=parentId value=$comment->getParentId()-|
 |-if $captcha-|
 <script type="text/javascript" language="javascript" charset="utf-8">
-	$('#msgBoxAdder'+|-$challenge->getId()-|).html('<span class="resultFailure">El código de validación ingresao es incorrecto, ingreselo nuevamente</span>');
+	$('#msgBoxAdder'+|-$challenge->getId()-|).html('<span class="resultFailure">El código de validación ingresado es incorrecto, ingreselo nuevamente</span>');
 </script>
 |-elseif !is_object($comment)-|
 <script type="text/javascript" language="javascript" charset="utf-8">
@@ -15,11 +15,11 @@
 	var container = $('<div></div>').addClass("childContainer").attr('id', "child|-$comment->getId()-|");
 	var individual = $('<div>',{
 		"class": "individual",
-		html: "<div class='image'><img src='images/individual.png' width='55' height='55' /><p class='nombre'>|-$comment->getUsername()-|</p></div>",
+		html: "<div class='image'><img src='images/individual.png' /><p class='nombre'>|-$comment->getUsername()-|</p></div>",
 	});
 	var comment = $('<div>',{
 		"class": "comment",
-		html: '<p><span class="fecha">|-$comment->getCreationDate()|date_format:"%A %e de %B de %Y"-|</span><br />|-$comment->getText()|escape|nl2br-|</p><div class="close"></div>'
+		html: '<p><span class="fecha">|-$comment->getCreationDate()|date_format:"%A %e de %B de %Y"|ucfirst-|</span><br />|-$comment->getText()|escape|nl2br-|</p><div class="close"></div>'
 	});
 	var closeDiv = $('<div>',{"class": "close"});
 	
@@ -41,11 +41,11 @@
 	var container = $('<div></div>').addClass("commentContainer").attr('id', "comment|-$comment->getId()-|");
 	var individual = $('<div>',{
 		"class": "individual",
-		html: "<div class='image'><img src='images/individual.png' width='55' height='55' /><p class='nombre'>|-$comment->getUsername()-|</p></div>",
+		html: "<div class='image'><img src='images/individual.png' /><p class='nombre'>|-$comment->getUsername()-|</p></div>",
 	});
 	var comment = $('<div>',{
 		"class": "comment",
-		html: '<p><span class="fecha">|-$comment->getCreationDate()|date_format:"%A %e de %B de %Y"-|</span><br />|-$comment->getText()|escape|nl2br-|</p><div class="close"></div>'
+		html: '<p><span class="fecha">|-$comment->getCreationDate()|date_format:"%A %e de %B de %Y"|ucfirst-|</span><br />|-$comment->getText()|escape|nl2br-|</p><div class="close"></div>'
 	})
 	var closeDiv = $('<div>',{"class": "close"});
 	

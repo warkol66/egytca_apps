@@ -36,6 +36,8 @@
 				<li><a href="Main.php?do=blogList">Experiencias de Gestión</a></li>
 				<li><a href="Main.php?do=calendarList">Eventos</a></li>
 				<li class="last"><a href="Main.php?do=newsArticlesList">Novedades</a></li>
+				<li><a href="Main.php?do=boardCommentsList">Comentarios de Desafíos</a></li>
+				<li class="last"><a href="Main.php?do=blogCommentsList">Comentarios de Experiencias</a></li>
 			</ul>
 		</li>
 		<li><a href="#" class="sub">Administración</a>

@@ -9,6 +9,7 @@ class BlogCommentsDoAddXAction extends BaseDoEditAction {
 	protected function preUpdate() {
 		parent::preUpdate();
 		
+		$module = "Blog";
 		$loggedUser = Common::getLoggedUser();
 		//Si no hay usuario logueado verifico sec dode
 		if(empty($loggedUser)) {
@@ -19,7 +20,6 @@ class BlogCommentsDoAddXAction extends BaseDoEditAction {
 				return false;
 			}
 			else {
-				$module = "Blog";
 			}
 		}
 		$this->entityParams["creationDate"] = date('Y-m-d H:m:s');
