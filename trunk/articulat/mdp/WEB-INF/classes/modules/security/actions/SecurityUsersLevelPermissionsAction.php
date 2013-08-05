@@ -18,20 +18,26 @@ class securityUsersLevelPermissionsAction extends BaseAction {
 		$userBitLevel = empty($_GET['userBitLevel']) ? 2 : $_GET['userBitLevel'];
 		$smarty->assign('userBitLevel', $userBitLevel);
 		
-		$modules = ModulePeer::getActiveAndPresent();
-		$actions = array();
+		$securityActionPeer = new SecurityActionPeer();
+		$moduleNames = ModulePeer::getActiveAndPresent();
+		$modules = array();
 		
-		foreach ($modules as $module) {
+		foreach ($moduleNames as $moduleName) {
 			
-			$actions[$module] = array();
+			$modules[$moduleName] = array();
+			
+			$moduleAccess = SecurityModulePeer::getAccess($moduleName);
+			if ($moduleAccess) {
+				$modules[$moduleName]['access'] = array(
+					'bitLevel' => $moduleAccess->getAccess(),
+					'noCheckLogin' => $moduleAccess->getNochecklogin()
+				);
+			}
 
-			$actionNames = $this->getActions($module);
-
-			$securituActionPeer = new SecurityActionPeer();
-			$accessToActions = $securituActionPeer->getAccessToActions($actionNames);
-
+			$actionNames = $this->getActions($moduleName);
+			$accessToActions = $securityActionPeer->getAccessToActions($actionNames);
 			foreach ($actionNames as $actionName) {
-				$actions[$module][$actionName] = $accessToActions[$actionName];
+				$modules[$moduleName]['actions'][$actionName] = $accessToActions[$actionName];
 			}
 
 //				//separacion entre actions con par y acciones sin par
@@ -62,7 +68,7 @@ class securityUsersLevelPermissionsAction extends BaseAction {
 //				}
 		}
 		
-		$smarty->assign('actions', $actions);
+		$smarty->assign('modules', $modules);
 		
 		return $mapping->findForwardConfig('success');
 	}
