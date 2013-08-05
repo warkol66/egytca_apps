@@ -1,0 +1,4 @@
+{
+	"errors": |-$errors-|,
+	"action": |-$action-|
+}
