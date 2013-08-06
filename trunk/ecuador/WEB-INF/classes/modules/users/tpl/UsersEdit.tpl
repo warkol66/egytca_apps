@@ -35,7 +35,7 @@ $(function(){
 	var regions = [|-foreach from=$regions item=avRegion name=regions-|{label:"|-$avRegion->getName()-|",value:"|-$avRegion->getId()-|"} |-if !$smarty.foreach.regions.last-|,|-/if-||-/foreach-|];
 	
 	$("#region").autocomplete({
-		source: regions,
+		source: url + '?do=regionsAutocompleteListX&type=json',
 		change: function(event,ui){
 			//para que no pueda poner un valor inexistente
 			$(this).val((ui.item ? ui.item.label : ""));
