@@ -43,6 +43,8 @@ class RegionsEditAction extends BaseAction {
 		$smarty->assign("page",$_GET["page"]);
 		$smarty->assign("message",$_GET["message"]);
 		$smarty->assign('regions',$regions);
+		$smarty->assign('thousandsSeparator',$system['config']['system']['parameters']['thousandsSeparator']);
+		$smarty->assign('decimalSeparator',$system['config']['system']['parameters']['decimalSeparator']);
 
 		return $mapping->findForwardConfig('success');
 	}

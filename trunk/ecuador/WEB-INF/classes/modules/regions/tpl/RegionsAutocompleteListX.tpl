@@ -1,10 +1,6 @@
 |-if $type eq 'json'-|
-    {
-        |-foreach $regions as $region-|
-            "|-json_encode($region->getId())-|": |-json_encode($region->getName())-|
-            |-if !$region@last-|,|-/if-|
-        |-/foreach-|
-    }
+[|-foreach $regions as $region-|{"value":"|-json_encode($region->getId())-|", "label":|-json_encode($region->getName())-|}|-if !$region@last-|,|-/if-|
+|-/foreach-|]
 |-else-|
 <ul>
     |-if count($regions) == 0-|

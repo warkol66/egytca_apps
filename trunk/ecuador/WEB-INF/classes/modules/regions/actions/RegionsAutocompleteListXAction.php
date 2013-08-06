@@ -22,7 +22,7 @@ class RegionsAutocompleteListXAction extends BaseAction {
 		$module = "Regions";
 		$smarty->assign("module",$module);
 		
-		$searchString = $_REQUEST['value'];
+		$searchString = $_REQUEST['term'];
 		$smarty->assign("searchString",$searchString);
 
 
