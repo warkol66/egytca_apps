@@ -37,7 +37,13 @@ $(function(){
 	$("#region").autocomplete({
 		source: regions,
 		change: function(event,ui){
-		  $(this).val((ui.item ? ui.item.label : ""));
+			//para que no pueda poner un valor inexistente
+			$(this).val((ui.item ? ui.item.label : ""));
+		},
+		select:function(event,ui){
+			$("#region").val(ui.item.label);
+			$("#selected-region").val(ui.item.value);
+			return false;
 		},
 		minLength: 3,
 		appendTo: '#region-container'
@@ -109,8 +115,8 @@ function usersDoEditInfo(form){
 		</p>
 		|-assign var=currentReg value=$currentUser->getRegion()-|
 		<p><label for="userParams[regionId]">Región</label>
-			<div id="region-container" style="position:absolute; width: 400px;"></div><input type="text" id="region" name="params[action]" placeholder="Ingrese una región" />
-			<!--select id="user_params_regionId" name="userParams[regionId]" class="chzn-select markets-chz-select" data-placeholder="|-if is_object($currentReg)-||-$currentReg->getName()-||-/if-|"></select-->
+			<div id="region-container" style="position:absolute; width: 400px;"></div><input type="text" id="region" placeholder="Ingrese una región" value="|-if is_object($currentReg)-||-$currentReg->getName()-||-/if-|"/>
+			<input type="hidden" id="selected-region" name="userParams[regionId]" value="|-if is_object($currentReg)-||-$currentReg->getId()-||-/if-|" />
 		</p>
 		<p><label for="pass">##users,165,Contraseña##</label>
 			<input id='pass' name='pass' type='password' value='' size="20" class="" onchange="javascript:setElementClass('pass','emptyValidation');setElementClass('pass2','passwordMatch');validationValidateFieldClienSide('pass');" /> |-validation_msg_box idField=pass-|
