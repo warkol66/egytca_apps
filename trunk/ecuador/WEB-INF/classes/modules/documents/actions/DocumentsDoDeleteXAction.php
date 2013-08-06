@@ -33,46 +33,48 @@ class DocumentsDoDeleteXAction extends BaseAction {
 		$document = DocumentQuery::create()->findOneById($id);
 		$password = $_POST['password'];
 
-		//validacion de password
-		if (!$document->checkPasswordValidation($password)) {
-			$smarty->assign("errormessage", "wrongPasswordComparison");
-			return $mapping->findForwardConfig("success");
-		}
-		else {
-			if (!empty($_POST['entity'])) {
-				$queryClassName = $_POST['entity'] . 'DocumentQuery';
-				if (class_exists($queryClassName)) {
-					$methodName = 'findOneByDocumentIdAnd' . $_POST['entity'] . 'Id';
-					try{
-						$queryInstance = new $queryClassName;
-						$queryInstance->$methodName($_POST["id"], $_POST['entityId'])->delete();
-					} catch(Exception $e) {
-						$smarty->assign("errormessage", "errorFound");
-						return $mapping->findForwardConfig("failure");
-					}
-
-					//si el documento no tiene mas referencias cruzadas lo elimino.
-					$queryInstance = new $queryClassName;
-					if ($queryInstance->filterByDocumentId($_POST["id"])->count() <= 0) {
-						if (!Document::deleteUnlink($_POST["id"])) {
+		if (!empty($document)) {
+			//validacion de password
+			if (!$document->checkPasswordValidation($password)) {
+				$smarty->assign("errormessage", "wrongPasswordComparison");
+				return $mapping->findForwardConfig("success");
+			}
+			else {
+				if (!empty($_POST['entity'])) {
+					$queryClassName = $_POST['entity'] . 'DocumentQuery';
+					if (class_exists($queryClassName)) {
+						$methodName = 'findOneByDocumentIdAnd' . $_POST['entity'] . 'Id';
+						try{
+							$queryInstance = new $queryClassName;
+							$queryInstance->$methodName($_POST["id"], $_POST['entityId'])->delete();
+						} catch(Exception $e) {
 							$smarty->assign("errormessage", "errorFound");
-							return $mapping->findForwardConfig("success");
+							return $mapping->findForwardConfig("failure");
+						}
+	
+						//si el documento no tiene mas referencias cruzadas lo elimino.
+						$queryInstance = new $queryClassName;
+						if ($queryInstance->filterByDocumentId($_POST["id"])->count() <= 0) {
+							if (!Document::deleteUnlink($_POST["id"])) {
+								$smarty->assign("errormessage", "errorFound");
+								return $mapping->findForwardConfig("success");
+							}
 						}
 					}
 				}
-			}
-			else {
-				if (!Document::deleteUnlink($_POST["id"])) {
-					//print_r(Document::deleteUnlink($_POST["id"]));
-					//echo(Document::deleteUnlink($_POST["id"]));
-					//die();
-					$smarty->assign("errormessage", "errorFound");
-					return $mapping->findForwardConfig("success");
+				else {
+					if (!Document::deleteUnlink($_POST["id"])) {
+						//print_r(Document::deleteUnlink($_POST["id"]));
+						//echo(Document::deleteUnlink($_POST["id"]));
+						//die();
+						$smarty->assign("errormessage", "errorFound");
+						return $mapping->findForwardConfig("success");
+					}
 				}
 			}
+			$smarty->assign("message", "deleteSuccess");
+			return $mapping->findForwardConfig("success");
 		}
-		$smarty->assign("message", "deleteSuccess");
-		return $mapping->findForwardConfig("success");
 	}
 
 }
