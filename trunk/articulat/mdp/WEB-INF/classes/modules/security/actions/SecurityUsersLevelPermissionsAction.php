@@ -29,6 +29,7 @@ class securityUsersLevelPermissionsAction extends BaseAction {
 			$moduleAccess = SecurityModulePeer::getAccess($moduleName);
 			if ($moduleAccess) {
 				$modules[$moduleName]['access'] = array(
+					'all' => $moduleAccess->hasAllUsersAccess(),
 					'bitLevel' => $moduleAccess->getAccess(),
 					'noCheckLogin' => $moduleAccess->getNochecklogin()
 				);

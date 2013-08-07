@@ -61,9 +61,7 @@
 <div id="content">
 	
 	<ul>
-		<li>falta implementar las llamadas por ajax: cambiar un checkbox no tiene efecto</li>
 		<li>falta ocultar acciones con pares</li>
-		<li>checkbox del módulo completo no se marca con el estado real. Sin implementar</li>
 	</ul>
 	
 	<table class="modules">
@@ -85,7 +83,12 @@
 					<button class="expand-button" onclick="expand(this.parentNode.parentNode.id);" style="display: none;">+</button>
 					<span>|-$moduleName-|</span>
 					|-if $userBitLevel neq 'noCheckLogin'-|
-						<input class="access" type="checkbox" |-$module.access.bitLevel|checked_if_has_access:$userBitLevel-| onchange="setModuleAccess(this.parentNode.parentNode.id, this.checked)">
+						|-if $module.access.all-|
+							<input class="access" type="checkbox" disabled="disabled" checked="true">
+							access allowed for all users
+						|-else-|
+							<input class="access" type="checkbox" |-$module.access.bitLevel|checked_if_has_access:$userBitLevel-| onchange="setModuleAccess(this.parentNode.parentNode.id, this.checked)">
+						|-/if-|
 					|-else-|
 						<input class="access" type="checkbox" |-$module.access.noCheckLogin|checked:1-| onchange="setModuleAccess(this.parentNode.parentNode.id, this.checked)">
 					|-/if-|
@@ -97,7 +100,12 @@
 					<td class="name">|-$action-|</td>
 					<td>
 						|-if $userBitLevel neq 'noCheckLogin'-|
-							<input class="access" type="checkbox" |-$access.bitLevel|checked_if_has_access:$userBitLevel-| onchange="setActionAccess(this.parentNode.parentNode.id, this.checked)">
+							|-if $access.all-|
+								<input class="access" type="checkbox" disabled="disabled" checked="true">
+								access allowed for all users
+							|-else-|
+								<input class="access" type="checkbox" |-$access.bitLevel|checked_if_has_access:$userBitLevel-| onchange="setActionAccess(this.parentNode.parentNode.id, this.checked)">
+							|-/if-|
 						|-else-|
 							<input class="access" type="checkbox" |-$access.noCheckLogin|checked:1-| onchange="setActionAccess(this.parentNode.parentNode.id, this.checked)">
 						|-/if-|
@@ -127,6 +135,7 @@
 		
 		var params = {};
 		params.access = access ? 'yes' : 'no';
+		params.bitLevel = '|-$userBitLevel-|';
 		params[type] = name;
 		
 		sendAccessChangeRequest(params, $(name), function(response) {
@@ -151,11 +160,13 @@
 		
 		var actions = [];
 		$$(visibleActionsSelector).each(function(e, i){
+			if (e.select('.access:enabled').length > 0)
 			actions.push(e.id);
 		});
 		
 		var params = {
 			"access": access ? 'yes' : 'no',
+			"bitLevel": '|-$userBitLevel-|',
 			"action[]": actions
 		}
 		
@@ -205,7 +216,7 @@
 	filterByName = function(value) {
 		
 		var value = value.trim().replace(' ', '.*', 'g');
-		var regex = new RegExp(value, 'i');
+		var regex = new RegExp(value);
 		
 		$$('.action').each(function(e, i) {
 			filterByCond(e, e.id.match(regex));

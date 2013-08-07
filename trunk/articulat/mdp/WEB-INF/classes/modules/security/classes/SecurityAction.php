@@ -8,6 +8,37 @@
  * @package security
  */
 class SecurityAction extends BaseSecurityAction {
+	
+	static function createFromAction($action) {
+		
+		$securityAction = new SecurityAction();
+		$securityAction->setAction($action)
+			->setAccess(1)
+			->setAccessAffiliateUser(0)
+			->setAccessRegistrationUser(0)
+			->setActive(1);
+		
+		$module = $securityAction->findModuleNameFromActionName();
+		$securityModule = SecurityModuleQuery::create()->findOneByModule($module);
+		if (!$securityModule)
+			$securityModule = SecurityModule::createFromModule($module);
+		
+		$securityAction->setSecurityModule($securityModule);
+		
+		return $securityAction;
+	}
+	
+	function findModuleNameFromActionName() {
+		preg_match("/([A-Z][a-z0-9]*)[A-Za-z0-9]*/", $this->getAction(), $matches);
+		return strtolower($matches[1]);
+	}
+	
+	function setAccessForBitLevel($access, $bitLevel) {
+		if ($access)
+			$this->setAccess($this->getAccess() | $bitLevel);
+		else
+			$this->setAccess($this->getAccess() & ~$bitLevel);
+	}
 
 	/**
 	* Obtiene la etiqueta de ese Action
