@@ -31,11 +31,8 @@
 |-/if-|
 <script language="JavaScript" type="text/javascript">
 $(function(){
-	|-*var regions = [|-foreach from=$regions item=avRegion name=regions-|"|-$avRegion-|"|-if !$smarty.foreach.regions.last-|,|-/if-||-/foreach-|];*-|
-	var regions = [|-foreach from=$regions item=avRegion name=regions-|{label:"|-$avRegion->getName()-|",value:"|-$avRegion->getId()-|"} |-if !$smarty.foreach.regions.last-|,|-/if-||-/foreach-|];
-	
 	$("#region").autocomplete({
-		source: url + '?do=regionsAutocompleteListX&type=json',
+		source: url + '?do=commonAutocompleteListX&type=json&object=region',
 		change: function(event,ui){
 			//para que no pueda poner un valor inexistente
 			$(this).val((ui.item ? ui.item.label : ""));
