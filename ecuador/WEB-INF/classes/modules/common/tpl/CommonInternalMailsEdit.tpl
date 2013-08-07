@@ -40,20 +40,14 @@ border-radius: 0px 0px 10px 10px;
 </style>
 <link type="text/css" href="css/smoothness/jquery-ui-1.8.19.custom.css" rel="Stylesheet" />
 |-/if-|
-<link type="text/css" rel="stylesheet" href="css/chosen.css" />
-<script src="scripts/jquery/chosen.js"></script>
-<script type="text/javascript" src="scripts/jquery/ajax-chosen.min.js"></script>
 <script type="text/javascript" src="scripts/jquery/egytca.js"></script>
 
 |-*include file="CommonEditTinyMceInclude.tpl" elements="internalMail[body]" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"*-|
 
 <script type="text/javascript" language="javascript" charset="utf-8">
 $(function(){
-	var users = [|-foreach from=$users item=avUser name=users-|{label:"|-$avUser-|",value:"|-$avUser->getId()-|"} |-if !$smarty.foreach.users.last-|,|-/if-||-/foreach-|];
-	var affiliates = [|-foreach from=$affiliates item=avAffiliate name=affiliates-|"|-$avAffiliate-|"|-if !$smarty.foreach.users.last-|,|-/if-||-/foreach-|];
-	
 	$("#userRecipients").autocomplete({
-		source: users,
+		source: url + '?do=usersAutocompleteListX&getCandidates=1&object=user',
 		change: function(event,ui){
 		  $(this).val((ui.item ? ui.item.label : ""));
 		},
@@ -68,7 +62,7 @@ $(function(){
 		appendTo: '#recipientsUsers-container'
 	});
 	$( "#affiliateRecipients" ).autocomplete({
-		source: affiliates,
+		source: url + '?do=commonAutocompleteListX&getCandidates=true&object=affiliate',
 		select:function(event,ui){
 			var idx = $('#recipientsSelected > li').size();
 			if($('#recipient_' + ui.item.value).length == 0)
