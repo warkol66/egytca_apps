@@ -47,7 +47,7 @@ border-radius: 0px 0px 10px 10px;
 <script type="text/javascript" language="javascript" charset="utf-8">
 $(function(){
 	$("#userRecipients").autocomplete({
-		source: url + '?do=usersAutocompleteListX&getCandidates=1&object=user',
+		source: url + '?do=commonAutocompleteListX&getCandidates=1&object=user',
 		change: function(event,ui){
 		  $(this).val((ui.item ? ui.item.label : ""));
 		},
