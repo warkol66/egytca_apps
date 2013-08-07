@@ -1,7 +1,7 @@
 <script type="text/javascript" language="javascript" charset="utf-8">
 	jQuery.noConflict();
 </script>
-<script src="scripts/funtions.js" language="JavaScript" type="text/javascript"></script>
+<script src="scripts/functions.js" language="JavaScript" type="text/javascript"></script>
 <script src="scripts/prototype.js" language="JavaScript" type="text/javascript"></script>
 <script src="scripts/lightbox.js" language="JavaScript" type="text/javascript"></script>
 |-if !$result-|

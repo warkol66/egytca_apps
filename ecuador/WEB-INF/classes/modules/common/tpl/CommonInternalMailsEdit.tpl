@@ -73,7 +73,7 @@ $(function(){
 			var idx = $('#recipientsSelected > li').size();
 			if($('#recipient_' + ui.item.value).length == 0)
 				$('#recipientsSelected').append('<li id="recipient_' + ui.item.value +'"><input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+ ui.item.value +'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+ ui.item.label  +'</li>');
-			$("#userRecipients").val('');
+			$("#affiliateRecipients").val('');
 			return false;
 		},
 		minLength: 3,
