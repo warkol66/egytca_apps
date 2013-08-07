@@ -1,11 +1,11 @@
 {
 	"errors": |-$errors|json_encode-|
-	|-if $action-|
+	|-if $actions-|
 		,
-		"action": |-$action|json_encode-|
+		"actions": |-$actions|json_encode-|
 	|-/if-|
-	|-if $module-|
+	|-if $modules-|
 		,
-		"module": |-$module|json_encode-|
+		"modules": |-$modules|json_encode-|
 	|-/if-|
 }

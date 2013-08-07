@@ -8,6 +8,25 @@
  * @package    security
  */
 class SecurityModule extends BaseSecurityModule {
+	
+	static function createFromModule($module) {
+		
+		$securityModule = new SecurityModule();
+		$securityModule->setModule($module)
+			->setAccess(0)
+			->setAccessaffiliateuser(0)
+			->setAccessregistrationuser(0)
+			->setNochecklogin(0);
+		
+		return $securityModule;
+	}
+	
+	function setAccessForBitLevel($access, $bitLevel) {
+		if ($access)
+			$this->setAccess($this->getAccess() | $bitLevel);
+		else
+			$this->setAccess($this->getAccess() & ~$bitLevel);
+	}
 
 	/**
 	 * Genera instrucciones sql para insertar informacion de seguridad del modulo
@@ -57,6 +76,10 @@ class SecurityModule extends BaseSecurityModule {
 	 */
 	function hasAllAffiliateAccess() {
 		return ($this->hasAccessAffiliateBitLevel(1) && $this->hasAccessAffiliateBitLevel(2) && $this->hasAccessAffiliateBitLevel(4));
+	}
+	
+	function hasAllUsersAccess() {
+		return $this->getAccess() == SecurityModulePeer::LEVEL_ALL;
 	}
 
 	/**
