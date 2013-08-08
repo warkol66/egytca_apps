@@ -4,7 +4,7 @@
 		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
         $( ".datepicker" ).datepicker({
 			dateFormat:"dd-mm-yy"
-		});
+		}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
 
 	});//fin docready
 </script>
@@ -37,7 +37,7 @@
 			</p> -->
 			<p>
 				<label for="newscomment_creationDate">Fecha</label>
-				<input name="params[creationDate]" type="date" id="params_creationDate" class="datepicker" title="creationDate" value="|-$newsComment->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<input name="params[creationDate]" type="text" id="params_creationDate" class="datepicker" title="creationDate" value="|-$newsComment->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 			</p>
 			<p>
