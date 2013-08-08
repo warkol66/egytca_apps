@@ -3,7 +3,7 @@
 		$.datepicker.setDefaults($.datepicker.regional['es']);
         $( ".datepicker" ).datepicker({
 			dateFormat:"dd-mm-yy"
-        });
+        }).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
      });
 </script>
 <h2>Comentarios</h2>
