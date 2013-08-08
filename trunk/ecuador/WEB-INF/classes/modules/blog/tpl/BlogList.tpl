@@ -7,13 +7,13 @@
 			onClose: function(selectedDate) {
                 $(".datepickerTo").datepicker("option", "minDate", selectedDate);
             }
-		});
+		}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');;
 		$(".datepickerTo").datepicker({
 			dateFormat:"dd-mm-yy",
 			onClose: function(selectedDate) {
                 $(".datepickerFrom").datepicker("option", "maxDate", selectedDate);
             }
-		});
+		}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');;
     });
 </script>
 <h2>##blog,1,Blog##</h2>
