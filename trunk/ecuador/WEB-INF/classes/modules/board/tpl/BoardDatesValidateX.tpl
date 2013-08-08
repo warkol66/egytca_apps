@@ -7,9 +7,7 @@
 	document.location.href = '#';
 	|-else-|
 	if(validationValidateFormClienSide($('form_edit_boardChallenge'), false)){
-		$('#doEdit').remove();
 		$('#form_edit_boardChallenge').attr('target','').append('<input type="hidden" name="do" id="do" value="boardDoEdit" />').submit();
-		//$('#form_edit_boardChallenge').submit();
 	}	
 	|-/if-|
 </script>
