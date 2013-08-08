@@ -77,22 +77,27 @@ function selectAllCheckboxes() {
 //migrada
 function submitPreview(form) {
 	$(form).attr('target','_blank').submit();
-	$('#doEdit').attr('value','boardDoEdit');
+	$('#doEdit').remove();
+	$('#mode').remove();
 }
 
 //migrada
 function submitPreviewOnHome(form) {
 	
-	$('#doEdit').attr('value','boardPreview');
-	var mode = $('<input>').attr('type','hidden').attr('name','mode').attr('value','home');
+	//$('#doEdit').attr('value','boardPreview');
+	prev = $('<input>').attr('type','hidden').attr('name','do').attr('id','doEdit').attr('value','boardPreview');
+	var mode = $('<input>').attr('type','hidden').attr('name','mode').attr('id','mode').attr('value','home');
+	$(form).append(prev);
 	$(form).append(mode);
 	submitPreview(form);
 }
 
 //migrada
 function submitPreviewDetailed(form) {
-	$('#doEdit').attr('value','boardPreview');
-	mode = $('<input>').attr('type','hidden').attr('name','mode').attr('value','detailed');
+	//$('#doEdit').attr('value','boardPreview');
+	prev = $('<input>').attr('type','hidden').attr('name','do').attr('id','doEdit').attr('value','boardPreview');
+	mode = $('<input>').attr('type','hidden').attr('name','mode').attr('id','mode').attr('value','detailed');
+	$(form).append(prev);
 	$(form).append(mode);
 	submitPreview(form);
 }
