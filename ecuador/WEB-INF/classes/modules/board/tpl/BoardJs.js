@@ -77,16 +77,15 @@ function selectAllCheckboxes() {
 //migrada
 function submitPreview(form) {
 	$(form).attr('target','_blank').submit();
+	$('#doEdit').attr('value','boardDoEdit');
 }
 
 //migrada
 function submitPreviewOnHome(form) {
 	
-	//$('#doEdit').attr('value','boardPreview');
+	$('#doEdit').attr('value','boardPreview');
 	var mode = $('<input>').attr('type','hidden').attr('name','mode').attr('value','home');
-	var preview = $('<input>').attr('type','hidden').attr('name','do').attr('id','doEdit').attr('value','boardPreview');
 	$(form).append(mode);
-	$(form).append(preview);
 	submitPreview(form);
 }
 
