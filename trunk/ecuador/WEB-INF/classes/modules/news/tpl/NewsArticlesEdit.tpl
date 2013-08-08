@@ -4,7 +4,7 @@
 		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
         $( ".creation, .file" ).datepicker({
 			dateFormat:"dd-mm-yy"
-		});
+		}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
 	});//fin docready
 </script>
 |-include file='NewsArticlesEditTinyMceInclude.tpl' elements="params_body" plugins="safari,style,table,advlink,inlinepopups,media,contextmenu,paste,nonbreaking"-|
@@ -52,7 +52,7 @@ Puede regresar a la página principal de noticias haciendo click <a href="Main.p
 			</p>|-/if-|
 			<p>
 				<label for="newsarticle_creationDate">##news,35,Fecha de Creación##</label>
-				<input name="params[creationDate]" type="date" id="params_creationDate" class="creation" title="creationDate" value="|-$newsArticle->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<input name="params[creationDate]" type="text" id="params_creationDate" class="creation" title="creationDate" value="|-$newsArticle->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 			</p>
 			<p>

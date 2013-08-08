@@ -34,7 +34,7 @@ $(function() {
 	$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
 	$( ".creation" ).datepicker({
 		dateFormat:"dd-mm-yy"
-	});
+	}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
 });
 </script>
 <!-- /TinyMCE -->
@@ -71,7 +71,7 @@ $(function() {
 
 			<p>
 				<label for="newsmedia_creationDate">Fecha de Creación</label>
-				<input name="params[creationDate]" type="date" id="params_creationDate" class="creation" title="creationDate" value="|-$newsMedia->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" />
+				<input name="params[creationDate]" type="text" id="params_creationDate" class="creation" title="creationDate" value="|-$newsMedia->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" />
 				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 			</p>
 			<p>
