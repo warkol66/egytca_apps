@@ -7,19 +7,19 @@ Puede regresar a la página principal de consignas haciendo click <a href="Main.
 		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
         $( ".datepicker" ).datepicker({
 			dateFormat:"dd-mm-yy"
-		});
+		}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
 		$( ".datepickerStart" ).datepicker({
 			dateFormat:"dd-mm-yy",
 			onClose: function(selectedDate) {
                 $(".datepickerEnd").datepicker("option", "minDate", selectedDate);
             }
-		});
+		}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
 		$(".datepickerEnd").datepicker({
 			dateFormat:"dd-mm-yy",
 			onClose: function(selectedDate) {
                 $(".datepickerStart").datepicker("option", "maxDate", selectedDate);
             }
-		});
+		}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
 
 	});//fin docready
  
@@ -50,17 +50,17 @@ Puede regresar a la página principal de consignas haciendo click <a href="Main.
 			</p>
 			<p>
 				<label for="params_creationDate">Fecha de Creación</label>
-				<input name="params[creationDate]" type="date" id="params_creationDate" class="datepicker" title="Fecha de Creación" value="|-$boardChallenge->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<input name="params[creationDate]" type="text" id="params_creationDate" class="datepicker" title="Fecha de Creación" value="|-$boardChallenge->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
 				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 			</p>
 			<p>
 				<label for="params_startDate">Fecha de inicio</label>
-				<input name="params[startDate]" type="date" id="params_startDate" class="datepickerStart" title="Fecha de inicio" value="|-$boardChallenge->getstartDate()|date_format:"%d-%m-%Y"-|" size="12" />
+				<input name="params[startDate]" type="text" id="params_startDate" class="datepickerStart" title="Fecha de inicio" value="|-$boardChallenge->getstartDate()|date_format:"%d-%m-%Y"-|" size="12" />
 				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 			</p>
 			<p>
 				<label for="params_endDate">Fecha de finalización</label>
-				<input name="params[endDate]" type="date" id="params_endDate" class="datepickerEnd" title="Fecha de finalización" value="|-$boardChallenge->getendDate()|date_format:"%d-%m-%Y"-|" size="12" />
+				<input name="params[endDate]" type="text" id="params_endDate" class="datepickerEnd" title="Fecha de finalización" value="|-$boardChallenge->getendDate()|date_format:"%d-%m-%Y"-|" size="12" />
 				<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 			</p>
 			|-assign var=boardChallengeId value=$boardChallenge->getId()-|
