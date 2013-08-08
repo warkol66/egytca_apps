@@ -1,21 +1,4 @@
 <script src="Main.php?do=js&name=js&module=calendar&code=|-$currentLanguageCode-|" type="text/javascript"></script>
-<script>
-    $(function() {
-		$.datepicker.setDefaults($.datepicker.regional['es']);
-        $( ".datepickerFrom" ).datepicker({
-			dateFormat:"dd-mm-yy",
-			onClose: function(selectedDate) {
-                $(".datepickerTo").datepicker("option", "minDate", selectedDate);
-            }
-		});
-		$(".datepickerTo").datepicker({
-			dateFormat:"dd-mm-yy",
-			onClose: function(selectedDate) {
-                $(".datepickerFrom").datepicker("option", "maxDate", selectedDate);
-            }
-		});
-    });
-</script>
 <h2>Imágenes</h2>
 <h1>Administrar Imágenes</h1>
 <p>A continuación puede ver las imágenes asociadas a los eventos publicados.</p>
