@@ -12,7 +12,7 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
         $( ".datepicker" ).datepicker({
 			dateFormat:"dd-mm-yy"
-		});
+		}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
         
         $("a#inline").fancybox();
 
@@ -99,7 +99,7 @@ Puede regresar a la página principal del blog haciendo click <a href="Main.php?
 </div>
 			<p>
 				<label for="params_creationDate">Fecha de Creación</label>
-				<input name="params[creationDate]" type="date" id="params_creationDate" class="datepicker" title="creationDate" value="|-$blogEntry->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
+				<input name="params[creationDate]" type="text" id="params_creationDate" class="datepicker" title="creationDate" value="|-$blogEntry->getcreationDate()|date_format:"%d-%m-%Y"-|" size="12" /> 
 			</p>
 			|-assign var=entryId value=$blogEntry->getId()-|
 			|-if not empty($entryId)-|
