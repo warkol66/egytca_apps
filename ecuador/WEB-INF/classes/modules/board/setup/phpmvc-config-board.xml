@@ -9,15 +9,6 @@
 			<forward  name="success" path="BoardSendToEmailX.tpl" />
 			<forward  name="failure" path="BoardSendToEmailXFailure.tpl" />
 		</action>
-		
-		<action  path = "boardDoEdit"
-						 type = "BoardDoEditAction"
-						 name = "boardDoEdit"
-						scope = "request"
-				 validate = "true">
-			<forward  name="success" path="/Main.php?do=boardList&amp;message=ok" redirect="true" />
-			<forward  name="failure" path="/Main.php?do=boardList&amp;message=failure" redirect="true" />
-		</action>
 		<!--queda -->
 		<action  path = "boardSearch"
 						 type = "BoardSearchAction"
