@@ -1,5 +1,7 @@
 <?php
 
+require_once 'ControllerUtils.php';
+
 /**
  * Skeleton subclass for representing a row from the 'SecurityAction' table.
  *
@@ -12,11 +14,14 @@ class SecurityAction extends BaseSecurityAction {
 	static function createFromAction($action) {
 		
 		$securityAction = new SecurityAction();
-		$securityAction->setAction($action)
+		$securityAction
 			->setAccess(1)
 			->setAccessAffiliateUser(0)
 			->setAccessRegistrationUser(0)
 			->setActive(1);
+		
+		$pair = ControllerUtils::getPairForAction($action);
+		$securityAction->setAction($pair['withoutDo'])->setPair($pair['withDo']);
 		
 		$module = $securityAction->findModuleNameFromActionName();
 		$securityModule = SecurityModuleQuery::create()->findOneByModule($module);
@@ -29,8 +34,7 @@ class SecurityAction extends BaseSecurityAction {
 	}
 	
 	function findModuleNameFromActionName() {
-		preg_match("/([A-Z][a-z0-9]*)[A-Za-z0-9]*/", $this->getAction(), $matches);
-		return strtolower($matches[1]);
+		return ControllerUtils::getModuleForAction($this->getAction());
 	}
 	
 	function setAccessForBitLevel($access, $bitLevel) {

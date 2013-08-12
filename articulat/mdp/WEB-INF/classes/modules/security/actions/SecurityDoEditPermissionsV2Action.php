@@ -42,9 +42,16 @@ class SecurityDoEditPermissionsV2Action extends BaseAction {
 		try {
 			
 			foreach ($actions as $action) {
-				$securityAction = SecurityActionQuery::create()->findOneByAction($action);
+				
+				$securityAction = SecurityActionQuery::create()
+						->filterByAction($action)
+					->_or()
+						->filterByPair($action)
+					->findOne();
+				
 				if (!$securityAction)
 					$securityAction = SecurityAction::createFromAction($action);
+				
 				$securityAction->setAccessForBitLevel($access, $bitLevel);
 				$securityAction->save();
 			}
