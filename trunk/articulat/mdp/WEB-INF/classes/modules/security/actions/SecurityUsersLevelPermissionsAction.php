@@ -36,39 +36,15 @@ class securityUsersLevelPermissionsAction extends BaseAction {
 					'noCheckLogin' => $moduleAccess->getNochecklogin()
 				);
 			}
-
-			$actionNames = ControllerUtils::getActions($moduleName);
+			
+			$actionNames = ControllerUtils::getActionsForModule($moduleName);
 			$accessToActions = $securityActionPeer->getAccessToActions($actionNames);
 			foreach ($actionNames as $actionName) {
+				if (ControllerUtils::isPairActionWithDo($actionName))
+					continue;
 				$modules[$moduleName]['actions'][$actionName] = $accessToActions[$actionName];
 			}
 			
-//				//separacion entre actions con par y acciones sin par
-//				foreach ($actions as $action) {
-//
-//					//separamos los pares de aquellos que no tienen pares
-//					if (preg_match("/(.*)([a-z]Do[A-Z])(.*)/",$action,$parts)) {
-//						//armamos el nombre de la posible action sin do
-//						$actionWithoutDo = $parts[1].$parts[2][0].$parts[2][3].$parts[3];
-//
-//						if (in_array($actionWithoutDo,$actions))
-//							$pairActions[$actionWithoutDo] = $action;
-//					}
-//				}
-//
-//				if (!empty($pairActions)) {
-//
-//					$withPair = array_keys($pairActions);
-//					$arrays = array_diff($actions,$withPair);
-//
-//					$actionsToDelete = array_merge(array_keys($pairActions), array_values($pairActions));
-//					$withoutPair = array_diff($actions,$actionsToDelete);
-//
-//				}
-//				else {
-//					$withoutPair = $actions;
-//					$withPair = array();
-//				}
 		}
 		
 		$smarty->assign('modules', $modules);

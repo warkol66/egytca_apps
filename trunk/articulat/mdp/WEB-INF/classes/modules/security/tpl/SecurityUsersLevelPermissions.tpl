@@ -59,11 +59,6 @@
 	</div>
 </div>
 <div id="content">
-	
-	<ul>
-		<li>falta ocultar acciones con pares</li>
-	</ul>
-	
 	<table class="modules">
 		<tr id="allActions">
 			<td>
