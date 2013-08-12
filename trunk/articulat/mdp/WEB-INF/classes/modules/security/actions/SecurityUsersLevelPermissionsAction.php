@@ -1,5 +1,7 @@
 <?php
 
+require_once 'ControllerUtils.php';
+
 class securityUsersLevelPermissionsAction extends BaseAction {
 	
 	public function execute($mapping, $form, &$request, &$response) {
@@ -35,12 +37,12 @@ class securityUsersLevelPermissionsAction extends BaseAction {
 				);
 			}
 
-			$actionNames = $this->getActions($moduleName);
+			$actionNames = ControllerUtils::getActions($moduleName);
 			$accessToActions = $securityActionPeer->getAccessToActions($actionNames);
 			foreach ($actionNames as $actionName) {
 				$modules[$moduleName]['actions'][$actionName] = $accessToActions[$actionName];
 			}
-
+			
 //				//separacion entre actions con par y acciones sin par
 //				foreach ($actions as $action) {
 //
@@ -72,21 +74,5 @@ class securityUsersLevelPermissionsAction extends BaseAction {
 		$smarty->assign('modules', $modules);
 		
 		return $mapping->findForwardConfig('success');
-	}
-	
-	function getActions($module) {
-		
-		$modulePath = "WEB-INF/classes/modules/$module/actions/";
-		$actions = array();
-		if ($directoryHandler = opendir($modulePath)) { //Si el directorio existe
-			
-			while (false !== ($filename = readdir($directoryHandler))) {
-				//verifico si es un archivo php
-				if (is_file($modulePath . $filename) && (preg_match('/(.*)Action.php$/', $filename, $matches)))
-					array_push($actions, $matches[1]);
-			}
-			closedir($directoryHandler);
-		}
-		return $actions;
 	}
 }
