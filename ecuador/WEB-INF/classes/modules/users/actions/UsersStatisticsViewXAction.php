@@ -25,9 +25,11 @@ class UsersStatisticsViewXAction extends BaseEditAction {
 
 		//Constantes y opciones posibles
 		$this->smarty->assign("blogEntries", BlogEntryQuery::create()->filterByUserid($_REQUEST['id'])->count());
-		$this->smarty->assign("blogComments", BlogCommentQuery::create()->filterByUserid($_REQUEST['id'])->count());
+		$this->smarty->assign("blogComments", BlogCommentQuery::create()->filterByObjectType('User')->filterByObjectid($_REQUEST['id'])->count());
 		$this->smarty->assign("boardChallenges", BoardChallengeQuery::create()->filterByUserid($_REQUEST['id'])->count());
-		$this->smarty->assign("boardComments", BoardCommentQuery::create()->filterByUserid($_REQUEST['id'])->count());
+		$this->smarty->assign("boardComments", BoardCommentQuery::create()->filterByObjectType('User')->filterByUserid($_REQUEST['id'])->count());
+		$this->smarty->assign("boardBonds", BoardBondQuery::create()->filterByUserType('User')->filterByUserid($_REQUEST['id'])->count());
+		$this->smarty->assign("documents", DocumentQuery::create()->filterByUserObjectType('User')->filterByUserObjectid($_REQUEST['id'])->count());
 		
 		$this->template->template = "TemplateAjax.tpl";
 	}

@@ -5,6 +5,8 @@
 	<set label='Comentarios en Blog' value='|-$blogComments-|' />
 	<set label='Desafios' value='|-$boardChallenges-|' />
 	<set label='Comentarios sobre Desafios' value='|-$boardComments-|' />
+	<set label='Compromisos sobre Desafios' value='|-$boardBonds-|' />
+	<set label='Documentos creados' value='|-$documents-|' />
 	
 	</chart>|-/capture-| 
 
