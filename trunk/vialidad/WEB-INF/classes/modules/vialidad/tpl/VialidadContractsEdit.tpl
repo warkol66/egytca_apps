@@ -19,12 +19,12 @@
 |-if !$notValidId-|	
 	<fieldset title="Formulario de edición de nombre del Contrato">
 		<legend>Contratos</legend>
-		<p>Realice los cambios y para guardar haga click en "Guardar Cambios"</p>
+		<p>Realice los cambios y para guardar haga click en "Guardar"</p>
 			<form method="post" action="Main.php?do=vialidadContractsDoEdit">
 			<input type="hidden" value="|-$action-|" name="action">
 			<input type="hidden" value="|-$contract->getId()-|" name="id">
 		 <p><label for="params[name]">Nombre</label>
-			<input name="params[name]" type="text" value="|-$contract->getName()|escape-|" size="60" title="Nombre del contrato">
+			<input name="params[name]" id="params[name]" type="text" value="|-$contract->getName()|escape-|" size="60" title="Nombre del contrato" class="emptyValidation"> |-validation_msg_box idField="params[name]"-|
 		 </p>
 		 <p><label for="params_type">Tipo</label>
 			<select id="params_type" name="params[type]" title="Tipo de contrato">
@@ -35,22 +35,22 @@
 			</select>
 		 </p>
 		 <p><label for="params[pacNumber]">Id de contrato (N° PAC)</label>
-			<input name="params[pacNumber]" type="text" value="|-$contract->getPacNumber()|escape-|" size="8" title="Id de contrato (N° PAC)"> |-if $contract->getPacNumber() ne ''-|<a href="https://www.contrataciones.gov.py/sicp/llamado/llamadosPorID.seam?nroPacParam=|-$contract->getPacNumber()-|" target="_blank" title="Ir a Contrato" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a>|-/if-| 
+			<input name="params[pacNumber]" id="params[pacNumber]" type="text" value="|-$contract->getPacNumber()|escape-|" size="8" title="Id de contrato (N° PAC), buscar el ID en la página de contrataciones" class="emptyValidation"> |-validation_msg_box idField="params[pacNumber]"-| |-if $contract->getPacNumber() ne ''-|<a href="https://www.contrataciones.gov.py/sicp/llamado/llamadosPorID.seam?nroPacParam=|-$contract->getPacNumber()-|" target="_blank" title="Ir a Contrato" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a>|-/if-| 
 		 </p>
 		 <p>
 		   <label for="params[contractNumber]">Nro de Contrato</label>
-				<input name="params[contractNumber]" type="text" value="|-$contract->getContractNumber()|escape-|" size="15" title="Nro de Contrato"> 
+				<input name="params[contractNumber]" id="params[contractNumber]" type="text" value="|-$contract->getContractNumber()|escape-|" size="15" title="Nro de Contrato" class="emptyValidation" /> |-validation_msg_box idField="params[contractNumber]"-| 
 		</p>
 		 <p>
 		   <label for="params[tenderNumber]">Nro de Llamado</label>
-				<input name="params[tenderNumber]" type="text" value="|-$contract->getTenderNumber()|escape-|" size="15" title="Nro de Llamado"> 
+				<input name="params[tenderNumber]" id="params[tenderNumber]" type="text" value="|-$contract->getTenderNumber()|escape-|" size="15" title="Nro de Llamado" class="emptyValidation" /> |-validation_msg_box idField="params[tenderNumber]"-| 
 		</p>
 			<p>     
 				<label for="params[startDate]">Fecha de inicio</label>
-				<input id="params[startDate]" name="params[startDate]" type='text' value='|-$contract->getStartDate()|date_format-|' size="12" title="Ingrese la fecha de inicio" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input id="params[startDate]" name="params[startDate]" type='text' value='|-$contract->getStartDate()|date_format-|' size="12" title="Ingrese la fecha de inicio"  class="dateValidation emptyValidation" /> |-validation_msg_box idField="params[startDate]"-|  <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 			<div id="contractor" style="position: relative;z-index:11000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_contractorId" label="Proveedor" url="Main.php?do=affiliatesAutocompleteListX" hiddenName="params[contractorId]" defaultHiddenValue=$contract->getContractorId() defaultValue=$contract->getAffiliate()-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_contractorId" label="Proveedor" url="Main.php?do=affiliatesAutocompleteListX" hiddenName="params[contractorId]" defaultHiddenValue=$contract->getContractorId() defaultValue=$contract->getAffiliate() class="emptyValidation"-| 
 			</div>
 		 <p><label for="params_tprano">Línea presupuestaria</label>
 			<input name="params[tprano]"  id="params_tprano" type="text" value="|-$contract->getTprano()|escape-|" size="4" title="Año del contrato (aaaa)">
@@ -61,7 +61,7 @@
 			<input name="params[prydes]"  id="params_prydes" type="text" value="|-$contract->getPrydes()|escape-|" size="40" title="Descripción">
 		 </p>
 		 <p><label for="params_adjudication">Resolución y/o Decreto de Adjudicación</label>
-			<input name="params[adjudication]"  id="params_adjudication" type="text" value="|-$contract->getAdjudication()|escape-|" size="60">
+			<input name="params[adjudication]"  id="params_adjudication" type="text" value="|-$contract->getAdjudication()|escape-|" size="60" class="emptyValidation" /> |-validation_msg_box idField="params[adjudication]"-|
 		 </p>
 			<p>     
 				<label for="params_adjudicationDate">Fecha de adjudicación</label>
@@ -69,24 +69,24 @@
 			</p>
 			<p>     
 				<label for="params[signDate]">Fecha de firma</label>
-				<input id="params[signDate]" name="params[signDate]" type='text' value='|-$contract->getSignDate()|date_format-|' size="12" title="Ingrese la fecha de firma" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[signDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input id="params[signDate]" name="params[signDate]" type='text' value='|-$contract->getSignDate()|date_format-|' size="12" title="Ingrese la fecha de firma" class="dateValidation emptyValidation" /> |-validation_msg_box idField="params[signDate]"-| <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[signDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 		 <p><label for="params[validationLength]">Plazo contractual</label>
-			<input name="params[validationLength]" type="text" value="|-$contract->getValidationLength()|system_numeric_format:0-|" size="6"> 
+			<input name="params[validationLength]" id="params[validationLength]" type="text" value="|-$contract->getValidationLength()|system_numeric_format:0-|" size="6" class="numericValidation emptyValidation" /> 
 			<select id="params_validationType" name="params[validationType]" title="Tipo de plazo">
 				|-foreach from=$termTypes key=key item=name-|
 							<option value="|-$key-|" |-$contract->getValidationType()|selected:$key-|>|-$name-|</option>
 				|-/foreach-|
-			</select>
+			</select>|-validation_msg_box idField="params[validationLength]"-| 
 		 </p>
 
 		 <p><label for="params[contractLength]">Vigencia del Contrato</label>
-			<input name="params[contractLength]" type="text" value="|-$contract->getContractLength()|system_numeric_format:0-|" size="6"> 
+			<input name="params[contractLength]" id="params[contractLength]" type="text" value="|-$contract->getContractLength()|system_numeric_format:0-|" size="6" class="numericValidation emptyValidation" /> 
 			<select id="params_termType" name="params[termType]" title="Tipo de plazo">
 				|-foreach from=$termTypes key=key item=name-|
 							<option value="|-$key-|" |-$contract->getTermType()|selected:$key-|>|-$name-|</option>
 				|-/foreach-|
-			</select>
+			</select>|-validation_msg_box idField="params[contractLength]"-| 
 		 </p>
 
 		 <p><label for="params[validationLengthModified]">Plazo contractual Modificado</label>
@@ -112,7 +112,8 @@
 		 
 
 
-	 <p><input name="save" type="submit" value="Guardar Cambios">
+	 <p><script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
+				|-javascript_form_validation_button value='Guardar' title='Guardar'-|
 		 		|-if $action eq 'edit'-|
 		 		<input type='button' onClick='location.href="Main.php?do=indicatorsList&contractId=|-$contract->getId()-|"' value='Curva de Avance' title="Curva de Avance"/>
 				

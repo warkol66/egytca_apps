@@ -42,39 +42,39 @@
 				|-if is_object($contract)-||-$contract->getContractNumber()|escape-||-/if-|
 		</p>
 		 <p><label for="params[name]">Nombre</label>
-			<input name="params[name]" type="text" value="|-$construction->getName()|escape-|" size="60">
+			<input name="params[name]" type="text" value="|-$construction->getName()|escape-|" size="60" class="emptyValidation" /> |-validation_msg_box idField="params[typeId]"-|
 		 </p>
 		 <p><label for="params[description]">Descripción</label>
-			 <textarea name="params[description]" rows="4" cols="58">|-$construction->getDescription()-|</textarea>
+			 <textarea name="params[description]" rows="4" cols="58" class="emptyValidation" />|-$construction->getDescription()-|</textarea>|-validation_msg_box idField="params[description]"-|
 		 </p>
 		 <div id="verifier" style="position: relative;z-index:10000;">
-			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_verifierId" label="Fiscalizadora" url="Main.php?do=affiliatesAutocompleteListX" hiddenName="params[verifierId]" defaultHiddenValue=$construction->getVerifierId() defaultValue=$construction->getAffiliate()-|
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_verifierId" label="Fiscalizadora" url="Main.php?do=affiliatesAutocompleteListX" hiddenName="params[verifierId]" defaultHiddenValue=$construction->getVerifierId() defaultValue=$construction->getAffiliate() class="emptyValidation"-|
 		 </div>
 			<p>
 				<label for="params[typeId]">Tipo de Obra</label>
-				<select id="params[typeId]" name="params[typeId]" >
+				<select id="params[typeId]" name="params[typeId]" class="emptyValidation" /> 
         		<option value="">Seleccione</option>
 				|-foreach from=$types item=type name=for_type-|
         		<option value="|-$type->getId()-|"|-$construction->getTypeId()|selected:$type->getId()-|>|-$type-|</option>
 				|-/foreach-|
-				</select>
+				</select>|-validation_msg_box idField="params[typeId]"-|
 			</p>
 			 <p><label for="params[length]">Longitud</label>
-			<input name="params[length]" type="text" value="|-$construction->getLength()|escape-|" size="6"> 
+			<input name="params[length]" type="text" value="|-$construction->getLength()|escape-|" size="6" class="emptyValidation" /> 
 			<select id="params_lengthUnit" name="params[lengthUnit]" title="Unidad de medida">
         		<option value="">Seleccione unidad de medida</option>
 				|-foreach from=$measureUnits item=object-|
 							<option value="|-$object->getId()-|" |-$construction->getLengthUnit()|selected:$object->getId()-|>(|-$object-|) |-$object->getName()-|</option>
 				|-/foreach-|
-			</select>
+			</select>|-validation_msg_box idField="params[length]"-|
 		 </p>
 			<p>     
 				<label for="params[startDate]">Orden de Inicio</label>
-				<input id="params[startDate]" name="params[startDate]" type='text' value='|-$construction->getStartDate()|date_format-|' size="12" title="Ingrese la fecha de inicio" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input id="params[startDate]" name="params[startDate]" type='text' value='|-$construction->getStartDate()|date_format-|' size="12" title="Ingrese la fecha de inicio" class="dateValidation emptyValidation" /> |-validation_msg_box idField="params[startDate]"-| <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[startDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
 
 		 <p><label for="params[validationLength]">Plazo de la Obra</label>
-			<input name="params[validationLength]" type="text" value="|-$construction->getValidationLength()|system_numeric_format:0-|" size="6"> 
+			<input name="params[validationLength]" type="text" value="|-$construction->getValidationLength()|system_numeric_format:0-|" size="6" class="emptyValidation" /> |-validation_msg_box idField="params[validationLength]"-|
 			<select id="params_validationType" name="params[validationType]" title="Tipo de plazo">
 				|-foreach from=$termTypes key=key item=name-|
 							<option value="|-$key-|" |-$construction->getValidationType()|selected:$key-|>|-$name-|</option>
@@ -84,25 +84,26 @@
 
 
 		 <p><label for="params[routeType]">Tipo de Ruta</label>
-			<input name="params[routeType]" type="text" value="|-$construction->getrouteType()|escape-|" size="20">
+			<input name="params[routeType]" id="params[routeType]" type="text" value="|-$construction->getrouteType()|escape-|" size="20" class="emptyValidation" /> |-validation_msg_box idField="params[routeType]"-|
 		 </p>
 		 <p><label for="params[routeStartingKm]">Kilómetro</label>
-			&nbsp; desde <input name="params[routeStartingKm]" type="text" value="|-$construction->getrouteStartingKm()|system_numeric_format:3-|" class="right" size="6">
-			&nbsp; &nbsp; hasta <input name="params[routeEndingKm]" type="text" value="|-$construction->getrouteEndingKm()|system_numeric_format:3-|" class="right" size="6">
+			&nbsp; desde <input name="params[routeStartingKm]" id="params[routeStartingKm]" type="text" value="|-$construction->getrouteStartingKm()|system_numeric_format:3-|" size="6" class="right emptyValidation" /> |-validation_msg_box idField="params[routeStartingKm]"-|
+			&nbsp; &nbsp; hasta <input name="params[routeEndingKm]" id="params[routeEndingKm]" type="text" value="|-$construction->getrouteEndingKm()|system_numeric_format:3-|" size="6" class="right emptyValidation" /> |-validation_msg_box idField="params[routeEndingKm]"-|
 		 </p>
 		 <p><label for="params[startingLatitude]">Desde</label>
-			&nbsp; Latitud <input name="params[startingLatitude]" type="text" value="|-$construction->getstartingLatitude()|system_numeric_format:8-|" class="right" size="12">
-			&nbsp; &nbsp; Longitud <input name="params[startingLongitude]" type="text" value="|-$construction->getstartingLongitude()|system_numeric_format:8-|" class="right" size="12">
+			&nbsp; Latitud <input name="params[startingLatitude]" id="params[startingLatitude]" type="text" value="|-$construction->getstartingLatitude()|system_numeric_format:8-|" size="12" class="right emptyValidation" /> |-validation_msg_box idField="params[startingLatitude]"-|
+			&nbsp; &nbsp; Longitud <input name="params[startingLongitude]" id="params[startingLongitude]" type="text" value="|-$construction->getstartingLongitude()|system_numeric_format:8-|" size="12" class="right emptyValidation" /> |-validation_msg_box idField="params[startingLongitude]"-|
 		 </p>
 		 <p><label for="params[endingLatitude]">Hasta</label>
-			&nbsp; Latitud <input name="params[endingLatitude]" type="text" value="|-$construction->getendingLatitude()|system_numeric_format:8-|" class="right" size="12">
-			&nbsp; &nbsp; Longitud <input name="params[endingLongitude]" type="text" value="|-$construction->getendingLongitude()|system_numeric_format:8-|" class="right" size="12">
+			&nbsp; Latitud <input name="params[endingLatitude]" id="params[endingLatitude]" type="text" value="|-$construction->getendingLatitude()|system_numeric_format:8-|" size="12" class="right emptyValidation" /> |-validation_msg_box idField="params[endingLatitude]"-|
+			&nbsp; &nbsp; Longitud <input name="params[endingLongitude]" id="params[endingLongitude]" type="text" value="|-$construction->getendingLongitude()|system_numeric_format:8-|" size="12" class="right emptyValidation" /> |-validation_msg_box idField="params[endingLongitude]"-|
 		 </p>
 
 		 |-if $returnContractId neq ""-|
 		 <input type="hidden" name="returnToContract" value="|-$returnContractId-|" />
 		 |-/if-|
-		 <p><input name="save" type="submit" value="Guardar Cambios"> 
+		 <p><script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
+				|-javascript_form_validation_button value='Guardar' title='Guardar'-| 
 				<input id="button_back" type='button' onClick='location.href="|-if $returnContractId neq ""-|Main.php?do=vialidadContractsEdit&id=|-$returnContractId-||-else-|Main.php?do=vialidadConstructionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-||-/if-|"' value='##104,Regresar##' title="Regresar"/>
 			 </p>
 		</form>
