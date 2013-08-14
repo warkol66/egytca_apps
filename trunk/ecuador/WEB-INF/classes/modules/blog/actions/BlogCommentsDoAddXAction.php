@@ -20,6 +20,8 @@ class BlogCommentsDoAddXAction extends BaseDoEditAction {
 				return false;
 			}
 			else {
+				$this->entityParams["objectType"] = get_class($loggedUser);
+				$this->entityParams["objectId"] = $loggedUser->getId();
 			}
 		}
 		$this->entityParams["creationDate"] = date('Y-m-d H:m:s');
