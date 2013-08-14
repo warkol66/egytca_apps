@@ -94,6 +94,7 @@ function unblockUser(form){
 		<td>|-$user->getMailAddress()-|</td>
 		<td>|-$user->getLevel()-|</td>
 		<td nowrap>|-if isset($loginUser)-|
+		<input type="button" class="icon iconViewGantt" onClick='window.open("Main.php?do=usersStatisticsViewX&id=|-$user->getid()-|","Graph","scrollbars=1,width=800,height=600");' value="Ver Estadísticas" title="Ver Estadísticas (abre en ventana nueva)" />
 		|-if "usersEdit"|security_has_access-|
 		<a href='Main.php?do=usersEdit&id=|-$user->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|' title="##114,Editar##"><img src="images/clear.png" class="icon iconEdit"></a>
 		|-/if-|
