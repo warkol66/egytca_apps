@@ -11,18 +11,14 @@ class BoardCommentsDoEditAction extends BaseDoEditAction {
 
 		$this->entityParams['ip'] = Common::getIp();
 
-		//informacion del usuario		
-		if(isset($_SESSION['loginUser']) || isset($_SESSION['loginAffiliateUser']) || isset($_SESSION['loginClientUser'])){
-			if(isset($_SESSION['loginUser']))
-				$user = $_SESSION['loginUser'];
-			elseif(isset($_SESSION['loginAffiliateUser']))
-				$user = $_SESSION['loginAffiliateUser'];
-			elseif(isset($_SESSION['loginClientUser']))
-				$user = $_SESSION['loginClientUser'];
-
-			$this->entityParams['userId'] = $user->getId();
-			$this->entityParams['email'] = $user->getmailAddress();
-			$this->entityParams['username'] = $user->getusername();
+		//informacion del usuario
+		$loggedUser = Common::getLoggedUser();
+		if(!empty($loggedUser)) {		
+			$this->entityParams['userId'] = $loggedUser->getId();
+			$this->entityParams['email'] = $loggedUser->getmailAddress();
+			$this->entityParams['username'] = $loggedUser->getusername();
+			$this->entityParams['objectType'] = get_class($loggedUser);
+			$this->entityParams['objectId'] = $loggedUser->getId();
 		}
 
 	}
