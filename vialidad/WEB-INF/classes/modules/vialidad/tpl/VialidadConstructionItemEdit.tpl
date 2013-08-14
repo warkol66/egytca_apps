@@ -26,29 +26,29 @@
 	</p>
 	<p>
 		<label for="params[type]">Tipo</label>
-|-if $item->isNew()-|		<select id="params[type]" name="params[type]" title="Seleccione el tipo de item">
+|-if $item->isNew()-|		<select id="params[type]" name="params[type]" title="Seleccione el tipo de item" class="emptyValidation" /> 
 			<option value="1" |-$item->getType()|selected:1-|>Item de construcción</option>
 			<option value="2" |-$item->getType()|selected:2-|>Otros Items</option>
-		</select>
+		</select>|-validation_msg_box idField="params[type]"-|
 |-else-|
 		<input type="text" sise="25" value="|-if $item->getType() eq 1-|Item de construcción|-else-|Otros Items|-/if-|" disabled="disabled" />
 |-/if-|
 	</p>
 	<p>
 		<label for="params[code]">Código</label>
-		<input id="params[code]" name="params[code]" type="text" value="|-$item->getCode()-|" size="15" title="C&oacute;digo" />
+		<input id="params[code]" name="params[code]" type="text" value="|-$item->getCode()-|" size="15" title="C&oacute;digo" class="emptyValidation" /> |-validation_msg_box idField="params[code]"-|
 	</p>
 	<p>
 		<label for="params[quantity]">Cantidad</label>
-		<input id="params[quantity]" name="params[quantity]" type="text" value="|-$item->getQuantity()|system_numeric_format-|" size="15" title="Cantidad" />
+		<input id="params[quantity]" name="params[quantity]" type="text" value="|-$item->getQuantity()|system_numeric_format-|" size="15" title="Cantidad" class="emptyValidation" /> |-validation_msg_box idField="params[quantity]"-|
 	</p>
 	<p>
 		<label for="params[unitId]">Unidad</label>
-		<select id="params[unitId]" name="params[unitId]">
+		<select id="params[unitId]" name="params[unitId]" class="emptyValidation" /> 
 			|-foreach from=$units item=unit-|
 			<option value="|-$unit->getId()-|" |-$item->getUnitid()|selected:$unit->getId()-|>|-$unit->getCode()-|</option>
 			|-/foreach-|
-		</select>
+		</select>|-validation_msg_box idField="params[unitId]"-|
 	</p>
 	<p>
 		<label for="params[order]">Orden</label>
@@ -189,7 +189,8 @@ function removeRelationX(form) {
 		'Main.php?do=vialidadConstructionItemDoRemoveRelationX',
 		{
 			method: 'post',
-			postBody: params
+			postBody: params,
+			evalScripts: true
 		}
 	);
 }

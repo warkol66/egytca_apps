@@ -7,3 +7,15 @@
 |-/foreach-|
 
 |-/if-|
+<script type="text/javascript">
+
+var suppliesIds = new Array();
+var totalProportion = 0;
+
+		checkProportions(0);
+		loadSuppliesIds();
+		|-foreach from=$components item=component-|
+		attachInPlaceEditor('|-$component->getSupplyid()-|', 'proportion|-$component->getSupplyid()-|')
+		|-/foreach-|
+		attachSupplyAutocompleter('new_supply1', 'div_autocomplete1');
+</script>

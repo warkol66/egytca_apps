@@ -1,12 +1,15 @@
 |-if $id eq ''-|
 	|-assign var="id" value="autocompleter"-|
 |-/if-|
+
 <script type="text/javascript" language="javascript" charset="utf-8">
 	var |-$id-|_instance;
 </script>
+
 |-if !$notIncludeParagraph-|<p>|-/if-|
 	<label for="|-$id-|">|-$label-|</label>
 	<input type="text" id="|-$id-|" name="autocomplete_parameter" value="|-$defaultValue-|" size="60"
+		class="|-$class-|"
 		onChange="|-$onChange-|" 
 		onBlur="|-$id-|_instance.unregister();" 
 		onfocus="this.select(); 
@@ -19,7 +22,7 @@
 				function(){|-if $onComplete ne ''-||-$onComplete-||-/if-|} );
 			} 
 			|-$id-|_instance.register();" 
-	/>		
+	/>		|-validation_msg_box idField="|-$id-|"-|
 	<span id="|-if $indicator ne ''-||-$indicator-||-else-||-$id-|_indicator|-/if-|" style="display: none">
 		<img src="images/spinner.gif" alt="Procesando..." />
 	</span>
