@@ -43,12 +43,12 @@ $appServerRootDir = "$appDir/";
 // Load Application Configuration
 $bootUtils = new BootUtils;
 
-$configPath = 'WEB-INF';
+$configPath = "$appDir/WEB-INF";
 $cfgId = 'config';
-$cfgValue = array('name'=>'phpmvc-config.xml', 'fc'=> False);
+$cfgValue = array('name'=>'phpmvc-config.xml', 'fc'=> False); // fc == force compile
 $oApplicationConfig = $bootUtils->loadAppConfig($actionServer, $appServerConfig,
-												"$appDir/$configPath", $cfgId, $cfgValue,
-												$appServerRootDir, $globalPrependXML);
+												$configPath, $cfgId, $cfgValue,
+												$appServerRootDir);
 
 if($oApplicationConfig == NULL) {
 	throw new Exception('$oApplicationConfig is null');
@@ -104,4 +104,15 @@ function setupRequest($oApplicationConfig, $welcomePath, $actionID) {
 	$request->setAttribute('ACTION_DO_PATH', $doPath);
 	
 	return $request;
+}
+
+function debugPrint($var) {
+	
+	if (!$_ENV['PHPMVC_MODE_CLI'])
+		echo "<pre>";
+
+	print_r($var);
+	
+	if (!$_ENV['PHPMVC_MODE_CLI'])
+		echo "</pre>";
 }
