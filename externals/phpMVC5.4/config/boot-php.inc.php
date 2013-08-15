@@ -16,7 +16,7 @@ require_once("$appDir/WEB-INF/ModulePaths.php");
 $modulePaths = ModulePaths::getModulePaths();
 
 // Include the bundled phpmvc library
-require_once("$appDir/WEB-INF/lib-phpmvc/PhpMvcOneBase.php.ws");
+require_once("$appDir/WEB-INF/lib-phpmvc/PhpMvcOneBase.php");
 $gPath = ClassPath::setClassPath("$appDir/", $modulePaths, $osType);
 $mPath = ClassPath::getClassPath("$appDir/", $modulePaths, $osType);
 $cPath = ClassPath::concatPaths($gPath, $mPath, $osType);

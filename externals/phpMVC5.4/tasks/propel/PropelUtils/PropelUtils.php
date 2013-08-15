@@ -53,7 +53,7 @@ class PropelUtils {
 				$phingCmd = realpath("$phingBinPath/phing");
 				break;
 
-			case 'Windows':
+			case 'WINNT':
 				$propelGenCmd = realpath("$propelBinPath/propel-gen.bat");
 				$phingCmd = realpath("$phingBinPath/phing.bat");
 				break;
