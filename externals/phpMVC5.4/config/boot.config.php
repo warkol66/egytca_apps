@@ -38,11 +38,3 @@ $actionID = 'do';
 $timerRun = 0;
 
 //====================================================================
-
-require_once("$appDir/config/load_config.php");
-
-// Setup the application specific ActionDispatcher (RequestDispatcher)
-$actionDispatcher = 'SmartyActionDispatcher';
-
-// Relative path to the phpmvc configuration files
-$configPath = 'WEB-INF'; // ['./WEB-INF'] no trailing slash

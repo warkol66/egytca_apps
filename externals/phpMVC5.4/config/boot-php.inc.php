@@ -9,26 +9,30 @@ date_default_timezone_set('UTC');
 
 // Include the bootup config file
 require_once("boot.config.php");
+require_once "$appDir/config/load_config.php";
+require_once "$appDir/WEB-INF/lib-phpmvc/ExecTimer.php";
+
+$timer = new ExecTimer();
 
 // Timer start
-if($timerRun == True) $start = utime();
+if($timerRun == True) $timer->start();
 
 require_once("$appDir/WEB-INF/lib-phpmvc/PhpMvcOneBase.php");
 
 setupIncludePath($appDir);
 
 // Timer - Base Classes Load Time
-if($timerRun == True) printTime($start, 'Base Classes Load Time');
+if($timerRun == True) $timer->printTime('Base Classes Load Time');
 
 require_once("BaseAction.php");
 
 // Timer - Application Classes Load Time
-if($timerRun == True) printTime($start, 'Application Classes Load Time');
+if($timerRun == True) $this->printTime('Application Classes Load Time');
 
 // Startup configuration information for an php.MVC Web app
 $appServerContext	= new AppServerContext;
 $appServerConfig	= new AppServerConfig;
-$appServerContext->setInitParameter('ACTION_DISPATCHER', $actionDispatcher);
+$appServerContext->setInitParameter('ACTION_DISPATCHER', 'SmartyActionDispatcher');
 $appServerConfig->setAppServerContext($appServerContext);
 
 // Setup the php.MVC Web application controller
@@ -39,36 +43,15 @@ $appServerRootDir = "$appDir/";
 // Load Application Configuration
 $bootUtils = new BootUtils;
 
-// The application XML configuration data set:
-// array[config-key] => array(config-name, force-compile)
-// Eg: $appXmlCfgs['config'] = array('name'=>'phpmvc-config.xml', 'fc'=>True);
-$appXmlCfgs = array();
-$appXmlCfgs['config'] = array('name'=>'phpmvc-config.xml', 'fc'=> False);
-
-// Include the xml digester classes - On demand:
-// If the config data file is out-of-date or we are requesting a Force-Compile
-$phpmvcConfigXMLFile	= $appXmlCfgs['config']['name'];					// 'phpmvc-config.xml'
-$phpmvcConfigDataFile= substr($phpmvcConfigXMLFile, 0, -3).'data';// 'phpmvc-config.data'
-$initXMLConfig = CheckConfigDataFile("$appDir/" . $configPath, $phpmvcConfigDataFile, $phpmvcConfigXMLFile);
-if($initXMLConfig == True OR $appXmlCfgs['config']['fc'] == True ) {
-	echo '<br><b>Loading XML Parser ...</b>';
-}
-
-if( is_array($appXmlCfgs) && count($appXmlCfgs) > 0 ) {
-	foreach($appXmlCfgs as $cfgId => $cfgValue) {
-		// config-key => array(config-name, force-compile)
-		// $cfgId="config",       $cfgValue=array("phpmvc-config.xml", True)
-		// $cfgId="config/admin", $cfgValue=array("phpmvc-config-admin.xml", False)
-		// echo "$cfgId = " . $cfgValue['name'] . " - ". $cfgValue['fc'] . " <br>";
-		$oApplicationConfig = $bootUtils->loadAppConfig($actionServer, $appServerConfig,
-																		"$appDir/" . $configPath, $cfgId, $cfgValue,
-																		$appServerRootDir, $globalPrependXML);
-		break; // Only one config file allowed for now
-	}
-}
+$configPath = 'WEB-INF';
+$cfgId = 'config';
+$cfgValue = array('name'=>'phpmvc-config.xml', 'fc'=> False);
+$oApplicationConfig = $bootUtils->loadAppConfig($actionServer, $appServerConfig,
+												"$appDir/$configPath", $cfgId, $cfgValue,
+												$appServerRootDir, $globalPrependXML);
 
 if($oApplicationConfig == NULL) {
-	exit;
+	throw new Exception('$oApplicationConfig is null');
 }
 
 $request = setupRequest($oApplicationConfig, $welcomePath, $actionID);
@@ -84,46 +67,9 @@ if( isset($_GET) ) {
 	$actionServer->doPost($request, $response, $_POST, $_FILES);
 }
 
-if($timerRun == True) printTime($start, 'Total Run Time');
+if($timerRun == True) $timer->printTime('Total Run Time');
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
-
-// Calculates current microtime
-function utime() {
-	// microtime() = current UNIX timestamp with microseconds
-	$time	= explode( ' ', microtime());
-	$usec	= (double)$time[0];
-	$sec	= (double)$time[1];
-	return $sec + $usec;
-}
-
-function printTime($start, $strMsg) {
-	$end = utime();
-	$run = $end - $start;
-	echo '<br><b>'.$strMsg.': </b>'.substr($run, 0, 5) . ' secs.';
-}
-
-// Check if we need to (re)initialise the application
-function CheckConfigDataFile($configPath, $phpmvcConfigDataFile, $phpmvcConfigXMLFile) {
-
-	$initXMLConfig = False;
-
-	if( ! file_exists("$configPath/" . $phpmvcConfigDataFile) ) {
-		// No config data file
-		$initXMLConfig = True;
-	} else {
-		// Check the config file timestamps
-		$cfgDataMTime	= filemtime("$configPath/" . $phpmvcConfigDataFile);
-		$cfgXMLMTime	= filemtime("$configPath/" . $phpmvcConfigXMLFile);
-		if($cfgXMLMTime > $cfgDataMTime) {
-			// The 'phpmvc-config.xml' has been modified, so we need to reinitialise
-			// the application
-			$initXMLConfig = True;
-		}
-	}
-
-	return $initXMLConfig;
-}
 
 function setupIncludePath($appDir) {
 	
