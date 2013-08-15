@@ -2,7 +2,7 @@
 
  require_once("classes/PhpMVC_Log.php");
  require_once("classes/ActionDispatcher.php");
- require_once("classes/ClassPath.php");
+// require_once("classes/ClassPath.php");
  require_once("classes/FileUtils.php");
  require_once("classes/BootUtils.php");
  require_once("classes/HelperUtils.php");

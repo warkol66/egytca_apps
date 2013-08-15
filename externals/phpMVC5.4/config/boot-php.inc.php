@@ -11,19 +11,14 @@ require_once("boot.config.php");
 // Timer start
 if($timerRun == True) $start = utime();
 
+require_once("$appDir/WEB-INF/lib-phpmvc/PhpMvcOneBase.php");
+
 // Setup the module paths
 require_once("$appDir/WEB-INF/ModulePaths.php");
-$modulePaths = ModulePaths::getModulePaths();
+$modulePathsString = ModulePaths::getModulePathsString($appDir);
 
-// Include the bundled phpmvc library
-require_once("$appDir/WEB-INF/lib-phpmvc/PhpMvcOneBase.php");
-$gPath = ClassPath::setClassPath("$appDir/", $modulePaths, $osType);
-$mPath = ClassPath::getClassPath("$appDir/", $modulePaths, $osType);
-$cPath = ClassPath::concatPaths($gPath, $mPath, $osType);
-
-// Set the 'include_path' variables, as used by the file functions
-ini_set('include_path', $cPath);
-define('CLASSPATH', True);
+set_include_path($modulePathsString . PATH_SEPARATOR . get_include_path());
+define('CLASSPATH', True); // TODO: sirve?
 
 // Include the xml digester classes - On demand:
 // If the config data file is out-of-date or we are requesting a Force-Compile

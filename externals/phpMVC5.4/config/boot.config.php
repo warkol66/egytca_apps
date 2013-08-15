@@ -13,10 +13,6 @@ if(!$_ENV['PHPMVC_MODE_CLI']) {
 	ini_set('display_errors',1);
 }
 
-//Directorio donde se encuentra la aplicacion (sin barra al final)
-//!!!! Deprecado, usar $appDir!!!! Se eliminara al reemplazar en uso actual
-$moduleRootDir = substr(dirname(__FILE__), 0, -6);
-
 //Sistema operativo [UNIX|WINDOWS|MAC]
 $osType = PHP_OS;
 
