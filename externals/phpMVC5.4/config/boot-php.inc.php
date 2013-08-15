@@ -5,6 +5,8 @@
 *
 */
 
+date_default_timezone_set('UTC');
+
 // Include the bootup config file
 require_once("boot.config.php");
 
@@ -13,27 +15,12 @@ if($timerRun == True) $start = utime();
 
 require_once("$appDir/WEB-INF/lib-phpmvc/PhpMvcOneBase.php");
 
-// Setup the module paths
-require_once("$appDir/WEB-INF/ModulePaths.php");
-$modulePathsString = ModulePaths::getModulePathsString($appDir);
-
-set_include_path($modulePathsString . PATH_SEPARATOR . get_include_path());
-define('CLASSPATH', True); // TODO: sirve?
-
-// Include the xml digester classes - On demand:
-// If the config data file is out-of-date or we are requesting a Force-Compile
-$phpmvcConfigXMLFile	= $appXmlCfgs['config']['name'];					// 'phpmvc-config.xml'
-$phpmvcConfigDataFile= substr($phpmvcConfigXMLFile, 0, -3).'data';// 'phpmvc-config.data'
-$initXMLConfig = CheckConfigDataFile("$appDir/" . $configPath, $phpmvcConfigDataFile, $phpmvcConfigXMLFile);
-if($initXMLConfig == True OR $appXmlCfgs['config']['fc'] == True ) {
-	echo '<br><b>Loading XML Parser ...</b>';
-}
+setupIncludePath($appDir);
 
 // Timer - Base Classes Load Time
 if($timerRun == True) printTime($start, 'Base Classes Load Time');
 
-// Now the local application specific classes
-include_once "$appDir/WEB-INF/Prepend.php";
+require_once("BaseAction.php");
 
 // Timer - Application Classes Load Time
 if($timerRun == True) printTime($start, 'Application Classes Load Time');
@@ -52,6 +39,21 @@ $appServerRootDir = "$appDir/";
 // Load Application Configuration
 $bootUtils = new BootUtils;
 
+// The application XML configuration data set:
+// array[config-key] => array(config-name, force-compile)
+// Eg: $appXmlCfgs['config'] = array('name'=>'phpmvc-config.xml', 'fc'=>True);
+$appXmlCfgs = array();
+$appXmlCfgs['config'] = array('name'=>'phpmvc-config.xml', 'fc'=> False);
+
+// Include the xml digester classes - On demand:
+// If the config data file is out-of-date or we are requesting a Force-Compile
+$phpmvcConfigXMLFile	= $appXmlCfgs['config']['name'];					// 'phpmvc-config.xml'
+$phpmvcConfigDataFile= substr($phpmvcConfigXMLFile, 0, -3).'data';// 'phpmvc-config.data'
+$initXMLConfig = CheckConfigDataFile("$appDir/" . $configPath, $phpmvcConfigDataFile, $phpmvcConfigXMLFile);
+if($initXMLConfig == True OR $appXmlCfgs['config']['fc'] == True ) {
+	echo '<br><b>Loading XML Parser ...</b>';
+}
+
 if( is_array($appXmlCfgs) && count($appXmlCfgs) > 0 ) {
 	foreach($appXmlCfgs as $cfgId => $cfgValue) {
 		// config-key => array(config-name, force-compile)
@@ -63,39 +65,13 @@ if( is_array($appXmlCfgs) && count($appXmlCfgs) > 0 ) {
 																		$appServerRootDir, $globalPrependXML);
 		break; // Only one config file allowed for now
 	}
-} else {
-	// No application config array - so try a default startup.
-	$oApplicationConfig = $bootUtils->loadAppConfig($actionServer, $appServerConfig, "$appDir/" . $configPath);
 }
 
 if($oApplicationConfig == NULL) {
 	exit;
 }
 
-// Setup HTTP Request and add request attributes
-$request = new HttpRequestBase;
-$request->setAttribute(Action::getKey('APPLICATION_KEY'), $oApplicationConfig);
-$request->setRequestURI($_SERVER['PHP_SELF']);
-
-// Set the application context path:
-$contextPath = substr($_SERVER["SCRIPT_NAME"], 0, strrpos($_SERVER["SCRIPT_NAME"], '/'));
-$request->setContextPath($contextPath);
-
-// Retrieve the 'action path'. Eg: index.php?do=[logonForm]
-$doPath = BOOTUtils::getActionPath($_REQUEST, $actionID, 2, 64);
-
-// If we have no path query string, try the application default path
-if($doPath == NULL) {
-	$doPath = $welcomePath;
-}
-
-// See: RequestProcessor->processPath(...) !!!
-// <action    path = "/stdLogon" ...> => "LogonAction"
-// Note: We should catch any dodgy 'do=badHackerFile' path hacks
-//       in RequestProcessor->processMapping(...)
-$request->setAttribute('ACTION_DO_PATH', $doPath);
-
-// Setup HTTP Response and add request attributes
+$request = setupRequest($oApplicationConfig, $welcomePath, $actionID);
 $response = new HttpResponseBase;
 
 // Start processing the php.MVC Web application
@@ -147,4 +123,39 @@ function CheckConfigDataFile($configPath, $phpmvcConfigDataFile, $phpmvcConfigXM
 	}
 
 	return $initXMLConfig;
+}
+
+function setupIncludePath($appDir) {
+	
+	require_once("$appDir/WEB-INF/ModulePaths.php");
+	$modulePathsString = ModulePaths::getModulePathsString($appDir);
+	set_include_path($modulePathsString . PATH_SEPARATOR . get_include_path());
+	define('CLASSPATH', True); // TODO: sirve?
+}
+
+function setupRequest($oApplicationConfig, $welcomePath, $actionID) {
+	
+	$request = new HttpRequestBase;
+	$request->setAttribute(Action::getKey('APPLICATION_KEY'), $oApplicationConfig);
+	$request->setRequestURI($_SERVER['PHP_SELF']);
+
+	// Set the application context path:
+	$contextPath = substr($_SERVER["SCRIPT_NAME"], 0, strrpos($_SERVER["SCRIPT_NAME"], '/'));
+	$request->setContextPath($contextPath);
+	
+	// Retrieve the 'action path'. Eg: index.php?do=[logonForm]
+	$doPath = BOOTUtils::getActionPath($_REQUEST, $actionID, 2, 64);
+
+	// If we have no path query string, try the application default path
+	if($doPath == NULL) {
+		$doPath = $welcomePath;
+	}
+
+	// See: RequestProcessor->processPath(...) !!!
+	// <action    path = "/stdLogon" ...> => "LogonAction"
+	// Note: We should catch any dodgy 'do=badHackerFile' path hacks
+	//       in RequestProcessor->processMapping(...)
+	$request->setAttribute('ACTION_DO_PATH', $doPath);
+	
+	return $request;
 }

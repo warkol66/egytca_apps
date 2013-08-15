@@ -41,12 +41,6 @@ $timerRun = 0;
 
 require_once("$appDir/config/load_config.php");
 
-// The application XML configuration data set:
-// array[config-key] => array(config-name, force-compile)
-// Eg: $appXmlCfgs['config'] = array('name'=>'phpmvc-config.xml', 'fc'=>True);
-$appXmlCfgs = array();
-$appXmlCfgs['config'] = array('name'=>'phpmvc-config.xml', 'fc'=> False);
-
 // Setup the application specific ActionDispatcher (RequestDispatcher)
 $actionDispatcher = 'SmartyActionDispatcher';
 
