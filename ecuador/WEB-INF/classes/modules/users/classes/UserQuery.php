@@ -19,6 +19,15 @@ class UserQuery extends BaseUserQuery {
 			$this->where('User.BlockedAt IS NOT NULL');
 		return $this;
 	}
+	
+	/*
+	 * Permite filtrar los usuarios que tienen las ids pasadas por parametro
+	 * @param $ids = array de ids que se quieren pasar por alto en la busqueda
+	 * 
+	 * */
+	function getDifferentFrom($ids){
+		return $this->filterById($ids,Criteria::NOT_IN);
+	}
 
 	function getLoged(){
 		return $this->filterBySession(null, Criteria::ISNOTNULL);
