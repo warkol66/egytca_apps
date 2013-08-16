@@ -47,27 +47,49 @@ border-radius: 0px 0px 10px 10px;
 <script type="text/javascript" language="javascript" charset="utf-8">
 $(function(){
 	$("#userRecipients").autocomplete({
-		source: url + '?do=commonAutocompleteListX&getCandidates=1&object=user',
+		source: function(request, response){
+			var entityIds = [];
+			$('.selectedDest').each(function(){
+				entityIds.push($(this).val());
+			});
+			request['entityIds'] = entityIds;
+			$.ajax({
+				dataType: 'json',
+				url: url + '?do=commonAutocompleteListX',
+				data: {request: request, object: 'user' },
+				success: response
+			});
+		},
+		//source: url + '?do=commonAutocompleteListX&getCandidates=1&object=user&entityType=User&entityId=1',
 		change: function(event,ui){
 		  $(this).val((ui.item ? ui.item.label : ""));
 		},
 		select:function(event,ui){
 			var idx = $('#recipientsSelected > li').size();
 			if($('#recipient_' + ui.item.value).length == 0)
-				$('#recipientsSelected').append('<li id="recipient_' + ui.item.value +'"><input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+ ui.item.value +'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="user" />'+ ui.item.label +'</li>');
+				$('#recipientsSelected').append('<li id="recipient_' + ui.item.value +'"><input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+ ui.item.value +'" class="selectedDest" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="user" />'+ ui.item.label +'</li>');
 			$("#userRecipients").val("");
+			$("#button_edit_internalMail").removeAttr('disabled');
 			return false;
 		},
 		minLength: 3,
 		appendTo: '#recipientsUsers-container'
 	});
 	$( "#affiliateRecipients" ).autocomplete({
-		source: url + '?do=commonAutocompleteListX&getCandidates=true&object=affiliate',
+		source: function(request, response){
+			$.ajax({
+				dataType: 'json',
+				url: url + '?do=commonAutocompleteListX',
+				data: {request: request, object: 'affiliates' },
+				success: response
+			});
+		},
 		select:function(event,ui){
 			var idx = $('#recipientsSelected > li').size();
 			if($('#recipient_' + ui.item.value).length == 0)
 				$('#recipientsSelected').append('<li id="recipient_' + ui.item.value +'"><input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+ ui.item.value +'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+ ui.item.label  +'</li>');
 			$("#affiliateRecipients").val('');
+			$("#button_edit_internalMail").removeAttr('disabled');
 			return false;
 		},
 		minLength: 3,
@@ -88,9 +110,10 @@ function changeRecipientType(entityName) {
 }
 //migrada
 function updateSubmitButton() {
-	$("#recipientsSelected").children().each(function(){$("#button_edit_internalMail").attr('disabled',true)});
-	/*if (($("recipientsSelected").childNodes.length - 1) <= 0)
-		$("button_edit_internalMail").disable();*/
+	if($('#recipientsSelected > li').size() > 0)
+		$("#button_edit_internalMail").removeAttr('disabled');
+	else
+		$("#button_edit_internalMail").attr('disabled','disabled');
 }
 
 </script>
@@ -177,7 +200,7 @@ function updateSubmitButton() {
 				<input type="hidden" name="userId" id="userId" value="|-$user->getId()-|" />
 				<input type="hidden" name="userType" id="userType" value="|-get_class($user)-|" />
 				|-/if-|
-				<input type="submit" id="button_edit_internalMail" name="button_edit_internalMail" title="Enviar" value="Enviar" />
+				<input type="submit" id="button_edit_internalMail" name="button_edit_internalMail" title="Enviar" disabled="disabled" value="Enviar" />
 				|-if !isset($iframe)-|
 				<input type="button" id="cancel" name="cancel" title="Cancelar y volver al listado" value="Cancelar" onClick="location.href='Main.php?do=commonInternalMailsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) -|&page=|-$page-||-/if-|'"/>|-/if-|
 			</p>
