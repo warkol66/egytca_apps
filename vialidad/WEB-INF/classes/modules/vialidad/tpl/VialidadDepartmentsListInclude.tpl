@@ -1,9 +1,9 @@
-		|-if $departments|@count eq 0-|
+		|-if $departmentColl|@count eq 0-|
 		<tr>
 			<td colspan="2">|-if isset($filter)-|No hay Departamentos que concuerden con la búsqueda|-else-|No hay Departamentos disponibles|-/if-|</td>
 		</tr>
 		|-else-|
-		|-foreach from=$departments item=department name=for_departments-|
+		|-foreach from=$departmentColl item=department name=for_departments-|
 		<tr> 
 			<td>
 				|-if "vialidadDepartmentsEdit"|security_has_access-|
@@ -44,7 +44,7 @@
 		</tr>
 		|-/if-|
 <script type="text/javascript">
-	|-foreach from=$departments item=department name=for_departments_ajax-|
+	|-foreach from=$departmentColl item=department name=for_departments_ajax-|
 	new Ajax.InPlaceEditor(
 		'name_|-$department->getId()-|',
 		'Main.php?do=commonDoEditFieldX',

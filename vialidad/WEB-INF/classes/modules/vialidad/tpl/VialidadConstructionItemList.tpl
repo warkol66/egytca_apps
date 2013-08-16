@@ -23,7 +23,7 @@
 |-/if-|
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
 	<tr>
-		<td colspan="4" class="tdSearch">
+		<td colspan="5" class="tdSearch">
 			<a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Búsqueda de items</a>
 			<div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;">
 				<form action='Main.php' method='get'>
@@ -52,17 +52,19 @@
 		</td>
 	</tr>
 	|-if "vialidadConstructionItemEdit"|security_has_access-|<tr>
-		<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadConstructionItemEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() gt 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Item</a></div></th>
+		<th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadConstructionItemEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() gt 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Item</a></div></th>
 	</tr>|-/if-|
 	<tr>
+		<th width="35%">Obra</th>
 		<th width="10%">Código</th>
-		<th width="75%">Item</th>
-		<th width="10%">Unidad</th>
+		<th width="45%">Item</th>
+		<th width="5%">Unidad</th>
 		<th width="5%">&nbsp;
 		</th>
 	</tr>
 	|-foreach from=$items item=item name=for_item-|
 	<tr>
+		<td>|-$item->getConstruction()-|</td>
 		<td nowrap="nowrap">|-$item->getCode()-|</td>
 		<td>|-$item->getName()-|</td>
 		<td nowrap="nowrap" align="center">|-$item->getMeasureUnit()-|</td>
@@ -92,10 +94,10 @@
 	|-/foreach-|
 	|-if isset($pager) && $pager->haveToPaginate()-|
 	<tr>
-		<td colspan="4" class="pages">|-include file="ModelPagerInclude.tpl"-|</td>
+		<td colspan="5" class="pages">|-include file="ModelPagerInclude.tpl"-|</td>
 	</tr>
 	|-/if-|
 	|-if "vialidadConstructionItemEdit"|security_has_access && $items|@count gt 5-|<tr>
-		<th colspan="4" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadConstructionItemEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() gt 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Item</a></div></th>
+		<th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadConstructionItemEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() gt 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Item</a></div></th>
 	</tr>|-/if-|
 </table>

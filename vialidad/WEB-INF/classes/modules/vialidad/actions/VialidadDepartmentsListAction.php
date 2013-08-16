@@ -35,7 +35,7 @@ class VialidadDepartmentsListAction extends BaseAction {
 			$smarty->assign("defaultDepartmentValue",DepartmentQuery::create()->findPk($filters["departmentId"]));
 		
 		$smarty->assign("filters", $filters);
-		$smarty->assign("departments",$pager->getResults());
+		$smarty->assign("departmentColl",$pager->getResults());
 		$smarty->assign("pager",$pager);
 
 		return $mapping->findForwardConfig('success');

@@ -141,20 +141,25 @@ Event.observe(
 
 function checkProportions(v) {
 	var result = calculateTotalProportion(v);
+	if ("|-$parameters.decimalSeparator-|" == ",")
+		var resultFormated = toHTMLFormat(result.toString());
+	else
+		var resultFormated = result;
+	
 	if (result < 100) {
 		$('message_incomplete_proportions').show();
 		$('message_invalid_proportions').hide();
-		$('actual_proportions').update('Proporción completada:' + result + '%');
+		$('actual_proportions').update('Proporción completada:' + resultFormated + '%');
 		return -1;
 	} else if (result == 100) {
 		$('message_incomplete_proportions').hide();
 		$('message_invalid_proportions').hide();
-		$('actual_proportions').update('Proporción completada:' + result + '%');
+		$('actual_proportions').update('Proporción completada:' + resultFormated + '%');
 		return 0;
 	} else if (result > 100) {
 		$('message_incomplete_proportions').hide();
 		$('message_invalid_proportions').show();
-		$('actual_proportions').update('Proporción completada:' + result + '%');
+		$('actual_proportions').update('Proporción completada:' + resultFormated + '%');
 		return 1;
 	}
 }
@@ -162,15 +167,21 @@ function checkProportions(v) {
 function toJavascriptFormat(value) {
 	return value.replace('.', '', 'g').replace(',', '.', 'g');
 }
+function toHTMLFormat(value) {
+	return value.replace('.', ',', 'g');
+}
 
 function calculateTotalProportion(value) {
 	var sum = 0;
 	var spans = document.getElementsByName('span_proportion');
 	
-	value = toJavascriptFormat(value.toString());
+		value = toJavascriptFormat(value.toString());
 
 	for (var i=0; i<spans.length; i++) {
-		var val = parseFloat(toJavascriptFormat(spans[i].innerHTML));
+		if ("|-$parameters.decimalSeparator-|" == ",")
+			var val = parseFloat(toJavascriptFormat(spans[i].innerHTML));
+		else
+			var val = parseFloat(spans[i].innerHTML);
 		if (!isNaN(val))
 			sum += val;
 	}
