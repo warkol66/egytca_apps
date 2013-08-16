@@ -22,9 +22,9 @@ class VialidadCurrenciesDoEditXAction extends BaseDoDeleteAction {
 
 }
 */
-class VialidadCurrenciesDoEditXAction extends BaseAction {
+class VialidadDepartmentsDoEditXAction extends BaseAction {
 
-	function VialidadCurrenciesUnitsDoEditXAction() {
+	function VialidadDepartmentsDoEditXAction() {
 		;
 	}
 
@@ -44,13 +44,13 @@ class VialidadCurrenciesDoEditXAction extends BaseAction {
 		$id = $request->getParameter("id");
 		
 		if (!empty($id))
-			$currency = BaseQuery::create('Currency')->findOneById($id);
+			$department = BaseQuery::create('Department')->findOneById($id);
 		else
-			$currency = new Currency();
+			$department = new Department();
 
-		$currency->fromArray($params, BasePeer::TYPE_FIELDNAME);
+		$department->fromArray($params, BasePeer::TYPE_FIELDNAME);
 		try {
-			$currency->save();
+			$department->save();
 		} catch (Exception $e) {
 			return $mapping->findForwardConfig('failure');
 			if (ConfigModule::get("global","showPropelExceptions")){
@@ -58,7 +58,7 @@ class VialidadCurrenciesDoEditXAction extends BaseAction {
 			}
 		}
 
-		$smarty->assign('currencyColl', BaseQuery::create('Currency')->find());
+		$smarty->assign('departmentColl', BaseQuery::create('Department')->find());
 		return $mapping->findForwardConfig('success');
 	}
 
