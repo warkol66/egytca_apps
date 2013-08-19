@@ -41,6 +41,7 @@
 		</p>
 			|-/if-|
 			<p>
+				|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 				|-if $action eq 'edit'-|
 				<input type="hidden" name="id" value="|-$certificate->getid()-|" />
 				<input type="hidden" name="action" value="edit" />

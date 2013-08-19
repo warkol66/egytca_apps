@@ -52,12 +52,14 @@ class VialidadMeasureUnitsDoEditXAction extends BaseAction {
 		try {
 			$measureUnit->save();
 		} catch (Exception $e) {
+			$smarty->assign("message", "No se pudo guardar la unidad");
 			return $mapping->findForwardConfig('failure');
 			if (ConfigModule::get("global","showPropelExceptions")){
 				print_r($e->__toString());
 			}
 		}
 
+		$smarty->assign('status', 'done');
 		$smarty->assign('measureUnitColl', BaseQuery::create('MeasureUnit')->find());
 		return $mapping->findForwardConfig('success');
 	}

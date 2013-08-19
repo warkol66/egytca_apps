@@ -67,8 +67,9 @@
 		<input type="hidden" name="returnToConstruction" value="|-$returnConstructionId-|" />
 		|-/if-|
 		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
+			|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 			|-javascript_form_validation_button value='Guardar' title='Guardar'-|
-		<input type='button' onClick='location.href="|-if $returnConstructionId neq ""-|Main.php?do=vialidadConstructionsEdit&id=|-$returnConstructionId-||-else-|Main.php?do=vialidadConstructionItemList|-/if-|"' value='Regresar' title="|-if $returnConstructionId neq ""-|Regresar a la obraRegresar al listado de Items de |-else-|Regresar al listado de Items de Construcción|-/if-|" />
+		<input type='button' onClick='location.href="|-if $returnConstructionId neq ""-|Main.php?do=vialidadConstructionsEdit&id=|-$returnConstructionId-||-else-|Main.php?do=vialidadConstructionItemList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-||-/if-|"' value='Regresar' title="|-if $returnConstructionId neq ""-|Regresar a la obraRegresar al listado de Items de |-else-|Regresar al listado de Items de Construcción|-/if-|" />
 	</p>
 </form>
 |-if $action eq 'edit'-|

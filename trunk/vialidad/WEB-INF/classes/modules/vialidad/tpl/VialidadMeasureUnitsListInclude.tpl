@@ -1,3 +1,8 @@
+|-if $measureUnitColl|@count eq 0-|
+	<tr>
+		<td colspan="2">|-if isset($filter)-|No hay Unidades de medida búsqueda|-else-|No hay Unidades de medida disponibles|-/if-|</td>
+	</tr>
+|-else-|
 	|-foreach from=$measureUnitColl item=measureUnit name=for_measureUnits-|
 		<tr> 
 			<td>
@@ -18,9 +23,7 @@
 				|-if "vialidadMeasureUnitsEdit"|security_has_access-|
 					<input type="hidden" name="do" value="vialidadMeasureUnitsEdit" />
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-					|-if isset($pager) && ($pager->getPage() gt 1)-|
-					<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />
-					|-/if-|
+					|-if isset($pager) && ($pager->getPage() gt 1)-|<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$measureUnit->getid()-|" />
 					<input type="submit" id="name_edit_|-$measureUnit->getId()-|" name="submit_go_edit_vialidad_measureUnit" value="Editar" title="Editar" class="icon iconEdit" />
 				|-/if-|
@@ -28,56 +31,17 @@
 				<form action="Main.php" method="post" style="display:inline;">
 					<input type="hidden" name="do" value="vialidadMeasureUnitsDoDelete" />
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
-					|-if isset($pager) && ($pager->getPage() gt 1)-|
-					<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />
-					|-/if-|
+					|-if isset($pager) && ($pager->getPage() gt 1)-|<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 					<input type="hidden" name="id" value="|-$measureUnit->getid()-|" />
 					<input type="submit" name="submit_go_delete_vialidad_measureUnit" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar el Unidad de Medida?')" class="icon iconDelete" />
 				</form>
 				|-/if-|
 			</td>
 		</tr> 
-		|-/foreach-|
+	|-/foreach-|
+|-/if-|
 
-<script type="text/javascript">
-
-function updateCode(id, value) {
-	new Ajax.Updater(
-		'span_code_'+id,
-		'Main.php?do=commonDoEditFieldX',
-		{
-			method: 'post',
-			parameters: {
-				id: id,
-				paramName: 'code',
-				paramValue: value
-			}
-		}
-	);
-}
-function updateName(id, value) {
-	new Ajax.Updater(
-		'span_name_'+id,
-		'Main.php?do=commonDoEditFieldX',
-		{
-			method: 'post',
-			parameters: {
-				id: id,
-				paramName: 'name',
-				paramValue: value
-			}
-		}
-	);
-}
-
-Ajax.InPlaceEditor.prototype.__enterEditMode = Ajax.InPlaceEditor.prototype.enterEditMode;
-Object.extend(Ajax.InPlaceEditor.prototype, {
-	enterEditMode:function(e) {
-		this.__enterEditMode(e);
-		this.triggerCallback('onFormReady',this._form);
-	}
-});
-
+<script language="JavaScript" type="text/JavaScript">
 function attachNameInPlaceEditors() {
 	|-foreach from=$measureUnitColl item=measureUnit name=for_measureUnits_ajax-|
 	new Ajax.InPlaceEditor(
@@ -101,6 +65,9 @@ function attachNameInPlaceEditors() {
 			onComplete: function(transport, element) {
 				clean_text_content_from(element);
 				new Effect.Highlight(element, { startcolor: this.options.highlightColor });
+				msgs = $$('.successMessage');
+				for (var i=0; i<msgs.length; i++)
+					msgs[i].hide();
 			},
 			onFormReady: function(obj,form) {
 				form.insert({ top: new Element('label').update('Nombre: ') });
@@ -109,7 +76,6 @@ function attachNameInPlaceEditors() {
 	);
 |-/foreach-|
 }
-
 function attachCodeInPlaceEditors() {
 	|-foreach from=$measureUnitColl item=measureUnit-|
 	new Ajax.InPlaceEditor(
@@ -128,6 +94,13 @@ function attachCodeInPlaceEditors() {
 				return 'objectType=measureUnit&objectId=|-$measureUnit->getId()-|&paramName=code&paramValue='
 					+ encodeURIComponent(clean(value));
 			},
+			onComplete: function(transport, element) {
+				clean_text_content_from(element);
+				new Effect.Highlight(element, { startcolor: this.options.highlightColor });
+				msgs = $$('.successMessage');
+				for (var i=0; i<msgs.length; i++)
+					msgs[i].hide();
+			},
 			onFormReady: function(obj,form) {
 				form.insert({ top: new Element('label').update('Código: ') });
 			}
@@ -135,8 +108,9 @@ function attachCodeInPlaceEditors() {
 	);
 	|-/foreach-|
 }
-window.onload = function() {
-	attachCodeInPlaceEditors();
-	attachNameInPlaceEditors();
-}
+attachCodeInPlaceEditors();
+attachNameInPlaceEditors();
+|-if isset($status)-|
+setStatus('|-$status-|');
+|-/if-|
 </script>
