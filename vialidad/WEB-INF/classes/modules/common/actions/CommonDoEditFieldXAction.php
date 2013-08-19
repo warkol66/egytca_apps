@@ -27,7 +27,16 @@ class CommonDoEditFieldXAction extends BaseAction {
 				$_POST['paramValue'] = Common::convertToMysqlNumericFormat($_POST['paramValue']);
 			
 			$object->setByName($_POST['paramName'], $_POST['paramValue'], BasePeer::TYPE_FIELDNAME);
-			if ($object->isModified() && $object->save()) {
+			if ($object->isModified()) {
+				try {
+					$object->save();
+				} catch (Exception $e) {
+					$smarty->assign("message", "No se pudo guardar el cambio solicitado");
+					return $mapping->findForwardConfig('failure');
+					if (ConfigModule::get("global","showPropelExceptions")){
+						print_r($e->__toString());
+					}
+				}
 				$smarty->assign("paramValue", $object->getByName($_POST['paramName'], BasePeer::TYPE_FIELDNAME));
 				$smarty->assign("isDate", $_POST["isDate"]);
 				$smarty->assign("isNumeric", $_POST["isNumeric"]);

@@ -52,12 +52,14 @@ class VialidadDepartmentsDoEditXAction extends BaseAction {
 		try {
 			$department->save();
 		} catch (Exception $e) {
+			$smarty->assign("message", "No se pudo guardar el departamento");
 			return $mapping->findForwardConfig('failure');
 			if (ConfigModule::get("global","showPropelExceptions")){
 				print_r($e->__toString());
 			}
 		}
 
+		$smarty->assign('status', 'done');
 		$smarty->assign('departmentColl', BaseQuery::create('Department')->find());
 		return $mapping->findForwardConfig('success');
 	}

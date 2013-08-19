@@ -56,6 +56,9 @@ class VialidadConstructionItemEditAction extends BaseAction {
 		if (!empty($_REQUEST['returnConstructionId']))
 			$smarty->assign('returnConstructionId', $_REQUEST['returnConstructionId']);
 
+		if (!empty($_REQUEST['filters']))
+			$smarty->assign('filters', $_REQUEST['filters']);
+
 		$smarty->assign('units', $units);
 		$smarty->assign('message', $_GET['message']);
 		$smarty->assign('item', $item);

@@ -66,6 +66,7 @@
 			|-if $action eq 'copy'-|
 			<input type="hidden" name="toBeCopiedId" value="|-$toBeCopiedId-|" />
 			|-/if-|
+			|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 			<input type="hidden" name="action" id="action" value="|-$action-|" />
 			<input type="hidden" name="do" id="do" value="vialidadBulletinDoEdit" />
 			<input type="submit" id="button_edit_bulletin" name="button_edit_bulletin" title="Aceptar" value="Guardar" />

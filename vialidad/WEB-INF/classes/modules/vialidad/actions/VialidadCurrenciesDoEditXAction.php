@@ -52,12 +52,14 @@ class VialidadCurrenciesDoEditXAction extends BaseAction {
 		try {
 			$currency->save();
 		} catch (Exception $e) {
+			$smarty->assign("message", "No se pudo guardar la moneda");
 			return $mapping->findForwardConfig('failure');
 			if (ConfigModule::get("global","showPropelExceptions")){
 				print_r($e->__toString());
 			}
 		}
 
+		$smarty->assign('status', 'done');
 		$smarty->assign('currencyColl', BaseQuery::create('Currency')->find());
 		return $mapping->findForwardConfig('success');
 	}

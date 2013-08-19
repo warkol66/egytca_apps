@@ -103,6 +103,7 @@
 		 <input type="hidden" name="returnToContract" value="|-$returnContractId-|" />
 		 |-/if-|
 		 <p><script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
+				|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 				|-javascript_form_validation_button value='Guardar' title='Guardar'-| 
 				<input id="button_back" type='button' onClick='location.href="|-if $returnContractId neq ""-|Main.php?do=vialidadContractsEdit&id=|-$returnContractId-||-else-|Main.php?do=vialidadConstructionsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-||-/if-|"' value='##104,Regresar##' title="Regresar"/>
 			 </p>
