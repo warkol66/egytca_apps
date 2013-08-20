@@ -60,7 +60,6 @@ $(function(){
 				success: response
 			});
 		},
-		//source: url + '?do=commonAutocompleteListX&getCandidates=1&object=user&entityType=User&entityId=1',
 		change: function(event,ui){
 		  $(this).val((ui.item ? ui.item.label : ""));
 		},
@@ -84,10 +83,13 @@ $(function(){
 				success: response
 			});
 		},
+		change: function(event,ui){
+		  $(this).val((ui.item ? ui.item.label : ""));
+		},
 		select:function(event,ui){
 			var idx = $('#recipientsSelected > li').size();
 			if($('#recipient_' + ui.item.value).length == 0)
-				$('#recipientsSelected').append('<li id="recipient_' + ui.item.value +'"><input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+ ui.item.value +'" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+ ui.item.label  +'</li>');
+				$('#recipientsSelected').append('<li id="recipient_' + ui.item.value +'"><input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" /><input type="hidden" name="internalMail[to]['+idx+'][id]" value="'+ ui.item.value +'" class="selectedDest" /><input type="hidden" name="internalMail[to]['+idx+'][type]" value="affiliateUser" />'+ ui.item.label  +'</li>');
 			$("#affiliateRecipients").val('');
 			$("#button_edit_internalMail").removeAttr('disabled');
 			return false;
@@ -172,7 +174,7 @@ function updateSubmitButton() {
 					|-foreach from=$internalMail->getRecipients() key=idx item=toUser-|
 						<li id="recipient_|-$toUser->getId()-|">
 							<input type="button" class="icon iconDelete" onClick="$(this).parent().remove();updateSubmitButton()" title="Eliminar destinatario" />
-							<input type="hidden" name="internalMail[to][|-$idx-|][id]" value="|-$toUser->getId()-|" />
+							<input type="hidden" name="internalMail[to][|-$idx-|][id]" class="selectedDest" value="|-$toUser->getId()-|" />
 							<input type="hidden" name="internalMail[to][|-$idx-|][type]" value="|-$recipients[$idx].type-|" />
 							|-if ($toUser->getName() ne '') or ($toUser->getSurname() ne '')-||-$toUser->getSurname()-|, |-$toUser->getName()-| - |-/if-|(|-$toUser->getUserName()-|)
 						</li>
