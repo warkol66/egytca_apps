@@ -68,11 +68,13 @@ class PropelUtils {
 		$cmd = "$phingCmd -f $buildXml -Dusing.propel-gen=true -Dproject.dir=$projectDir -logger phing.listener.AnsiColorLogger";
 
 
+		echo "<pre>";
 		$output = shell_exec("$cmd");
 		echo "$output\n";
 		$output = shell_exec("$cmd diff");
 		echo "$output\n";
 		$output = shell_exec("$cmd migrate");
 		echo "$output\n";
+		echo "</pre>";
 	}
 }
