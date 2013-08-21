@@ -52,7 +52,8 @@ class ConstructionItem extends BaseConstructionItem {
 		foreach ($itemRelations as $itemRelation) {
 			$priceBulletin = PriceBulletinQuery::create()->filterBySupplyid($itemRelation->getSupplyId())
 				->filterByBulletin($bulletin)->findOne();
-			$price += $priceBulletin->getAverageprice() * $itemRelation->getProportion() / 100;
+			if (!empty($priceBulletin))
+				$price += $priceBulletin->getAverageprice() * $itemRelation->getProportion() / 100;
 		}
 
 		return $price;
@@ -70,6 +71,18 @@ class ConstructionItem extends BaseConstructionItem {
  */
 	function getAdjustedPrice($newDatestring, $oldDatestring, $format = 'd-m-Y') {
 		return $this->getEstimatedPrice($newDatestring, $format) * $this->getAdjustmentCoeficient($newDatestring, $oldDatestring, $format);
+	}
+
+	/**
+	 * Determina si la proporcion esta completada
+	 * @param $supply Supply
+	 */
+	public function completed() {
+		$related = ConstructionItemRelationQuery::create()->filterByConstructionItem($this)->find();
+		foreach ($related as $itemRelated)
+			$completed += $itemRelated->getProportion();
+
+		return ($completed == 100);														 		
 	}
 
 } // ConstructionItem

@@ -66,7 +66,7 @@
 	<tr>
 		<td>|-$item->getConstruction()-|</td>
 		<td nowrap="nowrap">|-$item->getCode()-|</td>
-		<td>|-$item->getName()-|</td>
+		<td>|-$item->getName()-| |-if !$item->completed()-|<span class="resultFailure">(Proporción incompleta!!!)</span>|-/if-|</td>
 		<td nowrap="nowrap" align="center">|-$item->getMeasureUnit()-|</td>
 		<td nowrap="nowrap">
 					<form action="Main.php" method="get" style="display:inline;">
