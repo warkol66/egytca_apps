@@ -10,7 +10,9 @@
 		else if (browserWidth >= 1260) document.write('<link href="css/styleWide.css" rel="stylesheet" type="text/css">');
 	<!-- /Variable width styles-->
 </script>
-<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.20.custom.css" type="text/css">
+	<!--<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.20.custom.css" type="text/css">-->
+<link rel="stylesheet" href="css/blitzer/jquery-ui-1.10.3.custom.css" type="text/css">
+
 <link rel="stylesheet" href="scripts/fancybox/jquery.fancybox-1.3.4.css" type="text/css">
 <link type="text/css" rel="stylesheet" href="css/chosen.css" />
 
