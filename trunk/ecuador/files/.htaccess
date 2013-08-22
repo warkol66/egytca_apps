@@ -15,11 +15,13 @@ AddType text/plain .shtml .php .phtml .phtm .pl .py .cgi
 # In httpd.conf you often find settings that enable server
 # side includes generally.
 
-AddType text/html .shtml
-AddOutputFilter INCLUDES .shtml
+#AddType text/html .shtml
+#AddOutputFilter INCLUDES .shtml
 
 # And similar you may have enabled execution of CGI scripts
 # for files with suffix .cgi and/or .pl
 
-AddHandler cgi-script .cgi
-AddHandler cgi-script .pl
+#AddHandler cgi-script .cgi
+#AddHandler cgi-script .pl
+
+Options -ExecCGI
