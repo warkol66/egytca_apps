@@ -51,7 +51,7 @@ abstract class Smarty_Internal_TemplateBase extends Smarty_Internal_Data {
 	    $originalTemplateDir = $this->getTemplateDir();
 	    
 	    // agrego el path necesario de acuerdo al template que necesito
-	    if (is_string($template) && !file_exists($this->getTemplateDir().$template))
+	    if (is_string($template) && !file_exists($this->getTemplateDir(0).$template))
 		    $this->addTemplateDir($this->getModuleTemplatePath($template));
 	    elseif ($template === null && $this instanceof $this->template_class && !empty($this->template_resource))
 		    $this->addTemplateDir($this->getModuleTemplatePath($this->template_resource));

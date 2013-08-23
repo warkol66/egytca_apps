@@ -39,7 +39,20 @@
     var $language;
     
 	function __construct ($locale="") {
+		
 		parent::__construct();
+		
+//		$this->setTemplateDir('WEB-INF/tpl/');
+//        $this->setCompileDir('WEB-INF/smarty_tpl/templates_c/');
+//        $this->setConfigDir('WEB-INF/smarty_tpl/configs/');
+//        $this->setCacheDir('WEB-INF/smarty_tpl/cache/');
+//
+//        $this->left_delimiter = '|-';
+//        $this->right_delimiter = '-|';
+//		
+//		$this->caching = self::CACHING_OFF;
+//		$this->force_compile = true;
+		
 		
 		// Multilanguage Support
 		// use $smarty->language->setLocale() to change the language of your template

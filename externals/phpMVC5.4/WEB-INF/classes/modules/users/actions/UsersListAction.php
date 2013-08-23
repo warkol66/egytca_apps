@@ -15,7 +15,8 @@ class UsersListAction extends BaseAction {
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
-
+//		user_error('error generado a proposito', E_USER_WARNING);
+//throw new Exception('excepcion generada a proposito');
 		$module = "Users";
 		$section = "Users";
 		

@@ -5,6 +5,8 @@
 *
 */
 
+require_once "$appDir/WEB-INF/classes/includes/BackwardsCompatibility.php";
+
 date_default_timezone_set('UTC');
 
 // Include the bootup config file
