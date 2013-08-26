@@ -79,6 +79,13 @@ class Region extends BaseRegion {
 		return substr($this->getName(),0,50);
 	}
 	
+	/**
+	* Devuelve la cantidad de usuarios relacionados a la region
+	*	@return int cantidad de usuarios asociados
+	*/
+	public function getUsersCount(){
+		return UserQuery::create()->filterByRegionId($this->getId())->count();
+	}
 	
 
 } // Region
