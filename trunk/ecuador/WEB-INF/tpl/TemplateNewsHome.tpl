@@ -63,6 +63,7 @@ window.onload = function() {
 								|-if !empty($loginUser) && !$SESSION.firstLogin-|<div id="rightMenu">
 							|-include file='PublicContentsBlockInclude.tpl'-|
 							|-include file='PublicDocumentsBlockInclude.tpl'-|
+							|-include file='PublicRegionsUsersBlockInclude.tpl'-|
 							</div>
 						<!-- End rightMenu -->|-/if-|
 
