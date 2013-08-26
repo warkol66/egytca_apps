@@ -46,5 +46,24 @@
 		</vendor>
 
 	</table>
+	
+	<table name="regions_neighbor" phpName="RegionNeighbor" description="Regiones y Vecinos">
+		<column name="regionId" required="true" primaryKey="true" type="INTEGER" description="Region"/>
+		<column name="neighborId" required="true" primaryKey="true" type="INTEGER" description="Vecino"/>
+
+		<foreign-key foreignTable="regions_region" onDelete="CASCADE">
+			<reference local="regionId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="regions_region" onDelete="CASCADE">
+			<reference local="neighborId" foreign="id" />
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
 
 </database>
