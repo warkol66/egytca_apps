@@ -24,6 +24,25 @@ function unblockUser(form){
 	$('#usersMsgField').html('<span class="inProgress">desbloqueando usuario...</span>');
 	return true;
 }
+$(function() {
+	$.datepicker.setDefaults($.datepicker.regional['es']);
+	$( ".datepickerFrom" ).datepicker({
+		dateFormat:"dd-mm-yy",
+		maxDate: new Date,
+		onClose: function(selectedDate) {
+			$(".datepickerTo").datepicker("option", "minDate", selectedDate);
+			$("#dateTo").prop("disabled",false);
+		}
+	}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');;
+	$(".datepickerTo").datepicker({
+		dateFormat:"dd-mm-yy",
+		maxDate: new Date,
+		onClose: function(selectedDate) {
+			$(".datepickerFrom").datepicker("option", "maxDate", selectedDate);
+			$("#buttonStatistics").prop("disabled",false);
+		}
+	}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');;
+});
 </script>
 <h2>##common,18,Configuración del Sistema##</h2>
 <h1>##151,Administración de Usuarios##</h1>
@@ -57,6 +76,22 @@ function unblockUser(form){
 	|-assign var="currentUserInfo" value=$currentUser->getUserInfo()-|
 	|-/if-|
 |-/if-|<span id="usersMsgField"></span>
+
+<div>
+	<form action="Main.php?do=usersStatisticsViewX" method="post" target="Graph" onSubmit='window.open("","Graph","scrollbars=1,width=800,height=600");'>
+		<fieldset title="Formulario de rango de fechas de estadísticas">
+		<legend>Rango de fechas de estadísticas</legend>
+		<p>
+			<label for="fromDate">##blog,5,Fecha Desde##</label>
+			<input name="dateFrom" type="text" id="dateFrom" class="datepickerFrom" title="fromDate" size="12" /> 
+		</p>
+		<p>
+			<label for="toDate">##blog,6,Fecha Hasta##</label>
+			<input name="dateTo" type="text" id="dateTo" disabled="disabled" class="datepickerTo" title="toDate" size="12" /> 
+		</p>
+		<input type="submit" value="Ver Estadísticas" disabled="disabled" id="buttonStatistics" title="Ver Estadísticas (abre en ventana nueva)"/>
+	</form>
+</div>
 
 <table class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 	<thead>
