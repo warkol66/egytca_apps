@@ -87,5 +87,49 @@ class Region extends BaseRegion {
 		return UserQuery::create()->filterByRegionId($this->getId())->count();
 	}
 	
+	/**
+	* Obtiene todos los vecinos disponibles para la region
+	*
+	* @return array vecinos posibles a elegir
+	*/
+	public function getNeighborCandidates(){
+		$id = $this->getId();
+		//busco las relaciones en las que aparece la region como region y como vecino
+		$regionsRegId = RegionNeighborQuery::create()->filterByRegionId($id)->select("NeighborId")->find()->toArray();
+		$regions = array_merge($regionsRegId, RegionNeighborQuery::create()->filterByNeighborId($id)->select("RegionId")->find()->toArray());
+		array_push($regions, $id);
+		
+		//return $regionsRegId;
+		
+		$candidates = RegionQuery::create()
+										->filterById($regions, Criteria::NOT_IN)
+										->filterByType($this->getType())
+										->find();
+		return $candidates;
+	}
+	
+	/**
+	* Obtiene los vecinos de la region
+	*
+	* @return array vecinos de la region
+	*/
+	public function getNeighbors(){
+		$regionsRegId = RegionNeighborQuery::create()->filterByRegionId($this->getId())->find();
+		$byRegId = array();
+		foreach($regionsRegId as $region){
+			$byRegId[] = $region->getRegionRelatedByNeighborid();
+		}
+		
+		$regionsNeighId = RegionNeighborQuery::create()->filterByNeighborId($this->getId())->find();
+		$byNeighId = array();
+		foreach($regionsNeighId as $region){
+			$byNeighId[] = $region->getRegionRelatedByRegionid();
+		}
+		
+		$regions = array_merge($byRegId, $byNeighId);
+		
+		return $regions;
+	}
+	
 
 } // Region
