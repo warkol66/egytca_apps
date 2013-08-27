@@ -20,6 +20,8 @@ class RegionsDoEditAction extends BaseAction {
 		}
 
 		$module = "Regions";
+		
+		//die('blabla');
 
 		$pagerRedirect = array ( "page" => $_POST["page"]);
 
@@ -50,7 +52,6 @@ class RegionsDoEditAction extends BaseAction {
 		else {
 
 			$result = RegionPeer::create($_POST["regionData"]);
-
 			if (!$result) {
 				$region = new Region();
 				$region->setid($_POST["id"]);

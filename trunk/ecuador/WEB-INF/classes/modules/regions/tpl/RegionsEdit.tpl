@@ -21,6 +21,21 @@ function regionsGetAllParentsByRegionX(form){
 	$('regionMsgField').innerHTML = '<p><span class="inProgress">buscando padres...</span></p>';
 	return true;
 }
+
+function addNeighbor(form) {
+	
+	jQuery.ajax({
+		url: url,
+		data: jQuery(form).serialize(),
+		type: 'post',
+		dataType: 'html',
+		success: function(data){
+			jQuery('#neighborList').append(data);
+		}
+	});
+	jQuery('#neighborMsgField').html('<span class="inProgress">agregando región vecina</span>');
+	return true;
+}
 </script>
 <p>A continuación podrá |-if !$region->isNew()-|editar|-else-|crear|-/if-| una región del sistema.</p>
 <div id="div_region">
@@ -99,3 +114,35 @@ habitantes	</p>
 	</form>
 		</fieldset>
 </div>
+<!--Neighbors-->
+<fieldset title="Formulario de edición de regiones vecinas">
+	<legend>Regiones Vecinas</legend>
+<div id="neighborAdding"> <span id="neighborMsgField"></span> 
+  <form method="post"> 
+    <p> 
+      <select id="neighborId" name="neighborId" title="neighborId" > 
+      <option value="">Seleccione una región</option>
+				|-foreach from=$neighborOptions item=neighborOp name=for_neighborOp-|
+        <option id="neighborOption|-$neighborOp->getId()-|" value="|-$neighborOp->getId()-|" >|-$neighborOp->getName()-|</option> 
+				|-/foreach-|
+      </select> 
+      <input type="hidden" name="do" id="do" value="regionsDoAddNeighborX" /> 
+      <input type="hidden" name="regionId" id="regionId" value="|-$region->getId()-|" /> 
+      <input type="button" value="Asignar vecino" onClick="javascript:addNeighbor(this.form)"/> 
+    </p> 
+  </form> 
+  <ul id="neighborList" class="optionDelete">|-assign var=actualNeighbors value=$region->getNeighbors()-|
+     |-foreach from=$actualNeighbors item=actual name=for_actual-|
+    <li id="neighborListItem|-$actual->getId()-|">
+      <form  method="post">
+        <input type="hidden" name="do" id="do" value="regionsDoDeleteNeighborX" /> 
+        <input type="hidden" name="regionId"  value="|-$region->getId()-|" /> 
+        <input type="hidden" name="neighborId"  value="|-$actual->getId()-|" /> 
+			  <input type="button" value="Eliminar" title="Eliminar" onClick="if (confirm('¿Seguro que desea eliminar el vínculo con la región?')){deleteNeighborFromrRegion(this.form)}; return false" class="icon iconDelete" /> 
+     </form><span title="Para eliminar haga click sobre el botón de la izquierda">&nbsp;&nbsp;&nbsp;|-$actual->getName()-|</span>
+    </li> 
+    |-/foreach-|
+  </ul> 
+</div>
+</fieldset>
+<!--Fin Neighbors-->

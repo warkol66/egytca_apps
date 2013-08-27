@@ -175,9 +175,12 @@ class RegionPeer extends BaseRegionPeer {
 		try {
 			$regionObj->save();
 			$parentNode = $regionObj->getParent();
-			if ($parentNode->getId() != $regionParams[parentId]) {
-				$newParentNode = RegionQuery::create()->findPk($regionParams[parentId]);
-				$regionObj->moveToLastChildOf($newParentNode);
+			//chequeo que no sea el nodo raiz
+			if(is_object($parentNode)){
+				if ($parentNode->getId() != $regionParams[parentId]) {
+					$newParentNode = RegionQuery::create()->findPk($regionParams[parentId]);
+					$regionObj->moveToLastChildOf($newParentNode);
+				}
 			}
 
 			return true;

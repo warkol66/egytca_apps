@@ -31,6 +31,7 @@ class RegionsEditAction extends BaseAction {
 			if (!empty($region)) {
 				$smarty->assign("region",$region);
 				$regions =  RegionPeer::getAllPossibleParentsByType($region->getType());
+				$smarty->assign('neighborOptions', $region->getNeighborCandidates());
 			}
 		}
 		else {
