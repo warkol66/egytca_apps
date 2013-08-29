@@ -114,7 +114,7 @@ habitantes	</p>
 	</form>
 		</fieldset>
 </div>
-<!--Neighbors-->
+|-if !$region->isNew()-|<!--Neighbors-->
 <fieldset title="Formulario de edición de regiones vecinas">
 	<legend>Regiones Vecinas</legend>
 <div id="neighborAdding"> <span id="neighborMsgField"></span> 
@@ -145,4 +145,4 @@ habitantes	</p>
   </ul> 
 </div>
 </fieldset>
-<!--Fin Neighbors-->
+<!--Fin Neighbors-->|-/if-|
