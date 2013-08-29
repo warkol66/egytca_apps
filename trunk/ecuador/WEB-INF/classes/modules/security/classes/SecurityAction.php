@@ -1,5 +1,7 @@
 <?php
 
+require_once 'ControllerUtils.php';
+
 /**
  * Skeleton subclass for representing a row from the 'SecurityAction' table.
  *
@@ -8,6 +10,39 @@
  * @package security
  */
 class SecurityAction extends BaseSecurityAction {
+	
+	static function createFromAction($action) {
+		
+		$securityAction = new SecurityAction();
+		$securityAction
+			->setAccess(1)
+			->setAccessAffiliateUser(0)
+			->setAccessRegistrationUser(0)
+			->setActive(1);
+		
+		$pair = ControllerUtils::getPairForAction($action);
+		$securityAction->setAction($pair['withoutDo'])->setPair($pair['withDo']);
+		
+		$module = $securityAction->findModuleNameFromActionName();
+		$securityModule = SecurityModuleQuery::create()->findOneByModule($module);
+		if (!$securityModule)
+			$securityModule = SecurityModule::createFromModule($module);
+		
+		$securityAction->setSecurityModule($securityModule);
+		
+		return $securityAction;
+	}
+	
+	function findModuleNameFromActionName() {
+		return ControllerUtils::getModuleForAction($this->getAction());
+	}
+	
+	function setAccessForBitLevel($access, $bitLevel) {
+		if ($access)
+			$this->setAccess($this->getAccess() | $bitLevel);
+		else
+			$this->setAccess($this->getAccess() & ~$bitLevel);
+	}
 
 	/**
 	* Obtiene la etiqueta de ese Action
@@ -63,6 +98,16 @@ class SecurityAction extends BaseSecurityAction {
 	}
 
 	/**
+	 * genera el codigo SQL de limpieza de las tablas afectadas al modulo.
+	 * @return string SQL
+	 */
+	function getSQLCleanup() {
+		$sql = "DELETE FROM `security_action` WHERE `module` = " . "'" . $this->getModule() . "'" . ';';
+		$sql .= "OPTIMIZE TABLE `security_action`;";
+		return  $sql;
+	}
+
+	/**
 	 * Indica si el valor pasado corresponde al bitlevel actual de admin de la instancia
 	 * @param integer bitlevel
 	 * @return true en caso afirmativo, false sino.
@@ -102,12 +147,17 @@ class SecurityAction extends BaseSecurityAction {
 	 */
 	function getAccessByUser($user) {
 		$userClass = get_class($user);
-		$access = 0;
 		$method = "getAccess";
 		if ($userClass != "User")
 			$method .= $userClass;
-		$access = $this->$method();
-		return $access;
+		$actionBitLevel = $this->$method();
+
+		$level = $user->getLevel();
+
+		if ($level->getBitLevel() & $actionBitLevel)
+			return true;
+		else
+			return false;
 	}
 
 	/**
@@ -188,8 +238,8 @@ class SecurityAction extends BaseSecurityAction {
 				$noCheckLogin = 1;
 		return $noCheckLogin;
 	}
-	
-	/** Migrada de Peer
+
+	/**
 	* Obtiene un action a partir de su nombre o del par
 	* @param string $action nombre del action
 	* @return object $obj action encontrado
@@ -204,14 +254,6 @@ class SecurityAction extends BaseSecurityAction {
 		return $securityAction;
 	}
 	
-	/** Migrada de Peer
-	 * genera el codigo SQL de limpieza de las tablas afectadas al modulo.
-	 * @return string SQL
-	 */
-	function getSQLCleanup($module) {
-		$sql = "DELETE FROM `security_action` WHERE `module` = '" . $module . "';\n";
-		$sql .= "OPTIMIZE TABLE `security_action`;";
-		return  $sql;
-	}
+
 
 } // SecurityAction

@@ -17,8 +17,8 @@ class SecurityActionLabel extends BaseSecurityActionLabel {
 		$sql = "INSERT INTO `security_actionLabel` ( `action` , `label` , `description` ,`language` ) VALUES ('" . $this->getAction() . "', '" . $this->getLabel() . "', '" . $this->getDescription() . "', '" . $this->getLanguage() . "');";
 		return $sql;
 	}
-	
-	/** Migrada de Peer
+
+	/**
 	*	Obtiene etiquetas segun el idioma y action
 	*	@param string $language idioma
 	*	@param string $module nombre del modulo
