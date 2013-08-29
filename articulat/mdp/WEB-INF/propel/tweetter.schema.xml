@@ -1,0 +1,58 @@
+<database defaultIdMethod="native" package="tweetter.classes" name="application" >
+
+	<table name="tweetter_tweet" phpName="Tweet" description="Tweet">
+
+		<column name="internalId" required="true" primaryKey="true" type="INTEGER" description="Tweet internal Id" autoIncrement="true"/>
+		<column name="id" required="true" type="INTEGER" description="Tweet Id" />
+		<column name="id_str" required="true" type="VARCHAR" size="255" description="Tweet String Id" />
+		<column name="text" required="true"  type="VARCHAR" size="140" description="Tweet" primaryString="true" />
+		<column name="userId" required="true"  type="INTEGER" size="140" description="User who created the tweet" />
+		<column name="truncated" type="BOOLEAN" description="Tweet is truncated" />
+		<!--column name="geo"  /-->
+		<!-- column name="coordinates"  /-->
+		<column name="place" type="VARCHAR" size="255" description="Location" />
+		<!--column name="contributors"  /-->
+		<column name="retweetCount" type="INTEGER" description="Retweet count" />
+		<column name="favoriteCount" type="INTEGER" description="Favorited count" />
+		<column name="lang" type="VARCHAR" size="255" description="Language" />
+		<column name="in_reply_to_status_id" type="INTEGER" description="In reply to tweet id" />
+		<column name="in_reply_to_status_id_str" type="VARCHAR" size="255" description="In reply to tweet string id" />
+		<column name="in_reply_to_user_id" type="INTEGER" description="In reply to user id" />
+		<column name="in_reply_to_user_id_str" type="VARCHAR" size="255" description="In reply to user string id" />
+		<column name="in_reply_to_screen_name" type="VARCHAR" size="255" description="In reply to user Display name" />
+
+		<!-- Descomentar cuando esten las tablas -->
+		<foreign-key foreignTable="tweetter_user" onDelete="cascade">
+			<reference local="userId" foreign="id"/>
+		</foreign-key>
+        
+        <unique>
+            <unique-column name="internalId" />
+        </unique>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table name="tweetter_user" phpName="TwitterUser" isCrossRef="true" description="Twitter / Users">
+
+		<column name="userInternalId" required="true" primaryKey="true" type="INTEGER"  description="User internal ID" autoIncrement="true"/>
+		<column name="id" required="true" type="INTEGER" description="Tweetter user Id" />
+		<column name="id_str" required="true" type="VARCHAR" size="255" description="Tweetter user String Id" />
+		<column name="name" type="VARCHAR" size="255" description="Tweetter user name" />
+		<column name="screenName" type="VARCHAR" size="255" description="Tweetter user username" />
+		<column name="location" type="VARCHAR" size="255" description="Tweetter user location" />
+		<column name="description" type="VARCHAR" size="255" description="Tweetter user description" />
+		<column name="url" type="VARCHAR" size="255" description="Tweetter user url" />
+		<column name="isProtected" type="BOOLEAN" description="Tweetter account is protected" />
+
+		<!--foreign-key foreignTable="actors_actor" onDelete="cascade">
+			<reference local="userInternalId" foreign="id"/>
+		</foreign-key-->
+
+	</table>
+
+</database>
