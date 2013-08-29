@@ -415,3 +415,64 @@ a.path_Mark:link, a.path_Mark:visited,
 .textOptionMove {
 	cursor: move;
 }
+
+
+	fieldset#securityLevel #sidebar {
+		position: fixed;
+		width: 210px;
+		border-right: 1px solid #aaaaaa;
+	}
+	fieldset#securityLevel #content {
+		margin-left: 210px;
+	}
+	fieldset#securityLevel .filter {
+		border-top: 1px solid #aaaaaa;
+		margin-top: 10px;
+	}
+	fieldset#securityLevel .modules {
+		margin-left: 20px;
+	}
+	fieldset#securityLevel .modules td {
+		padding: 5px;
+	}
+	fieldset#securityLevel tr.module:hover,
+	fieldset#securityLevel tr.action:hover {
+		background-color: #d6f8ef !Important;
+	}
+	fieldset#securityLevel .module .name {
+		padding-left: 16px;
+	}
+	fieldset#securityLevel .action .name {
+		padding-left: 20px;
+	}
+	fieldset#securityLevel .collapsed-module {
+		display: none;
+	}
+	fieldset#securityLevel .filtered-out {
+		display: none;
+	}
+	fieldset#securityLevel tr.action {
+		background-color: white;
+	}
+	fieldset#securityLevel tr.module td {
+		border-bottom: none;
+		border: 2px solid brown !Important;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 0px;
+		border-bottom-left-radius: 0px;
+		font-weight: bold;
+	}
+	fieldset#securityLevel tr#allActions td {
+		border: 2px solid brown !Important;
+		border-radius: 5px;
+	}
+	fieldset#securityLevel tr.last td {
+		border-bottom: 2px solid brown !Important;
+	}
+	fieldset#securityLevel tr.action td:first-child {
+		border-left: 2px solid brown !Important;
+	}
+	fieldset#securityLevel tr.action td:last-child {
+		border-right: 2px solid brown !Important;
+	}

@@ -9,7 +9,24 @@
  */
 class SecurityModule extends BaseSecurityModule {
 	
-	const LEVEL_ALL = 1073741823;
+	static function createFromModule($module) {
+		
+		$securityModule = new SecurityModule();
+		$securityModule->setModule($module)
+			->setAccess(0)
+			->setAccessaffiliateuser(0)
+			->setAccessregistrationuser(0)
+			->setNochecklogin(0);
+		
+		return $securityModule;
+	}
+	
+	function setAccessForBitLevel($access, $bitLevel) {
+		if ($access)
+			$this->setAccess($this->getAccess() | $bitLevel);
+		else
+			$this->setAccess($this->getAccess() & ~$bitLevel);
+	}
 
 	/**
 	 * Genera instrucciones sql para insertar informacion de seguridad del modulo
@@ -60,6 +77,10 @@ class SecurityModule extends BaseSecurityModule {
 	function hasAllAffiliateAccess() {
 		return ($this->hasAccessAffiliateBitLevel(1) && $this->hasAccessAffiliateBitLevel(2) && $this->hasAccessAffiliateBitLevel(4));
 	}
+	
+	function hasAllUsersAccess() {
+		return $this->getAccess() == SecurityModulePeer::LEVEL_ALL;
+	}
 
 	/**
 	 * Genera el codigo SQL de limpieza de las tablas afectadas al modulo.
@@ -81,8 +102,13 @@ class SecurityModule extends BaseSecurityModule {
 		$method = "getAccess";
 		if ($userClass != "User")
 			$method .= $userClass;
-		$access = $this->$method();
-		return $access;
+		$moduleBitLevel = $this->$method();
+
+		$level = $user->getLevel();
+		if ($level->getBitLevel() & $moduleBitLevel)
+			return true;
+		else
+			return false;
 	}
 
 } // SecurityModule
