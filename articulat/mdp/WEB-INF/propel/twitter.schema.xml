@@ -1,6 +1,6 @@
 <database defaultIdMethod="native" package="twitter.classes" name="application" >
 
-	<table name="twitter_tweet" phpName="Tweet" description="Tweet">
+	<table name="twitter_tweet" phpName="TwitterTweet" description="Tweet">
 
 		<column name="internalId" required="true" primaryKey="true" type="INTEGER" description="Tweet internal Id" autoIncrement="true"/>
 		<column name="id" required="true" type="INTEGER" description="Tweet Id" />
@@ -55,7 +55,7 @@
 
 	</table>
 	
-	<table name="twitter_hashtag" phpName="twitterHashtag" description="Hashtags de tweets">
+	<table name="twitter_hashtag" phpName="TwitterHashtag" description="Hashtags de tweets">
 
 		<column name="id" type="INTEGER" description="uniqueId de hashtag" primaryKey="true" autoIncrement="true" />
 		<column name="from" type="INTEGER" description="Caracter inicial" />
@@ -70,6 +70,20 @@
 	    <parameter name="Charset" value="utf8"/>
 	    <parameter name="Collate" value="utf8_general_ci"/>
 	  </vendor>
+
+	</table>
+
+	<table phpName="TwitterHashtagRelation" name="twittter_hashtagRelation" isCrossRef="true" description="Asociacion entre Tweets y Hashtags">
+		<column name="tweetId" required="true" primaryKey="true" type="INTEGER" />
+		<column name="hashtagId" required="true" primaryKey="true" type="INTEGER" />
+
+		<foreign-key foreignTable="twitter_tweet" onDelete="CASCADE">
+			<reference local="tweetId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="twitter_hashtag" onDelete="CASCADE">
+			<reference local="hashtagId" foreign="id" />
+		</foreign-key>
 
 	</table>
 
