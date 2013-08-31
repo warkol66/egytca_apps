@@ -54,5 +54,23 @@
 		</foreign-key-->
 
 	</table>
+	
+	<table name="twitter_hashtag" phpName="twitterHashtag" description="Hashtags de tweets">
+
+		<column name="id" type="INTEGER" description="uniqueId de hashtag" primaryKey="true" autoIncrement="true" />
+		<column name="from" type="INTEGER" description="Caracter inicial" />
+		<column name="to" type="INTEGER" description="Caracter final" />
+		<column name="text" type="VARCHAR" size="255" description="Hashtag" />
+
+		<unique>
+		  <unique-column name="text" />
+		</unique>
+
+	  <vendor type="mysql">
+	    <parameter name="Charset" value="utf8"/>
+	    <parameter name="Collate" value="utf8_general_ci"/>
+	  </vendor>
+
+	</table>
 
 </database>
