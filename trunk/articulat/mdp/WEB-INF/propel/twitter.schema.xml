@@ -38,54 +38,7 @@
 
 	</table>
 	
-	<!--table name="twitter_parsedTweet" phpName="TwitterParsedTweet" description="Tweet importado">
-
-		<column name="id" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"	 description="ParsedTweet Id" />
-		<column name="parsedTweetId" required="true" type="INTEGER" description="ParsedTweet Id" />
-		<column name="parsedTweetIdStr" required="true" type="VARCHAR" size="255" description="ParsedTweet String Id" />
-		<column name="tweetId" type="INTEGER" description="Tweet Id" />
-		<column name="internalId" required="true"  type="VARCHAR" size="255" description="Tweet internal Id" />
-		<column name="twitterCampaignId" type="INTEGER" description="Twitter Campaign ID"/>
-		<column name="status" type="INTEGER" description="Estado del tweet importado"/>
-		<column name="text" required="true"  type="VARCHAR" size="140" description="Tweet" primaryString="true" />
-		<column name="userId" required="true"  type="INTEGER" size="140" description="User who created the tweet" />
-		<column name="truncated" type="BOOLEAN" description="Tweet is truncated" />
-		<!--column name="geo"  /-->
-		<!-- column name="coordinates"  /- ->
-		<column name="place" type="VARCHAR" size="255" description="Location" />
-		<!--column name="contributors"  /- ->
-		<column name="retweetCount" type="INTEGER" description="Retweet count" />
-		<column name="favoriteCount" type="INTEGER" description="Favorited count" />
-		<column name="lang" type="VARCHAR" size="255" description="Language" />
-		<column name="inReplyToStatusId" type="INTEGER" description="In reply to tweet id" />
-		<column name="inReplyToStatusIdStr" type="VARCHAR" size="255" description="In reply to tweet string id" />
-		<column name="inReplyToUserId" type="INTEGER" description="In reply to user id" />
-		<column name="inReplyToUserIdStr" type="VARCHAR" size="255" description="In reply to user string id" />
-		<column name="inReplyToScreenName" type="VARCHAR" size="255" description="In reply to user Display name" />
-
-		<!-- Descomentar cuando esten las tablas - ->
-		<foreign-key foreignTable="twitter_tweet">
-			<reference local="tweetId" foreign="id"/>
-		</foreign-key>
-
-		<foreign-key foreignTable="campaigns_twitterCampaign" onDelete="cascade">
-			<reference local="twitterCampaignId" foreign="id"/>
-		</foreign-key>
-		
-		<foreign-key foreignTable="twitter_user" onDelete="cascade">
-			<reference local="userId" foreign="id"/>
-		</foreign-key>
-        
-        <unique>
-            <unique-column name="internalId" />
-        </unique>
-
-		<vendor type="mysql">
-			<parameter name="Charset" value="utf8"/>
-			<parameter name="Collate" value="utf8_general_ci"/>
-		</vendor>
-
-	</table-->
+	
 
 	<table name="twitter_user" phpName="TwitterUser" isCrossRef="true" description="Twitter / Users">
 
