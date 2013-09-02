@@ -76,7 +76,7 @@
 
 	</table>
 
-	<table phpName="TwitterHashtagRelation" name="twittter_hashtagRelation" isCrossRef="true" description="Asociacion entre Tweets y Hashtags">
+	<table phpName="TwitterHashtagRelation" name="twitter_hashtagRelation" isCrossRef="true" description="Asociacion entre Tweets y Hashtags">
 		<column name="tweetId" required="true" primaryKey="true" type="INTEGER" />
 		<column name="hashtagId" required="true" primaryKey="true" type="INTEGER" />
 
