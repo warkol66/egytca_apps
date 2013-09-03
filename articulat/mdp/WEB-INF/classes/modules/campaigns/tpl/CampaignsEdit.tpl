@@ -69,6 +69,10 @@ function clearElement(element) {
 				<input name="params[name]" type="text" id="params[name]" title="Nombre" value="|-$campaign->getName()|escape-|" size="50" class="emptyValidation"> |-validation_msg_box idField="params[name]"-|
 			</p>
 			<p>
+				<label for="params[twitterCampaign]">Es campaña de Twitter</label>
+				<input type="checkbox" name="params[twitterCampaign]" value="true" |-if $campaign->getTwitterCampaign()-|checked|-/if-|> 
+			</p>
+			<p>
 				<label for="params[type]">Tipo</label>
 				<select id="params[type]" name="params[type]" title="Tipo de Campaña" class="emptyValidation"> 
 			<option value="">Seleccione tipo</option>
