@@ -11,6 +11,7 @@
 		<column name="description" description="Descripcion de la Campaign" type="LONGVARCHAR" />
 		<column name="defaultKeywords" description="Palabras clave por defecto para prensa" type="CHAR" size="255" />
 		<column name="responsible" description="Persona Responsable de la campaign" type="CHAR" size="120" />
+		<column name="twitterCampaign" type="BOOLEAN" sqlType="BOOL" default="false" description="Indica si es de tipo twitter" />
 
 		<behavior name="soft_delete" />
 <!-- Solo si esta activo el modulo de clientes (affiliates) -->
