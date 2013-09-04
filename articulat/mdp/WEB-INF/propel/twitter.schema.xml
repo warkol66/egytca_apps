@@ -5,7 +5,9 @@
 		<column name="id" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"	 description="Id" />
 		<column name="tweetId" required="true" type="INTEGER" description="Tweet Id" />
 		<column name="tweetIdStr" required="true" type="VARCHAR" size="255" description="Tweet String Id" />
-		<column name="internalId" required="true"  type="VARCHAR" size="255" description="Tweet internal Id" />
+		<!--column name="internalId" required="true"  type="VARCHAR" size="255" description="Tweet internal Id" /-->
+		<column name="campaignId" required="true"  type="VARCHAR" size="255" description="Campaign Id" />
+		<column name="createdAt" type="DATE" description="Fecha de creacion" />
 		<column name="text" required="true"  type="VARCHAR" size="140" description="Tweet" primaryString="true" />
 		<column name="userId" required="true"  type="INTEGER" size="140" description="User who created the tweet" />
 		<column name="truncated" type="BOOLEAN" description="Tweet is truncated" />
@@ -21,15 +23,20 @@
 		<column name="inReplyToUserId" type="INTEGER" description="In reply to user id" />
 		<column name="inReplyToUserIdStr" type="VARCHAR" size="255" description="In reply to user string id" />
 		<column name="inReplyToScreenName" type="VARCHAR" size="255" description="In reply to user Display name" />
+		<column name="status" type="TINYINT" default="1" description="Estado del tweet"/>
 
 		<!-- Descomentar cuando esten las tablas -->
 		<foreign-key foreignTable="twitter_user" onDelete="cascade">
 			<reference local="userId" foreign="id"/>
 		</foreign-key>
+		
+		<foreign-key foreignTable="campaigns_campaign" onDelete="cascade">
+			<reference local="campaignId" foreign="id"/>
+		</foreign-key>
         
-        <unique>
+        <!--unique>
             <unique-column name="internalId" />
-        </unique>
+        </unique-->
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
