@@ -13,6 +13,17 @@
  *
  * @package    propel.generator.twitter.classes
  */
-class TwitterTweet extends BaseTwitterTweet
-{
+class TwitterTweet extends BaseTwitterTweet{
+	
+	/*Posibles estados del tweet*/
+	const PARSED = 1;
+	const ACCEPTED = 2;
+	const DISCARDED = 3;
+	
+	public function getStatuses(){
+		$statuses[Self::PARSED] = 'Parseado';
+		$statuses[Self::ACCEPTED] = 'Aceptado';
+		$statuses[Self::DISCARDED] = 'No Aceptado';
+		return $statuses;
+	}
 }
