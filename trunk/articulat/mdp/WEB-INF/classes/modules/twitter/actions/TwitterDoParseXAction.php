@@ -1,6 +1,6 @@
 <?php
 
-class TwitterTweetsSearchAction extends BaseAction {
+class TwitterDoParseXAction extends BaseAction {
 	
 	public function execute($mapping, $form, &$request, &$response) {
 		
