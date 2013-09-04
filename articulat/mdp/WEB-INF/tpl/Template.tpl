@@ -7,7 +7,6 @@
 <!--[if lte IE 6]> <link href="css/styles-ie.css" rel="stylesheet" type="text/css" /> <![endif]-->
 <!--[if IE 7]> <link href="css/styles-ie7.css" rel="stylesheet" type="text/css" /> <![endif]-->
 <!--[if IE 8]> <link href="css/styles-ie8.css" rel="stylesheet" type="text/css" /> <![endif]-->
-<link rel="stylesheet" href="css/mainHandheld.css" type="text/css" media="handheld" />
 <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
 <link rel="shortcut icon" href="images/favicon.ico" />
 <script language="JavaScript" type="text/JavaScript">
@@ -16,7 +15,7 @@
 |-include file='TemplateJsIncludes.tpl'-|
 </head>
 <body>
-	<img src="images/logo_200.png" style="margin-left:30px; top: 0; float: left; position: fixed; z-index: 50002"/>
+<!--	<img src="images/logo_200.png" style="margin-left:30px; top: 0; float: left; position: fixed; z-index: 50002"/> -->
 <!-- Begin Wrapper -->
 <div id="wrapper">
 	<b class="rounded"><b class="rtop"><b class="r7"></b><b class="r6"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r1"></b></b></b>

@@ -767,3 +767,7 @@ a.expandLink:link,a.expandLink:visited, a.collapseLink:link,a.collapseLink:visit
 	font-size: 100% !Important;
 	display: inline;
 }
+.overrideExpand {
+	background-image: url(../images/icon_expand.png) !Important;
+	background-repeat: no-repeat;
+}
