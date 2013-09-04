@@ -36,7 +36,7 @@ class WebkitHtmlRenderer {
 			$sizeSettings = " --quality " . $quality . " --width " . $width . " --height " . $height;
 		}
 		
-		$fullCommand = $this->command. $sizeSettings . ' "' . $url . '" ' . $image;
+		$fullCommand = $this->command. $sizeSettings . ' --disable-javascript "' . $url . '" ' . $image;
 
 		if (!stristr(PHP_OS,"WIN")) { //No hay renderer para win
 			

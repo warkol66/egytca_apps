@@ -59,6 +59,18 @@ class CampaignPeer extends BaseCampaignPeer {
 	}
 
 	/**
+	* Obtiene el nombre traducido del tipo de rol.
+	*
+	* @return array tipos de rol traducido
+	*/
+	function getCampaignTypesTranslated() {
+		$types = CampaignPeer::getCampaignTypes();
+		foreach ($types as $type)
+			$type[1] = Common::getTranslatedArray($type[1],'campaigns');
+		return $types;
+	}
+
+	/**
 	* Obtiene un campaign.
 	*
 	* @param int $id id del campaign

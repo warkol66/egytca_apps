@@ -76,13 +76,16 @@ function clearElement(element) {
 			</p>
 			<p>
 				<label for="params[twitterCampaign]">Es campaña de Twitter</label>
+				<input name="params[twitterCampaign]" type="hidden" value="0" />
 				<input type="checkbox" name="params[twitterCampaign]" value="true" |-if $campaign->getTwitterCampaign()-|checked|-/if-|> 
 			</p>
 			<p>
 				<label for="params[type]">Tipo</label>
 				<select id="params[type]" name="params[type]" title="Tipo de Campaña" class="emptyValidation"> 
-			<option value="">Seleccione tipo</option>
-			|-html_options options=$types selected=$campaign->getType()-|
+					<option value="">Seleccione tipo</option>
+					|-foreach from=$types item=typeName key=typeKey name=for_types-|
+					<option value="|-$typeKey-|" |-$campaign->getType()|selected:$typeKey-|>|-$typeName|multilang_get_translation:"campaigns"-|</option>
+					|-/foreach-|
       </select> |-validation_msg_box idField="params[type]"-|
 			</p>
 			<p> 
