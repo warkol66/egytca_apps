@@ -24,7 +24,7 @@ class CampaignsEditAction extends BaseAction {
 		$moduleConfig = Common::getModuleConfiguration($module);
 		$smarty->assign("moduleConfig",$moduleConfig);
 
-		$types = CampaignPeer::getCampaignTypes();
+		$types = CampaignPeer::getCampaignTypesTranslated();
 		$smarty->assign("types",$types);
 
 		if (!empty($_GET["id"])) {
