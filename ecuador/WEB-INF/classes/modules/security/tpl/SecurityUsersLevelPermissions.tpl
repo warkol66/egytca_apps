@@ -90,15 +90,6 @@ El sistema guardará la elección al momento de marcar la casilla y de ser satis
 </fieldset>
 
 <script>
-
-	getErrors = function(response) {
-		try {
-			var responseData = JSON.parse(response.responseText);
-			return responseData.errors;
-		} catch(e) {
-			return { unknown: 'Se produjo un error desconocido' }
-		}
-	};
 	
 	setAccess = function(type, name, access) {
 		
@@ -110,11 +101,9 @@ El sistema guardará la elección al momento de marcar la casilla y de ser satis
 		params.bitLevel = '|-$userBitLevel-|';
 		params[type] = name;
 		
-		sendAccessChangeRequest(params, $(name), function(response) {
-
-			if (getErrors(response))
-				$(name).select('.access').first().checked = !access; // Rollback status change
-
+		sendAccessChangeRequest(params, name, function(data, textStatus, jqXHR) {
+			if (data.errors)
+				$('#'+name+' .access').first().attr('checked', !access); // Rollback status change
 		});
 	};
 	
@@ -131,9 +120,9 @@ El sistema guardará la elección al momento de marcar la casilla y de ser satis
 		var visibleActionsSelector = '.action:not(.filtered-out):not(.collapsed-module)';
 		
 		var actions = [];
-		$$(visibleActionsSelector).each(function(e, i){
-			if (e.select('.access:enabled').length > 0)
-			actions.push(e.id);
+		$(visibleActionsSelector).each(function() {
+			if ($(this).find('.access:enabled').length > 0)
+			actions.push(this.id);
 		});
 		
 		var params = {
@@ -142,47 +131,43 @@ El sistema guardará la elección al momento de marcar la casilla y de ser satis
 			"action[]": actions
 		}
 		
-		sendAccessChangeRequest(params, $('allActions'), function(response) {
+		sendAccessChangeRequest(params, 'allActions', function(data, textStatus, jqXHR) {
 			
-			if (!getErrors(response)) {
-				$$(visibleActionsSelector).each(function(e, i){
-					e.select('.access').first().checked = access;
+			if (!data.errors) {
+				$(visibleActionsSelector).each(function() {
+					$(this).find('.access').first().attr('checked', access);
 				});
 			}
 		});
 	};
 	
-	sendAccessChangeRequest = function(params, statusIconsContainer, successCb) {
+	sendAccessChangeRequest = function(params, statusIconsContainerId, successCb) {
 		
 		console.log('chequear en el action que el usuario esté autorizado a cambiar los permisos!');
 		
-		statusIconsContainer.select('.resultStatus').each(function(e, i) { e.hide(); } );
-		statusIconsContainer.select('.spinner').first().show();
+		$('#'+statusIconsContainerId).find('.resultStatus').hide();
+		$('#'+statusIconsContainerId).find('.spinner').first().show();
 		
-		new Ajax.Request('Main.php?do=securityDoEditPermissionsV2', {
-			method: 'POST',
-			parameters: params,
-			onSuccess: function(response) {
-				
-				statusIconsContainer.select('.spinner').first().hide();
-				var selector = getErrors(response) ? '.no' : '.yes';
-				statusIconsContainer.select(selector).first().show();
-				
-				successCb(response);
-			}
-		});
+		$.post('Main.php?do=securityDoEditPermissionsV2', params, function(data, textStatus, jqXHR) {
+			
+			$('#'+statusIconsContainerId).find('.spinner').first().hide();
+			var selector = data.errors ? '.no' : '.yes';
+			$('#'+statusIconsContainerId).find(selector).first().show();
+			
+			successCb(data, textStatus, jqXHR);
+		}, 'json');
 	};
 	
 	collapse = function(elemId) {
-		$$('.'+elemId+'-action').each(function(e, i) { e.addClassName('collapsed-module'); });
-		$$('#'+elemId+' .collapse-button').each(function(e, i) { e.hide(); });
-		$$('#'+elemId+' .expand-button').each(function(e, i) { e.show(); });
+		$('.'+elemId+'-action').addClass('collapsed-module');
+		$('#'+elemId+' .collapse-button').hide();
+		$('#'+elemId+' .expand-button').show();
 	};
 	
 	expand = function(elemId) {
-		$$('.'+elemId+'-action').each(function(e, i) { e.removeClassName('collapsed-module'); });
-		$$('#'+elemId+' .collapse-button').each(function(e, i) { e.show(); });
-		$$('#'+elemId+' .expand-button').each(function(e, i) { e.hide(); });
+		$('.'+elemId+'-action').removeClass('collapsed-module');
+		$('#'+elemId+' .collapse-button').show();
+		$('#'+elemId+' .expand-button').hide();
 	};
 	
 	filterByName = function(value) {
@@ -190,32 +175,32 @@ El sistema guardará la elección al momento de marcar la casilla y de ser satis
 		var value = value.trim().replace(' ', '.*', 'g');
 		var regex = new RegExp(value);
 		
-		$$('.action').each(function(e, i) {
-			filterByCond(e, e.id.match(regex));
+		$('.action').each(function() {
+			filterByCond(this, this.id.match(regex));
 		});
 		
-		$$('.module').each(function(e, i) {
-			filterByCond(e, $$('.'+e.id+'-action:not(.filtered-out)').length > 0);
+		$('.module').each(function() {
+			filterByCond(this, $('.'+this.id+'-action:not(.filtered-out)').length > 0);
 		});
 		
-		if ($$('.modules .module:not(.filtered-out)').length > 0)
-			$('noMatchesMsg').hide();
+		if ($('.modules .module:not(.filtered-out)').length > 0)
+			$('#noMatchesMsg').hide();
 		else
-			$('noMatchesMsg').show();
+			$('#noMatchesMsg').show();
 	};
 	
 	filterByCond = function(elem, cond) {
 		if (cond)
-			elem.removeClassName('filtered-out');
+			$(elem).removeClass('filtered-out');
 		else
-			elem.addClassName('filtered-out');
+			$(elem).addClass('filtered-out');
 	};
 	
 	clearFilterByName = function() {
-		$('name-filter-input').clear().onkeyup();
+		$('#name-filter-input').clear().onkeyup();
 	};
 	
-	Event.observe(window, 'load', function() {
-		$('name-filter-input').focus();
+	$(function() {
+		$('#name-filter-input').focus();
 	});
 </script>
