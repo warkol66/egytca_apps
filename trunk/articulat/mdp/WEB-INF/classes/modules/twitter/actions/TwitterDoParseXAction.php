@@ -23,8 +23,8 @@ class TwitterDoParseXAction extends BaseAction {
 			
 			$searchRespone = $twitterConnection->search($query);
 			foreach ($searchRespone->statuses as $responseTweet) {
-				$tweet = createFromApiTweet($responseTweet, $campaignId);
-				$tweet->save();
+				$tweet = TwitterTweet::createFromApiTweet($responseTweet, $campaignId);
+				//$tweet->save();
 				$tweets[] = $tweet;
 			}
 			
@@ -65,39 +65,3 @@ class TwitterConnection {
 	}
 }
 
-// este metodo deberia ser TwitterTweet::createFromApiTweet($apiTweet); pero no está commiteada
-function createFromApiTweet($apiTweet, $campaignId) {
-	
-	$seed = md5(date("Ymd"));
-	
-	
-	$tweet = new TwitterTweet();
-	$tweet->fromArray(array(
-		'Createdat' => $apiTweet->created_at,
-		'Tweetid' => $apiTweet->id,
-		'Tweetidstr' => $apiTweet->id_str,
-//		'InternalId' => srand((int)$seed),
-		'Campaignid' => $campaignId,
-		'Text' => $apiTweet->text,
-		'Truncated' => $apiTweet->truncated,
-		'Inreplytostatusid' => $apiTweet->in_reply_to_status_id,
-		'Inreplytostatusidstr' => $apiTweet->in_reply_to_status_id_str,
-		'Inreplytouserid' => $apiTweet->in_reply_to_user_id,
-		'Inreplytouseridstr' => $apiTweet->in_reply_to_user_id_str,
-		'Inreplytoscreenname' => $apiTweet->in_reply_to_screen_name,
-//		'Geo' => $apiTweet->geo,
-//		'Coordinates' => $apiTweet->coordinates,
-//		'Contributors' => $apiTweet->contributors,
-		'Place' => $apiTweet->place,
-		'Retweetcount' => $apiTweet->retweet_count,
-		'Favoritecount' => $apiTweet->favorite_count,
-		'Lang' => $apiTweet->lang
-	));
-
-//	$user = TODO: create user
-//	$tweet->addUser($user);
-	
-	// TODO: otras entidades
-	
-	return $tweet;
-}
