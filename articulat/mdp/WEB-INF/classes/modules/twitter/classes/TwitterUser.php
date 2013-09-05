@@ -13,6 +13,25 @@
  *
  * @package    propel.generator.twitter.classes
  */
-class TwitterUser extends BaseTwitterUser
-{
+class TwitterUser extends BaseTwitterUser{
+	
+	/* Si el usuario que intentamos crear existe devuelve el existente
+	 * Si no crea uno nuevo y lo devuelve
+	 * 
+	 * @param $newUser: arreglo para crear el usuario fromArray()
+	 * return: TwitterUser
+	 * */
+	public function addUser($newUser) {
+		//me fijo si el usuario ya existe
+		$existent = TwitterUserQuery::create()->findOneByIdStr($newUser['IdStr']);
+		
+		if(!is_object($existent)){
+			$user = new TwitterUser();
+			$user->fromArray($newUser);
+			$user->save();
+			return $user;
+		}
+		return $existent;
+	}
+
 }

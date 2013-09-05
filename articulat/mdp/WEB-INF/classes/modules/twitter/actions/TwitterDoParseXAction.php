@@ -31,7 +31,7 @@ class TwitterDoParseXAction extends BaseAction {
 			//echo "<pre>";print_r($tweets);echo "</pre>";
 		}
 		//die;
-		$smarty->assign('tweets',$tweets);
+		$smarty->assign('tweetsParsed',$tweets);
 		return $mapping->findForwardConfig('success');
 	}
 }
