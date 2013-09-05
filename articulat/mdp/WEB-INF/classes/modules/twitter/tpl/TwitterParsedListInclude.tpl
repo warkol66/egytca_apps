@@ -15,8 +15,8 @@
 |-if $tweetsParsed|count gt 0-|
     |-foreach from=$tweetsParsed item=tweet name=for_tweets-|
     <li id="li_|-$tweet->getId()-|">
-		<img src="images/clear.png" class="icon iconActivate" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedSaveX&id=|-$tweet->getId()-|", { method: "post", parameters: { id: "|-$tweet->getId()-|"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">guardando tweet...</span>";' value="Guardar tweet" /></a>
-		<img src="images/clear.png" class="icon iconDelete" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedDiscardX&id=|-$tweet->getId()-|", { method: "post", parameters: { id: "|-$tweet->getId()-|"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando tweet...</span>";' value="Descartar tweet" /></a>
+		<img src="images/clear.png" class="icon iconActivate" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&id=|-$tweet->getId()-|", { method: "post", parameters: { id: "|-$tweet->getId()-|", action: "save"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">guardando tweet...</span>";' value="Guardar tweet" /></a>
+		<img src="images/clear.png" class="icon iconDelete" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&id=|-$tweet->getId()-|", { method: "post", parameters: { id: "|-$tweet->getId()-|", action: "discard"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando tweet...</span>";' value="Descartar tweet" /></a>
 		<input type="checkbox" class="tweetsIds" name="tweetsIds[]" value="|-$tweet->getId()-|" />
 		<ul><li>
 				|-$tweet->getText()|highlight:$tags:highlight-|

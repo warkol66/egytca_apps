@@ -119,4 +119,9 @@ class TwitterTweet extends BaseTwitterTweet{
 		$this->save();
 	}
 	
+	public function discard(){
+		$this->setStatus(TwitterTweet::DISCARDED);
+		$this->save();
+	}
+	
 }

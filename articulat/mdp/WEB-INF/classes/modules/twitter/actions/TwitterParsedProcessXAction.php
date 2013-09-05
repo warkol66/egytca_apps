@@ -1,8 +1,8 @@
 <?php
 
-class TwitterParsedSaveXAction extends BaseAction {
+class TwitterParsedProcessXAction extends BaseAction {
 
-	function TwitterParsedSaveXAction() {
+	function TwitterParsedProcessXAction() {
 		;
 	}
 
@@ -18,20 +18,27 @@ class TwitterParsedSaveXAction extends BaseAction {
 
 		$module = "Twitter";
 		$smarty->assign("module",$module);
+		$processAction = $_POST["action"];
 
 		if (!empty($_GET["id"])) {
 			$tweetParsed = TwitterTweetQuery::create()->findOneById($_GET["id"]);
 			if (!is_null($tweetParsed)) {
 				try {
-					$tweetParsed->accept();
+					if($processAction == 'save')
+						$tweetParsed->accept();
+					elseif($processAction == 'discard')
+						$tweetParsed->discard();
 				} catch (Exception $e) {
-					return $mapping->findForwardConfig('failure');
+					$smarty->assign("error",'true');
+					return $mapping->findForwardConfig('success');
 				}
 				
+				$smarty->assign("processAction",$processAction);
 				$smarty->assign("tweet",$tweetParsed);
 				return $mapping->findForwardConfig('success');
 			}
 		}
-		return $mapping->findForwardConfig('failure');
+		$smarty->assign("error",'true');
+		return $mapping->findForwardConfig('success');
 	}
 }
