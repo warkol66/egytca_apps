@@ -58,7 +58,7 @@ function clearElement(element) {
 			|-if !$campaign->getTwitterCampaign()-| 
 			<a class="importHeadlines" href="Main.php?do=headlinesParsedList&filters[campaignId]=|-$campaign->getId()-|">Obtener Titulares</a>&nbsp; &nbsp; <a class="report" href="Main.php?do=campaignsEdit&report=1&id=|-$campaign->getId()-|">Generar Reporte</a>
 			|-else-|
-			<a class="importHeadlines" href="Main.php?do=tweetsParsedList&filters[campaignId]=|-$campaign->getId()-|">Obtener Tweets</a>
+			<a class="importHeadlines" href="Main.php?do=twitterParsedList&filters[campaignId]=|-$campaign->getId()-|">Obtener Tweets</a>
 			|-/if-|
 		|-/if-|
 		</p>
@@ -105,8 +105,10 @@ function clearElement(element) {
 		</div>|-/if-|
 			<p>
 				<label for="params[defaultKeywords]">Palabras clave</label>
-				<input name="params[defaultKeywords]" type="text" id="params[defaultKeywords]" title="Palabras clave por defecto para la búsqueda de noticias" value="|-$campaign->getDefaultKeywords()|escape-|" size="50">
-			</p>
+				<input name="params[defaultKeywords]" type="text" id="params[defaultKeywords]" title="Estas palabras clave son las que propondrá por defecto para la búsqueda" value="|-$campaign->getDefaultKeywords()|escape-|" size="50">
+				|-if !$campaign->getTwitterCampaign()-| <a class="tooltipWide" href="#"><span>Las palabras clave se muestran por defecto antes de realizar la búsqueda de titulares, puede agregar o eliminar palabras antes de buscar.<br />Utilice comillas para búsquedas de varias palabras literales.</span><img src="images/icon_info.png"></a>
+				|-else-|<a class="tooltipWide" href="#"><span>Para búsquedas puede usar los "#" y "@" para identificar hastags y usuarios respectivamente. <br />Las palabras sin estos caracteres iniciales se buscarán como palabras sueltas.</span><img src="images/icon_info.png"></a>|-/if-|
+				</p>
 		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 				|-if $campaign->isNew()-|
 			<p>* Para agregar información sobre participantes o anexar documentos, debe guardar primero el campaña. </p>
@@ -227,7 +229,19 @@ function clearElement(element) {
 				<td>|-$headline->getName()-|</td>
 				<td>|-$headline->getMedia()-|</td>
 				<td>|-$headline->getContent()|truncate:800:"..."-|</td>
-		</tr> 
+				<td nowrap="nowrap"|-if $headline->processed()-| class="processed"|-/if-|>|-if $headline->getUrl() ne ''-| <a href="|-$headline->getUrl()-|" target="_blank" title="Ir a nota original" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a> |-/if-|
+				
+		|-if $headline->getStrategy() neq 'feed'-|
+			|-if $headline->hasClipping()-|<a href="Main.php?do=headlinesViewClipping&id=|-$headline->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" title="Ver recorte"><img src="images/clear.png" class="icon iconNewsClipping" /></a>
+			|-else-|<a href="Main.php?do=headlinesRenderUrl&id=|-$headline->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" title="Generar recorte"><img src="images/clear.png" class="icon iconNewsAdd" /></a>
+			|-/if-|
+		|-else-|
+				|-if $headline->getHeadlineAttachments()|count gt 0-|
+					<a href="Main.php?do=headlinesViewAttachments&id=|-$headline->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" title="Ver archivos adjuntos"><img src="images/clear.png" class="icon iconNewsClipping" /></a>
+				|-else-|
+				|-/if-|
+		|-/if-|
+						</tr> 
 		|-/foreach-|
 		</tbody> 
  </table> 
