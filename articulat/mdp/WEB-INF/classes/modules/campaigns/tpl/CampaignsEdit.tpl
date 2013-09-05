@@ -220,6 +220,8 @@ function clearElement(element) {
 				<th width="20%">##headlines,2,Titulares##</th>
 				<th width="10%">Medio</th>
 				<th width="59%">##headlines,3,Contenido##</th> 
+				<th width="1%">&nbsp;</th> 
+				<th width="1%">&nbsp;</th> 
 			</tr> 
 		</thead> 
 	<tbody>
@@ -231,17 +233,21 @@ function clearElement(element) {
 				<td>|-$headline->getContent()|truncate:800:"..."-|</td>
 				<td nowrap="nowrap"|-if $headline->processed()-| class="processed"|-/if-|>|-if $headline->getUrl() ne ''-| <a href="|-$headline->getUrl()-|" target="_blank" title="Ir a nota original" ><img src="images/clear.png" class="icon iconNewsGoTo" /></a> |-/if-|
 				
-		|-if $headline->getStrategy() neq 'feed'-|
-			|-if $headline->hasClipping()-|<a href="Main.php?do=headlinesViewClipping&id=|-$headline->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" title="Ver recorte"><img src="images/clear.png" class="icon iconNewsClipping" /></a>
-			|-else-|<a href="Main.php?do=headlinesRenderUrl&id=|-$headline->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" title="Generar recorte"><img src="images/clear.png" class="icon iconNewsAdd" /></a>
-			|-/if-|
-		|-else-|
-				|-if $headline->getHeadlineAttachments()|count gt 0-|
-					<a href="Main.php?do=headlinesViewAttachments&id=|-$headline->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" title="Ver archivos adjuntos"><img src="images/clear.png" class="icon iconNewsClipping" /></a>
-				|-else-|
-				|-/if-|
-		|-/if-|
-						</tr> 
+			<td nowrap>|-if "headlinesEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
+					<input type="hidden" name="do" value="headlinesEdit" /> 
+						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
+					<input type="hidden" name="id" value="|-$headline->getid()-|" /> 
+					<input type="submit" name="submit_go_edit_headline" value="Editar" title="Editar" class="icon iconEdit" /> 
+				</form>|-/if-|
+				|-if "headlinesDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;"> 
+					<input type="hidden" name="do" value="headlinesDoDelete" /> 
+						|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+						|-if isset($pager) && ($pager->getPage() ne 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
+					<input type="hidden" name="id" value="|-$headline->getid()-|" /> 
+					<input type="submit" name="submit_go_delete_headline" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar el ##headlines,2,Titular##?')" class="icon iconDelete" /> 
+			</form>
+			|-/if-|</td> 						</tr> 
 		|-/foreach-|
 		</tbody> 
  </table> 
