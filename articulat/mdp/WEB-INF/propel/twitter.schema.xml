@@ -5,7 +5,7 @@
 		<column name="id" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"	 description="Id" />
 		<column name="tweetId" required="true" type="INTEGER" description="Tweet Id" />
 		<column name="tweetIdStr" required="true" type="VARCHAR" size="255" description="Tweet String Id" />
-		<!--column name="internalId" required="true"  type="VARCHAR" size="255" description="Tweet internal Id" /-->
+		<column name="internalId" required="true"  type="VARCHAR" size="255" description="Tweet internal Id" />
 		<column name="campaignId" required="true"  type="VARCHAR" size="255" description="Campaign Id" />
 		<column name="createdAt" type="DATE" description="Fecha de creacion" />
 		<column name="text" required="true"  type="VARCHAR" size="140" description="Tweet" primaryString="true" />
