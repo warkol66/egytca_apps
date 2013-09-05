@@ -73,7 +73,7 @@ class ConfigModule {
 		),
 		"headlines" => array(
 			"useClients" => false,
-			"uniqueByCampaigns" => false,
+			"uniqueByCampaigns" => true,
 			"relationToHeadlines" => false,
 			"parserTimeLimit" => 720,
 			"searchEngineUrl" => "http://news.google.com",
