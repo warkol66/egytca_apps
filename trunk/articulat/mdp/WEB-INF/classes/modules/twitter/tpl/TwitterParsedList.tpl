@@ -21,32 +21,27 @@
 	 </select></p>
     </form>
 </fieldset>
-<fieldset>
-<legend>Filtrar Tweets Importados&nbsp;&nbsp;<a href="javascript:void(null)" id="showHideFilterTweets" onClick="$('filterTweets').toggle(); $('showHideFilterTweets').toggleClassName('|-if $filters|@count gt 2-|expandLink|-else-|collapseLink|-/if-|');" class="|-if $filters|@count gt 2-|collapseLink|-else-|expandLink|-/if-|"></a></legend>
-<form method="get" action="Main.php" id="filterTweets" style="display:|-if $filters|@count gt 2-|block|-else-|none|-/if-|;">
-	<input name="filters[campaignId]" value="|-$campaign->getId()-|" type="hidden" />
-	<input name="do" value="tweetsParsedList" type="hidden" />
-<p>					<label for="filters[searchString]">Buscar</label>
-					<input id="filters[searchString]" name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
-					<p>
-			<p>
-					<label for="filters[fromDate]">Fecha desde</label>
-					<input id="filters[fromDate]" name="filters[fromDate]" type="text" value="|-$filters.fromDate-|" size="12" title="Fecha desde mm-dd-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[fromDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha desde mm-dd-aaaa">
-					&nbsp; &nbsp; <label for="filters[toDate]" class="inlineLabel">Fecha hasta</label>
-					<input id="filters[toDate]" name="filters[toDate]" type="text" value="|-$filters.toDate-|" size="12" title="Fecha hasta mm-dd-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[toDate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha hasta mm-dd-aaaa">
-					&nbsp; &nbsp; <label for="filters[discarded]"  class="inlineLabel">Incluir descartados</label>
-					<input id="filters[discarded]" name="filters[discarded]" type="checkbox" value="1" |-$filters.discarded|checked_bool-| title="Incluir descartados" />
-	</p>
-		<p>	<input type="submit" id="search_button" value="Filtrar" />
-	|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=headlinesParsedList&filters[campaignId]=|-$campaign->getId()-|'"/>|-/if-|</p>
-</form>
-</fieldset>
+
 |-else-|
 <!-- TODO: caso campaign nueva -->
 |-/if-|
 
 <div id="resultDiv"></div>
-<!-- Selected tweets -->
+<form id="selectedTweetsForm" onsubmit="return false;">
+<fieldset>
+<legend>Tweets &nbsp; &nbsp; &nbsp; &nbsp; 
+<input type="button" class="icon iconActivate" title="Aceptar todos" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|acceptAll('|-$campaign->getId()-|');|-/if-|" />
+<input type="button" class="icon iconDelete" title="Descartar todos" onClick="|-if $campaign->isNew()-|discardSelected(this.form);|-else-|discardAll('|-$campaign->getId()-|');|-/if-|" />
+<input type="checkbox" onchange="var globalCheckbox=this; $$('input.headlinesIds').each(function(e, i) { e.checked = globalCheckbox.checked })" />
+</legend>
+<ul id="list" class="iconList">
+|-include file="TwitterParsedListInclude.tpl" included=true tweetsParsed=$twitterTweetColl useCheckbox=$campaign->isNew()-|
+</ul>
+|-if isset($pager) && $pager->haveToPaginate()-|
+	<div class="divPages">|-include file="ModelPagerInclude.tpl"-|</div>
+|-/if-|
+</fieldset>
+</form>
 
 <script type="text/javascript">
 	
