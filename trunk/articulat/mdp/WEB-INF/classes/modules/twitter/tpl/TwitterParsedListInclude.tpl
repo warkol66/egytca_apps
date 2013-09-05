@@ -14,24 +14,24 @@
 
 |-if $tweetsParsed|count gt 0-|
     |-foreach from=$tweetsParsed item=tweet name=for_tweets-|
-    <li id="li_|-$tweet->getId()-|"><a href="#lightbox1" rel="lightbox1" class="lbOn">
-		<img src="images/clear.png" class="icon iconActivate" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=headlinesParsedSaveX&id=|-$tweet->getId()-|", { method: "post", parameters: { id: "|-$tweet->getId()-|"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">guardando tweet...</span>";' value="Guardar tweet" /></a>
-		<img src="images/clear.png" class="icon iconDelete" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=headlinesParsedDiscardX&id=|-$tweet->getId()-|", { method: "post", parameters: { id: "|-$tweet->getId()-|"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando tweet...</span>";' value="Descartar tweet" /></a>
-		<input type="checkbox" class="headlinesIds" name="headlinesIds[]" value="|-$tweet->getId()-|" />
+    <li id="li_|-$tweet->getId()-|">
+		<img src="images/clear.png" class="icon iconActivate" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedSaveX&id=|-$tweet->getId()-|", { method: "post", parameters: { id: "|-$tweet->getId()-|"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">guardando tweet...</span>";' value="Guardar tweet" /></a>
+		<img src="images/clear.png" class="icon iconDelete" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedDiscardX&id=|-$tweet->getId()-|", { method: "post", parameters: { id: "|-$tweet->getId()-|"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando tweet...</span>";' value="Descartar tweet" /></a>
+		<input type="checkbox" class="tweetsIds" name="tweetsIds[]" value="|-$tweet->getId()-|" />
 		<ul><li>
 				|-$tweet->getText()|highlight:$tags:highlight-|
 		</li></ul>
     </li>
     |-/foreach-|
 <script language="JavaScript" type="text/javascript">
-	if($('noHeadlines'))
-		$('noHeadlines').innerHTML = '';
+	if($('noTweets'))
+		$('noTweets').innerHTML = '';
 	initialize();
 	
 	parseMore = function(id) {
 		new Ajax.Updater(
 			"list",
-			"Main.php?do=headlinesParsedMoreX&id="+id,
+			"Main.php?do=twitterParsedMoreX&id="+id,
 			{
 				method: "post",
 				parameters: {
@@ -42,10 +42,10 @@
 			}
 		);
 		$("resultDiv").innerHTML = "<span class=\"inProgress\">Buscando más tweets...</span>";
-		if (document.getElementById("noHeadlines"))
-			$("noHeadlines").innerHTML = "";
+		if (document.getElementById("noTweets"))
+			$("noTweets").innerHTML = "";
 	}
 </script>
 |-else-|
-<li id="noHeadlines">|-if $included-|No hay Titulares por procesar|-else-|<span class="resultSuccess">No se obtuvieron tweets nuevos</span>|-/if-|</li>
+<li id="noTweets">|-if $included-|No hay Titulares por procesar|-else-|<span class="resultSuccess">No se obtuvieron tweets nuevos</span>|-/if-|</li>
 |-/if-|

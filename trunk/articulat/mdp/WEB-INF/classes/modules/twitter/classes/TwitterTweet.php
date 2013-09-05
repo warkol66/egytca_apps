@@ -113,4 +113,10 @@ class TwitterTweet extends BaseTwitterTweet{
 			$this->setInternalid(md5($this->getCampaignid() . $this->getText() .  $idStr));
 		
 	}
+	
+	public function accept(){
+		$this->setStatus(TwitterTweet::ACCEPTED);
+		$this->save();
+	}
+	
 }
