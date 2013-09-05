@@ -80,7 +80,7 @@ function discardAll(campaignId) {
 }*/
 
 function tweetsSearch() {
-    new Ajax.Updater('resultDiv', "Main.php?do=twitterDoParseX", {
+    new Ajax.Updater('list', "Main.php?do=twitterDoParseX", {
         parameters: $('form').serialize(),
         insertion: 'top',
 				evalScripts: true

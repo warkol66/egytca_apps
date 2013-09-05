@@ -28,11 +28,9 @@ class TwitterTweet extends BaseTwitterTweet{
 	}
 	
 	public function createFromApiTweet($apiTweet, $campaignId) {
-	
-		$seed = md5(date("Ymd"));
 		
-		$tweet = new TwitterTweet();
-		$tweet->fromArray(array(
+		//armo los arreglos para crear tweet y usuario
+		$tweet = array(
 			'Createdat' => $apiTweet->created_at,
 			'Tweetid' => $apiTweet->id,
 			'Tweetidstr' => $apiTweet->id_str,
@@ -52,9 +50,8 @@ class TwitterTweet extends BaseTwitterTweet{
 			'Retweetcount' => $apiTweet->retweet_count,
 			'Favoritecount' => $apiTweet->favorite_count,
 			'Lang' => $apiTweet->lang,
-		));
+		);
 		
-
 		$user = array(
 			'Id' => $apiTweet->user->id,
 			'IdStr' => $apiTweet->user->id_str,
@@ -63,25 +60,57 @@ class TwitterTweet extends BaseTwitterTweet{
 			'Location' => $apiTweet->user->location,
 			'Description' => $apiTweet->user->description,
 			'Url' => $apiTweet->user->url,
-			'isProtected' => $apiTweet->user->protected
+			'isProtected' => $apiTweet->user->protected,
+			'followers' => $apiTweet->user->followers_count,
+			'friends' => $apiTweet->user->friends_count
 		);
-		$tweet->addUser($user);
+		
+		$newTweet = TwitterTweet::addTweet($tweet);
+		$newUser = TwitterUser::addUser($user);
+		
+		//seteo el id del usuario creador
+		$newTweet->setUserId($newUser->getInternalId());
+		$newTweet->save();
 		
 		// TODO: otras entidades
 		
-		$tweet->save();
-		
-		return $tweet;
+		return $newTweet;
 	}
 	
-	public function addUser($newUser) {
-		//me fijo si el usuario ya existe
-		$existent = TwitterUserQuery::create()->findOneByIdStr($newUser['IdStr']);
+	/* Si el tweet que intentamos crear existe devuelve el existente
+	 * Si no crea uno nuevo y lo devuelve
+	 * 
+	 * @param $newTweet: arreglo para crear el tweet fromArray()
+	 * return: TwitterTweet
+	 * */
+	public function addTweet($newTweet) {
+		
+		$tweet = new TwitterTweet();
+		$tweet->fromArray($newTweet);
+		//me fijo si el tweet ya existe para esta campaña
+		$internalId = $tweet->buildInternalId();
+		$existent = TwitterTweetQuery::create()->findOneByInternalId($internalId);
 		
 		if(!is_object($existent)){
-			$user = new TwitterUser();
-			$user->fromArray($newUser);
-			$user->save();
+			$tweet->save();
+			return $tweet;
 		}
+		//TODO: ver de actualizar datos aca
+		return $existent;
+	}
+	
+	/**
+	* Genero el internalId antes de guardar el registro
+	* usando el campaignId, texto y string id
+	* 
+	*/
+	public function buildInternalId() {
+		$idStr = $this->getTweetIdStr();
+		
+		if (empty($idStr))
+			$this->setInternalid(md5($this->getCampaignid() . $this->getText()));
+		else
+			$this->setInternalid(md5($this->getCampaignid() . $this->getText() .  $idStr));
+		
 	}
 }

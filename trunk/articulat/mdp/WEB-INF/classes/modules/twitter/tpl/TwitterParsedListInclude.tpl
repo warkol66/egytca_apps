@@ -15,7 +15,6 @@
 |-if $tweetsParsed|count gt 0-|
     |-foreach from=$tweetsParsed item=tweet name=for_tweets-|
     <li id="li_|-$tweet->getId()-|"><a href="#lightbox1" rel="lightbox1" class="lbOn">
-		<img src="images/clear.png" class="icon iconView" onClick='{new Ajax.Updater("viewDiv", "Main.php?do=headlinesParsedViewX&id=|-$tweet->getId()-|", { method: "post", parameters: { id: "|-$tweet->getId()-|"}, evalScripts: true})};$("viewWorking").innerHTML = "<span class=\"inProgress\">buscando titular...</span>";' value="Ver titular" /></a>
 		<img src="images/clear.png" class="icon iconActivate" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=headlinesParsedSaveX&id=|-$tweet->getId()-|", { method: "post", parameters: { id: "|-$tweet->getId()-|"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">guardando titular...</span>";' value="Guardar titular" /></a>
 		<img src="images/clear.png" class="icon iconDelete" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=headlinesParsedDiscardX&id=|-$tweet->getId()-|", { method: "post", parameters: { id: "|-$tweet->getId()-|"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando titular...</span>";' value="Descartar titular" /></a>
 		<input type="checkbox" class="headlinesIds" name="headlinesIds[]" value="|-$tweet->getId()-|" />
