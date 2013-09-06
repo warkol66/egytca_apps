@@ -32,8 +32,8 @@ El sistema guardará la elección al momento de marcar la casilla y de ser satis
 	<table cellpadding="0" cellspacing="0" class="modules">
 		<tr id="allActions">
 			<td colspan="4">
-				Setear permisos para todos las acciones visibles &nbsp;	<button onclick="if (confirm('Este método actúa solo sobre acciones!. \n¿Está seguro que desea permitir el acceso a todos los actions visibles?')) setVisibleActionsAccess(true);">+</button>
-				<button onclick="if (confirm('Este método actúa solo sobre acciones!. \n¿ Está seguro que desea impedir el acceso a todos los actions visibles?')) setVisibleActionsAccess(false);">-</button>
+				Setear permisos para todos las acciones visibles &nbsp;	<button onclick="if (confirm('Este método actúa solo sobre acciones!. \n¿Está seguro que desea permitir el acceso a todos los actions visibles?')) setVisibleActionsAccess(true);"class="icon iconAdd" title="Agregar permisos al nivel de usuario seleccionado para todas las acciones visibles"> + </button> &nbsp;	
+				<button onclick="if (confirm('Este método actúa solo sobre acciones!. \n¿ Está seguro que desea impedir el acceso a todos los actions visibles?')) setVisibleActionsAccess(false);"class="icon iconClose" title="Remover permisos al nivel de usuario seleccionado para todas las acciones visibles"> - </button>
 				|-$smarty.capture.statusIcons-|
 			</td>
 		</tr>
@@ -48,8 +48,8 @@ El sistema guardará la elección al momento de marcar la casilla y de ser satis
 		|-foreach $modules as $moduleName => $eachModule-|
 			<tr id="|-$moduleName-|" class="module">
 				<td colspan="4" class="name">
-					<button class="collapse-button" onclick="collapse(this.parentNode.parentNode.id);">-</button>
-					<button class="expand-button" onclick="expand(this.parentNode.parentNode.id);" style="display: none;">+</button>
+					<button class="collapse-button icon iconCollapse" onclick="collapse(this.parentNode.parentNode.id);" title="Ocultar acciones del módulo">-</button>
+					<button class="expand-button icon iconExpand" onclick="expand(this.parentNode.parentNode.id);" style="display: none;" title="Mostrar acciones del módulo">+</button>
 				&nbsp; &nbsp;
 					|-if $userBitLevel neq 'noCheckLogin'-|
 						|-if $eachModule.access.all-|

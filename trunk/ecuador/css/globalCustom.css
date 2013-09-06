@@ -216,6 +216,12 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-position: -160px -140px !Important; }
 .iconUserBlocked {
 	background-position: -180px -140px !Important; }
+.iconExpand {
+	background-image: url(../images/icon_expand.png) !Important;
+	background-position: 2px 2px !Important;}
+.iconCollapse {
+	background-image: url(../images/icon_collapse.png) !Important; ;
+	background-position: 2px 2px !Important; }
 .icon:hover,input[type="submit"].icon:hover, input[type="button"].icon:hover  {
 	background-color: #b9b9b9 !Important;
 	border: 1px solid #a3a3a3 !Important;
