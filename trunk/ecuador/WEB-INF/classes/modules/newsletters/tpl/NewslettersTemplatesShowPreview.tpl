@@ -1,16 +1,16 @@
 <h2>Newsletter</h2>
 <h1>Vista previa del Newsletter</h1>
 
+|-if $message eq "sent"-|
+	<div class="successMessage">Los envíos de prueba se han realizado con éxito</div>
+|-elseif $message eq "sent_failed"-|
+	<div class="failureMessage">Ha ocurrido un error al realizar el envío</div>
+|-/if-|
 
 <div>
 <p>
 			<strong>Asunto: |-$templateRender->getSubject()-|</strong>
 </p>
-|-if $message eq "sent"-|
-	<div class="resultSuccess">Los envíos de prueba se han realizado con éxito</div>
-|-elseif $message eq "sent_error"-|
-	<div class="resultFailure">Ha ocurrido un error al realizar el envío</div>
-|-/if-|
 
 <iframe width="780" height="450" src="Main.php?do=newslettersTemplatesPreview&amp;id=|-$id-|"></iframe>
 </div>

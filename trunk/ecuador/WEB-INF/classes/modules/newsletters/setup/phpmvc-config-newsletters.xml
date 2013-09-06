@@ -33,6 +33,16 @@
            validate = "true">
     <forward name="success" path="/Main.php?do=newslettersTemplatesList&amp;message=deleted_ok" redirect="true" />
     </action>
+
+    <action    path = "newslettersTemplatesSendPreview"
+               type = "NewslettersTemplatesSendPreviewAction"
+               name = "newslettersTemplatesSendPreview"
+              scope = "request"
+           validate = "true">
+    <forward name="success" path="/Main.php?do=newslettersTemplatesShowPreview&amp;message=sent" redirect="true"/>
+    <forward name="failure" path="/Main.php?do=newslettersTemplatesShowPreview&amp;message=sent_failed" redirect="true"/>
+    </action>
+
   </action-mappings>
 <!-- End Section NewsletterTemplates -->
 <!-- End Module Newsletters -->
