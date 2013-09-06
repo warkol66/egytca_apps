@@ -18,6 +18,7 @@ class HeadlinesReportsAction extends BaseListAction {
 		$this->module = "Headlines";
 		
 		if($_GET["report"]) {
+			$this->filters["setReportOrder"] = true;
 			$this->notPaginated = true;
 			$this->smarty->assign("report", true);
 			$this->template->template = "TemplatePrint.tpl";
@@ -52,7 +53,6 @@ class HeadlinesReportsAction extends BaseListAction {
 				$_GET['filters']['fromDate'], $_GET['filters']['toDate']
 			);
 
-		$this->filters["setReportOrder"] = true;
 
 		if (empty($_GET['filters']['unprocessed']))
 			$this->filters["processed"] = true;
@@ -60,7 +60,6 @@ class HeadlinesReportsAction extends BaseListAction {
 	}
 
 	protected function postList() {
-		
 		if (!empty($this->filters['Actor']))
 			unset($this->filters['Actor']);
 		if (!empty($this->filters['Media']))
