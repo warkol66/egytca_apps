@@ -456,7 +456,7 @@ a.path_Mark:link, a.path_Mark:visited,
 	}
 	fieldset#securityLevel tr.module td {
 		border-bottom: none;
-		border: 2px solid brown !Important;
+		border: 1px solid brown !Important;
 		border-top-left-radius: 5px;
 		border-top-right-radius: 5px;
 		border-bottom-right-radius: 0px;
@@ -464,15 +464,15 @@ a.path_Mark:link, a.path_Mark:visited,
 		font-weight: bold;
 	}
 	fieldset#securityLevel tr#allActions td {
-		border: 2px solid brown !Important;
+		border: 1px solid brown !Important;
 		border-radius: 5px;
 	}
 	fieldset#securityLevel tr.last td {
-		border-bottom: 2px solid brown !Important;
+		border-bottom: 1px solid brown !Important;
 	}
 	fieldset#securityLevel tr.action td:first-child {
-		border-left: 2px solid brown !Important;
+		border-left: 1px solid brown !Important;
 	}
 	fieldset#securityLevel tr.action td:last-child {
-		border-right: 2px solid brown !Important;
+		border-right: 1px solid brown !Important;
 	}
