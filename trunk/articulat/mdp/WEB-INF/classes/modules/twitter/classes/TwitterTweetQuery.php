@@ -13,6 +13,9 @@
  *
  * @package    propel.generator.twitter.classes
  */
-class TwitterTweetQuery extends BaseTwitterTweetQuery
-{
+class TwitterTweetQuery extends BaseTwitterTweetQuery{
+	
+	public function maxStatus($status){
+		return $this->filterByStatus(array('max' => $status));
+	}
 }
