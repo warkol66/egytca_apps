@@ -30,8 +30,8 @@
 <form id="selectedTweetsForm" onsubmit="return false;">
 <fieldset>
 <legend>Tweets &nbsp; &nbsp; &nbsp; &nbsp; 
-<input type="button" class="icon iconActivate" title="Aceptar todos" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|acceptAll('|-$campaign->getId()-|');|-/if-|" />
-<input type="button" class="icon iconDelete" title="Descartar todos" onClick="|-if $campaign->isNew()-|discardSelected(this.form);|-else-|discardAll('|-$campaign->getId()-|');|-/if-|" />
+<input type="button" class="icon iconActivate" title="Aceptar todos" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|acceptAll('|-$campaign->getId()-|', this.form);|-/if-|" />
+<input type="button" class="icon iconDelete" title="Descartar todos" onClick="|-if $campaign->isNew()-|discardSelected(this.form);|-else-|discardAll('|-$campaign->getId()-|', this.form);|-/if-|" />
 <input type="checkbox" onchange="var globalCheckbox=this; $$('input.headlinesIds').each(function(e, i) { e.checked = globalCheckbox.checked })" />
 </legend>
 <ul id="list" class="iconList">
@@ -44,18 +44,18 @@
 </form>
 
 <script type="text/javascript">
-	
-/*function acceptSelected(form) {
+/*	
+function acceptSelected(form) {
 	new Ajax.Updater(
 		"resultDiv",
-		"Main.php?do=headlinesParsedSaveAllX",
+		"Main.php?do=twitterParsedProcessX",
 		{
 			method: "post",
 			parameters: Form.serialize(form),
 			evalScripts: true
 		}
 	);
-	$("resultDiv").innerHTML = "<span class=\"inProgress\">guardando titulares...</span>";
+	$("resultDiv").innerHTML = "<span class=\"inProgress\">guardando tweets...</span>";
 }
 
 function discardSelected(form) {
@@ -70,14 +70,14 @@ function discardSelected(form) {
 	);
 	$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando titulares...</span>";
 }
-	
-function acceptAll(campaignId) {
-	{new Ajax.Updater("resultDiv", "Main.php?do=headlinesParsedSaveAllX&id="+campaignId, { method: "post", parameters: { id: campaignId}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">guardando titulares...</span>";
+	*/
+function acceptAll(campaignId, form) {
+	{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&action=save&id="+campaignId, { method: "post", parameters: Form.serialize(form), evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">guardando tweets...</span>";
 }
 
-function discardAll(campaignId) {
-	{new Ajax.Updater("resultDiv", "Main.php?do=headlinesParsedDiscardAllX&id="+campaignId, { method: "post", parameters: { id: campaignId }, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando titulares...</span>";
-}*/
+function discardAll(campaignId, form) {
+	{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&action=discard&id="+campaignId, { method: "post", parameters: Form.serialize(form), evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando tweets...</span>";
+}
 
 function tweetsSearch() {
     new Ajax.Updater('list', "Main.php?do=twitterDoParseX", {
