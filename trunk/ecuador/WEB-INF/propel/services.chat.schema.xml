@@ -1,4 +1,4 @@
-<database defaultIdMethod="native" package="auxiliar.classes" name="application" >
+<database defaultIdMethod="native" package="services.classes" name="application" >
 
   <table name="ajax_chat_bans" phpName="AjaxChatBans" idMethod="native" readOnly="true">
     <column name="userID" phpName="Userid" type="INTEGER" primaryKey="true" required="true"/>
