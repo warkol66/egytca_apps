@@ -83,7 +83,7 @@ class TwitterTweet extends BaseTwitterTweet{
 	 * @param $newTweet: arreglo para crear el tweet fromArray()
 	 * return: TwitterTweet
 	 * */
-	public function addTweet($newTweet) {
+	public static function addTweet($newTweet) {
 		
 		$tweet = new TwitterTweet();
 		$tweet->fromArray($newTweet);
@@ -114,14 +114,40 @@ class TwitterTweet extends BaseTwitterTweet{
 		
 	}
 	
+	/* Cambia el status del tweet a ACCEPTED
+	 * 
+	 * return void
+	 * */
 	public function accept(){
 		$this->setStatus(TwitterTweet::ACCEPTED);
 		$this->save();
 	}
 	
+	/* Cambia el status del tweet a DISCARDED
+	 * 
+	 * return void
+	 * */
 	public function discard(){
 		$this->setStatus(TwitterTweet::DISCARDED);
 		$this->save();
+	}
+	
+	/* Cambia el status de varios tweets a ACCEPTED
+	 * 
+	 * @param $tweets: array de los ids de los tweets a modificar
+	 * return void
+	 * */
+	public static function acceptMultiple($tweets){
+		TwitterTweetQuery::create()->filterById($tweets, Criteria::IN)->update(array('Status' => TwitterTweet::ACCEPTED));
+	}
+	
+	/* Cambia el status de varios tweets a DISCARDED
+	 * 
+	 * @param $tweets: array de los ids de los tweets a modificar
+	 * return void
+	 * */
+	public static function discardMultiple($tweets){
+		TwitterTweetQuery::create()->filterById($tweets, Criteria::IN)->update(array('Status' => TwitterTweet::DISCARDED));
 	}
 	
 }
