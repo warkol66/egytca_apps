@@ -147,8 +147,11 @@ class EmailManagement {
 			$result = $mailer->send($message);
 		}
 		catch (Exception $e) {
-			if (ConfigModule::get("global","showSwiftExceptions"))
+			if (ConfigModule::get("global","showSwiftExceptions")) {
+				echo "<pre>";
 				print_r($e);
+				echo "</pre>";
+			}
 			return false;
 		}
 

@@ -4,5 +4,5 @@ DirectoryIndex index.php Main.php
 RewriteEngine on
 RewriteBase /
 
-RewriteRule files/([^/]+)  WEB-INF/classes/modules/banners/files/$1 [NC,L]
+RewriteRule xfiles/([^/]+)  WEB-INF/classes/modules/banners/files/$1 [NC,L]
 

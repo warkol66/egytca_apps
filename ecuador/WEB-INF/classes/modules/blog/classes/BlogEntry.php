@@ -403,11 +403,12 @@ class BlogEntry extends BaseBlogEntry {
 		global $system;
 
 		$siteUrl = $system["config"]["system"]["parameters"]["siteUrl"];
-		$output  = '<div class="blog01">';
-		$output .= "<h1><a href='".$siteUrl."/Main.php?do=blogView&id=".$this->getId()."' target='_blank'>".$this->getTitle().'</a></h1>';
+		$output  = '<div class="blog01"  style="width: 550px; color: #A90000; font-size: 1.1em; font-weight: normal; text-align: left; height: auto; border-bottom-width: 1px; border-bottom-color: #CCCCCC; border-bottom-style: solid; margin: 5px 5px 0px; padding: 0px;" align="left">';
+		$output .= '<h3 style="color: #666666; font-size: 1.1em; font-weight: bold; text-transform: uppercase; margin: 0px; padding: 0pt;">';
+		$output .= '<a href="' . $siteUrl . '/Main.php?do=blogView&id=' . $this->getId() . '" target="_blank" style="color: #A90000; text-decoration: none;">' . $this->getTitle() . '</a></h3>';
 		if ($fullMode)
 			$output .= '<p>'.$this->getBody().'</p>';
-		$output .= "<div class='masInfo'><a href='".$siteUrl."/Main.php?do=blogView&id=".$this->getId()."' target='_blank'>Ver experiencia completa</a></h1>";
+		$output .= '<div class="masInfo"><a href="' . $siteUrl . '/Main.php?do=blogView&id=' . $this->getId() . '" target="_blank" style="color: #003366; background-image: url(http://www.lideresparroquiales.org/images/ico_vermasinfo.png); background-position: left; background-repeat: no-repeat; font-size: 1.1em; font-weight: normal; text-decoration: none; padding: 0px 0px 0px 15px;">Ver experiencia completa</a></h1>';
 		$output .= '</div>';
 		$output .= '</div>';
 		return $output;

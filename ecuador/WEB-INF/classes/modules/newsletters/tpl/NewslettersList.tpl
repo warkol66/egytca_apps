@@ -5,10 +5,10 @@
 	A continuación se presentan los envíos programados de newsletters realizados por el sistema. Puede agregar uno nuevo, editar uno existente o eliminarlo.
 	</p>
 	|-if $message eq "ok"-|
-		<div class="resultSuccess">Newsletter guardado correctamente</div>
+		<div class="successMessage">Newsletter guardado correctamente</div>
 	|-/if-|
 	|-if $message eq "deleted_ok"-|
-		<div class="resultSuccess">Newsletter eliminado correctamente</div>
+		<div class="successMessage">Newsletter eliminado correctamente</div>
 	|-/if-|
 	<table width="100%" cellpadding="0" cellspacing="0" class="tableTdBorders" id="tabla-newsletters">
 		<col width="60%">
