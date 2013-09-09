@@ -19,12 +19,42 @@ class TwitterTweet extends BaseTwitterTweet{
 	const PARSED = 1;
 	const ACCEPTED = 2;
 	const DISCARDED = 3;
+	/*Posibles valoraciones del tweet*/
+	const VERY_POSITIVE = 1;
+	const POSITIVE = 2;
+	const NEUTRAL = 3;
+	const NEGATIVE = 4;
+	const VERY_NEGATIVE = 5;
+	/*Posibles relevancias del tweet*/
+	const VERY_RELEVANT = 1;
+	const RELEVANT = 2;
+	const NEUTRALLY_RELEVANT = 3;
+	const IRRELEVANT = 4;
+	const VERY_IRRELEVANT = 5;
 	
-	public function getStatuses(){
-		$statuses[Self::PARSED] = 'Parseado';
-		$statuses[Self::ACCEPTED] = 'Aceptado';
-		$statuses[Self::DISCARDED] = 'No Aceptado';
+	public static function getStatuses(){
+		$statuses[TwitterTweet::PARSED] = 'Parseado';
+		$statuses[TwitterTweet::ACCEPTED] = 'Aceptado';
+		$statuses[TwitterTweet::DISCARDED] = 'No Aceptado';
 		return $statuses;
+	}
+	
+	public static function getValues(){
+		$values[TwitterTweet::VERY_POSITIVE] = 'Muy positivo';
+		$values[TwitterTweet::POSITIVE] = 'Positivo';
+		$values[TwitterTweet::NEUTRAL] = 'Neutro';
+		$values[TwitterTweet::NEGATIVE] = 'Negativo';
+		$values[TwitterTweet::VERY_NEGATIVE] = 'Muy Negativo';
+		return $values;
+	}
+	
+	public static function getRelevances(){
+		$relevances[TwitterTweet::VERY_RELEVANT] = 'Muy relevante';
+		$relevances[TwitterTweet::RELEVANT] = 'Relevante';
+		$relevances[TwitterTweet::NEUTRALLY_RELEVANT] = 'Medianamente relevante';
+		$relevances[TwitterTweet::IRRELEVANT] = 'Poco relevante';
+		$relevances[TwitterTweet::VERY_IRRELEVANT] = 'Muy poco relevante';
+		return $relevances;
 	}
 	
 	public function createFromApiTweet($apiTweet, $campaignId) {
