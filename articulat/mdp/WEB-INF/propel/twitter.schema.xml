@@ -24,6 +24,8 @@
 		<column name="inReplyToUserIdStr" type="VARCHAR" size="255" description="In reply to user string id" />
 		<column name="inReplyToScreenName" type="VARCHAR" size="255" description="In reply to user Display name" />
 		<column name="status" type="TINYINT" default="1" description="Estado del tweet"/>
+		<column name="value" type="TINYINT" default="0" description="Valoracion del tweet"/>
+		<column name="relevance" type="TINYINT" default="0" description="Valoracion del usuario"/>
 
 		<!-- Descomentar cuando esten las tablas -->
 		<foreign-key foreignTable="twitter_user" onDelete="cascade">
