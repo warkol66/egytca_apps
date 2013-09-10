@@ -46,7 +46,7 @@ El sistema guardará la elección al momento de marcar la casilla y de ser satis
 		</td>
 		</tr>
 		|-foreach $modules as $moduleName => $eachModule-|
-			<tr id="|-$moduleName-|" class="module">
+			<tr id="module-|-$moduleName-|" class="module">
 				<td colspan="4" class="name">
 					<button class="collapse-button icon iconCollapse" onclick="collapse(this.parentNode.parentNode.id);" title="Ocultar acciones del módulo">&nbsp;</button>
 					<button class="expand-button icon iconExpand" onclick="expand(this.parentNode.parentNode.id);" style="display: none;" title="Mostrar acciones del módulo">&nbsp;</button>
@@ -65,7 +65,7 @@ El sistema guardará la elección al momento de marcar la casilla y de ser satis
 				&nbsp; &nbsp; |-$moduleName|multilang_get_translation:"common"-| <em>(|-$moduleName-|)</em> </td>
 			</tr>
 			|-foreach $eachModule.actions as $action => $access-|
-				<tr id="|-$action-|" class="action |-$moduleName-|-action|-if $access@last-| last|-/if-|">
+				<tr id="action-|-$action-|" class="action module-|-$moduleName-|-action|-if $access@last-| last|-/if-|">
 					<td>&nbsp;</td>
 					<td>&nbsp; &nbsp;
 						|-if $userBitLevel neq 'noCheckLogin'-|
@@ -108,11 +108,11 @@ El sistema guardará la elección al momento de marcar la casilla y de ser satis
 	};
 	
 	setModuleAccess = function(module, access) {
-		setAccess('module', module, access);
+		setAccess('module', module.replace(/^module-/, ''), access);
 	};
 	
 	setActionAccess = function(action, access) {
-		setAccess('action', action, access);
+		setAccess('action', action.replace(/^action-/, ''), access);
 	};
 	
 	setVisibleActionsAccess = function(access) {
@@ -122,7 +122,7 @@ El sistema guardará la elección al momento de marcar la casilla y de ser satis
 		var actions = [];
 		$(visibleActionsSelector).each(function() {
 			if ($(this).find('.access:enabled').length > 0)
-			actions.push(this.id);
+			actions.push(this.id.replace(/^action-/, ''));
 		});
 		
 		var params = {
@@ -142,8 +142,6 @@ El sistema guardará la elección al momento de marcar la casilla y de ser satis
 	};
 	
 	sendAccessChangeRequest = function(params, statusIconsContainerId, successCb) {
-		
-		console.log('chequear en el action que el usuario esté autorizado a cambiar los permisos!');
 		
 		$('#'+statusIconsContainerId).find('.resultStatus').hide();
 		$('#'+statusIconsContainerId).find('.spinner').first().show();
