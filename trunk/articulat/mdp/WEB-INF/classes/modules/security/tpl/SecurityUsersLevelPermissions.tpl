@@ -46,7 +46,7 @@ El sistema guardará la elección al momento de marcar la casilla y de ser satis
 		</td>
 		</tr>
 		|-foreach $modules as $moduleName => $eachModule-|
-			<tr id="|-$moduleName-|" class="module">
+			<tr id="module-|-$moduleName-|" class="module">
 				<td colspan="4" class="name">
 					<button class="collapse-button icon iconCollapse" onclick="collapse(this.parentNode.parentNode.id);" title="Ocultar acciones del módulo">-</button>
 					<button class="expand-button icon iconExpand" onclick="expand(this.parentNode.parentNode.id);" style="display: none;" title="Mostrar acciones del módulo">+</button>
@@ -65,7 +65,7 @@ El sistema guardará la elección al momento de marcar la casilla y de ser satis
 				&nbsp; &nbsp; |-$moduleName|multilang_get_translation:"common"-| <em>(|-$moduleName-|)</em> </td>
 			</tr>
 			|-foreach $eachModule.actions as $action => $access-|
-				<tr id="|-$action-|" class="action |-$moduleName-|-action|-if $access@last-| last|-/if-|">
+				<tr id="action-|-$action-|" class="action module-|-$moduleName-|-action|-if $access@last-| last|-/if-|">
 					<td>&nbsp;</td>
 					<td>&nbsp; &nbsp;
 						|-if $userBitLevel neq 'noCheckLogin'-|
@@ -108,7 +108,7 @@ El sistema guardará la elección al momento de marcar la casilla y de ser satis
 		var params = {};
 		params.access = access ? 'yes' : 'no';
 		params.bitLevel = '|-$userBitLevel-|';
-		params[type] = name;
+		params[type] = name.replace(new RegExp('^'+type+'-'), '');
 		
 		sendAccessChangeRequest(params, $(name), function(response) {
 
@@ -133,7 +133,7 @@ El sistema guardará la elección al momento de marcar la casilla y de ser satis
 		var actions = [];
 		$$(visibleActionsSelector).each(function(e, i){
 			if (e.select('.access:enabled').length > 0)
-			actions.push(e.id);
+			actions.push(e.id.replace(/^action-/, ''));
 		});
 		
 		var params = {
@@ -153,8 +153,6 @@ El sistema guardará la elección al momento de marcar la casilla y de ser satis
 	};
 	
 	sendAccessChangeRequest = function(params, statusIconsContainer, successCb) {
-		
-		console.log('chequear en el action que el usuario esté autorizado a cambiar los permisos!');
 		
 		statusIconsContainer.select('.resultStatus').each(function(e, i) { e.hide(); } );
 		statusIconsContainer.select('.spinner').first().show();
