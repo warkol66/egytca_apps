@@ -470,6 +470,33 @@ class UserPeer extends BaseUserPeer {
 	}
 
 	/**
+	* Autentica a un usuario supervisor como otro usuario (su = substitute user).
+	*
+	* @param string $username Nombre de usuario
+	* @param string $supervisorUser Usuario supervisor
+	* @return User object Objeto usuario, false si no fue exitosa la sustitucion
+	*/
+	function su($username,$supervisorUser) {
+		$criteria = new Criteria();
+		$criteria->add(UserPeer::USERNAME, $username);
+		$criteria->add(UserPeer::ID, 0, Criteria::GREATER_THAN); //Saco de los posibles resultados al usuario "system" id =-1
+		$criteria->add(UserPeer::ACTIVE, 1);
+		$user = UserPeer::doSelectOne($criteria);
+		if (!empty($user)) {
+			$_SESSION['supervisorUser'] = $supervisorUser;
+			$_SESSION['lastLogin'] = $user->getLastLogin();
+			$user->setLastLogin(time());
+			$user->save();
+			if (is_null($user->getPasswordUpdated()) && ConfigModule::get("users","forceFirstPasswordChange"))
+				$_SESSION['firstLogin'] = User::FIRST_LOGIN;
+			else
+				unset($_SESSION['firstLogin']);
+			return $user;
+		}
+		return false;
+	}
+
+	/**
 	 * Authentica un usuario por nombre de usuario y mail.
 	 *
 	 * @param string $username Nombre de usuario.

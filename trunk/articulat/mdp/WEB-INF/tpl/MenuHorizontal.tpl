@@ -10,7 +10,9 @@
 				<li><a href="Main.php?do=affiliatesUsersDoLogout" onClick='return window.confirm("Si ya actualizó su clave, puede proceder a salir del sistema. ¿Esta seguro que quiere salir del sistema?")'>Salir</a></li>
 			|-/if-|				
 	|-else-|
-			<li class="narrow"><a href="Main.php?do=usersWelcome">Inicio</a></li>
+			<li class="narrow"><a href="Main.php?do=usersWelcome">Inicio</a>
+					|-if $SESSION.supervisorUser-|<ul class="menu"><li><a href="Main.php?do=usersDoExit">Volver a usuario '|-$SESSION.supervisorUser-|'</a></li></ul>|-/if-|	
+			</li>
 			<li class="wide"><a href="#" class="sub">Repercusiones de Prensa</a>
 			  <ul class="menu">
 				<li><a href="Main.php?do=headlinesList">Administrar Titulares</a></li>
