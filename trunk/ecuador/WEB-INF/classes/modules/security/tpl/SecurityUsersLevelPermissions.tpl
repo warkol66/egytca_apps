@@ -99,7 +99,7 @@ El sistema guardará la elección al momento de marcar la casilla y de ser satis
 		var params = {};
 		params.access = access ? 'yes' : 'no';
 		params.bitLevel = '|-$userBitLevel-|';
-		params[type] = name;
+		params[type] = name.replace(new RegExp('^'+type+'-'), '');
 		
 		sendAccessChangeRequest(params, name, function(data, textStatus, jqXHR) {
 			if (data.errors)
@@ -108,11 +108,11 @@ El sistema guardará la elección al momento de marcar la casilla y de ser satis
 	};
 	
 	setModuleAccess = function(module, access) {
-		setAccess('module', module.replace(/^module-/, ''), access);
+		setAccess('module', module, access);
 	};
 	
 	setActionAccess = function(action, access) {
-		setAccess('action', action.replace(/^action-/, ''), access);
+		setAccess('action', action, access);
 	};
 	
 	setVisibleActionsAccess = function(access) {
