@@ -1,0 +1,13 @@
+<!-- Module Planning -->
+	<action-mappings>
+		<action    path = "planningRemoveBudgetItemRelationX"
+							 type = "PlanningRemoveBudgetItemRelationXAction"
+							 name = "planningRemoveBudgetItemRelationX"
+							scope = "request"
+					 validate = "true">
+			<forward name="success" path="/Main.php?do=planningRemoveBudgetItemRelationX&amp;message=deleted_ok" redirect="true"/>
+			<forward name="failure" path="/Main.php?do=planningRemoveBudgetItemRelationX&amp;message=not_deleted" redirect="true"/>
+		</action>
+		
+	</action-mappings>
+<!-- End Module Panel -->

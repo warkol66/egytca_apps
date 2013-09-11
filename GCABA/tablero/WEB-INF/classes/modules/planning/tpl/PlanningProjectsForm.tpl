@@ -109,11 +109,13 @@
         <label for="params_communicable">Proyecto comunicable?</label><input name="params[communicable]" type="hidden" value="0"/>
       <input name="params[communicable]" type="checkbox" id="params_communicable" value="1" title="Proyecto comunicable" |-$planningProject->getCommunicable()|checked_bool-| |-$readonly|readonly-|/>
     </p>
-	<p>
+		|-/if-|
+	|-if $loginUser->isAdmin() || $loginUser->isSupervisor() || $loginUser->mayPlan()-|<p>
         <label for="params_appliedAmount">Presupuesto Solicitado</label>
       <input name="params[appliedAmount]" type="text" id="params_appliedAmount" size="20" value="|-$planningProject->getAppliedAmount()|system_numeric_format-|" title="Presupuesto Solicitado" class="right" |-$readonly|readonly-|/>
     </p>
-	<p>
+		|-/if-|
+	|-if $loginUser->isAdmin() || $loginUser->isSupervisor()-|<p>
         <label for="params_managementAmount">Presupuesto Gestión</label>
       <input name="params[managementAmount]" type="text" id="params_managementAmount" size="20" value="|-$planningProject->getManagementAmount()|system_numeric_format-|" title="Presupuesto Gestion" class="right"|-$readonly|readonly-|/>
     </p>

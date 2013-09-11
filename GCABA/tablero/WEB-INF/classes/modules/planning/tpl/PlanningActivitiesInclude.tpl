@@ -27,7 +27,7 @@ html =   '      <tr> '
  + '      <td align="center"><input name="activity['+ ms +'][priorityPercentage]" id="params_priorityPercentage[]" type="text" value="" class="width3em" title="Indique el porcentaje de la prioridad"></td>'
 |-if !$construction-| + '      <td><input name="activity['+ ms +'][rescheduledStart]" id="params_rescheduledStart[]" type="text" title="Fecha de inicio reprogramado en formato dd-mm-aaaa" class="dateValidation" |-if !$loginUser->mayFollow()-|readonly=readonly|-/if-|></td>'|-/if-|
  + '      <td><input name="activity['+ ms +'][rescheduledEnd]" id="params_rescheduledEnd[]" type="text" title="Fecha de finalización reprogramada en formato dd-mm-aaaa" class="dateValidation" |-if !$loginUser->mayFollow()-|readonly=readonly|-/if-|></td>'
- + '      <td><input name="activity['+ ms +'][realStart]" id="params_realStart[]" type="text" value="" title="Fecha de inicio real en formato dd-mm-aaaa" class="dateValidation"></td>'
+|-if !$construction-| + '      <td><input name="activity['+ ms +'][realStart]" id="params_realStart[]" type="text" value="" title="Fecha de inicio real en formato dd-mm-aaaa" class="dateValidation"></td>'|-/if-|
  + '      <td><input name="activity['+ ms +'][realEnd]" id="params_realEnd[]" type="text" value="" title="Fecha de finalización real en formato dd-mm-aaaa" class="dateValidation"></td>'
  + '      <td align="center"><input name="activity['+ ms +'][acomplished]" type="hidden" value="0"><input name="activity[][acomplished]" id="params_acomplished[]" type="checkbox" value="1" title="Indique si se completó la actividad"></td>'
  + '      <td align="center"><input type="button" class="disabled icon iconAttach" title="Para anexar documentos primero debe guardar la actividad" /></td>'

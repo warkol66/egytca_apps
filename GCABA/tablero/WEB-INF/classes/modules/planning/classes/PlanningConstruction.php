@@ -258,7 +258,7 @@ class PlanningConstruction extends BasePlanningConstruction {
 		$unfinishedActivitiesCount = BaseQuery::create('PlanningActivity')
 																			->filterByObjecttype('Construction')
 																			->filterByObjectid($this->getId())
-																			->filterByRealEnd(null, Criteria::ISNULL)
+																			->filterByRealend(null, Criteria::ISNULL)
 																			->count();
 		if ($unfinishedActivitiesCount != 0) {
 			$this->setRealend(null);
@@ -268,11 +268,11 @@ class PlanningConstruction extends BasePlanningConstruction {
 		$lastFinishedActivity = BaseQuery::create('PlanningActivity')
 			->filterByObjecttype('Construction')
 			->filterByObjectid($this->getId())
-			->filterByRealEnd(null, Criteria::ISNOTNULL)
+			->filterByRealend(null, Criteria::ISNOTNULL)
 			->orderByRealend(Criteria::DESC)
 			->findOne()
 		;
-		$this->setRealend($lastFinishedActivity ? $lastFinishedActivity->getRealStart() : null);
+		$this->setRealend($lastFinishedActivity ? $lastFinishedActivity->getRealend() : null);
 	}
 
 	/**
@@ -283,10 +283,10 @@ class PlanningConstruction extends BasePlanningConstruction {
 		$firstStartedActivity = BaseQuery::create('PlanningActivity')
 															->filterByObjecttype('Construction')
 															->filterByObjectid($this->getId())
-															->filterByRealStart(null, Criteria::ISNOTNULL)
-															->orderByRealstart(Criteria::ASC)
+															->filterByRealend(null, Criteria::ISNOTNULL)
+															->orderByRealend(Criteria::ASC)
 															->findOne();
-		$this->setRealstart($firstStartedActivity ? $firstStartedActivity->getRealStart() : null);
+		$this->setRealstart($firstStartedActivity ? $firstStartedActivity->getRealend() : null);
 	}
 
 	/**
