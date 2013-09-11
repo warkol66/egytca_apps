@@ -16,7 +16,7 @@
 <form method="post">
 <fieldset>
 <legend>Valores</legend>
-|-if $indicator->getType() eq constant('PlanningIndicator::PIE')-|
+|-if $indicator->getGraphType() eq constant('PlanningIndicator::PIE')-|
 |-assign value=$indicator->getSeries() var=series-|
 <table>
 <tr>

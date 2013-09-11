@@ -68,7 +68,7 @@
 				<li><a href="Main.php?do=usersList">Usuarios</a></li>
 				<li><a href="Main.php?do=usersGroupsList">Grupos de Usuarios</a></li>
 				<li><a href="Main.php?do=usersLevelsList">Niveles Usuarios</a></li>
-				<li><a href="Main.php?do=regionsList">Parroquias</a></li>
+				<li><a href="Main.php?do=regionsList">Comunas y barrios</a></li>
 				<li class="last"><a href="Main.php?do=planningProjectTagsList">Etiquetas de Proyectos</a></li>
 				<!--<li><a href="Main.php?do=categoriesList">Categorías</a></li>-->
 				<li><a href="Main.php?do=commonActionLogsList">Histórico de Operaciones</a></li>
