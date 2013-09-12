@@ -42,13 +42,12 @@
 	<thead>
 		<tr class="thFillTitle"> 
 				<th width="2%"><input type="checkbox" name="allbox" value="checkbox" id="allBoxes" onChange="javascript:selectAllCheckboxes()" title="Seleccionar todos" /></th>
-				<th width="50%">Texto</th> 
-				<th width="10%">Usuario</th> 
+				<th width="60%">Texto</th> 
+				<th width="18%">Usuario</th> 
 				<th width="5%">Fecha</th> 
-				<th width="10%">Valoración</th> 
+				<th width="5%">Valoración</th> 
 				<th width="5%">Relevancia</th> 
-				<th width="10%">Estado</th> 
-				<th width="5%">&nbsp;</th> 
+				<th width="5%">Estado</th> 
 			</tr> 
 	</thead>
 	<tbody>|-if $twitterTweetColl|@count eq 0-|
@@ -62,13 +61,13 @@
 			<td align="center"><input type="checkbox" name="selected[]" value="|-$tweet->getId()-|"></td>
 			<td>|-$tweet->getText()-|</td>
 			<td>|-$user->getName()-|</td>
-			<td>|-$tweet->getCreatedat()|date_format:"%d-%m-%Y %H:%m"-|</td>
+			<td nowrap="nowrap">|-$tweet->getCreatedat()|date_format:"%d-%m-%Y %H:%m"-|</td>
 			<td>
 				<form action="Main.php" method="post" id="formValueTweets|-$tweet->getId()-|">
 					<select name="params[value]" id="selectTweetValue|-$tweet->getId()-|" onChange="javascript:twitterDoEditValue(this.form);">
-							<option value="0" |-if ($tweet->getValue()) eq 0-|selected="selected"|-/if-|>Sin seleccionar</option>
+							<option value="0">Sin seleccionar</option>
 						|-foreach from=$tweetValues key=key item=name-|
-							<option value="|-$key-|" |-if ($tweet->getValue()) eq $key-|selected="selected"|-/if-|>|-$name-|</option>
+							<option value="|-$key-|" |-$tweet->getValue()|selected:$key-|>|-$name-|</option>
 						|-/foreach-|
 					</select>											
 					<input type="hidden" name="id" id="id" value="|-$tweet->getid()-|" />
@@ -78,9 +77,9 @@
 			<td>
 				<form action="Main.php" method="post" id="formRelevanceTweets|-$tweet->getId()-|">
 					<select name="params[relevance]" id="selectTweetRelevance|-$tweet->getId()-|" onChange="javascript:twitterDoEditValue(this.form);">
-							<option value="0" |-if ($tweet->getRelevance()) eq 0-|selected="selected"|-/if-|>Sin seleccionar</option>
+							<option value="0">Sin seleccionar</option>
 						|-foreach from=$tweetRelevances key=key item=name-|
-							<option value="|-$key-|" |-if ($tweet->getRelevance()) eq $key-|selected="selected"|-/if-|>|-$name-|</option>
+							<option value="|-$key-|" |-$tweet->getRelevance()|selected:$key-|>|-$name-|</option>
 						|-/foreach-|
 					</select>											
 					<input type="hidden" name="id" id="id" value="|-$tweet->getid()-|" />
@@ -90,23 +89,21 @@
 			<td>
 				<form action="Main.php" method="post" id="formStatusTweets|-$tweet->getId()-|">
 					<select name="params[status]" id="selectTweetStatus|-$tweet->getId()-|" onChange="javascript:twitterDoEditValue(this.form);">
-							<option value="0" |-if ($tweet->getStatus()) eq 0-|selected="selected"|-/if-|>Sin seleccionar</option>
 						|-foreach from=$tweetStatuses key=key item=name-|
-							<option value="|-$key-|" |-if ($tweet->getStatus()) eq $key-|selected="selected"|-/if-|>|-$name-|</option>
+							<option value="|-$key-|" |-$tweet->getStatus()|selected:$key-|>|-$name-|</option>
 						|-/foreach-|
 					</select>											
 					<input type="hidden" name="id" id="id" value="|-$tweet->getid()-|" />
 					<input type="hidden" name="do" value="twitterDoEditX" id="do">
 				</form>
 			</td> 
-			<td>&nbsp;</td>
 		</tr>
 		|-/foreach-|
 		</tbody> 
 		<tfoot>
 		|-if $twitterTweetColl|@count neq 0-|
 			<tr>
-				<td colspan="8">
+				<td colspan="7">
 					<form action="Main.php" method="post" id='multipleTweetsChangeForm'>
 						<p>Cambiar la valoración de los tweets seleccionados a
 							<select name="values" id="selectEntryStatus">
