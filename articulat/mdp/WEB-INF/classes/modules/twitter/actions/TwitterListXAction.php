@@ -11,24 +11,45 @@ class TwitterListXAction extends BaseListAction {
 
 		$this->module = "Twitter";
 		
-		if($_POST['campaignId'])
+		if($_POST['campaignId']){
 			$this->filters['campaignid'] = $_POST['campaignId'];
+			$this->smarty->assign("campaignid",$_POST['campaignId']);
+		}
 		
-		//TODO: ver como manejar esto con seleccion de campaign
-		if(!empty($_GET['filters']['unprocessed'])){
+		//ver por que no anda sin esto
+		if(!empty($_POST['filters']['dateRange']['createdat']['min']) && !empty($_POST['filters']['dateRange']['createdat']['max'])){
+			$this->filters['dateRange']['createdat']['min'] = $_POST['filters']['dateRange']['createdat']['min'];
+			$this->filters['dateRange']['createdat']['max'] = $_POST['filters']['dateRange']['createdat']['max'];
+		}
+		
+		//filtro por estado
+		//ver si se puede eliminar algun caso
+		if(!empty($_POST['filters']['status'])){
 			$this->filters['Status'] = TwitterTweet::PARSED;
-		}elseif(!empty($_GET['filters']['discarded'])){
+		}elseif(!empty($_POST['filters']['discarded'])){
 			$this->filters['Status'] = TwitterTweet::DISCARDED;
-		}elseif(!empty($_GET['filters']['all'])){
+		}elseif(!empty($_POST['filters']['all'])){
 			$this->filters['maxStatus'] = TwitterTweet::DISCARDED;
 		}else{
 			$this->filters['Status'] = TwitterTweet::ACCEPTED;
+		}
+		
+		//si hay un filtro de procesados seteado lo aplico
+		if(isset($_POST['filters']['processed'])){
+			//si quiero ver todos
+			if($_POST['filters']['processed'] == -1)
+				$this->filters['maxStatus'] = TwitterTweet::ACCEPTED; //o discarded?
+			else
+				$this->filters['processed'] = $_POST['filters']['processed'];
 		}
 
 	}
 
 	protected function postList() {
 		parent::postList();
+		
+		/*print_r($this->filters);
+		die();*/
 
 		$this->smarty->assign("module", $this->module);
 		

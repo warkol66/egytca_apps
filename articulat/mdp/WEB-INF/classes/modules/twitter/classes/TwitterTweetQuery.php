@@ -18,4 +18,15 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 	public function maxStatus($status){
 		return $this->filterByStatus(array('max' => $status));
 	}
+	
+	/* Filtra por tweets procesados o no procesados
+	 * @param $proc : bool - indica si quiero los procesados o los no
+	 * 
+	 * */
+	public function Processed($proc){
+		if($proc)
+			return $this->filterByValue(array('min' => TwitterTweet::VERY_POSITIVE))->filterByRelevance(array('min' => TwitterTweet::VERY_RELEVANT));
+		else
+			return $this->filterByValue(array('max' => 0))->filterByRelevance(array('max' => 0));
+	}
 }

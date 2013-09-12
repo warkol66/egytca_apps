@@ -61,10 +61,9 @@ class TwitterTweet extends BaseTwitterTweet{
 		
 		//armo los arreglos para crear tweet y usuario
 		$tweet = array(
-			'Createdat' => $apiTweet->created_at,
+			'Createdat' => date('Y-m-d H:i:s',$apiTweet->created_at),
 			'Tweetid' => $apiTweet->id,
 			'Tweetidstr' => $apiTweet->id_str,
-	//		'InternalId' => srand((int)$seed),
 			'Campaignid' => $campaignId,
 			'Text' => $apiTweet->text,
 			'Truncated' => $apiTweet->truncated,
