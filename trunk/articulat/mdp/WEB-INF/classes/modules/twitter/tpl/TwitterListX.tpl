@@ -1,3 +1,7 @@
+|-if isset($embedded)-|
+<script src="Main.php?do=js&name=js&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
+
+|-/if-|
 <div id="tweetsFilters">
 <form action="Main.php" method="get">
 	<fieldset title="Formulario de Opciones de búsqueda de tweets">
@@ -19,14 +23,21 @@
 		<p>
 			<input type="hidden" name="campaignId" value="|-$campaignid-|" />
 			<input type="hidden" name="do" value="twitterListX" />
-			<input type="button" value="Filtrar" onclick="getCampaignTweets(this.form);">
+			<input type="button" value="Filtrar" onclick="javascript:getCampaignTweets(this.form);return false;">
 		</p>
 	</fieldset>
 </form>
 </div>
-<script type="text/javascript">
+|-if !isset($embedded)-|
+	<script type="text/javascript">
 		$("resultDiv").innerHTML = " ";
-</script>
+	</script>
+|-else-|
+	<script type="text/javascript">
+		$("acceptedResDiv").innerHTML = " ";
+	</script>
+	<div id="acceptedResDiv"></div>
+|-/if-|
 <table id="tabla-tweets" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 	<thead>
 		<tr class="thFillTitle"> 
@@ -131,4 +142,18 @@
 		</tr>
 		|-/if-|
 	|-/if-|
-</table> 
+</table>
+|-if isset($embedded)-|
+<script type="text/javascript">
+	function getCampaignTweets(form){
+		$("div_tweets").innerHTML = " ";
+		new Ajax.Updater('div_tweets', "Main.php?do=twitterListX", {
+			parameters: Form.serialize(form),
+			insertion: 'top',
+			evalScripts: true
+		});
+		$("acceptedResDiv").innerHTML = "<span class=\"inProgress\">Buscando tweets...</span>";
+		return false;	
+	}
+</script>
+|-/if-|

@@ -43,6 +43,19 @@
 </fieldset>
 </form>
 
+|-if isset($campaign)-|
+|-assign var=cId value=$campaign->getId()-|
+<fieldset>
+	<legend>Tweets Aceptados &nbsp; &nbsp; </legend>
+	<div id="div_tweets">
+	|-include file="TwitterListX.tpl" twitterTweetColl=$acceptedTweets campaignid=$cId tweetValues=$tweetValues tweetRelevances=$tweetRelevances tweetStatuses=$tweetStatuses embedded='true'-|
+	|-if isset($pager) && $pager->haveToPaginate()-|
+	<div class="divPages">|-include file="ModelPagerInclude.tpl"-|</div>
+	|-/if-|
+	</div>
+</fieldset>
+|-/if-|
+
 <script type="text/javascript">
 /*	
 function acceptSelected(form) {

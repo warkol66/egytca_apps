@@ -18,36 +18,6 @@ class TwitterParsedListAction extends BaseListAction {
 
 		$this->module = "Twitter";
 
-		//Obtencion de filtros
-		if (!empty($_GET["page"])) {
-			$page = $_GET["page"];
-			$this->smarty->assign("page",$page);
-		}
-		if (!empty($_GET['filters']))
-			$filters = $_GET['filters'];
-			
-		if (!empty($_GET['filters']['fromDate']))
-			$fromDate = $_GET['filters']['fromDate'];
-
-		if (!empty($_GET['filters']['toDate']))
-			$toDate = $_GET['filters']['toDate'];
-
-		if (!empty($_GET['filters']['campaignId']))
-			$filters = array_merge_recursive($filters, array('Campaign' => array('entityFilter' => array(
-				'entityType' => "Campaign",
-				'entityId' => $_GET['filters']['campaignId']
-			))));
-
-		if (isset($fromDate) || isset($toDate))
-			$filters['rangePublished'] = Common::getPeriodArray($fromDate,$toDate);
-		
-		if (!isset($filters["perPage"]))
-			$perPage = Common::getRowsPerPage();
-		else
-			$perPage = $filters["perPage"];
-
-		$this->perPage = $perPage;
-
 		//Reviso si se solicito desde campaing valida
 		$campaignId = $_GET['filters']['campaignId'];
 		$campaign = CampaignQuery::create()->findOneById($campaignId);
@@ -58,12 +28,12 @@ class TwitterParsedListAction extends BaseListAction {
 		}
 
 		$this->smarty->assign('campaign', $campaign);
-		if (!empty($filters['discarded']))
-			$this->query->filterByStatus(TwitterTweet::DISCARDED);
+		
+		//si no quiero ver los descartados muestro los no aceptados
+		if (!empty($_GET['filters']['discarded']))
+			$this->filters['status'] = TwitterTweet::DISCARDED;
 		else
-			$this->query->filterByStatus(array('max' => TwitterTweet::ACCEPTED));
-
-		$this->filters = $filters;
+			$this->filters['maxStatus'] = TwitterTweet::PARSED;
 
 	}
 
@@ -71,5 +41,12 @@ class TwitterParsedListAction extends BaseListAction {
 		parent::postList();
 		$this->smarty->assign("module", $this->module);
 		$this->smarty->assign("section", "Parsed");
+		
+		if(isset($_GET['filters']['campaignId'])){
+			$this->smarty->assign("acceptedTweets", TwitterTweetQuery::create()->filterByCampaignid($_GET['filters']['campaignId'])->filterByStatus(TwitterTweet::ACCEPTED)->find());
+			$this->smarty->assign("tweetValues",TwitterTweet::getValues());
+			$this->smarty->assign("tweetRelevances",TwitterTweet::getRelevances());
+			$this->smarty->assign("tweetStatuses",TwitterTweet::getStatuses());
+		}
 	}
 }
