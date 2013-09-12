@@ -1,3 +1,29 @@
+<div id="tweetsFilters">
+<form action="Main.php" method="get">
+	<fieldset title="Formulario de Opciones de búsqueda de tweets">
+		<legend>Opciones de Búsqueda</legend>
+		<p>
+			<label for="filters[dateRange][createdat][min]">Fecha desde</label>
+			<input id="filters[dateRange][createdat][min]" name="filters[dateRange][createdat][min]" type="text" value="|-$filters.fromDate-|" size="12" title="Fecha desde dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateRange][createdat][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha desde dd-mm-aaaa">
+		</p>
+		<p>
+			<label for="filters[dateRange][createdat][max]">Fecha hasta</label>
+			<input id="filters[dateRange][createdat][max]" name="filters[dateRange][createdat][max]" type="text" value="|-$filters.toDate-|" size="12" title="Fecha hasta dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateRange][createdat][max]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha hasta dd-mm-aaaa">
+		</p>
+		<p>
+				<label for="filters[processed]">Procesados</label>
+				Todos <input name="filters[processed]" type="radio" value="-1" |-if isset($filters.processed)-||-$filters.processed|checked:-1-||-else-|checked="checked"|-/if-| />
+				Sin procesar <input name="filters[processed]" type="radio" value="0" |-if isset($filters.processed)-||-$filters.processed|checked:0-||-/if-| />
+				Procesados <input name="filters[processed]" type="radio" value="1" |-if isset($filters.processed)-||-$filters.processed|checked:1-||-/if-| />
+		</p>
+		<p>
+			<input type="hidden" name="campaignId" value="|-$campaignid-|" />
+			<input type="hidden" name="do" value="twitterListX" />
+			<input type="button" value="Filtrar" onclick="getCampaignTweets(this.form);">
+		</p>
+	</fieldset>
+</form>
+</div>
 <script type="text/javascript">
 		$("resultDiv").innerHTML = " ";
 </script>
@@ -25,7 +51,7 @@
 			<td align="center"><input type="checkbox" name="selected[]" value="|-$tweet->getId()-|"></td>
 			<td>|-$tweet->getText()-|</td>
 			<td>|-$user->getName()-|</td>
-			<td>|-$tweet->getCreatedat()|date_format:"%d-%m-%Y"-|</td>
+			<td>|-$tweet->getCreatedat()|date_format:"%d-%m-%Y %H:%m"-|</td>
 			<td>
 				<form action="Main.php" method="post" id="formValueTweets|-$tweet->getId()-|">
 					<select name="params[value]" id="selectTweetValue|-$tweet->getId()-|" onChange="javascript:twitterDoEditValue(this.form);">
