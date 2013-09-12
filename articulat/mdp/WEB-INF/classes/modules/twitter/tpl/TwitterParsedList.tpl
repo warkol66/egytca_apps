@@ -43,7 +43,7 @@
 </fieldset>
 </form>
 
-|-if isset($campaign)-|
+|-if isset($campaign) && 1 eq 2-|
 |-assign var=cId value=$campaign->getId()-|
 <fieldset>
 	<legend>Tweets Aceptados &nbsp; &nbsp; </legend>
