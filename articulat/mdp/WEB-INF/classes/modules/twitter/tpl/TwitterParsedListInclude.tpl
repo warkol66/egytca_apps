@@ -47,5 +47,5 @@
 	}
 </script>
 |-else-|
-<li id="noTweets">|-if $included-|No hay Titulares por procesar|-else-|<span class="resultSuccess">No se obtuvieron tweets nuevos</span>|-/if-|</li>
+<li id="noTweets">|-if $included-|No hay Tweets por procesar|-else-|<span class="resultSuccess">No se obtuvieron tweets nuevos</span>|-/if-|</li>
 |-/if-|
