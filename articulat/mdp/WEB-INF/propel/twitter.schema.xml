@@ -7,7 +7,7 @@
 		<column name="tweetIdStr" required="true" type="VARCHAR" size="255" description="Tweet String Id" />
 		<column name="internalId" required="true"  type="VARCHAR" size="255" description="Tweet internal Id" />
 		<column name="campaignId" required="true"  type="VARCHAR" size="255" description="Campaign Id" />
-		<column name="createdAt" type="DATE" description="Fecha de creacion" />
+		<column name="createdAt" type="TIMESTAMP" description="Fecha de creacion" />
 		<column name="text" required="true"  type="VARCHAR" size="140" description="Tweet" primaryString="true" />
 		<column name="userId" required="true"  type="INTEGER" size="140" description="User who created the tweet" />
 		<column name="truncated" type="BOOLEAN" description="Tweet is truncated" />
