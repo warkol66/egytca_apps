@@ -30,9 +30,9 @@ class TwitterParsedListAction extends BaseListAction {
 		$this->smarty->assign('campaign', $campaign);
 		
 		//si no quiero ver los descartados muestro los no aceptados
-		if (!empty($_GET['filters']['discarded']))
-			$this->filters['status'] = TwitterTweet::DISCARDED;
-		else
+		if (!empty($_GET['filters']['discarded'])){
+			$this->filters['maxStatus'] = TwitterTweet::DISCARDED;
+		}else
 			$this->filters['maxStatus'] = TwitterTweet::PARSED;
 
 	}
@@ -42,11 +42,5 @@ class TwitterParsedListAction extends BaseListAction {
 		$this->smarty->assign("module", $this->module);
 		$this->smarty->assign("section", "Parsed");
 		
-		if(isset($_GET['filters']['campaignId'])){
-			$this->smarty->assign("acceptedTweets", TwitterTweetQuery::create()->filterByCampaignid($_GET['filters']['campaignId'])->filterByStatus(TwitterTweet::ACCEPTED)->find());
-			$this->smarty->assign("tweetValues",TwitterTweet::getValues());
-			$this->smarty->assign("tweetRelevances",TwitterTweet::getRelevances());
-			$this->smarty->assign("tweetStatuses",TwitterTweet::getStatuses());
-		}
 	}
 }
