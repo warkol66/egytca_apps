@@ -30,8 +30,6 @@ class TwitterParsedProcessXAction extends BaseAction {
 					}elseif($processAction == 'discard')
 						TwitterTweet::discardMultiple($_POST["tweetsIds"]);
 				} catch (Exception $e) {
-					print_r($e);
-					die();
 					$smarty->assign("error",'true');
 					return $mapping->findForwardConfig('success');
 				}

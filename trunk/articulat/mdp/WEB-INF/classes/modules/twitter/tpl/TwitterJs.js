@@ -28,6 +28,20 @@ function twitterDoEditValue(form){
 	$('resultDiv').innerHTML = '<span class="inProgress">... Actualizando Estado de Entrada ...</span>';
 }
 
+function twitterDoEditMultiple(form, result){
+	buildMultipleItemsForm(form);
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: result},
+				url,
+				{
+					method: 'post',
+					postBody: fields,
+					evalScripts: true
+				});
+	$(result).innerHTML = '<span class="inProgress">... Actualizando Estado de Entradas ...</span>';
+}
+
 function submitEntriesChangeFormX(formId) {
 	
 	submitFormX(formId);
