@@ -209,6 +209,17 @@ function clearElement(element) {
 	|-include file="DocumentsListInclude.tpl" entity="Campaign" entityId=$campaign->getId()-|
 	|-include file="DocumentsEditInclude.tpl" entity="Campaign" entityId=$campaign->getId()-|
 |-/if-|
+|-if $acceptedTweets|count gt 0-|
+<fieldset>
+	<legend>Tweets Aceptados &nbsp; &nbsp; </legend>
+	<div id="div_tweets">
+	|-include file="TwitterListX.tpl" twitterTweetColl=$acceptedTweets campaignid=$campaign->getId() tweetValues=$tweetValues tweetRelevances=$tweetRelevances tweetStatuses=$tweetStatuses embedded='true'-|
+	|-if isset($pager) && $pager->haveToPaginate()-|
+	<div class="divPages">|-include file="ModelPagerInclude.tpl"-|</div>
+	|-/if-|
+	</div>
+</fieldset>
+|-/if-||-*/Si tiene tweets*-|
 |-if $campaign->getHeadlines()|count gt 0-|
 |-assign var=headlines value=$campaign->getHeadlines()-|
 <div id="div_headlines"> 
