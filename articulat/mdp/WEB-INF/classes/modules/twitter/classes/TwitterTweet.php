@@ -179,4 +179,20 @@ class TwitterTweet extends BaseTwitterTweet{
 		TwitterTweetQuery::create()->filterById($tweets, Criteria::IN)->update(array('Status' => TwitterTweet::DISCARDED));
 	}
 	
+	/* Modifica un campo de varios tweets a DISCARDED
+	 * 
+	 * @param $field: campo a modificar
+	 * @param $newValue: valor para setearle al campo
+	 * @param $tweets: array[int] ids de los tweets a modificar
+	 * return bool
+	 * */
+	public static function editMultiple($field,$newValue,$tweets){
+		try{
+			TwitterTweetQuery::create()->filterById($tweets, Criteria::IN)->update(array($field => $newValue));
+		}catch(Exception $e){
+			return false;
+		}
+		return true;
+	}
+	
 }

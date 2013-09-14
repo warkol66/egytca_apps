@@ -1,6 +1,5 @@
 |-if isset($embedded)-|
 <script src="Main.php?do=js&name=js&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
-
 |-/if-|
 <div id="tweetsFilters">
 <form action="Main.php" method="get">
@@ -104,9 +103,9 @@
 		|-if $twitterTweetColl|@count neq 0-|
 			<tr>
 				<td colspan="7">
-					<form action="Main.php" method="post" id='multipleTweetsChangeForm'>
+					<form action="Main.php" method="post" id='multipleTweetsChangeValueForm'>
 						<p>Cambiar la valoración de los tweets seleccionados a
-							<select name="values" id="selectEntryStatus">
+							<select name="newValue" id="selectEntryStatus">
 							|-foreach from=$tweetValues key=key item=name-|
 								<option value="|-$key-|">|-$name-|</option>
 							|-/foreach-|
@@ -114,11 +113,14 @@
 							|-if isset($pager)-|
 								<input type="hidden" name="page" value="|-$pager->getPage()-|" id="page">
 							|-/if-|
-							<input type="hidden" name="do" value="" id="do">
-							<input type="button" onClick="javascript:return false;" value="Cambiar Valoracion" title="Cambiar Valoracion" class="button">
+							<input type="hidden" name="field" value="Value" id="field">
+							<input type="hidden" name="do" value="twitterDoEditMultipleX" id="do">
+							<input type="button" onClick="javascript:twitterDoEditMultiple(this.form,|-if isset($embedded)-|'acceptedResDiv'|-else-|'resultDiv'|-/if-|); return false;" value="Cambiar Valoracion" title="Cambiar Valoracion" class="button">
 						</p>
+					</form>
+					<form action="Main.php" method="post" id='multipleTweetsChangeRelevanceForm'>
 						<p>Cambiar la relevancia de los tweets seleccionados a
-							<select name="relevances" id="selectTweetRelevance">
+							<select name="newValue" id="selectTweetRelevance">
 							|-foreach from=$tweetRelevances key=key item=name-|
 								<option value="|-$key-|">|-$name-|</option>
 							|-/foreach-|
@@ -126,8 +128,9 @@
 							|-if isset($pager)-|
 								<input type="hidden" name="page" value="|-$pager->getPage()-|" id="page">
 							|-/if-|
-							<input type="hidden" name="do" value="" id="do">
-							<input type="button" onClick="javascript:return false;" value="Cambiar Relevancia" title="Cambiar Relevancia" class="button">
+							<input type="hidden" name="do" value="twitterDoEditMultipleX" id="do">
+							<input type="hidden" name="field" value="Relevance" id="field">
+							<input type="button" onClick="javascript:twitterDoEditMultiple(this.form,|-if isset($embedded)-|'acceptedResDiv'|-else-|'resultDiv'|-/if-|); return false;" value="Cambiar Relevancia" title="Cambiar Relevancia" class="button">
 						</p>
 					</form>
 				</td>
