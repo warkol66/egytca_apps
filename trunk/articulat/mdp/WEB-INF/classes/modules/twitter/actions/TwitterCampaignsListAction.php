@@ -1,6 +1,6 @@
 <?php
 
-class TwitterManageAction extends BaseListAction {
+class TwitterCampaignsListAction extends BaseListAction {
 	
 	function __construct() {
 		parent::__construct('Campaign');
