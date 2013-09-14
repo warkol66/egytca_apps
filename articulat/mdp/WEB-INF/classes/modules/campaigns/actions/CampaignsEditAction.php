@@ -58,6 +58,14 @@ class CampaignsEditAction extends BaseAction {
 					$this->template->template = "TemplatePrint.tpl";
 					$smarty->assign("report",true);
 				}
+				
+				// Busco los tweets aceptados, estados, valores y relevancias
+				if($campaign->geTtwitterCampaign()){
+					$smarty->assign("acceptedTweets", TwitterTweetQuery::create()->filterByCampaignid($campaign->getId())->filterByStatus(TwitterTweet::ACCEPTED)->find());
+					$smarty->assign("tweetValues",TwitterTweet::getValues());
+					$smarty->assign("tweetRelevances",TwitterTweet::getRelevances());
+					$smarty->assign("tweetStatuses",TwitterTweet::getStatuses());
+				}
 			}
 		}
 		else
