@@ -3,7 +3,7 @@
 
 		<action  path = "twitterListX"
 						 type = "TwitterListXAction"
-						 name = "twitterListXX"
+						 name = "twitterListX"
 						scope = "request"
 				 validate = "true">
 			<forward  name="success" path="TwitterListX.tpl" />
