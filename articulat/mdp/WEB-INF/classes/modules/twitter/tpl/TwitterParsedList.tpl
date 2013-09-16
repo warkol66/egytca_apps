@@ -59,7 +59,7 @@
 <input type="button" class="icon iconDelete" title="Descartar todos" onClick="|-if $campaign->isNew()-|discardSelected(this.form);|-else-|discardAll('|-$campaign->getId()-|', this.form);|-/if-|" />
 <input type="checkbox" name="allbox" id="allBoxes" onchange="javascript:selectAllCheckboxes('tweetsIds[]')" />
 </legend>
-<ul id="list" class="iconList">
+<ul id="list" class="iconList tweetsList">
 |-include file="TwitterParsedListInclude.tpl" included=true tweetsParsed=$twitterTweetColl useCheckbox=$campaign->isNew()-|
 </ul>
 |-if isset($pager) && $pager->haveToPaginate()-|
