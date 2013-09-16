@@ -57,7 +57,7 @@
 <legend>Tweets &nbsp; &nbsp; &nbsp; &nbsp; 
 <input type="button" class="icon iconActivate" title="Aceptar todos" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|acceptAll('|-$campaign->getId()-|', this.form);|-/if-|" />
 <input type="button" class="icon iconDelete" title="Descartar todos" onClick="|-if $campaign->isNew()-|discardSelected(this.form);|-else-|discardAll('|-$campaign->getId()-|', this.form);|-/if-|" />
-<input type="checkbox" onchange="var globalCheckbox=this; $$('input.TwitterIds').each(function(e, i) { e.checked = globalCheckbox.checked })" />
+<input type="checkbox" name="allbox" id="allBoxes" onchange="javascript:selectAllCheckboxes('tweetsIds[]')" />
 </legend>
 <ul id="list" class="iconList">
 |-include file="TwitterParsedListInclude.tpl" included=true tweetsParsed=$twitterTweetColl useCheckbox=$campaign->isNew()-|
