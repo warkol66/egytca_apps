@@ -1,0 +1,15 @@
+<!-- Module Twitter -->
+	<action-mappings>
+
+		<action  path = "twitterListX"
+						 type = "TwitterListXAction"
+						 name = "twitterListXX"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="TwitterListX.tpl" />
+			<forward  name="failure" path="TwitterListX.tpl" />
+		</action>
+
+	</action-mappings>
+
+<!-- End Module Twitter-->

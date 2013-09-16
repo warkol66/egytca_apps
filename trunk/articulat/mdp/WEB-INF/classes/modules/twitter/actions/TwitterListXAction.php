@@ -11,11 +11,15 @@ class TwitterListXAction extends BaseListAction {
 
 		$this->module = "Twitter";
 		
-		if($_POST['campaignId']){
-			$this->filters['campaignid'] = $_POST['campaignId'];
-			$this->smarty->assign("campaignid",$_POST['campaignId']);
+		//si no selecciono campaña salgo
+		if(!isset($_POST['campaignId'])){
+			$this->smarty->assign('noCampaign',true);
+			$this->forwardFailureName = 'success';
+			return false;
 		}
 		
+		$this->filters['campaignid'] = $_POST['campaignId'];
+		$this->smarty->assign("campaignid",$_POST['campaignId']);
 		//ver por que no anda sin esto
 		if(!empty($_POST['filters']['dateRange']['createdat']['min']) && !empty($_POST['filters']['dateRange']['createdat']['max'])){
 			$this->filters['dateRange']['createdat']['min'] = $_POST['filters']['dateRange']['createdat']['min'];
@@ -47,9 +51,6 @@ class TwitterListXAction extends BaseListAction {
 
 	protected function postList() {
 		parent::postList();
-		
-		/*print_r($this->filters);
-		die();*/
 
 		$this->smarty->assign("module", $this->module);
 		
