@@ -31,7 +31,7 @@ class TwitterParsedListAction extends BaseListAction {
 		
 		//si no quiero ver los descartados muestro los no aceptados
 		if (!empty($_GET['filters']['discarded'])){
-			$this->filters['maxStatus'] = TwitterTweet::DISCARDED;
+			$this->filters['parsedDiscarded'] = 1;
 		}else
 			$this->filters['maxStatus'] = TwitterTweet::PARSED;
 
