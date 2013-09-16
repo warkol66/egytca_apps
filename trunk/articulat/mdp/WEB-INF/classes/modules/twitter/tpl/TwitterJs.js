@@ -106,9 +106,12 @@ function submitMultipleEntriesChangeFormX(formId) {
 }
 
 //queda
-function selectAllCheckboxes() {
+function selectAllCheckboxes(name = null) {
 	
-	var checkboxes = document.getElementsByName('selected[]');
+	if(name == null)
+		var checkboxes = document.getElementsByName('selected[]');
+	else
+		var checkboxes = document.getElementsByName(name);
 	var allbox = document.getElementById('allBoxes');
 	for (i=0;i<checkboxes.length;i++) {
 		checkboxes[i].checked = allbox.checked;
