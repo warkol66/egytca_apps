@@ -838,3 +838,16 @@ table.tableTdBorders {
 	font-weight: bolder !Important;
 	color: red !Important;
 }
+
+.twitterText{
+	font-family: "Helvetica Neue",Arial,sans-serif;
+	color: #333333;
+   font-size: 14px;
+}
+
+.tweetsList li{
+	border-bottom:1px solid;
+	border-bottom-color: #999999;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
