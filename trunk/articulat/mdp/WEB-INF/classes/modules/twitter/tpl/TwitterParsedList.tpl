@@ -1,3 +1,4 @@
+<script src="Main.php?do=js&name=js&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 |-include file="CommonAutocompleterInclude.tpl"-|
 <h2>Tweets</h2>
 |-if !$notValidId-|

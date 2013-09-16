@@ -29,4 +29,18 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		else
 			return $this->filterByValue(array('max' => 0))->filterByRelevance(array('max' => 0));
 	}
+	
+	/* Filtra por tweets procesados y no aceptados
+	 * @param $proc : bool - indica si quiero los procesados o los no
+	 * 
+	 * */
+	public function parsedDiscarded($discarded){
+		if($discarded)
+			return $this
+				->condition('cond1', 'TwitterTweet.Status = ?', TwitterTweet::PARSED)
+				->condition('cond2', 'TwitterTweet.Status = ?', TwitterTweet::DISCARDED)
+				->where(array('cond1', 'cond2'), 'or');
+		else
+			return $this->filterByStatus(TwitterTweet::PARSED);
+	}
 }
