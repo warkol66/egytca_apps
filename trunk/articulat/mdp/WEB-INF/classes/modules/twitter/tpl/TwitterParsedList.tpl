@@ -60,7 +60,7 @@
 <input type="checkbox" name="allbox" id="allBoxes" onchange="javascript:selectAllCheckboxes('tweetsIds[]')" />
 </legend>
 <ul id="list" class="iconList tweetsList">
-|-include file="TwitterParsedListInclude.tpl" included=true tweetsParsed=$twitterTweetColl useCheckbox=$campaign->isNew()-|
+|-include file="TwitterParsedListInclude.tpl" matched=$matched included=true tweetsParsed=$twitterTweetColl useCheckbox=$campaign->isNew()-|
 </ul>
 |-if isset($pager) && $pager->haveToPaginate()-|
 	<div class="divPages">|-include file="ModelPagerInclude.tpl"-|</div>

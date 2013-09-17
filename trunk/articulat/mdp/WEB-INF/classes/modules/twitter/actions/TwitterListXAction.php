@@ -60,6 +60,19 @@ class TwitterListXAction extends BaseListAction {
 		$this->smarty->assign("tweetStatuses",TwitterTweet::getStatuses());
 		$this->smarty->assign("moduleConfig",$moduleConfig);
 		
+		// informacion para el highlight
+		$matchedUsers = array();
+		$matchedHashtags = array();
+		$matches = array();
+		
+		foreach($this->results as $tweet){
+			preg_match_all('/(^|\s)@(\w+)/',$tweet->getText(), $matchedUsers[$tweet->getId()]);
+			preg_match_all('/(^|\s)#(\w*[a-zA-Z_]+\w*)/',$tweet->getText(), $matchedHashtags[$tweet->getId()]);
+			$matches[$tweet->getId()] = array_merge($matchedUsers[$tweet->getId()][0],$matchedHashtags[$tweet->getId()][0]);
+		}
+		
+		$this->smarty->assign('matched', $matches);
+		
 		
 	}
 
