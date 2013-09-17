@@ -61,10 +61,27 @@ class CampaignsEditAction extends BaseAction {
 				
 				// Busco los tweets aceptados, estados, valores y relevancias
 				if($campaign->geTtwitterCampaign()){
-					$smarty->assign("acceptedTweets", TwitterTweetQuery::create()->filterByCampaignid($campaign->getId())->filterByStatus(TwitterTweet::ACCEPTED)->find());
+					$acceptedTweets = TwitterTweetQuery::create()->filterByCampaignid($campaign->getId())->filterByStatus(TwitterTweet::ACCEPTED)->find();
+					$smarty->assign("acceptedTweets", $acceptedTweets);
+					
+					// informacion para el highlight
+					$matchedUsers = array();
+					$matchedHashtags = array();
+					$matches = array();
+					
+					foreach($acceptedTweets as $tweet){
+						preg_match_all('/(^|\s)@(\w+)/',$tweet->getText(), $matchedUsers[$tweet->getId()]);
+						preg_match_all('/(^|\s)#(\w+)/',$tweet->getText(), $matchedHashtags[$tweet->getId()]);
+						$matches[$tweet->getId()] = array_merge($matchedUsers[$tweet->getId()][0],$matchedHashtags[$tweet->getId()][0]);
+					}
+		
+					$smarty->assign('matched', $matches);
+					
 					$smarty->assign("tweetValues",TwitterTweet::getValues());
 					$smarty->assign("tweetRelevances",TwitterTweet::getRelevances());
 					$smarty->assign("tweetStatuses",TwitterTweet::getStatuses());
+					
+					
 				}
 			}
 		}
