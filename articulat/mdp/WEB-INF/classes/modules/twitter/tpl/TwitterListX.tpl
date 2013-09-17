@@ -66,10 +66,11 @@
 			</tr>
 		|-else-|
 			|-foreach from=$twitterTweetColl item=tweet name=for_tweets-|
+			|-assign var=tweetMatches value=$matched[$tweet->getId()]-|
 			|-assign var=user value=$tweet->getTwitterUser()-|
 			<tr>
 				<td align="center"><input type="checkbox" name="selected[]" value="|-$tweet->getId()-|"></td>
-				<td class="twitterText">|-$tweet->getText()-|</td>
+				<td class="twitterText">|-$tweet->getText()|highlight:$matched[$tweet->getId()]:userHash-|</td>
 				<td>|-$user->getName()-|</td>
 				<td nowrap="nowrap">|-$tweet->getCreatedat()|date_format:"%d-%m-%Y %H:%m"-|</td>
 				<td>
