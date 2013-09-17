@@ -839,15 +839,29 @@ table.tableTdBorders {
 	color: red !Important;
 }
 
+/**** Twitter ****/
+
+.tweet{display:table;}
+
+.twitterButtons{width: 65px; height: 30px; float: left;}
+
 .twitterText{
 	font-family: "Helvetica Neue",Arial,sans-serif;
 	color: #333333;
-   font-size: 14px;
+	font-size: 14px;
+	padding-left: 20px;
+	float: right;
+    min-height: 51px;
+    padding: 9px 12px;
+    position: relative;
+	/*background-color: #FFF;*/
 }
 
 .tweetsList li{
 	border-bottom:1px solid;
-	border-bottom-color: #999999;
+	border-bottom-color: #BBBBBB;
 	padding-bottom: 5px;
 	padding-top: 5px;
 }
+
+.userHash{color: #0084B4;}
