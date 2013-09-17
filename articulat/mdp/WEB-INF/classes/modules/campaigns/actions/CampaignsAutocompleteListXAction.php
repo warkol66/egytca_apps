@@ -23,10 +23,17 @@ class CampaignsAutocompleteListXAction extends BaseAction {
 		
 		$searchString = $_REQUEST['value'];
 		$smarty->assign("searchString",$searchString);
-
-		$campaigns = CampaignQuery::create()->where('Campaign.Name LIKE ?', "%" . $searchString . "%")
+		
+		if(isset($_REQUEST['twitter'])){
+			$campaigns = CampaignQuery::create()->where('Campaign.Name LIKE ?', "%" . $searchString . "%")
+									->where('Campaign.TwitterCampaign = ?', 1)
 									->limit($_REQUEST['limit'])
 									->find();
+		}else{
+			$campaigns = CampaignQuery::create()->where('Campaign.Name LIKE ?', "%" . $searchString . "%")
+									->limit($_REQUEST['limit'])
+									->find();
+		}
 		
 		$smarty->assign("campaigns",$campaigns);
 		$smarty->assign("limit",$_REQUEST['limit']);
