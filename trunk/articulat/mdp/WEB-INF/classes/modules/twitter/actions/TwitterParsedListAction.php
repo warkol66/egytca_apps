@@ -42,22 +42,5 @@ class TwitterParsedListAction extends BaseListAction {
 		$this->smarty->assign("module", $this->module);
 		$this->smarty->assign("section", "Parsed");
 		
-		$matchedUsers = array();
-		$matchedHashtags = array();
-		$matchedUrls = array();
-		$matches = array();
-		
-		foreach($this->results as $tweet){
-			preg_match_all('/(?<=^|\s)@+([\w]+)/',$tweet->getText(), $matchedUsers[$tweet->getId()]);
-			preg_match_all('/(^|\s)#(\w*[a-zA-Z_]+\w*)/',$tweet->getText(), $matchedHashtags[$tweet->getId()]);
-			//preg_match_all('',$tweet->getText(), $matchedUrls[$tweet->getId()]);
-			$matches[$tweet->getId()] = array_merge($matchedUsers[$tweet->getId()][0],$matchedHashtags[$tweet->getId()][0]);
-		}
-		
-		/*print_r($matches);
-		die();*/
-		
-		$this->smarty->assign('matched', $matches);
-		
 	}
 }
