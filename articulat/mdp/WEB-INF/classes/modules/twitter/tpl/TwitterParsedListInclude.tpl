@@ -14,7 +14,6 @@
 
 |-if $tweetsParsed|count gt 0-|
     |-foreach from=$tweetsParsed item=tweet name=for_tweets-|
-		|-assign var=tweetMatches value=$matched[$tweet->getId()]-|
     <li id="li_|-$tweet->getId()-|">
 		<div class="tweet">
 			<div class="twitterButtons">
@@ -22,7 +21,7 @@
 				<img src="images/clear.png" class="icon iconDelete" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&id=|-$tweet->getId()-|", { method: "post", parameters: { id: "|-$tweet->getId()-|", action: "discard"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando tweet...</span>";' value="Descartar tweet" /></a>
 				<input type="checkbox" class="tweetsIds" name="tweetsIds[]" value="|-$tweet->getId()-|" />
 			</div>
-			<div class="twitterText">|-$tweet->getText()|highlight:$tweetMatches:userHash-|</div>
+			<div class="twitterText">|-$tweet->getText()|twitterHighlight-|</div>
 		</div>
     </li>
     |-/foreach-|
