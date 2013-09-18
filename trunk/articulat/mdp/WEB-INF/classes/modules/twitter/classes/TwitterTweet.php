@@ -85,14 +85,16 @@ class TwitterTweet extends BaseTwitterTweet{
 			'Id' => $apiTweet->user->id,
 			'IdStr' => $apiTweet->user->id_str,
 			'Name' => $apiTweet->user->name,
-			'ScreenName' => $apiTweet->user->screen_name,
+			'Screenname' => $apiTweet->user->screen_name,
 			'Location' => $apiTweet->user->location,
 			'Description' => $apiTweet->user->description,
 			'Url' => $apiTweet->user->url,
-			'isProtected' => $apiTweet->user->protected,
+			'isprotected' => $apiTweet->user->protected,
 			'followers' => $apiTweet->user->followers_count,
 			'friends' => $apiTweet->user->friends_count
 		);
+		
+		//return $user;
 		
 		$newTweet = TwitterTweet::addTweet($tweet);
 		$newUser = TwitterUser::addUser($user);
