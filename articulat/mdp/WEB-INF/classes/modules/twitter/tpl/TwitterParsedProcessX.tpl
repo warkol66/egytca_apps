@@ -4,21 +4,21 @@
 |-elseif $processAction eq 'save'-|
 	|-if isset($multiple)-|
 	|-foreach from=$tweets item=tweet-|
-	$("li_|-$tweet-|").toggle();
+	$("li_|-$tweet-|").remove();
 	|-/foreach-|
 	$("resultDiv").innerHTML = '<span class="resultSuccess">Tweets Guardados</span>';
 	|-else-|
-	$("li_|-$tweet->getId()-|").toggle();
+	$("li_|-$tweet->getId()-|").remove();
 	$("resultDiv").innerHTML = '<span class="resultSuccess">Tweet Guardado</span>';
 	|-/if-|
 |-elseif $processAction eq 'discard'-|
 	|-if isset($multiple)-|
 	|-foreach from=$tweets item=tweet-|
-	$("li_|-$tweet-|").toggle();
+	$("li_|-$tweet-|").remove();
 	|-/foreach-|
 	$("resultDiv").innerHTML = '<span class="resultSuccess">Tweets Descartados</span>';
 	|-else-|
-	$("li_|-$tweet->getId()-|").toggle();
+	$("li_|-$tweet->getId()-|").remove();
 	$("resultDiv").innerHTML = '<span class="resultSuccess">Tweet Descartado</span>';
 	|-/if-|
 |-/if-|
