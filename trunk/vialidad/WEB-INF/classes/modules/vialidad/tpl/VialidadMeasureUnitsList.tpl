@@ -4,7 +4,9 @@
 <div id="div_supplies"> 
 	|-if $message eq "deleted_ok"-|
 		<div id="deleted_message" class="successMessage">Unidad de Medida eliminada correctamente</div>
-	|-/if-|
+|-elseif $message eq "not_deleted"-|
+	<div  class="errorMessage">Ha ocurrido un error al intentar eliminar la Unidad de Medida. No se pueden eliminar Unidades de Medida que se encuentren en uso.</div>
+|-/if-|
 	<div name="working_status_message" style="display:none;" class="inProgress">Trabajando...</div>
 	<div name="done_status_message" style="display:none;" class="successMessage">Unidad de Medida agregada</div>
 <script language="JavaScript" type="text/JavaScript">

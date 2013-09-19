@@ -1,9 +1,9 @@
-		|-if $constructionTypes|@count eq 0-|
+		|-if $constructionTypeColl|@count eq 0-|
 		<tr>
-			<td colspan="2">|-if isset($filter)-|No hay Obras que concuerden con la búsqueda|-else-|No hay Obras disponibles|-/if-|</td>
+			<td colspan="2">|-if isset($filter)-|No hay tipos de obra que concuerden con la búsqueda|-else-|No hay tipos de obra disponibles|-/if-|</td>
 		</tr>
 		|-else-|
-		|-foreach from=$constructionTypes item=type name=for_types-|
+		|-foreach from=$constructionTypeColl item=type name=for_types-|
 		<tr> 
 			<td>
 				|-if "vialidadConstructionTypesEdit"|security_has_access-|
@@ -22,15 +22,15 @@
 					<input type="hidden" name="id" value="|-$type->getid()-|" />
 					<input type="submit" id="type_edit_|-$type->getId()-|" name="submit_go_edit_vialidad_type" value="Editar" title="Editar" class="icon iconEdit" />
 				|-/if-|
-				|-if "vialidadSourcesDoDelete"|security_has_access-|
+				|-if "vialidadConstructionTypesDoDelete"|security_has_access-|
 				<form action="Main.php" method="post" style="display:inline;">
-					<input type="hidden" name="do" value="vialidadSourcesDoDelete" />
+					<input type="hidden" name="do" value="vialidadConstructionTypesDoDelete" />
 					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 					|-if isset($pager) && ($pager->getPage() gt 1)-|
 					<input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />
 					|-/if-|
 					<input type="hidden" name="id" value="|-$type->getid()-|" />
-					<input type="submit" name="submit_go_delete_vialidad_type" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar del Departamento?')" class="icon iconDelete" />
+					<input type="submit" name="submit_go_delete_vialidad_type" value="Borrar" title="Eliminar" onclick="return confirm('Seguro que desea eliminar el tipo de obra?')" class="icon iconDelete" />
 				</form>
 				|-/if-|
 			</td>
@@ -44,7 +44,7 @@
 		</tr>
 		|-/if-|
 <script type="text/javascript">
-	|-foreach from=$constructionTypes item=type name=for_types_ajax-|
+	|-foreach from=$constructionTypeColl item=type name=for_types_ajax-|
 	new Ajax.InPlaceEditor(
 		'name_|-$type->getId()-|',
 		'Main.php?do=commonDoEditFieldX',

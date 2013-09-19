@@ -3,8 +3,10 @@
 <p>A continuación se muestra la lista de Fuentes de Financiamiento cargados en el sistema.</p>
 <div id="div_sources"> 
 	|-if $message eq "deleted_ok"-|
-		<div class="successMessage" id="actionMessage">Fuente de Financiamiento eliminado correctamente</div>
-	|-/if-|
+		<div class="successMessage" id="actionMessage">Fuente de Financiamiento eliminada correctamente</div>
+|-elseif $message eq "not_deleted"-|
+	<div  class="errorMessage">Ha ocurrido un error al intentar eliminar Fuente de Financiamiento. No se pueden eliminar Fuentes de Financiamiento que se encuentren en uso.</div>
+|-/if-|
 	<div name="working_status_message" style="display:none;" class="inProgress">Trabajando...</div>
 	<div name="done_status_message" style="display:none;" class="successMessage"> Fuente de Financiamiento agregada</div>
 	<table id="table_sources" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
@@ -148,4 +150,13 @@ function chomp(raw_text) {
 function clean_text_content_from(element) {
     element.innerHTML = chomp(element.innerHTML);
 }
+function chomp(raw_text) {
+    return raw_text.replace(/(\n|\r)+$/, '');
+}
+function clean(value) {
+	var aux;
+	aux = value.replace(/---\s/, '');
+	return aux.replace(/\s---$/, '');
+}
+
 </script>

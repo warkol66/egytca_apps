@@ -18,18 +18,20 @@ class VialidadConstructionTypesDoDeleteAction extends BaseAction {
 
 		$id = $request->getParameter('id');
 		$type = ConstructionTypeQuery::create()->findOneById($id);
-		if (!empty($type)) {
-			$type->delete();
-			if ($type->isDeleted()) {
-				if (mb_strlen($type->getName()) > 120)
-					$cont = " ... ";
-				$logSufix = "$cont, " . Common::getTranslation('action: delete','common');
-				Common::doLog('success', substr($type->getName(), 0, 120) . $logSufix);
 	
-				return $mapping->findForwardConfig('success');
+		if (!empty($type)) {
+			$constructionsCount = ConstructionQuery::create()->filterByConstructionType($type)->count();
+			if ($constructionsCount == 0) {
+				$type->delete();
+				if ($type->isDeleted()) {
+					if (mb_strlen($type->getName()) > 120)
+						$cont = " ... ";
+					$logSufix = "$cont, " . Common::getTranslation('action: delete','common');
+					Common::doLog('success', substr($type->getName(), 0, 120) . $logSufix);
+					return $mapping->findForwardConfig('success');
+				}
 			}
 		}
-		else
-			return $mapping->findForwardConfig('failure');
+		return $mapping->findForwardConfig('failure');
 	}
 }

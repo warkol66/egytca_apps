@@ -4,22 +4,35 @@
  *
  * Eliminar Monedas basado en BaseDoDeleteAction
  */
-require_once 'BaseDoDeleteAction.php';
 
-class VialidadCurrenciesDoDeleteAction extends BaseDoDeleteAction {
+class VialidadCurrenciesDoDeleteAction extends BaseAction {
 	
-	function __construct() {
-		parent::__construct('Currency');
-	}
+	function execute($mapping, $form, &$request, &$response) {
 
-	protected function postDelete() {
-		parent::postDelete();
-		if ($this->entity->isDeleted()) {
-			if (mb_strlen($this->entity->getName()) > 120)
-				$cont = " ... ";
-			$logSufix = "$cont, " . Common::getTranslation('action: delete','common');
-			Common::doLog('success', substr($this->entity->getName(), 0, 120) . $logSufix);
+		BaseAction::execute($mapping, $form, $request, $response);
+
+		$plugInKey = 'SMARTY_PLUGIN';
+		$smarty =& $this->actionServer->getPlugIn($plugInKey);
+		if($smarty == NULL) {
+			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
-	}
 
+		$id = $request->getParameter('id');
+		$currency = CurrencyQuery::create()->findOneById($id);
+
+		if (!empty($currency)) {
+			$contractsCount = ContractAmountQuery::create()->filterByCurrency($currency)->count();
+			if ($contractsCount == 0) {
+				$currency->delete();
+				if ($currency->isDeleted()) {
+					if (mb_strlen($currency->getName()) > 120)
+						$cont = " ... ";
+					$logSufix = "$cont, " . Common::getTranslation('action: delete','common');
+					Common::doLog('success', substr($currency->getName(), 0, 120) . $logSufix);
+					return $mapping->findForwardConfig('success');
+				}
+			}
+		}
+		return $mapping->findForwardConfig('failure');
+	}
 }

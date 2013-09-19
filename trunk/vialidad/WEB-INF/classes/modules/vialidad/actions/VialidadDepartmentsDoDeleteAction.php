@@ -25,18 +25,19 @@ class VialidadDepartmentsDoDeleteAction extends BaseAction {
 		$department = DepartmentQuery::create()->findOneById($id);
 
 		if (!empty($department)) {
-			$department->delete();
-			if ($department->isDeleted()) {
-				if (mb_strlen($department->getName()) > 120)
-					$cont = " ... ";
-				$logSufix = "$cont, " . Common::getTranslation('action: delete','common');
-				Common::doLog('success', substr($department->getName(), 0, 120) . $logSufix);
-	
-				return $mapping->findForwardConfig('success');
+			$constructionsCount = ConstructionQuery::create()->filterByDepartment($department)->count();
+			if ($constructionsCount == 0) {
+				$department->delete();
+				if ($department->isDeleted()) {
+					if (mb_strlen($department->getName()) > 120)
+						$cont = " ... ";
+					$logSufix = "$cont, " . Common::getTranslation('action: delete','common');
+					Common::doLog('success', substr($department->getName(), 0, 120) . $logSufix);
+		
+					return $mapping->findForwardConfig('success');
+				}
 			}
 		}
-
 		return $mapping->findForwardConfig('failure');
-
 	}
 }

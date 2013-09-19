@@ -4,7 +4,9 @@
 <div id="div_sources"> 
 	|-if $message eq "deleted_ok"-|
 		<div id="deleted_message" class="successMessage">Departamento eliminado correctamente</div>
-	|-/if-|
+|-elseif $message eq "not_deleted"-|
+	<div  class="errorMessage">Ha ocurrido un error al intentar eliminar el Departamento. No se pueden eliminar Departamentos que se encuentren en uso.</div>
+|-/if-|
 	<div name="working_status_message" style="display:none;" class="inProgress">Trabajando...</div>
 	<div name="done_status_message" style="display:none;" class="successMessage"> Departamento agregado</div>
 <script language="JavaScript" type="text/JavaScript">
