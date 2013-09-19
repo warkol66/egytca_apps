@@ -18,18 +18,20 @@ class VialidadSourcesDoDeleteAction extends BaseAction {
 
 		$id = $request->getParameter('id');
 		$source = SourceQuery::create()->findOneById($id);
+
 		if (!empty($source)) {
-			$source->delete();
-			if ($source->isDeleted()) {
-				if (mb_strlen($source->getName()) > 120)
-					$cont = " ... ";
-				$logSufix = "$cont, " . Common::getTranslation('action: delete','common');
-				Common::doLog('success', substr($source->getName(), 0, 120) . $logSufix);
-	
-				return $mapping->findForwardConfig('success');
+			$contractsCount = ContractQuery::create()->filterBySource($source)->count();
+			if ($contractsCount == 0) {
+				$source->delete();
+				if ($source->isDeleted()) {
+					if (mb_strlen($source->getName()) > 120)
+						$cont = " ... ";
+					$logSufix = "$cont, " . Common::getTranslation('action: delete','common');
+					Common::doLog('success', substr($source->getName(), 0, 120) . $logSufix);
+					return $mapping->findForwardConfig('success');
+				}
 			}
 		}
-		else
-			return $mapping->findForwardConfig('failure');
+		return $mapping->findForwardConfig('failure');
 	}
 }

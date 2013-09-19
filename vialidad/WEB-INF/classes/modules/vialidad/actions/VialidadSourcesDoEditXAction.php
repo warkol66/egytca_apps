@@ -17,27 +17,27 @@ class VialidadSourcesDoEditXAction extends BaseAction {
 		}
 
 		$userParams = Common::userInfoToDoLog();
-		$sourceParams = array_merge_recursive($_POST["params"],$userParams);
+		$params = array_merge_recursive($_POST["params"],$userParams);
 
-		if ($_POST["action"] == "edit") { // Existing source
-
-			$source = SourcePeer::get($_POST["id"]);
-			$source = Common::setObjectFromParams($source,$sourceParams);
-			
-			if ($source->isModified() && !$source->save()) 
-				throw new Exception("Couldn't save source");
-		}
-		else { // New source
-
+		$id = $request->getParameter("id");
+		if (!empty($id))
+			$source = BaseQuery::create('Source')->findOneById($id);
+		else
 			$source = new Source();
-			$source = Common::setObjectFromParams($source,$sourceParams);
-			if (!$source->save())
-				throw new Exception("Couldn't save source");
-			$smarty->assign('newSource', $source);
+
+		$source->fromArray($params, BasePeer::TYPE_FIELDNAME);
+		try {
+			$source->save();
+		} catch (Exception $e) {
+			$smarty->assign("message", "No se pudo guardar la fuente");
+			return $mapping->findForwardConfig('failure');
+			if (ConfigModule::get("global","showPropelExceptions")){
+				print_r($e->__toString());
+			}
 		}
-		
-		$sources = SourceQuery::create()->find();
-		$smarty->assign('sources', $sources);
+
+		$smarty->assign('status', 'done');
+		$smarty->assign('sourceColl', BaseQuery::create('Source')->find());
 		return $mapping->findForwardConfig('success');
 	}
 

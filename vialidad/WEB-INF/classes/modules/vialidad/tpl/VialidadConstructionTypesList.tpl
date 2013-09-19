@@ -4,7 +4,9 @@
 <div id="div_sources"> 
 	|-if $message eq "deleted_ok"-|
 		<div class="successMessage" id="actionMessage">Tipo de Obra eliminado correctamente</div>
-	|-/if-|
+|-elseif $message eq "not_deleted"-|
+	<div  class="errorMessage">Ha ocurrido un error al intentar eliminar el Tipo de Obra. No se pueden eliminar tipos de obras que se encuentren en uso.</div>
+|-/if-|
 	<div name="working_status_message" style="display:none;" class="inProgress">Trabajando...</div>
 	<div name="done_status_message" style="display:none;" class="successMessage"> Tipo de Obra agregado</div>
 	<table id="table_sources" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 

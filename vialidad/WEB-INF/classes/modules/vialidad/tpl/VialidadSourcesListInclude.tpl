@@ -1,9 +1,9 @@
-		|-if $sources|@count eq 0-|
+		|-if $sourceColl|@count eq 0-|
 		<tr>
 			<td colspan="3">|-if isset($filter)-|No hay Fuentes de Financiamiento que concuerden con la búsqueda|-else-|No hay Fuentes de Financiamiento disponibles|-/if-|</td>
 		</tr>
 		|-else-|
-		|-foreach from=$sources item=source name=for_sources-|
+		|-foreach from=$sourceColl item=source name=for_sources-|
 		<tr> 
 			<td>
 				|-if "vialidadSourcesEdit"|security_has_access-|
@@ -51,10 +51,11 @@
 		</tr>
 		|-/if-|
 <script type="text/javascript">
-	|-foreach from=$sources item=source name=for_sources_ajax-|
+function attachNameInPlaceEditors() {
+	|-foreach from=$sourceColl item=source name=for_sources_ajax-|
 	new Ajax.InPlaceEditor(
 		'name_|-$source->getId()-|',
-		'Main.php?do=vialidadSourcesEditFieldX',
+		'Main.php?do=commonDoEditFieldX',
 		{
 			rows: 1,
 			size: 35,
@@ -68,7 +69,8 @@
 			externalControl: 'source_edit_|-$source->getId()-|',
 			clickToEditText: 'Haga click para editar',
 			callback: function(form, value) {
-				return 'id=|-$source->getId()-|&paramName=name&paramValue=' + encodeURIComponent(value);
+				return 'objectType=source&objectId=|-$source->getId()-|&paramName=name&paramValue='
+						+ encodeURIComponent(value);
 			},
 			onComplete: function(transport, element) {
 				clean_text_content_from(element);
@@ -79,9 +81,13 @@
 			}
 		}
 	);
+|-/foreach-|
+}
+function attachCodeInPlaceEditors() {
+	|-foreach from=$sourceColl item=source name=for_sources_ajax-|
 	new Ajax.InPlaceEditor(
 		'code_|-$source->getId()-|',
-		'Main.php?do=vialidadSourcesEditFieldX',
+		'Main.php?do=commonDoEditFieldX',
 		{
 			rows: 1,
 			size: 6,
@@ -95,7 +101,12 @@
 			externalControl: 'code_edit_|-$source->getId()-|',
 			clickToEditText: 'Haga click para editar',
 			callback: function(form, value) {
-				return 'id=|-$source->getId()-|&paramName=code&paramValue=' + encodeURIComponent(value);
+				return 'objectType=source&objectId=|-$source->getId()-|&paramName=code&paramValue='
+					+ encodeURIComponent(clean(value));
+			},
+			onComplete: function(transport, element) {
+				clean_text_content_from(element);
+				new Effect.Highlight(element, { startcolor: this.options.highlightColor });
 			},
 			onFormReady: function(obj,form) {
 				form.insert({ top: new Element('label').update('Código: ') });
@@ -103,4 +114,10 @@
 		}
 	);
 |-/foreach-|
+}
+attachCodeInPlaceEditors();
+attachNameInPlaceEditors();
+|-if isset($status)-|
+setStatus('|-$status-|');
+|-/if-|
 </script>

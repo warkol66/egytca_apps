@@ -17,26 +17,27 @@ class VialidadConstructionTypesDoEditXAction extends BaseAction {
 		}
 
 		$userParams = Common::userInfoToDoLog();
-		$typeParams = array_merge_recursive($_POST["params"],$userParams);
+		$params = array_merge_recursive($_POST["params"],$userParams);
 
-		$id = $request->getParameter('id');
-		$type = ConstructionTypeQuery::create()->findOneById($id);
+		$id = $request->getParameter("id");
+		if (!empty($id))
+			$constructionType = BaseQuery::create('ConstructionType')->findOneById($id);
+		else
+			$constructionType = new ConstructionType();
 
-		if (!empty($id) && !empty($type)) {
-			$type = Common::setObjectFromParams($type,$typeParams);
-			if ($type->isModified() && !$type->save()) 
-				return $mapping->findForwardConfig('failure');
+		$constructionType->fromArray($params, BasePeer::TYPE_FIELDNAME);
+		try {
+			$constructionType->save();
+		} catch (Exception $e) {
+			$smarty->assign("message", "No se pudo guardar el tipo de obra");
+			return $mapping->findForwardConfig('failure');
+			if (ConfigModule::get("global","showPropelExceptions")){
+				print_r($e->__toString());
+			}
 		}
-		else {
-			$type = new ConstructionType();
-			$type = Common::setObjectFromParams($type,$typeParams);
-			if (!$type->save())
-				return $mapping->findForwardConfig('failure');
-			$smarty->assign('newConstructionType', $type);
-		}
-		
-		$constructionTypes = ConstructionTypeQuery::create()->find();
-		$smarty->assign('constructionTypes', $constructionTypes);
+
+		$smarty->assign('status', 'done');
+		$smarty->assign('constructionTypeColl', BaseQuery::create('ConstructionType')->find());
 		return $mapping->findForwardConfig('success');
 	}
 

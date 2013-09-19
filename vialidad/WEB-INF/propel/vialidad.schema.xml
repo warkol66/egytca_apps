@@ -200,6 +200,10 @@
 		<column name="code" type="VARCHAR" size="50" description="Codigo de la fuente" />
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" />
 
+		<unique>
+			<unique-column name="name" />
+		</unique>
+
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
@@ -275,6 +279,10 @@
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
 		<column name="name" type="VARCHAR" size="255" required="true" primaryString="true" description="Tipo de Obra" />
+
+		<unique>
+			<unique-column name="name" />
+		</unique>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
