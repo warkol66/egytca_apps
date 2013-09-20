@@ -1,17 +1,8 @@
 |-if $invalidId-|
 	<p style="color:red">el headline solicitado no existe. seleccione uno de la lista?</p>
 |-/if-|
-<p>ponemos acá algún método para elegir el headline a copiar?</p>
-<p>mientras, para desarrollar pongo un select</p>
 <form method="GET" action="Main.php">
-	<input type="hidden" name="do" value="headlinesRenameMe">
-	<select name="id">
-		|-foreach $allHeadlines as $headline-|
-			<option value="|-$headline->getId()-|" |-if $headlineFrom-||-$headline->getId()|selected:$headlineFrom->getId()-||-/if-|>
-				|-$headline->getName()-|
-			</option>
-		|-/foreach-|
-	</select>
+	autocomplete aca
 	<input type="submit">
 </form>
 |-if $headlineFrom-|
@@ -21,31 +12,52 @@
 		<form onsubmit="return false;">
 			<p>
 				<label>Título</label>
-				<input type="text" onchange="filterHeadlines('Name', this.value)">
+				<input type="text" onkeyup="filterHeadlines('Name', this.value)">
 			</p>
 		</form>
 	</fieldset>
 	<fieldset>
-		<form method="POST" action="Main.php" onsubmit="console.log('submit', Form.serialize(this)); return false;">
-			<input type="hidden" name="do" value="headlinesNeedANameWithDo">
-			|-capture "copyHeadlinesButton"-|
-				<input type="submit" value="copiar">
-			|-/capture-|
-			|-$smarty.capture.copyHeadlinesButton-|
+		<form method="POST" action="Main.php" onsubmit="return false;">
+			<input type="hidden" name="idFrom" value="|-$headlineFrom->getId()-|">
 			<table>
-				<tr><td><input type="checkbox" onchange="setAllCheckboxes(this.checked);"></td></tr>
-				|-foreach $allHeadlines as $headlineTo-|
+				<tr><td><input type="checkbox" onchange="replicateIntoAll(this);"></td></tr>
+				|-foreach $headlinesTo as $headlineTo-|
 					<tr id="headlineTo-|-$headlineTo->getId()-|">
-						<td><input class="copyCheckbox" type="checkbox" name="id[]" value="|-$headlineTo->getId()-|"></td>
+						<td>
+							<input class="copyCheckbox" type="checkbox" name="idTo[]"
+								   value="|-$headlineTo->getId()-|" onchange="replicateInto(this)">
+						</td>
 						<td>|-$headlineTo->getName()-|</td>
 					</tr>
 				|-/foreach-|
 			</table>
-			|-$smarty.capture.copyHeadlinesButton-|
 		</form>
 	</fieldset>
 
 	<script>
+		
+		function replicateIntoAll(checkbox) {
+			if (confirm('seguro?')) {
+				setAllCheckboxes(checkbox.checked);
+				new Ajax.Request('Main.php?do=headlinesDoReplicateInfoX', {
+					method: 'POST',
+					parameters: Form.serialize(checkbox.form)
+				});
+			}
+			else {
+				checkbox.checked = !checkbox.checked; // revierto el cambio de estado
+			}
+		}
+		
+		function replicateInto(checkbox) {
+			new Ajax.Request('Main.php?do=headlinesDoReplicateInfoX', {
+				method: 'POST',
+				parameters: {
+					'idFrom': |-$headlineFrom->getId()-|,
+					'idTo[]': checkbox.value 
+				}
+			});
+		}
 		
 		var headlines;
 		var filters = {
@@ -58,7 +70,7 @@
 		};
 		
 		Event.observe(window, 'load', function() {
-			headlines = |-$allHeadlines->toJSON()-|;
+			headlines = |-$headlinesTo->toJSON()-|;
 		});
 		
 		function filterHeadlines(filterName, filterValue) {
