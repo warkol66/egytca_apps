@@ -231,9 +231,8 @@ function attachUnitInPlaceEditors() {
 	var allUnits = new Array();
 	allUnits.push("-");
 	|-foreach from=$units item=unit-|
-	allUnits.push([|-$unit->getId()-|,"--- |-$unit-| ---"]);
+	allUnits.push([|-$unit->getId()-|,"--- |-$unit|strip-| ---"]);
 	|-/foreach-|
-	console.log(allUnits);
 	
 	|-foreach from=$supplies item=supply-|
 	new Ajax.InPlaceCollectionEditor(
