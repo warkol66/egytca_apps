@@ -29,7 +29,7 @@ class VialidadConstructionItemReportAction extends BaseAction {
 				$smarty->assign('url', $_SERVER['HTTP_REFERER']);
 				return $mapping->findForwardConfig('failure');
 			}
-			$supplies = SupplyQuery::create()->find();
+			$supplies = SupplyQuery::create()->filterByType(1)->find();
 			$items = ConstructionItemQuery::create()->filterByConstruction($construction)->find();
 
 			/* Cosas para usar el ExcelManagement. No probadas. No pensadas a fondo
