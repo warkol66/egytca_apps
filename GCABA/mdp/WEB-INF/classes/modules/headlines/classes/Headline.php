@@ -19,6 +19,17 @@ class Headline extends BaseHeadline {
 	const ITEM_NAME = 'Headline';
 	
 	/**
+	 * copies data from another headline
+	 * @param Headline $other
+	 */
+	function copyFrom($other) { // TODO: buscar un nombre mas especifico
+		$fields = array('Name'); // TODO: Traer de config
+		foreach ($fields as $field) {
+			$this->setByName($field, $other->getByName($field));
+		}
+	}
+	
+	/**
 	 * 
 	 * @return mixed array of arrays ('source' => X, 'id' => Y) for every image the headline has
 	 */

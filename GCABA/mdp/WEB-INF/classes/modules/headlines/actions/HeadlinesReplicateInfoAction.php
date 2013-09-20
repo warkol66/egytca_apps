@@ -1,6 +1,6 @@
 <?php
 
-class HeadlinesRenameMeAction extends BaseAction {
+class HeadlinesReplicateInfoAction extends BaseAction {
 	
 	public function execute($mapping, $form, &$request, &$response) {
 		
@@ -12,17 +12,22 @@ class HeadlinesRenameMeAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 		
-		$smarty->assign('allHeadlines', HeadlineQuery::create()->find());
-		
 		if (!empty($_GET['id'])) {
 			
-			$headline = HeadlineQuery::create()->findOneById($_GET['id']);
-			if (!$headline) {
+			$headlineFrom = HeadlineQuery::create()->findOneById($_GET['id']);
+			if (!$headlineFrom) {
 				$smarty->assign('invalidId', true);
 				return $mapping->findForwardConfig('success');
 			}
 			
-			$smarty->assign('headlineFrom', $headline);
+			$headlinesTo = HeadlineQuery::create()
+				->filterById($headlineFrom->getId(), Criteria::NOT_EQUAL)
+				->filterByProcessed(false)
+				->filterByDatepublished(date("Y-m-d", strtotime('now - 90 days')), Criteria::GREATER_EQUAL)
+				->find();
+			
+			$smarty->assign('headlinesTo', $headlinesTo);
+			$smarty->assign('headlineFrom', $headlineFrom);
 		}
 		
 		return $mapping->findForwardConfig('success');
