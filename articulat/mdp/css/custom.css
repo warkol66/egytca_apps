@@ -845,17 +845,18 @@ table.tableTdBorders {
 
 .twitterButtons{width: 65px; height: 30px; float: left;}
 
-.twitterText{
+.twitterText, .twitterTextTable{
 	font-family: "Helvetica Neue",Arial,sans-serif;
 	color: #333333;
 	font-size: 14px;
 	padding-left: 20px;
-	float: right;
     min-height: 51px;
     padding: 9px 12px;
     position: relative;
 	/*background-color: #FFF;*/
 }
+
+.twitterText{float: right;}
 
 .tweetsList li{
 	border-bottom:1px solid;
