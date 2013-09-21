@@ -1,7 +1,7 @@
 |-if isset($noCampaign)-|
 	|-if !isset($embedded)-|
 		<script type="text/javascript">
-			$("resultDiv").innerHTML = "<span class='resultFailure'>No se especificó una campaña. Por favor elija una</span>";
+			$("acceptedTweetsDiv").innerHTML = "<span class='resultFailure'>No se especificó una campaña. Por favor elija una</span>";
 		</script>
 	|-else-|
 		<script type="text/javascript">
@@ -9,6 +9,16 @@
 		</script>
 	|-/if-|
 |-else-|
+<div id="lightbox1" class="leightbox">
+	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a></p> 
+<div id="viewWorking"></div>
+	<div class="innerLighbox">
+		<div id="viewDiv">
+		<div id="twitterUser" style="display:none">
+			<!-- Aca info del usuario -->
+		</div>
+</div>
+</div></div>
 	|-if isset($embedded)-|
 	<script src="Main.php?do=js&name=js&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 	|-/if-|
@@ -32,22 +42,14 @@
 			</p>
 			<p>
 				<input type="hidden" name="campaignId" value="|-$campaignid-|" />
+				|-if isset($embedded)-|<input type="hidden" name="embedded" value="|-$embedded-|" />|-/if-|
 				<input type="hidden" name="do" value="twitterListX" />
 				<input type="button" value="Filtrar" onclick="javascript:getCampaignTweets(this.form);return false;">
 			</p>
 		</fieldset>
 	</form>
 	</div>
-	|-if !isset($embedded)-|
-		<script type="text/javascript">
-			$("resultDiv").innerHTML = " ";
-		</script>
-	|-else-|
-		<script type="text/javascript">
-			$("acceptedResDiv").innerHTML = " ";
-		</script>
-		<div id="acceptedResDiv"></div>
-	|-/if-|
+	<div id="acceptedTweetsDiv"></div>
 	<table id="tabla-tweets" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead>
 			<tr class="thFillTitle"> 
@@ -126,7 +128,7 @@
 								|-/if-|
 								<input type="hidden" name="field" value="Value" id="field">
 								<input type="hidden" name="do" value="twitterDoEditMultipleX" id="do">
-								<input type="button" onClick="javascript:twitterDoEditMultiple(this.form,|-if isset($embedded)-|'acceptedResDiv'|-else-|'resultDiv'|-/if-|); return false;" value="Cambiar Valoracion" title="Cambiar Valoracion" class="button">
+								<input type="button" onClick="javascript:twitterDoEditMultiple(this.form,'acceptedTweetsDiv'); return false;" value="Cambiar Valoracion" title="Cambiar Valoracion" class="button">
 							</p>
 						</form>
 						<form action="Main.php" method="post" id='multipleTweetsChangeRelevanceForm'>
@@ -141,7 +143,7 @@
 								|-/if-|
 								<input type="hidden" name="do" value="twitterDoEditMultipleX" id="do">
 								<input type="hidden" name="field" value="Relevance" id="field">
-								<input type="button" onClick="javascript:twitterDoEditMultiple(this.form,|-if isset($embedded)-|'acceptedResDiv'|-else-|'resultDiv'|-/if-|); return false;" value="Cambiar Relevancia" title="Cambiar Relevancia" class="button">
+								<input type="button" onClick="javascript:twitterDoEditMultiple(this.form,'acceptedTweetsDiv'); return false;" value="Cambiar Relevancia" title="Cambiar Relevancia" class="button">
 							</p>
 						</form>
 					</td>
@@ -156,14 +158,15 @@
 	</table>
 	|-if isset($embedded)-|
 	<script type="text/javascript">
+		
 		function getCampaignTweets(form){
-			$("div_tweets").innerHTML = " ";
 			new Ajax.Updater('div_tweets', "Main.php?do=twitterListX", {
 				parameters: Form.serialize(form),
 				insertion: 'top',
 				evalScripts: true
 			});
-			$("acceptedResDiv").innerHTML = "<span class=\"inProgress\">Buscando tweets...</span>";
+			$('div_tweets').innerHTML = " ";
+			//$('div_tweets').innerHTML = '<span class=\"inProgress\">Buscando tweets...</span>';
 			return false;	
 		}
 	</script>
