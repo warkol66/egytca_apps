@@ -17,7 +17,7 @@
 			  <ul class="menu">
 				<li><a href="Main.php?do=headlinesList">Administrar Titulares</a></li>
 				<li><a href="Main.php?do=headlinesParsedList">Obtener Titulares</a></li>
-				<li><a href="Main.php?do=twitterCampaignsList">Administrar Tweets</a></li>
+				<li><a href="Main.php?do=twitterList">Administrar Tweets</a></li>
 				<li><a href="Main.php?do=issuesList">Administrar ##issues,1,Asuntos##</a></li>
 				<li><a href="Main.php?do=campaignsList">Administrar Campañas</a></li>
 				<li class="last"><a href="Main.php?do=headlinesReports">Reportes</a></li>
