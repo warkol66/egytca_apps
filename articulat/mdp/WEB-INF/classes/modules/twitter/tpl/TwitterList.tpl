@@ -1,53 +1,42 @@
-|-if isset($noCampaign)-|
-	|-if !isset($embedded)-|
-		<script type="text/javascript">
-			$("resultDiv").innerHTML = "<span class='resultFailure'>No se especificó una campaña. Por favor elija una</span>";
-		</script>
-	|-else-|
-		<script type="text/javascript">
-			$("acceptedResDiv").innerHTML = "<span class='resultFailure'>No se especificó una campaña. Por favor elija una</span>";
-		</script>
-	|-/if-|
-|-else-|
-	|-if isset($embedded)-|
-	<script src="Main.php?do=js&name=js&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
-	|-/if-|
-	<div id="tweetsFilters">
-	<form action="Main.php" method="get">
-		<fieldset title="Formulario de Opciones de búsqueda de tweets">
-			<legend>Opciones de Búsqueda</legend>
-			<p>
-				<label for="filters[dateRange][createdat][min]">Fecha desde</label>
-				<input id="filters[dateRange][createdat][min]" name="filters[dateRange][createdat][min]" type="text" value="|-$filters.dateRange.createdat.min-|" size="12" title="Fecha desde dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateRange][createdat][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha desde dd-mm-aaaa">
-			</p>
-			<p>
-				<label for="filters[dateRange][createdat][max]">Fecha hasta</label>
-				<input id="filters[dateRange][createdat][max]" name="filters[dateRange][createdat][max]" type="text" value="|-$filters.dateRange.createdat.max-|" size="12" title="Fecha hasta dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateRange][createdat][max]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha hasta dd-mm-aaaa">
-			</p>
-			<p>
-					<label for="filters[processed]">Procesados</label>
-					Todos <input name="filters[processed]" type="radio" value="-1" |-if isset($filters.processed)-||-$filters.processed|checked:-1-||-else-|checked="checked"|-/if-| />
-					Sin procesar <input name="filters[processed]" type="radio" value="0" |-if isset($filters.processed)-||-$filters.processed|checked:0-||-/if-| />
-					Procesados <input name="filters[processed]" type="radio" value="1" |-if isset($filters.processed)-||-$filters.processed|checked:1-||-/if-| />
-			</p>
-			<p>
-				<input type="hidden" name="campaignId" value="|-$campaignid-|" />
-				<input type="hidden" name="do" value="twitterListX" />
-				<input type="button" value="Filtrar" onclick="javascript:getCampaignTweets(this.form);return false;">
-			</p>
-		</fieldset>
-	</form>
-	</div>
-	|-if !isset($embedded)-|
-		<script type="text/javascript">
-			$("resultDiv").innerHTML = " ";
-		</script>
-	|-else-|
-		<script type="text/javascript">
-			$("acceptedResDiv").innerHTML = " ";
-		</script>
-		<div id="acceptedResDiv"></div>
-	|-/if-|
+|-if isset($embedded)-|
+|-/if-|
+<div id="tweetsFilters">
+<form action="Main.php" method="get">
+	<fieldset title="Formulario de Opciones de búsqueda de tweets">
+		<legend>Opciones de Búsqueda</legend>
+		<p>
+			<label for="filters[campaignId]">Campaña</label>
+			<select name="filters[campaignid]" id="selectTwitterCampaign">
+				<option value="">Sin seleccionar</option>
+				|-foreach from=$campaigns item=campaign-|
+					<option value="|-$campaign->getId()-|" |-$filters['campaignid']|selected:$campaign->getId()-| >|-$campaign->getName()-|</option>
+				|-/foreach-|
+			</select>
+		</p>
+		<p>
+			<label for="fromDate">Fecha desde</label>
+			<input id="filters[dateRange][createdat][min]" name="filters[dateRange][createdat][min]" type="text" value="|-$filters.dateRange.creationdate.min|date_format:"%d-%m-%Y"-|" size="12" title="Fecha desde dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateRange][createdat][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha desde dd-mm-aaaa">
+		</p>
+		<p>
+			<label for="toDate">Fecha hasta</label>
+			<input id="filters[dateRange][createdat][max]" name="filters[dateRange][createdat][max]" type="text" value="|-$filters.dateRange.creationdate.max|date_format:"%d-%m-%Y"-|" size="12" title="Fecha hasta dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateRange][createdat][max]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha hasta dd-mm-aaaa">
+		</p>
+		<p>
+				<label for="filters[processed]">Procesados</label>
+				Todos <input name="filters[processed]" type="radio" value="-1" |-if isset($filters.processed) && $filters.processed eq -1-||-$filters.processed|checked:-1-||-else-|checked="checked"|-/if-| />
+				Sin procesar <input name="filters[processed]" type="radio" value="0" |-if isset($filters.processed) && $filters.processed eq 0-||-$filters.processed|checked:0-||-/if-| />
+				Procesados <input name="filters[processed]" type="radio" value="1" |-if isset($filters.processed) && $filters.processed eq 1-||-$filters.processed|checked:1-||-/if-| />
+		</p>
+		<p>
+			<input type="hidden" name="do" value="twitterList" />
+			<input type="submit" value="Filtrar">
+			|-if $filters|@count gt 0-|<input name="removeFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=twitterList'"/>|-/if-|
+		</p>
+	</fieldset>
+</form>
+</div>
+<div id="twitterResultsDiv"></div>
+<div id="tweetsList">
 	<table id="tabla-tweets" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead>
 			<tr class="thFillTitle"> 
@@ -143,29 +132,30 @@
 								<input type="hidden" name="field" value="Relevance" id="field">
 								<input type="button" onClick="javascript:twitterDoEditMultiple(this.form,|-if isset($embedded)-|'acceptedResDiv'|-else-|'resultDiv'|-/if-|); return false;" value="Cambiar Relevancia" title="Cambiar Relevancia" class="button">
 							</p>
+							|-if isset($pager)-|
+								<input type="hidden" name="page" value="|-$pager->getPage()-|" id="page">
+							|-/if-|
 						</form>
 					</td>
 				</tr>
 			|-/if-|
 			|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 			<tr> 
-				<td colspan="|-if class_exists('Client')-|8|-else-|7|-/if-|">|-include file="ModelPagerInclude.tpl"-|</td> 
+				<td colspan="|-if class_exists('Client')-|7|-else-|7|-/if-|">|-include file="ModelPagerInclude.tpl"-|</td> 
 			</tr>
 			|-/if-|
 		|-/if-|
 	</table>
-	|-if isset($embedded)-|
 	<script type="text/javascript">
 		function getCampaignTweets(form){
-			$("div_tweets").innerHTML = " ";
-			new Ajax.Updater('div_tweets', "Main.php?do=twitterListX", {
+			$("tweetsList").innerHTML = " ";
+			new Ajax.Updater('tweetsList', "Main.php?do=twitterListX", {
 				parameters: Form.serialize(form),
 				insertion: 'top',
 				evalScripts: true
 			});
-			$("acceptedResDiv").innerHTML = "<span class=\"inProgress\">Buscando tweets...</span>";
+			$("twitterResultsDiv").innerHTML = "<span class=\"inProgress\">Buscando tweets...</span>";
 			return false;	
 		}
 	</script>
-	|-/if-|
-|-/if-||-*si selecciono una campaña*-|
+</div>

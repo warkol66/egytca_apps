@@ -11,15 +11,13 @@ class TwitterListXAction extends BaseListAction {
 
 		$this->module = "Twitter";
 		
-		//si no selecciono campaña salgo
-		if(!isset($_POST['campaignId'])){
-			$this->smarty->assign('noCampaign',true);
-			$this->forwardFailureName = 'success';
-			return false;
-		}
+		//si selecciono campaña seteo el
+		if(!isset($_GET['campaignId'])){
+			$campaigns = CampaignQuery::create()->getMostRecentIds(15, 1);
+			$this->filters['getMostRecent'] = $campaigns;
+		}else
+			$this->smarty->assign("campaignid",$_GET['campaignId']);
 		
-		$this->filters['campaignid'] = $_POST['campaignId'];
-		$this->smarty->assign("campaignid",$_POST['campaignId']);
 		//ver por que no anda sin esto
 		if(!empty($_POST['filters']['dateRange']['createdat']['min']) && !empty($_POST['filters']['dateRange']['createdat']['max'])){
 			$this->filters['dateRange']['createdat']['min'] = $_POST['filters']['dateRange']['createdat']['min'];
