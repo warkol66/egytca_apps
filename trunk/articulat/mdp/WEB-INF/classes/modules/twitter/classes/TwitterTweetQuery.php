@@ -43,4 +43,12 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		else
 			return $this->filterByStatus(TwitterTweet::PARSED);
 	}
+	
+	/* Filtra segun campañas creadas en los ultimos n dias
+	 * 
+	 * 
+	 * */
+	public function getMostRecent($campaigns){
+		return TwitterTweetQuery::create()->filterByCampaignid($campaigns)->find();
+	}
 }

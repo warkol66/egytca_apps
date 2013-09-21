@@ -214,10 +214,7 @@ function clearElement(element) {
 <fieldset>
 	<legend>Tweets Aceptados &nbsp; &nbsp; </legend>
 	<div id="div_tweets">
-	|-include file="TwitterListX.tpl" twitterTweetColl=$acceptedTweets campaignid=$campaign->getId() tweetValues=$tweetValues tweetRelevances=$tweetRelevances tweetStatuses=$tweetStatuses embedded='true'-|
-	|-if isset($pager) && $pager->haveToPaginate()-|
-	<div class="divPages">|-include file="ModelPagerInclude.tpl"-|</div>
-	|-/if-|
+	|-include file="TwitterList.tpl" twitterTweetColl=$acceptedTweets campaignid=$campaign->getId() tweetValues=$tweetValues tweetRelevances=$tweetRelevances tweetStatuses=$tweetStatuses embedded='true'-|
 	</div>
 </fieldset>
 |-/if-||-*/Si tiene tweets*-|
