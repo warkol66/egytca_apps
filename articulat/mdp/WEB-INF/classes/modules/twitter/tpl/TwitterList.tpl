@@ -1,6 +1,5 @@
 |-if isset($embedded)-|
 |-/if-|
-|-$url|@print_r-|
 <div id="tweetsFilters">
 <form action="Main.php" method="get">
 	<fieldset title="Formulario de Opciones de búsqueda de tweets">
