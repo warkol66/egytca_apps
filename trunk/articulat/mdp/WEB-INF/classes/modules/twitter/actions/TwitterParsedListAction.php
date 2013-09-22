@@ -19,10 +19,11 @@ class TwitterParsedListAction extends BaseListAction {
 		$this->module = "Twitter";
 		
 		if(!empty($_GET['filters']['minDate'])){
-            $this->filters['dateRange']['created']['min'] = $_GET['filters']['minDate'];
+            $this->filters['dateRange']['createdat']['min'] = $_GET['filters']['minDate'];
+            //die('yes');
         }
         if(!empty($_GET['filters']['maxDate'])){
-            $this->filters['dateRange']['creationdate']['max'] = $_GET['filters']['maxDate'];
+            $this->filters['dateRange']['createdat']['max'] = $_GET['filters']['maxDate'];
 		}
 
 		//Reviso si se solicito desde campaing valida
@@ -49,21 +50,11 @@ class TwitterParsedListAction extends BaseListAction {
 		$this->smarty->assign("module", $this->module);
 		$this->smarty->assign("section", "Parsed");
 		
-		//print_r($this->filters);
-		
-		if(!empty($_GET['filters']['dateRange']['createdat']['min'])){
+		if(!empty($_GET['filters']['dateRange']['createdat']['min']))
             $this->filters['minDate'] = $_GET['filters']['dateRange']['createdat']['min'];
-            unset($this->filters['dateRange']['createdat']['min']);
-        }
-        if(!empty($_GET['filters']['dateRange']['createdat']['max'])){
+        if(!empty($_GET['filters']['dateRange']['createdat']['max']))
             $this->filters['maxDate'] = $_GET['filters']['dateRange']['createdat']['max'];
-            unset($this->filters['dateRange']['createdat']['max']);
-        }
-        
-        /*print_r($this->filters);
-        die();*/
-        
-        $this->smarty->assign("filters",$this->filters);
-		
+            
+        $this->smarty->assign("filters",$this->filters);	
 	}
 }
