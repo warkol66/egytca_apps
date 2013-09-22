@@ -1,9 +1,11 @@
 |-if isset($embedded)-|
 |-/if-|
+|-$url|@print_r-|
 <div id="tweetsFilters">
 <form action="Main.php" method="get">
 	<fieldset title="Formulario de Opciones de búsqueda de tweets">
 		<legend>Opciones de Búsqueda</legend>
+		|-if !isset($embedded)-|
 		<p>
 			<label for="filters[campaignId]">Campaña</label>
 			<select name="filters[campaignid]" id="selectTwitterCampaign">
@@ -15,11 +17,11 @@
 		</p>
 		<p>
 			<label for="fromDate">Fecha desde</label>
-			<input id="filters[dateRange][createdat][min]" name="filters[dateRange][createdat][min]" type="text" value="|-$filters.dateRange.createdat.min|date_format:"%d-%m-%Y"-|" size="12" title="Fecha desde dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateRange][createdat][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha desde dd-mm-aaaa">
+			<input id="filters[dateRange][createdat][min]" name="filters[dateRange][createdat][min]" type="text" value="|-$filters.minDate|date_format:"%d-%m-%Y"-|" size="12" title="Fecha desde dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateRange][createdat][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha desde dd-mm-aaaa">
 		</p>
 		<p>
 			<label for="toDate">Fecha hasta</label>
-			<input id="filters[dateRange][createdat][max]" name="filters[dateRange][createdat][max]" type="text" value="|-$filters.dateRange.createdat.max|date_format:"%d-%m-%Y"-|" size="12" title="Fecha hasta dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateRange][createdat][max]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha hasta dd-mm-aaaa">
+			<input id="filters[dateRange][createdat][max]" name="filters[dateRange][createdat][max]" type="text" value="|-$filters.maxDate|date_format:"%d-%m-%Y"-|" size="12" title="Fecha hasta dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateRange][createdat][max]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha hasta dd-mm-aaaa">
 		</p>
 		<p>
 				<label for="filters[processed]">Procesados</label>
@@ -28,10 +30,18 @@
 				Procesados <input name="filters[processed]" type="radio" value="1" |-if isset($filters.processed) -||-$filters.processed|checked:1-||-/if-| />
 		</p>
 		<p>
+			|-if isset($embedded)-|
+			<input type="hidden" name="do" value="campaignsEdit" />
+			<input type="hidden" name="id" value=|-$campaignid-| />
+			|-else-|
 			<input type="hidden" name="do" value="twitterList" />
+			|-/if-|
 			<input type="submit" value="Filtrar">
 			|-if $filters|@count gt 0-|<input name="removeFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=twitterList'"/>|-/if-|
 		</p>
+		|-else-|
+			|-include file="TwitterFiltersInclude.tpl" campaignid=$campaignid-|
+		|-/if-|
 	</fieldset>
 </form>
 </div>

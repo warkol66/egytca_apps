@@ -17,11 +17,13 @@ class TwitterListAction extends BaseListAction {
 			$this->filters['getMostRecent'] = $campaigns;
 		}else
 			$this->smarty->assign("campaignid",$_GET['filters']['campaignId']);
-		
-		//ver por que no anda sin esto
-		if(!empty($_GET['filters']['dateRange']['createdat']['min']) && !empty($_GET['filters']['dateRange']['createdat']['max'])){
-			$this->filters['dateRange']['createdat']['min'] = $_GET['filters']['dateRange']['createdat']['min'];
-			$this->filters['dateRange']['createdat']['max'] = $_GET['filters']['dateRange']['createdat']['max'];
+			
+		if(!empty($_GET['filters']['minDate'])){
+            $this->filters['dateRange']['createdat']['min'] = $_GET['filters']['minDate'];
+            //die('yes');
+        }
+        if(!empty($_GET['filters']['maxDate'])){
+            $this->filters['dateRange']['createdat']['max'] = $_GET['filters']['maxDate'];
 		}
 		
 		//filtro por estado
@@ -42,9 +44,6 @@ class TwitterListAction extends BaseListAction {
 			if($_GET['filters']['processed'] == -1)
 				$this->filters['maxStatus'] = TwitterTweet::DISCARDED; //o discarded?
 		}
-		
-		/*print_r($this->filters);
-		die();*/
 
 	}
 
@@ -65,6 +64,14 @@ class TwitterListAction extends BaseListAction {
             $this->filters['minDate'] = $_GET['filters']['dateRange']['createdat']['min'];
         if(!empty($_GET['filters']['dateRange']['createdat']['max']))
             $this->filters['maxDate'] = $_GET['filters']['dateRange']['createdat']['max'];
+            
+        //fix para que se pasen bien los filtros a la url del paginador
+        $url = "Main.php?" . "do=" . lcfirst(substr_replace(get_class($this),'', strrpos(get_class($this), 'Action'), 6));
+		foreach ($this->filters as $key => $value)
+			$url .= "&filters[$key]=" . htmlentities(urlencode($value));
+		$this->smarty->assign("url",$url);
+            
+        $this->smarty->assign("filters",$this->filters);
 	}
 
 }
