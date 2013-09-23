@@ -27,7 +27,7 @@ function smarty_modifier_twitterHighlight($text='')
 			$text =  preg_replace('/^@(\w+){1,15}/', "<$tagName$class>".'$0'."</$tagName>", $text);
 			$text =  preg_replace('/@(\w+){1,15}/', "<$tagName$class>".'$0'."</$tagName>", $text);
 			//urls
-			$text =  preg_replace('@(https?://([-\w\.]+)+(/([\w/_\.]*(\?\S+)?(#\S+)?)?)?)@', "<$tagName$class>".'$0'."</$tagName>", $text);
+			$text =  preg_replace('@(https?://([-\w\.]+)+(/([\w/_\.]*(\?\S+)?(#\S+)?)?)?)@', "<$tagName$class><a href='$0' target='_new'>".'$0'."</a></$tagName>", $text);
 			//hashtags
 			//$text =  preg_replace('/(^|\s)#(\w*[a-zA-Z_]+\w*)/', "<$tagName$class><strong>".'$0'."</strong></$tagName>", $text);
 			//$text =  preg_replace('/#(\w+)/', "<$tagName$class><strong>".'$0'."</strong></$tagName>", $text);
