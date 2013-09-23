@@ -55,6 +55,12 @@ class TwitterParsedListAction extends BaseListAction {
         if(!empty($_GET['filters']['dateRange']['createdat']['max']))
             $this->filters['maxDate'] = $_GET['filters']['dateRange']['createdat']['max'];
             
+        //fix para que se pasen bien los filtros a la url del paginador
+        $url = "Main.php?" . "do=" . lcfirst(substr_replace(get_class($this),'', strrpos(get_class($this), 'Action'), 6));
+		foreach ($this->filters as $key => $value)
+			$url .= "&filters[$key]=" . htmlentities(urlencode($value));
+		$this->smarty->assign("url",$url);
+            
         $this->smarty->assign("filters",$this->filters);	
 	}
 }

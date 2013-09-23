@@ -1,4 +1,5 @@
 |-if isset($embedded)-|
+	<script src="Main.php?do=js&name=js&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 |-/if-|
 <div id="tweetsFilters">
 <form action="Main.php" method="get">
