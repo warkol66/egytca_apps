@@ -712,8 +712,8 @@ fieldset .tableTdBorders label {
 
 /*  /.formFieldset   ----------------------------------- */
 
-a.return, a.report, a.importHeadlines {
-	line-height: 1.4em;
+a.return, a.report, a.importHeadlines, a.importTwitts {
+	line-height: 1.1em;
 	vertical-align: middle;
 	display: inline-block;
 	font-weight: bold;
