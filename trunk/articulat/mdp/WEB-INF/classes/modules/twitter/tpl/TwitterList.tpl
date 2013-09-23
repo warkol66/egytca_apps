@@ -2,7 +2,7 @@
 	<script src="Main.php?do=js&name=js&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 |-/if-|
 <script type="text/javascript" src="scripts/lightbox.js"></script>
-<div id="lightbox1" class="leightbox">
+<div id="twitterUserLightbox" class="leightbox">
 	<p align="right">				
 		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
 	</p> 
@@ -74,7 +74,7 @@
 			<tr>
 				<td align="center"><input type="checkbox" name="selected[]" value="|-$tweet->getId()-|"></td>
 				<td class="twitterTextTable">|-$tweet->getText()|twitterHighlight-|</td>
-				<td><a href="#lightbox1" rel="lightbox1" class="lbOn"><input type="button" class="twitterUserDetail" onClick='{new Ajax.Updater("twitterShowDiv", "Main.php?do=twitterUsersEditX", { method: "post", parameters: { id: "|-$user->getId()-|"}, evalScripts: true})};$("twitterShowDivShowWorking").innerHTML = "<span class=\"inProgress\">buscando Usuario...</span>";' value="|-$user->getName()-|" name="" title="Ver perfil del usuario" /></a></td>
+				<td><a href="#twitterUserLightbox" rel="twitterUserLightbox" class="lbOn"><input type="button" class="twitterUserDetail" onClick='{new Ajax.Updater("twitterShowDiv", "Main.php?do=twitterUsersEditX", { method: "post", parameters: { id: "|-$user->getId()-|"}, evalScripts: true})};$("twitterShowDivShowWorking").innerHTML = "<span class=\"inProgress\">buscando Usuario...</span>";' value="|-$user->getName()-|" name="" title="Ver perfil del usuario" /></a></td>
 				<td nowrap="nowrap">|-$tweet->getCreatedat()|date_format:"%d-%m-%Y %H:%m"-|</td>
 				<td>
 					<form action="Main.php" method="post" id="formValueTweets|-$tweet->getId()-|">
