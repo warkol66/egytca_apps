@@ -210,7 +210,7 @@ function clearElement(element) {
 	|-include file="DocumentsEditInclude.tpl" entity="Campaign" entityId=$campaign->getId()-|
 |-/if-|
 
-|-if $acceptedTweets|count gt 0-| |-*/Si tiene tweets*-|
+|-if $acceptedTweets|count gt 0 or isset($twitterFilters)-| |-*/Si tiene tweets*-|
 <fieldset>
 	<legend>Tweets Aceptados &nbsp; &nbsp; </legend>
 	<div id="div_tweets">

@@ -61,12 +61,27 @@ class CampaignsEditAction extends BaseAction {
 				
 				// Busco los tweets aceptados, estados, valores y relevancias
 				if($campaign->geTtwitterCampaign()){
-					$acceptedTweets = TwitterTweetQuery::create()->filterByCampaignid($campaign->getId())->filterByStatus(TwitterTweet::ACCEPTED)->find();
-					$smarty->assign("acceptedTweets", $acceptedTweets);
-					$smarty->assign("tweetValues",TwitterTweet::getValues());
-					$smarty->assign("tweetRelevances",TwitterTweet::getRelevances());
-					$smarty->assign("tweetStatuses",TwitterTweet::getStatuses());
 					
+					// seteo los filtros para los tweets de esta campaign
+					$twitterFilters = $_GET['twitter']['filters'];
+					$twitterFilters['campaignId'] = $_GET["id"];
+					$twitterFilters['status'] = TwitterTweet::ACCEPTED;
+					if(isset($_GET['twitter']['filters']['processed'])){
+						if($_GET['filters']['processed'] == -1)
+							$twitterFilters['maxStatus'] = TwitterTweet::DISCARDED;
+					}
+					// hago la busqueda
+					$tweetsQuery = BaseQuery::create('TwitterTweet');
+					$tweets = $tweetsQuery->addFilters($twitterFilters)->find();
+					$smarty->assign('twitterFilters', $twitterFilters);
+
+					/*echo "<pre> $tweets </pre>";
+					die();*/
+					
+					$smarty->assign('acceptedTweets', $tweets);
+					$smarty->assign('tweetValues',TwitterTweet::getValues());
+					$smarty->assign('tweetRelevances',TwitterTweet::getRelevances());
+					$smarty->assign('tweetStatuses',TwitterTweet::getStatuses());
 					
 				}
 			}
