@@ -44,6 +44,17 @@ input[type="submit"].icon, input[type="button"].icon, input[type="reset"].icon {
 	line-height: 999px !Important;
 	overflow: hidden !Important;
 }
+.iconSize {
+	width: 20px;
+	height: 20px;
+	background-image: url(../images/icons_all.png) !Important;
+	background-position: bottom;
+}
+.iconTextLink .iconSize {
+	width: 20px;
+	height: 20px;
+	background-position: left top;
+}
 input[type="submit"].icon, input[type="button"].icon,
 .icon, .editor_ok_button, .editor_cancel_button  {
 	background-color: #e0e0e0 !Important;/*#d0d0d0; */
@@ -214,6 +225,14 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-position: -140px -140px !Important; }
 .iconVideo {
 	background-position: -160px -140px !Important; }
+.iconTwitter {
+	background-position: -0px -160px !Important; }
+.iconTwitterGoTo {
+	background-position: -20px -160px !Important; }
+.iconTwitterAdd {
+	background-position: -40px -160px !Important; }
+.iconTwitterDelete {
+	background-position: -5px -160px !Important; }
 .iconExpand {
 	background-image: url(../images/icon_expand.png) !Important;
 	background-position: 2px 2px !Important;}
@@ -707,6 +726,21 @@ a.detail:hover{
 .formFieldset ul li ul li ul li ul li ul li{
 }
 /*  /.formFieldset   ----------------------------------- */
+a.iconTextLink, a.iconTextLink:visited {
+	vertical-align: middle;
+	display: inline-block;
+	font-weight: bold;
+	color: #000066;
+	text-decoration: none;
+	margin-left: 18px;
+}
+img.iconSize {
+	margin-right: 3px;
+	vertical-align: text-bottom;
+}
+a.iconTextLink:hover {
+	text-decoration: underline;
+}
 
 a.follow {
 	color: #000066;
@@ -732,6 +766,7 @@ a.report {
 a.importHeadlines {
 	background-image: url(../images/icon_news.png);
 }
+a.importTwitts, a.importTwitts:link, a.importTwitts:visited,
 a.return, a.return:link, a.return:visited,
 a.report, a.report:link, a.report:visited,
 a.importHeadlines, a.importHeadlines:link, a.importHeadlines:visited {
@@ -739,8 +774,9 @@ a.importHeadlines, a.importHeadlines:link, a.importHeadlines:visited {
 	background-position:left top;
 	background-repeat:no-repeat;
 }
+a.return:hover,
 a.report:hover,
-a.report:hover,
+a.importTwitts:hover,
 a.importHeadlines:hover{
 	text-decoration: underline !Important;
 }

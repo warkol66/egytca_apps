@@ -840,37 +840,46 @@ table.tableTdBorders {
 }
 
 /**** Twitter ****/
-
-.tweet{display:table;}
-
-.twitterButtons{width: 65px; height: 30px; float: left;}
-
+.tweet{
+	display:table;
+}
+.twitterButtons{
+	width: 65px;
+	height: 30px;
+	float: left;
+	padding-top: 3px;
+}
 .twitterText, .twitterTextTable{
 	font-family: "Helvetica Neue",Arial,sans-serif;
 	color: #333333;
-	font-size: 14px;
-	padding-left: 20px;
-    min-height: 51px;
-    padding: 9px 12px;
-    position: relative;
+	font-size: 12px;
+  line-height: 16px;
+	word-wrap: break-word;
+  white-space: pre-wrap;
+/*	font-size: 14px;
+	padding-left: 20px; */
+  /*min-height: 51px;*/
+  /*padding: 9px 12px;*/
+  position: relative;
 	/*background-color: #FFF;*/
 }
-
-.twitterText{float: right;}
-
-.tweetsList li{
-	border-bottom:1px solid;
-	border-bottom-color: #BBBBBB;
-	padding-bottom: 5px;
-	padding-top: 5px;
+.twitterText{
+	float: left;
+	margin-left: 6px;
 }
-
-.userHash{color: #0084B4;}
-
+.tweetsList li{
+	padding-top: 12px;
+}
+.userHash, .userHash a{
+	color: #0084B4;
+}
+.userHash a{
+	text-decoration: none;
+}
 .twitterUser{
 	font-weight: normal;
 	direction: ltr;
 	unicode-bidi: embed;
 	color: #999999;
-   font-size: 12px;
+  font-size: 12px;
 }

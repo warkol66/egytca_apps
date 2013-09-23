@@ -54,11 +54,11 @@ function clearElement(element) {
 <h1>|-if $campaign->isNew()-|Crear|-else-|Editar|-/if-| Campaña</h1>
 <div id="div_campaign">
 	<p>Ingrese los datos del Campaña</p>
-		<p align="right"><a href="#" class="return" onClick="location.href='Main.php?do=campaignsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'">Volver al listado</a> &nbsp;&nbsp; |-if !$campaign->isNew()-| 
+		<p align="right"><a href="#" class="iconTextLink" onClick="location.href='Main.php?do=campaignsList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|'"><img src="images/clear.png" class="iconFollow iconSize">Volver al listado</a> &nbsp;&nbsp; |-if !$campaign->isNew()-| 
 			|-if !$campaign->getTwitterCampaign()-| 
-			<a class="importHeadlines" href="Main.php?do=headlinesParsedList&filters[campaignId]=|-$campaign->getId()-|">Obtener Titulares</a>&nbsp; &nbsp; <a class="report" href="Main.php?do=campaignsEdit&report=1&id=|-$campaign->getId()-|">Generar Reporte</a>
+			<a class="iconTextLink" href="Main.php?do=headlinesParsedList&filters[campaignId]=|-$campaign->getId()-|"><img src="images/clear.png" class="iconNews iconSize">Obtener Titulares</a>&nbsp; &nbsp; <a class="iconTextLink" href="Main.php?do=campaignsEdit&report=1&id=|-$campaign->getId()-|"><img src="images/clear.png" class="iconPrint iconSize">Generar Reporte</a>
 			|-else-|
-			<a class="importHeadlines" href="Main.php?do=twitterParsedList&filters[campaignId]=|-$campaign->getId()-|">Obtener Tweets</a>
+			<a class="iconTextLink" href="Main.php?do=twitterParsedList&filters[campaignId]=|-$campaign->getId()-|"><img src="images/clear.png" class="iconTwitter iconSize">Obtener Tweets</a>
 			|-/if-|
 		|-/if-|
 		</p>

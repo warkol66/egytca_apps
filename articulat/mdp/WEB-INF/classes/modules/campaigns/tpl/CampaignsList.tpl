@@ -68,7 +68,7 @@
 					<input type="submit" name="submit_go_edit_campaign" value="Editar" class="icon iconEdit" title="Editar" /> 
 				</form>
 					|-if $campaign->getTwitterCampaign()-|
-					<input type="button" name="obtain_headlines" value="Obtener Tweets" title="Obtener Tweets" onclick="location.href='Main.php?do=twitterParsedList&filters[campaignId]=|-$campaign->getId()-|'" class="icon iconNewsAdd" />
+					<input type="button" name="obtain_headlines" value="Obtener Tweets" title="Obtener Tweets" onclick="location.href='Main.php?do=twitterParsedList&filters[campaignId]=|-$campaign->getId()-|'" class="icon iconTwitterAdd" />
 					|-else-|
 					<input type="button" name="obtain_headlines" value="Obtener Titulares" title="Obtener Titulares" onclick="location.href='Main.php?do=headlinesParsedList&filters[campaignId]=|-$campaign->getId()-|'" class="icon iconNewsAdd" /> 
 					|-/if-|
