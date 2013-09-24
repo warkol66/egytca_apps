@@ -30,12 +30,16 @@
 		<form method="POST" action="Main.php" onsubmit="return false;">
 			<input type="hidden" name="idFrom" value="|-$headlineFrom->getId()-|">
 			<table>
-				<tr><td><input type="checkbox" onchange="replicateIntoAll(this);"></td></tr>
+				<tr>
+					<td><input type="button" class="icon iconAdd" onclick="replicateIntoAll(this.form);"></td>
+					<td><b>Todos</b></td>
+				</tr>
 				|-foreach $headlinesTo as $headlineTo-|
 					<tr id="headlineTo-|-$headlineTo->getId()-|">
 						<td>
-							<input class="copyCheckbox" type="checkbox" name="idTo[]"
-								   value="|-$headlineTo->getId()-|" onchange="replicateInto(this)">
+							<input class="data" type="hidden" name="idTo[]" value="|-$headlineTo->getId()-|">
+							<input type="button" class="icon iconAdd"
+								onclick="replicateInto(this.parentNode.select('.data').first().value);">
 						</td>
 						<td>|-$headlineTo->getName()-|</td>
 					</tr>
@@ -46,25 +50,21 @@
 
 	<script>
 		
-		function replicateIntoAll(checkbox) {
-			if (confirm('seguro?')) {
-				setAllCheckboxes(checkbox.checked);
+		function replicateIntoAll(form) {
+			if (confirm('seguro que quiere replicar la información en todos los headlines listados?')) {
 				new Ajax.Request('Main.php?do=headlinesDoReplicateInfoX', {
 					method: 'POST',
-					parameters: Form.serialize(checkbox.form)
+					parameters: Form.serialize(form)
 				});
-			}
-			else {
-				checkbox.checked = !checkbox.checked; // revierto el cambio de estado
 			}
 		}
 		
-		function replicateInto(checkbox) {
+		function replicateInto(id) {
 			new Ajax.Request('Main.php?do=headlinesDoReplicateInfoX', {
 				method: 'POST',
 				parameters: {
-					'idFrom': |-$headlineFrom->getId()-|,
-					'idTo[]': checkbox.value 
+					idFrom: |-$headlineFrom->getId()-|,
+					idTo: id 
 				}
 			});
 		}
@@ -76,7 +76,7 @@
 				filterOut: function(headline) {
 					return !headline.Name.match(this.value, 'i');
 				}
-				}
+			}
 		};
 		
 		Event.observe(window, 'load', function() {
@@ -109,20 +109,16 @@
 		
 		function filterHeadlineOut(headline) {
 			$('headlineTo-'+headline.Id).hide()
-				.select('.copyCheckbox').first()
-				.disable();
+				.select('input').each(function(e, i){
+					e.disable();
+				});
 		}
 		
 		function filterHeadlineIn(headline) {
 			$('headlineTo-'+headline.Id).show()
-				.select('.copyCheckbox').first()
-				.enable();
-		}
-		
-		function setAllCheckboxes(value) {
-			$$('.copyCheckbox:enabled').each(function(e, i) {
-				e.checked = value;
-			});
+				.select('input').each(function(e, i){
+					e.enable();
+				});
 		}
 		
 	</script>
