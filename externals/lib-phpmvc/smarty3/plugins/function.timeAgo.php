@@ -31,23 +31,23 @@ function smarty_function_timeAgo($params, $template){
 	$timemsg = '';
 	
 	if($diff->y > 0){
-		$timemsg = $diff->y .' año'. ($diff->y > 1?"'s":'');
+		$timemsg = $diff->y .' año'. ($diff->y > 1?"s":'');
 
 	}
 	else if($diff->m > 0){
-		$timemsg = $diff->m . ' mes'. ($diff->m > 1?"'es":'');
+		$timemsg = $diff->m . ' mes'. ($diff->m > 1?"es":'');
 	}
 	else if($diff->d > 0){
-		$timemsg = $diff->d .' día'. ($diff->d > 1?"'s":'');
+		$timemsg = $diff->d .' día'. ($diff->d > 1?"s":'');
 	}
 	else if($diff->h > 0){
-		$timemsg = $diff->h .' hora'.($diff->h > 1 ? "'s":'');
+		$timemsg = $diff->h .' hora'.($diff->h > 1 ? "s":'');
 	}
 	else if($diff->i > 0){
-		$timemsg = $diff->i .' minuto'. ($diff->i > 1?"'s":'');
+		$timemsg = $diff->i .' minuto'. ($diff->i > 1?"s":'');
 	}
 	else if($diff->s > 0){
-		$timemsg = $diff->s .' segundo'. ($diff->s > 1?"'s":'');
+		$timemsg = $diff->s .' segundo'. ($diff->s > 1?"s":'');
 	}else if($diff->s == 0){
 		return ' Recién';
 	}
