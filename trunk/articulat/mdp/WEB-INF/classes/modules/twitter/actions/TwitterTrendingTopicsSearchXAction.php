@@ -2,7 +2,7 @@
 
 require_once 'TwitterConnection.class.php';
 
-class TwitterDoParseXAction extends BaseAction {
+class TwitterTrendingTopicsSearchXAction extends BaseAction {
 	
 	public function execute($mapping, $form, &$request, &$response) {
 		
@@ -17,23 +17,20 @@ class TwitterDoParseXAction extends BaseAction {
 		$config = json_decode(file_get_contents(__DIR__.'/../config.json'), true);
 		$twitterConnection = new TwitterConnection($config);
 		
-		$query = $_POST['q'];
-		$campaignId = $_POST['campaignId'];
+		//seteo el id para argentina
+		$query = array('id' => 23424747);
 		if (!empty($query)) {
 			
-			$tweets = array();
+			$trendingTopics = array();
 			
-			$searchRespone = $twitterConnection->search($query,10,'search');
-			foreach ($searchRespone->statuses as $responseTweet) {
-				$tweet = TwitterTweet::createFromApiTweet($responseTweet, $campaignId);
-				//$tweet->save();
-				$tweets[] = $tweet;
-			}
+			$searchRespone = $twitterConnection->search($query,0,'trends');
 			
-			//echo "<pre>";print_r($tweets);echo "</pre>";
+			echo "<pre>";print_r($searchRespone);echo "</pre>";
 		}
-		//die;
+		die;
 		$smarty->assign('tweetsParsed',$tweets);
 		return $mapping->findForwardConfig('success');
 	}
 }
+
+

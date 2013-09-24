@@ -1,25 +1,39 @@
 <?php
 
-class TwitterUsersEditXAction extends BaseEditAction {
+require_once 'TwitterConnection.class.php';
+
+class TwitterUsersEditXAction extends BaseAction {
 	
-	function __construct() {
-		parent::__construct('TwitterUser');
-	}
-	
-	protected function preEdit() {
-		parent::preEdit();
-
-		$this->module = "Twitter";
-
-	}
-
-	protected function postEdit() {
-		parent::postEdit();
-
-		$this->smarty->assign("module", $this->module);
+	public function execute($mapping, $form, &$request, &$response) {
 		
-		$moduleConfig = Common::getModuleConfiguration($this->module);
+		parent::execute($mapping, $form, $request, $response);
 		
-	}
+		$plugInKey = 'SMARTY_PLUGIN';
+		$smarty =& $this->actionServer->getPlugIn($plugInKey);
+		if($smarty == NULL) {
+			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
+		}
+		
+		$user = TwitterUserQuery::create()->findOneByInternalid($_POST['id']);
+		
+		// actualizo los datos del usuario
+		if(is_object($user)){
+			$config = json_decode(file_get_contents(__DIR__.'/../config.json'), true);
+			$twitterConnection = new TwitterConnection($config);
+			
+			$query = array('screen_name' => $user->getScreenname(), 'user_id' => $user->getId());
+			if (!empty($query)) {
+				
+				$searchRespone = $twitterConnection->search($query,0,'users');
+				$user->setDescription($searchRespone->description);
+				$user->setFollowers($searchRespone->followers_count);
+				$user->setFriends($searchRespone->friends_count);
+				$user->save();
+			}
 
+			$smarty->assign('twitterUser',$user);
+			return $mapping->findForwardConfig('success');
+		}
+
+	}
 }
