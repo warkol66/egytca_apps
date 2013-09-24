@@ -20,7 +20,7 @@ class VialidadBulletinListAction extends BaseAction {
 		$smarty->assign('module',$module);
 
 		$filters = $_GET["filters"];
-		$pager = BulletinQuery::create()->createPager($filters, $_GET["page"], $filters["perPage"]);
+		$pager = BulletinQuery::create()->orderByNumber('desc')->createPager($filters, $_GET["page"], $filters["perPage"]);
 		
 		$smarty->assign("filters",$filters);
 		$smarty->assign('bulletins',$pager->getResults());

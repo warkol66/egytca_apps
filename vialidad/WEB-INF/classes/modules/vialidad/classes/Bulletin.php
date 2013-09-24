@@ -86,5 +86,16 @@ class Bulletin extends BaseBulletin {
 		$priceBulletin->setSupply($supply);
 		$priceBulletin->setDefinitive(false);
 	}
+
+	/**
+	 * Asigna el nombre del boletin en base a su numero
+	 * 
+	 */
+	function preSave(PropelPDO $con = null) {
+		parent::preSave($con);
+		$number = $this->getNumber();
+		$this->setName("Boletín No." . $number);
+		return true;
+	}
 	
 } // Bulletin

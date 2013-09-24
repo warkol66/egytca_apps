@@ -3,7 +3,8 @@
 	<table phpName="Bulletin" name="vialidad_bulletin">
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
-		<column name="number" type="VARCHAR" size="10" required="true" primaryString="true" />
+		<column name="name" type="VARCHAR" size="50"  primaryString="true"/>
+		<column name="number" type="VARCHAR" size="10" required="true" />
 		<column name="bulletinDate" type="DATE" description="Fecha del Boletin" />
 		<column name="comments" type="LONGVARCHAR" sqlType="MEDIUMTEXT" description="Observaciones" />
 		<column name="published" type="BOOLEAN" description="Indica si esta publicado" />
@@ -182,9 +183,14 @@
 		<column name="prycod" type="VARCHAR" size="2" description="Proyecto" />
 		<column name="prydes" type="VARCHAR" size="100" description="Descripcion" />
 
+		<column name="bulletinId" type="INTEGER"  description="Id del boletin de base" />
 
 		<foreign-key foreignTable="affiliates_affiliate" >
 			<reference local="contractorId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="vialidad_bulletin" >
+			<reference local="bulletinId" foreign="id" />
 		</foreign-key>
 
 		<vendor type="mysql">
