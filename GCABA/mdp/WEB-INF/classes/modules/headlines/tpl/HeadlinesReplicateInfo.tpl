@@ -21,8 +21,8 @@
 		<p>filtros</p>
 		<form onsubmit="return false;">
 			<p>
-				<label>Título</label>
-				<input type="text" onkeyup="filterHeadlines('Name', this.value)">
+				<label>Texto</label>
+				<input type="text" onkeyup="filterHeadlines('Text', this.value)">
 			</p>
 		</form>
 	</fieldset>
@@ -75,6 +75,21 @@
 				value: '',
 				filterOut: function(headline) {
 					return !headline.Name.match(this.value, 'i');
+				}
+			},
+			Text: {
+				value: '',
+				filterOut: function(headline) {
+			
+					var value = this.value;
+					var filterOut = true;
+					
+					['Name', 'Content', 'Author'].each(function(e, i){
+						if (headline[e].match(value, 'i'))
+							filterOut = false;
+					});
+					
+					return filterOut;
 				}
 			}
 		};
