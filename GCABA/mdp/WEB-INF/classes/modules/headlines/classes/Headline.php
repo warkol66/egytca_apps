@@ -23,10 +23,15 @@ class Headline extends BaseHeadline {
 	 * @param Headline $other
 	 */
 	function copyFrom($other) { // TODO: buscar un nombre mas especifico
-		$fields = array('Name'); // TODO: Traer de config
+		
+		$fields = array('Headlinescope', 'Relevance', 'Agenda', 'Value');
+		
 		foreach ($fields as $field) {
 			$this->setByName($field, $other->getByName($field));
 		}
+		
+		$this->setActors($other->getActors());
+		$this->setIssues($other->getIssues());
 	}
 	
 	/**
