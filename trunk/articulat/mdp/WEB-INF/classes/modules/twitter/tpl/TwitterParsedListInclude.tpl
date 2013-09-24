@@ -22,7 +22,7 @@
 				<img src="images/clear.png" class="icon iconDelete" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&id=|-$tweet->getId()-|", { method: "post", parameters: { id: "|-$tweet->getId()-|", action: "discard"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando tweet...</span>";' value="Descartar tweet" /></a>
 				<input type="checkbox" class="tweetsIds" name="tweetsIds[]" value="|-$tweet->getId()-|" />
 			</div>
-			<div class="twitterText"><strong>|-$twitterUser->getName()-|</strong> &nbsp; <span class="twitterUser">@|-$twitterUser->getScreenname()-|</span></br>|-$tweet->getText()|twitterHighlight-|</div>
+			<div class="twitterText"><strong>|-$twitterUser->getName()-|</strong> &nbsp; <span class="twitterUser">@|-$twitterUser->getScreenname()-|</span><small class="twitterTime">|-timeAgo mysqlTime=$tweet->getCreatedat()-|</small></br>|-$tweet->getText()|twitterHighlight-|</div>
 		</div>
     </li>
     |-/foreach-|
