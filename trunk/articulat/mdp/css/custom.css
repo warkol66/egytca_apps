@@ -880,6 +880,13 @@ table.tableTdBorders {
 	font-weight: normal;
 	direction: ltr;
 	unicode-bidi: embed;
-	color: #999999;
-  font-size: 12px;
+	color: #999;
+	font-size: 12px;
+}
+
+.twitterTime{
+	color: #999;
+	float: right;
+	/*margin-top: 1px;*/
+	position: relative;
 }
