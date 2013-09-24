@@ -23,7 +23,6 @@ class TwitterDoParseXAction extends BaseAction {
 			
 			$searchRespone = $twitterConnection->search($query);
 			foreach ($searchRespone->statuses as $responseTweet) {
-				//$tweet = $responseTweet->user->screen_name;
 				$tweet = TwitterTweet::createFromApiTweet($responseTweet, $campaignId);
 				//$tweet->save();
 				$tweets[] = $tweet;

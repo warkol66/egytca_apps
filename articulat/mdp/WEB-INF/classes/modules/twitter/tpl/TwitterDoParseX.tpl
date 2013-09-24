@@ -1,1 +1,1 @@
-|-include file="TwitterParsedListInclude.tpl"  -|
+|-include file="TwitterParsedListInclude.tpl" tweetsParsed=$tweetsParsed -|
