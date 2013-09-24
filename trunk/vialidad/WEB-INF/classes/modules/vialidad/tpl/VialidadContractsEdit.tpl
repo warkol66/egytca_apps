@@ -107,6 +107,13 @@
 			</select>
 		 </p>
 
+
+			<div id="contractor" style="position: relative;z-index:11000;">
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_bulletinId" label="Boletín base" url="Main.php?do=commonAutocompleteListX&object=bulletin" hiddenName="params[bulletinId]" defaultHiddenValue=$contract->getBulletinId() defaultValue=$contract->getBulletin() class="emptyValidation"-| 
+			</div>
+
+
+
 		 <h3>Montos del Contrato</h3>
 		 |-if !$contract->isNew()-||-include file="VialidadContractsAmountInclude.tpl"-||-/if-|
 		 
