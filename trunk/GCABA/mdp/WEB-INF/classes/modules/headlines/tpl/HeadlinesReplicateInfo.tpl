@@ -1,8 +1,18 @@
+|-include file="CommonAutocompleterInclude.tpl"-|
 |-if $invalidId-|
-	<p style="color:red">el headline solicitado no existe. seleccione uno de la lista?</p>
+	<p style="color:red">el headline solicitado no existe. seleccione uno del campo</p>
 |-/if-|
 <form method="GET" action="Main.php">
-	autocomplete aca
+	<input type="hidden" name="do" value="headlinesReplicateInfo">
+	|-if $headlineFrom-|
+		|-$defaultValue=$headlineFrom->getName()-|
+		|-$defaultHiddenValue=$headlineFrom->getId()-|
+	|-/if-|
+	|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" hiddenName="id"
+		id="autocomplete_headlineFromId" label="Titular"
+		url="Main.php?do=headlinesAutocompleteListX&processed=1"
+		defaultValue=$defaultValue defaultHiddenValue=$defaultHiddenValue
+	-|
 	<input type="submit">
 </form>
 |-if $headlineFrom-|
@@ -66,7 +76,7 @@
 				filterOut: function(headline) {
 					return !headline.Name.match(this.value, 'i');
 				}
-			}
+				}
 		};
 		
 		Event.observe(window, 'load', function() {

@@ -22,7 +22,6 @@ class HeadlinesReplicateInfoAction extends BaseAction {
 			
 			$headlinesTo = HeadlineQuery::create()
 				->filterById($headlineFrom->getId(), Criteria::NOT_EQUAL)
-				->filterByProcessed(false)
 				->filterByDatepublished(date("Y-m-d", strtotime('now - 90 days')), Criteria::GREATER_EQUAL)
 				->find();
 			

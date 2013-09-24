@@ -37,8 +37,13 @@ class HeadlinesAutocompleteListXAction extends BaseAction {
 		
 		$searchString = $_REQUEST['value'];
 		$smarty->assign("searchString",$searchString);
+		
+		$processed = $_REQUEST['processed'];
 
-		$filters = array("searchString" => $searchString);
+		$filters = array(
+			"searchString" => $searchString,
+			"processed" => $processed
+		);
 		
 		if (!empty($_REQUEST['entityType']) && !empty($_REQUEST['entityId'])) {
 			$filters = array_merge($filters, array('EntityFilter' => array(
