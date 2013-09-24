@@ -28,6 +28,11 @@ class HeadlineQuery extends BaseHeadlineQuery {
 							->_or()
 								->where("Headline.Author LIKE ?", "%$searchString%");
 	}
+	
+	// overwrite BaseHeadlineQuery::filterByProcessed
+	public function filterByProcessed($value = true) {
+		return $this->processed($value);
+	}
 
  /**
 	* Agrega filtros por ocndicion de procesado Headline
