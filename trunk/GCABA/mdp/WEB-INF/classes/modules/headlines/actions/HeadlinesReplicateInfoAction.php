@@ -20,9 +20,18 @@ class HeadlinesReplicateInfoAction extends BaseAction {
 				return $mapping->findForwardConfig('success');
 			}
 			
-			$headlinesTo = HeadlineQuery::create()
+			$headlineFromDate = $headlineFrom->getDatepublished('Y-m-d');
+			$datePublishedFilter = array(
+				'min' => date("Y-m-d", strtotime("$headlineFromDate - 5 days")),
+				'max' => date("Y-m-d", strtotime("$headlineFromDate + 5 days"))
+			);
+			
+			$headlinesTo = BaseQuery::create('Headline')
 				->filterById($headlineFrom->getId(), Criteria::NOT_EQUAL)
-				->filterByDatepublished(date("Y-m-d", strtotime('now - 90 days')), Criteria::GREATER_EQUAL)
+				->filterByDatepublished($datePublishedFilter)
+				->_if(!empty($_GET['text']))
+					->searchString($_GET['text'])
+				->_endif()
 				->find();
 			
 			$smarty->assign('headlinesTo', $headlinesTo);

@@ -35,7 +35,7 @@ class HeadlinesDoReplicateInfoXAction extends BaseAction {
 		$headlinesTo = HeadlineQuery::create()->filterById($idsTo)->find();
 		foreach ($headlinesTo as $headlineTo) {
 			$headlineTo->copyFrom($headlineFrom);
-//			$headlineTo->save();
+			$headlineTo->save();
 		}
 		
 		$smarty->assign('headlines', $headlinesTo);

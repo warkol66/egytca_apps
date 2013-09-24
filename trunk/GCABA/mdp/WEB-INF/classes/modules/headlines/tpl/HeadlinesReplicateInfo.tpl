@@ -13,6 +13,10 @@
 		url="Main.php?do=headlinesAutocompleteListX&processed=1"
 		defaultValue=$defaultValue defaultHiddenValue=$defaultHiddenValue
 	-|
+	<p>
+		Buscar por texto
+		<input type="text" name="text">
+	</p>
 	<input type="submit" value="Ir">
 </form>
 |-if $headlineFrom-|
