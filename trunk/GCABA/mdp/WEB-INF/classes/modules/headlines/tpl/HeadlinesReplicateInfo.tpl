@@ -1,7 +1,9 @@
 |-include file="CommonAutocompleterInclude.tpl"-|
 |-if $invalidId-|
-	<p style="color:red">el headline solicitado no existe. seleccione uno del campo</p>
+	<div class="resultFailure">el headline solicitado no existe. seleccione uno del campo</div>
 |-/if-|
+	<fieldset>
+		<Legend>Copiar información de titular</legend>
 <form method="GET" action="Main.php">
 	<input type="hidden" name="do" value="headlinesReplicateInfo">
 	|-if $headlineFrom-|
@@ -13,11 +15,30 @@
 		url="Main.php?do=headlinesAutocompleteListX&processed=1"
 		defaultValue=$defaultValue defaultHiddenValue=$defaultHiddenValue
 	-|
+	|-if $headlineFrom-|
+	|-assign var=issues value=$headlineFrom->getIssues()-|
+	|-assign var=actors value=$headlineFrom->getActors()-|
 	<p>
-		Buscar por texto
-		<input type="text" name="text">
+		<label>Valoración:</label> |-$headlineFrom->getValue()-|&nbsp; &nbsp;
+		<strong>Relevancia:</strong> |-$headlineFrom->getRelevance()-|&nbsp; &nbsp;
+		<strong>Ámbito:</strong> |-$headlineFrom->getHeadlinescope()-| &nbsp; &nbsp;
+		<strong>Agenda:</strong> |-$headlineFrom->getAgenda()-|
 	</p>
-	<input type="submit" value="Ir">
+	<p>
+		<label>Temas:</label> |-foreach $issues as $issue-||-if !$issue@first-|, |-/if-||-$issue-||-/foreach-|.&nbsp; &nbsp;
+		<strong>Actores:</strong> |-foreach $actors as $actor-||-if !$actor@first-|, |-/if-||-$actor-||-/foreach-|.
+	</p>
+	|-/if-|
+	<p>
+		<label>Buscar titulares a copiar</label>
+	</p>
+	<p>
+		<label>Buscar por texto</label>
+		<input name="text" type="text" size="60">
+	</p>
+	<p>
+		<label>&nbsp;</label><input type="submit" value="Obtener titulares a copiar">
+	</p>
 </form>
 |-if $headlineFrom-|
 	|-capture "statusIcons"-|
@@ -26,32 +47,36 @@
 		<img class="resultStatus waiting" style="display: none;" src="images/icon_spinner.gif">
 	|-/capture-|
 	<fieldset>
-		<p>filtros</p>
+		<Legend>Filtros</legend>
 		<form onsubmit="return false;">
 			<p>
 				<label>Texto</label>
-				<input type="text" onkeyup="filterHeadlines('Text', this.value)">
+				<input type="text" onkeyup="filterHeadlines('Text', this.value)" size="60">
 			</p>
 		</form>
+	</fieldset>
 	</fieldset>
 	<fieldset>
 		<form method="POST" action="Main.php" onsubmit="return false;">
 			<input type="hidden" name="idFrom" value="|-$headlineFrom->getId()-|">
-			<table>
+			<table border="0" cellpadding="0" cellspacing="8">
 				<tr id="headlineTo-all">
-					<td>|-$smarty.capture.statusIcons-|</td>
-					<td><input type="button" class="replicateButton icon iconCopy" onclick="replicateIntoAll(this.form);"></td>
-					<td><b>Todos</b></td>
+					<td width="20">|-$smarty.capture.statusIcons-|</td>
+					<td><input type="button" class="replicateButton icon iconCopy" onclick="replicateIntoAll(this.form);" title="Copiar datos a todos los titulares visibles" /></td>
+					<td><b>Copiar a todos</b></td>
+				</tr>
+				<tr>
+					<td height="1" colspan="3"></td>
 				</tr>
 				|-foreach $headlinesTo as $headlineTo-|
 					<tr id="headlineTo-|-$headlineTo->getId()-|">
-						<td>|-$smarty.capture.statusIcons-|</td>
-						<td>
+						<td valign="top">|-$smarty.capture.statusIcons-|</td>
+						<td valign="top">
 							<input type="hidden" name="idTo[]" value="|-$headlineTo->getId()-|">
-							<input type="button" class="replicateButton icon iconCopy"
-								onclick="replicateInto(|-$headlineTo->getId()-|);">
+							<input type="button" class="replicateButton icon iconCopy" onclick="replicateInto(|-$headlineTo->getId()-|);" title="Copiar datos a este titular" />
 						</td>
-						<td>|-$headlineTo->getName()-|</td>
+						<td valign="top"><strong>|-$headlineTo->getName()-| || |-if $headlineTo->getMediaId() eq 0-||-$headlineTo->getMediaName()-||-else-||-$headlineTo->getMedia()-||-/if-| || |-$headlineTo->getdatePublished()|change_timezone|date_format-|</strong><br>
+						|-$headlineTo->getContent()|mb_truncate:295:" ... ":'UTF-8':true|highlight:$tags:highlight-|</td>
 					</tr>
 				|-/foreach-|
 			</table>
@@ -83,7 +108,7 @@
 		
 		function replicateIntoAll(form) {
 			
-			if (confirm('seguro que quiere replicar la información en todos los headlines listados?')) {
+			if (confirm('¿Está seguro que quiere replicar la información en todos los headlines listados?')) {
 				
 				showWaitingStatus('headlineTo-all')
 			
