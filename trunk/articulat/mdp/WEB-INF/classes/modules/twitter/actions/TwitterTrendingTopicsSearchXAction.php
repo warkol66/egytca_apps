@@ -18,18 +18,27 @@ class TwitterTrendingTopicsSearchXAction extends BaseAction {
 		$twitterConnection = new TwitterConnection($config);
 		
 		//seteo el id para argentina
-		$query = array('id' => 23424747);
+		$woeid = 23424747;
+		$query = array('id' => $woeid);
 		if (!empty($query)) {
 			
 			$trendingTopics = array();
+			$date = date('Y-m-d H:i:s');
 			
 			$searchRespone = $twitterConnection->search($query,0,'trends');
+			$searchRespone = $searchRespone[0];
+			$order = 0;
+			foreach ($searchRespone->trends as $responseTT) {
+				$trendingTopic = TwitterTrendingTopic::createFromApiTT($responseTT, $woeid, $order, $date);
+				$trendingTopics[] = $trendingTopic;
+				$order++;
+			}
 			
-			echo "<pre>";print_r($searchRespone);echo "</pre>";
+			/*echo "<pre>"; print_r($trendingTopics); echo"</pre>";
+			die;*/
+			$smarty->assign('trendingTopics',$trendingTopics);
+			return $mapping->findForwardConfig('success');	
 		}
-		die;
-		$smarty->assign('tweetsParsed',$tweets);
-		return $mapping->findForwardConfig('success');
 	}
 }
 
