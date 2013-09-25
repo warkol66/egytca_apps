@@ -1,6 +1,9 @@
 |-if !is_object($twitterUser)-|
 	<div id="resultFailure">El usuario que está buscando no existe</div>
 |-else-|
+<script type="text/javascript">
+	$('twitterDivShowWorking').innerHTML = '';
+</script>
 <fieldset title="Datos del usuario">
 <legend>Datos del Usuario</legend>
 	<p><label for="params[usernameDisabled]">Nombre</label>
