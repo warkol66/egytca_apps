@@ -32,6 +32,7 @@ class HeadlinesReplicateInfoAction extends BaseAction {
 				->_if(!empty($_GET['text']))
 					->searchString($_GET['text'])
 				->_endif()
+				->limit(50)
 				->find();
 			
 			$smarty->assign('headlinesTo', $headlinesTo);
