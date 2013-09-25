@@ -23,11 +23,14 @@ class TwitterDoParseXAction extends BaseAction {
 			
 			$tweets = array();
 			
-			$searchRespone = $twitterConnection->search($query,10,'search');
-			foreach ($searchRespone->statuses as $responseTweet) {
-				$tweet = TwitterTweet::createFromApiTweet($responseTweet, $campaignId);
-				//$tweet->save();
-				$tweets[] = $tweet;
+			foreach (split(' ', $query) as $term) {
+			
+				$searchRespone = $twitterConnection->search($term,10,'search');
+				foreach ($searchRespone->statuses as $responseTweet) {
+					$tweet = TwitterTweet::createFromApiTweet($responseTweet, $campaignId);
+					//$tweet->save();
+					$tweets[] = $tweet;
+				}
 			}
 			
 			//echo "<pre>";print_r($tweets);echo "</pre>";
