@@ -21,7 +21,12 @@ class TwitterUsersEditXAction extends BaseAction {
 			$config = json_decode(file_get_contents(__DIR__.'/../config.json'), true);
 			$twitterConnection = new TwitterConnection($config);
 			
-			$query = array('screen_name' => $user->getScreenname(), 'user_id' => $user->getId());
+			$screenn = $user->getScreenname();
+			if(!empty($screenn))
+				$query = array('screen_name' => $screenn, 'user_id' => $user->getId());
+			else
+				$query = array('user_id' => $user->getId());
+
 			if (!empty($query)) {
 				
 				$searchRespone = $twitterConnection->search($query,0,'users');
