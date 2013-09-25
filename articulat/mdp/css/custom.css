@@ -890,3 +890,14 @@ table.tableTdBorders {
 	/*margin-top: 1px;*/
 	position: relative;
 }
+
+.twitterTrends{
+	list-style: none;/* outside none;*/
+	font-size: 12px;
+	line-height: 16px;
+}
+
+.twitterTrendsItem{
+	color: #007BFF;
+	list-style: none;
+}
