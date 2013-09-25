@@ -40,7 +40,7 @@
 			<table>
 				<tr id="headlineTo-all">
 					<td>|-$smarty.capture.statusIcons-|</td>
-					<td><input type="button" class="icon iconAdd" onclick="replicateIntoAll(this.form);"></td>
+					<td><input type="button" class="icon iconCopy" onclick="replicateIntoAll(this.form);"></td>
 					<td><b>Todos</b></td>
 				</tr>
 				|-foreach $headlinesTo as $headlineTo-|
@@ -48,7 +48,7 @@
 						<td>|-$smarty.capture.statusIcons-|</td>
 						<td>
 							<input class="data" type="hidden" name="idTo[]" value="|-$headlineTo->getId()-|">
-							<input type="button" class="icon iconAdd"
+							<input type="button" class="icon iconCopy"
 								onclick="replicateInto(this.parentNode.select('.data').first().value);">
 						</td>
 						<td>|-$headlineTo->getName()-|</td>
