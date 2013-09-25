@@ -44,6 +44,19 @@ function clearElement(element) {
 	e_ref=document.getElementById(element);
 	e_ref.innerHTML = '';
 }
+function getTrendingTopics(){
+	var myAjax = new Ajax.Updater(
+				{success: 'trendingTopicsList'},
+				'Main.php?do=twitterTrendingTopicsSearchX',
+				{
+					method: 'post',
+					evalScripts: true,
+					insertion: Insertion.Bottom
+				});
+	$('trendingTopicsList').innerHTML = '';
+	$('ttMsgField').innerHTML = '<span class="inProgress">Actualizando Trending Topics...</span>';
+	return false;
+}
 </script>
 <script type="text/javascript" src="scripts/lightbox.js"></script> 			
 <div id="lightbox2" class="leightbox"> 
@@ -211,6 +224,14 @@ function clearElement(element) {
 |-/if-|
 
 |-if $acceptedTweets|count gt 0 or isset($twitterFilters)-| |-*/Si tiene tweets*-|
+<fieldset>
+	<legend>Trending Topics</legend>
+	<button type="button" onclick="getTrendingTopics();return false;"><img src="images/clear.png" class="iconTwitter iconSize">Obtener Trending Topics</button>
+	<div id="ttMsgField"></div>
+	<div id="trendingTopicsList">
+	|-include file="TwitterTrendingTopicsList.tpl" twitterTrendingTopicsColl=$latestTopics -|
+	</div>
+</fieldset>
 <fieldset>
 	<legend>Tweets Aceptados &nbsp; &nbsp; </legend>
 	<div id="div_tweets">
