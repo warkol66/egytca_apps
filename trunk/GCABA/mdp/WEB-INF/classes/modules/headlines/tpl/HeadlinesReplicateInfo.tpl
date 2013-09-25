@@ -40,16 +40,16 @@
 			<table>
 				<tr id="headlineTo-all">
 					<td>|-$smarty.capture.statusIcons-|</td>
-					<td><input type="button" class="icon iconCopy" onclick="replicateIntoAll(this.form);"></td>
+					<td><input type="button" class="replicateButton icon iconCopy" onclick="replicateIntoAll(this.form);"></td>
 					<td><b>Todos</b></td>
 				</tr>
 				|-foreach $headlinesTo as $headlineTo-|
 					<tr id="headlineTo-|-$headlineTo->getId()-|">
 						<td>|-$smarty.capture.statusIcons-|</td>
 						<td>
-							<input class="data" type="hidden" name="idTo[]" value="|-$headlineTo->getId()-|">
-							<input type="button" class="icon iconCopy"
-								onclick="replicateInto(this.parentNode.select('.data').first().value);">
+							<input type="hidden" name="idTo[]" value="|-$headlineTo->getId()-|">
+							<input type="button" class="replicateButton icon iconCopy"
+								onclick="replicateInto(|-$headlineTo->getId()-|);">
 						</td>
 						<td>|-$headlineTo->getName()-|</td>
 					</tr>
@@ -90,7 +90,11 @@
 				new Ajax.Request('Main.php?do=headlinesDoReplicateInfoX', {
 					method: 'POST',
 					parameters: Form.serialize(form),
-					onSuccess: function(data) { updateResultStatus('headlineTo-all', hasErrors(data)); }
+					onSuccess: function(data) {
+						updateResultStatus('headlineTo-all', hasErrors(data));
+						if (!hasErrors(data))
+							$('headlineTo-all').select('.replicateButton').first().disable();
+					}
 				});
 			}
 		}
@@ -105,7 +109,11 @@
 					idFrom: |-$headlineFrom->getId()-|,
 					idTo: id
 				},
-				onSuccess: function(data) { updateResultStatus('headlineTo-'+id, hasErrors(data)); }
+				onSuccess: function(data) {
+					updateResultStatus('headlineTo-'+id, hasErrors(data));
+					if (!hasErrors(data))
+						$('headlineTo-'+id).select('.replicateButton').first().disable();
+				}
 			});
 		}
 		
