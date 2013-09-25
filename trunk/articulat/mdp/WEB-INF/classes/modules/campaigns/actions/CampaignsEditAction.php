@@ -74,14 +74,12 @@ class CampaignsEditAction extends BaseAction {
 					$tweetsQuery = BaseQuery::create('TwitterTweet');
 					$tweets = $tweetsQuery->addFilters($twitterFilters)->find();
 					$smarty->assign('twitterFilters', $twitterFilters);
-
-					/*echo "<pre> $tweets </pre>";
-					die();*/
 					
 					$smarty->assign('acceptedTweets', $tweets);
 					$smarty->assign('tweetValues',TwitterTweet::getValues());
 					$smarty->assign('tweetRelevances',TwitterTweet::getRelevances());
 					$smarty->assign('tweetStatuses',TwitterTweet::getStatuses());
+					$smarty->assign('latestTopics',TwitterTrendingTopic::getLatest(10));
 					
 				}
 			}
