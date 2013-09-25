@@ -100,5 +100,14 @@
 		</foreign-key>
 
 	</table>
+	
+	<table name="twitter_trendingTopic" phpName="TwitterTrendingTopic" isCrossRef="true" description="Twitter / trendingTopics">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER"  description="TT id" autoIncrement="true"/>
+		<column name="name" type="VARCHAR" size="255" description="Trending topic" />
+		<column name="woeid" type="INTEGER" description="Id de la region donde es trend" />
+		<column name="createdAt" type="TIMESTAMP" description="Fecha y hora en que fue trend" />
+
+	</table>
 
 </database>
