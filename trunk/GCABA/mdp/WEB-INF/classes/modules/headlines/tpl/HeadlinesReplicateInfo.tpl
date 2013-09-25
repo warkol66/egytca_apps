@@ -79,6 +79,11 @@
 						|-$headlineTo->getContent()|mb_truncate:295:" ... ":'UTF-8':true|highlight:$tags:highlight-|</td>
 					</tr>
 				|-/foreach-|
+				|-if $headlinesTo->count() eq 50-|
+				<tr>
+					<th colspan="3">Se muestran los primeros 50 resultados, si la repercusión que busca no se muestra, debe refinar la búsqueda.</th>
+				</tr>
+				|-/if-|
 			</table>
 		</form>
 	</fieldset>
