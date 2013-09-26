@@ -1,9 +1,18 @@
 <script src="Main.php?do=js&name=js&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 |-include file="CommonAutocompleterInclude.tpl"-|
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 <h2>Tweets</h2>
 |-if !$notValidId-|
 |-if !$campaign->isNew()-|
 <h1>Importar Tweets - |-$campaign-|</h1>
+<div id="lightboxView" class="leightbox">
+	<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a></p> 
+<div id="viewWorking"></div>
+	<div class="innerLighbox">
+		<div id="viewDiv"></div>
+	</div>
+</div>
 <fieldset>
 <legend>Obtener Tweets</legend>
     <form id="form" action="Main.php?do=twitterTweetsSearch" onsubmit="tweetsSearch(); return false;" method="POST">

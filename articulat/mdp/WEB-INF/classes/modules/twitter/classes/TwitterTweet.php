@@ -57,7 +57,7 @@ class TwitterTweet extends BaseTwitterTweet{
 		return $relevances;
 	}
 	
-	public function createFromApiTweet($apiTweet, $campaignId) {
+	public function createFromApiTweet($apiTweet, $campaignId, $embed) {
 		
 		//armo los arreglos para crear tweet y usuario
 		$tweet = array(
@@ -79,6 +79,7 @@ class TwitterTweet extends BaseTwitterTweet{
 			'Retweetcount' => $apiTweet->retweet_count,
 			'Favoritecount' => $apiTweet->favorite_count,
 			'Lang' => $apiTweet->lang,
+			'Embed' => $embed
 		);
 		
 		$user = array(

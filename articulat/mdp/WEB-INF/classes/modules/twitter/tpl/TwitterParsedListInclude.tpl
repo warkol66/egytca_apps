@@ -11,15 +11,15 @@
 		+ '</ul>'
 	|-/if-|
 </script>
-
 |-if $tweetsParsed|count gt 0-|
     |-foreach from=$tweetsParsed item=tweet name=for_tweets-|
     |-assign var=twitterUser value=$tweet->getTwitterUser()-|
     <li id="li_|-$tweet->getId()-|">
 		<div class="tweet">
 			<div class="twitterButtons">
-				<img src="images/clear.png" class="icon iconActivate" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&id=|-$tweet->getId()-|", { method: "post", parameters: { id: "|-$tweet->getId()-|", action: "save"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">guardando tweet...</span>";' value="Guardar tweet" /></a>
-				<img src="images/clear.png" class="icon iconDelete" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&id=|-$tweet->getId()-|", { method: "post", parameters: { id: "|-$tweet->getId()-|", action: "discard"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando tweet...</span>";' value="Descartar tweet" /></a>
+				<a href="#lightbox1" rel="lightboxView" class="lbOn"><img src="images/clear.png" class="icon iconView" onClick='{new Ajax.Updater("viewDiv", "Main.php?do=twitterParsedViewX", { method: "post", parameters: { id: "|-$tweet->getId()-|"}, evalScripts: true})};$("viewWorking").innerHTML = "<span class=\"inProgress\">buscando tweet...</span>";$("viewDiv").innerHTML = " ";' value="Ver tweet" /></a>
+				<img src="images/clear.png" class="icon iconActivate" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&id=|-$tweet->getId()-|", { method: "post", parameters: { id: "|-$tweet->getId()-|", action: "save"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">guardando tweet...</span>";' value="Guardar tweet" />
+				<img src="images/clear.png" class="icon iconDelete" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&id=|-$tweet->getId()-|", { method: "post", parameters: { id: "|-$tweet->getId()-|", action: "discard"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando tweet...</span>";' value="Descartar tweet" />
 				<input type="checkbox" class="tweetsIds" name="tweetsIds[]" value="|-$tweet->getId()-|" />
 			</div>
 			<div class="twitterText"><strong>|-$twitterUser->getName()-|</strong> &nbsp; <span class="twitterUser">@|-$twitterUser->getScreenname()-|</span><small class="twitterTime">|-timeAgo mysqlTime=$tweet->getCreatedat()-|</small></br>|-$tweet->getText()|twitterHighlight-|</div>
