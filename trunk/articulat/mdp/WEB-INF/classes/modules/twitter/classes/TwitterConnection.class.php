@@ -39,6 +39,10 @@ class TwitterConnection {
 				$url = 'users/show';
 				$params = $query;
 			break;
+			case 'embed':
+				$url = 'statuses/oembed';
+				$params = $query;
+			break;
 		}
 			
 		return $this->connection->get($url, $params);
