@@ -19,10 +19,10 @@
 	|-assign var=issues value=$headlineFrom->getIssues()-|
 	|-assign var=actors value=$headlineFrom->getActors()-|
 	<p>
-		<label>Valoración:</label> |-$headlineFrom->getValue()-|&nbsp; &nbsp;
-		<strong>Relevancia:</strong> |-$headlineFrom->getRelevance()-|&nbsp; &nbsp;
-		<strong>Ámbito:</strong> |-$headlineFrom->getHeadlinescope()-| &nbsp; &nbsp;
-		<strong>Agenda:</strong> |-$headlineFrom->getAgenda()-|
+		<label>Valoración:</label> |-$headlineValues[$headlineFrom->getValue()]-|&nbsp; &nbsp;
+		<strong>Relevancia:</strong> |-$headlineRelevances[$headlineFrom->getRelevance()]-|&nbsp; &nbsp;
+		<strong>Ámbito:</strong> |-$headlineScopes[$headlineFrom->getHeadlinescope()]-|&nbsp; &nbsp;
+		<strong>Agenda:</strong> |-$headlineAgendas[$headlineFrom->getAgenda()]-|
 	</p>
 	<p>
 		<label>Temas:</label> |-foreach $issues as $issue-||-if !$issue@first-|, |-/if-||-$issue-||-/foreach-|.&nbsp; &nbsp;
@@ -63,10 +63,11 @@
 				<tr id="headlineTo-all">
 					<td width="20">|-$smarty.capture.statusIcons-|</td>
 					<td><input type="button" class="replicateButton icon iconCopy" onclick="replicateIntoAll(this.form);" title="Copiar datos a todos los titulares visibles" /></td>
-					<td><b>Copiar a todos</b></td>
+					<td valign="bottom"><strong>Copiar a todos los titulares visibles </strong></td>
 				</tr>
 				<tr>
-					<td height="1" colspan="3"></td>
+					<td height="1"></td>
+					<td height="1" colspan="2" bgcolor="#333333"></td>
 				</tr>
 				|-foreach $headlinesTo as $headlineTo-|
 					<tr id="headlineTo-|-$headlineTo->getId()-|">

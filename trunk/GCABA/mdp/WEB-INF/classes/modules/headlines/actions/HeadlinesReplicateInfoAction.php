@@ -37,6 +37,12 @@ class HeadlinesReplicateInfoAction extends BaseAction {
 			
 			$smarty->assign('headlinesTo', $headlinesTo);
 			$smarty->assign('headlineFrom', $headlineFrom);
+
+			$smarty->assign("headlineAgendas", Headline::getHeadlineAgendas());
+			$smarty->assign("headlineScopes", Headline::getHeadlineScopes());
+			$smarty->assign("headlineValues", Headline::getHeadlineValues());
+			$smarty->assign("headlineRelevances", Headline::getHeadlineRelevances());
+
 		}
 		
 		return $mapping->findForwardConfig('success');
