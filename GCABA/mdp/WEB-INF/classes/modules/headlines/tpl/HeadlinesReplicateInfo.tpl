@@ -18,6 +18,7 @@
 	|-if $headlineFrom-|
 	|-assign var=issues value=$headlineFrom->getIssues()-|
 	|-assign var=actors value=$headlineFrom->getActors()-|
+	|-assign var=headlineTags value=$headlineFrom->getHeadlineTags()-|
 	<p>
 		<label>Valoración:</label> |-$headlineValues[$headlineFrom->getValue()]-|&nbsp; &nbsp;
 		<strong>Relevancia:</strong> |-$headlineRelevances[$headlineFrom->getRelevance()]-|&nbsp; &nbsp;
@@ -27,6 +28,9 @@
 	<p>
 		<label>Temas:</label> |-foreach $issues as $issue-||-if !$issue@first-|, |-/if-||-$issue-||-/foreach-|.&nbsp; &nbsp;
 		<strong>Actores:</strong> |-foreach $actors as $actor-||-if !$actor@first-|, |-/if-||-$actor-||-/foreach-|.
+	</p>
+	<p>
+		<label>Etiquetas:</label> |-foreach $headlineTags as $headlineTag-||-if !$headlineTag@first-|, |-/if-||-$headlineTag-||-/foreach-|.
 	</p>
 	|-/if-|
 	<p>
