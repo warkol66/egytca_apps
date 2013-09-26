@@ -32,6 +32,7 @@ class Headline extends BaseHeadline {
 		
 		$this->setActors($other->getActors());
 		$this->setIssues($other->getIssues());
+		$this->setHeadlineTags($other->getHeadlineTags());
 	}
 	
 	/**
