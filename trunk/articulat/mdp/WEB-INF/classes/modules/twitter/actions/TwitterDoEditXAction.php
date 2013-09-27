@@ -6,8 +6,8 @@ class TwitterDoEditXAction extends BaseDoEditAction {
 		parent::__construct('TwitterTweet');
 	}
 	
-	protected function preSave() {
-		parent::preSave();
+	protected function preUpdate() {
+		parent::preUpdate();
 
 		$this->module = "Twitter";
 
