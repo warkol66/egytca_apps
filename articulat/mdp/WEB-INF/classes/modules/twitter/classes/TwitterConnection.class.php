@@ -29,7 +29,7 @@ class TwitterConnection {
 		switch($action){
 			case 'search':
 				$url = 'search/tweets';
-				$params = array('q' => $query, 'count' => $count);
+				$params = array('q' => $query, 'count' => $count, 'include_entities' => true);
 			break;
 			case 'trends':
 				$url = 'trends/place';

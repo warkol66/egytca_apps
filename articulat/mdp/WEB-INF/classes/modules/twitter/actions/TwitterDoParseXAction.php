@@ -31,13 +31,15 @@ class TwitterDoParseXAction extends BaseAction {
 					// obtengo el html para embeber el tweet
 					$embedQuery = array('id' => $responseTweet->id);
 					$embed = $twitterConnection->search($embedQuery,0,'embed');
+					$embed = $embed->html;
 					
 					$tweet = TwitterTweet::createFromApiTweet($responseTweet, $campaignId, $embed);
 					$tweets[] = $tweet;
+					//$tweets[] = $responseTweet;
 				}
 			}
 			
-			//echo "<pre>";print_r($embeds);echo "</pre>";
+			//echo "<pre>";print_r($tweets);echo "</pre>";
 		}
 		//die;
 		$smarty->assign('tweetsParsed',$tweets);
