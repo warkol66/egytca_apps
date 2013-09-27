@@ -844,7 +844,7 @@ table.tableTdBorders {
 	display:table;
 }
 .twitterButtons{
-	width: 65px;
+	width: 150px;
 	height: 30px;
 	float: left;
 	padding-top: 3px;
@@ -853,14 +853,14 @@ table.tableTdBorders {
 	font-family: "Helvetica Neue",Arial,sans-serif;
 	color: #333333;
 	font-size: 12px;
-  line-height: 16px;
+	line-height: 16px;
 	word-wrap: break-word;
-  white-space: pre-wrap;
+	white-space: pre-wrap;
 /*	font-size: 14px;
 	padding-left: 20px; */
-  /*min-height: 51px;*/
-  /*padding: 9px 12px;*/
-  position: relative;
+	/*min-height: 51px;*/
+	/*padding: 9px 12px;*/
+	position: relative;
 	/*background-color: #FFF;*/
 }
 .twitterText{
@@ -887,6 +887,7 @@ table.tableTdBorders {
 .twitterTime{
 	color: #999;
 	float: right;
+	font-weight: normal;
 	/*margin-top: 1px;*/
 	position: relative;
 }
