@@ -38,7 +38,7 @@ class HeadlinesDoReplicateInfoXAction extends BaseAction {
 			$headlineTo->save();
 		}
 		
-		$smarty->assign('headlines', $headlinesTo);
+//		$smarty->assign('headlines', $headlinesTo);
 		
 		return $mapping->findForwardConfig('success');
 	}

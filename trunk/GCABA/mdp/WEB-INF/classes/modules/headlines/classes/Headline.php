@@ -30,7 +30,13 @@ class Headline extends BaseHeadline {
 			$this->setByName($field, $other->getByName($field));
 		}
 		
-		$this->setActors($other->getActors());
+		// HeadlineActor has fields other than foreign keys
+		foreach ($other->getHeadlineActors() as $otherHeadlineActor) {
+			$newHeadlineActor = $otherHeadlineActor->copy();
+			$newHeadlineActor->setActor($otherHeadlineActor->getActor());
+			$newHeadlineActor->setHeadline($this);
+		}
+		
 		$this->setIssues($other->getIssues());
 		$this->setHeadlineTags($other->getHeadlineTags());
 	}
