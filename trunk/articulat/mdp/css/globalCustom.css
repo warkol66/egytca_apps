@@ -233,6 +233,8 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-position: -40px -160px !Important; }
 .iconTwitterDelete {
 	background-position: -60px -160px !Important; }
+.iconMinus {
+	background-position: -180px -180px !Important; }
 .iconExpand {
 	background-image: url(../images/icon_expand.png) !Important;
 	background-position: 2px 2px !Important;}

@@ -63,12 +63,12 @@
 <form id="selectedTweetsForm" onsubmit="return false;">
 <fieldset>
 <legend>Tweets &nbsp; &nbsp; 
-<input type="button" class="icon iconPlus" title="Valorar todos positivamente" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|positiveAll('|-$campaign->getId()-|', this.form);|-/if-|" />
-<input type="button" class="icon iconActivate" title="Valorar todos neutrales" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|neutralAll('|-$campaign->getId()-|', this.form);|-/if-|" />
-<input type="button" class="iconCollapse icon" title="Valorar todos negativamente" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|negativeAll('|-$campaign->getId()-|', this.form);|-/if-|" />
-<input type="button" class="icon iconTwitterAdd" title="Aceptar todos" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|acceptAll('|-$campaign->getId()-|', this.form);|-/if-|" />
-<input type="button" class="icon iconTwitterDelete" title="Descartar todos" onClick="|-if $campaign->isNew()-|discardSelected(this.form);|-else-|discardAll('|-$campaign->getId()-|', this.form);|-/if-|" />
-<input type="checkbox" name="allbox" id="allBoxes" onchange="javascript:selectAllCheckboxes('tweetsIds[]')" />
+<input type="button" class="icon iconPlus" title="Aceptar todos los seleccionados y valorar positivamente" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|positiveAll('|-$campaign->getId()-|', this.form);|-/if-|" />
+<input type="button" class="icon iconActivate" title="Aceptar todos los seleccionados y valorar neutrales" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|neutralAll('|-$campaign->getId()-|', this.form);|-/if-|" />
+<input type="button" class="icon iconMinus" title="Aceptar todos los seleccionados y valorar negativamente" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|negativeAll('|-$campaign->getId()-|', this.form);|-/if-|" />
+<!--<input type="button" class="icon iconTwitterAdd" title="Aceptar todos" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|acceptAll('|-$campaign->getId()-|', this.form);|-/if-|" /> -->
+<input type="button" class="icon iconDelete" title="Descartar todos los seleccionados" onClick="|-if $campaign->isNew()-|discardSelected(this.form);|-else-|discardAll('|-$campaign->getId()-|', this.form);|-/if-|" />
+<input type="checkbox" name="allbox" id="allBoxes" title="Seleccionar todos los visibles" onchange="javascript:selectAllCheckboxes('tweetsIds[]')" />
 </legend>
 <ul id="list" class="iconList tweetsList">
 |-include file="TwitterParsedListInclude.tpl" included=true tweetsParsed=$twitterTweetColl useCheckbox=$campaign->isNew()-|
