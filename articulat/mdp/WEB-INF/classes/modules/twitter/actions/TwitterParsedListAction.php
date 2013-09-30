@@ -43,6 +43,8 @@ class TwitterParsedListAction extends BaseListAction {
 		}else
 			$this->filters['maxStatus'] = TwitterTweet::PARSED;
 
+		$this->filters['orderByCreatedat'] = "desc";
+
 	}
 
 	protected function postList() {
