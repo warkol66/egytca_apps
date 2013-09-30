@@ -64,7 +64,7 @@ class BoardComment extends BaseBoardComment{
 	 * Indica si un comentario esta eliminado
 	 * @return boolean
 	 */
-	public function isDeleted() {
+	public function wasDeleted() {
 		return ($this->getStatus() == BoardComment::DELETED);
 	}
 	
