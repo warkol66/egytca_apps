@@ -62,9 +62,12 @@
 <div id="resultDiv"></div>
 <form id="selectedTweetsForm" onsubmit="return false;">
 <fieldset>
-<legend>Tweets &nbsp; &nbsp; &nbsp; &nbsp; 
-<input type="button" class="icon iconActivate" title="Aceptar todos" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|acceptAll('|-$campaign->getId()-|', this.form);|-/if-|" />
-<input type="button" class="icon iconDelete" title="Descartar todos" onClick="|-if $campaign->isNew()-|discardSelected(this.form);|-else-|discardAll('|-$campaign->getId()-|', this.form);|-/if-|" />
+<legend>Tweets &nbsp; &nbsp; 
+<input type="button" class="icon iconPlus" title="Valorar todos positivamente" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|positiveAll('|-$campaign->getId()-|', this.form);|-/if-|" />
+<input type="button" class="icon iconActivate" title="Valorar todos neutrales" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|neutralAll('|-$campaign->getId()-|', this.form);|-/if-|" />
+<input type="button" class="iconCollapse icon" title="Valorar todos negativamente" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|negativeAll('|-$campaign->getId()-|', this.form);|-/if-|" />
+<input type="button" class="icon iconTwitterAdd" title="Aceptar todos" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|acceptAll('|-$campaign->getId()-|', this.form);|-/if-|" />
+<input type="button" class="icon iconTwitterDelete" title="Descartar todos" onClick="|-if $campaign->isNew()-|discardSelected(this.form);|-else-|discardAll('|-$campaign->getId()-|', this.form);|-/if-|" />
 <input type="checkbox" name="allbox" id="allBoxes" onchange="javascript:selectAllCheckboxes('tweetsIds[]')" />
 </legend>
 <ul id="list" class="iconList tweetsList">
@@ -110,6 +113,18 @@ function acceptAll(campaignId, form) {
 
 function discardAll(campaignId, form) {
 	{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&action=discard&id="+campaignId, { method: "post", parameters: Form.serialize(form), evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando tweets...</span>";
+}
+
+function positiveAll(campaignId, form) {
+	{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&action=positive&id="+campaignId, { method: "post", parameters: Form.serialize(form), evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">Valorando positivo...</span>";
+}
+
+function neutralAll(campaignId, form) {
+	{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&action=neutral&id="+campaignId, { method: "post", parameters: Form.serialize(form), evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">Valorando positivo...</span>";
+}
+
+function negativeAll(campaignId, form) {
+	{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&action=negative&id="+campaignId, { method: "post", parameters: Form.serialize(form), evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">valorando negativo...</span>";
 }
 
 function tweetsSearch() {

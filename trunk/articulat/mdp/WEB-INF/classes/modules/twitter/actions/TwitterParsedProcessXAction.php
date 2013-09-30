@@ -25,16 +25,38 @@ class TwitterParsedProcessXAction extends BaseAction {
 			//si tengo que procesar mas de un tweet
 			if (!empty($_POST["tweetsIds"])){
 				try {
-					if($processAction == 'save'){
-						TwitterTweet::acceptMultiple($_POST["tweetsIds"]);
-					}elseif($processAction == 'discard')
-						TwitterTweet::discardMultiple($_POST["tweetsIds"]);
+					switch($processAction){
+						case 'save':
+							TwitterTweet::editMultiple('Status', TwitterTweet::ACCEPTED, $_POST["tweetsIds"]);
+							$info = 'Aceptados';
+						break;
+						case 'discard':
+							TwitterTweet::editMultiple('Status', TwitterTweet::DISCARDED, $_POST["tweetsIds"]);
+							$info = 'Descartados';
+						break;
+						case 'positive':
+							TwitterTweet::editMultiple('Value', TwitterTweet::POSITIVE, $_POST["tweetsIds"]);
+							TwitterTweet::editMultiple('Status', TwitterTweet::ACCEPTED, $_POST["tweetsIds"]);
+							$info = 'Valorados como positivos';
+						break;
+						case 'neutral':
+							TwitterTweet::editMultiple('Value', TwitterTweet::NEUTRAL, $_POST["tweetsIds"]);
+							TwitterTweet::editMultiple('Status', TwitterTweet::ACCEPTED, $_POST["tweetsIds"]);
+							$info = 'Valorados como neutrales';
+						break;
+						case 'negative':
+							TwitterTweet::editMultiple('Value', TwitterTweet::NEGATIVE, $_POST["tweetsIds"]);
+							TwitterTweet::editMultiple('Status', TwitterTweet::ACCEPTED, $_POST["tweetsIds"]);
+							$info = 'Valorados como negativos';
+						break;
+					}
 				} catch (Exception $e) {
 					$smarty->assign("error",'true');
 					return $mapping->findForwardConfig('success');
 				}
 				
 				$smarty->assign("processAction",$processAction);
+				$smarty->assign("infoMessage",$info);
 				$smarty->assign("multiple",'true');
 				$smarty->assign("tweets",$_POST["tweetsIds"]);
 				return $mapping->findForwardConfig('success');

@@ -1,3 +1,6 @@
 <script type="text/javascript">
-		$("resultDiv").innerHTML = "Tweet actualizado";
+	|-if isset($parsed)-|
+	$("li_|-$tweet->getId()-|").remove();
+	|-/if-|
+	$("resultDiv").innerHTML = "Tweet actualizado";
 </script>

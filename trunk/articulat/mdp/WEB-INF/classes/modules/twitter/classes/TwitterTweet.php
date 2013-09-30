@@ -156,25 +156,8 @@ class TwitterTweet extends BaseTwitterTweet{
 		$this->save();
 	}
 	
-	/* Cambia el status de varios tweets a ACCEPTED
-	 * 
-	 * @param $tweets: array de los ids de los tweets a modificar
-	 * return void
-	 * */
-	public static function acceptMultiple($tweets){
-		TwitterTweetQuery::create()->filterById($tweets, Criteria::IN)->update(array('Status' => TwitterTweet::ACCEPTED));
-	}
 	
-	/* Cambia el status de varios tweets a DISCARDED
-	 * 
-	 * @param $tweets: array de los ids de los tweets a modificar
-	 * return void
-	 * */
-	public static function discardMultiple($tweets){
-		TwitterTweetQuery::create()->filterById($tweets, Criteria::IN)->update(array('Status' => TwitterTweet::DISCARDED));
-	}
-	
-	/* Modifica un campo de varios tweets a DISCARDED
+	/* Modifica un campo de varios tweets a new value
 	 * 
 	 * @param $field: campo a modificar
 	 * @param $newValue: valor para setearle al campo
@@ -182,12 +165,7 @@ class TwitterTweet extends BaseTwitterTweet{
 	 * return bool
 	 * */
 	public static function editMultiple($field,$newValue,$tweets){
-		try{
-			TwitterTweetQuery::create()->filterById($tweets, Criteria::IN)->update(array($field => $newValue));
-		}catch(Exception $e){
-			return false;
-		}
-		return true;
+		TwitterTweetQuery::create()->filterById($tweets, Criteria::IN)->update(array($field => $newValue));
 	}
 	
 }
