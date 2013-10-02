@@ -1,7 +1,9 @@
-|-include file="CommonAutocompleterInclude.tpl"-|
 |-if $invalidId-|
-	<div class="resultFailure">el headline solicitado no existe. seleccione uno del campo</div>
+	<div class="resultFailure">El titular solicitado no existe. Seleccione uno del campo</div>
+|-elseif $notProcessed-|
+	<div class="resultFailure">El titular solicitado no está procesado. Seleccione uno del campo</div>
 |-/if-|
+|-include file="CommonAutocompleterInclude.tpl"-|
 	<fieldset>
 		<Legend>Copiar información de titular</legend>
 <form method="GET" action="Main.php">
@@ -38,10 +40,13 @@
 	</p>
 	<p>
 		<label>Buscar por texto</label>
-		<input name="text" type="text" size="60">
+		<input name="text" type="text" size="60" value="|-$text-|"> &nbsp; <label for="processed" class="inlineLabel">Incluir procesados</label>
+					<input id="processed" name="processed" type="checkbox" value="1" |-$processed|checked_bool-| title="Incluir resultados con cualquier procesamiento" />
 	</p>
 	<p>
 		<label>&nbsp;</label><input type="submit" value="Obtener titulares a copiar">
+		<input type='button' id='button_return' value='Regresar al titular' onClick='location.href="Main.php?do=headlinesEdit&id=|-$id-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) && $page gt 0-|&page=|-$page-||-/if-|"' />
+				|-include file="HiddenInputsInclude.tpl" filters="$filters" page="$page"-|
 	</p>
 </form>
 |-if $headlineFrom-|
@@ -81,7 +86,12 @@
 							<input type="button" class="replicateButton icon iconCopy" onclick="replicateInto(|-$headlineTo->getId()-|);" title="Copiar datos a este titular" />
 						</td>
 						<td valign="top"><strong>|-$headlineTo->getName()-| || |-if $headlineTo->getMediaId() eq 0-||-$headlineTo->getMediaName()-||-else-||-$headlineTo->getMedia()-||-/if-| || |-$headlineTo->getdatePublished()|change_timezone|date_format-|</strong><br>
-						|-$headlineTo->getContent()|mb_truncate:295:" ... ":'UTF-8':true|highlight:$tags:highlight-|</td>
+						|-if $headlineTo->getContent()|mb_count_characters gt 300-|
+			|-$headlineTo->getContent()|mb_truncate:295:" ... ":'UTF-8':true|highlight:$tags:highlight-|
+				<img id="imgMore|-$headlineTo->getId()-|" src="images/clear.png" onClick="$('more|-$headlineTo->getId()-|').toggle();$('imgMore|-$headlineTo->getId()-|').toggleClassName('inlineLink readLess')" class="inlineLink readMore" title="Ver/Ocultar texto" /><span id="more|-$headlineTo->getId()-|" style="display: none ">|-$headlineTo->getContent()|mb_substr:290:5000:'UTF-8'|highlight:$tags:highlight-|</span>
+			|-else-|
+				|-$headlineTo->getContent()|highlight:$tags:highlight-|
+			|-/if-|</td>
 					</tr>
 				|-/foreach-|
 				|-if $headlinesTo->count() eq 50-|
