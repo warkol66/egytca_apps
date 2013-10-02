@@ -246,6 +246,7 @@
 				|-include file="HiddenInputsInclude.tpl" filters="$filters" page="$page"-|
 				<!--input type="hidden" name="do" id="do" value="headlinesDoEdit" /-->
 				<input id="button" type="button" name="button" value="Guardar" title="Guardar" onclick="javascript:validateInternal(this.form);">
+|-if $headline->processed()-|<input type='button' id='button_replicate' value='Replicar información' onClick='location.href="Main.php?do=headlinesReplicateInfo&id=|-$headline->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) && $page gt 0-|&page=|-$page-||-/if-|"' />|-/if-|
 				<input type="button" id="cancel" name="cancel" title="Regresar al listado" value="Regresar al listado" onClick="location.href='Main.php?do=headlinesList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page) && $page gt 0-|&page=|-$page-||-/if-|'"/>
 				|-if !$headline->isNew()-|
 				<input type="hidden" name="id" id="id" value="|-$headline->getid()-|" />
