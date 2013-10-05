@@ -22,7 +22,9 @@ class SecurityBlockedAction extends BaseAction {
 		$smarty->assign("module",$module);
 		$smarty->assign("section",$section);
 		
-		$this->template->template = "TemplatePublic.tpl";
+		$smarty->assign("ip",Common::getIp());
+
+		$this->template->template = "TemplateAjax.tpl";
 
 		return $mapping->findForwardConfig('success');
 
