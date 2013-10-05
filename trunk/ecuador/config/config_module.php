@@ -14,7 +14,10 @@ class ConfigModule {
 			"unifiedUsernames" => true,
 			"backupTimeLimit" => 720,
 			"tmpwatch" => "/usr/sbin/tmpwatch",
-			"securityFailureThreshold" => 5,
+			"loginFailureThreshold" => 10,
+			"loginFailureThresholdTime" => 5,
+			"loginFailureBlockedTimeTime" => 15,
+			"securityFailureThreshold" => 10,
 			"securityFailureThresholdTime" => 15,
 			"securityFailureBlockedTime" => 15
 		),
