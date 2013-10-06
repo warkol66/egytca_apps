@@ -71,7 +71,7 @@ function getTrendingTopics(){
 			|-if !$campaign->getTwitterCampaign()-| 
 			<a class="iconTextLink" href="Main.php?do=headlinesParsedList&filters[campaignId]=|-$campaign->getId()-|"><img src="images/clear.png" class="iconNews iconSize">Obtener Titulares</a>&nbsp; &nbsp; <a class="iconTextLink" href="Main.php?do=campaignsEdit&report=1&id=|-$campaign->getId()-|"><img src="images/clear.png" class="iconPrint iconSize">Generar Reporte</a>
 			|-else-|
-			<a class="iconTextLink" href="Main.php?do=twitterParsedList&filters[campaignId]=|-$campaign->getId()-|"><img src="images/clear.png" class="iconTwitter iconSize">Obtener Tweets</a>
+			<a class="iconTextLink" href="Main.php?do=twitterParsedList&filters[campaignId]=|-$campaign->getId()-|"><img src="images/clear.png" class="iconTwitter iconSize">Obtener Tweets</a>&nbsp; &nbsp; <a class="iconTextLink" href="Main.php?do=twitterCampaignsReportView&id=|-$campaign->getId()-|"><img src="images/clear.png" class="iconPrint iconSize">Generar Reporte</a>
 			|-/if-|
 		|-/if-|
 		</p>

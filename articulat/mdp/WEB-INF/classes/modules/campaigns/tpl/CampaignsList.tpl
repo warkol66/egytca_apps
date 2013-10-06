@@ -11,7 +11,7 @@
 	|-assign var=campaigns value=$pager->getResult()-|
 	<h1>Campañas</h1> 
 |-/if-|
-<div id="div_campaigns"> 
+<div id="div_campaigns">
 	<table id="tabla-campaigns" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 <thead> |-if !$result-|		
 		<tr>
