@@ -239,7 +239,7 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-image: url(../images/icon_expand.png) !Important;
 	background-position: 2px 2px !Important;}
 .iconCollapse {
-	background-image: url(../images/icon_collapse.png) !Important; ;
+	background-image: url(../images/icon_collapse.png) !Important;
 	background-position: 2px 2px !Important; }
 .icon:hover,input[type="submit"].icon:hover, input[type="button"].icon:hover  {
 	background-color: #b9b9b9 !Important;
