@@ -235,7 +235,7 @@ function getTrendingTopics(){
 <fieldset>
 	<legend>Tweets Aceptados &nbsp; &nbsp; </legend>
 	<div id="div_tweets">
-	|-include file="TwitterList.tpl" twitterTweetColl=$acceptedTweets campaignid=$campaign->getId() tweetValues=$tweetValues tweetRelevances=$tweetRelevances tweetStatuses=$tweetStatuses embedded='true'-|
+	|-include file="TwitterList.tpl" twitterTweetColl=$acceptedTweets campaignid=$campaign->getId() tweetValues=$tweetValues tweetRelevances=$tweetRelevances tweetStatuses=$tweetStatuses campaignFilters=$filters filters=$twitterFilters embedded='true'-|
 	</div>
 </fieldset>
 |-/if-||-*/Si tiene tweets*-|

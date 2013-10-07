@@ -8,14 +8,15 @@
 		</p>
 		<p>
 				<label for="twitter[filters][processed]">Procesados</label>
-				Todos <input name="twitter[filters][processed]" type="radio" value="-1" |-if isset($filters.processed)-||-$filters.processed|checked:-1-||-/if-| />
-				Sin procesar <input name="twitter[filters][processed]" type="radio" value="0" |-if isset($filters.processed)-||-$filters.processed|checked:0-||-/if-| />
-				Procesados <input name="twitter[filters][processed]" type="radio" value="1" |-if isset($filters.processed) -||-$filters.processed|checked:1-||-/if-| />
+				&nbsp; Todos <input name="twitter[filters][processed]" type="radio" value="0" |-$filters.processed|checked:0-| />
+				&nbsp; Sólo procesados <input name="twitter[filters][processed]"  type="radio" value="1" |-$filters.processed|checked:1-| />
 		</p>
 		<p>
 			<input type="hidden" name="do" value="campaignsEdit" />
 			<input type="hidden" name="id" value=|-$campaignid-| />
 			<input type="hidden" name="twitter[filters][campaignid]" value=|-$campaignid-| />
+			<input type="hidden" name="filters[anchor]" value="tweetsList" />
 			<input type="submit" value="Filtrar">
-			|-if $filters|@count gt 0-|<input name="removeFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=campaignsEdit&id=$campaignid'"/>|-/if-|
+			|-if $campaignFilters-||-$filters = $campaignFilters-||-/if-|
+			|-if $filters|@count gt 0-|<input name="removeFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=campaignsEdit&id=|-$campaign->getId()-||-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|#tweetsList'"/>|-/if-|
 		</p>
