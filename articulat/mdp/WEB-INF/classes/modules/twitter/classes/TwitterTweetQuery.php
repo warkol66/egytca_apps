@@ -25,9 +25,9 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 	 * */
 	public function Processed($proc){
 		if($proc)
-			return $this->filterByValue(array('min' => TwitterTweet::VERY_POSITIVE))->filterByRelevance(array('min' => TwitterTweet::VERY_RELEVANT));
+			return $this->filterByValue(array('min' => 1))->filterByRelevance(array('min' => 1));
 		else
-			return $this->filterByValue(array('max' => 0))->filterByRelevance(array('max' => 0));
+			return $this;
 	}
 	
 	/* Filtra por tweets procesados y no aceptados

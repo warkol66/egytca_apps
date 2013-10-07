@@ -11,7 +11,7 @@
 		<div id="twitterShowDiv"></div>
 	</div>
 </div>
-<div id="tweetsFilters">
+<div id="tweetsFilters"><a name="tweeterList"></a>
 <form action="Main.php" method="get">
 	<fieldset title="Formulario de Opciones de búsqueda de tweets">
 		<legend>Opciones de Búsqueda</legend>
@@ -35,9 +35,8 @@
 		</p>
 		<p>
 				<label for="filters[processed]">Procesados</label>
-				Todos <input name="filters[processed]" type="radio" value="-1" |-if isset($filters.processed)-||-$filters.processed|checked:-1-||-/if-| />
-				Sin procesar <input name="filters[processed]" type="radio" value="0" |-if isset($filters.processed)-||-$filters.processed|checked:0-||-/if-| />
-				Procesados <input name="filters[processed]" type="radio" value="1" |-if isset($filters.processed) -||-$filters.processed|checked:1-||-/if-| />
+				&nbsp; Todos <input name="filters[processed]" type="radio" value="0" |-$filters.processed|checked:0-| />
+				&nbsp; Sólo procesados  <input name="filters[processed]" type="radio" value="1" |-$filters.processed|checked:1-| />
 		</p>
 		<p>
 			<input type="hidden" name="do" value="twitterList" />
@@ -73,10 +72,10 @@
 			|-assign var=user value=$tweet->getTwitterUser()-|
 			<tr>
 				<td align="center"><input type="checkbox" name="selected[]" value="|-$tweet->getId()-|"></td>
-				<td class="twitterTextTable">|-$tweet->getText()|twitterHighlight-|</td>
-				<td><a href="#twitterUserLightbox" rel="twitterUserLightbox" class="lbOn"><input type="button" class="twitterUserDetail" onClick='{new Ajax.Updater("twitterShowDiv", "Main.php?do=twitterUsersEditX", { method: "post", parameters: { id: "|-$user->getInternalid()-|"}, evalScripts: true})};$("twitterDivShowWorking").innerHTML = "<span class=\"inProgress\">buscando Usuario...</span>";$("twitterShowDiv").innerHTML = " ";' value="|-$user->getName()-|" name="" title="Ver perfil del usuario" /></a></td>
-				<td nowrap="nowrap">|-$tweet->getCreatedat()|date_format:"%d-%m-%Y %H:%m"-|</td>
-				<td>
+				<td valign="top"class="twitterTextTable">|-$tweet->getText()|twitterHighlight-|</td>
+				<td valign="top"><a href="#twitterUserLightbox" rel="twitterUserLightbox" class="lbOn"><input type="button" class="twitterUserDetail" onClick='{new Ajax.Updater("twitterShowDiv", "Main.php?do=twitterUsersEditX", { method: "post", parameters: { id: "|-$user->getInternalid()-|"}, evalScripts: true})};$("twitterDivShowWorking").innerHTML = "<span class=\"inProgress\">buscando Usuario...</span>";$("twitterShowDiv").innerHTML = " ";' value="|-$user->getName()-|" name="" title="Ver perfil del usuario" /></a></td>
+				<td valign="top" nowrap="nowrap">|-$tweet->getCreatedat()|date_format:"%d-%m-%Y %H:%m"-|</td>
+				<td valign="top">
 					<form action="Main.php" method="post" id="formValueTweets|-$tweet->getId()-|">
 						<select name="params[value]" id="selectTweetValue|-$tweet->getId()-|" onChange="javascript:twitterDoEditValue(this.form);">
 								<option value="0">Sin seleccionar</option>
@@ -88,7 +87,7 @@
 						<input type="hidden" name="do" value="twitterDoEditX" id="do">
 					</form>
 				</td> 
-				<td>
+				<td valign="top">
 					<form action="Main.php" method="post" id="formRelevanceTweets|-$tweet->getId()-|">
 						<select name="params[relevance]" id="selectTweetRelevance|-$tweet->getId()-|" onChange="javascript:twitterDoEditValue(this.form);">
 								<option value="0">Sin seleccionar</option>
@@ -100,7 +99,7 @@
 						<input type="hidden" name="do" value="twitterDoEditX" id="do">
 					</form>
 				</td> 
-				<td>
+				<td valign="top">
 					<form action="Main.php" method="post" id="formStatusTweets|-$tweet->getId()-|">
 						<select name="params[status]" id="selectTweetStatus|-$tweet->getId()-|" onChange="javascript:twitterDoEditValue(this.form);">
 							|-foreach from=$tweetStatuses key=key item=name-|
