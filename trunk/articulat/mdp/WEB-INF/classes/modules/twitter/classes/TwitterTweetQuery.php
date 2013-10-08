@@ -51,7 +51,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		return TwitterTweetQuery::create()->filterByCampaignid($campaigns)->find();
 	}
 	
-	/* Obtiene cantidad de tweets aceptados y valorados como positivos
+	/* Obtiene cantidad de tweets aceptados y valorados como $value
 	 * por dia
 	 * 
 	 * return (json) fecha y cantidad de tweets 
@@ -82,5 +82,30 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 			
 		}
 		return $positiveTweets;
+	}
+	
+	public function getTopUsers($from = null, $to = null, $top = 5){
+			
+		if(!isset($from) && !isset($to)){
+			
+			$tops = TwitterTweetQuery::create()
+				->withColumn('count(TwitterTweet.Id)', 'tweets')
+				->filterByStatus(TwitterTweet::ACCEPTED)
+				->groupBy('TwitterTweet.Userid')
+				->orderBy('TwitterTweet.tweets', 'desc')
+				//->select('TwitterTweet.Userid')
+				->limit($top)
+				->find();
+			$users = array();
+			$i = 0;
+			foreach($tops as $top){
+				$users[$i]['user'] = $top->getTwitterUser();
+				$users[$i]['tweets'] = $top->getTweets();
+				$i++;
+			}
+		}else{
+			
+		}
+		return $users;
 	}
 }
