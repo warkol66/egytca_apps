@@ -8,8 +8,8 @@
 		<chart caption='Estadísticas de uso' subCaption='' showSlackAsFill='0' showPercentLabel='1'>
 	|-/if-|
 	
-	<set label='Entradas de Blog' value='|-$blogEntries-|' />
-	<set label='Comentarios en Blog' value='|-$blogComments-|' />
+	<set label='Experiencias' value='|-$blogEntries-|' />
+	<set label='Comentarios en Esperiencias' value='|-$blogComments-|' />
 	<set label='Desafios' value='|-$boardChallenges-|' />
 	<set label='Comentarios sobre Desafios' value='|-$boardComments-|' />
 	|-if isset($id)-|<set label='Compromisos sobre Desafios' value='|-$boardBonds-|' />|-/if-|
