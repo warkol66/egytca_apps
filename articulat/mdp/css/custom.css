@@ -921,10 +921,12 @@ table.tableTdBorders {
 }
 
 .twitterReportGrid .twitterReportTick {
-stroke: lightgrey;
-opacity: 0.7;
+	stroke: lightgrey;
+	opacity: 0.7;
 }
-.twitterReportGrid path {
-stroke-width: 0;
-}
+.twitterReportGrid path { stroke-width: 0; }
+
+.slice text { font-size: 10pt; }
+
+.slice path { stroke: #fff;}
 
