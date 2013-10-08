@@ -19,17 +19,21 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 		$this->smarty->assign("module", $this->module);
 		
 		if(is_object($this->entity)){
-			//obtengo tweets positivos por fecha
+			//obtengo tweets positivos, neutros y negativos por fecha
 			$positive = TwitterTweetQuery::getAcceptedByValue(null, null, TwitterTweet::POSITIVE);
-			//obtengo tweets negativos por fecha
+			$negative = TwitterTweetQuery::getAcceptedByValue(null, null, TwitterTweet::NEUTRAL);
 			$negative = TwitterTweetQuery::getAcceptedByValue(null, null, TwitterTweet::NEGATIVE);
-			/*echo"<pre>"; print_r($positive); echo "</pre>";
-			die();*/
+			// obtengo los usuarios que mas tweets crearon
+			$topUsers = TwitterTweetQuery::getTopUsers();
 			
+			
+			// obtengo los actores mas mencionados
 			
 			$this->smarty->assign("positive", $positive);
+			$this->smarty->assign("neutral", $neutral);
 			$this->smarty->assign("negative", $negative);
-			/*print_r($positive);
+			$this->smarty->assign("topUsers", $topUsers);
+			/*echo"<pre>"; print_r($topUsers); echo"</pre>";
 			die();*/
 		}
 		
