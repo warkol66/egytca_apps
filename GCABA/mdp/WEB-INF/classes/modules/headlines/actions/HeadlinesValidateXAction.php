@@ -24,8 +24,14 @@ class HeadlinesValidateXAction extends BaseAction {
 			$internalId = (md5($_POST["params"]["campaignId"] . $_POST["params"]["name"] . $_POST["params"]["content"] . $_POST["params"]["mediaId"]));
 		else
 			$internalId = (md5($_POST["params"]["campaignId"] . $_POST["params"]["name"] .  $_POST["params"]["url"]));
-			
-		$existent = HeadlineQuery::create()->findOneByInternalId($internalId);
+		
+		$id = $_POST['id'];
+		$existent = HeadlineQuery::create()
+			->_if(!empty($id))
+				->filterById($id, Criteria::NOT_EQUAL) // exclude self
+			->_endif()
+			->filterByInternalId($internalId)
+			->findOne();
 		if(is_object($existent))
 			$smarty->assign("existent", true);
 
