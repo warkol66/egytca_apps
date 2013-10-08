@@ -24,13 +24,14 @@ class UsersStatisticsViewXAction extends BaseEditAction {
 		$this->smarty->assign("show", true);
 
 		if(isset($id)){
+			$this->smarty->assign("id", $id);
 			//Constantes y opciones posibles
 			$this->smarty->assign("blogEntries", BlogEntryQuery::create()->filterByUserid($id)->count());
-			$this->smarty->assign("blogComments", BlogCommentQuery::create()->filterByObjectType('User')->filterByObjectid($id)->count());
+			$this->smarty->assign("blogComments", BlogCommentQuery::create()->filterByObjectid($id)->count());
 			$this->smarty->assign("boardChallenges", BoardChallengeQuery::create()->filterByUserid($id)->count());
-			$this->smarty->assign("boardComments", BoardCommentQuery::create()->filterByObjectType('User')->filterByUserid($id)->count());
-			$this->smarty->assign("boardBonds", BoardBondQuery::create()->filterByUserType('User')->filterByUserid($id)->count());
-			$this->smarty->assign("documents", DocumentQuery::create()->filterByUserObjectType('User')->filterByUserObjectid($id)->count());
+			$this->smarty->assign("boardComments", BoardCommentQuery::create()->filterByUserid($id)->count());
+			$this->smarty->assign("boardBonds", BoardBondQuery::create()->filterByUserid($id)->count());
+			$this->smarty->assign("documents", DocumentQuery::create()->filterByUserObjectid($id)->count());
 		}elseif(isset($_REQUEST['dateFrom']) && isset($_REQUEST['dateTo'])){
 			$from = Common::convertToMysqlDateFormat($_REQUEST['dateFrom']);
 			$to = Common::convertToMysqlDateFormat($_REQUEST['dateTo']);
