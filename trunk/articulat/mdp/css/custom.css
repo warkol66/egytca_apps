@@ -930,3 +930,13 @@ table.tableTdBorders {
 
 .slice path { stroke: #fff;}
 
+#reportTweets, #reportUsers { 
+	float: left; 
+	margin-top: 10px; 
+	margin-bottom:10px;
+}
+#reportUsers{clear: left; padding-top: 10px;}
+#positive, #usersChart{ width: 500px; float: left;}
+#negative, #usersTweetsChart{ width: 500px; float: right; padding-left: 50px;}
+
+.userTweetsList, .userTweetsListItem {list-style: none;}
