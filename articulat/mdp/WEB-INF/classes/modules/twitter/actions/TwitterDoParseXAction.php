@@ -29,17 +29,17 @@ class TwitterDoParseXAction extends BaseAction {
 				$searchRespone = $twitterConnection->search($term,10,'search');
 				foreach ($searchRespone->statuses as $responseTweet) {
 					// obtengo el html para embeber el tweet
-					$embedQuery = array('id' => $responseTweet->id);
+					$embedQuery = array('id' => $responseTweet->id_str);
 					$embed = $twitterConnection->search($embedQuery,0,'embed');
 					$embed = $embed->html;
-					
+					//$embeds[] = $embed;
 					$tweet = TwitterTweet::createFromApiTweet($responseTweet, $campaignId, $embed);
 					$tweets[] = $tweet;
 					//$tweets[] = $responseTweet;
 				}
 			}
 			
-			//echo "<pre>";print_r($tweets);echo "</pre>";
+			//echo "<pre>";print_r($embeds);echo "</pre>";
 		}
 		//die;
 		$smarty->assign('tweetsParsed',$tweets);

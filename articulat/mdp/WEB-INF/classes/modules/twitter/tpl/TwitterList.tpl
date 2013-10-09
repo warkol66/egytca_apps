@@ -1,6 +1,4 @@
-|-if isset($embedded)-|
-	<script src="Main.php?do=js&name=js&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
-|-/if-|
+<script src="Main.php?do=js&name=js&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 <script type="text/javascript" src="scripts/lightbox.js"></script>
 <div id="twitterUserLightbox" class="leightbox">
 	<p align="right">				
