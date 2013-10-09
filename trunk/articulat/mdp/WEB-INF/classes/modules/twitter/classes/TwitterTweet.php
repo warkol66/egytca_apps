@@ -87,8 +87,6 @@ class TwitterTweet extends BaseTwitterTweet{
 			'friends' => $apiTweet->user->friends_count
 		);
 		
-		//return $user;
-		
 		$newTweet = TwitterTweet::addTweet($tweet);
 		$newUser = TwitterUser::addUser($user);
 		
