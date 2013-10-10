@@ -10,7 +10,7 @@
 	|-else-|
 	$("li_|-$tweet->getId()-|").remove();
 	$("resultDiv").innerHTML = '<span class="resultSuccess">Tweet |-$infoMessage-|</span>';
-	$('lClose').simulate('click')
+	$('lClose').simulate('click');
 	|-/if-|
 |-/if-|
 </script>
