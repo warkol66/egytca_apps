@@ -11,16 +11,18 @@ class TwitterListAction extends BaseListAction {
 
 		$this->module = "Twitter";
 		
-		//si selecciono campaña seteo el
-		if(!isset($_GET['filters']['campaignid'])){
+		if(!empty($_GET['filters']['campaignid'])){
 			$campaigns = CampaignQuery::create()->getMostRecentIds(15, 1);
 			$this->filters['getMostRecent'] = $campaigns;
-		}else
-			$this->smarty->assign("campaignid",$_GET['filters']['campaignId']);
+		}else{
+			$this->smarty->assign('campaignid',$_GET['filters']['campaignId']);
+		}
+			
+		if(!empty($_GET['filters']['fromCampaign']))
+			$this->smarty->assign('fromCampaign',$_GET['filters']['fromCampaign']);
 			
 		if(!empty($_GET['filters']['minDate'])){
             $this->filters['dateRange']['createdat']['min'] = $_GET['filters']['minDate'];
-            //die('yes');
         }
         if(!empty($_GET['filters']['maxDate'])){
             $this->filters['dateRange']['createdat']['max'] = $_GET['filters']['maxDate'];
