@@ -71,7 +71,7 @@ function getTrendingTopics(){
 			|-if !$campaign->getTwitterCampaign()-| 
 			<a class="iconTextLink" href="Main.php?do=headlinesParsedList&filters[campaignId]=|-$campaign->getId()-|"><img src="images/clear.png" class="iconNews iconSize">Obtener Titulares</a>&nbsp; &nbsp; <a class="iconTextLink" href="Main.php?do=campaignsEdit&report=1&id=|-$campaign->getId()-|"><img src="images/clear.png" class="iconPrint iconSize">Generar Reporte</a>
 			|-else-|
-			<a class="iconTextLink" href="Main.php?do=twitterParsedList&filters[campaignId]=|-$campaign->getId()-|"><img src="images/clear.png" class="iconTwitter iconSize">Obtener Tweets</a>&nbsp; &nbsp; <a class="iconTextLink" href="Main.php?do=twitterCampaignsReportView&id=|-$campaign->getId()-|"><img src="images/clear.png" class="iconPrint iconSize">Generar Reporte</a>
+			<a class="iconTextLink" href="Main.php?do=twitterParsedList&filters[campaignId]=|-$campaign->getId()-|"><img src="images/clear.png" class="iconTwitter iconSize">Obtener Tweets</a>&nbsp; &nbsp; <a class="iconTextLink" href="Main.php?do=twitterList&filters[campaignId]=|-$campaign->getId()-|&filters[fromCampaign]=1"><img src="images/clear.png" class="iconTwitter iconSize">Administrar Tweets</a>&nbsp; &nbsp; <a class="iconTextLink" href="Main.php?do=twitterCampaignsReportView&id=|-$campaign->getId()-|"><img src="images/clear.png" class="iconPrint iconSize">Generar Reporte</a>
 			|-/if-|
 		|-/if-|
 		</p>
@@ -230,12 +230,6 @@ function getTrendingTopics(){
 	<div id="ttMsgField"></div>
 	<div id="trendingTopicsList">
 	|-include file="TwitterTrendingTopicsList.tpl" twitterTrendingTopicsColl=$latestTopics -|
-	</div>
-</fieldset>
-<fieldset>
-	<legend>Tweets Aceptados &nbsp; &nbsp; </legend>
-	<div id="div_tweets">
-	|-include file="TwitterList.tpl" twitterTweetColl=$acceptedTweets campaignid=$campaign->getId() tweetValues=$tweetValues tweetRelevances=$tweetRelevances tweetStatuses=$tweetStatuses campaignFilters=$filters filters=$twitterFilters embedded='true'-|
 	</div>
 </fieldset>
 |-/if-||-*/Si tiene tweets*-|
