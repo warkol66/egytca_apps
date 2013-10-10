@@ -24,7 +24,8 @@ class TwitterDoParseXAction extends BaseAction {
 			$tweets = array();
 			$embeds = array();
 			
-			foreach (split(' ', $query) as $term) {
+			$terms = $this->parseSearchQuery($query);
+			foreach ($terms as $term) {
 			
 				$searchRespone = $twitterConnection->search($term,10,'search');
 				foreach ($searchRespone->statuses as $responseTweet) {
@@ -44,5 +45,24 @@ class TwitterDoParseXAction extends BaseAction {
 		//die;
 		$smarty->assign('tweetsParsed',$tweets);
 		return $mapping->findForwardConfig('success');
+	}
+	
+	function parseSearchQuery($query) {
+		
+		$loopcount = 0;
+		$terms = array();
+		
+		while (preg_match('/^(\"[^\"]+\")|([^\"\s]+)/', trim($query), $matches)) {
+			
+			$match = empty($matches[1]) ? $matches[2] : $matches[1];
+			$terms[] = $match;
+			
+			$query = preg_replace("/^$match\s*/", '', $query);
+			
+			if (++$loopcount > 1000)
+				throw new Exception('potential infinite loop detected');
+		}
+		
+		return $terms;
 	}
 }
