@@ -1,20 +1,9 @@
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script><script type="text/javascript" src="scripts/lightbox.js"></script>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 <h2>Reportes</h2>
 <h1>Reportes de Campaña</h1>
 <p>Análisis de la Campaña "|-$campaign->getName()-|"</p>
 <p><input type="button" id="return_button" onclick="location.href='Main.php?do=campaignsEdit&id=|-$campaign->getId()-|'" value="Regresar a la campaña" /></p>
-
-<div id="twitterUserLightbox" class="leightbox">
-	<p align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
-	</p> 
-	<div id="twitterDivShowWorking"></div>
-	<div class="innerLighbox">
-		<div id="twitterShowDiv"></div>
-	</div>
-</div>
-
 <div id='reportTweets'>
     <div id='positive'>
 		<h4>Tweets positivos</h4>
@@ -36,11 +25,14 @@
 </div>
 <div id='reportUsers'>
     <div id='usersChart'>
-      <h4>Usuarios con más tweets</h4>
+		<h4>Usuarios con más tweets</h4>
     </div>
     <div id='usersTweetsChart'>
-      <h4>Tweets</h4>
-      <div id="tweetsList">Haga click en un usuario para ver sus últimos tweets</div>
+		<h4>Tweets</h4>
+		<div id="tweetsList">
+			Haga click en un usuario para ver sus últimos tweets
+		</div>
+		<div id="tlist" style="display:none;"></div>
     </div>
 </div>
 
@@ -274,7 +266,7 @@
         .data(pie)
         .enter()
         .append("svg:a") // Append legend elements
-        .attr("onclick", function(d, i) { return '{new Ajax.Updater("tweetsList", "Main.php?do=twitterUsersTweetsViewX", { method: "post", parameters: { id: "' + arrUsers[i].id + '", campaign: "|-$campaign->getId()-|"}, evalScripts: true})};$("tweetsList").innerHTML = "Buscando tweets..."; return false;'; })
+        .attr("onclick", function(d, i) { return '{new Ajax.Updater("tlist", "Main.php?do=twitterUsersTweetsViewX", { method: "post", parameters: { id: "' + arrUsers[i].id + '", campaign: "|-$campaign->getId()-|"}, evalScripts: true})};$("tweetsList").innerHTML = "Buscando tweets..."; return false;'; })
         .attr("xlink:href", function(d) { return '#'; })
         .append("svg:g")
         .attr("class", "slice");

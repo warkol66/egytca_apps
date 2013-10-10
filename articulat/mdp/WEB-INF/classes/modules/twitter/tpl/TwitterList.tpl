@@ -14,6 +14,7 @@
 	<fieldset title="Formulario de Opciones de búsqueda de tweets">
 		<legend>Opciones de Búsqueda</legend>
 		|-if !isset($embedded)-|
+		|-if !isset($fromCampaign)-|
 		<p>
 			<label for="filters[campaignId]">Campaña</label>
 			<select name="filters[campaignid]" id="selectTwitterCampaign">
@@ -23,6 +24,7 @@
 				|-/foreach-|
 			</select>
 		</p>
+		|-/if-|
 		<p>
 			<label for="fromDate">Fecha desde</label>
 			<input id="filters[dateRange][createdat][min]" name="filters[dateRange][createdat][min]" type="text" value="|-$filters.minDate|date_format:"%d-%m-%Y"-|" size="12" title="Fecha desde dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateRange][createdat][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha desde dd-mm-aaaa">
@@ -40,6 +42,7 @@
 			<input type="hidden" name="do" value="twitterList" />
 			<input type="submit" value="Filtrar">
 			|-if $filters|@count gt 0-|<input name="removeFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=twitterList'"/>|-/if-|
+			|-if isset($fromCampaign) && isset($campaignid)-|<input type="button" id="return_button" onclick="location.href='Main.php?do=campaignsEdit&id=|-$campaignid-|'" value="Regresar a la campaña" />|-/if-|
 		</p>
 		|-else-||-*Si el list fue incluido los filtros son distintos*-|
 			|-include file="TwitterFiltersInclude.tpl" campaignid=$campaignid-|
