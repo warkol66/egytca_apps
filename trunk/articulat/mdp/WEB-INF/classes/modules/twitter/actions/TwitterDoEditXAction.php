@@ -8,9 +8,8 @@ class TwitterDoEditXAction extends BaseDoEditAction {
 	
 	protected function preUpdate() {
 		parent::preUpdate();
-
+		unset($this->entityParams["userId"]);
 		$this->module = "Twitter";
-
 	}
 
 	protected function postSave() {
