@@ -56,12 +56,12 @@
 		<thead>
 			<tr class="thFillTitle"> 
 					<th width="2%"><input type="checkbox" name="allbox" value="checkbox" id="allBoxes" onChange="javascript:selectAllCheckboxes()" title="Seleccionar todos" /></th>
-					<th width="60%">Texto</th> 
-					<th width="18%">Usuario</th> 
+					<th width="50%">Texto</th> 
+					<th width="21%">Usuario</th> 
 					<th width="5%">Fecha</th> 
 					<th width="5%">Valoración</th> 
-					<th width="5%">Relevancia</th> 
-					<th nowrap width="5%">&nbsp;&nbsp;</th> 
+					<th width="15%">Relevancia</th> 
+					<th nowrap width="2%">&nbsp;&nbsp;</th> 
 				</tr> 
 		</thead>
 		<tbody>|-if $twitterTweetColl|@count eq 0-|
@@ -74,12 +74,12 @@
 			<tr id="tr_|-$tweet->getId()-|">
 				<td align="center"><input type="checkbox" name="selected[]" value="|-$tweet->getId()-|"></td>
 				<td valign="top"class="twitterTextTable">|-$tweet->getText()|twitterHighlight-|</td>
-				<td valign="top"><a href="#twitterUserLightbox" rel="twitterUserLightbox" class="lbOn"><input type="button" class="twitterUserDetail" onClick='{new Ajax.Updater("twitterShowDiv", "Main.php?do=twitterUsersEditX", { method: "post", parameters: { id: "|-$user->getInternalid()-|"}, evalScripts: true})};$("twitterDivShowWorking").innerHTML = "<span class=\"inProgress\">buscando Usuario...</span>";$("twitterShowDiv").innerHTML = " ";' value="|-$user->getName()-|" name="" title="Ver perfil del usuario" /></a></td>
+				<td valign="top"><a href="#twitterUserLightbox" rel="twitterUserLightbox" class="lbOn"><input type="button" class="twitterUserDetail" onClick='{new Ajax.Updater("twitterShowDiv", "Main.php?do=twitterUsersViewX", { method: "post", parameters: { id: "|-$user->getId()-|"}, evalScripts: true})};$("twitterDivShowWorking").innerHTML = "<span class=\"inProgress\">buscando Usuario...</span>";$("twitterShowDiv").innerHTML = " ";' value="|-$user->getName()-|" name="" title="Ver perfil del usuario" /></a></td>
 				<td valign="top" nowrap="nowrap">|-$tweet->getCreatedat()|date_format:"%d-%m-%Y %H:%m"-|</td>
 				<td valign="top">
 					<form action="Main.php" method="post" id="formValueTweets|-$tweet->getId()-|">
 							|-foreach from=$tweetValues key=key item=name-|
-								|-$name-|<input name="params[value]" type="radio" value="|-$key-|" |-if $tweet->getValue() eq $key-|checked="checked"|-/if-| onChange="javascript:twitterDoEditValue(this.form);"/>
+								<input name="params[value]" type="radio" value="|-$key-|" |-if $tweet->getValue() eq $key-|checked="checked"|-/if-| onChange="javascript:twitterDoEditValue(this.form);"/>|-$name-|<br />
 							|-/foreach-|	
 						<input type="hidden" name="id" id="id" value="|-$tweet->getid()-|" />
 						<input type="hidden" name="do" value="twitterDoEditX" id="do">
@@ -88,7 +88,7 @@
 				<td valign="top">
 					<form action="Main.php" method="post" id="formRelevanceTweets|-$tweet->getId()-|">
 							|-foreach from=$tweetRelevances key=key item=name-|
-								|-$name-|<input name="params[relevance]" type="radio" value="|-$key-|" |-if $tweet->getRelevance() eq $key-|checked="checked"|-/if-| onChange="javascript:twitterDoEditValue(this.form);"/>
+								<input name="params[relevance]" type="radio" value="|-$key-|" |-if $tweet->getRelevance() eq $key-|checked="checked"|-/if-| onChange="javascript:twitterDoEditValue(this.form);"/>|-$name-|<br />
 							|-/foreach-|
 						<input type="hidden" name="id" id="id" value="|-$tweet->getid()-|" />
 						<input type="hidden" name="do" value="twitterDoEditX" id="do">
