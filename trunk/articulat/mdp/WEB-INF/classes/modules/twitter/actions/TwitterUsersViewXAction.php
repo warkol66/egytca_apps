@@ -2,7 +2,7 @@
 
 require_once 'TwitterConnection.class.php';
 
-class TwitterUsersEditXAction extends BaseEditAction {
+class TwitterUsersViewXAction extends BaseEditAction {
 	
 	function __construct() {
 		parent::__construct('TwitterUser');

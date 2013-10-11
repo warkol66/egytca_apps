@@ -75,8 +75,8 @@ class TwitterTweet extends BaseTwitterTweet{
 		);
 		
 		$user = array(
-			'Id' => $apiTweet->user->id,
-			'IdStr' => $apiTweet->user->id_str,
+			'Twitteruserid' => $apiTweet->user->id,
+			'Twitteruseridstr' => $apiTweet->user->id_str,
 			'Name' => $apiTweet->user->name,
 			'Screenname' => $apiTweet->user->screen_name,
 			'Location' => $apiTweet->user->location,
@@ -87,11 +87,13 @@ class TwitterTweet extends BaseTwitterTweet{
 			'friends' => $apiTweet->user->friends_count
 		);
 		
+		//return $user;
+		
 		$newTweet = TwitterTweet::addTweet($tweet);
 		$newUser = TwitterUser::addUser($user);
 		
 		//seteo el id del usuario creador
-		$newTweet->setUserId($newUser->getInternalId());
+		$newTweet->setTwitterUserId($newUser->getId());
 		$newTweet->save();
 		
 		// TODO: otras entidades
