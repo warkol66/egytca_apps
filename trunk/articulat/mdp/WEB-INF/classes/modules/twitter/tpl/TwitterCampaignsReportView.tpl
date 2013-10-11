@@ -242,7 +242,7 @@
 	// obtengo los datos
 	var arrUsers = [|-foreach from=$topUsers item=topUser-||-assign var=user value=$topUser['user']-|{"name":"@|-$user->getScreenname()-|","id":"|-$user->getInternalid()-|","tweets":|-$topUser['tweets']-|}|-if !$topUsers.last-|,|-/if-||-/foreach-|];
 	// medidas del svg
-	var margin = {top: 20, right: 20, bottom: 30, left: 100},
+	var margin = {top: 20, right: 20, bottom: 30, left: 50},
     w = 450 - margin.left - margin.right,
     h = 450 - margin.top - margin.bottom,
     r =  Math.min(w, h) / 2,
@@ -254,7 +254,7 @@
 		.attr("width", w)
 		.attr("height", h)
         .append("svg:g")
-        .attr("transform", "translate(" + r + "," + r + ")");
+        .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
 
     var arc = d3.svg.arc()
         .outerRadius(r);

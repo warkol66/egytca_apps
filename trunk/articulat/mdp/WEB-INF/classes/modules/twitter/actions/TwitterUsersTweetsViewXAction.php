@@ -19,7 +19,7 @@ class TwitterUsersTweetsViewXAction extends BaseAction {
 		// actualizo los datos del usuario
 		if(is_object($user)){
 			$campaign = $_POST['campaign'];
-			$userTweets = TwitterTweetQuery::create()->filterByCampaignid($campaign)->filterByUserId($user->getInternalid())->filterByStatus(2)->limit(5)->find();
+			$userTweets = TwitterTweetQuery::create()->filterByCampaignid($campaign)->filterByTwitterUserId($user->getInternalid())->filterByStatus(2)->limit(5)->find();
 			
 			$smarty->assign('userTweets',$userTweets);
 			$smarty->assign('user',$user);
@@ -27,31 +27,4 @@ class TwitterUsersTweetsViewXAction extends BaseAction {
 		}
 
 	}
-
-
-
-	
-	/*function __construct() {
-		parent::__construct('TwitterUser');
-	}
-	
-	protected function preEdit() {
-		parent::preEdit();
-
-		$this->module = "Twitter";
-
-	}
-
-	protected function postEdit() {
-		parent::postEdit();
-		$campaign = $_POST['campaign'];
-		$userTweets = TwitterTweetQuery::create()->filterByCampaignId($campaign)->filterByUserId($this->entity->getId())->limit(5)->find();
-		
-		print_r($userTweets);
-		die();
-		
-		$this->smarty->assign("module", $this->module);
-		$moduleConfig = Common::getModuleConfiguration($this->module);
-		
-	}*/
 }
