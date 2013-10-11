@@ -8,8 +8,8 @@
 		<column name="internalId" required="true"  type="VARCHAR" size="255" description="Tweet internal Id" />
 		<column name="campaignId" required="true"  type="VARCHAR" size="255" description="Campaign Id" />
 		<column name="createdAt" type="TIMESTAMP" description="Fecha de creacion" />
-		<column name="text" required="true"  type="VARCHAR" size="140" description="Tweet" primaryString="true" />
-		<column name="userId" required="true"  type="INTEGER" size="140" description="User who created the tweet" />
+		<column name="text" required="true"  type="VARCHAR" size="255" description="Tweet" primaryString="true" />
+		<column name="twitterUserId" required="true"  type="INTEGER" description="User who created the tweet" />
 		<column name="truncated" type="BOOLEAN" description="Tweet is truncated" />
 		<!--column name="geo"  /-->
 		<!-- column name="coordinates"  /-->
@@ -30,7 +30,7 @@
 
 		<!-- Descomentar cuando esten las tablas -->
 		<foreign-key foreignTable="twitter_user" onDelete="cascade">
-			<reference local="userId" foreign="internalId"/>
+			<reference local="twitterUserId" foreign="id"/>
 		</foreign-key>
 		
 		<foreign-key foreignTable="campaigns_campaign" onDelete="cascade">
@@ -52,9 +52,9 @@
 
 	<table name="twitter_user" phpName="TwitterUser" isCrossRef="true" description="Twitter / Users">
 
-		<column name="internalId" required="true" primaryKey="true" type="INTEGER"  description="User internal ID" autoIncrement="true"/>
-		<column name="id" required="true" type="INTEGER" description="Twitter user Id" />
-		<column name="idStr" required="true" type="VARCHAR" size="255" description="Twitter user String Id" />
+		<column name="id" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"	 description="Id" />
+		<column name="twitterUserId" required="true" type="INTEGER" description="Twitter user Id" />
+		<column name="twitterUserIdStr" required="true" type="VARCHAR" size="255" description="Twitter user String Id" />
 		<column name="name" type="VARCHAR" size="255" description="twitter user name" />
 		<column name="screenName" type="VARCHAR" size="255" description="twitter user username" />
 		<column name="location" type="VARCHAR" size="255" description="twitter user location" />
