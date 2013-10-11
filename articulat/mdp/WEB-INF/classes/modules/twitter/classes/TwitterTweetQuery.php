@@ -71,7 +71,6 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 			
 			$positiveTweets = array();
 			$i = 0;
-			//$positiveTweets['date'] = 'tweets';
 			foreach($positive as $pos){
 				$positiveTweets[$i]['date'] = $pos['date'];
 				$positiveTweets[$i]['tweets'] = $pos['tweets'];
@@ -91,9 +90,8 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 			$tops = TwitterTweetQuery::create()
 				->withColumn('count(TwitterTweet.Id)', 'tweets')
 				->filterByStatus(TwitterTweet::ACCEPTED)
-				->groupBy('TwitterTweet.Userid')
+				->groupBy('TwitterTweet.Twitteruserid')
 				->orderBy('TwitterTweet.tweets', 'desc')
-				//->select('TwitterTweet.Userid')
 				->limit($top)
 				->find();
 			$users = array();

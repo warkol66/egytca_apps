@@ -8,8 +8,17 @@ class TwitterDoEditXAction extends BaseDoEditAction {
 	
 	protected function preUpdate() {
 		parent::preUpdate();
-		unset($this->entityParams["userId"]);
+		//unset($this->entityParams["userId"]);
 		$this->module = "Twitter";
+		
+		if(!empty($_POST['todo'])){
+			switch($_POST['todo']){
+				case 'discard':
+				$this->entityParams['status'] = TwitterTweet::DISCARDED;
+				$this->smarty->assign('discarded', true);
+			}
+			
+		}
 	}
 
 	protected function postSave() {

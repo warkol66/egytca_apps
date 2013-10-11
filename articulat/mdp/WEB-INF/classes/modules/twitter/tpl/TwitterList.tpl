@@ -50,7 +50,7 @@
 	</fieldset>
 </form>
 </div>
-<div id="twitterResultsDiv"></div>
+<div id="resultDiv"></div>
 <div id="tweetsList">
 	<table id="tabla-tweets" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead>
@@ -61,7 +61,7 @@
 					<th width="5%">Fecha</th> 
 					<th width="5%">Valoración</th> 
 					<th width="5%">Relevancia</th> 
-					<th width="5%">Estado</th> 
+					<th nowrap width="5%">&nbsp;&nbsp;</th> 
 				</tr> 
 		</thead>
 		<tbody>|-if $twitterTweetColl|@count eq 0-|
@@ -71,42 +71,32 @@
 		|-else-|
 			|-foreach from=$twitterTweetColl item=tweet name=for_tweets-|
 			|-assign var=user value=$tweet->getTwitterUser()-|
-			<tr>
+			<tr id="tr_|-$tweet->getId()-|">
 				<td align="center"><input type="checkbox" name="selected[]" value="|-$tweet->getId()-|"></td>
 				<td valign="top"class="twitterTextTable">|-$tweet->getText()|twitterHighlight-|</td>
 				<td valign="top"><a href="#twitterUserLightbox" rel="twitterUserLightbox" class="lbOn"><input type="button" class="twitterUserDetail" onClick='{new Ajax.Updater("twitterShowDiv", "Main.php?do=twitterUsersEditX", { method: "post", parameters: { id: "|-$user->getInternalid()-|"}, evalScripts: true})};$("twitterDivShowWorking").innerHTML = "<span class=\"inProgress\">buscando Usuario...</span>";$("twitterShowDiv").innerHTML = " ";' value="|-$user->getName()-|" name="" title="Ver perfil del usuario" /></a></td>
 				<td valign="top" nowrap="nowrap">|-$tweet->getCreatedat()|date_format:"%d-%m-%Y %H:%m"-|</td>
 				<td valign="top">
 					<form action="Main.php" method="post" id="formValueTweets|-$tweet->getId()-|">
-						<select name="params[value]" id="selectTweetValue|-$tweet->getId()-|" onChange="javascript:twitterDoEditValue(this.form);">
-								<option value="0">Sin seleccionar</option>
 							|-foreach from=$tweetValues key=key item=name-|
-								<option value="|-$key-|" |-$tweet->getValue()|selected:$key-|>|-$name-|</option>
-							|-/foreach-|
-						</select>											
+								|-$name-|<input name="params[value]" type="radio" value="|-$key-|" |-if $tweet->getValue() eq $key-|checked="checked"|-/if-| onChange="javascript:twitterDoEditValue(this.form);"/>
+							|-/foreach-|	
 						<input type="hidden" name="id" id="id" value="|-$tweet->getid()-|" />
 						<input type="hidden" name="do" value="twitterDoEditX" id="do">
 					</form>
 				</td> 
 				<td valign="top">
 					<form action="Main.php" method="post" id="formRelevanceTweets|-$tweet->getId()-|">
-						<select name="params[relevance]" id="selectTweetRelevance|-$tweet->getId()-|" onChange="javascript:twitterDoEditValue(this.form);">
-								<option value="0">Sin seleccionar</option>
 							|-foreach from=$tweetRelevances key=key item=name-|
-								<option value="|-$key-|" |-$tweet->getRelevance()|selected:$key-|>|-$name-|</option>
+								|-$name-|<input name="params[relevance]" type="radio" value="|-$key-|" |-if $tweet->getRelevance() eq $key-|checked="checked"|-/if-| onChange="javascript:twitterDoEditValue(this.form);"/>
 							|-/foreach-|
-						</select>											
 						<input type="hidden" name="id" id="id" value="|-$tweet->getid()-|" />
 						<input type="hidden" name="do" value="twitterDoEditX" id="do">
 					</form>
 				</td> 
 				<td valign="top">
 					<form action="Main.php" method="post" id="formStatusTweets|-$tweet->getId()-|">
-						<select name="params[status]" id="selectTweetStatus|-$tweet->getId()-|" onChange="javascript:twitterDoEditValue(this.form);">
-							|-foreach from=$tweetStatuses key=key item=name-|
-								<option value="|-$key-|" |-$tweet->getStatus()|selected:$key-|>|-$name-|</option>
-							|-/foreach-|
-						</select>											
+						<img src="images/clear.png" class="icon iconDelete" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=twitterDoEditX&id=|-$tweet->getId()-|", { method: "post", parameters: { id: "|-$tweet->getId()-|", todo: "discard"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando tweet...</span>";' value="Descartar tweet" />
 						<input type="hidden" name="id" id="id" value="|-$tweet->getid()-|" />
 						<input type="hidden" name="do" value="twitterDoEditX" id="do">
 					</form>
