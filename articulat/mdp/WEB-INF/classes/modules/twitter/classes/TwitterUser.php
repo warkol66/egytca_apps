@@ -23,7 +23,7 @@ class TwitterUser extends BaseTwitterUser{
 	 * */
 	public function addUser($newUser) {
 		//me fijo si el usuario ya existe
-		$existent = TwitterUserQuery::create()->findOneByTwitterUserIdStr($newUser['TwitterUserIdStr']);
+		$existent = TwitterUserQuery::create()->findOneByTwitterUserIdStr($newUser['Twitteruseridstr']);
 		
 		if(!is_object($existent)){
 			$user = new TwitterUser();

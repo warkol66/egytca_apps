@@ -93,7 +93,7 @@ class TwitterTweet extends BaseTwitterTweet{
 		$newUser = TwitterUser::addUser($user);
 		
 		//seteo el id del usuario creador
-		$newTweet->setTwitterUserId($newUser->getId());
+		$newTweet->setInternalTwitterUserId($newUser->getId());
 		$newTweet->save();
 		
 		// TODO: otras entidades
