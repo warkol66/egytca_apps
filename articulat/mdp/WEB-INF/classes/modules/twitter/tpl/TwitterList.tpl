@@ -1,3 +1,4 @@
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 <script src="Main.php?do=js&name=js&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 <script type="text/javascript" src="scripts/lightbox.js"></script>
 <div id="twitterUserLightbox" class="leightbox">
