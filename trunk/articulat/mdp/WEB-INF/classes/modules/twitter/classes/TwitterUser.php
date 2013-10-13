@@ -33,5 +33,17 @@ class TwitterUser extends BaseTwitterUser{
 		}
 		return $existent;
 	}
+	
+	public function updateFromTwitter($searchRespone){
+		
+		$this->setDescription($searchRespone->description);
+		$this->setUrl($searchRespone->url);
+		$this->setScreenname($searchRespone->screen_name);
+		$this->setName($searchRespone->name);
+		$this->setFollowers($searchRespone->followers_count);
+		$this->setFriends($searchRespone->friends_count);
+		$this->save();
+		
+	}
 
 }

@@ -41,13 +41,14 @@
 		<thead>
 			<tr class="thFillTitle"> 
 					<th width="2%"><input type="checkbox" name="allbox" value="checkbox" id="allBoxes" onChange="javascript:selectAllCheckboxes()" title="Seleccionar todos" /></th>
-					<th width="25%">Nombre</th> 
-					<th width="23%">Nombre de usuario</th> 
+					<th width="20%">Nombre</th> 
+					<th width="25%">Nombre de usuario</th> 
 					<th width="20%">Descripción</th> 
 					<th width="10%">URL</th>
 					<th width="5%">Seguidores</th> 
-					<th nowrap width="5%">Amigos</th> 
-					<th nowrap width="10%">Influencia</th> 
+					<th width="5%">Amigos</th> 
+					<th width="10%">Influencia</th>
+					<th nowrap width="2%">&nbsp;&nbsp;</th> 
 				</tr> 
 		</thead>
 		<tbody>|-if $twitterUserColl|@count eq 0-|
@@ -59,20 +60,23 @@
 			|-assign var=userUrl value=$twitterUser->getUrl()-|
 			<tr id="tr_|-$twitterUser->getId()-|">
 				<td align="center"><input type="checkbox" name="selected[]" value="|-$twitterUser->getId()-|"></td>
-				<td valign="top"class="twitterTextTable">|-$twitterUser->getName()-|</td>
-				<td valign="top"class="twitterTextTable"><a href="https://twitter.com/|-$twitterUser->getScreenname()-|" class="twitterUrl " target="_blank">@|-$twitterUser->getScreenname()-|</a></td>
-				<td valign="top"class="twitterTextTable">|-$twitterUser->getDescription()-|</td>
-				<td valign="top"class="twitterTextTable">|-if !empty($userUrl)-|<a href="|-$userUrl-|" class="twitterUrl " target="_blank">|-$userUrl-|</a>|-/if-|</td>
-				<td valign="top"class="twitterTextTable">|-$twitterUser->getFollowers()-|</td>
-				<td valign="top"class="twitterTextTable">|-$twitterUser->getFriends()-|</td>
-				<td valign="top"class="twitterTextTable">|-$twitterUser->getInfluence()-|</td>
+				<td id="name_|-$twitterUser->getId()-|" valign="top">|-$twitterUser->getName()-|</td>
+				<td id="screenName_|-$twitterUser->getId()-|" valign="top"><a href="https://twitter.com/|-$twitterUser->getScreenname()-|" class="twitterUrl " target="_blank">@|-$twitterUser->getScreenname()-|</a></td>
+				<td id="description_|-$twitterUser->getId()-|" valign="top">|-$twitterUser->getDescription()-|</td>
+				<td id="url_|-$twitterUser->getId()-|" valign="top">|-if !empty($userUrl)-|<a href="|-$userUrl-|" class="twitterUrl " target="_blank">|-$userUrl-|</a>|-/if-|</td>
+				<td id="followers_|-$twitterUser->getId()-|" valign="top">|-$twitterUser->getFollowers()-|</td>
+				<td id="friends_|-$twitterUser->getId()-|" valign="top">|-$twitterUser->getFriends()-|</td>
+				<td valign="top">|-$twitterUser->getInfluence()-|</td>
+				<td valign="top">
+					<img src="images/clear.png" class="icon iconRestore" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=twitterUsersUpdateX", { method: "post", parameters: { id: "|-$twitterUser->getId()-|"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">actualizando usuario...</span>";' value="Actualizar usuario" />
+				</td>
 			</tr>
 			|-/foreach-|
 			</tbody> 
 			<tfoot>
 			|-if $twitterUserColl|@count neq 0-|
 				<tr>
-					<td colspan="8">
+					<td colspan="9">
 						<form action="Main.php" method="post" id='multipleTweetsChangeValueForm'>
 							<p>Cambiar el nivel de influencia de los usuarios seleccionados a
 								<select name="newValue" id="selectEntryStatus">
@@ -90,7 +94,7 @@
 			|-/if-|
 			|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 			<tr> 
-				<td colspan="8">|-include file="ModelPagerInclude.tpl"-|</td> 
+				<td colspan="9">|-include file="ModelPagerInclude.tpl"-|</td> 
 			</tr>
 			|-/if-|
 		|-/if-|
