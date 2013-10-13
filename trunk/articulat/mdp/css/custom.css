@@ -870,10 +870,10 @@ table.tableTdBorders {
 .tweetsList li{
 	padding-top: 12px;
 }
-.userHash, .userHash a{
+.userHash, .userHash a, .twitterUrl{
 	color: #0084B4;
 }
-.userHash a{
+.userHash a, .twitterUrl{
 	text-decoration: none;
 }
 .twitterUser{
