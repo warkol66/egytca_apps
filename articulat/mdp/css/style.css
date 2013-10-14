@@ -348,3 +348,9 @@ fieldset fieldset.noMargin {
 	fieldset#securityLevel tr.action td:last-child {
 		border-right: 1px solid #3d77b5  !Important;
 	}
+
+.radioLabelIcon {
+	font-size: 1.4em;
+	font-weight: bold;
+	padding: .2em;
+}
