@@ -5,5 +5,5 @@
 	|-elseif isset($discarded)-|
 	$("tr_|-$tweet->getId()-|").remove();
 	|-/if-|
-	$("resultDiv").innerHTML = "Tweet actualizado";
+	$("resultDiv").innerHTML = "<span class='resultSuccess'>Tweet actualizado</span>";
 </script>

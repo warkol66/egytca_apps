@@ -90,7 +90,8 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 			$tops = TwitterTweetQuery::create()
 				->withColumn('count(TwitterTweet.Id)', 'tweets')
 				->filterByStatus(TwitterTweet::ACCEPTED)
-				->groupBy('TwitterTweet.Twitteruserid')
+				->groupByInternaltwitteruserid()
+//				->groupBy('TwitterTweet.Twitteruserid')
 				->orderBy('TwitterTweet.tweets', 'desc')
 				->limit($top)
 				->find();

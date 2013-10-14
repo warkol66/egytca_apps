@@ -14,12 +14,12 @@ class TwitterUsersTweetsViewXAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 		
-		$user = TwitterUserQuery::create()->findOneByInternalid($_POST['id']);
+		$user = TwitterUserQuery::create()->findOneById($_POST['id']);
 		
 		// actualizo los datos del usuario
 		if(is_object($user)){
 			$campaign = $_POST['campaign'];
-			$userTweets = TwitterTweetQuery::create()->filterByCampaignid($campaign)->filterByTwitterUserId($user->getInternalid())->filterByStatus(2)->limit(5)->find();
+			$userTweets = TwitterTweetQuery::create()->filterByCampaignid($campaign)->filterByInternaltwitteruserid($user->getId())->filterByStatus(2)->limit(5)->find();
 			
 			$smarty->assign('userTweets',$userTweets);
 			$smarty->assign('user',$user);

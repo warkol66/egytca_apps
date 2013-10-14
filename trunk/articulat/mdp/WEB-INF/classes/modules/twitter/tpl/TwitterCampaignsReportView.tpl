@@ -240,7 +240,7 @@
 	|-/if-|
 	/********** Reporte de usuarios con mas tweets **********/
 	// obtengo los datos
-	var arrUsers = [|-foreach from=$topUsers item=topUser-||-assign var=user value=$topUser['user']-|{"name":"@|-$user->getScreenname()-|","id":"|-$user->getInternalid()-|","tweets":|-$topUser['tweets']-|}|-if !$topUsers.last-|,|-/if-||-/foreach-|];
+	var arrUsers = [|-foreach from=$topUsers item=topUser-||-assign var=user value=$topUser['user']-|{"name":"@|-$user->getScreenname()-|","id":"|-$user->getId()-|","tweets":|-$topUser['tweets']-|}|-if !$topUsers.last-|,|-/if-||-/foreach-|];
 	// medidas del svg
 	var margin = {top: 20, right: 20, bottom: 30, left: 50},
     w = 450 - margin.left - margin.right,
