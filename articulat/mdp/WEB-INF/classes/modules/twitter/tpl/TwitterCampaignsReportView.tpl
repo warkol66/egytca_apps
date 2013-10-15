@@ -1,26 +1,69 @@
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script src="/scripts/jquery.min.js" charset="utf-8"></script>
+<script src="Main.php?do=js&name=chartsJs&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
+<script> var $j = jQuery.noConflict(); </script>
 <h2>Reportes</h2>
 <h1>Reportes de Campaña</h1>
 <p>Análisis de la Campaña "|-$campaign->getName()-|"</p>
-<p><input type="button" id="return_button" onclick="location.href='Main.php?do=campaignsEdit&id=|-$campaign->getId()-|'" value="Regresar a la campaña" /></p>
+<div id="reportFilters">
+<!--form action="Main.php" method="get">
+	<fieldset title="Formulario de Opciones de filtros de reporte">
+		<legend>Opciones de Filtros</legend>
+		<p>
+			<label for="fromDate">Fecha desde</label>
+			<input id="filters[dateRange][createdat][min]" name="filters[dateRange][createdat][min]" type="text" value="|-$filters.minDate|date_format:"%d-%m-%Y"-|" size="12" title="Fecha desde dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateRange][createdat][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha desde dd-mm-aaaa">
+		</p>
+		<p>
+			<label for="toDate">Fecha hasta</label>
+			<input id="filters[dateRange][createdat][max]" name="filters[dateRange][createdat][max]" type="text" value="|-$filters.maxDate|date_format:"%d-%m-%Y"-|" size="12" title="Fecha hasta dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateRange][createdat][max]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha hasta dd-mm-aaaa">
+		</p>
+		<p>
+			<input type="hidden" name="do" value="twitterCampaignsReportView" />
+			<input type="submit" value="Filtrar">
+			|-if $filters|@count gt 0-|<input name="removeFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=twitterCampaignsReportView&id=|-$campaign->getId()-|'"/>|-/if-|
+			|-if isset($campaign)-|<input type="button" id="return_button" onclick="location.href='Main.php?do=campaignsEdit&id=|-$campaign->getId()-|'" value="Regresar a la campaña" />|-/if-|
+		</p>
+	</fieldset>
+</form-->
+</div>
 <div id='reportTweets'>
-    <div id='positive'>
-		<h4>Tweets positivos</h4>
+    <div id='tweetsByValue'>
+		<h4>Tweets por Valoración</h4>
+		<form action="Main.php" method="post" id="formValues">
+			<select name="value" id="selectValue" onChange="javascript:setValueX('formValues', 'byValueMessage', 'byValueChart')">
+				<option value="">Seleccione valoración</option>
+				|-foreach from=$tweetValues key=key item=val-|
+				<option value="|-$key-|">|-$val-|</option>
+				|-/foreach-|
+			</select>											
+			<input type="hidden" name="graph" id="graph" value="value" />
+			<input type="hidden" name="id" id="id" value="|-$campaign->getId()-|" />
+			<input type="hidden" name="do" value="twitterCampaignsReportFilterX" id="do">
+		</form>
 		|-assign var=posCount value=count($positive)-|
-		<p>Del |-$positive[0]['date']|date_format:'%d/%m/%Y'-| al |-$positive[$posCount - 1]['date']|date_format:'%d/%m/%Y'-|</p>
-		<div id='positiveChart'></div>
+		<!--p>Del |-$positive[0]['date']|date_format:'%d/%m/%Y'-| al |-$positive[$posCount - 1]['date']|date_format:'%d/%m/%Y'-|</p-->
+		<div id='byValueMessage'></div>
+		<div id='byValueChart' height='250'></div>
     </div>
-    <!--div id='neutral'>
-		<h4>Tweets neutros</h4>
-		<div id='neutralChart'>
-		</div>
-    </div-->
-    <div id='negative'>
-		<h4>Tweets negativos</h4>
-		|-assign var=negCount value=count($negative)-|
-		<p>Del |-$negative[0]['date']|date_format:'%d/%m/%Y'-| al |-$negative[$posCount - 1]['date']|date_format:'%d/%m/%Y'-|</p>
-		<div id='negativeChart'></div>
+    
+    <div id='tweetsByRelevance'>
+		<h4>Tweets por Relevancia</h4>
+		|-assign var=posCount value=count($positive)-|
+		<form action="Main.php" method="post" id="formRelevances">
+			<select name="value" id="selectRelevance" onChange="javascript:setValueX('formRelevances','byRelevanceMessage','byRelevanceChart')">
+				<option value="">Seleccione relevancia</option>
+				|-foreach from=$tweetRelevances key=key item=val-|
+				<option value="|-$key-|">|-$val-|</option>
+				|-/foreach-|
+			</select>											
+			<input type="hidden" name="graph" id="graph" value="relevance" />
+			<input type="hidden" name="id" id="id" value="|-$campaign->getId()-|" />
+			<input type="hidden" name="do" value="twitterCampaignsReportFilterX" id="do">
+		</form>
+		<!--p>Del |-$positive[0]['date']|date_format:'%d/%m/%Y'-| al |-$positive[$posCount - 1]['date']|date_format:'%d/%m/%Y'-|</p-->
+		<div id='byRelevanceMessage'></div>
+		<div id='byRelevanceChart'></div>
     </div>
 </div>
 <div id='reportUsers'>
@@ -32,257 +75,34 @@
 		<div id="tweetsList">
 			Haga click en un usuario para ver sus últimos tweets
 		</div>
-		<div id="tlist" style="display:none;"></div>
+		<div id="tlist"></div>
     </div>
 </div>
 
 <script type="text/javascript">
 	
-	/********** Reporte de tweets positivos **********/
-	|-if count($positive) > 0-|
-	// obtengo los datos
-	var arrPositive = [|-foreach from=$positive item=pos-|["|-$pos['date']|date_format:'%d-%m-%Y'-|",|-$pos['tweets']-|]|-if !$positive.last-|,|-/if-||-/foreach-|];
-	// medidas del svg
-	var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 550 - margin.left - margin.right,
-    height = 250 - margin.top - margin.bottom;
-
-	var parseDatePositive = d3.time.format("%d-%m-%Y").parse;
-	
-	// configuracion de los ejes
-	var x = d3.time.scale().range([0, width]);
-	var y = d3.scale.linear().range([height, 0]);
-	
-	var xAxisP = d3.svg.axis().scale(x).orient("bottom")
-		.ticks(d3.time.days, 1)
-		.tickFormat(d3.time.format('%d'))
-		.tickSize(0)
-		.tickPadding(8);
-	var yAxisP = d3.svg.axis().scale(y).orient("left");
-
-	var line = d3.svg.line()
-		.x(function(d) { return x(d.date); })
-		.y(function(d) { return y(d.tweets); });
-
-	// append del svg
-	var svg = d3.select("#positiveChart").append("svg")
-		.attr("width", width + margin.left + margin.right)
-		.attr("height", height + margin.top + margin.bottom)
-		.append("g")
-		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-	var data = arrPositive.map(function(d) {
-	  return {
-		 date: parseDatePositive(d[0]),
-		 tweets: d[1]
-	  };
-	});
-
-	x.domain(d3.extent(data, function(d) { return d.date; }));
-	y.domain(d3.extent(data, function(d) { return d.tweets; }));
-
-	// armado del grafico
-	svg.append("g")
-		.attr("class", "twitterReportX twitterReportAxis")
-		.attr("transform", "translate(0," + height + ")")
-		.call(xAxisP);
-
-	svg.append("g")
-		.attr("class", "y twitterReportAxis")
-		.call(yAxisP)
-		.append("text")
-		.attr("transform", "rotate(-90)")
-		.attr("y", 6)
-		.attr("dy", "1em")
-		.style("text-anchor", "end")
-		.text("Tweets");
-
-	svg.append("path")
-		.datum(data)
-		.attr("class", "twitterReportLine")
-		.attr("d", line);
-	|-else-|
-	$('positiveChart').innerHTML = "No se registraron tweets positivos";
-	|-/if-|
-	
-	/********** Reporte de tweets neutros **********/
-	/*|-if count($neutral) > 0-|
-	// obtengo los datos
-	var arrNeutral = [|-foreach from=$neutral item=neu-|["|-$neu['date']|date_format:'%d-%m-%Y'-|",|-$neu['tweets']-|]|-if !$neu.last-|,|-/if-||-/foreach-|];
-	// medidas del svg
-	var margin = {top: 20, right: 20, bottom: 30, left: 70},
-    width = 600 - margin.left - margin.right,
-    height = 250 - margin.top - margin.bottom;
-
-	var parseDateNeu = d3.time.format("%d-%m-%Y").parse;
-
-	// configuracion de los ejes
-	var x = d3.time.scale().range([0, width]);
-	var y = d3.scale.linear().range([height, 0]);
-	
-	var xAxisN = d3.svg.axis().scale(x).orient("bottom")
-		.ticks(d3.time.days, 1)
-		.tickFormat(d3.time.format('%d-%m'))
-		.tickSize(0)
-		.tickPadding(8);
-	var yAxisN = d3.svg.axis().scale(y).orient("left");
-
-	var line = d3.svg.line()
-		.x(function(d) { return x(d.date); })
-		.y(function(d) { return y(d.tweets); });
-
-	// append del svg
-	var svg = d3.select("body").append("svg")
-		.attr("width", width + margin.left + margin.right)
-		.attr("height", height + margin.top + margin.bottom)
-		.append("g")
-		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-	var data = arrNeutral.map(function(d) {
-	  return {
-		 date: parseDateNeu(d[0]),
-		 tweets: d[1]
-	  };
-	});
-
-	x.domain(d3.extent(data, function(d) { return d.date; }));
-	y.domain(d3.extent(data, function(d) { return d.tweets; }));
-	// armado del grafico
-	svg.append("g")
-		.attr("class", "twitterReportX twitterReportAxis")
-		.attr("transform", "translate(0," + height + ")")
-		.call(xAxisN);
-
-	svg.append("g")
-		.attr("class", "y twitterReportAxis")
-		.call(yAxisN)
-		.append("text")
-		.attr("transform", "rotate(-90)")
-		.attr("y", 6)
-		.attr("dy", ".71em")
-		.style("text-anchor", "end")
-		.style("font-size", "12px")
-		.text("Tweets");
-
-	svg.append("path")
-		.datum(data)
-		.attr("class", "twitterReportLine")
-		.attr("d", line); 
-	|-else-|
-	$('neutral').innerHTML = "<span>No se registraron tweets neutros</span>";
-	|-/if-| */
-	/********** Reporte de tweets negativos **********/
-	|-if count($negative) > 0-|
-	// obtengo los datos
-	var arrNegative = [|-foreach from=$negative item=neg-|["|-$neg['date']|date_format:'%d-%m-%Y'-|",|-$neg['tweets']-|]|-if !$negative.last-|,|-/if-||-/foreach-|];
-	// medidas del svg
-	var margin = {top: 20, right: 20, bottom: 30, left: 70},
-    width = 600 - margin.left - margin.right,
-    height = 250 - margin.top - margin.bottom;
-
-	var parseDateNeg = d3.time.format("%d-%m-%Y").parse;
-
-	// configuracion de los ejes
-	var x = d3.time.scale().range([0, width]);
-	var y = d3.scale.linear().range([height, 0]);
-	
-	var xAxisN = d3.svg.axis().scale(x).orient("bottom")
-		.ticks(d3.time.days, 1)
-		.tickFormat(d3.time.format('%d'))
-		.tickSize(0)
-		.tickPadding(8);
-	var yAxisN = d3.svg.axis().scale(y).orient("left");
-
-	var line = d3.svg.line()
-		.x(function(d) { return x(d.date); })
-		.y(function(d) { return y(d.tweets); });
-
-	// append del svg
-	var svg = d3.select("#negativeChart").append("svg")
-		.attr("width", width + margin.left + margin.right)
-		.attr("height", height + margin.top + margin.bottom)
-		.append("g")
-		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-	var data = arrNegative.map(function(d) {
-	  return {
-		 date: parseDateNeg(d[0]),
-		 tweets: d[1]
-	  };
-	});
-
-	x.domain(d3.extent(data, function(d) { return d.date; }));
-	y.domain(d3.extent(data, function(d) { return d.tweets; }));
-	// armado del grafico
-	svg.append("g")
-		.attr("class", "twitterReportX twitterReportAxis")
-		.attr("transform", "translate(0," + height + ")")
-		.call(xAxisN);
-
-	svg.append("g")
-		.attr("class", "y twitterReportAxis")
-		.call(yAxisN)
-		.append("text")
-		.attr("transform", "rotate(-90)")
-		.attr("y", 6)
-		.attr("dy", ".71em")
-		.style("text-anchor", "end")
-		.style("font-size", "12px")
-		.text("Tweets");
-
-	svg.append("path")
-		.datum(data)
-		.attr("class", "twitterReportLine")
-		.attr("d", line);
-	
-	|-else-|
-	$('negativeChart').innerHTML = "No se registraron tweets positivos";
-	|-/if-|
-	/********** Reporte de usuarios con mas tweets **********/
-	// obtengo los datos
-	var arrUsers = [|-foreach from=$topUsers item=topUser-||-assign var=user value=$topUser['user']-|{"name":"@|-$user->getScreenname()-|","id":"|-$user->getId()-|","tweets":|-$topUser['tweets']-|}|-if !$topUsers.last-|,|-/if-||-/foreach-|];
-	// medidas del svg
-	var margin = {top: 20, right: 20, bottom: 30, left: 50},
-    w = 450 - margin.left - margin.right,
-    h = 450 - margin.top - margin.bottom,
-    r =  Math.min(w, h) / 2,
-    color = d3.scale.category20c(); 
-    
-    var vis = d3.select("#usersChart")
-        .append("svg:svg")
-        .data([arrUsers])
-		.attr("width", w)
-		.attr("height", h)
-        .append("svg:g")
-        .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
-
-    var arc = d3.svg.arc()
-        .outerRadius(r);
-
-    var pie = d3.layout.pie()
-        .value(function(d) { return d.tweets; });
-
-    var arcs = vis.selectAll("g.slice")
-        .data(pie)
-        .enter()
-        .append("svg:a") // Append legend elements
-        .attr("onclick", function(d, i) { return '{new Ajax.Updater("tlist", "Main.php?do=twitterUsersTweetsViewX", { method: "post", parameters: { id: "' + arrUsers[i].id + '", campaign: "|-$campaign->getId()-|"}, evalScripts: true})};$("tweetsList").innerHTML = "Buscando tweets..."; return false;'; })
-        .attr("xlink:href", function(d) { return '#'; })
-        .append("svg:g")
-        .attr("class", "slice");
-
-	arcs.append("svg:path")
-		.attr("fill", function(d, i) { return color(i); } )
-		.attr("d", arc);
-
-	arcs.append("svg:text")
-		.attr("transform", function(d) {
-			d.innerRadius = 0;
-			d.outerRadius = r;
-			return "translate(" + arc.centroid(d) + ")";
-		})
-		.attr("text-anchor", "middle")
-		.text(function(d, i) { 
-			return arrUsers[i].name + " - " + arrUsers[i].tweets; 
+	function setValueX(formId, msgId, destId) {
+		$j.ajax({
+			url: url,
+			data: $j('#' + formId).serialize(),
+			type: 'post',
+			success: function(data){
+				$j('#' + destId).html(data);
+			}	
 		});
+		$j('#' + msgId).html('<span class="inProgress">... Actualizando Datos ...</span>');
+	}
+
+	
+	var arrByValue = [|-foreach from=$byValue item=pos-|{"Fecha":"|-$pos['date']|date_format:'%d-%m-%Y'-|"|-if !empty($positive)-|,"Positivos":"|-$pos['positive']-|"|-/if-||-if !empty($neutral)-|,"Neutros":"|-$pos['neutral']-|"|-/if-||-if !empty($negative)-|,"Negativos":"|-$pos['negative']-|"|-/if-|}|-if !$byValue.last-|,|-/if-||-/foreach-|];
+	
+	var arrByRelevance = [|-foreach from=$byRelevance item=pos-|{"Fecha":"|-$pos['date']|date_format:'%d-%m-%Y'-|"|-if !empty($positive)-|,"Relevantes":"|-$pos['relevant']-|"|-/if-||-if !empty($neutral)-|,"Neutros":"|-$pos['neutrally_relevant']-|"|-/if-||-if !empty($negative)-|,"Irrelevantes":"|-$pos['irrelevant']-|"|-/if-|}|-if !$byValue.last-|,|-/if-||-/foreach-|];
+	
+	var arrUsers = [|-foreach from=$topUsers item=topUser-||-assign var=user value=$topUser['user']-|{"name":"@|-$user->getScreenname()-|","id":"|-$user->getId()-|","tweets":|-$topUser['tweets']-|}|-if !$topUsers.last-|,|-/if-||-/foreach-|];
+		
+	$j(function() {
+		barChart(arrByValue,'byValueChart');
+		barChart(arrByRelevance,'byRelevanceChart');
+		usersChart(arrUsers, '|-$campaign->getId-|');
+	});
 </script>
