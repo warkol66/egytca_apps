@@ -14,15 +14,6 @@
 	<fieldset title="Formulario de Opciones de búsqueda de usuarios">
 		<legend>Opciones de Búsqueda</legend>
 		<p>
-			<label for="filters[campaignId]">Campaña</label>
-			<select name="filters[campaignid]" id="selectTwitterCampaign">
-				<option value="">Sin seleccionar</option>
-				|-foreach from=$campaigns item=campaign-|
-					<option value="|-$campaign->getId()-|" |-$filters['campaignid']|selected:$campaign->getId()-| >|-$campaign->getName()-|</option>
-				|-/foreach-|
-			</select>
-		</p>
-		<p>
 			<label for="filters[influence]">Procesados</label>
 			&nbsp; Todos <input name="filters[influence]" type="radio" value="" |-$filters.influence|checked:0-| />
 			&nbsp; Influyentes  <input name="filters[influence]" type="radio" value="1" |-$filters.influence|checked:1-| />

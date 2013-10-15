@@ -19,25 +19,40 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 		$this->smarty->assign("module", $this->module);
 		
 		if(is_object($this->entity)){
-			//obtengo tweets positivos, neutros y negativos por fecha
-			$positive = TwitterTweetQuery::getAcceptedByValue(null, null, TwitterTweet::POSITIVE);
-			$neutral = TwitterTweetQuery::getAcceptedByValue(null, null, TwitterTweet::NEUTRAL);
-			$negative = TwitterTweetQuery::getAcceptedByValue(null, null, TwitterTweet::NEGATIVE);
-			/*$negative = TwitterTweetQuery::getAcceptedByRelevance(null, null, TwitterTweet::NEGATIVE);
-			$negative = TwitterTweetQuery::getAcceptedByRelevance(null, null, TwitterTweet::NEGATIVE);
-			$negative = TwitterTweetQuery::getAcceptedByRelevance(null, null, TwitterTweet::NEGATIVE);*/
+
+			$byValue = TwitterTweetQuery::getAllByValue(null, null, null);
+			// seteo los valores disponibles para usarlos luego en la creacion del grafico
+			if(array_key_exists('positive',$byValue[0]))
+				$this->smarty->assign('positive', true);
+			if(array_key_exists('neutral',$byValue[0]))
+				$this->smarty->assign('neutral', true);
+			if(array_key_exists('negative',$byValue[0]))
+				$this->smarty->assign('negative', true);
+				
+			$byRelevance = TwitterTweetQuery::getAllByRelevance(null, null, null);
+			// seteo los valores disponibles para usarlos luego en la creacion del grafico
+			if(array_key_exists('positive',$byRelevance[0]))
+				$this->smarty->assign('relevant', true);
+			if(array_key_exists('neutral',$byRelevance[0]))
+				$this->smarty->assign('neutrally_relevant', true);
+			if(array_key_exists('negative',$byRelevance[0]))
+				$this->smarty->assign('irrelevant', true);
+			
 			// obtengo los usuarios que mas tweets crearon
 			$topUsers = TwitterTweetQuery::getTopUsers();
 			
 			
 			// obtengo los actores mas mencionados
 			
-			$this->smarty->assign("positive", $positive);
-			$this->smarty->assign("neutral", $neutral);
-			$this->smarty->assign("negative", $negative);
-			$this->smarty->assign("topUsers", $topUsers);
+			$this->smarty->assign('byValue', $byValue);
+			$this->smarty->assign('byRelevance', $byRelevance);
+			$this->smarty->assign('topUsers', $topUsers);
 			/*echo"<pre>"; print_r($negative); echo"</pre>";
 			die();*/
+			
+			// posibles valores y relevancias para los filtros
+			$this->smarty->assign("tweetValues",TwitterTweet::getValues());
+			$this->smarty->assign("tweetRelevances",TwitterTweet::getRelevances());
 		}
 		
 		$moduleConfig = Common::getModuleConfiguration($this->module);

@@ -145,3 +145,4 @@ function refreshCaptchaX(id) {
 	$(divId).innerHTML = "";
 	return false;
 }
+

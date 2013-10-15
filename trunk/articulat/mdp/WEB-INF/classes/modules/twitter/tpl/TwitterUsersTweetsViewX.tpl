@@ -2,7 +2,7 @@
 	$('tweetsList').innerHTML = '';
 	initialize();
 </script>
-<p>Mostrando tweets más recientes de: @|-$user->getScreenname()-|</p>
+<p>Mostrando tweets más recientes de: <a href="https://twitter.com/|-$user->getScreenname()-|" class="twitterUrl " target="_blank">@|-$user->getScreenname()-|</a></p>
 <ul class="userTweetsList">
 |-foreach from=$userTweets item=tweet-|
 <li class="userTweetsListItem">|-$tweet->getEmbed()-|</li>
@@ -10,6 +10,5 @@
 </ul>
 <script language="JavaScript" type="text/javascript">
 	twttr.widgets.load();
-	$('tlist').onload = $(tlist).style.display = "";
 </script>
 
