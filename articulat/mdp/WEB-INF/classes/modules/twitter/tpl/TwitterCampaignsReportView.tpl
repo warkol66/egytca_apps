@@ -1,6 +1,6 @@
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-<script src="/scripts/jquery.min.js" charset="utf-8"></script>
+<script src="scripts/jquery/jquery.min.js" charset="utf-8"></script>
 <script src="Main.php?do=js&name=chartsJs&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 <script> var $j = jQuery.noConflict(); </script>
 <h2>Reportes</h2>
