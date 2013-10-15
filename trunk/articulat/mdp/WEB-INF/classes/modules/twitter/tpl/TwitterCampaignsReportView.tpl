@@ -103,6 +103,6 @@
 	$j(function() {
 		barChart(arrByValue,'byValueChart');
 		barChart(arrByRelevance,'byRelevanceChart');
-		usersChart(arrUsers, '|-$campaign->getId-|');
+		usersChart(arrUsers, '|-$campaign->getId()-|');
 	});
 </script>
