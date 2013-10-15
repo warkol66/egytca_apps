@@ -127,7 +127,7 @@ function usersChart(arrUsers, campaign){
         .data(pie)
         .enter()
         .append("svg:a") // Append legend elements
-        .attr("onclick", function(d, i) { return '{new Ajax.Updater("tlist", "Main.php?do=twitterUsersTweetsViewX", { method: "post", parameters: { id: "' + arrUsers[i].id + '", campaign: "'+ campaign +'"}, evalScripts: true})};$("tweetsList").innerHTML = "Buscando tweets..."; return false;'; })
+        .attr("onclick", function(d, i) { return '{new Ajax.Updater("tlist", "Main.php?do=twitterUsersTweetsViewX", { method: "post", parameters: { id: "' + arrUsers[i].id + '", campaign: "' + campaign + '"}, evalScripts: true})};$("tweetsList").innerHTML = "Buscando tweets..."; return false;'; })
         .attr("xlink:href", function(d) { return '#'; })
         .append("svg:g")
         .attr("class", "slice");
