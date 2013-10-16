@@ -1,0 +1,96 @@
+@import url(http://fonts.googleapis.com/css?family=Lato);
+@charset 'UTF-8';
+/* Base Styles */
+#panelDiv,
+#panelDiv ul,
+#panelDiv li,
+#panelDiv a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  font-weight: normal;
+  text-decoration: none;
+  line-height: 1;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  position: relative;
+}
+#panelDiv a {
+  line-height: 1.3;
+  padding: 6px 15px;
+}
+#panelDiv {
+  width: 200px;
+  display: inline;
+  float: left;
+  margin-left: 20px;
+  margin-right: 10px;
+}
+#panelDiv > ul > li {
+  cursor: pointer;
+  background: #000;
+  border-bottom: 1px solid #797a80;
+}
+#panelDiv > ul > li:last-child {
+  border-bottom: 1px solid #3e3d3c;
+}
+#panelDiv > ul > li > a {
+  font-size: 13px;
+  display: block;
+  color: #ffffff;
+  text-shadow: 0 1px 1px #000;
+  background: #6a6b72;
+  background: -moz-linear-gradient(#6a6b72 0%, #4c4e53 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #6a6b72), color-stop(100%, #4c4e53));
+  background: -webkit-linear-gradient(#6a6b72 0%, #4c4e53 100%);
+  background: linear-gradient(#6a6b72 0%, #4c4e53 100%);
+}
+#panelDiv > ul > li > a:hover {
+  text-decoration: none;
+}
+#panelDiv > ul > li.active {
+  border-bottom: none;
+}
+#panelDiv > ul > li.active > a {
+  background: #3C8DC5; /*#4A98C0;*/
+  /*background: -moz-linear-gradient(#3C8DC5 0%, #3333FF 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3333FF), color-stop(100%, #3333FF));
+  background: -webkit-linear-gradient(#3C8DC5 0%, #3333FF 100%);
+  background: linear-gradient(#3C8DC5 0%, #3333FF 100%);*/
+  color: #FFF;
+}
+#panelDiv > ul > li.has-sub > a:after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: 5px solid transparent;
+  border-left: 5px solid #ffffff;
+}
+#panelDiv > ul > li.has-sub.active > a:after {
+  right: 14px;
+  top: 12px;
+  border: 5px solid transparent;
+  border-top: 5px solid #4e5800;
+}
+/* Sub menu */
+#panelDiv ul ul {
+  padding: 0;
+  /*display: none;*/
+}
+#panelDiv ul ul a {
+  background: #C0E8F5;
+  display: block;
+  color: #797979;
+  font-size: 13px;
+}
+#panelDiv ul ul li {
+  border-bottom: 1px solid #c9c9c9;
+}
+#panelDiv ul ul li.odd a {
+  background: #e5e5e5;
+}
+#panelDiv ul ul li:last-child {
+  border: none;
+}
