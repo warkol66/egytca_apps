@@ -1,12 +1,14 @@
 body {
-	background-color: #fbfbfb;
 	background-image: url(../images/bkg_body.png);
 	background-repeat: repeat-x;
 	background-position:top left;
 	background-attachment: fixed;
 	font-size:77%; /* this makes the text sized at 10px */
 }
-/*  LOGIN  -----------------------------------------------*/
+html, body.bodyLogin {
+	background-image: url(../images/site-bg.jpg);
+	background-repeat: repeat;
+}/*  LOGIN  -----------------------------------------------*/
 #loginWrapper {
 	margin-top: 100px;
 	width: 100%;
@@ -76,6 +78,18 @@ body {
 /* wrapper -----------------------------------------------------------*/
 #wrapper {
 	width: 955px;
+	z-index: 2;
+}
+#flechas {
+	width: 955px;
+	background-image: url(../images/flechasback.png);
+	background-repeat: repeat-y;
+	background-position:top center;
+	background-attachment: fixed;
+	height: 100% !Important;
+	margin:0 auto;
+	position:fixed;
+	z-index: -1;
 }
 #header {
 	background-image: url(../images/bkg_body.png);
@@ -136,7 +150,7 @@ body {
 #rightColumn {
 	float: left;
 	width: 750px;   /* ie6*/ /*ie7*/
-	/* background-color: #FFFFFF; */
+	background-color: #fbfbfb;
 	color: #333;
 }
 #separatorFooter {
@@ -146,14 +160,14 @@ body {
 #footer {
 	width: 955px; /* 955px - 5leftBorder - 5px rightBorder*/
 	height: 18px;
-	background-color: #2a2426; /* #9ccc66  2a2426  #d3dbe4 */
-	border-top: solid 2px #3f3b3c; /* #0066cc */
+	background-color: #4d4d4d; /* #9ccc66  2a2426  #d3dbe4 */
+	border-top: solid 2px #4d4d4d; /* #0066cc */
 /*	border-bottom: solid 5px #0066cc;
 	border-left: solid 5px #0066cc;
 	border-right: solid 5px #0066cc; */
 }
 #footer p{
-	color: #4a98c0; /* ffffff */
+	color: #b2e6f4; /* ffffff */
 }
 .rounded .r1, .rounded .r2, .rounded .r3, .rounded .r4, .rounded .r5, .rounded .r6, .rounded .r7 { border-color: #686868; /*#0066CC;*/ }
 .rounded .r3, .rounded .r4, .rounded .r5, .rounded .r6, .rounded .r7 { background-color: #686868; /*#0066CC;*/ }
@@ -169,9 +183,9 @@ body {
 
 /* content -----------------------------------------------------------*/
 #rightColumn h1{
-	color: #293239; /*#0066CC;*/
+	color: #4d4d4d; /*#0066CC;*/
 	padding-bottom: 0px !Important;
-	border-bottom: 1px solid #293239; /*#0066CC;*/
+	border-bottom: 1px solid #4d4d4d; /*#0066CC;*/
 }
 #rightColumn h2{
 	color:#999;
@@ -577,7 +591,7 @@ ul.menu {
 	padding: 0;
 	list-style: none;
 	margin-top: 52px;
-	border-top: 1px solid #000;
+	border-top: 1px solid #b1d4ff;
 /*	background-color:#00CC00;*/
 }
 ul.menu li {
@@ -606,7 +620,7 @@ ul.menu li.last a {
 }
 ul.menu li a.sub {
 	padding-right: 1em;
-	background: transparent url(../images/bg-nav-sep.png) no-repeat right -30px;
+/*	background: transparent url(../images/bg-nav-sep.png) no-repeat right -30px; */
 }
 ul.menu li a {
 	padding-right: 1em;
@@ -614,12 +628,13 @@ ul.menu li a {
 }
 ul.menu li:hover,
 ul.menu li.hover .protofish {
-	background: transparent url(../images/bg-nav.png) repeat-x 0 -32px;
+	background: transparent url(../images/menu.png) no-repeat center 21px;
+/*	background: transparent!Important url(../images/bg-nav.png) repeat-x 0 -32px;*/
 }
 ul.menu li:hover a,
 ul.menu li.hover .protofish a {
-	background: #fbfbfb;
-	color: #000; /* 000 */
+	background: transparent;
+	color: #8eb7e9; /* 000 */
 }
 ul.menu li.active a {
 	color: #f15c30;
@@ -659,7 +674,7 @@ ul.menu li li a {
 ul.menu li:hover li:hover a,
 ul.menu li.hover li.hover .protofish a {
 	background: #f6f6f6;
-	color: #000;
+	color: #8eb7e9;
 }
 ul.menu li:hover li.active a,
 ul.menu li.hover .protofish li.active a {
@@ -684,14 +699,14 @@ ul.menu li:hover li:hover li,
 ul.menu li:hover li:hover li a, 
 ul.menu li.hover li.hover .protofish li,
 ul.menu li.hover li.hover .protofish li a {
-	color: #000;
+	color: #8eb7e9;
 	text-align:left;
 }
 /* subsubmenu markup */
 ul.menu li:hover li:hover li:hover a,
 ul.menu li.hover li.hover li.hover .protofish a {
 	background: #e6e6e6;
-	color: #000;
+	color: #8eb7e9;
 }
 ul.menu li:hover li:hover li.active a,
 ul.menu li.hover li.hover .protofish li.active a {
@@ -707,14 +722,14 @@ ul.menu li:hover li:hover li:hover li,
 ul.menu li:hover li:hover li:hover li a,
 ul.menu li.hover li.hover li.hover .protofish li,
 ul.menu li.hover li.hover li.hover .protofish li a {
-	color: #000000;
+	color: #8eb7e9;
 	text-align:left;
 }
 /* subsubmenu markup */
 ul.menu li:hover li:hover li:hover li:hover a,
 ul.menu li.hover li.hover li.hover li.hover .protofish a {
 	background: #ccc;
-	color: #000;
+	color: #8eb7e9;
 }
 ul.menu li:hover li:hover li:hover li.active a,
 ul.menu li.hover li.hover li.hover .protofish li.active a {
@@ -760,7 +775,7 @@ ul.menu li li li li:hover ul {
 ul.menu li a {
 	font-weight: bold;
 	font-size: 105% !Important;
-	color: #4a98c0;
+	color: #c8d7e9;
 	text-transform: uppercase;
 }
 ul.menu li li a,

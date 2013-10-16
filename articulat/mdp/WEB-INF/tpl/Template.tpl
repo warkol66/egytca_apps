@@ -15,6 +15,8 @@
 |-include file='TemplateJsIncludes.tpl'-|
 </head>
 <body>
+<div id="flechas"></div>
+
 	<img src="images/logo_200.png" style="margin-left:30px; top: 0; float: left; position: fixed; z-index: 50002"/> 
 	<!-- Begin Wrapper -->
 <div id="wrapper">
