@@ -1,4 +1,3 @@
-
 <script>
 	|-if !empty($byValue)-|
 	$j('#byValueMessage').html('');
@@ -8,16 +7,15 @@
 	barChart(arrByFilter,'byValueChart');
 	
 	|-elseif !empty($byRelevance)-|
+	
 	$j('#byRelevanceMessage').html('');
 
-	var arrByFilter = [|-foreach from=$byRelevance item=pos-|{"Fecha":"|-$pos['date']|date_format:'%d-%m-%Y'-|"|-if !empty($positive)-|,"Relevantes":"|-$pos['relevant']-|"|-/if-||-if !empty($neutral)-|,"Neutros":"|-$pos['neutrally_relevant']-|"|-/if-||-if !empty($negative)-|,"Irrelevantes":"|-$pos['irrelevant']-|"|-/if-|}|-if !$byValue.last-|,|-/if-||-/foreach-|];
+	var arrByFilter = [|-foreach from=$byRelevance item=pos-|{"Fecha":"|-$pos['date']|date_format:'%d-%m-%Y'-|"|-if !empty($relevant)-|,"Relevantes":"|-$pos['relevant']-|"|-/if-||-if !empty($neutrally_relevant)-|,"Neutros":"|-$pos['neutrally_relevant']-|"|-/if-||-if !empty($irrelevant)-|,"Irrelevantes":"|-$pos['irrelevant']-|"|-/if-|}|-if !$byRelevance.last-|,|-/if-||-/foreach-|];
 	
 	barChart(arrByFilter,'byRelevanceChart');
 	|-else-|
 	$j('#byValueMessage').html('');
 	$j('#byRelevanceMessage').html('');
-</script>
-	<div class="resultFailure">Ocurrió un error al actualizar los datos</div>
 	|-/if-|
 
 </script>

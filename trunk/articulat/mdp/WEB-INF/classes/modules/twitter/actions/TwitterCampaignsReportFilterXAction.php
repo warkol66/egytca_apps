@@ -34,14 +34,14 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 					$this->smarty->assign('byValue', $byValue);
 				break;
 				case 'relevance':
-					$relevance = $_POST['relevance'];
+					$relevance = $_POST['value'];
 					$byRelevance = TwitterTweetQuery::getAllByRelevance(null, null, $relevance);
 					// seteo los valores disponibles para usarlos luego en la creacion del grafico
-					if(array_key_exists('positive',$byRelevance[0]))
+					if(array_key_exists('relevant',$byRelevance[0]))
 						$this->smarty->assign('relevant', true);
-					if(array_key_exists('neutral',$byRelevance[0]))
+					if(array_key_exists('neutrally_relevant',$byRelevance[0]))
 						$this->smarty->assign('neutrally_relevant', true);
-					if(array_key_exists('negative',$byRelevance[0]))
+					if(array_key_exists('irrelevant',$byRelevance[0]))
 						$this->smarty->assign('irrelevant', true);
 					$this->smarty->assign('byRelevance', $byRelevance);
 				break;

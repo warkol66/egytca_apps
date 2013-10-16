@@ -47,7 +47,7 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			$this->smarty->assign('byValue', $byValue);
 			$this->smarty->assign('byRelevance', $byRelevance);
 			$this->smarty->assign('topUsers', $topUsers);
-			/*echo"<pre>"; print_r($negative); echo"</pre>";
+			/*echo"<pre>"; print_r($byValue); echo"</pre>";
 			die();*/
 			
 			// posibles valores y relevancias para los filtros

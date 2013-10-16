@@ -171,32 +171,35 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 	public function getAllByRelevance($from, $to, $relevance = null){
 		
 		//TODO: agregar chequeo de si las fechas tienen 24hs de diferencia
+		$relevant = TwitterTweet::RELEVANT;
+		$neutrally_relevant = TwitterTweet::NEUTRALLY_RELEVANT;
+		$irrelevant = TwitterTweet::IRRELEVANT;
 		
 		if(!isset($from) && !isset($to)){
 			
 			switch($relevance){
-				case 'positive':
-					$byValue = TwitterTweetQuery::create()
+				case $relevant:
+					$byRelevance = TwitterTweetQuery::create()
 						->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
-						->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::RELEVANT .', 1, 0))', 'relevant')
+						->withColumn('sum(if(TwitterTweet.Relevance = '. $relevant .', 1, 0))', 'relevant')
 						->filterByStatus(TwitterTweet::ACCEPTED)
 						->groupBy('TwitterTweet.date')
 						->select(array('date','relevant'))
 						->find();
 				break;
-				case 'neutral':
-					$byValue = TwitterTweetQuery::create()
+				case $neutrally_relevant:
+					$byRelevance = TwitterTweetQuery::create()
 						->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
-						->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::NEUTRALLY_RELEVANT .', 1, 0))', 'neutrally_relevant')
+						->withColumn('sum(if(TwitterTweet.Relevance = '. $neutrally_relevant .', 1, 0))', 'neutrally_relevant')
 						->filterByStatus(TwitterTweet::ACCEPTED)
 						->groupBy('TwitterTweet.date')
 						->select(array('date','neutrally_relevant'))
 						->find();
 				break;
-				case 'negative':
-					$byValue = TwitterTweetQuery::create()
+				case $irrelevant:
+					$byRelevance = TwitterTweetQuery::create()
 						->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
-						->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::IRRELEVANT .', 1, 0))', 'irrelevant')
+						->withColumn('sum(if(TwitterTweet.Relevance = '. $irrelevant .', 1, 0))', 'irrelevant')
 						->filterByStatus(TwitterTweet::ACCEPTED)
 						->groupBy('TwitterTweet.date')
 						->select(array('date','irrelevant'))
@@ -215,8 +218,6 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 				break;
 			}
 			
-			
-				
 			return $byRelevance;
 			
 		}else{
