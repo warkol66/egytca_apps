@@ -24,8 +24,9 @@
 <script language="JavaScript" type="text/javascript" src="scripts/prototype.js"></script>
 <script language="JavaScript" type="text/javascript" src="scripts/functions.js"></script>
 </head>
-<body>
-	<img src="images/logo_200.png" style="margin-left:30px; top: 0; float: left; position: fixed; z-index: 50002"/>
+<body class="bodyLogin">
+<div id="flechas"></div>
+	<img src="images/logo350.png" style="margin-left:30px; top: 5px; float: left; position: fixed; z-index: 50002"/>
 |-$centerHTML-|
 <p>&nbsp;</p>
 <p>&nbsp;</p>
