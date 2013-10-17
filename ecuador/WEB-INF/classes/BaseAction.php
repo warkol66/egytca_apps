@@ -12,13 +12,12 @@ include_once("TimezonePeer.php");
 include_once("Common.class.php");
 include_once("Action.php");
 require_once("Smarty_config.inc.php");
+
 require_once("BaseQuery.php");
-
-require_once 'BaseListAction.php';
-require_once 'BaseEditAction.php';
-require_once 'BaseDoEditAction.php';
-require_once 'BaseDoDeleteAction.php';
-
+require_once("BaseListAction.php");
+require_once("BaseEditAction.php");
+require_once("BaseDoEditAction.php");
+require_once("BaseDoDeleteAction.php");
 
 /**
 * Implementation of <strong>Action</strong> that demonstrates the use of the Smarty
@@ -99,18 +98,15 @@ class BaseAction extends Action {
 			header("Location: Main.php?do=commonMaintenance");
 			exit;
 		}
+		$actionRequested = $request->getAttribute('ACTION_DO_PATH');
 		//Chequeo si esta bloqueada la ip del usuario
-		global $loginPath;
-		$remoteIp = Common::getIp();
-		if(Common::checkLoginIpFailures($remoteIp)) {// No tiene permiso
-			header("Location:Main.php?do=$loginPath");
+		if(Common::checkBlockedIp() && $actionRequested != "securityBlocked") {// La ip de donde se conecta esta bloquada
+			header("Location:Main.php?do=securityBlocked");
 			exit();
 		}
-		
-		$actionRequested = $request->getAttribute('ACTION_DO_PATH');
+
 		//Se obtienen modulo y accion solicitada
 		//$actionRequested = $_REQUEST["do"];
-
 		if (preg_match('/^([a-z]*)[A-Z]/',$actionRequested,$regs))
 			$moduleRequested = $regs[1];
 		if (empty($moduleRequested) && $actionRequested == "js")
@@ -136,14 +132,15 @@ class BaseAction extends Action {
 
 		header("Content-type: text/html; charset=UTF-8");
 
+		global $loginPath;
 		$loggedUser = Common::getLoggedUser();
 
-		if (!$noCheckLogin) { //Verifica login $noCheckLogin != 1
-
+		if (!$noCheckLogin && $actionRequested != "securityBlocked") { //Verifica login $noCheckLogin != 1
 			if (!empty($loggedUser)) {
 				//Veo que el usuario no este bloqueado
-				if(Common::isBlockedUser($loggedUser->getUsername()) && Common::checkLoginUserFailures('User',$user->getId())) {// No tiene permiso
-					header("Location:Main.php?do=$loginPath");
+				if(Common::isBlockedUser($loggedUser->getUsername()) || Common::checkLoginUserFailures($loggedUser)) {// No tiene permiso
+					Common::blockedUserUnsetSession();
+					header("Location:Main.php?do=$loginPath&message=blocked");
 					exit();
 				}
 				Common::setLastActionTime($loggedUser);
@@ -162,8 +159,7 @@ class BaseAction extends Action {
 				}
 			}
 			else { //Si requiere login y no hay sesion va a login
-				//global $loginPath;
-				if ($actionRequested != $loginPath && $actionRequested != "commonDoLogin" && $actionRequested != "usersDoLogin") {
+				if ($actionRequested != $loginPath && $actionRequested != "commonDoLogin" && $actionRequested != "usersDoLogin" && $actionRequested != "securityBlocked") {
 					$_SESSION["loginRequestReferrer"] = $_SERVER["QUERY_STRING"];
 					header("Location:Main.php?do=$loginPath");
 					exit();
@@ -250,6 +246,7 @@ class BaseAction extends Action {
 		return new ForwardConfig($myRedirectPath, True);
 
 	}
+
 	/**
 	 * Agrega parametros al url de un forward
 	 * @param $params array with parameters with key and value
