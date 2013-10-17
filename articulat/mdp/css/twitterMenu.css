@@ -4,7 +4,8 @@
 #panelDiv,
 #panelDiv ul,
 #panelDiv li,
-#panelDiv a {
+#panelDiv a, 
+#panelDiv button {
   margin: 0;
   padding: 0;
   border: 0;
@@ -15,8 +16,11 @@
   font-family: 'Lato', sans-serif;
   font-size: 14px;
   position: relative;
+  width: 100%;
 }
-#panelDiv a {
+#panelDiv a,
+#panelDiv button {
+  text-align: left;
   line-height: 1.3;
   padding: 6px 15px;
 }
@@ -34,7 +38,9 @@
 #panelDiv > ul > li:last-child {
   border-bottom: 1px solid #3e3d3c;
 }
-#panelDiv > ul > li > a {
+#panelDiv > ul > li > a,
+#panelDiv > ul > li > button {
+  text-align: left;
   font-size: 13px;
   display: block;
   color: #ffffff;
@@ -51,7 +57,8 @@
 #panelDiv > ul > li.active {
   border-bottom: none;
 }
-#panelDiv > ul > li.active > a {
+#panelDiv > ul > li.active > a
+#panelDiv > ul > li.active > button {
   background: #3C8DC5; /*#4A98C0;*/
   /*background: -moz-linear-gradient(#3C8DC5 0%, #3333FF 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3333FF), color-stop(100%, #3333FF));
@@ -59,7 +66,7 @@
   background: linear-gradient(#3C8DC5 0%, #3333FF 100%);*/
   color: #FFF;
 }
-#panelDiv > ul > li.has-sub > a:after {
+#panelDiv > ul > li.has-sub > button:after {
   content: '';
   position: absolute;
   top: 10px;
@@ -67,7 +74,7 @@
   border: 5px solid transparent;
   border-left: 5px solid #ffffff;
 }
-#panelDiv > ul > li.has-sub.active > a:after {
+#panelDiv > ul > li.has-sub.active > button:after {
   right: 14px;
   top: 12px;
   border: 5px solid transparent;
@@ -78,6 +85,7 @@
   padding: 0;
   /*display: none;*/
 }
+#panelDiv ul ul button,
 #panelDiv ul ul a {
   background: #C0E8F5;
   display: block;
@@ -87,9 +95,16 @@
 #panelDiv ul ul li {
   border-bottom: 1px solid #c9c9c9;
 }
-#panelDiv ul ul li.odd a {
-  background: #e5e5e5;
-}
 #panelDiv ul ul li:last-child {
   border: none;
+}
+
+.timeSelected, 
+.typeSelected, 
+.relevanceSelected,
+.valueSelected {
+	background: #86A2AC;
+	color: #797979;
+	display: block;
+	font-size: 13px;
 }
