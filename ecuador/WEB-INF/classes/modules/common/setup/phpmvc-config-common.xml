@@ -36,6 +36,7 @@
 							 name = "commonDoLogin"
 							scope = "request"
 					 validate = "true">
+			<forward name="blockedUser" path="/Main.php?do=commonLogin&amp;message=blocked" redirect="true" />
 			<forward name="failureDataMissmatch" path="/Main.php?do=commonLogin&amp;message=dataMissmatch" redirect="true" />
 			<forward name="failureMissingData" path="/Main.php?do=commonLogin&amp;message=missingData" redirect="true" />
 			<forward name="successUsers" path="/Main.php?do=newsArticlesShow" redirect="true" />

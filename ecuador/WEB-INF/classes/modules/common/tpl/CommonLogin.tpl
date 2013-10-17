@@ -15,6 +15,8 @@
 			<p>|-if isset($unifiedLogin)-|Selecciones el tipo de usuario e i|-else-|I|-/if-|ngrese su usuario y contraseña para ingresar al sistema</p>
 			|-if $message eq "dataMissmatch"-|
 				<div align='center' class='errorMessage'>Usuario desconocido o contraseña incorrecta!. Intente nuevamente.</div> 
+			|-elseif $message eq "blocked"-|
+				<div align='center' class='errorMessage'>Usuario bloqueado. Contáctese con el administrador.</div> 
 			|-elseif $message eq "missingData"-|
 				<div align='center' class='errorMessage'>Para acceder al sistema debe ingresar usuario y contraseña. Intente nuevamente.</div> 
 			|-elseif $message eq "wrongHash"-|
