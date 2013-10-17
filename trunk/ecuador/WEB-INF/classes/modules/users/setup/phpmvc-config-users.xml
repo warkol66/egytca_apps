@@ -18,7 +18,7 @@
 					 validate = "true">
 			<forward name="success" path="/Main.php?do=newsArticlesShow" redirect="true" />
 			<forward name="failure" path="UsersLogin.tpl"/>
-			<forward name="blockedUser" path="UsersLogin.tpl"/>
+			<forward name="blockedUser" path="/Main.php?do=usersLogin&amp;message=blocked" redirect="true" />
 			<forward name="successFirstLogin" path="/Main.php?do=usersPasswordChange&amp;firstLogin=firstLogin" redirect="true" />
 		</action>
 

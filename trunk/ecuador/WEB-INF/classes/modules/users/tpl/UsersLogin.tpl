@@ -17,6 +17,8 @@
 				<div align='center' class='errorMessage'>Usuario desconocido o contraseña incorrecta!. Intente nuevamente.</div> 
 			|-elseif $message eq "blocked"-|
 				<div align='center' class='errorMessage'>Usuario bloqueado. Contáctese con el administrador.</div> 
+			|-elseif $message eq "blockedIp"-|
+				<div align='center' class='errorMessage'>La dirección IP que está utilizando se encuentra bloquada. Si considera que esto es un error, contáctese con el administrador.</div> 
 			|-elseif $message eq "missingData"-|
 				<div align='center' class='errorMessage'>Para acceder al sistema debe ingresar usuario y contraseña. Intente nuevamente.</div> 
 			|-elseif $message eq "wrongHash"-|
