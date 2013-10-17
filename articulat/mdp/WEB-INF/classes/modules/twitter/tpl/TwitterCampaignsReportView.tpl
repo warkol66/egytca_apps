@@ -10,43 +10,44 @@
 <div id="reportContainer">
 	<div id='panelDiv'>
 	<ul>
-	   <li class='active'><a href='Main.php?do=twitterCampaignsReportView&id=|-$campaign->getId()-|'><span>Eliminar Filtros</span></a></li>
-	   <li class='has-sub'><a href='#'><span>Temporales</span></a>
+	   <li class='active'><button onclick='Main.php?do=twitterCampaignsReportView&id=|-$campaign->getId()-|'><span>Eliminar Filtros</span></button></li>
+	   <li class='has-sub'><button><span>Temporales</span></button>
 		  <ul>
-			 <li><a href='#'><span>Ultimas 12 horas</span></a></li>
-			 <li><a href='#'><span>Ultimas 24 horas</span></a></li>
-			 <li><a href='#'><span>Ultimos 7 días</span></a></li>
-			 <li><a href='#'><span>Ultimos 15 días</span></a></li>
-			 <li class='last'><a href='#'><span>Toda la campaña</span></a></li>
+			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value=""><span>Ultimas 12 horas</span></button></li>
+			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value=""><span>Ultimas 24 horas</span></button></li>
+			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value=""><span>Ultimos 7 días</span></button></li>
+			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value="15"><span>Ultimos 15 días</span></button></li>
+			 <li class='last'><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value=""><span>Toda la campaña</span></button></li>
 		  </ul>
 	   </li>
-	   <li class='has-sub last'><a href='#'><span>Tipos</span></a>
+	   <li class='has-sub last'><button><span>Tipos</span></button>
 		  <ul>
-			 <li><a href='#'><span>Originales</span></a></li>
-			 <li><a href='#'><span>Retweets</span></a></li>
-			 <li class='last'><a href='#'><span>Respuestas</span></a></li>
+			 <li><button><span>Originales</span></button></li>
+			 <li><button><span>Retweets</span></button></li>
+			 <li class='last'><button><span>Respuestas</span></button></li>
 		  </ul>
 	   </li>
-	   <li class='has-sub last'><a href='#'><span>Valoración</span></a>
-		  <ul>
+	   <li class='has-sub last'><button><span>Valoración</span></button>
+		  <ul id="valueFilters">
 			|-foreach from=$tweetValues key=key item=val-|
-			 <li><a href='#' onclick="setValueX('byValueMessage', 'byValueChart', 'value', |-$key-|); return false;"><span>|-$val-|</span></a></li>
+			 <li><button onclick="$j('.valueSelected').not(this).removeClass('valueSelected');$j(this).toggleClass('valueSelected');setValueX(); return false;" value="|-$key-|"><span>|-$val-|</span></button></li>
 			 |-/foreach-|
-			 <li class='last'><a href='#' onclick="setValueX('byValueMessage', 'byValueChart', 'value', ''); return false;"><span>Todos</span></a></li>
+			 <li class='last'><button onclick="$j('.valueSelected').not(this).removeClass('valueSelected');$j(this).toggleClass('valueSelected');setValueX(); return false;" value=""><span>Todos</span></button></li>
 		  </ul>
 	   </li>
-	   <li class='has-sub last'><a href='#'><span>Relevancia</span></a>
+	   <li class='has-sub last'><button><span>Relevancia</span></button>
 		  <ul>
 			 |-foreach from=$tweetRelevances key=key item=rel-|
-			 <li><a href='#' onclick="setValueX('byRelevanceMessage', 'byRelevanceChart', 'relevance', |-$key-|); return false;"><span>|-$rel-|</span></a></li>
+			 <li><button onclick="$j('.relevanceSelected').not(this).removeClass('relevanceSelected');$j(this).toggleClass('relevanceSelected');setValueX(); return false;" value="|-$key-|"><span>|-$rel-|</span></button></li>
 			 |-/foreach-|
-			 <li class='last'><a href='#' onclick="setValueX('byRelevanceMessage', 'byRelevanceChart', 'relevance', ''); return false;"><span>Todos</span></a></li>
+			 <li class='last'><button onclick="$j('.relevanceSelected').not(this).removeClass('relevanceSelected');$j(this).toggleClass('relevanceSelected');setValueX(); return false;" value=""><span>Todos</span></button></li>
 		  </ul>
 	   </li>
 	</ul>
 	</div>
 	
 	<div id='reportTweets'>
+		<div id="reportMessage"></div>
 		<div id='tweetsByValue'>
 			<h4>Tweets por Valoración</h4>
 			|-assign var=posCount value=count($positive)-|
@@ -79,16 +80,18 @@
 
 <script type="text/javascript">
 	
-	function setValueX(msgId, destId, graph, val) {
+	function setValueX() {
+		var val = $j('.valueSelected').val();
+		var rel = $j('.relevanceSelected').val();
 		$j.ajax({
 			url: 'Main.php?do=twitterCampaignsReportFilterX',
-			data: {id: '|-$campaign->getId()-|', graph: graph, value: val},
+			data: {id: '|-$campaign->getId()-|', value: val, relevance: rel},
 			type: 'post',
 			success: function(data){
-				$j('#' + destId).html(data);
+				$j('#reportTweets').html(data);
 			}	
 		});
-		$j('#' + msgId).html('<span class="inProgress">... Actualizando Datos ...</span>');
+		$j('#reportMessage').html('<span class="inProgress">... Actualizando Datos ...</span>');
 	}
 
 	
