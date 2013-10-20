@@ -22,9 +22,10 @@
 	   </li>
 	   <li class='has-sub last'><button><span>Tipos</span></button>
 		  <ul>
-			 <li><button><span>Originales</span></button></li>
-			 <li><button><span>Retweets</span></button></li>
-			 <li class='last'><button><span>Respuestas</span></button></li>
+			 <li><button onclick="$j('.typeSelected').not(this).removeClass('typeSelected');$j(this).toggleClass('typeSelected');setValueX(); return false;" value="1"><span>Originales</span></button></li>
+			 <li><button onclick="$j('.typeSelected').not(this).removeClass('typeSelected');$j(this).toggleClass('typeSelected');setValueX(); return false;" value="2"><span>Retweets</span></button></li>
+			 <li><button onclick="$j('.typeSelected').not(this).removeClass('typeSelected');$j(this).toggleClass('typeSelected');setValueX(); return false;" value="3"><span>Respuestas</span></button></li>
+			 <li class='last'><button onclick="$j('.typeSelected').not(this).removeClass('typeSelected');$j(this).toggleClass('typeSelected');setValueX(); return false;" value=""><span>Todos</span></button></li>
 		  </ul>
 	   </li>
 	   <li class='has-sub last'><button><span>Valoración</span></button>
@@ -83,9 +84,10 @@
 	function setValueX() {
 		var val = $j('.valueSelected').val();
 		var rel = $j('.relevanceSelected').val();
+		var type = $j('.typeSelected').val();
 		$j.ajax({
 			url: 'Main.php?do=twitterCampaignsReportFilterX',
-			data: {id: '|-$campaign->getId()-|', value: val, relevance: rel},
+			data: {id: '|-$campaign->getId()-|', value: val, relevance: rel, type: type},
 			type: 'post',
 			success: function(data){
 				$j('#reportTweets').html(data);

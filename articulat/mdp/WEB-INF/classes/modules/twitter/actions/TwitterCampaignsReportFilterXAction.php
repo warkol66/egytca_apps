@@ -20,9 +20,10 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 		
 		if(is_object($this->entity)){
 			// obtengo los graficos con los filtros indicados
+			$type = $_POST['type'];
 			
 			$value = $_POST['value'];
-			$byValue = TwitterTweetQuery::getAllByValue(null, null, $value);
+			$byValue = TwitterTweetQuery::getAllByValue(null, null, $value, $type);
 			// seteo los valores disponibles para usarlos luego en la creacion del grafico
 			if(array_key_exists('positive',$byValue[0]))
 				$this->smarty->assign('positive', true);
@@ -33,7 +34,7 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			$this->smarty->assign('byValue', $byValue);
 				
 			$relevance = $_POST['relevance'];
-			$byRelevance = TwitterTweetQuery::getAllByRelevance(null, null, $relevance);
+			$byRelevance = TwitterTweetQuery::getAllByRelevance(null, null, $relevance, $type);
 			// seteo los valores disponibles para usarlos luego en la creacion del grafico
 			if(array_key_exists('relevant',$byRelevance[0]))
 				$this->smarty->assign('relevant', true);

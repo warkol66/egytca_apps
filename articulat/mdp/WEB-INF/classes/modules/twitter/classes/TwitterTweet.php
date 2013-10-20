@@ -27,6 +27,10 @@ class TwitterTweet extends BaseTwitterTweet{
 	const RELEVANT = 1;
 	const NEUTRALLY_RELEVANT = 2;
 	const IRRELEVANT = 3;
+	/*Posibles tipos del tweet*/
+	const ORIGINAL = 1;
+	const RETWEET = 2;
+	const REPLY = 3;
 	
 	public static function getStatuses(){
 		$statuses[TwitterTweet::PARSED] = 'Parseado';
@@ -59,6 +63,7 @@ class TwitterTweet extends BaseTwitterTweet{
 			'Campaignid' => $campaignId,
 			'Text' => $apiTweet->text,
 			'Truncated' => $apiTweet->truncated,
+			'Retweeted' => $apiTweet->retweeted,
 			'Inreplytostatusid' => $apiTweet->in_reply_to_status_id,
 			'Inreplytostatusidstr' => $apiTweet->in_reply_to_status_id_str,
 			'Inreplytouserid' => $apiTweet->in_reply_to_user_id,
