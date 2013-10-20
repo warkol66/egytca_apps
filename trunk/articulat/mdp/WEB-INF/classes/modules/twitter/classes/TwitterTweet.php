@@ -54,10 +54,14 @@ class TwitterTweet extends BaseTwitterTweet{
 	}
 	
 	public function createFromApiTweet($apiTweet, $campaignId, $embed) {
+		// fecha de creacion en GMT0
+		$createdAt = gmdate('Y-m-d H:i:s',strtotime($apiTweet->created_at));
+		// fecha de creacion en timezone del sistema
+		$createdAt = Common::getDatetimeOnGMT($createdAt);
 		
 		//armo los arreglos para crear tweet y usuario
 		$tweet = array(
-			'Createdat' => date('Y-m-d H:i:s',$apiTweet->created_at),
+			'Createdat' => $createdAt,
 			'Tweetid' => $apiTweet->id,
 			'Tweetidstr' => $apiTweet->id_str,
 			'Campaignid' => $campaignId,

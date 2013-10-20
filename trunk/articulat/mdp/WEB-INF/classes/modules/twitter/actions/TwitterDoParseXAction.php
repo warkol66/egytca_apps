@@ -23,6 +23,7 @@ class TwitterDoParseXAction extends BaseAction {
 			
 			$tweets = array();
 			$embeds = array();
+			$system_tweets = array();
 			
 			$terms = $this->parseSearchQuery($query);
 			foreach ($terms as $term) {
