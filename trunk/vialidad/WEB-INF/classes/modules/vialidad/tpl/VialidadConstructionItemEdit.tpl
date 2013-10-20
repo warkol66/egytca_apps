@@ -43,6 +43,10 @@
 		<input id="params[quantity]" name="params[quantity]" type="text" value="|-$item->getQuantity()|system_numeric_format-|" size="15" title="Cantidad" class="emptyValidation" /> |-validation_msg_box idField="params[quantity]"-|
 	</p>
 	<p>
+		<label for="params[price]">Precio</label>
+		<span title="El precio se calcula con los precios del Boletin de base del contrato">Gs |-$item->getPrice()|system_numeric_format-| &#8212; Calculado en base a |-$item->getBaseBulletin()-|</span>
+	</p>
+	<p>
 		<label for="params[unitId]">Unidad</label>
 		<select id="params[unitId]" name="params[unitId]" class="emptyValidation" /> 
 			|-foreach from=$units item=unit-|

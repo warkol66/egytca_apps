@@ -453,12 +453,18 @@
 		<column name="totalPrice" type="DECIMAL" size="12" scale="2" description="Precio" />
 		<column name="status" type="INTEGER"  description="Estado del certificado" />
 
+		<column name="bulletinId" type="INTEGER"  description="Id del boletin de ajuste" />
+
 		<behavior name="timestampable" />
 
 		<foreign-key foreignTable="vialidad_measurementRecord" onDelete="cascade" >
 			<reference local="measurementRecordId" foreign="id" />
 		</foreign-key>
 		
+		<foreign-key foreignTable="vialidad_bulletin" >
+			<reference local="bulletinId" foreign="id" />
+		</foreign-key>
+
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
 			<parameter name="Collate" value="utf8_general_ci"/>
@@ -516,6 +522,7 @@
 			<parameter name="Collate" value="utf8_general_ci"/>
 		</vendor>
 	</table>
+
 	<table phpName="ContractAmount" name="vialidad_contractAmount" description="Montos Originales y Modificatorios de Contratos">
 
 		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
@@ -550,6 +557,30 @@
 		<unique>
 			<unique-column name="code" />
 		</unique>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+
+	<table phpName="ConstructionItemAccumulated" name="vialidad_constructionItemAccumulated" isCrossRef="true" description="Acumulados de items de construccion por certificado">
+
+		<column name="id" type="INTEGER" primaryKey="true" required="true" autoIncrement="true" />
+
+		<column name="certificateId" type="INTEGER" description="Id del certificado asociado (CertificateInvoice)" />
+		<column name="itemId" type="INTEGER" required="true" primaryKey="true" />
+		<column name="accumulated" type="DECIMAL" size="16" scale="2" description="Acumulado" />
+
+
+		<foreign-key foreignTable="vialidad_certificate" onDelete="cascade" >
+			<reference local="certificateId" foreign="id" />
+		</foreign-key>
+
+		<foreign-key foreignTable="vialidad_constructionItem" onDelete="cascade" >
+			<reference local="itemId" foreign="id" />
+		</foreign-key>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>

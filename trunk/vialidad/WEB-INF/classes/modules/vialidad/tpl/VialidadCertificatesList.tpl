@@ -90,6 +90,13 @@
 					|-if isset($pager) && ($pager->getPage() gt 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
 			  <input type="submit" name="submit_go_edit_certificate" value="Editar" class="icon iconEdit" /> 
 			</form>|-/if-|
+			|-if "vialidadCertificatesEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
+			  <input type="hidden" name="do" value="vialidadCertificatesReadjustmentEdit" /> 
+			  <input type="hidden" name="id" value="|-$certificate->getId()-|" /> 
+					|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+					|-if isset($pager) && ($pager->getPage() gt 1)-| <input type="hidden" name="page" id="page" value="|-$pager->getPage()-|" />|-/if-|
+			  <input type="submit" name="submit_go_edit_certificate" value="Reajustes" class="icon iconListEdit" /> 
+			</form>|-/if-|
 			|-if "vialidadCertificatesDoDelete"|security_has_access-|<form action="Main.php" method="post" style="display:inline;"> 
 			  <input type="hidden" name="do" value="vialidadCertificatesDoDelete" /> 
 			  <input type="hidden" name="id" value="|-$certificate->getId()-|" /> 

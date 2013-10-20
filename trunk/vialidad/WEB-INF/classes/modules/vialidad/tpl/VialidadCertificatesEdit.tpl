@@ -20,13 +20,14 @@
 			<legend>Formulario de Administración de Certificado de Obra</legend>
 			<p>
 				|-if $action eq "create"-|
-				<div style="position: relative;z-index:10000;">
+		<div style="position: relative;z-index:10000;">
 				|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" url="Main.php?do=vialidadMeasurementRecordsAutocompleteListX&noCertificate=1" hiddenName="params[measurementRecordId]" disableSubmit="button_edit_certificate" label="Acta"-|
-				</div>
+		</div>
 				|-else-|
 				|-assign var=record value=$certificate->getMeasurementRecord()-|
 				|-assign var=construction value=$record->getConstruction()-|
 				<label for="params[measurementRecordId]">Acta</label>
+				<input type="hidden" name="params[measurementRecordId]" value="|-$record->getId()-|" />
 				<span>|-$construction->getName()-|&nbsp;-&nbsp;|-$record->getMeasurementDate()|date_format:"%B / %Y"|@ucfirst-|</span>
 				|-/if-|
 			</p>
@@ -40,6 +41,9 @@
 				<span id="code" name="code" title="Número">|-$record->getCode()-|</span>
 		</p>
 			|-/if-|
+			<div id="bulletin" style="position: relative;z-index:11000;">
+			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="params_bulletinId" label="Boletín base" url="Main.php?do=commonAutocompleteListX&object=bulletin" hiddenName="params[bulletinId]" defaultHiddenValue=$certificate->getBulletinId() defaultValue=$certificate->getBulletin() class="emptyValidation"-| 
+			</div>
 			<p>
 				|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 				|-if $action eq 'edit'-|
@@ -47,9 +51,10 @@
 				<input type="hidden" name="action" value="edit" />
 				|-/if-|
 				<input type="hidden" name="do" id="do" value="vialidadCertificatesDoEdit" />
-				<input type="submit" id="button_edit_certificate" name="button_edit_certificate" |-if $action eq "create"-|disabled="disabled"|-/if-| title="Aceptar" value="Guardar" />
-				<input type="button" id="cancel" name="cancel" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=vialidadCertificatesList'"/>
-				<div id="div_form_error" style="display:none">Falta completar campos</div>
+				<input type="submit" id="button_edit_certificate" |-if $action eq "create"-|disabled="disabled"|-/if-| title="Aceptar" value="Guardar" />
+				<input type="button" id="readjustment" title="Reajustes" value="Reajustes" onClick="location.href='Main.php?do=vialidadCertificatesReadjustmentEdit&id=|-$certificate->getid()-|'"/>
+				<input type="button" id="cancel" title="Regresar" value="Regresar" onClick="location.href='Main.php?do=vialidadCertificatesList'"/>
+		<div id="div_form_error" style="display:none">Falta completar campos</div>
 			</p>
 		</fieldset>
 	</form>
@@ -62,9 +67,9 @@
 		<thead>
 		<tr class="thFillTitle"> 
 			<th width="50%">Item</th> 
-			<th width="10%">Cantidad</th> 
 			<th width="5%">Unidad</th> 
 			<th width="10%">Precio unitario</th>
+			<th width="10%">Cantidad Certificada </th> 
 			<th width="15%">Precio total</th>
 			<th width="5%">&nbsp;</th>
 		</tr>
@@ -79,9 +84,9 @@
 		<tr>
 			|-assign var=item value=$relation->getConstructionItem()-|
 			<td>|-$item->getName()-|</td>
-			<td align="right">|-$relation->getQuantity()|system_numeric_format-|</td>
 			<td align="center">|-$item->getMeasureUnit()-|</td>
 			<td align="right"><span id="price|-$relation->getId()-|">|-$relation->getPrice()|system_numeric_format-|</span></td>
+			<td align="right">|-$relation->getQuantity()|system_numeric_format-|</td>
 			<td align="right"><span id="totalPrice|-$relation->getId()-|">|-$relation->getTotalPrice()|system_numeric_format-|</span></td>
 			<td align="center"><input id="button_priceEdit|-$relation->getId()-|" type="button" class="icon iconEdit"/></td>
 		</tr>
