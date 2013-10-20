@@ -90,7 +90,7 @@ class ConstructionItem extends BaseConstructionItem {
  */
 	function getKu($datestring, $format = 'Y/m/d') {
 		$ku = 0;
-		
+
 		$dateTime = DateTime::createFromFormat($format, $datestring);
 	
 		//Boletin a la fecha de solicitud
@@ -102,9 +102,11 @@ class ConstructionItem extends BaseConstructionItem {
 		
 		$itemRelations = ConstructionItemRelationQuery::create()->filterByConstructionItem($this)->find();
 		foreach ($itemRelations as $itemRelation) {
+			$variation = 0;
 			$basePrice = PriceBulletinQuery::create()->filterBySupplyid($itemRelation->getSupplyId())->filterByBulletin($baseBulletin)->findOne();
 			$price = PriceBulletinQuery::create()->filterBySupplyid($itemRelation->getSupplyId())->filterByBulletin($bulletin)->findOne();
-			$variation = $price->getAverageprice() / $basePrice->getAverageprice();
+			if (is_object($basePrice) && is_object($price))
+				$variation = $price->getAverageprice() / $basePrice->getAverageprice();
 			$ku += $variation * $itemRelation->getProportion() / 100;
 		}
 		return $ku;
