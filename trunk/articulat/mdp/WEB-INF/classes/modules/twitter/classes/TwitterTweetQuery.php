@@ -1,7 +1,4 @@
 <?php
-
-
-
 /**
  * Skeleton subclass for performing query and update operations on the 'twitter_tweet' table.
  *
@@ -28,6 +25,30 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 			return $this->filterByValue(array('min' => 1))->filterByRelevance(array('min' => 1));
 		else
 			return $this;
+	}
+	
+	/* Filtra por tipo de tweets
+	 * @param $type : int - indica el tipo de tweet a filtrar
+	 * 
+	 * */
+	public function getByType($type){
+		switch($type){
+			case TwitterTweet::ORIGINAL:
+				return $this->where('TwitterTweet.Inreplytostatusid IS NULL')->where('TwitterTweet.Inreplytouserid IS NULL')->filterByRetweeted(false);
+			break;			
+			case TwitterTweet::RETWEET:
+				return $this->filterByRetweeted(true);
+			break;
+			case TwitterTweet::REPLY:
+				return $this
+					->condition('cond1', 'TwitterTweet.Inreplytostatusid IS NOT NULL')
+					->condition('cond2', 'TwitterTweet.Inreplytouserid IS NOT NULL')
+					->where(array('cond1', 'cond2'), 'or');
+			break;
+			default:
+				return $this;
+			break;		
+		}
 	}
 	
 	/* Filtra por tweets procesados y no aceptados
@@ -107,7 +128,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		return $users;
 	}
 	
-	public function getAllByValue($from, $to, $value = null){
+	public function getAllByValue($from, $to, $value = null, $type){
 		
 		//TODO: agregar chequeo de si las fechas tienen 24hs de diferencia
 		
@@ -123,6 +144,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 						->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
 						->withColumn('sum(if(TwitterTweet.Value = '. $positive .', 1, 0))', 'positive')
 						->filterByStatus(TwitterTweet::ACCEPTED)
+						->getByType($type)
 						->groupBy('TwitterTweet.date')
 						->select(array('date','positive'))
 						->find();
@@ -132,6 +154,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 						->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
 						->withColumn('sum(if(TwitterTweet.Value = '. $neutral .', 1, 0))', 'neutral')
 						->filterByStatus(TwitterTweet::ACCEPTED)
+						->getByType($type)
 						->groupBy('TwitterTweet.date')
 						->select(array('date','neutral'))
 						->find();
@@ -141,6 +164,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 						->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
 						->withColumn('sum(if(TwitterTweet.Value = '. $negative .', 1, 0))', 'negative')
 						->filterByStatus(TwitterTweet::ACCEPTED)
+						->getByType($type)
 						->groupBy('TwitterTweet.date')
 						->select(array('date','negative'))
 						->find();
@@ -152,6 +176,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 						->withColumn('sum(if(TwitterTweet.Value = '. TwitterTweet::NEUTRAL .', 1, 0))', 'neutral')
 						->withColumn('sum(if(TwitterTweet.Value = '. TwitterTweet::NEGATIVE .', 1, 0))', 'negative')
 						->filterByStatus(TwitterTweet::ACCEPTED)
+						->getByType($type)
 						->groupBy('TwitterTweet.date')
 						->select(array('date','positive', 'neutral', 'negative'))
 						->find();
@@ -168,7 +193,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		return $positiveTweets;
 	}
 	
-	public function getAllByRelevance($from, $to, $relevance = null){
+	public function getAllByRelevance($from, $to, $relevance = null, $type){
 		
 		//TODO: agregar chequeo de si las fechas tienen 24hs de diferencia
 		$relevant = TwitterTweet::RELEVANT;
@@ -183,6 +208,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 						->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
 						->withColumn('sum(if(TwitterTweet.Relevance = '. $relevant .', 1, 0))', 'relevant')
 						->filterByStatus(TwitterTweet::ACCEPTED)
+						->getByType($type)
 						->groupBy('TwitterTweet.date')
 						->select(array('date','relevant'))
 						->find();
@@ -192,6 +218,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 						->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
 						->withColumn('sum(if(TwitterTweet.Relevance = '. $neutrally_relevant .', 1, 0))', 'neutrally_relevant')
 						->filterByStatus(TwitterTweet::ACCEPTED)
+						->getByType($type)
 						->groupBy('TwitterTweet.date')
 						->select(array('date','neutrally_relevant'))
 						->find();
@@ -201,6 +228,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 						->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
 						->withColumn('sum(if(TwitterTweet.Relevance = '. $irrelevant .', 1, 0))', 'irrelevant')
 						->filterByStatus(TwitterTweet::ACCEPTED)
+						->getByType($type)
 						->groupBy('TwitterTweet.date')
 						->select(array('date','irrelevant'))
 						->find();
@@ -212,6 +240,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 						->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::NEUTRALLY_RELEVANT .', 1, 0))', 'neutrally_relevant')
 						->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::IRRELEVANT .', 1, 0))', 'irrelevant')
 						->filterByStatus(TwitterTweet::ACCEPTED)
+						->getByType($type)
 						->groupBy('TwitterTweet.date')
 						->select(array('date','relevant', 'neutrally_relevant', 'irrelevant'))
 						->find();

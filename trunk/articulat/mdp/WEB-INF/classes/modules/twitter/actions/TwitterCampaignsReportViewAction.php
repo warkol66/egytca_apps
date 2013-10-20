@@ -20,7 +20,7 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 		
 		if(is_object($this->entity)){
 
-			$byValue = TwitterTweetQuery::getAllByValue(null, null, null);
+			$byValue = TwitterTweetQuery::getAllByValue(null, null, null, null);
 			// seteo los valores disponibles para usarlos luego en la creacion del grafico
 			if(array_key_exists('positive',$byValue[0]))
 				$this->smarty->assign('positive', true);
@@ -29,7 +29,7 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			if(array_key_exists('negative',$byValue[0]))
 				$this->smarty->assign('negative', true);
 				
-			$byRelevance = TwitterTweetQuery::getAllByRelevance(null, null, null);
+			$byRelevance = TwitterTweetQuery::getAllByRelevance(null, null, null, null);
 			// seteo los valores disponibles para usarlos luego en la creacion del grafico
 			if(array_key_exists('positive',$byRelevance[0]))
 				$this->smarty->assign('relevant', true);
