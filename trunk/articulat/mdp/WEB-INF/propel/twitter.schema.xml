@@ -18,6 +18,7 @@
 		<column name="retweetCount" type="INTEGER" description="Retweet count" />
 		<column name="favoriteCount" type="INTEGER" description="Favorited count" />
 		<column name="lang" type="VARCHAR" size="255" description="Language" />
+		<column name="retweeted" type="BOOLEAN" description="is retweet" />
 		<column name="inReplyToStatusId" type="INTEGER" description="In reply to tweet id" />
 		<column name="inReplyToStatusIdStr" type="VARCHAR" size="255" description="In reply to tweet string id" />
 		<column name="inReplyToUserId" type="INTEGER" description="In reply to user id" />
