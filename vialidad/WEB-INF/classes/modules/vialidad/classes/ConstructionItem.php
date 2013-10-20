@@ -85,4 +85,56 @@ class ConstructionItem extends BaseConstructionItem {
 		return ($completed == 100);														 		
 	}
 
+/**
+ * Coeficiente de ajuste Ku
+ */
+	function getKu($datestring, $format = 'Y/m/d') {
+		$ku = 0;
+		
+		$dateTime = DateTime::createFromFormat($format, $datestring);
+	
+		//Boletin a la fecha de solicitud
+		if (!empty($dateTime))
+			$bulletin = BulletinQuery::create()->filterByPeriodo($dateTime->format('d/m/Y'))->findOne();
+			
+		if (!empty($bulletin))
+			$baseBulletin =	$this->getConstruction()->getContract()->getBulletin();
+		
+		$itemRelations = ConstructionItemRelationQuery::create()->filterByConstructionItem($this)->find();
+		foreach ($itemRelations as $itemRelation) {
+			$basePrice = PriceBulletinQuery::create()->filterBySupplyid($itemRelation->getSupplyId())->filterByBulletin($baseBulletin)->findOne();
+			$price = PriceBulletinQuery::create()->filterBySupplyid($itemRelation->getSupplyId())->filterByBulletin($bulletin)->findOne();
+			$variation = $price->getAverageprice() / $basePrice->getAverageprice();
+			$ku += $variation * $itemRelation->getProportion() / 100;
+		}
+		return $ku;
+	}
+
+
+/**
+ * Obtiene el boletin base sobre el cual se calculan los precios
+ */
+	public function getBaseBulletin() {
+			$construction = $this->getConstruction();
+			if (!empty($construction))
+				$contract = $construction->getContract();
+				if (!empty($contract))
+					return $contract->getBulletin();
+	}
+
+/**
+ * Sobracarga del metodo preSave para calcular los precios basados en lso boletines.
+ */
+	function preSave(PropelPDO $con = null) {
+		parent::preSave($con);
+		if ($this->getClassKey() == ConstructionItemPeer::CLASSKEY_CONSTRUCTIONITEM && $this->completed()) {
+			$bulletin = $this->getBaseBulletin();
+			if (!empty($bulletin)) {
+				$this->setPrice($this->getEstimatedPrice($bulletin->getBulletinDate('Y/m/d'),'Y/m/d'));
+
+			}
+		}
+    return true;
+	}
+
 } // ConstructionItem
