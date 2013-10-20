@@ -99,11 +99,11 @@
   border: none;
 }
 
-.timeSelected, 
-.typeSelected, 
-.relevanceSelected,
-.valueSelected {
-	background: #86A2AC;
+#panelDiv ul ul button.timeSelected, 
+#panelDiv ul ul button.typeSelected, 
+#panelDiv ul ul button.relevanceSelected,
+#panelDiv ul ul button.valueSelected {
+	background: none repeat scroll 0 0 #86A2AC;
 	color: #797979;
 	display: block;
 	font-size: 13px;
