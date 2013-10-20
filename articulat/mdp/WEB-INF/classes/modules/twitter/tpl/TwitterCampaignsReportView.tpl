@@ -1,3 +1,6 @@
+|-if !is_object($campaign)-|
+<span class="resultFailure">No se encontró la campaña</span>
+|-else-|
 <link type="text/css" rel="stylesheet" href="css/twitterMenu.css" />
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -110,3 +113,4 @@
 		usersChart(arrUsers, '|-$campaign->getId()-|');
 	});
 </script>
+|-/if-|
