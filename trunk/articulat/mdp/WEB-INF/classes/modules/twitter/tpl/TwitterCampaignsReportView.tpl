@@ -16,10 +16,10 @@
 	   <li class='active'><button onclick='Main.php?do=twitterCampaignsReportView&id=|-$campaign->getId()-|'><span>Eliminar Filtros</span></button></li>
 	   <li class='has-sub'><button><span>Temporales</span></button>
 		  <ul>
-			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value=""><span>Ultimas 12 horas</span></button></li>
-			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value=""><span>Ultimas 24 horas</span></button></li>
-			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value=""><span>Ultimos 7 días</span></button></li>
-			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value="15"><span>Ultimos 15 días</span></button></li>
+			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value="- 12 hours"><span>Ultimas 12 horas</span></button></li>
+			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value="- 24 hours"><span>Ultimas 24 horas</span></button></li>
+			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value="- 7 days"><span>Ultimos 7 días</span></button></li>
+			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value="- 15 days"><span>Ultimos 15 días</span></button></li>
 			 <li class='last'><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value=""><span>Toda la campaña</span></button></li>
 		  </ul>
 	   </li>
@@ -88,9 +88,10 @@
 		var val = $j('.valueSelected').val();
 		var rel = $j('.relevanceSelected').val();
 		var type = $j('.typeSelected').val();
+		var time = $j('.timeSelected').val();
 		$j.ajax({
 			url: 'Main.php?do=twitterCampaignsReportFilterX',
-			data: {id: '|-$campaign->getId()-|', value: val, relevance: rel, type: type},
+			data: {id: '|-$campaign->getId()-|', value: val, relevance: rel, type: type, time: time},
 			type: 'post',
 			success: function(data){
 				$j('#reportTweets').html(data);

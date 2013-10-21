@@ -19,8 +19,16 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 		$this->smarty->assign("module", $this->module);
 		
 		if(is_object($this->entity)){
+			
+			$campaignId = $this->entity->getId();
+			// busco entre los limites de la campaign
+			$from = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($this->entity->getStartdate())));
+			$to = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($this->entity->getFinishdate())));
+			
+			/*echo "$from \n $to";
+			die();*/
 
-			$byValue = TwitterTweetQuery::getAllByValue(null, null, null, null);
+			$byValue = TwitterTweetQuery::getAllByValue($campaignId, $from, $to, null, null);
 			// seteo los valores disponibles para usarlos luego en la creacion del grafico
 			if(array_key_exists('positive',$byValue[0]))
 				$this->smarty->assign('positive', true);
@@ -29,7 +37,7 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			if(array_key_exists('negative',$byValue[0]))
 				$this->smarty->assign('negative', true);
 				
-			$byRelevance = TwitterTweetQuery::getAllByRelevance(null, null, null, null);
+			$byRelevance = TwitterTweetQuery::getAllByRelevance($campaignId, $from, $to, null, null);
 			// seteo los valores disponibles para usarlos luego en la creacion del grafico
 			if(array_key_exists('positive',$byRelevance[0]))
 				$this->smarty->assign('relevant', true);
@@ -39,7 +47,7 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 				$this->smarty->assign('irrelevant', true);
 			
 			// obtengo los usuarios que mas tweets crearon
-			$topUsers = TwitterTweetQuery::getTopUsers();
+			$topUsers = TwitterUserQuery::getTopUsers($campaignId);
 			
 			
 			// obtengo los actores mas mencionados

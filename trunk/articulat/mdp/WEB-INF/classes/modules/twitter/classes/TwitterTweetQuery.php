@@ -104,154 +104,128 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		return $positiveTweets;
 	}
 	
-	public function getTopUsers($from = null, $to = null, $top = 5){
+	public function getAllByValue($campaign, $from, $to, $value = null, $type){
 			
-		if(!isset($from) && !isset($to)){
-			
-			$tops = TwitterTweetQuery::create()
-				->withColumn('count(TwitterTweet.Id)', 'tweets')
-				->filterByStatus(TwitterTweet::ACCEPTED)
-				->groupBy('TwitterTweet.Internaltwitteruserid')
-				->orderBy('TwitterTweet.tweets', 'desc')
-				->limit($top)
-				->find();
-			$users = array();
-			$i = 0;
-			foreach($tops as $top){
-				$users[$i]['user'] = $top->getTwitterUser();
-				$users[$i]['tweets'] = $top->getTweets();
-				$i++;
-			}
-		}else{
-			
+		$positive = TwitterTweet::POSITIVE;
+		$neutral = TwitterTweet::NEUTRAL;
+		$negative = TwitterTweet::NEGATIVE;
+		
+		switch($value){
+			case $positive:
+				$byValue = TwitterTweetQuery::create()
+					->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
+					->withColumn('sum(if(TwitterTweet.Value = '. $positive .', 1, 0))', 'positive')
+					->filterByCampaignid($campaign)
+					->filterByCreatedat(array('min' => $from, 'max' => $to))
+					->filterByStatus(TwitterTweet::ACCEPTED)
+					->getByType($type)
+					->groupBy('TwitterTweet.date')
+					->select(array('date','positive'))
+					->find();
+			break;
+			case $neutral:
+				$byValue = TwitterTweetQuery::create()
+					->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
+					->withColumn('sum(if(TwitterTweet.Value = '. $neutral .', 1, 0))', 'neutral')
+					->filterByCampaignid($campaign)
+					->filterByCreatedat(array('min' => $from, 'max' => $to))
+					->filterByStatus(TwitterTweet::ACCEPTED)
+					->getByType($type)
+					->groupBy('TwitterTweet.date')
+					->select(array('date','neutral'))
+					->find();
+			break;
+			case $negative:
+				$byValue = TwitterTweetQuery::create()
+					->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
+					->withColumn('sum(if(TwitterTweet.Value = '. $negative .', 1, 0))', 'negative')
+					->filterByCampaignid($campaign)
+					->filterByCreatedat(array('min' => $from, 'max' => $to))
+					->filterByStatus(TwitterTweet::ACCEPTED)
+					->getByType($type)
+					->groupBy('TwitterTweet.date')
+					->select(array('date','negative'))
+					->find();
+			break;
+			default:
+				$byValue = TwitterTweetQuery::create()
+					->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
+					->withColumn('sum(if(TwitterTweet.Value = '. TwitterTweet::POSITIVE .', 1, 0))', 'positive')
+					->withColumn('sum(if(TwitterTweet.Value = '. TwitterTweet::NEUTRAL .', 1, 0))', 'neutral')
+					->withColumn('sum(if(TwitterTweet.Value = '. TwitterTweet::NEGATIVE .', 1, 0))', 'negative')
+					->filterByCampaignid($campaign)
+					->filterByCreatedat(array('min' => $from, 'max' => $to))
+					->filterByStatus(TwitterTweet::ACCEPTED)
+					->getByType($type)
+					->groupBy('TwitterTweet.date')
+					->select(array('date','positive', 'neutral', 'negative'))
+					->find();
+			break;
 		}
-		return $users;
+		
+		return $byValue;
 	}
 	
-	public function getAllByValue($from, $to, $value = null, $type){
-		
-		//TODO: agregar chequeo de si las fechas tienen 24hs de diferencia
-		
-		if(!isset($from) && !isset($to)){
-			
-			$positive = TwitterTweet::POSITIVE;
-			$neutral = TwitterTweet::NEUTRAL;
-			$negative = TwitterTweet::NEGATIVE;
-			
-			switch($value){
-				case $positive:
-					$byValue = TwitterTweetQuery::create()
-						->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
-						->withColumn('sum(if(TwitterTweet.Value = '. $positive .', 1, 0))', 'positive')
-						->filterByStatus(TwitterTweet::ACCEPTED)
-						->getByType($type)
-						->groupBy('TwitterTweet.date')
-						->select(array('date','positive'))
-						->find();
-				break;
-				case $neutral:
-					$byValue = TwitterTweetQuery::create()
-						->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
-						->withColumn('sum(if(TwitterTweet.Value = '. $neutral .', 1, 0))', 'neutral')
-						->filterByStatus(TwitterTweet::ACCEPTED)
-						->getByType($type)
-						->groupBy('TwitterTweet.date')
-						->select(array('date','neutral'))
-						->find();
-				break;
-				case $negative:
-					$byValue = TwitterTweetQuery::create()
-						->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
-						->withColumn('sum(if(TwitterTweet.Value = '. $negative .', 1, 0))', 'negative')
-						->filterByStatus(TwitterTweet::ACCEPTED)
-						->getByType($type)
-						->groupBy('TwitterTweet.date')
-						->select(array('date','negative'))
-						->find();
-				break;
-				default:
-					$byValue = TwitterTweetQuery::create()
-						->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
-						->withColumn('sum(if(TwitterTweet.Value = '. TwitterTweet::POSITIVE .', 1, 0))', 'positive')
-						->withColumn('sum(if(TwitterTweet.Value = '. TwitterTweet::NEUTRAL .', 1, 0))', 'neutral')
-						->withColumn('sum(if(TwitterTweet.Value = '. TwitterTweet::NEGATIVE .', 1, 0))', 'negative')
-						->filterByStatus(TwitterTweet::ACCEPTED)
-						->getByType($type)
-						->groupBy('TwitterTweet.date')
-						->select(array('date','positive', 'neutral', 'negative'))
-						->find();
-				break;
-			}
-			
-			
-				
-			return $byValue;
-			
-		}else{
-			
-		}
-		return $positiveTweets;
-	}
-	
-	public function getAllByRelevance($from, $to, $relevance = null, $type){
+	public function getAllByRelevance($campaign, $from, $to, $relevance = null, $type){
 		
 		//TODO: agregar chequeo de si las fechas tienen 24hs de diferencia
 		$relevant = TwitterTweet::RELEVANT;
 		$neutrally_relevant = TwitterTweet::NEUTRALLY_RELEVANT;
 		$irrelevant = TwitterTweet::IRRELEVANT;
-		
-		if(!isset($from) && !isset($to)){
 			
-			switch($relevance){
-				case $relevant:
-					$byRelevance = TwitterTweetQuery::create()
-						->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
-						->withColumn('sum(if(TwitterTweet.Relevance = '. $relevant .', 1, 0))', 'relevant')
-						->filterByStatus(TwitterTweet::ACCEPTED)
-						->getByType($type)
-						->groupBy('TwitterTweet.date')
-						->select(array('date','relevant'))
-						->find();
-				break;
-				case $neutrally_relevant:
-					$byRelevance = TwitterTweetQuery::create()
-						->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
-						->withColumn('sum(if(TwitterTweet.Relevance = '. $neutrally_relevant .', 1, 0))', 'neutrally_relevant')
-						->filterByStatus(TwitterTweet::ACCEPTED)
-						->getByType($type)
-						->groupBy('TwitterTweet.date')
-						->select(array('date','neutrally_relevant'))
-						->find();
-				break;
-				case $irrelevant:
-					$byRelevance = TwitterTweetQuery::create()
-						->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
-						->withColumn('sum(if(TwitterTweet.Relevance = '. $irrelevant .', 1, 0))', 'irrelevant')
-						->filterByStatus(TwitterTweet::ACCEPTED)
-						->getByType($type)
-						->groupBy('TwitterTweet.date')
-						->select(array('date','irrelevant'))
-						->find();
-				break;
-				default:
-					$byRelevance = TwitterTweetQuery::create()
-						->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
-						->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::RELEVANT .', 1, 0))', 'relevant')
-						->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::NEUTRALLY_RELEVANT .', 1, 0))', 'neutrally_relevant')
-						->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::IRRELEVANT .', 1, 0))', 'irrelevant')
-						->filterByStatus(TwitterTweet::ACCEPTED)
-						->getByType($type)
-						->groupBy('TwitterTweet.date')
-						->select(array('date','relevant', 'neutrally_relevant', 'irrelevant'))
-						->find();
-				break;
-			}
-			
-			return $byRelevance;
-			
-		}else{
-			
+		switch($relevance){
+			case $relevant:
+				$byRelevance = TwitterTweetQuery::create()
+					->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
+					->withColumn('sum(if(TwitterTweet.Relevance = '. $relevant .', 1, 0))', 'relevant')
+					->filterByCampaignid($campaign)
+					->filterByCreatedat(array('min' => $from, 'max' => $to))
+					->filterByStatus(TwitterTweet::ACCEPTED)
+					->getByType($type)
+					->groupBy('TwitterTweet.date')
+					->select(array('date','relevant'))
+					->find();
+			break;
+			case $neutrally_relevant:
+				$byRelevance = TwitterTweetQuery::create()
+					->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
+					->withColumn('sum(if(TwitterTweet.Relevance = '. $neutrally_relevant .', 1, 0))', 'neutrally_relevant')
+					->filterByCampaignid($campaign)
+					->filterByCreatedat(array('min' => $from, 'max' => $to))
+					->filterByStatus(TwitterTweet::ACCEPTED)
+					->getByType($type)
+					->groupBy('TwitterTweet.date')
+					->select(array('date','neutrally_relevant'))
+					->find();
+			break;
+			case $irrelevant:
+				$byRelevance = TwitterTweetQuery::create()
+					->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
+					->withColumn('sum(if(TwitterTweet.Relevance = '. $irrelevant .', 1, 0))', 'irrelevant')
+					->filterByCampaignid($campaign)
+					->filterByCreatedat(array('min' => $from, 'max' => $to))
+					->filterByStatus(TwitterTweet::ACCEPTED)
+					->getByType($type)
+					->groupBy('TwitterTweet.date')
+					->select(array('date','irrelevant'))
+					->find();
+			break;
+			default:
+				$byRelevance = TwitterTweetQuery::create()
+					->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
+					->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::RELEVANT .', 1, 0))', 'relevant')
+					->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::NEUTRALLY_RELEVANT .', 1, 0))', 'neutrally_relevant')
+					->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::IRRELEVANT .', 1, 0))', 'irrelevant')
+					->filterByCampaignid($campaign)
+					->filterByCreatedat(array('min' => $from, 'max' => $to))
+					->filterByStatus(TwitterTweet::ACCEPTED)
+					->getByType($type)
+					->groupBy('TwitterTweet.date')
+					->select(array('date','relevant', 'neutrally_relevant', 'irrelevant'))
+					->find();
+			break;
 		}
-		return $positiveTweets;
+		
+		return $byRelevance;
 	}
 }

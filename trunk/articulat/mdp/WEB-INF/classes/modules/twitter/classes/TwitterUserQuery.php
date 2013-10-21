@@ -13,6 +13,73 @@
  *
  * @package    propel.generator.twitter.classes
  */
-class TwitterUserQuery extends BaseTwitterUserQuery
-{
+class TwitterUserQuery extends BaseTwitterUserQuery{
+	
+	/* Obtiene los usuarios con mas tweets
+	 * 
+	 * */
+	public function getTopUsers($campaign,$from = null, $to = null, $count = 5){
+			
+		if(!isset($from) && !isset($to)){
+			
+			$tops = TwitterTweetQuery::create()
+				->withColumn('count(TwitterTweet.Id)', 'tweets')
+				->filterByCampaignid($campaign)
+				->filterByStatus(TwitterTweet::ACCEPTED)
+				->groupBy('TwitterTweet.Internaltwitteruserid')
+				->orderBy('TwitterTweet.tweets', 'desc')
+				->limit($count)
+				->find();
+		}else{
+			$tops = TwitterTweetQuery::create()
+				->withColumn('count(TwitterTweet.Id)', 'tweets')
+				->filterByCampaignid($campaign)
+				->filterByStatus(TwitterTweet::ACCEPTED)
+				->filterByCreatedat(array('min' => $from,'max' => $to))
+				->groupBy('TwitterTweet.Internaltwitteruserid')
+				->orderBy('TwitterTweet.tweets', 'desc')
+				->limit($count)
+				->find();
+		}
+		$users = array();
+		$i = 0;
+		foreach($tops as $top){
+			$users[$i]['user'] = $top->getTwitterUser();
+			$users[$i]['tweets'] = $top->getTweets();
+			$i++;
+		}
+		return $users;
+	}
+	
+	/* Obtiene los usuarios mas influyentes
+	 * 
+	 * */
+	/*public function getInfluentialUsers($from = null, $to = null, $count = 5){
+			
+		if(!isset($from) && !isset($to)){
+			$tops = TwitterTweetQuery::create()
+				->withColumn('count(TwitterTweet.Id)', 'tweets')
+				->filterByStatus(TwitterTweet::ACCEPTED)
+				->groupBy('TwitterTweet.Internaltwitteruserid')
+				->orderBy('TwitterTweet.tweets', 'desc')
+				->limit($count)
+				->find();
+		}else{
+			$tops = TwitterTweetQuery::create()
+				->withColumn('count(TwitterTweet.Id)', 'tweets')
+				->filterByStatus(TwitterTweet::ACCEPTED)
+				->groupBy('TwitterTweet.Internaltwitteruserid')
+				->orderBy('TwitterTweet.tweets', 'desc')
+				->limit($count)
+				->find();
+		}
+		$users = array();
+		$i = 0;
+		foreach($tops as $top){
+			$users[$i]['user'] = $top->getTwitterUser();
+			$users[$i]['tweets'] = $top->getTweets();
+			$i++;
+		}
+		return $users;
+	}*/
 }

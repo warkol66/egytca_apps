@@ -76,17 +76,23 @@
 			|-if $twitterUserColl|@count neq 0-|
 				<tr>
 					<td colspan="9">
-						<form action="Main.php" method="post" id='multipleTweetsChangeValueForm'>
+						<form action="Main.php" method="post" id='multipleUsersChangeInfluenceForm'>
 							<p>Cambiar el nivel de influencia de los usuarios seleccionados a
-								<select name="newValue" id="selectEntryStatus">
+								<select name="newInfluence" id="selectUserInfluence">
+								|-foreach from=$levels key=key item=name-|
+									<option value="|-$key-|">|-$name-|</option>
+								|-/foreach-|
 								</select>
 								|-if isset($pager)-|
 									<input type="hidden" name="page" value="|-$pager->getPage()-|" id="page">
 								|-/if-|
-								<input type="hidden" name="field" value="Value" id="influence">
 								<input type="hidden" name="do" value="twitterUsersDoEditMultipleX" id="do">
-								<input type="button" onClick="javascript:twitterDoEditMultiple(this.form,|-if isset($embedded)-|'acceptedResDiv'|-else-|'resultDiv'|-/if-|); return false;" value="Cambiar Valoracion" title="Cambiar Valoracion" class="button">
+								<input type="hidden" name="field" value="Relevance" id="field">
+								<input type="button" onClick="javascript:twitterUsersDoEditMultiple(this.form,'resultDiv'); return false;" value="Cambiar Influencia" title="Cambiar Influencia" class="button">
 							</p>
+							|-if isset($pager)-|
+								<input type="hidden" name="page" value="|-$pager->getPage()-|" id="page">
+							|-/if-|
 						</form>
 					</td>
 				</tr>
