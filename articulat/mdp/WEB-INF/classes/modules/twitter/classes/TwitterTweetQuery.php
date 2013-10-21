@@ -168,7 +168,6 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 	
 	public function getAllByRelevance($campaign, $from, $to, $relevance = null, $type){
 		
-		//TODO: agregar chequeo de si las fechas tienen 24hs de diferencia
 		$relevant = TwitterTweet::RELEVANT;
 		$neutrally_relevant = TwitterTweet::NEUTRALLY_RELEVANT;
 		$irrelevant = TwitterTweet::IRRELEVANT;

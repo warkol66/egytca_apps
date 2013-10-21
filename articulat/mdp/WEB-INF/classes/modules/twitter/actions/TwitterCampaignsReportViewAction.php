@@ -61,6 +61,8 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			// posibles valores y relevancias para los filtros
 			$this->smarty->assign("tweetValues",TwitterTweet::getValues());
 			$this->smarty->assign("tweetRelevances",TwitterTweet::getRelevances());
+			$this->smarty->assign("from",$from);
+			$this->smarty->assign("to",$to);
 		}
 		
 		$moduleConfig = Common::getModuleConfiguration($this->module);
