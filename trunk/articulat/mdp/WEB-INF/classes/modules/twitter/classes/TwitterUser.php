@@ -15,6 +15,18 @@
  */
 class TwitterUser extends BaseTwitterUser{
 	
+	/*Posibles niveles de influencia del usuario*/
+	const INFLUENTIAL = 1;
+	const NEUTRAL = 2;
+	const NOT_INFLUENTIAL = 3;
+	
+	public static function getInfluenceLevels(){
+		$levels[TwitterUser::INFLUENTIAL] = 'Influyente';
+		$levels[TwitterUser::NEUTRAL] = 'Medianamente influyente';
+		$levels[TwitterUser::NOT_INFLUENTIAL] = 'No influyente';
+		return $levels;
+	}
+	
 	/* Si el usuario que intentamos crear existe devuelve el existente
 	 * Si no crea uno nuevo y lo devuelve
 	 * 

@@ -76,7 +76,7 @@
 				<td align="center"><input type="checkbox" name="selected[]" value="|-$tweet->getId()-|"></td>
 				<td valign="top"class="twitterTextTable">|-$tweet->getText()|twitterHighlight-|</td>
 				<td valign="top">|-if is_object($user)-|<a href="#twitterUserLightbox" rel="twitterUserLightbox" class="lbOn"><input type="button" class="twitterUserDetail" onClick='{new Ajax.Updater("twitterShowDiv", "Main.php?do=twitterUsersViewX", { method: "post", parameters: { id: "|-$user->getId()-|"}, evalScripts: true})};$("twitterDivShowWorking").innerHTML = "<span class=\"inProgress\">buscando Usuario...</span>";$("twitterShowDiv").innerHTML = " ";' value="|-$user->getName()-|" name="" title="Ver perfil del usuario" /></a>|-/if-|</td>
-				<td valign="top" nowrap="nowrap">|-$tweet->getCreatedat()|date_format:"%d-%m-%Y %H:%m"-|</td>
+				<td valign="top" nowrap="nowrap">|-$tweet->getCreatedat()|date_format:"%d-%m-%Y %H:%m"|change_timezone-|</td>
 				<td valign="top" nowrap="nowrap">
 					<form action="Main.php" method="post" id="formValueTweets|-$tweet->getId()-|">
 							|-foreach from=$tweetValues key=key item=name-|
