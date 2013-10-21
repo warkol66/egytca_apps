@@ -58,8 +58,12 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 				$this->smarty->assign('irrelevant', true);
 			$this->smarty->assign('byRelevance', $byRelevance);
 			
+			$totalTweets = TwitterTweetQuery::getTotalTweets($campaignId,$from,$to);
+			$this->smarty->assign("totalTweets",$totalTweets);
+			
 			$this->smarty->assign("from",$from);
 			$this->smarty->assign("to",$to);
+
 		}
 		
 		$moduleConfig = Common::getModuleConfiguration($this->module);

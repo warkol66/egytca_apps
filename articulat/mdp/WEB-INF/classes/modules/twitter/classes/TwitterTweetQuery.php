@@ -227,4 +227,14 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		
 		return $byRelevance;
 	}
+	
+	public static function getTotalTweets($campaign, $from, $to){
+		$totalTweets = TwitterTweetQuery::create()
+			->filterByCampaignid($campaign)
+			->filterByCreatedat(array('min' => $from, 'max' => $to))
+			->filterByStatus(TwitterTweet::ACCEPTED)
+			->find();
+			
+		return count($totalTweets);
+	}
 }

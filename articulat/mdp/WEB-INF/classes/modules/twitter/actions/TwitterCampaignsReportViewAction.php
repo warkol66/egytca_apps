@@ -58,6 +58,9 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			/*echo"<pre>"; print_r($byValue); echo"</pre>";
 			die();*/
 			
+			$totalTweets = TwitterTweetQuery::getTotalTweets($campaignId,$from,$to);
+			$this->smarty->assign("totalTweets",$totalTweets);
+			
 			// posibles valores y relevancias para los filtros
 			$this->smarty->assign("tweetValues",TwitterTweet::getValues());
 			$this->smarty->assign("tweetRelevances",TwitterTweet::getRelevances());
