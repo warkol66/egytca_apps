@@ -19,11 +19,25 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 		$this->smarty->assign("module", $this->module);
 		
 		if(is_object($this->entity)){
+			
+			$campaignId = $this->entity->getId();
 			// obtengo los graficos con los filtros indicados
 			$type = $_POST['type'];
 			
+			// si no es un rango de fechas custom
+			if(!isset($_POST['from']) && !isset($_POST['to'])){
+				if(!empty($_POST['time']))
+					$from = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($_POST['time'])));
+				else
+					$from = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($this->entity->getStartdate())));
+				$to = Common::getDatetimeOnGMT(date('Y-m-d H:i:s'));
+			}
+			
+			/*echo "$from \n $to";
+			die();*/
+			
 			$value = $_POST['value'];
-			$byValue = TwitterTweetQuery::getAllByValue(null, null, $value, $type);
+			$byValue = TwitterTweetQuery::getAllByValue($campaignId, $from, $to, $value, $type);
 			// seteo los valores disponibles para usarlos luego en la creacion del grafico
 			if(array_key_exists('positive',$byValue[0]))
 				$this->smarty->assign('positive', true);
@@ -34,7 +48,7 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			$this->smarty->assign('byValue', $byValue);
 				
 			$relevance = $_POST['relevance'];
-			$byRelevance = TwitterTweetQuery::getAllByRelevance(null, null, $relevance, $type);
+			$byRelevance = TwitterTweetQuery::getAllByRelevance($campaignId, $from, $to, $relevance, $type);
 			// seteo los valores disponibles para usarlos luego en la creacion del grafico
 			if(array_key_exists('relevant',$byRelevance[0]))
 				$this->smarty->assign('relevant', true);
