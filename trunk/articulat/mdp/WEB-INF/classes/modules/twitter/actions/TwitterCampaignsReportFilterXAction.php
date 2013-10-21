@@ -57,7 +57,9 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			if(array_key_exists('irrelevant',$byRelevance[0]))
 				$this->smarty->assign('irrelevant', true);
 			$this->smarty->assign('byRelevance', $byRelevance);
-
+			
+			$this->smarty->assign("from",$from);
+			$this->smarty->assign("to",$to);
 		}
 		
 		$moduleConfig = Common::getModuleConfiguration($this->module);
