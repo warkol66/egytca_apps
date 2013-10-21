@@ -26,9 +26,10 @@ class TwitterUsersListAction extends BaseListAction {
 		$this->smarty->assign("module", $this->module);
 		
 		$moduleConfig = Common::getModuleConfiguration($this->module);
-		$this->smarty->assign("moduleConfig",$moduleConfig);
+		$this->smarty->assign('moduleConfig',$moduleConfig);
 		
-		$this->smarty->assign("campaigns",CampaignQuery::getMostRecent(15, true));
+		$this->smarty->assign('campaigns',CampaignQuery::getMostRecent(15, true));
+		$this->smarty->assign('levels',TwitterUser::getInfluenceLevels());
 		
 		if(!empty($_GET['filters']['dateRange']['createdat']['min']))
             $this->filters['minDate'] = $_GET['filters']['dateRange']['createdat']['min'];

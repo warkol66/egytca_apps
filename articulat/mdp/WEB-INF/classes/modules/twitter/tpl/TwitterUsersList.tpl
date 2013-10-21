@@ -57,7 +57,15 @@
 				<td id="url_|-$twitterUser->getId()-|" valign="top">|-if !empty($userUrl)-|<a href="|-$userUrl-|" class="twitterUrl " target="_blank">|-$userUrl-|</a>|-/if-|</td>
 				<td id="followers_|-$twitterUser->getId()-|" valign="top">|-$twitterUser->getFollowers()-|</td>
 				<td id="friends_|-$twitterUser->getId()-|" valign="top">|-$twitterUser->getFriends()-|</td>
-				<td valign="top">|-$twitterUser->getInfluence()-|</td>
+				<td valign="top">
+					<form action="Main.php" method="post" id="formLevels|-$twitterUser->getId()-|">
+							|-foreach from=$levels key=key item=name-|
+								|-if $name@first-|<span class="radioLabelIcon">+</span>|-/if-|<input name="params[influence]" type="radio" value="|-$key-|"  title="|-$name-|" |-$twitterUser->getInfluence()|checked:$key-| onChange="javascript:twitterDoEditValue(this.form);"/>|-if $name@last-|<span class="radioLabelIcon">-</span>|-/if-|
+							|-/foreach-|
+						<input type="hidden" name="id" id="id" value="|-$twitterUser->getid()-|" />
+						<input type="hidden" name="do" value="twitterUsersDoEditX" id="do">
+					</form>
+				</td>
 				<td valign="top">
 					<img src="images/clear.png" class="icon iconRestore" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=twitterUsersUpdateX", { method: "post", parameters: { id: "|-$twitterUser->getId()-|"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">actualizando usuario...</span>";' value="Actualizar usuario" />
 				</td>
