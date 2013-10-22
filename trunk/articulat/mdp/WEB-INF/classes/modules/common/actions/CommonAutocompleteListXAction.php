@@ -26,12 +26,8 @@ class CommonAutocompleteListXAction extends BaseAction {
 
 		$filters = array("searchString" => $searchString, "limit" => $_REQUEST['limit']);
 		
-		//if (!empty($_REQUEST['entityType']) && !empty($_REQUEST['entityId'])) {
-			$filters = array_merge($filters, array(
-					'getCandidates' => !empty($_REQUEST['getCandidates'])
-					)
-			);
-		//}
+		foreach($_REQUEST['filters'] as $filter => $value)
+			$filters = array_merge_recursive($filters, array($filter => $value));
 
 		$objects = BaseQuery::create($object)
 				->addFilters($filters)
