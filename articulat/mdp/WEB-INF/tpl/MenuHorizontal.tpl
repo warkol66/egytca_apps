@@ -28,7 +28,7 @@
 			  <ul class="menu">
 				<li><a href="Main.php?do=actorsList">Actores</a></li>
 <!--					<li><a href="Main.php?do=categoriesList">Categorías</a></li>-->
-
+				<li><a href="Main.php?do=twitterUsersList">Usuarios de twitter</a></li>
 				<li><a href="Main.php?do=mediasList">Medios</a></li>
 				<li><a href="Main.php?do=mediasTypeList">Tipo de medios</a></li>
 				<li><a href="Main.php?do=headlinesTagsList">Etiquetas</a></li>
