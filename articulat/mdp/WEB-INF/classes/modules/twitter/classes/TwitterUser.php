@@ -21,9 +21,9 @@ class TwitterUser extends BaseTwitterUser{
 	const INFLUENTIAL = 3;
 	
 	public static function getInfluenceLevels(){
-		$levels[TwitterUser::NOT_INFLUENTIAL] = 'No influyente';
-		$levels[TwitterUser::NEUTRAL] = 'Medianamente influyente';
 		$levels[TwitterUser::INFLUENTIAL] = 'Influyente';
+		$levels[TwitterUser::NEUTRAL] = 'Medianamente influyente';
+		$levels[TwitterUser::NOT_INFLUENTIAL] = 'No influyente';
 		return $levels;
 	}
 	
