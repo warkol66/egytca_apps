@@ -34,7 +34,8 @@
 					<th width="2%"><input type="checkbox" name="allbox" value="checkbox" id="allBoxes" onChange="javascript:selectAllCheckboxes()" title="Seleccionar todos" /></th>
 					<th width="20%">Nombre</th> 
 					<th width="25%">Nombre de usuario</th> 
-					<th width="20%">Descripción</th> 
+					<th width="10%">Descripción</th> 
+					<th width="10%">Actor</th> 
 					<th width="10%">URL</th>
 					<th width="5%">Seguidores</th> 
 					<th width="5%">Amigos</th> 
@@ -49,11 +50,13 @@
 		|-else-|
 			|-foreach from=$twitterUserColl item=twitterUser name=for_twitterUser-|
 			|-assign var=userUrl value=$twitterUser->getUrl()-|
+			|-assign var=actor value=$twitterUser->getActor()-|
 			<tr id="tr_|-$twitterUser->getId()-|">
 				<td align="center"><input type="checkbox" name="selected[]" value="|-$twitterUser->getId()-|"></td>
 				<td id="name_|-$twitterUser->getId()-|" valign="top">|-$twitterUser->getName()-|</td>
 				<td id="screenName_|-$twitterUser->getId()-|" valign="top"><a href="https://twitter.com/|-$twitterUser->getScreenname()-|" class="twitterUrl " target="_blank">@|-$twitterUser->getScreenname()-|</a></td>
 				<td id="description_|-$twitterUser->getId()-|" valign="top">|-$twitterUser->getDescription()-|</td>
+				<td id="actor_|-$twitterUser->getId()-|" valign="top">|-if is_object($actor)-||-$actor-||-else-|Sin asignar|-/if-|</td>
 				<td id="url_|-$twitterUser->getId()-|" valign="top">|-if !empty($userUrl)-|<a href="|-$userUrl-|" class="twitterUrl " target="_blank">|-$userUrl-|</a>|-/if-|</td>
 				<td id="followers_|-$twitterUser->getId()-|" valign="top">|-$twitterUser->getFollowers()-|</td>
 				<td id="friends_|-$twitterUser->getId()-|" valign="top">|-$twitterUser->getFriends()-|</td>

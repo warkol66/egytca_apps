@@ -82,4 +82,19 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 		}
 		return $users;
 	}*/
+	
+	/**
+	* Obtiene todos los usuarios de twitter disponibles para el actor
+	*
+	* @return array usuarios posibles a elegir
+	*/
+	public static function getCandidates(){
+		//busco los usuarios de twitter que estan asociados a algun actor
+		$associatedUsers = ActorQuery::create()->where('Actor.InternaltwitteruserId IS NOT NULL')->select('Actor.id')->find();
+		
+		$candidates = TwitterUserQuery::create()
+			->filterById($associatedUsers, Criteria::NOT_IN)
+			->find();
+		return $candidates;
+	}
 }
