@@ -25,6 +25,13 @@ class CommonAutocompleteListXAction extends BaseAction {
 		$object = ucfirst($request->getParameter('object'));
 
 		$filters = array("searchString" => $searchString, "limit" => $_REQUEST['limit']);
+		
+		//if (!empty($_REQUEST['entityType']) && !empty($_REQUEST['entityId'])) {
+			$filters = array_merge($filters, array(
+					'getCandidates' => !empty($_REQUEST['getCandidates'])
+					)
+			);
+		//}
 
 		$objects = BaseQuery::create($object)
 				->addFilters($filters)
@@ -32,6 +39,7 @@ class CommonAutocompleteListXAction extends BaseAction {
 				->find();
 
 		$smarty->assign("objects",$objects);
+		$smarty->assign('class',ucfirst($_REQUEST['object']));
 		$smarty->assign("limit",$_REQUEST['limit']);
 
 		return $mapping->findForwardConfig('success');
