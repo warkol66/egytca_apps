@@ -21,7 +21,7 @@
 			</p>
 			<p>
 				<div id="params[internalTwitterUserId]" style="position: relative;z-index:10000;">
-				|-include file="CommonAutocompleterInstanceInclude.tpl" defaultValue="|-$twitterUser->getName()-|" id="autocomplete_twitterUsers" label="Usuario de Twitter" url="Main.php?do=commonAutocompleteListX&getCandidates=1&object=twitterUser" hiddenName="params[internalTwitterUserId]"-|
+				|-include file="CommonAutocompleterInstanceInclude.tpl" defaultValue="|-if is_object($twitterUser)-||-$twitterUser->getName()-||-/if-|" id="autocomplete_twitterUsers" label="Usuario de Twitter" url="Main.php?do=commonAutocompleteListX&getCandidates=1&object=twitterUser&filters[getCandidateActors]=1" hiddenName="params[internalTwitterUserId]"-|
 				</div>
 			</p>
 		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
