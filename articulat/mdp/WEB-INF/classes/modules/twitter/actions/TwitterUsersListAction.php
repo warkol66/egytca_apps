@@ -17,6 +17,13 @@ class TwitterUsersListAction extends BaseListAction {
         if(!empty($_GET['filters']['maxDate'])){
             $this->filters['dateRange']['createdat']['max'] = $_GET['filters']['maxDate'];
 		}
+		
+		/*$asoc = TwitterUserQuery::getCandidateActor(1);
+		echo"<pre>"; print_r($asoc); echo "</pre>";
+		die();*/
+		
+		print_r($this->filters);
+		
 
 	}
 
@@ -24,6 +31,9 @@ class TwitterUsersListAction extends BaseListAction {
 		parent::postList();
 
 		$this->smarty->assign("module", $this->module);
+		
+		echo"<pre>"; print_r($this->results); echo "</pre>";
+		die();
 		
 		$moduleConfig = Common::getModuleConfiguration($this->module);
 		$this->smarty->assign('moduleConfig',$moduleConfig);
