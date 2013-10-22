@@ -13,10 +13,14 @@
 <form action="Main.php" method="get">
 	<fieldset title="Formulario de Opciones de búsqueda de usuarios">
 		<legend>Opciones de Búsqueda</legend>
+		<p><label for="filters[searchString]">Texto a buscar</label>
+		<input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="50" />
+		</p>
 		<p>
-			<label for="filters[influence]">Procesados</label>
+			<label for="filters[influence]">Nivel de influencia</label>
 			&nbsp; Todos <input name="filters[influence]" type="radio" value="" |-$filters.influence|checked:0-| />
-			&nbsp; Influyentes  <input name="filters[influence]" type="radio" value="1" |-$filters.influence|checked:1-| />
+			&nbsp; Mediano  <input name="filters[influence]" type="radio" value="2" |-$filters.influence|checked:2-| />
+			&nbsp; Alto <input name="filters[influence]" type="radio" value="3" |-$filters.influence|checked:3-| />
 		</p>
 		<p>
 			<input type="hidden" name="do" value="twitterUsersList" />
@@ -33,19 +37,19 @@
 			<tr class="thFillTitle"> 
 					<th width="2%"><input type="checkbox" name="allbox" value="checkbox" id="allBoxes" onChange="javascript:selectAllCheckboxes()" title="Seleccionar todos" /></th>
 					<th width="20%">Nombre</th> 
-					<th width="25%">Nombre de usuario</th> 
-					<th width="10%">Descripción</th> 
+					<th width="15%">Nombre de usuario</th> 
+					<th width="20%">Descripción</th> 
 					<th width="10%">Actor</th> 
 					<th width="10%">URL</th>
 					<th width="5%">Seguidores</th> 
 					<th width="5%">Amigos</th> 
-					<th width="10%">Influencia</th>
-					<th nowrap width="2%">&nbsp;&nbsp;</th> 
+					<th width="3%">Influencia</th>
+					<th nowrap width="2%">&nbsp;</th> 
 				</tr> 
 		</thead>
 		<tbody>|-if $twitterUserColl|@count eq 0-|
 			<tr>
-				 <td colspan="7">Aún no hay usuarios</td>
+				 <td colspan="10">Aún no hay usuarios</td>
 			</tr>
 		|-else-|
 			|-foreach from=$twitterUserColl item=twitterUser name=for_twitterUser-|
@@ -56,11 +60,11 @@
 				<td id="name_|-$twitterUser->getId()-|" valign="top">|-$twitterUser->getName()-|</td>
 				<td id="screenName_|-$twitterUser->getId()-|" valign="top"><a href="https://twitter.com/|-$twitterUser->getScreenname()-|" class="twitterUrl " target="_blank">@|-$twitterUser->getScreenname()-|</a></td>
 				<td id="description_|-$twitterUser->getId()-|" valign="top">|-$twitterUser->getDescription()-|</td>
-				<td id="actor_|-$twitterUser->getId()-|" valign="top">|-if is_object($actor)-||-$actor-||-else-|Sin asignar|-/if-|</td>
+				<td id="actor_|-$twitterUser->getId()-|" valign="top">|-if is_object($actor)-||-$actor-||-else-||-/if-|</td>
 				<td id="url_|-$twitterUser->getId()-|" valign="top">|-if !empty($userUrl)-|<a href="|-$userUrl-|" class="twitterUrl " target="_blank">|-$userUrl-|</a>|-/if-|</td>
-				<td id="followers_|-$twitterUser->getId()-|" valign="top">|-$twitterUser->getFollowers()-|</td>
-				<td id="friends_|-$twitterUser->getId()-|" valign="top">|-$twitterUser->getFriends()-|</td>
-				<td valign="top">
+				<td id="followers_|-$twitterUser->getId()-|" valign="top" align="center">|-$twitterUser->getFollowers()-|</td>
+				<td id="friends_|-$twitterUser->getId()-|" valign="top" align="center">>|-$twitterUser->getFriends()-|</td>
+				<td valign="top" nowrap="nowrap">
 					<form action="Main.php" method="post" id="formLevels|-$twitterUser->getId()-|">
 							|-foreach from=$levels key=key item=name-|
 								|-if $name@first-|<span class="radioLabelIcon">+</span>|-/if-|<input name="params[influence]" type="radio" value="|-$key-|"  title="|-$name-|" |-$twitterUser->getInfluence()|checked:$key-| onChange="javascript:twitterDoEditValue(this.form);"/>|-if $name@last-|<span class="radioLabelIcon">-</span>|-/if-|
@@ -78,7 +82,7 @@
 			<tfoot>
 			|-if $twitterUserColl|@count neq 0-|
 				<tr>
-					<td colspan="9">
+					<td colspan="10">
 						<form action="Main.php" method="post" id='multipleUsersChangeInfluenceForm'>
 							<p>Cambiar el nivel de influencia de los usuarios seleccionados a
 								<select name="newInfluence" id="selectUserInfluence">
@@ -102,7 +106,7 @@
 			|-/if-|
 			|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 			<tr> 
-				<td colspan="9">|-include file="ModelPagerInclude.tpl"-|</td> 
+				<td colspan="10">|-include file="ModelPagerInclude.tpl"-|</td> 
 			</tr>
 			|-/if-|
 		|-/if-|
