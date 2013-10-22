@@ -27,6 +27,30 @@ class TwitterUser extends BaseTwitterUser{
 		return $levels;
 	}
 	
+	/**
+	* Genera el string a entregar por defecto reemplazando el __toString() del modelo
+	*
+	*	@return string string texto pro defecto a mostar cuando se llama al objeto twitterUser
+	*/
+	public function __toString() {
+		$string = '';
+		$name = $this->getName();
+		$screenname = $this->getScreenname();
+
+		if (ConfigModule::get("twitterUsers","toStringFormat") == "Name Screenname ")
+			$string .= $name . ' ' . $screenname;
+		else {
+			if (!empty($screenname) && !empty($name))
+				$string .= '@' . $screenname . ', ' . $name;
+			else if (!empty($screenname))
+				$string .= $screenname . ', ' . $name;
+			else
+				$string .= $name;
+		}
+		return $string;
+
+	}
+	
 	/* Si el usuario que intentamos crear existe devuelve el existente
 	 * Si no crea uno nuevo y lo devuelve
 	 * 
@@ -56,6 +80,14 @@ class TwitterUser extends BaseTwitterUser{
 		$this->setFriends($searchRespone->friends_count);
 		$this->save();
 		
+	}
+	
+	public function getActor(){
+		$actor = ActorQuery::create()->findOneByInternaltwitteruserid($this->getId());
+		//if(is_object($actor))
+			return $actor;
+		/*else
+			return false;*/
 	}
 
 }
