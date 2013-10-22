@@ -1,3 +1,5 @@
+|-assign var=twitterUser value=$actor->getTwitterUser()-|
+			<p>
 				<label for="params[title]">Título</label>
 				<input type="text" id="params[title]" name="params[title]" size="20" value="|-$actor->gettitle()|escape-|" title="title" />
 			</p>
@@ -16,5 +18,10 @@
 			<p>
 				<label for="params[institution]">##actors,3,Institución##</label>
 				<input type="text" id="params[institution]" name="params[institution]" size="70" value="|-$actor->getinstitution()|escape-|" title="##actors,3,Institución##" />
+			</p>
+			<p>
+				<div id="params[internalTwitterUserId]" style="position: relative;z-index:10000;">
+				|-include file="CommonAutocompleterInstanceInclude.tpl" defaultValue="|-$twitterUser->getName()-|" id="autocomplete_twitterUsers" label="Usuario de Twitter" url="Main.php?do=commonAutocompleteListX&getCandidates=1&object=twitterUser" hiddenName="params[internalTwitterUserId]"-|
+				</div>
 			</p>
 		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>

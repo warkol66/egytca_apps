@@ -1,3 +1,4 @@
+|-include file="CommonAutocompleterInclude.tpl"-|
 <script type="text/javascript" language="javascript" >
 	$('overlayForm').innerHTML += '<a href="javascript:void(0)" onclick="switch_vis_mult(new Array(\'overlayForm\',\'overlayFade\'));clearElement(\'overlayForm\');">Cancelar</a>	';
 </script>
