@@ -82,12 +82,14 @@ class TwitterUser extends BaseTwitterUser{
 		
 	}
 	
+	/* Obtiene el actor asociado a un usuario de twitter
+	 * 
+	 * */
 	public function getActor(){
 		$actor = ActorQuery::create()->findOneByInternaltwitteruserid($this->getId());
-		//if(is_object($actor))
-			return $actor;
-		/*else
-			return false;*/
+		return $actor;
 	}
+	
+	
 
 }
