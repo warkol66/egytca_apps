@@ -24,7 +24,7 @@
 		<input id='params[followersDisabled]' name='params[followersDisabled]' type='text' value='|-$twitterUser->getFollowers()-|' size="6" readonly="readonly" />
 	</p>
 	<p>	
-		<label for="params[friendsDisabled]">Amigos</label>
+		<label for="params[friendsDisabled]">Siguiendo</label>
 		<input id='params[friendsDisabled]' name='params[friendsDisabled]' type='text' value='|-$twitterUser->getFriends()-|' size="6" readonly="readonly" />
 	</p>
 </fieldset>

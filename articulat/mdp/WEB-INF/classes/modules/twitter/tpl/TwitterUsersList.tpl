@@ -42,7 +42,7 @@
 					<th width="10%">Actor</th> 
 					<th width="10%">URL</th>
 					<th width="5%">Seguidores</th> 
-					<th width="5%">Amigos</th> 
+					<th width="5%">Siguiendo</th> 
 					<th width="3%">Influencia</th>
 					<th nowrap width="2%">&nbsp;</th> 
 				</tr> 
@@ -63,7 +63,7 @@
 				<td id="actor_|-$twitterUser->getId()-|" valign="top">|-if is_object($actor)-||-$actor-||-else-||-/if-|</td>
 				<td id="url_|-$twitterUser->getId()-|" valign="top">|-if !empty($userUrl)-|<a href="|-$userUrl-|" class="twitterUrl " target="_blank">|-$userUrl-|</a>|-/if-|</td>
 				<td id="followers_|-$twitterUser->getId()-|" valign="top" align="center">|-$twitterUser->getFollowers()-|</td>
-				<td id="friends_|-$twitterUser->getId()-|" valign="top" align="center">>|-$twitterUser->getFriends()-|</td>
+				<td id="friends_|-$twitterUser->getId()-|" valign="top" align="center">|-$twitterUser->getFriends()-|</td>
 				<td valign="top" nowrap="nowrap">
 					<form action="Main.php" method="post" id="formLevels|-$twitterUser->getId()-|">
 							|-foreach from=$levels key=key item=name-|
