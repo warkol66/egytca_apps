@@ -8,8 +8,13 @@
 		<column name="surname" description="Apellido" type="CHAR" size="90" />
 		<column name="nickname" description="Sobrenombre" type="CHAR" size="90" />
 		<column name="institution" description="Institucion" type="CHAR" size="200" />
+		<column name="internalTwitterUserId" required="true"  type="INTEGER" description="Usuario de twitter asociado" />
 
 		<behavior name="soft_delete" />
+		
+		<foreign-key foreignTable="twitter_user">
+			<reference local="internalTwitterUserId" foreign="id"/>
+		</foreign-key>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
