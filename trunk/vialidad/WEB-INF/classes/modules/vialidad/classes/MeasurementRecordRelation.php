@@ -15,6 +15,91 @@
  */
 class MeasurementRecordRelation extends BaseMeasurementRecordRelation {
 	
+	const NEXT = 0;
+	const PREVIOUS = 1;
+	
+	function getPegado($type) {
+		
+		$date = $this->getMeasurementRecord()->getMeasurementdate('%Y-%m-%d');
+		$period = new Period($date, 'Y-m-d');
+		
+		switch ($type) {
+			case self::NEXT:
+				$wantedPeriod = $period->getNextPeriod();
+				break;
+			case self::PREVIOUS:
+				$wantedPeriod = $period->getPreviousPeriod();
+				break;
+			default:
+				throw new Exception('unknown type');
+		}
+		
+		return MeasurementRecordRelationQuery::create()
+			->filterByItemid($this->getItemid())
+			->useMeasurementRecordQuery()
+				->filterByConstructionid($this->getMeasurementRecord()->getConstructionid())
+				->filterByMeasurementdate($wantedPeriod->getLimits('Y-m-d'))
+			->endUse()
+			->findOne();
+	}
+	
+	/**
+	 * returns the chronologically previous MeasurementRecordRelation
+	 */
+	function getPrevious() {
+		return $this->getPegado(MeasurementRecordRelation::PREVIOUS);
+	}
+	
+	/**
+	 * returns the chronologically next MeasurementRecordRelation
+	 */
+	function getNext() {
+		return $this->getPegado(MeasurementRecordRelation::NEXT);
+	}
+	
+	function getCertificate() {
+		return CertificateQuery::create()
+			->filterByMeasurementrecordid($this->getMeasurementrecordid())
+			->findOne();
+	}
+	
+	function getTotalMinusDown() {
+		return $this->getTotalPrice() * 0.9;
+	}
+	
+	function getKu() {
+		$bulletinDate = $this->getCertificate()->getBulletin()->getBulletindate();
+		return $this->getConstructionItem()->getKu($bulletinDate);
+	}
+	
+	function getReadjustment() {
+		return $this->getTotalMinusDown() * $this->getKu();
+	}
+	
+	function getAccumulated() {
+		$constructionItemAccumulated = ConstructionItemAccumulatedQuery::create()
+			->filterByItemId($this->getItemid())
+			->filterByCertificateid($this->getCertificate()->getId())
+			->findOne();
+		
+		return $constructionItemAccumulated ? $constructionItemAccumulated->getAccumulated() : 0;
+	}
+	
+	function setAccumulated($value) {
+		ConstructionItemAccumulatedQuery::create()
+			->filterByItemid($this->getItemid())
+			->filterByCertificateid($this->getCertificate()->getId())
+			->findOneOrCreate()
+			->setAccumulated($value)
+			->save();
+	}
+	
+	function updateAccumulated() {
+		$previous = $this->getPrevious();
+		$previousAccumulated = $previous ? $previous->getAccumulated() : 0;
+		$this->setAccumulated($previousAccumulated + $this->getReadjustment());
+	}
+	
 	/**
 	 * Calcula el precio sugerido para el ConstructionItem asociado en el
 	 * período del MeasurementRecord asociado.

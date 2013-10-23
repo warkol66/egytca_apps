@@ -73,14 +73,19 @@
 			<td align="center">|-$item->getMeasureUnit()-|</td>
 			<td align="right">|-$item->getPrice()|system_numeric_format-|</td>
 			<td align="right">|-$relation->getQuantity()|system_numeric_format-|</td>
-			|-$quantity = $relation->getQuantity()-|
-			|-$price = $relation->getPrice()-|
-			<td align="right">|-$totalMinusDown = round(($quantity * $price * 0.9), 2)-||-$totalMinusDown|system_numeric_format-|</td>|-$acumulatedTotalMinusDown = $totalMinusDown + $acumulatedTotalMinusDown-|
-			<td align="right">|-$ku = $item->getKu($bulletin->getBulletinDate())-||-$ku|system_numeric_format:5-|</td>
-			<td align="right">|-$readjustment = $totalMinusDown * $ku-||-$readjustment|system_numeric_format-|</td>|-$acumulatedReadjustment = $readjustment + $acumulatedReadjustment-|
-			<td align="right">|-$readjustmentAmount = $readjustment - $totalMinusDown-||-$readjustmentAmount|system_numeric_format-|</td>|-$acumulatedReadjustmentAmount = $readjustmentAmount + $acumulatedReadjustmentAmount-|
-			<td align="right">|-assign var=last value=0-||-$last|system_numeric_format-|</td>
-			<td align="right">|-$totalAmount = $readjustment + $last-||-$totalAmount|system_numeric_format-|</td>|-$acumulatedTotalAmount = $totalAmount + $acumulatedTotalAmount-|
+			<td align="right">|-$totalMinusDown = $relation->getTotalMinusDown()-||-$totalMinusDown|system_numeric_format-|</td>|-$acumulatedTotalMinusDown = $totalMinusDown + $acumulatedTotalMinusDown-|
+			<td align="right">|-$ku = $relation->getKu()-||-$ku|system_numeric_format:5-|</td>
+			<td align="right">|-$readjustment = $relation->getReadjustment()-||-$readjustment|system_numeric_format-|</td>|-$acumulatedReadjustment = $readjustment + $acumulatedReadjustment-|
+			<td align="right">|-$readjustmentAmount = $readjustment - $totalMinusDown-||-$readjustmentAmount|system_numeric_format-|</td>|-$acumulatedReadjustmentAmount = $readjustmentAmount + $acumulatedReadjustmentAmount-|	
+			<td align="right">
+				|-$previousRelation = $relation->getPrevious()-|
+				|-if $previousRelation-|
+					|-$previous = $previousRelation->getAccumulated()-|
+				|-else-|
+					|-$previous = 0-|
+				|-/if-|
+				|-$previous|system_numeric_format-|</td>
+			<td align="right">|-$totalAmount = $readjustment + $previous-||-$totalAmount|system_numeric_format-|</td>|-$acumulatedTotalAmount = $totalAmount + $acumulatedTotalAmount-|
 		</tr>
 		|-/foreach-|
 		<tr>

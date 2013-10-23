@@ -15,6 +15,23 @@
  */
 class Certificate extends BaseCertificate {
 	
+	function getMeasurementRecordRelations() {
+		
+		return MeasurementRecordRelationQuery::create()
+			->filterByMeasurementrecordid($this->getMeasurementrecordid())
+			->useConstructionItemQuery()
+				->filterByClassKey(ConstructionItemPeer::CLASSKEY_CONSTRUCTIONITEM)
+			->endUse()
+			->find();
+	}
+	
+	function updateAccumulatedItems() {
+		$relations = $this->getMeasurementRecordRelations();
+		foreach ($relations as $relation) {
+			$relation->updateAccumulated();
+		}
+	}
+	
 	function getExtrasPrice() {
 		$price = 0;
 		

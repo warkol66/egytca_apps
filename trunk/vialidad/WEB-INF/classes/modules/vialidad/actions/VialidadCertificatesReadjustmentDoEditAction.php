@@ -24,9 +24,8 @@ class VialidadCertificatesReadjustmentDoEditAction extends BaseAction {
 			$smarty->assign("notValidId","true");
 			return $mapping->findForwardConfig('success');
 		}
-		else
-//      TODO Generar metodo para axctualizar acumulados igual que los qu ese calcula en el template de readjustmentEdit
-//			$certificate->updateAccumulatedItems();
+		
+		$certificate->updateAccumulatedItems();
 
 		return $this->addParamsToForwards(array("id"=>$_POST["id"]),$mapping,'success-edit');
 	}
