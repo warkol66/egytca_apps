@@ -64,7 +64,10 @@
 		<column name="isProtected" type="BOOLEAN" description="twitter account is protected" />
 		<column name="followers" type="INTEGER" description="Seguidores" />
 		<column name="friends" type="INTEGER" description="Amigos" />
+		<column name="statuses" type="INTEGER" description="Cantidad de tweets" />
 		<column name="influence" type="TINYINT" default="0" description="Nivel de influencia del usuario"/>
+		
+		<behavior name="timestampable" />
 		
 		<unique>
 		  <unique-column name="twitterUserIdStr" />
