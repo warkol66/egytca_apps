@@ -35,23 +35,23 @@
 	<table id="tabla-twitterUsers" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead>
 			<tr class="thFillTitle"> 
-					<th width="2%"><input type="checkbox" name="allbox" value="checkbox" id="allBoxes" onChange="javascript:selectAllCheckboxes()" title="Seleccionar todos" /></th>
+					<th width="1%"><input type="checkbox" name="allbox" value="checkbox" id="allBoxes" onChange="javascript:selectAllCheckboxes()" title="Seleccionar todos" /></th>
 					<th width="10%">Nombre</th> 
-					<th width="10%">Nombre de usuario</th> 
-					<th width="20%">Descripción</th> 
-					<th width="10%">Actor</th> 
+					<th width="15%">Nombre de usuario</th> 
+					<th width="25%">Descripción</th> 
+					<th width="13%">Actor</th> 
 					<th width="10%">URL</th>
 					<th width="5%">Seguidores</th> 
 					<th width="5%">Siguiendo</th> 
 					<th width="5%">Tweets</th> 
-					<th width="3%">Influencia</th>
-					<th width="10%">Ultima actualización</th>
-					<th nowrap width="2%">&nbsp;</th> 
+					<th width="5%">Influencia</th>
+					<th width="5%">Actualizado</th>
+					<th nowrap width="1%">&nbsp;</th> 
 				</tr> 
 		</thead>
 		<tbody>|-if $twitterUserColl|@count eq 0-|
 			<tr>
-				 <td colspan="10">Aún no hay usuarios</td>
+				 <td colspan="12">Aún no hay usuarios</td>
 			</tr>
 		|-else-|
 			|-foreach from=$twitterUserColl item=twitterUser name=for_twitterUser-|
@@ -76,7 +76,7 @@
 						<input type="hidden" name="do" value="twitterUsersDoEditX" id="do">
 					</form>
 				</td>
-				<td id="updated_|-$twitterUser->getId()-|" valign="top" align="center">|-$twitterUser->getUpdatedAt()|change_timezone|date_format:"%d-%m-%Y"-|</td>
+				<td id="updated_|-$twitterUser->getId()-|" valign="top" align="center" nowrap="nowrap">|-$twitterUser->getUpdatedAt()|change_timezone|date_format:"%d-%m-%Y"-|</td>
 				<td valign="top">
 					<img src="images/clear.png" class="icon iconRestore" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=twitterUsersUpdateX", { method: "post", parameters: { id: "|-$twitterUser->getId()-|"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">actualizando usuario...</span>";' value="Actualizar usuario" />
 				</td>
@@ -86,7 +86,7 @@
 			<tfoot>
 			|-if $twitterUserColl|@count neq 0-|
 				<tr>
-					<td colspan="10">
+					<td colspan="12">
 						<form action="Main.php" method="post" id='multipleUsersChangeInfluenceForm'>
 							<p>Cambiar el nivel de influencia de los usuarios seleccionados a
 								<select name="newInfluence" id="selectUserInfluence">
@@ -110,7 +110,7 @@
 			|-/if-|
 			|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 			<tr> 
-				<td colspan="10">|-include file="ModelPagerInclude.tpl"-|</td> 
+				<td colspan="12">|-include file="ModelPagerInclude.tpl"-|</td> 
 			</tr>
 			|-/if-|
 		|-/if-|

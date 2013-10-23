@@ -39,7 +39,7 @@
 |-/if-|
 <!-- Filtros para importados -->
 <fieldset>
-<legend>Filtrar Tweets Importados&nbsp;&nbsp;<a href="javascript:void(null)" id="showHideFilterTwitter" onClick="$('filterTwitter').toggle(); $('showHideFilterTwitter').toggleClassName('|-if $filters|@count gt 2-|expandLink|-else-|collapseLink|-/if-|');" class="|-if $filters|@count gt 2-|collapseLink|-else-|expandLink|-/if-|"></a></legend>
+<legend>Filtrar Tweets Importados&nbsp;&nbsp;<a href="javascript:void(null)" id="showHideFilterTwitter" onClick="$('filterTwitter').toggle(); $('showHideFilterTwitter').toggleClassName('|-if $filters|@count gt 2-|overrideExpand|-else-|collapseLink|-/if-|');" class="|-if $filters|@count gt 2-|collapseLink|-else-|expandLink|-/if-|"></a></legend>
 <form method="get" action="Main.php" id="filterTwitter" style="display:|-if $filters|@count gt 2-|block|-else-|none|-/if-|;">
 	<input name="filters[campaignId]" value="|-$campaign->getId()-|" type="hidden" />
 	<input name="do" value="twitterParsedList" type="hidden" />

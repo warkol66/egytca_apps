@@ -829,6 +829,9 @@ background: -o-linear-gradient(top,  rgba(110,165,212,1) 0%,rgba(74,152,192,0.79
 background: -ms-linear-gradient(top,  rgba(110,165,212,1) 0%,rgba(74,152,192,0.79) 89%); /* IE10+ */
 background: linear-gradient(to bottom,  rgba(110,165,212,1) 0%,rgba(74,152,192,0.79) 89%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6ea5d4', endColorstr='#c94a98c0',GradientType=0 ); /* IE6-8 */
+	background-color: none !Important;
+	background-image: url(../images/site-bg.jpg);
+	background-repeat: repeat;
 }
 table.tableTdBorders th.thFillTitle {
 /* IE9 SVG, needs conditional override of 'filter' to 'none' */
@@ -840,7 +843,9 @@ background: -o-linear-gradient(top,  rgba(180,220,255,0.71) 0%,rgba(240,245,238,
 background: -ms-linear-gradient(top,  rgba(180,220,255,0.71) 0%,rgba(240,245,238,0.79) 71%,rgba(255,251,234,0.79) 89%); /* IE10+ */
 background: linear-gradient(to bottom,  rgba(180,220,255,0.71) 0%,rgba(240,245,238,0.79) 71%,rgba(255,251,234,0.79) 89%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b5b4dcff', endColorstr='#c9fffbea',GradientType=0 ); /* IE6-8 */
-
+	background-color: none !Important;
+	background-image: url(../images/site-bg.jpg);
+	background-repeat: repeat;
 }
 table.tableTdBorders tr.thfillTitle th {
 }

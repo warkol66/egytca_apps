@@ -791,11 +791,11 @@ a.importHeadlines:hover{
 	text-decoration: none;
 }
 .expandLink {
-	background-image: url(../images/icon_expand.png);
+	background-image: url(../images/icon_expand.png) !Important;
 	background-repeat: no-repeat;
 }
 .collapseLink {
-	background-image: url(../images/icon_collapse.png);
+	background-image: url(../images/icon_collapse.png) !Important;
 	background-repeat: no-repeat;
 }
 a.expandLink:link,a.expandLink:visited, a.collapseLink:link,a.collapseLink:visited{
