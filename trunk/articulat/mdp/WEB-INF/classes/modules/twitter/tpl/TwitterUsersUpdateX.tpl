@@ -8,7 +8,9 @@
 	$('screenName_|-$twitterUser->getId()-|').innerHTML = '<a href="https://twitter.com/|-$twitterUser->getScreenname()-|" class="twitterUrl " target="_blank">@|-$twitterUser->getScreenname()-|</a>';
 	$('description_|-$twitterUser->getId()-|').innerHTML = '|-$twitterUser->getDescription()|escape-|';
 	$('url_|-$twitterUser->getId()-|').innerHTML = '|-if !empty($userUrl)-|<a href="|-$userUrl-|" class="twitterUrl " target="_blank">|-$userUrl-|</a>|-/if-|';
-	$('followers_|-$twitterUser->getId()-|').innerHTML = '|-$twitterUser->getFollowers()|escape-|';
-	$('friends_|-$twitterUser->getId()-|').innerHTML = '|-$twitterUser->getFriends()|escape-|';
+	$('followers_|-$twitterUser->getId()-|').innerHTML = '|-$twitterUser->getFollowers()-|';
+	$('friends_|-$twitterUser->getId()-|').innerHTML = '|-$twitterUser->getFriends()-|';
+	$('statuses_|-$twitterUser->getId()-|').innerHTML = '|-$twitterUser->getStatuses()-|';
+	$('updated_|-$twitterUser->getId()-|').innerHTML = '|-$twitterUser->getUpdatedAt()|change_timezone|date_format:"%d-%m-%Y"-|';
 </script>
 |-/if-|

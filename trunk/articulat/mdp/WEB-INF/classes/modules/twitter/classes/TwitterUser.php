@@ -78,6 +78,7 @@ class TwitterUser extends BaseTwitterUser{
 		$this->setName($searchRespone->name);
 		$this->setFollowers($searchRespone->followers_count);
 		$this->setFriends($searchRespone->friends_count);
+		$this->setStatuses($searchRespone->statuses_count);
 		$this->save();
 		
 	}
