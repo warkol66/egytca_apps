@@ -783,22 +783,22 @@ a.importHeadlines:hover{
 	text-decoration: underline !Important;
 }
 
-.expandLink, .collapseLink {
+.expandLink, .collapseLink, .overrideExpand {
+	background-image: url(../images/icons_custom.png);
+	background-repeat: no-repeat;
 	color: #404040;
 	padding: 0 0 0 16px;
 }
 .expandLink:link, .collapseLink:link {
 	text-decoration: none;
 }
-.expandLink {
-	background-image: url(../images/icon_expand.png) !Important;
-	background-repeat: no-repeat;
+.expandLink, .overrideExpand {
+	background-position: 0px 0px !Important;
 }
 .collapseLink {
-	background-image: url(../images/icon_collapse.png) !Important;
-	background-repeat: no-repeat;
+	background-position: -16px 0px;
 }
-a.expandLink:link,a.expandLink:visited, a.collapseLink:link,a.collapseLink:visited{
+a.expandLink:link, a.expandLink:visited, a.collapseLink:link,a.collapseLink:visited{
 	color: #404040;
 	text-decoration: none;
 }
@@ -811,7 +811,4 @@ a.expandLink:link,a.expandLink:visited, a.collapseLink:link,a.collapseLink:visit
 	font-size: 100% !Important;
 	display: inline;
 }
-.overrideExpand {
-	background-image: url(../images/icon_expand.png) !Important;
-	background-repeat: no-repeat;
-}
+
