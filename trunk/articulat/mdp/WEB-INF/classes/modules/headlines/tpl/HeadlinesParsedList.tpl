@@ -34,7 +34,7 @@
     </form>
 </fieldset>
 <fieldset>
-<legend>Filtrar Titulares Importados&nbsp;&nbsp;<a href="javascript:void(null)" id="showHideFilterHeadlines" onClick="$('filterHeadlines').toggle(); $('showHideFilterHeadlines').toggleClassName('|-if $filters|@count gt 2-|expandLink|-else-|collapseLink|-/if-|');" class="|-if $filters|@count gt 2-|collapseLink|-else-|expandLink|-/if-|"></a></legend>
+<legend>Filtrar Titulares Importados&nbsp;&nbsp;<a href="javascript:void(null)" id="showHideFilterHeadlines" onClick="$('filterHeadlines').toggle(); $('showHideFilterHeadlines').toggleClassName('|-if $filters|@count gt 2-|overrideExpand|-else-|collapseLink|-/if-|');" class="|-if $filters|@count gt 2-|collapseLink|-else-|expandLink|-/if-|"></a></legend>
 <form method="get" action="Main.php" id="filterHeadlines" style="display:|-if $filters|@count gt 2-|block|-else-|none|-/if-|;">
 	<input name="filters[campaignId]" value="|-$campaign->getId()-|" type="hidden" />
 	<input name="do" value="headlinesParsedList" type="hidden" />
