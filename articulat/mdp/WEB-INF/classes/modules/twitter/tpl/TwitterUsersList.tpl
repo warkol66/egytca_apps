@@ -36,14 +36,16 @@
 		<thead>
 			<tr class="thFillTitle"> 
 					<th width="2%"><input type="checkbox" name="allbox" value="checkbox" id="allBoxes" onChange="javascript:selectAllCheckboxes()" title="Seleccionar todos" /></th>
-					<th width="20%">Nombre</th> 
-					<th width="15%">Nombre de usuario</th> 
+					<th width="10%">Nombre</th> 
+					<th width="10%">Nombre de usuario</th> 
 					<th width="20%">Descripción</th> 
 					<th width="10%">Actor</th> 
 					<th width="10%">URL</th>
 					<th width="5%">Seguidores</th> 
 					<th width="5%">Siguiendo</th> 
+					<th width="5%">Tweets</th> 
 					<th width="3%">Influencia</th>
+					<th width="10%">Ultima actualización</th>
 					<th nowrap width="2%">&nbsp;</th> 
 				</tr> 
 		</thead>
@@ -64,6 +66,7 @@
 				<td id="url_|-$twitterUser->getId()-|" valign="top">|-if !empty($userUrl)-|<a href="|-$userUrl-|" class="twitterUrl " target="_blank">|-$userUrl-|</a>|-/if-|</td>
 				<td id="followers_|-$twitterUser->getId()-|" valign="top" align="center">|-$twitterUser->getFollowers()-|</td>
 				<td id="friends_|-$twitterUser->getId()-|" valign="top" align="center">|-$twitterUser->getFriends()-|</td>
+				<td id="statuses_|-$twitterUser->getId()-|" valign="top" align="center">|-$twitterUser->getStatuses()-|</td>
 				<td valign="top" nowrap="nowrap">
 					<form action="Main.php" method="post" id="formLevels|-$twitterUser->getId()-|">
 							|-foreach from=$levels key=key item=name-|
@@ -73,6 +76,7 @@
 						<input type="hidden" name="do" value="twitterUsersDoEditX" id="do">
 					</form>
 				</td>
+				<td id="updated_|-$twitterUser->getId()-|" valign="top" align="center">|-$twitterUser->getUpdatedAt()|change_timezone|date_format:"%d-%m-%Y"-|</td>
 				<td valign="top">
 					<img src="images/clear.png" class="icon iconRestore" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=twitterUsersUpdateX", { method: "post", parameters: { id: "|-$twitterUser->getId()-|"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">actualizando usuario...</span>";' value="Actualizar usuario" />
 				</td>

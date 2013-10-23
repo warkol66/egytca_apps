@@ -93,7 +93,8 @@ class TwitterTweet extends BaseTwitterTweet{
 			'Url' => $apiTweet->user->url,
 			'Isprotected' => $apiTweet->user->protected,
 			'Followers' => $apiTweet->user->followers_count,
-			'Friends' => $apiTweet->user->friends_count
+			'Friends' => $apiTweet->user->friends_count,
+			'Statuses' => $apiTweet->user->statuses_count
 		);
 		
 		//return $user;
