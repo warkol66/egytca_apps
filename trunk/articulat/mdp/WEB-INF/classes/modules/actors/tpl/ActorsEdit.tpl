@@ -1,4 +1,5 @@
 |-include file='ValidationJavascriptInclude.tpl'-|
+|-include file="CommonAutocompleterInclude.tpl"-|
 <script language="JavaScript" type="text/javascript">
 function actorsAddCategoryToActor(form) {
 	
