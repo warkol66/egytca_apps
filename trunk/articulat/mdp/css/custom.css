@@ -925,7 +925,6 @@ table.tableTdBorders {
 
 .twitterReportAxis path,
 .twitterReportAxis line {
-  fill: none;
   stroke: grey;
   shape-rendering: crispEdges;
 }
@@ -935,7 +934,7 @@ table.tableTdBorders {
 }
 
 .twitterReportLine {
-  fill: none;
+  /*fill: none;*/
   stroke: steelblue;
   stroke-width: 1.5px;
 }
@@ -944,7 +943,7 @@ table.tableTdBorders {
 	stroke: lightgrey;
 	opacity: 0.7;
 }
-.twitterReportGrid path { stroke-width: 0; }
+.twitterReportGrid path { stroke-width: 1px; }
 
 .slice text { font-size: 10pt; }
 
@@ -961,4 +960,16 @@ table.tableTdBorders {
 .userTweetsList, .userTweetsListItem {list-style: none;}
 
 #reportContainer{width:1400px}
+
+.y.axis path, .x.axis path {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2px;
+  shape-rendering: crispEdges;
+}
+
+/*.y.axis line {
+  stroke: #777;
+  stroke-dasharray: 2,2;
+}*/
 
