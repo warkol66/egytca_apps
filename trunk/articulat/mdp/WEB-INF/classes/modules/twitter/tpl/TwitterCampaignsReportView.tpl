@@ -4,6 +4,7 @@
 <link type="text/css" rel="stylesheet" href="css/twitterMenu.css" />
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script src="scripts/d3/d3.v3.min.js" charset="utf-8"></script>
 <script src="scripts/jquery/jquery.min.js" charset="utf-8"></script>
 <script src="Main.php?do=js&name=chartsJs&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 <script> var $j = jQuery.noConflict(); </script>
@@ -20,7 +21,7 @@
 			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value="- 24 hours"><span>Ultimas 24 horas</span></button></li>
 			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value="- 7 days"><span>Ultimos 7 días</span></button></li>
 			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value="- 15 days"><span>Ultimos 15 días</span></button></li>
-			 <li class='last'><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value=""><span>Toda la campaña</span></button></li>
+			 <li class='last'><button class="timeSelected" onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).addClass('timeSelected');setValueX(); return false;" value=""><span>Toda la campaña</span></button></li>
 		  </ul>
 	   </li>
 	   <li class='has-sub last'><button><span>Tipos</span></button>
@@ -28,7 +29,7 @@
 			 <li><button onclick="$j('.typeSelected').not(this).removeClass('typeSelected');$j(this).toggleClass('typeSelected');setValueX(); return false;" value="1"><span>Originales</span></button></li>
 			 <li><button onclick="$j('.typeSelected').not(this).removeClass('typeSelected');$j(this).toggleClass('typeSelected');setValueX(); return false;" value="2"><span>Retweets</span></button></li>
 			 <li><button onclick="$j('.typeSelected').not(this).removeClass('typeSelected');$j(this).toggleClass('typeSelected');setValueX(); return false;" value="3"><span>Respuestas</span></button></li>
-			 <li class='last'><button onclick="$j('.typeSelected').not(this).removeClass('typeSelected');$j(this).toggleClass('typeSelected');setValueX(); return false;" value=""><span>Todos</span></button></li>
+			 <li class='last'><button class="typeSelected" onclick="$j('.typeSelected').not(this).removeClass('typeSelected');$j(this).addClass('typeSelected');setValueX(); return false;" value=""><span>Todos</span></button></li>
 		  </ul>
 	   </li>
 	   <li class='has-sub last'><button><span>Valoración</span></button>
@@ -36,7 +37,7 @@
 			|-foreach from=$tweetValues key=key item=val-|
 			 <li><button onclick="$j('.valueSelected').not(this).removeClass('valueSelected');$j(this).toggleClass('valueSelected');setValueX(); return false;" value="|-$key-|"><span>|-$val-|</span></button></li>
 			 |-/foreach-|
-			 <li class='last'><button onclick="$j('.valueSelected').not(this).removeClass('valueSelected');$j(this).toggleClass('valueSelected');setValueX(); return false;" value=""><span>Todos</span></button></li>
+			 <li class='last'><button class="valueSelected" onclick="$j('.valueSelected').not(this).removeClass('valueSelected');$j(this).addClass('valueSelected');setValueX(); return false;" value=""><span>Todos</span></button></li>
 		  </ul>
 	   </li>
 	   <li class='has-sub last'><button><span>Relevancia</span></button>
@@ -44,7 +45,7 @@
 			 |-foreach from=$tweetRelevances key=key item=rel-|
 			 <li><button onclick="$j('.relevanceSelected').not(this).removeClass('relevanceSelected');$j(this).toggleClass('relevanceSelected');setValueX(); return false;" value="|-$key-|"><span>|-$rel-|</span></button></li>
 			 |-/foreach-|
-			 <li class='last'><button onclick="$j('.relevanceSelected').not(this).removeClass('relevanceSelected');$j(this).toggleClass('relevanceSelected');setValueX(); return false;" value=""><span>Todos</span></button></li>
+			 <li class='last'><button class="relevanceSelected" onclick="$j('.relevanceSelected').not(this).removeClass('relevanceSelected');$j(this).addClass('relevanceSelected');setValueX(); return false;" value=""><span>Todos</span></button></li>
 		  </ul>
 	   </li>
 	</ul>
