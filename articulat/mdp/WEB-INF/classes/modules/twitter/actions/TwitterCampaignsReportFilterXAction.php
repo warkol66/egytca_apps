@@ -37,7 +37,9 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			die();*/
 			
 			$value = $_POST['value'];
-			$byValue = TwitterTweetQuery::getAllByValue($campaignId, $from, $to, $value, $type);
+			$relevance = $_POST['relevance'];
+			
+			$byValue = TwitterTweetQuery::getAllByValue($campaignId, $from, $to, $value, $relevance, $type);
 			// seteo los valores disponibles para usarlos luego en la creacion del grafico
 			if(array_key_exists('positive',$byValue[0]))
 				$this->smarty->assign('positive', true);
@@ -46,9 +48,8 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			if(array_key_exists('negative',$byValue[0]))
 				$this->smarty->assign('negative', true);
 			$this->smarty->assign('byValue', $byValue);
-				
-			$relevance = $_POST['relevance'];
-			$byRelevance = TwitterTweetQuery::getAllByRelevance($campaignId, $from, $to, $relevance, $type);
+
+			$byRelevance = TwitterTweetQuery::getAllByRelevance($campaignId, $from, $to, $value, $relevance, $type);
 			// seteo los valores disponibles para usarlos luego en la creacion del grafico
 			if(array_key_exists('relevant',$byRelevance[0]))
 				$this->smarty->assign('relevant', true);
@@ -57,6 +58,10 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			if(array_key_exists('irrelevant',$byRelevance[0]))
 				$this->smarty->assign('irrelevant', true);
 			$this->smarty->assign('byRelevance', $byRelevance);
+			
+			/*print_r($byRelevance);
+			print_r($byValue);
+			die();*/
 			
 			$totalTweets = TwitterTweetQuery::getTotalTweets($campaignId,$from,$to);
 			$this->smarty->assign("totalTweets",$totalTweets);

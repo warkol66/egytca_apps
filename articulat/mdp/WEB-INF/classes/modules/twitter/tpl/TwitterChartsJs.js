@@ -72,7 +72,7 @@ function barChart(arrData, destId){
 		.enter().append("rect")
 		.attr("width", x1.rangeBand())
 		.attr("x", function (d) { return x1(d.name); })
-		.attr("y", function (d) { return y(d.value); })
+		.attr("y", function (d) { return y(d.value) - 1; })
 		.attr("height", function (d) { return height - y(d.value); })
 		.style("fill", function (d) { return color(d.name); });
 
@@ -98,14 +98,14 @@ function barChart(arrData, destId){
 		.on("click", function (d) {
 			//alert(d);
 	});
-	
+
 }
 
 function usersChart(arrUsers, campaign){
 	// medidas del svg
 	var margin = {top: 20, right: 20, bottom: 30, left: 50},
     w = 450 - margin.left - margin.right,
-    h = 450 - margin.top - margin.bottom,
+    h = 400 - margin.top - margin.bottom,
     r =  Math.min(w, h) / 2,
     color = d3.scale.category20c(); 
     
