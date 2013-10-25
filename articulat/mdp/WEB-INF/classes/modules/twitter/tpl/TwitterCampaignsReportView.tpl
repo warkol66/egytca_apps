@@ -50,9 +50,9 @@
 	   </li>
 	</ul>
 	</div>
-	
-	<div id='reportTweets'>
-		<div id="reportMessage"></div>
+	<div id="content">
+	  <div id="left">
+		 <div id="reportMessage"></div>
 		<div id='tweetsByValue'>
 			<h4>Tweets por Valoración</h4>
 			|-assign var=posCount value=count($positive)-|
@@ -60,27 +60,37 @@
 			<div id='byValueMessage'></div>
 			<div id='byValueChart' height='250'></div>
 		</div>
-		
-		<div id='tweetsByRelevance'>
+		<div id='usersChart'>
+			<h4>Usuarios con más tweets</h4>
+		</div>
+		<div id='usersTweetsChart'>
+			<h4>Tweets</h4>
+			<div id="userTweetsList">
+				Haga click en un usuario para ver sus últimos tweets
+			</div>
+			<div id="tlist"></div>
+		</div>
+	  </div>
+
+	  <div id="right">
+		 <div id='tweetsByRelevance'>
 			<h4>Tweets por Relevancia</h4>
 			|-assign var=posCount value=count($positive)-|
 			<p>Del |-$from|date_format:'%d/%m/%Y'-| al |-$to|date_format:'%d/%m/%Y'-|<br />Toal: |-$totalTweets-|</p>
 			<div id='byRelevanceMessage'></div>
 			<div id='byRelevanceChart'></div>
 		</div>
-	</div>
-	<div id='reportUsers'>
-		<div id='usersChart'>
-			<h4>Usuarios con más tweets</h4>
+		<div id='influentialUsersChart'>
+			<h4>Usuarios influyentes</h4>
 		</div>
-		<div id='usersTweetsChart'>
+		<div id='influentialUsersTweetsChart'>
 			<h4>Tweets</h4>
-			<div id="tweetsList">
+			<div id="influentialUsersTweetsList">
 				Haga click en un usuario para ver sus últimos tweets
 			</div>
-			<div id="tlist"></div>
+			<div id="ilist"></div>
 		</div>
-	</div>
+	 </div>
 </div>
 
 <script type="text/javascript">
@@ -95,24 +105,29 @@
 			data: {id: '|-$campaign->getId()-|', value: val, relevance: rel, type: type, time: time},
 			type: 'post',
 			success: function(data){
-				$j('#reportTweets').html(data);
+				$j('#content').html(data);
 			}	
 		});
 		$j('#reportMessage').html('<span class="inProgress">... Actualizando Datos ...</span>');
 	}
 
 	
-	var arrByValue = [|-foreach from=$byValue item=pos-|{"Fecha":"|-$pos['date']|date_format:'%d-%m-%Y'-|"|-if !empty($positive)-|,"Positivos":"|-$pos['positive']-|"|-/if-||-if !empty($neutral)-|,"Neutros":"|-$pos['neutral']-|"|-/if-||-if !empty($negative)-|,"Negativos":"|-$pos['negative']-|"|-/if-|}|-if !$byValue.last-|,|-/if-||-/foreach-|];
+	var arrByValue = [|-foreach from=$byValue item=pos-|{"Fecha":"|-$pos['date']|date_format:'%d-%m-%Y'-|"|-if !empty($positive)-|,"Positivos":"|-$pos['positive']-|"|-/if-||-if !empty($neutral)-|,"Neutros":"|-$pos['neutral']-|"|-/if-||-if !empty($negative)-|,"Negativos":"|-$pos['negative']-|"|-/if-|}|-if !$byValue@last-|,|-/if-||-/foreach-|];
 	
-	var arrByRelevance = [|-foreach from=$byRelevance item=pos-|{"Fecha":"|-$pos['date']|date_format:'%d-%m-%Y'-|"|-if !empty($positive)-|,"Relevantes":"|-$pos['relevant']-|"|-/if-||-if !empty($neutral)-|,"Neutros":"|-$pos['neutrally_relevant']-|"|-/if-||-if !empty($negative)-|,"Irrelevantes":"|-$pos['irrelevant']-|"|-/if-|}|-if !$byValue.last-|,|-/if-||-/foreach-|];
+	var arrByRelevance = [|-foreach from=$byRelevance item=pos-|{"Fecha":"|-$pos['date']|date_format:'%d-%m-%Y'-|"|-if !empty($positive)-|,"Relevantes":"|-$pos['relevant']-|"|-/if-||-if !empty($neutral)-|,"Neutros":"|-$pos['neutrally_relevant']-|"|-/if-||-if !empty($negative)-|,"Irrelevantes":"|-$pos['irrelevant']-|"|-/if-|}|-if !$byValue@last-|,|-/if-||-/foreach-|];
 	
-	var arrUsers = [|-foreach from=$topUsers item=topUser-||-assign var=user value=$topUser['user']-|{"name":"@|-$user->getScreenname()-|","id":"|-$user->getId()-|","tweets":|-$topUser['tweets']-|}|-if !$topUsers.last-|,|-/if-||-/foreach-|];
+	var arrUsers = [|-foreach from=$topUsers item=topUser-||-assign var=user value=$topUser['user']-|{"name":"@|-$user->getScreenname()-|","id":"|-$user->getId()-|","tweets":|-$topUser['tweets']-|}|-if !$topUsers@last-|,|-/if-||-/foreach-|];
+	
+	var arrInfluentialUsers = [|-foreach from=$influentialUsers item=influentialUser-|{"name":"@|-$influentialUser->getScreenname()-|","id":"|-$influentialUser->getId()-|"}|-if !$influentialUsers@last-|,|-/if-||-/foreach-|];
+	
+	console.log(arrInfluentialUsers);
 		
 	$j(function() {
 		
 		barChart(arrByValue,'byValueChart');
 		barChart(arrByRelevance,'byRelevanceChart');
 		usersChart(arrUsers, '|-$campaign->getId()-|');
+		influentialChart(arrInfluentialUsers, '|-$campaign->getId()-|', '|-count($influentialUsers)-|');
 	});
 </script>
 |-/if-|

@@ -148,3 +148,51 @@ function usersChart(arrUsers, campaign){
 		});
 	
 }
+
+function influentialChart(arrUsers, campaign, users){
+	// medidas del svg
+	var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    w = 450 - margin.left - margin.right,
+    h = 400 - margin.top - margin.bottom,
+    r =  Math.min(w, h) / 2,
+    color = d3.scale.category20c(); 
+    
+    var vis = d3.select("#influentialUsersChart")
+        .append("svg:svg")
+        .data([arrUsers])
+		.attr("width", w)
+		.attr("height", h)
+        .append("svg:g")
+        .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
+
+    var arc = d3.svg.arc()
+        .outerRadius(r);
+
+    var pie = d3.layout.pie()
+        .value(function(d) { return 1; });
+
+    var arcs = vis.selectAll("g.slice")
+        .data(pie)
+        .enter()
+        .append("svg:a") // Append legend elements
+        .attr("onclick", function(d, i) { return '{new Ajax.Updater("ilist", "Main.php?do=twitterUsersTweetsViewX", { method: "post", parameters: { id: "' + arrUsers[i].id + '", campaign: "' + campaign + '"}, evalScripts: true})};$("tweetsList").innerHTML = "Buscando tweets..."; return false;'; })
+        .attr("xlink:href", function(d) { return '#'; })
+        .append("svg:g")
+        .attr("class", "slice");
+
+	arcs.append("svg:path")
+		.attr("fill", function(d, i) { return color(i); } )
+		.attr("d", arc);
+
+	arcs.append("svg:text")
+		.attr("transform", function(d) {
+			d.innerRadius = 0;
+			d.outerRadius = r;
+			return "translate(" + arc.centroid(d) + ")";
+		})
+		.attr("text-anchor", "middle")
+		.text(function(d, i) { 
+			return arrUsers[i].name; 
+		});
+	
+}

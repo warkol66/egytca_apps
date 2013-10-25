@@ -24,9 +24,6 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			// busco entre los limites de la campaign
 			$from = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($this->entity->getStartdate())));
 			$to = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($this->entity->getFinishdate())));
-			
-			/*echo "$from \n $to";
-			die();*/
 
 			$byValue = TwitterTweetQuery::getAllByValue($campaignId, $from, $to, null, null, null);
 			// seteo los valores disponibles para usarlos luego en la creacion del grafico
@@ -47,14 +44,15 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 				$this->smarty->assign('irrelevant', true);
 			
 			// obtengo los usuarios que mas tweets crearon
-			$topUsers = TwitterUserQuery::getTopUsers($campaignId);
-			
-			
-			// obtengo los actores mas mencionados
+			$topUsers = TwitterUserQuery::getTopUsers($from, $to, $campaignId, null, null, null, 5);
+			$influentialUsers = TwitterUserQuery::getInfluentialUsers($from, $to, $campaignId, null, null, null);
+			/*echo"<pre>"; print_r($relevantUsers); echo"</pre>";
+			die();*/
 			
 			$this->smarty->assign('byValue', $byValue);
 			$this->smarty->assign('byRelevance', $byRelevance);
 			$this->smarty->assign('topUsers', $topUsers);
+			$this->smarty->assign('influentialUsers', $influentialUsers);
 			/*echo"<pre>"; print_r($byValue); echo"</pre>";
 			die();*/
 			

@@ -18,29 +18,42 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 	/* Obtiene los usuarios con mas tweets
 	 * 
 	 * */
-	public function getTopUsers($campaign,$from = null, $to = null, $count = 5){
+	public function getTopUsers($from = null, $to = null, $campaign, $value, $relevance, $type, $count = 5){
+		
+		if(empty($value)) 
+			$value = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
+		if(empty($relevance)) 
+			$relevance = array(0,TwitterTweet::RELEVANT,TwitterTweet::NEUTRALLY_RELEVANT,TwitterTweet::IRRELEVANT);
+		if(empty($type)) 
+			$type = 0;
 			
-		if(!isset($from) && !isset($to)){
+		/*if(!isset($from) && !isset($to)){
 			
 			$tops = TwitterTweetQuery::create()
 				->withColumn('count(TwitterTweet.Id)', 'tweets')
 				->filterByCampaignid($campaign)
+				->filterByValue($value)
+				->filterByRelevance($relevance)
+				->getByType($type)
 				->filterByStatus(TwitterTweet::ACCEPTED)
 				->groupBy('TwitterTweet.Internaltwitteruserid')
 				->orderBy('TwitterTweet.tweets', 'desc')
 				->limit($count)
 				->find();
-		}else{
+		}else{*/
 			$tops = TwitterTweetQuery::create()
 				->withColumn('count(TwitterTweet.Id)', 'tweets')
 				->filterByCampaignid($campaign)
+				->filterByValue($value)
+				->filterByRelevance($relevance)
+				->getByType($type)
 				->filterByStatus(TwitterTweet::ACCEPTED)
 				->filterByCreatedat(array('min' => $from,'max' => $to))
 				->groupBy('TwitterTweet.Internaltwitteruserid')
 				->orderBy('TwitterTweet.tweets', 'desc')
 				->limit($count)
 				->find();
-		}
+		//}
 		$users = array();
 		$i = 0;
 		foreach($tops as $top){
@@ -54,34 +67,27 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 	/* Obtiene los usuarios mas influyentes
 	 * 
 	 * */
-	/*public function getInfluentialUsers($from = null, $to = null, $count = 5){
+	public function getInfluentialUsers($from, $to, $campaign, $value, $relevance, $type){
+		if(empty($value)) 
+			$value = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
+		if(empty($relevance)) 
+			$relevance = array(0,TwitterTweet::RELEVANT,TwitterTweet::NEUTRALLY_RELEVANT,TwitterTweet::IRRELEVANT);
+		if(empty($type)) 
+			$type = 0;
+		
+		$influential = TwitterUserQuery::create()
+			->filterByInfluence(TwitterUser::INFLUENTIAL)
+			->useTwitterTweetQuery()
+				->filterByCampaignid($campaign)
+				->filterByValue($value)
+				->filterByRelevance($relevance)
+				->getByType($type)
+				->filterByCreatedat(array('min' => $from,'max' => $to))
+			->endUse()
+			->find();
 			
-		if(!isset($from) && !isset($to)){
-			$tops = TwitterTweetQuery::create()
-				->withColumn('count(TwitterTweet.Id)', 'tweets')
-				->filterByStatus(TwitterTweet::ACCEPTED)
-				->groupBy('TwitterTweet.Internaltwitteruserid')
-				->orderBy('TwitterTweet.tweets', 'desc')
-				->limit($count)
-				->find();
-		}else{
-			$tops = TwitterTweetQuery::create()
-				->withColumn('count(TwitterTweet.Id)', 'tweets')
-				->filterByStatus(TwitterTweet::ACCEPTED)
-				->groupBy('TwitterTweet.Internaltwitteruserid')
-				->orderBy('TwitterTweet.tweets', 'desc')
-				->limit($count)
-				->find();
-		}
-		$users = array();
-		$i = 0;
-		foreach($tops as $top){
-			$users[$i]['user'] = $top->getTwitterUser();
-			$users[$i]['tweets'] = $top->getTweets();
-			$i++;
-		}
-		return $users;
-	}*/
+		return $influential;
+	}
 	
 	/**
 	* Obtiene todos los usuarios de twitter disponibles para el actor
