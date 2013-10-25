@@ -949,27 +949,22 @@ table.tableTdBorders {
 
 .slice path { stroke: #fff;}
 
-#reportTweets, #reportUsers { 
-	float: left; 
-	margin-top: 10px; 
-	margin-bottom:10px;
-}
-#tweetsByValue, #usersChart{ width: 500px; float: left;}
-#tweetsByRelevance, #usersTweetsChart{ width: 500px; float: right; padding-left: 50px;}
+#tweetsByValue{ width: 300px;}
+
+#usersChart{height: 400px;}
 
 .userTweetsList, .userTweetsListItem {list-style: none;}
 
-#reportContainer{width:1400px}
+#content { 
+  width: 1400px; 
+  background: gray;
+} 
 
-.y.axis path, .x.axis path {
-  fill: none;
-  stroke: #000;
-  stroke-width: 2px;
-  shape-rendering: crispEdges;
-}
+#left, #right { 
+  width: 40%;
+  padding: 1em; 
+  background: white; 
+} 
 
-/*.y.axis line {
-  stroke: #777;
-  stroke-dasharray: 2,2;
-}*/
-
+#left  { float:left;  }
+#right { float:right; } 
