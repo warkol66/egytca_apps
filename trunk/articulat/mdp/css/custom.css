@@ -967,4 +967,7 @@ table.tableTdBorders {
 } 
 
 #left  { float:left;  }
-#right { float:right; } 
+#right { float:right; }
+#reportContainer p {
+	width: auto !Important; 
+}
