@@ -1,5 +1,5 @@
 <script language="JavaScript" type="text/javascript">
-	$('tweetsList').innerHTML = '';
+	//$('tweetsList').innerHTML = '';
 	initialize();
 </script>
 <p>Mostrando tweets más recientes de: <a href="https://twitter.com/|-$user->getScreenname()-|" class="twitterUrl " target="_blank">@|-$user->getScreenname()-|</a></p>

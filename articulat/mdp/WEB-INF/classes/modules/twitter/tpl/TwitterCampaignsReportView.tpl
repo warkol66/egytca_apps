@@ -4,7 +4,6 @@
 <link type="text/css" rel="stylesheet" href="css/twitterMenu.css" />
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-<script src="scripts/d3/d3.v3.min.js" charset="utf-8"></script>
 <script src="scripts/jquery/jquery.min.js" charset="utf-8"></script>
 <script src="Main.php?do=js&name=chartsJs&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 <script> var $j = jQuery.noConflict(); </script>
@@ -138,8 +137,6 @@
 	var arrUsers = [|-foreach from=$topUsers item=topUser-||-assign var=user value=$topUser['user']-|{"name":"@|-$user->getScreenname()-|","id":"|-$user->getId()-|","tweets":|-$topUser['tweets']-|}|-if !$topUsers@last-|,|-/if-||-/foreach-|];
 	
 	var arrInfluentialUsers = [|-foreach from=$influentialUsers item=influentialUser-|{"name":"@|-$influentialUser->getScreenname()-|","id":"|-$influentialUser->getId()-|"}|-if !$influentialUsers@last-|,|-/if-||-/foreach-|];
-	
-	console.log(arrInfluentialUsers);
 		
 	$j(function() {
 		
