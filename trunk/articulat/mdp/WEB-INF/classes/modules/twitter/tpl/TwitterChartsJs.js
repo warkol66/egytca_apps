@@ -196,3 +196,38 @@ function influentialChart(arrUsers, campaign, users){
 		});
 	
 }
+
+function bubbleChart(arr){
+	var r = 500
+	
+	var color = d3.scale.category20();
+	
+	var bubble_layout = d3.layout.pack()
+		.sort(null) // HERE
+		.size([r,r])
+		.padding(1.5);
+
+	var vis = d3.select("#bubbleGroupChart").append("svg")
+		.attr("width" , r)
+		.attr("height", r)
+	
+	var selection = vis.selectAll("g.node")
+				  .data(bubble_layout.nodes({children: arr}).filter(function(d) { return !d.children; }) ); 
+
+	var node = selection.enter().append("g")
+				  .attr("class", "node")
+				  .attr("transform", function(d) { return "translate(" + d.x + ", " + d.y + ")"; }).filter(function(d){
+		  return d.value > 0;
+		})
+		
+	node.append("circle")
+		.attr("r", function(d) { return d.r; })
+		.attr("fill",function(d,i){return color(i);});
+
+	node.append("text")
+		.attr("text-anchor", "middle")
+		.attr("dy", ".3em")
+		.text(function(d) { return d.name; });
+
+
+}

@@ -253,4 +253,44 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 			
 		return count($totalTweets);
 	}
+	/* Obtiene la cantidad de tweets de todas las combinaciones entre
+	 * valores y relevancias
+	 * */
+	public function getCombinations($campaignId, $valueFilter, $relevanceFilter){
+		
+		$tempValues = TwitterTweet::getValues();
+		$tempRelevances = TwitterTweet::getRelevances();
+		
+		if(!empty($valueFilter))
+			$values[$valueFilter] = $tempValues[$valueFilter];
+		else
+			$values = $tempValues;
+		if(!empty($relevanceFilter))
+			$relevances[$relevanceFilter] = $tempRelevances[$relevanceFilter];
+		else
+			$relevances = $tempRelevances;
+
+		$combinations = array();
+		$i = 0;
+		
+		foreach($values as $value => $name){
+			foreach($relevances as $relevance => $relName){
+				
+				$tweetsAmount = TwitterTweetQuery::create()
+					->filterByCampaignid($campaignId)
+					->filterByStatus(TwitterTweet::ACCEPTED)
+					->filterByValue($value)
+					->filterByRelevance($relevance)
+					->find()
+					->count();
+				
+				$combinations[$i]['name'] = $name . '-' . $relName;
+				$combinations[$i]['value'] = $tweetsAmount;
+				
+				$i++;
+			}
+		}
+		
+		return $combinations;
+	}
 }
