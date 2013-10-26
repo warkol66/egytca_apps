@@ -69,6 +69,10 @@
 			</div>
 			<div id="tlist"></div>
 		</div>
+		<div id='tweetsByGroup'>
+			<h4>Tweets por grupo</h4>
+			<div id='bubbleGroupChart' ></div>
+		</div>
 	  </div>
 
 	  <div id="right">
@@ -137,6 +141,8 @@
 	var arrUsers = [|-foreach from=$topUsers item=topUser-||-assign var=user value=$topUser['user']-|{"name":"@|-$user->getScreenname()-|","id":"|-$user->getId()-|","tweets":|-$topUser['tweets']-|}|-if !$topUsers@last-|,|-/if-||-/foreach-|];
 	
 	var arrInfluentialUsers = [|-foreach from=$influentialUsers item=influentialUser-|{"name":"@|-$influentialUser->getScreenname()-|","id":"|-$influentialUser->getId()-|"}|-if !$influentialUsers@last-|,|-/if-||-/foreach-|];
+	
+	var bubble = [|-foreach from=$tweetsAmount item=group-|{"name": "|-$group['name']-|", "value": "|-$group['value']-|"}|-if !$tweetsAmount@last-|,|-/if-||-/foreach-|];
 		
 	$j(function() {
 		
@@ -144,6 +150,7 @@
 		barChart(arrByRelevance,'byRelevanceChart');
 		usersChart(arrUsers, '|-$campaign->getId()-|');
 		influentialChart(arrInfluentialUsers, '|-$campaign->getId()-|', '|-count($influentialUsers)-|');
+		bubbleChart(bubble);
 	});
 </script>
 |-/if-|
