@@ -14,6 +14,7 @@
 	<div id='panelDiv'>
 	<ul>
 	   <li class='active'><button onclick='removeFilters(); return false;'><span>Eliminar Filtros</span></button></li>
+	   <li class='active'><button onclick='generateReport(); return false;'><span>Exportar</span></button></li>
 	   <li class='has-sub'><button><span>Temporales</span></button>
 		  <ul>
 			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value="- 12 hours"><span>Ultimas 12 horas</span></button></li>
@@ -131,6 +132,27 @@
 			}	
 		});
 		$j('#reportMessage').html('<span class="inProgress">... Actualizando Datos ...</span>');
+	}
+	
+	function generateReport(){
+		$j('#toReport').remove();
+		
+		var newForm = $j('<form>', {
+			'action': 'Main.php',
+			'target': '_blank',
+			'method': 'post',
+			'id': 'toReport'
+		});
+		newForm.append($j('<input>', {'name': 'do','value': 'twitterReportView','type': 'hidden'}))
+		.append($j('<input>', {'name': 'value','value': $j('.valueSelected').val(),'type': 'hidden'}))
+		.append($j('<input>', {'name': 'relevance','value': $j('.relevanceSelected').val(),'type': 'hidden'}))
+		.append($j('<input>', {'name': 'time','value': $j('.timeSelected').val(),'type': 'hidden'}))
+		.append($j('<input>', {'name': 'type','value': $j('.typeSelected').val(),'type': 'hidden'}))
+		.append($j('<input>', {'name': 'filters[campaignId]','value': '|-$campaign->getId()-|','type': 'hidden'}));
+		$j('body').append(newForm);
+		
+		console.log(newForm);
+		newForm.submit();
 	}
 
 	
