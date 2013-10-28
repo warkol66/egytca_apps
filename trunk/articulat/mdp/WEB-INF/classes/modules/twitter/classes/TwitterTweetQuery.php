@@ -109,6 +109,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		$positive = TwitterTweet::POSITIVE;
 		$neutral = TwitterTweet::NEUTRAL;
 		$negative = TwitterTweet::NEGATIVE;
+		//$values = getValues();
 		if(empty($relevance)) 
 			$relevance = array(0,TwitterTweet::RELEVANT,TwitterTweet::NEUTRALLY_RELEVANT,TwitterTweet::IRRELEVANT);
 		if(empty($type)) 
@@ -172,6 +173,26 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		}
 		
 		return $byValue;
+	}
+	
+	/* Obtiene los tweets por valor para el reporte
+	 * */
+	public function getTweetsForReport($campaign, $from, $to, $value, $relevance, $type){
+		if(empty($value)) 
+			$value = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
+		if(empty($relevance)) 
+			$relevance = array(0,TwitterTweet::RELEVANT,TwitterTweet::NEUTRALLY_RELEVANT,TwitterTweet::IRRELEVANT);
+		if(empty($type))
+			$type = 0;
+			
+		TwitterTweetQuery::create()
+			->filterByCampaignid($campaign)
+			->filterByValue($value)
+			->filterByRelevance($relevance)
+			->filterByCreatedat(array('min' => $from, 'max' => $to))
+			->filterByStatus(TwitterTweet::ACCEPTED)
+			->getByType($type)
+			->find();
 	}
 	
 	public function getAllByRelevance($campaign, $from, $to, $value, $relevance, $type){

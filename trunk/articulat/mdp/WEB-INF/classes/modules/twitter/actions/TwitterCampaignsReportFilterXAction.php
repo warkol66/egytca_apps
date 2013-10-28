@@ -33,12 +33,12 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 				$to = Common::getDatetimeOnGMT(date('Y-m-d H:i:s'));
 			}
 			
-			/*echo "$from \n $to";
-			die();*/
-			
 			$value = $_POST['value'];
 			$relevance = $_POST['relevance'];
 			
+			$this->smarty->assign('from',$from);
+			$this->smarty->assign('to',$to);
+				
 			$byValue = TwitterTweetQuery::getAllByValue($campaignId, $from, $to, $value, $relevance, $type);
 			// seteo los valores disponibles para usarlos luego en la creacion del grafico
 			if(array_key_exists('positive',$byValue[0]))
@@ -71,9 +71,6 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			
 			$totalTweets = TwitterTweetQuery::getTotalTweets($campaignId,$from,$to);
 			$this->smarty->assign('totalTweets',$totalTweets);
-			
-			$this->smarty->assign('from',$from);
-			$this->smarty->assign('to',$to);
 
 		}
 		
