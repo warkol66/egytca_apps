@@ -103,7 +103,7 @@
 #panelDiv ul ul button.typeSelected, 
 #panelDiv ul ul button.relevanceSelected,
 #panelDiv ul ul button.valueSelected {
-	background: none repeat scroll 0 0 #86A2AC;
+	background: none repeat scroll 0 0 #FBFBFB; /*#86A2AC;*/
 	color: #797979;
 	display: block;
 	font-size: 13px;
