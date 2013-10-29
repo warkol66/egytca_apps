@@ -16,6 +16,8 @@ class TwitterReportViewAction extends BaseListAction {
 		if(!is_object($campaign))
 			return false;
 			
+		$this->notPaginated = true;
+			
 		if(empty($_POST['value'])) 
 			$this->filters['value'] = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
 		else

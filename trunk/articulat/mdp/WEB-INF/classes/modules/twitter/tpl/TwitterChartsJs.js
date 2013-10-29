@@ -66,7 +66,7 @@ function barChart(arrData, destId){
 		.enter().append("g")
 		.attr("class", "g")
 		.attr("transform", function (d) { return "translate(" + x0(parseDate(d.Fecha)) + ",0)"; });
-
+	
 	state.selectAll("rect")
 		.data(function (d) { return d.Tweets; })
 		.enter().append("rect")
@@ -227,7 +227,7 @@ function bubbleChart(arr){
 	node.append("text")
 		.attr("text-anchor", "middle")
 		.attr("dy", ".3em")
-		.text(function(d) { return d.name; });
+		.html(function(d) { return d.name + '\n' + d.value; });
 
 
 }
