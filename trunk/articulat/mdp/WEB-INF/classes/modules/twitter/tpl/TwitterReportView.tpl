@@ -22,8 +22,8 @@
 				<td>|-$tweet->getText()|twitterHighlight-|</td>
 				<td>|-if is_object($user)-||-$user->getName()-||-/if-|</td>
 				<td>|-$tweet->getCreatedat()|date_format:"%d-%m-%Y %H:%m"|change_timezone-|</td>
-				<td>|-$tweet->getValue()-|</td> 
-				<td>|-$tweet->getRelevance()-|</td>
+				<td>|-$values[$tweet->getValue()]-|</td> 
+				<td>|-$relevances[$tweet->getRelevance()]-|</td>
 			</tr>
 			|-/foreach-|
 			</tbody> 

@@ -57,3 +57,13 @@ table tr {
 .tableTdBorders thead tr:last-child th:last-child {
 	border-right: 3px #cdcdcd double;
 }
+#panelDiv button, #removeFilters, #exportData {
+	display: none !Important;
+}
+#panelDiv ul ul button.timeSelected, 
+#panelDiv ul ul button.typeSelected, 
+#panelDiv ul ul button.relevanceSelected,
+#panelDiv ul ul button.valueSelected,
+#panelDiv > ul > li > button  {
+	display: block !Important;
+}

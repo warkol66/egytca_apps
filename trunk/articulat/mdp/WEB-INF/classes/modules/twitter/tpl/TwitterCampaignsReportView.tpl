@@ -13,9 +13,10 @@
 <div id="reportContainer">
 	<div id='panelDiv'>
 	<ul>
-	   <li class='active'><button onclick='removeFilters(); return false;'><span>Eliminar Filtros</span></button></li>
-	   <li class='active'><button onclick='generateReport(); return false;'><span>Exportar</span></button></li>
-	   <li class='has-sub'><button><span>Temporales</span></button>
+	   <li class='active' id='removeFilters'><button onclick='removeFilters(); return false;'><span>Eliminar Filtros</span></button></li>
+	   <li class='active' id='exportData'><button onclick='generateReport(); return false;'><span>Exportar</span></button></li>
+	   <li class='has-sub'>
+	     <button><span>Tiempo</span></button>
 		  <ul>
 			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value="- 12 hours"><span>Ultimas 12 horas</span></button></li>
 			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value="- 24 hours"><span>Ultimas 24 horas</span></button></li>

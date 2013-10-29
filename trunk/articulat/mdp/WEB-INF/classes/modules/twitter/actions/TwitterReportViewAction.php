@@ -46,6 +46,9 @@ class TwitterReportViewAction extends BaseListAction {
 
 		$this->smarty->assign("module", $this->module);
 			
+		$this->smarty->assign("values", TwitterTweet::getValues());
+		$this->smarty->assign("relevances", TwitterTweet::getRelevances());
+
 		$this->template->template = "TemplatePrint.tpl";
 		
 		$moduleConfig = Common::getModuleConfiguration($this->module);
