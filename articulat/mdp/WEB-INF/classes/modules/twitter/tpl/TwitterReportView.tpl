@@ -1,6 +1,6 @@
 <div id="tweetsList">
 	<h4>Tweets</h4>
-	<table id="tabla-tweets" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
+	<table id="tabla-tweets" class='tableTdBorders' border="1" cellpadding='5' cellspacing='0' width='100%'> 
 		<thead>
 			<tr class="thFillTitle">
 					<th width="50%">Texto</th> 
