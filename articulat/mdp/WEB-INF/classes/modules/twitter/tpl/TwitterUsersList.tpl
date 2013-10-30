@@ -35,7 +35,7 @@
 	<table id="tabla-twitterUsers" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead>
 			<tr class="thFillTitle"> 
-					<th width="1%"><input type="checkbox" name="allbox" value="checkbox" id="allBoxes" onChange="javascript:selectAllCheckboxes()" title="Seleccionar todos" /></th>
+					<!--th width="1%"><input type="checkbox" name="allbox" value="checkbox" id="allBoxes" onChange="javascript:selectAllCheckboxes()" title="Seleccionar todos" /></th-->
 					<th width="10%">Nombre</th> 
 					<th width="15%">Nombre de usuario</th> 
 					<th width="25%">Descripción</th> 
@@ -58,7 +58,7 @@
 			|-assign var=userUrl value=$twitterUser->getUrl()-|
 			|-assign var=actor value=$twitterUser->getActor()-|
 			<tr id="tr_|-$twitterUser->getId()-|">
-				<td align="center"><input type="checkbox" name="selected[]" value="|-$twitterUser->getId()-|"></td>
+				<!--td align="center"><input type="checkbox" name="selected[]" value="|-$twitterUser->getId()-|"></td-->
 				<td id="name_|-$twitterUser->getId()-|" valign="top">|-$twitterUser->getName()-|</td>
 				<td id="screenName_|-$twitterUser->getId()-|" valign="top"><a href="https://twitter.com/|-$twitterUser->getScreenname()-|" class="twitterUrl " target="_blank">@|-$twitterUser->getScreenname()-|</a></td>
 				<td id="description_|-$twitterUser->getId()-|" valign="top">|-$twitterUser->getDescription()-|</td>
@@ -84,8 +84,8 @@
 			|-/foreach-|
 			</tbody> 
 			<tfoot>
-			|-if $twitterUserColl|@count neq 0-|
-				<tr>
+			|-*if $twitterUserColl|@count neq 0*-|
+				<!--tr>
 					<td colspan="12">
 						<form action="Main.php" method="post" id='multipleUsersChangeInfluenceForm'>
 							<p>Cambiar el nivel de influencia de los usuarios seleccionados a
@@ -106,8 +106,8 @@
 							|-/if-|
 						</form>
 					</td>
-				</tr>
-			|-/if-|
+				</tr-->
+			|-*/if*-|
 			|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 			<tr> 
 				<td colspan="12">|-include file="ModelPagerInclude.tpl"-|</td> 
