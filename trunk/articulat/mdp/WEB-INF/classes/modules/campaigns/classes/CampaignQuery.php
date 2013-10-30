@@ -28,5 +28,17 @@ class CampaignQuery extends BaseCampaignQuery {
 		$date = date('Y-m-d',strtotime("-$cant days"));
 			return CampaignQuery::create()->filterByTwitterCampaign($twitter)->filterByStartDate(array('min' => $date))->find();
 	}
+	
+	public function getTwitterActive(){
+		$today = date('Y-m-d');
+		
+		$active = CampaignQuery::create()
+			->filterByTwittercampaign(1)
+			->filterByStartdate(array('min' => $today))
+			->filterByFinishdate(array('max' => $today))
+			->find();
+			
+		return $active;
+	}
 
 } // CampaignQuery
