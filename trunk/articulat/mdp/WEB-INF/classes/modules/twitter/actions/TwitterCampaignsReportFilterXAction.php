@@ -62,7 +62,7 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			// obtengo los usuarios que mas tweets crearon
 			$topUsers = TwitterUserQuery::getTopUsers($from, $to, $campaignId, $value, $relevance, $type, 5);
 			$influentialUsers = TwitterUserQuery::getInfluentialUsers($from, $to, $campaignId, $value, $relevance, $type);
-			$tweetsAmount = TwitterTweetQuery::getCombinations($campaignId,$value,$relevance);
+			$tweetsAmount = TwitterTweetQuery::getCombinations($campaignId, $from, $to, $value, $relevance);
 			/*echo"<pre>"; print_r($relevantUsers); echo"</pre>";
 			die();*/
 			$this->smarty->assign('topUsers', $topUsers);

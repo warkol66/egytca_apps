@@ -277,7 +277,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 	/* Obtiene la cantidad de tweets de todas las combinaciones entre
 	 * valores y relevancias
 	 * */
-	public function getCombinations($campaignId, $valueFilter, $relevanceFilter){
+	public function getCombinations($campaignId, $from, $to, $valueFilter, $relevanceFilter){
 		
 		$tempValues = TwitterTweet::getValues();
 		$tempRelevances = TwitterTweet::getRelevances();
@@ -300,6 +300,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 				$tweetsAmount = TwitterTweetQuery::create()
 					->filterByCampaignid($campaignId)
 					->filterByStatus(TwitterTweet::ACCEPTED)
+					->filterByCreatedat(array('min' => $from, 'max' => $to))
 					->filterByValue($value)
 					->filterByRelevance($relevance)
 					->find()

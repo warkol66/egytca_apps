@@ -49,7 +49,7 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			/*echo"<pre>"; print_r($relevantUsers); echo"</pre>";
 			die();*/
 			
-			$tweetsAmount = TwitterTweetQuery::getCombinations($campaignId);
+			$tweetsAmount = TwitterTweetQuery::getCombinations($campaignId, $from, $to);
 			/*echo"<pre>"; print_r($tweetsAmount); echo"</pre>";
 			die();*/
 			$this->smarty->assign('byValue', $byValue);
