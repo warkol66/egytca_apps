@@ -100,6 +100,10 @@ class MeasurementRecordRelation extends BaseMeasurementRecordRelation {
 		$this->setAccumulated($previousAccumulated + $this->getReadjustment());
 	}
 	
+	function getPrice() {
+		return $this->getConstructionItem()->getPrice();
+	}
+	
 	/**
 	 * Calcula el precio sugerido para el ConstructionItem asociado en el
 	 * período del MeasurementRecord asociado.

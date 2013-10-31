@@ -192,18 +192,6 @@
 
 <script type="text/javascript">
 	
-var oldPrice = 0;
-
-Event.observe(
-	window,
-	'load',
-	function() {
-		|-if $action eq 'edit'-|
-		attachInPlaceEditors();
-		|-/if-|
-	}
-);
-	
 function validateForm() {
 	var submit = true;
 	var params = ['measurementRecordId'];
@@ -216,59 +204,6 @@ function validateForm() {
 	}
 	
 	return submit;
-}
-
-function attachInPlaceEditors() {
-	|-foreach from=$relations item=relation-|
-	new Ajax.InPlaceEditor(
-		'price|-$relation->getId()-|',
-		'Main.php?do=vialidadMeasurementRecordRelationsEditFieldX',
-		{
-			rows: 1,
-			cols: 12,
-			okText: 'Guardar',
-			cancelText: 'Cancelar',
-			savingText: 'Guardando...',
-			hoverClassName: 'in_place_hover',
-			highlightColor: '#b7e0ff',
-			cancelControl: 'button',
-			savingClassName: 'inProgress',
-			clickToEditText: 'Haga click para editar',
-			externalControl: 'button_priceEdit|-$relation->getId()-|',
-			callback: function(form, value) {
-				return 'id=|-$relation->getId()-|&paramName=price&paramValue=' + encodeURIComponent(value);
-			},
-			onComplete: function(transport, element) {
-				element.innerHTML = element.innerHTML.replace(/(\n|\r)+$/, '');
-				new Effect.Highlight(element, { startcolor: this.options.highlightColor });
-				updateCertificateTotalPrice();
-				updateItemTotalPrice('|-$relation->getId()-|');
-			}
-		}
-	);
-	|-/foreach-|
-}
-
-function updateCertificateTotalPrice() {
-	new Ajax.Updater(
-		{success: 'totalPrice'},
-		'Main.php?do=vialidadCertificatesGetTotalPriceX',
-		{
-			method: 'post',
-			parameters: {id: '|-$certificate->getid()-|'}
-		}
-	);
-}
-
-function updateItemTotalPrice(relationId) {
-	new Ajax.Updater(
-		{success: 'totalPrice'+relationId},
-		'Main.php?do=vialidadMeasurementRecordRelationsGetTotalPriceX',
-		{
-			method: 'post',
-			parameters: {id: relationId}
-		}
-	);
 }
 
 </script>
