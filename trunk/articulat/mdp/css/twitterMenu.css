@@ -18,6 +18,8 @@
   position: relative;
   width: 100%;
 }
+#panelDiv input[type="text"]{ width: 97%;}
+
 #panelDiv a,
 #panelDiv button {
   text-align: left;
