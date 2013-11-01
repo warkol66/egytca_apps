@@ -25,7 +25,11 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			$type = $_POST['type'];
 			
 			// si no es un rango de fechas custom
-			if(!isset($_POST['from']) && !isset($_POST['to'])){
+			if($_POST['time'] == 'custom' && isset($_POST['from']) && isset($_POST['to'])){
+				$from = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($_POST['from']. ':00')));
+				$to = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($_POST['to']. ':00')));
+				
+			}else{
 				if(!empty($_POST['time']))
 					$from = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($_POST['time'])));
 				else
@@ -38,7 +42,7 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			
 			$this->smarty->assign('from',$from);
 			$this->smarty->assign('to',$to);
-				
+
 			$byValue = TwitterTweetQuery::getAllByValue($campaignId, $from, $to, $value, $relevance, $type);
 			// seteo los valores disponibles para usarlos luego en la creacion del grafico
 			if(array_key_exists('positive',$byValue[0]))
