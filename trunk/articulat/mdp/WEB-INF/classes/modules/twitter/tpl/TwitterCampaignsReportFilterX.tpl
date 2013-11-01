@@ -1,5 +1,5 @@
 	<div id="left">
-		 <div id="reportMessage"></div>
+		<div id="reportMessage"></div>
 		<div id='tweetsByValue'>
 			<h4>Tweets por Valoración</h4>
 			|-assign var=posCount value=count($positive)-|
@@ -62,9 +62,7 @@
 	influentialChart(arrInfluentialUsers, '|-$campaign->getId()-|', '|-count($influentialUsers)-|');
 	
 	var bubble = [|-foreach from=$tweetsAmount item=group-|{"name": "|-$group['name']-|", "value": "|-$group['value']-|"}|-if !$tweetsAmount@last-|,|-/if-||-/foreach-|];
-	
-	console.log(bubble);
-	
+
 	bubbleChart(bubble);
 
 </script>

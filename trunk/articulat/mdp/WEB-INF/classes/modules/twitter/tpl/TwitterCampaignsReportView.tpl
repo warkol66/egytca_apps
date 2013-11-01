@@ -23,10 +23,10 @@
 	   <li class='has-sub'>
 	     <button><span>Tiempo</span></button>
 		  <ul>
-			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value="- 12 hours"><span>Ultimas 12 horas</span></button></li>
-			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value="- 24 hours"><span>Ultimas 24 horas</span></button></li>
-			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value="- 7 days"><span>Ultimos 7 días</span></button></li>
-			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value="- 15 days"><span>Ultimos 15 días</span></button></li>
+			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected'); $j('#customDate').hide(); setValueX(); return false;" value="- 12 hours"><span>Ultimas 12 horas</span></button></li>
+			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected'); $j('#customDate').hide(); setValueX(); return false;" value="- 24 hours"><span>Ultimas 24 horas</span></button></li>
+			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected'); $j('#customDate').hide(); setValueX(); return false;" value="- 7 days"><span>Ultimos 7 días</span></button></li>
+			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected'); $j('#customDate').hide(); setValueX(); return false;" value="- 15 days"><span>Ultimos 15 días</span></button></li>
 			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected'); $j('#customDate').toggle(); return false;" value="custom"><span>Personalizar</span></button>
 			 <div id="customDate" style="display: none;">
 				<input type="text" name="from" id="dateFrom" value="">
@@ -34,23 +34,24 @@
 				<script type="text/javascript">
 					$j(function(){
 						$j('#dateFrom').datetimepicker({
-							dateFormat: 'dd/mm/yy',
+							dateFormat: 'dd-mm-yy',
 							onClose: function(selectedDate) {
-								defaultValue: 'dd/mm/yy',
-								$j("#dateTo").datetimepicker("option", "minDate", selectedDate);
+								defaultValue: 'dd-mm-yy',
+								$j('#dateTo').datetimepicker("option", "minDate", selectedDate);
 							}
 						}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
 						$j('#dateTo').datetimepicker({
-							dateFormat: 'dd/mm/yy',
+							dateFormat: 'dd-mm-yy',
 							onClose: function(selectedDate) {
-								$("#dateFrom").datetimepicker("option", "maxDate", selectedDate);
+								$j('#dateFrom').datetimepicker("option", "maxDate", selectedDate);
+								setValueX();
 							}
 						}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
 					});
 				</script>
 			 </div>
 			 </li>
-			 <li class='last'><button id="time" class="timeSelected" onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).addClass('timeSelected');setValueX(); return false;" value=""><span>Toda la campaña</span></button></li>
+			 <li class='last'><button id="time" class="timeSelected" onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).addClass('timeSelected'); $j('#customDate').hide();setValueX(); return false;" value=""><span>Toda la campaña</span></button></li>
 		  </ul>
 	   </li>
 	   <li class='has-sub last'><button><span>Tipos</span></button>
@@ -133,9 +134,16 @@
 		var rel = $j('.relevanceSelected').val();
 		var type = $j('.typeSelected').val();
 		var time = $j('.timeSelected').val();
+		if(time == 'custom'){
+			var from = $j('#dateFrom').val();
+			var to = $j('#dateTo').val();
+			
+			console.log(from);
+			console.log(to);
+		}
 		$j.ajax({
 			url: 'Main.php?do=twitterCampaignsReportFilterX',
-			data: {id: '|-$campaign->getId()-|', value: val, relevance: rel, type: type, time: time},
+			data: {id: '|-$campaign->getId()-|', value: val, relevance: rel, type: type, time: time, from: from, to: to},
 			type: 'post',
 			success: function(data){
 				$j('#content').html(data);
