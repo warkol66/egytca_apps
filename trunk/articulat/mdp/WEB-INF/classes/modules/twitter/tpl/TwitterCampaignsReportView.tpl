@@ -2,9 +2,14 @@
 <span class="resultFailure">No se encontró la campaña</span>
 |-else-|
 <link type="text/css" rel="stylesheet" href="css/twitterMenu.css" />
+<link rel="stylesheet" media="all" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<link type="text/css" rel="stylesheet" href="scripts/jquery/jqueryTimepicker/src/jquery-ui-timepicker-addon.css" />
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 <script src="scripts/jquery/jquery.min.js" charset="utf-8"></script>
+<script src="scripts/jquery/jquery-ui-1.10.3.custom.min.js" charset="utf-8"></script>
+<script src="scripts/jquery/jqueryTimepicker/src/jquery-ui-timepicker-addon.js" charset="utf-8"></script>
+<script src="scripts/jquery/jqueryTimepicker/src/jquery-ui-sliderAccess.js" charset="utf-8"></script>
 <script src="Main.php?do=js&name=chartsJs&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 <script> var $j = jQuery.noConflict(); </script>
 <h2>Reportes</h2>
@@ -22,6 +27,29 @@
 			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value="- 24 hours"><span>Ultimas 24 horas</span></button></li>
 			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value="- 7 days"><span>Ultimos 7 días</span></button></li>
 			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected');setValueX(); return false;" value="- 15 days"><span>Ultimos 15 días</span></button></li>
+			 <li><button onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).toggleClass('timeSelected'); $j('#customDate').toggle(); return false;" value="custom"><span>Personalizar</span></button>
+			 <div id="customDate" style="display: none;">
+				<input type="text" name="from" id="dateFrom" value="">
+				<input type="text" name="to" id="dateTo" value="">
+				<script type="text/javascript">
+					$j(function(){
+						$j('#dateFrom').datetimepicker({
+							dateFormat: 'dd/mm/yy',
+							onClose: function(selectedDate) {
+								defaultValue: 'dd/mm/yy',
+								$j("#dateTo").datetimepicker("option", "minDate", selectedDate);
+							}
+						}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
+						$j('#dateTo').datetimepicker({
+							dateFormat: 'dd/mm/yy',
+							onClose: function(selectedDate) {
+								$("#dateFrom").datetimepicker("option", "maxDate", selectedDate);
+							}
+						}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
+					});
+				</script>
+			 </div>
+			 </li>
 			 <li class='last'><button id="time" class="timeSelected" onclick="$j('.timeSelected').not(this).removeClass('timeSelected');$j(this).addClass('timeSelected');setValueX(); return false;" value=""><span>Toda la campaña</span></button></li>
 		  </ul>
 	   </li>
@@ -52,8 +80,8 @@
 	</ul>
 	</div>
 	<div id="content">
-	  <div id="left">
-		 <div id="reportMessage"></div>
+	  <div id="left">		
+		<div id="reportMessage"></div>
 		<div id='tweetsByValue'>
 			<h4>Tweets por Valoración</h4>
 			|-assign var=posCount value=count($positive)-|
@@ -99,7 +127,7 @@
 </div>
 
 <script type="text/javascript">
-	
+
 	function setValueX() {
 		var val = $j('.valueSelected').val();
 		var rel = $j('.relevanceSelected').val();
