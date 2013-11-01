@@ -930,11 +930,11 @@ table.tableTdBorders {
 }
 
 .twitterReportX.twitterReportAxis path {
-  /*display: none;*/
+ /* display: none;*/
 }
 
 .twitterReportLine {
-  /*fill: none;*/
+  fill: none;
   stroke: steelblue;
   stroke-width: 1.5px;
 }
@@ -947,17 +947,16 @@ table.tableTdBorders {
 
 .slice text { font-size: 10pt; }
 
-.slice path { stroke: #fff;}
+.slice path { stroke: #f0f0f0;}
 
 #tweetsByValue{ width: 300px;}
 
-#usersChart{height: 400px;}
+#usersChart, #bubbleChart{height: 400px;}
 
 .userTweetsList, .userTweetsListItem {list-style: none;}
 
 #content { 
-  width: 1400px; 
-  background: gray;
+  width: 1400px;
 } 
 
 #left, #right { 
