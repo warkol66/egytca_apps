@@ -18,29 +18,24 @@ class TwitterParsedListAction extends BaseListAction {
 
 		$this->module = "Twitter";
 		
-		if(!empty($_GET['filters']['minDate'])){
+		if(!empty($_GET['filters']['minDate']))
             $this->filters['dateRange']['createdat']['min'] = $_GET['filters']['minDate'];
-            //die('yes');
-        }
-        if(!empty($_GET['filters']['maxDate'])){
+
+    if(!empty($_GET['filters']['maxDate']))
             $this->filters['dateRange']['createdat']['max'] = $_GET['filters']['maxDate'];
-		}
 
 		//Reviso si se solicito desde campaing valida
-		$campaignId = $_GET['filters']['campaignId'];
-		$campaign = CampaignQuery::create()->findOneById($campaignId);
+		$campaign = CampaignQuery::create()->findOneById($_GET['filters']['campaignid']);
 		
-		if (!$campaign) {
-			unset($filters['Campaign']);
+		if (!$campaign)
 			$campaign = new Campaign();
-		}
 
 		$this->smarty->assign('campaign', $campaign);
 		
 		//si no quiero ver los descartados muestro los no aceptados
-		if (!empty($_GET['filters']['discarded'])){
+		if (!empty($_GET['filters']['discarded']))
 			$this->filters['parsedDiscarded'] = 1;
-		}else
+		else
 			$this->filters['maxStatus'] = TwitterTweet::PARSED;
 
 		$this->filters['orderByCreatedat'] = "desc";
@@ -63,6 +58,6 @@ class TwitterParsedListAction extends BaseListAction {
 			$url .= "&filters[$key]=" . htmlentities(urlencode($value));
 		$this->smarty->assign("url",$url);
             
-        $this->smarty->assign("filters",$this->filters);	
+    $this->smarty->assign("filters",$this->filters);	
 	}
 }
