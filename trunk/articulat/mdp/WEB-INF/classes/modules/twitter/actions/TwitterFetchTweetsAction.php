@@ -34,7 +34,7 @@ class TwitterFetchTweetsAction extends BaseAction {
 				$terms = $this->parseSearchQuery($query);
 				foreach ($terms as $term) {
 				
-					$searchRespone = $twitterConnection->search($term,10,'search');
+					$searchRespone = $twitterConnection->search($term,50,'search');
 					foreach ($searchRespone->statuses as $responseTweet) {
 						// obtengo el html para embeber el tweet
 						$embedQuery = array('id' => $responseTweet->id_str);
@@ -51,6 +51,8 @@ class TwitterFetchTweetsAction extends BaseAction {
 				//echo "<pre>";print_r($tweets);echo "</pre>";
 			}
 		}
+		
+		$tweetsCount = count($tweets);
 		
 		// obtengo tts
 		$woeid = 23424747; // woeid de argentina
@@ -70,6 +72,10 @@ class TwitterFetchTweetsAction extends BaseAction {
 			}
 			
 		}
+		
+		$ttsCount = count($trendingTopics);
+		
+		TwitterTweet::logTweetSearch($tweetsCount, $ttsCount);
 
 		//die;
 		/*$smarty->assign('tweetsParsed',$tweets);

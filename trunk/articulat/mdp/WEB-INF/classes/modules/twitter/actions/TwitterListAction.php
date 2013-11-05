@@ -17,17 +17,15 @@ class TwitterListAction extends BaseListAction {
 		}else{
 			$this->smarty->assign('campaignid',$_GET['filters']['campaignId']);
 		}
-			
+		
+		if(!empty($_GET['filters']['dateFrom']) && !empty($_GET['filters']['dateTo']))
+			$this->filters['createdat'] = array(
+				'min' => Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($_GET['filters']['dateFrom']))),
+				'max' => Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($_GET['filters']['dateTo']))));
+
 		if(!empty($_GET['filters']['fromCampaign']))
 			$this->smarty->assign('fromCampaign',$_GET['filters']['fromCampaign']);
-			
-		if(!empty($_GET['filters']['minDate'])){
-            $this->filters['dateRange']['createdat']['min'] = $_GET['filters']['minDate'];
-        }
-        if(!empty($_GET['filters']['maxDate'])){
-            $this->filters['dateRange']['createdat']['max'] = $_GET['filters']['maxDate'];
-		}
-		
+
 		//filtro por estado
 		//ver si se puede eliminar algun caso
 		if(!empty($_GET['filters']['status'])){
@@ -46,7 +44,10 @@ class TwitterListAction extends BaseListAction {
 			if($_GET['filters']['processed'] == -1)
 				$this->filters['maxStatus'] = TwitterTweet::DISCARDED; //o discarded?
 		}
-
+		
+		/*print_r($this->filters);
+		die();*/
+		
 	}
 
 	protected function postList() {
@@ -62,10 +63,7 @@ class TwitterListAction extends BaseListAction {
 		
 		$this->smarty->assign("campaigns",CampaignQuery::getMostRecent(15, true));
 		
-		if(!empty($_GET['filters']['dateRange']['createdat']['min']))
-            $this->filters['minDate'] = $_GET['filters']['dateRange']['createdat']['min'];
-        if(!empty($_GET['filters']['dateRange']['createdat']['max']))
-            $this->filters['maxDate'] = $_GET['filters']['dateRange']['createdat']['max'];
+		unset($this->filters['createdat']);
             
         //fix para que se pasen bien los filtros a la url del paginador
         $url = "Main.php?" . "do=" . lcfirst(substr_replace(get_class($this),'', strrpos(get_class($this), 'Action'), 6));

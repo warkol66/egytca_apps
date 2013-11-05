@@ -39,6 +39,9 @@ class TwitterParsedListAction extends BaseListAction {
 			$this->filters['maxStatus'] = TwitterTweet::PARSED;
 
 		$this->filters['orderByCreatedat'] = "desc";
+		
+		/*print_r($this->filters);
+		die();*/
 
 	}
 
@@ -47,10 +50,7 @@ class TwitterParsedListAction extends BaseListAction {
 		$this->smarty->assign("module", $this->module);
 		$this->smarty->assign("section", "Parsed");
 		
-		if(!empty($_GET['filters']['dateRange']['createdat']['min']))
-            $this->filters['minDate'] = $_GET['filters']['dateRange']['createdat']['min'];
-        if(!empty($_GET['filters']['dateRange']['createdat']['max']))
-            $this->filters['maxDate'] = $_GET['filters']['dateRange']['createdat']['max'];
+		unset($this->filters['createdat']);
             
         //fix para que se pasen bien los filtros a la url del paginador
         $url = "Main.php?" . "do=" . lcfirst(substr_replace(get_class($this),'', strrpos(get_class($this), 'Action'), 6));

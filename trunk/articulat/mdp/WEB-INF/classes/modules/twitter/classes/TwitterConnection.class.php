@@ -4,7 +4,7 @@ require_once 'twitteroauth/twitteroauth.php';
 
 class TwitterConnection {
 	
-	const COUNT = 10;
+	const COUNT = 100;
 	
 	private $connection;
 	

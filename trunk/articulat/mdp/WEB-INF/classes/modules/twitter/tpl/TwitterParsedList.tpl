@@ -1,5 +1,12 @@
 <script src="Main.php?do=js&name=js&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 <script src="scripts/event.simulate.js" type="text/javascript"></script>
+<link rel="stylesheet" media="all" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<link type="text/css" rel="stylesheet" href="scripts/jquery/jqueryTimepicker/src/jquery-ui-timepicker-addon.css" />
+<script src="scripts/jquery/jquery.min.js" charset="utf-8"></script>
+<script src="scripts/jquery/jquery-ui-1.10.3.custom.min.js" charset="utf-8"></script>
+<script src="scripts/jquery/jqueryTimepicker/src/jquery-ui-timepicker-addon.js" charset="utf-8"></script>
+<script src="scripts/jquery/jqueryTimepicker/src/jquery-ui-sliderAccess.js" charset="utf-8"></script>
+<script> var $j = jQuery.noConflict(); </script>
 |-include file="CommonAutocompleterInclude.tpl"-|
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 <h2>Tweets</h2>
@@ -44,12 +51,37 @@
 	<input name="filters[campaignId]" value="|-$campaign->getId()-|" type="hidden" />
 	<input name="do" value="twitterParsedList" type="hidden" />
 	<p>
-		<label for="filters[dateRange][createdat][min]">Fecha desde</label>
-		<input id="filters[dateRange][createdat][min]" name="filters[dateRange][createdat][min]" type="text" value="|-$filters.minDate-|" size="12" title="Fecha desde dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateRange][createdat][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha desde dd-mm-aaaa">
+		<label for="fromDate">Fecha desde</label>
+		<input id="dateFrom" name="filters[dateFrom]" type="text" value="|-$filters.dateFrom|date_format:"%d-%m-%Y %H:%M"-|" size="12" title="Fecha desde dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha desde dd-mm-aaaa">
+		<script type="text/javascript">
+			$j(function(){
+				$j('#dateFrom').datetimepicker({
+					timeFormat: 'HH:mm:ss',
+					dateFormat: 'dd-mm-yy',
+					onClose: function(selectedDate) {
+						defaultValue: 'dd-mm-yy',
+						$j('#dateTo').datetimepicker("option", "minDate", selectedDate);
+					}
+				}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
+			});
+		</script>
 	</p>
 	<p>
-		<label for="filters[dateRange][createdat][max]">Fecha hasta</label>
-		<input id="filters[dateRange][createdat][max]" name="filters[dateRange][createdat][max]" type="text" value="|-$filters.maxDate-|" size="12" title="Fecha hasta dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[dateRange][createdat][max]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha hasta dd-mm-aaaa">
+		<label for="toDate">Fecha hasta</label>
+		<input id="dateTo" name="filters[dateTo]" type="text" value="|-$filters.dateTo|date_format:"%d-%m-%Y %H:%M"-|" size="12" title="Fecha hasta dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha hasta dd-mm-aaaa">
+		<script type="text/javascript">
+			$j(function(){
+				$j('#dateTo').datetimepicker({
+					timeFormat: 'HH:mm:ss',
+					dateFormat: 'dd-mm-yy',
+					showSecond: 'true',
+					onClose: function(selectedDate) {
+						$j('#dateFrom').datetimepicker("option", "maxDate", selectedDate);
+						setValueX();
+					}
+				}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
+			});
+		</script>
 	<p>
 		&nbsp; &nbsp; <label for="filters[discarded]"  class="inlineLabel">Incluir descartados</label>
 		<input id="filters[discarded]" name="filters[discarded]" type="checkbox" value="1" |-$filters.discarded|checked_bool-| title="Incluir descartados" />
