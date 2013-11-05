@@ -24,7 +24,7 @@
 		|-if !isset($embedded)-|
 		|-if !isset($fromCampaign)-|
 		<p>
-			<label for="filters[campaignId]">Campaña</label>
+			<label for="filters[campaignid]">Campaña</label>
 			<select name="filters[campaignid]" id="selectTwitterCampaign">
 				<option value="">Sin seleccionar</option>
 				|-foreach from=$campaigns item=campaign-|

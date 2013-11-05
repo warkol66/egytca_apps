@@ -185,7 +185,7 @@
 		.append($j('<input>', {'name': 'relevance','value': $j('.relevanceSelected').val(),'type': 'hidden'}))
 		.append($j('<input>', {'name': 'time','value': $j('.timeSelected').val(),'type': 'hidden'}))
 		.append($j('<input>', {'name': 'type','value': $j('.typeSelected').val(),'type': 'hidden'}))
-		.append($j('<input>', {'name': 'filters[campaignId]','value': '|-$campaign->getId()-|','type': 'hidden'}));
+		.append($j('<input>', {'name': 'filters[campaignid]','value': '|-$campaign->getId()-|','type': 'hidden'}));
 		$j('body').append(newForm);
 		
 		console.log(newForm);
