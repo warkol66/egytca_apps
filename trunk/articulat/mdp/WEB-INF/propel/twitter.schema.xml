@@ -120,5 +120,25 @@
 		<column name="createdAt" type="TIMESTAMP" description="Fecha y hora en que fue trend" />
 
 	</table>
+	
+	<table name="twitter_log" phpName="TwitterLog" description="logs de cron de twitter">
+
+	  <column name="id" type="INTEGER" required="true" description="Id log" primaryKey="true" autoIncrement="true" />
+	  <column name="tweetsCount" type="INTEGER" description="Cantidad de tweets obtenida" />
+	  <column name="trendingTopicsCount" type="INTEGER" description="Cantidad de tts obtenida" />
+	  <column name="campaignId" type="INTEGER" description="Cantidad de tts obtenida" />
+	  
+	    <behavior name="timestampable" />
+	    
+	    <foreign-key foreignTable="campaigns_campaign" >
+			<reference local="campaignId" foreign="id"/>
+		</foreign-key>
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
 
 </database>
