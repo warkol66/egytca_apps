@@ -34,8 +34,8 @@ class CampaignQuery extends BaseCampaignQuery {
 		
 		$active = CampaignQuery::create()
 			->filterByTwittercampaign(1)
-			->filterByStartdate(array('min' => $today))
-			->filterByFinishdate(array('max' => $today))
+			->filterByStartdate(array('max' => $today))
+			->filterByFinishdate(array('min' => $today))
 			->find();
 			
 		return $active;
