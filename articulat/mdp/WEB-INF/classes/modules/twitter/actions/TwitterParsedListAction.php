@@ -17,12 +17,11 @@ class TwitterParsedListAction extends BaseListAction {
 		parent::preList();
 
 		$this->module = "Twitter";
-		
-		if(!empty($_GET['filters']['minDate']))
-            $this->filters['dateRange']['createdat']['min'] = $_GET['filters']['minDate'];
-
-    if(!empty($_GET['filters']['maxDate']))
-            $this->filters['dateRange']['createdat']['max'] = $_GET['filters']['maxDate'];
+            
+        if(!empty($_GET['filters']['dateFrom']) && !empty($_GET['filters']['dateTo']))
+			$this->filters['createdat'] = array(
+				'min' => Common::getDatetimeOnGMT(gmdate('Y-m-d H:i:s',strtotime($_GET['filters']['dateFrom']))),
+				'max' => Common::getDatetimeOnGMT(gmdate('Y-m-d H:i:s',strtotime($_GET['filters']['dateTo']))));
 
 		//Reviso si se solicito desde campaing valida
 		$campaign = CampaignQuery::create()->findOneById($_GET['filters']['campaignid']);
@@ -31,6 +30,9 @@ class TwitterParsedListAction extends BaseListAction {
 			$campaign = new Campaign();
 
 		$this->smarty->assign('campaign', $campaign);
+		
+		/*print_r($campaign);
+		die();*/
 		
 		//si no quiero ver los descartados muestro los no aceptados
 		if (!empty($_GET['filters']['discarded']))
