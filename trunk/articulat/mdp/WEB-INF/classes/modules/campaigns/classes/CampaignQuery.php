@@ -29,13 +29,17 @@ class CampaignQuery extends BaseCampaignQuery {
 			return CampaignQuery::create()->filterByTwitterCampaign($twitter)->filterByStartDate(array('min' => $date))->find();
 	}
 	
+	/* Busca las campaigns de twitter cuya fecha de inicio es menor a la actual
+	 * y la de fin es mayor
+	 */
 	public function getTwitterActive(){
-		$today = date('Y-m-d');
+		$today = date('Y-m-d H:i:s');
 		
 		$active = CampaignQuery::create()
 			->filterByTwittercampaign(1)
-			->filterByStartdate(array('max' => $today))
-			->filterByFinishdate(array('min' => $today))
+			->condition('c0','Campaign.StartDate <= ?', $today)
+			->condition('c1','Campaign.FinishDate >= ?', $today)
+			->where(array('c0','c1'), 'and')
 			->find();
 			
 		return $active;
