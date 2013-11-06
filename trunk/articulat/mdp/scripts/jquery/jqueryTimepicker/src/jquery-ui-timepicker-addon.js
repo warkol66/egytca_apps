@@ -33,7 +33,7 @@
 	* allowing multiple different settings on the same page.
 	*/
 	var Timepicker = function () {
-		this.regional = []; // Available regional settings, indexed by language code
+		this.regional = ['', 'es']; // Available regional settings, indexed by language code
 		this.regional[''] = { // Default regional settings
 			currentText: 'Now',
 			closeText: 'Done',
@@ -51,6 +51,26 @@
 			timezoneText: 'Time Zone',
 			isRTL: false
 		};
+		
+		/*this.regional['es'] = { // Default regional settings
+			currentText: 'Ahora',
+			closeText: 'Listo',
+			amNames: ['AM', 'A'],
+			pmNames: ['PM', 'P'],
+			timeFormat: 'HH:mm',
+			timeSuffix: '',
+			timeOnlyTitle: 'Elegir hora',
+			timeText: 'Hora',
+			hourText: 'Hora',
+			minuteText: 'Minuto',
+			secondText: 'Segundo',
+			millisecText: 'Milisegundo',
+			microsecText: 'Microsegundo',
+			timezoneText: 'Zona Horaria',
+			isRTL: false
+		};*/
+		
+
 		this._defaults = { // Global defaults for all the datetime picker instances
 			showButtonPanel: true,
 			timeOnly: false,
@@ -2136,5 +2156,26 @@
 	* Keep up with the version
 	*/
 	$.timepicker.version = "@@version";
+	
+	$.datepicker.regional['es'] = {
+			closeText: 'Listo',
+			prevText: '<Пред',
+			nextText: 'След>',
+			currentText: 'Ahora',
+			monthNames: ['enero','febrero','marzo','abril','mayo','junio',
+			'julio','agosto','septiembre','octubre','noviembre','diciembre'],
+			monthNamesShort: ['ene','feb','mar','abr','may','jun',
+			'jul','ago','sep','oct','nov','dic'],
+			dayNames: ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'],
+			dayNamesShort: ['dom','lun','mar','mié','jue','vie','sáb'],
+			dayNamesMin: ['do','lu','ma','mi','ju','vi','sa'],
+			weekHeader: 'Do',
+			dateFormat: 'dd.mm.yy',
+			firstDay: 1,
+			isRTL: false,
+			showMonthAfterYear: false,
+			yearSuffix: ''
+		};
+		$.datepicker.setDefaults($.datepicker.regional['es']);
 
 })(jQuery);
