@@ -106,7 +106,7 @@ function submitMultipleEntriesChangeFormX(formId) {
 }
 
 //queda
-function selectAllCheckboxes(name = null) {
+function selectAllCheckboxes(name) {
 	
 	if(name == null)
 		var checkboxes = document.getElementsByName('selected[]');
