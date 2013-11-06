@@ -75,7 +75,9 @@ class TwitterFetchTweetsAction extends BaseAction {
 		
 		$ttsCount = count($trendingTopics);
 		
-		TwitterTweet::logTweetSearch($tweetsCount, $ttsCount);
+//		TwitterTweet::logTweetSearch($tweetsCount, $ttsCount);
+echo "tweetsCount: " . $tweetsCount;
+echo "ttsCount: " . $ttsCount;
 
 		//die;
 		/*$smarty->assign('tweetsParsed',$tweets);
