@@ -176,11 +176,4 @@ class TwitterTweet extends BaseTwitterTweet{
 		TwitterTweetQuery::create()->filterById($tweets, Criteria::IN)->update(array($field => $newValue));
 	}
 	
-	public static function logTweetSearch($tweetsCount, $ttsCount){
-		$log = new TwitterLog();
-		$log->setTweetscount($tweetsCount);
-		$log->setTrendingTopicscount($ttsCount);
-		$log->save();
-	}
-	
 }

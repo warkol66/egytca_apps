@@ -20,6 +20,9 @@ class TwitterFetchTweetsAction extends BaseAction {
 		// obtengo las campaigns activas
 		$activeCampaigns = CampaignQuery::getTwitterActive();
 		
+		/*print_r($activeCampaigns);
+		die();*/
+		
 		// busco tweets y usuarios para cada una
 		foreach($activeCampaigns as $campaign){
 			
@@ -50,9 +53,9 @@ class TwitterFetchTweetsAction extends BaseAction {
 				
 				//echo "<pre>";print_r($tweets);echo "</pre>";
 			}
+			
+			TwitterLog::logTweetSearch(count($tweets), 0, $campaignId);
 		}
-		
-		$tweetsCount = count($tweets);
 		
 		// obtengo tts
 		$woeid = 23424747; // woeid de argentina
@@ -73,11 +76,11 @@ class TwitterFetchTweetsAction extends BaseAction {
 			
 		}
 		
-		$ttsCount = count($trendingTopics);
+		TwitterLog::logTweetSearch(0, count($trendingTopics), null);
 		
-//		TwitterTweet::logTweetSearch($tweetsCount, $ttsCount);
-echo "tweetsCount: " . $tweetsCount;
-echo "ttsCount: " . $ttsCount;
+		
+		/*echo "tweetsCount: " . $tweetsCount;
+		echo "ttsCount: " . $ttsCount;*/
 
 		//die;
 		/*$smarty->assign('tweetsParsed',$tweets);
