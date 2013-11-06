@@ -5,6 +5,7 @@
 <script src="scripts/jquery/jquery.min.js" charset="utf-8"></script>
 <script src="scripts/jquery/jquery-ui-1.10.3.custom.min.js" charset="utf-8"></script>
 <script src="scripts/jquery/jqueryTimepicker/src/jquery-ui-timepicker-addon.js" charset="utf-8"></script>
+<script src="scripts/jquery/jqueryTimepicker/src/i18n/jquery-ui-timepicker-es.js" charset="utf-8"></script>
 <script src="scripts/jquery/jqueryTimepicker/src/jquery-ui-sliderAccess.js" charset="utf-8"></script>
 <script> var $j = jQuery.noConflict(); </script>
 |-include file="CommonAutocompleterInclude.tpl"-|
@@ -24,7 +25,7 @@
 <fieldset>
 <legend>Obtener Tweets</legend>
     <form id="form" action="Main.php?do=twitterTweetsSearch" onsubmit="tweetsSearch(); return false;" method="POST">
-			<input name="campaignId" value="|-$campaign->getId()-|" type="hidden" />
+			<input name="campaignid" value="|-$campaign->getId()-|" type="hidden" />
  <p><label for="q">Palabras clave</label>
  <input name="q" value="|-$campaign->getDefaultKeywords()|escape-|" size="60" />
  <input type="submit" id="search_button" value="Buscar" />
@@ -76,8 +77,7 @@
 					dateFormat: 'dd-mm-yy',
 					showSecond: 'true',
 					onClose: function(selectedDate) {
-						$j('#dateFrom').datetimepicker("option", "maxDate", selectedDate);
-						setValueX();
+						//$j('#dateFrom').datetimepicker("option", "maxDate", selectedDate);
 					}
 				}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
 			});

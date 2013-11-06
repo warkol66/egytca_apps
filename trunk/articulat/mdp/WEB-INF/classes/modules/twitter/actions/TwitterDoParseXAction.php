@@ -37,14 +37,14 @@ class TwitterDoParseXAction extends BaseAction {
 					//$embeds[] = $embed;
 					$tweet = TwitterTweet::createFromApiTweet($responseTweet, $campaignId, $embed);
 					
-					$tweets[] = $tweet;
-					//$tweets[] = $responseTweet;
+					//$tweets[] = $tweet;
+					$tweets[] = $responseTweet;
 				}
 			}
 			
-			//echo "<pre>";print_r($tweets);echo "</pre>";
+			echo "<pre>";print_r($tweets);echo "</pre>";
 		}
-		//die;
+		die;
 		$smarty->assign('tweetsParsed',$tweets);
 		return $mapping->findForwardConfig('success');
 	}

@@ -6,6 +6,7 @@
 <script src="scripts/jquery/jquery.min.js" charset="utf-8"></script>
 <script src="scripts/jquery/jquery-ui-1.10.3.custom.min.js" charset="utf-8"></script>
 <script src="scripts/jquery/jqueryTimepicker/src/jquery-ui-timepicker-addon.js" charset="utf-8"></script>
+<script src="scripts/jquery/jqueryTimepicker/src/i18n/jquery-ui-timepicker-es.js" charset="utf-8"></script>
 <script src="scripts/jquery/jqueryTimepicker/src/jquery-ui-sliderAccess.js" charset="utf-8"></script>
 <script> var $j = jQuery.noConflict(); </script>
 <div id="twitterUserLightbox" class="leightbox">
@@ -60,7 +61,6 @@
 						showSecond: 'true',
 						onClose: function(selectedDate) {
 							$j('#dateFrom').datetimepicker("option", "maxDate", selectedDate);
-							setValueX();
 						}
 					}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
 				});

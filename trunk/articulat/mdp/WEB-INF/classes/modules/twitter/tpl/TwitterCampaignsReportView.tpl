@@ -9,6 +9,7 @@
 <script src="scripts/jquery/jquery.min.js" charset="utf-8"></script>
 <script src="scripts/jquery/jquery-ui-1.10.3.custom.min.js" charset="utf-8"></script>
 <script src="scripts/jquery/jqueryTimepicker/src/jquery-ui-timepicker-addon.js" charset="utf-8"></script>
+<script src="scripts/jquery/jqueryTimepicker/src/i18n/jquery-ui-timepicker-es.js" charset="utf-8"></script>
 <script src="scripts/jquery/jqueryTimepicker/src/jquery-ui-sliderAccess.js" charset="utf-8"></script>
 <script src="Main.php?do=js&name=chartsJs&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
 <script> var $j = jQuery.noConflict(); </script>
@@ -43,7 +44,7 @@
 						$j('#dateTo').datetimepicker({
 							dateFormat: 'dd-mm-yy',
 							onClose: function(selectedDate) {
-								$j('#dateFrom').datetimepicker("option", "maxDate", selectedDate);
+								//$j('#dateFrom').datetimepicker("option", "maxDate", selectedDate);
 								setValueX();
 							}
 						}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
