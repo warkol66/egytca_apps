@@ -25,7 +25,7 @@
 <fieldset>
 <legend>Obtener Tweets</legend>
     <form id="form" action="Main.php?do=twitterTweetsSearch" onsubmit="tweetsSearch(); return false;" method="POST">
-			<input name="campaignId" value="|-$campaign->getId()-|" type="hidden" />
+			<input name="campaignid" value="|-$campaign->getId()-|" type="hidden" />
  <p><label for="q">Palabras clave</label>
  <input name="q" value="|-$campaign->getDefaultKeywords()|escape-|" size="60" />
  <input type="submit" id="search_button" value="Buscar" />
@@ -49,7 +49,7 @@
 <fieldset>
 <legend>Filtrar Tweets Importados&nbsp;&nbsp;<a href="javascript:void(null)" id="showHideFilterTwitter" onClick="$('filterTwitter').toggle(); $('showHideFilterTwitter').toggleClassName('|-if $filters|@count gt 2-|overrideExpand|-else-|collapseLink|-/if-|');" class="|-if $filters|@count gt 2-|collapseLink|-else-|expandLink|-/if-|"></a></legend>
 <form method="get" action="Main.php" id="filterTwitter" style="display:|-if $filters|@count gt 2-|block|-else-|none|-/if-|;">
-	<input name="filters[campaignId]" value="|-$campaign->getId()-|" type="hidden" />
+	<input name="filters[campaignid]" value="|-$campaign->getId()-|" type="hidden" />
 	<input name="do" value="twitterParsedList" type="hidden" />
 	<p>
 		<label for="fromDate">Fecha desde</label>
@@ -87,7 +87,7 @@
 		<input id="filters[discarded]" name="filters[discarded]" type="checkbox" value="1" |-$filters.discarded|checked_bool-| title="Incluir descartados" />
 	</p>
 	<p>	<input type="submit" id="search_button" value="Filtrar" />
-	|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=twitterParsedList&filters[campaignId]=|-$campaign->getId()-|'"/>|-/if-|</p>
+	|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=twitterParsedList&filters[campaignid]=|-$campaign->getId()-|'"/>|-/if-|</p>
 </form>
 </fieldset>
 <!-- FIN Filtros para importados -->
