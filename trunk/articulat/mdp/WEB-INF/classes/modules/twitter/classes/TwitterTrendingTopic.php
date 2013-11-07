@@ -32,9 +32,19 @@ class TwitterTrendingTopic extends BaseTwitterTrendingTopic{
 		return $tt;
 	}
 	
-	public function getLatest($cant){
+	public static function getLatest($cant){
 		
 		$topics = TwitterTrendingTopicQuery::create()->orderByCreatedat('asc')->limit($cant)->orderByOrder('asc')->find();
+		return $topics;
+	}
+	
+	public static function getInRange($from, $to, $cant){
+		
+		$topics = TwitterTrendingTopicQuery::create()
+			->filterByCreatedat(array('min' => $from, 'max' => $to))
+			->orderByCreatedat('asc')
+			->limit($cant)
+			->orderByOrder('asc')->find();
 		return $topics;
 	}
 }

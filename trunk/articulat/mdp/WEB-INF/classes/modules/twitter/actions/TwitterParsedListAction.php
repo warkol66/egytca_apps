@@ -24,7 +24,7 @@ class TwitterParsedListAction extends BaseListAction {
 				'max' => Common::getDatetimeOnGMT(gmdate('Y-m-d H:i:s',strtotime($_GET['filters']['dateTo']))));
 
 		//Reviso si se solicito desde campaing valida
-		$campaign = CampaignQuery::create()->findOneById($_GET['filters']['campaignid']);
+		$campaign = CampaignQuery::create()->findOneById($_GET['filters']['campaignId']);
 		
 		if (!$campaign)
 			$campaign = new Campaign();
