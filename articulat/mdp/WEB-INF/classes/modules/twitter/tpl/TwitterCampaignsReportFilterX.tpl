@@ -41,6 +41,16 @@
 			</div>
 			<div id="ilist"></div>
 		</div>
+		<div id='trendingTopics'>
+			<h4>Trending Topics</h4>
+			<div id="trendingTopicsList">
+				<ul class="twitterTrends">
+					|-foreach from=$trendingTopics item=topic name=for_trendingTopics-|
+					<li class="twitterTrendsItem">|-$topic->getName()-|</li>
+					|-/foreach-|
+				</ul>
+			</div>
+		</div>
 	 </div>
 <script>
 	$j('#byValueMessage').html('');

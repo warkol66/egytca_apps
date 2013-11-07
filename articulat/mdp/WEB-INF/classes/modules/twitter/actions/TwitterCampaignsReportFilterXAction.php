@@ -72,6 +72,7 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			$this->smarty->assign('topUsers', $topUsers);
 			$this->smarty->assign('influentialUsers', $influentialUsers);
 			$this->smarty->assign('tweetsAmount', $tweetsAmount);
+			$this->smarty->assign('trendingTopics', TwitterTrendingTopic::getInRange($from, $to, 10));
 			
 			$totalTweets = TwitterTweetQuery::getTotalTweets($campaignId,$from,$to);
 			$this->smarty->assign('totalTweets',$totalTweets);
