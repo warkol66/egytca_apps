@@ -16,7 +16,7 @@ class TwitterTweetsSearchAction extends BaseAction {
 		$twitterConnection = new TwitterConnection($config);
 		
 		$query = $_POST['q'];
-		$campaignId = $_POST['campaignId'];
+		$campaignId = $_POST['campaignid'];
 		if (!empty($query)) {
 			
 			$tweets = array();
