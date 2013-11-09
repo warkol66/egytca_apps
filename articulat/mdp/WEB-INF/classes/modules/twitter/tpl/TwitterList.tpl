@@ -37,34 +37,10 @@
 		<p>
 			<label for="fromDate">Fecha desde</label>
 			<input id="dateFrom" name="filters[dateFrom]" type="text" value="|-$filters.dateFrom|date_format:"%d-%m-%Y %H:%M"-|" size="12" title="Fecha desde dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha desde dd-mm-aaaa">
-			<script type="text/javascript">
-				$j(function(){
-					$j('#dateFrom').datetimepicker({
-						timeFormat: 'HH:mm:ss',
-						dateFormat: 'dd-mm-yy',
-						onClose: function(selectedDate) {
-							defaultValue: 'dd-mm-yy',
-							$j('#dateTo').datetimepicker("option", "minDate", selectedDate);
-						}
-					}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
-				});
-			</script>
 		</p>
 		<p>
 			<label for="toDate">Fecha hasta</label>
 			<input id="dateTo" name="filters[dateTo]" type="text" value="|-$filters.dateTo|date_format:"%d-%m-%Y %H:%M"-|" size="12" title="Fecha hasta dd-mm-aaaa" /> <img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha hasta dd-mm-aaaa">
-			<script type="text/javascript">
-				$j(function(){
-					$j('#dateTo').datetimepicker({
-						timeFormat: 'HH:mm:ss',
-						dateFormat: 'dd-mm-yy',
-						showSecond: 'true',
-						onClose: function(selectedDate) {
-							$j('#dateFrom').datetimepicker("option", "maxDate", selectedDate);
-						}
-					}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
-				});
-			</script>
 		</p>
 		<p>
 				<label for="filters[processed]">Procesados</label>
@@ -195,5 +171,45 @@
 			$("twitterResultsDiv").innerHTML = "<span class=\"inProgress\">Buscando tweets...</span>";
 			return false;	
 		}
+		
+	var startDateTextBox = $j('#dateFrom');
+	var endDateTextBox = $j('#dateTo');
+	
+	startDateTextBox.datetimepicker({ 
+		dateFormat: 'dd-mm-yy',
+		timeFormat: 'HH:mm:ss',
+		onClose: function(dateText, inst) {
+			if (endDateTextBox.val() != '') {
+				var testStartDate = startDateTextBox.datetimepicker('getDate');
+				var testEndDate = endDateTextBox.datetimepicker('getDate');
+				if (testStartDate > testEndDate)
+					endDateTextBox.datetimepicker('setDate', testStartDate);
+			}
+			else {
+				endDateTextBox.val(dateText);
+			}
+		},
+		onSelect: function (selectedDateTime){
+			endDateTextBox.datetimepicker('option', 'minDate', startDateTextBox.datetimepicker('getDate') );
+		}
+	}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
+	endDateTextBox.datetimepicker({
+		dateFormat: 'dd-mm-yy', 
+		timeFormat: 'HH:mm:ss',
+		onClose: function(dateText, inst) {
+			if (startDateTextBox.val() != '') {
+				var testStartDate = startDateTextBox.datetimepicker('getDate');
+				var testEndDate = endDateTextBox.datetimepicker('getDate');
+				if (testStartDate > testEndDate)
+					startDateTextBox.datetimepicker('setDate', testEndDate);
+			}
+			else {
+				startDateTextBox.val(dateText);
+			}
+		},
+		onSelect: function (selectedDateTime){
+			startDateTextBox.datetimepicker('option', 'maxDate', endDateTextBox.datetimepicker('getDate') );
+		}
+	}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
 	</script>
 </div>
