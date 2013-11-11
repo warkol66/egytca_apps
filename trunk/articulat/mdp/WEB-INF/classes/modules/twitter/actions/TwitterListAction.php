@@ -11,9 +11,9 @@ class TwitterListAction extends BaseListAction {
 
 		$this->module = "Twitter";
 		
-		if(!empty($_GET['filters']['campaignid'])){
+		if(empty($_GET['filters']['campaignid'])){
 			$campaigns = CampaignQuery::create()->getMostRecentIds(15, 1);
-			$this->filters['getMostRecent'] = $campaigns;
+			$this->filters['campaignid'] = $campaigns;
 		}else{
 			$this->smarty->assign('campaignid',$_GET['filters']['campaignId']);
 		}
