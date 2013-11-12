@@ -12,5 +12,16 @@
 	$('friends_|-$twitterUser->getId()-|').innerHTML = '|-$twitterUser->getFriends()-|';
 	$('statuses_|-$twitterUser->getId()-|').innerHTML = '|-$twitterUser->getStatuses()-|';
 	$('updated_|-$twitterUser->getId()-|').innerHTML = '|-$twitterUser->getUpdatedAt()|change_timezone|date_format:"%d-%m-%Y"-|';
+	|-capture name="influenceRadio"-|
+						<form action="Main.php" method="post" id="formLevels|-$twitterUser->getId()-|">
+							|-foreach from=$levels key=key item=name-|
+								|-if $name@first-|<span class="radioLabelIcon">+</span>|-/if-|<input name="params[influence]" type="radio" value="|-$key-|"  title="|-$name-|" |-$twitterUser->getInfluence()|checked:$key-| onChange="javascript:twitterDoEditValue(this.form);"/>|-if $name@last-|<span class="radioLabelIcon">-</span>|-/if-|
+							|-/foreach-|
+						<input type="hidden" name="id" id="id" value="|-$twitterUser->getid()-|" />
+						<input type="hidden" name="do" value="twitterUsersDoEditX" id="do">
+					</form>
+	|-/capture-|
+	$('influence_|-$twitterUser->getId()-|').innerHTML = '|-$smarty.capture.influenceRadio|strip-|';
+
 </script>
 |-/if-|

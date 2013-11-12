@@ -67,7 +67,7 @@
 				<td id="followers_|-$twitterUser->getId()-|" valign="top" align="center">|-$twitterUser->getFollowers()-|</td>
 				<td id="friends_|-$twitterUser->getId()-|" valign="top" align="center">|-$twitterUser->getFriends()-|</td>
 				<td id="statuses_|-$twitterUser->getId()-|" valign="top" align="center">|-$twitterUser->getStatuses()-|</td>
-				<td valign="top" nowrap="nowrap">
+				<td id="influence_|-$twitterUser->getId()-|" valign="top" nowrap="nowrap">
 					<form action="Main.php" method="post" id="formLevels|-$twitterUser->getId()-|">
 							|-foreach from=$levels key=key item=name-|
 								|-if $name@first-|<span class="radioLabelIcon">+</span>|-/if-|<input name="params[influence]" type="radio" value="|-$key-|"  title="|-$name-|" |-$twitterUser->getInfluence()|checked:$key-| onChange="javascript:twitterDoEditValue(this.form);"/>|-if $name@last-|<span class="radioLabelIcon">-</span>|-/if-|
