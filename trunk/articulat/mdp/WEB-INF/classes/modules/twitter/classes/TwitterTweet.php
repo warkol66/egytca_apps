@@ -32,6 +32,18 @@ class TwitterTweet extends BaseTwitterTweet{
 	const RETWEET = 2;
 	const REPLY = 3;
 	
+	// Palabras y signos de puntuacion a evitar al hacer el analisis de tweets
+	private static $punc = array("?","!",",",";",".","\$","%","(",")","-", "'s","'",'"',":",";","&","|");
+	private static $stopWords = array("a","sobre", "arriba", "across", "luego", "despues", "again", "contra", "todos", "casi", "solo", "along", "ya", "tambien","aunque","siempre","soy","entre", "cantidad",  "un", "y", "otro", "cualquiera","cualquier", "anywhere", "son", "alrededor", "como",  "en", "atras","be","became", "porque","become","becomes", "becoming", "fue", "antes", "detras", "siendo", "debajo", "aparte", "entre", "allá", "cuenta", "ambos", "fondo","pero", "por", "llamar", "puede", "no", "si", "co", "con", "podría", "llorar", "de", "describir", "detalle", "hacer", "hecho", "bajo", "debe", "durante", "cada", "ocho", "ninguno", "once","otro", "lado", "vacio", "suficiente", "etc", "incluso", "nunca", "cada", "excepto", "poco", "pocos", "quince", "llenar", "encontrar", "fuego", "primero", "cinco", "por", "anterior", "anteriormente", "cuarenta", "encontrado", "cuatro", "desde", "frente", "lleno", "lejos", "tener", "dar", "ir", "tuvo", "ha", "has", "tiene", "tienen", "el", "entonces", "ella", "aca", "aqui", "ellas", "misma", "mismo", "ellos", "como", "cien", "cientos", "ie", "ej", "en", "inc", "hecho", "interes", "es", "su", "sus", "mantener", "ultimo", "ultimos", "ultimas", "menor", "menos", "ltd", "varios", "quizas", "me", "mientras", "podria", "mi", "mio", "mas", "incluso", "mayoria", "mayormente", "mover", "mucho", "debe", "mi", "deben", "nombre", "llamado", "ni", "nunca", "siguiente", "nueve", "no", "tarde", "nada", "ahora", "ya", "off", "casi", "on", "una", "uno", "solo", "o", "otro", "otros", "forma", "nuestro", "nuestros", "nuestra", "nuestras", "fuera", "tiene", "parte", "per", "por", "favor", "poner", "pone", "re", "mismo", "ver", "parece", "parecia", "pareciera", "pareciese", "serio", "monton", "deberia", "muestra", "lado", "desde", "sincero", "seis", "sesenta", "algun", "algunos", "alguna", "algunas", "alguien", "algo", "veces", "lugar", "aun", "todavia", "sistema", "tomar", "diez", "que", "ese", "este", "estos", "ellos", "esos", "esas", "estas", "ahi", "thereafter", "thereby", "therefore", "therein", "thereupon", "these", "gordos", "gordo", "flaco", "tercero", "flacos", "those", "though", "tres", "traves", "throughout", "thru", "thus", "juntas", "juntos", "incluso", "top", "hacia", "towards", "doce", "veinte", "dos", "un", "under", "until", "up", "upon", "nosotras", "muy", "via", "era", "eran", "bien", "eran", "what", "whatever", "cuando", "whence", "siempre", "los", "vuelve", "dra", "día", "te", "q", "sea", "sean", "cuales", "tanto", "al", "quien", "quienes", "completo", "del", "la", "las", "va", "lo", "entre", "sin", "debe", "aun", "tu", "tus", "tuyo", "tuyos", "q'", "the","O","sos", "", " ", "ayuda" ,"u", "dice","mejor","ah","check","venir","doing","quiero","querer","necesitar","gente","c/","persona","dia","yendo","pienso","pensamos","semana","did","ive","got","2","1","6","3","4","5","6","7","8","9","0","tiempo","nuevo","noche","se","correcto","sabemos","verdad","lejos","cerca","rt", ">", "<", "=", "grande", "good", "gusta", "amo","i","im","i'm", "hoy", "justo", ">");
+	
+	public static function getPunctuation(){
+		return $punc;
+	}
+	
+	public static function getStopWords(){
+		return $stopWords;
+	}
+	
 	public static function getStatuses(){
 		$statuses[TwitterTweet::PARSED] = 'Parseado';
 		$statuses[TwitterTweet::ACCEPTED] = 'Aceptado';
