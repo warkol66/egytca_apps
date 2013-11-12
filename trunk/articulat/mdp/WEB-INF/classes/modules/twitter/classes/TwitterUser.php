@@ -79,8 +79,29 @@ class TwitterUser extends BaseTwitterUser{
 		$this->setFollowers($searchRespone->followers_count);
 		$this->setFriends($searchRespone->friends_count);
 		$this->setStatuses($searchRespone->statuses_count);
+		
+		$influence = $this->calculateInfluence($searchRespone);
+		if ($this->getInfluence() == 0 || $this->getInfluence() < $influence)
+			$this->setInfluence($influence);
+
 		$this->save();
 		
+	}
+
+	public function calculateInfluence($searchRespone) {
+		$followers = $searchRespone->followers_count;
+		$friends = $searchRespone->friends_count;
+		$statuses = $searchRespone->statuses_count;
+		$ratio = $followers / $friends;
+		$incluence = 0;
+		if (($ratio >= 10 && $statuses > 5000)  || $statuses > 75000)
+			$incluence = 3;
+		else if (($ratio >= 5 && $ratio < 10 && $statuses > 5000) || $statuses > 35000)
+			$incluence = 2;
+		else if (($ratio > .8 && $ratio < 5 && $statuses > 5000) || $statuses > 15000)
+			$incluence = 1;
+
+		return $incluence;
 	}
 	
 	/* Obtiene el actor asociado a un usuario de twitter
