@@ -22,6 +22,11 @@ class TwitterAnalyzeTrendsAction extends BaseAction {
 		$punc = TwitterTweet::getPunctuation();
 		$stopwords = TwitterTweet::getStopWords();
 		$last_id = 0;
+		
+		print_r($stopWords);
+		
+		if(!in_array("de", $stopwords))
+			echo "no";
 
 		$current_unix_time = time();
 		
@@ -36,18 +41,9 @@ class TwitterAnalyzeTrendsAction extends BaseAction {
 				//lets get the tweet data
 				$text = $tweet->getText();
 				$tweet_id = $tweet->getId();
-				
-				echo $text;
-				echo "\n";
-				/*$user = $tweet->getUser();
-				$screen_name = $user->getScreenname();
-				$name = $user->getName();*/
 		
 				//the all-important words of the tweet
 				$words_of_tweet = explode(" ",strtolower($text));
-				
-				//compose of package of tweet data
-				//$userdata = array("tweet_id" => $tweet_id, "screen_name" => $screen_name, "name" => $name, "tweet" => $text);
 				
 				//reset/start the last word variable for this tweet
 				$last_word = "";
@@ -83,7 +79,7 @@ class TwitterAnalyzeTrendsAction extends BaseAction {
 						
 						default:
 							if(!in_array($word, $stopwords)){//filter out the noise [common words]
-								
+								//echo $word;
 								$timeline_bank->insert_word($userdata, $word);
 								
 								//its a word, now lets see if what was behind it was a word
@@ -113,7 +109,7 @@ class TwitterAnalyzeTrendsAction extends BaseAction {
 
 		//simple debugger built in for natural printing of FINAL data
 		if($_GET["debug"] == 1){
-			$timeline_bank->print_result();
+			$timeline_bank->print_shortened_result();
 		}
 		
 		die;
