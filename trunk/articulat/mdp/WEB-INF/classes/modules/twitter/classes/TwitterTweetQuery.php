@@ -69,7 +69,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 	 * 
 	 * */
 	public function getMostRecent($campaigns){
-		return TwitterTweetQuery::create()->filterByCampaignid($campaigns)->find();
+		return TwitterTweetQuery::create()->filterByCampaignid($campaigns,Criteria::IN);
 	}
 	
 	/* Obtiene cantidad de tweets aceptados y valorados como $value
