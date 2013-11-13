@@ -14,7 +14,7 @@ class TwitterAnalyzeTrendsAction extends BaseAction {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 		
-		$campaign = CampaignQuery::create()->findOneById($_GET['campaignId']);
+		$campaign = CampaignQuery::create()->findOneById($_GET['campaignid']);
 			
 		$timeline_bank = new timeline_bank($_GET["user_id"]);
 
@@ -30,7 +30,7 @@ class TwitterAnalyzeTrendsAction extends BaseAction {
 
 		$current_unix_time = time();
 		
-		$tweets = TwitterTweetQuery::create()->filterByCampaignid($_GET['campaignId'])->find();
+		$tweets = TwitterTweetQuery::create()->filterByCampaignid($_GET['campaignid'])->filterByStatus(TwitterTweet::ACCEPTED)->find();
 	
 		//this is an error checking mechanism [sometimes twitter was returning faulty data]
 		if(!empty($tweets)){
