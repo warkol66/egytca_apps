@@ -38,9 +38,9 @@
 			<reference local="campaignId" foreign="id"/>
 		</foreign-key>
         
-        <!--unique>
+        <unique>
             <unique-column name="internalId" />
-        </unique-->
+        </unique>
 
 		<vendor type="mysql">
 			<parameter name="Charset" value="utf8"/>
@@ -140,5 +140,8 @@
 		</vendor>
 
 	</table>
+	
+	<!-- Analisis de tendencias -->
+	
 
 </database>
