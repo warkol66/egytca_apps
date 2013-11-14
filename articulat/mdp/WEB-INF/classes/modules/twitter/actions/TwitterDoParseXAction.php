@@ -30,7 +30,7 @@ class TwitterDoParseXAction extends BaseAction {
 			$terms = $this->parseSearchQuery($query);
 			foreach ($terms as $term) {
 			
-				$searchRespone = $twitterConnection->search($term,10,'search');
+				$searchRespone = $twitterConnection->search($term,50,'search');
 				foreach ($searchRespone->statuses as $responseTweet) {
 					// obtengo el html para embeber el tweet
 					$embedQuery = array('id' => $responseTweet->id_str);
@@ -38,7 +38,8 @@ class TwitterDoParseXAction extends BaseAction {
 					//$embeds[] = $embed;
 					$tweet = TwitterTweet::createFromApiTweet($responseTweet, $campaignId, $embed->html);
 					
-					$tweets[] = $tweet;
+					if($tweet)
+						$tweets[] = $tweet;
 					//$tweets[] = $responseTweet;
 				}
 			}

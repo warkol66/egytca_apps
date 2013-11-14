@@ -128,7 +128,7 @@ class TwitterTweet extends BaseTwitterTweet{
 			
 			return $tweet;
 		}else{
-			return TwitterTweetQuery::create()->findOneByInternalid($tweet->getInternalId());
+			return false;//TwitterTweetQuery::create()->findOneByInternalid($tweet->getInternalId());
 		}
 	}
 	
