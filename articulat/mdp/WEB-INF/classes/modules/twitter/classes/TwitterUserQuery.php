@@ -15,6 +15,22 @@
  */
 class TwitterUserQuery extends BaseTwitterUserQuery{
 	
+	/**
+	 * Agrega filtros por nombre, apellido, institucion o sobrenombre
+	 *
+	 * @param   type string $filterValue texto a buscar
+	 * @return condicion de filtrado por texto a buscar
+	 */
+	public function searchString($filterValue) {
+		return $this->filterByName("%$filterValue%", Criteria::LIKE)
+				->_or()
+					->filterByScreenname("%$filterValue%", Criteria::LIKE)
+				->_or()
+					->filterByDescription("%$filterValue%", Criteria::LIKE)
+				->_or()
+					->filterByTwitteruseridstr("%$filterValue%", Criteria::LIKE);
+	}
+
 	/* Obtiene los usuarios con mas tweets
 	 * 
 	 * */
