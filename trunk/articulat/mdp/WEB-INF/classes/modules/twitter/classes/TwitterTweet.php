@@ -104,18 +104,7 @@ class TwitterTweet extends BaseTwitterTweet{
 			'Statuses' => $apiTweet->user->statuses_count
 		);
 		
-		//return $user;
-		
-		$newTweet = TwitterTweet::addTweet($tweet);
-		$newUser = TwitterUser::addUser($user);
-		
-		//seteo el id del usuario creador
-		$newTweet->setInternalTwitterUserId($newUser->getId());
-		$newTweet->save();
-		
-		// TODO: otras entidades
-		
-		return $newTweet;
+		return TwitterTweet::addTweet($tweet, $user);
 	}
 	
 	/* Si el tweet que intentamos crear existe devuelve el existente
@@ -124,20 +113,23 @@ class TwitterTweet extends BaseTwitterTweet{
 	 * @param $newTweet: arreglo para crear el tweet fromArray()
 	 * return: TwitterTweet
 	 * */
-	public static function addTweet($newTweet) {
+	public static function addTweet($newTweet, $newUser) {
 		
 		$tweet = new TwitterTweet();
 		$tweet->fromArray($newTweet);
-		//me fijo si el tweet ya existe para esta campaña
-		$internalId = $tweet->buildInternalId();
-		$existent = TwitterTweetQuery::create()->findOneByInternalId($internalId);
+		$tweet->buildInternalId();
 		
-		if(!is_object($existent)){
+		//me fijo si el tweet ya existe para esta campaña
+		if(TwitterTweetQuery::create()->filterByInternalid($tweet->getInternalId())->count() == 0){
+			
+			$user = TwitterUser::addUser($newUser);
+			$tweet->setInternaltwitteruserid($user->getId());
 			$tweet->save();
+			
 			return $tweet;
+		}else{
+			return TwitterTweetQuery::create()->findOneByInternalid($tweet->getInternalId());
 		}
-		//TODO: ver de actualizar datos aca
-		return $existent;
 	}
 	
 	/**
@@ -146,12 +138,8 @@ class TwitterTweet extends BaseTwitterTweet{
 	* 
 	*/
 	public function buildInternalId() {
-		$idStr = $this->getTweetIdStr();
 		
-		if (empty($idStr))
-			$this->setInternalid(md5($this->getCampaignid() . $this->getText()));
-		else
-			$this->setInternalid(md5($this->getCampaignid() . $this->getText() .  $idStr));
+		$this->setInternalid(md5($this->getCampaignid() . $this->getText() . $this->getTweetIdStr()));
 		
 	}
 	
