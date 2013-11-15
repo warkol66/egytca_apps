@@ -11,7 +11,7 @@ class TwitterReportViewAction extends BaseListAction {
 
 		$this->module = "Twitter";
 		
-		$campaign = CampaignQuery::create()->findOneById($_POST['filters']['campaignId']);
+		$campaign = CampaignQuery::create()->findOneById($_POST['filters']['campaignid']);
 		
 		if(!is_object($campaign))
 			return false;
@@ -30,6 +30,10 @@ class TwitterReportViewAction extends BaseListAction {
 			$this->filters['type'] = 0;
 		else
 			$this->filters['type'] = $_POST['type'];
+
+		$this->filters['status'] = TwitterTweet::ACCEPTED;
+		$this->filters['orderByCreatedat'] = "desc";
+
 		
 		//if(!isset($_POST['from']) && !isset($_POST['to'])){
 			if(!empty($_POST['time']))
