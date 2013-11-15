@@ -70,7 +70,7 @@
 
 <div id="resultDiv"></div>
 <form id="selectedTweetsForm" onsubmit="return false;">
-<fieldset>
+<fieldset id="selectedTweetsList">
 <legend>Tweets &nbsp; &nbsp; 
 <input type="button" class="icon iconPlus" title="Aceptar todos los seleccionados y valorar positivamente" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|positiveAll('|-$campaign->getId()-|', this.form);|-/if-|" />
 <input type="button" class="icon iconActivate" title="Aceptar todos los seleccionados y valorar neutrales" onClick="|-if $campaign->isNew()-|acceptSelected(this.form);|-else-|neutralAll('|-$campaign->getId()-|', this.form);|-/if-|" />
@@ -127,40 +127,19 @@
 		onSelect: function (selectedDateTime){
 			startDateTextBox.datetimepicker('option', 'maxDate', endDateTextBox.datetimepicker('getDate') );
 		}
-	}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
-/*	
-function acceptSelected(form) {
-	new Ajax.Updater(
-		"resultDiv",
-		"Main.php?do=twitterParsedProcessX",
-		{
-			method: "post",
-			parameters: Form.serialize(form),
-			evalScripts: true
-		}
-	);
-	$("resultDiv").innerHTML = "<span class=\"inProgress\">guardando tweets...</span>";
-}
+	}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');	
 
-function discardSelected(form) {
-	new Ajax.Updater(
-		"resultDiv",
-		"Main.php?do=headlinesParsedDiscardAllX",
-		{
-			method: "post",
-			parameters: Form.serialize(form),
-			evalScripts: true
-		}
-	);
-	$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando titulares...</span>";
-}
-	*/
 function acceptAll(campaignId, form) {
 	{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&action=save&id="+campaignId, { method: "post", parameters: Form.serialize(form), evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">guardando tweets...</span>";
 }
 
+|-if isset($pager)-|
+|-assign var="currentPage" value=$pager->getPage()-|
+|-assign var="lastPage" value=$pager->getLastPage()-|
+|-/if-|
+
 function discardAll(campaignId, form) {
-	{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&action=discard&id="+campaignId, { method: "post", parameters: Form.serialize(form), evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando tweets...</span>";
+	{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&action=discard&id="+campaignId, { method: "post", parameters: Form.serialize(form),|-if isset($currentPage)-|onComplete: reload(|-$currentPage-|,|-$lastPage-|),|-/if-| evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">descartando tweets...</span>";
 }
 
 function positiveAll(campaignId, form) {
@@ -175,6 +154,17 @@ function negativeAll(campaignId, form) {
 	{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&action=negative&id="+campaignId, { method: "post", parameters: Form.serialize(form), evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">valorando negativo...</span>";
 }
 
+function reload(page, lastPage){
+	if(page == lastPage){
+		page--;
+		var prev = page.toString();
+		location.href="Main.php?do=twitterParsedList|-include file='FiltersRedirectUrlInclude.tpl' filters=$filters-|&page=" + prev + "#selectedTweetsList";
+	}else{
+		location.hash = "#selectedTweetsList";
+		location.reload();
+	}
+}
+
 function tweetsSearch() {
     new Ajax.Updater('list', "Main.php?do=twitterDoParseX", {
         parameters: $('form').serialize(),
@@ -186,16 +176,6 @@ function tweetsSearch() {
 			$("noTweets").innerHTML = "";
 }
 
-/*function parseFeed(form) {
-	new Ajax.Updater('list', "Main.php?do=headlinesXMLDoParseX", {
-		parameters: $(form).serialize(),
-		insertion: 'top',
-		evalScripts: true
-	});
-	$("resultDiv").innerHTML = "<span class=\"inProgress\">Buscando titulares...</span>";
-	if (document.getElementById("noHeadlines"))
-		$("noHeadlines").innerHTML = "";
-}*/
 </script>
 |-else-|
 <div class="errorMessage">El identificador ingresado no es válido. Seleccione un item del listado.</div>
