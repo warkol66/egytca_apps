@@ -34,7 +34,7 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 	/* Obtiene los usuarios con mas tweets
 	 * 
 	 * */
-	public function getTopUsers($from = null, $to = null, $campaign, $value, $relevance, $type, $count = 5){
+	public function getTopUsers($from = null, $to = null, $campaign, $value, $relevance, $type, $count = 10){
 		
 		if(empty($value)) 
 			$value = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
@@ -83,7 +83,7 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 	/* Obtiene los usuarios mas influyentes
 	 * 
 	 * */
-	public function getInfluentialUsers($from, $to, $campaign, $value, $relevance, $type){
+	public function getInfluentialUsers($from, $to, $campaign, $value, $relevance, $type, $count = 10){
 		if(empty($value)) 
 			$value = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
 		if(empty($relevance)) 
@@ -100,6 +100,7 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 				->getByType($type)
 				->filterByCreatedat(array('min' => $from,'max' => $to))
 			->endUse()
+			->limit($count)
 			->find();
 			
 		return $influential;
