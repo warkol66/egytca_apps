@@ -12,13 +12,12 @@ include_once("TimezonePeer.php");
 include_once("Common.class.php");
 include_once("Action.php");
 require_once("Smarty_config.inc.php");
+
 require_once("BaseQuery.php");
-
-require_once 'BaseListAction.php';
-require_once 'BaseEditAction.php';
-require_once 'BaseDoEditAction.php';
-require_once 'BaseDoDeleteAction.php';
-
+require_once("BaseListAction.php");
+require_once("BaseEditAction.php");
+require_once("BaseDoEditAction.php");
+require_once("BaseDoDeleteAction.php");
 
 /**
 * Implementation of <strong>Action</strong> that demonstrates the use of the Smarty
@@ -99,6 +98,13 @@ class BaseAction extends Action {
 			header("Location: Main.php?do=commonMaintenance");
 			exit;
 		}
+		//Chequeo si esta bloqueada la ip del usuario
+		global $loginPath;
+		$remoteIp = Common::getIp();
+		if(Common::checkLoginIpFailures($remoteIp)) {// No tiene permiso
+			header("Location:Main.php?do=$loginPath");
+			exit();
+		}
 		$actionRequested = $request->getAttribute('ACTION_DO_PATH');
 		//Se obtienen modulo y accion solicitada
 		//$actionRequested = $_REQUEST["do"];
@@ -132,11 +138,19 @@ class BaseAction extends Action {
 
 			$loggedUser = Common::getLoggedUser();			
 			if (!empty($loggedUser)) {
+				//Veo que el usuario no este bloqueado
+				if(Common::isBlockedUser($loggedUser->getUsername()) && Common::checkLoginUserFailures('User',$user->getId())) {// No tiene permiso
+					header("Location:Main.php?do=$loginPath");
+					exit();
+				}
+				Common::setLastActionTime($loggedUser);
 				if (!ConfigModule::get("global","noSecurity") && $actionRequested != "securityNoPermission") {
 					if (!empty($securityAction))
 						$access = $securityAction->getAccessByUser($loggedUser);
 					else if (!empty($securityModule))
 						$access = $securityModule->getAccessByUser($loggedUser);
+					else
+						$access = $loggedUser->isSupervisor();
 
 					if (empty($access)) {// No tiene permiso
 						header("Location:Main.php?do=securityNoPermission");
@@ -149,6 +163,7 @@ class BaseAction extends Action {
 			else { //Si requiere login y no hay sesion va a login
 				global $loginPath;
 				if ($actionRequested != $loginPath && $actionRequested != "commonDoLogin" && $actionRequested != "usersDoLogin") {
+					$_SESSION["loginRequestReferrer"] = $_SERVER["QUERY_STRING"];
 					header("Location:Main.php?do=$loginPath");
 					exit();
 				}
