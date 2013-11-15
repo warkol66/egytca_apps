@@ -23,10 +23,7 @@ class TwitterAnalyzeTrendsAction extends BaseAction {
 		$stopwords = TwitterTweet::getStopWords();
 		$last_id = 0;
 		
-		print_r($stopWords);
-		
-		if(!in_array("de", $stopwords))
-			echo "no";
+		//print_r($stopWords);
 
 		$current_unix_time = time();
 		

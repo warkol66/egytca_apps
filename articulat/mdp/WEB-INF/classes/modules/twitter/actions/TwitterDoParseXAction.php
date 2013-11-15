@@ -40,6 +40,8 @@ class TwitterDoParseXAction extends BaseAction {
 					
 					if($tweet)
 						$tweets[] = $tweet;
+					/*else
+						echo "duplicate";*/
 					//$tweets[] = $responseTweet;
 				}
 			}
