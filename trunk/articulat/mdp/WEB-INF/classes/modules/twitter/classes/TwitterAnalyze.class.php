@@ -249,17 +249,14 @@ class timeline_bank {
 		asort($popular_phrases);
 	
 		
-		echo "<pre>";
+		/*echo "<pre>";
 		Echo "Result";
 		print_r($popular_hashtags);
 		print_r($popular_mentions);
 		print_r($popular_words);
 		print_r($popular_phrases);
-		echo "<pre>";
+		echo "<pre>";*/
 		
-
-		
-
 		//limit to the most popular 3 last words to filter out noise
 		$limited_single_words = array_slice($popular_words, -3,3);//limit it to the most popular 2 words
 				
