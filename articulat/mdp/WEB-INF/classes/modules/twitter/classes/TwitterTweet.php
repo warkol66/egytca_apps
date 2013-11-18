@@ -124,8 +124,9 @@ class TwitterTweet extends BaseTwitterTweet{
 			
 			$user = TwitterUser::addUser($newUser);
 			$tweet->setInternaltwitteruserid($user->getId());
+			$tweet->setRelevance($user->getInfluence());
 			$tweet->save();
-			
+
 			return $tweet;
 		}else{
 			return false;//TwitterTweetQuery::create()->findOneByInternalid($tweet->getInternalId());
