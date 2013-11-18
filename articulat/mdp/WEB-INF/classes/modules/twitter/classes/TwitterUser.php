@@ -64,6 +64,21 @@ class TwitterUser extends BaseTwitterUser{
 		if(!is_object($existent)){
 			$user = new TwitterUser();
 			$user->fromArray($newUser);
+
+			$followers = $user->getFollowers();
+			$friends = $user->getFriends();
+			$statuses = $user->getStatuses();
+			$ratio = $followers / $friends;
+			$influence = 0;
+			if (($ratio >= 10 && $statuses > 5000)  || $statuses > 75000)
+				$influence = 3;
+			else if (($ratio >= 5 && $ratio < 10 && $statuses > 5000) || $statuses > 35000)
+				$influence = 2;
+			else if (($ratio > .8 && $ratio < 5 && $statuses > 5000) || $statuses > 15000)
+				$influence = 1;
+
+			$user->setInfluence($influence);
+
 			$user->save();
 			return $user;
 		}
@@ -74,7 +89,7 @@ class TwitterUser extends BaseTwitterUser{
 		
 		$this->setDescription($searchRespone->description);
 		$this->setUrl($searchRespone->url);
-		$this->setScreenname($searchRespone->screen_name);
+//		$this->setScreenname($searchRespone->screen_name);
 		$this->setName($searchRespone->name);
 		$this->setFollowers($searchRespone->followers_count);
 		$this->setFriends($searchRespone->friends_count);
@@ -93,15 +108,15 @@ class TwitterUser extends BaseTwitterUser{
 		$friends = $searchRespone->friends_count;
 		$statuses = $searchRespone->statuses_count;
 		$ratio = $followers / $friends;
-		$incluence = 0;
+		$influence = 0;
 		if (($ratio >= 10 && $statuses > 5000)  || $statuses > 75000)
-			$incluence = 3;
+			$influence = 3;
 		else if (($ratio >= 5 && $ratio < 10 && $statuses > 5000) || $statuses > 35000)
-			$incluence = 2;
+			$influence = 2;
 		else if (($ratio > .8 && $ratio < 5 && $statuses > 5000) || $statuses > 15000)
-			$incluence = 1;
+			$influence = 1;
 
-		return $incluence;
+		return $influence;
 	}
 	
 	/* Obtiene el actor asociado a un usuario de twitter
