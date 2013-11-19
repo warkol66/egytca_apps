@@ -170,9 +170,6 @@
 		if(time == 'custom'){
 			var from = $j('#dateFrom').val();
 			var to = $j('#dateTo').val();
-			
-			console.log(from);
-			console.log(to);
 		}
 		$j.ajax({
 			url: 'Main.php?do=twitterCampaignsReportFilterX',
@@ -193,6 +190,7 @@
 		var rel = $j('.relevanceSelected').val();
 		var type = $j('.typeSelected').val();
 		var time = $j('.timeSelected').val();
+		$j('#customDate').hide();
 		$j.ajax({
 			url: 'Main.php?do=twitterCampaignsReportFilterX',
 			data: {id: '|-$campaign->getId()-|', value: val, relevance: rel, type: type, time: time},
@@ -213,6 +211,12 @@
 			'method': 'post',
 			'id': 'toReport'
 		});
+		
+		if($j('.timeSelected').val() == 'custom'){
+			newForm.append($j('<input>', {'name': 'from','value': $j('#dateFrom').val(),'type': 'hidden'}))
+			.append($j('<input>', {'name': 'to','value': $j('#dateTo').val(),'type': 'hidden'}));
+		}
+		
 		newForm.append($j('<input>', {'name': 'do','value': 'twitterReportView','type': 'hidden'}))
 		.append($j('<input>', {'name': 'value','value': $j('.valueSelected').val(),'type': 'hidden'}))
 		.append($j('<input>', {'name': 'relevance','value': $j('.relevanceSelected').val(),'type': 'hidden'}))
