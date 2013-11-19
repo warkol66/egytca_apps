@@ -43,33 +43,19 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 		if(empty($type)) 
 			$type = 0;
 			
-		/*if(!isset($from) && !isset($to)){
-			
-			$tops = TwitterTweetQuery::create()
-				->withColumn('count(TwitterTweet.Id)', 'tweets')
-				->filterByCampaignid($campaign)
-				->filterByValue($value)
-				->filterByRelevance($relevance)
-				->getByType($type)
-				->filterByStatus(TwitterTweet::ACCEPTED)
-				->groupBy('TwitterTweet.Internaltwitteruserid')
-				->orderBy('TwitterTweet.tweets', 'desc')
-				->limit($count)
-				->find();
-		}else{*/
-			$tops = TwitterTweetQuery::create()
-				->withColumn('count(TwitterTweet.Id)', 'tweets')
-				->filterByCampaignid($campaign)
-				->filterByValue($value)
-				->filterByRelevance($relevance)
-				->getByType($type)
-				->filterByStatus(TwitterTweet::ACCEPTED)
-				->filterByCreatedat(array('min' => $from,'max' => $to))
-				->groupBy('TwitterTweet.Internaltwitteruserid')
-				->orderBy('TwitterTweet.tweets', 'desc')
-				->limit($count)
-				->find();
-		//}
+		$tops = TwitterTweetQuery::create()
+			->withColumn('count(TwitterTweet.Id)', 'tweets')
+			->filterByCampaignid($campaign)
+			->filterByValue($value)
+			->filterByRelevance($relevance)
+			->getByType($type)
+			->filterByStatus(TwitterTweet::ACCEPTED)
+			->filterByCreatedat(array('min' => $from,'max' => $to))
+			->groupBy('TwitterTweet.Internaltwitteruserid')
+			->orderBy('TwitterTweet.tweets', 'desc')
+			->limit($count)
+			->find();
+
 		$users = array();
 		$i = 0;
 		foreach($tops as $top){
@@ -94,6 +80,7 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 		$influential = TwitterUserQuery::create()
 			->filterByInfluence(TwitterUser::INFLUENTIAL)
 			->useTwitterTweetQuery()
+				->filterByStatus(TwitterTweet::ACCEPTED)
 				->filterByCampaignid($campaign)
 				->filterByValue($value)
 				->filterByRelevance($relevance)
