@@ -19,7 +19,7 @@ class TwitterUsersTweetsViewXAction extends BaseAction {
 		// actualizo los datos del usuario
 		if(is_object($user)){
 			$campaign = $_POST['campaign'];
-			$userTweets = TwitterTweetQuery::create()->filterByCampaignid($campaign)->filterByInternaltwitteruserid($user->getId())->filterByStatus(2)->limit(5)->find();
+			$userTweets = TwitterTweetQuery::create()->filterByCampaignid($campaign)->filterByInternaltwitteruserid($user->getId())->filterByStatus(TwitterTweet::ACCEPTED)->limit(5)->find();
 			
 			$smarty->assign('userTweets',$userTweets);
 			$smarty->assign('user',$user);
