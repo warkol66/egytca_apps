@@ -143,15 +143,15 @@ function discardAll(campaignId, form) {
 }
 
 function positiveAll(campaignId, form) {
-	{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&action=positive&id="+campaignId, { method: "post", parameters: Form.serialize(form), evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">Valorando positivo...</span>";
+	{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&action=positive&id="+campaignId, { method: "post", parameters: Form.serialize(form),|-if isset($currentPage)-|onComplete: reload(|-$currentPage-|,|-$lastPage-|),|-/if-| evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">Valorando positivo...</span>";
 }
 
 function neutralAll(campaignId, form) {
-	{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&action=neutral&id="+campaignId, { method: "post", parameters: Form.serialize(form), evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">Valorando positivo...</span>";
+	{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&action=neutral&id="+campaignId, { method: "post", parameters: Form.serialize(form),|-if isset($currentPage)-|onComplete: reload(|-$currentPage-|,|-$lastPage-|),|-/if-| evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">Valorando positivo...</span>";
 }
 
 function negativeAll(campaignId, form) {
-	{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&action=negative&id="+campaignId, { method: "post", parameters: Form.serialize(form), evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">valorando negativo...</span>";
+	{new Ajax.Updater("resultDiv", "Main.php?do=twitterParsedProcessX&action=negative&id="+campaignId, { method: "post", parameters: Form.serialize(form),|-if isset($currentPage)-|onComplete: reload(|-$currentPage-|,|-$lastPage-|),|-/if-| evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">valorando negativo...</span>";
 }
 
 function reload(page, lastPage){
