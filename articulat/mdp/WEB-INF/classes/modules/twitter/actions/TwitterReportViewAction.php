@@ -36,12 +36,18 @@ class TwitterReportViewAction extends BaseListAction {
 
 		
 		//if(!isset($_POST['from']) && !isset($_POST['to'])){
+		if($_POST['time'] == 'custom' && isset($_POST['from']) && isset($_POST['to'])){
+			$this->filters['dateRange']['createdat']['min'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($_POST['from']. ':00')));
+			$this->filters['dateRange']['createdat']['max'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($_POST['to']. ':00')));
+				
+		}else{
 			if(!empty($_POST['time']))
 				$this->filters['dateRange']['createdat']['min'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($_POST['time'])));
 			else
-				$this->filters['dateRange']['createdat']['min'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($campaign->getStartdate())));
-			$this->filters['dateRange']['createdAt']['max'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s'));
-		//}
+				$this->filters['dateRange']['createdat']['min'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($this->entity->getStartdate())));
+			
+			$this->filters['dateRange']['createdat']['max'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s'));
+		}
 
 	}
 
