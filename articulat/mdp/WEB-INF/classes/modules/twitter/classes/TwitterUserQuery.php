@@ -82,7 +82,8 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 			$type = 0;
 		
 		$influential = TwitterUserQuery::create()
-			->filterByInfluence(TwitterUser::INFLUENTIAL)
+			->filterByInfluence(TwitterUser::NEUTRAL)
+			->orderByInfluence(Criteria::DESC)
 			->useTwitterTweetQuery()
 				->filterByStatus(TwitterTweet::ACCEPTED)
 				->filterByCampaignid($campaign)
