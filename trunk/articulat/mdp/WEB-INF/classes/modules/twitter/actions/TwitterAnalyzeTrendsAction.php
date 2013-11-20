@@ -98,6 +98,11 @@ class TwitterAnalyzeTrendsAction extends BaseAction {
 
 		}else
 			echo "wrong data";
+			
+		if($_GET["debug"] == 1){
+			//$timeline_bank->print_discoveries();
+			//$timeline_bank->print_user_stats();
+		}
 
 		//this is the important function, it finds the trends
 		$timeline_bank->prioritize();
@@ -106,7 +111,7 @@ class TwitterAnalyzeTrendsAction extends BaseAction {
 
 		//simple debugger built in for natural printing of FINAL data
 		if($_GET["debug"] == 1){
-			$timeline_bank->print_shortened_result();
+			$timeline_bank->print_result();
 		}
 		
 		die;

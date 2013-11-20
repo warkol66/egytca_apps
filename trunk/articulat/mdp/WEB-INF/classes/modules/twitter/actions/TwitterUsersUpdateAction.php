@@ -31,9 +31,9 @@ class TwitterUsersUpdateAction extends BaseListAction {
 					break;
 				$screenn = $twitterUser->getScreenname();
 				if(!empty($screenn))
-					$query = array('screen_name' => $screenn, 'user_id' => $twitterUser->getId());
+					$query = array('screen_name' => $screenn, 'user_id' => $twitterUser->getTwitteruserid());
 				else
-					$query = array('user_id' => $twitterUser->getId());
+					$query = array('user_id' => $twitterUser->getTwitteruserid());
 
 				if (!empty($query)) {
 					$searchRespone = $twitterConnection->search($query,0,'users');

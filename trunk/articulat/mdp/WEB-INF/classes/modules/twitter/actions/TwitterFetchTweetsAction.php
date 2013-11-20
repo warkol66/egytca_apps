@@ -38,16 +38,18 @@ class TwitterFetchTweetsAction extends BaseAction {
 				foreach ($terms as $term) {
 				
 					$searchRespone = $twitterConnection->search($term,50,'search');
-					foreach ($searchRespone->statuses as $responseTweet) {
-						// obtengo el html para embeber el tweet
-						$embedQuery = array('id' => $responseTweet->id_str);
-						$embed = $twitterConnection->search($embedQuery,0,'embed');
-						$embed = $embed->html;
-						//$embeds[] = $embed;
-						$tweet = TwitterTweet::createFromApiTweet($responseTweet, $campaignId, $embed);
-						
-						$tweets[] = $tweet;
-						//$tweets[] = $responseTweet;
+					if(empty($searchRespone->errors)){
+						foreach ($searchRespone->statuses as $responseTweet) {
+							// obtengo el html para embeber el tweet
+							$embedQuery = array('id' => $responseTweet->id_str);
+							$embed = $twitterConnection->search($embedQuery,0,'embed');
+							$embed = $embed->html;
+							//$embeds[] = $embed;
+							$tweet = TwitterTweet::createFromApiTweet($responseTweet, $campaignId, $embed);
+							
+							$tweets[] = $tweet;
+							//$tweets[] = $responseTweet;
+						}
 					}
 				}
 				
