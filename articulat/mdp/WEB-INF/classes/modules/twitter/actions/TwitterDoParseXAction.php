@@ -31,18 +31,20 @@ class TwitterDoParseXAction extends BaseAction {
 			foreach ($terms as $term) {
 			
 				$searchRespone = $twitterConnection->search($term,50,'search');
-				foreach ($searchRespone->statuses as $responseTweet) {
-					// obtengo el html para embeber el tweet
-					$embedQuery = array('id' => $responseTweet->id_str);
-					$embed = $twitterConnection->search($embedQuery,0,'embed');
-					//$embeds[] = $embed;
-					$tweet = TwitterTweet::createFromApiTweet($responseTweet, $campaignId, $embed->html);
-					
-					if($tweet)
-						$tweets[] = $tweet;
-					/*else
-						echo "duplicate";*/
-					//$tweets[] = $responseTweet;
+				if(empty($searchRespone->errors)){
+					foreach ($searchRespone->statuses as $responseTweet) {
+						// obtengo el html para embeber el tweet
+						$embedQuery = array('id' => $responseTweet->id_str);
+						$embed = $twitterConnection->search($embedQuery,0,'embed');
+						//$embeds[] = $embed;
+						$tweet = TwitterTweet::createFromApiTweet($responseTweet, $campaignId, $embed->html);
+						
+						if($tweet)
+							$tweets[] = $tweet;
+						/*else
+							echo "duplicate";*/
+						//$tweets[] = $responseTweet;
+					}
 				}
 			}
 			

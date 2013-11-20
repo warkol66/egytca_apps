@@ -27,9 +27,9 @@ class TwitterUsersUpdateXAction extends BaseEditAction {
 
 			$screenn = $this->entity->getScreenname();
 			if(!empty($screenn))
-				$query = array('screen_name' => $screenn, 'user_id' => $this->entity->getId());
+				$query = array('screen_name' => $screenn, 'user_id' => $this->entity->getTwitteruserid());
 			else
-				$query = array('user_id' => $this->entity->getId());
+				$query = array('user_id' => $this->entity->getTwitteruserid());
 
 			if (!empty($query)) {
 				$searchRespone = $twitterConnection->search($query,0,'users');
