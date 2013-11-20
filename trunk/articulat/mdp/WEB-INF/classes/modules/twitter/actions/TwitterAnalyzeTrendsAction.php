@@ -105,12 +105,13 @@ class TwitterAnalyzeTrendsAction extends BaseAction {
 		}
 
 		//this is the important function, it finds the trends
-		$timeline_bank->prioritize();
+		$timeline_bank->prioritize($_GET["debug"]);
 		
 		// TODO: guardar las tendencias en una tabla
 
 		//simple debugger built in for natural printing of FINAL data
 		if($_GET["debug"] == 1){
+			Echo "Complete result <br />";
 			$timeline_bank->print_result();
 		}
 		
