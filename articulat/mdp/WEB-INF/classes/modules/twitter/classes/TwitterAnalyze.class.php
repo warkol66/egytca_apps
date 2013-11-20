@@ -187,7 +187,7 @@ class timeline_bank {
 	}
 	
 	
-	public function prioritize(){
+	public function prioritize($debug){
 		
 		$popular_hashtags = array();
 		
@@ -248,14 +248,19 @@ class timeline_bank {
 		asort($popular_words);
 		asort($popular_phrases);
 	
-		
-		/*echo "<pre>";
-		Echo "Result";
-		print_r($popular_hashtags);
-		print_r($popular_mentions);
-		print_r($popular_words);
-		print_r($popular_phrases);
-		echo "<pre>";*/
+		if($debug){
+			echo "<pre>";
+			Echo "<br /> Result <br />";
+			Echo "<br /> Hashtags <br />";
+			print_r($popular_hashtags);
+			Echo "<br /> Mentions <br />";
+			print_r($popular_mentions);
+			Echo "<br /> Words <br />";
+			print_r($popular_words);
+			Echo "<br /> Phrases <br />";
+			print_r($popular_phrases);
+			echo "<pre>";
+		}
 		
 		//limit to the most popular 3 last words to filter out noise
 		$limited_single_words = array_slice($popular_words, -3,3);//limit it to the most popular 2 words
