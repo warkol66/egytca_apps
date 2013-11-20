@@ -30,6 +30,10 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 				->_or()
 					->filterByTwitteruseridstr("%$filterValue%", Criteria::LIKE);
 	}
+	
+	public function brokenUser(){
+		return $this->filterByScreenname(null);
+	}
 
 	/* Obtiene los usuarios con mas tweets
 	 * 
