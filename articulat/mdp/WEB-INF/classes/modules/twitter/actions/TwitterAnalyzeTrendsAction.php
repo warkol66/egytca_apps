@@ -27,77 +27,98 @@ class TwitterAnalyzeTrendsAction extends BaseAction {
 
 		$current_unix_time = time();
 		
-		$tweets = TwitterTweetQuery::create()->filterByCampaignid($_GET['campaignid'])->filterByStatus(TwitterTweet::ACCEPTED)->find();
-	
-		//this is an error checking mechanism [sometimes twitter was returning faulty data]
-		if(!empty($tweets)){
-
-		//lets loop through each tweet
-			foreach($tweets as $tweet){
-
-				//lets get the tweet data
-				$text = $tweet->getText();
-				$tweet_id = $tweet->getId();
-		
-				//the all-important words of the tweet
-				$words_of_tweet = explode(" ",strtolower($text));
-				
-				//reset/start the last word variable for this tweet
-				$last_word = "";
-				
-				//loop through each word of the tweet
-				foreach($words_of_tweet as $word){
+		$tweetsPager = TwitterTweetQuery::create()
+			->filterByCampaignid($_GET['campaignid'])
+			->filterByStatus(TwitterTweet::ACCEPTED)
+			->paginate(1,100);
 			
-					//clean it
-					$word = str_replace($punc, "", $word);
-					
-					switch($word[0]){//compare first character
-					
-					/*
-					 *	The words of the tweet are divided by hashtag, mention, single word, and phrase
-					 *  This allows for different weighting scales of each type
-					 *  For example, a single word is weighted less than the occurance of a 2-word phrase
-					 *  The idea behind this is that the more conscious the action, the more valuable we can weight it.
-					 */ 
-					
-						case "#":
-							if(strlen($word) > 1){
-								$timeline_bank->insert_hashtag($userdata, $word);
-							}
-							$last_word = "";//reset [comment out if you are okay with a trend is "its #raining"]
-						break;
-						
-						case "@":
-							if(strlen($word) > 1){
-								$timeline_bank->insert_mention($userdata, $word);
-							}
-							$last_word = "";//reset [comment out if you are okay with a trend is "hi @ThomasTommyTom"]
-						break;
-						
-						default:
-							if(!in_array($word, $stopwords)){//filter out the noise [common words]
-								//echo $word;
-								$timeline_bank->insert_word($userdata, $word);
-								
-								//its a word, now lets see if what was behind it was a word
-								if(!empty($last_word)){
-									//the last word was not a hashtag, a mention or noise
-									$phrase = $last_word." ".$word;
-									$timeline_bank->insert_phrase($userdata, $phrase);
-								}
-								
-								$last_word = $word;//set to current word
-							}else{
-								$last_word = "";//reset
-							}
-						break;
-					}
-				}//end foreach word
-				
-			}//end foreach tweet
+		
+		
+		for($page = 1; $page <= $tweetsPager->getLastPage(); $page ++){
+			
+			$tweetsPager = TwitterTweetQuery::create()
+			->filterByCampaignid($_GET['campaignid'])
+			->filterByStatus(TwitterTweet::ACCEPTED)
+			->paginate($page,100);
+			
+			echo "<pre>";
+			echo $page;
+			print_r($tweetsPager);
+			echo "</pre>";
+			
+			//this is an error checking mechanism [sometimes twitter was returning faulty data]
+			if(!empty($tweetsPager)){
 
-		}else
-			echo "wrong data";
+			//lets loop through each tweet
+				foreach($tweetsPager as $tweet){
+
+					//lets get the tweet data
+					$text = $tweet->getText();
+					$tweet_id = $tweet->getId();
+			
+					//the all-important words of the tweet
+					$words_of_tweet = explode(" ",strtolower($text));
+					
+					//reset/start the last word variable for this tweet
+					$last_word = "";
+					
+					//loop through each word of the tweet
+					foreach($words_of_tweet as $word){
+				
+						//clean it
+						$word = str_replace($punc, "", $word);
+						
+						switch($word[0]){//compare first character
+						
+						/*
+						 *	The words of the tweet are divided by hashtag, mention, single word, and phrase
+						 *  This allows for different weighting scales of each type
+						 *  For example, a single word is weighted less than the occurance of a 2-word phrase
+						 *  The idea behind this is that the more conscious the action, the more valuable we can weight it.
+						 */ 
+						
+							case "#":
+								if(strlen($word) > 1){
+									$timeline_bank->insert_hashtag($userdata, $word);
+								}
+								$last_word = "";//reset [comment out if you are okay with a trend is "its #raining"]
+							break;
+							
+							case "@":
+								if(strlen($word) > 1){
+									$timeline_bank->insert_mention($userdata, $word);
+								}
+								$last_word = "";//reset [comment out if you are okay with a trend is "hi @ThomasTommyTom"]
+							break;
+							
+							default:
+								if(!in_array($word, $stopwords)){//filter out the noise [common words]
+									//echo $word;
+									$timeline_bank->insert_word($userdata, $word);
+									
+									//its a word, now lets see if what was behind it was a word
+									if(!empty($last_word)){
+										//the last word was not a hashtag, a mention or noise
+										$phrase = $last_word." ".$word;
+										$timeline_bank->insert_phrase($userdata, $phrase);
+									}
+									
+									$last_word = $word;//set to current word
+								}else{
+									$last_word = "";//reset
+								}
+							break;
+						}
+					}//end foreach word
+					
+				}//end foreach tweet
+
+			}else
+				echo "wrong data";
+				
+		}
+		
+		die();
 			
 		if($_GET["debug"] == 1){
 			//$timeline_bank->print_discoveries();
