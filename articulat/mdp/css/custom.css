@@ -953,6 +953,8 @@ table.tableTdBorders {
 
 #usersChart, #bubbleChart{height: 400px;}
 
+#influentialUsersTweetsChart{ margin-bottom: 30px;}
+
 .userTweetsList, .userTweetsListItem {list-style: none;}
 
 #content { 
