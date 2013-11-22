@@ -61,6 +61,13 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 			->find();
 
 		$users = array();
+		
+		foreach($tops as $top){
+			$users[$i]['user'] = $top->getTwitterUser();
+		}
+		
+		return $users;
+		
 		$i = 0;
 		foreach($tops as $top){
 			$users[$i]['user'] = $top->getTwitterUser();
