@@ -55,19 +55,20 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 			->getByType($type)
 			->filterByStatus(TwitterTweet::ACCEPTED)
 			->filterByCreatedat(array('min' => $from,'max' => $to))
-			->groupBy('TwitterTweet.Internaltwitteruserid')
+			->groupByInternaltwitteruserid()
+//			->groupBy('TwitterTweet.Internaltwitteruserid')
 			->orderBy('TwitterTweet.tweets', 'desc')
 			->limit($count)
 			->find();
 
 		$users = array();
 		
-		foreach($tops as $top){
+/*		foreach($tops as $top){
 			$users[$i]['user'] = $top->getTwitterUser();
 		}
 		
 		return $users;
-		
+*/		
 		$i = 0;
 		foreach($tops as $top){
 			$users[$i]['user'] = $top->getTwitterUser();
@@ -92,6 +93,7 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 			->filterByInfluence(TwitterUser::NEUTRAL)
 			->orderByInfluence(Criteria::DESC)
 			->useTwitterTweetQuery()
+				->groupByInternaltwitteruserid()
 				->filterByStatus(TwitterTweet::ACCEPTED)
 				->filterByCampaignid($campaign)
 				->filterByValue($value)
