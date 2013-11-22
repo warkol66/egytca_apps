@@ -31,7 +31,6 @@ $ret =		parent::execute($mapping, $form, $request, $response);
 		if (!empty($_REQUEST["suUsername"]) && $requesterUser->isSupervisor()) {
 			$user = UserPeer::su($_REQUEST["suUsername"],$requesterUser);
 			if (!empty($user)) {
-				$_SESSION["login_user"] = $user;
 				$_SESSION["loginUser"] = $user;
 				$smarty->assign("loginUser",$user);
 				Common::doLog('success',$requesterUser . ' as: ' . $_REQUEST["suUsername"]);
