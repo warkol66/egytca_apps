@@ -136,7 +136,7 @@ class BaseAction extends Action {
 
 		if (!$noCheckLogin) { //Verifica login $noCheckLogin != 1
 
-			$loggedUser = Common::getLoggedUser();			
+			$loggedUser = Common::getLoggedUser();
 			if (!empty($loggedUser)) {
 				//Veo que el usuario no este bloqueado
 				if(Common::isBlockedUser($loggedUser->getUsername()) && Common::checkLoginUserFailures('User',$user->getId())) {// No tiene permiso
@@ -210,7 +210,6 @@ class BaseAction extends Action {
 		else
 			$smarty->register_outputfilter(array($this->template,"smarty_add_template"));
 
-
 		if ($this->isAjax()) {
 			$this->template->template = 'TemplateAjax.tpl';
 			$smarty->assign("isAjax", true);
@@ -249,6 +248,7 @@ class BaseAction extends Action {
 		return new ForwardConfig($myRedirectPath, True);
 
 	}
+
 	/**
 	 * Agrega parametros al url de un forward
 	 * @param $params array with parameters with key and value

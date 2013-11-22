@@ -31,7 +31,6 @@ class UsersDoExitAction extends UsersDoLoginAction {
 		if (!empty($_SESSION["supervisorUser"])) {
 			$user = $_SESSION["supervisorUser"];
 			if ($user->isSupervisor()) {
-				$_SESSION["login_user"] = $user;
 				$_SESSION["loginUser"] = $user;
 				unset($_SESSION['supervisorUser']);
 				$smarty->assign("loginUser",$user);

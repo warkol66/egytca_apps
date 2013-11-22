@@ -16,7 +16,6 @@
 	if ($_ENV['PHPMVC_MODE_CLI'] == true) {
 		//cargamos el usuario system modo supervisor para login de los actions
 		$user = UserPeer::getByUsername('system');
-		$_SESSION["login_user"] = $user;
 		$_SESSION["loginUser"] = $user;
 	}
 
