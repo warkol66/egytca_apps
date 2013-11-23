@@ -890,7 +890,7 @@ table.tableTdBorders {
 .tweetsList li{
 	padding-top: 12px;
 }
-.userHash, .userHash a, .twitterUrl{
+.userHash, .userHash a, .twitterUrl, .embeddedProfile a{
 	color: #0084B4;
 }
 .userHash a, .twitterUrl{
@@ -971,4 +971,68 @@ table.tableTdBorders {
 #right { float:right; }
 #reportContainer p {
 	width: auto !Important; 
+}
+
+.embeddedTweet{
+	
+	-moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #EEEEEE #DDDDDD #BBBBBB;
+    border-image: none;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    display: block;
+    margin: 10px 0;
+    max-width: 99%;
+    min-width: 220px;
+    padding: 0;
+    position: static;
+    visibility: visible;
+	background: none repeat scroll 0 0 #FFFFFF;
+}
+
+.embeddedTweet a{ text-decoration: none; }
+
+.embeddedWhole{padding: 4px 8px 8px;}
+
+.embeddedHeader{
+	min-height: 48px;
+    padding: 3px 0 4px 57px;
+    position: relative;
+}
+
+.embeddedContent p, .embeddedContent p .userHash{
+	font: 18px/24px Georgia,"Times New Roman",Palatino,serif;
+	clear: both;
+    margin: 0 5px 0 0;
+    overflow: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+a .full-name{
+	outline: 0 none;
+    color: #292F33;
+    font-weight: bold;
+    line-height: 16px;
+    font-size: 14px;
+}
+
+a .nickname{
+	content: "\A ";
+    white-space: pre;
+    font-size: 14px;
+    color: #707070;
+    line-height: 18px;
+    font-style: normal;
+    font-weight: normal;
+}
+
+.dateline{
+	color: #707070;
+	font: 12px/16px "Helvetica Neue",Arial,sans-serif;
 }
