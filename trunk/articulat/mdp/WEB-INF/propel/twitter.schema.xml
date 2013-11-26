@@ -127,6 +127,7 @@
 	  <column name="tweetsCount" type="INTEGER" description="Cantidad de tweets obtenida" />
 	  <column name="trendingTopicsCount" type="INTEGER" description="Cantidad de tts obtenida" />
 	  <column name="campaignId" type="INTEGER" description="Cantidad de tts obtenida" />
+	  <column name="message" type="VARCHAR" size="255" description="Mensaje de error" />
 	  
 	    <behavior name="timestampable" />
 	    
