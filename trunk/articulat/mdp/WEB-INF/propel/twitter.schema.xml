@@ -61,6 +61,7 @@
 		<column name="location" type="VARCHAR" size="255" description="twitter user location" />
 		<column name="description" type="VARCHAR" size="255" description="twitter user description" />
 		<column name="url" type="VARCHAR" size="255" description="twitter user url" />
+		<column name="profileImage" type="VARCHAR" size="255" description="twitter user profile image" />
 		<column name="isProtected" type="BOOLEAN" description="twitter account is protected" />
 		<column name="followers" type="INTEGER" description="Seguidores" />
 		<column name="friends" type="INTEGER" description="Amigos" />
