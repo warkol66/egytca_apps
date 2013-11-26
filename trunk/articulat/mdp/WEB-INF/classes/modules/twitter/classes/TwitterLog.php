@@ -15,11 +15,12 @@
  */
 class TwitterLog extends BaseTwitterLog{
 	
-	public static function logTweetSearch($tweetsCount, $ttsCount, $campaignId){
+	public static function logTweetSearch($tweetsCount, $ttsCount, $campaignId, $message){
 		$log = new TwitterLog();
 		$log->setTweetscount($tweetsCount);
 		$log->setTrendingTopicscount($ttsCount);
 		$log->setCampaignid($campaignId);
+		$log->setMessage($message);
 		$log->save();
 	}
 }

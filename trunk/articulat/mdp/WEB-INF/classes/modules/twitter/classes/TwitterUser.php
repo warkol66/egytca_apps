@@ -59,36 +59,33 @@ class TwitterUser extends BaseTwitterUser{
 	 * */
 	public function addUser($newUser) {
 		//me fijo si el usuario ya existe
-		$existent = TwitterUserQuery::create()->findOneByTwitterUserIdStr($newUser['Twitteruseridstr']);
+		$user = TwitterUserQuery::create()->filterByTwitterUserIdStr($newUser['Twitteruseridstr'])->findOneOrCreate();
 		
-		if(!is_object($existent)){
-			$user = new TwitterUser();
-			$user->fromArray($newUser);
+		$user->fromArray($newUser);
 
-			$followers = $user->getFollowers();
-			$friends = $user->getFriends();
-			$statuses = $user->getStatuses();
-			$ratio = $followers / $friends;
-			$influence = 0;
-			if (($ratio >= 10 && $statuses > 5000)  || $statuses > 75000)
-				$influence = 3;
-			else if (($ratio >= 5 && $ratio < 10 && $statuses > 5000) || $statuses > 35000)
-				$influence = 2;
-			else if (($ratio > .8 && $ratio < 5 && $statuses > 5000) || $statuses > 15000)
-				$influence = 1;
+		$followers = $user->getFollowers();
+		$friends = $user->getFriends();
+		$statuses = $user->getStatuses();
+		$ratio = $followers / $friends;
+		$influence = 0;
+		if (($ratio >= 10 && $statuses > 5000)  || $statuses > 75000)
+			$influence = 3;
+		else if (($ratio >= 5 && $ratio < 10 && $statuses > 5000) || $statuses > 35000)
+			$influence = 2;
+		else if (($ratio > .8 && $ratio < 5 && $statuses > 5000) || $statuses > 15000)
+			$influence = 1;
 
-			$user->setInfluence($influence);
+		$user->setInfluence($influence);
 
-			$user->save();
-			return $user;
-		}
-		return $existent;
+		$user->save();
+		return $user;
 	}
 	
 	public function updateFromTwitter($searchRespone){
 		
 		$this->setDescription($searchRespone->description);
 		$this->setUrl($searchRespone->url);
+		$this->setProfileimage($searchRespone->profile_image_url);
 		$this->setScreenname($searchRespone->screen_name);
 		$this->setName($searchRespone->name);
 		$this->setFollowers($searchRespone->followers_count);

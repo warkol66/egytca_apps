@@ -45,6 +45,8 @@ class TwitterDoParseXAction extends BaseAction {
 							echo "duplicate";*/
 						//$tweets[] = $responseTweet;
 					}
+				}else{
+					TwitterLog::logTweetSearch(0, 0, $campaignId, $searchRespone->errors[0]->message);
 				}
 			}
 			
