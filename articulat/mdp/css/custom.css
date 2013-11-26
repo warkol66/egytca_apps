@@ -995,7 +995,7 @@ table.tableTdBorders {
 	background: none repeat scroll 0 0 #FFFFFF;
 }
 
-.embeddedTweet a{ text-decoration: none; }
+.embeddedTweet a{font: 18px/24px Georgia,"Times New Roman",Palatino,serif; text-decoration: none; }
 
 .embeddedWhole{padding: 4px 8px 8px;}
 
@@ -1012,6 +1012,16 @@ table.tableTdBorders {
     overflow: hidden;
     white-space: pre-wrap;
     word-wrap: break-word;
+}
+
+.embeddedAvatar{
+	left: 0px;
+	background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 4px;
+    height: 48px;
+    position: absolute;
+    top: 4px;
+    width: 48px;
 }
 
 a .full-name{
