@@ -50,13 +50,19 @@ class TwitterFetchTweetsAction extends BaseAction {
 							$tweets[] = $tweet;
 							//$tweets[] = $responseTweet;
 						}
+						
+						TwitterLog::logTweetSearch(count($tweets), 0, $campaignId, 'no error');
+						
+					}else{
+						// logueo el error
+						TwitterLog::logTweetSearch(0, 0, $campaignId, $searchRespone->errors[0]->message);
 					}
 				}
 				
 				//echo "<pre>";print_r($tweets);echo "</pre>";
 			}
 			
-			TwitterLog::logTweetSearch(count($tweets), 0, $campaignId);
+			
 		}
 		
 		// obtengo tts
@@ -68,18 +74,23 @@ class TwitterFetchTweetsAction extends BaseAction {
 			$date = date('Y-m-d H:i:s');
 			
 			$ttsRespone = $twitterConnection->search($query,0,'trends');
-			$ttsRespone = $ttsRespone[0];
-			$order = 0;
-			foreach ($ttsRespone->trends as $response) {
-				$trendingTopic = TwitterTrendingTopic::createFromApiTT($response, $woeid, $order, $date);
-				$trendingTopics[] = $trendingTopic;
-				$order++;
+			if(empty($ttsRespone->errors)){
+				$ttsRespone = $ttsRespone[0];
+				$order = 0;
+				foreach ($ttsRespone->trends as $response) {
+					$trendingTopic = TwitterTrendingTopic::createFromApiTT($response, $woeid, $order, $date);
+					$trendingTopics[] = $trendingTopic;
+					$order++;
+				}
+				
+				TwitterLog::logTweetSearch(0, count($trendingTopics), null, 'no error');
+				
+			}else{
+				TwitterLog::logTweetSearch(0, count($trendingTopics), null, $ttsRespone->errors[0]->message);
 			}
 			
 		}
-		
-		TwitterLog::logTweetSearch(0, count($trendingTopics), null);
-		
+
 		
 		/*echo "tweetsCount: " . $tweetsCount;
 		echo "ttsCount: " . $ttsCount;*/

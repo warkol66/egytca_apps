@@ -98,6 +98,7 @@ class TwitterTweet extends BaseTwitterTweet{
 			'Location' => $apiTweet->user->location,
 			'Description' => $apiTweet->user->description,
 			'Url' => $apiTweet->user->url,
+			'Profileimage' => $apiTweet->user->profile_image_url,
 			'Isprotected' => $apiTweet->user->protected,
 			'Followers' => $apiTweet->user->followers_count,
 			'Friends' => $apiTweet->user->friends_count,
@@ -129,7 +130,7 @@ class TwitterTweet extends BaseTwitterTweet{
 
 			return $tweet;
 		}else{
-			return false;//TwitterTweetQuery::create()->findOneByInternalid($tweet->getInternalId());
+			return false;
 		}
 	}
 	

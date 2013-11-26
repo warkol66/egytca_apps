@@ -12,7 +12,7 @@
 			<div class="embeddedWhole">
 				<div class="embeddedHeader">
 					<div class="embeddedAuthor">
-					<a class="embeddedProfile" aria-label="|-$user->getName()-| (screen name: |-$user->getScreenname()-|)" href="https://twitter.com/|-$user->getScreenname()-|"><span class="full-name">|-$user->getName()-|</span><br /><span class="nickname">@|-$user->getScreenname()-|</span></a>
+					<a class="embeddedProfile" aria-label="|-$user->getName()-| (screen name: |-$user->getScreenname()-|)" href="https://twitter.com/|-$user->getScreenname()-|"><img class="embeddedAvatar" src="|-$user->getProfileimage()-|"><span class="full-name">|-$user->getName()-|</span><br /><span class="nickname">@|-$user->getScreenname()-|</span></a>
 					</div>
 				</div>
 				<div class="embeddedContent"><p>|-$tweet->getText()|twitterHighlight-|</p></div>
