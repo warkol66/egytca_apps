@@ -1,7 +1,5 @@
 <?php
 
-require_once 'TwitterAnalyze.class.php';
-
 class TwitterCampaignsReportViewAction extends BaseEditAction {
 	
 	function __construct() {
@@ -67,9 +65,9 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			$this->smarty->assign("totalTweets",$totalTweets);
 			
 			/* Tendencias personalizadas */
-			$timeline_bank = new timeline_bank();
+			//$timeline_bank = new timeline_bank();
 			
-			$personalTrends = TwitterTweetQuery::getPersonalTrends($campaignId, $timeline_bank);
+			$personalTrends = TwitterTweetQuery::getPersonalTrends($campaignId);
 			$this->smarty->assign("personalTrends",$personalTrends);
 			
 			/*print_r($personalTrends);
