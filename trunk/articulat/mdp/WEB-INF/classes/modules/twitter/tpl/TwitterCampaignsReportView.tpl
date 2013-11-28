@@ -117,6 +117,25 @@
 				</ul>
 			</div>
 		</div>
+		<div id='personalizedTrendingTopics'>
+			<h4>Trending Topics Personalizados</h4>
+			<div id="personalizedTrendingTopicsList">
+				<table border="0" cellspacing="10">
+					<tr>
+						<th>Tópico</th>
+						<th>Usuarios</th>
+						<th>Frecuencia</th>
+					</tr>
+					|-foreach from=$personalTrends key=trend item=ratio name=for_personalTrends-|
+					<tr>
+						<td class="twitterTrendsItem">|-$trend-|</td>
+						<td>|-$ratio['users']-|</td>
+						<td>|-$ratio['frequency']-|</td>
+					</tr>
+					|-/foreach-|
+				</table>
+			</div>
+		</div>
 	 </div>
 </div>
 

@@ -37,7 +37,7 @@ class timeline_bank {
 	 * 			)
 	 */
 	
-	function __construct($campaignId){
+	function __construct(){
 		
 		//holds daata about how many users are using a particular word
 		$this->user_hashtags = array();
@@ -56,16 +56,16 @@ class timeline_bank {
 		$this->associated_tweets = array();
 
 		//hold data we'll need for snapshots
-		$this->user_id = $user_id;
-		$this->snapshot_id = 0;	
-				
-		//IMPORTANT: We are using mysql connection from config.php that was called on analyze.php
+		/*$this->user_id = $user_id;
+		$this->snapshot_id = 0;	*/
 	}
+	
+	/*public function analyze($campaignId, $tweets)
 	
 	function query($query){
 		$res =  mysql_query($query) or die(mysql_error());
 		return $res;
-	}
+	}*/
 	
 	
 	public function insert_hashtag($userdata, $hashtag){
@@ -192,17 +192,17 @@ class timeline_bank {
 		$popular_hashtags = array();
 		
 		foreach($this->discover_hashtags as $hashtag => $frequency){
-			$uniques = count($this->user_hashtags[$hashtag]);
 			
+			$uniques = count($this->user_hashtags[$hashtag]);
 			$total = round(sqrt($frequency) * $uniques, 6);
 			
 			if($total > 3){
-				$popular_hashtags[$hashtag] = $total;
+				$popular_hashtags[$hashtag]['total'] = $total;
+				$popular_hashtags[$hashtag]['users'] = $uniques;
+				$popular_hashtags[$hashtag]['frequency'] = $frequency;
 			}
 		}
 
-	
-	
 		$popular_mentions = array();
 		foreach($this->discover_mentions as $mention => $frequency){
 			$uniques = count($this->user_mentions[$mention]);
@@ -210,24 +210,24 @@ class timeline_bank {
 			$total = round(sqrt($frequency) * $uniques, 6);
 			
 			if($total > 3){
-				$popular_mentions[$mention] = $total;
+				$popular_mentions[$mention]['total'] = $total;
+				$popular_mentions[$mention]['users'] = $uniques;
+				$popular_mentions[$mention]['frequency'] = $frequency;
 			}
 		}
-		
-		
 		
 		$popular_words = array();
 		foreach($this->discover_words as $word => $frequency){
 			$uniques = count($this->user_words[$word]);
 			
 			$total = round(sqrt($frequency/4) * $uniques/(1.1), 6);
-			
-			//if($total > 0){
+
 			if($total > 3){
-				$popular_words[$word] = $total;
+				$popular_words[$word]['total'] = $total;
+				$popular_words[$word]['users'] = $uniques;
+				$popular_words[$word]['frequency'] = $frequency;
 			}	
 		}
-		
 		
 		$popular_phrases = array();
 		foreach($this->discover_phrases as $phrase => $frequency){
@@ -235,12 +235,12 @@ class timeline_bank {
 			
 			$total = round(sqrt($frequency/4) * ((1.1)*$uniques), 6);
 			
-			//if($total > 0){
 			if($total > 3){
-				$popular_phrases[$phrase] = $total;
+				$popular_phrases[$phrase]['total'] = $total;
+				$popular_phrases[$phrase]['users'] = $uniques;
+				$popular_phrases[$phrase]['frequency'] = $frequency;
 			}	
 		}
-		
 		
 		//sort them
 		asort($popular_hashtags);
@@ -264,7 +264,7 @@ class timeline_bank {
 		
 		//limit to the most popular 3 last words to filter out noise
 		$limited_single_words = array_slice($popular_words, -3,3);//limit it to the most popular 2 words
-				
+
 		//combine
 		$hashtags_and_mentions = array_merge($popular_hashtags, $popular_mentions);
 		$words_and_phrases = array_merge($limited_single_words, $popular_phrases);
@@ -273,7 +273,6 @@ class timeline_bank {
 		//sort and reverse
 		asort($result);
 		$result = array_reverse($result);
-
 		
 		//lets go through the top 15 occurances. If there is a phrase in these occurances, we need to remove words in that phrase from the entire result.
 		$x = 0;
@@ -292,21 +291,11 @@ class timeline_bank {
 				$x++;
 			}
 		}
-
-		//check for removal of trends
-		/*$user_id = $this->user_id;
-		$hidden = $this->query("SELECT text FROM hidden_trends WHERE user_id='$user_id'");
-		if(mysql_num_rows($hidden) > 0){
-			while($hidden_word = mysql_fetch_array($hidden)){
-				unset($result[$hidden_word["text"]]);//remove that index from the possible list
-			}
-		}*/
-
 		
-		//now its greatest to least
-		$shortened_result = array_slice($result, 0, 15);
+		//now its 10 greatest to least
+		$shortened_result = array_slice($result, 0, 10);
 	
-		
+		return $shortened_result;
 		$this->result = $shortened_result;
 	}//end prioritize
 
@@ -316,9 +305,6 @@ class timeline_bank {
 		print_r($this->result);
 		echo "<pre>";		
 	}
-
-
-
 
 	public function build_snapshot_and_data(){
 		
@@ -396,11 +382,6 @@ class timeline_bank {
 		$key = $this->snapshot_share_key;
 		echo "<input type='hidden' name='transfering_data' id='snapshot_share_key' value='$key' />";
 	}
-	
-	
-	
-	
-	
 	
 	public function create_snapshot(){
 		//user_id
@@ -487,4 +468,3 @@ class timeline_bank {
 	}
 	
 }
-?>
