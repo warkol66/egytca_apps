@@ -316,9 +316,10 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		return $combinations;
 	}
 	
-	public function getPersonalTrends($campaignId, $timeline_bank){
+	public function getPersonalTrends($campaignId){
+		require_once 'TwitterAnalyze.class.php';
 		
-		//$timeline_bank = new timeline_bank();
+		$timeline_bank = new timeline_bank();
 
 		//punc that irrelevant to trends:
 		$punc = TwitterTweet::getPunctuation();
