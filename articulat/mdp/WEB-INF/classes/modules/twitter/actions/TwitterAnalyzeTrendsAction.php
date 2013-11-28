@@ -16,7 +16,7 @@ class TwitterAnalyzeTrendsAction extends BaseAction {
 		
 		$campaign = CampaignQuery::create()->findOneById($_GET['campaignid']);
 			
-		$timeline_bank = new timeline_bank($_GET["user_id"]);
+		$timeline_bank = new timeline_bank();
 
 		//punc that irrelevant to trends:
 		$punc = TwitterTweet::getPunctuation();
@@ -27,24 +27,37 @@ class TwitterAnalyzeTrendsAction extends BaseAction {
 
 		$current_unix_time = time();
 		
+		//$usage = memory_get_usage();
+		
 		$tweets = TwitterTweetQuery::create()
 			->filterByCampaignid($_GET['campaignid'])
-			->select('TwitterTweet.Text')
 			->filterByStatus(TwitterTweet::ACCEPTED)
+			->joinWith('TwitterTweet.TwitterUser')
+			->select(array('TwitterTweet.Id','TwitterTweet.Text','TwitterUser.Screenname'))
 			->limit(3000)
-			->find();
+			->find()
+			->toArray();
+			
+		//echo memory_get_usage() - $usage;
+		/*echo "<pre>";
+		print_r($tweets);
+		echo "</pre>";
+		die();*/
 		
 		//this is an error checking mechanism [sometimes twitter was returning faulty data]
 		if(!empty($tweets)){
 
 		//lets loop through each tweet
-			foreach($tweets as $text){
+			foreach($tweets as $tweet){
+				
 
 				//lets get the tweet data
-				//$text = $tweet;
+				$text = $tweet['TwitterTweet.Text'];
 		
 				//the all-important words of the tweet
 				$words_of_tweet = explode(" ",strtolower($text));
+				
+				$userdata = array("tweet_id" => $tweet['TwitterTweet.Id'], "screen_name" => $tweet['TwitterUser.Screenname']);
 				
 				//reset/start the last word variable for this tweet
 				$last_word = "";
@@ -105,6 +118,11 @@ class TwitterAnalyzeTrendsAction extends BaseAction {
 
 		//this is the important function, it finds the trends
 		$timeline_bank->prioritize($_GET["debug"]);
+		
+		
+		//holds data about tweets assoicated with that word
+		print_r($timeline_bank->associated_tweets);
+		die();
 		
 		// TODO: guardar las tendencias en una tabla
 

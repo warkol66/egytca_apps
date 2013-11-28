@@ -1,5 +1,7 @@
 <?php
 
+require_once 'TwitterAnalyze.class.php';
+
 class TwitterCampaignsReportViewAction extends BaseEditAction {
 	
 	function __construct() {
@@ -36,11 +38,11 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 				
 			$byRelevance = TwitterTweetQuery::getAllByRelevance($campaignId, $from, $to, null, null, null);
 			// seteo los valores disponibles para usarlos luego en la creacion del grafico
-			if(array_key_exists('positive',$byRelevance[0]))
+			if(array_key_exists('relevant',$byRelevance[0]))
 				$this->smarty->assign('relevant', true);
-			if(array_key_exists('neutral',$byRelevance[0]))
+			if(array_key_exists('neutrally_relevant',$byRelevance[0]))
 				$this->smarty->assign('neutrally_relevant', true);
-			if(array_key_exists('negative',$byRelevance[0]))
+			if(array_key_exists('irrelevant',$byRelevance[0]))
 				$this->smarty->assign('irrelevant', true);
 			
 			// obtengo los usuarios que mas tweets crearon
@@ -63,6 +65,15 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			
 			$totalTweets = TwitterTweetQuery::getTotalTweets($campaignId,$from,$to);
 			$this->smarty->assign("totalTweets",$totalTweets);
+			
+			/* Tendencias personalizadas */
+			$timeline_bank = new timeline_bank();
+			
+			$personalTrends = TwitterTweetQuery::getPersonalTrends($campaignId, $timeline_bank);
+			$this->smarty->assign("personalTrends",$personalTrends);
+			
+			/*print_r($personalTrends);
+			die();*/
 			
 			// posibles valores y relevancias para los filtros
 			$this->smarty->assign("tweetValues",TwitterTweet::getValues());
