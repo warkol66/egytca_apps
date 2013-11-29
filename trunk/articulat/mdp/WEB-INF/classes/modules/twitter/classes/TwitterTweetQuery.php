@@ -316,8 +316,15 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		return $combinations;
 	}
 	
-	public function getPersonalTrends($campaignId){
+	public function getPersonalTrends($campaignId, $from, $to, $value, $relevance, $type){
 		require_once 'TwitterAnalyze.class.php';
+		
+		if(empty($value)) 
+			$value = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
+		if(empty($relevance)) 
+			$relevance = array(0,TwitterTweet::RELEVANT,TwitterTweet::NEUTRALLY_RELEVANT,TwitterTweet::IRRELEVANT);
+		if(empty($type)) 
+			$type = 0;
 		
 		$timeline_bank = new timeline_bank();
 
@@ -331,13 +338,17 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		// obtengo los tweets aceptados
 		$tweets = TwitterTweetQuery::create()
 			->filterByCampaignid($campaignId)
+			->filterByCreatedat(array('min' => $from, 'max' => $to))
 			->filterByStatus(TwitterTweet::ACCEPTED)
+			->filterByValue($value)
+			->filterByRelevance($relevance)
+			->getByType($type)
 			->joinWith('TwitterTweet.TwitterUser')
 			->select(array('TwitterTweet.Id','TwitterTweet.Text','TwitterUser.Screenname'))
 			->limit(3000)
 			->find()
 			->toArray();
-			
+
 		//echo memory_get_usage() - $usage;
 		/*echo "<pre>";
 		print_r($tweets);
