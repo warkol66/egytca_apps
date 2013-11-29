@@ -120,6 +120,9 @@
 		<div id='personalizedTrendingTopics'>
 			<h4>Trending Topics Personalizados</h4>
 			<div id="personalizedTrendingTopicsList">
+				|-if !$personalTrends-|
+				<span class="resultFailure">No hay tweets suficientes para obtener tendencias</span>
+				|-else-|
 				<table border="0" cellspacing="10">
 					<tr>
 						<th>Tópico</th>
@@ -134,6 +137,7 @@
 					</tr>
 					|-/foreach-|
 				</table>
+				|-/if-|
 			</div>
 		</div>
 	 </div>

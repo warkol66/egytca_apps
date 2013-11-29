@@ -67,8 +67,11 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			/* Tendencias personalizadas */
 			//$timeline_bank = new timeline_bank();
 			
-			$personalTrends = TwitterTweetQuery::getPersonalTrends($campaignId);
+			$personalTrends = TwitterTweetQuery::getPersonalTrends($campaignId, $from, $to, null, null, null);
 			$this->smarty->assign("personalTrends",$personalTrends);
+			
+			/*print_r($personalTrends);
+			die();*/
 			
 			/*print_r($personalTrends);
 			die();*/
