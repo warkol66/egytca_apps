@@ -1046,3 +1046,9 @@ a .nickname{
 	color: #707070;
 	font: 12px/16px "Helvetica Neue",Arial,sans-serif;
 }
+
+tr.userTT{background-color: #BBF3E8;}
+tr.hashtagTT{background-color: #EFDFDB;}
+tr.wordTT{background-color: #FDF995;}
+
+td a{color: #007BFF; text-decoration:none;}
