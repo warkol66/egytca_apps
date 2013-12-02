@@ -65,8 +65,9 @@
 						<th>Frecuencia</th>
 					</tr>
 					|-foreach from=$personalTrends key=trend item=ratio name=for_personalTrends-|
-					<tr>
-						<td class="twitterTrendsItem"><a href="#" |-if $trend eq $personalSelected-|class="personalizedSelected"|-/if-| onClick="$j('.personalizedSelected').not(this).removeClass('personalizedSelected');$j(this).toggleClass('personalizedSelected');setValueX(); return false;">|-$trend-|</a></td>
+					|-assign var=start value=substr($trend,0,1)-|
+					<tr class="|-if $start eq '@'-|userTT|-elseif $start eq '#'-|hashtagTT|-else-|wordTT|-/if-|">
+						<td class="twitterTrendsItem"><a href="#" onClick="$j('.personalizedSelected').not(this).removeClass('personalizedSelected');$j(this).toggleClass('personalizedSelected');setValueX(); return false;">|-$trend-|</a></td>
 						<td>|-$ratio['users']-|</td>
 						<td>|-$ratio['frequency']-|</td>
 					</tr>
