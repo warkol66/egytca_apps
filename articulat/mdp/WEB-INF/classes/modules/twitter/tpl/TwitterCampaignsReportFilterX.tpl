@@ -1,4 +1,5 @@
 	<div id="left">
+		<span style="float: left;" class="resultSuccess">Reporte del |-$from-| al |-$to-| |-if isset($personalSelected)-| - tendencia: |-$personalSelected-| |-/if-|</span>
 		<div id="reportMessage"></div>
 		<div id='tweetsByValue'>
 			<h4>Tweets por Valoración</h4>
@@ -65,7 +66,7 @@
 					</tr>
 					|-foreach from=$personalTrends key=trend item=ratio name=for_personalTrends-|
 					<tr>
-						<td class="twitterTrendsItem">|-$trend-|</td>
+						<td class="twitterTrendsItem"><a href="#" |-if $trend eq $personalSelected-|class="personalizedSelected"|-/if-| onClick="$j('.personalizedSelected').not(this).removeClass('personalizedSelected');$j(this).toggleClass('personalizedSelected');setValueX(); return false;">|-$trend-|</a></td>
 						<td>|-$ratio['users']-|</td>
 						<td>|-$ratio['frequency']-|</td>
 					</tr>
