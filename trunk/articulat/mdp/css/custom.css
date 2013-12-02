@@ -1050,5 +1050,6 @@ a .nickname{
 tr.userTT{background-color: #BBF3E8;}
 tr.hashtagTT{background-color: #EFDFDB;}
 tr.wordTT{background-color: #FDF995;}
+tr.phraseTT{background-color: #D8D6A1;}
 
 td a{color: #007BFF; text-decoration:none;}
