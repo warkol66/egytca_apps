@@ -20,30 +20,36 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 		
 		if(is_object($this->entity)){
 			
-			$campaignId = $this->entity->getId();
+			// armo el arreglo de filtros
+			$tweetsFilters = array();
+			
+			$tweetsFilters['campaign'] = $this->entity->getId();
+			
 			// obtengo los graficos con los filtros indicados
-			$type = $_POST['type'];
+			$tweetsFilters['type'] = $_POST['type'];
+			$tweetsFilters['value'] = $_POST['value'];
+			$tweetsFilters['relevance'] = $_POST['relevance'];
+			$tweetsFilters['personalized'] = $_POST['tt'];
+			
+			$this->smarty->assign('personalSelected', $_POST['tt']);
 			
 			// si no es un rango de fechas custom
 			if($_POST['time'] == 'custom' && isset($_POST['from']) && isset($_POST['to'])){
-				$from = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($_POST['from']. ':00')));
-				$to = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($_POST['to']. ':00')));
+				$tweetsFilters['from'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($_POST['from']. ':00')));
+				$tweetsFilters['to'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($_POST['to']. ':00')));
 				
 			}else{
 				if(!empty($_POST['time']))
-					$from = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($_POST['time'])));
+					$tweetsFilters['from'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($_POST['time'])));
 				else
-					$from = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($this->entity->getStartdate())));
-				$to = Common::getDatetimeOnGMT(date('Y-m-d H:i:s'));
+					$tweetsFilters['from'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($this->entity->getStartdate())));
+				$tweetsFilters['to'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s'));
 			}
 			
-			$value = $_POST['value'];
-			$relevance = $_POST['relevance'];
-			
-			$this->smarty->assign('from',$from);
-			$this->smarty->assign('to',$to);
+			$this->smarty->assign('from',$tweetsFilters['from']);
+			$this->smarty->assign('to',$tweetsFilters['to']);
 
-			$byValue = TwitterTweetQuery::getAllByValue($campaignId, $from, $to, $value, $relevance, $type);
+			$byValue = TwitterTweetQuery::getAllByValue($tweetsFilters);
 			// seteo los valores disponibles para usarlos luego en la creacion del grafico
 			if(array_key_exists('positive',$byValue[0]))
 				$this->smarty->assign('positive', true);
@@ -52,8 +58,11 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			if(array_key_exists('negative',$byValue[0]))
 				$this->smarty->assign('negative', true);
 			$this->smarty->assign('byValue', $byValue);
+			
+			/*print_r($byValue);
+			die();*/
 
-			$byRelevance = TwitterTweetQuery::getAllByRelevance($campaignId, $from, $to, $value, $relevance, $type);
+			$byRelevance = TwitterTweetQuery::getAllByRelevance($tweetsFilters);
 			// seteo los valores disponibles para usarlos luego en la creacion del grafico
 			if(array_key_exists('relevant',$byRelevance[0]))
 				$this->smarty->assign('relevant', true);
@@ -64,23 +73,22 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			$this->smarty->assign('byRelevance', $byRelevance);
 			
 			// obtengo los usuarios que mas tweets crearon
-			$topUsers = TwitterUserQuery::getTopUsers($from, $to, $campaignId, $value, $relevance, $type, 5);
-			$influentialUsers = TwitterUserQuery::getInfluentialUsers($from, $to, $campaignId, $value, $relevance, $type);
-			$tweetsAmount = TwitterTweetQuery::getCombinations($campaignId, $from, $to, $value, $relevance);
+			$topUsers = TwitterUserQuery::getTopUsers($tweetsFilters, 5);
+			$influentialUsers = TwitterUserQuery::getInfluentialUsers($tweetsFilters);
+			$tweetsAmount = TwitterTweetQuery::getCombinations($tweetsFilters);
 			/*echo"<pre>"; print_r($relevantUsers); echo"</pre>";
 			die();*/
 			$this->smarty->assign('topUsers', $topUsers);
 			$this->smarty->assign('influentialUsers', $influentialUsers);
 			$this->smarty->assign('tweetsAmount', $tweetsAmount);
-			$this->smarty->assign('trendingTopics', TwitterTrendingTopic::getInRange($from, $to, 10));
+			$this->smarty->assign('trendingTopics', TwitterTrendingTopic::getInRange($tweetsFilters['from'], $tweetsFilters['to'], 10));
 			
-			$totalTweets = TwitterTweetQuery::getTotalTweets($campaignId,$from,$to);
+			$totalTweets = TwitterTweetQuery::getTotalTweets($tweetsFilters['campaign'],$tweetsFilters['from'],$tweetsFilters['to']);
 			$this->smarty->assign('totalTweets',$totalTweets);
 			
 			/* Tendencias personalizadas */
-			//$timeline_bank = new timeline_bank();
 			
-			$personalTrends = TwitterTweetQuery::getPersonalTrends($campaignId);
+			$personalTrends = TwitterTweetQuery::getPersonalTrends($tweetsFilters);
 			$this->smarty->assign("personalTrends",$personalTrends);
 
 		}

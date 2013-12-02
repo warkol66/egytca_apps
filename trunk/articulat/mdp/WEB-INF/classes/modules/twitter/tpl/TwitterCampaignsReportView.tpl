@@ -131,7 +131,7 @@
 					</tr>
 					|-foreach from=$personalTrends key=trend item=ratio name=for_personalTrends-|
 					<tr>
-						<td class="twitterTrendsItem">|-$trend-|</td>
+						<td class="twitterTrendsItem"><a href="#" onClick="$j('.personalizedSelected').not(this).removeClass('personalizedSelected');$j(this).toggleClass('personalizedSelected');setValueX(); return false;">|-$trend-|</a></td>
 						<td>|-$ratio['users']-|</td>
 						<td>|-$ratio['frequency']-|</td>
 					</tr>
@@ -194,9 +194,13 @@
 			var from = $j('#dateFrom').val();
 			var to = $j('#dateTo').val();
 		}
+		var personal = $j('.personalizedSelected').text();
+		
+		console.log(personal);
+		
 		$j.ajax({
 			url: 'Main.php?do=twitterCampaignsReportFilterX',
-			data: {id: '|-$campaign->getId()-|', value: val, relevance: rel, type: type, time: time, from: from, to: to},
+			data: {id: '|-$campaign->getId()-|', value: val, relevance: rel, type: type, time: time, from: from, to: to, tt: personal},
 			type: 'post',
 			success: function(data){
 				$j('#content').html(data);
@@ -245,7 +249,8 @@
 		.append($j('<input>', {'name': 'relevance','value': $j('.relevanceSelected').val(),'type': 'hidden'}))
 		.append($j('<input>', {'name': 'time','value': $j('.timeSelected').val(),'type': 'hidden'}))
 		.append($j('<input>', {'name': 'type','value': $j('.typeSelected').val(),'type': 'hidden'}))
-		.append($j('<input>', {'name': 'filters[campaignid]','value': '|-$campaign->getId()-|','type': 'hidden'}));
+		.append($j('<input>', {'name': 'filters[campaignid]','value': '|-$campaign->getId()-|','type': 'hidden'}))
+		.append($j('<input>', {'name': 'tt','value': $j('.personalizedSelected').text(),'type': 'hidden'}));
 		$j('body').append(newForm);
 		
 		console.log(newForm);

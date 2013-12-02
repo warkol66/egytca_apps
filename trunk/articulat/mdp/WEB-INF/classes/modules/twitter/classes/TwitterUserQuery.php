@@ -38,23 +38,25 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 	/* Obtiene los usuarios con mas tweets
 	 * 
 	 * */
-	public function getTopUsers($from = null, $to = null, $campaign, $value, $relevance, $type, $count = 10){
+	public function getTopUsers($filters, $count = 10){
 		
-		if(empty($value)) 
-			$value = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
-		if(empty($relevance)) 
-			$relevance = array(0,TwitterTweet::RELEVANT,TwitterTweet::NEUTRALLY_RELEVANT,TwitterTweet::IRRELEVANT);
-		if(empty($type)) 
-			$type = 0;
+		if(empty($filters['value'])) 
+			$filters['value'] = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
+		if(empty($filters['relevance'])) 
+			$filters['relevance'] = array(0,TwitterTweet::RELEVANT,TwitterTweet::NEUTRALLY_RELEVANT,TwitterTweet::IRRELEVANT);
+		if(empty($filters['type']))
+			$filters['type'] = 0;
+		$personal = $filters['personalized'];
 			
 		$tops = TwitterTweetQuery::create()
 			->withColumn('count(TwitterTweet.Id)', 'tweets')
-			->filterByCampaignid($campaign)
-			->filterByValue($value)
-			->filterByRelevance($relevance)
-			->getByType($type)
+			->filterByCampaignid($filters['campaign'])
+			->filterByValue($filters['value'])
+			->filterByRelevance($filters['relevance'])
+			->getByType($filters['type'])
 			->filterByStatus(TwitterTweet::ACCEPTED)
-			->filterByCreatedat(array('min' => $from,'max' => $to))
+			->filterByText("%$personal%", Criteria::LIKE)
+			->filterByCreatedat(array('min' => $filters['from'],'max' => $filters['to']))
 			->groupByInternaltwitteruserid()
 //			->groupBy('TwitterTweet.Internaltwitteruserid')
 			->orderBy('TwitterTweet.tweets', 'desc')
@@ -63,12 +65,6 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 
 		$users = array();
 		
-/*		foreach($tops as $top){
-			$users[$i]['user'] = $top->getTwitterUser();
-		}
-		
-		return $users;
-*/		
 		$i = 0;
 		foreach($tops as $top){
 			$users[$i]['user'] = $top->getTwitterUser();
@@ -81,13 +77,14 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 	/* Obtiene los usuarios mas influyentes
 	 * 
 	 * */
-	public function getInfluentialUsers($from, $to, $campaign, $value, $relevance, $type, $count = 10){
-		if(empty($value)) 
-			$value = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
-		if(empty($relevance)) 
-			$relevance = array(0,TwitterTweet::RELEVANT,TwitterTweet::NEUTRALLY_RELEVANT,TwitterTweet::IRRELEVANT);
-		if(empty($type)) 
-			$type = 0;
+	public function getInfluentialUsers($filters, $count = 10){
+		if(empty($filters['value'])) 
+			$filters['value'] = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
+		if(empty($filters['relevance'])) 
+			$filters['relevance'] = array(0,TwitterTweet::RELEVANT,TwitterTweet::NEUTRALLY_RELEVANT,TwitterTweet::IRRELEVANT);
+		if(empty($filters['type'])) 
+			$filters['type'] = 0;
+		$personal = $filters['personalized'];
 		
 		$influential = TwitterUserQuery::create()
 			->filterByInfluence(TwitterUser::NEUTRAL)
@@ -95,11 +92,12 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 			->useTwitterTweetQuery()
 				->groupByInternaltwitteruserid()
 				->filterByStatus(TwitterTweet::ACCEPTED)
-				->filterByCampaignid($campaign)
-				->filterByValue($value)
-				->filterByRelevance($relevance)
-				->getByType($type)
-				->filterByCreatedat(array('min' => $from,'max' => $to))
+				->filterByText("%$personal%", Criteria::LIKE)
+				->filterByCampaignid($filters['campaign'])
+				->filterByValue($filters['value'])
+				->filterByRelevance($filters['relevance'])
+				->getByType($filters['type'])
+				->filterByCreatedat(array('min' => $filters['from'],'max' => $filters['to']))
 			->endUse()
 			->limit($count)
 			->find();

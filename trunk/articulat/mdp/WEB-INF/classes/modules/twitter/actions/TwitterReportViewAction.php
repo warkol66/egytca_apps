@@ -32,6 +32,8 @@ class TwitterReportViewAction extends BaseListAction {
 			$this->filters['type'] = $_POST['type'];
 
 		$this->filters['status'] = TwitterTweet::ACCEPTED;
+		$this->filters['textLike'] = $_POST['tt'];
+		
 		$this->filters['orderByCreatedat'] = "desc";
 
 		
@@ -44,7 +46,7 @@ class TwitterReportViewAction extends BaseListAction {
 			if(!empty($_POST['time']))
 				$this->filters['dateRange']['createdat']['min'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($_POST['time'])));
 			else
-				$this->filters['dateRange']['createdat']['min'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($this->entity->getStartdate())));
+				$this->filters['dateRange']['createdat']['min'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($campaign->getStartdate())));
 			
 			$this->filters['dateRange']['createdat']['max'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s'));
 		}
