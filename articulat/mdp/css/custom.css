@@ -1055,28 +1055,62 @@ ul.personalTTMenu{
 	list-style-type:none;
 }
 
-ul.personalTTMenu li a
-{
-float:left;
-width:6em;
-text-decoration:none;
-color:#797979;
-background-color:#C0E8F5;
-padding:0.2em 0.6em;
-border-right:1px solid white;
+ul.personalTTMenu li a {
+	float:left;
+	font-weight: bold;
+/*	width:6em;*/
+	text-decoration:none;
+	color:#797979;
+	background-color:#C0E8F5;
+	margin: 0.35em;
+	padding: 0.5em;
+	/*border-right:1px solid white;*/
+	border-radius: 5px;
+
 }
-ul.personalTTMenu li a.ttAmountSelected, ul.personalTTMenu li a.ttFilterSelected{
-background-color:#99b9c4;
+ul.personalTTMenu li a.ttAmountSelected,
+ul.personalTTMenu li a.ttFilterSelected{
+	background-color:#fff !Important;
+	color: #cdcdcd;
+	border: 1px solid #cdcdcd;
 }
 
 ul.personalTTMenu li a:hover {background-color:#99b9c4;}
 ul.personalTTMenu li {display:inline;}
 
-.personalTTTable{ float:left;}
+.personalTTTable{
+	float:left;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-spacing: 4px;
+}
+.personalTTTable td{
+	padding:0.35em;
+	border-radius: 5px;
+	border: 1px solid white;
+}
+ul.personalTTMenu li a.btnUserTT,
+tr.userTT td{
+	background-color: #CCF5EF;
+}
+ul.personalTTMenu li a.btnHashtagTT,
+tr.hashtagTT td{
+	background-color: #EFE9DC;
+}
+ul.personalTTMenu li a.btnWordTT,
+tr.wordTT td{
+	background-color: #FFFFDD;
+}
+ul.personalTTMenu li a.btnPhraseTT,
+tr.phraseTT td{
+	background-color: #AAFEFF;
+}
 
-tr.userTT{background-color: #BBF3E8;}
-tr.hashtagTT{background-color: #EFDFDB;}
-tr.wordTT{background-color: #FDF995;}
-tr.phraseTT{background-color: #D8D6A1;}
+.personalTTTable td a{
+	color: #007BFF;
+	text-decoration:none;
+	font-weight: bold;
+}
 
-td a{color: #007BFF; text-decoration:none;}
+.personalTTTable {
+}
