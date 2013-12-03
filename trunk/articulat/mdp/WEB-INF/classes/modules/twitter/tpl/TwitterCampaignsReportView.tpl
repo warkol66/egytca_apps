@@ -124,25 +124,26 @@
 				<span class="resultFailure">No hay tweets suficientes para obtener tendencias</span>
 				|-else-|
 				<ul class="personalTTMenu">
-					<li><a href="#" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.phraseTT, .hashtagTT, .wordTT, .userTT').show(); return false;">Todos</a></li>
-					<li><a href="#" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.phraseTT, .hashtagTT, .wordTT, .userTT').hide().filter(':lt(10)').show(); ; return false;">Top 10</a></li>
-					<li><a href="#" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.userTT').show(); $j('.phraseTT, .hashtagTT, .wordTT').hide(); return false;">Usuarios</a></li>
-					<li><a href="#" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.hashtagTT').show(); $j('.phraseTT, .userTT, .wordTT').hide(); return false;">Hashtags</a></li>
-					<li><a href="#" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.wordTT').show(); $j('.userTT, .phraseTT, .hashtagTT').hide(); return false;">Palabras</a></li>
-					<li><a href="#" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.phraseTT').show(); $j('.userTT, .hashtagTT, .wordTT').hide(); return false">Frases</a></li>
+					<li><a href="#" class="ttFilterSelected" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.phraseTT, .hashtagTT, .wordTT, .userTT').hide().filter(':lt(10)').show(); ; return false;" title="Filtrar primeros 10">Top 10</a></li>
+					<li><a href="#" class="btnUserTT" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.userTT').show(); $j('.phraseTT, .hashtagTT, .wordTT').hide(); return false;" title="Filtrar solo usuarios">@</a></li>
+					<li><a href="#" class="btnHashtagTT" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.hashtagTT').show(); $j('.phraseTT, .userTT, .wordTT').hide(); return false;" title="Filtrar solo hastags">#</a></li>
+					<li><a href="#" class="btnWordTT" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.wordTT').show(); $j('.userTT, .phraseTT, .hashtagTT').hide(); return false;" title="Filtrar solo palabras">Palabras</a></li>
+					<li><a href="#" class="btnPhraseTT" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.phraseTT').show(); $j('.userTT, .hashtagTT, .wordTT').hide(); return false" title="Filtrar solo frases">Frases</a></li>
+					<li><a href="#" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.phraseTT, .hashtagTT, .wordTT, .userTT').show(); return false;" title="Ver todos">Todos</a></li>
 				</ul>
-				<table border="0" cellspacing="10" class="personalTTTable">
+				<br clear="all">
+				<table cellpadding="6" cellspacing="0" class="personalTTTable">
 					<tr>
 						<th>Tópico</th>
-						<th>Usuarios</th>
+						<th>Tweets</th>
 						<th>Frecuencia</th>
 					</tr>
 					|-foreach from=$personalTrends key=trend item=ratio name=for_personalTrends-|
 					|-assign var=start value=substr($trend,0,1)-|
 					<tr class="|-if $start eq '@'-|userTT|-elseif $start eq '#'-|hashtagTT|-elseif preg_match('/\s/',$trend)-|phraseTT|-else-|wordTT|-/if-|" |-if $smarty.foreach.for_personalTrends.index >= 10-|style="display:none;"|-/if-|>
 						<td class="twitterTrendsItem"><a href="#" onClick="$j('.personalizedSelected').not(this).removeClass('personalizedSelected');$j(this).toggleClass('personalizedSelected');setValueX(); return false;">|-$trend-|</a></td>
-						<td>|-$ratio['users']-|</td>
-						<td>|-$ratio['frequency']-|</td>
+						<td align="center">|-$ratio['users']-|</td>
+						<td align="center">|-$ratio['frequency']-|</td>
 					</tr>
 					|-/foreach-|
 				</table>
