@@ -131,7 +131,6 @@
 					<li><a href="#" class="btnPhraseTT" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.phraseTT').show(); $j('.userTT, .hashtagTT, .wordTT').hide(); return false" title="Filtrar solo frases">Frases</a></li>
 					<li><a href="#" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.phraseTT, .hashtagTT, .wordTT, .userTT').show(); return false;" title="Ver todos">Todos</a></li>
 				</ul>
-				<br clear="all">
 				<table cellpadding="6" cellspacing="0" class="personalTTTable">
 					<tr>
 						<th>Tópico</th>
