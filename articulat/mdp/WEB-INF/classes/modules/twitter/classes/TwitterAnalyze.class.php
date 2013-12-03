@@ -293,9 +293,9 @@ class timeline_bank {
 		}
 		
 		//now its 10 greatest to least
-		$shortened_result = array_slice($result, 0, 10);
+		//$shortened_result = array_slice($result, 0, 10);
 	
-		return $shortened_result;
+		return $result;
 		$this->result = $shortened_result;
 	}//end prioritize
 
