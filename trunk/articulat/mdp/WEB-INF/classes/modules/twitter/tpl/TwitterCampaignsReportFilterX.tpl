@@ -59,9 +59,9 @@
 				<span class="resultFailure">No hay tweets suficientes para obtener tendencias</span>
 				|-else-|
 				<ul class="personalTTMenu">
-					<li><a href="#" onClick="$j('.ttAmountSelected').not(this).removeClass('ttAmountSelected');$j(this).toggleClass('ttAmountSelected'); $j('.phraseTT, .hashtagTT, .wordTT, userTT').show(); return false;">Todos</a></li>
-					<li><a href="#" onClick="$j('.ttAmountSelected').not(this).removeClass('ttAmountSelected');$j(this).toggleClass('ttAmountSelected'); $j('.phraseTT, .hashtagTT, .wordTT, userTT').show(); return false;">Primeros 10</a></li>
-					<li><a href="#" onClick="$j('.personalizedSelected').not(this).removeClass('personalizedSelected');$j(this).toggleClass('personalizedSelected'); $j('.userTT').show(); $j('.phraseTT, .hashtagTT, .wordTT').hide(); return false;">Usuarios</a></li>
+					<li><a href="#" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.phraseTT, .hashtagTT, .wordTT, .userTT').show(); return false;">Todos</a></li>
+					<li><a href="#" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.phraseTT, .hashtagTT, .wordTT, .userTT').hide().filter(':lt(10)').show(); ; return false;">Top 10</a></li>
+					<li><a href="#" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.userTT').show(); $j('.phraseTT, .hashtagTT, .wordTT').hide(); return false;">Usuarios</a></li>
 					<li><a href="#" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.hashtagTT').show(); $j('.phraseTT, .userTT, .wordTT').hide(); return false;">Hashtags</a></li>
 					<li><a href="#" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.wordTT').show(); $j('.userTT, .phraseTT, .hashtagTT').hide(); return false;">Palabras</a></li>
 					<li><a href="#" onClick="$j('.ttFilterSelected').not(this).removeClass('ttFilterSelected');$j(this).toggleClass('ttFilterSelected'); $j('.phraseTT').show(); $j('.userTT, .hashtagTT, .wordTT').hide(); return false">Frases</a></li>
