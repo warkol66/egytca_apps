@@ -1047,6 +1047,33 @@ a .nickname{
 	font: 12px/16px "Helvetica Neue",Arial,sans-serif;
 }
 
+ul.personalTTMenu{
+	float:left;
+	width:100%;
+	padding:0;
+	margin:0;
+	list-style-type:none;
+}
+
+ul.personalTTMenu li a
+{
+float:left;
+width:6em;
+text-decoration:none;
+color:#797979;
+background-color:#C0E8F5;
+padding:0.2em 0.6em;
+border-right:1px solid white;
+}
+ul.personalTTMenu li a.ttAmountSelected, ul.personalTTMenu li a.ttFilterSelected{
+background-color:#99b9c4;
+}
+
+ul.personalTTMenu li a:hover {background-color:#99b9c4;}
+ul.personalTTMenu li {display:inline;}
+
+.personalTTTable{ float:left;}
+
 tr.userTT{background-color: #BBF3E8;}
 tr.hashtagTT{background-color: #EFDFDB;}
 tr.wordTT{background-color: #FDF995;}
