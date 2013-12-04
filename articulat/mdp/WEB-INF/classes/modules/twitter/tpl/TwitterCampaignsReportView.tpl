@@ -69,7 +69,7 @@
 		<div id='tweetsByValue'>
 			<h4>Tweets por Valoración</h4>
 			|-assign var=posCount value=count($positive)-|
-			<p>Del |-$from|date_format:'%d/%m/%Y'-| al |-$to|date_format:'%d/%m/%Y'-|<br />Total: |-$totalTweets-|</p>
+			<p>Del |-$from|date_format:'%d/%m/%Y'-| al |-$to|date_format:'%d/%m/%Y'-|<br />Total: |-$byValueTotal-|</p>
 			<div id='byValueMessage'></div>
 			<div id='byValueChart' height='250'></div>
 		</div>
@@ -93,7 +93,7 @@
 		 <div id='tweetsByRelevance'>
 			<h4>Tweets por Relevancia</h4>
 			|-assign var=posCount value=count($positive)-|
-			<p>Del |-$from|date_format:'%d/%m/%Y'-| al |-$to|date_format:'%d/%m/%Y'-|<br />Total: |-$totalTweets-|</p>
+			<p>Del |-$from|date_format:'%d/%m/%Y'-| al |-$to|date_format:'%d/%m/%Y'-|<br />Total: |-$byRelevanceTotal-|</p>
 			<div id='byRelevanceMessage'></div>
 			<div id='byRelevanceChart'></div>
 		</div>
