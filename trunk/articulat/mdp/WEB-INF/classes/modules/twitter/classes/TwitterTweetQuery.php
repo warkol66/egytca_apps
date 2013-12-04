@@ -283,10 +283,11 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		return $byRelevance;
 	}
 	
-	public static function getTotalTweets($campaign, $from, $to){
+	/*No esta en uso*/
+	public static function getTotalTweets($filters){
 		$totalTweets = TwitterTweetQuery::create()
-			->filterByCampaignid($campaign)
-			->filterByCreatedat(array('min' => $from, 'max' => $to))
+			->filterByCampaignid($filters['campaign'])
+			->filterByCreatedat(array('min' => $filters['from'], 'max' => $filters['to']))
 			->filterByStatus(TwitterTweet::ACCEPTED)
 			->find();
 			

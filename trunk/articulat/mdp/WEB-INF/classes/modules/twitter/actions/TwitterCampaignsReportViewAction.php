@@ -26,6 +26,10 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			$tweetsFilters['to'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($this->entity->getFinishdate())));
 
 			$byValue = TwitterTweetQuery::getAllByValue($tweetsFilters);
+			$byValueTotal = 0;
+			foreach($byValue as $date){
+				$byValueTotal += $date['positive'] + $date['neutral'] + $date['negative'];
+			}
 			// seteo los valores disponibles para usarlos luego en la creacion del grafico
 			if(array_key_exists('positive',$byValue[0]))
 				$this->smarty->assign('positive', true);
@@ -35,6 +39,10 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 				$this->smarty->assign('negative', true);
 				
 			$byRelevance = TwitterTweetQuery::getAllByRelevance($tweetsFilters);
+			$byRelevanceTotal = 0;
+			foreach($byRelevance as $date){
+				$byRelevanceTotal += $date['relevance'] + $date['neutrally_relevant'] + $date['irrelevant'];
+			}
 			// seteo los valores disponibles para usarlos luego en la creacion del grafico
 			if(array_key_exists('relevant',$byRelevance[0]))
 				$this->smarty->assign('relevant', true);
@@ -53,16 +61,15 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			/*echo"<pre>"; print_r($tweetsAmount); echo"</pre>";
 			die();*/
 			$this->smarty->assign('byValue', $byValue);
+			$this->smarty->assign('byValueTotal', $byValueTotal);
 			$this->smarty->assign('byRelevance', $byRelevance);
+			$this->smarty->assign('byRelevanceTotal', $byRelevanceTotal);
 			$this->smarty->assign('topUsers', $topUsers);
 			$this->smarty->assign('influentialUsers', $influentialUsers);
 			$this->smarty->assign('tweetsAmount', $tweetsAmount);
 			$this->smarty->assign('trendingTopics', TwitterTrendingTopic::getLatest(10));
 			/*echo"<pre>"; print_r($byValue); echo"</pre>";
 			die();*/
-			
-			$totalTweets = TwitterTweetQuery::getTotalTweets($tweetsFilters['campaign'],$tweetsFilters['from'],$tweetsFilters['to']);
-			$this->smarty->assign("totalTweets",$totalTweets);
 			
 			/* Tendencias personalizadas */
 			$personalTrends = TwitterTweetQuery::getPersonalTrends($tweetsFilters);
