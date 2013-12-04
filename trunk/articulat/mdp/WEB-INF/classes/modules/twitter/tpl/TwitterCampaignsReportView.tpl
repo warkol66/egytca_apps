@@ -85,7 +85,10 @@
 		</div>
 		<div id='tweetsByGroup'>
 			<h4>Tweets por grupo</h4>
-			<div id='bubbleGroupChart' ></div>
+			<div id="tweetsByGroupText">
+				Se muestran los resultados de la intersección de valoración y relevancia, donde el tamaño de la burbuja relfeja la cantidad de menajes de esa intersección.
+			</div>
+			<div id='bubbleGroupChart'></div>
 		</div>
 	  </div>
 

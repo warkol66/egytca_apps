@@ -20,7 +20,10 @@
 		</div>
 		<div id='tweetsByGroup'>
 			<h4>Tweets por grupo</h4>
-			<div id='bubbleGroupChart' ></div>
+			<div id="tweetsByGroupText">
+				Se muestran los resultados de la intersección de valoración y relevancia, donde el tamaño de la burbuja relfeja la cantidad de menajes de esa intersección.
+			</div>
+			<div id='bubbleGroupChart'></div>
 		</div>
 	  </div>
 
@@ -74,7 +77,7 @@
 					</tr>
 					|-foreach from=$personalTrends key=trend item=ratio name=for_personalTrends-|
 					|-assign var=start value=substr($trend,0,1)-|
-					<tr class="|-if $start eq '@'-|userTT|-elseif $start eq '#'-|hashtagTT|-elseif preg_match('/\s/',$trend)-|phraseTT|-else-|wordTT|-/if-|">
+					<tr class="|-if $start eq '@'-|userTT|-elseif $start eq '#'-|hashtagTT|-elseif preg_match('/\s/',$trend)-|phraseTT|-else-|wordTT|-/if-|" |-if $smarty.foreach.for_personalTrends.index >= 10-|style="display:none;"|-/if-|>
 						<td class="twitterTrendsItem"><a href="#" onClick="$j('.personalizedSelected').not(this).removeClass('personalizedSelected');$j(this).toggleClass('personalizedSelected');setValueX(); return false;">|-$trend-|</a></td>
 						<td align="center">|-$ratio['users']-|</td>
 						<td align="center">|-$ratio['frequency']-|</td>

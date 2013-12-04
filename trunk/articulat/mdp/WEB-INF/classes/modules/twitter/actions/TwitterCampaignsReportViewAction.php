@@ -41,7 +41,7 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			$byRelevance = TwitterTweetQuery::getAllByRelevance($tweetsFilters);
 			$byRelevanceTotal = 0;
 			foreach($byRelevance as $date){
-				$byRelevanceTotal += $date['relevance'] + $date['neutrally_relevant'] + $date['irrelevant'];
+				$byRelevanceTotal += $date['relevant'] + $date['neutrally_relevant'] + $date['irrelevant'];
 			}
 			// seteo los valores disponibles para usarlos luego en la creacion del grafico
 			if(array_key_exists('relevant',$byRelevance[0]))
