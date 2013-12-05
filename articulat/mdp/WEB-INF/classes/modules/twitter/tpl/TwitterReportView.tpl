@@ -5,6 +5,7 @@
 			<tr class="thFillTitle">
 					<th width="50%">Texto</th> 
 					<th width="21%">Usuario</th> 
+					<th width="21%">Ubicación</th> 
 					<th width="5%">Fecha</th> 
 					<th width="1%">Valoración</th> 
 					<th width="1%">Relevancia</th> 
@@ -21,6 +22,7 @@
 			<tr id="tr_|-$tweet->getId()-|">
 				<td>|-$tweet->getText()|twitterHighlight-|</td>
 				<td>|-if is_object($user)-||-$user->getName()-||-/if-|</td>
+				<td>|-if is_object($user)-||-$user->getLocation()-||-/if-|</td>
 				<td>|-$tweet->getCreatedat()|date_format:"%d-%m-%Y %H:%m"|change_timezone-|</td>
 				<td>|-$values[$tweet->getValue()]-|</td> 
 				<td>|-$relevances[$tweet->getRelevance()]-|</td>
