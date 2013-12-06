@@ -31,6 +31,10 @@
 
 <script type="text/javascript">
 	|-if isset($selectedTTFilter)-|
+		console.log('|-$selectedTTFilter-|');
+		$j('.ttFilterSelected').removeClass('ttFilterSelected');
+		$j("ul.personalTTMenu li a:contains('|-$selectedTTFilter-|')").addClass('ttFilterSelected');
+		console.log($j("ul.personalTTMenu li a:contains('|-$selectedTTFilter-|')"));
 		showPersonalTT('|-$selectedTTFilter-|');
 	|-/if-|
 	
