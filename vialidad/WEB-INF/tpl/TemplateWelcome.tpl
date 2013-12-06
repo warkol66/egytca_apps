@@ -21,7 +21,7 @@
 	<b class="rounded"><b class="rtop"><b class="r7"></b><b class="r6"></b><b class="r5"></b><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r1"></b></b></b>
 	<!-- Begin Header -->
 	<div id="header">
-		<div id="headerLogo"><img src="images/logo2.gif" /></div>
+		<div id="headerLogo"><img src="images/logo_new.png" /></div>
 		<a href="Main.php"><strong>|-$parameters.siteName-|</strong></a>
 	</div>
 		<!-- End Header -->

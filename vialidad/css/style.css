@@ -70,11 +70,11 @@
 	display: block;
 }
 #header a{
-	width:115px;
-	height: 35px;
+	width:256px;
+	height: 78px;
 	float: left;
 	display: block;
-	margin: 8px 0 0 8px;
+	margin: 26px 0 0 8px;
 }
 #header a strong{
 	display:none;

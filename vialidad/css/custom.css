@@ -17,11 +17,11 @@ body {
 	margin-right: auto !Important;
 }
 #loginTop { 
-	background-image:url(../images/logo2.gif);
-	background-position: top center;
-	background-repeat:no-repeat;
-	background-color: #FF9900;
-	height: 50px;
+	background-image:url(../images/logo-mopc.png);
+	background-repeat: no-repeat;
+	background-position: 10px center;
+	height: 70px;
+	border-bottom: 5px solid #DA921B;
 }
 #loginContent, #passRecovery { 
 	background-image:url(../images/loginContent.png);
@@ -57,32 +57,42 @@ body {
 	background-repeat: no-repeat;
 }
 #loginContentWrapper { 
+	background-image: url(../images/textura_gris_claro.png);
+	background-repeat: repeat;
 	background-color: #FFFFFF;
-	border-left: solid 5px #0066cc;
-	border-right: solid 5px #0066cc;
+	border: solid 5px #DA921B;
+	border-radius: 15px;
 }
 /*  /LOGIN  -----------------------------------------------*/
 
 /* wrapper -----------------------------------------------------------*/ 
 #wrapper {
+	background-image: url(../images/linea_naranja.png);
+	background-repeat: repeat-x;
 }
 #header {
-	background-image: url(../images/logo1.gif);
-	background-position: left;
-	background-repeat: no-repeat;
-	background-color: #FF9900;
-	border-bottom: 5px solid transparent;
-	border-left: solid 5px transparent;
-	border-right: solid 5px transparent;
+	margin-top: 5px;
+	background-image: url(../images/textura_gris_claro.png);
+	background-repeat: repeat;
 	float: left;
+	height: 84px;
+	border-bottom: 20px solid #DA921B;
+	border-left: 0px;
+	border-right: 0px;
+}
+#header a {
+	background-image: url(../images/logo-mopc.png);
+	background-repeat: no-repeat;
+	background-repeat: left bottom;	
 }
 #headerLogo {
 	float: right;
 	margin-right: 10px;
+	margin-top: 5px;
 }
 #separatorHeader {
 	background-color: #eeecde;
-	height: 25px;
+	height: 15px;
 	clear: both;
 }
 #contentWrapper { 
@@ -115,7 +125,7 @@ body {
 	clear: both;
 }
 #footer { 
-	background-color: #FF9900;
+	background-color: #DA921B;
 	border-bottom: solid 5px transparent;
 	border-left: solid 5px transparent;
 	border-right: solid 5px transparent;
@@ -124,18 +134,18 @@ body {
 	color: #ffffff;
 }
 .rounded .r1, .rounded .r2, .rounded .r3, .rounded .r4, .rounded .r5, .rounded .r6, .rounded .r7 {
-	border-color: #0066cc;
+	border-color: #DA921B;
 }
 .rounded .r3, .rounded .r4, .rounded .r5, .rounded .r6, .rounded .r7 {
-	background-color: #0066cc;
+	background-color: #DA921B;
 }
 .rounded .r1, .rounded .r2 {
-	background-color: #FFFFFF;  /* Mismo color de fondo del header*/
+/*	background-color: #FFFFFF;  /* Mismo color de fondo del header*/
 }
 #loginTopBorder .rounded .r1, #loginTopBorder .rounded .r2 {
-	background-color: #FF9900;  /* Mismo color de fondo #loginTop */
+/*	background-color: #FF9900;  /* Mismo color de fondo #loginTop */
 }
-#wrapper .rounded {display: none}
+#wrapper .rounded, #login .rounded {display: none}
 /* /wrapper -----------------------------------------------------------*/ 
 
 /* content -----------------------------------------------------------*/ 
@@ -168,7 +178,7 @@ body {
 
 /* MENU NAVEGACION   */
 #leftColumn ul { 
-	background-color: #ffbc58;
+	background-color: #DA921B; /*#ffbc58;*/
 }
 
 #leftColumn li { 
@@ -176,7 +186,7 @@ body {
 /*	border-top: solid 1px #FFF;	*/
 }
 #leftColumn li a { 
-	color: #000;
+	color: #FFF;
 }
 #leftColumn li a:hover { 
 	background-color:#fddaa5;
