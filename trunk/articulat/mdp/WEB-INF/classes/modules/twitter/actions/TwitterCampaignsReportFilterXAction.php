@@ -32,6 +32,7 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			$tweetsFilters['personalized'] = $_POST['tt'];
 			
 			$this->smarty->assign('personalSelected', $_POST['tt']);
+			$this->smarty->assign('selectedTTFilter', $_POST['ttFilter']);
 			
 			// si no es un rango de fechas custom
 			if($_POST['time'] == 'custom' && isset($_POST['from']) && isset($_POST['to'])){
