@@ -951,7 +951,7 @@ table.tableTdBorders {
 
 #tweetsByValue{ width: 300px;}
 
-#usersChart, #bubbleChart{height: 400px;}
+#usersChart, #bubbleChart{height:auto /* 400px*/;}
 
 #influentialUsersTweetsChart{ margin-bottom: 30px;}
 
@@ -1118,4 +1118,30 @@ tr.phraseTT td{
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
+}
+#byValueChart svg,
+#byRelevanceChart svg,
+#usersChart svg,
+#influentialUsersChart svg,
+#bubbleGroupChart svg {
+	border: 1px solid #545454;
+	background-color: White;
+	box-shadow: 5px 5px 3px #cdcdcd;
+	clear: both;
+}
+#usersChart svg,
+#influentialUsersChart svg {
+		padding: 3em;
+}
+
+g.g rect, g.legend rect, g.slice path, g.node circle {
+	color: #B5B5B5;
+  stroke: #B5B5B5;
+	stroke-width: 1px;
+}
+g.slice path, g.node circle {
+fill-opacity: .65;
+}
+g.slice path:hover, g.node circle:hover /*,g.g rect:hover, g.legend rect:hover*/ {
+fill-opacity: .15;
 }
