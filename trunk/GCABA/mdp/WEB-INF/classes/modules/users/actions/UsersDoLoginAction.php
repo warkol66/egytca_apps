@@ -15,42 +15,48 @@ class UsersDoLoginAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
+		if($smarty == NULL)
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
 
 		$module = "Users";
-		$smarty->assign("module",$module);
 
-		if (Common::hasUnifiedLogin()) {
-			$smarty->assign("unifiedLogin",true);
+		if (Common::hasUnifiedLogin())
 			Common::setValueUnifiedLoginCookie($_POST['select']);
-		}
 
-		if (Common::hasUnifiedUsernames()) {
-			$smarty->assign("unifiedLogin",true);
+		if (Common::hasUnifiedUsernames())
 			Common::setValueUnifiedLoginCookie($_POST['select']);
-		}
-
+			
 		if (!empty($_POST["loginUsername"]) && !empty($_POST["loginPassword"])) {
+			
 			$user = UserPeer::auth($_POST["loginUsername"],$_POST["loginPassword"]);
 			if (!empty($user)) {
+				//Me fijo si el usuario que intenta ingresar esta bloqueado
+				if(Common::isBlockedUser($_POST["loginUsername"]))
+					return $mapping->findForwardConfig('blockedUser');
+				
 				$_SESSION["login_user"] = $user;
 				$_SESSION["loginUser"] = $user;
-				$smarty->assign("loginUser",$user);
 				Common::doLog('success','username: ' . $_POST["loginUsername"]);
 				$smarty->assign("SESSION",$_SESSION);
 
-			if (is_null($user->getPasswordUpdated()))
-				return $mapping->findForwardConfig('successFirstLogin');
-			else
-				return $mapping->findForwardConfig('success');
+				if (is_null($user->getPasswordUpdated()))
+					return $mapping->findForwardConfig('successFirstLogin');
+				else {
+					if(isset($_SESSION["loginRequestReferrer"]) && strlen($_SESSION["loginRequestReferrer"]) > 3) {
+						$referrer = substr($_SESSION["loginRequestReferrer"],3);
+						unset($_SESSION["loginRequestReferrer"]);
+						if($referrer != 'usersLogin' && $referrer != 'commonLogin')
+							header("Location:Main.php?do=". $referrer);
+							exit();
+					}
+					return $mapping->findForwardConfig('success');
+				}
 			}
+			else
+				//Guardo una falla al solicitar login
+				Common::loginFailure($_POST["loginUsername"], $_POST["loginPassword"], "User");
 		}
 
 		$this->template->template = "TemplateLogin.tpl";
