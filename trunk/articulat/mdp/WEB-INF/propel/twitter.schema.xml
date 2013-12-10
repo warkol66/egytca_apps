@@ -59,6 +59,8 @@
 		<column name="name" type="VARCHAR" size="255" description="twitter user name" />
 		<column name="screenName" type="VARCHAR" size="255" description="twitter user username" />
 		<column name="location" type="VARCHAR" size="255" description="twitter user location" />
+		<column name="accountCreatedAt" type="TIMESTAMP" description="Fecha de creacion" />
+		<column name="language" type="VARCHAR" size="50" />
 		<column name="description" type="VARCHAR" size="255" description="twitter user description" />
 		<column name="url" type="VARCHAR" size="255" description="twitter user url" />
 		<column name="profileImage" type="VARCHAR" size="255" description="twitter user profile image" />
