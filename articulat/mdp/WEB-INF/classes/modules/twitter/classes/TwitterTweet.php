@@ -96,6 +96,8 @@ class TwitterTweet extends BaseTwitterTweet{
 			'Name' => $apiTweet->user->name,
 			'Screenname' => $apiTweet->user->screen_name,
 			'Location' => $apiTweet->user->location,
+			'Accountcreatedat' => $apiTweet->user->created_at,
+			'Language' => $apiTweet->user->lang,
 			'Description' => $apiTweet->user->description,
 			'Url' => $apiTweet->user->url,
 			'Profileimage' => $apiTweet->user->profile_image_url,
