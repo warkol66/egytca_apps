@@ -36,6 +36,69 @@
 
 	</table>
 
+	<table name="common_loginFailure" phpName="LoginFailure" description="Fallas de ingreso">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Falla de ingreso ID" autoIncrement="true" />
+		<column name="username" type="VARCHAR" size="255" description="Identificacion de usuario ingresada" />
+		<column name="password" type="VARCHAR" size="255" description="Clave ingresada" />
+		<column name="objectType" type="VARCHAR" size="255" description="Tipo de usuario ingresado" />
+		<column name="objectId" type="INTEGER" description="Identificacion de usuario ingresado" />
+		<column name="ip" type="VARCHAR" size="45" description="IP" />
+		<column name="attemptAt" type="TIMESTAMP" description="Fecha y hora del intento fallido" />
+		<column name="blocked" type="BOOLEAN" sqlType="BOOL" description="Indica si el intento fallido resulto en bloqueo" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+	
+	<table name="common_securityFailure" phpName="SecurityFailure" description="Solicitud acciones sin permiso">
+
+		<column name="id" required="true" primaryKey="true" type="INTEGER" description="Acciones sin permiso ID" autoIncrement="true" />
+		<column name="objectType" type="VARCHAR" size="255" description="Tipo de usuario" />
+		<column name="objectId" type="INTEGER" description="Identificacion de usuario" />
+		<column name="action" type="VARCHAR" size="255" description="Accion solicitada" />
+		<column name="attemptAt" type="TIMESTAMP" description="Fecha y hora del intento fallido" />
+		<column name="ip" type="VARCHAR" size="45" description="IP" />
+		<column name="blocked" type="BOOLEAN" sqlType="BOOL" description="Indica si el intento fallido resulto en bloqueo" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+	
+	<table name="common_blockedIp" phpName="BlockedIp" description="IPs bloqueadas">
+
+		<column name="id" required="true"  primaryKey="true" type="INTEGER" description="IPs bloquada ID" autoIncrement="true" />
+		<column name="ip" type="VARCHAR" size="45" description="IP" />
+		<column name="blockedAt" type="TIMESTAMP" description="Fecha y hora del bloqueo" />
+		<column name="unBlocked" type="BOOLEAN" sqlType="BOOL" description="Indica si la IP se desbloqueo" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+	
+	<table name="common_blockedUser" phpName="BlockedUser" description="Usuarios bloqueados">
+
+		<column name="id" required="true"  primaryKey="true" type="INTEGER" description="Usuario bloquado ID" autoIncrement="true" />
+		<column name="objectType" type="VARCHAR" size="255" description="Tipo de usuario ingresado" />
+		<column name="objectId" type="INTEGER" description="Identificacion de usuario ingresado" />
+		<column name="unBlocked" type="BOOLEAN" sqlType="BOOL" description="Indica si el usuario fue desbloqueado" />
+
+		<vendor type="mysql">
+			<parameter name="Charset" value="utf8"/>
+			<parameter name="Collate" value="utf8_general_ci"/>
+		</vendor>
+
+	</table>
+	
 	<table name="common_menuItem" phpName="MenuItem" description="Items de los menues dinamicos">
 
 		<column name="id" required="true" primaryKey="true" type="INTEGER" autoIncrement="true"/>

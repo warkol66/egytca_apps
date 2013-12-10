@@ -9,6 +9,8 @@
  */
 class SecurityAction extends BaseSecurityAction {
 
+	const LEVEL_ALL = 1073741823;
+
 	/**
 	* Obtiene la etiqueta de ese Action
 	* @return string label la etiqueta

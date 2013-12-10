@@ -16,7 +16,13 @@ class ConfigModule {
 			"unifiedUsernames" => true,
 			"backupTimeLimit" => 720,
 			"tmpwatch" => "/usr/sbin/tmpwatch",
-			"internalMailUseAffiliates" => false 
+			"internalMailUseAffiliates" => false,
+			"loginFailureThreshold" => 10,
+			"loginFailureThresholdTime" => 5,
+			"loginFailureBlockedTimeTime" => 15,
+			"securityFailureThreshold" => 10,
+			"securityFailureThresholdTime" => 15,
+			"securityFailureBlockedTime" => 15
 		),
 		"users" => array(
 			"licences" => 10,
@@ -25,6 +31,9 @@ class ConfigModule {
 			"askForNewPasswordOnRecovery" => false,
 			"useFilterByUserGroup" => true,
 			"passwordHashExpirationTime" => 24,
+			"loginFailureThreshold" => 10,
+			"loginFailureThresholdTime" => 5,
+			"loginFailureBlockedTimeTime" => 15,
 			"internalMail" => false,
 			"toStringFormat" => "Surname, Name (Username)" // "Name Surname (Username)"
 		),
