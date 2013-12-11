@@ -1,0 +1,183 @@
+ stdClass Object
+        (
+            [metadata] => stdClass Object
+                (
+                    [result_type] => recent
+                    [iso_language_code] => en
+                )
+
+            [created_at] => Wed Dec 11 02:20:54 +0000 2013	// fecha de creacion del tweet - en uso
+            [id] => 410595012913946624						// id del tweet - en uso					
+            [id_str] => 410595012913946624					// string id del tweet - en uso
+            [text] => Purple flowers grow,					// texto del tweet - en uso
+					  Colors brighten the meadow.
+					  Mom, I miss you so.
+
+					  @earthwoman65
+            [source] => Twitter for iPhone					// aplicacion utilizada al crear el tweet - no se usa
+            [truncated] => 									// truncado, en tweets muy largos - no se usa
+            [in_reply_to_status_id] => 						// id del tweet al que le responde - en uso
+            [in_reply_to_status_id_str] => 					// string id del tweet al que le responde - en uso
+            [in_reply_to_user_id] => 						// id del usuario al que le responde - en uso
+            [in_reply_to_user_id_str] => 					// string id del tweet al que le responde - en uso
+            [in_reply_to_screen_name] => 					// screenname del usuario al que le responde - no se usa
+            [user] => stdClass Object						/**** Datos del usuario *****/
+                (
+                    [id] => 737239482						// id del usuario - en uso
+                    [id_str] => 737239482					// string id del usuario - en uso
+                    [name] => PJ LaRue						// nombre de usuario - en uso
+                    [screen_name] => PJ_LaRue				// screenname del usuario - en uso
+                    [location] => Florida					// ubicacion del usuario - no se usa
+                    [description] => 						// descripcion del usuario - en uso
+                    [url] => http://t.co/qxL4Wam18s			// url del usuario (no de twitter) - en uso
+                    [entities] => stdClass Object			// entities del usuario - url, descripcion
+                        (
+                            [url] => stdClass Object
+                                (
+                                    [urls] => Array
+                                        (
+                                            [0] => stdClass Object
+                                                (
+                                                    [url] => http://t.co/qxL4Wam18s
+                                                    [expanded_url] => http://about.me/pjlarue
+                                                    [display_url] => about.me/pjlarue
+                                                    [indices] => Array
+                                                        (
+                                                            [0] => 0
+                                                            [1] => 22
+                                                        )
+
+                                                )
+
+                                        )
+
+                                )
+
+                            [description] => stdClass Object
+                                (
+                                    [urls] => Array
+                                        (
+                                            [0] => stdClass Object
+                                                (
+                                                    [url] => http://t.co/cc6TUtTdMD
+                                                    [expanded_url] => http://www.mysticprincesses.com
+                                                    [display_url] => mysticprincesses.com
+                                                    [indices] => Array
+                                                        (
+                                                            [0] => 89
+                                                            [1] => 111
+                                                        )
+
+                                                )
+
+                                            [1] => stdClass Object
+                                                (
+                                                    [url] => http://t.co/bM3pxabyR2
+                                                    [expanded_url] => http://bit.ly/1hj7QNH
+                                                    [display_url] => bit.ly/1hj7QNH
+                                                    [indices] => Array
+                                                        (
+                                                            [0] => 128
+                                                            [1] => 150
+                                                        )
+
+                                                )
+
+                                        )
+
+                                )
+
+                        )
+
+                    [protected] => 											// si la cuenta es privada - no se usa
+                    [followers_count] => 4329								// cantidad de usuarios a los que sigue - en uso
+                    [friends_count] => 4602									// cantidad de usuarios que lo siguen - en uso
+                    [listed_count] => 90									// cantidad de listas en las que aparece el usuario - no se usa
+                    [created_at] => Sat Aug 04 18:59:59 +0000 2012			// fecha de creacion del usuario - en uso
+                    [favourites_count] => 329								// cantidad de amigos que tiene el usuario - en uso
+                    [utc_offset] => -18000									// offset desde GMT/UTC en segundos - no se usa
+                    [time_zone] => Eastern Time (US & Canada)				// zona horaria del usuario - en uso
+                    [geo_enabled] => 										// el usuario permite que se muestre la informacion de donde se encuentra - no se usa
+                    [verified] => 											// si la identidad del usuario fue verificada - no se usa
+                    [statuses_count] => 24447								// cantidad de tweets del usuario - en uso
+                    [lang] => en											// idioma del usuario - en uso
+                    [contributors_enabled] => 								// experimental ???
+                    [is_translator] => 										// indica si el usuario contribuye con twitter como traductor - no se usa
+					/****** estilos del usuario - no se usan ******/
+                    [profile_background_color] => 9AE4E9					
+                    [profile_background_image_url] => http://a0.twimg.com/profile_background_images/378800000017979534/0694b3a48d40e2bca5c10c8a5c901db0.jpeg
+                    [profile_background_image_url_https] => https://si0.twimg.com/profile_background_images/378800000017979534/0694b3a48d40e2bca5c10c8a5c901db0.jpeg
+                    [profile_background_tile] => 1
+                    [profile_image_url] => http://pbs.twimg.com/profile_images/378800000488658302/7fbcd0d3b58c4a7e8fa43ad1f47500d8_normal.jpeg
+                    [profile_image_url_https] => https://pbs.twimg.com/profile_images/378800000488658302/7fbcd0d3b58c4a7e8fa43ad1f47500d8_normal.jpeg
+                    [profile_link_color] => 9AE4E9
+                    [profile_sidebar_border_color] => FFFFFF
+                    [profile_sidebar_fill_color] => DDFFCC
+                    [profile_text_color] => 333333
+                    [profile_use_background_image] => 1
+                    [default_profile] => 
+                    [default_profile_image] => 
+                    /****** FIN estilos del usuario - no se usan ******/
+                    [following] => 											// si el usuario actual lo sigue - no se usa
+                    [follow_request_sent] => 								// si el usuario actual le envio solicitud para seguirlo - no se usa
+                    [notifications] => 
+                )
+
+            [geo] => 
+            [coordinates] => 
+            [place] => 
+            [contributors] => 								// experimental ???
+            [retweet_count] => 0							// cantidad de retweets que recibio este tweet - no se usa
+            [favorite_count] => 0		
+            /****** Entities - todas tienen informacion que incluye en que parte del tweet se encuentran (indices) ******/	
+            /** Los ejemplos son sacados de tweets distintos, puede que no coincidan con el campo text de arriba **/				
+            [entities] => stdClass Object
+                (
+                    [hashtags] => Array						// hashtags presentes en el tweet - no se usa
+                        (
+                        )
+
+                    [symbols] => Array
+                        (
+                        )
+
+                    [urls] => Array							// urls presentes en el tweet - no se usa
+                        (
+							 [0] => stdClass Object
+								(
+									[url] => http://t.co/ixE4YDQqk9
+									[expanded_url] => http://yaplog.jp/rabbits06/
+									[display_url] => yaplog.jp/rabbits06/
+									[indices] => Array
+										(
+											[0] => 0
+											[1] => 22
+										)
+
+								)
+                        )
+
+                    [user_mentions] => Array				// menciones presentes en el tweet - no se usa
+                        (
+                            [0] => stdClass Object
+                                (
+                                    [screen_name] => earthwoman65
+                                    [name] => Wendy Long
+                                    [id] => 1052272448
+                                    [id_str] => 1052272448
+                                    [indices] => Array
+                                        (
+                                            [0] => 70
+                                            [1] => 83
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [favorited] => 
+            [retweeted] => 
+            [lang] => en
+        )
