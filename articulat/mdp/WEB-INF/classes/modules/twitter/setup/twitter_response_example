@@ -27,7 +27,7 @@
                     [id_str] => 737239482					// string id del usuario - en uso
                     [name] => PJ LaRue						// nombre de usuario - en uso
                     [screen_name] => PJ_LaRue				// screenname del usuario - en uso
-                    [location] => Florida					// ubicacion del usuario - no se usa
+                    [location] => Florida					// ubicacion del usuario - en uso
                     [description] => 						// descripcion del usuario - en uso
                     [url] => http://t.co/qxL4Wam18s			// url del usuario (no de twitter) - en uso
                     [entities] => stdClass Object			// entities del usuario - url, descripcion
