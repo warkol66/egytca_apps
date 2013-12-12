@@ -1416,7 +1416,7 @@ class Common {
 
 		return;
 	}
-	
+
 	/**
 	* Obtiene la ip del cliente
 	*
@@ -1448,30 +1448,31 @@ class Common {
 	*/
 	public static function loginFailure($username, $password, $objectType) {
 		
+		$ipBlocked = Common::checkLoginIpFailures();
+
 		$queryClass = $objectType . 'Query';
 		$user = $queryClass::create()->findOneByUsername($username);
-
-		$ipBlocked = Common::checkLoginIpFailures();
-		$userId = $user->getId();
 		$userBlocked = Common::checkLoginUserFailures($user);
+
 		if ($ipBlocked || $userBlocked)
 			$blocked = true;
-		try {
+		if (!empty($user)) {
+			try {
 				$loginFailure = new LoginFailure();
 				$loginFailure->setAttemptAt(time());
 				$loginFailure->setUsername($username);
 				$loginFailure->setPassword($password);
 				$loginFailure->setObjectType($objectType);
-				$loginFailure->setObjectId($userId);
+				$loginFailure->setObjectId($user->getId());
 				$loginFailure->setIp(Common::getIp());
 				$loginFailure->setBlocked($blocked);
 				$loginFailure->save();
+			}
+			catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->getMessage());
+			}
 		}
-		catch (PropelException $exp) {
-			if (ConfigModule::get("global","showPropelExceptions"))
-				print_r($exp->getMessage());
-		}
-
 	}
 
 	/**
