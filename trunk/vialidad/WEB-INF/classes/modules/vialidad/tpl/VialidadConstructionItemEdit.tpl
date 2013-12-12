@@ -180,21 +180,25 @@ function calculateTotalProportion(value) {
 	var sum = 0;
 	var spans = document.getElementsByName('span_proportion');
 	
-		value = toJavascriptFormat(value.toString());
-
+|-if $parameters.decimalSeparator eq ","-|
+	value = toJavascriptFormat(value.toString());
+|-else-|
+	value = value.toString();
+|-/if-|
 	for (var i=0; i<spans.length; i++) {
-		if ("|-$parameters.decimalSeparator-|" == ",")
-			var val = parseFloat(toJavascriptFormat(spans[i].innerHTML));
-		else
-			var val = parseFloat(spans[i].innerHTML);
+	|-if $parameters.decimalSeparator eq ","-|
+		var val = parseFloat(toJavascriptFormat(spans[i].innerHTML)).toFixed(2);
+	|-else-|
+		var val = parseFloat(spans[i].innerHTML).toFixed(2);
+	|-/if-|
 		if (!isNaN(val))
-			sum += val;
+			sum += parseFloat(val);
+		sum = parseFloat(parseFloat(sum).toFixed(2));
 	}
-	
-	if (!isNaN(parseFloat(value)))
-		sum += parseFloat(value);
-	
-	return sum;
+	if (!isNaN(value))
+		sum += parseFloat(parseFloat(value).toFixed(2));
+
+	return parseFloat(parseFloat(sum).toFixed(2));
 }
 
 function removeRelationX(form) {
