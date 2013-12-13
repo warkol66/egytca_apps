@@ -257,11 +257,11 @@ class timeline_bank {
 				$popular_phrases[$phrase]['users'] = $uniques;
 				$popular_phrases[$phrase]['frequency'] = $frequency;
 				
-				$treemap_phrases['children'][] = array('name' => $phtase, 'size' =>$frequency);
+				$treemap_phrases['children'][] = array('name' => $phrase, 'size' =>$frequency);
 			}
 		}
 		
-		$treeInfo['children'][3] = $treemap_words;
+		$treeInfo['children'][3] = $treemap_phrases;
 		
 		//sort them
 		asort($popular_hashtags);
@@ -285,6 +285,7 @@ class timeline_bank {
 		
 		//limit to the most popular 3 last words to filter out noise
 		$limited_single_words = array_slice($popular_words, -3,3);//limit it to the most popular 2 words
+		//$treeInfo['children'][3] = array_slice($treeInfo['children'][3], -3,3);//limit it to the most popular 2 words
 
 		//combine
 		$hashtags_and_mentions = array_merge($popular_hashtags, $popular_mentions);

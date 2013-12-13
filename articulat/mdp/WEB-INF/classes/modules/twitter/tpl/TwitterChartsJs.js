@@ -250,6 +250,8 @@ function treemap(treeInfo){
 		.style("height", (height + margin.top + margin.bottom) + "px")
 		.style("left", margin.left + "px")
 		.style("top", margin.top + "px");
+		
+	console.log(treeInfo);
 
 	//d3.json(treeInfo, function(error, root) {
 	/*  var node = div.datum(root).selectAll(".node")
