@@ -341,7 +341,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		return $combinations;
 	}
 	
-	public function getPersonalTrends($filters){
+	public function getPersonalTrends($filters, &$treemapInfo){
 		require_once 'TwitterAnalyze.class.php';
 		
 		if(empty($filters['value'])) 
@@ -408,21 +408,21 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 					 *  For example, a single word is weighted less than the occurance of a 2-word phrase
 					 *  The idea behind this is that the more conscious the action, the more valuable we can weight it.
 					 */ 
-					
+
 						case "#":
 							if(strlen($word) > 1){
 								$timeline_bank->insert_hashtag($userdata, $word);
 							}
 							$last_word = "";//reset [comment out if you are okay with a trend is "its #raining"]
 						break;
-						
+
 						case "@":
 							if(strlen($word) > 1){
 								$timeline_bank->insert_mention($userdata, $word);
 							}
 							$last_word = "";//reset [comment out if you are okay with a trend is "hi @ThomasTommyTom"]
 						break;
-						
+
 						default:
 							if(!in_array($word, $stopwords)){//filter out the noise [common words]
 								//echo $word;
@@ -450,7 +450,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		}
 
 		//this is the important function, it finds the trends
-		return $timeline_bank->prioritize(0);
+		return $timeline_bank->prioritize(0, $treemapInfo);
 		
 		//return $timeline_bank->result;
 	

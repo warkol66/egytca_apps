@@ -90,6 +90,11 @@
 			</div>
 			<div id='bubbleGroupChart'></div>
 		</div>
+		<div id='treeMapSection'>
+			<h4>Mapa de Arbol de Trending Topics Personalizados</h4>
+			<div id="treeMap">
+			</div>
+		</div>
 	  </div>
 
 	  <div id="right">
@@ -259,6 +264,7 @@
 		usersChart(arrUsers, '|-$campaign->getId()-|');
 		influentialChart(arrInfluentialUsers, '|-$campaign->getId()-|', '|-count($influentialUsers)-|');
 		bubbleChart(bubble);
+		treemap(|-$treemapPersonalTrends-|);
 	});
 </script>
 |-/if-|

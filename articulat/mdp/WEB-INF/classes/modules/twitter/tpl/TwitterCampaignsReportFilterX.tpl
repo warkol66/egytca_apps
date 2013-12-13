@@ -25,6 +25,11 @@
 			</div>
 			<div id='bubbleGroupChart'></div>
 		</div>
+		<div id='treeMapSection'>
+			<h4>Mapa de Arbol de Trending Topics Personalizados</h4>
+			<div id="treeMap">
+			</div>
+		</div>
 	  </div>
 
 	  <div id="right">
@@ -81,5 +86,6 @@
 	var bubble = [|-foreach from=$tweetsAmount item=group-|{"name": "|-$group['name']-|", "value": "|-$group['value']-|"}|-if !$tweetsAmount@last-|,|-/if-||-/foreach-|];
 
 	bubbleChart(bubble);
+	treemap(|-$treemapPersonalTrends-|);
 
 </script>
