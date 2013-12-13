@@ -1134,6 +1134,15 @@ tr.phraseTT td{
 		padding: 3em;
 }
 
+.node {
+  border: solid 1px white;
+  font: 10px sans-serif;
+  line-height: 12px;
+  overflow: hidden;
+  position: absolute;
+  text-indent: 2px;
+}
+
 g.g rect, g.legend rect, g.slice path, g.node circle {
 	color: #B5B5B5;
   stroke: #B5B5B5;
