@@ -239,11 +239,9 @@ class timeline_bank {
 				$popular_words[$word]['users'] = $uniques;
 				$popular_words[$word]['frequency'] = $frequency;
 				
-				$treemap_words['children'][] = array('name' => $word, 'size' =>$frequency);
+				//$treemap_words['children'][] = array('name' => $word, 'size' =>$frequency);
 			}	
 		}
-		
-		$treeInfo['children'][2] = $treemap_words;
 		
 		$popular_phrases = array();
 		$treemap_phrases = array('name' => 'phrases');
@@ -261,7 +259,7 @@ class timeline_bank {
 			}
 		}
 		
-		$treeInfo['children'][3] = $treemap_phrases;
+		$treeInfo['children'][2] = $treemap_phrases;
 		
 		//sort them
 		asort($popular_hashtags);
@@ -285,8 +283,7 @@ class timeline_bank {
 		
 		//limit to the most popular 3 last words to filter out noise
 		$limited_single_words = array_slice($popular_words, -3,3);//limit it to the most popular 2 words
-		//$treeInfo['children'][3] = array_slice($treeInfo['children'][3], -3,3);//limit it to the most popular 2 words
-
+		
 		//combine
 		$hashtags_and_mentions = array_merge($popular_hashtags, $popular_mentions);
 		$words_and_phrases = array_merge($limited_single_words, $popular_phrases);
@@ -305,6 +302,9 @@ class timeline_bank {
 					
 					foreach($words_in_phrases as $current_word){
 						unset($result[$current_word]);
+						unset($limited_single_words[$current_word]);
+						//unset($treemap_words['name'][$current_word]);
+						// delete from treemap array too
 					}
 					
 					//unset($result[$words_in_phrase[0]]);
@@ -313,6 +313,12 @@ class timeline_bank {
 				$x++;
 			}
 		}
+		
+		foreach($limited_single_words as $key => $value){
+			$treemap_words['children'][] = array('name' => $key, 'size' =>$value['frequency']);
+		}
+		
+		$treeInfo['children'][3] = $treemap_words;
 		
 		//now its 10 greatest to least
 		//$shortened_result = array_slice($result, 0, 10);
