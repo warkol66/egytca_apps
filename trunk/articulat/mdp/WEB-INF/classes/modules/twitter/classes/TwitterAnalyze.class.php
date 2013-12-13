@@ -187,10 +187,12 @@ class timeline_bank {
 	}
 	
 	
-	public function prioritize($debug){
+	public function prioritize($debug, &$treeInfo){
+		// info for treemap graph
+		$treeInfo['name'] = 'personalTrends';
 		
 		$popular_hashtags = array();
-		
+		$treemap_hashtags = array('name' => 'hashtags');
 		foreach($this->discover_hashtags as $hashtag => $frequency){
 			
 			$uniques = count($this->user_hashtags[$hashtag]);
@@ -200,10 +202,15 @@ class timeline_bank {
 				$popular_hashtags[$hashtag]['total'] = $total;
 				$popular_hashtags[$hashtag]['users'] = $uniques;
 				$popular_hashtags[$hashtag]['frequency'] = $frequency;
+				
+				$treemap_hashtags['children'][] = array('name' => $hashtag, 'size' =>$frequency);
 			}
 		}
+		
+		$treeInfo['children'][0] = $treemap_hashtags;
 
 		$popular_mentions = array();
+		$treemap_mentions = array('name' => 'mentions');
 		foreach($this->discover_mentions as $mention => $frequency){
 			$uniques = count($this->user_mentions[$mention]);
 			
@@ -213,10 +220,15 @@ class timeline_bank {
 				$popular_mentions[$mention]['total'] = $total;
 				$popular_mentions[$mention]['users'] = $uniques;
 				$popular_mentions[$mention]['frequency'] = $frequency;
+				
+				$treemap_mentions['children'][] = array('name' => $mention, 'size' =>$frequency);
 			}
 		}
 		
+		$treeInfo['children'][1] = $treemap_mentions;
+		
 		$popular_words = array();
+		$treemap_words = array('name' => 'words');
 		foreach($this->discover_words as $word => $frequency){
 			$uniques = count($this->user_words[$word]);
 			
@@ -226,10 +238,15 @@ class timeline_bank {
 				$popular_words[$word]['total'] = $total;
 				$popular_words[$word]['users'] = $uniques;
 				$popular_words[$word]['frequency'] = $frequency;
+				
+				$treemap_words['children'][] = array('name' => $word, 'size' =>$frequency);
 			}	
 		}
 		
+		$treeInfo['children'][2] = $treemap_words;
+		
 		$popular_phrases = array();
+		$treemap_phrases = array('name' => 'phrases');
 		foreach($this->discover_phrases as $phrase => $frequency){
 			$uniques = count($this->user_phrases[$phrase]);
 			
@@ -239,8 +256,12 @@ class timeline_bank {
 				$popular_phrases[$phrase]['total'] = $total;
 				$popular_phrases[$phrase]['users'] = $uniques;
 				$popular_phrases[$phrase]['frequency'] = $frequency;
-			}	
+				
+				$treemap_phrases['children'][] = array('name' => $phtase, 'size' =>$frequency);
+			}
 		}
+		
+		$treeInfo['children'][3] = $treemap_words;
 		
 		//sort them
 		asort($popular_hashtags);

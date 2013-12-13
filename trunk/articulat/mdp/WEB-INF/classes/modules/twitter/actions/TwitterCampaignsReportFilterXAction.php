@@ -95,9 +95,10 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			$this->smarty->assign('trendingTopics', TwitterTrendingTopic::getInRange($tweetsFilters['from'], $tweetsFilters['to'], 10));
 			
 			/* Tendencias personalizadas */
-			
-			$personalTrends = TwitterTweetQuery::getPersonalTrends($tweetsFilters);
+			$treemapInfo = array();
+			$personalTrends = TwitterTweetQuery::getPersonalTrends($tweetsFilters, $treemapInfo);
 			$this->smarty->assign("personalTrends",$personalTrends);
+			$this->smarty->assign("treemapPersonalTrends",json_encode($treemapInfo));
 
 		}
 		
