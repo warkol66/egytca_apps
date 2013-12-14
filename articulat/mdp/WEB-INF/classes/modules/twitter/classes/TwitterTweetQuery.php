@@ -358,6 +358,8 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		$stopwords = TwitterTweet::getStopWords();
 		$last_id = 0;
 		
+		$personal = $filters['personalized'];
+		
 		//$usage = memory_get_usage();
 		
 		// obtengo los tweets aceptados
@@ -365,6 +367,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 			->filterByCampaignid($filters['campaign'])
 			->filterByCreatedat(array('min' => $filters['from'], 'max' => $filters['to']))
 			->filterByStatus(TwitterTweet::ACCEPTED)
+			->filterByText("%$personal%", Criteria::LIKE)
 			->filterByValue($filters['value'])
 			->filterByRelevance($filters['relevance'])
 			->getByType($filters['type'])
@@ -373,6 +376,7 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 			->limit(3000)
 			->find()
 			->toArray();
+			
 
 		//echo memory_get_usage() - $usage;
 		/*echo "<pre>";

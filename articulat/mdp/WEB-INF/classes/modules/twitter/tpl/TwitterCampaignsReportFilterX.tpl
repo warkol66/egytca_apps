@@ -86,6 +86,6 @@
 	var bubble = [|-foreach from=$tweetsAmount item=group-|{"name": "|-$group['name']-|", "value": "|-$group['value']-|"}|-if !$tweetsAmount@last-|,|-/if-||-/foreach-|];
 
 	bubbleChart(bubble);
-	treemap(|-$treemapPersonalTrends-|);
+	zoomableTreemap(|-$treemapPersonalTrends-|);
 
 </script>
