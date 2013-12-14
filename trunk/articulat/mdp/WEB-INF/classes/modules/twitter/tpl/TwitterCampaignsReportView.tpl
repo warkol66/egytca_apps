@@ -129,6 +129,12 @@
 			|-include file="TwitterPersonalTrendsList.tpl" personalTrends=$personalTrends-|
 		</div>
 	 </div>
+	 <div id="center">
+		<div id='treeMapSection'>
+			<div id="treeMap">
+			</div>
+		</div>
+	 </div>
 </div>
 
 <script type="text/javascript">
@@ -185,8 +191,6 @@
 		var personal = $j('.personalizedSelected').text();
 		var personalFilter = $j('.ttFilterSelected').text();
 		
-		console.log(personal);
-		
 		$j.ajax({
 			url: 'Main.php?do=twitterCampaignsReportFilterX',
 			data: {id: '|-$campaign->getId()-|', value: val, relevance: rel, type: type, time: time, from: from, to: to, tt: personal, ttFilter: personalFilter},
@@ -242,7 +246,6 @@
 		.append($j('<input>', {'name': 'tt','value': $j('.personalizedSelected').text(),'type': 'hidden'}));
 		$j('body').append(newForm);
 		
-		console.log(newForm);
 		newForm.submit();
 	}
 
@@ -264,7 +267,7 @@
 		usersChart(arrUsers, '|-$campaign->getId()-|');
 		influentialChart(arrInfluentialUsers, '|-$campaign->getId()-|', '|-count($influentialUsers)-|');
 		bubbleChart(bubble);
-		treemap(|-$treemapPersonalTrends-|);
+		zoomableTreemap(|-$treemapPersonalTrends-|);
 	});
 </script>
 |-/if-|
