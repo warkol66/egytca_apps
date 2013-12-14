@@ -965,7 +965,8 @@ table.tableTdBorders {
   width: 40%;
   padding: 1em; 
   background: white; 
-} 
+}
+
 
 #left  { float:left;  }
 #right { float:right; }
@@ -1154,3 +1155,27 @@ fill-opacity: .65;
 g.slice path:hover, g.node circle:hover /*,g.g rect:hover, g.legend rect:hover*/ {
 fill-opacity: .15;
 }
+
+#center{
+	clear:both;
+	margin-left: 100px;
+}
+
+#treeMap {
+			width: 900px;
+			height: 700px;
+			/*background: #bbb;*/
+			margin: 1px auto;
+		}
+
+.chart {
+display: block;
+margin: auto;
+margin-top: 40px;
+}
+text {
+font-size: 11px;
+}
+rect {
+fill: none;
+} 
