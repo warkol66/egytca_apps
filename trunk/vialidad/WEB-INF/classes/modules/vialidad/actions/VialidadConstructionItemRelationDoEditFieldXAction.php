@@ -24,11 +24,11 @@ class VialidadConstructionItemRelationDoEditFieldXAction extends BaseAction {
 
 		$itemRelation = ConstructionItemRelationQuery::create()->filterByItemid($_POST["itemId"])
 			->filterBySupplyid($_POST["supplyId"])->findOne();
-		
+
 		if (!empty($_POST['paramName']) && !empty($_POST['paramValue'])) {
 			
 			if ($_POST['paramName'] == 'proportion') {
-				
+
 				$_POST['paramValue'] = Common::convertToMysqlNumericFormat($_POST['paramValue']);
 				$smarty->assign('isNumeric', true);
 				
@@ -37,15 +37,15 @@ class VialidadConstructionItemRelationDoEditFieldXAction extends BaseAction {
 				
 				foreach ($allRelations as $relation)
 					$totalProportion += $relation->getProportion();
-				
+
 				$totalProportion -= $itemRelation->getProportion();
 				$totalProportion += $_POST['paramValue'];
-				
-				if ($totalProportion <= 100) {
+				if (bccomp($totalProportion, '100', 2) <= 0) {
 					$itemRelation->setByName($_POST['paramName'], $_POST['paramValue'], BasePeer::TYPE_FIELDNAME);
 					$itemRelation->save();
 				} else {
-					throw new Exception('invalid proportion');
+					return $mapping->findForwardConfig('failure');
+//					throw new Exception('invalid proportion');
 				}
 				
 			} else {
