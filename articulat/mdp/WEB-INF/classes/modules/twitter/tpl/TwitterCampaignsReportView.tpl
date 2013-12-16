@@ -90,8 +90,10 @@
 			</div>
 			<div id='bubbleGroupChart'></div>
 		</div>
+		<p>&nbsp;</p>
 		<div id='treeMapSection'>
 			<h4>Mapa de Arbol de Trending Topics Personalizados</h4>
+				Se muestran los trending topics personalizados con la superficie proporcional a la cantidad de repeticiones de usuarios, hastags, palabras y frases.
 			<div id="treeMap">
 			</div>
 		</div>
