@@ -961,15 +961,16 @@ table.tableTdBorders {
   width: 1400px;
 } 
 
-#left, #right { 
-  width: 40%;
+#left, #right, #center { 
   padding: 1em; 
   background: white; 
 }
 
+#left, #right {width: 40%;}
 
 #left  { float:left;  }
 #right { float:right; }
+#center{ clear:both; margin-left: 200px;}
 #reportContainer p {
 	width: auto !Important; 
 }
@@ -1156,16 +1157,10 @@ g.slice path:hover, g.node circle:hover /*,g.g rect:hover, g.legend rect:hover*/
 fill-opacity: .15;
 }
 
-#center{
-	clear:both;
-	margin-left: 100px;
-}
 
 #treeMap {
 			width: 900px;
-			height: 700px;
-			/*background: #bbb;*/
-			margin: 1px auto;
+			height: 525px;
 		}
 
 .chart {
