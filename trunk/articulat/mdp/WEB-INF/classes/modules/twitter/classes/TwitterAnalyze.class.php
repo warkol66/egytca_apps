@@ -207,7 +207,8 @@ class timeline_bank {
 			}
 		}
 		
-		$treeInfo['children'][0] = $treemap_hashtags;
+		if(!empty($treemap_hashtags['children']))
+			$treeInfo['children'][0] = $treemap_hashtags;
 
 		$popular_mentions = array();
 		$treemap_mentions = array('name' => 'mentions');
@@ -225,6 +226,7 @@ class timeline_bank {
 			}
 		}
 		
+			if(!empty($treemap_mentions['children']))
 		$treeInfo['children'][1] = $treemap_mentions;
 		
 		$popular_words = array();
@@ -259,7 +261,8 @@ class timeline_bank {
 			}
 		}
 		
-		$treeInfo['children'][2] = $treemap_phrases;
+		if(!empty($treemap_phrases['children']))
+			$treeInfo['children'][2] = $treemap_phrases;
 		
 		//sort them
 		asort($popular_hashtags);
@@ -318,7 +321,8 @@ class timeline_bank {
 			$treemap_words['children'][] = array('name' => $key, 'size' =>$value['frequency']);
 		}
 		
-		$treeInfo['children'][3] = $treemap_words;
+		if(!empty($treemap_words['children']))
+			$treeInfo['children'][3] = $treemap_words;
 		
 		//now its 10 greatest to least
 		//$shortened_result = array_slice($result, 0, 10);
