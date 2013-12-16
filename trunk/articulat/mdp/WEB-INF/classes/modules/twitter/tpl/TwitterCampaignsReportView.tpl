@@ -90,13 +90,6 @@
 			</div>
 			<div id='bubbleGroupChart'></div>
 		</div>
-		<p>&nbsp;</p>
-		<div id='treeMapSection'>
-			<h4>Mapa de Arbol de Trending Topics Personalizados</h4>
-				Se muestran los trending topics personalizados con la superficie proporcional a la cantidad de repeticiones de usuarios, hastags, palabras y frases.
-			<div id="treeMap">
-			</div>
-		</div>
 	  </div>
 
 	  <div id="right">
@@ -131,8 +124,11 @@
 			|-include file="TwitterPersonalTrendsList.tpl" personalTrends=$personalTrends-|
 		</div>
 	 </div>
+	 
 	 <div id="center">
 		<div id='treeMapSection'>
+			<h4>Mapa de Arbol de Trending Topics Personalizados</h4>
+				Se muestran los trending topics personalizados con la superficie proporcional a la cantidad de repeticiones de usuarios, hastags, palabras y frases.
 			<div id="treeMap">
 			</div>
 		</div>
