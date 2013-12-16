@@ -284,10 +284,11 @@ function zoomableTreemap(treeInfo){
 	h = 700 - 180,
 	x = d3.scale.linear().range([0, w]),
 	y = d3.scale.linear().range([0, h]),
-	color = d3.scale.category20c(),
 	formatNumber = d3.format(",d"),
 	root,
 	node;
+	//var color = d3.scale.ordinal().range(["#EFE9DC", "#CCF5EF", "#FFFFDD", "#AAFEFF"]);
+	var color = ["#EFE9DC", "#CCF5EF", "#FFFFDD", "#AAFEFF"];
 	var treemap = d3.layout.treemap()
 		.round(false)
 		.size([w, h])
@@ -318,7 +319,7 @@ function zoomableTreemap(treeInfo){
 	cell.append("svg:rect")
 		.attr("width", function(d) { return d.dx - 1; })
 		.attr("height", function(d) { return d.dy - 1; })
-		.style("fill", function(d) { return color(d.parent.name); })
+		.style("fill", function(d) { console.log(color[d.parent.color]); return color[d.parent.color]; })
 		.text(function(d) { return d.children ? null : d.name; });
 		//.text(function(d) { return d.parent.name + " " + formatNumber(d.parent.size); }); /*should be d.value*/
 	cell.append("svg:text")
