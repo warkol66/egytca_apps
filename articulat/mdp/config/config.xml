@@ -91,10 +91,10 @@
 			</element_options>
 		</mode>
 		<smtpOptions>
-			<smtpHost>mail.anmagaexport.modulserver.com.ar</smtpHost>
+			<smtpHost>vialidad.sistemas.biz</smtpHost>
 			<smtpPort>587</smtpPort>
-			<smtpUsername>anmagaex</smtpUsername>
-			<smtpPassword>Anmaga</smtpPassword>
+			<smtpUsername>sistema@vialidad.sistemas.biz</smtpUsername>
+			<smtpPassword>vialidad2011</smtpPassword>
 			<smtpSsl>
 				<value>NO</value>
 				<element_type>YES/NO</element_type>
