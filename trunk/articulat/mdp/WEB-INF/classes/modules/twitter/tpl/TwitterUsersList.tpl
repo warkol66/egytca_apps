@@ -45,6 +45,7 @@
 					<th width="5%">Siguiendo</th> 
 					<th width="5%">Tweets</th> 
 					<th width="5%">Influencia</th>
+					<th width="5%">Género</th>
 					<th width="5%">Actualizado</th>
 					<th nowrap width="1%">&nbsp;</th> 
 				</tr> 
@@ -72,6 +73,16 @@
 							|-foreach from=$levels key=key item=name-|
 								|-if $name@first-|<span class="radioLabelIcon">+</span>|-/if-|<input name="params[influence]" type="radio" value="|-$key-|"  title="|-$name-|" |-$twitterUser->getInfluence()|checked:$key-| onChange="javascript:twitterDoEditValue(this.form);"/>|-if $name@last-|<span class="radioLabelIcon">-</span>|-/if-|
 							|-/foreach-|
+						<input type="hidden" name="id" id="id" value="|-$twitterUser->getid()-|" />
+						<input type="hidden" name="do" value="twitterUsersDoEditX" id="do">
+					</form>
+				</td>
+				<td id="gender_|-$twitterUser->getId()-|" valign="top" nowrap="nowrap">
+					<form action="Main.php" method="post" id="formGenders|-$twitterUser->getId()-|">
+								<span class="radioLabelIcon">F</span>
+								<input name="params[gender]" type="radio" value="female"  title="Femenino" |-$twitterUser->getGender()|checked:"female"-| onChange="javascript:twitterDoEditValue(this.form);"/>
+								<input name="params[gender]" type="radio" value="male"  title="Masculino" |-$twitterUser->getGender()|checked:"male"-| onChange="javascript:twitterDoEditValue(this.form);"/>
+								<span class="radioLabelIcon">M</span>
 						<input type="hidden" name="id" id="id" value="|-$twitterUser->getid()-|" />
 						<input type="hidden" name="do" value="twitterUsersDoEditX" id="do">
 					</form>

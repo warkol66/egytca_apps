@@ -27,6 +27,24 @@ class TwitterUser extends BaseTwitterUser{
 		return $levels;
 	}
 	
+	const GENDER_UNSELECTED = 0;
+	const GENDER_FEMALE = 0;
+	const GENDER_MALE = 1;
+	
+	public static function getGenders() {
+		$genders = array(
+			TwitterUser::GENDER_FEMALE => 'female',
+			TwitterUser::GENDER_MALE => 'male');
+		return $genders;
+	}
+
+	public static function getGenderTranslated($gender) {
+		$genders = array(
+			TwitterUser::GENDER_FEMALE => 'Femenino',
+			TwitterUser::GENDER_MALE => 'Masculino');
+		return $genders[$gender];
+	}
+
 	/**
 	* Genera el string a entregar por defecto reemplazando el __toString() del modelo
 	*

@@ -69,6 +69,8 @@
 		<column name="friends" type="INTEGER" description="Amigos" />
 		<column name="statuses" type="INTEGER" description="Cantidad de tweets" />
 		<column name="influence" type="TINYINT" default="0" description="Nivel de influencia del usuario"/>
+
+		<column name="gender" type="ENUM" valueSet="female, male" description="Genero del usuario"/>
 		
 		<behavior name="timestampable" />
 		
