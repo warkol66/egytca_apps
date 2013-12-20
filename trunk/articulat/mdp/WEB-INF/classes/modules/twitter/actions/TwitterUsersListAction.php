@@ -10,6 +10,10 @@ class TwitterUsersListAction extends BaseListAction {
 		parent::preList();
 
 		$this->module = "Twitter";
+		
+		if(!empty($_GET['filters']['campaignid'])){
+			$this->filters['getByCampaign'] = $_GET['filters']['campaignid'];
+		}
 
 		if(!empty($_GET['filters']['minDate'])){
             $this->filters['dateRange']['createdat']['min'] = $_GET['filters']['minDate'];

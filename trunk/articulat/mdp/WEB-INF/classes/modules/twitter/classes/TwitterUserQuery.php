@@ -118,4 +118,11 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 			return $this->filterById($associatedUsers, Criteria::NOT_IN);
 		}
 	}
+	
+	public function getByCampaign($campaignid){
+		return $this->useTwitterTweetQuery()
+				->filterByStatus(TwitterTweet::ACCEPTED)
+				->filterByCampaignid($campaignid)
+			->endUse();
+	}
 }
