@@ -13,6 +13,14 @@
 <form action="Main.php" method="get">
 	<fieldset title="Formulario de Opciones de búsqueda de usuarios">
 		<legend>Opciones de Búsqueda</legend>
+		<p><label for="filters[campaignid]">Campaña</label>
+		<select name='filters[campaignid]'>
+					<option value=''>Seleccione una campaña</option>
+				|-foreach from=$campaigns item=campaign name=from_campaigns-|
+					<option value="|-$campaign->getId()-|" |-if $filters neq '' and $filters.campaignid eq $campaign->getId()-|selected="selected"|-/if-|>|-$campaign->getName()-|</option>
+				|-/foreach-|
+			</select>
+		</p>
 		<p><label for="filters[searchString]">Texto a buscar</label>
 		<input name="filters[searchString]" type="text" value="|-$filters.searchString-|" size="50" />
 		</p>
