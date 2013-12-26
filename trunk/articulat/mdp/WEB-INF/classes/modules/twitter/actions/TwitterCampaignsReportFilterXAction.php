@@ -32,6 +32,11 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			$tweetsFilters['value'] = $_POST['value'];
 			$tweetsFilters['relevance'] = $_POST['relevance'];
 			$tweetsFilters['personalized'] = $_POST['tt'];
+			if(!empty($_POST['gender'])){
+				/*echo $_POST['gender'];
+				die();*/
+				$tweetsFilters['gender'] = $_POST['gender'];
+			}
 			
 			$this->smarty->assign('personalSelected', $_POST['tt']);
 			$this->smarty->assign('selectedTTFilter', $_POST['ttFilter']);
