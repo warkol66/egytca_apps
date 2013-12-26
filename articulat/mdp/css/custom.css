@@ -1071,7 +1071,7 @@ ul.personalTTMenu li a {
 
 }
 ul.personalTTMenu li a.ttAmountSelected,
-ul.personalTTMenu li a.ttFilterSelected{
+ul.personalTTMenu li a.ttFilterSelected,{
 	background-color:#fff !Important;
 	color: #cdcdcd;
 	border: 1px solid #cdcdcd;

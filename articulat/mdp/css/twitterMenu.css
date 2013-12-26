@@ -104,7 +104,8 @@
 #panelDiv ul ul button.timeSelected, 
 #panelDiv ul ul button.typeSelected, 
 #panelDiv ul ul button.relevanceSelected,
-#panelDiv ul ul button.valueSelected {
+#panelDiv ul ul button.valueSelected, 
+#panelDiv ul ul button.genderSelected {
 	background: none repeat scroll 0 0 #FBFBFB; /*#86A2AC;*/
 	color: #797979;
 	display: block;
