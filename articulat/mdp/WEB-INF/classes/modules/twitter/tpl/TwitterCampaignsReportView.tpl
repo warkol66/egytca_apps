@@ -45,6 +45,13 @@
 			 <li class='last'><button id="type" class="typeSelected" onclick="$j('.typeSelected').not(this).removeClass('typeSelected');$j(this).addClass('typeSelected');setValueX(); return false;" value=""><span>Todos</span></button></li>
 		  </ul>
 	   </li>
+	   <li class='has-sub last'><button><span>Género</span></button>
+		  <ul id="genderFilters">
+			 <li><button onclick="$j('.genderSelected').not(this).removeClass('genderSelected');$j(this).toggleClass('genderSelected');setValueX(); return false;" value="male"><span>Hombres</span></button></li>
+			 <li><button onclick="$j('.genderSelected').not(this).removeClass('genderSelected');$j(this).toggleClass('genderSelected');setValueX(); return false;" value="female"><span>Mujeres</span></button></li>
+			 <li class='last'><button id="value" class="genderSelected" onclick="$j('.genderSelected').not(this).removeClass('genderSelected');$j(this).addClass('genderSelected');setValueX(); return false;" value=""><span>Todos</span></button></li>
+		  </ul>
+	   </li>
 	   <li class='has-sub last'><button><span>Valoración</span></button>
 		  <ul id="valueFilters">
 			|-foreach from=$tweetValues key=key item=val-|
@@ -114,6 +121,7 @@
 		var rel = $j('.relevanceSelected').val();
 		var type = $j('.typeSelected').val();
 		var time = $j('.timeSelected').val();
+		var gender = $j('.genderSelected').val();
 		if(time == 'custom'){
 			var from = $j('#dateFrom').val();
 			var to = $j('#dateTo').val();
@@ -123,7 +131,7 @@
 		
 		$j.ajax({
 			url: 'Main.php?do=twitterCampaignsReportFilterX',
-			data: {id: '|-$campaign->getId()-|', value: val, relevance: rel, type: type, time: time, from: from, to: to, tt: personal, ttFilter: personalFilter},
+			data: {id: '|-$campaign->getId()-|', value: val, relevance: rel, type: type, time: time, from: from, to: to, tt: personal, ttFilter: personalFilter, gender: gender},
 			type: 'post',
 			success: function(data){
 				$j('#content').html(data);
