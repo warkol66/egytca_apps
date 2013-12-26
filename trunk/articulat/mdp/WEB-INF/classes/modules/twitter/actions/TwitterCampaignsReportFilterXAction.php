@@ -4,6 +4,8 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 	
 	function __construct() {
 		parent::__construct('Campaign');
+		
+		$this->ajaxTemplate = 'TwitterCampaignReport.tpl';
 	}
 	
 	protected function preEdit() {
@@ -99,7 +101,7 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			$personalTrends = TwitterTweetQuery::getPersonalTrends($tweetsFilters, $treemapInfo);
 			$this->smarty->assign("personalTrends",$personalTrends);
 			$this->smarty->assign("treemapPersonalTrends",json_encode($treemapInfo));
-
+			
 		}
 		
 		$moduleConfig = Common::getModuleConfiguration($this->module);
