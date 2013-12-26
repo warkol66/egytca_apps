@@ -133,6 +133,9 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 					->filterByStatus(TwitterTweet::ACCEPTED)
 					->filterByText("%$personal%", Criteria::LIKE)
 					->getByType($filters['type'])
+					->useTwitterUserQuery()
+						->filterByGender($filters['gender'])
+					->endUse()
 					->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
 					->withColumn('sum(if(TwitterTweet.Value = '. $positive .', 1, 0))', 'positive')
 					->groupBy('TwitterTweet.date')
@@ -147,6 +150,9 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 					->filterByStatus(TwitterTweet::ACCEPTED)
 					->filterByText("%$personal%", Criteria::LIKE)
 					->getByType($filters['type'])
+					->useTwitterUserQuery()
+						->filterByGender($filters['gender'])
+					->endUse()
 					->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
 					->withColumn('sum(if(TwitterTweet.Value = '. $neutral .', 1, 0))', 'neutral')
 					->groupBy('TwitterTweet.date')
@@ -161,6 +167,9 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 					->filterByStatus(TwitterTweet::ACCEPTED)
 					->filterByText("%$personal%", Criteria::LIKE)
 					->getByType($filters['type'])
+					->useTwitterUserQuery()
+						->filterByGender($filters['gender'])
+					->endUse()
 					->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
 					->withColumn('sum(if(TwitterTweet.Value = '. $negative .', 1, 0))', 'negative')
 					->groupBy('TwitterTweet.date')
@@ -175,6 +184,9 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 					->filterByStatus(TwitterTweet::ACCEPTED)
 					->filterByText("%$personal%", Criteria::LIKE)
 					->getByType($filters['type'])
+					->useTwitterUserQuery()
+						->filterByGender($filters['gender'])
+					->endUse()
 					->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
 					->withColumn('sum(if(TwitterTweet.Value = '. TwitterTweet::POSITIVE .', 1, 0))', 'positive')
 					->withColumn('sum(if(TwitterTweet.Value = '. TwitterTweet::NEUTRAL .', 1, 0))', 'neutral')
@@ -205,6 +217,9 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 			->filterByCreatedat(array('min' => $filters['from'], 'max' => $filters['to']))
 			->filterByStatus(TwitterTweet::ACCEPTED)
 			->getByType($filters['type'])
+			->useTwitterUserQuery()
+				->filterByGender($filters['gender'])
+			->endUse()
 			->find();
 	}
 	
@@ -230,6 +245,9 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 					->filterByStatus(TwitterTweet::ACCEPTED)
 					->filterByText("%$personal%", Criteria::LIKE)
 					->getByType($filters['type'])
+					->useTwitterUserQuery()
+						->filterByGender($filters['gender'])
+					->endUse()
 					->groupBy('TwitterTweet.date')
 					->select(array('date','relevant'))
 					->find();
@@ -244,6 +262,9 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 					->filterByStatus(TwitterTweet::ACCEPTED)
 					->filterByText("%$personal%", Criteria::LIKE)
 					->getByType($filters['type'])
+					->useTwitterUserQuery()
+						->filterByGender($filters['gender'])
+					->endUse()
 					->groupBy('TwitterTweet.date')
 					->select(array('date','neutrally_relevant'))
 					->find();
@@ -258,6 +279,9 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 					->filterByStatus(TwitterTweet::ACCEPTED)
 					->filterByText("%$personal%", Criteria::LIKE)
 					->getByType($filters['type'])
+					->useTwitterUserQuery()
+						->filterByGender($filters['gender'])
+					->endUse()
 					->groupBy('TwitterTweet.date')
 					->select(array('date','irrelevant'))
 					->find();
@@ -274,6 +298,9 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 					->filterByStatus(TwitterTweet::ACCEPTED)
 					->filterByText("%$personal%", Criteria::LIKE)
 					->getByType($filters['type'])
+					->useTwitterUserQuery()
+						->filterByGender($filters['gender'])
+					->endUse()
 					->groupBy('TwitterTweet.date')
 					->select(array('date','relevant', 'neutrally_relevant', 'irrelevant'))
 					->find();
@@ -289,6 +316,9 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 			->filterByCampaignid($filters['campaign'])
 			->filterByCreatedat(array('min' => $filters['from'], 'max' => $filters['to']))
 			->filterByStatus(TwitterTweet::ACCEPTED)
+			->useTwitterUserQuery()
+				->filterByGender($filters['gender'])
+			->endUse()
 			->find();
 			
 		return count($totalTweets);
@@ -328,6 +358,9 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 					->filterByCreatedat(array('min' => $filters['from'], 'max' => $filters['to']))
 					->filterByValue($value)
 					->filterByRelevance($relevance)
+					->useTwitterUserQuery()
+						->filterByGender($filters['gender'])
+					->endUse()
 					->find()
 					->count();
 				
@@ -371,6 +404,9 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 			->filterByValue($filters['value'])
 			->filterByRelevance($filters['relevance'])
 			->getByType($filters['type'])
+			->useTwitterUserQuery()
+				->filterByGender($filters['gender'])
+			->endUse()
 			->joinWith('TwitterTweet.TwitterUser')
 			->select(array('TwitterTweet.Id','TwitterTweet.Text','TwitterUser.Screenname'))
 			->limit(3000)
