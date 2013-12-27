@@ -26,6 +26,10 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			$tweetsFilters['to'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($this->entity->getFinishdate())));
 
 			$byValue = TwitterTweetQuery::getAllByValue($tweetsFilters);
+			
+			/*print_r($byValue);
+			die();*/
+			
 			$byValueTotal = 0;
 			foreach($byValue as $date){
 				$byValueTotal += $date['positive'] + $date['neutral'] + $date['negative'];
@@ -72,10 +76,12 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			die();*/
 			
 			/* Tendencias personalizadas */
-			$treemapInfo = array();
-			$personalTrends = TwitterTweetQuery::getPersonalTrends($tweetsFilters, $treemapInfo);
-			$this->smarty->assign("personalTrends",$personalTrends);
-			$this->smarty->assign("treemapPersonalTrends",json_encode($treemapInfo));
+			if($byValueTotal || $byRelevanceTotal){
+				$treemapInfo = array();
+				$personalTrends = TwitterTweetQuery::getPersonalTrends($tweetsFilters, $treemapInfo);
+				$this->smarty->assign("personalTrends",$personalTrends);
+				$this->smarty->assign("treemapPersonalTrends",json_encode($treemapInfo));
+			}
 			
 			//echo"<pre>"; print_r($treemapInfo); echo"</pre>";
 			//echo"<pre>"; print_r(json_encode($treemapInfo)); echo"</pre>";
