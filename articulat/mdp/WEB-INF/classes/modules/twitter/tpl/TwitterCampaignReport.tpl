@@ -84,7 +84,6 @@
 		
 		var bubble = [|-foreach from=$tweetsAmount item=group-|{"name": "|-$group['name']-|", "value": "|-$group['value']-|"}|-if !$tweetsAmount@last-|,|-/if-||-/foreach-|];
 		
-		
 		barChart(arrByValue,'byValueChart');
 		barChart(arrByRelevance,'byRelevanceChart');
 		usersChart(arrUsers, '|-$campaign->getId()-|');
@@ -92,7 +91,7 @@
 		bubbleChart(bubble);
 		|-if !empty($treemapPersonalTrends)-|
 		var personalTrends = |-$treemapPersonalTrends-|;
-		if(personalTrends.length > 0){
+		if(personalTrends.children.length > 0){
 			zoomableTreemap(personalTrends);
 		}
 		|-/if-|
