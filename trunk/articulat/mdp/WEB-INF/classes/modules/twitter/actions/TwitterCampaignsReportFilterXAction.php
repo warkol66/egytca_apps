@@ -90,19 +90,20 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			$this->smarty->assign('byRelevance', $byRelevance);
 			$this->smarty->assign('byRelevanceTotal', $byRelevanceTotal);
 			
-			// obtengo los usuarios que mas tweets crearon
-			$topUsers = TwitterUserQuery::getTopUsers($tweetsFilters, 5);
-			$influentialUsers = TwitterUserQuery::getInfluentialUsers($tweetsFilters);
-			$tweetsAmount = TwitterTweetQuery::getCombinations($tweetsFilters);
-			/*echo"<pre>"; print_r($relevantUsers); echo"</pre>";
-			die();*/
-			$this->smarty->assign('topUsers', $topUsers);
-			$this->smarty->assign('influentialUsers', $influentialUsers);
-			$this->smarty->assign('tweetsAmount', $tweetsAmount);
-			$this->smarty->assign('trendingTopics', TwitterTrendingTopic::getInRange($tweetsFilters['from'], $tweetsFilters['to'], 10));
+			if($byValueTotal > 0 || $byRelevanceTotal > 0){
+				// obtengo los usuarios que mas tweets crearon
+				$topUsers = TwitterUserQuery::getTopUsers($tweetsFilters, 5);
+				$influentialUsers = TwitterUserQuery::getInfluentialUsers($tweetsFilters);
+				$tweetsAmount = TwitterTweetQuery::getCombinations($tweetsFilters);
+				/*echo"<pre>"; print_r($relevantUsers); echo"</pre>";
+				die();*/
+				$this->smarty->assign('topUsers', $topUsers);
+				$this->smarty->assign('influentialUsers', $influentialUsers);
+				$this->smarty->assign('tweetsAmount', $tweetsAmount);
+				$this->smarty->assign('trendingTopics', TwitterTrendingTopic::getInRange($tweetsFilters['from'], $tweetsFilters['to'], 10));
+				
+				/* Tendencias personalizadas */
 			
-			/* Tendencias personalizadas */
-			if($byValueTotal || $byRelevanceTotal){
 				$treemapInfo = array();
 				$personalTrends = TwitterTweetQuery::getPersonalTrends($tweetsFilters, $treemapInfo);
 				$this->smarty->assign("personalTrends",$personalTrends);

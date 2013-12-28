@@ -54,33 +54,35 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 				$this->smarty->assign('neutrally_relevant', true);
 			if(array_key_exists('irrelevant',$byRelevance[0]))
 				$this->smarty->assign('irrelevant', true);
-			
-			// obtengo los usuarios que mas tweets crearon
-			$topUsers = TwitterUserQuery::getTopUsers($tweetsFilters, 5);
-			$influentialUsers = TwitterUserQuery::getInfluentialUsers($tweetsFilters);
-			/*echo"<pre>"; print_r($relevantUsers); echo"</pre>";
-			die();*/
-			
-			$tweetsAmount = TwitterTweetQuery::getCombinations($tweetsFilters);
-			/*echo"<pre>"; print_r($tweetsAmount); echo"</pre>";
-			die();*/
+				
 			$this->smarty->assign('byValue', $byValue);
 			$this->smarty->assign('byValueTotal', $byValueTotal);
 			$this->smarty->assign('byRelevance', $byRelevance);
 			$this->smarty->assign('byRelevanceTotal', $byRelevanceTotal);
-			$this->smarty->assign('topUsers', $topUsers);
-			$this->smarty->assign('influentialUsers', $influentialUsers);
-			$this->smarty->assign('tweetsAmount', $tweetsAmount);
-			$this->smarty->assign('trendingTopics', TwitterTrendingTopic::getLatest(10));
-			/*echo"<pre>"; print_r($byValue); echo"</pre>";
-			die();*/
 			
-			/* Tendencias personalizadas */
-			if($byValueTotal || $byRelevanceTotal){
+			if($byValueTotal > 0 || $byRelevanceTotal > 0){
+				
+				// obtengo los usuarios que mas tweets crearon
+				$topUsers = TwitterUserQuery::getTopUsers($tweetsFilters, 5);
+				$influentialUsers = TwitterUserQuery::getInfluentialUsers($tweetsFilters);
+				/*echo"<pre>"; print_r($relevantUsers); echo"</pre>";
+				die();*/
+				
+				$tweetsAmount = TwitterTweetQuery::getCombinations($tweetsFilters);
+				/*echo"<pre>"; print_r($tweetsAmount); echo"</pre>";
+				die();*/
+				$this->smarty->assign('topUsers', $topUsers);
+				$this->smarty->assign('influentialUsers', $influentialUsers);
+				$this->smarty->assign('tweetsAmount', $tweetsAmount);
+				$this->smarty->assign('trendingTopics', TwitterTrendingTopic::getLatest(10));
+				/*echo"<pre>"; print_r($byValue); echo"</pre>";
+				die();*/
+				
+				/* Tendencias personalizadas */
 				$treemapInfo = array();
 				$personalTrends = TwitterTweetQuery::getPersonalTrends($tweetsFilters, $treemapInfo);
-				$this->smarty->assign("personalTrends",$personalTrends);
-				$this->smarty->assign("treemapPersonalTrends",json_encode($treemapInfo));
+				$this->smarty->assign('personalTrends',$personalTrends);
+				$this->smarty->assign('treemapPersonalTrends',json_encode($treemapInfo));
 			}
 			
 			//echo"<pre>"; print_r($treemapInfo); echo"</pre>";
