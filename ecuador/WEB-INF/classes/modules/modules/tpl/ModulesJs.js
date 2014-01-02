@@ -43,3 +43,16 @@ function installExecuteSQL(form) {
 function readOnlyCheckBox() {
    return false;
 }
+
+function verifyModule(module){
+	
+	$.ajax({
+		url: url,
+		data: $('#' + module).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#messageResult').html(data);
+		}	
+	});
+	$('#messageMod').html("<div class='inProgress'>Verificando módulo...</div>");
+}
