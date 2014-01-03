@@ -24,14 +24,12 @@ class ModulesDoVerifyXAction extends BaseAction {
 		$smarty->assign("module",$module);
 		
 		$verify = new ModuleVerify($_POST['moduleName']);
-		
-		if (!$verify->lookDir($verify->dir)){
-			echo "Could not open the directory ".$dir."\n";
+		if (!$verify->lookDir($verify->dir['dir'])){
+			echo "Could not open the directory ".$verify->dir['dir']."\n";
 			$smarty->assign('error','opening');
-		}else{			
-			if (file_put_contents($verify->file, serialize($verify->hashes))){
-				//$smarty->assign('error','saving');
-			}else{
+		}else{
+			echo $verify->file;
+			if (!file_put_contents($verify->file, serialize($verify->hashes))){
 				$smarty->assign('error','saving');
 			}
 			$smarty->assign('newFiles',$verify->newFiles);
