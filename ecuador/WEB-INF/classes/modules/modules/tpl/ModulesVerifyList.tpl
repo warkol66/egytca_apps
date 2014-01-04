@@ -1,8 +1,4 @@
 <script>
-	function checkscript() {
-		alert('El sistema requiere que este módulo siempre esté activo.');
-		return false;
-	}
 |-include file="ModulesJs.js"-|
 </script>
 <h2>Configuración del Sistema</h2>
@@ -24,6 +20,7 @@
 			<input type="button" onClick="javascript:verifyModule('|-$eachModule['id']-|')" name="submit_go_verify_module" value="Verificar módulo" class="icon iconDownload"  title="Verificar módulo" />
 		  </form>
 		</td> 
-	</tr> 
+	</tr>
+	<tr id="directories_|-$eachModule['id']-|" class="verifyResult"></tr>
 	|-/foreach-|
 </table> 

@@ -46,12 +46,13 @@ function readOnlyCheckBox() {
 
 function verifyModule(module){
 	
+	$('#messageResult').html("");
 	$.ajax({
 		url: url,
 		data: $('#' + module).serialize(),
 		type: 'post',
 		success: function(data){
-			$('#messageResult').html(data);
+			$('#directories_' + module).html(data);
 		}	
 	});
 	$('#messageMod').html("<div class='inProgress'>Verificando módulo...</div>");
