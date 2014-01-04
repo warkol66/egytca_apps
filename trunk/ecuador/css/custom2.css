@@ -453,7 +453,7 @@ a.blackNoDecoration:visited {
 }
 
 /* TABLES   -------------------------------------------*/
-table.tableTdBorders th, table.tableTdBorders td  {
+table.tableTdBorders th, table.tableTdBorders td, tr.verifyResult {
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 tbody .row_odd {
@@ -1946,3 +1946,8 @@ tfoot .thFillTitle a.addLink {
 	display: inline-block;
 	line-height: 1.2em;
 }
+
+tr.verifyResult {background:	#a8a8a8 !important;}
+tr.verifyResult p {color:	#9A3334;}
+
+ul.verifyNested li ul li { background: url("../images/nested.png") !important; background-repeat:no-repeat !important; background-position:0px 0px !important; padding:2px 0 2px 14px; height:15px; margin-left:10px;}
