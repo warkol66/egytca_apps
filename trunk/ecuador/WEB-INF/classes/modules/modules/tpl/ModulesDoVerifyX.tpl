@@ -1,28 +1,30 @@
 <script>
 	$('#messageMod').html("");
+	|-if !empty($error)-|
+	$('#messageResult').html("<span class='resultFailure'>Ocurrió un error al |-$error-|</span>");
+	|-else-|
+	$('#messageResult').html("<span class='resultSuccess'>El módulo fue verificado y actualizado</span>");
+	|-/if-|
 </script>
-|-if !empty($error)-|
-	<span class="resultFailure">Ocurrió un error al intentar verificar el módulo</span>
-|-else-|
-	<span class="resultSuccess">El módulo fue verificado y actualizado</span>
-|-/if-|
+<td>
+	<p>Hash del directorio: |-$directoryHash-|</p>
 |-if !empty($newFiles)-|
-<div>
-	Se encontraron los siguientes archivos nuevos: 
-	<ul>
-		|-foreach from=$newFiles key=file item=newHash name=foreachNewFile-|
-		<li>|-$file-|</li>
-		|-/foreach-|
-	</ul>
-</div>
+	<ul class="verifyNested">
+		<li>Archivos nuevos:
+			<ul>
+				|-foreach from=$newFiles key=file item=newHash name=foreachNewFile-|
+				<li>|-$file-|</li>
+				|-/foreach-|
+			</ul>
+		</li>
+	
 |-/if-|
 |-if !empty($changedFiles)-|
-<div>
-	Los siguientes archivos fueron modificados: 
+	<p>Los siguientes archivos fueron modificados: </p>
 	<ul>
 		|-foreach from=$changedFiles key=changed item=changedHash name=foreachChangedFile-|
 		<li>|-$changed-|</li>
 		|-/foreach-|
 	</ul>
-</div>
 |-/if-|
+</td>

@@ -11,7 +11,8 @@ class ModuleVerify{
 		$this->ignores = $this->getIgnores();
 		
 		// archivo donde guardar fingerprints debe tener permisos de escritura
-		$this->file = "./WEB-INF/fingerprints/". $dirs[$module]['id'];
+		$this->fileDir = "./WEB-INF/fingerprints/";
+		$this->file = "./WEB-INF/fingerprints/" . $dirs[$module]['file'];
 		
 		// obtengo los hashes actuales
 		$this->hashes = unserialize(file_get_contents($this->file));
@@ -29,11 +30,11 @@ class ModuleVerify{
 	public static function getDirs() {
 		// cada elemento tiene un nombre como clave, id para el form, path y si solo verifica archivos
 		$dirs = array(
-			'config' => array('id' => 'config', 'dir' => './config', 'onlyFiles' => false),
-			'WEB-INF/classes' => array('id' => 'classes', 'dir' => './WEB-INF/classes', 'onlyFiles' => true),
-			'WEB-INF/classes/includes' => array('id' => 'includes', 'dir' => './WEB-INF/classes/includes', 'onlyFiles' => false),
-			'WEB-INF/lib-phpmvc' => array('id' => 'phpmvc', 'dir' => './WEB-INF/lib-phpmvc', 'onlyFiles' => false),
-			'WEB-INF/propel' => array('prop' => 'config', 'dir' => './WEB-INF/propel', 'onlyFiles' => false)
+			'config' => array('id' => 'config', 'dir' => './config', 'onlyFiles' => false, 'file' => 'config'),
+			'classes' => array('id' => 'classes', 'dir' => './WEB-INF/classes', 'onlyFiles' => true, 'file' => 'WEB-INF.classes'),
+			'includes' => array('id' => 'includes', 'dir' => './WEB-INF/classes/includes', 'onlyFiles' => false, 'file' => 'WEB-INF.classes.includes'),
+			'lib-phpmvc' => array('id' => 'phpmvc', 'dir' => './WEB-INF/lib-phpmvc', 'onlyFiles' => false, 'file' => 'WEB-INF.lib-phpmvc'),
+			'propel' => array('id' => 'propel', 'dir' => './WEB-INF/propel', 'onlyFiles' => false, 'file' => 'WEB-INF.propel')
 		);
 		
 		// obtengo todos los modulos	
@@ -41,7 +42,7 @@ class ModuleVerify{
 			$ignore = array('.', '..','.svn','.bak');
 			while (false !== ($file = readdir($handle))) {
 				if (!in_array($file, $ignore)) {
-					$dirs["WEB-INF/classes/modules/$file"] = array('id' => "$file", 'dir' => "./WEB-INF/classes/modules/$file", 'onlyFiles' => false);
+					$dirs["$file"] = array('id' => "$file", 'dir' => "./WEB-INF/classes/modules/$file", 'onlyFiles' => false, 'file' => "WEB-INF.classes.modules.$file");
 				}
 			}
 			closedir($handle);
@@ -49,12 +50,17 @@ class ModuleVerify{
 		return $dirs;
 	}
 	
+	/* devuelve el hash del directorio obtenido a partir del archivo de fingerprint correspondiente */
+	public function getDirectoryHash() {
+		return md5_file($this->file);
+	}
+	
 	// devuelve el listado de directorios a verificar
-	function getIgnores() {
+	private function getIgnores() {
 		return array('.','..','.svn','application-config','application-classmap','.bak','fingerprints');
 	}
 
-	function lookDir($path) {
+	public function lookDir($path) {
 		$handle = @opendir($path);
 		if (!$handle){
 			return false;
@@ -72,7 +78,7 @@ class ModuleVerify{
 		 return true;
 	}
 
-	function checkFile($file) {
+	private function checkFile($file) {
 		 if (is_readable($file)){
 			 //echo "readable";
 			if (!isset($this->hashes[$file])) {
@@ -85,8 +91,6 @@ class ModuleVerify{
 			}else{
 				 $this->hashes[$file] =  md5_file($file);
 			}
-		}else{
-			//echo "Not readable";
 		}
 	}
 	

@@ -25,13 +25,16 @@ class ModulesDoVerifyXAction extends BaseAction {
 		
 		$verify = new ModuleVerify($_POST['moduleName']);
 		if (!$verify->lookDir($verify->dir['dir'])){
-			echo "Could not open the directory ".$verify->dir['dir']."\n";
-			$smarty->assign('error','opening');
+			//echo "Could not open the directory ".$verify->dir['dir']."\n";
+			$smarty->assign('error','abrir el directorio');
 		}else{
-			echo $verify->file;
-			if (!file_put_contents($verify->file, serialize($verify->hashes))){
-				$smarty->assign('error','saving');
+			if (!file_exists($verify->fileDir)) {
+				mkdir($verify->fileDir, 0777, true);
 			}
+			if (!file_put_contents($verify->file, serialize($verify->hashes))){
+				$smarty->assign('error','intentar guardar los fingerprints');
+			}
+			$smarty->assign('directoryHash',$verify->getDirectoryHash());
 			$smarty->assign('newFiles',$verify->newFiles);
 			$smarty->assign('changedFiles',$verify->changedFiles);
 		}
