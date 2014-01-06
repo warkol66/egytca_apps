@@ -23,6 +23,8 @@ class ModulesVerifyListAction extends BaseAction {
 		$module = "Modules";
 		$smarty->assign("module",$module);
 		
+		$verify = new ModuleVerify();
+		
 		$smarty->assign("moduleColl",ModuleVerify::getDirs());
 		
 		return $mapping->findForwardConfig('success');
