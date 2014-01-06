@@ -39,6 +39,8 @@ class ModulesDoVerifyXAction extends BaseAction {
 			$smarty->assign('changedFiles',$verify->changedFiles);
 		}
 		
+		$smarty->assign('verifiedModule',$_POST['moduleName']);
+		
 		return $mapping->findForwardConfig('success');
 	}
 
