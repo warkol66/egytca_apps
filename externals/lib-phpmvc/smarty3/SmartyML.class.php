@@ -47,6 +47,18 @@
 		$this->language = new ngLanguage($locale); // create a new language object
 		$GLOBALS['_NG_LANGUAGE_'] =& $this->language;
 		$this->registerFilter("pre", "smarty_prefilter_i18n");
+		
+		$webInfDir = __DIR__.'/../..';
+		$this->setTemplateDir("$webInfDir/tpl/");
+        $this->setCompileDir("$webInfDir/smarty_tpl/templates_c/");
+        $this->setConfigDir("$webInfDir/smarty_tpl/configs/");
+        $this->setCacheDir("$webInfDir/smarty_tpl/cache/");
+
+        $this->left_delimiter = '|-';
+        $this->right_delimiter = '-|';
+		
+		$this->caching = self::CACHING_OFF;
+		$this->force_compile = true;
 	} 
 	
 	public function fetch($template = null, $cache_id = null, $compile_id = null, $parent = null, $display = false, $merge_tpl_vars = true, $no_output_filter = false) {
