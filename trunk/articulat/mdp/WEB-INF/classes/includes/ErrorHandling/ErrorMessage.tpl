@@ -1,0 +1,1 @@
+<p>Ha ocurrido un error desconocido. Se ha enviado un reporte de error al administrador del sistema.</p>
