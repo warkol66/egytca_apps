@@ -31,12 +31,14 @@ class ModulesDoVerifyXAction extends BaseAction {
 			if (!file_exists($verify->fileDir)) {
 				mkdir($verify->fileDir, 0777, true);
 			}
-			if (!file_put_contents($verify->file, serialize($verify->hashes))){
+			/*	no los guardo directamente
+			 * if (!file_put_contents($verify->file, serialize($verify->hashes))){
 				$smarty->assign('error','intentar guardar los fingerprints');
-			}
+			}*/
 			$smarty->assign('directoryHash',$verify->getDirectoryHash());
 			$smarty->assign('newFiles',$verify->newFiles);
 			$smarty->assign('changedFiles',$verify->changedFiles);
+			$smarty->assign('allHashes',serialize($verify->hashes));
 		}
 		
 		$smarty->assign('verifiedModule',$_POST['moduleName']);

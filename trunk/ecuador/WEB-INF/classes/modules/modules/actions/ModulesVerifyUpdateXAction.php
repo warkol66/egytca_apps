@@ -2,9 +2,9 @@
 
 require_once 'ModuleVerify.class.php';
 
-class ModulesVerifyListAction extends BaseAction {
+class ModulesVerifyUpdateXAction extends BaseAction {
 
-	function ModulesVerifyListAction() {
+	function ModulesVerifyUpdateXAction() {
 		;
 	}
 
@@ -23,9 +23,17 @@ class ModulesVerifyListAction extends BaseAction {
 		$module = "Modules";
 		$smarty->assign("module",$module);
 		
-		$smarty->assign("moduleColl",ModuleVerify::getDirs());
+		$verify = new ModuleVerify($_POST['moduleName']);
+		// los hashes ya vienen serializados
+		if (!file_put_contents($verify->file, $_POST['hashes'])){
+			$smarty->assign('error','intentar guardar los fingerprints');
+		}
+		
+		$smarty->assign('verifiedModule',$_POST['moduleName']);
+		$smarty->assign('hash',md5_file($verify->file));
 		
 		return $mapping->findForwardConfig('success');
 	}
 
 }
+

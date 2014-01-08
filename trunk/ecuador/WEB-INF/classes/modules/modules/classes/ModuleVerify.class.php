@@ -13,6 +13,10 @@ class ModuleVerify{
 		
 		// archivo donde guardar fingerprints debe tener permisos de escritura
 		$this->fileDir = "./WEB-INF/fingerprints/";
+		// si el directorio de fingerprints no existe lo crea
+		if (!file_exists($this->fileDir)) {
+			mkdir($this->fileDir, 0777, true);
+		}
 		$this->file = "./WEB-INF/fingerprints/" . $dirs[$module]['file'];
 		
 		// obtengo los hashes actuales
@@ -43,7 +47,7 @@ class ModuleVerify{
 			$ignore = array('.', '..','.svn');
 			while (false !== ($file = readdir($handle))) {
 				if (!in_array($file, $ignore)) {
-					$dirs["$file"] = array('dir' => "./WEB-INF/classes/modules/$file", 'onlyFiles' => false, 'file' => "WEB-INF.classes.modules.$file",'hash' => md5_file("./WEB-INF/fingerprints/WEB-INF.modules.$file"));
+					$dirs["$file"] = array('dir' => "./WEB-INF/classes/modules/$file", 'onlyFiles' => false, 'file' => "WEB-INF.classes.modules.$file",'hash' => md5_file("./WEB-INF/fingerprints/WEB-INF.classes.modules.$file"));
 				}
 			}
 			closedir($handle);
