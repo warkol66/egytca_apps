@@ -57,3 +57,31 @@ function verifyModule(module){
 	});
 	$('#messageMod').html("<div class='inProgress'>Verificando módulo...</div>");
 }
+
+function verifyAllModules(){
+	
+	$('#messageResult').html("");
+	$.ajax({
+		url: url,
+		data: $('#all').serialize(),
+		type: 'post',
+		success: function(data){
+			eval($(data).text());
+		}
+	});
+	$('#messageMod').html("<div class='inProgress'>Verificando módulos...</div>");
+}
+
+function updateModule(module){
+	
+	$('#messageResult').html("");
+	$.ajax({
+		url: url,
+		data: $('#' + module + '_update').serialize(),
+		type: 'post',
+		success: function(data){
+			eval($(data).text());
+		}	
+	});
+	$('#messageMod').html("<div class='inProgress'>Actualizando módulo...</div>");
+}
