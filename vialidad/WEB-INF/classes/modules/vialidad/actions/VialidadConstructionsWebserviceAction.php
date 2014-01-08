@@ -16,12 +16,12 @@ class VialidadConstructionsWebserviceAction extends BaseListAction {
 
 	protected function preList() {
 		parent::preList();
-		$this->module = "Headlines";
 
 		$this->notPaginated = true;
 		$this->template->template = "TemplatePlain.tpl";
 
-		if (!empty($_GET['filters']['issueId']))
+	//Ejemplo de filtros
+	/*	if (!empty($_GET['filters']['issueId']))
 			if (empty($_GET['filters']['getIssueBrood']))
 				$this->filters['Issue']['entityFilter'] = array(
 					'entityType' => "Issue",
@@ -46,6 +46,7 @@ class VialidadConstructionsWebserviceAction extends BaseListAction {
 			$this->filters['rangePublished'] = Common::getPeriodArray(
 				$_GET['filters']['fromDate'], $_GET['filters']['toDate']
 			);
+		*/ //Fin ejemplos
 
 	}
 

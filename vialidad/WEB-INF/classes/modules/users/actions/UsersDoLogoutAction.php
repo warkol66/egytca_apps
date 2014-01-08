@@ -15,12 +15,6 @@ class UsersDoLogoutAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
-
 		$user = Common::getLoggedUser();
 
 		if (!empty($user) && is_object($user)) {
@@ -28,7 +22,8 @@ class UsersDoLogoutAction extends BaseAction {
 			if(method_exists($user,"setSession"))
 				$user->setSession(null)->save();
 
-			Common::doLog('success','username: ' . $user->getUsername());
+			if(method_exists($user,"getUsername"))
+				Common::doLog('success','username: ' . $user->getUsername());
 
 		}
 
