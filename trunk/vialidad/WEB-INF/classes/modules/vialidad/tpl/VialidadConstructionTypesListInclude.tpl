@@ -40,7 +40,7 @@
 		
 		|-if isset($pager) && $pager->haveToPaginate()-|
 		<tr> 
-			<td colspan="2" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+			<td colspan="2" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 		</tr>
 		|-/if-|
 <script type="text/javascript">

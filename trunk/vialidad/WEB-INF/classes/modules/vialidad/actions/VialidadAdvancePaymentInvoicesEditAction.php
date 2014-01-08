@@ -3,7 +3,7 @@
 class VialidadAdvancePaymentInvoicesEditAction extends BaseEditAction {
 	
 	public function __construct() {
-		parent::__construct('AdvancePaymentInvoice', 'Vialidad');
+		parent::__construct('AdvancePaymentInvoice');
 	}
 	
 	protected function postEdit() {

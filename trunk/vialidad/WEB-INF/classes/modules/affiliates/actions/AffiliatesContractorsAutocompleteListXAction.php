@@ -22,7 +22,7 @@ class AffiliatesContractorsAutocompleteListXAction extends BaseAction {
         $searchString = $_REQUEST['value'];
         $smarty->assign("searchString",$searchString);
 
-        $contractors = ContractorQuery::create()
+        $contractors = AffiliateQuery::create()
             ->addFilter("searchString", $searchString)
             ->limitIfExists($_REQUEST['limit'])
         ->find();

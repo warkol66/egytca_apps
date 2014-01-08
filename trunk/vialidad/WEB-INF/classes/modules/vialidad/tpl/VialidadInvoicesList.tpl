@@ -45,11 +45,11 @@
 			<td valign="top">
 			  <p>
 				<label for="filters[date][min]">desde</label>
-				<input name="filters[date][min]" type='text' value='|-if isset($filters.date.min)-||-$filters.date.min|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[date][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input name="filters[date][min]" type='text' value='|-$filters.date.min|date_format-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[date][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 				</td>
 				<td valign="top">
 				  <p><label for="filters[date][max]">hasta</label>
-				<input name="filters[date][max]" type='text' value='|-if isset($filters.date.max)-||-$filters.date.max|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[date][max]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input name="filters[date][max]" type='text' value='|-$filters.date.max|date_format-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[date][max]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p></td>
 				</tr></table>				
 			&nbsp;&nbsp;<input id="button_filtersSubmit" type='submit' value='Buscar' />

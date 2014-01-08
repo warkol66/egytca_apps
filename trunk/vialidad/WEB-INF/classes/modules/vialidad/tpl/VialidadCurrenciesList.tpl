@@ -129,11 +129,6 @@ Object.extend(Ajax.InPlaceEditor.prototype, {
 		|-else-|
 			|-include file="VialidadCurrenciesListInclude.tpl"-|
 		|-/if-|
-		|-if isset($pager) && $pager->haveToPaginate()-|
-		<tr> 
-			<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
-		</tr>
-		|-/if-|
 		</tbody>
 		<tfoot>
 		|-if "vialidadCurrenciesEdit"|security_has_access-|

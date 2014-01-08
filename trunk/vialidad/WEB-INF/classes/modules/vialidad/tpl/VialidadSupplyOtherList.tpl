@@ -53,8 +53,8 @@
 		|-/if-|
 		
 		<tr class="thFillTitle"> 
-			<th width="60%">Insumo</th>
-			<th width="35%">Unidad</th>
+			<th width="80%">Insumo</th>
+			<th width="15%">Unidad</th>
 			<th width="5%">&nbsp;</th>
 		</tr>
 		</thead>
@@ -112,11 +112,11 @@
 		|-/foreach-|
 		|-/if-|
 		
-		|-if isset($pager) && $pager->haveToPaginate()-|
-		<tr> 
-			<td colspan="3" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
-		</tr>
-		|-/if-|
+	|-if isset($pager) && $pager->haveToPaginate()-|
+	<tr>
+		<td colspan="3" class="pages">|-include file="ModelPagerInclude.tpl"-|</td>
+	</tr>
+	|-/if-|
 		</tbody>
 		<tfoot>
 		|-if "vialidadSupplyEdit"|security_has_access-|

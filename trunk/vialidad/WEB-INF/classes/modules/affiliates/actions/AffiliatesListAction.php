@@ -35,9 +35,14 @@ class AffiliatesListAction extends BaseAction {
 
         $filters = $_GET["filters"];
         $smarty->assign("filters", $filters);
+        $filters["orderByName"] = "Criteria::DESC";
         
         $filters["classKey"] = $this->get('classKey');
-        $pager = $this->get('query')->createPager($filters, $_GET["page"], $filters["perPage"]);
+
+        if (!isset($filters["perPage"]))
+					$filters["perPage"] = Common::getRowsPerPage();
+
+        $pager = $this->get('query')->orderByName()->createPager($filters, $_GET["page"], $filters["perPage"]);
 
         $url = "Main.php?do=". $this->get('listAction');
         foreach ($filters as $key => $value)
