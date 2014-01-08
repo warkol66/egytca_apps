@@ -12,12 +12,12 @@ include_once("TimezonePeer.php");
 include_once("Common.class.php");
 include_once("Action.php");
 require_once("Smarty_config.inc.php");
-require_once("BaseQuery.php");
 
-require_once 'BaseListAction.php';
-require_once 'BaseEditAction.php';
-require_once 'BaseDoEditAction.php';
-require_once 'BaseDoDeleteAction.php';
+require_once("BaseQuery.php");
+require_once("BaseListAction.php");
+require_once("BaseEditAction.php");
+require_once("BaseDoEditAction.php");
+require_once("BaseDoDeleteAction.php");
 
 /**
 * Implementation of <strong>Action</strong> that demonstrates the use of the Smarty
@@ -93,30 +93,26 @@ class BaseAction extends Action {
 		$smarty->assign("systemUrl",$systemUrl);
 		$scriptPath = substr($_SERVER['PHP_SELF'], 0, (strlen($_SERVER['PHP_SELF']) -8 - @strlen($_SERVER['PATH_INFO'])));
 		$smarty->assign('scriptPath',$scriptPath);
-
+		//Chequeo si esta en mantenimiento
 		if (Common::inMaintenance()) {
 			header("Location: Main.php?do=commonMaintenance");
 			exit;
 		}
 		$actionRequested = $request->getAttribute('ACTION_DO_PATH');
+		//Chequeo si esta bloqueada la ip del usuario
+		if(Common::checkBlockedIp() && $actionRequested != "securityBlocked") {// La ip de donde se conecta esta bloquada
+			header("Location:Main.php?do=securityBlocked");
+			exit();
+		}
+
 		//Se obtienen modulo y accion solicitada
 		//$actionRequested = $_REQUEST["do"];
-
 		if (preg_match('/^([a-z]*)[A-Z]/',$actionRequested,$regs))
 			$moduleRequested = $regs[1];
 		if (empty($moduleRequested) && $actionRequested == "js")
 			$moduleRequested = "common";
 
 		$smarty->assign("module",$moduleRequested);
-
-		if (isset($_SESSION["loginUser"]) && is_object($_SESSION["loginUser"]) && get_class($_SESSION["loginUser"]) == "User")
-			$loginUser = $_SESSION["loginUser"];
-		if (isset($_SESSION["loginAffiliateUser"]) && is_object($_SESSION["loginAffiliateUser"]) && get_class($_SESSION["loginAffiliateUser"]) == "AffiliateUser")
-			$loginUserAffiliate = $_SESSION["loginAffiliateUser"];
-		if (isset($_SESSION["loginClientUser"]) && is_object($_SESSION["loginClientUser"]) && get_class($_SESSION["loginClientUser"]) == "ClientUser")
-			$loginClientUser = $_SESSION["loginClientUser"];
-		if (isset($_SESSION["loginRegistrationUser"]) && is_object($_SESSION["loginRegistrationUser"]) && get_class($_SESSION["loginRegistrationUser"]) == "RegistrationUser")
-			$loginRegistrationUser = $_SESSION["loginRegistrationUser"];
 
 		$securityAction = SecurityActionPeer::getByNameOrPair($actionRequested);
 		$securityModule = SecurityModulePeer::get($moduleRequested);
@@ -136,10 +132,18 @@ class BaseAction extends Action {
 
 		header("Content-type: text/html; charset=UTF-8");
 
-		if (!$noCheckLogin) { //Verifica login $noCheckLogin != 1
+		global $loginPath;
+		$loggedUser = Common::getLoggedUser();
 
-			$loggedUser = Common::getLoggedUser();			
+		if (!$noCheckLogin && $actionRequested != "securityBlocked") { //Verifica login $noCheckLogin != 1
 			if (!empty($loggedUser)) {
+				//Veo que el usuario no este bloqueado
+				if(Common::isBlockedUser($loggedUser->getUsername()) || Common::checkLoginUserFailures($loggedUser)) {// No tiene permiso
+					Common::blockedUserUnsetSession();
+					header("Location:Main.php?do=$loginPath&message=blocked");
+					exit();
+				}
+				Common::setLastActionTime($loggedUser);
 				if (!ConfigModule::get("global","noSecurity") && $actionRequested != "securityNoPermission") {
 					if (!empty($securityAction))
 						$access = $securityAction->getAccessByUser($loggedUser);
@@ -155,8 +159,8 @@ class BaseAction extends Action {
 				}
 			}
 			else { //Si requiere login y no hay sesion va a login
-				global $loginPath;
-				if ($actionRequested != $loginPath && $actionRequested != "commonDoLogin" && $actionRequested != "usersDoLogin") {
+				if ($actionRequested != $loginPath && $actionRequested != "commonDoLogin" && $actionRequested != "usersDoLogin" && $actionRequested != "securityBlocked") {
+					$_SESSION["loginRequestReferrer"] = $_SERVER["QUERY_STRING"];
 					header("Location:Main.php?do=$loginPath");
 					exit();
 				}
@@ -164,6 +168,18 @@ class BaseAction extends Action {
 		}
 		else { // No verifica login
 		}
+
+		if (isset($loggedUser))
+			$smarty->assign("loggedUser",$loggedUser);
+
+		if (isset($_SESSION["loginUser"]) && is_object($_SESSION["loginUser"]) && get_class($_SESSION["loginUser"]) == "User")
+			$loginUser = $_SESSION["loginUser"];
+		if (isset($_SESSION["loginAffiliateUser"]) && is_object($_SESSION["loginAffiliateUser"]) && get_class($_SESSION["loginAffiliateUser"]) == "AffiliateUser")
+			$loginUserAffiliate = $_SESSION["loginAffiliateUser"];
+		if (isset($_SESSION["loginClientUser"]) && is_object($_SESSION["loginClientUser"]) && get_class($_SESSION["loginClientUser"]) == "ClientUser")
+			$loginClientUser = $_SESSION["loginClientUser"];
+		if (isset($_SESSION["loginRegistrationUser"]) && is_object($_SESSION["loginRegistrationUser"]) && get_class($_SESSION["loginRegistrationUser"]) == "RegistrationUser")
+			$loginRegistrationUser = $_SESSION["loginRegistrationUser"];
 
 		if (!empty($loginUserAffiliate))
 			$smarty->assign("affiliateId",$loginUserAffiliate->getAffiliateId());
@@ -229,6 +245,7 @@ class BaseAction extends Action {
 		return new ForwardConfig($myRedirectPath, True);
 
 	}
+
 	/**
 	 * Agrega parametros al url de un forward
 	 * @param $params array with parameters with key and value
@@ -345,6 +362,13 @@ class BaseAction extends Action {
 
 		$smarty->assign("message","error");
 		return $mapping->findForwardConfig($forward);
+	}
+	
+	/**
+	 * Makes an ajax request fail
+	 */
+	function returnAjaxFailure($msg = 'Internal Server Error') {
+		header('HTTP/1.1 500 '.$msg);
 	}
 
 	/**
