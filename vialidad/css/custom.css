@@ -321,6 +321,9 @@ fieldset table.tableTdBorders td {
 fieldset table.tableTdBorders th {
 	background: #E3E9F1; /* #E3E9F1 o #C6CBD9 o #DFE5ED*/ 
 }
+table.tableTdBorders tbody tr:hover {
+	background-color: #f5f5f5;
+}
 /* /TABLES   -------------------------------------------*/
 
 .buttonImageLogin {

@@ -18,14 +18,13 @@ class BaseListAction extends BaseAction {
 	protected $pager;
 	protected $page;
 	protected $perPage;
-	
-	function __construct($entityClassName,$module) {
+
+	function __construct($entityClassName) {
 		if (empty($entityClassName))
 			throw new Exception('$entityClassName must be set');
 		$this->entityClassName = $entityClassName;
-		$this->module = $module;
 		if (substr(get_class($this), -7, 1) != "X")
-			$this->ajaxTemplate = str_replace('Action', '', get_class($this)).'X.tpl';
+			$this->ajaxTemplate = str_replace('Action', '', get_class($this)) . 'X.tpl';
 		else
 			$this->ajaxTemplate = str_replace('Action', '', get_class($this)) . '.tpl';
 	}
@@ -50,7 +49,6 @@ class BaseListAction extends BaseAction {
 			if ($this->preList() === false)
 				return $mapping->findForwardConfig('failure');
 
-
 			if (!$this->notPaginated) {
 				$this->smarty->assign("moduleConfig", Common::getModuleConfiguration($this->module));
 
@@ -73,13 +71,14 @@ class BaseListAction extends BaseAction {
 		}
 		else
 			return $mapping->findForwardConfig('failure');
+
 	}
 
 
-/**
- * postList
- * Acciones a ejecutar antes de obtener la coleccion de objetos
- */
+	/**
+	 * postList
+	 * Acciones a ejecutar antes de obtener la coleccion de objetos
+	 */
 	protected function preList() {
 
 		// Informacion de filtros
@@ -88,10 +87,10 @@ class BaseListAction extends BaseAction {
 			$this->perPage = $this->filters["perPage"];
 	}
 
-/**
- * postList
- * Acciones a ejecutar despues de obtener la coleccion de objetos
- */
+	/**
+	 * postList
+	 * Acciones a ejecutar despues de obtener la coleccion de objetos
+	 */
 	protected function postList() {
 
 		// Informacion para armar los links de paginador
