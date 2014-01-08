@@ -27,6 +27,7 @@ function resetPassword(form){
 |-/if-|
 <span id="usersMsgField"></span>
 <table cellpadding='5' cellspacing='0' width='100%' class='tableTdBorders'>
+<thead>
 |-if $loginUser ne '' || $loginAffiliateUser ne ''-|
 <tr>
 <td colspan="5" class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Buscar usuario</a>
@@ -58,13 +59,15 @@ function resetPassword(form){
 		<th>E-mail</th>
 		<th>&nbsp;</th>
 	</tr>
+	</thead>
+	<tbody>
 	|-foreach from=$users item=user name=for_users-|
 	<tr>
-		<td width="15%">|-$user->getAffiliate()-|</td>
+		<td width="20%">|-$user->getAffiliate()-|</td>
 		<td width="25%">|-$user->getUsername()-|</td>
 		<td width="25%">|-$user->getSurname()-|, |-$user->getName()-|</td>
 		<td width="25%">|-$user->getMailAddress()-|</td>
-		<td width="10%" nowrap>
+		<td width="5%" nowrap="nowrap">
 			|-if "affiliatesUsersEdit"|security_has_access-|<form action="Main.php" method="get" style="display:inline;"> 
 			  <input type="hidden" name="do" value="affiliatesUsersEdit" /> 
 			  <input type="hidden" name="id" value="|-$user->getId()-|" /> 
@@ -101,6 +104,8 @@ function resetPassword(form){
 		</td>
 	</tr>
 	|-/foreach-|
+	</tbody>
+	<tfoot>
 	|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
 			<tr> 
 				<td colspan="5" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
@@ -109,6 +114,7 @@ function resetPassword(form){
 	<tr class="thFillTitle">
 			<th colspan="5"><div class="rightLink"><a href="Main.php?do=affiliatesUsersEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar usuario</a></div></th>
 	</tr>
+	</tfoot>
 </table>
 
 |-if $deletedUsers|@count gt 0-|

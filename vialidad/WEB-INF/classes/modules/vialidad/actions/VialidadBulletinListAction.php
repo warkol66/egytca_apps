@@ -20,6 +20,10 @@ class VialidadBulletinListAction extends BaseAction {
 		$smarty->assign('module',$module);
 
 		$filters = $_GET["filters"];
+
+    if (!isset($filters["perPage"]))
+			$filters["perPage"] = Common::getRowsPerPage();
+
 		$pager = BulletinQuery::create()->orderByNumber('desc')->createPager($filters, $_GET["page"], $filters["perPage"]);
 		
 		$smarty->assign("filters",$filters);
@@ -28,7 +32,12 @@ class VialidadBulletinListAction extends BaseAction {
 
 		$url = "Main.php?do=vialidadBulletinList";
 		foreach ($filters as $key => $value)
-			$url .= "&filters[$key]=$value";
+			if(is_array($value)) {
+				$nKey = $key;
+				foreach ($value as $key => $value)
+					$url .= "&filters[$nKey][$key]=" . htmlentities(urlencode($value));
+			}
+			$url .= "&filters[$key]=" . htmlentities(urlencode($value));
 		$smarty->assign("url",$url);
 
 		$smarty->assign("message",$_GET["message"]);

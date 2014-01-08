@@ -24,7 +24,7 @@ class AffiliatesContractorsDoEditAction extends BaseAction {
 
 		if ($_POST["action"] == "edit" && !empty($_POST["id"])) {
 			$params["id"] = $_POST["id"];
-			$affiliate = ContractorQuery::create()->findPk($_POST["id"]);
+			$affiliate = AffiliateQuery::create()->findPk($_POST["id"]);
 			if (!empty($affiliate)) {
 				$affiliate = Common::setObjectFromParams($affiliate,$_POST["params"]);
 

@@ -1,6 +1,6 @@
 |-if $currencyColl|@count eq 0-|
 	<tr>
-		<td colspan="2">|-if isset($filter)-|No hay Monedas búsqueda|-else-|No hay Monedas de medida disponibles|-/if-|</td>
+		<td colspan="3">|-if isset($filter)-|No hay Monedas búsqueda|-else-|No hay Monedas de medida disponibles|-/if-|</td>
 	</tr>
 |-else-|
 	|-foreach from=$currencyColl item=currency name=for_currencies-|
@@ -40,6 +40,11 @@
 		</tr> 
 	|-/foreach-|
 |-/if-|
+		|-if isset($pager) && $pager->haveToPaginate()-|
+		<tr> 
+			<td colspan="3" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
+		</tr>
+		|-/if-|
 
 <script language="JavaScript" type="text/JavaScript">
 function attachNameInPlaceEditors() {

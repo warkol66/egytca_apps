@@ -27,6 +27,7 @@
 	<div  class="errorMessage">Ha ocurrido un error al intentar eliminar la categoría del grupo</div>
 |-/if-|
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
+<thead>
 	<tr>
 		<td colspan='3' class="tdSearch"><a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Busqueda por nombre</a><div id="divSearch" style="display:|-if $filters|@count gt 0-|block|-else-|none|-/if-|;"><form action='Main.php' method='get'>
 				<input type="hidden" name="do" value="affiliatesList" />
@@ -38,11 +39,13 @@
 	|-if "affiliatesEdit"|security_has_access-|<tr>
 		<th colspan="3"><div class="rightLink"><a href="Main.php?do=affiliatesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##affiliates,3,Afiliado##</a></div></th>
 	</tr>|-/if-|
+	</thead>
+	<tbody>
 	|-foreach from=$affiliates item=affiliate name=for_affiliate-|
 	<tr>
-		<td width="5%">|-$affiliate->getId()-|</td>
-		<td width="85%">|-$affiliate->getName()-| |-if $affiliate->getOwnerId() neq ""-||-assign var=owner value=$affiliate->getOwner()-| [ Usuario Dueño: |-$owner->getUsername()-| ] |-/if-|</td>
-		<td width="10%" nowrap>|-if "affiliatesViewX"|security_has_access-|
+		<td width="5%" align="center">|-$affiliate->getId()-|</td>
+		<td width="90%">|-$affiliate->getName()-| |-if $affiliate->getOwnerId() neq ""-||-assign var=owner value=$affiliate->getOwner()-| [ Usuario Dueño: |-$owner->getUsername()-| ] |-/if-|</td>
+		<td width="5%" nowrap="nowrap">|-if "affiliatesViewX"|security_has_access-|
 					<form action="Main.php" method="get" style="display:inline;">
 						<input type="hidden" name="do" value="affiliatesViewX" />
 						<input type="hidden" name="id" value="|-$affiliate->getId()-|" />
@@ -59,7 +62,9 @@
     </td>
 	</tr>
 	|-/foreach-|
-		|-if isset($pager) && ($pager->getLastPage() gt 1)-|
+	</tbody>
+	<tfoot>
+			|-if isset($pager) && ($pager->getLastPage() gt 1)-|
 	<tr>
 		<td colspan="3" class="pages">|-include file="ModelPagerInclude.tpl"-|</td>
 	</tr>
@@ -67,4 +72,5 @@
 	|-if "affiliatesEdit"|security_has_access && $affiliates|@count gt 5-|<tr>
 		<th colspan="3"><div class="rightLink"><a href="Main.php?do=affiliatesEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() ne 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar ##affiliates,3,Afiliado##</a></div></th>
 	</tr>|-/if-|
+	</tfoot>
 </table>

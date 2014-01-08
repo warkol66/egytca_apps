@@ -22,6 +22,7 @@
 	<div  class="successMessage">Paramétrica de Obra guardada</div>
 |-/if-|
 <table width='100%' border="0" cellpadding='5' cellspacing='0' class='tableTdBorders'>
+<thead>
 	<tr>
 		<td colspan="5" class="tdSearch">
 			<a href="javascript:void(null);" onClick='switch_vis("divSearch");' class="tdTitSearch">Búsqueda de items</a>
@@ -62,6 +63,8 @@
 		<th width="5%">&nbsp;
 		</th>
 	</tr>
+	</thead>
+	<tbody>
 	|-foreach from=$items item=item name=for_item-|
 	<tr>
 		<td>|-$item->getConstruction()-|</td>
@@ -92,6 +95,8 @@
 		</td>
 	</tr>
 	|-/foreach-|
+	</tbody>
+	<tfoot>
 	|-if isset($pager) && $pager->haveToPaginate()-|
 	<tr>
 		<td colspan="5" class="pages">|-include file="ModelPagerInclude.tpl"-|</td>
@@ -100,4 +105,5 @@
 	|-if "vialidadConstructionItemEdit"|security_has_access && $items|@count gt 5-|<tr>
 		<th colspan="5" class="thFillTitle"><div class="rightLink"><a href="Main.php?do=vialidadConstructionItemEdit|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($pager) && ($pager->getPage() gt 1)-|&page=|-$pager->getPage()-||-/if-|" class="addLink">Agregar Item</a></div></th>
 	</tr>|-/if-|
+	</tfoot>
 </table>

@@ -24,11 +24,20 @@ class VialidadConstructionItemListAction extends BaseAction {
 		$smarty->assign("message",$_GET["message"]);
 
 		$filters = $_GET["filters"];
+
+    if (!isset($filters["perPage"]))
+			$filters["perPage"] = Common::getRowsPerPage();
+
 		$pager = ConstructionItemQuery::create()->createPager($filters, $_GET["page"], $filters["perPage"]);
 		
 		$url = "Main.php?do=vialidadConstructionItemList";
 		foreach ($filters as $key => $value)
-			$url .= "&filters[$key]=$value";
+			if(is_array($value)) {
+				$nKey = $key;
+				foreach ($value as $key => $value)
+					$url .= "&filters[$nKey][$key]=" . htmlentities(urlencode($value));
+			}
+			$url .= "&filters[$key]=" . htmlentities(urlencode($value));
 		$smarty->assign("url",$url);
 		
 		if (!empty($filters["constructionid"]))

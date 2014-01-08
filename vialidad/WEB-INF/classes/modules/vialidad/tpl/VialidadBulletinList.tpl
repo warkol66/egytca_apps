@@ -61,9 +61,9 @@
 		</tr>
 		|-/if-|
 		<tr class="thFillTitle"> 
-			<th width="30%">N°</th> 
-			<th width="45%">Mes</th> 
-			<th width="20%">Publicado</th> 
+			<th width="5%">N°</th> 
+			<th width="85%">Mes</th> 
+			<th width="5%">Publicado</th> 
 			<th width="5%">&nbsp;</th> 
 		</tr> 
 		</thead> 
@@ -75,9 +75,9 @@
 		|-else-|
 		|-foreach from=$bulletins item=bulletin name=for_bulletins-|
 		<tr> 
-			<td>|-$bulletin->getNumber()-|</td>
+			<td align="center">|-$bulletin->getNumber()-|</td>
 			<td>|-$bulletin->getBulletindate()|date_format:"%B / %Y"|@ucfirst-|</td>
-			<td>|-$bulletin->getPublished()|si_no-|</td>
+			<td align="center">|-$bulletin->getPublished()|si_no-|</td>
 			<td nowrap>
 				|-if "vialidadBulletinEdit"|security_has_access-|
 				<form action="Main.php" method="get">
@@ -106,9 +106,9 @@
 		</tr> 
 		|-/foreach-|
 		|-/if-|
-		|-if isset($pager) && $pager->haveToPaginate()-|
-		<tr> 
-			<td colspan="4" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+		|-if isset($pager) && ($pager->getLastPage() gt 1)-|
+		<tr>
+			<td colspan="4" class="pages">|-include file="ModelPagerInclude.tpl"-|</td>
 		</tr>
 		|-/if-|
 		|-if "vialidadBulletinEdit"|security_has_access-|

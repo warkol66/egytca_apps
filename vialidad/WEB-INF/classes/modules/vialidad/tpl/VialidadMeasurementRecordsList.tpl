@@ -35,12 +35,12 @@
 			  </p></td>
 			<td valign="top"><p>
 				<label for="filters[measurementdate][min]">desde</label>
-				<input name="filters[measurementdate][min]" type='text' value='|-if isset($filters.date.min)-||-$filters.measurementdate.min|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[measurementdate][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input name="filters[measurementdate][min]" type='text' value='|-$filters.measurementdate.min|date_format-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[measurementdate][min]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 				</p>
 				</td>
 				<td valign="top"><p>
 				<label for="filters[measurementdate][max]">hasta</label>
-				<input name="filters[measurementdate][max]" type='text' value='|-if isset($filters.measurementdate.max)-||-$filters.measurementdate.max|date_format-||-/if-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[measurementdate][max]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+				<input name="filters[measurementdate][max]" type='text' value='|-$filters.measurementdate.max|date_format-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('filters[measurementdate][max]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p></td>
 				</tr></table>				
 			&nbsp;&nbsp;<input id="button_filtersSubmit" type='submit' value='Buscar' />
@@ -63,7 +63,7 @@
 	<tr><td colspan="5">No hay actas cargadas en el sistema</td></tr>
 	|-else-||-foreach from=$records item=record name=for_records-|
 	<tr>
-		<td nowrap="nowrap">|-$record->getCode()-|</td>
+		<td align="center" nowrap="nowrap">|-$record->getCode()-|</td>
 		<td>|-$record->getConstruction()-|</td>
 		<td>|-$record->getContractor()-|</td>
 		<td>|-$record->getMeasurementDate()|date_format:"%B / %Y"|@ucfirst-|</td>

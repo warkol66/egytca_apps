@@ -4,6 +4,7 @@
 |-if $constructionColl->count() gt 0-|
 	|-foreach $constructionColl as $construction-|
 		{
+			"Id de Obra" : "|-$construction->getId()-|",
 			"Nombre" : "|-$construction->getName()-|",
 			"Número" : "|-$contract = $construction->getContract()-||-if is_object($contract)-||-$contract->getContractNumber()-||-/if-|",
 			"Pac" : "|-if is_object($contract)-||-$contract->getPacNumber()-||-/if-|",
