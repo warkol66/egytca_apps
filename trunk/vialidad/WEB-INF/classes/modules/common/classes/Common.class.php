@@ -91,16 +91,18 @@ class Common {
 	}
 
 	/**
-	* Agrega la informacion del user y id a lso params
+	* Agrega la informacion del user y id a params
 	* @return array $params array con la informacion recibida mas la del tipo de usuario y su id
 	*/
 	public static function addUserInfoToParams($params) {
 
 		$userInfo = array();
 		$loggedUser = Common::getLoggedUser();
-		$userInfo["userObjectType"] = get_class($loggedUser);
-		$userInfo["userObjectId"] = $loggedUser->getId();
-		$userInfo["userId"] = $loggedUser->getId();
+		if($loggedUser){
+			$userInfo["userObjectType"] = get_class($loggedUser);
+			$userInfo["userObjectId"] = $loggedUser->getId();
+			$userInfo["userId"] = $loggedUser->getId();
+		}
 
 		$params = array_merge_recursive($params, $userInfo);
 
@@ -238,6 +240,8 @@ class Common {
 		$user = NULL;
 		if (!empty($_SESSION['loginUser']) && is_object($_SESSION['loginUser']) && get_class($_SESSION["loginUser"]) == "User")
 			$user = $_SESSION['loginUser'];
+		else if (!empty($_SESSION['loginRegistrationUser']) && is_object($_SESSION['loginRegistrationUser']) && get_class($_SESSION["loginRegistrationUser"]) == "RegistrationUser")
+			$user = $_SESSION['loginRegistrationUser'];
 		else if (!empty($_SESSION['loginUserByRegistration']) && is_object($_SESSION['loginUserByRegistration']) && get_class($_SESSION["loginUserByRegistration"]) == "UserByRegistration")
 			$user = $_SESSION['loginUserByRegistration'];
 		else if (!empty($_SESSION["loginAffiliateUser"]) && is_object($_SESSION['loginAffiliateUser']) && get_class($_SESSION["loginAffiliateUser"]) == "AffiliateUser")
@@ -257,16 +261,16 @@ class Common {
 	*/
 	public static function getByUsername($username) {
 		$user = NULL;
-		$user = UserPeer::getByUsername($username);
+		$user = BaseQuery::create('User')->findOneByUsername($username);
 		if (!empty($user))
 			return $user;
-		if (class_exists(AffiliateUserPeer)){
-			$user = AffiliateUserPeer::getByUsername($username);
+		if (class_exists(AffiliateUserQuery)) {
+			$user = BaseQuery::create('AffiliateUser')->findOneByUsername($username);
 			if (!empty($user))
 				return $user;
 		}
-		if (class_exists(ClientUserPeer)){
-			$user = ClientUserPeer::getByUsername($username);
+		if (class_exists(ClientUserQuery)) {
+			$user = BaseQuery::create('ClientUser')->findOneByUsername($username);
 			if (!empty($user))
 				return $user;
 		}
@@ -278,18 +282,18 @@ class Common {
 	* @return obj $user con el objeto logueado de la session
 	*/
 	public static function authenticateByUserAndMail($username,$email) {
-		if (class_exists(UserPeer)){
-			$user = UserPeer::authenticateByUserAndMail($username,$email);
+		if (class_exists('UserQuery')){
+			$user = BaseQuery::create('User')->searchByUsernameAndMail($username,$email)->findOne();
 			if (!empty($user))
 				return $user;
 		}
-		if (class_exists(AffiliateUserPeer)){
-			$user = AffiliateUserPeer::authenticateByUserAndMail($username,$email);
+		if (class_exists('AffiliateUserQuery')){
+			$user = BaseQuery::create('AffiliateUser')->searchByUsernameAndMail($username,$email)->findOne();
 			if (!empty($user))
 				return $user;
 		}
-		if (class_exists(ClientUserPeer)){
-			$user = ClientUserPeer::authenticateByUserAndMail($username,$email);
+		if (class_exists('ClientUserQuery')){
+			$user = BaseQuery::create('ClientUser')->searchByUsernameAndMail($username,$email)->findOne();
 			if (!empty($user))
 				return $user;
 		}
@@ -301,18 +305,18 @@ class Common {
 	* @return obj $user con el objeto logueado de la session
 	*/
 	public static function getByRecoveryHash($hash) {
-		if (class_exists(UserPeer)){
-			$user = UserPeer::getByRecoveryHash($hash);
+		if (class_exists('UserQuery')){
+			$user = BaseQuery::create('User')->findOneByRecoveryhash($hash);
 			if (!empty($user))
 				return $user;
 		}
-		if (class_exists(AffiliateUserPeer)){
-			$user = AffiliateUserPeer::getByRecoveryHash($hash);
+		if (class_exists('AffiliateUserQuery')){
+			$user = BaseQuery::create('AffiliateUser')->findOneByRecoveryhash($hash);
 			if (!empty($user))
 				return $user;
 		}
-		if (class_exists(ClientUserPeer)){
-			$user = ClientUserPeer::getByRecoveryHash($hash);
+		if (class_exists('ClientUserQuery')){
+			$user = BaseQuery::create('ClientUser')->findOneByRecoveryhash($hash);
 			if (!empty($user))
 				return $user;
 		}
@@ -586,7 +590,18 @@ class Common {
 	*
 	* @return int Cantidad de filas por pagina
 	*/
-	public static function getRowsPerPage() {
+	public static function getRowsPerPage($module) {
+		if (!empty($module)) {
+			$perPage = ConfigModule::get($module,"rowsPerPage");
+			if (!empty($perPage))
+				return $perPage;
+			else {
+				$moduleConfiguration = Common::getModuleConfiguration($module);
+				$perPage = $moduleConfiguration['rowsPerPage'];
+				if (!empty($perPage))
+					return $perPage;
+			}
+		}
 		global $system;
 		return $system['config']['system']['rowsPerPage'];
 	}
@@ -639,7 +654,7 @@ class Common {
 	* @return Idiomas del sistema
 	*/
 	public static function getAllLanguages() {
-		$languages = MultilangLanguagePeer::getAll();
+		$languages = MultilangLanguageQuery::create()->find();
 		return $languages;
 	}
 
@@ -1053,9 +1068,8 @@ class Common {
 	* Encripta md5
 	* @return string encriptado
 	*/
-	public static function md5($pass) {
-		$crypt = md5($pass."ASD");
-		return $crypt;
+	public static function md5($string) {
+		return md5($string."ASD");
 	}
 
 	/**
@@ -1243,7 +1257,7 @@ class Common {
 	 * @return true o false
 	 */
 	public static function evaluateBitlevel($level,$bitlevel) {
-		if ($level == SecurityModulePeer::LEVEL_ALL)
+		if ($level == SecurityModule::LEVEL_ALL)
 			return ($bitlevel == $level);
 		return ((intval($level) & intval($bitlevel)) > 0);
 	}
@@ -1253,20 +1267,22 @@ class Common {
 	*
 	* @return array dechas max y min
 	*/
-	public static function getPeriodArray($fromDate = null, $toDate = null) {
+	public static function getPeriodArray($fromDate = null, $toDate = null, $useTime = true) {
 		if (!empty($fromDate))
-			$fromDate = Common::convertToMysqlDatetimeFormat($fromDate);
+			$fromDate = Common::convertToMysqlDatetimeFormat($fromDate, $useTime);
+		if (!empty($toDate)) {
+			$toDate = Common::convertToMysqlDatetimeFormat($toDate, $useTime);
+			if ($useTime)
+				$toDate = date('Y-m-d H:i:s', strtotime($toDate.' + 1 day - 1 second'));
+		}
+
+		$periodArray = array();
+		if (!empty($fromDate))
+			$periodArray["min"] = $fromDate;
 		if (!empty($toDate))
-			$toDate = Common::convertToMysqlDatetimeFormat($toDate);
+			$periodArray["max"] = $toDate;
 
-		if (!is_null($fromDate) && !is_null($toDate))
-			$periodArray = array("min" => $fromDate, "max" => $toDate);
-		else if (!is_null($fromDate))
-			$periodArray = array("min" => $fromDate);
-		else
-			$periodArray = array("max" => $toDate);
-
-		return $periodArray;
+		return empty($periodArray) ? null : $periodArray;
 	}
 
 	/**
@@ -1376,6 +1392,7 @@ class Common {
 			if (!file_exists($dirAfter)) {
 				mkdir($dirAfter);
 				if (!file_exists($dirAfter)) {
+					return "No exists";
 					$msg = "el directorio $path no existe. creacion automatica fallo: no se puede escribir en $dirBefore, verifique permisos";
 					throw new Exception($msg);
 				}
@@ -1383,10 +1400,366 @@ class Common {
 			$dirBefore = $dirAfter;
 		}
 		if (!Common::isWritable($dirBefore)) {
+			return "No writeable";
 			throw new Exception("no se puede escribir en $dirBefore, verifique permisos");
 		}
 
 		return;
+	}
+
+	/**
+	* Obtiene la ip del cliente
+	*
+	* @return ip
+	*/
+	public static function getIp() {
+		
+		$client  = $_SERVER['HTTP_CLIENT_IP'];
+		$forward = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		$remote  = $_SERVER['REMOTE_ADDR'];
+
+		if(filter_var($client, FILTER_VALIDATE_IP))
+			$ip = $client;
+		else if (filter_var($forward, FILTER_VALIDATE_IP))
+			$ip = $forward;
+		else
+			$ip = $remote;
+
+		return $ip;
+
+	}
+
+	/**
+	* Guarda una falla al solicitar login
+	*
+	* @param string $username nombre de usuario
+	* @param string $password clave ingresada
+	* @return void
+	*/
+	public static function loginFailure($username, $password, $objectType) {
+		
+		$ipBlocked = Common::checkLoginIpFailures();
+
+		$queryClass = $objectType . 'Query';
+		$user = $queryClass::create()->findOneByUsername($username);
+		$userBlocked = Common::checkLoginUserFailures($user);
+
+		if ($ipBlocked || $userBlocked)
+			$blocked = true;
+		if (!empty($user)) {
+			try {
+				$loginFailure = new LoginFailure();
+				$loginFailure->setAttemptAt(time());
+				$loginFailure->setUsername($username);
+				$loginFailure->setPassword($password);
+				$loginFailure->setObjectType($objectType);
+				$loginFailure->setObjectId($user->getId());
+				$loginFailure->setIp(Common::getIp());
+				$loginFailure->setBlocked($blocked);
+				$loginFailure->save();
+			}
+			catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->getMessage());
+			}
+		}
+	}
+
+	/**
+	* Informa si se bloqua una Ip por fallas de login
+	*
+	* @param string $remoteIp ip de intento fallido de login
+	* @return true si bloqueo la ip, false si no la bloqueo
+	* Testeada
+	*/
+	public static function checkLoginIpFailures() {
+
+		$loginFailureThreshold = ConfigModule::get("global","loginFailureThreshold");
+		$loginFailureThresholdTime = ConfigModule::get("global","loginFailureThresholdTime");
+		$loginFailureBlockedTimeTime = ConfigModule::get("global","loginFailureBlockedTimeTime");
+
+		$loginFailureThresholdTimeArray = array('min' => time() - ($loginFailureThresholdTime * 60));
+
+		$remoteIp = Common::getIp();
+		if ($remoteIp != "127.0.0.1") {
+			$ipLoginFailures = LoginFailureQuery::create()
+					->filterByIp($remoteIp)
+					->filterByAttemptat($loginFailureThresholdTimeArray)->count();
+	
+			if ($ipLoginFailures > $loginFailureThreshold) {
+				try {
+					$blockedIp = new BlockedIp();
+					$blockedIp->setIp($remoteIp);
+					$blockedIp->setBlockedAt(time());
+					$blockedIp->setUnblocked(false);
+					$blockedIp->save();
+					return true;
+				}
+				catch (PropelException $exp) {
+					if (ConfigModule::get("global","showPropelExceptions"))
+						print_r($exp->getMessage());
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	* Informa si una Ip esta bloquada
+	*
+	* @param string $remoteIp ip de intento fallido de login
+	* @return true si bloqueo la ip, false si no la bloqueo
+	* Testeada
+	*/
+	public static function checkBlockedIp() {
+
+		$securityFailureBlockedTime = ConfigModule::get("global","securityFailureBlockedTime");
+
+		$min = new DateTime();
+		$min->modify("-$securityFailureBlockedTime minutes");
+		$securityFailureBlockedTimeArray = array('min' => $min->format('Y-m-d H:i:s'));
+
+		$remoteIp = Common::getIp();
+		$blockedIp = BlockedIpQuery::create()
+						->filterByIp($remoteIp)
+						->filterByBlockedat($securityFailureBlockedTimeArray)//->toString();
+						->count();
+		if ($blockedIp > 0)
+			return true;
+		else
+			return false;
+	}
+
+	/**
+	* Informa si se bloqua un usuario por fallas de login
+	*
+	* @param propelObject $userObject usuario
+	* @return true si bloqueo el usuario, false si no lo bloqueo
+	*/
+	public static function checkLoginUserFailures($userObject) {
+
+		if (is_object($userObject)) {
+			$loginFailureThreshold = ConfigModule::get("global","loginFailureThreshold");
+			$loginFailureThresholdTime = ConfigModule::get("global","loginFailureThresholdTime");
+			$loginFailureBlockedTimeTime = ConfigModule::get("global","loginFailureBlockedTimeTime");
+			
+			$min = new DateTime();
+			$min->modify("-$loginFailureThresholdTime minutes");
+			$loginFailureThresholdTimeArray = array('min' => $min->format('Y-m-d H:i:s'));
+			
+			$objectType = get_class($userObject);
+			$objectId = $userObject->getId();
+			
+			$userLoginFailures = LoginFailureQuery::create()
+					->filterByObjecttype($objectType)->filterByObjectid($objectId)
+					->filterByAttemptat($loginFailureThresholdTimeArray)->count();
+					
+			$remoteIp = Common::getIp();
+					
+			$ipLoginFailures = LoginFailureQuery::create()
+					->filterByIp($remoteIp)
+					->filterByAttemptat($loginFailureThresholdTimeArray)->count();
+					
+			if ($userLoginFailures > $loginFailureThreshold) {
+				try {
+					Common::blockUser($objectType, $objectId);
+					$blockedUser = new BlockedUser();
+					$blockedUser->setObjecttype($objectType);
+					$blockedUser->setObjectid($objectId);
+					$blockedUser->setUnblocked(false);
+					$blockedUser->save();
+					return true;
+				}
+				catch (PropelException $exp) {
+					if (ConfigModule::get("global","showPropelExceptions"))
+						print_r($exp->getMessage());
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	* Guarda una falla al solicitar acciones o permitidas
+	*
+	* @param object $user usuario solitante de la accion
+	* @param string $action  accion solicitada
+	* @return void
+	*/
+	public static function securityFailure($user, $action) {
+
+		$userBlocked = Common::checkSecurityUserFailures($objectType, $objectId);
+
+		try {
+			$securityFailure = new SecurityFailure();
+			$securityFailure->setObjecttype(get_class($user));
+			$securityFailure->setObjectid($user->getId());
+			$securityFailure->setAaction($action);
+			$securityFailure->setAttemptAt(time());
+			$securityFailure->setIp($_SERVER["REMOTE_ADDR"]);
+			$securityFailure->setBlocked($userBlocked);
+			$securityFailure->save();
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+		}
+	}
+
+	/**
+	* Informa si se bloqua un usuario pro solicitar acciones no permitidas
+	*
+	* @param string $objectType tipo de usuario intento accion no permitida
+	* @param string $objectId id de usuario fallido de accion no permitida
+	* @return true si bloqueo el usuario, false si no lo bloqueo
+	*/
+	public static function checkSecurityUserFailures($objectType, $objectId) {
+
+		$securityFailureThreshold = ConfigModule::get("global","securityFailureThreshold");
+		$securityFailureThresholdTime = ConfigModule::get("global","securityFailureThresholdTime");
+		$securityFailureBlockedTime = ConfigModule::get("global","securityFailureBlockedTime");
+
+		$min = new DateTime();
+		$min->modify("-$securityFailureThresholdTime minutes");
+		$securityFailureThresholdTimeArray = array('min' => $min->format('Y-m-d H:i:s'));
+
+		$securityFailures = SecurityFailureQuery::create()
+				->filterByObjecttype($objectType)->filterByObjectid($objectId)
+				->filterByAttemptat($securityFailureThresholdTimeArray)->count();
+
+		if ($securityFailures > $securityFailureThreshold) {
+			try {
+				Common::blockUser($objectType, $objectId);
+				$blockedUser = new BlockedUser();
+				$blockedUser->setObjecttype($objectType);
+				$blockedUser->setObjectid($objectId);
+				$blockedUser->save();
+				return true;
+			}
+			catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->getMessage());
+			}
+		}
+		return false;
+	}
+
+	/**
+	* Bloqua un usuario
+	*
+	* @param string $objectType tipo de usuario a bloquar
+	* @param string $objectId id de usuario a bloquar
+	* @return true si bloqueo el usuario, false si no lo bloqueo
+	*/
+	public static function blockUser($objectType, $objectId) {
+
+		$queryClass = $objectType . "Query";
+		$user = $queryClass::create()->findOneById($objectId);
+		try {
+			$user->setBlockedat(date("Y-m-d h:i:s"));
+			$user->save();
+			return true;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+		}
+		return false;
+	}
+
+	/**
+	* Desbloquea un usuario
+	*
+	* @param string $objectType tipo de usuario a desbloquar
+	* @param string $objectId id de usuario a desbloquar
+	* @return true si desbloqueo el usuario, false si no lo desbloqueo
+	*/
+	public static function unblockUser($objectType, $objectId) {
+
+		$queryClass = $objectType . "Query";
+		$user = $queryClass::create()->findOneById($objectId);
+		try {
+			$user->setBlockedat(NULL);
+			$user->save();
+			return true;
+		}
+		catch (PropelException $exp) {
+			if (ConfigModule::get("global","showPropelExceptions"))
+				print_r($exp->getMessage());
+		}
+		return false;
+	}
+	
+	/**
+	* Informa si un usuario esta bloqueado
+	*
+	* @param string $userName nombre de usuario a consultar
+	* @return true si esta bloquado, false si no lo esta
+	*/
+	public static function isBlockedUser($userName) {
+		
+		$usernameExists = Common::getByUsername($userName);
+		if (!empty($usernameExists)) { //Si existe el username
+			$objectType = get_class($usernameExists);
+			$queryClass = $objectType . "Query";
+			$user = $queryClass::create()->findOneByUsername($userName);
+			if($user->getBlockedAt())
+				return true;
+			else
+				return false;
+		}
+	}
+
+	/**
+	* Elimina el usuario objeto de la sesion por bloqueo de usuario
+	*
+	*/
+	public static function blockedUserUnsetSession() {
+		if (isset($_SESSION["loginUser"]) && is_object($_SESSION["loginUser"]) && get_class($_SESSION["loginUser"]) == "User")
+			unset($_SESSION["loginUser"]);
+		if (isset($_SESSION["loginAffiliateUser"]) && is_object($_SESSION["loginAffiliateUser"]) && get_class($_SESSION["loginAffiliateUser"]) == "AffiliateUser")
+			unset($_SESSION["loginAffiliateUser"]);
+		if (isset($_SESSION["loginClientUser"]) && is_object($_SESSION["loginClientUser"]) && get_class($_SESSION["loginClientUser"]) == "ClientUser")
+			unset($_SESSION["loginClientUser"]);
+		if (isset($_SESSION["loginRegistrationUser"]) && is_object($_SESSION["loginRegistrationUser"]) && get_class($_SESSION["loginRegistrationUser"]) == "RegistrationUser")
+			unset($_SESSION["loginRegistrationUser"]);
+	}
+
+	/**
+	* Guarda la ultima hora a la que se produjo una accion de un usuario
+	*
+	* @param object $loggedUser objeto usuario logueado
+	*/
+	public static function setLastActionTime($loggedUser) {
+    if (method_exists($loggedUser, 'setLastAction')) {
+    	$loggedUser->setLastAction(time());
+    	try {
+    		$loggedUser->save();
+    	}
+			catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->getMessage());
+			}
+		}
+		return;
+	}
+
+	/**
+	* Devuelve un array con los dias primero y ultimo del mes de una fecha determinada
+	*
+	* @param string $anyDate fecha de referencia en formato yyyy-mm-dd
+	* @return arry valores first y last correspondientes al primer y ultimo dia del mes de la fecha de referencia
+	*/
+	public static function findFirstAndLastDay($anyDate) {
+		//$anyDate        = '2009-08-25';								// date format should be yyyy-mm-dd
+		list($yr,$mn,$dt) = split('-',$anyDate);				// separate year, month and date
+		$timeStamp        = mktime(0,0,0,$mn,1,$yr);		//Create time stamp of the first day from the give date.
+		$firstDay         = date('Y-m-d',$timeStamp);		//get first day of the given month
+		list($y,$m,$t)    = split('-',date('Y-m-t',$timeStamp));	//Find the last date of the month and separating it
+		$lastDayTimeStamp = mktime(0,0,0,$m,$t,$y);								//create time stamp of the last date of the give month
+		$lastDay          = date('Y-m-d',$lastDayTimeStamp);			// Find last day of the month
+		$arrDay           = array("first" => $firstDay, "last" => $lastDay);	// return the result in an array format.
+		return $arrDay;
 	}
 
 } // end of class
