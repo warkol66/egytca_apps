@@ -5,7 +5,7 @@
 	|-else-|
 	$('#messageResult').html("<span class='resultSuccess'>El módulo fue verificado</span>");
 	|-/if-|
-	$('#|-$verifiedModule-|_hash').html('<span style="color: #0099CC;">|-$directoryHash-|</span>');
+	$('#|-$verifiedModule-|_hash').html('<span class="validHash">|-$directoryHash-|</span>');
 	$('#directories_|-$verifiedModule-|').show();
 	
 	|-if !isset($newModule) && (!empty($newFiles) || !empty($changedFiles))-|
@@ -18,7 +18,7 @@
 	
 </script>
 |-if empty($newFiles) && empty($changedFiles)-|
-	<p style="color: #FFFF00;">No hay archivos nuevos ni modificados en el directorio</p>
+	<span style="color: #FFFF00;">No hay archivos nuevos ni modificados en el directorio</span>
 |-/if-|
 |-if !empty($newFiles)-|
 	<ul class="verifyNested">
