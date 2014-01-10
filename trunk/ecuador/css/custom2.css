@@ -454,7 +454,7 @@ a.blackNoDecoration:visited {
 
 /* TABLES   -------------------------------------------*/
 table.tableTdBorders th, table.tableTdBorders td, tr.verifyResult {
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif !Important;
 }
 tbody .row_odd {
 	background: #BFD3FF; /* #BFD3FF o #AFC3FE  #FFCBCB*/
@@ -1947,7 +1947,30 @@ tfoot .thFillTitle a.addLink {
 	line-height: 1.2em;
 }
 
-tr.verifyResult {background:	#a8a8a8 !important;}
+tr.verifyResult {background:	#a8a8a8 !important; border-bottom: 2px solid red; !Important}
 tr.verifyResult p {color:	#9A3334;}
 
-ul.verifyNested li ul li { background: url("../images/nested.png") !important; background-repeat:no-repeat !important; background-position:0px 0px !important; padding:2px 0 2px 14px; height:15px; margin-left:10px;}
+ul.verifyNested li ul li { 
+	background: url("../images/nested.png") !important;
+	background-repeat:no-repeat !important;
+	background-position:0px 0px !important;
+	padding:2px 0 2px 14px;
+	height:15px;
+	margin-left:10px;
+}
+tr.verifyResult *,
+ul.verifyNested li,
+ul.verifyNested li ul li  { 
+	font-family: Georgia, "Times New Roman", Times, serif !Important;
+}
+
+.validHash, .invalidHash {
+	background: url(../images/valid.png) no-repeat right !Important;
+	padding-right: 20px;
+	color: #0099CC;
+	font-family: Georgia, Times New Roman, Times, serif !Important;
+}
+.invalidHash {
+	background-image: url(../images/invalid.png) no-repeat right !Important ;
+	color: #FF3300;
+}

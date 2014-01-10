@@ -7,33 +7,38 @@
 <div id="systemWorking" style="display:none;"></div><div id="messageResult"></div><div id="messageMod"></div>
 <table width="100%" cellpadding="5" cellspacing="0" id="modules" class="tableTdBorders"> 
 	<tr class="thFillTitle">  
-		<th width="30%" scope="col">Módulo</th>
-		<th width="30%" scope="col">Hash</th>
-		<th width="5%" scope="col">
+		<th width="50%" scope="col">Módulo</th>
+		<th width="44%" scope="col">Hash</th>
+		<th width="3%" scope="col">
 			<form action="Main.php" method="post" style="display:inline;" id="all">
 			<input type="hidden" name="do" value="modulesDoVerifyAllX" />
-			<input type="button" onClick="javascript:verifyAllModules()" name="submit_go_verify_all_module" value="Verificar todos" class="icon iconZoom"  title="Verificar todos" />
+			<input type="button" onClick="javascript:verifyAllModules()" value="Verificar todos" class="icon iconZoom"  title="Verificar todos" />
 		  </form>
 		</th> 
+		<th width="3%" scope="col"></th> 
 	</tr> 
 	|-foreach from=$moduleColl key=name item=eachModule name=foreachModule-|
 	<tr> 
-		<td class="tdSize1">|-$eachModule['dir']-| </td>
-		<td class="tdSize1" id="|-$name-|_hash">|-$eachModule['hash']-| </td>
-		<td class="tdSize1"> 
+		<td>|-$eachModule['dir']-| </td>
+		<td id="|-$name-|_hash">|-$eachModule['hash']-| </td>
+		<td align="center" nowrap="nowrap">
 			<form action="Main.php" method="post" style="display:inline;" id="|-$name-|">
 				<input type="hidden" name="do" value="modulesDoVerifyX" />
 				<input type="hidden" name="moduleName" value="|-$name-|" />
-				<input type="button" onClick="javascript:verifyModule('|-$name-|')" name="submit_go_verify_module" value="Verificar módulo" class="icon iconZoom"  title="Verificar módulo" />
-			</form>
+				<input type="button" onClick="javascript:verifyModule('|-$name-|')" value="Verificar módulo" class="icon iconZoom"  title="Verificar módulo" />
+		</form>
+		</td>
+		<td align="center" nowrap="nowrap">
 			<form action="Main.php" method="post" style="display:none;" id="|-$name-|_update">
 				<input type="hidden" name="do" value="modulesVerifyUpdateX" />
 				<input type="hidden" name="moduleName" value="|-$name-|" />
 				<input type="hidden" name="hash" value="" />
-				<input type="button" onClick="javascript:updateModule('|-$name-|')" name="submit_go_update_module" value="Actualizar módulo" class="icon editor_ok_button"  title="Actualizar módulo" />
+				<input type="button" onClick="javascript:updateModule('|-$name-|')" value="Actualizar módulo" class="icon editor_ok_button"  title="Actualizar módulo" />
 			</form>
 		</td> 
 	</tr>
-	<tr class="verifyResult"><td colspan="2" id="directories_|-$name-|" style="display:none;"></td></tr>
+	<tr class="verifyResult">
+		<td colspan="4" id="directories_|-$name-|" style="display:none;"></td>
+	</tr>
 	|-/foreach-|
 </table> 

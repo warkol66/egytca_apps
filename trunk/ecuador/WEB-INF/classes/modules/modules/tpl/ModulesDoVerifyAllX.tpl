@@ -50,7 +50,7 @@
 				$('#'+ i +'_update').show();
 			}else{
 				if(files)
-					$('#' + i + '_hash').html('<span style="color: #0099CC;">'+files+'</span>');
+					$('#' + i + '_hash').html('<div style="color: #0099CC;font-family: Georgia, Times New Roman, Times, serif !Important;">'+files+'</div>');
 			}
 			$('#directories_' + i).append(list);
 			$('#directories_' + i).show();
