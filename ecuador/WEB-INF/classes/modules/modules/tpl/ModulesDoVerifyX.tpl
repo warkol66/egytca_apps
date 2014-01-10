@@ -3,18 +3,17 @@
 	|-if !empty($error)-|
 	$('#messageResult').html("<span class='resultFailure'>Ocurrió un error al |-$error-|</span>");
 	|-else-|
-	$('#messageResult').html("<span class='resultSuccess'>El módulo fue verificado y actualizado</span>");
+	$('#messageResult').html("<span class='resultSuccess'>El módulo fue verificado</span>");
 	|-/if-|
 	$('#|-$verifiedModule-|_hash').html('<span style="color: #0099CC;">|-$directoryHash-|</span>');
 	$('#directories_|-$verifiedModule-|').show();
 	
-	|-if !empty($newFiles) || !empty($changedFiles)-|
-		var newForm = $('#|-$verifiedModule-|_update');
-		
-		newForm.append($('<input>', {'name': 'do','value': 'modulesVerifyUpdateX','type': 'hidden'}))
-		.append($('<input>', {'name': 'moduleName','value': '|-$verifiedModule-|','type': 'hidden'}))
-		.append($('<input>', {'name': 'hashes','value': '|-$allHashes-|','type': 'hidden'}))
-		.append($('<input>', {'name': 'submit_go_update_module','value': 'Actualizar módulo','class': 'icon editor_ok_button','onClick':'javascript:updateModule("|-$verifiedModule-|")','type': 'button'}));
+	|-if !isset($newModule) && (!empty($newFiles) || !empty($changedFiles))-|
+		$('#|-$verifiedModule-|_update')
+			.children('[name="hash"]')
+			.val('|-$allHashes-|')
+			.show();
+		$('#|-$verifiedModule-|_update').show();
 	|-/if-|
 	
 </script>

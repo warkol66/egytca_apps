@@ -21,13 +21,17 @@
 		<td class="tdSize1">|-$eachModule['dir']-| </td>
 		<td class="tdSize1" id="|-$name-|_hash">|-$eachModule['hash']-| </td>
 		<td class="tdSize1"> 
-		  <form action="Main.php" method="post" style="display:inline;" id="|-$name-|">
-			<input type="hidden" name="do" value="modulesDoVerifyX" />
-			<input type="hidden" name="moduleName" value="|-$name-|" />
-			<input type="button" onClick="javascript:verifyModule('|-$name-|')" name="submit_go_verify_module" value="Verificar módulo" class="icon iconZoom"  title="Verificar módulo" />
-		  </form>
-		  <form action="Main.php" method="post" style="display:inline;" id="|-$name-|_update">
-		  </form>
+			<form action="Main.php" method="post" style="display:inline;" id="|-$name-|">
+				<input type="hidden" name="do" value="modulesDoVerifyX" />
+				<input type="hidden" name="moduleName" value="|-$name-|" />
+				<input type="button" onClick="javascript:verifyModule('|-$name-|')" name="submit_go_verify_module" value="Verificar módulo" class="icon iconZoom"  title="Verificar módulo" />
+			</form>
+			<form action="Main.php" method="post" style="display:none;" id="|-$name-|_update">
+				<input type="hidden" name="do" value="modulesVerifyUpdateX" />
+				<input type="hidden" name="moduleName" value="|-$name-|" />
+				<input type="hidden" name="hash" value="" />
+				<input type="button" onClick="javascript:updateModule('|-$name-|')" name="submit_go_update_module" value="Actualizar módulo" class="icon editor_ok_button"  title="Actualizar módulo" />
+			</form>
 		</td> 
 	</tr>
 	<tr class="verifyResult"><td colspan="2" id="directories_|-$name-|" style="display:none;"></td></tr>

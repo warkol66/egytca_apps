@@ -25,7 +25,7 @@ class ModulesVerifyUpdateXAction extends BaseAction {
 		
 		$verify = new ModuleVerify($_POST['moduleName']);
 		// los hashes ya vienen serializados
-		if (!file_put_contents($verify->file, $_POST['hashes'])){
+		if (!file_put_contents($verify->file, $_POST['hashes'], LOCK_EX)){
 			$smarty->assign('error','intentar guardar los fingerprints');
 		}
 		

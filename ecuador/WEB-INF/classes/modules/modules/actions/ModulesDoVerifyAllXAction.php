@@ -23,28 +23,45 @@ class ModulesDoVerifyAllXAction extends BaseAction {
 		$module = "Modules";
 		$smarty->assign("module",$module);
 		
+		$fingerprintsFile = false;
+		
 		$modules = ModuleVerify::getDirs();
 		
 		$errors = array();
 		$verifModules = array();
+		$newModules = array();
 		
 		foreach($modules as $name => $details){
 			$verify = new ModuleVerify($name);
+			if (!$fingerprintsFile && !file_exists($verify->fileDir)) {
+				mkdir($verify->fileDir, 0777, true);
+			}
+			// para evitar chequear todas las veces
+			$fingerprintsFile = true;
 			if (!$verify->lookDir($verify->dir['dir'])){
 				$errors[$name] = 'abrir el directorio'. $verify->dir['dir'];
 			}else{
 				$verifModules[$name]['newFiles'] = $verify->newFiles;
 				$verifModules[$name]['changedFiles'] = $verify->changedFiles;
 				$verifModules[$name]['hash'] = $verify->getDirectoryHash();
-				/*if (!file_put_contents($verify->file, serialize($verify->hashes))){
-					$errors[$name] = 'intentar guardar los fingerprints de'. $verify->dir['dir'];
-				}*/
+				// si hay archivos nuevos
+				if(!empty($verifModules[$name]['newFiles']) || !empty($verifModules[$name]['changedFiles'])){
+					// si el archivo no existe, actualizo automaticamente
+					if (!file_exists($verify->file)) {
+						if (!file_put_contents($verify->file, serialize($verify->hashes), LOCK_EX)){
+							$errors[$name] = 'intentar guardar los fingerprints de'. $verify->dir['dir'];
+						}
+					}else{
+						$verifModules[$name]['update'] = serialize($verify->hashes);
+					}
+				}
 			}
 		}
 		
 		$smarty->assign('errors',$errors);
 		
 		$smarty->assign('verifModules',json_encode($verifModules));	
+		$smarty->assign('newModules',$newModules);	
 		return $mapping->findForwardConfig('success');
 	}
 
