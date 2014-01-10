@@ -51,10 +51,47 @@ class TwitterReportViewAction extends BaseListAction {
 			$this->filters['dateRange']['createdat']['max'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s'));
 		}
 
+
 	}
 
 	protected function postList() {
 		parent::postList();
+
+			// armo el arreglo de filtros
+			$tweetsFilters = array();
+			
+			$campaign = CampaignQuery::create()->findOneById($_REQUEST['filters']['campaignid']);
+			$tweetsFilters['campaign'] = $campaign->getId();
+			
+			// obtengo los graficos con los filtros indicados
+			$tweetsFilters['type'] = $_POST['type'];
+			$tweetsFilters['value'] = $_POST['value'];
+			$tweetsFilters['relevance'] = $_POST['relevance'];
+			$tweetsFilters['personalized'] = $_POST['tt'];
+			if(!empty($_POST['gender'])){
+				/*echo $_POST['gender'];
+				die();*/
+				$tweetsFilters['gender'] = $_POST['gender'];
+			}
+			
+			$this->smarty->assign('personalSelected', $_POST['tt']);
+			$this->smarty->assign('selectedTTFilter', $_POST['ttFilter']);
+			
+			// si no es un rango de fechas custom
+			if($_POST['time'] == 'custom' && isset($_POST['from']) && isset($_POST['to'])){
+				$tweetsFilters['from'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($_POST['from']. ':00')));
+				$tweetsFilters['to'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($_POST['to']. ':00')));
+				
+			}else{
+				if(!empty($_POST['time']))
+					$tweetsFilters['from'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($_POST['time'])));
+				else
+					$tweetsFilters['from'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($campaign->getStartdate())));
+				$tweetsFilters['to'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s'));
+			}
+
+		$tweetsAmount = TwitterTweetQuery::getCombinations($tweetsFilters);
+		$this->smarty->assign('tweetsAmount', $tweetsAmount);
 
 		$this->smarty->assign("module", $this->module);
 			

@@ -1,14 +1,15 @@
 <div id="tweetsList">
 	<h4>Tweets</h4>
-	<table id="tabla-tweets" class='tableTdBorders' border="1" cellpadding='5' cellspacing='0' width='100%'> 
+	<table id="tabla-tweets" class='tableTdBorders' border="1" cellpadding='5' cellspacing='0'> 
 		<thead>
 			<tr class="thFillTitle">
 					<th width="50%">Texto</th> 
-					<th width="21%">Usuario</th> 
-					<th width="21%">Ubicación</th> 
-					<th width="5%">Fecha</th> 
-					<th width="1%">Valoración</th> 
-					<th width="1%">Relevancia</th> 
+					<th width="15%">Usuario</th>
+					<th width="12%">Ubicación</th> 
+					<th width="9%">Género</th> 
+					<th width="4%">Fecha</th> 
+					<th width="5%">Valoración</th> 
+					<th width="5%">Relevancia</th> 
 				</tr> 
 		</thead>
 		<tbody>
@@ -23,6 +24,7 @@
 				<td>|-$tweet->getText()|twitterHighlight-|</td>
 				<td>|-if is_object($user)-||-$user->getName()-||-/if-|</td>
 				<td>|-if is_object($user)-||-$user->getLocation()-||-/if-|</td>
+				<td>|-if is_object($user)-||-if $user->getGender() eq "male"-|Masculino|-elseif $user->getGender() eq "female"-|Femenino|-/if-||-/if-|</td>
 				<td>|-$tweet->getCreatedat()|date_format:"%d-%m-%Y %H:%m"|change_timezone-|</td>
 				<td>|-$values[$tweet->getValue()]-|</td> 
 				<td>|-$relevances[$tweet->getRelevance()]-|</td>
@@ -38,3 +40,22 @@
 		|-/if-|
 	</table>
 </div>
+		|-if !empty($tweetsAmount)-|
+	<h4>Tweets por grupo de relevancia y valoración</h4>
+
+	<table id="tabla-tweets" class='tableTdBorders' border="1" cellpadding='5' cellspacing='0'> 
+		<thead>
+			<tr class="thFillTitle">
+					<th>Grupo</th> 
+					<th>Frecuencia</th> 
+			</tr>
+		|-foreach from=$tweetsAmount item=group-|
+			<tr>
+				<td>|-$group['name']-|</td><td>|-$group['value']-|</td>
+			</tr>
+		|-/foreach-|
+		</table>
+		|-else-|
+		vacio
+		|-/if-|
+
