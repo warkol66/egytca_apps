@@ -6,6 +6,6 @@
 	$('#messageResult').html("<span class='resultSuccess'>El módulo fue actualizado</span>");
 	|-/if-|
 	$('#|-$verifiedModule-|_hash').html('<span style="color: #0099CC;">|-$directoryHash-|</span>');
-	$('#|-$verifiedModule-|_update').empty();
+	$('#|-$verifiedModule-|_update').hide();
 	$('#|-$verifiedModule-|_hash').html('<span style="color: #0099CC;">|-$hash-|</span>');
 </script>

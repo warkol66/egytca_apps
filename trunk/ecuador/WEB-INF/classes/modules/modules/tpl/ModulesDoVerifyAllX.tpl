@@ -43,6 +43,11 @@
 				
 				modFiles+="</ul></li>";
 				list.append(modFiles);
+			}else if(fileType == 'update'){
+				$('#'+ i +'_update')
+				.children('[name="hash"]')
+				.val(files);
+				$('#'+ i +'_update').show();
 			}else{
 				if(files)
 					$('#' + i + '_hash').html('<span style="color: #0099CC;">'+files+'</span>');
@@ -52,8 +57,6 @@
 			
 		});
 	});
-	
-	
 </script>
 
 
