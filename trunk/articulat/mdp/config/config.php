@@ -1,4 +1,9 @@
 <?php
+/*
+* Filename        : config.php
+* @package phpMVCconfig
+*
+*/
 //Archivo de configuración
 
 //Directorio donde se encuentra phpmvc
