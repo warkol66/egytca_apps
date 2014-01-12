@@ -9,9 +9,16 @@ global $appDir;
 $xmlFile					= NULL;	// XML config file
 $xmlData					= NULL;	// Serialized config file
 
-$xmlFile = $appDir . "/config/config.xml";
-$xmlData = $appDir . "/config/config.data";
-
+// En entornos de desarrollo se puede utilizar archivo de 
+// configuracion propio generando un config.dev.xml
+if (file_exists($appDir . "/config/config.dev.xml")) {
+	$xmlFile = $appDir . "/config/config.dev.xml";
+	$xmlData = $appDir . "/config/config.dev.data";
+}
+else {
+	$xmlFile = $appDir . "/config/config.xml";
+	$xmlData = $appDir . "/config/config.data";
+}
 if (!file_exists($xmlFile))
 	echo "No existe config.xml";
 else {
@@ -34,5 +41,9 @@ else {
 	$system = unserialize($data);
 
 }
-
-require_once($appDir . "/config/config_module.php");
+// Se carga el archivos de ocnfiguracion de los modulos, si se quiere un entorno de
+// desarrollo generar un archivo config_module.dev.php
+if (file_exists($appDir . "/config/config_module.dev.php"))
+	require_once($appDir . "/config/config_module.dev.php");
+else
+	require_once($appDir . "/config/config_module.php");
