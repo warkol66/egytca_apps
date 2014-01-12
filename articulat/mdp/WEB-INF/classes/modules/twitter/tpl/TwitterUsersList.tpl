@@ -53,7 +53,7 @@
 					<th width="5%">Siguiendo</th> 
 					<th width="5%">Tweets</th> 
 					<th width="5%">Influencia</th>
-					<th width="5%">Género</th>
+					|-if ConfigModule::get("twitter","useGender")-|<th width="5%">Género</th>|-/if-|
 					<th width="5%">Actualizado</th>
 					<th nowrap width="1%">&nbsp;</th> 
 				</tr> 
@@ -85,7 +85,7 @@
 						<input type="hidden" name="do" value="twitterUsersDoEditX" id="do">
 					</form>
 				</td>
-				<td id="gender_|-$twitterUser->getId()-|" valign="top" nowrap="nowrap">
+		|-if ConfigModule::get("twitter","useGender")-|<td id="gender_|-$twitterUser->getId()-|" valign="top" nowrap="nowrap">
 					<form action="Main.php" method="post" id="formGenders|-$twitterUser->getId()-|">
 								<span class="radioLabelIcon">F</span>
 								<input name="params[gender]" type="radio" value="female"  title="Femenino" |-$twitterUser->getGender()|checked:"female"-| onChange="javascript:twitterDoEditValue(this.form);"/>
@@ -94,7 +94,7 @@
 						<input type="hidden" name="id" id="id" value="|-$twitterUser->getid()-|" />
 						<input type="hidden" name="do" value="twitterUsersDoEditX" id="do">
 					</form>
-				</td>
+				</td>|-/if-|
 				<td id="updated_|-$twitterUser->getId()-|" valign="top" align="center" nowrap="nowrap">|-$twitterUser->getUpdatedAt()|change_timezone|date_format:"%d-%m-%Y"-|</td>
 				<td valign="top">
 					<img src="images/clear.png" class="icon iconRestore" onClick='{new Ajax.Updater("resultDiv", "Main.php?do=twitterUsersUpdateX", { method: "post", parameters: { id: "|-$twitterUser->getId()-|"}, evalScripts: true})};$("resultDiv").innerHTML = "<span class=\"inProgress\">actualizando usuario...</span>";' value="Actualizar usuario" />

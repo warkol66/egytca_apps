@@ -280,12 +280,12 @@ function getTrendingTopics(){
 |-/if-|
 
 |-else-||-*Si es reporte*-|
-|-if $campaign->getHeadlines()|count gt 0-|
 |-assign var=headlines value=$campaign->getHeadlines()-|
 <h1>|-$campaign->getName()-|</h1> 
 <h2>Resumen</h2>
 		<p>Tipo: |-$campaign->getTypeTranslated()-| - Período: |-$campaign->getStartDate()|date_format:"%d-%m-%Y"-| al |-$campaign->getFinishDate()|date_format:"%d-%m-%Y"-|</p> 
 		<p>|-$campaign->getDescription()-|</p>
+|-if $campaign->getHeadlines()|count gt 0-|
 <table border="1">
 	<tr>
 			<th>Medio</th>
@@ -341,6 +341,8 @@ function getTrendingTopics(){
 	
 
 </div>
+|-else-|
+<p>No hay repercusiones de prensa asociadas</p>
 |-/if-|
 |-/if-||-*/Si es reporte*-|
 |-else-||-*Si no es valido el id*-|

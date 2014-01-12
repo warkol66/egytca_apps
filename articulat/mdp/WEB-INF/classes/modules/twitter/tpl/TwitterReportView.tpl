@@ -6,7 +6,7 @@
 					<th width="50%">Texto</th> 
 					<th width="15%">Usuario</th>
 					<th width="12%">Ubicación</th> 
-					<th width="9%">Género</th> 
+					|-if ConfigModule::get("twitter","useGender")-|<th width="9%">Género</th>|-/if-| 
 					<th width="4%">Fecha</th> 
 					<th width="5%">Valoración</th> 
 					<th width="5%">Relevancia</th> 
@@ -24,7 +24,7 @@
 				<td>|-$tweet->getText()|twitterHighlight-|</td>
 				<td>|-if is_object($user)-||-$user->getName()-||-/if-|</td>
 				<td>|-if is_object($user)-||-$user->getLocation()-||-/if-|</td>
-				<td>|-if is_object($user)-||-if $user->getGender() eq "male"-|Masculino|-elseif $user->getGender() eq "female"-|Femenino|-/if-||-/if-|</td>
+				|-if ConfigModule::get("twitter","useGender")-|<td>|-if is_object($user)-||-if $user->getGender() eq "male"-|Masculino|-elseif $user->getGender() eq "female"-|Femenino|-/if-||-/if-|</td>|-/if-|
 				<td>|-$tweet->getCreatedat()|date_format:"%d-%m-%Y %H:%m"|change_timezone-|</td>
 				<td>|-$values[$tweet->getValue()]-|</td> 
 				<td>|-$relevances[$tweet->getRelevance()]-|</td>
