@@ -1,7 +1,14 @@
 <?php
-
+/**
+ * Clase de configuracion de modulos
+ *
+ * @package    phpMVCconfig
+ */
 class ConfigModule {
 
+	/**
+	 * Instancia que obtiene los parametros de configuracion en un array
+	 */
 	private static $configModule = array(
 		"global" => array(
 			"debugMode" => true,
@@ -16,7 +23,7 @@ class ConfigModule {
 			"unifiedUsernames" => true,
 			"backupTimeLimit" => 720,
 			"tmpwatch" => "/usr/sbin/tmpwatch",
-			"internalMailUseAffiliates" => false 
+			"internalMailUseAffiliates" => false
 		),
 		"users" => array(
 			"licences" => 10,
@@ -107,15 +114,23 @@ class ConfigModule {
 				'press' => array('class' => 'PressHeadline', 'url' => 'http://localhost/htdocs2/apps/trunk/GCABA/mdp/rss3.xml')
 			),
 			"feedBackupsPath" => "./WEB-INF/classes/modules/headlines/files/feeds"
+		),
+		"twitter" => array(
+			"useGender" => true
 		)
 	);
 
+	/**
+	 * Obtencion del valor de configuracion a partir de nombre de modulo y valor buscado
+	 * $module		string		Nombre dle modulo buscado
+	 * $key			string		Nombre dle parametro buscado
+	 * @return		mixed		Valor o array con valores solicitados
+	 */
 	public static function get($module,$key) {
 		if (is_null(ConfigModule::$configModule[$module]) || is_null(ConfigModule::$configModule[$module][$key]) )
-			return "";
+			return;
 		else
 			return ConfigModule::$configModule[$module][$key];
 	}
 
-
-}
+} // End class ConfigModule
