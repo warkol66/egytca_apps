@@ -39,10 +39,10 @@ class HeadlinesParsedListAction extends BaseListAction {
 				'entityId' => $_GET['filters']['mediaId']
 			))));
 
-		if (!empty($_GET['filters']['campaignId']))
+		if (!empty($_GET['filters']['campaignid']))
 			$filters = array_merge_recursive($filters, array('Campaign' => array('entityFilter' => array(
 				'entityType' => "Campaign",
-				'entityId' => $_GET['filters']['campaignId']
+				'entityId' => $_GET['filters']['campaignid']
 			))));
 
 		if (isset($fromDate) || isset($toDate))
@@ -56,19 +56,16 @@ class HeadlinesParsedListAction extends BaseListAction {
 		$this->perPage = $perPage;
 
 		//Reviso si se solicito desde campaing valida
-		$campaignId = $_GET['filters']['campaignId'];
-		$campaign = CampaignQuery::create()->findOneById($campaignId);
+		$campaign = CampaignQuery::create()->filterById($_GET['filters']['campaignid'])->findOneOrCreate();
 		
-		if (!$campaign) {
+		if ($campaign->isNew())
 			unset($filters['Campaign']);
-			$campaign = new Campaign();
-		}
+		$this->smarty->assign('campaign', $campaign);
 
 		$contentProviders = ConfigModule::get("headlines","contentProvider");
 		$parseStategies = $contentProviders["strategies_options"];
 		$this->smarty->assign('parseStategies', $parseStategies);
 
-		$this->smarty->assign('campaign', $campaign);
 		if (!empty($filters['discarded']))
 			$this->query->filterByStatus(HeadlineParsed::STATUS_DISCARDED);
 		else

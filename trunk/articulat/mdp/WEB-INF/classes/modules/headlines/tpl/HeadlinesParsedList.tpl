@@ -16,9 +16,9 @@
 <fieldset>
 <legend>Obtener Titulares</legend>
     <form id="form" action="Main.php?do=headlinesDoParseX" onsubmit="headlinesSearch(); return false;" method="POST">
-			<input name="campaignId" value="|-$campaign->getId()-|" type="hidden" />
+			<input name="campaignId" value="|-if !$campaign->isNew()-||-$campaign->getId()-||-/if-|" type="hidden" />
  <p><label for="q">Palabras clave</label>
- <input name="q" value="|-$campaign->getDefaultKeywords()|escape-|" size="60" />
+ <input name="q" value="|-if !$campaign->isNew()-||-$campaign->getDefaultKeywords()|escape-||-/if-|" size="60" />
  <input type="submit" id="search_button" value="Buscar" />
  <input type="button" id="return_button" onclick="location.href='Main.php?do=headlinesList'" value="Regresar al listado" />
  </p> 
@@ -36,7 +36,7 @@
 <fieldset>
 <legend>Filtrar Titulares Importados&nbsp;&nbsp;<a href="javascript:void(null)" id="showHideFilterHeadlines" onClick="$('filterHeadlines').toggle(); $('showHideFilterHeadlines').toggleClassName('|-if $filters|@count gt 2-|overrideExpand|-else-|collapseLink|-/if-|');" class="|-if $filters|@count gt 2-|collapseLink|-else-|expandLink|-/if-|"></a></legend>
 <form method="get" action="Main.php" id="filterHeadlines" style="display:|-if $filters|@count gt 2-|block|-else-|none|-/if-|;">
-	<input name="filters[campaignId]" value="|-$campaign->getId()-|" type="hidden" />
+	<input name="filters[campaignid]" value="|-$campaign->getId()-|" type="hidden" />
 	<input name="do" value="headlinesParsedList" type="hidden" />
 <p>					<label for="filters[searchString]">Buscar</label>
 					<input id="filters[searchString]" name="filters[searchString]" type="text" value="|-if isset($filters.searchString)-||-$filters.searchString-||-/if-|" size="30" title="Ingrese el texto a buscar" />
@@ -60,7 +60,7 @@
 			</div>
 					</p>
 			<p>	<input type="submit" id="search_button" value="Filtrar" />
-	|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=headlinesParsedList&filters[campaignId]=|-$campaign->getId()-|'"/>|-/if-|</p>
+	|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=headlinesParsedList&filters[campaignid]=|-$campaign->getId()-|'"/>|-/if-|</p>
 </form>
 </fieldset>
 |-else-|
