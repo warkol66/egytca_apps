@@ -49,7 +49,7 @@ function verifyModule(module){
 	$('#messageResult').html("");
 	$.ajax({
 		url: url,
-		data: $('#' + module).serialize(),
+		data: $('#' + module + '_verify').serialize(),
 		type: 'post',
 		success: function(data){
 			$('#directories_' + module).html(data);

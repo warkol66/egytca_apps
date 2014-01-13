@@ -24,6 +24,7 @@ class ModulesVerifyListAction extends BaseAction {
 		$smarty->assign("module",$module);
 		
 		$smarty->assign("moduleColl",ModuleVerify::getDirs());
+		$smarty->assign("systemHash",ModuleVerify::lookFingerprintsDir());
 		
 		return $mapping->findForwardConfig('success');
 	}

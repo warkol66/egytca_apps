@@ -5,10 +5,10 @@
 	|-else-|
 	$('#messageResult').html("<span class='resultSuccess'>El módulo fue verificado</span>");
 	|-/if-|
-	$('#|-$verifiedModule-|_hash').html('<span class="validHash">|-$directoryHash-|</span>');
+	$('#|-$verifiedModule-|_hash').html('<span class="|-if $oldHash eq $directoryHash-|validHash|-else-|invalidHash|-/if-|">|-$directoryHash-|</span>');
 	$('#directories_|-$verifiedModule-|').show();
 	
-	|-if !isset($newModule) && (!empty($newFiles) || !empty($changedFiles))-|
+	|-if isset($updateModule) && (!empty($newFiles) || !empty($changedFiles))-|
 		$('#|-$verifiedModule-|_update')
 			.children('[name="hash"]')
 			.val('|-$allHashes-|')
