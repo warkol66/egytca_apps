@@ -234,7 +234,12 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-color: #f0f0f0 !Important;
 	border: solid 1px #ababab !Important;
 }
-
+img.icon.spacer {
+	background-image: none !Important;
+	background-color: transparent !Important;/*#d0d0d0; */
+	border-color:transparent  !Important;
+	cursor: default !Important;
+}
 .mandatoryField {
 	background-image: url(../images/mandatory.png);
 	background-repeat: no-repeat;
