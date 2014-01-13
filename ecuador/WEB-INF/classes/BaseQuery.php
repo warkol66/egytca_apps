@@ -50,7 +50,7 @@ class BaseQuery {
 		$this->debugging = false;
 		$this->debugInfo = array();
 	}
-    
+
 	private function createQuery($modelNameOrModelCriteria) {
 		if ($modelNameOrModelCriteria instanceof ModelCriteria)
 			return $modelNameOrModelCriteria;

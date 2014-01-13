@@ -1,7 +1,7 @@
 <?php
 
 /**
- * BaseListAction
+ * BasedoDeleteAction
  *
  * Accion generica para eliminar un objeto
  *
@@ -22,7 +22,7 @@ class BaseDoDeleteAction extends BaseAction {
 			throw new Exception('$entityClassName must be set');
 		$this->entityClassName = $entityClassName;
 		if (substr(get_class($this), -7, 1) != "X")
-			$this->ajaxTemplate = str_replace('Action', '', get_class($this)).'X.tpl';
+			$this->ajaxTemplate = str_replace('Action', '', get_class($this)) . 'X.tpl';
 		else
 			$this->ajaxTemplate = str_replace('Action', '', get_class($this)) . '.tpl';
 	}
@@ -84,7 +84,7 @@ class BaseDoDeleteAction extends BaseAction {
 	
 	/**
 	 * preDelete
-	 * Acciones a tomar despues de eliminar el objeto
+	 * Acciones a tomar antes de eliminar el objeto
 	 */
 	protected function preDelete() {
 
@@ -102,4 +102,5 @@ class BaseDoDeleteAction extends BaseAction {
 	protected function postDelete() {
 		// default: do nothing
 	}
+
 }

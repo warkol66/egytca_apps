@@ -1,7 +1,7 @@
 <?php
 
 /**
- * BaseListAction
+ * BaseDoEditAction
  *
  * Accion generica para guardar un objeto
  *
@@ -37,9 +37,8 @@ class BaseDoEditAction extends BaseAction {
 
 		$plugInKey = 'SMARTY_PLUGIN';
 		$this->smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($this->smarty == NULL) {
+		if($this->smarty == NULL)
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
 
 		$this->entityParams = Common::addUserInfoToParams($_POST["params"]);
 
@@ -59,7 +58,7 @@ class BaseDoEditAction extends BaseAction {
 			// Si el preUpdate devuelve false, se retorna $this->returnFailure (del BaseAction)
 			if ($this->preUpdate() === false)
 				return $this->returnFailure($mapping, $this->smarty, $this->entity, $this->forwardFailureName);
-			
+
 			$this->entity->fromArray($this->entityParams,BasePeer::TYPE_FIELDNAME);
 
 			// Acciones a ejecutar despues de actualizar el objeto
@@ -159,5 +158,5 @@ class BaseDoEditAction extends BaseAction {
 		$this->smarty->assign('entity', $this->entity);
 		$this->smarty->assign('errorMessage', $e->getMessage());
 	}
-	
+
 }
