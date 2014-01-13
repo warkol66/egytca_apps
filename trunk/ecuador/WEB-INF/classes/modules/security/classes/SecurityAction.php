@@ -11,6 +11,8 @@ require_once 'ControllerUtils.php';
  */
 class SecurityAction extends BaseSecurityAction {
 	
+	const LEVEL_ALL = 1073741823;
+
 	static function createFromAction($action) {
 		
 		$securityAction = new SecurityAction();

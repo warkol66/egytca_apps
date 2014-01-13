@@ -15,31 +15,24 @@ class UsersDoLogoutAction extends BaseAction {
 
     BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
 		}
 
-		$module = "Users";
+		$user = Common::getLoggedUser();
 
-		if (isset($_SESSION["loginUser"])) {
-			$user = $_SESSION["loginUser"];	
-			$username = $user->getUsername();
-		}		
+		if (!empty($user) && is_object($user)) {
 
-		if(method_exists($user,"setSession"))
-			$user->setSession(null)->save();
+			if(method_exists($user,"setSession"))
+				$user->setSession(null)->save();
 
-		if($_SESSION["lastLogin"])
-		unset($_SESSION["lastLogin"]);
-		
-		Common::doLog('success','username: ' . $username);
-		if($_SESSION["loginUser"])
-			unset($_SESSION["loginUser"]);
+			Common::doLog('success','username: ' . $user->getUsername());
+
+		}
+
+		session_destroy();
 
 		return $mapping->findForwardConfig('success');
 
