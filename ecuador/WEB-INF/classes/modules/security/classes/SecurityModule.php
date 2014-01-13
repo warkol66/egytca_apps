@@ -9,6 +9,8 @@
  */
 class SecurityModule extends BaseSecurityModule {
 	
+	const LEVEL_ALL = 1073741823;
+
 	static function createFromModule($module) {
 		
 		$securityModule = new SecurityModule();

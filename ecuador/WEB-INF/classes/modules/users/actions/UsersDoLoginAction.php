@@ -30,13 +30,12 @@ class UsersDoLoginAction extends BaseAction {
 			
 		if (!empty($_POST["loginUsername"]) && !empty($_POST["loginPassword"])) {
 			
+			//Me fijo si el usuario que intenta ingresar esta bloqueado
+			if(Common::isBlockedUser($_POST["loginUsername"]))
+				return $mapping->findForwardConfig('blockedUser');
+
 			$user = UserPeer::auth($_POST["loginUsername"],$_POST["loginPassword"]);
 			if (!empty($user)) {
-				//Me fijo si el usuario que intenta ingresar esta bloqueado
-				if(Common::isBlockedUser($_POST["loginUsername"]))
-					return $mapping->findForwardConfig('blockedUser');
-				
-				$_SESSION["login_user"] = $user;
 				$_SESSION["loginUser"] = $user;
 				Common::doLog('success','username: ' . $_POST["loginUsername"]);
 				$smarty->assign("SESSION",$_SESSION);

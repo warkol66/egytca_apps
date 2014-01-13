@@ -348,6 +348,8 @@ class User extends BaseUser {
 
 	function getDocumentsChildrenCategories($categoryId) {
 
+		if (!class_exists("Category"))
+			return;
 		$criteria = new Criteria();
 		$criteria->add(CategoryPeer::ACTIVE, 1, Criteria::EQUAL);
 //		$criteria->add(CategoryPeer::PARENTID, $categoryId, Criteria::EQUAL);
@@ -474,6 +476,21 @@ class User extends BaseUser {
 	 */
 	function setActiveUser(){
 		$this->setActive('1');
+	}
+
+ /**
+	 * Verifica que la sesion sea la correspondiente
+	 * @return bool true si la sesion se corresponde con el usuario o si no se verifica
+	 */
+	function verifySession() {
+		$this->reload();
+		if ($this->getSession() == session_id())
+			return true;
+		else {
+			if($_SESSION["loginUser"])
+				unset($_SESSION["loginUser"]);
+			return false;
+		}
 	}
 
 	/**
