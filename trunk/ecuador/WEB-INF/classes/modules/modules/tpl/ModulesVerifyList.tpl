@@ -17,7 +17,15 @@
 		</th> 
 		<th width="3%" scope="col"></th> 
 	</tr>
-	<tr><td colspan="4">Fingerprint del sistema: <span style="color:#0099CC">|-$systemHash-|</span></td></tr>
+	<tr style="display:none">
+		<td colspan="4"></td>
+	</tr>
+	<tr>
+		<td>Fingerprint del sistema</td>
+		<td><span class="systemHash">|-$systemHash-|</span></td>
+		<td align="center" nowrap="nowrap"><img src="images/clear.png" class="icon spacer" /></td>
+		<td align="center" nowrap="nowrap"><img src="images/clear.png" class="icon spacer" /></td>
+	</tr>
 	|-foreach from=$moduleColl key=name item=eachModule name=foreachModule-|
 	<tr> 
 		<td>|-$eachModule['dir']-| </td>

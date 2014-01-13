@@ -18,7 +18,7 @@
 	
 </script>
 |-if empty($newFiles) && empty($changedFiles)-|
-	<span style="color: #FFFFFF;">No hay archivos nuevos ni modificados en el directorio</span>
+	<div class="verifyResultMessage">No hay archivos nuevos ni modificados en el directorio</div>
 |-/if-|
 |-if !empty($newFiles)-|
 	<ul class="verifyNested">
