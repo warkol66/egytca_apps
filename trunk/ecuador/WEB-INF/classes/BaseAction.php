@@ -172,7 +172,6 @@ class BaseAction extends Action {
 		if (isset($loggedUser))
 			$smarty->assign("loggedUser",$loggedUser);
 
-
 		if (isset($_SESSION["loginUser"]) && is_object($_SESSION["loginUser"]) && get_class($_SESSION["loginUser"]) == "User")
 			$loginUser = $_SESSION["loginUser"];
 		if (isset($_SESSION["loginAffiliateUser"]) && is_object($_SESSION["loginAffiliateUser"]) && get_class($_SESSION["loginAffiliateUser"]) == "AffiliateUser")

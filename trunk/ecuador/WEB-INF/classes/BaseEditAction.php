@@ -1,7 +1,7 @@
 <?php
 
 /**
- * BaseListAction
+ * BaseEditAction
  *
  * Accion generica para obtener un objeto
  *
