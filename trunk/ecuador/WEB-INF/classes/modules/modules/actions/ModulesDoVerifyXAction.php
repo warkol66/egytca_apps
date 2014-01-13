@@ -37,9 +37,10 @@ class ModulesDoVerifyXAction extends BaseAction {
 					$smarty->assign('error','intentar guardar los fingerprints');
 				}
 			}else{
-				$smarty->assign('newModule',true);
+				$smarty->assign('updateModule',true);
 			}
-			$smarty->assign('directoryHash',$verify->getDirectoryHash());
+			$smarty->assign('directoryHash',$verify->getNewHash());
+			$smarty->assign('oldHash',$verify->getDirectoryHash());
 			$smarty->assign('newFiles',$verify->newFiles);
 			$smarty->assign('changedFiles',$verify->changedFiles);
 			$smarty->assign('allHashes',serialize($verify->hashes));

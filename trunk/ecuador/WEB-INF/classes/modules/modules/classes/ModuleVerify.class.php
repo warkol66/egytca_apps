@@ -4,10 +4,9 @@ class ModuleVerify{
 
 	function __construct($module){
 		
-		// directorio a verificar
 		$dirs = $this->getDirs();
 		$this->dir = $dirs[$module];
-
+		
 		$this->ignores = $this->getIgnores();
 		$this->extIgnores = $this->getExtIgnores();
 		
@@ -60,14 +59,42 @@ class ModuleVerify{
 		return md5_file($this->file);
 	}
 	
+	/* devuelve el hash del directorio obtenido a partir del archivo de fingerprint correspondiente */
+	public function getNewHash() {
+		return md5(serialize($this->hashes));
+	}
+	
 	// devuelve el listado archivos y directorios a ignorar
-	private function getIgnores() {
+	public static function getIgnores() {
 		return array('.','..','application-conf.php','application-classmap.php','fingerprints','migrations','sql','.svn');
 	}
 	
 	// devuelve el listado de extensiones a ignorar
-	private function getExtIgnores() {
+	public static function getExtIgnores() {
 		return array('svn','bak','sql','data');
+	}
+	
+	public function lookFingerprintsDir(){
+		$path = "./WEB-INF/fingerprints";
+		$handle = @opendir($path);
+		if (!$handle){
+			return false;
+		}
+		
+		$ignores = ModuleVerify::getIgnores();
+		$extIgnores = ModuleVerify::getExtIgnores();
+		
+		$allHashes = "";
+		
+		while ($item = readdir($handle)) {
+			$ext = pathinfo($item, PATHINFO_EXTENSION);
+			if (!in_array($item, $ignores) && !in_array($ext, $extIgnores)) {
+				// unserialize en un string
+				$allHashes. file_get_contents($path."/".$item);
+			}
+		 }
+		 closedir($handle);
+		 return md5($allHashes);
 	}
 
 	public function lookDir($path) {
@@ -90,17 +117,21 @@ class ModuleVerify{
 	}
 
 	private function checkFile($file) {
-		if (is_readable($file)){
-			 //echo "readable";
-			if (!isset($this->hashes[$file])) {
-				 // archivo nuevo
-				 $this->hashes[$file] =  md5_file($file);
-				 $this->newFiles[$file] = $this->hashes[$file];
-			}elseif ($this->hashes[$file] != md5_file($file)) {
-				 $this->hashes[$file] =  md5_file($file);
-				 $this->changedFiles[$file] = $this->hashes[$file];
-			}else{
-				 $this->hashes[$file] =  md5_file($file);
+		if(!file_exists($file)){
+			unset($this->hashes[$file]);
+		}else{
+			if (is_readable($file)){
+				 //echo "readable";
+				if (!isset($this->hashes[$file])) {
+					 // archivo nuevo
+					 $this->hashes[$file] =  md5_file($file);
+					 $this->newFiles[$file] = $this->hashes[$file];
+				}elseif ($this->hashes[$file] != md5_file($file)) {
+					 $this->hashes[$file] =  md5_file($file);
+					 $this->changedFiles[$file] = $this->hashes[$file];
+				}else{
+					 $this->hashes[$file] =  md5_file($file);
+				}
 			}
 		}
 	}

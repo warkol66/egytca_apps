@@ -43,7 +43,10 @@ class ModulesDoVerifyAllXAction extends BaseAction {
 			}else{
 				$verifModules[$name]['newFiles'] = $verify->newFiles;
 				$verifModules[$name]['changedFiles'] = $verify->changedFiles;
-				$verifModules[$name]['hash'] = $verify->getDirectoryHash();
+				if($verify->getDirectoryHash() != $verify->getNewHash())
+					$verifModules[$name]['newHash'] = $verify->getNewHash();
+				else
+					$verifModules[$name]['oldHash'] = $verify->getDirectoryHash();
 				// si hay archivos nuevos
 				if(!empty($verifModules[$name]['newFiles']) || !empty($verifModules[$name]['changedFiles'])){
 					// si el archivo no existe, actualizo automaticamente

@@ -16,13 +16,14 @@
 		  </form>
 		</th> 
 		<th width="3%" scope="col"></th> 
-	</tr> 
+	</tr>
+	<tr><td colspan="4">Fingerprint del sistema: <span style="color:#0099CC">|-$systemHash-|</span></td></tr>
 	|-foreach from=$moduleColl key=name item=eachModule name=foreachModule-|
 	<tr> 
 		<td>|-$eachModule['dir']-| </td>
 		<td id="|-$name-|_hash">|-$eachModule['hash']-| </td>
 		<td align="center" nowrap="nowrap">
-			<form action="Main.php" method="post" style="display:inline;" id="|-$name-|">
+			<form action="Main.php" method="post" style="display:inline;" id="|-$name-|_verify">
 				<input type="hidden" name="do" value="modulesDoVerifyX" />
 				<input type="hidden" name="moduleName" value="|-$name-|" />
 				<input type="button" onClick="javascript:verifyModule('|-$name-|')" value="Verificar módulo" class="icon iconZoom"  title="Verificar módulo" />

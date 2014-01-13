@@ -5,7 +5,6 @@
 	|-else-|
 	$('#messageResult').html('<span class="resultSuccess">Todos los módulos fueron verificados</span>');
 	|-/if-|
-	//$('#|-$verifiedModule-|_hash').html('<span style="color: #0099CC;">|-$directoryHash-|</span>');
 	
 	var verified = |-$verifModules-|;
 	
@@ -18,31 +17,36 @@
 		$.each(module, function(fileType, files) {
 			
 			if(fileType == 'newFiles'){
-				// creo el item 'archivos nuevos'
-				var newFiles = "<li>Archivos nuevos: <ul>";
-				
-				// recorro los archivos nuevos para agregarlos a la lista
-				$.each(files, function(file, hash) {
-					
-					son="<li>"+file+"</li>";
-					newFiles+=son;
-				});
-				
-				newFiles+="</ul></li>";
-				list.append(newFiles);
-					
+				if(Object.keys(files).length > 0){
+					// creo el item 'archivos nuevos'
+					var newFiles = "<li>Archivos nuevos: <ul>";
+
+					// recorro los archivos nuevos para agregarlos a la lista
+					$.each(files, function(file, hash) {
+
+						son="<li>"+file+"</li>";
+						newFiles+=son;
+					});
+
+					newFiles+="</ul></li>";
+					list.append(newFiles);
+				}
+
 			}else if(fileType == 'changedFiles'){
-				// creo el item 'archivos modificados'
-				var modFiles = "<li>Archivos modificados: <ul>";
-				
-				// recorro los archivos modificados para agregarlos a la lista
-				$.each(files, function(file, hash) {
-					son="<li>"+file+"</li>";
-					modFiles+=son;
-				});
-				
-				modFiles+="</ul></li>";
-				list.append(modFiles);
+				if(Object.keys(files).length > 0){
+					// creo el item 'archivos modificados'
+					var modFiles = "<li>Archivos modificados: <ul>";
+					
+					// recorro los archivos modificados para agregarlos a la lista
+					$.each(files, function(file, hash) {
+						son="<li>"+file+"</li>";
+						modFiles+=son;
+					});
+					
+					modFiles+="</ul></li>";
+					list.append(modFiles);
+				}
+				list.append('</ul>');
 			}else if(fileType == 'update'){
 				$('#'+ i +'_update')
 				.children('[name="hash"]')
@@ -50,7 +54,10 @@
 				$('#'+ i +'_update').show();
 			}else{
 				if(files)
-					$('#' + i + '_hash').html('<div style="color: #0099CC;font-family: Georgia, Times New Roman, Times, serif !Important;">'+files+'</div>');
+					if(fileType == 'newHash')
+						$('#' + i + '_hash').html('<span class="invalidHash">'+files+'</span>');
+					else
+						$('#' + i + '_hash').html('<span class="validHash">'+files+'</span>');
 			}
 			$('#directories_' + i).append(list);
 			$('#directories_' + i).show();
