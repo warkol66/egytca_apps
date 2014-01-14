@@ -44,6 +44,7 @@
 	<table id="table_itemPrices" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead>
 		<tr class="thFillTitle"> 
+			<th width="5%">Código</th> 
 			<th width="25%">Item</th> 
 			<th width="5%">Unidad</th> 
 			<th width="8%">Precio unitario</th>
@@ -69,6 +70,7 @@
 		|-foreach from=$relations item=relation name=for_relations-|
 		<tr>
 			|-$item = $relation->getConstructionItem()-|
+			<td nowrap="nowrap">|-$item->getCode()-|</td>
 			<td>|-$item->getName()-|</td>
 			<td align="center">|-$item->getMeasureUnit()-|</td>
 			<td align="right">|-$item->getPrice()|system_numeric_format-|</td>

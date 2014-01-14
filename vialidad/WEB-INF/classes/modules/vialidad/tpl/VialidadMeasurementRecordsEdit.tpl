@@ -67,6 +67,7 @@
 	<table id="table_itemsRecords" class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'> 
 		<thead>
 		<tr class="thFillTitle"> 
+			<th width="5%">Código</th> 
 			<th width="55%">Item</th> 
 			<th width="15%">Cantidad</th> 
 			<th width="5%">Unidad</th> 
@@ -77,12 +78,13 @@
 		<tbody>
 		|-if $itemRecords->count() eq 0-|
 		<tr>
-			<td colspan="5">No hay Items que mostrar</td>
+			<td colspan="6">No hay Items que mostrar</td>
 		</tr>
 		|-else-|
 		|-foreach from=$itemRecords item=itemRecord name=for_items-|
 		<tr>
 			|-assign var=item value=$itemRecord->getConstructionItem()-|
+			<td nowrap="nowrap">|-$item->getCode()-|</td>
 			<td>|-$item->getName()-|</td>
 			<td align="right"><span id="quantity|-$itemRecord->getId()-|" class="inPlaceEditable">|-$itemRecord->getQuantity()|system_numeric_format-|</span></td>
 			<td align="center">|-$item->getMeasureUnit()-|</td>
