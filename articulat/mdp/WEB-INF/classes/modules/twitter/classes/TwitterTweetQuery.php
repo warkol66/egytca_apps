@@ -12,6 +12,14 @@
  */
 class TwitterTweetQuery extends BaseTwitterTweetQuery{
 	
+	/**
+	 * filtra por estado de retweet: es un retweet o no
+	 */
+	public function filterByIsRetweet($condition = true) {
+		$criteria = $condition ? Criteria::ISNOTNULL : Criteria::ISNULL;
+		return $this->filterByRetweetedfromidstr(null, $criteria);
+	}
+	
 	public function maxStatus($status){
 		return $this->filterByStatus(array('max' => $status));
 	}

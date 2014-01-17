@@ -87,7 +87,8 @@ class TwitterTweet extends BaseTwitterTweet{
 			'Retweetcount' => $apiTweet->retweet_count,
 			'Favoritecount' => $apiTweet->favorite_count,
 			'Lang' => $apiTweet->lang,
-			'Embed' => $embed
+			'Embed' => $embed,
+			'Retweetedfromidstr' => $apiTweet->retweeted_status ? $apiTweet->retweeted_status->id_str : null
 		);
 		
 		$user = array(
@@ -175,6 +176,13 @@ class TwitterTweet extends BaseTwitterTweet{
 	 * */
 	public static function editMultiple($field,$newValue,$tweets){
 		TwitterTweetQuery::create()->filterById($tweets, Criteria::IN)->update(array($field => $newValue));
+	}
+	
+	/**
+	 * Devuelve true si es un retweet, y false caso contrario
+	 */
+	public function isRetweet() {
+		return $this->getRetweetedfromidstr() !== null;
 	}
 	
 }
