@@ -50,10 +50,10 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 	public function getByType($type){
 		switch($type){
 			case TwitterTweet::ORIGINAL:
-				return $this->where('TwitterTweet.Inreplytostatusid IS NULL')->where('TwitterTweet.Inreplytouserid IS NULL')->filterByRetweeted(false);
+				return $this->where('TwitterTweet.Inreplytostatusid IS NULL')->where('TwitterTweet.Inreplytouserid IS NULL');//->filterByRetweeted(false);
 			break;			
 			case TwitterTweet::RETWEET:
-				return $this->filterByRetweeted(true);
+				return $this->filterByRetweetcount(array('min' => 1)); //filterByRetweeted(true);
 			break;
 			case TwitterTweet::REPLY:
 				return $this
