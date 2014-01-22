@@ -73,12 +73,12 @@
 <h1>Administrar Titulares Importados</h1>
 	<fieldset>
 	<legend>Obtener Titulares&nbsp;&nbsp;<a href="javascript:void(null)" id="showHideManualParse" onClick="$$('form.manualParse').each(function(e, i){e.toggle()}); $('showHideManualParse').toggleClassName('collapseLink');" class="expandLink"></a></legend>
-	<form method="post" action="Main.php" onsubmit="parseFeed(this); return false;" class="manualParse" style="display:none;">
+	|-if is_array(ConfigModule::get("headlines","typeMap"))-|<form method="post" action="Main.php" onsubmit="parseFeed(this); return false;" class="manualParse" style="display:none;">
 	 <p><label for="type">Fuente de titulares</label> <input name="type" value="press" type="radio" />&nbsp; Prensa
 		<input name="type" value="multimedia" type="radio" />&nbsp; Radio y TV
 		<input name="type" value="web" type="radio" />&nbsp; Gráfica Interior, Internet y Cables</p>
 	<p><input type="submit" id="search_button" value="Obtener titulares" title="Obtener manualmente titulares" /></p>
-	</form>
+	</form>|-/if-|
 	
 	<form id="form" action="Main.php?do=headlinesDoParseX" onsubmit="headlinesSearch(); return false;" method="POST" class="manualParse" style="display:none;">
 		<input name="campaignId" value="|-$campaign->getId()-|" type="hidden" />

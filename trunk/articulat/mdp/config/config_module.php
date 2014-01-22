@@ -108,11 +108,11 @@ class ConfigModule {
 					"invalid_headline"    => "Hay algunos resultados con errores"
 				)
 			),
-			"typeMap" => array(
-				'web' => array('class' => 'WebHeadline', 'url' => 'http://localhost/htdocs2/apps/trunk/GCABA/mdp/rss1.xml'),
-				'multimedia' => array('class' => 'MultimediaHeadline', 'url' => 'http://localhost/htdocs2/apps/trunk/GCABA/mdp/rss2.xml'),
-				'press' => array('class' => 'PressHeadline', 'url' => 'http://localhost/htdocs2/apps/trunk/GCABA/mdp/rss3.xml')
-			),
+			//"typeMap" => array(
+			//	'web' => array('class' => 'WebHeadline', 'url' => 'http://localhost/htdocs2/apps/trunk/GCABA/mdp/rss1.xml'),
+			//	'multimedia' => array('class' => 'MultimediaHeadline', 'url' => 'http://localhost/htdocs2/apps/trunk/GCABA/mdp/rss2.xml'),
+			//	'press' => array('class' => 'PressHeadline', 'url' => 'http://localhost/htdocs2/apps/trunk/GCABA/mdp/rss3.xml')
+			//),
 			"feedBackupsPath" => "./WEB-INF/classes/modules/headlines/files/feeds"
 		),
 		"twitter" => array(
