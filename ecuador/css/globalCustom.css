@@ -2,8 +2,6 @@
 * {
 	font-family: Arial, Helvetica, sans-serif, Geneva;
 }
-
-
 /* INPUTS, ICONS & LINKS ------------------------------*/
 input[type="submit"], input[type="button"], input[type="reset"] {
 	background-color: #e0e0e0 !Important;
@@ -33,16 +31,27 @@ input#remaining{
 	text-align: left !Important;
 }
 input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
-	background-color: #00000 !Important;/*#d0d0d0; */
+	background-color: #d0d0d0 !Important;
 	border: outset 1px  #808080 !Important;
 }
 input[disabled="disabled"], input[type="disabled"]:hover {
-	color: #4C4C4C !Important;
-	background-color:  #eeeeee !Important;
+	color: #5a5a5a !Important;
+	background-color:  #e0e0e0 !Important;
 }
 input[type="submit"].icon, input[type="button"].icon, input[type="reset"].icon {
 	line-height: 999px !Important;
 	overflow: hidden !Important;
+}
+.iconSize {
+	width: 20px;
+	height: 20px;
+	background-image: url(../images/icons_all.png) !Important;
+	background-position: bottom;
+}
+.iconTextLink .iconSize {
+	width: 20px;
+	height: 20px;
+	background-position: left top;
 }
 input[type="submit"].icon, input[type="button"].icon,
 .icon, .editor_ok_button, .editor_cancel_button  {
@@ -168,12 +177,26 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-position: -0px -80px !Important; }
 .iconSetPrivileges{
 	background-position: -20px -80px !Important; }
-.iconSendMultiple {
+.iconViewDetail {
+	background-position: -80px -80px !Important; }
+.iconViewPhoto {
+	background-position: -100px -80px !Important; }
+.iconAddPhoto {
 	background-position: -120px -80px !Important; }
+.iconSendMultiple {
+	background-position: -140px -80px !Important; }
+.iconEditMail{
+	background-position: -0px -100px !Important; }
+.iconDeleteMail{
+	background-position: -20px -100px !Important; }
 .iconRead{
 	background-position: -40px -100px !Important; }
 .iconUnread{
 	background-position: -60px -100px !Important; }
+.iconReply{
+	background-position: -80px -100px !Important; }
+.iconForward{
+	background-position: -100px -100px !Important; }
 .iconAddUser {
 	background-position: -120px -100px !Important; }
 .iconPhoto {
@@ -218,11 +241,21 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-position: -160px -140px !Important; }
 .iconUserBlocked {
 	background-position: -180px -140px !Important; }
+.iconTwitter {
+	background-position: -0px -160px !Important; }
+.iconTwitterGoTo {
+	background-position: -20px -160px !Important; }
+.iconTwitterAdd {
+	background-position: -40px -160px !Important; }
+.iconTwitterDelete {
+	background-position: -60px -160px !Important; }
+.iconMinus {
+	background-position: -180px -180px !Important; }
 .iconExpand {
 	background-image: url(../images/icon_expand.png) !Important;
 	background-position: 2px 2px !Important;}
 .iconCollapse {
-	background-image: url(../images/icon_collapse.png) !Important; ;
+	background-image: url(../images/icon_collapse.png) !Important;
 	background-position: 2px 2px !Important; }
 .icon:hover,input[type="submit"].icon:hover, input[type="button"].icon:hover  {
 	background-color: #b9b9b9 !Important;
@@ -269,6 +302,7 @@ a.addLink:hover, a.addLink:active {
 /* ADD   ----------------------------------------------*/
 /* SEARCH   -------------------------------------------*/
 a.tdTitSearch{
+	background-color: #f4f6f3;
 	background-image:url(../images/icon_search.png);
 	background-position:11px 7px;
 	background-repeat:no-repeat;
@@ -606,7 +640,6 @@ option {
 	-webkit-border-radius: 2px;
 }
 /* /CharCount */
-
 ul.iconOptionsList li:hover {
 	color: red;
 }
@@ -623,7 +656,6 @@ legend, fieldset legend, fieldset fieldset legend {
 	color: Green;
 	font-weight: bold;
 }
-
 /* tooltip ----- */
 a.tooltip, a.tooltipWide{
 }
@@ -642,7 +674,6 @@ a.tooltip:hover span, a.tooltipWide:hover span{
 	color: #006699;
 }
 /* /tooltip ----- */
-
 .mandatory {
 	display: inline;
 	vertical-align: top;
@@ -703,7 +734,6 @@ a.detail:hover{
 	color: #FFFFFF;
 	background-color: #000066;
 }
-
 /*  .formFieldset   ----------------------------------- */
 .formFieldset {
 }
@@ -722,7 +752,21 @@ a.detail:hover{
 .formFieldset ul li ul li ul li ul li ul li{
 }
 /*  /.formFieldset   ----------------------------------- */
-
+a.iconTextLink, a.iconTextLink:visited {
+	vertical-align: middle;
+	display: inline-block;
+	font-weight: bold;
+	color: #000066;
+	text-decoration: none;
+	margin-left: 18px;
+}
+img.iconSize {
+	margin-right: 3px;
+	vertical-align: text-bottom;
+}
+a.iconTextLink:hover {
+	text-decoration: underline;
+}
 a.follow {
 	color: #000066;
 	padding: 2px 5px 2px 22px;
@@ -736,8 +780,6 @@ a.follow:hover{
 	background-image: url(../images/icon_follow.png);
 	background-repeat: no-repeat;
 }
-
-
 a.return {
 	background-image: url(../images/icon_follow.png);
 }
@@ -747,35 +789,41 @@ a.report {
 a.importHeadlines {
 	background-image: url(../images/icon_news.png);
 }
+a.download {
+	background-image: url(../images/icon_download.png);
+}
+a.importTwitts, a.importTwitts:link, a.importTwitts:visited,
 a.return, a.return:link, a.return:visited,
 a.report, a.report:link, a.report:visited,
-a.importHeadlines, a.importHeadlines:link, a.importHeadlines:visited {
+a.importHeadlines, a.importHeadlines:link, a.importHeadlines:visited,
+a.download, a.download:link, a.download:visited  {
 	color:#0054A4;
 	background-position:left top;
 	background-repeat:no-repeat;
 }
+a.return:hover,
 a.report:hover,
-a.report:hover,
-a.importHeadlines:hover{
+a.importTwitts:hover,
+a.importHeadlines:hover,
+a.download:hover{
 	text-decoration: underline !Important;
 }
-
-.expandLink, .collapseLink {
+.expandLink, .collapseLink, .overrideExpand {
+	background-image: url(../images/icons_custom.png);
+	background-repeat: no-repeat;
 	color: #404040;
 	padding: 0 0 0 16px;
 }
 .expandLink:link, .collapseLink:link {
 	text-decoration: none;
 }
-.expandLink {
-	background-image: url(../images/icon_expand.png);
-	background-repeat: no-repeat;
+.expandLink, .overrideExpand {
+	background-position: 0px 0px !Important;
 }
 .collapseLink {
-	background-image: url(../images/icon_collapse.png);
-	background-repeat: no-repeat;
+	background-position: -16px 0px;
 }
-a.expandLink:link,a.expandLink:visited, a.collapseLink:link,a.collapseLink:visited{
+a.expandLink:link, a.expandLink:visited, a.collapseLink:link,a.collapseLink:visited{
 	color: #404040;
 	text-decoration: none;
 }
@@ -787,4 +835,8 @@ a.expandLink:link,a.expandLink:visited, a.collapseLink:link,a.collapseLink:visit
 .expandLink:hover span, .collapseLink:hover span {
 	font-size: 100% !Important;
 	display: inline;
+}
+.overrideExpand {
+	background-image: url(../images/icon_expand.png) !Important;
+	background-repeat: no-repeat;
 }

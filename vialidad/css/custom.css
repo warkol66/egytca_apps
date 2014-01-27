@@ -229,6 +229,14 @@ body {
 	margin-top: 1px;
 	padding: 2px 0 2px 32px !Important;
 }
+fieldset {
+	-khtml-border-radius: 0;
+	-opera-border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+}
+
 /*  AGREGADOS -----------------------------------------------*/
 .flagGreen {
 	background: Green;
@@ -417,4 +425,12 @@ ul#directions_results {
 input[readonly="readonly"], textarea[readonly="readonly"], select[readonly="readonly"] {
 	background-color: #E7E7E7;
 	border: 1px outset #cdcdcd !Important;/*#F0F0F0;*/
+}
+input[type="text"].emptyValidation, input[type="password"].emptyValidation, textarea.emptyValidation, select.emptyValidation {
+	border: 1px inset grey;
+	outline: #ff0000 solid 1px;
+}
+input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
+	background-color: #00000 !Important;
+	border: outset 1px #808080 !Important;
 }
