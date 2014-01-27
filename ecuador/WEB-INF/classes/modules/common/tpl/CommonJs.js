@@ -179,3 +179,21 @@ function CheckAllBoxes(fmobj) {
 	}
 }
 
+function tableExport(tableId, fileName, fileType){
+    var table = document.getElementById(tableId);
+    var content  = '<html><head>';
+    		content += '<style type="text/css">.right{text-align:right;}.center{text-align:center;}td,th{border:1px solid blue;}';
+    		content += 'th{font-weight:bold;text-align:center;}td{text-align:left;}</style></head><body>';
+
+    var wrap = document.createElement('div');
+    wrap.appendChild(table.cloneNode(true));
+
+    		content += wrap.innerHTML;
+    		content += '</tbody></table></body></html>';
+
+    var form = document.forms["formTableExport"];
+    form["fileName"].value = fileName;
+    form["fileType"].value = fileType;
+    form["content"].value = content;
+    form.submit();
+}
