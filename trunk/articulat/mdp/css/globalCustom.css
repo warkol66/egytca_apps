@@ -2,8 +2,6 @@
 * {
 	font-family: Arial, Helvetica, sans-serif, Geneva;
 }
-
-
 /* INPUTS, ICONS & LINKS ------------------------------*/
 input[type="submit"], input[type="button"], input[type="reset"] {
 	background-color: #e0e0e0 !Important;
@@ -33,7 +31,7 @@ input#remaining{
 	text-align: left !Important;
 }
 input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
-	background-color: #00000 !Important;/*#d0d0d0; */
+	background-color: #d0d0d0 !Important;
 	border: outset 1px  #808080 !Important;
 }
 input[disabled="disabled"], input[type="disabled"]:hover {
@@ -179,12 +177,26 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-position: -0px -80px !Important; }
 .iconSetPrivileges{
 	background-position: -20px -80px !Important; }
-.iconSendMultiple {
+.iconViewDetail {
+	background-position: -80px -80px !Important; }
+.iconViewPhoto {
+	background-position: -100px -80px !Important; }
+.iconAddPhoto {
 	background-position: -120px -80px !Important; }
+.iconSendMultiple {
+	background-position: -140px -80px !Important; }
+.iconEditMail{
+	background-position: -0px -100px !Important; }
+.iconDeleteMail{
+	background-position: -20px -100px !Important; }
 .iconRead{
 	background-position: -40px -100px !Important; }
 .iconUnread{
 	background-position: -60px -100px !Important; }
+.iconReply{
+	background-position: -80px -100px !Important; }
+.iconForward{
+	background-position: -100px -100px !Important; }
 .iconAddUser {
 	background-position: -120px -100px !Important; }
 .iconPhoto {
@@ -197,9 +209,11 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-position: -0px -120px !Important; }
 .iconUndelete {
 	background-position: -20px -120px !Important; }
+.iconZoom {
+	background-position: -60px -120px !Important; }
 .iconDelete {
 	background-position: -80px -120px !Important; }
-.iconCancel, input.editor_cancel_button {
+.iconCancel, input.editor_cancel_button, #fancybox-content #data .iconDelete {
 	background-position: -100px -120px !Important; }
 .iconUnordered {
 	background-position: -120px -120px !Important; }
@@ -225,6 +239,8 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-position: -140px -140px !Important; }
 .iconVideo {
 	background-position: -160px -140px !Important; }
+.iconUserBlocked {
+	background-position: -180px -140px !Important; }
 .iconTwitter {
 	background-position: -0px -160px !Important; }
 .iconTwitterGoTo {
@@ -251,7 +267,12 @@ input[type="submit"].icon, input[type="button"].icon {
 	background-color: #f0f0f0 !Important;
 	border: solid 1px #ababab !Important;
 }
-
+img.icon.spacer {
+	background-image: none !Important;
+	background-color: transparent !Important;/*#d0d0d0; */
+	border-color:transparent  !Important;
+	cursor: default !Important;
+}
 .mandatoryField {
 	background-image: url(../images/mandatory.png);
 	background-repeat: no-repeat;
@@ -281,6 +302,7 @@ a.addLink:hover, a.addLink:active {
 /* ADD   ----------------------------------------------*/
 /* SEARCH   -------------------------------------------*/
 a.tdTitSearch{
+	background-color: #f4f6f3;
 	background-image:url(../images/icon_search.png);
 	background-position:11px 7px;
 	background-repeat:no-repeat;
@@ -361,6 +383,12 @@ a.linkMailDelete {
 /* PAGINADO    ----------------------------*/
 .pages{
 	background-color: #FFF;
+}
+.pages a{
+	color: #990000;
+}
+.pages a:hover{
+	color: #cc6600;
 }
 .pages, .divPages {
 	color:#0066CC;
@@ -612,7 +640,6 @@ option {
 	-webkit-border-radius: 2px;
 }
 /* /CharCount */
-
 ul.iconOptionsList li:hover {
 	color: red;
 }
@@ -629,7 +656,6 @@ legend, fieldset legend, fieldset fieldset legend {
 	color: Green;
 	font-weight: bold;
 }
-
 /* tooltip ----- */
 a.tooltip, a.tooltipWide{
 }
@@ -648,7 +674,6 @@ a.tooltip:hover span, a.tooltipWide:hover span{
 	color: #006699;
 }
 /* /tooltip ----- */
-
 .mandatory {
 	display: inline;
 	vertical-align: top;
@@ -709,7 +734,6 @@ a.detail:hover{
 	color: #FFFFFF;
 	background-color: #000066;
 }
-
 /*  .formFieldset   ----------------------------------- */
 .formFieldset {
 }
@@ -743,7 +767,6 @@ img.iconSize {
 a.iconTextLink:hover {
 	text-decoration: underline;
 }
-
 a.follow {
 	color: #000066;
 	padding: 2px 5px 2px 22px;
@@ -757,8 +780,6 @@ a.follow:hover{
 	background-image: url(../images/icon_follow.png);
 	background-repeat: no-repeat;
 }
-
-
 a.return {
 	background-image: url(../images/icon_follow.png);
 }
@@ -768,10 +789,14 @@ a.report {
 a.importHeadlines {
 	background-image: url(../images/icon_news.png);
 }
+a.download {
+	background-image: url(../images/icon_download.png);
+}
 a.importTwitts, a.importTwitts:link, a.importTwitts:visited,
 a.return, a.return:link, a.return:visited,
 a.report, a.report:link, a.report:visited,
-a.importHeadlines, a.importHeadlines:link, a.importHeadlines:visited {
+a.importHeadlines, a.importHeadlines:link, a.importHeadlines:visited,
+a.download, a.download:link, a.download:visited  {
 	color:#0054A4;
 	background-position:left top;
 	background-repeat:no-repeat;
@@ -779,10 +804,10 @@ a.importHeadlines, a.importHeadlines:link, a.importHeadlines:visited {
 a.return:hover,
 a.report:hover,
 a.importTwitts:hover,
-a.importHeadlines:hover{
+a.importHeadlines:hover,
+a.download:hover{
 	text-decoration: underline !Important;
 }
-
 .expandLink, .collapseLink, .overrideExpand {
 	background-image: url(../images/icons_custom.png);
 	background-repeat: no-repeat;
@@ -811,4 +836,7 @@ a.expandLink:link, a.expandLink:visited, a.collapseLink:link,a.collapseLink:visi
 	font-size: 100% !Important;
 	display: inline;
 }
-
+.overrideExpand {
+	background-image: url(../images/icon_expand.png) !Important;
+	background-repeat: no-repeat;
+}

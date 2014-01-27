@@ -546,7 +546,7 @@ input[type="text"], input[type="file"], input[type="password"], textarea, .radio
 	vertical-align: text-bottom;
 }
 input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
-	background-color: #a5a5a5;
+	background-color: #a5a5a5 !Important;;
   background: -webkit-gradient(linear, left top, left bottom, from(#cccccc), to(#dddddd));
   background: -moz-linear-gradient(top,  #cccccc,  #dddddd);
   background: -o-linear-gradient(top,  #cccccc,  #dddddd);
