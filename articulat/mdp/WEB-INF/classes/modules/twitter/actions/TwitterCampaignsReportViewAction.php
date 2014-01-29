@@ -27,6 +27,13 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 
 			$byValue = TwitterTweetQuery::getAllByValue($tweetsFilters);
 			
+			
+				$tweetsFilters['value'] = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
+			//if(empty($tweetsFilters['relevance'])) 
+				$tweetsFilters['relevance'] = array(0,TwitterTweet::RELEVANT,TwitterTweet::NEUTRALLY_RELEVANT,TwitterTweet::IRRELEVANT);
+			//if(empty($tweetsFilters['type']))
+				$tweetsFilters['type'] = 0;
+			
 			/*print_r($byValue);
 			die();*/
 			
@@ -59,6 +66,10 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			$this->smarty->assign('byValueTotal', $byValueTotal);
 			$this->smarty->assign('byRelevance', $byRelevance);
 			$this->smarty->assign('byRelevanceTotal', $byRelevanceTotal);
+			
+			/*$inf = TwitterUserQuery::getAllByGender($tweetsFilters);
+			print_r($inf);
+			die();*/
 			
 			if($byValueTotal > 0 || $byRelevanceTotal > 0){
 				

@@ -129,4 +129,34 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 				->filterByCampaignid($campaignid)
 			->endUse();
 	}
+	
+	public function getAllByGender($filters){
+		
+		if(empty($filters['value'])) 
+			$filters['value'] = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
+		if(empty($filters['relevance'])) 
+			$filters['relevance'] = array(0,TwitterTweet::RELEVANT,TwitterTweet::NEUTRALLY_RELEVANT,TwitterTweet::IRRELEVANT);
+		if(empty($filters['type'])) 
+			$filters['type'] = 0;
+		if(empty($filters['gender']))
+			$filters['gender'] = array('female','male','na');
+		$personal = $filters['personalized'];
+		
+		$influential = TwitterUserQuery::create()
+			->filterByGender($filters['gender'])
+			->useTwitterTweetQuery()
+				->groupByInternaltwitteruserid()
+				->filterByCampaignid($filters['campaign'])
+				->filterByCreatedat(array('min' => $filters['from'], 'max' => $filters['to']))
+				->filterByStatus(TwitterTweet::ACCEPTED)
+				->filterByText("%$personal%", Criteria::LIKE)
+				->filterByValue($filters['value'])
+				->filterByRelevance($filters['relevance'])
+				->getByType($filters['type'])
+			->endUse()
+			->select('gender')
+			->find();
+		
+		return $influential;
+	}
 }
