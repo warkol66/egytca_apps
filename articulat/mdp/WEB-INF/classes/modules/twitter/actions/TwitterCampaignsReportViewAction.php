@@ -24,19 +24,10 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			// busco entre los limites de la campaign
 			$tweetsFilters['from'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($this->entity->getStartdate())));
 			$tweetsFilters['to'] = Common::getDatetimeOnGMT(date('Y-m-d H:i:s',strtotime($this->entity->getFinishdate())));
-
-			$byValue = TwitterTweetQuery::getAllByValue($tweetsFilters);
-			
-			
-				$tweetsFilters['value'] = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
-			//if(empty($tweetsFilters['relevance'])) 
-				$tweetsFilters['relevance'] = array(0,TwitterTweet::RELEVANT,TwitterTweet::NEUTRALLY_RELEVANT,TwitterTweet::IRRELEVANT);
-			//if(empty($tweetsFilters['type']))
-				$tweetsFilters['type'] = 0;
 			
 			/*print_r($byValue);
 			die();*/
-			
+			$byValue = TwitterTweetQuery::getAllByValue($tweetsFilters);
 			$byValueTotal = 0;
 			foreach($byValue as $date){
 				$byValueTotal += $date['positive'] + $date['neutral'] + $date['negative'];
@@ -66,12 +57,13 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			$this->smarty->assign('byValueTotal', $byValueTotal);
 			$this->smarty->assign('byRelevance', $byRelevance);
 			$this->smarty->assign('byRelevanceTotal', $byRelevanceTotal);
-			
-			/*$inf = TwitterUserQuery::getAllByGender($tweetsFilters);
-			print_r($inf);
-			die();*/
+
 			
 			if($byValueTotal > 0 || $byRelevanceTotal > 0){
+				
+				$byGender = TwitterTweetQuery::getAllByGender($tweetsFilters);
+				/*echo"<pre>"; print_r($inf); echo"</pre>";
+				die();*/
 				
 				// obtengo los usuarios que mas tweets crearon
 				$topUsers = TwitterUserQuery::getTopUsers($tweetsFilters, 5);
@@ -80,6 +72,8 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 				die();*/
 				
 				$tweetsAmount = TwitterTweetQuery::getCombinations($tweetsFilters);
+				/*print_r($tweetsAmount);
+				die();
 				/*echo"<pre>"; print_r($tweetsAmount); echo"</pre>";
 				die();*/
 				$this->smarty->assign('topUsers', $topUsers);

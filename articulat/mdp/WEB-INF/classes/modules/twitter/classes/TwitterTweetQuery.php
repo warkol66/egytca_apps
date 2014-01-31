@@ -88,12 +88,14 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		return TwitterTweetQuery::create()->filterByCampaignid($campaigns,Criteria::IN);
 	}
 	
-	/* Obtiene cantidad de tweets aceptados y valorados como $value
+	/* TODO: ver si se usa
+	 * Obtiene cantidad de tweets aceptados y valorados como $value
 	 * por dia
 	 * 
 	 * return (json) fecha y cantidad de tweets 
 	 * */
-	public function getAcceptedByValue($from = null, $to = null, $value){
+	 // cambie el orden de los parametros, si se usa cambiarlos tambien
+	/*public function getAcceptedByValue($value, $from = null, $to = null){
 		
 		if(!isset($from) && !isset($to)){
 			
@@ -104,137 +106,166 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 				->filterByValue($value)
 				->groupBy('TwitterTweet.date')
 				->select(array('date','tweets'))
-				->find();
-			
-			$positiveTweets = array();
-			$i = 0;
-			foreach($positive as $pos){
-				$positiveTweets[$i]['date'] = $pos['date'];
-				$positiveTweets[$i]['tweets'] = $pos['tweets'];
-				$i++;
-			}
+				->find()
+				->toArray();
 			
 		}else{
-			
+			// ver que hacer aca
 		}
 		return $positiveTweets;
-	}
+	}*/
 	
-	public function getAllByValue($filters){
-			
-		$positive = TwitterTweet::POSITIVE;
-		$neutral = TwitterTweet::NEUTRAL;
-		$negative = TwitterTweet::NEGATIVE;
-		//$values = getValues();
-		if(empty($filters['relevance'])) 
-			$filters['relevance'] = array(0,TwitterTweet::RELEVANT,TwitterTweet::NEUTRALLY_RELEVANT,TwitterTweet::IRRELEVANT);
+	/* Aplica los filtros basicos requeridos para los reportes
+	 * 
+	 * */
+	public function applyReportFilters($filters){
+		
+		$personal = $filters['personalized'];
 		if(empty($filters['type'])) 
 			$filters['type'] = 0;
-		$personal = $filters['personalized'];
+		
+		return $this->filterByCampaignid($filters['campaign'])
+					->filterByCreatedat(array('min' => $filters['from'], 'max' => $filters['to']))
+					->filterByStatus(TwitterTweet::ACCEPTED)
+					->filterByText("%$personal%", Criteria::LIKE)
+					->getByType($filters['type'])
+					->_if(!empty($filters['gender']))
+						->useTwitterUserQuery()
+							->filterByGender($filters['gender'])
+						->endUse()
+					->_endif();
+					
+	}
+	
+	public static function getAllByValue($filters){
 		
 		$byValue = TwitterTweetQuery::create()
-			->filterByCampaignid($filters['campaign'])
-			->filterByRelevance($filters['relevance'])
-			->filterByCreatedat(array('min' => $filters['from'], 'max' => $filters['to']))
-			->filterByStatus(TwitterTweet::ACCEPTED)
-			->filterByText("%$personal%", Criteria::LIKE)
-			->getByType($filters['type'])
-			->_if(!empty($filters['gender']))
-				->useTwitterUserQuery()
-					->filterByGender($filters['gender'])
-				->endUse()
-			->_endif()
+			->applyReportFilters($filters)
 			->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
 			->groupBy('TwitterTweet.date')
-			->_if($filters['value'] == $positive)
-				->withColumn('sum(if(TwitterTweet.Value = '. $positive .', 1, 0))', 'positive')
-				->select(array('date','positive'))
-			->_elseif($filters['value'] == $neutral)
-				->withColumn('sum(if(TwitterTweet.Value = '. $neutral .', 1, 0))', 'neutral')
-				->select(array('date','neutral'))
-			->_elseif($filters['value'] == $negative)
-				->withColumn('sum(if(TwitterTweet.Value = '. $negative .', 1, 0))', 'negative')
-				->select(array('date','negative'))
-			->_else()
-				->withColumn('sum(if(TwitterTweet.Value = '. TwitterTweet::POSITIVE .', 1, 0))', 'positive')
-				->withColumn('sum(if(TwitterTweet.Value = '. TwitterTweet::NEUTRAL .', 1, 0))', 'neutral')
-				->withColumn('sum(if(TwitterTweet.Value = '. TwitterTweet::NEGATIVE .', 1, 0))', 'negative')
-				->select(array('date','positive', 'neutral', 'negative'))
-			->_endif()
+			->countByValue($filters)
 			->find();
 		
 		return $byValue;
-		//return json_encode($byValue->toArray());
+	}
+	
+	/* Agrupa la cantidad de tweets por valor
+	 * 
+	 * */
+	private function countByValue($filters){
+		
+		$positive = TwitterTweet::POSITIVE;
+		$neutral = TwitterTweet::NEUTRAL;
+		$negative = TwitterTweet::NEGATIVE;
+		
+		return $this->_if(!empty($filters['relevance']))
+						->filterByRelevance($filters['relevance'])
+					->_endif()
+					->_if($filters['value'] == $positive)
+						->withColumn('sum(if(TwitterTweet.Value = '. $positive .', 1, 0))', 'positive')
+						->select(array('date','positive'))
+					->_elseif($filters['value'] == $neutral)
+						->withColumn('sum(if(TwitterTweet.Value = '. $neutral .', 1, 0))', 'neutral')
+						->select(array('date','neutral'))
+					->_elseif($filters['value'] == $negative)
+						->withColumn('sum(if(TwitterTweet.Value = '. $negative .', 1, 0))', 'negative')
+						->select(array('date','negative'))
+					->_else()
+						->withColumn('sum(if(TwitterTweet.Value = '. TwitterTweet::POSITIVE .', 1, 0))', 'positive')
+						->withColumn('sum(if(TwitterTweet.Value = '. TwitterTweet::NEUTRAL .', 1, 0))', 'neutral')
+						->withColumn('sum(if(TwitterTweet.Value = '. TwitterTweet::NEGATIVE .', 1, 0))', 'negative')
+						->select(array('date','positive', 'neutral', 'negative'))
+					->_endif();
+	}
+	
+	public static function getAllByRelevance($filters){
+		
+		$byRelevance = TwitterTweetQuery::create()
+			->applyReportFilters($filters)
+			->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
+			->groupBy('TwitterTweet.date')
+			->countByRelevance($filters)
+			->find();
+		
+		return $byRelevance;
+	}
+	
+	private function countByRelevance($filters){
+		
+		$relevant = TwitterTweet::RELEVANT;
+		$neutrally_relevant = TwitterTweet::NEUTRALLY_RELEVANT;
+		$irrelevant = TwitterTweet::IRRELEVANT;
+		
+		return $this->_if(!empty($filters['value']))
+						->filterByValue($filters['value'])
+					->_endif()
+					->_if($filters['relevance'] == $relevant)
+						->withColumn('sum(if(TwitterTweet.Relevance = '. $relevant .', 1, 0))', 'relevant')
+						->select(array('date','relevant'))
+					->_elseif($filters['relevance'] == $neutrally_relevant)
+						->withColumn('sum(if(TwitterTweet.Relevance = '. $neutrally_relevant .', 1, 0))', 'neutrally_relevant')
+						->select(array('date','neutrally_relevant'))
+					->_elseif($filters['relevance'] == $irrelevant)
+						->withColumn('sum(if(TwitterTweet.Relevance = '. $irrelevant .', 1, 0))', 'irrelevant')
+						->select(array('date','irrelevant'))
+					->_else()
+						->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::RELEVANT .', 1, 0))', 'relevant')
+						->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::NEUTRALLY_RELEVANT .', 1, 0))', 'neutrally_relevant')
+						->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::IRRELEVANT .', 1, 0))', 'irrelevant')
+						->select(array('date','relevant', 'neutrally_relevant', 'irrelevant'))
+					->_endif();
+	}
+	
+	/* Obtiene cantidad de tweets por genero
+	 * 
+	 * */
+	public static function getAllByGender($filters){
+		
+		$byGender = TwitterTweetQuery::create()
+			->applyReportFilters($filters)
+			->countByGender($filters)
+			->find();
+
+		return $byGender;
+	}
+	
+	private function countByGender(){	
+		
+		return $this->_if($filters['gender'] == 'female')
+						->useTwitterUserQuery()
+							->withColumn('sum(if(TwitterUser.Gender = '. TwitterUser::FEMALE .', 1, 0))', 'female')
+						->endUse()
+						->select('female')
+					->_elseif($filters['gender'] == 'male')
+						->useTwitterUserQuery()
+							->withColumn('sum(if(TwitterUser.Gender = '. TwitterUser::MALE .', 1, 0))', 'male')
+						->endUse()
+						->select('male')
+					->_else()
+						->useTwitterUserQuery()
+							->withColumn('sum(if(TwitterUser.Gender = '. TwitterUser::FEMALE .', 1, 0))', 'female')
+							->withColumn('sum(if(TwitterUser.Gender = '. TwitterUser::MALE .', 1, 0))', 'male')
+						->endUse()
+						->select(array('female','male'))
+					->_endif();
 	}
 	
 	/* Obtiene los tweets por valor para el reporte
 	 * */
 	public function getTweetsForReport($filters){
-		if(empty($filters['value'])) 
-			$filters['value'] = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
-		if(empty($filters['relevance']))
-			$filters['relevance'] = array(0,TwitterTweet::RELEVANT,TwitterTweet::NEUTRALLY_RELEVANT,TwitterTweet::IRRELEVANT);
+		
 		if(empty($filters['type']))
 			$filters['type'] = 0;
 			
 		TwitterTweetQuery::create()
-			->filterByCampaignid($filters['campaign'])
-			->filterByValue($filters['value'])
-			->filterByRelevance($filters['relevance'])
-			->filterByCreatedat(array('min' => $filters['from'], 'max' => $filters['to']))
-			->filterByStatus(TwitterTweet::ACCEPTED)
-			->getByType($filters['type'])
-			->_if(!empty($filters['gender']))
-				->useTwitterUserQuery()
-					->filterByGender($filters['gender'])
-				->endUse()
+			->applyReportFilters($filters)
+			->_if(!empty($filters['value']))
+				->filterByValue($filters['value'])
+			->_endif()
+			->_if(!empty($filters['relevance']))
+				->filterByValue($filters['relevance'])
 			->_endif()
 			->find();
-	}
-	
-	public function getAllByRelevance($filters){
-		
-		$relevant = TwitterTweet::RELEVANT;
-		$neutrally_relevant = TwitterTweet::NEUTRALLY_RELEVANT;
-		$irrelevant = TwitterTweet::IRRELEVANT;
-		if(empty($filters['value'])) 
-			$filters['value'] = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
-		if(empty($filters['type'])) 
-			$filters['type'] = 0;
-		$personal = $filters['personalized'];
-		
-		$byRelevance = TwitterTweetQuery::create()
-			->withColumn('CAST(TwitterTweet.Createdat as DATE)', 'date')
-			->filterByCampaignid($filters['campaign'])
-			->filterByValue($filters['value'])
-			->filterByCreatedat(array('min' => $filters['from'], 'max' => $filters['to']))
-			->filterByStatus(TwitterTweet::ACCEPTED)
-			->filterByText("%$personal%", Criteria::LIKE)
-			->getByType($filters['type'])
-			->_if(!empty($filters['gender']))
-				->useTwitterUserQuery()
-					->filterByGender($filters['gender'])
-				->endUse()
-			->_endif()
-			->groupBy('TwitterTweet.date')
-			->_if($filters['relevance'] == $relevant)
-				->withColumn('sum(if(TwitterTweet.Relevance = '. $relevant .', 1, 0))', 'relevant')
-				->select(array('date','relevant'))
-			->_elseif($filters['relevance'] == $neutrally_relevant)
-				->withColumn('sum(if(TwitterTweet.Relevance = '. $neutrally_relevant .', 1, 0))', 'neutrally_relevant')
-				->select(array('date','neutrally_relevant'))
-			->_elseif($filters['relevance'] == $irrelevant)
-				->withColumn('sum(if(TwitterTweet.Relevance = '. $irrelevant .', 1, 0))', 'irrelevant')
-				->select(array('date','irrelevant'))
-			->_else()
-				->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::RELEVANT .', 1, 0))', 'relevant')
-				->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::NEUTRALLY_RELEVANT .', 1, 0))', 'neutrally_relevant')
-				->withColumn('sum(if(TwitterTweet.Relevance = '. TwitterTweet::IRRELEVANT .', 1, 0))', 'irrelevant')
-				->select(array('date','relevant', 'neutrally_relevant', 'irrelevant'))
-			->_endif()
-			->find();
-		
-		return $byRelevance;
 	}
 	
 	/*No esta en uso*/
@@ -269,8 +300,9 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 			$relevances[$relevanceFilter] = $tempRelevances[$relevanceFilter];
 		else
 			$relevances = $tempRelevances;
-			
-		$personal = $filters['personalized'];
+
+		if(empty($filters['type'])) 
+			$filters['type'] = 0;
 
 		$combinations = array();
 		$i = 0;
@@ -279,15 +311,9 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 			foreach($relevances as $relevance => $relName){
 				
 				$tweetsAmount = TwitterTweetQuery::create()
-					->filterByCampaignid($filters['campaign'])
-					->filterByStatus(TwitterTweet::ACCEPTED)
-					->filterByText("%$personal%", Criteria::LIKE)
-					->filterByCreatedat(array('min' => $filters['from'], 'max' => $filters['to']))
+					->applyReportFilters($filters)
 					->filterByValue($value)
 					->filterByRelevance($relevance)
-					->useTwitterUserQuery()
-						->filterByGender($filters['gender'])
-					->endUse()
 					->find()
 					->count();
 				
@@ -304,10 +330,6 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 	public function getPersonalTrends($filters, &$treemapInfo){
 		require_once 'TwitterAnalyze.class.php';
 		
-		if(empty($filters['value'])) 
-			$filters['value'] = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
-		if(empty($filters['relevance'])) 
-			$filters['relevance'] = array(0,TwitterTweet::RELEVANT,TwitterTweet::NEUTRALLY_RELEVANT,TwitterTweet::IRRELEVANT);
 		if(empty($filters['type'])) 
 			$filters['type'] = 0;
 		
@@ -324,16 +346,13 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		
 		// obtengo los tweets aceptados
 		$tweets = TwitterTweetQuery::create()
-			->filterByCampaignid($filters['campaign'])
-			->filterByCreatedat(array('min' => $filters['from'], 'max' => $filters['to']))
-			->filterByStatus(TwitterTweet::ACCEPTED)
-			->filterByText("%$personal%", Criteria::LIKE)
-			->filterByValue($filters['value'])
-			->filterByRelevance($filters['relevance'])
-			->getByType($filters['type'])
-			->useTwitterUserQuery()
-				->filterByGender($filters['gender'])
-			->endUse()
+			->applyReportFilters($filters)
+			->_if(!empty($filters['value']))
+				->filterByValue($filters['value'])
+			->_endif()
+			->_if(!empty($filters['relevance']))
+				->filterByValue($filters['relevance'])
+			->_endif()
 			->joinWith('TwitterTweet.TwitterUser')
 			->select(array('TwitterTweet.Id','TwitterTweet.Text','TwitterUser.Screenname'))
 			->limit(3000)

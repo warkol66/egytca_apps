@@ -20,6 +20,9 @@ class TwitterUser extends BaseTwitterUser{
 	const NEUTRAL = 2;
 	const INFLUENTIAL = 3;
 	
+	const FEMALE = 0;
+	const MALE = 1;
+	
 	public static function getInfluenceLevels(){
 		$levels[TwitterUser::INFLUENTIAL] = 'Influyente';
 		$levels[TwitterUser::NEUTRAL] = 'Medianamente influyente';

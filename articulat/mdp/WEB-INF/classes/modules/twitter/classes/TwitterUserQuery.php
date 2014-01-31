@@ -39,29 +39,17 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 	 * 
 	 * */
 	public function getTopUsers($filters, $count = 10){
-		
-		if(empty($filters['value'])) 
-			$filters['value'] = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
-		if(empty($filters['relevance'])) 
-			$filters['relevance'] = array(0,TwitterTweet::RELEVANT,TwitterTweet::NEUTRALLY_RELEVANT,TwitterTweet::IRRELEVANT);
-		if(empty($filters['type']))
-			$filters['type'] = 0;
-		$personal = $filters['personalized'];
 			
 		$tops = TwitterTweetQuery::create()
+			->applyReportFilters($filters)
+			->_if(!empty($filters['value']))
+				->filterByValue($filters['value'])
+			->_endif()
+			->_if(!empty($filters['relevance']))
+				->filterByRelevance($filters['relevance'])
+			->_endif()
 			->withColumn('count(TwitterTweet.Id)', 'tweets')
-			->filterByCampaignid($filters['campaign'])
-			->filterByValue($filters['value'])
-			->filterByRelevance($filters['relevance'])
-			->getByType($filters['type'])
-			->filterByStatus(TwitterTweet::ACCEPTED)
-			->filterByText("%$personal%", Criteria::LIKE)
-			->filterByCreatedat(array('min' => $filters['from'],'max' => $filters['to']))
-			->useTwitterUserQuery()
-				->filterByGender($filters['gender'])
-			->endUse()
 			->groupByInternaltwitteruserid()
-//			->groupBy('TwitterTweet.Internaltwitteruserid')
 			->orderBy('TwitterTweet.tweets', 'desc')
 			->limit($count)
 			->find();
@@ -81,27 +69,26 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 	 * 
 	 * */
 	public function getInfluentialUsers($filters, $count = 10){
-		if(empty($filters['value'])) 
-			$filters['value'] = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
-		if(empty($filters['relevance'])) 
-			$filters['relevance'] = array(0,TwitterTweet::RELEVANT,TwitterTweet::NEUTRALLY_RELEVANT,TwitterTweet::IRRELEVANT);
-		if(empty($filters['type'])) 
-			$filters['type'] = 0;
-		$personal = $filters['personalized'];
 		
 		$influential = TwitterUserQuery::create()
 			->filterByInfluence(TwitterUser::NEUTRAL)
 			->orderByInfluence(Criteria::DESC)
-			->filterByGender($filters['gender'])
+			->_if(!empty($filters['gender']))
+				->filterByGender($filters['gender'])
+			->_endif()
 			->useTwitterTweetQuery()
-				->groupByInternaltwitteruserid()
+				->filterByCampaignid($filters['campaign'])
+				->filterByCreatedat(array('min' => $filters['from'], 'max' => $filters['to']))
 				->filterByStatus(TwitterTweet::ACCEPTED)
 				->filterByText("%$personal%", Criteria::LIKE)
-				->filterByCampaignid($filters['campaign'])
-				->filterByValue($filters['value'])
-				->filterByRelevance($filters['relevance'])
 				->getByType($filters['type'])
-				->filterByCreatedat(array('min' => $filters['from'],'max' => $filters['to']))
+				->groupByInternaltwitteruserid()
+				->_if(!empty($filters['value']))
+					->filterByValue($filters['value'])
+				->_endif()
+				->_if(!empty($filters['relevance']))
+					->filterByRelevance($filters['relevance'])
+				->_endif()
 			->endUse()
 			->limit($count)
 			->find();
@@ -129,34 +116,5 @@ class TwitterUserQuery extends BaseTwitterUserQuery{
 				->filterByCampaignid($campaignid)
 			->endUse();
 	}
-	
-	public function getAllByGender($filters){
-		
-		if(empty($filters['value'])) 
-			$filters['value'] = array(0,TwitterTweet::POSITIVE,TwitterTweet::NEUTRAL,TwitterTweet::NEGATIVE);
-		if(empty($filters['relevance'])) 
-			$filters['relevance'] = array(0,TwitterTweet::RELEVANT,TwitterTweet::NEUTRALLY_RELEVANT,TwitterTweet::IRRELEVANT);
-		if(empty($filters['type'])) 
-			$filters['type'] = 0;
-		if(empty($filters['gender']))
-			$filters['gender'] = array('female','male','na');
-		$personal = $filters['personalized'];
-		
-		$influential = TwitterUserQuery::create()
-			->filterByGender($filters['gender'])
-			->useTwitterTweetQuery()
-				->groupByInternaltwitteruserid()
-				->filterByCampaignid($filters['campaign'])
-				->filterByCreatedat(array('min' => $filters['from'], 'max' => $filters['to']))
-				->filterByStatus(TwitterTweet::ACCEPTED)
-				->filterByText("%$personal%", Criteria::LIKE)
-				->filterByValue($filters['value'])
-				->filterByRelevance($filters['relevance'])
-				->getByType($filters['type'])
-			->endUse()
-			->select('gender')
-			->find();
-		
-		return $influential;
-	}
+
 }
