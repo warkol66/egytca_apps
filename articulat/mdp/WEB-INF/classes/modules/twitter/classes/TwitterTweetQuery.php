@@ -223,8 +223,15 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		
 		$byGender = TwitterTweetQuery::create()
 			->applyReportFilters($filters)
+			->_if(!empty($filters['value']))
+				->filterByValue($filters['value'])
+			->_endif()
+			->_if(!empty($filters['relevance']))
+				->filterByValue($filters['relevance'])
+			->_endif()
 			->countByGender($filters)
-			->find();
+			->find()
+			->toArray();
 
 		return $byGender;
 	}
@@ -314,7 +321,6 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 					->applyReportFilters($filters)
 					->filterByValue($value)
 					->filterByRelevance($relevance)
-					->find()
 					->count();
 				
 				$combinations[$i]['name'] = $name . '-' . $relName;
@@ -325,6 +331,22 @@ class TwitterTweetQuery extends BaseTwitterTweetQuery{
 		}
 		
 		return $combinations;
+	}
+	
+	public static function getUsersAmount($filters){
+		
+		$usersAmount = TwitterTweetQuery::create()
+					->applyReportFilters($filters)
+					->_if(!empty($filters['value']))
+						->filterByValue($filters['value'])
+					->_endif()
+					->_if(!empty($filters['relevance']))
+						->filterByValue($filters['relevance'])
+					->_endif()
+					->groupByInternaltwitteruserid()
+					->count();
+					
+		return $usersAmount;
 	}
 	
 	public function getPersonalTrends($filters, &$treemapInfo){

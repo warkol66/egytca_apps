@@ -101,6 +101,63 @@ function barChart(arrData, destId){
 
 }
 
+/* NOTA: En caso de usarse en un modulo que este hecho en jQuery reemplazar los $j por $
+ * 
+ * */
+function genderChart(arrGender){
+	// medidas del svg
+	var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    w = 450 - margin.left - margin.right,
+    h = 400 - margin.top - margin.bottom,
+    r =  Math.min(w, h) / 2;
+    
+    var color = d3.scale.ordinal()
+		.domain(["female", "male"])
+		.range(["#d62728", "#1f77b4"]);
+    //color = d3.scale.category20c(); 
+    
+    var vis = d3.select("#genderChart")
+        .append("svg:svg")
+        .data([arrGender])
+		.attr("width", w)
+		.attr("height", h)
+        .append("svg:g")
+        .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
+
+    var arc = d3.svg.arc()
+        .outerRadius(r);
+
+    var pie = d3.layout.pie()
+        .value(function(d) { return d.amount; });
+
+    var arcs = vis.selectAll("g.slice")
+        .data(pie)
+        .enter()
+        .append("svg:g")
+        .attr("class", "slice");
+		
+	arcs.append("svg:path")
+		.style("fill", function(d, i) { return color(arrGender[i].gender); })
+		.attr("d", arc);
+
+	arcs.append("svg:text")
+		.attr("transform", function(d) {
+			d.innerRadius = 0;
+			d.outerRadius = r;
+			return "translate(" + arc.centroid(d) + ")";
+		})
+		.attr("text-anchor", "middle")
+		.text(function(d, i) {
+			var gender;
+			if(arrGender[i].gender == 'female')
+				gender = 'Mujeres';
+			else
+				gender = 'Hombres';
+			return gender + " - " + arrGender[i].amount; 
+		});
+	
+}
+
 function usersChart(arrUsers, campaign){
 	// medidas del svg
 	var margin = {top: 20, right: 20, bottom: 30, left: 50},

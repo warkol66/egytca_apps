@@ -62,7 +62,8 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 			if($byValueTotal > 0 || $byRelevanceTotal > 0){
 				
 				$byGender = TwitterTweetQuery::getAllByGender($tweetsFilters);
-				/*echo"<pre>"; print_r($inf); echo"</pre>";
+				$this->smarty->assign('byGender', $byGender);
+				/*echo"<pre>"; print_r($byGender); echo"</pre>";
 				die();*/
 				
 				// obtengo los usuarios que mas tweets crearon
@@ -88,11 +89,12 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 				$personalTrends = TwitterTweetQuery::getPersonalTrends($tweetsFilters, $treemapInfo);
 				$this->smarty->assign('personalTrends',$personalTrends);
 				$this->smarty->assign('treemapPersonalTrends',json_encode($treemapInfo));
+				
+				$usersAmount = TwitterTweetQuery::getUsersAmount($tweetsFilters);
+				/*echo"<pre>"; print_r($usersAmount); echo"</pre>";
+				die();*/
+				$this->smarty->assign('usersAmount',$usersAmount);
 			}
-			
-			//echo"<pre>"; print_r($treemapInfo); echo"</pre>";
-			//echo"<pre>"; print_r(json_encode($treemapInfo)); echo"</pre>";
-			//die();
 			
 			// posibles valores y relevancias para los filtros
 			$this->smarty->assign("tweetValues",TwitterTweet::getValues());

@@ -1,4 +1,5 @@
-	<div id="left">		
+	<div id="left">
+		<p>Cantidad de usuarios que twittearon: |-$usersAmount-|</p>
 		<div id="reportMessage"></div>
 		<div id='tweetsByValue'>
 			<h4>Tweets por Valoración</h4>
@@ -23,6 +24,13 @@
 				Se muestran los resultados de la intersección de valoración y relevancia, donde el tamaño de la burbuja relfeja la cantidad de menajes de esa intersección.
 			</div>
 			<div id='bubbleGroupChart'></div>
+		</div>
+		<div id='tweetsByGender'>
+			<h4>Tweets por género</h4>
+			<div id="tweetsByGenderText">
+				Se muestra la cantidad de tweets por género.
+			</div>
+			<div id='genderChart'></div>
 		</div>
 	  </div>
 
@@ -82,6 +90,11 @@
 		|-if !empty($byRelevance)-|
 		var arrByRelevance = [|-foreach from=$byRelevance item=pos-|{"Fecha":"|-$pos['date']|date_format:'%d-%m-%Y'-|"|-if !empty($positive)-|,"Relevantes":"|-$pos['relevant']-|"|-/if-||-if !empty($neutral)-|,"Neutros":"|-$pos['neutrally_relevant']-|"|-/if-||-if !empty($negative)-|,"Irrelevantes":"|-$pos['irrelevant']-|"|-/if-|}|-if !$byValue@last-|,|-/if-||-/foreach-|];
 		barChart(arrByRelevance,'byRelevanceChart');
+		|-/if-|
+		
+		|-if !empty($byGender)-|
+		var arrByGender = [|-foreach from=$byGender[0] item=amount key=gender-|{"gender":"|-$gender-|","amount":"|-$amount-|"}|-if !$byGender@last-|,|-/if-||-/foreach-|];
+		genderChart(arrByGender);
 		|-/if-|
 		
 		|-if !empty($topUsers)-|
