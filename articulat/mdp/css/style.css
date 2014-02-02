@@ -618,7 +618,8 @@ tr.phraseTT td{
 #byRelevanceChart svg,
 #usersChart svg,
 #influentialUsersChart svg,
-#bubbleGroupChart svg {
+#bubbleGroupChart svg, 
+#genderChart svg {
 	border: 1px solid #545454;
 	background-color: White;
 	box-shadow: 5px 5px 3px #cdcdcd;
