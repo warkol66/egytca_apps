@@ -71,7 +71,7 @@
 	</ul>
 	</div>
 	<div id="content">
-	  |-include file="TwitterCampaignReport.tpl" personalSelected=$personalSelected positive=$positive neutral=$neutral negative=$negative relevant=$relevant neutrally_relevant=$neutrally_relevant irrelevant=$irrelevant byValueTotal=$byValueTotal byRelevanceTotal=$byRelevanceTotal trendingTopics=$trendingTopics byValue=$byValue byRelevance=$byRelevance topUsers=$topUsers influentialUsers=$influentialUsers tweetsAmount=$tweetsAmount treemapPersonalTrends=$treemapPersonalTrends campaign=$campaign-|
+	  |-include file="TwitterCampaignReport.tpl" personalSelected=$personalSelected positive=$positive neutral=$neutral negative=$negative relevant=$relevant neutrally_relevant=$neutrally_relevant irrelevant=$irrelevant byValueTotal=$byValueTotal byRelevanceTotal=$byRelevanceTotal trendingTopics=$trendingTopics byValue=$byValue byRelevance=$byRelevance topUsers=$topUsers influentialUsers=$influentialUsers tweetsAmount=$tweetsAmount treemapPersonalTrends=$treemapPersonalTrends campaign=$campaign byGender=$byGender-|
 </div>
 
 <script type="text/javascript">
