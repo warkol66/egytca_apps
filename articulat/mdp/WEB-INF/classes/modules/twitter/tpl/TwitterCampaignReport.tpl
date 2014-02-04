@@ -1,3 +1,7 @@
+	<div id="both">
+		<!--h4>Filtros Aplicados</h4-->
+		<h4 id="appliedFilters"></h4>
+	</div>
 	<div id="left">
 		<p>Cantidad de usuarios que twittearon: |-$usersAmount-|</p>
 		<div id="reportMessage"></div>
@@ -77,6 +81,9 @@
 	 </div>
 <script type="text/javascript">
 	$j(function() {
+
+		var applied = 'Tiempo: ' + $j('.timeSelected').text() + ' * Tipo: ' + $j('.typeSelected').text() + ' * Género: ' + $j('.genderSelected').text() + ' * Valor: ' + $j('.valueSelected').text() + ' * Relevancia: ' + $j('.relevanceSelected').text();
+		$j('#appliedFilters').append(applied);
 		
 		$j('#byValueMessage').html('');
 		
