@@ -1,6 +1,5 @@
 	<div id="both">
-		<!--h4>Filtros Aplicados</h4-->
-		<h4 id="appliedFilters"></h4>
+		<h4 id="appliedFilters">Filtros Aplicados: </h4>
 	</div>
 	<div id="left">
 		<p>Cantidad de usuarios que twittearon: |-$usersAmount-|</p>
