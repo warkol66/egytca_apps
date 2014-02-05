@@ -45,6 +45,11 @@ class HeadlinesParsedListAction extends BaseListAction {
 				'entityId' => $_GET['filters']['campaignId']
 			))));
 
+		if (empty($_GET['filters']) {
+			$fromDate = new DateTime("first day of last month");
+			$fromDate = $fromDate->format('d-m-Y');
+		}
+
 		if (isset($fromDate) || isset($toDate))
 			$filters['rangePublished'] = Common::getPeriodArray($fromDate,$toDate);
 		

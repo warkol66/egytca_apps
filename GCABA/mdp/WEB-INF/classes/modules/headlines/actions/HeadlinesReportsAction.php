@@ -47,6 +47,12 @@ class HeadlinesReportsAction extends BaseListAction {
 				'entityId' => $_GET['filters']['actorId']
 			);
 		
+		if (empty($_GET['filters'])) {
+			$fromDate = new DateTime("first day of last month");
+			$_GET['filters']['fromDate'] = $fromDate->format('d-m-Y');
+			$this->filters['fromDate'] = $_GET['filters']['fromDate'];
+		}
+
 		if (!empty($_GET['filters']['fromDate']) || !empty($_GET['filters']['toDate']))
 			$this->filters['rangePublished'] = Common::getPeriodArray(
 				$_GET['filters']['fromDate'], $_GET['filters']['toDate']
