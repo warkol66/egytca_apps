@@ -144,14 +144,10 @@
 		$j('.valueSelected, .relevanceSelected, .typeSelected, .timeSelected').removeClass();
 		$j('#time, #value, #relevance, #type').addClass(function(){ return $j(this).attr('id') + 'Selected'; })
 		
-		var val = $j('.valueSelected').val();
-		var rel = $j('.relevanceSelected').val();
-		var type = $j('.typeSelected').val();
-		var time = $j('.timeSelected').val();
 		$j('#customDate').hide();
 		$j.ajax({
 			url: 'Main.php?do=twitterCampaignsReportFilterX',
-			data: {id: '|-$campaign->getId()-|', value: val, relevance: rel, type: type, time: time},
+			data: {id: '|-$campaign->getId()-|'},
 			type: 'post',
 			success: function(data){
 				$j('#content').html(data);

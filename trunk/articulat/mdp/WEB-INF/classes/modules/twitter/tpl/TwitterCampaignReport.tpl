@@ -81,7 +81,7 @@
 <script type="text/javascript">
 	$j(function() {
 
-		var applied = 'Tiempo: ' + $j('.timeSelected').text() + ' &#8212; Tipo: ' + $j('.typeSelected').text() + ' &#8212; Género: ' + $j('.genderSelected').text() + ' &#8212; Valor: ' + $j('.valueSelected').text() + ' &#8212; Relevancia: ' + $j('.relevanceSelected').text();
+		var applied = 'Tiempo: ' + $j('.timeSelected').text() + ' &#8212; Tipo: ' + $j('.typeSelected').text() + ' &#8212; Género: ' + $j('.genderSelected').text() + ' &#8212; Valor: ' + $j('.valueSelected').text() + ' &#8212; Relevancia: ' + $j('.relevanceSelected').text() |-if !empty($personalSelected)-| + ' &#8212; TT: |-$personalSelected-|'|-/if-|;
 		$j('#appliedFilters').append(applied);
 		
 		$j('#byValueMessage').html('');
@@ -98,8 +98,8 @@
 		barChart(arrByRelevance,'byRelevanceChart');
 		|-/if-|
 		
-		|-if !empty($byGender)-|
-		var arrByGender = [|-foreach from=$byGender[0] item=amount key=gender-|{"gender":"|-$gender-|","amount":"|-$amount-|"}|-if !$byGender@last-|,|-/if-||-/foreach-|];
+		|-if !empty($byGender[0])-|
+		var arrByGender = [|-foreach from=$byGender[0] item=amount key=gender-||-if $amount > 0-|{"gender":"|-$gender-|","amount":"|-$amount-|"}|-if !$byGender@last-|,|-/if-||-/if-||-/foreach-|];
 		genderChart(arrByGender);
 		|-/if-|
 		

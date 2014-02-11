@@ -20,7 +20,7 @@
 		|-foreach from=$personalTrends key=trend item=ratio name=for_personalTrends-|
 		|-assign var=start value=substr($trend,0,1)-|
 		<tr class="|-if $start eq '@'-|userTT|-elseif $start eq '#'-|hashtagTT|-elseif preg_match('/\s/',$trend)-|phraseTT|-else-|wordTT|-/if-|" |-if $smarty.foreach.for_personalTrends.index >= 10-|style="display:none;"|-/if-|>
-			<td class="twitterTrendsItem"><a href="#" onClick="$j('.personalizedSelected').not(this).removeClass('personalizedSelected');$j(this).toggleClass('personalizedSelected');setValueX(); return false;">|-$trend-|</a></td>
+			<td class="twitterTrendsItem"><a href="#" onClick="$j('.personalizedSelected').not(this).removeClass('personalizedSelected');$j(this).toggleClass('personalizedSelected');setValueX(); return false;" |-if !empty($personalSelected) and $personalSelected eq $trend-|class="personalizedSelected"|-/if-|>|-$trend-|</a></td>
 			<td align="center">|-$ratio['users']-|</td>
 			<td align="center">|-$ratio['frequency']-|</td>
 		</tr>
