@@ -754,3 +754,49 @@ table.tableTdBorders ul li {
 fieldset .mceExternalToolbar {
 	margin-left: 145px !Important; /* Mismo ancho que el label de los form mas el padding */
 }
+
+/*Verificacion de integridad*/
+tr.verifyResult {
+	background: #CECECE !important;
+}
+.verifyResultMessage {
+	color: #006CD5;
+	padding:8px !Important;
+}
+ul.verifyNested li {
+	padding: 15px !Important;
+} 
+ul.verifyNested li ul li { 
+	background: url("../images/nested.png") !important;
+	background-repeat:no-repeat !Important;
+	background-position:0px 0px !Important;
+	padding:2px 0 2px 14px !Important;
+	height:15px;
+	margin-left:10px;
+}
+
+tr.verifyResult *,
+tr.verifyResult td *,
+ul.verifyNested li,
+ul.verifyNested li ul li,
+.verifyResultMessage, .systemHash  { 
+	font-family: Georgia, "Times New Roman", Times, serif !Important;
+}
+.systemHash {
+	color: #006CD5;
+	padding:4px 4px 4px 0px !Important;
+}
+.validHash, .invalidHash {
+	background: url(../images/valid.png) no-repeat right;
+	padding-right: 20px;
+	color: #006CD5;
+	font-family: Georgia, Times New Roman, Times, serif !Important;
+}
+.invalidHash {
+	background: url(../images/invalid.png) no-repeat right !Important ;
+	color: #FF3300;
+}
+tr.verifyResult td {
+	padding: 0 !Important;
+	margin: 0 !Important;
+}
