@@ -8,6 +8,8 @@ class WebkitHtmlRenderer {
 	
 	function WebkitHtmlRenderer() {
 		$this->command = realpath('./' . ConfigModule::get("headlines","clippingApp"));
+		if (!$this->command)
+			throw new Exception("No se encontr&oacute; la aplicaci&oacute;n de captura de im&aacute;genes");
 	}
 	
 	private function getDefaultSettings() {

@@ -8,6 +8,19 @@ app=`grep "application" $configFile | sed -e "s/application=//"`
 queue=`grep "queue" $configFile | sed -e "s/queue=//"`
 failuresLog=`grep "failuresLog" $configFile | sed -e "s/failuresLog=//"`
 failuresDir=`grep "failuresDir" $configFile | sed -e "s/failuresDir=//"`
+out=`grep "stdout" $configFile | sed -e "s/stdout=//"`
+err=`grep "stderr" $configFile | sed -e "s/stderr=//"`
+
+command -v $app >/dev/null 2>&1 || {
+	echo >&2 "error: $app not found."
+	echo "exiting..."
+	exit 1
+}
+
+# redirect output
+exec > $out
+exec 2> $err
+
 
 # $1: file
 capture() {
