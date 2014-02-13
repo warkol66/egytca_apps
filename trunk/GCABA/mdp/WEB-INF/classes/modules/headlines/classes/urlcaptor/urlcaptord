@@ -34,6 +34,13 @@ capture() {
 
 	$app --quality $quality --width $width --height $height $url $image > /dev/null 2>/dev/null
 	
+	#size=`stat -c '%s' $image`
+	#minSize = 1000;
+	#if [ $size -lt $minSize ] ; then
+	if [ -s "$image" ] ; then
+		rm $image
+	fi
+	
 	if [ -f "$image" ] ; then
 		return 0
 	else
