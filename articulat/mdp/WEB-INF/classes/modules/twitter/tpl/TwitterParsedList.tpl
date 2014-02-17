@@ -22,12 +22,25 @@
 		<div id="viewDiv"></div>
 	</div>
 </div>
+<div id="twitterQueryBuilderLightbox" class="leightbox">
+	<p align="right"><a href="#" class="lbAction blackNoDecoration lClose" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a></p> 
+	<p>
+		<fieldset>
+			|-include
+				file="TwitterQueryBuilderInclude.tpl"
+				callback="function() { $('overlay').style.display='none'; $('twitterQueryBuilderLightbox').style.display='none'; }"
+			-|
+		</fieldset>
+	</p>
+</div>
 <fieldset>
 <legend>Obtener Tweets</legend>
     <form id="form" action="Main.php?do=twitterTweetsSearch" onsubmit="tweetsSearch(); return false;" method="POST">
 			<input name="campaignid" value="|-$campaign->getId()-|" type="hidden" />
  <p><label for="q">Palabras clave</label>
- <input name="q" value="|-$campaign->getDefaultKeywords()|escape-|" size="60" />
+|-* usar distintos ids para varias campañas *-|
+ <input id="query" name="q" value="|-$campaign->getDefaultKeywords()|escape-|" size="60" />
+ <a id="query-advanced-search-btn" href="#" rel="twitterQueryBuilderLightbox" class="lbOn">búsqueda avanzada</a>
  <input type="submit" id="search_button" value="Buscar" />
  <input type="button" id="return_button" onclick="location.href='Main.php?do=campaignsEdit&id=|-$campaign->getId()-|'" value="Regresar a la campaña" />
  </p>
@@ -89,6 +102,11 @@
 </form>
 
 <script type="text/javascript">
+	
+	Event.observe(window, 'load', function() {
+		addQueryBuilder($('query'), $('query-advanced-search-btn'));
+	});
+	
 	var startDateTextBox = $j('#dateFrom');
 	var endDateTextBox = $j('#dateTo');
 	
