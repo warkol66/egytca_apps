@@ -27,10 +27,9 @@ class TwitterDoParseXAction extends BaseAction {
 			$embeds = array();
 			$system_tweets = array();
 			
-			$terms = $this->parseSearchQuery($query);
-			foreach ($terms as $term) {
+//			foreach ($terms as $term) {
 			
-				$searchRespone = $twitterConnection->search($term,50,'search');
+				$searchRespone = $twitterConnection->search($query,50,'search');
 				if(empty($searchRespone->errors)){
 					foreach ($searchRespone->statuses as $responseTweet) {
 						// obtengo el html para embeber el tweet
@@ -48,7 +47,7 @@ class TwitterDoParseXAction extends BaseAction {
 				}else{
 					TwitterLog::logTweetSearch(0, 0, $campaignId, $searchRespone->errors[0]->message);
 				}
-			}
+//			}
 			
 			//echo "<pre>";print_r($tweets);echo "</pre>";
 		}
