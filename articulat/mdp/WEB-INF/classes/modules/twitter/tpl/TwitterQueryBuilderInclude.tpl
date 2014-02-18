@@ -46,7 +46,7 @@
 			<input type="text" class="near" value="">
 		</p>-->
 		<p>
-			<input type="submit" class="acceptBtn" onclick="callback();" value="Aceptar">
+			<input type="submit" class="acceptBtn" onclick="throw 'no target defined. use addQueryBuilder()'; return false;" value="Aceptar">
 		</p>
 	</form>
 </div>
