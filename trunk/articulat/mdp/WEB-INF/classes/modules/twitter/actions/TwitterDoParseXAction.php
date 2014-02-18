@@ -17,19 +17,22 @@ class TwitterDoParseXAction extends BaseAction {
 		$config = json_decode(file_get_contents(__DIR__.'/../config.json'), true);
 		$twitterConnection = new TwitterConnection($config);
 		
-		$query = $_POST['q'];
+		$queries = $_POST['q'];
 		$campaignId = $_POST['campaignid'];
 
 
-		if (!empty($query)) {
+		if (!empty($queries)) {
 			
 			$tweets = array();
 			$embeds = array();
 			$system_tweets = array();
 			
-//			foreach ($terms as $term) {
-			
-				$searchRespone = $twitterConnection->search($query,50,'search');
+			foreach ($queries as $query) {
+				
+				if (empty($query))
+					continue;
+				
+				$searchRespone = $twitterConnection->search($query,3,'search');
 				if(empty($searchRespone->errors)){
 					foreach ($searchRespone->statuses as $responseTweet) {
 						// obtengo el html para embeber el tweet
@@ -47,7 +50,7 @@ class TwitterDoParseXAction extends BaseAction {
 				}else{
 					TwitterLog::logTweetSearch(0, 0, $campaignId, $searchRespone->errors[0]->message);
 				}
-//			}
+			}
 			
 			//echo "<pre>";print_r($tweets);echo "</pre>";
 		}
