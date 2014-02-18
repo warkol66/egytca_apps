@@ -1,6 +1,7 @@
 |-if !$notValidId-|
 |-if !$report-|
 |-include file="CommonAutocompleterInclude.tpl"-|
+<script type="text/javascript" src="scripts/lightbox.js"></script>
 <script type="text/javascript" language="javascript" charset="utf-8">
 function addParticipantToCampaign(form) {
 	var fields = Form.serialize(form);
@@ -63,6 +64,9 @@ function getTrendingTopics(){
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p> 
 	|-include file="ActorsEditInclude.tpl"-|
 </div> 
+|-if $campaign->getTwitterCampaign()-|
+	|-include "TwitterQueryBuilderLightboxInclude.tpl"-|
+|-/if-|
 <h2>Campañas</h2>
 <h1>|-if $campaign->isNew()-|Crear|-else-|Editar|-/if-| Campaña</h1>
 <div id="div_campaign">
@@ -116,12 +120,16 @@ function getTrendingTopics(){
 		|-if class_exists('Client')-|<div id="client" style="position: relative;z-index:10000;">
 			|-include file="CommonAutocompleterInstanceSimpleInclude.tpl" id="autocomplete_clientId" label="Cliente" url="Main.php?do=commonAutocompleteListX&object=client" hiddenName="params[clientId]" defaultHiddenValue=$campaign->getClientId() defaultValue=$campaign->getClient()-|
 		</div>|-/if-|
-			<p>
-				<label for="params[defaultKeywords]">Palabras clave</label>
-				<input name="params[defaultKeywords]" type="text" id="params[defaultKeywords]" title="Estas palabras clave son las que propondrá por defecto para la búsqueda" value="|-$campaign->getDefaultKeywords()|escape-|" size="50">
-				|-if !$campaign->getTwitterCampaign()-| <a class="tooltipWide" href="#"><span>Las palabras clave se muestran por defecto antes de realizar la búsqueda de titulares, puede agregar o eliminar palabras antes de buscar.<br />Utilice comillas para búsquedas de varias palabras literales.</span><img src="images/icon_info.png"></a>
-				|-else-|<a class="tooltipWide" href="#"><span>Para búsquedas puede usar los "#" y "@" para identificar hastags y usuarios respectivamente. <br />Las palabras sin estos caracteres iniciales se buscarán como palabras sueltas.</span><img src="images/icon_info.png"></a>|-/if-|
+			|-if !$campaign->getTwitterCampaign()-|
+				<p>
+					<label for="params[defaultKeywords]">Palabras clave</label>
+					<input name="params[defaultKeywords]" type="text" id="params[defaultKeywords]" title="Estas palabras clave son las que propondrá por defecto para la búsqueda" value="|-$campaign->getDefaultKeywords()|escape-|" size="50">
+					<a class="tooltipWide" href="#"><span>Las palabras clave se muestran por defecto antes de realizar la búsqueda de titulares, puede agregar o eliminar palabras antes de buscar.<br />Utilice comillas para búsquedas de varias palabras literales.</span><img src="images/icon_info.png"></a>
 				</p>
+			|-else-|
+				|-include "CampaignsTwitterSearchQueriesInclude.tpl" useLightbox=true-|
+			|-/if-|
+			
 		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
 				|-if $campaign->isNew()-|
 			<p>* Para agregar información sobre participantes o anexar documentos, debe guardar primero el campaña. </p>
@@ -168,7 +176,6 @@ function getTrendingTopics(){
   </div>	
 </div>
 </fieldset>
-<script type="text/javascript" src="scripts/lightbox.js"></script>
 <div id="lightbox1" class="leightbox"> 
 	<p align="right"><a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar formulario <input type="button" class="icon iconClose" /></a></p>
 	|-include file="CampaignsCommitmentForm.tpl"-|
