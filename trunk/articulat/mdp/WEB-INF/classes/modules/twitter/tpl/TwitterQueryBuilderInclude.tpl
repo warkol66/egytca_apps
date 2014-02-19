@@ -41,15 +41,12 @@
 				<option value="en">Inglés</option>
 			</select>
 		</p>
-<!--		<p>
-			<label>Cerca de</label>
-			<input type="text" class="near" value="">
-		</p>-->
 		<p>
 			<input type="submit" class="acceptBtn" onclick="throw 'no target defined. use addQueryBuilder()'; return false;" value="Aceptar">
 		</p>
 	</form>
 </div>
+<script src="scripts/char-separated-texts.js"></script>
 <script src="scripts/twitter-query-builder.js"></script>
 <script>
 	var callback = |-$callback-|;
