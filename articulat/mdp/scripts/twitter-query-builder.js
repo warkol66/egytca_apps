@@ -17,7 +17,8 @@ TwitterQueryBuilder.prototype = {
 	},
 	
 	addAnyOfThese: function() {
-		this.query += ' '+this.getValueFor('any-of-these').replace(/ /g, ' OR ');
+		var cst = new CharSeparatedTexts(this.getValueFor('any-of-these'));
+		this.query += ' '+cst.join(' OR ');
 	},
 	
 	addExactFrase: function() {
@@ -25,36 +26,36 @@ TwitterQueryBuilder.prototype = {
 	},
 	
 	addFromAccounts: function() {
-		this.query += ' '+this.prepend('from:', 'from-accounts');
+		var cst = new CharSeparatedTexts(this.getValueFor('from-accounts'));
+		this.query += ' '+cst.addPrefix('from:', true).join(' OR ');
 	},
 	
 	addHashtags: function() {
-		this.query += ' '+this.prepend('#', 'hashtags');
+		var cst = new CharSeparatedTexts(this.getValueFor('hashtags'));
+		this.query += ' '+cst.addPrefix('#').join(' OR ');
 	},
 	
 	addLang: function() {
-		this.query += ' '+this.prepend('lang:', 'lang');
+		this.query += ' lang:'+this.getValueFor('lang');
 	},
 	
 	addMentions: function() {
-		this.query += ' '+this.prepend('@', 'mentions');
+		var cst = new CharSeparatedTexts(this.getValueFor('mentions'));
+		this.query += ' '+cst.addPrefix('@').join(' OR ');
 	},
 	
-//	addNear: function() {
-//		this.query += ' near:"'+this.getValueFor('near')+'" within:15mi';
-//	},
-	
 	addNoneOfThese: function() {
-		this.query += ' '+this.prepend('-', 'none-of-these');
+		var cst = new CharSeparatedTexts(this.getValueFor('none-of-these'));
+		this.query += ' '+cst.addPrefix('-', true).join(' ');
 	},
 	
 	addToAccounts: function() {
-		this.query += ' '+this.prepend('to:', 'to-accounts');
+		var cst = new CharSeparatedTexts(this.getValueFor('to-accounts'));
+		this.query += ' '+cst.addPrefix('to:', true).join(' OR ');
 	},
 	
 	
 	addField: function(value) {
-		
 		var pascalCaseField = value.split('-').map(function(e) {
 			return e.substring(0, 1).toUpperCase() + e.substring(1).toLowerCase();
 		}).join('');
@@ -83,15 +84,10 @@ TwitterQueryBuilder.prototype = {
 		this.addIfNotEmpty('to-accounts');
 		this.addIfNotEmpty('mentions');
 		this.addIfNotEmpty('lang');
-//		this.addIfNotEmpty('near');
 		return this.query.trim();
 	},
 	
 	getValueFor: function(field) {
 		return this.origin.getElementsByClassName(field)[0].value.trim();
-	},
-	
-	prepend: function(text, field) {
-		return text + this.getValueFor(field).replace(/ /g, ' '+text);
 	}
 };
