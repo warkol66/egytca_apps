@@ -206,6 +206,14 @@ function ordersSendOrdersExportSaf(form) {
 	return true;
 } // End of ordersSendOrdersExportSaf
 
+function refreshCodeX(id) {
+	
+	var divId = '#code' + id;
+	var time = new Date().getTime();
+	$(divId).html("<img src='Main.php?do=commonImage&width=120&height=45&characters=5&t=" + time + "'/>");
+	return false;
+} // End of refreshCodeX
+
 <!-- End of Orders -->
 
 
