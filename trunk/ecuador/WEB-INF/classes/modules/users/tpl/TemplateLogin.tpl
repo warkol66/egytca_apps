@@ -21,8 +21,10 @@
 <!--[if lte IE 6]> <link href="css/styles-ie6.css" rel="stylesheet" type="text/css"> <![endif]-->
 <!--[if gte IE 7]> <link href="css/styles-ie7.css" rel="stylesheet" type="text/css"> <![endif]-->
 <link rel="shortcut icon" href="images/favicon.ico">
-<script language="JavaScript" type="text/javascript" src="scripts/prototype.js"></script>
-<script language="JavaScript" type="text/javascript" src="scripts/functions.js"></script>
+<!--script language="JavaScript" type="text/javascript" src="scripts/prototype.js"></script>
+<script language="JavaScript" type="text/javascript" src="scripts/functions.js"></script-->
+<script language="JavaScript" type="text/javascript" src="scripts/jquery/jquery.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="scripts/jquery/functions.js"></script>
 </head>
 <body>
 |-$centerHTML-|

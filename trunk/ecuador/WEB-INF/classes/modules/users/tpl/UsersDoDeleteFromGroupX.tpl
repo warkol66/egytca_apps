@@ -1,19 +1,11 @@
 <script type="text/javascript" language="javascript">
 
-	Element.remove('groupListItem|-$group->getId()-|');
+	$('#groupListItem|-$group->getId()-|').remove();
 
-	var option = document.createElement('option');
-	option.text = '|-$group->getName()-|';
-	option.value = '|-$group->getId()-|';
-	option.id = 'groupOption|-$group->getId()-|';
-	
-	try {
-		$('groupId').add(option,null);
-	}
-	catch (exp) {
-		$('groupId').add(option);		
-	}
-
-
+	var option = $('<option>')
+		.val('|-$group->getId()-|')
+		.text('|-$group->getName()-|')
+		.attr('id', 'groupOption|-$group->getId()-|');
+	$('#groupId').append(option);
 </script>
-<span class="resultSuccess">Usuario removido de grupo</span>
+<span class="resultSuccess">Usuario removido del grupo</span>
