@@ -1,6 +1,5 @@
 <script type="text/javascript" language="javascript">
-	regionDataType = document.getElementById('regionData[type]');
-	regionDataType.value = |-$type-|;
+	$('#regionData[type]').val(|-$type-|);
 </script>
 <p>
   <label for="regionData[parentId]">Dentro de</label>

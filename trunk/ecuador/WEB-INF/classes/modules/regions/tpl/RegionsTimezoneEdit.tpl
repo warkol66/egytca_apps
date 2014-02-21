@@ -4,16 +4,15 @@
 <!-- /Link VOLVER -->
 <script type="text/javascript" language="javascript">
 function regionsTimezoneGetAllParentsByRegionX(form){
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'regionMsgField'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true,
-				});
-	$('regionMsgField').innerHTML = '<p><span class="inProgress">buscando padres...</span></p>';
+	$.ajax({
+		url: url,
+		data: $(form).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#regionMsgField').html(data);
+		}	
+	});
+	$('#regionMsgField').html('<p><span class="inProgress">buscando padres...</span></p>');
 	return true;
 }
 </script>
