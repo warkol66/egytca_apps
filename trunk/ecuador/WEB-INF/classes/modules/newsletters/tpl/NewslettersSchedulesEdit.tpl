@@ -1,3 +1,11 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
+        $( ".datepicker" ).datepicker({
+			dateFormat:"dd-mm-yy"
+		}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
+	});//fin docready
+</script>
 <h2>Newsletter</h2>
 <h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Envios Programados</h1>
 <div id="div_newsletterschedule">
@@ -67,8 +75,8 @@
 					<p>
 						<label>Envío el día</label>
 						<input type="hidden" name="newsletterschedule[deliveryMode]" value="O"/>
-						<input type="input" name="newsletterschedule[deliveryDate]" value="|-$newsletterschedule->getDeliveryDate()-|" />						
-						<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('newsletterschedule[deliveryDate]', false, 'ymd', '-');" title="Seleccione la fecha"></img>
+						<input type="input" name="newsletterschedule[deliveryDate]" class="datepicker" value="|-$newsletterschedule->getDeliveryDate()-|" />						
+						<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha"></img>
 					</p>
 				|-/if-|
 				<!--no usamos grupos solo se envia a users-->
