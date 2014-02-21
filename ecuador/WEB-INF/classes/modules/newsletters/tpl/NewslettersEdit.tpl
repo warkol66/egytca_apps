@@ -1,10 +1,12 @@
 <script type="text/javascript" language="javascript" charset="utf-8">
-	jQuery.noConflict();
+	//jQuery.noConflict();
+	$(document).ready(function() {
+		$.datepicker.setDefaults(jQuery.datepicker.regional['es']);
+        $( ".datepicker" ).datepicker({
+			dateFormat:"dd-mm-yy"
+		}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
+	});
 </script>
-<script src="scripts/prototype.js" language="JavaScript" type="text/javascript"></script>
-<script src="scripts/functions.js" language="JavaScript" type="text/javascript"></script>
-<script src="scripts/datePicker.js" language="JavaScript" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="css/datePicker.css">
 <h2>Newsletter</h2>
 <h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Newsletters Enviados</h1>
 				<div id="div_newsletter">
@@ -24,8 +26,8 @@
 						</p>
 						<p>
 								<label for="newsletter_sentAt">Enviado</label>
-								<input name="newsletter[sentAt]" type="text" id="newsletter_sentAt" title="sentAt" value="|-$newsletter->getsentAt()|date_format:"%d-%m-%Y"-|" size="12" /> 
-								<img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('newsletter[sentAt]', false, 'ymd', '-');" title="Seleccione la fecha">
+								<input name="newsletter[sentAt]" type="text" id="newsletter_sentAt" class="datepicker" title="sentAt" value="|-$newsletter->getsentAt()|date_format:"%d-%m-%Y"-|" size="12" /> 
+								<img src="images/calendar.png" width="16" height="15" border="0" title="Seleccione la fecha">
 							</p>
 							<p>
 							|-if $action eq "edit"-|
