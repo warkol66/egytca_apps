@@ -1,30 +1,23 @@
-<script type="text/javascript">
-	jQuery.noConflict();
-</script>
-<script src="scripts/prototype.js" language="JavaScript" type="text/javascript"></script>
-
 <h2>##common,18,Configuración del Sistema##</h2>
 <h1>|-if $action eq "edit"-|Editar|-else-|Crear|-/if-| Región</h1>
 <!-- Link VOLVER -->
 <!-- /Link VOLVER -->
 <script type="text/javascript" language="javascript">
 function regionsGetAllParentsByRegionX(form){
-	var fields = Form.serialize(form);
-	var myAjax = new Ajax.Updater(
-				{success: 'regionMsgField'},
-				url,
-				{
-					method: 'post',
-					postBody: fields,
-					evalScripts: true,
-				});
-	$('regionMsgField').innerHTML = '<p><span class="inProgress">buscando padres...</span></p>';
+	$.ajax({
+		url: url,
+		data: $(form).serialize(),
+		type: 'post',
+		success: function(data){
+			$('#regionMsgField').html(data);
+		}	
+	});
+	$('#regionMsgField').html('<p><span class="inProgress">buscando padres...</span></p>');
 	return true;
 }
 
 function addNeighbor(form) {
-	
-	jQuery.ajax({
+	$.ajax({
 		url: url,
 		data: jQuery(form).serialize(),
 		type: 'post',
@@ -33,7 +26,21 @@ function addNeighbor(form) {
 			jQuery('#neighborList').append(data);
 		}
 	});
-	jQuery('#neighborMsgField').html('<span class="inProgress">agregando región vecina</span>');
+	$('#neighborMsgField').html('<span class="inProgress">agregando región vecina</span>');
+	return true;
+}
+
+function deleteNeighborFromRegion(form) {
+	$.ajax({
+		url: url,
+		data: jQuery(form).serialize(),
+		type: 'post',
+		dataType: 'html',
+		success: function(data){
+			jQuery('#neighborList').append(data);
+		}
+	});
+	$('#neighborMsgField').html('<span class="inProgress">Eliminando región vecina</span>');
 	return true;
 }
 </script>
@@ -134,12 +141,12 @@ habitantes	</p>
   <ul id="neighborList" class="optionDelete">|-assign var=actualNeighbors value=$region->getNeighbors()-|
      |-foreach from=$actualNeighbors item=actual name=for_actual-|
     <li id="neighborListItem|-$actual->getId()-|">
-      <form  method="post">
+      <!--form  method="post">
         <input type="hidden" name="do" id="do" value="regionsDoDeleteNeighborX" /> 
         <input type="hidden" name="regionId"  value="|-$region->getId()-|" /> 
         <input type="hidden" name="neighborId"  value="|-$actual->getId()-|" /> 
-			  <input type="button" value="Eliminar" title="Eliminar" onClick="if (confirm('¿Seguro que desea eliminar el vínculo con la región?')){deleteNeighborFromrRegion(this.form)}; return false" class="icon iconDelete" /> 
-     </form><span title="Para eliminar haga click sobre el botón de la izquierda">&nbsp;&nbsp;&nbsp;|-$actual->getName()-|</span>
+			  <input type="button" value="Eliminar" title="Eliminar" onClick="if (confirm('¿Seguro que desea eliminar el vínculo con la región?')){deleteNeighborFromRegion(this.form)}; return false" class="icon iconDelete" /> 
+     </form--><span title="Región vecina">&nbsp;&nbsp;&nbsp;|-$actual->getName()-|</span>
     </li> 
     |-/foreach-|
   </ul> 
