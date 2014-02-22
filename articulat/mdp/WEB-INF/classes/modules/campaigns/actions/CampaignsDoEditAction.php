@@ -61,11 +61,27 @@ class CampaignsDoEditAction extends BaseAction {
 
 				$smarty = $this->prepareSmarty($params,$filters,$mapping,$smarty,$campaign,'edit');
 
-				if ($campaign->isModified() && !$campaign->save())
-					return $this->returnFailure($params,$filters,$mapping,$smarty,$campaign,'edit');
+				if ($campaign->isModified() && !$campaign->save()) {
+					if ($this->isAjax()) {
+						$smarty->assign('errors', array(
+							array('msg' => 'error desconocido')
+						));
+						header('Content-Type: application/json');
+						$smarty->display('CampaignsDoEdit.json.tpl');
+						return;
+					} else {
+						return $this->returnFailure($params,$filters,$mapping,$smarty,$campaign,'edit');
+					}
+				}
 
-				$smarty->assign("message","ok");
-				return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');
+				if ($this->isAjax()) {
+					header('Content-Type: application/json');
+					$smarty->display('CampaignsDoEdit.json.tpl');
+					return;
+				} else {
+					$smarty->assign("message","ok");
+					return $this->addParamsAndFiltersToForwards($params,$filters,$mapping,'success-edit');
+				}
 			}
 		}
 		else { // New campaign

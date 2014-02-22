@@ -28,7 +28,15 @@
     <form id="form" action="Main.php?do=twitterTweetsSearch" onsubmit="tweetsSearch(); return false;" method="POST">
 			<input name="campaignid" value="|-$campaign->getId()-|" type="hidden" />
  <p>
-|-include "CampaignsTwitterSearchQueriesInclude.tpl" useLightbox=true inputName="q[]" allowAddRemove=false-|
+|-include "CampaignsTwitterSearchQueriesInclude.tpl" useLightbox=true inputName="q[]"-|
+<p>
+	<input type="button" value="Guardar cambios" onclick="saveQueryChanges(this.form);">
+	<span id="queryChangesStatus">
+		<span class="status pending" style="display:none;"><img src="images/spinner.gif"></span>
+		<span class="status ok" style="display:none;"><img src="images/yes.png"></span>
+		<span class="status fail" style="display:none;"><img src="images/no.png"><span class="msg"></span></span>
+	</span>
+</p>
  <input type="submit" id="search_button" value="Buscar" />
  <input type="button" id="return_button" onclick="location.href='Main.php?do=campaignsEdit&id=|-$campaign->getId()-|'" value="Regresar a la campaña" />
  </p>
@@ -176,6 +184,34 @@ function tweetsSearch() {
 		$("resultDiv").innerHTML = "<span class=\"inProgress\">Buscando tweets...</span>";
 		if (document.getElementById("noTweets"))
 			$("noTweets").innerHTML = "";
+}
+
+var saveQueryChanges = function(form) {
+	
+	$$('#queryChangesStatus .status').forEach(function(e) { e.hide(); });
+	$$('#queryChangesStatus .status.pending').first().show();
+	
+	var postParams = Form.serialize(form)
+		.match(/&?campaignid=[^&]*|&?q%5B%5D=[^&]*/g)
+		.join('')
+		.replace(/(&?)campaignid=/, '$1id=')
+		.replace(/(&?)q%5B%5D=/g, '$1'+encodeURIComponent('params[searchQueries][]')+'=');
+	
+	new Ajax.Request('Main.php?do=campaignsDoEdit', {
+		method: 'post',
+		postBody: postParams,
+		onSuccess: function(res) {
+			if (res.responseJSON.errors) {
+				var statusFail = $$('#queryChangesStatus .status.fail').first();
+				statusFail.select('.msg').first().innerHTML = res.responseJSON.errors[0].msg;
+				$$('#queryChangesStatus .status.pending').first().hide();
+				statusFail.show();
+			} else {
+				$$('#queryChangesStatus .status.pending').first().hide();
+				$$('#queryChangesStatus .status.ok').first().show();
+			}
+		}
+	});
 }
 
 </script>
