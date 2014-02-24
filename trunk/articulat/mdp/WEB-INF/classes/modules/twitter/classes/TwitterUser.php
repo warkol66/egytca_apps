@@ -71,6 +71,27 @@ class TwitterUser extends BaseTwitterUser{
 		return $string;
 
 	}
+
+	public static function createUserArray($apiTweet){
+
+		$user = array(
+			'Twitteruserid' => $apiTweet->user->id,
+			'Twitteruseridstr' => $apiTweet->user->id_str,
+			'Name' => $apiTweet->user->name,
+			'Screenname' => $apiTweet->user->screen_name,
+			'Location' => $apiTweet->user->location,
+			'Accountcreatedat' => $apiTweet->user->created_at,
+			'Language' => $apiTweet->user->lang,
+			'Description' => $apiTweet->user->description,
+			'Url' => $apiTweet->user->url,
+			'Profileimage' => $apiTweet->user->profile_image_url,
+			'Isprotected' => $apiTweet->user->protected,
+			'Followers' => $apiTweet->user->followers_count,
+			'Friends' => $apiTweet->user->friends_count,
+			'Statuses' => $apiTweet->user->statuses_count
+		);
+		return $user;
+	}
 	
 	/* Si el usuario que intentamos crear existe devuelve el existente
 	 * Si no crea uno nuevo y lo devuelve
