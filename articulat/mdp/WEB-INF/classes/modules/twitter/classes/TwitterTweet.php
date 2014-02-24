@@ -31,6 +31,8 @@ class TwitterTweet extends BaseTwitterTweet{
 	const ORIGINAL = 1;
 	const RETWEET = 2;
 	const REPLY = 3;
+
+	const ATTACHMENTS_PATH = './WEB-INF/classes/modules/twitter/files/clipping/';
 	
 	// Palabras y signos de puntuacion a evitar al hacer el analisis de tweets
 	public static function getPunctuation(){
@@ -66,8 +68,20 @@ class TwitterTweet extends BaseTwitterTweet{
 		// fecha de creacion en timezone del sistema
 		//$createdAt = Common::getDatetimeOnGMT(gmdate('Y-m-d H:i:s',strtotime($apiTweet->created_at)));
 		
-		//armo los arreglos para crear tweet y usuario
-		$tweet = array(
+		//armo los arreglos para crear tweet, attachments y usuario
+		$tweet = TwitterTweet::createTweetArray($apiTweet, $campaignId, $embed);
+
+		$attachments = TwitterAttachment::createAttachmentArray($apiTweet->entities->media);
+		//return $apiTweet->entities->media;
+		
+		$user = TwitterUser::createUserArray($apiTweet);
+		
+		return TwitterTweet::addTweet($tweet, $user, $attachments);
+	}
+
+	public static function createTweetArray($apiTweet, $campaignId, $embed){
+
+		return array(
 			'Createdat' => $apiTweet->created_at,
 			'Tweetid' => $apiTweet->id,
 			'Tweetidstr' => $apiTweet->id_str,
@@ -89,26 +103,8 @@ class TwitterTweet extends BaseTwitterTweet{
 			'Lang' => $apiTweet->lang,
 			'Embed' => $embed,
 			'Retweetedfromidstr' => $apiTweet->retweeted_status ? $apiTweet->retweeted_status->id_str : null
-		);
-		
-		$user = array(
-			'Twitteruserid' => $apiTweet->user->id,
-			'Twitteruseridstr' => $apiTweet->user->id_str,
-			'Name' => $apiTweet->user->name,
-			'Screenname' => $apiTweet->user->screen_name,
-			'Location' => $apiTweet->user->location,
-			'Accountcreatedat' => $apiTweet->user->created_at,
-			'Language' => $apiTweet->user->lang,
-			'Description' => $apiTweet->user->description,
-			'Url' => $apiTweet->user->url,
-			'Profileimage' => $apiTweet->user->profile_image_url,
-			'Isprotected' => $apiTweet->user->protected,
-			'Followers' => $apiTweet->user->followers_count,
-			'Friends' => $apiTweet->user->friends_count,
-			'Statuses' => $apiTweet->user->statuses_count
-		);
-		
-		return TwitterTweet::addTweet($tweet, $user);
+		);	
+	
 	}
 	
 	/* Si el tweet que intentamos crear existe devuelve el existente
@@ -117,7 +113,7 @@ class TwitterTweet extends BaseTwitterTweet{
 	 * @param $newTweet: arreglo para crear el tweet fromArray()
 	 * return: TwitterTweet
 	 * */
-	public static function addTweet($newTweet, $newUser) {
+	public static function addTweet($newTweet, $newUser, $newAttachments) {
 		
 		$tweet = new TwitterTweet();
 		$tweet->fromArray($newTweet);
@@ -130,6 +126,8 @@ class TwitterTweet extends BaseTwitterTweet{
 			$tweet->setInternaltwitteruserid($user->getId());
 			$tweet->setRelevance($user->getInfluence());
 			$tweet->save();
+
+			TwitterAttachment::addAttachments($newAttachments, $tweet->getId());
 
 			return $tweet;
 		}else{
@@ -150,16 +148,38 @@ class TwitterTweet extends BaseTwitterTweet{
 	
 	/* Cambia el status del tweet a ACCEPTED
 	 * 
-	 * return void
 	 * */
 	public function accept(){
 		$this->setStatus(TwitterTweet::ACCEPTED);
 		$this->save();
+
+		require_once('AutoDownloaderTwitter.php');
+		$attachmentsPath = TwitterTweet::ATTACHMENTS_PATH;
+		if (!file_exists($attachmentsPath))
+			mkdir ($attachmentsPath, 0777, true);
+		if (!file_exists($attachmentsPath)){
+			throw new Exception("No se pudo crear el directorio $attachmentsPath. Verifique la configuracion de permisos.");
+		}
+
+		// mando los attachments a la cola
+		$downloader = new AutoDownloaderTwitter();
+		$attachments = $this->getTwitterAttachments();
+		foreach ($attachments as $newAttachment) {
+			$newAttachmentName = $newAttachment->getId().'-'.uniqid();
+			$newAttachmentFullname = realpath($attachmentsPath)."/".$newAttachmentName;
+			//$newAttachmentSecondaryDataName = "r-".$newAttachmentName;
+			
+			$newAttachment->setName($newAttachmentName);
+			//$attachment->setSecondaryDataName($newAttachmentSecondaryDataName);
+			$newAttachment->save();
+
+			$mustResample = true;
+			$downloader->putInQueue($newAttachment, $mustResample);
+		}
 	}
 	
 	/* Cambia el status del tweet a DISCARDED
-	 * 
-	 * return void
+	 * TODO: se elimina la entrada de attachment?
 	 * */
 	public function discard(){
 		$this->setStatus(TwitterTweet::DISCARDED);

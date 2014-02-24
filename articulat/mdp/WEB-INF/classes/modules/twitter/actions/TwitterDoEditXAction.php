@@ -19,6 +19,11 @@ class TwitterDoEditXAction extends BaseDoEditAction {
 			}
 			
 		}
+
+		if(!empty($this->entityParams['status']) && $this->entityParams['status'] == TwitterTweet::ACCEPTED){
+			$this->entity->accept();
+		}
+		//return false;
 	}
 
 	protected function postSave() {
