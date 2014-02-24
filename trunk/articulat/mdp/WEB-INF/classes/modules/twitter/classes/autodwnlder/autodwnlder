@@ -1,0 +1,36 @@
+#! /bin/sh
+
+USAGE_HELP="
+Usage: autodwnlder <command>
+Commands:
+	start	Starts the daemon
+	stop	Stops the daemon
+	status	Shows the status of the daemon
+"
+
+configFile="config.ini"
+
+out=`grep "stdout" $configFile | sed -e "s/stdout=//"`
+err=`grep "stderr" $configFile | sed -e "s/stderr=//"`
+
+case "$1" in
+	"start")
+		./autodwnlderd > $out 2> $err &
+		echo "PID=$!" > autodwnlder.pid
+		;;
+	"stop")
+		PID=`grep "PID" "autodwnlder.pid" | sed -e "s/PID=//"`
+		kill $PID
+		rm autodwnlder.pid
+		;;
+	"status")
+		if [ -f "autodwnlder.pid" ] ; then
+			echo "running"
+		else
+			echo "stopped"
+		fi
+		;;
+	*)
+		echo "$USAGE_HELP"
+		;;
+esac

@@ -1,0 +1,78 @@
+#! /bin/sh
+
+# use autodwnlder to control this daemon
+
+configFile="config.ini"
+
+downloadCmd=`grep "^downloadCommand" $configFile | sed -e "s/downloadCommand=//"`
+resampleQueue=`grep "^resampleQueue" $configFile | sed -e "s/resampleQueue=//"`
+queue=`grep "^queue" $configFile | sed -e "s/queue=//"`
+failuresLog=`grep "^failuresLog" $configFile | sed -e "s/failuresLog=//"`
+failuresDir=`grep "^failuresDir" $configFile | sed -e "s/failuresDir=//"`
+
+# $1: id
+resample() {
+	echo "id=$1" > $resampleQueue/$1	# filename is not important, but must be unique
+}
+
+# $1: file
+download() {
+	queuedFile="$1"
+
+	url=`grep "url" $queuedFile | sed -e "s/url=//"`
+	of=`grep "output" $queuedFile | sed -e "s/output=//"`
+	mustResample=`grep "mustResample" $queuedFile | sed -e "s/mustResample=//"`
+	id=`grep "id" $queuedFile | sed -e "s/id=//"`
+
+	mkdir -p `echo "$of" | sed -e "s/\/[^\/]*$//g"` # create dir for downloaded file
+	$downloadCmd $url -O $of > /dev/null 2>/dev/null
+
+	if [ $mustResample = 1 ] ; then
+		resample $id
+		echo "    attachment with id $id added to autoresampler queue"
+	fi
+	
+	if [ -f "$of" ] ; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+logFailure() {
+	failedFile=$1
+	url=`grep "url" $failedFile | sed -e "s/url=//"`
+	of=`grep "output" $failedFile | sed -e "s/output=//"`
+
+	logText="`date +%Y-%m-%d\ %H:%M:%S` - error saving $url to `readlink -f $of` - data file moved to `readlink -f $failedFile`"
+
+	echo "$logText" >> $failuresLog
+}
+
+while true; do
+	echo "`date +%Y-%m-%d\ %H:%M:%S` - reading queue..."
+	count=`ls -1 $queue | wc -l`
+	if [ $count = 0 ] ; then
+		echo "  queue is empty"
+	else
+		echo "  $count files found"
+	fi
+	files=`ls -1 $queue`
+	for file in $files ; do
+		echo "  `date +%Y-%m-%d\ %H:%M:%S` - processing $file..."
+		download $queue/$file
+		if [ $? = 0 ] ; then
+			echo "    download result: OK"
+			rm -f $queue/$file
+		else
+			echo "    download result: FAILURE"
+			if [ ! -d "$failuresDir" ] ; then
+				mkdir $failuresDir
+			fi
+			mv $queue/$file $failuresDir/$file
+			logFailure $failuresDir/$file
+		fi
+	done
+	echo "`date +%Y-%m-%d\ %H:%M:%S` - done processing queue"
+	sleep 60s
+done
