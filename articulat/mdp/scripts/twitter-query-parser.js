@@ -18,18 +18,44 @@ TwitterQueryParser.prototype = {
 	
 	groupedSymbols: [],
 	
-	results: {
-		word: [],
-		bannedWord: [],
-		anyWord: [],
-		exactFrase: [],
-		fromAccount: [],
-		toAccount: [],
-		hashtag: [],
-		lang: [],
-		mention: []
+	results: {},
+	
+	
+	cleanAnyWord: function(symbol) {
+		return symbol;
 	},
 	
+	cleanBannedWord: function(symbol) {
+		return symbol.replace(/^-(.*)/, '$1');
+	},
+	
+	cleanExactFrase: function(symbol) {
+		return symbol.replace(/^"(.+)"$/, '$1');
+	},
+	
+	cleanFromAccount: function(symbol) {
+		return symbol.replace(/^from:(.*)/, '$1');
+	},
+	
+	cleanHashtag: function(symbol) {
+		return symbol.replace(/^#(.*)/, '$1');
+	},
+	
+	cleanLang: function(symbol) {
+		return symbol.replace(/^lang:(.*)/, '$1');
+	},
+	
+	cleanMention: function(symbol) {
+		return symbol.replace(/^@(.*)/, '$1');
+	},
+	
+	cleanToAccount: function(symbol) {
+		return symbol.replace(/^to:(.*)/, '$1');
+	},
+	
+	cleanWord: function(symbol) {
+		return symbol;
+	},
 	
 	isBannedWord: function(symbol) {
 		return symbol.match(/^-/);
@@ -64,6 +90,49 @@ TwitterQueryParser.prototype = {
 	},
 	
 	
+	cleanByType: function(symbol, type) {
+		return this[this.cleanFnForType(type)](symbol);
+	},
+	
+	cleanFnForType: function(type) {
+		return 'clean' + type.substring(0, 1).toUpperCase() + type.substring(1);
+	},
+	
+	cleanGroupByType: function(group, type) {
+		return group.map(function(e) {
+			return this[this.cleanFnForType(type)](e);
+		}, this);
+	},
+	
+	getResults: function() {
+		var copy = {};
+		for (var key in this.results)
+			copy[key] = this.results[key];
+		return copy;
+	},
+	
+	getResultsStrings: function() {
+		var strings = {};
+		for (var key in this.results)
+			strings[key] = this.results[key].join(' ');
+		return strings;
+	},
+	
+	parse: function(query) {
+		
+		this.reset()
+			.parseSymbols(query)
+			.groupSymbols()
+			.partialize();
+		
+		return this;
+	},
+	
+	parseSymbols: function(query) {
+		this.symbols = query.match(/[^\s"]+"[^"]*"|[^\s"]+|"[^"]*"/g);
+		return this;
+	},
+	
 	groupSymbols: function() {
 		
 		this.groupedSymbols = [];
@@ -93,20 +162,6 @@ TwitterQueryParser.prototype = {
 			groupedSymbol = '';
 		}
 		
-		return this;
-	},
-	
-	parse: function(query) {
-		
-		this.parseSymbols(query)
-			.groupSymbols()
-			.partialize();
-		
-		return this;
-	},
-	
-	parseSymbols: function(query) {
-		this.symbols = query.match(/[^\s"]+"[^"]*"|[^\s"]+|"[^"]*"/g);
 		return this;
 	},
 	
@@ -140,16 +195,17 @@ TwitterQueryParser.prototype = {
 			var type = this.typeFor(e);
 			
 			if (this.orTypes.indexOf(type) == -1) {
-				this.results[type].push(e);
+				this.results[type].push(this.cleanByType(e, type));
 			} else {
-				if (this.results[type].length == 0)
-					this.results[type].push(e);
+				if (this.results[type].length == 0) {
+					this.results[type].push(this.cleanByType(e, type));
+				}
 				else
 					this.results.word.push(e);
 			}
 		}, this);
 	},
-			
+	
 	qweGroup: function(groups) {
 		
 		groups.forEach(function(group) {
@@ -157,11 +213,47 @@ TwitterQueryParser.prototype = {
 			var type = this.groupTypeFor(group);
 			
 			if (type === false || this.orTypes.indexOf(type) == -1) {
-				this.results.word.push(group);
+				this.results.word.push(group.join(' '+this.orSymbol+' '));
 			} else {
-				this.results[type] = group.slice(0);
+				this.results[type] = this.cleanGroupByType(group, type);
 			}
 		}, this);
+	},
+	
+	reset: function() {
+		this.symbols = [];
+		this.groupedSymbols = [];
+		this.results = {
+			word: [],
+			bannedWord: [],
+			anyWord: [],
+			exactFrase: [],
+			fromAccount: [],
+			toAccount: [],
+			hashtag: [],
+			lang: [],
+			mention: []
+		};
+		return this;
+	},
+	
+	typeFor: function(symbol) {
+		
+		if (this.isBannedWord(symbol))
+			return 'bannedWord';
+		else if (this.isExactFrase(symbol))
+			return 'exactFrase';
+		else if (this.isFromAccount(symbol))
+			return 'fromAccount';
+		else if (this.isHashtag(symbol))
+			return 'hashtag';
+		else if (this.isLang(symbol))
+			return 'lang';
+		else if (this.isMention(symbol))
+			return 'mention';
+		else if (this.isToAccount(symbol))
+			return 'toAccount';
+		else return 'word';
 	},
 	
 	groupTypeFor: function(group) {
@@ -185,39 +277,20 @@ TwitterQueryParser.prototype = {
 		/*
 		 * Si el tipo es word es algo del estilo (word1 OR word2 OR ...)
 		 * que corresponde al tipo anyWord.
-		 * Si 
 		 */
 		return type == 'word' ? 'anyWord' : type;
-	},
-	
-	typeFor: function(symbol) {
-		
-		if (this.isBannedWord(symbol))
-			return 'bannedWord';
-		else if (this.isExactFrase(symbol))
-			return 'exactFrase';
-		else if (this.isFromAccount(symbol))
-			return 'fromAccount';
-		else if (this.isHashtag(symbol))
-			return 'hashtag';
-		else if (this.isLang(symbol))
-			return 'lang';
-		else if (this.isMention(symbol))
-			return 'mention';
-		else if (this.isToAccount(symbol))
-			return 'toAccount';
-		else return 'word';
 	}
 };
 
 
-var query = 'word1 word2 word3 "exact frase" anyword1 OR anyword2 OR anyword3' +
-	' -noneword1 -noneword2 --noneword3 #hashtag1 OR #hashtag2 OR #hashtag3' +
-	' lang:en from:fromacc1 OR from:fromacc2 OR from:from:fromacc3' +
-	' -vaEnWords OR -vaEnWordsTambien'+
-	' to:toacc1 OR to:toacc2 OR to:to:toacc3 @mention1 OR @mention2 OR @mention3' +
-	' near:"argentina buenos aires" within:15mi :)	 :(	 ? #esteVaEnWords include:retweets "" @vamosEnWords OR #vamosEnWords OR';
-
-var tqp = new TwitterQueryParser();
-tqp.parse(query);
-console.log('retults', tqp.results);
+//var query = 'word1 word2 word3 "exact frase" anyword1 OR anyword2 OR anyword3' +
+//	' -noneword1 -noneword2 --noneword3 #hashtag1 OR #hashtag2 OR #hashtag3' +
+//	' lang:en from:fromacc1 OR from:fromacc2 OR from:from:fromacc3' +
+//	' -vaEnWords OR -vaEnWordsTambien'+
+//	' to:toacc1 OR to:toacc2 OR to:to:toacc3 @mention1 OR @mention2 OR @mention3' +
+//	' near:"argentina buenos aires" within:15mi :)	 :(	 ? #esteVaEnWords' +
+//	' include:retweets "" @vamosEnWords OR #vamosEnWords OR';
+//
+//var tqp = new TwitterQueryParser();
+//var rs = tqp.parse(query).getResultsStrings();
+//console.log(rs)
