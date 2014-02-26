@@ -13,6 +13,5 @@
  *
  * @package    propel.generator.twitter.classes
  */
-class TwitterAttachmentQuery extends BaseTwitterAttachmentQuery
-{
+class TwitterAttachmentQuery extends BaseTwitterAttachmentQuery{
 }

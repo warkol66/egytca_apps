@@ -153,6 +153,22 @@ class TwitterTweet extends BaseTwitterTweet{
 		$this->setStatus(TwitterTweet::ACCEPTED);
 		$this->save();
 
+		$this->queueAttachments();
+	}
+
+	public static function acceptMultiple($tweets){
+		foreach($tweets as $id){
+
+			$tweet = TwitterTweetQuery::create()->findOneById($id);
+			$tweet->queueAttachments();
+		}
+	}
+
+	/* Pone los attachments del tweet en la cola para descargar
+	*
+	*/
+	function queueAttachments(){
+
 		require_once('AutoDownloaderTwitter.php');
 		$attachmentsPath = TwitterTweet::ATTACHMENTS_PATH;
 		if (!file_exists($attachmentsPath))
@@ -189,13 +205,20 @@ class TwitterTweet extends BaseTwitterTweet{
 	
 	/* Modifica un campo de varios tweets a new value
 	 * 
-	 * @param $field: campo a modificar
+	 * @param $field: arreglo de campos a modificar (campo, valor)
 	 * @param $newValue: valor para setearle al campo
 	 * @param $tweets: array[int] ids de los tweets a modificar
 	 * return bool
 	 * */
-	public static function editMultiple($field,$newValue,$tweets){
-		TwitterTweetQuery::create()->filterById($tweets, Criteria::IN)->update(array($field => $newValue));
+	public static function editMultiple($newValues, $tweets){
+		foreach ($newValues as $field => $value) {
+			TwitterTweetQuery::create()->filterById($tweets, Criteria::IN)->update(array($field => $value));
+		}
+
+		if($newValues['Status'] == TwitterTweet::ACCEPTED){
+			TwitterTweet::acceptMultiple($tweets);
+		}
+		
 	}
 	
 	/**
@@ -203,6 +226,21 @@ class TwitterTweet extends BaseTwitterTweet{
 	 */
 	public function isRetweet() {
 		return $this->getRetweetedfromidstr() !== null;
+	}
+
+	/* Obtiene los paths a los attachments de un tweet
+	 * 
+	 * return json
+	 * */
+	public function getAttachmentsPathJson(){
+		$attachments = $this->getTwitterAttachments();
+
+		$paths = array();
+		foreach($attachments as $attachment){
+			$paths[] = $attachment->getRelativePath();
+		}
+
+		return json_encode($paths);
 	}
 	
 }
