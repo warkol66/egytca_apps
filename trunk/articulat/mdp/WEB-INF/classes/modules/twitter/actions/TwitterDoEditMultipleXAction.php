@@ -19,13 +19,13 @@ class TwitterDoEditMultipleXAction extends BaseAction {
 		$module = 'Twitter';
 		$smarty->assign("module",$module);
 		$field = $_REQUEST["field"];
-		$newValue = $_REQUEST["newValue"];
+		$newValue[$field] = $_REQUEST["newValue"];
 		
 		//isset($_POST['selected'])
 
 		if (!empty($_POST['selected'])){
 
-			if(TwitterTweet::editMultiple($field,$newValue,$_POST['selected'])){
+			if(TwitterTweet::editMultiple($newValue, $_POST['selected'])){
 				$smarty->assign('field',$field);
 				$smarty->assign('tweets',$_POST['selected']);
 				return $mapping->findForwardConfig('success');

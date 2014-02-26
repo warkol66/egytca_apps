@@ -39,14 +39,17 @@ class TwitterAttachment extends BaseTwitterAttachment{
 	/**
 	 * @return directory for attachment's files
 	 */
-	function getDataDir() {
+	function getDataDir($relative = false) {
 		$dirCant = 1000; // esto se saca del config
 		$squaredDirCant = $dirCant * $dirCant;
 		
 		preg_match("/^(\d+)-\w+$/", $this->getName(), $matches);
 		$id = $matches[1];
 		
-		$filesDir = realpath(TwitterTweet::ATTACHMENTS_PATH);
+		if($relative)
+			$filesDir = TwitterTweet::ATTACHMENTS_PATH;
+		else
+			$filesDir = realpath(TwitterTweet::ATTACHMENTS_PATH);
 		$firstRamification = floor($id / $squaredDirCant);
 		$secondRamification = floor(($id - $firstRamification * $squaredDirCant) / $dirCant);
 		
@@ -61,4 +64,10 @@ class TwitterAttachment extends BaseTwitterAttachment{
 		$filename = $this->getName();
 		return !empty($filename) ? $this->getDataDir()."/$filename" : false;
 	}
+
+	function getRelativePath(){
+		$filename = $this->getName();
+		return !empty($filename) ? $this->getDataDir(true)."/$filename" : false;
+	}
+	
 }

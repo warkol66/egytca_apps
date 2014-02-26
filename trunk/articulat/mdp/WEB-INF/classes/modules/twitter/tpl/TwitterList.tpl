@@ -1,23 +1,39 @@
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 <script src="Main.php?do=js&name=js&module=twitter&code=|-$currentLanguageCode-|" type="text/javascript"></script>
-<script type="text/javascript" src="scripts/lightbox.js"></script>
 <link rel="stylesheet" media="all" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" media="screen" type="text/css" href="scripts/jquery/fancyapps/source/jquery.fancybox.css?v=2.1.5" />
 <link type="text/css" rel="stylesheet" href="scripts/jquery/jqueryTimepicker/src/jquery-ui-timepicker-addon.css" />
 <script src="scripts/jquery/jquery.min.js" charset="utf-8"></script>
 <script src="scripts/jquery/jquery-ui-1.10.3.custom.min.js" charset="utf-8"></script>
 <script src="scripts/jquery/jqueryTimepicker/src/jquery-ui-timepicker-addon.js" charset="utf-8"></script>
 <script src="scripts/jquery/jqueryTimepicker/src/i18n/jquery-ui-timepicker-es.js" charset="utf-8"></script>
 <script src="scripts/jquery/jqueryTimepicker/src/jquery-ui-sliderAccess.js" charset="utf-8"></script>
-<script> var $j = jQuery.noConflict(); </script>
-<div id="twitterUserLightbox" class="leightbox">
-	<p align="right">				
-		<a href="#" class="lbAction blackNoDecoration" rel="deactivate">Cerrar <input type="button" class="icon iconClose" /></a> 
-	</p> 
-	<div id="twitterDivShowWorking"></div>
-	<div class="innerLighbox">
-		<div id="twitterShowDiv"></div>
-	</div>
-</div>
+<script type="text/javascript" src="scripts/jquery/fancyapps/source/jquery.fancybox.js?v=2.1.5"></script>
+<script> 
+	var $j = jQuery.noConflict();
+
+	$j(document).ready(function($) {
+		$(".fancybox").fancybox({type: 'ajax'});
+		$(".gallery").fancybox();
+
+	});
+
+	function setFbox(images){
+		$j('#twitterAttachments').html('');
+
+		$j.each(images, function(i, obj) {
+			var im = $j('<img />')
+				.addClass('gallery')
+				.attr('src', obj)
+				.attr('rel', 'attachments')
+				.appendTo('#twitterAttachments');
+		});
+
+		$j('.gallery').fancybox().trigger('click');
+
+	}
+</script>
+<div id="twitterAttachments" style="display: none"></div>
 <div id="tweetsFilters"><a name="tweeterList"></a>
 <form action="Main.php" method="get">
 	<fieldset title="Formulario de Opciones de búsqueda de tweets">
@@ -83,7 +99,7 @@
 			<tr id="tr_|-$tweet->getId()-|">
 				<td align="center"><input type="checkbox" name="selected[]" value="|-$tweet->getId()-|"></td>
 				<td valign="top"class="twitterTextTable">|-$tweet->getText()|twitterHighlight-|</td>
-				<td valign="top">|-if is_object($user)-|<a href="#twitterUserLightbox" rel="twitterUserLightbox" class="lbOn"><input type="button" class="twitterUserDetail" onClick='{new Ajax.Updater("twitterShowDiv", "Main.php?do=twitterUsersViewX", { method: "post", parameters: { id: "|-$user->getId()-|"}, evalScripts: true})};$("twitterDivShowWorking").innerHTML = "<span class=\"inProgress\">buscando Usuario...</span>";$("twitterShowDiv").innerHTML = " ";' value="|-$user->getName()-|" name="" title="Ver perfil del usuario" /></a>|-/if-|</td>
+				<td valign="top">|-if is_object($user)-|<a href="Main.php?do=twitterUsersViewX&id=|-$user->getId()-|" class="fancybox fancybox.ajax">|-$user->getName()-|</a>|-/if-|</td>
 				<td valign="top" nowrap="nowrap">|-$tweet->getCreatedat()|date_format:"%d-%m-%Y %H:%m"|change_timezone-|</td>
 				<td valign="top" nowrap="nowrap">
 					<form action="Main.php" method="post" id="formValueTweets|-$tweet->getId()-|">
@@ -109,6 +125,10 @@
 						<input type="hidden" name="id" id="id" value="|-$tweet->getid()-|" />
 						<input type="hidden" name="do" value="twitterDoEditX" id="do">
 					</form>
+					|-assign var=attachments value=$tweet->getTwitterAttachments()-|
+					|-if count($attachments) gt 0-|
+					<img src="images/clear.png" class="icon iconView" onClick='setFbox(|-$tweet->getAttachmentsPathJson()-|)' value="Descartar tweet" />
+					|-/if-|
 				</td> 
 			</tr>
 			|-/foreach-|

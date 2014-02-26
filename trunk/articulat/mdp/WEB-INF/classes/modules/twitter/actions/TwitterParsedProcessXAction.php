@@ -22,31 +22,38 @@ class TwitterParsedProcessXAction extends BaseAction {
 		
 		if (!empty($_GET["id"])) {
 
+			$newValues = array();
+
 			//si tengo que procesar mas de un tweet
 			if (!empty($_POST["tweetsIds"])){
 				try {
 					switch($processAction){
 						case 'save':
-							TwitterTweet::editMultiple('Status', TwitterTweet::ACCEPTED, $_POST["tweetsIds"]);
+							$newValues['Status'] = TwitterTweet::ACCEPTED;
+							TwitterTweet::editMultiple($newValues, $_POST["tweetsIds"]);
 							$info = 'Aceptados';
 						break;
 						case 'discard':
-							TwitterTweet::editMultiple('Status', TwitterTweet::DISCARDED, $_POST["tweetsIds"]);
+							$newValues['Status'] = TwitterTweet::DISCARDED;
+							TwitterTweet::editMultiple($newValues, $_POST["tweetsIds"]);
 							$info = 'Descartados';
 						break;
 						case 'positive':
-							TwitterTweet::editMultiple('Value', TwitterTweet::POSITIVE, $_POST["tweetsIds"]);
-							TwitterTweet::editMultiple('Status', TwitterTweet::ACCEPTED, $_POST["tweetsIds"]);
+							$newValues['Status'] = TwitterTweet::ACCEPTED;
+							$newValues['Value'] = TwitterTweet::POSITIVE;
+							TwitterTweet::editMultiple($newValues, $_POST["tweetsIds"]);
 							$info = 'Valorados como positivos';
 						break;
 						case 'neutral':
-							TwitterTweet::editMultiple('Value', TwitterTweet::NEUTRAL, $_POST["tweetsIds"]);
-							TwitterTweet::editMultiple('Status', TwitterTweet::ACCEPTED, $_POST["tweetsIds"]);
+							$newValues['Status'] = TwitterTweet::ACCEPTED;
+							$newValues['Value'] = TwitterTweet::NEUTRAL;
+							TwitterTweet::editMultiple($newValues, $_POST["tweetsIds"]);
 							$info = 'Valorados como neutrales';
 						break;
 						case 'negative':
-							TwitterTweet::editMultiple('Value', TwitterTweet::NEGATIVE, $_POST["tweetsIds"]);
-							TwitterTweet::editMultiple('Status', TwitterTweet::ACCEPTED, $_POST["tweetsIds"]);
+							$newValues['Status'] = TwitterTweet::ACCEPTED;
+							$newValues['Value'] = TwitterTweet::NEUTRAL;
+							TwitterTweet::editMultiple($newValues, $_POST["tweetsIds"]);		
 							$info = 'Valorados como negativos';
 						break;
 					}
