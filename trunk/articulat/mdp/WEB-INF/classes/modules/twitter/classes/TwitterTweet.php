@@ -172,7 +172,7 @@ class TwitterTweet extends BaseTwitterTweet{
 		require_once('AutoDownloaderTwitter.php');
 		$attachmentsPath = TwitterTweet::ATTACHMENTS_PATH;
 		if (!file_exists($attachmentsPath))
-			mkdir ($attachmentsPath, 0777, true);
+			mkdir ($attachmentsPath, 0755, true);
 		if (!file_exists($attachmentsPath)){
 			throw new Exception("No se pudo crear el directorio $attachmentsPath. Verifique la configuracion de permisos.");
 		}
