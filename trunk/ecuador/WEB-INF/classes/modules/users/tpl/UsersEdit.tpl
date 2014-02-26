@@ -20,15 +20,12 @@
 |-elseif $message eq "notLinkedWithSupplier"-|
 	<div class='errorMessage'>##users,156,Ha ocurrido un error al relacionar el usuario con el correspondiente Supplier##</div>
 |-/if-|
-|-if $action eq "create" or $action eq "edit"-|
-	|-if $action eq "create"-|
-		<p>	##users,160,Ingrese la Identificación del usuario y la contraseña para el nuevo usuario, luego haga click en Guardar para generar el nuevo usuario.##</p>
-	|-else-|
-		<p>	##users,161,Realice los cambios en el usuario y haga click en Aceptar para guardar las modificaciones.##</p>
-	|-*assign var="currentUserInfo" value=$currentUser->getUserInfo()*-|
-	|-/if-|
-	<br />
+|-if $user->isNew()-|
+	<p>	##users,160,Ingrese la Identificación del usuario y la contraseña para el nuevo usuario, luego haga click en Guardar para generar el nuevo usuario.##</p>
+|-else-|
+	<p>	##users,161,Realice los cambios en el usuario y haga click en Aceptar para guardar las modificaciones.##</p>
 |-/if-|
+	<br />
 <script language="JavaScript" type="text/javascript">
 $(function(){
 	$("#region").autocomplete({
@@ -91,29 +88,29 @@ function usersDoEditInfo(form){
 <form method='post' action='Main.php?do=usersDoEdit'>
 <fieldset title="Formulario de edición de usuarios">
 <legend>Datos del Usuario</legend>
-	<input type='hidden' name='id' value='|-if $action eq "edit"-||-$currentUser->getId()-||-/if-|' />
-|-if $action eq 'edit' and $currentUser->getId() lt 3-|
-	<p><label for="userParams[usernameDisabled]">##users,162,Identificación de Usuario##</label>
-	|-if $action eq 'edit' and $currentUser->getUsername() ne ''-|<input id='actualuserParams[username]' type='hidden' value='|-$currentUser->getUsername()-|' />|-/if-|
-		<input id='userParams[usernameDisabled]' name='userParams[usernameDisabled]' type='text' value='|-$currentUser->getUsername()-|' size="30" disabled="disabled" />
+	<input type='hidden' name='id' value='|-if $action eq "edit"-||-$user->getId()-||-/if-|' />
+|-if $action eq 'edit' and $user->getId() lt 3-|
+	<p><label for="params[usernameDisabled]">##users,162,Identificación de Usuario##</label>
+	|-if $action eq 'edit' and $user->getUsername() ne ''-|<input id='actualparams[username]' type='hidden' value='|-$user->getUsername()-|' />|-/if-|
+		<input id='params[usernameDisabled]' name='params[usernameDisabled]' type='text' value='|-$user->getUsername()-|' size="30" disabled="disabled" />
 |-else-|
-	<p><label for="userParams[username]">##users,162,Identificación de Usuario##</label>
-			|-if $action eq 'edit' and $currentUser->getUsername() ne ''-|<input id='actualuserParams[username]' type='hidden' value='|-$currentUser->getUsername()-|' />|-/if-|
-			<input id='userParams[username]' name='userParams[username]' type='text' value='|-$currentUser->getUsername()-|'  size="30"  class="emptyValidation" |-ajax_onchange_validation_attribute actionName="usersValidationUsernameX"-| /> |-validation_msg_box idField="userParams[username]"-|
+	<p><label for="params[username]">##users,162,Identificación de Usuario##</label>
+			|-if $action eq 'edit' and $user->getUsername() ne ''-|<input id='actualparams[username]' type='hidden' value='|-$user->getUsername()-|' />|-/if-|
+			<input id='params[username]' name='params[username]' type='text' value='|-$user->getUsername()-|'  size="30"  class="emptyValidation" |-ajax_onchange_validation_attribute actionName="usersValidationUsernameX"-| /> |-validation_msg_box idField="params[username]"-|
 |-/if-|</p>
-		<p><label for="userParams[name]">##users,163,Nombre##</label>
-			<input id='userParams[name]' name='userParams[name]' type='text' value='|-$currentUser->getName()|escape-|' size="50" /> |-validation_msg_box idField="userParams[name]"-|
+		<p><label for="params[name]">##users,163,Nombre##</label>
+			<input id='params[name]' name='params[name]' type='text' value='|-$user->getName()|escape-|' size="50" /> |-validation_msg_box idField="params[name]"-|
 		</p>
-		<p><label for="userParams[surname]">##users,164,Apellido##</label>
-			<input id='userParams[surname]' name='userParams[surname]' type='text' value='|-$currentUser->getSurname()|escape-|' size="50" /> |-validation_msg_box idField="userParams[surname]"-|
+		<p><label for="params[surname]">##users,164,Apellido##</label>
+			<input id='params[surname]' name='params[surname]' type='text' value='|-$user->getSurname()|escape-|' size="50" /> |-validation_msg_box idField="params[surname]"-|
 		</p>
-		<p><label for="userParams[mailAddress]">E-mail</label>
-			<input id='userParams[mailAddress]' name='userParams[mailAddress]' type='text' value='|-$currentUser->getMailAddress()-|' size="40" class="mailValidation emptyValidation" onchange="javascript:validationValidateFieldClienSide('userParams[mailAddress]');" /> |-validation_msg_box idField="userParams[mailAddress]"-|
+		<p><label for="params[mailAddress]">E-mail</label>
+			<input id='params[mailAddress]' name='params[mailAddress]' type='text' value='|-$user->getMailAddress()-|' size="40" class="mailValidation emptyValidation" onchange="javascript:validationValidateFieldClienSide('params[mailAddress]');" /> |-validation_msg_box idField="params[mailAddress]"-|
 		</p>
-		|-assign var=currentReg value=$currentUser->getRegion()-|
-		<p><label for="userParams[regionId]">Región</label>
+		|-assign var=currentReg value=$user->getRegion()-|
+		<p><label for="params[regionId]">Región</label>
 			<div id="region-container" style="position:absolute; width: 400px;"></div><input type="text" id="region" placeholder="Ingrese una región" value="|-if is_object($currentReg)-||-$currentReg->getName()-||-/if-|"/>
-			<input type="hidden" id="selected-region" name="userParams[regionId]" value="|-if is_object($currentReg)-||-$currentReg->getId()-||-/if-|" />
+			<input type="hidden" id="selected-region" name="params[regionId]" value="|-if is_object($currentReg)-||-$currentReg->getId()-||-/if-|" />
 		</p>
 		<p><label for="pass">##users,165,Contraseña##</label>
 			<input id='pass' name='pass' type='password' value='' size="20" class="" onchange="javascript:setElementClass('pass','emptyValidation');setElementClass('pass2','passwordMatch');validationValidateFieldClienSide('pass');" /> |-validation_msg_box idField=pass-|
@@ -121,25 +118,23 @@ function usersDoEditInfo(form){
 		<p><label for="pass2">##users,166,Repetir Contraseña##</label>
 			<input id='pass2' name='pass2' type='password' value='' size="20" class="" onchange="javascript:validationValidateFieldClienSide('pass2');" /> |-validation_msg_box idField=pass2-|
 		</p>
-		<p><label for="userParams[levelId]">Nivel de Usuario</label>
-				|-if $action eq 'edit' and $currentUser->getId() lt 3-|
-				<input name="userParams[levelId]" id="userParams[levelId]" type="hidden" value="|-$currentUser->getLevelId()-|" />
-				<select name='userParams[levelIdDisabled]' id='userParams[levelIdDisabled]' disabled="disabled">
+		<p><label for="params[levelId]">Nivel de Usuario</label>
+				|-if $action eq 'edit' and $user->getId() lt 3-|
+				<input name="params[levelId]" id="params[levelId]" type="hidden" value="|-$user->getLevelId()-|" />
+				<select name='params[levelIdDisabled]' id='params[levelIdDisabled]' disabled="disabled">
 				|-else-|
-				<select name='userParams[levelId]'>
+				<select name='params[levelId]'>
 				|-/if-|
 					<option value="">Seleccionar nivel</option>
 					|-foreach from=$levels item=level name=for_levels-|
-					<option value="|-$level->getId()-|"|-if $action eq "edit" and $level->getId() eq $currentUser->getLevelId()-| selected="selected"|-/if-|>|-$level->getName()-|</option>
+					<option value="|-$level->getId()-|" |-$level->getId()|selected:$user->getLevelId()-|>|-$level->getName()-|</option>
 					|-/foreach-|
 				</select>
 			</p>
-		<p> |-if $action eq "edit"-|
-				<input type="hidden" name="accion" value="edit" />
-				|-/if-|
-				|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
+		<p>	|-include file="FiltersRedirectInclude.tpl" filters=$filters-|
 				|-if $page gt 1-| <input type="hidden" name="page" id="page" value="|-$page-|" />|-/if-|
 		<script language="JavaScript" type="text/JavaScript">showMandatoryFieldsMessage(this.form);</script>
+				<input type="hidden" name="id" id="id" value="|-$user->getId()-|" /> 
 						|-javascript_form_validation_button value='Guardar' title='Guardar'-|
 				<input type='button' onClick='location.href="Main.php?do=usersList|-include file="FiltersRedirectUrlInclude.tpl" filters=$filters-||-if isset($page)-|&page=|-$page-||-/if-|"' value='##104,Regresar##' title="Regresar al listado de usuarios"/>
 			</p>
@@ -147,10 +142,10 @@ function usersDoEditInfo(form){
 </fieldset>
 </form>
 
-|-if $action eq "edit"-|
+|-if !$user->isNew()-|
 <fieldset title="Formulario de edición de grupos de usuarios">
 <legend>Grupos de Usuarios</legend>
-	<p>##users,167,El usuario ## |-$currentUser->getName()-| |-$currentUser->getSurname()-| (|-$currentUser->getUsername()-|) ##168,es miembro de los grupos:##</p>
+	<p>##users,167,El usuario ## |-$user->getName()-| |-$user->getSurname()-| (|-$user->getUsername()-|) ##168,es miembro de los grupos:##</p>
 	<div id="GroupsManage"> <span id="groupMsgField"></span> 
 		<form method="post"> 
 			<p> 
@@ -161,17 +156,17 @@ function usersDoEditInfo(form){
 					|-/foreach-|
 				</select> 
 				<input type="hidden" name="do" id="do" value="usersDoAddToGroupX" /> 
-				<input type="hidden" name="userId" id="userId" value="|-$currentUser->getId()-|" /> 
+				<input type="hidden" name="userId" id="userId" value="|-$user->getId()-|" /> 
 				<input type="button" value="Agregar Usuario al grupo" onClick="javascript:usersDoAddFromGroup(this.form)"/> 
 			</p> 
 		</form> 
 		<ul id="groupList" class="iconOptionsList">
-			 |-foreach from=$currentUser->getUserGroups() item=userGroup name=for_group-|
+			 |-foreach from=$user->getUserGroups() item=userGroup name=for_group-|
 			 |-assign var=group value=$userGroup->getGroup()-|			 
 			<li id="groupListItem|-$group->getId()-|">
 				<form  method="post"> 
 					<input type="hidden" name="do" id="do" value="usersDoDeleteFromGroupX" /> 
-					<input type="hidden" name="userId"  value="|-$currentUser->getId()-|" /> 
+					<input type="hidden" name="userId"  value="|-$user->getId()-|" /> 
 					<input type="hidden" name="groupId"  value="|-$group->getId()-|" /> 
 					<input type="button" value="Eliminar" onClick="javascript:usersDoDeleteFromGroup(this.form)" class="icon iconDelete" title="Eliminar el usuario del grupo"/> 
 				</form> |-$group->getName()-|
@@ -185,37 +180,37 @@ function usersDoEditInfo(form){
 <legend>Información adicional del Usuario</legend>
 	<div id="AdditionalInfo"> <span id="userInfoMsgField"></span> 
 		<form method="post"> 
-		<p><label for="userParams[documentType]">Tipo y Número de documento</label>
-				<select name="userParams[documentType]" id="userParams[documentType]">
+		<p><label for="params[documentType]">Tipo y Número de documento</label>
+				<select name="params[documentType]" id="params[documentType]">
 					<option value="">Seleccione tipo de documento</option>
 					|-foreach from=$documentTypes key=typeKey item=documentType name=for_documentTypes-|
-					<option value="|-$documentType-|" |-if isset($currentUser) and $currentUser->getDocumentType() eq $documentType-|selected="selected"|-/if-|>|-$typeKey|@upper-|</option>
+					<option value="|-$documentType-|" |-if isset($user) and $user->getDocumentType() eq $documentType-|selected="selected"|-/if-|>|-$typeKey|@upper-|</option>
 					|-/foreach-|
 				</select>
-				<input id="userParams[document]" name="userParams[document]" type='text' value='|-$currentUser->getDocument()-|' size="30" />
+				<input id="params[document]" name="params[document]" type='text' value='|-$user->getDocument()-|' size="30" />
 			</p>
-		<p><label for="userParams[birthdate]">Fecha de Nacimiento</label>
-				<input id="userParams[birthdate]" name="userParams[birthdate]" type='text' value='|-$currentUser->getBirthdate()-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('userParams[birthdate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
+		<p><label for="params[birthdate]">Fecha de Nacimiento</label>
+				<input id="params[birthdate]" name="params[birthdate]" type='text' value='|-$user->getBirthdate()-|' size="12" /> <img src="images/calendar.png" width="16" height="15" border="0" onclick="displayDatePicker('params[birthdate]', false, '|-$parameters.dateFormat.value|lower|replace:'-':''-|', '-');" title="Seleccione la fecha">
 			</p>
-		<p><label for="userParams[gender]">Género</label>
-				<select name="userParams[gender]" id="userParams[gender]">
+		<p><label for="params[gender]">Género</label>
+				<select name="params[gender]" id="params[gender]">
 					<option value="">Seleccione género</option>
-					<option value="1" |-if isset($currentUser) and $currentUser->getGender() eq 1-|selected="selected"|-/if-|>Femenino</option>
-					<option value="2" |-if isset($currentUser) and $currentUser->getGender() eq 2-|selected="selected"|-/if-|>Maculino</option>
+					<option value="1" |-if isset($user) and $user->getGender() eq 1-|selected="selected"|-/if-|>Femenino</option>
+					<option value="2" |-if isset($user) and $user->getGender() eq 2-|selected="selected"|-/if-|>Maculino</option>
 				</select>
 			</p>
 |-if $configModule->get('users','useTimezones')-|
-		<p><label for="userParams[timezone]">Huso Horario</label>
-				<select name="userParams[timezone]" id="userParams[timezone]">
+		<p><label for="params[timezone]">Huso Horario</label>
+				<select name="params[timezone]" id="params[timezone]">
 					<option value="">Seleccione una zona horaria (opcional)</option>
 					|-foreach from=$timezones item=timezone name=for_timezones-|
-					<option value="|-$timezone->getCode()-|" |-if isset($currentUser) and $currentUser->getTimezone() eq $timezone->getCode()-|selected="selected"|-/if-|>|-$timezone->getDescription()-|</option>
+					<option value="|-$timezone->getCode()-|" |-if isset($user) and $user->getTimezone() eq $timezone->getCode()-|selected="selected"|-/if-|>|-$timezone->getDescription()-|</option>
 					|-/foreach-|
 				</select>
 			</p>
 |-/if-|
 				<input type="hidden" name="do" id="do" value="usersDoEditInfoX" /> 
-				<input type="hidden" name="id" id="id" value="|-$currentUser->getId()-|" /> 
+				<input type="hidden" name="id" id="id" value="|-$user->getId()-|" /> 
 				<input type="button" value="Guardar información del Usuario" onClick="javascript:usersDoEditInfo(this.form)"/> 
 			</p> 
 		</form> 

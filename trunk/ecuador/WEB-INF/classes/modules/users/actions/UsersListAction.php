@@ -1,53 +1,39 @@
 <?php
-
-class UsersListAction extends BaseAction {
-
-	function UsersListAction() {
-		;
+/**
+ * Listado de usuarios
+ *
+ * @package users
+ */
+class UsersListAction extends BaseListAction {
+	
+ /**
+	* Constructor
+	*/
+	function __construct() {
+		parent::__construct('User');
 	}
 
-	function execute($mapping, $form, &$request, &$response) {
+ /**
+	* Acciones a ejecutar antes de obtener la coleccion de objetos
+	*/
+	protected function preList() {
+		parent::preList();
+		//Aplico filtro para eleminar el usuario Systems id = -1
+		$this->filters['ignoreNonRealUsers'] = true;
 
-    BaseAction::execute($mapping, $form, $request, $response);
+	}
 
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
-
-		$module = "Users";
-		$section = "Users";
+ /**
+	* Acciones a ejecutar despues de obtener la coleccion de objetos
+	*/
+	protected function postList() {
+		// Elimino el filtro para que no aparezca en el paginador
+		unset($this->filters['ignoreNonRealUsers']);
+		parent::postList();
 		
-		$smarty->assign("module",$module);
-		$smarty->assign("section",$section);
+		// Listado de usuarios inactivos
+		$this->smarty->assign("inactiveUsers",User::getInactives());
 
-		$page = $_GET["page"];
-		$smarty->assign("page",$page);
-
-		$userPeer = new UserPeer();
-
-		if (!empty($_GET['filters'])){
-			$filters = $_GET['filters'];
-			$this->applyFilters($userPeer,$filters,$smarty);
-		}
-
-		$pager = $userPeer->getAllPaginatedFiltered($page);
-		$smarty->assign("users",$pager->getResult());
-		$smarty->assign("pager",$pager);
-
-		$url = "Main.php?do=usersList";
-		foreach ($filters as $key => $value)
-			$url .= "&filters[$key]=$value";
-		$smarty->assign("url",$url);
-
-
-		$inactiveUsers = UserPeer::getInactives();
-		$smarty->assign("inactiveUsers",$inactiveUsers);
-
-    $smarty->assign("message",$_GET["message"]);
-
-		return $mapping->findForwardConfig('success');
 	}
 
 }

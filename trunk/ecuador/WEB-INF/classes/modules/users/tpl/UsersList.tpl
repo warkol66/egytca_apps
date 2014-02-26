@@ -92,7 +92,6 @@ $(function() {
 		<input type="submit" value="Ver Estadísticas" disabled="disabled" id="buttonStatistics" title="Ver Estadísticas (abre en ventana nueva)"/>
 	</form>
 </div>
-
 <table class='tableTdBorders' cellpadding='5' cellspacing='0' width='100%'>
 	<thead>
 	<tr>
@@ -101,7 +100,7 @@ $(function() {
 				<input type="hidden" name="do" value="usersList" />
 				Nombre: <input name="filters[searchString]" type="text" title="Ingrese el nombre, parte del nombre, apellido o parte del apellido a buscar" value="|-$filters.searchString-|" size="50" />
 				Resultados por página
-				|-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getRowsPerPage()-|
+				|-html_options name="filters[perPage]" options=',10,25,50,100'|array:"valuekey" selected=$pager->getMaxPerPage()-|
 				&nbsp;&nbsp;<input type='submit' value='Buscar' />
 				|-if $filters|@count gt 0-|<input name="rmoveFilters" type="button" value="Quitar filtros" onclick="location.href='Main.php?do=usersList'"/>|-/if-|
 		</form></div></td>
@@ -121,7 +120,7 @@ $(function() {
 	</tr>
 	</thead>
 	<tbody>
-	|-foreach from=$users item=user name=for_users-|
+	|-foreach from=$userColl item=user name=for_users-|
 	<tr>
 		<td>|-$user->getUsername()-|</td>
 		<td>|-$user->getName()-|</td>
@@ -173,9 +172,9 @@ $(function() {
 		<td class='buttonCell' colspan='5'><input type='submit' value='##173,Nuevo Usuario##' class='button' onClick="return alert('Todas las licencias se encuentran en uso. Si desea dar de alta un nuevo usuario debe eliminar alguno de los existentes.');"/></td>
 	</tr>
 	|-/if-||-/if-|
-		|-if isset($pager) && ($pager->getTotalPages() gt 1)-|
+			|-if isset($pager) && $pager->haveToPaginate()-|
 			<tr> 
-				<td colspan="6" class="pages">|-include file="PaginateInclude.tpl"-|</td> 
+				<td colspan="6" class="pages">|-include file="ModelPagerInclude.tpl"-|</td> 
 			</tr>							
 		|-/if-|
 	</tfoot>						
