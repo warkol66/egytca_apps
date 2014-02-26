@@ -5,17 +5,17 @@
 		<input class="searchQueryInput" name="|-$inputName|default:"params[searchQueries][]"-|" |-if $disabled-|disabled="disabled"|-/if-| type="text" title="Estas palabras clave son las que propondrá por defecto para la búsqueda" value="|-$value|escape-|" size="50">
 		<a href="#" class="tooltipWide"><span>Para búsquedas puede usar los "#" y "@" para identificar hastags y usuarios respectivamente. <br />Las palabras sin estos caracteres iniciales se buscarán como palabras sueltas.</span><img src="images/icon_info.png"></a>
 		|-if $useLightbox-|
-			<a href="#" rel="twitterQueryBuilderLightbox" class="lbOn queryBuilderTrigger">búsqueda avanzada</a>
+			<a href="#" rel="twitterQueryBuilderLightbox" class="lbOn queryBuilderTrigger" title="Asistente de búsqueda avanzada"><img src="images/clear.png" class="icon iconEdit" /></a>
 		|-/if-|
 		|-if $allowAddRemove-|
-			<input type="button" class="icon iconDelete" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" title="Eliminar b&uacute;squeda">
+			<input type="button" class="icon iconDelete" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" title="Eliminar opciones de búsqueda">
 		|-/if-|
 	</p>
 |-/function-|
 
 |-if $allowAddRemove-|
 	<p align="right">
-		<a href="#" onclick="addSearchQuery(); return false;">Agregar búsqueda</a>
+		<a href="#" onclick="addSearchQuery(); return false;" class="addLink">Agregar búsqueda</a>
 	</p>
 |-/if-|
 <div id="searchQueries">

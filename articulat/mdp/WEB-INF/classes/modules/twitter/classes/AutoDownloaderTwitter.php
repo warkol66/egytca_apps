@@ -20,7 +20,7 @@ class AutoDownloaderTwitter {
 		$queueDir = $queueParentDir . '/' . 'queue';
 		if (!file_exists($queueDir)) {
 			if (Common::isWritable($queueParentDir))
-				mkdir($queueDir, 0777, true);
+				mkdir($queueDir, 0755, true);
 			else
 				echo "no uno";
 				throw new Exception("No se puede escribir en el directorio $queueParentDir. Verifique la configuración de permisos.");
