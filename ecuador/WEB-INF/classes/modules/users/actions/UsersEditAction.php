@@ -1,88 +1,43 @@
 <?php
-
-class UsersEditAction extends BaseAction {
-
-	function UsersEditAction() {
-		;
+/**
+ * Edicion de usuarios
+ *
+ * @package users
+ */
+class UsersEditAction extends BaseEditAction {
+	
+	function __construct() {
+		parent::__construct('User');
 	}
 
-	function execute($mapping, $form, &$request, &$response) {
-
-		BaseAction::execute($mapping, $form, $request, $response);
-
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
-		$plugInKey = 'SMARTY_PLUGIN';
-		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
-			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
-
+	protected function postEdit() {
+		parent::postEdit();
+		
 		$module = "Users";
 		$section = "Users";
-		$smarty->assign("module",$module);
-		$smarty->assign("section",$section);
-
-		//timezone
+		$this->smarty->assign("module",$module);
+		$this->smarty->assign("section",$section);
+		
+		//Timezones
 		require_once('TimezonePeer.php');
 		$timezonePeer = new TimezonePeer();
-		$timezones = $timezonePeer->getAll();
-		
-		$smarty->assign("timezones",$timezones);
+		$this->smarty->assign("timezones",$timezonePeer->getAll());
 
-		$smarty->assign("message",$_GET["message"]);
+		$this->smarty->assign("groups",$this->entity->getGroupCandidates());
 
-		if (!empty($_GET["id"])) {
-			//voy a editar un usuario
+		$this->smarty->assign("levels",BaseQuery::create("Level")->find());
 
-			try {
-				$user = UserPeer::get($_GET["id"]);
-				$smarty->assign("action","edit");
-			}
-			catch (PropelException $exp) {
-				if (ConfigModule::get("global","showPropelExceptions"))
-					print_r($exp->getMessage());
-					$smarty->assign("action","create");
-			}
+		$this->smarty->assign("currentUser",$user);
 
-			$groups = UserPeer::getGroupCandidates($_GET["id"]);
-			$smarty->assign("groups",$groups);
-
-			$levels = LevelPeer::getAll();
-			$smarty->assign("levels",$levels);
-
-			//Para obtener los grupos de usuario ordenados alfabeticamente
-			//en el template usar $currentUser->getUserGroups($groupCriteria) 
-			$groupCriteria = UserGroupQuery::create()
-													->useGroupQuery()
-														->orderByName()
-													->endUse();		
-			$smarty->assign("groupCriteria",$groupCriteria);
-		}
-		else {
-			//voy a crear un usuario nuevo
-			$user = new User();
-
-			$levels = LevelPeer::getAll();
-			$smarty->assign("levels",$levels);
-
-			$groups = GroupPeer::getAll();
-			$smarty->assign("groups",$groups);
-
-			$smarty->assign("action","create");
-		}
-
-		$smarty->assign("currentUser",$user);
-
-		$documentTypes = UserPeer::getDocumentTypes();
-		$smarty->assign("documentTypes",$documentTypes);
-		$smarty->assign("regions",RegionQuery::create()->find());
-
-		$smarty->assign("filters",$_GET["filters"]);
-		$smarty->assign("page",$_GET["page"]);
-
-		return $mapping->findForwardConfig('success');
+		//Para obtener los grupos de usuario ordenados alfabeticamente
+		//en el template usar $currentUser->getUserGroups($groupCriteria) 
+		$groupCriteria = UserGroupQuery::create()
+												->useGroupQuery()
+													->orderByName()
+												->endUse();		
+		$this->smarty->assign("groupCriteria",$groupCriteria);
+	
+		$this->smarty->assign("documentTypes",User::getDocumentTypes());
 
 	}
 
