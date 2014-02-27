@@ -80,9 +80,9 @@ class TwitterCampaignsReportViewAction extends BaseEditAction {
 				$this->smarty->assign('topUsers', $topUsers);
 				$this->smarty->assign('influentialUsers', $influentialUsers);
 				$this->smarty->assign('tweetsAmount', $tweetsAmount);
-				$this->smarty->assign('trendingTopics', TwitterTrendingTopic::getLatest(10));
-				/*echo"<pre>"; print_r($byValue); echo"</pre>";
-				die();*/
+				$this->smarty->assign('trendingTopics', TwitterTrendingTopicQuery::getLatest(10));
+				echo"<pre>"; print_r(TwitterTrendingTopicQuery::getLatest(10)); echo"</pre>";
+				die();
 				
 				/* Tendencias personalizadas */
 				$treemapInfo = array();
