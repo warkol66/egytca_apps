@@ -79,7 +79,7 @@ class CampaignsEditAction extends BaseAction {
 					$smarty->assign('tweetValues',TwitterTweet::getValues());
 					$smarty->assign('tweetRelevances',TwitterTweet::getRelevances());
 					$smarty->assign('tweetStatuses',TwitterTweet::getStatuses());
-					$smarty->assign('latestTopics',TwitterTrendingTopic::getLatest(10));
+					$smarty->assign('latestTopics',TwitterTrendingTopicQuery::getLatest(10));
 					
 				}
 			}
