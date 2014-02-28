@@ -104,7 +104,7 @@
 		|-/if-|
 		
 		|-if !empty($topUsers)-|
-		var arrUsers = [|-foreach from=$topUsers item=topUser-||-assign var=user value=$topUser['user']-|{"name":"@|-$user->getScreenname()-|","id":"|-$user->getId()-|","tweets":|-$topUser['tweets']-|}|-if !$topUsers@last-|,|-/if-||-/foreach-|];
+		var arrUsers = [|-foreach from=$topUsers item=topUser-||-assign var=user value=$topUser['user']-|{"name":"@|-if is_object($user)-||-$user->getScreenname()-||-/if-|","id":"|-if is_object($user)-||-$user->getId()-||-/if-|","tweets":|-$topUser['tweets']-|}|-if !$topUsers@last-|,|-/if-||-/foreach-|];
 		usersChart(arrUsers, '|-$campaign->getId()-|');
 		|-/if-|
 		
