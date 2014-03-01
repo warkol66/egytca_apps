@@ -26,17 +26,19 @@ class TwitterTrendingTopicQuery extends BaseTwitterTrendingTopicQuery{
 		$night_start = date('H:i:s', strtotime('10:00 PM'));
 		$evening_start = date('H:i:s', strtotime('8:00 PM'));
 		$morning_start = date('H:i:s', strtotime('8:00 AM'));
+
+		$userTimezone = Common::getCurrentTimezone();
 		
 		$topics = TwitterTrendingTopicQuery::create()
 			->filterByCreatedat(array('min' => $from, 'max' => $to))
 			->groupBy('name')
 			->withColumn('sum(
 				case
-					when (cast(Createdat as time) between "' . $morning_start . '" and "' . $evening_start . '") 
+					when (cast(convert_tz(Createdat, "+00:00", "'. $userTimezone .':00") as time) between "' . $morning_start . '" and "' . $evening_start . '") 
 						then 3
 						else
 							(case
-								when (cast(Createdat as time) between "' . $evening_start . '" and "' . $night_start . '")
+								when (cast(convert_tz(Createdat, "+00:00", "'. $userTimezone .':00") as time) between "' . $evening_start . '" and "' . $night_start . '")
 									then 2
 									else 1
 							end)
