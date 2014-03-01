@@ -474,6 +474,8 @@ class Common {
 
 		if (method_exists($user,$method))
 			$timezoneCode = $user->getTimezone();
+			
+		//return $timezoneCode;
 
 		if (empty($timezoneCode) || $timezoneCode == "") {
 			//si no hubiera o no fuera un usuario administrador tomamos default de la aplicacion
@@ -1712,6 +1714,24 @@ class Common {
 		$lastDay          = date('Y-m-d',$lastDayTimeStamp);			// Find last day of the month
 		$arrDay           = array("first" => $firstDay, "last" => $lastDay);	// return the result in an array format.
 		return $arrDay;
+	}
+	
+	/**
+	* Devuelve un array con la hora de inicio y fin de un dia en GMT-0 
+	* para usarse en la base de datos
+	*
+	* @param string $anyDate fecha de referencia en formato yyyy-mm-dd H:i:s (debe estar dado con horario del usuario)
+	* @return arry valores from y to correspondientes a la primera y ultima hora del dia 
+	*/
+	public static function findFirstAndLastTimes($anyDate){
+		list($yr,$mn,$dt) = split('-',$anyDate);				// separate year, month and date
+		$timeStamp = mktime(0,0,0,$mn,$dt,$yr);
+		$from = Common::getDatetimeOnGMT(date('Y-m-d H:i:s', $timeStamp));
+		$timeStamp = mktime(23,59,59,$mn,$dt,$yr);
+		$to = Common::getDatetimeOnGMT(date('Y-m-d H:i:s', $timeStamp));
+		
+		$arrTime = array('from' => $from, 'to' => $to);
+		return $arrTime;
 	}
 
 } // end of class
