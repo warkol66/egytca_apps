@@ -79,7 +79,13 @@ class CampaignsEditAction extends BaseAction {
 					$smarty->assign('tweetValues',TwitterTweet::getValues());
 					$smarty->assign('tweetRelevances',TwitterTweet::getRelevances());
 					$smarty->assign('tweetStatuses',TwitterTweet::getStatuses());
-					$smarty->assign('latestTopics',TwitterTrendingTopicQuery::getLatest(10));
+					
+					// obtener el dia de hoy para el usuario
+					$currentUserDate = Common::getDatetimeOnTimezone(date('Y-m-d H:i:s'));
+					$timeRange = Common::findFirstAndLastTimes($currentUserDate);
+					
+					$smarty->assign('latestTopics',TwitterTrendingTopicQuery::getMostTrending($timeRange['from'], $timeRange['to'], 10));
+					$smarty->assign('dateShowing',$currentUserDate);
 					
 				}
 			}
