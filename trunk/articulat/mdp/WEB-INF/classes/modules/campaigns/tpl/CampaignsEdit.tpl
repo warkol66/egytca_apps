@@ -58,6 +58,20 @@ function getTrendingTopics(){
 	$('ttMsgField').innerHTML = '<span class="inProgress">Actualizando Trending Topics...</span>';
 	return false;
 }
+
+function viewTT(form, action) {
+	var fields = Form.serialize(form);
+	var myAjax = new Ajax.Updater(
+				{success: 'trendsContainer'},
+				url,
+				{
+					method: 'post',
+					postBody: {fields: fields, view: action},
+					evalScripts: true
+				});
+	$('partieMsgField').innerHTML = '<span class="inProgress">agregando participante a campaña...</span>';
+	return true;
+}
 </script>
 <script type="text/javascript" src="scripts/lightbox.js"></script> 			
 <div id="lightbox2" class="leightbox"> 
@@ -235,8 +249,18 @@ function getTrendingTopics(){
 	<legend>Trending Topics</legend>
 	<button type="button" onclick="getTrendingTopics();return false;"><img src="images/clear.png" class="iconTwitter iconSize">Obtener Trending Topics</button>
 	<div id="ttMsgField"></div>
-	<div id="trendingTopicsList">
-	|-include file="TwitterTrendingTopicsList.tpl" twitterTrendingTopicsColl=$latestTopics -|
+	<div id="trendsContainer">
+		<div id="trendingTopicsList">
+		|-include file="TwitterTrendingTopicsList.tpl" twitterTrendingTopicsColl=$latestTopics -|
+		</div>
+		<!--div id="otherTrends">
+			<form name="form_edit_trends" id="form_edit_trends" action="Main.php" method="post">
+				<input type="hidden" id="dateShowing" value="|-$dateShowing-|"/>
+				<input type="hidden" name="do" value="TwitterTrendingTopicsViewX"/>
+				<input type="button" id="previous" value="ver día anterior" onClick="viewTT(this.form, 'previous'); return false;"/>
+				<input type="button" id="next" value="ver próximo día" onClick="viewTT(this.form, 'next'); return false;"/>
+			</form>
+		</div-->
 	</div>
 </fieldset>
 |-/if-||-*/Si tiene tweets*-|
