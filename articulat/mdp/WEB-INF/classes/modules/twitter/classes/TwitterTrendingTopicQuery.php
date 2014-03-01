@@ -21,32 +21,28 @@ class TwitterTrendingTopicQuery extends BaseTwitterTrendingTopicQuery{
 		return $topics;
 	}
 	
-	public static function getMostTrending($cant){
+	public static function getMostTrending($from, $to, $cant){
 
 		$night_start = date('H:i:s', strtotime('10:00 PM'));
 		$evening_start = date('H:i:s', strtotime('8:00 PM'));
 		$morning_start = date('H:i:s', strtotime('8:00 AM'));
 		
 		$topics = TwitterTrendingTopicQuery::create()
-			->orderByCreatedat('asc')
+			->filterByCreatedat(array('min' => $from, 'max' => $to))
 			->groupBy('name')
 			->withColumn('sum(
-				case 
-					when 
-						Createdat >= "' . $night_start . ' and Createdat < "' . $morning_start . '" then 1 
-						else 
-							case
-								 when
-								 	Createdat >= "' . $morning_start . '" and  Createdat < "' . $evening_start . '" then 3
-								 else
-								 	case
-								 		when
-								 			Createdat >= "' . $evening_start . '" and Createdat < "' . $night_start . '" then 2
-								 	end
-							end
+				case
+					when (cast(Createdat as time) between "' . $morning_start . '" and "' . $evening_start . '") 
+						then 3
+						else
+							(case
+								when (cast(Createdat as time) between "' . $evening_start . '" and "' . $night_start . '")
+									then 2
+									else 1
+							end)
 				end)', 'points')
-			//->limit($cant)
-			//->orderByOrder('asc')
+			->limit($cant)
+			->orderBy('TwitterTrendingTopic.points', 'desc')
 			->find();
 		return $topics;
 	}

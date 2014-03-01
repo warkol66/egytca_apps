@@ -86,6 +86,8 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 			$this->smarty->assign('byRelevance', $byRelevance);
 			$this->smarty->assign('byRelevanceTotal', $byRelevanceTotal);
 			
+			$this->smarty->assign('trendingTopics', TwitterTrendingTopicQuery::getMostTrending($tweetsFilters['from'], $tweetsFilters['to'], 10));
+			
 			if($byValueTotal > 0 || $byRelevanceTotal > 0){
 				
 				$byGender = TwitterTweetQuery::getAllByGender($tweetsFilters);
@@ -100,7 +102,6 @@ class TwitterCampaignsReportFilterXAction extends BaseEditAction {
 				$this->smarty->assign('topUsers', $topUsers);
 				$this->smarty->assign('influentialUsers', $influentialUsers);
 				$this->smarty->assign('tweetsAmount', $tweetsAmount);
-				$this->smarty->assign('trendingTopics', TwitterTrendingTopic::getInRange($tweetsFilters['from'], $tweetsFilters['to'], 10));
 				
 				/* Tendencias personalizadas */
 			
