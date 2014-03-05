@@ -1734,4 +1734,31 @@ class Common {
 		return $arrTime;
 	}
 
+	/**
+	 * Devuelve la zona horaria del usuario/la aplicacion
+	 * @param string datetime
+	 * @return string datetime en la zona horaria GMT
+	 */
+	public static function getCurrentTimezone() {
+		require_once('TimezonePeer.php');
+
+		$user = Common::getLoggedUser();
+		$method = "getTimezone";
+
+		if (method_exists($user,$method))
+			$timezoneCode = $user->getTimezone();
+			
+		//return $timezoneCode;
+
+		if (empty($timezoneCode) || $timezoneCode == "") {
+			//si no hubiera o no fuera un usuario administrador tomamos default de la aplicacion
+			global $system;
+			$timezoneCode = $system["config"]["system"]["parameters"]["applicationTimeZoneGMT"]["value"];
+			if ($timezoneCode == null)
+				$timezoneCode = 0;
+		}
+
+		return $timezoneCode;
+	}
+
 } // end of class
