@@ -259,7 +259,7 @@ function viewTT(form, action) {
 		<table width="380" border="0" cellpadding="5" cellspacing="0">
 			<tr height="40">
           <td>&nbsp;</td>
-          <td><div id="ttDateField"></div></td>
+          <td><div id="ttDateField"><span class="resultSuccess">Trending topics del |-$dateShowing|date_format:"%d-%m-%Y"-|</span></div></td>
           <td>&nbsp;</td>
         </tr>
       <tr height="170">
@@ -269,7 +269,7 @@ function viewTT(form, action) {
 		</div>
 		</td>
     <td width="300"><div id="ttMsgField"></div><div id="trendingTopicsList">|-include file="TwitterTrendingTopicsList.tpl" twitterTrendingTopicsColl=$latestTopics-|</div></td>
-    <td width="20" align="center" valign="middle"><input type="button" id="next" value="ver próximo día" title="ver próximo día" onClick="javascript: $('TTview').setValue('next'); viewTT(this.form); return false;" class="icon iconGoTo"/></td>
+    <td width="20" align="center" valign="middle"><input type="button" id="next" value="ver próximo día" title="ver próximo día" onClick="javascript: $('TTview').setValue('next'); viewTT(this.form); return false;" class="icon iconGoTo" |-if $dateShowing eq $currentDate-|style="display: none;"|-/if-|/></td>
   </tr>
 </table>
 </form>

@@ -86,6 +86,7 @@ class CampaignsEditAction extends BaseAction {
 					
 					$smarty->assign('latestTopics',TwitterTrendingTopicQuery::getMostTrending($timeRange['from'], $timeRange['to'], 10));
 					$smarty->assign('dateShowing',$currentUserDate);
+					$smarty->assign('currentDate',$currentUserDate);
 					
 				}
 			}
