@@ -160,7 +160,7 @@ class TwitterTweet extends BaseTwitterTweet{
 		foreach($tweets as $id){
 
 			$tweet = TwitterTweetQuery::create()->findOneById($id);
-			$tweet->queueAttachments();
+			$tweet->accept();
 		}
 	}
 
@@ -212,13 +212,13 @@ class TwitterTweet extends BaseTwitterTweet{
 	 * */
 	public static function editMultiple($newValues, $tweets){
 		foreach ($newValues as $field => $value) {
-			TwitterTweetQuery::create()->filterById($tweets, Criteria::IN)->update(array($field => $value));
+			
+			if($field == 'Status' && $value == TwitterTweet::ACCEPTED){
+				TwitterTweet::acceptMultiple($tweets);
+			}
+			else
+				TwitterTweetQuery::create()->filterById($tweets, Criteria::IN)->update(array($field => $value));
 		}
-
-		if($newValues['Status'] == TwitterTweet::ACCEPTED){
-			TwitterTweet::acceptMultiple($tweets);
-		}
-		
 	}
 	
 	/**
