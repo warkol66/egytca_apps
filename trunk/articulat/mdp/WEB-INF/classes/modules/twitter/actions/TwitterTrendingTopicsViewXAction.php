@@ -25,8 +25,11 @@ class TwitterTrendingTopicsViewXAction extends BaseAction {
 			$date = date('Y-m-d', strtotime($_POST['dateShowing']. ' -1 day'));
 
 		$timeRange = Common::findFirstAndLastTimes($date);
+
+		$currentUserDate = Common::getDatetimeOnTimezone(date('Y-m-d H:i:s'));
 		
 		$smarty->assign('dateShowing', $date);
+		$smarty->assign('currentDate', date('Y-m-d', strtotime($currentUserDate)));
 		$smarty->assign('trendingTopics',TwitterTrendingTopicQuery::getMostTrending($timeRange['from'], $timeRange['to'], 10));
 		return $mapping->findForwardConfig('success');
 

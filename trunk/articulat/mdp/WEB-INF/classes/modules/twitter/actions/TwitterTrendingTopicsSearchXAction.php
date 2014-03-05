@@ -34,9 +34,10 @@ class TwitterTrendingTopicsSearchXAction extends BaseAction {
 				$order++;
 			}
 			
-			/*echo "<pre>"; print_r($trendingTopics); echo"</pre>";
-			die;*/
+			$date = Common::getDatetimeOnTimezone($date);
+			$smarty->assign('dateShowing',date('d-m-Y H:i', strtotime($date)));
 			$smarty->assign('trendingTopics',$trendingTopics);
+			$smarty->assign('latest',true);
 			return $mapping->findForwardConfig('success');	
 		}
 	}
