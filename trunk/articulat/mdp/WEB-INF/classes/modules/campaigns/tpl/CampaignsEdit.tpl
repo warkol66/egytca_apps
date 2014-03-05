@@ -249,23 +249,34 @@ function viewTT(form, action) {
 
 |-if $acceptedTweets|count gt 0 or isset($twitterFilters)-| |-*/Si tiene tweets*-|
 <fieldset>
-	<legend>Trending Topics</legend>
-	<button type="button" onclick="getTrendingTopics();return false;"><img src="images/clear.png" class="iconTwitter iconSize">Obtener Trending Topics</button>
-	<div id="ttDateField"></div>
-	<div id="ttMsgField"></div>
+	<legend>Trending Topics  &nbsp; &nbsp; <button type="button" onclick="getTrendingTopics();return false;"><img src="images/clear.png" class="iconTwitter iconSize">Obtener Trending Topics</button></legend>
+	
 	<div id="trendsContainer">
-		<div id="trendingTopicsList">
-		|-include file="TwitterTrendingTopicsList.tpl" twitterTrendingTopicsColl=$latestTopics -|
-		</div>
-		<div id="otherTrends">
-			<form name="form_edit_trends" id="form_edit_trends" action="Main.php" method="post">
+<form name="form_edit_trends" id="form_edit_trends" action="Main.php" method="post">	
 				<input type="hidden" name="dateShowing" id="dateShowing" value="|-$dateShowing-|"/>
 				<input type="hidden" name="do" value="twitterTrendingTopicsViewX"/>
 				<input type="hidden" name="TTview" id="TTview" value=""/>
-				<input type="button" id="previous" value="ver día anterior" onClick="javascript: $('TTview').setValue('previous'); viewTT(this.form);"/>
-				<input type="button" id="next" value="ver próximo día" onClick="javascript: $('TTview').setValue('next'); viewTT(this.form); return false;"/>
-			</form>
+		<table width="380" border="0" cellpadding="5" cellspacing="0">
+			<tr height="40">
+          <td>&nbsp;</td>
+          <td><div id="ttDateField"></div></td>
+          <td>&nbsp;</td>
+        </tr>
+      <tr height="170">
+    <td width="40" align="center" valign="middle">
+		<div id="otherTrends">
+				<input type="button" id="previous" value="ver día anterior" title="ver día anterio" onClick="javascript: $('TTview').setValue('previous'); viewTT(this.form);" class="icon iconBack" />
 		</div>
+		</td>
+    <td width="300"><div id="ttMsgField"></div><div id="trendingTopicsList">|-include file="TwitterTrendingTopicsList.tpl" twitterTrendingTopicsColl=$latestTopics-|</div></td>
+    <td width="20" align="center" valign="middle"><input type="button" id="next" value="ver próximo día" title="ver próximo día" onClick="javascript: $('TTview').setValue('next'); viewTT(this.form); return false;" class="icon iconGoTo"/></td>
+  </tr>
+</table>
+</form>
+
+		
+		
+		
 	</div>
 </fieldset>
 |-/if-||-*/Si tiene tweets*-|
