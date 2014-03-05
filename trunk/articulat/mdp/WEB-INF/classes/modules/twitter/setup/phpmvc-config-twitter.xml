@@ -10,6 +10,15 @@
 			<forward  name="failure" path="TwitterListX.tpl" />
 		</action>
 
+		<action  path = "twitterTrendingTopicsViewX"
+						 type = "TwitterTrendingTopicsViewXAction"
+						 name = "twitterTrendingTopicsViewX"
+						scope = "request"
+				 validate = "true">
+			<forward  name="success" path="TwitterTrendingTopicsSearchX.tpl" />
+			<forward  name="failure" path="TwitterTrendingTopicsSearchX.tpl" />
+		</action>
+
 	</action-mappings>
 
 <!-- End Module Twitter-->
