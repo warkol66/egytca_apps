@@ -21,7 +21,6 @@ class TwitterParsedProcessXAction extends BaseAction {
 		$processAction = $_REQUEST["action"];
 		
 		if (!empty($_GET["id"])) {
-
 			$newValues = array();
 
 			//si tengo que procesar mas de un tweet
@@ -52,7 +51,7 @@ class TwitterParsedProcessXAction extends BaseAction {
 						break;
 						case 'negative':
 							$newValues['Status'] = TwitterTweet::ACCEPTED;
-							$newValues['Value'] = TwitterTweet::NEUTRAL;
+							$newValues['Value'] = TwitterTweet::NEGATIVE;
 							TwitterTweet::editMultiple($newValues, $_POST["tweetsIds"]);		
 							$info = 'Valorados como negativos';
 						break;

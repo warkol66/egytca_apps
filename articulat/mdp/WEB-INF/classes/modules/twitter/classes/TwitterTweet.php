@@ -159,7 +159,7 @@ class TwitterTweet extends BaseTwitterTweet{
 	public static function acceptMultiple($tweets){
 		foreach($tweets as $id){
 
-			$tweet = TwitterTweetQuery::create()->findOneById($id);
+			$tweet = TwitterTweetQuery::create()->filterById($id)->findOne();
 			$tweet->accept();
 		}
 	}
