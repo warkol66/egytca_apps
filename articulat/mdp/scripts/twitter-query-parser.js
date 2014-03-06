@@ -136,7 +136,7 @@ TwitterQueryParser.prototype = {
 	groupSymbols: function() {
 		
 		this.groupedSymbols = [];
-		var symbols = this.symbols.slice(0);
+		var symbols = this.symbols ? this.symbols.slice(0) : [];
 		var groupedSymbol = '';
 		var loopCount = 0; // infinite loop prevention
 		
