@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" href="css/twitter-query-builder.css">
 <div id="twitter-query-builder">
 	<form>
 		<p>
