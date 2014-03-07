@@ -117,7 +117,19 @@
 			}
 		},
 		onSelect: function (selectedDateTime){
+			var select_dt = new Date(selectedDateTime);
+			var original_end = endDateTextBox.val();
+			var testEndDate = endDateTextBox.datetimepicker('getDate');
 			endDateTextBox.datetimepicker('option', 'minDate', startDateTextBox.datetimepicker('getDate') );
+			if (original_end != '') {
+	            if(testEndDate < select_dt){
+	                endDateTextBox.val(selectedDateTime);
+	            }else{
+	                endDateTextBox.val(original_end);
+	            }
+	        }else{
+	            endDateTextBox.val(selectedDateTime);
+	        }
 		}
 	}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');
 	endDateTextBox.datetimepicker({
@@ -135,7 +147,20 @@
 			}
 		},
 		onSelect: function (selectedDateTime){
-			startDateTextBox.datetimepicker('option', 'maxDate', endDateTextBox.datetimepicker('getDate') );
+			var select_dt = new Date(selectedDateTime);
+	        var original_start = startDateTextBox.val();
+	        var testStartDate = startDateTextBox.datetimepicker('getDate');
+	        startDateTextBox.datetimepicker('option', 'maxDate', endDateTextBox.datetimepicker('getDate') );
+
+	        if (original_start != '') {
+	            if(testStartDate > select_dt){
+	                startDateTextBox.val(selectedDateTime);
+	            }else{
+	                startDateTextBox.val(original_start);
+	            }
+	        }else{
+	            startDateTextBox.val(selectedDateTime);
+	        }
 		}
 	}).attr('readonly', 'readonly').css('backgroundColor', '#FFF');	
 
