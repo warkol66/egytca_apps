@@ -27,6 +27,10 @@ class TwitterTrendingTopicQuery extends BaseTwitterTrendingTopicQuery{
 		$evening_start = date('H:i:s', strtotime('8:00 PM'));
 		$morning_start = date('H:i:s', strtotime('8:00 AM'));
 
+		$night_score = 1;
+		$evening_score = 2;
+		$morning_score = 3;
+
 		$userTimezone = Common::getCurrentTimezone();
 		
 		$topics = TwitterTrendingTopicQuery::create()
@@ -35,12 +39,12 @@ class TwitterTrendingTopicQuery extends BaseTwitterTrendingTopicQuery{
 			->withColumn('sum(
 				case
 					when (cast(convert_tz(Createdat, "+00:00", "'. $userTimezone .':00") as time) between "' . $morning_start . '" and "' . $evening_start . '") 
-						then 3
+						then '. $morning_score .' 
 						else
 							(case
 								when (cast(convert_tz(Createdat, "+00:00", "'. $userTimezone .':00") as time) between "' . $evening_start . '" and "' . $night_start . '")
-									then 2
-									else 1
+									then '. $evening_score .'
+									else '. $night_score .'
 							end)
 				end)', 'points')
 			->limit($cant)
