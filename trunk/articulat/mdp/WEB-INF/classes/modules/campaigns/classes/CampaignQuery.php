@@ -37,9 +37,8 @@ class CampaignQuery extends BaseCampaignQuery {
 		
 		$active = CampaignQuery::create()
 			->filterByTwittercampaign(1)
-			->condition('c0','Campaign.StartDate <= ?', $today)
-			->condition('c1','Campaign.FinishDate >= ?', $today)
-			->where(array('c0','c1'), 'and')
+			->filterByStartDate(array('max' => $today))
+			->filterByFinishDate(array('min' => $today))
 			->find();
 			
 		return $active;
