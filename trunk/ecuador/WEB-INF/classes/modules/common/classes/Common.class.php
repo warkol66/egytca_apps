@@ -1395,7 +1395,7 @@ class Common {
 	 * @return boolean
 	 */
 	public static function ensureWritable($path) {
-		$parts = split('/', $path);
+		$parts = explode('/', $path);
 		$dirBefore = '';
 		foreach ($parts as $part) {
 			$dirAfter = $dirBefore.$part.'/';
@@ -1762,10 +1762,10 @@ class Common {
 	*/
 	public static function findFirstAndLastDay($anyDate) {
 		//$anyDate        = '2009-08-25';								// date format should be yyyy-mm-dd
-		list($yr,$mn,$dt) = split('-',$anyDate);				// separate year, month and date
+		list($yr,$mn,$dt) = explode('-',$anyDate);				// separate year, month and date
 		$timeStamp        = mktime(0,0,0,$mn,1,$yr);		//Create time stamp of the first day from the give date.
 		$firstDay         = date('Y-m-d',$timeStamp);		//get first day of the given month
-		list($y,$m,$t)    = split('-',date('Y-m-t',$timeStamp));	//Find the last date of the month and separating it
+		list($y,$m,$t)    = explode('-',date('Y-m-t',$timeStamp));	//Find the last date of the month and separating it
 		$lastDayTimeStamp = mktime(0,0,0,$m,$t,$y);								//create time stamp of the last date of the give month
 		$lastDay          = date('Y-m-d',$lastDayTimeStamp);			// Find last day of the month
 		$arrDay           = array("first" => $firstDay, "last" => $lastDay);	// return the result in an array format.
