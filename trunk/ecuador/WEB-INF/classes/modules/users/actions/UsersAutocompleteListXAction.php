@@ -10,9 +10,6 @@ class UsersAutocompleteListXAction extends BaseAction {
 
     BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
 		if($smarty == NULL) {
@@ -47,9 +44,7 @@ class UsersAutocompleteListXAction extends BaseAction {
 		else if ($_REQUEST['campaignId'])
 			$filters = array_merge_recursive($filters, array("relatedObject" => CampaignPeer::get($_REQUEST['campaignId'])));
 
-		$userPeer = new UserPeer();
-		$this->applyFilters($userPeer,$filters);
-		$users = $userPeer->getAll();
+		$users = BaseQuery::create('User')->applyFilters($filters)->find();
 
 		$smarty->assign("users",$users);
 		$smarty->assign("limit",$_REQUEST['limit']);

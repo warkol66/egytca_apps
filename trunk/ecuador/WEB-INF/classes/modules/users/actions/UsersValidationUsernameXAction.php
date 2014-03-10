@@ -26,14 +26,14 @@ class UsersValidationUsernameXAction extends BaseAction {
 			$exist = 0;
 		else {
 			if (strlen($_POST['userParams']['username']) >= 4) {
-				$usernameExists = UserPeer::getByUsername($_POST['userParams']['username']);
+				$usernameExists = UserQuery::create()->findOneByUsername($_POST['userParams']['username']);
 				if (!empty($usernameExists))
 					$exist = 1;
 				else if (Common::hasUnifiedUsernames()) {
-					if (class_exists(AffiliateUserPeer))
-						$affiliateUsernameExists = AffiliateUserPeer::getByUsername($_POST['userParams']['username']);
-					if (class_exists(ClientUserPeer))
-						$clientUsernameExists = ClientUserPeer::getByUsername($_POST['userParams']['username']);
+					if (class_exists('AffiliateUser'))
+						$affiliateUsernameExists = AffiliateUserQuery::create()->findOneByUsername($_POST['userParams']['username']);
+					if (class_exists('ClientUser'))
+						$clientUsernameExists = ClientUserQuery::create()->findOneByUsername($_POST['userParams']['username']);
 					if (empty($affiliateUsernameExists) && empty($clientUsernameExists))
 						$exist = 0;
 				}

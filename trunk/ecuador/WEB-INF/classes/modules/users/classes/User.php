@@ -251,10 +251,12 @@ class User extends BaseUser {
 	* Devuelve aquellas positions en las que el usuario es funcionario a cargo.
 	*/
 	public function getPositions() {
-		if (class_exists("PositionTenurePeer") && class_exists("PositionPeer"))
-			return PositionQuery::create()->addJoin(PositionTenurePeer::POSITIONCODE, PositionPeer::CODE)
-											->add(PositionTenurePeer::OBJECTTYPE, 'User', Criteria::EQUAL)
-											->add(PositionTenurePeer::OBJECTID, $this->getId(), Criteria::EQUAL)
+		if (class_exists("PositionTenure") && class_exists("Position"))
+			return PositionQuery::create()
+											->joinPositionTenure()
+											->where('PositionTenure', 'PositionTenure.PositionCode = ?', 'Position.Code')
+											->filterByObjecttype('User', Criteria::EQUAL)
+											->filterByObjectid($this->getId(), Criteria::EQUAL)
 											->find();
 		else
 			return;
@@ -294,6 +296,59 @@ class User extends BaseUser {
 		$this->setActive('1');
 	}
 
+	/**
+	* Autentica a un usuario.
+	*
+	* @param string $username Nombre de usuario
+	* @param string $password Contraseña
+	* @return User Informacion sobre el usuario, false si no fue exitosa la autenticacion
+	*/
+	public static function auth($username, $password) {
+		$criteria = new Criteria();
+		$maintenance = $system["config"]["system"]["parameters"]["underMaintenance"]["value"];
+		$user = UserQuery::create()
+													->filterByUsername($username)
+													->filterById(0, Criteria::GREATER_THAN) //Saco de los posibles resultados al usuario "system" id =-1
+													->filterByActive(1)
+													->findOne();
+		if (!empty($user)) {
+			if ($maintenance == "YES" && !$user->isSupervisor())
+				return false;
+			if ($user->getPassword() == Common::md5($password)) {
+				$_SESSION['lastLogin'] = $user->getLastLogin();
+				$user->setLastLogin(time());
+				$user->setSession(session_id());
+				$user->save();
+				if (is_null($user->getPasswordUpdated()) && ConfigModule::get("users","forceFirstPasswordChange"))
+					$_SESSION['firstLogin'] = User::FIRST_LOGIN;
+				else
+					unset($_SESSION['firstLogin']);
+				return $user;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Verifica la correspondencia entre nombre de usuario y direccion de correo
+	 *
+	 * @param string $username Nombre de usuario.
+	 * @param string $mailAddress Email.
+	 * @return mixed Object User el mail del usuario se corresponde, false si no.
+	 */
+
+	public static function verifyUsernameAndMail($username, $mailAddress) {
+		$user = UserQuery::create()
+													->filterByUsername($username)
+													->filterByMailaddress($mailAddress)
+													->filterById(0, Criteria::GREATER_THAN) //Saco de los posibles resultados al usuario "system" id =-1
+													->filterByActive(1)
+													->findOne();
+		if (!empty($user))
+			return $user;
+		return false;
+	}
+
  /**
 	* Verifica que la sesion sea la correspondiente
 	*
@@ -309,6 +364,30 @@ class User extends BaseUser {
 			return false;
 		}
 	}
+
+ /**
+	* Activa un usuario a partir del id.
+	*
+	* @param int $id Id del usuario
+	*	@return boolean true si se activo correctamente al usuario, false sino
+	*/
+	public static function activate($id) {
+		$user = UserQuery::create()->findOneById($id);
+		if (!empty($user)) {
+			$user->setActive(1);
+			try {
+				$user->save();
+				return true;
+			}
+			catch (PropelException $exp) {
+				if (ConfigModule::get("global","showPropelExceptions"))
+					print_r($exp->getMessage());
+				return false;
+			}
+		}
+		return false;
+	}
+
 
  /**
 	* Obtiene los usuarios que tiene sesion iniciada.

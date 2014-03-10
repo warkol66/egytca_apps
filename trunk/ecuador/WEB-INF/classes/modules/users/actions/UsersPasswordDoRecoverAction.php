@@ -28,7 +28,7 @@ class UsersPasswordDoRecoverAction extends BaseAction {
 		// Use a different template
 		$this->template->template = "TemplateLogin.tpl";
 
-		$user = UserPeer::getByRecoveryHash($_GET["recoveryHash"]);
+		$user = UserQuery::create()->findOneByRecoveryhash($_GET["recoveryHash"]);
 
 		if (!empty($user) && $user->recoveryRequestIsValid()) {
 			if (ConfigModule::get(strtolower($module),'askForNewPasswordOnRecovery')) {

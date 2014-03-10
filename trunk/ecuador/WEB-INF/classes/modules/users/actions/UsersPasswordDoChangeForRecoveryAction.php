@@ -25,7 +25,7 @@ class UsersPasswordDoSetFromRecoveryAction extends BaseAction {
 		$section = "Users";
 
 		if (($_POST["pass"] == $_POST["pass2"])) {
-			$user = UserPeer::getByRecoveryHash($_POST["recoveryHash"]);
+			$user = UserQuery::create()->findOneByRecoveryhash($_POST["recoveryHash"]);
 			if (!empty($user) && $user->recoveryRequestIsValid()) {
 				$user->changePassword($_POST["pass"]);
 				$user->setRecoveryhash(null);
