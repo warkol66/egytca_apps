@@ -34,7 +34,7 @@ class UsersDoEditInfoXAction extends BaseAction {
 
 		$user = UserPeer::get($_POST["id"]);
 
-		if ($userPeer->update($user,$_POST["userParams"]) ) {
+		if ($userPeer->update($user,$_POST["params"]) ) {
 			Common::doLog('success','username: ' . $_POST["username"] . ' action: edit');
 			return $mapping->findForwardConfig('success');
 		 }

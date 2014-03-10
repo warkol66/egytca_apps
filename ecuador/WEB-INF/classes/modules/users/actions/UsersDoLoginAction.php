@@ -34,7 +34,7 @@ class UsersDoLoginAction extends BaseAction {
 			if(Common::isBlockedUser($_POST["loginUsername"]))
 				return $mapping->findForwardConfig('blockedUser');
 
-			$user = UserPeer::auth($_POST["loginUsername"],$_POST["loginPassword"]);
+			$user = User::auth($_POST["loginUsername"],$_POST["loginPassword"]);
 			if (!empty($user)) {
 				$_SESSION["loginUser"] = $user;
 				Common::doLog('success','username: ' . $_POST["loginUsername"]);

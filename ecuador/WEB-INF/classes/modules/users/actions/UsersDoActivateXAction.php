@@ -15,23 +15,17 @@ class UsersDoActivateXAction extends BaseAction {
 
 		BaseAction::execute($mapping, $form, $request, $response);
 
-		//////////
-		// Access the Smarty PlugIn instance
-		// Note the reference "=&"
 		$plugInKey = 'SMARTY_PLUGIN';
 		$smarty =& $this->actionServer->getPlugIn($plugInKey);
-		if($smarty == NULL) {
+		if($smarty == NULL)
 			echo 'No PlugIn found matching key: '.$plugInKey."<br>\n";
-		}
 
 		//por ser una action ajax.		
 		$this->template->template = "TemplateAjax.tpl";
 
 		$module = "Users";
 
-		$userPeer = new UserPeer();
-
-		if ( $userPeer->activate($_GET["user"]) ) {
+		if (User::activate($_GET["user"])) {
 			Common::doLog('success','userId: ' . $_GET["user"]);
 			return $mapping->findForwardConfig('success');
 		}

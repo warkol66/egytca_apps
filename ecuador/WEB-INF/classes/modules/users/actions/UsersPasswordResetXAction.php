@@ -34,7 +34,7 @@ class UsersPasswordResetXAction extends BaseAction {
 		$fieldname = 'userParams[username]';
 		$exist = 1;
 
-		$user = UserPeer::get($_POST['id']);
+		$user = UserQuery::create()->findOneById($_POST['id']);
 		$password = $user->resetPassword();
 		if ($password) {
 			$smarty->assign("user",$user);
