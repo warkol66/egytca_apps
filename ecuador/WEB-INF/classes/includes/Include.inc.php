@@ -15,7 +15,7 @@
 	//Configuracion de Usuario en Caso de ejecucion por linea de comando
 	if ($_ENV['PHPMVC_MODE_CLI'] == true) {
 		//cargamos el usuario system modo supervisor para login de los actions
-		$user = UserPeer::getByUsername('system');
+		$user = UserQuery::create()->findOneByUsername('system');
 		$_SESSION["login_user"] = $user;
 		$_SESSION["loginUser"] = $user;
 	}
@@ -28,16 +28,16 @@
 			'NONE'=> E_ERROR,
 			'E_ALL & ~E_NOTICE'=> E_ALL - E_NOTICE,
 			'E_ALL' => E_ALL,
-			'E_ALL & E_STRICT' => E_ALL + E_STRICT,
+			'E_ALL & ~E_STRICT' => E_ALL - E_STRICT,
 			'E_STRICT' => E_STRICT,
 			'E_ALL & ~E_NOTICE ~E_WARNING'=> E_ALL - E_NOTICE - E_WARNING
 			);
 
 		$level = $system["config"]["system"]["errorReporting"]["value"];
 		if ($conversionTable[html_entity_decode($level)] == 0)
-			ini_set("error_reporting",E_ALL);
+			error_reporting(E_ALL - E_STRICT);
 		else
-			ini_set("error_reporting",$conversionTable[html_entity_decode($level)]);
+			error_reporting($conversionTable[html_entity_decode($level)]);
 
 		ini_set("ignore_repeated_errors",1);
 
