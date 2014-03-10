@@ -1,13 +1,13 @@
 <?php
 
-class NewsArticlesViewXAction extends BaseEditAction {
+class NewsArticlesViewXAction extends BaseSelectAction {
 	
 	function __construct() {
 		parent::__construct('NewsArticle');
 	}
 	
-	protected function postEdit() {
-		parent::postEdit();
+	protected function postSelect() {
+		parent::postSelect();
 		
 	}
 

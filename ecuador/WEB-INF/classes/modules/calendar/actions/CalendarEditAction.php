@@ -1,13 +1,13 @@
 <?php
 
-class CalendarEditAction extends BaseEditAction {
+class CalendarEditAction extends BaseSelectAction {
 
 	function __construct() {
 		parent::__construct('CalendarEvent');
 	}
 	
-	protected function postEdit(){
-		parent::postEdit();
+	protected function postSelect(){
+		parent::postSelect();
 		
 		$module = "Calendar";
 		$this->smarty->assign("module",$module);

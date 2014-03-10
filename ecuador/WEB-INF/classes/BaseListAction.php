@@ -76,7 +76,7 @@ class BaseListAction extends BaseAction {
 
 
 	/**
-	 * postList
+	 * preList
 	 * Acciones a ejecutar antes de obtener la coleccion de objetos
 	 */
 	protected function preList() {

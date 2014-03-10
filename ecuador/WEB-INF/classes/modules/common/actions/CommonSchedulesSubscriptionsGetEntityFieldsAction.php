@@ -1,13 +1,13 @@
 <?php
 
-class CommonSchedulesSubscriptionsGetEntityFieldsAction extends BaseEditAction {
+class CommonSchedulesSubscriptionsGetEntityFieldsAction extends BaseSelectAction {
 	
 	function __construct() {
 		parent::__construct('ScheduleSubscription');
 	}
 
-	protected function postEdit() {
-		parent::postEdit();
+	protected function postSelect() {
+		parent::postSelect();
 		
 		if(isset($_GET['entityName'])){
 			$entityName = $_GET['entityName'];

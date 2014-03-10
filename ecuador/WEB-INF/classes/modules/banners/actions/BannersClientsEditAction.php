@@ -19,14 +19,14 @@ require_once("BannerClient.php");
  * Muestra el formulario de edición de clientes de banners
  * @package banners
  */
-class BannersClientsEditAction extends BaseEditAction {
+class BannersClientsEditAction extends BaseSelectAction {
 	
 	function __construct() {
 		parent::__construct('BannerClient');
 	}
 	
-	protected function postEdit(){
-		parent::postEdit();
+	protected function postSelect(){
+		parent::postSelect();
 		
 		$this->smarty->assign("module","Banners");
 		$this->smarty->assign("section","Clients");

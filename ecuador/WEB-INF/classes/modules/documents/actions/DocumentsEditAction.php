@@ -8,14 +8,14 @@
 * @package documents
 */
 
-class DocumentsEditAction extends BaseEditAction {
+class DocumentsEditAction extends BaseSelectAction {
 	
 	public function __construct() {
 		parent::__construct('Document');
 	}
 	
-	protected function preEdit() {
-		parent::preEdit();
+	protected function preSelect() {
+		parent::preSelect();
 		
 		$module = "Documents";
 		$this->smarty->assign('module', $module);
@@ -39,8 +39,8 @@ class DocumentsEditAction extends BaseEditAction {
 		$this->smarty->assign('uploadTypes', Document::getDocumentUploadCategories());
 	}
 	
-	protected function postEdit() {
-		parent::postEdit();
+	protected function postSelect() {
+		parent::postSelect();
 		
 		if(isset($_REQUEST['requester'])){
 			$this->template->template = 'TemplateAjax.tpl';

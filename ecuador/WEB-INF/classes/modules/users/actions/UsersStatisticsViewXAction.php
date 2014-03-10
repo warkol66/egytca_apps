@@ -8,14 +8,14 @@
  * @subpackage    users
  */
 
-class UsersStatisticsViewXAction extends BaseEditAction {
+class UsersStatisticsViewXAction extends BaseSelectAction {
 	
 	function __construct() {
 		parent::__construct('User');
 	}
 	
-	protected function postEdit() {
-		parent::postEdit();
+	protected function postSelect() {
+		parent::postSelect();
 		if ($this->entity->isNew());
 			$this->smarty->assign("notValidId", true);
 			

@@ -1,13 +1,13 @@
 <?php
 
-class BoardViewAction extends BaseEditAction {
+class BoardViewAction extends BaseSelectAction {
 	
 	function __construct() {
 		parent::__construct('BoardChallenge');
 	}
 	
-	protected function preEdit() {
-		parent::preEdit();
+	protected function preSelect() {
+		parent::preSelect();
 		
 		if(isset($_GET["url"])){
 			$entry = BoardChallengeQuery::create()->findOneByUrl($_GET["url"]);
@@ -28,8 +28,8 @@ class BoardViewAction extends BaseEditAction {
 		
 	}
 
-	protected function postEdit() {
-		parent::postEdit();
+	protected function postSelect() {
+		parent::postSelect();
 		
 		$module = "Board";
 		$this->smarty->assign("module",$module);

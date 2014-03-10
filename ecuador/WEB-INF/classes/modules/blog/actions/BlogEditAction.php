@@ -1,13 +1,13 @@
 <?php
 
-class BlogEditAction extends BaseEditAction {
+class BlogEditAction extends BaseSelectAction {
 	
 	function __construct() {
 		parent::__construct('BlogEntry');
 	}
 
-	protected function postEdit() {
-		parent::postEdit();
+	protected function postSelect() {
+		parent::postSelect();
 		
 		$module = "Blog";
 		$this->smarty->assign("module",$module);

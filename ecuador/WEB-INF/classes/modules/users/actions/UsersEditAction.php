@@ -4,14 +4,14 @@
  *
  * @package users
  */
-class UsersEditAction extends BaseEditAction {
+class UsersEditAction extends BaseSelectAction {
 	
 	function __construct() {
 		parent::__construct('User');
 	}
 
-	protected function postEdit() {
-		parent::postEdit();
+	protected function postSelect() {
+		parent::postSelect();
 		
 		$module = "Users";
 		$section = "Users";

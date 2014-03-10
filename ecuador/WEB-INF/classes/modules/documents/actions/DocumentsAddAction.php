@@ -8,14 +8,14 @@
 * @package documents
 */
 
-class DocumentsAddAction extends BaseEditAction {
+class DocumentsAddAction extends BaseSelectAction {
 	
 	public function __construct() {
 		parent::__construct('Document');
 	}
 	
-	protected function postEdit() {
-		parent::postEdit();		
+	protected function postSelect() {
+		parent::postSelect();		
 		$this->template->template = 'TemplateAjax.tpl';
 	}
 

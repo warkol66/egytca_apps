@@ -1,13 +1,13 @@
 <?php
 
-class BoardEditAction extends BaseEditAction {
+class BoardEditAction extends BaseSelectAction {
 	
 	function __construct() {
 		parent::__construct('BoardChallenge');
 	}
 
-	protected function postEdit() {
-		parent::postEdit();
+	protected function postSelect() {
+		parent::postSelect();
 		
 		$module = "Board";
 		$this->smarty->assign("module",$module);

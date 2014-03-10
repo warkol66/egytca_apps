@@ -7,21 +7,21 @@
  */
 require_once('BannersInclude.php'); 
 
-class BannersPreviewAction extends BaseEditAction {
+class BannersPreviewAction extends BaseSelectAction {
 	
 	function __construct() {
 		parent::__construct('Banner');
 	}
 	
-	protected function preEdit(){
-		parent::preEdit();
+	protected function preSelect(){
+		parent::preSelect();
 		
 		if (!isset($_GET['id']))
 			$_POST['id'] = -1;
 	}
 	
-	protected function postEdit(){
-		parent::postEdit();
+	protected function postSelect(){
+		parent::postSelect();
 		
 		
 		$this->smarty->assign("module","Banners");
